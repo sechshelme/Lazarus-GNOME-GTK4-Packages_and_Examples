@@ -8,8 +8,7 @@ uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
   FileUtil,
   glib280, gst124, gstTools,
-
-  gstdiscoverer  ;
+  gst124_pbutils  ;
 
 type
   TForm1 = class(TForm)

@@ -35,10 +35,10 @@ var
   i: integer;
 const
   song: array of PChar =
-    (('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/test.wav'),
-    ('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/test.flac'),
-    ('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/test.mp3'),
-    ('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/test.ogg'),
+    (('/home/tux/Schreibtisch/sound/test.wav'),
+    ('/home/tux/Schreibtisch/sound/test.flac'),
+    ('/home/tux/Schreibtisch/sound/test.mp3'),
+    ('/home/tux/Schreibtisch/sound/test.ogg'),
     ('/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos/01 - Boonoonoonoos.flac'),
     ('/n4800/Multimedia/Music/Diverses/MP3 Diverse/DJ_Shaolin-Popcorn_(Hot_Butter_cover).mp3'));
 begin

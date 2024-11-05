@@ -17,13 +17,8 @@ var
   end;
 
 begin
-  gtk_init(nil, nil);
-  WriteLn('xxxxxxxxxxxxxxxxxxxxxx');
   obj := g_object_new(G_TYPE_OBJECT, nil);
-  WriteLn('xxxxxxxxxxxxxxxxxxxxxx');
   klass := G_OBJECT_GET_CLASS(obj);
-  WriteLn('xxxxxxxxxxxxxxxxxxxxxx');
-
 
   signal := g_signal_new('test',
     G_TYPE_FROM_CLASS(klass),
@@ -40,5 +35,4 @@ begin
   g_signal_connect(obj, 'test', G_CALLBACK(@test_cb), PChar('Signal 3'));
 
   g_signal_emit(obj, signal, 0);
-
 end.

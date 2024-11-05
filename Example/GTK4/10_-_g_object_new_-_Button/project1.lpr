@@ -9,11 +9,11 @@ uses
 
   procedure print_hello(widget: PGtkWidget; Data: Tgpointer);
   var
-    lab: PChar;
+    lab: pchar;
   begin
-    g_object_get( widget, 'label', @lab, nil);
+    g_object_get(widget, 'label', @lab, nil);
 
-//    lab := gtk_button_get_label(GTK_BUTTON(widget));
+    //    lab := gtk_button_get_label(GTK_BUTTON(widget));
     g_print('Es wurde geklickt: %s'#10, lab);
     g_free(lab);
   end;
@@ -31,8 +31,7 @@ uses
       'title', 'Hello GTK',
       nil);
 
-//        grid := gtk_grid_new;
-        grid:=g_object_new(GTK_TYPE_GRID, nil);
+    grid := g_object_new(GTK_TYPE_GRID, nil);
 
     gtk_window_set_child(GTK_WINDOW(window), grid);
 
@@ -49,7 +48,7 @@ uses
     g_signal_connect(button, 'clicked', G_CALLBACK(@print_hello), nil);
     gtk_grid_attach(GTK_GRID(grid), button, 0, 1, 2, 1);
 
-    label1:=g_object_new(GTK_TYPE_LABEL,'label', 'Hello <b>World</b>!', 'use-markup', 1, nil);
+    label1 := g_object_new(GTK_TYPE_LABEL, 'label', 'Hello <b>World</b>!', 'use-markup', 1, nil);
     gtk_grid_attach(GTK_GRID(grid), label1, 0, 2, 1, 1);
 
     gtk_window_present(GTK_WINDOW(window));
@@ -61,8 +60,8 @@ uses
     app: PGtkApplication;
     status: longint;
   begin
-//    app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
-    app:=g_object_new(GTK_TYPE_APPLICATION, nil);
+    //    app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
+    app := g_object_new(GTK_TYPE_APPLICATION, nil);
 
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
     status := g_application_run(G_APPLICATION(app), argc, argv);
