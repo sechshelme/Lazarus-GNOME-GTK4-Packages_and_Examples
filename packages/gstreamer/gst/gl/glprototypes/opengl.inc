@@ -1,0 +1,29 @@
+/////////////////////////////////////////////////////////////
+//                                                         //
+//   WARNUNG, dies Datei wird automatisch durch            //
+//   das Program "Convert_Unit_to_pas_includes" erzeugt !  //
+//   Erzeugt am: 09-10-2024   19:05                        //
+//                                                         //
+/////////////////////////////////////////////////////////////
+
+{$IFDEF read_interface}
+
+
+procedure GetTexLevelParameteriv(target: TGLenum; level: TGLint; pname: TGLenum; params: PGLint); cdecl; external libgstgl;
+procedure GetTexImage(target: TGLenum; level: TGLint; format: TGLenum; _type: TGLenum; pixels: PGLvoid); cdecl; external libgstgl;
+procedure DepthRange(near_val: Tdouble; far_val: Tdouble); cdecl; external libgstgl;
+procedure DrawBuffer(mode: TGLenum); cdecl; external libgstgl;
+procedure ClearDepth(depth: Tdouble); cdecl; external libgstgl;
+procedure ClipPlane(plane: TGLenum; equation: Pdouble); cdecl; external libgstgl;
+
+// === Konventiert am: 9-10-24 17:18:09 ===
+
+
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
+
+
+
+{$ENDIF read_implementation}
