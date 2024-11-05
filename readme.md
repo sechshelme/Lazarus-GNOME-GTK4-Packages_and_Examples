@@ -1,7 +1,12 @@
-# Lazarus-GLIB2.80-Packages_and_Examples
+# Inhalt
+- **glib** ( Version 2.80.0 )  
+- **Cairo** ( Version 1.18.1 )
+- **GTK4** ( Version 4.14.2 )
+- **gstreamer** ( Version 1.24.2 )
 
 ## Paketinfo
 - `pkg-config --cflags --libs gstreamer-1.0 gstreamer-pbutils-1.0`
+- `pkg-config --modversion gstreamer-1.0` 
 
 ## GLIB2 
 https://github.com/wadester/wh_test_glib/blob/master/glib_test1.c
