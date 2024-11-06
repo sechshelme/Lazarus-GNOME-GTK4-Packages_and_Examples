@@ -42,13 +42,13 @@ type
 
     gst_buffer_map(buffer, @map, GST_MAP_WRITE);
     raw := Pgint16(map.Data);
-    Data^.c := Data^.d;
-    Data^.d := Data^.c / 1000;
+    Data^.c += Data^.d;
+    Data^.d -= Data^.c / 1000;
 
     freq := 1100 + 1000 * Data^.d;
     for i := 0 to num_samples - 1 do begin
-      Data^.a := Data^.b;
-      Data^.b := Data^.a / freq;
+      Data^.a += Data^.b;
+      Data^.b -= Data^.a / freq;
       raw[i] := Trunc(500 * Data^.a);
     end;
     gst_buffer_unmap(buffer, @map);

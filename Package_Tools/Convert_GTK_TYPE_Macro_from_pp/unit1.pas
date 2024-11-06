@@ -99,6 +99,8 @@ const
     (libs: 'libgstopencv'; units: 'glib280, gst124'),
     (libs: 'libgstisoff'; units: 'glib280, gst124'),
 
+    (libs: 'libgdk_pixbuf2'; units: 'glib280'),
+
     (libs: ''; units: ''));
 
 
@@ -207,6 +209,7 @@ begin
   sl.LoadFromFile(SourcePath);
 
   sl.Text := StringReplace(sl.Text, '(o : longint)', '(obj : longint)', [rfReplaceAll]);
+  sl.Text := StringReplace(sl.Text, '(_object : longint)', '(obj : longint)', [rfReplaceAll]);
   sl.Text := StringReplace(sl.Text, '(object : longint)', '(obj : longint)', [rfReplaceAll]);
   sl.Text := StringReplace(sl.Text, '(k : longint)', '(klass : longint)', [rfReplaceAll]);
   sl.Text := StringReplace(sl.Text, '(c : longint)', '(klass : longint)', [rfReplaceAll]);

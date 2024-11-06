@@ -25,9 +25,6 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="gstreamer_package"/>
-      </Item>
-      <Item>
         <PackageName Value="GLIB280_package"/>
       </Item>
     </RequiredPackages>
@@ -45,6 +42,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="../../../Package_Tools/pas_units/gdk_pixbuf"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

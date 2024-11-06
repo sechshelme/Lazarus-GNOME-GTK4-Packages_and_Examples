@@ -46,7 +46,7 @@ var
   i, j: integer;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GTK4/Package_Tools/include-C', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -64,49 +64,59 @@ begin
       //end;
 
 
-
       slHeader[j] := StringReplace(slHeader[j], 'G_BEGIN_DECLS', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_END_DECLS', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_ALL', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_CONST', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GDK_DEPRECATED_IN_4_10', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GDK_DEPRECATED_IN_4_12', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GDK_DEPRECATED_IN_4_14', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_2', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_4', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_6', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_8', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_10', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_12', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_14', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_ENUMERATOR_IN_4_10', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_ENUMERATOR_IN_4_12', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_ENUMERATOR_IN_4_14', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_ENUMERATOR_IN_4_14', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NULL_TERMINATED', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_MALLOC', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_PURE', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], '_FOR(GListModel)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], '_FOR(GtkColumnView and GtkColumnViewColumn)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], '_FOR(GtkListView)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], '_FOR(GtkDropDown)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], '_FOR(GtkDropDown and GtkStringList)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], '_FOR(GtkDragSource)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], '_FOR(GtkDropTarget)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], '_FOR(GtkDragSource and GtkDropTarget)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], '_FOR(GtkFilterListModel)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], '_FOR(GtkTreeListModel)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], '_FOR(GtkGridView)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], '_FOR(GListStore)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], '_FOR(gtk_uri_launcher_launch)', '', [rfReplaceAll]);
-
-      slHeader[j] := StringReplace(slHeader[j], 'GDK_DEPRECATED_IN_4_6_FOR(gdk_gl_texture_new)', '', [rfReplaceAll]);
 
 
 
+      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_12', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_14', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_26', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_30', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_32', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_36', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_2', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_4', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_6', 'extern', [rfReplaceAll]);
 
-      slHeader[j] := DeleteLines(slHeader[j], 'G_DEFINE_AUTOPTR_CLEANUP_FUNC(');
+      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_ALL', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_CONST', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'GDK_DEPRECATED_IN_4_10', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'GDK_DEPRECATED_IN_4_12', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'GDK_DEPRECATED_IN_4_14', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_2', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_4', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_6', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_8', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_10', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_12', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_14', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_ENUMERATOR_IN_4_10', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_ENUMERATOR_IN_4_12', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_ENUMERATOR_IN_4_14', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_ENUMERATOR_IN_4_14', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NULL_TERMINATED', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_MALLOC', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_PURE', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], '_FOR(GListModel)', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], '_FOR(GtkColumnView and GtkColumnViewColumn)', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], '_FOR(GtkListView)', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], '_FOR(GtkDropDown)', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], '_FOR(GtkDropDown and GtkStringList)', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], '_FOR(GtkDragSource)', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], '_FOR(GtkDropTarget)', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], '_FOR(GtkDragSource and GtkDropTarget)', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], '_FOR(GtkFilterListModel)', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], '_FOR(GtkTreeListModel)', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], '_FOR(GtkGridView)', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], '_FOR(GListStore)', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], '_FOR(gtk_uri_launcher_launch)', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'GDK_DEPRECATED_IN_4_6_FOR(gdk_gl_texture_new)', '', [rfReplaceAll]);
+      //slHeader[j] := DeleteLines(slHeader[j], 'G_DEFINE_AUTOPTR_CLEANUP_FUNC(');
     end;
     slHeader.SaveToFile(slFile[i]);
     slHeader.Free;
