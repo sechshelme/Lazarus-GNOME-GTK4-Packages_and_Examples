@@ -53,7 +53,7 @@ type
   end;
   Pgraphene_point3d_t = ^Tgraphene_point3d_t;
 
-  Tcairo_content_t = cairo_content_t;
+//  Tcairo_content_t = cairo_content_t;
 
   // ==== Pango
 

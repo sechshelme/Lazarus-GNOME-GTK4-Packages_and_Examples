@@ -41,7 +41,7 @@
 
 typedef struct _GdkPixbufFormat GdkPixbufFormat;
 
-extern0
+extern
 gboolean gdk_pixbuf_init_modules (const char  *path,
                                   GError     **error);
 

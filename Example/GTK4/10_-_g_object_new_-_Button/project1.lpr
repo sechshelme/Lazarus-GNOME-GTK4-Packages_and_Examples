@@ -48,7 +48,7 @@ uses
     g_signal_connect(button, 'clicked', G_CALLBACK(@print_hello), nil);
     gtk_grid_attach(GTK_GRID(grid), button, 0, 1, 2, 1);
 
-    label1 := g_object_new(GTK_TYPE_LABEL, 'label', 'Hello <b>World</b>!', 'use-markup', 1, nil);
+    label1 := g_object_new(GTK_TYPE_LABEL, 'label', 'Hello <b>World</b>!', 'use-markup', gTrue, nil);
     gtk_grid_attach(GTK_GRID(grid), label1, 0, 2, 1, 1);
 
     gtk_window_present(GTK_WINDOW(window));

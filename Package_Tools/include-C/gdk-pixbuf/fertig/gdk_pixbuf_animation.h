@@ -43,11 +43,18 @@ typedef struct _GdkPixbufAnimationIter GdkPixbufAnimationIter;
 
 #define GDK_TYPE_PIXBUF_ANIMATION              (gdk_pixbuf_animation_get_type ())
 #define GDK_PIXBUF_ANIMATION(object)           (G_TYPE_CHECK_INSTANCE_CAST ((object), GDK_TYPE_PIXBUF_ANIMATION, GdkPixbufAnimation))
+#define GDK_PIXBUF_ANIMATION_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST ((klass), GDK_TYPE_PIXBUF_ANIMATION, GdkPixbufAnimationClass))
 #define GDK_IS_PIXBUF_ANIMATION(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), GDK_TYPE_PIXBUF_ANIMATION))
+#define GDK_IS_PIXBUF_ANIMATION_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GDK_TYPE_PIXBUF_ANIMATION))
+#define GDK_PIXBUF_ANIMATION_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), GDK_TYPE_PIXBUF_ANIMATION, GdkPixbufAnimationClass))
 
 #define GDK_TYPE_PIXBUF_ANIMATION_ITER              (gdk_pixbuf_animation_iter_get_type ())
 #define GDK_PIXBUF_ANIMATION_ITER(object)           (G_TYPE_CHECK_INSTANCE_CAST ((object), GDK_TYPE_PIXBUF_ANIMATION_ITER, GdkPixbufAnimationIter))
+#define GDK_PIXBUF_ANIMATION_ITER_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST ((klass), GDK_TYPE_PIXBUF_ANIMATION_ITER, GdkPixbufAnimationIterClass))
 #define GDK_IS_PIXBUF_ANIMATION_ITER(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), GDK_TYPE_PIXBUF_ANIMATION_ITER))
+#define GDK_IS_PIXBUF_ANIMATION_ITER_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GDK_TYPE_PIXBUF_ANIMATION_ITER))
+#define GDK_PIXBUF_ANIMATION_ITER_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), GDK_TYPE_PIXBUF_ANIMATION_ITER, GdkPixbufAnimationIterClass))
+
 
 extern
 GType               gdk_pixbuf_animation_get_type        (void) ;
@@ -62,27 +69,25 @@ GdkPixbufAnimation *gdk_pixbuf_animation_new_from_file_utf8   (const char       
 extern
 GdkPixbufAnimation *gdk_pixbuf_animation_new_from_file   (const char         *filename,
                                                           GError            **error);
-extern8
+extern
 GdkPixbufAnimation *gdk_pixbuf_animation_new_from_stream (GInputStream       *stream,
                                                           GCancellable       *cancellable,
                                                           GError            **error);
-extern8
+extern
 void                gdk_pixbuf_animation_new_from_stream_async (GInputStream *stream,
                                                           GCancellable       *cancellable,
                                                           GAsyncReadyCallback callback,
                                                           gpointer            user_data);
-extern8
+extern
 GdkPixbufAnimation *gdk_pixbuf_animation_new_from_stream_finish (GAsyncResult*async_result,
                                                           GError            **error);
-extern8
+extern
 GdkPixbufAnimation *gdk_pixbuf_animation_new_from_resource(const char        *resource_path,
                                                           GError            **error);
 
 #ifndef GDK_PIXBUF_DISABLE_DEPRECATED
 
-GDK_PIXBUF_DEPRECATED_IN_2_0_FOR(g_object_ref)
 GdkPixbufAnimation *gdk_pixbuf_animation_ref             (GdkPixbufAnimation *animation);
-GDK_PIXBUF_DEPRECATED_IN_2_0_FOR(g_object_unref)
 void                gdk_pixbuf_animation_unref           (GdkPixbufAnimation *animation);
 #endif
 
@@ -95,11 +100,11 @@ gboolean            gdk_pixbuf_animation_is_static_image  (GdkPixbufAnimation *a
 extern
 GdkPixbuf          *gdk_pixbuf_animation_get_static_image (GdkPixbufAnimation *animation);
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 extern
 GdkPixbufAnimationIter *gdk_pixbuf_animation_get_iter                        (GdkPixbufAnimation     *animation,
                                                                               const GTimeVal         *start_time);
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 
 extern
 GType                   gdk_pixbuf_animation_iter_get_type                   (void) ;
@@ -109,11 +114,11 @@ extern
 GdkPixbuf              *gdk_pixbuf_animation_iter_get_pixbuf                 (GdkPixbufAnimationIter *iter);
 extern
 gboolean                gdk_pixbuf_animation_iter_on_currently_loading_frame (GdkPixbufAnimationIter *iter);
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 extern
 gboolean                gdk_pixbuf_animation_iter_advance                    (GdkPixbufAnimationIter *iter,
                                                                               const GTimeVal         *current_time);
-G_GNUC_END_IGNORE_DEPRECATIONS
+
 
 
 #ifdef GDK_PIXBUF_ENABLE_BACKEND
@@ -134,9 +139,6 @@ G_GNUC_END_IGNORE_DEPRECATIONS
  */
 typedef struct _GdkPixbufAnimationClass GdkPixbufAnimationClass;
 
-#define GDK_PIXBUF_ANIMATION_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST ((klass), GDK_TYPE_PIXBUF_ANIMATION, GdkPixbufAnimationClass))
-#define GDK_IS_PIXBUF_ANIMATION_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GDK_TYPE_PIXBUF_ANIMATION))
-#define GDK_PIXBUF_ANIMATION_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), GDK_TYPE_PIXBUF_ANIMATION, GdkPixbufAnimationClass))
 
 /* Private part of the GdkPixbufAnimation structure */
 struct _GdkPixbufAnimation {
@@ -144,7 +146,7 @@ struct _GdkPixbufAnimation {
 
 };
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 struct _GdkPixbufAnimationClass {
         GObjectClass parent_class;
 
@@ -161,9 +163,9 @@ struct _GdkPixbufAnimationClass {
         GdkPixbufAnimationIter* (*get_iter) (GdkPixbufAnimation *animation,
                                              const GTimeVal     *start_time);
 };
-G_GNUC_END_IGNORE_DEPRECATIONS
 
-
+
+
 
 /**
  * GdkPixbufAnimationIterClass:
@@ -182,16 +184,12 @@ G_GNUC_END_IGNORE_DEPRECATIONS
  */
 typedef struct _GdkPixbufAnimationIterClass GdkPixbufAnimationIterClass;
 
-#define GDK_PIXBUF_ANIMATION_ITER_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST ((klass), GDK_TYPE_PIXBUF_ANIMATION_ITER, GdkPixbufAnimationIterClass))
-#define GDK_IS_PIXBUF_ANIMATION_ITER_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GDK_TYPE_PIXBUF_ANIMATION_ITER))
-#define GDK_PIXBUF_ANIMATION_ITER_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), GDK_TYPE_PIXBUF_ANIMATION_ITER, GdkPixbufAnimationIterClass))
-
 struct _GdkPixbufAnimationIter {
         GObject parent_instance;
 
 };
 
-G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+
 struct _GdkPixbufAnimationIterClass {
         GObjectClass parent_class;
 
@@ -206,7 +204,7 @@ struct _GdkPixbufAnimationIterClass {
         gboolean   (*advance)          (GdkPixbufAnimationIter *iter,
                                         const GTimeVal         *current_time);
 };
-G_GNUC_END_IGNORE_DEPRECATIONS
+
       
 
 extern

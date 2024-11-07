@@ -37,6 +37,9 @@
     </Files>
     <RequiredPkgs>
       <Item>
+        <PackageName Value="cairo_package"/>
+      </Item>
+      <Item>
         <PackageName Value="GLIB280_package"/>
       </Item>
       <Item>

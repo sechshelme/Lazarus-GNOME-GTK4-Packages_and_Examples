@@ -68,8 +68,11 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'G_END_DECLS', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_CONST', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NULL_TERMINATED', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_BEGIN_IGNORE_DEPRECATIONS', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_END_IGNORE_DEPRECATIONS', '', [rfReplaceAll]);
 
 
+      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_VAR', 'extern', [rfReplaceAll]);
 
       slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_12', 'extern', [rfReplaceAll]);

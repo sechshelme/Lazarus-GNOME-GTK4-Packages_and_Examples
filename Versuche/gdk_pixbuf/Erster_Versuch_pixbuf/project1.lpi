@@ -25,6 +25,12 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="cairo_package"/>
+      </Item>
+      <Item>
+        <PackageName Value="GTK4_package"/>
+      </Item>
+      <Item>
         <PackageName Value="GLIB280_package"/>
       </Item>
     </RequiredPackages>
