@@ -1,4 +1,43 @@
-/* GdkPixbuf library - GdkPixdata - functions for inlined pixbuf handling
+
+unit gdk_pixdata;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from gdk_pixdata.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    gdk_pixdata.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pgchar  = ^gchar;
+PGdkPixbuf  = ^GdkPixbuf;
+PGdkPixdata  = ^GdkPixdata;
+PGdkPixdataDumpType  = ^GdkPixdataDumpType;
+PGdkPixdataType  = ^GdkPixdataType;
+PGError  = ^GError;
+PGString  = ^GString;
+Pguint  = ^guint;
+Pguint8  = ^guint8;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ GdkPixbuf library - GdkPixdata - functions for inlined pixbuf handling
  * Copyright (C) 1999, 2001 Tim Janik
  *
  * This library is free software; you can redistribute it and/or
@@ -13,23 +52,21 @@
  *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library; if not, see <http://www.gnu.org/licenses/>.
- */
-#ifndef __GDK_PIXDATA_H__
-#define __GDK_PIXDATA_H__
-
-#ifndef GDK_PIXBUF_DISABLE_DEPRECATED
-#include        <gdk-pixbuf/gdk-pixbuf.h>
-
-
-
-/**
+  }
+{$ifndef __GDK_PIXDATA_H__}
+{$define __GDK_PIXDATA_H__}
+{$ifndef GDK_PIXBUF_DISABLE_DEPRECATED}
+{$include        <gdk-pixbuf/gdk-pixbuf.h>}
+{*
  * GDK_PIXBUF_MAGIC_NUMBER:
  *
  * Magic number for #GdkPixdata structures.
- **/
-#define GDK_PIXBUF_MAGIC_NUMBER (0x47646b50)    /* 'GdkP' */
+ * }
+{ 'GdkP'  }
 
-/**
+const
+  GDK_PIXBUF_MAGIC_NUMBER = $47646b50;  
+{*
  * GdkPixdataType:
  * @GDK_PIXDATA_COLOR_TYPE_RGB:  each pixel has red, green and blue samples.
  * @GDK_PIXDATA_COLOR_TYPE_RGBA: each pixel has red, green and blue samples 
@@ -50,59 +87,61 @@
  * for the encoding of the pixel data.
  *
  * Deprecated: 2.32
- **/
-typedef enum
-{
-  /* colorspace + alpha */
-  GDK_PIXDATA_COLOR_TYPE_RGB    = 0x01,
-  GDK_PIXDATA_COLOR_TYPE_RGBA   = 0x02,
-  GDK_PIXDATA_COLOR_TYPE_MASK   = 0xff,
-  /* width, support 8bits only currently */
-  GDK_PIXDATA_SAMPLE_WIDTH_8    = 0x01 << 16,
-  GDK_PIXDATA_SAMPLE_WIDTH_MASK = 0x0f << 16,
-  /* encoding */
-  GDK_PIXDATA_ENCODING_RAW      = 0x01 << 24,
-  GDK_PIXDATA_ENCODING_RLE      = 0x02 << 24,
-  GDK_PIXDATA_ENCODING_MASK     = 0x0f << 24
-} GdkPixdataType;
-
-typedef struct _GdkPixdata GdkPixdata;
-struct _GdkPixdata
-{
-  guint32 magic;        /* GDK_PIXBUF_MAGIC_NUMBER */
-  gint32  length;       /* <1 to disable length checks, otherwise:
+ * }
+{ colorspace + alpha  }
+{ width, support 8bits only currently  }
+{ encoding  }
+type
+  PGdkPixdataType = ^TGdkPixdataType;
+  TGdkPixdataType =  Longint;
+  Const
+    GDK_PIXDATA_COLOR_TYPE_RGB = $01;
+    GDK_PIXDATA_COLOR_TYPE_RGBA = $02;
+    GDK_PIXDATA_COLOR_TYPE_MASK = $ff;
+    GDK_PIXDATA_SAMPLE_WIDTH_8 = $01 shl 16;
+    GDK_PIXDATA_SAMPLE_WIDTH_MASK = $0f shl 16;
+    GDK_PIXDATA_ENCODING_RAW = $01 shl 24;
+    GDK_PIXDATA_ENCODING_RLE = $02 shl 24;
+    GDK_PIXDATA_ENCODING_MASK = $0f shl 24;
+;
+type
+{ GDK_PIXBUF_MAGIC_NUMBER  }
+{ <1 to disable length checks, otherwise:
 			 * GDK_PIXDATA_HEADER_LENGTH + pixel_data length
-			 */
-  guint32 pixdata_type; /* GdkPixdataType */
-  guint32 rowstride;
-  guint32 width;
-  guint32 height;
-  guint8 *pixel_data;
-};
+			  }
+{ GdkPixdataType  }
+  PGdkPixdata = ^TGdkPixdata;
+  TGdkPixdata = record
+      magic : Tguint32;
+      length : Tgint32;
+      pixdata_type : Tguint32;
+      rowstride : Tguint32;
+      width : Tguint32;
+      height : Tguint32;
+      pixel_data : Pguint8;
+    end;
 
-/**
+{*
  * GDK_PIXDATA_HEADER_LENGTH:
  *
  * The length of a #GdkPixdata structure without the @pixel_data pointer.
  *
  * Deprecated: 2.32
- **/
-#define	GDK_PIXDATA_HEADER_LENGTH	(4 + 4 + 4 + 4 + 4 + 4)
+ * }
 
-/* the returned stream is plain htonl of GdkPixdata members + pixel_data */
-guint8*		gdk_pixdata_serialize	(const GdkPixdata	*pixdata,
-					 guint			*stream_length_p);
-gboolean	gdk_pixdata_deserialize	(GdkPixdata		*pixdata,
-					 guint			 stream_length,
-					 const guint8		*stream,
-					 GError		       **error);
-gpointer	gdk_pixdata_from_pixbuf	(GdkPixdata		*pixdata,
-					 const GdkPixbuf	*pixbuf,
-					 gboolean		 use_rle);
-GdkPixbuf*	gdk_pixbuf_from_pixdata	(const GdkPixdata	*pixdata,
-					 gboolean		 copy_pixels,
-					 GError		       **error);
-/** 
+const
+  GDK_PIXDATA_HEADER_LENGTH = ((((4+4)+4)+4)+4)+4;  
+{ the returned stream is plain htonl of GdkPixdata members + pixel_data  }
+(* Const before type ignored *)
+
+function gdk_pixdata_serialize(pixdata:PGdkPixdata; stream_length_p:Pguint):Pguint8;cdecl;external;
+(* Const before type ignored *)
+function gdk_pixdata_deserialize(pixdata:PGdkPixdata; stream_length:Tguint; stream:Pguint8; error:PPGError):Tgboolean;cdecl;external;
+(* Const before type ignored *)
+function gdk_pixdata_from_pixbuf(pixdata:PGdkPixdata; pixbuf:PGdkPixbuf; use_rle:Tgboolean):Tgpointer;cdecl;external;
+(* Const before type ignored *)
+function gdk_pixbuf_from_pixdata(pixdata:PGdkPixdata; copy_pixels:Tgboolean; error:PPGError):PGdkPixbuf;cdecl;external;
+{* 
  * GdkPixdataDumpType:
  * @GDK_PIXDATA_DUMP_PIXDATA_STREAM: Generate pixbuf data stream (a single 
  *    string containing a serialized #GdkPixdata structure in network byte 
@@ -131,30 +170,32 @@ GdkPixbuf*	gdk_pixbuf_from_pixdata	(const GdkPixdata	*pixdata,
  * elements are optional flags that can be freely added.
  *
  * Deprecated: 2.32
- **/
-typedef enum
-{
-  /* type of source to save */
-  GDK_PIXDATA_DUMP_PIXDATA_STREAM	= 0,
-  GDK_PIXDATA_DUMP_PIXDATA_STRUCT	= 1,
-  GDK_PIXDATA_DUMP_MACROS		= 2,
-  /* type of variables to use */
-  GDK_PIXDATA_DUMP_GTYPES		= 0,
-  GDK_PIXDATA_DUMP_CTYPES		= 1 << 8,
-  GDK_PIXDATA_DUMP_STATIC		= 1 << 9,
-  GDK_PIXDATA_DUMP_CONST		= 1 << 10,
-  /* save RLE decoder macro? */
-  GDK_PIXDATA_DUMP_RLE_DECODER		= 1 << 16
-} GdkPixdataDumpType;
-  
+ * }
+{ type of source to save  }
+{ type of variables to use  }
+{ save RLE decoder macro?  }
+type
+  PGdkPixdataDumpType = ^TGdkPixdataDumpType;
+  TGdkPixdataDumpType =  Longint;
+  Const
+    GDK_PIXDATA_DUMP_PIXDATA_STREAM = 0;
+    GDK_PIXDATA_DUMP_PIXDATA_STRUCT = 1;
+    GDK_PIXDATA_DUMP_MACROS = 2;
+    GDK_PIXDATA_DUMP_GTYPES = 0;
+    GDK_PIXDATA_DUMP_CTYPES = 1 shl 8;
+    GDK_PIXDATA_DUMP_STATIC = 1 shl 9;
+    GDK_PIXDATA_DUMP_CONST = 1 shl 10;
+    GDK_PIXDATA_DUMP_RLE_DECODER = 1 shl 16;
+;
+(* Const before type ignored *)
 
-GString*	gdk_pixdata_to_csource	(GdkPixdata		*pixdata,
-					 const gchar		*name,
-					 GdkPixdataDumpType	 dump_type);
+function gdk_pixdata_to_csource(pixdata:PGdkPixdata; name:Pgchar; dump_type:TGdkPixdataDumpType):PGString;cdecl;external;
+{$endif}
+{ GDK_PIXBUF_DISABLE_DEPRECATED  }
+{$endif}
+{ __GDK_PIXDATA_H__  }
+
+implementation
 
 
-
-
-#endif /* GDK_PIXBUF_DISABLE_DEPRECATED */
-
-#endif /* __GDK_PIXDATA_H__ */
+end.

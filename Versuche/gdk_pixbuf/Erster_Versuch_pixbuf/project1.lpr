@@ -9,11 +9,21 @@ uses
   GLIBTools,
   cairo218,
 
+  gmodule,
+  glib_unix,
+
   gdk_pixbuf_core,
   gdk_pixbuf_features,
   gdk_pixbuf_macros,      // gdk_pixbuf_features
-  gdk_pixbuf_animation,   // gdk_pixbuf_core
-  gdk_pixbuf_io,          // gdk_pixbuf_core, gdk_pixbuf_animation
+  gdk_pixbuf_animation,
+  gdk_pixbuf_io,          // gdk_pixbuf_animation
+  gdk_pixbuf_loader,      // gdk_pixbuf_animation, gdk_pixbuf_io
+  gdk_pixbuf_enum_types,
+  gdk_pixbuf_marshal,
+  gdk_pixbuf_simple_anim,
+  gdk_pixbuf_transform,
+  gdk_pixdata,
+
 
 
 
@@ -44,29 +54,45 @@ uses
 
   end;
 
+
   procedure on_activate(app: PGtkApplication; user_data: Tgpointer);
   const
     BUF_SIZE = 128;
   var
     pixdata: array of uint32 = nil;
     byteData: array of byte = nil;
-    pixbuf1, anim: Tgpointer;
+    pixbuf1, anim, buf_format: Tgpointer;
     window, picture1, box, picture2: PGtkWidget;
     x, y: integer;
-    pixbuf2: PGdkPixbuf;
+    pixbuf2, rotated: PGdkPixbuf;
 
     provider: PGtkCssProvider;
     context: PGtkStyleContext;
+    in_steal: cint;
+    steal: cint;
+    err: PGError = nil;
 
   begin
+    in_steal := 1;
+    ;
+    steal := g_steal_fd(@in_steal);
+    WriteLn('steal: ', steal, '  ', in_steal);
+
+
     WriteLn('GLIB:');
     WriteLn('Version: ', glib_major_version, '.', glib_minor_version, '.', glib_micro_version);
     WriteLn('GDK_PIXPUF:');
     WriteLn('Version: ', gdk_pixbuf_major_version, '.', gdk_pixbuf_minor_version, '.', gdk_pixbuf_micro_version);
     WriteLn('Versio String: ', gdk_pixbuf_version);
 
+    WriteLn('g_module_supported: ', g_module_supported);
+
     anim := g_object_new(GDK_TYPE_PIXBUF_ANIMATION, nil);
     GObjectShowProperty(anim);
+
+    buf_format := g_object_new(gdk_pixbuf_format_get_type, nil);
+    WriteLn(PtrUInt(buf_format));
+    GObjectShowProperty(buf_format);
 
     SetLength(pixdata, BUF_SIZE * BUF_SIZE);
     for x := 0 to BUF_SIZE - 1 do begin
@@ -97,19 +123,28 @@ uses
     for x := 0 to BUF_SIZE * BUF_SIZE do begin
       byteData[x * 4 + 0] := $00;
       byteData[x * 4 + 1] := $00;
-      byteData[x * 4 + 2] := $FF;
-      byteData[x * 4 + 3] := $FF;
+      byteData[x * 4 + 2] := x;
+      byteData[x * 4 + 3] := x shl 4;
     end;
     pixbuf2 := gdk_pixbuf_new_from_data(Pguchar(byteData), GDK_COLORSPACE_RGB, True, 8, BUF_SIZE, BUF_SIZE, BUF_SIZE * 4, nil, nil);
+    rotated := gdk_pixbuf_rotate_simple(pixbuf2, GDK_PIXBUF_ROTATE_CLOCKWISE);
+    GObjectShowProperty(pixbuf2);
+    GObjectShowProperty(rotated);
+    g_object_unref(pixbuf2);
 
-    GObjectShowProperty(pixbuf1);
+    if not gdk_pixbuf_save(rotated, 'bild.png', 'png', @err, nil) then begin
+      WriteLn('Fehler beim speichern des Bildes! ', err^.message);
+      g_error_free(err);
+    end;
+
+
 
     picture1 := gtk_picture_new_for_pixbuf(pixbuf1);
     gtk_widget_set_hexpand(picture1, True);
     gtk_widget_set_vexpand(picture1, True);
     GObjectShowProperty(picture1);
 
-    picture2 := gtk_picture_new_for_pixbuf(pixbuf2);
+    picture2 := gtk_picture_new_for_pixbuf(rotated);
     gtk_widget_set_hexpand(picture2, True);
     gtk_widget_set_vexpand(picture2, True);
     GObjectShowProperty(picture2);

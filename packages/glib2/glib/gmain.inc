@@ -203,6 +203,9 @@ function g_idle_remove_by_data(Data: Tgpointer): Tgboolean; cdecl; external libg
 procedure g_main_context_invoke_full(context: PGMainContext; priority: Tgint; _function: TGSourceFunc; Data: Tgpointer; notify: TGDestroyNotify); cdecl; external libglib2;
 procedure g_main_context_invoke(context: PGMainContext; _function: TGSourceFunc; Data: Tgpointer); cdecl; external libglib2;
 
+function g_steal_fd(fd_ptr: pcint): cint;
+
+
 var
   g_timeout_funcs: TGSourceFuncs; cvar;external libglib2;
   g_child_watch_funcs: TGSourceFuncs; cvar; external libglib2;
@@ -229,6 +232,15 @@ var
 
 
 {$IFDEF read_implementation}
+
+function g_steal_fd(fd_ptr: pcint): cint;
+var
+  fd: cint;
+begin
+  fd := fd_ptr^;
+  fd_ptr^ := -1;
+  Result := fd;
+end;
 
 function g_main_new(is_running: Tgboolean): PGMainLoop;
 begin

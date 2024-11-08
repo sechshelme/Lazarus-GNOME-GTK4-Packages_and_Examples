@@ -3,14 +3,30 @@ unit gdk_pixbuf_io;
 interface
 
 uses
-  glib280, gdk_pixbuf_core, gdk_pixbuf_animation;
+  glib280, gmodule, gdk_pixbuf_core, gdk_pixbuf_animation;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 type
+  TGdkPixbufModulePattern = record
+    prefix: pansichar;
+    mask: pansichar;
+    relevance: longint;
+  end;
+  PGdkPixbufModulePattern = ^TGdkPixbufModulePattern;
+
   TGdkPixbufFormat = record
+    Name: Pgchar;
+    signature: PGdkPixbufModulePattern;
+    domain: Pgchar;
+    description: Pgchar;
+    mime_types: ^Pgchar;
+    extensions: ^Pgchar;
+    flags: Tguint32;
+    disabled: Tgboolean;
+    license: Pgchar;
   end;
   PGdkPixbufFormat = ^TGdkPixbufFormat;
 
@@ -38,13 +54,6 @@ type
   TGdkPixbufModulePreparedFunc = procedure(pixbuf: PGdkPixbuf; anim: PGdkPixbufAnimation; user_data: Tgpointer); cdecl;
   TGdkPixbufModuleUpdatedFunc = procedure(pixbuf: PGdkPixbuf; x: longint; y: longint; Width: longint; Height: longint;
     user_data: Tgpointer); cdecl;
-
-  TGdkPixbufModulePattern = record
-    prefix: pansichar;
-    mask: pansichar;
-    relevance: longint;
-  end;
-  PGdkPixbufModulePattern = ^TGdkPixbufModulePattern;
 
   TGdkPixbufModuleLoadFunc = function(f: PFILE; error: PPGError): PGdkPixbuf; cdecl;
   PGdkPixbufModuleLoadFunc = ^TGdkPixbufModuleLoadFunc;
@@ -94,21 +103,6 @@ const
   GDK_PIXBUF_FORMAT_WRITABLE = 1 shl 0;
   GDK_PIXBUF_FORMAT_SCALABLE = 1 shl 1;
   GDK_PIXBUF_FORMAT_THREADSAFE = 1 shl 2;
-
-type
-  TGdkPixbufFormat = record
-    Name: Pgchar;
-    signature: PGdkPixbufModulePattern;
-    domain: Pgchar;
-    description: Pgchar;
-    mime_types: ^Pgchar;
-    extensions: ^Pgchar;
-    flags: Tguint32;
-    disabled: Tgboolean;
-    license: Pgchar;
-  end;
-  PGdkPixbufFormat = ^TGdkPixbufFormat;
-
 
   // === Konventiert am: 7-11-24 19:40:58 ===
 

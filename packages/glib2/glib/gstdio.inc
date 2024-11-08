@@ -36,6 +36,9 @@ type
 function g_utime(filename:Pgchar; utb:Putimbuf):longint;cdecl;external libglib2;
 function g_close(fd:Tgint; error:PPGError):Tgboolean;cdecl;external libglib2;
 
+function g_clear_fd(fd_ptr: pcint;  error: PPGError): Boolean;
+
+
 // === Konventiert am: 10-8-24 19:22:55 ===
 
 
@@ -44,6 +47,16 @@ function g_close(fd:Tgint; error:PPGError):Tgboolean;cdecl;external libglib2;
 
 {$IFDEF read_implementation}
 
-
+function g_clear_fd(fd_ptr: pcint; error: PPGError): boolean;
+var
+  fd: integer;
+begin
+  fd := fd_ptr^;
+  fd_ptr^ := -1;
+  if fd < 0 then begin
+    Exit(True);
+  end;
+  Result := g_close(fd, error);
+end;
 
 {$ENDIF read_implementation}

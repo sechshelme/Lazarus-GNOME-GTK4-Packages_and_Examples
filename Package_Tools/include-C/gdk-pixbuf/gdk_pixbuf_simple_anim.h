@@ -40,9 +40,8 @@ typedef struct _GdkPixbufSimpleAnimClass GdkPixbufSimpleAnimClass;
 
 #define GDK_TYPE_PIXBUF_SIMPLE_ANIM              (gdk_pixbuf_simple_anim_get_type ())
 #define GDK_PIXBUF_SIMPLE_ANIM(object)           (G_TYPE_CHECK_INSTANCE_CAST ((object), GDK_TYPE_PIXBUF_SIMPLE_ANIM, GdkPixbufSimpleAnim))
-#define GDK_IS_PIXBUF_SIMPLE_ANIM(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), GDK_TYPE_PIXBUF_SIMPLE_ANIM))
-
 #define GDK_PIXBUF_SIMPLE_ANIM_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST ((klass), GDK_TYPE_PIXBUF_SIMPLE_ANIM, GdkPixbufSimpleAnimClass))
+#define GDK_IS_PIXBUF_SIMPLE_ANIM(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), GDK_TYPE_PIXBUF_SIMPLE_ANIM))
 #define GDK_IS_PIXBUF_SIMPLE_ANIM_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), GDK_TYPE_PIXBUF_SIMPLE_ANIM))
 #define GDK_PIXBUF_SIMPLE_ANIM_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), GDK_TYPE_PIXBUF_SIMPLE_ANIM, GdkPixbufSimpleAnimClass))
 
@@ -51,11 +50,9 @@ GType gdk_pixbuf_simple_anim_get_type (void) ;
 extern
 GType gdk_pixbuf_simple_anim_iter_get_type (void) ;
 
-GDK_PIXBUF_AVAILABLE_IN_2_8
 GdkPixbufSimpleAnim *gdk_pixbuf_simple_anim_new           (gint   width, 
                                                            gint   height,
                                                            gfloat rate);
-GDK_PIXBUF_AVAILABLE_IN_2_8
 void                 gdk_pixbuf_simple_anim_add_frame     (GdkPixbufSimpleAnim *animation,
                                                            GdkPixbuf           *pixbuf);
 extern

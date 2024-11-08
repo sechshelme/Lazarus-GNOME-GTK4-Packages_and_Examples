@@ -19,6 +19,14 @@
         <Filename Value="glibtools.pas"/>
         <UnitName Value="GLIBTools"/>
       </Item>
+      <Item>
+        <Filename Value="gmodule.pas"/>
+        <UnitName Value="gmodule"/>
+      </Item>
+      <Item>
+        <Filename Value="glib_unix.pas"/>
+        <UnitName Value="glib_unix"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

@@ -18,6 +18,7 @@ const
   libgio2 = 'libgio-2.0';
   libgtk4 = 'libgtk-4';
   libgdk_pixbuf2 = 'libgdk_pixbuf-2.0';
+  libgmodule ='libgmodule-2.0';
   {$ENDIF}
 
   {$IFDEF Windows}
@@ -26,7 +27,8 @@ const
   libgio2 = 'gio-2.0-0.dll';
   libglib2 = 'glib-2.0-0.dll';
   libgtk4 = 'gtk-4.dll';
-  libgdk_pixbuf2 = 'libgdk_pixbuf-2.0-0.dll';
+  libgdk_pixbuf2 = 'gdk_pixbuf-2.0-0.dll';
+  libgmodule ='gmodule-2.0-0.dll';
   {$ENDIF}
 
   // === Externes
@@ -244,6 +246,18 @@ type
 
   Tpthread_t = culong;  // /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
 
+  // /usr/include/pwd.h
+type
+  Tpasswd = record
+    pw_name: PChar;
+    pw_passwd: PChar;
+    pw_uid: cuint;
+    pw_gid: cuint;
+    pw_gecos: PChar;
+    pw_dir: PChar;
+    pw_shell: PChar;
+  end;
+  Ppasswd = ^Tpasswd;
 
   {$DEFINE read_interface}
   {$include glib280_includes.inc}
