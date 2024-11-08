@@ -1,9 +1,12 @@
-unit gdk_pixbuf_animation;
+/////////////////////////////////////////////////////////////
+//                                                         //
+//   WARNUNG, dies Datei wird automatisch durch            //
+//   das Program "Convert_Unit_to_pas_includes" erzeugt !  //
+//   Erzeugt am: 08-11-2024   19:15                        //
+//                                                         //
+/////////////////////////////////////////////////////////////
 
-interface
-
-uses
-  glib280, gdk_pixbuf_core;
+{$IFDEF read_interface}
 
 type
   TGdkPixbufAnimation = record
@@ -77,7 +80,10 @@ function GDK_IS_PIXBUF_ANIMATION_ITER_CLASS(klass: Pointer): Tgboolean;
 function GDK_PIXBUF_ANIMATION_ITER_GET_CLASS(obj: Pointer): PGdkPixbufAnimationIterClass;
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function GDK_TYPE_PIXBUF_ANIMATION: TGType;
 begin
@@ -141,4 +147,4 @@ begin
   Result := PGdkPixbufAnimationIterClass(PGTypeInstance(obj)^.g_class);
 end;
 
-end.
+{$ENDIF read_implementation}
