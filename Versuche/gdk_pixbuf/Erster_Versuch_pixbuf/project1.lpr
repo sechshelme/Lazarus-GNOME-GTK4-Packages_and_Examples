@@ -132,6 +132,8 @@ uses
     GObjectShowProperty(rotated);
     g_object_unref(pixbuf2);
 
+    // https://www.perplexity.ai/search/gib-mir-ein-beispiel-mit-gdk-p-xDvQKArXSdyldtrSAi2p6A
+
     if not gdk_pixbuf_save(rotated, 'bild.png', 'png', @err, nil) then begin
       WriteLn('Fehler beim speichern des Bildes! ', err^.message);
       g_error_free(err);
