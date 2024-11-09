@@ -13,9 +13,4 @@ oder
 https://github.com/GNOME/glib
 
 
-Wen folgender Fehler auftritt 
-```
-meson.build:147:0: ERROR: Subproject exists but has no meson.build file
-```
-Im Ordner **subprojects** alles bis auf die *.warp löschen, bei mir war es nur der Ordner **gvbd**.
 
