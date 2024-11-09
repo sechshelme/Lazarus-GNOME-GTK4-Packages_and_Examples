@@ -4,7 +4,7 @@ uses
   ctypes,
   Math,
   SysUtils,
-  Cairo,
+  cairo218,
   glib280,
   GDK4,
   GTK4;
@@ -46,8 +46,7 @@ var
     end;
   end;
 
-  procedure draw_cb(drawing_area: PGtkDrawingArea; cr: Pcairo_t;
-    Width: longint; Height: longint; user_data: Tgpointer); cdecl;
+  procedure draw_cb(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
   begin
     cairo_set_source_surface(cr, surface, 0, 0);
     cairo_paint(cr);

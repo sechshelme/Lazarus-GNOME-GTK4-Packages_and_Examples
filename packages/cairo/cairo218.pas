@@ -98,6 +98,7 @@ type
   end;
   Tcairo_user_data_key_t = Tcairo_user_data_key;
   Pcairo_user_data_key_t = ^Tcairo_user_data_key_t;
+
   Pcairo_status = ^Tcairo_status;
   Tcairo_status = longint;
 
