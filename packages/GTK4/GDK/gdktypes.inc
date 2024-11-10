@@ -16,9 +16,9 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libgtk4 = 'libgtk-4.dll';
-  libgio2 = 'libgio-2.0.dll';
-  glibgobject2_0 = 'libgobject-2.0.dll';
+  libgtk4 = 'libgtk-4-1.dll';
+  libgio2 = 'libgio-2.0-0.dll';
+  glibgobject2_0 = 'libgobject-2.0-0.dll';
   {$ENDIF}
 
 

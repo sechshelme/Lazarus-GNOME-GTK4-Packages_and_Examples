@@ -2,6 +2,7 @@ unit cairo_xlib;
 
 interface
 
+{$IFDEF LINUX}
 uses
   x,
   xlib,
@@ -25,6 +26,8 @@ function cairo_xlib_surface_get_height(surface: Pcairo_surface_t): longint; cdec
 procedure cairo_xlib_device_debug_cap_xrender_version(device: Pcairo_device_t; major_version: longint; minor_version: longint); cdecl; external cairo_lib;
 procedure cairo_xlib_device_debug_set_precision(device: Pcairo_device_t; precision: longint); cdecl; external cairo_lib;
 function cairo_xlib_device_debug_get_precision(device: Pcairo_device_t): longint; cdecl; external cairo_lib;
+
+{$ENDIF}
 
 implementation
 
