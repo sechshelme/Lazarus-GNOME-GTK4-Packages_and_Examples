@@ -5,7 +5,7 @@ unit DrawArena;
 interface
 
 uses
-  glib2, Classes, Cairo, SysUtils, GTK4;
+  Classes, SysUtils, glib280, cairo218, GTK4;
 
 function Create_DrawArena: PGtkWidget;
 

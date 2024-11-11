@@ -25,6 +25,12 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="cairo_package"/>
+      </Item>
+      <Item>
+        <PackageName Value="GLIB280_package"/>
+      </Item>
+      <Item>
         <PackageName Value="GTK4_package"/>
       </Item>
     </RequiredPackages>
@@ -64,6 +70,9 @@
       <IncludeFiles Value="$(ProjOutDir)"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
+    <CodeGeneration>
+      <TargetOS Value="win64"/>
+    </CodeGeneration>
     <Linking>
       <Debugging>
         <DebugInfoType Value="dsDwarf2Set"/>

@@ -21,22 +21,22 @@ const
   libgmodule ='libgmodule-2.0';
   {$ENDIF}
 
-  //{$IFDEF Windows}
-  //libglib2 = 'libglib-2.0-0.dll';
-  //libgobject2_0 = 'gobject-2.0-0.dll';
-  //libgio2 = 'gio-2.0-0.dll';
-  //libgtk4 = 'libgtk-4-1.dll';
-  //libgdk_pixbuf2 = 'gdk_pixbuf-2.0-0.dll';
-  //libgmodule ='gmodule-2.0-0.dll';
-  //{$ENDIF}
   {$IFDEF Windows}
-  libglib2 = 'glib-2.0';
-  libgobject2_0 = 'gobject-2.0';
-  libgio2 = 'gio-2.0';
-  libgtk4 = 'gtk-4';
-  libgdk_pixbuf2 = 'gdk_pixbuf-2.0';
-  libgmodule ='gmodule-2.0';
+  libglib2 = 'libglib-2.0-0.dll';
+  libgobject2_0 = 'libgobject-2.0-0.dll';
+  libgio2 = 'libgio-2.0-0.dll';
+  libgtk4 = 'libgtk-4-1.dll';
+  libgdk_pixbuf2 = 'libgdk_pixbuf-2.0-0.dll';
+  libgmodule ='libgmodule-2.0-0.dll';
   {$ENDIF}
+  //{$IFDEF Windows}
+  //libglib2 = 'glib-2.0';
+  //libgobject2_0 = 'gobject-2.0';
+  //libgio2 = 'gio-2.0';
+  //libgtk4 = 'gtk-4';
+  //libgdk_pixbuf2 = 'gdk_pixbuf-2.0';
+  //libgmodule ='gmodule-2.0';
+  //{$ENDIF}
 
   //const
   //  {$IFDEF Linux}

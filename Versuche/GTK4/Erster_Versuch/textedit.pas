@@ -4,13 +4,13 @@ unit TextEdit;
 interface
 
 uses
-  glib2, GTK4;
+  glib280, GTK4;
 
 function Create_TextView: PGtkWidget;
 
 implementation
 
-procedure backspace(self: PGtkTextView; user_data: gpointer);
+procedure backspace(self: PGtkTextView; user_data: Tgpointer);
 var
   buf: PGtkTextBuffer;
   pc: PChar;
@@ -25,7 +25,7 @@ begin
   g_free(pc);
 end;
 
-procedure move_cursor(self: PGtkTextView; user_data: gpointer);
+procedure move_cursor(self: PGtkTextView; user_data: Tgpointer);
 begin
   g_print('move'#10);
 end;

@@ -4,28 +4,20 @@ program project1;
 
 uses
   Math,
-  glib2,
+  glib280,
 
   GDK4,
   GSK4,
   GTK4,
   GTK4_unix_print,
-//  GDK4_broadway,
-//  GSK4_broadway,
-
-
-
-
+  //  GDK4_broadway,
+  //  GSK4_broadway,
 
   // --- Eigenes
   ScrollBox,
   TextEdit,
   ListBox,
   DrawArena;
-
-
-
-
   // ------- Eigenes
 
 const
@@ -84,15 +76,15 @@ const
     Result := gtk_action_bar_new;
     button1 := gtk_button_new_with_label('About...');
     gtk_action_bar_pack_start(GTK_ACTION_BAR(Result), button1);
-    g_signal_connect(button1, 'clicked', G_CALLBACK(@btn_Click), gpointer(cmAbout));
+    g_signal_connect(button1, 'clicked', G_CALLBACK(@btn_Click), Tgpointer(cmAbout));
 
     button1 := gtk_button_new_with_label('Color...');
     gtk_action_bar_pack_start(GTK_ACTION_BAR(Result), button1);
-    g_signal_connect(button1, 'clicked', G_CALLBACK(@btn_Click), gpointer(cmColorDlg));
+    g_signal_connect(button1, 'clicked', G_CALLBACK(@btn_Click), Tgpointer(cmColorDlg));
 
     button1 := gtk_button_new_with_label('File...');
     gtk_action_bar_pack_start(GTK_ACTION_BAR(Result), button1);
-    g_signal_connect(button1, 'clicked', G_CALLBACK(@btn_Click), gpointer(cmFileDlg));
+    g_signal_connect(button1, 'clicked', G_CALLBACK(@btn_Click), Tgpointer(cmFileDlg));
   end;
 
   function Create_Button_Box: PGtkWidget;
@@ -205,7 +197,7 @@ const
     end;
   end;
 
-  function Create_Label(l: PChar): PGtkWidget;
+  function Create_Label(l: pchar): PGtkWidget;
   begin
     Result := gtk_label_new(l);
   end;
@@ -319,7 +311,7 @@ const
     gtk_window_set_title(GTK_WINDOW(window), 'Hello GTK-4');
 
 
-// psu:=   gtk_page_setup_unix_dialog_new('unix-print', nil);
+    // psu:=   gtk_page_setup_unix_dialog_new('unix-print', nil);
 
 
     box := Create_Button_Box;
@@ -363,14 +355,12 @@ const
     app: PGtkApplication;
     sur: PGdkSurface;
   begin
- sur:=    gdk_surface_new_toplevel(nil);
-
-
+    sur := gdk_surface_new_toplevel(nil);
 
     app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
 
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
-    g_application_run(app, 0, nil);
+    g_application_run(G_APPLICATION(app), 0, nil);
   end;
 
 begin
