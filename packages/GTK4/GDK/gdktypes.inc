@@ -8,18 +8,18 @@
 
 {$IFDEF read_interface}
 
-const
-  {$IFDEF Linux}
-  libgtk4 = 'libgtk-4';
-  libgio2 = 'libgio-2.0';
-  libgobject2_0 = 'libgobject-2.0';
-  {$ENDIF}
-
-  {$IFDEF Windows}
-  libgtk4 = 'libgtk-4-1.dll';
-  libgio2 = 'libgio-2.0-0.dll';
-  glibgobject2_0 = 'libgobject-2.0-0.dll';
-  {$ENDIF}
+//const
+//  {$IFDEF Linux}
+//  libgtk4 = 'libgtk-4';
+//  libgio2 = 'libgio-2.0';
+//  libgobject2_0 = 'libgobject-2.0';
+//  {$ENDIF}
+//
+//  {$IFDEF Windows}
+//  libgtk4 = 'libgtk-4-1.dll';
+//  libgio2 = 'libgio-2.0-0.dll';
+//  glibgobject2_0 = 'libgobject-2.0-0.dll';
+//  {$ENDIF}
 
 
   // ==== Fremdes 
