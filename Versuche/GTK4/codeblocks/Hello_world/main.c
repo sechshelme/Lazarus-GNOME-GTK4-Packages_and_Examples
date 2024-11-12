@@ -137,5 +137,9 @@ int main (int argc, char **argv)
   return status;
 
   g_param_spec_double(0,0,0,0,0,0,0);
+
+  g_assertion_message_expr()
+  g_assert(true);
+  GTestCase
 }
 

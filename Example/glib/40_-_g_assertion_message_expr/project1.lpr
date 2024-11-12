@@ -1,6 +1,7 @@
 program project1;
 
 uses
+  SysUtils,
   ctypes,
   glib280,
   GTK4,
@@ -14,7 +15,6 @@ uses
   procedure on_activate(app: PGtkApplication; user_data: Tgpointer);
   const
     BUF_SIZE = 128;
-    c:clongdouble
   var
     pixdata: array of uint32 = nil;
     byteData: array of byte = nil;
@@ -23,6 +23,8 @@ uses
     pixbuf1, pixbuf2: PGdkPixbuf;
 
   begin
+    g_assertion_message_expr(G_LOG_DOMAIN, {$I %FILE%}, StrToInt({$I %LINE%}), 'error', 'gFALSE');
+
     WriteLn('GLIB:');
     WriteLn('Version: ', glib_major_version, '.', glib_minor_version, '.', glib_micro_version);
     WriteLn('GDK_PIXPUF:');
@@ -71,8 +73,6 @@ uses
       g_print('pixbuf2 error');
       exit;
     end;
-
-    g_asse
 
     picture2 := gtk_picture_new_for_pixbuf(pixbuf2);
     gtk_widget_set_hexpand(picture2, True);

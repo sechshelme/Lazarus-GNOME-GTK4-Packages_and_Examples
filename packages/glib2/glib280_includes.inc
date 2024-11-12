@@ -75,6 +75,7 @@
 {$include glib/guri.inc}                    // io. -> ghash
 {$include glib/gscanner.inc}                // io. -> gdataset, ghash
 {$include glib/giochannel.inc}              //  -> gmain, gstring, gunicode, gconvert    ( Komischer Record )
+{$include glib/gtestutils.inc}              // io.  Komplizierte Makros entfernt ( neu übersetzen )
 {$include glib/deprecated/gthread_deprecated.inc}      // io. -> gmain, gpoll
 
 
