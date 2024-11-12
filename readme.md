@@ -1,15 +1,15 @@
 # Inhalt
-| Paket Name: | Version: |
-|----------|----------|
-| **glib** | Version 2.80.0 |
-| **Cairo** | Version 1.18.1 |
-| **GdkPixbuf2** | Version 2.42.10 |
-| **GTK4** | Version 4.14.2 |
-| **gstreamer** | Version 1.24.2 |
+| **Paket Name:**    | **Version:** |
+|----------      |----------|
+| **glib**       | 2.80.0   |
+| **Cairo**      | 1.18.1   |
+| **GdkPixbuf2** | 2.42.10  |
+| **GTK4**       | 4.14.2   |
+| **gstreamer**  | 1.24.2   |
 
 ## Paketinfo
 - `pkg-config --cflags --libs gstreamer-1.0 gstreamer-pbutils-1.0`
-- `pkg-config --modversion gstreamer-1.0` 
+- `pkg-config --modgstreamer-1.0` 
 
 ## GLIB2 
 https://github.com/wadester/wh_test_glib/blob/master/glib_test1.c
