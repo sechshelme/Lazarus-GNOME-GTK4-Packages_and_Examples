@@ -1,5 +1,5 @@
 # Inhalt
-Paket Name: | Version: |
+| Paket Name: | Version: |
 | **glib** | Version 2.80.0 |
 | **Cairo** | Version 1.18.1 |
 | **GdkPixbuf2** | Version 2.42.10 |
