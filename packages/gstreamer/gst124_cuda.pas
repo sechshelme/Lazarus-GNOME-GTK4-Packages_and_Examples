@@ -3,6 +3,9 @@ unit gst124_cuda;
 interface
 
 uses
+  {$IFDEF WINDOWS}
+  windows,
+  {$ENDIF}
   glib280,
   gst124,
   gst124_base,

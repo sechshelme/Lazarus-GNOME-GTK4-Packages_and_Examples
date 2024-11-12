@@ -49,7 +49,7 @@ type
   PGtkShortcut = ^TGtkShortcut;
   TGtkShortcutFunc = function(widget: PGtkWidget; args: PGVariant; user_data: Tgpointer): Tgboolean; cdecl;
 
-  TGtkCssStyleChange = record // _GtkCssStyleChange
+  TGtkCssStyleChange = record
   end;
   PGtkCssStyleChange = ^TGtkCssStyleChange;
 
@@ -58,15 +58,15 @@ type
   end;
   PGtkStyleContext = ^TGtkStyleContext;
 
-  TGtkTooltip = record // _GtkTooltip
+  TGtkTooltip = record
   end;
   PGtkTooltip = ^TGtkTooltip;
 
-  TGtkSettings = record  // _GtkSettings
+  TGtkSettings = record
   end;
   PGtkSettings = ^TGtkSettings;
 
-  TGtkEventController = record // _GtkEventController
+  TGtkEventController = record
   end;
   PGtkEventController = ^TGtkEventController;
 
@@ -93,7 +93,7 @@ type
   end;
   PGtkWindowGroup = ^TGtkWindowGroup;
 
-  TGtkColumnViewColumn = record // _GtkColumnViewColumn
+  TGtkColumnViewColumn = record
   end;
   PGtkColumnViewColumn = ^TGtkColumnViewColumn;
 

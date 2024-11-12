@@ -6,7 +6,7 @@
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
     <Files>
@@ -29,10 +29,6 @@
       <Item>
         <Filename Value="gst124_audio.pas"/>
         <UnitName Value="gst124_audio"/>
-      </Item>
-      <Item>
-        <Filename Value="gst124_audio_includes.inc"/>
-        <Type Value="Include"/>
       </Item>
       <Item>
         <Filename Value="gst124_base.pas"/>
@@ -75,20 +71,12 @@
         <UnitName Value="gst124_gl_glprototypes"/>
       </Item>
       <Item>
-        <Filename Value="gst124_gl_includes.inc"/>
-        <Type Value="Include"/>
-      </Item>
-      <Item>
         <Filename Value="gst124_gl_wayland.pas"/>
         <UnitName Value="gst124_gl_wayland"/>
       </Item>
       <Item>
         <Filename Value="gst124_gl_x11.pas"/>
         <UnitName Value="gst124_gl_x11"/>
-      </Item>
-      <Item>
-        <Filename Value="gst124_includes.inc"/>
-        <Type Value="Include"/>
       </Item>
       <Item>
         <Filename Value="gst124_insertbin.pas"/>
@@ -171,16 +159,8 @@
         <UnitName Value="gst124_video"/>
       </Item>
       <Item>
-        <Filename Value="gst124_video_includes.inc"/>
-        <Type Value="Include"/>
-      </Item>
-      <Item>
         <Filename Value="gst124_vulkan.pas"/>
         <UnitName Value="gst124_vulkan"/>
-      </Item>
-      <Item>
-        <Filename Value="gst124_vulkan_includes.inc"/>
-        <Type Value="Include"/>
       </Item>
       <Item>
         <Filename Value="gst124_vulkan_wayland.pas"/>

@@ -10,92 +10,11 @@ uses
   Strings,
   ctypes;
 
-
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
-const
-  {$ifdef Linux}
-  libgstreamer = 'libgstreamer-1.0';
-  libgstpbutils = 'libgstpbutils-1.0';
-  libgstaudio = 'libgstaudio-1.0';
-  libgstbadaudio = 'libgstbadaudio-1.0';
-  libgstvideo = 'libgstvideo-1.0';
-  libgstbase = 'libgstbase-1.0';
-  libgstallocators = 'libgstallocators-1.0';
-  libgstanalytics = 'libgstanalytics-1.0';
-  libgstcheck = 'libgstcheck-1.0';
-  libgstphotography = 'libgstphotography-1.0';
-  libgstmse = 'libgstmse-1.0';
-  libgstinsertbin = 'libgstinsertbin-1.0';
-  libgstwebrtc = 'libgstwebrtc-1.0';
-  libgstwebrtcnice = 'libgstwebrtcnice-1.0';
-  libgstsdp = 'libgstsdp-1.0';
-  libgstmpegts = 'libgstmpegts-1.0';
-  libgsttag = 'libgsttag-1.0';
-  libgstfft = 'libgstfft-1.0';
-  libgstcodecparsers = 'libgstcodecparsers-1.0';
-  libgstcontroller = 'libgstcontroller-1.0';
-  libgstrtp = 'libgstrtp-1.0';
-  libgstrtsp = 'libgstrtsp-1.0';
-  libgstwayland = 'libgstwayland-1.0';
-  libgstva = 'libgstva-1.0';
-  libgstplayer = 'libgstplayer-1.0';
-  libgstgl = 'libgstgl-1.0';
-  libgstvulkan = 'libgstvulkan-1.0';
-  libgstnet = 'libgstnet-1.0';
-  libgstcuda = 'libgstcuda-1.0';
-  libgstplay = 'libgstplay-1.0';
-  libgstapp = 'libgstapp-1.0';
-  libgstriff = 'libgstriff-1.0';
-  libgstbasecamerabinsrc='libgstbasecamerabinsrc-1.0';
-  libgsttranscoder = 'libgsttranscoder-1.0';
-  libgsturidownloader = 'libgsturidownloader-1.0';
-  libgstsctp = 'libgstsctp-1.0';
-  libgstopencv = 'libgstopencv-1.0';
-  libgstisoff = 'libgstisoff-1.0';
-  {$endif}
-  {$ifdef Windows}
-  libgstreamer = 'gstreamer-1.0-0.dll';
-  libgstpbutils = 'gstpbutils-1.0-0.dll';
-  libgstaudio = 'gstaudio-1.0-0.dll';
-  libgstbadaudio = 'gstbadaudio-1.0-0.dll';
-  libgstvideo = 'gstvideo-1.0-0.dll';
-  libgstbase = 'gstbase-1.0-0.dll';
-  libgstallocators = 'gstallocators-1.0-0.dll';
-  libgstanalytics = 'gstanalytics-1.0-0.dll';
-  libgstcheck = 'gstcheck-1.0-0.dll';
-  libgstphotography = 'gstphotography-1.0-0.dll';
-  libgstmse = 'gstmse-1.0-0.dll';
-  libgstinsertbin = 'gstinsertbin-1.0-0.dll';
-  libgstwebrtc = 'gstwebrtc-1.0-0.dll';
-  libgstwebrtcnice = 'gstwebrtcnice-1.0-0.dll';
-  libgstsdp = 'gstsdp-1.0-o.dll';
-  libgstmpegts = 'gstmpegts-1.0-0.dll';
-  libgsttag = 'gsttag-1.0-0.dll';
-  libgstfft = 'gstfft-1.0-0.dll';
-  libgstcodecparsers = 'gstcodecparsers-1.0-0.dll';
-  libgstcontroller = 'gstcontroller-1.0-0.dll';
-  libgstrtp = 'gstrtp-1.0-0.dll';
-  libgstrtsp = 'gstrtsp-1.0-0.dll';
-  libgstwayland = 'lstwayland-1.0-0.dll';
-  libgstva = 'gstva-1.0-0.dll';
-  libgstplayer = 'gstplayer-1.0-0.dll';
-  libgstgl = 'gstgl-1.0-.dll';
-  libgstvulkan = 'gstvulkan-1.0-0.dll';
-  libgstnet = 'gstnet-1.0-0.dll';
-  libgstcuda = 'gstcuda-1.0-0.dll';
-  libgstplay = 'gstplay-1.0-0.dll';
-  libgstapp = 'gstapp-1.0-0.dll';
-  libgstriff = 'gstriff-1.0-0.dll';
-  libgstbasecamerabinsrc='gstbasecamerabinsrc-1.0-0.dll';
-  libgsttranscoder = 'gsttranscoder-1.0-0.dll';
-  libgsturidownloader = 'gsturidownloader-1.0-0.dll';
-  libgstsctp = 'gstsctp-1.0-0.dll';
-  libgstopencv = 'gstopencv-1.0-0.gll';
-  libgstisoff = 'gstisoff-1.0-0.dll';
-  {$endif}
+  {$include ../gnome_lib_const.inc}
 
   // ==== Externes;
 

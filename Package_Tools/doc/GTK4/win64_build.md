@@ -8,7 +8,7 @@ cd gtk
 git clone https://gitlab.gnome.org/GNOME/gtk.git
 mkdir build_win64
 cd build_win64
-meson ../gtk/ --cross-file ../cross.ini
+meson setup ../gtk/ --cross-file ../cross.ini
 
 ninja -j20
 

@@ -11,46 +11,7 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
-const
-  {$IFDEF Linux}
-  libglib2 = 'libglib-2.0';
-  libgobject2_0 = 'libgobject-2.0';
-  libgio2 = 'libgio-2.0';
-  libgtk4 = 'libgtk-4';
-  libgdk_pixbuf2 = 'libgdk_pixbuf-2.0';
-  libgmodule ='libgmodule-2.0';
-  {$ENDIF}
-
-  {$IFDEF Windows}
-  libglib2 = 'libglib-2.0-0.dll';
-  libgobject2_0 = 'libgobject-2.0-0.dll';
-  libgio2 = 'libgio-2.0-0.dll';
-  libgtk4 = 'libgtk-4-1.dll';
-  libgdk_pixbuf2 = 'libgdk_pixbuf-2.0-0.dll';
-  libgmodule ='libgmodule-2.0-0.dll';
-  {$ENDIF}
-  //{$IFDEF Windows}
-  //libglib2 = 'glib-2.0';
-  //libgobject2_0 = 'gobject-2.0';
-  //libgio2 = 'gio-2.0';
-  //libgtk4 = 'gtk-4';
-  //libgdk_pixbuf2 = 'gdk_pixbuf-2.0';
-  //libgmodule ='gmodule-2.0';
-  //{$ENDIF}
-
-  //const
-  //  {$IFDEF Linux}
-  //  libgtk4 = 'libgtk-4';
-  //  libgio2 = 'libgio-2.0';
-  //  libgobject2_0 = 'libgobject-2.0';
-  //  {$ENDIF}
-  //
-  //  {$IFDEF Windows}
-  //  libgtk4 = 'libgtk-4-1.dll';
-  //  libgio2 = 'libgio-2.0-0.dll';
-  //  glibgobject2_0 = 'libgobject-2.0-0.dll';
-  //  {$ENDIF}
-
+  {$include ../gnome_lib_const.inc}
 
   // === Externes
 type
@@ -65,7 +26,7 @@ type
     tm_yday: cint;
     tm_isdst: cint;
     tm_gmtoff: cint;
-    tm_zone: PChar;
+    tm_zone: pchar;
   end;
   Ptm = ^Ttm;
 
@@ -95,49 +56,49 @@ type
   Txkb_keymap = Pointer;
   Pxkb_keymap = ^Txkb_keymap;
 
-  Twl_shm_format=Pointer;
-  Pwl_shm_format=^Twl_shm_format;
+  Twl_shm_format = Pointer;
+  Pwl_shm_format = ^Twl_shm_format;
 
-  Twl_callback_listener=Pointer;
-  Pwl_callback_listener=^Twl_callback_listener;
+  Twl_callback_listener = Pointer;
+  Pwl_callback_listener = ^Twl_callback_listener;
 
-  Twl_callback=Pointer;
-  Pwl_callback=^Twl_callback;
-  PPwl_callback=^Pwl_callback;
+  Twl_callback = Pointer;
+  Pwl_callback = ^Twl_callback;
+  PPwl_callback = ^Pwl_callback;
 
-  Twl_event_queue=Pointer;
-  Pwl_event_queue=^Twl_event_queue;
+  Twl_event_queue = Pointer;
+  Pwl_event_queue = ^Twl_event_queue;
 
-  Twl_subcompositor=Pointer;
-  Pwl_subcompositor=^Twl_subcompositor;
+  Twl_subcompositor = Pointer;
+  Pwl_subcompositor = ^Twl_subcompositor;
 
-  Twl_shm=Pointer;
-  Pwl_shm=^Twl_shm;
+  Twl_shm = Pointer;
+  Pwl_shm = ^Twl_shm;
 
-  Twl_subsurface=Pointer;
-  Pwl_subsurface=^Twl_subsurface;
+  Twl_subsurface = Pointer;
+  Pwl_subsurface = ^Twl_subsurface;
 
-  Twl_buffer=Pointer;
-  Pwl_buffer=^Twl_buffer;
+  Twl_buffer = Pointer;
+  Pwl_buffer = ^Twl_buffer;
 
-  Txdg_wm_base=Pointer;
-  Pxdg_wm_base=^Txdg_wm_base;
+  Txdg_wm_base = Pointer;
+  Pxdg_wm_base = ^Txdg_wm_base;
 
-  Tzwp_fullscreen_shell_v1=Pointer;
-  Pzwp_fullscreen_shell_v1=^Tzwp_fullscreen_shell_v1;
+  Tzwp_fullscreen_shell_v1 = Pointer;
+  Pzwp_fullscreen_shell_v1 = ^Tzwp_fullscreen_shell_v1;
 
-  Twp_viewporter=Pointer;
-  Pwp_viewporter=^Twp_viewporter;
+  Twp_viewporter = Pointer;
+  Pwp_viewporter = ^Twp_viewporter;
 
-  Tzwp_linux_dmabuf_v1=Pointer;
-  Pzwp_linux_dmabuf_v1=^Tzwp_linux_dmabuf_v1;
+  Tzwp_linux_dmabuf_v1 = Pointer;
+  Pzwp_linux_dmabuf_v1 = ^Tzwp_linux_dmabuf_v1;
 
-  Twp_single_pixel_buffer_manager_v1=Pointer;
-  Pwp_single_pixel_buffer_manager_v1=^Twp_single_pixel_buffer_manager_v1;
+  Twp_single_pixel_buffer_manager_v1 = Pointer;
+  Pwp_single_pixel_buffer_manager_v1 = ^Twp_single_pixel_buffer_manager_v1;
 
   // egl
-  Tkhronos_int32_t=int32;
-  TEGLint= Tkhronos_int32_t;
+  Tkhronos_int32_t = int32;
+  TEGLint = Tkhronos_int32_t;
 
 
   // ====
@@ -207,7 +168,7 @@ type
 
   Tgoffset = SizeInt;
 
-  Tuintptr_t=PtrUInt;
+  Tuintptr_t = PtrUInt;
 
   // gio
 
@@ -270,15 +231,22 @@ type
   // /usr/include/pwd.h
 type
   Tpasswd = record
-    pw_name: PChar;
-    pw_passwd: PChar;
+    pw_name: pchar;
+    pw_passwd: pchar;
     pw_uid: cuint;
     pw_gid: cuint;
-    pw_gecos: PChar;
-    pw_dir: PChar;
-    pw_shell: PChar;
+    pw_gecos: pchar;
+    pw_dir: pchar;
+    pw_shell: pchar;
   end;
   Ppasswd = ^Tpasswd;
+
+  // ==== Windows
+  {$ifdef windows}
+type
+  PID3D11Resource = Pointer;
+  {$endif}
+
 
   {$DEFINE read_interface}
   {$include glib280_includes.inc}

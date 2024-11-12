@@ -7,6 +7,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, ExtCtrls,
   FileUtil,
+  gst124_cuda,
   glib280, gst124, gstTools;
 
 type

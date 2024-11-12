@@ -17,13 +17,21 @@ uses
   {$ENDIF}
 
   {$DEFINE read_interface}
+
+  {$IFDEF LINUX}
   {$include gst/vulkan/xcb/gstvkdisplay_xcb.inc}
+  {$ENDIF}
+
   {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
+
+{$IFDEF LINUX}
 {$include gst/vulkan/xcb/gstvkdisplay_xcb.inc}
+{$ENDIF}
+
 {$UNDEF read_implementation}
 
 end.

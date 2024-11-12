@@ -6,14 +6,7 @@ interface
 {$PACKRECORDS C}
 {$ENDIF}
 
-const
-  {$IFDEF Linux}
-  cairo_lib = 'libcairo.so.2';
-  {$ENDIF}
-
-  {$IFDEF Windows}
-  cairo_lib = 'libcairo-2.dll';
-  {$ENDIF}
+{$include ../gnome_lib_const.inc}
 
   // === Eigenes
 type

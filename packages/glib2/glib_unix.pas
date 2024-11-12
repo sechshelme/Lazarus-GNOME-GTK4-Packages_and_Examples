@@ -3,7 +3,8 @@ unit glib_unix;
 interface
 
 uses
-  ctypes, glib280;
+  ctypes,
+  glib280;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
