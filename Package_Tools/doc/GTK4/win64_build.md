@@ -9,16 +9,14 @@ git clone https://gitlab.gnome.org/GNOME/gtk.git
 mkdir build_win64
 cd build_win64
 meson setup ../gtk/ --cross-file ../cross.ini
-
 ninja -j20
-
-
-# oder
-meson ../gtk-4.14.2/ --cross-file ../cross.ini -Dvulkan=disabled
-meson ../gtk-4.14.2/ --cross-file ../cross.ini -Dvulkan=disabled -Dgst-plugins-good:soup=disabled
-meson ../gtk-4.14.2/ --cross-file ../cross.ini -Dvulkan=disabled -Dmedia-gstreamer=disabled
-
 ```
+
+Versionsprüfung von subprojects umgehen.
+`meson setup ../gtk/ --wrap-mode=forcefallback`
+
+
+
 
 ```ini
 # cross.ini
