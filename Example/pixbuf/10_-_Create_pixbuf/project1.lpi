@@ -25,16 +25,16 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="fp_gdk_pixbuf2_package"/>
+      </Item>
+      <Item>
+        <PackageName Value="fp_GLIB2_package"/>
+      </Item>
+      <Item>
         <PackageName Value="fp_GTK4_package"/>
       </Item>
       <Item>
         <PackageName Value="fp_cairo_package"/>
-      </Item>
-      <Item>
-        <PackageName Value="fp_pixbuf2_package"/>
-      </Item>
-      <Item>
-        <PackageName Value="GLIB280_package"/>
       </Item>
     </RequiredPackages>
     <Units>

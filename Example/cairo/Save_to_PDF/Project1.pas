@@ -1,8 +1,8 @@
 program Project1;
 
 uses
-  cairo_pdf,
-  Cairo;
+  fp_cairo_pdf,
+  fp_cairo;
 
   procedure Create_Cairo;
   var

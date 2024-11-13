@@ -37,10 +37,10 @@
     </Files>
     <RequiredPkgs>
       <Item>
-        <PackageName Value="fp_cairo_package"/>
+        <PackageName Value="fp_gdk_pixbuf2_package"/>
       </Item>
       <Item>
-        <PackageName Value="fp_pixbuf2_package"/>
+        <PackageName Value="fp_cairo_package"/>
       </Item>
     </RequiredPkgs>
     <UsageOptions>

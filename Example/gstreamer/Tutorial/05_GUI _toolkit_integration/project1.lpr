@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  Math,
   ctypes,
   glib280,
   GTK4,
@@ -132,13 +131,9 @@ type
     status := g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
 
-
-
-
     Result := 0;
   end;
 
 begin
-  SetExceptionMask([exDenormalized, exInvalidOp, exOverflow, exPrecision, exUnderflow, exZeroDivide]);
   main(argc, argv);
 end.

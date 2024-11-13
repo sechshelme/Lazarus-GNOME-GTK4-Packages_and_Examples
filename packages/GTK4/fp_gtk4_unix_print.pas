@@ -5,7 +5,7 @@ unit fp_GTK4_unix_print;
 interface
 
 uses
-  ctypes, gdk2pixbuf, glib280, Cairo, pango, fp_GTK4;
+  fp_glib2, fp_cairo, fp_GTK4;
 
   {$IFDEF Linux}
 

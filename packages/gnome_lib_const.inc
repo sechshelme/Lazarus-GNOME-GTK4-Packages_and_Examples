@@ -1,6 +1,15 @@
   // {$include ../gnome_lib_const.inc}
 
+  // ==== stdio
 
+const
+  {$IFDEF Linux}
+  libc = 'c';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libc = 'msvcrt.dll';
+  {$ENDIF}
 
   // ==== Cairo
 
@@ -30,7 +39,7 @@ const
   libgmodule = 'libgmodule-2.0-0.dll';
   {$ENDIF}
 
-  // ==== gdk_pixbuf2
+  // ==== gdk2_pixbuf2
 
 const
   {$IFDEF Linux}
@@ -136,4 +145,3 @@ const
   libgstopencv = 'libgstopencv-1.0-0.gll';
   libgstisoff = 'libgstisoff-1.0-0.dll';
   {$endif}
-

@@ -9,8 +9,7 @@ uses
 
   GLIBTools,
 
-  pixbuf2,
-  Math;
+  pixbuf2;
 
   procedure on_activate(app: PGtkApplication; user_data: Tgpointer);
   const
@@ -124,6 +123,5 @@ uses
   end;
 
 begin
-  SetExceptionMask([exDenormalized, exInvalidOp, exOverflow, exPrecision, exUnderflow, exZeroDivide]);
   main;
 end.

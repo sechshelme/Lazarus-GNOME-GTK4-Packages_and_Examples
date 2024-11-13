@@ -3,7 +3,7 @@ unit fp_gst_wayland;
 interface
 
 uses
-  glib280,
+  fp_glib2,
   fp_gst,
   fp_gst_base,
   fp_gst_video,

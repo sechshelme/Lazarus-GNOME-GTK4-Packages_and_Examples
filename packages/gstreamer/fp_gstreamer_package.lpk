@@ -190,7 +190,7 @@
     </Files>
     <RequiredPkgs>
       <Item>
-        <PackageName Value="GLIB280_package"/>
+        <PackageName Value="fp_GLIB2_package"/>
       </Item>
       <Item>
         <PackageName Value="FCL"/>

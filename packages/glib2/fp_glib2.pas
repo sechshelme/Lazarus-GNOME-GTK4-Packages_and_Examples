@@ -1,8 +1,9 @@
-unit glib280;
+unit fp_glib2;
 
 interface
 
 uses
+  Math, // wegen "division_by_zero" in den clibs
   Strings,
   ctypes;
 
@@ -249,7 +250,7 @@ type
 
 
   {$DEFINE read_interface}
-  {$include glib280_includes.inc}
+  {$include fp_glib2_includes.inc}
 type
   TGValue = record
     g_type: TGType;
@@ -270,17 +271,19 @@ type
   PPGValue = ^PGValue;
 
 
-  {$include gobject280_includes.inc}
-  {$include gio280_includes.inc}
+  {$include fp_gobject2_includes.inc}
+  {$include fp_gio2_includes.inc}
   {$UNDEF read_interface}
 
 
 implementation
 
 {$DEFINE read_implementation}
-{$include glib280_includes.inc}
-{$include gobject280_includes.inc}
-{$include gio280_includes.inc}
+{$include fp_glib2_includes.inc}
+{$include fp_gobject2_includes.inc}
+{$include fp_gio2_includes.inc}
 {$UNDEF read_implementation}
 
+begin
+  SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide, exOverflow, exUnderflow, exPrecision]);
 end.

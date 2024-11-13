@@ -3,8 +3,8 @@ program Project1;
 // https://gitlab.freedesktop.org/cairo/cairo/-/issues/244
 
 uses
-  cairo_script,
-  Cairo;
+  fp_cairo_script,
+  fp_cairo;
 
   procedure Create_Cairo;
   var

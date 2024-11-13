@@ -8,7 +8,7 @@ uses
   {$IFDEF Linux}
   x, xlib,
   {$ENDIF}
-  ctypes, pango, gdk2pixbuf, glib280, fp_cairo;
+  ctypes, pango, fp_glib2, fp_gdk_pixbuf2, fp_cairo;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

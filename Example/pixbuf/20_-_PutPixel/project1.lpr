@@ -2,14 +2,11 @@ program project1;
 
 uses
   ctypes,
-  glib280,
-  GTK4,
-  GDK4,
+  fp_glib2,
+  fp_GTK4,
+  fp_gdk_pixbuf2,
 
-  GLIBTools,
-
-  pixbuf2,
-  Math;
+  fp_GLIBTools;
 
   procedure PutPixel(pixbuf: PGdkPixbuf; x, y: cint; r, g, b, a: Tguchar);
   var
@@ -108,6 +105,5 @@ uses
   end;
 
 begin
-  SetExceptionMask([exDenormalized, exInvalidOp, exOverflow, exPrecision, exUnderflow, exZeroDivide]);
   main;
 end.

@@ -2,14 +2,12 @@ program project1;
 
 uses
   ctypes,
-  glib280,
+  fp_glib2,
   fp_GTK4,
   fp_GDK4,
+  fp_gdk_pixbuf2,
 
-  GLIBTools,
-
-  pixbuf2,
-  Math;
+  fp_GLIBTools;
 
   procedure on_activate(app: PGtkApplication; user_data: Tgpointer);
   const
@@ -121,6 +119,5 @@ uses
   end;
 
 begin
-  SetExceptionMask([exDenormalized, exInvalidOp, exOverflow, exPrecision, exUnderflow, exZeroDivide]);
   main;
 end.

@@ -1,36 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="5">
-    <Name Value="GLIB280_package"/>
+    <Name Value="fp_gdk_pixbuf2_package"/>
     <Type Value="RunAndDesignTime"/>
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <Libraries Value="/home/tux/.wine/drive_c/windows/system32/"/>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
     <Files>
       <Item>
-        <Filename Value="glib280.pas"/>
-        <UnitName Value="glib280"/>
-      </Item>
-      <Item>
-        <Filename Value="glibtools.pas"/>
-        <UnitName Value="GLIBTools"/>
-      </Item>
-      <Item>
-        <Filename Value="gmodule.pas"/>
-        <UnitName Value="gmodule"/>
-      </Item>
-      <Item>
-        <Filename Value="glib_unix.pas"/>
-        <UnitName Value="glib_unix"/>
+        <Filename Value="fp_gdk_pixbuf2.pas"/>
+        <UnitName Value="fp_gdk_pixbuf2"/>
       </Item>
     </Files>
     <RequiredPkgs>
       <Item>
-        <PackageName Value="FCL"/>
+        <PackageName Value="fp_GLIB2_package"/>
       </Item>
     </RequiredPkgs>
     <UsageOptions>

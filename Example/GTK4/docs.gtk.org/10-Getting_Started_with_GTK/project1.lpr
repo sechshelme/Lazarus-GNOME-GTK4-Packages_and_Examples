@@ -2,9 +2,8 @@ program project1;
 
 uses
   ctypes,
-  Math,
-  glib280,
-  GTK4;
+  fp_glib2,
+  fp_GTK4;
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer);
   var
@@ -31,6 +30,5 @@ uses
   end;
 
 begin
-  SetExceptionMask([exDenormalized, exInvalidOp, exOverflow, exPrecision, exUnderflow, exZeroDivide]);
   main(argc, argv);
 end.

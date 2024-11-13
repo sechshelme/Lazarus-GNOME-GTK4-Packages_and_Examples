@@ -2,7 +2,6 @@ program project1;
 
 uses
   ctypes,
-  Math,
   glib280;
 
   // https://github.com/ToshioCP/Gobject-tutorial/blob/main/gfm/sec3.md
@@ -115,7 +114,5 @@ type
   end;
 
 begin
-
-  SetExceptionMask([exDenormalized, exInvalidOp, exOverflow, exPrecision, exUnderflow, exZeroDivide]);
   main(argc, argv);
 end.

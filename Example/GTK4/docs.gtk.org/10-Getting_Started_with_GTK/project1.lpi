@@ -25,10 +25,10 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="GLIB280_package"/>
+        <PackageName Value="fp_GTK4_package"/>
       </Item>
       <Item>
-        <PackageName Value="GTK4_package"/>
+        <PackageName Value="fp_GLIB2_package"/>
       </Item>
     </RequiredPackages>
     <Units>
@@ -47,9 +47,6 @@
       <IncludeFiles Value="$(ProjOutDir)"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
-    <CodeGeneration>
-      <TargetOS Value="win64"/>
-    </CodeGeneration>
     <Linking>
       <Debugging>
         <DebugInfoType Value="dsDwarf3"/>

@@ -2,13 +2,13 @@
   This source is only used to compile and install the package.
  }
 
-unit fp_pixbuf2_package;
+unit fp_gdk_pixbuf2_package;
 
 {$warn 5023 off : no warning about unused units}
 interface
 
 uses
-  fp_pixbuf2, LazarusPackageIntf;
+  fp_gdk_pixbuf2, LazarusPackageIntf;
 
 implementation
 
@@ -17,5 +17,5 @@ begin
 end;
 
 initialization
-  RegisterPackage('fp_pixbuf2_package', @Register);
+  RegisterPackage('fp_gdk_pixbuf2_package', @Register);
 end.

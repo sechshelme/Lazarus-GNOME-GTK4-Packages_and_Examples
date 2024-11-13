@@ -1,9 +1,9 @@
-unit GLIBTools;
+unit fp_GLIBTools;
 
 interface
 
 uses
-  glib280;
+  fp_glib2;
 
 procedure GObjectShowProperty(obj: Pointer);
 

@@ -1,9 +1,9 @@
 program Project1;
 
 uses
-  cairo_svg,
-  cairo_tee,
-  Cairo;
+  fp_cairo_svg,
+  fp_cairo_tee,
+  fp_cairo;
 
   // https://www.cairographics.org/documentation/cairomm/reference/svg-surface_8cc-example.html
 

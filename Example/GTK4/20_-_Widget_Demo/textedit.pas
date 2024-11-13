@@ -4,7 +4,7 @@ unit TextEdit;
 interface
 
 uses
-  glib280, GTK4;
+  fp_glib2, fp_GTK4;
 
 function Create_TextView: PGtkWidget;
 

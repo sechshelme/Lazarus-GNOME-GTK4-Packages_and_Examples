@@ -5,7 +5,7 @@ unit fp_GSK4_broadway;
 interface
 
 uses
-  ctypes, gdk2pixbuf, glib280, Cairo, pango, fp_GSK4;
+  fp_glib2, fp_cairo, fp_GSK4;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

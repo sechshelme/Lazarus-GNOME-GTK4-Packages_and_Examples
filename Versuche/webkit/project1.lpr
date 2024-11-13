@@ -2,7 +2,6 @@ program project1;
 
 uses
   ctypes,
-  Math,
   glib280,
   GTK4;
 
@@ -56,6 +55,5 @@ const
   end;
 
 begin
-  SetExceptionMask([exDenormalized, exInvalidOp, exOverflow, exPrecision, exUnderflow, exZeroDivide]);
   main(argc, argv);
 end.

@@ -7,8 +7,8 @@ uses
   xutil,
   keysym,
   x,
-  cairo,
-  cairo_xlib;
+  fp_cairo,
+  fp_cairo_xlib;
 
 type
 

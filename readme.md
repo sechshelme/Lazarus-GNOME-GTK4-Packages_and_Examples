@@ -1,11 +1,24 @@
 # Inhalt
-| **Paket Name:**    | **Version:** |
-|----------      |----------|
-| **glib2**       | 2.80.0   |
-| **Cairo**      | 1.18.1   |
-| **GdkPixbuf2** | 2.42.10  |
-| **GTK4**       | 4.14.2   |
-| **gstreamer**  | 1.24.2   |
+| **Paket Name:** | **Version:** |
+|----------       |----------    |
+| **glib2**       | 2.80.0       |
+| **Cairo**       | 1.18.1       |
+| **GdkPixbuf2**  | 2.42.10      |
+| **GTK4**        | 4.14.2       |
+| **gstreamer**   | 1.24.2       |
+
+# Wichtiger Hinweis
+Da in den glib-Funktionen ein `invalid floating point operation` ausgelöst werden kann braucht ee folgendes:
+```pascal
+uses
+  math;
+begin
+  SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide, exOverflow, exUnderflow, exPrecision]);
+  GTK_blabla;
+end.
+```
+Da dies in der glib2-packages schon gemacht wird, kann man auf dies bei Verwendung der Packages in eigenen Programmen verzichten.
+
 
 ## Paketinfo
 - `pkg-config --cflags --libs gstreamer-1.0 gstreamer-pbutils-1.0`

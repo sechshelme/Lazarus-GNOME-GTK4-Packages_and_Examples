@@ -1,15 +1,19 @@
 program project1;
 
+{$ASMMODE Intel}
+
+
+
 // https://www.docs4dev.com/docs/gtk/4.0.0/ch01s05.html#google_vignette
 
 uses
-  Math,
-  glib280,
+  SysUtils,
+  fp_glib2,
 
-  GDK4,
-  GSK4,
-  GTK4,
-  GTK4_unix_print,
+  fp_GDK4,
+  fp_GSK4,
+  fp_GTK4,
+  fp_GTK4_unix_print,
   //  GDK4_broadway,
   //  GSK4_broadway,
 
@@ -364,6 +368,5 @@ const
   end;
 
 begin
-  SetExceptionMask([exDenormalized, exInvalidOp, exOverflow, exPrecision, exUnderflow, exZeroDivide]);
   main;
 end.

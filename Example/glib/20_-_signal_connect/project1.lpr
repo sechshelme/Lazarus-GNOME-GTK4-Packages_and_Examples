@@ -1,15 +1,14 @@
 program project1;
 
 uses
-  glib2,
-  gtk2;
+  fp_glib2;
 
 var
-  signal: guint;
+  signal: Tguint;
   klass: Pointer;
-  obj: gpointer;
+  obj: Tgpointer;
 
-  procedure test_cb(self: PGObject; Data: gpointer);
+  procedure test_cb(self: PGObject; Data: Tgpointer);
   var
     c: PChar absolute Data;
   begin

@@ -1,10 +1,10 @@
-unit glib_unix;
+unit fp_glib_unix;
 
 interface
 
 uses
   ctypes,
-  glib280;
+  fp_glib2;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

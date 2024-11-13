@@ -8,9 +8,6 @@
 
 {$IFDEF read_interface}
 
-
-function GTK_CELL_AREA_WARN_INVALID_CELL_PROPERTY_ID(obj, property_id, pspec: longint): longint;
-
 type
   TGtkCellCallback = function(renderer: PGtkCellRenderer; Data: Tgpointer): Tgboolean; cdecl;
   TGtkCellAllocCallback = function(renderer: PGtkCellRenderer; cell_area: PGdkRectangle; cell_background: PGdkRectangle; Data: Tgpointer): Tgboolean; cdecl;
@@ -114,6 +111,8 @@ procedure gtk_cell_area_request_renderer(area: PGtkCellArea; renderer: PGtkCellR
   minimum_size: Plongint; natural_size: Plongint); cdecl; external libgtk4;
 procedure _gtk_cell_area_set_cell_data_func_with_proxy(area: PGtkCellArea; cell: PGtkCellRenderer; func: TGFunc; func_data: Tgpointer; Destroy: TGDestroyNotify;
   proxy: Tgpointer); cdecl; external libgtk4;
+
+function GTK_CELL_AREA_WARN_INVALID_CELL_PROPERTY_ID(obj, property_id, pspec: longint): longint;
 
 // === Konventiert am: 21-7-24 16:30:57 ===
 

@@ -2,12 +2,11 @@ program project1;
 
 uses
   ctypes,
-  Math,
   SysUtils,
-  cairo218,
-  glib280,
-  GDK4,
-  GTK4;
+  fp_cairo,
+  fp_glib2,
+  fp_GDK4,
+  fp_GTK4;
 
   //  https://docs.gtk.org/gtk4/getting_started.html#drawing-in-response-to-input
 
@@ -144,6 +143,5 @@ var
   end;
 
 begin
-  SetExceptionMask([exDenormalized, exInvalidOp, exOverflow, exPrecision, exUnderflow, exZeroDivide]);
   main(argc, argv);
 end.

@@ -4,7 +4,7 @@ unit ScrollBox;
 interface
 
 uses
-  glib280, GTK4;
+  fp_glib2, fp_GTK4;
 
 function Create_ScrollBox: PGtkWidget;
 function Create_ScaleButton: PGtkWidget;

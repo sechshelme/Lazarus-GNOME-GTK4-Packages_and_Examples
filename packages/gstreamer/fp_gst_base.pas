@@ -3,7 +3,7 @@ unit fp_gst_base;
 interface
 
 uses
-  glib280,
+  fp_glib2,
   fp_gst,
   Strings,
   ctypes;

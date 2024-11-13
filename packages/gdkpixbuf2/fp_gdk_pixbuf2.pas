@@ -1,11 +1,10 @@
-unit fp_pixbuf2;
+unit fp_gdk_pixbuf2;
 
 interface
 
 uses
-  ctypes,
-  glib280,
-  gmodule;
+  fp_glib2,
+  fp_gmodule;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

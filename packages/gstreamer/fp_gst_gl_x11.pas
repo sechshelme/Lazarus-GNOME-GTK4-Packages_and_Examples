@@ -6,7 +6,7 @@ uses
   {$ifdef Linux}
   x, xlib,
   {$endif}
-  glib280,
+  fp_glib2,
   fp_gst,
   fp_gst_base,
   fp_gst_video,

@@ -2,7 +2,6 @@ program project1;
 
 uses
   ctypes,
-  Math,
   glib280,
   tdouble;
 
@@ -93,7 +92,6 @@ d3 := t_double_add(d1, d2);
   end;
 
 begin
-  SetExceptionMask([exDenormalized, exInvalidOp, exOverflow, exPrecision, exUnderflow, exZeroDivide]);
   main(argc, argv);
   WriteLn('--- ende --');
 end.

@@ -1,9 +1,9 @@
-unit gmodule;
+unit fp_gmodule;
 
 interface
 
 uses
-  glib280;
+  fp_glib2;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

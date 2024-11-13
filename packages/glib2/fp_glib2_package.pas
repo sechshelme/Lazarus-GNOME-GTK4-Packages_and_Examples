@@ -2,13 +2,13 @@
   This source is only used to compile and install the package.
  }
 
-unit GLIB280_package;
+unit fp_GLIB2_package;
 
 {$warn 5023 off : no warning about unused units}
 interface
 
 uses
-  glib280, GLIBTools, gmodule, glib_unix, LazarusPackageIntf;
+  fp_glib2, fp_glibtools, fp_glib_unix, fp_gmodule, LazarusPackageIntf;
 
 implementation
 
@@ -17,5 +17,5 @@ begin
 end;
 
 initialization
-  RegisterPackage('GLIB280_package', @Register);
+  RegisterPackage('fp_GLIB2_package', @Register);
 end.

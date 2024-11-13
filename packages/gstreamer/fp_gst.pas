@@ -6,7 +6,7 @@ uses
   {$ifdef Linux}
   x, xlib,
   {$endif}
-  glib280,
+  fp_glib2,
   Strings,
   ctypes;
 

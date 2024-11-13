@@ -3,7 +3,7 @@ unit fp_gst_audio;
 interface
 
 uses
-  glib280,
+  fp_glib2,
   fp_gst,
   fp_gst_base,
   Strings,

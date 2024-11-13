@@ -30,7 +30,7 @@
     </RunParams>
     <RequiredPackages Count="1">
       <Item1>
-        <PackageName Value="cairo_package"/>
+        <PackageName Value="fp_cairo_package"/>
       </Item1>
     </RequiredPackages>
     <Units Count="1">

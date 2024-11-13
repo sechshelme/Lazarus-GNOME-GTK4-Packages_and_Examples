@@ -2,9 +2,8 @@ program project1;
 
 uses
   ctypes,
-  Math,
   SysUtils,
-  glib280,
+  fp_glib2,
   fp_GTK4;
 
   procedure print_hello(widget: PGtkWidget; Data: Tgpointer);
@@ -71,6 +70,5 @@ uses
   end;
 
 begin
-  SetExceptionMask([exDenormalized, exInvalidOp, exOverflow, exPrecision, exUnderflow, exZeroDivide]);
   main(argc, argv);
 end.

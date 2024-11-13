@@ -2,7 +2,6 @@ program project1;
 
 uses
   ctypes,
-  Math,
   glib280;
 
   // https://developer.ibm.com/tutorials/l-glib/
@@ -35,7 +34,6 @@ uses
   end;
 
 begin
-  SetExceptionMask([exDenormalized, exInvalidOp, exOverflow, exPrecision, exUnderflow, exZeroDivide]);
   main(argc, argv);
   WriteLn('--- ende --');
 end.

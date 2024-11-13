@@ -1,8 +1,8 @@
 program Project1;
 
 uses
-  cairo_ps,
-  Cairo;
+  fp_cairo_ps,
+  fp_cairo;
 
   // https://www.cairographics.org/documentation/cairomm/reference/svg-surface_8cc-example.html
 

@@ -1,7 +1,7 @@
 program Project1;
 
 uses
-  Cairo;
+  fp_cairo;
 
   procedure Create_Cairo;
   var

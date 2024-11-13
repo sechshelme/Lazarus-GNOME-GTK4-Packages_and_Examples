@@ -3,20 +3,13 @@ program project1;
 uses
   ctypes,
   Strings,
-  Math,
   BaseUnix,
-  glib280;
+  fp_glib2;
 
-const
-  lib_stdio = 'c';
-type
-  TFILE = record
-  end;
-  PFILE = ^TFILE;
 var
-  stdin: PFILE; cvar;external lib_stdio;
-  stdout: PFILE; cvar;external lib_stdio;
-  stderr: PFILE; cvar;external lib_stdio;
+  stdin: PFILE; cvar;external libc;
+  stdout: PFILE; cvar;external libc;
+  stderr: PFILE; cvar;external libc;
 
   // https://fluendo.com/fluendo-sdk/docs/tutorials/playback_controls.html
   // https://stackoverflow.com/questions/75877505/application-get-100-cpu-after-first-fireing-of-gtk3-g-io-add-watch-of-a-named
@@ -69,6 +62,5 @@ var
   end;
 
 begin
-  SetExceptionMask([exDenormalized, exInvalidOp, exOverflow, exPrecision, exUnderflow, exZeroDivide]);
   main(argc, argv);
 end.

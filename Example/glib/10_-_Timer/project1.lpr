@@ -2,8 +2,7 @@ program project1;
 
 uses
   ctypes,
-  Math,
-  glib280;
+  fp_glib2;
 
   function timerFunc(user_data: Tgpointer): Tgboolean; cdecl;
   var
@@ -34,6 +33,5 @@ uses
   end;
 
 begin
-  SetExceptionMask([exDenormalized, exInvalidOp, exOverflow, exPrecision, exUnderflow, exZeroDivide]);
   main(argc, argv);
 end.

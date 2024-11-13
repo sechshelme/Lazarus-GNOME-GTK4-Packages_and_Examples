@@ -3,7 +3,7 @@ unit fp_gst_webrtc_nice;
 interface
 
 uses
-  glib280,
+  fp_glib2,
   fp_gst,
   fp_gst_base,
   fp_gst_sdp,
