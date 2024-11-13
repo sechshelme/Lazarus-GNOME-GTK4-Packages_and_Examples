@@ -5,8 +5,8 @@ uses
   ctypes,
   gl,
   oglGLFW3,
-  glib280,
-  gst124;
+  fp_glib2,
+  fp_gst;
 
 var
   pipeline, sink: PGstElement;

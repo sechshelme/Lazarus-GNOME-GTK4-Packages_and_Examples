@@ -5,7 +5,7 @@ unit tdouble;
 interface
 
 uses
-  ctypes, glib280;
+  ctypes, fp_glib2;
 
 
 type

@@ -6,7 +6,7 @@ interface
 
 uses
   ctypes,
-  glib280;
+  fp_glib2;
 
 type
   TTDouble = record

@@ -7,8 +7,8 @@ uses
   oglShader,
   oglGLFW3,
   oglTextur,
-  glib280,
-  gst124;
+  fp_glib2,
+  fp_gst;
 
 const
   Width = 640;

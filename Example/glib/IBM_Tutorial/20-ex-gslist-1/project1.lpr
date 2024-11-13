@@ -2,7 +2,7 @@ program project1;
 
 uses
   ctypes,
-  glib280;
+  fp_glib2;
 
   // https://developer.ibm.com/tutorials/l-glib/
 

@@ -2,7 +2,8 @@ program project1;
 
 uses
   ctypes,
-  glib280, tdouble;
+  fp_glib2,
+  tdouble;
 
   // https://github.com/ToshioCP/Gobject-tutorial/blob/main/gfm/sec3.md
   // https://github.com/ToshioCP/Gobject-tutorial/blob/main/src/tdouble1/tdouble.c
