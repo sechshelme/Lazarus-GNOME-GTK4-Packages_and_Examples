@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="5">
+    <Name Value="fp_gstreamer_package"/>
+    <Type Value="RunAndDesignTime"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+    </CompilerOptions>
+    <Files>
+      <Item>
+        <Filename Value="fp_gst_webrtc_nice.pas"/>
+        <UnitName Value="fp_gst_webrtc_nice"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_webrtc.pas"/>
+        <UnitName Value="fp_gst_webrtc"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_wayland.pas"/>
+        <UnitName Value="fp_gst_wayland"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_vulkan_xcb.pas"/>
+        <UnitName Value="fp_gst_vulkan_xcb"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_vulkan_wayland.pas"/>
+        <UnitName Value="fp_gst_vulkan_wayland"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_vulkan.pas"/>
+        <UnitName Value="fp_gst_vulkan"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_video.pas"/>
+        <UnitName Value="fp_gst_video"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_va.pas"/>
+        <UnitName Value="fp_gst_va"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_uridownloader.pas"/>
+        <UnitName Value="fp_gst_uridownloader"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_transcoder.pas"/>
+        <UnitName Value="fp_gst_transcoder"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gsttools.pas"/>
+        <UnitName Value="fp_gstTools"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_tag.pas"/>
+        <UnitName Value="fp_gst_tag"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_sdp.pas"/>
+        <UnitName Value="fp_gst_sdp"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_sctp.pas"/>
+        <UnitName Value="fp_gst_sctp"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_rtsp.pas"/>
+        <UnitName Value="fp_gst_rtsp"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_rtp.pas"/>
+        <UnitName Value="fp_gst_rtp"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_riff.pas"/>
+        <UnitName Value="fp_gst_riff"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_player.pas"/>
+        <UnitName Value="fp_gst_player"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_play.pas"/>
+        <UnitName Value="fp_gst_play"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_pbutils.pas"/>
+        <UnitName Value="fp_gst_pbutils"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_opencv.pas"/>
+        <UnitName Value="fp_gst_opencv"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_net.pas"/>
+        <UnitName Value="fp_gst_net"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_mse.pas"/>
+        <UnitName Value="fp_gst_mse"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_mpegts.pas"/>
+        <UnitName Value="fp_gst_mpegts"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_isoff.pas"/>
+        <UnitName Value="fp_gst_isoff"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_interfaces.pas"/>
+        <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="fp_gst_interfaces"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_insertbin.pas"/>
+        <UnitName Value="fp_gst_insertbin"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_gl_x11.pas"/>
+        <UnitName Value="fp_gst_gl_x11"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_gl_wayland.pas"/>
+        <UnitName Value="fp_gst_gl_wayland"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_gl_glprototypes.pas"/>
+        <UnitName Value="fp_gst_gl_glprototypes"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_gl_egl.pas"/>
+        <UnitName Value="fp_gst_gl_egl"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_gl.pas"/>
+        <UnitName Value="fp_gst_gl"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_fft.pas"/>
+        <UnitName Value="fp_gst_fft"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_cuda.pas"/>
+        <UnitName Value="fp_gst_cuda"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_controller.pas"/>
+        <UnitName Value="fp_gst_controller"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_codecparsers.pas"/>
+        <UnitName Value="fp_gst_codecparsers"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_check.pas"/>
+        <UnitName Value="fp_gst_check"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_basecamerabinsrc.pas"/>
+        <UnitName Value="fp_gst_basecamerabinsrc"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_base.pas"/>
+        <UnitName Value="fp_gst_base"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_audio.pas"/>
+        <UnitName Value="fp_gst_audio"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_app.pas"/>
+        <UnitName Value="fp_gst_app"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_analytics.pas"/>
+        <UnitName Value="fp_gst_analytics"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_allocators.pas"/>
+        <UnitName Value="fp_gst_allocators"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst.pas"/>
+        <UnitName Value="fp_gst"/>
+      </Item>
+    </Files>
+    <RequiredPkgs>
+      <Item>
+        <PackageName Value="GLIB280_package"/>
+      </Item>
+      <Item>
+        <PackageName Value="FCL"/>
+      </Item>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <UseFileFilters Value="True"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

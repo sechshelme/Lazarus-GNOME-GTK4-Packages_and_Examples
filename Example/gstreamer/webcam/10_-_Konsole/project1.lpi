@@ -25,7 +25,7 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="gstreamer_package"/>
+        <PackageName Value="fp_gstreamer_package"/>
       </Item>
       <Item>
         <PackageName Value="GLIB280_package"/>

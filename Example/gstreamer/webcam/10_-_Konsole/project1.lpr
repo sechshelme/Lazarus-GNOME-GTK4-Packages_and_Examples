@@ -5,7 +5,7 @@ uses
   Crt,
   ctypes,
   glib280,
-  gst124;
+  fp_gst;
 
   var
     pipeline: PGstElement;

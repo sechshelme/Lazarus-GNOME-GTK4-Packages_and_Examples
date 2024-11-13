@@ -5,7 +5,7 @@ uses
   Math,
   SysUtils,
   glib280,
-  GTK4;
+  fp_GTK4;
 
   procedure print_hello(widget: PGtkWidget; Data: Tgpointer);
   var

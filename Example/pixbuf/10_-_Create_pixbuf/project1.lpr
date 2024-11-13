@@ -3,8 +3,8 @@ program project1;
 uses
   ctypes,
   glib280,
-  GTK4,
-  GDK4,
+  fp_GTK4,
+  fp_GDK4,
 
   GLIBTools,
 
@@ -14,7 +14,6 @@ uses
   procedure on_activate(app: PGtkApplication; user_data: Tgpointer);
   const
     BUF_SIZE = 128;
-    c:clongdouble
   var
     pixdata: array of uint32 = nil;
     byteData: array of byte = nil;
@@ -71,8 +70,6 @@ uses
       g_print('pixbuf2 error');
       exit;
     end;
-
-    g_asse
 
     picture2 := gtk_picture_new_for_pixbuf(pixbuf2);
     gtk_widget_set_hexpand(picture2, True);
