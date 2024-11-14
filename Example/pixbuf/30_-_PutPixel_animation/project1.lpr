@@ -15,7 +15,7 @@ var
   pixbuf_animation: PGdkPixbufAnimation;
   iter: PGdkPixbufAnimationIter;
 
-  procedure draw_func(drawing_area2: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
+  procedure draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
   var
     pixbuf: PGdkPixbuf;
   begin
@@ -24,7 +24,6 @@ var
       gdk_cairo_set_source_pixbuf(cr, pixbuf, 0, 0);
     end;
     cairo_paint(cr);
-    WriteLn('draw');
   end;
 
   function timer_func(user_data: Tgpointer): Tgboolean; cdecl;
@@ -42,6 +41,7 @@ var
   procedure on_activate(app: PGtkApplication; user_data: Tgpointer);
   var
     time: TGTimeVal;
+    box: Tgpointer;
 
   begin
     // === Widget
@@ -49,31 +49,32 @@ var
     window := g_object_new(GTK_TYPE_WINDOW,
       'application', app,
       'title', 'Pixbuf Demo',
-      'width-request', 150,
-      'height-request', 150,
       'default-width', 320,
       'default-height', 200,
-      'maximized', gFalse,
       nil);
 
-    //box := g_object_new(GTK_TYPE_BOX,
-    //  'orientation', GTK_ORIENTATION_VERTICAL,
-    //  'hexpand', gTrue,
-    //  'vexpand', gTrue,
-    //  'margin-start', 10,
-    //  'margin-end', 10,
-    //  'margin-top', 10,
-    //  'margin-bottom', 10,
-    //  'spacing', 10,
-    //  nil);
+    box := g_object_new(GTK_TYPE_BOX,
+      'orientation', GTK_ORIENTATION_VERTICAL,
+      'hexpand', gTrue,
+      'vexpand', gTrue,
+      'margin-start', 10,
+      'margin-end', 10,
+      'margin-top', 10,
+      'margin-bottom', 10,
+      'spacing', 10,
+      nil);
 
-    drawing_area := gtk_drawing_area_new;
-    gtk_window_set_child(GTK_WINDOW(window), drawing_area);
-//    gtk_box_append(GTK_BOX(box), drawing_area);
+
+    drawing_area := g_object_new(GTK_TYPE_DRAWING_AREA,
+      'width-request', 320,
+      'height-request', 320,
+      nil);
+    gtk_box_append(GTK_BOX(box), drawing_area);
 
     pixbuf_animation := gdk_pixbuf_animation_new_from_file('uhr.gif', nil);
     if pixbuf_animation <> nil then begin
       WriteLn('pixbuf io.');
+      g_print('Animation Size: %d x %d'#10, gdk_pixbuf_animation_get_width(pixbuf_animation),gdk_pixbuf_animation_get_height(pixbuf_animation));
       g_get_current_time(@time);
       iter := gdk_pixbuf_animation_get_iter(pixbuf_animation, @time);
 
@@ -82,7 +83,7 @@ var
       gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(drawing_area), @draw_func, nil, nil);
     end;
 
-//    gtk_window_set_child(GTK_WINDOW(window), box);
+    gtk_window_set_child(GTK_WINDOW(window), box);
     gtk_widget_show(window);
   end;
 
