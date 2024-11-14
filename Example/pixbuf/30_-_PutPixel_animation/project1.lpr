@@ -1,7 +1,7 @@
 program project1;
 
 uses
-  ctypes,
+  ctypes, x,
   fp_cairo,
   fp_glib2,
   fp_GTK4,
@@ -41,7 +41,13 @@ var
   procedure on_activate(app: PGtkApplication; user_data: Tgpointer);
   var
     time: TGTimeVal;
-    box: Tgpointer;
+    box, Label1: Tgpointer;
+    err: PGError;
+
+    AniProp:record
+      width, height:LongInt;
+      end;
+    pc: Pgchar;
 
   begin
     // === Widget
@@ -49,8 +55,9 @@ var
     window := g_object_new(GTK_TYPE_WINDOW,
       'application', app,
       'title', 'Pixbuf Demo',
-      'default-width', 320,
+      'default-width', 200,
       'default-height', 200,
+      'resizable', gFalse,
       nil);
 
     box := g_object_new(GTK_TYPE_BOX,
@@ -64,24 +71,47 @@ var
       'spacing', 10,
       nil);
 
+    err := nil;
+    pixbuf_animation := gdk_pixbuf_animation_new_from_file('pinguin.gif', @err);
+    if pixbuf_animation = nil then begin
+      g_printerr('Ungültige Animations-Datei !'#10);
+      g_printerr('  Fehlerbereich: %s'#10, g_quark_to_string(err^.domain));
+      g_printerr('  Fehlercode: %d'#10, err^.code);
+      g_printerr('  Fehlermeldung: %s#10', err^.message);
+      Exit;
+    end;
+   AniProp.width:=   gdk_pixbuf_animation_get_width(pixbuf_animation);
+     AniProp.height:=   gdk_pixbuf_animation_get_height(pixbuf_animation);
+     g_print('Animation width: %d'#10, AniProp.width);
+     g_print('Animation height: %d'#10, AniProp.height);
+
+    pc:= g_malloc(100);
+     g_snprintf(pc,100, 'Animation: '#10'  width: %d'#10'  height: %d'#10,AniProp.width,AniProp.height);
+
+    g_get_current_time(@time);
+    iter := gdk_pixbuf_animation_get_iter(pixbuf_animation, @time);
+
+    g_timeout_add(gdk_pixbuf_animation_iter_get_delay_time(iter), @timer_func, nil);
+
+
 
     drawing_area := g_object_new(GTK_TYPE_DRAWING_AREA,
-      'width-request', 320,
-      'height-request', 320,
+      'width-request', AniProp.width,
+      'height-request', AniProp.height,
       nil);
     gtk_box_append(GTK_BOX(box), drawing_area);
+    gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(drawing_area), @draw_func, nil, nil);
 
-    pixbuf_animation := gdk_pixbuf_animation_new_from_file('uhr.gif', nil);
-    if pixbuf_animation <> nil then begin
-      WriteLn('pixbuf io.');
-      g_print('Animation Size: %d x %d'#10, gdk_pixbuf_animation_get_width(pixbuf_animation),gdk_pixbuf_animation_get_height(pixbuf_animation));
-      g_get_current_time(@time);
-      iter := gdk_pixbuf_animation_get_iter(pixbuf_animation, @time);
 
-      g_timeout_add(gdk_pixbuf_animation_iter_get_delay_time(iter), @timer_func, nil);
+    Label1 := g_object_new(GTK_TYPE_LABEL,
+      'label', pc,
+      nil);
+    g_free(pc);
+    GObjectShowProperty(window);
+    gtk_box_append(GTK_BOX(box), Label1);
 
-      gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(drawing_area), @draw_func, nil, nil);
-    end;
+
+
 
     gtk_window_set_child(GTK_WINDOW(window), box);
     gtk_widget_show(window);
