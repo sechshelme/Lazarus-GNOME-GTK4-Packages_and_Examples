@@ -1,7 +1,8 @@
 program project1;
 
 uses
-  ctypes, x,
+  ctypes,
+  x,
   fp_cairo,
   fp_glib2,
   fp_GTK4,
@@ -9,6 +10,8 @@ uses
   fp_gdk_pixbuf2,
 
   fp_GLIBTools;
+
+// https://www.perplexity.ai/search/was-macht-diese-funktion-gdk-p-U_1J7dpKT76ybVtLBO9pTQ
 
 var
   window, drawing_area: PGtkWidget;
@@ -19,7 +22,10 @@ var
   var
     pixbuf: PGdkPixbuf;
   begin
+    gdk_pixbuf_animation_iter_advance(iter, nil);
+
     pixbuf := gdk_pixbuf_animation_iter_get_pixbuf(iter);
+
     if pixbuf <> nil then begin
       gdk_cairo_set_source_pixbuf(cr, pixbuf, 0, 0);
     end;
@@ -27,12 +33,7 @@ var
   end;
 
   function timer_func(user_data: Tgpointer): Tgboolean; cdecl;
-  var
-    time: TGTimeVal;
   begin
-    g_get_current_time(@time);
-    gdk_pixbuf_animation_iter_advance(iter, @time);
-
     gtk_widget_queue_draw(drawing_area);
 
     Result := True;
@@ -40,12 +41,12 @@ var
 
   procedure on_activate(app: PGtkApplication; user_data: Tgpointer);
   var
-    time: TGTimeVal;
     box, Label1: Tgpointer;
     err: PGError;
 
-    AniProp:record
-      width, height:LongInt;
+    AniProp: record
+    Width, Height, delay: longint;
+
       end;
     pc: Pgchar;
 
@@ -80,38 +81,34 @@ var
       g_printerr('  Fehlermeldung: %s#10', err^.message);
       Exit;
     end;
-   AniProp.width:=   gdk_pixbuf_animation_get_width(pixbuf_animation);
-     AniProp.height:=   gdk_pixbuf_animation_get_height(pixbuf_animation);
-     g_print('Animation width: %d'#10, AniProp.width);
-     g_print('Animation height: %d'#10, AniProp.height);
+    AniProp.Width := gdk_pixbuf_animation_get_width(pixbuf_animation);
+    AniProp.Height := gdk_pixbuf_animation_get_height(pixbuf_animation);
+    g_print('Animation width: %d'#10, AniProp.Width);
+    g_print('Animation height: %d'#10, AniProp.Height);
 
-    pc:= g_malloc(100);
-     g_snprintf(pc,100, 'Animation: '#10'  width: %d'#10'  height: %d'#10,AniProp.width,AniProp.height);
+    iter := gdk_pixbuf_animation_get_iter(pixbuf_animation, nil);
 
-    g_get_current_time(@time);
-    iter := gdk_pixbuf_animation_get_iter(pixbuf_animation, @time);
-
-    g_timeout_add(gdk_pixbuf_animation_iter_get_delay_time(iter), @timer_func, nil);
-
-
+    AniProp.delay := gdk_pixbuf_animation_iter_get_delay_time(iter);
+    g_timeout_add(AniProp.delay, @timer_func, nil);
 
     drawing_area := g_object_new(GTK_TYPE_DRAWING_AREA,
-      'width-request', AniProp.width,
-      'height-request', AniProp.height,
+      'width-request', AniProp.Width,
+      'height-request', AniProp.Height,
       nil);
     gtk_box_append(GTK_BOX(box), drawing_area);
     gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(drawing_area), @draw_func, nil, nil);
 
 
+    pc := g_malloc(100);
+    g_snprintf(pc, 100, 'Animation: '#10'  width: %d'#10'  height: %d'#10'  delay: %dms'#10, AniProp.Width, AniProp.Height, AniProp.delay);
     Label1 := g_object_new(GTK_TYPE_LABEL,
       'label', pc,
       nil);
+
     g_free(pc);
+
     GObjectShowProperty(window);
     gtk_box_append(GTK_BOX(box), Label1);
-
-
-
 
     gtk_window_set_child(GTK_WINDOW(window), box);
     gtk_widget_show(window);
@@ -122,7 +119,7 @@ var
     app: PGtkApplication;
     status: longint;
   begin
-    app := gtk_application_new('org.example.PixbufExample', G_APPLICATION_FLAGS_NONE);
+    app := gtk_application_new('org.example.PixbufExample', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'activate', G_CALLBACK(@on_activate), nil);
 
     status := g_application_run(G_APPLICATION(app), 0, nil);
