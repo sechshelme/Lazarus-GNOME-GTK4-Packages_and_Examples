@@ -42,6 +42,16 @@
         <Filename Value="project1.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit>
+      <Unit>
+        <Filename Value="cairo_window.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Cairo_Window"/>
+      </Unit>
+      <Unit>
+        <Filename Value="texturwindow.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="TexturWindow"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
