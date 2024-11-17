@@ -4,7 +4,6 @@ interface
 
 uses
   Math, // wegen "division_by_zero" in den clibs
-  Strings,
   ctypes;
 
 
@@ -14,7 +13,65 @@ uses
 
   {$include ../gnome_lib_const.inc}
 
-  // === Externes
+  // === Externes / no GLIB
+type
+  TFILE = record //  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h
+  end;
+  PFILE = ^TFILE;
+
+  Tdouble = double;
+
+  Tsize_t = SizeUInt;
+  Ttime_t = clong; // types.h
+  Ptime_t = ^Ttime_t;
+
+  TGPid = cint;
+  PGPid = ^TGPid;
+
+  Tva_list = Pointer;
+  Pva_list = ^Tva_list;
+
+  Tstat = record  // /usr/include/x86_64-linux-gnu/bits/struct_stat.h
+  end;
+  PTstat = ^Tstat;
+
+type
+  Tpid_t = cint;    // /usr/include/x86_64-linux-gnu/bits/types.h
+  Tuid_t = cuint;
+
+const
+  __SIZEOF_PTHREAD_MUTEX_T = 40;
+
+type
+  Ppthread_mutex_t = ^Tpthread_mutex_t;   // /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
+  Tpthread_mutex_t = record
+    case longint of
+      //        0 : ( __data : T_pthread_mutex_s );
+      1: (__size: array[0..__SIZEOF_PTHREAD_MUTEX_T - 1] of char);
+      2: (__align: culong);
+  end;
+
+  Tpthread_t = culong;  // /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
+
+  // /usr/include/pwd.h
+type
+  Tpasswd = record
+    pw_name: pchar;
+    pw_passwd: pchar;
+    pw_uid: cuint;
+    pw_gid: cuint;
+    pw_gecos: pchar;
+    pw_dir: pchar;
+    pw_shell: pchar;
+  end;
+  Ppasswd = ^Tpasswd;
+
+  // ==== Windows
+  {$ifdef windows}
+type
+  PID3D11Resource = Pointer;
+  {$endif}
+
 type
   Ttm = record  //  /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h
     tm_sec: cint;
@@ -102,15 +159,18 @@ type
   TEGLint = Tkhronos_int32_t;
 
 
-  // ====
+  // ==== GLB2
 
 const
-  //  GLIB_MAJOR_VERSION = 2;
-  //  GLIB_MINOR_VERSION = 80;
-  //  GLIB_MICRO_VERSION = 0;
-
-
   {$IFDEF Linux}
+  GLIB_SYSDEF_AF_UNIX = 1;
+  GLIB_SYSDEF_AF_INET = 2;
+  GLIB_SYSDEF_AF_INET6 = 10;
+
+  GLIB_SYSDEF_MSG_OOB = 1;
+  GLIB_SYSDEF_MSG_PEEK = 2;
+  GLIB_SYSDEF_MSG_DONTROUTE = 4;
+
   G_DIR_SEPARATOR = '/';
   {$ENDIF}
   {$IFDEF Windows}
@@ -171,106 +231,9 @@ type
 
   Tuintptr_t = PtrUInt;
 
-  // gio
-
-type
-  PGType = ^TGType;
-  TGType = Tguintptr;
-
-
-  // no GLIB
-
-  TFILE = record //  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h
-  end;
-  PFILE = ^TFILE;
-
-  Tdouble = double;
-
-  Tsize_t = SizeUInt;
-  Ttime_t = clong; // types.h
-  Ptime_t = ^Ttime_t;
-
-  TGPid = cint;
-  PGPid = ^TGPid;
-
-
-  Tva_list = Pointer;
-  Pva_list = ^Tva_list;
-
-  Tstat = record  // /usr/include/x86_64-linux-gnu/bits/struct_stat.h
-  end;
-  PTstat = ^Tstat;
-
-const         // nur Linux    /usr/lib/x86_64-linux-gnu/glib-2.0/include/glibconfig.h
-  GLIB_SYSDEF_AF_UNIX = 1;
-  GLIB_SYSDEF_AF_INET = 2;
-  GLIB_SYSDEF_AF_INET6 = 10;
-
-  GLIB_SYSDEF_MSG_OOB = 1;
-  GLIB_SYSDEF_MSG_PEEK = 2;
-  GLIB_SYSDEF_MSG_DONTROUTE = 4;
-
-
-type
-  Tpid_t = cint;    // /usr/include/x86_64-linux-gnu/bits/types.h
-  Tuid_t = cuint;
-
-const
-  __SIZEOF_PTHREAD_MUTEX_T = 40;
-
-type
-  Ppthread_mutex_t = ^Tpthread_mutex_t;   // /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
-  Tpthread_mutex_t = record
-    case longint of
-      //        0 : ( __data : T_pthread_mutex_s );
-      1: (__size: array[0..__SIZEOF_PTHREAD_MUTEX_T - 1] of char);
-      2: (__align: culong);
-  end;
-
-  Tpthread_t = culong;  // /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
-
-  // /usr/include/pwd.h
-type
-  Tpasswd = record
-    pw_name: pchar;
-    pw_passwd: pchar;
-    pw_uid: cuint;
-    pw_gid: cuint;
-    pw_gecos: pchar;
-    pw_dir: pchar;
-    pw_shell: pchar;
-  end;
-  Ppasswd = ^Tpasswd;
-
-  // ==== Windows
-  {$ifdef windows}
-type
-  PID3D11Resource = Pointer;
-  {$endif}
-
 
   {$DEFINE read_interface}
   {$include fp_glib2_includes.inc}
-type
-  TGValue = record
-    g_type: TGType;
-    Data: array[0..1] of record
-      case longint of
-        0: (v_int: Tgint);
-        1: (v_uint: Tguint);
-        2: (v_long: Tglong);
-        3: (v_ulong: Tgulong);
-        4: (v_int64: Tgint64);
-        5: (v_uint64: Tguint64);
-        6: (v_float: Tgfloat);
-        7: (v_double: Tgdouble);
-        8: (v_pointer: Tgpointer);
-      end;
-  end;
-  PGValue = ^TGValue;
-  PPGValue = ^PGValue;
-
-
   {$include fp_gobject2_includes.inc}
   {$include fp_gio2_includes.inc}
   {$UNDEF read_interface}
@@ -285,5 +248,6 @@ implementation
 {$UNDEF read_implementation}
 
 begin
+  // wegen "division_by_zero" in den clibs
   SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide, exOverflow, exUnderflow, exPrecision]);
 end.

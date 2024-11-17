@@ -5,36 +5,8 @@ uses
   fp_glib2,
   fp_GTK4,
   fp_gdk_pixbuf2,
-
   fp_GLIBTools;
 
-
-  procedure ShowImageInfo2(path: Pgchar);
-  var
-    format: PGdkPixbufFormat;
-    w, h: Tgint;
-    Name, dest: Pgchar;
-    extension: PPgchar;
-    i: integer;
-  begin
-    format := gdk_pixbuf_get_file_info(path, @w, @h);
-    WriteLn('Width:', w, ' Height: ', h);
-    WriteLn('Format:');
-    Name := gdk_pixbuf_format_get_name(format);
-    WriteLn('  Format Name: ', Name);
-    g_free(Name);
-    dest := gdk_pixbuf_format_get_description(format);
-    WriteLn('  Dest Name: ', dest);
-    g_free(dest);
-    WriteLn('Erweiterungen: ');
-    extension := gdk_pixbuf_format_get_extensions(format);
-    i := 0;
-    while extension[i] <> nil do begin
-      WriteLn(extension[i]);
-      Inc(i);
-    end;
-    g_strfreev(extension);
-  end;
 
   function ShowImageInfo(path: Pgchar): PGString;
   var
@@ -94,7 +66,6 @@ begin
     window, box, picture1, picture2, Label1, Label2: PGtkWidget;
     pixbuf1, pixbuf2: PGdkPixbuf;
     sl: PGString;
-    interlace: Pgchar;
 
   begin
     // === Widget
