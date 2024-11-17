@@ -38,6 +38,8 @@ uses
   begin
 // https://www.perplexity.ai/search/gib-mir-ein-c-gtk4-beispiel-mi-.CX.nqcxSHab_yXI3ejZRw
 
+//    g_list_free_full
+
     hash_table := g_hash_table_new(@g_str_hash, @g_str_equal);
 //    hash_table := g_hash_table_new_full(@g_str_hash, @g_str_equal,@key_destroy_func,@value_destroy_func);
 
