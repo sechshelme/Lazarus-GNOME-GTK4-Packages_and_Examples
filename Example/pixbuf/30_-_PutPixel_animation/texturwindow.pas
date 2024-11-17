@@ -19,24 +19,19 @@ implementation
 
 var
   picture: PGtkWidget;
+  iter: PGdkPixbufAnimationIter;
 
 function timer_func(user_data: Tgpointer): Tgboolean; cdecl;
 var
-  iter: PGdkPixbufAnimationIter absolute user_data;
   pixbuf: PGdkPixbuf;
-  texture: PGtkWidget;
+  texture: PGdkTexture;
 begin
   if gdk_pixbuf_animation_iter_advance(iter, nil) then begin
     pixbuf := gdk_pixbuf_animation_iter_get_pixbuf(iter);
-   texture := gtk_image_new_from_pixbuf(pixbuf);
-    if texture=nil then WriteLn(1234567);
-
-
+    texture := gdk_texture_new_for_pixbuf(pixbuf);
     gtk_picture_set_paintable(GTK_PICTURE(picture), GDK_PAINTABLE(texture));
     g_object_unref(texture);
-WriteLn('xxxxxxxxxxxx');
   end;
-
 
   Result := G_SOURCE_CONTINUE;
 end;
@@ -45,7 +40,6 @@ procedure CreateTexturWindow(app: PGtkApplication);
 var
   window, box, Label1: PGtkWidget;
   animation: PGdkPixbufAnimation;
-  iter: PGdkPixbufAnimationIter;
 
   err: PGError;
 
@@ -53,8 +47,6 @@ var
     Width, Height, delay: longint;
       end;
   pc: Pgchar;
-  pixbuf: PGdkPixbuf;
-  texture: PGdkTexture;
 
 begin
   // === Widget
@@ -89,10 +81,11 @@ begin
   end;
   AniProp.Width := gdk_pixbuf_animation_get_width(animation);
   AniProp.Height := gdk_pixbuf_animation_get_height(animation);
-  g_print('Animation width: %d'#10, AniProp.Width);
-  g_print('Animation height: %d'#10, AniProp.Height);
 
   iter := gdk_pixbuf_animation_get_iter(animation, nil);
+
+  AniProp.delay := gdk_pixbuf_animation_iter_get_delay_time(iter);
+  g_timeout_add(AniProp.delay, @timer_func, iter);
 
   picture := g_object_new(GTK_TYPE_PICTURE,
     'width-request', AniProp.Width,
@@ -100,25 +93,13 @@ begin
     nil);
   gtk_box_append(GTK_BOX(box), picture);
 
-  pixbuf := gdk_pixbuf_animation_iter_get_pixbuf(iter);
-  texture := gdk_texture_new_for_pixbuf(pixbuf);
-  gtk_picture_set_paintable(GTK_PICTURE(picture), GDK_PAINTABLE(texture));
-
-
-  //   gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(picture), @draw_func, iter, nil);
-
-  AniProp.delay := gdk_pixbuf_animation_iter_get_delay_time(iter);
-  g_timeout_add(AniProp.delay, @timer_func, iter);
-
   pc := g_malloc(100);
   g_snprintf(pc, 100, 'Animation: '#10'  width: %d'#10'  height: %d'#10'  delay: %dms'#10, AniProp.Width, AniProp.Height, AniProp.delay);
   Label1 := g_object_new(GTK_TYPE_LABEL,
     'label', pc,
     nil);
-
   g_free(pc);
 
-  GObjectShowProperty(window);
   gtk_box_append(GTK_BOX(box), Label1);
 
   gtk_window_set_child(GTK_WINDOW(window), box);

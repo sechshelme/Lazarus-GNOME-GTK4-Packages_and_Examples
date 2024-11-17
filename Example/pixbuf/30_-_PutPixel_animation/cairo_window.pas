@@ -36,8 +36,7 @@ var
   drawing_area: PGtkWidget absolute user_data;
 begin
   gtk_widget_queue_draw(drawing_area);
-
-  Result := True;
+  Result := G_SOURCE_CONTINUE;
 end;
 
 procedure CreateCairoWindow(app: PGtkApplication);
@@ -86,8 +85,6 @@ begin
   end;
   AniProp.Width := gdk_pixbuf_animation_get_width(pixbuf_animation);
   AniProp.Height := gdk_pixbuf_animation_get_height(pixbuf_animation);
-  g_print('Animation width: %d'#10, AniProp.Width);
-  g_print('Animation height: %d'#10, AniProp.Height);
 
   iter := gdk_pixbuf_animation_get_iter(pixbuf_animation, nil);
 
@@ -102,14 +99,14 @@ begin
   g_timeout_add(AniProp.delay, @timer_func, drawing_area);
 
   pc := g_malloc(100);
-  g_snprintf(pc, 100, 'Animation: '#10'  width: %d'#10'  height: %d'#10'  delay: %dms'#10, AniProp.Width, AniProp.Height, AniProp.delay);
+  g_snprintf(pc, 100, '<b>Animation:</b> '#10'  <b>width:</b> %d'#10'  <b>height:</b> %d'#10'  <b>delay:</b> %dms'#10, AniProp.Width, AniProp.Height, AniProp.delay);
   Label1 := g_object_new(GTK_TYPE_LABEL,
     'label', pc,
+    'use-markup', gTrue,
     nil);
 
   g_free(pc);
 
-  GObjectShowProperty(window);
   gtk_box_append(GTK_BOX(box), Label1);
 
   gtk_window_set_child(GTK_WINDOW(window), box);
