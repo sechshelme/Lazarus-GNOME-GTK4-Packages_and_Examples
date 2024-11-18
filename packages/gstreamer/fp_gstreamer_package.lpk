@@ -111,11 +111,6 @@
         <UnitName Value="fp_gst_isoff"/>
       </Item>
       <Item>
-        <Filename Value="fp_gst_interfaces.pas"/>
-        <AddToUsesPkgSection Value="False"/>
-        <UnitName Value="fp_gst_interfaces"/>
-      </Item>
-      <Item>
         <Filename Value="fp_gst_insertbin.pas"/>
         <UnitName Value="fp_gst_insertbin"/>
       </Item>
@@ -186,6 +181,10 @@
       <Item>
         <Filename Value="fp_gst.pas"/>
         <UnitName Value="fp_gst"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gst_interfaces.pas"/>
+        <UnitName Value="fp_gst_interfaces"/>
       </Item>
     </Files>
     <RequiredPkgs>

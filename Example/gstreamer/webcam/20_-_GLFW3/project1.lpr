@@ -6,6 +6,7 @@ uses
   gl,
   oglGLFW3,
   fp_glib2,
+  fp_gst_base,
   fp_gst;
 
 var

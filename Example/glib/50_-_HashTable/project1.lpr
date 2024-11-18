@@ -2,11 +2,12 @@ program project1;
 
 uses
   ctypes,
-  fp_glib2;
+  fp_glib2,
+  heaptrc;
 
   procedure hfunc(key: Tgpointer; Value: Tgpointer; user_data: Tgpointer); cdecl;
   begin
-    g_printf('Name: %s   Alter: %i'#10, key, Value);
+    g_printf('Name: %s   Alter: %s'#10, key, Value);
   end;
 
 
@@ -18,36 +19,37 @@ uses
     if age_ptr = nil then begin
       g_printf('Name: %s nicht gefunden'#10, Name);
     end else begin
-      g_printf('%s is %i Jahre alt'#10, Name, PtrUInt(age_ptr));
+      g_printf('%s is %s Jahre alt'#10, Name, PtrUInt(age_ptr));
     end;
   end;
 
   procedure key_destroy_func(Data: Tgpointer); cdecl;
   begin
-
+    g_print('Name %s gelöscht'#10, Data);
+    g_free(Data);
   end;
 
   procedure value_destroy_func(Data: Tgpointer); cdecl;
   begin
-
+    g_print('Alter %s gelöscht'#10, Data);
+    g_free(Data);
   end;
 
   function main(argc: cint; argv: PPChar): cint;
   var
     hash_table: PGHashTable;
   begin
-// https://www.perplexity.ai/search/gib-mir-ein-c-gtk4-beispiel-mi-.CX.nqcxSHab_yXI3ejZRw
+    // https://www.perplexity.ai/search/gib-mir-ein-c-gtk4-beispiel-mi-.CX.nqcxSHab_yXI3ejZRw
 
-//    g_list_free_full
+    //    g_list_free_full
 
-    hash_table := g_hash_table_new(@g_str_hash, @g_str_equal);
-//    hash_table := g_hash_table_new_full(@g_str_hash, @g_str_equal,@key_destroy_func,@value_destroy_func);
+    hash_table := g_hash_table_new_full(@g_str_hash, @g_str_equal, @key_destroy_func, @value_destroy_func);
 
-    g_hash_table_insert(hash_table, g_strdup('Otto'), Pointer(13));
-    g_hash_table_insert(hash_table, g_strdup('Alex'), Pointer(13));
-    g_hash_table_insert(hash_table, g_strdup('Peter'), Pointer(24));
-    g_hash_table_insert(hash_table, g_strdup('Rolf'), Pointer(55));
-    g_hash_table_insert(hash_table, g_strdup('Ralf'), Pointer(42));
+    g_hash_table_insert(hash_table, g_strdup('Otto'), g_strdup('13'));
+    g_hash_table_insert(hash_table, g_strdup('Alex'), g_strdup('13'));
+    g_hash_table_insert(hash_table, g_strdup('Peter'), g_strdup('24'));
+    g_hash_table_insert(hash_table, g_strdup('Rolf'), g_strdup('55'));
+    g_hash_table_insert(hash_table, g_strdup('Ralf'), g_strdup('42'));
 
     g_hash_table_foreach(hash_table, @hfunc, nil);
     g_printf(#10);
@@ -55,9 +57,11 @@ uses
     Check(hash_table, 'Rudolf');
     Check(hash_table, 'Peter');
     Check(hash_table, 'Ralf');
+    g_printf(#10);
 
     g_hash_table_destroy(hash_table);
-//    g_hash_table_destroy(hash_table);
+
+    g_print('Ende'#10);
   end;
 
 begin
