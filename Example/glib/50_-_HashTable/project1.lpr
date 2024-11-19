@@ -2,12 +2,11 @@ program project1;
 
 uses
   ctypes,
-  fp_glib2,
-  heaptrc;
+  fp_glib2;
 
   procedure hfunc(key: Tgpointer; Value: Tgpointer; user_data: Tgpointer); cdecl;
   begin
-    g_printf('Name: %s   Alter: %s'#10, key, Value);
+    g_printf('Name: %-10sAlter: %3s'#10, key, Value);
   end;
 
 
@@ -19,7 +18,7 @@ uses
     if age_ptr = nil then begin
       g_printf('Name: %s nicht gefunden'#10, Name);
     end else begin
-      g_printf('%s is %s Jahre alt'#10, Name, PtrUInt(age_ptr));
+      g_printf('%s ist %s Jahre alt'#10, Name, PtrUInt(age_ptr));
     end;
   end;
 
@@ -39,10 +38,6 @@ uses
   var
     hash_table: PGHashTable;
   begin
-    // https://www.perplexity.ai/search/gib-mir-ein-c-gtk4-beispiel-mi-.CX.nqcxSHab_yXI3ejZRw
-
-    //    g_list_free_full
-
     hash_table := g_hash_table_new_full(@g_str_hash, @g_str_equal, @key_destroy_func, @value_destroy_func);
 
     g_hash_table_insert(hash_table, g_strdup('Otto'), g_strdup('13'));
