@@ -48,17 +48,21 @@ uses
     g_strfreev(mime);
   end;
 
-// https://www.perplexity.ai/search/gib-mir-ein-gtk4-beispiel-in-c-dNYfVY_GRRu1gZ.TDr1EGw
-procedure printHashTable(pixbuf:PGdkPixbuf);
-var
-  options: PGHashTable;
-  keys: PGList;
-begin
-  options:=gdk_pixbuf_get_options(pixbuf);
-  if options=nil then WriteLn('options error');
-  keys:=g_hash_table_get_keys(options);
-  if keys=nil then WriteLn('keys error');
-  WriteLn('count: ', g_list_length(keys));
+  // https://www.perplexity.ai/search/gib-mir-ein-gtk4-beispiel-in-c-dNYfVY_GRRu1gZ.TDr1EGw
+  procedure printHashTable(pixbuf: PGdkPixbuf);
+  var
+    options: PGHashTable;
+    keys: PGList;
+  begin
+    options := gdk_pixbuf_get_options(pixbuf);
+    if options = nil then begin
+      g_printerr('options error'#10);
+    end;
+    keys := g_hash_table_get_keys(options);
+    if keys = nil then begin
+      g_printerr('keys error'#10);
+    end;
+    WriteLn('count: ', g_list_length(keys));
   end;
 
   procedure on_activate(app: PGtkApplication; user_data: Tgpointer);

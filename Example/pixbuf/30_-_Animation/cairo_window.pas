@@ -81,6 +81,7 @@ begin
     g_printerr('  Fehlerbereich: %s'#10, g_quark_to_string(err^.domain));
     g_printerr('  Fehlercode: %d'#10, err^.code);
     g_printerr('  Fehlermeldung: %s#10', err^.message);
+    g_error_free(err);
     Exit;
   end;
   AniProp.Width := gdk_pixbuf_animation_get_width(pixbuf_animation);

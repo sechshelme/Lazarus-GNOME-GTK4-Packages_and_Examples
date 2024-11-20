@@ -162,7 +162,6 @@ type
   // ==== GLB2
 
 const
-  {$IFDEF Linux}
   GLIB_SYSDEF_AF_UNIX = 1;
   GLIB_SYSDEF_AF_INET = 2;
   GLIB_SYSDEF_AF_INET6 = 10;
@@ -171,6 +170,7 @@ const
   GLIB_SYSDEF_MSG_PEEK = 2;
   GLIB_SYSDEF_MSG_DONTROUTE = 4;
 
+  {$IFDEF Linux}
   G_DIR_SEPARATOR = '/';
   {$ENDIF}
   {$IFDEF Windows}
@@ -249,5 +249,5 @@ implementation
 
 begin
   // wegen "division_by_zero" in den clibs
-//  SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide, exOverflow, exUnderflow, exPrecision]);
+  SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide, exOverflow, exUnderflow, exPrecision]);
 end.
