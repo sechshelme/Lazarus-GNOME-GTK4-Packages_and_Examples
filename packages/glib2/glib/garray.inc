@@ -35,7 +35,6 @@ type
   PPGPtrArray = ^PGPtrArray;
 
 
-{ #define g_array_index(a,t,i)      (((t*) (void *) (a)->data) [(i)]) }
 function g_array_new(zero_terminated: Tgboolean; clear_: Tgboolean; element_size: Tguint): PGArray; cdecl; external libglib2;
 function g_array_new_take(Data: Tgpointer; len: Tgsize; Clear: Tgboolean; element_size: Tgsize): PGArray; cdecl; external libglib2;
 function g_array_new_take_zero_terminated(Data: Tgpointer; Clear: Tgboolean; element_size: Tgsize): PGArray; cdecl; external libglib2;
@@ -109,9 +108,10 @@ function g_byte_array_remove_range(_array: PGByteArray; index_: Tguint; length: 
 procedure g_byte_array_sort(_array: PGByteArray; compare_func: TGCompareFunc); cdecl; external libglib2;
 procedure g_byte_array_sort_with_data(_array: PGByteArray; compare_func: TGCompareDataFunc; user_data: Tgpointer); cdecl; external libglib2;
 
-function g_array_append_val(a: PGArray; v: Tgconstpointer): PGArray;
-function g_array_prepend_val(a: PGArray; v: Tgconstpointer): PGArray;
-function g_array_insert_val(a: PGArray; i: Tguint; v: Tgconstpointer): PGArray;
+{ #define g_array_index(a,t,i)      (((t*) (void *) (a)->data) [(i)]) }
+function g_array_append_val(a: PGArray;const v): PGArray;
+function g_array_prepend_val(a: PGArray; const v): PGArray;
+function g_array_insert_val(a: PGArray; i: Tguint; const v): PGArray;
 function g_ptr_array_index (parray: PGPtrArray; index: Tguint): Tgpointer;
 
 // === Konventiert am: 6-8-24 16:27:59 ===
@@ -122,23 +122,19 @@ function g_ptr_array_index (parray: PGPtrArray; index: Tguint): Tgpointer;
 
 {$IFDEF read_implementation}
 
-{ #define g_array_index(a,t,i)      (((t*) (void *) (a)->data) [(i)]) }
-
-
-
-function g_array_append_val(a: PGArray; v: Tgconstpointer): PGArray;
+function g_array_append_val(a: PGArray; const v): PGArray;
 begin
-  g_array_append_val := g_array_append_vals(a, @(v), 1);
+  Result := g_array_append_vals(a, @v, 1);
 end;
 
-function g_array_prepend_val(a: PGArray; v: Tgconstpointer): PGArray;
+function g_array_prepend_val(a: PGArray; const v): PGArray;
 begin
-  g_array_prepend_val := g_array_prepend_vals(a, @(v), 1);
+  Result := g_array_prepend_vals(a, @v, 1);
 end;
 
-function g_array_insert_val(a: PGArray; i: Tguint; v: Tgconstpointer): PGArray;
+function g_array_insert_val(a: PGArray; i: Tguint; const v): PGArray;
 begin
-  g_array_insert_val := g_array_insert_vals(a, i, @(v), 1);
+  Result := g_array_insert_vals(a, i, @v, 1);
 end;
 
 function g_ptr_array_index(parray: PGPtrArray; index: Tguint): Tgpointer;
