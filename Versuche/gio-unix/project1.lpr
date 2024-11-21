@@ -59,7 +59,7 @@ uses
     actions := g_desktop_app_info_list_actions(app_info);
     if actions <> nil then begin
       PrintPCharArray(actions, 'Desktop Action');
-//      g_strfreev(actions);
+      //      g_strfreev(actions);
     end else begin
       g_print('Keine Aktionen gefunden'#10);
     end;
@@ -102,17 +102,48 @@ uses
   end;
 
   procedure PrintAppInfo;
+  const
+    O_RDONLY = 0;
+  var
+    fd: longint;
+    stream: PGInputStream;
+    buffer: array [0..31] of Tgchar;
+    bytes_read: Tgssize;
+    err: PGError = nil;
+    seekable: PGSeekable;
   begin
+    fd := g_open('/etc/services', O_RDONLY, 0644);
+    if fd = -1 then begin
+      g_printerr('Konnte Datei nicht öffnen'#10);
+    end else begin
+      g_print('Konnte Datei öffnen'#10);
+    end;
+
+    stream := g_unix_input_stream_new(fd, True);
+    if stream = nil then begin
+      g_printerr('stream error'#10);
+      exit;
+    end;
+
+    repeat
+      bytes_read := g_input_stream_read(stream, @buffer, SizeOf(buffer) - 1, nil, @err);
+      buffer[bytes_read] := #0;
+      g_print('%s', buffer);
+    until bytes_read <= 0;
+    g_print(#10);
+
+    g_object_unref(stream);
   end;
 
 
 
   function main(argc: cint; argv: PPChar): cint;
   begin
+    g_type_init;
     g_print(#10'============ Variante 1'#10#10);
-    Variante1;
+    //    Variante1;
     g_print(#10'============ Variante 2'#10#10);
-    Variante2;
+    //    Variante2;
     g_print(#10'============ Variante 3'#10#10);
     PrintAppInfo;
   end;
