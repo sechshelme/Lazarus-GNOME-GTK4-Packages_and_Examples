@@ -4,6 +4,12 @@ uses
   ctypes,
   fp_glib2;
 
+  procedure printTitle(title: Pgchar);
+  begin
+    g_printf(#10#10#10'=========== %s ==============='#10#10, title);
+  end;
+
+
 type
   TPerson = record
     Name: array[0..49] of char;
@@ -23,13 +29,21 @@ type
     end;
   end;
 
+  procedure ptr_free_func(Data: Tgpointer); cdecl;
+  begin
+    g_printf('"%s" freigegeben'#10, Data);
+    g_free(Data);
+  end;
+
   function main(argc: cint; argv: PPChar): cint;
   var
     garray: PGArray;
     i: cint;
     p: TPerson;
+    gptrarray: PGPtrArray;
   begin
     // Eine cint Array
+    printTitle('cint array');
 
     garray := g_array_new(False, False, SizeOf(cint));
     for i := 0 to 8 do begin
@@ -44,6 +58,8 @@ type
 
 
     // Eine record Array
+    printTitle('record array');
+
     garray := g_array_new(False, False, SizeOf(TPerson));
 
     for i := 0 to 15 do begin
@@ -53,8 +69,24 @@ type
     end;
 
     PrintArray(garray);
-
     g_array_free(garray, True);
+
+    // Eine Pointer Array
+    printTitle('Pointer array');
+
+    gptrarray := g_ptr_array_new_with_free_func(@ptr_free_func);
+    g_ptr_array_add(gptrarray, g_strdup('Pointer eins'));
+    g_ptr_array_add(gptrarray, g_strdup('Pointer zwei'));
+    g_ptr_array_add(gptrarray, g_strdup('Pointer drei'));
+
+    for i := 0 to gptrarray^.len - 1 do begin
+      g_print('Value: %s'#10, g_ptr_array_index(gptrarray, i));
+    end;
+    g_print(#10);
+
+    g_ptr_array_unref(gptrarray);
+
+    printTitle('Ende');
   end;
 
 begin
