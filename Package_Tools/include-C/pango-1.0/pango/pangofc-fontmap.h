@@ -95,7 +95,7 @@ PangoFontDescription *pango_fc_font_description_from_pattern (FcPattern *pattern
 							      gboolean   include_size);
 
 #ifndef PANGO_DISABLE_DEPRECATED
-PANGO_DEPRECATED_IN_1_22_FOR(pango_font_map_create_context)
+extern_FOR(pango_font_map_create_context)
 PangoContext * pango_fc_font_map_create_context (PangoFcFontMap *fcfontmap);
 #endif
 extern

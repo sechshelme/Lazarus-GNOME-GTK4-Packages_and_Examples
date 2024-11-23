@@ -3,7 +3,16 @@ program project1;
 uses
   ctypes,
 
+  pango_types,
+
+  pango_script,         // io.
+  pango_color,          // io.
+  pango_matrix,
+  pango_gravity,
+  pango_font,
+  pango_language,
   pango_attributes,
+
 
 
 
@@ -24,6 +33,10 @@ uses
     gtk_label_set_markup(GTK_LABEL(label1), '<span foreground="blue" size="x-large">Hallo, <i>Pango</i> und <b>GTK4</b>!</span>');
 
 
+
+
+
+    pango_language_to_string
 
 
     gtk_window_set_child(GTK_WINDOW(window), label1);

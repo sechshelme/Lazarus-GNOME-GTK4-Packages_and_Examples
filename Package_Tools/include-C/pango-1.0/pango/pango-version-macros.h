@@ -389,11 +389,11 @@
 
 /* XXX: Every new stable minor release should add a set of macros here */
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_2
-# define PANGO_DEPRECATED_IN_1_2                PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_2_FOR(f)         PANGO_DEPRECATED_FOR(f)
+# define extern                PANGO_DEPRECATED
+# define extern_FOR(f)         PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_2                _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_2_FOR(f)         _PANGO_EXTERN
+# define extern                _PANGO_EXTERN
+# define extern_FOR(f)         _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_2
@@ -403,11 +403,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_4
-# define PANGO_DEPRECATED_IN_1_4                PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_4_FOR(f)         PANGO_DEPRECATED_FOR(f)
+# define extern                PANGO_DEPRECATED
+# define extern_FOR(f)         PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_4                _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_4_FOR(f)         _PANGO_EXTERN
+# define extern                _PANGO_EXTERN
+# define extern_FOR(f)         _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_4
@@ -418,11 +418,11 @@
 
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_6
-# define PANGO_DEPRECATED_IN_1_6                PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_6_FOR(f)         PANGO_DEPRECATED_FOR(f)
+# define extern                PANGO_DEPRECATED
+# define extern_FOR(f)         PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_6                _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_6_FOR(f)         _PANGO_EXTERN
+# define extern                _PANGO_EXTERN
+# define extern_FOR(f)         _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_6
@@ -432,11 +432,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_8
-# define PANGO_DEPRECATED_IN_1_8                PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_8_FOR(f)         PANGO_DEPRECATED_FOR(f)
+# define extern                PANGO_DEPRECATED
+# define extern_FOR(f)         PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_8                _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_8_FOR(f)         _PANGO_EXTERN
+# define extern                _PANGO_EXTERN
+# define extern_FOR(f)         _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_8
@@ -446,11 +446,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_10
-# define PANGO_DEPRECATED_IN_1_10               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_10_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_10               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_10_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_10
@@ -466,11 +466,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_12
-# define PANGO_DEPRECATED_IN_1_12               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_12_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_12               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_12_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_14
@@ -480,11 +480,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_14
-# define PANGO_DEPRECATED_IN_1_14               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_14_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_14               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_14_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_16
@@ -494,19 +494,19 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_16
-# define PANGO_DEPRECATED_IN_1_16               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_16_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_16               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_16_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_18
-# define PANGO_DEPRECATED_IN_1_18               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_18_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_18               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_18_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_18
@@ -516,11 +516,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_20
-# define PANGO_DEPRECATED_IN_1_20               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_20_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_20               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_20_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_20
@@ -530,11 +530,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_22
-# define PANGO_DEPRECATED_IN_1_22               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_22_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_22               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_22_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_22
@@ -544,11 +544,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_24
-# define PANGO_DEPRECATED_IN_1_24               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_24_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_24               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_24_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_24
@@ -558,11 +558,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_26
-# define PANGO_DEPRECATED_IN_1_26               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_26_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_26               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_26_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_26
@@ -572,11 +572,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_28
-# define PANGO_DEPRECATED_IN_1_28               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_28_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_28               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_28_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_28
@@ -586,11 +586,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_30
-# define PANGO_DEPRECATED_IN_1_30               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_30_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_30               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_30_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_30
@@ -600,11 +600,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_32
-# define PANGO_DEPRECATED_IN_1_32               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_32_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_32               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_32_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_32
@@ -614,11 +614,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_34
-# define PANGO_DEPRECATED_IN_1_34               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_34_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_34               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_34_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_34
@@ -628,11 +628,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_36
-# define PANGO_DEPRECATED_IN_1_36               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_36_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_36               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_36_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_36
@@ -642,11 +642,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_38
-# define PANGO_DEPRECATED_IN_1_38               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_38_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_38               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_38_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_38
@@ -656,11 +656,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_40
-# define PANGO_DEPRECATED_IN_1_40               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_40_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_40               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_40_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_40
@@ -670,11 +670,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_42
-# define PANGO_DEPRECATED_IN_1_42               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_42_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_42               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_42_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_42
@@ -684,11 +684,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_44
-# define PANGO_DEPRECATED_IN_1_44               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_44_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_44               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_44_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_44
@@ -698,11 +698,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_46
-# define PANGO_DEPRECATED_IN_1_46               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_46_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_46               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_46_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_46
@@ -712,11 +712,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_48
-# define PANGO_DEPRECATED_IN_1_48               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_48_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_48               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_48_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_48
@@ -726,11 +726,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_50
-# define PANGO_DEPRECATED_IN_1_50               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_50_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_50               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_50_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_50
@@ -740,11 +740,11 @@
 #endif
 
 #if PANGO_VERSION_MIN_REQUIRED >= PANGO_VERSION_1_52
-# define PANGO_DEPRECATED_IN_1_52               PANGO_DEPRECATED
-# define PANGO_DEPRECATED_IN_1_52_FOR(f)        PANGO_DEPRECATED_FOR(f)
+# define extern               PANGO_DEPRECATED
+# define extern_FOR(f)        PANGO_DEPRECATED_FOR(f)
 #else
-# define PANGO_DEPRECATED_IN_1_52               _PANGO_EXTERN
-# define PANGO_DEPRECATED_IN_1_52_FOR(f)        _PANGO_EXTERN
+# define extern               _PANGO_EXTERN
+# define extern_FOR(f)        _PANGO_EXTERN
 #endif
 
 #if PANGO_VERSION_MAX_ALLOWED < PANGO_VERSION_1_52

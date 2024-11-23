@@ -22,6 +22,19 @@ const
   cairo_lib = 'libcairo-2.dll';
   {$ENDIF}
 
+  // ==== Pango
+
+const
+  {$IFDEF Linux}
+  libpango = 'libpango-1.0';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libpango = 'libpango-1.0-0.dll';
+  {$ENDIF}
+
+
+
   // ==== glib2
 
 const

@@ -1,4 +1,37 @@
-/* Pango
+
+unit pango_gravity;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from pango_gravity.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    pango_gravity.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+PPangoGravity  = ^PangoGravity;
+PPangoGravityHint  = ^PangoGravityHint;
+PPangoMatrix  = ^PangoMatrix;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ Pango
  * pango-gravity.h: Gravity routines
  *
  * Copyright (C) 2006, 2007 Red Hat Software
@@ -17,16 +50,11 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
- */
-
-#ifndef __PANGO_GRAVITY_H__
-#define __PANGO_GRAVITY_H__
-
-#include <glib.h>
-
-
-
-/**
+  }
+{$ifndef __PANGO_GRAVITY_H__}
+{$define __PANGO_GRAVITY_H__}
+{$include <glib.h>}
+{*
  * PangoGravity:
  * @PANGO_GRAVITY_SOUTH: Glyphs stand upright (default) <img align="right" valign="center" src="m-south.png">
  * @PANGO_GRAVITY_EAST: Glyphs are rotated 90 degrees counter-clockwise. <img align="right" valign="center" src="m-east.png">
@@ -49,16 +77,18 @@
  * See also: [enum@Pango.GravityHint]
  *
  * Since: 1.16
- */
-typedef enum {
-  PANGO_GRAVITY_SOUTH,
-  PANGO_GRAVITY_EAST,
-  PANGO_GRAVITY_NORTH,
-  PANGO_GRAVITY_WEST,
-  PANGO_GRAVITY_AUTO
-} PangoGravity;
-
-/**
+  }
+type
+  PPangoGravity = ^TPangoGravity;
+  TPangoGravity =  Longint;
+  Const
+    PANGO_GRAVITY_SOUTH = 0;
+    PANGO_GRAVITY_EAST = 1;
+    PANGO_GRAVITY_NORTH = 2;
+    PANGO_GRAVITY_WEST = 3;
+    PANGO_GRAVITY_AUTO = 4;
+;
+{*
  * PangoGravityHint:
  * @PANGO_GRAVITY_HINT_NATURAL: scripts will take their natural gravity based
  *   on the base gravity and the script.  This is the default.
@@ -77,14 +107,16 @@ typedef enum {
  * See also [enum@Pango.Gravity]
  *
  * Since: 1.16
- */
-typedef enum {
-  PANGO_GRAVITY_HINT_NATURAL,
-  PANGO_GRAVITY_HINT_STRONG,
-  PANGO_GRAVITY_HINT_LINE
-} PangoGravityHint;
-
-/**
+  }
+type
+  PPangoGravityHint = ^TPangoGravityHint;
+  TPangoGravityHint =  Longint;
+  Const
+    PANGO_GRAVITY_HINT_NATURAL = 0;
+    PANGO_GRAVITY_HINT_STRONG = 1;
+    PANGO_GRAVITY_HINT_LINE = 2;
+;
+{*
  * PANGO_GRAVITY_IS_VERTICAL:
  * @gravity: the `PangoGravity` to check
  *
@@ -94,11 +126,14 @@ typedef enum {
  *   %FALSE otherwise.
  *
  * Since: 1.16
- */
-#define PANGO_GRAVITY_IS_VERTICAL(gravity) \
-	((gravity) == PANGO_GRAVITY_EAST || (gravity) == PANGO_GRAVITY_WEST)
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
 
-/**
+function PANGO_GRAVITY_IS_VERTICAL(gravity : longint) : longint;
+
+{*
  * PANGO_GRAVITY_IS_IMPROPER:
  * @gravity: the `PangoGravity` to check
  *
@@ -109,29 +144,40 @@ typedef enum {
  *   %FALSE otherwise.
  *
  * Since: 1.32
- */
-#define PANGO_GRAVITY_IS_IMPROPER(gravity) \
-	((gravity) == PANGO_GRAVITY_WEST || (gravity) == PANGO_GRAVITY_NORTH)
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function PANGO_GRAVITY_IS_IMPROPER(gravity : longint) : longint;
 
-#include <pango/pango-matrix.h>
-#include <pango/pango-script.h>
+{$include <pango/pango-matrix.h>}
+{$include <pango/pango-script.h>}
 
-extern
-double       pango_gravity_to_rotation    (PangoGravity       gravity) ;
-extern
-PangoGravity pango_gravity_get_for_matrix (const PangoMatrix *matrix) ;
-extern
-PangoGravity pango_gravity_get_for_script (PangoScript        script,
-					   PangoGravity       base_gravity,
-					   PangoGravityHint   hint) ;
-extern
-PangoGravity pango_gravity_get_for_script_and_width
-					  (PangoScript        script,
-					   gboolean           wide,
-					   PangoGravity       base_gravity,
-					   PangoGravityHint   hint) ;
+function pango_gravity_to_rotation(gravity:TPangoGravity):Tdouble;cdecl;external;
+(* Const before type ignored *)
+function pango_gravity_get_for_matrix(matrix:PPangoMatrix):TPangoGravity;cdecl;external;
+function pango_gravity_get_for_script(script:TPangoScript; base_gravity:TPangoGravity; hint:TPangoGravityHint):TPangoGravity;cdecl;external;
+function pango_gravity_get_for_script_and_width(script:TPangoScript; wide:Tgboolean; base_gravity:TPangoGravity; hint:TPangoGravityHint):TPangoGravity;cdecl;external;
+{$endif}
+{ __PANGO_GRAVITY_H__  }
+
+implementation
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function PANGO_GRAVITY_IS_VERTICAL(gravity : longint) : longint;
+begin
+  PANGO_GRAVITY_IS_VERTICAL:=(gravity=(PANGO_GRAVITY_EAST or gravity))=PANGO_GRAVITY_WEST;
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function PANGO_GRAVITY_IS_IMPROPER(gravity : longint) : longint;
+begin
+  PANGO_GRAVITY_IS_IMPROPER:=(gravity=(PANGO_GRAVITY_WEST or gravity))=PANGO_GRAVITY_NORTH;
+end;
 
 
-
-
-#endif /* __PANGO_GRAVITY_H__ */
+end.

@@ -76,9 +76,9 @@ GType pango_coverage_get_type (void) ;
 
 extern
 PangoCoverage *    pango_coverage_new     (void);
-PANGO_DEPRECATED_IN_1_52_FOR(g_object_ref)
+extern_FOR(g_object_ref)
 PangoCoverage *    pango_coverage_ref     (PangoCoverage      *coverage);
-PANGO_DEPRECATED_IN_1_52_FOR(g_object_unref)
+extern_FOR(g_object_unref)
 void               pango_coverage_unref   (PangoCoverage      *coverage);
 extern
 PangoCoverage *    pango_coverage_copy    (PangoCoverage      *coverage);
@@ -89,15 +89,15 @@ extern
 void               pango_coverage_set     (PangoCoverage      *coverage,
 					   int                 index_,
 					   PangoCoverageLevel  level);
-PANGO_DEPRECATED_IN_1_44
+extern
 void               pango_coverage_max     (PangoCoverage      *coverage,
 					   PangoCoverage      *other);
 
-PANGO_DEPRECATED_IN_1_44
+extern
 void           pango_coverage_to_bytes   (PangoCoverage  *coverage,
 					  guchar        **bytes,
 					  int            *n_bytes);
-PANGO_DEPRECATED_IN_1_44
+extern
 PangoCoverage *pango_coverage_from_bytes (guchar         *bytes,
 					  int             n_bytes);
 

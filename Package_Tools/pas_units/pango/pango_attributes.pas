@@ -3,7 +3,7 @@ unit pango_attributes;
 interface
 
 uses
-  fp_cairo, fp_glib2;
+  fp_cairo, fp_glib2, pango_types, pango_color, pango_font;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}

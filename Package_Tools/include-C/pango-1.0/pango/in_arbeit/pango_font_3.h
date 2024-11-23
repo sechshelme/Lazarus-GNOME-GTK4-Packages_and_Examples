@@ -230,19 +230,10 @@ typedef enum {
  *
  * The scale factor for three magnification steps (1.2 * 1.2 * 1.2).
  */
-#define PANGO_SCALE_XX_SMALL ((double)0.5787037037037)
-#define PANGO_SCALE_X_SMALL  ((double)0.6944444444444)
-#define PANGO_SCALE_SMALL    ((double)0.8333333333333)
-#define PANGO_SCALE_MEDIUM   ((double)1.0)
-#define PANGO_SCALE_LARGE    ((double)1.2)
-#define PANGO_SCALE_X_LARGE  ((double)1.44)
-#define PANGO_SCALE_XX_LARGE ((double)1.728)
 
 /*
  * PangoFontDescription
  */
-
-#define PANGO_TYPE_FONT_DESCRIPTION (pango_font_description_get_type ())
 
 extern
 GType                 pango_font_description_get_type    (void) ;
@@ -347,8 +338,6 @@ char *                pango_font_description_to_filename (const PangoFontDescrip
  * PangoFontMetrics
  */
 
-#define PANGO_TYPE_FONT_METRICS  (pango_font_metrics_get_type ())
-
 struct _PangoFontMetrics
 {
   /* <private> */
@@ -395,12 +384,6 @@ int               pango_font_metrics_get_strikethrough_thickness (PangoFontMetri
  * PangoFontFamily
  */
 
-#define PANGO_TYPE_FONT_FAMILY              (pango_font_family_get_type ())
-#define PANGO_FONT_FAMILY(object)           (G_TYPE_CHECK_INSTANCE_CAST ((object), PANGO_TYPE_FONT_FAMILY, PangoFontFamily))
-#define PANGO_IS_FONT_FAMILY(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), PANGO_TYPE_FONT_FAMILY))
-#define PANGO_FONT_FAMILY_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST ((klass), PANGO_TYPE_FONT_FAMILY, PangoFontFamilyClass))
-#define PANGO_IS_FONT_FAMILY_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), PANGO_TYPE_FONT_FAMILY))
-#define PANGO_FONT_FAMILY_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), PANGO_TYPE_FONT_FAMILY, PangoFontFamilyClass))
 
 typedef struct _PangoFontFace        PangoFontFace;
 typedef struct _PangoFontFamily      PangoFontFamily;
@@ -470,12 +453,6 @@ PangoFontFace *pango_font_family_get_face (PangoFontFamily *family,
  * PangoFontFace
  */
 
-#define PANGO_TYPE_FONT_FACE              (pango_font_face_get_type ())
-#define PANGO_FONT_FACE(object)           (G_TYPE_CHECK_INSTANCE_CAST ((object), PANGO_TYPE_FONT_FACE, PangoFontFace))
-#define PANGO_IS_FONT_FACE(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), PANGO_TYPE_FONT_FACE))
-#define PANGO_FONT_FACE_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST ((klass), PANGO_TYPE_FONT_FACE, PangoFontFaceClass))
-#define PANGO_IS_FONT_FACE_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), PANGO_TYPE_FONT_FACE))
-#define PANGO_FONT_FACE_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), PANGO_TYPE_FONT_FACE, PangoFontFaceClass))
 
 typedef struct _PangoFontFaceClass   PangoFontFaceClass;
 
@@ -539,8 +516,8 @@ PangoFontFamily *     pango_font_face_get_family     (PangoFontFace  *face);
 
 #define PANGO_TYPE_FONT              (pango_font_get_type ())
 #define PANGO_FONT(object)           (G_TYPE_CHECK_INSTANCE_CAST ((object), PANGO_TYPE_FONT, PangoFont))
-#define PANGO_IS_FONT(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), PANGO_TYPE_FONT))
 #define PANGO_FONT_CLASS(klass)      (G_TYPE_CHECK_CLASS_CAST ((klass), PANGO_TYPE_FONT, PangoFontClass))
+#define PANGO_IS_FONT(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), PANGO_TYPE_FONT))
 #define PANGO_IS_FONT_CLASS(klass)   (G_TYPE_CHECK_CLASS_TYPE ((klass), PANGO_TYPE_FONT))
 #define PANGO_FONT_GET_CLASS(obj)    (G_TYPE_INSTANCE_GET_CLASS ((obj), PANGO_TYPE_FONT, PangoFontClass))
 
@@ -596,7 +573,7 @@ extern
 PangoCoverage *       pango_font_get_coverage      (PangoFont        *font,
                                                     PangoLanguage    *language);
 #ifndef __GI_SCANNER__
-PANGO_DEPRECATED_IN_1_44
+extern
 PangoEngineShape *    pango_font_find_shaper       (PangoFont        *font,
                                                     PangoLanguage    *language,
                                                     guint32           ch);
@@ -636,6 +613,13 @@ extern
 PangoFont *           pango_font_deserialize       (PangoContext     *context,
                                                     GBytes           *bytes,
                                                     GError          **error);
+
+
+#define PANGO_TYPE_FONT_DESCRIPTION (pango_font_description_get_type ())
+#define PANGO_TYPE_FONT_METRICS  (pango_font_metrics_get_type ())
+
+
+
 
 /**
  * PANGO_GLYPH_EMPTY:
@@ -688,12 +672,6 @@ PangoFont *           pango_font_deserialize       (PangoContext     *context,
 #define PANGO_UNKNOWN_GLYPH_HEIGHT 14
 #endif
 #endif
-
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(PangoFontFamily, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(PangoFontFace, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(PangoFont, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(PangoFontDescription, pango_font_description_free)
-
 
 
 #endif /* __PANGO_FONT_H__ */

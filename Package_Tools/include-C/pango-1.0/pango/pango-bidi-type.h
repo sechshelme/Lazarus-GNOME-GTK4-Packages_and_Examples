@@ -98,16 +98,16 @@ typedef enum {
   PANGO_BIDI_TYPE_PDI
 } PangoBidiType;
 
-PANGO_DEPRECATED_IN_1_44
+extern
 PangoBidiType pango_bidi_type_for_unichar (gunichar ch) ;
 
-PANGO_DEPRECATED_IN_1_44
+extern
 PangoDirection pango_unichar_direction      (gunichar     ch) ;
-PANGO_DEPRECATED_IN_1_44
+extern
 PangoDirection pango_find_base_dir          (const gchar *text,
 					     gint         length);
 
-PANGO_DEPRECATED_IN_1_30_FOR(g_unichar_get_mirror_char)
+extern_FOR(g_unichar_get_mirror_char)
 gboolean       pango_get_mirror_char        (gunichar     ch,
 					     gunichar    *mirrored_ch);
 #endif

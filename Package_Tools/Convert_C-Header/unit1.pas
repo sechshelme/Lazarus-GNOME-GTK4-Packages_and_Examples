@@ -44,9 +44,8 @@ const
   availables: array of string = (
     'GDK_PIXBUF_AVAILABLE_IN_2',
     'GDK_AVAILABLE_IN_4',
-    'PANGO_AVAILABLE_IN_1');
-
-
+    'PANGO_AVAILABLE_IN_1',
+    'PANGO_DEPRECATED_IN_1');
 
 
 procedure TForm1.Button1Click(Sender: TObject);
@@ -63,7 +62,7 @@ begin
     slHeader := TStringList.Create;
     slHeader.LoadFromFile(slFile[i]);
 
-    WriteLn(i,'/',slFile.Count);
+    WriteLn(i, '/', slFile.Count);
 
 
     for j := 0 to slHeader.Count - 1 do begin
@@ -93,22 +92,22 @@ begin
         s := availables[a] + '_VAR';
       end;
 
-            slHeader[j] := StringReplace(slHeader[j], 'PANGO_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'PANGO_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
 
 
-//
-//      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_VAR', 'extern', [rfReplaceAll]);
-//
-//      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
-//      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_12', 'extern', [rfReplaceAll]);
-//      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_14', 'extern', [rfReplaceAll]);
-//      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_26', 'extern', [rfReplaceAll]);
-//      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_30', 'extern', [rfReplaceAll]);
-//      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_32', 'extern', [rfReplaceAll]);
-//      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_36', 'extern', [rfReplaceAll]);
-//      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_2', 'extern', [rfReplaceAll]);
-//      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_4', 'extern', [rfReplaceAll]);
-//      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_6', 'extern', [rfReplaceAll]);
+      //
+      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_VAR', 'extern', [rfReplaceAll]);
+      //
+      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
+      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_12', 'extern', [rfReplaceAll]);
+      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_14', 'extern', [rfReplaceAll]);
+      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_26', 'extern', [rfReplaceAll]);
+      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_30', 'extern', [rfReplaceAll]);
+      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_32', 'extern', [rfReplaceAll]);
+      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_36', 'extern', [rfReplaceAll]);
+      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_2', 'extern', [rfReplaceAll]);
+      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_4', 'extern', [rfReplaceAll]);
+      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_6', 'extern', [rfReplaceAll]);
 
       //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_ALL', '', [rfReplaceAll]);
       //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_CONST', '', [rfReplaceAll]);

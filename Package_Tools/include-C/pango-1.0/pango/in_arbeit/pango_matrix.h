@@ -75,7 +75,7 @@ struct _PangoMatrix
  *
  * Since: 1.6
  **/
-#define PANGO_MATRIX_INIT { 1., 0., 0., 1., 0., 0. }
+// xxxxxxxxxxxxxxxxxxxxxxxxx #define PANGO_MATRIX_INIT { 1., 0., 0., 1., 0., 0. }
 
 /* for PangoRectangle */
 #include <pango/pango-types.h>
