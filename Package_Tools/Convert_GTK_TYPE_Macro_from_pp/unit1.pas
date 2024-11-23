@@ -100,8 +100,7 @@ const
     (libs: 'libgstisoff'; units: 'glib280, gst124'),
     (libs: 'libgdk_pixbuf2'; units: 'glib280, gdk_pixbuf_core'),
 
-    (libs: 'libgio2'; units: 'common_GLIB, gtypes, gerror, gtype, giotypes, gobject, gioenums'),
-
+    (libs: 'libpango'; units: 'fp_cairo, fp_glib2'),
 
     (libs: ''; units: ''));
 
