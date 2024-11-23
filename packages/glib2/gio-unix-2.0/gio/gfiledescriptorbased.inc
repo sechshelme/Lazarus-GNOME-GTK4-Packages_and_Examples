@@ -1,13 +1,12 @@
-unit gfiledescriptorbased;
+/////////////////////////////////////////////////////////////
+//                                                         //
+//   WARNUNG, dies Datei wird automatisch durch            //
+//   das Program "Convert_Unit_to_pas_includes" erzeugt !  //
+//   Erzeugt am: 23-11-2024   13:43                        //
+//                                                         //
+/////////////////////////////////////////////////////////////
 
-interface
-
-uses
-  fp_glib2;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 type
   TGFileDescriptorBased = record
@@ -30,7 +29,10 @@ function G_FILE_DESCRIPTOR_BASED(obj: Pointer): PGFileDescriptorBased;
 function G_IS_FILE_DESCRIPTOR_BASED(obj: Pointer): Tgboolean;
 function G_FILE_DESCRIPTOR_BASED_GET_IFACE(obj: Pointer): PGFileDescriptorBasedIface;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function G_TYPE_FILE_DESCRIPTOR_BASED: TGType;
 begin
@@ -54,4 +56,4 @@ end;
 
 
 
-end.
+{$ENDIF read_implementation}

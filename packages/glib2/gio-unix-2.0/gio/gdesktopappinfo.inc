@@ -1,13 +1,12 @@
-unit gdesktopappinfo;
+/////////////////////////////////////////////////////////////
+//                                                         //
+//   WARNUNG, dies Datei wird automatisch durch            //
+//   das Program "Convert_Unit_to_pas_includes" erzeugt !  //
+//   Erzeugt am: 23-11-2024   13:43                        //
+//                                                         //
+/////////////////////////////////////////////////////////////
 
-interface
-
-uses
-  fp_glib2;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 type
   TGDesktopAppInfo = record
@@ -83,7 +82,10 @@ function G_IS_DESKTOP_APP_INFO(obj: Pointer): Tgboolean;
 function G_IS_DESKTOP_APP_INFO_CLASS(klass: Pointer): Tgboolean;
 function G_DESKTOP_APP_INFO_GET_CLASS(obj: Pointer): PGDesktopAppInfoClass;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function G_TYPE_DESKTOP_APP_INFO: TGType;
 begin
@@ -138,4 +140,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

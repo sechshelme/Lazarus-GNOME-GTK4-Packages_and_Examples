@@ -17,15 +17,19 @@
       </Item>
       <Item>
         <Filename Value="fp_glibtools.pas"/>
-        <UnitName Value="GLIBTools"/>
+        <UnitName Value="fp_glibtools"/>
       </Item>
       <Item>
         <Filename Value="fp_glib_unix.pas"/>
-        <UnitName Value="glib_unix"/>
+        <UnitName Value="fp_glib_unix"/>
       </Item>
       <Item>
         <Filename Value="fp_gmodule.pas"/>
-        <UnitName Value="gmodule"/>
+        <UnitName Value="fp_gmodule"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gio_unix_2.pas"/>
+        <UnitName Value="fp_gio_unix_2"/>
       </Item>
     </Files>
     <RequiredPkgs>

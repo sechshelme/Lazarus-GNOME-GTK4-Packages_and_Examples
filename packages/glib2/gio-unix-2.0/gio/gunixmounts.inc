@@ -1,13 +1,12 @@
-unit gunixmounts;
+/////////////////////////////////////////////////////////////
+//                                                         //
+//   WARNUNG, dies Datei wird automatisch durch            //
+//   das Program "Convert_Unit_to_pas_includes" erzeugt !  //
+//   Erzeugt am: 23-11-2024   13:43                        //
+//                                                         //
+/////////////////////////////////////////////////////////////
 
-interface
-
-uses
-  fp_glib2;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 type
   TGUnixMountEntry = record
@@ -84,7 +83,10 @@ function G_UNIX_MOUNT_MONITOR_CLASS(klass: Pointer): PGUnixMountMonitorClass;
 function G_IS_UNIX_MOUNT_MONITOR(obj: Pointer): Tgboolean;
 function G_IS_UNIX_MOUNT_MONITOR_CLASS(klass: Pointer): Tgboolean;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function G_TYPE_UNIX_MOUNT_MONITOR: TGType;
 begin
@@ -124,4 +126,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

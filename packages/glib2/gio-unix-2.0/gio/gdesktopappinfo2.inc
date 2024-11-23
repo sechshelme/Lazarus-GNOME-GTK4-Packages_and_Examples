@@ -1,13 +1,12 @@
-unit gdesktopappinfo2;
+/////////////////////////////////////////////////////////////
+//                                                         //
+//   WARNUNG, dies Datei wird automatisch durch            //
+//   das Program "Convert_Unit_to_pas_includes" erzeugt !  //
+//   Erzeugt am: 23-11-2024   13:43                        //
+//                                                         //
+/////////////////////////////////////////////////////////////
 
-interface
-
-uses
-  common_GLIB, gtypes, gerror, gtype, giotypes, gobject, gioenums;
-
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+{$IFDEF read_interface}
 
 
 { GIO - GLib Input, Output and Streaming Library
@@ -122,7 +121,10 @@ function G_DESKTOP_APP_INFO_LOOKUP(obj : Pointer) : PGDesktopAppInfoLookup;
 function G_IS_DESKTOP_APP_INFO_LOOKUP(obj : Pointer) : Tgboolean;
 function G_DESKTOP_APP_INFO_LOOKUP_GET_IFACE(obj : Pointer) : PGDesktopAppInfoLookupIface;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function G_TYPE_DESKTOP_APP_INFO_LOOKUP : TGType;
   begin
@@ -146,4 +148,4 @@ end;
 
 
 
-end.
+{$ENDIF read_implementation}
