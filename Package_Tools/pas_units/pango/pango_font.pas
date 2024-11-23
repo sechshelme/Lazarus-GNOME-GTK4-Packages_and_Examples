@@ -3,7 +3,7 @@ unit pango_font;
 interface
 
 uses
-  fp_cairo, fp_glib2, pango_gravity, pango_types;
+  fp_cairo, fp_glib2, pango_gravity, pango_types, pango_coverage, pango_fontmap, pango_engine;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -78,12 +78,6 @@ const
   PANGO_FONT_MASK_GRAVITY = 1 shl 6;
   PANGO_FONT_MASK_VARIATIONS = 1 shl 7;
 
-type
-  TPangoFontDescription = record
-  end;
-  PPangoFontDescription = ^TPangoFontDescription;
-  PPPangoFontDescription = ^PPangoFontDescription;
-
 function pango_font_description_get_type: TGType; cdecl; external libpango;
 function pango_font_description_new: PPangoFontDescription; cdecl; external libpango;
 function pango_font_description_copy(desc: PPangoFontDescription): PPangoFontDescription; cdecl; external libpango;
@@ -121,21 +115,6 @@ function pango_font_description_from_string(str: pchar): PPangoFontDescription; 
 function pango_font_description_to_string(desc: PPangoFontDescription): pchar; cdecl; external libpango;
 function pango_font_description_to_filename(desc: PPangoFontDescription): pchar; cdecl; external libpango;
 
-type
-  TPangoFontMetrics = record
-    ref_count: Tguint;
-    ascent: longint;
-    descent: longint;
-    Height: longint;
-    approximate_char_width: longint;
-    approximate_digit_width: longint;
-    underline_position: longint;
-    underline_thickness: longint;
-    strikethrough_position: longint;
-    strikethrough_thickness: longint;
-  end;
-  PPangoFontMetrics = ^TPangoFontMetrics;
-
 function pango_font_metrics_get_type: TGType; cdecl; external libpango;
 function pango_font_metrics_ref(metrics: PPangoFontMetrics): PPangoFontMetrics; cdecl; external libpango;
 procedure pango_font_metrics_unref(metrics: PPangoFontMetrics); cdecl; external libpango;
@@ -150,18 +129,6 @@ function pango_font_metrics_get_strikethrough_position(metrics: PPangoFontMetric
 function pango_font_metrics_get_strikethrough_thickness(metrics: PPangoFontMetrics): longint; cdecl; external libpango;
 
 type
-  TPangoFontFamily = record
-    parent_instance: TGObject;
-  end;
-  PPangoFontFamily = ^TPangoFontFamily;
-
-  TPangoFontFace = record
-    parent_instance: TGObject;
-  end;
-  PPangoFontFace = ^TPangoFontFace;
-  PPPangoFontFace = ^PPangoFontFace;
-  PPPPangoFontFace = ^PPPangoFontFace;
-
   TPangoFontFamilyClass = record
     parent_class: TGObjectClass;
     list_faces: procedure(family: PPangoFontFamily; faces: PPPPangoFontFace; n_faces: Plongint); cdecl;
@@ -203,11 +170,6 @@ function pango_font_face_is_synthesized(face: PPangoFontFace): Tgboolean; cdecl;
 function pango_font_face_get_family(face: PPangoFontFace): PPangoFontFamily; cdecl; external libpango;
 
 type
-  TPangoFont = record
-    parent_instance: TGObject;
-  end;
-  PPangoFont = ^TPangoFont;
-
   TPangoFontClass = record
     parent_class: TGObjectClass;
     describe: function(font: PPangoFont): PPangoFontDescription; cdecl;

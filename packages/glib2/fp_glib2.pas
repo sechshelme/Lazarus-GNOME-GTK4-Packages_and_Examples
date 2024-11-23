@@ -66,6 +66,11 @@ type
   end;
   Ppasswd = ^Tpasswd;
 
+
+  // /usr/include/harfbuzz/hb-common.h
+  Phb_feature_t = Pointer;
+  Phb_font_t=Pointer;
+
   // ==== Windows
   {$ifdef windows}
 type
@@ -159,7 +164,7 @@ type
   TEGLint = Tkhronos_int32_t;
 
 
-  // ==== GLB2
+  // ==== GLIB2
 
 const
   GLIB_SYSDEF_AF_UNIX = 1;

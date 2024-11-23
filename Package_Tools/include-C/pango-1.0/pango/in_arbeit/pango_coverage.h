@@ -76,9 +76,7 @@ GType pango_coverage_get_type (void) ;
 
 extern
 PangoCoverage *    pango_coverage_new     (void);
-extern_FOR(g_object_ref)
 PangoCoverage *    pango_coverage_ref     (PangoCoverage      *coverage);
-extern_FOR(g_object_unref)
 void               pango_coverage_unref   (PangoCoverage      *coverage);
 extern
 PangoCoverage *    pango_coverage_copy    (PangoCoverage      *coverage);
@@ -101,7 +99,6 @@ extern
 PangoCoverage *pango_coverage_from_bytes (guchar         *bytes,
 					  int             n_bytes);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(PangoCoverage, g_object_unref)
 
 
 

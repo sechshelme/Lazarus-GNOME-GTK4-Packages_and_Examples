@@ -7,6 +7,14 @@ uses
 
   pango_script,         // io.
   pango_color,          // io.
+  pango_break,
+  pango_item,
+  pango_engine,
+  pango_direction,
+  pango_fontset,
+  pango_context,
+  pango_fontmap,
+  pango_coverage,
   pango_matrix,
   pango_gravity,
   pango_font,
