@@ -25,6 +25,9 @@ uses
   pango_features,       // io.
   pango_version_macros, // io. -> pango_features
 
+  pango_glyph_item,     // io. -> pango_item, pango_glyph, pango_break
+  pango_layout,         // io. -> pango_glyph_item, pango_break
+
 
   fp_glib2,
   fp_GDK4,
@@ -34,24 +37,19 @@ uses
 
   procedure Print_PangoLogAttr;
   var
-    //    Text: Pgchar = 'Hello, Pango!'#10'Hallo Pango!';
-    Text: Pgchar = 'blublu';
+    Text: Pgchar = 'Hello, Pango!'#10'Hallo Pango!';
     len, i: integer;
     log_attrs: PPangoLogAttr;
 
   begin
-    len := Length(Text);
+    len := StrLen(Text);
 
-    // Allokiere Speicher für die logischen Attribute
-    GetMem(log_attrs, (len + 1) * SizeOf(TPangoLogAttr));
+    log_attrs := g_malloc((len + 1) * SizeOf(TPangoLogAttr));
 
-    // Berechne die logischen Attribute für den Text
     pango_get_log_attrs(Text, len, -1, nil, log_attrs, len + 1);
 
-    // Gib die Größe von PangoLogAttr aus
     g_printf('Die Größe von PangoLogAttr beträgt: %zu Bytes'#10, SizeOf(TPangoLogAttr));
 
-    // Gib einige logische Attribute aus
     for i := 0 to len do begin
       g_printf('Position %d:', i);
       if log_attrs[i].is_line_break = 1 then begin
@@ -63,11 +61,10 @@ uses
       if log_attrs[i].is_word_end = 1 then begin
         g_printf('Wortende ');
       end;
-      g_printf(#10);
+      g_printf('         %40b'#10, log_attrs[i]);
     end;
 
-    // Speicher freigeben
-    FreeMem(log_attrs);
+    g_free(log_attrs);
   end;
 
 
@@ -76,6 +73,7 @@ uses
   var
     window, label1: PGtkWidget;
     attrs: PPangoAttrList;
+    underline_attr, underline_double_attr: PPangoAttribute;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'Window');
@@ -85,7 +83,13 @@ uses
     gtk_label_set_markup(GTK_LABEL(label1), '<span foreground="blue" size="x-large">Hallo, <i>Pango</i> und <b>GTK4</b>!</span>');
 
     attrs := pango_attr_list_new;
-    pango_attr_list_insert(attrs, pango_attr_underline_new(PANGO_UNDERLINE_SINGLE));
+    underline_attr := pango_attr_underline_new(PANGO_UNDERLINE_SINGLE);
+    pango_attr_list_insert(attrs, underline_attr);
+
+    underline_double_attr := pango_attr_underline_new(PANGO_UNDERLINE_DOUBLE);
+    underline_double_attr^.start_index:=7;
+    underline_double_attr^.end_index:=12;
+    pango_attr_list_insert(attrs, underline_double_attr);
 
     gtk_label_set_attributes(GTK_LABEL(label1), attrs);
     pango_attr_list_unref(attrs);
@@ -94,8 +98,6 @@ uses
     Print_PangoLogAttr;
     WriteLn(GDK_VERSION_4_12);
     WriteLn(GLIB_VERSION_2_12);
-
-
 
     // pango_language_to_string
 

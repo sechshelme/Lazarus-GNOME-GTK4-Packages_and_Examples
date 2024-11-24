@@ -545,9 +545,6 @@ extern
 int  pango_layout_iter_get_run_baseline    (PangoLayoutIter *iter);
 
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(PangoLayout, g_object_unref)
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(PangoLayoutIter, pango_layout_iter_free)
-
 
 
 #endif /* __PANGO_LAYOUT_H__ */

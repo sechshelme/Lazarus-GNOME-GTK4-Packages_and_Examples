@@ -26,9 +26,11 @@ type
     is_word_boundary: 0..1;
     break_inserts_hyphen: 0..1;
     break_removes_preceding: 0..1;
-    reserved: 0..1 shl 17;
+    reserved: UInt16;
+//    reserved: 0..1 shl 17;
   end;
   PPangoLogAttr = ^TPangoLogAttr;
+  PPPangoLogAttr = ^PPangoLogAttr;
 
 const
   bm_TPangoLogAttr_is_line_break = $1;
