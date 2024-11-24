@@ -3,7 +3,7 @@ unit pango_font;
 interface
 
 uses
-  fp_cairo, fp_glib2, pango_gravity, pango_types, pango_coverage, pango_fontmap, pango_engine;
+  fp_cairo, fp_glib2, pango_gravity, pango_types, pango_coverage, pango_fontmap, pango_engine, pango_context;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -203,24 +203,24 @@ const
   PANGO_UNKNOWN_GLYPH_WIDTH = 10;
   PANGO_UNKNOWN_GLYPH_HEIGHT = 14;
 
-function PANGO_SCALE_XX_SMALL: Tdouble;
-function PANGO_SCALE_X_SMALL: Tdouble;
-function PANGO_SCALE_SMALL: Tdouble;
-function PANGO_SCALE_MEDIUM: Tdouble;
-function PANGO_SCALE_LARGE: Tdouble;
-function PANGO_SCALE_X_LARGE: Tdouble;
-function PANGO_SCALE_XX_LARGE: Tdouble;
+  PANGO_SCALE_XX_SMALL = Tdouble(0.5787037037037);
+  PANGO_SCALE_X_SMALL = Tdouble(0.6944444444444);
+  PANGO_SCALE_SMALL = Tdouble(0.8333333333333);
+  PANGO_SCALE_MEDIUM = Tdouble(1.0);
+  PANGO_SCALE_LARGE = Tdouble(1.2);
+  PANGO_SCALE_X_LARGE = Tdouble(1.44);
+  PANGO_SCALE_XX_LARGE = Tdouble(1.728);
 
-function PANGO_TYPE_FONT_DESCRIPTION: tgtylongint; { return type might be wrong }
-function PANGO_TYPE_FONT_METRICS: longint; { return type might be wrong }
 
-function PANGO_GLYPH_EMPTY: TPangoGlyph;
-function PANGO_GLYPH_INVALID_INPUT: TPangoGlyph;
-function PANGO_GLYPH_UNKNOWN_FLAG: TPangoGlyph;
+function PANGO_TYPE_FONT_DESCRIPTION: TGType;
+function PANGO_TYPE_FONT_METRICS: TGType;
+
+const
+  PANGO_GLYPH_EMPTY = TPangoGlyph($0FFFFFFF);
+  PANGO_GLYPH_INVALID_INPUT = TPangoGlyph($FFFFFFFF);
+  PANGO_GLYPH_UNKNOWN_FLAG = TPangoGlyph($10000000);
+
 function PANGO_GET_UNKNOWN_GLYPH(wc: longint): longint;
-
-
-
 
 // === Konventiert am: 23-11-24 17:45:10 ===
 
@@ -345,83 +345,16 @@ end;
 // =====
 
 
-{ was #define dname def_expr }
-function PANGO_SCALE_XX_SMALL: Tdouble;
-begin
-  PANGO_SCALE_XX_SMALL := Tdouble(0.5787037037037);
-end;
-
-{ was #define dname def_expr }
-function PANGO_SCALE_X_SMALL: Tdouble;
-begin
-  PANGO_SCALE_X_SMALL := Tdouble(0.6944444444444);
-end;
-
-{ was #define dname def_expr }
-function PANGO_SCALE_SMALL: Tdouble;
-begin
-  PANGO_SCALE_SMALL := Tdouble(0.8333333333333);
-end;
-
-{ was #define dname def_expr }
-function PANGO_SCALE_MEDIUM: Tdouble;
-begin
-  PANGO_SCALE_MEDIUM := Tdouble(1.0);
-end;
-
-{ was #define dname def_expr }
-function PANGO_SCALE_LARGE: Tdouble;
-begin
-  PANGO_SCALE_LARGE := Tdouble(1.2);
-end;
-
-{ was #define dname def_expr }
-function PANGO_SCALE_X_LARGE: Tdouble;
-begin
-  PANGO_SCALE_X_LARGE := Tdouble(1.44);
-end;
-
-{ was #define dname def_expr }
-function PANGO_SCALE_XX_LARGE: Tdouble;
-begin
-  PANGO_SCALE_XX_LARGE := Tdouble(1.728);
-end;
-
-
-
-{ was #define dname def_expr }
-function PANGO_TYPE_FONT_DESCRIPTION: longint; { return type might be wrong }
+function PANGO_TYPE_FONT_DESCRIPTION: TGType;
 begin
   PANGO_TYPE_FONT_DESCRIPTION := pango_font_description_get_type;
 end;
 
-{ was #define dname def_expr }
-function PANGO_TYPE_FONT_METRICS: longint; { return type might be wrong }
+function PANGO_TYPE_FONT_METRICS: TGType;
 begin
   PANGO_TYPE_FONT_METRICS := pango_font_metrics_get_type;
 end;
 
-{ was #define dname def_expr }
-function PANGO_GLYPH_EMPTY: TPangoGlyph;
-begin
-  PANGO_GLYPH_EMPTY := TPangoGlyph($0FFFFFFF);
-end;
-
-{ was #define dname def_expr }
-function PANGO_GLYPH_INVALID_INPUT: TPangoGlyph;
-begin
-  PANGO_GLYPH_INVALID_INPUT := TPangoGlyph($FFFFFFFF);
-end;
-
-{ was #define dname def_expr }
-function PANGO_GLYPH_UNKNOWN_FLAG: TPangoGlyph;
-begin
-  PANGO_GLYPH_UNKNOWN_FLAG := TPangoGlyph($10000000);
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
 function PANGO_GET_UNKNOWN_GLYPH(wc: longint): longint;
 begin
   PANGO_GET_UNKNOWN_GLYPH := (TPangoGlyph(wc)) or PANGO_GLYPH_UNKNOWN_FLAG;

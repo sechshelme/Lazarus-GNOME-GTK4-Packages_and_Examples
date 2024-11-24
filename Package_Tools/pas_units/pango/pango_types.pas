@@ -92,8 +92,6 @@ type
 
   // =====
 
-
-
 type
   PPangoGlyph = ^TPangoGlyph;
   TPangoGlyph = Tguint32;

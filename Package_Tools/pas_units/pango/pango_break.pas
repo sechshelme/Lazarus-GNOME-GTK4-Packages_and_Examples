@@ -10,7 +10,7 @@ uses
   {$ENDIF}
 
 type
-  TPangoLogAttr = record
+  TPangoLogAttr = bitpacked record
     is_line_break: 0..1;
     is_mandatory_break: 0..1;
     is_char_break: 0..1;

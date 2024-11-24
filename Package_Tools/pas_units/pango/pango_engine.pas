@@ -3,7 +3,7 @@ unit pango_engine;
 interface
 
 uses
-  fp_cairo, fp_glib2, pango_item, pango_types, pango_break;
+  fp_cairo, fp_glib2, pango_item, pango_types, pango_break, pango_glyph, pango_coverage, pango_script;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -63,16 +63,12 @@ type
     n_scripts: Tgint;
   end;
   PPangoEngineInfo = ^TPangoEngineInfo;
+  PPPangoEngineInfo = ^PPangoEngineInfo;
 
 procedure script_engine_list(engines: PPPangoEngineInfo; n_engines: Plongint); cdecl; external libpango;
 procedure script_engine_init(module: PGTypeModule); cdecl; external libpango;
 procedure script_engine_exit; cdecl; external libpango;
 function script_engine_create(id: pchar): PPangoEngine; cdecl; external libpango;
-
-function PANGO_ENGINE_LANG_DEFINE_TYPE(Name, prefix, class_init, instance_init: longint): longint;
-function PANGO_ENGINE_SHAPE_DEFINE_TYPE(Name, prefix, class_init, instance_init: longint): longint;
-function PANGO_MODULE_ENTRY(func: longint): longint;
-function _PANGO_MODULE_ENTRY2(prefix, func: longint): longint;
 
 // === Konventiert am: 23-11-24 19:33:33 ===
 
@@ -194,39 +190,6 @@ begin
 end;
 
 // =====
-
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function PANGO_ENGINE_LANG_DEFINE_TYPE(Name, prefix, class_init, instance_init: longint): longint;
-begin
-  PANGO_ENGINE_LANG_DEFINE_TYPE := PANGO_ENGINE_DEFINE_TYPE(Name, prefix, class_init, instance_init, PANGO_TYPE_ENGINE_LANG);
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function PANGO_ENGINE_SHAPE_DEFINE_TYPE(Name, prefix, class_init, instance_init: longint): longint;
-begin
-  PANGO_ENGINE_SHAPE_DEFINE_TYPE := PANGO_ENGINE_DEFINE_TYPE(Name, prefix, class_init, instance_init, PANGO_TYPE_ENGINE_SHAPE);
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function PANGO_MODULE_ENTRY(func: longint): longint;
-begin
-  PANGO_MODULE_ENTRY := _PANGO_MODULE_ENTRY2(PANGO_MODULE_PREFIX, func);
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function _PANGO_MODULE_ENTRY2(prefix, func: longint): longint;
-begin
-  _PANGO_MODULE_ENTRY2 := _PANGO_MODULE_ENTRY3(prefix, func);
-end;
 
 
 end.
