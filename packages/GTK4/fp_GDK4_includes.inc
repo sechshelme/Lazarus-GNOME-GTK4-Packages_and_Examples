@@ -1,5 +1,6 @@
 
 
+{$include GDK/gdkversionmacros.inc}                   // io.
 {$include GDK/gdkenums.inc}                   // io.
 {$include GDK/gdkenumtypes.inc}               // io.
 {$include GDK/gdktypes.inc}

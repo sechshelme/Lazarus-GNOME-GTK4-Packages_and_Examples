@@ -3,7 +3,7 @@ unit pango_font;
 interface
 
 uses
-  fp_cairo, fp_glib2, pango_gravity, pango_types, pango_coverage, pango_fontmap, pango_engine, pango_context;
+  fp_glib2, pango_gravity, pango_types, pango_coverage, pango_context;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

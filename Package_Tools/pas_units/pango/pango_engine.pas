@@ -3,7 +3,7 @@ unit pango_engine;
 interface
 
 uses
-  fp_cairo, fp_glib2, pango_item, pango_types, pango_break, pango_glyph, pango_coverage, pango_script;
+  fp_glib2, pango_item, pango_types, pango_break, pango_glyph, pango_coverage, pango_script;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

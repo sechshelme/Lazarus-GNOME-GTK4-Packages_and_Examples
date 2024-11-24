@@ -3,7 +3,7 @@ unit pango_coverage;
 interface
 
 uses
-  fp_cairo, fp_glib2;
+  fp_glib2;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

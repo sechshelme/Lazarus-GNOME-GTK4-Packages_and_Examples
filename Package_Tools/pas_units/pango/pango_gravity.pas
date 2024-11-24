@@ -3,7 +3,7 @@ unit pango_gravity;
 interface
 
 uses
-  fp_cairo, fp_glib2, pango_matrix, pango_script;
+  fp_glib2, pango_matrix, pango_script;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

@@ -3,7 +3,7 @@ unit pango_script;
 interface
 
 uses
-  fp_cairo, fp_glib2, pango_types;
+  fp_glib2, pango_types;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

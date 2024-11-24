@@ -69,7 +69,7 @@ type
 
   // /usr/include/harfbuzz/hb-common.h
   Phb_feature_t = Pointer;
-  Phb_font_t=Pointer;
+  Phb_font_t = Pointer;
 
   // ==== Windows
   {$ifdef windows}
@@ -162,6 +162,23 @@ type
   // egl
   Tkhronos_int32_t = int32;
   TEGLint = Tkhronos_int32_t;
+
+
+  // === Pango
+
+  TPangoWrapMode = longint;
+  TPangoEllipsizeMode = longint;
+  TPangoDirection = longint;
+
+  PPangoContext = Pointer;
+  PPangoLayout = Pointer;
+  PPangoFontMap = Pointer;
+  PPangoLanguage = Pointer;
+  PPangoAttrList = Pointer;
+  PPangoTabArray = Pointer;
+  PPangoFontFamily = Pointer;
+  PPangoFontFace = Pointer;
+  PPangoFontDescription = Pointer;
 
 
   // ==== GLIB2

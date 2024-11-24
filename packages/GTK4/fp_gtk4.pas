@@ -3,7 +3,8 @@ unit fp_GTK4;
 interface
 
 uses
-  ctypes, pango, fp_cairo, fp_glib2, fp_gdk_pixbuf2, fp_GDK4, fp_GSK4;
+  ctypes,// pango,
+  fp_cairo, fp_glib2, fp_gdk_pixbuf2, fp_GDK4, fp_GSK4;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

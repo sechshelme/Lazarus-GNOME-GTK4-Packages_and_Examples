@@ -1,11 +1,13 @@
 # Inhalt
-| **Paket Name:** | **Version:** |
-|----------       |----------    |
-| **glib2**       | 2.80.0       |
-| **Cairo**       | 1.18.1       |
-| **GdkPixbuf2**  | 2.42.10      |
-| **GTK4**        | 4.14.2       |
-| **gstreamer**   | 1.24.2       |
+| **Paket Name:**   | **Version:** |
+|----------         |----------    |
+| **glib2**         | 2.80.0       |
+| **gio-unix-2.0**  | 2.80.0       |
+| **Cairo**         | 1.18.1       |
+| **GdkPixbuf2**    | 2.42.10      |
+| **GTK4**          | 4.14.2       |
+| **gstreamer**     | 1.24.2       |
+| **Pango**         | in Arbeit    |
 
 # Wichtiger Hinweis
 Da in den glib-Funktionen ein `invalid floating point operation` ausgelöst werden kann braucht ee folgendes:

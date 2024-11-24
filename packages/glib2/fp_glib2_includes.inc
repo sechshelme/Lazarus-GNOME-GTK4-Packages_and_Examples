@@ -1,6 +1,7 @@
 
 {$include glib/gtypes.inc}                  // Komplizierte Makros entfernt     ( neu übersetzen )
 {$include glib/gversion.inc}                // io.
+{$include glib/gversionmacros.inc}          // io. -> gversion
 {$include glib/gvarianttype.inc}            // io.
 {$include glib/gquark.inc}                  // io.
 {$include glib/gerror.inc}                  //      Makros

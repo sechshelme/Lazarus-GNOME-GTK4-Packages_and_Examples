@@ -3,7 +3,7 @@ unit pango_context;
 interface
 
 uses
-  fp_cairo, fp_glib2, pango_types, pango_fontset, pango_direction, pango_gravity, pango_matrix;
+  fp_glib2, pango_types, pango_gravity, pango_matrix;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

@@ -3,7 +3,7 @@ unit pango_glyph;
 interface
 
 uses
-  fp_cairo, fp_glib2, pango_types, pango_item, pango_break;
+  fp_glib2, pango_types, pango_item, pango_break;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
