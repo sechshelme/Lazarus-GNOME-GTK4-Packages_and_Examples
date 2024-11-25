@@ -55,15 +55,21 @@ type
 
 
   // /usr/include/fontconfig/fontconfig.h
-  TFcPattern=record
+  TFcPattern = record
   end;
-  PFcPattern=^TFcPattern;
+  PFcPattern = ^TFcPattern;
 
   // /usr/include/freetype2/freetype/freetype.h
-  TFT_SizeRec=record
+  TFT_SizeRec = record
   end;
 
-  TFT_Face=^TFT_SizeRec;
+  TFT_Face = ^TFT_SizeRec;
+
+  TFT_BitmapRec = record
+  end;
+
+  TFT_Bitmap = ^TFT_BitmapRec;
+  PFT_Bitmap=^TFT_Bitmap;
 
   // /usr/include/pwd.h
 type

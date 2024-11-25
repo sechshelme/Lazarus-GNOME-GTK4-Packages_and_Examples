@@ -144,7 +144,7 @@ end;
 
 function PANGO_TYPE_OT_RULESET: TGType;
 begin
-//  PANGO_TYPE_OT_RULESET := pango_ot_ruleset_get_type;
+  PANGO_TYPE_OT_RULESET := pango_ot_ruleset_get_type;
 end;
 
 function PANGO_OT_RULESET(obj: Pointer): PPangoOTRuleset;
@@ -173,12 +173,12 @@ end;
 
 function PANGO_TYPE_OT_BUFFER: TGType;
 begin
-//  PANGO_TYPE_OT_BUFFER := pango_ot_buffer_get_type;
+  PANGO_TYPE_OT_BUFFER := pango_ot_buffer_get_type;
 end;
 
 function PANGO_TYPE_OT_RULESET_DESCRIPTION: TGType;
 begin
-//  PANGO_TYPE_OT_RULESET_DESCRIPTION := pango_ot_ruleset_description_get_type;
+  PANGO_TYPE_OT_RULESET_DESCRIPTION := pango_ot_ruleset_description_get_type;
 end;
 
 

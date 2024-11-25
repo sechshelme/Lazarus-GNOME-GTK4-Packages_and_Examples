@@ -27,9 +27,13 @@ uses
   pango_layout,         // io. -> pango_glyph_item, pango_break
 
 
+  pango_renderer,       // io. -> pango_attributes, pango_matrix, pango_glyph, pango_glyph_item, pango_layout, pango_color
 
-  pangofc_font,         //    !!!!! ft2 !!!!! -> pango_matrix, pango_glyph
-  pango_ot,             //    !!!!! ft2 !!!!! ->  pango_script, pango_glyph, pangofc_font
+  pangocairo,
+
+//  pangoft2,             //    !!!!! ft2 !!!!! -> pango_glyph, pango_matrix, pango_layout, pango_coverage
+//  pangofc_font,         //    !!!!! ft2 !!!!! -> pango_matrix, pango_glyph
+//  pango_ot,             //    !!!!! ft2 !!!!! -> pango_script, pango_glyph, pangofc_font
 
 
   fp_glib2,

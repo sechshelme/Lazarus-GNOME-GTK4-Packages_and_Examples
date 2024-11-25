@@ -12,45 +12,27 @@ uses
 
 
 
-// === Konventiert am: 24-11-24 19:32:27 ===
+// === Konventiert am: 25-11-24 19:41:43 ===
 
-function PANGO_TYPE_LAYOUT : TGType;
-function PANGO_LAYOUT(obj : Pointer) : PPangoLayout;
-function PANGO_LAYOUT_CLASS(klass : Pointer) : PPangoLayoutClass;
-function PANGO_IS_LAYOUT(obj : Pointer) : Tgboolean;
-function PANGO_IS_LAYOUT_CLASS(klass : Pointer) : Tgboolean;
-function PANGO_LAYOUT_GET_CLASS(obj : Pointer) : PPangoLayoutClass;
+function PANGO_TYPE_CAIRO_FONT_MAP : TGType;
+function PANGO_CAIRO_FONT_MAP(obj : Pointer) : PPangoCairoFontMap;
+function PANGO_IS_CAIRO_FONT_MAP(obj : Pointer) : Tgboolean;
 
 implementation
 
-function PANGO_TYPE_LAYOUT : TGType;
+function PANGO_TYPE_CAIRO_FONT_MAP : TGType;
   begin
-    PANGO_TYPE_LAYOUT:=pango_layout_get_type;
+    PANGO_TYPE_CAIRO_FONT_MAP:=pango_cairo_font_map_get_type;
   end;
 
-function PANGO_LAYOUT(obj : Pointer) : PPangoLayout;
+function PANGO_CAIRO_FONT_MAP(obj : Pointer) : PPangoCairoFontMap;
 begin
-  Result := PPangoLayout(g_type_check_instance_cast(obj, PANGO_TYPE_LAYOUT));
+  Result := PPangoCairoFontMap(g_type_check_instance_cast(obj, PANGO_TYPE_CAIRO_FONT_MAP));
 end;
 
-function PANGO_LAYOUT_CLASS(klass : Pointer) : PPangoLayoutClass;
+function PANGO_IS_CAIRO_FONT_MAP(obj : Pointer) : Tgboolean;
 begin
-  Result := PPangoLayoutClass(g_type_check_class_cast(klass, PANGO_TYPE_LAYOUT));
-end;
-
-function PANGO_IS_LAYOUT(obj : Pointer) : Tgboolean;
-begin
-  Result := g_type_check_instance_is_a(obj,  PANGO_TYPE_LAYOUT);
-end;
-
-function PANGO_IS_LAYOUT_CLASS(klass : Pointer) : Tgboolean;
-begin
-  Result := g_type_check_class_is_a(klass,  PANGO_TYPE_LAYOUT);
-end;
-
-function PANGO_LAYOUT_GET_CLASS(obj : Pointer) : PPangoLayoutClass;
-begin
-  Result := PPangoLayoutClass(PGTypeInstance(obj)^.g_class);
+  Result := g_type_check_instance_is_a(obj,  PANGO_TYPE_CAIRO_FONT_MAP);
 end;
 
 

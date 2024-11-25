@@ -32,6 +32,10 @@
 #include <pango/pango-layout.h>
 #include <pango/pangofc-font.h>
 
+#define PANGO_TYPE_FT2_FONT_MAP              (pango_ft2_font_map_get_type ())
+#define PANGO_FT2_FONT_MAP(object)           (G_TYPE_CHECK_INSTANCE_CAST ((object), PANGO_TYPE_FT2_FONT_MAP, PangoFT2FontMap))
+#define PANGO_FT2_IS_FONT_MAP(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), PANGO_TYPE_FT2_FONT_MAP))
+
 
 
 #ifndef __GI_SCANNER__
@@ -47,16 +51,6 @@
 #endif
 
 #endif /* __GI_SCANNER__ */
-
-#ifdef __GI_SCANNER__
-#define PANGO_FT2_TYPE_FONT_MAP              (pango_ft2_font_map_get_type ())
-#define PANGO_FT2_FONT_MAP(object)           (G_TYPE_CHECK_INSTANCE_CAST ((object), PANGO_FT2_TYPE_FONT_MAP, PangoFT2FontMap))
-#define PANGO_FT2_IS_FONT_MAP(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), PANGO_FT2_TYPE_FONT_MAP))
-#else
-#define PANGO_TYPE_FT2_FONT_MAP              (pango_ft2_font_map_get_type ())
-#define PANGO_FT2_FONT_MAP(object)           (G_TYPE_CHECK_INSTANCE_CAST ((object), PANGO_TYPE_FT2_FONT_MAP, PangoFT2FontMap))
-#define PANGO_FT2_IS_FONT_MAP(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), PANGO_TYPE_FT2_FONT_MAP))
-#endif
 
 typedef struct _PangoFT2FontMap      PangoFT2FontMap;
 
@@ -117,14 +111,14 @@ void          pango_ft2_font_map_set_resolution         (PangoFT2FontMap        
 							 double                  dpi_x,
 							 double                  dpi_y);
 #ifndef PANGO_DISABLE_DEPRECATED
-extern_FOR(pango_fc_font_map_set_default_substitute)
+extern
 void          pango_ft2_font_map_set_default_substitute (PangoFT2FontMap        *fontmap,
 							 PangoFT2SubstituteFunc  func,
 							 gpointer                data,
 							 GDestroyNotify          notify);
-extern_FOR(pango_fc_font_map_substitute_changed)
+extern
 void          pango_ft2_font_map_substitute_changed     (PangoFT2FontMap         *fontmap);
-extern_FOR(pango_font_map_create_context)
+extern
 PangoContext *pango_ft2_font_map_create_context         (PangoFT2FontMap         *fontmap);
 #endif
 
@@ -132,23 +126,23 @@ PangoContext *pango_ft2_font_map_create_context         (PangoFT2FontMap        
 /* API for rendering modules
  */
 #ifndef PANGO_DISABLE_DEPRECATED
-extern_FOR(pango_font_map_create_context)
+extern
 PangoContext      *pango_ft2_get_context          (double dpi_x,
 						   double dpi_y);
-extern_FOR(pango_ft2_font_map_new)
+extern
 PangoFontMap      *pango_ft2_font_map_for_display (void);
 extern
 void               pango_ft2_shutdown_display     (void);
 
-extern_FOR(PANGO_GET_UNKNOWN_GLYPH)
+extern
 PangoGlyph     pango_ft2_get_unknown_glyph (PangoFont       *font);
-extern_FOR(pango_fc_font_kern_glyphs)
+extern
 int            pango_ft2_font_get_kerning  (PangoFont       *font,
 					    PangoGlyph       left,
 					    PangoGlyph       right);
-extern_FOR(pango_fc_font_lock_face)
+extern
 FT_Face        pango_ft2_font_get_face     (PangoFont       *font);
-extern_FOR(pango_font_get_coverage)
+extern
 PangoCoverage *pango_ft2_font_get_coverage (PangoFont       *font,
 					    PangoLanguage   *language);
 #endif /* PANGO_DISABLE_DEPRECATED */
