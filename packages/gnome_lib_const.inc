@@ -27,10 +27,13 @@ const
 const
   {$IFDEF Linux}
   libpango = 'libpango-1.0';
+  libpangoft2 = 'libpango-1.0';
+//  libpangoft2 = 'libpangoft2-1.0';
   {$ENDIF}
 
   {$IFDEF Windows}
   libpango = 'libpango-1.0-0.dll';
+  libpangoft2 = 'libpangoft2-1.0-0.dll';
   {$ENDIF}
 
 

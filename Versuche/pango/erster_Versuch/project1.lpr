@@ -21,12 +21,15 @@ uses
   pango_fontmap,        // io. -> pango_context
   pango_font,           // io. -> pango_gravity, pango_coverage, pango_context
   pango_attributes,     // io. -> pango_color, pango_font, pango_gravity
-
   pango_features,       // io.
   pango_version_macros, // io. -> pango_features
-
   pango_glyph_item,     // io. -> pango_item, pango_glyph, pango_break
   pango_layout,         // io. -> pango_glyph_item, pango_break
+
+
+
+  pangofc_font,         //    !!!!! ft2 !!!!! -> pango_matrix, pango_glyph
+  pango_ot,             //    !!!!! ft2 !!!!! ->  pango_script, pango_glyph, pangofc_font
 
 
   fp_glib2,
@@ -94,6 +97,9 @@ uses
     gtk_label_set_attributes(GTK_LABEL(label1), attrs);
     pango_attr_list_unref(attrs);
 
+  //  attrs:=    gtk_label_get_attributes(GTK_LABEL(label1));
+
+
 
     Print_PangoLogAttr;
     WriteLn(GDK_VERSION_4_12);
@@ -121,5 +127,6 @@ uses
   end;
 
 begin
+//  pango_fc_font_get_type;
   main(argc, argv);
 end.

@@ -132,23 +132,23 @@ PangoContext *pango_ft2_font_map_create_context         (PangoFT2FontMap        
 /* API for rendering modules
  */
 #ifndef PANGO_DISABLE_DEPRECATED
-PANGO_DEPRECATED_FOR(pango_font_map_create_context)
+extern_FOR(pango_font_map_create_context)
 PangoContext      *pango_ft2_get_context          (double dpi_x,
 						   double dpi_y);
-PANGO_DEPRECATED_FOR(pango_ft2_font_map_new)
+extern_FOR(pango_ft2_font_map_new)
 PangoFontMap      *pango_ft2_font_map_for_display (void);
-PANGO_DEPRECATED
+extern
 void               pango_ft2_shutdown_display     (void);
 
-PANGO_DEPRECATED_FOR(PANGO_GET_UNKNOWN_GLYPH)
+extern_FOR(PANGO_GET_UNKNOWN_GLYPH)
 PangoGlyph     pango_ft2_get_unknown_glyph (PangoFont       *font);
-PANGO_DEPRECATED_FOR(pango_fc_font_kern_glyphs)
+extern_FOR(pango_fc_font_kern_glyphs)
 int            pango_ft2_font_get_kerning  (PangoFont       *font,
 					    PangoGlyph       left,
 					    PangoGlyph       right);
-PANGO_DEPRECATED_FOR(pango_fc_font_lock_face)
+extern_FOR(pango_fc_font_lock_face)
 FT_Face        pango_ft2_font_get_face     (PangoFont       *font);
-PANGO_DEPRECATED_FOR(pango_font_get_coverage)
+extern_FOR(pango_font_get_coverage)
 PangoCoverage *pango_ft2_font_get_coverage (PangoFont       *font,
 					    PangoLanguage   *language);
 #endif /* PANGO_DISABLE_DEPRECATED */

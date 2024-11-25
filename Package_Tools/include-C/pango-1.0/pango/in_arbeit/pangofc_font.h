@@ -42,15 +42,9 @@
 
 
 
-#ifdef __GI_SCANNER__
-#define PANGO_FC_TYPE_FONT              (pango_fc_font_get_type ())
-#define PANGO_FC_FONT(object)           (G_TYPE_CHECK_INSTANCE_CAST ((object), PANGO_FC_TYPE_FONT, PangoFcFont))
-#define PANGO_FC_IS_FONT(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), PANGO_FC_TYPE_FONT))
-#else
 #define PANGO_TYPE_FC_FONT              (pango_fc_font_get_type ())
 #define PANGO_FC_FONT(object)           (G_TYPE_CHECK_INSTANCE_CAST ((object), PANGO_TYPE_FC_FONT, PangoFcFont))
 #define PANGO_IS_FC_FONT(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), PANGO_TYPE_FC_FONT))
-#endif
 
 typedef struct _PangoFcFont      PangoFcFont;
 typedef struct _PangoFcFontClass PangoFcFontClass;
@@ -96,23 +90,23 @@ extern
 guint      pango_fc_font_get_glyph         (PangoFcFont      *font,
                                             gunichar          wc);
 
-extern_FOR(pango_font_get_language)
+extern
 PangoLanguage **
            pango_fc_font_get_languages     (PangoFcFont      *font);
 
 extern
 FcPattern *pango_fc_font_get_pattern       (PangoFcFont      *font);
 
-PANGO_DEPRECATED_FOR(PANGO_GET_UNKNOWN_GLYPH)
+extern
 PangoGlyph pango_fc_font_get_unknown_glyph (PangoFcFont      *font,
                                             gunichar          wc);
 extern
 void       pango_fc_font_kern_glyphs       (PangoFcFont      *font,
                                             PangoGlyphString *glyphs);
 
-extern_FOR(pango_font_get_hb_font)
+extern
 FT_Face    pango_fc_font_lock_face         (PangoFcFont      *font);
-extern_FOR(pango_font_get_hb_font)
+extern
 void       pango_fc_font_unlock_face       (PangoFcFont      *font);
 
 

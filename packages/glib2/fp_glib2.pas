@@ -53,6 +53,18 @@ type
 
   Tpthread_t = culong;  // /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
 
+
+  // /usr/include/fontconfig/fontconfig.h
+  TFcPattern=record
+  end;
+  PFcPattern=^TFcPattern;
+
+  // /usr/include/freetype2/freetype/freetype.h
+  TFT_SizeRec=record
+  end;
+
+  TFT_Face=^TFT_SizeRec;
+
   // /usr/include/pwd.h
 type
   Tpasswd = record

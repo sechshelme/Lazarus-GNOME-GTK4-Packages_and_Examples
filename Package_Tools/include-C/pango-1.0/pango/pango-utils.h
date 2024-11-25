@@ -28,27 +28,27 @@
 
 
 
-PANGO_DEPRECATED
+extern
 char **  pango_split_file_list (const char *str);
 
-PANGO_DEPRECATED
+extern
 char    *pango_trim_string     (const char *str);
-PANGO_DEPRECATED
+extern
 gint     pango_read_line      (FILE        *stream,
 			       GString     *str);
-PANGO_DEPRECATED
+extern
 gboolean pango_skip_space     (const char **pos);
-PANGO_DEPRECATED
+extern
 gboolean pango_scan_word      (const char **pos,
 			       GString     *out);
-PANGO_DEPRECATED
+extern
 gboolean pango_scan_string    (const char **pos,
 			       GString     *out);
-PANGO_DEPRECATED
+extern
 gboolean pango_scan_int       (const char **pos,
 			       int         *out);
 
-PANGO_DEPRECATED
+extern
 gboolean pango_parse_enum     (GType       type,
 			       const char *str,
 			       int        *value,

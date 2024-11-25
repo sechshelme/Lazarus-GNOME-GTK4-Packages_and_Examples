@@ -35,6 +35,18 @@
 
 
 
+#define PANGO_TYPE_OT_INFO              (pango_ot_info_get_type ())
+#define PANGO_OT_INFO(object)           (G_TYPE_CHECK_INSTANCE_CAST ((object), PANGO_TYPE_OT_INFO, PangoOTInfo))
+#define PANGO_IS_OT_INFO(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), PANGO_TYPE_OT_INFO))
+
+#define PANGO_TYPE_OT_RULESET           (pango_ot_ruleset_get_type ())
+#define PANGO_OT_RULESET(object)        (G_TYPE_CHECK_INSTANCE_CAST ((object), PANGO_TYPE_OT_RULESET, PangoOTRuleset))
+#define PANGO_IS_OT_RULESET(object)     (G_TYPE_CHECK_INSTANCE_TYPE ((object), PANGO_TYPE_OT_RULESET))
+
+
+
+
+
 #ifndef PANGO_DISABLE_DEPRECATED
 
 /**
@@ -66,11 +78,11 @@ typedef guint32 PangoOTTag;
  * PANGO_OT_TAG_MAKE(), but cannot be used in certain situations, for
  * example, as a switch expression, as it dereferences pointers.
  */
-#define PANGO_OT_TAG_MAKE(c1,c2,c3,c4)		((PangoOTTag) FT_MAKE_TAG (c1, c2, c3, c4))
-#define PANGO_OT_TAG_MAKE_FROM_STRING(s)	(PANGO_OT_TAG_MAKE(((const char *) s)[0], \
-								   ((const char *) s)[1], \
-								   ((const char *) s)[2], \
-								   ((const char *) s)[3]))
+//#define PANGO_OT_TAG_MAKE(c1,c2,c3,c4)		((PangoOTTag) FT_MAKE_TAG (c1, c2, c3, c4))
+//#define PANGO_OT_TAG_MAKE_FROM_STRING(s)	(PANGO_OT_TAG_MAKE(((const char *) s)[0], \
+//								   ((const char *) s)[1], \
+//								   ((const char *) s)[2], \
+//								   ((const char *) s)[3]))
 
 typedef struct _PangoOTInfo       PangoOTInfo;
 typedef struct _PangoOTBuffer     PangoOTBuffer;
@@ -244,50 +256,30 @@ struct _PangoOTRulesetDescription {
   guint                   n_other_features;
 };
 
-#ifdef __GI_SCANNER__
-#define PANGO_OT_TYPE_INFO              (pango_ot_info_get_type ())
-#define PANGO_OT_INFO(object)           (G_TYPE_CHECK_INSTANCE_CAST ((object), PANGO_OT_TYPE_INFO, PangoOTInfo))
-#define PANGO_OT_IS_INFO(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), PANGO_OT_TYPE_INFO))
-#else
-#define PANGO_TYPE_OT_INFO              (pango_ot_info_get_type ())
-#define PANGO_OT_INFO(object)           (G_TYPE_CHECK_INSTANCE_CAST ((object), PANGO_TYPE_OT_INFO, PangoOTInfo))
-#define PANGO_IS_OT_INFO(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), PANGO_TYPE_OT_INFO))
-#endif
-
-PANGO_DEPRECATED
+extern
 GType pango_ot_info_get_type (void) ;
 
-#ifdef __GI_SCANNER__
-#define PANGO_OT_TYPE_RULESET           (pango_ot_ruleset_get_type ())
-#define PANGO_OT_RULESET(object)        (G_TYPE_CHECK_INSTANCE_CAST ((object), PANGO_OT_TYPE_RULESET, PangoOTRuleset))
-#define PANGO_OT_IS_RULESET(object)     (G_TYPE_CHECK_INSTANCE_TYPE ((object), PANGO_OT_TYPE_RULESET))
-#else
-#define PANGO_TYPE_OT_RULESET           (pango_ot_ruleset_get_type ())
-#define PANGO_OT_RULESET(object)        (G_TYPE_CHECK_INSTANCE_CAST ((object), PANGO_TYPE_OT_RULESET, PangoOTRuleset))
-#define PANGO_IS_OT_RULESET(object)     (G_TYPE_CHECK_INSTANCE_TYPE ((object), PANGO_TYPE_OT_RULESET))
-#endif
-
-PANGO_DEPRECATED
+extern
 GType pango_ot_ruleset_get_type (void) ;
 
 
-PANGO_DEPRECATED
+extern
 PangoOTInfo *pango_ot_info_get (FT_Face face);
 
-PANGO_DEPRECATED
+extern
 gboolean pango_ot_info_find_script   (PangoOTInfo      *info,
 				      PangoOTTableType  table_type,
 				      PangoOTTag        script_tag,
 				      guint            *script_index);
 
-PANGO_DEPRECATED
+extern
 gboolean pango_ot_info_find_language (PangoOTInfo      *info,
 				      PangoOTTableType  table_type,
 				      guint             script_index,
 				      PangoOTTag        language_tag,
 				      guint            *language_index,
 				      guint            *required_feature_index);
-PANGO_DEPRECATED
+extern
 gboolean pango_ot_info_find_feature  (PangoOTInfo      *info,
 				      PangoOTTableType  table_type,
 				      PangoOTTag        feature_tag,
@@ -295,128 +287,120 @@ gboolean pango_ot_info_find_feature  (PangoOTInfo      *info,
 				      guint             language_index,
 				      guint            *feature_index);
 
-PANGO_DEPRECATED
+extern
 PangoOTTag *pango_ot_info_list_scripts   (PangoOTInfo      *info,
 					  PangoOTTableType  table_type);
-PANGO_DEPRECATED
+extern
 PangoOTTag *pango_ot_info_list_languages (PangoOTInfo      *info,
 					  PangoOTTableType  table_type,
 					  guint             script_index,
 					  PangoOTTag        language_tag);
-PANGO_DEPRECATED
+extern
 PangoOTTag *pango_ot_info_list_features  (PangoOTInfo      *info,
 					  PangoOTTableType  table_type,
 					  PangoOTTag        tag,
 					  guint             script_index,
 					  guint             language_index);
 
-#ifdef __GI_SCANNER__
-#define PANGO_OT_TYPE_BUFFER (pango_ot_buffer_get_type())
-#else
 #define PANGO_TYPE_OT_BUFFER (pango_ot_buffer_get_type())
-#endif
 
-PANGO_DEPRECATED
+extern
 GType          pango_ot_buffer_get_type   (void) ;
 
-PANGO_DEPRECATED
+extern
 PangoOTBuffer *pango_ot_buffer_new        (PangoFcFont       *font);
-PANGO_DEPRECATED
+extern
 void           pango_ot_buffer_destroy    (PangoOTBuffer     *buffer);
-PANGO_DEPRECATED
+extern
 void           pango_ot_buffer_clear      (PangoOTBuffer     *buffer);
-PANGO_DEPRECATED
+extern
 void           pango_ot_buffer_set_rtl    (PangoOTBuffer     *buffer,
 					   gboolean           rtl);
-PANGO_DEPRECATED
+extern
 void           pango_ot_buffer_add_glyph  (PangoOTBuffer     *buffer,
 					   guint              glyph,
 					   guint              properties,
 					   guint              cluster);
-PANGO_DEPRECATED
+extern
 void           pango_ot_buffer_get_glyphs (const PangoOTBuffer  *buffer,
 					   PangoOTGlyph        **glyphs,
 					   int                  *n_glyphs);
-PANGO_DEPRECATED
+extern
 void           pango_ot_buffer_output     (const PangoOTBuffer  *buffer,
 					   PangoGlyphString     *glyphs);
 
-PANGO_DEPRECATED
+extern
 void           pango_ot_buffer_set_zero_width_marks (PangoOTBuffer     *buffer,
 						     gboolean           zero_width_marks);
 
-PANGO_DEPRECATED
+extern
 const PangoOTRuleset *pango_ot_ruleset_get_for_description (PangoOTInfo                     *info,
 							    const PangoOTRulesetDescription *desc);
-PANGO_DEPRECATED
+extern
 PangoOTRuleset *pango_ot_ruleset_new (PangoOTInfo       *info);
-PANGO_DEPRECATED
+extern
 PangoOTRuleset *pango_ot_ruleset_new_for (PangoOTInfo       *info,
 					  PangoScript        script,
 					  PangoLanguage     *language);
-PANGO_DEPRECATED
+extern
 PangoOTRuleset *pango_ot_ruleset_new_from_description (PangoOTInfo                     *info,
 						       const PangoOTRulesetDescription *desc);
-PANGO_DEPRECATED
+extern
 void            pango_ot_ruleset_add_feature (PangoOTRuleset   *ruleset,
 					      PangoOTTableType  table_type,
 					      guint             feature_index,
 					      gulong            property_bit);
-PANGO_DEPRECATED
+extern
 gboolean        pango_ot_ruleset_maybe_add_feature (PangoOTRuleset   *ruleset,
 						    PangoOTTableType  table_type,
 						    PangoOTTag        feature_tag,
 						    gulong            property_bit);
-PANGO_DEPRECATED
+extern
 guint           pango_ot_ruleset_maybe_add_features (PangoOTRuleset          *ruleset,
 						     PangoOTTableType         table_type,
 						     const PangoOTFeatureMap *features,
 						     guint                    n_features);
-PANGO_DEPRECATED
+extern
 guint           pango_ot_ruleset_get_feature_count (const PangoOTRuleset   *ruleset,
 						    guint                  *n_gsub_features,
 						    guint                  *n_gpos_features);
 
-PANGO_DEPRECATED
+extern
 void            pango_ot_ruleset_substitute  (const PangoOTRuleset   *ruleset,
 					      PangoOTBuffer          *buffer);
 
-PANGO_DEPRECATED
+extern
 void            pango_ot_ruleset_position    (const PangoOTRuleset   *ruleset,
 					      PangoOTBuffer          *buffer);
 
-PANGO_DEPRECATED
+extern
 PangoScript     pango_ot_tag_to_script     (PangoOTTag     script_tag) ;
 
-PANGO_DEPRECATED
+extern
 PangoOTTag      pango_ot_tag_from_script   (PangoScript    script) ;
 
-PANGO_DEPRECATED
+extern
 PangoLanguage  *pango_ot_tag_to_language   (PangoOTTag     language_tag) ;
 
-PANGO_DEPRECATED
+extern
 PangoOTTag      pango_ot_tag_from_language (PangoLanguage *language) ;
 
-#ifdef __GI_SCANNER__
-#define PANGO_OT_TYPE_RULESET_DESCRIPTION (pango_ot_ruleset_description_get_type())
-#else
 #define PANGO_TYPE_OT_RULESET_DESCRIPTION (pango_ot_ruleset_description_get_type())
-#endif
 
-PANGO_DEPRECATED
+extern
 GType           pango_ot_ruleset_description_get_type (void) ;
 
-PANGO_DEPRECATED
+extern
 guint           pango_ot_ruleset_description_hash  (const PangoOTRulesetDescription *desc) ;
 
-PANGO_DEPRECATED
+extern
 gboolean        pango_ot_ruleset_description_equal (const PangoOTRulesetDescription *desc1,
 						    const PangoOTRulesetDescription *desc2) ;
 
-PANGO_DEPRECATED
+extern
 PangoOTRulesetDescription *pango_ot_ruleset_description_copy  (const PangoOTRulesetDescription *desc);
 
-PANGO_DEPRECATED
+extern
 void            pango_ot_ruleset_description_free  (PangoOTRulesetDescription       *desc);
 
 
