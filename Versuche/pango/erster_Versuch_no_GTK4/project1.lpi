@@ -28,7 +28,7 @@
         <PackageName Value="fp_pango_package"/>
       </Item>
       <Item>
-        <PackageName Value="fp_GTK4_package"/>
+        <PackageName Value="fp_cairo_package"/>
       </Item>
       <Item>
         <PackageName Value="fp_GLIB2_package"/>

@@ -56,7 +56,7 @@
       </Item>
       <Item>
         <Filename Value="fp_cairo.pas"/>
-        <UnitName Value="fp_cairo218"/>
+        <UnitName Value="fp_cairo"/>
       </Item>
       <Item>
         <Filename Value="fp_cairo_gobject.pas"/>

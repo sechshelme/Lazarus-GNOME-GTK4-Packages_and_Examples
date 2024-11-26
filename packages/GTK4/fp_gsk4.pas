@@ -5,7 +5,7 @@ unit fp_GSK4;
 interface
 
 uses
-  fp_glib2, fp_cairo, pango, fp_GDK4;
+  fp_glib2, fp_cairo, fp_pango, fp_GDK4;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

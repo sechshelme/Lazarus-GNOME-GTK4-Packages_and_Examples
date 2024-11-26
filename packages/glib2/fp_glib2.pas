@@ -3,6 +3,9 @@ unit fp_glib2;
 interface
 
 uses
+  {$ifdef linux}
+  x, xlib,
+  {$endif}
   Math, // wegen "division_by_zero" in den clibs
   ctypes;
 
@@ -15,6 +18,38 @@ uses
 
   // === Externes / no GLIB
 type
+  {$ifdef linux}
+  TXftDraw = record
+  end;
+  PXftDraw = ^TXftDraw;
+
+  TXftFont = record
+  end;
+  PXftFont = ^TXftFont;
+
+  TXTrapezoid=record
+      end;
+  PXTrapezoid=^TXTrapezoid;
+
+  TXftGlyphSpec=record
+      end;
+  PXftGlyphSpec=^TXftGlyphSpec;
+
+  TXftColor=record
+      end;
+  PXftColor=^TXftColor;
+
+  TPicture=TXID;
+  PPicture=^TPicture;
+  {$endif}
+
+  // ==== Windows
+  {$ifdef windows}
+type
+  PID3D11Resource = Pointer;
+  {$endif}
+
+
   TFILE = record //  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h
   end;
   PFILE = ^TFILE;
@@ -106,12 +141,6 @@ type
   end;
   Phb_face_t = ^Thb_face_t;
 
-  // ==== Windows
-  {$ifdef windows}
-type
-  PID3D11Resource = Pointer;
-  {$endif}
-
 type
   Ttm = record  //  /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h
     tm_sec: cint;
@@ -128,7 +157,7 @@ type
   end;
   Ptm = ^Ttm;
 
-  // Wayland;
+  // ==== Wayland;
 
   Twl_surface = Pointer;
   Pwl_surface = ^Twl_surface;
@@ -201,19 +230,20 @@ type
 
   // === Pango
 
-  TPangoWrapMode = longint;
-  TPangoEllipsizeMode = longint;
-  TPangoDirection = longint;
+//  TPangoWrapMode = longint;
+//  TPangoEllipsizeMode = longint;
+//  TPangoDirection = longint;
 
-  PPangoContext = Pointer;
-  PPangoLayout = Pointer;
-  PPangoFontMap = Pointer;
-  PPangoLanguage = Pointer;
-  PPangoAttrList = Pointer;
-  PPangoTabArray = Pointer;
-  PPangoFontFamily = Pointer;
-  PPangoFontFace = Pointer;
-  PPangoFontDescription = Pointer;
+//  PPangoContext = Pointer;
+//  PPangoLayout = Pointer;
+//  PPangoFontMap = Pointer;
+//  PPangoLanguage = Pointer;
+//  PPangoAttrList = Pointer;
+//  PPPangoAttrList=  ^PPangoAttrList;
+//  PPangoTabArray = Pointer;
+//  PPangoFontFamily = Pointer;
+//  PPangoFontFace = Pointer;
+//  PPangoFontDescription = Pointer;
 
 
   // ==== GLIB2

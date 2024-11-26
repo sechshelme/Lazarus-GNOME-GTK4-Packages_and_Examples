@@ -3,46 +3,47 @@ program project1;
 uses
   ctypes,
 
-  pango_types,
-
-  pango_script,         // io.
-  pango_language,       // io. -> pango_script
-  pango_direction,      // io.
-  pango_color,          // io.
-  pango_matrix,         // io.
-  pango_gravity,        // io. -> pango_matrix, pango_script
-  pango_context,        // io. -> pango_gravity, pango_matrix
-  pango_item,           // io. -> pango_context, pango_direction
-  pango_break,          // io. -> pango_item
-  pango_glyph,          // io. -> pango_item, pango_break
-  pango_coverage,       // io.
-  pango_engine,         // io. -> pango_item, pango_break, pango_glyph, pango_coverage, pango_script
-  pango_fontset,        // io.
-  pango_fontmap,        // io. -> pango_context
-  pango_font,           // io. -> pango_gravity, pango_coverage, pango_context
-  pango_attributes,     // io. -> pango_color, pango_font, pango_gravity
-  pango_features,       // io.
-  pango_version_macros, // io. -> pango_features
-  pango_glyph_item,     // io. -> pango_item, pango_glyph, pango_break
-  pango_layout,         // io. -> pango_glyph_item, pango_break
-  pango_renderer,       // io. -> pango_attributes, pango_matrix, pango_glyph, pango_glyph_item, pango_layout, pango_color
-
-
-  pangocairo,
-
-  pango_utils,
-
-//  pangoft2,             //    !!!!! ft2 !!!!! -> pango_glyph, pango_matrix, pango_layout, pango_coverage
-//  pangofc_font,         //    !!!!! ft2 !!!!! -> pango_matrix, pango_glyph
-//  pango_ot,             //    !!!!! ft2 !!!!! -> pango_script, pango_glyph, pangofc_font
-//  pangofc_decoder,      //    !!!!! ft2 !!!!! -> pangofc_font
-//  pangofc_fontmap,      //    !!!!! ft2 !!!!! -> pangofc_decoder, pangofc_font
-
-  pangoxft,
-  pangoxft_render,
+  //pango_types,          // io.
+  //pango_enum_types,     // io.
+  //pango_bidi_type,      // io.
+  //pango_tabs,           // io.
+  //pango_script,         // io.
+  //pango_language,       // io. -> pango_script
+  //pango_direction,      // io.
+  //pango_color,          // io.
+  //pango_matrix,         // io.
+  //pango_gravity,        // io. -> pango_matrix, pango_script
+  //pango_context,        // io. -> pango_gravity, pango_matrix
+  //pango_item,           // io. -> pango_context, pango_direction
+  //pango_break,          // io. -> pango_item
+  //pango_glyph,          // io. -> pango_item, pango_break
+  //pango_coverage,       // io.
+  //pango_engine,         // io. -> pango_item, pango_break, pango_glyph, pango_coverage, pango_script
+  //pango_fontset,        // io.
+  //pango_fontmap,        // io. -> pango_context
+  //pango_font,           // io. -> pango_gravity, pango_coverage, pango_context
+  //pango_attributes,     // io. -> pango_color, pango_font, pango_gravity
+  //pango_features,       // io.
+  //pango_version_macros, // io. -> pango_features
+  //pango_glyph_item,     // io. -> pango_item, pango_glyph, pango_break
+  //pango_layout,         // io. -> pango_glyph_item, pango_break
+  //pango_renderer,       // io. -> pango_attributes, pango_matrix, pango_glyph, pango_glyph_item, pango_layout, pango_color
+  //pango_utils,          // io. -> pango_font, pango_direction
+  //pango_fontset_simple, // io.
+  //pango_markup,         // io.
+  //pango_modules,        // io. pango_engine, pango_script
+  //pangocairo,
+  //pangoft2,             //    !!!!! ft2 !!!!! -> pango_glyph, pango_matrix, pango_layout, pango_coverage
+  //pangofc_font,         //    !!!!! ft2 !!!!! -> pango_matrix, pango_glyph
+  //pango_ot,             //    !!!!! ft2 !!!!! -> pango_script, pango_glyph, pangofc_font
+  //pangofc_decoder,      //    !!!!! ft2 !!!!! -> pangofc_font
+  //pangofc_fontmap,      //    !!!!! ft2 !!!!! -> pangofc_decoder, pangofc_font
+  //pangoxft,               // io. Nur Linux
+  //pangoxft_render,        // io. Nur Linux
 
 
   fp_glib2,
+  fp_pango,
   fp_GDK4,
   fp_GTK4;
 
@@ -58,6 +59,7 @@ uses
     log_attrs: PPangoLogAttr;
 
   begin
+    pango_bidi_type_for_unichar(0);
 //    pango_ot_info_get_type;
     len := StrLen(Text);
 
@@ -91,6 +93,7 @@ uses
     window, label1: PGtkWidget;
     attrs: PPangoAttrList;
     underline_attr, underline_double_attr: PPangoAttribute;
+    ttt:PPangoLayoutLine;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'Window');

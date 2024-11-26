@@ -17,7 +17,7 @@
       </Item>
       <Item>
         <Filename Value="fp_glibtools.pas"/>
-        <UnitName Value="fp_glibtools"/>
+        <UnitName Value="fp_GLIBTools"/>
       </Item>
       <Item>
         <Filename Value="fp_glib_unix.pas"/>

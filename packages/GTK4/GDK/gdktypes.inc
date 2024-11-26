@@ -8,19 +8,6 @@
 
 {$IFDEF read_interface}
 
-//const
-//  {$IFDEF Linux}
-//  libgtk4 = 'libgtk-4';
-//  libgio2 = 'libgio-2.0';
-//  libgobject2_0 = 'libgobject-2.0';
-//  {$ENDIF}
-//
-//  {$IFDEF Windows}
-//  libgtk4 = 'libgtk-4-1.dll';
-//  libgio2 = 'libgio-2.0-0.dll';
-//  glibgobject2_0 = 'libgobject-2.0-0.dll';
-//  {$ENDIF}
-
 
   // ==== Fremdes 
 
@@ -52,15 +39,6 @@ type
     x, y, z: cfloat;
   end;
   Pgraphene_point3d_t = ^Tgraphene_point3d_t;
-
-//  Tcairo_content_t = cairo_content_t;
-
-  // ==== Pango
-
-  PPPangoFontDescription = ^PPangoFontDescription; // Pango Erweiterung
-  PPPangoLanguage = ^PPangoLanguage;
-
-  PPPangoAttrList = ^PPangoAttrList;
 
 
   // ==== ausgelagertes

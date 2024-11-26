@@ -71,7 +71,6 @@ type
   PGtkWidgetClass = ^TGtkWidgetClass;
 
 
-
 function gtk_widget_get_type: TGType; cdecl; external libgtk4;
 procedure gtk_widget_unparent(widget: PGtkWidget); cdecl; external libgtk4;
 procedure gtk_widget_show(widget: PGtkWidget); cdecl; external libgtk4;

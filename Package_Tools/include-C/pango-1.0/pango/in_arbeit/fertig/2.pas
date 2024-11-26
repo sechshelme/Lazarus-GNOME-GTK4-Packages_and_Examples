@@ -12,27 +12,27 @@ uses
 
 
 
-// === Konventiert am: 25-11-24 19:41:43 ===
+// === Konventiert am: 26-11-24 13:58:36 ===
 
-function PANGO_TYPE_CAIRO_FONT_MAP : TGType;
-function PANGO_CAIRO_FONT_MAP(obj : Pointer) : PPangoCairoFontMap;
-function PANGO_IS_CAIRO_FONT_MAP(obj : Pointer) : Tgboolean;
+function PANGO_TYPE_XFT_FONT : TGType;
+function PANGO_XFT_FONT(obj : Pointer) : PPangoXftFont;
+function PANGO_XFT_IS_FONT(obj : Pointer) : Tgboolean;
 
 implementation
 
-function PANGO_TYPE_CAIRO_FONT_MAP : TGType;
+function PANGO_TYPE_XFT_FONT : TGType;
   begin
-    PANGO_TYPE_CAIRO_FONT_MAP:=pango_cairo_font_map_get_type;
+    PANGO_TYPE_XFT_FONT:=pango_xft_font_get_type;
   end;
 
-function PANGO_CAIRO_FONT_MAP(obj : Pointer) : PPangoCairoFontMap;
+function PANGO_XFT_FONT(obj : Pointer) : PPangoXftFont;
 begin
-  Result := PPangoCairoFontMap(g_type_check_instance_cast(obj, PANGO_TYPE_CAIRO_FONT_MAP));
+  Result := PPangoXftFont(g_type_check_instance_cast(obj, PANGO_TYPE_XFT_FONT));
 end;
 
-function PANGO_IS_CAIRO_FONT_MAP(obj : Pointer) : Tgboolean;
+function PANGO_XFT_IS_FONT(obj : Pointer) : Tgboolean;
 begin
-  Result := g_type_check_instance_is_a(obj,  PANGO_TYPE_CAIRO_FONT_MAP);
+  Result := g_type_check_instance_is_a(obj,  PANGO_TYPE_XFT_FONT);
 end;
 
 

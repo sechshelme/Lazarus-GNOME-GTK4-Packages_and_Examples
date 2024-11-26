@@ -20,6 +20,7 @@ type
   Pglong = ^Tglong;
   Tglong = longint;
 
+  PPgint = ^Pgint;
   Pgint = ^Tgint;
   Tgint = longint;
 

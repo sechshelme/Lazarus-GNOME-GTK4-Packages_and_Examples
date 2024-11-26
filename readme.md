@@ -7,7 +7,7 @@
 | **GdkPixbuf2**    | 2.42.10      |
 | **GTK4**          | 4.14.2       |
 | **gstreamer**     | 1.24.2       |
-| **Pango**         | in Arbeit    |
+| **Pango**         | 1.52.1       |
 
 # Wichtiger Hinweis
 Da in den glib-Funktionen ein `invalid floating point operation` ausgelöst werden kann braucht ee folgendes:

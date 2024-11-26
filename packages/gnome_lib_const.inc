@@ -28,8 +28,8 @@ const
   {$IFDEF Linux}
   libpango = 'libpango-1.0';
   libpangocairo = 'libpangocairo-1.0';
-//  libpangoft2 = 'libpango-1.0';
   libpangoft2 = 'libpangoft2-1.0';
+  libpangoxft = 'libpangoxft-1.0';  // Nur Linux
   {$ENDIF}
 
   {$IFDEF Windows}
