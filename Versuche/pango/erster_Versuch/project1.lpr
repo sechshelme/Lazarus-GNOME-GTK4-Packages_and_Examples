@@ -25,15 +25,21 @@ uses
   pango_version_macros, // io. -> pango_features
   pango_glyph_item,     // io. -> pango_item, pango_glyph, pango_break
   pango_layout,         // io. -> pango_glyph_item, pango_break
-
-
   pango_renderer,       // io. -> pango_attributes, pango_matrix, pango_glyph, pango_glyph_item, pango_layout, pango_color
 
+
   pangocairo,
+
+  pango_utils,
 
 //  pangoft2,             //    !!!!! ft2 !!!!! -> pango_glyph, pango_matrix, pango_layout, pango_coverage
 //  pangofc_font,         //    !!!!! ft2 !!!!! -> pango_matrix, pango_glyph
 //  pango_ot,             //    !!!!! ft2 !!!!! -> pango_script, pango_glyph, pangofc_font
+//  pangofc_decoder,      //    !!!!! ft2 !!!!! -> pangofc_font
+//  pangofc_fontmap,      //    !!!!! ft2 !!!!! -> pangofc_decoder, pangofc_font
+
+  pangoxft,
+  pangoxft_render,
 
 
   fp_glib2,
@@ -42,6 +48,9 @@ uses
 
   // https://www.perplexity.ai/search/was-ist-gi-scanner-JsyzTafESNujenggA8EGLw
 
+//function pango_ot_info_get_type: TGType; cdecl; external libpango;
+
+
   procedure Print_PangoLogAttr;
   var
     Text: Pgchar = 'Hello, Pango!'#10'Hallo Pango!';
@@ -49,6 +58,7 @@ uses
     log_attrs: PPangoLogAttr;
 
   begin
+//    pango_ot_info_get_type;
     len := StrLen(Text);
 
     log_attrs := g_malloc((len + 1) * SizeOf(TPangoLogAttr));

@@ -59,6 +59,14 @@ type
   end;
   PFcPattern = ^TFcPattern;
 
+  TFcConfig = record
+  end;
+  PFcConfig = ^TFcConfig;
+
+  TFcCharSet = record
+  end;
+  PFcCharSet = ^TFcCharSet;
+
   // /usr/include/freetype2/freetype/freetype.h
   TFT_SizeRec = record
   end;
@@ -69,7 +77,7 @@ type
   end;
 
   TFT_Bitmap = ^TFT_BitmapRec;
-  PFT_Bitmap=^TFT_Bitmap;
+  PFT_Bitmap = ^TFT_Bitmap;
 
   // /usr/include/pwd.h
 type
@@ -86,8 +94,17 @@ type
 
 
   // /usr/include/harfbuzz/hb-common.h
-  Phb_feature_t = Pointer;
-  Phb_font_t = Pointer;
+  Thb_feature_t = record
+  end;
+  Phb_feature_t = ^Thb_feature_t;
+
+  Thb_font_t = record
+  end;
+  Phb_font_t = ^Thb_font_t;
+
+  Thb_face_t = record  // hb-face.h
+  end;
+  Phb_face_t = ^Thb_face_t;
 
   // ==== Windows
   {$ifdef windows}

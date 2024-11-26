@@ -58,15 +58,9 @@
  * for the identifiers, but consumers expect these symbols to be under
  * the PangoXft namespace.
  */
-#ifdef __GI_SCANNER__
-#define PANGO_XFT_TYPE_FONT_MAP         (pango_xft_font_map_get_type())
-#define PANGO_XFT_FONT_MAP(obj)         (G_TYPE_CHECK_INSTANCE_CAST ((obj), PANGO_XFT_TYPE_FONT_MAP, PangoXftFontMap))
-#define PANGO_XFT_IS_FONT_MAP(obj)      (G_TYPE_CHECK_INSTANCE_TYPE ((obj), PANGO_XFT_TYPE_FONT_MAP))
-#else
 #define PANGO_TYPE_XFT_FONT_MAP         (pango_xft_font_map_get_type ())
 #define PANGO_XFT_FONT_MAP(object)      (G_TYPE_CHECK_INSTANCE_CAST ((object), PANGO_TYPE_XFT_FONT_MAP, PangoXftFontMap))
 #define PANGO_XFT_IS_FONT_MAP(object)   (G_TYPE_CHECK_INSTANCE_TYPE ((object), PANGO_TYPE_XFT_FONT_MAP))
-#endif
 
 typedef struct _PangoXftFontMap      PangoXftFontMap;
 
@@ -103,13 +97,13 @@ void          pango_xft_shutdown_display (Display *display,
 					  int      screen);
 
 #ifndef PANGO_DISABLE_DEPRECATED
-extern_FOR(pango_fc_font_map_set_default_substitute)
+extern
 void pango_xft_set_default_substitute (Display                *display,
 				       int                     screen,
 				       PangoXftSubstituteFunc  func,
 				       gpointer                data,
 				       GDestroyNotify          notify);
-extern_FOR(pango_fc_font_map_substitute_changed)
+extern
 void pango_xft_substitute_changed     (Display                *display,
 				       int                     screen);
 #endif
@@ -117,15 +111,9 @@ void pango_xft_substitute_changed     (Display                *display,
 extern
 GType pango_xft_font_map_get_type (void) ;
 
-#ifdef __GI_SCANNER__
-#define PANGO_XFT_TYPE_FONT              (pango_xft_font_get_type ())
-#define PANGO_XFT_FONT(object)           (G_TYPE_CHECK_INSTANCE_CAST ((object), PANGO_XFT_TYPE_FONT, PangoXftFont))
-#define PANGO_XFT_IS_FONT(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), PANGO_XFT_TYPE_FONT))
-#else
 #define PANGO_TYPE_XFT_FONT              (pango_xft_font_get_type ())
 #define PANGO_XFT_FONT(object)           (G_TYPE_CHECK_INSTANCE_CAST ((object), PANGO_TYPE_XFT_FONT, PangoXftFont))
 #define PANGO_XFT_IS_FONT(object)        (G_TYPE_CHECK_INSTANCE_TYPE ((object), PANGO_TYPE_XFT_FONT))
-#endif
 
 extern
 GType      pango_xft_font_get_type (void) ;
@@ -139,17 +127,17 @@ extern
 XftFont *     pango_xft_font_get_font          (PangoFont *font);
 extern
 Display *     pango_xft_font_get_display       (PangoFont *font);
-extern_FOR(pango_fc_font_lock_face)
+extern
 FT_Face       pango_xft_font_lock_face         (PangoFont *font);
-extern_FOR(pango_fc_font_unlock_face)
+extern
 void	      pango_xft_font_unlock_face       (PangoFont *font);
-extern_FOR(pango_fc_font_get_glyph)
+extern
 guint	      pango_xft_font_get_glyph	       (PangoFont *font,
 						gunichar   wc);
-extern_FOR(pango_fc_font_has_char)
+extern
 gboolean      pango_xft_font_has_char          (PangoFont *font,
 						gunichar   wc);
-extern_FOR(PANGO_GET_UNKNOWN_GLYPH)
+extern
 PangoGlyph    pango_xft_font_get_unknown_glyph (PangoFont *font,
 						gunichar   wc);
 #endif /* PANGO_DISABLE_DEPRECATED */
