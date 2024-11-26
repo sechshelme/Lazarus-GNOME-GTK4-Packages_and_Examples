@@ -9,26 +9,48 @@ uses
 
 
 
-  procedure print_hello(widget: PGtkWidget; Data: Tgpointer);
+  procedure underline_cp(widget: PGtkWidget; Data: Tgpointer);
   var
     label_: PGtkWidget absolute Data;
-    attrs: PPangoAttrList;
-    underline_attr, underline_double_attr: PPangoAttribute;
+    attr_list: PPangoAttrList;
+    attr: PPangoAttribute;
   begin
-    gtk_label_set_label(GTK_LABEL(label_), 'blu blu');
+    attr_list := pango_attr_list_new;
+    attr := pango_attr_underline_new(PANGO_UNDERLINE_SINGLE);
+    pango_attr_list_insert(attr_list, attr);
 
-    attrs := pango_attr_list_new;
-    underline_attr := pango_attr_underline_new(PANGO_UNDERLINE_SINGLE);
-    pango_attr_list_insert(attrs, underline_attr);
+    attr := pango_attr_scale_new(30);
+    pango_attr_list_insert(attr_list, attr);
 
-    underline_double_attr := pango_attr_underline_new(PANGO_UNDERLINE_DOUBLE);
-    underline_double_attr^.start_index := 1;
-    underline_double_attr^.end_index := 3;
-    pango_attr_list_insert(attrs, underline_double_attr);
+    attr := pango_attr_underline_new(PANGO_UNDERLINE_DOUBLE);
+    attr^.start_index := 3;
+    attr^.end_index := 7;
+    pango_attr_list_insert(attr_list, attr);
 
-    gtk_label_set_attributes(GTK_LABEL(label_), attrs);
-    pango_attr_list_unref(attrs);
+    attr := pango_attr_foreground_new($FFFF, $FFFF, $0000);
+    attr^.start_index := 3;
+    attr^.end_index := 7;
+    pango_attr_list_insert(attr_list, attr);
 
+    attr := pango_attr_background_new($0000, $0000, $FFFF);
+    attr^.start_index := 2;
+    attr^.end_index := 8;
+    pango_attr_list_insert(attr_list, attr);
+
+
+    gtk_label_set_attributes(GTK_LABEL(label_), attr_list);
+    pango_attr_list_unref(attr_list);
+
+  end;
+
+  procedure reset_cp(widget: PGtkWidget; Data: Tgpointer);
+  var
+    label_: PGtkWidget absolute Data;
+    attr_list: PPangoAttrList;
+  begin
+    attr_list := pango_attr_list_new;
+    gtk_label_set_attributes(GTK_LABEL(label_), attr_list);
+    pango_attr_list_unref(attr_list);
   end;
 
   procedure on_activate(app: PGtkApplication; user_data: Tgpointer);
@@ -41,9 +63,7 @@ uses
 
     window := g_object_new(GTK_TYPE_WINDOW,
       'application', app,
-      'title', 'Pixbuf Demo',
-      'width-request', 150,
-      'height-request', 150,
+      'title', 'Pango Demo',
       'default-width', 320,
       'default-height', 200,
       'maximized', gFalse,
@@ -68,12 +88,15 @@ uses
     // https://www.perplexity.ai/search/gib-mir-ein-pango-besipiel-wel-5xDvcKw4RuWTm6My1V9z2g
 
     // button
-    button := gtk_button_new_with_label('Untertreiche');
+    button := gtk_button_new_with_label('Untertreichen');
     gtk_box_append(GTK_BOX(box), button);
-    g_signal_connect(button, 'clicked', G_CALLBACK(@print_hello), Label1);
+    g_signal_connect(button, 'clicked', G_CALLBACK(@underline_cp), Label1);
+
+    button := gtk_button_new_with_label('Reset');
+    gtk_box_append(GTK_BOX(box), button);
+    g_signal_connect(button, 'clicked', G_CALLBACK(@reset_cp), Label1);
 
     gtk_widget_show(window);
-
   end;
 
   procedure main;
@@ -81,7 +104,7 @@ uses
     app: PGtkApplication;
     status: longint;
   begin
-    app := gtk_application_new('org.example.PixbufExample', G_APPLICATION_FLAGS_NONE);
+    app := gtk_application_new('org.example.PangoExample', G_APPLICATION_FLAGS_NONE);
     g_signal_connect(app, 'activate', G_CALLBACK(@on_activate), nil);
 
     status := g_application_run(G_APPLICATION(app), 0, nil);
