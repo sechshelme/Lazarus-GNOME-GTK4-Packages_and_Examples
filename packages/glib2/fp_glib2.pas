@@ -45,7 +45,6 @@ type
 
   // ==== Windows
   {$ifdef windows}
-type
   PID3D11Resource = Pointer;
   {$endif}
 

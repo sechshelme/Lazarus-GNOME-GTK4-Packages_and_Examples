@@ -2,9 +2,9 @@ program project1;
 
 uses
   ctypes,
-  glib280,
-  gst124,
-  gst124_audio;
+  fp_glib2,
+  fp_gst,
+  fp_gst_audio;
 
   // https://gstreamer.freedesktop.org/documentation/tutorials/basic/short-cutting-the-pipeline.html?gi-language=c
 

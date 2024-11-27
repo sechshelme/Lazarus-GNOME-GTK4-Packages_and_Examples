@@ -2,10 +2,10 @@ program project1;
 
 uses
   ctypes,
-  glib280,
-  GTK4,
-  GDK4,
-  gst124;
+  fp_glib2,
+  fp_GTK4,
+  fp_GDK4,
+  fp_gst;
 
   // https://gstreamer.freedesktop.org/documentation/tutorials/basic/toolkit-integration.html?gi-language=c
 

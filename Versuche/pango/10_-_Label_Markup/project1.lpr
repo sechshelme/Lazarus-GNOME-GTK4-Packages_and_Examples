@@ -19,7 +19,7 @@ uses
     attr := pango_attr_underline_new(PANGO_UNDERLINE_SINGLE);
     pango_attr_list_insert(attr_list, attr);
 
-    attr := pango_attr_scale_new(30);
+    attr := pango_attr_scale_new(5);
     pango_attr_list_insert(attr_list, attr);
 
     attr := pango_attr_underline_new(PANGO_UNDERLINE_DOUBLE);

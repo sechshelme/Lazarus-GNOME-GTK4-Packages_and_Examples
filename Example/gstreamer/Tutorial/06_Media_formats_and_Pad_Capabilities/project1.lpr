@@ -2,8 +2,8 @@ program project1;
 
 uses
   ctypes,
-  glib280,
-  gst124;
+  fp_glib2,
+  fp_gst;
 
   // https://gstreamer.freedesktop.org/documentation/tutorials/basic/media-formats-and-pad-capabilities.html?gi-language=c
 

@@ -9,6 +9,20 @@
 | **gstreamer**     | 1.24.2       |
 | **Pango**         | 1.52.1       |
 
+## Pakete installieren
+- `sudo apt install libgstreamer-plugins-bad1.0-dev`
+- `sudo apt install libgstreamer-plugins-base1.0-dev`
+
+
+## Paketinfo
+Installierte Version der C-Libs abfragen:
+- cairo `pkg-config --modversion cairo` 
+- pango `pkg-config --modversion pango` 
+- glib `pkg-config --modversion glib-2.0` 
+- gdk-pixbuf `pkg-config --modversion gdk-pixbuf-2.0` 
+- gtk4 `pkg-config --modversion gtk4` 
+- gstreamer `pkg-config --modversion gstreamer-1.0` 
+
 # Wichtiger Hinweis
 Da in den glib-Funktionen ein `invalid floating point operation` ausgelöst werden kann braucht ee folgendes:
 ```pascal
@@ -21,10 +35,6 @@ end.
 ```
 Da dies in der glib2-packages schon gemacht wird, kann man auf dies bei Verwendung der Packages in eigenen Programmen verzichten.
 
-
-## Paketinfo
-- `pkg-config --cflags --libs gstreamer-1.0 gstreamer-pbutils-1.0`
-- `pkg-config --modgstreamer-1.0` 
 
 ## GLIB2 
 https://github.com/wadester/wh_test_glib/blob/master/glib_test1.c
