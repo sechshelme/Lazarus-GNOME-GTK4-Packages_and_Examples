@@ -162,6 +162,8 @@ type
 
   Tuintptr_t = PtrUInt;
 
+  Tptrdiff_t = PtrInt;
+
   Tsize_t = SizeUInt;
   Ttime_t = clong; // types.h
   Ptime_t = ^Ttime_t;
@@ -201,6 +203,16 @@ type
     tm_zone: pchar;
   end;
   Ptm = ^Ttm;
+
+
+  // /usr/include/linux/time.h
+type
+  Ttimespec = record
+    tv_sec: int64;
+    tv_nsec: int64;
+  end;
+
+
 
 
   // /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
@@ -257,6 +269,15 @@ type
   PPicture = ^TPicture;
   {$endif}
 
+  {$ifdef Linux}
+  // ==== xcb.h
+  Txcb_connection_t = record
+  end;
+  Pxcb_connection_t = ^Txcb_connection_t;
+
+  Txcb_window_t = TWindow;
+  Pxcb_screen_t = PScreen;
+  {$endif}
 
   // ==== fontconfig
   // /usr/include/fontconfig/fontconfig.h
@@ -271,6 +292,14 @@ type
   TFcCharSet = record
   end;
   PFcCharSet = ^TFcCharSet;
+
+  // ==== va
+type
+  // /usr/include/va/va.h
+  TVAGenericID = cuint;
+  PVASurfaceID = ^TVASurfaceID;
+  TVASurfaceID = TVAGenericID;
+
 
   // ==== FreeTyp
   // /usr/include/freetype2/freetype/freetype.h
@@ -313,77 +342,209 @@ type
 
   // ==== OpenGL
 type
+  TGLeglImageOES = pointer;
+  PGLeglImageOES = ^TGLeglImageOES;
+
+  TGLchar = byte;
+  PGLchar = ^TGLchar;
+
+  TGLsizeiptr = Tptrdiff_t;
+  PGLsizeiptr = ^TGLsizeiptr;
+
+  TGLintptr = Tptrdiff_t;
+  PGLintptr = ^TGLintptr;
+
+  TGLsync = pointer;
+  PGLsync = ^TGLsync;
+
+  TGLuint64 = uint64;
+  PGLuint64 = ^TGLuint64;
+
+  TGLint64 = int64;
+  PGLint64 = ^TGLint64;
+
   // /usr/include/KHR/khrplatform.h
   Tkhronos_int32_t = int32;
   // /usr/include/EGL/eglplatform.h
   TEGLint = Tkhronos_int32_t;
 
+  // ==== Vulkan
+  TVkDevice = Pointer; // ?????
+  TVkQueue = Pointer;
+  TVkInstance = Pointer;
+  TVkPhysicalDeviceProperties = Pointer;
+  TVkPhysicalDeviceFeatures = Pointer;
+  TVkPhysicalDeviceMemoryProperties = Pointer;
+  TVkFence = Pointer;
+  TVkSemaphore = Pointer;
+  TVkCommandPool = Pointer;
+  TVkCommandBuffer = Pointer;
+  TVkCommandBufferLevel = Pointer;
+  TVkImageLayout = Pointer;
+  TVkImageSubresourceRange = Pointer;
+  TVkImage = Pointer;
+  TVkDeviceMemory = Pointer;
+  TVkMemoryAllocateInfo = Pointer;
+  TVkMemoryPropertyFlags = Pointer;
+  TVkImageFormatProperties = Pointer;
+  TVkImageView = Pointer;
+  TVkFormat = Pointer;
+  TVkImageTiling = Pointer;
+  TVkVideoPictureResourceInfoKHR = Pointer;
+  TVkVideoReferenceSlotInfoKHR = Pointer;
+  TVkVideoDecodeInfoKHR = Pointer;
+  TVkVideoProfileInfoKHR = Pointer;
+  TVkVideoDecodeUsageInfoKHR = Pointer;
+  TVkBaseInStructure = Pointer;
+  TVkVideoDecodeH264ProfileInfoKHR = Pointer;
+  TVkVideoDecodeH265ProfileInfoKHR = Pointer;
+  TVkVideoCapabilitiesKHR = Pointer;
+  TVkVideoDecodeH264CapabilitiesKHR = Pointer;
+  TVkVideoDecodeH265CapabilitiesKHR = Pointer;
+  TVkVideoDecodeH264SessionParametersCreateInfoKHR = Pointer;
+  TVkVideoDecodeH265SessionParametersCreateInfoKHR = Pointer;
+  TVkSamplerYcbcrRange = Pointer;
+  TVkChromaLocation = Pointer;
+  TVkDeviceSize = Pointer;
+  TVkBuffer = Pointer;
+  TVkBufferUsageFlags = Pointer;
+  TVkResult = Pointer;
+  TVkSurfaceKHR = Pointer;
+  TVkDescriptorPool = Pointer;
+  TVkDescriptorSet = Pointer;
+  TVkBlendOp = Pointer;
+  TVkBlendFactor = Pointer;
+  TVkPhysicalDeviceType = Pointer;
+  TVkMemoryHeapFlags = Pointer;
+  TVkQueueFlags = Pointer;
+  TVkSampleCountFlags = Pointer;
+  TVkPresentModeKHR = Pointer;
+  TVkQueryType = Pointer;
+  TVkImageAspectFlags = Pointer;
+
+  TVkQueueFlagBits = longint; // enum
+
+  TVkPhysicalDevice = Pointer;
+  PVkPhysicalDevice = ^TVkPhysicalDevice;
+
+  TVkQueueFamilyProperties = Pointer;
+  PVkQueueFamilyProperties = ^TVkQueueFamilyProperties;
+
+  TGstVulkanQueueFamilyOps = Pointer;
+  PGstVulkanQueueFamilyOps = ^TGstVulkanQueueFamilyOps;
+
+  TVkMemoryRequirements = Pointer;
+  PVkMemoryRequirements = ^TVkMemoryRequirements;
+
+  TVkImageCreateInfo = Pointer;
+  PVkImageCreateInfo = ^TVkImageCreateInfo;
+
+  TVkImageViewCreateInfo = Pointer;
+  PVkImageViewCreateInfo = ^TVkImageViewCreateInfo;
+
+  TVkVideoFormatPropertiesKHR = Pointer;
+  PVkVideoFormatPropertiesKHR = ^TVkVideoFormatPropertiesKHR;
+
+  TVkBufferCreateInfo = Pointer;
+  PVkBufferCreateInfo = ^TVkBufferCreateInfo;
+
+  TVkImageUsageFlags = Pointer;
+  PVkImageUsageFlags = ^TVkImageUsageFlags;
 
   // ==== Wayland;
 type
-  Twl_surface = Pointer;
+  Twl_surface = record
+  end;
   Pwl_surface = ^Twl_surface;
 
-  Twl_seat = Pointer;
+  Twl_seat = record
+  end;
   Pwl_seat = ^Twl_seat;
 
-  Twl_output = Pointer;
+  Twl_output = record
+  end;
   Pwl_output = ^Twl_output;
 
-  Twl_display = Pointer;
+  Twl_display = record
+  end;
   Pwl_display = ^Twl_display;
 
-  Twl_compositor = Pointer;
+  Twl_compositor = record
+  end;
   Pwl_compositor = ^Twl_compositor;
 
-  Twl_pointer = Pointer;
+  Twl_pointer = record
+  end;
   Pwl_pointer = ^Twl_pointer;
 
-  Twl_keyboard = Pointer;
+  Twl_keyboard = record
+  end;
   Pwl_keyboard = ^Twl_keyboard;
 
-  Txkb_keymap = Pointer;
+  Txkb_keymap = record
+  end;
   Pxkb_keymap = ^Txkb_keymap;
 
-  Twl_shm_format = Pointer;
+  Twl_shm_format = record
+  end;
   Pwl_shm_format = ^Twl_shm_format;
 
-  Twl_callback_listener = Pointer;
+  Twl_callback_listener = record
+  end;
   Pwl_callback_listener = ^Twl_callback_listener;
 
-  Twl_callback = Pointer;
+  Twl_callback = record
+  end;
   Pwl_callback = ^Twl_callback;
   PPwl_callback = ^Pwl_callback;
 
-  Twl_event_queue = Pointer;
+  Twl_event_queue = record
+  end;
   Pwl_event_queue = ^Twl_event_queue;
 
-  Twl_subcompositor = Pointer;
+  Twl_subcompositor = record
+  end;
   Pwl_subcompositor = ^Twl_subcompositor;
 
-  Twl_shm = Pointer;
+  Twl_shm = record
+  end;
   Pwl_shm = ^Twl_shm;
 
-  Twl_subsurface = Pointer;
+  Twl_subsurface = record
+  end;
   Pwl_subsurface = ^Twl_subsurface;
 
-  Twl_buffer = Pointer;
+  Twl_buffer = record
+  end;
   Pwl_buffer = ^Twl_buffer;
 
-  Txdg_wm_base = Pointer;
+  Txdg_wm_base = record
+  end;
   Pxdg_wm_base = ^Txdg_wm_base;
 
-  Tzwp_fullscreen_shell_v1 = Pointer;
+  Tzwp_fullscreen_shell_v1 = record
+  end;
   Pzwp_fullscreen_shell_v1 = ^Tzwp_fullscreen_shell_v1;
 
-  Twp_viewporter = Pointer;
+  Twp_viewporter = record
+  end;
   Pwp_viewporter = ^Twp_viewporter;
 
-  Tzwp_linux_dmabuf_v1 = Pointer;
+  Tzwp_linux_dmabuf_v1 = record
+  end;
   Pzwp_linux_dmabuf_v1 = ^Tzwp_linux_dmabuf_v1;
 
-  Twp_single_pixel_buffer_manager_v1 = Pointer;
+  Twp_single_pixel_buffer_manager_v1 = record
+  end;
   Pwp_single_pixel_buffer_manager_v1 = ^Twp_single_pixel_buffer_manager_v1;
+
+  Twl_registry = record
+  end;
+  Pwl_registry = ^Twl_registry;
+
+  Twl_shell = record
+  end;
+  Pwl_shell = ^Twl_shell;
 
 
   // ==== HarfBuzz
@@ -402,9 +563,40 @@ type
   end;
   Phb_face_t = ^Thb_face_t;
 
+  // ==== cuda
+   TCUresult=LongInt; // enum
+
+   TCUcontext=Pointer;
+   PCUcontext=^TCUcontext;
+
+   TCUdevice=Pointer;
+   PCUdevice=^TCUdevice;
+
+   TCUgraphicsResource=Pointer;
+   PCUgraphicsResource=^TCUgraphicsResource;
+
+   TCUstream=Pointer;
+   PCUstream=^TCUstream;
+
+   TCUfilter_mode=Pointer;
+   PCUfilter_mode=^TCUfilter_mode;
+
+   TCUtexObject=Pointer;
+   PCUtexObject=^TCUtexObject;
+
+   TCUdeviceptr=Pointer;
+   PCUdeviceptr=^TCUdeviceptr;
+
+   TCUmemAllocationProp=Pointer;
+   PCUmemAllocationProp=^TCUmemAllocationProp;
+
+   TCUgraphicsRegisterFlags=LongInt;
+   TCUgraphicsMapResourceFlags=LongInt;
+   TCUmemAllocationGranularity_flags=LongInt;
+
+
   // ==== Windows
   {$ifdef windows}
 type
   PID3D11Resource = Pointer;
   {$endif}
-
