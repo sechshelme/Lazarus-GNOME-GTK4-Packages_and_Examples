@@ -7,8 +7,6 @@ uses
   fp_pango,
   fp_GLIBTools;
 
-
-
   procedure underline_cp(widget: PGtkWidget; Data: Tgpointer);
   var
     label_: PGtkWidget absolute Data;

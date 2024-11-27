@@ -9,40 +9,8 @@
 {$IFDEF read_interface}
 
 
-  // ==== Fremdes 
-
-type
-  // === Exotisches
-  Tsize_t = SizeUInt;
-
-  Tva_list = Pointer; //  /usr/lib/gcc/x86_64-linux-gnu/11/include/stdarg.h
-
-  Tgraphene_matrix_t = Pointer; //    /usr/include/graphene-1.0/graphene-matrix.h
-  Pgraphene_matrix_t = ^Tgraphene_matrix_t;
-  Tgraphene_rect_t = Pointer;
-  Pgraphene_rect_t = ^Tgraphene_rect_t;
-  Tgraphene_point_t = Pointer;
-  Pgraphene_point_t = ^Tgraphene_point_t;
-  Tgraphene_vec2_t = Pointer;        // /usr/include/graphene-1.0/graphene-vec3.h
-  Pgraphene_vec2_t = ^Tgraphene_vec2_t;
-  Tgraphene_vec3_t = Pointer;        // /usr/include/graphene-1.0/graphene-vec3.h
-  Pgraphene_vec3_t = ^Tgraphene_vec3_t;
-  Tgraphene_vec4_t = Pointer;        // /usr/include/graphene-1.0/graphene-vec4.h
-  Pgraphene_vec4_t = ^Tgraphene_vec4_t;
-
-  Tgraphene_size_t = record
-    Width, Height: cfloat;
-  end;
-  Pgraphene_size_t = ^Tgraphene_size_t;  // /usr/include/graphene-1.0/graphene-size.h
-
-  Tgraphene_point3d_t = record
-    x, y, z: cfloat;
-  end;
-  Pgraphene_point3d_t = ^Tgraphene_point3d_t;
-
-
   // ==== ausgelagertes
-
+type
   TGdkDevice = record
   end;
   PGdkDevice = ^TGdkDevice;
@@ -69,7 +37,6 @@ type
 
 const
   GDK_CURRENT_TIME = 0;
-
 
 type
   TGdkKeymapKey = record

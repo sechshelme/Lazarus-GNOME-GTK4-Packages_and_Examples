@@ -47,7 +47,7 @@ function g_clear_fd(fd_ptr: pcint;  error: PPGError): Boolean;
 
 {$IFDEF read_implementation}
 
-function g_clear_fd(fd_ptr: pcint; error: PPGError): boolean;
+function g_clear_fd(fd_ptr: pcint; error: PPGError): Boolean;
 var
   fd: integer;
 begin
