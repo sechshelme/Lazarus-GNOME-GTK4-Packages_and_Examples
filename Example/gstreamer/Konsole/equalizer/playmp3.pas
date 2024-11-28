@@ -5,23 +5,24 @@ program playmp3;
 uses
   crt,
   SysUtils,
-  glib2,
-  gst;
+  fp_glib2,
+  fp_gst,
+  fp_gst_base,
+
+  fp_gst_audio;
 
 var
   pipeline: PGstElement = nil;
   volume, equalizer: PGstElement;
 
   quit: boolean = False;
-  vol: gdouble = 0.5;
-  mute:gboolean=False;
-  equ: array [0..2] of gdouble = (0.0, 0.0, 0.0);
+  vol: Tgdouble = 0.5;
+  mute:Tgboolean=False;
+  equ: array [0..2] of Tgdouble = (0.0, 0.0, 0.0);
   ch: ansichar;
 
 const
-  path = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/test.mp3';
-
-  function gst_stream_volume_get_type(): GType; cdecl; external 'gstaudio-1.0';
+  path = '/home/tux/Schreibtisch/sound/test.mp3';
 
 begin
   gst_init(@argc, @argv);

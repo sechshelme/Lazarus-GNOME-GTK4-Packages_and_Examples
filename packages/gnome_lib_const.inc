@@ -213,8 +213,6 @@ type
   end;
 
 
-
-
   // /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
 const
   __SIZEOF_PTHREAD_MUTEX_T = 40;
