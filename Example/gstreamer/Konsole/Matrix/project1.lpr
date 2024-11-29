@@ -6,9 +6,13 @@ uses
   fp_glib2,
   fp_GLIBTools,
   fp_gst_base,
-    fp_gst_codecparsers,
+  fp_gst_codecparsers,
   fp_gst;
 
+//type
+//Tguint8arr64 = array[0..63] of Tguint8;
+
+{$j-}
 const
   zigzag_matrix: Tguint8arr64 = (
     8, 16, 19, 22, 26, 27, 29, 34,
@@ -25,16 +29,21 @@ var
 
 
   //procedure gst_mpeg_video_quant_matrix_get_raster_from_zigzag(out_quant: PInt8; quant: PInt8); cdecl; external libgstcodecparsers;
-//  procedure gst_mpeg_video_quant_matrix_get_raster_from_zigzag(const out_quant; out quant); cdecl; external libgstcodecparsers;
+
+//procedure gst_mpeg_video_quant_matrix_get_raster_from_zigzag(const out_quant; out quant); cdecl; external libgstcodecparsers;
+//procedure gst_mpeg_video_quant_matrix_get_raster_from_zigzag(var out_quant; out quant); cdecl; external libgstcodecparsers;
+//procedure gst_mpeg_video_quant_matrix_get_raster_from_zigzag(var out_quant:Tguint8arr64; const quant:Tguint8arr64); cdecl; external libgstcodecparsers;
+//  procedure gst_mpeg_video_quant_matrix_get_raster_from_zigzag(var out_quant; const quant); cdecl; external libgstcodecparsers;
 
 
   procedure main(argc: cint; argv: PPChar);
   var
-    i: integer;
+    i: integer=0;
   begin
     gst_init(@argc, @argv);
 
     gst_mpeg_video_quant_matrix_get_raster_from_zigzag(raster_matrix, zigzag_matrix);
+//    gst_mpeg_video_quant_matrix_get_raster_from_zigzag(i, i);
 
     g_printf('ZigZag-Matrix: '#10);
     for  i := 0 to 63 do begin

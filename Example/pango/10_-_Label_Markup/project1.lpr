@@ -35,10 +35,8 @@ uses
     attr^.end_index := 8;
     pango_attr_list_insert(attr_list, attr);
 
-
     gtk_label_set_attributes(GTK_LABEL(label_), attr_list);
     pango_attr_list_unref(attr_list);
-
   end;
 
   procedure reset_cp(widget: PGtkWidget; Data: Tgpointer);
@@ -53,9 +51,7 @@ uses
 
   procedure on_activate(app: PGtkApplication; user_data: Tgpointer);
   var
-    window, box, picture1, picture2, Label1, Label2, button: PGtkWidget;
-    sl: PGString;
-
+    window, box, Label1, button: PGtkWidget;
   begin
     // === Widget
 
