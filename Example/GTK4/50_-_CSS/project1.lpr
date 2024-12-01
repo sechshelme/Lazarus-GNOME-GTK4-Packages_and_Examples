@@ -7,7 +7,7 @@ uses
   fp_GDK4,
   fp_GTK4;
 
-  procedure print_hello(widget: PGtkWidget; Data: Tgpointer);
+  procedure click_cp(widget: PGtkWidget; Data: Tgpointer);
   var
     frame: PGtkWidget absolute Data;
   const
@@ -74,7 +74,7 @@ uses
 
     button := gtk_button_new_with_label('Bevel-Button');
     gtk_widget_add_css_class(button, 'bevel-button');
-    g_signal_connect(button, 'clicked', G_CALLBACK(@print_hello), frame);
+    g_signal_connect(button, 'clicked', G_CALLBACK(@click_cp), frame);
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
     gtk_widget_set_margin_start(box, 10);

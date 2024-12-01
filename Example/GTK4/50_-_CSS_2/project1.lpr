@@ -28,7 +28,7 @@ uses
     g_object_unref(provider);
   end;
 
-  procedure print_hello(widget: PGtkWidget; Data: Tgpointer);
+  procedure click_cb(widget: PGtkWidget; Data: Tgpointer);
   var
     frame: PGtkWidget absolute Data;
     Name: pchar;
@@ -69,21 +69,21 @@ uses
     gtk_widget_set_name(GTK_WIDGET(button), 'red');
     gtk_widget_add_css_class(button, 'colored');
     SetColor(button, 'red');
-    g_signal_connect(button, 'clicked', G_CALLBACK(@print_hello), frame);
+    g_signal_connect(button, 'clicked', G_CALLBACK(@click_cb), frame);
     gtk_box_append(GTK_BOX(hbox), button);
 
     button := gtk_button_new_with_label('blue');
     gtk_widget_set_name(GTK_WIDGET(button), 'blue');
     gtk_widget_add_css_class(button, 'colored');
     SetColor(button, 'blue');
-    g_signal_connect(button, 'clicked', G_CALLBACK(@print_hello), frame);
+    g_signal_connect(button, 'clicked', G_CALLBACK(@click_cb), frame);
     gtk_box_append(GTK_BOX(hbox), button);
 
     button := gtk_button_new_with_label('green');
     gtk_widget_set_name(GTK_WIDGET(button), 'green');
     gtk_widget_add_css_class(button, 'colored');
     SetColor(button, 'green');
-    g_signal_connect(button, 'clicked', G_CALLBACK(@print_hello), frame);
+    g_signal_connect(button, 'clicked', G_CALLBACK(@click_cb), frame);
     gtk_box_append(GTK_BOX(hbox), button);
 
 
