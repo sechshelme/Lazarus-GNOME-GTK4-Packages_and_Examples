@@ -4,6 +4,7 @@ interface
 
 const
   MusicDir: string = '/n4800/Multimedia/Music';
+  DefaultExt='xml';
   CFTime = 13 * 1000; // 3s
   FITime = CFTime;
   FATime = FITime;

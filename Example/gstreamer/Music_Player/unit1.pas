@@ -48,6 +48,8 @@ var
   index: integer;
   s: string;
   sl: TStringList;
+  fd: TOpenDialog;
+  sd: TSaveDialog;
 begin
   case cmd of
     cmNone: begin
@@ -56,10 +58,20 @@ begin
       //      SongListPanel.Add;
     end;
     cmSave: begin
-      SongListPanel.SaveToXML;
+      sd := TSaveDialog.Create(self);
+      sd.DefaultExt:=DefaultExt;
+      if sd.Execute then  begin
+        SongListPanel.SaveToXML(sd.FileName);
+      end;
+      sd.Free;
     end;
     cmOpen: begin
-      SongListPanel.LoadToXML;
+      fd := TOpenDialog.Create(self);
+      fd.DefaultExt:=DefaultExt;
+      if fd.Execute then  begin
+        SongListPanel.LoadToXML(fd.FileName);
+      end;
+      fd.Free;
     end;
     cmDefaultSongs: begin
       sl := FindAllFiles('/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt', '*.flac');

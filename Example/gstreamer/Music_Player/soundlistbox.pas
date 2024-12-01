@@ -55,8 +55,8 @@ type
     function Prev: boolean;
     function GetTitle: string;
     function getDurationTotal: TGstClockTime;
-    procedure SaveToXML;
-    procedure LoadToXML;
+    procedure SaveToXML(const path: string);
+    procedure LoadToXML(const path: string);
     property ItemIndex: integer read GetItemIndex write SetItemIndex;
     property Count: integer read GetCount;
   end;
@@ -113,9 +113,11 @@ end;
 
 procedure TSongsListPanel.Renum;
 var
-  i: Integer;
+  i: integer;
 begin
-  for i:=0 to ListView.Items.Count-1 do ListView.Items[i].Caption:=IntToStr(i);
+  for i := 0 to ListView.Items.Count - 1 do begin
+    ListView.Items[i].Caption := IntToStr(i);
+  end;
 end;
 
 function TSongsListPanel.GetCount: integer;
@@ -196,7 +198,7 @@ begin
   dur := GstClockToStr(SongInfos[Length(SongInfos) - 1].Duration);
 
   ad := ListView.Items.Add;
-  ad.Caption:='';
+  ad.Caption := '';
 
   ad.SubItems.Add(SongInfos[Length(SongInfos) - 1].title);
   ad.SubItems.Add(dur);
@@ -316,33 +318,33 @@ begin
   Result := SongInfos.getTotalDuration;
 end;
 
-procedure TSongsListPanel.SaveToXML;
+procedure TSongsListPanel.SaveToXML(const path: string);
 var
   xml: TXMLConfig;
   i: integer;
 begin
   xml := TXMLConfig.Create(nil);
-  xml.Filename := 'test.xml';
+  xml.Filename := path;
   xml.Clear;
-  for i := 1 to ListView.Items.Count do begin
-    //    xml.SetValue('songs/items[' + IntToStr(i) + ']/song', ListView.Items[i - 1]);
+  for i := 0 to Length(SongInfos) - 1 do begin
+    xml.SetValue('songs/items[' + IntToStr(i + 1) + ']/song', SongInfos[i].title);
   end;
   xml.Free;
 end;
 
-procedure TSongsListPanel.LoadToXML;
+procedure TSongsListPanel.LoadToXML(const path: string);
 var
   i, cnt: integer;
   xml: TXMLConfig;
   s: string;
 begin
+  RemoveAll;
   xml := TXMLConfig.Create(nil);
-  xml.Filename := 'test.xml';
-
+  xml.Filename := path;
   cnt := xml.GetChildCount('songs');
-  for i := 1 to cnt do begin
-    //    s := xml.GetValue('songs/items[' + IntToStr(i) + ']/song', '');
-    //    WriteLn(s);
+  for i := 0 to cnt - 1 do begin
+    s := xml.GetValue('songs/items[' + IntToStr(i + 1) + ']/song', '');
+    Add(s);
   end;
   xml.Free;
 end;
