@@ -251,191 +251,204 @@ const
 // ====
 
 
-  function G_GOFFSET_CONSTANT(val : longint) : longint;
+  function G_GINT64_CONSTANT(val:Tgint64):Tgint64;
+  function G_GUINT64_CONSTANT(val:Tguint64):Tguint64;
+  function G_GOFFSET_CONSTANT(val : Tgint64) : Tgint64;
 
-  function GPOINTER_TO_INT(p : longint) : Tgint;
-  function GPOINTER_TO_UINT(p : longint) : Tguint;
-  function GINT_TO_POINTER(i : longint) : Tgpointer;
-  function GUINT_TO_POINTER(u : longint) : Tgpointer;
+  function GPOINTER_TO_INT(p : Tgpointer) : Tgint;
+  function GPOINTER_TO_UINT(p : Tgpointer) : Tguint;
+  function GINT_TO_POINTER(i : Tgint) : Tgpointer;
+  function GUINT_TO_POINTER(u : Tguint) : Tgpointer;
 
-  function GINT16_TO_LE(val : longint) : Tgint16;
-  function GUINT16_TO_LE(val : longint) : Tguint16;
-  function GINT16_TO_BE(val : longint) : Tgint16;
-  function GUINT16_TO_BE(val : longint) : longint;
-  function GINT32_TO_LE(val : longint) : Tgint32;
-  function GUINT32_TO_LE(val : longint) : Tguint32;
-  function GINT32_TO_BE(val : longint) : Tgint32;
-  function GUINT32_TO_BE(val : longint) : longint;
-  function GINT64_TO_LE(val : longint) : Tgint64;
-  function GUINT64_TO_LE(val : longint) : Tguint64;
-  function GINT64_TO_BE(val : longint) : Tgint64;
-  function GUINT64_TO_BE(val : longint) : longint;
-  function GLONG_TO_LE(val : longint) : Tglong;
-  function GULONG_TO_LE(val : longint) : Tgulong;
-  function GLONG_TO_BE(val : longint) : Tglong;
-  function GULONG_TO_BE(val : longint) : Tgulong;
-  function GINT_TO_LE(val : longint) : Tgint;
-  function GUINT_TO_LE(val : longint) : Tguint;
-  function GINT_TO_BE(val : longint) : Tgint;
-  function GUINT_TO_BE(val : longint) : Tguint;
-  function GSIZE_TO_LE(val : longint) : Tgsize;
-  function GSSIZE_TO_LE(val : longint) : Tgssize;
-  function GSIZE_TO_BE(val : longint) : Tgsize;
-  function GSSIZE_TO_BE(val : longint) : Tgssize;
+  function GINT16_TO_LE(val : Tgint16) : Tgint16;
+  function GUINT16_TO_LE(val : Tguint16) : Tguint16;
+  function GINT16_TO_BE(val : Tgint16) : Tgint16;
+  function GUINT16_TO_BE(val : Tguint16) : Tguint16;
+
+  function GINT32_TO_LE(val : Tgint32) : Tgint32;
+  function GUINT32_TO_LE(val : Tguint32) : Tguint32;
+  function GINT32_TO_BE(val : Tgint32) : Tgint32;
+  function GUINT32_TO_BE(val : Tguint32) : Tguint32;
+
+  function GINT64_TO_LE(val : Tgint64) : Tgint64;
+  function GUINT64_TO_LE(val : Tguint64) : Tguint64;
+  function GINT64_TO_BE(val : Tgint64) : Tgint64;
+  function GUINT64_TO_BE(val : Tguint64) : Tguint64;
+
+  function GLONG_TO_LE(val : Tglong) : Tglong;
+  function GULONG_TO_LE(val : Tgulong) : Tgulong;
+  function GLONG_TO_BE(val : Tglong) : Tglong;
+  function GULONG_TO_BE(val : Tgulong) : Tgulong;
+
+  function GINT_TO_LE(val : Tgint) : Tgint;
+  function GUINT_TO_LE(val : Tguint) : Tguint;
+  function GINT_TO_BE(val : Tgint) : Tgint;
+  function GUINT_TO_BE(val : Tguint) : Tguint;
+
+  function GSIZE_TO_LE(val : Tgsize) : Tgsize;
+  function GSSIZE_TO_LE(val : Tgsize) : Tgssize;
+  function GSIZE_TO_BE(val : Tgsize) : Tgsize;
+  function GSSIZE_TO_BE(val : Tgsize) : Tgssize;
 
 {$ENDIF read_interface}
 
 
 {$IFDEF read_implementation}
 
-  function G_GOFFSET_CONSTANT(val : longint) : longint;
-  begin
-//    G_GOFFSET_CONSTANT:=G_GINT64_CONSTANT(val);
-  end;
+function G_GINT64_CONSTANT(val: Tgint64): Tgint64;
+begin
+  Result := val;
+end;
 
-  function GPOINTER_TO_INT(p : longint) : Tgint;
-  begin
-    GPOINTER_TO_INT:=Tgint(Tglong(p));
-  end;
+function G_GUINT64_CONSTANT(val: Tguint64): Tguint64;
+begin
+  Result := val;
+end;
 
-  function GPOINTER_TO_UINT(p : longint) : Tguint;
-  begin
-    GPOINTER_TO_UINT:=Tguint(Tgulong(p));
-  end;
+function G_GOFFSET_CONSTANT(val: Tgint64): Tgint64;
+begin
+  G_GOFFSET_CONSTANT := G_GINT64_CONSTANT(val);
+end;
 
-  function GINT_TO_POINTER(i : longint) : Tgpointer;
-  begin
-    GINT_TO_POINTER:=Tgpointer(Tglong(i));
-  end;
+function GPOINTER_TO_INT(p: Tgpointer): Tgint;
+begin
+  GPOINTER_TO_INT := Tgint(Tglong(p));
+end;
 
-  function GUINT_TO_POINTER(u : longint) : Tgpointer;
-  begin
-    GUINT_TO_POINTER:=Tgpointer(Tgulong(u));
-  end;
+function GPOINTER_TO_UINT(p: Tgpointer): Tguint;
+begin
+  GPOINTER_TO_UINT := Tguint(Tgulong(p));
+end;
 
+function GINT_TO_POINTER(i: Tgint): Tgpointer;
+begin
+  GINT_TO_POINTER := Tgpointer(Tglong(i));
+end;
 
-  function GINT16_TO_LE(val : longint) : Tgint16;
-  begin
-    GINT16_TO_LE:=Tgint16(val);
-  end;
+function GUINT_TO_POINTER(u: Tguint): Tgpointer;
+begin
+  GUINT_TO_POINTER := Tgpointer(Tgulong(u));
+end;
 
-  function GUINT16_TO_LE(val : longint) : Tguint16;
-  begin
-    GUINT16_TO_LE:=Tguint16(val);
-  end;
+function GINT16_TO_LE(val: Tgint16): Tgint16;
+begin
+  GINT16_TO_LE := Tgint16(val);
+end;
 
-  function GINT16_TO_BE(val : longint) : Tgint16;
-  begin
-    GINT16_TO_BE:=Tgint16(GUINT16_SWAP_LE_BE(val));
-  end;
+function GUINT16_TO_LE(val: Tguint16): Tguint16;
+begin
+  GUINT16_TO_LE := Tguint16(val);
+end;
 
-  { return type might be wrong }
-  function GUINT16_TO_BE(val : longint) : longint;
-  begin
-    GUINT16_TO_BE:=GUINT16_SWAP_LE_BE(val);
-  end;
+function GINT16_TO_BE(val: Tgint16): Tgint16;
+begin
+  GINT16_TO_BE := Tgint16(GUINT16_SWAP_LE_BE(val));
+end;
 
-  function GINT32_TO_LE(val : longint) : Tgint32;
-  begin
-    GINT32_TO_LE:=Tgint32(val);
-  end;
+function GUINT16_TO_BE(val: Tguint16): Tguint16;
+begin
+  GUINT16_TO_BE := GUINT16_SWAP_LE_BE(val);
+end;
 
-  function GUINT32_TO_LE(val : longint) : Tguint32;
-  begin
-    GUINT32_TO_LE:=Tguint32(val);
-  end;
+function GINT32_TO_LE(val: Tgint32): Tgint32;
+begin
+  GINT32_TO_LE := Tgint32(val);
+end;
 
-  function GINT32_TO_BE(val : longint) : Tgint32;
-  begin
-    GINT32_TO_BE:=Tgint32(GUINT32_SWAP_LE_BE(val));
-  end;
+function GUINT32_TO_LE(val: Tguint32): Tguint32;
+begin
+  GUINT32_TO_LE := Tguint32(val);
+end;
 
-  { return type might be wrong }
-  function GUINT32_TO_BE(val : longint) : longint;
-  begin
-    GUINT32_TO_BE:=GUINT32_SWAP_LE_BE(val);
-  end;
+function GINT32_TO_BE(val: Tgint32): Tgint32;
+begin
+  GINT32_TO_BE := Tgint32(GUINT32_SWAP_LE_BE(val));
+end;
 
-  function GINT64_TO_LE(val : longint) : Tgint64;
-  begin
-    GINT64_TO_LE:=Tgint64(val);
-  end;
+function GUINT32_TO_BE(val: Tguint32): Tguint32;
+begin
+  GUINT32_TO_BE := GUINT32_SWAP_LE_BE(val);
+end;
 
-  function GUINT64_TO_LE(val : longint) : Tguint64;
-  begin
-    GUINT64_TO_LE:=Tguint64(val);
-  end;
+function GINT64_TO_LE(val: Tgint64): Tgint64;
+begin
+  GINT64_TO_LE := Tgint64(val);
+end;
 
-  function GINT64_TO_BE(val : longint) : Tgint64;
-  begin
-    GINT64_TO_BE:=Tgint64(GUINT64_SWAP_LE_BE(val));
-  end;
+function GUINT64_TO_LE(val: Tguint64): Tguint64;
+begin
+  GUINT64_TO_LE := Tguint64(val);
+end;
 
-  { return type might be wrong }
-  function GUINT64_TO_BE(val : longint) : longint;
-  begin
-    GUINT64_TO_BE:=GUINT64_SWAP_LE_BE(val);
-  end;
+function GINT64_TO_BE(val: Tgint64): Tgint64;
+begin
+  GINT64_TO_BE := Tgint64(GUINT64_SWAP_LE_BE(val));
+end;
 
-  function GLONG_TO_LE(val : longint) : Tglong;
-  begin
-    GLONG_TO_LE:=Tglong(GINT64_TO_LE(val));
-  end;
+function GUINT64_TO_BE(val: Tguint64): Tguint64;
+begin
+  GUINT64_TO_BE := GUINT64_SWAP_LE_BE(val);
+end;
 
-  function GULONG_TO_LE(val : longint) : Tgulong;
-  begin
-    GULONG_TO_LE:=Tgulong(GUINT64_TO_LE(val));
-  end;
+function GLONG_TO_LE(val: Tglong): Tglong;
+begin
+  GLONG_TO_LE := Tglong(GINT64_TO_LE(val));
+end;
 
-  function GLONG_TO_BE(val : longint) : Tglong;
-  begin
-    GLONG_TO_BE:=Tglong(GINT64_TO_BE(val));
-  end;
+function GULONG_TO_LE(val: Tgulong): Tgulong;
+begin
+  GULONG_TO_LE := Tgulong(GUINT64_TO_LE(val));
+end;
 
-  function GULONG_TO_BE(val : longint) : Tgulong;
-  begin
-    GULONG_TO_BE:=Tgulong(GUINT64_TO_BE(val));
-  end;
+function GLONG_TO_BE(val: Tglong): Tglong;
+begin
+  GLONG_TO_BE := Tglong(GINT64_TO_BE(val));
+end;
 
-  function GINT_TO_LE(val : longint) : Tgint;
-  begin
-    GINT_TO_LE:=Tgint(GINT32_TO_LE(val));
-  end;
+function GULONG_TO_BE(val: Tgulong): Tgulong;
+begin
+  GULONG_TO_BE := Tgulong(GUINT64_TO_BE(val));
+end;
 
-  function GUINT_TO_LE(val : longint) : Tguint;
-  begin
-    GUINT_TO_LE:=Tguint(GUINT32_TO_LE(val));
-  end;
+function GINT_TO_LE(val: Tgint): Tgint;
+begin
+  GINT_TO_LE := Tgint(GINT32_TO_LE(val));
+end;
 
-  function GINT_TO_BE(val : longint) : Tgint;
-  begin
-    GINT_TO_BE:=Tgint(GINT32_TO_BE(val));
-  end;
+function GUINT_TO_LE(val: Tguint): Tguint;
+begin
+  GUINT_TO_LE := Tguint(GUINT32_TO_LE(val));
+end;
 
-  function GUINT_TO_BE(val : longint) : Tguint;
-  begin
-    GUINT_TO_BE:=Tguint(GUINT32_TO_BE(val));
-  end;
+function GINT_TO_BE(val: Tgint): Tgint;
+begin
+  GINT_TO_BE := Tgint(GINT32_TO_BE(val));
+end;
 
-  function GSIZE_TO_LE(val : longint) : Tgsize;
-  begin
-    GSIZE_TO_LE:=Tgsize(GUINT64_TO_LE(val));
-  end;
+function GUINT_TO_BE(val: Tguint): Tguint;
+begin
+  GUINT_TO_BE := Tguint(GUINT32_TO_BE(val));
+end;
 
-  function GSSIZE_TO_LE(val : longint) : Tgssize;
-  begin
-    GSSIZE_TO_LE:=Tgssize(GINT64_TO_LE(val));
-  end;
+function GSIZE_TO_LE(val: Tgsize): Tgsize;
+begin
+  GSIZE_TO_LE := Tgsize(GUINT64_TO_LE(val));
+end;
 
-  function GSIZE_TO_BE(val : longint) : Tgsize;
-  begin
-    GSIZE_TO_BE:=Tgsize(GUINT64_TO_BE(val));
-  end;
+function GSSIZE_TO_LE(val: Tgsize): Tgssize;
+begin
+  GSSIZE_TO_LE := Tgssize(GINT64_TO_LE(val));
+end;
 
-  function GSSIZE_TO_BE(val : longint) : Tgssize;
-  begin
-    GSSIZE_TO_BE:=Tgssize(GINT64_TO_BE(val));
-  end;
+function GSIZE_TO_BE(val: Tgsize): Tgsize;
+begin
+  GSIZE_TO_BE := Tgsize(GUINT64_TO_BE(val));
+end;
+
+function GSSIZE_TO_BE(val: Tgsize): Tgssize;
+begin
+  GSSIZE_TO_BE := Tgssize(GINT64_TO_BE(val));
+end;
 
 
 {$ENDIF read_implementation}

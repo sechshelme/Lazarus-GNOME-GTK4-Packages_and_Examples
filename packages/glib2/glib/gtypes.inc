@@ -83,21 +83,17 @@ const
   bp_TGDoubleIEEE754_sign = 31;
 
 type
-  PGTimeVal = ^TGTimeVal;
-
   TGTimeVal = record
     tv_sec: Tglong;
     tv_usec: Tglong;
   end;
+  PGTimeVal = ^TGTimeVal;
 
   Tgrefcount = Tgint;
   Pgrefcount = ^Tgrefcount;
 
   Tgatomicrefcount = Tgint;
   Pgatomicrefcount = ^Tgatomicrefcount;
-
-
-
 
   // === Konventiert am: 6-8-24 15:51:59 ===
 
@@ -108,8 +104,6 @@ function GUINT64_SWAP_LE_BE_CONSTANT(val: Tguint64): Tguint64;
 function GUINT16_SWAP_LE_BE(val : Tguint16) : Tguint16;
 function GUINT32_SWAP_LE_BE(val : Tguint32) : Tguint32;
 function GUINT64_SWAP_LE_BE(val : Tguint64) : Tguint64;
-
-
 
 function GUINT16_SWAP_LE_PDP(val : Tguint16) : Tguint16;
 function GUINT16_SWAP_BE_PDP(val : Tguint16) : Tguint16;
@@ -216,132 +210,132 @@ end;
 
 function GUINT32_SWAP_LE_PDP(val: Tguint32): Tguint32;
 begin
-//  GUINT32_SWAP_LE_PDP:=Tguint32(((Tguint32(Tval(@(Tguint32($0000ffff))))) shl 16) or ((Tguint32(Tval(@(Tguint32($ffff0000))))) shr 16));
+  GUINT32_SWAP_LE_PDP := Tguint32(((val and $0000ffff) shl 16) or ((val and $ffff0000) shr 16));
 end;
 
 function GUINT32_SWAP_BE_PDP(val: Tguint32): Tguint32;
 begin
-//  GUINT32_SWAP_BE_PDP:=Tguint32(((Tguint32(Tval(@(Tguint32($00ff00ff))))) shl 8) or ((Tguint32(Tval(@(Tguint32($ff00ff00))))) shr 8));
+  GUINT32_SWAP_BE_PDP := Tguint32(((val and $00ff00ff) shl 8) or ((val and $ff00ff00) shr 8));
 end;
 
 function GINT16_FROM_LE(val: Tgint16): Tgint16;
 begin
-//  GINT16_FROM_LE:=GINT16_TO_LE(val);
+  GINT16_FROM_LE:=GINT16_TO_LE(val);
 end;
 
 function GUINT16_FROM_LE(val: Tguint16): Tguint16;
 begin
-//  GUINT16_FROM_LE:=GUINT16_TO_LE(val);
+  GUINT16_FROM_LE:=GUINT16_TO_LE(val);
 end;
 
 function GINT16_FROM_BE(val: Tgint16): Tgint16;
 begin
-//  GINT16_FROM_BE:=GINT16_TO_BE(val);
+  GINT16_FROM_BE:=GINT16_TO_BE(val);
 end;
 
 function GUINT16_FROM_BE(val: Tguint16): Tguint16;
 begin
-//  GUINT16_FROM_BE:=GUINT16_TO_BE(val);
+  GUINT16_FROM_BE:=GUINT16_TO_BE(val);
 end;
 
 function GINT32_FROM_LE(val: Tgint32): Tgint32;
 begin
-//  GINT32_FROM_LE:=GINT32_TO_LE(val);
+  GINT32_FROM_LE:=GINT32_TO_LE(val);
 end;
 
 function GUINT32_FROM_LE(val: Tguint32): Tguint32;
 begin
-//  GUINT32_FROM_LE:=GUINT32_TO_LE(val);
+  GUINT32_FROM_LE:=GUINT32_TO_LE(val);
 end;
 
 function GINT32_FROM_BE(val: Tgint32): Tgint32;
 begin
-//  GINT32_FROM_BE:=GINT32_TO_BE(val);
+  GINT32_FROM_BE:=GINT32_TO_BE(val);
 end;
 
 function GUINT32_FROM_BE(val: Tguint32): Tguint32;
 begin
-//  GUINT32_FROM_BE:=GUINT32_TO_BE(val);
+  GUINT32_FROM_BE:=GUINT32_TO_BE(val);
 end;
 
 function GINT64_FROM_LE(val: Tgint64): Tgint64;
 begin
-//  GINT64_FROM_LE:=GINT64_TO_LE(val);
+  GINT64_FROM_LE:=GINT64_TO_LE(val);
 end;
 
 function GUINT64_FROM_LE(val: Tguint64): Tguint64;
 begin
-//  GUINT64_FROM_LE:=GUINT64_TO_LE(val);
+  GUINT64_FROM_LE:=GUINT64_TO_LE(val);
 end;
 
 function GINT64_FROM_BE(val: Tgint64): Tgint64;
 begin
-//  GINT64_FROM_BE:=GINT64_TO_BE(val);
+  GINT64_FROM_BE:=GINT64_TO_BE(val);
 end;
 
 function GUINT64_FROM_BE(val: Tguint64): Tguint64;
 begin
-//  GUINT64_FROM_BE:=GUINT64_TO_BE(val);
+  GUINT64_FROM_BE:=GUINT64_TO_BE(val);
 end;
 
 function GLONG_FROM_LE(val: Tglong): Tglong;
 begin
-//  GLONG_FROM_LE:=GLONG_TO_LE(val);
+  GLONG_FROM_LE:=GLONG_TO_LE(val);
 end;
 
 function GULONG_FROM_LE(val: Tgulong): Tgulong;
 begin
-//  GULONG_FROM_LE:=GULONG_TO_LE(val);
+  GULONG_FROM_LE:=GULONG_TO_LE(val);
 end;
 
 function GLONG_FROM_BE(val: Tglong): Tglong;
 begin
-//  GLONG_FROM_BE:=GLONG_TO_BE(val);
+  GLONG_FROM_BE:=GLONG_TO_BE(val);
 end;
 
 function GULONG_FROM_BE(val: Tgulong): Tgulong;
 begin
-//  GULONG_FROM_BE:=GULONG_TO_BE(val);
+  GULONG_FROM_BE:=GULONG_TO_BE(val);
 end;
 
 function GINT_FROM_LE(val: Tgint): Tgint;
 begin
-//  GINT_FROM_LE:=GINT_TO_LE(val);
+  GINT_FROM_LE:=GINT_TO_LE(val);
 end;
 
 function GUINT_FROM_LE(val: Tguint): Tguint;
 begin
-//  GUINT_FROM_LE:=GUINT_TO_LE(val);
+  GUINT_FROM_LE:=GUINT_TO_LE(val);
 end;
 
 function GINT_FROM_BE(val: Tgint): Tgint;
 begin
-//  GINT_FROM_BE:=GINT_TO_BE(val);
+  GINT_FROM_BE:=GINT_TO_BE(val);
 end;
 
 function GUINT_FROM_BE(val: Tguint): Tguint;
 begin
-//  GUINT_FROM_BE:=GUINT_TO_BE(val);
+  GUINT_FROM_BE:=GUINT_TO_BE(val);
 end;
 
 function GSIZE_FROM_LE(val: Tgsize): Tgsize;
 begin
-//  GSIZE_FROM_LE:=GSIZE_TO_LE(val);
+  GSIZE_FROM_LE:=GSIZE_TO_LE(val);
 end;
 
 function GSSIZE_FROM_LE(val: Tgssize): Tgssize;
 begin
-//  GSSIZE_FROM_LE:=GSSIZE_TO_LE(val);
+  GSSIZE_FROM_LE:=GSSIZE_TO_LE(val);
 end;
 
 function GSIZE_FROM_BE(val: Tgsize): Tgsize;
 begin
-//  GSIZE_FROM_BE:=GSIZE_TO_BE(val);
+  GSIZE_FROM_BE:=GSIZE_TO_BE(val);
 end;
 
 function GSSIZE_FROM_BE(val: Tgssize): Tgssize;
 begin
-//  GSSIZE_FROM_BE:=GSSIZE_TO_BE(val);
+  GSSIZE_FROM_BE:=GSSIZE_TO_BE(val);
 end;
 
 function g_ntohl(val: Tguint32): Tguint32;
@@ -356,15 +350,13 @@ end;
 
 function g_htonl(val: Tguint32): Tguint32;
 begin
-//  g_htonl:=GUINT32_TO_BE(val);
+  g_htonl:=GUINT32_TO_BE(val);
 end;
 
 function g_htons(val: Tguint16): Tguint16;
 begin
-//  g_htons:=GUINT16_TO_BE(val);
+  g_htons:=GUINT16_TO_BE(val);
 end;
-
-
 
 
 {$ENDIF read_implementation}
