@@ -10,6 +10,11 @@
 
 // ==== von gtypes.h
 
+const
+  G_LITTLE_ENDIAN = 1234;
+  G_BIG_ENDIAN = 4321;
+  G_PDP_ENDIAN = 3412;
+
 type
   Tgchar = char;
   Pgchar = ^Tgchar;
@@ -167,9 +172,30 @@ type
   Tgoffset = Tgint64;
   Pgoffset = ^Tgoffset;
 
+  // ==== von gtypes.h
+
 const
-//  G_MINOFFSET = G_MININT64;
-// G_MAXOFFSET = G_MAXINT64;
+  G_MAXINT8 = Tgint8($7f);
+  G_MAXUINT8 = Tguint8($ff);
+  G_MININT8 = Tgint8((-(G_MAXINT8)) - 1);
+
+  G_MAXINT16 = Tgint16($7fff);
+  G_MAXUINT16 = Tguint16($ffff);
+  G_MININT16 = Tgint16((-(G_MAXINT16)) - 1);
+
+  G_MAXINT32 = Tgint32($7fffffff);
+  G_MAXUINT32 = Tguint32($ffffffff);
+  G_MININT32 = Tgint32((-(G_MAXINT32)) - 1);
+
+  G_MAXINT64 = $7fffffffffffffff;
+  G_MAXUINT64 = $ffffffffffffffff;
+  G_MININT64 = Tgint64(-G_MAXINT64 - 1);
+
+// ====
+
+const
+  G_MINOFFSET = G_MININT64;
+  G_MAXOFFSET = G_MAXINT64;
   G_GOFFSET_MODIFIER = G_GINT64_MODIFIER;
   G_GOFFSET_FORMAT = G_GINT64_FORMAT;
 
@@ -200,8 +226,8 @@ const
 const
   G_HAVE_GNUC_VARARGS = 1;
 
-//const
-//  G_BYTE_ORDER = G_LITTLE_ENDIAN;
+const
+  G_BYTE_ORDER = G_LITTLE_ENDIAN;
 
 const
   G_MODULE_SUFFIX = 'so';
@@ -227,28 +253,6 @@ const
   G_DIR_SEPARATOR_S = '/';
   G_SEARCHPATH_SEPARATOR = ':';
   G_SEARCHPATH_SEPARATOR_S = ':';
-
-
-  // ==== von gtypes.h
-
-const
-  G_MAXINT8 = Tgint8($7f);
-  G_MAXUINT8 = Tguint8($ff);
-  G_MININT8 = Tgint8((-(G_MAXINT8)) - 1);
-
-  G_MAXINT16 = Tgint16($7fff);
-  G_MAXUINT16 = Tguint16($ffff);
-  G_MININT16 = Tgint16((-(G_MAXINT16)) - 1);
-
-  G_MAXINT32 = Tgint32($7fffffff);
-  G_MAXUINT32 = Tguint32($ffffffff);
-  G_MININT32 = Tgint32((-(G_MAXINT32)) - 1);
-
-  G_MAXINT64 = $7fffffffffffffff;
-  G_MAXUINT64 = $ffffffffffffffff;
-  G_MININT64 = Tgint64(-G_MAXINT64 - 1);
-
-// ====
 
 
   function G_GINT64_CONSTANT(val:Tgint64):Tgint64;
