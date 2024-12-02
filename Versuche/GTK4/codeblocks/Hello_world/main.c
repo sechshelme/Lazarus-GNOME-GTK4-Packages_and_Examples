@@ -134,12 +134,15 @@ int main (int argc, char **argv)
   status = g_application_run (G_APPLICATION (app), argc, argv);
   g_object_unref (app);
 
+
+
+    //if (fd->revents & GLIB_SYSDEF_POLLERR) {
+        //printf("Ein Fehler ist aufgetreten beim Polling des Dateideskriptors.\n");
+    //}
+
+  //printf("SYS: %d\n", GLIB_SYSDEF_POLLERR);
+
   return status;
-
-  g_param_spec_double(0,0,0,0,0,0,0);
-
-  g_assertion_message_expr()
-  g_assert(true);
-  GTestCase
 }
 
+G_MINOFFSET

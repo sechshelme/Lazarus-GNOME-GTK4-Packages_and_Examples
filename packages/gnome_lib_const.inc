@@ -168,8 +168,8 @@ type
   Ttime_t = clong; // types.h
   Ptime_t = ^Ttime_t;
 
-  TGPid = cint;
-  PGPid = ^TGPid;
+//  TGPid = cint;
+//  PGPid = ^TGPid;
 
   Tva_list = Pointer;
   Pva_list = ^Tva_list;

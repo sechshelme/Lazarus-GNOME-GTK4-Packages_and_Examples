@@ -9,75 +9,6 @@
 {$IFDEF read_interface}
 
 type
-  Tgchar = char;
-  Pgchar = ^Tgchar;
-  PPgchar = ^Pgchar;
-  PPPgchar = ^PPgchar;
-
-  Tgshort = cshort;
-  Pgshort = ^Tgshort;
-
-  Tglong = clong;
-  Pglong = ^Tglong;
-
-  Tgint = cint;
-  Pgint = ^Tgint;
-  PPgint = ^Pgint;
-
-  //  Tgboolean = Tgint;
-  Tgboolean = Boolean32;
-  Pgboolean = ^Tgboolean;
-
-  Tguchar = cuchar;
-  Pguchar = ^Tguchar;
-  PPguchar = ^Pguchar;
-
-  Tgushort = cushort;
-  Pgushort = ^Tgushort;
-
-  Tgulong = culong;
-  Pgulong = ^Tgulong;
-
-  Tguint = cuint;
-  Pguint = ^Tguint;
-  PPguint = ^Pguint;
-
-  Tgfloat = cfloat;
-  Pgfloat = ^Tgfloat;
-  PPgfloat = ^Pgfloat;
-
-  Tgdouble = cdouble;
-  Pgdouble = ^Tgdouble;
-
-const
-  gFalse = Tgboolean(0);
-  gTrue = not gFalse;
-
-const
-  G_MAXINT8 = Tgint8($7f);
-  G_MAXUINT8 = Tguint8($ff);
-  G_MININT8 = Tgint8((-(G_MAXINT8)) - 1);
-
-  G_MAXINT16 = Tgint16($7fff);
-  G_MAXUINT16 = Tguint16($ffff);
-  G_MININT16 = Tgint16((-(G_MAXINT16)) - 1);
-
-  G_MAXINT32 = Tgint32($7fffffff);
-  G_MAXUINT32 = Tguint32($ffffffff);
-  G_MININT32 = Tgint32((-(G_MAXINT32)) - 1);
-
-  G_MAXINT64 = $7fffffffffffffff;
-  G_MAXUINT64 = $ffffffffffffffff;
-  G_MININT64 = Tgint64(-G_MAXINT64 - 1);
-
-type
-  Tgpointer = pointer;
-  Pgpointer = ^Tgpointer;
-
-  Pgconstpointer = ^Tgconstpointer;
-  Tgconstpointer = pointer;
-
-type
   TGCompareFunc = function(a: Tgconstpointer; b: Tgconstpointer): Tgint; cdecl;
   TGCompareDataFunc = function(a: Tgconstpointer; b: Tgconstpointer; user_data: Tgpointer): Tgint; cdecl;
   TGEqualFunc = function(a: Tgconstpointer; b: Tgconstpointer): Tgboolean; cdecl;
@@ -104,7 +35,6 @@ const
   G_LITTLE_ENDIAN = 1234;
   G_BIG_ENDIAN = 4321;
   G_PDP_ENDIAN = 3412;
-
 
 const
   G_IEEE754_FLOAT_BIAS = 127;

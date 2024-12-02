@@ -84,6 +84,8 @@ const
   G_TEST_SUBPROCESS_INHERIT_STDOUT = 1 shl 1;
   G_TEST_SUBPROCESS_INHERIT_STDERR = 1 shl 2;
 
+
+
 procedure g_test_trap_subprocess(test_path: pchar; usec_timeout: Tguint64; test_flags: TGTestSubprocessFlags); cdecl; external libglib2;
 procedure g_test_trap_subprocess_with_envp(test_path: pchar; envp: PPchar; usec_timeout: Tguint64; test_flags: TGTestSubprocessFlags); cdecl; external libglib2;
 function g_test_trap_has_passed: Tgboolean; cdecl; external libglib2;
@@ -216,6 +218,7 @@ function g_test_undefined: Tgboolean;
 
 procedure g_test_queue_unref(gobject: Tgpointer);
 function g_test_rand_bit: Tgboolean;
+procedure g_assert_not_reached;
 procedure g_assert(expr: Tgboolean);
 
 // === Konventiert am: 12-11-24 17:12:11 ===
@@ -277,11 +280,12 @@ begin
   g_test_rand_bit := 0 <> ((g_test_rand_int) and (1 shl 15));
 end;
 
+procedure g_assert_not_reached;
+begin
+end;
+
 procedure g_assert(expr: Tgboolean);
 begin
-  if not expr then begin
-    g_assertion_message_expr(G_LOG_DOMAIN, 'file', 0, 'error', 'gFALSE');
-  end;
 end;
 
 
