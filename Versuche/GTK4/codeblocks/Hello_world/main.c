@@ -145,5 +145,4 @@ int main (int argc, char **argv)
   return status;
 }
 
-G_LITTLE_ENDIAN
-G_MINOFFSET
+
