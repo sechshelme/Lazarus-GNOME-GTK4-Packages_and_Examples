@@ -8,29 +8,55 @@ uses
 
   // https://www.perplexity.ai/search/gib-mir-ein-c-beispiel-mit-gob-YfOXptn2RBqy4AX5x4Eghw
   // https://www.perplexity.ai/search/gib-mit-ein-gobject-beispiel-i-9vZ4Jy8nSESadMh_l_uthA
-// https://www.perplexity.ai/search/ich-will-mit-gobject-3-propert-OyYpPCprQVq00phtJ1aw7g
+  // https://www.perplexity.ai/search/ich-will-mit-gobject-3-propert-OyYpPCprQVq00phtJ1aw7g
 
 
   procedure printPersonext(per: PExPersonExt);
+  var
+    gender:Pgchar;
   begin
-    g_printf('Name: %-14s    Alter: %4d   Geschlecht: %s'#10, Ex_person_get_name(EX_PERSON(per)), Ex_person_get_age(EX_PERSON(per)), Ex_personExt_get_gender(per));
+    case Ex_personExt_get_gender(per) of
+    GESCHLECHT_UNBEKANNT:gender:='unbekannt';
+    GESCHLECHT_MANN:gender:='Mann';
+    GESCHLECHT_FRAU:gender:='Frau';
+    end;
+
+    g_printf('Name: %-14s    Alter: %4d   Geschlecht: %s'#10, Ex_person_get_name(EX_PERSON(per)), Ex_person_get_age(EX_PERSON(per)), gender);
   end;
 
   procedure ExtPerson;
   var
-    PersonExt: PExPersonExt;
+    PersonExt1, PersonExt2: PExPersonExt;
   begin
-      PersonExt := Ex_personExt_new_with_data('Hans', 21, 'Mann');
-      printPersonext(PersonExt);
+    PersonExt1 := Ex_personExt_new_with_data('Hans', 21, GESCHLECHT_MANN);
+    printPersonext(PersonExt1);
 
-    g_object_set(PersonExt,
+    PersonExt2 := Ex_personExt_new_with_data('Peter', 23, GESCHLECHT_FRAU);
+    printPersonext(PersonExt2);
+
+    g_object_set(PersonExt1,
       'name', 'Vreni',
-      'age', 16,
-      'gender', 'Frau',
+      'age', 6,
+      'gender', GESCHLECHT_FRAU,
       nil);
-    printPersonext(PersonExt);
+    printPersonext(PersonExt1);
 
-    g_object_unref(PersonExt);
+    g_object_set(PersonExt2,
+      'name', 'Regina',
+      'age', 62,
+      'gender', GESCHLECHT_FRAU,
+      nil);
+    printPersonext(PersonExt2);
+
+    g_object_set(PersonExt2,
+      'name', 'Ursi',
+      'age', 32,
+      'gender', GESCHLECHT_UNBEKANNT,
+      nil);
+    printPersonext(PersonExt2);
+
+    g_object_unref(PersonExt1);
+    g_object_unref(PersonExt2);
   end;
 
   procedure printPerson(per: PExPerson);
