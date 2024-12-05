@@ -38,7 +38,7 @@ function EX_PERSONEXT_GET_CLASS(obj: Pointer): PExPERSONEXTClass;
 implementation
 
 var
-  ex_person_ext_parent_class: Tgpointer = nil;
+  ex_person_ext_parent_class: PExPersonClass = nil;
 
 
 procedure Ex_personExt_set_property(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
@@ -52,7 +52,7 @@ begin
       self^.gender := g_value_dup_string(Value);
     end;
     else begin
-      G_OBJECT_CLASS(g_type_class_peek_parent(G_OBJECT_GET_CLASS(object_)))^.set_property(object_, property_id, Value, pspec);
+      G_OBJECT_WARN_INVALID_PROPERTY_ID(object_, property_id, pspec);
     end;
   end;
 end;
@@ -67,7 +67,7 @@ begin
       g_value_set_string(Value, self^.gender);
     end;
     else begin
-      G_OBJECT_CLASS(g_type_class_peek_parent(G_OBJECT_GET_CLASS(object_)))^.get_property(object_, property_id, Value, pspec);
+      G_OBJECT_WARN_INVALID_PROPERTY_ID(object_, property_id, pspec);
     end;
   end;
 end;
@@ -76,34 +76,27 @@ procedure Ex_personExt_finalize(object_: PGObject); cdecl;
 var
   self: PExPersonExt;
 begin
-  WriteLn('wwwwwwwwwwwwwwwwwww');
   self := EX_PERSONEXT(object_);
   g_free(self^.gender);
-  WriteLn('wwwwwwwwwwwwwwwwwww');
-  G_OBJECT_CLASS(g_type_class_peek_parent(G_OBJECT_GET_CLASS(object_)))^.finalize(object_);
-  WriteLn('wwwwwwwwwwwwwwwwwww');
+  G_OBJECT_CLASS(ex_person_ext_parent_class)^.finalize(object_);
 end;
-
 
 procedure Ex_personExt_init(self: PExPersonExt); cdecl;
 begin
   self^.gender := nil;
 end;
 
-
 procedure Ex_personExt_class_init(klass: PExPersonExtClass); cdecl;
 var
-  object_class, parentclass: PGObjectClass;
+  object_class: PGObjectClass;
   spec: PGParamSpec;
-
 begin
   object_class := G_OBJECT_CLASS(klass);
   object_class^.set_property := @Ex_personExt_set_property;
   object_class^.get_property := @Ex_personExt_get_property;
 
   object_class^.finalize := @Ex_personExt_finalize;
-
-  //g_object_class_install_property(object_class, 1, g_param_spec_string('gender', 'Gender', 'Gender of the person', nil, G_PARAM_READWRITE));
+  ex_person_ext_parent_class := g_type_class_peek_parent(klass);
 
   spec := g_param_spec_string('gender', 'Gender', 'Gender of the person', nil, G_PARAM_READWRITE);
   g_object_class_install_property(object_class, 1, spec);

@@ -45,9 +45,7 @@ type
 
 var
   obj_properties: array[Tobj_propertie] of PGParamSpec = (nil, nil, nil);
-
-  ex_person_parent_class: Tgpointer = nil;
-
+  ex_person_parent_class: PGObjectClass = nil;
 
 procedure Ex_person_set_property(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
 var
@@ -94,7 +92,7 @@ var
 begin
   self := EX_PERSON(object_);
   g_free(self^.Name);
-  G_OBJECT_CLASS(g_type_class_peek_parent(G_OBJECT_GET_CLASS(object_)))^.finalize(object_);
+  ex_person_parent_class^.finalize(object_);
 end;
 
 procedure Ex_person_init(self: PExPerson); cdecl;
@@ -109,9 +107,9 @@ var
 begin
   object_class := G_OBJECT_CLASS(klass);
 
+  object_class^.finalize := @Ex_person_finalize;
   ex_person_parent_class := g_type_class_peek_parent(klass);
 
-  object_class^.finalize := @Ex_person_finalize;
   object_class^.set_property := @Ex_person_set_property;
   object_class^.get_property := @Ex_person_get_property;
 
