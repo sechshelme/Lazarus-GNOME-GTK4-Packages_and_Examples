@@ -9,7 +9,7 @@ uses
 
 type
   TExPerson = record
-    private
+  private
     parent_instance: TGObject;
     Name: Pgchar;
     age: Tgint;
@@ -17,7 +17,7 @@ type
   PExPerson = ^TExPerson;
 
   TExPersonClass = record
-    private
+  private
     parent_class: TGObjectClass;
   end;
   PExPersonClass = ^TExPersonClass;
@@ -32,7 +32,10 @@ function Ex_person_get_age(self: PExPerson): Tgint;
 
 function EX_TYPE_PERSON: TGType;
 function EX_PERSON(obj: Pointer): PExPerson;
+function EX_PERSON_CLASS(klass: Pointer): PExPersonClass;
 function EX_IS_PERSON(obj: Pointer): Tgboolean;
+function EX_IS_PERSON_CLASS(klass: Pointer): Tgboolean;
+function EX_PERSON_GET_CLASS(obj: Pointer): PExPersonClass;
 
 
 implementation
@@ -42,6 +45,7 @@ type
 
 var
   obj_properties: array[Tobj_propertie] of PGParamSpec = (nil, nil, nil);
+  ex_person_parent_class: PGObjectClass = nil;
 
 procedure Ex_person_set_property(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
 var
@@ -51,7 +55,9 @@ begin
 
   case Tobj_propertie(property_id) of
     PROP_NAME: begin
-      g_free(self^.Name);
+      if self^.Name <> nil then  begin
+        g_free(self^.Name);
+      end;
       self^.Name := g_value_dup_string(Value);
     end;
     PROP_AGE: begin
@@ -82,6 +88,15 @@ begin
   end;
 end;
 
+procedure Ex_person_finalize(object_: PGObject); cdecl;
+var
+  self: PExPerson;
+begin
+  self := EX_PERSON(object_);
+  g_free(self^.Name);
+  ex_person_parent_class^.finalize(object_);
+end;
+
 procedure Ex_person_init(self: PExPerson); cdecl;
 begin
   self^.Name := nil;
@@ -94,6 +109,9 @@ var
 begin
   object_class := G_OBJECT_CLASS(klass);
 
+  object_class^.finalize := @Ex_person_finalize;
+  ex_person_parent_class := g_type_class_peek_parent(klass);
+
   object_class^.set_property := @Ex_person_set_property;
   object_class^.get_property := @Ex_person_get_property;
 
@@ -105,27 +123,25 @@ end;
 
 function Ex_person_get_type: TGType;
 const
-  person_type_id: Tgsize = 0;
+  person_type: TGType = 0;
 var
-  type_id: TGType;
-  info: TGTypeInfo;
+  type_info: TGTypeInfo;
 begin
-  if g_once_init_enter(@person_type_id) then begin
-    info.class_size := SizeOf(TExPersonClass);
-    info.base_init := nil;
-    info.base_finalize := nil;
-    info.class_init := TGClassInitFunc(@Ex_person_class_init);
-    info.class_finalize := nil;
-    info.class_data := nil;
-    info.instance_size := SizeOf(TExPerson);
-    info.n_preallocs := 0;
-    info.instance_init := TGInstanceInitFunc(@Ex_person_init);
-    info.value_table := nil;
+  if person_type = 0 then begin
+    type_info.class_size := SizeOf(TExPersonClass);
+    type_info.base_init := nil;
+    type_info.base_finalize := nil;
+    type_info.class_init := TGClassInitFunc(@Ex_person_class_init);
+    type_info.class_finalize := nil;
+    type_info.class_data := nil;
+    type_info.instance_size := SizeOf(TExPerson);
+    type_info.n_preallocs := 0;
+    type_info.instance_init := TGInstanceInitFunc(@Ex_person_init);
+    type_info.value_table := nil;
 
-    type_id := g_type_register_static(G_TYPE_OBJECT, 'Person', @info, 0);
-    g_once_init_leave(@person_type_id, type_id);
+    person_type := g_type_register_static(G_TYPE_OBJECT, 'Person', @type_info, 0);
   end;
-  Result := person_type_id;
+  Result := person_type;
 end;
 
 function Ex_person_new: PExPerson;
@@ -143,18 +159,17 @@ end;
 
 procedure Ex_person_set_name(self: PExPerson; Name: Pgchar);
 begin
-  g_free(self^.Name);
-  self^.Name := g_strdup(Name);
-end;
-
-procedure Ex_person_set_age(self: PExPerson; age: Tgint);
-begin
-  self^.age := age;
+  g_object_set(self, 'name', Name, nil);
 end;
 
 function Ex_person_get_name(self: PExPerson): Pgchar;
 begin
   Result := self^.Name;
+end;
+
+procedure Ex_person_set_age(self: PExPerson; age: Tgint);
+begin
+  self^.age := age;
 end;
 
 function Ex_person_get_age(self: PExPerson): Tgint;
@@ -166,7 +181,7 @@ end;
 
 function EX_TYPE_PERSON: TGType;
 begin
-  Result := Ex_person_get_type;
+  EX_TYPE_PERSON := ex_person_get_type;
 end;
 
 function EX_PERSON(obj: Pointer): PExPerson;
@@ -174,9 +189,24 @@ begin
   Result := PExPerson(g_type_check_instance_cast(obj, EX_TYPE_PERSON));
 end;
 
+function EX_PERSON_CLASS(klass: Pointer): PExPersonClass;
+begin
+  Result := PExPersonClass(g_type_check_class_cast(klass, EX_TYPE_PERSON));
+end;
+
 function EX_IS_PERSON(obj: Pointer): Tgboolean;
 begin
   Result := g_type_check_instance_is_a(obj, EX_TYPE_PERSON);
+end;
+
+function EX_IS_PERSON_CLASS(klass: Pointer): Tgboolean;
+begin
+  Result := g_type_check_class_is_a(klass, EX_TYPE_PERSON);
+end;
+
+function EX_PERSON_GET_CLASS(obj: Pointer): PExPersonClass;
+begin
+  Result := PExPersonClass(PGTypeInstance(obj)^.g_class);
 end;
 
 end.

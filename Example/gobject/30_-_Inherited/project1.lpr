@@ -8,55 +8,22 @@ uses
 
   // https://www.perplexity.ai/search/gib-mir-ein-c-beispiel-mit-gob-YfOXptn2RBqy4AX5x4Eghw
   // https://www.perplexity.ai/search/gib-mit-ein-gobject-beispiel-i-9vZ4Jy8nSESadMh_l_uthA
-// https://www.perplexity.ai/search/ich-will-mit-gobject-3-propert-OyYpPCprQVq00phtJ1aw7g
+  // https://www.perplexity.ai/search/ich-will-mit-gobject-3-propert-OyYpPCprQVq00phtJ1aw7g
 
 
-  procedure printPersonext(per: PExPersonExt);
-  begin
-    g_printf('Name: %-14s    Alter: %4d   Geschlecht: %s'#10, Ex_person_get_name(EX_PERSON(per)), Ex_person_get_age(EX_PERSON(per)), Ex_personExt_get_gender(per));
-  end;
+  procedure ParentPerson;
 
-  procedure ExtPerson;
-  var
-    PersonExt: PExPersonExt;
-  begin
-      PersonExt := Ex_personExt_new_with_data('Hans', 21, 'Mann');
-      printPersonext(PersonExt);
+    procedure printPerson(per: PExPerson);
+    begin
+      g_printf('Name: %-14s    Alter: %4d'#10, Ex_person_get_name(per), Ex_person_get_age(per));
+    end;
 
-      g_object_set(PersonExt,
-        'name', 'Vreni',
-        'age', 16,
-        'gender', 'Frau',
-        nil);
-      printPersonext(PersonExt);
-
-      g_object_set(PersonExt,
-        'name', 'Ralf',
-        'age', 19,
-        'gender', 'Kind',
-        nil);
-      printPersonext(PersonExt);
-
-      g_object_set(PersonExt,
-        'name', 'Rolf',
-        'age', 9,
-        'gender', 'Mann',
-        nil);
-      printPersonext(PersonExt);
-
-    g_object_unref(PersonExt);
-  end;
-
-  procedure printPerson(per: PExPerson);
-  begin
-    g_printf('Name: %-14s    Alter: %4d'#10, Ex_person_get_name(per), Ex_person_get_age(per));
-  end;
-
-
-  function main({%H-}argc: cint; {%H-}argv: PPChar): cint;
   var
     per, per2: PExPerson;
+
   begin
+    g_printf(#10'----- Parent Person -----'#10#10);
+
     per := Ex_person_new_with_data('Peterli', 24);
     printPerson(per);
 
@@ -84,16 +51,57 @@ uses
       nil);
     printPerson(per2);
     g_object_unref(per2);
-
-    // === Ext
-
-    WriteLn('-------- Ext Person ------------');
-
-    ExtPerson;
-
-    Exit(0);
   end;
 
+  procedure ChildPerson;
+
+    procedure printChildPerson(per: PExPersonExt);
+    begin
+      g_printf('Name: %-14s    Alter: %4d   Geschlecht: %s'#10, Ex_person_get_name(EX_PERSON(per)), Ex_person_get_age(EX_PERSON(per)), Ex_personExt_get_gender(per));
+    end;
+
+  var
+    PersonExt1, PersonExt2: PExPersonExt;
+  begin
+    g_printf(#10'----- Child Person -----'#10#10);
+
+    PersonExt1 := Ex_personExt_new_with_data('Hans', 21, 'Mann');
+    printChildPerson(PersonExt1);
+
+    g_object_set(PersonExt1,
+      'name', 'Vreni',
+      'age', 16,
+      'gender', 'Frau',
+      nil);
+    printChildPerson(PersonExt1);
+
+    g_object_set(PersonExt1,
+      'name', 'Ralf',
+      'age', 19,
+      'gender', 'Kind',
+      nil);
+    printChildPerson(PersonExt1);
+
+    g_object_set(PersonExt1,
+      'name', 'Rolf',
+      'age', 9,
+      'gender', 'Mann',
+      nil);
+    printChildPerson(PersonExt1);
+
+    PersonExt2 := g_object_new(EX_TYPE_PERSONEXT,
+      'name', 'Person2',
+      'age', 99,
+      'gender', 'Frau',
+      nil);
+    printChildPerson(PersonExt2);
+
+    g_object_unref(PersonExt1);
+    g_object_unref(PersonExt2);
+  end;
+
+
 begin
-  main(argc, argv);
+  ParentPerson;
+  ChildPerson;
 end.
