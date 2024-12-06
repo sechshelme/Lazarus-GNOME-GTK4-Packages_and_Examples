@@ -40,7 +40,6 @@ implementation
 var
   ex_person_ext_parent_class: PExPersonClass = nil;
 
-
 procedure Ex_personExt_set_property(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
 var
   self: PExPersonExt;

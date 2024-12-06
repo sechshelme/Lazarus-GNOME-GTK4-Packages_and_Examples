@@ -40,11 +40,9 @@ function EX_PERSON_GET_CLASS(obj: Pointer): PExPersonClass;
 
 implementation
 
-type
-  Tobj_propertie = (PROP_0, PROP_NAME, PROP_AGE);
+// https://www.perplexity.ai/search/gib-mir-ein-c-beispiel-mit-g-o-sduuvmf0RxeKRodE4r4f2A
 
 var
-  obj_properties: array[Tobj_propertie] of PGParamSpec = (nil, nil, nil);
   ex_person_parent_class: PGObjectClass = nil;
 
 procedure Ex_person_set_property(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
@@ -53,12 +51,12 @@ var
 begin
   self := EX_PERSON(object_);
 
-  case Tobj_propertie(property_id) of
-    PROP_NAME: begin
+  case property_id of
+    1: begin
       g_free(self^.Name);
       self^.Name := g_value_dup_string(Value);
     end;
-    PROP_AGE: begin
+    2: begin
       self^.age := g_value_get_int(Value);
     end;
     else begin
@@ -73,11 +71,11 @@ var
 begin
   self := EX_PERSON(object_);
 
-  case Tobj_propertie(property_id) of
-    PROP_NAME: begin
+  case property_id of
+    1: begin
       g_value_set_string(Value, self^.Name);
     end;
-    PROP_AGE: begin
+    2: begin
       g_value_set_int(Value, self^.age);
     end;
     else begin
@@ -104,6 +102,7 @@ end;
 procedure Ex_person_class_init(klass: PExPersonClass); cdecl;
 var
   object_class: PGObjectClass;
+  pspec: PGParamSpec;
 begin
   object_class := G_OBJECT_CLASS(klass);
 
@@ -113,10 +112,12 @@ begin
   object_class^.set_property := @Ex_person_set_property;
   object_class^.get_property := @Ex_person_get_property;
 
-  obj_properties[PROP_NAME] := g_param_spec_string('name', 'Name', 'Name of the person', nil, G_PARAM_READWRITE);
-  obj_properties[PROP_AGE] := g_param_spec_int('age', 'Age', 'Age of the person', 0, 150, 0, G_PARAM_READWRITE);
+  pspec := g_param_spec_string('name', 'Name', 'Name of the person', nil, G_PARAM_READWRITE);
+  g_object_class_install_property(object_class, 1, pspec);
 
-  g_object_class_install_properties(object_class, Length(obj_properties), obj_properties);
+  pspec := g_param_spec_int('age', 'Age', 'Age of the person', 0, 150, 0, G_PARAM_READWRITE);
+  g_object_class_install_property(object_class, 2, pspec);
+
 end;
 
 function Ex_person_get_type: TGType;
@@ -157,23 +158,22 @@ end;
 
 procedure Ex_person_set_name(self: PExPerson; Name: Pgchar);
 begin
-  g_free(self^.Name);
-  self^.Name := g_strdup(Name);
+  g_object_set(self, 'name', Name, nil);
 end;
 
 procedure Ex_person_set_age(self: PExPerson; age: Tgint);
 begin
-  self^.age := age;
+  g_object_set(self, 'age', age, nil);
 end;
 
 function Ex_person_get_name(self: PExPerson): Pgchar;
 begin
-  Result := self^.Name;
+  g_object_get(self, 'name', @Result, nil);
 end;
 
 function Ex_person_get_age(self: PExPerson): Tgint;
 begin
-  Result := self^.age;
+  g_object_get(self, 'age', @Result, nil);
 end;
 
 // ====
