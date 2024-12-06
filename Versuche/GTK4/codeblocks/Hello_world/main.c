@@ -143,6 +143,10 @@ int main (int argc, char **argv)
   //printf("SYS: %d\n", GLIB_SYSDEF_POLLERR);
 
   return status;
+
+  GValue value;
+  value.data.v_int=123;
+
 }
 
 

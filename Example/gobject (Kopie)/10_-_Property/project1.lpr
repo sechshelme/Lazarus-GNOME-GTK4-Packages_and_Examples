@@ -8,18 +8,8 @@ uses
   // https://www.perplexity.ai/search/gib-mir-ein-c-beispiel-mit-gob-YfOXptn2RBqy4AX5x4Eghw
 
   procedure printPerson(per: PExPerson);
-  var
-    name:Pgchar;
-    age:Tgint;
   begin
     g_printf('Name: %s    Alter: %d'#10, Ex_person_get_name(per), Ex_person_get_age(per));
-
-    g_object_get(per,
-    'name',@name,
-    'age', @age,
-    nil);
-    g_printf('Name: %s    Alter: %d'#10, name, age);
-    g_free(name);
   end;
 
 

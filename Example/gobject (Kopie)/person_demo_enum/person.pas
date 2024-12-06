@@ -55,9 +55,7 @@ begin
 
   case Tobj_propertie(property_id) of
     PROP_NAME: begin
-      if self^.Name <> nil then  begin
-        g_free(self^.Name);
-      end;
+      g_free(self^.Name);
       self^.Name := g_value_dup_string(Value);
     end;
     PROP_AGE: begin
@@ -115,7 +113,7 @@ begin
   object_class^.set_property := @Ex_person_set_property;
   object_class^.get_property := @Ex_person_get_property;
 
-  obj_properties[PROP_NAME] := g_param_spec_string('name', 'Name', 'Name of the person', nil, G_PARAM_READWRITE or G_PARAM_CONSTRUCT);
+  obj_properties[PROP_NAME] := g_param_spec_string('name', 'Name', 'Name of the person', nil, G_PARAM_READWRITE);
   obj_properties[PROP_AGE] := g_param_spec_int('age', 'Age', 'Age of the person', 0, 150, 0, G_PARAM_READWRITE);
 
   g_object_class_install_properties(object_class, Length(obj_properties), obj_properties);
@@ -159,17 +157,18 @@ end;
 
 procedure Ex_person_set_name(self: PExPerson; Name: Pgchar);
 begin
-  g_object_set(self, 'name', Name, nil);
-end;
-
-function Ex_person_get_name(self: PExPerson): Pgchar;
-begin
-  Result := self^.Name;
+  g_free(self^.Name);
+  self^.Name := g_strdup(Name);
 end;
 
 procedure Ex_person_set_age(self: PExPerson; age: Tgint);
 begin
   self^.age := age;
+end;
+
+function Ex_person_get_name(self: PExPerson): Pgchar;
+begin
+  Result := self^.Name;
 end;
 
 function Ex_person_get_age(self: PExPerson): Tgint;
