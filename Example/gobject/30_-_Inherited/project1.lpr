@@ -23,12 +23,26 @@ uses
       PersonExt := Ex_personExt_new_with_data('Hans', 21, 'Mann');
       printPersonext(PersonExt);
 
-    g_object_set(PersonExt,
-      'name', 'Vreni',
-      'age', 16,
-      'gender', 'Frau',
-      nil);
-    printPersonext(PersonExt);
+      g_object_set(PersonExt,
+        'name', 'Vreni',
+        'age', 16,
+        'gender', 'Frau',
+        nil);
+      printPersonext(PersonExt);
+
+      g_object_set(PersonExt,
+        'name', 'Ralf',
+        'age', 19,
+        'gender', 'Kind',
+        nil);
+      printPersonext(PersonExt);
+
+      g_object_set(PersonExt,
+        'name', 'Rolf',
+        'age', 9,
+        'gender', 'Mann',
+        nil);
+      printPersonext(PersonExt);
 
     g_object_unref(PersonExt);
   end;

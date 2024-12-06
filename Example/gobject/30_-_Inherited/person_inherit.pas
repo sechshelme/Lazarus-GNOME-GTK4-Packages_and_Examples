@@ -40,15 +40,24 @@ implementation
 var
   ex_person_ext_parent_class: PExPersonClass = nil;
 
+
 procedure Ex_personExt_set_property(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
 var
   self: PExPersonExt;
+  ch: Pgchar;
 begin
   self := EX_PERSONEXT(object_);
   case property_id of
     1: begin
-      g_free(self^.gender);
-      self^.gender := g_value_dup_string(Value);
+      ch := g_value_get_string(Value);
+      if self^.gender <> nil then  begin
+        g_free(self^.gender);
+      end;
+      if (g_strcmp0('Mann', ch) = 0) or (g_strcmp0('Frau', ch) = 0) then begin
+        self^.gender := g_value_dup_string(Value);
+      end else begin
+        self^.gender := g_strdup('unbekannt');
+      end;
     end;
     else begin
       G_OBJECT_WARN_INVALID_PROPERTY_ID(object_, property_id, pspec);
@@ -140,8 +149,7 @@ end;
 
 procedure Ex_personExt_set_gender(self: PExPersonExt; gender: Pgchar);
 begin
-  g_free(self^.gender);
-  self^.gender := g_strdup(gender);
+  g_object_set(self, 'gender', gender, nil);
 end;
 
 function Ex_personExt_get_gender(self: PExPersonExt): Pgchar;
