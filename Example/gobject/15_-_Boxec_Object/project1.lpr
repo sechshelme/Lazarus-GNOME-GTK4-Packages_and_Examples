@@ -5,61 +5,41 @@ uses
   fp_glib2,
   Rectangle;
 
-  // https://www.perplexity.ai/search/gib-mir-ein-c-beispiel-mit-gob-YfOXptn2RBqy4AX5x4Eghw
+  // https://www.perplexity.ai/search/gib-mir-ein-c-beispiel-mit-gva-S6LCnojdTAGMcpDG7p2hnQ
+  // https://www.perplexity.ai/search/gibr-mir-ein-beispiel-mit-g-bo-QeQLcJ1sS6uzrPeBbsFeug
 
-  procedure printPerson(per: PExRectangle);
-  var
-    name:Pgchar;
-    age:Tgint;
+  procedure printRectangle(r: PERectangle);
   begin
-    g_printf('Name: %s    Alter: %d'#10, Ex_person_get_name(per), Ex_person_get_age(per));
-
-    g_object_get(per,
-    'name',@name,
-    'age', @age,
-    nil);
-    g_printf('Name: %s    Alter: %d'#10, name, age);
-    g_free(name);
+    g_printf('x: %6d  y: %6d  w: %6d  h: %6d'#10, r^.x, r^.y, r^.w, r^.h);
   end;
 
 
   function main({%H-}argc: cint; {%H-}argv: PPChar): cint;
   var
-    per, per2: PExRectangle;
+    rect_type: TGType;
+    rect, rect_copy: PERectangle;
   begin
-    per := Ex_person_new_with_data('Peterli', 24);
-    printPerson(per);
+    rect_type := E_TYPE_RECTANGLE;
+    rect := g_malloc(SizeOf(TERectangle));
+    rect^.x := 10;
+    rect^.y := 20;
+    rect^.w := 100;
+    rect^.h := 50;
 
-    Ex_person_set_name(per, 'Max Mustermann');
-    Ex_person_set_age(per, 33);
-    printPerson(per);
+    rect_copy := e_rectangle_copy(rect);
+    e_rectangle_move(rect_copy, 100, 100);
 
-    Ex_person_set_name(per, 'Hans Weber');
-    Ex_person_set_age(per, 44);
-    printPerson(per);
+    printRectangle(rect);
+    printRectangle(rect_copy);
 
-    g_object_set(per,
-      'name', 'Hugentobler',
-      'age', 56,
-      nil);
-    printPerson(per);
-    WriteLn('--------------------');
 
-    per2 := Ex_person_new;
-    g_object_set(per2,
-      'name', 'Person 2',
-      'age', 6,
-      nil);
-    printPerson(per2);
-
-    // =====
-
-    g_object_unref(per);
-    g_object_unref(per2);
+    e_rectangle_free(rect);
+    e_rectangle_free(rect_copy);
 
     Exit(0);
   end;
 
 begin
   main(argc, argv);
+
 end.
