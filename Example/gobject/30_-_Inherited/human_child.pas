@@ -114,21 +114,21 @@ function E_humanExt_get_type: TGType;
 const
   human_type: TGType = 0;
 var
-  type_info: TGTypeInfo;
+  humanExt_info: TGTypeInfo;
 begin
   if human_type = 0 then begin
-    type_info.class_size := SizeOf(TEHumanExtClass);
-    type_info.base_init := nil;
-    type_info.base_finalize := nil;
-    type_info.class_init := TGClassInitFunc(@E_humanExt_class_init);
-    type_info.class_finalize := nil;
-    type_info.class_data := nil;
-    type_info.instance_size := SizeOf(TEHumanExt);
-    type_info.n_preallocs := 0;
-    type_info.instance_init := TGInstanceInitFunc(@E_humanExt_init);
-    type_info.value_table := nil;
+    humanExt_info.class_size := SizeOf(TEHumanExtClass);
+    humanExt_info.base_init := nil;
+    humanExt_info.base_finalize := nil;
+    humanExt_info.class_init := TGClassInitFunc(@E_humanExt_class_init);
+    humanExt_info.class_finalize := nil;
+    humanExt_info.class_data := nil;
+    humanExt_info.instance_size := SizeOf(TEHumanExt);
+    humanExt_info.n_preallocs := 0;
+    humanExt_info.instance_init := TGInstanceInitFunc(@E_humanExt_init);
+    humanExt_info.value_table := nil;
 
-    human_type := g_type_register_static(E_TYPE_HUMAN, 'PersonExt', @type_info, 0);
+    human_type := g_type_register_static(E_TYPE_HUMAN, 'PersonExt', @humanExt_info, 0);
   end;
   Result := human_type;
 end;

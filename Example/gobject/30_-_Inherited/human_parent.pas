@@ -125,21 +125,21 @@ function e_human_get_type: TGType;
 const
   human_type: TGType = 0;
 var
-  type_info: TGTypeInfo;
+  human_info: TGTypeInfo;
 begin
   if human_type = 0 then begin
-    type_info.class_size := SizeOf(TEHumanClass);
-    type_info.base_init := nil;
-    type_info.base_finalize := nil;
-    type_info.class_init := TGClassInitFunc(@e_human_class_init);
-    type_info.class_finalize := nil;
-    type_info.class_data := nil;
-    type_info.instance_size := SizeOf(TEHuman);
-    type_info.n_preallocs := 0;
-    type_info.instance_init := TGInstanceInitFunc(@e_human_init);
-    type_info.value_table := nil;
+    human_info.class_size := SizeOf(TEHumanClass);
+    human_info.base_init := nil;
+    human_info.base_finalize := nil;
+    human_info.class_init := TGClassInitFunc(@e_human_class_init);
+    human_info.class_finalize := nil;
+    human_info.class_data := nil;
+    human_info.instance_size := SizeOf(TEHuman);
+    human_info.n_preallocs := 0;
+    human_info.instance_init := TGInstanceInitFunc(@e_human_init);
+    human_info.value_table := nil;
 
-    human_type := g_type_register_static(G_TYPE_OBJECT, 'Person', @type_info, 0);
+    human_type := g_type_register_static(G_TYPE_OBJECT, 'Person', @human_info, 0);
   end;
   Result := human_type;
 end;
