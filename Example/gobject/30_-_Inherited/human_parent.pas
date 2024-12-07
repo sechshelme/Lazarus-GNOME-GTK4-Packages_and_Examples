@@ -115,19 +115,19 @@ begin
   object_class^.set_property := @e_human_set_property;
   object_class^.get_property := @e_human_get_property;
 
-  obj_properties[PROP_NAME] := g_param_spec_string('name', 'Name', 'Name of the person', nil, G_PARAM_READWRITE);
-  obj_properties[PROP_AGE] := g_param_spec_int('age', 'Age', 'Age of the person', 0, 150, 0, G_PARAM_READWRITE);
+  obj_properties[PROP_NAME] := g_param_spec_string('name', 'Name', 'Name of the human', nil, G_PARAM_READWRITE);
+  obj_properties[PROP_AGE] := g_param_spec_int('age', 'Age', 'Age of the human', 0, 150, 0, G_PARAM_READWRITE);
 
   g_object_class_install_properties(object_class, Length(obj_properties), obj_properties);
 end;
 
 function e_human_get_type: TGType;
 const
-  person_type: TGType = 0;
+  human_type: TGType = 0;
 var
   type_info: TGTypeInfo;
 begin
-  if person_type = 0 then begin
+  if human_type = 0 then begin
     type_info.class_size := SizeOf(TEHumanClass);
     type_info.base_init := nil;
     type_info.base_finalize := nil;
@@ -139,9 +139,9 @@ begin
     type_info.instance_init := TGInstanceInitFunc(@e_human_init);
     type_info.value_table := nil;
 
-    person_type := g_type_register_static(G_TYPE_OBJECT, 'Person', @type_info, 0);
+    human_type := g_type_register_static(G_TYPE_OBJECT, 'Person', @type_info, 0);
   end;
-  Result := person_type;
+  Result := human_type;
 end;
 
 function e_human_new: PEHuman;

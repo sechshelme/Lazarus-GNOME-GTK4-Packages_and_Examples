@@ -106,17 +106,17 @@ begin
   object_class^.finalize := @E_humanExt_finalize;
   e_human_ext_parent_class := g_type_class_peek_parent(klass);
 
-  spec := g_param_spec_string('gender', 'Gender', 'Gender of the person', nil, G_PARAM_READWRITE);
+  spec := g_param_spec_string('gender', 'Gender', 'Gender of the human', nil, G_PARAM_READWRITE);
   g_object_class_install_property(object_class, 1, spec);
 end;
 
 function E_humanExt_get_type: TGType;
 const
-  person_type: TGType = 0;
+  human_type: TGType = 0;
 var
   type_info: TGTypeInfo;
 begin
-  if person_type = 0 then begin
+  if human_type = 0 then begin
     type_info.class_size := SizeOf(TEHumanExtClass);
     type_info.base_init := nil;
     type_info.base_finalize := nil;
@@ -128,9 +128,9 @@ begin
     type_info.instance_init := TGInstanceInitFunc(@E_humanExt_init);
     type_info.value_table := nil;
 
-    person_type := g_type_register_static(E_TYPE_HUMAN, 'PersonExt', @type_info, 0);
+    human_type := g_type_register_static(E_TYPE_HUMAN, 'PersonExt', @type_info, 0);
   end;
-  Result := person_type;
+  Result := human_type;
 end;
 
 function E_humanExt_new: PEHumanExt;
