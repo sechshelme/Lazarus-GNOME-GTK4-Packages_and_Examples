@@ -50,35 +50,30 @@ type
       1: (i: array[0..1] of Tguint);
   end;
 
-  PGRWLock = ^TGRWLock;
-
   TGRWLock = record
     p: Tgpointer;
     i: array[0..1] of Tguint;
   end;
-
-  PGCond = ^TGCond;
+  PGRWLock = ^TGRWLock;
 
   TGCond = record
     p: Tgpointer;
     i: array[0..1] of Tguint;
   end;
-
-  PGRecMutex = ^TGRecMutex;
+  PGCond = ^TGCond;
 
   TGRecMutex = record
     p: Tgpointer;
     i: array[0..1] of Tguint;
   end;
-
-  PGPrivate = ^TGPrivate;
+  PGRecMutex = ^TGRecMutex;
 
   TGPrivate = record
     p: Tgpointer;
     notify: TGDestroyNotify;
     future: array[0..1] of Tgpointer;
   end;
-
+  PGPrivate = ^TGPrivate;
 
   PGOnceStatus = ^TGOnceStatus;
   TGOnceStatus = longint;
@@ -89,13 +84,15 @@ const
   G_ONCE_STATUS_READY = 2;
 
 type
-  PGOnce = ^TGOnce;
-
   TGOnce = record
     status: TGOnceStatus;
     retval: Tgpointer;
   end;
+  PGOnce = ^TGOnce;
 
+  {$J-}
+const
+  G_ONCE_INIT: TGOnce = (status: G_ONCE_STATUS_NOTCALLED; retval: nil);
 
 function g_thread_ref(thread: PGThread): PGThread; cdecl; external libglib2;
 procedure g_thread_unref(thread: PGThread); cdecl; external libglib2;

@@ -28,11 +28,9 @@ const
   G_VALUE_NOCOPY_CONTENTS = 1 shl 27;
   G_VALUE_INTERNED_STRING = 1 shl 28;
 
-  {$push,}{$J-}
+  {$J-}
 const
   G_VALUE_INIT_: TGValue = (g_type: 0; Data: ((v_int: 0), (v_int: 0)));
-  {$J+}{$pop}
-
 
 function G_TYPE_IS_VALUE(_type: TGType): Tgboolean;
 function G_IS_VALUE(Value: PGValue): Tgboolean;

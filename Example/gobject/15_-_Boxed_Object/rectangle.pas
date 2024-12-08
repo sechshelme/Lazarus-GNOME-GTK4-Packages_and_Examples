@@ -9,14 +9,19 @@ uses
 
 type
   TERectangle = record
+    private
     x, y, w, h: Tgint;
   end;
   PERectangle = ^TERectangle;
 
 function e_rectangle_get_type: TGType;
-function e_rectangle_move(r: PERectangle; x, y: Tgint): Tgpointer; cdecl;
-function e_rectangle_copy(boxed: Tgpointer): Tgpointer; cdecl;
-procedure e_rectangle_free(boxed: Tgpointer); cdecl;
+function e_rectangle_new(x,y,w,h:Tgint):PERectangle;
+procedure e_rectangle_move(r: PERectangle; x, y: Tgint);
+procedure e_rectangle_resize(r: PERectangle; x, y: Tgint);
+function e_rectangle_get_x(r: PERectangle):Tgint;
+function e_rectangle_get_y(r: PERectangle):Tgint;
+function e_rectangle_get_w(r: PERectangle):Tgint;
+function e_rectangle_get_h(r: PERectangle):Tgint;
 
 function E_TYPE_RECTANGLE: TGType;
 function E_RECTANGLE(obj: Pointer): PERectangle;
@@ -25,7 +30,16 @@ function E_IS_RECTANGLE(obj: Pointer): Tgboolean;
 
 implementation
 
-function e_rectangle_move(r: PERectangle; x, y: Tgint): Tgpointer; cdecl;
+function e_rectangle_new(x, y, w, h: Tgint): PERectangle;
+begin
+  Result:=g_malloc(SizeOf(TERectangle));
+  Result^.x:=x;
+  Result^.y:=y;
+  Result^.w:=w;
+  Result^.h:=h;
+end;
+
+procedure e_rectangle_move(r: PERectangle; x, y: Tgint);
 begin
   if r <> nil then begin
     r^.x += x;
@@ -33,15 +47,39 @@ begin
   end;
 end;
 
+procedure e_rectangle_resize(r: PERectangle; x, y: Tgint);
+begin
+  if r <> nil then begin
+    r^.w += x;
+    r^.h += y;
+  end;
+end;
+
+function e_rectangle_get_x(r: PERectangle): Tgint;
+begin
+  Result:=r^.x;
+end;
+
+function e_rectangle_get_y(r: PERectangle): Tgint;
+begin
+  Result:=r^.y;
+end;
+
+function e_rectangle_get_w(r: PERectangle): Tgint;
+begin
+  Result:=r^.w;
+end;
+
+function e_rectangle_get_h(r: PERectangle): Tgint;
+begin
+  Result:=r^.h;
+end;
+
 function e_rectangle_copy(boxed: Tgpointer): Tgpointer; cdecl;
-var
-  copy: PERectangle absolute Result;
-  r: PERectangle absolute boxed;
 begin
   Result := nil;
-  if r <> nil then begin
-    copy := g_malloc(SizeOf(TERectangle));
-    copy^ := r^;
+  if boxed <> nil then begin
+    Result := g_memdup2(boxed, SizeOf(TERectangle));
   end;
 end;
 

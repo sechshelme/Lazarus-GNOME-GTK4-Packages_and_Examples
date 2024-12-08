@@ -121,13 +121,16 @@ begin
   g_object_class_install_properties(object_class, Length(obj_properties), obj_properties);
 end;
 
+var
+  human_once: TGOnce;
+
 function e_human_get_type: TGType;
 const
   human_type: TGType = 0;
 var
   human_info: TGTypeInfo;
 begin
-  if human_type = 0 then begin
+  if g_once_init_enter(@human_once) then begin
     human_info.class_size := SizeOf(TEHumanClass);
     human_info.base_init := nil;
     human_info.base_finalize := nil;
@@ -140,6 +143,7 @@ begin
     human_info.value_table := nil;
 
     human_type := g_type_register_static(G_TYPE_OBJECT, 'Person', @human_info, 0);
+    g_once_init_leave(@human_once, human_type);
   end;
   Result := human_type;
 end;

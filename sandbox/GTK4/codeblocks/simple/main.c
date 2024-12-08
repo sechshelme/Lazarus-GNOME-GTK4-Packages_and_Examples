@@ -43,4 +43,8 @@ main (int argc, char *argv[])
   while (!done)
     g_main_context_iteration (NULL, TRUE);
   return 0;
+
+  GPrivate p=G_PRIVATE_INIT;
 }
+G_TYPE_IS_BOXED
+G_ONCE_INIT

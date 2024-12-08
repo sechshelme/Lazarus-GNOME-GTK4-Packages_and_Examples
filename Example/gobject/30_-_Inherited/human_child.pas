@@ -110,13 +110,16 @@ begin
   g_object_class_install_property(object_class, 1, spec);
 end;
 
+var
+  humanExt_once: TGOnce;
+
 function E_humanExt_get_type: TGType;
 const
-  human_type: TGType = 0;
+  humanExt_type: TGType = 0;
 var
   humanExt_info: TGTypeInfo;
 begin
-  if human_type = 0 then begin
+  if g_once_init_enter(@humanExt_once) then begin
     humanExt_info.class_size := SizeOf(TEHumanExtClass);
     humanExt_info.base_init := nil;
     humanExt_info.base_finalize := nil;
@@ -128,9 +131,10 @@ begin
     humanExt_info.instance_init := TGInstanceInitFunc(@E_humanExt_init);
     humanExt_info.value_table := nil;
 
-    human_type := g_type_register_static(E_TYPE_HUMAN, 'PersonExt', @humanExt_info, 0);
+    humanExt_type := g_type_register_static(E_TYPE_HUMAN, 'PersonExt', @humanExt_info, 0);
+    g_once_init_leave(@humanExt_once, humanExt_type);
   end;
-  Result := human_type;
+  Result := humanExt_type;
 end;
 
 function E_humanExt_new: PEHumanExt;
