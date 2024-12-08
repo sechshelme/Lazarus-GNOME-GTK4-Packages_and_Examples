@@ -11,13 +11,14 @@ uses
   procedure printRectangle(r: PERectangle);
   var
     x, y, w, h: Tgint;
+    Name: Pgchar;
   begin
     x := e_rectangle_get_x(r);
     y := e_rectangle_get_y(r);
     w := e_rectangle_get_w(r);
     h := e_rectangle_get_h(r);
-
-    g_printf('x: %6d  y: %6d  w: %6d  h: %6d'#10, x, y, w, h);
+    Name := e_rectangle_get_name(r);
+    g_printf('x: %6d  y: %6d  w: %6d  h: %6d  name: %s'#10, x, y, w, h, Name);
   end;
 
   procedure printRectValue(v: PGValue);
@@ -30,6 +31,16 @@ uses
     end;
   end;
 
+  procedure rename_Name_from_GValue(v: PGValue; Name: Pgchar);
+  var
+    r: PERectangle;
+  begin
+    r := g_value_get_boxed(v);
+//    e_rectangle_set_name(r, Name);
+    printRectangle(r);
+//    g_value_set_boxed(v, r);
+  end;
+
   function main({%H-}argc: cint; {%H-}argv: PPChar): cint;
   var
     srcRect, destRect1, destRect2: PERectangle;
@@ -37,11 +48,12 @@ uses
   begin
     g_printf(#10'----------- g_boxed -----------------'#10#10);
     g_printf('--- srcRect'#10);
-    srcRect := e_rectangle_new(10, 20, 100, 50);
+    srcRect := e_rectangle_new(10, 20, 100, 50, 'srcRect');
     printRectangle(srcRect);
 
     g_printf('--- destRect1'#10);
     destRect1 := g_boxed_copy(E_TYPE_RECTANGLE, srcRect);
+    e_rectangle_set_name(destRect1, 'destRect1');
     e_rectangle_move(destRect1, 100, 100);
     e_rectangle_resize(destRect1, -10, -10);
     printRectangle(destRect1);
@@ -49,6 +61,7 @@ uses
 
     g_printf('--- destRect2'#10);
     destRect2 := g_boxed_copy(E_TYPE_RECTANGLE, srcRect);
+    e_rectangle_set_name(destRect2, 'destRect2');
     e_rectangle_move(destRect2, 33, 33);
     e_rectangle_resize(destRect2, -22, -22);
     printRectangle(destRect2);
@@ -61,6 +74,9 @@ uses
     g_value_init(@valueRect1, E_TYPE_RECTANGLE);
     g_value_set_boxed(@valueRect1, srcRect);
     printRectValue(@valueRect1);
+    rename_Name_from_GValue(@valueRect1, 'GValue Rect');
+    printRectValue(@valueRect1);
+
     g_value_unset(@valueRect1);
 
     g_boxed_free(E_TYPE_RECTANGLE, srcRect);
