@@ -30,8 +30,34 @@ function E_TYPE_RECTANGLE: TGType;
 function E_RECTANGLE(obj: Pointer): PERectangle;
 function E_IS_RECTANGLE(obj: Pointer): Tgboolean;
 
-
 implementation
+
+// ==== privat
+
+function e_rectangle_copy(boxed: Tgpointer): Tgpointer; cdecl;
+var
+  srcRect: PERectangle absolute boxed;
+  desRect: PERectangle absolute Result;
+begin
+  desRect := g_memdup2(srcRect, SizeOf(TERectangle));
+  if srcRect^.Name = nil then begin
+    desRect^.Name := nil;
+  end else begin
+    desRect^.Name := g_strdup(srcRect^.Name);
+  end;
+end;
+
+procedure e_rectangle_free(boxed: Tgpointer); cdecl;
+var
+  r: PERectangle absolute boxed;
+begin
+  if r^.Name <> nil then begin
+    g_free(r^.Name);
+  end;
+  g_free(boxed);
+end;
+
+// ==== public
 
 function e_rectangle_new(x, y, w, h: Tgint; Name: Pgchar): PERectangle;
 begin
@@ -90,29 +116,6 @@ begin
     g_free(r^.Name);
   end;
   r^.Name := g_strdup(Name);
-end;
-
-function e_rectangle_copy(boxed: Tgpointer): Tgpointer; cdecl;
-var
-  srcRect: PERectangle absolute boxed;
-  desRect: PERectangle absolute Result;
-begin
-  desRect := g_memdup2(srcRect, SizeOf(TERectangle));
-  if srcRect^.Name = nil then begin
-    desRect^.Name := nil;
-  end else begin
-    desRect^.Name := g_strdup(srcRect^.Name);
-  end;
-end;
-
-procedure e_rectangle_free(boxed: Tgpointer); cdecl;
-var
-  r: PERectangle absolute boxed;
-begin
-  if r^.Name <> nil then begin
-    g_free(r^.Name);
-  end;
-  g_free(boxed);
 end;
 
 function e_rectangle_get_type: TGType;

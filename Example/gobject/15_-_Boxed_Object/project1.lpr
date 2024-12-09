@@ -5,9 +5,6 @@ uses
   fp_glib2,
   Rectangle;
 
-  // https://www.perplexity.ai/search/gib-mir-ein-c-beispiel-mit-gva-S6LCnojdTAGMcpDG7p2hnQ
-  // https://www.perplexity.ai/search/gibr-mir-ein-beispiel-mit-g-bo-QeQLcJ1sS6uzrPeBbsFeug
-
   procedure printRectangle(r: PERectangle);
   var
     x, y, w, h: Tgint;
@@ -36,15 +33,14 @@ uses
     r: PERectangle;
   begin
     r := g_value_get_boxed(v);
-//    e_rectangle_set_name(r, Name);
-    printRectangle(r);
-//    g_value_set_boxed(v, r);
+    e_rectangle_set_name(r, Name);
+    e_rectangle_move(r,1000,1000);
   end;
 
   function main({%H-}argc: cint; {%H-}argv: PPChar): cint;
   var
     srcRect, destRect1, destRect2: PERectangle;
-    valueRect1: TGValue;
+    valueRect: TGValue;
   begin
     g_printf(#10'----------- g_boxed -----------------'#10#10);
     g_printf('--- srcRect'#10);
@@ -67,17 +63,17 @@ uses
     printRectangle(destRect2);
     g_boxed_free(E_TYPE_RECTANGLE, destRect2);
 
-    g_printf(#10'----------- gvalue -----------------'#10#10);
+    g_printf(#10'----------- g_value -----------------'#10#10);
 
-    valueRect1 := G_VALUE_INIT_;
+    valueRect := G_VALUE_INIT_;
+    g_value_init(@valueRect, E_TYPE_RECTANGLE);
+    g_value_set_boxed(@valueRect, srcRect);
+    printRectValue(@valueRect);
+    rename_Name_from_GValue(@valueRect, 'TERectangle in GValue');
+    printRectValue(@valueRect);
 
-    g_value_init(@valueRect1, E_TYPE_RECTANGLE);
-    g_value_set_boxed(@valueRect1, srcRect);
-    printRectValue(@valueRect1);
-    rename_Name_from_GValue(@valueRect1, 'GValue Rect');
-    printRectValue(@valueRect1);
-
-    g_value_unset(@valueRect1);
+    printRectangle(srcRect);
+    g_value_unset(@valueRect);
 
     g_boxed_free(E_TYPE_RECTANGLE, srcRect);
 

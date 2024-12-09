@@ -6,11 +6,6 @@ uses
   Human_Parent,
   Human_Child;
 
-  // https://www.perplexity.ai/search/gib-mir-ein-c-beispiel-mit-gob-YfOXptn2RBqy4AX5x4Eghw
-  // https://www.perplexity.ai/search/gib-mit-ein-gobject-beispiel-i-9vZ4Jy8nSESadMh_l_uthA
-  // https://www.perplexity.ai/search/ich-will-mit-gobject-3-propert-OyYpPCprQVq00phtJ1aw7g
-
-
   procedure ParentHuman;
 
     procedure printHuman(per: PEHuman);

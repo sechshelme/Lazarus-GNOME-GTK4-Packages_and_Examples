@@ -40,12 +40,11 @@ function E_HUMAN_GET_CLASS(obj: Pointer): PEHumanClass;
 
 implementation
 
-type
-  Tobj_propertie = (PROP_0, PROP_NAME, PROP_AGE);
+// ==== private
 
 var
-  obj_properties: array[Tobj_propertie] of PGParamSpec = (nil, nil, nil);
   e_human_parent_class: PGObjectClass = nil;
+  human_once: TGOnce;
 
 procedure e_human_set_property(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
 var
@@ -53,14 +52,14 @@ var
 begin
   self := E_HUMAN(object_);
 
-  case Tobj_propertie(property_id) of
-    PROP_NAME: begin
+  case property_id of
+    1: begin
       if self^.Name <> nil then  begin
         g_free(self^.Name);
       end;
       self^.Name := g_value_dup_string(Value);
     end;
-    PROP_AGE: begin
+    2: begin
       self^.age := g_value_get_int(Value);
     end;
     else begin
@@ -75,11 +74,11 @@ var
 begin
   self := E_HUMAN(object_);
 
-  case Tobj_propertie(property_id) of
-    PROP_NAME: begin
+  case property_id of
+    1: begin
       g_value_set_string(Value, self^.Name);
     end;
-    PROP_AGE: begin
+    2: begin
       g_value_set_int(Value, self^.age);
     end;
     else begin
@@ -106,6 +105,7 @@ end;
 procedure e_human_class_init(klass: PEHumanClass); cdecl;
 var
   object_class: PGObjectClass;
+  obj_properties: array[0..2] of PGParamSpec;
 begin
   object_class := G_OBJECT_CLASS(klass);
 
@@ -115,14 +115,14 @@ begin
   object_class^.set_property := @e_human_set_property;
   object_class^.get_property := @e_human_get_property;
 
-  obj_properties[PROP_NAME] := g_param_spec_string('name', 'Name', 'Name of the human', nil, G_PARAM_READWRITE);
-  obj_properties[PROP_AGE] := g_param_spec_int('age', 'Age', 'Age of the human', 0, 150, 0, G_PARAM_READWRITE);
+  obj_properties[0] := nil;
+  obj_properties[1] := g_param_spec_string('name', 'Name', 'Name of the human', nil, G_PARAM_READWRITE);
+  obj_properties[2] := g_param_spec_int('age', 'Age', 'Age of the human', 0, 150, 0, G_PARAM_READWRITE);
 
   g_object_class_install_properties(object_class, Length(obj_properties), obj_properties);
 end;
 
-var
-  human_once: TGOnce;
+// ==== public
 
 function e_human_get_type: TGType;
 const

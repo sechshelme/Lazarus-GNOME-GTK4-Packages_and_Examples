@@ -6,15 +6,15 @@ uses
   ctypes,
   fp_glib2;
 
-procedure printValue(v:PGValue);
-var
-  typ: TGType;
-  valueType, Value: string;
-  name: Pgchar;
+  procedure printValue(v: PGValue);
+  var
+    typ: TGType;
+    valueType, Value: string;
+    Name: Pgchar;
   begin
-  typ:=G_VALUE_TYPE(v);
-  name:=G_VALUE_TYPE_NAME(v);
-  case typ of
+    typ := G_VALUE_TYPE(v);
+    Name := G_VALUE_TYPE_NAME(v);
+    case typ of
       G_TYPE_INVALID: begin
         valueType := 'G_TYPE_INVALID';
       end;
@@ -26,7 +26,7 @@ var
       end;
       G_TYPE_CHAR: begin
         valueType := 'G_TYPE_CHAR';
-        WriteStr(Value,  Char(g_value_get_char(v)));
+        WriteStr(Value, char(g_value_get_char(v)));
       end;
       G_TYPE_UCHAR: begin
         valueType := 'G_TYPE_UCHAR';
@@ -109,48 +109,46 @@ var
         WriteStr(valueType, '<unknow> (', typ, ')');
       end;
     end;
-
-//  WriteLn(i: 3, '. Name: ', Name: 20, '  Valuetype: ', valueType: 15, '  Value: ', Value, '  Flag: ', paramspec[i]^.flags);
-  WriteLn('Name: ', Name: 20, '  Valuetype: ', valueType: 15, '  Value: ', Value);
+    WriteLn('Name: ', Name: 20, '  Valuetype: ', valueType: 15, '  Value: ', Value);
   end;
 
   function main({%H-}argc: cint; {%H-}argv: PPChar): cint;
   var
-     char_value ,   int_value, string_value, static_string_value, float_value,
-      double_value: TGValue;
+    char_value, int_value, string_value, static_string_value, float_value,
+    double_value: TGValue;
   begin
-  char_value:=G_VALUE_INIT_;
-  g_value_init(@char_value, G_TYPE_CHAR);
-  g_value_set_char(@char_value, 'W');
-  printValue(@char_value);
-  g_value_unset(@char_value);
+    char_value := G_VALUE_INIT_;
+    g_value_init(@char_value, G_TYPE_CHAR);
+    g_value_set_char(@char_value, 'W');
+    printValue(@char_value);
+    g_value_unset(@char_value);
 
-  int_value:=G_VALUE_INIT_;
-  g_value_init(@int_value, G_TYPE_INT);
-  g_value_set_int(@int_value, 123);
-  printValue(@int_value);
-  g_value_unset(@int_value);
+    int_value := G_VALUE_INIT_;
+    g_value_init(@int_value, G_TYPE_INT);
+    g_value_set_int(@int_value, 123);
+    printValue(@int_value);
+    g_value_unset(@int_value);
 
-  float_value:=G_VALUE_INIT_;
-  g_value_init(@float_value, G_TYPE_FLOAT);
-  g_value_set_float(@float_value, 123.456);
-  printValue(@float_value);
-  g_value_unset(@float_value);
+    float_value := G_VALUE_INIT_;
+    g_value_init(@float_value, G_TYPE_FLOAT);
+    g_value_set_float(@float_value, 123.456);
+    printValue(@float_value);
+    g_value_unset(@float_value);
 
-  double_value:=G_VALUE_INIT_;
-  g_value_init(@double_value, G_TYPE_DOUBLE);
-  g_value_set_double(@double_value, 456.123);
-  printValue(@double_value);
-  g_value_unset(@double_value);
+    double_value := G_VALUE_INIT_;
+    g_value_init(@double_value, G_TYPE_DOUBLE);
+    g_value_set_double(@double_value, 456.123);
+    printValue(@double_value);
+    g_value_unset(@double_value);
 
-    string_value:=G_VALUE_INIT_;
+    string_value := G_VALUE_INIT_;
     g_value_init(@string_value, G_TYPE_STRING);
     g_value_set_string(@string_value, 'Hello gobject');
     printValue(@string_value);
     g_value_unset(@string_value);
 
 
-    static_string_value:=G_VALUE_INIT_;
+    static_string_value := G_VALUE_INIT_;
     g_value_init(@static_string_value, G_TYPE_STRING);
     g_value_set_static_string(@static_string_value, 'Hello gobject static');
 

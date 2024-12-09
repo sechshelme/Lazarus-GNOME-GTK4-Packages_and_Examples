@@ -37,9 +37,11 @@ function E_HUMANEXT_GET_CLASS(obj: Pointer): PEHumanExtClass;
 
 implementation
 
+// ==== private
+
 var
   e_human_ext_parent_class: PEHumanClass = nil;
-
+  humanExt_once: TGOnce;
 
 procedure E_humanExt_set_property(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
 var
@@ -110,8 +112,7 @@ begin
   g_object_class_install_property(object_class, 1, spec);
 end;
 
-var
-  humanExt_once: TGOnce;
+// ==== public
 
 function E_humanExt_get_type: TGType;
 const
