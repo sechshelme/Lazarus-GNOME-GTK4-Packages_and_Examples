@@ -1,10 +1,3 @@
-/////////////////////////////////////////////////////////////
-//                                                         //
-//   WARNUNG, dies Datei wird automatisch durch            //
-//   das Program "Convert_Unit_to_pas_includes" erzeugt !  //
-//   Erzeugt am: 08-11-2024   19:15                        //
-//                                                         //
-/////////////////////////////////////////////////////////////
 
 {$IFDEF read_interface}
 

@@ -7,7 +7,7 @@
 {$include GDK/gdkrectangle.inc}               // io.
 {$include GDK/gdkrgba.inc}                    // io.
 {$include GDK/gdkcairo.inc}                   // io. -> gdkrgba
-{$include GDK/gdkkeysyms.inc}                 // Gross und Kleinschreibung !
+{$include GDK/gdkkeysyms.inc}                 // io.
 {$include GDK/gdkdrawcontext.inc}             // io.
 {$include GDK/gdkkeys.inc}                    // io.
 {$include GDK/gdkpango.inc}                   // io.

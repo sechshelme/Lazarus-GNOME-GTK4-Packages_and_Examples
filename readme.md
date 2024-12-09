@@ -71,6 +71,11 @@ Aktualisieren:
 - mp3tag
 - kid3
 
+### Vorgeekte pakete
+
+/usr/include/webkitgtk-6.0
+/usr/include/libadwaita-1
+
 
 
 
