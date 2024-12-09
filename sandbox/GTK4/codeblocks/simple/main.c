@@ -44,7 +44,7 @@ main (int argc, char *argv[])
     g_main_context_iteration (NULL, TRUE);
   return 0;
 
-  GPrivate p=G_PRIVATE_INIT;
+  g_printf_string_upper_bound
+
 }
-G_TYPE_IS_BOXED
-G_ONCE_INIT
+

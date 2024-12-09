@@ -3,59 +3,59 @@ program project1;
 uses
   ctypes,
   fp_glib2,
-  Person;
+  Human;
 
   // https://www.perplexity.ai/search/gib-mir-ein-c-beispiel-mit-gob-YfOXptn2RBqy4AX5x4Eghw
 
-  procedure printPerson(per: PExPerson);
+  procedure printHuman(hum: PEHuman);
   var
     name:Pgchar;
     age:Tgint;
   begin
-    g_printf('Name: %s    Alter: %d'#10, Ex_person_get_name(per), Ex_person_get_age(per));
+    g_printf('Name: %-20s    Alter: %3d'#10, e_human_get_name(hum), e_human_get_age(hum));
 
-    g_object_get(per,
+    g_object_get(hum,
     'name',@name,
     'age', @age,
     nil);
-    g_printf('Name: %s    Alter: %d'#10, name, age);
+    g_printf('Name: %-20s    Alter: %3d'#10, name, age);
     g_free(name);
   end;
 
 
   function main({%H-}argc: cint; {%H-}argv: PPChar): cint;
   var
-    per, per2: PExPerson;
+    hum1, hum2: PEHuman;
   begin
-    per := Ex_person_new_with_data('Peterli', 24);
-    printPerson(per);
+    hum1 := e_human_new_with_data('Peterli Weber', 24);
+    printHuman(hum1);
 
-    Ex_person_set_name(per, 'Max Mustermann');
-    Ex_person_set_age(per, 33);
-    printPerson(per);
+    e_human_set_name(hum1, 'Max Mustermann');
+    e_human_set_age(hum1, 33);
+    printHuman(hum1);
 
-    Ex_person_set_name(per, 'Hans Weber');
-    Ex_person_set_age(per, 44);
-    printPerson(per);
+    e_human_set_name(hum1, 'Hans Weber');
+    e_human_set_age(hum1, 44);
+    printHuman(hum1);
 
-    g_object_set(per,
+    g_object_set(hum1,
       'name', 'Hugentobler',
       'age', 56,
       nil);
-    printPerson(per);
+    printHuman(hum1);
     WriteLn('--------------------');
 
-    per2 := Ex_person_new;
-    g_object_set(per2,
-      'name', 'Person 2',
+    hum2 := e_human_new;
+    g_object_set(hum2,
+      'name', 'Mensch 2',
       'age', 6,
       nil);
-    printPerson(per2);
+    printHuman(hum2);
 
     // =====
 
-    g_object_unref(per);
-    g_object_unref(per2);
+    g_object_unref(hum1);
+    g_object_unref(hum2);
 
     Exit(0);
   end;

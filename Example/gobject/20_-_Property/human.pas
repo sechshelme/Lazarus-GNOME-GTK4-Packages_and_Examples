@@ -1,4 +1,4 @@
-unit Human_Parent;
+unit Human;
 
 interface
 
@@ -11,8 +11,7 @@ type
   TEHuman = record
   private
     parent_instance: TGObject;
-    FirstName,
-    LastName: Pgchar;
+    Name: Pgchar;
     age: Tgint;
   end;
   PEHuman = ^TEHuman;
@@ -25,12 +24,10 @@ type
 
 function e_human_get_type: TGType;
 function e_human_new: PEHuman;
-function e_human_new_with_data(FirstName, LastName: Pgchar; age: Tgint): PEHuman;
-procedure e_human_set_firstname(self: PEHuman; Name: Pgchar);
-procedure e_human_set_lastname(self: PEHuman; Name: Pgchar);
+function e_human_new_with_data(Name: Pgchar; age: Tgint): PEHuman;
+procedure e_human_set_name(self: PEHuman; Name: Pgchar);
 procedure e_human_set_age(self: PEHuman; age: Tgint);
-function e_human_get_firstname(self: PEHuman): Pgchar;
-function e_human_get_lastname(self: PEHuman): Pgchar;
+function e_human_get_name(self: PEHuman): Pgchar;
 function e_human_get_age(self: PEHuman): Tgint;
 
 function E_TYPE_HUMAN: TGType;
@@ -57,18 +54,12 @@ begin
 
   case property_id of
     1: begin
-      if self^.FirstName <> nil then  begin
-        g_free(self^.FirstName);
+      if self^.Name <> nil then  begin
+        g_free(self^.Name);
       end;
-      self^.FirstName := g_value_dup_string(Value);
+      self^.Name := g_value_dup_string(Value);
     end;
     2: begin
-      if self^.LastName <> nil then  begin
-        g_free(self^.LastName);
-      end;
-      self^.LastName := g_value_dup_string(Value);
-    end;
-    3: begin
       self^.age := g_value_get_int(Value);
     end;
     else begin
@@ -85,12 +76,9 @@ begin
 
   case property_id of
     1: begin
-      g_value_set_string(Value, self^.FirstName);
+      g_value_set_string(Value, self^.Name);
     end;
     2: begin
-      g_value_set_string(Value, self^.LastName);
-    end;
-    3: begin
       g_value_set_int(Value, self^.age);
     end;
     else begin
@@ -104,20 +92,20 @@ var
   self: PEHuman;
 begin
   self := E_HUMAN(object_);
-  g_free(self^.FirstName);
+  g_free(self^.Name);
   e_human_parent_class^.finalize(object_);
 end;
 
 procedure e_human_init(self: PEHuman); cdecl;
 begin
-  self^.FirstName := nil;
+  self^.Name := nil;
   self^.age := 0;
 end;
 
 procedure e_human_class_init(klass: PEHumanClass); cdecl;
 var
   object_class: PGObjectClass;
-  obj_properties: array[0..3] of PGParamSpec;
+  obj_properties: array[0..2] of PGParamSpec;
 begin
   object_class := G_OBJECT_CLASS(klass);
 
@@ -128,9 +116,8 @@ begin
   object_class^.get_property := @e_human_get_property;
 
   obj_properties[0] := nil;
-  obj_properties[1] := g_param_spec_string('firstname', 'FirstName', 'FirstName of the human', nil, G_PARAM_READWRITE);
-  obj_properties[2] := g_param_spec_string('lastname', 'LastName', 'LastName of the human', nil, G_PARAM_READWRITE);
-  obj_properties[3] := g_param_spec_int('age', 'Age', 'Age of the human', 0, 150, 0, G_PARAM_READWRITE);
+  obj_properties[1] := g_param_spec_string('name', 'Name', 'Name of the human', nil, G_PARAM_READWRITE);
+  obj_properties[2] := g_param_spec_int('age', 'Age', 'Age of the human', 0, 150, 0, G_PARAM_READWRITE);
 
   g_object_class_install_properties(object_class, Length(obj_properties), obj_properties);
 end;
@@ -155,7 +142,7 @@ begin
     human_info.instance_init := TGInstanceInitFunc(@e_human_init);
     human_info.value_table := nil;
 
-    human_type := g_type_register_static(G_TYPE_OBJECT, 'EHuman', @human_info, 0);
+    human_type := g_type_register_static(G_TYPE_OBJECT, 'Person', @human_info, 0);
     g_once_init_leave(@human_once, human_type);
   end;
   Result := human_type;
@@ -166,34 +153,22 @@ begin
   Result := g_object_new(E_TYPE_HUMAN, nil);
 end;
 
-function e_human_new_with_data(FirstName, LastName: Pgchar; age: Tgint
-  ): PEHuman;
+function e_human_new_with_data(Name: Pgchar; age: Tgint): PEHuman;
 begin
   Result := g_object_new(E_TYPE_HUMAN,
-    'firstname', FirstName,
-    'lastname', LastName,
+    'name', Name,
     'age', age,
     nil);
 end;
 
-procedure e_human_set_firstname(self: PEHuman; Name: Pgchar);
+procedure e_human_set_name(self: PEHuman; Name: Pgchar);
 begin
-  g_object_set(self, 'firstname', Name, nil);
+  g_object_set(self, 'name', Name, nil);
 end;
 
-procedure e_human_set_lastname(self: PEHuman; Name: Pgchar);
+function e_human_get_name(self: PEHuman): Pgchar;
 begin
-  g_object_set(self, 'lastname', Name, nil);
-end;
-
-function e_human_get_firstname(self: PEHuman): Pgchar;
-begin
-  Result := self^.FirstName;
-end;
-
-function e_human_get_lastname(self: PEHuman): Pgchar;
-begin
-  Result := self^.LastName;
+  Result := self^.Name;
 end;
 
 procedure e_human_set_age(self: PEHuman; age: Tgint);

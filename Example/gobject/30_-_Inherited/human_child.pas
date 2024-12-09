@@ -23,7 +23,7 @@ type
 
 function E_humanExt_get_type: TGType;
 function E_humanExt_new: PEHumanExt;
-function E_humanExt_new_with_data(Name: Pgchar; age: Tgint; gender: Pgchar): PEHumanExt;
+function E_humanExt_new_with_data(FirstName, LastName: Pgchar; age: Tgint; gender: Pgchar): PEHumanExt;
 procedure E_humanExt_set_gender(self: PEHumanExt; gender: Pgchar);
 function E_humanExt_get_gender(self: PEHumanExt): Pgchar;
 
@@ -143,10 +143,12 @@ begin
   Result := g_object_new(E_TYPE_HUMANEXT, nil);
 end;
 
-function E_humanExt_new_with_data(Name: Pgchar; age: Tgint; gender: Pgchar): PEHumanExt;
+function E_humanExt_new_with_data(FirstName, LastName: Pgchar; age: Tgint;
+  gender: Pgchar): PEHumanExt;
 begin
   Result := g_object_new(E_TYPE_HUMANEXT,
-    'name', Name,
+    'firstname', FirstName,
+    'lastname', LastName,
     'age', age,
     'gender', gender,
     nil);
