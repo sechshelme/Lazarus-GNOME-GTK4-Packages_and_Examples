@@ -87,7 +87,9 @@ var
   self: PEHumanExt;
 begin
   self := E_HUMANEXT(object_);
-  g_free(self^.gender);
+  if self^.gender <> nil then begin
+    g_free(self^.gender);
+  end;
   G_OBJECT_CLASS(e_human_ext_parent_class)^.finalize(object_);
 end;
 

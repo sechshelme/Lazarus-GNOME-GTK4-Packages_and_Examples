@@ -104,7 +104,12 @@ var
   self: PEHuman;
 begin
   self := E_HUMAN(object_);
-  g_free(self^.FirstName);
+  if self^.FirstName <> nil then  begin
+    g_free(self^.FirstName);
+  end;
+  if self^.LastName <> nil then  begin
+    g_free(self^.LastName);
+  end;
   e_human_parent_class^.finalize(object_);
 end;
 
