@@ -112,6 +112,50 @@ uses
     WriteLn('Name: ', Name: 20, '  Valuetype: ', valueType: 15, '  Value: ', Value);
   end;
 
+  // https://www.perplexity.ai/search/gib-mir-ein-c-beispiel-mit-gen-.cUon06lQ9evSF5g2V2Kyg
+
+procedure print_EnumValues(typ:TGType);
+var
+  enum_class: PGEnumClass;
+  i: Integer;
+  enumValue: PGEnumValue;
+begin
+  enum_class := g_type_class_ref(typ);
+
+  for i := 0 to enum_class^.n_values - 1 do begin
+    enumValue := @enum_class^.values[i];
+    g_printf('Value: %d  Name: %s  Nick: %s'#10, enumValue^.Value, enumValue^.value_name, enumValue^.value_nick);
+  end;
+
+  g_type_class_unref(enum_class);
+  end;
+
+
+  procedure EnumValue;
+  const
+    fruit_enum_values: array of TGEnumValue = (
+      (Value: 0; value_name: 'FRUIT_APPLE'; value_nick: 'Apfel'),
+      (Value: 1; value_name: 'FRUIT_BANANE'; value_nick: 'Banane'),
+      (Value: 2; value_name: 'FRUIT_CHERRY'; value_nick: 'Kirsche'),
+      (Value: 3; value_name: nil; value_nick: nil));
+  var
+    fruit_type: TGType;
+    value: TGValue;
+  begin
+    fruit_type:=g_enum_register_static('Fruit', PGEnumValue(fruit_enum_values));
+
+    value := G_VALUE_INIT_;
+    g_value_init(@value, G_TYPE_ENUM);
+    g_value_set_enum(@value, 1);
+    printValue(@value);
+    g_value_unset(@value);
+
+    g_printf(#10'----- Enum Value ------'#10#10);
+    print_EnumValues(fruit_type);
+  end;
+
+
+
   function main({%H-}argc: cint; {%H-}argv: PPChar): cint;
   var
     char_value, int_value, string_value, static_string_value, float_value,
@@ -147,14 +191,14 @@ uses
     printValue(@string_value);
     g_value_unset(@string_value);
 
+    EnumValue;
 
     static_string_value := G_VALUE_INIT_;
     g_value_init(@static_string_value, G_TYPE_STRING);
     g_value_set_static_string(@static_string_value, 'Hello gobject static');
+    printValue(@static_string_value);
 
     g_printf('String-Wert: %s'#10, g_value_get_string(@static_string_value));
-    g_value_unset(@static_string_value);
-    g_value_unset(@static_string_value);
 
 
 

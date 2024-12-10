@@ -2,15 +2,12 @@
 {$IFDEF read_interface}
 
 type
-  PGEnumValue = ^TGEnumValue;
-
   TGEnumValue = record
     Value: Tgint;
     value_name: Pgchar;
     value_nick: Pgchar;
   end;
-
-  PGEnumClass = ^TGEnumClass;
+  PGEnumValue = ^TGEnumValue;
 
   TGEnumClass = record
     g_type_class: TGTypeClass;
@@ -19,15 +16,14 @@ type
     n_values: Tguint;
     values: PGEnumValue;
   end;
-
-  PGFlagsValue = ^TGFlagsValue;
+  PGEnumClass = ^TGEnumClass;
 
   TGFlagsValue = record
     Value: Tguint;
     value_name: Pgchar;
     value_nick: Pgchar;
   end;
-  PGFlagsClass = ^TGFlagsClass;
+  PGFlagsValue = ^TGFlagsValue;
 
   TGFlagsClass = record
     g_type_class: TGTypeClass;
@@ -35,6 +31,7 @@ type
     n_values: Tguint;
     values: PGFlagsValue;
   end;
+  PGFlagsClass = ^TGFlagsClass;
 
 function g_enum_get_value(enum_class: PGEnumClass; Value: Tgint): PGEnumValue; cdecl; external libgobject2_0;
 function g_enum_get_value_by_name(enum_class: PGEnumClass; Name: Pgchar): PGEnumValue; cdecl; external libgobject2_0;
