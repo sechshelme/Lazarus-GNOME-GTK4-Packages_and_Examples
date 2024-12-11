@@ -41,7 +41,6 @@ implementation
 
 var
   e_human_ext_parent_class: PEHumanClass = nil;
-  humanExt_once: TGOnce;
 
 procedure E_humanExt_set_property(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
 var
@@ -118,26 +117,27 @@ end;
 
 function E_humanExt_get_type: TGType;
 const
-  humanExt_type: TGType = 0;
+  type_id: TGType = 0;
 var
-  humanExt_info: TGTypeInfo;
+  id:TGType;
+  info: TGTypeInfo;
 begin
-  if g_once_init_enter(@humanExt_once) then begin
-    humanExt_info.class_size := SizeOf(TEHumanExtClass);
-    humanExt_info.base_init := nil;
-    humanExt_info.base_finalize := nil;
-    humanExt_info.class_init := TGClassInitFunc(@E_humanExt_class_init);
-    humanExt_info.class_finalize := nil;
-    humanExt_info.class_data := nil;
-    humanExt_info.instance_size := SizeOf(TEHumanExt);
-    humanExt_info.n_preallocs := 0;
-    humanExt_info.instance_init := TGInstanceInitFunc(@E_humanExt_init);
-    humanExt_info.value_table := nil;
+  if g_once_init_enter(@type_id) then begin
+    info.class_size := SizeOf(TEHumanExtClass);
+    info.base_init := nil;
+    info.base_finalize := nil;
+    info.class_init := TGClassInitFunc(@E_humanExt_class_init);
+    info.class_finalize := nil;
+    info.class_data := nil;
+    info.instance_size := SizeOf(TEHumanExt);
+    info.n_preallocs := 0;
+    info.instance_init := TGInstanceInitFunc(@E_humanExt_init);
+    info.value_table := nil;
 
-    humanExt_type := g_type_register_static(E_TYPE_HUMAN, 'PersonExt', @humanExt_info, 0);
-    g_once_init_leave(@humanExt_once, humanExt_type);
+    id := g_type_register_static(E_TYPE_HUMAN, 'PersonExt', @info, 0);
+    g_once_init_leave(@type_id, id);
   end;
-  Result := humanExt_type;
+  Result := type_id;
 end;
 
 function E_humanExt_new: PEHumanExt;

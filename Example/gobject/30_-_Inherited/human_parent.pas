@@ -47,7 +47,6 @@ implementation
 
 var
   e_human_parent_class: PGObjectClass = nil;
-  human_once: TGOnce;
 
 procedure e_human_set_property(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
 var
@@ -144,26 +143,27 @@ end;
 
 function e_human_get_type: TGType;
 const
-  human_type: TGType = 0;
+  type_id: TGType = 0;
 var
-  human_info: TGTypeInfo;
+  id: TGType;
+  info: TGTypeInfo;
 begin
-  if g_once_init_enter(@human_once) then begin
-    human_info.class_size := SizeOf(TEHumanClass);
-    human_info.base_init := nil;
-    human_info.base_finalize := nil;
-    human_info.class_init := TGClassInitFunc(@e_human_class_init);
-    human_info.class_finalize := nil;
-    human_info.class_data := nil;
-    human_info.instance_size := SizeOf(TEHuman);
-    human_info.n_preallocs := 0;
-    human_info.instance_init := TGInstanceInitFunc(@e_human_init);
-    human_info.value_table := nil;
+  if g_once_init_enter(@type_id) then begin
+    info.class_size := SizeOf(TEHumanClass);
+    info.base_init := nil;
+    info.base_finalize := nil;
+    info.class_init := TGClassInitFunc(@e_human_class_init);
+    info.class_finalize := nil;
+    info.class_data := nil;
+    info.instance_size := SizeOf(TEHuman);
+    info.n_preallocs := 0;
+    info.instance_init := TGInstanceInitFunc(@e_human_init);
+    info.value_table := nil;
 
-    human_type := g_type_register_static(G_TYPE_OBJECT, 'EHuman', @human_info, 0);
-    g_once_init_leave(@human_once, human_type);
+    id := g_type_register_static(G_TYPE_OBJECT, 'EHuman', @info, 0);
+    g_once_init_leave(@type_id, id);
   end;
-  Result := human_type;
+  Result := type_id;
 end;
 
 function e_human_new: PEHuman;
