@@ -127,8 +127,7 @@ const
   FRUIT_ORANGE = 5;
   N_FRUIT = 6;
 
-
-  function mein_enum_get_type: TGType;
+  function fruit_enum_get_type: TGType;
   const
     fruit_enum_values: array of TGEnumValue = (
       (Value: FRUIT_APPLE; value_name: 'FRUIT_APPLE'; value_nick: 'Apfel'),
@@ -157,7 +156,7 @@ const
     i: integer;
   begin
     vt := G_VALUE_TYPE(v);
-    if vt = mein_enum_get_type then begin
+    if vt = fruit_enum_get_type then begin
       ec := G_ENUM_CLASS(g_type_class_ref(vt));
       Count := ec^.n_values;
       g_printf('Count: %d'#10, Count);
@@ -175,7 +174,6 @@ const
         end;
       end;
     end;
-
     g_type_class_unref(ec);
   end;
 
@@ -228,7 +226,7 @@ const
     printValue(@enum_value);
 
     enum_value := G_VALUE_INIT_;
-    g_value_init(@enum_value, mein_enum_get_type);
+    g_value_init(@enum_value, fruit_enum_get_type);
     g_value_set_enum(@enum_value, FRUIT_PEARSY);
     printValue(@enum_value);
 

@@ -119,21 +119,20 @@ function E_humanExt_get_type: TGType;
 const
   type_id: TGType = 0;
 var
-  id:TGType;
-  info: TGTypeInfo;
+  id: TGType;
+  info: TGTypeInfo = (
+  class_size: SizeOf(TEHumanExtClass);
+  base_init: nil;
+  base_finalize: nil;
+  class_init: TGClassInitFunc(@E_humanExt_class_init);
+  class_finalize: nil;
+  class_data: nil;
+  instance_size: SizeOf(TEHumanExt);
+  n_preallocs: 0;
+  instance_init: TGInstanceInitFunc(@E_humanExt_init);
+  value_table: nil);
 begin
   if g_once_init_enter(@type_id) then begin
-    info.class_size := SizeOf(TEHumanExtClass);
-    info.base_init := nil;
-    info.base_finalize := nil;
-    info.class_init := TGClassInitFunc(@E_humanExt_class_init);
-    info.class_finalize := nil;
-    info.class_data := nil;
-    info.instance_size := SizeOf(TEHumanExt);
-    info.n_preallocs := 0;
-    info.instance_init := TGInstanceInitFunc(@E_humanExt_init);
-    info.value_table := nil;
-
     id := g_type_register_static(E_TYPE_HUMAN, 'PersonExt', @info, 0);
     g_once_init_leave(@type_id, id);
   end;

@@ -257,69 +257,91 @@ var
 function G_TYPE_PARAM_CHAR: Tgtype;
 function G_IS_PARAM_SPEC_CHAR(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_CHAR(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_UCHAR: Tgtype;
 function G_IS_PARAM_SPEC_UCHAR(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_UCHAR(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_BOOLEAN: Tgtype;
 function G_IS_PARAM_SPEC_BOOLEAN(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_BOOLEAN(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_INT: Tgtype;
 function G_IS_PARAM_SPEC_INT(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_INT(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_UINT: Tgtype;
 function G_IS_PARAM_SPEC_UINT(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_UINT(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_LONG: Tgtype;
 function G_IS_PARAM_SPEC_LONG(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_LONG(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_ULONG: Tgtype;
 function G_IS_PARAM_SPEC_ULONG(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_ULONG(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_INT64: Tgtype;
 function G_IS_PARAM_SPEC_INT64(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_INT64(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_UINT64: Tgtype;
 function G_IS_PARAM_SPEC_UINT64(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_UINT64(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_UNICHAR: Tgtype;
 function G_PARAM_SPEC_UNICHAR(pspec: Pointer): PGTypeInstance;
 function G_IS_PARAM_SPEC_UNICHAR(pspec: Pointer): Tgboolean;
+
 function G_TYPE_PARAM_ENUM: Tgtype;
 function G_IS_PARAM_SPEC_ENUM(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_ENUM(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_FLAGS: Tgtype;
 function G_IS_PARAM_SPEC_FLAGS(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_FLAGS(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_FLOAT: Tgtype;
 function G_IS_PARAM_SPEC_FLOAT(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_FLOAT(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_DOUBLE: Tgtype;
 function G_IS_PARAM_SPEC_DOUBLE(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_DOUBLE(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_STRING: Tgtype;
 function G_IS_PARAM_SPEC_STRING(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_STRING(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_PARAM: Tgtype;
 function G_IS_PARAM_SPEC_PARAM(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_PARAM(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_BOXED: Tgtype;
 function G_IS_PARAM_SPEC_BOXED(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_BOXED(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_POINTER: Tgtype;
 function G_IS_PARAM_SPEC_POINTER(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_POINTER(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_VALUE_ARRAY: Tgtype;
 function G_IS_PARAM_SPEC_VALUE_ARRAY(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_VALUE_ARRAY(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_OBJECT: Tgtype;
 function G_IS_PARAM_SPEC_OBJECT(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_OBJECT(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_OVERRIDE: Tgtype;
 function G_IS_PARAM_SPEC_OVERRIDE(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_OVERRIDE(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_GTYPE: Tgtype;
 function G_IS_PARAM_SPEC_GTYPE(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_GTYPE(pspec: Pointer): PGTypeInstance;
+
 function G_TYPE_PARAM_VARIANT: Tgtype;
 function G_IS_PARAM_SPEC_VARIANT(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_VARIANT(pspec: Pointer): PGTypeInstance;

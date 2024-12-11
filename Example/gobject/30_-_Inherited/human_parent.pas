@@ -146,20 +146,19 @@ const
   type_id: TGType = 0;
 var
   id: TGType;
-  info: TGTypeInfo;
+  info: TGTypeInfo = (
+  class_size: SizeOf(TEHumanClass);
+  base_init: nil;
+  base_finalize: nil;
+  class_init: TGClassInitFunc(@e_human_class_init);
+  class_finalize: nil;
+  class_data: nil;
+  instance_size: SizeOf(TEHuman);
+  n_preallocs: 0;
+  instance_init: TGInstanceInitFunc(@e_human_init);
+  value_table: nil);
 begin
   if g_once_init_enter(@type_id) then begin
-    info.class_size := SizeOf(TEHumanClass);
-    info.base_init := nil;
-    info.base_finalize := nil;
-    info.class_init := TGClassInitFunc(@e_human_class_init);
-    info.class_finalize := nil;
-    info.class_data := nil;
-    info.instance_size := SizeOf(TEHuman);
-    info.n_preallocs := 0;
-    info.instance_init := TGInstanceInitFunc(@e_human_init);
-    info.value_table := nil;
-
     id := g_type_register_static(G_TYPE_OBJECT, 'EHuman', @info, 0);
     g_once_init_leave(@type_id, id);
   end;
@@ -171,8 +170,7 @@ begin
   Result := g_object_new(E_TYPE_HUMAN, nil);
 end;
 
-function e_human_new_with_data(FirstName, LastName: Pgchar; age: Tgint
-  ): PEHuman;
+function e_human_new_with_data(FirstName, LastName: Pgchar; age: Tgint): PEHuman;
 begin
   Result := g_object_new(E_TYPE_HUMAN,
     'firstname', FirstName,

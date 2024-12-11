@@ -76,6 +76,7 @@ Aktualisieren:
 /usr/include/webkitgtk-6.0
 /usr/include/libadwaita-1
 /usr/include/gstreamer-1.0/ges
+/usr/include/sysprof-6
 
 
 
