@@ -30,7 +30,7 @@
 
 
 #define GES_TYPE_CLIP             ges_clip_get_type()
-GES_DECLARE_TYPE(Clip, clip, CLIP);
+//GES_DECLARE_TYPE (Clip, clip, CLIP);
 
 /**
  * GES_CLIP_CLASS_CAN_ADD_EFFECTS:

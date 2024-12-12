@@ -3,7 +3,7 @@ unit ges_track_element_asset;
 interface
 
 uses
-  fp_glib2, fp_gst, ges_asset;
+  fp_glib2, fp_gst, ges_enums, ges_types, ges_asset;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

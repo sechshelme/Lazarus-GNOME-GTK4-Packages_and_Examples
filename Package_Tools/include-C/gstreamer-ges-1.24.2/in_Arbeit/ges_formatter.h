@@ -26,7 +26,7 @@
 
 
 #define GES_TYPE_FORMATTER ges_formatter_get_type()
-GES_DECLARE_TYPE(Formatter, formatter, FORMATTER);
+//GES_DECLARE_TYPE (Formatter, formatter, FORMATTER);
 
 /**
  * GESFormatter:
@@ -136,13 +136,11 @@ gboolean ges_formatter_can_load_uri     (const gchar * uri, GError **error);
 extern
 gboolean ges_formatter_can_save_uri     (const gchar * uri, GError **error);
 
-GES_DEPRECATED_FOR(ges_timeline_load_from_uri)
 gboolean ges_formatter_load_from_uri    (GESFormatter * formatter,
                                          GESTimeline  *timeline,
                                          const gchar *uri,
                                          GError **error);
 
-GES_DEPRECATED_FOR(ges_timeline_save_to_uri)
 gboolean ges_formatter_save_to_uri      (GESFormatter * formatter,
                                          GESTimeline *timeline,
                                          const gchar *uri,

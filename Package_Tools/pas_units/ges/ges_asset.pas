@@ -3,46 +3,13 @@ unit ges_asset;
 interface
 
 uses
-  fp_glib2, fp_gst, ges_types, ges_extractable;
+  fp_glib2, fp_gst, ges_types, ges_extractable_;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
   {GES_DECLARE_TYPE (Asset, asset, ASSET); }
-type
-  PGESAssetLoadingReturn = ^TGESAssetLoadingReturn;
-  TGESAssetLoadingReturn = longint;
-
-const
-  GES_ASSET_LOADING_ERROR = 0;
-  GES_ASSET_LOADING_ASYNC = 1;
-  GES_ASSET_LOADING_OK = 2;
-
-type
-  TGESAssetPrivate = record
-  end;
-  PGESAssetPrivate = ^TGESAssetPrivate;
-
-type
-  TGESAsset = record
-    parent: TGObject;
-    priv: PGESAssetPrivate;
-    _ges_reserved: array[0..(GES_PADDING) - 1] of Tgpointer;
-  end;
-  PGESAsset = ^TGESAsset;
-
-  TGESAssetClass = record
-    parent: TGObjectClass;
-    start_loading: function(self: PGESAsset; error: PPGError): TGESAssetLoadingReturn; cdecl;
-    extract: function(self: PGESAsset; error: PPGError): PGESExtractable; cdecl;
-    inform_proxy: procedure(self: PGESAsset; proxy_id: Pgchar); cdecl;
-    proxied: procedure(self: PGESAsset; proxy: PGESAsset); cdecl;
-    request_id_update: function(self: PGESAsset; proposed_new_id: PPgchar; error: PGError): Tgboolean; cdecl;
-    _ges_reserved: array[0..(GES_PADDING) - 1] of Tgpointer;
-  end;
-  PGESAssetClass = ^TGESAssetClass;
-
 
 function gesasset_get_type: TGType; cdecl; external libges;
 function ges_asset_get_extractable_type(self: PGESAsset): TGType; cdecl; external libges;

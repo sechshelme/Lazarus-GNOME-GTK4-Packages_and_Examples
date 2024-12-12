@@ -65,7 +65,7 @@ begin
   sa := Str_G_DECLARE_INTERFACE.Split([' ', ',', '(', ')', '{', '}']);
   if G_DECLARE = is_GES_DECLARE_TYPE then begin
     sa[3]:='GES'+sa[3];
-    sa[5]:='ges'+sa[5];
+    sa[5]:='ges_'+sa[5];
     Insert(' ',sa,7);
     Insert('GES',sa,7);
   end;

@@ -29,7 +29,7 @@
 
 
 #define GES_TYPE_CONTAINER             ges_container_get_type()
-GES_DECLARE_TYPE(Container, container, CONTAINER);
+//GES_DECLARE_TYPE (Container, container, CONTAINER);
 
 /**
  * GESChildrenControlMode:
@@ -148,7 +148,6 @@ GList * ges_container_ungroup     (GESContainer * container, gboolean recursive)
 extern
 GESContainer *ges_container_group (GList *containers);
 
-GES_DEPRECATED_FOR(ges_timeline_element_edit)
 gboolean ges_container_edit       (GESContainer * container,
                                    GList * layers, gint new_layer_priority,
                                    GESEditMode mode,

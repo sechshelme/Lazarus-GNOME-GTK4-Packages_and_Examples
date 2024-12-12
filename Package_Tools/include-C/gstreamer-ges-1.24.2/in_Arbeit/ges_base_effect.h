@@ -26,7 +26,7 @@
 
 
 #define GES_TYPE_BASE_EFFECT ges_base_effect_get_type()
-GES_DECLARE_TYPE(BaseEffect, base_effect, BASE_EFFECT);
+//GES_DECLARE_TYPE (BaseEffect, base_effect, BASE_EFFECT);
 
 /**
  * GESBaseEffect:

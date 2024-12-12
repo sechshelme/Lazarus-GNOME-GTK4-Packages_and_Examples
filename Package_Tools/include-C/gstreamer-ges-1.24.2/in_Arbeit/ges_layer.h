@@ -26,7 +26,7 @@
 
 
 #define GES_TYPE_LAYER ges_layer_get_type()
-GES_DECLARE_TYPE(Layer, layer, LAYER);
+//GES_DECLARE_TYPE (Layer, layer, LAYER);
 
 /**
  * GESLayer:
@@ -108,7 +108,6 @@ extern
 gboolean      ges_layer_remove_clip           (GESLayer * layer,
                                                GESClip * clip);
 
-GES_DEPRECATED_FOR(ges_timeline_move_layer)
 void          ges_layer_set_priority          (GESLayer * layer,
                                                guint priority);
 

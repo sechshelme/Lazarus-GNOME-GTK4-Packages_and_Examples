@@ -28,7 +28,7 @@
 
 
 #define GES_TYPE_PROJECT            ges_project_get_type()
-GES_DECLARE_TYPE(Project, project, PROJECT);
+//GES_DECLARE_TYPE( Project, project, PROJECT);
 
 struct _GESProject
 {

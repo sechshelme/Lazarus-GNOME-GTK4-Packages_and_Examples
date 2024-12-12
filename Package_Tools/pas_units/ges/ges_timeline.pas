@@ -3,7 +3,7 @@ unit ges_timeline;
 interface
 
 uses
-  fp_glib2, fp_gst, ges_types, ges_track;
+  fp_glib2, fp_gst, ges_types, ges_layer, ges_group, ges_timeline_element, ges_project_, ges_extractable_;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -11,19 +11,6 @@ uses
 
   {GES_DECLARE_TYPE (Timeline, timeline, TIMELINE); }
 type
-  TGESTimelinePrivate = record
-  end;
-  PGESTimelinePrivate = ^TGESTimelinePrivate;
-
-  TGESTimeline = record
-    parent: TGstBin;
-    layers: PGList;
-    tracks: PGList;
-    priv: PGESTimelinePrivate;
-    _ges_reserved: array[0..(GES_PADDING) - 1] of Tgpointer;
-  end;
-  PGESTimeline = ^TGESTimeline;
-
   TGESTimelineClass = record
     parent_class: TGstBinClass;
     track_added: procedure(timeline: PGESTimeline; track: PGESTrack); cdecl;
@@ -70,7 +57,7 @@ function ges_timeline_get_frame_at(self: PGESTimeline; timestamp: TGstClockTime)
 procedure ges_timeline_disable_edit_apis(self: PGESTimeline; disable_edit_apis: Tgboolean); cdecl; external libges;
 function ges_timeline_get_edit_apis_disabled(self: PGESTimeline): Tgboolean; cdecl; external libges;
 
-function ges_timeline_get_project(obj: longint): longint;
+function ges_timeline_get_project(obj: Pointer): PGESProject;
 
 // === Konventiert am: 12-12-24 16:19:48 ===
 
@@ -116,7 +103,7 @@ end;
 
 // ====
 
-function ges_timeline_get_project(obj: longint): longint;
+function ges_timeline_get_project(obj: Pointer): PGESProject;
 begin
   ges_timeline_get_project := GES_PROJECT(ges_extractable_get_asset(GES_EXTRACTABLE(obj)));
 end;

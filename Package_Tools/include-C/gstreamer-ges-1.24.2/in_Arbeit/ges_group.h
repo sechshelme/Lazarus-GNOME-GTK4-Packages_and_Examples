@@ -1,6 +1,6 @@
-/* GStreamer Editing Services
- * Copyright (C) 2009 Edward Hervey <edward.hervey@collabora.co.uk>
- *               2009 Nokia Corporation
+/* * Gstreamer
+ *
+ * Copyright (C) <2013> Thibault Saunier <thibault.saunier@collabora.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -14,49 +14,37 @@
  *
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301, USA.
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
  */
-
 #pragma once
 
 #include <glib-object.h>
-#include <gst/gst.h>
 #include <ges/ges-types.h>
-#include <ges/ges-track-element.h>
+#include "ges-clip.h"
+#include "ges-container.h"
 
 
 
-#define GES_TYPE_OPERATION ges_operation_get_type()
-GES_DECLARE_TYPE(Operation, operation, OPERATION);
+#define GES_TYPE_GROUP (ges_group_get_type ())
+//GES_DECLARE_TYPE (Group, group, GROUP);
 
-/**
- * GESOperation:
- *
- * Base class for overlays, transitions, and effects
- */
+struct _GESGroup {
+  GESContainer parent;
 
-struct _GESOperation {
   /*< private >*/
-  GESTrackElement parent;
+  GESGroupPrivate *priv;
 
-  GESOperationPrivate *priv;
-
-  /* Padding for API extension */
   gpointer _ges_reserved[GES_PADDING];
 };
 
-/**
- * GESOperationClass:
- */
+struct _GESGroupClass {
+  GESContainerClass parent_class;
 
-struct _GESOperationClass {
-  /*< private >*/
-  GESTrackElementClass parent_class;
-
-  /*< private >*/
-  /* Padding for API extension */
   gpointer _ges_reserved[GES_PADDING];
 };
+
+extern
+GESGroup *ges_group_new           (void);
 
 

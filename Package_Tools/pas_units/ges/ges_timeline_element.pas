@@ -3,7 +3,7 @@ unit ges_timeline_element;
 interface
 
 uses
-  fp_glib2, fp_gst, ges_asset;
+  fp_glib2, fp_gst, ges_enums, ges_types;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

@@ -3,54 +3,42 @@ unit ges_track;
 interface
 
 uses
-  fp_glib2, fp_gst, ges_types, ges_enums, ges_timeline;
+  fp_glib2, fp_gst, ges_types, ges_enums, ges_timeline, ges_track_element;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
-{GES_DECLARE_TYPE (Track, track, TRACK); }
+  {GES_DECLARE_TYPE (Track, track, TRACK); }
 type
-  TGESTrackPrivate = record
-  end;
-  PGESTrackPrivate = ^TGESTrackPrivate;
-
-  PGESTrack = ^TGESTrack;
-  TGESTrack = record
-      parent : TGstBin;
-      _type : TGESTrackType;
-      priv : PGESTrackPrivate;
-      _ges_reserved : array[0..(GES_PADDING)-1] of Tgpointer;
-    end;
-
-  PGESTrackClass = ^TGESTrackClass;
   TGESTrackClass = record
-      parent_class : TGstBinClass;
-      get_mixing_element : function (track:PGESTrack):PGstElement;cdecl;
-      _ges_reserved : array[0..(GES_PADDING)-1] of Tgpointer;
-    end;
+    parent_class: TGstBinClass;
+    get_mixing_element: function(track: PGESTrack): PGstElement; cdecl;
+    _ges_reserved: array[0..(GES_PADDING) - 1] of Tgpointer;
+  end;
+  PGESTrackClass = ^TGESTrackClass;
 
   PGESCreateElementForGapFunc = ^TGESCreateElementForGapFunc;
-  TGESCreateElementForGapFunc = function (track:PGESTrack):PGstElement;cdecl;
+  TGESCreateElementForGapFunc = function(track: PGESTrack): PGstElement; cdecl;
 
 
 function gestrack_get_type: TGType; cdecl; external libges;
-function ges_track_get_caps(track:PGESTrack):PGstCaps;cdecl;external libges;
-function ges_track_get_elements(track:PGESTrack):PGList;cdecl;external libges;
-function ges_track_get_timeline(track:PGESTrack):PGESTimeline;cdecl;external libges;
-function ges_track_commit(track:PGESTrack):Tgboolean;cdecl;external libges;
-procedure ges_track_set_timeline(track:PGESTrack; timeline:PGESTimeline);cdecl;external libges;
-function ges_track_add_element(track:PGESTrack; object:PGESTrackElement):Tgboolean;cdecl;external libges;
-function ges_track_add_element_full(track:PGESTrack; object:PGESTrackElement; error:PPGError):Tgboolean;cdecl;external libges;
-function ges_track_remove_element(track:PGESTrack; object:PGESTrackElement):Tgboolean;cdecl;external libges;
-function ges_track_remove_element_full(track:PGESTrack; object:PGESTrackElement; error:PPGError):Tgboolean;cdecl;external libges;
-procedure ges_track_set_create_element_for_gap_func(track:PGESTrack; func:TGESCreateElementForGapFunc);cdecl;external libges;
-procedure ges_track_set_mixing(track:PGESTrack; mixing:Tgboolean);cdecl;external libges;
-function ges_track_get_mixing(track:PGESTrack):Tgboolean;cdecl;external libges;
-procedure ges_track_set_restriction_caps(track:PGESTrack; caps:PGstCaps);cdecl;external libges;
-procedure ges_track_update_restriction_caps(track:PGESTrack; caps:PGstCaps);cdecl;external libges;
-function ges_track_get_restriction_caps(track:PGESTrack):PGstCaps;cdecl;external libges;
-function ges_track_new(_type:TGESTrackType; caps:PGstCaps):PGESTrack;cdecl;external libges;
+function ges_track_get_caps(track: PGESTrack): PGstCaps; cdecl; external libges;
+function ges_track_get_elements(track: PGESTrack): PGList; cdecl; external libges;
+function ges_track_get_timeline(track: PGESTrack): PGESTimeline; cdecl; external libges;
+function ges_track_commit(track: PGESTrack): Tgboolean; cdecl; external libges;
+procedure ges_track_set_timeline(track: PGESTrack; timeline: PGESTimeline); cdecl; external libges;
+function ges_track_add_element(track: PGESTrack; obj: PGESTrackElement): Tgboolean; cdecl; external libges;
+function ges_track_add_element_full(track: PGESTrack; obj: PGESTrackElement; error: PPGError): Tgboolean; cdecl; external libges;
+function ges_track_remove_element(track: PGESTrack; obj: PGESTrackElement): Tgboolean; cdecl; external libges;
+function ges_track_remove_element_full(track: PGESTrack; obj: PGESTrackElement; error: PPGError): Tgboolean; cdecl; external libges;
+procedure ges_track_set_create_element_for_gap_func(track: PGESTrack; func: TGESCreateElementForGapFunc); cdecl; external libges;
+procedure ges_track_set_mixing(track: PGESTrack; mixing: Tgboolean); cdecl; external libges;
+function ges_track_get_mixing(track: PGESTrack): Tgboolean; cdecl; external libges;
+procedure ges_track_set_restriction_caps(track: PGESTrack; caps: PGstCaps); cdecl; external libges;
+procedure ges_track_update_restriction_caps(track: PGESTrack; caps: PGstCaps); cdecl; external libges;
+function ges_track_get_restriction_caps(track: PGESTrack): PGstCaps; cdecl; external libges;
+function ges_track_new(_type: TGESTrackType; caps: PGstCaps): PGESTrack; cdecl; external libges;
 
 // === Konventiert am: 12-12-24 17:14:23 ===
 
