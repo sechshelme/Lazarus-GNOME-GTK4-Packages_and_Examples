@@ -1,4 +1,43 @@
-/* GStreamer Editing Services
+
+unit ges_extractable;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from ges_extractable.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    ges_extractable.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pgchar  = ^gchar;
+PGError  = ^GError;
+PGESAsset  = ^GESAsset;
+PGESExtractable  = ^GESExtractable;
+PGESExtractableCheckId  = ^GESExtractableCheckId;
+PGESExtractableInterface  = ^GESExtractableInterface;
+PGObjectClass  = ^GObjectClass;
+PGParameter  = ^GParameter;
+Pguint  = ^guint;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ GStreamer Editing Services
  *
  * Copyright (C) 2012 Thibault Saunier <thibault.saunier@collabora.com>
  * Copyright (C) 2012 Volodymyr Rudyi <vladimir.rudoy@gmail.com>
@@ -17,26 +56,27 @@
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
- */
-#pragma once
+  }
+(** unsupported pragma#pragma once*)
+type
+{$include <glib-object.h>}
+{$include <gio/gio.h>}
+{$include <gst/gst.h>}
+{$include <ges/ges-types.h>}
+{$include <ges/ges-asset.h>}
+{ GESExtractable interface declarations  }
 
-typedef struct _GESExtractable GESExtractable;
+{ was #define dname def_expr }
+function GES_TYPE_EXTRACTABLE : longint; { return type might be wrong }
 
-#include <glib-object.h>
-#include <gio/gio.h>
-#include <gst/gst.h>
-#include <ges/ges-types.h>
-#include <ges/ges-asset.h>
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GES_EXTRACTABLE_GET_INTERFACE(inst : longint) : longint;
 
-
-
-/* GESExtractable interface declarations */
-#define GES_TYPE_EXTRACTABLE                (ges_extractable_get_type ())
-#define GES_EXTRACTABLE_GET_INTERFACE(inst) (G_TYPE_INSTANCE_GET_INTERFACE ((inst), GES_TYPE_EXTRACTABLE, GESExtractableInterface))
-extern
-G_DECLARE_INTERFACE(GESExtractable, ges_extractable, GES, EXTRACTABLE, GInitiallyUnowned);
-
-/**
+{extern }
+{G_DECLARE_INTERFACE (GESExtractable, ges_extractable, GES, EXTRACTABLE, GInitiallyUnowned); }
+{*
  * GESExtractableCheckId:
  * @type: The #GESExtractable type to check @id for
  * @id: The ID to check
@@ -49,12 +89,12 @@ G_DECLARE_INTERFACE(GESExtractable, ges_extractable, GES, EXTRACTABLE, GInitiall
  *
  * Returns (transfer full) (nullable): The actual #GESAsset:id to set on
  * any corresponding assets, based on @id, or %NULL if @id is not valid.
- */
-
-typedef gchar* (*GESExtractableCheckId) (GType type, const gchar *id,
-    GError **error);
-
-/**
+  }
+(* Const before type ignored *)
+type
+  PGESExtractableCheckId = ^TGESExtractableCheckId;
+  TGESExtractableCheckId = function (_type:TGType; id:Pgchar; error:PPGError):Pgchar;cdecl;
+{*
  * GESExtractableInterface:
  * @asset_type: The subclass type of #GESAsset that should be created when
  * an asset with the corresponding #GESAsset:extractable-type is
@@ -105,46 +145,44 @@ typedef gchar* (*GESExtractableCheckId) (GType type, const gchar *id,
  * type will be used (instead of our own).
  * @register_metas: The method to set metadata on an asset. This is called
  * on initiation of the asset, but before it begins to load its state.
- */
-
-struct _GESExtractableInterface
-{
-  GTypeInterface parent;
-
-  GType asset_type;
-
-  GESExtractableCheckId check_id;
-  gboolean can_update_asset;
-
-  void (*set_asset)                  (GESExtractable *self,
-                                         GESAsset *asset);
-
-  gboolean (*set_asset_full)         (GESExtractable *self,
-                                      GESAsset *asset);
-
-  GParameter *(*get_parameters_from_id) (const gchar *id,
-                                         guint *n_params);
-
-  gchar * (*get_id)                     (GESExtractable *self);
-
-  GType (*get_real_extractable_type)    (GType wanted_type,
-                                         const gchar *id);
-
-  gboolean (*register_metas)            (GESExtractableInterface *self,
-                                         GObjectClass *klass,
-                                         GESAsset *asset);
-
-  gpointer _ges_reserved[GES_PADDING];
-};
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+  PGESExtractableInterface = ^TGESExtractableInterface;
+  TGESExtractableInterface = record
+      parent : TGTypeInterface;cdecl;
+      asset_type : TGType;
+      check_id : TGESExtractableCheckId;
+      can_update_asset : Tgboolean;
+      set_asset : procedure (self:PGESExtractable; asset:PGESAsset);cdecl;
+      set_asset_full : function (self:PGESExtractable; asset:PGESAsset):Tgboolean;cdecl;
+      get_parameters_from_id : function (id:Pgchar; n_params:Pguint):PGParameter;cdecl;
+      get_id : function (self:PGESExtractable):Pgchar;cdecl;
+      get_real_extractable_type : function (wanted_type:TGType; id:Pgchar):TGType;cdecl;
+      register_metas : function (self:PGESExtractableInterface; klass:PGObjectClass; asset:PGESAsset):Tgboolean;cdecl;
+      _ges_reserved : array[0..(GES_PADDING)-1] of Tgpointer;
+    end;
 
 
-extern
-GESAsset* ges_extractable_get_asset      (GESExtractable *self);
-extern
-gboolean ges_extractable_set_asset              (GESExtractable *self,
-                                                GESAsset *asset);
+function ges_extractable_get_asset(self:PGESExtractable):PGESAsset;cdecl;external;
+function ges_extractable_set_asset(self:PGESExtractable; asset:PGESAsset):Tgboolean;cdecl;external;
+function ges_extractable_get_id(self:PGESExtractable):Pgchar;cdecl;external;
 
-extern
-gchar * ges_extractable_get_id                 (GESExtractable *self);
+implementation
+
+{ was #define dname def_expr }
+function GES_TYPE_EXTRACTABLE : longint; { return type might be wrong }
+  begin
+    GES_TYPE_EXTRACTABLE:=ges_extractable_get_type;
+  end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function GES_EXTRACTABLE_GET_INTERFACE(inst : longint) : longint;
+begin
+  GES_EXTRACTABLE_GET_INTERFACE:=G_TYPE_INSTANCE_GET_INTERFACE(inst,GES_TYPE_EXTRACTABLE,GESExtractableInterface);
+end;
 
 
+end.

@@ -29,7 +29,7 @@
 
 
 #define GES_TYPE_TIMELINE_ELEMENT             (ges_timeline_element_get_type ())
-GES_DECLARE_TYPE(TimelineElement, timeline_element, TIMELINE_ELEMENT);
+//GES_DECLARE_TYPE (TimelineElement, timeline_element, TIMELINE_ELEMENT);
 
 /**
  * GES_TIMELINE_ELEMENT_START:
@@ -339,7 +339,6 @@ gboolean             ges_timeline_element_set_duration                (GESTimeli
 extern
 gboolean             ges_timeline_element_set_max_duration            (GESTimelineElement *self,
                                                                        GstClockTime maxduration);
-GES_DEPRECATED
 gboolean             ges_timeline_element_set_priority                (GESTimelineElement *self,
                                                                        guint32 priority);
 extern

@@ -258,8 +258,7 @@ typedef enum {
 
 #define DEFAULT_VALIGNMENT GES_TEXT_VALIGN_BASELINE
 
-#define GES_TEXT_VALIGN_TYPE\
-  (ges_text_valign_get_type ())
+#define GES_TEXT_VALIGN_TYPE (ges_text_valign_get_type ())
 
 extern
 GType ges_text_valign_get_type (void);
@@ -283,8 +282,7 @@ typedef enum {
 
 #define DEFAULT_HALIGNMENT GES_TEXT_HALIGN_CENTER
 
-#define GES_TEXT_HALIGN_TYPE\
-  (ges_text_halign_get_type ())
+#define GES_TEXT_HALIGN_TYPE (ges_text_halign_get_type ())
 
 extern
 GType ges_text_halign_get_type (void);
@@ -335,8 +333,7 @@ typedef enum {
 } GESVideoTestPattern;
 
 
-#define GES_VIDEO_TEST_PATTERN_TYPE\
-  ges_video_test_pattern_get_type()
+#define GES_VIDEO_TEST_PATTERN_TYPE ges_video_test_pattern_get_type()
 
 extern
 GType ges_video_test_pattern_get_type (void);
@@ -368,8 +365,7 @@ typedef enum {
   GES_PIPELINE_MODE_SMART_RENDER	= 1 << 3
 } GESPipelineFlags;
 
-#define GES_TYPE_PIPELINE_FLAGS\
-  ges_pipeline_flags_get_type()
+#define GES_TYPE_PIPELINE_FLAGS ges_pipeline_flags_get_type()
 
 extern
 GType ges_pipeline_flags_get_type (void);

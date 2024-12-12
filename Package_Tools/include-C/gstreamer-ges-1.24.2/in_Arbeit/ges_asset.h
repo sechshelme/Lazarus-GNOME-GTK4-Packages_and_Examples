@@ -30,7 +30,7 @@
 
 
 #define GES_TYPE_ASSET ges_asset_get_type()
-GES_DECLARE_TYPE(Asset, asset, ASSET);
+//GES_DECLARE_TYPE (Asset, asset, ASSET);
 
 /**
  * GESAssetLoadingReturn:

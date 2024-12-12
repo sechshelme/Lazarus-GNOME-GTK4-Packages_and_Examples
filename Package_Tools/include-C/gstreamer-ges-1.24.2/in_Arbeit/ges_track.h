@@ -28,7 +28,7 @@
 
 
 #define GES_TYPE_TRACK            ges_track_get_type()
-GES_DECLARE_TYPE(Track, track, TRACK);
+//GES_DECLARE_TYPE (Track, track, TRACK);
 
 /**
  * GESCreateElementForGapFunc:

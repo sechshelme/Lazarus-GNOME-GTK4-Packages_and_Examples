@@ -21,10 +21,10 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add option="`pkg-config --cflags gstreamer-1.0`" />
+			<Add option="`pkg-config --cflags gstreamer-1.0  gst-editing-services-1.0`" />
 		</Compiler>
 		<Linker>
-			<Add option="`pkg-config --libs gstreamer-1.0`" />
+			<Add option="`pkg-config --libs gstreamer-1.0  gst-editing-services-1.0`" />
 		</Linker>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />

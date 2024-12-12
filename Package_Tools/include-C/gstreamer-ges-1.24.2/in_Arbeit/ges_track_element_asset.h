@@ -27,7 +27,7 @@
 
 
 #define GES_TYPE_TRACK_ELEMENT_ASSET ges_track_element_asset_get_type()
-GES_DECLARE_TYPE(TrackElementAsset, track_element_asset, TRACK_ELEMENT_ASSET);
+//GES_DECLARE_TYPE (TrackElementAsset, track_element_asset, TRACK_ELEMENT_ASSET);
 
 struct _GESTrackElementAsset
 {

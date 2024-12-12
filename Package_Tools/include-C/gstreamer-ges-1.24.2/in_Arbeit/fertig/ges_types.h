@@ -236,35 +236,5 @@ typedef struct _GESXmlFormatter GESXmlFormatter;
 typedef struct _GESDiscovererManager GESDiscovererManager;
 typedef struct _GESDiscovererManagerClass GESDiscovererManagerClass;
 
-/**
- * GES_DECLARE_TYPE: (attributes doc.skip=true)
- */
-#define GES_DECLARE_TYPE(ObjName, obj_name, OBJ_NAME)    \
-  extern GType ges_##obj_name##_get_type(void);                               \
-                                               \
-  typedef struct _GES##ObjName##Private GES##ObjName##Private;                 \
-                                                                               \
-  G_DEFINE_AUTOPTR_CLEANUP_FUNC(GES##ObjName, gst_object_unref)                \
-                                                                               \
-  static G_GNUC_UNUSED inline GES##ObjName *GES_##OBJ_NAME(gpointer ptr) {                   \
-    return G_TYPE_CHECK_INSTANCE_CAST(ptr, ges_##obj_name##_get_type(),        \
-                                      GES##ObjName);                           \
-  }                                                                            \
-  static G_GNUC_UNUSED inline GES##ObjName##Class *GES_##OBJ_NAME##_CLASS(gpointer ptr) {    \
-    return G_TYPE_CHECK_CLASS_CAST(ptr, ges_##obj_name##_get_type(),           \
-                                   GES##ObjName##Class);                       \
-  }                                                                            \
-  static G_GNUC_UNUSED inline gboolean GES_IS_##OBJ_NAME(gpointer ptr) {                     \
-    return G_TYPE_CHECK_INSTANCE_TYPE(ptr, ges_##obj_name##_get_type());       \
-  }                                                                            \
-  static G_GNUC_UNUSED inline gboolean GES_IS_##OBJ_NAME##_CLASS(gpointer ptr) {             \
-    return G_TYPE_CHECK_CLASS_TYPE(ptr, ges_##obj_name##_get_type());          \
-  }                                                                            \
-  static G_GNUC_UNUSED inline GES##ObjName##Class *GES_##OBJ_NAME##_GET_CLASS(               \
-      gpointer ptr) {                                                          \
-    return G_TYPE_INSTANCE_GET_CLASS(ptr, ges_##obj_name##_get_type(),         \
-                                     GES##ObjName##Class);                     \
-  }                                                                            \
-  
 
 

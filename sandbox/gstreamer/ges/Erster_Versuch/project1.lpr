@@ -2,11 +2,18 @@ program project1;
 
 uses
   ges,
+  ges_types,
   ges_utils,
   ges_timeline,
 
-
-
+  ges_enums,
+  ges_timeline_element,
+  ges_extractable,
+  ges_asset,
+  ges_track,
+  ges_track_element,
+  ges_track_element_deprecated,
+  ges_track_element_asset,
 
 
 

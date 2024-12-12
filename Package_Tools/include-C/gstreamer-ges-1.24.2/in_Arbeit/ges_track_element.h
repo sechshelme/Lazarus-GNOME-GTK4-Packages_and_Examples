@@ -31,7 +31,7 @@
 
 
 #define GES_TYPE_TRACK_ELEMENT ges_track_element_get_type()
-GES_DECLARE_TYPE(TrackElement, track_element, TRACK_ELEMENT)
+//GES_DECLARE_TYPE (TrackElement, track_element, TRACK_ELEMENT)
 
 /**
  * GES_TRACK_ELEMENT_CLASS_DEFAULT_HAS_INTERNAL_SOURCE:

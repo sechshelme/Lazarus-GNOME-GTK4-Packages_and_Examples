@@ -106,3 +106,7 @@ pipeline = GST_PIPELINE(ges_pipeline);
 
     return 0;
 }
+
+G_DECLARE_FINAL_TYPE
+GES_DECLARE_TYPE
+GES_PADDING
