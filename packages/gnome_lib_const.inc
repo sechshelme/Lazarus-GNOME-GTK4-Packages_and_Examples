@@ -112,6 +112,8 @@ const
   libgstsctp = 'libgstsctp-1.0';
   libgstopencv = 'libgstopencv-1.0';
   libgstisoff = 'libgstisoff-1.0';
+
+  libges = 'libges-1.0';
   {$endif}
 
   {$ifdef Windows}
@@ -153,6 +155,8 @@ const
   libgstsctp = 'libgstsctp-1.0-0.dll';
   libgstopencv = 'libgstopencv-1.0-0.gll';
   libgstisoff = 'libgstisoff-1.0-0.dll';
+
+  libges = 'libges-1.0-0.dll';
   {$endif}
 
   // ==== System

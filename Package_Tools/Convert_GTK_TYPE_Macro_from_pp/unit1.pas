@@ -62,6 +62,7 @@ const
     (libs: 'libgobject2_0'; units: 'common_GLIB, gtypes'),
     (libs: 'libgio2'; units: 'common_GLIB, gtypes, gerror, gtype, giotypes, gobject, gioenums'),
     (libs: 'libgtk4'; units: 'glib2, common_GTK'),
+
     (libs: 'libgstreamer'; units: 'glib280, common_GST, gstobject'),
     (libs: 'libgstpbutils'; units: 'glib280, gst124'),
     (libs: 'libgstbase'; units: 'glib280, gst124'),
@@ -101,6 +102,7 @@ const
     (libs: 'libgdk_pixbuf2'; units: 'glib280, gdk_pixbuf_core'),
 
     (libs: 'libpango'; units: 'fp_cairo, fp_glib2'),
+    (libs: 'libges'; units: 'fp_glib2, fp_gst'),
 
     (libs: ''; units: ''));
 
@@ -358,6 +360,9 @@ begin
       macCount := 4;
     end;
     is_GDK_DECLARE_INTERNAL_TYPE: begin
+      macCount := 6;
+    end;
+    is_GES_DECLARE_TYPE: begin
       macCount := 6;
     end;
   end;

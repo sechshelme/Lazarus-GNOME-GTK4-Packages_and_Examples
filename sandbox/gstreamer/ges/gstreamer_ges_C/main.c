@@ -88,7 +88,7 @@ pipeline = GST_PIPELINE(ges_pipeline);
 
     /* Haupt-Event-Loop erstellen */
     mainloop = g_main_loop_new(NULL, FALSE);
-
+    
     /* Callback für Nachrichten registrieren */
     g_signal_connect(bus, "message", G_CALLBACK(bus_message_cb), mainloop);
 
@@ -106,3 +106,4 @@ pipeline = GST_PIPELINE(ges_pipeline);
 
     return 0;
 }
+

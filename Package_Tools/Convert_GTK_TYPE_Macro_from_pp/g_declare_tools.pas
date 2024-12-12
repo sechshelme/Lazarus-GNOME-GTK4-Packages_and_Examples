@@ -8,7 +8,13 @@ uses
   Classes, SysUtils;
 
 type
-  T_G_DECLARE = (is_G_DECLARE_none = -1, is_G_DECLARE_FINAL_TYPE, is_G_DECLARE_DERIVABLE_TYPE, is_G_DECLARE_INTERFACE, is_GDK_DECLARE_INTERNAL_TYPE);
+  T_G_DECLARE = (
+    is_G_DECLARE_none = -1,
+    is_G_DECLARE_FINAL_TYPE,
+    is_G_DECLARE_DERIVABLE_TYPE,
+    is_G_DECLARE_INTERFACE,
+    is_GDK_DECLARE_INTERNAL_TYPE,
+    is_GES_DECLARE_TYPE);
 
 var
   G_DECLARE: T_G_DECLARE;
@@ -28,7 +34,8 @@ var
     ('G_DECLARE_FINAL_TYPE'),
     ('G_DECLARE_DERIVABLE_TYPE'),
     ('G_DECLARE_INTERFACE'),
-    ('GDK_DECLARE_INTERNAL_TYPE'));
+    ('GDK_DECLARE_INTERNAL_TYPE'),
+    ('GES_DECLARE_TYPE'));
 begin
   Result := is_G_DECLARE_none;
   Str_G_DECLARE_INTERFACE := '';
@@ -48,12 +55,22 @@ function ConvertSLMacro_from_G_DECLARE: TStringList;
   // {G_DECLARE_DERIVABLE_TYPE  (GtkFilter,          gtk_filter,           GTK, FILTER,           GObject) }     // Komplett
   // {G_DECLARE_INTERFACE       (GtkNative,          gtk_native,           GTK, NATIVE,           GtkWidget)};   // Interface
   // {GDK_DECLARE_INTERNAL_TYPE (GtkMnemonicTrigger, gtk_mnemonic_trigger, GTK, MNEMONIC_TRIGGER, GtkShortcutTrigger) }
+
+  // {GES_DECLARE_TYPE          (Timeline,           timeline,                  TIMELINE) };
 var
   sa: TAnsiStringArray;
   i: integer;
 begin
   Result := TStringList.Create;
   sa := Str_G_DECLARE_INTERFACE.Split([' ', ',', '(', ')', '{', '}']);
+  if G_DECLARE = is_GES_DECLARE_TYPE then begin
+    sa[3]:='GES'+sa[3];
+    sa[5]:='ges'+sa[5];
+    Insert(' ',sa,7);
+    Insert('GES',sa,7);
+  end;
+
+
   for i := 0 to Length(sa) - 1 do begin
     WriteLn(i: 2, '  ', sa[i]);
   end;
@@ -80,7 +97,7 @@ begin
 
   end;
 
-  if G_DECLARE in [is_G_DECLARE_DERIVABLE_TYPE, is_GDK_DECLARE_INTERNAL_TYPE] then begin
+  if G_DECLARE in [is_G_DECLARE_DERIVABLE_TYPE, is_GDK_DECLARE_INTERNAL_TYPE, is_GES_DECLARE_TYPE] then begin
     Result.Add('function ' + sa[7] + '_' + sa[9] + '_CLASS(klass: Pointer): P' + sa[3] + 'Class;');
     Result.Add('begin');
     Result.Add('  Result := P' + sa[3] + 'Class(g_type_check_class_cast(klass, ' + sa[7] + '_TYPE_' + sa[9] + '));');
@@ -155,6 +172,12 @@ begin
     Result.Add('  T' + sa[3] + 'Class = record');
     Result.Add('  end;');
     Result.Add('  P' + sa[3] + 'Class = ^T' + sa[3] + 'Class;');
+    Result.Add('');
+  end;
+  if G_DECLARE = is_GES_DECLARE_TYPE then begin
+    Result.Add('  T' + sa[3] + 'Private = record');
+    Result.Add('  end;');
+    Result.Add('  P' + sa[3] + 'Private = ^T' + sa[3] + 'Private;');
     Result.Add('');
   end;
 
