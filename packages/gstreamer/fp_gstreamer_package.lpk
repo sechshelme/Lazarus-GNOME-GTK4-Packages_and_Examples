@@ -186,6 +186,10 @@
         <Filename Value="fp_gst_interfaces.pas"/>
         <UnitName Value="fp_gst_interfaces"/>
       </Item>
+      <Item>
+        <Filename Value="fp_ges.pas"/>
+        <UnitName Value="fp_ges"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

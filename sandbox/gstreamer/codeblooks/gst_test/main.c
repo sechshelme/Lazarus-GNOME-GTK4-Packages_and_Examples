@@ -107,5 +107,3 @@ pipeline = GST_PIPELINE(ges_pipeline);
     return 0;
 
 }
-
-
