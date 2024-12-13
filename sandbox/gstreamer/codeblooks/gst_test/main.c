@@ -112,3 +112,12 @@ GES_DECLARE_TYPE
 GES_PADDING
 GESTrackType
 GESTrackType
+GES_TRACK_ELEMENT_CLASS_DEFAULT_HAS_INTERNAL_SOURCE
+GESEditMode
+GESClipPrivate
+GES_PADDING_LARGE
+GESTrackType
+GES_PROJECT
+GstEncodingProfile
+GESFormatter
+ges_extractable_get_asset

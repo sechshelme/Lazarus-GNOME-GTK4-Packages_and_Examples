@@ -26,9 +26,9 @@
 
 
 #define GES_TYPE_META_CONTAINER                 (ges_meta_container_get_type ())
-#define GES_META_CONTAINER_GET_INTERFACE (inst) (G_TYPE_INSTANCE_GET_INTERFACE ((inst), GES_TYPE_META_CONTAINER, GESMetaContainerInterface))
-extern
-G_DECLARE_INTERFACE(GESMetaContainer, ges_meta_container, GES, META_CONTAINER, GObject);
+#define GES_META_CONTAINER_GET_INTERFACE(inst) (G_TYPE_INSTANCE_GET_INTERFACE ((inst), GES_TYPE_META_CONTAINER, GESMetaContainerInterface))
+//extern
+//G_DECLARE_INTERFACE (GESMetaContainer, ges_meta_container, GES, META_CONTAINER, GObject);
 
 /**
  * GES_META_FORMATTER_NAME:

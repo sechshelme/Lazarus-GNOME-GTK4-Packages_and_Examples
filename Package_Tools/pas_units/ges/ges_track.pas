@@ -3,7 +3,7 @@ unit ges_track;
 interface
 
 uses
-  fp_glib2, fp_gst, ges_types, ges_enums, ges_timeline, ges_track_element;
+  fp_glib2, fp_gst, ges_types, ges_enums, ges_track_element;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -22,7 +22,7 @@ type
   TGESCreateElementForGapFunc = function(track: PGESTrack): PGstElement; cdecl;
 
 
-function gestrack_get_type: TGType; cdecl; external libges;
+function ges_track_get_type: TGType; cdecl; external libges;
 function ges_track_get_caps(track: PGESTrack): PGstCaps; cdecl; external libges;
 function ges_track_get_elements(track: PGESTrack): PGList; cdecl; external libges;
 function ges_track_get_timeline(track: PGESTrack): PGESTimeline; cdecl; external libges;
@@ -53,7 +53,7 @@ implementation
 
 function GES_TYPE_TRACK: TGType;
 begin
-  Result := gestrack_get_type;
+  Result := ges_track_get_type;
 end;
 
 function GES_TRACK(obj: Pointer): PGESTrack;

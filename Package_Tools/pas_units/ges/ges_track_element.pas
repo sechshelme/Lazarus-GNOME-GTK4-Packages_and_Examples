@@ -46,7 +46,7 @@ type
   PGESTrackElementClass = ^TGESTrackElementClass;
 
 
-function gestrack_element_get_type: TGType; cdecl; external libges;
+function ges_track_element_get_type: TGType; cdecl; external libges;
 function ges_track_element_get_track(obj: PGESTrackElement): PGESTrack; cdecl; external libges;
 function ges_track_element_get_track_type(obj: PGESTrackElement): TGESTrackType; cdecl; external libges;
 procedure ges_track_element_set_track_type(obj: PGESTrackElement; _type: TGESTrackType); cdecl; external libges;
@@ -82,7 +82,7 @@ implementation
 
 function GES_TYPE_TRACK_ELEMENT: TGType;
 begin
-  Result := gestrack_element_get_type;
+  Result := ges_track_element_get_type;
 end;
 
 function GES_TRACK_ELEMENT(obj: Pointer): PGESTrackElement;

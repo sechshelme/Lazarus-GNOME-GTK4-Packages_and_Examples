@@ -57,7 +57,7 @@ type
   PGESTimelineElementClass = ^TGESTimelineElementClass;
 
 
-function gestimeline_element_get_type: TGType; cdecl; external libges;
+function ges_timeline_element_get_type: TGType; cdecl; external libges;
 function ges_timeline_element_get_toplevel_parent(self: PGESTimelineElement): PGESTimelineElement; cdecl; external libges;
 function ges_timeline_element_get_parent(self: PGESTimelineElement): PGESTimelineElement; cdecl; external libges;
 function ges_timeline_element_set_parent(self: PGESTimelineElement; parent: PGESTimelineElement): Tgboolean; cdecl; external libges;
@@ -133,7 +133,7 @@ implementation
 
 function GES_TYPE_TIMELINE_ELEMENT: TGType;
 begin
-  Result := gestimeline_element_get_type;
+  Result := ges_timeline_element_get_type;
 end;
 
 function GES_TIMELINE_ELEMENT(obj: Pointer): PGESTimelineElement;

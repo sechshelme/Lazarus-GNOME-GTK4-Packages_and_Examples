@@ -52,7 +52,7 @@ type
   end;
   PGESContainerClass = ^TGESContainerClass;
 
-function gescontainer_get_type: TGType; cdecl; external libges;
+function ges_container_get_type: TGType; cdecl; external libges;
 function ges_container_get_children(container: PGESContainer; recursive: Tgboolean): PGList; cdecl; external libges;
 function ges_container_add(container: PGESContainer; child: PGESTimelineElement): Tgboolean; cdecl; external libges;
 function ges_container_remove(container: PGESContainer; child: PGESTimelineElement): Tgboolean; cdecl; external libges;
@@ -77,7 +77,7 @@ implementation
 
 function GES_TYPE_CONTAINER: TGType;
 begin
-  Result := gescontainer_get_type;
+  Result := ges_container_get_type;
 end;
 
 function GES_CONTAINER(obj: Pointer): PGESContainer;

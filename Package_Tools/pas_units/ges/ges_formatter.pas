@@ -43,7 +43,7 @@ type
   end;
   PGESFormatterClass = ^TGESFormatterClass;
 
-function gesformatter_get_type: TGType; cdecl; external libges;
+function ges_formatter_get_type: TGType; cdecl; external libges;
 procedure ges_formatter_class_register_metas(klass: PGESFormatterClass; Name: Pgchar; description: Pgchar; extensions: Pgchar; caps: Pgchar;
   version: Tgdouble; rank: TGstRank); cdecl; external libges;
 function ges_formatter_can_load_uri(uri: Pgchar; error: PPGError): Tgboolean; cdecl; external libges;
@@ -66,7 +66,7 @@ implementation
 
 function GES_TYPE_FORMATTER: TGType;
 begin
-  Result := gesformatter_get_type;
+  Result := ges_formatter_get_type;
 end;
 
 function GES_FORMATTER(obj: Pointer): PGESFormatter;

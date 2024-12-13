@@ -34,8 +34,8 @@
  *
  * Since: 1.18
  */
-extern
-G_DECLARE_FINAL_TYPE (GESMarker, ges_marker, GES, MARKER, GObject)
+//extern
+//G_DECLARE_FINAL_TYPE (GESMarker, ges_marker, GES, MARKER, GObject)
 #define GES_TYPE_MARKER_LIST ges_marker_list_get_type ()
 
 /**
@@ -45,8 +45,8 @@ G_DECLARE_FINAL_TYPE (GESMarker, ges_marker, GES, MARKER, GObject)
  *
  * Since: 1.18
  */
-extern
-G_DECLARE_FINAL_TYPE (GESMarkerList, ges_marker_list, GES, MARKER_LIST, GObject)
+/////extern
+////////G_DECLARE_FINAL_TYPE (GESMarkerList, ges_marker_list, GES, MARKER_LIST, GObject)
 
 extern
 GESMarkerList * ges_marker_list_new (void);

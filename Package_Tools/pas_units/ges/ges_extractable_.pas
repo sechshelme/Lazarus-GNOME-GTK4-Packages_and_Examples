@@ -3,7 +3,7 @@ unit ges_extractable_;
 interface
 
 uses
-  fp_glib2, fp_gst,  ges_types;
+  fp_glib2, fp_gst, ges_types;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

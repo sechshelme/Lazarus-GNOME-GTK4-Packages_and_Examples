@@ -37,6 +37,12 @@ https://sourceforge.net/p/meson/wiki/Cross%20compilation/
 # Version des runtergeladenen Paketes abfragen
 `git describe --tags`
 
+# Alle "-" in Dateinname in "_" umbenenen
+```
+for file in *-*; do mv "$file" "${file//-/_}"; done
+```
+
+
 # wine
 ## MinGW Installer
 (https://github.com/Vuniverse0/mingwInstaller/releases)
@@ -58,6 +64,9 @@ https://gitlab.com/freepascal.org/lazarus/lazarus/-/merge_requests/207
 ```
 gir2pas -P Laz -e Set -i /usr/share/gir-1.0/Gtk-3.0.gir -o gtk3bindings
 ```
+
+
+
 
 
 

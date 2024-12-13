@@ -20,7 +20,7 @@ type
     end;
   PGESLayerClass = ^TGESLayerClass;
 
-function geslayer_get_type: TGType; cdecl; external libges;
+function ges_layer_get_type: TGType; cdecl; external libges;
 function ges_layer_new:PGESLayer;cdecl;external libges;
 procedure ges_layer_set_timeline(layer:PGESLayer; timeline:PGESTimeline);cdecl;external libges;
 function ges_layer_get_timeline(layer:PGESLayer):PGESTimeline;cdecl;external libges;
@@ -55,7 +55,7 @@ implementation
 
 function GES_TYPE_LAYER: TGType;
 begin
-  Result := geslayer_get_type;
+  Result := ges_layer_get_type;
 end;
 
 function GES_LAYER(obj: Pointer): PGESLayer;

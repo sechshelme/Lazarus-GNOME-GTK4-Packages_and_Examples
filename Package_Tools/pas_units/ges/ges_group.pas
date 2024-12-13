@@ -28,7 +28,7 @@ type
   end;
   PGESGroupClass = ^TGESGroupClass;
 
-function gesgroup_get_type: TGType; cdecl; external libges;
+function ges_group_get_type: TGType; cdecl; external libges;
 function ges_group_new: PGESGroup; cdecl; external libges;
 
 // === Konventiert am: 12-12-24 19:37:02 ===
@@ -44,7 +44,7 @@ implementation
 
 function GES_TYPE_GROUP: TGType;
 begin
-  Result := gesgroup_get_type;
+  Result := ges_group_get_type;
 end;
 
 function GES_GROUP(obj: Pointer): PGESGroup;

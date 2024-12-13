@@ -24,7 +24,7 @@ type
   end;
   PGESProjectClass = ^TGESProjectClass;
 
-function gesproject_get_type: TGType; cdecl; external libges;
+function ges_project_get_type: TGType; cdecl; external libges;
 function ges_project_add_asset(project: PGESProject; asset: PGESAsset): Tgboolean; cdecl; external libges;
 function ges_project_remove_asset(project: PGESProject; asset: PGESAsset): Tgboolean; cdecl; external libges;
 function ges_project_list_assets(project: PGESProject; filter: TGType): PGList; cdecl; external libges;
@@ -55,7 +55,7 @@ implementation
 
 function GES_TYPE_PROJECT: TGType;
 begin
-  Result := gesproject_get_type;
+  Result := ges_project_get_type;
 end;
 
 function GES_PROJECT(obj: Pointer): PGESProject;

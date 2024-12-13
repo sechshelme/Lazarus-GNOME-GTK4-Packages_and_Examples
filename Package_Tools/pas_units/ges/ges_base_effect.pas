@@ -30,7 +30,7 @@ type
 
   TGESBaseEffectTimeTranslationFunc = function (effect:PGESBaseEffect; time:TGstClockTime; time_property_values:PGHashTable; user_data:Tgpointer):TGstClockTime;cdecl;
 
-function gesbase_effect_get_type: TGType; cdecl; external libges;
+function ges_base_effect_get_type: TGType; cdecl; external libges;
 function ges_base_effect_register_time_property(effect:PGESBaseEffect; child_property_name:Pgchar):Tgboolean;cdecl;external libges;
 function ges_base_effect_set_time_translation_funcs(effect:PGESBaseEffect; source_to_sink_func:TGESBaseEffectTimeTranslationFunc; sink_to_source_func:TGESBaseEffectTimeTranslationFunc; user_data:Tgpointer; destroy:TGDestroyNotify):Tgboolean;cdecl;external libges;
 function ges_base_effect_is_time_effect(effect:PGESBaseEffect):Tgboolean;cdecl;external libges;
@@ -48,7 +48,7 @@ implementation
 
 function GES_TYPE_BASE_EFFECT: TGType;
 begin
-  Result := gesbase_effect_get_type;
+  Result := ges_base_effect_get_type;
 end;
 
 function GES_BASE_EFFECT(obj: Pointer): PGESBaseEffect;

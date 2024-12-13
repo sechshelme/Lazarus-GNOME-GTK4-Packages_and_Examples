@@ -28,7 +28,7 @@ type
   end;
   PGESOperationClass = ^TGESOperationClass;
 
-function gesoperation_get_type: TGType; cdecl; external libges;
+function ges_operation_get_type: TGType; cdecl; external libges;
 
 // === Konventiert am: 12-12-24 19:33:31 ===
 
@@ -43,7 +43,7 @@ implementation
 
 function GES_TYPE_OPERATION: TGType;
 begin
-  Result := gesoperation_get_type;
+  Result := ges_operation_get_type;
 end;
 
 function GES_OPERATION(obj: Pointer): PGESOperation;

@@ -3,7 +3,7 @@ unit ges_asset;
 interface
 
 uses
-  fp_glib2, fp_gst, ges_types, ges_extractable_;
+  fp_glib2, fp_gst, ges_types;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -11,7 +11,7 @@ uses
 
   {GES_DECLARE_TYPE (Asset, asset, ASSET); }
 
-function gesasset_get_type: TGType; cdecl; external libges;
+function ges_asset_get_type: TGType; cdecl; external libges;
 function ges_asset_get_extractable_type(self: PGESAsset): TGType; cdecl; external libges;
 procedure ges_asset_request_async(extractable_type: TGType; id: Pgchar; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libges;
 function ges_asset_request(extractable_type: TGType; id: Pgchar; error: PPGError): PGESAsset; cdecl; external libges;
@@ -40,7 +40,7 @@ implementation
 
 function GES_TYPE_ASSET: TGType;
 begin
-  Result := gesasset_get_type;
+  Result := ges_asset_get_type;
 end;
 
 function GES_ASSET(obj: Pointer): PGESAsset;

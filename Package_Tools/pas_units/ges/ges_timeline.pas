@@ -3,7 +3,7 @@ unit ges_timeline;
 interface
 
 uses
-  fp_glib2, fp_gst, ges_types, ges_layer, ges_group, ges_timeline_element, ges_project_, ges_extractable_;
+  fp_glib2, fp_gst, ges_types, ges_group, ges_timeline_element, ges_project_, ges_extractable_;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -23,7 +23,7 @@ type
   end;
   PGESTimelineClass = ^TGESTimelineClass;
 
-function gestimeline_get_type: TGType; cdecl; external libges;
+function ges_timeline_get_type: TGType; cdecl; external libges;
 function ges_timeline_new: PGESTimeline; cdecl; external libges;
 function ges_timeline_new_from_uri(uri: Pgchar; error: PPGError): PGESTimeline; cdecl; external libges;
 function ges_timeline_load_from_uri(timeline: PGESTimeline; uri: Pgchar; error: PPGError): Tgboolean; cdecl; external libges;
@@ -73,7 +73,7 @@ implementation
 
 function GES_TYPE_TIMELINE: TGType;
 begin
-  Result := gestimeline_get_type;
+  Result := ges_timeline_get_type;
 end;
 
 function GES_TIMELINE(obj: Pointer): PGESTimeline;

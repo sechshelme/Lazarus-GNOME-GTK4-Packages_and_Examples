@@ -3,7 +3,7 @@ unit ges_track_element_asset;
 interface
 
 uses
-  fp_glib2, fp_gst, ges_enums, ges_types, ges_asset;
+  fp_glib2, fp_gst, ges_enums, ges_types;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -30,7 +30,7 @@ type
   end;
   PGESTrackElementAssetClass = ^TGESTrackElementAssetClass;
 
-function gestrack_element_asset_get_type: TGType; cdecl; external libges;
+function ges_track_element_asset_get_type: TGType; cdecl; external libges;
 function ges_track_element_asset_get_track_type(asset: PGESTrackElementAsset): TGESTrackType; cdecl; external libges;
 procedure ges_track_element_asset_set_track_type(asset: PGESTrackElementAsset; _type: TGESTrackType); cdecl; external libges;
 function ges_track_element_asset_get_natural_framerate(self: PGESTrackElementAsset; framerate_n: Pgint; framerate_d: Pgint): Tgboolean; cdecl; external libges;
@@ -48,7 +48,7 @@ implementation
 
 function GES_TYPE_TRACK_ELEMENT_ASSET: TGType;
 begin
-  Result := gestrack_element_asset_get_type;
+  Result := ges_track_element_asset_get_type;
 end;
 
 function GES_TRACK_ELEMENT_ASSET(obj: Pointer): PGESTrackElementAsset;

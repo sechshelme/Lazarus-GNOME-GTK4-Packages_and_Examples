@@ -3,7 +3,7 @@ unit ges_clip;
 interface
 
 uses
-  fp_glib2, ges_enums, ges_types, fp_gst, ges_track_element, ges_container, ges_base_effect;
+  fp_glib2, fp_gst, ges_enums, ges_types, ges_track_element, ges_container, ges_base_effect;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
@@ -45,7 +45,7 @@ type
     end;
   PGESClipClass = ^TGESClipClass;
 
-function gesclip_get_type: TGType; cdecl; external libges;
+function ges_clip_get_type: TGType; cdecl; external libges;
 function ges_clip_get_supported_formats(clip:PGESClip):TGESTrackType;cdecl;external libges;
 procedure ges_clip_set_supported_formats(clip:PGESClip; supportedformats:TGESTrackType);cdecl;external libges;
 function ges_clip_add_asset(clip:PGESClip; asset:PGESAsset):PGESTrackElement;cdecl;external libges;
@@ -85,7 +85,7 @@ implementation
 
 function GES_TYPE_CLIP: TGType;
 begin
-  Result := gesclip_get_type;
+  Result := ges_clip_get_type;
 end;
 
 function GES_CLIP(obj: Pointer): PGESClip;
