@@ -27,7 +27,7 @@
 
 
 #define GES_TYPE_PIPELINE ges_pipeline_get_type()
-GES_DECLARE_TYPE(Pipeline, pipeline, PIPELINE);
+//GES_DECLARE_TYPE (Pipeline, pipeline, PIPELINE);
 
 /**
  * GESPipeline:

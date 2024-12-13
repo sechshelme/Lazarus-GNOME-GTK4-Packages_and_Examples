@@ -1,6 +1,5 @@
 /* GStreamer Editing Services
- * Copyright (C) 2010 Brandon Lewis <brandon.lewis@collabora.co.uk>
- *               2010 Nokia Corporation
+ * Copyright (C) 2011 Thibault Saunier <thibault.saunier@collabora.co.uk>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -20,12 +19,42 @@
 
 #pragma once
 
-#include <gst/gst.h>
-#include <ges/ges-prelude.h>
+#include <glib-object.h>
+#include <ges/ges-types.h>
 
 
 
-GES_DEPRECATED GstSample *
-ges_play_sink_convert_frame (GstElement * playsink, GstCaps * caps);
+#define GES_TYPE_EFFECT_CLIP ges_effect_clip_get_type()
+//GES_DECLARE_TYPE (EffectClip, effect_clip, EFFECT_CLIP);
+
+/**
+ * GESEffectClip:
+ */
+struct _GESEffectClip {
+  /*< private >*/
+  GESBaseEffectClip parent;
+
+  GESEffectClipPrivate *priv;
+
+  /* Padding for API extension */
+  gpointer _ges_reserved[GES_PADDING];
+};
+
+/**
+ * GESEffectClipClass:
+ *
+ */
+
+struct _GESEffectClipClass {
+  /*< private >*/
+  GESBaseEffectClipClass parent_class;
+
+  /* Padding for API extension */
+  gpointer _ges_reserved[GES_PADDING];
+};
+
+extern GESEffectClip *
+ges_effect_clip_new (const gchar * video_bin_description,
+				      const gchar * audio_bin_description);
 
 

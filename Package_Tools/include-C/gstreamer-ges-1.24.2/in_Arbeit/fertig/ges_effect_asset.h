@@ -26,7 +26,7 @@
 
 
 #define GES_TYPE_EFFECT_ASSET             (ges_effect_asset_get_type ())
-GES_DECLARE_TYPE(EffectAsset, effect_asset, EFFECT_ASSET);
+//GES_DECLARE_TYPE (EffectAsset, effect_asset, EFFECT_ASSET);
 
 struct _GESEffectAssetClass
 {

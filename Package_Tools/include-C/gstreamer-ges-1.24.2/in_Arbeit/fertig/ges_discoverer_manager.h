@@ -14,12 +14,12 @@
  */
 #define GES_TYPE_DISCOVERER_MANAGER ges_discoverer_manager_get_type ()
 
-struct _GESDiscovererManagerClass
+typedef struct _GESDiscovererManagerClass
 {
   GObjectClass parent_class;
-};
+}ffff ;
 
-GES_DECLARE_TYPE(DiscovererManager, discoverer_manager, DISCOVERER_MANAGER);
+//GES_DECLARE_TYPE( DiscovererManager, discoverer_manager, DISCOVERER_MANAGER);
 
 extern GstClockTime            ges_discoverer_manager_get_timeout    (GESDiscovererManager * self);
 extern void                    ges_discoverer_manager_set_timeout    (GESDiscovererManager * self,

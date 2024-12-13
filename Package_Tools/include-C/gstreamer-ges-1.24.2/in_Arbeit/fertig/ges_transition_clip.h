@@ -1,5 +1,6 @@
 /* GStreamer Editing Services
- * Copyright (C) 2011 Thibault Saunier <thibault.saunier@collabora.co.uk>
+ * Copyright (C) 2009 Edward Hervey <edward.hervey@collabora.co.uk>
+ *               2009 Nokia Corporation
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -21,40 +22,52 @@
 
 #include <glib-object.h>
 #include <ges/ges-types.h>
+#include <ges/ges-base-transition-clip.h>
 
 
 
-#define GES_TYPE_EFFECT_CLIP ges_effect_clip_get_type()
-GES_DECLARE_TYPE(EffectClip, effect_clip, EFFECT_CLIP);
+#define GES_TYPE_TRANSITION_CLIP ges_transition_clip_get_type()
+//GES_DECLARE_TYPE (TransitionClip, transition_clip, TRANSITION_CLIP);
 
 /**
- * GESEffectClip:
+ * GESTransitionClip:
+ * @vtype: a #GESVideoStandardTransitionType indicating the type of video transition
+ * to apply.
+ *
+ * ### Children Properties
+ *
+ *  {{ libs/GESTransitionClip-children-props.md }}
  */
-struct _GESEffectClip {
+struct _GESTransitionClip {
   /*< private >*/
-  GESBaseEffectClip parent;
+  GESBaseTransitionClip parent;
 
-  GESEffectClipPrivate *priv;
+  /*< public >*/
+  GESVideoStandardTransitionType vtype;
+
+  /*< private >*/
+  GESTransitionClipPrivate *priv;
 
   /* Padding for API extension */
   gpointer _ges_reserved[GES_PADDING];
 };
 
 /**
- * GESEffectClipClass:
+ * GESTransitionClipClass:
  *
  */
 
-struct _GESEffectClipClass {
+struct _GESTransitionClipClass {
   /*< private >*/
-  GESBaseEffectClipClass parent_class;
+  GESBaseTransitionClipClass parent_class;
 
   /* Padding for API extension */
   gpointer _ges_reserved[GES_PADDING];
 };
 
-extern GESEffectClip *
-ges_effect_clip_new (const gchar * video_bin_description,
-				      const gchar * audio_bin_description);
+extern
+GESTransitionClip *ges_transition_clip_new (GESVideoStandardTransitionType vtype);
+extern
+GESTransitionClip *ges_transition_clip_new_for_nick (char *nick);
 
 

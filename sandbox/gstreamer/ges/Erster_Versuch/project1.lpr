@@ -4,15 +4,21 @@ uses
   ges,                                  // io.
   ges_enums,                            // io.
   ges_types,                            // io.
+  ges_version,                          // io.
   ges_utils,                            // io.
   ges_timeline_element,                 // io.
   ges_extractable_,                     // io.
   ges_asset,                            // io.
   ges_track_element_asset,              // io.
+  ges_discoverer_manager,               // io.
+  ges_frame_composition_meta,           // io.
+  ges_gerror,                           // io.
+  ges_screenshot,                       // io.
   ges_container,                        // io. -> ges_timeline_element
   ges_group,                            // io. -> ges_container
   ges_timeline,                         // io. -> ges_group, ges_timeline_element, ges_project_, ges_extractable_
   ges_formatter,                        // io.
+  ges_command_line_formatter,           // io. -> ges_formatter
   ges_project_,                         // io. -> ges_formatter
   ges_track_element,                    // io. -> ges_timeline_element
   ges_operation,                        // io. -> ges_track_element
@@ -23,6 +29,9 @@ uses
   ges_layer,                            // io. -> ges_clip
   ges_source_clip,                      // io. -> ges_clip
   ges_title_clip,                       // io. -> ges_source_clip
+  ges_test_clip,                        // io. -> ges_source_clip
+  ges_time_overlay_clip,                // io. -> ges_source_clip
+  ges_uri_clip,                         // io. -> ges_source_clip
   ges_marker_list,                      // io.
   ges_meta_container,                   // io. -> ges_marker_list
   ges_clip_asset,                       // io.
@@ -47,7 +56,17 @@ uses
   ges_title_source,                     // io. -> ges_video_source
   ges_base_effect_clip,                 // io. -> ges_operation_clip
   ges_base_transition_clip,             // io. -> ges_operation_clip
+  ges_transition_clip,                  // io. -> ges_base_transition_clip
   ges_base_xml_formatter,               // io. -> ges_formatter
+  ges_xml_formatter,                    // io. -> ges_base_xml_formatter
+  ges_effect,                           // io. -> ges_base_effect
+  ges_effect_asset,                     // io. -> ges_track_element, ges_track_element_asset
+  ges_effect_clip,                      // io. -> ges_base_effect_clip
+  ges_image_source,                     // io. -> ges_video_source
+  ges_multi_file_source,                // io. -> ges_video_source
+  ges_pipeline,                         // io.
+  ges_pitivi_formatter,                 // io. -> ges_formatter
+
 
 
 

@@ -1,6 +1,5 @@
 /* GStreamer Editing Services
- * Copyright (C) 2009 Edward Hervey <edward.hervey@collabora.co.uk>
- *               2009 Nokia Corporation
+ * Copyright (C) 2013 Lubosz Sarnecki <lubosz@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -22,52 +21,39 @@
 
 #include <glib-object.h>
 #include <ges/ges-types.h>
-#include <ges/ges-base-transition-clip.h>
+#include <ges/ges-video-source.h>
 
 
-
-#define GES_TYPE_TRANSITION_CLIP ges_transition_clip_get_type()
-GES_DECLARE_TYPE(TransitionClip, transition_clip, TRANSITION_CLIP);
+#define GES_TYPE_MULTI_FILE_SOURCE ges_multi_file_source_get_type()
+//GES_DECLARE_TYPE (MultiFileSource, multi_file_source, MULTI_FILE_SOURCE);
 
 /**
- * GESTransitionClip:
- * @vtype: a #GESVideoStandardTransitionType indicating the type of video transition
- * to apply.
- *
- * ### Children Properties
- *
- *  {{ libs/GESTransitionClip-children-props.md }}
+ * GESMultiFileSource:
  */
-struct _GESTransitionClip {
-  /*< private >*/
-  GESBaseTransitionClip parent;
+struct _GESMultiFileSource
+{
+  /*< private > */
+  GESVideoSource parent;
 
-  /*< public >*/
-  GESVideoStandardTransitionType vtype;
+  gchar *uri;
 
-  /*< private >*/
-  GESTransitionClipPrivate *priv;
+  GESMultiFileSourcePrivate *priv;
 
   /* Padding for API extension */
   gpointer _ges_reserved[GES_PADDING];
 };
 
-/**
- * GESTransitionClipClass:
- *
- */
-
-struct _GESTransitionClipClass {
-  /*< private >*/
-  GESBaseTransitionClipClass parent_class;
+struct _GESMultiFileSourceClass
+{
+  GESVideoSourceClass parent_class;
 
   /* Padding for API extension */
   gpointer _ges_reserved[GES_PADDING];
 };
 
 extern
-GESTransitionClip *ges_transition_clip_new (GESVideoStandardTransitionType vtype);
-extern
-GESTransitionClip *ges_transition_clip_new_for_nick (char *nick);
+GESMultiFileSource *ges_multi_file_source_new (gchar * uri);
+
+#define GES_MULTI_FILE_URI_PREFIX "multifile://"
 
 

@@ -1,6 +1,6 @@
-/* GStreamer Editing Services
- * Copyright (C) 2009 Edward Hervey <edward.hervey@collabora.co.uk>
- *               2009 Nokia Corporation
+/* Gstreamer Editing Services
+ *
+ * Copyright (C) <2012> Thibault Saunier <thibault.saunier@collabora.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -14,40 +14,30 @@
  *
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
- * Boston, MA 02110-1301, USA.
+ * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+ * Boston, MA 02111-1307, USA.
  */
-
 #pragma once
 
-#include <glib-object.h>
-#include <ges/ges-types.h>
-#include <ges/ges-video-source.h>
+#include "ges-base-xml-formatter.h"
 
 
+#define GES_TYPE_XML_FORMATTER (ges_xml_formatter_get_type ())
+//GES_DECLARE_TYPE (XmlFormatter, xml_formatter, XML_FORMATTER);
 
-#define GES_TYPE_IMAGE_SOURCE ges_image_source_get_type()
-GES_DECLARE_TYPE(ImageSource, image_source, IMAGE_SOURCE);
+struct _GESXmlFormatter
+{
+  GESBaseXmlFormatter parent;
 
-/**
- * GESImageSource:
- */
-struct _GESImageSource {
-  /*< private >*/
-  GESVideoSource parent;
+  GESXmlFormatterPrivate *priv;
 
-  gchar *uri;
-
-  GESImageSourcePrivate *priv;
-
-  /* Padding for API extension */
   gpointer _ges_reserved[GES_PADDING];
 };
 
-struct _GESImageSourceClass {
-  GESVideoSourceClass parent_class;
+struct _GESXmlFormatterClass
+{
+  GESBaseXmlFormatterClass parent;
 
-  /* Padding for API extension */
   gpointer _ges_reserved[GES_PADDING];
 };
 

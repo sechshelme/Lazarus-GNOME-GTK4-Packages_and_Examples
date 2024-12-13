@@ -1,6 +1,6 @@
-/* Gstreamer Editing Services
- *
- * Copyright (C) <2012> Thibault Saunier <thibault.saunier@collabora.com>
+/* GStreamer Editing Services
+ * Copyright (C) 2010 Brandon Lewis <brandon.lewis@collabora.co.uk>
+ *               2010 Nokia Corporation
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -14,31 +14,18 @@
  *
  * You should have received a copy of the GNU Library General Public
  * License along with this library; if not, write to the
- * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
- * Boston, MA 02111-1307, USA.
+ * Free Software Foundation, Inc., 51 Franklin St, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
  */
+
 #pragma once
 
-#include "ges-base-xml-formatter.h"
+#include <gst/gst.h>
+#include <ges/ges-prelude.h>
 
 
-#define GES_TYPE_XML_FORMATTER (ges_xml_formatter_get_type ())
-GES_DECLARE_TYPE(XmlFormatter, xml_formatter, XML_FORMATTER);
 
-struct _GESXmlFormatter
-{
-  GESBaseXmlFormatter parent;
-
-  GESXmlFormatterPrivate *priv;
-
-  gpointer _ges_reserved[GES_PADDING];
-};
-
-struct _GESXmlFormatterClass
-{
-  GESBaseXmlFormatterClass parent;
-
-  gpointer _ges_reserved[GES_PADDING];
-};
+GstSample *
+ges_play_sink_convert_frame (GstElement * playsink, GstCaps * caps);
 
 

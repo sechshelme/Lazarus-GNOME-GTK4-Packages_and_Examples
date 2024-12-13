@@ -1,6 +1,5 @@
 /* GStreamer Editing Services
- * Copyright (C) 2009 Edward Hervey <edward.hervey@collabora.co.uk>
- *               2009 Nokia Corporation
+ * Copyright (C) 2010 Thibault Saunier <thibault.saunier@collabora.co.uk>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -22,51 +21,47 @@
 
 #include <glib-object.h>
 #include <ges/ges-types.h>
-#include <ges/ges-source-clip.h>
-#include <ges/ges-track.h>
+#include <ges/ges-base-effect.h>
 
 
+#define GES_TYPE_EFFECT ges_effect_get_type()
+//GES_DECLARE_TYPE (Effect, effect, EFFECT);
 
-#define GES_TYPE_URI_CLIP ges_uri_clip_get_type()
-GES_DECLARE_TYPE(UriClip, uri_clip, URI_CLIP);
-
-struct _GESUriClip {
-  GESSourceClip parent;
-
-  /*< private >*/
-  GESUriClipPrivate *priv;
+/**
+ * GESEffect:
+ *
+ */
+struct _GESEffect
+{
+  /*< private > */
+  GESBaseEffect parent;
+  GESEffectPrivate *priv;
 
   /* Padding for API extension */
   gpointer _ges_reserved[GES_PADDING];
 };
 
 /**
- * GESUriClipClass:
+ * GESEffectClass:
+ * @parent_class: parent class
  */
 
-struct _GESUriClipClass {
-  /*< private >*/
-  GESSourceClipClass parent_class;
+struct _GESEffectClass
+{
+  /*< private > */
+  GESBaseEffectClass parent_class;
+
+  GList *rate_properties;
 
   /* Padding for API extension */
   gpointer _ges_reserved[GES_PADDING];
+
 };
 
-extern void
-ges_uri_clip_set_mute (GESUriClip * self, gboolean mute);
+extern GESEffect*
+ges_effect_new (const gchar * bin_description);
 
-extern void
-ges_uri_clip_set_is_image (GESUriClip * self,
-    gboolean is_image);
-
-extern
-gboolean ges_uri_clip_is_muted (GESUriClip * self);
-extern
-gboolean ges_uri_clip_is_image (GESUriClip * self);
-extern
-const gchar *ges_uri_clip_get_uri (GESUriClip * self);
-
-extern
-GESUriClip* ges_uri_clip_new (const gchar *uri);
+extern gboolean
+ges_effect_class_register_rate_property (GESEffectClass *klass, const gchar *element_name, const gchar *property_name);
 
 

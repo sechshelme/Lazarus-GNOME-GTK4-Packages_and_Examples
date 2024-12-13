@@ -1,5 +1,6 @@
 /* GStreamer Editing Services
- * Copyright (C) 2010 Thibault Saunier <thibault.saunier@collabora.co.uk>
+ * Copyright (C) 2009 Edward Hervey <edward.hervey@collabora.co.uk>
+ *               2009 Nokia Corporation
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -21,47 +22,33 @@
 
 #include <glib-object.h>
 #include <ges/ges-types.h>
-#include <ges/ges-base-effect.h>
+#include <ges/ges-video-source.h>
 
 
-#define GES_TYPE_EFFECT ges_effect_get_type()
-GES_DECLARE_TYPE(Effect, effect, EFFECT);
+
+#define GES_TYPE_IMAGE_SOURCE ges_image_source_get_type()
+//GES_DECLARE_TYPE (ImageSource, image_source, IMAGE_SOURCE);
 
 /**
- * GESEffect:
- *
+ * GESImageSource:
  */
-struct _GESEffect
-{
-  /*< private > */
-  GESBaseEffect parent;
-  GESEffectPrivate *priv;
+struct _GESImageSource {
+  /*< private >*/
+  GESVideoSource parent;
+
+  gchar *uri;
+
+  GESImageSourcePrivate *priv;
 
   /* Padding for API extension */
   gpointer _ges_reserved[GES_PADDING];
 };
 
-/**
- * GESEffectClass:
- * @parent_class: parent class
- */
-
-struct _GESEffectClass
-{
-  /*< private > */
-  GESBaseEffectClass parent_class;
-
-  GList *rate_properties;
+struct _GESImageSourceClass {
+  GESVideoSourceClass parent_class;
 
   /* Padding for API extension */
   gpointer _ges_reserved[GES_PADDING];
-
 };
-
-extern GESEffect*
-ges_effect_new (const gchar * bin_description);
-
-extern gboolean
-ges_effect_class_register_rate_property (GESEffectClass *klass, const gchar *element_name, const gchar *property_name);
 
 

@@ -1,5 +1,6 @@
-/* GStreamer Editing Services Pitivi Formatter
- * Copyright (C) 2011-2012 Mathieu Duponchelle <seeed@laposte.net>
+/* GStreamer Editing Services
+ * Copyright (C) 2009 Edward Hervey <edward.hervey@collabora.co.uk>
+ *               2009 Nokia Corporation
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -19,40 +20,53 @@
 
 #pragma once
 
+#include <glib-object.h>
+#include <ges/ges-types.h>
+#include <ges/ges-source-clip.h>
+#include <ges/ges-track.h>
 
 
-#define GES_TYPE_PITIVI_FORMATTER ges_pitivi_formatter_get_type()
-GES_DECLARE_TYPE(PitiviFormatter, pitivi_formatter, PITIVI_FORMATTER);
 
-/**
- * GESPitiviFormatter: (attributes doc.skip=true):
- *
- * Serializes a #GESTimeline to a file using the xptv Pitivi file format
- */
-struct _GESPitiviFormatter {
-  GESFormatter parent;
+#define GES_TYPE_URI_CLIP ges_uri_clip_get_type()
+//GES_DECLARE_TYPE (UriClip, uri_clip, URI_CLIP);
 
-  /*< public > */
+struct _GESUriClip {
+  GESSourceClip parent;
+
   /*< private >*/
-  GESPitiviFormatterPrivate *priv;
+  GESUriClipPrivate *priv;
 
   /* Padding for API extension */
   gpointer _ges_reserved[GES_PADDING];
 };
 
 /**
- * GESPitiviFormatterClass: (attributes doc.skip=true):
+ * GESUriClipClass:
  */
-struct _GESPitiviFormatterClass
-{
+
+struct _GESUriClipClass {
   /*< private >*/
-  GESFormatterClass parent_class;
+  GESSourceClipClass parent_class;
 
   /* Padding for API extension */
   gpointer _ges_reserved[GES_PADDING];
 };
+
+extern void
+ges_uri_clip_set_mute (GESUriClip * self, gboolean mute);
+
+extern void
+ges_uri_clip_set_is_image (GESUriClip * self,
+    gboolean is_image);
 
 extern
-GESPitiviFormatter *ges_pitivi_formatter_new (void);
+gboolean ges_uri_clip_is_muted (GESUriClip * self);
+extern
+gboolean ges_uri_clip_is_image (GESUriClip * self);
+extern
+const gchar *ges_uri_clip_get_uri (GESUriClip * self);
+
+extern
+GESUriClip* ges_uri_clip_new (const gchar *uri);
 
 

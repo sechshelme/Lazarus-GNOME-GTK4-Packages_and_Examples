@@ -1,5 +1,5 @@
-/* GStreamer Editing Services
- * Copyright (C) 2013 Lubosz Sarnecki <lubosz@gmail.com>
+/* GStreamer Editing Services Pitivi Formatter
+ * Copyright (C) 2011-2012 Mathieu Duponchelle <seeed@laposte.net>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -19,41 +19,40 @@
 
 #pragma once
 
-#include <glib-object.h>
-#include <ges/ges-types.h>
-#include <ges/ges-video-source.h>
 
 
-#define GES_TYPE_MULTI_FILE_SOURCE ges_multi_file_source_get_type()
-GES_DECLARE_TYPE(MultiFileSource, multi_file_source, MULTI_FILE_SOURCE);
+#define GES_TYPE_PITIVI_FORMATTER ges_pitivi_formatter_get_type()
+//GES_DECLARE_TYPE (PitiviFormatter, pitivi_formatter, PITIVI_FORMATTER);
 
 /**
- * GESMultiFileSource:
+ * GESPitiviFormatter: (attributes doc.skip=true):
+ *
+ * Serializes a #GESTimeline to a file using the xptv Pitivi file format
  */
-struct _GESMultiFileSource
-{
-  /*< private > */
-  GESVideoSource parent;
+struct _GESPitiviFormatter {
+  GESFormatter parent;
 
-  gchar *uri;
-
-  GESMultiFileSourcePrivate *priv;
+  /*< public > */
+  /*< private >*/
+  GESPitiviFormatterPrivate *priv;
 
   /* Padding for API extension */
   gpointer _ges_reserved[GES_PADDING];
 };
 
-struct _GESMultiFileSourceClass
+/**
+ * GESPitiviFormatterClass: (attributes doc.skip=true):
+ */
+struct _GESPitiviFormatterClass
 {
-  GESVideoSourceClass parent_class;
+  /*< private >*/
+  GESFormatterClass parent_class;
 
   /* Padding for API extension */
   gpointer _ges_reserved[GES_PADDING];
 };
 
 extern
-GESMultiFileSource *ges_multi_file_source_new (gchar * uri);
-
-#define GES_MULTI_FILE_URI_PREFIX "multifile://"
+GESPitiviFormatter *ges_pitivi_formatter_new (void);
 
 

@@ -32,7 +32,7 @@
 
 
 #define GES_TYPE_TEST_CLIP ges_test_clip_get_type()
-GES_DECLARE_TYPE(TestClip, test_clip, TEST_CLIP);
+//GES_DECLARE_TYPE (TestClip, test_clip, TEST_CLIP);
 
 /**
  * GESTestClip:

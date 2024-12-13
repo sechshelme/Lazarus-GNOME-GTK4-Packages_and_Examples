@@ -29,7 +29,7 @@ typedef struct _GESCommandLineFormatterClass GESCommandLineFormatterClass;
 typedef struct _GESCommandLineFormatter GESCommandLineFormatter;
 
 #define GES_TYPE_COMMAND_LINE_FORMATTER             (ges_command_line_formatter_get_type ())
-GES_DECLARE_TYPE(CommandLineFormatter, command_line_formatter, COMMAND_LINE_FORMATTER);
+//GES_DECLARE_TYPE (CommandLineFormatter, command_line_formatter, COMMAND_LINE_FORMATTER);
 
 struct _GESCommandLineFormatterClass
 {
