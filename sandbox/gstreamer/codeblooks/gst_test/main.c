@@ -1,4 +1,4 @@
-// gcc main.c -o main `pkg-config --cflags --libs gstreamer-1.0 gstreamer-video-1.0 gstreamer-codecparsers-1.0`
+// gcc main.c -o main `pkg-config --cflags --libs gstreamer-1.0 gstreamer-video-1.0 gstreamer-codecparsers-1.0 gst-editing-services-1.0``
 
 // https://www.perplexity.ai/search/was-ist-gstreamer-ges-wX90wJ5VRxiFB.rAgZ2KoQ
 // https://www.perplexity.ai/search/gib-mir-ein-gst-ges-beispiel-i-QPk0EXx2QIurXML0bNS8cg
@@ -105,5 +105,5 @@ pipeline = GST_PIPELINE(ges_pipeline);
     gst_object_unref(pipeline);
 
     return 0;
-
+va_list vl;
 }

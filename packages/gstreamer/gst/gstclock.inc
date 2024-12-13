@@ -133,7 +133,6 @@ function gst_clock_periodic_id_reinit(clock: PGstClock; id: TGstClockID; start_t
 const
   GST_CLOCK_TIME_NONE = TGstClockTime(-(1));
 
-// function GST_CLOCK_TIME_NONE: TGstClockTime;
 function GST_CLOCK_TIME_IS_VALID(time: Tguint64): Tgboolean;
 function GST_CLOCK_STIME_NONE: TGstClockTimeDiff;
 function GST_CLOCK_STIME_IS_VALID(time: Tguint64): Tgboolean;
@@ -216,11 +215,6 @@ begin
   GST_CLOCK_CAST := PGstClock(obj);
 end;
 
-//function GST_CLOCK_TIME_NONE: TGstClockTime;
-//begin
-//  GST_CLOCK_TIME_NONE := TGstClockTime(-(1));
-//end;
-//
 function GST_CLOCK_TIME_IS_VALID(time: Tguint64): Tgboolean;
 begin
   GST_CLOCK_TIME_IS_VALID := (TGstClockTime(time)) <> GST_CLOCK_TIME_NONE;
