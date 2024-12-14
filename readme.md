@@ -58,8 +58,8 @@ Plugin-Infos:
 `sudo apt install libva-dev`
 
 ### C-Examples
-- (https://gstreamer.freedesktop.org/documentation/tutorials/basic/hello-world.html?gi-language=c)
-- (https://github.com/GStreamer/gst-plugins-good/blob/master/tests/check/elements/id3demux.c)
+- [https://gstreamer.freedesktop.org/documentation/tutorials/basic/hello-world.html?gi-language=c]
+- [https://github.com/GStreamer/gst-plugins-good/blob/master/tests/check/elements/id3demux.c]
 
 ### wine PATH
 Folgende Datei editieren:
