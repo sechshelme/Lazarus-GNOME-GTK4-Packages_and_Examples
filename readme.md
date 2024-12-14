@@ -1,6 +1,6 @@
 # Inhalt
-| **Paket Name:**   | **Version:** |
-|----------         |----------    |
+| **Paket Name:**   | **Version:** | **Beschrieb:** |
+| ---               | ---          | ---    |
 | **glib2**         | 2.80.0       |
 | **gio-unix-2.0**  | 2.80.0       |
 | **Cairo**         | 1.18.1       |
@@ -8,7 +8,7 @@
 | **GdkPixbuf2**    | 2.42.10      |
 | **GTK4**          | 4.14.2       |
 | **gstreamer**     | 1.24.2.0     |
-| **gstreamer ges** | 1.24.2.0     |
+| **gstreamer ges** | 1.24.2.0     | GStreamer Editing Services |
 
 ## Pakete installieren
 - `sudo apt install libgstreamer-plugins-bad1.0-dev`
@@ -47,6 +47,10 @@ https://github.com/ToshioCP/Gobject-tutorial?tab=readme-ov-file
 https://github.com/ToshioCP/Gtk4-tutorial
 
 ## gstreamer
+
+### ges ( GStreamer Editing Services )
+-sudo apt install libges-1.0-dev 
+
 ### Tools
 Plugin-Infos:
 - `gst-inspect-1.0 --plugin`
