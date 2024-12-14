@@ -33,7 +33,7 @@ struct _GClosure
   ...
 *)
 
-  TGClosure = record
+  TGClosure = bitpacked record
     //      flag0 : longint;   // ???
     ref_count: 0..32767;
     meta_marshal_nouse: 0..1;
@@ -61,12 +61,11 @@ struct _GClosure
     n_params: longint; param_types: PGType); cdecl;
 
 type
-  PGCClosure = ^TGCClosure;
-
   TGCClosure = record
     closure: TGClosure;
     callback: Tgpointer;
   end;
+  PGCClosure = ^TGCClosure;
 
 function g_cclosure_new(callback_func: TGCallback; user_data: Tgpointer; destroy_data: TGClosureNotify): PGClosure; cdecl; external libgobject2_0;
 function g_cclosure_new_swap(callback_func: TGCallback; user_data: Tgpointer; destroy_data: TGClosureNotify): PGClosure; cdecl; external libgobject2_0;

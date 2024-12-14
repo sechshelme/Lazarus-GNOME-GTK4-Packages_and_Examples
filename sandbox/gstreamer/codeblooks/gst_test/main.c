@@ -106,4 +106,5 @@ pipeline = GST_PIPELINE(ges_pipeline);
 
     return 0;
 va_list vl;
+G_CALLBACK
 }

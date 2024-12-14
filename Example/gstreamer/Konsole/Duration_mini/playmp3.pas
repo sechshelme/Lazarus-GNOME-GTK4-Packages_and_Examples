@@ -3,15 +3,12 @@ program project1;
 uses
   ctypes,
   crt,
-  glib280,
-  gst124,
-  gstTools;
+  fp_glib2,
+  fp_gst,
+  fp_gstTools;
 
 const
-  //  path = '/home/tux/Schreibtisch/sound/test.wav';
-  //  path:string = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/test.wav';
-  //path = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/test.mp3';
-     path = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/test.flac';
+  path = '/home/tux/Schreibtisch/sound/test.mp3';
 
   procedure message_cb(bus: PGstBus; msg: PGstMessage; Data: Pointer); cdecl;
   var
@@ -25,7 +22,7 @@ const
         WriteLn('Duration');
         gst_element_query_duration(GST_ELEMENT(pipeline), GST_FORMAT_TIME, @duration);
         duration := duration div G_USEC_PER_SEC;
-        WriteLn(GstClockToStr( duration));
+        WriteLn(GstClockToStr(duration));
 
       end;
       GST_MESSAGE_TAG: begin
@@ -46,9 +43,7 @@ const
   begin
     gst_init(@argc, @argv);
 
-        pipeline := gst_parse_launch(PChar('filesrc location="' + path + '" ! queue ! id3demux name=demux ! decodebin ! audioconvert  ! autoaudiosink'), nil);
-//    pipeline := gst_parse_launch(PChar('filesrc location="' + path + '" ! queue ! id3demux name=demux ! decodebin ! audioconvert ! fakesink'), nil);
-
+    pipeline := gst_parse_launch(PChar('filesrc location="' + path + '" ! queue ! id3demux name=demux ! decodebin ! audioconvert  ! autoaudiosink'), nil);
 
     demux := gst_bin_get_by_name(GST_BIN(pipeline), 'demux');
     if demux = nil then begin
