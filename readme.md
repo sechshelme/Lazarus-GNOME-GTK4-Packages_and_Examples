@@ -1,18 +1,19 @@
 # Inhalt
-| **Paket Name:**   | **Version:** | **Beschrieb:** |
-| ---               | ---          | ---    |
-| **glib2**         | 2.80.0       |
-| **gio-unix-2.0**  | 2.80.0       |
-| **Cairo**         | 1.18.1       |
-| **Pango**         | 1.52.1       |
-| **GdkPixbuf2**    | 2.42.10      |
-| **GTK4**          | 4.14.2       |
-| **gstreamer**     | 1.24.2.0     |
-| **gstreamer ges** | 1.24.2.0     | GStreamer Editing Services |
+| **Paket Name:**   | **Version:** | **Beschrieb:**                 |
+| ---               | ---          | ---                            |
+| **glib2**         | 2.80.0       | GIMP Library                   |
+| **gio-unix-2.0**  | 2.80.0       | Unix input/output              |
+| **Cairo**         | 1.18.1       | 2D Grafik Bibliothek           |
+| **Pango**         | 1.52.1       | Text Layout                    |
+| **GdkPixbuf2**    | 2.42.10      | Bildpuffer für GTKx            |
+| **GTK4**          | 4.14.2       | GIMP Toolkit                   |
+| **gstreamer**     | 1.24.2.0     | GStreamer Multimedia Framework |
+| **gstreamer ges** | 1.24.2.0     | GStreamer Editing Services     |
 
 ## Pakete installieren
 - `sudo apt install libgstreamer-plugins-bad1.0-dev`
 - `sudo apt install libgstreamer-plugins-base1.0-dev`
+- `sudo apt install libges-1.0-dev` 
 
 
 ## Paketinfo
@@ -47,9 +48,6 @@ https://github.com/ToshioCP/Gobject-tutorial?tab=readme-ov-file
 https://github.com/ToshioCP/Gtk4-tutorial
 
 ## gstreamer
-
-### ges ( GStreamer Editing Services )
--sudo apt install libges-1.0-dev 
 
 ### Tools
 Plugin-Infos:
