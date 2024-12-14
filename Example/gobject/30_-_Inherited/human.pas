@@ -1,4 +1,4 @@
-unit Human_Parent;
+unit Human;
 
 interface
 
@@ -13,6 +13,7 @@ type
     parent_instance: TGObject;
     FirstName,
     LastName: Pgchar;
+    size:Tgfloat;
     age: Tgint;
   end;
   PEHuman = ^TEHuman;
@@ -25,13 +26,11 @@ type
 
 function e_human_get_type: TGType;
 function e_human_new: PEHuman;
-function e_human_new_with_data(FirstName, LastName: Pgchar; age: Tgint): PEHuman;
+function e_human_new_with_data(FirstName, LastName: Pgchar; age: Tgint; size:Tgfloat): PEHuman;
 procedure e_human_set_firstname(self: PEHuman; Name: Pgchar);
 procedure e_human_set_lastname(self: PEHuman; Name: Pgchar);
-procedure e_human_set_age(self: PEHuman; age: Tgint);
 function e_human_get_firstname(self: PEHuman): Pgchar;
 function e_human_get_lastname(self: PEHuman): Pgchar;
-function e_human_get_age(self: PEHuman): Tgint;
 
 function E_TYPE_HUMAN: TGType;
 function E_HUMAN(obj: Pointer): PEHuman;
@@ -70,6 +69,9 @@ begin
     3: begin
       self^.age := g_value_get_int(Value);
     end;
+    4: begin
+      self^.size := g_value_get_float(Value);
+    end;
     else begin
       G_OBJECT_WARN_INVALID_PROPERTY_ID(object_, property_id, pspec);
     end;
@@ -91,6 +93,9 @@ begin
     end;
     3: begin
       g_value_set_int(Value, self^.age);
+    end;
+    4: begin
+      g_value_set_float(Value, self^.size);
     end;
     else begin
       G_OBJECT_WARN_INVALID_PROPERTY_ID(object_, property_id, pspec);
@@ -121,7 +126,7 @@ end;
 procedure e_human_class_init(klass: PEHumanClass); cdecl;
 var
   object_class: PGObjectClass;
-  obj_properties: array[0..3] of PGParamSpec;
+  obj_properties: array[0..4] of PGParamSpec;
 begin
   object_class := G_OBJECT_CLASS(klass);
 
@@ -135,6 +140,7 @@ begin
   obj_properties[1] := g_param_spec_string('firstname', 'FirstName', 'FirstName of the human', nil, G_PARAM_READWRITE);
   obj_properties[2] := g_param_spec_string('lastname', 'LastName', 'LastName of the human', nil, G_PARAM_READWRITE);
   obj_properties[3] := g_param_spec_int('age', 'Age', 'Age of the human', 0, 150, 0, G_PARAM_READWRITE);
+  obj_properties[4] := g_param_spec_float('size', 'Sizw', 'Size of the human', 0.0, 3.0, 0.0, G_PARAM_READWRITE);
 
   g_object_class_install_properties(object_class, Length(obj_properties), obj_properties);
 end;
@@ -170,12 +176,13 @@ begin
   Result := g_object_new(E_TYPE_HUMAN, nil);
 end;
 
-function e_human_new_with_data(FirstName, LastName: Pgchar; age: Tgint): PEHuman;
+function e_human_new_with_data(FirstName, LastName: Pgchar; age: Tgint;  size: Tgfloat): PEHuman;
 begin
   Result := g_object_new(E_TYPE_HUMAN,
     'firstname', FirstName,
     'lastname', LastName,
     'age', age,
+    'size', size,
     nil);
 end;
 
@@ -197,16 +204,6 @@ end;
 function e_human_get_lastname(self: PEHuman): Pgchar;
 begin
   Result := self^.LastName;
-end;
-
-procedure e_human_set_age(self: PEHuman; age: Tgint);
-begin
-  self^.age := age;
-end;
-
-function e_human_get_age(self: PEHuman): Tgint;
-begin
-  Result := self^.age;
 end;
 
 // ====

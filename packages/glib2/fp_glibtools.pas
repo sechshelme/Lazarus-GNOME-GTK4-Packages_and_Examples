@@ -79,11 +79,11 @@ begin
         end;
         G_TYPE_FLOAT: begin
           valueType := 'G_TYPE_FLOAT';
-          WriteStr(Value, Tgdouble(p));
+          WriteStr(Value, Tgfloat(Tgdouble(p)): 6: 3);
         end;
         G_TYPE_DOUBLE: begin
           valueType := 'G_TYPE_DOUBLE';
-          WriteStr(Value, Tgdouble(p));
+          WriteStr(Value, Tgdouble(p): 6: 3);
         end;
         G_TYPE_STRING: begin
           valueType := 'G_TYPE_STRING';
