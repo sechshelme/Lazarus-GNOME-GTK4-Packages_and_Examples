@@ -40,7 +40,7 @@ implementation
 // ==== private
 
 var
-  e_human_ext_parent_class: PEHumanClass = nil;
+  e_human_ext_parent_class: PEHumanExtClass = nil;
 
 procedure E_humanExt_set_property(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
 var
@@ -133,7 +133,7 @@ var
   value_table: nil);
 begin
   if g_once_init_enter(@type_id) then begin
-    id := g_type_register_static(E_TYPE_HUMAN, 'PersonExt', @info, 0);
+    id := g_type_register_static(E_TYPE_HUMAN, 'HumanExt', @info, 0);
     g_once_init_leave(@type_id, id);
   end;
   Result := type_id;
@@ -169,7 +169,7 @@ end;
 
 function E_TYPE_HUMANEXT: TGType;
 begin
-  E_TYPE_HUMANEXT := E_humanExt_get_type;
+  Result := E_humanExt_get_type;
 end;
 
 function E_HUMANEXT(obj: Pointer): PEHumanExt;

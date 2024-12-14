@@ -34,9 +34,14 @@
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="human_parent.pas"/>
+        <Filename Value="human_child.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Human_Parent"/>
+        <UnitName Value="Human_Child"/>
+      </Unit>
+      <Unit>
+        <Filename Value="human.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Human"/>
       </Unit>
     </Units>
   </ProjectOptions>

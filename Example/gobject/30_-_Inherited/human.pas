@@ -210,7 +210,7 @@ end;
 
 function E_TYPE_HUMAN: TGType;
 begin
-  E_TYPE_HUMAN := e_human_get_type;
+  Result := e_human_get_type;
 end;
 
 function E_HUMAN(obj: Pointer): PEHuman;

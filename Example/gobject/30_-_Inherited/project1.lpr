@@ -5,7 +5,8 @@ uses
   fp_glib2,
   fp_GLIBTools,
   Human,
-  Human_Child;
+  Human_Child,
+  Human_Child_Inc;
 
   procedure ParentHuman;
 
@@ -76,6 +77,8 @@ uses
 
     g_object_unref(per2);
   end;
+
+  // =======================================================================
 
   procedure ChildHuman;
 
@@ -159,7 +162,72 @@ uses
     g_printf('%s%*s', s, p, '');
   end;
 
+  // =======================================================================
+
+
+procedure age_cp(self: PGObject; Data: Tgpointer); cdecl;
+var
+  c: PChar absolute Data;
+begin
+  g_printerr(#10'Error: division by zero.'#10#10);
+end;
+
+  procedure ChildHumanTimer;
+
+    procedure printChildHumanInc(Human: PEHumanInc);
+    var
+      fn, ln, gender: Pgchar;
+      age: Tgint;
+      size: Tgfloat;
+    begin
+      g_object_get(Human,
+        'firstname', @fn,
+        'lastname', @ln,
+        'age', @age,
+        'size', @size,
+        nil);
+
+      gender := E_humanExt_get_gender(E_HUMANEXT( Human));
+
+      g_print('%s %s    %d    %f   %s'#10, fn, ln, age, size, gender);
+      g_free(fn);
+      g_free(ln);
+    end;
+
+
+
+  const
+    quit: boolean = False;
+  var
+    ch: ansichar;
+    Human: PEHumanInc;
+  begin
+    Human := g_object_new(E_TYPE_HUMANINC,
+      'firstname', 'Werner',
+      'lastname', 'Otto',
+      'age', 90,
+      'size', Tgdouble(1.05),
+      'gender', 'Frau',
+      'timeon', gTrue,
+      'time', 1,
+      nil);
+
+    g_signal_connect(Human,'age-signal', G_CALLBACK(@age_cp), Human);
+
+    repeat
+      g_main_iteration(False);
+      printChildHumanInc(Human);
+      g_usleep(200000);
+    until False;
+
+    GObjectShowProperty(Human);
+
+   g_object_unref(Human);
+  end;
+
 begin
   ParentHuman;
   ChildHuman;
+
+  ChildHumanTimer;
 end.
