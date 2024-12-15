@@ -78,6 +78,7 @@ var
     gst_element_set_state(GST_ELEMENT(pipeline), GST_STATE_NULL);
     g_printf('End'#10);
     gst_object_unref(pipeline);
+    g_main_loop_unref(mainloop);
   end;
 
 

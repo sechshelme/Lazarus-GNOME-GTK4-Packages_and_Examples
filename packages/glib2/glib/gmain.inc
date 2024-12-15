@@ -25,6 +25,7 @@ type
   TGMainLoop = record
   end;
   PGMainLoop = ^TGMainLoop;
+  PPGMainLoop = ^PGMainLoop;
 
   TGMainContext = record
   end;
