@@ -2,22 +2,19 @@
 {$IFDEF read_interface}
 
 type
-  PPGObject = ^PGObject;
-  PGObject = ^TGObject;
-
   TGObject = record
     g_type_instance: TGTypeInstance;
     ref_count: Tguint;
     qdata: PGData;
   end;
-
-  PGObjectConstructParam = ^TGObjectConstructParam;
+  PGObject = ^TGObject;
+  PPGObject = ^PGObject;
 
   TGObjectConstructParam = record
     pspec: PGParamSpec;
     Value: PGValue;
   end;
-
+  PGObjectConstructParam = ^TGObjectConstructParam;
 
   TGObjectGetPropertyFunc = procedure(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
   TGObjectSetPropertyFunc = procedure(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
@@ -149,7 +146,6 @@ function G_OBJECT_TYPE_NAME(obj: Tgpointer): Pgchar;
 function G_OBJECT_CLASS_TYPE(klass: Tgpointer): TGType;
 function G_OBJECT_CLASS_NAME(klass: Tgpointer): Pgchar;
 function G_VALUE_HOLDS_OBJECT(Value: Tgpointer): Tgboolean;
-
 
 function G_TYPE_INITIALLY_UNOWNED: TGType;
 function G_INITIALLY_UNOWNED(obj: Tgpointer): PGInitiallyUnowned;

@@ -59,6 +59,19 @@ end;
 
 // ==== public
 
+function e_rectangle_get_type: TGType;
+const
+  type_id: TGType = 0;
+var
+  id: TGType;
+begin
+  if g_once_init_enter(@type_id) then begin
+    id := g_boxed_type_register_static('ERectangle', @e_rectangle_copy, @e_rectangle_free);
+    g_once_init_leave(@type_id, id);
+  end;
+  Result := type_id;
+end;
+
 function e_rectangle_new(x, y, w, h: Tgint; Name: Pgchar): PERectangle;
 begin
   Result := g_malloc(SizeOf(TERectangle));
@@ -116,16 +129,6 @@ begin
     g_free(r^.Name);
   end;
   r^.Name := g_strdup(Name);
-end;
-
-function e_rectangle_get_type: TGType;
-const
-  rectangle_type: TGType = 0;
-begin
-  if rectangle_type = 0 then begin
-    rectangle_type := g_boxed_type_register_static('ERectangle', @e_rectangle_copy, @e_rectangle_free);
-  end;
-  Result := rectangle_type;
 end;
 
 // ====

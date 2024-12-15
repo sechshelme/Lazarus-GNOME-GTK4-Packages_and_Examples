@@ -164,12 +164,16 @@ uses
 
   // =======================================================================
 
+var
+mainloop: PGMainLoop=nil;
+
 
 procedure age_cp(self: PGObject; Data: Tgpointer); cdecl;
 var
   c: PChar absolute Data;
 begin
-  g_printerr(#10'Error: division by zero.'#10#10);
+  g_printerr(#10'Max Alter erreicht.'#10#10);
+  g_main_loop_quit(mainloop);
 end;
 
   procedure ChildHumanTimer;
@@ -214,11 +218,15 @@ end;
 
     g_signal_connect(Human,'age-signal', G_CALLBACK(@age_cp), Human);
 
-    repeat
-      g_main_iteration(False);
-      printChildHumanInc(Human);
-      g_usleep(200000);
-    until False;
+    mainloop := g_main_loop_new(nil, False);
+    g_main_loop_run(mainloop);
+    g_main_loop_unref(mainloop);
+//
+//    repeat
+//      g_main_iteration(False);
+//      printChildHumanInc(Human);
+//      g_usleep(200000);
+//    until False;
 
     GObjectShowProperty(Human);
 

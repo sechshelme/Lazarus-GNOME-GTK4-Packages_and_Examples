@@ -3,6 +3,7 @@ program project1;
 uses
   ctypes,
   fp_glib2,
+  fp_GLIBTools,
   fp_gst,
   fp_ges,
   fp_gstTools;
