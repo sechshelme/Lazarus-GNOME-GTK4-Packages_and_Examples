@@ -27,14 +27,18 @@ end;
 
 function Create_Spinner: PGtkWidget;
 var
-  lb, spinner: PGtkWidget;
+  lb, spinner, btn: PGtkWidget;
 begin
   Result := gtk_center_box_new;
   lb := gtk_label_new('Bitte warten');
   gtk_center_box_set_start_widget(GTK_CENTER_BOX(Result), lb);
+
   spinner := gtk_spinner_new;
   gtk_spinner_set_spinning(GTK_SPINNER(spinner), gTRUE);
   gtk_center_box_set_center_widget(GTK_CENTER_BOX(Result), spinner);
+
+  btn:=gtk_button_new_with_label('...');
+  gtk_center_box_set_end_widget(GTK_CENTER_BOX(Result), btn);
 end;
 
 function Create_CheckButton: PGtkWidget;
@@ -52,13 +56,13 @@ function Create_Spinner2: PGtkWidget;
 var
   lb, spinner: PGtkWidget;
 begin
-  //Result := gtk_center_layout_new;
+  Result := gtk_center_box_new;
   //lb := gtk_label_new('Bitte warten');
   //gtk_center_layout_set_start_widget(GTK_CENTER_LAYOUT(Result), lb);
   //spinner := gtk_spinner_new;
   //gtk_spinner_set_spinning(GTK_SPINNER(spinner), gTRUE);
   //gtk_center_layout_set_center_widget(GTK_CENTER_LAYOUT(Result), spinner);
-  Result:=nil;;
+//  Result:=nil;;
 end;
 
 function Create_ListBox: PGtkWidget;

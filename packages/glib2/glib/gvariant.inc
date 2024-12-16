@@ -9,7 +9,7 @@ type
   PPPGVariant = ^PPGVariant;
 
   PGVariantClass = ^TGVariantClass;
-  TGVariantClass = longint;
+  TGVariantClass = Char;
 
 const
   G_VARIANT_CLASS_BOOLEAN = 'b';

@@ -6,14 +6,11 @@ type
   end;
   PGApplicationPrivate = ^TGApplicationPrivate;
 
-  PGApplication = ^TGApplication;
-
   TGApplication = record
     parent_instance: TGObject;
     priv: PGApplicationPrivate;
   end;
-
-  PGApplicationClass = ^TGApplicationClass;
+  PGApplication = ^TGApplication;
 
   TGApplicationClass = record
     parent_class: TGObjectClass;
@@ -34,6 +31,7 @@ type
     name_lost: function(application: PGApplication): Tgboolean; cdecl;
     padding: array[0..6] of Tgpointer;
   end;
+  PGApplicationClass = ^TGApplicationClass;
 
 function g_application_get_type: TGType; cdecl; external libgio2;
 function g_application_id_is_valid(application_id: Pgchar): Tgboolean; cdecl; external libgio2;

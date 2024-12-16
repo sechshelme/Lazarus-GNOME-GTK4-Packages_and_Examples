@@ -39,7 +39,8 @@ implementation
 var
   e_human_inc_parent_class: PEHumanIncClass = nil;
 
-  my_signal_id: Tgint = 0;
+  age_signal_id: Tgint = 0;
+  died_signal_id: Tguint=0;
 
 
 procedure E_humanInc_set_property(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
@@ -95,8 +96,9 @@ begin
   g_object_get(self, 'age', @age, nil);
   Inc(age);
   g_object_set(self, 'age', age, nil);
+  g_signal_emit(self, age_signal_id, 0);
   if age >= 100 then  begin
-    g_signal_emit(self, my_signal_id, 0);
+    g_signal_emit(self, died_signal_id, 0);
   end;
   Result := True;
 end;
@@ -125,8 +127,17 @@ begin
   spec := g_param_spec_int('time', 'Time', 'Time vor Age of the human', 0, 100, 0, G_PARAM_READWRITE);
   g_object_class_install_property(object_class, 2, spec);
 
+  age_signal_id := g_signal_new('inc-age',
+    G_TYPE_FROM_CLASS(klass),
+    G_SIGNAL_RUN_LAST or G_SIGNAL_NO_RECURSE or G_SIGNAL_NO_HOOKS,
+    0,
+    nil,
+    nil,
+    nil,
+    G_TYPE_NONE,
+    0);
 
-  my_signal_id := g_signal_new('age-signal',
+  died_signal_id := g_signal_new('human-died',
     G_TYPE_FROM_CLASS(klass),
     G_SIGNAL_RUN_LAST or G_SIGNAL_NO_RECURSE or G_SIGNAL_NO_HOOKS,
     0,

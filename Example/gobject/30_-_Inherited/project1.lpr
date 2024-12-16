@@ -164,73 +164,48 @@ uses
 
   // =======================================================================
 
-var
-mainloop: PGMainLoop=nil;
+  procedure printChildHumanInc(Human: PEHumanInc);
+  var
+    fn, ln, gender: Pgchar;
+    age: Tgint;
+    size: Tgfloat;
+  begin
+    g_object_get(Human,
+      'firstname', @fn,
+      'lastname', @ln,
+      'age', @age,
+      'size', @size,
+      nil);
 
+    gender := E_humanExt_get_gender(E_HUMANEXT(Human));
 
-procedure age_cp(self: PGObject; Data: Tgpointer); cdecl;
-var
-  c: PChar absolute Data;
-begin
-  g_printerr(#10'Max Alter erreicht.'#10#10);
-  g_main_loop_quit(mainloop);
-end;
+    g_print('%s %s    %d    %4.2f   %s'#10, fn, ln, age, size, gender);
+    g_free(fn);
+    g_free(ln);
+  end;
+
 
   procedure ChildHumanTimer;
-
-    procedure printChildHumanInc(Human: PEHumanInc);
-    var
-      fn, ln, gender: Pgchar;
-      age: Tgint;
-      size: Tgfloat;
-    begin
-      g_object_get(Human,
-        'firstname', @fn,
-        'lastname', @ln,
-        'age', @age,
-        'size', @size,
-        nil);
-
-      gender := E_humanExt_get_gender(E_HUMANEXT( Human));
-
-      g_print('%s %s    %d    %f   %s'#10, fn, ln, age, size, gender);
-      g_free(fn);
-      g_free(ln);
-    end;
-
-
-
-  const
-    quit: boolean = False;
   var
-    ch: ansichar;
     Human: PEHumanInc;
   begin
+    g_printf(#10'----- Child Human Inc -----'#10#10);
+
     Human := g_object_new(E_TYPE_HUMANINC,
       'firstname', 'Werner',
       'lastname', 'Otto',
       'age', 90,
-      'size', Tgdouble(1.05),
+      'size', Tgdouble(1.63),
       'gender', 'Frau',
       'timeon', gTrue,
       'time', 1,
       nil);
 
-    g_signal_connect(Human,'age-signal', G_CALLBACK(@age_cp), Human);
-
-    mainloop := g_main_loop_new(nil, False);
-    g_main_loop_run(mainloop);
-    g_main_loop_unref(mainloop);
-//
-//    repeat
-//      g_main_iteration(False);
-//      printChildHumanInc(Human);
-//      g_usleep(200000);
-//    until False;
-
+    printChildHumanInc(Human);
+    g_printf(#10);
     GObjectShowProperty(Human);
 
-   g_object_unref(Human);
+    g_object_unref(Human);
   end;
 
 begin

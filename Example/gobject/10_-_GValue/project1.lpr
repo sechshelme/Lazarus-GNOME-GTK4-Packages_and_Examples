@@ -6,8 +6,11 @@ uses
   ctypes,
   fp_glib2,
   fp_GLIBTools,
+  fp_gtk4,
   Rectangle,
-  Human;
+  Human,
+  Human_Child,
+  Human_Child_Inc;
 
   function main({%H-}argc: cint; {%H-}argv: PPChar): cint;
   var
@@ -15,6 +18,7 @@ uses
     action, hum: Tgpointer;
     arr: PGArray;
     rect: PERectangle;
+    variant: PGVariant;
   begin
     Value := G_VALUE_INIT_;
     g_value_init(@Value, G_TYPE_CHAR);
@@ -58,24 +62,6 @@ uses
     GValueShow(@Value);
     g_value_unset(@Value);
 
-    action := g_object_new(G_TYPE_APPLICATION, nil);
-    Value := G_VALUE_INIT_;
-    g_value_init(@Value, G_TYPE_OBJECT);
-    g_value_set_object(@Value, G_OBJECT(action));
-    GValueShow(@Value);
-    g_value_unset(@Value);
-    GObjectShowProperty(action);
-    g_object_unref(action);
-
-    hum := g_object_new(E_TYPE_HUMAN, nil);
-    Value := G_VALUE_INIT_;
-    g_value_init(@Value, G_TYPE_OBJECT);
-    g_value_set_object(@Value, G_OBJECT(hum));
-    GValueShow(@Value);
-    g_value_unset(@Value);
-    GObjectShowProperty(hum);
-    g_object_unref(hum);
-
     arr := g_array_new(False, False, SizeOf(Tgint));
     Value := G_VALUE_INIT_;
     g_value_init(@Value, G_TYPE_ARRAY);
@@ -83,6 +69,14 @@ uses
     GValueShow(@Value);
     g_value_unset(@Value);
     g_array_unref(arr);
+
+    variant:=g_variant_new_string('Ich bin ein GVariant Sting');
+    Value := G_VALUE_INIT_;
+    g_value_init(@Value, G_TYPE_VARIANT);
+    g_value_set_variant(@Value, variant);
+    GValueShow(@Value);
+    g_value_unset(@Value);
+
 
     rect := e_rectangle_new(10, 20, 100, 50, 'MyRect');
     Value := G_VALUE_INIT_;
@@ -92,6 +86,23 @@ uses
     g_value_unset(@Value);
     g_boxed_free(E_TYPE_RECTANGLE, rect);
 
+    action := g_object_new(G_TYPE_APPLICATION, nil);
+    Value := G_VALUE_INIT_;
+    g_value_init(@Value, G_TYPE_OBJECT);
+    g_value_set_object(@Value, G_OBJECT(action));
+    GValueShow(@Value);
+    g_value_unset(@Value);
+    GObjectShowProperty(action);
+    g_object_unref(action);
+
+    hum := g_object_new(E_TYPE_HUMANINC, nil);
+    Value := G_VALUE_INIT_;
+    g_value_init(@Value, G_TYPE_OBJECT);
+    g_value_set_object(@Value, G_OBJECT(hum));
+    GValueShow(@Value);
+    g_value_unset(@Value);
+    GObjectShowProperty(hum);
+    g_object_unref(hum);
 
     Exit(0);
   end;

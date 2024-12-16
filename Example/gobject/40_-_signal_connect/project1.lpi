@@ -25,9 +25,6 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_GTK4_package"/>
-      </Item>
-      <Item>
         <PackageName Value="fp_GLIB2_package"/>
       </Item>
     </RequiredPackages>
@@ -37,9 +34,14 @@
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="person.pas"/>
+        <Filename Value="human_child.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Person"/>
+        <UnitName Value="Human_Child"/>
+      </Unit>
+      <Unit>
+        <Filename Value="human.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Human"/>
       </Unit>
     </Units>
   </ProjectOptions>
@@ -55,6 +57,8 @@
     </SearchPaths>
     <Linking>
       <Debugging>
+        <GenerateDebugInfo Value="False"/>
+        <RunWithoutDebug Value="True"/>
         <DebugInfoType Value="dsDwarf3"/>
       </Debugging>
     </Linking>

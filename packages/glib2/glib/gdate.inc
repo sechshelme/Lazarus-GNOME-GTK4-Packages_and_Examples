@@ -132,19 +132,7 @@ procedure g_date_clamp(date:PGDate; min_date:PGDate; max_date:PGDate);cdecl;exte
 procedure g_date_order(date1:PGDate; date2:PGDate);cdecl;external libglib2;
 function g_date_strftime(s:Pgchar; slen:Tgsize; format:Pgchar; date:PGDate):Tgsize;cdecl;external libglib2;
 
-//   GLIB_DEPRECATED_MACRO_IN_2_26_FOR
-//const
-//  g_date_weekday = g_date_get_weekday;  
-//  g_date_month = g_date_get_month;  
-//  g_date_year = g_date_get_year;  
-//  g_date_day = g_date_get_day;  
-//  g_date_julian = g_date_get_julian;  
-//  g_date_day_of_year = g_date_get_day_of_year;  
-//  g_date_monday_week_of_year = g_date_get_monday_week_of_year;  
-//  g_date_sunday_week_of_year = g_date_get_sunday_week_of_year;  
-//  g_date_days_in_month = g_date_get_days_in_month;  
-//  g_date_monday_weeks_in_year = g_date_get_monday_weeks_in_year;  
-//  g_date_sunday_weeks_in_year = g_date_get_sunday_weeks_in_year;  
+
 
 // === Konventiert am: 9-8-24 16:09:40 ===
 
