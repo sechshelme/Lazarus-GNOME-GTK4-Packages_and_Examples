@@ -20,6 +20,9 @@ var
   G_DECLARE: T_G_DECLARE;
   Str_G_DECLARE_INTERFACE: string;
 
+var
+  G_DECLARE_define_Count: integer = 0;
+
 function Find_G_DECLARE(sl: TStringList): T_G_DECLARE;
 function ConvertSLMacro_from_G_DECLARE: TStringList;
 
@@ -62,66 +65,85 @@ var
   i: integer;
 begin
   Result := TStringList.Create;
-  sa := Str_G_DECLARE_INTERFACE.Split([' ', ',', '(', ')', '{', '}']);
+
+  Str_G_DECLARE_INTERFACE := StringReplace(Str_G_DECLARE_INTERFACE, '{', '', [rfReplaceAll]);
+  Str_G_DECLARE_INTERFACE := StringReplace(Str_G_DECLARE_INTERFACE, ' ', '', [rfReplaceAll]);
+
+  sa := Str_G_DECLARE_INTERFACE.Split([',', '(', ')']);
   if G_DECLARE = is_GES_DECLARE_TYPE then begin
-    sa[3]:='GES'+sa[3];
-    sa[5]:='ges_'+sa[5];
-    Insert(' ',sa,7);
-    Insert('GES',sa,7);
+    sa[1] := 'GES' + sa[1];
+    sa[2] := 'ges_' + sa[2];
+    Insert('GES', sa, 3);
   end;
 
+  case G_DECLARE of
+    is_G_DECLARE_none: begin
+      G_DECLARE_define_Count := 0;
+    end;
+    is_G_DECLARE_FINAL_TYPE: begin
+      G_DECLARE_define_Count := 3;
+    end;
+    is_G_DECLARE_DERIVABLE_TYPE: begin
+      G_DECLARE_define_Count := 6;
+    end;
+    is_G_DECLARE_INTERFACE: begin
+      G_DECLARE_define_Count := 4;
+    end;
+    is_GDK_DECLARE_INTERNAL_TYPE: begin
+      G_DECLARE_define_Count := 6;
+    end;
+    is_GES_DECLARE_TYPE: begin
+      G_DECLARE_define_Count := 6;
+    end;
+  end;
 
   for i := 0 to Length(sa) - 1 do begin
     WriteLn(i: 2, '  ', sa[i]);
   end;
   WriteLn();
-  Result.Add('function ' + sa[7] + '_TYPE_' + sa[9] + ': TGType;');
+  Result.Add('function ' + sa[3] + '_TYPE_' + sa[4] + ': TGType;');
   Result.Add('begin');
-  Result.Add('  Result := ' + sa[5] + '_get_type;');
+  Result.Add('  Result := ' + sa[2] + '_get_type;');
   Result.Add('end;');
   Result.Add('');
 
-  Result.Add('function ' + sa[7] + '_' + sa[9] + '(obj: Pointer): P' + sa[3] + ';');
+  Result.Add('function ' + sa[3] + '_' + sa[4] + '(obj: Pointer): P' + sa[1] + ';');
   Result.Add('begin');
-  Result.Add('  Result := P' + sa[3] + '(g_type_check_instance_cast(obj, ' + sa[7] + '_TYPE_' + sa[9] + '));');
+  Result.Add('  Result := P' + sa[1] + '(g_type_check_instance_cast(obj, ' + sa[3] + '_TYPE_' + sa[4] + '));');
   Result.Add('end;');
   Result.Add('');
 
-  Result.Add('function ' + sa[7] + '_IS_' + sa[9] + '(obj: Pointer): Tgboolean;');
+  Result.Add('function ' + sa[3] + '_IS_' + sa[4] + '(obj: Pointer): Tgboolean;');
   Result.Add('begin');
-  Result.Add('  Result := g_type_check_instance_is_a(obj, ' + sa[7] + '_TYPE_' + sa[9] + ');');
+  Result.Add('  Result := g_type_check_instance_is_a(obj, ' + sa[3] + '_TYPE_' + sa[4] + ');');
   Result.Add('end;');
   Result.Add('');
-
-  if G_DECLARE = is_G_DECLARE_FINAL_TYPE then begin
-
-  end;
 
   if G_DECLARE in [is_G_DECLARE_DERIVABLE_TYPE, is_GDK_DECLARE_INTERNAL_TYPE, is_GES_DECLARE_TYPE] then begin
-    Result.Add('function ' + sa[7] + '_' + sa[9] + '_CLASS(klass: Pointer): P' + sa[3] + 'Class;');
+    Result.Add('function ' + sa[3] + '_' + sa[4] + '_CLASS(klass: Pointer): P' + sa[1] + 'Class;');
     Result.Add('begin');
-    Result.Add('  Result := P' + sa[3] + 'Class(g_type_check_class_cast(klass, ' + sa[7] + '_TYPE_' + sa[9] + '));');
+    Result.Add('  Result := P' + sa[1] + 'Class(g_type_check_class_cast(klass, ' + sa[3] + '_TYPE_' + sa[4] + '));');
     Result.Add('end;');
     Result.Add('');
 
-    Result.Add('function ' + sa[7] + '_IS_' + sa[9] + '_CLASS(klass: Pointer): Tgboolean;');
+    Result.Add('function ' + sa[3] + '_IS_' + sa[4] + '_CLASS(klass: Pointer): Tgboolean;');
     Result.Add('begin');
-    Result.Add('  Result := g_type_check_class_is_a(klass, ' + sa[7] + '_TYPE_' + sa[9] + ');');
+    Result.Add('  Result := g_type_check_class_is_a(klass, ' + sa[3] + '_TYPE_' + sa[4] + ');');
     Result.Add('end;');
     Result.Add('');
 
-    Result.Add('function ' + sa[7] + '_' + sa[9] + '_GET_CLASS(obj: Pointer): P' + sa[3] + 'Class;');
+    Result.Add('function ' + sa[3] + '_' + sa[4] + '_GET_CLASS(obj: Pointer): P' + sa[1] + 'Class;');
     Result.Add('begin');
-    Result.Add('  Result := P' + sa[3] + 'Class(PGTypeInstance(obj)^.g_class);');
+    Result.Add('  Result := P' + sa[1] + 'Class(PGTypeInstance(obj)^.g_class);');
     Result.Add('end;');
     Result.Add('');
   end;
 
   if G_DECLARE = is_G_DECLARE_INTERFACE then begin
-    Result.Add('function ' + sa[7] + '_' + sa[9] + '_GET_IFACE(obj: Pointer): P' + sa[3] + 'Interface;');
+    Result.Add('function ' + sa[3] + '_' + sa[4] + '_GET_IFACE(obj: Pointer): P' + sa[1] + 'Interface;');
     Result.Add('begin');
 
-    Result.Add('  Result := g_type_interface_peek(obj, ' + sa[7] + '_TYPE_' + sa[9] + ');');
+    Result.Add('  Result := g_type_interface_peek(obj, ' + sa[3] + '_TYPE_' + sa[4] + ');');
 
     Result.Add('end;');
     Result.Add('');
@@ -129,59 +151,59 @@ begin
 
   Result.Add('type ');
   if G_DECLARE = is_G_DECLARE_FINAL_TYPE then begin
-    Result.Add('  T' + sa[3] + ' = record');
+    Result.Add('  T' + sa[1] + ' = record');
     Result.Add('  end;');
-    Result.Add('  P' + sa[3] + ' = ^T' + sa[3] + ';');
+    Result.Add('  P' + sa[1] + ' = ^T' + sa[1] + ';');
     Result.Add('');
 
-    Result.Add('  T' + sa[3] + 'Class = record');
-    Result.Add('    parent_class: T' + sa[11] + 'Class;');
+    Result.Add('  T' + sa[1] + 'Class = record');
+    Result.Add('    parent_class: T' + sa[5] + 'Class;');
     Result.Add('  end;');
-    Result.Add('  P' + sa[3] + 'Class = ^T' + sa[3] + 'Class;');
+    Result.Add('  P' + sa[1] + 'Class = ^T' + sa[1] + 'Class;');
     Result.Add('');
   end;
   if G_DECLARE = is_G_DECLARE_DERIVABLE_TYPE then begin
-    Result.Add('  T' + sa[3] + ' = record');
-    Result.Add('    parent_instance: T' + sa[11]);
+    Result.Add('  T' + sa[1] + ' = record');
+    Result.Add('    parent_instance: T' + sa[5]);
     Result.Add('  end;');
-    Result.Add('  P' + sa[3] + ' = ^T' + sa[3] + ';');
+    Result.Add('  P' + sa[1] + ' = ^T' + sa[1] + ';');
     Result.Add('');
 
-    Result.Add('  T' + sa[3] + 'Class = record');
+    Result.Add('  T' + sa[1] + 'Class = record');
     Result.Add('  end;');
-    Result.Add('  P' + sa[3] + 'Class = ^T' + sa[3] + 'Class;');
+    Result.Add('  P' + sa[1] + 'Class = ^T' + sa[1] + 'Class;');
     Result.Add('');
   end;
   if G_DECLARE = is_G_DECLARE_INTERFACE then begin
-    Result.Add('  T' + sa[3] + ' = record');
+    Result.Add('  T' + sa[1] + ' = record');
     Result.Add('  end;');
-    Result.Add('  P' + sa[3] + ' = ^T' + sa[3] + ';');
+    Result.Add('  P' + sa[1] + ' = ^T' + sa[1] + ';');
     Result.Add('');
 
-    Result.Add('  T' + sa[3] + 'Interface = record');
+    Result.Add('  T' + sa[1] + 'Interface = record');
     Result.Add('  end;');
-    Result.Add('  P' + sa[3] + 'Interface = ^T' + sa[3] + 'Interface;');
+    Result.Add('  P' + sa[1] + 'Interface = ^T' + sa[1] + 'Interface;');
     Result.Add('');
   end;
   if G_DECLARE = is_GDK_DECLARE_INTERNAL_TYPE then begin
-    Result.Add('  T' + sa[3] + ' = record');
+    Result.Add('  T' + sa[1] + ' = record');
     Result.Add('  end;');
-    Result.Add('  P' + sa[3] + ' = ^T' + sa[3] + ';');
+    Result.Add('  P' + sa[1] + ' = ^T' + sa[1] + ';');
     Result.Add('');
 
-    Result.Add('  T' + sa[3] + 'Class = record');
+    Result.Add('  T' + sa[1] + 'Class = record');
     Result.Add('  end;');
-    Result.Add('  P' + sa[3] + 'Class = ^T' + sa[3] + 'Class;');
+    Result.Add('  P' + sa[1] + 'Class = ^T' + sa[1] + 'Class;');
     Result.Add('');
   end;
   if G_DECLARE = is_GES_DECLARE_TYPE then begin
-    Result.Add('  T' + sa[3] + 'Private = record');
+    Result.Add('  T' + sa[1] + 'Private = record');
     Result.Add('  end;');
-    Result.Add('  P' + sa[3] + 'Private = ^T' + sa[3] + 'Private;');
+    Result.Add('  P' + sa[1] + 'Private = ^T' + sa[1] + 'Private;');
     Result.Add('');
   end;
 
-  Result.Add('function ' + sa[5] + '_get_type: TGType; cdecl; external libgxxxxxxx;');
+  Result.Add('function ' + sa[2] + '_get_type: TGType; cdecl; external libgxxxxxxx;');
   Result.Add('');
 end;
 

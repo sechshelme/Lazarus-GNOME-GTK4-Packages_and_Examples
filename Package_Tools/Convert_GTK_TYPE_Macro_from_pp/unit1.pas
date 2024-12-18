@@ -191,7 +191,7 @@ end;
 procedure TForm1.ConvertClick(Sender: TObject);
 var
   sl, slMacro: TStringList;
-  p, i, j, macCount: integer;
+  p, i, j, maxCount: integer;
   libs, units: string;
 
   procedure DeleteLines(p, Count: integer);
@@ -263,33 +263,33 @@ begin
   end;
   WriteLn('G_DECLARE: ', G_DECLARE);
 
-  macCount := 0;
+  maxCount := 0;
   if CheckBox1.Checked then begin
-    Inc(macCount);
+    Inc(maxCount);
     DeleteLines(p, 3);
   end;
   if CheckBox2.Checked then begin
-    Inc(macCount);
+    Inc(maxCount);
     DeleteLines(p, 5);
   end;
   if CheckBox3.Checked then begin
-    Inc(macCount);
+    Inc(maxCount);
     DeleteLines(p, 5);
   end;
   if CheckBox4.Checked then begin
-    Inc(macCount);
+    Inc(maxCount);
     DeleteLines(p, 5);
   end;
   if CheckBox5.Checked then begin
-    Inc(macCount);
+    Inc(maxCount);
     DeleteLines(p, 5);
   end;
   if CheckBox6.Checked then begin
-    Inc(macCount);
+    Inc(maxCount);
     DeleteLines(p, 5);
   end;
   if CheckBox7.Checked then begin
-    Inc(macCount);
+    Inc(maxCount);
     DeleteLines(p, 5);
   end;
 
@@ -303,7 +303,7 @@ begin
     slMacro := ConvertSLMacro_from_G_DECLARE;
   end else begin
     slMacro := TStringList.Create;
-    for j := 0 to macCount - 1 do begin
+    for j := 0 to maxCount - 1 do begin
       for i := 0 to 4 do begin
         slMacro.Add(sl[p + i + j * 8]);
       end;
@@ -347,27 +347,7 @@ begin
   sl.Insert(p - 1, '// === Konventiert am: ' + DateTimeToStr(now) + ' ===');
   sl.Insert(p - 1, '');
 
-  case G_DECLARE of
-    is_G_DECLARE_none: begin
-    end;
-    is_G_DECLARE_FINAL_TYPE: begin
-      macCount := 3;
-    end;
-    is_G_DECLARE_DERIVABLE_TYPE: begin
-      macCount := 6;
-    end;
-    is_G_DECLARE_INTERFACE: begin
-      macCount := 4;
-    end;
-    is_GDK_DECLARE_INTERNAL_TYPE: begin
-      macCount := 6;
-    end;
-    is_GES_DECLARE_TYPE: begin
-      macCount := 6;
-    end;
-  end;
-
-  for i := 0 to macCount - 1 do begin
+  for i := 0 to G_DECLARE_define_Count - 1 do begin
     sl.Insert(p + i + 2, slMacro[i * 5]);
   end;
 
