@@ -16,12 +16,9 @@ type
   TGTestFixtureFunc = procedure(fixture: Tgpointer; user_data: Tgconstpointer); cdecl;
 
 function g_strcmp0(str1: pchar; str2: pchar): longint; cdecl; external libglib2;
-procedure g_test_minimized_result(minimized_quantity: Tdouble; format: pchar; args: array of const); cdecl; external libglib2;
-procedure g_test_minimized_result(minimized_quantity: Tdouble; format: pchar); cdecl; external libglib2;
-procedure g_test_maximized_result(maximized_quantity: Tdouble; format: pchar; args: array of const); cdecl; external libglib2;
-procedure g_test_maximized_result(maximized_quantity: Tdouble; format: pchar); cdecl; external libglib2;
-procedure g_test_init(argc: Plongint; argv: PPPchar; args: array of const); cdecl; external libglib2;
-procedure g_test_init(argc: Plongint; argv: PPPchar); cdecl; external libglib2;
+procedure g_test_minimized_result(minimized_quantity: Tdouble; format: pchar); varargs; cdecl; external libglib2;
+procedure g_test_maximized_result(maximized_quantity: Tdouble; format: pchar); varargs; cdecl; external libglib2;
+procedure g_test_init(argc: Plongint; argv: PPPchar); varargs; cdecl; external libglib2;
 
 const
   G_TEST_OPTION_ISOLATE_DIRS = 'isolate_dirs';
@@ -33,19 +30,15 @@ procedure g_test_add_data_func(testpath: pchar; test_data: Tgconstpointer; test_
 procedure g_test_add_data_func_full(testpath: pchar; test_data: Tgpointer; test_func: TGTestDataFunc; data_free_func: TGDestroyNotify); cdecl; external libglib2;
 function g_test_get_path: pchar; cdecl; external libglib2;
 procedure g_test_fail; cdecl; external libglib2;
-procedure g_test_fail_printf(format: pchar; args: array of const); cdecl; external libglib2;
-procedure g_test_fail_printf(format: pchar); cdecl; external libglib2;
+procedure g_test_fail_printf(format: pchar); varargs; cdecl; external libglib2;
 procedure g_test_incomplete(msg: Pgchar); cdecl; external libglib2;
-procedure g_test_incomplete_printf(format: pchar; args: array of const); cdecl; external libglib2;
-procedure g_test_incomplete_printf(format: pchar); cdecl; external libglib2;
+procedure g_test_incomplete_printf(format: pchar); varargs; cdecl; external libglib2;
 procedure g_test_skip(msg: Pgchar); cdecl; external libglib2;
-procedure g_test_skip_printf(format: pchar; args: array of const); cdecl; external libglib2;
-procedure g_test_skip_printf(format: pchar); cdecl; external libglib2;
+procedure g_test_skip_printf(format: pchar); varargs; cdecl; external libglib2;
 function g_test_failed: Tgboolean; cdecl; external libglib2;
 procedure g_test_set_nonfatal_assertions; cdecl; external libglib2;
 procedure g_test_disable_crash_reporting; cdecl; external libglib2;
-procedure g_test_message(format: pchar; args: array of const); cdecl; external libglib2;
-procedure g_test_message(format: pchar); cdecl; external libglib2;
+procedure g_test_message(format: pchar); varargs; cdecl; external libglib2;
 procedure g_test_bug_base(uri_pattern: pchar); cdecl; external libglib2;
 procedure g_test_bug(bug_uri_snippet: pchar); cdecl; external libglib2;
 procedure g_test_summary(summary: pchar); cdecl; external libglib2;
@@ -194,11 +187,9 @@ const
   G_TEST_DIST = 0;
   G_TEST_BUILT = 1;
 
-function g_test_build_filename(file_type: TGTestFileType; first_path: Pgchar; args: array of const): Pgchar; cdecl; external libglib2;
-function g_test_build_filename(file_type: TGTestFileType; first_path: Pgchar): Pgchar; cdecl; external libglib2;
+function g_test_build_filename(file_type: TGTestFileType; first_path: Pgchar): Pgchar; varargs; cdecl; external libglib2;
 function g_test_get_dir(file_type: TGTestFileType): Pgchar; cdecl; external libglib2;
-function g_test_get_filename(file_type: TGTestFileType; first_path: Pgchar; args: array of const): Pgchar; cdecl; external libglib2;
-function g_test_get_filename(file_type: TGTestFileType; first_path: Pgchar): Pgchar; cdecl; external libglib2;
+function g_test_get_filename(file_type: TGTestFileType; first_path: Pgchar): Pgchar; varargs; cdecl; external libglib2;
 
 function g_test_initialized: Tgboolean;
 function g_test_quick: Tgboolean;

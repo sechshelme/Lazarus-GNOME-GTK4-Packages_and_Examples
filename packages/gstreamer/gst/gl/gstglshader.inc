@@ -22,10 +22,8 @@ type
   PGstGLShaderClass = ^TGstGLShaderClass;
 
 function gst_gl_shader_new(context: PGstGLContext): PGstGLShader; cdecl; external libgstgl;
-function gst_gl_shader_new_with_stages(context: PGstGLContext; error: PPGError; args: array of const): PGstGLShader; cdecl; external libgstgl;
-function gst_gl_shader_new_with_stages(context: PGstGLContext; error: PPGError): PGstGLShader; cdecl; external libgstgl;
-function gst_gl_shader_new_link_with_stages(context: PGstGLContext; error: PPGError; args: array of const): PGstGLShader; cdecl; external libgstgl;
-function gst_gl_shader_new_link_with_stages(context: PGstGLContext; error: PPGError): PGstGLShader; cdecl; external libgstgl;
+function gst_gl_shader_new_with_stages(context: PGstGLContext; error: PPGError): PGstGLShader; varargs; cdecl; external libgstgl;
+function gst_gl_shader_new_link_with_stages(context: PGstGLContext; error: PPGError): PGstGLShader; varargs; cdecl; external libgstgl;
 function gst_gl_shader_new_default(context: PGstGLContext; error: PPGError): PGstGLShader; cdecl; external libgstgl;
 function gst_gl_shader_attach(shader: PGstGLShader; stage: PGstGLSLStage): Tgboolean; cdecl; external libgstgl;
 function gst_gl_shader_attach_unlocked(shader: PGstGLShader; stage: PGstGLSLStage): Tgboolean; cdecl; external libgstgl;

@@ -47,18 +47,17 @@ type
   PGstRTPBasePayloadClass = ^TGstRTPBasePayloadClass;
 
 
-function gst_rtp_base_payload_get_type:TGType;cdecl;external libgstrtp;
-procedure gst_rtp_base_payload_set_options(payload:PGstRTPBasePayload; media:Pgchar; dynamic:Tgboolean; encoding_name:Pgchar; clock_rate:Tguint32);cdecl;external libgstrtp;
-function gst_rtp_base_payload_set_outcaps(payload:PGstRTPBasePayload; fieldname:Pgchar; args:array of const):Tgboolean;cdecl;external libgstrtp;
-function gst_rtp_base_payload_set_outcaps(payload:PGstRTPBasePayload; fieldname:Pgchar):Tgboolean;cdecl;external libgstrtp;
-function gst_rtp_base_payload_set_outcaps_structure(payload:PGstRTPBasePayload; s:PGstStructure):Tgboolean;cdecl;external libgstrtp;
-function gst_rtp_base_payload_is_filled(payload:PGstRTPBasePayload; size:Tguint; duration:TGstClockTime):Tgboolean;cdecl;external libgstrtp;
-function gst_rtp_base_payload_push(payload:PGstRTPBasePayload; buffer:PGstBuffer):TGstFlowReturn;cdecl;external libgstrtp;
-function gst_rtp_base_payload_push_list(payload:PGstRTPBasePayload; list:PGstBufferList):TGstFlowReturn;cdecl;external libgstrtp;
-function gst_rtp_base_payload_allocate_output_buffer(payload:PGstRTPBasePayload; payload_len:Tguint; pad_len:Tguint8; csrc_count:Tguint8):PGstBuffer;cdecl;external libgstrtp;
-procedure gst_rtp_base_payload_set_source_info_enabled(payload:PGstRTPBasePayload; enable:Tgboolean);cdecl;external libgstrtp;
-function gst_rtp_base_payload_is_source_info_enabled(payload:PGstRTPBasePayload):Tgboolean;cdecl;external libgstrtp;
-function gst_rtp_base_payload_get_source_count(payload:PGstRTPBasePayload; buffer:PGstBuffer):Tguint;cdecl;external libgstrtp;
+function gst_rtp_base_payload_get_type: TGType; cdecl; external libgstrtp;
+procedure gst_rtp_base_payload_set_options(payload: PGstRTPBasePayload; media: Pgchar; dynamic: Tgboolean; encoding_name: Pgchar; clock_rate: Tguint32); cdecl; external libgstrtp;
+function gst_rtp_base_payload_set_outcaps(payload: PGstRTPBasePayload; fieldname: Pgchar): Tgboolean; varargs; cdecl; external libgstrtp;
+function gst_rtp_base_payload_set_outcaps_structure(payload: PGstRTPBasePayload; s: PGstStructure): Tgboolean; cdecl; external libgstrtp;
+function gst_rtp_base_payload_is_filled(payload: PGstRTPBasePayload; size: Tguint; duration: TGstClockTime): Tgboolean; cdecl; external libgstrtp;
+function gst_rtp_base_payload_push(payload: PGstRTPBasePayload; buffer: PGstBuffer): TGstFlowReturn; cdecl; external libgstrtp;
+function gst_rtp_base_payload_push_list(payload: PGstRTPBasePayload; list: PGstBufferList): TGstFlowReturn; cdecl; external libgstrtp;
+function gst_rtp_base_payload_allocate_output_buffer(payload: PGstRTPBasePayload; payload_len: Tguint; pad_len: Tguint8; csrc_count: Tguint8): PGstBuffer; cdecl; external libgstrtp;
+procedure gst_rtp_base_payload_set_source_info_enabled(payload: PGstRTPBasePayload; enable: Tgboolean); cdecl; external libgstrtp;
+function gst_rtp_base_payload_is_source_info_enabled(payload: PGstRTPBasePayload): Tgboolean; cdecl; external libgstrtp;
+function gst_rtp_base_payload_get_source_count(payload: PGstRTPBasePayload; buffer: PGstBuffer): Tguint; cdecl; external libgstrtp;
 
 function GST_RTP_BASE_PAYLOAD_CAST(obj : Pointer) : PGstRTPBasePayload;
 function GST_RTP_BASE_PAYLOAD_SINKPAD(payload : Pointer) : PGstPad;

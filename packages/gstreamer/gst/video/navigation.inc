@@ -83,8 +83,7 @@ const
 
 function gst_navigation_query_get_type(query: PGstQuery): TGstNavigationQueryType; cdecl; external libgstvideo;
 function gst_navigation_query_new_commands: PGstQuery; cdecl; external libgstvideo;
-procedure gst_navigation_query_set_commands(query: PGstQuery; n_cmds: Tgint; args: array of const); cdecl; external libgstvideo;
-procedure gst_navigation_query_set_commands(query: PGstQuery; n_cmds: Tgint); cdecl; external libgstvideo;
+procedure gst_navigation_query_set_commands(query: PGstQuery; n_cmds: Tgint); varargs; cdecl; external libgstvideo;
 procedure gst_navigation_query_set_commandsv(query: PGstQuery; n_cmds: Tgint; cmds: PGstNavigationCommand); cdecl; external libgstvideo;
 function gst_navigation_query_parse_commands_length(query: PGstQuery; n_cmds: Pguint): Tgboolean; cdecl; external libgstvideo;
 function gst_navigation_query_parse_commands_nth(query: PGstQuery; nth: Tguint; cmd: PGstNavigationCommand): Tgboolean; cdecl; external libgstvideo;

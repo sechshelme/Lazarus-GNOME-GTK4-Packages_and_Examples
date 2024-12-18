@@ -40,8 +40,7 @@ procedure tcase_add_checked_fixture(tc: PTCase; setup: TSFun; teardown: TSFun); 
 procedure tcase_set_timeout(tc: PTCase; timeout: Tdouble); cdecl; external libgstcheck;
 procedure tcase_fn_start(fname: pchar; file_: pchar; line: longint); cdecl; external libgstcheck;
 
-procedure _ck_assert_failed(file_: pchar; line: longint; expr: pchar; args: array of const); cdecl; external libgstcheck;
-procedure _ck_assert_failed(file_: pchar; line: longint; expr: pchar); cdecl; external libgstcheck;
+procedure _ck_assert_failed(file_: pchar; line: longint; expr: pchar); varargs; cdecl; external libgstcheck;
 procedure _mark_point(file_: pchar; line: longint); cdecl; external libgstcheck;
 
 type

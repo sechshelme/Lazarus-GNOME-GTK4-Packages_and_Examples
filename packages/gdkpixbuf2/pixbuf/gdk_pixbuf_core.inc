@@ -103,9 +103,7 @@ procedure gdk_pixbuf_new_from_stream_at_scale_async(stream: PGInputStream; Width
   callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgdk_pixbuf2;
 function gdk_pixbuf_save_to_stream(pixbuf: PGdkPixbuf; stream: PGOutputStream; _type: pansichar; cancellable: PGCancellable; error: PPGError): Tgboolean; varargs cdecl; external libgdk_pixbuf2;
 procedure gdk_pixbuf_save_to_stream_async(pixbuf: PGdkPixbuf; stream: PGOutputStream; _type: Pgchar; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-  user_data: Tgpointer; args: array of const); cdecl; external libgdk_pixbuf2;
-procedure gdk_pixbuf_save_to_stream_async(pixbuf: PGdkPixbuf; stream: PGOutputStream; _type: Pgchar; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-  user_data: Tgpointer); cdecl; external libgdk_pixbuf2;
+  user_data: Tgpointer); varargs; cdecl; external libgdk_pixbuf2;
 function gdk_pixbuf_save_to_stream_finish(async_result: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgdk_pixbuf2;
 procedure gdk_pixbuf_save_to_streamv_async(pixbuf: PGdkPixbuf; stream: PGOutputStream; _type: Pgchar; option_keys: PPgchar; option_values: PPgchar;
   cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgdk_pixbuf2;

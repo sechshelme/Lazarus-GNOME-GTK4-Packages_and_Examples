@@ -18,8 +18,7 @@ type
   PPangoTabArray = ^TPangoTabArray;
 
 function pango_tab_array_new(initial_size: Tgint; positions_in_pixels: Tgboolean): PPangoTabArray; cdecl; external libpango;
-function pango_tab_array_new_with_positions(size: Tgint; positions_in_pixels: Tgboolean; first_alignment: TPangoTabAlign; first_position: Tgint; args: array of const): PPangoTabArray; cdecl; external libpango;
-function pango_tab_array_new_with_positions(size: Tgint; positions_in_pixels: Tgboolean; first_alignment: TPangoTabAlign; first_position: Tgint): PPangoTabArray; cdecl; external libpango;
+function pango_tab_array_new_with_positions(size: Tgint; positions_in_pixels: Tgboolean; first_alignment: TPangoTabAlign; first_position: Tgint): PPangoTabArray; varargs; cdecl; external libpango;
 function pango_tab_array_get_type: TGType; cdecl; external libpango;
 function pango_tab_array_copy(src: PPangoTabArray): PPangoTabArray; cdecl; external libpango;
 procedure pango_tab_array_free(tab_array: PPangoTabArray); cdecl; external libpango;

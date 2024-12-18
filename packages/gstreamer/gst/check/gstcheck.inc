@@ -58,8 +58,7 @@ procedure gst_check_abi_list(list: PGstCheckABIStruct; have_abi_sizes: Tgboolean
 function gst_check_run_suite(suite: PSuite; Name: Pgchar; fname: Pgchar): Tgint; cdecl; external libgstcheck;
 procedure gst_check_setup_events(srcpad: PGstPad; element: PGstElement; caps: PGstCaps; format: TGstFormat); cdecl; external libgstcheck;
 procedure gst_check_setup_events_with_stream_id(srcpad: PGstPad; element: PGstElement; caps: PGstCaps; format: TGstFormat; stream_id: Pgchar); cdecl; external libgstcheck;
-procedure gst_check_objects_destroyed_on_unref(object_to_unref: Tgpointer; first_object: Tgpointer; args: array of const); cdecl; external libgstcheck;
-procedure gst_check_objects_destroyed_on_unref(object_to_unref: Tgpointer; first_object: Tgpointer); cdecl; external libgstcheck;
+procedure gst_check_objects_destroyed_on_unref(object_to_unref: Tgpointer; first_object: Tgpointer); varargs; cdecl; external libgstcheck;
 procedure gst_check_object_destroyed_on_unref(object_to_unref: Tgpointer); cdecl; external libgstcheck;
 
 var
