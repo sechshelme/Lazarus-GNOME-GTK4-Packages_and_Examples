@@ -5,21 +5,102 @@ interface
 uses
   fp_glib2;
 
-procedure GValueShow(v: PGValue);
+procedure GValueShow(Value: PGValue);
+procedure GVariantShow(variant: PGVariant);
 procedure GObjectShowProperty(obj: Pointer);
 
 implementation
 
-procedure GValueShow(v: PGValue);
+function getVariant(variant: PGVariant): string;
+var
+  objv: PPgchar;
+  len: Tgsize;
+  i: integer;
+begin
+  if variant = nil then begin
+    Result := 'variant=(null)';
+    exit;
+  end;
+  case g_variant_classify(variant) of
+    G_VARIANT_CLASS_BOOLEAN: begin
+      WriteStr(Result, 'Boolean ( ', g_variant_get_boolean(variant), ' )');
+    end;
+    G_VARIANT_CLASS_BYTE: begin
+      WriteStr(Result, 'Byte ( ', g_variant_get_byte(variant), ' )');
+    end;
+    G_VARIANT_CLASS_INT16: begin
+      WriteStr(Result, 'int16 ( ', g_variant_get_int16(variant), ' )');
+    end;
+    G_VARIANT_CLASS_UINT16: begin
+      WriteStr(Result, 'uint16 ( ', g_variant_get_uint16(variant), ' )');
+    end;
+    G_VARIANT_CLASS_INT32: begin
+      WriteStr(Result, 'int32 ( ', g_variant_get_int32(variant), ' )');
+    end;
+    G_VARIANT_CLASS_UINT32: begin
+      WriteStr(Result, 'uint32 ( ', g_variant_get_uint32(variant), ' )');
+    end;
+    G_VARIANT_CLASS_INT64: begin
+      WriteStr(Result, 'int64 ( ', g_variant_get_int64(variant), ' )');
+    end;
+    G_VARIANT_CLASS_UINT64: begin
+      WriteStr(Result, 'uint64 ( ', g_variant_get_uint64(variant), ' )');
+    end;
+    G_VARIANT_CLASS_HANDLE: begin
+      WriteStr(Result, 'Handle ( ', g_variant_get_handle(variant), ' )');
+    end;
+    G_VARIANT_CLASS_DOUBLE: begin
+      WriteStr(Result, 'Double ( ', g_variant_get_double(variant): 8: 4, ' )');
+    end;
+    G_VARIANT_CLASS_STRING: begin
+      WriteStr(Result, 'String ( ', g_variant_get_string(variant, nil), ' )');
+    end;
+    G_VARIANT_CLASS_OBJECT_PATH: begin
+      Result := 'ObjectPath (';
+      objv := g_variant_get_objv(variant, @len);
+      for i := 0 to len - 1 do begin
+        WriteStr(Result, Result, '"', objv[i], '" ');
+      end;
+    end;
+    G_VARIANT_CLASS_SIGNATURE: begin
+      WriteStr(Result, 'Signature ( ', g_variant_get_string(variant, nil), ' )');
+    end;
+    G_VARIANT_CLASS_VARIANT: begin
+      WriteStr(Result, 'Variant');
+    end;
+    G_VARIANT_CLASS_MAYBE: begin
+      WriteStr(Result, 'Maybe');
+    end;
+    G_VARIANT_CLASS_ARRAY: begin
+      WriteStr(Result, 'Array');
+    end;
+    G_VARIANT_CLASS_TUPLE: begin
+      WriteStr(Result, 'Tuple (', g_variant_n_children(variant), ')');
+    end;
+    G_VARIANT_CLASS_DICT_ENTRY: begin
+      WriteStr(Result, 'DictEntry');
+    end;
+    else begin
+      WriteStr(Result, '<unknow> (', g_variant_classify(variant), ')');
+    end;
+  end;
+end;
+
+procedure GVariantShow(variant: PGVariant);
+begin
+  WriteLn(getVariant(variant));
+end;
+
+procedure GValueShow(Value: PGValue);
 var
   typ: TGType;
-  valueType, Value: string;
+  valueType, ValueStr: string;
   ValueName, objName: Pgchar;
   obj: PGObject = nil;
   variant: PGVariant;
 begin
-  typ := G_VALUE_TYPE(v);
-  ValueName := G_VALUE_TYPE_NAME(v);
+  typ := G_VALUE_TYPE(Value);
+  ValueName := G_VALUE_TYPE_NAME(Value);
   case typ of
     G_TYPE_INVALID: begin
       valueType := 'G_TYPE_INVALID';
@@ -32,96 +113,90 @@ begin
     end;
     G_TYPE_CHAR: begin
       valueType := 'G_TYPE_CHAR';
-      WriteStr(Value, char(g_value_get_char(v)));
+      WriteStr(ValueStr, char(g_value_get_char(Value)));
     end;
     G_TYPE_UCHAR: begin
       valueType := 'G_TYPE_UCHAR';
-      WriteStr(Value, Tguint8(g_value_get_char(v)));
+      WriteStr(ValueStr, Tguint8(g_value_get_char(Value)));
     end;
     G_TYPE_BOOLEAN: begin
       valueType := 'G_TYPE_BOOLEAN';
-      WriteStr(Value, g_value_get_boolean(v));
+      WriteStr(ValueStr, g_value_get_boolean(Value));
     end;
     G_TYPE_INT: begin
       valueType := 'G_TYPE_INT';
-      WriteStr(Value, g_value_get_int(v));
+      WriteStr(ValueStr, g_value_get_int(Value));
     end;
     G_TYPE_UINT: begin
       valueType := 'G_TYPE_UINT';
-      WriteStr(Value, g_value_get_uint(v));
+      WriteStr(ValueStr, g_value_get_uint(Value));
     end;
     G_TYPE_LONG: begin
       valueType := 'G_TYPE_ULONG';
-      WriteStr(Value, g_value_get_ulong(v));
+      WriteStr(ValueStr, g_value_get_ulong(Value));
     end;
     G_TYPE_ULONG: begin
       valueType := 'G_TYPE_LONG';
-      WriteStr(Value, g_value_get_long(v));
+      WriteStr(ValueStr, g_value_get_long(Value));
     end;
     G_TYPE_INT64: begin
       valueType := 'G_TYPE_INT64';
-      WriteStr(Value, g_value_get_int64(v));
+      WriteStr(ValueStr, g_value_get_int64(Value));
     end;
     G_TYPE_UINT64: begin
       valueType := 'G_TYPE_UINT64';
-      WriteStr(Value, g_value_get_uint64(v));
+      WriteStr(ValueStr, g_value_get_uint64(Value));
     end;
     G_TYPE_ENUM: begin
       valueType := 'G_TYPE_ENUM';
-      WriteStr(Value, g_value_get_enum(v));
+      WriteStr(ValueStr, g_value_get_enum(Value));
     end;
     G_TYPE_FLAGS: begin
       valueType := 'G_TYPE_FLAGS';
-      WriteStr(Value, g_value_get_flags(v));
+      WriteStr(ValueStr, g_value_get_flags(Value));
     end;
     G_TYPE_FLOAT: begin
       valueType := 'G_TYPE_FLOAT';
-      WriteStr(Value, g_value_get_float(v));
+      WriteStr(ValueStr, g_value_get_float(Value));
     end;
     G_TYPE_DOUBLE: begin
       valueType := 'G_TYPE_DOUBLE';
-      WriteStr(Value, g_value_get_double(v));
+      WriteStr(ValueStr, g_value_get_double(Value));
     end;
     G_TYPE_STRING: begin
       valueType := 'G_TYPE_STRING';
-      WriteStr(Value, g_value_get_string(v));
+      WriteStr(ValueStr, g_value_get_string(Value));
     end;
     G_TYPE_POINTER: begin
       valueType := 'G_TYPE_POINTER';
-      WriteStr(Value, PtrUInt(g_value_get_pointer(v)));
+      WriteStr(ValueStr, PtrUInt(g_value_get_pointer(Value)));
     end;
     G_TYPE_BOXED: begin
       valueType := 'G_TYPE_BOXED';
-      WriteStr(Value, PtrUInt(g_value_get_boxed(v)));
+      WriteStr(ValueStr, PtrUInt(g_value_get_boxed(Value)));
     end;
     G_TYPE_OBJECT: begin
       valueType := 'G_TYPE_OBJECT';
-      obj := g_value_get_object(v);
+      obj := g_value_get_object(Value);
       objName := G_OBJECT_TYPE_NAME(obj);
-      WriteStr(Value, objName);
+      WriteStr(ValueStr, objName);
     end;
     G_TYPE_VARIANT: begin
       valueType := 'G_TYPE_VARIANT';
-      variant := g_value_get_variant(v);
-
-      case g_variant_classify(variant) of
-        G_VARIANT_CLASS_STRING: begin
-          WriteStr(Value, 'G_VARIANT_CLASS_STRING');
-        end;
-      end;
+      variant := g_value_get_variant(Value);
+      WriteStr(ValueStr, getVariant(variant));
     end;
     else begin
       if g_type_is_a(typ, G_TYPE_BOXED) then begin
         valueType := 'G_TYPE_BOXED';
-        WriteStr(Value, g_type_name(typ));
+        WriteStr(ValueStr, g_type_name(typ));
       end else begin
         WriteStr(valueType, '<unknow> (', typ, ')');
       end;
     end;
   end;
-  WriteLn('Name: ', ValueName: 20, '  Valuetype: ', valueType: 15, '  Value: ', Value);
+  WriteLn('Name: ', ValueName: 20, '  Valuetype: ', valueType: 15, '  Value: ', ValueStr);
 end;
-
 
 procedure GObjectShowProperty(obj: Pointer);
 var
