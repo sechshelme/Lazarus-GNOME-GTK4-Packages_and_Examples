@@ -204,8 +204,13 @@ uses
     printChildHumanInc(Human);
     g_printf(#10);
     GObjectShowProperty(Human);
-
     g_object_unref(Human);
+
+//    https://www.perplexity.ai/search/kann-man-bei-einem-gobject-aus-WRqTLM2MRKW19v0JUgmZUQ
+    GSignalShow(E_TYPE_HUMANINC);
+    WriteLn('----------');
+    GSignalShow(G_TYPE_OBJECT);
+    g_printf(#10);
   end;
 
 begin

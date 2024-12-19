@@ -28,7 +28,7 @@ type
     constructor_: function(_type: TGType; n_construct_properties: Tguint; construct_properties: PGObjectConstructParam): PGObject; cdecl;
     set_property: procedure(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
     get_property: procedure(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
-    _dispose: procedure(object_: PGObject); cdecl;
+    dispose: procedure(object_: PGObject); cdecl;
     finalize: procedure(object_: PGObject); cdecl;
     dispatch_properties_changed: procedure(object_: PGObject; n_pspecs: Tguint; pspecs: PPGParamSpec); cdecl;
     notify: procedure(object_: PGObject; pspec: PGParamSpec); cdecl;

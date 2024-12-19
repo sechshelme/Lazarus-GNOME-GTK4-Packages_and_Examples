@@ -67,9 +67,6 @@ begin
 
   gtk_box_append(GTK_BOX(button_align), btn);
 
-
-
-
   gtk_box_append(GTK_BOX(Result), button_align);
 end;
 

@@ -40,7 +40,7 @@ var
   e_human_inc_parent_class: PEHumanIncClass = nil;
 
   age_signal_id: Tgint = 0;
-  died_signal_id: Tguint=0;
+  died_signal_id: Tguint = 0;
 
 
 procedure E_humanInc_set_property(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
@@ -147,6 +147,8 @@ begin
     G_TYPE_NONE,
     0);
 end;
+
+
 
 // ==== public
 
