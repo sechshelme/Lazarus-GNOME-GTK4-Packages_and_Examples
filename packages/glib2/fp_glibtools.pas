@@ -209,7 +209,7 @@ var
   objectClass: PGObjectClass;
 begin
   if (obj <> nil) and G_IS_OBJECT(obj) then begin
-    objectClass:=G_OBJECT_GET_CLASS(obj);
+    objectClass := G_OBJECT_GET_CLASS(obj);
     paramspec := g_object_class_list_properties(objectClass, @n_properties);
 
     WriteLn('Property count: ', n_properties);
@@ -236,36 +236,59 @@ end;
 procedure GSignalShow(typ: TGType);
 var
   c: PGTypeClass;
-  n_signals, n_children: Tguint;
+  Count: Tguint;
   signals: Pguint;
   query: TGSignalQuery;
   i: integer;
   children: PGType;
-  name: Pgchar;
+  Name: Pgchar;
+  specs: PPGParamSpec;
+  pt: TGType;
 begin
   if G_TYPE_IS_OBJECT(typ) then begin
-    // Signals
     c := g_type_class_ref(typ);
-    signals := g_signal_list_ids(typ, @n_signals);
-    g_printf('Signal Count: %d'#10, n_signals);
-    for i := 0 to n_signals - 1 do begin
+
+    // Signals
+    signals := g_signal_list_ids(typ, @Count);
+    g_printf('Signal Count: %d'#10, Count);
+    for i := 0 to Count - 1 do begin
       g_signal_query(signals[i], @query);
       g_printf('  %3d. %s'#10, i, query.signal_name);
     end;
     g_free(signals);
     g_type_class_unref(c);
 
-    // Childs
-    children:=g_type_children(typ, @n_children);
-    g_printf('Child Count: %d'#10, n_children);
-    for i := 0 to n_signals - 1 do begin
-      name:=g_type_name(children[i]);
-      g_printf('  %3d. %s'#10, i, name);
+    // Property
+    specs := g_object_class_list_properties(G_OBJECT_CLASS(c), @Count);
+    g_printf('Property Count: %d'#10, Count);
+    for i := 0 to Count - 1 do begin
+      g_printf('  %3d. %s'#10, i, g_param_spec_get_name(specs[i]));
     end;
+    g_free(specs);
 
+    // Parents
+    pt := typ;
+    g_printf('Parents:'#10);
+    repeat
+      if pt <> typ then  begin
+        g_printf(' <- ');
+      end;
+      g_printf('%s', g_type_name(pt));
+      pt := g_type_parent(pt);
+    until pt = G_TYPE_INVALID;
+    g_printf(#10);
 
+    // Childs
+    children := g_type_children(typ, @Count);
+    g_printf('Name: %s    Child Count: %d'#10, g_type_name(typ), Count);
+    for i := 0 to Count - 1 do begin
+      Name := g_type_name(children[i]);
+      g_printf('  %3d. %s'#10, i, Name);
+//      g_free(Name);
+    end;
+    g_free(children);
   end else begin
-    g_printf('Typ is not GObject');
+    g_printf('Typ is not GObject'#10);
   end;
 end;
 

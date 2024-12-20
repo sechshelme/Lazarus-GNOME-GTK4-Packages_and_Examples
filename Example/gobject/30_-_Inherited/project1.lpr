@@ -154,14 +154,6 @@ uses
     g_object_unref(HumanExt2);
   end;
 
-  procedure print_aligned(s: Pgchar; cw: Tgint);
-  var
-    p: Tglong;
-  begin
-    p := cw - g_utf8_strlen(s, -1);
-    g_printf('%s%*s', s, p, '');
-  end;
-
   // =======================================================================
 
   procedure printChildHumanInc(Human: PEHumanInc);
@@ -207,9 +199,11 @@ uses
     g_object_unref(Human);
 
 //    https://www.perplexity.ai/search/kann-man-bei-einem-gobject-aus-WRqTLM2MRKW19v0JUgmZUQ
+//  GSignalShow(E_TYPE_HUMANINC);
+GSignalShow(G_TYPE_OBJECT);
+GSignalShow(G_TYPE_APPLICATION);
+    WriteLn('-----------------------------------');
     GSignalShow(E_TYPE_HUMANINC);
-    WriteLn('----------');
-    GSignalShow(G_TYPE_OBJECT);
     g_printf(#10);
   end;
 
