@@ -2,9 +2,9 @@
 {$IFDEF read_interface}
 
 type
-  TGdkRectangle = record
-  end;
+  TGdkRectangle = Tcairo_rectangle_int_t;
   PGdkRectangle = ^TGdkRectangle;
+
 
 function gdk_rectangle_intersect(src1: PGdkRectangle; src2: PGdkRectangle; dest: PGdkRectangle): Tgboolean; cdecl; external libgtk4;
 procedure gdk_rectangle_union(src1: PGdkRectangle; src2: PGdkRectangle; dest: PGdkRectangle); cdecl; external libgtk4;

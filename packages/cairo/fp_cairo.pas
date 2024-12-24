@@ -223,10 +223,10 @@ type
   Pcairo_rectangle_int = ^Tcairo_rectangle_int;
 
   Tcairo_rectangle_int = record
-    x: longint;
-    y: longint;
-    Width: longint;
-    Height: longint;
+    x: cint;
+    y: cint;
+    Width: cint;
+    Height: cint;
   end;
   Tcairo_rectangle_int_t = Tcairo_rectangle_int;
   Pcairo_rectangle_int_t = ^Tcairo_rectangle_int_t;
