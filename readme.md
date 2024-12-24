@@ -1,10 +1,10 @@
 # Inhalt
-| **Paket Name:**   | **Version:** | **Beschrieb:**                             | **Download:**                            |
-| ---               | ---          | ---                                        |
-| **glib2**         | 2.80.0       | GIMP Library                               |
-| **gio-unix-2.0**  | 2.80.0       | Unix input/output                          |
-| **Cairo**         | 1.18.1       | 2D Grafik Bibliothek                       |
-| **graphene**      | 1.10.8       | Graphen (Bibliothek grafischer Datentypen) | (https://github.com/ebassi/graphene)     |
+| **Paket Name:**   | **Version:** | **Beschrieb:**                             | **Download:**                              |
+| ---               | ---          | ---                                        | ---                                        |
+| **glib2**         | 2.80.0       | GIMP Library                               | [https://gitlab.gnome.org/GNOME/glib]      |
+| **gio-unix-2.0**  | 2.80.0       | Unix input/output                          |                                          |
+| **Cairo**         | 1.18.1       | 2D Grafik Bibliothek                       |                                          | 
+| **graphene**      | 1.10.8       | Graphen (Bibliothek grafischer Datentypen) | [https://github.com/ebassi/graphene]     |
 | **Pango**         | 1.52.1       | Text Layout                                |
 | **GdkPixbuf2**    | 2.42.10      | Bildpuffer für GTKx                        |
 | **GTK4**          | 4.14.2       | GIMP Toolkit                               |
