@@ -1,14 +1,15 @@
 # Inhalt
-| **Paket Name:**   | **Version:** | **Beschrieb:**                 |
-| ---               | ---          | ---                            |
-| **glib2**         | 2.80.0       | GIMP Library                   |
-| **gio-unix-2.0**  | 2.80.0       | Unix input/output              |
-| **Cairo**         | 1.18.1       | 2D Grafik Bibliothek           |
-| **Pango**         | 1.52.1       | Text Layout                    |
-| **GdkPixbuf2**    | 2.42.10      | Bildpuffer für GTKx            |
-| **GTK4**          | 4.14.2       | GIMP Toolkit                   |
-| **gstreamer**     | 1.24.2.0     | GStreamer Multimedia Framework |
-| **gstreamer ges** | 1.24.2.0     | GStreamer Editing Services     |
+| **Paket Name:**   | **Version:** | **Beschrieb:**                             |
+| ---               | ---          | ---                                        |
+| **glib2**         | 2.80.0       | GIMP Library                               |
+| **gio-unix-2.0**  | 2.80.0       | Unix input/output                          |
+| **Cairo**         | 1.18.1       | 2D Grafik Bibliothek                       |
+| **graphene**      | 1.10.8       | Graphen (Bibliothek grafischer Datentypen) | (https://github.com/ebassi/graphene)     |
+| **Pango**         | 1.52.1       | Text Layout                                |
+| **GdkPixbuf2**    | 2.42.10      | Bildpuffer für GTKx                        |
+| **GTK4**          | 4.14.2       | GIMP Toolkit                               |
+| **gstreamer**     | 1.24.2.0     | GStreamer Multimedia Framework             |
+| **gstreamer ges** | 1.24.2.0     | GStreamer Editing Services                 |
 
 ## Pakete installieren
 - `sudo apt install libgstreamer-plugins-bad1.0-dev`
