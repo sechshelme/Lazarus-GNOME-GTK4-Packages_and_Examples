@@ -1,5 +1,5 @@
 # Inhalt
-| **Paket Name:**   | **Version:** | **Beschrieb:**                             |
+| **Paket Name:**   | **Version:** | **Beschrieb:**                             | **Download:**                            |
 | ---               | ---          | ---                                        |
 | **glib2**         | 2.80.0       | GIMP Library                               |
 | **gio-unix-2.0**  | 2.80.0       | Unix input/output                          |
