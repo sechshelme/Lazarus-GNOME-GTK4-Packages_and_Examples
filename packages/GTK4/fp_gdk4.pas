@@ -9,7 +9,7 @@ uses
   x, xlib,
   {$ENDIF}
   ctypes,
-  fp_pango, fp_glib2, fp_gdk_pixbuf2, fp_cairo;
+  fp_glib2, fp_graphene, fp_pango, fp_gdk_pixbuf2, fp_cairo;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

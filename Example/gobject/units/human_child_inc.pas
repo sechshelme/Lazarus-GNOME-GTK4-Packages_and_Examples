@@ -8,9 +8,17 @@ uses
   fp_glib2, Human, Human_Child;
 
 type
+  TEHumanIncPrivate = record
+  private
+    dummy_0: Tgint;
+    dummy_1: Tgfloat;
+  end;
+  PEHumanIncPrivate = ^TEHumanIncPrivate;
+
   TEHumanInc = record
   private
     parent_instance: TEHumanExt;
+    priv: PEHumanIncPrivate;
     timerOn: Tgboolean;
     time: TGTime;
   end;
@@ -46,7 +54,6 @@ var
 procedure E_humanInc_set_property(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
 var
   self: PEHumanInc;
-  ch: Pgchar;
 begin
   self := E_HUMANINC(object_);
   case property_id of
@@ -82,9 +89,10 @@ end;
 
 procedure E_humanInc_finalize(object_: PGObject); cdecl;
 var
-  self: PEHumanInc;
+  self: PEHumanInc absolute object_;
 begin
-  self := E_HUMANINC(object_);
+  g_free(self^.priv);
+
   G_OBJECT_CLASS(e_human_inc_parent_class)^.finalize(object_);
 end;
 
@@ -107,6 +115,11 @@ procedure E_humanInc_init(self: PEHumanInc); cdecl;
 begin
   self^.time := -1;
   self^.timerOn := gFalse;
+
+  self^.priv := g_malloc(SizeOf(TEHumanIncPrivate));
+  self^.priv^.dummy_0 := 42;
+  self^.priv^.dummy_1 := 3.14;
+
   g_timeout_add_seconds(1, @timercallback, self);
 end;
 

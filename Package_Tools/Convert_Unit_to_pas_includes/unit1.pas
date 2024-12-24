@@ -33,7 +33,7 @@ implementation
 
 const
   srcPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/pas_units';
-  destPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/packages/gstreamer';
+  destPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/packages/graphene-1.0/graphene';
 
 procedure TForm1.Button1Click(Sender: TObject);
 var
@@ -48,14 +48,6 @@ begin
   for i := 0 to slFile.Count - 1 do begin
     unit_source := TStringList.Create;
     inc_dest := TStringList.Create;
-    //inc_dest.Add('/////////////////////////////////////////////////////////////');
-    //inc_dest.Add('//                                                         //');
-    //inc_dest.Add('//   WARNUNG, dies Datei wird automatisch durch            //');
-    //inc_dest.Add('//   das Program "Convert_Unit_to_pas_includes" erzeugt !  //');
-    //inc_dest.Add('//   Erzeugt am: ' + FormatDateTime('dd/mm/yyyy   hh:nn', now) + '                        //');
-    //inc_dest.Add('//                                                         //');
-    //inc_dest.Add('/////////////////////////////////////////////////////////////');
-    //inc_dest.Add('');
     unit_source.LoadFromFile(slFile[i]);
 
     j := 0;

@@ -101,6 +101,7 @@ const
     (libs: 'libgstisoff'; units: 'glib280, gst124'),
     (libs: 'libgdk_pixbuf2'; units: 'glib280, gdk_pixbuf_core'),
 
+    (libs: 'libgraphene'; units: 'ctypes, graphene'),
     (libs: 'libpango'; units: 'fp_cairo, fp_glib2'),
     (libs: 'libges'; units: 'fp_glib2, fp_gst, ges_enums, ges_types'),
 

@@ -44,6 +44,7 @@ const
   availables: array of string = (
     'GDK_PIXBUF_AVAILABLE_IN_2',
     'GDK_AVAILABLE_IN_4',
+    'GRAPHENE_AVAILABLE_IN',
     'PANGO_AVAILABLE_IN_1',
     'PANGO_DEPRECATED_IN_1');
 
@@ -75,6 +76,8 @@ begin
       //  WriteLn();
       //end;
 
+      slHeader[j] := StringReplace(slHeader[j], 'GRAPHENE_BEGIN_DECLS', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'GRAPHENE_END_DECLS', '', [rfReplaceAll]);
 
       slHeader[j] := StringReplace(slHeader[j], 'G_BEGIN_DECLS', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_END_DECLS', '', [rfReplaceAll]);
@@ -97,43 +100,6 @@ begin
 
       slHeader[j] := StringReplace(slHeader[j], 'GES_API', 'extern', [rfReplaceAll]);
 
-
-
-      //
-      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_VAR', 'extern', [rfReplaceAll]);
-      //
-      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
-      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_12', 'extern', [rfReplaceAll]);
-      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_14', 'extern', [rfReplaceAll]);
-      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_26', 'extern', [rfReplaceAll]);
-      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_30', 'extern', [rfReplaceAll]);
-      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_32', 'extern', [rfReplaceAll]);
-      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_36', 'extern', [rfReplaceAll]);
-      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_2', 'extern', [rfReplaceAll]);
-      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_4', 'extern', [rfReplaceAll]);
-      //      slHeader[j] := StringReplace(slHeader[j], 'GDK_PIXBUF_AVAILABLE_IN_2_6', 'extern', [rfReplaceAll]);
-
-      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_ALL', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_CONST', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'GDK_DEPRECATED_IN_4_10', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'GDK_DEPRECATED_IN_4_12', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'GDK_DEPRECATED_IN_4_14', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_2', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_4', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_6', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_8', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_10', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_12', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_IN_4_14', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_ENUMERATOR_IN_4_10', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_ENUMERATOR_IN_4_12', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_ENUMERATOR_IN_4_14', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'GDK_AVAILABLE_ENUMERATOR_IN_4_14', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NULL_TERMINATED', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_MALLOC', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_PURE', '', [rfReplaceAll]);
-      //slHeader[j] := DeleteLines(slHeader[j], 'G_DEFINE_AUTOPTR_CLEANUP_FUNC(');
     end;
     slHeader.SaveToFile(slFile[i]);
     slHeader.Free;

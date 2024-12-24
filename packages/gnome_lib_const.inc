@@ -35,7 +35,17 @@ const
   libpangoft2 = 'libpangoft2-1.0-0.dll';
   {$ENDIF}
 
+  // ==== graphene
+const
+  {$IFDEF Linux}
+  libgraphene = 'libgraphene-1.0';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libgraphene = 'libgraphene-1.0-1.dll';
+  {$ENDIF}
   // ==== glib2
+
 const
   {$IFDEF Linux}
   libglib2 = 'libglib-2.0';
@@ -172,8 +182,8 @@ type
   Ttime_t = clong; // types.h
   Ptime_t = ^Ttime_t;
 
-//  TGPid = cint;
-//  PGPid = ^TGPid;
+  //  TGPid = cint;
+  //  PGPid = ^TGPid;
 
   Tva_list = Pointer;
   Pva_list = ^Tva_list;
@@ -315,32 +325,6 @@ type
 
   TFT_Bitmap = ^TFT_BitmapRec;
   PFT_Bitmap = ^TFT_Bitmap;
-
-  //  ==== Graphene
-type
-  Tgraphene_matrix_t = Pointer; //    /usr/include/graphene-1.0/graphene-matrix.h
-  Pgraphene_matrix_t = ^Tgraphene_matrix_t;
-  Tgraphene_rect_t = Pointer;
-  Pgraphene_rect_t = ^Tgraphene_rect_t;
-  Tgraphene_point_t = Pointer;
-  Pgraphene_point_t = ^Tgraphene_point_t;
-  Tgraphene_vec2_t = Pointer;        // /usr/include/graphene-1.0/graphene-vec3.h
-  Pgraphene_vec2_t = ^Tgraphene_vec2_t;
-  Tgraphene_vec3_t = Pointer;        // /usr/include/graphene-1.0/graphene-vec3.h
-  Pgraphene_vec3_t = ^Tgraphene_vec3_t;
-  Tgraphene_vec4_t = Pointer;        // /usr/include/graphene-1.0/graphene-vec4.h
-  Pgraphene_vec4_t = ^Tgraphene_vec4_t;
-
-  Tgraphene_size_t = record
-    Width, Height: cfloat;
-  end;
-  Pgraphene_size_t = ^Tgraphene_size_t;  // /usr/include/graphene-1.0/graphene-size.h
-
-  Tgraphene_point3d_t = record
-    x, y, z: cfloat;
-  end;
-  Pgraphene_point3d_t = ^Tgraphene_point3d_t;
-
 
   // ==== OpenGL
 type
@@ -566,35 +550,35 @@ type
   Phb_face_t = ^Thb_face_t;
 
   // ==== cuda
-   TCUresult=LongInt; // enum
+  TCUresult = longint; // enum
 
-   TCUcontext=Pointer;
-   PCUcontext=^TCUcontext;
+  TCUcontext = Pointer;
+  PCUcontext = ^TCUcontext;
 
-   TCUdevice=Pointer;
-   PCUdevice=^TCUdevice;
+  TCUdevice = Pointer;
+  PCUdevice = ^TCUdevice;
 
-   TCUgraphicsResource=Pointer;
-   PCUgraphicsResource=^TCUgraphicsResource;
+  TCUgraphicsResource = Pointer;
+  PCUgraphicsResource = ^TCUgraphicsResource;
 
-   TCUstream=Pointer;
-   PCUstream=^TCUstream;
+  TCUstream = Pointer;
+  PCUstream = ^TCUstream;
 
-   TCUfilter_mode=Pointer;
-   PCUfilter_mode=^TCUfilter_mode;
+  TCUfilter_mode = Pointer;
+  PCUfilter_mode = ^TCUfilter_mode;
 
-   TCUtexObject=Pointer;
-   PCUtexObject=^TCUtexObject;
+  TCUtexObject = Pointer;
+  PCUtexObject = ^TCUtexObject;
 
-   TCUdeviceptr=Pointer;
-   PCUdeviceptr=^TCUdeviceptr;
+  TCUdeviceptr = Pointer;
+  PCUdeviceptr = ^TCUdeviceptr;
 
-   TCUmemAllocationProp=Pointer;
-   PCUmemAllocationProp=^TCUmemAllocationProp;
+  TCUmemAllocationProp = Pointer;
+  PCUmemAllocationProp = ^TCUmemAllocationProp;
 
-   TCUgraphicsRegisterFlags=LongInt;
-   TCUgraphicsMapResourceFlags=LongInt;
-   TCUmemAllocationGranularity_flags=LongInt;
+  TCUgraphicsRegisterFlags = longint;
+  TCUgraphicsMapResourceFlags = longint;
+  TCUmemAllocationGranularity_flags = longint;
 
 
   // ==== Windows

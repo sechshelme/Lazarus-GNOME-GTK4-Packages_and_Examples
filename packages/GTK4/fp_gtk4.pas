@@ -4,7 +4,7 @@ interface
 
 uses
   ctypes,
-  fp_pango, fp_cairo, fp_glib2, fp_gdk_pixbuf2, fp_GDK4, fp_GSK4;
+  fp_glib2, fp_graphene, fp_pango, fp_cairo, fp_gdk_pixbuf2, fp_GDK4, fp_GSK4;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

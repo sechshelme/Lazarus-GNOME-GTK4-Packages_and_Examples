@@ -1,7 +1,5 @@
 
 
-//{$include GDK/gdkversionmacros.inc}                   // io.
-
 {$include pango/pango_types.inc}          // io.
 {$include pango/pango_enum_types.inc}     // io.
 {$include pango/pango_tabs.inc}           // io.
@@ -37,8 +35,6 @@
 {$include pango/pango_ot.inc}             //    !!!!! ft2 !!!!! -> pango_script, pango_glyph, pangofc_font
 {$include pango/pangofc_decoder.inc}      //    !!!!! ft2 !!!!! -> pangofc_font
 {$include pango/pangofc_fontmap.inc}      //    !!!!! ft2 !!!!! -> pangofc_decoder, pangofc_font
-
-
 
 
 // ==== X11

@@ -11,19 +11,6 @@ type
   end;
   PGtkRequisition = ^TGtkRequisition;
 
-  // ausgelagert
-  //TGtkWidgetPrivate = record
-  //end;
-  //PGtkWidgetPrivate = ^TGtkWidgetPrivate;
-
-  // Ausgelagert
-  //TGtkWidget = record
-  //  parent_instance: TGInitiallyUnowned;
-  //  priv: PGtkWidgetPrivate;
-  //end;
-  //PGtkWidget = ^TGtkWidget;
-  //PPGtkWidget = ^PGtkWidget;
-
   TGtkTickCallback = function(widget: PGtkWidget; frame_clock: PGdkFrameClock; user_data: Tgpointer): Tgboolean; cdecl;
 
   TGtkWidgetClassPrivate = record
