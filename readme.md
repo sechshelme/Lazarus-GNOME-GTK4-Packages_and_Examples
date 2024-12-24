@@ -1,15 +1,15 @@
 # Inhalt
-| **Paket Name:**   | **Version:** | **Beschrieb:**                             | **Download:**                              |
-| ---               | ---          | ---                                        | ---                                        |
-| **glib2**         | 2.80.0       | GIMP Library                               | [https://gitlab.gnome.org/GNOME/glib]      |
-| **gio-unix-2.0**  | 2.80.0       | Unix input/output                          |                                          |
-| **Cairo**         | 1.18.1       | 2D Grafik Bibliothek                       |                                          | 
-| **graphene**      | 1.10.8       | Graphen (Bibliothek grafischer Datentypen) | [https://github.com/ebassi/graphene]     |
-| **Pango**         | 1.52.1       | Text Layout                                |
-| **GdkPixbuf2**    | 2.42.10      | Bildpuffer für GTKx                        |
-| **GTK4**          | 4.14.2       | GIMP Toolkit                               |
-| **gstreamer**     | 1.24.2.0     | GStreamer Multimedia Framework             |
-| **gstreamer ges** | 1.24.2.0     | GStreamer Editing Services                 |
+| **Paket Name:**   | **Version:** | **Beschrieb:**                             | **Download:**                                                  |
+| ---               | ---          | ---                                        | ---                                                            |
+| **glib2**         | 2.80.0       | GIMP Library                               | https://gitlab.gnome.org/GNOME/glib                            |
+| **gio-unix-2.0**  | 2.80.0       | Unix input/output                          | gehört zu glib2                                                |
+| **Cairo**         | 1.18.1       | 2D Grafik Bibliothek                       | https://gitlab.freedesktop.org/cairo/cairo                     |
+| **graphene**      | 1.10.8       | Graphen (Bibliothek grafischer Datentypen) | https://github.com/ebassi/graphene                             |
+| **Pango**         | 1.52.1       | Text Layout                                | https://gitlab.gnome.org/GNOME/pango                           |
+| **GdkPixbuf2**    | 2.42.10      | Bildpuffer für GTKx                        | https://gitlab.gnome.org/GNOME/gdk-pixbuf                      |
+| **GTK4**          | 4.14.2       | GIMP Toolkit                               | https://gitlab.gnome.org/GNOME/gtk                             |
+| **gstreamer**     | 1.24.2.0     | GStreamer Multimedia Framework             | https://gitlab.freedesktop.org/gstreamer                       |
+| **gstreamer ges** | 1.24.2.0     | GStreamer Editing Services                 | https://gitlab.freedesktop.org/gstreamer/gst-editing-services  |
 
 ## Pakete installieren
 - `sudo apt install libgstreamer-plugins-bad1.0-dev`
