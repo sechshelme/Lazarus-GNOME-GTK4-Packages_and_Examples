@@ -13,7 +13,7 @@ const
   // ==== Cairo
 const
   {$IFDEF Linux}
-  cairo_lib = 'libcairo.so.2';
+  cairo_lib = 'libcairo';
   {$ENDIF}
 
   {$IFDEF Windows}
@@ -42,10 +42,20 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libgraphene = 'libgraphene-1.0-1.dll';
+  libgraphene = 'libgraphene-1.0-0.dll';
   {$ENDIF}
-  // ==== glib2
 
+  // ==== HaarBuuz
+const
+  {$IFDEF Linux}
+  libharfbuzz = 'libharfbuzz';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libharfbuzz = 'libharfbuzz-0.dll';
+  {$ENDIF}
+
+  // ==== glib2
 const
   {$IFDEF Linux}
   libglib2 = 'libglib-2.0';

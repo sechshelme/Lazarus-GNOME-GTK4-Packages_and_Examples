@@ -4,6 +4,11 @@
 // https://discourse.gnome.org/t/gtk4-tests-simple-c-program-does-not-terminate-when-closing-window-with-nim-bindings/3547
 
 #include <gtk/gtk.h>
+#include <X11/X.h>
+#include <X11/X.h>
+#include <X11//Intrinsic.h>
+#include <X11//IntrinsicP.h>
+#include <X11//IntrinsicI.h>
 
 static void
 hello (void)
@@ -47,4 +52,4 @@ main (int argc, char *argv[])
   g_printf_string_upper_bound
 
 }
-
+Cardinal

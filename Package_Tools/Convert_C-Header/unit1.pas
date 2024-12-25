@@ -56,7 +56,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/gstreamer-ges-1.24.2', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -78,6 +78,8 @@ begin
 
       slHeader[j] := StringReplace(slHeader[j], 'GRAPHENE_BEGIN_DECLS', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'GRAPHENE_END_DECLS', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'HB_BEGIN_DECLS', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'HB_END_DECLS', '', [rfReplaceAll]);
 
       slHeader[j] := StringReplace(slHeader[j], 'G_BEGIN_DECLS', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_END_DECLS', '', [rfReplaceAll]);
@@ -99,7 +101,7 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'PANGO_DEPRECATED', 'extern', [rfReplaceAll]);
 
       slHeader[j] := StringReplace(slHeader[j], 'GES_API', 'extern', [rfReplaceAll]);
-
+      slHeader[j] := StringReplace(slHeader[j], 'HB_EXTERN', 'extern', [rfReplaceAll]);
     end;
     slHeader.SaveToFile(slFile[i]);
     slHeader.Free;
