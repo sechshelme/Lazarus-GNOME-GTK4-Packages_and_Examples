@@ -1,8 +1,16 @@
 program project1;
 
 uses
-  hb_common,
-  hb_buffer,
+  hb_common,             // io.
+  hb_unicode,            // io.
+  hb_buffer,             // io. > hb_unicode
+  hb_blob,               // io.
+  hb_paint,              // io. -> hb_blob
+  hb_draw,               // io.
+  hb_font,               // io. -> hb_draw, hb_paint
+  hb_set,                // io.
+  hb_map,                // io. -> hb_set
+  hb_face,               // io. -> hb_blob, hb_set, hb_map
 
 
   ctypes,
@@ -30,6 +38,8 @@ var
   procedure activate(app: PGtkApplication; user_data: Tgpointer);
   var
     window, box, button, drawing_area: PGtkWidget;
+    buf: Phb_buffer_t;
+    hb_fnt: fp_glib2.Phb_font_t;
      const text:Pgchar = 'Hello, HarfBuzz! ÄÖÜöäüÿŸlllwww';
   begin
     window := gtk_application_window_new(app);
@@ -61,6 +71,13 @@ var
      cairo_paint(cr);
 
      buf:=hb_buffer_create;
+     hb_buffer_add_utf8(buf, text,-1,0,-1);
+     hb_buffer_guess_segment_properties(buf);
+
+     hb_fnt:=hb_font_create(hb_face_get_empty);
+     hb_font_set_scale(hb_fnt,18*64,18*64);
+
+     hp_shape(hp_fnt
 
 
 
