@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 1031
+  Left = 711
   Height = 441
-  Top = 73
+  Top = 58
   Width = 569
   Caption = 'Form1'
   Position = poDefault

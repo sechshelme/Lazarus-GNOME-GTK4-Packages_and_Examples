@@ -23,7 +23,6 @@ int main() {
     float x, y, z, w;
 //    graphene_simd4f_get(result, &x, &y, &z, &w);
 
-result.x=123;
 
 x = graphene_simd4f_get_x(result);
 y = graphene_simd4f_get_y(result);
@@ -32,10 +31,11 @@ w = graphene_simd4f_get_w(result);
 
 
     printf("Ergebnis: (%.2f, %.2f, %.2f, %.2f)\n", x, y, z, w);
+    printf("Ergebnis: %d\n", sizeof(result));
     printf("Ergebnis: %d\n", sizeof(graphene_simd4f_t));
     printf("Ergebnis: %d\n", sizeof(graphene_simd4x4f_t));
     printf("Ergebnis: %d\n", sizeof(x));
 
     return 0;
-graphene_simd4x4f_t
+
 }

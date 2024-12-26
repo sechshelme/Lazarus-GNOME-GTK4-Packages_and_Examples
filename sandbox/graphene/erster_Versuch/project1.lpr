@@ -1,35 +1,17 @@
 program project1;
 
 uses
-  //graphene,
-  //graphene_macros,
-  //graphene_gobject,
-  //graphene_types,
-  //graphene_version,
-  //graphene_vec2,        // io.
-  //graphene_vec3,        // io.
-  //graphene_vec4,        // io.
-  //graphene_point,       // io.
-  //graphene_size,        // io.
-  //graphene_rect,        // io. -> graphene_size, graphene_point
-  //graphene_point3d,     // io. -> graphene_rect
-  //graphene_euler,       // io.
-  //graphene_quaternion,  // io. -> graphene_euler
-  //graphene_plane,       // io. -> graphene_point3d
-  //graphene_box,         // io. -> graphene_point3d
-  //graphene_sphere,      // io. -> graphene_point3d
-  //graphene_triangle,    // io. -> graphene_point3d, graphene_plane
-  //graphene_ray,         // io. -> graphene_point3d, graphene_plane, graphene_triangle
-  //graphene_quad,        // io. -> graphene_point, graphene_rect
-  //graphene_frustum,     // io. -> graphene_plane, graphene_point3d
-  //graphene_matrix,      // io. -> graphene_point3d, graphene_point, graphene_rect, graphene_quad, graphene_ray, graphene_euler
-  //graphene_simd4f,      // inline und record Problem
-  //graphene_simd4x4f,    // inline und record Problem
-
   fp_glib2,
   fp_graphene,
 
   ctypes;
+
+
+function graphene_simd4f_get_x(s:Tgraphene_simd4f_t):single;cdecl;external libgraphene;
+function graphene_simd4f_get_y(s:Tgraphene_simd4f_t):single;cdecl;external libgraphene;
+function graphene_simd4f_get_z(s:Tgraphene_simd4f_t):single;cdecl;external libgraphene;
+function graphene_simd4f_get_w(s:Tgraphene_simd4f_t):single;cdecl;external libgraphene;
+
 
   function main(argc: cint; argv: PPChar): cint;
   var
@@ -37,14 +19,14 @@ uses
     x, y, z, w: single;
     vec: Pgraphene_vec4_t;
   begin
-    v1 := graphene_simd4f_init(1.0, 2.0, 3.0, 4.0);
-    v2 := graphene_simd4f_init(5.0, 6.0, 7.0, 8.0);
-    res := graphene_simd4f_add(v1, v2);
+    //v1 := graphene_simd4f_init(1.0, 2.0, 3.0, 4.0);
+    //v2 := graphene_simd4f_init(5.0, 6.0, 7.0, 8.0);
+    //res := graphene_simd4f_add(v1, v2);
 
-    res.x := 111;
-    res.y := 222;
-    res.z := 333;
-    res.w := 444;
+    res.x := 11.1;
+    res.y := 22.2;
+    res.z := 33.3;
+    res.w := 44.4;
 
     x := graphene_simd4f_get_x(res);
     y := graphene_simd4f_get_y(res);
