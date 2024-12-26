@@ -45,14 +45,18 @@ const
   libgraphene = 'libgraphene-1.0-0.dll';
   {$ENDIF}
 
-  // ==== HaarBuuz
+  // ==== HaarBuzz
 const
   {$IFDEF Linux}
   libharfbuzz = 'libharfbuzz';
+  libharfbuzzsubset = 'libharfbuzz-subset';
+  libharfbuzzgobject = 'libharfbuzz-gobject';
   {$ENDIF}
 
   {$IFDEF Windows}
   libharfbuzz = 'libharfbuzz-0.dll';
+  libharfbuzzsubset = 'libharfbuzz-subset-0.dll';
+  libharfbuzzgobject = 'libharfbuzz-gobject-0.dll';
   {$ENDIF}
 
   // ==== glib2

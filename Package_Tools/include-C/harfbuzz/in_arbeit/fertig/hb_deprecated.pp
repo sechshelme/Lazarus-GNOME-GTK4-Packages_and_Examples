@@ -1,4 +1,40 @@
-/*
+
+unit hb_deprecated;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from hb_deprecated.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    hb_deprecated.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Phb_codepoint_t  = ^hb_codepoint_t;
+Phb_draw_funcs_t  = ^hb_draw_funcs_t;
+Phb_font_funcs_t  = ^hb_font_funcs_t;
+Phb_font_get_glyph_v_kerning_func_t  = ^hb_font_get_glyph_v_kerning_func_t;
+Phb_font_t  = ^hb_font_t;
+Phb_unicode_funcs_t  = ^hb_unicode_funcs_t;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
  * Copyright © 2013  Google, Inc.
  *
  *  This is part of HarfBuzz, a text shaping library.
@@ -22,22 +58,17 @@
  * PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
  *
  * Google Author(s): Behdad Esfahbod
- */
-
-#if !defined(HB_H_IN) && !defined(HB_NO_SINGLE_HEADER_ERROR)
-#error "Include <hb.h> instead."
-#endif
-
-#ifndef HB_DEPRECATED_H
-#define HB_DEPRECATED_H
-
-#include "hb-common.h"
-#include "hb-unicode.h"
-#include "hb-font.h"
-#include "hb-set.h"
-
-
-/**
+  }
+{$if !defined(HB_H_IN) && !defined(HB_NO_SINGLE_HEADER_ERROR)}
+{$error "Include <hb.h> instead."}
+{$endif}
+{$ifndef _H}
+{$define _H}
+{$include "hb-common.h"}
+{$include "hb-unicode.h"}
+{$include "hb-font.h"}
+{$include "hb-set.h"}
+{*
  * SECTION:hb-deprecated
  * @title: hb-deprecated
  * @short_description: Deprecated API
@@ -45,41 +76,35 @@
  *
  * These API have been deprecated in favor of newer API, or because they
  * were deemed unnecessary.
- **/
-
-
-
-
-#ifndef HB_DISABLE_DEPRECATED
-
-
-/**
+ * }
+{$ifndef HB_DISABLE_DEPRECATED}
+{*
  * HB_SCRIPT_CANADIAN_ABORIGINAL:
  *
  * Use #HB_SCRIPT_CANADIAN_SYLLABICS instead.
  *
  * Deprecated: 0.9.20
- */
-#define HB_SCRIPT_CANADIAN_ABORIGINAL		HB_SCRIPT_CANADIAN_SYLLABICS
+  }
 
-/**
+const
+  HB_SCRIPT_CANADIAN_ABORIGINAL = HB_SCRIPT_CANADIAN_SYLLABICS;  
+{*
  * HB_BUFFER_FLAGS_DEFAULT:
  *
  * Use #HB_BUFFER_FLAG_DEFAULT instead.
  *
  * Deprecated: 0.9.20
- */
-#define HB_BUFFER_FLAGS_DEFAULT			HB_BUFFER_FLAG_DEFAULT
-/**
+  }
+  HB_BUFFER_FLAGS_DEFAULT = HB_BUFFER_FLAG_DEFAULT;  
+{*
  * HB_BUFFER_SERIALIZE_FLAGS_DEFAULT:
  *
  * Use #HB_BUFFER_SERIALIZE_FLAG_DEFAULT instead.
  *
  * Deprecated: 0.9.20
- */
-#define HB_BUFFER_SERIALIZE_FLAGS_DEFAULT	HB_BUFFER_SERIALIZE_FLAG_DEFAULT
-
-/**
+  }
+  HB_BUFFER_SERIALIZE_FLAGS_DEFAULT = HB_BUFFER_SERIALIZE_FLAG_DEFAULT;  
+{*
  * hb_font_get_glyph_func_t:
  * @font: #hb_font_t to work upon
  * @font_data: @font user data pointer
@@ -96,29 +121,24 @@
  * Return value: `true` if data found, `false` otherwise
  * Deprecated: 1.2.3
  *
- **/
-typedef hb_bool_t (*hb_font_get_glyph_func_t) (hb_font_t *font, void *font_data,
-					       hb_codepoint_t unicode, hb_codepoint_t variation_selector,
-					       hb_codepoint_t *glyph,
-					       void *user_data);
+ * }
+type
 
-HB_DEPRECATED_FOR (hb_font_funcs_set_nominal_glyph_func and hb_font_funcs_set_variation_glyph_func)
-extern void
-hb_font_funcs_set_glyph_func (hb_font_funcs_t *ffuncs,
-			      hb_font_get_glyph_func_t func,
-			      void *user_data, hb_destroy_func_t destroy);
+  Thb_font_get_glyph_func_t = function (font:Phb_font_t; font_data:pointer; unicode:Thb_codepoint_t; variation_selector:Thb_codepoint_t; glyph:Phb_codepoint_t; 
+               user_data:pointer):Thb_bool_t;cdecl;
 
-/* https://github.com/harfbuzz/harfbuzz/pull/4207 */
-/**
+procedure hb_font_funcs_set_glyph_func(ffuncs:Phb_font_funcs_t; func:Thb_font_get_glyph_func_t; user_data:pointer; destroy:Thb_destroy_func_t);cdecl;external;
+{ https://github.com/harfbuzz/harfbuzz/pull/4207  }
+{*
  * HB_UNICODE_COMBINING_CLASS_CCC133:
  *
  * [Tibetan]
  *
  * Deprecated: 7.2.0
- **/
-#define HB_UNICODE_COMBINING_CLASS_CCC133 133
-
-/**
+ * }
+const
+  HB_UNICODE_COMBINING_CLASS_CCC133 = 133;  
+{*
  * hb_unicode_eastasian_width_func_t:
  * @ufuncs: A Unicode-functions structure
  * @unicode: The code point to query
@@ -127,12 +147,11 @@ hb_font_funcs_set_glyph_func (hb_font_funcs_t *ffuncs,
  * A virtual method for the #hb_unicode_funcs_t structure.
  *
  * Deprecated: 2.0.0
- */
-typedef unsigned int			(*hb_unicode_eastasian_width_func_t)	(hb_unicode_funcs_t *ufuncs,
-										 hb_codepoint_t      unicode,
-										 void               *user_data);
+  }
+type
 
-/**
+  Thb_unicode_eastasian_width_func_t = function (ufuncs:Phb_unicode_funcs_t; unicode:Thb_codepoint_t; user_data:pointer):dword;cdecl;
+{*
  * hb_unicode_funcs_set_eastasian_width_func:
  * @ufuncs: a Unicode-function structure
  * @func: (closure user_data) (destroy destroy) (scope notified): The callback function to assign
@@ -143,13 +162,10 @@ typedef unsigned int			(*hb_unicode_eastasian_width_func_t)	(hb_unicode_funcs_t 
  *
  * Since: 0.9.2
  * Deprecated: 2.0.0
- **/
-extern HB_DEPRECATED void
-hb_unicode_funcs_set_eastasian_width_func (hb_unicode_funcs_t *ufuncs,
-					   hb_unicode_eastasian_width_func_t func,
-					   void *user_data, hb_destroy_func_t destroy);
+ * }
 
-/**
+procedure hb_unicode_funcs_set_eastasian_width_func(ufuncs:Phb_unicode_funcs_t; func:Thb_unicode_eastasian_width_func_t; user_data:pointer; destroy:Thb_destroy_func_t);cdecl;external;
+{*
  * hb_unicode_eastasian_width:
  * @ufuncs: a Unicode-function structure
  * @unicode: The code point to query
@@ -158,13 +174,9 @@ hb_unicode_funcs_set_eastasian_width_func (hb_unicode_funcs_t *ufuncs,
  *
  * Since: 0.9.2
  * Deprecated: 2.0.0
- **/
-extern HB_DEPRECATED unsigned int
-hb_unicode_eastasian_width (hb_unicode_funcs_t *ufuncs,
-			    hb_codepoint_t unicode);
-
-
-/**
+ * }
+function hb_unicode_eastasian_width(ufuncs:Phb_unicode_funcs_t; unicode:Thb_codepoint_t):dword;cdecl;external;
+{*
  * hb_unicode_decompose_compatibility_func_t:
  * @ufuncs: a Unicode function structure
  * @u: codepoint to decompose
@@ -183,22 +195,22 @@ hb_unicode_eastasian_width (hb_unicode_funcs_t *ufuncs,
  * Return value: number of codepoints in the full compatibility decomposition of @u, or 0 if no decomposition available.
  *
  * Deprecated: 2.0.0
- */
-typedef unsigned int			(*hb_unicode_decompose_compatibility_func_t)	(hb_unicode_funcs_t *ufuncs,
-											 hb_codepoint_t      u,
-											 hb_codepoint_t     *decomposed,
-											 void               *user_data);
+  }
+type
 
-/**
+  Thb_unicode_decompose_compatibility_func_t = function (ufuncs:Phb_unicode_funcs_t; u:Thb_codepoint_t; decomposed:Phb_codepoint_t; user_data:pointer):dword;cdecl;
+{*
  * HB_UNICODE_MAX_DECOMPOSITION_LEN:
  *
  * See Unicode 6.1 for details on the maximum decomposition length.
  *
  * Deprecated: 2.0.0
- */
-#define HB_UNICODE_MAX_DECOMPOSITION_LEN (18+1) /* codepoints */
+  }
+{ codepoints  }
 
-/**
+const
+  HB_UNICODE_MAX_DECOMPOSITION_LEN = 18+1;  
+{*
  * hb_unicode_funcs_set_decompose_compatibility_func:
  * @ufuncs: A Unicode-functions structure
  * @func: (closure user_data) (destroy destroy) (scope notified): The callback function to assign
@@ -211,19 +223,11 @@ typedef unsigned int			(*hb_unicode_decompose_compatibility_func_t)	(hb_unicode_
  *
  * Since: 0.9.2
  * Deprecated: 2.0.0
- **/
-extern HB_DEPRECATED void
-hb_unicode_funcs_set_decompose_compatibility_func (hb_unicode_funcs_t *ufuncs,
-						   hb_unicode_decompose_compatibility_func_t func,
-						   void *user_data, hb_destroy_func_t destroy);
+ * }
 
-extern HB_DEPRECATED unsigned int
-hb_unicode_decompose_compatibility (hb_unicode_funcs_t *ufuncs,
-				    hb_codepoint_t      u,
-				    hb_codepoint_t     *decomposed);
-
-
-/**
+procedure hb_unicode_funcs_set_decompose_compatibility_func(ufuncs:Phb_unicode_funcs_t; func:Thb_unicode_decompose_compatibility_func_t; user_data:pointer; destroy:Thb_destroy_func_t);cdecl;external;
+function hb_unicode_decompose_compatibility(ufuncs:Phb_unicode_funcs_t; u:Thb_codepoint_t; decomposed:Phb_codepoint_t):dword;cdecl;external;
+{*
  * hb_font_get_glyph_v_kerning_func_t:
  *
  * A virtual method for the #hb_font_funcs_t of an #hb_font_t object.
@@ -231,10 +235,11 @@ hb_unicode_decompose_compatibility (hb_unicode_funcs_t *ufuncs,
  * This method should retrieve the kerning-adjustment value for a glyph-pair in
  * the specified font, for vertical text segments.
  *
- **/
-typedef hb_font_get_glyph_kerning_func_t hb_font_get_glyph_v_kerning_func_t;
-
-/**
+ * }
+type
+  Phb_font_get_glyph_v_kerning_func_t = ^Thb_font_get_glyph_v_kerning_func_t;
+  Thb_font_get_glyph_v_kerning_func_t = Thb_font_get_glyph_kerning_func_t;
+{*
  * hb_font_funcs_set_glyph_v_kerning_func:
  * @ffuncs: A font-function structure
  * @func: (closure user_data) (destroy destroy) (scope notified): The callback function to assign
@@ -245,18 +250,11 @@ typedef hb_font_get_glyph_kerning_func_t hb_font_get_glyph_v_kerning_func_t;
  *
  * Since: 0.9.2
  * Deprecated: 2.0.0
- **/
-extern void
-hb_font_funcs_set_glyph_v_kerning_func (hb_font_funcs_t *ffuncs,
-					hb_font_get_glyph_v_kerning_func_t func,
-					void *user_data, hb_destroy_func_t destroy);
+ * }
 
-extern hb_position_t
-hb_font_get_glyph_v_kerning (hb_font_t *font,
-			     hb_codepoint_t top_glyph, hb_codepoint_t bottom_glyph);
-
-
-/**
+procedure hb_font_funcs_set_glyph_v_kerning_func(ffuncs:Phb_font_funcs_t; func:Thb_font_get_glyph_v_kerning_func_t; user_data:pointer; destroy:Thb_destroy_func_t);cdecl;external;
+function hb_font_get_glyph_v_kerning(font:Phb_font_t; top_glyph:Thb_codepoint_t; bottom_glyph:Thb_codepoint_t):Thb_position_t;cdecl;external;
+{*
  * hb_font_get_glyph_shape_func_t:
  * @font: #hb_font_t to work upon
  * @font_data: @font user data pointer
@@ -269,13 +267,12 @@ hb_font_get_glyph_v_kerning (hb_font_t *font,
  *
  * Since: 4.0.0
  * Deprecated: 7.0.0: Use #hb_font_draw_glyph_func_t instead
- **/
-typedef void (*hb_font_get_glyph_shape_func_t) (hb_font_t *font, void *font_data,
-						hb_codepoint_t glyph,
-						hb_draw_funcs_t *draw_funcs, void *draw_data,
-						void *user_data);
+ * }
+type
 
-/**
+  Thb_font_get_glyph_shape_func_t = procedure (font:Phb_font_t; font_data:pointer; glyph:Thb_codepoint_t; draw_funcs:Phb_draw_funcs_t; draw_data:pointer; 
+                user_data:pointer);cdecl;
+{*
  * hb_font_funcs_set_glyph_shape_func:
  * @ffuncs: A font-function structure
  * @func: (closure user_data) (destroy destroy) (scope notified): The callback function to assign
@@ -287,32 +284,24 @@ typedef void (*hb_font_get_glyph_shape_func_t) (hb_font_t *font, void *font_data
  *
  * Since: 4.0.0
  * Deprecated: 7.0.0: Use hb_font_funcs_set_draw_glyph_func() instead
- **/
-HB_DEPRECATED_FOR (hb_font_funcs_set_draw_glyph_func)
-extern void
-hb_font_funcs_set_glyph_shape_func (hb_font_funcs_t *ffuncs,
-				    hb_font_get_glyph_shape_func_t func,
-				    void *user_data, hb_destroy_func_t destroy);
+ * }
 
-HB_DEPRECATED_FOR (hb_font_draw_glyph)
-extern void
-hb_font_get_glyph_shape (hb_font_t *font,
-			 hb_codepoint_t glyph,
-			 hb_draw_funcs_t *dfuncs, void *draw_data);
-
-
-/**
+procedure hb_font_funcs_set_glyph_shape_func(ffuncs:Phb_font_funcs_t; func:Thb_font_get_glyph_shape_func_t; user_data:pointer; destroy:Thb_destroy_func_t);cdecl;external;
+procedure hb_font_get_glyph_shape(font:Phb_font_t; glyph:Thb_codepoint_t; dfuncs:Phb_draw_funcs_t; draw_data:pointer);cdecl;external;
+{*
  * HB_AAT_LAYOUT_FEATURE_TYPE_CURISVE_CONNECTION:
  *
  * Use #HB_AAT_LAYOUT_FEATURE_TYPE_CURSIVE_CONNECTION instead.
  *
  * Deprecated: 8.3.0
- */
-#define HB_AAT_LAYOUT_FEATURE_TYPE_CURISVE_CONNECTION HB_AAT_LAYOUT_FEATURE_TYPE_CURSIVE_CONNECTION
+  }
+const
+  HB_AAT_LAYOUT_FEATURE_TYPE_CURISVE_CONNECTION = HB_AAT_LAYOUT_FEATURE_TYPE_CURSIVE_CONNECTION;  
+{$endif}
+{$endif}
+{ _H  }
 
-#endif
+implementation
 
 
-
-
-#endif /* HB_DEPRECATED_H */
+end.

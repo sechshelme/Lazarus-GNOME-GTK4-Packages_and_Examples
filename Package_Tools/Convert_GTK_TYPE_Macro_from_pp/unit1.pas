@@ -105,6 +105,8 @@ const
     (libs: 'libpango'; units: 'fp_cairo, fp_glib2'),
     (libs: 'libges'; units: 'fp_glib2, fp_gst, ges_enums, ges_types'),
 
+    (libs: 'libharfbuzzgobject'; units: 'fp_glib2, hb_common'),
+    (libs: 'libharfbuzzset'; units: 'fp_glib2, hb_common'),
     (libs: 'libharfbuzz'; units: 'fp_glib2, hb_common'),
 
     (libs: ''; units: ''));

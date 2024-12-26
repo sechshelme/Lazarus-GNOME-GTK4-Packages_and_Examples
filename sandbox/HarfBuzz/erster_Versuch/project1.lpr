@@ -11,7 +11,17 @@ uses
   hb_set,                // io.
   hb_map,                // io. -> hb_set
   hb_face,               // io. -> hb_blob, hb_set, hb_map
-  hb_shape_,
+  hb_shape_,             // io. -> hb_buffer
+  hb_ot_name,            // io.
+  hb_aat_layout,         // io. -> hb_ot_name
+  hb_ot_layout,          // io. -> hb_set, hb_map, hb_ot_name, hb_font
+  hb_ot_math,            // io.
+  hb_ot_metrics,         // io.
+
+  hb_gobject_enums,      // io.                                       ( andere lib )
+  hb_subset,             // io. hb_common, hb_set, hb_map, hb_ot_name ( andere lib )
+
+  hb_deprecated,         // io. hb_common, hb_buffer, hb_font, hb_unicode, hb_draw, hb_aat_layout
 
 
   ctypes,
