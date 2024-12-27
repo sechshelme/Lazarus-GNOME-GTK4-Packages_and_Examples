@@ -50,11 +50,15 @@ const
   {$IFDEF Linux}
   libharfbuzz = 'libharfbuzz';
   libharfbuzzsubset = 'libharfbuzz-subset';
+  libharfbuzzcairo = 'libharfbuzz-cairo';
+  libharfbuzzicu = 'libharfbuzz-icu';
   libharfbuzzgobject = 'libharfbuzz-gobject';
   {$ENDIF}
 
   {$IFDEF Windows}
   libharfbuzz = 'libharfbuzz-0.dll';
+  libharfbuzzcairo = 'libharfbuzz-cairo-0.dll';
+  libharfbuzzicu = 'libharfbuzz-icu-0.dll';
   libharfbuzzsubset = 'libharfbuzz-subset-0.dll';
   libharfbuzzgobject = 'libharfbuzz-gobject-0.dll';
   {$ENDIF}
@@ -546,6 +550,20 @@ type
   end;
   Pwl_shell = ^Twl_shell;
 
+  // ==== unicode
+type
+  // /usr/include/unicode/uscript.h
+  TUScriptCode = longint;
+
+  // ==== graphite2
+  // /usr/include/graphite2/Font.h
+  Tgr_face=record
+  end;
+  Pgr_face=^Tgr_face;
+
+  Tgr_font=record
+  end;
+  Pgr_font=^Tgr_font;
 
   // ==== HarfBuzz
 type

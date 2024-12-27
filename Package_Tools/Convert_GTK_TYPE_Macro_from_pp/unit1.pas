@@ -107,6 +107,8 @@ const
 
     (libs: 'libharfbuzzgobject'; units: 'fp_glib2, hb_common'),
     (libs: 'libharfbuzzset'; units: 'fp_glib2, hb_common'),
+    (libs: 'libharfbuzzcairo'; units: 'fp_glib2, hb_common'),
+    (libs: 'libharfbuzzicu'; units: 'fp_glib2, hb_common'),
     (libs: 'libharfbuzz'; units: 'fp_glib2, hb_common'),
 
     (libs: ''; units: ''));

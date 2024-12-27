@@ -67,7 +67,6 @@
 
 
 /* Like hb_ot_layout_table_find_script, but takes zero-terminated array of scripts to test */
-HB_DEPRECATED_FOR (hb_ot_layout_table_select_script)
 extern hb_bool_t
 hb_ot_layout_table_choose_script (hb_face_t      *face,
 				  hb_tag_t        table_tag,
@@ -75,7 +74,6 @@ hb_ot_layout_table_choose_script (hb_face_t      *face,
 				  unsigned int   *script_index,
 				  hb_tag_t       *chosen_script);
 
-HB_DEPRECATED_FOR (hb_ot_layout_script_select_language)
 extern hb_bool_t
 hb_ot_layout_script_find_language (hb_face_t    *face,
 				   hb_tag_t      table_tag,
@@ -83,13 +81,11 @@ hb_ot_layout_script_find_language (hb_face_t    *face,
 				   hb_tag_t      language_tag,
 				   unsigned int *language_index);
 
-HB_DEPRECATED_FOR (hb_ot_tags_from_script_and_language)
 extern void
 hb_ot_tags_from_script (hb_script_t  script,
 			hb_tag_t    *script_tag_1,
 			hb_tag_t    *script_tag_2);
 
-HB_DEPRECATED_FOR (hb_ot_tags_from_script_and_language)
 extern hb_tag_t
 hb_ot_tag_from_language (hb_language_t language);
 
@@ -125,14 +121,12 @@ typedef struct hb_ot_var_axis_t {
   float max_value;
 } hb_ot_var_axis_t;
 
-HB_DEPRECATED_FOR (hb_ot_var_get_axis_infos)
 extern unsigned int
 hb_ot_var_get_axes (hb_face_t        *face,
 		    unsigned int      start_offset,
 		    unsigned int     *axes_count /* IN/OUT */,
 		    hb_ot_var_axis_t *axes_array /* OUT */);
 
-HB_DEPRECATED_FOR (hb_ot_var_find_axis_info)
 extern hb_bool_t
 hb_ot_var_find_axis (hb_face_t        *face,
 		     hb_tag_t          axis_tag,
