@@ -45,7 +45,7 @@ const
   libgraphene = 'libgraphene-1.0-0.dll';
   {$ENDIF}
 
-  // ==== HaarBuzz
+  // ==== HarfBuzz
 const
   {$IFDEF Linux}
   libharfbuzz = 'libharfbuzz';
@@ -565,23 +565,8 @@ type
   end;
   Pgr_font=^Tgr_font;
 
-  // ==== HarfBuzz
-type
-  // /usr/include/harfbuzz/hb-common.h
-  Thb_feature_t = record
-  end;
-  Phb_feature_t = ^Thb_feature_t;
-
-  Thb_font_t = record
-  end;
-  Phb_font_t = ^Thb_font_t;
-
-  // /usr/include/harfbuzz/hb-face.h
-  Thb_face_t = record
-  end;
-  Phb_face_t = ^Thb_face_t;
-
   // ==== cuda
+type
   TCUresult = longint; // enum
 
   TCUcontext = Pointer;

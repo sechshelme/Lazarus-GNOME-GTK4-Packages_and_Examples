@@ -25,6 +25,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="fp_harfbuzz_package"/>
+      </Item>
+      <Item>
         <PackageName Value="fp_GTK4_package"/>
       </Item>
       <Item>

@@ -1,47 +1,10 @@
 program project1;
 
 uses
-  hb_common,             // io.
-  hb_version,            // io.
-  hb_unicode,            // io.
-  hb_buffer,             // io. -> hb_unicode
-  hb_blob,               // io.
-  hb_paint,              // io. -> hb_blob
-  hb_draw,               // io.
-  hb_font,               // io. -> hb_draw, hb_paint
-  hb_set,                // io.
-  hb_map,                // io. -> hb_set
-  hb_face,               // io. -> hb_blob, hb_set, hb_map
-  hb_shape_,             // io. -> hb_buffer
-  hb_ot_name,            // io.
-  hb_aat_layout,         // io. -> hb_ot_name
-  hb_ot_layout,          // io. -> hb_set, hb_map, hb_ot_name, hb_font
-  hb_ot_math,            // io.
-  hb_ot_metrics,         // io.
-  hb_ft,                 // io.
-  hb_ot_var,             // io. -> hb_ot_name
-  hb_ot_color,           // io. -> hb_ot_name, hb_blob
-  hb_shape_plan,         // io. -> hb_buffer
-  hb_style,              // io.
-  hb_features,           // io.
-  hb_ot_meta,            // io. -> hb_blob
-  hb_glib,               // io. -> hb_unicode, hb_blob
-  hb_graphite2,          // io.
-  hb_ot_shape,           // io. -> hb_buffer, hb_set, hb_shape_plan
-  hb_ot_font,            // io.
-  hb_gobject_enums,      // io.                                          ( andere lib )
-  hb_gobject_structs,    // io.                                          ( andere lib )
-  hb_subset,             // io. -> hb_common, hb_set, hb_map, hb_ot_name ( andere lib )
-  hb_cairo,              // io. -> hb_buffer                             ( andere lib )
-  hb_icu,                // io. -> hb_unicode                            ( andere lib )
-  hb_subset_repacker,    // io. ->                                       ( andere lib )
-  hb_deprecated,         // io. -> hb_common, hb_buffer, hb_font, hb_unicode, hb_draw, hb_aat_layout
-  hb_ot_deprecated,      // io. -> hb_ot_math, hb_ot_name
-
-
   ctypes,
   SysUtils,
   fp_glib2,
+  fp_harfbuzz,
   fp_cairo,
   fp_GTK4;
 
@@ -49,7 +12,6 @@ uses
   begin
     g_print('Click'#10);
   end;
-
 
 var
   surface: Pcairo_surface_t = nil;
@@ -65,7 +27,7 @@ var
   var
     window, box, button, drawing_area: PGtkWidget;
     buf: Phb_buffer_t;
-    hb_fnt: fp_glib2.Phb_font_t;
+    hb_fnt: Phb_font_t;
     glyph_count: DWord;
     glyph_info: Phb_glyph_info_t;
     glyph_pos: Phb_glyph_position_t;

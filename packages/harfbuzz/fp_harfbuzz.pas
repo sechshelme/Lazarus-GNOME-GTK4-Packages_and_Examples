@@ -1,28 +1,23 @@
-unit fp_pango;
-
-//{$modeswitch typehelpers}
+unit fp_harfbuzz;
 
 interface
 
 uses
-  {$IFDEF Linux}
-  x, xlib,
-  {$ENDIF}
-  ctypes, fp_glib2, fp_harfbuzz, fp_cairo;
+  ctypes, fp_cairo, fp_glib2;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
   {$DEFINE read_interface}
-  {$include fp_pango_includes.inc}
+  {$include fp_harfbuzz_includes.inc}
   {$UNDEF read_interface}
 
 
 implementation
 
 {$DEFINE read_implementation}
-{$include fp_pango_includes.inc}
+{$include fp_harfbuzz_includes.inc}
 {$UNDEF read_implementation}
 
 end.

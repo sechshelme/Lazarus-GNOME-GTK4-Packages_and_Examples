@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="5">
-    <Name Value="fp_pango_package"/>
+    <Name Value="fp_harfbuzz_package"/>
     <Type Value="RunAndDesignTime"/>
     <CompilerOptions>
       <Version Value="11"/>
@@ -11,19 +11,16 @@
     </CompilerOptions>
     <Files>
       <Item>
-        <Filename Value="fp_pango.pas"/>
-        <UnitName Value="fp_pango"/>
+        <Filename Value="fp_harfbuzz.pas"/>
+        <UnitName Value="fp_harfbuzz"/>
       </Item>
     </Files>
     <RequiredPkgs>
       <Item>
-        <PackageName Value="fp_harfbuzz_package"/>
+        <PackageName Value="fp_cairo_package"/>
       </Item>
       <Item>
         <PackageName Value="fp_GLIB2_package"/>
-      </Item>
-      <Item>
-        <PackageName Value="fp_cairo_package"/>
       </Item>
     </RequiredPkgs>
     <UsageOptions>

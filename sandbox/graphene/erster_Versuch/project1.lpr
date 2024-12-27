@@ -3,14 +3,7 @@ program project1;
 uses
   fp_glib2,
   fp_graphene,
-
   ctypes;
-
-
-function graphene_simd4f_get_x(s:Tgraphene_simd4f_t):single;cdecl;external libgraphene;
-function graphene_simd4f_get_y(s:Tgraphene_simd4f_t):single;cdecl;external libgraphene;
-function graphene_simd4f_get_z(s:Tgraphene_simd4f_t):single;cdecl;external libgraphene;
-function graphene_simd4f_get_w(s:Tgraphene_simd4f_t):single;cdecl;external libgraphene;
 
 
   function main(argc: cint; argv: PPChar): cint;
@@ -57,7 +50,4 @@ begin
 
   main(argc, argv);
 end.
-typedef struct {
-  float x, y, z, w;
-} v4;
-extern v4 v_add  (const v4 a, const v4 b);
+

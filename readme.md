@@ -5,6 +5,7 @@
 | **gio-unix-2.0**  | 2.80.0       | Unix input/output                          | gehört zu glib2                                                |
 | **Cairo**         | 1.18.1       | 2D Grafik Bibliothek                       | https://gitlab.freedesktop.org/cairo/cairo                     |
 | **graphene**      | 1.10.8       | Graphen (Bibliothek grafischer Datentypen) | https://github.com/ebassi/graphene                             |
+| **harfbuzz**      | 8.3.0        | Softwarebibliothek für Text-Shaping        | https://github.com/harfbuzz/harfbuzz                           |
 | **Pango**         | 1.52.1       | Text Layout                                | https://gitlab.gnome.org/GNOME/pango                           |
 | **GdkPixbuf2**    | 2.42.10      | Bildpuffer für GTKx                        | https://gitlab.gnome.org/GNOME/gdk-pixbuf                      |
 | **GTK4**          | 4.14.2       | GIMP Toolkit                               | https://gitlab.gnome.org/GNOME/gtk                             |
@@ -19,12 +20,15 @@
 
 ## Paketinfo
 Installierte Version der C-Libs abfragen:
-- cairo `pkg-config --modversion cairo` 
-- pango `pkg-config --modversion pango` 
 - glib `pkg-config --modversion glib-2.0` 
+- cairo `pkg-config --modversion cairo` 
+- graphene `pkg-config --modversion graphene-1.0`
+- harfbuzz `pkg-config --modversion harfbuzz`
+- pango `pkg-config --modversion pango` 
 - gdk-pixbuf `pkg-config --modversion gdk-pixbuf-2.0` 
 - gtk4 `pkg-config --modversion gtk4` 
 - gstreamer `pkg-config --modversion gstreamer-1.0` 
+
 
 # Wichtiger Hinweis
 Da in den glib-Funktionen ein `invalid floating point operation` ausgelöst werden kann braucht ee folgendes:

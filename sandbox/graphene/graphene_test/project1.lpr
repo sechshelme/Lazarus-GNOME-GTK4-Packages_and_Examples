@@ -1,5 +1,7 @@
 program project1;
 
+{$ALIGN 16}
+
 const
   libgraphene = 'libgraphene-1.0';
 
