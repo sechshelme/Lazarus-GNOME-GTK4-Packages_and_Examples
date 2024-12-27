@@ -3,7 +3,7 @@ unit fp_harfbuzz;
 interface
 
 uses
-  ctypes, fp_cairo, fp_glib2;
+  ctypes, fp_FreeType2, fp_cairo, fp_glib2;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

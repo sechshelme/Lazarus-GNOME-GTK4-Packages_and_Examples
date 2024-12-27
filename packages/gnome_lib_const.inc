@@ -10,6 +10,16 @@ const
   libc = 'msvcrt.dll';
   {$ENDIF}
 
+  // Freetype2
+const
+  {$IFDEF Linux}
+  freetype_lib = 'libfreetype';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  freetype_lib = 'libfreetype-6.dll';
+  {$ENDIF}
+
   // ==== Cairo
 const
   {$IFDEF Linux}
@@ -330,20 +340,6 @@ type
   PVASurfaceID = ^TVASurfaceID;
   TVASurfaceID = TVAGenericID;
 
-
-  // ==== FreeTyp
-  // /usr/include/freetype2/freetype/freetype.h
-  TFT_SizeRec = record
-  end;
-
-  TFT_Face = ^TFT_SizeRec;
-
-  TFT_BitmapRec = record
-  end;
-
-  TFT_Bitmap = ^TFT_BitmapRec;
-  PFT_Bitmap = ^TFT_Bitmap;
-
   // ==== OpenGL
 type
   TGLeglImageOES = pointer;
@@ -557,13 +553,13 @@ type
 
   // ==== graphite2
   // /usr/include/graphite2/Font.h
-  Tgr_face=record
+  Tgr_face = record
   end;
-  Pgr_face=^Tgr_face;
+  Pgr_face = ^Tgr_face;
 
-  Tgr_font=record
+  Tgr_font = record
   end;
-  Pgr_font=^Tgr_font;
+  Pgr_font = ^Tgr_font;
 
   // ==== cuda
 type

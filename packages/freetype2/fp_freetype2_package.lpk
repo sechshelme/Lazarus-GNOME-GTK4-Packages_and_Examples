@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="5">
-    <Name Value="fp_harfbuzz_package"/>
+    <Name Value="fp_FreeType2_Package"/>
     <Type Value="RunAndDesignTime"/>
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/"/>
       </SearchPaths>
     </CompilerOptions>
     <Files>
       <Item>
-        <Filename Value="fp_harfbuzz.pas"/>
-        <UnitName Value="fp_harfbuzz"/>
+        <Filename Value="fp_freetype2.pas"/>
+        <UnitName Value="fp_FreeType2"/>
       </Item>
     </Files>
     <RequiredPkgs>
       <Item>
-        <PackageName Value="fp_FreeType2_Package"/>
-      </Item>
-      <Item>
-        <PackageName Value="fp_cairo_package"/>
-      </Item>
-      <Item>
-        <PackageName Value="fp_GLIB2_package"/>
+        <PackageName Value="FCL"/>
       </Item>
     </RequiredPkgs>
     <UsageOptions>

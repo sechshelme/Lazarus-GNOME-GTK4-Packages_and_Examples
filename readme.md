@@ -4,6 +4,7 @@
 | **glib2**         | 2.80.0       | GIMP Library                               | https://gitlab.gnome.org/GNOME/glib                            |
 | **gio-unix-2.0**  | 2.80.0       | Unix input/output                          | gehört zu glib2                                                |
 | **Cairo**         | 1.18.1       | 2D Grafik Bibliothek                       | https://gitlab.freedesktop.org/cairo/cairo                     |
+| **FreeType2**     | 2.13.2       | Schriftartenrasterung                      | https://gitlab.freedesktop.org/freetype/freetype               |
 | **graphene**      | 1.10.8       | Graphen (Bibliothek grafischer Datentypen) | https://github.com/ebassi/graphene                             |
 | **harfbuzz**      | 8.3.0        | Softwarebibliothek für Text-Shaping        | https://github.com/harfbuzz/harfbuzz                           |
 | **Pango**         | 1.52.1       | Text Layout                                | https://gitlab.gnome.org/GNOME/pango                           |
