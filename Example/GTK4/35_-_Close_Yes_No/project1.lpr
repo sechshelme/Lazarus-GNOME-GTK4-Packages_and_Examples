@@ -19,6 +19,15 @@ uses
       GTK_RESPONSE_NO: begin
         g_printf('NO'#10);
       end;
+      GTK_RESPONSE_CANCEL: begin
+        g_printf('CANCEL'#10);
+      end;
+      GTK_RESPONSE_HELP: begin
+        g_printf('HELP'#10);
+      end;
+      99: begin
+        g_printf('test'#10);
+      end;
     end;
     gtk_window_destroy(GTK_WINDOW(widget));
   end;
@@ -33,32 +42,24 @@ uses
       widget := gtk_widget_get_parent(widget);
     until GTK_IS_WINDOW(widget);
 
-    dialog := gtk_message_dialog_new(GTK_WINDOW(widget), GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_YES_NO, 'Möchten sie das Programm wirklich beenden ?');
+    dialog := gtk_message_dialog_new(GTK_WINDOW(widget), GTK_DIALOG_MODAL, GTK_MESSAGE_WARNING, GTK_BUTTONS_NONE,
+      'Möchten sie das Programm wirklich beenden ?');
+
+    gtk_dialog_add_buttons(GTK_DIALOG(dialog),
+      'Ja', GTK_RESPONSE_YES,
+      'Nein', GTK_RESPONSE_NO,
+      'Abbrechen', GTK_RESPONSE_CANCEL,
+      'Hilfe', GTK_RESPONSE_HELP,
+      'Test', 99,
+      nil);
 
     g_signal_connect(dialog, 'response', G_CALLBACK(@on_quit_response_cp), app);
     gtk_widget_show(dialog);
   end;
 
-  procedure draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
-  begin
-    cairo_set_source_rgb(cr, 0.8, 0.8, 0.8);
-    cairo_paint(cr);
-
-    cairo_set_source_rgb(cr, 1.0, 0.0, 0.0);
-    cairo_set_line_width(cr, 5.0);
-    cairo_move_to(cr, 50.0, 50.0);
-    cairo_line_to(cr, 350.0, 350.0);
-    cairo_stroke(cr);
-
-    cairo_set_source_rgb(cr, 0.0, 0.0, 1.0);
-    cairo_arc(cr, 200.0, 200.0, 100.0, 0.0, 2 * G_PI);
-    cairo_fill(cr);
-    WriteLn('w: ', Width, '  h; ', Height);
-  end;
-
   procedure activate(app: PGtkApplication; user_data: Tgpointer);
   var
-    window, box, button, drawing_area: PGtkWidget;
+    window, box, button, lab: PGtkWidget;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'Window');
@@ -70,13 +71,12 @@ uses
 
     gtk_window_set_child(GTK_WINDOW(window), box);
 
-    drawing_area := gtk_drawing_area_new;
-    gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(drawing_area), @draw_func, nil, nil);
-    gtk_widget_set_size_request(drawing_area, 300, 300);
-    gtk_box_append(GTK_BOX(box), drawing_area);
+    lab := gtk_label_new('YES / NO Dialog Example');
+    gtk_widget_set_size_request(lab, 300, 300);
+    gtk_box_append(GTK_BOX(box), lab);
 
-    button := gtk_button_new_with_label('Close');
-    g_signal_connect(button, 'Beenden', G_CALLBACK(@quit_dialog_cp), app);
+    button := gtk_button_new_with_label('Beenden');
+    g_signal_connect(button, 'clicked', G_CALLBACK(@quit_dialog_cp), app);
 
     gtk_box_append(GTK_BOX(box), button);
 
