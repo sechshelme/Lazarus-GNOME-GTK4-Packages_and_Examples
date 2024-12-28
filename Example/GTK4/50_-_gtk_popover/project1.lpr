@@ -5,21 +5,21 @@ uses
   fp_glib2,
   fp_GTK4;
 
-  procedure btn_click_cp({%H-}widget: PGtkWidget; Data: Tgpointer);
+  procedure btn_click_cp({%H-}widget: PGtkWidget; Data: Tgpointer); cdecl;
   var
     popover: PGtkPopover absolute Data;
   begin
     gtk_popover_popup(popover);
   end;
 
-  procedure btn_item_click_cp({%H-}widget: PGtkWidget; Data: Tgpointer);
+  procedure btn_item_click_cp({%H-}widget: PGtkWidget; Data: Tgpointer); cdecl;
   var
     info: Pgchar absolute Data;
   begin
     g_printf('Es wurde geklick: %s'#10, info);
   end;
 
-  procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
     window, button, vbox,
     popover_box, item1, item2, popover: PGtkWidget;
