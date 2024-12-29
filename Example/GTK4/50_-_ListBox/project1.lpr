@@ -21,7 +21,7 @@ end;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'GTK4 Border und Bevel');
-    gtk_window_set_default_size(GTK_WINDOW(window), 300, 200);
+    gtk_window_set_default_size(GTK_WINDOW(window), 600, 400);
 
     vbox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
     gtk_widget_set_margin_start(vbox, 10);
@@ -34,7 +34,7 @@ end;
   //  hbox1 := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
 //    gtk_widget_set_hexpand(hbox1, True);
 
-    lb:=Create_ListBox;
+    lb:=Create_ListBox(app);
     gtk_box_append(GTK_BOX(vbox), lb);
 //    gtk_box_append(GTK_BOX(hbox1), lb);
 

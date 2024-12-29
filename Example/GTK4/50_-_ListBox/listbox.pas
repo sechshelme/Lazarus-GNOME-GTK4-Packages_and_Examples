@@ -7,62 +7,66 @@ interface
 uses
   fp_glib2, fp_GTK4;
 
-function Create_ListBox: PGtkWidget;
+function Create_ListBox(app: PGtkApplication): PGtkWidget;
 
 implementation
 
-// https://www.perplexity.ai/search/ich-wil-ein-gtk4-c-beispiel-mi-aSQTlKtOTC.HwTMdCeV2qw
-// https://www.perplexity.ai/search/ich-will-in-gtk4-und-c-ein-lab-y_UYMrwvS829ak21s7tWPw
+procedure btn_click_cp(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer);
+var
+  action_name: Pgchar;
+  ch: Pgchar absolute user_data;
+begin
+  action_name := g_action_get_name(G_ACTION(action));
+  g_printf('Action Name: "%s"'#10, action_name);
+  g_printf('Es wurde: "%s" geklickt'#10, ch);
+end;
 
-function CreateMenu: PGtkPopoverMenu;
+function CreateMenu(app: PGtkApplication): PGMenu;
+var
+  action: PGSimpleAction;
+  menuItem: PGMenuItem;
+begin
+  Result := g_menu_new;
+
+  g_menu_append(Result, 'Option 1', 'app.option1');
+  action := g_simple_action_new('option1', nil);
+  g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
+  g_signal_connect(action, 'activate', G_CALLBACK(@btn_click_cp), Pgchar('Button 1'));
+
+  g_menu_append(Result, 'Option 2', 'app.option2');
+  action := g_simple_action_new('option2', nil);
+  g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
+  g_signal_connect(action, 'activate', G_CALLBACK(@btn_click_cp), Pgchar('Button 2'));
+
+  menuItem := g_menu_item_new('Option 3', 'app.option3');
+  g_menu_append_item(Result, menuItem);
+  g_object_unref(menuItem);
+  action := g_simple_action_new('option3', nil);
+  g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
+  g_signal_connect(action, 'activate', G_CALLBACK(@btn_click_cp), Pgchar('Button 3'));
+end;
+
+function CreateMenuButton(app: PGtkApplication): PGtkWidget;
 var
   menu: PGMenu;
 begin
-  menu := g_menu_new;
-  g_menu_append(menu, 'Option 1', 'app.option1');
-  g_menu_append(menu, 'Option 2', 'app.option2');
+  Result := gtk_menu_button_new;
 
-  Result := GTK_POPOVER_MENU(gtk_popover_menu_new_from_model(G_MENU_MODEL(menu)));
+  gtk_widget_set_size_request(Result, 20, 20);
+  gtk_widget_set_valign(Result, GTK_ALIGN_CENTER);
+
+  menu := CreateMenu(app);
+  gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(Result), G_MENU_MODEL(menu));
 end;
 
-function CreateButton(Caption: Pgchar): PGtkWidget;
-begin
-  Result := gtk_button_new_with_label(Caption);
-  gtk_widget_set_margin_start(Result, 5);
-  gtk_widget_set_margin_top(Result, 5);
-  gtk_widget_set_margin_bottom(Result, 5);
-  gtk_widget_set_margin_end(Result, 5);
-end;
 
-function CreateLabel(Caption: Pgchar): PGtkWidget;
-begin
-  Result := gtk_label_new(Caption);
-end;
-
-procedure btn_item_click_cp({%H-}widget: PGtkWidget; Data: Tgpointer); cdecl;
+function Create_Items(nr: integer; app: PGtkApplication): PGtkWidget;
 var
-  info: Pgchar absolute Data;
-begin
-  g_printf('Es wurde geklick: %s'#10, info);
-end;
-
-procedure btn_click_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
-var
-  popover: PGtkPopover absolute Data;
-begin
-  WriteLn('listbox menu');
-  gtk_popover_popup(GTK_POPOVER(popover));
-end;
-
-
-
-function Create_Items(nr: integer): PGtkWidget;
-var
-  lb, menuButton, button_align, popover, popover_box, item1, item2, item3: PGtkWidget;
+  lb, menuButton, button_box: PGtkWidget;
   label_text: Pgchar;
 begin
-  Result := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
-  gtk_widget_set_hexpand(Result, True);
+  Result := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+ // gtk_widget_set_hexpand(Result, True);
 
   label_text := g_strdup_printf('Eintrag: %d'#10 +
     '<span foreground="blue">Erste Zeile</span>'#10 +
@@ -74,39 +78,18 @@ begin
   g_free(label_text);
   gtk_box_append(GTK_BOX(Result), lb);
 
-  button_align := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
-  gtk_widget_set_hexpand(button_align, True);
-  gtk_widget_set_halign(button_align, GTK_ALIGN_END);
+  button_box := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+  gtk_widget_set_hexpand(button_box, True);
+  gtk_widget_set_halign(button_box, GTK_ALIGN_END);
+  gtk_widget_set_margin_end(button_box, 10);
 
-  menuButton := gtk_button_new_with_label('•••');
-  gtk_widget_set_size_request(menuButton, -1, 20);
-  gtk_widget_set_valign(menuButton, GTK_ALIGN_CENTER);
+  menuButton := CreateMenuButton(app);
+  gtk_box_append(GTK_BOX(button_box), menuButton);
 
-  popover := gtk_popover_new;
-  gtk_widget_set_parent(popover, menuButton);
-
-  popover_box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-  gtk_popover_set_child(GTK_POPOVER(popover), popover_box);
-
-  item1 := gtk_button_new_with_label('Option 1');
-  g_signal_connect(item1, 'clicked', G_CALLBACK(@btn_item_click_cp), Pgchar('Option 1'));
-  gtk_box_append(GTK_BOX(popover_box), item1);
-
-  item2 := gtk_button_new_with_label('Option 2');
-  g_signal_connect(item2, 'clicked', G_CALLBACK(@btn_item_click_cp), Pgchar('Option 2'));
-  gtk_box_append(GTK_BOX(popover_box), item2);
-
-  item3 := gtk_button_new_with_label('Option 3');
-  g_signal_connect(item3, 'clicked', G_CALLBACK(@btn_item_click_cp), Pgchar('Option 3'));
-  gtk_box_append(GTK_BOX(popover_box), item3);
-
-  g_signal_connect(menuButton, 'clicked', G_CALLBACK(@btn_click_cp), popover);
-
-  gtk_box_append(GTK_BOX(button_align), menuButton);
-  gtk_box_append(GTK_BOX(Result), button_align);
+  gtk_box_append(GTK_BOX(Result), button_box);
 end;
 
-function Create_ListBox: PGtkWidget;
+function Create_ListBox(app: PGtkApplication): PGtkWidget;
 var
   i: integer;
   lb, sw: PGtkWidget;
@@ -117,9 +100,8 @@ begin
   lb := gtk_list_box_new;
   gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(sw), lb);
 
-
-  for i := 0 to 5 do begin
-    gtk_list_box_append(GTK_LIST_BOX(lb), Create_Items(i));
+  for i := 0 to 50 do begin
+    gtk_list_box_append(GTK_LIST_BOX(lb), Create_Items(i, app));
   end;
   Result := sw;
 end;

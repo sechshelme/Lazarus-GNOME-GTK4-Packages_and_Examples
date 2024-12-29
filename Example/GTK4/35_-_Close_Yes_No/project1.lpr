@@ -36,25 +36,26 @@ uses
   procedure quit_dialog_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
   var
     dialog: PGtkWidget;
-    app: PGtkApplication absolute Data;
+    app: PGtkApplication;
   begin
-    repeat
-      widget := gtk_widget_get_parent(widget);
-    until GTK_IS_WINDOW(widget);
+    widget := GTK_WIDGET(gtk_widget_get_root(widget));
+    if GTK_IS_WINDOW(widget) then begin
+      app := gtk_window_get_application(GTK_WINDOW(widget));
 
-    dialog := gtk_message_dialog_new(GTK_WINDOW(widget), GTK_DIALOG_MODAL, GTK_MESSAGE_WARNING, GTK_BUTTONS_NONE,
-      'Möchten sie das Programm wirklich beenden ?');
+      dialog := gtk_message_dialog_new(GTK_WINDOW(widget), GTK_DIALOG_MODAL, GTK_MESSAGE_WARNING, GTK_BUTTONS_NONE,
+        'Möchten sie das Programm wirklich beenden ?');
 
-    gtk_dialog_add_buttons(GTK_DIALOG(dialog),
-      'Ja', GTK_RESPONSE_YES,
-      'Nein', GTK_RESPONSE_NO,
-      'Abbrechen', GTK_RESPONSE_CANCEL,
-      'Hilfe', GTK_RESPONSE_HELP,
-      'Test', 99,
-      nil);
+      gtk_dialog_add_buttons(GTK_DIALOG(dialog),
+        'Ja', GTK_RESPONSE_YES,
+        'Nein', GTK_RESPONSE_NO,
+        'Abbrechen', GTK_RESPONSE_CANCEL,
+        'Hilfe', GTK_RESPONSE_HELP,
+        'Test', 99,
+        nil);
 
-    g_signal_connect(dialog, 'response', G_CALLBACK(@on_quit_response_cp), app);
-    gtk_widget_show(dialog);
+      g_signal_connect(dialog, 'response', G_CALLBACK(@on_quit_response_cp), app);
+      gtk_widget_show(dialog);
+    end;
   end;
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer);
