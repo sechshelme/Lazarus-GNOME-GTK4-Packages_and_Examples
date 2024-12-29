@@ -9,13 +9,13 @@ uses
   fp_GTK4,
   ListBox;
 
-procedure btn_click_cp(widget: PGtkWidget; Data: Tgpointer);
+procedure btn_click_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
 begin
 end;
 
 
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, button, vbox, hbox1, hbox2, label1, lb: PGtkWidget;
   begin

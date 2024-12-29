@@ -7,7 +7,7 @@ uses
   fp_GLIBTools,
   fp_GTK4;
 
-  procedure btn_click_cp(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer);
+  procedure btn_click_cp(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer); cdecl;
   var
     action_name: Pgchar;
     ch: Pgchar absolute user_data;
@@ -54,7 +54,7 @@ uses
     gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(Result), G_MENU_MODEL(menu));
   end;
 
-  procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
     window, vbox, Button, label1: PGtkWidget;
   begin

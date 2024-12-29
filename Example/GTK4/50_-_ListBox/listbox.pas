@@ -11,7 +11,7 @@ function Create_ListBox(app: PGtkApplication): PGtkWidget;
 
 implementation
 
-procedure btn_click_cp(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer);
+procedure btn_click_cp(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer); cdecl;
 var
   action_name: Pgchar;
   ch: Pgchar absolute user_data;
