@@ -70,7 +70,7 @@ end;
     app: PGtkApplication;
     status: longint;
   begin
-    app := gtk_application_new('org.gtk.example', G_APPLICATION_FLAGS_NONE);
+    app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
 
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
     GSignalShow(G_TYPE_OBJECT);

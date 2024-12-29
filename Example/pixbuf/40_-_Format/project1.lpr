@@ -138,7 +138,8 @@ uses
     g_string_free(sl, gTrue);
     gtk_box_append(GTK_BOX(box), Label2);
 
-    gtk_widget_show(window);
+//    gtk_widget_show(window);
+    gtk_window_present(GTK_WINDOW(window));
   end;
 
   procedure main;
@@ -146,7 +147,7 @@ uses
     app: PGtkApplication;
     status: longint;
   begin
-    app := gtk_application_new('org.example.PixbufExample', G_APPLICATION_FLAGS_NONE);
+    app := gtk_application_new('org.example.PixbufExample', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'activate', G_CALLBACK(@on_activate), nil);
 
     status := g_application_run(G_APPLICATION(app), 0, nil);

@@ -29,7 +29,7 @@ uses
     status: longint;
 
   begin
-    app := gtk_application_new('org.example', G_APPLICATION_FLAGS_NONE);
+    app := gtk_application_new('org.example', G_APPLICATION_DEFAULT_FLAGS);
 
     g_action_map_add_action_entries(G_ACTION_MAP(app), PGActionEntry(app_actions), Length(app_actions), app);
 
