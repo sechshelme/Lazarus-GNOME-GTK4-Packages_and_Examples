@@ -61,8 +61,7 @@ procedure g_dataset_remove_data(location: Tgconstpointer; key_str: PGChar);
 
 {$IFDEF read_implementation}
 
-procedure g_datalist_id_set_data(datalist: PPGData; key_id: TGQuark;
-  Data: Tgpointer);
+procedure g_datalist_id_set_data(datalist: PPGData; key_id: TGQuark; Data: Tgpointer);
 begin
   g_datalist_id_set_data_full(datalist, key_id, Data, nil);
 end;
@@ -72,14 +71,12 @@ begin
   g_datalist_id_set_data(datalist, key_id, nil);
 end;
 
-procedure g_datalist_set_data_full(datalist: PPGData; key_str: PGChar;
-  Data: Tgpointer; destroy_func: TGDestroyNotify);
+procedure g_datalist_set_data_full(datalist: PPGData; key_str: PGChar; Data: Tgpointer; destroy_func: TGDestroyNotify);
 begin
   g_datalist_id_set_data_full(datalist, g_quark_from_string(key_str), Data, destroy_func);
 end;
 
-procedure g_datalist_set_data(datalist: PPGData; key_str: PGChar;
-  Data: Tgpointer);
+procedure g_datalist_set_data(datalist: PPGData; key_str: PGChar; Data: Tgpointer);
 begin
   g_datalist_set_data_full(datalist, key_str, Data, nil);
 end;
@@ -111,8 +108,7 @@ begin
   g_dataset_get_data := g_dataset_id_get_data(location, g_quark_try_string(key_str));
 end;
 
-procedure g_dataset_set_data_full(location: Tgconstpointer; key_str: PGChar;
-  Data: Tgpointer; destroy_func: TGDestroyNotify);
+procedure g_dataset_set_data_full(location: Tgconstpointer; key_str: PGChar; Data: Tgpointer; destroy_func: TGDestroyNotify);
 begin
   g_dataset_id_set_data_full(location, g_quark_from_string(key_str), Data, destroy_func);
 end;
@@ -122,8 +118,7 @@ begin
   g_dataset_id_remove_no_notify(location, g_quark_try_string(key_str));
 end;
 
-procedure g_dataset_set_data(location: Tgconstpointer; key_str: PGChar;
-  Data: Tgpointer);
+procedure g_dataset_set_data(location: Tgconstpointer; key_str: PGChar; Data: Tgpointer);
 begin
   g_dataset_set_data_full(location, key_str, Data, nil);
 end;
