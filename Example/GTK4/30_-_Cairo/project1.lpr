@@ -13,7 +13,6 @@ uses
 type
   TAniData = record
     last_frame_time: Tguint64;
-    positionx, positiony: double;
     speed: double;
     x, y: double;
     color: record
@@ -47,10 +46,6 @@ const
 
     cairo_set_source_rgb(cr, aniDate^.color.r, aniDate^.color.g, aniDate^.color.b);
 
-    //cairo_arc(cr, Width / 2 + 50 * sin(i * 0.1), Height / 2, 20, 0, 2 * PI);
-    //cairo_fill(cr);
-    //cairo_arc(cr, aniDate^.positionx, aniDate^.positiony, 20, 0, 2 * Pi);
-    //cairo_fill(cr);
     cairo_arc(cr, Width / 2 + aniDate^.x, Height / 2 + aniDate^.y, radius, 0, 2 * Pi);
     cairo_fill(cr);
 
@@ -70,23 +65,14 @@ const
     aniDate := g_object_get_data(G_OBJECT(widget), anyDataKey);
     current_time := gdk_frame_clock_get_frame_time(frame_clock);
 
-    if aniDate^.last_frame_time <> 0 then begin
-      delta := (current_time - aniDate^.last_frame_time) / 1000000.0;
-
-      aniDate^.positionx += aniDate^.speed * delta * 0.93;
-      if aniDate^.positionx > gtk_widget_get_width(widget) then begin
-        aniDate^.positionx := -40.0;
-      end;
-
-      aniDate^.positiony += aniDate^.speed * delta;
-      if aniDate^.positiony > gtk_widget_get_width(widget) then begin
-        aniDate^.positiony := -40.0;
-      end;
-    end;
-
     d := current_time / 100000000 * aniDate^.speed;
     aniDate^.x := Sin(d) * (w / 3);
     aniDate^.y := Cos(d) * (h / 3);
+
+    aniDate^.color.r := Sin(d / 2.53) / 2 + 0.5;
+    aniDate^.color.g := Sin(d / 2.23) / 2 + 0.5;
+    aniDate^.color.b := Sin(d / 2.73) / 2 + 0.5;
+
 
     aniDate^.last_frame_time := current_time;
     gtk_widget_queue_draw(widget);
@@ -112,7 +98,6 @@ const
 
     aniDate := g_malloc(SizeOf(TAniData));
     aniDate^.last_frame_time := 0;
-    aniDate^.positionx := 0.0;
     aniDate^.speed := Random(100) + 50.0;
     aniDate^.color.r := Random;
     aniDate^.color.g := Random;
@@ -125,8 +110,10 @@ const
   var
     window, box, button, drawing_area, grid: PGtkWidget;
     i: integer;
+    provider: PGtkCssProvider;
   const
     GRID_COUNT = 4;
+    GRID_SPACING = 10;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'Window');
@@ -135,7 +122,19 @@ const
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
     gtk_window_set_child(GTK_WINDOW(window), box);
 
+    provider:=gtk_css_provider_new;
+    gtk_css_provider_load_from_data(provider, 'window { background-color: blue; } grid { background-color: red; } grid { background-color: red; }',-1);
+    gtk_style_context_add_provider_for_display( gdk_display_get_default, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_USER);
+     g_object_unref(provider);
+
     grid := gtk_grid_new;
+    gtk_grid_set_column_spacing(GTK_GRID(grid), GRID_SPACING);
+    gtk_grid_set_row_spacing(GTK_GRID(grid), GRID_SPACING);
+    gtk_widget_set_margin_top(GTK_WIDGET(grid), GRID_SPACING);
+    gtk_widget_set_margin_start(GTK_WIDGET(grid), GRID_SPACING);
+    gtk_widget_set_margin_end(GTK_WIDGET(grid), GRID_SPACING);
+    gtk_widget_set_margin_bottom(GTK_WIDGET(grid), GRID_SPACING);
+
     gtk_box_append(GTK_BOX(box), grid);
     for i := 0 to GRID_COUNT * GRID_COUNT - 1 do begin
       drawing_area := CreateDrawingArea;

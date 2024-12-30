@@ -86,9 +86,6 @@ uses
     gtk_box_append(GTK_BOX(box), button);
 
     gtk_window_set_child(GTK_WINDOW(window), box);
-
-
-
     gtk_window_present(GTK_WINDOW(window));
   end;
 
