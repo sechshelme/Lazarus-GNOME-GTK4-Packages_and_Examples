@@ -158,11 +158,11 @@ begin
     end;
     G_TYPE_FLOAT: begin
       valueType := 'G_TYPE_FLOAT';
-      WriteStr(ValueStr, g_value_get_float(Value));
+      WriteStr(ValueStr, g_value_get_float(Value):8:4);
     end;
     G_TYPE_DOUBLE: begin
       valueType := 'G_TYPE_DOUBLE';
-      WriteStr(ValueStr, g_value_get_double(Value));
+      WriteStr(ValueStr, g_value_get_double(Value):8:4);
     end;
     G_TYPE_STRING: begin
       valueType := 'G_TYPE_STRING';
