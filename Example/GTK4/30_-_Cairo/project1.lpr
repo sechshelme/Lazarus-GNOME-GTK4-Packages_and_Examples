@@ -113,7 +113,7 @@ const
     provider: PGtkCssProvider;
   const
     GRID_COUNT = 4;
-    GRID_SPACING = 10;
+    GRID_SPACING = 20;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'Window');
@@ -123,7 +123,7 @@ const
     gtk_window_set_child(GTK_WINDOW(window), box);
 
     provider:=gtk_css_provider_new;
-    gtk_css_provider_load_from_data(provider, 'window { background-color: blue; } grid { background-color: red; } grid { background-color: red; }',-1);
+    gtk_css_provider_load_from_data(provider, 'window { background-image: conic-gradient(        from 0deg at 50% 50%,        #ff0000 0deg,        #00ff00 90deg,        #0000ff 180deg,        #ffff00 270deg,        #ff0000 360deg    ); } grid { background-color: red; } grid { background-color: red; }',-1);
     gtk_style_context_add_provider_for_display( gdk_display_get_default, GTK_STYLE_PROVIDER(provider), GTK_STYLE_PROVIDER_PRIORITY_USER);
      g_object_unref(provider);
 
