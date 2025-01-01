@@ -24,7 +24,6 @@ type
   Pgint = ^Tgint;
   PPgint = ^Pgint;
 
-  //  Tgboolean = Tgint;
   Tgboolean = Boolean32;
   Pgboolean = ^Tgboolean;
 

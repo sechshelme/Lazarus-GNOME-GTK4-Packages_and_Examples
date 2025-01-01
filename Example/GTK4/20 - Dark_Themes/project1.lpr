@@ -21,7 +21,12 @@ uses
   var
     window, box, button: PGtkWidget;
   begin
+    g_object_set(gtk_settings_get_default,
+    'gtk-application-prefer-dark-theme', gTRUE,
+    nil);
+
     window := gtk_application_window_new(app);
+    gtk_window_set_decorated(GTK_WINDOW(window), TRUE);
     gtk_window_set_title(GTK_WINDOW(window), 'Window');
     gtk_window_set_default_size(GTK_WINDOW(window), 200, 200);
 

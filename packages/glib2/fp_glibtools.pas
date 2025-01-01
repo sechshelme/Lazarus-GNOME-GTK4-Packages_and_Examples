@@ -218,7 +218,7 @@ begin
       if (paramspec[i]^.flags and G_PARAM_READABLE) = G_PARAM_READABLE then begin
         Value := G_VALUE_INIT_;
         Name := paramspec[i]^.Name;
-        Write('Name: ', Name: 20, '   ');
+        Write('Name: ', Name: 35, '   ');
         g_object_get_property(obj, Name, @Value);
         GValueShow(@Value);
         g_value_unset(@Value);
