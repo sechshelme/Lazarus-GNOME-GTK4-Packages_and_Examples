@@ -18,51 +18,60 @@ uses
     gtk_button_set_label(GTK_BUTTON(widget), PChar('Ich wurde ' + IntToStr(counter) + ' gelickt'));
   end;
 
-//procedure
+  // https://stackoverflow.com/questions/74507596/trying-to-implement-gtk-4-c-the-shader-to-have-each-face-like-meshlab-does-bu
+// https://www.perplexity.ai/search/gib-mir-ein-beipiel-mit-gtk-gl-UrdX4wqVSFm46dWQcELzYw
 
-function on_render(area: PGtkGLArea; context: PGdkGLContext): Tgboolean;
-var
-  w, h: LongInt;
-begin
-  if gtk_gl_area_get_error(area)<>nil then WriteLn('render fehler');
+  function on_render(area: PGtkGLArea; context: PGdkGLContext): Tgboolean;
+  var
+    w, h: longint;
+  begin
+    if gtk_gl_area_get_error(area) <> nil then begin
+      WriteLn('render fehler');
+    end;
 
-  w := gtk_widget_get_width(GTK_WIDGET( area));
-  h := gtk_widget_get_height(GTK_WIDGET( area));
-  WriteLn(w,'x',h);
-
-
-  glClearColor(1.0, 1.0, 0.0, 1.0);
-  glClear(GL_COLOR_BUFFER_BIT);
-
-  // Ein einfaches Dreieck zeichnen
-  glBegin(GL_TRIANGLES);
-      glColor3f(1.0, 0.0, 0.0); // Rot
-      glVertex2f(-0.6, -0.4); // Linke Ecke
-      glColor3f(0.0, 1.0, 0.0); // Grün
-      glVertex2f(0.6, -0.4); // Rechte Ecke
-      glColor3f(0.0, 0.0, 1.0); // Blau
-      glVertex2f(0.0, 0.6); // Obere Ecke
-  glEnd();
-
-  glFlush();
-  Result:=True  end;
+    w := gtk_widget_get_width(GTK_WIDGET(area));
+    h := gtk_widget_get_height(GTK_WIDGET(area));
+    WriteLn(w, 'x', h);
 
 
-procedure on_realize(area: PGtkGLArea);
-var
-  context: PGdkGLContext;
-begin
-  WriteLn('realize');
-  gtk_gl_area_make_current(area);
-  if gtk_gl_area_get_error(area)<>nil then WriteLn('realize fehler');
-  context:=gtk_gl_area_get_context(area);
+    glClearColor(1.0, 0.0, 0.0, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    // Ein einfaches Dreieck zeichnen
+    glBegin(GL_TRIANGLES);
+    glColor3f(1.0, 0.0, 0.0); // Rot
+    glVertex2f(-0.6, -0.4); // Linke Ecke
+    glColor3f(0.0, 1.0, 0.0); // Grün
+    glVertex2f(0.6, -0.4); // Rechte Ecke
+    glColor3f(0.0, 0.0, 1.0); // Blau
+    glVertex2f(0.0, 0.6); // Obere Ecke
+    glEnd();
+
+    glFlush();
+    Result := True;
+//    gtk_gl_area_queue_render(GTK_GL_AREA(area));
   end;
 
-procedure on_unrealize(area: PGtkGLArea);
-begin
-  WriteLn('unrealize');
-  gtk_gl_area_make_current(area);
-  if gtk_gl_area_get_error(area)<>nil then WriteLn('unrealize fehler');
+
+  procedure on_realize(area: PGtkGLArea);
+  var
+    context: PGdkGLContext;
+  begin
+    WriteLn('realize');
+    gtk_gl_area_make_current(area);
+    if gtk_gl_area_get_error(area) <> nil then begin
+      WriteLn('realize fehler');
+    end;
+    context := gtk_gl_area_get_context(area);
+  end;
+
+  procedure on_unrealize(area: PGtkGLArea);
+  begin
+    WriteLn('unrealize');
+    gtk_gl_area_make_current(area);
+    if gtk_gl_area_get_error(area) <> nil then begin
+      WriteLn('unrealize fehler');
+    end;
   end;
 
 
@@ -71,11 +80,11 @@ begin
     window, box, button, gl_area: PGtkWidget;
   begin
     g_object_set(gtk_settings_get_default,
-    'gtk-application-prefer-dark-theme', gTRUE,
-    nil);
+      'gtk-application-prefer-dark-theme', gTRUE,
+      nil);
 
     window := gtk_application_window_new(app);
-    gtk_window_set_decorated(GTK_WINDOW(window), TRUE);
+    gtk_window_set_decorated(GTK_WINDOW(window), True);
     gtk_window_set_title(GTK_WINDOW(window), 'Window');
     gtk_window_set_default_size(GTK_WINDOW(window), 200, 200);
 
@@ -90,9 +99,9 @@ begin
 
 
     gl_area := gtk_gl_area_new();
-    gtk_widget_set_hexpand (gl_area, TRUE);
-    gtk_widget_set_vexpand (gl_area, TRUE);
-    gtk_widget_set_size_request (gl_area, 100, 200);
+    gtk_widget_set_hexpand(gl_area, True);
+    gtk_widget_set_vexpand(gl_area, True);
+    gtk_widget_set_size_request(gl_area, 100, 200);
     g_signal_connect(gl_area, 'realize', G_CALLBACK(@on_realize), nil);
     g_signal_connect(gl_area, 'unrealize', G_CALLBACK(@on_unrealize), nil);
     g_signal_connect(gl_area, 'render', G_CALLBACK(@on_render), nil);
