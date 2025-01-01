@@ -30,8 +30,10 @@ uses
   var
     window, frame, button, box: PGtkWidget;
     provider: PGtkCssProvider;
+    display: PGdkDisplay;
+  const
     css_data: pchar =
-    'window { background-color: pink; }' +
+      'window { background-image: linear-gradient(to bottom, #000000, #dddddd);}' +
       'frame.blue-frame { ' +
       '   border: 2px solid #888888; ' +
       '   padding: 10px; ' +
@@ -57,7 +59,6 @@ uses
       '   background-image: linear-gradient(to bottom, #d0d0d0, #e0e0e0);' +
       '   border-color: #444444;' +
       '}';
-    display: PGdkDisplay;
   begin
     provider := gtk_css_provider_new;
     gtk_css_provider_load_from_data(provider, css_data, -1);
@@ -95,8 +96,7 @@ uses
     app: PGtkApplication;
     status: longint;
   begin
-    //    app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
-    app := g_object_new(GTK_TYPE_APPLICATION, nil);
+    app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
 
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
     status := g_application_run(G_APPLICATION(app), argc, argv);
