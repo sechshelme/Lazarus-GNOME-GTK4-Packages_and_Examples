@@ -39,7 +39,7 @@
 
 #define WEBKIT_TYPE_WEB_VIEW_BASE              (webkit_web_view_base_get_type())
 
-WEBKIT_DECLARE_DERIVABLE_TYPE (WebKitWebViewBase, webkit_web_view_base, WEBKIT, WEB_VIEW_BASE, GtkWidget)
+//WEBKIT_DECLARE_DERIVABLE_TYPE (WebKitWebViewBase, webkit_web_view_base, WEBKIT, WEB_VIEW_BASE, GtkWidget)
 
 struct _WebKitWebViewBaseClass {
     GtkWidgetClass parentClass;

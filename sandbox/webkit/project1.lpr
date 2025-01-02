@@ -3,6 +3,9 @@ program project1;
 uses
   ctypes,
 
+  WebKitWebViewBase,
+  WebKitURIRequest,
+  WebKitNavigationAction,
   WebKitWebView,
 
 

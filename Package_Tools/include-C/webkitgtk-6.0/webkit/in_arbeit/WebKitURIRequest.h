@@ -32,7 +32,17 @@
 
 #define WEBKIT_TYPE_URI_REQUEST            (webkit_uri_request_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitURIRequest, webkit_uri_request, WEBKIT, URI_REQUEST, GObject)
+
+
+
+
+
+
+
+
+
+
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitURIRequest, webkit_uri_request, WEBKIT, URI_REQUEST, GObject)
 
 extern WebKitURIRequest *
 webkit_uri_request_new              (const gchar      *uri);

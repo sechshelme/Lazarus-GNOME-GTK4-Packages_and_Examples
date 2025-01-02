@@ -14,6 +14,7 @@ type
     is_G_DECLARE_DERIVABLE_TYPE,
     is_G_DECLARE_INTERFACE,
     is_GDK_DECLARE_INTERNAL_TYPE,
+    is_WEBKIT_DECLARE_FINAL_TYPE,
     is_WEBKIT_DECLARE_DERIVABLE_TYPE,
     is_GES_DECLARE_TYPE);
 
@@ -39,6 +40,7 @@ var
     ('G_DECLARE_DERIVABLE_TYPE'),
     ('G_DECLARE_INTERFACE'),
     ('GDK_DECLARE_INTERNAL_TYPE'),
+    ('WEBKIT_DECLARE_FINAL_TYPE'),
     ('WEBKIT_DECLARE_DERIVABLE_TYPE'),
     ('GES_DECLARE_TYPE'));
 begin
@@ -61,7 +63,9 @@ function ConvertSLMacro_from_G_DECLARE: TStringList;
   // {G_DECLARE_INTERFACE           (GtkNative,          gtk_native,           GTK,    NATIVE,           GtkWidget)};   // Interface
   // {GDK_DECLARE_INTERNAL_TYPE     (GtkMnemonicTrigger, gtk_mnemonic_trigger, GTK,    MNEMONIC_TRIGGER, GtkShortcutTrigger) }
 
+  // {WEBKIT_DECLARE_FINAL_TYPE     (WebKitURIRequest,   webkit_uri_request,   WEBKIT, URI_REQUEST,      GObject) }
   // {WEBKIT_DECLARE_DERIVABLE_TYPE (WebKitWebView,      webkit_web_view,      WEBKIT, WEB_VIEW,         WebKitWebViewBase) }
+
   // {GES_DECLARE_TYPE              (Timeline,           timeline,                     TIMELINE) };
 
 
@@ -96,6 +100,9 @@ begin
     end;
     is_GDK_DECLARE_INTERNAL_TYPE: begin
       G_DECLARE_define_Count := 6;
+    end;
+    is_WEBKIT_DECLARE_FINAL_TYPE: begin
+      G_DECLARE_define_Count := 3;
     end;
     is_WEBKIT_DECLARE_DERIVABLE_TYPE: begin
       G_DECLARE_define_Count := 6;
@@ -153,9 +160,7 @@ begin
   if G_DECLARE = is_G_DECLARE_INTERFACE then begin
     Result.Add('function ' + sa[3] + '_' + sa[4] + '_GET_IFACE(obj: Pointer): P' + sa[1] + 'Interface;');
     Result.Add('begin');
-
     Result.Add('  Result := g_type_interface_peek(obj, ' + sa[3] + '_TYPE_' + sa[4] + ');');
-
     Result.Add('end;');
     Result.Add('');
   end;
@@ -175,7 +180,7 @@ begin
   end;
   if G_DECLARE = is_G_DECLARE_DERIVABLE_TYPE then begin
     Result.Add('  T' + sa[1] + ' = record');
-    Result.Add('    parent_instance: T' + sa[5]);
+    Result.Add('    parent_instance: T' + sa[5] + ';');
     Result.Add('  end;');
     Result.Add('  P' + sa[1] + ' = ^T' + sa[1] + ';');
     Result.Add('');
@@ -207,8 +212,22 @@ begin
     Result.Add('  P' + sa[1] + 'Class = ^T' + sa[1] + 'Class;');
     Result.Add('');
   end;
+  if G_DECLARE = is_WEBKIT_DECLARE_FINAL_TYPE then begin
+    Result.Add('  T' + sa[1] + ' = record');
+    Result.Add('  end;');
+    Result.Add('  P' + sa[1] + ' = ^T' + sa[1] + ';');
+    Result.Add('');
+
+    Result.Add('  T' + sa[1] + 'Class = record');
+    Result.Add('    parent_class: T' + sa[5] + 'Class;');
+    Result.Add('  end;');
+    Result.Add('  P' + sa[1] + 'Class = ^T' + sa[1] + 'Class;');
+    Result.Add('');
+  end;
   if G_DECLARE = is_WEBKIT_DECLARE_DERIVABLE_TYPE then begin
     Result.Add('  T' + sa[1] + ' = record');
+    Result.Add('    parent_instance: T' + sa[5] + ';');
+    Result.Add('    priv: P' + sa[1] + 'Private;');
     Result.Add('  end;');
     Result.Add('  P' + sa[1] + ' = ^T' + sa[1] + ';');
     Result.Add('');

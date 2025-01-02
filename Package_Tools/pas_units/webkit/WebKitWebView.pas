@@ -3,7 +3,7 @@ unit WebKitWebView;
 interface
 
 uses
-  fp_glib2;
+  fp_glib2, WebKitWebViewBase, WebKitNavigationAction;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -90,7 +90,13 @@ const
 
 type
   {WEBKIT_DECLARE_DERIVABLE_TYPE (WebKitWebView, webkit_web_view, WEBKIT, WEB_VIEW, WebKitWebViewBase) }
+  TWebKitWebViewPrivate = record
+  end;
+  PWebKitWebViewPrivate = ^TWebKitWebViewPrivate;
+
   TWebKitWebView = record
+    parent_instance: TWebKitWebViewBase;
+    priv: PWebKitWebViewPrivate;
   end;
   PWebKitWebView = ^TWebKitWebView;
 
@@ -157,10 +163,6 @@ type
     _webkit_reserved30: procedure; cdecl;
   end;
   PWebKitWebViewClass = ^TWebKitWebViewClass;
-
-  TWebKitWebViewPrivate = record
-  end;
-  PWebKitWebViewPrivate = ^TWebKitWebViewPrivate;
 
 function webkit_web_view_get_type: TGType; cdecl; external libwebkit;
 function webkit_web_view_new: PGtkWidget; cdecl; external libwebkit;

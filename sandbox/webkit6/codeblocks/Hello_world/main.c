@@ -149,6 +149,8 @@ int main (int argc, char **argv)
 
   WEBKIT_DECLARE_DERIVABLE_TYPE
 
+  G_DECLARE_DERIVABLE_TYPE
+
 }
 
 
