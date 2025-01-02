@@ -12,6 +12,11 @@ meson setup ../gtk/ --cross-file ../cross.ini
 ninja -j20
 ```
 
+# Subproject Updaten
+In den Ordner .../gtk4 wechseln
+- `meson subprojects update`
+
+# Subproject umgehen
 Versionsprüfung von subprojects umgehen.
 `meson setup ../gtk/ --wrap-mode=forcefallback`
 

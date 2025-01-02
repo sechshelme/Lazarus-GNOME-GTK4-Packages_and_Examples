@@ -19,7 +19,7 @@ uses
   end;
 
   // https://stackoverflow.com/questions/74507596/trying-to-implement-gtk-4-c-the-shader-to-have-each-face-like-meshlab-does-bu
-// https://www.perplexity.ai/search/gib-mir-ein-beipiel-mit-gtk-gl-UrdX4wqVSFm46dWQcELzYw
+  // https://www.perplexity.ai/search/gib-mir-ein-beipiel-mit-gtk-gl-UrdX4wqVSFm46dWQcELzYw
 
   function on_render(area: PGtkGLArea; context: PGdkGLContext): Tgboolean;
   var
@@ -33,25 +33,28 @@ uses
     h := gtk_widget_get_height(GTK_WIDGET(area));
     WriteLn(w, 'x', h);
 
+    glClearColor(1.0, random, 0.0, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
 
-    glClearColor(1.0, 0.0, 0.0, 1.0);
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    // Ein einfaches Dreieck zeichnen
     glBegin(GL_TRIANGLES);
-    glColor3f(1.0, 0.0, 0.0); // Rot
-    glVertex2f(-0.6, -0.4); // Linke Ecke
-    glColor3f(0.0, 1.0, 0.0); // Grün
-    glVertex2f(0.6, -0.4); // Rechte Ecke
-    glColor3f(0.0, 0.0, 1.0); // Blau
-    glVertex2f(0.0, 0.6); // Obere Ecke
+    glColor3f(1.0, 0.0, 0.0);
+    glVertex2f(-0.6, -0.4);
+    glColor3f(0.0, 1.0, 0.0);
+    glVertex2f(0.6, -0.4);
+    glColor3f(0.0, 0.0, 1.0);
+    glVertex2f(0.0, 0.6);
     glEnd();
 
     glFlush();
     Result := True;
-//    gtk_gl_area_queue_render(GTK_GL_AREA(area));
   end;
 
+  function on_tick(widget: PGtkWidget; frame_clock: PGdkFrameClock;    user_data: Tgpointer): Tgboolean; cdecl;
+  begin
+    gtk_gl_area_queue_render(GTK_GL_AREA(widget));
+
+    Result := G_SOURCE_CONTINUE;
+  end;
 
   procedure on_realize(area: PGtkGLArea);
   var
@@ -63,6 +66,9 @@ uses
       WriteLn('realize fehler');
     end;
     context := gtk_gl_area_get_context(area);
+    gtk_widget_add_tick_callback(GTK_WIDGET(area), @on_tick, nil, nil);
+
+    WriteLn(glGetString(GL_VERSION));
   end;
 
   procedure on_unrealize(area: PGtkGLArea);
@@ -99,6 +105,13 @@ uses
 
 
     gl_area := gtk_gl_area_new();
+    //    gtk_gl_area_set_required_version(GTK_GL_AREA(gl_area), 1, 2);
+
+    gtk_gl_area_set_use_es(GTK_GL_AREA(gl_area), False);
+    gtk_gl_area_set_has_depth_buffer(GTK_GL_AREA(gl_area), True);
+    gtk_gl_area_set_has_stencil_buffer(GTK_GL_AREA(gl_area), True);
+    gtk_gl_area_set_auto_render(GTK_GL_AREA(gl_area), True);
+
     gtk_widget_set_hexpand(gl_area, True);
     gtk_widget_set_vexpand(gl_area, True);
     gtk_widget_set_size_request(gl_area, 100, 200);
@@ -106,7 +119,7 @@ uses
     g_signal_connect(gl_area, 'unrealize', G_CALLBACK(@on_unrealize), nil);
     g_signal_connect(gl_area, 'render', G_CALLBACK(@on_render), nil);
     gtk_box_append(GTK_BOX(box), gl_area);
-    WriteLn(gtk_gl_area_get_auto_render(GTK_GL_AREA(gl_area)));
+//    WriteLn(gtk_gl_area_get_auto_render(GTK_GL_AREA(gl_area)));
 
 
     button := gtk_button_new_with_label('Hello World');

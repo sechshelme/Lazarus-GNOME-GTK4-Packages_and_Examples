@@ -2,17 +2,20 @@ program project1;
 
 uses
   ctypes,
-  glib280,
-  GTK4;
+
+  WebKitWebView,
+
+
+
+  fp_glib2,
+  fp_GTK4;
 
   // sudo apt install libwebkitgtk-6.0-dev
   // pkg-config --cflags --libs webkitgtk-6.0
 
-const
-  libwebkit = 'webkitgtk-6.0';
 
-  function webkit_web_view_new: PGtkWidget; cdecl; external libwebkit;
-  procedure webkit_web_view_load_uri(web_view: Pointer; uri: Pgchar); cdecl; external libwebkit;
+//  function webkit_web_view_new: PGtkWidget; cdecl; external libwebkit;
+//  procedure webkit_web_view_load_uri(web_view: Pointer; uri: Pgchar); cdecl; external libwebkit;
 
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer);

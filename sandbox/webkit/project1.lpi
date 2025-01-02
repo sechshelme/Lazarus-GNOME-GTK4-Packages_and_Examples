@@ -25,10 +25,10 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="GLIB280_package"/>
+        <PackageName Value="fp_GLIB2_package"/>
       </Item>
       <Item>
-        <PackageName Value="GTK4_package"/>
+        <PackageName Value="fp_GTK4_package"/>
       </Item>
     </RequiredPackages>
     <Units>
@@ -45,6 +45,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="../../Package_Tools/pas_units/webkit"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

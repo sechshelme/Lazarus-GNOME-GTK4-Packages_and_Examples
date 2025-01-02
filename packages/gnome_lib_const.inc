@@ -109,6 +109,16 @@ const
   libgtk4 = 'libgtk-4-1.dll';
   {$ENDIF}
 
+  // ==== webkit
+const
+  {$IFDEF Linux}
+  libwebkit = 'webkitgtk-6.0';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libwebkit = 'webkitgtk-6.0.0.dll'; // ????????
+  {$ENDIF}
+
   // ==== gstreamer
 const
   {$ifdef Linux}

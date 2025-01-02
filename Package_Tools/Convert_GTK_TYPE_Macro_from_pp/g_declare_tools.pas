@@ -14,6 +14,7 @@ type
     is_G_DECLARE_DERIVABLE_TYPE,
     is_G_DECLARE_INTERFACE,
     is_GDK_DECLARE_INTERNAL_TYPE,
+    is_WEBKIT_DECLARE_DERIVABLE_TYPE,
     is_GES_DECLARE_TYPE);
 
 var
@@ -38,6 +39,7 @@ var
     ('G_DECLARE_DERIVABLE_TYPE'),
     ('G_DECLARE_INTERFACE'),
     ('GDK_DECLARE_INTERNAL_TYPE'),
+    ('WEBKIT_DECLARE_DERIVABLE_TYPE'),
     ('GES_DECLARE_TYPE'));
 begin
   Result := is_G_DECLARE_none;
@@ -54,12 +56,15 @@ begin
 end;
 
 function ConvertSLMacro_from_G_DECLARE: TStringList;
-  // {G_DECLARE_FINAL_TYPE      (GtkFontDialog,      gtk_font_dialog,      GTK, FONT_DIALOG,      GObject)};     // Einfach
-  // {G_DECLARE_DERIVABLE_TYPE  (GtkFilter,          gtk_filter,           GTK, FILTER,           GObject) }     // Komplett
-  // {G_DECLARE_INTERFACE       (GtkNative,          gtk_native,           GTK, NATIVE,           GtkWidget)};   // Interface
-  // {GDK_DECLARE_INTERNAL_TYPE (GtkMnemonicTrigger, gtk_mnemonic_trigger, GTK, MNEMONIC_TRIGGER, GtkShortcutTrigger) }
+  // {G_DECLARE_FINAL_TYPE          (GtkFontDialog,      gtk_font_dialog,      GTK,    FONT_DIALOG,      GObject)};     // Einfach
+  // {G_DECLARE_DERIVABLE_TYPE      (GtkFilter,          gtk_filter,           GTK,    FILTER,           GObject) }     // Komplett
+  // {G_DECLARE_INTERFACE           (GtkNative,          gtk_native,           GTK,    NATIVE,           GtkWidget)};   // Interface
+  // {GDK_DECLARE_INTERNAL_TYPE     (GtkMnemonicTrigger, gtk_mnemonic_trigger, GTK,    MNEMONIC_TRIGGER, GtkShortcutTrigger) }
 
-  // {GES_DECLARE_TYPE          (Timeline,           timeline,                  TIMELINE) };
+  // {WEBKIT_DECLARE_DERIVABLE_TYPE (WebKitWebView,      webkit_web_view,      WEBKIT, WEB_VIEW,         WebKitWebViewBase) }
+  // {GES_DECLARE_TYPE              (Timeline,           timeline,                     TIMELINE) };
+
+
 var
   sa: TAnsiStringArray;
   i: integer;
@@ -92,8 +97,14 @@ begin
     is_GDK_DECLARE_INTERNAL_TYPE: begin
       G_DECLARE_define_Count := 6;
     end;
+    is_WEBKIT_DECLARE_DERIVABLE_TYPE: begin
+      G_DECLARE_define_Count := 6;
+    end;
     is_GES_DECLARE_TYPE: begin
       G_DECLARE_define_Count := 6;
+    end;
+    else begin
+      WriteLn('Unbekanntes DECLARE !!!');
     end;
   end;
 
@@ -119,7 +130,7 @@ begin
   Result.Add('end;');
   Result.Add('');
 
-  if G_DECLARE in [is_G_DECLARE_DERIVABLE_TYPE, is_GDK_DECLARE_INTERNAL_TYPE, is_GES_DECLARE_TYPE] then begin
+  if G_DECLARE in [is_G_DECLARE_DERIVABLE_TYPE, is_GDK_DECLARE_INTERNAL_TYPE, is_WEBKIT_DECLARE_DERIVABLE_TYPE, is_GES_DECLARE_TYPE] then begin
     Result.Add('function ' + sa[3] + '_' + sa[4] + '_CLASS(klass: Pointer): P' + sa[1] + 'Class;');
     Result.Add('begin');
     Result.Add('  Result := P' + sa[1] + 'Class(g_type_check_class_cast(klass, ' + sa[3] + '_TYPE_' + sa[4] + '));');
@@ -194,6 +205,22 @@ begin
     Result.Add('  T' + sa[1] + 'Class = record');
     Result.Add('  end;');
     Result.Add('  P' + sa[1] + 'Class = ^T' + sa[1] + 'Class;');
+    Result.Add('');
+  end;
+  if G_DECLARE = is_WEBKIT_DECLARE_DERIVABLE_TYPE then begin
+    Result.Add('  T' + sa[1] + ' = record');
+    Result.Add('  end;');
+    Result.Add('  P' + sa[1] + ' = ^T' + sa[1] + ';');
+    Result.Add('');
+
+    Result.Add('  T' + sa[1] + 'Class = record');
+    Result.Add('  end;');
+    Result.Add('  P' + sa[1] + 'Class = ^T' + sa[1] + 'Class;');
+    Result.Add('');
+
+    Result.Add('  T' + sa[1] + 'Private = record');
+    Result.Add('  end;');
+    Result.Add('  P' + sa[1] + 'Private = ^T' + sa[1] + 'Private;');
     Result.Add('');
   end;
   if G_DECLARE = is_GES_DECLARE_TYPE then begin
