@@ -33,7 +33,7 @@
 
 #define WEBKIT_TYPE_WINDOW_PROPERTIES            (webkit_window_properties_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitWindowProperties, webkit_window_properties, WEBKIT, WINDOW_PROPERTIES, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitWindowProperties, webkit_window_properties, WEBKIT, WINDOW_PROPERTIES, GObject)
 
 extern void
 webkit_window_properties_get_geometry            (WebKitWindowProperties *window_properties,

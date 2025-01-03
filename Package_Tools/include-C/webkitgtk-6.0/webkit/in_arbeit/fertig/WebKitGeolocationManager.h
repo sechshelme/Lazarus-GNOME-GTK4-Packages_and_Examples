@@ -31,7 +31,7 @@
 
 #define WEBKIT_TYPE_GEOLOCATION_MANAGER            (webkit_geolocation_manager_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitGeolocationManager, webkit_geolocation_manager, WEBKIT, GEOLOCATION_MANAGER, GObject)
+// WEBKIT_DECLARE_FINAL_TYPE (WebKitGeolocationManager, webkit_geolocation_manager, WEBKIT, GEOLOCATION_MANAGER, GObject)
 
 #define WEBKIT_TYPE_GEOLOCATION_POSITION           (webkit_geolocation_position_get_type())
 

@@ -7,7 +7,9 @@ uses
   WebKitPermissionRequest, WebKitHitTestResult, WebKitPrintOperation, WebKitWebResource, WebKitURIRequest, WebKitFileChooserRequest,
   WebKitContextMenu, WebKitFormSubmissionRequest, WebKitAuthenticationRequest, WebKitNotification,
   WebKitColorChooserRequest, WebKitOptionMenu, WebKitUserMessage, WebKitPermissionStateQuery, WebKitAutomationSession,
-  WebKitNetworkSession;
+  WebKitNetworkSession, WebKitWebContext, WebKitBackForwardList, WebKitBackForwardListItem, WebKitSettings,
+  WebKitWindowProperties, WebKitFindController, WebKitWebInspector, WebKitDownload, WebKitUserContentManager,
+  WebKitEditorState, WebKitWebViewSessionState, WebKitInputMethodContext, WebKitWebsitePolicies;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

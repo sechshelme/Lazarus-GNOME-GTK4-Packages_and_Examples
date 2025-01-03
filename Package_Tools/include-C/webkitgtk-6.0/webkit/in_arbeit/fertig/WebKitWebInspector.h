@@ -32,7 +32,7 @@
 
 #define WEBKIT_TYPE_WEB_INSPECTOR            (webkit_web_inspector_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitWebInspector, webkit_web_inspector, WEBKIT, WEB_INSPECTOR, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitWebInspector, webkit_web_inspector, WEBKIT, WEB_INSPECTOR, GObject)
 
 extern WebKitWebViewBase *
 webkit_web_inspector_get_web_view        (WebKitWebInspector *inspector);

@@ -35,7 +35,27 @@ uses
   WebKitWebsiteData,
   WebKitFaviconDatabase,
   WebKitWebsiteDataManager,
+  WebKitNetworkProxySettings,
+  WebKitMemoryPressureSettings,
+  WebKitDownload,
   WebKitNetworkSession,
+  WebKitURISchemeResponse,
+  WebKitURISchemeRequest,
+  WebKitGeolocationManager,
+  WebKitSecurityManager,
+  WebKitWebContext,
+  WebKitBackForwardListItem,
+  WebKitBackForwardList,
+  WebKitFeature,
+  WebKitSettings,
+  WebKitWindowProperties,
+  WebKitFindController,
+  WebKitWebInspector,
+  WebKitUserContent,
+  WebKitUserContentManager,
+  WebKitEditorState,
+  WebKitWebViewSessionState,
+  WebKitInputMethodContext,
   WebKitWebView,
 
   fp_glib2,
@@ -45,8 +65,8 @@ uses
   // pkg-config --cflags --libs webkitgtk-6.0
 
 
-//  function webkit_web_view_new: PGtkWidget; cdecl; external libwebkit;
-//  procedure webkit_web_view_load_uri(web_view: Pointer; uri: Pgchar); cdecl; external libwebkit;
+  //  function webkit_web_view_new: PGtkWidget; cdecl; external libwebkit;
+  //  procedure webkit_web_view_load_uri(web_view: Pointer; uri: Pgchar); cdecl; external libwebkit;
 
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer);
@@ -65,7 +85,7 @@ uses
     gtk_window_set_child(GTK_WINDOW(window), box);
 
     webView := webkit_web_view_new;
-    webkit_web_view_load_uri(webView, 'http://www.google.ch');
+    webkit_web_view_load_uri(WEBKIT_WEB_VIEW(webView), 'http://www.google.ch');
 
     gtk_widget_set_size_request(GTK_WIDGET(webView), 640, 480);
 

@@ -3,7 +3,7 @@ unit WebKitNetworkSession;
 interface
 
 uses
-  fp_glib2, fp_GTK4, web_common, WebKitWebsiteDataManager, WebKitCookieManager;
+  fp_glib2, fp_GTK4, web_common, WebKitWebsiteDataManager, WebKitCookieManager, WebKitNetworkProxySettings, WebKitMemoryPressureSettings, WebKitDownload;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

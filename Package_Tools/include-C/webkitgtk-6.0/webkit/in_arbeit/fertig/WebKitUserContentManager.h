@@ -30,7 +30,7 @@
 
 #define WEBKIT_TYPE_USER_CONTENT_MANAGER            (webkit_user_content_manager_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitUserContentManager, webkit_user_content_manager, WEBKIT, USER_CONTENT_MANAGER, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitUserContentManager, webkit_user_content_manager, WEBKIT, USER_CONTENT_MANAGER, GObject)
 
 extern WebKitUserContentManager *
 webkit_user_content_manager_new                                        (void);

@@ -32,7 +32,7 @@
 
 #define WEBKIT_TYPE_URI_SCHEME_RESPONSE            (webkit_uri_scheme_response_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitURISchemeResponse, webkit_uri_scheme_response, WEBKIT, URI_SCHEME_RESPONSE, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitURISchemeResponse, webkit_uri_scheme_response, WEBKIT, URI_SCHEME_RESPONSE, GObject)
 
 extern WebKitURISchemeResponse *
 webkit_uri_scheme_response_new                (GInputStream            *input_stream,

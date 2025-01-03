@@ -1,5 +1,10 @@
   // {$include ../gnome_lib_const.inc}
 
+type  // muss wieder entfernt werden !!!!
+  TJSCValue=Pointer;
+  PJSCValue=Pointer;
+
+
   // ==== stdio
 const
   {$IFDEF Linux}
@@ -349,9 +354,13 @@ type
   TVASurfaceID = TVAGenericID;
 
   // /usr/include/libsoup-3.0/libsoup/soup-message-headers.h
-  TSoupMessageHeaders=record
-      end;
-  PSoupMessageHeaders=^TSoupMessageHeaders;
+  TSoupMessageHeaders = record
+  end;
+  PSoupMessageHeaders = ^TSoupMessageHeaders;
+
+  TSoupCookie = record
+  end;
+  PSoupCookie = ^TSoupCookie;
 
   // ==== OpenGL
 type

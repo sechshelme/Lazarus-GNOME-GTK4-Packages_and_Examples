@@ -40,7 +40,7 @@
 
 
 #define WEBKIT_TYPE_WEB_CONTEXT            (webkit_web_context_get_type())
-WEBKIT_DECLARE_FINAL_TYPE (WebKitWebContext, webkit_web_context, WEBKIT, WEB_CONTEXT, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitWebContext, webkit_web_context, WEBKIT, WEB_CONTEXT, GObject)
 
 /**
  * WebKitCacheModel:

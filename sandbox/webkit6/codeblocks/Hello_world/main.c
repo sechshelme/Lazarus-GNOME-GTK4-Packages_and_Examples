@@ -152,6 +152,7 @@ int main (int argc, char **argv)
 
   G_DECLARE_DERIVABLE_TYPE
   webkit_uri_request_get_http_headers
+  JSCValue
 
 }
 

@@ -31,7 +31,7 @@
 
 #define WEBKIT_TYPE_EDITOR_STATE            (webkit_editor_state_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitEditorState, webkit_editor_state, WEBKIT, EDITOR_STATE, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitEditorState, webkit_editor_state, WEBKIT, EDITOR_STATE, GObject)
 
 /**
  * WebKitEditorTypingAttributes:

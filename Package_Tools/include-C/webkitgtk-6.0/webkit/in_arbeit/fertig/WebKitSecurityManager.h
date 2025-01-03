@@ -31,7 +31,7 @@
 
 #define WEBKIT_TYPE_SECURITY_MANAGER            (webkit_security_manager_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitSecurityManager, webkit_security_manager, WEBKIT, SECURITY_MANAGER, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitSecurityManager, webkit_security_manager, WEBKIT, SECURITY_MANAGER, GObject)
 
 extern void
 webkit_security_manager_register_uri_scheme_as_local            (WebKitSecurityManager *security_manager,

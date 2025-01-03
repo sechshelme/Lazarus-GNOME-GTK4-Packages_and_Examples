@@ -39,7 +39,7 @@
 
 #define WEBKIT_TYPE_SETTINGS            (webkit_settings_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitSettings, webkit_settings, WEBKIT, SETTINGS, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitSettings, webkit_settings, WEBKIT, SETTINGS, GObject)
 
 /**
  * WebKitHardwareAccelerationPolicy:
@@ -76,17 +76,17 @@ extern void
 webkit_settings_set_auto_load_images                           (WebKitSettings *settings,
                                                                 gboolean        enabled);
 
-WEBKIT_DEPRECATED gboolean
+gboolean
 webkit_settings_get_load_icons_ignoring_image_load_setting     (WebKitSettings *settings);
 
-WEBKIT_DEPRECATED void
+ void
 webkit_settings_set_load_icons_ignoring_image_load_setting     (WebKitSettings *settings,
                                                                 gboolean        enabled);
 
-WEBKIT_DEPRECATED gboolean
+ gboolean
 webkit_settings_get_enable_offline_web_application_cache       (WebKitSettings *settings);
 
-WEBKIT_DEPRECATED void
+ void
 webkit_settings_set_enable_offline_web_application_cache       (WebKitSettings *settings,
                                                                 gboolean        enabled);
 

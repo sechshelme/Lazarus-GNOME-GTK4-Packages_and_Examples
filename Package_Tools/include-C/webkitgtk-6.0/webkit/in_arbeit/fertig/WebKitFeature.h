@@ -101,7 +101,7 @@ webkit_feature_get_status        (WebKitFeature *feature);
 extern gboolean
 webkit_feature_get_default_value (WebKitFeature *feature);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(WebKitFeature, webkit_feature_unref)
+//G_DEFINE_AUTOPTR_CLEANUP_FUNC(WebKitFeature, webkit_feature_unref)
 
 #define WEBKIT_TYPE_FEATURE_LIST (webkit_feature_list_get_type())
 
@@ -123,7 +123,7 @@ extern WebKitFeature *
 webkit_feature_list_get          (WebKitFeatureList *feature_list,
                                   gsize              index);
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC(WebKitFeatureList, webkit_feature_list_unref)
+//G_DEFINE_AUTOPTR_CLEANUP_FUNC(WebKitFeatureList, webkit_feature_list_unref)
 
 
 

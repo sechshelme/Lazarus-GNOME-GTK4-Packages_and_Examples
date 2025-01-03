@@ -31,7 +31,7 @@
 
 #define WEBKIT_TYPE_BACK_FORWARD_LIST_ITEM            (webkit_back_forward_list_item_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitBackForwardListItem, webkit_back_forward_list_item, WEBKIT, BACK_FORWARD_LIST_ITEM, GInitiallyUnowned)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitBackForwardListItem, webkit_back_forward_list_item, WEBKIT, BACK_FORWARD_LIST_ITEM, GInitiallyUnowned)
 
 extern const gchar *
 webkit_back_forward_list_item_get_uri          (WebKitBackForwardListItem* list_item);

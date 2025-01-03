@@ -11,6 +11,7 @@ type
     priv: PGTlsCertificatePrivate;
   end;
   PGTlsCertificate = ^TGTlsCertificate;
+  PPGTlsCertificate = ^PGTlsCertificate;
 
   TGTlsCertificateClass = record
     parent_class: TGObjectClass;

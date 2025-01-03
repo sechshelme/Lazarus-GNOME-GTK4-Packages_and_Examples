@@ -31,7 +31,7 @@
 
 #define WEBKIT_TYPE_FIND_CONTROLLER            (webkit_find_controller_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitFindController, webkit_find_controller, WEBKIT, FIND_CONTROLLER, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitFindController, webkit_find_controller, WEBKIT, FIND_CONTROLLER, GObject)
 
 typedef struct _WebKitWebView WebKitWebView;
 

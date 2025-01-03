@@ -32,7 +32,7 @@
 
 
 #define WEBKIT_TYPE_DOWNLOAD            (webkit_download_get_type())
-WEBKIT_DECLARE_FINAL_TYPE (WebKitDownload, webkit_download, WEBKIT, DOWNLOAD, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitDownload, webkit_download, WEBKIT, DOWNLOAD, GObject)
 
 typedef struct _WebKitWebView WebKitWebView;
 

@@ -31,7 +31,7 @@
 
 #define WEBKIT_TYPE_BACK_FORWARD_LIST            (webkit_back_forward_list_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitBackForwardList, webkit_back_forward_list, WEBKIT, BACK_FORWARD_LIST, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitBackForwardList, webkit_back_forward_list, WEBKIT, BACK_FORWARD_LIST, GObject)
 
 extern WebKitBackForwardListItem *
 webkit_back_forward_list_get_current_item            (WebKitBackForwardList *back_forward_list);

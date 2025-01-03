@@ -32,10 +32,10 @@
 
 
 #define WEBKIT_TYPE_INPUT_METHOD_UNDERLINE          (webkit_input_method_underline_get_type())
+
+//WEBKIT_DECLARE_DERIVABLE_TYPE (WebKitInputMethodContext, webkit_input_method_context, WEBKIT, INPUT_METHOD_CONTEXT, GObject)
+
 #define WEBKIT_TYPE_INPUT_METHOD_CONTEXT            (webkit_input_method_context_get_type())
-
-WEBKIT_DECLARE_DERIVABLE_TYPE (WebKitInputMethodContext, webkit_input_method_context, WEBKIT, INPUT_METHOD_CONTEXT, GObject)
-
 /**
  * WebKitInputPurpose:
  * @WEBKIT_INPUT_PURPOSE_FREE_FORM: Editable element expects any characters
