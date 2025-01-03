@@ -34,7 +34,7 @@
 
 #define WEBKIT_TYPE_COOKIE_MANAGER            (webkit_cookie_manager_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitCookieManager, webkit_cookie_manager, WEBKIT, COOKIE_MANAGER, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitCookieManager, webkit_cookie_manager, WEBKIT, COOKIE_MANAGER, GObject)
 
 /**
  * WebKitCookiePersistentStorage:

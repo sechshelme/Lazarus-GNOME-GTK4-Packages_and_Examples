@@ -33,7 +33,7 @@
 
 #define WEBKIT_TYPE_OPTION_MENU            (webkit_option_menu_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitOptionMenu, webkit_option_menu, WEBKIT, OPTION_MENU, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitOptionMenu, webkit_option_menu, WEBKIT, OPTION_MENU, GObject)
 
 extern guint
 webkit_option_menu_get_n_items    (WebKitOptionMenu *menu);

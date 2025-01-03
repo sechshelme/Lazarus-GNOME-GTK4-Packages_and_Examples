@@ -36,7 +36,7 @@
 
 #define WEBKIT_TYPE_NETWORK_SESSION            (webkit_network_session_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitNetworkSession, webkit_network_session, WEBKIT, NETWORK_SESSION, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitNetworkSession, webkit_network_session, WEBKIT, NETWORK_SESSION, GObject)
 
 extern WebKitNetworkSession *
 webkit_network_session_get_default                               (void);

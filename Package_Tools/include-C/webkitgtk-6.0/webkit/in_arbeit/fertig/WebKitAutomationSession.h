@@ -32,7 +32,7 @@
 
 #define WEBKIT_TYPE_AUTOMATION_SESSION            (webkit_automation_session_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitAutomationSession, webkit_automation_session, WEBKIT, AUTOMATION_SESSION, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitAutomationSession, webkit_automation_session, WEBKIT, AUTOMATION_SESSION, GObject)
 
 /**
  * WebKitAutomationBrowsingContextPresentation:

@@ -3,10 +3,11 @@ unit WebKitWebView;
 interface
 
 uses
-  fp_glib2, fp_GTK4, web_common, WebKitWebViewBase, WebKitNavigationAction, WebKitScriptDialog, WebKitPolicyDecision,
+  fp_glib2, fp_GDK4, fp_GTK4, web_common, WebKitWebViewBase, WebKitNavigationAction, WebKitScriptDialog, WebKitPolicyDecision,
   WebKitPermissionRequest, WebKitHitTestResult, WebKitPrintOperation, WebKitWebResource, WebKitURIRequest, WebKitFileChooserRequest,
   WebKitContextMenu, WebKitFormSubmissionRequest, WebKitAuthenticationRequest, WebKitNotification,
-  WebKitColorChooserRequest;
+  WebKitColorChooserRequest, WebKitOptionMenu, WebKitUserMessage, WebKitPermissionStateQuery, WebKitAutomationSession,
+  WebKitNetworkSession;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

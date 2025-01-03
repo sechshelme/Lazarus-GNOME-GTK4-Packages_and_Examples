@@ -31,7 +31,7 @@
 
 #define WEBKIT_TYPE_USER_MESSAGE            (webkit_user_message_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitUserMessage, webkit_user_message, WEBKIT, USER_MESSAGE, GInitiallyUnowned)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitUserMessage, webkit_user_message, WEBKIT, USER_MESSAGE, GInitiallyUnowned)
 
 #define WEBKIT_USER_MESSAGE_ERROR webkit_user_message_error_quark ()
 

@@ -32,11 +32,11 @@
 
 
 
-#define WEBKIT_FAVICON_DATABASE_ERROR           (webkit_favicon_database_error_quark())
 #define WEBKIT_TYPE_FAVICON_DATABASE            (webkit_favicon_database_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitFaviconDatabase, webkit_favicon_database, WEBKIT, FAVICON_DATABASE, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitFaviconDatabase, webkit_favicon_database, WEBKIT, FAVICON_DATABASE, GObject)
 
+#define WEBKIT_FAVICON_DATABASE_ERROR           (webkit_favicon_database_error_quark())
 /**
  * WebKitFaviconDatabaseError:
  * @WEBKIT_FAVICON_DATABASE_ERROR_NOT_INITIALIZED: The #WebKitFaviconDatabase is closed
