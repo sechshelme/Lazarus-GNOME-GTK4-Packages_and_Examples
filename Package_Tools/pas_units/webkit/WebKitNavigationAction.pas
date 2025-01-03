@@ -37,7 +37,6 @@ function webkit_navigation_action_get_request(navigation: PWebKitNavigationActio
 function webkit_navigation_action_is_user_gesture(navigation: PWebKitNavigationAction): Tgboolean; cdecl; external libwebkit;
 function webkit_navigation_action_is_redirect(navigation: PWebKitNavigationAction): Tgboolean; cdecl; external libwebkit;
 function webkit_navigation_action_get_frame_name(navigation: PWebKitNavigationAction): pchar; cdecl; external libwebkit;
-{$endif}
 
 // === Konventiert am: 2-1-25 19:23:30 ===
 

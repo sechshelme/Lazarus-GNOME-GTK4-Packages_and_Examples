@@ -256,14 +256,12 @@ type
   end;
   Ptm = ^Ttm;
 
-
   // /usr/include/linux/time.h
 type
   Ttimespec = record
     tv_sec: int64;
     tv_nsec: int64;
   end;
-
 
   // /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
 const
@@ -349,6 +347,11 @@ type
   TVAGenericID = cuint;
   PVASurfaceID = ^TVASurfaceID;
   TVASurfaceID = TVAGenericID;
+
+  // /usr/include/libsoup-3.0/libsoup/soup-message-headers.h
+  TSoupMessageHeaders=record
+      end;
+  PSoupMessageHeaders=^TSoupMessageHeaders;
 
   // ==== OpenGL
 type

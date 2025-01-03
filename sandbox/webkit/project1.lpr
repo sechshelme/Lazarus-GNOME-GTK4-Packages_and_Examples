@@ -6,9 +6,8 @@ uses
   WebKitWebViewBase,
   WebKitURIRequest,
   WebKitNavigationAction,
+  WebKitScriptDialog,
   WebKitWebView,
-
-
 
   fp_glib2,
   fp_GTK4;

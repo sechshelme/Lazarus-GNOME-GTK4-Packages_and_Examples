@@ -148,8 +148,10 @@ int main (int argc, char **argv)
   GValue value;
 
   WEBKIT_DECLARE_DERIVABLE_TYPE
+  WEBKIT_DECLARE_FINAL_TYPE
 
   G_DECLARE_DERIVABLE_TYPE
+  webkit_uri_request_get_http_headers
 
 }
 

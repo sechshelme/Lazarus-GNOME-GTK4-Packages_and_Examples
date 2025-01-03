@@ -3,7 +3,7 @@ unit WebKitWebView;
 interface
 
 uses
-  fp_glib2, WebKitWebViewBase, WebKitNavigationAction;
+  fp_glib2, fp_GTK4, WebKitWebViewBase, WebKitNavigationAction, WebKitScriptDialog;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
