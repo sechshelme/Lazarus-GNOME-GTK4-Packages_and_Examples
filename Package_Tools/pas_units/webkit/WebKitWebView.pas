@@ -3,7 +3,10 @@ unit WebKitWebView;
 interface
 
 uses
-  fp_glib2, fp_GTK4, WebKitWebViewBase, WebKitNavigationAction, WebKitScriptDialog;
+  fp_glib2, fp_GTK4, web_common, WebKitWebViewBase, WebKitNavigationAction, WebKitScriptDialog, WebKitPolicyDecision,
+  WebKitPermissionRequest, WebKitHitTestResult, WebKitPrintOperation, WebKitWebResource, WebKitURIRequest, WebKitFileChooserRequest,
+  WebKitContextMenu, WebKitFormSubmissionRequest, WebKitAuthenticationRequest, WebKitNotification,
+  WebKitColorChooserRequest;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -90,16 +93,6 @@ const
 
 type
   {WEBKIT_DECLARE_DERIVABLE_TYPE (WebKitWebView, webkit_web_view, WEBKIT, WEB_VIEW, WebKitWebViewBase) }
-  TWebKitWebViewPrivate = record
-  end;
-  PWebKitWebViewPrivate = ^TWebKitWebViewPrivate;
-
-  TWebKitWebView = record
-    parent_instance: TWebKitWebViewBase;
-    priv: PWebKitWebViewPrivate;
-  end;
-  PWebKitWebView = ^TWebKitWebView;
-
   TWebKitWebViewClass = record
     parent: TWebKitWebViewBaseClass;
     load_changed: procedure(web_view: PWebKitWebView; load_event: TWebKitLoadEvent); cdecl;

@@ -30,7 +30,7 @@
 
 #define WEBKIT_TYPE_WEBSITE_POLICIES            (webkit_website_policies_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitWebsitePolicies, webkit_website_policies, WEBKIT, WEBSITE_POLICIES, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitWebsitePolicies, webkit_website_policies, WEBKIT, WEBSITE_POLICIES, GObject)
 
 /**
  * WebKitAutoplayPolicy:

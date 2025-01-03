@@ -21,37 +21,38 @@
 #error "Only <webkit/webkit.h> can be included directly."
 #endif
 
-#ifndef WebKitWebResource_h
-#define WebKitWebResource_h
+#ifndef WebKitFileChooserRequest_h
+#define WebKitFileChooserRequest_h
 
 #include <glib-object.h>
-#include <gio/gio.h>
 #include <webkit/WebKitDefines.h>
-#include <webkit/WebKitURIResponse.h>
+
+#include <gtk/gtk.h>
 
 
 
-#define WEBKIT_TYPE_WEB_RESOURCE            (webkit_web_resource_get_type())
+#define WEBKIT_TYPE_FILE_CHOOSER_REQUEST            (webkit_file_chooser_request_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitWebResource, webkit_web_resource, WEBKIT, WEB_RESOURCE, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitFileChooserRequest, webkit_file_chooser_request, WEBKIT, FILE_CHOOSER_REQUEST, GObject)
 
-extern const gchar *
-webkit_web_resource_get_uri         (WebKitWebResource  *resource);
+extern const gchar * const *
+webkit_file_chooser_request_get_mime_types        (WebKitFileChooserRequest *request);
 
-extern WebKitURIResponse *
-webkit_web_resource_get_response    (WebKitWebResource  *resource);
+extern GtkFileFilter *
+webkit_file_chooser_request_get_mime_types_filter (WebKitFileChooserRequest *request);
+
+extern gboolean
+webkit_file_chooser_request_get_select_multiple   (WebKitFileChooserRequest *request);
 
 extern void
-webkit_web_resource_get_data        (WebKitWebResource  *resource,
-                                     GCancellable       *cancellable,
-                                     GAsyncReadyCallback callback,
-                                     gpointer            user_data);
+webkit_file_chooser_request_select_files          (WebKitFileChooserRequest *request,
+                                                   const gchar * const      *files);
 
-extern guchar *
-webkit_web_resource_get_data_finish (WebKitWebResource  *resource,
-                                     GAsyncResult       *result,
-                                     gsize              *length,
-                                     GError            **error);
+extern const gchar * const *
+webkit_file_chooser_request_get_selected_files    (WebKitFileChooserRequest *request);
+
+extern void
+webkit_file_chooser_request_cancel                (WebKitFileChooserRequest *request);
 
 
 

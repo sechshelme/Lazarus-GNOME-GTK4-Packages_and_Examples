@@ -31,7 +31,7 @@
 
 #define WEBKIT_TYPE_HIT_TEST_RESULT            (webkit_hit_test_result_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitHitTestResult, webkit_hit_test_result, WEBKIT, HIT_TEST_RESULT, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitHitTestResult, webkit_hit_test_result, WEBKIT, HIT_TEST_RESULT, GObject)
 
 /**
  * WebKitHitTestResultContext:

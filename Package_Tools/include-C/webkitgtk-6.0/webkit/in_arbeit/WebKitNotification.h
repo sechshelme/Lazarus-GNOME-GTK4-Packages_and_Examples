@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 Igalia S.L.
+ * Copyright (C) 2014 Collabora Ltd.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -17,40 +17,39 @@
  * Boston, MA 02110-1301, USA.
  */
 
-#if !defined(__WEBKIT_H_INSIDE__) && !defined(__WEBKIT_WEB_PROCESS_EXTENSION_H_INSIDE__) && !defined(BUILDING_WEBKIT)
+#if !defined(__WEBKIT_H_INSIDE__) && !defined(BUILDING_WEBKIT)
 #error "Only <webkit/webkit.h> can be included directly."
 #endif
 
-#ifndef WebKitURIResponse_h
-#define WebKitURIResponse_h
+#ifndef WebKitNotification_h
+#define WebKitNotification_h
 
-#include <gio/gio.h>
-#include <libsoup/soup.h>
+#include <glib-object.h>
 #include <webkit/WebKitDefines.h>
 
 
 
-#define WEBKIT_TYPE_URI_RESPONSE            (webkit_uri_response_get_type())
+#define WEBKIT_TYPE_NOTIFICATION            (webkit_notification_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitURIResponse, webkit_uri_response, WEBKIT, URI_RESPONSE, GObject)
-
-extern const gchar *
-webkit_uri_response_get_uri                (WebKitURIResponse    *response);
-
-extern guint
-webkit_uri_response_get_status_code        (WebKitURIResponse    *response);
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitNotification, webkit_notification, WEBKIT, NOTIFICATION, GObject)
 
 extern guint64
-webkit_uri_response_get_content_length     (WebKitURIResponse    *response);
+webkit_notification_get_id                   (WebKitNotification *notification);
 
 extern const gchar *
-webkit_uri_response_get_mime_type          (WebKitURIResponse    *response);
+webkit_notification_get_title                (WebKitNotification *notification);
 
 extern const gchar *
-webkit_uri_response_get_suggested_filename (WebKitURIResponse    *response);
+webkit_notification_get_body                 (WebKitNotification *notification);
 
-extern SoupMessageHeaders *
-webkit_uri_response_get_http_headers       (WebKitURIResponse    *response);
+extern const gchar *
+webkit_notification_get_tag                  (WebKitNotification *notification);
+
+extern void
+webkit_notification_close                    (WebKitNotification *notification);
+
+extern void
+webkit_notification_clicked                  (WebKitNotification *notification);
 
 
 

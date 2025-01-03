@@ -21,26 +21,37 @@
 #error "Only <webkit/webkit.h> can be included directly."
 #endif
 
-#ifndef WebKitFormSubmissionRequest_h
-#define WebKitFormSubmissionRequest_h
+#ifndef WebKitWebResource_h
+#define WebKitWebResource_h
 
 #include <glib-object.h>
+#include <gio/gio.h>
 #include <webkit/WebKitDefines.h>
+#include <webkit/WebKitURIResponse.h>
 
 
 
-#define WEBKIT_TYPE_FORM_SUBMISSION_REQUEST            (webkit_form_submission_request_get_type())
+#define WEBKIT_TYPE_WEB_RESOURCE            (webkit_web_resource_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitFormSubmissionRequest, webkit_form_submission_request, WEBKIT, FORM_SUBMISSION_REQUEST, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitWebResource, webkit_web_resource, WEBKIT, WEB_RESOURCE, GObject)
 
+extern const gchar *
+webkit_web_resource_get_uri         (WebKitWebResource  *resource);
 
-extern gboolean
-webkit_form_submission_request_list_text_fields (WebKitFormSubmissionRequest  *request,
-                                                 GPtrArray                   **field_names,
-                                                 GPtrArray                   **field_values);
+extern WebKitURIResponse *
+webkit_web_resource_get_response    (WebKitWebResource  *resource);
 
 extern void
-webkit_form_submission_request_submit           (WebKitFormSubmissionRequest  *request);
+webkit_web_resource_get_data        (WebKitWebResource  *resource,
+                                     GCancellable       *cancellable,
+                                     GAsyncReadyCallback callback,
+                                     gpointer            user_data);
+
+extern guchar *
+webkit_web_resource_get_data_finish (WebKitWebResource  *resource,
+                                     GAsyncResult       *result,
+                                     gsize              *length,
+                                     GError            **error);
 
 
 

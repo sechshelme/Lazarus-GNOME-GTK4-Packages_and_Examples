@@ -32,7 +32,7 @@
 
 #define WEBKIT_TYPE_PRINT_OPERATION            (webkit_print_operation_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitPrintOperation, webkit_print_operation, WEBKIT, PRINT_OPERATION, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitPrintOperation, webkit_print_operation, WEBKIT, PRINT_OPERATION, GObject)
 
 /**
  * WebKitPrintOperationResponse:

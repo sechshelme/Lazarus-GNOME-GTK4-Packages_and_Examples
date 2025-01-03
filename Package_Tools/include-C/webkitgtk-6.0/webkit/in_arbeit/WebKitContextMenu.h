@@ -32,7 +32,7 @@
 
 #define WEBKIT_TYPE_CONTEXT_MENU            (webkit_context_menu_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitContextMenu, webkit_context_menu, WEBKIT, CONTEXT_MENU, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitContextMenu, webkit_context_menu, WEBKIT, CONTEXT_MENU, GObject)
 
 typedef struct _WebKitContextMenuItem WebKitContextMenuItem;
 

@@ -30,7 +30,8 @@
 
 
 #define WEBKIT_TYPE_PERMISSION_REQUEST           (webkit_permission_request_get_type())
-extern G_DECLARE_INTERFACE (WebKitPermissionRequest, webkit_permission_request, WEBKIT, PERMISSION_REQUEST, GObject)
+
+//G_DECLARE_INTERFACE (WebKitPermissionRequest, webkit_permission_request, WEBKIT, PERMISSION_REQUEST, GObject)
 
 struct _WebKitPermissionRequestInterface {
     GTypeInterface parent_interface;

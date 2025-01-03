@@ -21,38 +21,26 @@
 #error "Only <webkit/webkit.h> can be included directly."
 #endif
 
-#ifndef WebKitFileChooserRequest_h
-#define WebKitFileChooserRequest_h
+#ifndef WebKitFormSubmissionRequest_h
+#define WebKitFormSubmissionRequest_h
 
 #include <glib-object.h>
 #include <webkit/WebKitDefines.h>
 
-#include <gtk/gtk.h>
 
 
+#define WEBKIT_TYPE_FORM_SUBMISSION_REQUEST            (webkit_form_submission_request_get_type())
 
-#define WEBKIT_TYPE_FILE_CHOOSER_REQUEST            (webkit_file_chooser_request_get_type())
+//           WEBKIT_DECLARE_FINAL_TYPE (WebKitFormSubmissionRequest, webkit_form_submission_request, WEBKIT, FORM_SUBMISSION_REQUEST, GObject)
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitFileChooserRequest, webkit_file_chooser_request, WEBKIT, FILE_CHOOSER_REQUEST, GObject)
-
-extern const gchar * const *
-webkit_file_chooser_request_get_mime_types        (WebKitFileChooserRequest *request);
-
-extern GtkFileFilter *
-webkit_file_chooser_request_get_mime_types_filter (WebKitFileChooserRequest *request);
 
 extern gboolean
-webkit_file_chooser_request_get_select_multiple   (WebKitFileChooserRequest *request);
+webkit_form_submission_request_list_text_fields (WebKitFormSubmissionRequest  *request,
+                                                 GPtrArray                   **field_names,
+                                                 GPtrArray                   **field_values);
 
 extern void
-webkit_file_chooser_request_select_files          (WebKitFileChooserRequest *request,
-                                                   const gchar * const      *files);
-
-extern const gchar * const *
-webkit_file_chooser_request_get_selected_files    (WebKitFileChooserRequest *request);
-
-extern void
-webkit_file_chooser_request_cancel                (WebKitFileChooserRequest *request);
+webkit_form_submission_request_submit           (WebKitFormSubmissionRequest  *request);
 
 
 

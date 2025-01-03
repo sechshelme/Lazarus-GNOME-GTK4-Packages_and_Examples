@@ -32,7 +32,7 @@
 
 #define WEBKIT_TYPE_POLICY_DECISION            (webkit_policy_decision_get_type())
 
-WEBKIT_DECLARE_DERIVABLE_TYPE (WebKitPolicyDecision, webkit_policy_decision, WEBKIT, POLICY_DECISION, GObject)
+//WEBKIT_DECLARE_DERIVABLE_TYPE (WebKitPolicyDecision, webkit_policy_decision, WEBKIT, POLICY_DECISION, GObject)
 
 struct _WebKitPolicyDecisionClass {
     GObjectClass parent_class;

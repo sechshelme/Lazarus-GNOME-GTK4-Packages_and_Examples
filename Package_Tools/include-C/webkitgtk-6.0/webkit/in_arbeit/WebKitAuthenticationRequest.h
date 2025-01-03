@@ -34,7 +34,7 @@
 
 #define WEBKIT_TYPE_AUTHENTICATION_REQUEST            (webkit_authentication_request_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitAuthenticationRequest, webkit_authentication_request, WEBKIT, AUTHENTICATION_REQUEST, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitAuthenticationRequest, webkit_authentication_request, WEBKIT, AUTHENTICATION_REQUEST, GObject)
 
 /**
  * WebKitAuthenticationScheme:

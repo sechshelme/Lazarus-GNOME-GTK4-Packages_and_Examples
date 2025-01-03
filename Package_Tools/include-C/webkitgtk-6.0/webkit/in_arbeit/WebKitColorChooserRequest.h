@@ -38,7 +38,7 @@
 
 #define WEBKIT_TYPE_COLOR_CHOOSER_REQUEST            (webkit_color_chooser_request_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitColorChooserRequest, webkit_color_chooser_request, WEBKIT, COLOR_CHOOSER_REQUEST, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitColorChooserRequest, webkit_color_chooser_request, WEBKIT, COLOR_CHOOSER_REQUEST, GObject)
 
 extern void
 webkit_color_chooser_request_get_rgba              (WebKitColorChooserRequest *request,

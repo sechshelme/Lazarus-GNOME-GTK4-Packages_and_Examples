@@ -3,7 +3,7 @@ unit WebKitWebViewBase;
 interface
 
 uses
-  fp_glib2, fp_GTK4;
+  fp_glib2, fp_GTK4, web_common;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -12,16 +12,6 @@ uses
 
   {WEBKIT_DECLARE_DERIVABLE_TYPE (WebKitWebViewBase, webkit_web_view_base, WEBKIT, WEB_VIEW_BASE, GtkWidget) }
 type
-  TWebKitWebViewBasePrivate = record
-  end;
-  PWebKitWebViewBasePrivate = ^TWebKitWebViewBasePrivate;
-
-  TWebKitWebViewBase = record
-    parent_instance: TGtkWidget;
-    priv: PWebKitWebViewBasePrivate;
-  end;
-  PWebKitWebViewBase = ^TWebKitWebViewBase;
-
   TWebKitWebViewBaseClass = record
     parentClass: TGtkWidgetClass;
     _webkit_reserved0: procedure; cdecl;
