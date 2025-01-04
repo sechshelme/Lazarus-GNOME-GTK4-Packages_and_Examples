@@ -72,13 +72,13 @@
     (JSC_MAJOR_VERSION == (major) && JSC_MINOR_VERSION == (minor) && \
      JSC_MICRO_VERSION >= (micro)))
 
-JSC_API guint
+extern guint
 jsc_get_major_version (void);
 
-JSC_API guint
+extern guint
 jsc_get_minor_version (void);
 
-JSC_API guint
+extern guint
 jsc_get_micro_version (void);
 
 

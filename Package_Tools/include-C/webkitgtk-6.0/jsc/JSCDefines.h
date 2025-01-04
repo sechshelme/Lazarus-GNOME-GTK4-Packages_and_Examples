@@ -34,20 +34,20 @@
 
 #ifdef G_OS_WIN32
 #    if defined(BUILDING_JavaScriptCore) || defined(STATICALLY_LINKED_WITH_JavaScriptCore)
-#        define JSC_API __declspec(dllexport)
+#        define extern __declspec(dllexport)
 #    else
-#        define JSC_API __declspec(dllimport)
+#        define extern __declspec(dllimport)
 #    endif
 #else
-#    define JSC_API __attribute__((visibility("default")))
+#    define extern __attribute__((visibility("default")))
 #endif
 
 #ifndef __GI_SCANNER__
-#define JSC_DEPRECATED JSC_API G_DEPRECATED
-#define JSC_DEPRECATED_FOR(f) JSC_API G_DEPRECATED_FOR(f)
+#define JSC_DEPRECATED extern G_DEPRECATED
+#define JSC_DEPRECATED_FOR(f) extern G_DEPRECATED_FOR(f)
 #endif /* !__GI_SCANNER__ */
 
 #define JSC_DECLARE_FINAL_TYPE(ModuleObjName, module_obj_name, MODULE, OBJ_NAME, ParentName) \
-    JSC_API G_DECLARE_FINAL_TYPE (ModuleObjName, module_obj_name, MODULE, OBJ_NAME, ParentName)
+    extern G_DECLARE_FINAL_TYPE (ModuleObjName, module_obj_name, MODULE, OBJ_NAME, ParentName)
 
 #endif /* JSCDefines_h */

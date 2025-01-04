@@ -112,6 +112,7 @@ const
     (libs: 'libharfbuzz'; units: 'fp_glib2, hb_common'),
 
     (libs: 'libwebkit'; units: 'fp_glib2, fp_GTK4, WebKit'),
+    (libs: 'libjavascriptcoregtk'; units: 'fp_glib2'),
 
     (libs: ''; units: ''));
 

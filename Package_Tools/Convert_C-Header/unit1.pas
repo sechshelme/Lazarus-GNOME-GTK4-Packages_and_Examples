@@ -63,7 +63,7 @@ begin
     slHeader := TStringList.Create;
     slHeader.LoadFromFile(slFile[i]);
 
-    WriteLn(i, '/', slFile.Count);
+    WriteLn(i, '/', slFile.Count - 1);
 
 
     for j := 0 to slHeader.Count - 1 do begin
@@ -88,6 +88,7 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NULL_TERMINATED', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_BEGIN_IGNORE_DEPRECATIONS', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_END_IGNORE_DEPRECATIONS', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
 
       for a := 0 to Length(availables) - 1 do begin
         for v := 98 downto 2 do begin
@@ -98,6 +99,7 @@ begin
       end;
 
       slHeader[j] := StringReplace(slHeader[j], 'WEBKIT_API', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'JSC_API', 'extern', [rfReplaceAll]);
 
       slHeader[j] := StringReplace(slHeader[j], 'PANGO_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'PANGO_DEPRECATED', 'extern', [rfReplaceAll]);

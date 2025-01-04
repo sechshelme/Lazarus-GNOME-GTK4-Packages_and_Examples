@@ -121,10 +121,12 @@ const
 const
   {$IFDEF Linux}
   libwebkit = 'webkitgtk-6.0';
+  libjavascriptcoregtk ='javascriptcoregtk-6.0 ';
   {$ENDIF}
 
   {$IFDEF Windows}
   libwebkit = 'webkitgtk-6.0.0.dll'; // ????????
+  libjavascriptcoregtk ='javascriptcoregtk-6.0.0.ddl';  // ????????
   {$ENDIF}
 
   // ==== gstreamer

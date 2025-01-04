@@ -33,7 +33,7 @@ implementation
 
 const
   srcPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/pas_units';
-  destPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/packages/harfbuzz';
+  destPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/packages/webkitgtk6';
 
 procedure TForm1.Button1Click(Sender: TObject);
 var
@@ -52,6 +52,8 @@ begin
 
     j := 0;
 
+    WriteLn('file; ', i: 4, '/', slFile.Count - 1);
+
     // $PACKRECORDS C suchen
     repeat
       s := unit_source[j];
@@ -60,9 +62,9 @@ begin
         Inc(j);
       end;
       Inc(j);
+      //      WriteLn('rows; ',j:4 ,'/', unit_source.Count);
       if j >= unit_source.Count then begin
         WriteLn('Überlauf  {$PACKRECORDS C}');
-        WriteLn(i);
         WriteLn(slFile[i]);
         halt;
       end;
@@ -111,10 +113,7 @@ begin
 
     inc_dest.Add('{$ENDIF read_implementation}');
 
-
-
     path := StringReplace(slFile[i], srcPath, '', []);
-    //    path := ExtractFileName(slFile[i]);
     path := ChangeFileExt(path, '.inc');
     path := destPath + path;
 

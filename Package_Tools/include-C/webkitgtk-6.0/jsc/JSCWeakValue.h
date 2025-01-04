@@ -34,10 +34,10 @@
 
 JSC_DECLARE_FINAL_TYPE (JSCWeakValue, jsc_weak_value, JSC, WEAK_VALUE, GObject)
 
-JSC_API JSCWeakValue *
+extern JSCWeakValue *
 jsc_weak_value_new       (JSCValue     *value);
 
-JSC_API JSCValue *
+extern JSCValue *
 jsc_weak_value_get_value (JSCWeakValue *weak_value);
 
 

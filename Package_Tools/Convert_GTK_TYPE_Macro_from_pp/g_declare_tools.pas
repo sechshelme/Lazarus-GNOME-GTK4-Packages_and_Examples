@@ -14,6 +14,7 @@ type
     is_G_DECLARE_DERIVABLE_TYPE,
     is_G_DECLARE_INTERFACE,
     is_GDK_DECLARE_INTERNAL_TYPE,
+    is_JSC_DECLARE_FINAL_TYPE,
     is_WEBKIT_DECLARE_FINAL_TYPE,
     is_WEBKIT_DECLARE_DERIVABLE_TYPE,
     is_GES_DECLARE_TYPE);
@@ -40,6 +41,7 @@ var
     ('G_DECLARE_DERIVABLE_TYPE'),
     ('G_DECLARE_INTERFACE'),
     ('GDK_DECLARE_INTERNAL_TYPE'),
+    ('JSC_DECLARE_FINAL_TYPE'),
     ('WEBKIT_DECLARE_FINAL_TYPE'),
     ('WEBKIT_DECLARE_DERIVABLE_TYPE'),
     ('GES_DECLARE_TYPE'));
@@ -63,6 +65,7 @@ function ConvertSLMacro_from_G_DECLARE: TStringList;
   // {G_DECLARE_INTERFACE           (GtkNative,          gtk_native,           GTK,    NATIVE,           GtkWidget)};   // Interface
   // {GDK_DECLARE_INTERNAL_TYPE     (GtkMnemonicTrigger, gtk_mnemonic_trigger, GTK,    MNEMONIC_TRIGGER, GtkShortcutTrigger) }
 
+  // {JSC_DECLARE_FINAL_TYPE        (JSCValue,           jsc_value,            JSC,    VALUE,            GObject) }
   // {WEBKIT_DECLARE_FINAL_TYPE     (WebKitURIRequest,   webkit_uri_request,   WEBKIT, URI_REQUEST,      GObject) }
   // {WEBKIT_DECLARE_DERIVABLE_TYPE (WebKitWebView,      webkit_web_view,      WEBKIT, WEB_VIEW,         WebKitWebViewBase) }
 
@@ -101,6 +104,9 @@ begin
     is_GDK_DECLARE_INTERNAL_TYPE: begin
       G_DECLARE_define_Count := 6;
     end;
+    is_JSC_DECLARE_FINAL_TYPE: begin
+      G_DECLARE_define_Count := 3;
+    end;
     is_WEBKIT_DECLARE_FINAL_TYPE: begin
       G_DECLARE_define_Count := 3;
     end;
@@ -111,6 +117,7 @@ begin
       G_DECLARE_define_Count := 6;
     end;
     else begin
+      G_DECLARE_define_Count := 0;
       WriteLn('Unbekanntes DECLARE !!!');
     end;
   end;
@@ -208,6 +215,18 @@ begin
     Result.Add('');
 
     Result.Add('  T' + sa[1] + 'Class = record');
+    Result.Add('  end;');
+    Result.Add('  P' + sa[1] + 'Class = ^T' + sa[1] + 'Class;');
+    Result.Add('');
+  end;
+  if G_DECLARE = is_JSC_DECLARE_FINAL_TYPE then begin
+    Result.Add('  T' + sa[1] + ' = record');
+    Result.Add('  end;');
+    Result.Add('  P' + sa[1] + ' = ^T' + sa[1] + ';');
+    Result.Add('');
+
+    Result.Add('  T' + sa[1] + 'Class = record');
+    Result.Add('    parent_class: T' + sa[5] + 'Class;');
     Result.Add('  end;');
     Result.Add('  P' + sa[1] + 'Class = ^T' + sa[1] + 'Class;');
     Result.Add('');

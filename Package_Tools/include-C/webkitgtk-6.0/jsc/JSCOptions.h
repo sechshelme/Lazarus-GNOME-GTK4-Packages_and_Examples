@@ -34,52 +34,52 @@
 #define JSC_OPTIONS_USE_FTL   "useFTLJIT"
 #define JSC_OPTIONS_USE_LLINT "useLLInt"
 
-JSC_API gboolean
+extern gboolean
 jsc_options_set_boolean       (const char *option,
                                gboolean    value);
-JSC_API gboolean
+extern gboolean
 jsc_options_get_boolean       (const char *option,
                                gboolean   *value);
 
-JSC_API gboolean
+extern gboolean
 jsc_options_set_int           (const char *option,
                                gint        value);
-JSC_API gboolean
+extern gboolean
 jsc_options_get_int           (const char *option,
                                gint       *value);
 
-JSC_API gboolean
+extern gboolean
 jsc_options_set_uint          (const char *option,
                                guint       value);
-JSC_API gboolean
+extern gboolean
 jsc_options_get_uint          (const char *option,
                                guint      *value);
 
-JSC_API gboolean
+extern gboolean
 jsc_options_set_size          (const char *option,
                                gsize       value);
-JSC_API gboolean
+extern gboolean
 jsc_options_get_size          (const char *option,
                                gsize      *value);
 
-JSC_API gboolean
+extern gboolean
 jsc_options_set_double        (const char *option,
                                gdouble     value);
-JSC_API gboolean
+extern gboolean
 jsc_options_get_double        (const char *option,
                                gdouble    *value);
 
-JSC_API gboolean
+extern gboolean
 jsc_options_set_string        (const char *option,
                                const char *value);
-JSC_API gboolean
+extern gboolean
 jsc_options_get_string        (const char *option,
                                char       **value);
 
-JSC_API gboolean
+extern gboolean
 jsc_options_set_range_string  (const char *option,
                                const char *value);
-JSC_API gboolean
+extern gboolean
 jsc_options_get_range_string  (const char *option,
                                char       **value);
 
@@ -98,11 +98,11 @@ typedef gboolean (* JSCOptionsFunc) (const char    *option,
                                      const char    *description,
                                      gpointer       user_data);
 
-JSC_API void
+extern void
 jsc_options_foreach                 (JSCOptionsFunc function,
                                      gpointer       user_data);
 
-JSC_API GOptionGroup *
+extern GOptionGroup *
 jsc_options_get_option_group        (void);
 
 
