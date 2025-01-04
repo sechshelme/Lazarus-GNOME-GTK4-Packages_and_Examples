@@ -32,7 +32,7 @@
 
 #define JSC_TYPE_WEAK_VALUE            (jsc_weak_value_get_type())
 
-JSC_DECLARE_FINAL_TYPE (JSCWeakValue, jsc_weak_value, JSC, WEAK_VALUE, GObject)
+//JSC_DECLARE_FINAL_TYPE (JSCWeakValue, jsc_weak_value, JSC, WEAK_VALUE, GObject)
 
 extern JSCWeakValue *
 jsc_weak_value_new       (JSCValue     *value);

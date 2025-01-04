@@ -1,13 +1,4 @@
-unit JSCException;
-
-interface
-
-uses
-  fp_glib2;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
   {JSC_DECLARE_FINAL_TYPE (JSCException, jsc_exception, JSC, EXCEPTION, GObject) }
@@ -46,7 +37,10 @@ function JSC_TYPE_EXCEPTION: TGType;
 function JSC_EXCEPTION(obj: Pointer): PJSCException;
 function JSC_IS_EXCEPTION(obj: Pointer): Tgboolean;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function JSC_TYPE_EXCEPTION: TGType;
 begin
@@ -64,4 +58,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

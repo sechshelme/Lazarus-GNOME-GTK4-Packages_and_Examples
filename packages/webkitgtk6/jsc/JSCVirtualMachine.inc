@@ -1,13 +1,4 @@
-unit JSCVirtualMachine;
-
-interface
-
-uses
-  fp_glib2;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
   {JSC_DECLARE_FINAL_TYPE (JSCVirtualMachine, jsc_virtual_machine, JSC, VIRTUAL_MACHINE, GObject) }
@@ -30,7 +21,10 @@ function JSC_TYPE_VIRTUAL_MACHINE: TGType;
 function JSC_VIRTUAL_MACHINE(obj: Pointer): PJSCVirtualMachine;
 function JSC_IS_VIRTUAL_MACHINE(obj: Pointer): Tgboolean;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function JSC_TYPE_VIRTUAL_MACHINE: TGType;
 begin
@@ -48,4 +42,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

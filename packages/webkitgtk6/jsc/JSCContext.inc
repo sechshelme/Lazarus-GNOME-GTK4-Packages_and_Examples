@@ -1,13 +1,4 @@
-unit JSCContext;
-
-interface
-
-uses
-  fp_glib2, JSCValue, JSCClass, JSCException, JSCVirtualMachine;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
   {JSC_DECLARE_FINAL_TYPE (JSCContext, jsc_context, JSC, CONTEXT, GObject) }
@@ -75,7 +66,10 @@ function JSC_TYPE_CONTEXT: TGType;
 function JSC_CONTEXT(obj: Pointer): PJSCContext;
 function JSC_IS_CONTEXT(obj: Pointer): Tgboolean;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function JSC_TYPE_CONTEXT: TGType;
 begin
@@ -93,4 +87,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

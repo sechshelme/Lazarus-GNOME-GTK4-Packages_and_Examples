@@ -67,8 +67,8 @@
  * is the same as or newer than the passed-in version.
  */
 #define JSC_CHECK_VERSION(major, minor, micro) \
-    (JSC_MAJOR_VERSION > (major) || \
-    (JSC_MAJOR_VERSION == (major) && JSC_MINOR_VERSION > (minor)) || \
+    (JSC_MAJOR_VERSION > (major) | \
+    (JSC_MAJOR_VERSION == (major) && JSC_MINOR_VERSION > (minor)) | \
     (JSC_MAJOR_VERSION == (major) && JSC_MINOR_VERSION == (minor) && \
      JSC_MICRO_VERSION >= (micro)))
 

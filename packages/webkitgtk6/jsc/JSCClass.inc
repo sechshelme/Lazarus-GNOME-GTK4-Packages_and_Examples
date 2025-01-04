@@ -1,13 +1,4 @@
-unit JSCClass;
-
-interface
-
-uses
-  fp_glib2;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
   {JSC_DECLARE_FINAL_TYPE (JSCClass, jsc_class, JSC, CLASS, GObject) }
@@ -77,7 +68,10 @@ function JSC_TYPE_CLASS: TGType;
 function JSC_CLASS(obj: Pointer): PJSCClass;
 function JSC_IS_CLASS(obj: Pointer): Tgboolean;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function JSC_TYPE_CLASS: TGType;
 begin
@@ -95,4 +89,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

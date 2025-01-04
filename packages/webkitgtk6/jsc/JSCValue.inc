@@ -1,13 +1,4 @@
-unit JSCValue;
-
-interface
-
-uses
-  fp_glib2, JSCClass;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
   {JSC_DECLARE_FINAL_TYPE (JSCValue, jsc_value, JSC, VALUE, GObject) }
@@ -127,7 +118,10 @@ function JSC_TYPE_VALUE: TGType;
 function JSC_VALUE(obj: Pointer): PJSCValue;
 function JSC_IS_VALUE(obj: Pointer): Tgboolean;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function JSC_TYPE_VALUE: TGType;
 begin
@@ -145,4 +139,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}
