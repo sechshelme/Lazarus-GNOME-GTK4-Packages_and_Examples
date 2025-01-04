@@ -3,7 +3,7 @@ unit WebKitWebResource;
 interface
 
 uses
-  fp_glib2, fp_GTK4, web_common, WebKitURIResponse;
+  fp_glib2, fp_GTK4, WebKit, WebKitURIResponse;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

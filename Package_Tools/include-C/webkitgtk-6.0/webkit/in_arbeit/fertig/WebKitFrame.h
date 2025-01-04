@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 Red Hat Inc.
+ * Copyright (C) 2013 Igalia S.L.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,25 +21,39 @@
 #error "Only <webkit/webkit-web-process-extension.h> can be included directly."
 #endif
 
-#ifndef WebKitWebEditor_h
-#define WebKitWebEditor_h
+#ifndef WebKitFrame_h
+#define WebKitFrame_h
 
 #include <glib-object.h>
+#include <jsc/jsc.h>
 #include <webkit/WebKitDefines.h>
-#include <webkit/WebKitWebPage.h>
+#include <webkit/WebKitScriptWorld.h>
 
 
 
-#define WEBKIT_TYPE_WEB_EDITOR               (webkit_web_editor_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitWebEditor, webkit_web_editor, WEBKIT, WEB_EDITOR, GObject)
+#define WEBKIT_TYPE_FRAME            (webkit_frame_get_type())
 
-/* Forward declarations */
-typedef struct _WebKitWebPage          WebKitWebPage;
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitFrame, webkit_frame, WEBKIT, FRAME, GObject)
 
-extern WebKitWebPage *
-webkit_web_editor_get_page (WebKitWebEditor *editor);
+extern guint64
+webkit_frame_get_id                                      (WebKitFrame       *frame);
+
+extern gboolean
+webkit_frame_is_main_frame                               (WebKitFrame       *frame);
+
+extern const gchar *
+webkit_frame_get_uri                                     (WebKitFrame       *frame);
+
+
+extern JSCContext *
+webkit_frame_get_js_context                              (WebKitFrame       *frame);
+
+extern JSCContext *
+webkit_frame_get_js_context_for_script_world             (WebKitFrame       *frame,
+                                                          WebKitScriptWorld *world);
 
 
 
-#endif /* WebKitWebEditor_h */
+
+#endif

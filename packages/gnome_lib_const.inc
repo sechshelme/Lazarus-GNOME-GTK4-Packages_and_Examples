@@ -4,6 +4,9 @@ type  // muss wieder entfernt werden !!!!
   TJSCValue=Pointer;
   PJSCValue=Pointer;
 
+  TJSCContext=Pointer   ;
+    PJSCContext=Pointer;
+
 
   // ==== stdio
 const

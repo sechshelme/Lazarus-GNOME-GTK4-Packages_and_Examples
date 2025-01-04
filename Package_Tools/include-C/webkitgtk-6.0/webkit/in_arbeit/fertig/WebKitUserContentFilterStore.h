@@ -37,7 +37,7 @@
 
 #define WEBKIT_TYPE_USER_CONTENT_FILTER_STORE            (webkit_user_content_filter_store_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitUserContentFilterStore, webkit_user_content_filter_store, WEBKIT, USER_CONTENT_FILTER_STORE, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitUserContentFilterStore, webkit_user_content_filter_store, WEBKIT, USER_CONTENT_FILTER_STORE, GObject)
 
 typedef struct _WebKitUserContentFilter WebKitUserContentFilter;
 

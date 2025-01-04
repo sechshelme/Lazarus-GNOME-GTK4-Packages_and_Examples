@@ -3,7 +3,7 @@ unit WebKitURISchemeRequest;
 interface
 
 uses
-  fp_glib2, fp_GTK4, web_common, WebKitURISchemeResponse;
+  fp_glib2, fp_GTK4, WebKit, WebKitURISchemeResponse;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

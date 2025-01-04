@@ -3,7 +3,7 @@ unit WebKitDownload;
 interface
 
 uses
-  fp_glib2, fp_GTK4, web_common, WebKitURIRequest, WebKitURIResponse;
+  fp_glib2, fp_GTK4, WebKit, WebKitURIRequest, WebKitURIResponse;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

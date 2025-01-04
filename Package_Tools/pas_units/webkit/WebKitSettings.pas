@@ -3,7 +3,7 @@ unit WebKitSettings;
 interface
 
 uses
-  fp_glib2, fp_GTK4, web_common, WebKitFeature;
+  fp_glib2, fp_GTK4, WebKit, WebKitFeature;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

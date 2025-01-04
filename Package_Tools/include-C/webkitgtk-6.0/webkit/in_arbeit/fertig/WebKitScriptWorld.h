@@ -21,38 +21,29 @@
 #error "Only <webkit/webkit-web-process-extension.h> can be included directly."
 #endif
 
-#ifndef WebKitFrame_h
-#define WebKitFrame_h
+#ifndef WebKitScriptWorld_h
+#define WebKitScriptWorld_h
 
 #include <glib-object.h>
-#include <jsc/jsc.h>
 #include <webkit/WebKitDefines.h>
-#include <webkit/WebKitScriptWorld.h>
 
 
 
+#define WEBKIT_TYPE_SCRIPT_WORLD            (webkit_script_world_get_type())
 
-#define WEBKIT_TYPE_FRAME            (webkit_frame_get_type())
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitScriptWorld, webkit_script_world, WEBKIT, SCRIPT_WORLD, GObject )
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitFrame, webkit_frame, WEBKIT, FRAME, GObject)
+extern WebKitScriptWorld *
+webkit_script_world_get_default   (void);
 
-extern guint64
-webkit_frame_get_id                                      (WebKitFrame       *frame);
+extern WebKitScriptWorld *
+webkit_script_world_new           (void);
 
-extern gboolean
-webkit_frame_is_main_frame                               (WebKitFrame       *frame);
+extern WebKitScriptWorld *
+webkit_script_world_new_with_name (const char        *name);
 
-extern const gchar *
-webkit_frame_get_uri                                     (WebKitFrame       *frame);
-
-
-extern JSCContext *
-webkit_frame_get_js_context                              (WebKitFrame       *frame);
-
-extern JSCContext *
-webkit_frame_get_js_context_for_script_world             (WebKitFrame       *frame,
-                                                          WebKitScriptWorld *world);
-
+extern const char *
+webkit_script_world_get_name      (WebKitScriptWorld *world);
 
 
 

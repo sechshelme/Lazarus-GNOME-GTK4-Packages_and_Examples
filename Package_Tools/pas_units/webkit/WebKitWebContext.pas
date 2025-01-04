@@ -3,7 +3,7 @@ unit WebKitWebContext;
 interface
 
 uses
-  fp_glib2, fp_GTK4, web_common, WebKitURISchemeRequest, WebKitNetworkSession, WebKitGeolocationManager, WebKitSecurityManager, WebKitUserMessage;
+  fp_glib2, fp_GTK4, WebKit, WebKitURISchemeRequest, WebKitNetworkSession, WebKitGeolocationManager, WebKitSecurityManager, WebKitUserMessage;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

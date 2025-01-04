@@ -1,4 +1,4 @@
-unit web_common;
+unit WebKit;
 
 interface
 
@@ -38,6 +38,13 @@ TWebKitContextMenu = record
     parent_class: TGObjectClass;
   end;
   PWebKitContextMenuClass = ^TWebKitContextMenuClass;
+
+
+  TWebKitWebPage = record
+  end;
+  PWebKitWebPage = ^TWebKitWebPage;
+
+
 
 
 

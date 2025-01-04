@@ -147,6 +147,8 @@ int main (int argc, char **argv)
 
   GValue value;
 
+  GTlsCertificate
+
   WEBKIT_DECLARE_DERIVABLE_TYPE
   WEBKIT_DECLARE_FINAL_TYPE
 

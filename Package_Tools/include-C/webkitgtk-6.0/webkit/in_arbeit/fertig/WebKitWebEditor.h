@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 Igalia S.L.
+ * Copyright (C) 2015 Red Hat Inc.
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -21,30 +21,25 @@
 #error "Only <webkit/webkit-web-process-extension.h> can be included directly."
 #endif
 
-#ifndef WebKitScriptWorld_h
-#define WebKitScriptWorld_h
+#ifndef WebKitWebEditor_h
+#define WebKitWebEditor_h
 
 #include <glib-object.h>
 #include <webkit/WebKitDefines.h>
+#include <webkit/WebKitWebPage.h>
 
 
 
-#define WEBKIT_TYPE_SCRIPT_WORLD            (webkit_script_world_get_type())
+#define WEBKIT_TYPE_WEB_EDITOR               (webkit_web_editor_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitScriptWorld, webkit_script_world, WEBKIT, SCRIPT_WORLD, GObject )
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitWebEditor, webkit_web_editor, WEBKIT, WEB_EDITOR, GObject)
 
-extern WebKitScriptWorld *
-webkit_script_world_get_default   (void);
+/* Forward declarations */
+typedef struct _WebKitWebPage          WebKitWebPage;
 
-extern WebKitScriptWorld *
-webkit_script_world_new           (void);
-
-extern WebKitScriptWorld *
-webkit_script_world_new_with_name (const char        *name);
-
-extern const char *
-webkit_script_world_get_name      (WebKitScriptWorld *world);
+extern WebKitWebPage *
+webkit_web_editor_get_page (WebKitWebEditor *editor);
 
 
 
-#endif
+#endif /* WebKitWebEditor_h */

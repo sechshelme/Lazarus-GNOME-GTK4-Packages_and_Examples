@@ -3,7 +3,7 @@ unit WebKitUserContentManager;
 interface
 
 uses
-  fp_glib2, fp_GTK4, web_common, WebKitUserContent;
+  fp_glib2, fp_GTK4, WebKit, WebKitUserContent;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

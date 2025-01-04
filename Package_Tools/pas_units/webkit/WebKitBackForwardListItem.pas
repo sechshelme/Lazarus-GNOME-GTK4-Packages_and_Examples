@@ -3,7 +3,7 @@ unit WebKitBackForwardListItem;
 interface
 
 uses
-  fp_glib2, fp_GTK4, web_common;
+  fp_glib2, fp_GTK4, WebKit;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

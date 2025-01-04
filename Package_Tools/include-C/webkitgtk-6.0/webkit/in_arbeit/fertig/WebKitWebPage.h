@@ -36,7 +36,7 @@
 
 #define WEBKIT_TYPE_WEB_PAGE            (webkit_web_page_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitWebPage, webkit_web_page, WEBKIT, WEB_PAGE, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitWebPage, webkit_web_page, WEBKIT, WEB_PAGE, GObject)
 
 /* Forward declarations */
 typedef struct _WebKitWebEditor      WebKitWebEditor;

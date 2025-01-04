@@ -111,7 +111,7 @@ const
     (libs: 'libharfbuzzicu'; units: 'fp_glib2, hb_common'),
     (libs: 'libharfbuzz'; units: 'fp_glib2, hb_common'),
 
-    (libs: 'libwebkit'; units: 'fp_glib2, fp_GTK4, web_common'),
+    (libs: 'libwebkit'; units: 'fp_glib2, fp_GTK4, WebKit'),
 
     (libs: ''; units: ''));
 

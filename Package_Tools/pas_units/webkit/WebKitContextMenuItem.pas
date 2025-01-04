@@ -3,7 +3,7 @@ unit WebKitContextMenuItem;
 interface
 
 uses
-  fp_glib2, fp_GTK4, web_common, WebKitContextMenuActions;
+  fp_glib2, fp_GTK4, WebKit, WebKitContextMenuActions;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

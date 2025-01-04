@@ -3,7 +3,7 @@ unit WebKitAutomationSession;
 interface
 
 uses
-  fp_glib2, fp_GTK4, web_common, WebKitApplicationInfo;
+  fp_glib2, fp_GTK4, WebKit, WebKitApplicationInfo;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

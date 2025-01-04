@@ -3,7 +3,7 @@ unit WebKitPermissionStateQuery;
 interface
 
 uses
-  fp_glib2, fp_GTK4, web_common, WebKitSecurityOrigin;
+  fp_glib2, fp_GTK4, WebKit, WebKitSecurityOrigin;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

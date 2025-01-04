@@ -3,60 +3,71 @@ program project1;
 uses
   ctypes,
 
-  web_common,
-  WebKitWebViewBase,
-  WebKitURIRequest,
-  WebKitNavigationAction,
-  WebKitScriptDialog,
-  WebKitPermissionRequest,
-  WebKitWebsitePolicies,
-  WebKitPolicyDecision,
-  WebKitHitTestResult,
-  WebKitPrintOperation,
-  WebKitURIResponse,
-  WebKitWebResource,
-  WebKitFileChooserRequest,
-  WebKitContextMenuActions,
-  WebKitContextMenuItem,
-  WebKitContextMenu,
-  WebKitSecurityOrigin,
-  WebKitFormSubmissionRequest,
-  WebKitCredential,
-  WebKitNotification,
-  WebKitAuthenticationRequest,
-  WebKitOptionMenuItem,
-  WebKitOptionMenu,
-  WebKitColorChooserRequest,
-  WebKitUserMessage,
-  WebKitPermissionStateQuery,
-  WebKitApplicationInfo,
-  WebKitCookieManager,
-  WebKitAutomationSession,
-  WebKitWebsiteData,
-  WebKitFaviconDatabase,
-  WebKitWebsiteDataManager,
-  WebKitNetworkProxySettings,
-  WebKitMemoryPressureSettings,
-  WebKitDownload,
-  WebKitNetworkSession,
-  WebKitURISchemeResponse,
-  WebKitURISchemeRequest,
-  WebKitGeolocationManager,
-  WebKitSecurityManager,
-  WebKitWebContext,
-  WebKitBackForwardListItem,
-  WebKitBackForwardList,
-  WebKitFeature,
-  WebKitSettings,
-  WebKitWindowProperties,
-  WebKitFindController,
-  WebKitWebInspector,
-  WebKitUserContent,
-  WebKitUserContentManager,
-  WebKitEditorState,
-  WebKitWebViewSessionState,
-  WebKitInputMethodContext,
-  WebKitWebView,
+  WebKit,                                 // io.
+  WebKitWebViewBase,                      // io.
+  WebKitURIRequest,                       // io.
+  WebKitNavigationAction,                 // io. -> WebKitURIRequest
+  WebKitScriptDialog,                     // io.
+  WebKitPermissionRequest,                // io.
+  WebKitWebsitePolicies,                  // io.
+  WebKitPolicyDecision,                   // io. -> WebKitWebsitePolicies
+  WebKitHitTestResult,                    // io.
+  WebKitPrintOperation,                   // io.
+  WebKitURIResponse,                      // io.
+  WebKitWebResource,                      // io. -> WebKitURIResponse
+  WebKitFileChooserRequest,               // io.
+  WebKitContextMenuActions,               // io.
+  WebKitContextMenuItem,                  // io. -> WebKitContextMenuActions
+  WebKitContextMenu,                      // io. -> WebKitContextMenuItem
+  WebKitSecurityOrigin,                   // io.
+  WebKitFormSubmissionRequest,            // io.
+  WebKitCredential,                       // io.
+  WebKitNotification,                     // io.
+  WebKitAuthenticationRequest,            // io. -> WebKitCredential, WebKitSecurityOrigin
+  WebKitOptionMenuItem,                   // io.
+  WebKitOptionMenu,                       // io. -> WebKitOptionMenuItem
+  WebKitColorChooserRequest,              // io.
+  WebKitUserMessage,                      // io.
+  WebKitPermissionStateQuery,             // io. -> WebKitSecurityOrigin
+  WebKitApplicationInfo,                  // io.
+  WebKitCookieManager,                    // io.
+  WebKitAutomationSession,                // io. -> WebKitApplicationInfo
+  WebKitWebsiteData,                      // io.
+  WebKitFaviconDatabase,                  // io.
+  WebKitWebsiteDataManager,               // io. -> WebKitFaviconDatabase, WebKitWebsiteData
+  WebKitNetworkProxySettings,             // io.
+  WebKitMemoryPressureSettings,           // io.
+  WebKitDownload,                         // io. -> WebKitURIRequest, WebKitURIResponse
+  WebKitNetworkSession,                   // io. -> WebKitWebsiteDataManager, WebKitCookieManager, WebKitNetworkProxySettings, WebKitMemoryPressureSettings, WebKitDownload
+  WebKitURISchemeResponse,                // io.
+  WebKitURISchemeRequest,                 // io. -> WebKitURISchemeResponse
+  WebKitGeolocationManager,               // io.
+  WebKitSecurityManager,                  // io.
+  WebKitWebContext,                       // io. -> WebKitURISchemeRequest, WebKitNetworkSession, WebKitGeolocationManager, WebKitSecurityManager, WebKitUserMessage
+  WebKitBackForwardListItem,              // io.
+  WebKitBackForwardList,                  // io. -> WebKitBackForwardListItem
+  WebKitFeature,                          // io.
+  WebKitSettings,                         // io. -> WebKitFeature
+  WebKitWindowProperties,                 // io.
+  WebKitFindController,                   // io.
+  WebKitWebInspector,                     // io.
+  WebKitUserContent,                      // io.
+  WebKitUserContentManager,               // io. -> WebKitUserContent
+  WebKitEditorState,                      // io.
+  WebKitWebViewSessionState,              // io.
+  WebKitInputMethodContext,               // io.
+  WebKitWebView,                          // io. -> ( fast der ganze Rest )
+  WebKitEnumTypes,                        // io.
+  WebKitError,                            // io.
+  WebKitUserContentFilterStore,           // io.
+  WebKitWebFormManager,                   // io.
+  WebKitWebEditor,                        // io.
+  WebKitScriptWorld,                      // io.
+  WebKitFrame,                            // io. -> WebKitScriptWorld
+  WebKitWebPage,                          // io. -> WebKitFrame, WebKitWebEditor, WebKitScriptWorld, WebKitWebFormManager, WebKitUserMessage
+  WebKitEditingCommands,                  // io.
+  WebKitWebProcessExtension,              // io. -> WebKitWebPage, WebKitUserMessage
+
 
   fp_glib2,
   fp_GTK4;

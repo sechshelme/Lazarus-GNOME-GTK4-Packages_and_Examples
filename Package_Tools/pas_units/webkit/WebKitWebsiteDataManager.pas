@@ -3,7 +3,7 @@ unit WebKitWebsiteDataManager;
 interface
 
 uses
-  fp_glib2, fp_GTK4, web_common, WebKitFaviconDatabase, WebKitWebsiteData;
+  fp_glib2, fp_GTK4, WebKit, WebKitFaviconDatabase, WebKitWebsiteData;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

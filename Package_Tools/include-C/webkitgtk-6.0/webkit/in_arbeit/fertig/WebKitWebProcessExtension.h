@@ -33,7 +33,7 @@
 
 #define WEBKIT_TYPE_WEB_PROCESS_EXTENSION            (webkit_web_process_extension_get_type())
 
-WEBKIT_DECLARE_FINAL_TYPE (WebKitWebProcessExtension, webkit_web_process_extension, WEBKIT, WEB_PROCESS_EXTENSION, GObject)
+//WEBKIT_DECLARE_FINAL_TYPE (WebKitWebProcessExtension, webkit_web_process_extension, WEBKIT, WEB_PROCESS_EXTENSION, GObject)
 
 /**
  * WebKitWebProcessExtensionInitializeFunction:
