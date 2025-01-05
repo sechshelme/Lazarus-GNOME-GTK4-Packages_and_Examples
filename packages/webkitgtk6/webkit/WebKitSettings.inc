@@ -22,8 +22,7 @@ type
 
 function webkit_settings_get_type: TGType; cdecl; external libwebkit;
 function webkit_settings_new: PWebKitSettings; cdecl; external libwebkit;
-function webkit_settings_new_with_settings(first_setting_name: Pgchar; args: array of const): PWebKitSettings; cdecl; external libwebkit;
-function webkit_settings_new_with_settings(first_setting_name: Pgchar): PWebKitSettings; cdecl; external libwebkit;
+function webkit_settings_new_with_settings(first_setting_name: Pgchar): PWebKitSettings; varargs; cdecl; external libwebkit;
 function webkit_settings_get_enable_javascript(settings: PWebKitSettings): Tgboolean; cdecl; external libwebkit;
 procedure webkit_settings_set_enable_javascript(settings: PWebKitSettings; Enabled: Tgboolean); cdecl; external libwebkit;
 function webkit_settings_get_auto_load_images(settings: PWebKitSettings): Tgboolean; cdecl; external libwebkit;

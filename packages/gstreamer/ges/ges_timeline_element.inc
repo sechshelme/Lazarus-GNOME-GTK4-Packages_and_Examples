@@ -76,12 +76,10 @@ function ges_timeline_element_list_children_properties(self: PGESTimelineElement
 function ges_timeline_element_lookup_child(self: PGESTimelineElement; prop_name: Pgchar; child: PPGObject; pspec: PPGParamSpec): Tgboolean; cdecl; external libges;
 procedure ges_timeline_element_get_child_property_by_pspec(self: PGESTimelineElement; pspec: PGParamSpec; Value: PGValue); cdecl; external libges;
 procedure ges_timeline_element_get_child_property_valist(self: PGESTimelineElement; first_property_name: Pgchar; var_args: Tva_list); cdecl; external libges;
-procedure ges_timeline_element_get_child_properties(self: PGESTimelineElement; first_property_name: Pgchar; args: array of const); cdecl; external libges;
-procedure ges_timeline_element_get_child_properties(self: PGESTimelineElement; first_property_name: Pgchar); cdecl; external libges;
+procedure ges_timeline_element_get_child_properties(self: PGESTimelineElement; first_property_name: Pgchar); varargs; cdecl; external libges;
 procedure ges_timeline_element_set_child_property_valist(self: PGESTimelineElement; first_property_name: Pgchar; var_args: Tva_list); cdecl; external libges;
 procedure ges_timeline_element_set_child_property_by_pspec(self: PGESTimelineElement; pspec: PGParamSpec; Value: PGValue); cdecl; external libges;
-procedure ges_timeline_element_set_child_properties(self: PGESTimelineElement; first_property_name: Pgchar; args: array of const); cdecl; external libges;
-procedure ges_timeline_element_set_child_properties(self: PGESTimelineElement; first_property_name: Pgchar); cdecl; external libges;
+procedure ges_timeline_element_set_child_properties(self: PGESTimelineElement; first_property_name: Pgchar); varargs; cdecl; external libges;
 function ges_timeline_element_set_child_property(self: PGESTimelineElement; property_name: Pgchar; Value: PGValue): Tgboolean; cdecl; external libges;
 function ges_timeline_element_set_child_property_full(self: PGESTimelineElement; property_name: Pgchar; Value: PGValue; error: PPGError): Tgboolean; cdecl; external libges;
 function ges_timeline_element_get_child_property(self: PGESTimelineElement; property_name: Pgchar; Value: PGValue): Tgboolean; cdecl; external libges;

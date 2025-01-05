@@ -32,9 +32,7 @@ procedure gst_gl_async_debug_thaw(ad: PGstGLAsyncDebug); cdecl; external libgstg
 procedure gst_gl_insert_debug_marker(context: PGstGLContext; format: Pgchar); varargs; cdecl; external libgstgl;
 procedure gst_gl_async_debug_output_log_msg(ad: PGstGLAsyncDebug); cdecl; external libgstgl;
 procedure gst_gl_async_debug_store_log_msg(ad: PGstGLAsyncDebug; cat: PGstDebugCategory; level: TGstDebugLevel; file_: Pgchar; _function: Pgchar;
-  line: Tgint; obj: PGObject; format: Pgchar; args: array of const); cdecl; external libgstgl;
-procedure gst_gl_async_debug_store_log_msg(ad: PGstGLAsyncDebug; cat: PGstDebugCategory; level: TGstDebugLevel; file_: Pgchar; _function: Pgchar;
-  line: Tgint; obj: PGObject; format: Pgchar); cdecl; external libgstgl;
+  line: Tgint; obj: PGObject; format: Pgchar); varargs; cdecl; external libgstgl;
 procedure gst_gl_async_debug_store_log_msg_valist(ad: PGstGLAsyncDebug; cat: PGstDebugCategory; level: TGstDebugLevel; file_: Pgchar; _function: Pgchar;
   line: Tgint; obj: PGObject; format: Pgchar; varargs: Tva_list); cdecl; external libgstgl;
 

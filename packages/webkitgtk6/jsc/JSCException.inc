@@ -15,12 +15,10 @@ type
 
 function jsc_exception_get_type: TGType; cdecl; external libjavascriptcoregtk;
 function jsc_exception_new(context: PJSCContext; message: pchar): PJSCException; cdecl; external libjavascriptcoregtk;
-function jsc_exception_new_printf(context: PJSCContext; format: pchar; args: array of const): PJSCException; cdecl; external libjavascriptcoregtk;
-function jsc_exception_new_printf(context: PJSCContext; format: pchar): PJSCException; cdecl; external libjavascriptcoregtk;
+function jsc_exception_new_printf(context: PJSCContext; format: pchar): PJSCException; varargs; cdecl; external libjavascriptcoregtk;
 function jsc_exception_new_vprintf(context: PJSCContext; format: pchar; args: Tva_list): PJSCException; cdecl; external libjavascriptcoregtk;
 function jsc_exception_new_with_name(context: PJSCContext; Name: pchar; message: pchar): PJSCException; cdecl; external libjavascriptcoregtk;
-function jsc_exception_new_with_name_printf(context: PJSCContext; Name: pchar; format: pchar; args: array of const): PJSCException; cdecl; external libjavascriptcoregtk;
-function jsc_exception_new_with_name_printf(context: PJSCContext; Name: pchar; format: pchar): PJSCException; cdecl; external libjavascriptcoregtk;
+function jsc_exception_new_with_name_printf(context: PJSCContext; Name: pchar; format: pchar): PJSCException; varargs; cdecl; external libjavascriptcoregtk;
 function jsc_exception_new_with_name_vprintf(context: PJSCContext; Name: pchar; format: pchar; args: Tva_list): PJSCException; cdecl; external libjavascriptcoregtk;
 function jsc_exception_get_name(Exception: PJSCException): pchar; cdecl; external libjavascriptcoregtk;
 function jsc_exception_get_message(Exception: PJSCException): pchar; cdecl; external libjavascriptcoregtk;

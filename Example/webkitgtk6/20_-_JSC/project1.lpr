@@ -13,9 +13,10 @@ uses
     ctx: PJSCContext;
     res: PJSCValue;
     Value: Tgint32;
+    s: pchar;
   begin
     ctx := jsc_context_new;
-    res := jsc_context_evaluate(ctx, '2 + 3', -1);
+    res := jsc_context_evaluate(ctx, 'var x = 2; var y = 3; x + y;', -1);
     Value := jsc_value_to_int32(res);
 
     g_printf('Das Ergebnis von 2 + 3 ist:  %d'#10, Value);

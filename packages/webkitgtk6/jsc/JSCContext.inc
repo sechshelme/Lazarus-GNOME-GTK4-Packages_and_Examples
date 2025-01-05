@@ -39,11 +39,9 @@ function jsc_context_new_with_virtual_machine(vm: PJSCVirtualMachine): PJSCConte
 function jsc_context_get_virtual_machine(context: PJSCContext): PJSCVirtualMachine; cdecl; external libjavascriptcoregtk;
 function jsc_context_get_exception(context: PJSCContext): PJSCException; cdecl; external libjavascriptcoregtk;
 procedure jsc_context_throw(context: PJSCContext; error_message: pchar); cdecl; external libjavascriptcoregtk;
-procedure jsc_context_throw_printf(context: PJSCContext; format: pchar; args: array of const); cdecl; external libjavascriptcoregtk;
-procedure jsc_context_throw_printf(context: PJSCContext; format: pchar); cdecl; external libjavascriptcoregtk;
+procedure jsc_context_throw_printf(context: PJSCContext; format: pchar); varargs; cdecl; external libjavascriptcoregtk;
 procedure jsc_context_throw_with_name(context: PJSCContext; error_name: pchar; error_message: pchar); cdecl; external libjavascriptcoregtk;
-procedure jsc_context_throw_with_name_printf(context: PJSCContext; error_name: pchar; format: pchar; args: array of const); cdecl; external libjavascriptcoregtk;
-procedure jsc_context_throw_with_name_printf(context: PJSCContext; error_name: pchar; format: pchar); cdecl; external libjavascriptcoregtk;
+procedure jsc_context_throw_with_name_printf(context: PJSCContext; error_name: pchar; format: pchar); varargs; cdecl; external libjavascriptcoregtk;
 procedure jsc_context_throw_exception(context: PJSCContext; Exception: PJSCException); cdecl; external libjavascriptcoregtk;
 procedure jsc_context_clear_exception(context: PJSCContext); cdecl; external libjavascriptcoregtk;
 procedure jsc_context_push_exception_handler(context: PJSCContext; handler: TJSCExceptionHandler; user_data: Tgpointer; destroy_notify: TGDestroyNotify); cdecl; external libjavascriptcoregtk;

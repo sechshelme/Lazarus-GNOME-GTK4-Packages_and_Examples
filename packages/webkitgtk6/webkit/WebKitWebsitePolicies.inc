@@ -22,8 +22,7 @@ type
 
 function webkit_website_policies_get_type: TGType; cdecl; external libwebkit;
 function webkit_website_policies_new: PWebKitWebsitePolicies; cdecl; external libwebkit;
-function webkit_website_policies_new_with_policies(first_policy_name: Pgchar; args: array of const): PWebKitWebsitePolicies; cdecl; external libwebkit;
-function webkit_website_policies_new_with_policies(first_policy_name: Pgchar): PWebKitWebsitePolicies; cdecl; external libwebkit;
+function webkit_website_policies_new_with_policies(first_policy_name: Pgchar): PWebKitWebsitePolicies; varargs; cdecl; external libwebkit;
 function webkit_website_policies_get_autoplay_policy(policies: PWebKitWebsitePolicies): TWebKitAutoplayPolicy; cdecl; external libwebkit;
 
 // === Konventiert am: 3-1-25 15:18:48 ===
