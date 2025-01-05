@@ -31,10 +31,18 @@ uses
         b := jsc_value_to_boolean(Value);
         g_printf('Boolean: %d'#10, b);
       end else if jsc_value_is_function(Value) then begin
-        b := jsc_value_to_boolean(Value);
         g_printf('function'#10);
+      end else if jsc_value_is_constructor(Value) then begin
+        g_printf('constructor'#10);
+      end else if jsc_value_is_object(Value) then begin
+        g_printf('object'#10);
+      end else if jsc_value_is_array(Value) then begin
+        g_printf('array'#10);
+      end else if jsc_value_is_array_buffer(Value) then begin
+        g_printf('array_buffer'#10);
+      end else if jsc_value_is_typed_array(Value) then begin
+        g_printf('typed_array'#10);
       end else if jsc_value_is_null(Value) then begin
-        b := jsc_value_to_boolean(Value);
         g_printf('(NULL)'#10);
       end else begin
         g_printf('Unhandled type'#10);
@@ -46,7 +54,6 @@ uses
   function main(argc: cint; argv: PPChar): cint;
   const
     script: pchar =
-      //      'var x = 10; var y = 20; x + y;';
       'function add(a, b) { return a + b; }' +
       'var sum;' +
       'sum = x + y;' +
