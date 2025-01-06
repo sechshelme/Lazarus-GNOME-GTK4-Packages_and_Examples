@@ -3,13 +3,15 @@ program project1;
 uses
   ctypes,
   fp_glib2,
+  fp_pango,
   fp_GTK4,
   fp_webkitgtk6;
 
 const
   cmdKey = 'cmdKey';
-  cmForward = 1000;
-  cmBack = 1001;
+  cmHome = 1000;
+  cmForward = 1001;
+  cmBack = 1002;
 
 var
   URI_Label: PGtkWidget;
@@ -18,22 +20,28 @@ var
   procedure on_button_clicked(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
     webView: PWebKitWebView absolute user_data;
-    uri: Pgchar;
   begin
     case GPOINTER_TO_INT(g_object_get_data(G_OBJECT(widget), cmdKey)) of
+      cmHome: begin
+        webkit_web_view_load_uri(webView, 'https://www.google.ch');
+      end;
       cmForward: begin
-        WriteLn('forward');
         webkit_web_view_go_forward(webView);
       end;
       cmBack: begin
-        WriteLn('back');
         webkit_web_view_go_back(webView);
       end;
       else begin
         WriteLn('unknow');
       end;
     end;
-    uri := webkit_web_view_get_uri(webView);
+  end;
+
+  procedure load_finished_cb(web_view: PWebKitWebView; web_frame: Pointer; {%H-}user_data: Tgpointer);
+  var
+    uri: Pgchar;
+  begin
+    uri := webkit_web_view_get_uri(web_View);
     if uri <> nil then begin
       gtk_label_set_label(GTK_LABEL(URI_Label), uri);
     end else begin
@@ -41,16 +49,10 @@ var
     end;
   end;
 
-procedure load_finished_cb(web_view:PWebKitWebView;web_frame:Pointer; {%H-}user_data: Tgpointer);
-  begin
-    WriteLn('loadf');
-
-  end;
-
 
   procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
-    window, webView, box, toolbar_box, buttonBack, buttonForward: PGtkWidget;
+    window, webView, box, toolbar_box, button: PGtkWidget;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'GTK4 webkit Browser');
@@ -62,9 +64,6 @@ procedure load_finished_cb(web_view:PWebKitWebView;web_frame:Pointer; {%H-}user_
     toolbar_box := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
     gtk_box_append(GTK_BOX(box), toolbar_box);
 
-    // https://stackoverflow.com/questions/36073941/webkitgtk-signal-to-detect-redirect-event-to-a-url-that-is-invalid
-    URI_Label := gtk_label_new('http');
-
     webView := webkit_web_view_new;
     gtk_widget_set_vexpand(webView, True);
     gtk_widget_set_hexpand(webView, True);
@@ -72,16 +71,26 @@ procedure load_finished_cb(web_view:PWebKitWebView;web_frame:Pointer; {%H-}user_
     g_signal_connect(webView, 'load-changed', G_CALLBACK(@load_finished_cb), URI_Label);
     gtk_box_append(GTK_BOX(box), webView);
 
-    buttonBack := gtk_button_new_from_icon_name('go-previous');
-    g_object_set_data(G_OBJECT(buttonBack), cmdKey, GINT_TO_POINTER(cmBack));
-    gtk_box_append(GTK_BOX(toolbar_box), buttonBack);
-    g_signal_connect(buttonBack, 'clicked', G_CALLBACK(@on_button_clicked), webView);
+    button := gtk_button_new_from_icon_name('go-home');
+    g_object_set_data(G_OBJECT(button), cmdKey, GINT_TO_POINTER(cmHome));
+    gtk_box_append(GTK_BOX(toolbar_box), button);
+    g_signal_connect(button, 'clicked', G_CALLBACK(@on_button_clicked), webView);
 
-    buttonForward := gtk_button_new_from_icon_name('go-next');
-    g_object_set_data(G_OBJECT(buttonForward), cmdKey, GINT_TO_POINTER(cmForward));
-    gtk_box_append(GTK_BOX(toolbar_box), buttonForward);
-    g_signal_connect(buttonForward, 'clicked', G_CALLBACK(@on_button_clicked), webView);
+    button := gtk_button_new_from_icon_name('go-previous');
+    g_object_set_data(G_OBJECT(button), cmdKey, GINT_TO_POINTER(cmBack));
+    gtk_box_append(GTK_BOX(toolbar_box), button);
+    g_signal_connect(button, 'clicked', G_CALLBACK(@on_button_clicked), webView);
 
+    button := gtk_button_new_from_icon_name('go-next');
+    g_object_set_data(G_OBJECT(button), cmdKey, GINT_TO_POINTER(cmForward));
+    gtk_box_append(GTK_BOX(toolbar_box), button);
+    g_signal_connect(button, 'clicked', G_CALLBACK(@on_button_clicked), webView);
+
+    // https://stackoverflow.com/questions/36073941/webkitgtk-signal-to-detect-redirect-event-to-a-url-that-is-invalid
+    URI_Label := gtk_label_new('http');
+    gtk_widget_set_hexpand(URI_Label, True);
+    gtk_label_set_xalign(GTK_LABEL(URI_Label), 0.0);
+    gtk_label_set_ellipsize(GTK_LABEL(URI_Label), PANGO_ELLIPSIZE_END);
     gtk_box_append(GTK_BOX(toolbar_box), URI_Label);
 
 
