@@ -114,6 +114,7 @@ const
     (libs: 'libwebkit'; units: 'fp_glib2, fp_GTK4, WebKit'),
     (libs: 'libjavascriptcoregtk'; units: 'fp_glib2'),
 
+    (libs: 'libadwaita'; units: 'fp_glib2, fp_GTK4'),
     (libs: ''; units: ''));
 
 

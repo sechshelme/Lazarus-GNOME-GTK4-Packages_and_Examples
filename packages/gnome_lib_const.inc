@@ -117,6 +117,16 @@ const
   libgtk4 = 'libgtk-4-1.dll';
   {$ENDIF}
 
+  // ==== Adwaita
+const
+  {$IFDEF Linux}
+  libadwaita = 'libadwaita-1';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libadwaita = 'libadwaita-1-0.dll'; // ????
+  {$ENDIF}
+
   // ==== webkit
 const
   {$IFDEF Linux}

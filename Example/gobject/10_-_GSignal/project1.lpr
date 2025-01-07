@@ -7,7 +7,7 @@ uses
 
   procedure age_cp(self: PGObject; num: Tgint; Data: Tgpointer; Data2: Tgpointer; user_data: Tgpointer); cdecl;
   begin
-    g_printf('%3d.  s1: %10s   s2: %10s   int: %d'#10, num, Data, Data2, user_data);
+    g_printf('%3d.  s1: %-10s   s2: %-10s   int: %d'#10, num, Data, Data2, user_data);
   end;
 
   function main({%H-}argc: cint; {%H-}argv: PPChar): cint;
