@@ -26,13 +26,12 @@ const
   G_SIGNAL_FLAGS_MASK = $1ff;
 
 type
-  PGSignalInvocationHint = ^TGSignalInvocationHint;
-
   TGSignalInvocationHint = record
     signal_id: Tguint;
     detail: TGQuark;
     run_type: TGSignalFlags;
   end;
+  PGSignalInvocationHint = ^TGSignalInvocationHint;
   TGSignalEmissionHook = function(ihint: PGSignalInvocationHint; n_param_values: Tguint; param_values: PGValue; Data: Tgpointer): Tgboolean; cdecl;
   TGSignalAccumulator = function(ihint: PGSignalInvocationHint; return_accu: PGValue; handler_return: PGValue; Data: Tgpointer): Tgboolean; cdecl;
 
@@ -60,8 +59,6 @@ const
   G_SIGNAL_TYPE_STATIC_SCOPE = G_TYPE_FLAG_RESERVED_ID_BIT;
 
 type
-  PGSignalQuery = ^TGSignalQuery;
-
   TGSignalQuery = record
     signal_id: Tguint;
     signal_name: Pgchar;
@@ -71,6 +68,7 @@ type
     n_params: Tguint;
     param_types: PGType;
   end;
+  PGSignalQuery = ^TGSignalQuery;
 
 function g_signal_newv(signal_name: Pgchar; itype: TGType; signal_flags: TGSignalFlags; class_closure: PGClosure; accumulator: TGSignalAccumulator;
   accu_data: Tgpointer; c_marshaller: TGSignalCMarshaller; return_type: TGType; n_params: Tguint; param_types: PGType): Tguint; cdecl; external libgobject2_0;

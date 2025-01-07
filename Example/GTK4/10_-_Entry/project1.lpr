@@ -44,7 +44,7 @@ procedure entry_text_notify(entry: PGtkEntry;pspec:PGParamSpec; user_data: Tgpoi
 var
   cp:Tgint;
 begin
-  GSignalShow(GTK_TYPE_ENTRY);
+//  GSignalShow(GTK_TYPE_ENTRY);
 
 //  GObjectShowProperty(entry);
   WriteLn('spec: ',pspec^.name);

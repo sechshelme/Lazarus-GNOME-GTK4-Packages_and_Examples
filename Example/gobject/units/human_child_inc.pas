@@ -100,11 +100,17 @@ function timercallback(user_data: Tgpointer): Tgboolean; cdecl;
 var
   self: PEHumanInc absolute user_data;
   age: Tgint;
+  detail: TGQuark;
 begin
   g_object_get(self, 'age', @age, nil);
   Inc(age);
   g_object_set(self, 'age', age, nil);
-  g_signal_emit(self, age_signal_id, 0);
+  if age mod 10 = 0 then begin
+    detail := g_quark_from_string('ten');
+    g_signal_emit(self, age_signal_id, detail, 'ten');
+  end else begin
+    g_signal_emit(self, age_signal_id, 0, 'normal');
+  end;
   if age >= 100 then  begin
     g_signal_emit(self, died_signal_id, 0);
   end;
@@ -120,7 +126,7 @@ begin
   self^.priv^.dummy_0 := 42;
   self^.priv^.dummy_1 := 3.14;
 
-  g_timeout_add_seconds(1, @timercallback, self);
+  g_timeout_add(200, @timercallback, self);
 end;
 
 procedure E_humanInc_class_init(klass: PEHumanIncClass); cdecl;
@@ -142,13 +148,14 @@ begin
 
   age_signal_id := g_signal_new('inc-age',
     G_TYPE_FROM_CLASS(klass),
-    G_SIGNAL_RUN_LAST or G_SIGNAL_NO_RECURSE or G_SIGNAL_NO_HOOKS,
+    G_SIGNAL_RUN_LAST or G_SIGNAL_DETAILED,
     0,
     nil,
     nil,
     nil,
     G_TYPE_NONE,
-    0);
+    1,
+    G_TYPE_STRING);
 
   died_signal_id := g_signal_new('human-died',
     G_TYPE_FROM_CLASS(klass),
