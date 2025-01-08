@@ -29,8 +29,7 @@ typedef enum {
 
 #define ADW_TYPE_STYLE_MANAGER (adw_style_manager_get_type())
 
-extern
-G_DECLARE_FINAL_TYPE (AdwStyleManager, adw_style_manager, ADW, STYLE_MANAGER, GObject)
+//G_DECLARE_FINAL_TYPE (AdwStyleManager, adw_style_manager, ADW, STYLE_MANAGER, GObject)
 
 extern
 AdwStyleManager *adw_style_manager_get_default (void);

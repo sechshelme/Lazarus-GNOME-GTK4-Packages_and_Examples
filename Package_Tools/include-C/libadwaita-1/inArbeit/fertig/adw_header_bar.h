@@ -33,8 +33,7 @@
 
 #define ADW_TYPE_HEADER_BAR (adw_header_bar_get_type())
 
-extern
-G_DECLARE_FINAL_TYPE (AdwHeaderBar, adw_header_bar, ADW, HEADER_BAR, GtkWidget)
+//G_DECLARE_FINAL_TYPE (AdwHeaderBar, adw_header_bar, ADW, HEADER_BAR, GtkWidget)
 
 typedef enum {
   ADW_CENTERING_POLICY_LOOSE,

@@ -27,8 +27,7 @@ typedef enum {
   ADW_TOOLBAR_RAISED_BORDER,
 } AdwToolbarStyle;
 
-extern
-G_DECLARE_FINAL_TYPE (AdwToolbarView, adw_toolbar_view, ADW, TOOLBAR_VIEW, GtkWidget)
+//G_DECLARE_FINAL_TYPE (AdwToolbarView, adw_toolbar_view, ADW, TOOLBAR_VIEW, GtkWidget)
 
 extern
 GtkWidget *adw_toolbar_view_new (void) ;

@@ -20,8 +20,7 @@
 
 #define ADW_TYPE_APPLICATION (adw_application_get_type())
 
-extern
-G_DECLARE_DERIVABLE_TYPE (AdwApplication, adw_application, ADW, APPLICATION, GtkApplication)
+//G_DECLARE_DERIVABLE_TYPE (AdwApplication, adw_application, ADW, APPLICATION, GtkApplication)
 
 /**
  * AdwApplicationClass:
