@@ -20,8 +20,7 @@
 
 #define ADW_TYPE_CLAMP (adw_clamp_get_type())
 
-extern
-G_DECLARE_FINAL_TYPE (AdwClamp, adw_clamp, ADW, CLAMP, GtkWidget)
+//G_DECLARE_FINAL_TYPE (AdwClamp, adw_clamp, ADW, CLAMP, GtkWidget)
 
 extern
 GtkWidget *adw_clamp_new (void) ;

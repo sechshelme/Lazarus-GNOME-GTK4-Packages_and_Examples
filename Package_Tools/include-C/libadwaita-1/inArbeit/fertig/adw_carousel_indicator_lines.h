@@ -19,8 +19,7 @@
 
 #define ADW_TYPE_CAROUSEL_INDICATOR_LINES (adw_carousel_indicator_lines_get_type())
 
-extern
-G_DECLARE_FINAL_TYPE (AdwCarouselIndicatorLines, adw_carousel_indicator_lines, ADW, CAROUSEL_INDICATOR_LINES, GtkWidget)
+//G_DECLARE_FINAL_TYPE (AdwCarouselIndicatorLines, adw_carousel_indicator_lines, ADW, CAROUSEL_INDICATOR_LINES, GtkWidget)
 
 extern
 GtkWidget *adw_carousel_indicator_lines_new (void) ;

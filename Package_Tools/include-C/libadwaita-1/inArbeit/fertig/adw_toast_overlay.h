@@ -19,8 +19,7 @@
 
 #define ADW_TYPE_TOAST_OVERLAY (adw_toast_overlay_get_type())
 
-extern
-G_DECLARE_FINAL_TYPE (AdwToastOverlay, adw_toast_overlay, ADW, TOAST_OVERLAY, GtkWidget)
+//G_DECLARE_FINAL_TYPE (AdwToastOverlay, adw_toast_overlay, ADW, TOAST_OVERLAY, GtkWidget)
 
 extern
 GtkWidget *adw_toast_overlay_new (void) ;

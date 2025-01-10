@@ -20,8 +20,7 @@
 
 #define ADW_TYPE_BUTTON_CONTENT (adw_button_content_get_type())
 
-extern
-G_DECLARE_FINAL_TYPE (AdwButtonContent, adw_button_content, ADW, BUTTON_CONTENT, GtkWidget)
+//G_DECLARE_FINAL_TYPE (AdwButtonContent, adw_button_content, ADW, BUTTON_CONTENT, GtkWidget)
 
 extern
 GtkWidget *adw_button_content_new (void) ;

@@ -21,15 +21,11 @@
 
 #define ADW_TYPE_TAB_BUTTON (adw_tab_button_get_type())
 
-ADW_AVAILABLE_IN_1_3
-G_DECLARE_FINAL_TYPE (AdwTabButton, adw_tab_button, ADW, TAB_BUTTON, GtkWidget)
+//G_DECLARE_FINAL_TYPE (AdwTabButton, adw_tab_button, ADW, TAB_BUTTON, GtkWidget)
 
-ADW_AVAILABLE_IN_1_3
 GtkWidget *adw_tab_button_new (void) ;
 
-ADW_AVAILABLE_IN_1_3
 AdwTabView *adw_tab_button_get_view (AdwTabButton *self);
-ADW_AVAILABLE_IN_1_3
 void        adw_tab_button_set_view (AdwTabButton *self,
                                      AdwTabView   *view);
 

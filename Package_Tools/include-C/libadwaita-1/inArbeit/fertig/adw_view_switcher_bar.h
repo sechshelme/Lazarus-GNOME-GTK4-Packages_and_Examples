@@ -21,8 +21,7 @@
 
 #define ADW_TYPE_VIEW_SWITCHER_BAR (adw_view_switcher_bar_get_type())
 
-extern
-G_DECLARE_FINAL_TYPE (AdwViewSwitcherBar, adw_view_switcher_bar, ADW, VIEW_SWITCHER_BAR, GtkWidget)
+//G_DECLARE_FINAL_TYPE (AdwViewSwitcherBar, adw_view_switcher_bar, ADW, VIEW_SWITCHER_BAR, GtkWidget)
 
 extern
 GtkWidget *adw_view_switcher_bar_new (void) ;

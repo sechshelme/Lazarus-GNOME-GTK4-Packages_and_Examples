@@ -18,8 +18,7 @@
 
 #define ADW_TYPE_WINDOW_TITLE (adw_window_title_get_type())
 
-extern
-G_DECLARE_FINAL_TYPE (AdwWindowTitle, adw_window_title, ADW, WINDOW_TITLE, GtkWidget)
+//G_DECLARE_FINAL_TYPE (AdwWindowTitle, adw_window_title, ADW, WINDOW_TITLE, GtkWidget)
 
 extern
 GtkWidget *adw_window_title_new (const char *title,

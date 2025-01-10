@@ -20,10 +20,8 @@
 
 #define ADW_TYPE_PASSWORD_ENTRY_ROW (adw_password_entry_row_get_type())
 
-ADW_AVAILABLE_IN_1_2
-G_DECLARE_FINAL_TYPE (AdwPasswordEntryRow, adw_password_entry_row, ADW, PASSWORD_ENTRY_ROW, AdwEntryRow)
+//G_DECLARE_FINAL_TYPE (AdwPasswordEntryRow, adw_password_entry_row, ADW, PASSWORD_ENTRY_ROW, AdwEntryRow)
 
-ADW_AVAILABLE_IN_1_2
 GtkWidget *adw_password_entry_row_new (void) ;
 
 

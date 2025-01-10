@@ -20,8 +20,7 @@
 
 #define ADW_TYPE_CLAMP_LAYOUT (adw_clamp_layout_get_type())
 
-extern
-G_DECLARE_FINAL_TYPE (AdwClampLayout, adw_clamp_layout, ADW, CLAMP_LAYOUT, GtkLayoutManager)
+//G_DECLARE_FINAL_TYPE (AdwClampLayout, adw_clamp_layout, ADW, CLAMP_LAYOUT, GtkLayoutManager)
 
 extern
 GtkLayoutManager *adw_clamp_layout_new (void) ;

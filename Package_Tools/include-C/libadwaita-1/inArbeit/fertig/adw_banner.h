@@ -19,33 +19,23 @@
 
 #define ADW_TYPE_BANNER (adw_banner_get_type())
 
-ADW_AVAILABLE_IN_1_3
-G_DECLARE_FINAL_TYPE (AdwBanner, adw_banner, ADW, BANNER, GtkWidget)
+//G_DECLARE_FINAL_TYPE (AdwBanner, adw_banner, ADW, BANNER, GtkWidget)
 
-ADW_AVAILABLE_IN_1_3
 GtkWidget *adw_banner_new (const char *title) ;
 
-ADW_AVAILABLE_IN_1_3
 const char  *adw_banner_get_title (AdwBanner *self);
-ADW_AVAILABLE_IN_1_3
 void         adw_banner_set_title (AdwBanner  *self,
                                    const char *title);
 
-ADW_AVAILABLE_IN_1_3
 const char  *adw_banner_get_button_label (AdwBanner *self);
-ADW_AVAILABLE_IN_1_3
 void         adw_banner_set_button_label (AdwBanner  *self,
                                           const char *label);
 
-ADW_AVAILABLE_IN_1_3
 gboolean adw_banner_get_revealed (AdwBanner *self);
-ADW_AVAILABLE_IN_1_3
 void     adw_banner_set_revealed (AdwBanner *self,
                                   gboolean   revealed);
 
-ADW_AVAILABLE_IN_1_3
 gboolean adw_banner_get_use_markup (AdwBanner *self);
-ADW_AVAILABLE_IN_1_3
 void     adw_banner_set_use_markup (AdwBanner *self,
                                     gboolean   use_markup);
 

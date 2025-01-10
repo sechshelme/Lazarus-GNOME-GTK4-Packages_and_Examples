@@ -20,8 +20,7 @@
 
 #define ADW_TYPE_BIN (adw_bin_get_type())
 
-extern
-G_DECLARE_DERIVABLE_TYPE (AdwBin, adw_bin, ADW, BIN, GtkWidget)
+//G_DECLARE_DERIVABLE_TYPE (AdwBin, adw_bin, ADW, BIN, GtkWidget)
 
 struct _AdwBinClass
 {

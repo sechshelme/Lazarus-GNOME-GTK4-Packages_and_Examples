@@ -18,8 +18,7 @@
 
 #define ADW_TYPE_SWITCH_ROW (adw_switch_row_get_type ())
 
-extern
-G_DECLARE_FINAL_TYPE (AdwSwitchRow, adw_switch_row, ADW, SWITCH_ROW, AdwActionRow)
+//G_DECLARE_FINAL_TYPE (AdwSwitchRow, adw_switch_row, ADW, SWITCH_ROW, AdwActionRow)
 
 extern
 GtkWidget *adw_switch_row_new (void) ;

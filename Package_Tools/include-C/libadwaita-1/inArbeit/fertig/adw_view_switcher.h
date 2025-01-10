@@ -21,8 +21,7 @@
 
 #define ADW_TYPE_VIEW_SWITCHER (adw_view_switcher_get_type())
 
-extern
-G_DECLARE_FINAL_TYPE (AdwViewSwitcher, adw_view_switcher, ADW, VIEW_SWITCHER, GtkWidget)
+//G_DECLARE_FINAL_TYPE (AdwViewSwitcher, adw_view_switcher, ADW, VIEW_SWITCHER, GtkWidget)
 
 typedef enum {
   ADW_VIEW_SWITCHER_POLICY_NARROW,

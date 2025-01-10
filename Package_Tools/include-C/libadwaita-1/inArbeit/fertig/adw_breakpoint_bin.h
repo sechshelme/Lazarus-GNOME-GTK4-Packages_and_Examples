@@ -22,8 +22,7 @@
 
 #define ADW_TYPE_BREAKPOINT_BIN (adw_breakpoint_bin_get_type())
 
-extern
-G_DECLARE_DERIVABLE_TYPE (AdwBreakpointBin, adw_breakpoint_bin, ADW, BREAKPOINT_BIN, GtkWidget)
+//G_DECLARE_DERIVABLE_TYPE (AdwBreakpointBin, adw_breakpoint_bin, ADW, BREAKPOINT_BIN, GtkWidget)
 
 struct _AdwBreakpointBinClass
 {

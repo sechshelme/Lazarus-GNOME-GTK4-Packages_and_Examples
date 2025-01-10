@@ -19,8 +19,7 @@
 
 #define ADW_TYPE_CAROUSEL_INDICATOR_DOTS (adw_carousel_indicator_dots_get_type())
 
-extern
-G_DECLARE_FINAL_TYPE (AdwCarouselIndicatorDots, adw_carousel_indicator_dots, ADW, CAROUSEL_INDICATOR_DOTS, GtkWidget)
+//G_DECLARE_FINAL_TYPE (AdwCarouselIndicatorDots, adw_carousel_indicator_dots, ADW, CAROUSEL_INDICATOR_DOTS, GtkWidget)
 
 extern
 GtkWidget *adw_carousel_indicator_dots_new (void) ;

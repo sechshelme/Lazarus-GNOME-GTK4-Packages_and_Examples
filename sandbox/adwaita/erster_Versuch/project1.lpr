@@ -9,6 +9,8 @@ uses
   adw_overlay_split_view,         // io. -> adw_length_unit
   adw_breakpoint,                 // io. -> adw_length_unit
   adw_clamp_scrollable,           // io. -> adw_length_unit
+  adw_clamp,                      // io. -> adw_length_unit
+  adw_clamp_layout,               // io. -> adw_length_unit
   adw_dialog,                     // io. -> adw_breakpoint
   adw_about_dialog,               // io. -> adw_dialog
   adw_alert_dialog,               // io. -> adw_dialog
@@ -23,6 +25,7 @@ uses
   adw_tab_view,                   // io.
   adw_tab_overview,               // io. -> adw_tab_view
   adw_tab_bar,                    // io. -> adw_tab_view
+  adw_tab_button,                 // io. -> adw_tab_view
   adw_version,                    // io.
   adw_navigation_direction,       // io.
   adw_spring_params,              // io.
@@ -33,18 +36,25 @@ uses
   adw_squeezer,                   // io. -> adw_fold_threshold_policy
   adw_view_stack,                 // io.
   adw_view_switcher_title,        // io. -> adw_view_stack
+  adw_view_switcher,              // io. -> adw_view_stack
+  adw_view_switcher_bar,          // io. -> adw_view_stack
   adw_preferences_row,            // io.
   adw_expander_row,               // io. -> adw_preferences_row
   adw_carousel,                   // io. -> adw_spring_params
+  adw_carousel_indicator_lines,   // io. -> adw_carousel
+  adw_carousel_indicator_dots,    // io. -> adw_carousel
   adw_navigation_split_view,      // io. -> adw_navigation_view, adw_length_unit
   adw_toast,                      // io.
+  adw_toast_overlay,              // io. -> adw_toast
   adw_preferences_group,          // io.
   adw_preferences_page,           // io. -> adw_preferences_group
   adw_preferences_window,         // io. -> adw_window, adw_preferences_page, adw_navigation_view, adw_toast
   adw_action_row,                 // io. -> adw_preferences_row
   adw_combo_row,                  // io. -> adw_action_row
   adw_spin_row,                   // io. -> adw_action_row
+  adw_switch_row,                 // io. -> adw_action_row
   adw_entry_row,                  // io. -> adw_preferences_row
+  adw_password_entry_row,         // io. -> adw_entry_row
   adw_split_button,               // io.
   adw_animation_target,           // io.
   adw_animation,                  // io. -> adw_animation_target
@@ -56,8 +66,14 @@ uses
   adw_timed_animation,            // io. -> adw_animation_target, adw_animation, adw_easing
   adw_avatar,                     // io.
   adw_status_page,                // io.
-
-
+  adw_banner,                     // io.
+  adw_breakpoint_bin,             // io. -> adw_breakpoint
+  adw_button_content,             // io.
+  adw_enum_list_model,            // io.
+  adw_window_title,               // io.
+  adw_bin,                        // io.
+  adw_animation_util,             // io.
+  adw_main,                       // io.
 
 
   ctypes;
