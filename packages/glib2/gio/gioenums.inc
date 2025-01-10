@@ -658,7 +658,7 @@ type
   TGApplicationFlags = longint;
 
 const
-  G_APPLICATION_FLAGS_NONE = 0;
+  G_APPLICATION_FLAGS_NONE = 0; // deprecated
   G_APPLICATION_DEFAULT_FLAGS = 0;
   G_APPLICATION_IS_SERVICE = 1 shl 0;
   G_APPLICATION_IS_LAUNCHER = 1 shl 1;

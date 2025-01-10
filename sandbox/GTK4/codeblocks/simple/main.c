@@ -49,7 +49,5 @@ main (int argc, char *argv[])
     g_main_context_iteration (NULL, TRUE);
   return 0;
 
-  g_printf_string_upper_bound
-
 }
 Cardinal
