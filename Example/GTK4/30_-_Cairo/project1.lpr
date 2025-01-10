@@ -28,11 +28,12 @@ const
   anyDataKey = 'anyKey';
 
 
-  procedure quit_clicked_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
+  procedure quit_clicked_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
-    app: PGtkApplication absolute Data;
+    app: PGApplication;
   begin
-    g_application_quit(G_APPLICATION(app));
+    app := g_application_get_default;
+    g_application_quit(app);
   end;
 
   procedure draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
@@ -158,7 +159,7 @@ const
     end;
 
     button := gtk_button_new_with_label('Close');
-    g_signal_connect(button, 'clicked', G_CALLBACK(@quit_clicked_cp), app);
+    g_signal_connect(button, 'clicked', G_CALLBACK(@quit_clicked_cp), nil);
 
     gtk_box_append(GTK_BOX(box), button);
 

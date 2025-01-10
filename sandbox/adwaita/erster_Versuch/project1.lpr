@@ -13,14 +13,62 @@ uses
     g_application_quit(G_APPLICATION(app));
   end;
 
+  procedure menu_clicked_cp(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer); cdecl;
+  var
+    action_name: Pgchar;
+    app: PGApplication;
+  begin
+    app := g_application_get_default;
+    action_name := g_action_get_name(G_ACTION(action));
+    if g_strcmp0(action_name, 'quit') = 0 then begin
+      WriteLn('quit');
+      if app <> nil then  begin
+        g_application_quit(G_APPLICATION(app));
+      end;
+    end;
+    WriteLn('menu click');
+  end;
+
+  // https://www.perplexity.ai/search/gib-mir-ein-gtk4-adwaita-beisp-KCumFnzCRZyupZ7rYh2hBA
+
+  function CreateMenu(app: PGtkApplication): PGtkWidget;
+  var
+    menu: PGMenu;
+    action: PGSimpleAction;
+  begin
+    Result := gtk_menu_button_new;
+    gtk_menu_button_set_icon_name(GTK_MENU_BUTTON(Result), 'open-menu-symbolic');
+
+    menu := g_menu_new;
+    g_menu_append(menu, 'Hilfe...', 'app.help');
+    g_menu_append(menu, 'About...', 'app.about');
+    g_menu_append(menu, 'Quit', 'app.quit');
+    gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(Result), G_MENU_MODEL(menu));
+
+    action := g_simple_action_new('help', nil);
+    g_signal_connect(action, 'activate', G_CALLBACK(@menu_clicked_cp), nil);
+    g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
+
+    action := g_simple_action_new('about', nil);
+    g_signal_connect(action, 'activate', G_CALLBACK(@menu_clicked_cp), nil);
+    g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
+
+    action := g_simple_action_new('quit', nil);
+    g_signal_connect(action, 'activate', G_CALLBACK(@menu_clicked_cp), nil);
+    g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
+  end;
+
   procedure activate(app: PGtkApplication; user_data: Tgpointer);
   var
-    window, toolbar_view, header_bar, label_, box, button: PGtkWidget;
+    window, toolbar_view, header_bar, label_, box, button,
+    menu_button: PGtkWidget;
   begin
-    //    window := gtk_application_window_new(app);
     window := adw_application_window_new(app);
     toolbar_view := adw_toolbar_view_new;
     header_bar := adw_header_bar_new;
+
+    menu_button := CreateMenu(app);
+    adw_header_bar_pack_end(ADW_HEADER_BAR(header_bar), menu_button);
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 
@@ -35,7 +83,7 @@ uses
     adw_toolbar_view_set_content(ADW_TOOLBAR_VIEW(toolbar_view), box);
 
     gtk_window_set_title(GTK_WINDOW(window), 'Window');
-    gtk_window_set_default_size(GTK_WINDOW(window), 200, 200);
+    gtk_window_set_default_size(GTK_WINDOW(window), 320, 200);
 
     adw_application_window_set_content(ADW_APPLICATION_WINDOW(window), toolbar_view);
     gtk_window_present(GTK_WINDOW(window));

@@ -7,10 +7,11 @@ uses
   fp_cairo,
   fp_GTK4;
 
-  procedure on_quit_response_cp(widget: PGtkWidget; response_id: Tgint; Data: Tgpointer); cdecl;
+  procedure on_quit_response_cp(widget: PGtkWidget; response_id: Tgint; {%H-}Data: Tgpointer); cdecl;
   var
-    app: PGtkApplication absolute Data;
+    app: PGApplication;
   begin
+    app := g_application_get_default;
     case response_id of
       GTK_RESPONSE_YES: begin
         g_printf('YES'#10);
@@ -33,15 +34,12 @@ uses
   end;
 
 
-  procedure quit_dialog_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
+  procedure quit_dialog_cp(widget: PGtkWidget; {%H-}user_data: Tgpointer); cdecl;
   var
     dialog: PGtkWidget;
-    app: PGtkApplication;
   begin
     widget := GTK_WIDGET(gtk_widget_get_root(widget));
     if GTK_IS_WINDOW(widget) then begin
-      app := gtk_window_get_application(GTK_WINDOW(widget));
-
       dialog := gtk_message_dialog_new(GTK_WINDOW(widget), GTK_DIALOG_MODAL, GTK_MESSAGE_WARNING, GTK_BUTTONS_NONE,
         'Möchten sie das Programm wirklich beenden ?');
 
@@ -53,12 +51,15 @@ uses
         'Test', 99,
         nil);
 
-      g_signal_connect(dialog, 'response', G_CALLBACK(@on_quit_response_cp), app);
-      gtk_widget_show(dialog);
+      g_signal_connect(dialog, 'response', G_CALLBACK(@on_quit_response_cp), nil);
+//      gtk_widget_show(dialog);
+
+      gtk_widget_set_visible(dialog, True);
+//      gtk_window_present(GTK_WINDOW(dialog));
     end;
   end;
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer);
   var
     window, box, button, lab: PGtkWidget;
   begin
