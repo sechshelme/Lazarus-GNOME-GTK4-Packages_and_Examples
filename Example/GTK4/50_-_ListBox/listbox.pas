@@ -21,11 +21,13 @@ begin
   g_printf('Es wurde: "%s" geklickt'#10, ch);
 end;
 
-function CreateMenu(app: PGtkApplication): PGMenu;
+function CreateMenu: PGMenu;
 var
   action: PGSimpleAction;
   menuItem: PGMenuItem;
+  app: PGApplication;
 begin
+  app := g_application_get_default;
   Result := g_menu_new;
 
   g_menu_append(Result, 'Option 1', 'app.option1');
@@ -46,21 +48,22 @@ begin
   g_signal_connect(action, 'activate', G_CALLBACK(@btn_click_cp), Pgchar('Button 3'));
 end;
 
-function CreateMenuButton(app: PGtkApplication): PGtkWidget;
+function CreateMenuButton: PGtkWidget;
 var
   menu: PGMenu;
 begin
   Result := gtk_menu_button_new;
+  gtk_menu_button_set_icon_name(GTK_MENU_BUTTON(Result), 'open-menu-symbolic');
 
   gtk_widget_set_size_request(Result, 20, 20);
   gtk_widget_set_valign(Result, GTK_ALIGN_CENTER);
 
-  menu := CreateMenu(app);
+  menu := CreateMenu;
   gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(Result), G_MENU_MODEL(menu));
 end;
 
 
-function Create_Items(nr: integer; app: PGtkApplication): PGtkWidget;
+function Create_Items(nr: integer): PGtkWidget;
 var
   lb, menuButton, button_box: PGtkWidget;
   label_text: Pgchar;
@@ -83,7 +86,7 @@ begin
   gtk_widget_set_halign(button_box, GTK_ALIGN_END);
   gtk_widget_set_margin_end(button_box, 10);
 
-  menuButton := CreateMenuButton(app);
+  menuButton := CreateMenuButton;
   gtk_box_append(GTK_BOX(button_box), menuButton);
 
   gtk_box_append(GTK_BOX(Result), button_box);
@@ -101,7 +104,7 @@ begin
   gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(sw), lb);
 
   for i := 0 to 50 do begin
-    gtk_list_box_append(GTK_LIST_BOX(lb), Create_Items(i, app));
+    gtk_list_box_append(GTK_LIST_BOX(lb), Create_Items(i));
   end;
   Result := sw;
 end;
