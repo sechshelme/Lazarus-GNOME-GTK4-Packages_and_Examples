@@ -19,8 +19,7 @@
 
 #define ADW_TYPE_COMBO_ROW (adw_combo_row_get_type())
 
-extern
-G_DECLARE_DERIVABLE_TYPE (AdwComboRow, adw_combo_row, ADW, COMBO_ROW, AdwActionRow)
+//G_DECLARE_DERIVABLE_TYPE (AdwComboRow, adw_combo_row, ADW, COMBO_ROW, AdwActionRow)
 
 /**
  * AdwComboRowClass

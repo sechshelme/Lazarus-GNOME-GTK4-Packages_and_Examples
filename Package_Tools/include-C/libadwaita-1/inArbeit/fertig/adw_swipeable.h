@@ -19,8 +19,7 @@
 
 #define ADW_TYPE_SWIPEABLE (adw_swipeable_get_type ())
 
-extern
-G_DECLARE_INTERFACE (AdwSwipeable, adw_swipeable, ADW, SWIPEABLE, GtkWidget)
+//G_DECLARE_INTERFACE (AdwSwipeable, adw_swipeable, ADW, SWIPEABLE, GtkWidget)
 
 /**
  * AdwSwipeableInterface:

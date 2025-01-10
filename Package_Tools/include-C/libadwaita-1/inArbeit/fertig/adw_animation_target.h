@@ -18,8 +18,7 @@
 
 #define ADW_TYPE_ANIMATION_TARGET (adw_animation_target_get_type())
 
-extern
-GDK_DECLARE_INTERNAL_TYPE (AdwAnimationTarget, adw_animation_target, ADW, ANIMATION_TARGET, GObject)
+//GDK_DECLARE_INTERNAL_TYPE (AdwAnimationTarget, adw_animation_target, ADW, ANIMATION_TARGET, GObject)
 
 
 /**
@@ -34,8 +33,7 @@ typedef void (*AdwAnimationTargetFunc) (double   value,
 
 #define ADW_TYPE_CALLBACK_ANIMATION_TARGET (adw_callback_animation_target_get_type())
 
-extern
-GDK_DECLARE_INTERNAL_TYPE (AdwCallbackAnimationTarget, adw_callback_animation_target, ADW, CALLBACK_ANIMATION_TARGET, AdwAnimationTarget)
+//GDK_DECLARE_INTERNAL_TYPE (AdwCallbackAnimationTarget, adw_callback_animation_target, ADW, CALLBACK_ANIMATION_TARGET, AdwAnimationTarget)
 
 extern
 AdwAnimationTarget *adw_callback_animation_target_new (AdwAnimationTargetFunc callback,
@@ -44,19 +42,14 @@ AdwAnimationTarget *adw_callback_animation_target_new (AdwAnimationTargetFunc ca
 
 #define ADW_TYPE_PROPERTY_ANIMATION_TARGET (adw_property_animation_target_get_type())
 
-ADW_AVAILABLE_IN_1_2
-GDK_DECLARE_INTERNAL_TYPE (AdwPropertyAnimationTarget, adw_property_animation_target, ADW, PROPERTY_ANIMATION_TARGET, AdwAnimationTarget)
+//GDK_DECLARE_INTERNAL_TYPE (AdwPropertyAnimationTarget, adw_property_animation_target, ADW, PROPERTY_ANIMATION_TARGET, AdwAnimationTarget)
 
-ADW_AVAILABLE_IN_1_2
 AdwAnimationTarget *adw_property_animation_target_new           (GObject    *object,
                                                                  const char *property_name) ;
-ADW_AVAILABLE_IN_1_2
 AdwAnimationTarget *adw_property_animation_target_new_for_pspec (GObject    *object,
                                                                  GParamSpec *pspec) ;
 
-ADW_AVAILABLE_IN_1_2
 GObject    *adw_property_animation_target_get_object (AdwPropertyAnimationTarget *self);
-ADW_AVAILABLE_IN_1_2
 GParamSpec *adw_property_animation_target_get_pspec  (AdwPropertyAnimationTarget *self);
 
 

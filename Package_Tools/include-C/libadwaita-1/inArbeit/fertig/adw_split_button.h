@@ -18,8 +18,7 @@
 
 #define ADW_TYPE_SPLIT_BUTTON (adw_split_button_get_type())
 
-extern
-G_DECLARE_FINAL_TYPE (AdwSplitButton, adw_split_button, ADW, SPLIT_BUTTON, GtkWidget)
+//G_DECLARE_FINAL_TYPE (AdwSplitButton, adw_split_button, ADW, SPLIT_BUTTON, GtkWidget)
 
 extern
 GtkWidget *adw_split_button_new (void) ;
@@ -72,9 +71,7 @@ extern
 void         adw_split_button_set_direction (AdwSplitButton *self,
                                              GtkArrowType    direction);
 
-ADW_AVAILABLE_IN_1_2
 const char *adw_split_button_get_dropdown_tooltip (AdwSplitButton *self);
-ADW_AVAILABLE_IN_1_2
 void        adw_split_button_set_dropdown_tooltip (AdwSplitButton *self,
                                                    const char     *tooltip);
 

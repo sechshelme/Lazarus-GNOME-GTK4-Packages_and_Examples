@@ -18,8 +18,7 @@
 
 #define ADW_TYPE_AVATAR (adw_avatar_get_type())
 
-extern
-G_DECLARE_FINAL_TYPE (AdwAvatar, adw_avatar, ADW, AVATAR, GtkWidget)
+//G_DECLARE_FINAL_TYPE (AdwAvatar, adw_avatar, ADW, AVATAR, GtkWidget)
 
 extern
 GtkWidget *adw_avatar_new (int         size,

@@ -22,8 +22,7 @@
 
 #define ADW_TYPE_TAB_BAR (adw_tab_bar_get_type())
 
-extern
-G_DECLARE_FINAL_TYPE (AdwTabBar, adw_tab_bar, ADW, TAB_BAR, GtkWidget)
+//G_DECLARE_FINAL_TYPE (AdwTabBar, adw_tab_bar, ADW, TAB_BAR, GtkWidget)
 
 extern
 AdwTabBar *adw_tab_bar_new (void) ;
@@ -76,9 +75,7 @@ void adw_tab_bar_setup_extra_drop_target (AdwTabBar     *self,
 extern
 GdkDragAction adw_tab_bar_get_extra_drag_preferred_action (AdwTabBar *self);
 
-ADW_AVAILABLE_IN_1_3
 gboolean adw_tab_bar_get_extra_drag_preload (AdwTabBar *self);
-ADW_AVAILABLE_IN_1_3
 void     adw_tab_bar_set_extra_drag_preload (AdwTabBar *self,
                                              gboolean   preload);
 

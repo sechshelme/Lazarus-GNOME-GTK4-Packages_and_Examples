@@ -23,8 +23,7 @@
 
 #define ADW_TYPE_PREFERENCES_DIALOG (adw_preferences_dialog_get_type())
 
-extern
-G_DECLARE_DERIVABLE_TYPE (AdwPreferencesDialog, adw_preferences_dialog, ADW, PREFERENCES_DIALOG, AdwDialog)
+//G_DECLARE_DERIVABLE_TYPE (AdwPreferencesDialog, adw_preferences_dialog, ADW, PREFERENCES_DIALOG, AdwDialog)
 
 /**
  * AdwPreferencesDialogClass

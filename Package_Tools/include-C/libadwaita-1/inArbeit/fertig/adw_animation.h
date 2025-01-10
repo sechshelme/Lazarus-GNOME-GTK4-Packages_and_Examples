@@ -32,8 +32,7 @@
 
 #define ADW_TYPE_ANIMATION (adw_animation_get_type())
 
-extern
-G_DECLARE_DERIVABLE_TYPE (AdwAnimation, adw_animation, ADW, ANIMATION, GObject)
+//G_DECLARE_DERIVABLE_TYPE (AdwAnimation, adw_animation, ADW, ANIMATION, GObject)
 
 typedef enum {
   ADW_ANIMATION_IDLE,
@@ -68,9 +67,7 @@ void adw_animation_reset  (AdwAnimation *self);
 extern
 void adw_animation_skip   (AdwAnimation *self);
 
-ADW_AVAILABLE_IN_1_3
 gboolean adw_animation_get_follow_enable_animations_setting (AdwAnimation *self);
-ADW_AVAILABLE_IN_1_3
 void     adw_animation_set_follow_enable_animations_setting (AdwAnimation *self,
                                                              gboolean      setting);
 

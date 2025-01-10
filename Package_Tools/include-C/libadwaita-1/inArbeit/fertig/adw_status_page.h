@@ -18,8 +18,7 @@
 
 #define ADW_TYPE_STATUS_PAGE (adw_status_page_get_type())
 
-extern
-G_DECLARE_FINAL_TYPE (AdwStatusPage, adw_status_page, ADW, STATUS_PAGE, GtkWidget)
+//G_DECLARE_FINAL_TYPE (AdwStatusPage, adw_status_page, ADW, STATUS_PAGE, GtkWidget)
 
 extern
 GtkWidget *adw_status_page_new (void) ;

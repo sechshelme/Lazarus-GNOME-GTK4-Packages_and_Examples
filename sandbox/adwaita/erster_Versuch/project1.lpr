@@ -8,6 +8,7 @@ uses
   adw_length_unit,                // io.
   adw_overlay_split_view,         // io. -> adw_length_unit
   adw_breakpoint,                 // io. -> adw_length_unit
+  adw_clamp_scrollable,           // io. -> adw_length_unit
   adw_dialog,                     // io. -> adw_breakpoint
   adw_about_dialog,               // io. -> adw_dialog
   adw_alert_dialog,               // io. -> adw_dialog
@@ -21,6 +22,7 @@ uses
   adw_about_window,               // io. -> adw_window
   adw_tab_view,                   // io.
   adw_tab_overview,               // io. -> adw_tab_view
+  adw_tab_bar,                    // io. -> adw_tab_view
   adw_version,                    // io.
   adw_navigation_direction,       // io.
   adw_spring_params,              // io.
@@ -30,6 +32,7 @@ uses
   adw_navigation_view,            // io.
   adw_squeezer,                   // io. -> adw_fold_threshold_policy
   adw_view_stack,                 // io.
+  adw_view_switcher_title,        // io. -> adw_view_stack
   adw_preferences_row,            // io.
   adw_expander_row,               // io. -> adw_preferences_row
   adw_carousel,                   // io. -> adw_spring_params
@@ -39,7 +42,21 @@ uses
   adw_preferences_page,           // io. -> adw_preferences_group
   adw_preferences_window,         // io. -> adw_window, adw_preferences_page, adw_navigation_view, adw_toast
   adw_action_row,                 // io. -> adw_preferences_row
+  adw_combo_row,                  // io. -> adw_action_row
   adw_spin_row,                   // io. -> adw_action_row
+  adw_entry_row,                  // io. -> adw_preferences_row
+  adw_split_button,               // io.
+  adw_animation_target,           // io.
+  adw_animation,                  // io. -> adw_animation_target
+  adw_spring_animation,           // io. -> adw_spring_params, adw_animation_target, adw_animation
+  adw_swipeable,                  // io. -> adw_navigation_direction
+  adw_swipe_tracker,              // io. -> adw_swipeable
+  adw_preferences_dialog,         // io. -> adw_dialog, adw_preferences_page, adw_navigation_view, adw_toast
+  adw_easing,                     // io.
+  adw_timed_animation,            // io. -> adw_animation_target, adw_animation, adw_easing
+  adw_avatar,                     // io.
+  adw_status_page,                // io.
+
 
 
 

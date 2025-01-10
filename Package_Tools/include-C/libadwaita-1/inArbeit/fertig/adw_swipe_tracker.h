@@ -19,8 +19,7 @@
 
 #define ADW_TYPE_SWIPE_TRACKER (adw_swipe_tracker_get_type())
 
-extern
-G_DECLARE_FINAL_TYPE (AdwSwipeTracker, adw_swipe_tracker, ADW, SWIPE_TRACKER, GObject)
+//G_DECLARE_FINAL_TYPE (AdwSwipeTracker, adw_swipe_tracker, ADW, SWIPE_TRACKER, GObject)
 
 extern
 AdwSwipeTracker *adw_swipe_tracker_new (AdwSwipeable *swipeable) ;

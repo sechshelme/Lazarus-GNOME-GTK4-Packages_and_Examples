@@ -21,8 +21,7 @@
 
 #define ADW_TYPE_SPRING_ANIMATION (adw_spring_animation_get_type())
 
-extern
-GDK_DECLARE_INTERNAL_TYPE (AdwSpringAnimation, adw_spring_animation, ADW, SPRING_ANIMATION, AdwAnimation)
+//GDK_DECLARE_INTERNAL_TYPE (AdwSpringAnimation, adw_spring_animation, ADW, SPRING_ANIMATION, AdwAnimation)
 
 extern
 AdwAnimation *adw_spring_animation_new (GtkWidget          *widget,
@@ -73,10 +72,8 @@ guint adw_spring_animation_get_estimated_duration (AdwSpringAnimation *self);
 extern
 double adw_spring_animation_get_velocity (AdwSpringAnimation *self);
 
-ADW_AVAILABLE_IN_1_3
 double adw_spring_animation_calculate_value    (AdwSpringAnimation *self,
                                                 guint              time);
-ADW_AVAILABLE_IN_1_3
 double adw_spring_animation_calculate_velocity (AdwSpringAnimation *self,
                                                 guint              time);
 

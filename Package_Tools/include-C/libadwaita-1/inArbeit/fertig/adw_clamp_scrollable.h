@@ -20,8 +20,7 @@
 
 #define ADW_TYPE_CLAMP_SCROLLABLE (adw_clamp_scrollable_get_type())
 
-extern
-G_DECLARE_FINAL_TYPE (AdwClampScrollable, adw_clamp_scrollable, ADW, CLAMP_SCROLLABLE, GtkWidget)
+//G_DECLARE_FINAL_TYPE (AdwClampScrollable, adw_clamp_scrollable, ADW, CLAMP_SCROLLABLE, GtkWidget)
 
 extern
 GtkWidget *adw_clamp_scrollable_new (void) ;

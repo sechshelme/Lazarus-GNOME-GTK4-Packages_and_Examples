@@ -21,8 +21,7 @@
 
 #define ADW_TYPE_TIMED_ANIMATION (adw_timed_animation_get_type())
 
-extern
-GDK_DECLARE_INTERNAL_TYPE (AdwTimedAnimation, adw_timed_animation, ADW, TIMED_ANIMATION, AdwAnimation)
+//GDK_DECLARE_INTERNAL_TYPE (AdwTimedAnimation, adw_timed_animation, ADW, TIMED_ANIMATION, AdwAnimation)
 
 extern
 AdwAnimation *adw_timed_animation_new (GtkWidget          *widget,
