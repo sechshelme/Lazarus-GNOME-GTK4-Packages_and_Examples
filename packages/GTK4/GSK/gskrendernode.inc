@@ -49,92 +49,34 @@ function gsk_render_node_write_to_file(node: PGskRenderNode; filename: PChar; er
 function gsk_render_node_deserialize(bytes: PGBytes; error_func: TGskParseErrorFunc; user_data: Tgpointer): PGskRenderNode; cdecl; external libgtk4;
 
 function GSK_TYPE_DEBUG_NODE: TGType;
-
-
 function GSK_TYPE_COLOR_NODE: TGType;
-
-
 function GSK_TYPE_TEXTURE_NODE: TGType;
-
-
 function GSK_TYPE_TEXTURE_SCALE_NODE: TGType;
-
-
 function GSK_TYPE_LINEAR_GRADIENT_NODE: TGType;
-
-
 function GSK_TYPE_REPEATING_LINEAR_GRADIENT_NODE: TGType;
-
-
 function GSK_TYPE_RADIAL_GRADIENT_NODE: TGType;
-
-
 function GSK_TYPE_REPEATING_RADIAL_GRADIENT_NODE: TGType;
-
-
 function GSK_TYPE_CONIC_GRADIENT_NODE: TGType;
-
-
 function GSK_TYPE_BORDER_NODE: TGType;
-
-
 function GSK_TYPE_INSET_SHADOW_NODE: TGType;
-
-
 function GSK_TYPE_OUTSET_SHADOW_NODE: TGType;
-
-
 function GSK_TYPE_CAIRO_NODE: TGType;
-
-
 function GSK_TYPE_CONTAINER_NODE: TGType;
-
-
 function GSK_TYPE_TRANSFORM_NODE: TGType;
-
-
 function GSK_TYPE_OPACITY_NODE: TGType;
-
-
 function GSK_TYPE_COLOR_MATRIX_NODE: TGType;
-
-
 function GSK_TYPE_REPEAT_NODE: TGType;
-
-
 function GSK_TYPE_CLIP_NODE: TGType;
-
-
 function GSK_TYPE_ROUNDED_CLIP_NODE: TGType;
-
-
 function GSK_TYPE_FILL_NODE: TGType;
-
-
 function GSK_TYPE_STROKE_NODE: TGType;
-
-
 function GSK_TYPE_SHADOW_NODE: TGType;
-
-
 function GSK_TYPE_BLEND_NODE: TGType;
-
-
 function GSK_TYPE_CROSS_FADE_NODE: TGType;
-
-
 function GSK_TYPE_TEXT_NODE: TGType;
-
-
 function GSK_TYPE_BLUR_NODE: TGType;
-
-
 function GSK_TYPE_MASK_NODE: TGType;
-
-
 function GSK_TYPE_GL_SHADER_NODE: TGType;
-
-
 function GSK_TYPE_SUBSURFACE_NODE: TGType;
 
 function gsk_debug_node_get_type: TGType; cdecl; external libgtk4;

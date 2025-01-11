@@ -43,7 +43,7 @@ uses
     g_menu_append(menu, 'Hilfe...', 'app.help');
 
     about_menu := g_menu_new;
-    ;
+
     g_menu_append(about_menu, 'Deutsch...', 'app.about.de');
     g_menu_append(about_menu, 'Englisch...', 'app.about.en');
 

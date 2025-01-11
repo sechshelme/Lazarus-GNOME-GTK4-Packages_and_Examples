@@ -5,8 +5,7 @@ uses
   SysUtils,
   fp_glib2,
   fp_cairo,
-  fp_pango,
-  fp_GTK4;
+  fp_GTK4, fp_GSK4, fp_GDK4, fp_graphene;
 
   procedure print_hello(widget: PGtkWidget; Data: Tgpointer);
   const
@@ -25,8 +24,6 @@ uses
     FONT_SIZE = 36;
     DEVICE_DPI = 72;
   var
-    layout: PPangoLayout;
-    desc: PPangoFontDescription;
     i: integer;
     Radius:Double;
     angle, red: double;
@@ -40,39 +37,7 @@ uses
 
     cairo_translate(cr, Radius / TWEAKABLE_SCALE, Radius / TWEAKABLE_SCALE);
 
-    layout := pango_cairo_create_layout(cr);
-    pango_layout_set_text(layout, 'Test'#10'سَلام', -1);
-
-    desc := pango_font_description_from_string(FONT_WITH_MANUAL_SIZE);
-    pango_font_description_set_absolute_size(desc, FONT_SIZE * DEVICE_DPI * PANGO_SCALE / (72.0 * TWEAKABLE_SCALE));
-
-    g_printf('PANGO_SCALE = %d'#10, PANGO_SCALE);
-
-    pango_layout_set_font_description(layout, desc);
-    pango_font_description_free(desc);
-
-    for i := 0 to 7 do begin
-      angle := (360.0 * i) / 8;
-
-      cairo_save(cr);
-
-      red := (1 + cos((angle - 60) * G_PI / 180.0)) / 2;
-      cairo_set_source_rgb(cr, red, 0, 1.0 - red);
-
-      cairo_rotate(cr, angle * G_PI / 180.0);
-
-      pango_cairo_update_layout(cr, layout);
-      pango_layout_get_size(layout, @w, @h);
-
-      cairo_move_to(cr, (-(w / PANGO_SCALE) / 2.0), (-Radius) / TWEAKABLE_SCALE);
-      pango_cairo_show_layout(cr, layout);
-
-      cairo_restore(cr);
-    end;
-
-    g_object_unref(layout);
-
-    cairo_set_source_rgb(cr, 1.0, 0.0, 0.0);
+   cairo_set_source_rgb(cr, 1.0, 0.0, 0.0);
     cairo_set_line_width(cr, 5.0);
     cairo_move_to(cr, 50.0, 50.0);
     cairo_line_to(cr, 350.0, 350.0);

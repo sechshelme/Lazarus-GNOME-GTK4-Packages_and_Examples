@@ -3,7 +3,7 @@ unit fp_adwaita;
 interface
 
 uses
-  ctypes, fp_glib2, fp_pango, fp_GDK4, fp_GTK4;
+  fp_glib2, fp_pango, fp_GDK4, fp_GTK4;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

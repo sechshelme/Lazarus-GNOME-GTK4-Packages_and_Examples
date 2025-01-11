@@ -40,8 +40,8 @@
 // ==== X11
 
 {$IFDEF Linux}
-{$includes pango/pangoxft.inc}               // io. Nur Linux
-{$includes pango/pangoxft_render.inc}        // io. Nur Linux
+{$include pango/pangoxft.inc}               // io. Nur Linux
+{$include pango/pangoxft_render.inc}        // io. Nur Linux
 {$ENDIF}
 
 
