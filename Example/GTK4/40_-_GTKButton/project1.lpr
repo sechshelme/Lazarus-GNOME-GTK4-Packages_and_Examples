@@ -5,39 +5,22 @@ uses
   SysUtils,
   fp_glib2,
   fp_cairo,
-  fp_GTK4, fp_GSK4, fp_GDK4, fp_graphene;
+  fp_GTK4,
+  fp_GSK4,
+  fp_GDK4,
+  fp_graphene;
 
-  procedure print_hello(widget: PGtkWidget; Data: Tgpointer);
-  const
-    counter: cint = 0;
+  procedure button_quit_cb(widget: PGtkWidget; Data: Tgpointer);
+  var
+    app: PGApplication;
   begin
-    g_print('Hello World'#10);
-
-    Inc(counter);
-    gtk_button_set_label(GTK_BUTTON(widget), PChar('Ich wurde ' + IntToStr(counter) + ' gelickt'));
+    app := g_application_get_default;
+    g_application_quit(app);
   end;
 
   procedure draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
-  const
-    TWEAKABLE_SCALE = 0.1;
-    FONT_WITH_MANUAL_SIZE = 'Times new roman,Sans';
-    FONT_SIZE = 36;
-    DEVICE_DPI = 72;
-  var
-    i: integer;
-    Radius:Double;
-    angle, red: double;
-    h, w: longint;
   begin
-    Radius:=Width/3;
-
-    cairo_scale(cr, TWEAKABLE_SCALE, TWEAKABLE_SCALE);
-    cairo_set_source_rgb(cr, 1.0, 1.0, 1.0);
-    cairo_paint(cr);
-
-    cairo_translate(cr, Radius / TWEAKABLE_SCALE, Radius / TWEAKABLE_SCALE);
-
-   cairo_set_source_rgb(cr, 1.0, 0.0, 0.0);
+    cairo_set_source_rgb(cr, 1.0, 0.0, 0.0);
     cairo_set_line_width(cr, 5.0);
     cairo_move_to(cr, 50.0, 50.0);
     cairo_line_to(cr, 350.0, 350.0);
@@ -46,19 +29,17 @@ uses
     cairo_set_source_rgb(cr, 0.0, 0.0, 1.0);
     cairo_arc(cr, 200.0, 200.0, 100.0, 0.0, 2 * G_PI);
     cairo_fill(cr);
-    WriteLn('w: ', Width, '  h; ', Height);
   end;
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer);
   var
-    window, box, button, drawing_area: PGtkWidget;
+    window, box, button, drawing_area, button_box: PGtkWidget;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'Window');
     gtk_window_set_default_size(GTK_WINDOW(window), 400, 400);
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-
     gtk_window_set_child(GTK_WINDOW(window), box);
 
     drawing_area := gtk_drawing_area_new;
@@ -67,11 +48,14 @@ uses
     gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(drawing_area), @draw_func, nil, nil);
     gtk_box_append(GTK_BOX(box), drawing_area);
 
-    button := gtk_button_new_with_label('Hello World');
+    button_box := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    gtk_box_append(GTK_BOX(box), button_box);
 
-    g_signal_connect(button, 'clicked', G_CALLBACK(@print_hello), nil);
-
-    gtk_box_append(GTK_BOX(box), button);
+    button := gtk_button_new_with_label('Quit');
+    gtk_widget_set_hexpand(button, True);
+    gtk_widget_set_halign(button, GTK_ALIGN_CENTER);
+    gtk_box_append(GTK_BOX(button_box), button);
+    g_signal_connect(button, 'clicked', G_CALLBACK(@button_quit_cb), nil);
 
     gtk_window_present(GTK_WINDOW(window));
   end;

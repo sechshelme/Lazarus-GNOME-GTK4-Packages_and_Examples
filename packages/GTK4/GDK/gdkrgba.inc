@@ -3,10 +3,9 @@
 
 type
   TGdkRGBA = record
-    red: single;
-    green: single;
-    blue: single;
-    alpha: single;
+    case byte of
+      1: (red, green, blue, alpha: single);
+      2: (items: array[0..3] of single);
   end;
   PGdkRGBA = ^TGdkRGBA;
 
