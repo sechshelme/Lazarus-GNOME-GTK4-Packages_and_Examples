@@ -39,6 +39,7 @@ uses
     menu, about_menu: PGMenu;
     action: PGSimpleAction;
     app: PGApplication;
+    item: PGMenuItem;
   begin
     app := g_application_get_default;
     Result := gtk_menu_button_new;
@@ -55,6 +56,11 @@ uses
     g_menu_append_submenu(menu, 'About...', G_MENU_MODEL(about_menu));
     g_menu_append(menu, 'Quit', 'app.quit');
     gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(Result), G_MENU_MODEL(menu));
+
+    item:=g_menu_item_new('Beenden', 'app.quit');
+//    g_menu_item_set_attribute(item, G_MENU_ATTRIBUTE_sLABEL, 'uses-markup');
+    g_menu_append_item(menu, item);
+
 
     action := g_simple_action_new('help', nil);
     g_signal_connect(action, 'activate', G_CALLBACK(@menu_clicked_cp), nil);
