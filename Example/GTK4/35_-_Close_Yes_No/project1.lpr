@@ -10,12 +10,14 @@ uses
   procedure on_quit_response_cp(widget: PGtkWidget; response_id: Tgint; {%H-}Data: Tgpointer); cdecl;
   var
     app: PGApplication;
+    windowList: PGList;
   begin
-    app := g_application_get_default;
     case response_id of
       GTK_RESPONSE_YES: begin
         g_printf('YES'#10);
-        g_application_quit(G_APPLICATION(app));
+        app := g_application_get_default;
+        windowList := gtk_application_get_windows(GTK_APPLICATION(app));
+        gtk_window_close(GTK_WINDOW(windowList^.Data));
       end;
       GTK_RESPONSE_NO: begin
         g_printf('NO'#10);
@@ -52,10 +54,8 @@ uses
         nil);
 
       g_signal_connect(dialog, 'response', G_CALLBACK(@on_quit_response_cp), nil);
-//      gtk_widget_show(dialog);
 
       gtk_widget_set_visible(dialog, True);
-//      gtk_window_present(GTK_WINDOW(dialog));
     end;
   end;
 

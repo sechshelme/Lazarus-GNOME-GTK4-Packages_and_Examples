@@ -27,18 +27,14 @@ type
 const
   anyDataKey = 'anyKey';
 
-
   procedure quit_clicked_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
-    app: PGApplication;
+    window: PGtkWindow absolute user_data;
   begin
-    app := g_application_get_default;
-    g_application_quit(app);
+    gtk_window_destroy(window);
   end;
 
   procedure draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
-  const
-    i: Tgint64 = 0;
   var
     aniDate: PAniData;
     radius: double;
@@ -56,8 +52,6 @@ const
     cairo_set_source_rgb(cr, aniDate^.dotColor.r, aniDate^.dotColor.g, aniDate^.dotColor.b);
     cairo_arc(cr, Width / 2 + aniDate^.x, Height / 2 + aniDate^.y, radius, 0, 2 * Pi);
     cairo_fill(cr);
-
-    Inc(i);
   end;
 
   function on_tick(widget: PGtkWidget; frame_clock: PGdkFrameClock; user_data: Tgpointer): Tgboolean; cdecl;
@@ -159,7 +153,7 @@ const
     end;
 
     button := gtk_button_new_with_label('Close');
-    g_signal_connect(button, 'clicked', G_CALLBACK(@quit_clicked_cp), nil);
+    g_signal_connect(button, 'clicked', G_CALLBACK(@quit_clicked_cp), window);
 
     gtk_box_append(GTK_BOX(box), button);
 

@@ -9,11 +9,14 @@ uses
   fp_GDK4,
   fp_GTK4;
 
-  procedure quit_clicked_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
+  procedure quit_clicked_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
-    app: PGtkApplication absolute Data;
+    windowList: PGList;
+    app: PGApplication;
   begin
-    g_application_quit(G_APPLICATION(app));
+    app := g_application_get_default;
+    windowList := gtk_application_get_windows(GTK_APPLICATION(app));
+    gtk_window_close(GTK_WINDOW(windowList^.Data));
   end;
 
   function CreateButton: PGtkWidget;
@@ -82,7 +85,7 @@ uses
     end;
 
     button := gtk_button_new_with_label('Close');
-    g_signal_connect(button, 'clicked', G_CALLBACK(@quit_clicked_cp), app);
+    g_signal_connect(button, 'clicked', G_CALLBACK(@quit_clicked_cp), nil);
 
     gtk_box_append(GTK_BOX(box), button);
 

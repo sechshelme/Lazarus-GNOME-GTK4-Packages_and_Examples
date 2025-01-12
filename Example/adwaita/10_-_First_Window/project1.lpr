@@ -9,21 +9,26 @@ uses
   procedure quit_clicked_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
     app: PGApplication;
+    windowList: PGList;
   begin
     app := g_application_get_default;
-    g_application_quit(app);
+    windowList := gtk_application_get_windows(GTK_APPLICATION(app));
+    gtk_window_close(GTK_WINDOW(windowList^.Data));
   end;
 
   procedure menu_clicked_cp(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer); cdecl;
   var
     action_name: Pgchar;
     app: PGApplication;
+    windowList: PGList;
   begin
     app := g_application_get_default;
     action_name := g_action_get_name(G_ACTION(action));
     g_printf('Menu: "%s" wurde gecklickt'#10, action_name);
     if g_strcmp0(action_name, 'quit') = 0 then begin
-      g_application_quit(app);
+      app := g_application_get_default;
+      windowList := gtk_application_get_windows(GTK_APPLICATION(app));
+      gtk_window_close(GTK_WINDOW(windowList^.Data));
     end;
   end;
 
@@ -79,7 +84,7 @@ uses
 
     menu_button := CreateMenu;
     adw_header_bar_pack_end(ADW_HEADER_BAR(header_bar), menu_button);
-    adw_header_bar_set_show_end_title_buttons(ADW_HEADER_BAR(header_bar),True);
+    adw_header_bar_set_show_end_title_buttons(ADW_HEADER_BAR(header_bar), True);
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 

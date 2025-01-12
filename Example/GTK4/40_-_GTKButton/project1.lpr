@@ -13,9 +13,11 @@ uses
   procedure button_quit_cb(widget: PGtkWidget; Data: Tgpointer);
   var
     app: PGApplication;
+    windowList: PGList;
   begin
     app := g_application_get_default;
-    g_application_quit(app);
+    windowList := gtk_application_get_windows(GTK_APPLICATION(app));
+    gtk_window_close(GTK_WINDOW(windowList^.Data));
   end;
 
   procedure draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;

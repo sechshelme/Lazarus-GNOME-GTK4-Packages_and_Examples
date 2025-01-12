@@ -23,12 +23,13 @@ type
   PSpriteData = ^TSpriteData;
 
   procedure button_quit_cb({%H-}widget: PGtkWidget; {%H-}Data: Tgpointer);
-  // https://www.perplexity.ai/search/ich-habe-folgendes-gtk-drawing-C4bSi0ZQQ92QJdhkgZ0qiw
   var
     app: PGApplication;
+    windowList: PGList;
   begin
     app := g_application_get_default;
-    g_application_quit(app);
+    windowList := gtk_application_get_windows(GTK_APPLICATION(app));
+    gtk_window_close(GTK_WINDOW(windowList^.Data));
   end;
 
   function CreateSprites: PGskRenderNode;

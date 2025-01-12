@@ -12,9 +12,12 @@ uses
 
   procedure quit_clicked_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
   var
-    app: PGtkApplication absolute Data;
+    app: PGApplication;
+    windowList: PGList;
   begin
-    g_application_quit(G_APPLICATION(app));
+    app := g_application_get_default;
+    windowList := gtk_application_get_windows(GTK_APPLICATION(app));
+    gtk_window_close(GTK_WINDOW(windowList^.Data));
   end;
 
 const
@@ -34,13 +37,13 @@ const
     '    100% { transform: translate(0, 0); }' +
     '}' +
 
-//    'drawingarea {' +
+    //    'drawingarea {' +
     'button {' +
-//    '    width: 20px;' +
-//    '    height: 20px;' +
+    //    '    width: 20px;' +
+    //    '    height: 20px;' +
     '    background-color: red;' +
     '    border-radius: 50%;' +
-//    '    position: absolute;' +
+    //    '    position: absolute;' +
     '    animation: move 4s linear infinite;' +
     '}' +
 
@@ -78,7 +81,8 @@ const
     gtk_widget_set_margin_bottom(buttonbox, 5);
     gtk_box_append(GTK_BOX(mainBox), buttonBox);
 
-    dot:=gtk_drawing_area_new;;
+    dot := gtk_drawing_area_new;
+    ;
     gtk_widget_set_vexpand(dot, True);
     gtk_widget_set_hexpand(dot, True);
     gtk_box_append(GTK_BOX(mainBox), dot);
