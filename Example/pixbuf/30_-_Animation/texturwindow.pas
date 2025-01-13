@@ -103,7 +103,10 @@ begin
   gtk_box_append(GTK_BOX(box), Label1);
 
   gtk_window_set_child(GTK_WINDOW(window), box);
-  gtk_widget_show(window);
+  gtk_window_present(GTK_WINDOW(window));
+
+//  g_object_unref(iter);
+//  g_object_unref(animation);
 end;
 
 end.

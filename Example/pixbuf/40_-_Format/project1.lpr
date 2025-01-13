@@ -106,6 +106,7 @@ uses
     printHashTable(pixbuf1);
 
     picture1 := gtk_picture_new_for_pixbuf(pixbuf1);
+    g_object_unref(pixbuf1);
     g_object_set(picture1,
       'width-request', 128,
       'height-request', 128,
@@ -131,6 +132,7 @@ uses
       'width-request', 128,
       'height-request', 128,
       nil);
+    g_object_unref(pixbuf2);
     gtk_box_append(GTK_BOX(box), picture2);
 
     sl := ShowImageInfo('bild.jpg');
@@ -138,7 +140,6 @@ uses
     g_string_free(sl, gTrue);
     gtk_box_append(GTK_BOX(box), Label2);
 
-//    gtk_widget_show(window);
     gtk_window_present(GTK_WINDOW(window));
   end;
 

@@ -88,6 +88,28 @@ Aktualisieren:
 /usr/include/gstreamer-1.0/ges
 /usr/include/sysprof-6
 
+### GTK Inspector
+
+`sudo apt-get install dconf-editor`
+
+Strg + Shift + I: Öffnet den GTK Inspector.
+Strg + Shift + D: Öffnet den Inspector und wählt automatisch das Widget unter dem Mauszeiger aus.
+
+#### GTK-Builder
+
+`sudo apt install gnome-builder`
+
+
+
+
+
+
+
+
+https://www.perplexity.ai/search/wie-installiert-man-den-gtk-in-3L9fGIGmTL.WqgEg.TOEQw
+
+
+
 
 
 

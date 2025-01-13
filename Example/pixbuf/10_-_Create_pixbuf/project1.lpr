@@ -15,9 +15,10 @@ uses
   var
     pixdata: array of uint32 = nil;
     byteData: array of byte = nil;
-    window, picture1, box, picture2: PGtkWidget;
+    window, picture1, box, picture2, picture3: PGtkWidget;
     x, y: integer;
-    pixbuf1, pixbuf2: PGdkPixbuf;
+    pixbuf1, pixbuf2, pixbuf3: PGdkPixbuf;
+    buf3: Pguchar;
 
   begin
     WriteLn('GLIB:');
@@ -73,6 +74,20 @@ uses
     gtk_widget_set_hexpand(picture2, True);
     gtk_widget_set_vexpand(picture2, True);
 
+    // === pixbuf 3
+
+    buf3 := gdk_pixbuf_get_pixels(pixbuf2);
+
+    pixbuf3 := gdk_pixbuf_new_from_data(buf3, GDK_COLORSPACE_RGB, True, 8, BUF_SIZE, BUF_SIZE, BUF_SIZE * 4, nil, nil);
+    if pixbuf3 = nil then begin
+      g_print('pixbuf3 error');
+      exit;
+    end;
+
+    picture3 := gtk_picture_new_for_pixbuf(pixbuf3);
+    gtk_widget_set_hexpand(picture3, True);
+    gtk_widget_set_vexpand(picture3, True);
+
     // === Widget
 
     window := g_object_new(GTK_TYPE_WINDOW,
@@ -98,12 +113,17 @@ uses
 
     GObjectShowProperty(box);
 
+    g_object_unref(pixbuf1);
+    g_object_unref(pixbuf2);
+    g_object_unref(pixbuf3);
+
     gtk_box_append(GTK_BOX(box), picture1);
     gtk_box_append(GTK_BOX(box), picture2);
+    gtk_box_append(GTK_BOX(box), picture3);
 
     gtk_window_set_child(GTK_WINDOW(window), box);
 
-//    gtk_widget_show(window);
+    //    gtk_widget_show(window);
     gtk_window_present(GTK_WINDOW(window));
   end;
 

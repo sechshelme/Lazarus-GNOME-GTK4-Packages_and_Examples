@@ -59,6 +59,8 @@ uses
     end;
 
     picture1 := gtk_picture_new_for_pixbuf(pixbuf1);
+    g_object_unref(pixbuf1);
+
     gtk_widget_set_hexpand(picture1, True);
     gtk_widget_set_vexpand(picture1, True);
 
@@ -89,7 +91,6 @@ uses
 
     gtk_box_append(GTK_BOX(box), picture1);
     gtk_window_set_child(GTK_WINDOW(window), box);
-//    gtk_widget_show(window);
     gtk_window_present(GTK_WINDOW(window));
   end;
 
