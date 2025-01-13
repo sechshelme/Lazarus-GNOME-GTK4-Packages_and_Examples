@@ -1,45 +1,38 @@
-unit TexturWindow;
-
+unit ImageWindow;
 
 interface
 
 uses
-  ctypes,
   fp_cairo,
   fp_glib2,
   fp_GTK4,
   fp_GDK4,
   fp_gdk_pixbuf2,
-
   fp_GLIBTools;
 
-procedure CreateTexturWindow(app: PGtkApplication);
+procedure CreateImageWindow(app: PGtkApplication);
 
 implementation
 
 var
-  picture: PGtkWidget;
-  iter: PGdkPixbufAnimationIter;
+  image: PGtkWidget;
 
 function timer_func(user_data: Tgpointer): Tgboolean; cdecl;
 var
+  iter: PGdkPixbufAnimationIter absolute user_data;
   pixbuf: PGdkPixbuf;
-  texture: PGdkTexture;
 begin
-  if gdk_pixbuf_animation_iter_advance(iter, nil) then begin
-    pixbuf := gdk_pixbuf_animation_iter_get_pixbuf(iter);
-    texture := gdk_texture_new_for_pixbuf(pixbuf);
-    gtk_picture_set_paintable(GTK_PICTURE(picture), GDK_PAINTABLE(texture));
-    g_object_unref(texture);
-  end;
+  pixbuf := gdk_pixbuf_animation_iter_get_pixbuf(iter);
+  gtk_image_set_from_pixbuf(GTK_IMAGE(image), pixbuf);
 
-  Result := G_SOURCE_CONTINUE;
+  gdk_pixbuf_animation_iter_advance(iter, nil);
 end;
 
-procedure CreateTexturWindow(app: PGtkApplication);
+procedure CreateImageWindow(app: PGtkApplication);
 var
   window, box, Label1: PGtkWidget;
   animation: PGdkPixbufAnimation;
+  iter: PGdkPixbufAnimationIter;
 
   err: PGError;
 
@@ -52,7 +45,7 @@ var
 begin
   window := g_object_new(GTK_TYPE_WINDOW,
     'application', app,
-    'title', 'Pixbuf Demo (Textur)',
+    'title', 'Pixbuf Demo (Image)',
     'default-width', 200,
     'default-height', 200,
     'resizable', gTrue,
@@ -76,27 +69,29 @@ begin
     g_printerr('  Fehlerbereich: %s'#10, g_quark_to_string(err^.domain));
     g_printerr('  Fehlercode: %d'#10, err^.code);
     g_printerr('  Fehlermeldung: %s#10', err^.message);
+    g_error_free(err);
     Exit;
   end;
   AniProp.Width := gdk_pixbuf_animation_get_width(animation);
   AniProp.Height := gdk_pixbuf_animation_get_height(animation);
 
   iter := gdk_pixbuf_animation_get_iter(animation, nil);
-    g_object_unref(animation);
+  g_object_unref(animation);
+
+  image := g_object_new(GTK_TYPE_IMAGE,
+    'width-request', AniProp.Width,
+    'height-request', AniProp.Height,
+    nil);
+  gtk_box_append(GTK_BOX(box), image);
 
   AniProp.delay := gdk_pixbuf_animation_iter_get_delay_time(iter);
   g_timeout_add(AniProp.delay, @timer_func, iter);
 
-  picture := g_object_new(GTK_TYPE_PICTURE,
-    'width-request', AniProp.Width,
-    'height-request', AniProp.Height,
-    nil);
-  gtk_box_append(GTK_BOX(box), picture);
-
   pc := g_malloc(100);
-  g_snprintf(pc, 100, 'Animation: '#10'  width: %d'#10'  height: %d'#10'  delay: %dms'#10, AniProp.Width, AniProp.Height, AniProp.delay);
+  g_snprintf(pc, 100, '<b>Animation:</b> '#10'  <b>width:</b> %d'#10'  <b>height:</b> %d'#10'  <b>delay:</b> %dms'#10, AniProp.Width, AniProp.Height, AniProp.delay);
   Label1 := g_object_new(GTK_TYPE_LABEL,
     'label', pc,
+    'use-markup', gTrue,
     nil);
   g_free(pc);
 
@@ -104,8 +99,7 @@ begin
 
   gtk_window_set_child(GTK_WINDOW(window), box);
   gtk_window_present(GTK_WINDOW(window));
-
-//  g_object_unref(iter);
 end;
+
 
 end.

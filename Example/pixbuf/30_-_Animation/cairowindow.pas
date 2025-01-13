@@ -1,9 +1,8 @@
-unit Cairo_Window;
+unit CairoWindow;
 
 interface
 
 uses
-  ctypes,
   fp_cairo,
   fp_glib2,
   fp_GTK4,
@@ -24,10 +23,10 @@ begin
   gdk_pixbuf_animation_iter_advance(iter, nil);
 
   pixbuf := gdk_pixbuf_animation_iter_get_pixbuf(iter);
-
   if pixbuf <> nil then begin
     gdk_cairo_set_source_pixbuf(cr, pixbuf, 0, 0);
   end;
+
   cairo_paint(cr);
 end;
 
@@ -42,7 +41,7 @@ end;
 procedure CreateCairoWindow(app: PGtkApplication);
 var
   window, drawing_area, box, Label1: PGtkWidget;
-  pixbuf_animation: PGdkPixbufAnimation;
+  animation: PGdkPixbufAnimation;
   iter: PGdkPixbufAnimationIter;
 
   err: PGError;
@@ -50,11 +49,10 @@ var
   AniProp: record
     Width, Height, delay: longint;
       end;
+
   pc: Pgchar;
 
 begin
-  // === Widget
-
   window := g_object_new(GTK_TYPE_WINDOW,
     'application', app,
     'title', 'Pixbuf Demo (Cairo)',
@@ -75,8 +73,8 @@ begin
     nil);
 
   err := nil;
-  pixbuf_animation := gdk_pixbuf_animation_new_from_file('pinguin.gif', @err);
-  if pixbuf_animation = nil then begin
+  animation := gdk_pixbuf_animation_new_from_file('pinguin.gif', @err);
+  if animation = nil then begin
     g_printerr('Ungültige Animations-Datei !'#10);
     g_printerr('  Fehlerbereich: %s'#10, g_quark_to_string(err^.domain));
     g_printerr('  Fehlercode: %d'#10, err^.code);
@@ -84,10 +82,11 @@ begin
     g_error_free(err);
     Exit;
   end;
-  AniProp.Width := gdk_pixbuf_animation_get_width(pixbuf_animation);
-  AniProp.Height := gdk_pixbuf_animation_get_height(pixbuf_animation);
+  AniProp.Width := gdk_pixbuf_animation_get_width(animation);
+  AniProp.Height := gdk_pixbuf_animation_get_height(animation);
 
-  iter := gdk_pixbuf_animation_get_iter(pixbuf_animation, nil);
+  iter := gdk_pixbuf_animation_get_iter(animation, nil);
+  g_object_unref(animation);
 
   drawing_area := g_object_new(GTK_TYPE_DRAWING_AREA,
     'width-request', AniProp.Width,
@@ -105,13 +104,12 @@ begin
     'label', pc,
     'use-markup', gTrue,
     nil);
-
   g_free(pc);
 
   gtk_box_append(GTK_BOX(box), Label1);
 
   gtk_window_set_child(GTK_WINDOW(window), box);
-  gtk_widget_show(window);
+  gtk_window_present(GTK_WINDOW(window));
 end;
 
 

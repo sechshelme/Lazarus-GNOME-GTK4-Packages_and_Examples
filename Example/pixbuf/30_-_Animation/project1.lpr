@@ -8,7 +8,7 @@ uses
   fp_GDK4,
   fp_gdk_pixbuf2,
 
-  fp_GLIBTools, Cairo_Window, TexturWindow;
+  fp_GLIBTools, CairoWindow, TexturWindow, ImageWindow;
 
   // https://www.perplexity.ai/search/was-macht-diese-funktion-gdk-p-U_1J7dpKT76ybVtLBO9pTQ
 
@@ -17,6 +17,7 @@ uses
   begin
     CreateCairoWindow(app);
     CreateTexturWindow(app);
+    CreateImageWindow(app);
   end;
 
   procedure main;
