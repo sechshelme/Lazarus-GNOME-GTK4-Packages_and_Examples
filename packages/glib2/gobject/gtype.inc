@@ -92,7 +92,7 @@ type
   end;
   PGTypeQuery = ^TGTypeQuery;
 
-type
+type // GOBJECT_DEPRECATED_TYPE_IN_2_36;
   PGTypeDebugFlags = ^TGTypeDebugFlags;
   TGTypeDebugFlags = longint;
 
@@ -103,8 +103,8 @@ const
   G_TYPE_DEBUG_INSTANCE_COUNT = 1 shl 2;
   G_TYPE_DEBUG_MASK = $07;
 
-procedure g_type_init; cdecl; external libgobject2_0;
-procedure g_type_init_with_debug_flags(debug_flags: TGTypeDebugFlags); cdecl; external libgobject2_0;
+procedure g_type_init; cdecl; external libgobject2_0; deprecated; // GOBJECT_DEPRECATED_IN_2_36
+procedure g_type_init_with_debug_flags(debug_flags: TGTypeDebugFlags); cdecl; external libgobject2_0; deprecated; // GOBJECT_DEPRECATED_IN_2_36
 function g_type_name(_type: TGType): Pgchar; cdecl; external libgobject2_0;
 function g_type_qname(_type: TGType): TGQuark; cdecl; external libgobject2_0;
 function g_type_from_name(Name: Pgchar): TGType; cdecl; external libgobject2_0;
@@ -224,7 +224,7 @@ procedure g_type_add_interface_dynamic(instance_type: TGType; interface_type: TG
 procedure g_type_interface_add_prerequisite(interface_type: TGType; prerequisite_type: TGType); cdecl; external libgobject2_0;
 function g_type_interface_prerequisites(interface_type: TGType; n_prerequisites: Pguint): PGType; cdecl; external libgobject2_0;
 function g_type_interface_instantiatable_prerequisite(interface_type: TGType): TGType; cdecl; external libgobject2_0;
-procedure g_type_class_add_private(g_class: Tgpointer; private_size: Tgsize); cdecl; external libgobject2_0;
+procedure g_type_class_add_private(g_class: Tgpointer; private_size: Tgsize); cdecl; external libgobject2_0; deprecated; // GOBJECT_DEPRECATED_IN_2_58
 function g_type_add_instance_private(class_type: TGType; private_size: Tgsize): Tgint; cdecl; external libgobject2_0;
 function g_type_instance_get_private(instance: PGTypeInstance; private_type: TGType): Tgpointer; cdecl; external libgobject2_0;
 procedure g_type_class_adjust_private_offset(g_class: Tgpointer; private_size_or_offset: Pgint); cdecl; external libgobject2_0;

@@ -49,10 +49,10 @@ function g_mount_get_volume(mount: PGMount): PGVolume; cdecl; external libgio2;
 function g_mount_get_drive(mount: PGMount): PGDrive; cdecl; external libgio2;
 function g_mount_can_unmount(mount: PGMount): Tgboolean; cdecl; external libgio2;
 function g_mount_can_eject(mount: PGMount): Tgboolean; cdecl; external libgio2;
-procedure g_mount_unmount(mount: PGMount; flags: TGMountUnmountFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2;
-function g_mount_unmount_finish(mount: PGMount; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgio2;
-procedure g_mount_eject(mount: PGMount; flags: TGMountUnmountFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2;
-function g_mount_eject_finish(mount: PGMount; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgio2;
+procedure g_mount_unmount(mount: PGMount; flags: TGMountUnmountFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2; deprecated; // GIO_DEPRECATED_FOR(g_mount_unmount_with_operation)
+function g_mount_unmount_finish(mount: PGMount; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgio2; deprecated; // GIO_DEPRECATED_FOR(g_mount_unmount_with_operation_finish)
+procedure g_mount_eject(mount: PGMount; flags: TGMountUnmountFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2; deprecated; // GIO_DEPRECATED_FOR(g_mount_eject_with_operation)
+function g_mount_eject_finish(mount: PGMount; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgio2; deprecated; // GIO_DEPRECATED_FOR(g_mount_eject_with_operation_finish)
 procedure g_mount_remount(mount: PGMount; flags: TGMountMountFlags; mount_operation: PGMountOperation; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
   user_data: Tgpointer); cdecl; external libgio2;
 function g_mount_remount_finish(mount: PGMount; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgio2;

@@ -326,9 +326,9 @@ function G_TYPE_PARAM_POINTER: Tgtype;
 function G_IS_PARAM_SPEC_POINTER(pspec: Pointer): Tgboolean;
 function G_PARAM_SPEC_POINTER(pspec: Pointer): PGTypeInstance;
 
-function G_TYPE_PARAM_VALUE_ARRAY: Tgtype;
-function G_IS_PARAM_SPEC_VALUE_ARRAY(pspec: Pointer): Tgboolean;
-function G_PARAM_SPEC_VALUE_ARRAY(pspec: Pointer): PGTypeInstance;
+function G_TYPE_PARAM_VALUE_ARRAY: Tgtype; deprecated; // GOBJECT_DEPRECATED_MACRO_IN_2_32
+function G_IS_PARAM_SPEC_VALUE_ARRAY(pspec: Pointer): Tgboolean; deprecated; // GOBJECT_DEPRECATED_MACRO_IN_2_32
+function G_PARAM_SPEC_VALUE_ARRAY(pspec: Pointer): PGTypeInstance; deprecated; // GOBJECT_DEPRECATED_MACRO_IN_2_32
 
 function G_TYPE_PARAM_OBJECT: Tgtype;
 function G_IS_PARAM_SPEC_OBJECT(pspec: Pointer): Tgboolean;

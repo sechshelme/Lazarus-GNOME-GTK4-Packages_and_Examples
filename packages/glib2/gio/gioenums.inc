@@ -729,7 +729,7 @@ const
   G_TLS_CHANNEL_BINDING_ERROR_NOT_SUPPORTED = 3;
   G_TLS_CHANNEL_BINDING_ERROR_GENERAL_ERROR = 4;
 
-type
+type // GIO_DEPRECATED_TYPE_IN_2_60;
   PGTlsRehandshakeMode = ^TGTlsRehandshakeMode;
   TGTlsRehandshakeMode = longint;
 

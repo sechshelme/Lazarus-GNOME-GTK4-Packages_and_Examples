@@ -21,7 +21,7 @@ function g_async_initable_init_finish(initable: PGAsyncInitable; res: PGAsyncRes
 procedure g_async_initable_new_async(object_type: TGType; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer;
   first_property_name: Pgchar); varargs; cdecl; external libgio2;
 procedure g_async_initable_newv_async(object_type: TGType; n_parameters: Tguint; parameters: PGParameter; io_priority: longint; cancellable: PGCancellable;
-  callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2;
+  callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_54_FOR(g_object_new_with_properties and g_async_initable_init_async)
 procedure g_async_initable_new_valist_async(object_type: TGType; first_property_name: Pgchar; var_args: Tva_list; io_priority: longint; cancellable: PGCancellable;
   callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2;
 function g_async_initable_new_finish(initable: PGAsyncInitable; res: PGAsyncResult; error: PPGError): PGObject; cdecl; external libgio2;

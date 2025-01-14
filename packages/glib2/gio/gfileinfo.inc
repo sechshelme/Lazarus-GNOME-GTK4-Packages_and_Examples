@@ -155,7 +155,7 @@ function g_file_info_get_icon(info: PGFileInfo): PGIcon; cdecl; external libgio2
 function g_file_info_get_symbolic_icon(info: PGFileInfo): PGIcon; cdecl; external libgio2;
 function g_file_info_get_content_type(info: PGFileInfo): PChar; cdecl; external libgio2;
 function g_file_info_get_size(info: PGFileInfo): Tgoffset; cdecl; external libgio2;
-procedure g_file_info_get_modification_time(info: PGFileInfo; Result: PGTimeVal); cdecl; external libgio2;
+procedure g_file_info_get_modification_time(info: PGFileInfo; Result: PGTimeVal); cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_62_FOR(g_file_info_get_modification_date_time)
 function g_file_info_get_modification_date_time(info: PGFileInfo): PGDateTime; cdecl; external libgio2;
 function g_file_info_get_access_date_time(info: PGFileInfo): PGDateTime; cdecl; external libgio2;
 function g_file_info_get_creation_date_time(info: PGFileInfo): PGDateTime; cdecl; external libgio2;
@@ -174,7 +174,7 @@ procedure g_file_info_set_icon(info: PGFileInfo; icon: PGIcon); cdecl; external 
 procedure g_file_info_set_symbolic_icon(info: PGFileInfo; icon: PGIcon); cdecl; external libgio2;
 procedure g_file_info_set_content_type(info: PGFileInfo; content_type: PChar); cdecl; external libgio2;
 procedure g_file_info_set_size(info: PGFileInfo; size: Tgoffset); cdecl; external libgio2;
-procedure g_file_info_set_modification_time(info: PGFileInfo; mtime: PGTimeVal); cdecl; external libgio2;
+procedure g_file_info_set_modification_time(info: PGFileInfo; mtime: PGTimeVal); cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_62_FOR(g_file_info_set_modification_date_time)
 procedure g_file_info_set_modification_date_time(info: PGFileInfo; mtime: PGDateTime); cdecl; external libgio2;
 procedure g_file_info_set_access_date_time(info: PGFileInfo; atime: PGDateTime); cdecl; external libgio2;
 procedure g_file_info_set_creation_date_time(info: PGFileInfo; creation_time: PGDateTime); cdecl; external libgio2;

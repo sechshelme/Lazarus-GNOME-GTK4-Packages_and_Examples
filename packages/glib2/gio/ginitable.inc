@@ -16,7 +16,7 @@ type
 function g_initable_get_type: TGType; cdecl; external libgio2;
 function g_initable_init(initable: PGInitable; cancellable: PGCancellable; error: PPGError): Tgboolean; cdecl; external libgio2;
 function g_initable_new(object_type: TGType; cancellable: PGCancellable; error: PPGError; first_property_name: Pgchar): Tgpointer; varargs; cdecl; external libgio2;
-function g_initable_newv(object_type: TGType; n_parameters: Tguint; parameters: PGParameter; cancellable: PGCancellable; error: PPGError): Tgpointer; cdecl; external libgio2;
+function g_initable_newv(object_type: TGType; n_parameters: Tguint; parameters: PGParameter; cancellable: PGCancellable; error: PPGError): Tgpointer; cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_54_FOR(g_object_new_with_properties and g_initable_init)
 function g_initable_new_valist(object_type: TGType; first_property_name: Pgchar; var_args: Tva_list; cancellable: PGCancellable; error: PPGError): PGObject; cdecl; external libgio2;
 
 function G_TYPE_IS_INITABLE(_type: TGType): Tgboolean;
