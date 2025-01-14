@@ -16,21 +16,21 @@ type
   PPangoXftFont = ^TPangoXftFont;
 
 function pango_xft_get_font_map(display: PDisplay; screen: longint): PPangoFontMap; cdecl; external libpangoxft;
-function pango_xft_get_context(display: PDisplay; screen: longint): PPangoContext; cdecl; external libpangoxft;
+function pango_xft_get_context(display: PDisplay; screen: longint): PPangoContext; cdecl; external libpangoxft; deprecated; // PANGO_DEPRECATED
 procedure pango_xft_shutdown_display(display: PDisplay; screen: longint); cdecl; external libpangoxft;
-procedure pango_xft_set_default_substitute(display: PDisplay; screen: longint; func: TPangoXftSubstituteFunc; Data: Tgpointer; notify: TGDestroyNotify); cdecl; external libpangoxft;
-procedure pango_xft_substitute_changed(display: PDisplay; screen: longint); cdecl; external libpangoxft;
+procedure pango_xft_set_default_substitute(display: PDisplay; screen: longint; func: TPangoXftSubstituteFunc; Data: Tgpointer; notify: TGDestroyNotify); cdecl; external libpangoxft; deprecated; // PANGO_DEPRECATED_IN_1_48_FOR(pango_fc_font_map_set_default_substitute)
+procedure pango_xft_substitute_changed(display: PDisplay; screen: longint); cdecl; external libpangoxft; deprecated; // PANGO_DEPRECATED_IN_1_48_FOR(pango_fc_font_map_substitute_changed)
 
 function pango_xft_font_map_get_type: TGType; cdecl; external libpangoxft;
 function pango_xft_font_get_type: TGType; cdecl; external libpangoxft;
 
-function pango_xft_font_get_font(font: PPangoFont): PXftFont; cdecl; external libpangoxft;
-function pango_xft_font_get_display(font: PPangoFont): PDisplay; cdecl; external libpangoxft;
-function pango_xft_font_lock_face(font: PPangoFont): TFT_Face; cdecl; external libpangoxft;
-procedure pango_xft_font_unlock_face(font: PPangoFont); cdecl; external libpangoxft;
-function pango_xft_font_get_glyph(font: PPangoFont; wc: Tgunichar): Tguint; cdecl; external libpangoxft;
-function pango_xft_font_has_char(font: PPangoFont; wc: Tgunichar): Tgboolean; cdecl; external libpangoxft;
-function pango_xft_font_get_unknown_glyph(font: PPangoFont; wc: Tgunichar): TPangoGlyph; cdecl; external libpangoxft;
+function pango_xft_font_get_font(font: PPangoFont): PXftFont; cdecl; external libpangoxft; deprecated; // PANGO_DEPRECATED
+function pango_xft_font_get_display(font: PPangoFont): PDisplay; cdecl; external libpangoxft; deprecated; // PANGO_DEPRECATED
+function pango_xft_font_lock_face(font: PPangoFont): TFT_Face; cdecl; external libpangoxft; deprecated; // PANGO_DEPRECATED_FOR(pango_fc_font_lock_face)
+procedure pango_xft_font_unlock_face(font: PPangoFont); cdecl; external libpangoxft; deprecated; // PANGO_DEPRECATED_FOR(pango_fc_font_unlock_face)
+function pango_xft_font_get_glyph(font: PPangoFont; wc: Tgunichar): Tguint; cdecl; external libpangoxft; deprecated; // PANGO_DEPRECATED_FOR(pango_fc_font_get_glyph)
+function pango_xft_font_has_char(font: PPangoFont; wc: Tgunichar): Tgboolean; cdecl; external libpangoxft; deprecated; // PANGO_DEPRECATED_FOR(pango_fc_font_has_char)
+function pango_xft_font_get_unknown_glyph(font: PPangoFont; wc: Tgunichar): TPangoGlyph; cdecl; external libpangoxft; deprecated; // PANGO_DEPRECATED_FOR(PANGO_GET_UNKNOWN_GLYPH)
 
 // === Konventiert am: 26-11-24 13:57:44 ===
 

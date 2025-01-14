@@ -130,7 +130,7 @@ type
   end;
   PPangoScriptIter = ^TPangoScriptIter;
 
-function pango_script_for_unichar(ch: Tgunichar): TPangoScript; cdecl; external libpango;
+function pango_script_for_unichar(ch: Tgunichar): TPangoScript; cdecl; external libpango; deprecated; // PANGO_DEPRECATED_IN_1_44_FOR(g_unichar_get_script)
 function pango_script_iter_get_type: TGType; cdecl; external libpango;
 function pango_script_iter_new(Text: pchar; length: longint): PPangoScriptIter; cdecl; external libpango;
 procedure pango_script_iter_get_range(iter: PPangoScriptIter; start: PPchar; end_: PPchar; script: PPangoScript); cdecl; external libpango;

@@ -205,22 +205,22 @@ end;
 
 function E_HUMANINC(obj: Pointer): PEHumanInc;
 begin
-  Result := PEHumanInc(g_type_check_instance_cast(obj, E_TYPE_HUMANEXT));
+  Result := PEHumanInc(g_type_check_instance_cast(obj, E_TYPE_HUMANINC));
 end;
 
 function E_HUMANINC_CLASS(klass: Pointer): PEHumanIncClass;
 begin
-  Result := PEHumanIncClass(g_type_check_class_cast(klass, E_TYPE_HUMANEXT));
+  Result := PEHumanIncClass(g_type_check_class_cast(klass, E_TYPE_HUMANINC));
 end;
 
 function E_IS_HUMANINC(obj: Pointer): Tgboolean;
 begin
-  Result := g_type_check_instance_is_a(obj, E_TYPE_HUMANEXT);
+  Result := g_type_check_instance_is_a(obj, E_TYPE_HUMANINC);
 end;
 
 function E_IS_HUMANINC_CLASS(klass: Pointer): Tgboolean;
 begin
-  Result := g_type_check_class_is_a(klass, E_TYPE_HUMANEXT);
+  Result := g_type_check_class_is_a(klass, E_TYPE_HUMANINC);
 end;
 
 function E_HUMANINC_GET_CLASS(obj: Pointer): PEHumanIncClass;

@@ -59,7 +59,7 @@ const
   bp_TPangoLogAttr_reserved = 15;
 
 
-procedure pango_break(Text: pchar; length: longint; analysis: PPangoAnalysis; attrs: PPangoLogAttr; attrs_len: longint); cdecl; external libpango;
+procedure pango_break(Text: pchar; length: longint; analysis: PPangoAnalysis; attrs: PPangoLogAttr; attrs_len: longint); cdecl; external libpango; deprecated; // PANGO_DEPRECATED_IN_1_44
 procedure pango_get_log_attrs(Text: pchar; length: longint; level: longint; language: PPangoLanguage; attrs: PPangoLogAttr;
   attrs_len: longint); cdecl; external libpango;
 procedure pango_default_break(Text: pchar; length: longint; analysis: PPangoAnalysis; attrs: PPangoLogAttr; attrs_len: longint); cdecl; external libpango;

@@ -79,7 +79,7 @@ uses
     Label1 := gtk_label_new('Hello World !');
     gtk_box_append(GTK_BOX(box), Label1);
 
-    // https://www.perplexity.ai/search/gib-mir-ein-pango-besipiel-wel-5xDvcKw4RuWTm6My1V9z2g
+     // https://www.perplexity.ai/search/gib-mir-ein-pango-besipiel-wel-5xDvcKw4RuWTm6My1V9z2g
 
     // button
     button := gtk_button_new_with_label('Untertreichen');

@@ -39,8 +39,8 @@ function g_socket_client_get_enable_proxy(client: PGSocketClient): Tgboolean; cd
 procedure g_socket_client_set_enable_proxy(client: PGSocketClient; enable: Tgboolean); cdecl; external libgio2;
 function g_socket_client_get_tls(client: PGSocketClient): Tgboolean; cdecl; external libgio2;
 procedure g_socket_client_set_tls(client: PGSocketClient; tls: Tgboolean); cdecl; external libgio2;
-function g_socket_client_get_tls_validation_flags(client: PGSocketClient): TGTlsCertificateFlags; cdecl; external libgio2;
-procedure g_socket_client_set_tls_validation_flags(client: PGSocketClient; flags: TGTlsCertificateFlags); cdecl; external libgio2;
+function g_socket_client_get_tls_validation_flags(client: PGSocketClient): TGTlsCertificateFlags; cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_72
+procedure g_socket_client_set_tls_validation_flags(client: PGSocketClient; flags: TGTlsCertificateFlags); cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_72
 function g_socket_client_get_proxy_resolver(client: PGSocketClient): PGProxyResolver; cdecl; external libgio2;
 procedure g_socket_client_set_proxy_resolver(client: PGSocketClient; proxy_resolver: PGProxyResolver); cdecl; external libgio2;
 function g_socket_client_connect(client: PGSocketClient; connectable: PGSocketConnectable; cancellable: PGCancellable; error: PPGError): PGSocketConnection; cdecl; external libgio2;

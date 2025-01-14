@@ -26,8 +26,8 @@ type
 
 
 function g_tls_connection_get_type: TGType; cdecl; external libgio2;
-procedure g_tls_connection_set_use_system_certdb(conn: PGTlsConnection; use_system_certdb: Tgboolean); cdecl; external libgio2;
-function g_tls_connection_get_use_system_certdb(conn: PGTlsConnection): Tgboolean; cdecl; external libgio2;
+procedure g_tls_connection_set_use_system_certdb(conn: PGTlsConnection; use_system_certdb: Tgboolean); cdecl; external libgio2; deprecated; // GIO_DEPRECATED
+function g_tls_connection_get_use_system_certdb(conn: PGTlsConnection): Tgboolean; cdecl; external libgio2; deprecated; // GIO_DEPRECATED
 procedure g_tls_connection_set_database(conn: PGTlsConnection; database: PGTlsDatabase); cdecl; external libgio2;
 function g_tls_connection_get_database(conn: PGTlsConnection): PGTlsDatabase; cdecl; external libgio2;
 procedure g_tls_connection_set_certificate(conn: PGTlsConnection; certificate: PGTlsCertificate); cdecl; external libgio2;
@@ -38,8 +38,8 @@ function g_tls_connection_get_peer_certificate(conn: PGTlsConnection): PGTlsCert
 function g_tls_connection_get_peer_certificate_errors(conn: PGTlsConnection): TGTlsCertificateFlags; cdecl; external libgio2;
 procedure g_tls_connection_set_require_close_notify(conn: PGTlsConnection; require_close_notify: Tgboolean); cdecl; external libgio2;
 function g_tls_connection_get_require_close_notify(conn: PGTlsConnection): Tgboolean; cdecl; external libgio2;
-procedure g_tls_connection_set_rehandshake_mode(conn: PGTlsConnection; mode: TGTlsRehandshakeMode); cdecl; external libgio2;
-function g_tls_connection_get_rehandshake_mode(conn: PGTlsConnection): TGTlsRehandshakeMode; cdecl; external libgio2;
+procedure g_tls_connection_set_rehandshake_mode(conn: PGTlsConnection; mode: TGTlsRehandshakeMode); cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_60
+function g_tls_connection_get_rehandshake_mode(conn: PGTlsConnection): TGTlsRehandshakeMode; cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_60
 procedure g_tls_connection_set_advertised_protocols(conn: PGTlsConnection; protocols: PPgchar); cdecl; external libgio2;
 function g_tls_connection_get_negotiated_protocol(conn: PGTlsConnection): Pgchar; cdecl; external libgio2;
 function g_tls_connection_get_channel_binding_data(conn: PGTlsConnection; _type: TGTlsChannelBindingType; Data: PGByteArray; error: PPGError): Tgboolean; cdecl; external libgio2;

@@ -23,7 +23,7 @@ function g_desktop_app_info_get_show_in(info: PGDesktopAppInfo; desktop_env: Pgc
 function g_desktop_app_info_get_startup_wm_class(info: PGDesktopAppInfo): pchar; cdecl; external libgio2;
 function g_desktop_app_info_new(desktop_id: pchar): PGDesktopAppInfo; cdecl; external libgio2;
 function g_desktop_app_info_get_is_hidden(info: PGDesktopAppInfo): Tgboolean; cdecl; external libgio2;
-procedure g_desktop_app_info_set_desktop_env(desktop_env: pchar); cdecl; external libgio2;
+procedure g_desktop_app_info_set_desktop_env(desktop_env: pchar); cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_42
 function g_desktop_app_info_has_key(info: PGDesktopAppInfo; key: pchar): Tgboolean; cdecl; external libgio2;
 function g_desktop_app_info_get_string(info: PGDesktopAppInfo; key: pchar): pchar; cdecl; external libgio2;
 function g_desktop_app_info_get_locale_string(info: PGDesktopAppInfo; key: pchar): pchar; cdecl; external libgio2;
@@ -34,7 +34,7 @@ procedure g_desktop_app_info_launch_action(info: PGDesktopAppInfo; action_name: 
 function g_desktop_app_info_get_action_name(info: PGDesktopAppInfo; action_name: Pgchar): Pgchar; cdecl; external libgio2;
 
 const
-  G_DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME = 'gio-desktop-app-info-lookup';
+  G_DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME = 'gio-desktop-app-info-lookup'; // GIO_DEPRECATED_MACRO_IN_2_28
 
 type
   TGDesktopAppInfoLookup = record
@@ -47,8 +47,8 @@ type
   end;
   PGDesktopAppInfoLookupIface = ^TGDesktopAppInfoLookupIface;
 
-function g_desktop_app_info_lookup_get_type: TGType; cdecl; external libgio2;
-function g_desktop_app_info_lookup_get_default_for_uri_scheme(lookup: PGDesktopAppInfoLookup; uri_scheme: pchar): PGAppInfo; cdecl; external libgio2;
+function g_desktop_app_info_lookup_get_type: TGType; cdecl; external libgio2; deprecated; // GIO_DEPRECATED
+function g_desktop_app_info_lookup_get_default_for_uri_scheme(lookup: PGDesktopAppInfoLookup; uri_scheme: pchar): PGAppInfo; cdecl; external libgio2; deprecated; // GIO_DEPRECATED
 
 type
   TGDesktopAppLaunchCallback = procedure(appinfo: PGDesktopAppInfo; pid: TGPid; user_data: Tgpointer); cdecl;
@@ -61,10 +61,10 @@ function g_desktop_app_info_launch_uris_as_manager_with_fds(appinfo: PGDesktopAp
 function g_desktop_app_info_search(search_string: Pgchar): PPPgchar; cdecl; external libgio2;
 function g_desktop_app_info_get_implementations(iface: Pgchar): PGList; cdecl; external libgio2;
 
-function G_TYPE_DESKTOP_APP_INFO_LOOKUP: TGType;
-function G_DESKTOP_APP_INFO_LOOKUP(obj: Pointer): PGDesktopAppInfoLookup;
-function G_IS_DESKTOP_APP_INFO_LOOKUP(obj: Pointer): Tgboolean;
-function G_DESKTOP_APP_INFO_LOOKUP_GET_IFACE(obj: Pointer): PGDesktopAppInfoLookupIface;
+function G_TYPE_DESKTOP_APP_INFO_LOOKUP: TGType; deprecated; // GIO_DEPRECATED_MACRO_IN_2_28
+function G_DESKTOP_APP_INFO_LOOKUP(obj: Pointer): PGDesktopAppInfoLookup; deprecated; // GIO_DEPRECATED_MACRO_IN_2_28
+function G_IS_DESKTOP_APP_INFO_LOOKUP(obj: Pointer): Tgboolean; deprecated; // GIO_DEPRECATED_MACRO_IN_2_28
+function G_DESKTOP_APP_INFO_LOOKUP_GET_IFACE(obj: Pointer): PGDesktopAppInfoLookupIface; deprecated; // GIO_DEPRECATED_MACRO_IN_2_28
 
 // === Konventiert am: 20-11-24 15:18:19 ===
 

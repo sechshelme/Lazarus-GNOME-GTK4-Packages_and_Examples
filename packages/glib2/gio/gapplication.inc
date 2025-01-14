@@ -48,7 +48,7 @@ function g_application_get_flags(application: PGApplication): TGApplicationFlags
 procedure g_application_set_flags(application: PGApplication; flags: TGApplicationFlags); cdecl; external libgio2;
 function g_application_get_resource_base_path(application: PGApplication): Pgchar; cdecl; external libgio2;
 procedure g_application_set_resource_base_path(application: PGApplication; resource_path: Pgchar); cdecl; external libgio2;
-procedure g_application_set_action_group(application: PGApplication; action_group: PGActionGroup); cdecl; external libgio2;
+procedure g_application_set_action_group(application: PGApplication; action_group: PGActionGroup); cdecl; external libgio2; deprecated; // GIO_DEPRECATED
 procedure g_application_add_main_option_entries(application: PGApplication; entries: PGOptionEntry); cdecl; external libgio2;
 procedure g_application_add_main_option(application: PGApplication; long_name: PChar; short_name: char; flags: TGOptionFlags; arg: TGOptionArg;
   description: PChar; arg_description: PChar); cdecl; external libgio2;

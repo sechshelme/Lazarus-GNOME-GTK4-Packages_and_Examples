@@ -20,7 +20,7 @@ procedure pango_cairo_font_map_set_default(fontmap: PPangoCairoFontMap); cdecl; 
 function pango_cairo_font_map_get_font_type(fontmap: PPangoCairoFontMap): Tcairo_font_type_t; cdecl; external libpangocairo;
 procedure pango_cairo_font_map_set_resolution(fontmap: PPangoCairoFontMap; dpi: Tdouble); cdecl; external libpangocairo;
 function pango_cairo_font_map_get_resolution(fontmap: PPangoCairoFontMap): Tdouble; cdecl; external libpangocairo;
-function pango_cairo_font_map_create_context(fontmap: PPangoCairoFontMap): PPangoContext; cdecl; external libpangocairo;
+function pango_cairo_font_map_create_context(fontmap: PPangoCairoFontMap): PPangoContext; cdecl; external libpangocairo; deprecated; // PANGO_DEPRECATED_IN_1_22_FOR(pango_font_map_create_context)
 function pango_cairo_font_get_type: TGType; cdecl; external libpangocairo;
 function pango_cairo_font_get_scaled_font(font: PPangoCairoFont): Pcairo_scaled_font_t; cdecl; external libpangocairo;
 procedure pango_cairo_update_context(cr: Pcairo_t; context: PPangoContext); cdecl; external libpangocairo;

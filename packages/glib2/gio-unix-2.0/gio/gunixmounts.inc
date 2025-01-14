@@ -58,8 +58,8 @@ function g_unix_mounts_changed_since(time: Tguint64): Tgboolean; cdecl; external
 function g_unix_mount_points_changed_since(time: Tguint64): Tgboolean; cdecl; external libgio2;
 function g_unix_mount_monitor_get_type: TGType; cdecl; external libgio2;
 function g_unix_mount_monitor_get: PGUnixMountMonitor; cdecl; external libgio2;
-function g_unix_mount_monitor_new: PGUnixMountMonitor; cdecl; external libgio2;
-procedure g_unix_mount_monitor_set_rate_limit(mount_monitor: PGUnixMountMonitor; limit_msec: longint); cdecl; external libgio2;
+function g_unix_mount_monitor_new: PGUnixMountMonitor; cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_44_FOR(g_unix_mount_monitor_get)
+procedure g_unix_mount_monitor_set_rate_limit(mount_monitor: PGUnixMountMonitor; limit_msec: longint); cdecl; external libgio2; deprecated; // IO_DEPRECATED_IN_2_44
 function g_unix_is_mount_path_system_internal(mount_path: pchar): Tgboolean; cdecl; external libgio2;
 function g_unix_is_system_fs_type(fs_type: pchar): Tgboolean; cdecl; external libgio2;
 function g_unix_is_system_device_path(device_path: pchar): Tgboolean; cdecl; external libgio2;

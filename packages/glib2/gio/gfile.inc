@@ -268,13 +268,13 @@ function g_file_mount_enclosing_volume_finish(location: PGFile; Result: PGAsyncR
 procedure g_file_mount_mountable(file_: PGFile; flags: TGMountMountFlags; mount_operation: PGMountOperation; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
   user_data: Tgpointer); cdecl; external libgio2;
 function g_file_mount_mountable_finish(file_: PGFile; Result: PGAsyncResult; error: PPGError): PGFile; cdecl; external libgio2;
-procedure g_file_unmount_mountable(file_: PGFile; flags: TGMountUnmountFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2;
-function g_file_unmount_mountable_finish(file_: PGFile; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgio2;
+procedure g_file_unmount_mountable(file_: PGFile; flags: TGMountUnmountFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2; deprecated; // GIO_DEPRECATED_FOR(g_file_unmount_mountable_with_operation)
+function g_file_unmount_mountable_finish(file_: PGFile; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgio2; deprecated; // GIO_DEPRECATED_FOR(g_file_unmount_mountable_with_operation_finsih)
 procedure g_file_unmount_mountable_with_operation(file_: PGFile; flags: TGMountUnmountFlags; mount_operation: PGMountOperation; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
   user_data: Tgpointer); cdecl; external libgio2;
 function g_file_unmount_mountable_with_operation_finish(file_: PGFile; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgio2;
-procedure g_file_eject_mountable(file_: PGFile; flags: TGMountUnmountFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2;
-function g_file_eject_mountable_finish(file_: PGFile; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgio2;
+procedure g_file_eject_mountable(file_: PGFile; flags: TGMountUnmountFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2; deprecated; // GIO_DEPRECATED_FOR(g_file_eject_mountable_with_operation)
+function g_file_eject_mountable_finish(file_: PGFile; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgio2; deprecated; // GIO_DEPRECATED_FOR(g_file_eject_mountable_with_operation_finsih)
 procedure g_file_eject_mountable_with_operation(file_: PGFile; flags: TGMountUnmountFlags; mount_operation: PGMountOperation; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
   user_data: Tgpointer); cdecl; external libgio2;
 function g_file_eject_mountable_with_operation_finish(file_: PGFile; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgio2;
