@@ -47,8 +47,8 @@ procedure gtk_im_context_focus_out(context: PGtkIMContext); cdecl; external libg
 procedure gtk_im_context_reset(context: PGtkIMContext); cdecl; external libgtk4;
 procedure gtk_im_context_set_cursor_location(context: PGtkIMContext; area: PGdkRectangle); cdecl; external libgtk4;
 procedure gtk_im_context_set_use_preedit(context: PGtkIMContext; use_preedit: Tgboolean); cdecl; external libgtk4;
-procedure gtk_im_context_set_surrounding(context: PGtkIMContext; Text: PChar; len: longint; cursor_index: longint); cdecl; external libgtk4;
-function gtk_im_context_get_surrounding(context: PGtkIMContext; Text: PPchar; cursor_index: Plongint): Tgboolean; cdecl; external libgtk4;
+procedure gtk_im_context_set_surrounding(context: PGtkIMContext; Text: PChar; len: longint; cursor_index: longint); cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_2_FOR(gtk_im_context_set_surrounding_with_selection)';
+function gtk_im_context_get_surrounding(context: PGtkIMContext; Text: PPchar; cursor_index: Plongint): Tgboolean; cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_2_FOR(gtk_im_context_get_surrounding_with_selection)';
 procedure gtk_im_context_set_surrounding_with_selection(context: PGtkIMContext; Text: PChar; len: longint; cursor_index: longint; anchor_index: longint); cdecl; external libgtk4;
 function gtk_im_context_get_surrounding_with_selection(context: PGtkIMContext; Text: PPchar; cursor_index: Plongint; anchor_index: Plongint): Tgboolean; cdecl; external libgtk4;
 function gtk_im_context_delete_surrounding(context: PGtkIMContext; offset: longint; n_chars: longint): Tgboolean; cdecl; external libgtk4;

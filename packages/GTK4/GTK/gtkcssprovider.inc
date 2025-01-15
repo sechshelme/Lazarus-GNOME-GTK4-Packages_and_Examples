@@ -11,7 +11,7 @@ type
 function gtk_css_provider_get_type: TGType; cdecl; external libgtk4;
 function gtk_css_provider_new: PGtkCssProvider; cdecl; external libgtk4;
 function gtk_css_provider_to_string(provider: PGtkCssProvider): PChar; cdecl; external libgtk4;
-procedure gtk_css_provider_load_from_data(css_provider: PGtkCssProvider; Data: PChar; length: Tgssize); cdecl; external libgtk4;
+procedure gtk_css_provider_load_from_data(css_provider: PGtkCssProvider; Data: PChar; length: Tgssize); cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_12_FOR(gtk_css_provider_load_from_string)';
 procedure gtk_css_provider_load_from_string(css_provider: PGtkCssProvider; _string: PChar); cdecl; external libgtk4;
 procedure gtk_css_provider_load_from_bytes(css_provider: PGtkCssProvider; Data: PGBytes); cdecl; external libgtk4;
 procedure gtk_css_provider_load_from_file(css_provider: PGtkCssProvider; _file: PGFile); cdecl; external libgtk4;

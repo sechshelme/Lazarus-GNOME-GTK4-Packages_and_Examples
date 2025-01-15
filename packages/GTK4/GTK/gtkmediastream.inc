@@ -51,12 +51,12 @@ function gtk_media_stream_get_volume(self: PGtkMediaStream): Tdouble; cdecl; ext
 procedure gtk_media_stream_set_volume(self: PGtkMediaStream; volume: Tdouble); cdecl; external libgtk4;
 procedure gtk_media_stream_realize(self: PGtkMediaStream; surface: PGdkSurface); cdecl; external libgtk4;
 procedure gtk_media_stream_unrealize(self: PGtkMediaStream; surface: PGdkSurface); cdecl; external libgtk4;
-procedure gtk_media_stream_prepared(self: PGtkMediaStream; has_audio: Tgboolean; has_video: Tgboolean; seekable: Tgboolean; duration: Tgint64); cdecl; external libgtk4;
-procedure gtk_media_stream_unprepared(self: PGtkMediaStream); cdecl; external libgtk4;
+procedure gtk_media_stream_prepared(self: PGtkMediaStream; has_audio: Tgboolean; has_video: Tgboolean; seekable: Tgboolean; duration: Tgint64); cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_4_FOR(gtk_media_stream_stream_prepared)';
+procedure gtk_media_stream_unprepared(self: PGtkMediaStream); cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_4_FOR(gtk_media_stream_stream_unprepared)';
 procedure gtk_media_stream_stream_prepared(self: PGtkMediaStream; has_audio: Tgboolean; has_video: Tgboolean; seekable: Tgboolean; duration: Tgint64); cdecl; external libgtk4;
 procedure gtk_media_stream_stream_unprepared(self: PGtkMediaStream); cdecl; external libgtk4;
 procedure gtk_media_stream_update(self: PGtkMediaStream; timestamp: Tgint64); cdecl; external libgtk4;
-procedure gtk_media_stream_ended(self: PGtkMediaStream); cdecl; external libgtk4;
+procedure gtk_media_stream_ended(self: PGtkMediaStream); cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_4_FOR(gtk_media_stream_stream_ended)';
 procedure gtk_media_stream_stream_ended(self: PGtkMediaStream); cdecl; external libgtk4;
 procedure gtk_media_stream_seek_success(self: PGtkMediaStream); cdecl; external libgtk4;
 procedure gtk_media_stream_seek_failed(self: PGtkMediaStream); cdecl; external libgtk4;

@@ -56,7 +56,7 @@ function gtk_window_get_modal(window: PGtkWindow): Tgboolean; cdecl; external li
 function gtk_window_get_toplevels: PGListModel; cdecl; external libgtk4;
 function gtk_window_list_toplevels: PGList; cdecl; external libgtk4;
 procedure gtk_window_present(window: PGtkWindow); cdecl; external libgtk4;
-procedure gtk_window_present_with_time(window: PGtkWindow; timestamp: Tguint32); cdecl; external libgtk4;
+procedure gtk_window_present_with_time(window: PGtkWindow; timestamp: Tguint32); cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_14_FOR(gtk_window_present)';
 procedure gtk_window_minimize(window: PGtkWindow); cdecl; external libgtk4;
 procedure gtk_window_unminimize(window: PGtkWindow); cdecl; external libgtk4;
 procedure gtk_window_maximize(window: PGtkWindow); cdecl; external libgtk4;

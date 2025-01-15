@@ -19,7 +19,7 @@ procedure gtk_drop_target_set_actions(self: PGtkDropTarget; actions: TGdkDragAct
 function gtk_drop_target_get_actions(self: PGtkDropTarget): TGdkDragAction; cdecl; external libgtk4;
 procedure gtk_drop_target_set_preload(self: PGtkDropTarget; preload: Tgboolean); cdecl; external libgtk4;
 function gtk_drop_target_get_preload(self: PGtkDropTarget): Tgboolean; cdecl; external libgtk4;
-function gtk_drop_target_get_drop(self: PGtkDropTarget): PGdkDrop; cdecl; external libgtk4;
+function gtk_drop_target_get_drop(self: PGtkDropTarget): PGdkDrop; cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_4_FOR(gtk_drop_target_get_current_drop)';
 function gtk_drop_target_get_current_drop(self: PGtkDropTarget): PGdkDrop; cdecl; external libgtk4;
 function gtk_drop_target_get_value(self: PGtkDropTarget): PGValue; cdecl; external libgtk4;
 procedure gtk_drop_target_reject(self: PGtkDropTarget); cdecl; external libgtk4;

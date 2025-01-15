@@ -22,7 +22,7 @@ function gtk_toggle_button_new_with_label(_label: PChar): PGtkWidget; cdecl; ext
 function gtk_toggle_button_new_with_mnemonic(_label: PChar): PGtkWidget; cdecl; external libgtk4;
 procedure gtk_toggle_button_set_active(toggle_button: PGtkToggleButton; is_active: Tgboolean); cdecl; external libgtk4;
 function gtk_toggle_button_get_active(toggle_button: PGtkToggleButton): Tgboolean; cdecl; external libgtk4;
-procedure gtk_toggle_button_toggled(toggle_button: PGtkToggleButton); cdecl; external libgtk4;
+procedure gtk_toggle_button_toggled(toggle_button: PGtkToggleButton); cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_10';
 procedure gtk_toggle_button_set_group(toggle_button: PGtkToggleButton; group: PGtkToggleButton); cdecl; external libgtk4;
 
 // === Konventiert am: 21-7-24 19:43:53 ===

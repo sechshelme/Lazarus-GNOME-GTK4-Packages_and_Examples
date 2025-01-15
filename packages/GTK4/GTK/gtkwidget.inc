@@ -117,10 +117,10 @@ function gtk_widget_get_root(widget: PGtkWidget): PGtkRoot; cdecl; external libg
 function gtk_widget_get_native(widget: PGtkWidget): PGtkNative; cdecl; external libgtk4;
 procedure gtk_widget_set_child_visible(widget: PGtkWidget; child_visible: Tgboolean); cdecl; external libgtk4;
 function gtk_widget_get_child_visible(widget: PGtkWidget): Tgboolean; cdecl; external libgtk4;
-function gtk_widget_get_allocated_width(widget: PGtkWidget): longint; cdecl; external libgtk4;
-function gtk_widget_get_allocated_height(widget: PGtkWidget): longint; cdecl; external libgtk4;
-function gtk_widget_get_allocated_baseline(widget: PGtkWidget): longint; cdecl; external libgtk4;
-procedure gtk_widget_get_allocation(widget: PGtkWidget; allocation: PGtkAllocation); cdecl; external libgtk4;
+function gtk_widget_get_allocated_width(widget: PGtkWidget): longint; cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_12_FOR(gtk_widget_get_width)';
+function gtk_widget_get_allocated_height(widget: PGtkWidget): longint; cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_12_FOR(gtk_widget_get_height)';
+function gtk_widget_get_allocated_baseline(widget: PGtkWidget): longint; cdecl; external libgtk4;  deprecated 'GDK_DEPRECATED_IN_4_12_FOR(gtk_widget_get_baseline)';
+procedure gtk_widget_get_allocation(widget: PGtkWidget; allocation: PGtkAllocation); cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_12_FOR(gtk_widget_compute_bounds);'
 function gtk_widget_compute_transform(widget: PGtkWidget; target: PGtkWidget; out_transform: Pgraphene_matrix_t): Tgboolean; cdecl; external libgtk4;
 function gtk_widget_compute_bounds(widget: PGtkWidget; target: PGtkWidget; out_bounds: Pgraphene_rect_t): Tgboolean; cdecl; external libgtk4;
 function gtk_widget_compute_point(widget: PGtkWidget; target: PGtkWidget; point: Pgraphene_point_t; out_point: Pgraphene_point_t): Tgboolean; cdecl; external libgtk4;
@@ -166,7 +166,7 @@ function gtk_widget_get_margin_bottom(widget: PGtkWidget): longint; cdecl; exter
 procedure gtk_widget_set_margin_bottom(widget: PGtkWidget; margin: longint); cdecl; external libgtk4;
 function gtk_widget_is_ancestor(widget: PGtkWidget; ancestor: PGtkWidget): Tgboolean; cdecl; external libgtk4;
 function gtk_widget_translate_coordinates(src_widget: PGtkWidget; dest_widget: PGtkWidget; src_x: Tdouble; src_y: Tdouble; dest_x: Pdouble;
-  dest_y: Pdouble): Tgboolean; cdecl; external libgtk4;
+  dest_y: Pdouble): Tgboolean; cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_12_FOR(gtk_widget_compute_point)';
 function gtk_widget_contains(widget: PGtkWidget; x: Tdouble; y: Tdouble): Tgboolean; cdecl; external libgtk4;
 function gtk_widget_pick(widget: PGtkWidget; x: Tdouble; y: Tdouble; flags: TGtkPickFlags): PGtkWidget; cdecl; external libgtk4;
 procedure gtk_widget_add_controller(widget: PGtkWidget; controller: PGtkEventController); cdecl; external libgtk4;
@@ -198,7 +198,7 @@ function gtk_requisition_new: PGtkRequisition; cdecl; external libgtk4;
 function gtk_requisition_copy(requisition: PGtkRequisition): PGtkRequisition; cdecl; external libgtk4;
 procedure gtk_requisition_free(requisition: PGtkRequisition); cdecl; external libgtk4;
 function gtk_widget_in_destruction(widget: PGtkWidget): Tgboolean; cdecl; external libgtk4;
-function gtk_widget_get_style_context(widget: PGtkWidget): PGtkStyleContext; cdecl; external libgtk4;
+function gtk_widget_get_style_context(widget: PGtkWidget): PGtkStyleContext; cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_10';
 procedure gtk_widget_class_set_css_name(widget_class: PGtkWidgetClass; Name: PChar); cdecl; external libgtk4;
 function gtk_widget_class_get_css_name(widget_class: PGtkWidgetClass): PChar; cdecl; external libgtk4;
 function gtk_widget_add_tick_callback(widget: PGtkWidget; callback: TGtkTickCallback; user_data: Tgpointer; notify: TGDestroyNotify): Tguint; cdecl; external libgtk4;

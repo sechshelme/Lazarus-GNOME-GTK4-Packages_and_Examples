@@ -16,7 +16,7 @@ type
 function gtk_picture_get_type: TGType; cdecl; external libgtk4;
 function gtk_picture_new: PGtkWidget; cdecl; external libgtk4;
 function gtk_picture_new_for_paintable(paintable: PGdkPaintable): PGtkWidget; cdecl; external libgtk4;
-function gtk_picture_new_for_pixbuf(pixbuf: PGdkPixbuf): PGtkWidget; cdecl; external libgtk4;
+function gtk_picture_new_for_pixbuf(pixbuf: PGdkPixbuf): PGtkWidget; cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_12_FOR(gtk_pixbuf_new_for_paintable)';
 function gtk_picture_new_for_file(_file: PGFile): PGtkWidget; cdecl; external libgtk4;
 function gtk_picture_new_for_filename(filename: PChar): PGtkWidget; cdecl; external libgtk4;
 function gtk_picture_new_for_resource(resource_path: PChar): PGtkWidget; cdecl; external libgtk4;
@@ -26,9 +26,9 @@ procedure gtk_picture_set_file(self: PGtkPicture; _file: PGFile); cdecl; externa
 function gtk_picture_get_file(self: PGtkPicture): PGFile; cdecl; external libgtk4;
 procedure gtk_picture_set_filename(self: PGtkPicture; filename: PChar); cdecl; external libgtk4;
 procedure gtk_picture_set_resource(self: PGtkPicture; resource_path: PChar); cdecl; external libgtk4;
-procedure gtk_picture_set_pixbuf(self: PGtkPicture; pixbuf: PGdkPixbuf); cdecl; external libgtk4;
-procedure gtk_picture_set_keep_aspect_ratio(self: PGtkPicture; keep_aspect_ratio: Tgboolean); cdecl; external libgtk4;
-function gtk_picture_get_keep_aspect_ratio(self: PGtkPicture): Tgboolean; cdecl; external libgtk4;
+procedure gtk_picture_set_pixbuf(self: PGtkPicture; pixbuf: PGdkPixbuf); cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_12_FOR(gtk_picture_set_paintable)';
+procedure gtk_picture_set_keep_aspect_ratio(self: PGtkPicture; keep_aspect_ratio: Tgboolean); cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_8_FOR(gtk_picture_set_content_fit)';
+function gtk_picture_get_keep_aspect_ratio(self: PGtkPicture): Tgboolean; cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_8_FOR(gtk_picture_get_content_fit)';
 procedure gtk_picture_set_can_shrink(self: PGtkPicture; can_shrink: Tgboolean); cdecl; external libgtk4;
 function gtk_picture_get_can_shrink(self: PGtkPicture): Tgboolean; cdecl; external libgtk4;
 procedure gtk_picture_set_content_fit(self: PGtkPicture; content_fit: TGtkContentFit); cdecl; external libgtk4;

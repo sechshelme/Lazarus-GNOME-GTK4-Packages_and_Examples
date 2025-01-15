@@ -14,7 +14,7 @@ function gtk_gesture_get_type: TGType; cdecl; external libgtk4;
 function gtk_gesture_get_device(gesture: PGtkGesture): PGdkDevice; cdecl; external libgtk4;
 function gtk_gesture_set_state(gesture: PGtkGesture; state: TGtkEventSequenceState): Tgboolean; cdecl; external libgtk4;
 function gtk_gesture_get_sequence_state(gesture: PGtkGesture; sequence: PGdkEventSequence): TGtkEventSequenceState; cdecl; external libgtk4;
-function gtk_gesture_set_sequence_state(gesture: PGtkGesture; sequence: PGdkEventSequence; state: TGtkEventSequenceState): Tgboolean; cdecl; external libgtk4;
+function gtk_gesture_set_sequence_state(gesture: PGtkGesture; sequence: PGdkEventSequence; state: TGtkEventSequenceState): Tgboolean; cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_10';
 function gtk_gesture_get_sequences(gesture: PGtkGesture): PGList; cdecl; external libgtk4;
 function gtk_gesture_get_last_updated_sequence(gesture: PGtkGesture): PGdkEventSequence; cdecl; external libgtk4;
 function gtk_gesture_handles_sequence(gesture: PGtkGesture; sequence: PGdkEventSequence): Tgboolean; cdecl; external libgtk4;
