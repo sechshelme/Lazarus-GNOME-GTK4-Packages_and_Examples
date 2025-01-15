@@ -37,7 +37,7 @@ function g_tree_lookup(tree: PGTree; key: Tgconstpointer): Tgpointer; cdecl; ext
 function g_tree_lookup_extended(tree: PGTree; lookup_key: Tgconstpointer; orig_key: Pgpointer; Value: Pgpointer): Tgboolean; cdecl; external libglib2;
 procedure g_tree_foreach(tree: PGTree; func: TGTraverseFunc; user_data: Tgpointer); cdecl; external libglib2;
 procedure g_tree_foreach_node(tree: PGTree; func: TGTraverseNodeFunc; user_data: Tgpointer); cdecl; external libglib2;
-procedure g_tree_traverse(tree: PGTree; traverse_func: TGTraverseFunc; traverse_type: TGTraverseType; user_data: Tgpointer); cdecl; external libglib2;
+procedure g_tree_traverse(tree: PGTree; traverse_func: TGTraverseFunc; traverse_type: TGTraverseType; user_data: Tgpointer); cdecl; external libglib2; deprecated; // GLIB_DEPRECATED
 function g_tree_search_node(tree: PGTree; search_func: TGCompareFunc; user_data: Tgconstpointer): PGTreeNode; cdecl; external libglib2;
 function g_tree_search(tree: PGTree; search_func: TGCompareFunc; user_data: Tgconstpointer): Tgpointer; cdecl; external libglib2;
 function g_tree_lower_bound(tree: PGTree; key: Tgconstpointer): PGTreeNode; cdecl; external libglib2;

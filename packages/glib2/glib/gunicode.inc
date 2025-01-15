@@ -307,7 +307,7 @@ const
   G_UNICHAR_MAX_DECOMPOSITION_LENGTH = 18;
 
 procedure g_unicode_canonical_ordering(_string: Pgunichar; len: Tgsize); cdecl; external libglib2;
-function g_unicode_canonical_decomposition(ch: Tgunichar; result_len: Pgsize): Pgunichar; cdecl; external libglib2;
+function g_unicode_canonical_decomposition(ch: Tgunichar; result_len: Pgsize): Pgunichar; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_30
 
 var
   //  g_utf8_skip: Pgchar; cvar;public;

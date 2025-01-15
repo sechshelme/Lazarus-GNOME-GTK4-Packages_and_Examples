@@ -131,11 +131,11 @@ const
 procedure g_io_channel_init(channel: PGIOChannel); cdecl; external libglib2;
 function g_io_channel_ref(channel: PGIOChannel): PGIOChannel; cdecl; external libglib2;
 procedure g_io_channel_unref(channel: PGIOChannel); cdecl; external libglib2;
-function g_io_channel_read(channel: PGIOChannel; buf: Pgchar; Count: Tgsize; bytes_read: Pgsize): TGIOError; cdecl; external libglib2;
-function g_io_channel_write(channel: PGIOChannel; buf: Pgchar; Count: Tgsize; bytes_written: Pgsize): TGIOError; cdecl; external libglib2;
-function g_io_channel_seek(channel: PGIOChannel; offset: Tgint64; _type: TGSeekType): TGIOError; cdecl; external libglib2;
+function g_io_channel_read(channel: PGIOChannel; buf: Pgchar; Count: Tgsize; bytes_read: Pgsize): TGIOError; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_FOR(g_io_channel_read_chars)
+function g_io_channel_write(channel: PGIOChannel; buf: Pgchar; Count: Tgsize; bytes_written: Pgsize): TGIOError; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_FOR(g_io_channel_write_chars)
+function g_io_channel_seek(channel: PGIOChannel; offset: Tgint64; _type: TGSeekType): TGIOError; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_FOR(g_io_channel_seek_position)
 procedure g_io_channel_close(channel: PGIOChannel); cdecl; external libglib2;
-function g_io_channel_shutdown(channel: PGIOChannel; flush: Tgboolean; err: PPGError): TGIOStatus; cdecl; external libglib2;
+function g_io_channel_shutdown(channel: PGIOChannel; flush: Tgboolean; err: PPGError): TGIOStatus; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_FOR(g_io_channel_shutdown)
 function g_io_add_watch_full(channel: PGIOChannel; priority: Tgint; condition: TGIOCondition; func: TGIOFunc; user_data: Tgpointer;
   notify: TGDestroyNotify): Tguint; cdecl; external libglib2;
 function g_io_create_watch(channel: PGIOChannel; condition: TGIOCondition): PGSource; cdecl; external libglib2;
@@ -181,6 +181,7 @@ function g_io_channel_win32_new_messages(hwnd: Tgsize): PGIOChannel; cdecl; exte
 function g_io_channel_win32_new_fd(fd: Tgint): PGIOChannel; cdecl; external libglib2;
 function g_io_channel_win32_get_fd(channel: PGIOChannel): Tgint; cdecl; external libglib2;
 function g_io_channel_win32_new_socket(socket: Tgint): PGIOChannel; cdecl; external libglib2;
+function g_io_channel_win32_new_stream_socket(socket: Integer): PGIOChannel; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_FOR(g_io_channel_win32_new_socket)
 procedure g_io_channel_win32_set_debug(channel: PGIOChannel; flag: Tgboolean); cdecl; external libglib2;
 {$endif}
 

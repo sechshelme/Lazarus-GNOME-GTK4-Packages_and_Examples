@@ -209,15 +209,15 @@ procedure g_scanner_unexp_token(scanner: PGScanner; expected_token: TGTokenType;
 procedure g_scanner_error(scanner: PGScanner; format: Pgchar); varargs; cdecl; external libglib2;
 procedure g_scanner_warn(scanner: PGScanner; format: Pgchar); varargs; cdecl; external libglib2;
 
-function g_scanner_freeze_symbol_table(scanner: Pointer): pointer;
-function g_scanner_thaw_symbol_table(scanner: Pointer): pointer;
+function g_scanner_freeze_symbol_table(scanner: Pointer): pointer; deprecated; // GLIB_DEPRECATED_MACRO_IN_2_26
+function g_scanner_thaw_symbol_table(scanner: Pointer): pointer; deprecated; // GLIB_DEPRECATED_MACRO_IN_2_26
 
 
 // === Konventiert am: 9-8-24 16:52:36 ===
 
 procedure g_scanner_add_symbol(scanner: PGScanner; symbol: Pgchar; Value: Tgpointer);
-procedure g_scanner_remove_symbol(scanner: PGScanner; symbol: Pgchar);
-procedure g_scanner_foreach_symbol(scanner: PGScanner; func: TGHFunc; Data: Tgpointer);
+procedure g_scanner_remove_symbol(scanner: PGScanner; symbol: Pgchar); deprecated; // G_STMT_END GLIB_DEPRECATED_MACRO_IN_2_26_FOR(g_scanner_scope_add_symbol)
+procedure g_scanner_foreach_symbol(scanner: PGScanner; func: TGHFunc; Data: Tgpointer); deprecated; // G_STMT_END GLIB_DEPRECATED_MACRO_IN_2_26_FOR(g_scanner_scope_remove_symbol)
 
 
 {$ENDIF read_interface}

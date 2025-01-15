@@ -48,7 +48,7 @@ function g_test_timer_last: Tdouble; cdecl; external libglib2;
 procedure g_test_queue_free(gfree_pointer: Tgpointer); cdecl; external libglib2;
 procedure g_test_queue_destroy(destroy_func: TGDestroyNotify; destroy_data: Tgpointer); cdecl; external libglib2;
 
-type
+type // GLIB_DEPRECATED_TYPE_IN_2_38_FOR(GTestSubprocessFlags);
   PGTestTrapFlags = ^TGTestTrapFlags;
   TGTestTrapFlags = longint;
 
@@ -58,7 +58,7 @@ const
   G_TEST_TRAP_SILENCE_STDERR = 1 shl 8;
   G_TEST_TRAP_INHERIT_STDIN = 1 shl 9;
 
-function g_test_trap_fork(usec_timeout: Tguint64; test_trap_flags: TGTestTrapFlags): Tgboolean; cdecl; external libglib2;
+function g_test_trap_fork(usec_timeout: Tguint64; test_trap_flags: TGTestTrapFlags): Tgboolean; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_38_FOR (g_test_trap_subprocess)
 
 type
   PGTestSubprocessFlags = ^TGTestSubprocessFlags;

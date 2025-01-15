@@ -19,8 +19,8 @@ function g_date_time_new_from_unix_local(t: Tgint64): PGDateTime; cdecl; externa
 function g_date_time_new_from_unix_utc(t: Tgint64): PGDateTime; cdecl; external libglib2;
 function g_date_time_new_from_unix_local_usec(usecs: Tgint64): PGDateTime; cdecl; external libglib2;
 function g_date_time_new_from_unix_utc_usec(usecs: Tgint64): PGDateTime; cdecl; external libglib2;
-function g_date_time_new_from_timeval_local(tv: PGTimeVal): PGDateTime; cdecl; external libglib2;
-function g_date_time_new_from_timeval_utc(tv: PGTimeVal): PGDateTime; cdecl; external libglib2;
+function g_date_time_new_from_timeval_local(tv: PGTimeVal): PGDateTime; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_62_FOR(g_date_time_new_from_unix_local)
+function g_date_time_new_from_timeval_utc(tv: PGTimeVal): PGDateTime; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_62_FOR(g_date_time_new_from_unix_utc)
 function g_date_time_new_from_iso8601(Text: Pgchar; default_tz: PGTimeZone): PGDateTime; cdecl; external libglib2;
 function g_date_time_new(tz: PGTimeZone; year: Tgint; month: Tgint; day: Tgint; hour: Tgint;
   minute: Tgint; seconds: Tgdouble): PGDateTime; cdecl; external libglib2;
@@ -57,7 +57,7 @@ function g_date_time_get_microsecond(datetime: PGDateTime): Tgint; cdecl; extern
 function g_date_time_get_seconds(datetime: PGDateTime): Tgdouble; cdecl; external libglib2;
 function g_date_time_to_unix(datetime: PGDateTime): Tgint64; cdecl; external libglib2;
 function g_date_time_to_unix_usec(datetime: PGDateTime): Tgint64; cdecl; external libglib2;
-function g_date_time_to_timeval(datetime: PGDateTime; tv: PGTimeVal): Tgboolean; cdecl; external libglib2;
+function g_date_time_to_timeval(datetime: PGDateTime; tv: PGTimeVal): Tgboolean; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_62_FOR(g_date_time_to_unix)
 function g_date_time_get_utc_offset(datetime: PGDateTime): TGTimeSpan; cdecl; external libglib2;
 function g_date_time_get_timezone(datetime: PGDateTime): PGTimeZone; cdecl; external libglib2;
 function g_date_time_get_timezone_abbreviation(datetime: PGDateTime): Pgchar; cdecl; external libglib2;

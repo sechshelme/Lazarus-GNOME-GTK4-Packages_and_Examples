@@ -32,14 +32,14 @@ type
   end;
   PGMemVTable = ^TGMemVTable;
 
-procedure g_mem_set_vtable(vtable: PGMemVTable); cdecl; external libglib2;
-function g_mem_is_system_malloc: Tgboolean; cdecl; external libglib2;
+procedure g_mem_set_vtable(vtable: PGMemVTable); cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_46
+function g_mem_is_system_malloc: Tgboolean; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_46
 
 var
   g_mem_gc_friendly: Tgboolean; cvar;external libglib2;
   glib_mem_profiler_table: PGMemVTable; cvar;external libglib2;
 
-procedure g_mem_profile; cdecl; external libglib2;
+procedure g_mem_profile; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_46
 
 function g_new(bytes_per_struct, n_structs: Tgsize): Tgpointer;
 function g_new0(bytes_per_struct, n_structs: Tgsize): Tgpointer;

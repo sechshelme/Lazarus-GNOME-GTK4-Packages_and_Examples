@@ -77,12 +77,12 @@ const
   G_FORMAT_SIZE_ONLY_UNIT = 1 shl 4;
 
 type
-  TGVoidFunc = procedure(); cdecl;
+  TGVoidFunc = procedure(); cdecl; // GLIB_DEPRECATED_TYPE_IN_2_32;
 
 function g_format_size_full(size: Tguint64; flags: TGFormatSizeFlags): Pgchar; cdecl; external libglib2;
 function g_format_size(size: Tguint64): Pgchar; cdecl; external libglib2;
-function g_format_size_for_display(size: Tgoffset): Pgchar; cdecl; external libglib2;
-procedure g_atexit(func: TGVoidFunc); cdecl; external libglib2;
+function g_format_size_for_display(size: Tgoffset): Pgchar; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_30_FOR(g_format_size)
+procedure g_atexit(func: TGVoidFunc); cdecl; external libglib2; deprecated; // GLIB_DEPRECATED
 function g_find_program_in_path(program_: Pgchar): Pgchar; cdecl; external libglib2;
 function g_bit_nth_lsf(mask: Tgulong; nth_bit: Tgint): Tgint; cdecl; external libglib2;
 function g_bit_nth_msf(mask: Tgulong; nth_bit: Tgint): Tgint; cdecl; external libglib2;

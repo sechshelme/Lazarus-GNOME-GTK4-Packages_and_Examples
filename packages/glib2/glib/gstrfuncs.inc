@@ -60,10 +60,10 @@ function g_ascii_strncasecmp(s1: Pgchar; s2: Pgchar; n: Tgsize): Tgint; cdecl; e
 function g_ascii_strdown(str: Pgchar; len: Tgssize): Pgchar; cdecl; external libglib2;
 function g_ascii_strup(str: Pgchar; len: Tgssize): Pgchar; cdecl; external libglib2;
 function g_str_is_ascii(str: Pgchar): Tgboolean; cdecl; external libglib2;
-function g_strcasecmp(s1: Pgchar; s2: Pgchar): Tgint; cdecl; external libglib2;
-function g_strncasecmp(s1: Pgchar; s2: Pgchar; n: Tguint): Tgint; cdecl; external libglib2;
-function g_strdown(_string: Pgchar): Pgchar; cdecl; external libglib2;
-function g_strup(_string: Pgchar): Pgchar; cdecl; external libglib2;
+function g_strcasecmp(s1: Pgchar; s2: Pgchar): Tgint; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED
+function g_strncasecmp(s1: Pgchar; s2: Pgchar; n: Tguint): Tgint; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED
+function g_strdown(_string: Pgchar): Pgchar; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED
+function g_strup(_string: Pgchar): Pgchar; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED
 function g_strdup(str: Pgchar): Pgchar; cdecl; external libglib2;
 function g_strdup_printf(format: Pgchar): Pgchar; varargs; cdecl; external libglib2;
 function g_strdup_vprintf(format: Pgchar; args: Tva_list): Pgchar; cdecl; external libglib2;
@@ -73,7 +73,7 @@ function g_strconcat(string1: Pgchar): Pgchar; varargs; cdecl; external libglib2
 function g_strjoin(separator: Pgchar): Pgchar; varargs; cdecl; external libglib2;
 function g_strcompress(Source: Pgchar): Pgchar; cdecl; external libglib2;
 function g_strescape(Source: Pgchar; exceptions: Pgchar): Pgchar; cdecl; external libglib2;
-function g_memdup(mem: Tgconstpointer; byte_size: Tguint): Tgpointer; cdecl; external libglib2;
+function g_memdup(mem: Tgconstpointer; byte_size: Tguint): Tgpointer; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_68_FOR (g_memdup2)
 function g_memdup2(mem: Tgconstpointer; byte_size: Tgsize): Tgpointer; cdecl; external libglib2;
 
 type

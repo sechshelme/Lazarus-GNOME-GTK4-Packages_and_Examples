@@ -2,14 +2,14 @@
 {$IFDEF read_interface}
 
 type
-  PGTime = ^TGTime;
   TGTime = Tgint32;
+  PGTime = ^TGTime; // GLIB_DEPRECATED_TYPE_IN_2_62_FOR(GDateTime);
 
-  PGDateYear = ^TGDateYear;
   TGDateYear = Tguint16;
+  PGDateYear = ^TGDateYear;
 
-  PGDateDay = ^TGDateDay;
   TGDateDay = Tguint8;
+  PGDateDay = ^TGDateDay;
 
   PGDateDMY = ^TGDateDMY;
   TGDateDMY =  Longint;
@@ -106,8 +106,8 @@ function g_date_get_iso8601_week_of_year(date:PGDate):Tguint;cdecl;external libg
 procedure g_date_clear(date:PGDate; n_dates:Tguint);cdecl;external libglib2;
 procedure g_date_set_parse(date:PGDate; str:Pgchar);cdecl;external libglib2;
 procedure g_date_set_time_t(date:PGDate; timet:Ttime_t);cdecl;external libglib2;
-procedure g_date_set_time_val(date:PGDate; timeval:PGTimeVal);cdecl;external libglib2;
-procedure g_date_set_time(date:PGDate; time_:TGTime);cdecl;external libglib2;
+procedure g_date_set_time_val(date:PGDate; timeval:PGTimeVal);cdecl;external libglib2; deprecated 'GLIB_DEPRECATED_IN_2_62_FOR(g_date_set_time_t)';
+procedure g_date_set_time(date:PGDate; time_:TGTime);cdecl;external libglib2; deprecated 'GLIB_DEPRECATED_FOR(g_date_set_time_t)';
 procedure g_date_set_month(date:PGDate; month:TGDateMonth);cdecl;external libglib2;
 procedure g_date_set_day(date:PGDate; day:TGDateDay);cdecl;external libglib2;
 procedure g_date_set_year(date:PGDate; year:TGDateYear);cdecl;external libglib2;
@@ -131,6 +131,18 @@ procedure g_date_to_struct_tm(date:PGDate; tm:Ptm);cdecl;external libglib2;
 procedure g_date_clamp(date:PGDate; min_date:PGDate; max_date:PGDate);cdecl;external libglib2;
 procedure g_date_order(date1:PGDate; date2:PGDate);cdecl;external libglib2;
 function g_date_strftime(s:Pgchar; slen:Tgsize; format:Pgchar; date:PGDate):Tgsize;cdecl;external libglib2;
+
+//   #define g_date_weekday 			g_date_get_weekday GLIB_DEPRECATED_MACRO_IN_2_26_FOR(g_date_get_weekday)
+//   #define g_date_month 			g_date_get_month GLIB_DEPRECATED_MACRO_IN_2_26_FOR(g_date_get_month)
+//   #define g_date_year 			g_date_get_year GLIB_DEPRECATED_MACRO_IN_2_26_FOR(g_date_get_year)
+//   #define g_date_day 			g_date_get_day GLIB_DEPRECATED_MACRO_IN_2_26_FOR(g_date_get_day)
+//   #define g_date_julian 			g_date_get_julian GLIB_DEPRECATED_MACRO_IN_2_26_FOR(g_date_get_julian)
+//   #define g_date_day_of_year 		g_date_get_day_of_year GLIB_DEPRECATED_MACRO_IN_2_26_FOR(g_date_get_day_of_year)
+//   #define g_date_monday_week_of_year 	g_date_get_monday_week_of_year GLIB_DEPRECATED_MACRO_IN_2_26_FOR(g_date_get_monday_week_of_year)
+//   #define g_date_sunday_week_of_year 	g_date_get_sunday_week_of_year GLIB_DEPRECATED_MACRO_IN_2_26_FOR(g_date_get_sunday_week_of_year)
+//   #define g_date_days_in_month 		g_date_get_days_in_month GLIB_DEPRECATED_MACRO_IN_2_26_FOR(g_date_get_days_in_month)
+//   #define g_date_monday_weeks_in_year 	g_date_get_monday_weeks_in_year GLIB_DEPRECATED_MACRO_IN_2_26_FOR(g_date_get_monday_weeks_in_year)
+//   #define g_date_sunday_weeks_in_year	g_date_get_sunday_weeks_in_year GLIB_DEPRECATED_MACRO_IN_2_26_FOR(g_date_get_sunday_weeks_in_year)
 
 
 

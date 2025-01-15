@@ -46,8 +46,8 @@ procedure g_string_append_vprintf(_string: PGString; format: Pgchar; args: Tva_l
 procedure g_string_append_printf(_string: PGString; format: Pgchar); varargs; cdecl; external libglib2;
 function g_string_append_uri_escaped(_string: PGString; unescaped: Pgchar; reserved_chars_allowed: Pgchar; allow_utf8: Tgboolean): PGString; cdecl; external libglib2;
 
-function g_string_down(_string: PGString): PGString; cdecl; external libglib2;
-function g_string_up(_string: PGString): PGString; cdecl; external libglib2;
+function g_string_down(_string: PGString): PGString; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED
+function g_string_up(_string: PGString): PGString; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED
 
 
 {$ENDIF read_interface}

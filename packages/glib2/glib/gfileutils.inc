@@ -76,7 +76,7 @@ function g_mkdir_with_parents(pathname: Pgchar; mode: Tgint): Tgint; cdecl; exte
 
 function g_path_is_absolute(file_name: Pgchar): Tgboolean; cdecl; external libglib2;
 function g_path_skip_root(file_name: Pgchar): Pgchar; cdecl; external libglib2;
-function g_basename(file_name: Pgchar): Pgchar; cdecl; external libglib2;
+function g_basename(file_name: Pgchar): Pgchar; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_FOR(g_path_get_basename)
 
 //const
 //g_dirname = g_path_get_dirname;
@@ -84,7 +84,7 @@ function g_basename(file_name: Pgchar): Pgchar; cdecl; external libglib2;
 function g_get_current_dir: Pgchar; cdecl; external libglib2;
 function g_path_get_basename(file_name: Pgchar): Pgchar; cdecl; external libglib2;
 function g_path_get_dirname(file_name: Pgchar): Pgchar; cdecl; external libglib2;
-function g_dirname(file_name: Pgchar): Pgchar; cdecl; external libglib2 Name 'g_path_get_dirname';
+function g_dirname(file_name: Pgchar): Pgchar; cdecl; external libglib2 Name 'g_path_get_dirname'; deprecated; // GLIB_DEPRECATED_MACRO_IN_2_26_FOR(g_path_get_dirname)
 function g_canonicalize_filename(filename: Pgchar; relative_to: Pgchar): Pgchar; cdecl; external libglib2;
 
 function G_IS_DIR_SEPARATOR(c: Pgchar): Tgboolean;

@@ -13,7 +13,7 @@ function g_mapped_file_get_contents(file_: PGMappedFile): Pgchar; cdecl; externa
 function g_mapped_file_get_bytes(file_: PGMappedFile): PGBytes; cdecl; external libglib2;
 function g_mapped_file_ref(file_: PGMappedFile): PGMappedFile; cdecl; external libglib2;
 procedure g_mapped_file_unref(file_: PGMappedFile); cdecl; external libglib2;
-procedure g_mapped_file_free(file_: PGMappedFile); cdecl; external libglib2;
+procedure g_mapped_file_free(file_: PGMappedFile); cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_FOR(g_mapped_file_unref)
 
 // === Konventiert am: 11-8-24 15:58:59 ===
 

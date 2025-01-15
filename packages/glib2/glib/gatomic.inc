@@ -7,7 +7,7 @@ procedure g_atomic_int_inc(atomic: Pgint); cdecl; external libglib2;
 function g_atomic_int_dec_and_test(atomic: Pgint): Tgboolean; cdecl; external libglib2;
 function g_atomic_int_compare_and_exchange(atomic: Pgint; oldval: Tgint; newval: Tgint): Tgboolean; cdecl; external libglib2;
 function g_atomic_int_compare_and_exchange_full(atomic: Pgint; oldval: Tgint; newval: Tgint; preval: Pgint): Tgboolean; cdecl; external libglib2;
-function g_atomic_int_exchange(atomic: Pgint; newval: Tgint): Tgint; cdecl; external libglib2;
+function g_atomic_int_exchange(atomic: Pgint; newval: Tgint): Tgint; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_30_FOR(g_atomic_int_add)
 function g_atomic_int_add(atomic: Pgint; val: Tgint): Tgint; cdecl; external libglib2;
 function g_atomic_int_and(atomic: Pguint; val: Tguint): Tguint; cdecl; external libglib2;
 function g_atomic_int_or(atomic: Pguint; val: Tguint): Tguint; cdecl; external libglib2;
