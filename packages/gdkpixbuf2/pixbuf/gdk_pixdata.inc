@@ -33,10 +33,10 @@ type
 const
   GDK_PIXDATA_HEADER_LENGTH = 4 + 4 + 4 + 4 + 4 + 4;
 
-function gdk_pixdata_serialize(pixdata: PGdkPixdata; stream_length_p: Pguint): Pguint8; cdecl; external libgdk_pixbuf2; deprecated; // GDK_PIXBUF_DEPRECATED_IN_2_32
-function gdk_pixdata_deserialize(pixdata: PGdkPixdata; stream_length: Tguint; stream: Pguint8; error: PPGError): Tgboolean; cdecl; external libgdk_pixbuf2; deprecated; // GDK_PIXBUF_DEPRECATED_IN_2_32
-function gdk_pixdata_from_pixbuf(pixdata: PGdkPixdata; pixbuf: PGdkPixbuf; use_rle: Tgboolean): Tgpointer; cdecl; external libgdk_pixbuf2; deprecated; // GDK_PIXBUF_DEPRECATED_IN_2_32
-function gdk_pixbuf_from_pixdata(pixdata: PGdkPixdata; copy_pixels: Tgboolean; error: PPGError): PGdkPixbuf; cdecl; external libgdk_pixbuf2; deprecated; // GDK_PIXBUF_DEPRECATED_IN_2_32
+function gdk_pixdata_serialize(pixdata: PGdkPixdata; stream_length_p: Pguint): Pguint8; cdecl; external libgdk_pixbuf2; deprecated 'GDK_PIXBUF_DEPRECATED_IN_2_32';
+function gdk_pixdata_deserialize(pixdata: PGdkPixdata; stream_length: Tguint; stream: Pguint8; error: PPGError): Tgboolean; cdecl; external libgdk_pixbuf2; deprecated 'GDK_PIXBUF_DEPRECATED_IN_2_32';
+function gdk_pixdata_from_pixbuf(pixdata: PGdkPixdata; pixbuf: PGdkPixbuf; use_rle: Tgboolean): Tgpointer; cdecl; external libgdk_pixbuf2; deprecated 'GDK_PIXBUF_DEPRECATED_IN_2_32';
+function gdk_pixbuf_from_pixdata(pixdata: PGdkPixdata; copy_pixels: Tgboolean; error: PPGError): PGdkPixbuf; cdecl; external libgdk_pixbuf2; deprecated 'GDK_PIXBUF_DEPRECATED_IN_2_32';
 
 type
   PGdkPixdataDumpType = ^TGdkPixdataDumpType;
@@ -53,7 +53,7 @@ const
   GDK_PIXDATA_DUMP_RLE_DECODER = 1 shl 16;
 
 
-function gdk_pixdata_to_csource(pixdata: PGdkPixdata; Name: Pgchar; dump_type: TGdkPixdataDumpType): PGString; cdecl; external libgdk_pixbuf2; deprecated; // GDK_PIXBUF_DEPRECATED_IN_2_32
+function gdk_pixdata_to_csource(pixdata: PGdkPixdata; Name: Pgchar; dump_type: TGdkPixdataDumpType): PGString; cdecl; external libgdk_pixbuf2; deprecated 'GDK_PIXBUF_DEPRECATED_IN_2_32';
 
 // === Konventiert am: 8-11-24 17:07:36 ===
 

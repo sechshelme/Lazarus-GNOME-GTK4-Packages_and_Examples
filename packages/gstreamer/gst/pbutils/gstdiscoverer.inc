@@ -16,7 +16,7 @@ function gst_discoverer_stream_info_get_caps(info: PGstDiscovererStreamInfo): PG
 function gst_discoverer_stream_info_get_tags(info: PGstDiscovererStreamInfo): PGstTagList; cdecl; external libgstpbutils;
 function gst_discoverer_stream_info_get_toc(info: PGstDiscovererStreamInfo): PGstToc; cdecl; external libgstpbutils;
 function gst_discoverer_stream_info_get_stream_id(info: PGstDiscovererStreamInfo): Pgchar; cdecl; external libgstpbutils;
-function gst_discoverer_stream_info_get_misc(info: PGstDiscovererStreamInfo): PGstStructure; cdecl; external libgstpbutils;
+function gst_discoverer_stream_info_get_misc(info: PGstDiscovererStreamInfo): PGstStructure; cdecl; external libgstpbutils; deprecated 'GST_PBUTILS_DEPRECATED_FOR(gst_discoverer_info_get_missing_elements_installer_details)';
 function gst_discoverer_stream_info_get_stream_type_nick(info: PGstDiscovererStreamInfo): Pgchar; cdecl; external libgstpbutils;
 function gst_discoverer_stream_info_get_stream_number(info: PGstDiscovererStreamInfo): Tgint; cdecl; external libgstpbutils;
 
@@ -121,8 +121,8 @@ function gst_discoverer_info_get_stream_list(info: PGstDiscovererInfo): PGList; 
 function gst_discoverer_info_get_duration(info: PGstDiscovererInfo): TGstClockTime; cdecl; external libgstpbutils;
 function gst_discoverer_info_get_seekable(info: PGstDiscovererInfo): Tgboolean; cdecl; external libgstpbutils;
 function gst_discoverer_info_get_live(info: PGstDiscovererInfo): Tgboolean; cdecl; external libgstpbutils;
-function gst_discoverer_info_get_misc(info: PGstDiscovererInfo): PGstStructure; cdecl; external libgstpbutils;
-function gst_discoverer_info_get_tags(info: PGstDiscovererInfo): PGstTagList; cdecl; external libgstpbutils;
+function gst_discoverer_info_get_misc(info: PGstDiscovererInfo): PGstStructure; cdecl; external libgstpbutils; deprecated 'GST_PBUTILS_DEPRECATED_FOR(gst_discoverer_info_get_missing_elements_installer_details)';
+function gst_discoverer_info_get_tags(info: PGstDiscovererInfo): PGstTagList; cdecl; external libgstpbutils; deprecated 'GST_PBUTILS_DEPRECATED';
 function gst_discoverer_info_get_toc(info: PGstDiscovererInfo): PGstToc; cdecl; external libgstpbutils;
 function gst_discoverer_info_get_missing_elements_installer_details(info: PGstDiscovererInfo): PPgchar; cdecl; external libgstpbutils;
 function gst_discoverer_info_get_streams(info: PGstDiscovererInfo; streamtype: TGType): PGList; cdecl; external libgstpbutils;

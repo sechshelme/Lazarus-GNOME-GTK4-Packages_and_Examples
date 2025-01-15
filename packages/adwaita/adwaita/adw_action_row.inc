@@ -21,8 +21,8 @@ procedure adw_action_row_add_suffix(self: PAdwActionRow; widget: PGtkWidget); cd
 procedure adw_action_row_remove(self: PAdwActionRow; widget: PGtkWidget); cdecl; external libadwaita;
 function adw_action_row_get_subtitle(self: PAdwActionRow): pchar; cdecl; external libadwaita;
 procedure adw_action_row_set_subtitle(self: PAdwActionRow; subtitle: pchar); cdecl; external libadwaita;
-function adw_action_row_get_icon_name(self: PAdwActionRow): pchar; cdecl; external libadwaita; deprecated; // ADW_DEPRECATED_IN_1_3_FOR (adw_action_row_add_prefix)
-procedure adw_action_row_set_icon_name(self: PAdwActionRow; icon_name: pchar); cdecl; external libadwaita; deprecated; // ADW_DEPRECATED_IN_1_3_FOR (adw_action_row_add_prefix)
+function adw_action_row_get_icon_name(self: PAdwActionRow): pchar; cdecl; external libadwaita; deprecated 'ADW_DEPRECATED_IN_1_3_FOR (adw_action_row_add_prefix)';
+procedure adw_action_row_set_icon_name(self: PAdwActionRow; icon_name: pchar); cdecl; external libadwaita; deprecated 'ADW_DEPRECATED_IN_1_3_FOR (adw_action_row_add_prefix)';
 function adw_action_row_get_activatable_widget(self: PAdwActionRow): PGtkWidget; cdecl; external libadwaita;
 procedure adw_action_row_set_activatable_widget(self: PAdwActionRow; widget: PGtkWidget); cdecl; external libadwaita;
 function adw_action_row_get_title_lines(self: PAdwActionRow): longint; cdecl; external libadwaita;

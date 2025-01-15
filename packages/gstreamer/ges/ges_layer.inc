@@ -22,7 +22,7 @@ function ges_layer_add_asset(layer:PGESLayer; asset:PGESAsset; start:TGstClockTi
 function ges_layer_add_asset_full(layer:PGESLayer; asset:PGESAsset; start:TGstClockTime; inpoint:TGstClockTime; duration:TGstClockTime; 
            track_types:TGESTrackType; error:PPGError):PGESClip;cdecl;external libges;
 function ges_layer_remove_clip(layer:PGESLayer; clip:PGESClip):Tgboolean;cdecl;external libges;
-procedure ges_layer_set_priority(layer:PGESLayer; priority:Tguint);cdecl;external libges;
+procedure ges_layer_set_priority(layer:PGESLayer; priority:Tguint);cdecl;external libges; deprecated 'GES_DEPRECATED_FOR(ges_timeline_move_layer)';
 function ges_layer_is_empty(layer:PGESLayer):Tgboolean;cdecl;external libges;
 function ges_layer_get_clips_in_interval(layer:PGESLayer; start:TGstClockTime; end_:TGstClockTime):PGList;cdecl;external libges;
 function ges_layer_get_priority(layer:PGESLayer):Tguint;cdecl;external libges;

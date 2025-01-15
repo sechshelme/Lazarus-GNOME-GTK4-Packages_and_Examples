@@ -27,7 +27,7 @@ procedure ges_text_overlay_set_valignment(self: PGESTextOverlay; valign: TGESTex
 procedure ges_text_overlay_set_color(self: PGESTextOverlay; color: Tguint32); cdecl; external libges;
 procedure ges_text_overlay_set_xpos(self: PGESTextOverlay; position: Tgdouble); cdecl; external libges;
 procedure ges_text_overlay_set_ypos(self: PGESTextOverlay; position: Tgdouble); cdecl; external libges;
-function ges_text_overlay_new: PGESTextOverlay; cdecl; external libges;
+function ges_text_overlay_new: PGESTextOverlay; cdecl; external libges; deprecated 'GES_DEPRECATED';
 function ges_text_overlay_get_text(self: PGESTextOverlay): Pgchar; cdecl; external libges;
 function ges_text_overlay_get_font_desc(self: PGESTextOverlay): pchar; cdecl; external libges;
 function ges_text_overlay_get_halignment(self: PGESTextOverlay): TGESTextHAlign; cdecl; external libges;

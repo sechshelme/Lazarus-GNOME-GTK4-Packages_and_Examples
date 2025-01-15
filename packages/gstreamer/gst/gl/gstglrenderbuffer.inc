@@ -48,7 +48,7 @@ function gst_gl_renderbuffer_allocation_params_new(context: PGstGLContext; alloc
 function gst_gl_renderbuffer_allocation_params_new_wrapped(context: PGstGLContext; alloc_params: PGstAllocationParams; renderbuffer_format: TGstGLFormat; Width: Tguint; Height: Tguint;
   gl_handle: Tgpointer; user_data: Tgpointer; notify: TGDestroyNotify): PGstGLRenderbufferAllocationParams; cdecl; external libgstgl;
 
-function gst_gl_renderbuffer_get_type: TGType; cdecl; external libgstgl;
+function gst_gl_renderbuffer_get_type: TGType; cdecl; external libgstgl; deprecated 'GST_GL_DEPRECATED';
 procedure gst_gl_renderbuffer_init_once; cdecl; external libgstgl;
 function gst_is_gl_renderbuffer(mem: PGstMemory): Tgboolean; cdecl; external libgstgl;
 function gst_gl_renderbuffer_get_width(gl_mem: PGstGLRenderbuffer): Tgint; cdecl; external libgstgl;

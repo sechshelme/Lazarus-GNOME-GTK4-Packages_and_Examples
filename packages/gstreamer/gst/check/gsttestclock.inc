@@ -26,7 +26,7 @@ function gst_test_clock_peek_id_count(test_clock: PGstTestClock): Tguint; cdecl;
 function gst_test_clock_has_id(test_clock: PGstTestClock; id: TGstClockID): Tgboolean; cdecl; external libgstcheck;
 function gst_test_clock_peek_next_pending_id(test_clock: PGstTestClock; pending_id: PGstClockID): Tgboolean; cdecl; external libgstcheck;
 procedure gst_test_clock_wait_for_next_pending_id(test_clock: PGstTestClock; pending_id: PGstClockID); cdecl; external libgstcheck;
-procedure gst_test_clock_wait_for_pending_id_count(test_clock: PGstTestClock; Count: Tguint); cdecl; external libgstcheck;
+procedure gst_test_clock_wait_for_pending_id_count(test_clock: PGstTestClock; Count: Tguint); cdecl; external libgstcheck; deprecated 'GST_CHECK_DEPRECATED_FOR(gst_test_clock_wait_for_multiple_pending_ids)';
 function gst_test_clock_process_next_clock_id(test_clock: PGstTestClock): TGstClockID; cdecl; external libgstcheck;
 function gst_test_clock_get_next_entry_time(test_clock: PGstTestClock): TGstClockTime; cdecl; external libgstcheck;
 procedure gst_test_clock_wait_for_multiple_pending_ids(test_clock: PGstTestClock; Count: Tguint; pending_list: PPGList); cdecl; external libgstcheck;

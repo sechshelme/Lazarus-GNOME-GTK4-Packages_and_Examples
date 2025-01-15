@@ -27,7 +27,7 @@ function gst_object_get_parent(obj: PGstObject): PGstObject; cdecl; external lib
 procedure gst_object_unparent(obj: PGstObject); cdecl; external libgstreamer;
 function gst_object_has_as_parent(obj: PGstObject; parent: PGstObject): Tgboolean; cdecl; external libgstreamer;
 function gst_object_has_as_ancestor(obj: PGstObject; ancestor: PGstObject): Tgboolean; cdecl; external libgstreamer;
-function gst_object_has_ancestor(obj: PGstObject; ancestor: PGstObject): Tgboolean; cdecl; external libgstreamer;
+function gst_object_has_ancestor(obj: PGstObject; ancestor: PGstObject): Tgboolean; cdecl; external libgstreamer; deprecated 'GST_DEPRECATED_FOR(gst_object_has_as_ancestor)';
 procedure gst_object_default_deep_notify(obj: PGObject; orig: PGstObject; pspec: PGParamSpec; excluded_props: PPgchar); cdecl; external libgstreamer;
 function gst_object_ref(obj: Tgpointer): Tgpointer; cdecl; external libgstreamer;
 procedure gst_object_unref(obj: Tgpointer); cdecl; external libgstreamer;

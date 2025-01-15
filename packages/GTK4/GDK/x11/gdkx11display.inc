@@ -16,8 +16,8 @@ function gdk_x11_display_get_xscreen(display: PGdkDisplay): PScreen; cdecl; exte
 function gdk_x11_display_get_xrootwindow(display: PGdkDisplay): TWindow; cdecl; external libgtk4;
 function gdk_x11_display_get_xcursor(display: PGdkDisplay; cursor: PGdkCursor): TCursor; cdecl; external libgtk4;
 function gdk_x11_display_get_user_time(display: PGdkDisplay): Tguint32; cdecl; external libgtk4;
-function gdk_x11_display_get_startup_notification_id(display: PGdkDisplay): PChar; cdecl; external libgtk4;
-procedure gdk_x11_display_set_startup_notification_id(display: PGdkDisplay; startup_id: PChar); cdecl; external libgtk4;
+function gdk_x11_display_get_startup_notification_id(display: PGdkDisplay): PChar; cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_10';
+procedure gdk_x11_display_set_startup_notification_id(display: PGdkDisplay; startup_id: PChar); cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_10';
 procedure gdk_x11_display_set_program_class(display: PGdkDisplay; program_class: PChar); cdecl; external libgtk4;
 procedure gdk_x11_display_set_cursor_theme(display: PGdkDisplay; theme: PChar; size: longint); cdecl; external libgtk4;
 procedure gdk_x11_display_broadcast_startup_message(display: PGdkDisplay; message_type: PChar); varargs cdecl; external libgtk4;

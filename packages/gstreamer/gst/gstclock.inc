@@ -51,7 +51,6 @@ type
   TGstClockEntry = record
     refcount: Tgint;
     clock: PGstClock;
-    _clock: Tgpointer;
     _type: TGstClockEntryType;
     time: TGstClockTime;
     interval: TGstClockTime;

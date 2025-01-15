@@ -15,7 +15,7 @@ type
 const
   GST_GL_MEMORY_PBO_ALLOCATOR_NAME = 'GLMemoryPBO';
 
-function gst_gl_memory_pbo_get_type: TGType; cdecl; external libgstgl;
+function gst_gl_memory_pbo_get_type: TGType; cdecl; external libgstgl; deprecated 'GST_GL_DEPRECATED';
 procedure gst_gl_memory_pbo_init_once; cdecl; external libgstgl;
 function gst_is_gl_memory_pbo(mem: PGstMemory): Tgboolean; cdecl; external libgstgl;
 procedure gst_gl_memory_pbo_download_transfer(gl_mem: PGstGLMemoryPBO); cdecl; external libgstgl;

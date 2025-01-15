@@ -4,9 +4,9 @@ program project1;
 uses
   Crt,
   ctypes,
-  glib280,
-  GLIBTools,
-  gst124;
+  fp_glib2,
+  fp_GLIBTools,
+  fp_gst;
 
 var
   Width: Tgint = 320;

@@ -105,7 +105,7 @@ procedure g_main_context_wakeup(context: PGMainContext); cdecl; external libglib
 function g_main_context_acquire(context: PGMainContext): Tgboolean; cdecl; external libglib2;
 procedure g_main_context_release(context: PGMainContext); cdecl; external libglib2;
 function g_main_context_is_owner(context: PGMainContext): Tgboolean; cdecl; external libglib2;
-function g_main_context_wait(context: PGMainContext; cond: PGCond; mutex: PGMutex): Tgboolean; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_58_FOR(g_main_context_is_owner)
+function g_main_context_wait(context: PGMainContext; cond: PGCond; mutex: PGMutex): Tgboolean; cdecl; external libglib2; deprecated 'GLIB_DEPRECATED_IN_2_58_FOR(g_main_context_is_owner)';
 function g_main_context_prepare(context: PGMainContext; priority: Pgint): Tgboolean; cdecl; external libglib2;
 function g_main_context_query(context: PGMainContext; max_priority: Tgint; timeout_: Pgint; fds: PGPollFD; n_fds: Tgint): Tgint; cdecl; external libglib2;
 function g_main_context_check(context: PGMainContext; max_priority: Tgint; fds: PGPollFD; n_fds: Tgint): Tgboolean; cdecl; external libglib2;
@@ -165,13 +165,13 @@ procedure g_source_add_poll(Source: PGSource; fd: PGPollFD); cdecl; external lib
 procedure g_source_remove_poll(Source: PGSource; fd: PGPollFD); cdecl; external libglib2;
 procedure g_source_add_child_source(Source: PGSource; child_source: PGSource); cdecl; external libglib2;
 procedure g_source_remove_child_source(Source: PGSource; child_source: PGSource); cdecl; external libglib2;
-procedure g_source_get_current_time(Source: PGSource; timeval: PGTimeVal); cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_28_FOR(g_source_get_time)
+procedure g_source_get_current_time(Source: PGSource; timeval: PGTimeVal); cdecl; external libglib2; deprecated 'GLIB_DEPRECATED_IN_2_28_FOR(g_source_get_time)';
 function g_source_get_time(Source: PGSource): Tgint64; cdecl; external libglib2;
 function g_idle_source_new: PGSource; cdecl; external libglib2;
 function g_child_watch_source_new(pid: TGPid): PGSource; cdecl; external libglib2;
 function g_timeout_source_new(interval: Tguint): PGSource; cdecl; external libglib2;
 function g_timeout_source_new_seconds(interval: Tguint): PGSource; cdecl; external libglib2;
-procedure g_get_current_time(Result: PGTimeVal); cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_62_FOR(g_get_real_time)
+procedure g_get_current_time(Result: PGTimeVal); cdecl; external libglib2; deprecated 'GLIB_DEPRECATED_IN_2_62_FOR(g_get_real_time)';
 function g_get_monotonic_time: Tgint64; cdecl; external libglib2;
 function g_get_real_time: Tgint64; cdecl; external libglib2;
 function g_source_remove(tag: Tguint): Tgboolean; cdecl; external libglib2;

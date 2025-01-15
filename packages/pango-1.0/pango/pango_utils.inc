@@ -1,14 +1,14 @@
 
 {$IFDEF read_interface}
 
-function pango_split_file_list(str: pchar): ppchar; cdecl; external libpango; deprecated; // PANGO_DEPRECATED
-function pango_trim_string(str: pchar): pchar; cdecl; external libpango; deprecated; // PANGO_DEPRECATED
-function pango_read_line(stream: PFILE; str: PGString): Tgint; cdecl; external libpango; deprecated; // PANGO_DEPRECATED
-function pango_skip_space(pos: PPchar): Tgboolean; cdecl; external libpango; deprecated; // PANGO_DEPRECATED
-function pango_scan_word(pos: PPchar; out_: PGString): Tgboolean; cdecl; external libpango; deprecated; // PANGO_DEPRECATED
-function pango_scan_string(pos: PPchar; out_: PGString): Tgboolean; cdecl; external libpango; deprecated; // PANGO_DEPRECATED
-function pango_scan_int(pos: PPchar; out_: Plongint): Tgboolean; cdecl; external libpango; deprecated; // PANGO_DEPRECATED
-function pango_parse_enum(_type:TGType; str:Pchar; value:Plongint; warn:Tgboolean; possible_values:PPchar):Tgboolean;cdecl;external libpango; deprecated; // PANGO_DEPRECATED
+function pango_split_file_list(str: pchar): ppchar; cdecl; external libpango; deprecated 'PANGO_DEPRECATED';
+function pango_trim_string(str: pchar): pchar; cdecl; external libpango; deprecated 'PANGO_DEPRECATED';
+function pango_read_line(stream: PFILE; str: PGString): Tgint; cdecl; external libpango; deprecated 'PANGO_DEPRECATED';
+function pango_skip_space(pos: PPchar): Tgboolean; cdecl; external libpango; deprecated 'PANGO_DEPRECATED';
+function pango_scan_word(pos: PPchar; out_: PGString): Tgboolean; cdecl; external libpango; deprecated 'PANGO_DEPRECATED';
+function pango_scan_string(pos: PPchar; out_: PGString): Tgboolean; cdecl; external libpango; deprecated 'PANGO_DEPRECATED';
+function pango_scan_int(pos: PPchar; out_: Plongint): Tgboolean; cdecl; external libpango; deprecated 'PANGO_DEPRECATED';
+function pango_parse_enum(_type:TGType; str:Pchar; value:Plongint; warn:Tgboolean; possible_values:PPchar):Tgboolean;cdecl;external libpango; deprecated 'PANGO_DEPRECATED';
 function pango_parse_style(str: pchar; style: PPangoStyle; warn: Tgboolean): Tgboolean; cdecl; external libpango;
 function pango_parse_variant(str: pchar; variant: PPangoVariant; warn: Tgboolean): Tgboolean; cdecl; external libpango;
 function pango_parse_weight(str: pchar; weight: PPangoWeight; warn: Tgboolean): Tgboolean; cdecl; external libpango;

@@ -46,7 +46,7 @@ const
   GST_CAPS_FEATURE_MEMORY_GL_BUFFER = 'memory:GLBuffer';
   GST_GL_BUFFER_ALLOCATOR_NAME = 'GLBuffer';
 
-function gst_gl_buffer_get_type: TGType; cdecl; external libgstgl;
+function gst_gl_buffer_get_type: TGType; cdecl; external libgstgl; deprecated 'GST_GL_DEPRECATED';
 procedure gst_gl_buffer_init_once; cdecl; external libgstgl;
 function gst_is_gl_buffer(mem: PGstMemory): Tgboolean; cdecl; external libgstgl;
 

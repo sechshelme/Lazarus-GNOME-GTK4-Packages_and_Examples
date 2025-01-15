@@ -23,17 +23,17 @@ type
   PGSettingsClass = ^TGSettingsClass;
 
 function g_settings_get_type: TGType; cdecl; external libgio2;
-function g_settings_list_schemas: PPgchar; cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_40_FOR(g_settings_schema_source_list_schemas)
-function g_settings_list_relocatable_schemas: PPgchar; cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_40_FOR(g_settings_schema_source_list_schemas)
+function g_settings_list_schemas: PPgchar; cdecl; external libgio2; deprecated 'GIO_DEPRECATED_IN_2_40_FOR(g_settings_schema_source_list_schemas)';
+function g_settings_list_relocatable_schemas: PPgchar; cdecl; external libgio2; deprecated 'GIO_DEPRECATED_IN_2_40_FOR(g_settings_schema_source_list_schemas)';
 function g_settings_new(schema_id: Pgchar): PGSettings; cdecl; external libgio2;
 function g_settings_new_with_path(schema_id: Pgchar; path: Pgchar): PGSettings; cdecl; external libgio2;
 function g_settings_new_with_backend(schema_id: Pgchar; backend: PGSettingsBackend): PGSettings; cdecl; external libgio2;
 function g_settings_new_with_backend_and_path(schema_id: Pgchar; backend: PGSettingsBackend; path: Pgchar): PGSettings; cdecl; external libgio2;
 function g_settings_new_full(schema: PGSettingsSchema; backend: PGSettingsBackend; path: Pgchar): PGSettings; cdecl; external libgio2;
 function g_settings_list_children(settings: PGSettings): PPgchar; cdecl; external libgio2;
-function g_settings_list_keys(settings: PGSettings): PPgchar; cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_46_FOR(g_settings_schema_list_keys)
-function g_settings_get_range(settings: PGSettings; key: Pgchar): PGVariant; cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_40_FOR(g_settings_schema_key_get_range)
-function g_settings_range_check(settings: PGSettings; key: Pgchar; Value: PGVariant): Tgboolean; cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_40_FOR(g_settings_schema_key_range_check)
+function g_settings_list_keys(settings: PGSettings): PPgchar; cdecl; external libgio2; deprecated 'GIO_DEPRECATED_IN_2_46_FOR(g_settings_schema_list_keys)';
+function g_settings_get_range(settings: PGSettings; key: Pgchar): PGVariant; cdecl; external libgio2; deprecated 'GIO_DEPRECATED_IN_2_40_FOR(g_settings_schema_key_get_range)';
+function g_settings_range_check(settings: PGSettings; key: Pgchar; Value: PGVariant): Tgboolean; cdecl; external libgio2; deprecated 'GIO_DEPRECATED_IN_2_40_FOR(g_settings_schema_key_range_check)';
 function g_settings_set_value(settings: PGSettings; key: Pgchar; Value: PGVariant): Tgboolean; cdecl; external libgio2;
 function g_settings_get_value(settings: PGSettings; key: Pgchar): PGVariant; cdecl; external libgio2;
 function g_settings_get_user_value(settings: PGSettings; key: Pgchar): PGVariant; cdecl; external libgio2;

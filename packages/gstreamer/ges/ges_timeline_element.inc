@@ -57,7 +57,7 @@ function ges_timeline_element_set_start(self: PGESTimelineElement; start: TGstCl
 function ges_timeline_element_set_inpoint(self: PGESTimelineElement; inpoint: TGstClockTime): Tgboolean; cdecl; external libges;
 function ges_timeline_element_set_duration(self: PGESTimelineElement; duration: TGstClockTime): Tgboolean; cdecl; external libges;
 function ges_timeline_element_set_max_duration(self: PGESTimelineElement; maxduration: TGstClockTime): Tgboolean; cdecl; external libges;
-function ges_timeline_element_set_priority(self: PGESTimelineElement; priority: Tguint32): Tgboolean; cdecl; external libges;
+function ges_timeline_element_set_priority(self: PGESTimelineElement; priority: Tguint32): Tgboolean; cdecl; external libges; deprecated 'GES_DEPRECATED';
 function ges_timeline_element_get_start(self: PGESTimelineElement): TGstClockTime; cdecl; external libges;
 function ges_timeline_element_get_inpoint(self: PGESTimelineElement): TGstClockTime; cdecl; external libges;
 function ges_timeline_element_get_duration(self: PGESTimelineElement): TGstClockTime; cdecl; external libges;

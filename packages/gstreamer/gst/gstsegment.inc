@@ -75,7 +75,7 @@ function gst_segment_position_from_stream_time_full(segment: PGstSegment; format
 function gst_segment_position_from_stream_time(segment: PGstSegment; format: TGstFormat; stream_time: Tguint64): Tguint64; cdecl; external libgstreamer;
 function gst_segment_to_running_time(segment: PGstSegment; format: TGstFormat; position: Tguint64): Tguint64; cdecl; external libgstreamer;
 function gst_segment_to_running_time_full(segment: PGstSegment; format: TGstFormat; position: Tguint64; running_time: Pguint64): Tgint; cdecl; external libgstreamer;
-function gst_segment_to_position(segment: PGstSegment; format: TGstFormat; running_time: Tguint64): Tguint64; cdecl; external libgstreamer;
+function gst_segment_to_position(segment: PGstSegment; format: TGstFormat; running_time: Tguint64): Tguint64; cdecl; external libgstreamer; deprecated 'GST_DEPRECATED_FOR(gst_segment_position_from_running_time)';
 function gst_segment_position_from_running_time_full(segment: PGstSegment; format: TGstFormat; running_time: Tguint64; position: Pguint64): Tgint; cdecl; external libgstreamer;
 function gst_segment_position_from_running_time(segment: PGstSegment; format: TGstFormat; running_time: Tguint64): Tguint64; cdecl; external libgstreamer;
 function gst_segment_set_running_time(segment: PGstSegment; format: TGstFormat; running_time: Tguint64): Tgboolean; cdecl; external libgstreamer;

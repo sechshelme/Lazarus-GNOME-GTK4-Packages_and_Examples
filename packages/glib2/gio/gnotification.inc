@@ -11,7 +11,7 @@ function g_notification_new(title: Pgchar): PGNotification; cdecl; external libg
 procedure g_notification_set_title(notification: PGNotification; title: Pgchar); cdecl; external libgio2;
 procedure g_notification_set_body(notification: PGNotification; body: Pgchar); cdecl; external libgio2;
 procedure g_notification_set_icon(notification: PGNotification; icon: PGIcon); cdecl; external libgio2;
-procedure g_notification_set_urgent(notification: PGNotification; urgent: Tgboolean); cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_42_FOR(g_notification_set_priority)
+procedure g_notification_set_urgent(notification: PGNotification; urgent: Tgboolean); cdecl; external libgio2; deprecated 'GIO_DEPRECATED_IN_2_42_FOR(g_notification_set_priority)';
 procedure g_notification_set_priority(notification: PGNotification; priority: TGNotificationPriority); cdecl; external libgio2;
 procedure g_notification_set_category(notification: PGNotification; category: Pgchar); cdecl; external libgio2;
 procedure g_notification_add_button(notification: PGNotification; _label: Pgchar; detailed_action: Pgchar); cdecl; external libgio2;

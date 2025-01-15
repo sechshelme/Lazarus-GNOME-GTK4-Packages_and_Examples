@@ -21,10 +21,10 @@ type
 
 function g_simple_action_group_get_type: TGType; cdecl; external libgio2;
 function g_simple_action_group_new: PGSimpleActionGroup; cdecl; external libgio2;
-function g_simple_action_group_lookup(simple: PGSimpleActionGroup; action_name: Pgchar): PGAction; cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_38_FOR (g_action_map_lookup_action)
-procedure g_simple_action_group_insert(simple: PGSimpleActionGroup; action: PGAction); cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_38_FOR (g_action_map_add_action)
-procedure g_simple_action_group_remove(simple: PGSimpleActionGroup; action_name: Pgchar); cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_38_FOR (g_action_map_remove_action)
-procedure g_simple_action_group_add_entries(simple: PGSimpleActionGroup; entries: PGActionEntry; n_entries: Tgint; user_data: Tgpointer); cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_38_FOR (g_action_map_add_action_entries)
+function g_simple_action_group_lookup(simple: PGSimpleActionGroup; action_name: Pgchar): PGAction; cdecl; external libgio2; deprecated 'GIO_DEPRECATED_IN_2_38_FOR (g_action_map_lookup_action)';
+procedure g_simple_action_group_insert(simple: PGSimpleActionGroup; action: PGAction); cdecl; external libgio2; deprecated 'GIO_DEPRECATED_IN_2_38_FOR (g_action_map_add_action)';
+procedure g_simple_action_group_remove(simple: PGSimpleActionGroup; action_name: Pgchar); cdecl; external libgio2; deprecated 'GIO_DEPRECATED_IN_2_38_FOR (g_action_map_remove_action)';
+procedure g_simple_action_group_add_entries(simple: PGSimpleActionGroup; entries: PGActionEntry; n_entries: Tgint; user_data: Tgpointer); cdecl; external libgio2; deprecated 'GIO_DEPRECATED_IN_2_38_FOR (g_action_map_add_action_entries)';
 
 // === Konventiert am: 20-8-24 18:02:27 ===
 

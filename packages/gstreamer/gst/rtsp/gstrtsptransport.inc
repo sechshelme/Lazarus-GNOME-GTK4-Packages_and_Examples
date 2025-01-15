@@ -66,7 +66,7 @@ function gst_rtsp_transport_new(transport: PPGstRTSPTransport): TGstRTSPResult; 
 function gst_rtsp_transport_init(transport: PGstRTSPTransport): TGstRTSPResult; cdecl; external libgstrtsp;
 function gst_rtsp_transport_parse(str: Pgchar; transport: PGstRTSPTransport): TGstRTSPResult; cdecl; external libgstrtsp;
 function gst_rtsp_transport_as_text(transport: PGstRTSPTransport): Pgchar; cdecl; external libgstrtsp;
-function gst_rtsp_transport_get_mime(trans: TGstRTSPTransMode; mime: PPgchar): TGstRTSPResult; cdecl; external libgstrtsp;
+function gst_rtsp_transport_get_mime(trans: TGstRTSPTransMode; mime: PPgchar): TGstRTSPResult; cdecl; external libgstrtsp; deprecated 'GST_RTSP_DEPRECATED_FOR(gst_rtsp_transport_get_media_type)';
 function gst_rtsp_transport_get_manager(trans: TGstRTSPTransMode; manager: PPgchar; option: Tguint): TGstRTSPResult; cdecl; external libgstrtsp;
 function gst_rtsp_transport_get_media_type(transport: PGstRTSPTransport; media_type: PPgchar): TGstRTSPResult; cdecl; external libgstrtsp;
 function gst_rtsp_transport_free(transport: PGstRTSPTransport): TGstRTSPResult; cdecl; external libgstrtsp;

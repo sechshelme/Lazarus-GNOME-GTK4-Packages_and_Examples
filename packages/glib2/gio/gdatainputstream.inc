@@ -40,10 +40,10 @@ function g_data_input_stream_read_line_utf8(stream: PGDataInputStream; length: P
 procedure g_data_input_stream_read_line_async(stream: PGDataInputStream; io_priority: Tgint; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2;
 function g_data_input_stream_read_line_finish(stream: PGDataInputStream; Result: PGAsyncResult; length: Pgsize; error: PPGError): PChar; cdecl; external libgio2;
 function g_data_input_stream_read_line_finish_utf8(stream: PGDataInputStream; Result: PGAsyncResult; length: Pgsize; error: PPGError): PChar; cdecl; external libgio2;
-function g_data_input_stream_read_until(stream: PGDataInputStream; stop_chars: Pgchar; length: Pgsize; cancellable: PGCancellable; error: PPGError): PChar; cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_56_FOR (g_data_input_stream_read_upto)
+function g_data_input_stream_read_until(stream: PGDataInputStream; stop_chars: Pgchar; length: Pgsize; cancellable: PGCancellable; error: PPGError): PChar; cdecl; external libgio2; deprecated 'GIO_DEPRECATED_IN_2_56_FOR (g_data_input_stream_read_upto)';
 procedure g_data_input_stream_read_until_async(stream: PGDataInputStream; stop_chars: Pgchar; io_priority: Tgint; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-  user_data: Tgpointer); cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_56_FOR (g_data_input_stream_read_upto_async)
-function g_data_input_stream_read_until_finish(stream: PGDataInputStream; Result: PGAsyncResult; length: Pgsize; error: PPGError): PChar; cdecl; external libgio2; deprecated; // GIO_DEPRECATED_IN_2_56_FOR (g_data_input_stream_read_upto_finish)
+  user_data: Tgpointer); cdecl; external libgio2; deprecated 'GIO_DEPRECATED_IN_2_56_FOR (g_data_input_stream_read_upto_async)';
+function g_data_input_stream_read_until_finish(stream: PGDataInputStream; Result: PGAsyncResult; length: Pgsize; error: PPGError): PChar; cdecl; external libgio2; deprecated 'GIO_DEPRECATED_IN_2_56_FOR (g_data_input_stream_read_upto_finish)';
 function g_data_input_stream_read_upto(stream: PGDataInputStream; stop_chars: Pgchar; stop_chars_len: Tgssize; length: Pgsize; cancellable: PGCancellable;
   error: PPGError): PChar; cdecl; external libgio2;
 procedure g_data_input_stream_read_upto_async(stream: PGDataInputStream; stop_chars: Pgchar; stop_chars_len: Tgssize; io_priority: Tgint; cancellable: PGCancellable;

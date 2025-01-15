@@ -1,8 +1,8 @@
 
 {$IFDEF read_interface}
 
-function gst_video_chroma_from_string(s: Pgchar): TGstVideoChromaSite; cdecl; external libgstvideo;
-function gst_video_chroma_to_string(site: TGstVideoChromaSite): Pgchar; cdecl; external libgstvideo;
+function gst_video_chroma_from_string(s: Pgchar): TGstVideoChromaSite; cdecl; external libgstvideo; deprecated 'GST_VIDEO_DEPRECATED_FOR(gst_video_chroma_site_from_string)';
+function gst_video_chroma_to_string(site: TGstVideoChromaSite): Pgchar; cdecl; external libgstvideo; deprecated 'GST_VIDEO_DEPRECATED_FOR(gst_video_chroma_site_to_string)';
 function gst_video_chroma_site_from_string(s: Pgchar): TGstVideoChromaSite; cdecl; external libgstvideo;
 function gst_video_chroma_site_to_string(site: TGstVideoChromaSite): Pgchar; cdecl; external libgstvideo;
 

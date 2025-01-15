@@ -59,8 +59,8 @@ function g_drive_has_media(drive: PGDrive): Tgboolean; cdecl; external libgio2;
 function g_drive_is_media_check_automatic(drive: PGDrive): Tgboolean; cdecl; external libgio2;
 function g_drive_can_poll_for_media(drive: PGDrive): Tgboolean; cdecl; external libgio2;
 function g_drive_can_eject(drive: PGDrive): Tgboolean; cdecl; external libgio2;
-procedure g_drive_eject(drive: PGDrive; flags: TGMountUnmountFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2; deprecated; // GIO_DEPRECATED_FOR(g_drive_eject_with_operation)
-function g_drive_eject_finish(drive: PGDrive; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgio2; deprecated; // GIO_DEPRECATED_FOR(g_drive_eject_with_operation_finish)
+procedure g_drive_eject(drive: PGDrive; flags: TGMountUnmountFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2; deprecated 'GIO_DEPRECATED_FOR(g_drive_eject_with_operation)';
+function g_drive_eject_finish(drive: PGDrive; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgio2; deprecated 'GIO_DEPRECATED_FOR(g_drive_eject_with_operation_finish)';
 procedure g_drive_poll_for_media(drive: PGDrive; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2;
 function g_drive_poll_for_media_finish(drive: PGDrive; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgio2;
 function g_drive_get_identifier(drive: PGDrive; kind: PChar): PChar; cdecl; external libgio2;

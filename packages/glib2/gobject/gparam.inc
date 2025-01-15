@@ -82,7 +82,7 @@ procedure g_value_set_param(value:PGValue; param:PGParamSpec);cdecl;external lib
 function g_value_get_param(value:PGValue):PGParamSpec;cdecl;external libglib2;
 function g_value_dup_param(value:PGValue):PGParamSpec;cdecl;external libglib2;
 procedure g_value_take_param(value:PGValue; param:PGParamSpec);cdecl;external libglib2;
-procedure g_value_set_param_take_ownership(value:PGValue; param:PGParamSpec);cdecl;external libglib2; deprecated; // GOBJECT_DEPRECATED_FOR(g_value_take_param)
+procedure g_value_set_param_take_ownership(value:PGValue; param:PGParamSpec);cdecl;external libglib2; deprecated 'GOBJECT_DEPRECATED_FOR(g_value_take_param)';
 function g_param_spec_get_default_value(pspec:PGParamSpec):PGValue;cdecl;external libglib2;
 function g_param_spec_get_name_quark(pspec:PGParamSpec):TGQuark;cdecl;external libglib2;
 type

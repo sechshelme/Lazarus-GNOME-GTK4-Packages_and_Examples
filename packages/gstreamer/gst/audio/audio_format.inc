@@ -100,7 +100,7 @@ function gst_audio_format_from_string(format: Pgchar): TGstAudioFormat; cdecl; e
 function gst_audio_format_to_string(format: TGstAudioFormat): Pgchar; cdecl; external libgstaudio;
 function gst_audio_format_get_info(format: TGstAudioFormat): PGstAudioFormatInfo; cdecl; external libgstaudio;
 procedure gst_audio_format_info_fill_silence(info: PGstAudioFormatInfo; dest: Tgpointer; length: Tgsize); cdecl; external libgstaudio;
-procedure gst_audio_format_fill_silence(info: PGstAudioFormatInfo; dest: Tgpointer; length: Tgsize); cdecl; external libgstaudio;
+procedure gst_audio_format_fill_silence(info: PGstAudioFormatInfo; dest: Tgpointer; length: Tgsize); cdecl; external libgstaudio; deprecated 'G_DEPRECATED_FOR(gst_audio_format_info_fill_silence)';
 
 const
   GST_AUDIO_RATE_RANGE = '(int) [ 1, max ]';

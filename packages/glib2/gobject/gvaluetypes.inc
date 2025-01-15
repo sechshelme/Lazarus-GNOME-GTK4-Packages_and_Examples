@@ -1,8 +1,8 @@
 
 {$IFDEF read_interface}
 
-procedure g_value_set_char(value:PGValue; v_char:Tgchar);cdecl;external libglib2; deprecated; // GOBJECT_DEPRECATED_IN_2_32_FOR(g_value_set_schar)
-function g_value_get_char(value:PGValue):Tgchar;cdecl;external libglib2; deprecated; // GOBJECT_DEPRECATED_IN_2_32_FOR(g_value_get_schar)
+procedure g_value_set_char(value:PGValue; v_char:Tgchar);cdecl;external libglib2; deprecated 'GOBJECT_DEPRECATED_IN_2_32_FOR(g_value_set_schar)';
+function g_value_get_char(value:PGValue):Tgchar;cdecl;external libglib2; deprecated 'GOBJECT_DEPRECATED_IN_2_32_FOR(g_value_get_schar)';
 procedure g_value_set_schar(value:PGValue; v_char:Tgint8);cdecl;external libglib2;
 function g_value_get_schar(value:PGValue):Tgint8;cdecl;external libglib2;
 procedure g_value_set_uchar(value:PGValue; v_uchar:Tguchar);cdecl;external libglib2;
@@ -43,7 +43,7 @@ function g_value_dup_variant(value:PGValue):PGVariant;cdecl;external libglib2;
 function g_pointer_type_register_static(name:Pgchar):TGType;cdecl;external libglib2;
 function g_strdup_value_contents(value:PGValue):Pgchar;cdecl;external libglib2;
 procedure g_value_take_string(value:PGValue; v_string:Pgchar);cdecl;external libglib2;
-procedure g_value_set_string_take_ownership(value:PGValue; v_string:Pgchar);cdecl;external libglib2; deprecated; // GOBJECT_DEPRECATED_FOR(g_value_take_string)
+procedure g_value_set_string_take_ownership(value:PGValue; v_string:Pgchar);cdecl;external libglib2; deprecated 'GOBJECT_DEPRECATED_FOR(g_value_take_string)';
 type
   Pgchararray = ^Tgchararray;
   Tgchararray = Pgchar;

@@ -27,10 +27,10 @@ function webkit_settings_get_enable_javascript(settings: PWebKitSettings): Tgboo
 procedure webkit_settings_set_enable_javascript(settings: PWebKitSettings; Enabled: Tgboolean); cdecl; external libwebkit;
 function webkit_settings_get_auto_load_images(settings: PWebKitSettings): Tgboolean; cdecl; external libwebkit;
 procedure webkit_settings_set_auto_load_images(settings: PWebKitSettings; Enabled: Tgboolean); cdecl; external libwebkit;
-function webkit_settings_get_load_icons_ignoring_image_load_setting(settings: PWebKitSettings): Tgboolean; cdecl; external libwebkit; deprecated; // WEBKIT_DEPRECATED
-procedure webkit_settings_set_load_icons_ignoring_image_load_setting(settings: PWebKitSettings; Enabled: Tgboolean); cdecl; external libwebkit; deprecated; // WEBKIT_DEPRECATED
-function webkit_settings_get_enable_offline_web_application_cache(settings: PWebKitSettings): Tgboolean; cdecl; external libwebkit; deprecated; // WEBKIT_DEPRECATED
-procedure webkit_settings_set_enable_offline_web_application_cache(settings: PWebKitSettings; Enabled: Tgboolean); cdecl; external libwebkit; deprecated; // WEBKIT_DEPRECATED
+function webkit_settings_get_load_icons_ignoring_image_load_setting(settings: PWebKitSettings): Tgboolean; cdecl; external libwebkit; deprecated 'WEBKIT_DEPRECATED';
+procedure webkit_settings_set_load_icons_ignoring_image_load_setting(settings: PWebKitSettings; Enabled: Tgboolean); cdecl; external libwebkit; deprecated 'WEBKIT_DEPRECATED';
+function webkit_settings_get_enable_offline_web_application_cache(settings: PWebKitSettings): Tgboolean; cdecl; external libwebkit; deprecated 'WEBKIT_DEPRECATED';
+procedure webkit_settings_set_enable_offline_web_application_cache(settings: PWebKitSettings; Enabled: Tgboolean); cdecl; external libwebkit; deprecated 'WEBKIT_DEPRECATED';
 function webkit_settings_get_enable_html5_local_storage(settings: PWebKitSettings): Tgboolean; cdecl; external libwebkit;
 procedure webkit_settings_set_enable_html5_local_storage(settings: PWebKitSettings; Enabled: Tgboolean); cdecl; external libwebkit;
 function webkit_settings_get_enable_html5_database(settings: PWebKitSettings): Tgboolean; cdecl; external libwebkit;

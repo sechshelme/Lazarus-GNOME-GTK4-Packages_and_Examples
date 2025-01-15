@@ -44,9 +44,9 @@ procedure g_bookmark_file_add_application(bookmark: PGBookmarkFile; uri: Pgchar;
 function g_bookmark_file_has_application(bookmark: PGBookmarkFile; uri: Pgchar; Name: Pgchar; error: PPGError): Tgboolean; cdecl; external libglib2;
 function g_bookmark_file_get_applications(bookmark: PGBookmarkFile; uri: Pgchar; length: Pgsize; error: PPGError): PPgchar; cdecl; external libglib2;
 function g_bookmark_file_set_app_info(bookmark: PGBookmarkFile; uri: Pgchar; Name: Pgchar; exec: Pgchar; Count: Tgint;
-  stamp: Ttime_t; error: PPGError): Tgboolean; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_66_FOR(g_bookmark_file_set_application_info)
+  stamp: Ttime_t; error: PPGError): Tgboolean; cdecl; external libglib2; deprecated 'GLIB_DEPRECATED_IN_2_66_FOR(g_bookmark_file_set_application_info)';
 function g_bookmark_file_set_application_info(bookmark: PGBookmarkFile; uri: PChar; Name: PChar; exec: PChar; Count: longint;
-  stamp: PGDateTime; error: PPGError): Tgboolean; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_66_FOR(g_bookmark_file_get_application_info)
+  stamp: PGDateTime; error: PPGError): Tgboolean; cdecl; external libglib2; deprecated 'GLIB_DEPRECATED_IN_2_66_FOR(g_bookmark_file_get_application_info)';
 function g_bookmark_file_get_app_info(bookmark: PGBookmarkFile; uri: Pgchar; Name: Pgchar; exec: PPgchar; Count: Pguint;
   stamp: Ptime_t; error: PPGError): Tgboolean; cdecl; external libglib2;
 function g_bookmark_file_get_application_info(bookmark: PGBookmarkFile; uri: PChar; Name: PChar; exec: PPchar; Count: Pdword;
@@ -55,17 +55,17 @@ procedure g_bookmark_file_set_is_private(bookmark: PGBookmarkFile; uri: Pgchar; 
 function g_bookmark_file_get_is_private(bookmark: PGBookmarkFile; uri: Pgchar; error: PPGError): Tgboolean; cdecl; external libglib2;
 procedure g_bookmark_file_set_icon(bookmark: PGBookmarkFile; uri: Pgchar; href: Pgchar; mime_type: Pgchar); cdecl; external libglib2;
 function g_bookmark_file_get_icon(bookmark: PGBookmarkFile; uri: Pgchar; href: PPgchar; mime_type: PPgchar; error: PPGError): Tgboolean; cdecl; external libglib2;
-procedure g_bookmark_file_set_added(bookmark: PGBookmarkFile; uri: Pgchar; added: Ttime_t); cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_66_FOR(g_bookmark_file_set_added_date_time)
+procedure g_bookmark_file_set_added(bookmark: PGBookmarkFile; uri: Pgchar; added: Ttime_t); cdecl; external libglib2; deprecated 'GLIB_DEPRECATED_IN_2_66_FOR(g_bookmark_file_set_added_date_time)';
 procedure g_bookmark_file_set_added_date_time(bookmark: PGBookmarkFile; uri: PChar; added: PGDateTime); cdecl; external libglib2;
-function g_bookmark_file_get_added(bookmark: PGBookmarkFile; uri: Pgchar; error: PPGError): Ttime_t; cdecl; external libglib2;  deprecated; // GLIB_DEPRECATED_IN_2_66_FOR(g_bookmark_file_get_added_date_time)
+function g_bookmark_file_get_added(bookmark: PGBookmarkFile; uri: Pgchar; error: PPGError): Ttime_t; cdecl; external libglib2;  deprecated 'GLIB_DEPRECATED_IN_2_66_FOR(g_bookmark_file_get_added_date_time)';
 function g_bookmark_file_get_added_date_time(bookmark: PGBookmarkFile; uri: PChar; error: PPGError): PGDateTime; cdecl; external libglib2;
-procedure g_bookmark_file_set_modified(bookmark: PGBookmarkFile; uri: Pgchar; modified: Ttime_t); cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_66_FOR(g_bookmark_file_set_modified_date_time)
+procedure g_bookmark_file_set_modified(bookmark: PGBookmarkFile; uri: Pgchar; modified: Ttime_t); cdecl; external libglib2; deprecated 'GLIB_DEPRECATED_IN_2_66_FOR(g_bookmark_file_set_modified_date_time)';
 procedure g_bookmark_file_set_modified_date_time(bookmark: PGBookmarkFile; uri: PChar; modified: PGDateTime); cdecl; external libglib2;
-function g_bookmark_file_get_modified(bookmark: PGBookmarkFile; uri: Pgchar; error: PPGError): Ttime_t; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_66_FOR(g_bookmark_file_get_modified_date_time)
+function g_bookmark_file_get_modified(bookmark: PGBookmarkFile; uri: Pgchar; error: PPGError): Ttime_t; cdecl; external libglib2; deprecated 'GLIB_DEPRECATED_IN_2_66_FOR(g_bookmark_file_get_modified_date_time)';
 function g_bookmark_file_get_modified_date_time(bookmark: PGBookmarkFile; uri: PChar; error: PPGError): PGDateTime; cdecl; external libglib2;
-procedure g_bookmark_file_set_visited(bookmark: PGBookmarkFile; uri: Pgchar; visited: Ttime_t); cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_66_FOR(g_bookmark_file_set_visited_date_time)
+procedure g_bookmark_file_set_visited(bookmark: PGBookmarkFile; uri: Pgchar; visited: Ttime_t); cdecl; external libglib2; deprecated 'GLIB_DEPRECATED_IN_2_66_FOR(g_bookmark_file_set_visited_date_time)';
 procedure g_bookmark_file_set_visited_date_time(bookmark: PGBookmarkFile; uri: PChar; visited: PGDateTime); cdecl; external libglib2;
-function g_bookmark_file_get_visited(bookmark: PGBookmarkFile; uri: Pgchar; error: PPGError): Ttime_t; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_66_FOR(g_bookmark_file_get_visited_date_time)
+function g_bookmark_file_get_visited(bookmark: PGBookmarkFile; uri: Pgchar; error: PPGError): Ttime_t; cdecl; external libglib2; deprecated 'GLIB_DEPRECATED_IN_2_66_FOR(g_bookmark_file_get_visited_date_time)';
 function g_bookmark_file_get_visited_date_time(bookmark: PGBookmarkFile; uri: PChar; error: PPGError): PGDateTime; cdecl; external libglib2;
 function g_bookmark_file_has_item(bookmark: PGBookmarkFile; uri: Pgchar): Tgboolean; cdecl; external libglib2;
 function g_bookmark_file_get_size(bookmark: PGBookmarkFile): Tgint; cdecl; external libglib2;

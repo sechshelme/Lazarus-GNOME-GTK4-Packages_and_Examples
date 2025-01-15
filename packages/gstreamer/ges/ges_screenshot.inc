@@ -1,7 +1,7 @@
 {$IFDEF read_interface}
 
 
-function ges_play_sink_convert_frame(playsink: PGstElement; caps: PGstCaps): PGstSample; cdecl; external libges;
+function ges_play_sink_convert_frame(playsink: PGstElement; caps: PGstCaps): PGstSample; cdecl; external libges; deprecated 'GES_DEPRECATED';
 
 // === Konventiert am: 13-12-24 17:01:46 ===
 

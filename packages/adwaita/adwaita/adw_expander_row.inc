@@ -16,15 +16,15 @@ type
 
 function adw_expander_row_get_type: TGType; cdecl; external libadwaita;
 function adw_expander_row_new: PGtkWidget; cdecl; external libadwaita;
-procedure adw_expander_row_add_action(self: PAdwExpanderRow; widget: PGtkWidget); cdecl; external libadwaita; deprecated; // ADW_DEPRECATED_IN_1_4_FOR (adw_expander_row_add_suffix)
+procedure adw_expander_row_add_action(self: PAdwExpanderRow; widget: PGtkWidget); cdecl; external libadwaita; deprecated 'ADW_DEPRECATED_IN_1_4_FOR (adw_expander_row_add_suffix)';
 procedure adw_expander_row_add_prefix(self: PAdwExpanderRow; widget: PGtkWidget); cdecl; external libadwaita;
 procedure adw_expander_row_add_suffix(self: PAdwExpanderRow; widget: PGtkWidget); cdecl; external libadwaita;
 procedure adw_expander_row_add_row(self: PAdwExpanderRow; child: PGtkWidget); cdecl; external libadwaita;
 procedure adw_expander_row_remove(self: PAdwExpanderRow; child: PGtkWidget); cdecl; external libadwaita;
 function adw_expander_row_get_subtitle(self: PAdwExpanderRow): pchar; cdecl; external libadwaita;
 procedure adw_expander_row_set_subtitle(self: PAdwExpanderRow; subtitle: pchar); cdecl; external libadwaita;
-function adw_expander_row_get_icon_name(self: PAdwExpanderRow): pchar; cdecl; external libadwaita; deprecated; // ADW_DEPRECATED_IN_1_3_FOR (adw_expander_row_add_prefix)
-procedure adw_expander_row_set_icon_name(self: PAdwExpanderRow; icon_name: pchar); cdecl; external libadwaita; deprecated; // ADW_DEPRECATED_IN_1_3_FOR (adw_expander_row_add_prefix)
+function adw_expander_row_get_icon_name(self: PAdwExpanderRow): pchar; cdecl; external libadwaita; deprecated 'ADW_DEPRECATED_IN_1_3_FOR (adw_expander_row_add_prefix)';
+procedure adw_expander_row_set_icon_name(self: PAdwExpanderRow; icon_name: pchar); cdecl; external libadwaita; deprecated 'ADW_DEPRECATED_IN_1_3_FOR (adw_expander_row_add_prefix)';
 function adw_expander_row_get_expanded(self: PAdwExpanderRow): Tgboolean; cdecl; external libadwaita;
 procedure adw_expander_row_set_expanded(self: PAdwExpanderRow; expanded: Tgboolean); cdecl; external libadwaita;
 function adw_expander_row_get_enable_expansion(self: PAdwExpanderRow): Tgboolean; cdecl; external libadwaita;

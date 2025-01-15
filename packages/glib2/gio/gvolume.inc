@@ -56,13 +56,13 @@ function g_volume_should_automount(volume: PGVolume): Tgboolean; cdecl; external
 procedure g_volume_mount(volume: PGVolume; flags: TGMountMountFlags; mount_operation: PGMountOperation; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
   user_data: Tgpointer); cdecl; external libgio2;
 function g_volume_mount_finish(volume: PGVolume; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgio2;
-procedure g_volume_eject(volume: PGVolume; flags: TGMountUnmountFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2; deprecated; // GIO_DEPRECATED_FOR(g_volume_eject_with_operation)
-function g_volume_eject_finish(volume: PGVolume; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgio2; deprecated; // GIO_DEPRECATED_FOR(g_volume_eject_with_operation_finish)
+procedure g_volume_eject(volume: PGVolume; flags: TGMountUnmountFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2; deprecated 'GIO_DEPRECATED_FOR(g_volume_eject_with_operation)';
+function g_volume_eject_finish(volume: PGVolume; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgio2; deprecated 'GIO_DEPRECATED_FOR(g_volume_eject_with_operation_finish)';
 function g_volume_get_identifier(volume: PGVolume; kind: PChar): PChar; cdecl; external libgio2;
 function g_volume_enumerate_identifiers(volume: PGVolume): PPChar; cdecl; external libgio2;
 function g_volume_get_activation_root(volume: PGVolume): PGFile; cdecl; external libgio2;
 procedure g_volume_eject_with_operation(volume: PGVolume; flags: TGMountUnmountFlags; mount_operation: PGMountOperation; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-  user_data: Tgpointer); cdecl; external libgio2; deprecated;
+  user_data: Tgpointer); cdecl; external libgio2; 
 function g_volume_eject_with_operation_finish(volume: PGVolume; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl; external libgio2;
 function g_volume_get_sort_key(volume: PGVolume): Pgchar; cdecl; external libgio2;
 

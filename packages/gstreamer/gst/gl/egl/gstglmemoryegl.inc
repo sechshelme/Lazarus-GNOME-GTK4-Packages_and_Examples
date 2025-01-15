@@ -12,7 +12,7 @@ type
   PGstGLMemoryEGL = ^TGstGLMemoryEGL;
 
 
-function gst_gl_memory_egl_get_type: TGType; cdecl; external libgstgl;
+function gst_gl_memory_egl_get_type: TGType; cdecl; external libgstgl; deprecated 'GST_GL_DEPRECATED';
 procedure gst_gl_memory_egl_init_once; cdecl; external libgstgl;
 function gst_is_gl_memory_egl(mem: PGstMemory): Tgboolean; cdecl; external libgstgl;
 function gst_gl_memory_egl_get_image(mem: PGstGLMemoryEGL): Tgpointer; cdecl; external libgstgl;

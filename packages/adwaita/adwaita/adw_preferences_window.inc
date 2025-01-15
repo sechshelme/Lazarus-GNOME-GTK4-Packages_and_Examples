@@ -23,10 +23,10 @@ function adw_preferences_window_get_visible_page_name(self: PAdwPreferencesWindo
 procedure adw_preferences_window_set_visible_page_name(self: PAdwPreferencesWindow; Name: pchar); cdecl; external libadwaita;
 function adw_preferences_window_get_search_enabled(self: PAdwPreferencesWindow): Tgboolean; cdecl; external libadwaita;
 procedure adw_preferences_window_set_search_enabled(self: PAdwPreferencesWindow; search_enabled: Tgboolean); cdecl; external libadwaita;
-function adw_preferences_window_get_can_navigate_back(self: PAdwPreferencesWindow): Tgboolean; cdecl; external libadwaita; deprecated; // ADW_DEPRECATED_IN_1_4_FOR (adw_navigation_page_get_can_pop)
-procedure adw_preferences_window_set_can_navigate_back(self: PAdwPreferencesWindow; can_navigate_back: Tgboolean); cdecl; external libadwaita; deprecated; // ADW_DEPRECATED_IN_1_4_FOR (adw_navigation_page_set_can_pop)
-procedure adw_preferences_window_present_subpage(self: PAdwPreferencesWindow; subpage: PGtkWidget); cdecl; external libadwaita; deprecated; // ADW_DEPRECATED_IN_1_4_FOR (adw_preferences_window_push_subpage)
-procedure adw_preferences_window_close_subpage(self: PAdwPreferencesWindow); cdecl; external libadwaita; deprecated; // ADW_DEPRECATED_IN_1_4_FOR (adw_preferences_window_pop_subpage)
+function adw_preferences_window_get_can_navigate_back(self: PAdwPreferencesWindow): Tgboolean; cdecl; external libadwaita; deprecated 'ADW_DEPRECATED_IN_1_4_FOR (adw_navigation_page_get_can_pop)';
+procedure adw_preferences_window_set_can_navigate_back(self: PAdwPreferencesWindow; can_navigate_back: Tgboolean); cdecl; external libadwaita; deprecated 'ADW_DEPRECATED_IN_1_4_FOR (adw_navigation_page_set_can_pop)';
+procedure adw_preferences_window_present_subpage(self: PAdwPreferencesWindow; subpage: PGtkWidget); cdecl; external libadwaita; deprecated 'ADW_DEPRECATED_IN_1_4_FOR (adw_preferences_window_push_subpage)';
+procedure adw_preferences_window_close_subpage(self: PAdwPreferencesWindow); cdecl; external libadwaita; deprecated 'ADW_DEPRECATED_IN_1_4_FOR (adw_preferences_window_pop_subpage)';
 procedure adw_preferences_window_push_subpage(self: PAdwPreferencesWindow; page: PAdwNavigationPage); cdecl; external libadwaita;
 function adw_preferences_window_pop_subpage(self: PAdwPreferencesWindow): Tgboolean; cdecl; external libadwaita;
 procedure adw_preferences_window_add_toast(self: PAdwPreferencesWindow; toast: PAdwToast); cdecl; external libadwaita;

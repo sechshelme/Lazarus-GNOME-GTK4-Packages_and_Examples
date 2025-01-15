@@ -21,9 +21,9 @@ const
 function g_binding_flags_get_type: TGType; cdecl; external libgobject2_0;
 function g_binding_get_type: TGType; cdecl; external libgobject2_0;
 function g_binding_get_flags(binding: PGBinding): TGBindingFlags; cdecl; external libgobject2_0;
-function g_binding_get_source(binding: PGBinding): PGObject; cdecl; external libgobject2_0; deprecated; // GOBJECT_DEPRECATED_IN_2_68_FOR(g_binding_dup_source)
+function g_binding_get_source(binding: PGBinding): PGObject; cdecl; external libgobject2_0; deprecated 'GOBJECT_DEPRECATED_IN_2_68_FOR(g_binding_dup_source)';
 function g_binding_dup_source(binding: PGBinding): PGObject; cdecl; external libgobject2_0;
-function g_binding_get_target(binding: PGBinding): PGObject; cdecl; external libgobject2_0; deprecated; // GOBJECT_DEPRECATED_IN_2_68_FOR(g_binding_dup_source)
+function g_binding_get_target(binding: PGBinding): PGObject; cdecl; external libgobject2_0; deprecated 'GOBJECT_DEPRECATED_IN_2_68_FOR(g_binding_dup_source)';
 function g_binding_dup_target(binding: PGBinding): PGObject; cdecl; external libgobject2_0;
 function g_binding_get_source_property(binding: PGBinding): Pgchar; cdecl; external libgobject2_0;
 function g_binding_get_target_property(binding: PGBinding): Pgchar; cdecl; external libgobject2_0;

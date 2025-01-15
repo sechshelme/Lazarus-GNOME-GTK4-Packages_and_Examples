@@ -50,7 +50,7 @@ function g_volume_monitor_get_volumes(volume_monitor: PGVolumeMonitor): PGList; 
 function g_volume_monitor_get_mounts(volume_monitor: PGVolumeMonitor): PGList; cdecl; external libgio2;
 function g_volume_monitor_get_volume_for_uuid(volume_monitor: PGVolumeMonitor; uuid: PChar): PGVolume; cdecl; external libgio2;
 function g_volume_monitor_get_mount_for_uuid(volume_monitor: PGVolumeMonitor; uuid: PChar): PGMount; cdecl; external libgio2;
-function g_volume_monitor_adopt_orphan_mount(mount: PGMount): PGVolume; cdecl; external libgio2; deprecated; // GIO_DEPRECATED
+function g_volume_monitor_adopt_orphan_mount(mount: PGMount): PGVolume; cdecl; external libgio2; deprecated 'GIO_DEPRECATED';
 
 // === Konventiert am: 20-8-24 16:20:30 ===
 

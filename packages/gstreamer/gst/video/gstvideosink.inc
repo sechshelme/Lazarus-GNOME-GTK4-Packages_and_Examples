@@ -33,7 +33,7 @@ type
 
 
 function gst_video_sink_get_type: TGType; cdecl; external libgstvideo;
-procedure gst_video_sink_center_rect(src: TGstVideoRectangle; dst: TGstVideoRectangle; Result: PGstVideoRectangle; scaling: Tgboolean); cdecl; external libgstvideo;
+procedure gst_video_sink_center_rect(src: TGstVideoRectangle; dst: TGstVideoRectangle; Result: PGstVideoRectangle; scaling: Tgboolean); cdecl; external libgstvideo; deprecated 'GST_VIDEO_DEPRECATED_FOR(gst_video_center_rect)';
 procedure gst_video_center_rect(src: PGstVideoRectangle; dst: PGstVideoRectangle; Result: PGstVideoRectangle; scaling: Tgboolean); cdecl; external libgstvideo;
 
 function GST_VIDEO_SINK_CAST(obj: Pointer): PGstVideoSink;

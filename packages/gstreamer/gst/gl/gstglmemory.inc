@@ -73,7 +73,7 @@ type
 const
   GST_GL_MEMORY_ALLOCATOR_NAME = 'GLMemory';
 
-function gst_gl_memory_get_type: TGType; cdecl; external libgstgl;
+function gst_gl_memory_get_type: TGType; cdecl; external libgstgl; deprecated 'GST_GL_DEPRECATED';
 procedure gst_gl_memory_init_once; cdecl; external libgstgl;
 function gst_is_gl_memory(mem: PGstMemory): Tgboolean; cdecl; external libgstgl;
 procedure gst_gl_memory_init(mem: PGstGLMemory; allocator: PGstAllocator; parent: PGstMemory; context: PGstGLContext; target: TGstGLTextureTarget;

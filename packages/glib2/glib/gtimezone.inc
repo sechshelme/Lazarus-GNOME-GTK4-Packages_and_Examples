@@ -15,7 +15,7 @@ type
   end;
   PGTimeZone = ^TGTimeZone;
 
-function g_time_zone_new(identifier: Pgchar): PGTimeZone; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_68_FOR (g_time_zone_new_identifier)
+function g_time_zone_new(identifier: Pgchar): PGTimeZone; cdecl; external libglib2; deprecated 'GLIB_DEPRECATED_IN_2_68_FOR (g_time_zone_new_identifier)';
 function g_time_zone_new_identifier(identifier: Pgchar): PGTimeZone; cdecl; external libglib2;
 function g_time_zone_new_utc: PGTimeZone; cdecl; external libglib2;
 function g_time_zone_new_local: PGTimeZone; cdecl; external libglib2;

@@ -88,16 +88,16 @@ function gst_rtsp_watch_send_messages(watch: PGstRTSPWatch; Messages: PGstRTSPMe
 function gst_rtsp_watch_wait_backlog_usec(watch: PGstRTSPWatch; timeout: Tgint64): TGstRTSPResult; cdecl; external libgstrtsp;
 procedure gst_rtsp_watch_set_flushing(watch: PGstRTSPWatch; flushing: Tgboolean); cdecl; external libgstrtsp;
 
-function gst_rtsp_connection_connect(conn: PGstRTSPConnection; timeout: PGTimeVal): TGstRTSPResult; cdecl; external libgstrtsp;
-function gst_rtsp_connection_connect_with_response(conn: PGstRTSPConnection; timeout: PGTimeVal; response: PGstRTSPMessage): TGstRTSPResult; cdecl; external libgstrtsp;
-function gst_rtsp_connection_read(conn: PGstRTSPConnection; Data: Pguint8; size: Tguint; timeout: PGTimeVal): TGstRTSPResult; cdecl; external libgstrtsp;
-function gst_rtsp_connection_write(conn: PGstRTSPConnection; Data: Pguint8; size: Tguint; timeout: PGTimeVal): TGstRTSPResult; cdecl; external libgstrtsp;
-function gst_rtsp_connection_send(conn: PGstRTSPConnection; message: PGstRTSPMessage; timeout: PGTimeVal): TGstRTSPResult; cdecl; external libgstrtsp;
-function gst_rtsp_connection_send_messages(conn: PGstRTSPConnection; Messages: PGstRTSPMessage; n_messages: Tguint; timeout: PGTimeVal): TGstRTSPResult; cdecl; external libgstrtsp;
-function gst_rtsp_connection_receive(conn: PGstRTSPConnection; message: PGstRTSPMessage; timeout: PGTimeVal): TGstRTSPResult; cdecl; external libgstrtsp;
-function gst_rtsp_connection_poll(conn: PGstRTSPConnection; events: TGstRTSPEvent; revents: PGstRTSPEvent; timeout: PGTimeVal): TGstRTSPResult; cdecl; external libgstrtsp;
-function gst_rtsp_connection_next_timeout(conn: PGstRTSPConnection; timeout: PGTimeVal): TGstRTSPResult; cdecl; external libgstrtsp;
-function gst_rtsp_watch_wait_backlog(watch: PGstRTSPWatch; timeout: PGTimeVal): TGstRTSPResult; cdecl; external libgstrtsp;
+function gst_rtsp_connection_connect(conn: PGstRTSPConnection; timeout: PGTimeVal): TGstRTSPResult; cdecl; external libgstrtsp; deprecated 'GST_RTSP_DEPRECATED_FOR (gst_rtsp_connection_connect_usec)';
+function gst_rtsp_connection_connect_with_response(conn: PGstRTSPConnection; timeout: PGTimeVal; response: PGstRTSPMessage): TGstRTSPResult; cdecl; external libgstrtsp; deprecated 'GST_RTSP_DEPRECATED_FOR (gst_rtsp_connection_connect_with_response_usec)';
+function gst_rtsp_connection_read(conn: PGstRTSPConnection; Data: Pguint8; size: Tguint; timeout: PGTimeVal): TGstRTSPResult; cdecl; external libgstrtsp; deprecated 'GST_RTSP_DEPRECATED_FOR (gst_rtsp_connection_read_usec)';
+function gst_rtsp_connection_write(conn: PGstRTSPConnection; Data: Pguint8; size: Tguint; timeout: PGTimeVal): TGstRTSPResult; cdecl; external libgstrtsp; deprecated 'GST_RTSP_DEPRECATED_FOR (gst_rtsp_connection_write_usec)';
+function gst_rtsp_connection_send(conn: PGstRTSPConnection; message: PGstRTSPMessage; timeout: PGTimeVal): TGstRTSPResult; cdecl; external libgstrtsp; deprecated 'GST_RTSP_DEPRECATED_FOR (gst_rtsp_connection_send_usec)';
+function gst_rtsp_connection_send_messages(conn: PGstRTSPConnection; Messages: PGstRTSPMessage; n_messages: Tguint; timeout: PGTimeVal): TGstRTSPResult; cdecl; external libgstrtsp; deprecated 'GST_RTSP_DEPRECATED_FOR (gst_rtsp_connection_send_messages_usec)';
+function gst_rtsp_connection_receive(conn: PGstRTSPConnection; message: PGstRTSPMessage; timeout: PGTimeVal): TGstRTSPResult; cdecl; external libgstrtsp; deprecated 'GST_RTSP_DEPRECATED_FOR (gst_rtsp_connection_receive_usec)';
+function gst_rtsp_connection_poll(conn: PGstRTSPConnection; events: TGstRTSPEvent; revents: PGstRTSPEvent; timeout: PGTimeVal): TGstRTSPResult; cdecl; external libgstrtsp; deprecated 'GST_RTSP_DEPRECATED_FOR (gst_rtsp_connection_poll_usec)';
+function gst_rtsp_connection_next_timeout(conn: PGstRTSPConnection; timeout: PGTimeVal): TGstRTSPResult; cdecl; external libgstrtsp; deprecated 'GST_RTSP_DEPRECATED_FOR (gst_rtsp_connection_next_timeout_usec)';
+function gst_rtsp_watch_wait_backlog(watch: PGstRTSPWatch; timeout: PGTimeVal): TGstRTSPResult; cdecl; external libgstrtsp; deprecated 'GST_RTSP_DEPRECATED_FOR (gst_rtsp_watch_wait_backlog_usec)';
 
 // === Konventiert am: 8-10-24 11:21:31 ===
 

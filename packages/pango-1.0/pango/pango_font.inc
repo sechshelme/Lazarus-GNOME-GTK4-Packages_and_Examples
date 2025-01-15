@@ -179,7 +179,7 @@ function pango_font_get_type: TGType; cdecl; external libpango;
 function pango_font_describe(font: PPangoFont): PPangoFontDescription; cdecl; external libpango;
 function pango_font_describe_with_absolute_size(font: PPangoFont): PPangoFontDescription; cdecl; external libpango;
 function pango_font_get_coverage(font: PPangoFont; language: PPangoLanguage): PPangoCoverage; cdecl; external libpango;
-function pango_font_find_shaper(font: PPangoFont; language: PPangoLanguage; ch: Tguint32): PPangoEngineShape; cdecl; external libpango;deprecated; // PANGO_DEPRECATED_IN_1_44
+function pango_font_find_shaper(font: PPangoFont; language: PPangoLanguage; ch: Tguint32): PPangoEngineShape; cdecl; external libpango;deprecated 'PANGO_DEPRECATED_IN_1_44';
 function pango_font_get_metrics(font: PPangoFont; language: PPangoLanguage): PPangoFontMetrics; cdecl; external libpango;
 procedure pango_font_get_glyph_extents(font: PPangoFont; glyph: TPangoGlyph; ink_rect: PPangoRectangle; logical_rect: PPangoRectangle); cdecl; external libpango;
 function pango_font_get_font_map(font: PPangoFont): PPangoFontMap; cdecl; external libpango;

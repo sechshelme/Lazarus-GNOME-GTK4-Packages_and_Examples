@@ -50,7 +50,7 @@ function ges_container_remove(container: PGESContainer; child: PGESTimelineEleme
 function ges_container_ungroup(container: PGESContainer; recursive: Tgboolean): PGList; cdecl; external libges;
 function ges_container_group(containers: PGList): PGESContainer; cdecl; external libges;
 function ges_container_edit(container: PGESContainer; layers: PGList; new_layer_priority: Tgint; mode: TGESEditMode; edge: TGESEdge;
-  position: Tguint64): Tgboolean; cdecl; external libges;
+  position: Tguint64): Tgboolean; cdecl; external libges; deprecated 'GES_DEPRECATED_FOR(ges_timeline_element_edit)';
 
 function GES_CONTAINER_HEIGHT(obj: Pointer): Tguint32;
 function GES_CONTAINER_CHILDREN(obj: Pointer): PGList;

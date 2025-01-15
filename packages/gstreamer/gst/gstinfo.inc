@@ -138,7 +138,7 @@ function gst_debug_get_default_threshold: TGstDebugLevel; cdecl; external libgst
 procedure gst_debug_set_threshold_for_name(Name: Pgchar; level: TGstDebugLevel); cdecl; external libgstreamer;
 procedure gst_debug_set_threshold_from_string(list: Pgchar; reset: Tgboolean); cdecl; external libgstreamer;
 procedure gst_debug_unset_threshold_for_name(Name: Pgchar); cdecl; external libgstreamer;
-procedure gst_debug_category_free(category: PGstDebugCategory); cdecl; external libgstreamer;
+procedure gst_debug_category_free(category: PGstDebugCategory); cdecl; external libgstreamer; deprecated 'GST_DEPRECATED';
 procedure gst_debug_category_set_threshold(category: PGstDebugCategory; level: TGstDebugLevel); cdecl; external libgstreamer;
 procedure gst_debug_category_reset_threshold(category: PGstDebugCategory); cdecl; external libgstreamer;
 function gst_debug_category_get_threshold(category: PGstDebugCategory): TGstDebugLevel; cdecl; external libgstreamer;

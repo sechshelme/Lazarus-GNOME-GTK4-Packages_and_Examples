@@ -10,7 +10,7 @@ type
   end;
   PPangoEngineClass = ^TPangoEngineClass;
 
-function pango_engine_get_type: TGType; cdecl; external libpango; deprecated; // PANGO_DEPRECATED_IN_1_38
+function pango_engine_get_type: TGType; cdecl; external libpango; deprecated 'PANGO_DEPRECATED_IN_1_38';
 
 const
   PANGO_ENGINE_TYPE_LANG = 'PangoEngineLang';
@@ -24,7 +24,7 @@ type
   PPangoEngineLangClass = ^TPangoEngineLangClass;
 
 
-function pango_engine_lang_get_type: TGType; cdecl; external libpango; deprecated; // PANGO_DEPRECATED_IN_1_38
+function pango_engine_lang_get_type: TGType; cdecl; external libpango; deprecated 'PANGO_DEPRECATED_IN_1_38';
 
 const
   PANGO_ENGINE_TYPE_SHAPE = 'PangoEngineShape';
@@ -38,7 +38,7 @@ type
   end;
   PPangoEngineShapeClass = ^TPangoEngineShapeClass;
 
-function pango_engine_shape_get_type: TGType; cdecl; external libpango; deprecated; // PANGO_DEPRECATED_IN_1_38
+function pango_engine_shape_get_type: TGType; cdecl; external libpango; deprecated 'PANGO_DEPRECATED_IN_1_38';
 
 type
   TPangoEngineScriptInfo = record
@@ -57,10 +57,10 @@ type
   PPangoEngineInfo = ^TPangoEngineInfo;
   PPPangoEngineInfo = ^PPangoEngineInfo;
 
-procedure script_engine_list(engines: PPPangoEngineInfo; n_engines: Plongint); cdecl; external libpango; deprecated; // PANGO_DEPRECATED_IN_1_38
-procedure script_engine_init(module: PGTypeModule); cdecl; external libpango; deprecated; // PANGO_DEPRECATED_IN_1_38
-procedure script_engine_exit; cdecl; external libpango; deprecated; // PANGO_DEPRECATED_IN_1_38
-function script_engine_create(id: pchar): PPangoEngine; cdecl; external libpango; deprecated; // PANGO_DEPRECATED_IN_1_38
+procedure script_engine_list(engines: PPPangoEngineInfo; n_engines: Plongint); cdecl; external libpango; deprecated 'PANGO_DEPRECATED_IN_1_38';
+procedure script_engine_init(module: PGTypeModule); cdecl; external libpango; deprecated 'PANGO_DEPRECATED_IN_1_38';
+procedure script_engine_exit; cdecl; external libpango; deprecated 'PANGO_DEPRECATED_IN_1_38';
+function script_engine_create(id: pchar): PPangoEngine; cdecl; external libpango; deprecated 'PANGO_DEPRECATED_IN_1_38';
 
 // === Konventiert am: 23-11-24 19:33:33 ===
 

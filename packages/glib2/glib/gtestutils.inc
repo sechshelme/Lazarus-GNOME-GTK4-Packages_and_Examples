@@ -58,7 +58,7 @@ const
   G_TEST_TRAP_SILENCE_STDERR = 1 shl 8;
   G_TEST_TRAP_INHERIT_STDIN = 1 shl 9;
 
-function g_test_trap_fork(usec_timeout: Tguint64; test_trap_flags: TGTestTrapFlags): Tgboolean; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_38_FOR (g_test_trap_subprocess)
+function g_test_trap_fork(usec_timeout: Tguint64; test_trap_flags: TGTestTrapFlags): Tgboolean; cdecl; external libglib2; deprecated 'GLIB_DEPRECATED_IN_2_38_FOR (g_test_trap_subprocess)';
 
 type
   PGTestSubprocessFlags = ^TGTestSubprocessFlags;

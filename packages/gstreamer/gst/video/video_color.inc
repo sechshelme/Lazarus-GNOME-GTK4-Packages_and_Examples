@@ -48,9 +48,9 @@ const
   GST_VIDEO_TRANSFER_ARIB_STD_B67 = 15;
   GST_VIDEO_TRANSFER_BT601 = 16;
 
-function gst_video_color_transfer_encode(func: TGstVideoTransferFunction; val: Tgdouble): Tgdouble; cdecl; external libgstvideo;
+function gst_video_color_transfer_encode(func: TGstVideoTransferFunction; val: Tgdouble): Tgdouble; cdecl; external libgstvideo; deprecated 'GST_VIDEO_DEPRECATED_FOR(gst_video_transfer_function_encode)';
 function gst_video_transfer_function_encode(func: TGstVideoTransferFunction; val: Tgdouble): Tgdouble; cdecl; external libgstvideo;
-function gst_video_color_transfer_decode(func: TGstVideoTransferFunction; val: Tgdouble): Tgdouble; cdecl; external libgstvideo;
+function gst_video_color_transfer_decode(func: TGstVideoTransferFunction; val: Tgdouble): Tgdouble; cdecl; external libgstvideo; deprecated 'GST_VIDEO_DEPRECATED_FOR(gst_video_transfer_function_decode)';
 function gst_video_transfer_function_decode(func: TGstVideoTransferFunction; val: Tgdouble): Tgdouble; cdecl; external libgstvideo;
 
 type

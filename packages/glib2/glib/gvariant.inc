@@ -165,7 +165,7 @@ const
   G_VARIANT_PARSE_ERROR_VALUE_EXPECTED = 17;
   G_VARIANT_PARSE_ERROR_RECURSION = 18;
 
-function g_variant_parser_get_error_quark: TGQuark; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_38_FOR(g_variant_parse_error_quark)
+function g_variant_parser_get_error_quark: TGQuark; cdecl; external libglib2; deprecated 'GLIB_DEPRECATED_IN_2_38_FOR(g_variant_parse_error_quark)';
 function g_variant_parse_error_quark: TGQuark; cdecl; external libglib2;
 function g_variant_builder_new(_type: PGVariantType): PGVariantBuilder; cdecl; external libglib2;
 procedure g_variant_builder_unref(builder: PGVariantBuilder); cdecl; external libglib2;

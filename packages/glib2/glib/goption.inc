@@ -94,7 +94,7 @@ function g_option_context_get_help(context: PGOptionContext; main_help: Tgboolea
 function g_option_group_new(Name: Pgchar; description: Pgchar; help_description: Pgchar; user_data: Tgpointer; Destroy: TGDestroyNotify): PGOptionGroup; cdecl; external libglib2;
 procedure g_option_group_set_parse_hooks(group: PGOptionGroup; pre_parse_func: TGOptionParseFunc; post_parse_func: TGOptionParseFunc); cdecl; external libglib2;
 procedure g_option_group_set_error_hook(group: PGOptionGroup; error_func: TGOptionErrorFunc); cdecl; external libglib2;
-procedure g_option_group_free(group: PGOptionGroup); cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_44
+procedure g_option_group_free(group: PGOptionGroup); cdecl; external libglib2; deprecated 'GLIB_DEPRECATED_IN_2_44';
 function g_option_group_ref(group: PGOptionGroup): PGOptionGroup; cdecl; external libglib2;
 procedure g_option_group_unref(group: PGOptionGroup); cdecl; external libglib2;
 procedure g_option_group_add_entries(group: PGOptionGroup; entries: PGOptionEntry); cdecl; external libglib2;

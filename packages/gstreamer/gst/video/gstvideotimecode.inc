@@ -45,14 +45,14 @@ function gst_video_time_code_new(fps_n: Tguint; fps_d: Tguint; latest_daily_jam:
   minutes: Tguint; seconds: Tguint; frames: Tguint; field_count: Tguint): PGstVideoTimeCode; cdecl; external libgstvideo;
 function gst_video_time_code_new_empty: PGstVideoTimeCode; cdecl; external libgstvideo;
 function gst_video_time_code_new_from_string(tc_str: Pgchar): PGstVideoTimeCode; cdecl; external libgstvideo;
-function gst_video_time_code_new_from_date_time(fps_n: Tguint; fps_d: Tguint; dt: PGDateTime; flags: TGstVideoTimeCodeFlags; field_count: Tguint): PGstVideoTimeCode; cdecl; external libgstvideo;
+function gst_video_time_code_new_from_date_time(fps_n: Tguint; fps_d: Tguint; dt: PGDateTime; flags: TGstVideoTimeCodeFlags; field_count: Tguint): PGstVideoTimeCode; cdecl; external libgstvideo; deprecated 'GST_VIDEO_DEPRECATED_FOR(gst_video_time_code_new_from_date_time_full)';
 function gst_video_time_code_new_from_date_time_full(fps_n: Tguint; fps_d: Tguint; dt: PGDateTime; flags: TGstVideoTimeCodeFlags; field_count: Tguint): PGstVideoTimeCode; cdecl; external libgstvideo;
 procedure gst_video_time_code_free(tc: PGstVideoTimeCode); cdecl; external libgstvideo;
 function gst_video_time_code_copy(tc: PGstVideoTimeCode): PGstVideoTimeCode; cdecl; external libgstvideo;
 procedure gst_video_time_code_init(tc: PGstVideoTimeCode; fps_n: Tguint; fps_d: Tguint; latest_daily_jam: PGDateTime; flags: TGstVideoTimeCodeFlags;
   hours: Tguint; minutes: Tguint; seconds: Tguint; frames: Tguint; field_count: Tguint); cdecl; external libgstvideo;
 procedure gst_video_time_code_init_from_date_time(tc: PGstVideoTimeCode; fps_n: Tguint; fps_d: Tguint; dt: PGDateTime; flags: TGstVideoTimeCodeFlags;
-  field_count: Tguint); cdecl; external libgstvideo;
+  field_count: Tguint); cdecl; external libgstvideo; deprecated 'GST_VIDEO_DEPRECATED_FOR(gst_video_time_code_init_from_date_time_full)';
 function gst_video_time_code_init_from_date_time_full(tc: PGstVideoTimeCode; fps_n: Tguint; fps_d: Tguint; dt: PGDateTime; flags: TGstVideoTimeCodeFlags;
   field_count: Tguint): Tgboolean; cdecl; external libgstvideo;
 procedure gst_video_time_code_clear(tc: PGstVideoTimeCode); cdecl; external libgstvideo;

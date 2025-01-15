@@ -50,7 +50,7 @@ function gst_ghost_pad_new_from_template(Name: Pgchar; target: PGstPad; templ: P
 function gst_ghost_pad_new_no_target_from_template(Name: Pgchar; templ: PGstPadTemplate): PGstPad; cdecl; external libgstreamer;
 function gst_ghost_pad_get_target(gpad: PGstGhostPad): PGstPad; cdecl; external libgstreamer;
 function gst_ghost_pad_set_target(gpad: PGstGhostPad; newtarget: PGstPad): Tgboolean; cdecl; external libgstreamer;
-function gst_ghost_pad_construct(gpad: PGstGhostPad): Tgboolean; cdecl; external libgstreamer;
+function gst_ghost_pad_construct(gpad: PGstGhostPad): Tgboolean; cdecl; external libgstreamer; deprecated 'GST_DEPRECATED';
 function gst_ghost_pad_activate_mode_default(pad: PGstPad; parent: PGstObject; mode: TGstPadMode; active: Tgboolean): Tgboolean; cdecl; external libgstreamer;
 function gst_ghost_pad_internal_activate_mode_default(pad: PGstPad; parent: PGstObject; mode: TGstPadMode; active: Tgboolean): Tgboolean; cdecl; external libgstreamer;
 

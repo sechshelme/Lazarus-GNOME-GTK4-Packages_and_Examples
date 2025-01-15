@@ -165,7 +165,7 @@ function gst_element_add_pad(element: PGstElement; pad: PGstPad): Tgboolean; cde
 function gst_element_remove_pad(element: PGstElement; pad: PGstPad): Tgboolean; cdecl; external libgstreamer;
 procedure gst_element_no_more_pads(element: PGstElement); cdecl; external libgstreamer;
 function gst_element_get_static_pad(element: PGstElement; Name: Pgchar): PGstPad; cdecl; external libgstreamer;
-function gst_element_get_request_pad(element: PGstElement; Name: Pgchar): PGstPad; cdecl; external libgstreamer;
+function gst_element_get_request_pad(element: PGstElement; Name: Pgchar): PGstPad; cdecl; external libgstreamer; deprecated 'GST_API G_DEPRECATED_FOR(gst_element_request_pad_simple)';
 function gst_element_request_pad_simple(element: PGstElement; Name: Pgchar): PGstPad; cdecl; external libgstreamer;
 function gst_element_request_pad(element: PGstElement; templ: PGstPadTemplate; Name: Pgchar; caps: PGstCaps): PGstPad; cdecl; external libgstreamer;
 procedure gst_element_release_request_pad(element: PGstElement; pad: PGstPad); cdecl; external libgstreamer;

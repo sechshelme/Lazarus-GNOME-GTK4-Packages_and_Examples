@@ -39,8 +39,8 @@ type
 
 function gdk_pixbuf_error_quark: TGQuark; cdecl; external libgdk_pixbuf2;
 function gdk_pixbuf_get_type: TGType; cdecl; external libgdk_pixbuf2;
-function gdk_pixbuf_ref(pixbuf: PGdkPixbuf): PGdkPixbuf; cdecl; external libgdk_pixbuf2; deprecated; // GDK_PIXBUF_DEPRECATED_IN_2_0_FOR(g_object_ref)
-procedure gdk_pixbuf_unref(pixbuf: PGdkPixbuf); cdecl; external libgdk_pixbuf2; deprecated; // GDK_PIXBUF_DEPRECATED_IN_2_0_FOR(g_object_unref)
+function gdk_pixbuf_ref(pixbuf: PGdkPixbuf): PGdkPixbuf; cdecl; external libgdk_pixbuf2; deprecated 'GDK_PIXBUF_DEPRECATED_IN_2_0_FOR(g_object_ref)';
+procedure gdk_pixbuf_unref(pixbuf: PGdkPixbuf); cdecl; external libgdk_pixbuf2; deprecated 'GDK_PIXBUF_DEPRECATED_IN_2_0_FOR(g_object_unref)';
 function gdk_pixbuf_get_colorspace(pixbuf: PGdkPixbuf): TGdkColorspace; cdecl; external libgdk_pixbuf2;
 function gdk_pixbuf_get_n_channels(pixbuf: PGdkPixbuf): longint; cdecl; external libgdk_pixbuf2;
 function gdk_pixbuf_get_has_alpha(pixbuf: PGdkPixbuf): Tgboolean; cdecl; external libgdk_pixbuf2;
@@ -72,7 +72,7 @@ function gdk_pixbuf_new_from_data(Data: Pguchar; colorspace: TGdkColorspace; has
 function gdk_pixbuf_new_from_bytes(Data: PGBytes; colorspace: TGdkColorspace; has_alpha: Tgboolean; bits_per_sample: longint; Width: longint;
   Height: longint; rowstride: longint): PGdkPixbuf; cdecl; external libgdk_pixbuf2;
 function gdk_pixbuf_new_from_xpm_data(Data: PPansichar): PGdkPixbuf; cdecl; external libgdk_pixbuf2;
-function gdk_pixbuf_new_from_inline(data_length: Tgint; Data: Pguint8; copy_pixels: Tgboolean; error: PPGError): PGdkPixbuf; cdecl; external libgdk_pixbuf2; deprecated; // GDK_PIXBUF_DEPRECATED_IN_2_32
+function gdk_pixbuf_new_from_inline(data_length: Tgint; Data: Pguint8; copy_pixels: Tgboolean; error: PPGError): PGdkPixbuf; cdecl; external libgdk_pixbuf2; deprecated 'GDK_PIXBUF_DEPRECATED_IN_2_32';
 procedure gdk_pixbuf_fill(pixbuf: PGdkPixbuf; pixel: Tguint32); cdecl; external libgdk_pixbuf2;
 
 //const

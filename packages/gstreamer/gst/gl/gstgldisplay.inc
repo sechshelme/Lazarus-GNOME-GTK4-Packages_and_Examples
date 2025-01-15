@@ -22,7 +22,7 @@ procedure gst_gl_display_remove_context(display: PGstGLDisplay; context: PGstGLC
 function gst_gl_display_ensure_context(display: PGstGLDisplay; other_context: PGstGLContext; context: PPGstGLContext; error: PPGError): Tgboolean; cdecl; external libgstgl;
 function gst_gl_display_create_window(display: PGstGLDisplay): PGstGLWindow; cdecl; external libgstgl;
 function gst_gl_display_remove_window(display: PGstGLDisplay; window: PGstGLWindow): Tgboolean; cdecl; external libgstgl;
-function gst_gl_display_find_window(display: PGstGLDisplay; Data: Tgpointer; compare_func: TGCompareFunc): PGstGLWindow; cdecl; external libgstgl;
+function gst_gl_display_find_window(display: PGstGLDisplay; Data: Tgpointer; compare_func: TGCompareFunc): PGstGLWindow; cdecl; external libgstgl; deprecated 'GST_GL_DEPRECATED_FOR(gst_gl_display_retrieve_window)';
 function gst_gl_display_retrieve_window(display: PGstGLDisplay; Data: Tgpointer; compare_func: TGCompareFunc): PGstGLWindow; cdecl; external libgstgl;
 
 function GST_GL_DISPLAY_CAST(obj: Pointer): PGstGLDisplay;

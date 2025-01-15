@@ -45,7 +45,7 @@ procedure g_module_make_resident(module: PGModule); cdecl; external libgmodule;
 function g_module_error: Pgchar; cdecl; external libgmodule;
 function g_module_symbol(module: PGModule; symbol_name: Pgchar; symbol: Pgpointer): Tgboolean; cdecl; external libgmodule;
 function g_module_name(module: PGModule): Pgchar; cdecl; external libgmodule;
-function g_module_build_path(directory: Pgchar; module_name: Pgchar): Pgchar; cdecl; external libgmodule;
+function g_module_build_path(directory: Pgchar; module_name: Pgchar): Pgchar; cdecl; external libgmodule; deprecated 'GMODULE_DEPRECATED_IN_2_76';
 
 function G_MODULE_ERROR_: TGQuark;
 

@@ -44,7 +44,7 @@ function gst_uri_is_valid(uri: Pgchar): Tgboolean; cdecl; external libgstreamer;
 function gst_uri_get_protocol(uri: Pgchar): Pgchar; cdecl; external libgstreamer;
 function gst_uri_has_protocol(uri: Pgchar; protocol: Pgchar): Tgboolean; cdecl; external libgstreamer;
 function gst_uri_get_location(uri: Pgchar): Pgchar; cdecl; external libgstreamer;
-function gst_uri_construct(protocol: Pgchar; location: Pgchar): Pgchar; cdecl; external libgstreamer;
+function gst_uri_construct(protocol: Pgchar; location: Pgchar): Pgchar; cdecl; external libgstreamer; deprecated 'GST_DEPRECATED_FOR(gst_uri_new)';
 function gst_filename_to_uri(filename: Pgchar; error: PPGError): Pgchar; cdecl; external libgstreamer;
 function gst_element_make_from_uri(_type: TGstURIType; uri: Pgchar; elementname: Pgchar; error: PPGError): PGstElement; cdecl; external libgstreamer;
 function gst_uri_handler_get_type: TGType; cdecl; external libgstreamer;

@@ -40,8 +40,8 @@ function gdk_pixbuf_animation_new_from_stream(stream: PGInputStream; cancellable
 procedure gdk_pixbuf_animation_new_from_stream_async(stream: PGInputStream; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgdk_pixbuf2;
 function gdk_pixbuf_animation_new_from_stream_finish(async_result: PGAsyncResult; error: PPGError): PGdkPixbufAnimation; cdecl; external libgdk_pixbuf2;
 function gdk_pixbuf_animation_new_from_resource(resource_path: pansichar; error: PPGError): PGdkPixbufAnimation; cdecl; external libgdk_pixbuf2;
-function gdk_pixbuf_animation_ref(animation: PGdkPixbufAnimation): PGdkPixbufAnimation; cdecl; external libgdk_pixbuf2; deprecated; // GDK_PIXBUF_DEPRECATED_IN_2_0_FOR(g_object_ref)
-procedure gdk_pixbuf_animation_unref(animation: PGdkPixbufAnimation); cdecl; external libgdk_pixbuf2; deprecated; // GDK_PIXBUF_DEPRECATED_IN_2_0_FOR(g_object_unref)
+function gdk_pixbuf_animation_ref(animation: PGdkPixbufAnimation): PGdkPixbufAnimation; cdecl; external libgdk_pixbuf2; deprecated 'GDK_PIXBUF_DEPRECATED_IN_2_0_FOR(g_object_ref)';
+procedure gdk_pixbuf_animation_unref(animation: PGdkPixbufAnimation); cdecl; external libgdk_pixbuf2; deprecated 'GDK_PIXBUF_DEPRECATED_IN_2_0_FOR(g_object_unref)';
 function gdk_pixbuf_animation_get_width(animation: PGdkPixbufAnimation): longint; cdecl; external libgdk_pixbuf2;
 function gdk_pixbuf_animation_get_height(animation: PGdkPixbufAnimation): longint; cdecl; external libgdk_pixbuf2;
 function gdk_pixbuf_animation_is_static_image(animation: PGdkPixbufAnimation): Tgboolean; cdecl; external libgdk_pixbuf2;

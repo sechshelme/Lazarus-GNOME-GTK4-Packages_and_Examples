@@ -33,8 +33,8 @@ function graphene_rect_offset(r: Pgraphene_rect_t; d_x: single; d_y: single): Pg
 procedure graphene_rect_offset_r(r: Pgraphene_rect_t; d_x: single; d_y: single; res: Pgraphene_rect_t); cdecl; external libgraphene;
 function graphene_rect_inset(r: Pgraphene_rect_t; d_x: single; d_y: single): Pgraphene_rect_t; cdecl; external libgraphene;
 procedure graphene_rect_inset_r(r: Pgraphene_rect_t; d_x: single; d_y: single; res: Pgraphene_rect_t); cdecl; external libgraphene;
-function graphene_rect_round_to_pixel(r: Pgraphene_rect_t): Pgraphene_rect_t; cdecl; external libgraphene;
-procedure graphene_rect_round(r: Pgraphene_rect_t; res: Pgraphene_rect_t); cdecl; external libgraphene;
+function graphene_rect_round_to_pixel(r: Pgraphene_rect_t): Pgraphene_rect_t; cdecl; external libgraphene; deprecated 'GRAPHENE_DEPRECATED_IN_1_4_FOR (graphene_rect_round)';
+procedure graphene_rect_round(r: Pgraphene_rect_t; res: Pgraphene_rect_t); cdecl; external libgraphene; deprecated 'GRAPHENE_DEPRECATED_IN_1_10_FOR (graphene_rect_round_extents)';
 procedure graphene_rect_round_extents(r: Pgraphene_rect_t; res: Pgraphene_rect_t); cdecl; external libgraphene;
 procedure graphene_rect_interpolate(a: Pgraphene_rect_t; b: Pgraphene_rect_t; factor: double; res: Pgraphene_rect_t); cdecl; external libgraphene;
 procedure graphene_rect_expand(r: Pgraphene_rect_t; p: Pgraphene_point_t; res: Pgraphene_rect_t); cdecl; external libgraphene;

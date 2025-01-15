@@ -1,5 +1,9 @@
 {$IFDEF read_interface}
 
+// === All GES_DEPRECATED !!!  ges_timeline_element_xxx_property
+
+
+
   {GES_DECLARE_TYPE (TitleClip, title_clip, TITLE_CLIP); }
 type
   TGESTitleClipPrivate = record
@@ -20,22 +24,22 @@ type
   PGESTitleClipClass = ^TGESTitleClipClass;
 
 function ges_title_clip_get_type: TGType; cdecl; external libges;
-procedure ges_title_clip_set_text(self: PGESTitleClip; Text: Pgchar); cdecl; external libges;
-procedure ges_title_clip_set_font_desc(self: PGESTitleClip; font_desc: Pgchar); cdecl; external libges;
-procedure ges_title_clip_set_valignment(self: PGESTitleClip; valign: TGESTextVAlign); cdecl; external libges;
-procedure ges_title_clip_set_halignment(self: PGESTitleClip; halign: TGESTextHAlign); cdecl; external libges;
-procedure ges_title_clip_set_color(self: PGESTitleClip; color: Tguint32); cdecl; external libges;
-procedure ges_title_clip_set_background(self: PGESTitleClip; background: Tguint32); cdecl; external libges;
-procedure ges_title_clip_set_xpos(self: PGESTitleClip; position: Tgdouble); cdecl; external libges;
-procedure ges_title_clip_set_ypos(self: PGESTitleClip; position: Tgdouble); cdecl; external libges;
-function ges_title_clip_get_font_desc(self: PGESTitleClip): Pgchar; cdecl; external libges;
-function ges_title_clip_get_valignment(self: PGESTitleClip): TGESTextVAlign; cdecl; external libges;
-function ges_title_clip_get_halignment(self: PGESTitleClip): TGESTextHAlign; cdecl; external libges;
-function ges_title_clip_get_text_color(self: PGESTitleClip): Tguint32; cdecl; external libges;
-function ges_title_clip_get_background_color(self: PGESTitleClip): Tguint32; cdecl; external libges;
-function ges_title_clip_get_xpos(self: PGESTitleClip): Tgdouble; cdecl; external libges;
-function ges_title_clip_get_ypos(self: PGESTitleClip): Tgdouble; cdecl; external libges;
-function ges_title_clip_get_text(self: PGESTitleClip): Pgchar; cdecl; external libges;
+procedure ges_title_clip_set_text(self: PGESTitleClip; Text: Pgchar); cdecl; external libges; deprecated 'GES_DEPRECATED';
+procedure ges_title_clip_set_font_desc(self: PGESTitleClip; font_desc: Pgchar); cdecl; external libges; deprecated 'GES_DEPRECATED';
+procedure ges_title_clip_set_valignment(self: PGESTitleClip; valign: TGESTextVAlign); cdecl; external libges; deprecated 'GES_DEPRECATED';
+procedure ges_title_clip_set_halignment(self: PGESTitleClip; halign: TGESTextHAlign); cdecl; external libges; deprecated 'GES_DEPRECATED';
+procedure ges_title_clip_set_color(self: PGESTitleClip; color: Tguint32); cdecl; external libges; deprecated 'GES_DEPRECATED';
+procedure ges_title_clip_set_background(self: PGESTitleClip; background: Tguint32); cdecl; external libges; deprecated 'GES_DEPRECATED';
+procedure ges_title_clip_set_xpos(self: PGESTitleClip; position: Tgdouble); cdecl; external libges; deprecated 'GES_DEPRECATED';
+procedure ges_title_clip_set_ypos(self: PGESTitleClip; position: Tgdouble); cdecl; external libges; deprecated 'GES_DEPRECATED';
+function ges_title_clip_get_font_desc(self: PGESTitleClip): Pgchar; cdecl; external libges; deprecated 'GES_DEPRECATED';
+function ges_title_clip_get_valignment(self: PGESTitleClip): TGESTextVAlign; cdecl; external libges; deprecated 'GES_DEPRECATED';
+function ges_title_clip_get_halignment(self: PGESTitleClip): TGESTextHAlign; cdecl; external libges; deprecated 'GES_DEPRECATED';
+function ges_title_clip_get_text_color(self: PGESTitleClip): Tguint32; cdecl; external libges; deprecated 'GES_DEPRECATED';
+function ges_title_clip_get_background_color(self: PGESTitleClip): Tguint32; cdecl; external libges; deprecated 'GES_DEPRECATED';
+function ges_title_clip_get_xpos(self: PGESTitleClip): Tgdouble; cdecl; external libges; deprecated 'GES_DEPRECATED';
+function ges_title_clip_get_ypos(self: PGESTitleClip): Tgdouble; cdecl; external libges; deprecated 'GES_DEPRECATED';
+function ges_title_clip_get_text(self: PGESTitleClip): Pgchar; cdecl; external libges; deprecated 'GES_DEPRECATED';
 function ges_title_clip_new: PGESTitleClip; cdecl; external libges;
 
 // === Konventiert am: 13-12-24 15:00:53 ===

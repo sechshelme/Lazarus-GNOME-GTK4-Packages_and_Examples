@@ -74,7 +74,7 @@ procedure g_log_set_debug_enabled(Enabled: Tgboolean); cdecl; external libglib2;
 procedure _g_log_fallback_handler(log_domain: Pgchar; log_level: TGLogLevelFlags; message: Pgchar; unused_data: Tgpointer); cdecl; external libglib2;
 procedure g_return_if_fail_warning(log_domain: PChar; pretty_function: PChar; expression: PChar); cdecl; external libglib2;
 procedure g_warn_message(domain: PChar; _file: PChar; line: longint; func: PChar; warnexpr: PChar); cdecl; external libglib2;
-procedure g_assert_warning(log_domain: PChar; _file: PChar; line: longint; pretty_function: PChar; expression: PChar); cdecl; external libglib2; deprecated; // GLIB_DEPRECATED
+procedure g_assert_warning(log_domain: PChar; _file: PChar; line: longint; pretty_function: PChar; expression: PChar); cdecl; external libglib2; deprecated 'GLIB_DEPRECATED';
 procedure g_log_structured_standard(log_domain: Pgchar; log_level: TGLogLevelFlags; _file: Pgchar; line: Pgchar; func: Pgchar;
   message_format: Pgchar); varargs cdecl; external libglib2;
 

@@ -59,7 +59,7 @@ function g_object_interface_list_properties(g_iface: Tgpointer; n_properties_p: 
 function g_object_get_type: TGType; cdecl; external libgobject2_0;
 function g_object_new(object_type: TGType; first_property_name: Pgchar): Tgpointer; varargs; cdecl; external libgobject2_0;
 function g_object_new_with_properties(object_type: TGType; n_properties: Tguint; names: PPchar; values: PGValue): PGObject; cdecl; external libgobject2_0;
-function g_object_newv(object_type: TGType; n_parameters: Tguint; parameters: PGParameter): Tgpointer; cdecl; external libgobject2_0; deprecated; // GOBJECT_DEPRECATED_IN_2_54_FOR(g_object_new_with_properties)
+function g_object_newv(object_type: TGType; n_parameters: Tguint; parameters: PGParameter): Tgpointer; cdecl; external libgobject2_0; deprecated 'GOBJECT_DEPRECATED_IN_2_54_FOR(g_object_new_with_properties)';
 function g_object_new_valist(object_type: TGType; first_property_name: Pgchar; var_args: Tva_list): PGObject; cdecl; external libgobject2_0;
 procedure g_object_set(_object: Tgpointer; first_property_name: Pgchar); varargs; cdecl; external libgobject2_0;
 procedure g_object_get(_object: Tgpointer; first_property_name: Pgchar); varargs; cdecl; external libgobject2_0;
@@ -115,8 +115,8 @@ function g_signal_connect_object(instance: Tgpointer; detailed_signal: Pgchar; c
 procedure g_object_force_floating(_object: PGObject); cdecl; external libgobject2_0;
 procedure g_object_run_dispose(_object: PGObject); cdecl; external libgobject2_0;
 procedure g_value_take_object(Value: PGValue; v_object: Tgpointer); cdecl; external libgobject2_0;
-procedure g_value_set_object_take_ownership(Value: PGValue; v_object: Tgpointer); cdecl; external libgobject2_0; deprecated; // GOBJECT_DEPRECATED_FOR(g_value_take_object)
-function g_object_compat_control(what: Tgsize; Data: Tgpointer): Tgsize; cdecl; external libgobject2_0; deprecated; // GOBJECT_DEPRECATED
+procedure g_value_set_object_take_ownership(Value: PGValue; v_object: Tgpointer); cdecl; external libgobject2_0; deprecated 'GOBJECT_DEPRECATED_FOR(g_value_take_object)';
+function g_object_compat_control(what: Tgsize; Data: Tgpointer): Tgsize; cdecl; external libgobject2_0; deprecated 'GOBJECT_DEPRECATED';
 procedure g_clear_object(object_ptr: PPGObject); cdecl; external libgobject2_0;
 
 type

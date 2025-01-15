@@ -30,10 +30,10 @@ const
   PANGO_BIDI_TYPE_FSI = 21;
   PANGO_BIDI_TYPE_PDI = 22;
 
-function pango_bidi_type_for_unichar(ch: Tgunichar): TPangoBidiType; cdecl; external libpango; deprecated; // PANGO_DEPRECATED_IN_1_44
-function pango_unichar_direction(ch: Tgunichar): TPangoDirection; cdecl; external libpango; deprecated; // PANGO_DEPRECATED_IN_1_44
-function pango_find_base_dir(Text: Pgchar; length: Tgint): TPangoDirection; cdecl; external libpango; deprecated; // PANGO_DEPRECATED_IN_1_44
-function pango_get_mirror_char(ch: Tgunichar; mirrored_ch: Pgunichar): Tgboolean; cdecl; external libpango; deprecated; // PANGO_DEPRECATED_IN_1_30_FOR(g_unichar_get_mirror_char)
+function pango_bidi_type_for_unichar(ch: Tgunichar): TPangoBidiType; cdecl; external libpango; deprecated 'PANGO_DEPRECATED_IN_1_44';
+function pango_unichar_direction(ch: Tgunichar): TPangoDirection; cdecl; external libpango; deprecated 'PANGO_DEPRECATED_IN_1_44';
+function pango_find_base_dir(Text: Pgchar; length: Tgint): TPangoDirection; cdecl; external libpango; deprecated 'PANGO_DEPRECATED_IN_1_44';
+function pango_get_mirror_char(ch: Tgunichar; mirrored_ch: Pgunichar): Tgboolean; cdecl; external libpango; deprecated 'PANGO_DEPRECATED_IN_1_30_FOR(g_unichar_get_mirror_char)';
 
 // === Konventiert am: 26-11-24 15:44:16 ===
 

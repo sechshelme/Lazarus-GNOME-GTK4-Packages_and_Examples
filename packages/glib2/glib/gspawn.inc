@@ -69,7 +69,7 @@ function g_spawn_sync(working_directory: Pgchar; argv: PPgchar; envp: PPgchar; f
 function g_spawn_command_line_sync(command_line: Pgchar; standard_output: PPgchar; standard_error: PPgchar; wait_status: Pgint; error: PPGError): Tgboolean; cdecl; external libglib2;
 function g_spawn_command_line_async(command_line: Pgchar; error: PPGError): Tgboolean; cdecl; external libglib2;
 function g_spawn_check_wait_status(wait_status: Tgint; error: PPGError): Tgboolean; cdecl; external libglib2;
-function g_spawn_check_exit_status(wait_status: Tgint; error: PPGError): Tgboolean; cdecl; external libglib2; deprecated; // GLIB_DEPRECATED_IN_2_70_FOR(g_spawn_check_wait_status)
+function g_spawn_check_exit_status(wait_status: Tgint; error: PPGError): Tgboolean; cdecl; external libglib2; deprecated 'GLIB_DEPRECATED_IN_2_70_FOR(g_spawn_check_wait_status)';
 procedure g_spawn_close_pid(pid: TGPid); cdecl; external libglib2;
 
 function G_SPAWN_ERROR: TGQuark;

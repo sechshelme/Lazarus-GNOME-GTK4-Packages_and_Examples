@@ -20,7 +20,7 @@ type
   PGESAudioTransitionClass = ^TGESAudioTransitionClass;
 
 function ges_audio_transition_get_type: TGType; cdecl; external libges;
-function ges_audio_transition_new: PGESAudioTransition; cdecl; external libges;
+function ges_audio_transition_new: PGESAudioTransition; cdecl; external libges; deprecated 'GES_DEPRECATED';
 
 // === Konventiert am: 13-12-24 16:03:49 ===
 

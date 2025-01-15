@@ -20,13 +20,13 @@ type
   PGESVideoTransitionClass = ^TGESVideoTransitionClass;
 
 function ges_video_transition_get_type: TGType; cdecl; external libges;
-function ges_video_transition_new: PGESVideoTransition; cdecl; external libges;
+function ges_video_transition_new: PGESVideoTransition; cdecl; external libges; deprecated 'GES_DEPRECATED';
 function ges_video_transition_set_transition_type(self: PGESVideoTransition; _type: TGESVideoStandardTransitionType): Tgboolean; cdecl; external libges;
 function ges_video_transition_get_transition_type(trans: PGESVideoTransition): TGESVideoStandardTransitionType; cdecl; external libges;
-procedure ges_video_transition_set_border(self: PGESVideoTransition; Value: Tguint); cdecl; external libges;
-function ges_video_transition_get_border(self: PGESVideoTransition): Tgint; cdecl; external libges;
-procedure ges_video_transition_set_inverted(self: PGESVideoTransition; inverted: Tgboolean); cdecl; external libges;
-function ges_video_transition_is_inverted(self: PGESVideoTransition): Tgboolean; cdecl; external libges;
+procedure ges_video_transition_set_border(self: PGESVideoTransition; Value: Tguint); cdecl; external libges; deprecated 'GES_DEPRECATED_FOR(ges_timeline_element_set_children_properties)';
+function ges_video_transition_get_border(self: PGESVideoTransition): Tgint; cdecl; external libges; deprecated 'GES_DEPRECATED_FOR(ges_timeline_element_get_children_properties)';
+procedure ges_video_transition_set_inverted(self: PGESVideoTransition; inverted: Tgboolean); cdecl; external libges; deprecated 'GES_DEPRECATED_FOR(ges_timeline_element_set_children_properties)';
+function ges_video_transition_is_inverted(self: PGESVideoTransition): Tgboolean; cdecl; external libges; deprecated 'GES_DEPRECATED_FOR(ges_timeline_element_get_children_properties)';
 
 // === Konventiert am: 13-12-24 15:43:17 ===
 

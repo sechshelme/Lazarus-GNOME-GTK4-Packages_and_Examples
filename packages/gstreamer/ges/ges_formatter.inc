@@ -39,8 +39,8 @@ procedure ges_formatter_class_register_metas(klass: PGESFormatterClass; Name: Pg
   version: Tgdouble; rank: TGstRank); cdecl; external libges;
 function ges_formatter_can_load_uri(uri: Pgchar; error: PPGError): Tgboolean; cdecl; external libges;
 function ges_formatter_can_save_uri(uri: Pgchar; error: PPGError): Tgboolean; cdecl; external libges;
-function ges_formatter_load_from_uri(formatter: PGESFormatter; timeline: PGESTimeline; uri: Pgchar; error: PPGError): Tgboolean; cdecl; external libges;
-function ges_formatter_save_to_uri(formatter: PGESFormatter; timeline: PGESTimeline; uri: Pgchar; overwrite: Tgboolean; error: PPGError): Tgboolean; cdecl; external libges;
+function ges_formatter_load_from_uri(formatter: PGESFormatter; timeline: PGESTimeline; uri: Pgchar; error: PPGError): Tgboolean; cdecl; external libges; deprecated 'GES_DEPRECATED_FOR(ges_timeline_load_from_uri)';
+function ges_formatter_save_to_uri(formatter: PGESFormatter; timeline: PGESTimeline; uri: Pgchar; overwrite: Tgboolean; error: PPGError): Tgboolean; cdecl; external libges; deprecated 'GES_DEPRECATED_FOR(ges_timeline_save_to_uri)';
 function ges_formatter_get_default: PGESAsset; cdecl; external libges;
 function ges_find_formatter_for_uri(uri: Pgchar): PGESAsset; cdecl; external libges;
 

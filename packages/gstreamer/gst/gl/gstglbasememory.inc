@@ -1,7 +1,7 @@
 
 {$IFDEF read_interface}
 
-function gst_gl_base_memory_get_type:TGType;cdecl;external libgstgl;
+function gst_gl_base_memory_get_type:TGType;cdecl;external libgstgl; deprecated 'GST_GL_DEPRECATED';
 function gst_gl_base_memory_allocator_get_type:TGType;cdecl;external libgstgl;
 
 function gst_gl_base_memory_error_quark:TGQuark;cdecl;external libgstgl;

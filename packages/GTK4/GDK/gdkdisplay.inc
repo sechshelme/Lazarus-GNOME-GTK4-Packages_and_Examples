@@ -20,14 +20,14 @@ function gdk_display_create_gl_context(self: PGdkDisplay; error: PPGError): PGdk
 function gdk_display_get_default: PGdkDisplay; cdecl; external libgtk4;
 function gdk_display_get_clipboard(display: PGdkDisplay): PGdkClipboard; cdecl; external libgtk4;
 function gdk_display_get_primary_clipboard(display: PGdkDisplay): PGdkClipboard; cdecl; external libgtk4;
-procedure gdk_display_notify_startup_complete(display: PGdkDisplay; startup_id: PChar); cdecl; external libgtk4;
-function gdk_display_get_startup_notification_id(display: PGdkDisplay): PChar; cdecl; external libgtk4;
+procedure gdk_display_notify_startup_complete(display: PGdkDisplay; startup_id: PChar); cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_10_FOR(gdk_toplevel_set_startup_id)';
+function gdk_display_get_startup_notification_id(display: PGdkDisplay): PChar; cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_10';
 function gdk_display_get_app_launch_context(display: PGdkDisplay): PGdkAppLaunchContext; cdecl; external libgtk4;
 function gdk_display_get_default_seat(display: PGdkDisplay): PGdkSeat; cdecl; external libgtk4;
 function gdk_display_list_seats(display: PGdkDisplay): PGList; cdecl; external libgtk4;
 function gdk_display_get_monitors(self: PGdkDisplay): PGListModel; cdecl; external libgtk4;
 function gdk_display_get_monitor_at_surface(display: PGdkDisplay; surface: PGdkSurface): PGdkMonitor; cdecl; external libgtk4;
-procedure gdk_display_put_event(display: PGdkDisplay; event: PGdkEvent); cdecl; external libgtk4;
+procedure gdk_display_put_event(display: PGdkDisplay; event: PGdkEvent); cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_10';
 function gdk_display_map_keyval(display: PGdkDisplay; keyval: Tguint; keys: PPGdkKeymapKey; n_keys: Plongint): Tgboolean; cdecl; external libgtk4;
 function gdk_display_map_keycode(display: PGdkDisplay; keycode: Tguint; keys: PPGdkKeymapKey; keyvals: PPguint; n_entries: Plongint): Tgboolean; cdecl; external libgtk4;
 function gdk_display_translate_key(display: PGdkDisplay; keycode: Tguint; state: TGdkModifierType; group: longint; keyval: Pguint;

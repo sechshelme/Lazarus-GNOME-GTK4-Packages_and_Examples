@@ -16,7 +16,7 @@ type
   PPangoFontMapClass = ^TPangoFontMapClass;
 
 function pango_font_map_get_type: TGType; cdecl; external libpango;
-function pango_font_map_create_context(fontmap: PPangoFontMap): PPangoContext; cdecl; external libpango; deprecated; // PANGO_DEPRECATED_IN_1_22_FOR(pango_font_map_create_context)
+function pango_font_map_create_context(fontmap: PPangoFontMap): PPangoContext; cdecl; external libpango; deprecated 'PANGO_DEPRECATED_IN_1_22_FOR(pango_font_map_create_context)';
 function pango_font_map_load_font(fontmap: PPangoFontMap; context: PPangoContext; desc: PPangoFontDescription): PPangoFont; cdecl; external libpango;
 function pango_font_map_load_fontset(fontmap: PPangoFontMap; context: PPangoContext; desc: PPangoFontDescription; language: PPangoLanguage): PPangoFontset; cdecl; external libpango;
 procedure pango_font_map_list_families(fontmap: PPangoFontMap; families: PPPPangoFontFamily; n_families: Plongint); cdecl; external libpango;

@@ -8,7 +8,7 @@ type
 
 function gdk_gl_texture_get_type: TGType; cdecl; external libgtk4;
 function gdk_gl_texture_new(context: PGdkGLContext; id: Tguint; Width: longint; Height: longint; Destroy: TGDestroyNotify;
-  Data: Tgpointer): PGdkTexture; cdecl; external libgtk4;
+  Data: Tgpointer): PGdkTexture; cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_12_FOR(GdkGLTextureBuilder)';
 procedure gdk_gl_texture_release(self: PGdkGLTexture); cdecl; external libgtk4;
 
 // === Konventiert am: 2-8-24 15:54:52 ===

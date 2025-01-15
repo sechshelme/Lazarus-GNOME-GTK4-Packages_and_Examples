@@ -25,7 +25,7 @@ function gdk_surface_translate_coordinates(from: PGdkSurface; to_: PGdkSurface; 
 function gdk_surface_get_scale_factor(surface: PGdkSurface): longint; cdecl; external libgtk4;
 function gdk_surface_get_scale(surface: PGdkSurface): Tdouble; cdecl; external libgtk4;
 function gdk_surface_get_device_position(surface: PGdkSurface; device: PGdkDevice; x: Pdouble; y: Pdouble; mask: PGdkModifierType): Tgboolean; cdecl; external libgtk4;
-function gdk_surface_create_similar_surface(surface: PGdkSurface; content: Tcairo_content_t; Width: longint; Height: longint): Pcairo_surface_t; cdecl; external libgtk4;
+function gdk_surface_create_similar_surface(surface: PGdkSurface; content: Tcairo_content_t; Width: longint; Height: longint): Pcairo_surface_t; cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_12';
 procedure gdk_surface_beep(surface: PGdkSurface); cdecl; external libgtk4;
 procedure gdk_surface_queue_render(surface: PGdkSurface); cdecl; external libgtk4;
 procedure gdk_surface_request_layout(surface: PGdkSurface); cdecl; external libgtk4;
@@ -33,8 +33,7 @@ function gdk_surface_get_frame_clock(surface: PGdkSurface): PGdkFrameClock; cdec
 procedure gdk_surface_set_opaque_region(surface: PGdkSurface; region: Pcairo_region_t); cdecl; external libgtk4;
 function gdk_surface_create_cairo_context(surface: PGdkSurface): PGdkCairoContext; cdecl; external libgtk4;
 function gdk_surface_create_gl_context(surface: PGdkSurface; error: PPGError): PGdkGLContext; cdecl; external libgtk4;
-function gdk_surface_create_vulkan_context(surface: PGdkSurface; error: PPGError): PGdkVulkanContext; cdecl; external libgtk4;
-{G_DEFINE_AUTOPTR_CLEANUP_FUNC (GdkSurface, g_object_unref) }
+function gdk_surface_create_vulkan_context(surface: PGdkSurface; error: PPGError): PGdkVulkanContext; cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_14';
 
 // === Konventiert am: 31-7-24 16:36:33 ===
 

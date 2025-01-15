@@ -10,7 +10,7 @@ function gdk_gl_error_quark: TGQuark; cdecl; external libgtk4;
 function gdk_gl_context_get_type: TGType; cdecl; external libgtk4;
 function gdk_gl_context_get_display(context: PGdkGLContext): PGdkDisplay; cdecl; external libgtk4;
 function gdk_gl_context_get_surface(context: PGdkGLContext): PGdkSurface; cdecl; external libgtk4;
-function gdk_gl_context_get_shared_context(context: PGdkGLContext): PGdkGLContext; cdecl; external libgtk4;
+function gdk_gl_context_get_shared_context(context: PGdkGLContext): PGdkGLContext; cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_4_FOR(gdk_gl_context_is_shared)';
 procedure gdk_gl_context_get_version(context: PGdkGLContext; major: Plongint; minor: Plongint); cdecl; external libgtk4;
 function gdk_gl_context_is_legacy(context: PGdkGLContext): Tgboolean; cdecl; external libgtk4;
 function gdk_gl_context_is_shared(self: PGdkGLContext; other: PGdkGLContext): Tgboolean; cdecl; external libgtk4;
@@ -23,7 +23,7 @@ function gdk_gl_context_get_forward_compatible(context: PGdkGLContext): Tgboolea
 procedure gdk_gl_context_set_allowed_apis(self: PGdkGLContext; apis: TGdkGLAPI); cdecl; external libgtk4;
 function gdk_gl_context_get_allowed_apis(self: PGdkGLContext): TGdkGLAPI; cdecl; external libgtk4;
 function gdk_gl_context_get_api(self: PGdkGLContext): TGdkGLAPI; cdecl; external libgtk4;
-procedure gdk_gl_context_set_use_es(context: PGdkGLContext; use_es: longint); cdecl; external libgtk4;
+procedure gdk_gl_context_set_use_es(context: PGdkGLContext; use_es: longint); cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_6_FOR(gdk_gl_context_set_allowed_apis)';
 function gdk_gl_context_get_use_es(context: PGdkGLContext): Tgboolean; cdecl; external libgtk4;
 function gdk_gl_context_realize(context: PGdkGLContext; error: PPGError): Tgboolean; cdecl; external libgtk4;
 procedure gdk_gl_context_make_current(context: PGdkGLContext); cdecl; external libgtk4;
