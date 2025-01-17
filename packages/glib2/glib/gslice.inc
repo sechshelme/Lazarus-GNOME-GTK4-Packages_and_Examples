@@ -8,6 +8,8 @@ function g_slice_copy(block_size:Tgsize; mem_block:Tgconstpointer):Tgpointer;cde
 procedure g_slice_free1(block_size:Tgsize; mem_block:Tgpointer);cdecl;external libglib2;
 procedure g_slice_free_chain_with_offset(block_size:Tgsize; mem_chain:Tgpointer; next_offset:Tgsize);cdecl;external libglib2;
 
+// #define  g_slice_new(type)      ((type*) g_slice_alloc (sizeof (type)))
+
 type
   PGSliceConfig = ^TGSliceConfig;
   TGSliceConfig =  Longint;

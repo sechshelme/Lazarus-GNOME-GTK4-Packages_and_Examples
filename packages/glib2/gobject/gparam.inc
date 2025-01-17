@@ -85,6 +85,7 @@ procedure g_value_take_param(value:PGValue; param:PGParamSpec);cdecl;external li
 procedure g_value_set_param_take_ownership(value:PGValue; param:PGParamSpec);cdecl;external libglib2; deprecated 'GOBJECT_DEPRECATED_FOR(g_value_take_param)';
 function g_param_spec_get_default_value(pspec:PGParamSpec):PGValue;cdecl;external libglib2;
 function g_param_spec_get_name_quark(pspec:PGParamSpec):TGQuark;cdecl;external libglib2;
+
 type
   PGParamSpecTypeInfo = ^TGParamSpecTypeInfo;
   TGParamSpecTypeInfo = record
@@ -97,7 +98,6 @@ type
       value_validate : function (pspec:PGParamSpec; value:PGValue):Tgboolean;cdecl;
       values_cmp : function (pspec:PGParamSpec; value1:PGValue; value2:PGValue):Tgint;cdecl;
     end;
-
 
 function g_param_type_register_static(name:Pgchar; pspec_info:PGParamSpecTypeInfo):TGType;cdecl;external libglib2;
 function g_param_spec_is_valid_name(name:Pgchar):Tgboolean;cdecl;external libglib2;

@@ -4,13 +4,13 @@ interface
 
 const
   MusicDir: string = '/n4800/Multimedia/Music';
-  DefaultExt='xml';
+  DefaultExt = 'xml';
   CFTime = 13 * 1000; // 3s
   FITime = CFTime;
   FATime = FITime;
 
 type
-  Tcommand = (cmNone, cmNew, cmSave, cmOpen, cmClose, cmAdd, cmRemove, cmRemoveAll, cmUp, cmDown, cmPlay, cmPause, cmStop, cmNext, cmPrev, cmDefaultSongs);
+  Tcommand = (cmNone, cmNew, cmSave, cmOpen, cmClose, cmAdd, cmRemove, cmRemoveAll, cmUp, cmDown, cmPlay, cmPause, cmStop, cmNext, cmPrev, cmDefaultSongs, cmHelp, cmAbout);
 
   TPlayBoxEvent = procedure(cmd: Tcommand) of object;
 
@@ -47,6 +47,10 @@ const
     (cmd: cmStop; Caption: 'Stop'; IconPath: 'Stop_01_24'),
     (cmd: cmNext; Caption: 'Next️'; IconPath: 'Forward_02_24'),
     (cmd: cmPrev; Caption: 'Prev'; IconPath: 'Backward_02_24'));
+
+  HelpCmdProp: TcmdProps = (
+    (cmd: cmHelp; Caption: 'Hilfe...'; IconPath: ''),
+    (cmd: cmAbout; Caption: 'About...'; IconPath: ''));
 
 implementation
 

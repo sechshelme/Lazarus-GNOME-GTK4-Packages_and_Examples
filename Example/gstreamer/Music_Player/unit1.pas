@@ -7,6 +7,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, LCLType,
   Buttons, ExtCtrls, ComCtrls, Menus, Types, FileUtil,
+  LCLVersion, LCLPlatformDef,
   Common, MenuBar, SoundListBox, PlayPanel, AddSongs, SongEditBox,
   gst, Streamer;
 
@@ -59,7 +60,7 @@ begin
     end;
     cmSave: begin
       sd := TSaveDialog.Create(self);
-      sd.DefaultExt:=DefaultExt;
+      sd.DefaultExt := DefaultExt;
       if sd.Execute then  begin
         SongListPanel.SaveToXML(sd.FileName);
       end;
@@ -67,7 +68,7 @@ begin
     end;
     cmOpen: begin
       fd := TOpenDialog.Create(self);
-      fd.DefaultExt:=DefaultExt;
+      fd.DefaultExt := DefaultExt;
       if fd.Execute then  begin
         SongListPanel.LoadToXML(fd.FileName);
       end;
@@ -181,6 +182,9 @@ begin
           end;
         end;
       end;
+    end;
+    cmAbout: begin
+      ShowMessage(LCLPlatformDirNames[GetBuildLCLWidgetType]);
     end;
   end;
 end;

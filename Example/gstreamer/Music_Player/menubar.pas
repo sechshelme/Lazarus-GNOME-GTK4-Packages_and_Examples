@@ -23,35 +23,27 @@ implementation
 
 constructor TMenuBar.Create(AOwner: TComponent);
 var
-  mmi, smi: TMenuItem;
+  mmi: TMenuItem;
 begin
   inherited Create(AOwner);
 
   // --- Datei
-  AddMenuFromProps('Datei', FileCmdProb);
+  AddMenuFromProps('&Datei', FileCmdProb);
 
   // --- Edit
-  AddMenuFromProps('Edit', EditCmdProb);
+  AddMenuFromProps('&Edit', EditCmdProb);
 
   // --- Play
-  AddMenuFromProps('Play', PlayCmdProp);
+  AddMenuFromProps('&Play', PlayCmdProp);
 
 
   // --- Optionen
   mmi := TMenuItem.Create(self);
-  mmi.Caption := 'Optionen';
+  mmi.Caption := '&Optionen';
   Items.Add(mmi);
 
   // --- Hilfe
-  mmi := TMenuItem.Create(self);
-  mmi.Caption := 'Hilfe';
-  Items.Add(mmi);
-
-  smi := TMenuItem.Create(self);
-  smi.Caption := 'About...';
-  smi.Name := 'about';
-  smi.OnClick := @MenuBarClick;
-  mmi.Add(smi);
+  AddMenuFromProps('&Hilfe', HelpCmdProp);
 
 end;
 
