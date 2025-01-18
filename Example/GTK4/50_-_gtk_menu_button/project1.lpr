@@ -7,11 +7,12 @@ uses
   fp_GLIBTools,
   fp_GTK4;
 
-  procedure btn_click_cp(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer); cdecl;
+// // https://www.perplexity.ai/search/kann-man-in-gtk4-win-typisches-Uh1opi2XT_m29krYlBBn7g
+
+
+  procedure menuaction_cp(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer); cdecl;
   var
     action_name: Pgchar;
-    ch: Pgchar absolute user_data;
-    message: Pgchar;
     app: PGApplication;
     windowList: PGList;
   begin
@@ -20,70 +21,69 @@ uses
 
     action_name := g_action_get_name(G_ACTION(action));
     g_printf('Action Name: "%s"'#10, action_name);
-    if ch <> nil then begin
-      g_printf('Es wurde: "%s" geklickt'#10, ch);
-    end;
 
     if g_strcmp0(action_name, 'quit') = 0 then  begin
       gtk_window_close(GTK_WINDOW(windowList^.Data));
     end;
   end;
 
-  function CreateMenu(app: PGtkApplication): PGMenu;
+  function CreateMenu: PGMenu;
   var
-    action: PGSimpleAction;
-    menuItem: PGMenuItem;
-  begin
-    Result := g_menu_new;
-
-    g_menu_append(Result, 'Option 1', 'app.option1');
-    action := g_simple_action_new('option1', nil);
-    g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
-    g_signal_connect(action, 'activate', G_CALLBACK(@btn_click_cp), Pgchar('Button 1'));
-
-    g_menu_append(Result, 'Option 2', 'app.option2');
-    action := g_simple_action_new('option2', nil);
-    g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
-    g_signal_connect(action, 'activate', G_CALLBACK(@btn_click_cp), Pgchar('Button 2'));
-
-    menuItem := g_menu_item_new('Option 3', 'app.option3');
-    g_menu_append_item(Result, menuItem);
-    g_object_unref(menuItem);
-    action := g_simple_action_new('option3', nil);
-    g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
-    g_signal_connect(action, 'activate', G_CALLBACK(@btn_click_cp), Pgchar('Button 3'));
-  end;
-
-  function CreateMenuButton(app: PGtkApplication): PGtkWidget;
-  var
-    menu: PGMenu;
-  begin
-    Result := gtk_menu_button_new;
-    gtk_menu_button_set_label(GTK_MENU_BUTTON(Result), 'Drück mich...');
-
-    menu := CreateMenu(app);
-    gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(Result), G_MENU_MODEL(menu));
-  end;
-
-  function CreateMainMenu: PGtkWidget;
-  var
-    menu, fileMenu: PGMenu;
-    action: PGSimpleAction;
     app: PGApplication;
+    fileMenu, optionMenu, helpMenu, rgbMenu: PGMenu;
+    action: PGSimpleAction;
   begin
     app := g_application_get_default;
-    menu := g_menu_new;
+    Result := g_menu_new;
 
+    // --- Datei Menu
     fileMenu := g_menu_new;
+    g_menu_append_submenu(Result, '_Datei', G_MENU_MODEL(fileMenu));
+
     g_menu_append(fileMenu, '¨Offnen...', 'app.open');
 
     g_menu_append(fileMenu, 'Beenden...', 'app.quit');
     action := g_simple_action_new('quit', nil);
     g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
-    g_signal_connect(action, 'activate', G_CALLBACK(@btn_click_cp), Pgchar('quit'));
+    g_signal_connect(action, 'activate', G_CALLBACK(@menuaction_cp), nil);
 
-    g_menu_append_submenu(menu, 'Datei', G_MENU_MODEL(fileMenu));
+    // --- Optionen Menu
+    optionMenu := g_menu_new;
+    g_menu_append(optionMenu, 'Optionen...', 'app.options');
+    g_menu_append_submenu(Result, '_Optionen', G_MENU_MODEL(optionMenu));
 
+    // ------ RGB Menu
+    rgbMenu := g_menu_new;
+    g_menu_append(rgbMenu, '_Rot', 'app.red');
+    g_menu_append(rgbMenu, '_Grün', 'app.green');
+    g_menu_append(rgbMenu, '_Blau', 'app.blue');
+    g_menu_append_submenu(optionMenu, '_Farben', G_MENU_MODEL(rgbMenu));
+
+    // --- Hilfe Menu
+    helpMenu := g_menu_new;
+    g_menu_append(helpMenu, 'Hilfe...', 'app.help');
+    g_menu_append(helpMenu, 'About...', 'app.about');
+    g_menu_append_submenu(Result, '_Hilfe', G_MENU_MODEL(helpMenu));
+
+  end;
+
+
+  function CreateMenuButton: PGtkWidget;
+  var
+    menu: PGMenu;
+  begin
+    Result := gtk_menu_button_new;
+    gtk_menu_button_set_label(GTK_MENU_BUTTON(Result), 'Öffne Menu');
+
+    menu := CreateMenu;
+    gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(Result), G_MENU_MODEL(menu));
+  end;
+
+  function CreateMainMenu: PGtkWidget;
+  var
+    menu: PGMenu;
+  begin
+    menu := CreateMenu;
     Result := gtk_popover_menu_bar_new_from_model(G_MENU_MODEL(menu));
   end;
 
@@ -104,18 +104,18 @@ uses
 
     gtk_box_prepend(GTK_BOX(vbox), CreateMainMenu);
 
-    gtk_box_append(GTK_BOX(vbox), CreateMenuButton(app));
-    gtk_box_append(GTK_BOX(vbox), CreateMenuButton(app));
+    gtk_box_append(GTK_BOX(vbox), CreateMenuButton);
+    gtk_box_append(GTK_BOX(vbox), CreateMenuButton);
 
     Button := gtk_button_new_with_label('Button...');
     label1 := gtk_button_get_child(GTK_BUTTON(Button));
     gtk_label_set_selectable(GTK_LABEL(label1), True);
-    gtk_label_set_extra_menu(GTK_LABEL(label1), G_MENU_MODEL(CreateMenu(app)));
+    gtk_label_set_extra_menu(GTK_LABEL(label1), G_MENU_MODEL(CreateMenu));
     gtk_box_append(GTK_BOX(vbox), Button);
 
     label1 := gtk_label_new('Label');
     gtk_label_set_selectable(GTK_LABEL(label1), True);
-    gtk_label_set_extra_menu(GTK_LABEL(label1), G_MENU_MODEL(CreateMenu(app)));
+    gtk_label_set_extra_menu(GTK_LABEL(label1), G_MENU_MODEL(CreateMenu));
     gtk_box_append(GTK_BOX(vbox), label1);
 
     gtk_window_set_child(GTK_WINDOW(window), vbox);
