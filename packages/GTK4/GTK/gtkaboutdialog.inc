@@ -28,7 +28,7 @@ const
 
 type
   TGtkAboutDialog = record
-  end; // _GtkAboutDialog
+  end;
   PGtkAboutDialog = ^TGtkAboutDialog;
 
 

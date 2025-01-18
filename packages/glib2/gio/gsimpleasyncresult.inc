@@ -33,7 +33,7 @@ function g_simple_async_result_is_valid(Result: PGAsyncResult; Source: PGObject;
 procedure g_simple_async_report_error_in_idle(obj: PGObject; callback: TGAsyncReadyCallback; user_data: Tgpointer; domain: TGQuark; code: Tgint;
   format: PChar); varargs; cdecl; external libgio2; deprecated 'GIO_DEPRECATED_IN_2_46_FOR(g_task_report_error)';
 procedure g_simple_async_report_gerror_in_idle(obj: PGObject; callback: TGAsyncReadyCallback; user_data: Tgpointer; error: PGError); cdecl; external libgio2; deprecated 'GIO_DEPRECATED_IN_2_46_FOR(g_task_report_error)';
-procedure g_simple_async_report_take_gerror_in_idle(obj: PGObject; callback: TGAsyncReadyCallback; user_data: Tgpointer; error: PGError); cdecl; external libgio2; // GIO_DEPRECATED_IN_2_46_FOR(g_task_report_error)
+procedure g_simple_async_report_take_gerror_in_idle(obj: PGObject; callback: TGAsyncReadyCallback; user_data: Tgpointer; error: PGError); cdecl; external libgio2; deprecated 'GIO_DEPRECATED_IN_2_46_FOR(g_task_report_error)';
 
 // === Konventiert am: 20-8-24 15:33:59 ===
 

@@ -12,10 +12,21 @@ uses
     action_name: Pgchar;
     ch: Pgchar absolute user_data;
     message: Pgchar;
+    app: PGApplication;
+    windowList: PGList;
   begin
+    app := g_application_get_default;
+    windowList := gtk_application_get_windows(GTK_APPLICATION(app));
+
     action_name := g_action_get_name(G_ACTION(action));
     g_printf('Action Name: "%s"'#10, action_name);
-    g_printf('Es wurde: "%s" geklickt'#10, ch);
+    if ch <> nil then begin
+      g_printf('Es wurde: "%s" geklickt'#10, ch);
+    end;
+
+    if g_strcmp0(action_name, 'quit') = 0 then  begin
+      gtk_window_close(GTK_WINDOW(windowList^.Data));
+    end;
   end;
 
   function CreateMenu(app: PGtkApplication): PGMenu;
@@ -54,6 +65,29 @@ uses
     gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(Result), G_MENU_MODEL(menu));
   end;
 
+  function CreateMainMenu: PGtkWidget;
+  var
+    menu, fileMenu: PGMenu;
+    action: PGSimpleAction;
+    app: PGApplication;
+  begin
+    app := g_application_get_default;
+    menu := g_menu_new;
+
+    fileMenu := g_menu_new;
+    g_menu_append(fileMenu, '¨Offnen...', 'app.open');
+
+    g_menu_append(fileMenu, 'Beenden...', 'app.quit');
+    action := g_simple_action_new('quit', nil);
+    g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
+    g_signal_connect(action, 'activate', G_CALLBACK(@btn_click_cp), Pgchar('quit'));
+
+    g_menu_append_submenu(menu, 'Datei', G_MENU_MODEL(fileMenu));
+
+    Result := gtk_popover_menu_bar_new_from_model(G_MENU_MODEL(menu));
+  end;
+
+
   procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
     window, vbox, Button, label1: PGtkWidget;
@@ -67,6 +101,8 @@ uses
     gtk_widget_set_margin_end(vbox, 10);
     gtk_widget_set_margin_top(vbox, 10);
     gtk_widget_set_margin_bottom(vbox, 10);
+
+    gtk_box_prepend(GTK_BOX(vbox), CreateMainMenu);
 
     gtk_box_append(GTK_BOX(vbox), CreateMenuButton(app));
     gtk_box_append(GTK_BOX(vbox), CreateMenuButton(app));
@@ -85,7 +121,6 @@ uses
     gtk_window_set_child(GTK_WINDOW(window), vbox);
     gtk_window_present(GTK_WINDOW(window));
   end;
-
 
   function main(argc: cint; argv: PPChar): cint;
   var

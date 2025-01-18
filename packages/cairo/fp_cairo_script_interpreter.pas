@@ -10,9 +10,6 @@ uses
   {$ENDIF}
 
 type
-  PFILE = Pointer; // eigens
-
-type
   Tcairo_script_interpreter_t = Pointer;
   Pcairo_script_interpreter_t = ^Tcairo_script_interpreter_t;
   Tcairo_script_interpreter = Tcairo_script_interpreter_t;

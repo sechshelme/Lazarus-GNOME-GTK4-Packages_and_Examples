@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, StdCtrls, LCLType,
   Buttons, ExtCtrls, ComCtrls, Menus, Types, FileUtil,
-  LCLVersion, LCLPlatformDef,
+  InterfaceBase,
   Common, MenuBar, SoundListBox, PlayPanel, AddSongs, SongEditBox,
   gst, Streamer;
 
@@ -184,7 +184,7 @@ begin
       end;
     end;
     cmAbout: begin
-      ShowMessage(LCLPlatformDirNames[GetBuildLCLWidgetType]);
+      ShowMessage(GetLCLWidgetTypeName);
     end;
   end;
 end;

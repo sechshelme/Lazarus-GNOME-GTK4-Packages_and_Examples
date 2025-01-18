@@ -1580,7 +1580,7 @@ type
   TFT_Realloc_Func = function(memory: TFT_Memory; cur_size: clong; new_size: clong; block: pointer): pointer; cdecl;
 
   TFT_MemoryRec = record
-    user: pointer;//cdecl;
+    user: pointer;
     alloc: TFT_Alloc_Func;
     Free: TFT_Free_Func;
     realloc: TFT_Realloc_Func;
@@ -2041,7 +2041,7 @@ type
 
 
   TFT_Glyph_Class = record
-    glyph_size: TFT_Long;// cdecl;
+    glyph_size: TFT_Long;
     glyph_format: TFT_Glyph_Format;
     glyph_init: TFT_Glyph_InitFunc;
     glyph_done: TFT_Glyph_DoneFunc;

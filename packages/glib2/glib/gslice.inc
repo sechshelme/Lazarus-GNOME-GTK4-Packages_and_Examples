@@ -22,8 +22,8 @@ type
     G_SLICE_CONFIG_CONTENTION_COUNTER = 6;
 
 procedure g_slice_set_config(ckey:TGSliceConfig; value:Tgint64);cdecl;external libglib2; deprecated 'GLIB_DEPRECATED_IN_2_34';
-function g_slice_get_config(ckey:TGSliceConfig):Tgint64;cdecl;external libglib2; // GLIB_DEPRECATED_IN_2_34
-function g_slice_get_config_state(ckey:TGSliceConfig; address:Tgint64; n_values:Pguint):Pgint64;cdecl;external libglib2; // GLIB_DEPRECATED_IN_2_34
+function g_slice_get_config(ckey:TGSliceConfig):Tgint64;cdecl;external libglib2; deprecated 'GLIB_DEPRECATED_IN_2_34';
+function g_slice_get_config_state(ckey:TGSliceConfig; address:Tgint64; n_values:Pguint):Pgint64;cdecl;external libglib2; deprecated 'GLIB_DEPRECATED_IN_2_34';
 
 procedure g_slice_debug_tree_statistics;cdecl;external libglib2;
 
