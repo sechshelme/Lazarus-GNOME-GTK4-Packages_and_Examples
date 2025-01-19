@@ -79,6 +79,7 @@ uses
       if submenu <> nil then begin
         WriteLn('submenu');
         print_Menu(submenu,2);
+        g_object_unref(submenu);
       end;
     end;
   end;
@@ -101,7 +102,7 @@ uses
     g_menu_append(mainMenu, 'Option1 ', 'app.red');
     g_menu_append(mainMenu, 'Option2 ', 'app.red');
 
-    print_Menu(G_MENU_MODEL(mainMenu));
+//    print_Menu(G_MENU_MODEL(mainMenu));
 
     g_object_unref(mainMenu);
     //    g_object_unref(subMenu);
