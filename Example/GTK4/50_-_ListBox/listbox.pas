@@ -7,7 +7,7 @@ interface
 uses
   fp_glib2, fp_GTK4;
 
-function Create_ListBox(app: PGtkApplication): PGtkWidget;
+function Create_ListBox: PGtkWidget;
 
 implementation
 
@@ -92,7 +92,7 @@ begin
   gtk_box_append(GTK_BOX(Result), button_box);
 end;
 
-function Create_ListBox(app: PGtkApplication): PGtkWidget;
+function Create_ListBox: PGtkWidget;
 var
   i: integer;
   lb, sw: PGtkWidget;

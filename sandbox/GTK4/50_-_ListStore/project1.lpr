@@ -9,9 +9,9 @@ uses
   fp_GTK4,
   ListBox;
 
-  procedure btn_click_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
-  begin
-  end;
+procedure btn_click_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
+begin
+end;
 
 
 
@@ -31,15 +31,15 @@ uses
 
     // Box1
 
-    //  hbox1 := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-    //    gtk_widget_set_hexpand(hbox1, True);
+  //  hbox1 := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+//    gtk_widget_set_hexpand(hbox1, True);
 
-    lb := Create_ListBox;
+    lb:=Create_ListBoxWidget;
     gtk_box_append(GTK_BOX(vbox), lb);
-    //    gtk_box_append(GTK_BOX(hbox1), lb);
+//    gtk_box_append(GTK_BOX(hbox1), lb);
 
-    //    label1 := gtk_label_new('box1');
-    //    gtk_box_append(GTK_BOX(hbox1), label1);
+//    label1 := gtk_label_new('box1');
+//    gtk_box_append(GTK_BOX(hbox1), label1);
 
     // Box2
 
