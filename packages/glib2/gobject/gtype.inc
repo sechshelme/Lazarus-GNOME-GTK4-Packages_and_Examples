@@ -58,7 +58,6 @@ const
   G_TYPE_RESERVED_BSE_LAST = 48;
   G_TYPE_RESERVED_USER_FIRST = 49;
 
-
 type
   TGTypePlugin = record
   end;
