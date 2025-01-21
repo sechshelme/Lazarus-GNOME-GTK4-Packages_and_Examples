@@ -13,7 +13,7 @@ type
     parent_instance: TGObject;
     FirstName,
     LastName: Pgchar;
-    size: Tgfloat;
+    size: Tgdouble;
     age: Tgint;
     timerOn: Tgboolean;
     time: TGTime;
@@ -28,7 +28,7 @@ type
 
 function e_human_get_type: TGType;
 function e_human_new: PEHuman;
-function e_human_new_with_data(FirstName, LastName: Pgchar; age: Tgint; size: Tgfloat): PEHuman;
+function e_human_new_with_data(FirstName, LastName: Pgchar; age: Tgint; size: Tgdouble): PEHuman;
 procedure e_human_set_firstname(self: PEHuman; Name: Pgchar);
 procedure e_human_set_lastname(self: PEHuman; Name: Pgchar);
 function e_human_get_firstname(self: PEHuman): Pgchar;
@@ -75,7 +75,7 @@ begin
       self^.age := g_value_get_int(Value);
     end;
     4: begin
-      self^.size := g_value_get_float(Value);
+      self^.size := g_value_get_double(Value);
     end;
     5: begin
       self^.timerOn := g_value_get_boolean(Value);
@@ -106,7 +106,7 @@ begin
       g_value_set_int(Value, self^.age);
     end;
     4: begin
-      g_value_set_float(Value, self^.size);
+      g_value_set_double(Value, self^.size);
     end;
     5: begin
       g_value_set_boolean(Value, self^.timerOn);
@@ -139,18 +139,18 @@ function timercallback(user_data: Tgpointer): Tgboolean; cdecl;
 var
   self: PEHuman absolute user_data;
   age: Tgint;
+  size: Tgdouble;
   detail: TGQuark;
 begin
-  g_object_get(self, 'age', @age, nil);
+  g_object_get(self, 'age', @age, 'size', @size, nil);
   Inc(age);
-  g_object_set(self, 'age', age, nil);
+  size += 0.02;
+  g_object_set(self, 'age', age, 'size', size, nil);
   if age mod 10 = 0 then begin
     detail := g_quark_from_string('ten');
-    g_signal_emit(self, age_signal_id, detail, 'ten');
-    g_signal_emit(self, age_signal_id, detail);
+    g_signal_emit(self, age_signal_id, detail, 'ten', age, size);
   end else begin
-    g_signal_emit(self, age_signal_id, 0, 'normal');
-    g_signal_emit(self, age_signal_id, 0);
+    g_signal_emit(self, age_signal_id, 0, 'normal', age, size);
   end;
   if age >= 100 then  begin
     g_signal_emit(self, died_signal_id, 0);
@@ -186,14 +186,13 @@ begin
   obj_properties[1] := g_param_spec_string('firstname', 'FirstName', 'FirstName of the human', nil, G_PARAM_READWRITE);
   obj_properties[2] := g_param_spec_string('lastname', 'LastName', 'LastName of the human', nil, G_PARAM_READWRITE);
   obj_properties[3] := g_param_spec_int('age', 'Age', 'Age of the human', 0, 150, 0, G_PARAM_READWRITE);
-  obj_properties[4] := g_param_spec_float('size', 'Sizw', 'Size of the human', 0.0, 3.0, 0.0, G_PARAM_READWRITE);
+  obj_properties[4] := g_param_spec_double('size', 'Sizw', 'Size of the human', 0.0, 3.0, 0.0, G_PARAM_READWRITE);
 
   obj_properties[5] := g_param_spec_boolean('timeon', 'TimeOn', 'TimeOn vor Age of the human', gFalse, G_PARAM_READWRITE);
   obj_properties[6] := g_param_spec_int('time', 'Time', 'Time vor Age of the human', 0, 100, 0, G_PARAM_READWRITE);
 
   g_object_class_install_properties(object_class, Length(obj_properties), obj_properties);
 
-  WriteLn(111111111);
   age_signal_id := g_signal_new('inc-age',
     G_TYPE_FROM_CLASS(klass),
     G_SIGNAL_RUN_LAST or G_SIGNAL_DETAILED,
@@ -202,8 +201,10 @@ begin
     nil,
     nil,
     G_TYPE_NONE,
-    0);
-  WriteLn(111111111);
+    3,
+    G_TYPE_STRING,
+    G_TYPE_INT,
+    G_TYPE_DOUBLE);
 
   died_signal_id := g_signal_new('human-died',
     G_TYPE_FROM_CLASS(klass),
@@ -247,7 +248,7 @@ begin
   Result := g_object_new(E_TYPE_HUMAN, nil);
 end;
 
-function e_human_new_with_data(FirstName, LastName: Pgchar; age: Tgint; size: Tgfloat): PEHuman;
+function e_human_new_with_data(FirstName, LastName: Pgchar; age: Tgint; size: Tgdouble): PEHuman;
 begin
   Result := g_object_new(E_TYPE_HUMAN,
     'firstname', FirstName,

@@ -32,16 +32,13 @@ var
     g_free(ln);
   end;
 
-procedure age_cp(self: PGObject; Data: Tgpointer; user_data: Tgpointer); cdecl;
-var
-  human: PEHumanInc absolute self;
-  age: Tgint;
-begin
-  g_printf('data: %s'#10, Data);
-
-  g_object_get(human, 'age', @age, nil);
-  g_printerr('Alter: %3d.'#10#10, age);
-end;
+  procedure age_cp(self: PGObject; detail: Pgchar; age: Tgint; user_data: Tgpointer); cdecl;
+  begin
+    if g_strcmp0(detail, 'ten') = 0 then begin
+      g_printf('Ten Jears  ');
+    end;
+    g_printf('Alter: %3d.'#10#10, age);
+  end;
 
   procedure died_cp(self: PGObject; Data: Tgpointer); cdecl;
   begin
@@ -66,7 +63,7 @@ end;
     GObjectShowProperty(Human);
 
     g_signal_connect(Human, 'inc-age', G_CALLBACK(@age_cp), GINT_TO_POINTER(123));
-//    g_signal_connect(Human, 'inc-age::ten', G_CALLBACK(@age_cp), Human);
+    //    g_signal_connect(Human, 'inc-age::ten', G_CALLBACK(@age_cp), Human);
     g_signal_connect(Human, 'human-died', G_CALLBACK(@died_cp), nil);
 
     mainloop := g_main_loop_new(nil, False);

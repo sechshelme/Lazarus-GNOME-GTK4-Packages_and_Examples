@@ -15,22 +15,27 @@ uses
     i: integer;
     lab: Pgchar;
     submenu: PGMenuModel;
+    NewLine:Boolean;
   begin
     n_items := g_menu_model_get_n_items(menu);
     g_printf('%*sCount: %d'#10, space, '', n_items);
     for i := 0 to n_items - 1 do begin
+      g_printf('%*s%2d.', space, '', i);
+
       if g_menu_model_get_item_attribute(menu, i, G_MENU_ATTRIBUTE_LABEL, 's', @lab) then begin
-        g_printf('%*sItem %d: %-16s', space, '', i, lab);
+        g_printf('%*sItem: %-16s', space, '', lab);
         g_free(lab);
       end;
       if g_menu_model_get_item_attribute(menu, i, G_MENU_ATTRIBUTE_ACTION, 's', @lab) then begin
-        g_printf('%*sDetail %d: %-8s'#10, space, '', i, lab);
+        g_printf('%*sDetail: %-8s', space, '', lab);
         g_free(lab);
       end;
       if g_menu_model_get_item_attribute(menu, i, 'accel', 's', @lab) then begin
-        g_printf('%*sAccel %d: %-8s'#10, space, '', i, lab);
+        g_printf('%*sAccel: %-8s', space, '', lab);
         g_free(lab);
       end;
+
+      g_printf(#10);
 
       submenu := g_menu_model_get_item_link(menu, i, G_MENU_LINK_SUBMENU);
       if submenu <> nil then begin
@@ -40,30 +45,37 @@ uses
     end;
   end;
 
+  procedure menuaction_cp(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer); cdecl;
+  begin
+  end;
+
+
   function CreateMenu: PGMenu;
   var
     mainMenu, optionMenu, colorSubMenu, fileMenu, helpMenu: PGMenu;
     action: PGSimpleAction;
-    test_item: PGMenuItem;
+    app: PGApplication;
+    quit_item: PGMenuItem;
   begin
+    app := g_application_get_default;
 
     // --- Datei
     fileMenu := g_menu_new;
     g_menu_append(fileMenu, '_Neu', 'app.new');
 
-    //    action := g_simple_action_new('quit', nil);
-    //    g_action_map_add_action(G_ACTION_MAP(nil), G_ACTION(action));
-    //    g_signal_connect(action, 'activate', G_CALLBACK(@menuaction_cp), nil);
-
     g_menu_append(fileMenu, '_oeffnen', 'app.open');
     g_menu_append(fileMenu, '_speichern', 'app.save');
-    g_menu_append(fileMenu, nil, nil);
-    g_menu_append(fileMenu, '_beenden', 'app.quit');
+    g_menu_append(fileMenu, '-', nil);
 
-    test_item := g_menu_item_new('test', 'app.quit');
-    g_menu_item_set_attribute(test_item, 'accel', 's', '<Ctrl>q');
-    g_menu_append_item(fileMenu, test_item);
+    quit_item := g_menu_item_new('Beenden...', 'app.quit');
+    g_menu_item_set_attribute(quit_item, 'accel', 's', '<Ctrl>q');
+    g_menu_append_item(fileMenu, quit_item);
+    g_object_unref(quit_item);
 
+    action := g_simple_action_new('quit', nil);
+//    g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
+    g_signal_connect(action, 'activate', G_CALLBACK(@menuaction_cp), nil);
+//    gtk_application_set_accels_for_action(GTK_APPLICATION(app), 'app.quit', @[PChar('<Control>q'), nil]);
 
     // --- Optionne
     colorSubMenu := g_menu_new;
@@ -83,10 +95,13 @@ uses
 
     // --- Main Menu
     mainMenu := g_menu_new;
+
     g_menu_append_submenu(mainMenu, '_Datei', G_MENU_MODEL(fileMenu));
     g_object_set_data_full(G_OBJECT(mainMenu), 'file_menu', fileMenu, @g_object_unref);
+
     g_menu_append_submenu(mainMenu, '_Optionen', G_MENU_MODEL(optionMenu));
     g_object_set_data_full(G_OBJECT(mainMenu), 'option_menu', optionMenu, @g_object_unref);
+
     g_menu_append_submenu(mainMenu, '_Hilfe', G_MENU_MODEL(helpMenu));
     g_object_set_data_full(G_OBJECT(mainMenu), 'help_menu', helpMenu, @g_object_unref);
 
@@ -105,6 +120,8 @@ uses
     print_Menu(G_MENU_MODEL(menu));
 
     g_object_unref(obj);
+
+    Result:=0;
   end;
 
 

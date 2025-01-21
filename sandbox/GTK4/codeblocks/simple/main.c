@@ -49,5 +49,6 @@ main (int argc, char *argv[])
     g_main_context_iteration (NULL, TRUE);
   return 0;
 
+  G_TYPE_STRING
 }
 Cardinal

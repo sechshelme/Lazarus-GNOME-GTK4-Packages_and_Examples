@@ -15,6 +15,7 @@ function Create_ListBoxWidget: PGtkWidget;
 implementation
 
 // https://www.perplexity.ai/search/gib-mir-ein-beispiel-mit-gtk-l-3L_FREJyTXiqn2vNyH76Kw
+// https://github.com/ToshioCP/Gtk4-tutorial/blob/main/gfm/sec32.md
 
 function Create_ListBoxWidget: PGtkWidget;
 var
@@ -22,9 +23,12 @@ var
   lb, sw: PGtkWidget;
   listStore: PGtkListStore;
   iter: TGtkTreeIter;
+  renderer: PGtkCellRenderer;
 begin
   sw := gtk_scrolled_window_new;
   gtk_widget_set_vexpand(sw, True);
+
+
 
 
   listStore := gtk_list_store_new(3, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_INT);
@@ -37,6 +41,9 @@ begin
 
   gtk_list_store_append(listStore, @iter);
   gtk_list_store_set(listStore, @iter, 0, 'Hans',1,'Maier', 2, 30, -1);
+
+  renderer := gtk_cell_renderer_text_new;
+  gtk_list_store_set(nil,nil);
 
 
 lb:=gtk_tree_view_new_with_model(GTK_TREE_MODEL(listStore));

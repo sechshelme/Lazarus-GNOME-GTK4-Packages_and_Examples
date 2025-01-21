@@ -107,9 +107,9 @@ begin
   g_object_set(self, 'age', age, nil);
   if age mod 10 = 0 then begin
     detail := g_quark_from_string('ten');
-    g_signal_emit(self, age_signal_id, detail, 'ten');
+    g_signal_emit(self, age_signal_id, detail, 'ten', age);
   end else begin
-    g_signal_emit(self, age_signal_id, 0, 'normal');
+    g_signal_emit(self, age_signal_id, 0, 'normal', age);
   end;
   if age >= 100 then  begin
     g_signal_emit(self, died_signal_id, 0);
@@ -154,8 +154,9 @@ begin
     nil,
     nil,
     G_TYPE_NONE,
-    1,
-    G_TYPE_STRING);
+    2,
+    G_TYPE_STRING,
+    G_TYPE_INT);
 
   died_signal_id := g_signal_new('human-died',
     G_TYPE_FROM_CLASS(klass),

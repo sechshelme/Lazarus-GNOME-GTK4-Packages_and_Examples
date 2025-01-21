@@ -51,7 +51,7 @@ uses
     quit_item := g_menu_item_new('Beenden...', 'app.quit');
     g_menu_item_set_attribute(quit_item, 'accel', 's', '<Ctrl>q');
     g_menu_append_item(fileMenu, quit_item);
-    //    g_menu_append(fileMenu, '_beenden', 'app.quit');
+    g_object_unref(quit_item);
 
     action := g_simple_action_new('quit', nil);
     g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
@@ -108,7 +108,7 @@ uses
   procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
     window, vbox, Button, label1: PGtkWidget;
-    menu: PGMenu;
+    menu: PGMenu=nil;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'GTK4 Border und Bevel');
