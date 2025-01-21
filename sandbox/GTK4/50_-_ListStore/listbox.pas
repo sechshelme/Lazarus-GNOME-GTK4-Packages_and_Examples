@@ -23,12 +23,13 @@ type
   PItemObject = ^TItemObject;
 
 const
-  TOTAL = 10;
+  TOTAL = 3;
 
 type
   TRow = (row0, row1, row2);
 
   // https://www.perplexity.ai/search/gib-mir-ein-beispiel-mit-gtk-l-3L_FREJyTXiqn2vNyH76Kw
+  // https://www.perplexity.ai/search/ubersetz-mit-die-in-c-const-pa-kwPvpEr2QCapTHvW1nrMpw
   // https://github.com/ToshioCP/Gtk4-tutorial/blob/main/gfm/sec32.md
 
 
@@ -111,6 +112,12 @@ begin
 end;
 
 
+procedure on_row_activated_cb(view: PGtkColumnView; position: Tgint; user_data: Tgpointer);
+begin
+  WriteLn('position doubleclick: ', position);
+end;
+
+
 
 function Create_ListBoxWidget: PGtkWidget;
 var
@@ -125,10 +132,15 @@ begin
   gtk_widget_set_vexpand(scrolled_window, True);
 
   model := create_model;
-  selection_model := GTK_SELECTION_MODEL(gtk_no_selection_new(model));
+  selection_model := GTK_SELECTION_MODEL(gtk_single_selection_new(model));
 
   column_view := gtk_column_view_new(selection_model);
+  g_signal_connect(column_view, 'activate', G_CALLBACK(@on_row_activated_cb), Pointer(row0));
+
   gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), column_view);
+
+  gtk_column_view_set_show_row_separators(GTK_COLUMN_VIEW(column_view), True);
+  gtk_column_view_set_show_column_separators(GTK_COLUMN_VIEW(column_view), True);
 
   number_factory := gtk_signal_list_item_factory_new;
   g_signal_connect(number_factory, 'setup', G_CALLBACK(@setup_cb), Pointer(row0));
