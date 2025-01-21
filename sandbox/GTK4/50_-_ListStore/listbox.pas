@@ -25,6 +25,9 @@ type
 const
   TOTAL = 10;
 
+type
+  TRow = (row0, row1, row2);
+
   // https://www.perplexity.ai/search/gib-mir-ein-beispiel-mit-gtk-l-3L_FREJyTXiqn2vNyH76Kw
   // https://github.com/ToshioCP/Gtk4-tutorial/blob/main/gfm/sec32.md
 
@@ -76,16 +79,38 @@ end;
 procedure bind_number_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer);
 var
   l: PGtkWidget;
-  item: Tgpointer;
+  item: PGObject;
   obj: PItemObject;
   buffer: array[0..31] of Tgchar;
+  row: TRow absolute user_data;
 begin
   l := gtk_list_item_get_child(list_item);
   item := gtk_list_item_get_item(list_item);
   obj := g_object_get_data(item, 'item-object');
-  g_snprintf(buffer, SizeOf(buffer), '%d', obj^.Value);
+  case row of
+    row0: begin
+      g_snprintf(buffer, SizeOf(buffer), '%d', obj^.Value);
+    end;
+    row1: begin
+      g_snprintf(buffer, SizeOf(buffer), '%s', obj^.Name);
+    end;
+    row2: begin
+      g_snprintf(buffer, SizeOf(buffer), '%4.2f', obj^.size);
+    end;
+  end;
   gtk_label_set_text(GTK_LABEL(l), buffer);
+  g_printf('bind number'#10);
 end;
+
+procedure unbind_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer);
+begin
+end;
+
+procedure teardown_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer);
+begin
+end;
+
+
 
 function Create_ListBoxWidget: PGtkWidget;
 var
@@ -106,11 +131,30 @@ begin
   gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), column_view);
 
   number_factory := gtk_signal_list_item_factory_new;
-  g_signal_connect(number_factory, 'setup', G_CALLBACK(@setup_cb), nil);
-  g_signal_connect(number_factory, 'bind', G_CALLBACK(@bind_number_cb), nil);
-  ////////////////
+  g_signal_connect(number_factory, 'setup', G_CALLBACK(@setup_cb), Pointer(row0));
+  g_signal_connect(number_factory, 'bind', G_CALLBACK(@bind_number_cb), Pointer(row0));
+  g_signal_connect(number_factory, 'unbind', G_CALLBACK(@unbind_cb), Pointer(row0));
+  g_signal_connect(number_factory, 'teardown', G_CALLBACK(@teardown_cb), Pointer(row0));
 
   number_column := gtk_column_view_column_new('Numbers', number_factory);
+  gtk_column_view_append_column(GTK_COLUMN_VIEW(column_view), number_column);
+
+  number_factory := gtk_signal_list_item_factory_new;
+  g_signal_connect(number_factory, 'setup', G_CALLBACK(@setup_cb), Pointer(row1));
+  g_signal_connect(number_factory, 'bind', G_CALLBACK(@bind_number_cb), Pointer(row1));
+  g_signal_connect(number_factory, 'unbind', G_CALLBACK(@unbind_cb), Pointer(row1));
+  g_signal_connect(number_factory, 'teardown', G_CALLBACK(@teardown_cb), Pointer(row1));
+
+  number_column := gtk_column_view_column_new('Names', number_factory);
+  gtk_column_view_append_column(GTK_COLUMN_VIEW(column_view), number_column);
+
+  number_factory := gtk_signal_list_item_factory_new;
+  g_signal_connect(number_factory, 'setup', G_CALLBACK(@setup_cb), Pointer(row2));
+  g_signal_connect(number_factory, 'bind', G_CALLBACK(@bind_number_cb), Pointer(row2));
+  g_signal_connect(number_factory, 'unbind', G_CALLBACK(@unbind_cb), Pointer(row2));
+  g_signal_connect(number_factory, 'teardown', G_CALLBACK(@teardown_cb), Pointer(row2));
+
+  number_column := gtk_column_view_column_new('Size', number_factory);
   gtk_column_view_append_column(GTK_COLUMN_VIEW(column_view), number_column);
 
 
