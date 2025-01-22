@@ -11,46 +11,53 @@ uses
   fp_glib2, fp_GTK4;
 
 function Create_ListBoxWidget: PGtkWidget;
-procedure DeleteItem(index: Tgint);
+procedure DeleteItem(w: PGtkWidget; index: Tgint);
 
 implementation
 
 type
-  TItemObject = record
-    Value: Tgint;
-    Name: Pgchar;
-    size: Tgfloat;
+  THumanObject = record
+    FirstName: Pgchar;
+    LastName: Pgchar;
+    Age: Tgint;
+    Size: Tgfloat;
   end;
-  PItemObject = ^TItemObject;
+  PHumanObject = ^THumanObject;
 
 const
-  TOTAL = 30;
-
-type
-  TRow = (row0, row1, row2);
+  Humans: array of THumanObject = (
+    (FirstName: 'Max'; LastName: 'Mustermann'; Age: 33; Size: 1.73),
+    (FirstName: 'Bruno'; LastName: 'Weber'; Age: 34; Size: 1.83),
+    (FirstName: 'Joel'; LastName: 'Maier'; Age: 43; Size: 1.71),
+    (FirstName: 'Hans'; LastName: 'Müller'; Age: 66; Size: 1.93));
 
   // https://www.perplexity.ai/search/gib-mir-ein-beispiel-mit-gtk-l-3L_FREJyTXiqn2vNyH76Kw
   // https://www.perplexity.ai/search/ubersetz-mit-die-in-c-const-pa-kwPvpEr2QCapTHvW1nrMpw
   // https://github.com/ToshioCP/Gtk4-tutorial/blob/main/gfm/sec32.md
 
-var
-  column_view: PGtkWidget;
+const
+  RowTitles: array of Pgchar = (
+    'Vorname',
+    'Nachname',
+    'Alter',
+    'Grösse');
 
-
-function item_object_new(Value: Tgint; Name: Pgchar; size: Tgfloat): PItemObject;
+function item_object_new(FirstNamee: Pgchar; LastName: Pgchar; Age: Tgint; size: Tgfloat): PHumanObject;
 begin
-  Result := g_malloc(SizeOf(TItemObject));
-  Result^.Value := Value;
-  Result^.Name := g_strdup(Name);
-  Result^.size := size;
+  Result := g_malloc(SizeOf(THumanObject));
+  Result^.FirstName := g_strdup(FirstNamee);
+  Result^.LastName := g_strdup(LastName);
+  Result^.Age := Age;
+  Result^.Size := Size;
 end;
 
 procedure item_object_free(Data: Tgpointer); cdecl;
 var
-  obj: PItemObject absolute Data;
+  obj: PHumanObject absolute Data;
 begin
-  WriteLn(obj^.Name, '  freed');
-  g_free(obj^.Name);
+  WriteLn(obj^.FirstName, ' ', obj^.FirstName, '  (freed)');
+  g_free(obj^.FirstName);
+  g_free(obj^.LastName);
   g_free(obj);
 end;
 
@@ -58,51 +65,61 @@ function create_model: PGListModel;
 var
   store: PGListStore;
   obj: PGObject;
-  i: integer;
-  Name: array[0..19] of Tgchar;
-  size: Tgfloat;
+  i, j: integer;
 begin
   store := g_list_store_new(G_TYPE_OBJECT);
-  for i := 0 to TOTAL - 1 do begin
-    obj := g_object_new(G_TYPE_OBJECT, nil);
-    g_snprintf(Name, SizeOf(Name), 'Name %d', i);
-    size := i / 10;
-    g_object_set_data_full(obj, 'item-object', item_object_new(i, Name, size), @item_object_free);
-    g_list_store_append(store, obj);
+  for j := 0 to 10 do begin
+    for i := 0 to Length(Humans) - 1 do begin
+      obj := g_object_new(G_TYPE_OBJECT, nil);
+      with Humans[i] do begin
+        g_object_set_data_full(obj, 'human-object', item_object_new(FirstName, LastName, Age, Size), @item_object_free);
+      end;
+      g_list_store_append(store, obj);
+      g_object_unref(obj);
+    end;
   end;
   Result := G_LIST_MODEL(store);
 end;
 
 procedure setup_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer);
 var
+  row: Tgint absolute user_data;
   l: PGtkWidget;
 begin
   //   g_printf('setup called'#10);
   l := gtk_label_new(nil);
+  if row in [2, 3] then begin
+    gtk_widget_set_halign(l, GTK_ALIGN_END);
+  end else begin
+    gtk_widget_set_halign(l, GTK_ALIGN_START);
+  end;
   gtk_list_item_set_child(list_item, l);
 end;
 
-procedure bind_number_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer);
+procedure bind_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer);
 var
+  row: Tgint absolute user_data;
   l: PGtkWidget;
   item: PGObject;
-  obj: PItemObject;
+  obj: PHumanObject;
   buffer: array[0..31] of Tgchar;
-  row: TRow absolute user_data;
 begin
   //  g_printf('bind number'#10);
   l := gtk_list_item_get_child(list_item);
   item := gtk_list_item_get_item(list_item);
-  obj := g_object_get_data(item, 'item-object');
+  obj := g_object_get_data(item, 'human-object');
   case row of
-    row0: begin
-      g_snprintf(buffer, SizeOf(buffer), '%d', obj^.Value);
+    0: begin
+      g_snprintf(buffer, SizeOf(buffer), '%s', obj^.FirstName);
     end;
-    row1: begin
-      g_snprintf(buffer, SizeOf(buffer), '%s', obj^.Name);
+    1: begin
+      g_snprintf(buffer, SizeOf(buffer), '%s', obj^.LastName);
     end;
-    row2: begin
-      g_snprintf(buffer, SizeOf(buffer), '%4.2f', obj^.size);
+    2: begin
+      g_snprintf(buffer, SizeOf(buffer), '%d', obj^.Age);
+    end;
+    3: begin
+      g_snprintf(buffer, SizeOf(buffer), '%4.2f', obj^.Size);
     end;
   end;
   gtk_label_set_text(GTK_LABEL(l), buffer);
@@ -127,83 +144,61 @@ end;
 function Create_ListBoxWidget: PGtkWidget;
 var
   i: integer;
+var
+  column_view: PGtkWidget;
   scrolled_window: PGtkWidget;
   model: PGListModel;
   selection_model: PGtkSelectionModel;
-  number_factory: PGtkListItemFactory;
-  number_column: PGtkColumnViewColumn;
+  factory: PGtkListItemFactory;
+  column, last_column: PGtkColumnViewColumn;
 begin
   scrolled_window := gtk_scrolled_window_new;
-  gtk_widget_set_vexpand(scrolled_window, True);
 
   model := create_model;
   selection_model := GTK_SELECTION_MODEL(gtk_single_selection_new(model));
 
   column_view := gtk_column_view_new(selection_model);
-  g_signal_connect(column_view, 'activate', G_CALLBACK(@on_row_activated_cb), Pointer(row0));
+
+  g_signal_connect(column_view, 'activate', G_CALLBACK(@on_row_activated_cb), nil);
 
   gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), column_view);
 
   gtk_column_view_set_show_row_separators(GTK_COLUMN_VIEW(column_view), True);
   gtk_column_view_set_show_column_separators(GTK_COLUMN_VIEW(column_view), True);
 
-  number_factory := gtk_signal_list_item_factory_new;
-  g_signal_connect(number_factory, 'setup', G_CALLBACK(@setup_cb), Pointer(row0));
-  g_signal_connect(number_factory, 'bind', G_CALLBACK(@bind_number_cb), Pointer(row0));
-  g_signal_connect(number_factory, 'unbind', G_CALLBACK(@unbind_cb), Pointer(row0));
-  g_signal_connect(number_factory, 'teardown', G_CALLBACK(@teardown_cb), Pointer(row0));
+  for i := 0 to Length(RowTitles) - 1 do begin
+    factory := gtk_signal_list_item_factory_new;
+    g_signal_connect(factory, 'setup', G_CALLBACK(@setup_cb), GINT_TO_POINTER(i));
+    g_signal_connect(factory, 'bind', G_CALLBACK(@bind_cb), GINT_TO_POINTER(i));
+    g_signal_connect(factory, 'unbind', G_CALLBACK(@unbind_cb), GINT_TO_POINTER(i));
+    g_signal_connect(factory, 'teardown', G_CALLBACK(@teardown_cb), GINT_TO_POINTER(i));
 
-  number_column := gtk_column_view_column_new('Numbers', number_factory);
-  gtk_column_view_append_column(GTK_COLUMN_VIEW(column_view), number_column);
+    column := gtk_column_view_column_new(RowTitles[i], factory);
+    gtk_column_view_column_set_resizable(column, True);
+    gtk_column_view_append_column(GTK_COLUMN_VIEW(column_view), column);
 
-  number_factory := gtk_signal_list_item_factory_new;
-  g_signal_connect(number_factory, 'setup', G_CALLBACK(@setup_cb), Pointer(row1));
-  g_signal_connect(number_factory, 'bind', G_CALLBACK(@bind_number_cb), Pointer(row1));
-  g_signal_connect(number_factory, 'unbind', G_CALLBACK(@unbind_cb), Pointer(row1));
-  g_signal_connect(number_factory, 'teardown', G_CALLBACK(@teardown_cb), Pointer(row1));
+  end;
+  gtk_column_view_column_set_expand(column, True);
 
-  number_column := gtk_column_view_column_new('Names', number_factory);
-  gtk_column_view_append_column(GTK_COLUMN_VIEW(column_view), number_column);
-
-  number_factory := gtk_signal_list_item_factory_new;
-  g_signal_connect(number_factory, 'setup', G_CALLBACK(@setup_cb), Pointer(row2));
-  g_signal_connect(number_factory, 'bind', G_CALLBACK(@bind_number_cb), Pointer(row2));
-  g_signal_connect(number_factory, 'unbind', G_CALLBACK(@unbind_cb), Pointer(row2));
-  g_signal_connect(number_factory, 'teardown', G_CALLBACK(@teardown_cb), Pointer(row2));
-
-  number_column := gtk_column_view_column_new('Size', number_factory);
-  gtk_column_view_append_column(GTK_COLUMN_VIEW(column_view), number_column);
-
-
+  g_object_set_data(G_OBJECT(scrolled_window), 'column-view', column_view);
 
   Result := scrolled_window;
 end;
 
-// https://www.perplexity.ai/search/wen-ich-g-list-store-remove-au-C1EO91eNSLqrviJXafsCkg
-
-procedure DeleteItem(index: Tgint);
+procedure DeleteItem(w: PGtkWidget; index: Tgint);
 var
+  column_view: PGtkWidget;
   selection_model: PGtkSelectionModel;
   list_model: PGListModel;
   obj: PGObject;
-  ItemObject: PItemObject;
-
 begin
+  column_view := g_object_get_data(G_OBJECT(w), 'column-view');
   selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW(column_view));
   list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
 
   obj := g_list_model_get_item(list_model, index);
   g_list_store_remove(G_LIST_STORE(list_model), index);
-
-  ItemObject := g_object_get_data(obj, 'item-object');
-  WriteLn(ItemObject^.Name);
-  WriteLn(ItemObject^.Name, '  rz: ',obj^.ref_count);
   g_object_unref(obj);
-  WriteLn(ItemObject^.Name, '  rz: ',obj^.ref_count);
-  WriteLn('...');
 end;
-
-
-
 
 end.

@@ -9,58 +9,63 @@ uses
   fp_GTK4,
   ListBox;
 
-procedure btn_click_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
-begin
-  DeleteItem(2);
-end;
+  procedure btn_click_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
+  var
+    listBox: PGtkWidget absolute Data;
+  begin
+    DeleteItem(listBox, 2);
+  end;
 
 
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
-    window, button, vbox, hbox1, hbox2, label1, lb: PGtkWidget;
+    window, button, panedBox, buttonBox, label1, lb1, lb2, paned: PGtkWidget;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'GTK4 Border und Bevel');
     gtk_window_set_default_size(GTK_WINDOW(window), 600, 400);
 
-    vbox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
-    gtk_widget_set_margin_start(vbox, 10);
-    gtk_widget_set_margin_end(vbox, 10);
-    gtk_widget_set_margin_top(vbox, 10);
-    gtk_widget_set_margin_bottom(vbox, 10);
+    panedBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+    gtk_widget_set_margin_start(panedBox, 10);
+    gtk_widget_set_margin_end(panedBox, 10);
+    gtk_widget_set_margin_top(panedBox, 10);
+    gtk_widget_set_margin_bottom(panedBox, 10);
 
-    // Box1
+    // Paned
 
-  //  hbox1 := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-//    gtk_widget_set_hexpand(hbox1, True);
+    paned :=gtk_paned_new(GTK_ORIENTATION_VERTICAL);
+    gtk_paned_set_wide_handle(GTK_PANED(paned), TRUE);
+    gtk_box_append(GTK_BOX(panedBox), paned);
 
-    lb:=Create_ListBoxWidget;
-    gtk_box_append(GTK_BOX(vbox), lb);
-//    gtk_box_append(GTK_BOX(hbox1), lb);
 
-//    label1 := gtk_label_new('box1');
-//    gtk_box_append(GTK_BOX(hbox1), label1);
+    lb1 := Create_ListBoxWidget;
+    gtk_widget_set_vexpand(lb1, True);
+    gtk_paned_set_start_child(GTK_PANED(paned), lb1);
+
+    lb2 := Create_ListBoxWidget;
+    gtk_widget_set_vexpand(lb2, True);
+    gtk_paned_set_end_child(GTK_PANED(paned), lb2);
 
     // Box2
 
-    hbox2 := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-    gtk_box_append(GTK_BOX(vbox), hbox2);
+    buttonBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+    gtk_box_append(GTK_BOX(panedBox), buttonBox);
 
     label1 := gtk_label_new('box2');
-    gtk_box_append(GTK_BOX(hbox2), label1);
+    gtk_box_append(GTK_BOX(buttonBox), label1);
 
     button := gtk_button_new_with_label('green');
     gtk_widget_set_name(GTK_WIDGET(button), 'green');
-    g_signal_connect(button, 'clicked', G_CALLBACK(@btn_click_cp), nil);
-    gtk_box_append(GTK_BOX(hbox2), button);
+    g_signal_connect(button, 'clicked', G_CALLBACK(@btn_click_cp), lb1);
+    gtk_box_append(GTK_BOX(buttonBox), button);
 
     button := gtk_button_new_with_label('green');
     gtk_widget_set_name(GTK_WIDGET(button), 'green');
-    g_signal_connect(button, 'clicked', G_CALLBACK(@btn_click_cp), nil);
-    gtk_box_append(GTK_BOX(hbox2), button);
+    g_signal_connect(button, 'clicked', G_CALLBACK(@btn_click_cp), lb2);
+    gtk_box_append(GTK_BOX(buttonBox), button);
 
-    gtk_window_set_child(GTK_WINDOW(window), vbox);
+    gtk_window_set_child(GTK_WINDOW(window), panedBox);
 
     gtk_window_present(GTK_WINDOW(window));
   end;
