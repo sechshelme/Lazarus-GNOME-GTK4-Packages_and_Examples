@@ -11,6 +11,7 @@ uses
 
 procedure btn_click_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
 begin
+  DeleteItem(2);
 end;
 
 

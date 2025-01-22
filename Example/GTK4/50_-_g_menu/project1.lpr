@@ -27,6 +27,11 @@ uses
     end;
   end;
 
+  procedure testProc(Data: Tgpointer); cdecl;
+  begin
+    WriteLn('free Ref: ', G_OBJECT(Data)^.ref_count);
+  end;
+
   function CreateMenu: PGMenu;
   var
     mainMenu, optionMenu, colorSubMenu, fileMenu, helpMenu: PGMenu;
@@ -39,10 +44,6 @@ uses
     // --- Datei
     fileMenu := g_menu_new;
     g_menu_append(fileMenu, '_Neu', 'app.new');
-
-    //    action := g_simple_action_new('quit', nil);
-    //    g_action_map_add_action(G_ACTION_MAP(nil), G_ACTION(action));
-    //    g_signal_connect(action, 'activate', G_CALLBACK(@menuaction_cp), nil);
 
     g_menu_append(fileMenu, '_oeffnen', 'app.open');
     g_menu_append(fileMenu, '_speichern', 'app.save');
@@ -58,7 +59,7 @@ uses
     g_signal_connect(action, 'activate', G_CALLBACK(@menuaction_cp), nil);
     gtk_application_set_accels_for_action(GTK_APPLICATION(app), 'app.quit', @[PChar('<Control>q'), nil]);
 
-    // --- Optionne
+    // --- Optionen
     colorSubMenu := g_menu_new;
     g_menu_append(colorSubMenu, '_Rot', 'app.red');
     g_menu_append(colorSubMenu, '_Gruen', 'app.green');
@@ -67,7 +68,7 @@ uses
     optionMenu := g_menu_new;
     g_menu_append(optionMenu, '_Optionen..', 'app.option');
     g_menu_append_submenu(optionMenu, '_Farben', G_MENU_MODEL(colorSubMenu));
-    g_object_set_data_full(G_OBJECT(optionMenu), 'color_menu', colorSubMenu, @g_object_unref);
+    g_object_unref(colorSubMenu);
 
     // --- Hilfe
     helpMenu := g_menu_new;
@@ -78,18 +79,16 @@ uses
     mainMenu := g_menu_new;
 
     g_menu_append_submenu(mainMenu, '_Datei', G_MENU_MODEL(fileMenu));
-    g_object_set_data_full(G_OBJECT(mainMenu), 'file_menu', fileMenu, @g_object_unref);
+    g_object_unref(fileMenu);
 
     g_menu_append_submenu(mainMenu, '_Optionen', G_MENU_MODEL(optionMenu));
-    g_object_set_data_full(G_OBJECT(mainMenu), 'option_menu', optionMenu, @g_object_unref);
+    g_object_unref(optionMenu);
 
     g_menu_append_submenu(mainMenu, '_Hilfe', G_MENU_MODEL(helpMenu));
-    g_object_set_data_full(G_OBJECT(mainMenu), 'help_menu', helpMenu, @g_object_unref);
+    g_object_unref(helpMenu);
 
     Result := mainMenu;
   end;
-
-
 
   function CreateMenuButton(menu: PGMenu): PGtkWidget;
   begin
@@ -108,14 +107,14 @@ uses
   procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
     window, vbox, Button, label1: PGtkWidget;
-    menu: PGMenu=nil;
+    menu: PGMenu = nil;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'GTK4 Border und Bevel');
     gtk_window_set_default_size(GTK_WINDOW(window), 300, 200);
 
-    menu:=    CreateMenu;
-    g_object_set_data_full(G_OBJECT(window), 'menu', menu, @g_object_unref);
+    menu := CreateMenu;
+    g_object_set_data_full(G_OBJECT(menu), 'test', menu, @testProc);
 
     vbox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
     gtk_widget_set_margin_start(vbox, 10);
@@ -124,9 +123,11 @@ uses
     gtk_widget_set_margin_bottom(vbox, 10);
 
     gtk_box_prepend(GTK_BOX(vbox), CreateMainMenu(menu));
+    gtk_box_prepend(GTK_BOX(vbox), CreateMainMenu(menu));
 
     gtk_box_append(GTK_BOX(vbox), CreateMenuButton(menu));
     gtk_box_append(GTK_BOX(vbox), CreateMenuButton(menu));
+    WriteLn('ref: ',G_OBJECT(menu)^.ref_count);
 
     Button := gtk_button_new_with_label('Button...');
     label1 := gtk_button_get_child(GTK_BUTTON(Button));
@@ -137,6 +138,7 @@ uses
     label1 := gtk_label_new('Label');
     gtk_label_set_selectable(GTK_LABEL(label1), True);
     gtk_label_set_extra_menu(GTK_LABEL(label1), G_MENU_MODEL(menu));
+    g_object_unref(menu);
     gtk_box_append(GTK_BOX(vbox), label1);
 
     gtk_window_set_child(GTK_WINDOW(window), vbox);

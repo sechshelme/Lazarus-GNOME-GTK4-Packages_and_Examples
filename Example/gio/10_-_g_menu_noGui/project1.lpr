@@ -15,7 +15,7 @@ uses
     i: integer;
     lab: Pgchar;
     submenu: PGMenuModel;
-    NewLine:Boolean;
+    NewLine: boolean;
   begin
     n_items := g_menu_model_get_n_items(menu);
     g_printf('%*sCount: %d'#10, space, '', n_items);
@@ -73,11 +73,11 @@ uses
     g_object_unref(quit_item);
 
     action := g_simple_action_new('quit', nil);
-//    g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
+    //    g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
     g_signal_connect(action, 'activate', G_CALLBACK(@menuaction_cp), nil);
-//    gtk_application_set_accels_for_action(GTK_APPLICATION(app), 'app.quit', @[PChar('<Control>q'), nil]);
+    //    gtk_application_set_accels_for_action(GTK_APPLICATION(app), 'app.quit', @[PChar('<Control>q'), nil]);
 
-    // --- Optionne
+    // --- Optionen
     colorSubMenu := g_menu_new;
     g_menu_append(colorSubMenu, '_Rot', 'app.red');
     g_menu_append(colorSubMenu, '_Gruen', 'app.green');
@@ -86,7 +86,7 @@ uses
     optionMenu := g_menu_new;
     g_menu_append(optionMenu, '_Optionen..', 'app.option');
     g_menu_append_submenu(optionMenu, '_Farben', G_MENU_MODEL(colorSubMenu));
-    g_object_set_data_full(G_OBJECT(optionMenu), 'color_menu', colorSubMenu, @g_object_unref);
+    g_object_unref(colorSubMenu);
 
     // --- Hilfe
     helpMenu := g_menu_new;
@@ -97,13 +97,13 @@ uses
     mainMenu := g_menu_new;
 
     g_menu_append_submenu(mainMenu, '_Datei', G_MENU_MODEL(fileMenu));
-    g_object_set_data_full(G_OBJECT(mainMenu), 'file_menu', fileMenu, @g_object_unref);
+    g_object_unref(fileMenu);
 
     g_menu_append_submenu(mainMenu, '_Optionen', G_MENU_MODEL(optionMenu));
-    g_object_set_data_full(G_OBJECT(mainMenu), 'option_menu', optionMenu, @g_object_unref);
+    g_object_unref(optionMenu);
 
     g_menu_append_submenu(mainMenu, '_Hilfe', G_MENU_MODEL(helpMenu));
-    g_object_set_data_full(G_OBJECT(mainMenu), 'help_menu', helpMenu, @g_object_unref);
+    g_object_unref(helpMenu);
 
     Result := mainMenu;
   end;
@@ -116,12 +116,13 @@ uses
     obj := g_object_new(G_TYPE_OBJECT, nil);
 
     menu := CreateMenu;
-    g_object_set_data_full(G_OBJECT(obj), 'main_menu', menu, @g_object_unref);
+
     print_Menu(G_MENU_MODEL(menu));
+    g_object_unref(menu);
 
     g_object_unref(obj);
 
-    Result:=0;
+    Result := 0;
   end;
 
 

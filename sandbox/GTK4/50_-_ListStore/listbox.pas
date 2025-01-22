@@ -11,6 +11,7 @@ uses
   fp_glib2, fp_GTK4;
 
 function Create_ListBoxWidget: PGtkWidget;
+procedure DeleteItem(index: Tgint);
 
 implementation
 
@@ -23,7 +24,7 @@ type
   PItemObject = ^TItemObject;
 
 const
-  TOTAL = 3;
+  TOTAL = 30;
 
 type
   TRow = (row0, row1, row2);
@@ -31,6 +32,9 @@ type
   // https://www.perplexity.ai/search/gib-mir-ein-beispiel-mit-gtk-l-3L_FREJyTXiqn2vNyH76Kw
   // https://www.perplexity.ai/search/ubersetz-mit-die-in-c-const-pa-kwPvpEr2QCapTHvW1nrMpw
   // https://github.com/ToshioCP/Gtk4-tutorial/blob/main/gfm/sec32.md
+
+var
+  column_view: PGtkWidget;
 
 
 function item_object_new(Value: Tgint; Name: Pgchar; size: Tgfloat): PItemObject;
@@ -45,6 +49,7 @@ procedure item_object_free(Data: Tgpointer); cdecl;
 var
   obj: PItemObject absolute Data;
 begin
+  WriteLn(obj^.Name, '  freed');
   g_free(obj^.Name);
   g_free(obj);
 end;
@@ -60,7 +65,7 @@ begin
   store := g_list_store_new(G_TYPE_OBJECT);
   for i := 0 to TOTAL - 1 do begin
     obj := g_object_new(G_TYPE_OBJECT, nil);
-    g_snprintf(Name, SizeOf(Name), 'Name %d', 1);
+    g_snprintf(Name, SizeOf(Name), 'Name %d', i);
     size := i / 10;
     g_object_set_data_full(obj, 'item-object', item_object_new(i, Name, size), @item_object_free);
     g_list_store_append(store, obj);
@@ -72,9 +77,9 @@ procedure setup_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; 
 var
   l: PGtkWidget;
 begin
+  //   g_printf('setup called'#10);
   l := gtk_label_new(nil);
   gtk_list_item_set_child(list_item, l);
-  g_printf('setup called'#10);
 end;
 
 procedure bind_number_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer);
@@ -85,6 +90,7 @@ var
   buffer: array[0..31] of Tgchar;
   row: TRow absolute user_data;
 begin
+  //  g_printf('bind number'#10);
   l := gtk_list_item_get_child(list_item);
   item := gtk_list_item_get_item(list_item);
   obj := g_object_get_data(item, 'item-object');
@@ -100,7 +106,6 @@ begin
     end;
   end;
   gtk_label_set_text(GTK_LABEL(l), buffer);
-  g_printf('bind number'#10);
 end;
 
 procedure unbind_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer);
@@ -122,7 +127,7 @@ end;
 function Create_ListBoxWidget: PGtkWidget;
 var
   i: integer;
-  scrolled_window, column_view: PGtkWidget;
+  scrolled_window: PGtkWidget;
   model: PGListModel;
   selection_model: PGtkSelectionModel;
   number_factory: PGtkListItemFactory;
@@ -172,6 +177,30 @@ begin
 
 
   Result := scrolled_window;
+end;
+
+// https://www.perplexity.ai/search/wen-ich-g-list-store-remove-au-C1EO91eNSLqrviJXafsCkg
+
+procedure DeleteItem(index: Tgint);
+var
+  selection_model: PGtkSelectionModel;
+  list_model: PGListModel;
+  obj: PGObject;
+  ItemObject: PItemObject;
+
+begin
+  selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW(column_view));
+  list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
+
+  obj := g_list_model_get_item(list_model, index);
+  g_list_store_remove(G_LIST_STORE(list_model), index);
+
+  ItemObject := g_object_get_data(obj, 'item-object');
+  WriteLn(ItemObject^.Name);
+  WriteLn(ItemObject^.Name, '  rz: ',obj^.ref_count);
+  g_object_unref(obj);
+  WriteLn(ItemObject^.Name, '  rz: ',obj^.ref_count);
+  WriteLn('...');
 end;
 
 
