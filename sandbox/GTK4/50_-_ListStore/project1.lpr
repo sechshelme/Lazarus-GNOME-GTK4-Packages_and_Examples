@@ -13,7 +13,18 @@ uses
   var
     listBox: PGtkWidget absolute Data;
   begin
-    DeleteItem(listBox, 2);
+    LisBoxDeleteItem(listBox);
+  end;
+
+
+  procedure new_click_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
+  var
+    listBox: PGtkWidget absolute Data;
+  const
+    index: integer = 0;
+  begin
+    ListBoxNewItem(listBox, 'Daniel', 'Maier', index, Random * 2);
+    Inc(index);
   end;
 
 
@@ -34,14 +45,18 @@ uses
 
     // Paned
 
-    paned :=gtk_paned_new(GTK_ORIENTATION_VERTICAL);
-    gtk_paned_set_wide_handle(GTK_PANED(paned), TRUE);
+    paned := gtk_paned_new(GTK_ORIENTATION_VERTICAL);
+    gtk_paned_set_wide_handle(GTK_PANED(paned), True);
     gtk_box_append(GTK_BOX(panedBox), paned);
 
 
     lb1 := Create_ListBoxWidget;
     gtk_widget_set_vexpand(lb1, True);
     gtk_paned_set_start_child(GTK_PANED(paned), lb1);
+    ListBoxNewItem(lb1, 'Max', 'Hugentobler', 45, 1.76);
+    ListBoxNewItem(lb1, 'Werner', 'Huber', 42, 1.86);
+    ListBoxNewItem(lb1, 'Hans', 'Ulrich', 56, 1.78);
+    ListBoxNewItem(lb1, 'Peter', 'Meier', 52, 1.74);
 
     lb2 := Create_ListBoxWidget;
     gtk_widget_set_vexpand(lb2, True);
@@ -55,13 +70,19 @@ uses
     label1 := gtk_label_new('box2');
     gtk_box_append(GTK_BOX(buttonBox), label1);
 
-    button := gtk_button_new_with_label('green');
-    gtk_widget_set_name(GTK_WIDGET(button), 'green');
+    button := gtk_button_new_with_label('New LB0');
+    g_signal_connect(button, 'clicked', G_CALLBACK(@new_click_cp), lb1);
+    gtk_box_append(GTK_BOX(buttonBox), button);
+
+    button := gtk_button_new_with_label('Delete LB0');
     g_signal_connect(button, 'clicked', G_CALLBACK(@btn_click_cp), lb1);
     gtk_box_append(GTK_BOX(buttonBox), button);
 
-    button := gtk_button_new_with_label('green');
-    gtk_widget_set_name(GTK_WIDGET(button), 'green');
+    button := gtk_button_new_with_label('New LB1');
+    g_signal_connect(button, 'clicked', G_CALLBACK(@new_click_cp), lb2);
+    gtk_box_append(GTK_BOX(buttonBox), button);
+
+    button := gtk_button_new_with_label('Delete LB1');
     g_signal_connect(button, 'clicked', G_CALLBACK(@btn_click_cp), lb2);
     gtk_box_append(GTK_BOX(buttonBox), button);
 
