@@ -11,8 +11,10 @@ uses
   fp_glib2, fp_GTK4;
 
 function Create_ListBoxWidget: PGtkWidget;
-procedure LisBoxDeleteItem(w: PGtkWidget);
-procedure ListBoxNewItem(w: PGtkWidget; FirstName: Pgchar; LastName: Pgchar; Age: Tgint; size: Tgfloat);
+procedure ListBoxRemoveItem(w: PGtkWidget);
+procedure ListBoxAppendItem(w: PGtkWidget; FirstName: Pgchar; LastName: Pgchar; Age: Tgint; size: Tgfloat);
+procedure ListBoxUp(w: PGtkWidget);
+procedure ListBoxDown(w: PGtkWidget);
 
 implementation
 
@@ -148,7 +150,7 @@ begin
   Result := scrolled_window;
 end;
 
-procedure ListBoxNewItem(w: PGtkWidget; FirstName: Pgchar; LastName: Pgchar; Age: Tgint; size: Tgfloat);
+procedure ListBoxAppendItem(w: PGtkWidget; FirstName: Pgchar; LastName: Pgchar; Age: Tgint; size: Tgfloat);
 var
   column_view: PGtkColumnView;
   selection_model: PGtkSelectionModel;
@@ -173,7 +175,7 @@ begin
   g_object_unref(obj);
 end;
 
-procedure LisBoxDeleteItem(w: PGtkWidget);
+procedure ListBoxRemoveItem(w: PGtkWidget);
 var
   column_view: PGtkColumnView;
   selection_model: PGtkSelectionModel;
@@ -196,12 +198,70 @@ begin
 
     obj := g_list_model_get_item(list_model, position);
     g_list_store_remove(G_LIST_STORE(list_model), position);
+
     g_object_unref(obj);
   end;
   gtk_bitset_unref(selected);
 end;
 
-// Swap:
-// https://www.perplexity.ai/search/wie-vertausche-ich-2-eintrage-WUslJPxpQHq7tiDsh7Ys_g
+procedure ListBoxUp(w: PGtkWidget);
+var
+  column_view: Tgpointer;
+  selection_model: PGtkSelectionModel;
+  list_model: PGListModel;
+  selected: PGtkBitset;
+  position: Tguint;
+  obj: PGObject;
+begin
+  column_view := g_object_get_data(G_OBJECT(w), columnViewKey);
+  selection_model := gtk_column_view_get_model(column_view);
+  list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
+
+  selected := gtk_selection_model_get_selection(selection_model);
+  if gtk_bitset_is_empty(selected) then begin
+    WriteLn('keine Zeile ausgewählt');
+  end else begin
+    position := gtk_bitset_get_nth(selected, 0);
+    if position > 0 then begin
+      obj := g_list_model_get_item(list_model, position);
+      g_list_store_remove(G_LIST_STORE(list_model), position);
+      g_list_store_insert(G_LIST_STORE(list_model), position - 1, obj);
+      gtk_selection_model_select_item(selection_model, position - 1, True);
+      g_object_unref(obj);
+    end;
+  end;
+  gtk_bitset_unref(selected);
+end;
+
+procedure ListBoxDown(w: PGtkWidget);
+var
+  column_view: Tgpointer;
+  selection_model: PGtkSelectionModel;
+  list_model: PGListModel;
+  selected: PGtkBitset;
+  position, Count: Tguint;
+  obj: PGObject;
+begin
+  column_view := g_object_get_data(G_OBJECT(w), columnViewKey);
+  selection_model := gtk_column_view_get_model(column_view);
+  list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
+  Count := g_list_model_get_n_items(list_model);
+
+  selected := gtk_selection_model_get_selection(selection_model);
+  if gtk_bitset_is_empty(selected) then begin
+    WriteLn('keine Zeile ausgewählt');
+  end else begin
+    position := gtk_bitset_get_nth(selected, 0);
+    if position < Count - 1 then begin
+      obj := g_list_model_get_item(list_model, position);
+      g_list_store_remove(G_LIST_STORE(list_model), position);
+      g_list_store_insert(G_LIST_STORE(list_model), position + 1, obj);
+      gtk_selection_model_select_item(selection_model, position + 1, True);
+      g_object_unref(obj);
+    end;
+  end;
+  gtk_bitset_unref(selected);
+end;
+
 
 end.

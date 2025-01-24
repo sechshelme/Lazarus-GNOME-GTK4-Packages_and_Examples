@@ -116,6 +116,8 @@ uses
     menu := CreateMenu;
     g_object_set_data_full(G_OBJECT(menu), 'test', menu, @testProc);
 
+
+
     vbox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
     gtk_widget_set_margin_start(vbox, 10);
     gtk_widget_set_margin_end(vbox, 10);
@@ -127,7 +129,7 @@ uses
 
     gtk_box_append(GTK_BOX(vbox), CreateMenuButton(menu));
     gtk_box_append(GTK_BOX(vbox), CreateMenuButton(menu));
-    WriteLn('ref: ',G_OBJECT(menu)^.ref_count);
+    WriteLn('ref: ', G_OBJECT(menu)^.ref_count);
 
     Button := gtk_button_new_with_label('Button...');
     label1 := gtk_button_get_child(GTK_BUTTON(Button));
