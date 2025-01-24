@@ -9,53 +9,56 @@ uses
   fp_GTK4,
   ListBox;
 
-  procedure btn_click_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
-  var
-    listBox: PGtkWidget absolute Data;
-  begin
-    ListBoxRemoveItem(listBox);
-  end;
+const
+  cmdKey='cmdKey';
+type
+  TCmd = (cmdRemove, cmdRemoveAll, cmdAppend, cmdUp, cmdDown);
 
-  procedure new_click_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
-  var
-    listBox: PGtkWidget absolute Data;
+  procedure btn_click_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
   const
     index: integer = 0;
+  var
+    listBox: PGtkWidget absolute Data;
+    cmd: TCmd;
   begin
-    ListBoxAppendItem(listBox, 'Daniel', 'Maier', index, Random * 2);
+    cmd := TCmd(PtrInt(g_object_get_data(G_OBJECT(widget), cmdKey)));
+    WriteLn(cmd);
+    case cmd of
+      cmdRemove: begin
+        ListBoxRemoveItem(listBox);
+      end;
+      cmdRemoveAll: begin
+        ListBoxRemoveAllItem(listBox);
+      end;
+      cmdAppend: begin
+        ListBoxAppendItem(listBox, 'Daniel', 'Maier', index, Random * 2);
+      end;
+      cmdUp: begin
+        ListBoxUp(listBox);
+      end;
+      cmdDown: begin
+        ListBoxDown(listBox);
+      end;
+    end;
     Inc(index);
   end;
 
-procedure btn_up_click_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
-var
-  listBox: PGtkWidget absolute Data;
-begin
-  ListBoxUp(listBox);
-end;
+  function CreateBtnButton(label_, icon_name: Pgchar; cmd: TCmd; listBox: PGtkWidget): PGtkWidget;
+  var
+    box, image, lab: PGtkWidget;
+  begin
+    box := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
+    image := gtk_image_new_from_icon_name(icon_name);
+    lab := gtk_label_new(label_);
 
-procedure btn_down_click_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
-var
-  listBox: PGtkWidget absolute Data;
-begin
-  ListBoxDown(listBox);
-end;
+    gtk_box_append(GTK_BOX(box), image);
+    gtk_box_append(GTK_BOX(box), lab);
 
-function CreateButton(label_, icon_name:Pgchar):PGtkWidget;
-var
-  box, image, lab: PGtkWidget;
-begin
-  box:=gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
-  image:=gtk_image_new_from_icon_name(icon_name);
-  lab:=gtk_label_new(label_);
-
-  gtk_box_append(GTK_BOX(box), image);
-  gtk_box_append(GTK_BOX(box), lab)   ;
-
-  Result:=gtk_button_new;
-  gtk_button_set_child(GTK_BUTTON(Result),box);
+    Result := gtk_button_new;
+    gtk_button_set_child(GTK_BUTTON(Result), box);
+    g_object_set_data(G_OBJECT(Result), cmdKey, Pointer(PtrInt(cmd)));
+    g_signal_connect(Result, 'clicked', G_CALLBACK(@btn_click_cp), listBox);
   end;
-
-
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
@@ -98,24 +101,19 @@ begin
     label1 := gtk_label_new('box2');
     gtk_box_append(GTK_BOX(buttonBox), label1);
 
-    button := CreateButton('Append', 'list-add-symbolic');
-    g_signal_connect(button, 'clicked', G_CALLBACK(@new_click_cp), lb1);
+    button := CreateBtnButton('Append', 'list-add-symbolic', cmdAppend, lb1);
     gtk_box_append(GTK_BOX(buttonBox), button);
 
-    button := CreateButton('Remove','list-remove-symbolic');
-    g_signal_connect(button, 'clicked', G_CALLBACK(@btn_click_cp), lb1);
+    button := CreateBtnButton('Remove', 'list-remove-symbolic', cmdRemove, lb1);
     gtk_box_append(GTK_BOX(buttonBox), button);
 
-    button := CreateButton('Remove All','list-remove-all-symbolic');
-    g_signal_connect(button, 'clicked', G_CALLBACK(@btn_click_cp), lb1);
+    button := CreateBtnButton('Remove All', 'list-remove-all-symbolic', cmdRemoveAll, lb1);
     gtk_box_append(GTK_BOX(buttonBox), button);
 
-    button := CreateButton('Up','go-up-symbolic');
-    g_signal_connect(button, 'clicked', G_CALLBACK(@btn_up_click_cp), lb1);
+    button := CreateBtnButton('Up', 'go-up-symbolic', cmdUp, lb1);
     gtk_box_append(GTK_BOX(buttonBox), button);
 
-    button := CreateButton('Down','go-down-symbolic');
-    g_signal_connect(button, 'clicked', G_CALLBACK(@btn_down_click_cp), lb1);
+    button := CreateBtnButton('Down', 'go-down-symbolic', cmdDown, lb1);
     gtk_box_append(GTK_BOX(buttonBox), button);
 
     gtk_window_set_child(GTK_WINDOW(window), panedBox);

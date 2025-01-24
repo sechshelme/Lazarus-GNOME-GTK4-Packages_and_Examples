@@ -12,6 +12,7 @@ uses
 
 function Create_ListBoxWidget: PGtkWidget;
 procedure ListBoxRemoveItem(w: PGtkWidget);
+procedure ListBoxRemoveAllItem(w: PGtkWidget);
 procedure ListBoxAppendItem(w: PGtkWidget; FirstName: Pgchar; LastName: Pgchar; Age: Tgint; size: Tgfloat);
 procedure ListBoxUp(w: PGtkWidget);
 procedure ListBoxDown(w: PGtkWidget);
@@ -46,7 +47,7 @@ procedure item_object_free_cp(Data: Tgpointer); cdecl;
 var
   obj: PHuman absolute Data;
 begin
-  WriteLn(obj^.FirstName, ' ', obj^.FirstName, '  (freed)');
+  WriteLn(obj^.FirstName, ' ', obj^.LastName, '  (freed)');
   g_free(obj^.FirstName);
   g_free(obj^.LastName);
   g_free(obj);
@@ -180,10 +181,8 @@ var
   column_view: PGtkColumnView;
   selection_model: PGtkSelectionModel;
   list_model: PGListModel;
-  obj: PGObject;
 
   selected: PGtkBitset;
-  position: Tguint;
 begin
   column_view := g_object_get_data(G_OBJECT(w), columnViewKey);
   selection_model := gtk_column_view_get_model(column_view);
@@ -191,18 +190,27 @@ begin
 
   selected := gtk_selection_model_get_selection(selection_model);
   if gtk_bitset_is_empty(selected) then begin
-    WriteLn('keine Zeile ausgewählt');
+    g_printf('keine Zeile ausgewählt'#10);
   end else begin
-    position := gtk_bitset_get_nth(selected, 0);
-    WriteLn('Zeile ', position, ' ausgewählt');
-
-    obj := g_list_model_get_item(list_model, position);
-    g_list_store_remove(G_LIST_STORE(list_model), position);
-
-    g_object_unref(obj);
+    g_list_store_remove(G_LIST_STORE(list_model), gtk_bitset_get_nth(selected, 0));
   end;
   gtk_bitset_unref(selected);
 end;
+
+procedure ListBoxRemoveAllItem(w: PGtkWidget);
+var
+  column_view: Tgpointer;
+  selection_model: PGtkSelectionModel;
+  list_model: PGListModel;
+begin
+  column_view := g_object_get_data(G_OBJECT(w), columnViewKey);
+  selection_model := gtk_column_view_get_model(column_view);
+  list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
+
+  g_list_store_remove_all(G_LIST_STORE(list_model));
+end;
+
+
 
 procedure ListBoxUp(w: PGtkWidget);
 var
