@@ -10,7 +10,7 @@ uses
   // https://www.perplexity.ai/search/kann-man-in-gtk4-win-typisches-Uh1opi2XT_m29krYlBBn7g
 
 
-  procedure menuaction_cp(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer); cdecl;
+  procedure action_cp(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer); cdecl;
   var
     action_name: Pgchar;
     app: PGApplication;
@@ -90,7 +90,7 @@ uses
 
     action := g_simple_action_new('quit', nil);
     g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
-    g_signal_connect(action, 'activate', G_CALLBACK(@menuaction_cp), nil);
+    g_signal_connect(action, 'activate', G_CALLBACK(@action_cp), nil);
 //    gtk_application_set_accels_for_action(GTK_APPLICATION(app), 'app.quit', @[PChar('<Control>q'), nil]);
   end;
 

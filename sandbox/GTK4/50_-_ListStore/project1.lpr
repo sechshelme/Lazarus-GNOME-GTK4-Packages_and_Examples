@@ -7,43 +7,43 @@ uses
   fp_GLIBTools,
   fp_GDK4,
   fp_GTK4,
-  ListBox;
+  culumn_view;
 
-const
-  cmdKey='cmdKey';
-type
-  TCmd = (cmdRemove, cmdRemoveAll, cmdAppend, cmdUp, cmdDown);
+//const
+//  cmdKey='cmdKey';
+//type
+//  TCmd = (cmdRemove, cmdRemoveAll, cmdAppend, cmdUp, cmdDown);
 
-  procedure btn_click_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
-  const
-    index: integer = 0;
-  var
-    listBox: PGtkWidget absolute Data;
-    cmd: TCmd;
-  begin
-    cmd := TCmd(PtrInt(g_object_get_data(G_OBJECT(widget), cmdKey)));
-    WriteLn(cmd);
-    case cmd of
-      cmdRemove: begin
-        ListBoxRemoveItem(listBox);
-      end;
-      cmdRemoveAll: begin
-        ListBoxRemoveAllItem(listBox);
-      end;
-      cmdAppend: begin
-        ListBoxAppendItem(listBox, 'Daniel', 'Maier', index, Random * 2);
-      end;
-      cmdUp: begin
-        ListBoxUp(listBox);
-      end;
-      cmdDown: begin
-        ListBoxDown(listBox);
-      end;
-    end;
-    Inc(index);
-  end;
+  //procedure btn_click_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
+  //const
+  //  index: integer = 0;
+  //var
+  //  listBox: PGtkWidget absolute Data;
+  //  cmd: TCmd;
+  //begin
+  //  cmd := TCmd(PtrInt(g_object_get_data(G_OBJECT(widget), cmdKey)));
+  //  WriteLn(cmd);
+  //  case cmd of
+  //    cmdRemove: begin
+  //      ListBoxRemoveItem(listBox);
+  //    end;
+  //    cmdRemoveAll: begin
+  //      ListBoxRemoveAllItem(listBox);
+  //    end;
+  //    cmdAppend: begin
+  //      ListBoxAppendItem(listBox, 'Daniel', 'Maier', index, Random * 2);
+  //    end;
+  //    cmdUp: begin
+  //      ListBoxUp(listBox);
+  //    end;
+  //    cmdDown: begin
+  //      ListBoxDown(listBox);
+  //    end;
+  //  end;
+  //  Inc(index);
+  //end;
 
-  function CreateBtnButton(label_, icon_name: Pgchar; cmd: TCmd; listBox: PGtkWidget): PGtkWidget;
+  function CreateBtnButton(label_, icon_name, action_name: Pgchar): PGtkWidget;
   var
     box, image, lab: PGtkWidget;
   begin
@@ -56,8 +56,10 @@ type
 
     Result := gtk_button_new;
     gtk_button_set_child(GTK_BUTTON(Result), box);
-    g_object_set_data(G_OBJECT(Result), cmdKey, Pointer(PtrInt(cmd)));
-    g_signal_connect(Result, 'clicked', G_CALLBACK(@btn_click_cp), listBox);
+    gtk_actionable_set_action_name(GTK_ACTIONABLE(Result),action_name);
+
+//    g_object_set_data(G_OBJECT(Result), cmdKey, Pointer(PtrInt(cmd)));
+//    g_signal_connect(Result, 'clicked', G_CALLBACK(@btn_click_cp), listBox);
   end;
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
@@ -84,14 +86,18 @@ type
     lb1 := Create_ListBoxWidget;
     gtk_widget_set_vexpand(lb1, True);
     gtk_paned_set_start_child(GTK_PANED(paned), lb1);
-    ListBoxAppendItem(lb1, 'Max', 'Hugentobler', 45, 1.76);
-    ListBoxAppendItem(lb1, 'Werner', 'Huber', 42, 1.86);
-    ListBoxAppendItem(lb1, 'Hans', 'Ulrich', 56, 1.78);
-    ListBoxAppendItem(lb1, 'Peter', 'Meier', 52, 1.74);
+    //ListBoxAppendItem(lb1, 'Max', 'Hugentobler', 45, 1.76);
+    //ListBoxAppendItem(lb1, 'Werner', 'Huber', 42, 1.86);
+    //ListBoxAppendItem(lb1, 'Hans', 'Ulrich', 56, 1.78);
+    //ListBoxAppendItem(lb1, 'Peter', 'Meier', 52, 1.74);
 
     lb2 := Create_ListBoxWidget;
     gtk_widget_set_vexpand(lb2, True);
     gtk_paned_set_end_child(GTK_PANED(paned), lb2);
+    //ListBoxAppendItem(lb2, 'Max', 'Hugentobler', 45, 1.76);
+    //ListBoxAppendItem(lb2, 'Werner', 'Huber', 42, 1.86);
+    //ListBoxAppendItem(lb2, 'Hans', 'Ulrich', 56, 1.78);
+    //ListBoxAppendItem(lb2, 'Peter', 'Meier', 52, 1.74);
 
     // Box2
 
@@ -101,19 +107,25 @@ type
     label1 := gtk_label_new('box2');
     gtk_box_append(GTK_BOX(buttonBox), label1);
 
-    button := CreateBtnButton('Append', 'list-add-symbolic', cmdAppend, lb1);
+    button := CreateBtnButton('Next', 'go-next-symbolic', 'app.listbox.next');
     gtk_box_append(GTK_BOX(buttonBox), button);
 
-    button := CreateBtnButton('Remove', 'list-remove-symbolic', cmdRemove, lb1);
+    button := CreateBtnButton('Prev', 'go-previous-symbolic', 'app.listbox.prev');
     gtk_box_append(GTK_BOX(buttonBox), button);
 
-    button := CreateBtnButton('Remove All', 'list-remove-all-symbolic', cmdRemoveAll, lb1);
+    button := CreateBtnButton('Append', 'list-add-symbolic', 'app.listbox.append');
     gtk_box_append(GTK_BOX(buttonBox), button);
 
-    button := CreateBtnButton('Up', 'go-up-symbolic', cmdUp, lb1);
+    button := CreateBtnButton('Remove', 'list-remove-symbolic', 'app.listbox.remove');
     gtk_box_append(GTK_BOX(buttonBox), button);
 
-    button := CreateBtnButton('Down', 'go-down-symbolic', cmdDown, lb1);
+    button := CreateBtnButton('Remove All', 'list-remove-all-symbolic', 'app.listbox.removeall');
+    gtk_box_append(GTK_BOX(buttonBox), button);
+
+    button := CreateBtnButton('Up', 'go-up-symbolic', 'app.listbox.up');
+    gtk_box_append(GTK_BOX(buttonBox), button);
+
+    button := CreateBtnButton('Down', 'go-down-symbolic', 'app.listbox.down');
     gtk_box_append(GTK_BOX(buttonBox), button);
 
     gtk_window_set_child(GTK_WINDOW(window), panedBox);
