@@ -18,6 +18,7 @@ implementation
 
 type
   THuman = record
+    Index: Tgint;
     FirstName: Pgchar;
     LastName: Pgchar;
     Age: Tgint;
@@ -34,6 +35,7 @@ const
 
 const
   RowTitles: array of Pgchar = (
+    'Index',
     'Vorname',
     'Nachname',
     'Alter',
@@ -55,6 +57,8 @@ var
   list_model: PGListModel;
   obj: PGObject;
   human: PHuman;
+const
+  index: integer = 0;
 begin
   selection_model := gtk_column_view_get_model(column_view);
   list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
@@ -62,10 +66,12 @@ begin
   obj := g_object_new(G_TYPE_OBJECT, nil);
 
   human := g_malloc(SizeOf(THuman));
+  human^.Index := index;
   human^.FirstName := g_strdup(FirstName);
   human^.LastName := g_strdup(LastName);
   human^.Age := Age;
   human^.Size := Size;
+  Inc(index);
 
   g_object_set_data_full(obj, humanObjectKey, human, @item_object_free_cp);
   g_list_store_append(G_LIST_STORE(list_model), obj);
@@ -158,8 +164,6 @@ begin
 end;
 
 procedure action_cp(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer); cdecl;
-const
-  index: integer = 0;
 var
   action_name: Pgchar;
   culumn_view: PGtkColumnView absolute user_data;
@@ -168,8 +172,7 @@ begin
   g_printf('Action Name: "%s"'#10, action_name);
 
   if g_strcmp0(action_name, 'listbox.append') = 0 then begin
-    ListBoxAppendItem(culumn_view, 'Daniel', 'Maier', index, Random * 2);
-    Inc(index);
+    ListBoxAppendItem(culumn_view, 'Daniel', 'Maier', Random(100), Random * 2);
   end else if g_strcmp0(action_name, 'listbox.remove') = 0 then begin
     ListBoxRemoveItem(culumn_view);
   end else if g_strcmp0(action_name, 'listbox.removeall') = 0 then begin
@@ -181,13 +184,13 @@ begin
   end;
 end;
 
-procedure setup_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer);
+procedure setup_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;
 var
   row: Tgint absolute user_data;
   l: PGtkWidget;
 begin
   l := gtk_label_new(nil);
-  if row in [2, 3] then begin
+  if row in [0, 3, 4] then begin
     gtk_widget_set_halign(l, GTK_ALIGN_END);
   end else begin
     gtk_widget_set_halign(l, GTK_ALIGN_START);
@@ -195,7 +198,7 @@ begin
   gtk_list_item_set_child(list_item, l);
 end;
 
-procedure bind_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer);
+procedure bind_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;
 var
   row: Tgint absolute user_data;
   l: PGtkWidget;
@@ -208,31 +211,34 @@ begin
   obj := g_object_get_data(item, humanObjectKey);
   case row of
     0: begin
-      g_snprintf(buffer, SizeOf(buffer), '%s', obj^.FirstName);
+      g_snprintf(buffer, SizeOf(buffer), '%d', obj^.Index);
     end;
     1: begin
-      g_snprintf(buffer, SizeOf(buffer), '%s', obj^.LastName);
+      g_snprintf(buffer, SizeOf(buffer), '%s', obj^.FirstName);
     end;
     2: begin
-      g_snprintf(buffer, SizeOf(buffer), '%d', obj^.Age);
+      g_snprintf(buffer, SizeOf(buffer), '%s', obj^.LastName);
     end;
     3: begin
+      g_snprintf(buffer, SizeOf(buffer), '%d', obj^.Age);
+    end;
+    4: begin
       g_snprintf(buffer, SizeOf(buffer), '%4.2f', obj^.Size);
     end;
   end;
   gtk_label_set_text(GTK_LABEL(l), buffer);
 end;
 
-procedure unbind_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer);
+procedure unbind_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;
 begin
 end;
 
-procedure teardown_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer);
+procedure teardown_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;
 begin
 end;
 
 
-procedure on_row_activated_cb(view: PGtkColumnView; position: Tgint; user_data: Tgpointer);
+procedure on_row_activated_cb(view: PGtkColumnView; position: Tgint; user_data: Tgpointer); cdecl;
 begin
   WriteLn('position doubleclick: ', position);
 end;
@@ -257,7 +263,6 @@ var
   list_store: PGListStore;
   single_selection: PGtkSingleSelection;
   sorter: PGtkSorter;
-  action: PGSimpleAction;
   app: PGApplication;
   i: integer;
 begin
