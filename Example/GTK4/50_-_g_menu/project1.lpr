@@ -35,12 +35,8 @@ uses
   function CreateMenu: PGMenu;
   var
     mainMenu, optionMenu, colorSubMenu, fileMenu, helpMenu: PGMenu;
-    action: PGSimpleAction;
-    app: PGApplication;
     quit_item: PGMenuItem;
   begin
-    app := g_application_get_default;
-
     // --- Datei
     fileMenu := g_menu_new;
     g_menu_append(fileMenu, '_Neu', 'app.new');
@@ -53,11 +49,6 @@ uses
     g_menu_item_set_attribute(quit_item, 'accel', 's', '<Ctrl>q');
     g_menu_append_item(fileMenu, quit_item);
     g_object_unref(quit_item);
-
-    action := g_simple_action_new('quit', nil);
-    g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
-    g_signal_connect(action, 'activate', G_CALLBACK(@menuaction_cp), nil);
-    gtk_application_set_accels_for_action(GTK_APPLICATION(app), 'app.quit', @[PChar('<Control>q'), nil]);
 
     // --- Optionen
     colorSubMenu := g_menu_new;
@@ -90,6 +81,19 @@ uses
     Result := mainMenu;
   end;
 
+  procedure CreateActions;
+  var
+    action: PGSimpleAction;
+    app: PGApplication;
+  begin
+    app := g_application_get_default;
+
+    action := g_simple_action_new('quit', nil);
+    g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
+    g_signal_connect(action, 'activate', G_CALLBACK(@menuaction_cp), nil);
+//    gtk_application_set_accels_for_action(GTK_APPLICATION(app), 'app.quit', @[PChar('<Control>q'), nil]);
+  end;
+
   function CreateMenuButton(menu: PGMenu): PGtkWidget;
   begin
     Result := gtk_menu_button_new;
@@ -116,7 +120,7 @@ uses
     menu := CreateMenu;
     g_object_set_data_full(G_OBJECT(menu), 'test', menu, @testProc);
 
-
+    CreateActions;
 
     vbox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
     gtk_widget_set_margin_start(vbox, 10);
@@ -142,6 +146,11 @@ uses
     gtk_label_set_extra_menu(GTK_LABEL(label1), G_MENU_MODEL(menu));
     g_object_unref(menu);
     gtk_box_append(GTK_BOX(vbox), label1);
+
+    Button := gtk_button_new_with_label('Quit');
+    gtk_actionable_set_action_name(GTK_ACTIONABLE(Button),'app.quit');
+    gtk_box_append(GTK_BOX(vbox), Button);
+
 
     gtk_window_set_child(GTK_WINDOW(window), vbox);
     gtk_window_present(GTK_WINDOW(window));

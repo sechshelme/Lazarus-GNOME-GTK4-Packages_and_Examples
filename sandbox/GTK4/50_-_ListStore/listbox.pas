@@ -121,6 +121,7 @@ var
   column: PGtkColumnViewColumn;
   list_store: PGListStore;
   single_selection: PGtkSingleSelection;
+  sorter: PGtkSorter;
 begin
   scrolled_window := gtk_scrolled_window_new;
 
@@ -141,6 +142,10 @@ begin
     g_signal_connect(factory, 'teardown', G_CALLBACK(@teardown_cb), GINT_TO_POINTER(i));
 
     column := gtk_column_view_column_new(RowTitles[i], factory);
+
+    sorter := GTK_SORTER(gtk_custom_sorter_new(nil, nil, nil));
+      gtk_column_view_column_set_sorter(column, sorter);
+
     gtk_column_view_column_set_resizable(column, True);
     gtk_column_view_append_column(GTK_COLUMN_VIEW(column_view), column);
   end;
@@ -209,8 +214,6 @@ begin
 
   g_list_store_remove_all(G_LIST_STORE(list_model));
 end;
-
-
 
 procedure ListBoxUp(w: PGtkWidget);
 var
