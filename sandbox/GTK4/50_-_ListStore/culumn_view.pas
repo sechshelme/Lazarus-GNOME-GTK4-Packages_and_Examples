@@ -34,7 +34,7 @@ const
   // https://github.com/ToshioCP/Gtk4-tutorial/blob/main/gfm/sec32.md
 
 const
-  RowTitles: array of Pgchar = (
+  ColTitles: array of Pgchar = (
     'Index',
     'Vorname',
     'Nachname',
@@ -233,11 +233,11 @@ end;
 
 procedure setup_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;
 var
-  row: Tgint absolute user_data;
+  col: Tgint absolute user_data;
   l: PGtkWidget;
 begin
   l := gtk_label_new(nil);
-  if row in [0, 3, 4] then begin
+  if col in [0, 3, 4] then begin
     gtk_widget_set_halign(l, GTK_ALIGN_END);
   end else begin
     gtk_widget_set_halign(l, GTK_ALIGN_START);
@@ -247,7 +247,7 @@ end;
 
 procedure bind_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;
 var
-  row: Tgint absolute user_data;
+  col: Tgint absolute user_data;
   l: PGtkWidget;
   item: PGObject;
   obj: PHuman;
@@ -256,7 +256,7 @@ begin
   l := gtk_list_item_get_child(list_item);
   item := gtk_list_item_get_item(list_item);
   obj := g_object_get_data(item, humanObjectKey);
-  case row of
+  case col of
     0: begin
       g_snprintf(buffer, SizeOf(buffer), '%d', obj^.Index);
     end;
@@ -293,6 +293,18 @@ end;
 
 // ==== public
 
+function compareFunc(a: Tgconstpointer; b: Tgconstpointer; user_data: Tgpointer): Tgint; cdecl;
+var
+  col: Tgint absolute user_data;
+begin
+  WriteLn('sort');
+  case col of
+    0: begin
+      Result := GPOINTER_TO_INT(a) - GPOINTER_TO_INT(b);
+    end;
+  end;
+end;
+
 function Create_ListBoxWidget: PGtkWidget;
 const
   entries: array of TGActionEntry = (
@@ -311,9 +323,10 @@ var
   column: PGtkColumnViewColumn;
   list_store: PGListStore;
   single_selection: PGtkSingleSelection;
-  sorter: PGtkSorter;
+  sorter, testsort: PGtkSorter;
   app: PGApplication;
   i: integer;
+  len: SizeInt;
 begin
   app := g_application_get_default;
 
@@ -328,23 +341,39 @@ begin
   g_signal_connect(column_view, 'activate', G_CALLBACK(@on_row_activated_cb), nil);
   gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), column_view);
 
-  for i := 0 to Length(RowTitles) - 1 do begin
+  len := Length(ColTitles) - 1;
+  for i := 0 to len do begin
     factory := gtk_signal_list_item_factory_new;
     g_signal_connect(factory, 'setup', G_CALLBACK(@setup_cb), GINT_TO_POINTER(i));
     g_signal_connect(factory, 'bind', G_CALLBACK(@bind_cb), GINT_TO_POINTER(i));
     g_signal_connect(factory, 'unbind', G_CALLBACK(@unbind_cb), GINT_TO_POINTER(i));
     g_signal_connect(factory, 'teardown', G_CALLBACK(@teardown_cb), GINT_TO_POINTER(i));
 
-    column := gtk_column_view_column_new(RowTitles[i], factory);
+    column := gtk_column_view_column_new(ColTitles[i], factory);
 
-    sorter := GTK_SORTER(gtk_custom_sorter_new(nil, nil, nil));
+    sorter := GTK_SORTER(gtk_custom_sorter_new(@compareFunc, GINT_TO_POINTER(i), nil));
     gtk_column_view_column_set_sorter(column, sorter);
+    gtk_sorter_changed(sorter, GTK_SORTER_CHANGE_DIFFERENT);
 
     gtk_column_view_column_set_resizable(column, True);
     gtk_column_view_append_column(GTK_COLUMN_VIEW(column_view), column);
-  end;
-  gtk_column_view_column_set_expand(column, True);
 
+    if i = len then  begin
+      gtk_column_view_column_set_expand(column, True);
+    end;
+
+    //testsort := gtk_column_view_column_get_sorter(column);
+    //if sorter=nil then WriteLn('nil');
+    //if testsort <> sorter then begin
+    //  WriteLn('fehler');
+    //end else begin
+    //  WriteLn('io');
+    //end;
+
+
+    g_object_unref(sorter);
+    g_object_unref(column);
+  end;
 
   ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Max', 'Hugentobler', 45, 1.76);
   ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Werner', 'Huber', 42, 1.86);
