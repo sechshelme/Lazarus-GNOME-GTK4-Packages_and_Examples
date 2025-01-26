@@ -51,6 +51,49 @@ begin
   g_free(obj);
 end;
 
+procedure ListBoxNextItem(column_view: PGtkColumnView);
+var
+  selection_model: PGtkSelectionModel;
+  list_model: PGListModel;
+  selected: PGtkBitset;
+  position, Count: Tguint;
+begin
+  selection_model := gtk_column_view_get_model(column_view);
+  list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
+  Count := g_list_model_get_n_items(list_model);
+
+  selected := gtk_selection_model_get_selection(selection_model);
+  if gtk_bitset_is_empty(selected) then begin
+    g_printf('keine Zeile ausgewählt'#10);
+  end else begin
+    position := gtk_bitset_get_nth(selected, 0);
+    if position < Count - 1 then begin
+      gtk_selection_model_select_item(selection_model, position + 1, True);
+    end;
+  end;
+  gtk_bitset_unref(selected);
+end;
+
+procedure ListBoxPrevItem(column_view: PGtkColumnView);
+var
+  selection_model: PGtkSelectionModel;
+  selected: PGtkBitset;
+  position: Tguint;
+begin
+  selection_model := gtk_column_view_get_model(column_view);
+
+  selected := gtk_selection_model_get_selection(selection_model);
+  if gtk_bitset_is_empty(selected) then begin
+    g_printf('keine Zeile ausgewählt'#10);
+  end else begin
+    position := gtk_bitset_get_nth(selected, 0);
+    if position > 0 then begin
+      gtk_selection_model_select_item(selection_model, position - 1, True);
+    end;
+  end;
+  gtk_bitset_unref(selected);
+end;
+
 procedure ListBoxAppendItem(column_view: PGtkColumnView; FirstName: Pgchar; LastName: Pgchar; Age: Tgint; size: Tgfloat);
 var
   selection_model: PGtkSelectionModel;
@@ -181,6 +224,10 @@ begin
     ListBoxUpItem(culumn_view);
   end else if g_strcmp0(action_name, 'listbox.down') = 0 then begin
     ListBoxDownItem(culumn_view);
+  end else if g_strcmp0(action_name, 'listbox.next') = 0 then begin
+    ListBoxNextItem(culumn_view);
+  end else if g_strcmp0(action_name, 'listbox.prev') = 0 then begin
+    ListBoxPrevItem(culumn_view);
   end;
 end;
 
@@ -249,6 +296,8 @@ end;
 function Create_ListBoxWidget: PGtkWidget;
 const
   entries: array of TGActionEntry = (
+    (Name: 'listbox.next'; activate: @action_cp; parameter_type: nil; state: nil; change_state: nil; padding: (0, 0, 0)),
+    (Name: 'listbox.prev'; activate: @action_cp; parameter_type: nil; state: nil; change_state: nil; padding: (0, 0, 0)),
     (Name: 'listbox.append'; activate: @action_cp; parameter_type: nil; state: nil; change_state: nil; padding: (0, 0, 0)),
     (Name: 'listbox.remove'; activate: @action_cp; parameter_type: nil; state: nil; change_state: nil; padding: (0, 0, 0)),
     (Name: 'listbox.removeall'; activate: @action_cp; parameter_type: nil; state: nil; change_state: nil; padding: (0, 0, 0)),

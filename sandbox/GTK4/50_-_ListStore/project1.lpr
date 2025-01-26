@@ -4,7 +4,7 @@ uses
   ctypes,
   SysUtils,
   fp_glib2,
-  fp_GLIBTools,
+//  fp_GLIBTools,
   fp_GDK4,
   fp_GTK4,
   culumn_view;
@@ -29,7 +29,7 @@ procedure CreateBtnButton(parent:PGtkWidget; label_, icon_name, action_name: Pgc
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
-    window, button, panedBox, buttonBox, label1, ColumnViewBox: PGtkWidget;
+    window, panedBox, buttonBox, label1, ColumnViewBox: PGtkWidget;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'GTK4 Border und Bevel');
@@ -75,7 +75,7 @@ procedure CreateBtnButton(parent:PGtkWidget; label_, icon_name, action_name: Pgc
     app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
 
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
-    GSignalShow(G_TYPE_OBJECT);
+//    GSignalShow(G_TYPE_OBJECT);
     status := g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
 
