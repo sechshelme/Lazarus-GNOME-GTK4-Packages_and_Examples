@@ -73,6 +73,7 @@ begin
         SongListPanel.LoadToXML(fd.FileName);
       end;
       fd.Free;
+      SongListPanel.Lab_Total_Value.Caption := GstClockToStr(SongListPanel.getDurationTotal);
     end;
     cmDefaultSongs: begin
       sl := FindAllFiles('/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt', '*.flac');

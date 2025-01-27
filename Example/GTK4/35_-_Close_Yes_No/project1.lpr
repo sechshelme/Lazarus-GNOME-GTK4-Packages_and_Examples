@@ -7,7 +7,7 @@ uses
   fp_cairo,
   fp_GTK4;
 
-  procedure on_quit_response_cp(widget: PGtkWidget; response_id: Tgint; {%H-}Data: Tgpointer); cdecl;
+  procedure on_quit_response_cp(widget: PGtkDialog; response_id: Tgint; {%H-}user_data: Tgpointer); cdecl;
   var
     app: PGApplication;
     windowList: PGList;
@@ -57,6 +57,7 @@ uses
 
       gtk_widget_set_visible(dialog, True);
     end;
+    WriteLn(11111);
   end;
 
   procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer);
