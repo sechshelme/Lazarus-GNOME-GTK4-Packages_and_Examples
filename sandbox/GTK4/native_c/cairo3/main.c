@@ -24,8 +24,8 @@ static gboolean on_draw(GtkWidget *widget, cairo_t *cr, gpointer user_data) {
     AnimationParams *params = (AnimationParams *)user_data;
     int width, height;
 
-    width = gtk_widget_get_allocated_width(widget);
-    height = gtk_widget_get_allocated_height(widget);
+    width = gtk_widget_get_width(widget);
+    height = gtk_widget_get_height(widget);
 
     cairo_set_source_rgb(cr, params->color.red, params->color.green, params->color.blue);
     cairo_translate(cr, width / 2, height / 2);
@@ -80,14 +80,14 @@ static void activate(GtkApplication *app, gpointer user_data) {
     gtk_window_set_default_size(GTK_WINDOW(window), 800, 400);
 
     grid = gtk_grid_new();
-    gtk_container_add(GTK_CONTAINER(window), grid);
+    gtk_window_set_child(GTK_WINDOW(window), grid);
 
     for (int i = 0; i < 4; i++) {
         drawing_area = create_animated_drawing_area(speeds[i], colors[i]);
         gtk_grid_attach(GTK_GRID(grid), drawing_area, i % 2, i / 2, 1, 1);
     }
 
-    gtk_widget_show_all(window);
+    gtk_window_present(GTK_WINDOW(window));
 }
 
 int main(int argc, char **argv) {

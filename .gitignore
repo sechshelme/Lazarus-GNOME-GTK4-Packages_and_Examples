@@ -38,7 +38,7 @@ release/
 *.depend
 
 # native C
-#main
+main
 
 # Application bundle for Mac OS
 *.app/
