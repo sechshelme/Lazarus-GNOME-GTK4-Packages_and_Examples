@@ -361,6 +361,7 @@ begin
   case col of
     0: begin
       Result := human_a^.Index - human_b^.Index;
+      WriteLn('result: ',Result);
     end;
   end;
 end;
@@ -381,26 +382,36 @@ var
   scrolled_window: PGtkWidget;
   factory: PGtkListItemFactory;
   column: PGtkColumnViewColumn;
-  list_store: PGListStore;
-  single_selection, selection: PGtkSingleSelection;
-  sorter, testsort: PGtkSorter;
+  single_selection: PGtkSingleSelection;
+  column_sorter, view_sorter: PGtkSorter;
   app: PGApplication;
   i: integer;
   len: SizeInt;
-  model: PGtkSortListModel;
+  model: PGListModel;
+  sort_model: PGtkSortListModel;
+  selection_model: PGtkSelectionModel;
 begin
   app := g_application_get_default;
 
   scrolled_window := gtk_scrolled_window_new;
 
-  list_store := g_list_store_new(G_TYPE_OBJECT);
-  single_selection := gtk_single_selection_new(G_LIST_MODEL(list_store));
+  model := G_LIST_MODEL(g_list_store_new(G_TYPE_OBJECT));
+  single_selection := gtk_single_selection_new(model);
 
   column_view := gtk_column_view_new(GTK_SELECTION_MODEL(single_selection));
+//  column_view := gtk_column_view_new(nil);
+
   gtk_column_view_set_show_row_separators(GTK_COLUMN_VIEW(column_view), True);
   gtk_column_view_set_show_column_separators(GTK_COLUMN_VIEW(column_view), True);
   g_signal_connect(column_view, 'activate', G_CALLBACK(@on_row_activated_cb), nil);
   gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), column_view);
+
+ //view_sorter:=gtk_column_view_get_sorter(GTK_COLUMN_VIEW(column_view));
+ // sort_model:=gtk_sort_list_model_new(model, view_sorter);
+ // selection_model:=GTK_SELECTION_MODEL(gtk_single_selection_new(G_LIST_MODEL(sort_model)));
+
+//  gtk_column_view_set_model(GTK_COLUMN_VIEW(column_view), selection_model);
+
 
   len := Length(ColTitles) - 1;
   for i := 0 to len do begin
@@ -412,11 +423,6 @@ begin
 
     column := gtk_column_view_column_new(ColTitles[i], factory);
 
-
-    sorter := GTK_SORTER(gtk_custom_sorter_new(@compareFunc, GINT_TO_POINTER(i), nil));
-    gtk_column_view_column_set_sorter(column, sorter);
-    gtk_sorter_changed(sorter, GTK_SORTER_CHANGE_DIFFERENT);
-
     gtk_column_view_column_set_resizable(column, True);
     gtk_column_view_append_column(GTK_COLUMN_VIEW(column_view), column);
 
@@ -424,8 +430,11 @@ begin
       gtk_column_view_column_set_expand(column, True);
     end;
 
+    column_sorter := GTK_SORTER(gtk_custom_sorter_new(@compareFunc, GINT_TO_POINTER(i), nil));
+    gtk_column_view_column_set_sorter(column, column_sorter);
+    //    gtk_sorter_changed(column_sorter, GTK_SORTER_CHANGE_DIFFERENT);
+    g_object_unref(column_sorter);
 
-    g_object_unref(sorter);
     g_object_unref(column);
   end;
 
