@@ -227,6 +227,18 @@ const
   libges = 'libges-1.0-0.dll';
   {$endif}
 
+  // ==== Chafa
+const
+  {$IFDEF Linux}
+  libchafa = 'libchafa';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libchafa = 'libchafa.dll'; // ????
+  {$ENDIF}
+
+
+
   // ==== System
 type
   Tfloat = cfloat;

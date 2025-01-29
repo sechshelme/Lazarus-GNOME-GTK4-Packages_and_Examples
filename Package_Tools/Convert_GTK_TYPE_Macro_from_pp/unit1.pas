@@ -115,6 +115,9 @@ const
     (libs: 'libjavascriptcoregtk'; units: 'fp_glib2'),
 
     (libs: 'libadwaita'; units: 'fp_glib2, fp_GTK4'),
+
+    (libs: 'libchafa'; units: 'fp_glib2'),
+
     (libs: ''; units: ''));
 
 

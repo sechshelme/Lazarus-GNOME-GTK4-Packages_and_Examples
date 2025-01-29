@@ -42,6 +42,7 @@ end;
 
 const
   availables: array of string = (
+    'CHAFA_AVAILABLE_IN_1',
     'GDK_PIXBUF_AVAILABLE_IN_2',
     'GDK_AVAILABLE_IN_4',
     'GRAPHENE_AVAILABLE_IN',
@@ -110,6 +111,8 @@ begin
 
       slHeader[j] := StringReplace(slHeader[j], 'GES_API', 'extern', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'HB_EXTERN', 'extern', [rfReplaceAll]);
+
+      slHeader[j] := StringReplace(slHeader[j], 'CHAFA_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
     end;
     slHeader.SaveToFile(slFile[i]);
     slHeader.Free;
