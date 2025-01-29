@@ -159,7 +159,7 @@ begin
 
   obj := g_object_new(G_TYPE_OBJECT, nil);
   g_object_set_data_full(obj, humanObjectKey, human, @item_object_free_cp);
-  g_list_store_append(G_LIST_STORE(store), obj);
+  g_list_store_append(store, obj);
   g_object_unref(obj);
 end;
 
@@ -332,14 +332,30 @@ var
   col: Tgint absolute user_data;
   human_a, human_b: PHuman;
 begin
-  WriteLn('sort');
   human_a := g_object_get_data(G_OBJECT(a), humanObjectKey);
   human_b := g_object_get_data(G_OBJECT(b), humanObjectKey);
 
   case col of
     0: begin
       Result := human_a^.Index - human_b^.Index;
-      WriteLn('result: ', Result);
+    end;
+    1: begin
+      Result := g_strcmp0(human_a^.FirstName , human_b^.FirstName);
+    end;
+    2: begin
+      Result := g_strcmp0(human_a^.LastName , human_b^.LastName);
+    end;
+    3: begin
+      Result := human_a^.Age - human_b^.Age;
+    end;
+    4: begin
+      if human_a^.Size < human_b^.Size then begin
+        Result := GTK_ORDERING_SMALLER;
+      end else if human_a^.Size > human_b^.Size then begin
+        Result := GTK_ORDERING_LARGER;
+      end else begin
+        Result := GTK_ORDERING_EQUAL;
+      end;
     end;
   end;
 end;
@@ -405,7 +421,7 @@ begin
 
     column_sorter := GTK_SORTER(gtk_custom_sorter_new(@compareFunc, GINT_TO_POINTER(i), nil));
     gtk_column_view_column_set_sorter(column, column_sorter);
-//        gtk_sorter_changed(column_sorter, GTK_SORTER_CHANGE_DIFFERENT);
+    //        gtk_sorter_changed(column_sorter, GTK_SORTER_CHANGE_DIFFERENT);
     g_object_unref(column_sorter);
 
     g_object_unref(column);
@@ -418,7 +434,11 @@ begin
   ListBoxAppendItem(selection_model, 'Hans', 'Ulrich', 56, 1.78);
   ListBoxAppendItem(selection_model, 'Peter', 'Meier', 52, 1.74);
 
+  //  g_signal_connect_swapped(scrolled_window, 'destroy', G_CALLBACK(@g_object_unref), sort_model);
+  g_signal_connect_swapped(scrolled_window, 'destroy', G_CALLBACK(@g_object_unref), store);
+
   g_action_map_add_action_entries(G_ACTION_MAP(app), PGActionEntry(entries), Length(entries), selection_model);
+
 
   Result := scrolled_window;
 end;

@@ -5,9 +5,8 @@
 
 void object_free(gpointer data)
 {
-  g_printf("1 free object\n");
+  g_printf("free object\n");
   g_free(data);
-  g_printf("2 free object\n");
 }
 
 static void add_item(GListStore* store ) {
@@ -88,6 +87,7 @@ static void activate(GtkApplication* app, gpointer user_data) {
 
     gtk_window_present(GTK_WINDOW(window));
 
+//  g_signal_connect_swapped(scrolled_window, "destroy", G_CALLBACK(g_object_unref), store);
 //    g_object_unref(selection_model); // Freigeben des SelectionModels
 }
 
