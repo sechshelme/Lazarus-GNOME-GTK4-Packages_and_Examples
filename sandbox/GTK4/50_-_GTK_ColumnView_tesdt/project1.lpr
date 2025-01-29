@@ -58,7 +58,7 @@ procedure CreateBtnButton(parent:PGtkWidget; label_, icon_name, action_name: Pgc
     CreateBtnButton(buttonBox,'Append', 'list-add', 'app.listbox.append');
     CreateBtnButton(buttonBox,'Remove', 'list-remove', 'app.listbox.remove');
     CreateBtnButton(buttonBox,'Remove All', 'list-remove-all', 'app.listbox.removeall');
-    CreateBtnButton(buttonBox,'Down', 'view-sort-descending', 'app.listbox.down');
+    CreateBtnButton(buttonBox,'Down', 'view-sort-ascending', 'app.listbox.down');
     CreateBtnButton(buttonBox,'Up', 'view-sort-descending', 'app.listbox.up');
 
     gtk_window_set_child(GTK_WINDOW(window), panedBox);

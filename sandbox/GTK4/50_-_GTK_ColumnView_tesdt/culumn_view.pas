@@ -28,6 +28,7 @@ type
 
 const
   humanObjectKey = 'human-object';
+  store_Key = 'store';
 
   // https://github.com/ToshioCP/Gtk4-tutorial/blob/main/gfm/sec32.md
 
@@ -56,7 +57,6 @@ end;
 
 
 function AddHuman: THuman;
-  // https://www.perplexity.ai/search/ich-will-rein-gtk4-dialg-welch-SoQpm_vMSJybIAK.5LXodw
 var
   app: PGApplication;
   windowList: PGList;
@@ -91,6 +91,44 @@ const
     'Alter',
     'Grösse');
 
+procedure ListBoxNextItem(selection_model: PGtkSelectionModel);
+var
+  store: PGListStore;
+  selected: PGtkBitset;
+  position, Count: Tguint;
+begin
+  store := g_object_get_data(G_OBJECT(selection_model), store_Key);
+  Count := g_list_model_get_n_items(G_LIST_MODEL(store));
+
+  selected := gtk_selection_model_get_selection(selection_model);
+  if gtk_bitset_is_empty(selected) then begin
+    g_printf('keine Zeile ausgewählt'#10);
+  end else begin
+    position := gtk_bitset_get_nth(selected, 0);
+    if position < Count - 1 then begin
+      gtk_selection_model_select_item(selection_model, position + 1, True);
+    end;
+  end;
+  gtk_bitset_unref(selected);
+end;
+
+procedure ListBoxPrevItem(selection_model: PGtkSelectionModel);
+var
+  selected: PGtkBitset;
+  position: Tguint;
+begin
+  selected := gtk_selection_model_get_selection(selection_model);
+  if gtk_bitset_is_empty(selected) then begin
+    g_printf('keine Zeile ausgewählt'#10);
+  end else begin
+    position := gtk_bitset_get_nth(selected, 0);
+    if position > 0 then begin
+      gtk_selection_model_select_item(selection_model, position - 1, True);
+    end;
+  end;
+  gtk_bitset_unref(selected);
+end;
+
 procedure item_object_free_cp(Data: Tgpointer); cdecl;
 var
   obj: PHuman absolute Data;
@@ -101,62 +139,15 @@ begin
   g_free(obj);
 end;
 
-procedure ListBoxNextItem(column_view: PGtkColumnView);
+procedure ListBoxAppendItem(selection_model: PGtkSelectionModel; FirstName: Pgchar; LastName: Pgchar; Age: Tgint; size: Tgfloat);
 var
-  selection_model: PGtkSelectionModel;
-  list_model: PGListModel;
-  selected: PGtkBitset;
-  position, Count: Tguint;
-begin
-  selection_model := gtk_column_view_get_model(column_view);
-  list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
-  Count := g_list_model_get_n_items(list_model);
-
-  selected := gtk_selection_model_get_selection(selection_model);
-  if gtk_bitset_is_empty(selected) then begin
-    g_printf('keine Zeile ausgewählt'#10);
-  end else begin
-    position := gtk_bitset_get_nth(selected, 0);
-    if position < Count - 1 then begin
-      gtk_selection_model_select_item(selection_model, position + 1, True);
-    end;
-  end;
-  gtk_bitset_unref(selected);
-end;
-
-procedure ListBoxPrevItem(column_view: PGtkColumnView);
-var
-  selection_model: PGtkSelectionModel;
-  selected: PGtkBitset;
-  position: Tguint;
-begin
-  selection_model := gtk_column_view_get_model(column_view);
-
-  selected := gtk_selection_model_get_selection(selection_model);
-  if gtk_bitset_is_empty(selected) then begin
-    g_printf('keine Zeile ausgewählt'#10);
-  end else begin
-    position := gtk_bitset_get_nth(selected, 0);
-    if position > 0 then begin
-      gtk_selection_model_select_item(selection_model, position - 1, True);
-    end;
-  end;
-  gtk_bitset_unref(selected);
-end;
-
-procedure ListBoxAppendItem(column_view: PGtkColumnView; FirstName: Pgchar; LastName: Pgchar; Age: Tgint; size: Tgfloat);
-var
-  selection_model: PGtkSelectionModel;
-  list_model: PGListModel;
+  store: PGListStore;
   obj: PGObject;
   human: PHuman;
 const
   index: integer = 0;
 begin
-  selection_model := gtk_column_view_get_model(column_view);
-  list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
-
-  obj := g_object_new(G_TYPE_OBJECT, nil);
+  store := g_object_get_data(G_OBJECT(selection_model), store_Key);
 
   human := g_malloc(SizeOf(THuman));
   human^.Index := index;
@@ -166,51 +157,45 @@ begin
   human^.Size := Size;
   Inc(index);
 
+  obj := g_object_new(G_TYPE_OBJECT, nil);
   g_object_set_data_full(obj, humanObjectKey, human, @item_object_free_cp);
-  g_list_store_append(G_LIST_STORE(list_model), obj);
+  g_list_store_append(G_LIST_STORE(store), obj);
   g_object_unref(obj);
 end;
 
-procedure ListBoxRemoveItem(column_view: PGtkColumnView);
+procedure ListBoxRemoveItem(selection_model: PGtkSelectionModel);
 var
-  selection_model: PGtkSelectionModel;
-  list_model: PGListModel;
-
+  store: PGListStore;
   selected: PGtkBitset;
 begin
-  selection_model := gtk_column_view_get_model(column_view);
-  list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
+  store := g_object_get_data(G_OBJECT(selection_model), store_Key);
 
   selected := gtk_selection_model_get_selection(selection_model);
   if gtk_bitset_is_empty(selected) then begin
     g_printf('keine Zeile ausgewählt'#10);
   end else begin
-    g_list_store_remove(G_LIST_STORE(list_model), gtk_bitset_get_nth(selected, 0));
+    g_list_store_remove(store, gtk_bitset_get_nth(selected, 0));
   end;
   gtk_bitset_unref(selected);
 end;
 
-procedure ListBoxRemoveAllItem(column_view: PGtkColumnView);
+procedure ListBoxRemoveAllItem(selection_model: PGtkSelectionModel);
 var
-  selection_model: PGtkSelectionModel;
-  list_model: PGListModel;
+  store: PGListStore;
 begin
-  selection_model := gtk_column_view_get_model(column_view);
-  list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
+  store := g_object_get_data(G_OBJECT(selection_model), store_Key);
 
-  g_list_store_remove_all(G_LIST_STORE(list_model));
+  g_list_store_remove_all(store);
 end;
 
-procedure ListBoxUpItem(column_view: PGtkColumnView);
+procedure ListBoxUpItem(selection_model: PGtkSelectionModel);
 var
-  selection_model: PGtkSelectionModel;
-  list_model: PGListModel;
+  store: PGListStore;
   selected: PGtkBitset;
   position: Tguint;
   obj: PGObject;
 begin
-  selection_model := gtk_column_view_get_model(column_view);
-  list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
+  store := g_object_get_data(G_OBJECT(selection_model), store_Key);
 
   selected := gtk_selection_model_get_selection(selection_model);
   if gtk_bitset_is_empty(selected) then begin
@@ -218,9 +203,9 @@ begin
   end else begin
     position := gtk_bitset_get_nth(selected, 0);
     if position > 0 then begin
-      obj := g_list_model_get_item(list_model, position);
-      g_list_store_remove(G_LIST_STORE(list_model), position);
-      g_list_store_insert(G_LIST_STORE(list_model), position - 1, obj);
+      obj := g_list_model_get_item(G_LIST_MODEL(store), position);
+      g_list_store_remove(store, position);
+      g_list_store_insert(store, position - 1, obj);
       gtk_selection_model_select_item(selection_model, position - 1, True);
       g_object_unref(obj);
     end;
@@ -228,17 +213,16 @@ begin
   gtk_bitset_unref(selected);
 end;
 
-procedure ListBoxDownItem(column_view: PGtkColumnView);
+procedure ListBoxDownItem(selection_model: PGtkSelectionModel);
 var
-  selection_model: PGtkSelectionModel;
-  list_model: PGListModel;
+  store: PGListStore;
   selected: PGtkBitset;
   position, Count: Tguint;
   obj: PGObject;
 begin
-  selection_model := gtk_column_view_get_model(column_view);
-  list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
-  Count := g_list_model_get_n_items(list_model);
+  store := g_object_get_data(G_OBJECT(selection_model), store_Key);
+
+  Count := g_list_model_get_n_items(G_LIST_MODEL(store));
 
   selected := gtk_selection_model_get_selection(selection_model);
   if gtk_bitset_is_empty(selected) then begin
@@ -246,9 +230,9 @@ begin
   end else begin
     position := gtk_bitset_get_nth(selected, 0);
     if position < Count - 1 then begin
-      obj := g_list_model_get_item(list_model, position);
-      g_list_store_remove(G_LIST_STORE(list_model), position);
-      g_list_store_insert(G_LIST_STORE(list_model), position + 1, obj);
+      obj := g_list_model_get_item(G_LIST_MODEL(store), position);
+      g_list_store_remove(store, position);
+      g_list_store_insert(store, position + 1, obj);
       gtk_selection_model_select_item(selection_model, position + 1, True);
       g_object_unref(obj);
     end;
@@ -259,31 +243,25 @@ end;
 procedure action_cp(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer); cdecl;
 var
   action_name: Pgchar;
-  culumn_view: PGtkColumnView absolute user_data;
-  human: THuman;
+  selection_model: PGtkSelectionModel absolute user_data;
 begin
   action_name := g_action_get_name(G_ACTION(action));
   g_printf('Action Name: "%s"'#10, action_name);
 
   if g_strcmp0(action_name, 'listbox.append') = 0 then begin
-    //human := AddHuman;
-    //with human do begin
-    //  ListBoxAppendItem(culumn_view, FirstName, LastName, Age, Size);
-    //end;
-
-    ListBoxAppendItem(culumn_view, 'Daniel', 'Maier', Random(100), Random * 2);
+    ListBoxAppendItem(selection_model, 'Daniel', 'Maier', Random(100), Random * 2);
   end else if g_strcmp0(action_name, 'listbox.remove') = 0 then begin
-    ListBoxRemoveItem(culumn_view);
+    ListBoxRemoveItem(selection_model);
   end else if g_strcmp0(action_name, 'listbox.removeall') = 0 then begin
-    ListBoxRemoveAllItem(culumn_view);
+    ListBoxRemoveAllItem(selection_model);
   end else if g_strcmp0(action_name, 'listbox.up') = 0 then begin
-    ListBoxUpItem(culumn_view);
+    ListBoxUpItem(selection_model);
   end else if g_strcmp0(action_name, 'listbox.down') = 0 then begin
-    ListBoxDownItem(culumn_view);
+    ListBoxDownItem(selection_model);
   end else if g_strcmp0(action_name, 'listbox.next') = 0 then begin
-    ListBoxNextItem(culumn_view);
+    ListBoxNextItem(selection_model);
   end else if g_strcmp0(action_name, 'listbox.prev') = 0 then begin
-    ListBoxPrevItem(culumn_view);
+    ListBoxPrevItem(selection_model);
   end;
 end;
 
@@ -361,7 +339,7 @@ begin
   case col of
     0: begin
       Result := human_a^.Index - human_b^.Index;
-      WriteLn('result: ',Result);
+      WriteLn('result: ', Result);
     end;
   end;
 end;
@@ -382,36 +360,31 @@ var
   scrolled_window: PGtkWidget;
   factory: PGtkListItemFactory;
   column: PGtkColumnViewColumn;
-  single_selection: PGtkSingleSelection;
   column_sorter, view_sorter: PGtkSorter;
   app: PGApplication;
   i: integer;
   len: SizeInt;
-  model: PGListModel;
   sort_model: PGtkSortListModel;
   selection_model: PGtkSelectionModel;
+  store: PGListStore;
 begin
   app := g_application_get_default;
 
   scrolled_window := gtk_scrolled_window_new;
-
-  model := G_LIST_MODEL(g_list_store_new(G_TYPE_OBJECT));
-  single_selection := gtk_single_selection_new(model);
-
-  column_view := gtk_column_view_new(GTK_SELECTION_MODEL(single_selection));
-//  column_view := gtk_column_view_new(nil);
+  column_view := gtk_column_view_new(nil);
 
   gtk_column_view_set_show_row_separators(GTK_COLUMN_VIEW(column_view), True);
   gtk_column_view_set_show_column_separators(GTK_COLUMN_VIEW(column_view), True);
   g_signal_connect(column_view, 'activate', G_CALLBACK(@on_row_activated_cb), nil);
   gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), column_view);
 
- //view_sorter:=gtk_column_view_get_sorter(GTK_COLUMN_VIEW(column_view));
- // sort_model:=gtk_sort_list_model_new(model, view_sorter);
- // selection_model:=GTK_SELECTION_MODEL(gtk_single_selection_new(G_LIST_MODEL(sort_model)));
+  view_sorter := gtk_column_view_get_sorter(GTK_COLUMN_VIEW(column_view));
+  store := g_list_store_new(G_TYPE_OBJECT);
+  sort_model := gtk_sort_list_model_new(G_LIST_MODEL(store), view_sorter);
+  selection_model := GTK_SELECTION_MODEL(gtk_single_selection_new(G_LIST_MODEL(sort_model)));
+  g_object_unref(view_sorter);
 
-//  gtk_column_view_set_model(GTK_COLUMN_VIEW(column_view), selection_model);
-
+  gtk_column_view_set_model(GTK_COLUMN_VIEW(column_view), selection_model);
 
   len := Length(ColTitles) - 1;
   for i := 0 to len do begin
@@ -432,18 +405,20 @@ begin
 
     column_sorter := GTK_SORTER(gtk_custom_sorter_new(@compareFunc, GINT_TO_POINTER(i), nil));
     gtk_column_view_column_set_sorter(column, column_sorter);
-    //    gtk_sorter_changed(column_sorter, GTK_SORTER_CHANGE_DIFFERENT);
+//        gtk_sorter_changed(column_sorter, GTK_SORTER_CHANGE_DIFFERENT);
     g_object_unref(column_sorter);
 
     g_object_unref(column);
   end;
 
-  ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Max', 'Hugentobler', 45, 1.76);
-  ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Werner', 'Huber', 42, 1.86);
-  ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Hans', 'Ulrich', 56, 1.78);
-  ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Peter', 'Meier', 52, 1.74);
+  g_object_set_data(G_OBJECT(selection_model), store_Key, store);
 
-  g_action_map_add_action_entries(G_ACTION_MAP(app), PGActionEntry(entries), Length(entries), column_view);
+  ListBoxAppendItem(selection_model, 'Max', 'Hugentobler', 45, 1.76);
+  ListBoxAppendItem(selection_model, 'Werner', 'Huber', 42, 1.86);
+  ListBoxAppendItem(selection_model, 'Hans', 'Ulrich', 56, 1.78);
+  ListBoxAppendItem(selection_model, 'Peter', 'Meier', 52, 1.74);
+
+  g_action_map_add_action_entries(G_ACTION_MAP(app), PGActionEntry(entries), Length(entries), selection_model);
 
   Result := scrolled_window;
 end;
