@@ -3,7 +3,7 @@ unit chafa_symbol_map;
 interface
 
 uses
-  fp_glib2;
+  fp_glib2, chafa_common;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

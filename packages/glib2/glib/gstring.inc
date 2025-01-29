@@ -8,7 +8,8 @@ type
     allocated_len: Tgsize;
   end;
   PGString = ^TGString;
-
+  PPGString = ^PGString;
+  PPPGString = ^PPGString;
 
 function g_string_new(init: Pgchar): PGString; cdecl; external libglib2;
 function g_string_new_take(init: Pgchar): PGString; cdecl; external libglib2;

@@ -37,9 +37,9 @@
  * https://hpjansson.org/chafa/ref/ for verbose definitions. */
 typedef enum
 {
-#define CHAFA_TERM_SEQ_DEF(name, NAME, n_args, arg_proc, arg_type, ...) CHAFA_TERM_SEQ_##NAME,
-#include <chafa-term-seq-def.h>
-#undef CHAFA_TERM_SEQ_DEF
+//#define CHAFA_TERM_SEQ_DEF(name, NAME, n_args, arg_proc, arg_type, ...) CHAFA_TERM_SEQ_##NAME,
+//#include <chafa-term-seq-def.h>
+//#undef CHAFA_TERM_SEQ_DEF
 
     CHAFA_TERM_SEQ_MAX
 }
@@ -125,10 +125,6 @@ void chafa_term_info_supplement (ChafaTermInfo *term_info, ChafaTermInfo *source
  * chafa-term-seq-def.h for more information, or look up the canonical
  * documentation at https://hpjansson.org/chafa/ref/ for verbose
  * function prototypes. */
-#define CHAFA_TERM_SEQ_DEF(name, NAME, n_args, arg_proc, arg_type, ...)  \
-    CHAFA_TERM_SEQ_AVAILABILITY gchar * chafa_term_info_emit_##name(const ChafaTermInfo *term_info, gchar *dest __VA_ARGS__);
-#include <chafa-term-seq-def.h>
-#undef CHAFA_TERM_SEQ_DEF
 
 
 

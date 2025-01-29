@@ -76,10 +76,10 @@ extern
 void chafa_canvas_set_raw_colors_at (ChafaCanvas *canvas, gint x, gint y,
                                      gint fg, gint bg);
 
-CHAFA_DEPRECATED_IN_1_2
+//CHAFA_DEPRECATED_IN_1_2
 void chafa_canvas_set_contents_rgba8 (ChafaCanvas *canvas, const guint8 *src_pixels,
                                      gint src_width, gint src_height, gint src_rowstride);
-CHAFA_DEPRECATED_IN_1_6
+//CHAFA_DEPRECATED_IN_1_6
 GString *chafa_canvas_build_ansi (ChafaCanvas *canvas);
 
 
