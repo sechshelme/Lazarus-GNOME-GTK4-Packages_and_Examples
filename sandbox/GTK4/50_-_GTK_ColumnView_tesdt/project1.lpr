@@ -7,7 +7,7 @@ uses
 //  fp_GLIBTools,
   fp_GDK4,
   fp_GTK4,
-  culumn_view;
+  culumn_view, Edit_Dialog, Common;
 
 procedure CreateBtnButton(parent:PGtkWidget; label_, icon_name, action_name: Pgchar);
   var
@@ -29,11 +29,11 @@ procedure CreateBtnButton(parent:PGtkWidget; label_, icon_name, action_name: Pgc
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
-    window, panedBox, buttonBox, label1, ColumnViewBox: PGtkWidget;
+    mainWindow, panedBox, buttonBox, label1, ColumnViewBox, mw: PGtkWidget;
   begin
-    window := gtk_application_window_new(app);
-    gtk_window_set_title(GTK_WINDOW(window), 'GTK4 Border und Bevel');
-    gtk_window_set_default_size(GTK_WINDOW(window), 600, 400);
+    mainWindow := gtk_application_window_new(app);
+    gtk_window_set_title(GTK_WINDOW(mainWindow), 'GTK4 Border und Bevel');
+    gtk_window_set_default_size(GTK_WINDOW(mainWindow), 600, 400);
 
     panedBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
     gtk_widget_set_margin_start(panedBox, 10);
@@ -61,9 +61,15 @@ procedure CreateBtnButton(parent:PGtkWidget; label_, icon_name, action_name: Pgc
     CreateBtnButton(buttonBox,'Down', 'view-sort-ascending', 'app.listbox.down');
     CreateBtnButton(buttonBox,'Up', 'view-sort-descending', 'app.listbox.up');
 
-    gtk_window_set_child(GTK_WINDOW(window), panedBox);
+    gtk_window_set_child(GTK_WINDOW(mainWindow), panedBox);
 
-    gtk_window_present(GTK_WINDOW(window));
+    gtk_window_present(GTK_WINDOW(mainWindow));
+
+    WriteLn('main: ':20,PtrUInt(mainWindow));
+    WriteLn('scrollw_main: ':20,PtrUInt(ColumnViewBox));
+
+    mw := gtk_widget_get_ancestor(GTK_WIDGET(ColumnViewBox), GTK_TYPE_WINDOW);
+    WriteLn('mw1 ':20,PtrUInt(mw));
   end;
 
 

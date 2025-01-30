@@ -8,7 +8,8 @@ unit culumn_view;
 interface
 
 uses
-  fp_glib2, fp_GTK4;
+  fp_glib2, fp_GTK4,
+  Common, Edit_Dialog;
 
 function Create_ListBoxWidget: PGtkWidget;
 
@@ -16,69 +17,8 @@ implementation
 
 // ==== private
 
-type
-  THuman = record
-    Index: Tgint;
-    FirstName: Pgchar;
-    LastName: Pgchar;
-    Age: Tgint;
-    Size: Tgfloat;
-  end;
-  PHuman = ^THuman;
-
-const
-  humanObjectKey = 'human-object';
-  store_Key = 'store';
 
   // https://github.com/ToshioCP/Gtk4-tutorial/blob/main/gfm/sec32.md
-
-
-  // === Add Dialog;
-
-procedure on_response_cp(widget: PGtkDialog; response_id: Tgint; {%H-}user_data: Tgpointer); cdecl;
-var
-  app: PGApplication;
-  windowList: PGList;
-  human: PHuman absolute user_data;
-begin
-  case response_id of
-    GTK_RESPONSE_OK: begin
-      g_printf('Ok.'#10);
-      app := g_application_get_default;
-      windowList := gtk_application_get_windows(GTK_APPLICATION(app));
-      gtk_window_close(GTK_WINDOW(windowList^.Data));
-    end;
-    GTK_RESPONSE_CANCEL: begin
-      g_printf('CANCEL'#10);
-    end;
-  end;
-  gtk_window_destroy(GTK_WINDOW(widget));
-end;
-
-
-function AddHuman: THuman;
-var
-  app: PGApplication;
-  windowList: PGList;
-  window: PGtkWindow;
-  dialog: PGtkWidget;
-begin
-  app := g_application_get_default;
-  windowList := gtk_application_get_windows(GTK_APPLICATION(app));
-  window := GTK_WINDOW(windowList^.Data);
-
-  dialog := gtk_dialog_new_with_buttons('Human data Input', window, GTK_DIALOG_MODAL or GTK_DIALOG_DESTROY_WITH_PARENT,
-    'Add', GTK_RESPONSE_OK,
-    'Cancel', GTK_RESPONSE_CANCEL, nil);
-
-  //gtk_window_present(GTK_WINDOW(dialog));
-
-  g_signal_connect(dialog, 'response', G_CALLBACK(@on_response_cp), @Result);
-
-  //   gtk_widget_show_all (dialog);
-
-  gtk_widget_set_visible(dialog, True);
-end;
 
 
 // === CloumnView
@@ -129,6 +69,8 @@ begin
   gtk_bitset_unref(selected);
 end;
 
+//////////////////7
+
 procedure item_object_free_cp(Data: Tgpointer); cdecl;
 var
   obj: PHuman absolute Data;
@@ -162,6 +104,8 @@ begin
   g_list_store_append(store, obj);
   g_object_unref(obj);
 end;
+
+//////////////////////
 
 procedure ListBoxRemoveItem(selection_model: PGtkSelectionModel);
 var
@@ -249,6 +193,8 @@ begin
   g_printf('Action Name: "%s"'#10, action_name);
 
   if g_strcmp0(action_name, 'listbox.append') = 0 then begin
+//    AddHuman(selection_model  );
+
     ListBoxAppendItem(selection_model, 'Daniel', 'Maier', Random(100), Random * 2);
   end else if g_strcmp0(action_name, 'listbox.remove') = 0 then begin
     ListBoxRemoveItem(selection_model);
@@ -373,7 +319,7 @@ const
 
 var
   column_view: PGtkWidget;
-  scrolled_window: PGtkWidget;
+  scrolled_window, mainWindow: PGtkWidget;
   factory: PGtkListItemFactory;
   column: PGtkColumnViewColumn;
   app: PGApplication;
@@ -428,18 +374,15 @@ begin
     gtk_column_view_set_model (GTK_COLUMN_VIEW (column_view), GTK_SELECTION_MODEL (selection));
 
 
-  //view_sorter := gtk_column_view_get_sorter(GTK_COLUMN_VIEW(column_view));
-  //store := g_list_store_new(G_TYPE_OBJECT);
-  //sort_model := gtk_sort_list_model_new(G_LIST_MODEL(store), view_sorter);
-  //selection_model := GTK_SELECTION_MODEL(gtk_single_selection_new(G_LIST_MODEL(sort_model)));
-  //g_object_unref(view_sorter);
-  //gtk_column_view_set_model(GTK_COLUMN_VIEW(column_view), selection_model);
-
   g_signal_connect_swapped(scrolled_window, 'destroy', G_CALLBACK(@g_object_unref), model);
 //  g_signal_connect_swapped(scrolled_window, 'destroy', G_CALLBACK(@g_object_unref), store);
 
+mainWindow := gtk_widget_get_ancestor(GTK_WIDGET(scrolled_window), GTK_TYPE_WINDOW);
+WriteLn('mw col: ':20,PtrUInt(mainWindow));
 
-  g_object_set_data(G_OBJECT(selection), store_Key, store);
+g_object_set_data(G_OBJECT(selection), store_Key, store);
+g_object_set_data(G_OBJECT(selection), mainWindows_Key, mainWindow);
+
   ListBoxAppendItem(GTK_SELECTION_MODEL( selection), 'Max', 'Hugentobler', 45, 1.76);
   ListBoxAppendItem(GTK_SELECTION_MODEL( selection), 'Werner', 'Huber', 42, 1.86);
   ListBoxAppendItem(GTK_SELECTION_MODEL( selection), 'Hans', 'Ulrich', 56, 1.78);
