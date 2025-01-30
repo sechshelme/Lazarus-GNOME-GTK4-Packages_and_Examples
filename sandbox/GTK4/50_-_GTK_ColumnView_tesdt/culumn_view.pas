@@ -376,13 +376,13 @@ var
   scrolled_window: PGtkWidget;
   factory: PGtkListItemFactory;
   column: PGtkColumnViewColumn;
-  column_sorter, view_sorter: PGtkSorter;
   app: PGApplication;
   i: integer;
   len: SizeInt;
-  sort_model: PGtkSortListModel;
-  selection_model: PGtkSelectionModel;
+  model: PGtkSortListModel;
   store: PGListStore;
+  selection: PGtkSingleSelection;
+  sorter: Tgpointer;
 begin
   app := g_application_get_default;
 
@@ -394,14 +394,6 @@ begin
   g_signal_connect(column_view, 'activate', G_CALLBACK(@on_row_activated_cb), nil);
   gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), column_view);
 
-  view_sorter := gtk_column_view_get_sorter(GTK_COLUMN_VIEW(column_view));
-  store := g_list_store_new(G_TYPE_OBJECT);
-  sort_model := gtk_sort_list_model_new(G_LIST_MODEL(store), view_sorter);
-  selection_model := GTK_SELECTION_MODEL(gtk_single_selection_new(G_LIST_MODEL(sort_model)));
-  g_object_unref(view_sorter);
-
-  gtk_column_view_set_model(GTK_COLUMN_VIEW(column_view), selection_model);
-
   len := Length(ColTitles) - 1;
   for i := 0 to len do begin
     factory := gtk_signal_list_item_factory_new;
@@ -412,6 +404,11 @@ begin
 
     column := gtk_column_view_column_new(ColTitles[i], factory);
 
+    sorter := GTK_SORTER(gtk_custom_sorter_new(@compareFunc, GINT_TO_POINTER(i), nil));
+    gtk_column_view_column_set_sorter(column, sorter);
+    //        gtk_sorter_changed(column_sorter, GTK_SORTER_CHANGE_DIFFERENT);
+    g_object_unref(sorter);
+
     gtk_column_view_column_set_resizable(column, True);
     gtk_column_view_append_column(GTK_COLUMN_VIEW(column_view), column);
 
@@ -419,26 +416,36 @@ begin
       gtk_column_view_column_set_expand(column, True);
     end;
 
-    column_sorter := GTK_SORTER(gtk_custom_sorter_new(@compareFunc, GINT_TO_POINTER(i), nil));
-    gtk_column_view_column_set_sorter(column, column_sorter);
-    //        gtk_sorter_changed(column_sorter, GTK_SORTER_CHANGE_DIFFERENT);
-    g_object_unref(column_sorter);
-
     g_object_unref(column);
   end;
 
-  g_object_set_data(G_OBJECT(selection_model), store_Key, store);
 
-  ListBoxAppendItem(selection_model, 'Max', 'Hugentobler', 45, 1.76);
-  ListBoxAppendItem(selection_model, 'Werner', 'Huber', 42, 1.86);
-  ListBoxAppendItem(selection_model, 'Hans', 'Ulrich', 56, 1.78);
-  ListBoxAppendItem(selection_model, 'Peter', 'Meier', 52, 1.74);
+  store := g_list_store_new(G_TYPE_OBJECT);
+  sorter := g_object_ref (gtk_column_view_get_sorter (GTK_COLUMN_VIEW (column_view)));
+    model := gtk_sort_list_model_new (G_LIST_MODEL (store), sorter);
+    selection := gtk_single_selection_new (G_LIST_MODEL (model));
+    gtk_single_selection_set_autoselect (selection, True);
+    gtk_column_view_set_model (GTK_COLUMN_VIEW (column_view), GTK_SELECTION_MODEL (selection));
 
-  //  g_signal_connect_swapped(scrolled_window, 'destroy', G_CALLBACK(@g_object_unref), sort_model);
-  g_signal_connect_swapped(scrolled_window, 'destroy', G_CALLBACK(@g_object_unref), store);
 
-  g_action_map_add_action_entries(G_ACTION_MAP(app), PGActionEntry(entries), Length(entries), selection_model);
+  //view_sorter := gtk_column_view_get_sorter(GTK_COLUMN_VIEW(column_view));
+  //store := g_list_store_new(G_TYPE_OBJECT);
+  //sort_model := gtk_sort_list_model_new(G_LIST_MODEL(store), view_sorter);
+  //selection_model := GTK_SELECTION_MODEL(gtk_single_selection_new(G_LIST_MODEL(sort_model)));
+  //g_object_unref(view_sorter);
+  //gtk_column_view_set_model(GTK_COLUMN_VIEW(column_view), selection_model);
 
+  g_signal_connect_swapped(scrolled_window, 'destroy', G_CALLBACK(@g_object_unref), model);
+//  g_signal_connect_swapped(scrolled_window, 'destroy', G_CALLBACK(@g_object_unref), store);
+
+
+  g_object_set_data(G_OBJECT(selection), store_Key, store);
+  ListBoxAppendItem(GTK_SELECTION_MODEL( selection), 'Max', 'Hugentobler', 45, 1.76);
+  ListBoxAppendItem(GTK_SELECTION_MODEL( selection), 'Werner', 'Huber', 42, 1.86);
+  ListBoxAppendItem(GTK_SELECTION_MODEL( selection), 'Hans', 'Ulrich', 56, 1.78);
+  ListBoxAppendItem(GTK_SELECTION_MODEL( selection), 'Peter', 'Meier', 52, 1.74);
+
+  g_action_map_add_action_entries(G_ACTION_MAP(app), PGActionEntry(entries), Length(entries), selection);
 
   Result := scrolled_window;
 end;
