@@ -195,7 +195,7 @@ begin
   if g_strcmp0(action_name, 'listbox.append') = 0 then begin
         AddHuman(selection_model  );
 
-    ListBoxAppendItem(selection_model, 'Daniel', 'Maier', Random(100), Random * 2);
+//    ListBoxAppendItem(selection_model, 'Daniel', 'Maier', Random(100), Random * 2);
   end else if g_strcmp0(action_name, 'listbox.remove') = 0 then begin
     ListBoxRemoveItem(selection_model);
   end else if g_strcmp0(action_name, 'listbox.removeall') = 0 then begin

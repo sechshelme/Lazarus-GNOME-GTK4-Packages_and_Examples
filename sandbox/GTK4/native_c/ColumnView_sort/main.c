@@ -1,11 +1,11 @@
+
 // gcc -o main main.c pkg-config --cflags --libs gtk4
 
 #include <gtk/gtk.h>
-#include <glib/gprintf.h>
 
 void object_free(gpointer data)
 {
-  g_printf("free object\n");
+  g_print("free object\n");
   g_free(data);
 }
 
