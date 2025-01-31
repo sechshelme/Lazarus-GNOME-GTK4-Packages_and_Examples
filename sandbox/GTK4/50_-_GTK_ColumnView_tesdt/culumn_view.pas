@@ -11,14 +11,14 @@ uses
   fp_glib2, fp_GTK4,
   Common, Edit_Dialog;
 
-function Create_ListBoxWidget: PGtkWidget;
+function Create_ListBoxWidget(mainWindow:PGtkWindow): PGtkWidget;
 
 implementation
 
 // ==== private
 
 
-  // https://github.com/ToshioCP/Gtk4-tutorial/blob/main/gfm/sec32.md
+// https://github.com/ToshioCP/Gtk4-tutorial/blob/main/gfm/sec32.md
 
 
 // === CloumnView
@@ -69,7 +69,7 @@ begin
   gtk_bitset_unref(selected);
 end;
 
-//////////////////7
+//////////////////
 
 procedure item_object_free_cp(Data: Tgpointer); cdecl;
 var
@@ -193,7 +193,7 @@ begin
   g_printf('Action Name: "%s"'#10, action_name);
 
   if g_strcmp0(action_name, 'listbox.append') = 0 then begin
-//    AddHuman(selection_model  );
+        AddHuman(selection_model  );
 
     ListBoxAppendItem(selection_model, 'Daniel', 'Maier', Random(100), Random * 2);
   end else if g_strcmp0(action_name, 'listbox.remove') = 0 then begin
@@ -286,10 +286,10 @@ begin
       Result := human_a^.Index - human_b^.Index;
     end;
     1: begin
-      Result := g_strcmp0(human_a^.FirstName , human_b^.FirstName);
+      Result := g_strcmp0(human_a^.FirstName, human_b^.FirstName);
     end;
     2: begin
-      Result := g_strcmp0(human_a^.LastName , human_b^.LastName);
+      Result := g_strcmp0(human_a^.LastName, human_b^.LastName);
     end;
     3: begin
       Result := human_a^.Age - human_b^.Age;
@@ -306,7 +306,7 @@ begin
   end;
 end;
 
-function Create_ListBoxWidget: PGtkWidget;
+function Create_ListBoxWidget(mainWindow: PGtkWindow): PGtkWidget;
 const
   entries: array of TGActionEntry = (
     (Name: 'listbox.next'; activate: @action_cp; parameter_type: nil; state: nil; change_state: nil; padding: (0, 0, 0)),
@@ -319,16 +319,16 @@ const
 
 var
   column_view: PGtkWidget;
-  scrolled_window, mainWindow: PGtkWidget;
+  scrolled_window: PGtkWidget;
   factory: PGtkListItemFactory;
   column: PGtkColumnViewColumn;
   app: PGApplication;
   i: integer;
   len: SizeInt;
-  model: PGtkSortListModel;
+  sort_model: PGtkSortListModel;
   store: PGListStore;
-  selection: PGtkSingleSelection;
-  sorter: Tgpointer;
+  view_sorter, column_sorter: PGtkSorter;
+  selection_model: PGtkSelectionModel;
 begin
   app := g_application_get_default;
 
@@ -340,6 +340,14 @@ begin
   g_signal_connect(column_view, 'activate', G_CALLBACK(@on_row_activated_cb), nil);
   gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), column_view);
 
+  store := g_list_store_new(G_TYPE_OBJECT);
+
+  view_sorter := g_object_ref(gtk_column_view_get_sorter(GTK_COLUMN_VIEW(column_view)));
+  sort_model := gtk_sort_list_model_new(G_LIST_MODEL(store), view_sorter);
+  selection_model := GTK_SELECTION_MODEL(gtk_single_selection_new(G_LIST_MODEL(sort_model)));
+  gtk_column_view_set_model(GTK_COLUMN_VIEW(column_view), selection_model);
+  g_object_unref(selection_model);
+
   len := Length(ColTitles) - 1;
   for i := 0 to len do begin
     factory := gtk_signal_list_item_factory_new;
@@ -349,46 +357,29 @@ begin
     g_signal_connect(factory, 'teardown', G_CALLBACK(@teardown_cb), GINT_TO_POINTER(i));
 
     column := gtk_column_view_column_new(ColTitles[i], factory);
-
-    sorter := GTK_SORTER(gtk_custom_sorter_new(@compareFunc, GINT_TO_POINTER(i), nil));
-    gtk_column_view_column_set_sorter(column, sorter);
-    //        gtk_sorter_changed(column_sorter, GTK_SORTER_CHANGE_DIFFERENT);
-    g_object_unref(sorter);
-
     gtk_column_view_column_set_resizable(column, True);
     gtk_column_view_append_column(GTK_COLUMN_VIEW(column_view), column);
-
     if i = len then  begin
       gtk_column_view_column_set_expand(column, True);
     end;
 
+    column_sorter := GTK_SORTER(gtk_custom_sorter_new(@compareFunc, GINT_TO_POINTER(i), nil));
+    gtk_column_view_column_set_sorter(column, column_sorter);
+    //        gtk_sorter_changed(column_sorter, GTK_SORTER_CHANGE_DIFFERENT);
+    g_object_unref(column_sorter);
+
     g_object_unref(column);
   end;
 
+  g_object_set_data(G_OBJECT(selection_model), store_Key, store);
+  g_object_set_data(G_OBJECT(selection_model), mainWindows_Key, mainWindow);
 
-  store := g_list_store_new(G_TYPE_OBJECT);
-  sorter := g_object_ref (gtk_column_view_get_sorter (GTK_COLUMN_VIEW (column_view)));
-    model := gtk_sort_list_model_new (G_LIST_MODEL (store), sorter);
-    selection := gtk_single_selection_new (G_LIST_MODEL (model));
-    gtk_single_selection_set_autoselect (selection, True);
-    gtk_column_view_set_model (GTK_COLUMN_VIEW (column_view), GTK_SELECTION_MODEL (selection));
+  ListBoxAppendItem(selection_model ,'Max', 'Hugentobler', 45, 1.76);
+  ListBoxAppendItem(selection_model, 'Werner', 'Huber', 42, 1.86);
+  ListBoxAppendItem(selection_model, 'Hans', 'Ulrich', 56, 1.78);
+  ListBoxAppendItem(selection_model, 'Peter', 'Meier', 52, 1.74);
 
-
-  g_signal_connect_swapped(scrolled_window, 'destroy', G_CALLBACK(@g_object_unref), model);
-//  g_signal_connect_swapped(scrolled_window, 'destroy', G_CALLBACK(@g_object_unref), store);
-
-mainWindow := gtk_widget_get_ancestor(GTK_WIDGET(scrolled_window), GTK_TYPE_WINDOW);
-WriteLn('mw col: ':20,PtrUInt(mainWindow));
-
-g_object_set_data(G_OBJECT(selection), store_Key, store);
-g_object_set_data(G_OBJECT(selection), mainWindows_Key, mainWindow);
-
-  ListBoxAppendItem(GTK_SELECTION_MODEL( selection), 'Max', 'Hugentobler', 45, 1.76);
-  ListBoxAppendItem(GTK_SELECTION_MODEL( selection), 'Werner', 'Huber', 42, 1.86);
-  ListBoxAppendItem(GTK_SELECTION_MODEL( selection), 'Hans', 'Ulrich', 56, 1.78);
-  ListBoxAppendItem(GTK_SELECTION_MODEL( selection), 'Peter', 'Meier', 52, 1.74);
-
-  g_action_map_add_action_entries(G_ACTION_MAP(app), PGActionEntry(entries), Length(entries), selection);
+  g_action_map_add_action_entries(G_ACTION_MAP(app), PGActionEntry(entries), Length(entries), selection_model);
 
   Result := scrolled_window;
 end;

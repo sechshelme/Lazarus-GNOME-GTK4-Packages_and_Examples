@@ -29,7 +29,7 @@ procedure CreateBtnButton(parent:PGtkWidget; label_, icon_name, action_name: Pgc
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
-    mainWindow, panedBox, buttonBox, label1, ColumnViewBox, mw: PGtkWidget;
+    mainWindow, panedBox, buttonBox, label1, ColumnViewBox: PGtkWidget;
   begin
     mainWindow := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(mainWindow), 'GTK4 Border und Bevel');
@@ -41,7 +41,7 @@ procedure CreateBtnButton(parent:PGtkWidget; label_, icon_name, action_name: Pgc
     gtk_widget_set_margin_top(panedBox, 10);
     gtk_widget_set_margin_bottom(panedBox, 10);
 
-    ColumnViewBox := Create_ListBoxWidget;
+    ColumnViewBox := Create_ListBoxWidget(GTK_WINDOW( mainWindow));
     gtk_widget_set_vexpand(ColumnViewBox, True);
     gtk_box_append(GTK_BOX(panedBox), ColumnViewBox);
 
@@ -64,12 +64,6 @@ procedure CreateBtnButton(parent:PGtkWidget; label_, icon_name, action_name: Pgc
     gtk_window_set_child(GTK_WINDOW(mainWindow), panedBox);
 
     gtk_window_present(GTK_WINDOW(mainWindow));
-
-    WriteLn('main: ':20,PtrUInt(mainWindow));
-    WriteLn('scrollw_main: ':20,PtrUInt(ColumnViewBox));
-
-    mw := gtk_widget_get_ancestor(GTK_WIDGET(ColumnViewBox), GTK_TYPE_WINDOW);
-    WriteLn('mw1 ':20,PtrUInt(mw));
   end;
 
 
