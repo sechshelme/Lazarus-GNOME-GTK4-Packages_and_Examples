@@ -44,6 +44,16 @@ end.
 ```
 Da dies in der glib2-packages schon gemacht wird, kann man auf dies bei Verwendung der Packages in eigenen Programmen verzichten.
 
+## HarfBuzz
+
+### Font auf dem Terminal angucken
+`sudo apt install libharfbuzz-bin`
+hb-view Ubuntu-B.ttf "Hello"
+
+
+
+
+
 
 ## GLIB2 
 https://github.com/wadester/wh_test_glib/blob/master/glib_test1.c

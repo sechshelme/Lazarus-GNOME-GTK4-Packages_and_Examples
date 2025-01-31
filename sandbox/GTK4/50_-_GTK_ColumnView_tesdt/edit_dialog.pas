@@ -6,9 +6,18 @@ uses
   fp_glib2, fp_GTK4,
   Common;
 
-procedure AddHuman(selection_model: PGtkSelectionModel);
+procedure AddItem(store: PGListStore; FirstName: Pgchar; LastName: Pgchar; Age: Tgint; size: Tgfloat);
+procedure AddHumanDialog(selection_model: PGtkSelectionModel);
 
 implementation
+
+
+const
+  cmd_Key = 'cmd';
+  cmdOk = 1000;
+  cmdCancel = 1001;
+  cmdAdd = 1002;
+  cmHelp = 1003;
 
 type
   TDialogData = record
@@ -28,39 +37,44 @@ begin
   g_free(obj);
 end;
 
+
+procedure AddItem(store: PGListStore; FirstName: Pgchar; LastName: Pgchar; Age: Tgint; size: Tgfloat);
+var
+  obj: PGObject;
+  human: PHuman;
+const
+  index: integer = 0;
+begin
+  human := g_malloc(SizeOf(THuman));
+  human^.Index := index;
+  human^.FirstName := g_strdup(FirstName);
+  human^.LastName := g_strdup(LastName);
+  human^.Age := Age;
+  human^.Size := Size;
+  Inc(index);
+
+  obj := g_object_new(G_TYPE_OBJECT, nil);
+  g_object_set_data_full(obj, humanObjectKey, human, @item_object_free_cp);
+  g_list_store_append(store, obj);
+  g_object_unref(obj);
+end;
+
+
 procedure on_clicked(widget: PGtkWidget; {%H-}user_data: Tgpointer); cdecl;
 var
   FirstName_text, LastName_text: Pgchar;
   cmd: Tgint;
   store: PGListStore;
-  human: PHuman;
-  obj: Tgpointer;
   dialogData: PDialogData absolute user_data;
-const
-  index: integer = 0;
-
 begin
   cmd := GPOINTER_TO_INT(g_object_get_data(G_OBJECT(widget), cmd_Key));
   store := g_object_get_data(G_OBJECT(dialogData^.selection_model), store_Key);
 
-  if (cmd = cmdOk) or (cmd = cmdApply) then begin
+  if (cmd = cmdOk) or (cmd = cmdAdd) then begin
     FirstName_text := gtk_editable_get_text(GTK_EDITABLE(dialogData^.FirstName_entry));
-
     LastName_text := gtk_editable_get_text(GTK_EDITABLE(dialogData^.LastName_entry));
 
-    human := g_malloc(SizeOf(THuman));
-    human^.Index := index;
-    human^.FirstName := g_strdup(FirstName_text);
-    human^.LastName := g_strdup(LastName_text);
-    human^.Age := Random(90) + 10;
-    human^.Size := Random * 1.5 + 0.5;
-
-    obj := g_object_new(G_TYPE_OBJECT, nil);
-    g_object_set_data_full(obj, humanObjectKey, human, @item_object_free_cp);
-    g_list_store_append(store, obj);
-    g_object_unref(obj);
-
-    Inc(index);
+    AddItem(store, FirstName_text, LastName_text, Random(90) + 10, Random * 1.5 + 0.5);
   end;
 
   if (cmd = cmdOk) or (cmd = cmdCancel) then begin
@@ -72,16 +86,18 @@ begin
   end;
 end;
 
-procedure destroy_Dialog_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
+procedure destroy_Dialog_cp({%H-}widget: PGtkWidget; user_data: Tgpointer); cdecl;
+var
+  dialogData: PDialogData absolute user_data;
 begin
-  g_free(user_data);
+  g_free(dialogData);
 end;
 
-procedure AddHuman(selection_model: PGtkSelectionModel);
+procedure AddHumanDialog(selection_model: PGtkSelectionModel);
 var
   mainBox, contentBox, lab,
   button_box, help_button, ok_button,
-  apply_button, cancel_button: PGtkWidget;
+  add_button, cancel_button: PGtkWidget;
   mainWindow: PGtkWindow;
   dialogData: PDialogData;
 begin
@@ -137,10 +153,10 @@ begin
   gtk_box_append(GTK_BOX(button_box), ok_button);
   g_signal_connect(ok_button, 'clicked', G_CALLBACK(@on_clicked), dialogData);
 
-  apply_button := gtk_button_new_with_label('Apply');
-  g_object_set_data(G_OBJECT(apply_button), cmd_Key, GINT_TO_POINTER(cmdApply));
-  gtk_box_append(GTK_BOX(button_box), apply_button);
-  g_signal_connect(apply_button, 'clicked', G_CALLBACK(@on_clicked), dialogData);
+  add_button := gtk_button_new_with_label('Add');
+  g_object_set_data(G_OBJECT(add_button), cmd_Key, GINT_TO_POINTER(cmdAdd));
+  gtk_box_append(GTK_BOX(button_box), add_button);
+  g_signal_connect(add_button, 'clicked', G_CALLBACK(@on_clicked), dialogData);
 
   cancel_button := gtk_button_new_with_label('Abbrechen');
   g_object_set_data(G_OBJECT(cancel_button), cmd_Key, GINT_TO_POINTER(cmdCancel));

@@ -11,7 +11,7 @@ uses
   fp_glib2, fp_GTK4,
   Common, Edit_Dialog;
 
-function Create_ListBoxWidget(mainWindow:PGtkWindow): PGtkWidget;
+function Create_ListBoxWidget(mainWindow: PGtkWindow): PGtkWidget;
 
 implementation
 
@@ -69,43 +69,13 @@ begin
   gtk_bitset_unref(selected);
 end;
 
-//////////////////
-
-procedure item_object_free_cp(Data: Tgpointer); cdecl;
-var
-  obj: PHuman absolute Data;
-begin
-  WriteLn(obj^.FirstName, ' ', obj^.LastName, '  (freed)');
-  g_free(obj^.FirstName);
-  g_free(obj^.LastName);
-  g_free(obj);
-end;
-
 procedure ListBoxAppendItem(selection_model: PGtkSelectionModel; FirstName: Pgchar; LastName: Pgchar; Age: Tgint; size: Tgfloat);
 var
   store: PGListStore;
-  obj: PGObject;
-  human: PHuman;
-const
-  index: integer = 0;
 begin
   store := g_object_get_data(G_OBJECT(selection_model), store_Key);
-
-  human := g_malloc(SizeOf(THuman));
-  human^.Index := index;
-  human^.FirstName := g_strdup(FirstName);
-  human^.LastName := g_strdup(LastName);
-  human^.Age := Age;
-  human^.Size := Size;
-  Inc(index);
-
-  obj := g_object_new(G_TYPE_OBJECT, nil);
-  g_object_set_data_full(obj, humanObjectKey, human, @item_object_free_cp);
-  g_list_store_append(store, obj);
-  g_object_unref(obj);
+  AddItem(store, FirstName,LastName,Age,size);
 end;
-
-//////////////////////
 
 procedure ListBoxRemoveItem(selection_model: PGtkSelectionModel);
 var
@@ -193,9 +163,7 @@ begin
   g_printf('Action Name: "%s"'#10, action_name);
 
   if g_strcmp0(action_name, 'listbox.append') = 0 then begin
-        AddHuman(selection_model  );
-
-//    ListBoxAppendItem(selection_model, 'Daniel', 'Maier', Random(100), Random * 2);
+    AddHumanDialog(selection_model);
   end else if g_strcmp0(action_name, 'listbox.remove') = 0 then begin
     ListBoxRemoveItem(selection_model);
   end else if g_strcmp0(action_name, 'listbox.removeall') = 0 then begin
@@ -374,7 +342,7 @@ begin
   g_object_set_data(G_OBJECT(selection_model), store_Key, store);
   g_object_set_data(G_OBJECT(selection_model), mainWindows_Key, mainWindow);
 
-  ListBoxAppendItem(selection_model ,'Max', 'Hugentobler', 45, 1.76);
+  ListBoxAppendItem(selection_model, 'Max', 'Hugentobler', 45, 1.76);
   ListBoxAppendItem(selection_model, 'Werner', 'Huber', 42, 1.86);
   ListBoxAppendItem(selection_model, 'Hans', 'Ulrich', 56, 1.78);
   ListBoxAppendItem(selection_model, 'Peter', 'Meier', 52, 1.74);

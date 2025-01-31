@@ -51,12 +51,12 @@ begin
   //  chafa_canvas_set_contents_rgba8(canvas, pixels, PIX_WIDTH, PIX_HEIGHT, PIX_WIDTH * N_CHANNELS);
   chafa_canvas_draw_all_pixels(canvas, CHAFA_PIXEL_RGBA8_UNASSOCIATED, pixels, PIX_WIDTH, PIX_HEIGHT, PIX_WIDTH * N_CHANNELS);
 
-  //  term_info := chafa_term_info_new();
-  //gs:=chafa_canvas_print(canvas, term_info);
-  //chafa_term_info_unref(term_info);
+   term_info := chafa_term_info_new();
+  gs:=chafa_canvas_print(canvas, term_info);
+  chafa_term_info_unref(term_info);
 
 
-  gs := chafa_canvas_build_ansi(canvas);
+//  gs := chafa_canvas_build_ansi(canvas);
 
   WriteLn(gs^.str);
   WriteLn;
