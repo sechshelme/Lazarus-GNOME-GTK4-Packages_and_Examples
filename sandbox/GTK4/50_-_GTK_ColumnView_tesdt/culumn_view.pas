@@ -8,7 +8,7 @@ unit culumn_view;
 interface
 
 uses
-  fp_glib2, fp_GTK4,
+  fp_glib2, fp_pango, fp_GTK4,
   Common, Edit_Dialog;
 
 function Create_ListBoxWidget(mainWindow: PGtkWindow): PGtkWidget;
@@ -74,7 +74,7 @@ var
   store: PGListStore;
 begin
   store := g_object_get_data(G_OBJECT(selection_model), store_Key);
-  AddItem(store, FirstName,LastName,Age,size);
+  AddItem(store, FirstName, LastName, Age, size);
 end;
 
 procedure ListBoxRemoveItem(selection_model: PGtkSelectionModel);
@@ -182,46 +182,51 @@ end;
 procedure setup_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;
 var
   col: Tgint absolute user_data;
-  l: PGtkWidget;
+  label_: PGtkWidget;
 begin
-  l := gtk_label_new(nil);
+  label_ := gtk_label_new(nil);
   if col in [0, 3, 4] then begin
-    gtk_widget_set_halign(l, GTK_ALIGN_END);
+    gtk_widget_set_halign(label_, GTK_ALIGN_END);
   end else begin
-    gtk_widget_set_halign(l, GTK_ALIGN_START);
+    gtk_widget_set_halign(label_, GTK_ALIGN_START);
   end;
-  gtk_list_item_set_child(list_item, l);
+  gtk_label_set_ellipsize(GTK_LABEL(label_), PANGO_ELLIPSIZE_END);
+  gtk_list_item_set_child(list_item, label_);
 end;
 
 procedure bind_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;
 var
   col: Tgint absolute user_data;
-  l: PGtkWidget;
+  label_: PGtkWidget;
   item: PGObject;
   human: PHuman;
-  buffer: array[0..31] of Tgchar;
+  buffer: Pgchar;
 begin
-  l := gtk_list_item_get_child(list_item);
+  label_ := gtk_list_item_get_child(list_item);
   item := gtk_list_item_get_item(list_item);
   human := g_object_get_data(item, humanObjectKey);
   case col of
     0: begin
-      g_snprintf(buffer, SizeOf(buffer), '%d', human^.Index);
+      buffer := g_strdup_printf('%d', human^.Index);
     end;
     1: begin
-      g_snprintf(buffer, SizeOf(buffer), '%s', human^.FirstName);
+      buffer := g_strdup_printf('%s', human^.FirstName);
     end;
     2: begin
-      g_snprintf(buffer, SizeOf(buffer), '%s', human^.LastName);
+      buffer := g_strdup_printf('%s', human^.LastName);
     end;
     3: begin
-      g_snprintf(buffer, SizeOf(buffer), '%d', human^.Age);
+      buffer := g_strdup_printf('%d', human^.Age);
     end;
     4: begin
-      g_snprintf(buffer, SizeOf(buffer), '%4.2f', human^.Size);
+      buffer := g_strdup_printf('%4.2f', human^.Size);
     end;
   end;
-  gtk_label_set_text(GTK_LABEL(l), buffer);
+  if buffer <> nil then begin
+    gtk_widget_set_focusable(label_, TRUE);
+    gtk_label_set_text(GTK_LABEL(label_), buffer);
+    g_free(buffer);
+  end;
 end;
 
 procedure unbind_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;
@@ -327,7 +332,7 @@ begin
     column := gtk_column_view_column_new(ColTitles[i], factory);
     gtk_column_view_column_set_resizable(column, True);
     gtk_column_view_append_column(GTK_COLUMN_VIEW(column_view), column);
-    if i = len then  begin
+    if i = 1 then  begin
       gtk_column_view_column_set_expand(column, True);
     end;
 
