@@ -6,6 +6,7 @@ uses
   fp_glib2, fp_GTK4,
   Common;
 
+procedure item_object_free_cp(Data: Tgpointer); cdecl;
 procedure AddItem(store: PGListStore; FirstName: Pgchar; LastName: Pgchar; Age: Tgint; size: Tgfloat);
 procedure AddHumanDialog(selection_model: PGtkSelectionModel);
 

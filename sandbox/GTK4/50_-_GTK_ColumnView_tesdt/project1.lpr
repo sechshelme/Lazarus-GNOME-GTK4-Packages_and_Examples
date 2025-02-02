@@ -57,6 +57,7 @@ procedure CreateBtnButton(parent:PGtkWidget; label_, icon_name, action_name: Pgc
     CreateBtnButton(buttonBox,'Next', 'go-down', 'app.listbox.next');
     CreateBtnButton(buttonBox,'Prev', 'go-up', 'app.listbox.prev');
     CreateBtnButton(buttonBox,'Append', 'list-add', 'app.listbox.append');
+    CreateBtnButton(buttonBox,'Rename', '', 'app.listbox.rename');
     CreateBtnButton(buttonBox,'Remove', 'list-remove', 'app.listbox.remove');
     CreateBtnButton(buttonBox,'Remove All', 'list-remove-all', 'app.listbox.removeall');
     CreateBtnButton(buttonBox,'Down', 'view-sort-ascending', 'app.listbox.down');
