@@ -31,6 +31,37 @@ const
     'Alter',
     'Grösse');
 
+procedure ListBoxPrintItem(selection_model: PGtkSelectionModel);
+var
+  store: PGListStore;
+  selected: PGtkBitset;
+  position: Tguint;
+  obj: PGObject;
+  human: PHuman;
+begin
+  store := g_object_get_data(G_OBJECT(selection_model), store_Key);
+
+  selected := gtk_selection_model_get_selection(selection_model);
+  if gtk_bitset_is_empty(selected) then begin
+    g_printf('keine Zeile ausgewählt'#10);
+  end else begin
+    position := gtk_bitset_get_nth(selected, 0);
+    obj := g_list_model_get_item(G_LIST_MODEL(store), position);
+
+    human := g_object_get_data(obj, humanObjectKey);
+    with human^ do begin
+      g_printf('%d. %s %s  %d, %4.2f'#10, Index, FirstName, LastName, Age, Size);
+    end;
+
+//    g_list_store_splice();
+
+    g_object_unref(obj);
+  end;
+  gtk_bitset_unref(selected);
+end;
+
+
+
 procedure ListBoxNextItem(selection_model: PGtkSelectionModel);
 var
   store: PGListStore;
@@ -162,7 +193,9 @@ begin
   action_name := g_action_get_name(G_ACTION(action));
   g_printf('Action Name: "%s"'#10, action_name);
 
-  if g_strcmp0(action_name, 'listbox.append') = 0 then begin
+  if g_strcmp0(action_name, 'listbox.print') = 0 then begin
+    ListBoxPrintItem(selection_model);
+  end else if g_strcmp0(action_name, 'listbox.append') = 0 then begin
     AddHumanDialog(selection_model);
   end else if g_strcmp0(action_name, 'listbox.remove') = 0 then begin
     ListBoxRemoveItem(selection_model);
@@ -223,7 +256,7 @@ begin
     end;
   end;
   if buffer <> nil then begin
-    gtk_widget_set_focusable(label_, TRUE);
+    gtk_widget_set_focusable(label_, True);
     gtk_label_set_text(GTK_LABEL(label_), buffer);
     g_free(buffer);
   end;
@@ -282,6 +315,7 @@ end;
 function Create_ListBoxWidget(mainWindow: PGtkWindow): PGtkWidget;
 const
   entries: array of TGActionEntry = (
+    (Name: 'listbox.print'; activate: @action_cp; parameter_type: nil; state: nil; change_state: nil; padding: (0, 0, 0)),
     (Name: 'listbox.next'; activate: @action_cp; parameter_type: nil; state: nil; change_state: nil; padding: (0, 0, 0)),
     (Name: 'listbox.prev'; activate: @action_cp; parameter_type: nil; state: nil; change_state: nil; padding: (0, 0, 0)),
     (Name: 'listbox.append'; activate: @action_cp; parameter_type: nil; state: nil; change_state: nil; padding: (0, 0, 0)),

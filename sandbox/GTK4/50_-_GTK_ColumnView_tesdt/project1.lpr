@@ -53,6 +53,7 @@ procedure CreateBtnButton(parent:PGtkWidget; label_, icon_name, action_name: Pgc
     label1 := gtk_label_new('box2');
     gtk_box_append(GTK_BOX(buttonBox), label1);
 
+    CreateBtnButton(buttonBox,'Print', '', 'app.listbox.print');
     CreateBtnButton(buttonBox,'Next', 'go-down', 'app.listbox.next');
     CreateBtnButton(buttonBox,'Prev', 'go-up', 'app.listbox.prev');
     CreateBtnButton(buttonBox,'Append', 'list-add', 'app.listbox.append');
