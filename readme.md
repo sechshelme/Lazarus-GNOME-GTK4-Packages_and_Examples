@@ -113,7 +113,13 @@ Strg + Shift + D: Öffnet den Inspector und wählt automatisch das Widget unter 
 
 `sudo apt install gnome-builder`
 
+```mermaid
+Glib 2.0:the base utility library
 
+GObject 2.0:the base type system libary
+
+GObject 2.0<..Glib 2.0
+```
 
 
 
@@ -121,6 +127,9 @@ Strg + Shift + D: Öffnet den Inspector und wählt automatisch das Widget unter 
 
 
 https://www.perplexity.ai/search/wie-installiert-man-den-gtk-in-3L9fGIGmTL.WqgEg.TOEQw
+
+# Schlagwörter
+fpc lazarus delphi pascal GTK GTK4 GLIB GLIB2 gestreamer cairo pango adwaita harfbuzz freetype webkit
 
 
 
