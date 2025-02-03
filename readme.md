@@ -43,10 +43,18 @@ direction RL
 Glib 2.0:the base utility library
 GObject 2.0:the base type system libary
 GIO 2.0:GObjecr Interfaces and Objects, Networking, IPC, and I/O
+GdkPixbuf 2.0:Image data library
+Pango 1.0:Text sharing and rendering
+GDK4 4.0:The GTK windowing system abstraction
 
 GObject 2.0<--Glib 2.0
 GIO 2.0<--Glib 2.0
 GIO 2.0<--GObject 2.0
+GdkPixbuf 2.0<--GObject 2.0
+GDK4 4.0<--GObject 2.0
+Pango 1.0<--GObject 2.0
+GDK4 4.0<--GdkPixbuf 2.0
+GDK4 4.0<--Pango 1.0
 ```
 
 https://docs.github.com/de/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams#creating-mermaid-diagrams
