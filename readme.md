@@ -42,10 +42,14 @@ classDiagram
 direction RL
 Glib 2.0:the base utility library
 GObject 2.0:the base type system libary
-GObject 2.0<..Glib 2.0
+GIO 2.0:GObjecr Interfaces and Objects, Networking, IPC, and I/O
+
+GObject 2.0<--Glib 2.0
+GIO 2.0<--Glib 2.0
+GIO 2.0<--GObject 2.0
 ```
 
-
+https://docs.github.com/de/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams#creating-mermaid-diagrams
 
 
 # Wichtiger Hinweis
