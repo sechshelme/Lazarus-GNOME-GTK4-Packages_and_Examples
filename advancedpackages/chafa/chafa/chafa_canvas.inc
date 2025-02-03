@@ -1,13 +1,4 @@
-unit chafa_canvas;
-
-interface
-
-uses
-  fp_glib2, chafa_canvas_config, chafa_placement, chafa_common, chafa_term_info;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 type
   TChafaCanvas = record
@@ -38,8 +29,11 @@ function chafa_canvas_build_ansi(canvas: PChafaCanvas): PGString; cdecl; externa
 // === Konventiert am: 29-1-25 19:04:28 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

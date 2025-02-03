@@ -1,13 +1,4 @@
-unit chafa_common;
-
-interface
-
-uses
-  fp_glib2;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 type
   PChafaPixelType = ^TChafaPixelType;
@@ -49,8 +40,11 @@ const
   // === Konventiert am: 29-1-25 18:53:24 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

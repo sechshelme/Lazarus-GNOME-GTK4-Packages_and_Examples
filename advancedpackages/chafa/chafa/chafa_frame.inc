@@ -1,13 +1,4 @@
-unit chafa_frame;
-
-interface
-
-uses
-  fp_glib2, chafa_common;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -24,8 +15,11 @@ procedure chafa_frame_unref(frame: PChafaFrame); cdecl; external libchafa;
 // === Konventiert am: 29-1-25 19:11:13 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

@@ -1,13 +1,4 @@
-unit chafa_placement;
-
-interface
-
-uses
-  fp_glib2, chafa_image, chafa_common;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 type
   TChafaPlacement = record
@@ -27,8 +18,11 @@ procedure chafa_placement_set_valign(placement: PChafaPlacement; align: TChafaAl
 // === Konventiert am: 29-1-25 19:06:55 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

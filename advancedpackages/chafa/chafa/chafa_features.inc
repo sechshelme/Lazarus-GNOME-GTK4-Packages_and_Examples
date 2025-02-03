@@ -1,13 +1,4 @@
-unit chafa_features;
-
-interface
-
-uses
-  fp_glib2;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 type
   PChafaFeatures = ^TChafaFeatures;
@@ -29,8 +20,11 @@ function chafa_get_n_actual_threads: Tgint; cdecl; external libchafa;
 // === Konventiert am: 29-1-25 19:32:26 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

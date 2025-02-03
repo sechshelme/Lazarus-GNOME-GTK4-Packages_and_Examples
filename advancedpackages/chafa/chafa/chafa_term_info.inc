@@ -1,13 +1,4 @@
-unit chafa_term_info;
-
-interface
-
-uses
-  fp_glib2;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 const
   CHAFA_TERM_SEQ_LENGTH_MAX = 96;
@@ -61,7 +52,10 @@ function CHAFA_TERM_INFO_ERROR: TGQuark;
 // === Konventiert am: 29-1-25 19:14:25 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 function CHAFA_TERM_INFO_ERROR: TGQuark;
@@ -70,4 +64,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

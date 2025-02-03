@@ -1,13 +1,4 @@
-unit chafa_canvas_config;
-
-interface
-
-uses
-  fp_glib2, chafa_symbol_map;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 type
   PChafaColorExtractor = ^TChafaColorExtractor;
@@ -135,8 +126,11 @@ procedure chafa_canvas_config_set_passthrough(config: PChafaCanvasConfig; passth
 // === Konventiert am: 29-1-25 18:57:44 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

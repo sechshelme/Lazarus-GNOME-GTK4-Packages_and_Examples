@@ -2,20 +2,21 @@ program project1;
 
 uses
   fp_glib2,
+  fp_chafa,
 
 
-  chafa_common,             // io.
-  chafa_version_macros,     // io.
-  chafa_symbol_map,         // io.
-  chafa_canvas_config,      // io. -> chafa_symbol_map
-  chafa_term_info,          // io.
-  chafa_frame,              // io.
-  chafa_image,              // io. -> chafa_frame
-  chafa_placement,          // io. -> chafa_image
-  chafa_canvas,             // io. -> chafa_canvas_config, chafa_placement, chafa_term_info
-  chafa_features,           // io.
-  chafa_term_db,            // io. -> chafa_term_info
-  chafa_util,               // io.
+  //chafa_common,             // io.
+  //chafa_version_macros,     // io.
+  //chafa_symbol_map,         // io.
+  //chafa_canvas_config,      // io. -> chafa_symbol_map
+  //chafa_term_info,          // io.
+  //chafa_frame,              // io.
+  //chafa_image,              // io. -> chafa_frame
+  //chafa_placement,          // io. -> chafa_image
+  //chafa_canvas,             // io. -> chafa_canvas_config, chafa_placement, chafa_term_info
+  //chafa_features,           // io.
+  //chafa_term_db,            // io. -> chafa_term_info
+  //chafa_util,               // io.
 
   Math;
 
@@ -51,15 +52,15 @@ begin
   //  chafa_canvas_set_contents_rgba8(canvas, pixels, PIX_WIDTH, PIX_HEIGHT, PIX_WIDTH * N_CHANNELS);
   chafa_canvas_draw_all_pixels(canvas, CHAFA_PIXEL_RGBA8_UNASSOCIATED, pixels, PIX_WIDTH, PIX_HEIGHT, PIX_WIDTH * N_CHANNELS);
 
-   term_info := chafa_term_info_new();
-  gs:=chafa_canvas_print(canvas, term_info);
-  chafa_term_info_unref(term_info);
+//  term_info := chafa_term_info_new();
+//  gs := chafa_canvas_print(canvas, term_info);
+//  chafa_term_info_unref(term_info);
 
 
-//  gs := chafa_canvas_build_ansi(canvas);
+    gs := chafa_canvas_build_ansi(canvas);
 
-  WriteLn(gs^.str);
-  WriteLn;
+  g_printf('%s'#10, gs^.str);
+  g_printf(#10);
 
   g_string_free(gs, True);
   chafa_canvas_unref(canvas);

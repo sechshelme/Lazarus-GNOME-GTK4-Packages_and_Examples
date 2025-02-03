@@ -1,13 +1,4 @@
-unit chafa_term_db;
-
-interface
-
-uses
-  fp_glib2, chafa_term_info;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -26,8 +17,11 @@ function chafa_term_db_get_fallback_info(term_db: PChafaTermDb): PChafaTermInfo;
 // === Konventiert am: 29-1-25 19:32:29 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

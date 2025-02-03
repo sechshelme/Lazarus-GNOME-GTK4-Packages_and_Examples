@@ -1,13 +1,4 @@
-unit chafa_image;
-
-interface
-
-uses
-  fp_glib2, chafa_frame;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 type
   TChafaImage = record
@@ -22,8 +13,11 @@ procedure chafa_image_set_frame(image: PChafaImage; frame: PChafaFrame); cdecl; 
 // === Konventiert am: 29-1-25 19:08:08 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

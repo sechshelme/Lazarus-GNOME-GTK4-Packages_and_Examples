@@ -1,13 +1,4 @@
-unit chafa_symbol_map;
-
-interface
-
-uses
-  fp_glib2, chafa_common;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -76,8 +67,11 @@ function chafa_symbol_map_get_glyph(symbol_map: PChafaSymbolMap; code_point: Tgu
 // === Konventiert am: 29-1-25 17:37:52 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

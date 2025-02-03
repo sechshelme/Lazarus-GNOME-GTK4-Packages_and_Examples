@@ -123,7 +123,7 @@ begin
 
     human := g_object_get_data(obj, humanObjectKey);
     with human^ do begin
-        WriteLn('position: ',position);
+      WriteLn('position: ', position);
       g_printf('%d. %s %s  %d, %4.2f'#10, Index, FirstName, LastName, Age, Size);
     end;
 
@@ -141,10 +141,8 @@ begin
     WriteLn('--------------');
 
     obj := g_object_new(G_TYPE_OBJECT, nil);
-//      g_object_set_data_full(obj, humanObjectKey, humanDest, nil);
     g_object_set_data_full(obj, humanObjectKey, humanDest, @item_object_free_cp);
-    g_list_store_splice(store, position,  1,Tgpointer( @obj), 1);
-//    g_list_store_append(store, obj);
+    g_list_store_splice(store, position, 1, Tgpointer(@obj), 1);
     g_object_unref(obj);
   end;
   gtk_bitset_unref(selected);
@@ -154,7 +152,8 @@ procedure ListBoxRemoveItem(selection_model: PGtkSelectionModel);
 var
   store: PGListStore;
   selected: PGtkBitset;
-// https://www.perplexity.ai/search/seit-ich-den-gtksorter-verwend-J3XEYMcmS.S621t9JuQ2Iw
+  position: Tguint;
+  // https://www.perplexity.ai/search/seit-ich-den-gtksorter-verwend-J3XEYMcmS.S621t9JuQ2Iw
 begin
   store := g_object_get_data(G_OBJECT(selection_model), store_Key);
 
@@ -162,7 +161,8 @@ begin
   if gtk_bitset_is_empty(selected) then begin
     g_printf('keine Zeile ausgewählt'#10);
   end else begin
-    g_list_store_remove(store, gtk_bitset_get_nth(selected, 0));
+    position := gtk_bitset_get_nth(selected, 0);
+    g_list_store_remove(store, position);
   end;
   gtk_bitset_unref(selected);
 end;
@@ -425,6 +425,7 @@ begin
   end;
 
   g_object_set_data(G_OBJECT(selection_model), store_Key, store);
+  g_object_set_data(G_OBJECT(selection_model), sort_model_Key, sort_model);
   g_object_set_data(G_OBJECT(selection_model), mainWindows_Key, mainWindow);
 
   ListBoxAppendItem(selection_model, 'Max', 'Hugentobler', 45, 1.76);

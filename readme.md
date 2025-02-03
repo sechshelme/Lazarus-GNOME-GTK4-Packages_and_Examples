@@ -13,6 +13,9 @@
 | **WebKitGTK6**    | 2.46.4       | GTK4 Web-Browser                           | https://github.com/WebKit                                      |
 | **gstreamer**     | 1.24.2.0     | GStreamer Multimedia Framework             | https://gitlab.freedesktop.org/gstreamer                       |
 | **gstreamer ges** | 1.24.2.0     | GStreamer Editing Services                 | https://gitlab.freedesktop.org/gstreamer/gst-editing-services  |
+|                   |              |                                            |                                                                |
+| **chafa**         | 1.14.0       | Console Grafik Ausgabe                     | https://github.com/hpjansson/chafa                             |
+
 
 ## Pakete installieren
 - `sudo apt install libgstreamer-plugins-bad1.0-dev`

@@ -18,6 +18,7 @@ type
 const
   humanObjectKey = 'human-object';
   store_Key = 'store';
+  sort_model_Key = 'sort_model';
   mainWindows_Key = 'mainWindow';
 
 implementation

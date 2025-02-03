@@ -1,13 +1,4 @@
-unit chafa_util;
-
-interface
-
-uses
-  fp_glib2;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 procedure chafa_calc_canvas_geometry(src_width: Tgint; src_height: Tgint; dest_width_inout: Pgint; dest_height_inout: Pgint; font_ratio: Tgfloat;
@@ -17,8 +8,11 @@ procedure chafa_free_gstring_array(gsa: PPGString); cdecl; external libchafa;
 // === Konventiert am: 29-1-25 19:32:32 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

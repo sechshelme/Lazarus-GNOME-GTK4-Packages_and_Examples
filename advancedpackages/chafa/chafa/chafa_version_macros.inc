@@ -1,13 +1,4 @@
-unit chafa_version_macros;
-
-interface
-
-uses
-  fp_glib2;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 function CHAFA_VERSION_1_0: longint;
 function CHAFA_VERSION_1_2: longint;
@@ -21,7 +12,10 @@ function CHAFA_VERSION_1_14: longint;
 // === Konventiert am: 29-1-25 19:32:39 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function CHAFA_VERSION_1_0: longint;
 begin
@@ -64,4 +58,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}
