@@ -115,9 +115,7 @@ Strg + Shift + D: Öffnet den Inspector und wählt automatisch das Widget unter 
 
 ```mermaid
 Glib 2.0:the base utility library
-
 GObject 2.0:the base type system libary
-
 GObject 2.0<..Glib 2.0
 ```
 
