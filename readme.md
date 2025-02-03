@@ -35,6 +35,18 @@ Installierte Version der C-Libs abfragen:
 - gtk4 `pkg-config --modversion gtk4` 
 - gstreamer `pkg-config --modversion gstreamer-1.0` 
 
+# Hierachie
+
+```mermaid
+classDiagram
+direction RL
+Glib 2.0:the base utility library
+GObject 2.0:the base type system libary
+GObject 2.0<..Glib 2.0
+```
+
+
+
 
 # Wichtiger Hinweis
 Da in den glib-Funktionen ein `invalid floating point operation` ausgelöst werden kann braucht ee folgendes:
@@ -112,15 +124,6 @@ Strg + Shift + D: Öffnet den Inspector und wählt automatisch das Widget unter 
 #### GTK-Builder
 
 `sudo apt install gnome-builder`
-
-```mermaid
-Glib 2.0:the base utility library
-GObject 2.0:the base type system libary
-GObject 2.0<..Glib 2.0
-```
-
-
-
 
 
 
