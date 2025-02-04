@@ -9,6 +9,7 @@ interface
 
 uses
   fp_glib2, fp_pango, fp_GTK4,
+  fp_GLIBTools,
   Common, Edit_Dialog;
 
 function Create_ListBoxWidget(mainWindow: PGtkWindow): PGtkWidget;
@@ -357,6 +358,11 @@ begin
   end;
 end;
 
+procedure test(w: PGtkWidget; user_data: Tgpointer); cdecl;
+begin
+  WriteLn('column click');
+end;
+
 function Create_ListBoxWidget(mainWindow: PGtkWindow): PGtkWidget;
 const
   entries: array of TGActionEntry = (
@@ -412,14 +418,20 @@ begin
     column := gtk_column_view_column_new(ColTitles[i], factory);
     gtk_column_view_column_set_resizable(column, True);
     gtk_column_view_append_column(GTK_COLUMN_VIEW(column_view), column);
-    if i = 1 then  begin
+    if i = len then  begin
       gtk_column_view_column_set_expand(column, True);
     end;
 
     column_sorter := GTK_SORTER(gtk_custom_sorter_new(@compareFunc, GINT_TO_POINTER(i), nil));
     gtk_column_view_column_set_sorter(column, column_sorter);
     //        gtk_sorter_changed(column_sorter, GTK_SORTER_CHANGE_DIFFERENT);
+    g_signal_connect(column_sorter, 'changed', G_CALLBACK(@test), nil);
     g_object_unref(column_sorter);
+
+
+    //    GSignalShow(GTK_TYPE_COLUMN_VIEW_COLUMN);
+//       GSignalShow(GTK_TYPE_SORTER);
+//    GSignalShow(GTK_TYPE_SIGNAL_LIST_ITEM_FACTORY);
 
     g_object_unref(column);
   end;
