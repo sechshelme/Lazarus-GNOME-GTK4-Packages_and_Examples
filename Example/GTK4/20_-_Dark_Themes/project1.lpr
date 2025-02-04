@@ -22,7 +22,7 @@ uses
     window, box, button: PGtkWidget;
   begin
     g_object_set(gtk_settings_get_default,
-    'gtk-application-prefer-dark-theme', gTRUE,
+      'gtk-application-prefer-dark-theme', gTRUE,
     nil);
 
     window := gtk_application_window_new(app);
