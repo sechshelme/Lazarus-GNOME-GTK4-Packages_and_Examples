@@ -58,6 +58,7 @@ Pango 1.0<--GObject 2.0
 GDK 4.0<--GdkPixbuf 2.0
 GDK 4.0<--GObject 2.0
 GDK 4.0<--Pango 1.0
+GDK 4.0<--Cairo
 GDK 4.0<--GIO 2.0
 GSK 4.0<--GDK 4.0
 GTK 4.0<--GDK 4.0
