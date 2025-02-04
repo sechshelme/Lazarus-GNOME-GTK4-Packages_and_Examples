@@ -46,6 +46,8 @@ GIO 2.0:GObjecr Interfaces and Objects, Networking, IPC, and I/O
 GdkPixbuf 2.0:Image data library
 Pango 1.0:Text sharing and rendering
 GDK 4.0:The GTK windowing system abstraction
+GSK 4.0:The GTK rendering abstraction
+GTK 4.0:The GTK toolkit
 Cairo:2D graphics libary
 
 GObject 2.0<--Glib 2.0
@@ -57,7 +59,9 @@ GDK 4.0<--GdkPixbuf 2.0
 GDK 4.0<--GObject 2.0
 GDK 4.0<--Pango 1.0
 GDK 4.0<--GIO 2.0
-GDK 4.0<--Cairo
+GSK 4.0<--GDK 4.0
+GTK 4.0<--GDK 4.0
+GTK 4.0<--GSK 4.0
 ```
 
 https://docs.github.com/de/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams#creating-mermaid-diagrams

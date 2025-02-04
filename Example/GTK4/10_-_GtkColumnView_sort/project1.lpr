@@ -10,8 +10,6 @@ const
   COL = 8;
 
   item_value_key = 'item_value_key';
-var
-  column_titles: array of Pgchar;
 
 type
   TRowData = array[0..COL - 1] of Tgint;
@@ -44,7 +42,7 @@ type
     Value := g_malloc(SizeOf(TRowData));
     Value^[0] := counter;
     Inc(counter);
-    for i := 1 to Length(column_titles) - 1 do begin
+    for i := 1 to COL - 1 do begin
       Value^[i] := g_random_int_range(1, 100);
     end;
     g_object_set_data_full(obj, item_value_key, Value, @object_free);
@@ -97,12 +95,6 @@ end;
     i: integer;
     buffer: Pgchar;
   begin
-    SetLength(column_titles, COL);
-    for i := 0 to Length(column_titles) - 1 do begin
-      buffer := g_strdup_printf('Number %d', i);
-      column_titles[i] := buffer;
-    end;
-
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'GTK4 Sortet ColumnView');
     gtk_window_set_default_size(GTK_WINDOW(window), 640, 480);
@@ -125,12 +117,12 @@ end;
     gtk_column_view_set_model(GTK_COLUMN_VIEW(column_view), selection_model);
     g_object_unref(selection_model);
 
-    for i := 0 to Length(column_titles) - 1 do begin
+    for i := 0 to COL - 1 do begin
       factory := gtk_signal_list_item_factory_new;
       g_signal_connect(factory, 'setup', G_CALLBACK(@setup_cb), nil);
       g_signal_connect(factory, 'bind', G_CALLBACK(@bind_cb), GINT_TO_POINTER(i));
 
-      column := gtk_column_view_column_new(column_titles[i], factory);
+      column := gtk_column_view_column_new(g_strdup_printf('Number %d', i), factory);
       gtk_column_view_append_column(GTK_COLUMN_VIEW(column_view), column);
 
       column_sorter := GTK_SORTER(gtk_custom_sorter_new(@compareFunc, GINT_TO_POINTER(i), nil));
