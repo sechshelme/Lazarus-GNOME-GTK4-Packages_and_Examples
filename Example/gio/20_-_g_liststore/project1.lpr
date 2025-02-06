@@ -34,6 +34,9 @@ type
     Count: Tguint;
   begin
     Count := g_list_model_get_n_items(G_LIST_MODEL(store));
+
+    g_object_get(store, 'n-items',@count,nil);
+
     g_printf('count: %d'#10, Count);
     for i := 0 to Count - 1 do begin
       obj := g_list_model_get_item(G_LIST_MODEL(store), i);
@@ -68,6 +71,8 @@ type
     g_printf('-------------'#10);
 
     store := g_list_store_new(G_TYPE_OBJECT);
+
+    g_signal_connect(store,'notify',nil,nil);
 
     addItem(store, 'Max', 33);
     addItem(store, 'Hans', 22);
