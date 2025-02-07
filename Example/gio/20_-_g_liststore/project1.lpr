@@ -35,7 +35,7 @@ type
   begin
     Count := g_list_model_get_n_items(G_LIST_MODEL(store));
 
-    g_object_get(store, 'n-items',@count,nil);
+    g_object_get(store, 'n-items', @Count, nil);
 
     g_printf('count: %d'#10, Count);
     for i := 0 to Count - 1 do begin
@@ -60,10 +60,9 @@ type
     g_object_unref(obj);
   end;
 
-procedure chages_cp(list:PGListModel);
-// https://docs.gtk.org/gio/signal.ListModel.items-changed.html
-begin
-  WriteLn('change');
+  procedure chages_cp(self: PGListModel; position: Tguint; removed: Tguint; added: Tguint; user_data: Tgpointer);
+  begin
+    g_printf('position: %d  removed: %d  added: %d'#10, position, removed, added);
   end;
 
   function main(argc: cint; argv: PPChar): cint;
@@ -78,11 +77,11 @@ begin
 
     store := g_list_store_new(G_TYPE_OBJECT);
 
-    g_signal_connect(G_LIST_MODEL(store), 'items-changed', G_CALLBACK(@chages_cp),nil);
+    g_signal_connect(G_LIST_MODEL(store), 'items-changed', G_CALLBACK(@chages_cp), nil);
 
-//    GSignalShow(G_TYPE_LIST_STORE);
-//    GSignalShow(G_TYPE_LIST_MODEL);
-//    WriteLn('signal id: ', g_signal_lookup('items-changed', G_TYPE_LIST_STORE));
+    //    GSignalShow(G_TYPE_LIST_STORE);
+    //    GSignalShow(G_TYPE_LIST_MODEL);
+    //    WriteLn('signal id: ', g_signal_lookup('items-changed', G_TYPE_LIST_STORE));
 
     addItem(store, 'Max', 33);
     addItem(store, 'Hans', 22);
@@ -90,6 +89,8 @@ begin
     addItem(store, 'Werner', 52);
     addItem(store, 'Bruno', 13);
 
+    printItems(store);
+    g_list_store_remove(store, 2);
     printItems(store);
 
 
