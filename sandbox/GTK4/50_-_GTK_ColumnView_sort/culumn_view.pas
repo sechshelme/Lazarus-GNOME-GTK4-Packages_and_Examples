@@ -318,8 +318,35 @@ end;
 
 
 procedure on_row_activated_cb(view: PGtkColumnView; position: Tgint; user_data: Tgpointer); cdecl;
+// https://www.perplexity.ai/search/ich-habe-eine-gtkcolumnview-mi-LA.bXvzeTKCHWswfmS0PUA
+var
+  item: Tgpointer;
+  human: PHuman;
+  selection_model: PGtkSelectionModel absolute user_data;
+  model: PGListModel;
 begin
   WriteLn('position doubleclick: ', position);
+
+  // Variante 1
+  model := G_LIST_MODEL(gtk_column_view_get_model(view));
+  item := g_list_model_get_item(model, position);
+  if item <> nil then begin
+    human := g_object_get_data(item, humanObjectKey);
+    WriteLn(human^.FirstName);
+  end;
+  g_object_unref(item);
+
+  // Variante 2
+  model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
+  item := g_list_model_get_item(model, position);
+  if item <> nil then begin
+    human := g_object_get_data(item, humanObjectKey);
+    WriteLn(human^.FirstName);
+  end;
+
+  g_list_store_remove(G_LIST_STORE( model), position);
+
+  g_object_unref(item);
 end;
 
 
@@ -358,7 +385,7 @@ begin
   end;
 end;
 
-procedure test(w: PGtkWidget; user_data: Tgpointer); cdecl;
+procedure on_column_header_clicked(w: PGtkWidget; user_data: Tgpointer); cdecl;
 begin
   WriteLn('column click');
 end;
@@ -396,7 +423,6 @@ begin
 
   gtk_column_view_set_show_row_separators(GTK_COLUMN_VIEW(column_view), True);
   gtk_column_view_set_show_column_separators(GTK_COLUMN_VIEW(column_view), True);
-  g_signal_connect(column_view, 'activate', G_CALLBACK(@on_row_activated_cb), nil);
   gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), column_view);
 
   store := g_list_store_new(G_TYPE_OBJECT);
@@ -406,6 +432,8 @@ begin
   selection_model := GTK_SELECTION_MODEL(gtk_single_selection_new(G_LIST_MODEL(sort_model)));
   gtk_column_view_set_model(GTK_COLUMN_VIEW(column_view), selection_model);
   g_object_unref(selection_model);
+
+  g_signal_connect(column_view, 'activate', G_CALLBACK(@on_row_activated_cb), selection_model);
 
   len := Length(ColTitles) - 1;
   for i := 0 to len do begin
@@ -425,13 +453,13 @@ begin
     column_sorter := GTK_SORTER(gtk_custom_sorter_new(@compareFunc, GINT_TO_POINTER(i), nil));
     gtk_column_view_column_set_sorter(column, column_sorter);
     //        gtk_sorter_changed(column_sorter, GTK_SORTER_CHANGE_DIFFERENT);
-    g_signal_connect(column_sorter, 'changed', G_CALLBACK(@test), nil);
+    //    g_signal_connect(column_sorter, 'changed', G_CALLBACK(@test), nil);
     g_object_unref(column_sorter);
 
 
     //    GSignalShow(GTK_TYPE_COLUMN_VIEW_COLUMN);
-//       GSignalShow(GTK_TYPE_SORTER);
-//    GSignalShow(GTK_TYPE_SIGNAL_LIST_ITEM_FACTORY);
+    //       GSignalShow(GTK_TYPE_SORTER);
+    //    GSignalShow(GTK_TYPE_SIGNAL_LIST_ITEM_FACTORY);
 
     g_object_unref(column);
   end;

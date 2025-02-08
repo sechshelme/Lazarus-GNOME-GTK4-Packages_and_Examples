@@ -3,11 +3,12 @@ program project1;
 uses
   ctypes,
   fp_glib2,
+  fp_cairo,
   fp_GTK4;
 
 const
   ROWS = 8;
-  COL = 8;
+  COL = 1;
 
   item_value_key = 'item_value_key';
 
@@ -36,8 +37,7 @@ type
     obj: PGObject;
     Value: PRowData;
     i: integer;
-  const
-    counter: Tgint = 0;
+  const counter :Tgint=0;
   begin
     obj := g_object_new(G_TYPE_OBJECT, nil);
     Value := g_malloc(SizeOf(TRowData));
@@ -52,12 +52,14 @@ type
   end;
 
 
-  procedure quit_clicked_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
-  var
-    store: PGListStore absolute user_data;
-  begin
-    add_item(store);
-  end;
+procedure quit_clicked_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
+var
+  store: PGListStore absolute user_data;
+begin
+  add_item(store);
+  add_item(store);
+  add_item(store);
+end;
 
 
   procedure setup_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;
@@ -75,34 +77,28 @@ type
     buffer: Pgchar;
     item: PGObject;
     Value: PRowData;
+    i: Integer;
+    s:String;
+    const count:Integer=0;
   begin
     label_ := gtk_list_item_get_child(list_item);
     item := gtk_list_item_get_item(list_item);
     Value := g_object_get_data(item, item_value_key);
     buffer := g_strdup_printf('%d', Value^[column_index]);
-    gtk_label_set_text(GTK_LABEL(label_), buffer);
+
+for i:=0 to 1000000 do begin
+    WriteStr(s,'i: ',i, '  label: ', count);
+//    gtk_label_set_text(GTK_LABEL(label_), buffer);
+    gtk_label_set_text(GTK_LABEL(label_), PChar(s));
+    Inc(count);
+    WriteLn(s);
+end;
     g_free(buffer);
   end;
 
-  procedure on_row_activated_cb(view: PGtkColumnView; position: Tgint; user_data: Tgpointer); cdecl;
-  var
-    item: Tgpointer;
-    model: PGListModel;
-    obj: PRowData;
-    i: integer;
+    procedure chages_cp(self: PGListModel; position: Tguint; removed: Tguint; added: Tguint; user_data: Tgpointer);
   begin
-    g_printf('Doubleclick Pos: %d'#10, position);
-
-    model := G_LIST_MODEL(gtk_column_view_get_model(view));
-    item := g_list_model_get_item(model, position);
-    if item <> nil then begin
-      obj := g_object_get_data(item, item_value_key);
-      for i := 0 to COL - 1 do begin
-        g_printf('%d: %d   ', i, obj^[i]);
-      end;
-      g_printf(#10);
-    end;
-    g_object_unref(item);
+    g_printf('position: %d  removed: %d  added: %d'#10, position, removed, added);
   end;
 
   procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
@@ -121,7 +117,7 @@ type
     gtk_window_set_title(GTK_WINDOW(window), 'GTK4 Sortet ColumnView');
     gtk_window_set_default_size(GTK_WINDOW(window), 640, 480);
 
-    mainBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+    mainBox:=gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
     gtk_window_set_child(GTK_WINDOW(window), mainBox);
 
     scrolled_window := gtk_scrolled_window_new;
@@ -132,14 +128,14 @@ type
     gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), column_view);
 
     store := g_list_store_new(G_TYPE_OBJECT);
+        g_signal_connect(G_LIST_MODEL(store), 'items-changed', G_CALLBACK(@chages_cp), nil);
+
 
     view_sorter := g_object_ref(gtk_column_view_get_sorter(GTK_COLUMN_VIEW(column_view)));
     sort_model := gtk_sort_list_model_new(G_LIST_MODEL(store), view_sorter);
     selection_model := GTK_SELECTION_MODEL(gtk_single_selection_new(G_LIST_MODEL(sort_model)));
     gtk_column_view_set_model(GTK_COLUMN_VIEW(column_view), selection_model);
     g_object_unref(selection_model);
-
-    g_signal_connect(column_view, 'activate', G_CALLBACK(@on_row_activated_cb), nil);
 
     for i := 0 to COL - 1 do begin
       factory := gtk_signal_list_item_factory_new;
