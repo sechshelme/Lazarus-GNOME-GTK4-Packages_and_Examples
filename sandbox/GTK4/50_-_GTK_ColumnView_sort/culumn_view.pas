@@ -34,20 +34,21 @@ const
 
 procedure ListBoxPrintItem(selection_model: PGtkSelectionModel);
 var
-  store: PGListStore;
   selected: PGtkBitset;
   position: Tguint;
   obj: PGObject;
   human: PHuman;
+  model: PGListModel;
 begin
-  store := g_object_get_data(G_OBJECT(selection_model), store_Key);
-
   selected := gtk_selection_model_get_selection(selection_model);
   if gtk_bitset_is_empty(selected) then begin
     g_printf('keine Zeile ausgewählt'#10);
   end else begin
     position := gtk_bitset_get_nth(selected, 0);
-    obj := g_list_model_get_item(G_LIST_MODEL(store), position);
+
+    model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
+    obj := g_list_model_get_item(model, position);
+
     human := g_object_get_data(obj, humanObjectKey);
     g_object_unref(obj);
 
@@ -344,7 +345,7 @@ begin
     WriteLn(human^.FirstName);
   end;
 
-  g_list_store_remove(G_LIST_STORE( model), position);
+  //  g_list_store_remove(G_LIST_STORE( model), position);
 
   g_object_unref(item);
 end;
@@ -472,6 +473,8 @@ begin
   ListBoxAppendItem(selection_model, 'Werner', 'Huber', 42, 1.86);
   ListBoxAppendItem(selection_model, 'Hans', 'Ulrich', 56, 1.78);
   ListBoxAppendItem(selection_model, 'Peter', 'Meier', 52, 1.74);
+  ListBoxAppendItem(selection_model, 'Daniel', 'Huber', 22, 1.44);
+  ListBoxAppendItem(selection_model, 'Albert', 'Weber', 21, 1.54);
 
   g_action_map_add_action_entries(G_ACTION_MAP(app), PGActionEntry(entries), Length(entries), selection_model);
 
