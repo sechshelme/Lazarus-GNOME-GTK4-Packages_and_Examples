@@ -3,22 +3,46 @@ unit fp_JSC;
 interface
 
 uses
-  ctypes, fp_glib2;
+  fp_glib2;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
+type
+  TJSCContext = record
+  end;
+  PJSCContext = ^TJSCContext;
+
+  TJSCValue = record
+  end;
+  PJSCValue = ^TJSCValue;
+  PPJSCValue = ^PJSCValue;
+
+
   {$DEFINE read_interface}
-  {$include fp_jsc_includes.inc}
+  {$include jsc/JSCVirtualMachine.inc}
+  {$include jsc/JSCException.inc}
+  {$include jsc/JSCClass.inc}
+  {$include jsc/JSCValue.inc}
+  {$include jsc/JSCContext.inc}
+  {$include jsc/JSCOptions.inc}
+  {$include jsc/JSCVersion.inc}
+  {$include jsc/JSCWeakValue.inc}
   {$UNDEF read_interface}
 
 
 implementation
 
 {$DEFINE read_implementation}
-{$include fp_jsc_includes.inc}
+{$include jsc/JSCVirtualMachine.inc}
+{$include jsc/JSCException.inc}
+{$include jsc/JSCClass.inc}
+{$include jsc/JSCValue.inc}
+{$include jsc/JSCContext.inc}
+{$include jsc/JSCOptions.inc}
+{$include jsc/JSCVersion.inc}
+{$include jsc/JSCWeakValue.inc}
 {$UNDEF read_implementation}
 
 end.
-

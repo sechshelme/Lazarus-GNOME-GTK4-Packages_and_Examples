@@ -1,13 +1,5 @@
   // {$include ../gnome_lib_const.inc}
 
-type  // muss wieder entfernt werden !!!!
-  TJSCValue=Pointer;
-  PJSCValue=Pointer;
-
-  TJSCContext=Pointer   ;
-    PJSCContext=Pointer;
-
-
   // ==== stdio
 const
   {$IFDEF Linux}
@@ -136,7 +128,7 @@ const
 
   {$IFDEF Windows}
   libwebkit = 'webkitgtk-6.0.0.dll'; // ????????
-  libjavascriptcoregtk ='javascriptcoregtk-6.0.0.ddl';  // ????????
+  libjavascriptcoregtk ='javascriptcoregtk-6.0.0.dll';  // ????????
   {$ENDIF}
 
   // ==== gstreamer
@@ -251,9 +243,6 @@ type
   Tsize_t = SizeUInt;
   Ttime_t = clong; // types.h
   Ptime_t = ^Ttime_t;
-
-  //  TGPid = cint;
-  //  PGPid = ^TGPid;
 
   Tva_list = Pointer;
   Pva_list = ^Tva_list;

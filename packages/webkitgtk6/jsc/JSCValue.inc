@@ -31,11 +31,6 @@ const
   JSC_TYPED_ARRAY_FLOAT64 = 11;
 
 type
-  TJSCValue = record
-  end;
-  PJSCValue = ^TJSCValue;
-  PPJSCValue = ^PJSCValue;
-
   TJSCValueClass = record
     parent_class: TGObjectClass;
   end;

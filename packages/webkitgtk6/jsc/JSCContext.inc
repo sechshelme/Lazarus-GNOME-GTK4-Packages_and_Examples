@@ -3,10 +3,6 @@
 
   {JSC_DECLARE_FINAL_TYPE (JSCContext, jsc_context, JSC, CONTEXT, GObject) }
 type
-  TJSCContext = record
-  end;
-  PJSCContext = ^TJSCContext;
-
   TJSCContextClass = record
     parent_class: TGObjectClass;
   end;

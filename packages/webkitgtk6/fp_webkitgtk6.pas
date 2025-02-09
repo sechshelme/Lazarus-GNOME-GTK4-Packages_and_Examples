@@ -3,7 +3,7 @@ unit fp_webkitgtk6;
 interface
 
 uses
-  ctypes, fp_gdk4, fp_gtk4, fp_glib2;
+  ctypes, fp_gdk4, fp_gtk4, fp_glib2, fp_JSC;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
