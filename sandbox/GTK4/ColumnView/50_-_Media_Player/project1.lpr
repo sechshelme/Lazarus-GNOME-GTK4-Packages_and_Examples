@@ -50,13 +50,15 @@ uses
 
     n_item := g_list_model_get_n_items(G_LIST_MODEL(sl));
     WriteLn('count: ', n_item);
-
-    for i := 0 to n_item do begin
+    for i := 0 to n_item - 1 do begin
       so := GTK_STRING_OBJECT(g_list_model_get_item(G_LIST_MODEL(sl), i));
       s := gtk_string_object_get_string(so);
-      WriteLn(s);
       g_object_unref(so);
+      WriteLn(i: 4, ' --- ', s);
+
+      ListBoxAppendItem(GTK_COLUMN_VIEW(gtk_scrolled_window_get_child(GTK_SCROLLED_WINDOW(cl))), s);
     end;
+
     g_object_unref(sl);
   end;
 
@@ -76,6 +78,18 @@ uses
     gtk_actionable_set_action_name(GTK_ACTIONABLE(Button), action_name);
 
     gtk_box_append(GTK_BOX(parent), button);
+  end;
+
+  function createPanel: PGtkWidget;
+  begin
+    Result := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
+    createBtnButton(Result, 'Previous', 'media-skip-backward-symbolic', '');
+    createBtnButton(Result, 'Rewindd', 'media-seek-backward-symbolic', '');
+    createBtnButton(Result, 'Play', 'media-playback-start-symbolic', '');
+    createBtnButton(Result, 'Pause', 'media-playback-pause-symbolic', '');
+    createBtnButton(Result, 'Stop', 'media-playback-stop-symbolic', '');
+    createBtnButton(Result, 'Forward', 'media-seek-forward-symbolic', '');
+    createBtnButton(Result, 'Next', 'media-skip-forward-symbolic', '');
   end;
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
@@ -98,6 +112,8 @@ uses
 
     LoadTitel(ColumnViewBox);
 
+    //      ListBoxAppendItem(GTK_COLUMN_VIEW( gtk_scrolled_window_get_child(GTK_SCROLLED_WINDOW(ColumnViewBox))), 'Hugentobler');
+
     // Box2
 
     buttonBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
@@ -113,6 +129,9 @@ uses
     CreateBtnButton(buttonBox, 'Remove All', 'list-remove-all', 'app.listbox.removeall');
     CreateBtnButton(buttonBox, 'Down', 'view-sort-descending', 'app.listbox.down');
     CreateBtnButton(buttonBox, 'Up', 'view-sort-descending', 'app.listbox.up');
+
+    gtk_box_append(GTK_BOX(panedBox), createPanel);
+
 
     gtk_window_set_child(GTK_WINDOW(window), panedBox);
 

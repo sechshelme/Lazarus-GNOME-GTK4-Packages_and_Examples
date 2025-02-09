@@ -248,32 +248,36 @@ end;
 procedure bind_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;
 var
   col: Tgint absolute user_data;
-  l: PGtkWidget;
+  label_: PGtkWidget;
   item: PGObject;
-  obj: PHuman;
-  buffer: array[0..31] of Tgchar;
+  human: PHuman;
+  buffer: Pgchar;
 begin
-  l := gtk_list_item_get_child(list_item);
+  label_ := gtk_list_item_get_child(list_item);
   item := gtk_list_item_get_item(list_item);
-  obj := g_object_get_data(item, humanObjectKey);
+  human := g_object_get_data(item, humanObjectKey);
   case col of
     0: begin
-      g_snprintf(buffer, SizeOf(buffer), '%d', obj^.Index);
+      buffer := g_strdup_printf('%d', human^.Index);
     end;
     1: begin
-      g_snprintf(buffer, SizeOf(buffer), '%s', obj^.FirstName);
+      buffer := g_strdup_printf('%s', human^.FirstName);
     end;
     2: begin
-      g_snprintf(buffer, SizeOf(buffer), '%s', obj^.LastName);
+      buffer := g_strdup_printf('%s', human^.LastName);
     end;
     3: begin
-      g_snprintf(buffer, SizeOf(buffer), '%d', obj^.Age);
+      buffer := g_strdup_printf('%d', human^.Age);
     end;
     4: begin
-      g_snprintf(buffer, SizeOf(buffer), '%4.2f', obj^.Size);
+      buffer := g_strdup_printf('%4.2f', human^.Size);
     end;
   end;
-  gtk_label_set_text(GTK_LABEL(l), buffer);
+  if buffer <> nil then begin
+    gtk_widget_set_focusable(label_, True);
+    gtk_label_set_text(GTK_LABEL(label_), buffer);
+    g_free(buffer);
+  end;
 end;
 
 procedure unbind_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;

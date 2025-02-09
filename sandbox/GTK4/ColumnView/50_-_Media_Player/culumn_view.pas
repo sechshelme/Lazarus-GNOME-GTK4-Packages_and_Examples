@@ -8,7 +8,7 @@ unit culumn_view;
 interface
 
 uses
-  fp_glib2, fp_GTK4;
+  fp_glib2, fp_pango, fp_GTK4;
 
 function Create_ListBoxWidget: PGtkWidget;
 procedure ListBoxAppendItem(column_view: PGtkColumnView; Titel: Pgchar);
@@ -224,15 +224,16 @@ end;
 procedure setup_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;
 var
   col: Tgint absolute user_data;
-  l: PGtkWidget;
+  label_: PGtkWidget;
 begin
-  l := gtk_label_new(nil);
+  label_ := gtk_label_new(nil);
   if col in [0, 3, 4] then begin
-    gtk_widget_set_halign(l, GTK_ALIGN_END);
+    gtk_widget_set_halign(label_, GTK_ALIGN_END);
   end else begin
-    gtk_widget_set_halign(l, GTK_ALIGN_START);
+    gtk_widget_set_halign(label_, GTK_ALIGN_START);
   end;
-  gtk_list_item_set_child(list_item, l);
+  gtk_label_set_ellipsize(GTK_LABEL(label_), PANGO_ELLIPSIZE_END);
+  gtk_list_item_set_child(list_item, label_);
 end;
 
 procedure bind_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;
@@ -240,21 +241,21 @@ var
   col: Tgint absolute user_data;
   l: PGtkWidget;
   item: PGObject;
-  obj: PSong;
-  buffer: array[0..31] of Tgchar;
+  song: PSong;
+  buffer: Pgchar;
 begin
   l := gtk_list_item_get_child(list_item);
   item := gtk_list_item_get_item(list_item);
-  obj := g_object_get_data(item, humanObjectKey);
+  song := g_object_get_data(item, humanObjectKey);
   case col of
     0: begin
-      g_snprintf(buffer, SizeOf(buffer), '%d', obj^.Index);
+      buffer := g_strdup_printf('%d', song^.Index);
     end;
     1: begin
-      g_snprintf(buffer, SizeOf(buffer), '%s', obj^.Titel);
+      buffer := g_strdup_printf('%s', song^.Titel);
     end;
     2: begin
-      g_snprintf(buffer, SizeOf(buffer), '%d', obj^.Duration);
+      buffer := g_strdup_printf('%d', song^.Duration);
     end;
   end;
   gtk_label_set_text(GTK_LABEL(l), buffer);
@@ -337,13 +338,14 @@ begin
     gtk_column_view_column_set_resizable(column, True);
     gtk_column_view_append_column(GTK_COLUMN_VIEW(column_view), column);
 
-    if i = len then  begin
+    if i = 1 then  begin
       gtk_column_view_column_set_expand(column, True);
     end;
 
     g_object_unref(column);
   end;
 
+  //  ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Hugentobler');
   //ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Max', 'Hugentobler', 45, 1.76);
   //ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Werner', 'Huber', 42, 1.86);
   //ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Hans', 'Ulrich', 56, 1.78);
