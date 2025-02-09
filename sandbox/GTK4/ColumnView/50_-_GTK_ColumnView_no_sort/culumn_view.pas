@@ -323,7 +323,6 @@ var
   column: PGtkColumnViewColumn;
   list_store: PGListStore;
   single_selection: PGtkSingleSelection;
-  sorter, testsort: PGtkSorter;
   app: PGApplication;
   i: integer;
   len: SizeInt;
@@ -351,10 +350,6 @@ begin
 
     column := gtk_column_view_column_new(ColTitles[i], factory);
 
-    sorter := GTK_SORTER(gtk_custom_sorter_new(@compareFunc, GINT_TO_POINTER(i), nil));
-    gtk_column_view_column_set_sorter(column, sorter);
-    gtk_sorter_changed(sorter, GTK_SORTER_CHANGE_DIFFERENT);
-
     gtk_column_view_column_set_resizable(column, True);
     gtk_column_view_append_column(GTK_COLUMN_VIEW(column_view), column);
 
@@ -362,16 +357,6 @@ begin
       gtk_column_view_column_set_expand(column, True);
     end;
 
-    //testsort := gtk_column_view_column_get_sorter(column);
-    //if sorter=nil then WriteLn('nil');
-    //if testsort <> sorter then begin
-    //  WriteLn('fehler');
-    //end else begin
-    //  WriteLn('io');
-    //end;
-
-
-    g_object_unref(sorter);
     g_object_unref(column);
   end;
 
@@ -379,6 +364,8 @@ begin
   ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Werner', 'Huber', 42, 1.86);
   ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Hans', 'Ulrich', 56, 1.78);
   ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Peter', 'Meier', 52, 1.74);
+  ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Daniel', 'Huber', 22, 1.44);
+  ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Albert', 'Weber', 21, 1.54);
 
   g_action_map_add_action_entries(G_ACTION_MAP(app), PGActionEntry(entries), Length(entries), column_view);
 

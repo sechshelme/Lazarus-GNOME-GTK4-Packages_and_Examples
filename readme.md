@@ -149,6 +149,9 @@ Strg + Shift + D: Öffnet den Inspector und wählt automatisch das Widget unter 
 
 https://www.perplexity.ai/search/wie-installiert-man-den-gtk-in-3L9fGIGmTL.WqgEg.TOEQw
 
+# Quellen für DLLs
+- https://repo.msys2.org/mingw/mingw64/
+
 # Schlagwörter
 fpc lazarus delphi pascal GTK GTK4 GLIB GLIB2 gestreamer cairo pango adwaita harfbuzz freetype webkit
 
