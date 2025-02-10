@@ -9,7 +9,7 @@ interface
 
 uses
   fp_glib2, fp_pango, fp_GTK4,
-  LoadTitle;
+  LoadTitle, Streamer;
 
 function Create_ListBoxWidget: PGtkWidget;
 //procedure ListBoxAppendItem(column_view: PGtkColumnView; Titel: Pgchar);
@@ -184,7 +184,7 @@ var
   label_: PGtkWidget;
 begin
   label_ := gtk_label_new(nil);
-  if col in [0, 3, 4] then begin
+  if col in [0, 2] then begin
     gtk_widget_set_halign(label_, GTK_ALIGN_END);
   end else begin
     gtk_widget_set_halign(label_, GTK_ALIGN_START);
@@ -235,32 +235,19 @@ end;
 
 // ==== public
 
-function compareFunc(a: Tgconstpointer; b: Tgconstpointer; user_data: Tgpointer): Tgint; cdecl;
-var
-  col: Tgint absolute user_data;
-begin
-  WriteLn('sort');
-  case col of
-    0: begin
-      Result := GPOINTER_TO_INT(a) - GPOINTER_TO_INT(b);
-    end;
-  end;
-end;
-
 function Create_ListBoxWidget: PGtkWidget;
 const
-  entries: array of TGActionEntry = (
-    (Name: 'listbox.next'; activate: @action_cp; parameter_type: nil; state: nil; change_state: nil; padding: (0, 0, 0)),
-    (Name: 'listbox.prev'; activate: @action_cp; parameter_type: nil; state: nil; change_state: nil; padding: (0, 0, 0)),
-    (Name: 'listbox.append'; activate: @action_cp; parameter_type: nil; state: nil; change_state: nil; padding: (0, 0, 0)),
-    (Name: 'listbox.remove'; activate: @action_cp; parameter_type: nil; state: nil; change_state: nil; padding: (0, 0, 0)),
-    (Name: 'listbox.removeall'; activate: @action_cp; parameter_type: nil; state: nil; change_state: nil; padding: (0, 0, 0)),
-    (Name: 'listbox.up'; activate: @action_cp; parameter_type: nil; state: nil; change_state: nil; padding: (0, 0, 0)),
-    (Name: 'listbox.down'; activate: @action_cp; parameter_type: nil; state: nil; change_state: nil; padding: (0, 0, 0)));
+  entries: array of Pgchar = (
+    'listbox.next',
+    'listbox.prev',
+    'listbox.append',
+    'listbox.remove',
+    'listbox.removeall',
+    'listbox.up',
+    'listbox.down');
 
 var
   column_view: PGtkWidget;
-//  scrolled_window: PGtkWidget;
   factory: PGtkListItemFactory;
   column: PGtkColumnViewColumn;
   list_store: PGListStore;
@@ -268,10 +255,9 @@ var
   app: PGApplication;
   i: integer;
   len: SizeInt;
+  action: PGSimpleAction;
 begin
   app := g_application_get_default;
-
-//  scrolled_window := gtk_scrolled_window_new;
 
   list_store := g_list_store_new(G_TYPE_OBJECT);
   single_selection := gtk_single_selection_new(G_LIST_MODEL(list_store));
@@ -280,7 +266,6 @@ begin
   gtk_column_view_set_show_row_separators(GTK_COLUMN_VIEW(column_view), True);
   gtk_column_view_set_show_column_separators(GTK_COLUMN_VIEW(column_view), True);
   g_signal_connect(column_view, 'activate', G_CALLBACK(@on_row_activated_cb), nil);
-//  gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), column_view);
 
   len := Length(ColTitles) - 1;
   for i := 0 to len do begin
@@ -302,7 +287,12 @@ begin
     g_object_unref(column);
   end;
 
-  g_action_map_add_action_entries(G_ACTION_MAP(app), PGActionEntry(entries), Length(entries), column_view);
+  for i := 0 to Length(entries) - 1 do begin
+    action := g_simple_action_new(entries[i], nil);
+    g_signal_connect(action, 'activate', G_CALLBACK(@action_cp), column_view);
+    g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
+    g_object_unref(action);
+  end;
 
   Result := column_view;
 end;
