@@ -8,40 +8,21 @@ unit culumn_view;
 interface
 
 uses
-  fp_glib2, fp_pango, fp_GTK4;
+  fp_glib2, fp_pango, fp_GTK4,
+  LoadTitle;
 
 function Create_ListBoxWidget: PGtkWidget;
-procedure ListBoxAppendItem(column_view: PGtkColumnView; Titel: Pgchar);
+//procedure ListBoxAppendItem(column_view: PGtkColumnView; Titel: Pgchar);
 
 implementation
 
 // ==== private
-
-type
-  TSong = record
-    Index: Tgint;
-    Titel: Pgchar;
-    Duration: Tgint64;
-  end;
-  PSong = ^TSong;
-
-const
-  humanObjectKey = 'human-object';
 
 const
   ColTitles: array of Pgchar = (
     'Index',
     'Titel',
     'Dauer');
-
-procedure item_object_free_cp(Data: Tgpointer); cdecl;
-var
-  obj: PSong absolute Data;
-begin
-  WriteLn(obj^.Titel, '  (freed)');
-  g_free(obj^.Titel);
-  g_free(obj);
-end;
 
 procedure ListBoxNextItem(column_view: PGtkColumnView);
 var
@@ -84,31 +65,6 @@ begin
     end;
   end;
   gtk_bitset_unref(selected);
-end;
-
-procedure ListBoxAppendItem(column_view: PGtkColumnView; Titel: Pgchar);
-var
-  selection_model: PGtkSelectionModel;
-  list_model: PGListModel;
-  obj: PGObject;
-  human: PSong;
-const
-  index: integer = 0;
-begin
-  selection_model := gtk_column_view_get_model(column_view);
-  list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
-
-  obj := g_object_new(G_TYPE_OBJECT, nil);
-
-  human := g_malloc(SizeOf(TSong));
-  human^.Index := index;
-  human^.Titel := g_strdup(Titel);
-  human^.Duration := Random(100);
-  Inc(index);
-
-  g_object_set_data_full(obj, humanObjectKey, human, @item_object_free_cp);
-  g_list_store_append(G_LIST_STORE(list_model), obj);
-  g_object_unref(obj);
 end;
 
 procedure ListBoxRemoveItem(column_view: PGtkColumnView);
@@ -205,7 +161,8 @@ begin
   g_printf('Action Name: "%s"'#10, action_name);
 
   if g_strcmp0(action_name, 'listbox.append') = 0 then begin
-    ListBoxAppendItem(culumn_view, 'Daniel');
+    OpenTitel(GTK_COLUMN_VIEW(culumn_view));
+    //ListBoxAppendItem(culumn_view, 'Daniel');
   end else if g_strcmp0(action_name, 'listbox.remove') = 0 then begin
     ListBoxRemoveItem(culumn_view);
   end else if g_strcmp0(action_name, 'listbox.removeall') = 0 then begin
@@ -303,7 +260,7 @@ const
 
 var
   column_view: PGtkWidget;
-  scrolled_window: PGtkWidget;
+//  scrolled_window: PGtkWidget;
   factory: PGtkListItemFactory;
   column: PGtkColumnViewColumn;
   list_store: PGListStore;
@@ -314,7 +271,7 @@ var
 begin
   app := g_application_get_default;
 
-  scrolled_window := gtk_scrolled_window_new;
+//  scrolled_window := gtk_scrolled_window_new;
 
   list_store := g_list_store_new(G_TYPE_OBJECT);
   single_selection := gtk_single_selection_new(G_LIST_MODEL(list_store));
@@ -323,7 +280,7 @@ begin
   gtk_column_view_set_show_row_separators(GTK_COLUMN_VIEW(column_view), True);
   gtk_column_view_set_show_column_separators(GTK_COLUMN_VIEW(column_view), True);
   g_signal_connect(column_view, 'activate', G_CALLBACK(@on_row_activated_cb), nil);
-  gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), column_view);
+//  gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), column_view);
 
   len := Length(ColTitles) - 1;
   for i := 0 to len do begin
@@ -345,17 +302,9 @@ begin
     g_object_unref(column);
   end;
 
-  //  ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Hugentobler');
-  //ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Max', 'Hugentobler', 45, 1.76);
-  //ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Werner', 'Huber', 42, 1.86);
-  //ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Hans', 'Ulrich', 56, 1.78);
-  //ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Peter', 'Meier', 52, 1.74);
-  //ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Daniel', 'Huber', 22, 1.44);
-  //ListBoxAppendItem(GTK_COLUMN_VIEW(column_view), 'Albert', 'Weber', 21, 1.54);
-
   g_action_map_add_action_entries(G_ACTION_MAP(app), PGActionEntry(entries), Length(entries), column_view);
 
-  Result := scrolled_window;
+  Result := column_view;
 end;
 
 

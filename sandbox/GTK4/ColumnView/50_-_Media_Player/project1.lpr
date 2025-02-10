@@ -6,61 +6,7 @@ uses
   //  fp_GLIBTools,
   fp_GDK4,
   fp_GTK4,
-  culumn_view;
-
-  function FindAllFiles(path: Pgchar): PGtkStringList;
-    // https://www.perplexity.ai/search/wie-kriege-ich-den-inhalt-eine-DYkUj_baSWuI.DL7SOKpQQ
-  var
-    sl: PGtkStringList;
-    dir: PGDir;
-    entryName: Pgchar;
-  begin
-    dir := g_dir_open(path, 0, nil);
-    if dir = nil then begin
-      WriteLn('Konnte Ordner nicht öffnen !');
-      exit(nil);
-    end;
-
-    sl := gtk_string_list_new(nil);
-
-    repeat
-      entryName := g_dir_read_name(dir);
-      if entryName <> nil then begin
-        if g_str_has_suffix(entryName, '.flac') then  begin
-          gtk_string_list_append(sl, entryName);
-        end;
-      end;
-    until entryName = nil;
-
-    g_dir_close(dir);
-    Result := sl;
-  end;
-
-  procedure LoadTitel(cl: PGtkWidget);
-  const
-    folder_path = '/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos';
-  var
-    sl: PGtkStringList;
-    n_item: Tguint;
-    so: PGtkStringObject;
-    i: integer;
-    s: pchar;
-  begin
-    sl := FindAllFiles(folder_path);
-
-    n_item := g_list_model_get_n_items(G_LIST_MODEL(sl));
-    WriteLn('count: ', n_item);
-    for i := 0 to n_item - 1 do begin
-      so := GTK_STRING_OBJECT(g_list_model_get_item(G_LIST_MODEL(sl), i));
-      s := gtk_string_object_get_string(so);
-      g_object_unref(so);
-      WriteLn(i: 4, ' --- ', s);
-
-      ListBoxAppendItem(GTK_COLUMN_VIEW(gtk_scrolled_window_get_child(GTK_SCROLLED_WINDOW(cl))), s);
-    end;
-
-    g_object_unref(sl);
-  end;
+  culumn_view, LoadTitle;
 
   procedure CreateBtnButton(parent: PGtkWidget; label_, icon_name, action_name: Pgchar);
   var
@@ -80,21 +26,32 @@ uses
     gtk_box_append(GTK_BOX(parent), button);
   end;
 
-  function createPanel: PGtkWidget;
+  function CreateMediaControlsPanel: PGtkWidget;
+  var
+    buttonBox, scale: PGtkWidget;
   begin
-    Result := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
-    createBtnButton(Result, 'Previous', 'media-skip-backward-symbolic', '');
-    createBtnButton(Result, 'Rewindd', 'media-seek-backward-symbolic', '');
-    createBtnButton(Result, 'Play', 'media-playback-start-symbolic', '');
-    createBtnButton(Result, 'Pause', 'media-playback-pause-symbolic', '');
-    createBtnButton(Result, 'Stop', 'media-playback-stop-symbolic', '');
-    createBtnButton(Result, 'Forward', 'media-seek-forward-symbolic', '');
-    createBtnButton(Result, 'Next', 'media-skip-forward-symbolic', '');
+    Result := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+
+    scale := gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0.0, 100.0, 1.0);
+            gtk_scale_set_value_pos(GTK_SCALE(scale), GTK_POS_TOP); // Position des Wertes
+            gtk_range_set_value(GTK_RANGE(scale), 50.0); // Standardwert
+            gtk_box_append(GTK_BOX(Result), scale);
+
+    buttonBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
+    createBtnButton(buttonBox, 'Previous', 'media-skip-backward-symbolic', '');
+    createBtnButton(buttonBox, 'Rewindd', 'media-seek-backward-symbolic', '');
+    createBtnButton(buttonBox, 'Play', 'media-playback-start-symbolic', '');
+    createBtnButton(buttonBox, 'Pause', 'media-playback-pause-symbolic', '');
+    createBtnButton(buttonBox, 'Stop', 'media-playback-stop-symbolic', '');
+    createBtnButton(buttonBox, 'Forward', 'media-seek-forward-symbolic', '');
+    createBtnButton(buttonBox, 'Next', 'media-skip-forward-symbolic', '');
+
+    gtk_box_append(GTK_BOX(Result), buttonBox);
   end;
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
-    window, panedBox, buttonBox, label1, ColumnViewBox: PGtkWidget;
+    window, panedBox, buttonBox, label1, ColumnViewBox,      scrolled_window: PGtkWidget;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'GTK4 Border und Bevel');
@@ -106,15 +63,20 @@ uses
     gtk_widget_set_margin_top(panedBox, 10);
     gtk_widget_set_margin_bottom(panedBox, 10);
 
+    gtk_box_append(GTK_BOX(panedBox), CreateMediaControlsPanel);
+
+
+      scrolled_window := gtk_scrolled_window_new;
+
     ColumnViewBox := Create_ListBoxWidget;
-    gtk_widget_set_vexpand(ColumnViewBox, True);
-    gtk_box_append(GTK_BOX(panedBox), ColumnViewBox);
+    gtk_widget_set_vexpand(scrolled_window, True);
+    gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), ColumnViewBox);
 
-    LoadTitel(ColumnViewBox);
+    gtk_box_append(GTK_BOX(panedBox), scrolled_window);
 
-    //      ListBoxAppendItem(GTK_COLUMN_VIEW( gtk_scrolled_window_get_child(GTK_SCROLLED_WINDOW(ColumnViewBox))), 'Hugentobler');
+//    OpenTitel(GTK_COLUMN_VIEW(ColumnViewBox));
 
-    // Box2
+    // ButtonBox
 
     buttonBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
     gtk_box_append(GTK_BOX(panedBox), buttonBox);
@@ -129,9 +91,6 @@ uses
     CreateBtnButton(buttonBox, 'Remove All', 'list-remove-all', 'app.listbox.removeall');
     CreateBtnButton(buttonBox, 'Down', 'view-sort-descending', 'app.listbox.down');
     CreateBtnButton(buttonBox, 'Up', 'view-sort-descending', 'app.listbox.up');
-
-    gtk_box_append(GTK_BOX(panedBox), createPanel);
-
 
     gtk_window_set_child(GTK_WINDOW(window), panedBox);
 
