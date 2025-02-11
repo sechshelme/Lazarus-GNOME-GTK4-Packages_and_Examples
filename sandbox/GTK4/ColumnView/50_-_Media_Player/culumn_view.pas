@@ -97,85 +97,67 @@ begin
   g_list_store_remove_all(G_LIST_STORE(list_model));
 end;
 
-procedure ListBoxUpItem(column_view: PGtkColumnView);
+
+procedure action_cp(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer); cdecl;
 var
+  action_name: Pgchar;
+  column_view: PGtkColumnView absolute user_data;
   selection_model: PGtkSelectionModel;
   list_model: PGListModel;
+  Count: Tguint;
+  position: Tgint;
   selected: PGtkBitset;
-  position: Tguint;
-  obj: PGObject;
+  item_obj: PGObject;
 begin
-  selection_model := gtk_column_view_get_model(column_view);
-  list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
+  action_name := g_action_get_name(G_ACTION(action));
+  g_printf('Action Name: "%s"'#10, action_name);
 
-  selected := gtk_selection_model_get_selection(selection_model);
-  if gtk_bitset_is_empty(selected) then begin
-    g_printf('keine Zeile ausgewählt'#10);
-  end else begin
-    position := gtk_bitset_get_nth(selected, 0);
-    if position > 0 then begin
-      obj := g_list_model_get_item(list_model, position);
-      g_list_store_remove(G_LIST_STORE(list_model), position);
-      g_list_store_insert(G_LIST_STORE(list_model), position - 1, obj);
-      gtk_selection_model_select_item(selection_model, position - 1, True);
-      g_object_unref(obj);
-    end;
-  end;
-  gtk_bitset_unref(selected);
-end;
-
-procedure ListBoxDownItem(column_view: PGtkColumnView);
-var
-  selection_model: PGtkSelectionModel;
-  list_model: PGListModel;
-  selected: PGtkBitset;
-  position, Count: Tguint;
-  obj: PGObject;
-begin
   selection_model := gtk_column_view_get_model(column_view);
   list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
   Count := g_list_model_get_n_items(list_model);
 
   selected := gtk_selection_model_get_selection(selection_model);
-  if gtk_bitset_is_empty(selected) then begin
-    g_printf('keine Zeile ausgewählt'#10);
-  end else begin
-    position := gtk_bitset_get_nth(selected, 0);
-    if position < Count - 1 then begin
-      obj := g_list_model_get_item(list_model, position);
-      g_list_store_remove(G_LIST_STORE(list_model), position);
-      g_list_store_insert(G_LIST_STORE(list_model), position + 1, obj);
-      gtk_selection_model_select_item(selection_model, position + 1, True);
-      g_object_unref(obj);
-    end;
-  end;
-  gtk_bitset_unref(selected);
-end;
 
-procedure action_cp(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer); cdecl;
-var
-  action_name: Pgchar;
-  culumn_view: PGtkColumnView absolute user_data;
-begin
-  action_name := g_action_get_name(G_ACTION(action));
-  g_printf('Action Name: "%s"'#10, action_name);
+  if not gtk_bitset_is_empty(selected) then begin
+    position := gtk_bitset_get_nth(selected, 0);
+    item_obj := g_list_model_get_item(list_model, position);
+  end else begin
+    position := -1;
+    g_printf('keine Zeile ausgewählt'#10);
+  end;
 
   if g_strcmp0(action_name, 'listbox.append') = 0 then begin
-    OpenTitel(GTK_COLUMN_VIEW(culumn_view));
+    OpenTitel(GTK_COLUMN_VIEW(column_view));
     //ListBoxAppendItem(culumn_view, 'Daniel');
   end else if g_strcmp0(action_name, 'listbox.remove') = 0 then begin
-    ListBoxRemoveItem(culumn_view);
+    ListBoxRemoveItem(column_view);
   end else if g_strcmp0(action_name, 'listbox.removeall') = 0 then begin
-    ListBoxRemoveAllItem(culumn_view);
-  end else if g_strcmp0(action_name, 'listbox.up') = 0 then begin
-    ListBoxUpItem(culumn_view);
-  end else if g_strcmp0(action_name, 'listbox.down') = 0 then begin
-    ListBoxDownItem(culumn_view);
+    ListBoxRemoveAllItem(column_view);
   end else if g_strcmp0(action_name, 'listbox.next') = 0 then begin
-    ListBoxNextItem(culumn_view);
+    ListBoxNextItem(column_view);
   end else if g_strcmp0(action_name, 'listbox.prev') = 0 then begin
-    ListBoxPrevItem(culumn_view);
+    ListBoxPrevItem(column_view);
+  end else if g_strcmp0(action_name, 'listbox.up') = 0 then begin
+    if position > 0 then begin
+      g_list_store_remove(G_LIST_STORE(list_model), position);
+      g_list_store_insert(G_LIST_STORE(list_model), position - 1, item_obj);
+      gtk_selection_model_select_item(selection_model, position - 1, True);
+    end;
+  end else if g_strcmp0(action_name, 'listbox.down') = 0 then begin
+    if (position >= 0) and (position < Count - 1) then begin
+      g_list_store_remove(G_LIST_STORE(list_model), position);
+      g_list_store_insert(G_LIST_STORE(list_model), position + 1, item_obj);
+      gtk_selection_model_select_item(selection_model, position + 1, True);
+    end;
   end;
+
+  WriteLn('position: ', position);
+
+  if not gtk_bitset_is_empty(selected) then begin
+    g_object_unref(item_obj);
+  end;
+
+  gtk_bitset_unref(selected);
 end;
 
 procedure setup_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;
@@ -238,6 +220,12 @@ end;
 function Create_ListBoxWidget: PGtkWidget;
 const
   entries: array of Pgchar = (
+    'listbox.start',
+    'listbox.stop',
+    'listbox.pause',
+    //    'listbox.forward',
+    //    'listbox.backward',
+
     'listbox.next',
     'listbox.prev',
     'listbox.append',

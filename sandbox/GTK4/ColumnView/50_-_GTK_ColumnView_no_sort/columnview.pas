@@ -1,4 +1,4 @@
-unit culumn_view;
+unit columnview;
 
 {$modeswitch typehelpers on}
 {$modeswitch arrayoperators on}
@@ -209,25 +209,25 @@ end;
 procedure action_cp(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer); cdecl;
 var
   action_name: Pgchar;
-  culumn_view: PGtkColumnView absolute user_data;
+  columnView: PGtkColumnView absolute user_data;
 begin
   action_name := g_action_get_name(G_ACTION(action));
   g_printf('Action Name: "%s"'#10, action_name);
 
   if g_strcmp0(action_name, 'listbox.append') = 0 then begin
-    ListBoxAppendItem(culumn_view, 'Daniel', 'Maier', Random(100), Random * 2);
+    ListBoxAppendItem(columnView, 'Daniel', 'Maier', Random(100), Random * 2);
   end else if g_strcmp0(action_name, 'listbox.remove') = 0 then begin
-    ListBoxRemoveItem(culumn_view);
+    ListBoxRemoveItem(columnView);
   end else if g_strcmp0(action_name, 'listbox.removeall') = 0 then begin
-    ListBoxRemoveAllItem(culumn_view);
+    ListBoxRemoveAllItem(columnView);
   end else if g_strcmp0(action_name, 'listbox.up') = 0 then begin
-    ListBoxUpItem(culumn_view);
+    ListBoxUpItem(columnView);
   end else if g_strcmp0(action_name, 'listbox.down') = 0 then begin
-    ListBoxDownItem(culumn_view);
+    ListBoxDownItem(columnView);
   end else if g_strcmp0(action_name, 'listbox.next') = 0 then begin
-    ListBoxNextItem(culumn_view);
+    ListBoxNextItem(columnView);
   end else if g_strcmp0(action_name, 'listbox.prev') = 0 then begin
-    ListBoxPrevItem(culumn_view);
+    ListBoxPrevItem(columnView);
   end;
 end;
 

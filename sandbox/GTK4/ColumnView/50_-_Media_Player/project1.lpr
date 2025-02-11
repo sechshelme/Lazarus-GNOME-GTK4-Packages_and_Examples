@@ -6,7 +6,8 @@ uses
   //  fp_GLIBTools,
   fp_GDK4,
   fp_GTK4,
-  culumn_view, LoadTitle;
+  culumn_view,
+  LoadTitle;
 
   procedure CreateBtnButton(parent: PGtkWidget; label_, icon_name, action_name: Pgchar);
   var
@@ -33,25 +34,25 @@ uses
     Result := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
 
     scale := gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0.0, 100.0, 1.0);
-            gtk_scale_set_value_pos(GTK_SCALE(scale), GTK_POS_TOP); // Position des Wertes
-            gtk_range_set_value(GTK_RANGE(scale), 50.0); // Standardwert
-            gtk_box_append(GTK_BOX(Result), scale);
+    gtk_scale_set_value_pos(GTK_SCALE(scale), GTK_POS_TOP);
+    gtk_range_set_value(GTK_RANGE(scale), 0.0);
+    gtk_box_append(GTK_BOX(Result), scale);
 
     buttonBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
-    createBtnButton(buttonBox, 'Previous', 'media-skip-backward-symbolic', '');
-    createBtnButton(buttonBox, 'Rewindd', 'media-seek-backward-symbolic', '');
-    createBtnButton(buttonBox, 'Play', 'media-playback-start-symbolic', '');
-    createBtnButton(buttonBox, 'Pause', 'media-playback-pause-symbolic', '');
-    createBtnButton(buttonBox, 'Stop', 'media-playback-stop-symbolic', '');
-    createBtnButton(buttonBox, 'Forward', 'media-seek-forward-symbolic', '');
-    createBtnButton(buttonBox, 'Next', 'media-skip-forward-symbolic', '');
+    createBtnButton(buttonBox, 'Previous', 'media-skip-backward-symbolic', 'app.listbox.prev');
+    createBtnButton(buttonBox, 'Rewind', 'media-seek-backward-symbolic', 'app.listbox.backward');
+    createBtnButton(buttonBox, 'Play', 'media-playback-start-symbolic', 'app.listbox.start');
+    createBtnButton(buttonBox, 'Pause', 'media-playback-pause-symbolic', 'app.listbox.pause');
+    createBtnButton(buttonBox, 'Stop', 'media-playback-stop-symbolic', 'app.listbox.stop');
+    createBtnButton(buttonBox, 'Forward', 'media-seek-forward-symbolic', 'app.listbox.forward');
+    createBtnButton(buttonBox, 'Next', 'media-skip-forward-symbolic', 'app.listbox.next');
 
     gtk_box_append(GTK_BOX(Result), buttonBox);
   end;
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
-    window, panedBox, buttonBox, label1, ColumnViewBox,      scrolled_window: PGtkWidget;
+    window, panedBox, buttonBox, label1, ColumnViewBox, scrolled_window: PGtkWidget;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'GTK4 Border und Bevel');
@@ -66,7 +67,7 @@ uses
     gtk_box_append(GTK_BOX(panedBox), CreateMediaControlsPanel);
 
 
-      scrolled_window := gtk_scrolled_window_new;
+    scrolled_window := gtk_scrolled_window_new;
 
     ColumnViewBox := Create_ListBoxWidget;
     gtk_widget_set_vexpand(scrolled_window, True);
@@ -74,7 +75,7 @@ uses
 
     gtk_box_append(GTK_BOX(panedBox), scrolled_window);
 
-//    OpenTitel(GTK_COLUMN_VIEW(ColumnViewBox));
+    //    OpenTitel(GTK_COLUMN_VIEW(ColumnViewBox));
 
     // ButtonBox
 
