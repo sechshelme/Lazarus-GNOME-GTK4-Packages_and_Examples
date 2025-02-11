@@ -34,6 +34,12 @@ uses
     Result := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
 
     scale := gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0.0, 100.0, 1.0);
+    gtk_scale_set_draw_value(GTK_SCALE(scale), True);
+
+    gtk_scale_add_mark(GTK_SCALE(scale), 0, GTK_POS_BOTTOM, 'Min');
+    gtk_scale_add_mark(GTK_SCALE(scale), 50, GTK_POS_BOTTOM, 'mit');
+    gtk_scale_add_mark(GTK_SCALE(scale), 100, GTK_POS_BOTTOM, 'Max');
+
     gtk_scale_set_value_pos(GTK_SCALE(scale), GTK_POS_TOP);
     gtk_range_set_value(GTK_RANGE(scale), 0.0);
     gtk_box_append(GTK_BOX(Result), scale);

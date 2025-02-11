@@ -23,21 +23,22 @@ const
     'Titel',
     'Dauer');
 
-var  SekStream,
+var
+  SekStream,
   PriStream: TStreamer;
 
 procedure LoadNewMusic(const titel: string; freeed: boolean);
 begin
   if freeed and (PriStream <> nil) then begin
     PriStream.Free;
-    PriStream:=nil;
+    PriStream := nil;
   end;
   PriStream := TStreamer.Create(titel);
   PriStream.Volume := 1.0;        // ?????????
-//  PriStream.OnLevelChange := @PriStreamLevelChange;
+  //  PriStream.OnLevelChange := @PriStreamLevelChange;
 
-//  PlayPanel.TrackBar.Max := 0;
-//  PlayPanel.TrackBar.Position := 0;
+  //  PlayPanel.TrackBar.Max := 0;
+  //  PlayPanel.TrackBar.Position := 0;
   PriStream.Play;
 end;
 
@@ -49,10 +50,10 @@ var
   selection_model: PGtkSelectionModel;
   list_model: PGListModel;
   Count: Tguint;
-  position: Tgint=-1;
+  position: Tgint = -1;
   selected: PGtkBitset;
-  item_obj: PGObject;
-  song: PSong=nil;
+  item_obj, item_obj2: PGObject;
+  song: PSong = nil;
 
 begin
   action_name := g_action_get_name(G_ACTION(action));
@@ -73,7 +74,7 @@ begin
     'listbox.play': begin
       if PriStream = nil then begin
         if Count > 0 then begin
-//          s := SongListPanel.GetTitle;
+          //          s := SongListPanel.GetTitle;
           LoadNewMusic(song^.Titel, True);
         end;
       end else begin
@@ -89,9 +90,9 @@ begin
       if PriStream <> nil then begin
         PriStream.Stop;
         PriStream.Free;
-        PriStream:=nil;
-//        PlayPanel.TrackBar.Position := 0;
-//        PlayPanel.TrackBar.Max := 1000;
+        PriStream := nil;
+        //        PlayPanel.TrackBar.Position := 0;
+        //        PlayPanel.TrackBar.Max := 1000;
       end;
     end;
     'listbox.append': begin
@@ -107,8 +108,16 @@ begin
       g_list_store_remove_all(G_LIST_STORE(list_model));
     end;
     'listbox.next': begin
-      if position < Count - 1 then begin
-        gtk_selection_model_select_item(selection_model, position + 1, True);
+      if (PriStream <> nil) and (PriStream.Duration > 0) then begin
+        if (position >= 0) and (position < Count - 1) then  begin
+          gtk_selection_model_select_item(selection_model, position + 1, True);
+          if PriStream.isPlayed then begin
+            item_obj2 := g_list_model_get_item(list_model, position + 1);
+            song := g_object_get_data(item_obj2, humanObjectKey);
+            LoadNewMusic(song^.Titel, True);
+            g_object_unref(item_obj2);
+          end;
+        end;
       end;
     end;
     'listbox.prev': begin
@@ -227,8 +236,8 @@ var
   len: SizeInt;
   action: PGSimpleAction;
 begin
-  SekStream :=nil;
-  PriStream:= nil;
+  SekStream := nil;
+  PriStream := nil;
 
   app := g_application_get_default;
 
