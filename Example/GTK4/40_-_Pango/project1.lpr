@@ -8,7 +8,7 @@ uses
   fp_pango,
   fp_GTK4;
 
-  procedure print_hello(widget: PGtkWidget; Data: Tgpointer);
+  procedure print_hello(widget: PGtkWidget; Data: Tgpointer); cdecl;
   const
     counter: cint = 0;
   begin
