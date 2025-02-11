@@ -67,23 +67,23 @@ const
 
 
 function GstClockToStr(t: TGstClockTime): string;
-function get_duration(s: string):TGstClockTime;
+function get_duration(s: string): TGstClockTime;
 
 
 implementation
 
 const
-{$ifdef Linux}
-libgstpbutils = 'libgstpbutils-1.0';
-libgstaudio = 'libgstaudio-1.0';
-{$endif}
-{$ifdef Windows}
-libgstpbutils = 'gstpbutils-1.0-0.dll';
-libgstaudio = 'gstaudio-1.0-0.dll';
-{$endif}
+  {$ifdef Linux}
+  libgstpbutils = 'libgstpbutils-1.0';
+  libgstaudio = 'libgstaudio-1.0';
+  {$endif}
+  {$ifdef Windows}
+  libgstpbutils = 'gstpbutils-1.0-0.dll';
+  libgstaudio = 'gstaudio-1.0-0.dll';
+  {$endif}
 
 
-//function gst_stream_volume_get_type(): TGType; cdecl; external libgstaudio;
+  //function gst_stream_volume_get_type(): TGType; cdecl; external libgstaudio;
 
 //function gst_discoverer_new(timeout: TGstClockTime; err: PPGError): Pointer; cdecl; external libgstpbutils;
 //function gst_discoverer_discover_uri(discoverer: Pointer; uri: Pgchar; err: PPGError): Pointer; cdecl; external libgstpbutils;
@@ -135,10 +135,21 @@ begin
 end;
 
 procedure test_cb(bus: PGstBus; msg: PGstMessage; user_data: TGpointer);
+var
+  err: PGError;
+  debug_info: Pgchar;
 begin
   case GST_MESSAGE_TYPE(msg) of
     GST_MESSAGE_ERROR: begin
-      WriteLn('Fehler');
+      gst_message_parse_error(msg, @err, @debug_info);
+
+      WriteLn('Fehler:', err^.message);
+      if debug_info <> nil then begin
+        WriteLn('Debug: ', debug_info);
+        g_free(debug_info);
+      end;
+
+      g_error_free(err);
     end;
   end;
   //  WriteLn(GST_MESSAGE_TYPE(msg));
@@ -298,7 +309,7 @@ begin
     if current > 0 then  begin
       pipelineElement.Duration := current;
     end;
-//    WriteLn(current);
+    //    WriteLn(current);
   end;
   Result := pipelineElement.Duration div G_USEC_PER_SEC;
 end;

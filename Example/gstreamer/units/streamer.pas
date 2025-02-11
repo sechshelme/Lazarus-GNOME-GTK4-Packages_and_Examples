@@ -131,10 +131,21 @@ begin
 end;
 
 procedure test_cb(bus: PGstBus; msg: PGstMessage; user_data: TGpointer);
+var
+  err: PGError;
+  debug_info: Pgchar;
 begin
   case GST_MESSAGE_TYPE(msg) of
     GST_MESSAGE_ERROR: begin
-      WriteLn('Fehler');
+      gst_message_parse_error(msg, @err, @debug_info);
+
+      WriteLn('Fehler:', err^.message);
+      if debug_info <> nil then begin
+        WriteLn('Debug: ', debug_info);
+        g_free(debug_info);
+      end;
+
+      g_error_free(err);
     end;
   end;
   //  WriteLn(GST_MESSAGE_TYPE(msg));

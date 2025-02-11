@@ -48,7 +48,7 @@ begin
     entryName := g_dir_read_name(dir);
     if entryName <> nil then begin
       if g_str_has_suffix(entryName, '.flac') then  begin
-        gtk_string_list_append(sl, entryName);
+        gtk_string_list_append(sl,PChar( path+'/'+ entryName));
       end;
     end;
   until entryName = nil;

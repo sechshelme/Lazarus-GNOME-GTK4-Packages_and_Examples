@@ -12,7 +12,6 @@ uses
   LoadTitle, Streamer;
 
 function Create_ListBoxWidget: PGtkWidget;
-//procedure ListBoxAppendItem(column_view: PGtkColumnView; Titel: Pgchar);
 
 implementation
 
@@ -24,93 +23,39 @@ const
     'Titel',
     'Dauer');
 
-procedure ListBoxNextItem(column_view: PGtkColumnView);
-var
-  selection_model: PGtkSelectionModel;
-  list_model: PGListModel;
-  selected: PGtkBitset;
-  position, Count: Tguint;
-begin
-  selection_model := gtk_column_view_get_model(column_view);
-  list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
-  Count := g_list_model_get_n_items(list_model);
+var  SekStream,
+  PriStream: TStreamer;
 
-  selected := gtk_selection_model_get_selection(selection_model);
-  if gtk_bitset_is_empty(selected) then begin
-    g_printf('keine Zeile ausgewählt'#10);
-  end else begin
-    position := gtk_bitset_get_nth(selected, 0);
-    if position < Count - 1 then begin
-      gtk_selection_model_select_item(selection_model, position + 1, True);
-    end;
+procedure LoadNewMusic(const titel: string; freeed: boolean);
+begin
+  if freeed and (PriStream <> nil) then begin
+    PriStream.Free;
+    PriStream:=nil;
   end;
-  gtk_bitset_unref(selected);
-end;
+  PriStream := TStreamer.Create(titel);
+  PriStream.Volume := 1.0;        // ?????????
+//  PriStream.OnLevelChange := @PriStreamLevelChange;
 
-procedure ListBoxPrevItem(column_view: PGtkColumnView);
-var
-  selection_model: PGtkSelectionModel;
-  selected: PGtkBitset;
-  position: Tguint;
-begin
-  selection_model := gtk_column_view_get_model(column_view);
-
-  selected := gtk_selection_model_get_selection(selection_model);
-  if gtk_bitset_is_empty(selected) then begin
-    g_printf('keine Zeile ausgewählt'#10);
-  end else begin
-    position := gtk_bitset_get_nth(selected, 0);
-    if position > 0 then begin
-      gtk_selection_model_select_item(selection_model, position - 1, True);
-    end;
-  end;
-  gtk_bitset_unref(selected);
-end;
-
-procedure ListBoxRemoveItem(column_view: PGtkColumnView);
-var
-  selection_model: PGtkSelectionModel;
-  list_model: PGListModel;
-
-  selected: PGtkBitset;
-begin
-  selection_model := gtk_column_view_get_model(column_view);
-  list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
-
-  selected := gtk_selection_model_get_selection(selection_model);
-  if gtk_bitset_is_empty(selected) then begin
-    g_printf('keine Zeile ausgewählt'#10);
-  end else begin
-    g_list_store_remove(G_LIST_STORE(list_model), gtk_bitset_get_nth(selected, 0));
-  end;
-  gtk_bitset_unref(selected);
-end;
-
-procedure ListBoxRemoveAllItem(column_view: PGtkColumnView);
-var
-  selection_model: PGtkSelectionModel;
-  list_model: PGListModel;
-begin
-  selection_model := gtk_column_view_get_model(column_view);
-  list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
-
-  g_list_store_remove_all(G_LIST_STORE(list_model));
+//  PlayPanel.TrackBar.Max := 0;
+//  PlayPanel.TrackBar.Position := 0;
+  PriStream.Play;
 end;
 
 
-procedure action_cp(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer); cdecl;
+procedure action_cp(action: PGSimpleAction; {%H-}parameter: PGVariant; user_data: Tgpointer); cdecl;
 var
-  action_name: Pgchar;
+  action_name: string;
   column_view: PGtkColumnView absolute user_data;
   selection_model: PGtkSelectionModel;
   list_model: PGListModel;
   Count: Tguint;
-  position: Tgint;
+  position: Tgint=-1;
   selected: PGtkBitset;
   item_obj: PGObject;
+  song: PSong=nil;
+
 begin
   action_name := g_action_get_name(G_ACTION(action));
-  g_printf('Action Name: "%s"'#10, action_name);
 
   selection_model := gtk_column_view_get_model(column_view);
   list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
@@ -121,37 +66,74 @@ begin
   if not gtk_bitset_is_empty(selected) then begin
     position := gtk_bitset_get_nth(selected, 0);
     item_obj := g_list_model_get_item(list_model, position);
-  end else begin
-    position := -1;
-    g_printf('keine Zeile ausgewählt'#10);
+    song := g_object_get_data(item_obj, humanObjectKey);
   end;
 
-  if g_strcmp0(action_name, 'listbox.append') = 0 then begin
-    OpenTitel(GTK_COLUMN_VIEW(column_view));
-    //ListBoxAppendItem(culumn_view, 'Daniel');
-  end else if g_strcmp0(action_name, 'listbox.remove') = 0 then begin
-    ListBoxRemoveItem(column_view);
-  end else if g_strcmp0(action_name, 'listbox.removeall') = 0 then begin
-    ListBoxRemoveAllItem(column_view);
-  end else if g_strcmp0(action_name, 'listbox.next') = 0 then begin
-    ListBoxNextItem(column_view);
-  end else if g_strcmp0(action_name, 'listbox.prev') = 0 then begin
-    ListBoxPrevItem(column_view);
-  end else if g_strcmp0(action_name, 'listbox.up') = 0 then begin
-    if position > 0 then begin
-      g_list_store_remove(G_LIST_STORE(list_model), position);
-      g_list_store_insert(G_LIST_STORE(list_model), position - 1, item_obj);
-      gtk_selection_model_select_item(selection_model, position - 1, True);
+  case action_name of
+    'listbox.play': begin
+      if PriStream = nil then begin
+        if Count > 0 then begin
+//          s := SongListPanel.GetTitle;
+          LoadNewMusic(song^.Titel, True);
+        end;
+      end else begin
+        PriStream.Play;
+      end;
     end;
-  end else if g_strcmp0(action_name, 'listbox.down') = 0 then begin
-    if (position >= 0) and (position < Count - 1) then begin
-      g_list_store_remove(G_LIST_STORE(list_model), position);
-      g_list_store_insert(G_LIST_STORE(list_model), position + 1, item_obj);
-      gtk_selection_model_select_item(selection_model, position + 1, True);
+    'listbox.pause': begin
+      if PriStream <> nil then begin
+        PriStream.Pause;
+      end;
+    end;
+    'listbox.stop': begin
+      if PriStream <> nil then begin
+        PriStream.Stop;
+        PriStream.Free;
+        PriStream:=nil;
+//        PlayPanel.TrackBar.Position := 0;
+//        PlayPanel.TrackBar.Max := 1000;
+      end;
+    end;
+    'listbox.append': begin
+      OpenTitel(GTK_COLUMN_VIEW(column_view));
+      // ListBoxAppendItem(column_view, 'Daniel');
+    end;
+    'listbox.remove': begin
+      if position >= 0 then begin
+        g_list_store_remove(G_LIST_STORE(list_model), position);
+      end;
+    end;
+    'listbox.removeall': begin
+      g_list_store_remove_all(G_LIST_STORE(list_model));
+    end;
+    'listbox.next': begin
+      if position < Count - 1 then begin
+        gtk_selection_model_select_item(selection_model, position + 1, True);
+      end;
+    end;
+    'listbox.prev': begin
+      if position > 0 then begin
+        gtk_selection_model_select_item(selection_model, position - 1, True);
+      end;
+    end;
+    'listbox.up': begin
+      if position > 0 then begin
+        g_list_store_remove(G_LIST_STORE(list_model), position);
+        g_list_store_insert(G_LIST_STORE(list_model), position - 1, item_obj);
+        gtk_selection_model_select_item(selection_model, position - 1, True);
+      end;
+    end;
+    'listbox.down': begin
+      if (position >= 0) and (position < Count - 1) then begin
+        g_list_store_remove(G_LIST_STORE(list_model), position);
+        g_list_store_insert(G_LIST_STORE(list_model), position + 1, item_obj);
+        gtk_selection_model_select_item(selection_model, position + 1, True);
+      end;
+    end;
+    else begin
+      g_printf('Unbekannte Action, Name: "%s"'#10, Pgchar(action_name));
     end;
   end;
-
-  WriteLn('position: ', position);
 
   if not gtk_bitset_is_empty(selected) then begin
     g_object_unref(item_obj);
@@ -179,13 +161,13 @@ procedure bind_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; u
 var
   col: Tgint absolute user_data;
   l: PGtkWidget;
-  item: PGObject;
+  item_obj: PGObject;
   song: PSong;
   buffer: Pgchar;
 begin
   l := gtk_list_item_get_child(list_item);
-  item := gtk_list_item_get_item(list_item);
-  song := g_object_get_data(item, humanObjectKey);
+  item_obj := gtk_list_item_get_item(list_item);
+  song := g_object_get_data(item_obj, humanObjectKey);
   case col of
     0: begin
       buffer := g_strdup_printf('%d', song^.Index);
@@ -220,7 +202,7 @@ end;
 function Create_ListBoxWidget: PGtkWidget;
 const
   entries: array of Pgchar = (
-    'listbox.start',
+    'listbox.play',
     'listbox.stop',
     'listbox.pause',
     //    'listbox.forward',
@@ -245,6 +227,9 @@ var
   len: SizeInt;
   action: PGSimpleAction;
 begin
+  SekStream :=nil;
+  PriStream:= nil;
+
   app := g_application_get_default;
 
   list_store := g_list_store_new(G_TYPE_OBJECT);

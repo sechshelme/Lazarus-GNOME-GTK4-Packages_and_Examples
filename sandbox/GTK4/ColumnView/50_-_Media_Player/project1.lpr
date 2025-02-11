@@ -41,7 +41,7 @@ uses
     buttonBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
     createBtnButton(buttonBox, 'Previous', 'media-skip-backward-symbolic', 'app.listbox.prev');
     createBtnButton(buttonBox, 'Rewind', 'media-seek-backward-symbolic', 'app.listbox.backward');
-    createBtnButton(buttonBox, 'Play', 'media-playback-start-symbolic', 'app.listbox.start');
+    createBtnButton(buttonBox, 'Play', 'media-playback-start-symbolic', 'app.listbox.play');
     createBtnButton(buttonBox, 'Pause', 'media-playback-pause-symbolic', 'app.listbox.pause');
     createBtnButton(buttonBox, 'Stop', 'media-playback-stop-symbolic', 'app.listbox.stop');
     createBtnButton(buttonBox, 'Forward', 'media-seek-forward-symbolic', 'app.listbox.forward');
