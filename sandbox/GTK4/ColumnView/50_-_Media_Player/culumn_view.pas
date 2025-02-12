@@ -53,7 +53,8 @@ var
   selection_model: PGtkSelectionModel;
   list_model: PGListModel;
   Count: Tguint;
-  position: Tgint = -1;
+  index: Tgint = -1;
+  index2: Tgint;
   selected: PGtkBitset;
 
   item_obj: PGObject;
@@ -66,13 +67,12 @@ begin
 
   selected := gtk_selection_model_get_selection(selection_model);
   if not gtk_bitset_is_empty(selected) then begin
-    position := gtk_bitset_get_nth(selected, 0);
+    index := gtk_bitset_get_nth(selected, 0);
   end;
 
   scale := g_object_get_data(G_OBJECT(column_view), scaleObjectKey);
   adjustment := gtk_range_get_adjustment(GTK_RANGE(scale));
   g_signal_handler_block(scale, changed_handler_id);
-
 
   if (PriStream <> nil) then begin
     if IsChange then begin
@@ -94,6 +94,7 @@ begin
         volume := 0.0;
       end;
       PriStream.Volume := volume;
+
       if PriStream.Duration > 0 then begin
         if PriStream.isEnd or (PriStream.Duration - PriStream.Position < CFTime) then begin
           if SekStream <> nil then begin
@@ -102,24 +103,25 @@ begin
           SekStream := PriStream;
           SekStream.OnLevelChange := nil;
 
-          //            if SongListPanel.Next then  begin
-          //              LoadNewMusic(SongListPanel.GetTitle, False);
-          //            end;
-
-          if (position >= 0) and (position < Count - 1) then  begin
-            item_obj := g_list_model_get_item(list_model, position + 1);
+          if index >= 0 then begin
+            if index >= Count - 1 then begin
+              index2 := 0;
+            end else begin
+              index2 := index + 1;
+            end;
+            item_obj := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj, songObjectKey);
-            WriteLn('song: ', song^.Titel);
             gtk_adjustment_set_upper(adjustment, 0);
             gtk_adjustment_set_value(adjustment, 0);
             LoadNewMusic(song^.Titel);
             g_object_unref(item_obj);
-            gtk_selection_model_select_item(selection_model, position + 1, True);
+            gtk_selection_model_select_item(selection_model, index2, True);
           end;
         end;
       end;
     end;
   end;
+
   if SekStream <> nil then begin
     if SekStream.Duration > 0 then begin
       volume := (SekStream.Duration - SekStream.Position) / FITime;
@@ -133,7 +135,6 @@ begin
     end;
 
     if SekStream.isEnd then begin
-      WriteLn('ende');
       FreeAndNil(SekStream);
     end;
   end;
@@ -152,13 +153,14 @@ var
   selection_model: PGtkSelectionModel;
   list_model: PGListModel;
   Count: Tguint;
-  position: Tgint = -1;
+  index: Tgint = -1;
   selected: PGtkBitset;
   item_obj, item_obj2: PGObject;
   song: PSong = nil;
 
   scale: PGtkWidget = nil;
   adjustment: PGtkAdjustment;
+  index2: Tgint;
 begin
   scale := g_object_get_data(G_OBJECT(column_view), scaleObjectKey);
   adjustment := gtk_range_get_adjustment(GTK_RANGE(scale));
@@ -173,8 +175,8 @@ begin
 
   selected := gtk_selection_model_get_selection(selection_model);
   if not gtk_bitset_is_empty(selected) then begin
-    position := gtk_bitset_get_nth(selected, 0);
-    item_obj := g_list_model_get_item(list_model, position);
+    index := gtk_bitset_get_nth(selected, 0);
+    item_obj := g_list_model_get_item(list_model, index);
     song := g_object_get_data(item_obj, songObjectKey);
   end;
 
@@ -206,8 +208,8 @@ begin
       OpenTitel(GTK_COLUMN_VIEW(column_view));
     end;
     'listbox.remove': begin
-      if position >= 0 then begin
-        g_list_store_remove(G_LIST_STORE(list_model), position);
+      if index >= 0 then begin
+        g_list_store_remove(G_LIST_STORE(list_model), index);
       end;
     end;
     'listbox.removeall': begin
@@ -215,10 +217,16 @@ begin
     end;
     'listbox.next': begin
       if (PriStream <> nil) and (PriStream.Duration > 0) then begin
-        if (position >= 0) and (position < Count - 1) then  begin
-          gtk_selection_model_select_item(selection_model, position + 1, True);
+        if index >= 0 then  begin
+          if index >= Count - 1 then begin
+            index2 := 0;
+          end else begin
+            index2 := index + 1;
+          end;
+
+          gtk_selection_model_select_item(selection_model, index2, True);
           if PriStream.isPlayed then begin
-            item_obj2 := g_list_model_get_item(list_model, position + 1);
+            item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
             FreeAndNil(PriStream);
             LoadNewMusic(song^.Titel);
@@ -228,22 +236,22 @@ begin
       end;
     end;
     'listbox.prev': begin
-      if position > 0 then begin
-        gtk_selection_model_select_item(selection_model, position - 1, True);
+      if index > 0 then begin
+        gtk_selection_model_select_item(selection_model, index - 1, True);
       end;
     end;
     'listbox.up': begin
-      if position > 0 then begin
-        g_list_store_remove(G_LIST_STORE(list_model), position);
-        g_list_store_insert(G_LIST_STORE(list_model), position - 1, item_obj);
-        gtk_selection_model_select_item(selection_model, position - 1, True);
+      if index > 0 then begin
+        g_list_store_remove(G_LIST_STORE(list_model), index);
+        g_list_store_insert(G_LIST_STORE(list_model), index - 1, item_obj);
+        gtk_selection_model_select_item(selection_model, index - 1, True);
       end;
     end;
     'listbox.down': begin
-      if (position >= 0) and (position < Count - 1) then begin
-        g_list_store_remove(G_LIST_STORE(list_model), position);
-        g_list_store_insert(G_LIST_STORE(list_model), position + 1, item_obj);
-        gtk_selection_model_select_item(selection_model, position + 1, True);
+      if (index >= 0) and (index < Count - 1) then begin
+        g_list_store_remove(G_LIST_STORE(list_model), index);
+        g_list_store_insert(G_LIST_STORE(list_model), index + 1, item_obj);
+        gtk_selection_model_select_item(selection_model, index + 1, True);
       end;
     end;
     else begin
