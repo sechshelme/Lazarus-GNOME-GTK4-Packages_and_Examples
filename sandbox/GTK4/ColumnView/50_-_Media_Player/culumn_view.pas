@@ -1,23 +1,20 @@
 unit culumn_view;
 
-{$modeswitch typehelpers on}
-{$modeswitch arrayoperators on}
-//{$modeswitch multihelpers}
-{$modeswitch advancedrecords on}
-
 interface
 
 uses
+  SysUtils,
   fp_glib2, fp_pango, fp_GTK4, fp_gst,
   LoadTitle, Streamer;
 
 var
-    IsChange:Boolean=False;
-    changed_handler_id: Tgulong;
+  IsChange: boolean = False;
+  changed_handler_id: Tgulong;
+
 const
-    CFTime = 13 * 1000; // 3s
-    FITime = CFTime;
-    FATime = FITime;
+  CFTime = 13 * 1000; // 3s
+  FITime = CFTime;
+  FATime = FITime;
 
 
 function Create_ListBoxWidget: PGtkWidget;
@@ -33,130 +30,120 @@ const
     'Dauer');
 
 var
-  SekStream:TStreamer=nil;
-  PriStream: TStreamer=nil;
+  SekStream: TStreamer = nil;
+  PriStream: TStreamer = nil;
 
-procedure LoadNewMusic(const titel: string; freeed: boolean);
+procedure LoadNewMusic(const titel: string);
 begin
-  if freeed and (PriStream <> nil) then begin
-    PriStream.Free;
-    PriStream := nil;
-  end;
   PriStream := TStreamer.Create(titel);
   PriStream.Volume := 0.0;
   //  PriStream.OnLevelChange := @PriStreamLevelChange;
 
-  //  PlayPanel.TrackBar.Max := 0;
-  //  PlayPanel.TrackBar.Position := 0;
   PriStream.Play;
 end;
 
 
-  function timerFunc(user_data: Tgpointer): Tgboolean; cdecl;
-  var
-    column_view: PGtkColumnView absolute user_data;
-    scale: PGtkWidget=nil;
-    adjustment: PGtkAdjustment;
-    SPos, SDur: TGstClockTime;
-    volume: Single;
-    selection_model: PGtkSelectionModel;
-    list_model: PGListModel;
-    Count: Tguint;
-    position: Tgint = -1;
-    selected: PGtkBitset;
+function timerFunc(user_data: Tgpointer): Tgboolean; cdecl;
+var
+  column_view: PGtkColumnView absolute user_data;
+  scale: PGtkWidget = nil;
+  adjustment: PGtkAdjustment;
+  SPos, SDur: TGstClockTime;
+  volume: single;
+  selection_model: PGtkSelectionModel;
+  list_model: PGListModel;
+  Count: Tguint;
+  position: Tgint = -1;
+  selected: PGtkBitset;
 
-    item_obj2: PGObject;
-    song: PSong = nil;
-    p: Tgint;
+  item_obj: PGObject;
+  song: PSong = nil;
 
-  begin
-    selection_model := gtk_column_view_get_model(column_view);
-    list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
-    Count := g_list_model_get_n_items(list_model);
+begin
+  selection_model := gtk_column_view_get_model(column_view);
+  list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
+  Count := g_list_model_get_n_items(list_model);
 
-    selected := gtk_selection_model_get_selection(selection_model);
-    if not gtk_bitset_is_empty(selected) then begin
-      position := gtk_bitset_get_nth(selected, 0);
-    end;
+  selected := gtk_selection_model_get_selection(selection_model);
+  if not gtk_bitset_is_empty(selected) then begin
+    position := gtk_bitset_get_nth(selected, 0);
+  end;
 
-
-    scale:=g_object_get_data(G_OBJECT(column_view),scaleObjectKey);
-    adjustment := gtk_range_get_adjustment(GTK_RANGE(scale));
-    g_signal_handler_block(scale, changed_handler_id);
+  scale := g_object_get_data(G_OBJECT(column_view), scaleObjectKey);
+  adjustment := gtk_range_get_adjustment(GTK_RANGE(scale));
+  g_signal_handler_block(scale, changed_handler_id);
 
 
-    if (PriStream <> nil) then begin
-      if IsChange then begin
-        PriStream.Position := Round( gtk_adjustment_get_value(adjustment));
-        IsChange := False;
-      end else begin
-        SPos := PriStream.Position;
-        SDur := PriStream.Duration;
-        gtk_adjustment_set_upper(adjustment, SDur);
-        gtk_adjustment_set_value(adjustment,SPos);
+  if (PriStream <> nil) then begin
+    if IsChange then begin
+      PriStream.Position := Round(gtk_adjustment_get_value(adjustment));
+      IsChange := False;
+    end else begin
+      SPos := PriStream.Position;
+      SDur := PriStream.Duration;
+      gtk_adjustment_set_upper(adjustment, SDur);
+      gtk_adjustment_set_value(adjustment, SPos);
 
-//        PlayPanel.DurationValueLabel.Caption := GstClockToStr(SDur);
-//        PlayPanel.PositionValueLabel.Caption := GstClockToStr(SPos);
-        volume := PriStream.Position / FITime;
-        if volume > 1.0 then begin
-          volume := 1.0;
-        end;
-        if volume < 0.0 then begin
-          volume := 0.0;
-        end;
-        PriStream.Volume := volume;
-        if PriStream.Duration > 0 then begin
-          if PriStream.isEnd or (PriStream.Duration - PriStream.Position < CFTime) then begin
-            if SekStream <> nil then begin
-              SekStream.Free;
-              SekStream:=nil;;
-            end;
-            SekStream := PriStream;
-            SekStream.OnLevelChange := nil;
+      //        PlayPanel.DurationValueLabel.Caption := GstClockToStr(SDur);
+      //        PlayPanel.PositionValueLabel.Caption := GstClockToStr(SPos);
+      volume := PriStream.Position / FITime;
+      if volume > 1.0 then begin
+        volume := 1.0;
+      end;
+      if volume < 0.0 then begin
+        volume := 0.0;
+      end;
+      PriStream.Volume := volume;
+      if PriStream.Duration > 0 then begin
+        if PriStream.isEnd or (PriStream.Duration - PriStream.Position < CFTime) then begin
+          if SekStream <> nil then begin
+            FreeAndNil(SekStream);
+          end;
+          SekStream := PriStream;
+          SekStream.OnLevelChange := nil;
 
-            //            if SongListPanel.Next then  begin
-            //              LoadNewMusic(SongListPanel.GetTitle, False);
-            //            end;
+          //            if SongListPanel.Next then  begin
+          //              LoadNewMusic(SongListPanel.GetTitle, False);
+          //            end;
 
-            if (position >= 0) and (position < Count - 1) then  begin
-                item_obj2 := g_list_model_get_item(list_model, position + 1);
-                song := g_object_get_data(item_obj2, songObjectKey);
-                WriteLn('song: ',song^.Titel);
-                gtk_adjustment_set_upper(adjustment, 0);
-                gtk_adjustment_set_value(adjustment,0);
-                LoadNewMusic(song^.Titel, False);
-                g_object_unref(item_obj2);
-                gtk_selection_model_select_item(selection_model, position + 1, True);
-              end;
+          if (position >= 0) and (position < Count - 1) then  begin
+            item_obj := g_list_model_get_item(list_model, position + 1);
+            song := g_object_get_data(item_obj, songObjectKey);
+            WriteLn('song: ', song^.Titel);
+            gtk_adjustment_set_upper(adjustment, 0);
+            gtk_adjustment_set_value(adjustment, 0);
+            LoadNewMusic(song^.Titel);
+            g_object_unref(item_obj);
+            gtk_selection_model_select_item(selection_model, position + 1, True);
           end;
         end;
       end;
     end;
-    if SekStream <> nil then begin
-      if SekStream.Duration > 0 then begin
-        volume := (SekStream.Duration - SekStream.Position) / FITime;
-        if volume > 1.0 then begin
-          volume := 1.0;
-        end;
-        if volume < 0.0 then begin
-          volume := 0.0;
-        end;
-        SekStream.Volume := volume;
-      end;
-
-      if SekStream.isEnd then begin
-        WriteLn('ende');
-        SekStream.Free;
-        SekStream:=nil;;
-      end;
-    end;
-//    with SongListPanel do begin
-//      Lab_Track_Value.Caption := IntToStr(ListView.ItemIndex + 1) + '/' + ListView.Items.Count.ToString;
-//    end;
-
-g_signal_handler_unblock(scale, changed_handler_id);
-      Result := G_SOURCE_CONTINUE;
   end;
+  if SekStream <> nil then begin
+    if SekStream.Duration > 0 then begin
+      volume := (SekStream.Duration - SekStream.Position) / FITime;
+      if volume > 1.0 then begin
+        volume := 1.0;
+      end;
+      if volume < 0.0 then begin
+        volume := 0.0;
+      end;
+      SekStream.Volume := volume;
+    end;
+
+    if SekStream.isEnd then begin
+      WriteLn('ende');
+      FreeAndNil(SekStream);
+    end;
+  end;
+  //    with SongListPanel do begin
+  //      Lab_Track_Value.Caption := IntToStr(ListView.ItemIndex + 1) + '/' + ListView.Items.Count.ToString;
+  //    end;
+
+  g_signal_handler_unblock(scale, changed_handler_id);
+  Result := G_SOURCE_CONTINUE;
+end;
 
 procedure action_cp(action: PGSimpleAction; {%H-}parameter: PGVariant; user_data: Tgpointer); cdecl;
 var
@@ -170,10 +157,10 @@ var
   item_obj, item_obj2: PGObject;
   song: PSong = nil;
 
-  scale: PGtkWidget=nil;
+  scale: PGtkWidget = nil;
   adjustment: PGtkAdjustment;
 begin
-  scale:=g_object_get_data(G_OBJECT(column_view),scaleObjectKey);
+  scale := g_object_get_data(G_OBJECT(column_view), scaleObjectKey);
   adjustment := gtk_range_get_adjustment(GTK_RANGE(scale));
   WriteLn(GTK_IS_SCALE(scale));
 
@@ -195,7 +182,7 @@ begin
     'listbox.play': begin
       if PriStream = nil then begin
         if Count > 0 then begin
-          LoadNewMusic(song^.Titel, True);
+          LoadNewMusic(song^.Titel);
         end;
       end else begin
         PriStream.Play;
@@ -210,9 +197,8 @@ begin
       WriteLn('stop');
       if PriStream <> nil then begin
         PriStream.Stop;
-        PriStream.Free;
-        PriStream := nil;
-        gtk_adjustment_set_value(adjustment,0);
+        FreeAndNil(PriStream);
+        gtk_adjustment_set_value(adjustment, 0);
         gtk_adjustment_set_upper(adjustment, 1000);
       end;
     end;
@@ -234,7 +220,8 @@ begin
           if PriStream.isPlayed then begin
             item_obj2 := g_list_model_get_item(list_model, position + 1);
             song := g_object_get_data(item_obj2, songObjectKey);
-            LoadNewMusic(song^.Titel, True);
+            FreeAndNil(PriStream);
+            LoadNewMusic(song^.Titel);
             g_object_unref(item_obj2);
           end;
         end;

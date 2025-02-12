@@ -28,12 +28,8 @@ uses
   end;
 
 procedure on_scale_changed_cp(range: PGtkRange; user_data: Tgpointer); cdecl;
-var
-  Value: Tdouble;
 begin
   IsChange:=True;
-//  Value := gtk_range_get_value(range);
-//  g_printf('Value: %.2f'#10, Value);
 end;
 
   function CreateMediaControlsPanel: PGtkWidget;

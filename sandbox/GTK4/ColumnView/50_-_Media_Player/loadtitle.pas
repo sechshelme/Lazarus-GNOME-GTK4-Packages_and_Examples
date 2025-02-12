@@ -11,7 +11,7 @@ uses
   fp_GDK4,
   fp_GTK4;
 
-  type
+type
   TSong = record
     Index: Tgint;
     Titel: Pgchar;
@@ -21,7 +21,7 @@ uses
 
 const
   songObjectKey = 'song-object';
-  scaleObjectKey='scale-widget';
+  scaleObjectKey = 'scale-widget';
 
 
 
@@ -49,7 +49,7 @@ begin
     entryName := g_dir_read_name(dir);
     if entryName <> nil then begin
       if g_str_has_suffix(entryName, '.flac') then  begin
-        gtk_string_list_append(sl,PChar( path+'/'+ entryName));
+        gtk_string_list_append(sl, PChar(path + '/' + entryName));
       end;
     end;
   until entryName = nil;
@@ -124,4 +124,3 @@ end;
 
 
 end.
-
