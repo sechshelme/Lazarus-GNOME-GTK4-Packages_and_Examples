@@ -27,6 +27,19 @@ var
   SekStream,
   PriStream: TStreamer;
 
+  function timerFunc(user_data: Tgpointer): Tgboolean; cdecl;
+  var
+    column_view: PGtkColumnView absolute user_data;
+    scale: PGtkWidget=nil;
+  begin
+//    g_print('Hello Timer'#10);
+
+    scale:=g_object_get_data(G_OBJECT(column_view),scaleObjectKey);
+//    WriteLn(GTK_IS_SCALE(scale));
+
+      Result := G_SOURCE_CONTINUE;
+  end;
+
 procedure LoadNewMusic(const titel: string; freeed: boolean);
 begin
   if freeed and (PriStream <> nil) then begin
@@ -55,8 +68,15 @@ var
   item_obj, item_obj2: PGObject;
   song: PSong = nil;
 
+  scale: PGtkWidget=nil;
+  adjustment: PGtkAdjustment;
 begin
+  scale:=g_object_get_data(G_OBJECT(column_view),scaleObjectKey);
+  adjustment := gtk_range_get_adjustment(GTK_RANGE(scale));
+  WriteLn(GTK_IS_SCALE(scale));
+
   action_name := g_action_get_name(G_ACTION(action));
+  g_printf('Action, Name: "%s"'#10, Pgchar(action_name));
 
   selection_model := gtk_column_view_get_model(column_view);
   list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
@@ -67,7 +87,7 @@ begin
   if not gtk_bitset_is_empty(selected) then begin
     position := gtk_bitset_get_nth(selected, 0);
     item_obj := g_list_model_get_item(list_model, position);
-    song := g_object_get_data(item_obj, humanObjectKey);
+    song := g_object_get_data(item_obj, songObjectKey);
   end;
 
   case action_name of
@@ -87,17 +107,19 @@ begin
       end;
     end;
     'listbox.stop': begin
+      WriteLn('stop');
       if PriStream <> nil then begin
         PriStream.Stop;
         PriStream.Free;
         PriStream := nil;
+        gtk_adjustment_set_upper(adjustment, 1000);
+        gtk_adjustment_set_value(adjustment,500);
         //        PlayPanel.TrackBar.Position := 0;
         //        PlayPanel.TrackBar.Max := 1000;
       end;
     end;
     'listbox.append': begin
       OpenTitel(GTK_COLUMN_VIEW(column_view));
-      // ListBoxAppendItem(column_view, 'Daniel');
     end;
     'listbox.remove': begin
       if position >= 0 then begin
@@ -113,7 +135,7 @@ begin
           gtk_selection_model_select_item(selection_model, position + 1, True);
           if PriStream.isPlayed then begin
             item_obj2 := g_list_model_get_item(list_model, position + 1);
-            song := g_object_get_data(item_obj2, humanObjectKey);
+            song := g_object_get_data(item_obj2, songObjectKey);
             LoadNewMusic(song^.Titel, True);
             g_object_unref(item_obj2);
           end;
@@ -176,7 +198,7 @@ var
 begin
   l := gtk_list_item_get_child(list_item);
   item_obj := gtk_list_item_get_item(list_item);
-  song := g_object_get_data(item_obj, humanObjectKey);
+  song := g_object_get_data(item_obj, songObjectKey);
   case col of
     0: begin
       buffer := g_strdup_printf('%d', song^.Index);
@@ -275,6 +297,8 @@ begin
     g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
     g_object_unref(action);
   end;
+
+  g_timeout_add(100, @timerFunc, column_view);
 
   Result := column_view;
 end;

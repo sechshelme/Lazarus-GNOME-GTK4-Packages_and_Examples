@@ -20,7 +20,8 @@ uses
   PSong = ^TSong;
 
 const
-  humanObjectKey = 'human-object';
+  songObjectKey = 'song-object';
+  scaleObjectKey='scale-widget';
 
 
 
@@ -88,7 +89,7 @@ begin
   human^.Duration := Random(100);
   Inc(index);
 
-  g_object_set_data_full(obj, humanObjectKey, human, @item_object_free_cp);
+  g_object_set_data_full(obj, songObjectKey, human, @item_object_free_cp);
   g_list_store_append(G_LIST_STORE(list_model), obj);
   g_object_unref(obj);
 end;

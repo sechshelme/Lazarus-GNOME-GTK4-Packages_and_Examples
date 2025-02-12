@@ -53,12 +53,15 @@ uses
     createBtnButton(buttonBox, 'Forward', 'media-seek-forward-symbolic', 'app.listbox.forward');
     createBtnButton(buttonBox, 'Next', 'media-skip-forward-symbolic', 'app.listbox.next');
 
+    g_object_set_data(G_OBJECT(Result), scaleObjectKey, scale);
+
     gtk_box_append(GTK_BOX(Result), buttonBox);
   end;
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
-    window, panedBox, buttonBox, label1, ColumnViewBox, scrolled_window: PGtkWidget;
+    window, panedBox, buttonBox, label1, columnView, scrolled_window: PGtkWidget;
+    scale, mediaControlPanel: PGtkWidget;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'GTK4 Border und Bevel');
@@ -70,18 +73,18 @@ uses
     gtk_widget_set_margin_top(panedBox, 10);
     gtk_widget_set_margin_bottom(panedBox, 10);
 
-    gtk_box_append(GTK_BOX(panedBox), CreateMediaControlsPanel);
-
+    mediaControlPanel:=CreateMediaControlsPanel;
+    gtk_box_append(GTK_BOX(panedBox), mediaControlPanel);
+    scale:=g_object_get_data(G_OBJECT(mediaControlPanel), scaleObjectKey);
 
     scrolled_window := gtk_scrolled_window_new;
-
-    ColumnViewBox := Create_ListBoxWidget;
+    columnView := Create_ListBoxWidget;
     gtk_widget_set_vexpand(scrolled_window, True);
-    gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), ColumnViewBox);
-
+    gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), columnView);
     gtk_box_append(GTK_BOX(panedBox), scrolled_window);
+    g_object_set_data(G_OBJECT(columnView), scaleObjectKey,scale);
 
-    //    OpenTitel(GTK_COLUMN_VIEW(ColumnViewBox));
+    //    OpenTitel(GTK_COLUMN_VIEW(columnView));
 
     // ButtonBox
 
