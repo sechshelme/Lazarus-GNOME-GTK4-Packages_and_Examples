@@ -22,15 +22,12 @@ type
     MainMenu: TMenuBar;
     PlayPanel: TPlayPanel;
     Timer: TTimer;
-    IsTrackBarMDown: boolean;
     SekStream,
     PriStream: TStreamer;
     IsChange: boolean;
     procedure LoadNewMusic(const titel: string; freeed: boolean);
     procedure BoxEventProc(cmd: Tcommand);
     procedure PlayBoxTrackBarChange(Sender: TObject);
-    procedure PlayBoxTrackBarMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: integer);
-    procedure PlayBoxTrackBarMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: integer);
     procedure PriStreamLevelChange(level: TLevel);
     procedure TimerTimer(Sender: TObject);
   public
@@ -195,18 +192,6 @@ begin
   IsChange := True;
 end;
 
-procedure TForm1.PlayBoxTrackBarMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: integer);
-begin
-  WriteLn('down');
-  IsTrackBarMDown := True;
-end;
-
-procedure TForm1.PlayBoxTrackBarMouseUp(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: integer);
-begin
-  WriteLn('up');
-  IsTrackBarMDown := False;
-end;
-
 procedure TForm1.TimerTimer(Sender: TObject);
 var
   SDur, SPos: integer;
@@ -235,6 +220,7 @@ begin
         volume := 0.0;
       end;
       PriStream.Volume := volume;
+
       if PriStream.Duration > 0 then begin
         if PriStream.isEnd or (PriStream.Duration - PriStream.Position < CFTime) then begin
           if SekStream <> nil then begin
@@ -271,8 +257,6 @@ begin
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
-var
-  h: integer;
 begin
   Width := 1024;
 
@@ -299,14 +283,9 @@ begin
   SongListPanel.Parent := self;
   SongListPanel.EditBox.OnPlayBoxEvent := @BoxEventProc;
 
-  //  h := EditBox.Height + PlayPanel.Height + 10;
-
   PlayPanel.TrackBar.TickStyle := tsNone;
   PlayPanel.TrackBar.Max := 1000;
   PlayPanel.TrackBar.OnChange := @PlayBoxTrackBarChange;
-  PlayPanel.TrackBar.OnMouseDown := @PlayBoxTrackBarMouseDown;
-  PlayPanel.TrackBar.OnMouseUp := @PlayBoxTrackBarMouseUp;
-  IsTrackBarMDown := False;
 
   Timer := TTimer.Create(self);
   Timer.OnTimer := @TimerTimer;

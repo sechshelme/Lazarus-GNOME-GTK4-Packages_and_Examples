@@ -27,6 +27,15 @@ uses
     gtk_box_append(GTK_BOX(parent), button);
   end;
 
+procedure on_scale_changed_cp(range: PGtkRange; user_data: Tgpointer); cdecl;
+var
+  Value: Tdouble;
+begin
+  IsChange:=True;
+//  Value := gtk_range_get_value(range);
+//  g_printf('Value: %.2f'#10, Value);
+end;
+
   function CreateMediaControlsPanel: PGtkWidget;
   var
     buttonBox, scale: PGtkWidget;
@@ -42,6 +51,7 @@ uses
 
     gtk_scale_set_value_pos(GTK_SCALE(scale), GTK_POS_TOP);
     gtk_range_set_value(GTK_RANGE(scale), 0.0);
+    changed_handler_id := g_signal_connect(scale, 'value-changed', G_CALLBACK(@on_scale_changed_cp), nil);
     gtk_box_append(GTK_BOX(Result), scale);
 
     buttonBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
