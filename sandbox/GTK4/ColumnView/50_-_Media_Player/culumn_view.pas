@@ -205,7 +205,8 @@ begin
       end;
     end;
     'listbox.append': begin
-      OpenTitel(GTK_COLUMN_VIEW(column_view));
+//      LoadTitles(G_LIST_STORE(list_model));
+      OpenTitel(G_LIST_STORE(list_model));
     end;
     'listbox.remove': begin
       if index >= 0 then begin
