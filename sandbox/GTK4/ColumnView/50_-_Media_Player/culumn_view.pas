@@ -205,8 +205,8 @@ begin
       end;
     end;
     'listbox.append': begin
-//      LoadTitles(G_LIST_STORE(list_model));
-      OpenTitel(G_LIST_STORE(list_model));
+      LoadTitles(G_LIST_STORE(list_model));
+//      OpenTitel(G_LIST_STORE(list_model));
     end;
     'listbox.remove': begin
       if index >= 0 then begin
@@ -392,7 +392,8 @@ begin
     g_object_unref(action);
   end;
 
-  g_timeout_add(100, @timerFunc, column_view);
+//  g_timeout_add(100, @timerFunc, column_view);
+  g_idle_add(@timerFunc, column_view);
 
   Result := column_view;
 end;
