@@ -206,7 +206,7 @@ begin
     end;
     'listbox.append': begin
       LoadTitles(G_LIST_STORE(list_model));
-//      OpenTitel(G_LIST_STORE(list_model));
+      //      OpenTitel(G_LIST_STORE(list_model));
     end;
     'listbox.remove': begin
       if index >= 0 then begin
@@ -321,6 +321,15 @@ begin
   WriteLn('position doubleclick: ', position);
 end;
 
+procedure on_columnview_destroy(widget: PGtkWidget; user_data: Tgpointer);
+var
+  idle_id: Tguint absolute user_data;
+begin
+  if idle_id > 0 then begin
+    g_source_remove(idle_id);
+    g_printf('Idle wurde entfernt'#10);
+  end;
+end;
 
 // ==== public
 
@@ -351,6 +360,7 @@ var
   i: integer;
   len: SizeInt;
   action: PGSimpleAction;
+  idle_id: Tguint;
 begin
   SekStream := nil;
   PriStream := nil;
@@ -392,8 +402,9 @@ begin
     g_object_unref(action);
   end;
 
-//  g_timeout_add(100, @timerFunc, column_view);
-  g_idle_add(@timerFunc, column_view);
+  //  g_timeout_add(100, @timerFunc, column_view);
+  idle_id := g_idle_add(@timerFunc, column_view);
+  g_signal_connect(column_view, 'destroy', G_CALLBACK(@on_columnview_destroy), GINT_TO_POINTER(idle_id));
 
   Result := column_view;
 end;
