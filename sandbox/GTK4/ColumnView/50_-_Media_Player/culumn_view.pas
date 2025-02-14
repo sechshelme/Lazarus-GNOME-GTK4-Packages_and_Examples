@@ -17,6 +17,10 @@ const
   FATime = FITime;
 
 
+var
+  SekStream: TStreamer = nil;
+  PriStream: TStreamer = nil;
+
 function Create_ListBoxWidget: PGtkWidget;
 
 implementation
@@ -28,10 +32,6 @@ const
     'Index',
     'Titel',
     'Dauer');
-
-var
-  SekStream: TStreamer = nil;
-  PriStream: TStreamer = nil;
 
 procedure LoadNewMusic(const titel: string);
 begin
@@ -205,7 +205,8 @@ begin
       end;
     end;
     'listbox.append': begin
-      LoadTitles(G_LIST_STORE(list_model));
+      LoadTitles(G_LIST_STORE(list_model),'/home/tux/Schreibtisch/sound');
+//      LoadTitles(G_LIST_STORE(list_model),'/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
       //      OpenTitel(G_LIST_STORE(list_model));
     end;
     'listbox.remove': begin
