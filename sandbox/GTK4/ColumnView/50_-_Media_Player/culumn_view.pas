@@ -206,8 +206,8 @@ begin
     end;
     'listbox.append': begin
       LoadTitles(G_LIST_STORE(list_model),'/home/tux/Schreibtisch/sound');
-//      LoadTitles(G_LIST_STORE(list_model),'/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
-      //      OpenTitel(G_LIST_STORE(list_model));
+      LoadTitles(G_LIST_STORE(list_model),'/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
+      LoadTitles(G_LIST_STORE(list_model),'/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt');
     end;
     'listbox.remove': begin
       if index >= 0 then begin
