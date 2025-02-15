@@ -258,10 +258,6 @@ begin
           end;
         end;
       end;
-
-//      if index > 0 then begin
-//        gtk_selection_model_select_item(selection_model, index - 1, True);
-//      end;
     end;
     'listbox.up': begin
       if index > 0 then begin
@@ -351,6 +347,8 @@ begin
     g_source_remove(idle_id);
     g_printf('Idle wurde entfernt'#10);
   end;
+  if PriStream<>nil then FreeAndNil(PriStream);
+  if SekStream<>nil then FreeAndNil(SekStream);
 end;
 
 // ==== public

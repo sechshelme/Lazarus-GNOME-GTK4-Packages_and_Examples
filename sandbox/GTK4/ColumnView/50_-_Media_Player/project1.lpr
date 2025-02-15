@@ -7,25 +7,7 @@ uses
   fp_GDK4,
   fp_GTK4,
   culumn_view,
-  LoadTitle;
-
-  procedure CreateBtnButton(parent: PGtkWidget; label_, icon_name, action_name: Pgchar);
-  var
-    box, image, lab, Button: PGtkWidget;
-  begin
-    box := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
-    image := gtk_image_new_from_icon_name(icon_name);
-    lab := gtk_label_new(label_);
-
-    gtk_box_append(GTK_BOX(box), image);
-    gtk_box_append(GTK_BOX(box), lab);
-
-    Button := gtk_button_new;
-    gtk_button_set_child(GTK_BUTTON(Button), box);
-    gtk_actionable_set_action_name(GTK_ACTIONABLE(Button), action_name);
-
-    gtk_box_append(GTK_BOX(parent), button);
-  end;
+  LoadTitle, MenuBar;
 
 procedure on_scale_changed_cp(range: PGtkRange; user_data: Tgpointer); cdecl;
 var
@@ -72,6 +54,7 @@ end;
   var
     window, panedBox, buttonBox, label1, columnView, scrolled_window: PGtkWidget;
     scale, mediaControlPanel: PGtkWidget;
+    mainmenu: PGMenu;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'GTK4 Border und Bevel');
@@ -82,6 +65,10 @@ end;
     gtk_widget_set_margin_end(panedBox, 10);
     gtk_widget_set_margin_top(panedBox, 10);
     gtk_widget_set_margin_bottom(panedBox, 10);
+
+    mainmenu:=CreateMenu;
+    gtk_box_append(GTK_BOX(panedBox),gtk_popover_menu_bar_new_from_model(G_MENU_MODEL(CreateMenu)));
+    g_object_unref(mainmenu);
 
     mediaControlPanel:=CreateMediaControlsPanel;
     gtk_box_append(GTK_BOX(panedBox), mediaControlPanel);

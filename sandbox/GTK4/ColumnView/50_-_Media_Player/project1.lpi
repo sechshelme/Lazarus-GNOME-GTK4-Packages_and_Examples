@@ -44,6 +44,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="LoadTitle"/>
       </Unit>
+      <Unit>
+        <Filename Value="menubar.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="MenuBar"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
