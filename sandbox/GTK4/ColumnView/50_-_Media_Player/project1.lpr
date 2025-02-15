@@ -28,8 +28,12 @@ uses
   end;
 
 procedure on_scale_changed_cp(range: PGtkRange; user_data: Tgpointer); cdecl;
+var
+  adjustment: PGtkAdjustment;
 begin
-  IsChange:=True;
+  adjustment := gtk_range_get_adjustment(range);
+  PriStream.Position := Round(gtk_adjustment_get_value(adjustment));
+  //IsChange:=True;
 end;
 
   function CreateMediaControlsPanel: PGtkWidget;

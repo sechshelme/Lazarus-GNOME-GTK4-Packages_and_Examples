@@ -76,8 +76,8 @@ begin
 
   if (PriStream <> nil) then begin
     if IsChange then begin
-      PriStream.Position := Round(gtk_adjustment_get_value(adjustment));
-      IsChange := False;
+//      PriStream.Position := Round(gtk_adjustment_get_value(adjustment));
+//      IsChange := False;
     end else begin
       SPos := PriStream.Position;
       SDur := PriStream.Duration;
@@ -238,9 +238,30 @@ begin
       end;
     end;
     'listbox.prev': begin
-      if index > 0 then begin
-        gtk_selection_model_select_item(selection_model, index - 1, True);
+      if (PriStream <> nil) and (PriStream.Duration > 0) then begin
+        if PriStream.Position > 2000 then begin
+          PriStream.Position := 0;
+        end else begin
+          if index = 0 then begin
+            index2 := Count-1;
+          end else begin
+            index2 := index - 1;
+          end;
+
+          gtk_selection_model_select_item(selection_model, index2, True);
+          if PriStream.isPlayed then begin
+            item_obj2 := g_list_model_get_item(list_model, index2);
+            song := g_object_get_data(item_obj2, songObjectKey);
+            FreeAndNil(PriStream);
+            LoadNewMusic(song^.Titel);
+            g_object_unref(item_obj2);
+          end;
+        end;
       end;
+
+//      if index > 0 then begin
+//        gtk_selection_model_select_item(selection_model, index - 1, True);
+//      end;
     end;
     'listbox.up': begin
       if index > 0 then begin
@@ -403,8 +424,8 @@ begin
     g_object_unref(action);
   end;
 
-  //  g_timeout_add(100, @timerFunc, column_view);
-  idle_id := g_idle_add(@timerFunc, column_view);
+  idle_id := g_timeout_add(100, @timerFunc, column_view);
+//  idle_id := g_idle_add(@timerFunc, column_view);
   g_signal_connect(column_view, 'destroy', G_CALLBACK(@on_columnview_destroy), GINT_TO_POINTER(idle_id));
 
   Result := column_view;
