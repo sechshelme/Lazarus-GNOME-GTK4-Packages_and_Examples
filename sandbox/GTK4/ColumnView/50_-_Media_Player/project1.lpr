@@ -7,16 +7,19 @@ uses
   fp_GDK4,
   fp_GTK4,
   culumn_view,
-  LoadTitle, MenuBar;
+  LoadTitle,
+  MenuBar;
 
-procedure on_scale_changed_cp(range: PGtkRange; user_data: Tgpointer); cdecl;
-var
-  adjustment: PGtkAdjustment;
-begin
-  adjustment := gtk_range_get_adjustment(range);
-  PriStream.Position := Round(gtk_adjustment_get_value(adjustment));
-  //IsChange:=True;
-end;
+  procedure on_scale_changed_cp(range: PGtkRange; user_data: Tgpointer); cdecl;
+  var
+    adjustment: PGtkAdjustment;
+  begin
+    adjustment := gtk_range_get_adjustment(range);
+    if PriStream <> nil then begin
+      PriStream.Position := Round(gtk_adjustment_get_value(adjustment));
+    end;
+    //IsChange:=True;
+  end;
 
   function CreateMediaControlsPanel: PGtkWidget;
   var
@@ -66,20 +69,20 @@ end;
     gtk_widget_set_margin_top(panedBox, 10);
     gtk_widget_set_margin_bottom(panedBox, 10);
 
-    mainmenu:=CreateMenu;
-    gtk_box_append(GTK_BOX(panedBox),gtk_popover_menu_bar_new_from_model(G_MENU_MODEL(CreateMenu)));
+    mainmenu := CreateMenu;
+    gtk_box_append(GTK_BOX(panedBox), gtk_popover_menu_bar_new_from_model(G_MENU_MODEL(CreateMenu)));
     g_object_unref(mainmenu);
 
-    mediaControlPanel:=CreateMediaControlsPanel;
+    mediaControlPanel := CreateMediaControlsPanel;
     gtk_box_append(GTK_BOX(panedBox), mediaControlPanel);
-    scale:=g_object_get_data(G_OBJECT(mediaControlPanel), scaleObjectKey);
+    scale := g_object_get_data(G_OBJECT(mediaControlPanel), scaleObjectKey);
 
     scrolled_window := gtk_scrolled_window_new;
     columnView := Create_ListBoxWidget;
     gtk_widget_set_vexpand(scrolled_window, True);
     gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), columnView);
     gtk_box_append(GTK_BOX(panedBox), scrolled_window);
-    g_object_set_data(G_OBJECT(columnView), scaleObjectKey,scale);
+    g_object_set_data(G_OBJECT(columnView), scaleObjectKey, scale);
 
     //    OpenTitel(GTK_COLUMN_VIEW(columnView));
 

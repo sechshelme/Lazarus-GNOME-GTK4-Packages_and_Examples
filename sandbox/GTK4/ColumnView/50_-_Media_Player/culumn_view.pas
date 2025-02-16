@@ -76,8 +76,8 @@ begin
 
   if (PriStream <> nil) then begin
     if IsChange then begin
-//      PriStream.Position := Round(gtk_adjustment_get_value(adjustment));
-//      IsChange := False;
+      //      PriStream.Position := Round(gtk_adjustment_get_value(adjustment));
+      //      IsChange := False;
     end else begin
       SPos := PriStream.Position;
       SDur := PriStream.Duration;
@@ -205,9 +205,9 @@ begin
       end;
     end;
     'listbox.append': begin
-      LoadTitles(G_LIST_STORE(list_model),'/home/tux/Schreibtisch/sound');
-      LoadTitles(G_LIST_STORE(list_model),'/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
-      LoadTitles(G_LIST_STORE(list_model),'/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt');
+      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound');
+      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
+      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt');
     end;
     'listbox.remove': begin
       if index >= 0 then begin
@@ -243,7 +243,7 @@ begin
           PriStream.Position := 0;
         end else begin
           if index = 0 then begin
-            index2 := Count-1;
+            index2 := Count - 1;
           end else begin
             index2 := index - 1;
           end;
@@ -335,8 +335,26 @@ end;
 
 
 procedure on_row_activated_cb(view: PGtkColumnView; position: Tgint; user_data: Tgpointer); cdecl;
+var
+  app: PGApplication;
+  action: PGAction;
 begin
+  app := g_application_get_default;
   WriteLn('position doubleclick: ', position);
+
+  if (PriStream<>nil)and( PriStream.isPlayed) then begin
+    action := g_action_map_lookup_action(G_ACTION_MAP(app), 'listbox.stop');
+    if action <> nil then begin
+      g_action_activate(action, nil);
+      WriteLn('action stop found');
+    end;
+  end;
+
+  action := g_action_map_lookup_action(G_ACTION_MAP(app), 'listbox.play');
+  if action <> nil then begin
+    g_action_activate(action, nil);
+    WriteLn('action play found');
+  end;
 end;
 
 procedure on_columnview_destroy(widget: PGtkWidget; user_data: Tgpointer);
@@ -347,8 +365,12 @@ begin
     g_source_remove(idle_id);
     g_printf('Idle wurde entfernt'#10);
   end;
-  if PriStream<>nil then FreeAndNil(PriStream);
-  if SekStream<>nil then FreeAndNil(SekStream);
+  if PriStream <> nil then begin
+    FreeAndNil(PriStream);
+  end;
+  if SekStream <> nil then begin
+    FreeAndNil(SekStream);
+  end;
 end;
 
 // ==== public
@@ -423,7 +445,7 @@ begin
   end;
 
   idle_id := g_timeout_add(100, @timerFunc, column_view);
-//  idle_id := g_idle_add(@timerFunc, column_view);
+  //  idle_id := g_idle_add(@timerFunc, column_view);
   g_signal_connect(column_view, 'destroy', G_CALLBACK(@on_columnview_destroy), GINT_TO_POINTER(idle_id));
 
   Result := column_view;
