@@ -38,7 +38,10 @@ begin
   item:=g_menu_item_new(label_,action);
   icon:=g_themed_icon_new(icon_name);
   g_menu_item_set_icon(item,icon);
-  //g_object_unref(icon);
+//  g_menu_item_set_attribute(item, G_MENU_ATTRIBUTE_LABEL, 's', 'blublu');
+//  g_menu_item_set_attribute(item, G_MENU_ATTRIBUTE_ICON, 's', icon);
+  g_object_unref(icon);
+
   g_menu_append_item(parent, item);
   g_object_unref(item);
 end;

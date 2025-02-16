@@ -363,7 +363,6 @@ var
 begin
   if idle_id > 0 then begin
     g_source_remove(idle_id);
-    g_printf('Idle wurde entfernt'#10);
   end;
   if PriStream <> nil then begin
     FreeAndNil(PriStream);
