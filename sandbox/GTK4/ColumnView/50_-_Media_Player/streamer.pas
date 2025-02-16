@@ -72,23 +72,6 @@ function get_duration(s: string): TGstClockTime;
 
 implementation
 
-const
-  {$ifdef Linux}
-  libgstpbutils = 'libgstpbutils-1.0';
-  libgstaudio = 'libgstaudio-1.0';
-  {$endif}
-  {$ifdef Windows}
-  libgstpbutils = 'gstpbutils-1.0-0.dll';
-  libgstaudio = 'gstaudio-1.0-0.dll';
-  {$endif}
-
-
-  //function gst_stream_volume_get_type(): TGType; cdecl; external libgstaudio;
-
-//function gst_discoverer_new(timeout: TGstClockTime; err: PPGError): Pointer; cdecl; external libgstpbutils;
-//function gst_discoverer_discover_uri(discoverer: Pointer; uri: Pgchar; err: PPGError): Pointer; cdecl; external libgstpbutils;
-function gst_discoverer_info_get_duration(info: Pointer): TGstClockTime; cdecl; external libgstpbutils;
-
 function get_duration(s: string): TGstClockTime;
 var
   discoverer: Pointer;
@@ -134,7 +117,7 @@ begin
   end;
 end;
 
-procedure test_cb(bus: PGstBus; msg: PGstMessage; user_data: TGpointer);
+function test_cb(bus: PGstBus; msg: PGstMessage; user_data: TGpointer):Tgboolean;
 var
   err: PGError;
   debug_info: Pgchar;
@@ -153,6 +136,7 @@ begin
     end;
   end;
   //  WriteLn(GST_MESSAGE_TYPE(msg));
+  Result := True;
 end;
 
 //procedure duration_cb(bus: PGstBus; msg: PGstMessage; Data: Pointer);
@@ -167,25 +151,28 @@ end;
 //    //    WriteLn(ct: 4, ' stat:', stat, '  duration: ', pE^.Duration / G_USEC_PER_SEC / 1000: 4: 2);
 //    Inc(ct);
 //  until stat or (ct > 100);
+// Result := True;
 //end;
 
-procedure state_changed_cb(bus: PGstBus; msg: PGstMessage; user_data: TGpointer);
+function state_changed_cb(bus: PGstBus; msg: PGstMessage; user_data: TGpointer):Tgboolean;
 var
   streamer: TStreamer absolute user_data;
   old_state, new_state, pending_state: TGstState;
 begin
   gst_message_parse_state_changed(msg, @old_state, @new_state, @pending_state);
   streamer.pipelineElement.state := new_state;
+  Result := True;
 end;
 
-procedure eos_cb(bus: PGstBus; msg: PGstMessage; user_data: TGpointer);
+function eos_cb(bus: PGstBus; msg: PGstMessage; user_data: TGpointer):Tgboolean;
 var
   streamer: TStreamer absolute user_data;
 begin
   streamer.pipelineElement.FIsEnd := True;
+  Result := True;
 end;
 
-function message_cb(bus: PGstBus; msg: PGstMessage; user_data: Tgpointer): Tgboolean; cdecl;
+function message_cb({%H-}bus: PGstBus; msg: PGstMessage; user_data: Tgpointer): Tgboolean; cdecl;
 var
   streamer: TStreamer absolute user_data;
   s: PGstStructure;
@@ -218,10 +205,12 @@ begin
         streamer.pipelineElement.Level.R := g_value_get_double(Value);
       end;
     end;
+    if streamer.OnLevelChange <> nil then begin
+      streamer.OnLevelChange(streamer.pipelineElement.Level);
+    end;
   end;
-  if streamer.OnLevelChange <> nil then begin
-    streamer.OnLevelChange(streamer.pipelineElement.Level);
-  end;
+
+  Result := True;
 end;
 
 // =========================

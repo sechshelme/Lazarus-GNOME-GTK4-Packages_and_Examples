@@ -214,10 +214,12 @@ begin
         streamer.pipelineElement.Level.R := g_value_get_double(Value);
       end;
     end;
+    if streamer.OnLevelChange <> nil then begin
+      streamer.OnLevelChange(streamer.pipelineElement.Level);
+    end;
   end;
-  if streamer.OnLevelChange <> nil then begin
-    streamer.OnLevelChange(streamer.pipelineElement.Level);
-  end;
+
+  Result := True;
 end;
 
 // =========================
