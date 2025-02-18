@@ -101,7 +101,7 @@ begin
             FreeAndNil(SekStream);
           end;
           SekStream := PriStream;
-          SekStream.OnLevelChange := nil;
+//          SekStream.OnLevelChange := nil;
 
           if index >= 0 then begin
             if index >= Count - 1 then begin
