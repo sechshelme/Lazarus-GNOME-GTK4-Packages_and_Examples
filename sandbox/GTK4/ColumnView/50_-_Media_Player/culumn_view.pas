@@ -3,7 +3,6 @@ unit culumn_view;
 interface
 
 uses
-  SysUtils,
   fp_glib2, fp_pango, fp_GTK4, fp_gst,
   LoadTitle, Streamer;
 
@@ -18,8 +17,8 @@ const
 
 
 var
-  SekStream: TStreamer = nil;
-  PriStream: TStreamer = nil;
+  SekStream: PStreamer = nil;
+  PriStream: PStreamer = nil;
 
 function Create_ListBoxWidget: PGtkWidget;
 
@@ -35,7 +34,8 @@ const
 
 procedure LoadNewMusic(const titel: string);
 begin
-  PriStream := TStreamer.Create(titel);
+  PriStream.Create(titel);
+//  PriStream := PStreamerHelper.Create(titel);
   PriStream.Volume := 0.0;
   //  PriStream.OnLevelChange := @PriStreamLevelChange;
 
@@ -98,7 +98,8 @@ begin
       if PriStream.Duration > 0 then begin
         if PriStream.isEnd or (PriStream.Duration - PriStream.Position < CFTime) then begin
           if SekStream <> nil then begin
-            FreeAndNil(SekStream);
+            SekStream.Destroy;
+//            FreeAndNil(SekStream);
           end;
           SekStream := PriStream;
 //          SekStream.OnLevelChange := nil;
@@ -135,7 +136,8 @@ begin
     end;
 
     if SekStream.isEnd then begin
-      FreeAndNil(SekStream);
+//      FreeAndNil(SekStream);
+      SekStream.Destroy;
     end;
   end;
   //    with SongListPanel do begin
@@ -199,7 +201,8 @@ begin
       WriteLn('stop');
       if PriStream <> nil then begin
         PriStream.Stop;
-        FreeAndNil(PriStream);
+        PriStream.Destroy;
+//        FreeAndNil(PriStream);
         gtk_adjustment_set_value(adjustment, 0);
         gtk_adjustment_set_upper(adjustment, 1000);
       end;
@@ -230,7 +233,8 @@ begin
           if PriStream.isPlayed then begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
-            FreeAndNil(PriStream);
+            PriStream.Destroy;
+//            FreeAndNil(PriStream);
             LoadNewMusic(song^.Titel);
             g_object_unref(item_obj2);
           end;
@@ -252,7 +256,8 @@ begin
           if PriStream.isPlayed then begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
-            FreeAndNil(PriStream);
+            PriStream.Destroy;
+//            FreeAndNil(PriStream);
             LoadNewMusic(song^.Titel);
             g_object_unref(item_obj2);
           end;
@@ -365,10 +370,12 @@ begin
     g_source_remove(idle_id);
   end;
   if PriStream <> nil then begin
-    FreeAndNil(PriStream);
+    PriStream.Destroy;
+//    FreeAndNil(PriStream);
   end;
   if SekStream <> nil then begin
-    FreeAndNil(SekStream);
+    SekStream.Destroy;
+//    FreeAndNil(SekStream);
   end;
 end;
 

@@ -1,6 +1,6 @@
 unit Streamer;
 
-{$mode ObjFPC}{$H+}
+{$modeswitch typehelpers}
 
 interface
 
@@ -24,16 +24,18 @@ type
 
   { TStreamer }
 
-  TStreamer = class(TObject)
+  PStreamer=type PGstElement;
+
+  PStreamerHelper = type Helper for PStreamer
   private
-    pipeline: PGstElement;
+//    pipeline: PGstElement;
     function GetDuration: TGstClockTime;
     procedure SetVolume(vol: Tgdouble);
     procedure SetPosition(AValue: TGstClockTime);
     function GetPosition: TGstClockTime;
   public
-    constructor Create(const AsongPath: string);
-    destructor Destroy; override;
+    procedure Create(const AsongPath: string);
+    procedure Destroy;
     procedure Play;
     procedure Pause;
     procedure Stop;
@@ -165,7 +167,7 @@ begin
   g_free(Data);
 end;
 
-constructor TStreamer.Create(const AsongPath: string);
+procedure PStreamerHelper.Create(const AsongPath: string);
 var
   bus: PGstBus;
   LevelEl: PGstElement;
@@ -177,15 +179,15 @@ begin
   pipelineElements^.Duration := 0;
   pipelineElements^.Level.L := 0.0;
   pipelineElements^.Level.R := 0.0;
-  pipeline := gst_parse_launch(PChar('filesrc location="' + AsongPath + '" ! queue ! decodebin3 ! audioconvert ! audioresample ! volume name=vol ! level name=level ! autoaudiosink'), nil);
-  g_object_set_data_full(G_OBJECT(pipeline), pipelineKey, pipelineElements, @pipeline_free_cp);
+  self := gst_parse_launch(PChar('filesrc location="' + AsongPath + '" ! queue ! decodebin3 ! audioconvert ! audioresample ! volume name=vol ! level name=level ! autoaudiosink'), nil);
+  g_object_set_data_full(G_OBJECT(Self), pipelineKey, pipelineElements, @pipeline_free_cp);
 
-  pipelineElements^.volume := gst_bin_get_by_name(GST_BIN(pipeline), 'vol');
+  pipelineElements^.volume := gst_bin_get_by_name(GST_BIN(Self), 'vol');
   if pipelineElements^.volume = nil then begin
     WriteLn('Volume Error');
   end;
 
-  LevelEl := gst_bin_get_by_name(GST_BIN(pipeline), 'level');
+  LevelEl := gst_bin_get_by_name(GST_BIN(Self), 'level');
   if LevelEl = nil then begin
     WriteLn('Level Error');
   end else begin
@@ -193,59 +195,59 @@ begin
   end;
   g_object_unref(LevelEl);
 
-  bus := gst_element_get_bus(pipeline);
+  bus := gst_element_get_bus(Self);
   gst_bus_add_signal_watch(bus);
-  g_signal_connect(G_OBJECT(bus), 'message', TGCallback(@message_cb), pipeline);
+  g_signal_connect(G_OBJECT(bus), 'message', TGCallback(@message_cb), Self);
   gst_object_unref(bus);
 end;
 
-destructor TStreamer.Destroy;
+procedure PStreamerHelper.Destroy;
 var
   pipelineElements: PPipelineElements;
 begin
-  pipelineElements := g_object_get_data(G_OBJECT(pipeline), pipelineKey);
+  pipelineElements := g_object_get_data(G_OBJECT(Self), pipelineKey);
   Stop;
   gst_object_unref(pipelineElements^.volume);
-  gst_object_unref(pipeline);
-  inherited Destroy;
+  gst_object_unref(Self);
+  self:=nil;
 end;
 
-procedure TStreamer.Play;
+procedure PStreamerHelper.Play;
 begin
-  gst_element_set_state(pipeline, GST_STATE_PLAYING);
+  gst_element_set_state(Self, GST_STATE_PLAYING);
 end;
 
-procedure TStreamer.Pause;
+procedure PStreamerHelper.Pause;
 begin
-  gst_element_set_state(pipeline, GST_STATE_PAUSED);
+  gst_element_set_state(Self, GST_STATE_PAUSED);
 end;
 
-procedure TStreamer.Stop;
+procedure PStreamerHelper.Stop;
 begin
-  gst_element_set_state(pipeline, GST_STATE_NULL);
+  gst_element_set_state(Self, GST_STATE_NULL);
 end;
 
-procedure TStreamer.SetPosition(AValue: TGstClockTime);
+procedure PStreamerHelper.SetPosition(AValue: TGstClockTime);
 begin
-  gst_element_seek_simple(pipeline, GST_FORMAT_TIME, TGstSeekFlags(int64(GST_SEEK_FLAG_FLUSH) or int64(GST_SEEK_FLAG_KEY_UNIT)), AValue * G_USEC_PER_SEC);
+  gst_element_seek_simple(Self, GST_FORMAT_TIME, TGstSeekFlags(int64(GST_SEEK_FLAG_FLUSH) or int64(GST_SEEK_FLAG_KEY_UNIT)), AValue * G_USEC_PER_SEC);
 end;
 
-function TStreamer.GetPosition: TGstClockTime;
+function PStreamerHelper.GetPosition: TGstClockTime;
 var
   current: Tgint64;
 begin
-  gst_element_query_position(pipeline, GST_FORMAT_TIME, @current);
+  gst_element_query_position(Self, GST_FORMAT_TIME, @current);
   Result := current div G_USEC_PER_SEC;
 end;
 
-function TStreamer.GetDuration: TGstClockTime;
+function PStreamerHelper.GetDuration: TGstClockTime;
 var
   pipelineElements: PPipelineElements;
   current: Tgint64 = 0;
 begin
-  pipelineElements := g_object_get_data(G_OBJECT(pipeline), pipelineKey);
+  pipelineElements := g_object_get_data(G_OBJECT(Self), pipelineKey);
   if pipelineElements^.Duration = 0 then begin
-    gst_element_query_duration(pipeline, GST_FORMAT_TIME, @current);
+    gst_element_query_duration(Self, GST_FORMAT_TIME, @current);
     if current > 0 then  begin
       pipelineElements^.Duration := current;
     end;
@@ -253,27 +255,27 @@ begin
   Result := pipelineElements^.Duration div G_USEC_PER_SEC;
 end;
 
-procedure TStreamer.SetVolume(vol: Tgdouble);
+procedure PStreamerHelper.SetVolume(vol: Tgdouble);
 var
   pipelineElements: PPipelineElements;
 begin
-  pipelineElements := g_object_get_data(G_OBJECT(pipeline), pipelineKey);
+  pipelineElements := g_object_get_data(G_OBJECT(Self), pipelineKey);
   g_object_set(pipelineElements^.volume, 'volume', vol, nil);
 end;
 
-function TStreamer.isPlayed: boolean;
+function PStreamerHelper.isPlayed: boolean;
 var
   pipelineElements: PPipelineElements;
 begin
-  pipelineElements := g_object_get_data(G_OBJECT(pipeline), pipelineKey);
+  pipelineElements := g_object_get_data(G_OBJECT(Self), pipelineKey);
   Result := pipelineElements^.state = GST_STATE_PLAYING;
 end;
 
-function TStreamer.isEnd: boolean;
+function PStreamerHelper.isEnd: boolean;
 var
   pipelineElements: PPipelineElements;
 begin
-  pipelineElements := g_object_get_data(G_OBJECT(pipeline), pipelineKey);
+  pipelineElements := g_object_get_data(G_OBJECT(Self), pipelineKey);
   Result := pipelineElements^.FIsEnd;
 end;
 
