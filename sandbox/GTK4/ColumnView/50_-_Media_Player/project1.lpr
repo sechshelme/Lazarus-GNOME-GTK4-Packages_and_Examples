@@ -11,14 +11,8 @@ uses
   MenuBar;
 
   procedure on_scale_changed_cp(range: PGtkRange; user_data: Tgpointer); cdecl;
-  var
-    adjustment: PGtkAdjustment;
   begin
-    adjustment := gtk_range_get_adjustment(range);
-    if PriStream <> nil then begin
-      PriStream.Position := Round(gtk_adjustment_get_value(adjustment));
-    end;
-    //IsChange:=True;
+    IsChange:=True;
   end;
 
   function CreateMediaControlsPanel: PGtkWidget;

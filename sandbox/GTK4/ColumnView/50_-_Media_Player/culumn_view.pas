@@ -76,8 +76,8 @@ begin
 
   if (PriStream <> nil) then begin
     if IsChange then begin
-      //      PriStream.Position := Round(gtk_adjustment_get_value(adjustment));
-      //      IsChange := False;
+            PriStream.Position := Round(gtk_adjustment_get_value(adjustment));
+            IsChange := False;
     end else begin
       SPos := PriStream.Position;
       SDur := PriStream.Duration;

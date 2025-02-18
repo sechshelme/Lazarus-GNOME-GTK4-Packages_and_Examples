@@ -52,7 +52,7 @@ var
   i: Integer;
 const
   index: integer = 0;
-  suffixe: array of Pgchar = ('.flac', '.mp3', '.ogg', '.wav');
+  suffixe: array of Pgchar = ('.flac', '.mp3', '.ogg', '.wav', '.mid');
 begin
   entryName := g_dir_read_name(dirStruct^.dir);
   if entryName = nil then begin
