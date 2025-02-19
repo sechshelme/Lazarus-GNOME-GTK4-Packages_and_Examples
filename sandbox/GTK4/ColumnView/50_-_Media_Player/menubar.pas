@@ -16,30 +16,32 @@ var
 begin
   box := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
   image := gtk_image_new_from_icon_name(icon_name);
-  lab := gtk_label_new(label_);
-
   gtk_box_append(GTK_BOX(box), image);
-  gtk_box_append(GTK_BOX(box), lab);
+
+  if label_ <> nil then begin
+    lab := gtk_label_new(label_);
+    gtk_box_append(GTK_BOX(box), lab);
+  end;
 
   Button := gtk_button_new;
   gtk_button_set_child(GTK_BUTTON(Button), box);
   gtk_actionable_set_action_name(GTK_ACTIONABLE(Button), action_name);
 
+  gtk_widget_set_margin_top(parent, 5);
+  gtk_widget_set_margin_bottom(parent, 5);
   gtk_box_append(GTK_BOX(parent), button);
 end;
 
 
 
-procedure add(parent:PGMenu; label_,icon_name,action:Pgchar);
+procedure add(parent: PGMenu; label_, icon_name, action: Pgchar);
 var
   item: PGMenuItem;
   icon: PGIcon;
 begin
-  item:=g_menu_item_new(label_,action);
-  icon:=g_themed_icon_new(icon_name);
-  g_menu_item_set_icon(item,icon);
-//  g_menu_item_set_attribute(item, G_MENU_ATTRIBUTE_LABEL, 's', 'blublu');
-//  g_menu_item_set_attribute(item, G_MENU_ATTRIBUTE_ICON, 's', icon);
+  item := g_menu_item_new(label_, action);
+  icon := g_themed_icon_new(icon_name);
+  g_menu_item_set_icon(item, icon);
   g_object_unref(icon);
 
   g_menu_append_item(parent, item);
@@ -110,4 +112,3 @@ begin
 end;
 
 end.
-

@@ -1,8 +1,10 @@
 program project1;
 
 uses
+  Math,
   ctypes,
   fp_glib2,
+  fp_cairo,
   //  fp_GLIBTools,
   fp_GDK4,
   fp_GTK4,
@@ -12,17 +14,35 @@ uses
 
   procedure on_scale_changed_cp(range: PGtkRange; user_data: Tgpointer); cdecl;
   begin
-    IsChange:=True;
+    IsChange := True;
+  end;
+
+  procedure VU_draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
+  const
+    border = 3;
+  begin
+    cairo_set_source_rgb(cr, 1.0, 1.0, 1.0);  // Weiß
+    cairo_rectangle(cr, 0, 0, Width, Height);
+    cairo_fill(cr);
+
+    cairo_set_source_rgb(cr, 1.0, 0.0, 0.0);  // Rot
+    cairo_rectangle(cr, border, border, Width / 2, Height / 2 - 2 * border);
+    cairo_fill(cr);
+
+    cairo_set_source_rgb(cr, 1.0, 0.0, 0.0);  // Rot
+    cairo_rectangle(cr, border, Height / 2 + border, Width / 2, Height / 2 - 2 * border);
+    cairo_fill(cr);
   end;
 
   function CreateMediaControlsPanel: PGtkWidget;
   var
-    buttonBox, scale: PGtkWidget;
+    buttonBox, scale, VU_Meter, hbox: PGtkWidget;
   begin
     Result := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
 
     scale := gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0.0, 100.0, 1.0);
     gtk_scale_set_draw_value(GTK_SCALE(scale), True);
+    g_object_set_data(G_OBJECT(Result), scaleObjectKey, scale);
 
     gtk_scale_add_mark(GTK_SCALE(scale), 0, GTK_POS_BOTTOM, 'Min');
     gtk_scale_add_mark(GTK_SCALE(scale), 50, GTK_POS_BOTTOM, 'mit');
@@ -33,24 +53,37 @@ uses
     changed_handler_id := g_signal_connect(scale, 'value-changed', G_CALLBACK(@on_scale_changed_cp), nil);
     gtk_box_append(GTK_BOX(Result), scale);
 
+    hbox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
+    gtk_widget_set_margin_start(hbox, 10);
+    gtk_widget_set_margin_end(hbox, 10);
+    gtk_widget_set_margin_top(hbox, 10);
+    gtk_widget_set_margin_bottom(hbox, 10);
+    gtk_widget_set_valign(hbox, GTK_ALIGN_START);
+
     buttonBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
-    createBtnButton(buttonBox, 'Previous', 'media-skip-backward-symbolic', 'app.listbox.prev');
-    createBtnButton(buttonBox, 'Rewind', 'media-seek-backward-symbolic', 'app.listbox.backward');
-    createBtnButton(buttonBox, 'Play', 'media-playback-start-symbolic', 'app.listbox.play');
-    createBtnButton(buttonBox, 'Pause', 'media-playback-pause-symbolic', 'app.listbox.pause');
-    createBtnButton(buttonBox, 'Stop', 'media-playback-stop-symbolic', 'app.listbox.stop');
-    createBtnButton(buttonBox, 'Forward', 'media-seek-forward-symbolic', 'app.listbox.forward');
-    createBtnButton(buttonBox, 'Next', 'media-skip-forward-symbolic', 'app.listbox.next');
+    createBtnButton(buttonBox, nil, 'media-skip-backward-symbolic', 'app.listbox.prev');
+    createBtnButton(buttonBox, nil, 'media-seek-backward-symbolic', 'app.listbox.backward');
+    createBtnButton(buttonBox, nil, 'media-playback-start-symbolic', 'app.listbox.play');
+    createBtnButton(buttonBox, nil, 'media-playback-pause-symbolic', 'app.listbox.pause');
+    createBtnButton(buttonBox, nil, 'media-playback-stop-symbolic', 'app.listbox.stop');
+    createBtnButton(buttonBox, nil, 'media-seek-forward-symbolic', 'app.listbox.forward');
+    createBtnButton(buttonBox, nil, 'media-skip-forward-symbolic', 'app.listbox.next');
+    gtk_box_append(GTK_BOX(hbox), buttonBox);
 
-    g_object_set_data(G_OBJECT(Result), scaleObjectKey, scale);
+    VU_Meter := gtk_drawing_area_new;
+    gtk_widget_set_margin_start(VU_Meter, 10);
+    gtk_widget_set_hexpand(VU_Meter, True);
+    gtk_widget_set_size_request(VU_Meter, -1, 50);  // Setzt eine feste Höhe von 50 Pixeln
+    gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(VU_Meter), @VU_draw_func, nil, nil);
+    gtk_box_append(GTK_BOX(hbox), VU_Meter);
 
-    gtk_box_append(GTK_BOX(Result), buttonBox);
+    gtk_box_append(GTK_BOX(Result), hbox);
   end;
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, panedBox, buttonBox, label1, columnView, scrolled_window: PGtkWidget;
-    scale, mediaControlPanel: PGtkWidget;
+    scale, mediaControlPanel, HBox: PGtkWidget;
     mainmenu: PGMenu;
   begin
     window := gtk_application_window_new(app);
@@ -71,19 +104,22 @@ uses
     gtk_box_append(GTK_BOX(panedBox), mediaControlPanel);
     scale := g_object_get_data(G_OBJECT(mediaControlPanel), scaleObjectKey);
 
+    HBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+    gtk_widget_set_hexpand(HBox, True);
+    gtk_box_append(GTK_BOX(panedBox), HBox);
+
     scrolled_window := gtk_scrolled_window_new;
     columnView := Create_ListBoxWidget;
     gtk_widget_set_vexpand(scrolled_window, True);
+    gtk_widget_set_hexpand(scrolled_window, True);
     gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), columnView);
-    gtk_box_append(GTK_BOX(panedBox), scrolled_window);
+    gtk_box_append(GTK_BOX(HBox), scrolled_window);
     g_object_set_data(G_OBJECT(columnView), scaleObjectKey, scale);
 
-    //    OpenTitel(GTK_COLUMN_VIEW(columnView));
+    buttonBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+    gtk_box_append(GTK_BOX(HBox), buttonBox);
 
     // ButtonBox
-
-    buttonBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-    gtk_box_append(GTK_BOX(panedBox), buttonBox);
 
     label1 := gtk_label_new('box2');
     gtk_box_append(GTK_BOX(buttonBox), label1);
