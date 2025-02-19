@@ -24,6 +24,7 @@ type
     dotColor, bgColor: TCairoColor
   end;
   PAniData = ^TAniData;
+
 const
   anyDataKey = 'anyKey';
 
