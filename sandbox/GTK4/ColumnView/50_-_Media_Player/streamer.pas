@@ -5,30 +5,36 @@ unit Streamer;
 interface
 
 uses
-  Classes, SysUtils, fp_glib2,
+  Classes, SysUtils, fp_glib2, fp_GTK4,
   fp_gst, fp_gst_pbutils;
+
+const
+  LevelKey = 'LevelKey';
 
 type
   TLevel = record
     L, R: Tgdouble;
   end;
+  PLevel = ^TLevel;
 
   TPipelineElements = record
     volume: PGstElement;
     state: TGstState;
     Duration: Tgint64;
     FIsEnd: boolean;
+    LevelWidget: PGtkWidget;
     Level: TLevel;
   end;
   PPipelineElements = ^TPipelineElements;
 
   { TStreamer }
 
-  PStreamer=type PGstElement;
+  PStreamer = type PGstElement;
+
+  { PStreamerHelper }
 
   PStreamerHelper = type Helper for PStreamer
   private
-//    pipeline: PGstElement;
     function GetDuration: TGstClockTime;
     procedure SetVolume(vol: Tgdouble);
     procedure SetPosition(AValue: TGstClockTime);
@@ -44,8 +50,11 @@ type
     property Volume: Tgdouble write SetVolume;
     function isPlayed: boolean;
     function isEnd: boolean;
-//    property OnLevelChange: TStreamerLevel read FOnLevelChange write SetOnLevelChange;
+    procedure SetLevelWidget(w: PGtkWidget);
   end;
+
+var
+  VU_Meter: PGtkWidget;
 
 
 function GstClockToStr(t: TGstClockTime): string;
@@ -119,27 +128,34 @@ begin
       pipelineElements^.state := new_state;
     end;
     GST_MESSAGE_ELEMENT: begin
-      s := gst_message_get_structure(msg);
-      Name := gst_structure_get_name(s);
-      if strcomp(Name, 'level') = 0 then begin
-        if not gst_structure_get_clock_time(s, 'endtime', @endtime) then begin
-          WriteLn('endtime warning');
+      if GTK_IS_DRAWING_AREA(pipelineElements^.LevelWidget) then begin
+        s := gst_message_get_structure(msg);
+        Name := gst_structure_get_name(s);
+        if strcomp(Name, 'level') = 0 then begin
+          if not gst_structure_get_clock_time(s, 'endtime', @endtime) then begin
+            WriteLn('endtime warning');
+          end;
+
+          array_val := gst_structure_get_value(s, 'decay');
+          if array_val = nil then begin
+            WriteLn('rms error');
+          end;
+          rms_arr := PGValueArray(g_value_get_boxed(array_val));
+
+          channels := rms_arr^.n_values;
+          if channels >= 2 then begin
+            Value := g_value_array_get_nth(rms_arr, 0);
+            pipelineElements^.Level.L := g_value_get_double(Value);
+            Value := g_value_array_get_nth(rms_arr, 1);
+            pipelineElements^.Level.R := g_value_get_double(Value);
+          end;
         end;
 
-        array_val := gst_structure_get_value(s, 'decay');
-        if array_val = nil then begin
-          WriteLn('rms error');
-        end;
-        rms_arr := PGValueArray(g_value_get_boxed(array_val));
+        g_object_set_data(G_OBJECT(pipelineElements^.LevelWidget), LevelKey, @pipelineElements^.Level);
 
-        channels := rms_arr^.n_values;
-        if channels >= 2 then begin
-          Value := g_value_array_get_nth(rms_arr, 0);
-          pipelineElements^.Level.L := g_value_get_double(Value);
-          Value := g_value_array_get_nth(rms_arr, 1);
-          pipelineElements^.Level.R := g_value_get_double(Value);
-        end;
+        gtk_widget_queue_draw(pipelineElements^.LevelWidget);
       end;
+
       //      if streamer.OnLevelChange <> nil then begin
       //        streamer.OnLevelChange(streamer.pipelineElements^.Level);
       //      end;
@@ -177,6 +193,7 @@ begin
 
   pipelineElements^.FisEnd := False;
   pipelineElements^.Duration := 0;
+  pipelineElements^.LevelWidget := nil;
   pipelineElements^.Level.L := 0.0;
   pipelineElements^.Level.R := 0.0;
   self := gst_parse_launch(PChar('filesrc location="' + AsongPath + '" ! queue ! decodebin3 ! audioconvert ! audioresample ! volume name=vol ! level name=level ! autoaudiosink'), nil);
@@ -192,6 +209,7 @@ begin
     WriteLn('Level Error');
   end else begin
     g_object_set(G_OBJECT(LevelEl), 'post-messages', True, nil);
+    g_object_set(G_OBJECT(LevelEl), 'interval', GST_SECOND div 50, nil);
   end;
   g_object_unref(LevelEl);
 
@@ -209,7 +227,7 @@ begin
   Stop;
   gst_object_unref(pipelineElements^.volume);
   gst_object_unref(Self);
-  self:=nil;
+  self := nil;
 end;
 
 procedure PStreamerHelper.Play;
@@ -277,6 +295,14 @@ var
 begin
   pipelineElements := g_object_get_data(G_OBJECT(Self), pipelineKey);
   Result := pipelineElements^.FIsEnd;
+end;
+
+procedure PStreamerHelper.SetLevelWidget(w: PGtkWidget);
+var
+  pipelineElements: PPipelineElements;
+begin
+  pipelineElements := g_object_get_data(G_OBJECT(Self), pipelineKey);
+  pipelineElements^.LevelWidget := w;
 end;
 
 // ==== Inizialisierung

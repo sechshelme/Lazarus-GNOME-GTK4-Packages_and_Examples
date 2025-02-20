@@ -36,6 +36,8 @@ procedure LoadNewMusic(const titel: string);
 begin
   PriStream.Create(titel);
   PriStream.Volume := 0.0;
+
+  PriStream.SetLevelWidget(VU_Meter);
   //  PriStream.OnLevelChange := @PriStreamLevelChange;
 
   PriStream.Play;
@@ -98,10 +100,11 @@ begin
         if PriStream.isEnd or (PriStream.Duration - PriStream.Position < CFTime) then begin
           if SekStream <> nil then begin
             SekStream.Destroy;
-//            FreeAndNil(SekStream);
           end;
           SekStream := PriStream;
-//          SekStream.OnLevelChange := nil;
+
+         SekStream.SetLevelWidget(nil);
+          //          SekStream.OnLevelChange := nil;
 
           if index >= 0 then begin
             if index >= Count - 1 then begin
@@ -135,7 +138,6 @@ begin
     end;
 
     if SekStream.isEnd then begin
-//      FreeAndNil(SekStream);
       SekStream.Destroy;
     end;
   end;
@@ -201,7 +203,6 @@ begin
       if PriStream <> nil then begin
         PriStream.Stop;
         PriStream.Destroy;
-//        FreeAndNil(PriStream);
         gtk_adjustment_set_value(adjustment, 0);
         gtk_adjustment_set_upper(adjustment, 1000);
       end;
@@ -235,7 +236,6 @@ begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
             PriStream.Destroy;
-//            FreeAndNil(PriStream);
             LoadNewMusic(song^.Titel);
             g_object_unref(item_obj2);
           end;
@@ -258,7 +258,6 @@ begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
             PriStream.Destroy;
-//            FreeAndNil(PriStream);
             LoadNewMusic(song^.Titel);
             g_object_unref(item_obj2);
           end;
@@ -372,11 +371,9 @@ begin
   end;
   if PriStream <> nil then begin
     PriStream.Destroy;
-//    FreeAndNil(PriStream);
   end;
   if SekStream <> nil then begin
     SekStream.Destroy;
-//    FreeAndNil(SekStream);
   end;
 end;
 

@@ -8,6 +8,7 @@ uses
   //  fp_GLIBTools,
   fp_GDK4,
   fp_GTK4,
+  Streamer,
   culumn_view,
   LoadTitle,
   MenuBar;
@@ -20,23 +21,38 @@ uses
   procedure VU_draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
   const
     border = 3;
+  var
+    Level: PLevel;
+    w: Tguint32;
+
+    function dB_to_Prozent(db: Tgdouble): Tguint32;
+    begin
+      Result := 300 - abs(Round(db) * 10);
+    end;
+
   begin
-    cairo_set_source_rgb(cr, 1.0, 1.0, 1.0);  // Weiß
+    cairo_set_source_rgb(cr, 0.0, 0.0, 0.0);
     cairo_rectangle(cr, 0, 0, Width, Height);
     cairo_fill(cr);
 
-    cairo_set_source_rgb(cr, 1.0, 0.0, 0.0);  // Rot
-    cairo_rectangle(cr, border, border, Width / 2, Height / 2 - 2 * border);
-    cairo_fill(cr);
+    Level := g_object_get_data(G_OBJECT(drawing_area), LevelKey);
+    if Level <> nil then begin
 
-    cairo_set_source_rgb(cr, 1.0, 0.0, 0.0);  // Rot
-    cairo_rectangle(cr, border, Height / 2 + border, Width / 2, Height / 2 - 2 * border);
-    cairo_fill(cr);
+      w := dB_to_Prozent(Level^.L);
+      cairo_set_source_rgb(cr, 1.0, 0.0, 0.0);  // Rot
+      cairo_rectangle(cr, border, border, border + w, Height / 2 - 2 * border);
+      cairo_fill(cr);
+
+      w := dB_to_Prozent(Level^.R);
+      cairo_set_source_rgb(cr, 1.0, 0.0, 0.0);  // Rot
+      cairo_rectangle(cr, border, Height / 2 + border, border + w, Height / 2 - 2 * border);
+      cairo_fill(cr);
+    end;
   end;
 
   function CreateMediaControlsPanel: PGtkWidget;
   var
-    buttonBox, scale, VU_Meter, hbox: PGtkWidget;
+    buttonBox, scale, hbox: PGtkWidget;
   begin
     Result := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
 
@@ -86,8 +102,10 @@ uses
     scale, mediaControlPanel, HBox: PGtkWidget;
     mainmenu: PGMenu;
   begin
+    g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
+
     window := gtk_application_window_new(app);
-    gtk_window_set_title(GTK_WINDOW(window), 'GTK4 Border und Bevel');
+    gtk_window_set_title(GTK_WINDOW(window), 'Media Player');
     gtk_window_set_default_size(GTK_WINDOW(window), 600, 400);
 
     panedBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
