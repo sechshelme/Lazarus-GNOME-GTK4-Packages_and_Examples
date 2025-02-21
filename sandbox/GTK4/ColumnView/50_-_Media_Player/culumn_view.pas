@@ -9,16 +9,16 @@ uses
 var
   IsChange: boolean = False;
   changed_handler_id: Tgulong;
+  SekStream: PStreamer = nil;
+  PriStream: PStreamer = nil;
 
 const
   CFTime = 13 * 1000; // 3s
   FITime = CFTime;
   FATime = FITime;
 
-
-var
-  SekStream: PStreamer = nil;
-  PriStream: PStreamer = nil;
+  scaleObjectKey = 'scale-widget';
+  VUObjectKey = 'VU-widget';
 
 function Create_ListBoxWidget: PGtkWidget;
 
@@ -32,14 +32,11 @@ const
     'Titel',
     'Dauer');
 
-procedure LoadNewMusic(const titel: string);
+procedure LoadNewMusic(const titel: string; VU_Meter:PGtkWidget);
 begin
   PriStream.Create(titel);
   PriStream.Volume := 0.0;
-
   PriStream.SetLevelWidget(VU_Meter);
-  //  PriStream.OnLevelChange := @PriStreamLevelChange;
-
   PriStream.Play;
 end;
 
@@ -48,6 +45,7 @@ function timerFunc(user_data: Tgpointer): Tgboolean; cdecl;
 var
   column_view: PGtkColumnView absolute user_data;
   scale: PGtkWidget = nil;
+  VU_Meter: PGtkWidget = nil;
   adjustment: PGtkAdjustment;
   SPos, SDur: TGstClockTime;
   volume: single;
@@ -71,7 +69,9 @@ begin
     index := gtk_bitset_get_nth(selected, 0);
   end;
 
+  VU_Meter := g_object_get_data(G_OBJECT(column_view), VUObjectKey);
   scale := g_object_get_data(G_OBJECT(column_view), scaleObjectKey);
+
   adjustment := gtk_range_get_adjustment(GTK_RANGE(scale));
   g_signal_handler_block(scale, changed_handler_id);
 
@@ -116,7 +116,7 @@ begin
             song := g_object_get_data(item_obj, songObjectKey);
             gtk_adjustment_set_upper(adjustment, 0);
             gtk_adjustment_set_value(adjustment, 0);
-            LoadNewMusic(song^.Titel);
+            LoadNewMusic(song^.Titel, VU_Meter);
             g_object_unref(item_obj);
             gtk_selection_model_select_item(selection_model, index2, True);
           end;
@@ -161,11 +161,14 @@ var
   item_obj, item_obj2: PGObject;
   song: PSong = nil;
 
+  VU_Meter: PGtkWidget = nil;
   scale: PGtkWidget = nil;
   adjustment: PGtkAdjustment;
   index2: Tgint;
 begin
+  VU_Meter := g_object_get_data(G_OBJECT(column_view), VUObjectKey);
   scale := g_object_get_data(G_OBJECT(column_view), scaleObjectKey);
+
   adjustment := gtk_range_get_adjustment(GTK_RANGE(scale));
   WriteLn(GTK_IS_SCALE(scale));
 
@@ -187,7 +190,7 @@ begin
     'listbox.play': begin
       if PriStream = nil then begin
         if Count > 0 then begin
-          LoadNewMusic(song^.Titel);
+          LoadNewMusic(song^.Titel, VU_Meter);
         end;
       end else begin
         PriStream.Play;
@@ -236,7 +239,7 @@ begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
             PriStream.Destroy;
-            LoadNewMusic(song^.Titel);
+            LoadNewMusic(song^.Titel,VU_Meter);
             g_object_unref(item_obj2);
           end;
         end;
@@ -258,7 +261,7 @@ begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
             PriStream.Destroy;
-            LoadNewMusic(song^.Titel);
+            LoadNewMusic(song^.Titel,VU_Meter);
             g_object_unref(item_obj2);
           end;
         end;

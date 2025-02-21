@@ -20,7 +20,6 @@ type
 
 const
   songObjectKey = 'song-object';
-  scaleObjectKey = 'scale-widget';
 
 procedure LoadTitles(store: PGListStore; path: Pgchar);
 

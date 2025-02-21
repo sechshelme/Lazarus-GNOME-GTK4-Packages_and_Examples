@@ -53,10 +53,6 @@ type
     procedure SetLevelWidget(w: PGtkWidget);
   end;
 
-var
-  VU_Meter: PGtkWidget;
-
-
 function GstClockToStr(t: TGstClockTime): string;
 function get_duration(s: string): TGstClockTime;
 
@@ -208,8 +204,10 @@ begin
   if LevelEl = nil then begin
     WriteLn('Level Error');
   end else begin
-    g_object_set(G_OBJECT(LevelEl), 'post-messages', True, nil);
-    g_object_set(G_OBJECT(LevelEl), 'interval', GST_SECOND div 50, nil);
+    g_object_set(G_OBJECT(LevelEl),
+      'post-messages', True,
+      'interval', GST_SECOND div 50,
+      nil);
   end;
   g_object_unref(LevelEl);
 
