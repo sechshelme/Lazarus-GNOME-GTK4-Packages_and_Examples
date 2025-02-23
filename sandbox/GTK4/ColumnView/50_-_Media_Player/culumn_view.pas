@@ -32,15 +32,6 @@ const
     'Titel',
     'Dauer');
 
-procedure LoadNewMusic(const titel: string; VU_Meter:PGtkWidget);
-begin
-  PriStream.Create(titel);
-  PriStream.Volume := 0.0;
-  PriStream.SetLevelWidget(VU_Meter);
-  PriStream.Play;
-end;
-
-
 function timerFunc(user_data: Tgpointer): Tgboolean; cdecl;
 var
   column_view: PGtkColumnView absolute user_data;
@@ -77,8 +68,8 @@ begin
 
   if (PriStream <> nil) then begin
     if IsChange then begin
-            PriStream.Position := Round(gtk_adjustment_get_value(adjustment));
-            IsChange := False;
+      PriStream.Position := Round(gtk_adjustment_get_value(adjustment));
+      IsChange := False;
     end else begin
       SPos := PriStream.Position;
       SDur := PriStream.Duration;
@@ -103,8 +94,7 @@ begin
           end;
           SekStream := PriStream;
 
-         SekStream.SetLevelWidget(nil);
-          //          SekStream.OnLevelChange := nil;
+          SekStream.SetLevelWidget(nil);
 
           if index >= 0 then begin
             if index >= Count - 1 then begin
@@ -116,7 +106,7 @@ begin
             song := g_object_get_data(item_obj, songObjectKey);
             gtk_adjustment_set_upper(adjustment, 0);
             gtk_adjustment_set_value(adjustment, 0);
-            LoadNewMusic(song^.Titel, VU_Meter);
+            PriStream.Create(song^.Titel, VU_Meter);
             g_object_unref(item_obj);
             gtk_selection_model_select_item(selection_model, index2, True);
           end;
@@ -170,7 +160,6 @@ begin
   scale := g_object_get_data(G_OBJECT(column_view), scaleObjectKey);
 
   adjustment := gtk_range_get_adjustment(GTK_RANGE(scale));
-  WriteLn(GTK_IS_SCALE(scale));
 
   action_name := g_action_get_name(G_ACTION(action));
   g_printf('Action, Name: "%s"'#10, Pgchar(action_name));
@@ -190,7 +179,7 @@ begin
     'listbox.play': begin
       if PriStream = nil then begin
         if Count > 0 then begin
-          LoadNewMusic(song^.Titel, VU_Meter);
+          PriStream.Create(song^.Titel, VU_Meter);
         end;
       end else begin
         PriStream.Play;
@@ -211,11 +200,11 @@ begin
       end;
     end;
     'listbox.append': begin
-//      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound');
+      //      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound');
       LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
       LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt');
 
-//      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/midi');
+      //      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/midi');
     end;
     'listbox.remove': begin
       if index >= 0 then begin
@@ -239,7 +228,7 @@ begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
             PriStream.Destroy;
-            LoadNewMusic(song^.Titel,VU_Meter);
+            PriStream.Create(song^.Titel, VU_Meter);
             g_object_unref(item_obj2);
           end;
         end;
@@ -261,7 +250,7 @@ begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
             PriStream.Destroy;
-            LoadNewMusic(song^.Titel,VU_Meter);
+            PriStream.Create(song^.Titel, VU_Meter);
             g_object_unref(item_obj2);
           end;
         end;
@@ -311,12 +300,12 @@ end;
 procedure bind_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;
 var
   col: Tgint absolute user_data;
-  l: PGtkWidget;
+  label_: PGtkWidget;
   item_obj: PGObject;
   song: PSong;
   buffer: Pgchar;
 begin
-  l := gtk_list_item_get_child(list_item);
+  label_ := gtk_list_item_get_child(list_item);
   item_obj := gtk_list_item_get_item(list_item);
   song := g_object_get_data(item_obj, songObjectKey);
   case col of
@@ -330,15 +319,20 @@ begin
       buffer := g_strdup_printf('%d', song^.Duration);
     end;
   end;
-  gtk_label_set_text(GTK_LABEL(l), buffer);
+  gtk_label_set_text(GTK_LABEL(label_), buffer);
 end;
 
 procedure unbind_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;
+var
+  label_: PGtkWidget;
 begin
+  label_ := gtk_list_item_get_child(list_item);
+  gtk_label_set_text(GTK_LABEL(label_), nil);
 end;
 
 procedure teardown_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;
 begin
+  gtk_list_item_set_child(list_item, nil);
 end;
 
 
@@ -350,7 +344,7 @@ begin
   app := g_application_get_default;
   WriteLn('position doubleclick: ', position);
 
-  if (PriStream<>nil)and( PriStream.isPlayed) then begin
+  if (PriStream <> nil) and (PriStream.isPlayed) then begin
     action := g_action_map_lookup_action(G_ACTION_MAP(app), 'listbox.stop');
     if action <> nil then begin
       g_action_activate(action, nil);

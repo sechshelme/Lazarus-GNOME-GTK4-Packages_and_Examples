@@ -40,7 +40,7 @@ type
     procedure SetPosition(AValue: TGstClockTime);
     function GetPosition: TGstClockTime;
   public
-    procedure Create(const AsongPath: string);
+    procedure Create(const AsongPath: string; VU_Widget:PGtkWidget);
     procedure Destroy;
     procedure Play;
     procedure Pause;
@@ -179,7 +179,7 @@ begin
   g_free(Data);
 end;
 
-procedure PStreamerHelper.Create(const AsongPath: string);
+procedure PStreamerHelper.Create(const AsongPath: string; VU_Widget: PGtkWidget  );
 var
   bus: PGstBus;
   LevelEl: PGstElement;
@@ -189,10 +189,10 @@ begin
 
   pipelineElements^.FisEnd := False;
   pipelineElements^.Duration := 0;
-  pipelineElements^.LevelWidget := nil;
+  pipelineElements^.LevelWidget := VU_Widget;
   pipelineElements^.Level.L := 0.0;
   pipelineElements^.Level.R := 0.0;
-  self := gst_parse_launch(PChar('filesrc location="' + AsongPath + '" ! queue ! decodebin3 ! audioconvert ! audioresample ! volume name=vol ! level name=level ! autoaudiosink'), nil);
+  self := gst_parse_launch(PChar('filesrc location="' + AsongPath + '" ! queue ! decodebin3 ! audioconvert ! audioresample ! volume name=vol volume=0.0 ! level name=level ! autoaudiosink'), nil);
   g_object_set_data_full(G_OBJECT(Self), pipelineKey, pipelineElements, @pipeline_free_cp);
 
   pipelineElements^.volume := gst_bin_get_by_name(GST_BIN(Self), 'vol');
@@ -215,6 +215,8 @@ begin
   gst_bus_add_signal_watch(bus);
   g_signal_connect(G_OBJECT(bus), 'message', TGCallback(@message_cb), Self);
   gst_object_unref(bus);
+
+  gst_element_set_state(Self, GST_STATE_PLAYING);
 end;
 
 procedure PStreamerHelper.Destroy;
