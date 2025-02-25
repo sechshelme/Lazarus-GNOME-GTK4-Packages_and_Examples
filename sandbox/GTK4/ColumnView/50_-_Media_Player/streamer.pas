@@ -40,7 +40,7 @@ type
     procedure SetPosition(AValue: TGstClockTime);
     function GetPosition: TGstClockTime;
   public
-    procedure Create(const AsongPath: string; VU_Widget:PGtkWidget);
+    procedure Create(const AsongPath: string; VU_Widget: PGtkWidget);
     procedure Destroy;
     procedure Play;
     procedure Pause;
@@ -132,12 +132,13 @@ begin
             WriteLn('endtime warning');
           end;
 
-          array_val := gst_structure_get_value(s, 'decay');
+          array_val := gst_structure_get_value(s, 'rms'); // decay, rms, peak
           if array_val = nil then begin
-            WriteLn('rms error');
+            Exit;
           end;
-          rms_arr := PGValueArray(g_value_get_boxed(array_val));
+          rms_arr := g_value_get_boxed(array_val);
 
+// https://www.perplexity.ai/search/g-value-array-get-nth-ist-vera-t3T1VE1MROaWvC41iReDkA
           channels := rms_arr^.n_values;
           if channels >= 2 then begin
             Value := g_value_array_get_nth(rms_arr, 0);
@@ -145,11 +146,10 @@ begin
             Value := g_value_array_get_nth(rms_arr, 1);
             pipelineElements^.Level.R := g_value_get_double(Value);
           end;
+
+          g_object_set_data(G_OBJECT(pipelineElements^.LevelWidget), LevelKey, @pipelineElements^.Level);
+          gtk_widget_queue_draw(pipelineElements^.LevelWidget);
         end;
-
-        g_object_set_data(G_OBJECT(pipelineElements^.LevelWidget), LevelKey, @pipelineElements^.Level);
-
-        gtk_widget_queue_draw(pipelineElements^.LevelWidget);
       end;
     end;
     GST_MESSAGE_ERROR: begin
@@ -175,7 +175,7 @@ begin
   g_free(Data);
 end;
 
-procedure PStreamerHelper.Create(const AsongPath: string; VU_Widget: PGtkWidget  );
+procedure PStreamerHelper.Create(const AsongPath: string; VU_Widget: PGtkWidget);
 var
   bus: PGstBus;
   LevelEl: PGstElement;

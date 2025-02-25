@@ -7,8 +7,6 @@ uses
   LoadTitle, Streamer;
 
 var
-  IsChange: boolean = False;
-  changed_handler_id: Tgulong;
   SekStream: PStreamer = nil;
   PriStream: PStreamer = nil;
 
@@ -17,8 +15,16 @@ const
   FITime = CFTime;
   FATime = FITime;
 
-  scaleObjectKey = 'scale-widget';
-  VUObjectKey = 'VU-widget';
+sharedWidgetKey = 'shared-widget';
+
+  type
+    TSharedWidget=record
+      VUMeter,
+      scale:PGtkWidget;
+      IsChange:Boolean;
+      scale_changed_id:Tgulong;
+    end;
+    PSharedWidget=^TSharedWidget;
 
 function Create_ListBoxWidget: PGtkWidget;
 
@@ -46,8 +52,6 @@ const
 function timerFunc(user_data: Tgpointer): Tgboolean; cdecl;
 var
   column_view: PGtkColumnView absolute user_data;
-  scale: PGtkWidget = nil;
-  VU_Meter: PGtkWidget = nil;
   adjustment: PGtkAdjustment;
   SPos, SDur: TGstClockTime;
   selection_model: PGtkSelectionModel;
@@ -59,8 +63,11 @@ var
 
   item_obj: PGObject;
   song: PSong = nil;
+  sharedWidget: PSharedWidget;
 
 begin
+  sharedWidget:=g_object_get_data(G_OBJECT(column_view), sharedWidgetKey);
+
   selection_model := gtk_column_view_get_model(column_view);
   list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
   Count := g_list_model_get_n_items(list_model);
@@ -70,16 +77,13 @@ begin
     index := gtk_bitset_get_nth(selected, 0);
   end;
 
-  VU_Meter := g_object_get_data(G_OBJECT(column_view), VUObjectKey);
-  scale := g_object_get_data(G_OBJECT(column_view), scaleObjectKey);
-
-  adjustment := gtk_range_get_adjustment(GTK_RANGE(scale));
-  g_signal_handler_block(scale, changed_handler_id);
+  adjustment := gtk_range_get_adjustment(GTK_RANGE(sharedWidget^.scale));
+  g_signal_handler_block(sharedWidget^.scale, sharedWidget^.scale_changed_id);
 
   if PriStream <> nil then begin
-    if IsChange then begin
+    if sharedWidget^.IsChange then begin
       PriStream.Position := Round(gtk_adjustment_get_value(adjustment));
-      IsChange := False;
+      sharedWidget^.IsChange := False;
     end else begin
       SPos := PriStream.Position;
       SDur := PriStream.Duration;
@@ -110,7 +114,7 @@ begin
             song := g_object_get_data(item_obj, songObjectKey);
             gtk_adjustment_set_upper(adjustment, 0);
             gtk_adjustment_set_value(adjustment, 0);
-            PriStream.Create(song^.Titel, VU_Meter);
+            PriStream.Create(song^.Titel, sharedWidget^.VUMeter);
             g_object_unref(item_obj);
             gtk_selection_model_select_item(selection_model, index2, True);
           end;
@@ -132,14 +136,14 @@ begin
   //      Lab_Track_Value.Caption := IntToStr(ListView.ItemIndex + 1) + '/' + ListView.Items.Count.ToString;
   //    end;
 
-  g_signal_handler_unblock(scale, changed_handler_id);
+  g_signal_handler_unblock(sharedWidget^.scale, sharedWidget^.scale_changed_id);
   Result := G_SOURCE_CONTINUE;
 end;
 
 procedure action_cp(action: PGSimpleAction; {%H-}parameter: PGVariant; user_data: Tgpointer); cdecl;
 var
-  action_name: string;
   column_view: PGtkColumnView absolute user_data;
+  sharedWidget: PSharedWidget;
   selection_model: PGtkSelectionModel;
   list_model: PGListModel;
   Count: Tguint;
@@ -147,16 +151,13 @@ var
   selected: PGtkBitset;
   item_obj, item_obj2: PGObject;
   song: PSong = nil;
-
-  VU_Meter: PGtkWidget = nil;
-  scale: PGtkWidget = nil;
   adjustment: PGtkAdjustment;
   index2: Tgint;
+  action_name: string;
 begin
-  VU_Meter := g_object_get_data(G_OBJECT(column_view), VUObjectKey);
-  scale := g_object_get_data(G_OBJECT(column_view), scaleObjectKey);
+  sharedWidget:=g_object_get_data(G_OBJECT(column_view), sharedWidgetKey);
 
-  adjustment := gtk_range_get_adjustment(GTK_RANGE(scale));
+  adjustment := gtk_range_get_adjustment(GTK_RANGE(sharedWidget^.scale));
 
   action_name := g_action_get_name(G_ACTION(action));
   g_printf('Action, Name: "%s"'#10, Pgchar(action_name));
@@ -176,7 +177,7 @@ begin
     'listbox.play': begin
       if PriStream = nil then begin
         if Count > 0 then begin
-          PriStream.Create(song^.Titel, VU_Meter);
+          PriStream.Create(song^.Titel, sharedWidget^.VUMeter);
         end;
       end else begin
         PriStream.Play;
@@ -225,7 +226,7 @@ begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
             PriStream.Destroy;
-            PriStream.Create(song^.Titel, VU_Meter);
+            PriStream.Create(song^.Titel, sharedWidget^.VUMeter);
             g_object_unref(item_obj2);
           end;
         end;
@@ -247,7 +248,7 @@ begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
             PriStream.Destroy;
-            PriStream.Create(song^.Titel, VU_Meter);
+            PriStream.Create(song^.Titel, sharedWidget^.VUMeter);
             g_object_unref(item_obj2);
           end;
         end;
@@ -339,7 +340,6 @@ var
   action: PGAction;
 begin
   app := g_application_get_default;
-  WriteLn('position doubleclick: ', position);
 
   if (PriStream <> nil) and (PriStream.isPlayed) then begin
     action := g_action_map_lookup_action(G_ACTION_MAP(app), 'listbox.stop');
@@ -379,9 +379,6 @@ const
     'listbox.play',
     'listbox.stop',
     'listbox.pause',
-    //    'listbox.forward',
-    //    'listbox.backward',
-
     'listbox.next',
     'listbox.prev',
     'listbox.append',
@@ -443,7 +440,6 @@ begin
   end;
 
   idle_id := g_timeout_add(100, @timerFunc, column_view);
-  //  idle_id := g_idle_add(@timerFunc, column_view);
   g_signal_connect(column_view, 'destroy', G_CALLBACK(@on_columnview_destroy), GINT_TO_POINTER(idle_id));
 
   Result := column_view;
