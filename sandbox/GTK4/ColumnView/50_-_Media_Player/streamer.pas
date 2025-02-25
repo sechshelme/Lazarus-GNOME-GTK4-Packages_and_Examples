@@ -31,8 +31,6 @@ type
 
   PStreamer = type PGstElement;
 
-  { PStreamerHelper }
-
   PStreamerHelper = type Helper for PStreamer
   private
     function GetDuration: TGstClockTime;
@@ -105,7 +103,6 @@ var
 
   s: PGstStructure;
   Name, debug_info: Pgchar;
-  endtime: TGstClockTime;
   array_val: PGValue;
   rms_arr: PGValueArray;
   channels: Tguint;
@@ -127,18 +124,11 @@ begin
       if GTK_IS_DRAWING_AREA(pipelineElements^.LevelWidget) then begin
         s := gst_message_get_structure(msg);
         Name := gst_structure_get_name(s);
-        if strcomp(Name, 'level') = 0 then begin
-          if not gst_structure_get_clock_time(s, 'endtime', @endtime) then begin
-            WriteLn('endtime warning');
-          end;
+        if g_strcmp0(Name, 'level') = 0 then begin
 
           array_val := gst_structure_get_value(s, 'rms'); // decay, rms, peak
-          if array_val = nil then begin
-            Exit;
-          end;
           rms_arr := g_value_get_boxed(array_val);
 
-// https://www.perplexity.ai/search/g-value-array-get-nth-ist-vera-t3T1VE1MROaWvC41iReDkA
           channels := rms_arr^.n_values;
           if channels >= 2 then begin
             Value := g_value_array_get_nth(rms_arr, 0);
