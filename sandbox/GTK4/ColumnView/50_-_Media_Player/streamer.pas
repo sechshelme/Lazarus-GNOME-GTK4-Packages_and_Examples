@@ -151,10 +151,6 @@ begin
 
         gtk_widget_queue_draw(pipelineElements^.LevelWidget);
       end;
-
-      //      if streamer.OnLevelChange <> nil then begin
-      //        streamer.OnLevelChange(streamer.pipelineElements^.Level);
-      //      end;
     end;
     GST_MESSAGE_ERROR: begin
       gst_message_parse_error(msg, @err, @debug_info);
@@ -213,7 +209,7 @@ begin
 
   bus := gst_element_get_bus(Self);
   gst_bus_add_signal_watch(bus);
-  g_signal_connect(G_OBJECT(bus), 'message', TGCallback(@message_cb), Self);
+  g_signal_connect(G_OBJECT(bus), 'message', G_CALLBACK(@message_cb), Self);
   gst_object_unref(bus);
 
   gst_element_set_state(Self, GST_STATE_PLAYING);

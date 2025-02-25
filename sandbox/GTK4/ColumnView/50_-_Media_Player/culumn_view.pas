@@ -26,6 +26,17 @@ implementation
 
 // ==== private
 
+function clamp01(v: single): single; inline;
+begin
+  if v < 0.0 then begin
+    Result := 0.0;
+  end else if v > 1.0 then begin
+    Result := 1.0;
+  end else begin
+    Result := v;
+  end;
+end;
+
 const
   ColTitles: array of Pgchar = (
     'Index',
@@ -39,7 +50,6 @@ var
   VU_Meter: PGtkWidget = nil;
   adjustment: PGtkAdjustment;
   SPos, SDur: TGstClockTime;
-  volume: single;
   selection_model: PGtkSelectionModel;
   list_model: PGListModel;
   Count: Tguint;
@@ -66,7 +76,7 @@ begin
   adjustment := gtk_range_get_adjustment(GTK_RANGE(scale));
   g_signal_handler_block(scale, changed_handler_id);
 
-  if (PriStream <> nil) then begin
+  if PriStream <> nil then begin
     if IsChange then begin
       PriStream.Position := Round(gtk_adjustment_get_value(adjustment));
       IsChange := False;
@@ -78,14 +88,8 @@ begin
 
       //        PlayPanel.DurationValueLabel.Caption := GstClockToStr(SDur);
       //        PlayPanel.PositionValueLabel.Caption := GstClockToStr(SPos);
-      volume := PriStream.Position / FITime;
-      if volume > 1.0 then begin
-        volume := 1.0;
-      end;
-      if volume < 0.0 then begin
-        volume := 0.0;
-      end;
-      PriStream.Volume := volume;
+
+      PriStream.Volume := clamp01(PriStream.Position / FITime);
 
       if PriStream.Duration > 0 then begin
         if PriStream.isEnd or (PriStream.Duration - PriStream.Position < CFTime) then begin
@@ -117,14 +121,7 @@ begin
 
   if SekStream <> nil then begin
     if SekStream.Duration > 0 then begin
-      volume := (SekStream.Duration - SekStream.Position) / FITime;
-      if volume > 1.0 then begin
-        volume := 1.0;
-      end;
-      if volume < 0.0 then begin
-        volume := 0.0;
-      end;
-      SekStream.Volume := volume;
+      SekStream.Volume := clamp01((SekStream.Duration - SekStream.Position) / FITime);
     end;
 
     if SekStream.isEnd then begin
