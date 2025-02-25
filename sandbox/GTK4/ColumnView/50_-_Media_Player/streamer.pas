@@ -86,7 +86,7 @@ begin
   min := t div 60000;
   s := (t mod 60000) div 1000;
   ms := t mod 1000;
-  WriteStr(Result, min: 3, ':', s: 2, ':', ms div 100: 1);
+  WriteStr(Result, min: 2, ':', s: 2, ':', ms div 100: 1);
   for i := 1 to Length(Result) do begin
     if Result[i] = ' ' then begin
       Result[i] := '0';

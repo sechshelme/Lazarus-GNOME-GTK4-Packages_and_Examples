@@ -19,6 +19,8 @@ sharedWidgetKey = 'shared-widget';
 
   type
     TSharedWidget=record
+      LabelPosition,
+      LabelDuration,
       VUMeter,
       scale:PGtkWidget;
       IsChange:Boolean;
@@ -64,6 +66,7 @@ var
   item_obj: PGObject;
   song: PSong = nil;
   sharedWidget: PSharedWidget;
+  s: String;
 
 begin
   sharedWidget:=g_object_get_data(G_OBJECT(column_view), sharedWidgetKey);
@@ -90,8 +93,10 @@ begin
       gtk_adjustment_set_upper(adjustment, SDur);
       gtk_adjustment_set_value(adjustment, SPos);
 
-      //        PlayPanel.DurationValueLabel.Caption := GstClockToStr(SDur);
-      //        PlayPanel.PositionValueLabel.Caption := GstClockToStr(SPos);
+      s:=GstClockToStr(SPos);
+      gtk_label_set_label(GTK_LABEL( sharedWidget^.LabelPosition), PChar(s));
+      s:=GstClockToStr(SDur);
+      gtk_label_set_label(GTK_LABEL( sharedWidget^.LabelDuration), PChar(s));
 
       PriStream.Volume := clamp01(PriStream.Position / FITime);
 

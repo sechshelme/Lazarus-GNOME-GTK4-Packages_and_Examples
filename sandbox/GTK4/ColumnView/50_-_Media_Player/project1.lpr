@@ -103,7 +103,7 @@ uses
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, mainBox, buttonBox, label1, columnView, scrolled_window: PGtkWidget;
-    mediaControlPanel, HBox: PGtkWidget;
+    mediaControlPanel, HBox, VBox, Label_Box, lab1: PGtkWidget;
     sharedWidget: PSharedWidget;
     mainmenu: PGMenu;
     action: PGSimpleAction;
@@ -132,6 +132,7 @@ uses
     g_object_unref(mainmenu);
 
     action := g_simple_action_new('quit', nil);
+//    action := g_simple_action_new_stateful('quit', nil, g_variant_new_boolean(True));
     g_signal_connect(action, 'activate', G_CALLBACK(@action_cp), nil);
     g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
     g_object_unref(action);
@@ -151,9 +152,34 @@ uses
     gtk_widget_set_hexpand(HBox, True);
     gtk_box_append(GTK_BOX(mainBox), HBox);
 
+    VBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+
+    // Position/Duration
+    Label_Box:= gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+    gtk_widget_set_margin_start(Label_Box, 15);
+
+    lab1:=gtk_label_new('Position:');
+    gtk_box_append(GTK_BOX(Label_Box), lab1);
+    sharedWidget^.LabelPosition:=gtk_label_new('00:00:0');
+    gtk_widget_set_size_request(sharedWidget^.LabelPosition, 60, -1);
+    gtk_label_set_xalign(GTK_LABEL(sharedWidget^.LabelPosition), 1.0);
+    gtk_box_append(GTK_BOX(Label_Box), sharedWidget^.LabelPosition);
+
+    lab1:=gtk_label_new('Duration:');
+    gtk_box_append(GTK_BOX(Label_Box), lab1);
+    sharedWidget^.LabelDuration:=gtk_label_new('00:00:0');
+    gtk_widget_set_size_request(sharedWidget^.LabelDuration, 60, -1);
+    gtk_label_set_xalign(GTK_LABEL(sharedWidget^.LabelDuration), 1.0);
+    gtk_box_append(GTK_BOX(Label_Box), sharedWidget^.LabelDuration);
+
+    gtk_box_append(GTK_BOX(VBox), Label_Box);
+
     // MediaButton
     mediaControlPanel := CreateMediaControlsPanel;
-    gtk_box_append(GTK_BOX(HBox), mediaControlPanel);
+    gtk_box_append(GTK_BOX(VBox), mediaControlPanel);
+
+    gtk_box_append(GTK_BOX(HBox), VBox);
+
 
     // VU-Meter
     sharedWidget^.VUMeter := gtk_drawing_area_new;
