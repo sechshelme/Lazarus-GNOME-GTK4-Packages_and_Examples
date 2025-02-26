@@ -41,7 +41,7 @@ typedef xmlValidState *xmlValidStatePtr;
  */
 typedef void ( *xmlValidityErrorFunc) (void *ctx,
 			     const char *msg,
-			     ...) LIBXML_ATTR_FORMAT(2,3);
+			     ...) ;
 
 /**
  * xmlValidityWarningFunc:
@@ -56,7 +56,7 @@ typedef void ( *xmlValidityErrorFunc) (void *ctx,
  */
 typedef void ( *xmlValidityWarningFunc) (void *ctx,
 			       const char *msg,
-			       ...) LIBXML_ATTR_FORMAT(2,3);
+			       ...);
 
 #ifdef IN_LIBXML
 /**

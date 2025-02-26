@@ -144,8 +144,8 @@ typedef enum {
  * 2 core expressions shared by all for the empty language set
  * and for the set with just the empty token
  */
-XMLPUBVAR xmlExpNodePtr forbiddenExp;
-XMLPUBVAR xmlExpNodePtr emptyExp;
+extern xmlExpNodePtr forbiddenExp;
+extern xmlExpNodePtr emptyExp;
 
 /*
  * Expressions are reference counted internally

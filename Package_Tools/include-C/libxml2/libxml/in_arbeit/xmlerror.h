@@ -844,7 +844,7 @@ typedef enum {
  */
 typedef void ( *xmlGenericErrorFunc) (void *ctx,
 				 const char *msg,
-				 ...) LIBXML_ATTR_FORMAT(2,3);
+				 ...) ;
 /**
  * xmlStructuredErrorFunc:
  * @userData:  user provided data for the error callback
@@ -875,19 +875,19 @@ extern void
 extern void 
     xmlParserError		(void *ctx,
 				 const char *msg,
-				 ...) LIBXML_ATTR_FORMAT(2,3);
+				 ...) ;
 extern void 
     xmlParserWarning		(void *ctx,
 				 const char *msg,
-				 ...) LIBXML_ATTR_FORMAT(2,3);
+				 ...) ;
 extern void 
     xmlParserValidityError	(void *ctx,
 				 const char *msg,
-				 ...) LIBXML_ATTR_FORMAT(2,3);
+				 ...) ;
 extern void 
     xmlParserValidityWarning	(void *ctx,
 				 const char *msg,
-				 ...) LIBXML_ATTR_FORMAT(2,3);
+				 ...) ;
 extern void 
     xmlParserPrintFileInfo	(xmlParserInputPtr input);
 extern void 
@@ -931,13 +931,13 @@ extern void
 				 int int1,
 				 int col,
 				 const char *msg,
-				 ...) LIBXML_ATTR_FORMAT(16,17);
+				 ...) ;
 extern void 
     __xmlSimpleError		(int domain,
 				 int code,
 				 xmlNodePtr node,
 				 const char *msg,
-				 const char *extra) LIBXML_ATTR_FORMAT(4,0);
+				 const char *extra) ;
 #endif
 #ifdef __cplusplus
 }

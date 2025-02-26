@@ -6,6 +6,12 @@ uses
   encoding,
   xmlIO,
   tree,
+  list,
+  xmlregexp,
+  xmlautomata,
+  valid,
+  hash,
+  xmlerror,
   parser,             // {$ifdef LIBXML_SAX1_ENABLED}
 
   Math, xml2_common;
