@@ -8,7 +8,8 @@ uses
   ctypes,
   fp_glib2,
   //  fp_GLIBTools,
-  fp_GTK4;
+  fp_GTK4,
+  Streamer;
 
 type
   TSong = record
@@ -45,7 +46,7 @@ end;
 function OpenTitel1(user_data: Tgpointer): Tgboolean; cdecl;
 var
   dirStruct: PDirStruct absolute user_data;
-  entryName: Pgchar;
+  entryName, fullPath: Pgchar;
   obj: PGObject;
   song: PSong;
   i: integer;
@@ -138,8 +139,9 @@ begin
     if g_str_has_suffix(entryName, suffixe[i]) then  begin
       song := g_malloc(SizeOf(TSong));
       song^.Index := index;
-      song^.Titel := g_strdup(PChar(dirStruct^.path + '/' + entryName));
-      song^.Duration := Random(100);
+      fullPath:=     g_strdup(PChar(dirStruct^.path + '/' + entryName));
+      song^.Titel :=fullPath;
+      song^.Duration := get_duration(fullPath);
       Inc(index);
 
       obj := g_object_new(G_TYPE_OBJECT, nil);

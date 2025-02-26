@@ -52,7 +52,7 @@ type
   end;
 
 function GstClockToStr(t: TGstClockTime): string;
-function get_duration(s: string): TGstClockTime;
+function get_duration(s: Pgchar): TGstClockTime;
 
 
 implementation
@@ -60,7 +60,7 @@ implementation
 const
   pipelineKey = 'pipelineKey';
 
-function get_duration(s: string): TGstClockTime;
+function get_duration(s: Pgchar): TGstClockTime;
 var
   discoverer: Pointer;
   info: Pointer;

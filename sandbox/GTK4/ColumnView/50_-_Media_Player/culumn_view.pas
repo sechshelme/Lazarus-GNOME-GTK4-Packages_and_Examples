@@ -207,7 +207,14 @@ begin
       LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
       LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt');
 
-      //      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/midi');
+            LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/midi');
+
+            LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Black Bear Roa');
+            LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits');
+            LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/MCcall & Company');
+            LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Roses For Mama');
+            LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Rubber Duck');
+            LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Wolf Creek Pass');
     end;
     'listbox.remove': begin
       if index >= 0 then begin
@@ -319,7 +326,7 @@ begin
       buffer := g_strdup_printf('%s', song^.Titel);
     end;
     2: begin
-      buffer := g_strdup_printf('%d', song^.Duration);
+      buffer := g_strdup_printf('%s', PChar( GstClockToStr( song^.Duration)));
     end;
   end;
   gtk_label_set_text(GTK_LABEL(label_), buffer);
