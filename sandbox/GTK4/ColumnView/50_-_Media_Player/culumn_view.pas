@@ -15,18 +15,18 @@ const
   FITime = CFTime;
   FATime = FITime;
 
-sharedWidgetKey = 'shared-widget';
+  sharedWidgetKey = 'shared-widget';
 
-  type
-    TSharedWidget=record
-      LabelPosition,
-      LabelDuration,
-      VUMeter,
-      scale:PGtkWidget;
-      IsChange:Boolean;
-      scale_changed_id:Tgulong;
-    end;
-    PSharedWidget=^TSharedWidget;
+type
+  TSharedWidget = record
+    LabelPosition,
+    LabelDuration,
+    VUMeter,
+    scale: PGtkWidget;
+    IsChange: boolean;
+    scale_changed_id: Tgulong;
+  end;
+  PSharedWidget = ^TSharedWidget;
 
 function Create_ListBoxWidget: PGtkWidget;
 
@@ -66,10 +66,10 @@ var
   item_obj: PGObject;
   song: PSong = nil;
   sharedWidget: PSharedWidget;
-  s: String;
+  s: string;
 
 begin
-  sharedWidget:=g_object_get_data(G_OBJECT(column_view), sharedWidgetKey);
+  sharedWidget := g_object_get_data(G_OBJECT(column_view), sharedWidgetKey);
 
   selection_model := gtk_column_view_get_model(column_view);
   list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
@@ -93,10 +93,10 @@ begin
       gtk_adjustment_set_upper(adjustment, SDur);
       gtk_adjustment_set_value(adjustment, SPos);
 
-      s:=GstClockToStr(SPos);
-      gtk_label_set_label(GTK_LABEL( sharedWidget^.LabelPosition), PChar(s));
-      s:=GstClockToStr(SDur);
-      gtk_label_set_label(GTK_LABEL( sharedWidget^.LabelDuration), PChar(s));
+      s := GstClockToStr(SPos);
+      gtk_label_set_label(GTK_LABEL(sharedWidget^.LabelPosition), PChar(s));
+      s := GstClockToStr(SDur);
+      gtk_label_set_label(GTK_LABEL(sharedWidget^.LabelDuration), PChar(s));
 
       PriStream.Volume := clamp01(PriStream.Position / FITime);
 
@@ -160,7 +160,7 @@ var
   index2: Tgint;
   action_name: string;
 begin
-  sharedWidget:=g_object_get_data(G_OBJECT(column_view), sharedWidgetKey);
+  sharedWidget := g_object_get_data(G_OBJECT(column_view), sharedWidgetKey);
 
   adjustment := gtk_range_get_adjustment(GTK_RANGE(sharedWidget^.scale));
 
@@ -204,17 +204,18 @@ begin
     end;
     'listbox.append': begin
       //      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound');
-      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
-      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt');
+//      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/midi');
+      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/mod');
 
-            LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/midi');
-
-            LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Black Bear Roa');
-            LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits');
-            LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/MCcall & Company');
-            LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Roses For Mama');
-            LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Rubber Duck');
-            LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Wolf Creek Pass');
+      //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
+      //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt');
+      //
+      //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Black Bear Roa');
+      //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits');
+      //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/MCcall & Company');
+      //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Roses For Mama');
+      //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Rubber Duck');
+      //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Wolf Creek Pass');
     end;
     'listbox.remove': begin
       if index >= 0 then begin
@@ -326,7 +327,7 @@ begin
       buffer := g_strdup_printf('%s', song^.Titel);
     end;
     2: begin
-      buffer := g_strdup_printf('%s', PChar( GstClockToStr( song^.Duration)));
+      buffer := g_strdup_printf('%s', PChar(GstClockToStr(song^.Duration)));
     end;
   end;
   gtk_label_set_text(GTK_LABEL(label_), buffer);

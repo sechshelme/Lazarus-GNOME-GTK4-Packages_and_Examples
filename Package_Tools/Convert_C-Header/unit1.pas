@@ -91,13 +91,13 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_END_IGNORE_DEPRECATIONS', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
 
-      for a := 0 to Length(availables) - 1 do begin
-        for v := 98 downto 2 do begin
-          s := availables[a] + '_' + IntToStr(v);
-          slHeader[j] := StringReplace(slHeader[j], s, 'extern', [rfReplaceAll]);
-        end;
-        s := availables[a] + '_VAR';
-      end;
+      //for a := 0 to Length(availables) - 1 do begin
+      //  for v := 98 downto 2 do begin
+      //    s := availables[a] + '_' + IntToStr(v);
+      //    slHeader[j] := StringReplace(slHeader[j], s, 'extern', [rfReplaceAll]);
+      //  end;
+      //  s := availables[a] + '_VAR';
+      //end;
 
       slHeader[j] := StringReplace(slHeader[j], 'WEBKIT_API', 'extern', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'JSC_API', 'extern', [rfReplaceAll]);
@@ -113,6 +113,12 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'HB_EXTERN', 'extern', [rfReplaceAll]);
 
       slHeader[j] := StringReplace(slHeader[j], 'CHAFA_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
+
+
+      // libxml
+      slHeader[j] := StringReplace(slHeader[j], 'XMLPUBFUN', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'XMLCALL', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'XMLCDECL', '', [rfReplaceAll]);
     end;
     slHeader.SaveToFile(slFile[i]);
     slHeader.Free;

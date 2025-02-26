@@ -118,6 +118,8 @@ const
 
     (libs: 'libchafa'; units: 'fp_glib2'),
 
+    (libs: 'libxml2'; units: 'ctypes, xml2_common'),
+
     (libs: ''; units: ''));
 
 
