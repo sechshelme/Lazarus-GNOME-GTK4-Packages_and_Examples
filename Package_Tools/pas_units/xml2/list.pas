@@ -27,6 +27,7 @@ type
   TxmlListDeallocator = procedure(lk: TxmlLinkPtr); cdecl;
   TxmlListDataCompare = function(data0: pointer; data1: pointer): longint; cdecl;
   TxmlListWalker = function(Data: pointer; user: pointer): longint; cdecl;
+
 function xmlListCreate(deallocator: TxmlListDeallocator; compare: TxmlListDataCompare): TxmlListPtr; cdecl; external libxml2;
 procedure xmlListDelete(l: TxmlListPtr); cdecl; external libxml2;
 function xmlListSearch(l: TxmlListPtr; Data: pointer): pointer; cdecl; external libxml2;

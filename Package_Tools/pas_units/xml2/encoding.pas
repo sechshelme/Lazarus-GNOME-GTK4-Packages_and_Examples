@@ -3,7 +3,7 @@ unit encoding;
 interface
 
 uses
-  ctypes, xml2_common;
+  ctypes, xml2_common, tree;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

@@ -3,7 +3,7 @@ unit xmlIO;
 interface
 
 uses
-  ctypes, xml2_common, encoding;
+  ctypes, xml2_common, xmlstring, encoding, tree;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

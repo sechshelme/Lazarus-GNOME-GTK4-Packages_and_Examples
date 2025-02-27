@@ -35,29 +35,6 @@ type
   Ticonv_t=Pointer;
   Piconv_t=^Ticonv_t;
 
-  // --- wegen circular
-type // tree.h
-  PxmlParserInputBufferPtr = ^TxmlParserInputBufferPtr;
-  TxmlParserInputBufferPtr = Pointer;
-
-  PxmlOutputBufferPtr = ^TxmlOutputBufferPtr;
-  TxmlOutputBufferPtr = Pointer;
-
-  PxmlParserInputPtr = ^TxmlParserInputPtr;
-  TxmlParserInputPtr = Pointer;
-
-  PxmlParserCtxtPtr = ^TxmlParserCtxtPtr;
-  TxmlParserCtxtPtr = Pointer;
-
-  PxmlSAXLocatorPtr = ^TxmlSAXLocatorPtr;
-  TxmlSAXLocatorPtr = Pointer;
-
-  PxmlSAXHandlerPtr = ^TxmlSAXHandlerPtr;
-  TxmlSAXHandlerPtr = Pointer;
-
-  PxmlEntityPtr = ^TxmlEntityPtr;
-  TxmlEntityPtr = Pointer;
-
 
 implementation
 

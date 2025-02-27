@@ -9,28 +9,36 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
-  // --- Ausgelagert
-  //type
-  //  PxmlParserInputBufferPtr = ^TxmlParserInputBufferPtr;
+  // --- Pointer wegen circular
+type
+  PxmlParserInputBufferPtr = ^TxmlParserInputBufferPtr;
   //  TxmlParserInputBufferPtr = PxmlParserInputBuffer;
-  //
-  //  PxmlOutputBufferPtr = ^TxmlOutputBufferPtr;
+  TxmlParserInputBufferPtr = Pointer;
+
+  PxmlOutputBufferPtr = ^TxmlOutputBufferPtr;
   //  TxmlOutputBufferPtr = PxmlOutputBuffer;
-  //
-  //  PxmlParserInputPtr = ^TxmlParserInputPtr;
+  TxmlOutputBufferPtr = Pointer;
+
+  PxmlParserInputPtr = ^TxmlParserInputPtr;
   //  TxmlParserInputPtr = PxmlParserInput;
-  //
-  //  PxmlParserCtxtPtr = ^TxmlParserCtxtPtr;
+  TxmlParserInputPtr = Pointer;
+
+  PxmlParserCtxtPtr = ^TxmlParserCtxtPtr;
   //  TxmlParserCtxtPtr = PxmlParserCtxt;
-  //
-  //  PxmlSAXLocatorPtr = ^TxmlSAXLocatorPtr;
+  TxmlParserCtxtPtr = Pointer;
+
+  PxmlSAXLocatorPtr = ^TxmlSAXLocatorPtr;
   //  TxmlSAXLocatorPtr = PxmlSAXLocator;
-  //
-  //  PxmlSAXHandlerPtr = ^TxmlSAXHandlerPtr;
+  TxmlSAXLocatorPtr = Pointer;
+
+  PxmlSAXHandlerPtr = ^TxmlSAXHandlerPtr;
   //  TxmlSAXHandlerPtr = PxmlSAXHandler;
-  //
-  //  PxmlEntityPtr = ^TxmlEntityPtr;
+  TxmlSAXHandlerPtr = Pointer;
+
+  PxmlEntityPtr = ^TxmlEntityPtr;
   //  TxmlEntityPtr = PxmlEntity;
+  TxmlEntityPtr = Pointer;
+
 
 const
   BASE_BUFFER_SIZE = 4096;
@@ -402,13 +410,6 @@ type
     getNsForNodeFunc: TxmlDOMWrapAcquireNsFunction;
   end;
   PxmlDOMWrapCtxtPtr = ^TxmlDOMWrapCtxtPtr;
-
-
-  //const
-  //  xmlChildrenNode = children;
-
-  //const
-  //  xmlRootNode = children;
 
 function xmlValidateNCName(Value: PxmlChar; space: longint): longint; cdecl; external libxml2;
 

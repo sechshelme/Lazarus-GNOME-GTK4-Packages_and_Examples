@@ -403,9 +403,9 @@ struct _xmlXPathParserContext {
  * Objects and Nodesets handling
  */
 
-XMLPUBVAR double xmlXPathNAN;
-XMLPUBVAR double xmlXPathPINF;
-XMLPUBVAR double xmlXPathNINF;
+extern double xmlXPathNAN;
+extern double xmlXPathPINF;
+extern double xmlXPathNINF;
 
 /* These macros may later turn into functions */
 /**
@@ -441,7 +441,7 @@ XMLPUBVAR double xmlXPathNINF;
  * Returns %TRUE if @ns is an empty node-set.
  */
 #define xmlXPathNodeSetIsEmpty(ns)                                      \
-    (((ns) == NULL) || ((ns)->nodeNr == 0) || ((ns)->nodeTab == NULL))
+    (((ns) == NULL) | ((ns)->nodeNr == 0) | ((ns)->nodeTab == NULL))
 
 
 extern void 

@@ -64,9 +64,13 @@ int main() {
     loadSongsFromXML("config.xml");
     return 0    ;
 
+    xmlCharEncoding
+    xmlBufferPtr
+
     xmlValidateNCName
     xmlChildrenNode
     children
+    xmlInputReadCallback
 
     xmlParserInputBufferPtr
 }

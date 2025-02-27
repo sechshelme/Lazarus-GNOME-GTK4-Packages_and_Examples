@@ -10,7 +10,6 @@ uses
   {$ENDIF}
 
 type
-  //  TxmlChar = byte;
   TxmlChar = char;
   PxmlChar = ^TxmlChar;
   PPxmlChar = ^PxmlChar;
