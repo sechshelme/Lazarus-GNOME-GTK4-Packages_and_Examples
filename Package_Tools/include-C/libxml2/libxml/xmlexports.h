@@ -61,15 +61,15 @@
 #define extern XMLPUBLIC
 
 /**
- * XMLPUBVAR:
+ * extern:
  *
  * Macro which declares an exportable variable
  */
-#define XMLPUBVAR XMLPUBLIC extern
+#define extern XMLPUBLIC extern
 
 /* Compatibility */
 #if !defined(LIBXML_DLL_IMPORT)
-#define LIBXML_DLL_IMPORT XMLPUBVAR
+#define LIBXML_DLL_IMPORT extern
 #endif
 
 #endif /* __XML_EXPORTS_H__ */

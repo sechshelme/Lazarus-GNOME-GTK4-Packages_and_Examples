@@ -117,6 +117,7 @@ begin
 
       // libxml
       slHeader[j] := StringReplace(slHeader[j], 'XMLPUBFUN', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'XMLPUBVAR', 'extern', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'XMLCALL', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'XMLCDECL', '', [rfReplaceAll]);
     end;

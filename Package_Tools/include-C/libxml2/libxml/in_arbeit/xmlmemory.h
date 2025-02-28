@@ -63,7 +63,7 @@ typedef void ( *xmlFreeFunc)(void *mem);
  *
  * Returns a pointer to the newly allocated block or NULL in case of error.
  */
-typedef void *(LIBXML_ATTR_ALLOC_SIZE(1)  *xmlMallocFunc)(size_t size);
+typedef void *(  *xmlMallocFunc)(size_t size);
 
 /**
  * xmlReallocFunc:
@@ -150,7 +150,7 @@ extern void
 extern void 
 	xmlMemoryDump	(void);
 extern void * 
-	xmlMemMalloc	(size_t size) LIBXML_ATTR_ALLOC_SIZE(1);
+	xmlMemMalloc	(size_t size) ;
 extern void * 
 	xmlMemRealloc	(void *ptr,size_t size);
 extern void 
@@ -158,11 +158,11 @@ extern void
 extern char * 
 	xmlMemoryStrdup	(const char *str);
 extern void * 
-	xmlMallocLoc	(size_t size, const char *file, int line) LIBXML_ATTR_ALLOC_SIZE(1);
+	xmlMallocLoc	(size_t size, const char *file, int line);
 extern void * 
 	xmlReallocLoc	(void *ptr, size_t size, const char *file, int line);
 extern void * 
-	xmlMallocAtomicLoc (size_t size, const char *file, int line) LIBXML_ATTR_ALLOC_SIZE(1);
+	xmlMallocAtomicLoc (size_t size, const char *file, int line);
 extern char * 
 	xmlMemStrdupLoc	(const char *str, const char *file, int line);
 

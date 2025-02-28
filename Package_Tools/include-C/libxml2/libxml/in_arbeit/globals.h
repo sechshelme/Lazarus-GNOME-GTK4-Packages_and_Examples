@@ -202,82 +202,82 @@ extern xmlParserInputBufferCreateFilenameFunc
  *    - xmlFree
  */
 
-#ifdef LIBXML_THREAD_ALLOC_ENABLED
-#ifdef LIBXML_THREAD_ENABLED
+//#ifdef LIBXML_THREAD_ALLOC_ENABLED
+//#ifdef LIBXML_THREAD_ENABLED
 extern  xmlMallocFunc *  __xmlMalloc(void);
-#define xmlMalloc \
-(*(__xmlMalloc()))
-#else
-XMLPUBVAR xmlMallocFunc xmlMalloc;
-#endif
+//#define xmlMalloc \
+//(*(__xmlMalloc()))
+//#else
+extern xmlMallocFunc xmlMalloc;
+//#endif
 
-#ifdef LIBXML_THREAD_ENABLED
+//#ifdef LIBXML_THREAD_ENABLED
 extern  xmlMallocFunc *  __xmlMallocAtomic(void);
-#define xmlMallocAtomic \
-(*(__xmlMallocAtomic()))
-#else
-XMLPUBVAR xmlMallocFunc xmlMallocAtomic;
-#endif
+//#define xmlMallocAtomic \
+//(*(__xmlMallocAtomic()))
+//#else
+extern xmlMallocFunc xmlMallocAtomic;
+//#endif
 
-#ifdef LIBXML_THREAD_ENABLED
+//#ifdef LIBXML_THREAD_ENABLED
 extern  xmlReallocFunc *  __xmlRealloc(void);
-#define xmlRealloc \
-(*(__xmlRealloc()))
-#else
-XMLPUBVAR xmlReallocFunc xmlRealloc;
-#endif
+//#define xmlRealloc \
+//(*(__xmlRealloc()))
+//#else
+extern xmlReallocFunc xmlRealloc;
+//#endif
 
-#ifdef LIBXML_THREAD_ENABLED
+//#ifdef LIBXML_THREAD_ENABLED
 extern  xmlFreeFunc *  __xmlFree(void);
-#define xmlFree \
-(*(__xmlFree()))
-#else
-XMLPUBVAR xmlFreeFunc xmlFree;
-#endif
+//#define xmlFree \
+//(*(__xmlFree()))
+//#else
+extern xmlFreeFunc xmlFree;
+//#endif
 
-#ifdef LIBXML_THREAD_ENABLED
+//#ifdef LIBXML_THREAD_ENABLED
 extern  xmlStrdupFunc *  __xmlMemStrdup(void);
-#define xmlMemStrdup \
-(*(__xmlMemStrdup()))
-#else
-XMLPUBVAR xmlStrdupFunc xmlMemStrdup;
-#endif
+//#define xmlMemStrdup \
+//(*(__xmlMemStrdup()))
+//#else
+extern xmlStrdupFunc xmlMemStrdup;
+//#endif
 
 #else /* !LIBXML_THREAD_ALLOC_ENABLED */
-XMLPUBVAR xmlMallocFunc xmlMalloc;
-XMLPUBVAR xmlMallocFunc xmlMallocAtomic;
-XMLPUBVAR xmlReallocFunc xmlRealloc;
-XMLPUBVAR xmlFreeFunc xmlFree;
-XMLPUBVAR xmlStrdupFunc xmlMemStrdup;
+extern xmlMallocFunc xmlMalloc;
+extern xmlMallocFunc xmlMallocAtomic;
+extern xmlReallocFunc xmlRealloc;
+extern xmlFreeFunc xmlFree;
+extern xmlStrdupFunc xmlMemStrdup;
 #endif /* LIBXML_THREAD_ALLOC_ENABLED */
 
-#ifdef LIBXML_DOCB_ENABLED
+//#ifdef LIBXML_DOCB_ENABLED
 extern  xmlSAXHandlerV1 *  __docbDefaultSAXHandler(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define docbDefaultSAXHandler \
-(*(__docbDefaultSAXHandler()))
-#else
-XMLPUBVAR xmlSAXHandlerV1 docbDefaultSAXHandler;
-#endif
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define docbDefaultSAXHandler \
+//(*(__docbDefaultSAXHandler()))
+//#else
+extern xmlSAXHandlerV1 docbDefaultSAXHandler;
+//#endif
+//#endif
 
-#ifdef LIBXML_HTML_ENABLED
+//#ifdef LIBXML_HTML_ENABLED
 extern xmlSAXHandlerV1 *  __htmlDefaultSAXHandler(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define htmlDefaultSAXHandler \
-(*(__htmlDefaultSAXHandler()))
-#else
-XMLPUBVAR xmlSAXHandlerV1 htmlDefaultSAXHandler;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define htmlDefaultSAXHandler \
+//(*(__htmlDefaultSAXHandler()))
+//#else
+extern xmlSAXHandlerV1 htmlDefaultSAXHandler;
+//#endif
 #endif
 
 extern xmlError *  __xmlLastError(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlLastError \
-(*(__xmlLastError()))
-#else
-XMLPUBVAR xmlError xmlLastError;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlLastError \
+//(*(__xmlLastError()))
+//#else
+extern xmlError xmlLastError;
+//#endif
 
 /*
  * Everything starting from the line below is
@@ -287,219 +287,218 @@ XMLPUBVAR xmlError xmlLastError;
 
 
 extern int *  __oldXMLWDcompatibility(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define oldXMLWDcompatibility \
-(*(__oldXMLWDcompatibility()))
-#else
-XMLPUBVAR int oldXMLWDcompatibility;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define oldXMLWDcompatibility \
+//(*(__oldXMLWDcompatibility()))
+//#else
+extern int oldXMLWDcompatibility;
+//#endif
 
 extern xmlBufferAllocationScheme *  __xmlBufferAllocScheme(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlBufferAllocScheme \
-(*(__xmlBufferAllocScheme()))
-#else
-XMLPUBVAR xmlBufferAllocationScheme xmlBufferAllocScheme;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlBufferAllocScheme \
+//(*(__xmlBufferAllocScheme()))
+//#else
+extern xmlBufferAllocationScheme xmlBufferAllocScheme;
+//#endif
 extern xmlBufferAllocationScheme 
 	xmlThrDefBufferAllocScheme(xmlBufferAllocationScheme v);
 
 extern int *  __xmlDefaultBufferSize(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlDefaultBufferSize \
-(*(__xmlDefaultBufferSize()))
-#else
-XMLPUBVAR int xmlDefaultBufferSize;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlDefaultBufferSize \
+//(*(__xmlDefaultBufferSize()))
+//#else
+extern int xmlDefaultBufferSize;
+//#endif
 extern int  xmlThrDefDefaultBufferSize(int v);
 
 extern xmlSAXHandlerV1 *  __xmlDefaultSAXHandler(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlDefaultSAXHandler \
-(*(__xmlDefaultSAXHandler()))
-#else
-XMLPUBVAR xmlSAXHandlerV1 xmlDefaultSAXHandler;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlDefaultSAXHandler \
+//(*(__xmlDefaultSAXHandler()))
+//#else
+extern xmlSAXHandlerV1 xmlDefaultSAXHandler;
+//#endif
 
 extern xmlSAXLocator *  __xmlDefaultSAXLocator(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlDefaultSAXLocator \
-(*(__xmlDefaultSAXLocator()))
-#else
-XMLPUBVAR xmlSAXLocator xmlDefaultSAXLocator;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlDefaultSAXLocator \
+//(*(__xmlDefaultSAXLocator()))
+//#else
+extern xmlSAXLocator xmlDefaultSAXLocator;
+//#endif
 
 extern int *  __xmlDoValidityCheckingDefaultValue(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlDoValidityCheckingDefaultValue \
-(*(__xmlDoValidityCheckingDefaultValue()))
-#else
-XMLPUBVAR int xmlDoValidityCheckingDefaultValue;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlDoValidityCheckingDefaultValue \
+//(*(__xmlDoValidityCheckingDefaultValue()))
+//#else
+extern int xmlDoValidityCheckingDefaultValue;
+//#endif
 extern int  xmlThrDefDoValidityCheckingDefaultValue(int v);
 
 extern xmlGenericErrorFunc *  __xmlGenericError(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlGenericError \
-(*(__xmlGenericError()))
-#else
-XMLPUBVAR xmlGenericErrorFunc xmlGenericError;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlGenericError \
+//(*(__xmlGenericError()))
+//#else
+extern xmlGenericErrorFunc xmlGenericError;
+//#endif
 
 extern xmlStructuredErrorFunc *  __xmlStructuredError(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlStructuredError \
-(*(__xmlStructuredError()))
-#else
-XMLPUBVAR xmlStructuredErrorFunc xmlStructuredError;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlStructuredError \
+//(*(__xmlStructuredError()))
+//#else
+extern xmlStructuredErrorFunc xmlStructuredError;
+//#endif
 
 extern void * *  __xmlGenericErrorContext(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlGenericErrorContext \
-(*(__xmlGenericErrorContext()))
-#else
-XMLPUBVAR void * xmlGenericErrorContext;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlGenericErrorContext \
+//(*(__xmlGenericErrorContext()))
+//#else
+extern void * xmlGenericErrorContext;
+//#endif
 
 extern void * *  __xmlStructuredErrorContext(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlStructuredErrorContext \
-(*(__xmlStructuredErrorContext()))
-#else
-XMLPUBVAR void * xmlStructuredErrorContext;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlStructuredErrorContext \
+//(*(__xmlStructuredErrorContext()))
+//#else
+extern void * xmlStructuredErrorContext;
+//#endif
 
 extern int *  __xmlGetWarningsDefaultValue(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlGetWarningsDefaultValue \
-(*(__xmlGetWarningsDefaultValue()))
-#else
-XMLPUBVAR int xmlGetWarningsDefaultValue;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlGetWarningsDefaultValue \
+//(*(__xmlGetWarningsDefaultValue()))
+//#else
+extern int xmlGetWarningsDefaultValue;
+//#endif
 extern int  xmlThrDefGetWarningsDefaultValue(int v);
 
 extern int *  __xmlIndentTreeOutput(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlIndentTreeOutput \
-(*(__xmlIndentTreeOutput()))
-#else
-XMLPUBVAR int xmlIndentTreeOutput;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlIndentTreeOutput \
+//(*(__xmlIndentTreeOutput()))
+//#else
+extern int xmlIndentTreeOutput;
+//#endif
 extern int  xmlThrDefIndentTreeOutput(int v);
 
 extern const char * *  __xmlTreeIndentString(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlTreeIndentString \
-(*(__xmlTreeIndentString()))
-#else
-XMLPUBVAR const char * xmlTreeIndentString;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlTreeIndentString \
+//(*(__xmlTreeIndentString()))
+//#else
+extern const char * xmlTreeIndentString;
+//#endif
 extern const char *  xmlThrDefTreeIndentString(const char * v);
 
 extern int *  __xmlKeepBlanksDefaultValue(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlKeepBlanksDefaultValue \
-(*(__xmlKeepBlanksDefaultValue()))
-#else
-XMLPUBVAR int xmlKeepBlanksDefaultValue;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlKeepBlanksDefaultValue \
+//(*(__xmlKeepBlanksDefaultValue()))
+//#else
+extern int xmlKeepBlanksDefaultValue;
+//#endif
 extern int  xmlThrDefKeepBlanksDefaultValue(int v);
 
 extern int *  __xmlLineNumbersDefaultValue(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlLineNumbersDefaultValue \
-(*(__xmlLineNumbersDefaultValue()))
-#else
-XMLPUBVAR int xmlLineNumbersDefaultValue;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlLineNumbersDefaultValue \
+//(*(__xmlLineNumbersDefaultValue()))
+//#else
+extern int xmlLineNumbersDefaultValue;
+//#endif
 extern int  xmlThrDefLineNumbersDefaultValue(int v);
 
 extern int *  __xmlLoadExtDtdDefaultValue(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlLoadExtDtdDefaultValue \
-(*(__xmlLoadExtDtdDefaultValue()))
-#else
-XMLPUBVAR int xmlLoadExtDtdDefaultValue;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlLoadExtDtdDefaultValue \
+//(*(__xmlLoadExtDtdDefaultValue()))
+//#else
+extern int xmlLoadExtDtdDefaultValue;
+//#endif
 extern int  xmlThrDefLoadExtDtdDefaultValue(int v);
 
 extern int *  __xmlParserDebugEntities(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlParserDebugEntities \
-(*(__xmlParserDebugEntities()))
-#else
-XMLPUBVAR int xmlParserDebugEntities;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlParserDebugEntities \
+//(*(__xmlParserDebugEntities()))
+//#else
+extern int xmlParserDebugEntities;
+//#endif
 extern int  xmlThrDefParserDebugEntities(int v);
 
 extern const char * *  __xmlParserVersion(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlParserVersion \
-(*(__xmlParserVersion()))
-#else
-XMLPUBVAR const char * xmlParserVersion;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlParserVersion \
+//(*(__xmlParserVersion()))
+//#else
+extern const char * xmlParserVersion;
+//#endif
 
 extern int *  __xmlPedanticParserDefaultValue(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlPedanticParserDefaultValue \
-(*(__xmlPedanticParserDefaultValue()))
-#else
-XMLPUBVAR int xmlPedanticParserDefaultValue;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlPedanticParserDefaultValue \
+//(*(__xmlPedanticParserDefaultValue()))
+//#else
+extern int xmlPedanticParserDefaultValue;
+//#endif
 extern int  xmlThrDefPedanticParserDefaultValue(int v);
 
 extern int *  __xmlSaveNoEmptyTags(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlSaveNoEmptyTags \
-(*(__xmlSaveNoEmptyTags()))
-#else
-XMLPUBVAR int xmlSaveNoEmptyTags;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlSaveNoEmptyTags \
+//(*(__xmlSaveNoEmptyTags()))
+//#else
+extern int xmlSaveNoEmptyTags;
+//#endif
 extern int  xmlThrDefSaveNoEmptyTags(int v);
 
 extern int *  __xmlSubstituteEntitiesDefaultValue(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlSubstituteEntitiesDefaultValue \
-(*(__xmlSubstituteEntitiesDefaultValue()))
-#else
-XMLPUBVAR int xmlSubstituteEntitiesDefaultValue;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlSubstituteEntitiesDefaultValue \
+//(*(__xmlSubstituteEntitiesDefaultValue()))
+//#else
+extern int xmlSubstituteEntitiesDefaultValue;
+//#endif
 extern int  xmlThrDefSubstituteEntitiesDefaultValue(int v);
 
 extern xmlRegisterNodeFunc *  __xmlRegisterNodeDefaultValue(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlRegisterNodeDefaultValue \
-(*(__xmlRegisterNodeDefaultValue()))
-#else
-XMLPUBVAR xmlRegisterNodeFunc xmlRegisterNodeDefaultValue;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlRegisterNodeDefaultValue \
+//(*(__xmlRegisterNodeDefaultValue()))
+//#else
+extern xmlRegisterNodeFunc xmlRegisterNodeDefaultValue;
+//#endif
 
 extern xmlDeregisterNodeFunc *  __xmlDeregisterNodeDefaultValue(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlDeregisterNodeDefaultValue \
-(*(__xmlDeregisterNodeDefaultValue()))
-#else
-XMLPUBVAR xmlDeregisterNodeFunc xmlDeregisterNodeDefaultValue;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlDeregisterNodeDefaultValue \
+//(*(__xmlDeregisterNodeDefaultValue()))
+//#else
+extern xmlDeregisterNodeFunc xmlDeregisterNodeDefaultValue;
+//#endif
 
-extern xmlParserInputBufferCreateFilenameFunc *  \
-				__xmlParserInputBufferCreateFilenameValue(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlParserInputBufferCreateFilenameValue \
-(*(__xmlParserInputBufferCreateFilenameValue()))
-#else
-XMLPUBVAR xmlParserInputBufferCreateFilenameFunc xmlParserInputBufferCreateFilenameValue;
-#endif
+extern xmlParserInputBufferCreateFilenameFunc *  __xmlParserInputBufferCreateFilenameValue(void);
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlParserInputBufferCreateFilenameValue \
+//(*(__xmlParserInputBufferCreateFilenameValue()))
+//#else
+extern xmlParserInputBufferCreateFilenameFunc xmlParserInputBufferCreateFilenameValue;
+//#endif
 
 extern xmlOutputBufferCreateFilenameFunc *  __xmlOutputBufferCreateFilenameValue(void);
-#ifdef LIBXML_THREAD_ENABLED
-#define xmlOutputBufferCreateFilenameValue \
-(*(__xmlOutputBufferCreateFilenameValue()))
-#else
-XMLPUBVAR xmlOutputBufferCreateFilenameFunc xmlOutputBufferCreateFilenameValue;
-#endif
+//#ifdef LIBXML_THREAD_ENABLED
+//#define xmlOutputBufferCreateFilenameValue \
+//(*(__xmlOutputBufferCreateFilenameValue()))
+//#else
+extern xmlOutputBufferCreateFilenameFunc xmlOutputBufferCreateFilenameValue;
+//#endif
 
 #ifdef __cplusplus
 }

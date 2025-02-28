@@ -28,7 +28,7 @@ extern "C" {
  * process. This is not a limitation of the parser but a safety
  * boundary feature, use XML_PARSE_HUGE option to override it.
  */
-XMLPUBVAR unsigned int xmlParserMaxDepth;
+extern unsigned int xmlParserMaxDepth;
 
 /**
  * XML_MAX_TEXT_LENGTH:
@@ -309,9 +309,9 @@ XMLPUBVAR unsigned int xmlParserMaxDepth;
 /**
  * Global variables used for predefined strings.
  */
-XMLPUBVAR const xmlChar xmlStringText[];
-XMLPUBVAR const xmlChar xmlStringTextNoenc[];
-XMLPUBVAR const xmlChar xmlStringComment[];
+extern const xmlChar xmlStringText[];
+extern const xmlChar xmlStringTextNoenc[];
+extern const xmlChar xmlStringComment[];
 
 /*
  * Function to finish the work of the macros where needed.

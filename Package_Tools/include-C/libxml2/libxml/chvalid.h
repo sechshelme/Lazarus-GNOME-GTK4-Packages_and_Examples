@@ -77,7 +77,7 @@ extern int
 				 xmlIsBaseChar_ch((c)) : \
 				 xmlCharInRange((c), &xmlIsBaseCharGroup))
 
-XMLPUBVAR const xmlChRangeGroup xmlIsBaseCharGroup;
+extern const xmlChRangeGroup xmlIsBaseCharGroup;
 
 /**
  * xmlIsBlank_ch:
@@ -121,7 +121,7 @@ XMLPUBVAR const xmlChRangeGroup xmlIsBaseCharGroup;
 				 ((0xe000 <= (c)) && ((c) <= 0xfffd)) || \
 				 ((0x10000 <= (c)) && ((c) <= 0x10ffff))))
 
-XMLPUBVAR const xmlChRangeGroup xmlIsCharGroup;
+extern const xmlChRangeGroup xmlIsCharGroup;
 
 /**
  * xmlIsCombiningQ:
@@ -133,7 +133,7 @@ XMLPUBVAR const xmlChRangeGroup xmlIsCharGroup;
 				 0 : \
 				 xmlCharInRange((c), &xmlIsCombiningGroup))
 
-XMLPUBVAR const xmlChRangeGroup xmlIsCombiningGroup;
+extern const xmlChRangeGroup xmlIsCombiningGroup;
 
 /**
  * xmlIsDigit_ch:
@@ -153,7 +153,7 @@ XMLPUBVAR const xmlChRangeGroup xmlIsCombiningGroup;
 				 xmlIsDigit_ch((c)) : \
 				 xmlCharInRange((c), &xmlIsDigitGroup))
 
-XMLPUBVAR const xmlChRangeGroup xmlIsDigitGroup;
+extern const xmlChRangeGroup xmlIsDigitGroup;
 
 /**
  * xmlIsExtender_ch:
@@ -173,7 +173,7 @@ XMLPUBVAR const xmlChRangeGroup xmlIsDigitGroup;
 				 xmlIsExtender_ch((c)) : \
 				 xmlCharInRange((c), &xmlIsExtenderGroup))
 
-XMLPUBVAR const xmlChRangeGroup xmlIsExtenderGroup;
+extern const xmlChRangeGroup xmlIsExtenderGroup;
 
 /**
  * xmlIsIdeographicQ:
@@ -187,8 +187,8 @@ XMLPUBVAR const xmlChRangeGroup xmlIsExtenderGroup;
 				 ((c) == 0x3007) || \
 				 ((0x3021 <= (c)) && ((c) <= 0x3029))))
 
-XMLPUBVAR const xmlChRangeGroup xmlIsIdeographicGroup;
-XMLPUBVAR const unsigned char xmlIsPubidChar_tab[256];
+extern const xmlChRangeGroup xmlIsIdeographicGroup;
+extern const unsigned char xmlIsPubidChar_tab[256];
 
 /**
  * xmlIsPubidChar_ch:

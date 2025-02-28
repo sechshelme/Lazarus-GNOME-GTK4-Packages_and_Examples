@@ -820,6 +820,7 @@ type
   TxmlGenericErrorFunc = procedure(ctx: pointer; msg: pchar; args: array of const); cdecl;
   PxmlGenericErrorFunc = ^TxmlGenericErrorFunc;
   TxmlStructuredErrorFunc = procedure(userData: pointer; error: TxmlErrorPtr); cdecl;
+  PxmlStructuredErrorFunc=^TxmlStructuredErrorFunc;
 
 procedure xmlSetGenericErrorFunc(ctx: pointer; handler: TxmlGenericErrorFunc); cdecl; external libxml2;
 procedure initGenericErrorDefaultFunc(handler: PxmlGenericErrorFunc); cdecl; external libxml2;
