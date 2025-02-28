@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <songs>
-    <items song="/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt/25 - Welcome, Imlerith.flac"/>
-    <items song="/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt/05 - Aen Seidhe.flac"/>
-    <items song="/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt/14 - The Hunter&apos;s Path.flac"/>
+    <items index="3" song="/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt/25 - Welcome, Imlerith.flac"/>
+    <items index="5" song="/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt/05 - Aen Seidhe.flac"/>
+    <items index="9" song="/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt/14 - The Hunter&apos;s Path.flac"/>
+  </songs>
+  <songs>
+    <items index="3" song="/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt/25 - Welcome, Imlerith.flac"/>
+    <items index="5" song="/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt/05 - Aen Seidhe.flac"/>
+    <items index="9" song="/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt/14 - The Hunter&apos;s Path.flac"/>
   </songs>
 </CONFIG>
