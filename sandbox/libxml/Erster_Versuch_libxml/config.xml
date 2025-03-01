@@ -6,6 +6,7 @@
         <text>hello äöü</text>
       </label>
       <color>blue</color>
+      <font>monospace<size>16</size></font>
     </button>
     <size>
       <width>800</width>

@@ -187,25 +187,100 @@ var
     writeNewKey('/window/size/width', '800');
     writeNewKey('/window/size/height', '600');
     writeNewKey('/window/button/color', 'blue');
+    writeNewKey('/window/button/font', 'monospace');
+    writeNewKey('/window/button/font/size', '16');
 
-    xmlSaveFormatFileEnc('config.xml', doc, 'UTF-8', 1);
+    xmlSaveFormatFileEnc(path, doc, 'UTF-8', 1);
     xmlFreeDoc(doc);
   end;
 
+
+  // ==============================
+
+
+  //  https://www.perplexity.ai/search/das-schreiben-eines-keys-sieht-M19BI.JKRG.GS24Ame9QCw
+  // https://www.perplexity.ai/search/ich-will-folgendes-mit-libxml2-uUjHrYrgT.y8dou5uWImXg
+
+  function createXPathNode(parent: TxmlNodePtr; path: pchar): TxmlNodePtr;
+  var
+    currentNode: TxmlNodePtr;
+    child, newNode: PxmlNode;
+    saveptr, token: pchar;
+    pathCopy: PxmlChar;
+  begin
+    pathCopy := xmlStrdup(path);
+    token := strtok_r(pathCopy, '/', @saveptr);
+
+    currentNode := parent;
+
+    while token <> nil do begin
+      child := xmlFirstElementChild(currentNode);
+      newNode := nil;
+
+      while child <> nil do begin
+        if xmlStrcmp(child^.Name, token) = 0 then begin
+          newNode := child;
+          Break;
+        end;
+        child := xmlNextElementSibling(child);
+      end;
+
+      if newNode = nil then begin
+        newNode := xmlNewChild(currentNode, nil, token, nil);
+      end;
+
+      currentNode := newNode;
+      token := strtok_r(nil, '/', @saveptr);
+    end;
+
+    xmlFree(pathCopy);
+    Result:=currentNode;
+  end;
+
+  procedure writeNewKey2(doc: TxmlDocPtr; xpath, attrName, attrValue: pchar);
+  var
+    node: TxmlNodePtr;
+  begin
+    node := createXPathNode(xmlDocGetRootElement(doc), xpath + 1); // +1 to skip initial '/'
+    xmlSetProp(node, attrName, attrValue);
+  end;
+
+  procedure WriteXLM2(path: pchar);
+  var
+    doc: TxmlDocPtr;
+    root_node: TxmlNodePtr;
+  begin
+    doc := xmlNewDoc('1.0');
+    root_node := xmlNewNode(nil, 'config');
+    xmlDocSetRootElement(doc, root_node);
+
+    writeNewKey2(doc, '/window/size', 'border', '4');
+    writeNewKey2(doc, '/window/button/label', 'text', 'hello äöü');
+    writeNewKey2(doc, '/window/size', 'width', '800');
+    writeNewKey2(doc, '/window/size', 'height', '600');
+    writeNewKey2(doc, '/window/button', 'color', 'blue');
+    writeNewKey2(doc, '/window/button', 'font', 'monospace');
+    writeNewKey2(doc, '/window/button/font', 'size', '16');
+    writeNewKey2(doc, '/window/blu/blu/button/font', 'size', '16');
+
+    xmlSaveFormatFileEnc(path, doc, 'UTF-8', 1);
+    xmlFreeDoc(doc);
+  end;
 
 
 
 begin
   SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide, exOverflow, exUnderflow, exPrecision]);
 
-  WriteXLM('config2.xml');
+  //  WriteXLM('config.xml');
+  WriteXLM2('config2.xml');
 
 
   WriteLn('---------------------------------');
 
-  loadSongsFromXML1('config.xml');
+  //  loadSongsFromXML1('config.xml');
   WriteLn('---------------------------------');
-  loadSongsFromXML2('config.xml');
+  //  loadSongsFromXML2('config.xml');
   //    xmlValidateNCName(nil, 0);
 
 end.
