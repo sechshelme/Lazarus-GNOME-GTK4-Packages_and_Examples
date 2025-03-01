@@ -122,11 +122,86 @@ uses
   end;
 
 
+  ///////////
+
+  function strtok(str: pchar; delim: pchar): pchar; external 'libc';    // msvcrt.dll
+  function strtok_r(s: pchar; delim: pchar; saveptr: PPChar): pchar; cdecl; external 'libc';
+
+  // https://www.perplexity.ai/search/ich-will-eine-config-xml-mit-l-iRnb5Pk8Sri0IqhTn9GzAQ
+  // https://www.perplexity.ai/search/wie-wurde-man-folgendes-beispu-KAmXKQNhS5qsQb.MOYcR7Q
+
+var
+  doc: TxmlDocPtr;
+  root: TxmlNodePtr = nil;
+
+  function initDoc: TxmlDocPtr;
+  begin
+    Result := xmlNewDoc('1.0');
+    root := xmlNewNode(nil, 'config');
+    xmlDocSetRootElement(Result, root);
+  end;
+
+
+  procedure writeNewKey(path, Value: pchar);
+  var
+    current: TxmlNodePtr;
+    node: TxmlNodePtr;
+    child: PxmlNode;
+    saveptr, token: pchar;
+    pathCopy: PxmlChar;
+  begin
+    pathCopy := xmlStrdup(path);
+    token := strtok_r(pathCopy, '/', @saveptr);
+
+    current := root;
+
+    while token <> nil do begin
+      node := nil;
+      child := current^.children;
+
+      while child <> nil do begin
+        if xmlStrcmp(child^.Name, token) = 0 then begin
+          node := child;
+          Break;
+        end;
+        child := child^.Next;
+      end;
+
+      if node = nil then begin
+        node := xmlNewChild(current, nil, token, nil);
+      end;
+
+      current := node;
+      token := strtok_r(nil, '/', @saveptr);
+    end;
+
+    xmlNodeSetContent(current, Value);
+    xmlFree(pathCopy);
+  end;
+
+  procedure WriteXLM(path: pchar);
+  begin
+    doc := initDoc;
+
+    writeNewKey('/window/button/label/text', 'hello äöü');
+    writeNewKey('/window/size/width', '800');
+    writeNewKey('/window/size/height', '600');
+    writeNewKey('/window/button/color', 'blue');
+
+    xmlSaveFormatFileEnc('config.xml', doc, 'UTF-8', 1);
+    xmlFreeDoc(doc);
+  end;
+
+
 
 
 begin
   SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide, exOverflow, exUnderflow, exPrecision]);
 
+  WriteXLM('config2.xml');
+
+
+  WriteLn('---------------------------------');
 
   loadSongsFromXML1('config.xml');
   WriteLn('---------------------------------');
