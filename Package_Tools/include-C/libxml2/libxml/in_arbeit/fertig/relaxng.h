@@ -1,67 +1,18 @@
-/*
- * Summary: implementation of the Relax-NG validation
- * Description: implementation of the Relax-NG validation
- *
- * Copy: See Copyright for the status of this software.
- *
- * Author: Daniel Veillard
- */
-
-#ifndef __XML_RELAX_NG__
-#define __XML_RELAX_NG__
-
-#include <libxml/xmlversion.h>
-#include <libxml/hash.h>
-#include <libxml/xmlstring.h>
-
-#ifdef LIBXML_SCHEMAS_ENABLED
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 typedef struct _xmlRelaxNG xmlRelaxNG;
 typedef xmlRelaxNG *xmlRelaxNGPtr;
 
 
-/**
- * xmlRelaxNGValidityErrorFunc:
- * @ctx: the validation context
- * @msg: the message
- * @...: extra arguments
- *
- * Signature of an error callback from a Relax-NG validation
- */
-typedef void ( *xmlRelaxNGValidityErrorFunc) (void *ctx,
-						      const char *msg,
-						      ...) LIBXML_ATTR_FORMAT(2,3);
+//typedef void ( *xmlRelaxNGValidityErrorFunc) (void *ctx,						      const char *msg,						      ...) ;
 
-/**
- * xmlRelaxNGValidityWarningFunc:
- * @ctx: the validation context
- * @msg: the message
- * @...: extra arguments
- *
- * Signature of a warning callback from a Relax-NG validation
- */
-typedef void ( *xmlRelaxNGValidityWarningFunc) (void *ctx,
-							const char *msg,
-							...) LIBXML_ATTR_FORMAT(2,3);
+//typedef void ( *xmlRelaxNGValidityWarningFunc) (void *ctx,							const char *msg,						...) ;
 
-/**
- * A schemas validation context
- */
 typedef struct _xmlRelaxNGParserCtxt xmlRelaxNGParserCtxt;
 typedef xmlRelaxNGParserCtxt *xmlRelaxNGParserCtxtPtr;
 
 typedef struct _xmlRelaxNGValidCtxt xmlRelaxNGValidCtxt;
 typedef xmlRelaxNGValidCtxt *xmlRelaxNGValidCtxtPtr;
 
-/*
- * xmlRelaxNGValidErr:
- *
- * List of possible Relax NG validation errors
- */
 typedef enum {
     XML_RELAXNG_OK = 0,
     XML_RELAXNG_ERR_MEMORY,
@@ -105,11 +56,6 @@ typedef enum {
     XML_RELAXNG_ERR_TEXTWRONG
 } xmlRelaxNGValidErr;
 
-/*
- * xmlRelaxNGParserFlags:
- *
- * List of possible Relax NG Parser flags
- */
 typedef enum {
     XML_RELAXNGP_NONE = 0,
     XML_RELAXNGP_FREE_DOC = 1,
@@ -121,9 +67,6 @@ extern int
 extern void 
 		    xmlRelaxNGCleanupTypes	(void);
 
-/*
- * Interfaces for parsing.
- */
 extern xmlRelaxNGParserCtxtPtr 
 		    xmlRelaxNGNewParserCtxt	(const char *URL);
 extern xmlRelaxNGParserCtxtPtr 
@@ -157,17 +100,13 @@ extern xmlRelaxNGPtr
 		    xmlRelaxNGParse		(xmlRelaxNGParserCtxtPtr ctxt);
 extern void 
 		    xmlRelaxNGFree		(xmlRelaxNGPtr schema);
-#ifdef LIBXML_OUTPUT_ENABLED
+
 extern void 
 		    xmlRelaxNGDump		(FILE *output,
 					 xmlRelaxNGPtr schema);
 extern void 
 		    xmlRelaxNGDumpTree	(FILE * output,
 					 xmlRelaxNGPtr schema);
-#endif /* LIBXML_OUTPUT_ENABLED */
-/*
- * Interfaces for validating
- */
 extern void 
 		    xmlRelaxNGSetValidErrors(xmlRelaxNGValidCtxtPtr ctxt,
 					 xmlRelaxNGValidityErrorFunc err,
@@ -188,9 +127,6 @@ extern void
 extern int 
 		    xmlRelaxNGValidateDoc	(xmlRelaxNGValidCtxtPtr ctxt,
 						 xmlDocPtr doc);
-/*
- * Interfaces for progressive validation when possible
- */
 extern int 
 		    xmlRelaxNGValidatePushElement	(xmlRelaxNGValidCtxtPtr ctxt,
 					 xmlDocPtr doc,
@@ -208,10 +144,4 @@ extern int
 					 xmlDocPtr doc,
 					 xmlNodePtr elem);
 
-#ifdef __cplusplus
-}
-#endif
 
-#endif /* LIBXML_SCHEMAS_ENABLED */
-
-#endif /* __XML_RELAX_NG__ */

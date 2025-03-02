@@ -8,6 +8,7 @@
 #include <libxml/parser.h>
 #include <libxml/xpath.h>
 #include <libxml/xmlwriter.h>
+#include <libxml/xmlreader.h>
 #include <libxml/schemasInternals.h>
 #include <libxml/xpathInternals.h>
 
@@ -70,7 +71,32 @@ int main() {
 
   int * p = xmlMalloc(1000);
   xmlFree(p);
-
+  xmlParserCtxtPtr
+  xmlCharEncoding
+  htmlParserCtxtPtr
+  xmlParserCtxt
+  xmlCharEncoding
+  xmlInputReadCallback
+  xmlIsChar_ch
+  xmlTextReader
+  xmlParserInputBufferPtr
+  xmlRelaxNGValidCtxtPtr
+  xmlRelaxNG
+  xmlRelaxNGParserCtxt
+  xmlRelaxNGValidCtxt
+  xmlDocPtr
+  xmlRelaxNGValidityErrorFunc
+  xmlStructuredErrorFunc
+  xmlSchemaValidCtxtPtr
+  xmlSchema
+  xmlSchemaParserCtxt
+  xmlSchemaValidCtxt
+  xmlSchemaValidityErrorFunc
+  xmlStructuredErrorFunc
+  xmlSchemaSAXPlugStruct
+  xmlInputReadCallback
+  xmlStructuredErrorFunc
+  xmlTextReaderErrorFunc
 }
 
 

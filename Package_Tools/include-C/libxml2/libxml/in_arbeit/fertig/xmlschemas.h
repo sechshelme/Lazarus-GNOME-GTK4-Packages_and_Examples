@@ -92,8 +92,7 @@ typedef xmlSchema *xmlSchemaPtr;
  *
  * Signature of an error callback from an XSD validation
  */
-typedef void ( *xmlSchemaValidityErrorFunc)
-                 (void *ctx, const char *msg, ...) LIBXML_ATTR_FORMAT(2,3);
+typedef void ( *xmlSchemaValidityErrorFunc)(void *ctx, const char *msg, ...) ;
 
 /**
  * xmlSchemaValidityWarningFunc:
@@ -103,8 +102,7 @@ typedef void ( *xmlSchemaValidityErrorFunc)
  *
  * Signature of a warning callback from an XSD validation
  */
-typedef void ( *xmlSchemaValidityWarningFunc)
-                 (void *ctx, const char *msg, ...) LIBXML_ATTR_FORMAT(2,3);
+typedef void ( *xmlSchemaValidityWarningFunc)(void *ctx, const char *msg, ...) ;
 
 /**
  * A schemas validation context

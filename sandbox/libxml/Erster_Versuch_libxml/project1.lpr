@@ -20,9 +20,11 @@ uses
   xpath,              // io. -> xmlstring, xmlerror, tree, hash, dict
   xmlmemory,          // io.
   globals,            // io. -> tree, encoding, parser, xmlerror, xmlmemory
-  schemasInternals,   // io. -> xmlstring, xmlregexp, tree, Hash, dict
   xmlwriter,          // io. -> xmlstring, tree
-  xpathInternals,     // io. -> xmlstring, xpath, tree
+  HTMLparser,         // io. -> xmlstring, xmlIO, tree, parser, encoding
+  xmlschemas,         // io. -> xmlerror, tree, encoding
+  relaxng,            // io. -> xmlstring, xmlerror, tree
+  xmlreader,          // io. -> xmlstring, xmlschemas, xmlIO, xmlerror, tree, relaxng
 
   Math;
 

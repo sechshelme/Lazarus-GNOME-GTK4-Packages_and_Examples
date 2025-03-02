@@ -229,7 +229,7 @@ extern unsigned int xmlParserMaxDepth;
  *
  * [84] Letter ::= BaseChar | Ideographic
  */
-#define IS_LETTER(c) (IS_BASECHAR(c) || IS_IDEOGRAPHIC(c))
+#define IS_LETTER(c) (IS_BASECHAR(c) | IS_IDEOGRAPHIC(c))
 
 /**
  * IS_LETTER_CH:
@@ -247,7 +247,7 @@ extern unsigned int xmlParserMaxDepth;
  * Macro to check [a-zA-Z]
  *
  */
-#define IS_ASCII_LETTER(c)	(((0x41 <= (c)) && ((c) <= 0x5a)) || \
+#define IS_ASCII_LETTER(c)	(((0x41 <= (c)) && ((c) <= 0x5a)) | \
 				 ((0x61 <= (c)) && ((c) <= 0x7a)))
 
 /**
@@ -284,9 +284,9 @@ extern unsigned int xmlParserMaxDepth;
  *
  * Skips the end of line chars.
  */
-#define SKIP_EOL(p)							\
-    if (*(p) == 0x13) { p++ ; if (*(p) == 0x10) p++; }			\
-    if (*(p) == 0x10) { p++ ; if (*(p) == 0x13) p++; }
+//#define SKIP_EOL(p)							\
+//    if (*(p) == 0x13) { p++ ; if (*(p) == 0x10) p++; }			\
+//    if (*(p) == 0x10) { p++ ; if (*(p) == 0x13) p++; }
 
 /**
  * MOVETO_ENDTAG:
@@ -294,8 +294,8 @@ extern unsigned int xmlParserMaxDepth;
  *
  * Skips to the next '>' char.
  */
-#define MOVETO_ENDTAG(p)						\
-    while ((*p) && (*(p) != '>')) (p)++
+//#define MOVETO_ENDTAG(p)						\
+//    while ((*p) && (*(p) != '>')) (p)++
 
 /**
  * MOVETO_STARTTAG:
@@ -303,8 +303,8 @@ extern unsigned int xmlParserMaxDepth;
  *
  * Skips to the next '<' char.
  */
-#define MOVETO_STARTTAG(p)						\
-    while ((*p) && (*(p) != '<')) (p)++
+//#define MOVETO_STARTTAG(p)						\
+//    while ((*p) && (*(p) != '<')) (p)++
 
 /**
  * Global variables used for predefined strings.
@@ -351,7 +351,7 @@ extern void
 						 xmlParserErrors xmlerr,
 						 const char *msg,
 						 const xmlChar * str1,
-						 const xmlChar * str2) LIBXML_ATTR_FORMAT(3,0);
+						 const xmlChar * str2) ;
 #endif
 
 /**
