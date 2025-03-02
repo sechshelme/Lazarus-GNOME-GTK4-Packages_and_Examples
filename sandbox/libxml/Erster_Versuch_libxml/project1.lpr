@@ -130,71 +130,6 @@ uses
   // https://www.perplexity.ai/search/ich-will-eine-config-xml-mit-l-iRnb5Pk8Sri0IqhTn9GzAQ
   // https://www.perplexity.ai/search/wie-wurde-man-folgendes-beispu-KAmXKQNhS5qsQb.MOYcR7Q
 
-var
-  doc: TxmlDocPtr;
-  root: TxmlNodePtr = nil;
-
-  function initDoc: TxmlDocPtr;
-  begin
-    Result := xmlNewDoc('1.0');
-    root := xmlNewNode(nil, 'config');
-    xmlDocSetRootElement(Result, root);
-  end;
-
-
-  procedure writeNewKey(path, Value: pchar);
-  var
-    current: TxmlNodePtr;
-    node: TxmlNodePtr;
-    child: PxmlNode;
-    saveptr, token: pchar;
-    pathCopy: PxmlChar;
-  begin
-    pathCopy := xmlStrdup(path);
-    token := strtok_r(pathCopy, '/', @saveptr);
-
-    current := root;
-
-    while token <> nil do begin
-      node := nil;
-      child := current^.children;
-
-      while child <> nil do begin
-        if xmlStrcmp(child^.Name, token) = 0 then begin
-          node := child;
-          Break;
-        end;
-        child := child^.Next;
-      end;
-
-      if node = nil then begin
-        node := xmlNewChild(current, nil, token, nil);
-      end;
-
-      current := node;
-      token := strtok_r(nil, '/', @saveptr);
-    end;
-
-    xmlNodeSetContent(current, Value);
-    xmlFree(pathCopy);
-  end;
-
-  procedure WriteXLM(path: pchar);
-  begin
-    doc := initDoc;
-
-    writeNewKey('/window/button/label/text', 'hello äöü');
-    writeNewKey('/window/size/width', '800');
-    writeNewKey('/window/size/height', '600');
-    writeNewKey('/window/button/color', 'blue');
-    writeNewKey('/window/button/font', 'monospace');
-    writeNewKey('/window/button/font/size', '16');
-
-    xmlSaveFormatFileEnc(path, doc, 'UTF-8', 1);
-    xmlFreeDoc(doc);
-  end;
-
-
   // ==============================
 
 
@@ -237,15 +172,15 @@ var
     Result:=currentNode;
   end;
 
-  procedure writeNewKey2(doc: TxmlDocPtr; xpath, attrName, attrValue: pchar);
+  procedure writeNewKey(doc: TxmlDocPtr; xpath, attrName, attrValue: pchar);
   var
     node: TxmlNodePtr;
   begin
-    node := createXPathNode(xmlDocGetRootElement(doc), xpath + 1); // +1 to skip initial '/'
+    node := createXPathNode(xmlDocGetRootElement(doc), xpath);
     xmlSetProp(node, attrName, attrValue);
   end;
 
-  procedure WriteXLM2(path: pchar);
+  procedure CreateXML(path: pchar);
   var
     doc: TxmlDocPtr;
     root_node: TxmlNodePtr;
@@ -254,14 +189,28 @@ var
     root_node := xmlNewNode(nil, 'config');
     xmlDocSetRootElement(doc, root_node);
 
-    writeNewKey2(doc, '/window/size', 'border', '4');
-    writeNewKey2(doc, '/window/button/label', 'text', 'hello äöü');
-    writeNewKey2(doc, '/window/size', 'width', '800');
-    writeNewKey2(doc, '/window/size', 'height', '600');
-    writeNewKey2(doc, '/window/button', 'color', 'blue');
-    writeNewKey2(doc, '/window/button', 'font', 'monospace');
-    writeNewKey2(doc, '/window/button/font', 'size', '16');
-    writeNewKey2(doc, '/window/blu/blu/button/font', 'size', '16');
+    writeNewKey(doc, '/window/frame', 'border', '4');
+    writeNewKey(doc, '/window/button/label', 'text', 'hello äöü');
+    writeNewKey(doc, '/window/frame', 'width', '800');
+    writeNewKey(doc, '/window/frame', 'height', '600');
+    writeNewKey(doc, '/window/button', 'color', 'blue');
+    writeNewKey(doc, '/window/button', 'font', 'monospace');
+    writeNewKey(doc, '/window/button/font', 'size', '16');
+    writeNewKey(doc, '/window/blu/blu/button/font', 'size', '16');
+
+    xmlSaveFormatFileEnc(path, doc, 'UTF-8', 1);
+    xmlFreeDoc(doc);
+  end;
+
+
+  procedure AppenXML(path: pchar);
+  var
+    doc: TxmlDocPtr;
+  begin
+    doc := xmlReadFile(path, nil, XML_PARSE_NOBLANKS);
+
+    writeNewKey(doc, '/window/frame', 'background', 'white');
+    writeNewKey(doc, '/window/frame', 'foreground', 'black');
 
     xmlSaveFormatFileEnc(path, doc, 'UTF-8', 1);
     xmlFreeDoc(doc);
@@ -273,7 +222,8 @@ begin
   SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide, exOverflow, exUnderflow, exPrecision]);
 
   //  WriteXLM('config.xml');
-  WriteXLM2('config2.xml');
+  CreateXML('config2.xml');
+  AppenXML('config2.xml');
 
 
   WriteLn('---------------------------------');

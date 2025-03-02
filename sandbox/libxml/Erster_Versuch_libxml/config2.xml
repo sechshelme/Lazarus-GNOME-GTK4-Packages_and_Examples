@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config>
   <window>
-    <size border="4" width="800" height="600"/>
+    <frame border="4" width="800" height="600" background="white" foreground="black"/>
     <button color="blue" font="monospace">
       <label text="hello äöü"/>
       <font size="16"/>
