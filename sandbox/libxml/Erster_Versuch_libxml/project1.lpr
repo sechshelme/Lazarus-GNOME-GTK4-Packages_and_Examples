@@ -23,118 +23,11 @@ uses
 
   Math;
 
-  procedure loadSongsFromXML1(path: pchar);
-  var
-    doc: TxmlDocPtr;
-    context: TxmlXPathContextPtr;
-    res: TxmlXPathObjectPtr;
-    nodeset: TxmlNodeSetPtr;
-    i: integer;
-    node: TxmlNodePtr;
-    song: PxmlChar;
-  begin
-    doc := xmlReadFile(path, nil, 0);
-    if doc = nil then begin
-      WriteLn('Fehler beim öffnen der doc');
-      Exit;
-    end;
-
-    context := xmlXPathNewContext(doc);
-    if context = nil then begin
-      WriteLn('Fehler beim erstellen des XPath context');
-      xmlFreeDoc(doc);
-      Exit;
-    end;
-
-    res := xmlXPathEvalExpression('//songs/items/@song', context);
-    if res = nil then begin
-      WriteLn('Fehler bei XPath Auswertung');
-      xmlXPathFreeContext(context);
-      xmlFreeDoc(doc);
-      Exit;
-    end;
-
-    nodeset := res^.nodesetval;
-    if nodeset <> nil then begin
-      WriteLn('count: ', nodeset^.nodeNr);
-      for i := 0 to nodeset^.nodeNr - 1 do begin
-        node := nodeset^.nodeTab[i];
-        song := xmlNodeGetContent(node);
-        WriteLn(song);
-        xmlFree(song);
-      end;
-    end;
-
-    xmlXPathFreeObject(res);
-    xmlXPathFreeContext(context);
-    xmlFreeDoc(doc);
-  end;
-
-  // https://www.perplexity.ai/search/wie-kann-ihc-mit-der-libxml2-f-0z0rsVD2Tm6YhRyvK_LX6g
-
-  procedure parse_songs(node: PxmlNode);
-  var
-    index, song: pchar;
-    cur_node: PxmlNode;
-  begin
-    cur_node := node;
-
-    while cur_node <> nil do begin
-      if (cur_node^._type = XML_ELEMENT_NODE) and (strcomp(cur_node^.Name, 'items') = 0) then begin
-        index := xmlGetProp(cur_node, PChar('index'));
-        song := xmlGetProp(cur_node, PChar('song'));
-
-        WriteLn('Index: ', index, ', Song: ', song);
-
-        xmlFree(index);
-        xmlFree(song);
-      end;
-
-      parse_songs(cur_node^.children);
-      cur_node := cur_node^.Next;
-    end;
-  end;
-
-
-  procedure loadSongsFromXML2(path: pchar);
-  var
-    doc: TxmlDocPtr;
-    root_element: TxmlNodePtr;
-  begin
-    doc := xmlReadFile(path, nil, 0);
-    if doc = nil then begin
-      WriteLn('Fehler beim öffnen der doc');
-      Exit;
-    end;
-
-    root_element := xmlDocGetRootElement(doc);
-    if root_element = nil then begin
-      WriteLn('Leeres oder fehlerhaftes Doc');
-      Exit;
-    end;
-
-    WriteLn('Root Element: ', root_element^.Name);
-    parse_songs(root_element);
-
-    xmlFreeDoc(doc);
-    xmlCleanupParser;
-
-  end;
-
-
-  ///////////
 
   function strtok(str: pchar; delim: pchar): pchar; external 'libc';    // msvcrt.dll
   function strtok_r(s: pchar; delim: pchar; saveptr: PPChar): pchar; cdecl; external 'libc';
 
-  // https://www.perplexity.ai/search/ich-will-eine-config-xml-mit-l-iRnb5Pk8Sri0IqhTn9GzAQ
-  // https://www.perplexity.ai/search/wie-wurde-man-folgendes-beispu-KAmXKQNhS5qsQb.MOYcR7Q
-
   // ==============================
-
-
-  //  https://www.perplexity.ai/search/das-schreiben-eines-keys-sieht-M19BI.JKRG.GS24Ame9QCw
-  // https://www.perplexity.ai/search/ich-will-folgendes-mit-libxml2-uUjHrYrgT.y8dou5uWImXg
 
   function createXPathNode(parent: TxmlNodePtr; path: pchar): TxmlNodePtr;
   var
@@ -169,7 +62,7 @@ uses
     end;
 
     xmlFree(pathCopy);
-    Result:=currentNode;
+    Result := currentNode;
   end;
 
   procedure writeNewKey(doc: TxmlDocPtr; xpath, attrName, attrValue: pchar);
@@ -189,14 +82,14 @@ uses
     root_node := xmlNewNode(nil, 'config');
     xmlDocSetRootElement(doc, root_node);
 
-    writeNewKey(doc, '/window/frame', 'border', '4');
-    writeNewKey(doc, '/window/button/label', 'text', 'hello äöü');
-    writeNewKey(doc, '/window/frame', 'width', '800');
-    writeNewKey(doc, '/window/frame', 'height', '600');
-    writeNewKey(doc, '/window/button', 'color', 'blue');
-    writeNewKey(doc, '/window/button', 'font', 'monospace');
-    writeNewKey(doc, '/window/button/font', 'size', '16');
-    writeNewKey(doc, '/window/blu/blu/button/font', 'size', '16');
+    writeNewKey(doc, 'window/frame', 'border', '4');
+    writeNewKey(doc, 'window/button/label', 'text', 'hello äöü');
+    writeNewKey(doc, 'window/frame', 'width', '800');
+    writeNewKey(doc, 'window/frame', 'height', '600');
+    writeNewKey(doc, 'window/button', 'color', 'blue');
+    writeNewKey(doc, 'window/button', 'font', 'monospace');
+    writeNewKey(doc, 'window/button/font', 'size', '16');
+    writeNewKey(doc, 'window/blu/blu/button/font', 'size', '16');
 
     xmlSaveFormatFileEnc(path, doc, 'UTF-8', 1);
     xmlFreeDoc(doc);
@@ -209,28 +102,67 @@ uses
   begin
     doc := xmlReadFile(path, nil, XML_PARSE_NOBLANKS);
 
-    writeNewKey(doc, '/window/frame', 'background', 'white');
-    writeNewKey(doc, '/window/frame', 'foreground', 'black');
+    writeNewKey(doc, 'window/frame', 'background', 'white');
+    writeNewKey(doc, 'window/frame', 'foreground', 'black');
 
     xmlSaveFormatFileEnc(path, doc, 'UTF-8', 1);
     xmlFreeDoc(doc);
   end;
 
+  // ==========
+
+  function readKey(doc: TxmlDocPtr; xpath, attrName: pchar): pchar;
+  var
+    context: TxmlXPathContextPtr;
+    res: TxmlXPathObjectPtr;
+    node, root: TxmlNodePtr;
+  begin
+    if xpath = nil then begin
+      Exit(xmlStrdup('(path=nil)'));
+    end;
+
+    context := xmlXPathNewContext(doc);
+
+    root := xmlDocGetRootElement(doc);
+    xmlXPathSetContextNode(root, context);
+
+    res := xmlXPathEvalExpression(xpath, context);
+    if xmlXPathNodeSetIsEmpty(res^.nodesetval) then begin
+      Exit(xmlStrdup('(path error)'));
+    end;
+
+    node := res^.nodesetval^.nodeTab[0];
+    Result := xmlGetProp(node, attrName);
+
+    xmlXPathFreeObject(res);
+    xmlXPathFreeContext(context);
+  end;
+
+  procedure ReadXML(path: pchar);
+  var
+    doc: TxmlDocPtr;
+    val: pchar;
+  begin
+    doc := xmlReadFile(path, nil, XML_PARSE_NOBLANKS);
+
+    val := readKey(doc, 'window/frame', 'width');
+    WriteLn('width: ', val);
+    xmlFree(val);
+
+    val := readKey(doc, 'window/frame', 'height');
+    WriteLn('height: ', val);
+    xmlFree(val);
+
+  end;
 
 
 begin
   SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide, exOverflow, exUnderflow, exPrecision]);
 
-  //  WriteXLM('config.xml');
   CreateXML('config2.xml');
   AppenXML('config2.xml');
 
-
   WriteLn('---------------------------------');
 
-  //  loadSongsFromXML1('config.xml');
-  WriteLn('---------------------------------');
-  //  loadSongsFromXML2('config.xml');
-  //    xmlValidateNCName(nil, 0);
-
+  ReadXML('config2.xml');
 end.
