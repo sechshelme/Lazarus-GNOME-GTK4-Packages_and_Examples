@@ -38,9 +38,9 @@ extern "C" {
  *
  * Raises an error.
  */
-#define xmlXPathSetError(ctxt, err)					\
-    { xmlXPatherror((ctxt), __FILE__, __LINE__, (err));			\
-      if ((ctxt) != NULL) (ctxt)->error = (err); }
+//#define xmlXPathSetError(ctxt, err)					\
+//    { xmlXPatherror((ctxt), __FILE__, __LINE__, (err));			\
+//      if ((ctxt) != NULL) (ctxt)->error = (err); }
 
 /**
  * xmlXPathSetArityError:
@@ -207,7 +207,7 @@ extern void *
 #define xmlXPathStackIsNodeSet(ctxt)					\
     (((ctxt)->value != NULL)						\
      && (((ctxt)->value->type == XPATH_NODESET)				\
-         || ((ctxt)->value->type == XPATH_XSLT_TREE)))
+         | ((ctxt)->value->type == XPATH_XSLT_TREE)))
 
 /**
  * xmlXPathStackIsExternal:
@@ -228,24 +228,24 @@ extern void *
  *
  * Empties a node-set.
  */
-#define xmlXPathEmptyNodeSet(ns)					\
-    { while ((ns)->nodeNr > 0) (ns)->nodeTab[--(ns)->nodeNr] = NULL; }
+//#define xmlXPathEmptyNodeSet(ns)					\
+//    { while ((ns)->nodeNr > 0) (ns)->nodeTab[--(ns)->nodeNr] = NULL; }
 
 /**
  * CHECK_ERROR:
  *
  * Macro to return from the function if an XPath error was detected.
  */
-#define CHECK_ERROR							\
-    if (ctxt->error != XPATH_EXPRESSION_OK) return
+//#define CHECK_ERROR							\
+//    if (ctxt->error != XPATH_EXPRESSION_OK) return
 
 /**
  * CHECK_ERROR0:
  *
  * Macro to return 0 from the function if an XPath error was detected.
  */
-#define CHECK_ERROR0							\
-    if (ctxt->error != XPATH_EXPRESSION_OK) return(0)
+//#define CHECK_ERROR0							\
+//    if (ctxt->error != XPATH_EXPRESSION_OK) return(0)
 
 /**
  * XP_ERROR:
@@ -253,8 +253,8 @@ extern void *
  *
  * Macro to raise an XPath error and return.
  */
-#define XP_ERROR(X)							\
-    { xmlXPathErr(ctxt, X); return; }
+//#define XP_ERROR(X)							\
+//    { xmlXPathErr(ctxt, X); return; }
 
 /**
  * XP_ERROR0:
@@ -262,8 +262,8 @@ extern void *
  *
  * Macro to raise an XPath error and return 0.
  */
-#define XP_ERROR0(X)							\
-    { xmlXPathErr(ctxt, X); return(0); }
+//#define XP_ERROR0(X)							\
+//    { xmlXPathErr(ctxt, X); return(0); }
 
 /**
  * CHECK_TYPE:
@@ -272,9 +272,9 @@ extern void *
  * Macro to check that the value on top of the XPath stack is of a given
  * type.
  */
-#define CHECK_TYPE(typeval)						\
-    if ((ctxt->value == NULL) || (ctxt->value->type != typeval))	\
-        XP_ERROR(XPATH_INVALID_TYPE)
+//#define CHECK_TYPE(typeval)						\
+//    if ((ctxt->value == NULL) || (ctxt->value->type != typeval))	\
+//        XP_ERROR(XPATH_INVALID_TYPE)
 
 /**
  * CHECK_TYPE0:
@@ -283,9 +283,9 @@ extern void *
  * Macro to check that the value on top of the XPath stack is of a given
  * type. Return(0) in case of failure
  */
-#define CHECK_TYPE0(typeval)						\
-    if ((ctxt->value == NULL) || (ctxt->value->type != typeval))	\
-        XP_ERROR0(XPATH_INVALID_TYPE)
+//#define CHECK_TYPE0(typeval)						\
+//    if ((ctxt->value == NULL) || (ctxt->value->type != typeval))	\
+//        XP_ERROR0(XPATH_INVALID_TYPE)
 
 /**
  * CHECK_ARITY:
@@ -293,39 +293,39 @@ extern void *
  *
  * Macro to check that the number of args passed to an XPath function matches.
  */
-#define CHECK_ARITY(x)							\
-    if (ctxt == NULL) return;						\
-    if (nargs != (x))							\
-        XP_ERROR(XPATH_INVALID_ARITY);					\
-    if (ctxt->valueNr < ctxt->valueFrame + (x))				\
-        XP_ERROR(XPATH_STACK_ERROR);
+//#define CHECK_ARITY(x)							\
+//    if (ctxt == NULL) return;						\
+//    if (nargs != (x))							\
+//        XP_ERROR(XPATH_INVALID_ARITY);					\
+//    if (ctxt->valueNr < ctxt->valueFrame + (x))				\
+//        XP_ERROR(XPATH_STACK_ERROR);
 
 /**
  * CAST_TO_STRING:
  *
  * Macro to try to cast the value on the top of the XPath stack to a string.
  */
-#define CAST_TO_STRING							\
-    if ((ctxt->value != NULL) && (ctxt->value->type != XPATH_STRING))	\
-        xmlXPathStringFunction(ctxt, 1);
+//#define CAST_TO_STRING							\
+//    if ((ctxt->value != NULL) && (ctxt->value->type != XPATH_STRING))	\
+//        xmlXPathStringFunction(ctxt, 1);
 
 /**
  * CAST_TO_NUMBER:
  *
  * Macro to try to cast the value on the top of the XPath stack to a number.
  */
-#define CAST_TO_NUMBER							\
-    if ((ctxt->value != NULL) && (ctxt->value->type != XPATH_NUMBER))	\
-        xmlXPathNumberFunction(ctxt, 1);
+//#define CAST_TO_NUMBER							\
+//    if ((ctxt->value != NULL) && (ctxt->value->type != XPATH_NUMBER))	\
+//        xmlXPathNumberFunction(ctxt, 1);
 
 /**
  * CAST_TO_BOOLEAN:
  *
  * Macro to try to cast the value on the top of the XPath stack to a boolean.
  */
-#define CAST_TO_BOOLEAN							\
-    if ((ctxt->value != NULL) && (ctxt->value->type != XPATH_BOOLEAN))	\
-        xmlXPathBooleanFunction(ctxt, 1);
+//#define CAST_TO_BOOLEAN							\
+//    if ((ctxt->value != NULL) && (ctxt->value->type != XPATH_BOOLEAN))	\
+//        xmlXPathBooleanFunction(ctxt, 1);
 
 /*
  * Variable Lookup forwarding.

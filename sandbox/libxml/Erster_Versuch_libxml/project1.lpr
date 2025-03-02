@@ -18,8 +18,11 @@ uses
   parser,             // io. -> xmlstring, tree, valid, dict, hash, xmlerror, encoding, xmlIO
 
   xpath,              // io. -> xmlstring, xmlerror, tree, hash, dict
-  xmlmemory,
-  globals,
+  xmlmemory,          // io.
+  globals,            // io. -> tree, encoding, parser, xmlerror, xmlmemory
+  schemasInternals,   // io. -> xmlstring, xmlregexp, tree, Hash, dict
+  xmlwriter,          // io. -> xmlstring, tree
+  xpathInternals,     // io. -> xmlstring, xpath, tree
 
   Math;
 

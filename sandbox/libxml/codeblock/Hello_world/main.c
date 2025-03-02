@@ -7,6 +7,9 @@
 #include <stdio.h>
 #include <libxml/parser.h>
 #include <libxml/xpath.h>
+#include <libxml/xmlwriter.h>
+#include <libxml/schemasInternals.h>
+#include <libxml/xpathInternals.h>
 
 void loadSongsFromXML(const char* path) {
     xmlDocPtr doc;
@@ -67,7 +70,6 @@ int main() {
 
   int * p = xmlMalloc(1000);
   xmlFree(p);
-
 
 }
 

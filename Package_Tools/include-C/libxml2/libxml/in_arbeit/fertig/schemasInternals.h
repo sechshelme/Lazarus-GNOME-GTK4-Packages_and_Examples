@@ -217,26 +217,26 @@ struct _xmlSchemaAnnot {
  *
  * allow elements in no namespace
  */
-#define XML_SCHEMAS_ATTR_GLOBAL        1 << 0
+#define XML_SCHEMAS_ATTR_GLOBAL (1 << 0)
 /**
  * XML_SCHEMAS_ATTR_NSDEFAULT:
  *
  * allow elements in no namespace
  */
-#define XML_SCHEMAS_ATTR_NSDEFAULT        1 << 7
+#define XML_SCHEMAS_ATTR_NSDEFAULT (1 << 7)
 /**
  * XML_SCHEMAS_ATTR_INTERNAL_RESOLVED:
  *
  * this is set when the "type" and "ref" references
  * have been resolved.
  */
-#define XML_SCHEMAS_ATTR_INTERNAL_RESOLVED        1 << 8
+#define XML_SCHEMAS_ATTR_INTERNAL_RESOLVED        (1 << 8)
 /**
  * XML_SCHEMAS_ATTR_FIXED:
  *
  * the attribute has a fixed value
  */
-#define XML_SCHEMAS_ATTR_FIXED        1 << 9
+#define XML_SCHEMAS_ATTR_FIXED        (1 << 9)
 
 /**
  * xmlSchemaAttribute:
@@ -285,7 +285,7 @@ struct _xmlSchemaAttributeLink {
  *
  * If the wildcard is complete.
  */
-#define XML_SCHEMAS_WILDCARD_COMPLETE 1 << 0
+#define XML_SCHEMAS_WILDCARD_COMPLETE (1 << 0)
 
 /**
  * xmlSchemaCharValueLink:
@@ -323,32 +323,32 @@ struct _xmlSchemaWildcard {
  *
  * The attribute wildcard has been built.
  */
-#define XML_SCHEMAS_ATTRGROUP_WILDCARD_BUILDED 1 << 0
+#define XML_SCHEMAS_ATTRGROUP_WILDCARD_BUILDED (1 << 0)
 /**
  * XML_SCHEMAS_ATTRGROUP_GLOBAL:
  *
  * The attribute group has been defined.
  */
-#define XML_SCHEMAS_ATTRGROUP_GLOBAL 1 << 1
+#define XML_SCHEMAS_ATTRGROUP_GLOBAL (1 << 1)
 /**
  * XML_SCHEMAS_ATTRGROUP_MARKED:
  *
  * Marks the attr group as marked; used for circular checks.
  */
-#define XML_SCHEMAS_ATTRGROUP_MARKED 1 << 2
+#define XML_SCHEMAS_ATTRGROUP_MARKED (1 << 2)
 
 /**
  * XML_SCHEMAS_ATTRGROUP_REDEFINED:
  *
  * The attr group was redefined.
  */
-#define XML_SCHEMAS_ATTRGROUP_REDEFINED 1 << 3
+#define XML_SCHEMAS_ATTRGROUP_REDEFINED (1 << 3)
 /**
  * XML_SCHEMAS_ATTRGROUP_HAS_REFS:
  *
  * Whether this attr. group contains attr. group references.
  */
-#define XML_SCHEMAS_ATTRGROUP_HAS_REFS 1 << 4
+#define XML_SCHEMAS_ATTRGROUP_HAS_REFS (1 << 4)
 
 /**
  * An attribute group definition.
@@ -405,32 +405,32 @@ struct _xmlSchemaFacetLink {
  *
  * the element content type is mixed
  */
-#define XML_SCHEMAS_TYPE_MIXED                1 << 0
+#define XML_SCHEMAS_TYPE_MIXED                (1 << 0)
 /**
  * XML_SCHEMAS_TYPE_DERIVATION_METHOD_EXTENSION:
  *
  * the simple or complex type has a derivation method of "extension".
  */
-#define XML_SCHEMAS_TYPE_DERIVATION_METHOD_EXTENSION                1 << 1
+#define XML_SCHEMAS_TYPE_DERIVATION_METHOD_EXTENSION                (1 << 1)
 /**
  * XML_SCHEMAS_TYPE_DERIVATION_METHOD_RESTRICTION:
  *
  * the simple or complex type has a derivation method of "restriction".
  */
-#define XML_SCHEMAS_TYPE_DERIVATION_METHOD_RESTRICTION                1 << 2
+#define XML_SCHEMAS_TYPE_DERIVATION_METHOD_RESTRICTION                (1 << 2)
 /**
  * XML_SCHEMAS_TYPE_GLOBAL:
  *
  * the type is global
  */
-#define XML_SCHEMAS_TYPE_GLOBAL                1 << 3
+#define XML_SCHEMAS_TYPE_GLOBAL                (1 << 3)
 /**
  * XML_SCHEMAS_TYPE_OWNED_ATTR_WILDCARD:
  *
  * the complexType owns an attribute wildcard, i.e.
  * it can be freed by the complexType
  */
-#define XML_SCHEMAS_TYPE_OWNED_ATTR_WILDCARD    1 << 4 /* Obsolete. */
+#define XML_SCHEMAS_TYPE_OWNED_ATTR_WILDCARD    (1 << 4) /* Obsolete. */
 /**
  * XML_SCHEMAS_TYPE_VARIETY_ABSENT:
  *
@@ -439,160 +439,160 @@ struct _xmlSchemaFacetLink {
  * none of the variety flags occur then it's
  * automatically absent.
  */
-#define XML_SCHEMAS_TYPE_VARIETY_ABSENT    1 << 5
+#define XML_SCHEMAS_TYPE_VARIETY_ABSENT    (1 << 5)
 /**
  * XML_SCHEMAS_TYPE_VARIETY_LIST:
  *
  * the simpleType has a variety of "list".
  */
-#define XML_SCHEMAS_TYPE_VARIETY_LIST    1 << 6
+#define XML_SCHEMAS_TYPE_VARIETY_LIST   ( 1 << 6)
 /**
  * XML_SCHEMAS_TYPE_VARIETY_UNION:
  *
  * the simpleType has a variety of "union".
  */
-#define XML_SCHEMAS_TYPE_VARIETY_UNION    1 << 7
+#define XML_SCHEMAS_TYPE_VARIETY_UNION    (1 << 7)
 /**
  * XML_SCHEMAS_TYPE_VARIETY_ATOMIC:
  *
  * the simpleType has a variety of "union".
  */
-#define XML_SCHEMAS_TYPE_VARIETY_ATOMIC    1 << 8
+#define XML_SCHEMAS_TYPE_VARIETY_ATOMIC    (1 << 8)
 /**
  * XML_SCHEMAS_TYPE_FINAL_EXTENSION:
  *
  * the complexType has a final of "extension".
  */
-#define XML_SCHEMAS_TYPE_FINAL_EXTENSION    1 << 9
+#define XML_SCHEMAS_TYPE_FINAL_EXTENSION   ( 1 << 9)
 /**
  * XML_SCHEMAS_TYPE_FINAL_RESTRICTION:
  *
  * the simpleType/complexType has a final of "restriction".
  */
-#define XML_SCHEMAS_TYPE_FINAL_RESTRICTION    1 << 10
+#define XML_SCHEMAS_TYPE_FINAL_RESTRICTION   ( 1 << 10)
 /**
  * XML_SCHEMAS_TYPE_FINAL_LIST:
  *
  * the simpleType has a final of "list".
  */
-#define XML_SCHEMAS_TYPE_FINAL_LIST    1 << 11
+#define XML_SCHEMAS_TYPE_FINAL_LIST   ( 1 << 11)
 /**
  * XML_SCHEMAS_TYPE_FINAL_UNION:
  *
  * the simpleType has a final of "union".
  */
-#define XML_SCHEMAS_TYPE_FINAL_UNION    1 << 12
+#define XML_SCHEMAS_TYPE_FINAL_UNION    (1 << 12)
 /**
  * XML_SCHEMAS_TYPE_FINAL_DEFAULT:
  *
  * the simpleType has a final of "default".
  */
-#define XML_SCHEMAS_TYPE_FINAL_DEFAULT    1 << 13
+#define XML_SCHEMAS_TYPE_FINAL_DEFAULT    (1 << 13)
 /**
  * XML_SCHEMAS_TYPE_BUILTIN_PRIMITIVE:
  *
  * Marks the item as a builtin primitive.
  */
-#define XML_SCHEMAS_TYPE_BUILTIN_PRIMITIVE    1 << 14
+#define XML_SCHEMAS_TYPE_BUILTIN_PRIMITIVE   ( 1 << 14)
 /**
  * XML_SCHEMAS_TYPE_MARKED:
  *
  * Marks the item as marked; used for circular checks.
  */
-#define XML_SCHEMAS_TYPE_MARKED        1 << 16
+#define XML_SCHEMAS_TYPE_MARKED      (  1 << 16)
 /**
  * XML_SCHEMAS_TYPE_BLOCK_DEFAULT:
  *
  * the complexType did not specify 'block' so use the default of the
  * <schema> item.
  */
-#define XML_SCHEMAS_TYPE_BLOCK_DEFAULT    1 << 17
+#define XML_SCHEMAS_TYPE_BLOCK_DEFAULT   ( 1 << 17)
 /**
  * XML_SCHEMAS_TYPE_BLOCK_EXTENSION:
  *
  * the complexType has a 'block' of "extension".
  */
-#define XML_SCHEMAS_TYPE_BLOCK_EXTENSION    1 << 18
+#define XML_SCHEMAS_TYPE_BLOCK_EXTENSION  (  1 << 18)
 /**
  * XML_SCHEMAS_TYPE_BLOCK_RESTRICTION:
  *
  * the complexType has a 'block' of "restriction".
  */
-#define XML_SCHEMAS_TYPE_BLOCK_RESTRICTION    1 << 19
+#define XML_SCHEMAS_TYPE_BLOCK_RESTRICTION    (1 << 19)
 /**
  * XML_SCHEMAS_TYPE_ABSTRACT:
  *
  * the simple/complexType is abstract.
  */
-#define XML_SCHEMAS_TYPE_ABSTRACT    1 << 20
+#define XML_SCHEMAS_TYPE_ABSTRACT   ( 1 << 20)
 /**
  * XML_SCHEMAS_TYPE_FACETSNEEDVALUE:
  *
  * indicates if the facets need a computed value
  */
-#define XML_SCHEMAS_TYPE_FACETSNEEDVALUE    1 << 21
+#define XML_SCHEMAS_TYPE_FACETSNEEDVALUE    (1 << 21)
 /**
  * XML_SCHEMAS_TYPE_INTERNAL_RESOLVED:
  *
  * indicates that the type was typefixed
  */
-#define XML_SCHEMAS_TYPE_INTERNAL_RESOLVED    1 << 22
+#define XML_SCHEMAS_TYPE_INTERNAL_RESOLVED    (1 << 22)
 /**
  * XML_SCHEMAS_TYPE_INTERNAL_INVALID:
  *
  * indicates that the type is invalid
  */
-#define XML_SCHEMAS_TYPE_INTERNAL_INVALID    1 << 23
+#define XML_SCHEMAS_TYPE_INTERNAL_INVALID    (1 << 23)
 /**
  * XML_SCHEMAS_TYPE_WHITESPACE_PRESERVE:
  *
  * a whitespace-facet value of "preserve"
  */
-#define XML_SCHEMAS_TYPE_WHITESPACE_PRESERVE    1 << 24
+#define XML_SCHEMAS_TYPE_WHITESPACE_PRESERVE  (  1 << 24)
 /**
  * XML_SCHEMAS_TYPE_WHITESPACE_REPLACE:
  *
  * a whitespace-facet value of "replace"
  */
-#define XML_SCHEMAS_TYPE_WHITESPACE_REPLACE    1 << 25
+#define XML_SCHEMAS_TYPE_WHITESPACE_REPLACE    (1 << 25)
 /**
  * XML_SCHEMAS_TYPE_WHITESPACE_COLLAPSE:
  *
  * a whitespace-facet value of "collapse"
  */
-#define XML_SCHEMAS_TYPE_WHITESPACE_COLLAPSE    1 << 26
+#define XML_SCHEMAS_TYPE_WHITESPACE_COLLAPSE  (  1 << 26)
 /**
  * XML_SCHEMAS_TYPE_HAS_FACETS:
  *
  * has facets
  */
-#define XML_SCHEMAS_TYPE_HAS_FACETS    1 << 27
+#define XML_SCHEMAS_TYPE_HAS_FACETS   ( 1 << 27)
 /**
  * XML_SCHEMAS_TYPE_NORMVALUENEEDED:
  *
  * indicates if the facets (pattern) need a normalized value
  */
-#define XML_SCHEMAS_TYPE_NORMVALUENEEDED    1 << 28
+#define XML_SCHEMAS_TYPE_NORMVALUENEEDED    (1 << 28)
 
 /**
  * XML_SCHEMAS_TYPE_FIXUP_1:
  *
  * First stage of fixup was done.
  */
-#define XML_SCHEMAS_TYPE_FIXUP_1    1 << 29
+#define XML_SCHEMAS_TYPE_FIXUP_1   ( 1 << 29)
 
 /**
  * XML_SCHEMAS_TYPE_REDEFINED:
  *
  * The type was redefined.
  */
-#define XML_SCHEMAS_TYPE_REDEFINED    1 << 30
+#define XML_SCHEMAS_TYPE_REDEFINED   ( 1 << 30)
 /**
  * XML_SCHEMAS_TYPE_REDEFINING:
  *
  * The type redefines an other type.
  */
-/* #define XML_SCHEMAS_TYPE_REDEFINING    1 << 31 */
+ #define XML_SCHEMAS_TYPE_REDEFINING   ( 1 << 31 )
 
 /**
  * _xmlSchemaType:
@@ -646,119 +646,119 @@ struct _xmlSchemaType {
  *
  * the element is nillable
  */
-#define XML_SCHEMAS_ELEM_NILLABLE        1 << 0
+#define XML_SCHEMAS_ELEM_NILLABLE       ( 1 << 0)
 /**
  * XML_SCHEMAS_ELEM_GLOBAL:
  *
  * the element is global
  */
-#define XML_SCHEMAS_ELEM_GLOBAL                1 << 1
+#define XML_SCHEMAS_ELEM_GLOBAL            (    1 << 1)
 /**
  * XML_SCHEMAS_ELEM_DEFAULT:
  *
  * the element has a default value
  */
-#define XML_SCHEMAS_ELEM_DEFAULT        1 << 2
+#define XML_SCHEMAS_ELEM_DEFAULT       ( 1 << 2)
 /**
  * XML_SCHEMAS_ELEM_FIXED:
  *
  * the element has a fixed value
  */
-#define XML_SCHEMAS_ELEM_FIXED                1 << 3
+#define XML_SCHEMAS_ELEM_FIXED              (  1 << 3)
 /**
  * XML_SCHEMAS_ELEM_ABSTRACT:
  *
  * the element is abstract
  */
-#define XML_SCHEMAS_ELEM_ABSTRACT        1 << 4
+#define XML_SCHEMAS_ELEM_ABSTRACT      (  1 << 4)
 /**
  * XML_SCHEMAS_ELEM_TOPLEVEL:
  *
  * the element is top level
  * obsolete: use XML_SCHEMAS_ELEM_GLOBAL instead
  */
-#define XML_SCHEMAS_ELEM_TOPLEVEL        1 << 5
+#define XML_SCHEMAS_ELEM_TOPLEVEL       ( 1 << 5)
 /**
  * XML_SCHEMAS_ELEM_REF:
  *
  * the element is a reference to a type
  */
-#define XML_SCHEMAS_ELEM_REF                1 << 6
+#define XML_SCHEMAS_ELEM_REF            (    1 << 6)
 /**
  * XML_SCHEMAS_ELEM_NSDEFAULT:
  *
  * allow elements in no namespace
  * Obsolete, not used anymore.
  */
-#define XML_SCHEMAS_ELEM_NSDEFAULT        1 << 7
+#define XML_SCHEMAS_ELEM_NSDEFAULT     (   1 << 7)
 /**
  * XML_SCHEMAS_ELEM_INTERNAL_RESOLVED:
  *
  * this is set when "type", "ref", "substitutionGroup"
  * references have been resolved.
  */
-#define XML_SCHEMAS_ELEM_INTERNAL_RESOLVED        1 << 8
+#define XML_SCHEMAS_ELEM_INTERNAL_RESOLVED       ( 1 << 8)
  /**
  * XML_SCHEMAS_ELEM_CIRCULAR:
  *
  * a helper flag for the search of circular references.
  */
-#define XML_SCHEMAS_ELEM_CIRCULAR        1 << 9
+#define XML_SCHEMAS_ELEM_CIRCULAR      (  1 << 9)
 /**
  * XML_SCHEMAS_ELEM_BLOCK_ABSENT:
  *
  * the "block" attribute is absent
  */
-#define XML_SCHEMAS_ELEM_BLOCK_ABSENT        1 << 10
+#define XML_SCHEMAS_ELEM_BLOCK_ABSENT     (   1 << 10)
 /**
  * XML_SCHEMAS_ELEM_BLOCK_EXTENSION:
  *
  * disallowed substitutions are absent
  */
-#define XML_SCHEMAS_ELEM_BLOCK_EXTENSION        1 << 11
+#define XML_SCHEMAS_ELEM_BLOCK_EXTENSION      (  1 << 11)
 /**
  * XML_SCHEMAS_ELEM_BLOCK_RESTRICTION:
  *
  * disallowed substitutions: "restriction"
  */
-#define XML_SCHEMAS_ELEM_BLOCK_RESTRICTION        1 << 12
+#define XML_SCHEMAS_ELEM_BLOCK_RESTRICTION      (  1 << 12)
 /**
  * XML_SCHEMAS_ELEM_BLOCK_SUBSTITUTION:
  *
  * disallowed substitutions: "substitution"
  */
-#define XML_SCHEMAS_ELEM_BLOCK_SUBSTITUTION        1 << 13
+#define XML_SCHEMAS_ELEM_BLOCK_SUBSTITUTION       ( 1 << 13)
 /**
  * XML_SCHEMAS_ELEM_FINAL_ABSENT:
  *
  * substitution group exclusions are absent
  */
-#define XML_SCHEMAS_ELEM_FINAL_ABSENT        1 << 14
+#define XML_SCHEMAS_ELEM_FINAL_ABSENT        (1 << 14)
 /**
  * XML_SCHEMAS_ELEM_FINAL_EXTENSION:
  *
  * substitution group exclusions: "extension"
  */
-#define XML_SCHEMAS_ELEM_FINAL_EXTENSION        1 << 15
+#define XML_SCHEMAS_ELEM_FINAL_EXTENSION    (    1 << 15)
 /**
  * XML_SCHEMAS_ELEM_FINAL_RESTRICTION:
  *
  * substitution group exclusions: "restriction"
  */
-#define XML_SCHEMAS_ELEM_FINAL_RESTRICTION        1 << 16
+#define XML_SCHEMAS_ELEM_FINAL_RESTRICTION     (   1 << 16)
 /**
  * XML_SCHEMAS_ELEM_SUBST_GROUP_HEAD:
  *
  * the declaration is a substitution group head
  */
-#define XML_SCHEMAS_ELEM_SUBST_GROUP_HEAD        1 << 17
+#define XML_SCHEMAS_ELEM_SUBST_GROUP_HEAD     (   1 << 17)
 /**
  * XML_SCHEMAS_ELEM_INTERNAL_CHECKED:
  *
  * this is set when the elem decl has been checked against
  * all constraints
  */
-#define XML_SCHEMAS_ELEM_INTERNAL_CHECKED        1 << 18
+#define XML_SCHEMAS_ELEM_INTERNAL_CHECKED    (    1 << 18)
 
 typedef struct _xmlSchemaElement xmlSchemaElement;
 typedef xmlSchemaElement *xmlSchemaElementPtr;
@@ -858,63 +858,63 @@ struct _xmlSchemaNotation {
  * Reflects elementFormDefault == qualified in
  * an XML schema document.
  */
-#define XML_SCHEMAS_QUALIF_ELEM                1 << 0
+#define XML_SCHEMAS_QUALIF_ELEM            (   1 << 0)
 /**
  * XML_SCHEMAS_QUALIF_ATTR:
  *
  * Reflects attributeFormDefault == qualified in
  * an XML schema document.
  */
-#define XML_SCHEMAS_QUALIF_ATTR            1 << 1
+#define XML_SCHEMAS_QUALIF_ATTR         (   1 << 1)
 /**
  * XML_SCHEMAS_FINAL_DEFAULT_EXTENSION:
  *
  * the schema has "extension" in the set of finalDefault.
  */
-#define XML_SCHEMAS_FINAL_DEFAULT_EXTENSION        1 << 2
+#define XML_SCHEMAS_FINAL_DEFAULT_EXTENSION      (  1 << 2)
 /**
  * XML_SCHEMAS_FINAL_DEFAULT_RESTRICTION:
  *
  * the schema has "restriction" in the set of finalDefault.
  */
-#define XML_SCHEMAS_FINAL_DEFAULT_RESTRICTION            1 << 3
+#define XML_SCHEMAS_FINAL_DEFAULT_RESTRICTION      (      1 << 3)
 /**
  * XML_SCHEMAS_FINAL_DEFAULT_LIST:
  *
  * the schema has "list" in the set of finalDefault.
  */
-#define XML_SCHEMAS_FINAL_DEFAULT_LIST            1 << 4
+#define XML_SCHEMAS_FINAL_DEFAULT_LIST         (   1 << 4)
 /**
  * XML_SCHEMAS_FINAL_DEFAULT_UNION:
  *
  * the schema has "union" in the set of finalDefault.
  */
-#define XML_SCHEMAS_FINAL_DEFAULT_UNION            1 << 5
+#define XML_SCHEMAS_FINAL_DEFAULT_UNION       (     1 << 5)
 /**
  * XML_SCHEMAS_BLOCK_DEFAULT_EXTENSION:
  *
  * the schema has "extension" in the set of blockDefault.
  */
-#define XML_SCHEMAS_BLOCK_DEFAULT_EXTENSION            1 << 6
+#define XML_SCHEMAS_BLOCK_DEFAULT_EXTENSION       (     1 << 6)
 /**
  * XML_SCHEMAS_BLOCK_DEFAULT_RESTRICTION:
  *
  * the schema has "restriction" in the set of blockDefault.
  */
-#define XML_SCHEMAS_BLOCK_DEFAULT_RESTRICTION            1 << 7
+#define XML_SCHEMAS_BLOCK_DEFAULT_RESTRICTION         (   1 << 7)
 /**
  * XML_SCHEMAS_BLOCK_DEFAULT_SUBSTITUTION:
  *
  * the schema has "substitution" in the set of blockDefault.
  */
-#define XML_SCHEMAS_BLOCK_DEFAULT_SUBSTITUTION            1 << 8
+#define XML_SCHEMAS_BLOCK_DEFAULT_SUBSTITUTION          (  1 << 8)
 /**
  * XML_SCHEMAS_INCLUDING_CONVERT_NS:
  *
  * the schema is currently including an other schema with
  * no target namespace.
  */
-#define XML_SCHEMAS_INCLUDING_CONVERT_NS            1 << 9
+#define XML_SCHEMAS_INCLUDING_CONVERT_NS        (    1 << 9)
 /**
  * _xmlSchema:
  *
