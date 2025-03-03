@@ -17,7 +17,7 @@ uses
   valid,              // io. -> tree, list, xmlstring, xmlautomata
   parser,             // io. -> xmlstring, tree, valid, dict, hash, xmlerror, encoding, xmlIO
 
-  parserInternals,
+  parserInternals,         // ???????
   schemasInternals,
   xpathInternals,
 
