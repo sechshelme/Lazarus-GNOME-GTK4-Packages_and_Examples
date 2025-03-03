@@ -98,9 +98,6 @@ extern void
 		xmlSAX2StartDocument		(void *ctx);
 extern void 
 		xmlSAX2EndDocument		(void *ctx);
-#if defined(LIBXML_SAX1_ENABLED) || defined(LIBXML_HTML_ENABLED) || \
-    defined(LIBXML_WRITER_ENABLED) || defined(LIBXML_DOCB_ENABLED) || \
-    defined(LIBXML_LEGACY_ENABLED)
 extern void 
 		xmlSAX2StartElement		(void *ctx,
 						 const xmlChar *fullname,

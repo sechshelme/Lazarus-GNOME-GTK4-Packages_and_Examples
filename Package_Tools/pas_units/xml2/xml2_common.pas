@@ -36,6 +36,17 @@ type
   Piconv_t=^Ticonv_t;
 
 
+//  // Internals
+//type
+//  TxmlSchemaTypePtr = Pointer; // /usr/include/libxml2/libxml/schemasInternals.h
+//  TxmlSchemaValPtr = Pointer;
+//  PxmlSchemaValPtr = ^TxmlSchemaValPtr;
+//  TxmlSchemaFacetPtr=Pointer;
+//  TxmlSchemaValType=LongInt;
+
+
+
+
 implementation
 
 end.

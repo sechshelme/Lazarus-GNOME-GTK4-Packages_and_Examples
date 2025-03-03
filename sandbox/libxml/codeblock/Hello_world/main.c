@@ -12,6 +12,11 @@
 #include <libxml/schemasInternals.h>
 #include <libxml/xpathInternals.h>
 #include <libxml/chvalid.h>
+#include <libxml/debugXML.h>
+#include <libxml/catalog.h>
+#include <libxml/schematron.h>
+#include <libxml/nanoftp.h>
+#include <libxml/HTMLtree.h>
 
 void loadSongsFromXML(const char* path) {
     xmlDocPtr doc;
@@ -72,6 +77,7 @@ int main() {
 
   int * p = xmlMalloc(1000);
   xmlFree(p);
+
 
 
 }

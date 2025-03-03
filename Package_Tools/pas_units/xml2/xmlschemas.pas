@@ -3,7 +3,7 @@ unit xmlschemas;
 interface
 
 uses
-  ctypes, xml2_common, xmlerror, tree, encoding;
+  ctypes, xml2_common, xmlerror, tree, encoding, schemasInternals;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -49,10 +49,6 @@ const
   XML_SCHEMA_VAL_VC_I_CREATE = 1 shl 0;
 
 type
-  TxmlSchema = record // /usr/include/libxml2/libxml/schemasInternals.h
-  end;
-  PxmlSchema = ^TxmlSchema;
-
   PxmlSchemaPtr = ^TxmlSchemaPtr;
   TxmlSchemaPtr = PxmlSchema;
 

@@ -17,18 +17,36 @@ uses
   valid,              // io. -> tree, list, xmlstring, xmlautomata
   parser,             // io. -> xmlstring, tree, valid, dict, hash, xmlerror, encoding, xmlIO
 
+  parserInternals,
+  schemasInternals,
+  xpathInternals,
+
+
   xpath,              // io. -> xmlstring, xmlerror, tree, hash, dict
   xmlmemory,          // io.
   globals,            // io. -> tree, encoding, parser, xmlerror, xmlmemory
   xmlwriter,          // io. -> xmlstring, tree
   HTMLparser,         // io. -> xmlstring, xmlIO, tree, parser, encoding
-  xmlschemas,         // io. -> xmlerror, tree, encoding
+  xmlschemas,         // io. -> xmlerror, tree, encoding, schemasInternals
   relaxng,            // io. -> xmlstring, xmlerror, tree
   xmlreader,          // io. -> xmlstring, xmlschemas, xmlIO, xmlerror, tree, relaxng
-  chvalid,
-  xlink,
-  xmlunicode,
-  xmlversion,
+  chvalid,            // io.
+  xlink,              // io. -> xmlstring, tree
+  xmlunicode,         // io.
+  xmlversion,         // io.
+  catalog,            // io. -> xmlstring, tree
+  debugXML,           // io. -> xmlstring, tree, xpath
+  entities,           // io. -> xmlstring, tree
+  SAX2,               // io. -> xmlstring, tree, parser
+  nanoftp,            // io.
+  SAX,                // io. -> xmlstring, tree, parser
+  schematron,         // io. -> xmlerror, tree
+  xmlschemastypes,    // io. -> xmlstring, xmlschemas, tree, schemasInternals
+  c14n,               // io. -> xmlstring, tree, xpath
+  DOCBparser,         // io. -> xmlstring, encoding, tree, parser
+  HTMLtree,           // io. -> xmlstring, tree, HTMLparser
+  xpointer,           // io. -> xmlstring, xpath, tree
+
 
   Math;
 
