@@ -25,6 +25,10 @@ uses
   xmlschemas,         // io. -> xmlerror, tree, encoding
   relaxng,            // io. -> xmlstring, xmlerror, tree
   xmlreader,          // io. -> xmlstring, xmlschemas, xmlIO, xmlerror, tree, relaxng
+  chvalid,
+  xlink,
+  xmlunicode,
+  xmlversion,
 
   Math;
 

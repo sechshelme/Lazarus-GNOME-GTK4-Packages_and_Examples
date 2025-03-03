@@ -58,7 +58,7 @@ extern void  xmlCheckVersion(int version);
  * Macro to check that the libxml version in use is compatible with
  * the version the software has been compiled against
  */
-#define LIBXML_TEST_VERSION xmlCheckVersion(20914);
+#define LIBXML_TEST_VERSION xmlCheckVersion(20914)
 
 #ifndef VMS
 #if 0
@@ -416,13 +416,6 @@ extern void  xmlCheckVersion(int version);
  * Macro used to signal to GCC unused function parameters
  */
 
-#ifndef ATTRIBUTE_UNUSED
-# if ((__GNUC__ > 2) || ((__GNUC__ == 2) && (__GNUC_MINOR__ >= 7)))
-#  define ATTRIBUTE_UNUSED __attribute__((unused))
-# else
-#  define ATTRIBUTE_UNUSED
-# endif
-#endif
 
 /**
  * LIBXML_ATTR_ALLOC_SIZE:
@@ -430,31 +423,7 @@ extern void  xmlCheckVersion(int version);
  * Macro used to indicate to GCC this is an allocator function
  */
 
-#ifndef LIBXML_ATTR_ALLOC_SIZE
-# if (!defined(__clang__) && ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ >= 3))))
-#  define LIBXML_ATTR_ALLOC_SIZE(x) __attribute__((alloc_size(x)))
-# else
-#  define LIBXML_ATTR_ALLOC_SIZE(x)
-# endif
-#else
-# define LIBXML_ATTR_ALLOC_SIZE(x)
-#endif
 
-/**
- * LIBXML_ATTR_FORMAT:
- *
- * Macro used to indicate to GCC the parameter are printf like
- */
-
-#ifndef LIBXML_ATTR_FORMAT
-# if ((__GNUC__ > 3) || ((__GNUC__ == 3) && (__GNUC_MINOR__ >= 3)))
-#  define LIBXML_ATTR_FORMAT(fmt,args) __attribute__((__format__(__printf__,fmt,args)))
-# else
-#  define LIBXML_ATTR_FORMAT(fmt,args)
-# endif
-#else
-# define LIBXML_ATTR_FORMAT(fmt,args)
-#endif
 
 #else /* ! __GNUC__ */
 /**
@@ -468,13 +437,13 @@ extern void  xmlCheckVersion(int version);
  *
  * Macro used to indicate to GCC this is an allocator function
  */
-#define LIBXML_ATTR_ALLOC_SIZE(x)
+//#define LIBXML_ATTR_ALLOC_SIZE(x)
 /**
  * LIBXML_ATTR_FORMAT:
  *
  * Macro used to indicate to GCC the parameter are printf like
  */
-#define LIBXML_ATTR_FORMAT(fmt,args)
+//#define LIBXML_ATTR_FORMAT(fmt,args)
 #endif /* __GNUC__ */
 
 #ifdef __cplusplus
