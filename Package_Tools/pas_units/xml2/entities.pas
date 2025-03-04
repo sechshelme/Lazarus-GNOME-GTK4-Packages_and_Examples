@@ -50,30 +50,25 @@ type
   end;
   PxmlEntitiesTable = ^TxmlEntitiesTable;
 
-  TxmlHashTable = TxmlEntitiesTable;
-
-  PxmlEntitiesTablePtr = ^TxmlEntitiesTablePtr;
-  TxmlEntitiesTablePtr = PxmlEntitiesTable;
-
 procedure xmlInitializePredefinedEntities; cdecl; external libxml2;
-function xmlNewEntity(doc: TxmlDocPtr; Name: PxmlChar; _type: longint; ExternalID: PxmlChar; SystemID: PxmlChar;
-  content: PxmlChar): TxmlEntityPtr; cdecl; external libxml2;
-function xmlAddDocEntity(doc: TxmlDocPtr; Name: PxmlChar; _type: longint; ExternalID: PxmlChar; SystemID: PxmlChar;
-  content: PxmlChar): TxmlEntityPtr; cdecl; external libxml2;
-function xmlAddDtdEntity(doc: TxmlDocPtr; Name: PxmlChar; _type: longint; ExternalID: PxmlChar; SystemID: PxmlChar;
-  content: PxmlChar): TxmlEntityPtr; cdecl; external libxml2;
-function xmlGetPredefinedEntity(Name: PxmlChar): TxmlEntityPtr; cdecl; external libxml2;
-function xmlGetDocEntity(doc: PxmlDoc; Name: PxmlChar): TxmlEntityPtr; cdecl; external libxml2;
-function xmlGetDtdEntity(doc: TxmlDocPtr; Name: PxmlChar): TxmlEntityPtr; cdecl; external libxml2;
-function xmlGetParameterEntity(doc: TxmlDocPtr; Name: PxmlChar): TxmlEntityPtr; cdecl; external libxml2;
-function xmlEncodeEntities(doc: TxmlDocPtr; input: PxmlChar): PxmlChar; cdecl; external libxml2;
-function xmlEncodeEntitiesReentrant(doc: TxmlDocPtr; input: PxmlChar): PxmlChar; cdecl; external libxml2;
+function xmlNewEntity(doc: PxmlDoc; Name: PxmlChar; _type: longint; ExternalID: PxmlChar; SystemID: PxmlChar;
+  content: PxmlChar): PxmlEntity; cdecl; external libxml2;
+function xmlAddDocEntity(doc: PxmlDoc; Name: PxmlChar; _type: longint; ExternalID: PxmlChar; SystemID: PxmlChar;
+  content: PxmlChar): PxmlEntity; cdecl; external libxml2;
+function xmlAddDtdEntity(doc: PxmlDoc; Name: PxmlChar; _type: longint; ExternalID: PxmlChar; SystemID: PxmlChar;
+  content: PxmlChar): PxmlEntity; cdecl; external libxml2;
+function xmlGetPredefinedEntity(Name: PxmlChar): PxmlEntity; cdecl; external libxml2;
+function xmlGetDocEntity(doc: PxmlDoc; Name: PxmlChar): PxmlEntity; cdecl; external libxml2;
+function xmlGetDtdEntity(doc: PxmlDoc; Name: PxmlChar): PxmlEntity; cdecl; external libxml2;
+function xmlGetParameterEntity(doc: PxmlDoc; Name: PxmlChar): PxmlEntity; cdecl; external libxml2;
+function xmlEncodeEntities(doc: PxmlDoc; input: PxmlChar): PxmlChar; cdecl; external libxml2;
+function xmlEncodeEntitiesReentrant(doc: PxmlDoc; input: PxmlChar): PxmlChar; cdecl; external libxml2;
 function xmlEncodeSpecialChars(doc: PxmlDoc; input: PxmlChar): PxmlChar; cdecl; external libxml2;
-function xmlCreateEntitiesTable: TxmlEntitiesTablePtr; cdecl; external libxml2;
-function xmlCopyEntitiesTable(table: TxmlEntitiesTablePtr): TxmlEntitiesTablePtr; cdecl; external libxml2;
-procedure xmlFreeEntitiesTable(table: TxmlEntitiesTablePtr); cdecl; external libxml2;
-procedure xmlDumpEntitiesTable(buf: TxmlBufferPtr; table: TxmlEntitiesTablePtr); cdecl; external libxml2;
-procedure xmlDumpEntityDecl(buf: TxmlBufferPtr; ent: TxmlEntityPtr); cdecl; external libxml2;
+function xmlCreateEntitiesTable: PxmlEntitiesTable; cdecl; external libxml2;
+function xmlCopyEntitiesTable(table: PxmlEntitiesTable): PxmlEntitiesTable; cdecl; external libxml2;
+procedure xmlFreeEntitiesTable(table: PxmlEntitiesTable); cdecl; external libxml2;
+procedure xmlDumpEntitiesTable(buf: PxmlBuffer; table: PxmlEntitiesTable); cdecl; external libxml2;
+procedure xmlDumpEntityDecl(buf: PxmlBuffer; ent: PxmlEntity); cdecl; external libxml2;
 procedure xmlCleanupPredefinedEntities; cdecl; external libxml2;
 
 // === Konventiert am: 3-3-25 19:17:09 ===

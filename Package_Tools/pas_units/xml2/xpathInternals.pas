@@ -23,19 +23,19 @@ procedure xmlXPathErr(ctxt: PxmlXPathParserContext; error: longint); cdecl; exte
 procedure xmlXPathDebugDumpObject(output: PFILE; cur: PxmlXPathObject; depth: longint); cdecl; external libxml2;
 procedure xmlXPathDebugDumpCompExpr(output: PFILE; comp: PxmlXPathCompExpr; depth: longint); cdecl; external libxml2;
 
-function xmlXPathNodeSetContains(cur: PxmlNodeSet; val: TxmlNodePtr): longint; cdecl; external libxml2;
+function xmlXPathNodeSetContains(cur: PxmlNodeSet; val: PxmlNode): longint; cdecl; external libxml2;
 function xmlXPathDifference(nodes1: PxmlNodeSet; nodes2: PxmlNodeSet): PxmlNodeSet; cdecl; external libxml2;
 function xmlXPathIntersection(nodes1: PxmlNodeSet; nodes2: PxmlNodeSet): PxmlNodeSet; cdecl; external libxml2;
 function xmlXPathDistinctSorted(nodes: PxmlNodeSet): PxmlNodeSet; cdecl; external libxml2;
 function xmlXPathDistinct(nodes: PxmlNodeSet): PxmlNodeSet; cdecl; external libxml2;
 function xmlXPathHasSameNodes(nodes1: PxmlNodeSet; nodes2: PxmlNodeSet): longint; cdecl; external libxml2;
-function xmlXPathNodeLeadingSorted(nodes: PxmlNodeSet; node: TxmlNodePtr): PxmlNodeSet; cdecl; external libxml2;
+function xmlXPathNodeLeadingSorted(nodes: PxmlNodeSet; node: PxmlNode): PxmlNodeSet; cdecl; external libxml2;
 function xmlXPathLeadingSorted(nodes1: PxmlNodeSet; nodes2: PxmlNodeSet): PxmlNodeSet; cdecl; external libxml2;
-function xmlXPathNodeLeading(nodes: PxmlNodeSet; node: TxmlNodePtr): PxmlNodeSet; cdecl; external libxml2;
+function xmlXPathNodeLeading(nodes: PxmlNodeSet; node: PxmlNode): PxmlNodeSet; cdecl; external libxml2;
 function xmlXPathLeading(nodes1: PxmlNodeSet; nodes2: PxmlNodeSet): PxmlNodeSet; cdecl; external libxml2;
-function xmlXPathNodeTrailingSorted(nodes: PxmlNodeSet; node: TxmlNodePtr): PxmlNodeSet; cdecl; external libxml2;
+function xmlXPathNodeTrailingSorted(nodes: PxmlNodeSet; node: PxmlNode): PxmlNodeSet; cdecl; external libxml2;
 function xmlXPathTrailingSorted(nodes1: PxmlNodeSet; nodes2: PxmlNodeSet): PxmlNodeSet; cdecl; external libxml2;
-function xmlXPathNodeTrailing(nodes: PxmlNodeSet; node: TxmlNodePtr): PxmlNodeSet; cdecl; external libxml2;
+function xmlXPathNodeTrailing(nodes: PxmlNodeSet; node: PxmlNode): PxmlNodeSet; cdecl; external libxml2;
 function xmlXPathTrailing(nodes1: PxmlNodeSet; nodes2: PxmlNodeSet): PxmlNodeSet; cdecl; external libxml2;
 function xmlXPathRegisterNs(ctxt: PxmlXPathContext; prefix: PxmlChar; ns_uri: PxmlChar): longint; cdecl; external libxml2;
 function xmlXPathNsLookup(ctxt: PxmlXPathContext; prefix: PxmlChar): PxmlChar; cdecl; external libxml2;
@@ -60,11 +60,11 @@ function xmlXPathWrapString(val: PxmlChar): PxmlXPathObject; cdecl; external lib
 function xmlXPathWrapCString(val: pchar): PxmlXPathObject; cdecl; external libxml2;
 function xmlXPathNewFloat(val: cdouble): PxmlXPathObject; cdecl; external libxml2;
 function xmlXPathNewBoolean(val: longint): PxmlXPathObject; cdecl; external libxml2;
-function xmlXPathNewNodeSet(val: TxmlNodePtr): PxmlXPathObject; cdecl; external libxml2;
-function xmlXPathNewValueTree(val: TxmlNodePtr): PxmlXPathObject; cdecl; external libxml2;
-function xmlXPathNodeSetAdd(cur: PxmlNodeSet; val: TxmlNodePtr): longint; cdecl; external libxml2;
-function xmlXPathNodeSetAddUnique(cur: PxmlNodeSet; val: TxmlNodePtr): longint; cdecl; external libxml2;
-function xmlXPathNodeSetAddNs(cur: PxmlNodeSet; node: TxmlNodePtr; ns: TxmlNsPtr): longint; cdecl; external libxml2;
+function xmlXPathNewNodeSet(val: PxmlNode): PxmlXPathObject; cdecl; external libxml2;
+function xmlXPathNewValueTree(val: PxmlNode): PxmlXPathObject; cdecl; external libxml2;
+function xmlXPathNodeSetAdd(cur: PxmlNodeSet; val: PxmlNode): longint; cdecl; external libxml2;
+function xmlXPathNodeSetAddUnique(cur: PxmlNodeSet; val: PxmlNode): longint; cdecl; external libxml2;
+function xmlXPathNodeSetAddNs(cur: PxmlNodeSet; node: PxmlNode; ns: PxmlNs): longint; cdecl; external libxml2;
 procedure xmlXPathNodeSetSort(set_: PxmlNodeSet); cdecl; external libxml2;
 procedure xmlXPathRoot(ctxt: PxmlXPathParserContext); cdecl; external libxml2;
 procedure xmlXPathEvalExpr(ctxt: PxmlXPathParserContext); cdecl; external libxml2;
@@ -74,7 +74,7 @@ function xmlXPathStringEvalNumber(str: PxmlChar): cdouble; cdecl; external libxm
 function xmlXPathEvaluatePredicateResult(ctxt: PxmlXPathParserContext; res: PxmlXPathObject): longint; cdecl; external libxml2;
 procedure xmlXPathRegisterAllFunctions(ctxt: PxmlXPathContext); cdecl; external libxml2;
 function xmlXPathNodeSetMerge(val1: PxmlNodeSet; val2: PxmlNodeSet): PxmlNodeSet; cdecl; external libxml2;
-procedure xmlXPathNodeSetDel(cur: PxmlNodeSet; val: TxmlNodePtr); cdecl; external libxml2;
+procedure xmlXPathNodeSetDel(cur: PxmlNodeSet; val: PxmlNode); cdecl; external libxml2;
 procedure xmlXPathNodeSetRemove(cur: PxmlNodeSet; val: longint); cdecl; external libxml2;
 function xmlXPathNewNodeSetList(val: PxmlNodeSet): PxmlXPathObject; cdecl; external libxml2;
 function xmlXPathWrapNodeSet(val: PxmlNodeSet): PxmlXPathObject; cdecl; external libxml2;
@@ -89,19 +89,19 @@ procedure xmlXPathMultValues(ctxt: PxmlXPathParserContext); cdecl; external libx
 procedure xmlXPathDivValues(ctxt: PxmlXPathParserContext); cdecl; external libxml2;
 procedure xmlXPathModValues(ctxt: PxmlXPathParserContext); cdecl; external libxml2;
 function xmlXPathIsNodeType(Name: PxmlChar): longint; cdecl; external libxml2;
-function xmlXPathNextSelf(ctxt: PxmlXPathParserContext; cur: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlXPathNextChild(ctxt: PxmlXPathParserContext; cur: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlXPathNextDescendant(ctxt: PxmlXPathParserContext; cur: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlXPathNextDescendantOrSelf(ctxt: PxmlXPathParserContext; cur: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlXPathNextParent(ctxt: PxmlXPathParserContext; cur: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlXPathNextAncestorOrSelf(ctxt: PxmlXPathParserContext; cur: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlXPathNextFollowingSibling(ctxt: PxmlXPathParserContext; cur: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlXPathNextFollowing(ctxt: PxmlXPathParserContext; cur: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlXPathNextNamespace(ctxt: PxmlXPathParserContext; cur: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlXPathNextAttribute(ctxt: PxmlXPathParserContext; cur: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlXPathNextPreceding(ctxt: PxmlXPathParserContext; cur: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlXPathNextAncestor(ctxt: PxmlXPathParserContext; cur: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlXPathNextPrecedingSibling(ctxt: PxmlXPathParserContext; cur: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
+function xmlXPathNextSelf(ctxt: PxmlXPathParserContext; cur: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlXPathNextChild(ctxt: PxmlXPathParserContext; cur: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlXPathNextDescendant(ctxt: PxmlXPathParserContext; cur: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlXPathNextDescendantOrSelf(ctxt: PxmlXPathParserContext; cur: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlXPathNextParent(ctxt: PxmlXPathParserContext; cur: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlXPathNextAncestorOrSelf(ctxt: PxmlXPathParserContext; cur: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlXPathNextFollowingSibling(ctxt: PxmlXPathParserContext; cur: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlXPathNextFollowing(ctxt: PxmlXPathParserContext; cur: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlXPathNextNamespace(ctxt: PxmlXPathParserContext; cur: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlXPathNextAttribute(ctxt: PxmlXPathParserContext; cur: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlXPathNextPreceding(ctxt: PxmlXPathParserContext; cur: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlXPathNextAncestor(ctxt: PxmlXPathParserContext; cur: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlXPathNextPrecedingSibling(ctxt: PxmlXPathParserContext; cur: PxmlNode): PxmlNode; cdecl; external libxml2;
 procedure xmlXPathLastFunction(ctxt: PxmlXPathParserContext; nargs: longint); cdecl; external libxml2;
 procedure xmlXPathPositionFunction(ctxt: PxmlXPathParserContext; nargs: longint); cdecl; external libxml2;
 procedure xmlXPathCountFunction(ctxt: PxmlXPathParserContext; nargs: longint); cdecl; external libxml2;
@@ -128,13 +128,12 @@ procedure xmlXPathFloorFunction(ctxt: PxmlXPathParserContext; nargs: longint); c
 procedure xmlXPathCeilingFunction(ctxt: PxmlXPathParserContext; nargs: longint); cdecl; external libxml2;
 procedure xmlXPathRoundFunction(ctxt: PxmlXPathParserContext; nargs: longint); cdecl; external libxml2;
 procedure xmlXPathBooleanFunction(ctxt: PxmlXPathParserContext; nargs: longint); cdecl; external libxml2;
-procedure xmlXPathNodeSetFreeNs(ns: TxmlNsPtr); cdecl; external libxml2;
-
+procedure xmlXPathNodeSetFreeNs(ns: PxmlNs); cdecl; external libxml2;
 
 function xmlXPathGetError(ctxt: PxmlXPathParserContext): longint;
 function xmlXPathCheckError(ctxt: PxmlXPathParserContext): boolean;
-function xmlXPathGetDocument(ctxt: PxmlXPathParserContext): TxmlDocPtr;
-function xmlXPathGetContextNode(ctxt: PxmlXPathParserContext): TxmlNodePtr;
+function xmlXPathGetDocument(ctxt: PxmlXPathParserContext): PxmlDoc;
+function xmlXPathGetContextNode(ctxt: PxmlXPathParserContext): PxmlNode;
 
 function xmlXPathReturnBoolean(ctxt: PxmlXPathParserContext; val: longint): longint;
 function xmlXPathReturnTrue(ctxt: PxmlXPathParserContext): longint;
@@ -164,12 +163,12 @@ begin
   xmlXPathCheckError := (ctxt^.error) <> XPATH_EXPRESSION_OK;
 end;
 
-function xmlXPathGetDocument(ctxt: PxmlXPathParserContext): TxmlDocPtr;
+function xmlXPathGetDocument(ctxt: PxmlXPathParserContext): PxmlDoc;
 begin
   xmlXPathGetDocument := ctxt^.context^.doc;
 end;
 
-function xmlXPathGetContextNode(ctxt: PxmlXPathParserContext): TxmlNodePtr;
+function xmlXPathGetContextNode(ctxt: PxmlXPathParserContext): PxmlNode;
 begin
   xmlXPathGetContextNode := ctxt^.context^.node;
 end;

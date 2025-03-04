@@ -223,30 +223,18 @@ type
   TPxmlSchemaVal = record
   end;
   PxmlSchemaVal = ^TPxmlSchemaVal;
+  PPxmlSchemaVal = ^PxmlSchemaVal;
 
-  PxmlSchemaValPtr = ^TxmlSchemaValPtr;
-  TxmlSchemaValPtr = PxmlSchemaVal;
-
-  PxmlSchemaTypePtr = ^TxmlSchemaTypePtr;
-  TxmlSchemaTypePtr = ^TxmlSchemaType;
-
-  PxmlSchemaFacetPtr = ^TxmlSchemaFacetPtr;
-  TxmlSchemaFacetPtr = ^TxmlSchemaFacet;
-
-  PxmlSchemaAnnotPtr = ^TxmlSchemaAnnotPtr;
-  TxmlSchemaAnnotPtr = ^TxmlSchemaAnnot;
+  PxmlSchemaType = ^TxmlSchemaType;
+  PxmlSchemaFacet = ^TxmlSchemaFacet;
 
   PxmlSchemaAnnot = ^TxmlSchemaAnnot;
-
   TxmlSchemaAnnot = record
     Next: PxmlSchemaAnnot;
-    content: TxmlNodePtr;
+    content: PxmlNode;
   end;
 
-  PxmlSchemaAttributePtr = ^TxmlSchemaAttributePtr;
-  TxmlSchemaAttributePtr = ^TxmlSchemaAttribute;
   PxmlSchemaAttribute = ^TxmlSchemaAttribute;
-
   TxmlSchemaAttribute = record
     _type: TxmlSchemaTypeType;
     Next: PxmlSchemaAttribute;
@@ -256,59 +244,47 @@ type
     refNs: PxmlChar;
     typeName: PxmlChar;
     typeNs: PxmlChar;
-    annot: TxmlSchemaAnnotPtr;
-    base: TxmlSchemaTypePtr;
+    annot: PxmlSchemaAnnot;
+    base: PxmlSchemaType;
     occurs: longint;
     defValue: PxmlChar;
-    subtypes: TxmlSchemaTypePtr;
-    node: TxmlNodePtr;
+    subtypes: PxmlSchemaType;
+    node: PxmlNode;
     targetNamespace: PxmlChar;
     flags: longint;
     refPrefix: PxmlChar;
-    defVal: TxmlSchemaValPtr;
-    refDecl: TxmlSchemaAttributePtr;
+    defVal: PxmlSchemaVal;
+    refDecl: PxmlSchemaAttribute;
   end;
 
-  PxmlSchemaAttributeLinkPtr = ^TxmlSchemaAttributeLinkPtr;
-  TxmlSchemaAttributeLinkPtr = ^TxmlSchemaAttributeLink;
   PxmlSchemaAttributeLink = ^TxmlSchemaAttributeLink;
-
   TxmlSchemaAttributeLink = record
     Next: PxmlSchemaAttributeLink;
     attr: PxmlSchemaAttribute;
   end;
 
-  PxmlSchemaWildcardNsPtr = ^TxmlSchemaWildcardNsPtr;
-  TxmlSchemaWildcardNsPtr = ^TxmlSchemaWildcardNs;
   PxmlSchemaWildcardNs = ^TxmlSchemaWildcardNs;
-
   TxmlSchemaWildcardNs = record
     Next: PxmlSchemaWildcardNs;
     Value: PxmlChar;
   end;
 
-  PxmlSchemaWildcardPtr = ^TxmlSchemaWildcardPtr;
-  TxmlSchemaWildcardPtr = ^TxmlSchemaWildcard;
-  PxmlSchemaWildcard = ^TxmlSchemaWildcard;
-
   TxmlSchemaWildcard = record
     _type: TxmlSchemaTypeType;
     id: PxmlChar;
-    annot: TxmlSchemaAnnotPtr;
-    node: TxmlNodePtr;
+    annot: PxmlSchemaAnnot;
+    node: PxmlNode;
     minOccurs: longint;
     maxOccurs: longint;
     processContents: longint;
     any: longint;
-    nsSet: TxmlSchemaWildcardNsPtr;
-    negNsSet: TxmlSchemaWildcardNsPtr;
+    nsSet: PxmlSchemaWildcardNs;
+    negNsSet: PxmlSchemaWildcardNs;
     flags: longint;
   end;
+  PxmlSchemaWildcard = ^TxmlSchemaWildcard;
 
-  PxmlSchemaAttributeGroupPtr = ^TxmlSchemaAttributeGroupPtr;
-  TxmlSchemaAttributeGroupPtr = ^TxmlSchemaAttributeGroup;
   PxmlSchemaAttributeGroup = ^TxmlSchemaAttributeGroup;
-
   TxmlSchemaAttributeGroup = record
     _type: TxmlSchemaTypeType;
     Next: PxmlSchemaAttribute;
@@ -316,36 +292,28 @@ type
     id: PxmlChar;
     ref: PxmlChar;
     refNs: PxmlChar;
-    annot: TxmlSchemaAnnotPtr;
-    attributes: TxmlSchemaAttributePtr;
-    node: TxmlNodePtr;
+    annot: PxmlSchemaAnnot;
+    attributes: PxmlSchemaAttribute;
+    node: PxmlNode;
     flags: longint;
-    attributeWildcard: TxmlSchemaWildcardPtr;
+    attributeWildcard: PxmlSchemaWildcard;
     refPrefix: PxmlChar;
-    refItem: TxmlSchemaAttributeGroupPtr;
+    refItem: PxmlSchemaAttributeGroup;
     targetNamespace: PxmlChar;
     attrUses: pointer;
   end;
 
-  PxmlSchemaTypeLinkPtr = ^TxmlSchemaTypeLinkPtr;
-  TxmlSchemaTypeLinkPtr = ^TxmlSchemaTypeLink;
   PxmlSchemaTypeLink = ^TxmlSchemaTypeLink;
-
   TxmlSchemaTypeLink = record
     Next: PxmlSchemaTypeLink;
-    _type: TxmlSchemaTypePtr;
+    _type: PxmlSchemaType;
   end;
 
-  PxmlSchemaFacetLinkPtr = ^TxmlSchemaFacetLinkPtr;
-  TxmlSchemaFacetLinkPtr = ^TxmlSchemaFacetLink;
   PxmlSchemaFacetLink = ^TxmlSchemaFacetLink;
-
   TxmlSchemaFacetLink = record
     Next: PxmlSchemaFacetLink;
-    facet: TxmlSchemaFacetPtr;
+    facet: PxmlSchemaFacet;
   end;
-
-  PxmlSchemaType = ^TxmlSchemaType;
 
   TxmlSchemaType = record
     _type: TxmlSchemaTypeType;
@@ -354,36 +322,33 @@ type
     id: PxmlChar;
     ref: PxmlChar;
     refNs: PxmlChar;
-    annot: TxmlSchemaAnnotPtr;
-    subtypes: TxmlSchemaTypePtr;
-    attributes: TxmlSchemaAttributePtr;
-    node: TxmlNodePtr;
+    annot: PxmlSchemaAnnot;
+    subtypes: PxmlSchemaType;
+    attributes: PxmlSchemaAttribute;
+    node: PxmlNode;
     minOccurs: longint;
     maxOccurs: longint;
     flags: longint;
     contentType: TxmlSchemaContentType;
     base: PxmlChar;
     baseNs: PxmlChar;
-    baseType: TxmlSchemaTypePtr;
-    facets: TxmlSchemaFacetPtr;
+    baseType: PxmlSchemaType;
+    facets: PxmlSchemaFacet;
     redef: PxmlSchemaType;
     recurse: longint;
-    attributeUses: PxmlSchemaAttributeLinkPtr;
-    attributeWildcard: TxmlSchemaWildcardPtr;
+    attributeUses: ^PxmlSchemaAttributeLink;
+    attributeWildcard: PxmlSchemaWildcard;
     builtInType: longint;
-    memberTypes: TxmlSchemaTypeLinkPtr;
-    facetSet: TxmlSchemaFacetLinkPtr;
+    memberTypes: PxmlSchemaTypeLink;
+    facetSet: PxmlSchemaFacetLink;
     refPrefix: PxmlChar;
-    contentTypeDef: TxmlSchemaTypePtr;
+    contentTypeDef: PxmlSchemaType;
     contModel: PxmlRegexp;
     targetNamespace: PxmlChar;
     attrUses: pointer;
   end;
 
-  PxmlSchemaElementPtr = ^TxmlSchemaElementPtr;
-  TxmlSchemaElementPtr = ^TxmlSchemaElement;
   PxmlSchemaElement = ^TxmlSchemaElement;
-
   TxmlSchemaElement = record
     _type: TxmlSchemaTypeType;
     Next: PxmlSchemaType;
@@ -391,10 +356,10 @@ type
     id: PxmlChar;
     ref: PxmlChar;
     refNs: PxmlChar;
-    annot: TxmlSchemaAnnotPtr;
-    subtypes: TxmlSchemaTypePtr;
-    attributes: TxmlSchemaAttributePtr;
-    node: TxmlNodePtr;
+    annot: PxmlSchemaAnnot;
+    subtypes: PxmlSchemaType;
+    attributes: PxmlSchemaAttribute;
+    node: PxmlNode;
     minOccurs: longint;
     maxOccurs: longint;
     flags: longint;
@@ -409,46 +374,39 @@ type
     contModel: PxmlRegexp;
     contentType: TxmlSchemaContentType;
     refPrefix: PxmlChar;
-    defVal: TxmlSchemaValPtr;
+    defVal: PxmlSchemaVal;
     idcs: pointer;
   end;
-
-  PxmlSchemaFacet = ^TxmlSchemaFacet;
 
   TxmlSchemaFacet = record
     _type: TxmlSchemaTypeType;
     Next: PxmlSchemaFacet;
     Value: PxmlChar;
     id: PxmlChar;
-    annot: TxmlSchemaAnnotPtr;
-    node: TxmlNodePtr;
+    annot: PxmlSchemaAnnot;
+    node: PxmlNode;
     fixed: longint;
     whitespace: longint;
-    val: TxmlSchemaValPtr;
+    val: PxmlSchemaVal;
     regexp: PxmlRegexp;
   end;
-
-  PxmlSchemaNotationPtr = ^TxmlSchemaNotationPtr;
-  TxmlSchemaNotationPtr = ^TxmlSchemaNotation;
-  PxmlSchemaNotation = ^TxmlSchemaNotation;
 
   TxmlSchemaNotation = record
     _type: TxmlSchemaTypeType;
     Name: PxmlChar;
-    annot: TxmlSchemaAnnotPtr;
+    annot: PxmlSchemaAnnot;
     identifier: PxmlChar;
     targetNamespace: PxmlChar;
   end;
-
-  PxmlSchema = ^TxmlSchema;
+  PxmlSchemaNotation = ^TxmlSchemaNotation;
 
   TxmlSchema = record
     Name: PxmlChar;
     targetNamespace: PxmlChar;
     version: PxmlChar;
     id: PxmlChar;
-    doc: TxmlDocPtr;
-    annot: TxmlSchemaAnnotPtr;
+    doc: PxmlDoc;
+    annot: PxmlSchemaAnnot;
     flags: longint;
     typeDecl: PxmlHashTable;
     attrDecl: PxmlHashTable;
@@ -465,9 +423,10 @@ type
     idcDef: PxmlHashTable;
     volatiles: pointer;
   end;
+  PxmlSchema = ^TxmlSchema;
 
-procedure xmlSchemaFreeType(_type: TxmlSchemaTypePtr); cdecl; external libxml2;
-procedure xmlSchemaFreeWildcard(wildcard: TxmlSchemaWildcardPtr); cdecl; external libxml2;
+procedure xmlSchemaFreeType(_type: PxmlSchemaType); cdecl; external libxml2;
+procedure xmlSchemaFreeWildcard(wildcard: PxmlSchemaWildcard); cdecl; external libxml2;
 
 // === Konventiert am: 2-3-25 17:17:06 ===
 

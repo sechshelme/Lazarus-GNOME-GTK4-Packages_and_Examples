@@ -3,7 +3,7 @@ unit xmlschemas;
 interface
 
 uses
-  ctypes, xml2_common, xmlerror, tree, encoding, schemasInternals;
+  ctypes, xml2_common, xmlerror, tree, encoding, schemasInternals, xmlIO, parser;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -49,9 +49,6 @@ const
   XML_SCHEMA_VAL_VC_I_CREATE = 1 shl 0;
 
 type
-  PxmlSchemaPtr = ^TxmlSchemaPtr;
-  TxmlSchemaPtr = PxmlSchema;
-
   TxmlSchemaValidityErrorFunc = procedure(ctx: pointer; msg: pchar; args: array of const); cdecl;
   PxmlSchemaValidityErrorFunc = ^TxmlSchemaValidityErrorFunc;
   TxmlSchemaValidityWarningFunc = procedure(ctx: pointer; msg: pchar; args: array of const); cdecl;
@@ -61,43 +58,37 @@ type
   end;
   PxmlSchemaParserCtxt = ^TxmlSchemaParserCtxt;
 
-  PxmlSchemaParserCtxtPtr = ^TxmlSchemaParserCtxtPtr;
-  TxmlSchemaParserCtxtPtr = PxmlSchemaParserCtxt;
-
   TxmlSchemaValidCtxt = record
   end;
   PxmlSchemaValidCtxt = ^TxmlSchemaValidCtxt;
 
-  PxmlSchemaValidCtxtPtr = ^TxmlSchemaValidCtxtPtr;
-  TxmlSchemaValidCtxtPtr = PxmlSchemaValidCtxt;
-
   TxmlSchemaValidityLocatorFunc = function(ctx: pointer; file_: PPchar; line: Pdword): longint; cdecl;
 
-function xmlSchemaNewParserCtxt(URL: pchar): TxmlSchemaParserCtxtPtr; cdecl; external libxml2;
-function xmlSchemaNewMemParserCtxt(buffer: pchar; size: longint): TxmlSchemaParserCtxtPtr; cdecl; external libxml2;
-function xmlSchemaNewDocParserCtxt(doc: TxmlDocPtr): TxmlSchemaParserCtxtPtr; cdecl; external libxml2;
-procedure xmlSchemaFreeParserCtxt(ctxt: TxmlSchemaParserCtxtPtr); cdecl; external libxml2;
-procedure xmlSchemaSetParserErrors(ctxt: TxmlSchemaParserCtxtPtr; err: TxmlSchemaValidityErrorFunc; warn: TxmlSchemaValidityWarningFunc; ctx: pointer); cdecl; external libxml2;
-procedure xmlSchemaSetParserStructuredErrors(ctxt: TxmlSchemaParserCtxtPtr; serror: TxmlStructuredErrorFunc; ctx: pointer); cdecl; external libxml2;
-function xmlSchemaGetParserErrors(ctxt: TxmlSchemaParserCtxtPtr; err: PxmlSchemaValidityErrorFunc; warn: PxmlSchemaValidityWarningFunc; ctx: Ppointer): longint; cdecl; external libxml2;
-function xmlSchemaIsValid(ctxt: TxmlSchemaValidCtxtPtr): longint; cdecl; external libxml2;
-function xmlSchemaParse(ctxt: TxmlSchemaParserCtxtPtr): TxmlSchemaPtr; cdecl; external libxml2;
-procedure xmlSchemaFree(schema: TxmlSchemaPtr); cdecl; external libxml2;
-procedure xmlSchemaDump(output: PFILE; schema: TxmlSchemaPtr); cdecl; external libxml2;
+function xmlSchemaNewParserCtxt(URL: pchar): PxmlSchemaParserCtxt; cdecl; external libxml2;
+function xmlSchemaNewMemParserCtxt(buffer: pchar; size: longint): PxmlSchemaParserCtxt; cdecl; external libxml2;
+function xmlSchemaNewDocParserCtxt(doc: PxmlDoc): PxmlSchemaParserCtxt; cdecl; external libxml2;
+procedure xmlSchemaFreeParserCtxt(ctxt: PxmlSchemaParserCtxt); cdecl; external libxml2;
+procedure xmlSchemaSetParserErrors(ctxt: PxmlSchemaParserCtxt; err: TxmlSchemaValidityErrorFunc; warn: TxmlSchemaValidityWarningFunc; ctx: pointer); cdecl; external libxml2;
+procedure xmlSchemaSetParserStructuredErrors(ctxt: PxmlSchemaParserCtxt; serror: TxmlStructuredErrorFunc; ctx: pointer); cdecl; external libxml2;
+function xmlSchemaGetParserErrors(ctxt: PxmlSchemaParserCtxt; err: PxmlSchemaValidityErrorFunc; warn: PxmlSchemaValidityWarningFunc; ctx: Ppointer): longint; cdecl; external libxml2;
+function xmlSchemaIsValid(ctxt: PxmlSchemaValidCtxt): longint; cdecl; external libxml2;
+function xmlSchemaParse(ctxt: PxmlSchemaParserCtxt): PxmlSchema; cdecl; external libxml2;
+procedure xmlSchemaFree(schema: PxmlSchema); cdecl; external libxml2;
+procedure xmlSchemaDump(output: PFILE; schema: PxmlSchema); cdecl; external libxml2;
 
-procedure xmlSchemaSetValidErrors(ctxt: TxmlSchemaValidCtxtPtr; err: TxmlSchemaValidityErrorFunc; warn: TxmlSchemaValidityWarningFunc; ctx: pointer); cdecl; external libxml2;
-procedure xmlSchemaSetValidStructuredErrors(ctxt: TxmlSchemaValidCtxtPtr; serror: TxmlStructuredErrorFunc; ctx: pointer); cdecl; external libxml2;
-function xmlSchemaGetValidErrors(ctxt: TxmlSchemaValidCtxtPtr; err: PxmlSchemaValidityErrorFunc; warn: PxmlSchemaValidityWarningFunc; ctx: Ppointer): longint; cdecl; external libxml2;
-function xmlSchemaSetValidOptions(ctxt: TxmlSchemaValidCtxtPtr; options: longint): longint; cdecl; external libxml2;
-procedure xmlSchemaValidateSetFilename(vctxt: TxmlSchemaValidCtxtPtr; filename: pchar); cdecl; external libxml2;
-function xmlSchemaValidCtxtGetOptions(ctxt: TxmlSchemaValidCtxtPtr): longint; cdecl; external libxml2;
-function xmlSchemaNewValidCtxt(schema: TxmlSchemaPtr): TxmlSchemaValidCtxtPtr; cdecl; external libxml2;
-procedure xmlSchemaFreeValidCtxt(ctxt: TxmlSchemaValidCtxtPtr); cdecl; external libxml2;
-function xmlSchemaValidateDoc(ctxt: TxmlSchemaValidCtxtPtr; instance: TxmlDocPtr): longint; cdecl; external libxml2;
-function xmlSchemaValidateOneElement(ctxt: TxmlSchemaValidCtxtPtr; elem: TxmlNodePtr): longint; cdecl; external libxml2;
-function xmlSchemaValidateStream(ctxt: TxmlSchemaValidCtxtPtr; input: TxmlParserInputBufferPtr; enc: TxmlCharEncoding; sax: TxmlSAXHandlerPtr; user_data: pointer): longint; cdecl; external libxml2;
-function xmlSchemaValidateFile(ctxt: TxmlSchemaValidCtxtPtr; filename: pchar; options: longint): longint; cdecl; external libxml2;
-function xmlSchemaValidCtxtGetParserCtxt(ctxt: TxmlSchemaValidCtxtPtr): TxmlParserCtxtPtr; cdecl; external libxml2;
+procedure xmlSchemaSetValidErrors(ctxt: PxmlSchemaValidCtxt; err: TxmlSchemaValidityErrorFunc; warn: TxmlSchemaValidityWarningFunc; ctx: pointer); cdecl; external libxml2;
+procedure xmlSchemaSetValidStructuredErrors(ctxt: PxmlSchemaValidCtxt; serror: TxmlStructuredErrorFunc; ctx: pointer); cdecl; external libxml2;
+function xmlSchemaGetValidErrors(ctxt: PxmlSchemaValidCtxt; err: PxmlSchemaValidityErrorFunc; warn: PxmlSchemaValidityWarningFunc; ctx: Ppointer): longint; cdecl; external libxml2;
+function xmlSchemaSetValidOptions(ctxt: PxmlSchemaValidCtxt; options: longint): longint; cdecl; external libxml2;
+procedure xmlSchemaValidateSetFilename(vctxt: PxmlSchemaValidCtxt; filename: pchar); cdecl; external libxml2;
+function xmlSchemaValidCtxtGetOptions(ctxt: PxmlSchemaValidCtxt): longint; cdecl; external libxml2;
+function xmlSchemaNewValidCtxt(schema: PxmlSchema): PxmlSchemaValidCtxt; cdecl; external libxml2;
+procedure xmlSchemaFreeValidCtxt(ctxt: PxmlSchemaValidCtxt); cdecl; external libxml2;
+function xmlSchemaValidateDoc(ctxt: PxmlSchemaValidCtxt; instance: PxmlDoc): longint; cdecl; external libxml2;
+function xmlSchemaValidateOneElement(ctxt: PxmlSchemaValidCtxt; elem: PxmlNode): longint; cdecl; external libxml2;
+function xmlSchemaValidateStream(ctxt: PxmlSchemaValidCtxt; input: PxmlParserInputBuffer; enc: TxmlCharEncoding; sax: PxmlSAXHandler; user_data: pointer): longint; cdecl; external libxml2;
+function xmlSchemaValidateFile(ctxt: PxmlSchemaValidCtxt; filename: pchar; options: longint): longint; cdecl; external libxml2;
+function xmlSchemaValidCtxtGetParserCtxt(ctxt: PxmlSchemaValidCtxt): PxmlParserCtxt; cdecl; external libxml2;
 
 type
   TxmlSchemaSAXPlugStruct = record
@@ -105,13 +96,11 @@ type
   PxmlSchemaSAXPlugStruct = ^TxmlSchemaSAXPlugStruct;
 
   TxmlSchemaSAXPlug = TxmlSchemaSAXPlugStruct;
+  PxmlSchemaSAXPlug = PxmlSchemaSAXPlugStruct;
 
-  PxmlSchemaSAXPlugPtr = ^TxmlSchemaSAXPlugPtr;
-  TxmlSchemaSAXPlugPtr = PxmlSchemaSAXPlugStruct;
-
-function xmlSchemaSAXPlug(ctxt: TxmlSchemaValidCtxtPtr; sax: PxmlSAXHandlerPtr; user_data: Ppointer): TxmlSchemaSAXPlugPtr; cdecl; external libxml2;
-function xmlSchemaSAXUnplug(plug: TxmlSchemaSAXPlugPtr): longint; cdecl; external libxml2;
-procedure xmlSchemaValidateSetLocator(vctxt: TxmlSchemaValidCtxtPtr; f: TxmlSchemaValidityLocatorFunc; ctxt: pointer); cdecl; external libxml2;
+function xmlSchemaSAXPlug(ctxt: PxmlSchemaValidCtxt; sax: PPxmlSAXHandler; user_data: Ppointer): PxmlSchemaSAXPlug; cdecl; external libxml2;
+function xmlSchemaSAXUnplug(plug: PxmlSchemaSAXPlug): longint; cdecl; external libxml2;
+procedure xmlSchemaValidateSetLocator(vctxt: PxmlSchemaValidCtxt; f: TxmlSchemaValidityLocatorFunc; ctxt: pointer); cdecl; external libxml2;
 
 // === Konventiert am: 2-3-25 19:52:02 ===
 

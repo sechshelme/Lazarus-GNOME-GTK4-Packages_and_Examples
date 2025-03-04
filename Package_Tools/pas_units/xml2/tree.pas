@@ -11,34 +11,10 @@ uses
 
   // --- Pointer wegen circular
 type
-//  PxmlParserInputBufferPtr = ^TxmlParserInputBufferPtr;
-  //  TxmlParserInputBufferPtr = PxmlParserInputBuffer;
-  TxmlParserInputBufferPtr = Pointer;
-
-//  PxmlOutputBufferPtr = ^TxmlOutputBufferPtr;
-  //  TxmlOutputBufferPtr = PxmlOutputBuffer;
-  TxmlOutputBufferPtr = Pointer;
-
-  PxmlParserInputPtr = ^TxmlParserInputPtr;
-  //  TxmlParserInputPtr = PxmlParserInput;
-  TxmlParserInputPtr = Pointer;
-
-//  PxmlParserCtxtPtr = ^TxmlParserCtxtPtr;
-  //  TxmlParserCtxtPtr = PxmlParserCtxt;
-  TxmlParserCtxtPtr = Pointer;
-
-//  PxmlSAXLocatorPtr = ^TxmlSAXLocatorPtr;
-  //  TxmlSAXLocatorPtr = PxmlSAXLocator;
-  TxmlSAXLocatorPtr = Pointer;
-
-  PxmlSAXHandlerPtr = ^TxmlSAXHandlerPtr;
-  //  TxmlSAXHandlerPtr = PxmlSAXHandler;
-  TxmlSAXHandlerPtr = Pointer;
-
-//  PxmlEntityPtr = ^TxmlEntityPtr;
-  //  TxmlEntityPtr = PxmlEntity;
-  TxmlEntityPtr = Pointer;
-
+  PxmlOutputBuffer = Pointer;
+  PxmlParserInput = Pointer;
+  PxmlParserCtxt = Pointer;
+  // -----------
 
 const
   BASE_BUFFER_SIZE = 4096;
@@ -56,10 +32,6 @@ const
   XML_BUFFER_ALLOC_BOUNDED = 5;
 
 type
-  PxmlBuffer = ^TxmlBuffer;
-  PxmlBufferPtr = ^TxmlBufferPtr;
-  TxmlBufferPtr = PxmlBuffer;
-
   TxmlBuffer = record
     content: PxmlChar;
     use: dword;
@@ -67,18 +39,16 @@ type
     alloc: TxmlBufferAllocationScheme;
     contentIO: PxmlChar;
   end;
+  PxmlBuffer = ^TxmlBuffer;
 
   TxmlBuf = record
   end;
   PxmlBuf = ^TxmlBuf;
 
-  PxmlBufPtr = ^TxmlBufPtr;
-  TxmlBufPtr = PxmlBuf;
-
 function xmlBufContent(buf: PxmlBuf): PxmlChar; cdecl; external libxml2;
-function xmlBufEnd(buf: TxmlBufPtr): PxmlChar; cdecl; external libxml2;
-function xmlBufUse(buf: TxmlBufPtr): Tsize_t; cdecl; external libxml2;
-function xmlBufShrink(buf: TxmlBufPtr; len: Tsize_t): Tsize_t; cdecl; external libxml2;
+function xmlBufEnd(buf: PxmlBuf): PxmlChar; cdecl; external libxml2;
+function xmlBufUse(buf: PxmlBuf): Tsize_t; cdecl; external libxml2;
+function xmlBufShrink(buf: PxmlBuf; len: Tsize_t): Tsize_t; cdecl; external libxml2;
 
 type
   PxmlElementType = ^TxmlElementType;
@@ -180,37 +150,30 @@ const
   XML_DOC_USERBUILT = 1 shl 5;
   XML_DOC_INTERNAL = 1 shl 6;
   XML_DOC_HTML = 1 shl 7;
-  // -----------
+
 type
   PxmlNode = ^TxmlNode;
   PxmlDtd = ^TxmlDtd;
   PxmlDoc = ^TxmlDoc;
+  PPxmlDoc = ^PxmlDoc;
   PxmlNs = ^TxmlNs;
-  // ----
-
-  PxmlNotation = ^TxmlNotation;
-  PxmlNotationPtr = ^TxmlNotationPtr;
-  TxmlNotationPtr = PxmlNotation;
+  PPxmlNs = ^PxmlNs;
 
   TxmlNotation = record
     Name: PxmlChar;
     PublicID: PxmlChar;
     SystemID: PxmlChar;
   end;
+  PxmlNotation = ^TxmlNotation;
 
   PxmlEnumeration = ^TxmlEnumeration;
-  PxmlEnumerationPtr = ^TxmlEnumerationPtr;
-  TxmlEnumerationPtr = PxmlEnumeration;
-
+  PPxmlEnumeration = ^PxmlEnumeration;
   TxmlEnumeration = record
     Next: PxmlEnumeration;
     Name: PxmlChar;
   end;
 
   PxmlAttribute = ^TxmlAttribute;
-  PxmlAttributePtr = ^TxmlAttributePtr;
-  TxmlAttributePtr = PxmlAttribute;
-
   TxmlAttribute = record
     _private: pointer;
     _type: TxmlElementType;
@@ -225,15 +188,13 @@ type
     atype: TxmlAttributeType;
     def: TxmlAttributeDefault;
     defaultValue: PxmlChar;
-    tree: TxmlEnumerationPtr;
+    tree: PxmlEnumeration;
     prefix: PxmlChar;
     elem: PxmlChar;
   end;
 
   PxmlElementContent = ^TxmlElementContent;
-  PxmlElementContentPtr = ^TxmlElementContentPtr;
-  TxmlElementContentPtr = PxmlElementContent;
-
+  PPxmlElementContent = ^PxmlElementContent;
   TxmlElementContent = record
     _type: TxmlElementContentType;
     ocur: TxmlElementContentOccur;
@@ -243,10 +204,6 @@ type
     parent: PxmlElementContent;
     prefix: PxmlChar;
   end;
-
-  PxmlElement = ^TxmlElement;
-  PxmlElementPtr = ^TxmlElementPtr;
-  TxmlElementPtr = PxmlElement;
 
   TxmlElement = record
     _private: pointer;
@@ -259,18 +216,15 @@ type
     prev: PxmlNode;
     doc: PxmlDoc;
     etype: TxmlElementTypeVal;
-    content: TxmlElementContentPtr;
-    attributes: TxmlAttributePtr;
+    content: PxmlElementContent;
+    attributes: PxmlAttribute;
     prefix: PxmlChar;
-    //      contModel : TxmlRegexpPtr;
     contModel: pointer;
   end;
+  PxmlElement = ^TxmlElement;
 
   PxmlNsType = ^TxmlNsType;
   TxmlNsType = TxmlElementType;
-
-  PxmlNsPtr = ^TxmlNsPtr;
-  TxmlNsPtr = PxmlNs;
 
   TxmlNs = record
     Next: PxmlNs;
@@ -280,9 +234,6 @@ type
     _private: pointer;
     context: PxmlDoc;
   end;
-
-  PxmlDtdPtr = ^TxmlDtdPtr;
-  TxmlDtdPtr = PxmlDtd;
 
   TxmlDtd = record
     _private: pointer;
@@ -304,9 +255,6 @@ type
   end;
 
   PxmlAttr = ^TxmlAttr;
-  PxmlAttrPtr = ^TxmlAttrPtr;
-  TxmlAttrPtr = PxmlAttr;
-
   TxmlAttr = record
     _private: pointer;
     _type: TxmlElementType;
@@ -323,33 +271,25 @@ type
   end;
 
   PxmlID = ^TxmlID;
-  PxmlIDPtr = ^TxmlIDPtr;
-  TxmlIDPtr = PxmlID;
-
   TxmlID = record
     Next: PxmlID;
     Value: PxmlChar;
-    attr: TxmlAttrPtr;
+    attr: PxmlAttr;
     Name: PxmlChar;
     lineno: longint;
     doc: PxmlDoc;
   end;
 
   PxmlRef = ^TxmlRef;
-  PxmlRefPtr = ^TxmlRefPtr;
-  TxmlRefPtr = PxmlRef;
-
   TxmlRef = record
     Next: PxmlRef;
     Value: PxmlChar;
-    attr: TxmlAttrPtr;
+    attr: PxmlAttr;
     Name: PxmlChar;
     lineno: longint;
   end;
 
-  PxmlNodePtr = ^TxmlNodePtr;
-  TxmlNodePtr = PxmlNode;
-
+  PPxmlNode = ^PxmlNode;
   TxmlNode = record
     _private: pointer;
     _type: TxmlElementType;
@@ -368,9 +308,6 @@ type
     line: word;
     extra: word;
   end;
-
-  PxmlDocPtr = ^TxmlDocPtr;
-  TxmlDocPtr = PxmlDoc;
 
   TxmlDoc = record
     _private: pointer;
@@ -400,16 +337,13 @@ type
   end;
 
   PxmlDOMWrapCtxt = ^TxmlDOMWrapCtxt;
-  TxmlDOMWrapCtxtPtr = PxmlDOMWrapCtxt;
-  TxmlDOMWrapAcquireNsFunction = function(ctxt: TxmlDOMWrapCtxtPtr; node: TxmlNodePtr; nsName: PxmlChar; nsPrefix: PxmlChar): TxmlNsPtr; cdecl;
-
+  TxmlDOMWrapAcquireNsFunction = function(ctxt: PxmlDOMWrapCtxt; node: PxmlNode; nsName: PxmlChar; nsPrefix: PxmlChar): PxmlNs; cdecl;
   TxmlDOMWrapCtxt = record
     _private: pointer;
     _type: longint;
     namespaceMap: pointer;
     getNsForNodeFunc: TxmlDOMWrapAcquireNsFunction;
   end;
-  PxmlDOMWrapCtxtPtr = ^TxmlDOMWrapCtxtPtr;
 
 function xmlValidateNCName(Value: PxmlChar; space: longint): longint; cdecl; external libxml2;
 
@@ -423,163 +357,163 @@ function xmlSplitQName3(Name: PxmlChar; len: Plongint): PxmlChar; cdecl; externa
 
 procedure xmlSetBufferAllocationScheme(scheme: TxmlBufferAllocationScheme); cdecl; external libxml2;
 function xmlGetBufferAllocationScheme: TxmlBufferAllocationScheme; cdecl; external libxml2;
-function xmlBufferCreate: TxmlBufferPtr; cdecl; external libxml2;
-function xmlBufferCreateSize(size: Tsize_t): TxmlBufferPtr; cdecl; external libxml2;
-function xmlBufferCreateStatic(mem: pointer; size: Tsize_t): TxmlBufferPtr; cdecl; external libxml2;
-function xmlBufferResize(buf: TxmlBufferPtr; size: dword): longint; cdecl; external libxml2;
-procedure xmlBufferFree(buf: TxmlBufferPtr); cdecl; external libxml2;
-function xmlBufferDump(file_: PFILE; buf: TxmlBufferPtr): longint; cdecl; external libxml2;
-function xmlBufferAdd(buf: TxmlBufferPtr; str: PxmlChar; len: longint): longint; cdecl; external libxml2;
-function xmlBufferAddHead(buf: TxmlBufferPtr; str: PxmlChar; len: longint): longint; cdecl; external libxml2;
-function xmlBufferCat(buf: TxmlBufferPtr; str: PxmlChar): longint; cdecl; external libxml2;
-function xmlBufferCCat(buf: TxmlBufferPtr; str: pchar): longint; cdecl; external libxml2;
-function xmlBufferShrink(buf: TxmlBufferPtr; len: dword): longint; cdecl; external libxml2;
-function xmlBufferGrow(buf: TxmlBufferPtr; len: dword): longint; cdecl; external libxml2;
-procedure xmlBufferEmpty(buf: TxmlBufferPtr); cdecl; external libxml2;
+function xmlBufferCreate: PxmlBuffer; cdecl; external libxml2;
+function xmlBufferCreateSize(size: Tsize_t): PxmlBuffer; cdecl; external libxml2;
+function xmlBufferCreateStatic(mem: pointer; size: Tsize_t): PxmlBuffer; cdecl; external libxml2;
+function xmlBufferResize(buf: PxmlBuffer; size: dword): longint; cdecl; external libxml2;
+procedure xmlBufferFree(buf: PxmlBuffer); cdecl; external libxml2;
+function xmlBufferDump(file_: PFILE; buf: PxmlBuffer): longint; cdecl; external libxml2;
+function xmlBufferAdd(buf: PxmlBuffer; str: PxmlChar; len: longint): longint; cdecl; external libxml2;
+function xmlBufferAddHead(buf: PxmlBuffer; str: PxmlChar; len: longint): longint; cdecl; external libxml2;
+function xmlBufferCat(buf: PxmlBuffer; str: PxmlChar): longint; cdecl; external libxml2;
+function xmlBufferCCat(buf: PxmlBuffer; str: pchar): longint; cdecl; external libxml2;
+function xmlBufferShrink(buf: PxmlBuffer; len: dword): longint; cdecl; external libxml2;
+function xmlBufferGrow(buf: PxmlBuffer; len: dword): longint; cdecl; external libxml2;
+procedure xmlBufferEmpty(buf: PxmlBuffer); cdecl; external libxml2;
 function xmlBufferContent(buf: PxmlBuffer): PxmlChar; cdecl; external libxml2;
-function xmlBufferDetach(buf: TxmlBufferPtr): PxmlChar; cdecl; external libxml2;
-procedure xmlBufferSetAllocationScheme(buf: TxmlBufferPtr; scheme: TxmlBufferAllocationScheme); cdecl; external libxml2;
+function xmlBufferDetach(buf: PxmlBuffer): PxmlChar; cdecl; external libxml2;
+procedure xmlBufferSetAllocationScheme(buf: PxmlBuffer; scheme: TxmlBufferAllocationScheme); cdecl; external libxml2;
 function xmlBufferLength(buf: PxmlBuffer): longint; cdecl; external libxml2;
-function xmlCreateIntSubset(doc: TxmlDocPtr; Name: PxmlChar; ExternalID: PxmlChar; SystemID: PxmlChar): TxmlDtdPtr; cdecl; external libxml2;
-function xmlNewDtd(doc: TxmlDocPtr; Name: PxmlChar; ExternalID: PxmlChar; SystemID: PxmlChar): TxmlDtdPtr; cdecl; external libxml2;
-function xmlGetIntSubset(doc: PxmlDoc): TxmlDtdPtr; cdecl; external libxml2;
-procedure xmlFreeDtd(cur: TxmlDtdPtr); cdecl; external libxml2;
-function xmlNewGlobalNs(doc: TxmlDocPtr; href: PxmlChar; prefix: PxmlChar): TxmlNsPtr; cdecl; external libxml2;
+function xmlCreateIntSubset(doc: PxmlDoc; Name: PxmlChar; ExternalID: PxmlChar; SystemID: PxmlChar): PxmlDtd; cdecl; external libxml2;
+function xmlNewDtd(doc: PxmlDoc; Name: PxmlChar; ExternalID: PxmlChar; SystemID: PxmlChar): PxmlDtd; cdecl; external libxml2;
+function xmlGetIntSubset(doc: PxmlDoc): PxmlDtd; cdecl; external libxml2;
+procedure xmlFreeDtd(cur: PxmlDtd); cdecl; external libxml2;
+function xmlNewGlobalNs(doc: PxmlDoc; href: PxmlChar; prefix: PxmlChar): PxmlNs; cdecl; external libxml2;
 
-function xmlNewNs(node: TxmlNodePtr; href: PxmlChar; prefix: PxmlChar): TxmlNsPtr; cdecl; external libxml2;
-procedure xmlFreeNs(cur: TxmlNsPtr); cdecl; external libxml2;
-procedure xmlFreeNsList(cur: TxmlNsPtr); cdecl; external libxml2;
-function xmlNewDoc(version: PxmlChar): TxmlDocPtr; cdecl; external libxml2;
-procedure xmlFreeDoc(cur: TxmlDocPtr); cdecl; external libxml2;
-function xmlNewDocProp(doc: TxmlDocPtr; Name: PxmlChar; Value: PxmlChar): TxmlAttrPtr; cdecl; external libxml2;
-function xmlNewProp(node: TxmlNodePtr; Name: PxmlChar; Value: PxmlChar): TxmlAttrPtr; cdecl; external libxml2;
+function xmlNewNs(node: PxmlNode; href: PxmlChar; prefix: PxmlChar): PxmlNs; cdecl; external libxml2;
+procedure xmlFreeNs(cur: PxmlNs); cdecl; external libxml2;
+procedure xmlFreeNsList(cur: PxmlNs); cdecl; external libxml2;
+function xmlNewDoc(version: PxmlChar): PxmlDoc; cdecl; external libxml2;
+procedure xmlFreeDoc(cur: PxmlDoc); cdecl; external libxml2;
+function xmlNewDocProp(doc: PxmlDoc; Name: PxmlChar; Value: PxmlChar): PxmlAttr; cdecl; external libxml2;
+function xmlNewProp(node: PxmlNode; Name: PxmlChar; Value: PxmlChar): PxmlAttr; cdecl; external libxml2;
 
-function xmlNewNsProp(node: TxmlNodePtr; ns: TxmlNsPtr; Name: PxmlChar; Value: PxmlChar): TxmlAttrPtr; cdecl; external libxml2;
-function xmlNewNsPropEatName(node: TxmlNodePtr; ns: TxmlNsPtr; Name: PxmlChar; Value: PxmlChar): TxmlAttrPtr; cdecl; external libxml2;
-procedure xmlFreePropList(cur: TxmlAttrPtr); cdecl; external libxml2;
-procedure xmlFreeProp(cur: TxmlAttrPtr); cdecl; external libxml2;
-function xmlCopyProp(target: TxmlNodePtr; cur: TxmlAttrPtr): TxmlAttrPtr; cdecl; external libxml2;
-function xmlCopyPropList(target: TxmlNodePtr; cur: TxmlAttrPtr): TxmlAttrPtr; cdecl; external libxml2;
-function xmlCopyDtd(dtd: TxmlDtdPtr): TxmlDtdPtr; cdecl; external libxml2;
-function xmlCopyDoc(doc: TxmlDocPtr; recursive: longint): TxmlDocPtr; cdecl; external libxml2;
+function xmlNewNsProp(node: PxmlNode; ns: PxmlNs; Name: PxmlChar; Value: PxmlChar): PxmlAttr; cdecl; external libxml2;
+function xmlNewNsPropEatName(node: PxmlNode; ns: PxmlNs; Name: PxmlChar; Value: PxmlChar): PxmlAttr; cdecl; external libxml2;
+procedure xmlFreePropList(cur: PxmlAttr); cdecl; external libxml2;
+procedure xmlFreeProp(cur: PxmlAttr); cdecl; external libxml2;
+function xmlCopyProp(target: PxmlNode; cur: PxmlAttr): PxmlAttr; cdecl; external libxml2;
+function xmlCopyPropList(target: PxmlNode; cur: PxmlAttr): PxmlAttr; cdecl; external libxml2;
+function xmlCopyDtd(dtd: PxmlDtd): PxmlDtd; cdecl; external libxml2;
+function xmlCopyDoc(doc: PxmlDoc; recursive: longint): PxmlDoc; cdecl; external libxml2;
 
-function xmlNewDocNode(doc: TxmlDocPtr; ns: TxmlNsPtr; Name: PxmlChar; content: PxmlChar): TxmlNodePtr; cdecl; external libxml2;
-function xmlNewDocNodeEatName(doc: TxmlDocPtr; ns: TxmlNsPtr; Name: PxmlChar; content: PxmlChar): TxmlNodePtr; cdecl; external libxml2;
-function xmlNewNode(ns: TxmlNsPtr; Name: PxmlChar): TxmlNodePtr; cdecl; external libxml2;
-function xmlNewNodeEatName(ns: TxmlNsPtr; Name: PxmlChar): TxmlNodePtr; cdecl; external libxml2;
-function xmlNewChild(parent: TxmlNodePtr; ns: TxmlNsPtr; Name: PxmlChar; content: PxmlChar): TxmlNodePtr; cdecl; external libxml2;
-function xmlNewDocText(doc: PxmlDoc; content: PxmlChar): TxmlNodePtr; cdecl; external libxml2;
-function xmlNewText(content: PxmlChar): TxmlNodePtr; cdecl; external libxml2;
-function xmlNewDocPI(doc: TxmlDocPtr; Name: PxmlChar; content: PxmlChar): TxmlNodePtr; cdecl; external libxml2;
-function xmlNewPI(Name: PxmlChar; content: PxmlChar): TxmlNodePtr; cdecl; external libxml2;
-function xmlNewDocTextLen(doc: TxmlDocPtr; content: PxmlChar; len: longint): TxmlNodePtr; cdecl; external libxml2;
-function xmlNewTextLen(content: PxmlChar; len: longint): TxmlNodePtr; cdecl; external libxml2;
-function xmlNewDocComment(doc: TxmlDocPtr; content: PxmlChar): TxmlNodePtr; cdecl; external libxml2;
-function xmlNewComment(content: PxmlChar): TxmlNodePtr; cdecl; external libxml2;
-function xmlNewCDataBlock(doc: TxmlDocPtr; content: PxmlChar; len: longint): TxmlNodePtr; cdecl; external libxml2;
-function xmlNewCharRef(doc: TxmlDocPtr; Name: PxmlChar): TxmlNodePtr; cdecl; external libxml2;
-function xmlNewReference(doc: PxmlDoc; Name: PxmlChar): TxmlNodePtr; cdecl; external libxml2;
-function xmlCopyNode(node: TxmlNodePtr; recursive: longint): TxmlNodePtr; cdecl; external libxml2;
-function xmlDocCopyNode(node: TxmlNodePtr; doc: TxmlDocPtr; recursive: longint): TxmlNodePtr; cdecl; external libxml2;
-function xmlDocCopyNodeList(doc: TxmlDocPtr; node: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlCopyNodeList(node: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlNewTextChild(parent: TxmlNodePtr; ns: TxmlNsPtr; Name: PxmlChar; content: PxmlChar): TxmlNodePtr; cdecl; external libxml2;
-function xmlNewDocRawNode(doc: TxmlDocPtr; ns: TxmlNsPtr; Name: PxmlChar; content: PxmlChar): TxmlNodePtr; cdecl; external libxml2;
-function xmlNewDocFragment(doc: TxmlDocPtr): TxmlNodePtr; cdecl; external libxml2;
+function xmlNewDocNode(doc: PxmlDoc; ns: PxmlNs; Name: PxmlChar; content: PxmlChar): PxmlNode; cdecl; external libxml2;
+function xmlNewDocNodeEatName(doc: PxmlDoc; ns: PxmlNs; Name: PxmlChar; content: PxmlChar): PxmlNode; cdecl; external libxml2;
+function xmlNewNode(ns: PxmlNs; Name: PxmlChar): PxmlNode; cdecl; external libxml2;
+function xmlNewNodeEatName(ns: PxmlNs; Name: PxmlChar): PxmlNode; cdecl; external libxml2;
+function xmlNewChild(parent: PxmlNode; ns: PxmlNs; Name: PxmlChar; content: PxmlChar): PxmlNode; cdecl; external libxml2;
+function xmlNewDocText(doc: PxmlDoc; content: PxmlChar): PxmlNode; cdecl; external libxml2;
+function xmlNewText(content: PxmlChar): PxmlNode; cdecl; external libxml2;
+function xmlNewDocPI(doc: PxmlDoc; Name: PxmlChar; content: PxmlChar): PxmlNode; cdecl; external libxml2;
+function xmlNewPI(Name: PxmlChar; content: PxmlChar): PxmlNode; cdecl; external libxml2;
+function xmlNewDocTextLen(doc: PxmlDoc; content: PxmlChar; len: longint): PxmlNode; cdecl; external libxml2;
+function xmlNewTextLen(content: PxmlChar; len: longint): PxmlNode; cdecl; external libxml2;
+function xmlNewDocComment(doc: PxmlDoc; content: PxmlChar): PxmlNode; cdecl; external libxml2;
+function xmlNewComment(content: PxmlChar): PxmlNode; cdecl; external libxml2;
+function xmlNewCDataBlock(doc: PxmlDoc; content: PxmlChar; len: longint): PxmlNode; cdecl; external libxml2;
+function xmlNewCharRef(doc: PxmlDoc; Name: PxmlChar): PxmlNode; cdecl; external libxml2;
+function xmlNewReference(doc: PxmlDoc; Name: PxmlChar): PxmlNode; cdecl; external libxml2;
+function xmlCopyNode(node: PxmlNode; recursive: longint): PxmlNode; cdecl; external libxml2;
+function xmlDocCopyNode(node: PxmlNode; doc: PxmlDoc; recursive: longint): PxmlNode; cdecl; external libxml2;
+function xmlDocCopyNodeList(doc: PxmlDoc; node: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlCopyNodeList(node: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlNewTextChild(parent: PxmlNode; ns: PxmlNs; Name: PxmlChar; content: PxmlChar): PxmlNode; cdecl; external libxml2;
+function xmlNewDocRawNode(doc: PxmlDoc; ns: PxmlNs; Name: PxmlChar; content: PxmlChar): PxmlNode; cdecl; external libxml2;
+function xmlNewDocFragment(doc: PxmlDoc): PxmlNode; cdecl; external libxml2;
 
 function xmlGetLineNo(node: PxmlNode): longint; cdecl; external libxml2;
 function xmlGetNodePath(node: PxmlNode): PxmlChar; cdecl; external libxml2;
-function xmlDocGetRootElement(doc: PxmlDoc): TxmlNodePtr; cdecl; external libxml2;
-function xmlGetLastChild(parent: PxmlNode): TxmlNodePtr; cdecl; external libxml2;
+function xmlDocGetRootElement(doc: PxmlDoc): PxmlNode; cdecl; external libxml2;
+function xmlGetLastChild(parent: PxmlNode): PxmlNode; cdecl; external libxml2;
 function xmlNodeIsText(node: PxmlNode): longint; cdecl; external libxml2;
 function xmlIsBlankNode(node: PxmlNode): longint; cdecl; external libxml2;
-function xmlDocSetRootElement(doc: TxmlDocPtr; root: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-procedure xmlNodeSetName(cur: TxmlNodePtr; Name: PxmlChar); cdecl; external libxml2;
-function xmlAddChild(parent: TxmlNodePtr; cur: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlAddChildList(parent: TxmlNodePtr; cur: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlReplaceNode(old: TxmlNodePtr; cur: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlAddPrevSibling(cur: TxmlNodePtr; elem: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlAddSibling(cur: TxmlNodePtr; elem: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlAddNextSibling(cur: TxmlNodePtr; elem: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-procedure xmlUnlinkNode(cur: TxmlNodePtr); cdecl; external libxml2;
-function xmlTextMerge(First: TxmlNodePtr; second: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlTextConcat(node: TxmlNodePtr; content: PxmlChar; len: longint): longint; cdecl; external libxml2;
-procedure xmlFreeNodeList(cur: TxmlNodePtr); cdecl; external libxml2;
-procedure xmlFreeNode(cur: TxmlNodePtr); cdecl; external libxml2;
-procedure xmlSetTreeDoc(tree: TxmlNodePtr; doc: TxmlDocPtr); cdecl; external libxml2;
-procedure xmlSetListDoc(list: TxmlNodePtr; doc: TxmlDocPtr); cdecl; external libxml2;
-function xmlSearchNs(doc: TxmlDocPtr; node: TxmlNodePtr; nameSpace: PxmlChar): TxmlNsPtr; cdecl; external libxml2;
-function xmlSearchNsByHref(doc: TxmlDocPtr; node: TxmlNodePtr; href: PxmlChar): TxmlNsPtr; cdecl; external libxml2;
-function xmlGetNsList(doc: PxmlDoc; node: PxmlNode): PxmlNsPtr; cdecl; external libxml2;
-procedure xmlSetNs(node: TxmlNodePtr; ns: TxmlNsPtr); cdecl; external libxml2;
-function xmlCopyNamespace(cur: TxmlNsPtr): TxmlNsPtr; cdecl; external libxml2;
-function xmlCopyNamespaceList(cur: TxmlNsPtr): TxmlNsPtr; cdecl; external libxml2;
-function xmlSetProp(node: TxmlNodePtr; Name: PxmlChar; Value: PxmlChar): TxmlAttrPtr; cdecl; external libxml2;
-function xmlSetNsProp(node: TxmlNodePtr; ns: TxmlNsPtr; Name: PxmlChar; Value: PxmlChar): TxmlAttrPtr; cdecl; external libxml2;
+function xmlDocSetRootElement(doc: PxmlDoc; root: PxmlNode): PxmlNode; cdecl; external libxml2;
+procedure xmlNodeSetName(cur: PxmlNode; Name: PxmlChar); cdecl; external libxml2;
+function xmlAddChild(parent: PxmlNode; cur: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlAddChildList(parent: PxmlNode; cur: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlReplaceNode(old: PxmlNode; cur: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlAddPrevSibling(cur: PxmlNode; elem: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlAddSibling(cur: PxmlNode; elem: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlAddNextSibling(cur: PxmlNode; elem: PxmlNode): PxmlNode; cdecl; external libxml2;
+procedure xmlUnlinkNode(cur: PxmlNode); cdecl; external libxml2;
+function xmlTextMerge(First: PxmlNode; second: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlTextConcat(node: PxmlNode; content: PxmlChar; len: longint): longint; cdecl; external libxml2;
+procedure xmlFreeNodeList(cur: PxmlNode); cdecl; external libxml2;
+procedure xmlFreeNode(cur: PxmlNode); cdecl; external libxml2;
+procedure xmlSetTreeDoc(tree: PxmlNode; doc: PxmlDoc); cdecl; external libxml2;
+procedure xmlSetListDoc(list: PxmlNode; doc: PxmlDoc); cdecl; external libxml2;
+function xmlSearchNs(doc: PxmlDoc; node: PxmlNode; nameSpace: PxmlChar): PxmlNs; cdecl; external libxml2;
+function xmlSearchNsByHref(doc: PxmlDoc; node: PxmlNode; href: PxmlChar): PxmlNs; cdecl; external libxml2;
+function xmlGetNsList(doc: PxmlDoc; node: PxmlNode): PPxmlNs; cdecl; external libxml2;
+procedure xmlSetNs(node: PxmlNode; ns: PxmlNs); cdecl; external libxml2;
+function xmlCopyNamespace(cur: PxmlNs): PxmlNs; cdecl; external libxml2;
+function xmlCopyNamespaceList(cur: PxmlNs): PxmlNs; cdecl; external libxml2;
+function xmlSetProp(node: PxmlNode; Name: PxmlChar; Value: PxmlChar): PxmlAttr; cdecl; external libxml2;
+function xmlSetNsProp(node: PxmlNode; ns: PxmlNs; Name: PxmlChar; Value: PxmlChar): PxmlAttr; cdecl; external libxml2;
 function xmlGetNoNsProp(node: PxmlNode; Name: PxmlChar): PxmlChar; cdecl; external libxml2;
 function xmlGetProp(node: PxmlNode; Name: PxmlChar): PxmlChar; cdecl; external libxml2;
-function xmlHasProp(node: PxmlNode; Name: PxmlChar): TxmlAttrPtr; cdecl; external libxml2;
-function xmlHasNsProp(node: PxmlNode; Name: PxmlChar; nameSpace: PxmlChar): TxmlAttrPtr; cdecl; external libxml2;
+function xmlHasProp(node: PxmlNode; Name: PxmlChar): PxmlAttr; cdecl; external libxml2;
+function xmlHasNsProp(node: PxmlNode; Name: PxmlChar; nameSpace: PxmlChar): PxmlAttr; cdecl; external libxml2;
 function xmlGetNsProp(node: PxmlNode; Name: PxmlChar; nameSpace: PxmlChar): PxmlChar; cdecl; external libxml2;
-function xmlStringGetNodeList(doc: PxmlDoc; Value: PxmlChar): TxmlNodePtr; cdecl; external libxml2;
-function xmlStringLenGetNodeList(doc: PxmlDoc; Value: PxmlChar; len: longint): TxmlNodePtr; cdecl; external libxml2;
-function xmlNodeListGetString(doc: TxmlDocPtr; list: PxmlNode; inLine_: longint): PxmlChar; cdecl; external libxml2;
+function xmlStringGetNodeList(doc: PxmlDoc; Value: PxmlChar): PxmlNode; cdecl; external libxml2;
+function xmlStringLenGetNodeList(doc: PxmlDoc; Value: PxmlChar; len: longint): PxmlNode; cdecl; external libxml2;
+function xmlNodeListGetString(doc: PxmlDoc; list: PxmlNode; inLine_: longint): PxmlChar; cdecl; external libxml2;
 function xmlNodeListGetRawString(doc: PxmlDoc; list: PxmlNode; inLine_: longint): PxmlChar; cdecl; external libxml2;
-procedure xmlNodeSetContent(cur: TxmlNodePtr; content: PxmlChar); cdecl; external libxml2;
-procedure xmlNodeSetContentLen(cur: TxmlNodePtr; content: PxmlChar; len: longint); cdecl; external libxml2;
-procedure xmlNodeAddContent(cur: TxmlNodePtr; content: PxmlChar); cdecl; external libxml2;
-procedure xmlNodeAddContentLen(cur: TxmlNodePtr; content: PxmlChar; len: longint); cdecl; external libxml2;
+procedure xmlNodeSetContent(cur: PxmlNode; content: PxmlChar); cdecl; external libxml2;
+procedure xmlNodeSetContentLen(cur: PxmlNode; content: PxmlChar; len: longint); cdecl; external libxml2;
+procedure xmlNodeAddContent(cur: PxmlNode; content: PxmlChar); cdecl; external libxml2;
+procedure xmlNodeAddContentLen(cur: PxmlNode; content: PxmlChar; len: longint); cdecl; external libxml2;
 function xmlNodeGetContent(cur: PxmlNode): PxmlChar; cdecl; external libxml2;
-function xmlNodeBufGetContent(buffer: TxmlBufferPtr; cur: PxmlNode): longint; cdecl; external libxml2;
-function xmlBufGetNodeContent(buf: TxmlBufPtr; cur: PxmlNode): longint; cdecl; external libxml2;
+function xmlNodeBufGetContent(buffer: PxmlBuffer; cur: PxmlNode): longint; cdecl; external libxml2;
+function xmlBufGetNodeContent(buf: PxmlBuf; cur: PxmlNode): longint; cdecl; external libxml2;
 function xmlNodeGetLang(cur: PxmlNode): PxmlChar; cdecl; external libxml2;
 function xmlNodeGetSpacePreserve(cur: PxmlNode): longint; cdecl; external libxml2;
-procedure xmlNodeSetLang(cur: TxmlNodePtr; lang: PxmlChar); cdecl; external libxml2;
-procedure xmlNodeSetSpacePreserve(cur: TxmlNodePtr; val: longint); cdecl; external libxml2;
+procedure xmlNodeSetLang(cur: PxmlNode; lang: PxmlChar); cdecl; external libxml2;
+procedure xmlNodeSetSpacePreserve(cur: PxmlNode; val: longint); cdecl; external libxml2;
 function xmlNodeGetBase(doc: PxmlDoc; cur: PxmlNode): PxmlChar; cdecl; external libxml2;
-procedure xmlNodeSetBase(cur: TxmlNodePtr; uri: PxmlChar); cdecl; external libxml2;
-function xmlRemoveProp(cur: TxmlAttrPtr): longint; cdecl; external libxml2;
-function xmlUnsetNsProp(node: TxmlNodePtr; ns: TxmlNsPtr; Name: PxmlChar): longint; cdecl; external libxml2;
-function xmlUnsetProp(node: TxmlNodePtr; Name: PxmlChar): longint; cdecl; external libxml2;
-procedure xmlBufferWriteCHAR(buf: TxmlBufferPtr; _string: PxmlChar); cdecl; external libxml2;
-procedure xmlBufferWriteChar(buf: TxmlBufferPtr; _string: pchar); cdecl; external libxml2;
-procedure xmlBufferWriteQuotedString(buf: TxmlBufferPtr; _string: PxmlChar); cdecl; external libxml2;
-procedure xmlAttrSerializeTxtContent(buf: TxmlBufferPtr; doc: TxmlDocPtr; attr: TxmlAttrPtr; _string: PxmlChar); cdecl; external libxml2;
-function xmlReconciliateNs(doc: TxmlDocPtr; tree: TxmlNodePtr): longint; cdecl; external libxml2;
-procedure xmlDocDumpFormatMemory(cur: TxmlDocPtr; mem: PPxmlChar; size: Plongint; format: longint); cdecl; external libxml2;
-procedure xmlDocDumpMemory(cur: TxmlDocPtr; mem: PPxmlChar; size: Plongint); cdecl; external libxml2;
-procedure xmlDocDumpMemoryEnc(out_doc: TxmlDocPtr; doc_txt_ptr: PPxmlChar; doc_txt_len: Plongint; txt_encoding: pchar); cdecl; external libxml2;
-procedure xmlDocDumpFormatMemoryEnc(out_doc: TxmlDocPtr; doc_txt_ptr: PPxmlChar; doc_txt_len: Plongint; txt_encoding: pchar; format: longint); cdecl; external libxml2;
-function xmlDocFormatDump(f: PFILE; cur: TxmlDocPtr; format: longint): longint; cdecl; external libxml2;
-function xmlDocDump(f: PFILE; cur: TxmlDocPtr): longint; cdecl; external libxml2;
-procedure xmlElemDump(f: PFILE; doc: TxmlDocPtr; cur: TxmlNodePtr); cdecl; external libxml2;
-function xmlSaveFile(filename: pchar; cur: TxmlDocPtr): longint; cdecl; external libxml2;
-function xmlSaveFormatFile(filename: pchar; cur: TxmlDocPtr; format: longint): longint; cdecl; external libxml2;
-function xmlBufNodeDump(buf: TxmlBufPtr; doc: TxmlDocPtr; cur: TxmlNodePtr; level: longint; format: longint): Tsize_t; cdecl; external libxml2;
-function xmlNodeDump(buf: TxmlBufferPtr; doc: TxmlDocPtr; cur: TxmlNodePtr; level: longint; format: longint): longint; cdecl; external libxml2;
-function xmlSaveFileTo(buf: TxmlOutputBufferPtr; cur: TxmlDocPtr; encoding: pchar): longint; cdecl; external libxml2;
-function xmlSaveFormatFileTo(buf: TxmlOutputBufferPtr; cur: TxmlDocPtr; encoding: pchar; format: longint): longint; cdecl; external libxml2;
-procedure xmlNodeDumpOutput(buf: TxmlOutputBufferPtr; doc: TxmlDocPtr; cur: TxmlNodePtr; level: longint; format: longint; encoding: pchar); cdecl; external libxml2;
-function xmlSaveFormatFileEnc(filename: pchar; cur: TxmlDocPtr; encoding: pchar; format: longint): longint; cdecl; external libxml2;
-function xmlSaveFileEnc(filename: pchar; cur: TxmlDocPtr; encoding: pchar): longint; cdecl; external libxml2;
+procedure xmlNodeSetBase(cur: PxmlNode; uri: PxmlChar); cdecl; external libxml2;
+function xmlRemoveProp(cur: PxmlAttr): longint; cdecl; external libxml2;
+function xmlUnsetNsProp(node: PxmlNode; ns: PxmlNs; Name: PxmlChar): longint; cdecl; external libxml2;
+function xmlUnsetProp(node: PxmlNode; Name: PxmlChar): longint; cdecl; external libxml2;
+procedure xmlBufferWriteCHAR(buf: PxmlBuffer; _string: PxmlChar); cdecl; external libxml2;
+procedure xmlBufferWriteChar(buf: PxmlBuffer; _string: pchar); cdecl; external libxml2;
+procedure xmlBufferWriteQuotedString(buf: PxmlBuffer; _string: PxmlChar); cdecl; external libxml2;
+procedure xmlAttrSerializeTxtContent(buf: PxmlBuffer; doc: PxmlDoc; attr: PxmlAttr; _string: PxmlChar); cdecl; external libxml2;
+function xmlReconciliateNs(doc: PxmlDoc; tree: PxmlNode): longint; cdecl; external libxml2;
+procedure xmlDocDumpFormatMemory(cur: PxmlDoc; mem: PPxmlChar; size: Plongint; format: longint); cdecl; external libxml2;
+procedure xmlDocDumpMemory(cur: PxmlDoc; mem: PPxmlChar; size: Plongint); cdecl; external libxml2;
+procedure xmlDocDumpMemoryEnc(out_doc: PxmlDoc; doc_txt_ptr: PPxmlChar; doc_txt_len: Plongint; txt_encoding: pchar); cdecl; external libxml2;
+procedure xmlDocDumpFormatMemoryEnc(out_doc: PxmlDoc; doc_txt_ptr: PPxmlChar; doc_txt_len: Plongint; txt_encoding: pchar; format: longint); cdecl; external libxml2;
+function xmlDocFormatDump(f: PFILE; cur: PxmlDoc; format: longint): longint; cdecl; external libxml2;
+function xmlDocDump(f: PFILE; cur: PxmlDoc): longint; cdecl; external libxml2;
+procedure xmlElemDump(f: PFILE; doc: PxmlDoc; cur: PxmlNode); cdecl; external libxml2;
+function xmlSaveFile(filename: pchar; cur: PxmlDoc): longint; cdecl; external libxml2;
+function xmlSaveFormatFile(filename: pchar; cur: PxmlDoc; format: longint): longint; cdecl; external libxml2;
+function xmlBufNodeDump(buf: PxmlBuf; doc: PxmlDoc; cur: PxmlNode; level: longint; format: longint): Tsize_t; cdecl; external libxml2;
+function xmlNodeDump(buf: PxmlBuffer; doc: PxmlDoc; cur: PxmlNode; level: longint; format: longint): longint; cdecl; external libxml2;
+function xmlSaveFileTo(buf: PxmlOutputBuffer; cur: PxmlDoc; encoding: pchar): longint; cdecl; external libxml2;
+function xmlSaveFormatFileTo(buf: PxmlOutputBuffer; cur: PxmlDoc; encoding: pchar; format: longint): longint; cdecl; external libxml2;
+procedure xmlNodeDumpOutput(buf: PxmlOutputBuffer; doc: PxmlDoc; cur: PxmlNode; level: longint; format: longint; encoding: pchar); cdecl; external libxml2;
+function xmlSaveFormatFileEnc(filename: pchar; cur: PxmlDoc; encoding: pchar; format: longint): longint; cdecl; external libxml2;
+function xmlSaveFileEnc(filename: pchar; cur: PxmlDoc; encoding: pchar): longint; cdecl; external libxml2;
 function xmlIsXHTML(systemID: PxmlChar; publicID: PxmlChar): longint; cdecl; external libxml2;
 function xmlGetDocCompressMode(doc: PxmlDoc): longint; cdecl; external libxml2;
-procedure xmlSetDocCompressMode(doc: TxmlDocPtr; mode: longint); cdecl; external libxml2;
+procedure xmlSetDocCompressMode(doc: PxmlDoc; mode: longint); cdecl; external libxml2;
 function xmlGetCompressMode: longint; cdecl; external libxml2;
 procedure xmlSetCompressMode(mode: longint); cdecl; external libxml2;
-function xmlDOMWrapNewCtxt: TxmlDOMWrapCtxtPtr; cdecl; external libxml2;
-procedure xmlDOMWrapFreeCtxt(ctxt: TxmlDOMWrapCtxtPtr); cdecl; external libxml2;
-function xmlDOMWrapReconcileNamespaces(ctxt: TxmlDOMWrapCtxtPtr; elem: TxmlNodePtr; options: longint): longint; cdecl; external libxml2;
-function xmlDOMWrapAdoptNode(ctxt: TxmlDOMWrapCtxtPtr; sourceDoc: TxmlDocPtr; node: TxmlNodePtr; destDoc: TxmlDocPtr; destParent: TxmlNodePtr;
+function xmlDOMWrapNewCtxt: PxmlDOMWrapCtxt; cdecl; external libxml2;
+procedure xmlDOMWrapFreeCtxt(ctxt: PxmlDOMWrapCtxt); cdecl; external libxml2;
+function xmlDOMWrapReconcileNamespaces(ctxt: PxmlDOMWrapCtxt; elem: PxmlNode; options: longint): longint; cdecl; external libxml2;
+function xmlDOMWrapAdoptNode(ctxt: PxmlDOMWrapCtxt; sourceDoc: PxmlDoc; node: PxmlNode; destDoc: PxmlDoc; destParent: PxmlNode;
   options: longint): longint; cdecl; external libxml2;
-function xmlDOMWrapRemoveNode(ctxt: TxmlDOMWrapCtxtPtr; doc: TxmlDocPtr; node: TxmlNodePtr; options: longint): longint; cdecl; external libxml2;
-function xmlDOMWrapCloneNode(ctxt: TxmlDOMWrapCtxtPtr; sourceDoc: TxmlDocPtr; node: TxmlNodePtr; clonedNode: PxmlNodePtr; destDoc: TxmlDocPtr;
-  destParent: TxmlNodePtr; deep: longint; options: longint): longint; cdecl; external libxml2;
-function xmlChildElementCount(parent: TxmlNodePtr): dword; cdecl; external libxml2;
-function xmlNextElementSibling(node: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlFirstElementChild(parent: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlLastElementChild(parent: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
-function xmlPreviousElementSibling(node: TxmlNodePtr): TxmlNodePtr; cdecl; external libxml2;
+function xmlDOMWrapRemoveNode(ctxt: PxmlDOMWrapCtxt; doc: PxmlDoc; node: PxmlNode; options: longint): longint; cdecl; external libxml2;
+function xmlDOMWrapCloneNode(ctxt: PxmlDOMWrapCtxt; sourceDoc: PxmlDoc; node: PxmlNode; clonedNode: PPxmlNode; destDoc: PxmlDoc;
+  destParent: PxmlNode; deep: longint; options: longint): longint; cdecl; external libxml2;
+function xmlChildElementCount(parent: PxmlNode): dword; cdecl; external libxml2;
+function xmlNextElementSibling(node: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlFirstElementChild(parent: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlLastElementChild(parent: PxmlNode): PxmlNode; cdecl; external libxml2;
+function xmlPreviousElementSibling(node: PxmlNode): PxmlNode; cdecl; external libxml2;
 
 const
   XML_XML_NAMESPACE: PxmlChar = 'http://www.w3.org/XML/1998/namespace';

@@ -14,24 +14,18 @@ type
   end;
   PxmlMutex = ^TxmlMutex;
 
-  PxmlMutexPtr = ^TxmlMutexPtr;
-  TxmlMutexPtr = PxmlMutex;
-
   TxmlRMutex = record
   end;
   PxmlRMutex = ^TxmlRMutex;
 
-  PxmlRMutexPtr = ^TxmlRMutexPtr;
-  TxmlRMutexPtr = PxmlRMutex;
-
-function xmlNewMutex: TxmlMutexPtr; cdecl; external libxml2;
-procedure xmlMutexLock(tok: TxmlMutexPtr); cdecl; external libxml2;
-procedure xmlMutexUnlock(tok: TxmlMutexPtr); cdecl; external libxml2;
-procedure xmlFreeMutex(tok: TxmlMutexPtr); cdecl; external libxml2;
-function xmlNewRMutex: TxmlRMutexPtr; cdecl; external libxml2;
-procedure xmlRMutexLock(tok: TxmlRMutexPtr); cdecl; external libxml2;
-procedure xmlRMutexUnlock(tok: TxmlRMutexPtr); cdecl; external libxml2;
-procedure xmlFreeRMutex(tok: TxmlRMutexPtr); cdecl; external libxml2;
+function xmlNewMutex: PxmlMutex; cdecl; external libxml2;
+procedure xmlMutexLock(tok: PxmlMutex); cdecl; external libxml2;
+procedure xmlMutexUnlock(tok: PxmlMutex); cdecl; external libxml2;
+procedure xmlFreeMutex(tok: PxmlMutex); cdecl; external libxml2;
+function xmlNewRMutex: PxmlRMutex; cdecl; external libxml2;
+procedure xmlRMutexLock(tok: PxmlRMutex); cdecl; external libxml2;
+procedure xmlRMutexUnlock(tok: PxmlRMutex); cdecl; external libxml2;
+procedure xmlFreeRMutex(tok: PxmlRMutex); cdecl; external libxml2;
 procedure xmlInitThreads; cdecl; external libxml2;
 procedure xmlLockLibrary; cdecl; external libxml2;
 procedure xmlUnlockLibrary; cdecl; external libxml2;

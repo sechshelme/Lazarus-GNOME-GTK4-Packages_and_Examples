@@ -15,10 +15,6 @@ type
   end;
   PxmlRelaxNG = ^TxmlRelaxNG;
 
-  PxmlRelaxNGPtr = ^TxmlRelaxNGPtr;
-  TxmlRelaxNGPtr = PxmlRelaxNG;
-
-type
   TxmlRelaxNGValidityErrorFunc = procedure(ctx: Pointer; const msg: pchar; args: array of const);
   PxmlRelaxNGValidityErrorFunc = ^TxmlRelaxNGValidityErrorFunc;
   TxmlRelaxNGValidityWarningFunc = procedure(ctx: Pointer; const msg: pchar; args: array of const);
@@ -35,9 +31,7 @@ type
   end;
   PxmlRelaxNGValidCtxt = ^TxmlRelaxNGValidCtxt;
 
-  PxmlRelaxNGValidCtxtPtr = ^TxmlRelaxNGValidCtxtPtr;
-  TxmlRelaxNGValidCtxtPtr = PxmlRelaxNGValidCtxt;
-
+type
   PxmlRelaxNGValidErr = ^TxmlRelaxNGValidErr;
   TxmlRelaxNGValidErr = longint;
 
@@ -96,26 +90,26 @@ function xmlRelaxNGInitTypes: longint; cdecl; external libxml2;
 procedure xmlRelaxNGCleanupTypes; cdecl; external libxml2;
 function xmlRelaxNGNewParserCtxt(URL: pchar): TxmlRelaxNGParserCtxtPtr; cdecl; external libxml2;
 function xmlRelaxNGNewMemParserCtxt(buffer: pchar; size: longint): TxmlRelaxNGParserCtxtPtr; cdecl; external libxml2;
-function xmlRelaxNGNewDocParserCtxt(doc: TxmlDocPtr): TxmlRelaxNGParserCtxtPtr; cdecl; external libxml2;
+function xmlRelaxNGNewDocParserCtxt(doc: PxmlDoc): TxmlRelaxNGParserCtxtPtr; cdecl; external libxml2;
 function xmlRelaxParserSetFlag(ctxt: TxmlRelaxNGParserCtxtPtr; flag: longint): longint; cdecl; external libxml2;
 procedure xmlRelaxNGFreeParserCtxt(ctxt: TxmlRelaxNGParserCtxtPtr); cdecl; external libxml2;
 procedure xmlRelaxNGSetParserErrors(ctxt: TxmlRelaxNGParserCtxtPtr; err: TxmlRelaxNGValidityErrorFunc; warn: TxmlRelaxNGValidityWarningFunc; ctx: pointer); cdecl; external libxml2;
 function xmlRelaxNGGetParserErrors(ctxt: TxmlRelaxNGParserCtxtPtr; err: PxmlRelaxNGValidityErrorFunc; warn: PxmlRelaxNGValidityWarningFunc; ctx: Ppointer): longint; cdecl; external libxml2;
 procedure xmlRelaxNGSetParserStructuredErrors(ctxt: TxmlRelaxNGParserCtxtPtr; serror: TxmlStructuredErrorFunc; ctx: pointer); cdecl; external libxml2;
-function xmlRelaxNGParse(ctxt: TxmlRelaxNGParserCtxtPtr): TxmlRelaxNGPtr; cdecl; external libxml2;
-procedure xmlRelaxNGFree(schema: TxmlRelaxNGPtr); cdecl; external libxml2;
-procedure xmlRelaxNGDump(output: PFILE; schema: TxmlRelaxNGPtr); cdecl; external libxml2;
-procedure xmlRelaxNGDumpTree(output: PFILE; schema: TxmlRelaxNGPtr); cdecl; external libxml2;
-procedure xmlRelaxNGSetValidErrors(ctxt: TxmlRelaxNGValidCtxtPtr; err: TxmlRelaxNGValidityErrorFunc; warn: TxmlRelaxNGValidityWarningFunc; ctx: pointer); cdecl; external libxml2;
-function xmlRelaxNGGetValidErrors(ctxt: TxmlRelaxNGValidCtxtPtr; err: PxmlRelaxNGValidityErrorFunc; warn: PxmlRelaxNGValidityWarningFunc; ctx: Ppointer): longint; cdecl; external libxml2;
-procedure xmlRelaxNGSetValidStructuredErrors(ctxt: TxmlRelaxNGValidCtxtPtr; serror: TxmlStructuredErrorFunc; ctx: pointer); cdecl; external libxml2;
-function xmlRelaxNGNewValidCtxt(schema: TxmlRelaxNGPtr): TxmlRelaxNGValidCtxtPtr; cdecl; external libxml2;
-procedure xmlRelaxNGFreeValidCtxt(ctxt: TxmlRelaxNGValidCtxtPtr); cdecl; external libxml2;
-function xmlRelaxNGValidateDoc(ctxt: TxmlRelaxNGValidCtxtPtr; doc: TxmlDocPtr): longint; cdecl; external libxml2;
-function xmlRelaxNGValidatePushElement(ctxt: TxmlRelaxNGValidCtxtPtr; doc: TxmlDocPtr; elem: TxmlNodePtr): longint; cdecl; external libxml2;
-function xmlRelaxNGValidatePushCData(ctxt: TxmlRelaxNGValidCtxtPtr; Data: PxmlChar; len: longint): longint; cdecl; external libxml2;
-function xmlRelaxNGValidatePopElement(ctxt: TxmlRelaxNGValidCtxtPtr; doc: TxmlDocPtr; elem: TxmlNodePtr): longint; cdecl; external libxml2;
-function xmlRelaxNGValidateFullElement(ctxt: TxmlRelaxNGValidCtxtPtr; doc: TxmlDocPtr; elem: TxmlNodePtr): longint; cdecl; external libxml2;
+function xmlRelaxNGParse(ctxt: TxmlRelaxNGParserCtxtPtr): PxmlRelaxNG; cdecl; external libxml2;
+procedure xmlRelaxNGFree(schema: PxmlRelaxNG); cdecl; external libxml2;
+procedure xmlRelaxNGDump(output: PFILE; schema: PxmlRelaxNG); cdecl; external libxml2;
+procedure xmlRelaxNGDumpTree(output: PFILE; schema: PxmlRelaxNG); cdecl; external libxml2;
+procedure xmlRelaxNGSetValidErrors(ctxt: PxmlRelaxNGValidCtxt; err: TxmlRelaxNGValidityErrorFunc; warn: TxmlRelaxNGValidityWarningFunc; ctx: pointer); cdecl; external libxml2;
+function xmlRelaxNGGetValidErrors(ctxt: PxmlRelaxNGValidCtxt; err: PxmlRelaxNGValidityErrorFunc; warn: PxmlRelaxNGValidityWarningFunc; ctx: Ppointer): longint; cdecl; external libxml2;
+procedure xmlRelaxNGSetValidStructuredErrors(ctxt: PxmlRelaxNGValidCtxt; serror: TxmlStructuredErrorFunc; ctx: pointer); cdecl; external libxml2;
+function xmlRelaxNGNewValidCtxt(schema: PxmlRelaxNG): PxmlRelaxNGValidCtxt; cdecl; external libxml2;
+procedure xmlRelaxNGFreeValidCtxt(ctxt: PxmlRelaxNGValidCtxt); cdecl; external libxml2;
+function xmlRelaxNGValidateDoc(ctxt: PxmlRelaxNGValidCtxt; doc: PxmlDoc): longint; cdecl; external libxml2;
+function xmlRelaxNGValidatePushElement(ctxt: PxmlRelaxNGValidCtxt; doc: PxmlDoc; elem: PxmlNode): longint; cdecl; external libxml2;
+function xmlRelaxNGValidatePushCData(ctxt: PxmlRelaxNGValidCtxt; Data: PxmlChar; len: longint): longint; cdecl; external libxml2;
+function xmlRelaxNGValidatePopElement(ctxt: PxmlRelaxNGValidCtxt; doc: PxmlDoc; elem: PxmlNode): longint; cdecl; external libxml2;
+function xmlRelaxNGValidateFullElement(ctxt: PxmlRelaxNGValidCtxt; doc: PxmlDoc; elem: PxmlNode): longint; cdecl; external libxml2;
 
 // === Konventiert am: 2-3-25 19:42:27 ===
 

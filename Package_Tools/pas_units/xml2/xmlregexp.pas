@@ -81,7 +81,7 @@ function xmlExpGetStart(ctxt: PxmlExpCtxt; expr: PxmlExpNode; tokList: PPxmlChar
 function xmlExpStringDerive(ctxt: PxmlExpCtxt; expr: PxmlExpNode; str: PxmlChar; len: longint): PxmlExpNode; cdecl; external libxml2;
 function xmlExpExpDerive(ctxt: PxmlExpCtxt; expr: PxmlExpNode; sub: PxmlExpNode): PxmlExpNode; cdecl; external libxml2;
 function xmlExpSubsume(ctxt: PxmlExpCtxt; expr: PxmlExpNode; sub: PxmlExpNode): longint; cdecl; external libxml2;
-procedure xmlExpDump(buf: TxmlBufferPtr; expr: PxmlExpNode); cdecl; external libxml2;
+procedure xmlExpDump(buf: PxmlBuffer; expr: PxmlExpNode); cdecl; external libxml2;
 
 // === Konventiert am: 26-2-25 19:26:00 ===
 

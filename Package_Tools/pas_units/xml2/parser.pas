@@ -3,7 +3,7 @@ unit parser;
 interface
 
 uses
-  ctypes, xml2_common, xmlstring, tree, valid, dict, hash, xmlerror, encoding, xmlIO;
+  ctypes, xml2_common, xmlstring, tree, valid, dict, hash, xmlerror, encoding, xmlIO, entities;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -21,7 +21,7 @@ type
   PxmlParserInput = ^TxmlParserInput;
 
   TxmlParserInput = record
-    buf: TxmlParserInputBufferPtr;
+    buf: PxmlParserInputBuffer;
     filename: pchar;
     directory: pchar;
     base: PxmlChar;
@@ -100,25 +100,26 @@ type
   PxmlStartTag = ^TxmlStartTag;
 
   PxmlSAXHandler = ^TxmlSAXHandler;
+  PPxmlSAXHandler = ^PxmlSAXHandler;
 
   TxmlParserCtxt = record
     sax: PxmlSAXHandler;
     userData: pointer;
-    myDoc: TxmlDocPtr;
+    myDoc: PxmlDoc;
     wellFormed: longint;
     replaceEntities: longint;
     version: PxmlChar;
     encoding: PxmlChar;
     standalone: longint;
     html: longint;
-    input: TxmlParserInputPtr;
+    input: PxmlParserInput;
     inputNr: longint;
     inputMax: longint;
-    inputTab: PxmlParserInputPtr;
-    node: TxmlNodePtr;
+    inputTab: ^PxmlParserInput;
+    node: PxmlNode;
     nodeNr: longint;
     nodeMax: longint;
-    nodeTab: PxmlNodePtr;
+    nodeTab: PPxmlNode;
     record_info: longint;
     node_seq: TxmlParserNodeInfoSeq;
     errNo: longint;
@@ -148,7 +149,7 @@ type
     spaceMax: longint;
     spaceTab: Plongint;
     depth: longint;
-    entity: TxmlParserInputPtr;
+    entity: PxmlParserInput;
     charset: longint;
     nodelen: longint;
     nodemem: longint;
@@ -178,9 +179,9 @@ type
     options: longint;
     dictNames: longint;
     freeElemsNr: longint;
-    freeElems: TxmlNodePtr;
+    freeElems: PxmlNode;
     freeAttrsNr: longint;
-    freeAttrs: TxmlAttrPtr;
+    freeAttrs: PxmlAttr;
     lastError: TxmlError;
     parseMode: TxmlParserMode;
     nbentities: dword;
@@ -202,17 +203,17 @@ type
   end;
   PxmlSAXLocator = ^TxmlSAXLocator;
 
-  TresolveEntitySAXFunc = function(ctx: pointer; publicId: PxmlChar; systemId: PxmlChar): TxmlParserInputPtr; cdecl;
+  TresolveEntitySAXFunc = function(ctx: pointer; publicId: PxmlChar; systemId: PxmlChar): PxmlParserInput; cdecl;
   TinternalSubsetSAXFunc = procedure(ctx: pointer; Name: PxmlChar; ExternalID: PxmlChar; SystemID: PxmlChar); cdecl;
   TexternalSubsetSAXFunc = procedure(ctx: pointer; Name: PxmlChar; ExternalID: PxmlChar; SystemID: PxmlChar); cdecl;
-  TgetEntitySAXFunc = function(ctx: pointer; Name: PxmlChar): TxmlEntityPtr; cdecl;
-  TgetParameterEntitySAXFunc = function(ctx: pointer; Name: PxmlChar): TxmlEntityPtr; cdecl;
+  TgetEntitySAXFunc = function(ctx: pointer; Name: PxmlChar): PxmlEntity; cdecl;
+  TgetParameterEntitySAXFunc = function(ctx: pointer; Name: PxmlChar): PxmlEntity; cdecl;
   TentityDeclSAXFunc = procedure(ctx: pointer; Name: PxmlChar; _type: longint; publicId: PxmlChar; systemId: PxmlChar; content: PxmlChar); cdecl;
   TnotationDeclSAXFunc = procedure(ctx: pointer; Name: PxmlChar; publicId: PxmlChar; systemId: PxmlChar); cdecl;
-  TattributeDeclSAXFunc = procedure(ctx: pointer; elem: PxmlChar; fullname: PxmlChar; _type: longint; def: longint; defaultValue: PxmlChar; tree: TxmlEnumerationPtr); cdecl;
-  TelementDeclSAXFunc = procedure(ctx: pointer; Name: PxmlChar; _type: longint; content: TxmlElementContentPtr); cdecl;
+  TattributeDeclSAXFunc = procedure(ctx: pointer; elem: PxmlChar; fullname: PxmlChar; _type: longint; def: longint; defaultValue: PxmlChar; tree: PxmlEnumeration); cdecl;
+  TelementDeclSAXFunc = procedure(ctx: pointer; Name: PxmlChar; _type: longint; content: PxmlElementContent); cdecl;
   TunparsedEntityDeclSAXFunc = procedure(ctx: pointer; Name: PxmlChar; publicId: PxmlChar; systemId: PxmlChar; notationName: PxmlChar); cdecl;
-  TsetDocumentLocatorSAXFunc = procedure(ctx: pointer; loc: TxmlSAXLocatorPtr); cdecl;
+  TsetDocumentLocatorSAXFunc = procedure(ctx: pointer; loc: PxmlSAXLocator); cdecl;
   TstartDocumentSAXFunc = procedure(ctx: pointer); cdecl;
   TendDocumentSAXFunc = procedure(ctx: pointer); cdecl;
   TstartElementSAXFunc = procedure(ctx: pointer; Name: PxmlChar; atts: PPxmlChar); cdecl;
@@ -302,79 +303,79 @@ type
   PxmlSAXHandlerV1 = ^TxmlSAXHandlerV1;
 
 
-  TxmlExternalEntityLoader = function(URL: pchar; ID: pchar; context: TxmlParserCtxtPtr): TxmlParserInputPtr; cdecl;
+  TxmlExternalEntityLoader = function(URL: pchar; ID: pchar; context: PxmlParserCtxt): PxmlParserInput; cdecl;
 
 procedure xmlInitParser; cdecl; external libxml2;
 procedure xmlCleanupParser; cdecl; external libxml2;
-function xmlParserInputRead(in_: TxmlParserInputPtr; len: longint): longint; cdecl; external libxml2;
-function xmlParserInputGrow(in_: TxmlParserInputPtr; len: longint): longint; cdecl; external libxml2;
+function xmlParserInputRead(in_: PxmlParserInput; len: longint): longint; cdecl; external libxml2;
+function xmlParserInputGrow(in_: PxmlParserInput; len: longint): longint; cdecl; external libxml2;
 
-function xmlParseDoc(cur: PxmlChar): TxmlDocPtr; cdecl; external libxml2;
-function xmlParseFile(filename: pchar): TxmlDocPtr; cdecl; external libxml2;
-function xmlParseMemory(buffer: pchar; size: longint): TxmlDocPtr; cdecl; external libxml2;
+function xmlParseDoc(cur: PxmlChar): PxmlDoc; cdecl; external libxml2;
+function xmlParseFile(filename: pchar): PxmlDoc; cdecl; external libxml2;
+function xmlParseMemory(buffer: pchar; size: longint): PxmlDoc; cdecl; external libxml2;
 
 function xmlSubstituteEntitiesDefault(val: longint): longint; cdecl; external libxml2;
 function xmlKeepBlanksDefault(val: longint): longint; cdecl; external libxml2;
-procedure xmlStopParser(ctxt: TxmlParserCtxtPtr); cdecl; external libxml2;
+procedure xmlStopParser(ctxt: PxmlParserCtxt); cdecl; external libxml2;
 function xmlPedanticParserDefault(val: longint): longint; cdecl; external libxml2;
 function xmlLineNumbersDefault(val: longint): longint; cdecl; external libxml2;
 
-function xmlRecoverDoc(cur: PxmlChar): TxmlDocPtr; cdecl; external libxml2;
-function xmlRecoverMemory(buffer: pchar; size: longint): TxmlDocPtr; cdecl; external libxml2;
-function xmlRecoverFile(filename: pchar): TxmlDocPtr; cdecl; external libxml2;
+function xmlRecoverDoc(cur: PxmlChar): PxmlDoc; cdecl; external libxml2;
+function xmlRecoverMemory(buffer: pchar; size: longint): PxmlDoc; cdecl; external libxml2;
+function xmlRecoverFile(filename: pchar): PxmlDoc; cdecl; external libxml2;
 
-function xmlParseDocument(ctxt: TxmlParserCtxtPtr): longint; cdecl; external libxml2;
-function xmlParseExtParsedEnt(ctxt: TxmlParserCtxtPtr): longint; cdecl; external libxml2;
+function xmlParseDocument(ctxt: PxmlParserCtxt): longint; cdecl; external libxml2;
+function xmlParseExtParsedEnt(ctxt: PxmlParserCtxt): longint; cdecl; external libxml2;
 
-function xmlSAXUserParseFile(sax: TxmlSAXHandlerPtr; user_data: pointer; filename: pchar): longint; cdecl; external libxml2;
-function xmlSAXUserParseMemory(sax: TxmlSAXHandlerPtr; user_data: pointer; buffer: pchar; size: longint): longint; cdecl; external libxml2;
-function xmlSAXParseDoc(sax: TxmlSAXHandlerPtr; cur: PxmlChar; recovery: longint): TxmlDocPtr; cdecl; external libxml2;
-function xmlSAXParseMemory(sax: TxmlSAXHandlerPtr; buffer: pchar; size: longint; recovery: longint): TxmlDocPtr; cdecl; external libxml2;
-function xmlSAXParseMemoryWithData(sax: TxmlSAXHandlerPtr; buffer: pchar; size: longint; recovery: longint; Data: pointer): TxmlDocPtr; cdecl; external libxml2;
-function xmlSAXParseFile(sax: TxmlSAXHandlerPtr; filename: pchar; recovery: longint): TxmlDocPtr; cdecl; external libxml2;
-function xmlSAXParseFileWithData(sax: TxmlSAXHandlerPtr; filename: pchar; recovery: longint; Data: pointer): TxmlDocPtr; cdecl; external libxml2;
-function xmlSAXParseEntity(sax: TxmlSAXHandlerPtr; filename: pchar): TxmlDocPtr; cdecl; external libxml2;
-function xmlParseEntity(filename: pchar): TxmlDocPtr; cdecl; external libxml2;
+function xmlSAXUserParseFile(sax: PxmlSAXHandler; user_data: pointer; filename: pchar): longint; cdecl; external libxml2;
+function xmlSAXUserParseMemory(sax: PxmlSAXHandler; user_data: pointer; buffer: pchar; size: longint): longint; cdecl; external libxml2;
+function xmlSAXParseDoc(sax: PxmlSAXHandler; cur: PxmlChar; recovery: longint): PxmlDoc; cdecl; external libxml2;
+function xmlSAXParseMemory(sax: PxmlSAXHandler; buffer: pchar; size: longint; recovery: longint): PxmlDoc; cdecl; external libxml2;
+function xmlSAXParseMemoryWithData(sax: PxmlSAXHandler; buffer: pchar; size: longint; recovery: longint; Data: pointer): PxmlDoc; cdecl; external libxml2;
+function xmlSAXParseFile(sax: PxmlSAXHandler; filename: pchar; recovery: longint): PxmlDoc; cdecl; external libxml2;
+function xmlSAXParseFileWithData(sax: PxmlSAXHandler; filename: pchar; recovery: longint; Data: pointer): PxmlDoc; cdecl; external libxml2;
+function xmlSAXParseEntity(sax: PxmlSAXHandler; filename: pchar): PxmlDoc; cdecl; external libxml2;
+function xmlParseEntity(filename: pchar): PxmlDoc; cdecl; external libxml2;
 
-function xmlSAXParseDTD(sax: TxmlSAXHandlerPtr; ExternalID: PxmlChar; SystemID: PxmlChar): TxmlDtdPtr; cdecl; external libxml2;
-function xmlParseDTD(ExternalID: PxmlChar; SystemID: PxmlChar): TxmlDtdPtr; cdecl; external libxml2;
-function xmlIOParseDTD(sax: TxmlSAXHandlerPtr; input: TxmlParserInputBufferPtr; enc: TxmlCharEncoding): TxmlDtdPtr; cdecl; external libxml2;
+function xmlSAXParseDTD(sax: PxmlSAXHandler; ExternalID: PxmlChar; SystemID: PxmlChar): PxmlDtd; cdecl; external libxml2;
+function xmlParseDTD(ExternalID: PxmlChar; SystemID: PxmlChar): PxmlDtd; cdecl; external libxml2;
+function xmlIOParseDTD(sax: PxmlSAXHandler; input: PxmlParserInputBuffer; enc: TxmlCharEncoding): PxmlDtd; cdecl; external libxml2;
 
-function xmlParseBalancedChunkMemory(doc: TxmlDocPtr; sax: TxmlSAXHandlerPtr; user_data: pointer; depth: longint; _string: PxmlChar; lst: PxmlNodePtr): longint; cdecl; external libxml2;
+function xmlParseBalancedChunkMemory(doc: PxmlDoc; sax: PxmlSAXHandler; user_data: pointer; depth: longint; _string: PxmlChar; lst: PPxmlNode): longint; cdecl; external libxml2;
 
-function xmlParseInNodeContext(node: TxmlNodePtr; Data: pchar; datalen: longint; options: longint; lst: PxmlNodePtr): TxmlParserErrors; cdecl; external libxml2;
+function xmlParseInNodeContext(node: PxmlNode; Data: pchar; datalen: longint; options: longint; lst: PPxmlNode): TxmlParserErrors; cdecl; external libxml2;
 
-function xmlParseBalancedChunkMemoryRecover(doc: TxmlDocPtr; sax: TxmlSAXHandlerPtr; user_data: pointer; depth: longint; _string: PxmlChar; lst: PxmlNodePtr; recover: longint): longint; cdecl; external libxml2;
-function xmlParseExternalEntity(doc: TxmlDocPtr; sax: TxmlSAXHandlerPtr; user_data: pointer; depth: longint; URL: PxmlChar; ID: PxmlChar; lst: PxmlNodePtr): longint; cdecl; external libxml2;
+function xmlParseBalancedChunkMemoryRecover(doc: PxmlDoc; sax: PxmlSAXHandler; user_data: pointer; depth: longint; _string: PxmlChar; lst: PPxmlNode; recover: longint): longint; cdecl; external libxml2;
+function xmlParseExternalEntity(doc: PxmlDoc; sax: PxmlSAXHandler; user_data: pointer; depth: longint; URL: PxmlChar; ID: PxmlChar; lst: PPxmlNode): longint; cdecl; external libxml2;
 
-function xmlParseCtxtExternalEntity(ctx: TxmlParserCtxtPtr; URL: PxmlChar; ID: PxmlChar; lst: PxmlNodePtr): longint; cdecl; external libxml2;
-function xmlNewParserCtxt: TxmlParserCtxtPtr; cdecl; external libxml2;
-function xmlInitParserCtxt(ctxt: TxmlParserCtxtPtr): longint; cdecl; external libxml2;
-procedure xmlClearParserCtxt(ctxt: TxmlParserCtxtPtr); cdecl; external libxml2;
-procedure xmlFreeParserCtxt(ctxt: TxmlParserCtxtPtr); cdecl; external libxml2;
+function xmlParseCtxtExternalEntity(ctx: PxmlParserCtxt; URL: PxmlChar; ID: PxmlChar; lst: PPxmlNode): longint; cdecl; external libxml2;
+function xmlNewParserCtxt: PxmlParserCtxt; cdecl; external libxml2;
+function xmlInitParserCtxt(ctxt: PxmlParserCtxt): longint; cdecl; external libxml2;
+procedure xmlClearParserCtxt(ctxt: PxmlParserCtxt); cdecl; external libxml2;
+procedure xmlFreeParserCtxt(ctxt: PxmlParserCtxt); cdecl; external libxml2;
 
-procedure xmlSetupParserForBuffer(ctxt: TxmlParserCtxtPtr; buffer: PxmlChar; filename: pchar); cdecl; external libxml2;
+procedure xmlSetupParserForBuffer(ctxt: PxmlParserCtxt; buffer: PxmlChar; filename: pchar); cdecl; external libxml2;
 
-function xmlCreateDocParserCtxt(cur: PxmlChar): TxmlParserCtxtPtr; cdecl; external libxml2;
+function xmlCreateDocParserCtxt(cur: PxmlChar): PxmlParserCtxt; cdecl; external libxml2;
 
 function xmlGetFeaturesList(len: Plongint; Result: PPchar): longint; cdecl; external libxml2;
-function xmlGetFeature(ctxt: TxmlParserCtxtPtr; Name: pchar; Result: pointer): longint; cdecl; external libxml2;
-function xmlSetFeature(ctxt: TxmlParserCtxtPtr; Name: pchar; Value: pointer): longint; cdecl; external libxml2;
+function xmlGetFeature(ctxt: PxmlParserCtxt; Name: pchar; Result: pointer): longint; cdecl; external libxml2;
+function xmlSetFeature(ctxt: PxmlParserCtxt; Name: pchar; Value: pointer): longint; cdecl; external libxml2;
 
-function xmlCreatePushParserCtxt(sax: TxmlSAXHandlerPtr; user_data: pointer; chunk: pchar; size: longint; filename: pchar): TxmlParserCtxtPtr; cdecl; external libxml2;
-function xmlParseChunk(ctxt: TxmlParserCtxtPtr; chunk: pchar; size: longint; terminate: longint): longint; cdecl; external libxml2;
+function xmlCreatePushParserCtxt(sax: PxmlSAXHandler; user_data: pointer; chunk: pchar; size: longint; filename: pchar): PxmlParserCtxt; cdecl; external libxml2;
+function xmlParseChunk(ctxt: PxmlParserCtxt; chunk: pchar; size: longint; terminate: longint): longint; cdecl; external libxml2;
 
-function xmlCreateIOParserCtxt(sax: TxmlSAXHandlerPtr; user_data: pointer; ioread: TxmlInputReadCallback; ioclose: TxmlInputCloseCallback; ioctx: pointer; enc: TxmlCharEncoding): TxmlParserCtxtPtr; cdecl; external libxml2;
-function xmlNewIOInputStream(ctxt: TxmlParserCtxtPtr; input: TxmlParserInputBufferPtr; enc: TxmlCharEncoding): TxmlParserInputPtr; cdecl; external libxml2;
-function xmlParserFindNodeInfo(ctxt: TxmlParserCtxtPtr; node: TxmlNodePtr): PxmlParserNodeInfo; cdecl; external libxml2;
+function xmlCreateIOParserCtxt(sax: PxmlSAXHandler; user_data: pointer; ioread: TxmlInputReadCallback; ioclose: TxmlInputCloseCallback; ioctx: pointer; enc: TxmlCharEncoding): PxmlParserCtxt; cdecl; external libxml2;
+function xmlNewIOInputStream(ctxt: PxmlParserCtxt; input: PxmlParserInputBuffer; enc: TxmlCharEncoding): PxmlParserInput; cdecl; external libxml2;
+function xmlParserFindNodeInfo(ctxt: PxmlParserCtxt; node: PxmlNode): PxmlParserNodeInfo; cdecl; external libxml2;
 procedure xmlInitNodeInfoSeq(seq: PxmlParserNodeInfoSeq); cdecl; external libxml2;
 procedure xmlClearNodeInfoSeq(seq: PxmlParserNodeInfoSeq); cdecl; external libxml2;
-function xmlParserFindNodeInfoIndex(seq: PxmlParserNodeInfoSeq; node: TxmlNodePtr): dword; cdecl; external libxml2;
-procedure xmlParserAddNodeInfo(ctxt: TxmlParserCtxtPtr; info: PxmlParserNodeInfo); cdecl; external libxml2;
+function xmlParserFindNodeInfoIndex(seq: PxmlParserNodeInfoSeq; node: PxmlNode): dword; cdecl; external libxml2;
+procedure xmlParserAddNodeInfo(ctxt: PxmlParserCtxt; info: PxmlParserNodeInfo); cdecl; external libxml2;
 procedure xmlSetExternalEntityLoader(f: TxmlExternalEntityLoader); cdecl; external libxml2;
 function xmlGetExternalEntityLoader: TxmlExternalEntityLoader; cdecl; external libxml2;
-function xmlLoadExternalEntity(URL: pchar; ID: pchar; ctxt: TxmlParserCtxtPtr): TxmlParserInputPtr; cdecl; external libxml2;
-function xmlByteConsumed(ctxt: TxmlParserCtxtPtr): longint; cdecl; external libxml2;
+function xmlLoadExternalEntity(URL: pchar; ID: pchar; ctxt: PxmlParserCtxt): PxmlParserInput; cdecl; external libxml2;
+function xmlByteConsumed(ctxt: PxmlParserCtxt): longint; cdecl; external libxml2;
 
 type
   PxmlParserOption = ^TxmlParserOption;
@@ -405,19 +406,19 @@ const
   XML_PARSE_IGNORE_ENC = 1 shl 21;
   XML_PARSE_BIG_LINES = 1 shl 22;
 
-procedure xmlCtxtReset(ctxt: TxmlParserCtxtPtr); cdecl; external libxml2;
-function xmlCtxtResetPush(ctxt: TxmlParserCtxtPtr; chunk: pchar; size: longint; filename: pchar; encoding: pchar): longint; cdecl; external libxml2;
-function xmlCtxtUseOptions(ctxt: TxmlParserCtxtPtr; options: longint): longint; cdecl; external libxml2;
-function xmlReadDoc(cur: PxmlChar; URL: pchar; encoding: pchar; options: longint): TxmlDocPtr; cdecl; external libxml2;
-function xmlReadFile(URL: pchar; encoding: pchar; options: longint): TxmlDocPtr; cdecl; external libxml2;
-function xmlReadMemory(buffer: pchar; size: longint; URL: pchar; encoding: pchar; options: longint): TxmlDocPtr; cdecl; external libxml2;
-function xmlReadFd(fd: longint; URL: pchar; encoding: pchar; options: longint): TxmlDocPtr; cdecl; external libxml2;
-function xmlReadIO(ioread: TxmlInputReadCallback; ioclose: TxmlInputCloseCallback; ioctx: pointer; URL: pchar; encoding: pchar; options: longint): TxmlDocPtr; cdecl; external libxml2;
-function xmlCtxtReadDoc(ctxt: TxmlParserCtxtPtr; cur: PxmlChar; URL: pchar; encoding: pchar; options: longint): TxmlDocPtr; cdecl; external libxml2;
-function xmlCtxtReadFile(ctxt: TxmlParserCtxtPtr; filename: pchar; encoding: pchar; options: longint): TxmlDocPtr; cdecl; external libxml2;
-function xmlCtxtReadMemory(ctxt: TxmlParserCtxtPtr; buffer: pchar; size: longint; URL: pchar; encoding: pchar; options: longint): TxmlDocPtr; cdecl; external libxml2;
-function xmlCtxtReadFd(ctxt: TxmlParserCtxtPtr; fd: longint; URL: pchar; encoding: pchar; options: longint): TxmlDocPtr; cdecl; external libxml2;
-function xmlCtxtReadIO(ctxt: TxmlParserCtxtPtr; ioread: TxmlInputReadCallback; ioclose: TxmlInputCloseCallback; ioctx: pointer; URL: pchar; encoding: pchar; options: longint): TxmlDocPtr; cdecl; external libxml2;
+procedure xmlCtxtReset(ctxt: PxmlParserCtxt); cdecl; external libxml2;
+function xmlCtxtResetPush(ctxt: PxmlParserCtxt; chunk: pchar; size: longint; filename: pchar; encoding: pchar): longint; cdecl; external libxml2;
+function xmlCtxtUseOptions(ctxt: PxmlParserCtxt; options: longint): longint; cdecl; external libxml2;
+function xmlReadDoc(cur: PxmlChar; URL: pchar; encoding: pchar; options: longint): PxmlDoc; cdecl; external libxml2;
+function xmlReadFile(URL: pchar; encoding: pchar; options: longint): PxmlDoc; cdecl; external libxml2;
+function xmlReadMemory(buffer: pchar; size: longint; URL: pchar; encoding: pchar; options: longint): PxmlDoc; cdecl; external libxml2;
+function xmlReadFd(fd: longint; URL: pchar; encoding: pchar; options: longint): PxmlDoc; cdecl; external libxml2;
+function xmlReadIO(ioread: TxmlInputReadCallback; ioclose: TxmlInputCloseCallback; ioctx: pointer; URL: pchar; encoding: pchar; options: longint): PxmlDoc; cdecl; external libxml2;
+function xmlCtxtReadDoc(ctxt: PxmlParserCtxt; cur: PxmlChar; URL: pchar; encoding: pchar; options: longint): PxmlDoc; cdecl; external libxml2;
+function xmlCtxtReadFile(ctxt: PxmlParserCtxt; filename: pchar; encoding: pchar; options: longint): PxmlDoc; cdecl; external libxml2;
+function xmlCtxtReadMemory(ctxt: PxmlParserCtxt; buffer: pchar; size: longint; URL: pchar; encoding: pchar; options: longint): PxmlDoc; cdecl; external libxml2;
+function xmlCtxtReadFd(ctxt: PxmlParserCtxt; fd: longint; URL: pchar; encoding: pchar; options: longint): PxmlDoc; cdecl; external libxml2;
+function xmlCtxtReadIO(ctxt: PxmlParserCtxt; ioread: TxmlInputReadCallback; ioclose: TxmlInputCloseCallback; ioctx: pointer; URL: pchar; encoding: pchar; options: longint): PxmlDoc; cdecl; external libxml2;
 
 type
   PxmlFeature = ^TxmlFeature;

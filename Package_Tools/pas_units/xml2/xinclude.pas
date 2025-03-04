@@ -14,19 +14,16 @@ type
   end;
   PxmlXIncludeCtxt = ^TxmlXIncludeCtxt;
 
-  PxmlXIncludeCtxtPtr = ^TxmlXIncludeCtxtPtr;
-  TxmlXIncludeCtxtPtr = PxmlXIncludeCtxt;
-
-function xmlXIncludeProcess(doc: TxmlDocPtr): longint; cdecl; external libxml2;
-function xmlXIncludeProcessFlags(doc: TxmlDocPtr; flags: longint): longint; cdecl; external libxml2;
-function xmlXIncludeProcessFlagsData(doc: TxmlDocPtr; flags: longint; Data: pointer): longint; cdecl; external libxml2;
-function xmlXIncludeProcessTreeFlagsData(tree: TxmlNodePtr; flags: longint; Data: pointer): longint; cdecl; external libxml2;
-function xmlXIncludeProcessTree(tree: TxmlNodePtr): longint; cdecl; external libxml2;
-function xmlXIncludeProcessTreeFlags(tree: TxmlNodePtr; flags: longint): longint; cdecl; external libxml2;
-function xmlXIncludeNewContext(doc: TxmlDocPtr): TxmlXIncludeCtxtPtr; cdecl; external libxml2;
-function xmlXIncludeSetFlags(ctxt: TxmlXIncludeCtxtPtr; flags: longint): longint; cdecl; external libxml2;
-procedure xmlXIncludeFreeContext(ctxt: TxmlXIncludeCtxtPtr); cdecl; external libxml2;
-function xmlXIncludeProcessNode(ctxt: TxmlXIncludeCtxtPtr; tree: TxmlNodePtr): longint; cdecl; external libxml2;
+function xmlXIncludeProcess(doc: PxmlDoc): longint; cdecl; external libxml2;
+function xmlXIncludeProcessFlags(doc: PxmlDoc; flags: longint): longint; cdecl; external libxml2;
+function xmlXIncludeProcessFlagsData(doc: PxmlDoc; flags: longint; Data: pointer): longint; cdecl; external libxml2;
+function xmlXIncludeProcessTreeFlagsData(tree: PxmlNode; flags: longint; Data: pointer): longint; cdecl; external libxml2;
+function xmlXIncludeProcessTree(tree: PxmlNode): longint; cdecl; external libxml2;
+function xmlXIncludeProcessTreeFlags(tree: PxmlNode; flags: longint): longint; cdecl; external libxml2;
+function xmlXIncludeNewContext(doc: PxmlDoc): PxmlXIncludeCtxt; cdecl; external libxml2;
+function xmlXIncludeSetFlags(ctxt: PxmlXIncludeCtxt; flags: longint): longint; cdecl; external libxml2;
+procedure xmlXIncludeFreeContext(ctxt: PxmlXIncludeCtxt); cdecl; external libxml2;
+function xmlXIncludeProcessNode(ctxt: PxmlXIncludeCtxt; tree: PxmlNode): longint; cdecl; external libxml2;
 
 const
   XINCLUDE_NS: PxmlChar = 'http://www.w3.org/2003/XInclude';

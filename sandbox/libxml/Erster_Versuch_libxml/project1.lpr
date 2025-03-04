@@ -4,42 +4,39 @@ uses
   Strings,
   xml2_common,
 
+  xmlversion,         // io.
   xmlstring,          // io.
   list,               // io.
   dict,               // io. -> xmlstring
   hash,               // io. -> xmlstring, dict
-  tree,               // -> xmlstring, dict     ( Pointer wegen unit circular )
+  tree,               // -> xmlstring, dict     ( Pointer wegen unit circular in: xmlIO, parser)
+  entities,           // io. -> xmlstring, tree
   encoding,           // io. -> tree
-  xmlerror,           // io. -> tree
   xmlIO,              // io. -> xmlstring, encoding, tree
+  xmlerror,           // io. -> tree
   xmlregexp,          // io. -> xmlstring, dict, tree
-  xmlautomata,        // io. -> xmlstring, xmlregexp
   valid,              // io. -> tree, list, xmlstring, xmlautomata
-  parser,             // io. -> xmlstring, tree, valid, dict, hash, xmlerror, encoding, xmlIO
+  parser,             // io. -> xmlstring, tree, valid, dict, hash, xmlerror, encoding, xmlIO, entities
   xpath,              // io. -> xmlstring, xmlerror, tree, hash, dict
+  xmlautomata,        // io. -> xmlstring, xmlregexp
   chvalid,            // io.
   xmlmemory,          // io.
-  globals,            // io. -> tree, encoding, parser, xmlerror, xmlmemory
+  globals,            // io. -> tree, encoding, parser, xmlerror, xmlmemory, xmlIO
   xmlwriter,          // io. -> xmlstring, tree
-
-
-
   HTMLparser,         // io. -> xmlstring, xmlIO, tree, parser, encoding
-  parserInternals,    // io. -> xmlstring, tree, encoding, HTMLparser, chvalid
+  parserInternals,    // io. -> xmlstring, tree, encoding, HTMLparser, chvalid, entities
   schemasInternals,   // io. -> xmlstring, xmlregexp, tree, hash, dict
   xpathInternals,     // io. -> xmlstring, xpath, tree
-  xmlschemas,         // io. -> xmlerror, tree, encoding, schemasInternals
+  xmlschemas,         // io. -> xmlerror, tree, encoding, schemasInternals, xmlIO, parser
   relaxng,            // io. -> xmlstring, xmlerror, tree
-  xmlreader,          // io. -> xmlstring, xmlschemas, xmlIO, xmlerror, tree, relaxng
+  xmlreader,          // io. -> xmlstring, xmlschemas, xmlIO, xmlerror, tree, relaxng, schemasInternals
   xlink,              // io. -> xmlstring, tree
   xmlunicode,         // io.
-  xmlversion,         // io.
   catalog,            // io. -> xmlstring, tree
   debugXML,           // io. -> xmlstring, tree, xpath
-  entities,           // io. -> xmlstring, tree
-  SAX2,               // io. -> xmlstring, tree, parser
+  SAX,                // io. -> xmlstring, tree, parser, entities
+  SAX2,               // io. -> xmlstring, tree, parser, entities
   nanoftp,            // io.
-  SAX,                // io. -> xmlstring, tree, parser
   schematron,         // io. -> xmlerror, tree
   xmlschemastypes,    // io. -> xmlstring, xmlschemas, tree, schemasInternals
   c14n,               // io. -> xmlstring, tree, xpath
@@ -63,9 +60,9 @@ uses
 
   // ==============================
 
-  function createXPathNode(parent: TxmlNodePtr; path: pchar): TxmlNodePtr;
+  function createXPathNode(parent: PxmlNode; path: pchar): PxmlNode;
   var
-    currentNode: TxmlNodePtr;
+    currentNode: PxmlNode;
     child, newNode: PxmlNode;
     saveptr, token: pchar;
     pathCopy: PxmlChar;
@@ -99,9 +96,9 @@ uses
     Result := currentNode;
   end;
 
-  procedure writeNewKey(doc: TxmlDocPtr; xpath, attrName, attrValue: pchar);
+  procedure writeNewKey(doc: PxmlDoc; xpath, attrName, attrValue: pchar);
   var
-    node: TxmlNodePtr;
+    node: PxmlNode;
   begin
     node := createXPathNode(xmlDocGetRootElement(doc), xpath);
     xmlSetProp(node, attrName, attrValue);
@@ -109,8 +106,8 @@ uses
 
   procedure CreateXML(path: pchar);
   var
-    doc: TxmlDocPtr;
-    root_node: TxmlNodePtr;
+    doc: PxmlDoc;
+    root_node: PxmlNode;
   begin
     doc := xmlNewDoc('1.0');
     root_node := xmlNewNode(nil, 'config');
@@ -132,7 +129,7 @@ uses
 
   procedure AppenXML(path: pchar);
   var
-    doc: TxmlDocPtr;
+    doc: PxmlDoc;
   begin
     doc := xmlReadFile(path, nil, XML_PARSE_NOBLANKS);
 
@@ -145,11 +142,11 @@ uses
 
   // ==========
 
-  function readKey(doc: TxmlDocPtr; xpath, attrName: pchar): pchar;
+  function readKey(doc: PxmlDoc; xpath, attrName: pchar): pchar;
   var
     context: PxmlXPathContext;
     res: PxmlXPathObject;
-    node, root: TxmlNodePtr;
+    node, root: PxmlNode;
   begin
     if xpath = nil then begin
       Exit(xmlStrdup('(path=nil)'));
@@ -174,7 +171,7 @@ uses
 
   procedure ReadXML(path: pchar);
   var
-    doc: TxmlDocPtr;
+    doc: PxmlDoc;
     val: pchar;
   begin
     doc := xmlReadFile(path, nil, XML_PARSE_NOBLANKS);

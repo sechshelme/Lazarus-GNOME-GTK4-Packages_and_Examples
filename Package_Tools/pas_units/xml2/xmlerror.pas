@@ -830,8 +830,8 @@ procedure xmlParserValidityError(ctx: pointer; msg: pchar; args: array of const)
 procedure xmlParserValidityError(ctx: pointer; msg: pchar); cdecl; external libxml2;
 procedure xmlParserValidityWarning(ctx: pointer; msg: pchar; args: array of const); cdecl; external libxml2;
 procedure xmlParserValidityWarning(ctx: pointer; msg: pchar); cdecl; external libxml2;
-procedure xmlParserPrintFileInfo(input: TxmlParserInputPtr); cdecl; external libxml2;
-procedure xmlParserPrintFileContext(input: TxmlParserInputPtr); cdecl; external libxml2;
+procedure xmlParserPrintFileInfo(input: PxmlParserInput); cdecl; external libxml2;
+procedure xmlParserPrintFileContext(input: PxmlParserInput); cdecl; external libxml2;
 function xmlGetLastError: PxmlError; cdecl; external libxml2;
 procedure xmlResetLastError; cdecl; external libxml2;
 function xmlCtxtGetLastError(ctx: pointer): PxmlError; cdecl; external libxml2;
@@ -846,7 +846,7 @@ procedure __xmlRaiseError(schannel: TxmlStructuredErrorFunc; channel: TxmlGeneri
   domain: longint; code: longint; level: TxmlErrorLevel; file_: pchar; line: longint;
   str1: pchar; str2: pchar; str3: pchar; int1: longint; col: longint;
   msg: pchar); cdecl; external libxml2;
-procedure __xmlSimpleError(domain: longint; code: longint; node: TxmlNodePtr; msg: pchar; extra: pchar); cdecl; external libxml2;
+procedure __xmlSimpleError(domain: longint; code: longint; node: PxmlNode; msg: pchar; extra: pchar); cdecl; external libxml2;
 
 // === Konventiert am: 26-2-25 20:02:49 ===
 

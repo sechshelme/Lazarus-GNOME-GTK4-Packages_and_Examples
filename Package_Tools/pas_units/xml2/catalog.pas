@@ -33,22 +33,19 @@ type
   end;
   PxmlCatalog = ^TxmlCatalog;
 
-  PxmlCatalogPtr = ^TxmlCatalogPtr;
-  TxmlCatalogPtr = PxmlCatalog;
-
-function xmlNewCatalog(sgml: longint): TxmlCatalogPtr; cdecl; external libxml2;
-function xmlLoadACatalog(filename: pchar): TxmlCatalogPtr; cdecl; external libxml2;
-function xmlLoadSGMLSuperCatalog(filename: pchar): TxmlCatalogPtr; cdecl; external libxml2;
-function xmlConvertSGMLCatalog(catal: TxmlCatalogPtr): longint; cdecl; external libxml2;
-function xmlACatalogAdd(catal: TxmlCatalogPtr; _type: PxmlChar; orig: PxmlChar; replace: PxmlChar): longint; cdecl; external libxml2;
-function xmlACatalogRemove(catal: TxmlCatalogPtr; Value: PxmlChar): longint; cdecl; external libxml2;
-function xmlACatalogResolve(catal: TxmlCatalogPtr; pubID: PxmlChar; sysID: PxmlChar): PxmlChar; cdecl; external libxml2;
-function xmlACatalogResolveSystem(catal: TxmlCatalogPtr; sysID: PxmlChar): PxmlChar; cdecl; external libxml2;
-function xmlACatalogResolvePublic(catal: TxmlCatalogPtr; pubID: PxmlChar): PxmlChar; cdecl; external libxml2;
-function xmlACatalogResolveURI(catal: TxmlCatalogPtr; URI: PxmlChar): PxmlChar; cdecl; external libxml2;
-procedure xmlACatalogDump(catal: TxmlCatalogPtr; out_: PFILE); cdecl; external libxml2;
-procedure xmlFreeCatalog(catal: TxmlCatalogPtr); cdecl; external libxml2;
-function xmlCatalogIsEmpty(catal: TxmlCatalogPtr): longint; cdecl; external libxml2;
+function xmlNewCatalog(sgml: longint): PxmlCatalog; cdecl; external libxml2;
+function xmlLoadACatalog(filename: pchar): PxmlCatalog; cdecl; external libxml2;
+function xmlLoadSGMLSuperCatalog(filename: pchar): PxmlCatalog; cdecl; external libxml2;
+function xmlConvertSGMLCatalog(catal: PxmlCatalog): longint; cdecl; external libxml2;
+function xmlACatalogAdd(catal: PxmlCatalog; _type: PxmlChar; orig: PxmlChar; replace: PxmlChar): longint; cdecl; external libxml2;
+function xmlACatalogRemove(catal: PxmlCatalog; Value: PxmlChar): longint; cdecl; external libxml2;
+function xmlACatalogResolve(catal: PxmlCatalog; pubID: PxmlChar; sysID: PxmlChar): PxmlChar; cdecl; external libxml2;
+function xmlACatalogResolveSystem(catal: PxmlCatalog; sysID: PxmlChar): PxmlChar; cdecl; external libxml2;
+function xmlACatalogResolvePublic(catal: PxmlCatalog; pubID: PxmlChar): PxmlChar; cdecl; external libxml2;
+function xmlACatalogResolveURI(catal: PxmlCatalog; URI: PxmlChar): PxmlChar; cdecl; external libxml2;
+procedure xmlACatalogDump(catal: PxmlCatalog; out_: PFILE); cdecl; external libxml2;
+procedure xmlFreeCatalog(catal: PxmlCatalog); cdecl; external libxml2;
+function xmlCatalogIsEmpty(catal: PxmlCatalog): longint; cdecl; external libxml2;
 procedure xmlInitializeCatalog; cdecl; external libxml2;
 function xmlLoadCatalog(filename: pchar): longint; cdecl; external libxml2;
 procedure xmlLoadCatalogs(paths: pchar); cdecl; external libxml2;
@@ -60,7 +57,7 @@ function xmlCatalogResolvePublic(pubID: PxmlChar): PxmlChar; cdecl; external lib
 function xmlCatalogResolveURI(URI: PxmlChar): PxmlChar; cdecl; external libxml2;
 function xmlCatalogAdd(_type: PxmlChar; orig: PxmlChar; replace: PxmlChar): longint; cdecl; external libxml2;
 function xmlCatalogRemove(Value: PxmlChar): longint; cdecl; external libxml2;
-function xmlParseCatalogFile(filename: pchar): TxmlDocPtr; cdecl; external libxml2;
+function xmlParseCatalogFile(filename: pchar): PxmlDoc; cdecl; external libxml2;
 function xmlCatalogConvert: longint; cdecl; external libxml2;
 procedure xmlCatalogFreeLocal(catalogs: pointer); cdecl; external libxml2;
 function xmlCatalogAddLocal(catalogs: pointer; URL: PxmlChar): pointer; cdecl; external libxml2;

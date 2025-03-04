@@ -27,9 +27,6 @@ type
   end;
   PxmlSchematron = ^TxmlSchematron;
 
-  PxmlSchematronPtr = ^TxmlSchematronPtr;
-  TxmlSchematronPtr = PxmlSchematron;
-
   TxmlSchematronValidityErrorFunc = procedure(ctx: pointer; msg: pchar; args: array of const); cdecl;
   TxmlSchematronValidityWarningFunc = procedure(ctx: pointer; msg: pchar; args: array of const); cdecl;
 
@@ -37,26 +34,20 @@ type
   end;
   PxmlSchematronParserCtxt = ^TxmlSchematronParserCtxt;
 
-  PxmlSchematronParserCtxtPtr = ^TxmlSchematronParserCtxtPtr;
-  TxmlSchematronParserCtxtPtr = PxmlSchematronParserCtxt;
-
   TxmlSchematronValidCtxt = record
   end;
   PxmlSchematronValidCtxt = ^TxmlSchematronValidCtxt;
 
-  PxmlSchematronValidCtxtPtr = ^TxmlSchematronValidCtxtPtr;
-  TxmlSchematronValidCtxtPtr = PxmlSchematronValidCtxt;
-
-function xmlSchematronNewParserCtxt(URL: pchar): TxmlSchematronParserCtxtPtr; cdecl; external libxml2;
-function xmlSchematronNewMemParserCtxt(buffer: pchar; size: longint): TxmlSchematronParserCtxtPtr; cdecl; external libxml2;
-function xmlSchematronNewDocParserCtxt(doc: TxmlDocPtr): TxmlSchematronParserCtxtPtr; cdecl; external libxml2;
-procedure xmlSchematronFreeParserCtxt(ctxt: TxmlSchematronParserCtxtPtr); cdecl; external libxml2;
-function xmlSchematronParse(ctxt: TxmlSchematronParserCtxtPtr): TxmlSchematronPtr; cdecl; external libxml2;
-procedure xmlSchematronFree(schema: TxmlSchematronPtr); cdecl; external libxml2;
-procedure xmlSchematronSetValidStructuredErrors(ctxt: TxmlSchematronValidCtxtPtr; serror: TxmlStructuredErrorFunc; ctx: pointer); cdecl; external libxml2;
-function xmlSchematronNewValidCtxt(schema: TxmlSchematronPtr; options: longint): TxmlSchematronValidCtxtPtr; cdecl; external libxml2;
-procedure xmlSchematronFreeValidCtxt(ctxt: TxmlSchematronValidCtxtPtr); cdecl; external libxml2;
-function xmlSchematronValidateDoc(ctxt: TxmlSchematronValidCtxtPtr; instance: TxmlDocPtr): longint; cdecl; external libxml2;
+function xmlSchematronNewParserCtxt(URL: pchar): PxmlSchematronParserCtxt; cdecl; external libxml2;
+function xmlSchematronNewMemParserCtxt(buffer: pchar; size: longint): PxmlSchematronParserCtxt; cdecl; external libxml2;
+function xmlSchematronNewDocParserCtxt(doc: PxmlDoc): PxmlSchematronParserCtxt; cdecl; external libxml2;
+procedure xmlSchematronFreeParserCtxt(ctxt: PxmlSchematronParserCtxt); cdecl; external libxml2;
+function xmlSchematronParse(ctxt: PxmlSchematronParserCtxt): PxmlSchematron; cdecl; external libxml2;
+procedure xmlSchematronFree(schema: PxmlSchematron); cdecl; external libxml2;
+procedure xmlSchematronSetValidStructuredErrors(ctxt: PxmlSchematronValidCtxt; serror: TxmlStructuredErrorFunc; ctx: pointer); cdecl; external libxml2;
+function xmlSchematronNewValidCtxt(schema: PxmlSchematron; options: longint): PxmlSchematronValidCtxt; cdecl; external libxml2;
+procedure xmlSchematronFreeValidCtxt(ctxt: PxmlSchematronValidCtxt); cdecl; external libxml2;
+function xmlSchematronValidateDoc(ctxt: PxmlSchematronValidCtxt; instance: PxmlDoc): longint; cdecl; external libxml2;
 
 // === Konventiert am: 3-3-25 19:33:52 ===
 

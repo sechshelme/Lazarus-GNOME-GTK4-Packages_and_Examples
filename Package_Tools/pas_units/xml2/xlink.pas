@@ -48,29 +48,26 @@ const
   XLINK_ACTUATE_ONREQUEST = 2;
 
 type
-  TxlinkNodeDetectFunc = procedure(ctx: pointer; node: TxmlNodePtr); cdecl;
-  TxlinkSimpleLinkFunk = procedure(ctx: pointer; node: TxmlNodePtr; href: TxlinkHRef; role: TxlinkRole; title: TxlinkTitle); cdecl;
-  TxlinkExtendedLinkFunk = procedure(ctx: pointer; node: TxmlNodePtr; nbLocators: longint; hrefs: PxlinkHRef; roles: PxlinkRole;
+  TxlinkNodeDetectFunc = procedure(ctx: pointer; node: PxmlNode); cdecl;
+  TxlinkSimpleLinkFunk = procedure(ctx: pointer; node: PxmlNode; href: TxlinkHRef; role: TxlinkRole; title: TxlinkTitle); cdecl;
+  TxlinkExtendedLinkFunk = procedure(ctx: pointer; node: PxmlNode; nbLocators: longint; hrefs: PxlinkHRef; roles: PxlinkRole;
     nbArcs: longint; from: PxlinkRole; to_: PxlinkRole; Show: PxlinkShow; actuate: PxlinkActuate;
     nbTitles: longint; titles: PxlinkTitle; langs: PPxmlChar); cdecl;
-  TxlinkExtendedLinkSetFunk = procedure(ctx: pointer; node: TxmlNodePtr; nbLocators: longint; hrefs: PxlinkHRef; roles: PxlinkRole;
+  TxlinkExtendedLinkSetFunk = procedure(ctx: pointer; node: PxmlNode; nbLocators: longint; hrefs: PxlinkHRef; roles: PxlinkRole;
     nbTitles: longint; titles: PxlinkTitle; langs: PPxmlChar); cdecl;
-
-  PxlinkHandlerPtr = ^TxlinkHandlerPtr;
-  TxlinkHandlerPtr = ^TxlinkHandler;
-  PxlinkHandler = ^TxlinkHandler;
 
   TxlinkHandler = record
     simple: TxlinkSimpleLinkFunk;
     extended: TxlinkExtendedLinkFunk;
     set_: TxlinkExtendedLinkSetFunk;
   end;
+  PxlinkHandler = ^TxlinkHandler;
 
 function xlinkGetDefaultDetect: TxlinkNodeDetectFunc; cdecl; external libxml2;
 procedure xlinkSetDefaultDetect(func: TxlinkNodeDetectFunc); cdecl; external libxml2;
-function xlinkGetDefaultHandler: TxlinkHandlerPtr; cdecl; external libxml2;
-procedure xlinkSetDefaultHandler(handler: TxlinkHandlerPtr); cdecl; external libxml2;
-function xlinkIsLink(doc: TxmlDocPtr; node: TxmlNodePtr): TxlinkType; cdecl; external libxml2;
+function xlinkGetDefaultHandler: PxlinkHandler; cdecl; external libxml2;
+procedure xlinkSetDefaultHandler(handler: PxlinkHandler); cdecl; external libxml2;
+function xlinkIsLink(doc: PxmlDoc; node: PxmlNode): TxlinkType; cdecl; external libxml2;
 
 // === Konventiert am: 3-3-25 17:42:16 ===
 

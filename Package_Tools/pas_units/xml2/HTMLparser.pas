@@ -13,9 +13,6 @@ type
   PhtmlParserCtxt = ^ThtmlParserCtxt;
   ThtmlParserCtxt = TxmlParserCtxt;
 
-  PhtmlParserCtxtPtr = ^ThtmlParserCtxtPtr;
-  ThtmlParserCtxtPtr = TxmlParserCtxtPtr;
-
   PhtmlParserNodeInfo = ^ThtmlParserNodeInfo;
   ThtmlParserNodeInfo = TxmlParserNodeInfo;
 
@@ -23,23 +20,13 @@ type
   ThtmlSAXHandler = TxmlSAXHandler;
 
   PhtmlSAXHandlerPtr = ^ThtmlSAXHandlerPtr;
-  ThtmlSAXHandlerPtr = TxmlSAXHandlerPtr;
+  ThtmlSAXHandlerPtr = PxmlSAXHandler;
 
   PhtmlParserInput = ^ThtmlParserInput;
   ThtmlParserInput = TxmlParserInput;
 
-  PhtmlParserInputPtr = ^ThtmlParserInputPtr;
-  ThtmlParserInputPtr = TxmlParserInputPtr;
-
-  PhtmlDocPtr = ^ThtmlDocPtr;
-  ThtmlDocPtr = TxmlDocPtr;
-
-  PhtmlNodePtr = ^ThtmlNodePtr;
-  ThtmlNodePtr = TxmlNodePtr;
-
-  PhtmlElemDescPtr = ^ThtmlElemDescPtr;
-  ThtmlElemDescPtr = ^ThtmlElemDesc;
-  PhtmlElemDesc = ^ThtmlElemDesc;
+  PhtmlDoc = PxmlDoc;
+  PhtmlNode = PxmlNode;
 
   ThtmlElemDesc = record
     Name: pchar;
@@ -57,40 +44,38 @@ type
     attrs_depr: ^pchar;
     attrs_req: ^pchar;
   end;
-
-  PhtmlEntityDescPtr = ^ThtmlEntityDescPtr;
-  ThtmlEntityDescPtr = ^ThtmlEntityDesc;
-  PhtmlEntityDesc = ^ThtmlEntityDesc;
+  PhtmlElemDesc = ^ThtmlElemDesc;
 
   ThtmlEntityDesc = record
     Value: dword;
     Name: pchar;
     desc: pchar;
   end;
+  PhtmlEntityDesc = ^ThtmlEntityDesc;
 
 function htmlTagLookup(tag: PxmlChar): PhtmlElemDesc; cdecl; external libxml2;
 function htmlEntityLookup(Name: PxmlChar): PhtmlEntityDesc; cdecl; external libxml2;
 function htmlEntityValueLookup(Value: dword): PhtmlEntityDesc; cdecl; external libxml2;
-function htmlIsAutoClosed(doc: ThtmlDocPtr; elem: ThtmlNodePtr): longint; cdecl; external libxml2;
-function htmlAutoCloseTag(doc: ThtmlDocPtr; Name: PxmlChar; elem: ThtmlNodePtr): longint; cdecl; external libxml2;
-function htmlParseEntityRef(ctxt: ThtmlParserCtxtPtr; str: PPxmlChar): PhtmlEntityDesc; cdecl; external libxml2;
-function htmlParseCharRef(ctxt: ThtmlParserCtxtPtr): longint; cdecl; external libxml2;
-procedure htmlParseElement(ctxt: ThtmlParserCtxtPtr); cdecl; external libxml2;
-function htmlNewParserCtxt: ThtmlParserCtxtPtr; cdecl; external libxml2;
-function htmlCreateMemoryParserCtxt(buffer: pchar; size: longint): ThtmlParserCtxtPtr; cdecl; external libxml2;
-function htmlParseDocument(ctxt: ThtmlParserCtxtPtr): longint; cdecl; external libxml2;
-function htmlSAXParseDoc(cur: PxmlChar; encoding: pchar; sax: ThtmlSAXHandlerPtr; userData: pointer): ThtmlDocPtr; cdecl; external libxml2;
-function htmlParseDoc(cur: PxmlChar; encoding: pchar): ThtmlDocPtr; cdecl; external libxml2;
-function htmlSAXParseFile(filename: pchar; encoding: pchar; sax: ThtmlSAXHandlerPtr; userData: pointer): ThtmlDocPtr; cdecl; external libxml2;
-function htmlParseFile(filename: pchar; encoding: pchar): ThtmlDocPtr; cdecl; external libxml2;
+function htmlIsAutoClosed(doc: PhtmlDoc; elem: PhtmlNode): longint; cdecl; external libxml2;
+function htmlAutoCloseTag(doc: PhtmlDoc; Name: PxmlChar; elem: PhtmlNode): longint; cdecl; external libxml2;
+function htmlParseEntityRef(ctxt: PhtmlParserCtxt; str: PPxmlChar): PhtmlEntityDesc; cdecl; external libxml2;
+function htmlParseCharRef(ctxt: PhtmlParserCtxt): longint; cdecl; external libxml2;
+procedure htmlParseElement(ctxt: PhtmlParserCtxt); cdecl; external libxml2;
+function htmlNewParserCtxt: PhtmlParserCtxt; cdecl; external libxml2;
+function htmlCreateMemoryParserCtxt(buffer: pchar; size: longint): PhtmlParserCtxt; cdecl; external libxml2;
+function htmlParseDocument(ctxt: PhtmlParserCtxt): longint; cdecl; external libxml2;
+function htmlSAXParseDoc(cur: PxmlChar; encoding: pchar; sax: ThtmlSAXHandlerPtr; userData: pointer): PhtmlDoc; cdecl; external libxml2;
+function htmlParseDoc(cur: PxmlChar; encoding: pchar): PhtmlDoc; cdecl; external libxml2;
+function htmlSAXParseFile(filename: pchar; encoding: pchar; sax: ThtmlSAXHandlerPtr; userData: pointer): PhtmlDoc; cdecl; external libxml2;
+function htmlParseFile(filename: pchar; encoding: pchar): PhtmlDoc; cdecl; external libxml2;
 function UTF8ToHtml(out_: pbyte; outlen: Plongint; in_: pbyte; inlen: Plongint): longint; cdecl; external libxml2;
 function htmlEncodeEntities(out_: pbyte; outlen: Plongint; in_: pbyte; inlen: Plongint; quoteChar: longint): longint; cdecl; external libxml2;
 function htmlIsScriptAttribute(Name: PxmlChar): longint; cdecl; external libxml2;
 function htmlHandleOmittedElem(val: longint): longint; cdecl; external libxml2;
 function htmlCreatePushParserCtxt(sax: ThtmlSAXHandlerPtr; user_data: pointer; chunk: pchar; size: longint; filename: pchar;
-  enc: TxmlCharEncoding): ThtmlParserCtxtPtr; cdecl; external libxml2;
-function htmlParseChunk(ctxt: ThtmlParserCtxtPtr; chunk: pchar; size: longint; terminate: longint): longint; cdecl; external libxml2;
-procedure htmlFreeParserCtxt(ctxt: ThtmlParserCtxtPtr); cdecl; external libxml2;
+  enc: TxmlCharEncoding): PhtmlParserCtxt; cdecl; external libxml2;
+function htmlParseChunk(ctxt: PhtmlParserCtxt; chunk: pchar; size: longint; terminate: longint): longint; cdecl; external libxml2;
+procedure htmlFreeParserCtxt(ctxt: PhtmlParserCtxt); cdecl; external libxml2;
 
 type
   PhtmlParserOption = ^ThtmlParserOption;
@@ -108,21 +93,21 @@ const
   HTML_PARSE_COMPACT = 1 shl 16;
   HTML_PARSE_IGNORE_ENC = 1 shl 21;
 
-procedure htmlCtxtReset(ctxt: ThtmlParserCtxtPtr); cdecl; external libxml2;
-function htmlCtxtUseOptions(ctxt: ThtmlParserCtxtPtr; options: longint): longint; cdecl; external libxml2;
-function htmlReadDoc(cur: PxmlChar; URL: pchar; encoding: pchar; options: longint): ThtmlDocPtr; cdecl; external libxml2;
-function htmlReadFile(URL: pchar; encoding: pchar; options: longint): ThtmlDocPtr; cdecl; external libxml2;
-function htmlReadMemory(buffer: pchar; size: longint; URL: pchar; encoding: pchar; options: longint): ThtmlDocPtr; cdecl; external libxml2;
-function htmlReadFd(fd: longint; URL: pchar; encoding: pchar; options: longint): ThtmlDocPtr; cdecl; external libxml2;
+procedure htmlCtxtReset(ctxt: PhtmlParserCtxt); cdecl; external libxml2;
+function htmlCtxtUseOptions(ctxt: PhtmlParserCtxt; options: longint): longint; cdecl; external libxml2;
+function htmlReadDoc(cur: PxmlChar; URL: pchar; encoding: pchar; options: longint): PhtmlDoc; cdecl; external libxml2;
+function htmlReadFile(URL: pchar; encoding: pchar; options: longint): PhtmlDoc; cdecl; external libxml2;
+function htmlReadMemory(buffer: pchar; size: longint; URL: pchar; encoding: pchar; options: longint): PhtmlDoc; cdecl; external libxml2;
+function htmlReadFd(fd: longint; URL: pchar; encoding: pchar; options: longint): PhtmlDoc; cdecl; external libxml2;
 function htmlReadIO(ioread: TxmlInputReadCallback; ioclose: TxmlInputCloseCallback; ioctx: pointer; URL: pchar; encoding: pchar;
-  options: longint): ThtmlDocPtr; cdecl; external libxml2;
-function htmlCtxtReadDoc(ctxt: TxmlParserCtxtPtr; cur: PxmlChar; URL: pchar; encoding: pchar; options: longint): ThtmlDocPtr; cdecl; external libxml2;
-function htmlCtxtReadFile(ctxt: TxmlParserCtxtPtr; filename: pchar; encoding: pchar; options: longint): ThtmlDocPtr; cdecl; external libxml2;
-function htmlCtxtReadMemory(ctxt: TxmlParserCtxtPtr; buffer: pchar; size: longint; URL: pchar; encoding: pchar;
-  options: longint): ThtmlDocPtr; cdecl; external libxml2;
-function htmlCtxtReadFd(ctxt: TxmlParserCtxtPtr; fd: longint; URL: pchar; encoding: pchar; options: longint): ThtmlDocPtr; cdecl; external libxml2;
-function htmlCtxtReadIO(ctxt: TxmlParserCtxtPtr; ioread: TxmlInputReadCallback; ioclose: TxmlInputCloseCallback; ioctx: pointer; URL: pchar;
-  encoding: pchar; options: longint): ThtmlDocPtr; cdecl; external libxml2;
+  options: longint): PhtmlDoc; cdecl; external libxml2;
+function htmlCtxtReadDoc(ctxt: PxmlParserCtxt; cur: PxmlChar; URL: pchar; encoding: pchar; options: longint): PhtmlDoc; cdecl; external libxml2;
+function htmlCtxtReadFile(ctxt: PxmlParserCtxt; filename: pchar; encoding: pchar; options: longint): PhtmlDoc; cdecl; external libxml2;
+function htmlCtxtReadMemory(ctxt: PxmlParserCtxt; buffer: pchar; size: longint; URL: pchar; encoding: pchar;
+  options: longint): PhtmlDoc; cdecl; external libxml2;
+function htmlCtxtReadFd(ctxt: PxmlParserCtxt; fd: longint; URL: pchar; encoding: pchar; options: longint): PhtmlDoc; cdecl; external libxml2;
+function htmlCtxtReadIO(ctxt: PxmlParserCtxt; ioread: TxmlInputReadCallback; ioclose: TxmlInputCloseCallback; ioctx: pointer; URL: pchar;
+  encoding: pchar; options: longint): PhtmlDoc; cdecl; external libxml2;
 
 type
   PhtmlStatus = ^ThtmlStatus;
@@ -138,7 +123,7 @@ const
 function htmlAttrAllowed(para1: PhtmlElemDesc; para2: PxmlChar; para3: longint): ThtmlStatus; cdecl; external libxml2;
 function htmlElementAllowedHere(para1: PhtmlElemDesc; para2: PxmlChar): longint; cdecl; external libxml2;
 function htmlElementStatusHere(para1: PhtmlElemDesc; para2: PhtmlElemDesc): ThtmlStatus; cdecl; external libxml2;
-function htmlNodeStatus(para1: ThtmlNodePtr; para2: longint): ThtmlStatus; cdecl; external libxml2;
+function htmlNodeStatus(para1: PhtmlNode; para2: longint): ThtmlStatus; cdecl; external libxml2;
 
 function htmlDefaultSubelement(elt: PhtmlElemDesc): pchar;
 function htmlElementAllowedHereDesc(parent, elt: PhtmlElemDesc): longint;

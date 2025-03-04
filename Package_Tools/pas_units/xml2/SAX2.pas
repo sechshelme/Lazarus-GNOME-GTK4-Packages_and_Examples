@@ -3,7 +3,7 @@ unit SAX2;
 interface
 
 uses
-  ctypes, xml2_common, xmlstring, tree, parser;
+  ctypes, xml2_common, xmlstring, tree, parser, entities;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -12,7 +12,7 @@ uses
 
 function xmlSAX2GetPublicId(ctx: pointer): PxmlChar; cdecl; external libxml2;
 function xmlSAX2GetSystemId(ctx: pointer): PxmlChar; cdecl; external libxml2;
-procedure xmlSAX2SetDocumentLocator(ctx: pointer; loc: TxmlSAXLocatorPtr); cdecl; external libxml2;
+procedure xmlSAX2SetDocumentLocator(ctx: pointer; loc: PxmlSAXLocator); cdecl; external libxml2;
 function xmlSAX2GetLineNumber(ctx: pointer): longint; cdecl; external libxml2;
 function xmlSAX2GetColumnNumber(ctx: pointer): longint; cdecl; external libxml2;
 function xmlSAX2IsStandalone(ctx: pointer): longint; cdecl; external libxml2;
@@ -20,14 +20,14 @@ function xmlSAX2HasInternalSubset(ctx: pointer): longint; cdecl; external libxml
 function xmlSAX2HasExternalSubset(ctx: pointer): longint; cdecl; external libxml2;
 procedure xmlSAX2InternalSubset(ctx: pointer; Name: PxmlChar; ExternalID: PxmlChar; SystemID: PxmlChar); cdecl; external libxml2;
 procedure xmlSAX2ExternalSubset(ctx: pointer; Name: PxmlChar; ExternalID: PxmlChar; SystemID: PxmlChar); cdecl; external libxml2;
-function xmlSAX2GetEntity(ctx: pointer; Name: PxmlChar): TxmlEntityPtr; cdecl; external libxml2;
-function xmlSAX2GetParameterEntity(ctx: pointer; Name: PxmlChar): TxmlEntityPtr; cdecl; external libxml2;
-function xmlSAX2ResolveEntity(ctx: pointer; publicId: PxmlChar; systemId: PxmlChar): TxmlParserInputPtr; cdecl; external libxml2;
+function xmlSAX2GetEntity(ctx: pointer; Name: PxmlChar): PxmlEntity; cdecl; external libxml2;
+function xmlSAX2GetParameterEntity(ctx: pointer; Name: PxmlChar): PxmlEntity; cdecl; external libxml2;
+function xmlSAX2ResolveEntity(ctx: pointer; publicId: PxmlChar; systemId: PxmlChar): PxmlParserInput; cdecl; external libxml2;
 procedure xmlSAX2EntityDecl(ctx: pointer; Name: PxmlChar; _type: longint; publicId: PxmlChar; systemId: PxmlChar;
   content: PxmlChar); cdecl; external libxml2;
 procedure xmlSAX2AttributeDecl(ctx: pointer; elem: PxmlChar; fullname: PxmlChar; _type: longint; def: longint;
-  defaultValue: PxmlChar; tree: TxmlEnumerationPtr); cdecl; external libxml2;
-procedure xmlSAX2ElementDecl(ctx: pointer; Name: PxmlChar; _type: longint; content: TxmlElementContentPtr); cdecl; external libxml2;
+  defaultValue: PxmlChar; tree: PxmlEnumeration); cdecl; external libxml2;
+procedure xmlSAX2ElementDecl(ctx: pointer; Name: PxmlChar; _type: longint; content: PxmlElementContent); cdecl; external libxml2;
 procedure xmlSAX2NotationDecl(ctx: pointer; Name: PxmlChar; publicId: PxmlChar; systemId: PxmlChar); cdecl; external libxml2;
 procedure xmlSAX2UnparsedEntityDecl(ctx: pointer; Name: PxmlChar; publicId: PxmlChar; systemId: PxmlChar; notationName: PxmlChar); cdecl; external libxml2;
 procedure xmlSAX2StartDocument(ctx: pointer); cdecl; external libxml2;

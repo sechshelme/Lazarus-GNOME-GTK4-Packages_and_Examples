@@ -46,7 +46,7 @@ type
   TxmlNodeSet = record
     nodeNr: longint;
     nodeMax: longint;
-    nodeTab: PxmlNodePtr;
+    nodeTab: PPxmlNode;
   end;
   PxmlNodeSet = ^TxmlNodeSet;
 
@@ -120,8 +120,8 @@ type
   TxmlXPathFuncLookupFunc = function(ctxt: pointer; Name: PxmlChar; ns_uri: PxmlChar): TxmlXPathFunction; cdecl;
 
   TxmlXPathContext = record
-    doc: TxmlDocPtr;
-    node: TxmlNodePtr;
+    doc: PxmlDoc;
+    node: PxmlNode;
     nb_variables_unused: longint;
     max_variables_unused: longint;
     varHash: PxmlHashTable;
@@ -134,14 +134,14 @@ type
     nb_axis: longint;
     max_axis: longint;
     axis: PxmlXPathAxis;
-    namespaces: PxmlNsPtr;
+    namespaces: PPxmlNs;
     nsNr: longint;
     user: pointer;
     contextSize: longint;
     proximityPosition: longint;
     xptr: longint;
-    here: TxmlNodePtr;
-    origin: TxmlNodePtr;
+    here: PxmlNode;
+    origin: PxmlNode;
     nsHash: PxmlHashTable;
     varLookupFunc: TxmlXPathVariableLookupFunc;
     varLookupData: pointer;
@@ -150,12 +150,12 @@ type
     functionURI: PxmlChar;
     funcLookupFunc: TxmlXPathFuncLookupFunc;
     funcLookupData: pointer;
-    tmpNsList: PxmlNsPtr;
+    tmpNsList: PPxmlNs;
     tmpNsNr: longint;
     userData: pointer;
     error: TxmlStructuredErrorFunc;
     lastError: TxmlError;
-    debugNode: TxmlNodePtr;
+    debugNode: PxmlNode;
     dict: PxmlDict;
     flags: longint;
     cache: pointer;
@@ -180,7 +180,7 @@ type
     valueTab: ^PxmlXPathObject;
     comp: PxmlXPathCompExpr;
     xptr: longint;
-    ancestor: TxmlNodePtr;
+    ancestor: PxmlNode;
     valueFrame: longint;
   end;
 
@@ -190,34 +190,34 @@ var
   xmlXPathNINF: cdouble; cvar;external libxml2;
 
 procedure xmlXPathFreeObject(obj: PxmlXPathObject); cdecl; external libxml2;
-function xmlXPathNodeSetCreate(val: TxmlNodePtr): PxmlNodeSet; cdecl; external libxml2;
+function xmlXPathNodeSetCreate(val: PxmlNode): PxmlNodeSet; cdecl; external libxml2;
 procedure xmlXPathFreeNodeSetList(obj: PxmlXPathObject); cdecl; external libxml2;
 procedure xmlXPathFreeNodeSet(obj: PxmlNodeSet); cdecl; external libxml2;
 function xmlXPathObjectCopy(val: PxmlXPathObject): PxmlXPathObject; cdecl; external libxml2;
-function xmlXPathCmpNodes(node1: TxmlNodePtr; node2: TxmlNodePtr): longint; cdecl; external libxml2;
+function xmlXPathCmpNodes(node1: PxmlNode; node2: PxmlNode): longint; cdecl; external libxml2;
 function xmlXPathCastNumberToBoolean(val: cdouble): longint; cdecl; external libxml2;
 function xmlXPathCastStringToBoolean(val: PxmlChar): longint; cdecl; external libxml2;
 function xmlXPathCastNodeSetToBoolean(ns: PxmlNodeSet): longint; cdecl; external libxml2;
 function xmlXPathCastToBoolean(val: PxmlXPathObject): longint; cdecl; external libxml2;
 function xmlXPathCastBooleanToNumber(val: longint): cdouble; cdecl; external libxml2;
 function xmlXPathCastStringToNumber(val: PxmlChar): cdouble; cdecl; external libxml2;
-function xmlXPathCastNodeToNumber(node: TxmlNodePtr): cdouble; cdecl; external libxml2;
+function xmlXPathCastNodeToNumber(node: PxmlNode): cdouble; cdecl; external libxml2;
 function xmlXPathCastNodeSetToNumber(ns: PxmlNodeSet): cdouble; cdecl; external libxml2;
 function xmlXPathCastToNumber(val: PxmlXPathObject): cdouble; cdecl; external libxml2;
 function xmlXPathCastBooleanToString(val: longint): PxmlChar; cdecl; external libxml2;
 function xmlXPathCastNumberToString(val: cdouble): PxmlChar; cdecl; external libxml2;
-function xmlXPathCastNodeToString(node: TxmlNodePtr): PxmlChar; cdecl; external libxml2;
+function xmlXPathCastNodeToString(node: PxmlNode): PxmlChar; cdecl; external libxml2;
 function xmlXPathCastNodeSetToString(ns: PxmlNodeSet): PxmlChar; cdecl; external libxml2;
 function xmlXPathCastToString(val: PxmlXPathObject): PxmlChar; cdecl; external libxml2;
 function xmlXPathConvertBoolean(val: PxmlXPathObject): PxmlXPathObject; cdecl; external libxml2;
 function xmlXPathConvertNumber(val: PxmlXPathObject): PxmlXPathObject; cdecl; external libxml2;
 function xmlXPathConvertString(val: PxmlXPathObject): PxmlXPathObject; cdecl; external libxml2;
-function xmlXPathNewContext(doc: TxmlDocPtr): PxmlXPathContext; cdecl; external libxml2;
+function xmlXPathNewContext(doc: PxmlDoc): PxmlXPathContext; cdecl; external libxml2;
 procedure xmlXPathFreeContext(ctxt: PxmlXPathContext); cdecl; external libxml2;
 function xmlXPathContextSetCache(ctxt: PxmlXPathContext; active: longint; Value: longint; options: longint): longint; cdecl; external libxml2;
-function xmlXPathOrderDocElems(doc: TxmlDocPtr): longint; cdecl; external libxml2;
-function xmlXPathSetContextNode(node: TxmlNodePtr; ctx: PxmlXPathContext): longint; cdecl; external libxml2;
-function xmlXPathNodeEval(node: TxmlNodePtr; str: PxmlChar; ctx: PxmlXPathContext): PxmlXPathObject; cdecl; external libxml2;
+function xmlXPathOrderDocElems(doc: PxmlDoc): longint; cdecl; external libxml2;
+function xmlXPathSetContextNode(node: PxmlNode; ctx: PxmlXPathContext): longint; cdecl; external libxml2;
+function xmlXPathNodeEval(node: PxmlNode; str: PxmlChar; ctx: PxmlXPathContext): PxmlXPathObject; cdecl; external libxml2;
 function xmlXPathEval(str: PxmlChar; ctx: PxmlXPathContext): PxmlXPathObject; cdecl; external libxml2;
 function xmlXPathEvalExpression(str: PxmlChar; ctxt: PxmlXPathContext): PxmlXPathObject; cdecl; external libxml2;
 function xmlXPathEvalPredicate(ctxt: PxmlXPathContext; res: PxmlXPathObject): longint; cdecl; external libxml2;

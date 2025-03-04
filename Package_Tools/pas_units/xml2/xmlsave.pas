@@ -28,19 +28,16 @@ type
   end;
   PxmlSaveCtxt = ^TxmlSaveCtxt;
 
-  PxmlSaveCtxtPtr = ^TxmlSaveCtxtPtr;
-  TxmlSaveCtxtPtr = PxmlSaveCtxt;
-
-function xmlSaveToFd(fd: longint; encoding: pchar; options: longint): TxmlSaveCtxtPtr; cdecl; external libxml2;
-function xmlSaveToFilename(filename: pchar; encoding: pchar; options: longint): TxmlSaveCtxtPtr; cdecl; external libxml2;
-function xmlSaveToBuffer(buffer: TxmlBufferPtr; encoding: pchar; options: longint): TxmlSaveCtxtPtr; cdecl; external libxml2;
-function xmlSaveToIO(iowrite: TxmlOutputWriteCallback; ioclose: TxmlOutputCloseCallback; ioctx: pointer; encoding: pchar; options: longint): TxmlSaveCtxtPtr; cdecl; external libxml2;
-function xmlSaveDoc(ctxt: TxmlSaveCtxtPtr; doc: TxmlDocPtr): longint; cdecl; external libxml2;
-function xmlSaveTree(ctxt: TxmlSaveCtxtPtr; node: TxmlNodePtr): longint; cdecl; external libxml2;
-function xmlSaveFlush(ctxt: TxmlSaveCtxtPtr): longint; cdecl; external libxml2;
-function xmlSaveClose(ctxt: TxmlSaveCtxtPtr): longint; cdecl; external libxml2;
-function xmlSaveSetEscape(ctxt: TxmlSaveCtxtPtr; escape: TxmlCharEncodingOutputFunc): longint; cdecl; external libxml2;
-function xmlSaveSetAttrEscape(ctxt: TxmlSaveCtxtPtr; escape: TxmlCharEncodingOutputFunc): longint; cdecl; external libxml2;
+function xmlSaveToFd(fd: longint; encoding: pchar; options: longint): PxmlSaveCtxt; cdecl; external libxml2;
+function xmlSaveToFilename(filename: pchar; encoding: pchar; options: longint): PxmlSaveCtxt; cdecl; external libxml2;
+function xmlSaveToBuffer(buffer: PxmlBuffer; encoding: pchar; options: longint): PxmlSaveCtxt; cdecl; external libxml2;
+function xmlSaveToIO(iowrite: TxmlOutputWriteCallback; ioclose: TxmlOutputCloseCallback; ioctx: pointer; encoding: pchar; options: longint): PxmlSaveCtxt; cdecl; external libxml2;
+function xmlSaveDoc(ctxt: PxmlSaveCtxt; doc: PxmlDoc): longint; cdecl; external libxml2;
+function xmlSaveTree(ctxt: PxmlSaveCtxt; node: PxmlNode): longint; cdecl; external libxml2;
+function xmlSaveFlush(ctxt: PxmlSaveCtxt): longint; cdecl; external libxml2;
+function xmlSaveClose(ctxt: PxmlSaveCtxt): longint; cdecl; external libxml2;
+function xmlSaveSetEscape(ctxt: PxmlSaveCtxt; escape: TxmlCharEncodingOutputFunc): longint; cdecl; external libxml2;
+function xmlSaveSetAttrEscape(ctxt: PxmlSaveCtxt; escape: TxmlCharEncodingOutputFunc): longint; cdecl; external libxml2;
 
 // === Konventiert am: 4-3-25 13:30:21 ===
 

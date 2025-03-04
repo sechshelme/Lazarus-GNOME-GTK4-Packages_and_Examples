@@ -10,38 +10,29 @@ uses
   {$ENDIF}
 
 type
-  PdocbParserCtxt = ^TdocbParserCtxt;
   TdocbParserCtxt = TxmlParserCtxt;
+  PdocbParserCtxt = PxmlParserCtxt;
 
-  PdocbParserCtxtPtr = ^TdocbParserCtxtPtr;
-  TdocbParserCtxtPtr = TxmlParserCtxtPtr;
-
-  PdocbSAXHandler = ^TdocbSAXHandler;
   TdocbSAXHandler = TxmlSAXHandler;
+  PdocbSAXHandler = PxmlSAXHandler;
 
-  PdocbSAXHandlerPtr = ^TdocbSAXHandlerPtr;
-  TdocbSAXHandlerPtr = TxmlSAXHandlerPtr;
-
-  PdocbParserInput = ^TdocbParserInput;
   TdocbParserInput = TxmlParserInput;
+  PdocbParserInput = PxmlParserInput;
 
-  PdocbParserInputPtr = ^TdocbParserInputPtr;
-  TdocbParserInputPtr = TxmlParserInputPtr;
-
-  PdocbDocPtr = ^TdocbDocPtr;
-  TdocbDocPtr = TxmlDocPtr;
+  TdocbDoc = TxmlDoc;
+  PdocbDoc = PxmlDoc;
 
 function docbEncodeEntities(out_: pbyte; outlen: Plongint; in_: pbyte; inlen: Plongint; quoteChar: longint): longint; cdecl; external libxml2;
-function docbSAXParseDoc(cur: PxmlChar; encoding: pchar; sax: TdocbSAXHandlerPtr; userData: pointer): TdocbDocPtr; cdecl; external libxml2;
-function docbParseDoc(cur: PxmlChar; encoding: pchar): TdocbDocPtr; cdecl; external libxml2;
-function docbSAXParseFile(filename: pchar; encoding: pchar; sax: TdocbSAXHandlerPtr; userData: pointer): TdocbDocPtr; cdecl; external libxml2;
-function docbParseFile(filename: pchar; encoding: pchar): TdocbDocPtr; cdecl; external libxml2;
-procedure docbFreeParserCtxt(ctxt: TdocbParserCtxtPtr); cdecl; external libxml2;
-function docbCreatePushParserCtxt(sax: TdocbSAXHandlerPtr; user_data: pointer; chunk: pchar; size: longint; filename: pchar;
-  enc: TxmlCharEncoding): TdocbParserCtxtPtr; cdecl; external libxml2;
-function docbParseChunk(ctxt: TdocbParserCtxtPtr; chunk: pchar; size: longint; terminate: longint): longint; cdecl; external libxml2;
-function docbCreateFileParserCtxt(filename: pchar; encoding: pchar): TdocbParserCtxtPtr; cdecl; external libxml2;
-function docbParseDocument(ctxt: TdocbParserCtxtPtr): longint; cdecl; external libxml2;
+function docbSAXParseDoc(cur: PxmlChar; encoding: pchar; sax: PdocbSAXHandler; userData: pointer): PdocbDoc; cdecl; external libxml2;
+function docbParseDoc(cur: PxmlChar; encoding: pchar): PdocbDoc; cdecl; external libxml2;
+function docbSAXParseFile(filename: pchar; encoding: pchar; sax: PdocbSAXHandler; userData: pointer): PdocbDoc; cdecl; external libxml2;
+function docbParseFile(filename: pchar; encoding: pchar): PdocbDoc; cdecl; external libxml2;
+procedure docbFreeParserCtxt(ctxt: PdocbParserCtxt); cdecl; external libxml2;
+function docbCreatePushParserCtxt(sax: PdocbSAXHandler; user_data: pointer; chunk: pchar; size: longint; filename: pchar;
+  enc: TxmlCharEncoding): PdocbParserCtxt; cdecl; external libxml2;
+function docbParseChunk(ctxt: PdocbParserCtxt; chunk: pchar; size: longint; terminate: longint): longint; cdecl; external libxml2;
+function docbCreateFileParserCtxt(filename: pchar; encoding: pchar): PdocbParserCtxt; cdecl; external libxml2;
+function docbParseDocument(ctxt: PdocbParserCtxt): longint; cdecl; external libxml2;
 
 // === Konventiert am: 3-3-25 19:52:03 ===
 

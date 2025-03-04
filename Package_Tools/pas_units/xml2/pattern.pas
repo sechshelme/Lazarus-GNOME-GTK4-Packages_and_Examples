@@ -14,9 +14,7 @@ type
   end;
   PxmlPattern = ^TxmlPattern;
 
-  PxmlPatternPtr = ^TxmlPatternPtr;
-  TxmlPatternPtr = PxmlPattern;
-
+type
   PxmlPatternFlags = ^TxmlPatternFlags;
   TxmlPatternFlags = longint;
 
@@ -26,30 +24,27 @@ const
   XML_PATTERN_XSSEL = 1 shl 1;
   XML_PATTERN_XSFIELD = 1 shl 2;
 
-procedure xmlFreePattern(comp: TxmlPatternPtr); cdecl; external libxml2;
-procedure xmlFreePatternList(comp: TxmlPatternPtr); cdecl; external libxml2;
-function xmlPatterncompile(pattern: PxmlChar; dict: PxmlDict; flags: longint; namespaces: PPxmlChar): TxmlPatternPtr; cdecl; external libxml2;
-function xmlPatternMatch(comp: TxmlPatternPtr; node: TxmlNodePtr): longint; cdecl; external libxml2;
+procedure xmlFreePattern(comp: PxmlPattern); cdecl; external libxml2;
+procedure xmlFreePatternList(comp: PxmlPattern); cdecl; external libxml2;
+function xmlPatterncompile(pattern: PxmlChar; dict: PxmlDict; flags: longint; namespaces: PPxmlChar): PxmlPattern; cdecl; external libxml2;
+function xmlPatternMatch(comp: PxmlPattern; node: PxmlNode): longint; cdecl; external libxml2;
 
 type
   TxmlStreamCtxt = record
   end;
   PxmlStreamCtxt = ^TxmlStreamCtxt;
 
-  PxmlStreamCtxtPtr = ^TxmlStreamCtxtPtr;
-  TxmlStreamCtxtPtr = PxmlStreamCtxt;
-
-function xmlPatternStreamable(comp: TxmlPatternPtr): longint; cdecl; external libxml2;
-function xmlPatternMaxDepth(comp: TxmlPatternPtr): longint; cdecl; external libxml2;
-function xmlPatternMinDepth(comp: TxmlPatternPtr): longint; cdecl; external libxml2;
-function xmlPatternFromRoot(comp: TxmlPatternPtr): longint; cdecl; external libxml2;
-function xmlPatternGetStreamCtxt(comp: TxmlPatternPtr): TxmlStreamCtxtPtr; cdecl; external libxml2;
-procedure xmlFreeStreamCtxt(stream: TxmlStreamCtxtPtr); cdecl; external libxml2;
-function xmlStreamPushNode(stream: TxmlStreamCtxtPtr; Name: PxmlChar; ns: PxmlChar; nodeType: longint): longint; cdecl; external libxml2;
-function xmlStreamPush(stream: TxmlStreamCtxtPtr; Name: PxmlChar; ns: PxmlChar): longint; cdecl; external libxml2;
-function xmlStreamPushAttr(stream: TxmlStreamCtxtPtr; Name: PxmlChar; ns: PxmlChar): longint; cdecl; external libxml2;
-function xmlStreamPop(stream: TxmlStreamCtxtPtr): longint; cdecl; external libxml2;
-function xmlStreamWantsAnyNode(stream: TxmlStreamCtxtPtr): longint; cdecl; external libxml2;
+function xmlPatternStreamable(comp: PxmlPattern): longint; cdecl; external libxml2;
+function xmlPatternMaxDepth(comp: PxmlPattern): longint; cdecl; external libxml2;
+function xmlPatternMinDepth(comp: PxmlPattern): longint; cdecl; external libxml2;
+function xmlPatternFromRoot(comp: PxmlPattern): longint; cdecl; external libxml2;
+function xmlPatternGetStreamCtxt(comp: PxmlPattern): PxmlStreamCtxt; cdecl; external libxml2;
+procedure xmlFreeStreamCtxt(stream: PxmlStreamCtxt); cdecl; external libxml2;
+function xmlStreamPushNode(stream: PxmlStreamCtxt; Name: PxmlChar; ns: PxmlChar; nodeType: longint): longint; cdecl; external libxml2;
+function xmlStreamPush(stream: PxmlStreamCtxt; Name: PxmlChar; ns: PxmlChar): longint; cdecl; external libxml2;
+function xmlStreamPushAttr(stream: PxmlStreamCtxt; Name: PxmlChar; ns: PxmlChar): longint; cdecl; external libxml2;
+function xmlStreamPop(stream: PxmlStreamCtxt): longint; cdecl; external libxml2;
+function xmlStreamWantsAnyNode(stream: PxmlStreamCtxt): longint; cdecl; external libxml2;
 
 // === Konventiert am: 4-3-25 13:30:07 ===
 

@@ -3,7 +3,7 @@ unit globals;
 interface
 
 uses
-  ctypes, xml2_common, tree, encoding, parser, xmlerror, xmlmemory;
+  ctypes, xml2_common, tree, encoding, parser, xmlerror, xmlmemory, xmlIO;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -16,18 +16,18 @@ procedure xmlCleanupGlobals; cdecl; external libxml2;
 
 type
 
-  TxmlParserInputBufferCreateFilenameFunc = function(URI: pchar; enc: TxmlCharEncoding): TxmlParserInputBufferPtr; cdecl;
+  TxmlParserInputBufferCreateFilenameFunc = function(URI: pchar; enc: TxmlCharEncoding): PxmlParserInputBuffer; cdecl;
   PxmlParserInputBufferCreateFilenameFunc = ^TxmlParserInputBufferCreateFilenameFunc;
-  TxmlOutputBufferCreateFilenameFunc = function(URI: pchar; encoder: PxmlCharEncodingHandler; compression: longint): TxmlOutputBufferPtr; cdecl;
+  TxmlOutputBufferCreateFilenameFunc = function(URI: pchar; encoder: PxmlCharEncodingHandler; compression: longint): PxmlOutputBuffer; cdecl;
   PxmlOutputBufferCreateFilenameFunc = ^TxmlOutputBufferCreateFilenameFunc;
 
 function xmlParserInputBufferCreateFilenameDefault(func: TxmlParserInputBufferCreateFilenameFunc): TxmlParserInputBufferCreateFilenameFunc; cdecl; external libxml2;
 function xmlOutputBufferCreateFilenameDefault(func: TxmlOutputBufferCreateFilenameFunc): TxmlOutputBufferCreateFilenameFunc; cdecl; external libxml2;
 
 type
-  TxmlRegisterNodeFunc = procedure(node: TxmlNodePtr); cdecl;
+  TxmlRegisterNodeFunc = procedure(node: PxmlNode); cdecl;
   PxmlRegisterNodeFunc = ^TxmlRegisterNodeFunc;
-  TxmlDeregisterNodeFunc = procedure(node: TxmlNodePtr); cdecl;
+  TxmlDeregisterNodeFunc = procedure(node: PxmlNode); cdecl;
   PxmlDeregisterNodeFunc = ^TxmlDeregisterNodeFunc;
 
   TxmlGlobalState = record

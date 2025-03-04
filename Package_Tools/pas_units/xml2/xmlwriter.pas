@@ -14,12 +14,12 @@ type
   end;
   PxmlTextWriter = ^TxmlTextWriter;
 
-function xmlNewTextWriter(out_: TxmlOutputBufferPtr): PxmlTextWriter; cdecl; external libxml2;
+function xmlNewTextWriter(out_: PxmlOutputBuffer): PxmlTextWriter; cdecl; external libxml2;
 function xmlNewTextWriterFilename(uri: pchar; compression: longint): PxmlTextWriter; cdecl; external libxml2;
-function xmlNewTextWriterMemory(buf: TxmlBufferPtr; compression: longint): PxmlTextWriter; cdecl; external libxml2;
-function xmlNewTextWriterPushParser(ctxt: TxmlParserCtxtPtr; compression: longint): PxmlTextWriter; cdecl; external libxml2;
-function xmlNewTextWriterDoc(doc: PxmlDocPtr; compression: longint): PxmlTextWriter; cdecl; external libxml2;
-function xmlNewTextWriterTree(doc: TxmlDocPtr; node: TxmlNodePtr; compression: longint): PxmlTextWriter; cdecl; external libxml2;
+function xmlNewTextWriterMemory(buf: PxmlBuffer; compression: longint): PxmlTextWriter; cdecl; external libxml2;
+function xmlNewTextWriterPushParser(ctxt: PxmlParserCtxt; compression: longint): PxmlTextWriter; cdecl; external libxml2;
+function xmlNewTextWriterDoc(doc: PPxmlDoc; compression: longint): PxmlTextWriter; cdecl; external libxml2;
+function xmlNewTextWriterTree(doc: PxmlDoc; node: PxmlNode; compression: longint): PxmlTextWriter; cdecl; external libxml2;
 procedure xmlFreeTextWriter(writer: PxmlTextWriter); cdecl; external libxml2;
 function xmlTextWriterStartDocument(writer: PxmlTextWriter; version: pchar; encoding: pchar; standalone: pchar): longint; cdecl; external libxml2;
 function xmlTextWriterEndDocument(writer: PxmlTextWriter): longint; cdecl; external libxml2;
