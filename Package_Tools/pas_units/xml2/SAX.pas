@@ -9,7 +9,6 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
-
 function getPublicId(ctx: pointer): PxmlChar; cdecl; external libxml2;
 function getSystemId(ctx: pointer): PxmlChar; cdecl; external libxml2;
 procedure setDocumentLocator(ctx: pointer; loc: TxmlSAXLocatorPtr); cdecl; external libxml2;

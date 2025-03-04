@@ -73,24 +73,14 @@ function xmlCatalogGetDefaults: TxmlCatalogAllow; cdecl; external libxml2;
 function xmlCatalogGetSystem(sysID: PxmlChar): PxmlChar; cdecl; external libxml2;
 function xmlCatalogGetPublic(pubID: PxmlChar): PxmlChar; cdecl; external libxml2;
 
-function XML_CATALOGS_NAMESPACE: PxmlChar;
-function XML_CATALOG_PI: PxmlChar;
+const
+  XML_CATALOGS_NAMESPACE : PxmlChar='urn:oasis:names:tc:entity:xmlns:xml:catalog';
+  XML_CATALOG_PI : PxmlChar='oasis-xml-catalog';
 
 // === Konventiert am: 3-3-25 19:17:02 ===
 
 
 implementation
-
-
-function XML_CATALOGS_NAMESPACE: PxmlChar;
-begin
-  XML_CATALOGS_NAMESPACE := PxmlChar('urn:oasis:names:tc:entity:xmlns:xml:catalog');
-end;
-
-function XML_CATALOG_PI: PxmlChar;
-begin
-  XML_CATALOG_PI := PxmlChar('oasis-xml-catalog');
-end;
 
 
 end.

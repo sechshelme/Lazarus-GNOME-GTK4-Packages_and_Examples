@@ -17,6 +17,8 @@
 #include <libxml/schematron.h>
 #include <libxml/nanoftp.h>
 #include <libxml/HTMLtree.h>
+#include <libxml/xmlsave.h>
+#include <libxml/pattern.h>
 
 void loadSongsFromXML(const char* path) {
     xmlDocPtr doc;

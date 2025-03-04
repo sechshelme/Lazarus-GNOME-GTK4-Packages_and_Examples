@@ -5,26 +5,7 @@
  * Copy: See Copyright for the status of this software.
  */
 
-#ifndef __XML_EXPORTS_H__
-#define __XML_EXPORTS_H__
 
-#if defined(_WIN32) || defined(__CYGWIN__)
-/** DOC_DISABLE */
-
-#ifdef LIBXML_STATIC
-  #define XMLPUBLIC
-#elif defined(IN_LIBXML)
-  #define XMLPUBLIC __declspec(dllexport)
-#else
-  #define XMLPUBLIC __declspec(dllimport)
-#endif
-
-#if defined(LIBXML_FASTCALL)
-  #define  __fastcall
-#else
-  #define  __cdecl
-#endif
-#define  __cdecl
 
 /** DOC_ENABLE */
 #else /* not Windows */

@@ -14,7 +14,7 @@ uses
   xmlIO,              // io. -> xmlstring, encoding, tree
   xmlregexp,          // io. -> xmlstring, dict, tree
   xmlautomata,        // io. -> xmlstring, xmlregexp
-  valid,              // io. -> tree, list, xmlstring, xmlautomata
+  valid,              // io. -> tree, list, xmlstring, xmlautomata          longint <> char !!!!!!!!!!!
   parser,             // io. -> xmlstring, tree, valid, dict, hash, xmlerror, encoding, xmlIO
 
   parserInternals,         // ???????
@@ -46,6 +46,13 @@ uses
   DOCBparser,         // io. -> xmlstring, encoding, tree, parser
   HTMLtree,           // io. -> xmlstring, tree, HTMLparser
   xpointer,           // io. -> xmlstring, xpath, tree
+  pattern,            // io. -> xmlstring, dict, tree
+  uri,                // io. -> xmlstring
+  xinclude,           // io. -> xmlstring, tree
+  xmlsave,            // io. -> xmlIO, tree, encoding
+  nanohttp,           // io.
+  threads,            // io. -> globals
+  xmlmodule,          // io.
 
 
   Math;
@@ -179,7 +186,6 @@ uses
     val := readKey(doc, 'window/frame', 'height');
     WriteLn('height: ', val);
     xmlFree(val);
-
   end;
 
 

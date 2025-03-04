@@ -3,7 +3,7 @@ unit parserInternals;
 interface
 
 uses
-  ctypes, xml2_common, xmlstring, tree, encoding, HTMLparser;
+  ctypes, xml2_common, xmlstring, tree, encoding, HTMLparser, chvalid;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -20,25 +20,6 @@ const
   XML_MAX_NAMELEN = 100;
   INPUT_CHUNK = 250;
 
-  //function IS_BYTE_CHAR(klass : longint) : longint;
-  //function IS_CHAR(klass : longint) : longint;
-  //function IS_CHAR_CH(klass : longint) : longint;
-  //function IS_BLANK(klass : longint) : longint;
-  //function IS_BLANK_CH(klass : longint) : longint;
-  //function IS_BASECHAR(klass : longint) : longint;
-  //function IS_DIGIT(klass : longint) : longint;
-  //function IS_DIGIT_CH(klass : longint) : longint;
-  //function IS_COMBINING(klass : longint) : longint;
-  //function IS_COMBINING_CH(klass : longint) : longint;
-  //function IS_EXTENDER(klass : longint) : longint;
-  //function IS_EXTENDER_CH(klass : longint) : longint;
-  //function IS_IDEOGRAPHIC(klass : longint) : longint;
-  //function IS_LETTER(klass : longint) : longint;
-  //function IS_LETTER_CH(klass : longint) : longint;
-  //function IS_ASCII_LETTER(klass : longint) : longint;
-  //function IS_ASCII_DIGIT(klass : longint) : longint;
-  //function IS_PUBIDCHAR(klass : longint) : longint;
-  //function IS_PUBIDCHAR_CH(klass : longint) : longint;
 var
   xmlStringText: PxmlChar; cvar;external libxml2;
   xmlStringTextNoenc: PxmlChar; cvar;external libxml2;
@@ -151,105 +132,126 @@ function xmlDecodeEntities(ctxt: TxmlParserCtxtPtr; len: longint; what: longint;
 procedure xmlHandleEntity(ctxt: TxmlParserCtxtPtr; entity: TxmlEntityPtr); cdecl; external libxml2;
 procedure xmlErrMemory(ctxt: TxmlParserCtxtPtr; extra: pchar); cdecl; external libxml2;
 
+function IS_BYTE_CHAR(c: LongInt): boolean;
+function IS_CHAR(c: LongInt): boolean;
+function IS_CHAR_CH(c: LongInt): boolean;
+function IS_BLANK(c: LongInt): boolean;
+function IS_BLANK_CH(c: LongInt): boolean;
+function IS_BASECHAR(c: LongInt): boolean;
+function IS_DIGIT(c: LongInt): boolean;
+function IS_DIGIT_CH(c: LongInt): boolean;
+function IS_COMBINING(c: LongInt): boolean;
+function IS_COMBINING_CH(c: LongInt): boolean;
+function IS_EXTENDER(c: LongInt): boolean;
+function IS_EXTENDER_CH(c: LongInt): boolean;
+function IS_IDEOGRAPHIC(c: LongInt): boolean;
+function IS_LETTER(c: LongInt): boolean;
+function IS_LETTER_CH(c: LongInt): boolean;
+function IS_ASCII_LETTER(c: LongInt): boolean;
+function IS_ASCII_DIGIT(c: LongInt): boolean;
+function IS_PUBIDCHAR(c: LongInt): boolean;
+function IS_PUBIDCHAR_CH(c: LongInt): boolean;
+
+
 // === Konventiert am: 2-3-25 19:06:28 ===
 
 implementation
 
 
-//function IS_BYTE_CHAR(klass: longint): longint;
-//begin
-//  IS_BYTE_CHAR := xmlIsChar_ch(c);
-//end;
-//
-//function IS_CHAR(klass: longint): longint;
-//begin
-//  IS_CHAR := xmlIsCharQ(c);
-//end;
-//
-//function IS_CHAR_CH(klass: longint): longint;
-//begin
-//  IS_CHAR_CH := xmlIsChar_ch(c);
-//end;
-//
-//function IS_BLANK(klass: longint): longint;
-//begin
-//  IS_BLANK := xmlIsBlankQ(c);
-//end;
-//
-//function IS_BLANK_CH(klass: longint): longint;
-//begin
-//  IS_BLANK_CH := xmlIsBlank_ch(c);
-//end;
-//
-//function IS_BASECHAR(klass: longint): longint;
-//begin
-//  IS_BASECHAR := xmlIsBaseCharQ(c);
-//end;
-//
-//function IS_DIGIT(klass: longint): longint;
-//begin
-//  IS_DIGIT := xmlIsDigitQ(c);
-//end;
-//
-//function IS_DIGIT_CH(klass: longint): longint;
-//begin
-//  IS_DIGIT_CH := xmlIsDigit_ch(c);
-//end;
-//
-//function IS_COMBINING(klass: longint): longint;
-//begin
-//  IS_COMBINING := xmlIsCombiningQ(c);
-//end;
-//
-//function IS_COMBINING_CH(klass: longint): longint;
-//begin
-//  IS_COMBINING_CH := 0;
-//end;
-//
-//function IS_EXTENDER(klass: longint): longint;
-//begin
-//  IS_EXTENDER := xmlIsExtenderQ(c);
-//end;
-//
-//function IS_EXTENDER_CH(klass: longint): longint;
-//begin
-//  IS_EXTENDER_CH := xmlIsExtender_ch(c);
-//end;
-//
-//function IS_IDEOGRAPHIC(klass: longint): longint;
-//begin
-//  IS_IDEOGRAPHIC := xmlIsIdeographicQ(c);
-//end;
-//
-//function IS_LETTER(klass: longint): longint;
-//begin
-//  IS_LETTER := (IS_BASECHAR(c)) or (IS_IDEOGRAPHIC(c));
-//end;
-//
-//function IS_LETTER_CH(klass: longint): longint;
-//begin
-//  IS_LETTER_CH := xmlIsBaseChar_ch(c);
-//end;
-//
-//function IS_ASCII_LETTER(klass: longint): longint;
-//begin
-//  IS_ASCII_LETTER := (($41 <= c) and (@(c <= $5a))) or (($61 <= c) and (@(c <= $7a)));
-//end;
-//
-//function IS_ASCII_DIGIT(klass: longint): longint;
-//begin
-//  IS_ASCII_DIGIT := ($30 <= c) and (@(c <= $39));
-//end;
-//
-//function IS_PUBIDCHAR(klass: longint): longint;
-//begin
-//  IS_PUBIDCHAR := xmlIsPubidCharQ(c);
-//end;
-//
-//function IS_PUBIDCHAR_CH(klass: longint): longint;
-//begin
-//  IS_PUBIDCHAR_CH := xmlIsPubidChar_ch(c);
-//end;
+function IS_BYTE_CHAR(c: LongInt): boolean;
+begin
+  IS_BYTE_CHAR := xmlIsChar_ch(c);
+end;
+
+function IS_CHAR(c: LongInt): boolean;
+begin
+  IS_CHAR := xmlIsCharQ(c);
+end;
+
+function IS_CHAR_CH(c: LongInt): boolean;
+begin
+  IS_CHAR_CH := xmlIsChar_ch(c);
+end;
+
+function IS_BLANK(c: LongInt): boolean;
+begin
+  IS_BLANK := xmlIsBlankQ(c);
+end;
+
+function IS_BLANK_CH(c: LongInt): boolean;
+begin
+  IS_BLANK_CH := xmlIsBlank_ch(c);
+end;
+
+function IS_BASECHAR(c: LongInt): boolean;
+begin
+  IS_BASECHAR := xmlIsBaseCharQ(c);
+end;
+
+function IS_DIGIT(c: LongInt): boolean;
+begin
+  IS_DIGIT := xmlIsDigitQ(c);
+end;
+
+function IS_DIGIT_CH(c: LongInt): boolean;
+begin
+  IS_DIGIT_CH := xmlIsDigit_ch(c);
+end;
+
+function IS_COMBINING(c: LongInt): boolean;
+begin
+  IS_COMBINING := xmlIsCombiningQ(c);
+end;
+
+function IS_COMBINING_CH(c: LongInt): boolean;
+begin
+  IS_COMBINING_CH := False;
+end;
+
+function IS_EXTENDER(c: LongInt): boolean;
+begin
+  IS_EXTENDER := xmlIsExtenderQ(c);
+end;
+
+function IS_EXTENDER_CH(c: LongInt): boolean;
+begin
+  IS_EXTENDER_CH := xmlIsExtender_ch(c);
+end;
+
+function IS_IDEOGRAPHIC(c: LongInt): boolean;
+begin
+  IS_IDEOGRAPHIC := xmlIsIdeographicQ(c);
+end;
+
+function IS_LETTER(c: LongInt): boolean;
+begin
+  IS_LETTER := (IS_BASECHAR(c)) or (IS_IDEOGRAPHIC(c));
+end;
+
+function IS_LETTER_CH(c: LongInt): boolean;
+begin
+  IS_LETTER_CH := xmlIsBaseChar_ch(c);
+end;
+
+function IS_ASCII_LETTER(c: LongInt): boolean;
+begin
+  IS_ASCII_LETTER := (($41 <= c) and (c <= $5a)) or (($61 <= c) and (c <= $7a));
+end;
+
+function IS_ASCII_DIGIT(c: LongInt): boolean;
+begin
+  IS_ASCII_DIGIT := ($30 <= c) and (c <= $39);
+end;
+
+function IS_PUBIDCHAR(c: LongInt): boolean;
+begin
+  IS_PUBIDCHAR := xmlIsPubidCharQ(c);
+end;
+
+function IS_PUBIDCHAR_CH(c: LongInt): boolean;
+begin
+  IS_PUBIDCHAR_CH := xmlIsPubidChar_ch(c);
+end;
 
 
 end.

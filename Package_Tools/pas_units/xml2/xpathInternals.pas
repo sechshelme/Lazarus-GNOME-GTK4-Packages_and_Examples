@@ -194,8 +194,7 @@ begin
   xmlXPathReturnNumber := valuePush(ctxt, xmlXPathNewFloat(val));
 end;
 
-function xmlXPathReturnString(ctxt: TxmlXPathParserContextPtr; str: PxmlChar
-  ): longint;
+function xmlXPathReturnString(ctxt: TxmlXPathParserContextPtr; str: PxmlChar): longint;
 begin
   xmlXPathReturnString := valuePush(ctxt, xmlXPathWrapString(str));
 end;
