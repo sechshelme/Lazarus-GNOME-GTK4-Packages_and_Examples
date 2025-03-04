@@ -21,6 +21,9 @@ uses
   xmlmemory,          // io.
   globals,            // io. -> tree, encoding, parser, xmlerror, xmlmemory
   xmlwriter,          // io. -> xmlstring, tree
+
+
+
   HTMLparser,         // io. -> xmlstring, xmlIO, tree, parser, encoding
   parserInternals,    // io. -> xmlstring, tree, encoding, HTMLparser, chvalid
   schemasInternals,   // io. -> xmlstring, xmlregexp, tree, hash, dict
@@ -144,8 +147,8 @@ uses
 
   function readKey(doc: TxmlDocPtr; xpath, attrName: pchar): pchar;
   var
-    context: TxmlXPathContextPtr;
-    res: TxmlXPathObjectPtr;
+    context: PxmlXPathContext;
+    res: PxmlXPathObject;
     node, root: TxmlNodePtr;
   begin
     if xpath = nil then begin

@@ -14,45 +14,42 @@ type
   end;
   PxmlHashTable = ^TxmlHashTable;
 
-  PxmlHashTablePtr = ^TxmlHashTablePtr;
-  TxmlHashTablePtr = PxmlHashTable;
-
   TxmlHashDeallocator = procedure(payload: pointer; Name: PxmlChar); cdecl;
 
-  PxmlHashCopier = ^TxmlHashCopier;
   TxmlHashCopier = function(payload: pointer; Name: PxmlChar): pointer; cdecl;
+  PxmlHashCopier = ^TxmlHashCopier;
 
   TxmlHashScanner = procedure(payload: pointer; Data: pointer; Name: PxmlChar); cdecl;
   TxmlHashScannerFull = procedure(payload: pointer; Data: pointer; Name: PxmlChar; name2: PxmlChar; name3: PxmlChar); cdecl;
 
-function xmlHashCreate(size: longint): TxmlHashTablePtr; cdecl; external libxml2;
-function xmlHashCreateDict(size: longint; dict: TxmlDictPtr): TxmlHashTablePtr; cdecl; external libxml2;
-procedure xmlHashFree(table: TxmlHashTablePtr; f: TxmlHashDeallocator); cdecl; external libxml2;
+function xmlHashCreate(size: longint): PxmlHashTable; cdecl; external libxml2;
+function xmlHashCreateDict(size: longint; dict: PxmlDict): PxmlHashTable; cdecl; external libxml2;
+procedure xmlHashFree(table: PxmlHashTable; f: TxmlHashDeallocator); cdecl; external libxml2;
 procedure xmlHashDefaultDeallocator(entry: pointer; Name: PxmlChar); cdecl; external libxml2;
-function xmlHashAddEntry(table: TxmlHashTablePtr; Name: PxmlChar; userdata: pointer): longint; cdecl; external libxml2;
-function xmlHashUpdateEntry(table: TxmlHashTablePtr; Name: PxmlChar; userdata: pointer; f: TxmlHashDeallocator): longint; cdecl; external libxml2;
-function xmlHashAddEntry2(table: TxmlHashTablePtr; Name: PxmlChar; name2: PxmlChar; userdata: pointer): longint; cdecl; external libxml2;
-function xmlHashUpdateEntry2(table: TxmlHashTablePtr; Name: PxmlChar; name2: PxmlChar; userdata: pointer; f: TxmlHashDeallocator): longint; cdecl; external libxml2;
-function xmlHashAddEntry3(table: TxmlHashTablePtr; Name: PxmlChar; name2: PxmlChar; name3: PxmlChar; userdata: pointer): longint; cdecl; external libxml2;
-function xmlHashUpdateEntry3(table: TxmlHashTablePtr; Name: PxmlChar; name2: PxmlChar; name3: PxmlChar; userdata: pointer;
+function xmlHashAddEntry(table: PxmlHashTable; Name: PxmlChar; userdata: pointer): longint; cdecl; external libxml2;
+function xmlHashUpdateEntry(table: PxmlHashTable; Name: PxmlChar; userdata: pointer; f: TxmlHashDeallocator): longint; cdecl; external libxml2;
+function xmlHashAddEntry2(table: PxmlHashTable; Name: PxmlChar; name2: PxmlChar; userdata: pointer): longint; cdecl; external libxml2;
+function xmlHashUpdateEntry2(table: PxmlHashTable; Name: PxmlChar; name2: PxmlChar; userdata: pointer; f: TxmlHashDeallocator): longint; cdecl; external libxml2;
+function xmlHashAddEntry3(table: PxmlHashTable; Name: PxmlChar; name2: PxmlChar; name3: PxmlChar; userdata: pointer): longint; cdecl; external libxml2;
+function xmlHashUpdateEntry3(table: PxmlHashTable; Name: PxmlChar; name2: PxmlChar; name3: PxmlChar; userdata: pointer;
   f: TxmlHashDeallocator): longint; cdecl; external libxml2;
-function xmlHashRemoveEntry(table: TxmlHashTablePtr; Name: PxmlChar; f: TxmlHashDeallocator): longint; cdecl; external libxml2;
-function xmlHashRemoveEntry2(table: TxmlHashTablePtr; Name: PxmlChar; name2: PxmlChar; f: TxmlHashDeallocator): longint; cdecl; external libxml2;
-function xmlHashRemoveEntry3(table: TxmlHashTablePtr; Name: PxmlChar; name2: PxmlChar; name3: PxmlChar; f: TxmlHashDeallocator): longint; cdecl; external libxml2;
-function xmlHashLookup(table: TxmlHashTablePtr; Name: PxmlChar): pointer; cdecl; external libxml2;
-function xmlHashLookup2(table: TxmlHashTablePtr; Name: PxmlChar; name2: PxmlChar): pointer; cdecl; external libxml2;
-function xmlHashLookup3(table: TxmlHashTablePtr; Name: PxmlChar; name2: PxmlChar; name3: PxmlChar): pointer; cdecl; external libxml2;
-function xmlHashQLookup(table: TxmlHashTablePtr; Name: PxmlChar; prefix: PxmlChar): pointer; cdecl; external libxml2;
-function xmlHashQLookup2(table: TxmlHashTablePtr; Name: PxmlChar; prefix: PxmlChar; name2: PxmlChar; prefix2: PxmlChar): pointer; cdecl; external libxml2;
-function xmlHashQLookup3(table: TxmlHashTablePtr; Name: PxmlChar; prefix: PxmlChar; name2: PxmlChar; prefix2: PxmlChar;
+function xmlHashRemoveEntry(table: PxmlHashTable; Name: PxmlChar; f: TxmlHashDeallocator): longint; cdecl; external libxml2;
+function xmlHashRemoveEntry2(table: PxmlHashTable; Name: PxmlChar; name2: PxmlChar; f: TxmlHashDeallocator): longint; cdecl; external libxml2;
+function xmlHashRemoveEntry3(table: PxmlHashTable; Name: PxmlChar; name2: PxmlChar; name3: PxmlChar; f: TxmlHashDeallocator): longint; cdecl; external libxml2;
+function xmlHashLookup(table: PxmlHashTable; Name: PxmlChar): pointer; cdecl; external libxml2;
+function xmlHashLookup2(table: PxmlHashTable; Name: PxmlChar; name2: PxmlChar): pointer; cdecl; external libxml2;
+function xmlHashLookup3(table: PxmlHashTable; Name: PxmlChar; name2: PxmlChar; name3: PxmlChar): pointer; cdecl; external libxml2;
+function xmlHashQLookup(table: PxmlHashTable; Name: PxmlChar; prefix: PxmlChar): pointer; cdecl; external libxml2;
+function xmlHashQLookup2(table: PxmlHashTable; Name: PxmlChar; prefix: PxmlChar; name2: PxmlChar; prefix2: PxmlChar): pointer; cdecl; external libxml2;
+function xmlHashQLookup3(table: PxmlHashTable; Name: PxmlChar; prefix: PxmlChar; name2: PxmlChar; prefix2: PxmlChar;
   name3: PxmlChar; prefix3: PxmlChar): pointer; cdecl; external libxml2;
-function xmlHashCopy(table: TxmlHashTablePtr; f: TxmlHashCopier): TxmlHashTablePtr; cdecl; external libxml2;
-function xmlHashSize(table: TxmlHashTablePtr): longint; cdecl; external libxml2;
-procedure xmlHashScan(table: TxmlHashTablePtr; f: TxmlHashScanner; Data: pointer); cdecl; external libxml2;
-procedure xmlHashScan3(table: TxmlHashTablePtr; Name: PxmlChar; name2: PxmlChar; name3: PxmlChar; f: TxmlHashScanner;
+function xmlHashCopy(table: PxmlHashTable; f: TxmlHashCopier): PxmlHashTable; cdecl; external libxml2;
+function xmlHashSize(table: PxmlHashTable): longint; cdecl; external libxml2;
+procedure xmlHashScan(table: PxmlHashTable; f: TxmlHashScanner; Data: pointer); cdecl; external libxml2;
+procedure xmlHashScan3(table: PxmlHashTable; Name: PxmlChar; name2: PxmlChar; name3: PxmlChar; f: TxmlHashScanner;
   Data: pointer); cdecl; external libxml2;
-procedure xmlHashScanFull(table: TxmlHashTablePtr; f: TxmlHashScannerFull; Data: pointer); cdecl; external libxml2;
-procedure xmlHashScanFull3(table: TxmlHashTablePtr; Name: PxmlChar; name2: PxmlChar; name3: PxmlChar; f: TxmlHashScannerFull;
+procedure xmlHashScanFull(table: PxmlHashTable; f: TxmlHashScannerFull; Data: pointer); cdecl; external libxml2;
+procedure xmlHashScanFull3(table: PxmlHashTable; Name: PxmlChar; name2: PxmlChar; name3: PxmlChar; f: TxmlHashScannerFull;
   Data: pointer); cdecl; external libxml2;
 
 function XML_CAST_FPTR(fptr: Pointer): Pointer;

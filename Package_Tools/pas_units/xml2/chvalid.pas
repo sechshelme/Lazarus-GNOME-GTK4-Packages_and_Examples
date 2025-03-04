@@ -10,27 +10,17 @@ uses
   {$ENDIF}
 
 type
-  PxmlChSRangePtr = ^TxmlChSRangePtr;
-  TxmlChSRangePtr = ^TxmlChSRange;
-  PxmlChSRange = ^TxmlChSRange;
-
   TxmlChSRange = record
     low: word;
     high: word;
   end;
-
-  PxmlChLRangePtr = ^TxmlChLRangePtr;
-  TxmlChLRangePtr = ^TxmlChLRange;
-  PxmlChLRange = ^TxmlChLRange;
+  PxmlChSRange = ^TxmlChSRange;
 
   TxmlChLRange = record
     low: dword;
     high: dword;
   end;
-
-  PxmlChRangeGroupPtr = ^TxmlChRangeGroupPtr;
-  TxmlChRangeGroupPtr = ^TxmlChRangeGroup;
-  PxmlChRangeGroup = ^TxmlChRangeGroup;
+  PxmlChLRange = ^TxmlChLRange;
 
   TxmlChRangeGroup = record
     nbShortRange: longint;
@@ -38,6 +28,7 @@ type
     shortRange: PxmlChSRange;
     longRange: PxmlChLRange;
   end;
+  PxmlChRangeGroup = ^TxmlChRangeGroup;
 
 function xmlCharInRange(val: dword; group: PxmlChRangeGroup): longint; cdecl; external libxml2;
 

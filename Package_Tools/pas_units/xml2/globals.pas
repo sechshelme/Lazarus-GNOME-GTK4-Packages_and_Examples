@@ -18,7 +18,7 @@ type
 
   TxmlParserInputBufferCreateFilenameFunc = function(URI: pchar; enc: TxmlCharEncoding): TxmlParserInputBufferPtr; cdecl;
   PxmlParserInputBufferCreateFilenameFunc = ^TxmlParserInputBufferCreateFilenameFunc;
-  TxmlOutputBufferCreateFilenameFunc = function(URI: pchar; encoder: TxmlCharEncodingHandlerPtr; compression: longint): TxmlOutputBufferPtr; cdecl;
+  TxmlOutputBufferCreateFilenameFunc = function(URI: pchar; encoder: PxmlCharEncodingHandler; compression: longint): TxmlOutputBufferPtr; cdecl;
   PxmlOutputBufferCreateFilenameFunc = ^TxmlOutputBufferCreateFilenameFunc;
 
 function xmlParserInputBufferCreateFilenameDefault(func: TxmlParserInputBufferCreateFilenameFunc): TxmlParserInputBufferCreateFilenameFunc; cdecl; external libxml2;
@@ -30,9 +30,6 @@ type
   TxmlDeregisterNodeFunc = procedure(node: TxmlNodePtr); cdecl;
   PxmlDeregisterNodeFunc = ^TxmlDeregisterNodeFunc;
 
-  PxmlGlobalStatePtr = ^TxmlGlobalStatePtr;
-  TxmlGlobalStatePtr = ^TxmlGlobalState;
-  //  PxmlGlobalState = ^TxmlGlobalState;
   TxmlGlobalState = record
     xmlParserVersion: pchar;
     xmlDefaultSAXLocator: TxmlSAXLocator;
@@ -68,8 +65,9 @@ type
     xmlOutputBufferCreateFilenameValue: TxmlOutputBufferCreateFilenameFunc;
     xmlStructuredErrorContext: pointer;
   end;
+  PxmlGlobalState = ^TxmlGlobalState;
 
-procedure xmlInitializeGlobalState(gs: TxmlGlobalStatePtr); cdecl; external libxml2;
+procedure xmlInitializeGlobalState(gs: PxmlGlobalState); cdecl; external libxml2;
 procedure xmlThrDefSetGenericErrorFunc(ctx: pointer; handler: TxmlGenericErrorFunc); cdecl; external libxml2;
 procedure xmlThrDefSetStructuredErrorFunc(ctx: pointer; handler: TxmlStructuredErrorFunc); cdecl; external libxml2;
 function xmlRegisterNodeDefault(func: TxmlRegisterNodeFunc): TxmlRegisterNodeFunc; cdecl; external libxml2;

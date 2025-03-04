@@ -375,7 +375,7 @@ type
     facetSet: TxmlSchemaFacetLinkPtr;
     refPrefix: PxmlChar;
     contentTypeDef: TxmlSchemaTypePtr;
-    contModel: TxmlRegexpPtr;
+    contModel: PxmlRegexp;
     targetNamespace: PxmlChar;
     attrUses: pointer;
   end;
@@ -406,7 +406,7 @@ type
     scope: PxmlChar;
     Value: PxmlChar;
     refDecl: PxmlSchemaElement;
-    contModel: TxmlRegexpPtr;
+    contModel: PxmlRegexp;
     contentType: TxmlSchemaContentType;
     refPrefix: PxmlChar;
     defVal: TxmlSchemaValPtr;
@@ -425,7 +425,7 @@ type
     fixed: longint;
     whitespace: longint;
     val: TxmlSchemaValPtr;
-    regexp: TxmlRegexpPtr;
+    regexp: PxmlRegexp;
   end;
 
   PxmlSchemaNotationPtr = ^TxmlSchemaNotationPtr;
@@ -450,19 +450,19 @@ type
     doc: TxmlDocPtr;
     annot: TxmlSchemaAnnotPtr;
     flags: longint;
-    typeDecl: TxmlHashTablePtr;
-    attrDecl: TxmlHashTablePtr;
-    attrgrpDecl: TxmlHashTablePtr;
-    elemDecl: TxmlHashTablePtr;
-    notaDecl: TxmlHashTablePtr;
-    schemasImports: TxmlHashTablePtr;
+    typeDecl: PxmlHashTable;
+    attrDecl: PxmlHashTable;
+    attrgrpDecl: PxmlHashTable;
+    elemDecl: PxmlHashTable;
+    notaDecl: PxmlHashTable;
+    schemasImports: PxmlHashTable;
     _private: pointer;
-    groupDecl: TxmlHashTablePtr;
-    dict: TxmlDictPtr;
+    groupDecl: PxmlHashTable;
+    dict: PxmlDict;
     includes: pointer;
     preserve: longint;
     counter: longint;
-    idcDef: TxmlHashTablePtr;
+    idcDef: PxmlHashTable;
     volatiles: pointer;
   end;
 

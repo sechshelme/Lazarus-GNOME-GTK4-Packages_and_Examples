@@ -38,8 +38,6 @@ type
     id: longint;
   end;
 
-  PxmlParserNodeInfo = ^TxmlParserNodeInfo;
-
   TxmlParserNodeInfo = record
     node: PxmlNode;
     begin_pos: dword;
@@ -47,24 +45,20 @@ type
     end_pos: dword;
     end_line: dword;
   end;
-  PxmlParserNodeInfoPtr = ^TxmlParserNodeInfoPtr;
-  TxmlParserNodeInfoPtr = PxmlParserNodeInfo;
-
-  PxmlParserNodeInfoSeqPtr = ^TxmlParserNodeInfoSeqPtr;
-  PxmlParserNodeInfoSeq = ^TxmlParserNodeInfoSeq;
-  TxmlParserNodeInfoSeqPtr = PxmlParserNodeInfoSeq;
+  PxmlParserNodeInfo = ^TxmlParserNodeInfo;
 
   TxmlParserNodeInfoSeq = record
     maximum: dword;
     length: dword;
     buffer: PxmlParserNodeInfo;
   end;
+  PxmlParserNodeInfoSeq = ^TxmlParserNodeInfoSeq;
 
   PxmlParserInputState = ^TxmlParserInputState;
   TxmlParserInputState = longint;
 
 const
-  XML_PARSER_EOF = -(1);
+  XML_PARSER_EOF = -1;
   XML_PARSER_START = 0;
   XML_PARSER_MISC = 1;
   XML_PARSER_PI = 2;
@@ -106,8 +100,6 @@ type
   PxmlStartTag = ^TxmlStartTag;
 
   PxmlSAXHandler = ^TxmlSAXHandler;
-
-  PxmlParserCtxt = ^TxmlParserCtxt;
 
   TxmlParserCtxt = record
     sax: PxmlSAXHandler;
@@ -167,7 +159,7 @@ type
     catalogs: pointer;
     recovery: longint;
     progressive: longint;
-    dict: TxmlDictPtr;
+    dict: PxmlDict;
     atts: ^PxmlChar;
     maxatts: longint;
     docdict: longint;
@@ -180,8 +172,8 @@ type
     nsTab: ^PxmlChar;
     attallocs: Plongint;
     pushTab: PxmlStartTag;
-    attsDefault: TxmlHashTablePtr;
-    attsSpecial: TxmlHashTablePtr;
+    attsDefault: PxmlHashTable;
+    attsSpecial: PxmlHashTable;
     nsWellFormed: longint;
     options: longint;
     dictNames: longint;
@@ -200,8 +192,7 @@ type
     input_id: longint;
     sizeentcopy: dword;
   end;
-
-  PxmlSAXLocator = ^TxmlSAXLocator;
+  PxmlParserCtxt = ^TxmlParserCtxt;
 
   TxmlSAXLocator = record
     getPublicId: function(ctx: pointer): PxmlChar; cdecl;
@@ -209,6 +200,7 @@ type
     getLineNumber: function(ctx: pointer): longint; cdecl;
     getColumnNumber: function(ctx: pointer): longint; cdecl;
   end;
+  PxmlSAXLocator = ^TxmlSAXLocator;
 
   TresolveEntitySAXFunc = function(ctx: pointer; publicId: PxmlChar; systemId: PxmlChar): TxmlParserInputPtr; cdecl;
   TinternalSubsetSAXFunc = procedure(ctx: pointer; Name: PxmlChar; ExternalID: PxmlChar; SystemID: PxmlChar); cdecl;
@@ -277,10 +269,6 @@ type
     serror: TxmlStructuredErrorFunc;
   end;
 
-  PxmlSAXHandlerV1Ptr = ^TxmlSAXHandlerV1Ptr;
-  PxmlSAXHandlerV1 = ^TxmlSAXHandlerV1;
-  TxmlSAXHandlerV1Ptr = PxmlSAXHandlerV1;
-
   TxmlSAXHandlerV1 = record
     internalSubset: TinternalSubsetSAXFunc;
     isStandalone: TisStandaloneSAXFunc;
@@ -311,6 +299,7 @@ type
     externalSubset: TexternalSubsetSAXFunc;
     initialized: dword;
   end;
+  PxmlSAXHandlerV1 = ^TxmlSAXHandlerV1;
 
 
   TxmlExternalEntityLoader = function(URL: pchar; ID: pchar; context: TxmlParserCtxtPtr): TxmlParserInputPtr; cdecl;
@@ -378,10 +367,10 @@ function xmlParseChunk(ctxt: TxmlParserCtxtPtr; chunk: pchar; size: longint; ter
 function xmlCreateIOParserCtxt(sax: TxmlSAXHandlerPtr; user_data: pointer; ioread: TxmlInputReadCallback; ioclose: TxmlInputCloseCallback; ioctx: pointer; enc: TxmlCharEncoding): TxmlParserCtxtPtr; cdecl; external libxml2;
 function xmlNewIOInputStream(ctxt: TxmlParserCtxtPtr; input: TxmlParserInputBufferPtr; enc: TxmlCharEncoding): TxmlParserInputPtr; cdecl; external libxml2;
 function xmlParserFindNodeInfo(ctxt: TxmlParserCtxtPtr; node: TxmlNodePtr): PxmlParserNodeInfo; cdecl; external libxml2;
-procedure xmlInitNodeInfoSeq(seq: TxmlParserNodeInfoSeqPtr); cdecl; external libxml2;
-procedure xmlClearNodeInfoSeq(seq: TxmlParserNodeInfoSeqPtr); cdecl; external libxml2;
-function xmlParserFindNodeInfoIndex(seq: TxmlParserNodeInfoSeqPtr; node: TxmlNodePtr): dword; cdecl; external libxml2;
-procedure xmlParserAddNodeInfo(ctxt: TxmlParserCtxtPtr; info: TxmlParserNodeInfoPtr); cdecl; external libxml2;
+procedure xmlInitNodeInfoSeq(seq: PxmlParserNodeInfoSeq); cdecl; external libxml2;
+procedure xmlClearNodeInfoSeq(seq: PxmlParserNodeInfoSeq); cdecl; external libxml2;
+function xmlParserFindNodeInfoIndex(seq: PxmlParserNodeInfoSeq; node: TxmlNodePtr): dword; cdecl; external libxml2;
+procedure xmlParserAddNodeInfo(ctxt: TxmlParserCtxtPtr; info: PxmlParserNodeInfo); cdecl; external libxml2;
 procedure xmlSetExternalEntityLoader(f: TxmlExternalEntityLoader); cdecl; external libxml2;
 function xmlGetExternalEntityLoader: TxmlExternalEntityLoader; cdecl; external libxml2;
 function xmlLoadExternalEntity(URL: pchar; ID: pchar; ctxt: TxmlParserCtxtPtr): TxmlParserInputPtr; cdecl; external libxml2;

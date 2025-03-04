@@ -30,7 +30,7 @@ type
     context: pointer;
     readcallback: TxmlInputReadCallback;
     closecallback: TxmlInputCloseCallback;
-    encoder: TxmlCharEncodingHandlerPtr;
+    encoder: PxmlCharEncodingHandler;
     buffer: TxmlBufPtr;
     raw: TxmlBufPtr;
     compressed: longint;
@@ -43,7 +43,7 @@ type
     context: pointer;
     writecallback: TxmlOutputWriteCallback;
     closecallback: TxmlOutputCloseCallback;
-    encoder: TxmlCharEncodingHandlerPtr;
+    encoder: PxmlCharEncodingHandler;
     buffer: TxmlBufPtr;
     conv: TxmlBufPtr;
     written: longint;
@@ -71,12 +71,12 @@ function __xmlParserInputBufferCreateFilename(URI: pchar; enc: TxmlCharEncoding)
 procedure xmlCleanupOutputCallbacks; cdecl; external libxml2;
 function xmlPopOutputCallbacks: longint; cdecl; external libxml2;
 procedure xmlRegisterDefaultOutputCallbacks; cdecl; external libxml2;
-function xmlAllocOutputBuffer(encoder: TxmlCharEncodingHandlerPtr): TxmlOutputBufferPtr; cdecl; external libxml2;
-function xmlOutputBufferCreateFilename(URI: pchar; encoder: TxmlCharEncodingHandlerPtr; compression: longint): TxmlOutputBufferPtr; cdecl; external libxml2;
-function xmlOutputBufferCreateFile(file_: PFILE; encoder: TxmlCharEncodingHandlerPtr): TxmlOutputBufferPtr; cdecl; external libxml2;
-function xmlOutputBufferCreateBuffer(buffer: TxmlBufferPtr; encoder: TxmlCharEncodingHandlerPtr): TxmlOutputBufferPtr; cdecl; external libxml2;
-function xmlOutputBufferCreateFd(fd: longint; encoder: TxmlCharEncodingHandlerPtr): TxmlOutputBufferPtr; cdecl; external libxml2;
-function xmlOutputBufferCreateIO(iowrite: TxmlOutputWriteCallback; ioclose: TxmlOutputCloseCallback; ioctx: pointer; encoder: TxmlCharEncodingHandlerPtr): TxmlOutputBufferPtr; cdecl; external libxml2;
+function xmlAllocOutputBuffer(encoder: PxmlCharEncodingHandler): TxmlOutputBufferPtr; cdecl; external libxml2;
+function xmlOutputBufferCreateFilename(URI: pchar; encoder: PxmlCharEncodingHandler; compression: longint): TxmlOutputBufferPtr; cdecl; external libxml2;
+function xmlOutputBufferCreateFile(file_: PFILE; encoder: PxmlCharEncodingHandler): TxmlOutputBufferPtr; cdecl; external libxml2;
+function xmlOutputBufferCreateBuffer(buffer: TxmlBufferPtr; encoder: PxmlCharEncodingHandler): TxmlOutputBufferPtr; cdecl; external libxml2;
+function xmlOutputBufferCreateFd(fd: longint; encoder: PxmlCharEncodingHandler): TxmlOutputBufferPtr; cdecl; external libxml2;
+function xmlOutputBufferCreateIO(iowrite: TxmlOutputWriteCallback; ioclose: TxmlOutputCloseCallback; ioctx: pointer; encoder: PxmlCharEncodingHandler): TxmlOutputBufferPtr; cdecl; external libxml2;
 function xmlOutputBufferGetContent(out_: TxmlOutputBufferPtr): PxmlChar; cdecl; external libxml2;
 function xmlOutputBufferGetSize(out_: TxmlOutputBufferPtr): Tsize_t; cdecl; external libxml2;
 function xmlOutputBufferWrite(out_: TxmlOutputBufferPtr; len: longint; buf: pchar): longint; cdecl; external libxml2;
@@ -85,7 +85,7 @@ function xmlOutputBufferWriteEscape(out_: TxmlOutputBufferPtr; str: PxmlChar; es
 function xmlOutputBufferFlush(out_: TxmlOutputBufferPtr): longint; cdecl; external libxml2;
 function xmlOutputBufferClose(out_: TxmlOutputBufferPtr): longint; cdecl; external libxml2;
 function xmlRegisterOutputCallbacks(matchFunc: TxmlOutputMatchCallback; openFunc: TxmlOutputOpenCallback; writeFunc: TxmlOutputWriteCallback; closeFunc: TxmlOutputCloseCallback): longint; cdecl; external libxml2;
-function __xmlOutputBufferCreateFilename(URI: pchar; encoder: TxmlCharEncodingHandlerPtr; compression: longint): TxmlOutputBufferPtr; cdecl; external libxml2;
+function __xmlOutputBufferCreateFilename(URI: pchar; encoder: PxmlCharEncodingHandler; compression: longint): TxmlOutputBufferPtr; cdecl; external libxml2;
 procedure xmlRegisterHTTPPostCallbacks; cdecl; external libxml2;
 
 function xmlCheckHTTPInput(ctxt: TxmlParserCtxtPtr; ret: TxmlParserInputPtr): TxmlParserInputPtr; cdecl; external libxml2;

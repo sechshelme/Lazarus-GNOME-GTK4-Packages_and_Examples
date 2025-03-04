@@ -68,15 +68,12 @@ type
   end;
   PxmlCharEncodingHandler = ^TxmlCharEncodingHandler;
 
-  PxmlCharEncodingHandlerPtr = ^TxmlCharEncodingHandlerPtr;
-  TxmlCharEncodingHandlerPtr = PxmlCharEncodingHandler;
-
 procedure xmlInitCharEncodingHandlers; cdecl; external libxml2;
 procedure xmlCleanupCharEncodingHandlers; cdecl; external libxml2;
-procedure xmlRegisterCharEncodingHandler(handler: TxmlCharEncodingHandlerPtr); cdecl; external libxml2;
-function xmlGetCharEncodingHandler(enc: TxmlCharEncoding): TxmlCharEncodingHandlerPtr; cdecl; external libxml2;
-function xmlFindCharEncodingHandler(Name: pchar): TxmlCharEncodingHandlerPtr; cdecl; external libxml2;
-function xmlNewCharEncodingHandler(Name: pchar; input: TxmlCharEncodingInputFunc; output: TxmlCharEncodingOutputFunc): TxmlCharEncodingHandlerPtr; cdecl; external libxml2;
+procedure xmlRegisterCharEncodingHandler(handler: PxmlCharEncodingHandler); cdecl; external libxml2;
+function xmlGetCharEncodingHandler(enc: TxmlCharEncoding): PxmlCharEncodingHandler; cdecl; external libxml2;
+function xmlFindCharEncodingHandler(Name: pchar): PxmlCharEncodingHandler; cdecl; external libxml2;
+function xmlNewCharEncodingHandler(Name: pchar; input: TxmlCharEncodingInputFunc; output: TxmlCharEncodingOutputFunc): PxmlCharEncodingHandler; cdecl; external libxml2;
 function xmlAddEncodingAlias(Name: pchar; alias: pchar): longint; cdecl; external libxml2;
 function xmlDelEncodingAlias(alias: pchar): longint; cdecl; external libxml2;
 function xmlGetEncodingAlias(alias: pchar): pchar; cdecl; external libxml2;

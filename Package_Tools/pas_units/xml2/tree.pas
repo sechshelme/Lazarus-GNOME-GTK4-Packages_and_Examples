@@ -11,11 +11,11 @@ uses
 
   // --- Pointer wegen circular
 type
-  PxmlParserInputBufferPtr = ^TxmlParserInputBufferPtr;
+//  PxmlParserInputBufferPtr = ^TxmlParserInputBufferPtr;
   //  TxmlParserInputBufferPtr = PxmlParserInputBuffer;
   TxmlParserInputBufferPtr = Pointer;
 
-  PxmlOutputBufferPtr = ^TxmlOutputBufferPtr;
+//  PxmlOutputBufferPtr = ^TxmlOutputBufferPtr;
   //  TxmlOutputBufferPtr = PxmlOutputBuffer;
   TxmlOutputBufferPtr = Pointer;
 
@@ -23,11 +23,11 @@ type
   //  TxmlParserInputPtr = PxmlParserInput;
   TxmlParserInputPtr = Pointer;
 
-  PxmlParserCtxtPtr = ^TxmlParserCtxtPtr;
+//  PxmlParserCtxtPtr = ^TxmlParserCtxtPtr;
   //  TxmlParserCtxtPtr = PxmlParserCtxt;
   TxmlParserCtxtPtr = Pointer;
 
-  PxmlSAXLocatorPtr = ^TxmlSAXLocatorPtr;
+//  PxmlSAXLocatorPtr = ^TxmlSAXLocatorPtr;
   //  TxmlSAXLocatorPtr = PxmlSAXLocator;
   TxmlSAXLocatorPtr = Pointer;
 
@@ -35,7 +35,7 @@ type
   //  TxmlSAXHandlerPtr = PxmlSAXHandler;
   TxmlSAXHandlerPtr = Pointer;
 
-  PxmlEntityPtr = ^TxmlEntityPtr;
+//  PxmlEntityPtr = ^TxmlEntityPtr;
   //  TxmlEntityPtr = PxmlEntity;
   TxmlEntityPtr = Pointer;
 

@@ -14,9 +14,6 @@ type
   end;
   PxmlValidState = ^TxmlValidState;
 
-  PxmlValidStatePtr = ^TxmlValidStatePtr;
-  TxmlValidStatePtr = PxmlValidState;
-
   TxmlValidityErrorFunc = procedure(ctx: pointer; msg: pchar; args: array of const); cdecl;
   TxmlValidityWarningFunc = procedure(ctx: pointer; msg: pchar; args: array of const); cdecl;
 
@@ -44,36 +41,26 @@ type
     vstateNr: longint;
     vstateMax: longint;
     vstateTab: PxmlValidState;
-    //    am: TxmlAutomataPtr;
-    //    state: TxmlAutomataStatePtr;
-    am: pointer;
-    state: pointer;
+    am: PxmlAutomata;
+    state: PxmlAutomataState;
   end;
 
   TxmlHashTable = record
   end;
+  PxmlHashTable = ^TxmlHashTable;
 
-  TxmlNotationTablePtr = ^TxmlHashTable;
-  PxmlNotationTablePtr = ^TxmlNotationTablePtr;
-
-  TxmlElementTablePtr = ^TxmlHashTable;
-  PxmlElementTablePtr = ^TxmlElementTablePtr;
-
-  TxmlAttributeTablePtr = ^TxmlHashTable;
-  PxmlAttributeTablePtr = ^TxmlAttributeTablePtr;
-
-  TxmlIDTablePtr = ^TxmlHashTable;
-  PxmlIDTablePtr = ^TxmlIDTablePtr;
-
-  TxmlRefTablePtr = ^TxmlHashTable;
-  PxmlRefTablePtr = ^TxmlRefTablePtr;
+  PxmlNotationTable = PxmlHashTable;
+  PxmlElementTable = PxmlHashTable;
+  PxmlAttributeTable = PxmlHashTable;
+  PxmlIDTable = PxmlHashTable;
+  PxmlRefTable = PxmlHashTable;
 
 function xmlAddNotationDecl(ctxt: TxmlValidCtxtPtr; dtd: TxmlDtdPtr; Name: PxmlChar; PublicID: PxmlChar; SystemID: PxmlChar): TxmlNotationPtr; cdecl; external libxml2;
-function xmlCopyNotationTable(table: TxmlNotationTablePtr): TxmlNotationTablePtr; cdecl; external libxml2;
+function xmlCopyNotationTable(table: PxmlNotationTable): PxmlNotationTable; cdecl; external libxml2;
 
-procedure xmlFreeNotationTable(table: TxmlNotationTablePtr); cdecl; external libxml2;
+procedure xmlFreeNotationTable(table: PxmlNotationTable); cdecl; external libxml2;
 procedure xmlDumpNotationDecl(buf: TxmlBufferPtr; nota: TxmlNotationPtr); cdecl; external libxml2;
-procedure xmlDumpNotationTable(buf: TxmlBufferPtr; table: TxmlNotationTablePtr); cdecl; external libxml2;
+procedure xmlDumpNotationTable(buf: TxmlBufferPtr; table: PxmlNotationTable); cdecl; external libxml2;
 function xmlNewElementContent(Name: PxmlChar; _type: TxmlElementContentType): TxmlElementContentPtr; cdecl; external libxml2;
 function xmlCopyElementContent(content: TxmlElementContentPtr): TxmlElementContentPtr; cdecl; external libxml2;
 procedure xmlFreeElementContent(cur: TxmlElementContentPtr); cdecl; external libxml2;
@@ -83,29 +70,29 @@ procedure xmlFreeDocElementContent(doc: TxmlDocPtr; cur: TxmlElementContentPtr);
 procedure xmlSnprintfElementContent(buf: pchar; size: longint; content: TxmlElementContentPtr; englob: longint); cdecl; external libxml2;
 procedure xmlSprintfElementContent(buf: pchar; content: TxmlElementContentPtr; englob: longint); cdecl; external libxml2; deprecated;
 function xmlAddElementDecl(ctxt: TxmlValidCtxtPtr; dtd: TxmlDtdPtr; Name: PxmlChar; _type: TxmlElementTypeVal; content: TxmlElementContentPtr): TxmlElementPtr; cdecl; external libxml2;
-function xmlCopyElementTable(table: TxmlElementTablePtr): TxmlElementTablePtr; cdecl; external libxml2;
-procedure xmlFreeElementTable(table: TxmlElementTablePtr); cdecl; external libxml2;
-procedure xmlDumpElementTable(buf: TxmlBufferPtr; table: TxmlElementTablePtr); cdecl; external libxml2;
+function xmlCopyElementTable(table: PxmlElementTable): PxmlElementTable; cdecl; external libxml2;
+procedure xmlFreeElementTable(table: PxmlElementTable); cdecl; external libxml2;
+procedure xmlDumpElementTable(buf: TxmlBufferPtr; table: PxmlElementTable); cdecl; external libxml2;
 procedure xmlDumpElementDecl(buf: TxmlBufferPtr; elem: TxmlElementPtr); cdecl; external libxml2;
 function xmlCreateEnumeration(Name: PxmlChar): TxmlEnumerationPtr; cdecl; external libxml2;
 procedure xmlFreeEnumeration(cur: TxmlEnumerationPtr); cdecl; external libxml2;
 function xmlCopyEnumeration(cur: TxmlEnumerationPtr): TxmlEnumerationPtr; cdecl; external libxml2;
 function xmlAddAttributeDecl(ctxt: TxmlValidCtxtPtr; dtd: TxmlDtdPtr; elem: PxmlChar; Name: PxmlChar; ns: PxmlChar;
   _type: TxmlAttributeType; def: TxmlAttributeDefault; defaultValue: PxmlChar; tree: TxmlEnumerationPtr): TxmlAttributePtr; cdecl; external libxml2;
-function xmlCopyAttributeTable(table: TxmlAttributeTablePtr): TxmlAttributeTablePtr; cdecl; external libxml2;
-procedure xmlFreeAttributeTable(table: TxmlAttributeTablePtr); cdecl; external libxml2;
-procedure xmlDumpAttributeTable(buf: TxmlBufferPtr; table: TxmlAttributeTablePtr); cdecl; external libxml2;
+function xmlCopyAttributeTable(table: PxmlAttributeTable): PxmlAttributeTable; cdecl; external libxml2;
+procedure xmlFreeAttributeTable(table: PxmlAttributeTable); cdecl; external libxml2;
+procedure xmlDumpAttributeTable(buf: TxmlBufferPtr; table: PxmlAttributeTable); cdecl; external libxml2;
 procedure xmlDumpAttributeDecl(buf: TxmlBufferPtr; attr: TxmlAttributePtr); cdecl; external libxml2;
 function xmlAddID(ctxt: TxmlValidCtxtPtr; doc: TxmlDocPtr; Value: PxmlChar; attr: TxmlAttrPtr): TxmlIDPtr; cdecl; external libxml2;
-procedure xmlFreeIDTable(table: TxmlIDTablePtr); cdecl; external libxml2;
+procedure xmlFreeIDTable(table: PxmlIDTable); cdecl; external libxml2;
 function xmlGetID(doc: TxmlDocPtr; ID: PxmlChar): TxmlAttrPtr; cdecl; external libxml2;
 function xmlIsID(doc: TxmlDocPtr; elem: TxmlNodePtr; attr: TxmlAttrPtr): longint; cdecl; external libxml2;
 function xmlRemoveID(doc: TxmlDocPtr; attr: TxmlAttrPtr): longint; cdecl; external libxml2;
 function xmlAddRef(ctxt: TxmlValidCtxtPtr; doc: TxmlDocPtr; Value: PxmlChar; attr: TxmlAttrPtr): TxmlRefPtr; cdecl; external libxml2;
-procedure xmlFreeRefTable(table: TxmlRefTablePtr); cdecl; external libxml2;
+procedure xmlFreeRefTable(table: PxmlRefTable); cdecl; external libxml2;
 function xmlIsRef(doc: TxmlDocPtr; elem: TxmlNodePtr; attr: TxmlAttrPtr): longint; cdecl; external libxml2;
 function xmlRemoveRef(doc: TxmlDocPtr; attr: TxmlAttrPtr): longint; cdecl; external libxml2;
-function xmlGetRefs(doc: TxmlDocPtr; ID: PxmlChar): TxmlListPtr; cdecl; external libxml2;
+function xmlGetRefs(doc: TxmlDocPtr; ID: PxmlChar): PxmlList; cdecl; external libxml2;
 function xmlNewValidCtxt: TxmlValidCtxtPtr; cdecl; external libxml2;
 procedure xmlFreeValidCtxt(para1: TxmlValidCtxtPtr); cdecl; external libxml2;
 function xmlValidateRoot(ctxt: TxmlValidCtxtPtr; doc: TxmlDocPtr): longint; cdecl; external libxml2;

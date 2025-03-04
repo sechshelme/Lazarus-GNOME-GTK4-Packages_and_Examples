@@ -36,7 +36,7 @@ type
     filename: pchar;
     doc: TxmlDocPtr;
     node: TxmlNodePtr;
-    pctxt: TxmlXPathContextPtr;
+    pctxt: PxmlXPathContext;
     loaded: longint;
     output: PFILE;
     input: TxmlShellReadlineFunc;
@@ -45,7 +45,7 @@ type
   TxmlShellCmd = function(ctxt: TxmlShellCtxtPtr; arg: pchar; node: TxmlNodePtr; node2: TxmlNodePtr): longint; cdecl;
 
 procedure xmlShellPrintXPathError(errorType: longint; arg: pchar); cdecl; external libxml2;
-procedure xmlShellPrintXPathResult(list: TxmlXPathObjectPtr); cdecl; external libxml2;
+procedure xmlShellPrintXPathResult(list: PxmlXPathObject); cdecl; external libxml2;
 function xmlShellList(ctxt: TxmlShellCtxtPtr; arg: pchar; node: TxmlNodePtr; node2: TxmlNodePtr): longint; cdecl; external libxml2;
 function xmlShellBase(ctxt: TxmlShellCtxtPtr; arg: pchar; node: TxmlNodePtr; node2: TxmlNodePtr): longint; cdecl; external libxml2;
 function xmlShellDir(ctxt: TxmlShellCtxtPtr; arg: pchar; node: TxmlNodePtr; node2: TxmlNodePtr): longint; cdecl; external libxml2;

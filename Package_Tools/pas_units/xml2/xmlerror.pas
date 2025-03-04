@@ -57,10 +57,6 @@ const
   XML_FROM_URI = 30;
 
 type
-  PxmlError = ^TxmlError;
-  PxmlErrorPtr = ^TxmlErrorPtr;
-  TxmlErrorPtr = PxmlError;
-
   TxmlError = record
     domain: longint;
     code: longint;
@@ -76,6 +72,7 @@ type
     ctxt: pointer;
     node: pointer;
   end;
+  PxmlError = ^TxmlError;
 
   PxmlParserErrors = ^TxmlParserErrors;
   TxmlParserErrors = longint;
@@ -819,8 +816,8 @@ const
 type
   TxmlGenericErrorFunc = procedure(ctx: pointer; msg: pchar; args: array of const); cdecl;
   PxmlGenericErrorFunc = ^TxmlGenericErrorFunc;
-  TxmlStructuredErrorFunc = procedure(userData: pointer; error: TxmlErrorPtr); cdecl;
-  PxmlStructuredErrorFunc=^TxmlStructuredErrorFunc;
+  TxmlStructuredErrorFunc = procedure(userData: pointer; error: PxmlError); cdecl;
+  PxmlStructuredErrorFunc = ^TxmlStructuredErrorFunc;
 
 procedure xmlSetGenericErrorFunc(ctx: pointer; handler: TxmlGenericErrorFunc); cdecl; external libxml2;
 procedure initGenericErrorDefaultFunc(handler: PxmlGenericErrorFunc); cdecl; external libxml2;
@@ -835,12 +832,12 @@ procedure xmlParserValidityWarning(ctx: pointer; msg: pchar; args: array of cons
 procedure xmlParserValidityWarning(ctx: pointer; msg: pchar); cdecl; external libxml2;
 procedure xmlParserPrintFileInfo(input: TxmlParserInputPtr); cdecl; external libxml2;
 procedure xmlParserPrintFileContext(input: TxmlParserInputPtr); cdecl; external libxml2;
-function xmlGetLastError: TxmlErrorPtr; cdecl; external libxml2;
+function xmlGetLastError: PxmlError; cdecl; external libxml2;
 procedure xmlResetLastError; cdecl; external libxml2;
-function xmlCtxtGetLastError(ctx: pointer): TxmlErrorPtr; cdecl; external libxml2;
+function xmlCtxtGetLastError(ctx: pointer): PxmlError; cdecl; external libxml2;
 procedure xmlCtxtResetLastError(ctx: pointer); cdecl; external libxml2;
-procedure xmlResetError(err: TxmlErrorPtr); cdecl; external libxml2;
-function xmlCopyError(from: TxmlErrorPtr; to_: TxmlErrorPtr): longint; cdecl; external libxml2;
+procedure xmlResetError(err: PxmlError); cdecl; external libxml2;
+function xmlCopyError(from: PxmlError; to_: PxmlError): longint; cdecl; external libxml2;
 procedure __xmlRaiseError(schannel: TxmlStructuredErrorFunc; channel: TxmlGenericErrorFunc; Data: pointer; ctx: pointer; node: pointer;
   domain: longint; code: longint; level: TxmlErrorLevel; file_: pchar; line: longint;
   str1: pchar; str2: pchar; str3: pchar; int1: longint; col: longint;

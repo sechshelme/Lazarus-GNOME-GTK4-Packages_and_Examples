@@ -18,42 +18,36 @@ type
   end;
   PxmlList = ^TxmlList;
 
-  PxmlLinkPtr = ^TxmlLinkPtr;
-  TxmlLinkPtr = PxmlLink;
-
-  PxmlListPtr = ^TxmlListPtr;
-  TxmlListPtr = PxmlList;
-
-  TxmlListDeallocator = procedure(lk: TxmlLinkPtr); cdecl;
+  TxmlListDeallocator = procedure(lk: PxmlLink); cdecl;
   TxmlListDataCompare = function(data0: pointer; data1: pointer): longint; cdecl;
   TxmlListWalker = function(Data: pointer; user: pointer): longint; cdecl;
 
-function xmlListCreate(deallocator: TxmlListDeallocator; compare: TxmlListDataCompare): TxmlListPtr; cdecl; external libxml2;
-procedure xmlListDelete(l: TxmlListPtr); cdecl; external libxml2;
-function xmlListSearch(l: TxmlListPtr; Data: pointer): pointer; cdecl; external libxml2;
-function xmlListReverseSearch(l: TxmlListPtr; Data: pointer): pointer; cdecl; external libxml2;
-function xmlListInsert(l: TxmlListPtr; Data: pointer): longint; cdecl; external libxml2;
-function xmlListAppend(l: TxmlListPtr; Data: pointer): longint; cdecl; external libxml2;
-function xmlListRemoveFirst(l: TxmlListPtr; Data: pointer): longint; cdecl; external libxml2;
-function xmlListRemoveLast(l: TxmlListPtr; Data: pointer): longint; cdecl; external libxml2;
-function xmlListRemoveAll(l: TxmlListPtr; Data: pointer): longint; cdecl; external libxml2;
-procedure xmlListClear(l: TxmlListPtr); cdecl; external libxml2;
-function xmlListEmpty(l: TxmlListPtr): longint; cdecl; external libxml2;
-function xmlListFront(l: TxmlListPtr): TxmlLinkPtr; cdecl; external libxml2;
-function xmlListEnd(l: TxmlListPtr): TxmlLinkPtr; cdecl; external libxml2;
-function xmlListSize(l: TxmlListPtr): longint; cdecl; external libxml2;
-procedure xmlListPopFront(l: TxmlListPtr); cdecl; external libxml2;
-procedure xmlListPopBack(l: TxmlListPtr); cdecl; external libxml2;
-function xmlListPushFront(l: TxmlListPtr; Data: pointer): longint; cdecl; external libxml2;
-function xmlListPushBack(l: TxmlListPtr; Data: pointer): longint; cdecl; external libxml2;
-procedure xmlListReverse(l: TxmlListPtr); cdecl; external libxml2;
-procedure xmlListSort(l: TxmlListPtr); cdecl; external libxml2;
-procedure xmlListWalk(l: TxmlListPtr; walker: TxmlListWalker; user: pointer); cdecl; external libxml2;
-procedure xmlListReverseWalk(l: TxmlListPtr; walker: TxmlListWalker; user: pointer); cdecl; external libxml2;
-procedure xmlListMerge(l1: TxmlListPtr; l2: TxmlListPtr); cdecl; external libxml2;
-function xmlListDup(old: TxmlListPtr): TxmlListPtr; cdecl; external libxml2;
-function xmlListCopy(cur: TxmlListPtr; old: TxmlListPtr): longint; cdecl; external libxml2;
-function xmlLinkGetData(lk: TxmlLinkPtr): pointer; cdecl; external libxml2;
+function xmlListCreate(deallocator: TxmlListDeallocator; compare: TxmlListDataCompare): PxmlList; cdecl; external libxml2;
+procedure xmlListDelete(l: PxmlList); cdecl; external libxml2;
+function xmlListSearch(l: PxmlList; Data: pointer): pointer; cdecl; external libxml2;
+function xmlListReverseSearch(l: PxmlList; Data: pointer): pointer; cdecl; external libxml2;
+function xmlListInsert(l: PxmlList; Data: pointer): longint; cdecl; external libxml2;
+function xmlListAppend(l: PxmlList; Data: pointer): longint; cdecl; external libxml2;
+function xmlListRemoveFirst(l: PxmlList; Data: pointer): longint; cdecl; external libxml2;
+function xmlListRemoveLast(l: PxmlList; Data: pointer): longint; cdecl; external libxml2;
+function xmlListRemoveAll(l: PxmlList; Data: pointer): longint; cdecl; external libxml2;
+procedure xmlListClear(l: PxmlList); cdecl; external libxml2;
+function xmlListEmpty(l: PxmlList): longint; cdecl; external libxml2;
+function xmlListFront(l: PxmlList): PxmlLink; cdecl; external libxml2;
+function xmlListEnd(l: PxmlList): PxmlLink; cdecl; external libxml2;
+function xmlListSize(l: PxmlList): longint; cdecl; external libxml2;
+procedure xmlListPopFront(l: PxmlList); cdecl; external libxml2;
+procedure xmlListPopBack(l: PxmlList); cdecl; external libxml2;
+function xmlListPushFront(l: PxmlList; Data: pointer): longint; cdecl; external libxml2;
+function xmlListPushBack(l: PxmlList; Data: pointer): longint; cdecl; external libxml2;
+procedure xmlListReverse(l: PxmlList); cdecl; external libxml2;
+procedure xmlListSort(l: PxmlList); cdecl; external libxml2;
+procedure xmlListWalk(l: PxmlList; walker: TxmlListWalker; user: pointer); cdecl; external libxml2;
+procedure xmlListReverseWalk(l: PxmlList; walker: TxmlListWalker; user: pointer); cdecl; external libxml2;
+procedure xmlListMerge(l1: PxmlList; l2: PxmlList); cdecl; external libxml2;
+function xmlListDup(old: PxmlList): PxmlList; cdecl; external libxml2;
+function xmlListCopy(cur: PxmlList; old: PxmlList): longint; cdecl; external libxml2;
+function xmlLinkGetData(lk: PxmlLink): pointer; cdecl; external libxml2;
 
 // === Konventiert am: 26-2-25 19:51:40 ===
 

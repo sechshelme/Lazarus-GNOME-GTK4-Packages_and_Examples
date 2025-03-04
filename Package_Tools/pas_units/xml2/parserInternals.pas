@@ -31,8 +31,8 @@ function xmlCreateURLParserCtxt(filename: pchar; options: longint): TxmlParserCt
 function xmlCreateMemoryParserCtxt(buffer: pchar; size: longint): TxmlParserCtxtPtr; cdecl; external libxml2;
 function xmlCreateEntityParserCtxt(URL: PxmlChar; ID: PxmlChar; base: PxmlChar): TxmlParserCtxtPtr; cdecl; external libxml2;
 function xmlSwitchEncoding(ctxt: TxmlParserCtxtPtr; enc: TxmlCharEncoding): longint; cdecl; external libxml2;
-function xmlSwitchToEncoding(ctxt: TxmlParserCtxtPtr; handler: TxmlCharEncodingHandlerPtr): longint; cdecl; external libxml2;
-function xmlSwitchInputEncoding(ctxt: TxmlParserCtxtPtr; input: TxmlParserInputPtr; handler: TxmlCharEncodingHandlerPtr): longint; cdecl; external libxml2;
+function xmlSwitchToEncoding(ctxt: TxmlParserCtxtPtr; handler: PxmlCharEncodingHandler): longint; cdecl; external libxml2;
+function xmlSwitchInputEncoding(ctxt: TxmlParserCtxtPtr; input: TxmlParserInputPtr; handler: PxmlCharEncodingHandler): longint; cdecl; external libxml2;
 
 function xmlNewStringInputStream(ctxt: TxmlParserCtxtPtr; buffer: PxmlChar): TxmlParserInputPtr; cdecl; external libxml2;
 function xmlNewEntityInputStream(ctxt: TxmlParserCtxtPtr; entity: TxmlEntityPtr): TxmlParserInputPtr; cdecl; external libxml2;
@@ -114,7 +114,7 @@ function xmlCopyChar(len: longint; out_: PxmlChar; val: longint): longint; cdecl
 procedure xmlNextChar(ctxt: TxmlParserCtxtPtr); cdecl; external libxml2;
 procedure xmlParserInputShrink(in_: TxmlParserInputPtr); cdecl; external libxml2;
 procedure htmlInitAutoClose; cdecl; external libxml2;
-function htmlCreateFileParserCtxt(filename: pchar; encoding: pchar): ThtmlParserCtxtPtr; cdecl; external libxml2;
+function htmlCreateFileParserCtxt(filename: pchar; encoding: pchar): PhtmlParserCtxt; cdecl; external libxml2;
 
 type
   TxmlEntityReferenceFunc = procedure(ent: TxmlEntityPtr; firstNode: TxmlNodePtr; lastNode: TxmlNodePtr); cdecl;
