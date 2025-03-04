@@ -14,23 +14,20 @@ uses
   xmlIO,              // io. -> xmlstring, encoding, tree
   xmlregexp,          // io. -> xmlstring, dict, tree
   xmlautomata,        // io. -> xmlstring, xmlregexp
-  valid,              // io. -> tree, list, xmlstring, xmlautomata          longint <> char !!!!!!!!!!!
+  valid,              // io. -> tree, list, xmlstring, xmlautomata
   parser,             // io. -> xmlstring, tree, valid, dict, hash, xmlerror, encoding, xmlIO
-
-  parserInternals,         // ???????
-  schemasInternals,
-  xpathInternals,
-
-
   xpath,              // io. -> xmlstring, xmlerror, tree, hash, dict
+  chvalid,            // io.
   xmlmemory,          // io.
   globals,            // io. -> tree, encoding, parser, xmlerror, xmlmemory
   xmlwriter,          // io. -> xmlstring, tree
   HTMLparser,         // io. -> xmlstring, xmlIO, tree, parser, encoding
+  parserInternals,    // io. -> xmlstring, tree, encoding, HTMLparser, chvalid
+  schemasInternals,   // io. -> xmlstring, xmlregexp, tree, hash, dict
+  xpathInternals,     // io. -> xmlstring, xpath, tree
   xmlschemas,         // io. -> xmlerror, tree, encoding, schemasInternals
   relaxng,            // io. -> xmlstring, xmlerror, tree
   xmlreader,          // io. -> xmlstring, xmlschemas, xmlIO, xmlerror, tree, relaxng
-  chvalid,            // io.
   xlink,              // io. -> xmlstring, tree
   xmlunicode,         // io.
   xmlversion,         // io.

@@ -83,12 +83,7 @@ implementation
 
 function xmlIsBaseChar_ch(c: longint): boolean;
 begin
-  xmlIsBaseChar_ch :=
-    (($41 <= c) and (c <= $5a)) or
-    (($61 <= c) and (c <= $7a)) or
-    (($c0 <= c) and (c <= $d6)) or
-    (($d8 <= c) and (c <= $f6)) or
-    ($f8 <= c);
+  Result := (($41 <= c) and (c <= $5a)) or (($61 <= c) and (c <= $7a)) or (($c0 <= c) and (c <= $d6)) or (($d8 <= c) and (c <= $f6)) or ($f8 <= c);
 end;
 
 function xmlIsBaseCharQ(c: longint): boolean;
