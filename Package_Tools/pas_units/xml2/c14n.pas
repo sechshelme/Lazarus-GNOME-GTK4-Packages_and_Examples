@@ -3,7 +3,7 @@ unit c14n;
 interface
 
 uses
-  ctypes, xml2_common, xmlstring, tree, xpath;
+  ctypes, xml2_common, xmlstring, tree, xpath, xmlIO;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

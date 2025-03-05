@@ -3,7 +3,7 @@ unit xmlwriter;
 interface
 
 uses
-  ctypes, xml2_common, xmlstring, tree;
+  ctypes, xml2_common, xmlstring, tree, xmlIO;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

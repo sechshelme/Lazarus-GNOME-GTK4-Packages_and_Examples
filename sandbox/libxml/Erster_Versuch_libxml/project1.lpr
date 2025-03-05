@@ -22,7 +22,7 @@ uses
   chvalid,            // io.
   xmlmemory,          // io.
   globals,            // io. -> tree, encoding, parser, xmlerror, xmlmemory, xmlIO
-  xmlwriter,          // io. -> xmlstring, tree
+  xmlwriter,          // io. -> xmlstring, tree, xmlIO
   HTMLparser,         // io. -> xmlstring, xmlIO, tree, parser, encoding
   parserInternals,    // io. -> xmlstring, tree, encoding, HTMLparser, chvalid, entities
   schemasInternals,   // io. -> xmlstring, xmlregexp, tree, hash, dict
@@ -39,9 +39,9 @@ uses
   nanoftp,            // io.
   schematron,         // io. -> xmlerror, tree
   xmlschemastypes,    // io. -> xmlstring, xmlschemas, tree, schemasInternals
-  c14n,               // io. -> xmlstring, tree, xpath
+  c14n,               // io. -> xmlstring, tree, xpath, xmlIO
   DOCBparser,         // io. -> xmlstring, encoding, tree, parser
-  HTMLtree,           // io. -> xmlstring, tree, HTMLparser
+  HTMLtree,           // io. -> xmlstring, tree, HTMLparser, xmlIO
   xpointer,           // io. -> xmlstring, xpath, tree
   pattern,            // io. -> xmlstring, dict, tree
   uri,                // io. -> xmlstring
@@ -49,13 +49,21 @@ uses
   xmlsave,            // io. -> xmlIO, tree, encoding
   nanohttp,           // io.
   threads,            // io. -> globals
-  xmlmodule,          // io.
-
-  Math;
+  xmlmodule;          // io.
 
 
-  function strtok(str: pchar; delim: pchar): pchar; external 'libc';    // msvcrt.dll
-  function strtok_r(s: pchar; delim: pchar; saveptr: PPChar): pchar; cdecl; external 'libc';
+const
+  {$IFDEF Linux}
+  libc = 'libc';
+    function strtok(str: pchar; delim: pchar): pchar; external libc;
+    function strtok_r(s: pchar; delim: pchar; saveptr: PPChar): pchar; cdecl; external libc;
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libc = 'msvcrt.dll';
+  function strtok_r(s: pchar; delim: pchar; saveptr: PPChar): pchar; cdecl; external libc name 'strtok_s';
+  {$ENDIF}
+
 
   // ==============================
 
@@ -184,10 +192,26 @@ uses
     xmlFree(val);
   end;
 
+  {$IFDEF Linux}
+  {$IF defined(CPUX86) or defined(CPUX64)}
+  procedure SetMXCSR;
+  var
+    w2: word = 8064;
+  begin
+    asm
+                 Ldmxcsr w2
+    end;
+  end;
+  {$ENDIF}
+  {$ENDIF}
 
 begin
-  SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide, exOverflow, exUnderflow, exPrecision]);
-
+  {$IFDEF Linux}
+  {$IF defined(CPUX86) or defined(CPUX64)}
+    SetMXCSR;
+  {$ENDIF}
+  {$ENDIF}
+//     SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide, exOverflow, exUnderflow, exPrecision]);
   CreateXML('config2.xml');
   AppenXML('config2.xml');
 

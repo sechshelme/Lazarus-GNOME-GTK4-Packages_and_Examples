@@ -11,7 +11,7 @@ uses
 
   // --- Pointer wegen circular
 type
-  PxmlOutputBuffer = Pointer;
+//  PxmlOutputBuffer = Pointer;
   PxmlParserInput = Pointer;
   PxmlParserCtxt = Pointer;
   // -----------
@@ -491,9 +491,12 @@ function xmlSaveFile(filename: pchar; cur: PxmlDoc): longint; cdecl; external li
 function xmlSaveFormatFile(filename: pchar; cur: PxmlDoc; format: longint): longint; cdecl; external libxml2;
 function xmlBufNodeDump(buf: PxmlBuf; doc: PxmlDoc; cur: PxmlNode; level: longint; format: longint): Tsize_t; cdecl; external libxml2;
 function xmlNodeDump(buf: PxmlBuffer; doc: PxmlDoc; cur: PxmlNode; level: longint; format: longint): longint; cdecl; external libxml2;
-function xmlSaveFileTo(buf: PxmlOutputBuffer; cur: PxmlDoc; encoding: pchar): longint; cdecl; external libxml2;
-function xmlSaveFormatFileTo(buf: PxmlOutputBuffer; cur: PxmlDoc; encoding: pchar; format: longint): longint; cdecl; external libxml2;
-procedure xmlNodeDumpOutput(buf: PxmlOutputBuffer; doc: PxmlDoc; cur: PxmlNode; level: longint; format: longint; encoding: pchar); cdecl; external libxml2;
+//function xmlSaveFileTo(buf: PxmlOutputBuffer; cur: PxmlDoc; encoding: pchar): longint; cdecl; external libxml2;
+//function xmlSaveFormatFileTo(buf: PxmlOutputBuffer; cur: PxmlDoc; encoding: pchar; format: longint): longint; cdecl; external libxml2;
+//procedure xmlNodeDumpOutput(buf: PxmlOutputBuffer; doc: PxmlDoc; cur: PxmlNode; level: longint; format: longint; encoding: pchar); cdecl; external libxml2;
+function xmlSaveFileTo(buf: Pointer; cur: PxmlDoc; encoding: pchar): longint; cdecl; external libxml2;
+function xmlSaveFormatFileTo(buf: Pointer; cur: PxmlDoc; encoding: pchar; format: longint): longint; cdecl; external libxml2;
+procedure xmlNodeDumpOutput(buf: Pointer; doc: PxmlDoc; cur: PxmlNode; level: longint; format: longint; encoding: pchar); cdecl; external libxml2;
 function xmlSaveFormatFileEnc(filename: pchar; cur: PxmlDoc; encoding: pchar; format: longint): longint; cdecl; external libxml2;
 function xmlSaveFileEnc(filename: pchar; cur: PxmlDoc; encoding: pchar): longint; cdecl; external libxml2;
 function xmlIsXHTML(systemID: PxmlChar; publicID: PxmlChar): longint; cdecl; external libxml2;

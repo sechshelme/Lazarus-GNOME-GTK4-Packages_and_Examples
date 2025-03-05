@@ -3,7 +3,7 @@ unit HTMLtree;
 interface
 
 uses
-  ctypes, xml2_common, xmlstring, tree, HTMLparser;
+  ctypes, xml2_common, xmlstring, tree, HTMLparser, xmlIO;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
