@@ -822,14 +822,10 @@ type
 procedure xmlSetGenericErrorFunc(ctx: pointer; handler: TxmlGenericErrorFunc); cdecl; external libxml2;
 procedure initGenericErrorDefaultFunc(handler: PxmlGenericErrorFunc); cdecl; external libxml2;
 procedure xmlSetStructuredErrorFunc(ctx: pointer; handler: TxmlStructuredErrorFunc); cdecl; external libxml2;
-procedure xmlParserError(ctx: pointer; msg: pchar; args: array of const); cdecl; external libxml2;
-procedure xmlParserError(ctx: pointer; msg: pchar); cdecl; external libxml2;
-procedure xmlParserWarning(ctx: pointer; msg: pchar; args: array of const); cdecl; external libxml2;
-procedure xmlParserWarning(ctx: pointer; msg: pchar); cdecl; external libxml2;
-procedure xmlParserValidityError(ctx: pointer; msg: pchar; args: array of const); cdecl; external libxml2;
-procedure xmlParserValidityError(ctx: pointer; msg: pchar); cdecl; external libxml2;
-procedure xmlParserValidityWarning(ctx: pointer; msg: pchar; args: array of const); cdecl; external libxml2;
-procedure xmlParserValidityWarning(ctx: pointer; msg: pchar); cdecl; external libxml2;
+procedure xmlParserError(ctx: pointer; msg: pchar); varargs; cdecl; external libxml2;
+procedure xmlParserWarning(ctx: pointer; msg: pchar); varargs; cdecl; external libxml2;
+procedure xmlParserValidityError(ctx: pointer; msg: pchar); varargs; cdecl; external libxml2;
+procedure xmlParserValidityWarning(ctx: pointer; msg: pchar); varargs; cdecl; external libxml2;
 procedure xmlParserPrintFileInfo(input: PxmlParserInput); cdecl; external libxml2;
 procedure xmlParserPrintFileContext(input: PxmlParserInput); cdecl; external libxml2;
 function xmlGetLastError: PxmlError; cdecl; external libxml2;
@@ -841,11 +837,7 @@ function xmlCopyError(from: PxmlError; to_: PxmlError): longint; cdecl; external
 procedure __xmlRaiseError(schannel: TxmlStructuredErrorFunc; channel: TxmlGenericErrorFunc; Data: pointer; ctx: pointer; node: pointer;
   domain: longint; code: longint; level: TxmlErrorLevel; file_: pchar; line: longint;
   str1: pchar; str2: pchar; str3: pchar; int1: longint; col: longint;
-  msg: pchar; args: array of const); cdecl; external libxml2;
-procedure __xmlRaiseError(schannel: TxmlStructuredErrorFunc; channel: TxmlGenericErrorFunc; Data: pointer; ctx: pointer; node: pointer;
-  domain: longint; code: longint; level: TxmlErrorLevel; file_: pchar; line: longint;
-  str1: pchar; str2: pchar; str3: pchar; int1: longint; col: longint;
-  msg: pchar); cdecl; external libxml2;
+  msg: pchar); varargs; cdecl; external libxml2;
 procedure __xmlSimpleError(domain: longint; code: longint; node: PxmlNode; msg: pchar; extra: pchar); cdecl; external libxml2;
 
 // === Konventiert am: 26-2-25 20:02:49 ===

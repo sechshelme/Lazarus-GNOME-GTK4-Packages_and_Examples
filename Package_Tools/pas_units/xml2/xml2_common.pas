@@ -19,32 +19,21 @@ type
   Tva_list = Pointer;
   Pva_list = ^Tva_list;
 
-  Tsize_t=SizeInt;
-  PFILE=Pointer;
+  Tsize_t = SizeInt;
+  PFILE = Pointer;
 
   // /usr/include/unicode/ucnv_err.h
-  TUConverter=record
+  TUConverter = record
   end;
-  PUConverter=^TUConverter;
+  PUConverter = ^TUConverter;
 
   // /usr/include/unicode/umachine.h
-  TUChar=word;
-  PUChar=^TUChar;
+  TUChar = word;
+  PUChar = ^TUChar;
 
   // /usr/include/iconv.h
-  Ticonv_t=Pointer;
-  Piconv_t=^Ticonv_t;
-
-
-//  // Internals
-//type
-//  TxmlSchemaTypePtr = Pointer; // /usr/include/libxml2/libxml/schemasInternals.h
-//  TxmlSchemaValPtr = Pointer;
-//  PxmlSchemaValPtr = ^TxmlSchemaValPtr;
-//  TxmlSchemaFacetPtr=Pointer;
-//  TxmlSchemaValType=LongInt;
-
-
+  Ticonv_t = Pointer;
+  Piconv_t = ^Ticonv_t;
 
 
 implementation

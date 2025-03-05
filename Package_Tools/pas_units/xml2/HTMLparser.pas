@@ -19,9 +19,6 @@ type
   PhtmlSAXHandler = ^ThtmlSAXHandler;
   ThtmlSAXHandler = TxmlSAXHandler;
 
-  PhtmlSAXHandlerPtr = ^ThtmlSAXHandlerPtr;
-  ThtmlSAXHandlerPtr = PxmlSAXHandler;
-
   PhtmlParserInput = ^ThtmlParserInput;
   ThtmlParserInput = TxmlParserInput;
 
@@ -64,15 +61,15 @@ procedure htmlParseElement(ctxt: PhtmlParserCtxt); cdecl; external libxml2;
 function htmlNewParserCtxt: PhtmlParserCtxt; cdecl; external libxml2;
 function htmlCreateMemoryParserCtxt(buffer: pchar; size: longint): PhtmlParserCtxt; cdecl; external libxml2;
 function htmlParseDocument(ctxt: PhtmlParserCtxt): longint; cdecl; external libxml2;
-function htmlSAXParseDoc(cur: PxmlChar; encoding: pchar; sax: ThtmlSAXHandlerPtr; userData: pointer): PhtmlDoc; cdecl; external libxml2;
+function htmlSAXParseDoc(cur: PxmlChar; encoding: pchar; sax: PhtmlSAXHandler; userData: pointer): PhtmlDoc; cdecl; external libxml2;
 function htmlParseDoc(cur: PxmlChar; encoding: pchar): PhtmlDoc; cdecl; external libxml2;
-function htmlSAXParseFile(filename: pchar; encoding: pchar; sax: ThtmlSAXHandlerPtr; userData: pointer): PhtmlDoc; cdecl; external libxml2;
+function htmlSAXParseFile(filename: pchar; encoding: pchar; sax: PhtmlSAXHandler; userData: pointer): PhtmlDoc; cdecl; external libxml2;
 function htmlParseFile(filename: pchar; encoding: pchar): PhtmlDoc; cdecl; external libxml2;
 function UTF8ToHtml(out_: pbyte; outlen: Plongint; in_: pbyte; inlen: Plongint): longint; cdecl; external libxml2;
 function htmlEncodeEntities(out_: pbyte; outlen: Plongint; in_: pbyte; inlen: Plongint; quoteChar: longint): longint; cdecl; external libxml2;
 function htmlIsScriptAttribute(Name: PxmlChar): longint; cdecl; external libxml2;
 function htmlHandleOmittedElem(val: longint): longint; cdecl; external libxml2;
-function htmlCreatePushParserCtxt(sax: ThtmlSAXHandlerPtr; user_data: pointer; chunk: pchar; size: longint; filename: pchar;
+function htmlCreatePushParserCtxt(sax: PhtmlSAXHandler; user_data: pointer; chunk: pchar; size: longint; filename: pchar;
   enc: TxmlCharEncoding): PhtmlParserCtxt; cdecl; external libxml2;
 function htmlParseChunk(ctxt: PhtmlParserCtxt; chunk: pchar; size: longint; terminate: longint): longint; cdecl; external libxml2;
 procedure htmlFreeParserCtxt(ctxt: PhtmlParserCtxt); cdecl; external libxml2;

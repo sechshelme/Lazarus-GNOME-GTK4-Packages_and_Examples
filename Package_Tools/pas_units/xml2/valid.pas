@@ -22,10 +22,6 @@ const
   XML_CTXT_FINISH_DTD_1 = $abcd1235;
 
 type
-  PxmlValidCtxtPtr = ^TxmlValidCtxtPtr;
-  PxmlValidCtxt = ^TxmlValidCtxt;
-  TxmlValidCtxtPtr = PxmlValidCtxt;
-
   TxmlValidCtxt = record
     userData: pointer;
     error: TxmlValidityErrorFunc;
@@ -44,6 +40,7 @@ type
     am: PxmlAutomata;
     state: PxmlAutomataState;
   end;
+  PxmlValidCtxt = ^TxmlValidCtxt;
 
   TxmlHashTable = record
   end;
@@ -55,7 +52,7 @@ type
   PxmlIDTable = PxmlHashTable;
   PxmlRefTable = PxmlHashTable;
 
-function xmlAddNotationDecl(ctxt: TxmlValidCtxtPtr; dtd: PxmlDtd; Name: PxmlChar; PublicID: PxmlChar; SystemID: PxmlChar): PxmlNotation; cdecl; external libxml2;
+function xmlAddNotationDecl(ctxt: PxmlValidCtxt; dtd: PxmlDtd; Name: PxmlChar; PublicID: PxmlChar; SystemID: PxmlChar): PxmlNotation; cdecl; external libxml2;
 function xmlCopyNotationTable(table: PxmlNotationTable): PxmlNotationTable; cdecl; external libxml2;
 
 procedure xmlFreeNotationTable(table: PxmlNotationTable); cdecl; external libxml2;
@@ -69,7 +66,7 @@ function xmlCopyDocElementContent(doc: PxmlDoc; content: PxmlElementContent): Px
 procedure xmlFreeDocElementContent(doc: PxmlDoc; cur: PxmlElementContent); cdecl; external libxml2;
 procedure xmlSnprintfElementContent(buf: pchar; size: longint; content: PxmlElementContent; englob: longint); cdecl; external libxml2;
 procedure xmlSprintfElementContent(buf: pchar; content: PxmlElementContent; englob: longint); cdecl; external libxml2; deprecated;
-function xmlAddElementDecl(ctxt: TxmlValidCtxtPtr; dtd: PxmlDtd; Name: PxmlChar; _type: TxmlElementTypeVal; content: PxmlElementContent): PxmlElement; cdecl; external libxml2;
+function xmlAddElementDecl(ctxt: PxmlValidCtxt; dtd: PxmlDtd; Name: PxmlChar; _type: TxmlElementTypeVal; content: PxmlElementContent): PxmlElement; cdecl; external libxml2;
 function xmlCopyElementTable(table: PxmlElementTable): PxmlElementTable; cdecl; external libxml2;
 procedure xmlFreeElementTable(table: PxmlElementTable); cdecl; external libxml2;
 procedure xmlDumpElementTable(buf: PxmlBuffer; table: PxmlElementTable); cdecl; external libxml2;
@@ -77,41 +74,41 @@ procedure xmlDumpElementDecl(buf: PxmlBuffer; elem: PxmlElement); cdecl; externa
 function xmlCreateEnumeration(Name: PxmlChar): PxmlEnumeration; cdecl; external libxml2;
 procedure xmlFreeEnumeration(cur: PxmlEnumeration); cdecl; external libxml2;
 function xmlCopyEnumeration(cur: PxmlEnumeration): PxmlEnumeration; cdecl; external libxml2;
-function xmlAddAttributeDecl(ctxt: TxmlValidCtxtPtr; dtd: PxmlDtd; elem: PxmlChar; Name: PxmlChar; ns: PxmlChar;
+function xmlAddAttributeDecl(ctxt: PxmlValidCtxt; dtd: PxmlDtd; elem: PxmlChar; Name: PxmlChar; ns: PxmlChar;
   _type: TxmlAttributeType; def: TxmlAttributeDefault; defaultValue: PxmlChar; tree: PxmlEnumeration): PxmlAttribute; cdecl; external libxml2;
 function xmlCopyAttributeTable(table: PxmlAttributeTable): PxmlAttributeTable; cdecl; external libxml2;
 procedure xmlFreeAttributeTable(table: PxmlAttributeTable); cdecl; external libxml2;
 procedure xmlDumpAttributeTable(buf: PxmlBuffer; table: PxmlAttributeTable); cdecl; external libxml2;
 procedure xmlDumpAttributeDecl(buf: PxmlBuffer; attr: PxmlAttribute); cdecl; external libxml2;
-function xmlAddID(ctxt: TxmlValidCtxtPtr; doc: PxmlDoc; Value: PxmlChar; attr: PxmlAttr): PxmlID; cdecl; external libxml2;
+function xmlAddID(ctxt: PxmlValidCtxt; doc: PxmlDoc; Value: PxmlChar; attr: PxmlAttr): PxmlID; cdecl; external libxml2;
 procedure xmlFreeIDTable(table: PxmlIDTable); cdecl; external libxml2;
 function xmlGetID(doc: PxmlDoc; ID: PxmlChar): PxmlAttr; cdecl; external libxml2;
 function xmlIsID(doc: PxmlDoc; elem: PxmlNode; attr: PxmlAttr): longint; cdecl; external libxml2;
 function xmlRemoveID(doc: PxmlDoc; attr: PxmlAttr): longint; cdecl; external libxml2;
-function xmlAddRef(ctxt: TxmlValidCtxtPtr; doc: PxmlDoc; Value: PxmlChar; attr: PxmlAttr): PxmlRef; cdecl; external libxml2;
+function xmlAddRef(ctxt: PxmlValidCtxt; doc: PxmlDoc; Value: PxmlChar; attr: PxmlAttr): PxmlRef; cdecl; external libxml2;
 procedure xmlFreeRefTable(table: PxmlRefTable); cdecl; external libxml2;
 function xmlIsRef(doc: PxmlDoc; elem: PxmlNode; attr: PxmlAttr): longint; cdecl; external libxml2;
 function xmlRemoveRef(doc: PxmlDoc; attr: PxmlAttr): longint; cdecl; external libxml2;
 function xmlGetRefs(doc: PxmlDoc; ID: PxmlChar): PxmlList; cdecl; external libxml2;
-function xmlNewValidCtxt: TxmlValidCtxtPtr; cdecl; external libxml2;
-procedure xmlFreeValidCtxt(para1: TxmlValidCtxtPtr); cdecl; external libxml2;
-function xmlValidateRoot(ctxt: TxmlValidCtxtPtr; doc: PxmlDoc): longint; cdecl; external libxml2;
-function xmlValidateElementDecl(ctxt: TxmlValidCtxtPtr; doc: PxmlDoc; elem: PxmlElement): longint; cdecl; external libxml2;
+function xmlNewValidCtxt: PxmlValidCtxt; cdecl; external libxml2;
+procedure xmlFreeValidCtxt(para1: PxmlValidCtxt); cdecl; external libxml2;
+function xmlValidateRoot(ctxt: PxmlValidCtxt; doc: PxmlDoc): longint; cdecl; external libxml2;
+function xmlValidateElementDecl(ctxt: PxmlValidCtxt; doc: PxmlDoc; elem: PxmlElement): longint; cdecl; external libxml2;
 function xmlValidNormalizeAttributeValue(doc: PxmlDoc; elem: PxmlNode; Name: PxmlChar; Value: PxmlChar): PxmlChar; cdecl; external libxml2;
-function xmlValidCtxtNormalizeAttributeValue(ctxt: TxmlValidCtxtPtr; doc: PxmlDoc; elem: PxmlNode; Name: PxmlChar; Value: PxmlChar): PxmlChar; cdecl; external libxml2;
-function xmlValidateAttributeDecl(ctxt: TxmlValidCtxtPtr; doc: PxmlDoc; attr: PxmlAttribute): longint; cdecl; external libxml2;
+function xmlValidCtxtNormalizeAttributeValue(ctxt: PxmlValidCtxt; doc: PxmlDoc; elem: PxmlNode; Name: PxmlChar; Value: PxmlChar): PxmlChar; cdecl; external libxml2;
+function xmlValidateAttributeDecl(ctxt: PxmlValidCtxt; doc: PxmlDoc; attr: PxmlAttribute): longint; cdecl; external libxml2;
 function xmlValidateAttributeValue(_type: TxmlAttributeType; Value: PxmlChar): longint; cdecl; external libxml2;
-function xmlValidateNotationDecl(ctxt: TxmlValidCtxtPtr; doc: PxmlDoc; nota: PxmlNotation): longint; cdecl; external libxml2;
-function xmlValidateDtd(ctxt: TxmlValidCtxtPtr; doc: PxmlDoc; dtd: PxmlDtd): longint; cdecl; external libxml2;
-function xmlValidateDtdFinal(ctxt: TxmlValidCtxtPtr; doc: PxmlDoc): longint; cdecl; external libxml2;
-function xmlValidateDocument(ctxt: TxmlValidCtxtPtr; doc: PxmlDoc): longint; cdecl; external libxml2;
-function xmlValidateElement(ctxt: TxmlValidCtxtPtr; doc: PxmlDoc; elem: PxmlNode): longint; cdecl; external libxml2;
-function xmlValidateOneElement(ctxt: TxmlValidCtxtPtr; doc: PxmlDoc; elem: PxmlNode): longint; cdecl; external libxml2;
-function xmlValidateOneAttribute(ctxt: TxmlValidCtxtPtr; doc: PxmlDoc; elem: PxmlNode; attr: PxmlAttr; Value: PxmlChar): longint; cdecl; external libxml2;
-function xmlValidateOneNamespace(ctxt: TxmlValidCtxtPtr; doc: PxmlDoc; elem: PxmlNode; prefix: PxmlChar; ns: PxmlNs;
+function xmlValidateNotationDecl(ctxt: PxmlValidCtxt; doc: PxmlDoc; nota: PxmlNotation): longint; cdecl; external libxml2;
+function xmlValidateDtd(ctxt: PxmlValidCtxt; doc: PxmlDoc; dtd: PxmlDtd): longint; cdecl; external libxml2;
+function xmlValidateDtdFinal(ctxt: PxmlValidCtxt; doc: PxmlDoc): longint; cdecl; external libxml2;
+function xmlValidateDocument(ctxt: PxmlValidCtxt; doc: PxmlDoc): longint; cdecl; external libxml2;
+function xmlValidateElement(ctxt: PxmlValidCtxt; doc: PxmlDoc; elem: PxmlNode): longint; cdecl; external libxml2;
+function xmlValidateOneElement(ctxt: PxmlValidCtxt; doc: PxmlDoc; elem: PxmlNode): longint; cdecl; external libxml2;
+function xmlValidateOneAttribute(ctxt: PxmlValidCtxt; doc: PxmlDoc; elem: PxmlNode; attr: PxmlAttr; Value: PxmlChar): longint; cdecl; external libxml2;
+function xmlValidateOneNamespace(ctxt: PxmlValidCtxt; doc: PxmlDoc; elem: PxmlNode; prefix: PxmlChar; ns: PxmlNs;
   Value: PxmlChar): longint; cdecl; external libxml2;
-function xmlValidateDocumentFinal(ctxt: TxmlValidCtxtPtr; doc: PxmlDoc): longint; cdecl; external libxml2;
-function xmlValidateNotationUse(ctxt: TxmlValidCtxtPtr; doc: PxmlDoc; notationName: PxmlChar): longint; cdecl; external libxml2;
+function xmlValidateDocumentFinal(ctxt: PxmlValidCtxt; doc: PxmlDoc): longint; cdecl; external libxml2;
+function xmlValidateNotationUse(ctxt: PxmlValidCtxt; doc: PxmlDoc; notationName: PxmlChar): longint; cdecl; external libxml2;
 function xmlIsMixedElement(doc: PxmlDoc; Name: PxmlChar): longint; cdecl; external libxml2;
 function xmlGetDtdAttrDesc(dtd: PxmlDtd; elem: PxmlChar; Name: PxmlChar): PxmlAttribute; cdecl; external libxml2;
 function xmlGetDtdQAttrDesc(dtd: PxmlDtd; elem: PxmlChar; Name: PxmlChar; prefix: PxmlChar): PxmlAttribute; cdecl; external libxml2;
@@ -124,10 +121,10 @@ function xmlValidateNameValue(Value: PxmlChar): longint; cdecl; external libxml2
 function xmlValidateNamesValue(Value: PxmlChar): longint; cdecl; external libxml2;
 function xmlValidateNmtokenValue(Value: PxmlChar): longint; cdecl; external libxml2;
 function xmlValidateNmtokensValue(Value: PxmlChar): longint; cdecl; external libxml2;
-function xmlValidBuildContentModel(ctxt: TxmlValidCtxtPtr; elem: PxmlElement): longint; cdecl; external libxml2;
-function xmlValidatePushElement(ctxt: TxmlValidCtxtPtr; doc: PxmlDoc; elem: PxmlNode; qname: PxmlChar): longint; cdecl; external libxml2;
-function xmlValidatePushCData(ctxt: TxmlValidCtxtPtr; Data: PxmlChar; len: longint): longint; cdecl; external libxml2;
-function xmlValidatePopElement(ctxt: TxmlValidCtxtPtr; doc: PxmlDoc; elem: PxmlNode; qname: PxmlChar): longint; cdecl; external libxml2;
+function xmlValidBuildContentModel(ctxt: PxmlValidCtxt; elem: PxmlElement): longint; cdecl; external libxml2;
+function xmlValidatePushElement(ctxt: PxmlValidCtxt; doc: PxmlDoc; elem: PxmlNode; qname: PxmlChar): longint; cdecl; external libxml2;
+function xmlValidatePushCData(ctxt: PxmlValidCtxt; Data: PxmlChar; len: longint): longint; cdecl; external libxml2;
+function xmlValidatePopElement(ctxt: PxmlValidCtxt; doc: PxmlDoc; elem: PxmlNode; qname: PxmlChar): longint; cdecl; external libxml2;
 
 // === Konventiert am: 26-2-25 19:14:16 ===
 

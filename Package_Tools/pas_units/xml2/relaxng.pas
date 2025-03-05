@@ -24,9 +24,6 @@ type
   end;
   PxmlRelaxNGParserCtxt = ^TxmlRelaxNGParserCtxt;
 
-  PxmlRelaxNGParserCtxtPtr = ^TxmlRelaxNGParserCtxtPtr;
-  TxmlRelaxNGParserCtxtPtr = PxmlRelaxNGParserCtxt;
-
   TxmlRelaxNGValidCtxt = record
   end;
   PxmlRelaxNGValidCtxt = ^TxmlRelaxNGValidCtxt;
@@ -88,15 +85,15 @@ const
 
 function xmlRelaxNGInitTypes: longint; cdecl; external libxml2;
 procedure xmlRelaxNGCleanupTypes; cdecl; external libxml2;
-function xmlRelaxNGNewParserCtxt(URL: pchar): TxmlRelaxNGParserCtxtPtr; cdecl; external libxml2;
-function xmlRelaxNGNewMemParserCtxt(buffer: pchar; size: longint): TxmlRelaxNGParserCtxtPtr; cdecl; external libxml2;
-function xmlRelaxNGNewDocParserCtxt(doc: PxmlDoc): TxmlRelaxNGParserCtxtPtr; cdecl; external libxml2;
-function xmlRelaxParserSetFlag(ctxt: TxmlRelaxNGParserCtxtPtr; flag: longint): longint; cdecl; external libxml2;
-procedure xmlRelaxNGFreeParserCtxt(ctxt: TxmlRelaxNGParserCtxtPtr); cdecl; external libxml2;
-procedure xmlRelaxNGSetParserErrors(ctxt: TxmlRelaxNGParserCtxtPtr; err: TxmlRelaxNGValidityErrorFunc; warn: TxmlRelaxNGValidityWarningFunc; ctx: pointer); cdecl; external libxml2;
-function xmlRelaxNGGetParserErrors(ctxt: TxmlRelaxNGParserCtxtPtr; err: PxmlRelaxNGValidityErrorFunc; warn: PxmlRelaxNGValidityWarningFunc; ctx: Ppointer): longint; cdecl; external libxml2;
-procedure xmlRelaxNGSetParserStructuredErrors(ctxt: TxmlRelaxNGParserCtxtPtr; serror: TxmlStructuredErrorFunc; ctx: pointer); cdecl; external libxml2;
-function xmlRelaxNGParse(ctxt: TxmlRelaxNGParserCtxtPtr): PxmlRelaxNG; cdecl; external libxml2;
+function xmlRelaxNGNewParserCtxt(URL: pchar): PxmlRelaxNGParserCtxt; cdecl; external libxml2;
+function xmlRelaxNGNewMemParserCtxt(buffer: pchar; size: longint): PxmlRelaxNGParserCtxt; cdecl; external libxml2;
+function xmlRelaxNGNewDocParserCtxt(doc: PxmlDoc): PxmlRelaxNGParserCtxt; cdecl; external libxml2;
+function xmlRelaxParserSetFlag(ctxt: PxmlRelaxNGParserCtxt; flag: longint): longint; cdecl; external libxml2;
+procedure xmlRelaxNGFreeParserCtxt(ctxt: PxmlRelaxNGParserCtxt); cdecl; external libxml2;
+procedure xmlRelaxNGSetParserErrors(ctxt: PxmlRelaxNGParserCtxt; err: TxmlRelaxNGValidityErrorFunc; warn: TxmlRelaxNGValidityWarningFunc; ctx: pointer); cdecl; external libxml2;
+function xmlRelaxNGGetParserErrors(ctxt: PxmlRelaxNGParserCtxt; err: PxmlRelaxNGValidityErrorFunc; warn: PxmlRelaxNGValidityWarningFunc; ctx: Ppointer): longint; cdecl; external libxml2;
+procedure xmlRelaxNGSetParserStructuredErrors(ctxt: PxmlRelaxNGParserCtxt; serror: TxmlStructuredErrorFunc; ctx: pointer); cdecl; external libxml2;
+function xmlRelaxNGParse(ctxt: PxmlRelaxNGParserCtxt): PxmlRelaxNG; cdecl; external libxml2;
 procedure xmlRelaxNGFree(schema: PxmlRelaxNG); cdecl; external libxml2;
 procedure xmlRelaxNGDump(output: PFILE; schema: PxmlRelaxNG); cdecl; external libxml2;
 procedure xmlRelaxNGDumpTree(output: PFILE; schema: PxmlRelaxNG); cdecl; external libxml2;
