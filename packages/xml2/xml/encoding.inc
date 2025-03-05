@@ -41,9 +41,9 @@ type
   Tuconv_t = record
     uconv: PUConverter;
     utf8: PUConverter;
-    pivot_buf: array[0..(ICU_PIVOT_BUF_SIZE) - 1] of TUChar;
-    pivot_source: PUChar;
-    pivot_target: PUChar;
+    pivot_buf: array[0..(ICU_PIVOT_BUF_SIZE) - 1] of cuchar;
+    pivot_source: pcuchar;
+    pivot_target: pcuchar;
   end;
   Puconv_t = ^Tuconv_t;
 

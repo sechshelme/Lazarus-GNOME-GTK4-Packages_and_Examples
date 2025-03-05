@@ -609,6 +609,16 @@ type
   end;
   Pgr_font = ^Tgr_font;
 
+  // /usr/include/unicode/ucnv_err.h
+type
+  TUConverter = record
+  end;
+  PUConverter = ^TUConverter;
+
+  // /usr/include/iconv.h
+  Ticonv_t = Pointer;
+  Piconv_t = ^Ticonv_t;
+
   // ==== cuda
 type
   TCUresult = longint; // enum

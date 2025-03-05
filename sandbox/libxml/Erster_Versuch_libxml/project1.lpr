@@ -1,68 +1,61 @@
 program project1;
 
 uses
+  Strings,
+  fp_glib2,
   fp_xml2;
 
-  //Strings,
-  //xmlversion,         // io.
-  //xmlstring,          // io.
-  //list,               // io.
-  //dict,               // io. -> xmlstring
-  //hash,               // io. -> xmlstring, dict
-  //tree,               // -> xmlstring, dict     ( Pointer wegen unit circular in: xmlIO, parser)
-  //entities,           // io. -> xmlstring, tree
-  //encoding,           // io. -> tree
-  //xmlIO,              // io. -> xmlstring, encoding, tree
-  //xmlerror,           // io. -> tree
-  //xmlregexp,          // io. -> xmlstring, dict, tree
-  //valid,              // io. -> tree, list, xmlstring, xmlautomata
-  //parser,             // io. -> xmlstring, tree, valid, dict, hash, xmlerror, encoding, xmlIO, entities
-  //xpath,              // io. -> xmlstring, xmlerror, tree, hash, dict
-  //xmlautomata,        // io. -> xmlstring, xmlregexp
-  //chvalid,            // io.
-  //xmlmemory,          // io.
-  //globals,            // io. -> tree, encoding, parser, xmlerror, xmlmemory, xmlIO
-  //xmlwriter,          // io. -> xmlstring, tree, xmlIO, parser
-  //HTMLparser,         // io. -> xmlstring, xmlIO, tree, parser, encoding
-  //parserInternals,    // io. -> xmlstring, tree, encoding, HTMLparser, chvalid, entities, parser
-  //schemasInternals,   // io. -> xmlstring, xmlregexp, tree, hash, dict
-  //xpathInternals,     // io. -> xmlstring, xpath, tree
-  //xmlschemas,         // io. -> xmlerror, tree, encoding, schemasInternals, xmlIO, parser
-  //relaxng,            // io. -> xmlstring, xmlerror, tree
-  //xmlreader,          // io. -> xmlstring, xmlschemas, xmlIO, xmlerror, tree, relaxng, schemasInternals
-  //xlink,              // io. -> xmlstring, tree
-  //xmlunicode,         // io.
-  //catalog,            // io. -> xmlstring, tree
-  //debugXML,           // io. -> xmlstring, tree, xpath
-  //SAX,                // io. -> xmlstring, tree, parser, entities
-  //SAX2,               // io. -> xmlstring, tree, parser, entities
-  //nanoftp,            // io.
-  //schematron,         // io. -> xmlerror, tree
-  //xmlschemastypes,    // io. -> xmlstring, xmlschemas, tree, schemasInternals
-  //c14n,               // io. -> xmlstring, tree, xpath, xmlIO
-  //DOCBparser,         // io. -> xmlstring, encoding, tree, parser
-  //HTMLtree,           // io. -> xmlstring, tree, HTMLparser, xmlIO
-  //xpointer,           // io. -> xmlstring, xpath, tree
-  //pattern,            // io. -> xmlstring, dict, tree
-  //uri,                // io. -> xmlstring
-  //xinclude,           // io. -> xmlstring, tree
-  //xmlsave,            // io. -> xmlIO, tree, encoding
-  //nanohttp,           // io.
-  //threads,            // io. -> globals
-  //xmlmodule;          // io.
+  //
+  //  {$IFDEF Linux}
+  ////  libc = 'libc';
+  //    function strtok(str: pchar; delim: pchar): pchar; external libc;
+  //    function strtok_r(s: pchar; delim: pchar; saveptr: PPChar): pchar; cdecl; external libc;
+  //  {$ENDIF}
+  //
+  //  {$IFDEF Windows}
+  ////  libc = 'msvcrt.dll';
+  //  function strtok_r(s: pchar; delim: pchar; saveptr: PPChar): pchar; cdecl; external libc name 'strtok_s';
+  //  {$ENDIF}
 
+  function strtok_r(s: pchar; const delim: pchar; save_ptr: PPChar): pchar;
+  var
+    token_end: pchar;
+  begin
+    if s = nil then begin
+      s := save_ptr^;
+    end;
 
-const
-  {$IFDEF Linux}
-  libc = 'libc';
-    function strtok(str: pchar; delim: pchar): pchar; external libc;
-    function strtok_r(s: pchar; delim: pchar; saveptr: PPChar): pchar; cdecl; external libc;
-  {$ENDIF}
+    if s^ = #0 then begin
+      save_ptr^ := s;
+      Result := nil;
+      Exit;
+    end;
 
-  {$IFDEF Windows}
-  libc = 'msvcrt.dll';
-  function strtok_r(s: pchar; delim: pchar; saveptr: PPChar): pchar; cdecl; external libc name 'strtok_s';
-  {$ENDIF}
+    while (s^ <> #0) and (StrScan(delim, s^) <> nil) do begin
+      Inc(s);
+    end;
+
+    if s^ = #0 then begin
+      save_ptr^ := s;
+      Result := nil;
+      Exit;
+    end;
+
+    token_end := s;
+    while (token_end^ <> #0) and (StrScan(delim, token_end^) = nil) do begin
+      Inc(token_end);
+    end;
+
+    if token_end^ = #0 then begin
+      save_ptr^ := token_end;
+      Result := s;
+      Exit;
+    end;
+
+    token_end^ := #0;
+    save_ptr^ := token_end + 1;
+    Result := s;
+  end;
 
 
   // ==============================
@@ -176,46 +169,31 @@ const
     xmlXPathFreeContext(context);
   end;
 
+procedure printKey(doc: PxmlDoc; key, attr:PChar);
+var
+  val: PChar;
+begin
+  val := readKey(doc, key, attr);
+  WriteLn(key,':  ', val);
+  xmlFree(val);
+  end;
+
   procedure ReadXML(path: pchar);
   var
     doc: PxmlDoc;
-    val: pchar;
   begin
     doc := xmlReadFile(path, nil, XML_PARSE_NOBLANKS);
 
-    val := readKey(doc, 'window/frame', 'width');
-    WriteLn('width: ', val);
-    xmlFree(val);
+    printKey(doc, 'window/frame', 'width');
+    printKey(doc, 'window/frame', 'height');
+    printKey(doc, 'window/button/font', 'size');
 
-    val := readKey(doc, 'window/frame', 'height');
-    WriteLn('height: ', val);
-    xmlFree(val);
+    xmlFreeDoc(doc);
   end;
-
-  {$IFDEF Linux}
-  {$IF defined(CPUX86) or defined(CPUX64)}
-  procedure SetMXCSR;
-  var
-    w2: word = 8064;
-  begin
-    asm
-                 Ldmxcsr w2
-    end;
-  end;
-  {$ENDIF}
-  {$ENDIF}
 
 begin
-  {$IFDEF Linux}
-  {$IF defined(CPUX86) or defined(CPUX64)}
-//    SetMXCSR;
-  {$ENDIF}
-  {$ENDIF}
-//     SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide, exOverflow, exUnderflow, exPrecision]);
   CreateXML('config2.xml');
   AppenXML('config2.xml');
-
-  WriteLn('---------------------------------');
 
   ReadXML('config2.xml');
 end.

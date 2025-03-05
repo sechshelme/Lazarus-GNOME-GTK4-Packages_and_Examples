@@ -1,6 +1,5 @@
 
 
-{$include xml/xml2_common.inc}         // io.
 {$include xml/xmlversion.inc}         // io.
 {$include xml/xmlstring.inc}          // io.
 {$include xml/list.inc}               // io.
