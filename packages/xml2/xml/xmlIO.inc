@@ -1,13 +1,4 @@
-unit xmlIO;
-
-interface
-
-uses
-  ctypes, xml2_common, xmlstring, encoding, tree;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 type
   TxmlInputMatchCallback = function(filename: pchar): longint; cdecl;
@@ -111,8 +102,11 @@ function xmlIOFTPClose(context: pointer): longint; cdecl; external libxml2;
 // === Konventiert am: 26-2-25 16:50:56 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

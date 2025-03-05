@@ -33,7 +33,7 @@ implementation
 
 const
   srcPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/pas_units';
-  destPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/apackages';
+  destPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/packagesxx';
 
 procedure TForm1.Button1Click(Sender: TObject);
 var

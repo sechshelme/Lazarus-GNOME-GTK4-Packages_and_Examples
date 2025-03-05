@@ -1,23 +1,5 @@
-unit xml2_common;
+{$IFDEF read_interface}
 
-interface
-
-uses
-  ctypes;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
-
-
-const
-  {$IFDEF Linux}
-  libxml2 = 'libxml2';
-  {$ENDIF}
-
-  {$IFDEF Windows}
-  libxml2 = 'libxml2.dll'; // ????
-  {$ENDIF}
 
 type
   // system
@@ -25,7 +7,7 @@ type
   Pva_list = ^Tva_list;
 
   Tsize_t = SizeInt;
-  PFILE = Pointer;
+//  PFILE = Pointer;
 
   // /usr/include/unicode/ucnv_err.h
   TUConverter = record
@@ -41,6 +23,9 @@ type
   Piconv_t = ^Ticonv_t;
 
 
-implementation
+{$ENDIF read_interface}
 
-end.
+
+{$IFDEF read_implementation}
+
+{$ENDIF read_implementation}

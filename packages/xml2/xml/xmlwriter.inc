@@ -1,13 +1,4 @@
-unit xmlwriter;
-
-interface
-
-uses
-  ctypes, xml2_common, xmlstring, tree, xmlIO, parser;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 type
   TxmlTextWriter = record
@@ -107,8 +98,11 @@ function xmlTextWriterFlush(writer: PxmlTextWriter): longint; cdecl; external li
 // === Konventiert am: 2-3-25 17:35:25 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

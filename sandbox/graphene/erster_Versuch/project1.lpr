@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  fp_glib2,
   fp_graphene,
   ctypes;
 

@@ -1,13 +1,4 @@
-unit xmlerror;
-
-interface
-
-uses
-  ctypes, xml2_common, tree;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 type
   PxmlErrorLevel = ^TxmlErrorLevel;
@@ -845,8 +836,11 @@ procedure __xmlSimpleError(domain: longint; code: longint; node: PxmlNode; msg: 
 // === Konventiert am: 26-2-25 20:02:49 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

@@ -1,13 +1,4 @@
-unit tree;
-
-interface
-
-uses
-  ctypes, xml2_common, xmlstring, dict;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 const
   BASE_BUFFER_SIZE = 4096;
@@ -522,7 +513,10 @@ function XML_GET_LINE(n: PxmlNode): longint;
 // === Konventiert am: 26-2-25 16:28:21 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function XML_GET_CONTENT(n: PxmlNode): PxmlChar;
 begin
@@ -539,4 +533,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

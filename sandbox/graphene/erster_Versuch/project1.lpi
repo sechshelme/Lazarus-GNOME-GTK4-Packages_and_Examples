@@ -28,12 +28,6 @@
         <PackageName Value="fp_graphene_package"/>
       </Item>
       <Item>
-        <PackageName Value="fp_pango_package"/>
-      </Item>
-      <Item>
-        <PackageName Value="fp_GTK4_package"/>
-      </Item>
-      <Item>
         <PackageName Value="fp_GLIB2_package"/>
       </Item>
     </RequiredPackages>

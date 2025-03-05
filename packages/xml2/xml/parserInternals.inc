@@ -1,13 +1,4 @@
-unit parserInternals;
-
-interface
-
-uses
-  ctypes, xml2_common, xmlstring, tree, encoding, HTMLparser, chvalid, entities, parser;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 var
   xmlParserMaxDepth: dword; cvar;external libxml2;
@@ -155,7 +146,10 @@ function IS_PUBIDCHAR_CH(c: LongInt): boolean;
 
 // === Konventiert am: 2-3-25 19:06:28 ===
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 function IS_BYTE_CHAR(c: LongInt): boolean;
@@ -254,4 +248,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

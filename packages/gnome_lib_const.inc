@@ -10,7 +10,17 @@ const
   libc = 'msvcrt.dll';
   {$ENDIF}
 
-  // Freetype2
+  // ==== libXML2
+const
+  {$IFDEF Linux}
+  libxml2 = 'libxml2';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libxml2 = 'libxml2.dll';
+  {$ENDIF}
+
+  // ==== Freetype2
 const
   {$IFDEF Linux}
   freetype_lib = 'libfreetype';
