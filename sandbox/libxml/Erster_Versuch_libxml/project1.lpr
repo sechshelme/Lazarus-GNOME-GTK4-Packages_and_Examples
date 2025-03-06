@@ -107,7 +107,7 @@ uses
     xmlDocSetRootElement(doc, root_node);
 
     writeNewKey(doc, 'window/frame', 'border', '4');
-    writeNewKey(doc, 'window/button/label', 'text', 'hello äöü');
+    writeNewKey(doc, 'window/button/label', 'text', 'hello World äöü ÿ Ÿ');
     writeNewKey(doc, 'window/frame', 'width', '800');
     writeNewKey(doc, 'window/frame', 'height', '600');
     writeNewKey(doc, 'window/button', 'color', 'blue');
@@ -115,12 +115,12 @@ uses
     writeNewKey(doc, 'window/button/font', 'size', '16');
     writeNewKey(doc, 'window/blu/blu/button/font', 'size', '16');
 
-    xmlSaveFormatFileEnc(path, doc, 'UTF-8', 1);
+    xmlSaveFormatFile(path, doc, 1);
     xmlFreeDoc(doc);
   end;
 
 
-  procedure AppenXML(path: pchar);
+  procedure AppendXML(path: pchar);
   var
     doc: PxmlDoc;
   begin
@@ -129,7 +129,7 @@ uses
     writeNewKey(doc, 'window/frame', 'background', 'white');
     writeNewKey(doc, 'window/frame', 'foreground', 'black');
 
-    xmlSaveFormatFileEnc(path, doc, 'UTF-8', 1);
+    xmlSaveFormatFile(path, doc, 1);
     xmlFreeDoc(doc);
   end;
 
@@ -175,18 +175,19 @@ uses
   var
     doc: PxmlDoc;
   begin
-    doc := xmlReadFile(path, nil, XML_PARSE_NOBLANKS);
+    doc := xmlReadFile(path, nil, XML_PARSE_NOBLANKS or XML_PARSE_COMPACT);
 
     printKey(doc, 'window/frame', 'width');
     printKey(doc, 'window/frame', 'height');
     printKey(doc, 'window/button/font', 'size');
+    printKey(doc, 'window/button/label', 'text');
 
     xmlFreeDoc(doc);
   end;
 
 begin
   CreateXML('config2.xml');
-  AppenXML('config2.xml');
+  AppendXML('config2.xml');
 
   ReadXML('config2.xml');
 end.
