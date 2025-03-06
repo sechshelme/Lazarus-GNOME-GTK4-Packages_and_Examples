@@ -1,83 +1,78 @@
 program project1;
 
 uses
+  SysUtils,
   Strings,
   fp_glib2,
   fp_xml2;
 
-  //
-  //  {$IFDEF Linux}
-  ////  libc = 'libc';
-  //    function strtok(str: pchar; delim: pchar): pchar; external libc;
-  //    function strtok_r(s: pchar; delim: pchar; saveptr: PPChar): pchar; cdecl; external libc;
-  //  {$ENDIF}
-  //
-  //  {$IFDEF Windows}
-  ////  libc = 'msvcrt.dll';
-  //  function strtok_r(s: pchar; delim: pchar; saveptr: PPChar): pchar; cdecl; external libc name 'strtok_s';
-  //  {$ENDIF}
 
-  function strtok_r(s: pchar; const delim: pchar; save_ptr: PPChar): pchar;
-  var
-    token_end: pchar;
-  begin
-    if s = nil then begin
-      s := save_ptr^;
-    end;
+  {$IFDEF Linux}
+  function strtok(str: pchar; delim: pchar): pchar; external libc;
+  function strtok_r(s: pchar; delim: pchar; saveptr: PPChar): pchar; cdecl; external libc;
+  {$ENDIF}
 
-    if s^ = #0 then begin
-      save_ptr^ := s;
-      Result := nil;
-      Exit;
-    end;
+  {$IFDEF Windows}
+  function strtok_r(s: pchar; delim: pchar; saveptr: PPChar): pchar; cdecl; external libc name 'strtok_s';
+  {$ENDIF}
 
-    while (s^ <> #0) and (StrScan(delim, s^) <> nil) do begin
-      Inc(s);
-    end;
-
-    if s^ = #0 then begin
-      save_ptr^ := s;
-      Result := nil;
-      Exit;
-    end;
-
-    token_end := s;
-    while (token_end^ <> #0) and (StrScan(delim, token_end^) = nil) do begin
-      Inc(token_end);
-    end;
-
-    if token_end^ = #0 then begin
-      save_ptr^ := token_end;
-      Result := s;
-      Exit;
-    end;
-
-    token_end^ := #0;
-    save_ptr^ := token_end + 1;
-    Result := s;
-  end;
 
 
   // ==============================
 
-  function createXPathNode(parent: PxmlNode; path: pchar): PxmlNode;
+  //function createXPathNode(parent: PxmlNode; path: pchar): PxmlNode;
+  //var
+  //  currentNode: PxmlNode;
+  //  child, newNode: PxmlNode;
+  //  saveptr, token: pchar;
+  //  pathCopy: PxmlChar;
+  //begin
+  //  pathCopy := xmlStrdup(path);
+  //  token := strtok_r(pathCopy, '/', @saveptr);
+  //
+  //  currentNode := parent;
+  //
+  //  while token <> nil do begin
+  //    child := xmlFirstElementChild(currentNode);
+  //    newNode := nil;
+  //
+  //    while child <> nil do begin
+  //      if xmlStrcmp(child^.Name, token) = 0 then begin
+  //        newNode := child;
+  //        Break;
+  //      end;
+  //      child := xmlNextElementSibling(child);
+  //    end;
+  //
+  //    if newNode = nil then begin
+  //      newNode := xmlNewChild(currentNode, nil, token, nil);
+  //    end;
+  //
+  //    currentNode := newNode;
+  //    token := strtok_r(nil, '/', @saveptr);
+  //  end;
+  //
+  //  xmlFree(pathCopy);
+  //  Result := currentNode;
+  //end;
+
+  function createXPathNode(parent: PxmlNode; const path: string): PxmlNode;
   var
     currentNode: PxmlNode;
     child, newNode: PxmlNode;
-    saveptr, token: pchar;
-    pathCopy: PxmlChar;
+    splitPath: TAnsiStringArray;
+    i: integer;
   begin
-    pathCopy := xmlStrdup(path);
-    token := strtok_r(pathCopy, '/', @saveptr);
+    splitPath := path.Split('/');
 
     currentNode := parent;
 
-    while token <> nil do begin
+    for i := 0 to Length(splitPath) - 1 do begin
       child := xmlFirstElementChild(currentNode);
       newNode := nil;
 
       while child <> nil do begin
-        if xmlStrcmp(child^.Name, token) = 0 then begin
+        if xmlStrcmp(child^.Name, PChar(splitPath[i])) = 0 then begin
           newNode := child;
           Break;
         end;
@@ -85,14 +80,12 @@ uses
       end;
 
       if newNode = nil then begin
-        newNode := xmlNewChild(currentNode, nil, token, nil);
+        newNode := xmlNewChild(currentNode, nil, PxmlChar(splitPath[i]), nil);
       end;
 
       currentNode := newNode;
-      token := strtok_r(nil, '/', @saveptr);
     end;
 
-    xmlFree(pathCopy);
     Result := currentNode;
   end;
 
@@ -169,13 +162,13 @@ uses
     xmlXPathFreeContext(context);
   end;
 
-procedure printKey(doc: PxmlDoc; key, attr:PChar);
-var
-  val: PChar;
-begin
-  val := readKey(doc, key, attr);
-  WriteLn(key,':  ', val);
-  xmlFree(val);
+  procedure printKey(doc: PxmlDoc; key, attr: pchar);
+  var
+    val: pchar;
+  begin
+    val := readKey(doc, key, attr);
+    WriteLn(key, ':  ', val);
+    xmlFree(val);
   end;
 
   procedure ReadXML(path: pchar);
