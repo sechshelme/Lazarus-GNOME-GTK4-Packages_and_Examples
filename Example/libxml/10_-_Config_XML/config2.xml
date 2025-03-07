@@ -1,6 +1,18 @@
 <?xml version="1.0"?>
 <config>
   <window>
+    <memo>
+      <items count="8">
+        <item0 value="Birnen"/>
+        <item1 value="&#xC4;epfel"/>
+        <item2 value="Kirschen"/>
+        <item3 value="Quitten"/>
+        <item4 value="Plaumen"/>
+        <item5 value="Zwetschgen"/>
+        <item6 value="Holunder"/>
+        <item7 value="Erdbeeren"/>
+      </items>
+    </memo>
     <frame border="4" width="800" height="600" background="white" foreground="black"/>
     <button color="blue" font="monospace">
       <label text="hello World &#xE4;&#xF6;&#xFC; &#xFF; &#x178;"/>

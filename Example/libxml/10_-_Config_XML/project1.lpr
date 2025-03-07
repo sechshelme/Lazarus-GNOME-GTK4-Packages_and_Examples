@@ -38,31 +38,54 @@ uses
     xmlSetProp(currentNode, attrName, attrValue);
   end;
 
-  function readKey(doc: PxmlDoc; xpath, attrName: pchar): pchar;
+function readKey(doc: PxmlDoc; xpath, attrName: pchar): pchar;
+var
+  context: PxmlXPathContext;
+  res: PxmlXPathObject;
+  node, root: PxmlNode;
+begin
+  if xpath = nil then begin
+    Exit(xmlStrdup('(path=nil)'));
+  end;
+
+  context := xmlXPathNewContext(doc);
+
+  root := xmlDocGetRootElement(doc);
+  xmlXPathSetContextNode(root, context);
+
+  res := xmlXPathEvalExpression(xpath, context);
+  if xmlXPathNodeSetIsEmpty(res^.nodesetval) then begin
+    Exit(xmlStrdup('(path error)'));
+  end;
+
+  node := res^.nodesetval^.nodeTab[0];
+  Result := xmlGetProp(node, attrName);
+
+  xmlXPathFreeObject(res);
+  xmlXPathFreeContext(context);
+end;
+
+  procedure writeStringArr(doc: PxmlDoc; const key: string; sa: TStringArray);
   var
-    context: PxmlXPathContext;
-    res: PxmlXPathObject;
-    node, root: PxmlNode;
+    len: SizeInt;
+    i: integer;
   begin
-    if xpath = nil then begin
-      Exit(xmlStrdup('(path=nil)'));
+    len := Length(sa);
+    writeNewKey(doc, key+'/items', 'count',PxmlChar( IntToStr( len)));
+    for i := 0 to len - 1 do begin
+      writeNewKey(doc, key + '/items/' +'item'+ IntToStr(i),'value',PxmlChar( sa[i] ));
     end;
+  end;
 
-    context := xmlXPathNewContext(doc);
-
-    root := xmlDocGetRootElement(doc);
-    xmlXPathSetContextNode(root, context);
-
-    res := xmlXPathEvalExpression(xpath, context);
-    if xmlXPathNodeSetIsEmpty(res^.nodesetval) then begin
-      Exit(xmlStrdup('(path error)'));
-    end;
-
-    node := res^.nodesetval^.nodeTab[0];
-    Result := xmlGetProp(node, attrName);
-
-    xmlXPathFreeObject(res);
-    xmlXPathFreeContext(context);
+function readStringArr(doc: PxmlDoc; const key: string) : TStringArray;
+var
+  len: LongInt;
+  i: Integer;
+begin
+  Result:=nil;
+  len:=StrToInt( readKey(doc,PxmlChar( key+'/items'), 'count'));
+  SetLength(Result, len);
+  for i:=0 to len-1 do Result[i]:=readKey(doc,PxmlChar( key + '/items/' +'item'+ IntToStr(i)),'value');
   end;
 
   // ===================
@@ -71,10 +94,15 @@ uses
   var
     doc: PxmlDoc;
     root_node: PxmlNode;
+
+  const
+    fruits: TStringArray = ('Birnen', 'Äepfel', 'Kirschen', 'Quitten', 'Plaumen', 'Zwetschgen', 'Holunder', 'Erdbeeren');
   begin
     doc := xmlNewDoc(nil);
     root_node := xmlNewNode(nil, 'config');
     xmlDocSetRootElement(doc, root_node);
+
+    writeStringArr(doc, 'window/memo', fruits);
 
     writeNewKey(doc, 'window/frame', 'border', '4');
     writeNewKey(doc, 'window/button/label', 'text', 'hello World äöü ÿ Ÿ');
@@ -117,6 +145,9 @@ uses
   procedure ReadXML(path: pchar);
   var
     doc: PxmlDoc;
+    sa: TStringArray;
+    len: SizeInt;
+    i: Integer;
   begin
     doc := xmlReadFile(path, nil, XML_PARSE_NOBLANKS or XML_PARSE_COMPACT);
 
@@ -124,6 +155,11 @@ uses
     printKey(doc, 'window/frame', 'height');
     printKey(doc, 'window/button/font', 'size');
     printKey(doc, 'window/button/label', 'text');
+
+    sa:=readStringArr(doc,'window/memo');
+    len:=Length(sa);
+    WriteLn('count: ', len);
+    for i:=0 to len-1 do WriteLn(i:3,'. ', sa[i]);
 
     xmlFreeDoc(doc);
   end;
