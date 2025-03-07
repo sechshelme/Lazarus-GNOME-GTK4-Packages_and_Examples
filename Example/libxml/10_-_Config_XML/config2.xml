@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config>
+  <window>
+    <frame border="4" width="800" height="600" background="white" foreground="black"/>
+    <button color="blue" font="monospace">
+      <label text="hello World &#xE4;&#xF6;&#xFC; &#xFF; &#x178;"/>
+      <font size="16"/>
+    </button>
+    <blu>
+      <blu>
+        <button>
+          <font size="16"/>
+        </button>
+      </blu>
+    </blu>
+  </window>
+</config>
