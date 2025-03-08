@@ -57,8 +57,8 @@ begin
   fileMenu := g_menu_new;
   g_menu_append(fileMenu, '_Neu', 'app.new');
 
-  g_menu_append(fileMenu, '_oeffnen', 'app.open');
-  g_menu_append(fileMenu, '_speichern', 'app.save');
+  g_menu_append(fileMenu, '_oeffnen', 'app.listbox.open');
+  g_menu_append(fileMenu, '_speichern', 'app.listbox.save');
   g_menu_append(fileMenu, '-', nil);
 
   quit_item := g_menu_item_new('Beenden...', 'app.quit');

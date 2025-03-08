@@ -4,7 +4,7 @@ interface
 
 uses
   fp_glib2, fp_pango, fp_GTK4, fp_gst,
-  LoadTitle, Streamer;
+  LoadTitle, Streamer, XML_Tools;
 
 var
   SekStream: PStreamer = nil;
@@ -119,7 +119,7 @@ begin
             song := g_object_get_data(item_obj, songObjectKey);
             gtk_adjustment_set_upper(adjustment, 0);
             gtk_adjustment_set_value(adjustment, 0);
-            PriStream.Create(song^.Titel, sharedWidget^.VUMeter);
+            PriStream.Create(song^.FullPath, sharedWidget^.VUMeter);
             g_object_unref(item_obj);
             gtk_selection_model_select_item(selection_model, index2, True);
           end;
@@ -179,10 +179,13 @@ begin
   end;
 
   case action_name of
+    'listbox.save': begin
+        XMLNewTest;
+    end;
     'listbox.play': begin
       if PriStream = nil then begin
         if Count > 0 then begin
-          PriStream.Create(song^.Titel, sharedWidget^.VUMeter);
+          PriStream.Create(song^.FullPath, sharedWidget^.VUMeter);
         end;
       end else begin
         PriStream.Play;
@@ -239,7 +242,7 @@ begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
             PriStream.Destroy;
-            PriStream.Create(song^.Titel, sharedWidget^.VUMeter);
+            PriStream.Create(song^.FullPath, sharedWidget^.VUMeter);
             g_object_unref(item_obj2);
           end;
         end;
@@ -261,7 +264,7 @@ begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
             PriStream.Destroy;
-            PriStream.Create(song^.Titel, sharedWidget^.VUMeter);
+            PriStream.Create(song^.FullPath, sharedWidget^.VUMeter);
             g_object_unref(item_obj2);
           end;
         end;
@@ -324,7 +327,7 @@ begin
       buffer := g_strdup_printf('%d', song^.Index);
     end;
     1: begin
-      buffer := g_strdup_printf('%s', song^.Titel);
+      buffer := g_strdup_printf('%s', song^.FullPath);
     end;
     2: begin
       buffer := g_strdup_printf('%s', PChar(GstClockToStr(song^.Duration)));
@@ -389,6 +392,8 @@ end;
 function Create_ListBoxWidget: PGtkWidget;
 const
   entries: array of Pgchar = (
+  'listbox.save',
+  'listbox.open',
     'listbox.play',
     'listbox.stop',
     'listbox.pause',

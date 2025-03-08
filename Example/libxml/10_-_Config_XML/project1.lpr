@@ -149,8 +149,6 @@ uses
     xmlFreeDoc(doc);
   end;
 
-  // ==========
-
   procedure printKey(doc: PxmlDoc; key, attr: pchar);
   var
     val: pchar;

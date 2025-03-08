@@ -25,10 +25,10 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_gstreamer_package"/>
+        <PackageName Value="fp_xml2_package"/>
       </Item>
       <Item>
-        <PackageName Value="fp_GLIB2_package"/>
+        <PackageName Value="fp_gstreamer_package"/>
       </Item>
       <Item>
         <PackageName Value="fp_GTK4_package"/>
@@ -48,6 +48,11 @@
         <Filename Value="menubar.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="MenuBar"/>
+      </Unit>
+      <Unit>
+        <Filename Value="xml_tools.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="XML_Tools"/>
       </Unit>
     </Units>
   </ProjectOptions>

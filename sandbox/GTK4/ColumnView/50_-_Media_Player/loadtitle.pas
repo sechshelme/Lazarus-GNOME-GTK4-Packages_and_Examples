@@ -14,7 +14,7 @@ uses
 type
   TSong = record
     Index: Tgint;
-    Titel: Pgchar;
+    FullPath: Pgchar;
     Duration: Tgint64;
   end;
   PSong = ^TSong;
@@ -38,8 +38,8 @@ procedure item_object_free_cp(Data: Tgpointer); cdecl;
 var
   obj: PSong absolute Data;
 begin
-  WriteLn(obj^.Titel, '  (freed)');
-  g_free(obj^.Titel);
+  WriteLn(obj^.FullPath, '  (freed)');
+  g_free(obj^.FullPath);
   g_free(obj);
 end;
 
@@ -140,7 +140,7 @@ begin
       song := g_malloc(SizeOf(TSong));
       song^.Index := index;
       fullPath:=     g_strdup(PChar(dirStruct^.path + '/' + entryName));
-      song^.Titel :=fullPath;
+      song^.FullPath :=fullPath;
       song^.Duration := get_duration(fullPath);
       Inc(index);
 
