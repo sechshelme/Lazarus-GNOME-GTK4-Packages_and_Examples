@@ -180,7 +180,7 @@ begin
 
   case action_name of
     'listbox.save': begin
-        XMLNewTest;
+        XMLNewTest(G_LIST_STORE(list_model));
     end;
     'listbox.play': begin
       if PriStream = nil then begin

@@ -5,67 +5,134 @@ unit XML_Tools;
 interface
 
 uses
-fp_glib2,
-fp_xml2;
+  fp_glib2,
+  fp_xml2,
+  LoadTitle;
 
 type
-PXMLConfig = type PGObject;
+  PXMLConfig = type PGObject;
 
 
-function XML_Config_new(path:Pgchar):PXMLConfig;
-procedure XML_Config_save(XMLConfig:PXMLConfig);
-procedure XML_Config_unref(XMLConfig:PXMLConfig);
+function XML_Config_new(path: Pgchar): PXMLConfig;
+procedure XML_Config_Save_Songs(XMLConfig: PXMLConfig; list: PGListStore);
+procedure XML_Config_unref(XMLConfig: PXMLConfig);
 
 procedure writeKey(doc: PxmlDoc; xpath: Pgchar; attrName, attrValue: PxmlChar);
 function readKey(doc: PxmlDoc; xpath, attrName: pchar): pchar;
 procedure writeStringArr(doc: PxmlDoc; const key: Pgchar; sa: PPgchar);
 function readStringArr(doc: PxmlDoc; const key: Pgchar): PPgchar;
 
-procedure XMLNewTest;
+procedure XMLNewTest(list: PGListStore);
 
 
 implementation
 
+type
+  TXMLData = record
+    doc: PxmlDoc;
+    path: Pgchar;
+  end;
+  PXMLData = ^TXMLData;
 
-procedure XMLNewTest;
+
+procedure XMLNewTest(list: PGListStore);
 var
   xml: PXMLConfig;
 begin
   WriteLn('XML Test');
-  xml:=XML_Config_new('test.xml');
-  XML_Config_save(xml);
+  xml := XML_Config_new('test.xml');
+  XML_Config_Save_Songs(xml, list);
   XML_Config_unref(xml);
 end;
 
 
-
-
-
 const
-  XML_Key='xml-key';
+  XML_Key = 'xmldata-key';
 
 procedure free_cp(Data: Tgpointer); cdecl;
+var
+  XMLData: PXMLData absolute Data;
 begin
-//  g_free(Data);
+  g_free(XMLData^.path);
+  g_free(XMLData);
 end;
 
 function XML_Config_new(path: Pgchar): PXMLConfig;
+var
+  XMLData: PXMLData;
+  root_node: PxmlNode;
 begin
-  Result:=g_object_new(G_TYPE_OBJECT, nil);
-  g_object_set_data_full(Result,XML_Key,path,@free_cp);
+  XMLData := g_malloc(SizeOf(TXMLData));
+  XMLData^.path := g_strdup(path);
+  XMLData^.doc := xmlNewDoc(nil);
+  root_node := xmlNewNode(nil, 'config');
+  xmlDocSetRootElement(XMLData^.doc, root_node);
+
+  Result := g_object_new(G_TYPE_OBJECT, nil);
+  g_object_set_data_full(Result, XML_Key, XMLData, @free_cp);
 end;
 
-procedure XML_Config_save(XMLConfig: PXMLConfig);
+
+//procedure writeStringArr(doc: PxmlDoc; const key: Pgchar; sa: PPgchar);
+//var
+//  i: integer;
+//  buf1: array[0..255] of Tgchar;
+//  buf2: array[0..15] of Tgchar;
+//begin
+//  i := 0;
+//  while sa[i] <> nil do begin
+//    g_snprintf(buf1, SizeOf(buf1), '%s/items/item%d', key, i);
+//    writeKey(doc, buf1, 'value', sa[i]);
+//    Inc(i);
+//  end;
+//  g_snprintf(buf1, SizeOf(buf1), '%s/items', key);
+//  g_snprintf(buf2, SizeOf(buf2), '%d', i);
+//  writeKey(doc, buf1, 'count', buf2);
+//end;
+
+
+procedure XML_Config_Save_Songs(XMLConfig: PXMLConfig; list: PGListStore);
 var
-  path: PXMLConfig;
+  XMLData: PXMLData;
+  item_obj: PGObject;
+  song: PSong;
+  Count, i: Tgint;
+
+  buf1: array[0..255] of Tgchar;
+  buf2: array[0..15] of Tgchar;
+const
+  key = 'title/song';
+
 begin
-  path:=g_object_get_data(XMLConfig,XML_Key);
-  g_printf('path: %s'#10, path);
+  XMLData := g_object_get_data(XMLConfig, XML_Key);
+  g_printf('path: %s'#10, XMLData^.path);
+
+  Count := g_list_model_get_n_items(G_LIST_MODEL(list));
+  g_snprintf(buf1, SizeOf(buf1), '%s/items', key);
+  g_snprintf(buf2, SizeOf(buf2), '%d', Count);
+  writeKey(XMLData^.doc, buf1, 'count', buf2);
+
+  for i := 0 to Count - 1 do begin
+    item_obj := g_list_model_get_item(G_LIST_MODEL(list), i);
+    song := g_object_get_data(item_obj, songObjectKey);
+
+    g_snprintf(buf1, SizeOf(buf1), '%s/items/item%d', key, i);
+    writeKey(XMLData^.doc, buf1, 'value', song^.FullPath);
+
+    g_object_unref(item_obj);
+  end;
 end;
 
 procedure XML_Config_unref(XMLConfig: PXMLConfig);
+var
+  XMLData: PXMLData;
 begin
-      g_object_unref(XMLConfig);
+  XMLData := g_object_get_data(XMLConfig, XML_Key);
+
+  xmlSaveFormatFile(XMLData^.path, XMLData^.doc, 1);
+  xmlFreeDoc(XMLData^.doc);
+
+  g_object_unref(XMLConfig);
 end;
 
 procedure writeKey(doc: PxmlDoc; xpath: Pgchar; attrName, attrValue: PxmlChar);
@@ -252,4 +319,3 @@ end;
 
 
 end.
-
