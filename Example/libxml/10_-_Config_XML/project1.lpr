@@ -1,27 +1,27 @@
 program project1;
 
 uses
-  SysUtils,
-  Strings,
+  fp_glib2,
   fp_xml2;
 
   // === Create Config-XML
 
-  procedure writeNewKey(doc: PxmlDoc; const xpath: string; attrName, attrValue: PxmlChar);
+  procedure writeKey(doc: PxmlDoc; xpath: Pgchar; attrName, attrValue: PxmlChar);
   var
     currentNode, child, newNode: PxmlNode;
-    splitPath: TAnsiStringArray;
     i: integer;
+    tokens: PPgchar;
   begin
-    splitPath := xpath.Split('/');
+    tokens := g_strsplit(xpath, '/', -1);
     currentNode := xmlDocGetRootElement(doc);
 
-    for i := 0 to Length(splitPath) - 1 do begin
+    i := 0;
+    while tokens[i] <> nil do begin
       child := xmlFirstElementChild(currentNode);
       newNode := nil;
 
       while child <> nil do begin
-        if xmlStrcmp(child^.Name, PChar(splitPath[i])) = 0 then begin
+        if xmlStrcmp(child^.Name, tokens[i]) = 0 then begin
           newNode := child;
           Break;
         end;
@@ -29,63 +29,81 @@ uses
       end;
 
       if newNode = nil then begin
-        newNode := xmlNewChild(currentNode, nil, PxmlChar(splitPath[i]), nil);
+        newNode := xmlNewChild(currentNode, nil, tokens[i], nil);
       end;
 
       currentNode := newNode;
+      Inc(i);
     end;
-
     xmlSetProp(currentNode, attrName, attrValue);
+    g_strfreev(tokens);
   end;
 
-function readKey(doc: PxmlDoc; xpath, attrName: pchar): pchar;
-var
-  context: PxmlXPathContext;
-  res: PxmlXPathObject;
-  node, root: PxmlNode;
-begin
-  if xpath = nil then begin
-    Exit(xmlStrdup('(path=nil)'));
-  end;
-
-  context := xmlXPathNewContext(doc);
-
-  root := xmlDocGetRootElement(doc);
-  xmlXPathSetContextNode(root, context);
-
-  res := xmlXPathEvalExpression(xpath, context);
-  if xmlXPathNodeSetIsEmpty(res^.nodesetval) then begin
-    Exit(xmlStrdup('(path error)'));
-  end;
-
-  node := res^.nodesetval^.nodeTab[0];
-  Result := xmlGetProp(node, attrName);
-
-  xmlXPathFreeObject(res);
-  xmlXPathFreeContext(context);
-end;
-
-  procedure writeStringArr(doc: PxmlDoc; const key: string; sa: TStringArray);
+  function readKey(doc: PxmlDoc; xpath, attrName: pchar): pchar;
   var
-    len: SizeInt;
-    i: integer;
+    context: PxmlXPathContext;
+    res: PxmlXPathObject;
+    node, root: PxmlNode;
   begin
-    len := Length(sa);
-    writeNewKey(doc, key+'/items', 'count',PxmlChar( IntToStr( len)));
-    for i := 0 to len - 1 do begin
-      writeNewKey(doc, key + '/items/' +'item'+ IntToStr(i),'value',PxmlChar( sa[i] ));
+    if xpath = nil then begin
+      g_printf('(path=nil)'#10);
+      Exit(nil);
     end;
+
+    context := xmlXPathNewContext(doc);
+    root := xmlDocGetRootElement(doc);
+    xmlXPathSetContextNode(root, context);
+
+    res := xmlXPathEvalExpression(xpath, context);
+    if xmlXPathNodeSetIsEmpty(res^.nodesetval) then begin
+      g_printf('(path error)'#10);
+      Exit(nil);
+    end;
+
+    node := res^.nodesetval^.nodeTab[0];
+    Result := xmlGetProp(node, attrName);
+
+    xmlXPathFreeObject(res);
+    xmlXPathFreeContext(context);
   end;
 
-function readStringArr(doc: PxmlDoc; const key: string) : TStringArray;
-var
-  len: LongInt;
-  i: Integer;
-begin
-  Result:=nil;
-  len:=StrToInt( readKey(doc,PxmlChar( key+'/items'), 'count'));
-  SetLength(Result, len);
-  for i:=0 to len-1 do Result[i]:=readKey(doc,PxmlChar( key + '/items/' +'item'+ IntToStr(i)),'value');
+  procedure writeStringArr(doc: PxmlDoc; const key: Pgchar; sa: PPgchar);
+  var
+    i: integer;
+    buf1: array[0..255] of Tgchar;
+    buf2: array[0..15] of Tgchar;
+  begin
+    i := 0;
+    while sa[i] <> nil do begin
+      g_snprintf(buf1, SizeOf(buf1), '%s/items/item%d', key, i);
+      writeKey(doc, buf1, 'value', sa[i]);
+      Inc(i);
+    end;
+    g_snprintf(buf1, SizeOf(buf1), '%s/items', key);
+    g_snprintf(buf2, SizeOf(buf2), '%d', i);
+    writeKey(doc, buf1, 'count', buf2);
+  end;
+
+  function readStringArr(doc: PxmlDoc; const key: Pgchar): PPgchar;
+  var
+    i, len: Tgint64;
+    buf1: array[0..255] of Tgchar;
+    buf2: Pgchar;
+  begin
+    Result := nil;
+    g_snprintf(buf1, SizeOf(buf1), '%s/items', key);
+    buf2 := readKey(doc, buf1, 'count');
+    if buf2 = nil then begin
+      Exit(nil);
+    end;
+    len := g_ascii_strtoll(buf2, nil, 10);
+    g_free(buf2);
+    Result := g_malloc(SizeOf(Pgchar) * (len + 1));
+
+    for i := 0 to len - 1 do begin
+      g_snprintf(buf1, SizeOf(buf1), '%s/items/item%d', key, i);
+      Result[i] := readKey(doc, buf1, 'value');
+    end;
   end;
 
   // ===================
@@ -96,22 +114,22 @@ begin
     root_node: PxmlNode;
 
   const
-    fruits: TStringArray = ('Birnen', 'Äepfel', 'Kirschen', 'Quitten', 'Plaumen', 'Zwetschgen', 'Holunder', 'Erdbeeren');
+    fruits: array of Pgchar = ('Birnen', 'Äepfel', 'Kirschen', 'Quitten', 'Plaumen', 'Zwetschgen', 'Holunder', 'Erdbeeren', nil);
   begin
     doc := xmlNewDoc(nil);
     root_node := xmlNewNode(nil, 'config');
     xmlDocSetRootElement(doc, root_node);
 
-    writeStringArr(doc, 'window/memo', fruits);
+    writeStringArr(doc, 'window/memo', PPChar(fruits));
 
-    writeNewKey(doc, 'window/frame', 'border', '4');
-    writeNewKey(doc, 'window/button/label', 'text', 'hello World äöü ÿ Ÿ');
-    writeNewKey(doc, 'window/frame', 'width', '800');
-    writeNewKey(doc, 'window/frame', 'height', '600');
-    writeNewKey(doc, 'window/button', 'color', 'blue');
-    writeNewKey(doc, 'window/button', 'font', 'monospace');
-    writeNewKey(doc, 'window/button/font', 'size', '16');
-    writeNewKey(doc, 'window/blu/blu/button/font', 'size', '16');
+    writeKey(doc, 'window/frame', 'border', '4');
+    writeKey(doc, 'window/button/label', 'text', 'hello World äöü ÿ Ÿ');
+    writeKey(doc, 'window/frame', 'width', '800');
+    writeKey(doc, 'window/frame', 'height', '600');
+    writeKey(doc, 'window/button', 'color', 'blue');
+    writeKey(doc, 'window/button', 'font', 'monospace');
+    writeKey(doc, 'window/button/font', 'size', '16');
+    writeKey(doc, 'window/blu/blu/button/font', 'size', '16');
 
     xmlSaveFormatFile(path, doc, 1);
     xmlFreeDoc(doc);
@@ -124,8 +142,8 @@ begin
   begin
     doc := xmlReadFile(path, nil, XML_PARSE_NOBLANKS);
 
-    writeNewKey(doc, 'window/frame', 'background', 'white');
-    writeNewKey(doc, 'window/frame', 'foreground', 'black');
+    writeKey(doc, 'window/frame', 'background', 'white');
+    writeKey(doc, 'window/frame', 'foreground', 'black');
 
     xmlSaveFormatFile(path, doc, 1);
     xmlFreeDoc(doc);
@@ -142,25 +160,32 @@ begin
     xmlFree(val);
   end;
 
-  procedure ReadXML(path: pchar);
+  procedure ReadXML(path: Pgchar);
   var
     doc: PxmlDoc;
-    sa: TStringArray;
-    len: SizeInt;
-    i: Integer;
+    i: integer;
+    sa: PPgchar;
+    len: Tguint;
   begin
-    doc := xmlReadFile(path, nil, XML_PARSE_NOBLANKS or XML_PARSE_COMPACT);
+    doc := xmlReadFile(path, nil, XML_PARSE_NOBLANKS);
 
     printKey(doc, 'window/frame', 'width');
     printKey(doc, 'window/frame', 'height');
     printKey(doc, 'window/button/font', 'size');
     printKey(doc, 'window/button/label', 'text');
 
-    sa:=readStringArr(doc,'window/memo');
-    len:=Length(sa);
-    WriteLn('count: ', len);
-    for i:=0 to len-1 do WriteLn(i:3,'. ', sa[i]);
+    sa := readStringArr(doc, 'window/memo');
+    if sa = nil then begin
+      len := 0;
+    end else begin
+      len := g_strv_length(sa);
+    end;
+    g_printf('count: %d'#10, len);
+    for i := 0 to len - 1 do begin
+      g_printf('  %3d. %s'#10, i, sa[i]);
+    end;
 
+    g_strfreev(sa);
     xmlFreeDoc(doc);
   end;
 

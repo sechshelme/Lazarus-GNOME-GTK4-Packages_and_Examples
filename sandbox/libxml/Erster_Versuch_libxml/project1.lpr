@@ -20,59 +20,24 @@ uses
 
   // ==============================
 
-  //function createXPathNode(parent: PxmlNode; path: pchar): PxmlNode;
-  //var
-  //  currentNode: PxmlNode;
-  //  child, newNode: PxmlNode;
-  //  saveptr, token: pchar;
-  //  pathCopy: PxmlChar;
-  //begin
-  //  pathCopy := xmlStrdup(path);
-  //  token := strtok_r(pathCopy, '/', @saveptr);
-  //
-  //  currentNode := parent;
-  //
-  //  while token <> nil do begin
-  //    child := xmlFirstElementChild(currentNode);
-  //    newNode := nil;
-  //
-  //    while child <> nil do begin
-  //      if xmlStrcmp(child^.Name, token) = 0 then begin
-  //        newNode := child;
-  //        Break;
-  //      end;
-  //      child := xmlNextElementSibling(child);
-  //    end;
-  //
-  //    if newNode = nil then begin
-  //      newNode := xmlNewChild(currentNode, nil, token, nil);
-  //    end;
-  //
-  //    currentNode := newNode;
-  //    token := strtok_r(nil, '/', @saveptr);
-  //  end;
-  //
-  //  xmlFree(pathCopy);
-  //  Result := currentNode;
-  //end;
-
-  function createXPathNode(parent: PxmlNode; const path: string): PxmlNode;
+  function createXPathNode(parent: PxmlNode; path: pchar): PxmlNode;
   var
     currentNode: PxmlNode;
     child, newNode: PxmlNode;
-    splitPath: TAnsiStringArray;
-    i: integer;
+    saveptr, token: pchar;
+    pathCopy: PxmlChar;
   begin
-    splitPath := path.Split('/');
+    pathCopy := xmlStrdup(path);
+    token := strtok_r(pathCopy, '/', @saveptr);
 
     currentNode := parent;
 
-    for i := 0 to Length(splitPath) - 1 do begin
+    while token <> nil do begin
       child := xmlFirstElementChild(currentNode);
       newNode := nil;
 
       while child <> nil do begin
-        if xmlStrcmp(child^.Name, PChar(splitPath[i])) = 0 then begin
+        if xmlStrcmp(child^.Name, token) = 0 then begin
           newNode := child;
           Break;
         end;
@@ -80,14 +45,17 @@ uses
       end;
 
       if newNode = nil then begin
-        newNode := xmlNewChild(currentNode, nil, PxmlChar(splitPath[i]), nil);
+        newNode := xmlNewChild(currentNode, nil, token, nil);
       end;
 
       currentNode := newNode;
+      token := strtok_r(nil, '/', @saveptr);
     end;
 
+    xmlFree(pathCopy);
     Result := currentNode;
   end;
+
 
   procedure writeNewKey(doc: PxmlDoc; xpath, attrName, attrValue: pchar);
   var
