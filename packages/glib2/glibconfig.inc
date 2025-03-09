@@ -2,7 +2,6 @@
 {$IFDEF read_interface}
 
 // ==== von gtypes.h
-
 const
   G_LITTLE_ENDIAN = 1234;
   G_BIG_ENDIAN = 4321;
@@ -218,8 +217,11 @@ const
 const
   G_HAVE_GNUC_VARARGS = 1;
 
-const
+  {$ifdef endian_little}
   G_BYTE_ORDER = G_LITTLE_ENDIAN;
+  {$else}
+  G_BYTE_ORDER = G_BIG_ENDIAN;
+  {$endif}
 
 const
   G_MODULE_SUFFIX = 'so';

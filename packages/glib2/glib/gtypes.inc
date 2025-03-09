@@ -30,46 +30,56 @@ const
   G_IEEE754_DOUBLE_BIAS = 1023;
   G_LOG_2_BASE_10 = 0.30102999566398119521;
 
+  {$ifdef endian_little}
+
 type
-  PGFloatIEEE754 = ^TGFloatIEEE754;
-  TGFloatIEEE754 = record
-    case longint of
-      0: (v_float: Tgfloat);
-      1: (mpn: record
-          flag0: longint;
+  TGFloatIEEE754 = packed record
+    case integer of
+      0: (v_float: single);
+      1: (mpn: packed record
+          mantissa: 0..(1 shl 23) - 1;       // 23 bits
+          biased_exponent: 0..(1 shl 8) - 1; //  8 bits
+          sign: 0..1;                        //  1 bit
           end);
   end;
 
-
-const
-  bm_TGFloatIEEE754_mantissa = $7FFFFF;
-  bp_TGFloatIEEE754_mantissa = 0;
-  bm_TGFloatIEEE754_biased_exponent = $7F800000;
-  bp_TGFloatIEEE754_biased_exponent = 23;
-  bm_TGFloatIEEE754_sign = $80000000;
-  bp_TGFloatIEEE754_sign = 31;
-
-type
-  PGDoubleIEEE754 = ^TGDoubleIEEE754;
-  TGDoubleIEEE754 = record
-    case longint of
-      0: (v_double: Tgdouble);
-      1: (mpn: record
-          flag0: longint;
-          flag1: longint;
+  TGDoubleIEEE754 = packed record
+    case integer of
+      0: (v_double: double);
+      1: (mpn: packed record
+          mantissa_low: 0..(1 shl 32) - 1;    // 32 bits
+          mantissa_high: 0..(1 shl 20) - 1;   // 20 bits
+          biased_exponent: 0..(1 shl 11) - 1; // 11 bits
+          sign: 0..1;                         //  1 bit
           end);
   end;
 
+  {$else}
 
-const
-  bm_TGDoubleIEEE754_mantissa_low = $FFFFFFFF;
-  bp_TGDoubleIEEE754_mantissa_low = 0;
-  bm_TGDoubleIEEE754_mantissa_high = $FFFFF;
-  bp_TGDoubleIEEE754_mantissa_high = 0;
-  bm_TGDoubleIEEE754_biased_exponent = $7FF00000;
-  bp_TGDoubleIEEE754_biased_exponent = 20;
-  bm_TGDoubleIEEE754_sign = $80000000;
-  bp_TGDoubleIEEE754_sign = 31;
+type
+  TGFloatIEEE754 = packed record
+    case integer of
+      0: (v_float: single);
+      1: (mpn: packed record
+          sign: 0..1;                        //  1 bit
+          biased_exponent: 0..(1 shl 8) - 1; //  8 bits
+          mantissa: 0..(1 shl 23) - 1;       // 23 bits
+          end);
+  end;
+
+  TGDoubleIEEE754 = packed record
+    case integer of
+      0: (v_double: double);
+      1: (mpn: packed record
+          sign: 0..1;                         //  1 bit
+          biased_exponent: 0..(1 shl 11) - 1; // 11 bits
+          mantissa_high: 0..(1 shl 20) - 1;   // 20 bits
+          mantissa_low: 0..(1 shl 32) - 1;    // 32 bits
+          end);
+  end;
+
+  {$endif}
+
 
 type
   TGTimeVal = record
