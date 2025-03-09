@@ -78,7 +78,20 @@ begin
   end;
 end;
 
+type
+  TTest = bitpacked record
+    case integer of
+      0: (v_float: single);
+      1: (mpn: bitpacked record
+          mantissa: 0..(1 shl 23) - 1;       // 23 bits
+          biased_exponent: 0..(1 shl 8) - 1; //  8 bits
+          sign: 0..1;                        //  1 bit
+          end);
+  end;
+
   function main(argc: cint; argv: PPChar): cint;
+  var
+    f:TTest;
   begin
     print_OS_Info;
     g_print(#10#10);
@@ -86,6 +99,24 @@ end;
     g_print(#10#10);
     print_Sysinfo;
     g_print(#10#10);
+
+    f.v_float:=11.11;
+    f.mpn.sign:=0;
+    WriteLn(f.v_float);
+    WriteLn(f.v_float:8:4);
+
+    f.v_float:=11.11;
+    f.mpn.sign:=0;
+    f.mpn.mantissa:=0;
+    f.mpn.biased_exponent:=7;
+    WriteLn(f.v_float);
+    WriteLn(f.v_float:8:4);
+    WriteLn('-------');
+    WriteLn(SizeOf(TGFloatIEEE754));
+    WriteLn(SizeOf(Single));
+
+    WriteLn(SizeOf(TTest));
+    WriteLn(SizeOf(Single));
   end;
 
 begin

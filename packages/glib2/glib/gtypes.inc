@@ -33,20 +33,20 @@ const
   {$ifdef endian_little}
 
 type
-  TGFloatIEEE754 = packed record
+  TGFloatIEEE754 = bitpacked record
     case integer of
       0: (v_float: single);
-      1: (mpn: packed record
+      1: (mpn: bitpacked record
           mantissa: 0..(1 shl 23) - 1;       // 23 bits
           biased_exponent: 0..(1 shl 8) - 1; //  8 bits
           sign: 0..1;                        //  1 bit
           end);
   end;
 
-  TGDoubleIEEE754 = packed record
+  TGDoubleIEEE754 = bitpacked record
     case integer of
       0: (v_double: double);
-      1: (mpn: packed record
+      1: (mpn: bitpacked record
           mantissa_low: 0..(1 shl 32) - 1;    // 32 bits
           mantissa_high: 0..(1 shl 20) - 1;   // 20 bits
           biased_exponent: 0..(1 shl 11) - 1; // 11 bits
@@ -57,20 +57,20 @@ type
   {$else}
 
 type
-  TGFloatIEEE754 = packed record
+  TGFloatIEEE754 = bitpacked record
     case integer of
       0: (v_float: single);
-      1: (mpn: packed record
+      1: (mpn: bitpacked record
           sign: 0..1;                        //  1 bit
           biased_exponent: 0..(1 shl 8) - 1; //  8 bits
           mantissa: 0..(1 shl 23) - 1;       // 23 bits
           end);
   end;
 
-  TGDoubleIEEE754 = packed record
+  TGDoubleIEEE754 = bitpacked record
     case integer of
       0: (v_double: double);
-      1: (mpn: packed record
+      1: (mpn: bitpacked record
           sign: 0..1;                         //  1 bit
           biased_exponent: 0..(1 shl 11) - 1; // 11 bits
           mantissa_high: 0..(1 shl 20) - 1;   // 20 bits

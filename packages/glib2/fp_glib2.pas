@@ -9,7 +9,6 @@ uses
 //  Math, // wegen "division_by_zero" in den clibs
   ctypes;
 
-
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}

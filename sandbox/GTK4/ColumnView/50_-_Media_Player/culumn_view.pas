@@ -180,7 +180,10 @@ begin
 
   case action_name of
     'listbox.save': begin
-        XMLNewTest(G_LIST_STORE(list_model));
+      XML_Save_Songs('test.xml', G_LIST_STORE(list_model));
+    end;
+    'listbox.open': begin
+      XML_Load_Songs('test.xml', G_LIST_STORE(list_model));
     end;
     'listbox.play': begin
       if PriStream = nil then begin
@@ -207,7 +210,7 @@ begin
     end;
     'listbox.append': begin
       //      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound');
-//      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/midi');
+      //      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/midi');
       LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/mod');
 
       //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
@@ -392,8 +395,8 @@ end;
 function Create_ListBoxWidget: PGtkWidget;
 const
   entries: array of Pgchar = (
-  'listbox.save',
-  'listbox.open',
+    'listbox.save',
+    'listbox.open',
     'listbox.play',
     'listbox.stop',
     'listbox.pause',
