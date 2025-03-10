@@ -4,6 +4,7 @@ interface
 
 uses
   fp_glib2, fp_pango, fp_GTK4, fp_gst,
+  Common,
   LoadTitle, Streamer, XML_Tools;
 
 var

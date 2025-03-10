@@ -82,6 +82,30 @@ const
     '.sndh'  // Format für Atari ST
     );
 
+type
+  TSong = record
+    Index: Tgint;
+    FullPath: Pgchar;
+    Duration: Tgint64;
+  end;
+  PSong = ^TSong;
+
+const
+  songObjectKey = 'song-object';
+
+procedure songitem_object_free_cp(Data: Tgpointer); cdecl;
+
 implementation
+
+procedure songitem_object_free_cp(Data: Tgpointer); cdecl;
+var
+  obj: PSong absolute Data;
+begin
+  WriteLn(obj^.FullPath, '  (freed)');
+  g_free(obj^.FullPath);
+  g_free(obj);
+end;
+
+
 
 end.

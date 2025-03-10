@@ -11,17 +11,6 @@ uses
   Common,
   Streamer;
 
-type
-  TSong = record
-    Index: Tgint;
-    FullPath: Pgchar;
-    Duration: Tgint64;
-  end;
-  PSong = ^TSong;
-
-const
-  songObjectKey = 'song-object';
-
 procedure LoadTitles(store: PGListStore; path: Pgchar);
 
 implementation
@@ -34,19 +23,10 @@ type
   end;
   PDirStruct = ^TDirStruct;
 
-procedure item_object_free_cp(Data: Tgpointer); cdecl;
-var
-  obj: PSong absolute Data;
-begin
-  WriteLn(obj^.FullPath, '  (freed)');
-  g_free(obj^.FullPath);
-  g_free(obj);
-end;
-
 function OpenTitel1(user_data: Tgpointer): Tgboolean; cdecl;
 var
   dirStruct: PDirStruct absolute user_data;
-  entryName, fullPath: Pgchar;
+  entryName: Pgchar;
   obj: PGObject;
   song: PSong;
   i: integer;
@@ -57,6 +37,7 @@ begin
   entryName := g_dir_read_name(dirStruct^.dir);
   if entryName = nil then begin
     g_dir_close(dirStruct^.dir);
+    g_free(dirStruct^.path);
     g_free(dirStruct);
     Exit(G_SOURCE_REMOVE_);
   end;
@@ -65,13 +46,12 @@ begin
     if g_str_has_suffix(entryName, AudioExtensions[i]) then  begin
       song := g_malloc(SizeOf(TSong));
       song^.Index := index;
-      fullPath:=     g_strdup(PChar(dirStruct^.path + '/' + entryName));
-      song^.FullPath :=fullPath;
-      song^.Duration := get_duration(fullPath);
+      song^.FullPath:=     g_strdup(PChar(dirStruct^.path + '/' + entryName));
+      song^.Duration := get_duration(song^.FullPath);
       Inc(index);
 
       obj := g_object_new(G_TYPE_OBJECT, nil);
-      g_object_set_data_full(obj, songObjectKey, song, @item_object_free_cp);
+      g_object_set_data_full(obj, songObjectKey, song, @songitem_object_free_cp);
       g_list_store_append(dirStruct^.store, obj);
       g_object_unref(obj);
       Break;
@@ -87,7 +67,7 @@ var
 begin
   dirStruct := g_malloc(SizeOf(TDirStruct));
   dirStruct^.store := store;
-  dirStruct^.path := path;
+  dirStruct^.path := g_strdup( path);
   dirStruct^.dir := g_dir_open(path, 0, nil);
 
   if dirStruct^.dir = nil then begin
