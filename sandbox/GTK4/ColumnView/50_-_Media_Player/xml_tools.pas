@@ -12,7 +12,6 @@ uses
 type
   PXMLConfig = type PGObject;
 
-procedure XMLNewTest(list: PGListStore);
 procedure XML_Save_Songs(path: Pgchar; list: PGListStore);
 procedure XML_Load_Songs(path: Pgchar; list: PGListStore);
 
@@ -24,8 +23,7 @@ procedure XML_Config_unref(XMLConfig: PXMLConfig);
 implementation
 
 const
-  key = 'title/song';
-
+  SongXMLKey = 'title/song';
 
 type
   TXMLData = record
@@ -33,13 +31,6 @@ type
     path: Pgchar;
   end;
   PXMLData = ^TXMLData;
-
-
-procedure XMLNewTest(list: PGListStore);
-begin
-  XML_Save_Songs('test.xml', list);
-end;
-
 
 procedure writeKey(doc: PxmlDoc; xpath: Pgchar; attrName, attrValue: PxmlChar);
 var
@@ -120,7 +111,7 @@ begin
   xmlDocSetRootElement(doc, root_node);
 
   Count := g_list_model_get_n_items(G_LIST_MODEL(list));
-  g_snprintf(buf1, SizeOf(buf1), '%s/items', key);
+  g_snprintf(buf1, SizeOf(buf1), '%s/items', SongXMLKey);
   g_snprintf(buf2, SizeOf(buf2), '%d', Count);
   writeKey(doc, buf1, 'count', buf2);
 
@@ -128,7 +119,7 @@ begin
     item_obj := g_list_model_get_item(G_LIST_MODEL(list), i);
     song := g_object_get_data(item_obj, songObjectKey);
 
-    g_snprintf(buf1, SizeOf(buf1), '%s/items/item%d', key, i);
+    g_snprintf(buf1, SizeOf(buf1), '%s/items/item%d', SongXMLKey, i);
     writeKey(doc, buf1, 'value', song^.FullPath);
 
     g_object_unref(item_obj);
@@ -145,7 +136,7 @@ var
   buf1: array[0..255] of Tgchar;
 begin
   doc := xmlReadFile(path, nil, XML_PARSE_NOBLANKS);
-  g_snprintf(buf1, SizeOf(buf1), '%s/items', key);
+  g_snprintf(buf1, SizeOf(buf1), '%s/items', SongXMLKey);
   val := readKey(doc, buf1, 'count');
 
   WriteLn('count: ',val);
