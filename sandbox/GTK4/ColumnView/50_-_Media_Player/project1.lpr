@@ -11,7 +11,7 @@ uses
   Streamer,
   culumn_view,
   LoadTitle,
-  MenuBar, XML_Tools;
+  MenuBar, XML_Tools, XML__LoadSave, Action;
 
   procedure on_scale_changed_cp({%H-}range: PGtkRange; user_data: Tgpointer); cdecl;
   var

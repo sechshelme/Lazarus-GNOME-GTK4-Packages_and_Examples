@@ -59,6 +59,16 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="Common"/>
       </Unit>
+      <Unit>
+        <Filename Value="xml__loadsave.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="XML__LoadSave"/>
+      </Unit>
+      <Unit>
+        <Filename Value="action.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Action"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
