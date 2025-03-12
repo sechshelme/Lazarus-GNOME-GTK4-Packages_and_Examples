@@ -8,25 +8,11 @@ uses
   Action,
   LoadTitle, Streamer, XML_Tools, XML__LoadSave;
 
-function Create_ListBoxWidget: PGtkWidget;
+function Create_ColumnView: PGtkWidget;
 
 implementation
 
 // ==== private
-
-function clamp01(v: single): single; inline;
-begin
-  if v < 0.0 then begin
-    Result := 0.0;
-  end else if v > 1.0 then begin
-    Result := 1.0;
-  end else begin
-    Result := v;
-  end;
-end;
-
-const
-  ColTitles: array of Pgchar = ('Index', 'Titel', 'Dauer');
 
 function timerFunc_cp(user_data: Tgpointer): Tgboolean; cdecl;
 var
@@ -213,7 +199,9 @@ end;
 
 // ==== public
 
-function Create_ListBoxWidget: PGtkWidget;
+function Create_ColumnView: PGtkWidget;
+const
+  ColTitles: array of Pgchar = ('Index', 'Titel', 'Dauer');
 var
   column_view: PGtkWidget;
   factory: PGtkListItemFactory;

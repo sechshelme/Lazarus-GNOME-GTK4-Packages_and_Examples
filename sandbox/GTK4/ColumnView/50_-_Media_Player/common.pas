@@ -94,14 +94,25 @@ const
   songObjectKey = 'song-object';
 
 procedure songitem_object_free_cp(Data: Tgpointer); cdecl;
+function clamp01(v: single): single; inline;
 
 implementation
+
+function clamp01(v: single): single; inline;
+begin
+  if v < 0.0 then begin
+    Result := 0.0;
+  end else if v > 1.0 then begin
+    Result := 1.0;
+  end else begin
+    Result := v;
+  end;
+end;
 
 procedure songitem_object_free_cp(Data: Tgpointer); cdecl;
 var
   obj: PSong absolute Data;
 begin
-  WriteLn(obj^.FullPath, '  (freed)');
   g_free(obj^.FullPath);
   g_free(obj);
 end;

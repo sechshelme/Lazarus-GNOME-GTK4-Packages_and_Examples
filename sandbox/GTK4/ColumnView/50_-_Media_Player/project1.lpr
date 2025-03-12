@@ -195,7 +195,7 @@ uses
 
     // ScrolledWindows / ColumnView
     scrolled_window := gtk_scrolled_window_new;
-    columnView := Create_ListBoxWidget;
+    columnView := Create_ColumnView;
     gtk_widget_set_vexpand(scrolled_window, True);
     gtk_widget_set_hexpand(scrolled_window, True);
     gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), columnView);
