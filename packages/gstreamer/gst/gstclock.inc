@@ -130,7 +130,7 @@ function gst_clock_single_shot_id_reinit(clock: PGstClock; id: TGstClockID; time
 function gst_clock_periodic_id_reinit(clock: PGstClock; id: TGstClockID; start_time: TGstClockTime; interval: TGstClockTime): Tgboolean; cdecl; external libgstreamer;
 
 const
-  GST_CLOCK_TIME_NONE = TGstClockTime(-(1));
+  GST_CLOCK_TIME_NONE = TGstClockTime(-1);
 
 function GST_CLOCK_TIME_IS_VALID(time: Tguint64): Tgboolean;
 function GST_CLOCK_STIME_NONE: TGstClockTimeDiff;

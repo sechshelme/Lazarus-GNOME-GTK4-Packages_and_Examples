@@ -3,7 +3,8 @@ unit Common;
 interface
 
 uses
-  fp_glib2;
+  fp_glib2,
+  fp_gst;
 
 const
   AudioExtensions: array of Pgchar = (
@@ -86,7 +87,7 @@ type
   TSong = record
     Index: Tgint;
     FullPath: Pgchar;
-    Duration: Tgint64;
+    Duration: TGstClockTime;
   end;
   PSong = ^TSong;
 

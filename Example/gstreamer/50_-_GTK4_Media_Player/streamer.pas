@@ -6,7 +6,8 @@ interface
 
 uses
   Classes, SysUtils, fp_glib2, fp_GTK4,
-  fp_gst, fp_gst_pbutils;
+//  fp_gst_pbutils,
+  fp_gst;
 
 const
   LevelKey = 'LevelKey';
@@ -52,7 +53,7 @@ type
   end;
 
 function GstClockToStr(t: TGstClockTime): string;
-function get_duration(s: Pgchar): TGstClockTime;
+function get_duration(audioFile: Pgchar): TGstClockTime;
 
 
 implementation
@@ -60,22 +61,71 @@ implementation
 const
   pipelineKey = 'pipelineKey';
 
-function get_duration(s: Pgchar): TGstClockTime;
+// https://www.perplexity.ai/search/wie-kann-ich-mit-gstreamer-dir-2Te_Qn3oTXC4WrpJqiImYQ
+function get_duration(audioFile: Pgchar): TGstClockTime;
 var
-  discoverer: Pointer;
-  info: Pointer;
+  pipeline_str: Pgchar;
+  pipeline: PGstElement;
+  ret: TGstStateChangeReturn;
+  bus: PGstBus;
+  msg: PGstMessage;
+  duration: TGstClockTime;
 begin
-  discoverer := gst_discoverer_new(5 * GST_SECOND, nil);
-  info := gst_discoverer_discover_uri(discoverer, PChar('file:' + s), nil);
-  if info = nil then begin
-    WriteLn('Info error !');
-    Result := -1;
-  end else begin
-    Result := gst_discoverer_info_get_duration(info) div G_USEC_PER_SEC;
-    g_object_unref(info);
+  pipeline_str := g_strdup_printf('filesrc location="%s" ! decodebin ! fakesink', audioFile);
+  pipeline := gst_parse_launch(pipeline_str, nil);
+  g_free(pipeline_str);
+
+  if pipeline = nil then  begin
+    g_printerr('Fehler beim Erstellen der Pipeline.'#10);
+    Exit(GST_CLOCK_TIME_NONE);
   end;
-  g_object_unref(discoverer);
+
+  ret := gst_element_set_state(pipeline, GST_STATE_PAUSED);
+  if ret = GST_STATE_CHANGE_FAILURE then  begin
+    g_printerr('Pipeline konnte nicht in den PAUSED-Zustand versetzt werden.'#10);
+    gst_object_unref(pipeline);
+    Exit(GST_CLOCK_TIME_NONE);
+  end;
+
+  bus := gst_element_get_bus(pipeline);
+  msg := gst_bus_timed_pop_filtered(bus, GST_CLOCK_TIME_NONE, GST_MESSAGE_ERROR or GST_MESSAGE_ASYNC_DONE);
+  if msg <> nil then begin
+    if GST_MESSAGE_TYPE(msg) = GST_MESSAGE_ERROR then  begin
+      g_printerr('Fehler beim Verarbeiten der Datei.'#10);
+      duration := GST_CLOCK_TIME_NONE;
+    end else begin
+      if not gst_element_query_duration(pipeline, GST_FORMAT_TIME, @duration) then  begin
+        g_printerr('Konnte die Dauer nicht abfragen.'#10);
+        duration := GST_CLOCK_TIME_NONE;
+      end;
+    end;
+    gst_message_unref(msg);
+  end;
+
+  gst_element_set_state(pipeline, GST_STATE_NULL);
+  gst_object_unref(bus);
+  gst_object_unref(pipeline);
+
+//  Result := duration div G_USEC_PER_SEC;
+  Result := duration;
 end;
+
+//function get_duration_alt(s: Pgchar): TGstClockTime;
+//var
+//  discoverer: Pointer;
+//  info: Pointer;
+//begin
+//  discoverer := gst_discoverer_new(5 * GST_SECOND, nil);
+//  info := gst_discoverer_discover_uri(discoverer, PChar('file:' + s), nil);
+//  if info = nil then begin
+//    WriteLn('Info error !');
+//    Result := GST_CLOCK_TIME_NONE;
+//  end else begin
+//    Result := gst_discoverer_info_get_duration(info) div G_USEC_PER_SEC;
+//    g_object_unref(info);
+//  end;
+//  g_object_unref(discoverer);
+//end;
 
 
 function GstClockToStr(t: TGstClockTime): string;
