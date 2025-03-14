@@ -8,6 +8,7 @@ uses
   //  fp_GLIBTools,
   fp_GDK4,
   fp_GTK4,
+  fp_gst,
   Streamer,
   culumn_view,
   LoadTitle,
@@ -132,7 +133,6 @@ uses
     g_object_unref(mainmenu);
 
     action := g_simple_action_new('quit', nil);
-//    action := g_simple_action_new_stateful('quit', nil, g_variant_new_boolean(True));
     g_signal_connect(action, 'activate', G_CALLBACK(@action_cp), nil);
     g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
     g_object_unref(action);
@@ -231,6 +231,7 @@ uses
     g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
   end;
+
 
 begin
   main(argc, argv);

@@ -130,7 +130,6 @@ var
   item_obj: PGObject;
   song: PSong;
   buffer: Pgchar;
-  dur: TGstClockTime;
 begin
   label_ := gtk_list_item_get_child(list_item);
   item_obj := gtk_list_item_get_item(list_item);
@@ -143,16 +142,15 @@ begin
       buffer := g_strdup_printf('%s', song^.FullPath);
     end;
     2: begin
-      dur := song^.Duration;
-      if dur = GST_CLOCK_TIME_NONE then begin
-        buffer := g_strdup_printf('----');
+      if song^.Duration = GST_CLOCK_TIME_NONE then begin
+        buffer := g_strdup_printf('(error)');
       end else begin
-        buffer := g_strdup_printf('%s', PChar(GstClockToStr(song^.Duration)));
+        buffer := g_strdup_printf('%s', PChar(GstClockToStr(song^.Duration div G_USEC_PER_SEC)));
       end;
     end;
   end;
   gtk_label_set_text(GTK_LABEL(label_), buffer);
-    g_free(buffer);
+  g_free(buffer);
 end;
 
 procedure unbind_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;

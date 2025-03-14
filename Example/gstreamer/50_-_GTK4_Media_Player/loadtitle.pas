@@ -47,7 +47,8 @@ begin
       song := g_malloc(SizeOf(TSong));
       song^.Index := index;
       song^.FullPath:=     g_strdup(PChar(dirStruct^.path + '/' + entryName));
-      song^.Duration := get_duration(song^.FullPath) div G_USEC_PER_SEC;
+//      song^.Duration := get_duration(song^.FullPath) div G_USEC_PER_SEC;
+      song^.Duration := get_duration(song^.FullPath);
       Inc(index);
 
       obj := g_object_new(G_TYPE_OBJECT, nil);

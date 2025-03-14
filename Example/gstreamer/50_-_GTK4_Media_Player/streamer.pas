@@ -6,7 +6,6 @@ interface
 
 uses
   Classes, SysUtils, fp_glib2, fp_GTK4,
-//  fp_gst_pbutils,
   fp_gst;
 
 const
@@ -21,7 +20,7 @@ type
   TPipelineElements = record
     volume: PGstElement;
     state: TGstState;
-    Duration: Tgint64;
+    Duration: TGstClockTime;
     FIsEnd: boolean;
     LevelWidget: PGtkWidget;
     Level: TLevel;
@@ -106,27 +105,8 @@ begin
   gst_object_unref(bus);
   gst_object_unref(pipeline);
 
-//  Result := duration div G_USEC_PER_SEC;
   Result := duration;
 end;
-
-//function get_duration_alt(s: Pgchar): TGstClockTime;
-//var
-//  discoverer: Pointer;
-//  info: Pointer;
-//begin
-//  discoverer := gst_discoverer_new(5 * GST_SECOND, nil);
-//  info := gst_discoverer_discover_uri(discoverer, PChar('file:' + s), nil);
-//  if info = nil then begin
-//    WriteLn('Info error !');
-//    Result := GST_CLOCK_TIME_NONE;
-//  end else begin
-//    Result := gst_discoverer_info_get_duration(info) div G_USEC_PER_SEC;
-//    g_object_unref(info);
-//  end;
-//  g_object_unref(discoverer);
-//end;
-
 
 function GstClockToStr(t: TGstClockTime): string;
 var
