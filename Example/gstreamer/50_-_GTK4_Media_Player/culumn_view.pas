@@ -58,18 +58,22 @@ begin
 
       s := GstClockToStr(SPos);
       gtk_label_set_label(GTK_LABEL(sharedWidget^.LabelPosition), PChar(s));
-      s := GstClockToStr(SDur);
+
+      if SDur = GST_CLOCK_TIME_NONE then begin
+        s := '--.--';
+      end else begin
+        s := GstClockToStr(SDur);
+      end;
       gtk_label_set_label(GTK_LABEL(sharedWidget^.LabelDuration), PChar(s));
 
       PriStream.Volume := clamp01(PriStream.Position / FITime);
 
-      if PriStream.Duration > 0 then begin
+      if PriStream.Duration <> GST_CLOCK_TIME_NONE then begin
         if PriStream.isEnd or (PriStream.Duration - PriStream.Position < CFTime) then begin
           if SekStream <> nil then begin
             SekStream.Destroy;
           end;
           SekStream := PriStream;
-
           SekStream.SetLevelWidget(nil);
 
           if index >= 0 then begin
@@ -145,7 +149,7 @@ begin
       if song^.Duration = GST_CLOCK_TIME_NONE then begin
         buffer := g_strdup_printf('(error)');
       end else begin
-        buffer := g_strdup_printf('%s', PChar(GstClockToStr(song^.Duration div G_USEC_PER_SEC)));
+        buffer := g_strdup_printf('%s', PChar(GstClockToStr(song^.Duration)));
       end;
     end;
   end;

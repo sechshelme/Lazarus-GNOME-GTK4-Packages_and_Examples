@@ -12,7 +12,7 @@ var
   PriStream: PStreamer = nil;
 
 const
-  CFTime = 13 * 1000; // 3s
+  CFTime = 13 * 1000 * G_USEC_PER_SEC; // 3s
   FITime = CFTime;
   FATime = FITime;
 
@@ -102,13 +102,13 @@ begin
     'listbox.append': begin
       //      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound');
       //      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/midi');
-      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/mod');
+//      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/mod');
 
 //      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
       //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt');
       //
-      //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Black Bear Roa');
-      //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits');
+//      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Black Bear Roa');
+      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits');
       //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/MCcall & Company');
       //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Roses For Mama');
       //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Rubber Duck');

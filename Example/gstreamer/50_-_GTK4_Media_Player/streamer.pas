@@ -68,7 +68,7 @@ var
   ret: TGstStateChangeReturn;
   bus: PGstBus;
   msg: PGstMessage;
-  duration: TGstClockTime;
+  duration: TGstClockTime = GST_CLOCK_TIME_NONE;
 begin
   pipeline_str := g_strdup_printf('filesrc location="%s" ! decodebin ! fakesink', audioFile);
   pipeline := gst_parse_launch(pipeline_str, nil);
@@ -93,10 +93,12 @@ begin
       g_printerr('Fehler beim Verarbeiten der Datei.'#10);
       duration := GST_CLOCK_TIME_NONE;
     end else begin
-      if not gst_element_query_duration(pipeline, GST_FORMAT_TIME, @duration) then  begin
-        g_printerr('Konnte die Dauer nicht abfragen.'#10);
-        duration := GST_CLOCK_TIME_NONE;
-      end;
+//      while duration = GST_CLOCK_TIME_NONE do begin
+        if not gst_element_query_duration(pipeline, GST_FORMAT_TIME, @duration) then  begin
+          g_printerr('Konnte die Dauer nicht abfragen.'#10);
+          duration := GST_CLOCK_TIME_NONE;
+        end;
+//      end;
     end;
     gst_message_unref(msg);
   end;
@@ -105,6 +107,8 @@ begin
   gst_object_unref(bus);
   gst_object_unref(pipeline);
 
+  WriteLn(duration);
+  WriteLn(GST_CLOCK_TIME_NONE);
   Result := duration;
 end;
 
@@ -113,6 +117,7 @@ var
   ms, s, min: TGstClockTime;
   i: integer;
 begin
+  t := t div G_USEC_PER_SEC;
   min := t div 60000;
   s := (t mod 60000) div 1000;
   ms := t mod 1000;
@@ -204,7 +209,7 @@ begin
   pipelineElements := g_malloc(SizeOf(TPipelineElements));
 
   pipelineElements^.FisEnd := False;
-  pipelineElements^.Duration := 0;
+  pipelineElements^.Duration := GST_CLOCK_TIME_NONE;
   pipelineElements^.LevelWidget := VU_Widget;
   pipelineElements^.Level.L := 0.0;
   pipelineElements^.Level.R := 0.0;
@@ -263,30 +268,28 @@ end;
 
 procedure PStreamerHelper.SetPosition(AValue: TGstClockTime);
 begin
-  gst_element_seek_simple(Self, GST_FORMAT_TIME, TGstSeekFlags(int64(GST_SEEK_FLAG_FLUSH) or int64(GST_SEEK_FLAG_KEY_UNIT)), AValue * G_USEC_PER_SEC);
+  gst_element_seek_simple(Self, GST_FORMAT_TIME, TGstSeekFlags(int64(GST_SEEK_FLAG_FLUSH) or int64(GST_SEEK_FLAG_KEY_UNIT)), AValue);
 end;
 
 function PStreamerHelper.GetPosition: TGstClockTime;
-var
-  current: Tgint64;
 begin
-  gst_element_query_position(Self, GST_FORMAT_TIME, @current);
-  Result := current div G_USEC_PER_SEC;
+  gst_element_query_position(Self, GST_FORMAT_TIME, @Result);
 end;
 
 function PStreamerHelper.GetDuration: TGstClockTime;
 var
   pipelineElements: PPipelineElements;
-  current: Tgint64 = 0;
+  current: TGstClockTime = GST_CLOCK_TIME_NONE;
 begin
   pipelineElements := g_object_get_data(G_OBJECT(Self), pipelineKey);
-  if pipelineElements^.Duration = 0 then begin
+  if pipelineElements^.Duration = GST_CLOCK_TIME_NONE then begin
     gst_element_query_duration(Self, GST_FORMAT_TIME, @current);
-    if current > 0 then  begin
+
+    if current <> GST_CLOCK_TIME_NONE then  begin
       pipelineElements^.Duration := current;
     end;
   end;
-  Result := pipelineElements^.Duration div G_USEC_PER_SEC;
+  Result := pipelineElements^.Duration;
 end;
 
 procedure PStreamerHelper.SetVolume(vol: Tgdouble);
