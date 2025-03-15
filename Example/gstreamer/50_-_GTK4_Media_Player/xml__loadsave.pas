@@ -72,7 +72,7 @@ var
   XMLLoadStruct: PXMLLoadStruct absolute user_data;
   song: PSong;
   obj: PGObject;
-  buf1: array[0..255] of Tgchar;
+  buf: array[0..255] of Tgchar;
 const
   index: integer = 0;
 begin
@@ -82,8 +82,8 @@ begin
   end;
   song := g_malloc(SizeOf(TSong));
 
-  g_snprintf(buf1, SizeOf(buf1), '%s/items/item%d', SongXMLKey, XMLLoadStruct^.index);
-  song^.FullPath := readKey(XMLLoadStruct^.doc, buf1, 'value');
+  g_snprintf(buf, SizeOf(buf), '%s/items/item%d', SongXMLKey, XMLLoadStruct^.index);
+  song^.FullPath := readKey(XMLLoadStruct^.doc, buf, 'value');
 
   song^.Index := index;
   song^.Duration := get_duration(song^.FullPath);
@@ -103,15 +103,15 @@ var
   XMLLoadStruct: PXMLLoadStruct;
 var
   s: Pgchar;
-  buf1: array[0..255] of Tgchar;
+  buf: array[0..255] of Tgchar;
 begin
   XMLLoadStruct := g_malloc(SizeOf(TXMLLoadStruct));
   XMLLoadStruct^.store := list;
 
   XMLLoadStruct^.doc := xmlReadFile(path, nil, XML_PARSE_NOBLANKS);
-  g_snprintf(buf1, SizeOf(buf1), '%s/items', SongXMLKey);
+  g_snprintf(buf, SizeOf(buf), '%s/items', SongXMLKey);
 
-  s := readKey(XMLLoadStruct^.doc, buf1, 'count');
+  s := readKey(XMLLoadStruct^.doc, buf, 'count');
   XMLLoadStruct^.Count := g_ascii_strtoll(s, nil, 10);
   g_free(s);
   XMLLoadStruct^.index := 0;

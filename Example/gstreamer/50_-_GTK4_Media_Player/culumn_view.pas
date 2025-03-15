@@ -14,6 +14,17 @@ implementation
 
 // ==== private
 
+function clamp01(v: single): single; inline;
+begin
+  if v < 0.0 then begin
+    Result := 0.0;
+  end else if v > 1.0 then begin
+    Result := 1.0;
+  end else begin
+    Result := v;
+  end;
+end;
+
 function timerFunc_cp(user_data: Tgpointer): Tgboolean; cdecl;
 var
   column_view: PGtkColumnView absolute user_data;
@@ -67,6 +78,7 @@ begin
       gtk_label_set_label(GTK_LABEL(sharedWidget^.LabelDuration), PChar(s));
 
       PriStream.Volume := clamp01(PriStream.Position / FITime);
+      WriteLn('pri: ', clamp01((PriStream.Duration - PriStream.Position) / FITime):4:2);
 
       if PriStream.Duration <> GST_CLOCK_TIME_NONE then begin
         if PriStream.isEnd or (PriStream.Duration - PriStream.Position < CFTime) then begin
@@ -96,9 +108,11 @@ begin
   end;
 
   if SekStream <> nil then begin
-    if SekStream.Duration > 0 then begin
+    if SekStream.Duration <> GST_CLOCK_TIME_NONE then begin
       SekStream.Volume := clamp01((SekStream.Duration - SekStream.Position) / FITime);
     end;
+
+    WriteLn('sek: ', clamp01((SekStream.Duration - SekStream.Position) / FITime):4:2);
 
     if SekStream.isEnd then begin
       SekStream.Destroy;

@@ -69,8 +69,10 @@ var
   bus: PGstBus;
   msg: PGstMessage;
   duration: TGstClockTime = GST_CLOCK_TIME_NONE;
+  t: Tgint64;
 begin
-  pipeline_str := g_strdup_printf('filesrc location="%s" ! decodebin ! fakesink', audioFile);
+//  pipeline_str := g_strdup_printf('filesrc location="%s" ! queue ! decodebin3 ! fakesink', audioFile);
+  pipeline_str := g_strdup_printf('filesrc location="%s"  ! decodebin3 ! fakesink', audioFile);
   pipeline := gst_parse_launch(pipeline_str, nil);
   g_free(pipeline_str);
 
@@ -79,7 +81,7 @@ begin
     Exit(GST_CLOCK_TIME_NONE);
   end;
 
-  ret := gst_element_set_state(pipeline, GST_STATE_PAUSED);
+  ret := gst_element_set_state(pipeline, GST_STATE_PLAYING);
   if ret = GST_STATE_CHANGE_FAILURE then  begin
     g_printerr('Pipeline konnte nicht in den PAUSED-Zustand versetzt werden.'#10);
     gst_object_unref(pipeline);
@@ -93,12 +95,10 @@ begin
       g_printerr('Fehler beim Verarbeiten der Datei.'#10);
       duration := GST_CLOCK_TIME_NONE;
     end else begin
-//      while duration = GST_CLOCK_TIME_NONE do begin
-        if not gst_element_query_duration(pipeline, GST_FORMAT_TIME, @duration) then  begin
-          g_printerr('Konnte die Dauer nicht abfragen.'#10);
-          duration := GST_CLOCK_TIME_NONE;
-        end;
-//      end;
+      t := g_get_real_time;
+      while (duration = GST_CLOCK_TIME_NONE) and (g_get_real_time - t < 1000 * 1000) do begin
+        gst_element_query_duration(pipeline, GST_FORMAT_TIME, @duration);
+      end;
     end;
     gst_message_unref(msg);
   end;
@@ -107,8 +107,6 @@ begin
   gst_object_unref(bus);
   gst_object_unref(pipeline);
 
-  WriteLn(duration);
-  WriteLn(GST_CLOCK_TIME_NONE);
   Result := duration;
 end;
 

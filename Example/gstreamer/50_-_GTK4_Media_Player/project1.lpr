@@ -118,7 +118,7 @@ uses
 
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'Media Player');
-    gtk_window_set_default_size(GTK_WINDOW(window), 600, 400);
+    gtk_window_set_default_size(GTK_WINDOW(window), 1024, 768);
 
     // --- MainBox
     mainBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
