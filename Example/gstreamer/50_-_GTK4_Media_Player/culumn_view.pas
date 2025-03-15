@@ -77,11 +77,14 @@ begin
       end;
       gtk_label_set_label(GTK_LABEL(sharedWidget^.LabelDuration), PChar(s));
 
-      PriStream.Volume := clamp01(PriStream.Position / FITime);
-      WriteLn('pri: ', clamp01((PriStream.Duration - PriStream.Position) / FITime):4:2);
+      if SPos = GST_CLOCK_TIME_NONE then begin
+        PriStream.Volume := 0.0;
+      end else begin
+        PriStream.Volume := clamp01(SPos / FITime);
+      end;
 
       if PriStream.Duration <> GST_CLOCK_TIME_NONE then begin
-        if PriStream.isEnd or (PriStream.Duration - PriStream.Position < CFTime) then begin
+        if PriStream.isEnd or (PriStream.Duration - SPos < CFTime) then begin
           if SekStream <> nil then begin
             SekStream.Destroy;
           end;
@@ -111,8 +114,6 @@ begin
     if SekStream.Duration <> GST_CLOCK_TIME_NONE then begin
       SekStream.Volume := clamp01((SekStream.Duration - SekStream.Position) / FITime);
     end;
-
-    WriteLn('sek: ', clamp01((SekStream.Duration - SekStream.Position) / FITime):4:2);
 
     if SekStream.isEnd then begin
       SekStream.Destroy;
