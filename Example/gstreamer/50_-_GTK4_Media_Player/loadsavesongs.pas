@@ -1,4 +1,4 @@
-unit XML__LoadSave;
+unit LoadSaveSongs;
 
 {$mode ObjFPC}{$H+}
 
@@ -14,13 +14,15 @@ uses
   LoadTitle;
 
 procedure Save_Songs(main_Window: PGtkWidget; list: PGListStore);
-procedure XML_Open_Songs(path: Pgchar; list: PGListStore);
+procedure Open_Songs(main_Window: PGtkWidget; list: PGListStore);
 
 
 implementation
 
 const
   SongXMLKey = 'title/song';
+
+// === Songs speicher ======================================
 
 procedure Save_Songs_to_XML(path: Pgchar; list: PGListStore);
 var
@@ -74,7 +76,7 @@ begin
     g_free(filename);
     g_object_unref(file_);
   end else begin
-//    WriteLn('abbruch');
+    //    WriteLn('abbruch');
   end;
 end;
 
@@ -82,18 +84,21 @@ procedure Save_Songs(main_Window: PGtkWidget; list: PGListStore);
 var
   dialog: PGtkFileDialog;
   current_dir: Pgchar;
+  initial_folder: PGFile;
 begin
   dialog := gtk_file_dialog_new;
-  gtk_file_dialog_set_initial_name(dialog, '/noname.xml');
-  current_dir:=g_get_current_dir;
-//  gtk_file_dialog_set_initial_folder(dialog, current_dir);
+  gtk_file_dialog_set_initial_name(dialog, 'noname.xml');
+  current_dir := g_get_current_dir;
+  initial_folder := g_file_new_for_path(current_dir);
+  gtk_file_dialog_set_initial_folder(dialog, initial_folder);
+  g_object_unref(initial_folder);
   g_free(current_dir);
   gtk_file_dialog_save(dialog, GTK_WINDOW(main_Window), nil, @on_save_cp, list);
 
   g_object_unref(dialog);
 end;
 
-// ===================
+// === Songs laden ===================
 
 type
   TXMLLoadStruct = record
@@ -134,7 +139,7 @@ begin
   Exit(G_SOURCE_CONTINUE);
 end;
 
-procedure XML_Open_Songs(path: Pgchar; list: PGListStore);
+procedure Load_Songs_from_XML(path: Pgchar; list: PGListStore);
 var
   XMLLoadStruct: PXMLLoadStruct;
 var
@@ -155,6 +160,47 @@ begin
 
   g_idle_add(@load_xml_songitems_cp, XMLLoadStruct);
 end;
+
+procedure on_open_cp(source_object: PGObject; res: PGAsyncResult; Data: Tgpointer); cdecl;
+var
+  list_store: PGListStore absolute Data;
+  dialog: PGtkFileDialog;
+  file_: PGFile;
+  filename: pchar;
+begin
+  dialog := GTK_FILE_DIALOG(source_object);
+  file_ := gtk_file_dialog_open_finish(dialog, res, nil);
+  if file_ <> nil then begin
+    filename := g_file_get_path(file_);
+
+    Load_Songs_from_XML(filename, list_store);
+
+    g_free(filename);
+    g_object_unref(file_);
+  end else begin
+    //    WriteLn('abbruch');
+  end;
+end;
+
+procedure Open_Songs(main_Window: PGtkWidget; list: PGListStore);
+var
+  dialog: PGtkFileDialog;
+  current_dir: Pgchar;
+  initial_folder: PGFile;
+begin
+  dialog := gtk_file_dialog_new;
+//  gtk_file_dialog_set_initial_name(dialog, 'noname.xml');
+  current_dir := g_get_current_dir;
+  initial_folder := g_file_new_for_path(current_dir);
+  gtk_file_dialog_set_initial_folder(dialog, initial_folder);
+  g_object_unref(initial_folder);
+  g_free(current_dir);
+  gtk_file_dialog_open(dialog, GTK_WINDOW(main_Window), nil, @on_open_cp, list);
+
+  g_object_unref(dialog);
+end;
+
+
 
 
 end.

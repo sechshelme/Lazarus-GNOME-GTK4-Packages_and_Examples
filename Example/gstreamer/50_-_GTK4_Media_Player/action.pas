@@ -5,7 +5,7 @@ interface
 uses
   fp_glib2, fp_pango, fp_GTK4, fp_gst,
   Common,
-  LoadTitle, Streamer, XML_Tools, XML__LoadSave;
+  LoadTitle, Streamer, XML_Tools, LoadSaveSongs;
 
 var
   SekStream: PStreamer = nil;
@@ -72,10 +72,9 @@ begin
   case action_name of
     'listbox.save': begin
       Save_Songs(sharedWidget^.main_Window, G_LIST_STORE(list_model));
-//      Save_Songs('test.xml', G_LIST_STORE(list_model));
     end;
     'listbox.open': begin
-      XML_Open_Songs('test.xml', G_LIST_STORE(list_model));
+      Open_Songs(sharedWidget^.main_Window, G_LIST_STORE(list_model));
     end;
     'listbox.play': begin
       if PriStream = nil then begin
@@ -103,13 +102,13 @@ begin
     'listbox.append': begin
       //      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound');
       //      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/midi');
-      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/mod');
+//      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/mod');
 
       //      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
       //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt');
       //
       //      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Black Bear Roa');
-      //      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits');
+            LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits');
       //      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/MCcall & Company');
       //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Roses For Mama');
       //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Rubber Duck');
@@ -191,7 +190,7 @@ begin
   gtk_bitset_unref(selected);
 end;
 
-
+procedure CreateActions(column_view: PGtkWidget);
 const
   entries: array of Pgchar = (
     'listbox.save',
@@ -206,9 +205,6 @@ const
     'listbox.removeall',
     'listbox.up',
     'listbox.down');
-
-
-procedure CreateActions(column_view: PGtkWidget);
 var
   i: integer;
   action_: PGSimpleAction;

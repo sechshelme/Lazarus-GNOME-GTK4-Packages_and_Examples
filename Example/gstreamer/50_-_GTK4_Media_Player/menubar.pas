@@ -50,20 +50,31 @@ end;
 
 function CreateMenu: PGMenu;
 var
-  mainMenu, optionMenu, colorSubMenu, fileMenu, helpMenu, playMenu: PGMenu;
+  mainMenu, optionMenu, colorSubMenu, fileMenu, helpMenu, playMenu,
+    section: PGMenu;
   quit_item: PGMenuItem;
 begin
   // --- Datei
   fileMenu := g_menu_new;
-  g_menu_append(fileMenu, '_Neu', 'app.new');
 
-  g_menu_append(fileMenu, '_oeffnen', 'app.listbox.open');
-  g_menu_append(fileMenu, '_speichern', 'app.listbox.save');
-  g_menu_append(fileMenu, '-', nil);
+  section := g_menu_new;
+  g_menu_append_section(fileMenu, 'Datei', G_MENU_MODEL(section));
+
+  g_menu_append(section, '_Neu', 'app.new');
+
+  g_menu_append(section, '_Öffnen...', 'app.listbox.open');
+  g_menu_append(section, '_Speichern unter...', 'app.listbox.save');
+
+
+  section := g_menu_new();
+  g_menu_append_section(fileMenu, 'Programm', G_MENU_MODEL(section));
+//  g_menu_append(section, nil, nil);
+  g_object_unref(section);
+//  g_menu_append_section(fileMenu, nil, G_MENU_MODEL(g_menu_new()));
 
   quit_item := g_menu_item_new('Beenden...', 'app.quit');
   g_menu_item_set_attribute(quit_item, 'accel', 's', '<Ctrl>q');
-  g_menu_append_item(fileMenu, quit_item);
+  g_menu_append_item(section, quit_item);
   g_object_unref(quit_item);
 
   // --- Play

@@ -12,7 +12,10 @@ uses
   Streamer,
   culumn_view,
   LoadTitle,
-  MenuBar, XML_Tools, XML__LoadSave, Action;
+  MenuBar,
+  XML_Tools,
+  LoadSaveSongs,
+  Action;
 
   procedure on_scale_changed_cp({%H-}range: PGtkRange; user_data: Tgpointer); cdecl;
   var
@@ -101,28 +104,29 @@ uses
     gtk_box_append(GTK_BOX(Result), buttonBox);
   end;
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
+  procedure app_activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
     mainBox, buttonBox, label1, columnView, scrolled_window: PGtkWidget;
     mediaControlPanel, HBox, VBox, Label_Box, lab1: PGtkWidget;
     sharedWidgets: PSharedWidget;
-    mainmenu: PGMenu;
-    action: PGSimpleAction;
   begin
     // --- sharedWidgets
     sharedWidgets := g_malloc(SizeOf(TSharedWidget));
     sharedWidgets^.scale_changed_id := 0;
     sharedWidgets^.IsChange := False;
 
-    g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
-//    g_setenv('GTK_THEME', 'Adwaita:dark', TRUE);
-//    g_setenv('GTK_USE_PORTAL', '0', TRUE);
-//    g_setenv('ADW_DISABLE_PORTAL', '1', TRUE);
+//    g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
+    //    g_setenv('GTK_THEME', 'Adwaita:dark', TRUE);
+    //    g_setenv('GTK_USE_PORTAL', '0', TRUE);
+    //    g_setenv('ADW_DISABLE_PORTAL', '1', TRUE);
 
 
     sharedWidgets^.main_window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(sharedWidgets^.main_window), 'Media Player');
     gtk_window_set_default_size(GTK_WINDOW(sharedWidgets^.main_window), 1024, 768);
+
+    // Main-Menu anzeigen
+    gtk_application_window_set_show_menubar(GTK_APPLICATION_WINDOW(sharedWidgets^.main_window), True);
 
     // --- MainBox
     mainBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
@@ -130,16 +134,6 @@ uses
     gtk_widget_set_margin_end(mainBox, 10);
     gtk_widget_set_margin_top(mainBox, 10);
     gtk_widget_set_margin_bottom(mainBox, 10);
-
-    // Mainmenu
-    mainmenu := CreateMenu;
-    gtk_box_append(GTK_BOX(mainBox), gtk_popover_menu_bar_new_from_model(G_MENU_MODEL(CreateMenu)));
-    g_object_unref(mainmenu);
-
-    action := g_simple_action_new('quit', nil);
-    g_signal_connect(action, 'activate', G_CALLBACK(@action_cp), nil);
-    g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
-    g_object_unref(action);
 
     // --- Box 1
     // Scale
@@ -159,19 +153,19 @@ uses
     VBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
 
     // Position/Duration
-    Label_Box:= gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+    Label_Box := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
     gtk_widget_set_margin_start(Label_Box, 15);
 
-    lab1:=gtk_label_new('Position:');
+    lab1 := gtk_label_new('Position:');
     gtk_box_append(GTK_BOX(Label_Box), lab1);
-    sharedWidgets^.LabelPosition:=gtk_label_new('00:00:0');
+    sharedWidgets^.LabelPosition := gtk_label_new('00:00:0');
     gtk_widget_set_size_request(sharedWidgets^.LabelPosition, 60, -1);
     gtk_label_set_xalign(GTK_LABEL(sharedWidgets^.LabelPosition), 1.0);
     gtk_box_append(GTK_BOX(Label_Box), sharedWidgets^.LabelPosition);
 
-    lab1:=gtk_label_new('Duration:');
+    lab1 := gtk_label_new('Duration:');
     gtk_box_append(GTK_BOX(Label_Box), lab1);
-    sharedWidgets^.LabelDuration:=gtk_label_new('00:00:0');
+    sharedWidgets^.LabelDuration := gtk_label_new('00:00:0');
     gtk_widget_set_size_request(sharedWidgets^.LabelDuration, 60, -1);
     gtk_label_set_xalign(GTK_LABEL(sharedWidgets^.LabelDuration), 1.0);
     gtk_box_append(GTK_BOX(Label_Box), sharedWidgets^.LabelDuration);
@@ -224,6 +218,18 @@ uses
     gtk_window_present(GTK_WINDOW(sharedWidgets^.main_window));
   end;
 
+  procedure app_startup(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
+  var
+    action: PGSimpleAction;
+  begin
+    g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
+    gtk_application_set_menubar(GTK_APPLICATION(app), G_MENU_MODEL(CreateMenu));
+
+    action := g_simple_action_new('quit', nil);
+    g_signal_connect(action, 'activate', G_CALLBACK(@action_cp), nil);
+    g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
+    g_object_unref(action);
+  end;
 
   procedure main(argc: cint; argv: PPChar);
   var
@@ -231,11 +237,11 @@ uses
   begin
     app := gtk_application_new('org.gtk.mediaplayer', G_APPLICATION_DEFAULT_FLAGS);
 
-    g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
+    g_signal_connect(app, 'startup', G_CALLBACK(@app_startup), nil);
+    g_signal_connect(app, 'activate', G_CALLBACK(@app_activate), nil);
     g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
   end;
-
 
 begin
   main(argc, argv);

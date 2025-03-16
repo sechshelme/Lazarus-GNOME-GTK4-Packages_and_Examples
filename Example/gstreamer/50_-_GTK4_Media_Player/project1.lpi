@@ -60,9 +60,9 @@
         <UnitName Value="Common"/>
       </Unit>
       <Unit>
-        <Filename Value="xml__loadsave.pas"/>
+        <Filename Value="loadsavesongs.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="XML__LoadSave"/>
+        <UnitName Value="LoadSaveSongs"/>
       </Unit>
       <Unit>
         <Filename Value="action.pas"/>
