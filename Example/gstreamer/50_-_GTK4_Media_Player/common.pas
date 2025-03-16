@@ -85,7 +85,6 @@ const
 
 type
   TSong = record
-    Index: Tgint;
     FullPath: Pgchar;
     Duration: TGstClockTime;
   end;

@@ -114,8 +114,6 @@ var
   song: PSong;
   obj: PGObject;
   buf: array[0..255] of Tgchar;
-const
-  index: integer = 0;
 begin
   if XMLLoadStruct^.index >= XMLLoadStruct^.Count then  begin
     g_free(XMLLoadStruct);
@@ -126,9 +124,7 @@ begin
   g_snprintf(buf, SizeOf(buf), '%s/items/item%d', SongXMLKey, XMLLoadStruct^.index);
   song^.FullPath := readKey(XMLLoadStruct^.doc, buf, 'value');
 
-  song^.Index := index;
   song^.Duration := get_duration(song^.FullPath);
-  Inc(index);
 
   obj := g_object_new(G_TYPE_OBJECT, nil);
   g_object_set_data_full(obj, songObjectKey, song, @songitem_object_free_cp);

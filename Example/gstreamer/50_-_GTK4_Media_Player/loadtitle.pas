@@ -30,9 +30,6 @@ var
   obj: PGObject;
   song: PSong;
   i: integer;
-const
-  index: integer = 0;
-
 begin
   entryName := g_dir_read_name(dirStruct^.dir);
   if entryName = nil then begin
@@ -45,11 +42,8 @@ begin
   for i := 0 to Length(AudioExtensions) - 1 do begin
     if g_str_has_suffix(entryName, AudioExtensions[i]) then  begin
       song := g_malloc(SizeOf(TSong));
-      song^.Index := index;
       song^.FullPath:=     g_strdup(PChar(dirStruct^.path + '/' + entryName));
-//      song^.Duration := get_duration(song^.FullPath) div G_USEC_PER_SEC;
       song^.Duration := get_duration(song^.FullPath);
-      Inc(index);
 
       obj := g_object_new(G_TYPE_OBJECT, nil);
       g_object_set_data_full(obj, songObjectKey, song, @songitem_object_free_cp);

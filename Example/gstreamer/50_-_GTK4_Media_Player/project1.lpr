@@ -106,7 +106,7 @@ uses
 
   procedure app_activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
-    mainBox, buttonBox, label1, columnView, scrolled_window: PGtkWidget;
+    mainBox, buttonBox, columnView, scrolled_window,
     mediaControlPanel, HBox, VBox, Label_Box, lab1: PGtkWidget;
     sharedWidgets: PSharedWidget;
   begin
@@ -149,8 +149,12 @@ uses
     HBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
     gtk_widget_set_hexpand(HBox, True);
     gtk_box_append(GTK_BOX(mainBox), HBox);
-
     VBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+    gtk_box_append(GTK_BOX(HBox), VBox);
+
+    // MediaButton
+    mediaControlPanel := CreateMediaControlsPanel;
+    gtk_box_append(GTK_BOX(VBox), mediaControlPanel);
 
     // Position/Duration
     Label_Box := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
@@ -171,13 +175,6 @@ uses
     gtk_box_append(GTK_BOX(Label_Box), sharedWidgets^.LabelDuration);
 
     gtk_box_append(GTK_BOX(VBox), Label_Box);
-
-    // MediaButton
-    mediaControlPanel := CreateMediaControlsPanel;
-    gtk_box_append(GTK_BOX(VBox), mediaControlPanel);
-
-    gtk_box_append(GTK_BOX(HBox), VBox);
-
 
     // VU-Meter
     sharedWidgets^.VUMeter := gtk_drawing_area_new;
@@ -204,8 +201,7 @@ uses
     buttonBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
     gtk_box_append(GTK_BOX(HBox), buttonBox);
 
-    label1 := gtk_label_new('box2');
-    gtk_box_append(GTK_BOX(buttonBox), label1);
+    gtk_box_append(GTK_BOX(buttonBox), gtk_label_new('Edit'));
 
     CreateBtnButton(buttonBox, 'Append', 'list-add', 'app.listbox.append');
     CreateBtnButton(buttonBox, 'Remove', 'list-remove', 'app.listbox.remove');

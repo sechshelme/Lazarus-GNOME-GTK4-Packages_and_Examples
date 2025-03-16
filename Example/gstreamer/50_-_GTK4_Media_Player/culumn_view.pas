@@ -145,17 +145,17 @@ end;
 procedure bind_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;
 var
   col: Tgint absolute user_data;
-  label_: PGtkWidget;
+  lab: PGtkWidget;
   item_obj: PGObject;
   song: PSong;
-  buffer: Pgchar;
+  buffer: Pgchar = nil;
 begin
-  label_ := gtk_list_item_get_child(list_item);
+  lab := gtk_list_item_get_child(list_item);
   item_obj := gtk_list_item_get_item(list_item);
   song := g_object_get_data(item_obj, songObjectKey);
   case col of
     0: begin
-      buffer := g_strdup_printf('%d', song^.Index);
+      buffer := g_strdup_printf('%d', gtk_list_item_get_position(list_item));
     end;
     1: begin
       buffer := g_strdup_printf('%s', song^.FullPath);
@@ -168,7 +168,7 @@ begin
       end;
     end;
   end;
-  gtk_label_set_text(GTK_LABEL(label_), buffer);
+  gtk_label_set_text(GTK_LABEL(lab), buffer);
   g_free(buffer);
 end;
 
