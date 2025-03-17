@@ -185,7 +185,6 @@ var
   initial_folder: PGFile;
 begin
   dialog := gtk_file_dialog_new;
-//  gtk_file_dialog_set_initial_name(dialog, 'noname.xml');
   current_dir := g_get_current_dir;
   initial_folder := g_file_new_for_path(current_dir);
   gtk_file_dialog_set_initial_folder(dialog, initial_folder);
@@ -195,8 +194,5 @@ begin
 
   g_object_unref(dialog);
 end;
-
-
-
 
 end.

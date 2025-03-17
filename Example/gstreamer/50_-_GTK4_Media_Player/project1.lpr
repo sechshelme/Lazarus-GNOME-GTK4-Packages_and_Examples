@@ -104,9 +104,14 @@ uses
     gtk_box_append(GTK_BOX(Result), buttonBox);
   end;
 
+  procedure sharedWidgest_free_cp(Data: Tgpointer; where_the_object_was: PGObject); cdecl;
+  begin
+    g_free(Data);
+  end;
+
   procedure app_activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
-    mainBox, buttonBox, columnView, scrolled_window,
+    mainBox, buttonBox, scrolled_window,
     mediaControlPanel, HBox, VBox, Label_Box, lab1: PGtkWidget;
     sharedWidgets: PSharedWidget;
   begin
@@ -114,12 +119,6 @@ uses
     sharedWidgets := g_malloc(SizeOf(TSharedWidget));
     sharedWidgets^.scale_changed_id := 0;
     sharedWidgets^.IsChange := False;
-
-//    g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
-    //    g_setenv('GTK_THEME', 'Adwaita:dark', TRUE);
-    //    g_setenv('GTK_USE_PORTAL', '0', TRUE);
-    //    g_setenv('ADW_DISABLE_PORTAL', '1', TRUE);
-
 
     sharedWidgets^.main_window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(sharedWidgets^.main_window), 'Media Player');
@@ -190,12 +189,11 @@ uses
 
     // ScrolledWindows / ColumnView
     scrolled_window := gtk_scrolled_window_new;
-    columnView := Create_ColumnView;
+    Create_ColumnView(sharedWidgets);
     gtk_widget_set_vexpand(scrolled_window, True);
     gtk_widget_set_hexpand(scrolled_window, True);
-    gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), columnView);
+    gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), sharedWidgets^.columnView);
     gtk_box_append(GTK_BOX(HBox), scrolled_window);
-    g_object_set_data_full(G_OBJECT(columnView), sharedWidgetKey, sharedWidgets, @g_free);
 
     // ButtonBox
     buttonBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
@@ -212,6 +210,8 @@ uses
     // --- Box End
     gtk_window_set_child(GTK_WINDOW(sharedWidgets^.main_window), mainBox);
     gtk_window_present(GTK_WINDOW(sharedWidgets^.main_window));
+
+    g_object_weak_ref(G_OBJECT(sharedWidgets^.main_Window), @sharedWidgest_free_cp, sharedWidgets);
   end;
 
   procedure app_startup(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
@@ -232,6 +232,9 @@ uses
     app: PGtkApplication;
   begin
     app := gtk_application_new('org.gtk.mediaplayer', G_APPLICATION_DEFAULT_FLAGS);
+    //    g_setenv('GTK_THEME', 'Adwaita:dark', TRUE);
+    //    g_setenv('GTK_USE_PORTAL', '0', TRUE);
+    //    g_setenv('ADW_DISABLE_PORTAL', '1', TRUE);
 
     g_signal_connect(app, 'startup', G_CALLBACK(@app_startup), nil);
     g_signal_connect(app, 'activate', G_CALLBACK(@app_activate), nil);

@@ -8,7 +8,7 @@ uses
   Action,
   LoadTitle, Streamer, XML_Tools, LoadSaveSongs;
 
-function Create_ColumnView: PGtkWidget;
+procedure Create_ColumnView(sharedWidgets: PSharedWidget);
 
 implementation
 
@@ -27,7 +27,7 @@ end;
 
 function timerFunc_cp(user_data: Tgpointer): Tgboolean; cdecl;
 var
-  column_view: PGtkColumnView absolute user_data;
+  sharedWidgets: PSharedWidget absolute user_data;
   adjustment: PGtkAdjustment;
   SPos, SDur: TGstClockTime;
   selection_model: PGtkSelectionModel;
@@ -39,13 +39,10 @@ var
 
   item_obj: PGObject;
   song: PSong = nil;
-  sharedWidget: PSharedWidget;
   s: string;
 
 begin
-  sharedWidget := g_object_get_data(G_OBJECT(column_view), sharedWidgetKey);
-
-  selection_model := gtk_column_view_get_model(column_view);
+  selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW( sharedWidgets^.columnView));
   list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
   Count := g_list_model_get_n_items(list_model);
 
@@ -54,13 +51,13 @@ begin
     index := gtk_bitset_get_nth(selected, 0);
   end;
 
-  adjustment := gtk_range_get_adjustment(GTK_RANGE(sharedWidget^.scale));
-  g_signal_handler_block(sharedWidget^.scale, sharedWidget^.scale_changed_id);
+  adjustment := gtk_range_get_adjustment(GTK_RANGE(sharedWidgets^.scale));
+  g_signal_handler_block(sharedWidgets^.scale, sharedWidgets^.scale_changed_id);
 
   if PriStream <> nil then begin
-    if sharedWidget^.IsChange then begin
+    if sharedWidgets^.IsChange then begin
       PriStream.Position := Round(gtk_adjustment_get_value(adjustment));
-      sharedWidget^.IsChange := False;
+      sharedWidgets^.IsChange := False;
     end else begin
       SPos := PriStream.Position;
       SDur := PriStream.Duration;
@@ -68,14 +65,14 @@ begin
       gtk_adjustment_set_value(adjustment, SPos);
 
       s := GstClockToStr(SPos);
-      gtk_label_set_label(GTK_LABEL(sharedWidget^.LabelPosition), PChar(s));
+      gtk_label_set_label(GTK_LABEL(sharedWidgets^.LabelPosition), PChar(s));
 
       if SDur = GST_CLOCK_TIME_NONE then begin
         s := '--.--';
       end else begin
         s := GstClockToStr(SDur);
       end;
-      gtk_label_set_label(GTK_LABEL(sharedWidget^.LabelDuration), PChar(s));
+      gtk_label_set_label(GTK_LABEL(sharedWidgets^.LabelDuration), PChar(s));
 
       if SPos = GST_CLOCK_TIME_NONE then begin
         PriStream.Volume := 0.0;
@@ -101,7 +98,7 @@ begin
             song := g_object_get_data(item_obj, songObjectKey);
             gtk_adjustment_set_upper(adjustment, 0);
             gtk_adjustment_set_value(adjustment, 0);
-            PriStream.Create(song^.FullPath, sharedWidget^.VUMeter);
+            PriStream.Create(song^.FullPath, sharedWidgets^.VUMeter);
             g_object_unref(item_obj);
             gtk_selection_model_select_item(selection_model, index2, True);
           end;
@@ -123,7 +120,7 @@ begin
   //      Lab_Track_Value.Caption := IntToStr(ListView.ItemIndex + 1) + '/' + ListView.Items.Count.ToString;
   //    end;
 
-  g_signal_handler_unblock(sharedWidget^.scale, sharedWidget^.scale_changed_id);
+  g_signal_handler_unblock(sharedWidgets^.scale, sharedWidgets^.scale_changed_id);
   Result := G_SOURCE_CONTINUE;
 end;
 
@@ -223,11 +220,11 @@ end;
 
 // ==== public
 
-function Create_ColumnView: PGtkWidget;
+procedure Create_ColumnView(sharedWidgets: PSharedWidget);
 const
   ColTitles: array of Pgchar = ('Index', 'Titel', 'Dauer');
 var
-  column_view: PGtkWidget;
+//  column_view: PGtkWidget;
   factory: PGtkListItemFactory;
   column: PGtkColumnViewColumn;
   list_store: PGListStore;
@@ -246,10 +243,10 @@ begin
   list_store := g_list_store_new(G_TYPE_OBJECT);
   single_selection := gtk_single_selection_new(G_LIST_MODEL(list_store));
 
-  column_view := gtk_column_view_new(GTK_SELECTION_MODEL(single_selection));
-  gtk_column_view_set_show_row_separators(GTK_COLUMN_VIEW(column_view), True);
-  gtk_column_view_set_show_column_separators(GTK_COLUMN_VIEW(column_view), True);
-  g_signal_connect(column_view, 'activate', G_CALLBACK(@on_row_activated_cb), nil);
+  sharedWidgets^.columnView := gtk_column_view_new(GTK_SELECTION_MODEL(single_selection));
+  gtk_column_view_set_show_row_separators(GTK_COLUMN_VIEW(sharedWidgets^.columnView), True);
+  gtk_column_view_set_show_column_separators(GTK_COLUMN_VIEW(sharedWidgets^.columnView), True);
+  g_signal_connect(sharedWidgets^.columnView, 'activate', G_CALLBACK(@on_row_activated_cb), nil);
 
   len := Length(ColTitles) - 1;
   for i := 0 to len do begin
@@ -262,7 +259,7 @@ begin
     column := gtk_column_view_column_new(ColTitles[i], factory);
 
     gtk_column_view_column_set_resizable(column, True);
-    gtk_column_view_append_column(GTK_COLUMN_VIEW(column_view), column);
+    gtk_column_view_append_column(GTK_COLUMN_VIEW(sharedWidgets^.columnView), column);
 
     if i = 1 then  begin
       gtk_column_view_column_set_expand(column, True);
@@ -271,12 +268,12 @@ begin
     g_object_unref(column);
   end;
 
-  CreateActions(column_view);
+  CreateActions(sharedWidgets);
 
-  idle_id := g_timeout_add(100, @timerFunc_cp, column_view);
-  g_signal_connect(column_view, 'destroy', G_CALLBACK(@on_columnview_destroy), GINT_TO_POINTER(idle_id));
+  idle_id := g_timeout_add(100, @timerFunc_cp, sharedWidgets);
+  g_signal_connect(sharedWidgets^.columnView, 'destroy', G_CALLBACK(@on_columnview_destroy), GINT_TO_POINTER(idle_id));
 
-  Result := column_view;
+//  Result := column_view;
 end;
 
 

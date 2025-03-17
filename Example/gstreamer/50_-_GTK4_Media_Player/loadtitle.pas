@@ -23,7 +23,7 @@ type
   end;
   PDirStruct = ^TDirStruct;
 
-function OpenTitel1(user_data: Tgpointer): Tgboolean; cdecl;
+function idele_load_cp(user_data: Tgpointer): Tgboolean; cdecl;
 var
   dirStruct: PDirStruct absolute user_data;
   entryName: Pgchar;
@@ -68,7 +68,7 @@ begin
   if dirStruct^.dir = nil then begin
     WriteLn('Konnte Ordner nicht öffnen !');
   end else begin
-    g_idle_add(@OpenTitel1, dirStruct);
+    g_idle_add(@idele_load_cp, dirStruct);
   end;
 end;
 

@@ -18,7 +18,6 @@ type
 procedure writeKey(doc: PxmlDoc; xpath: Pgchar; attrName, attrValue: PxmlChar);
 function readKey(doc: PxmlDoc; xpath, attrName: pchar): pchar;
 
-
 function XML_Config_new(path: Pgchar): PXMLConfig;
 procedure XML_Config_unref(XMLConfig: PXMLConfig);
 
