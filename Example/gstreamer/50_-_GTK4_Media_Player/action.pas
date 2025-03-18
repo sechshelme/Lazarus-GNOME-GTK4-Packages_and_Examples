@@ -69,6 +69,33 @@ begin
   end;
 
   case action_name of
+    'listbox.default.flac1': begin
+      g_list_store_remove_all(G_LIST_STORE(list_model));
+      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
+    end;
+    'listbox.default.flac2': begin
+      g_list_store_remove_all(G_LIST_STORE(list_model));
+      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt');
+    end;
+    'listbox.default.mp3': begin
+      g_list_store_remove_all(G_LIST_STORE(list_model));
+      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Black Bear Roa');
+      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits');
+      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/MCcall & Company');
+      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Roses For Mama');
+      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Rubber Duck');
+      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Wolf Creek Pass');
+    end;
+    'listbox.default.mod': begin
+      g_list_store_remove_all(G_LIST_STORE(list_model));
+      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/mod');
+    end;
+    'listbox.default.midi': begin
+      g_list_store_remove_all(G_LIST_STORE(list_model));
+      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/midi');
+    end;
+
+
     'listbox.save': begin
       Save_Songs(sharedWidgets^.main_Window, G_LIST_STORE(list_model));
     end;
@@ -99,19 +126,7 @@ begin
       end;
     end;
     'listbox.append': begin
-      //      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound');
-      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/midi');
-      //      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/mod');
 
-      //      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
-      //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt');
-      //
-      //      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Black Bear Roa');
-      //            LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits');
-      //      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/MCcall & Company');
-      //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Roses For Mama');
-      //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Rubber Duck');
-      //LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Wolf Creek Pass');
     end;
     'listbox.remove': begin
       if index >= 0 then begin
@@ -192,6 +207,11 @@ end;
 procedure CreateActions(sharedWidgets: PSharedWidget);
 const
   entries: array of Pgchar = (
+    'listbox.default.flac1',
+    'listbox.default.flac2',
+    'listbox.default.mp3',
+    'listbox.default.mod',
+    'listbox.default.midi',
     'listbox.save',
     'listbox.open',
     'listbox.play',

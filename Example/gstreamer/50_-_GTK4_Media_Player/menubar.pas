@@ -59,18 +59,25 @@ begin
 
   section := g_menu_new;
   g_menu_append_section(fileMenu, 'Datei', G_MENU_MODEL(section));
+  g_object_unref(section);
 
   g_menu_append(section, '_Neu', 'app.new');
-
   g_menu_append(section, '_Öffnen...', 'app.listbox.open');
   g_menu_append(section, '_Speichern unter...', 'app.listbox.save');
 
+  section := g_menu_new();
+  g_menu_append_section(fileMenu, 'Default', G_MENU_MODEL(section));
+  g_object_unref(section);
+
+  g_menu_append(section, 'Flac 1', 'app.listbox.default.flac1');
+  g_menu_append(section, 'Flac 2', 'app.listbox.default.flac2');
+  g_menu_append(section, 'MP3', 'app.listbox.default.mp3');
+  g_menu_append(section, 'MOD', 'app.listbox.default.mod');
+  g_menu_append(section, 'MIDI', 'app.listbox.default.midi');
 
   section := g_menu_new();
   g_menu_append_section(fileMenu, 'Programm', G_MENU_MODEL(section));
-//  g_menu_append(section, nil, nil);
   g_object_unref(section);
-//  g_menu_append_section(fileMenu, nil, G_MENU_MODEL(g_menu_new()));
 
   quit_item := g_menu_item_new('Beenden...', 'app.quit');
   g_menu_item_set_attribute(quit_item, 'accel', 's', '<Ctrl>q');
