@@ -10,19 +10,19 @@ uses
   fp_GTK4,
   XML_Tools,
   Common,
-  Streamer,
-  LoadTitle;
+  Streamer;
+
+procedure Save_Song(path: Pgchar; list: PGListStore);
 
 procedure Save_Songs(main_Window: PGtkWidget; list: PGListStore);
 procedure Open_Songs(main_Window: PGtkWidget; list: PGListStore);
-
 
 implementation
 
 const
   SongXMLKey = 'title/song';
 
-// === Songs speicher ======================================
+  // === Songs speicher ======================================
 
 procedure Save_Songs_to_XML(path: Pgchar; list: PGListStore);
 var
@@ -100,6 +100,21 @@ end;
 
 // === Songs laden ===================
 
+procedure Save_Song(path: Pgchar; list: PGListStore);
+var
+  song: PSong;
+  obj: PGObject;
+begin
+  song := g_malloc(SizeOf(TSong));
+  song^.FullPath := path;
+  song^.Duration := get_duration(song^.FullPath);
+
+  obj := g_object_new(G_TYPE_OBJECT, nil);
+  g_object_set_data_full(obj, songObjectKey, song, @songitem_object_free_cp);
+  g_list_store_append(list, obj);
+  g_object_unref(obj);
+end;
+
 type
   TXMLLoadStruct = record
     doc: PxmlDoc;
@@ -111,25 +126,15 @@ type
 function load_xml_songitems_cp(user_data: Tgpointer): Tgboolean; cdecl;
 var
   XMLLoadStruct: PXMLLoadStruct absolute user_data;
-  song: PSong;
-  obj: PGObject;
-  buf: array[0..255] of Tgchar;
+  buf: Pgchar;
 begin
   if XMLLoadStruct^.index >= XMLLoadStruct^.Count then  begin
     g_free(XMLLoadStruct);
     Exit(G_SOURCE_REMOVE_);
   end;
-  song := g_malloc(SizeOf(TSong));
 
-  g_snprintf(buf, SizeOf(buf), '%s/items/item%d', SongXMLKey, XMLLoadStruct^.index);
-  song^.FullPath := readKey(XMLLoadStruct^.doc, buf, 'value');
-
-  song^.Duration := get_duration(song^.FullPath);
-
-  obj := g_object_new(G_TYPE_OBJECT, nil);
-  g_object_set_data_full(obj, songObjectKey, song, @songitem_object_free_cp);
-  g_list_store_append(XMLLoadStruct^.store, obj);
-  g_object_unref(obj);
+  buf := g_strdup_printf('%s/items/item%d', SongXMLKey, XMLLoadStruct^.index);
+  Save_Song(readKey(XMLLoadStruct^.doc, buf, 'value'), XMLLoadStruct^.store);
 
   Inc(XMLLoadStruct^.index);
   Exit(G_SOURCE_CONTINUE);

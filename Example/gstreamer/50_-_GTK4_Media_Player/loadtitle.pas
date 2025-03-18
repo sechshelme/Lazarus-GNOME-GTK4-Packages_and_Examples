@@ -9,6 +9,7 @@ uses
   fp_glib2,
   fp_GTK4,
   Common,
+  LoadSaveSongs,
   Streamer;
 
 procedure LoadTitles(store: PGListStore; path: Pgchar);
@@ -26,9 +27,7 @@ type
 function idele_load_cp(user_data: Tgpointer): Tgboolean; cdecl;
 var
   dirStruct: PDirStruct absolute user_data;
-  entryName: Pgchar;
-  obj: PGObject;
-  song: PSong;
+  entryName, path: Pgchar;
   i: integer;
 begin
   entryName := g_dir_read_name(dirStruct^.dir);
@@ -41,14 +40,8 @@ begin
 
   for i := 0 to Length(AudioExtensions) - 1 do begin
     if g_str_has_suffix(entryName, AudioExtensions[i]) then  begin
-      song := g_malloc(SizeOf(TSong));
-      song^.FullPath:=     g_strdup(PChar(dirStruct^.path + '/' + entryName));
-      song^.Duration := get_duration(song^.FullPath);
-
-      obj := g_object_new(G_TYPE_OBJECT, nil);
-      g_object_set_data_full(obj, songObjectKey, song, @songitem_object_free_cp);
-      g_list_store_append(dirStruct^.store, obj);
-      g_object_unref(obj);
+      path := g_strdup(PChar(dirStruct^.path + '/' + entryName));
+      Save_Song(path, dirStruct^.store);
       Break;
     end;
   end;
@@ -62,7 +55,7 @@ var
 begin
   dirStruct := g_malloc(SizeOf(TDirStruct));
   dirStruct^.store := store;
-  dirStruct^.path := g_strdup( path);
+  dirStruct^.path := g_strdup(path);
   dirStruct^.dir := g_dir_open(path, 0, nil);
 
   if dirStruct^.dir = nil then begin
@@ -71,7 +64,5 @@ begin
     g_idle_add(@idele_load_cp, dirStruct);
   end;
 end;
-
-
 
 end.

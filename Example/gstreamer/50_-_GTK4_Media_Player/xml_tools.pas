@@ -7,9 +7,7 @@ interface
 uses
   fp_glib2,
   fp_xml2,
-  Common,
-  Streamer,
-  LoadTitle;
+  Common;
 
 type
   PXMLConfig = type PGObject;
