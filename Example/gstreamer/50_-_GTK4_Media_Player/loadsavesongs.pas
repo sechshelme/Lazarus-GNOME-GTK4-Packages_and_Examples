@@ -12,10 +12,12 @@ uses
   Common,
   Streamer;
 
-procedure Save_Song(path: Pgchar; list: PGListStore);
+procedure Load_Song(path: Pgchar; list: PGListStore);
 
 procedure Save_Songs(main_Window: PGtkWidget; list: PGListStore);
 procedure Open_Songs(main_Window: PGtkWidget; list: PGListStore);
+
+function xml_to_stringlist(path: Pgchar): PPChar;
 
 implementation
 
@@ -100,7 +102,7 @@ end;
 
 // === Songs laden ===================
 
-procedure Save_Song(path: Pgchar; list: PGListStore);
+procedure Load_Song(path: Pgchar; list: PGListStore);
 var
   song: PSong;
   obj: PGObject;
@@ -114,6 +116,8 @@ begin
   g_list_store_append(list, obj);
   g_object_unref(obj);
 end;
+
+// ===
 
 type
   TXMLLoadStruct = record
@@ -134,7 +138,7 @@ begin
   end;
 
   buf := g_strdup_printf('%s/items/item%d', SongXMLKey, XMLLoadStruct^.index);
-  Save_Song(readKey(XMLLoadStruct^.doc, buf, 'value'), XMLLoadStruct^.store);
+  Load_Song(readKey(XMLLoadStruct^.doc, buf, 'value'), XMLLoadStruct^.store);
 
   Inc(XMLLoadStruct^.index);
   Exit(G_SOURCE_CONTINUE);
@@ -168,6 +172,7 @@ var
   dialog: PGtkFileDialog;
   file_: PGFile;
   filename: pchar;
+  sa, p: PPChar;
 begin
   dialog := GTK_FILE_DIALOG(source_object);
   file_ := gtk_file_dialog_open_finish(dialog, res, nil);
@@ -175,6 +180,19 @@ begin
     filename := g_file_get_path(file_);
 
     Load_Songs_from_XML(filename, list_store);
+
+    // --- Test
+    sa := xml_to_stringlist(filename);
+    if sa <> nil then begin
+      p := sa;
+      while p^ <> nil do begin
+        WriteLn(p^);
+        inc(p);
+      end;
+      g_strfreev(sa);
+    end;
+    // --- Test end
+
 
     g_free(filename);
     g_object_unref(file_);
@@ -198,6 +216,34 @@ begin
   gtk_file_dialog_open(dialog, GTK_WINDOW(main_Window), nil, @on_open_cp, list);
 
   g_object_unref(dialog);
+end;
+
+// ====
+
+function xml_to_stringlist(path: Pgchar): PPChar;
+var
+  i, len: Tgint64;
+  buf1: array[0..255] of Tgchar;
+  buf2: Pgchar;
+  doc: PxmlDoc;
+begin
+  Result := nil;
+  doc := xmlReadFile(path, nil, XML_PARSE_NOBLANKS);
+  g_snprintf(buf1, SizeOf(buf1), '%s/items', SongXMLKey);
+  buf2 := readKey(doc, buf1, 'count');
+  if buf2 = nil then begin
+    Exit(nil);
+  end;
+  len := g_ascii_strtoll(buf2, nil, 10);
+  g_free(buf2);
+  Result := g_malloc(SizeOf(Pgchar) * (len + 1));
+
+  for i := 0 to len - 1 do begin
+    g_snprintf(buf1, SizeOf(buf1), '%s/items/item%d', SongXMLKey, i);
+    Result[i] := readKey(doc, buf1, 'value');
+  end;
+  Result[len] := nil;
+  xmlFreeDoc(doc);
 end;
 
 end.

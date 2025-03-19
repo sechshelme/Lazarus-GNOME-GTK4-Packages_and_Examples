@@ -104,6 +104,7 @@ uses
       g_snprintf(buf1, SizeOf(buf1), '%s/items/item%d', key, i);
       Result[i] := readKey(doc, buf1, 'value');
     end;
+    Result[len] := nil;
   end;
 
   // ===================
@@ -173,17 +174,15 @@ uses
     printKey(doc, 'window/button/label', 'text');
 
     sa := readStringArr(doc, 'window/memo');
-    if sa = nil then begin
-      len := 0;
-    end else begin
+    if sa <> nil then begin
       len := g_strv_length(sa);
-    end;
-    g_printf('count: %d'#10, len);
-    for i := 0 to len - 1 do begin
-      g_printf('  %3d. %s'#10, i, sa[i]);
+      g_printf('count: %d'#10, len);
+      for i := 0 to len - 1 do begin
+        g_printf('  %3d. %s'#10, i, sa[i]);
+      end;
+      g_strfreev(sa);
     end;
 
-    g_strfreev(sa);
     xmlFreeDoc(doc);
   end;
 
