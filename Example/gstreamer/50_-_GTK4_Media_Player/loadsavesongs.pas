@@ -13,6 +13,7 @@ uses
   Streamer;
 
 procedure Load_Song(path: Pgchar; list: PGListStore);
+procedure Load_Songs_from_SA(sa: PPgchar; list: PGListStore);
 
 procedure Save_Songs_XML_Dialog(main_Window: PGtkWidget; list: PGListStore);
 procedure Open_Songs_XML_Dialog(main_Window: PGtkWidget; list: PGListStore);
@@ -121,46 +122,11 @@ end;
 
 type
   TSALoadStruct = record
-//    doc: PxmlDoc;
     sa:PPgchar;
     store: PGListStore;
-//    Count,
     index: Tgint64;
   end;
   PSALoadStruct = ^TSALoadStruct;
-
-//function load_xml_songitems_cp(user_data: Tgpointer): Tgboolean; cdecl;
-//var
-//  XMLLoadStruct: PXMLLoadStruct absolute user_data;
-//  buf: Pgchar;
-//begin
-//  if XMLLoadStruct^.index >= XMLLoadStruct^.Count then  begin
-//    g_free(XMLLoadStruct);
-//    Exit(G_SOURCE_REMOVE_);
-//  end;
-//
-//  buf := g_strdup_printf('%s/items/item%d', SongXMLKey, XMLLoadStruct^.index);
-//  Load_Song(readKey(XMLLoadStruct^.doc, buf, 'value'), XMLLoadStruct^.store);
-//
-//  Inc(XMLLoadStruct^.index);
-//  Exit(G_SOURCE_CONTINUE);
-//end;
-
-//procedure Load_Songs_from_XML(path: Pgchar; list: PGListStore);
-//var
-//  XMLLoadStruct: PXMLLoadStruct;
-//var
-//  s: Pgchar;
-//  buf: array[0..255] of Tgchar;
-//begin
-//  XMLLoadStruct := g_malloc(SizeOf(TXMLLoadStruct));
-//  XMLLoadStruct^.store := list;
-//
-//  XMLLoadStruct^.index := 0;
-//  WriteLn('count: ', XMLLoadStruct^.Count);
-//
-//  g_idle_add(@load_xml_songitems_cp, XMLLoadStruct);
-//end;
 
 function load_sa_songitems_cp(user_data: Tgpointer): Tgboolean; cdecl;
 var
@@ -229,21 +195,10 @@ begin
   file_ := gtk_file_dialog_open_finish(dialog, res, nil);
   if file_ <> nil then begin
     filename := g_file_get_path(file_);
-
-//    Load_Songs_from_XML(filename, list_store);
-
     sa := xml_to_stringlist(filename);
     if sa <> nil then begin
       Load_Songs_from_SA(sa, list_store);
-//
-//      p := sa;
-//      while p^ <> nil do begin
-//        WriteLn(p^);
-//        inc(p);
-//      end;
-//      g_strfreev(sa);
     end;
-
     g_free(filename);
     g_object_unref(file_);
   end else begin
