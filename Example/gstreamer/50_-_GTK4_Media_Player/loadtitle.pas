@@ -40,7 +40,8 @@ begin
 
   for i := 0 to Length(AudioExtensions) - 1 do begin
     if g_str_has_suffix(entryName, AudioExtensions[i]) then  begin
-      path := g_strdup(PChar(dirStruct^.path + '/' + entryName));
+//      path := g_strdup(PChar(dirStruct^.path + '/' + entryName));
+      path := PChar(dirStruct^.path + '/' + entryName);
       Load_Song(path, dirStruct^.store);
       Break;
     end;

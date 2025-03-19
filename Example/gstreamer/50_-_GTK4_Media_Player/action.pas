@@ -97,10 +97,10 @@ begin
 
 
     'listbox.save': begin
-      Save_Songs(sharedWidgets^.main_Window, G_LIST_STORE(list_model));
+      Save_Songs_XML_Dialog(sharedWidgets^.main_Window, G_LIST_STORE(list_model));
     end;
     'listbox.open': begin
-      Open_Songs(sharedWidgets^.main_Window, G_LIST_STORE(list_model));
+      Open_Songs_XML_Dialog(sharedWidgets^.main_Window, G_LIST_STORE(list_model));
     end;
     'listbox.play': begin
       if PriStream = nil then begin
