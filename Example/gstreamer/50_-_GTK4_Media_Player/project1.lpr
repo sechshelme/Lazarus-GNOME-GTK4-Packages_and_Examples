@@ -9,6 +9,7 @@ uses
   fp_GDK4,
   fp_GTK4,
   fp_gst,
+  Common,
   Streamer,
   culumn_view,
   LoadTitle,
@@ -201,7 +202,7 @@ uses
 
     gtk_box_append(GTK_BOX(buttonBox), gtk_label_new('Edit'));
 
-    CreateBtnButton(buttonBox, 'Append', 'list-add', 'app.listbox.append');
+    CreateBtnButton(buttonBox, 'Append', 'list-add', 'app.listbox.add');
     CreateBtnButton(buttonBox, 'Remove', 'list-remove', 'app.listbox.remove');
     CreateBtnButton(buttonBox, 'Remove All', 'list-remove-all', 'app.listbox.removeall');
     CreateBtnButton(buttonBox, 'Down', 'view-sort-descending', 'app.listbox.down');

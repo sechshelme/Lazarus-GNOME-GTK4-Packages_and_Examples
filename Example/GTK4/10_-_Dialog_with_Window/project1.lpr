@@ -19,7 +19,7 @@ const
   cmdApply = 1002;
   cmHelp = 1003;
 
-  procedure on_clicked(widget: PGtkWidget; {%H-}user_data: Tgpointer); cdecl;
+  procedure on_clicked(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
     mainWindow, FirstName_entry, LastName_entry: PGtkWidget;
     vorname, nachname: pchar;

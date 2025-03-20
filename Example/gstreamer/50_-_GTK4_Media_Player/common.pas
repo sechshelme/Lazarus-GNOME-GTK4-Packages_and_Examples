@@ -4,6 +4,7 @@ interface
 
 uses
   fp_glib2,
+  fp_GTK4,
   fp_gst;
 
 const
@@ -82,6 +83,19 @@ const
     '.sci',  // Format für verschiedene Sierra-Spiele
     '.sndh'  // Format für Atari ST
     );
+
+type
+  TSharedWidget = record
+    main_Window,
+    columnView,
+    LabelPosition,
+    LabelDuration,
+    VUMeter,
+    scale: PGtkWidget;
+    IsChange: boolean;
+    scale_changed_id: Tgulong;
+  end;
+  PSharedWidget = ^TSharedWidget;
 
 type
   TSong = record

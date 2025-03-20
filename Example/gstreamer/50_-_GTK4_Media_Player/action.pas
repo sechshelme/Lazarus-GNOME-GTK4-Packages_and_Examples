@@ -19,19 +19,6 @@ const
 const
   sharedWidgetKey = 'shared-widget';
 
-type
-  TSharedWidget = record
-    main_Window,
-    columnView,
-    LabelPosition,
-    LabelDuration,
-    VUMeter,
-    scale: PGtkWidget;
-    IsChange: boolean;
-    scale_changed_id: Tgulong;
-  end;
-  PSharedWidget = ^TSharedWidget;
-
 procedure CreateActions(sharedWidgets: PSharedWidget);
 
 
@@ -71,28 +58,28 @@ begin
   case action_name of
     'listbox.default.flac1': begin
       g_list_store_remove_all(G_LIST_STORE(list_model));
-      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
+      LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
     end;
     'listbox.default.flac2': begin
       g_list_store_remove_all(G_LIST_STORE(list_model));
-      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt');
+      LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt');
     end;
     'listbox.default.mp3': begin
       g_list_store_remove_all(G_LIST_STORE(list_model));
-      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Black Bear Roa');
-      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits');
-      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/MCcall & Company');
-      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Roses For Mama');
-      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Rubber Duck');
-      LoadTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Wolf Creek Pass');
+      LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Black Bear Roa');
+      LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits');
+      LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/MCcall & Company');
+      LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Roses For Mama');
+      LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Rubber Duck');
+      LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Wolf Creek Pass');
     end;
     'listbox.default.mod': begin
       g_list_store_remove_all(G_LIST_STORE(list_model));
-      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/mod');
+      LoadDefaulTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/mod');
     end;
     'listbox.default.midi': begin
       g_list_store_remove_all(G_LIST_STORE(list_model));
-      LoadTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/midi');
+      LoadDefaulTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/midi');
     end;
 
 
@@ -125,8 +112,8 @@ begin
         gtk_adjustment_set_upper(adjustment, 1000);
       end;
     end;
-    'listbox.append': begin
-
+    'listbox.add': begin
+      AddSongsDialog(sharedWidgets);
     end;
     'listbox.remove': begin
       if index >= 0 then begin
@@ -219,7 +206,7 @@ const
     'listbox.pause',
     'listbox.next',
     'listbox.prev',
-    'listbox.append',
+    'listbox.add',
     'listbox.remove',
     'listbox.removeall',
     'listbox.up',
