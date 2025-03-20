@@ -224,7 +224,6 @@ procedure Create_ColumnView(sharedWidgets: PSharedWidget);
 const
   ColTitles: array of Pgchar = ('Index', 'Titel', 'Dauer');
 var
-//  column_view: PGtkWidget;
   factory: PGtkListItemFactory;
   column: PGtkColumnViewColumn;
   list_store: PGListStore;
@@ -272,8 +271,6 @@ begin
 
   idle_id := g_timeout_add(100, @timerFunc_cp, sharedWidgets);
   g_signal_connect(sharedWidgets^.columnView, 'destroy', G_CALLBACK(@on_columnview_destroy), GINT_TO_POINTER(idle_id));
-
-//  Result := column_view;
 end;
 
 

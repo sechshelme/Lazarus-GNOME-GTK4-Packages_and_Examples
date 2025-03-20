@@ -17,7 +17,7 @@ procedure AddSongsDialog(shardedWidgets: PSharedWidget);
 
 implementation
 
-procedure LoadDefaulTitles(store: PGListStore; path: Pgchar);
+function LoadTitles(path: Pgchar): PPgchar;
 var
   dir: PGDir;
   entryName, path1: Pgchar;
@@ -27,6 +27,7 @@ begin
   dir := g_dir_open(path, 0, nil);
   if dir = nil then begin
     WriteLn('Konnte Ordner nicht öffnen !');
+    Exit(nil);
   end else begin
     files := g_ptr_array_new_null_terminated(0, nil, True);
     repeat
@@ -41,12 +42,13 @@ begin
         end;
       end;
     until entryName = nil;
-    g_ptr_array_add(files, nil);
-
-    Load_Songs_from_SA(PPgchar(g_ptr_array_free(files, False)), store);
-
-    g_dir_close(dir);
+    Result := PPgchar(g_ptr_array_free(files, False));
   end;
+end;
+
+procedure LoadDefaulTitles(store: PGListStore; path: Pgchar);
+begin
+  Load_Songs_from_SA(store, LoadTitles(path));
 end;
 
 // ========
@@ -74,9 +76,8 @@ begin
   selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW(sharedWidgets^.columnView));
   store := G_LIST_STORE(gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model)));
 
-
   if (cmd = cmdOk) or (cmd = cmdApply) then begin
-    Load_Song('/home/tux/Schreibtisch/sound/test.mp3', store);  // test
+    Load_Song(store, '/home/tux/Schreibtisch/sound/test.mp3');  // test
   end;
 
   if (cmd = cmdOk) or (cmd = cmdCancel) then begin
@@ -93,6 +94,7 @@ var
   dialgWindow, mainBox, button_box, help_button, ok_button,
   apply_button, cancel_button, paned, listbox1, listbox2, lab: PGtkWidget;
   i: integer;
+  sa, p: PPgchar;
 begin
   dialgWindow := gtk_window_new;
 
@@ -112,9 +114,21 @@ begin
   listbox1 := gtk_list_box_new;
   listbox2 := gtk_list_box_new;
 
+  sa := LoadTitles('/n4800/Multimedia/Music/Disco/C.C. Catch/1986 - Catch The Catch');
+  if sa <> nil then  begin
+    sa[4]:=nil;
+    p := sa;
+    while p^ <> nil do begin
+      lab := gtk_label_new( p^);
+      gtk_list_box_append(GTK_LIST_BOX(listbox1), lab);
+      Inc(p);
+    end;
+    g_strfreev(sa);
+  end;
+
   for i := 0 to 5 do begin
-    lab := gtk_label_new('blublu');
-    gtk_list_box_append(GTK_LIST_BOX(listbox1), lab);
+    //    lab := gtk_label_new('blublu');
+    //    gtk_list_box_append(GTK_LIST_BOX(listbox1), lab);
     lab := gtk_label_new('blublu');
     gtk_list_box_append(GTK_LIST_BOX(listbox2), lab);
   end;

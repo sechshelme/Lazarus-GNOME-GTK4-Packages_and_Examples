@@ -12,11 +12,11 @@ uses
   Common,
   Streamer;
 
-procedure Load_Song(path: Pgchar; list: PGListStore);
-procedure Load_Songs_from_SA(sa: PPgchar; list: PGListStore);
+procedure Load_Song(store: PGListStore; path: Pgchar);
+procedure Load_Songs_from_SA(store: PGListStore; sa: PPgchar);
 
-procedure Save_Songs_XML_Dialog(main_Window: PGtkWidget; list: PGListStore);
-procedure Open_Songs_XML_Dialog(main_Window: PGtkWidget; list: PGListStore);
+procedure Save_Songs_XML_Dialog(main_Window: PGtkWidget; store: PGListStore);
+procedure Open_Songs_XML_Dialog(main_Window: PGtkWidget; store: PGListStore);
 
 //function xml_to_stringlist(path: Pgchar): PPChar;
 
@@ -83,7 +83,7 @@ begin
   end;
 end;
 
-procedure Save_Songs_XML_Dialog(main_Window: PGtkWidget; list: PGListStore);
+procedure Save_Songs_XML_Dialog(main_Window: PGtkWidget; store: PGListStore);
 var
   dialog: PGtkFileDialog;
   current_dir: Pgchar;
@@ -96,25 +96,25 @@ begin
   gtk_file_dialog_set_initial_folder(dialog, initial_folder);
   g_object_unref(initial_folder);
   g_free(current_dir);
-  gtk_file_dialog_save(dialog, GTK_WINDOW(main_Window), nil, @on_save_cp, list);
+  gtk_file_dialog_save(dialog, GTK_WINDOW(main_Window), nil, @on_save_cp, store);
 
   g_object_unref(dialog);
 end;
 
 // === Songs laden ===================
 
-procedure Load_Song(path: Pgchar; list: PGListStore);
+procedure Load_Song(store: PGListStore; path: Pgchar);
 var
   song: PSong;
   obj: PGObject;
 begin
   song := g_malloc(SizeOf(TSong));
-  song^.FullPath := g_strdup( path);
+  song^.FullPath := g_strdup(path);
   song^.Duration := get_duration(song^.FullPath);
 
   obj := g_object_new(G_TYPE_OBJECT, nil);
   g_object_set_data_full(obj, songObjectKey, song, @songitem_object_free_cp);
-  g_list_store_append(list, obj);
+  g_list_store_append(store, obj);
   g_object_unref(obj);
 end;
 
@@ -122,7 +122,7 @@ end;
 
 type
   TSALoadStruct = record
-    sa:PPgchar;
+    sa: PPgchar;
     store: PGListStore;
     index: Tgint64;
   end;
@@ -132,24 +132,24 @@ function load_sa_songitems_cp(user_data: Tgpointer): Tgboolean; cdecl;
 var
   XMLLoadStruct: PSALoadStruct absolute user_data;
 begin
-  if  XMLLoadStruct^.sa[XMLLoadStruct^.index] =nil then  begin
+  if XMLLoadStruct^.sa[XMLLoadStruct^.index] = nil then  begin
     g_strfreev(XMLLoadStruct^.sa);
     g_free(XMLLoadStruct);
     Exit(G_SOURCE_REMOVE_);
   end;
-Load_Song( XMLLoadStruct^.sa[XMLLoadStruct^.index], XMLLoadStruct^.store);
+  Load_Song(XMLLoadStruct^.store, XMLLoadStruct^.sa[XMLLoadStruct^.index]);
 
   Inc(XMLLoadStruct^.index);
   Exit(G_SOURCE_CONTINUE);
 end;
 
 
-procedure Load_Songs_from_SA(sa: PPgchar; list: PGListStore);
+procedure Load_Songs_from_SA(store: PGListStore; sa: PPgchar);
 var
   XMLLoadStruct: PSALoadStruct;
 begin
   XMLLoadStruct := g_malloc(SizeOf(TSALoadStruct));
-  XMLLoadStruct^.store := list;
+  XMLLoadStruct^.store := store;
   XMLLoadStruct^.sa := sa;
   XMLLoadStruct^.index := 0;
 
@@ -197,7 +197,7 @@ begin
     filename := g_file_get_path(file_);
     sa := xml_to_stringlist(filename);
     if sa <> nil then begin
-      Load_Songs_from_SA(sa, list_store);
+      Load_Songs_from_SA(list_store, sa);
     end;
     g_free(filename);
     g_object_unref(file_);
@@ -206,7 +206,7 @@ begin
   end;
 end;
 
-procedure Open_Songs_XML_Dialog(main_Window: PGtkWidget; list: PGListStore);
+procedure Open_Songs_XML_Dialog(main_Window: PGtkWidget; store: PGListStore);
 var
   dialog: PGtkFileDialog;
   current_dir: Pgchar;
@@ -218,7 +218,7 @@ begin
   gtk_file_dialog_set_initial_folder(dialog, initial_folder);
   g_object_unref(initial_folder);
   g_free(current_dir);
-  gtk_file_dialog_open(dialog, GTK_WINDOW(main_Window), nil, @on_xml_open_cp, list);
+  gtk_file_dialog_open(dialog, GTK_WINDOW(main_Window), nil, @on_xml_open_cp, store);
 
   g_object_unref(dialog);
 end;
