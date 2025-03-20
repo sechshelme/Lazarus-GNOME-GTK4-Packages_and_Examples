@@ -112,25 +112,26 @@ begin
   gtk_box_append(GTK_BOX(mainBox), paned);
 
   listbox1 := gtk_list_box_new;
+  gtk_widget_set_halign(listbox1, GTK_ALIGN_START);
+
+  for i := 0 to 5 do begin
+    lab := gtk_label_new('blublu');
+    gtk_list_box_append(GTK_LIST_BOX(listbox1), lab);
+  end;
+
   listbox2 := gtk_list_box_new;
+  gtk_widget_set_halign(listbox2, GTK_ALIGN_START);
 
   sa := LoadTitles('/n4800/Multimedia/Music/Disco/C.C. Catch/1986 - Catch The Catch');
   if sa <> nil then  begin
-    sa[4]:=nil;
     p := sa;
     while p^ <> nil do begin
       lab := gtk_label_new( p^);
-      gtk_list_box_append(GTK_LIST_BOX(listbox1), lab);
+       gtk_label_set_xalign(GTK_LABEL(lab), 0.0);
+      gtk_list_box_append(GTK_LIST_BOX(listbox2), lab);
       Inc(p);
     end;
     g_strfreev(sa);
-  end;
-
-  for i := 0 to 5 do begin
-    //    lab := gtk_label_new('blublu');
-    //    gtk_list_box_append(GTK_LIST_BOX(listbox1), lab);
-    lab := gtk_label_new('blublu');
-    gtk_list_box_append(GTK_LIST_BOX(listbox2), lab);
   end;
 
   gtk_paned_set_start_child(GTK_PANED(paned), listbox1);
