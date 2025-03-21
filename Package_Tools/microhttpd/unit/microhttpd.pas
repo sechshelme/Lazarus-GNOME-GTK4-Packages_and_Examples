@@ -15,18 +15,39 @@ const
 
 const
   UINT64_MAX = High(UInt64);
+  FD_SETSIZE=1024; // Nur Linux    Windows = 64
 type
   Tintptr_t=PtrInt;
   TSOCKET=pointer;
 
+  Tsocklen_t= LongInt;
+
+  Tuint8_t=UInt8;
+  Puint8_t=^Tuint8_t;
+
+  Tuint16_t=UInt16;
+
+  Tint32_t=Int64;
   Tuint32_t=UInt32;
+
+  Tint64_t=Int64;
+  Tuint64_t=UInt64;
+  Puint64_t=^Tuint64_t;
+
 
   Tsize_t=SizeInt;
   Psize_t=^Tsize_t;
 
+  Toff_t=UInt64; // bei 64bit
+
   Tva_list=Pointer;
 
   Psockaddr=Pointer;
+
+  Pfd_set=Pointer;
+
+//  Tdigest_arr=array[0..(MHD_MD5_DIGEST_SIZE)-1] of Tuint8_t
+    Tdigest_arr=array[0..(16)-1] of Tuint8_t;
 
 
 // ========
@@ -66,8 +87,9 @@ type
 //  TMHD_socket = TSOCKET;
 
 type
-  MHD_LONG_LONG = int64;  
-  MHD_UNSIGNED_LONG_LONG = qword;
+  TMHD_LONG_LONG = int64;  
+  TMHD_UNSIGNED_LONG_LONG = qword;
+  PMHD_UNSIGNED_LONG_LONG=^TMHD_UNSIGNED_LONG_LONG;
 const
   MHD_LONG_LONG_PRINTF = 'll';  
   MHD_UNSIGNED_LONG_LONG_PRINTF = '%llu';  
@@ -2341,10 +2363,10 @@ function MHD_start_daemon_va(flags:dword; port:Tuint16_t; apc:TMHD_AcceptPolicyC
  * @return NULL on error, handle to daemon on success
  * @ingroup event
   }
+//function MHD_start_daemon(flags:dword; port:Tuint16_t; apc:TMHD_AcceptPolicyCallback; apc_cls:pointer; dh:TMHD_AccessHandlerCallback; 
+//           dh_cls:pointer; args:array of const):PMHD_Daemon;cdecl;external libmicrohttpd;
 function MHD_start_daemon(flags:dword; port:Tuint16_t; apc:TMHD_AcceptPolicyCallback; apc_cls:pointer; dh:TMHD_AccessHandlerCallback; 
-           dh_cls:pointer; args:array of const):PMHD_Daemon;cdecl;external libmicrohttpd;
-function MHD_start_daemon(flags:dword; port:Tuint16_t; apc:TMHD_AcceptPolicyCallback; apc_cls:pointer; dh:TMHD_AccessHandlerCallback; 
-           dh_cls:pointer):PMHD_Daemon;cdecl;external libmicrohttpd;
+           dh_cls:pointer):PMHD_Daemon;cdecl;varargs; external libmicrohttpd;
 {*
  * Stop accepting connections from the listening socket.  Allows
  * clients to continue processing, but stops accepting new
@@ -2498,11 +2520,6 @@ function MHD_get_fdset2(daemon:PMHD_Daemon; read_fd_set:Pfd_set; write_fd_set:Pf
  *         fit fd_set.
  * @ingroup event
   }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function MHD_get_fdset(daemon,read_fd_set,write_fd_set,except_fd_set,max_fd : longint) : longint;
-
 {*
  * Obtain timeout value for polling function for this daemon.
  *
@@ -2816,10 +2833,6 @@ function MHD_run_from_select2(daemon:PMHD_Daemon; read_fd_set:Pfd_set; write_fd_
  * @sa #MHD_get_fdset2(), #MHD_OPTION_APP_FD_SETSIZE
  * @ingroup event
   }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function MHD_run_from_select(d,r,w,e : longint) : longint;
 
 { **************** Connection handling functions *****************  }
 {*
@@ -4313,7 +4326,7 @@ type
 type
   PMHD_DigestAuthInfo = ^TMHD_DigestAuthInfo;
   TMHD_DigestAuthInfo = record
-      algo3 : TMHD_DigestAuthAlgo3;cdecl;
+      algo3 : TMHD_DigestAuthAlgo3;
       uname_type : TMHD_DigestAuthUsernameType;
       username : Pchar;
       username_len : Tsize_t;
@@ -4815,7 +4828,7 @@ function MHD_digest_auth_check_digest2(connection:PMHD_Connection; realm:Pchar; 
  * @deprecated use #MHD_digest_auth_check_digest3()
  * @ingroup authentication
   }
-function MHD_digest_auth_check_digest(connection:PMHD_Connection; realm:Pchar; username:Pchar; digest:array[0..(MHD_MD5_DIGEST_SIZE)-1] of Tuint8_t; nonce_timeout:dword):longint;cdecl;external libmicrohttpd;
+function MHD_digest_auth_check_digest(connection:PMHD_Connection; realm:Pchar; username:Pchar; digest:Tdigest_arr; nonce_timeout:dword):longint;cdecl;external libmicrohttpd;
 {*
  * Queues a response to request authentication from the client
  *
@@ -5334,7 +5347,6 @@ type
   }
 
 function MHD_is_feature_supported(feature:TMHD_FEATURE):TMHD_Result;cdecl;external libmicrohttpd;
-{$endif}
 
 implementation
 
@@ -5356,21 +5368,6 @@ function MHD_ICY_FLAG : Tuint32_t;
     MHD_ICY_FLAG:=Tuint32_t((Tuint32_t(1)) shl 31);
   end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function MHD_get_fdset(daemon,read_fd_set,write_fd_set,except_fd_set,max_fd : longint) : longint;
-begin
-  MHD_get_fdset:=MHD_get_fdset2(daemon,read_fd_set,write_fd_set,except_fd_set,max_fd,FD_SETSIZE);
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function MHD_run_from_select(d,r,w,e : longint) : longint;
-begin
-  MHD_run_from_select:=MHD_run_from_select2(d,r,w,e,dword(FD_SETSIZE));
-end;
 
 
 end.
