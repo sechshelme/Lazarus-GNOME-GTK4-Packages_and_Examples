@@ -2,8 +2,10 @@ program project1;
 
 // https://www.perplexity.ai/search/4abe87fe-3db5-441b-965e-f94bffc9e646
 
+{$I-}
+
+
 uses
-  glib2,
   microhttpd;
 
 const
@@ -20,8 +22,6 @@ var
     response: PMHD_Response;
     ret: TMHD_Result;
   begin
-    WriteLn('url: ',url);
-
     if string(url) = '/click' then begin
       Inc(clickCount);
       Assign(f, FILENAME);
@@ -30,14 +30,15 @@ var
       Close(f);
 
       WriteStr(countstr, 'Klicks: ', clickCount);
-      response := MHD_create_response_from_buffer(Length(countstr), Pointer(countstr), MHD_RESPMEM_MUST_COPY);
+      response := MHD_create_response_from_buffer(Length(countstr), PChar(countstr), MHD_RESPMEM_MUST_COPY);
       MHD_add_response_header(response, 'Content-Type', 'text/plain');
+      WriteLn('Zähler um eins erhöht (',clickCount,')');
     end else begin
       WriteStr(html,
         '<html><body>' +
         '<h1>Klick-Zähler</h1>' +
-        '<button onclick=\"handleClick()\">Klick mich!</button>' +
-        '<p id=\"count\">Klicks: ', clickCount, '</p>' +
+        '<button onclick="handleClick()">Klick mich!</button>' +
+        '<p id="count">Klicks: ', clickCount, '</p>' +
         '<script>' +
         'function handleClick() {' +
         '  fetch(''/click'')' +
@@ -47,9 +48,9 @@ var
         '</script>' +
         '</body></html>');
 
-      response := MHD_create_response_from_buffer(Length(html), Pointer(html), MHD_RESPMEM_MUST_COPY);
+      response := MHD_create_response_from_buffer(Length(html), PChar(html), MHD_RESPMEM_MUST_COPY);
       MHD_add_response_header(response, 'Content-Type', 'text/html; charset=utf-8');
-
+      WriteLn('Response erzeugt');
     end;
 
     ret := MHD_queue_response(connection, MHD_HTTP_OK, response);
@@ -64,16 +65,14 @@ var
     f: Text;
     daemon: PMHD_Daemon;
   begin
-    {$I-}
     Assign(f, FILENAME);
     Reset(f);
     if IOResult <> 0 then begin
-      WriteLn('fehler');
+      WriteLn('Datei: ', FILENAME, ' wird erzeugt.');
     end else begin
       ReadLn(f, clickCount);
       Close(f);
     end;
-
 
     daemon := MHD_start_daemon(MHD_USE_THREAD_PER_CONNECTION, PORT, nil, nil, @answer_to_connection, nil, MHD_OPTION_END);
 

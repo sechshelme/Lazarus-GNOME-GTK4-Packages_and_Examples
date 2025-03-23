@@ -17,7 +17,7 @@ procedure AddSongsDialog(shardedWidgets: PSharedWidget);
 
 implementation
 
-function LoadTitles(path: Pgchar): PPgchar;
+function LoadTitlesFiles(path: Pgchar): PPgchar;
 var
   dir: PGDir;
   entryName, path1: Pgchar;
@@ -35,7 +35,7 @@ begin
       if entryName <> nil then begin
         for i := 0 to Length(AudioExtensions) - 1 do begin
           if g_str_has_suffix(entryName, AudioExtensions[i]) then  begin
-            path1 := PChar(path + '/' + entryName);
+            path1 := g_build_filename(path, entryName, nil);
             g_ptr_array_add(files, g_strdup(path1));
             Break;
           end;
@@ -48,10 +48,38 @@ end;
 
 procedure LoadDefaulTitles(store: PGListStore; path: Pgchar);
 begin
-  Load_Songs_from_SA(store, LoadTitles(path));
+  Load_Songs_from_SA(store, LoadTitlesFiles(path));
 end;
 
 // ========
+
+// https://www.perplexity.ai/search/7cd9037c-44ad-4395-befa-9d21f853ea40?0=d&1=d
+function LoadTitlesPath(path: Pgchar): PPgchar;
+var
+  dir: PGDir;
+  entryName, path1: Pgchar;
+  files: PGPtrArray;
+begin
+  files := g_ptr_array_new_null_terminated(0, nil, True);
+  g_ptr_array_add(files, g_strdup('..'));
+  dir := g_dir_open(path, 0, nil);
+  if dir = nil then begin
+    WriteLn('Konnte Ordner nicht öffnen !');
+  end else begin
+    repeat
+      entryName := g_dir_read_name(dir);
+      if entryName <> nil then begin
+        path1 := g_build_filename(path, entryName, nil);
+        if g_file_test(path1, G_FILE_TEST_IS_DIR) then  begin
+          g_ptr_array_add(files, g_strdup(path1));
+        end else begin
+          g_free(path1);
+        end;
+      end;
+    until entryName = nil;
+  end;
+  Result := PPgchar(g_ptr_array_free(files, False));
+end;
 
 const
   cmd_Key = 'cmd-key';
@@ -92,9 +120,12 @@ end;
 procedure AddSongsDialog(shardedWidgets: PSharedWidget);
 var
   dialgWindow, mainBox, button_box, help_button, ok_button,
-  apply_button, cancel_button, paned, listbox1, listbox2, lab: PGtkWidget;
-  i: integer;
+  apply_button, cancel_button, paned, listboxPath, listboxFiles, lab: PGtkWidget;
   sa, p: PPgchar;
+  filename: Pgchar;
+const
+  sp=                 '/n4800/Multimedia/Music/Disco/C.C. Catch/1986 - Catch The Catch';
+//  sp=                 '/n4800/Multimedia/Music/Disco/C.C. Catch';
 begin
   dialgWindow := gtk_window_new;
 
@@ -111,31 +142,39 @@ begin
   paned := gtk_paned_new(GTK_ORIENTATION_HORIZONTAL);
   gtk_box_append(GTK_BOX(mainBox), paned);
 
-  listbox1 := gtk_list_box_new;
-  gtk_widget_set_halign(listbox1, GTK_ALIGN_START);
-
-  for i := 0 to 5 do begin
-    lab := gtk_label_new('blublu');
-    gtk_list_box_append(GTK_LIST_BOX(listbox1), lab);
-  end;
-
-  listbox2 := gtk_list_box_new;
-  gtk_widget_set_halign(listbox2, GTK_ALIGN_START);
-
-  sa := LoadTitles('/n4800/Multimedia/Music/Disco/C.C. Catch/1986 - Catch The Catch');
+  listboxPath := gtk_list_box_new;
+  gtk_widget_set_halign(listboxPath, GTK_ALIGN_START);
+  sa := LoadTitlesPath(sp);
   if sa <> nil then  begin
     p := sa;
     while p^ <> nil do begin
-      lab := gtk_label_new( p^);
-       gtk_label_set_xalign(GTK_LABEL(lab), 0.0);
-      gtk_list_box_append(GTK_LIST_BOX(listbox2), lab);
+      filename := g_path_get_basename(p^);
+      lab := gtk_label_new(filename);
+      g_free(filename);
+      gtk_label_set_xalign(GTK_LABEL(lab), 0.0);
+      gtk_list_box_append(GTK_LIST_BOX(listboxPath), lab);
       Inc(p);
     end;
     g_strfreev(sa);
   end;
+  gtk_paned_set_start_child(GTK_PANED(paned), listboxPath);
 
-  gtk_paned_set_start_child(GTK_PANED(paned), listbox1);
-  gtk_paned_set_end_child(GTK_PANED(paned), listbox2);
+  listboxFiles := gtk_list_box_new;
+  gtk_widget_set_halign(listboxFiles, GTK_ALIGN_START);
+  sa := LoadTitlesFiles(sp);
+  if sa <> nil then  begin
+    p := sa;
+    while p^ <> nil do begin
+      filename := g_path_get_basename(p^);
+      lab := gtk_label_new(filename);
+      g_free(filename);
+      gtk_label_set_xalign(GTK_LABEL(lab), 0.0);
+      gtk_list_box_append(GTK_LIST_BOX(listboxFiles), lab);
+      Inc(p);
+    end;
+    g_strfreev(sa);
+  end;
+  gtk_paned_set_end_child(GTK_PANED(paned), listboxFiles);
 
 
 
