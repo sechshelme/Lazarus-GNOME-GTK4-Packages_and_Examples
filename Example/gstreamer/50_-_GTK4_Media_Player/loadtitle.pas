@@ -17,68 +17,114 @@ procedure AddSongsDialog(shardedWidgets: PSharedWidget);
 
 implementation
 
-function LoadTitlesFiles(path: Pgchar): PPgchar;
+procedure LoadDefaulTitles(store: PGListStore; path: Pgchar);
+
+  function LoadFiles(path: Pgchar): PPgchar;
+  var
+    dir: PGDir;
+    entryName, path1: Pgchar;
+    i: integer;
+    files: PGPtrArray;
+  begin
+    dir := g_dir_open(path, 0, nil);
+    if dir = nil then begin
+      WriteLn('Konnte Ordner nicht öffnen !');
+      Exit(nil);
+    end else begin
+      files := g_ptr_array_new_null_terminated(0, nil, True);
+      repeat
+        entryName := g_dir_read_name(dir);
+        if entryName <> nil then begin
+          for i := 0 to Length(AudioExtensions) - 1 do begin
+            if g_str_has_suffix(entryName, AudioExtensions[i]) then  begin
+              path1 := g_build_filename(path, entryName, nil);
+              g_ptr_array_add(files, g_strdup(path1));
+              Break;
+            end;
+          end;
+        end;
+      until entryName = nil;
+      Result := PPgchar(g_ptr_array_free(files, False));
+    end;
+  end;
+
+begin
+  Load_Songs_from_SA(store, LoadFiles(path));
+end;
+
+// ==========
+
+procedure LoadTitlesFiles(listBox: PGtkListBox; path: Pgchar);
 var
   dir: PGDir;
   entryName, path1: Pgchar;
   i: integer;
-  files: PGPtrArray;
+  lab: PGtkWidget;
+  //  files: PGPtrArray;
 begin
+  gtk_list_box_remove_all(listBox);
+
   dir := g_dir_open(path, 0, nil);
   if dir = nil then begin
-    WriteLn('Konnte Ordner nicht öffnen !');
-    Exit(nil);
+    g_print('Konnte Ordner nicht öffnen !'#10);
+    Exit;
   end else begin
-    files := g_ptr_array_new_null_terminated(0, nil, True);
+    //    files := g_ptr_array_new_null_terminated(0, nil, True);
     repeat
       entryName := g_dir_read_name(dir);
       if entryName <> nil then begin
         for i := 0 to Length(AudioExtensions) - 1 do begin
           if g_str_has_suffix(entryName, AudioExtensions[i]) then  begin
             path1 := g_build_filename(path, entryName, nil);
-            g_ptr_array_add(files, g_strdup(path1));
+            if g_file_test(path1, G_FILE_TEST_IS_REGULAR) then  begin
+              lab := gtk_label_new(entryName);
+              gtk_label_set_xalign(GTK_LABEL(lab), 0.0);
+              gtk_list_box_append(listBox, lab);
+            end else begin
+              g_free(path1);
+            end;
             Break;
           end;
         end;
       end;
     until entryName = nil;
-    Result := PPgchar(g_ptr_array_free(files, False));
+    //    Result := PPgchar(g_ptr_array_free(files, False));
   end;
 end;
 
-procedure LoadDefaulTitles(store: PGListStore; path: Pgchar);
-begin
-  Load_Songs_from_SA(store, LoadTitlesFiles(path));
-end;
 
 // ========
 
 // https://www.perplexity.ai/search/7cd9037c-44ad-4395-befa-9d21f853ea40?0=d&1=d
-function LoadTitlesPath(path: Pgchar): PPgchar;
+procedure LoadTitlesPath(listBox: PGtkListBox; path: Pgchar);
 var
   dir: PGDir;
   entryName, path1: Pgchar;
-  files: PGPtrArray;
+  lab: PGtkWidget;
 begin
-  files := g_ptr_array_new_null_terminated(0, nil, True);
-  g_ptr_array_add(files, g_strdup('..'));
+  gtk_list_box_remove_all(listBox);
+  lab := gtk_label_new('..');
+  gtk_label_set_xalign(GTK_LABEL(lab), 0.0);
+  gtk_list_box_append(listBox, lab);
+
   dir := g_dir_open(path, 0, nil);
   if dir = nil then begin
-    WriteLn('Konnte Ordner nicht öffnen !');
+    g_print('Konnte Ordner nicht öffnen !'#10);
   end else begin
     repeat
       entryName := g_dir_read_name(dir);
       if entryName <> nil then begin
         path1 := g_build_filename(path, entryName, nil);
         if g_file_test(path1, G_FILE_TEST_IS_DIR) then  begin
-          g_ptr_array_add(files, g_strdup(path1));
+          lab := gtk_label_new(entryName);
+          gtk_label_set_xalign(GTK_LABEL(lab), 0.0);
+          gtk_list_box_append(listBox, lab);
         end else begin
           g_free(path1);
         end;
       end;
     until entryName = nil;
   end;
-  Result := PPgchar(g_ptr_array_free(files, False));
 end;
 
 const
@@ -120,12 +166,13 @@ end;
 procedure AddSongsDialog(shardedWidgets: PSharedWidget);
 var
   dialgWindow, mainBox, button_box, help_button, ok_button,
-  apply_button, cancel_button, paned, listboxPath, listboxFiles, lab: PGtkWidget;
+  apply_button, cancel_button, paned, listboxPath, listboxFiles, lab,
+  scrolledWindowPath, scrolledWindowFiles: PGtkWidget;
   sa, p: PPgchar;
   filename: Pgchar;
 const
-  sp=                 '/n4800/Multimedia/Music/Disco/C.C. Catch/1986 - Catch The Catch';
-//  sp=                 '/n4800/Multimedia/Music/Disco/C.C. Catch';
+  sp = '/n4800/Multimedia/Music/Disco/C.C. Catch/1986 - Catch The Catch';
+  //  sp=                 '/n4800/Multimedia/Music/Disco/C.C. Catch';
 begin
   dialgWindow := gtk_window_new;
 
@@ -136,47 +183,44 @@ begin
   gtk_window_set_transient_for(GTK_WINDOW(dialgWindow), GTK_WINDOW(shardedWidgets^.main_Window));
 
   mainBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+  // mainBox-Einstellung ändern:
+  gtk_widget_set_valign(mainBox, GTK_ALIGN_FILL);
   gtk_window_set_child(GTK_WINDOW(dialgWindow), mainBox);
 
 
   paned := gtk_paned_new(GTK_ORIENTATION_HORIZONTAL);
+  gtk_widget_set_vexpand(paned, True);
   gtk_box_append(GTK_BOX(mainBox), paned);
 
+  // ----
+
   listboxPath := gtk_list_box_new;
-  gtk_widget_set_halign(listboxPath, GTK_ALIGN_START);
-  sa := LoadTitlesPath(sp);
-  if sa <> nil then  begin
-    p := sa;
-    while p^ <> nil do begin
-      filename := g_path_get_basename(p^);
-      lab := gtk_label_new(filename);
-      g_free(filename);
-      gtk_label_set_xalign(GTK_LABEL(lab), 0.0);
-      gtk_list_box_append(GTK_LIST_BOX(listboxPath), lab);
-      Inc(p);
-    end;
-    g_strfreev(sa);
-  end;
-  gtk_paned_set_start_child(GTK_PANED(paned), listboxPath);
+  gtk_widget_set_hexpand(listboxPath, True);
+  gtk_widget_set_vexpand(listboxPath, True);
+  gtk_widget_set_halign(listboxPath, GTK_ALIGN_FILL);
+  LoadTitlesPath(GTK_LIST_BOX(listboxPath), sp);
+
+  scrolledWindowPath := gtk_scrolled_window_new;
+  gtk_widget_set_hexpand(scrolledWindowPath, True);
+  gtk_widget_set_vexpand(scrolledWindowPath, True);
+  gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolledWindowPath), listboxPath);
+
+  gtk_paned_set_start_child(GTK_PANED(paned), scrolledWindowPath);
+
+  // ----
 
   listboxFiles := gtk_list_box_new;
-  gtk_widget_set_halign(listboxFiles, GTK_ALIGN_START);
-  sa := LoadTitlesFiles(sp);
-  if sa <> nil then  begin
-    p := sa;
-    while p^ <> nil do begin
-      filename := g_path_get_basename(p^);
-      lab := gtk_label_new(filename);
-      g_free(filename);
-      gtk_label_set_xalign(GTK_LABEL(lab), 0.0);
-      gtk_list_box_append(GTK_LIST_BOX(listboxFiles), lab);
-      Inc(p);
-    end;
-    g_strfreev(sa);
-  end;
-  gtk_paned_set_end_child(GTK_PANED(paned), listboxFiles);
+  gtk_widget_set_hexpand(listboxFiles, True);
+  gtk_widget_set_vexpand(listboxFiles, True);
+  gtk_widget_set_halign(listboxFiles, GTK_ALIGN_FILL);
+  LoadTitlesFiles(GTK_LIST_BOX(listboxFiles), sp);
 
+  scrolledWindowFiles := gtk_scrolled_window_new;
+  gtk_widget_set_hexpand(scrolledWindowFiles, True);
+  gtk_widget_set_vexpand(scrolledWindowFiles, True);
+  gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolledWindowFiles), listboxFiles);
 
+  gtk_paned_set_end_child(GTK_PANED(paned), scrolledWindowFiles);
 
 
   // --- Buttons
