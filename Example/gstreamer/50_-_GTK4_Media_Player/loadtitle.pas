@@ -54,48 +54,16 @@ end;
 
 // ==========
 
-procedure LoadTitlesFiles(listBox: PGtkListBox; path: Pgchar);
-var
-  dir: PGDir;
-  entryName, path1: Pgchar;
-  i: integer;
-  lab: PGtkWidget;
-  //  files: PGPtrArray;
-begin
-  gtk_list_box_remove_all(listBox);
+const
+  cmd_Key = 'cmd-key';
+  dialog_win_Key = 'dialog-win-key';
+  FullPathKey = 'full-path';
 
-  dir := g_dir_open(path, 0, nil);
-  if dir = nil then begin
-    g_print('Konnte Ordner nicht öffnen !'#10);
-    Exit;
-  end else begin
-    //    files := g_ptr_array_new_null_terminated(0, nil, True);
-    repeat
-      entryName := g_dir_read_name(dir);
-      if entryName <> nil then begin
-        for i := 0 to Length(AudioExtensions) - 1 do begin
-          if g_str_has_suffix(entryName, AudioExtensions[i]) then  begin
-            path1 := g_build_filename(path, entryName, nil);
-            if g_file_test(path1, G_FILE_TEST_IS_REGULAR) then  begin
-              lab := gtk_label_new(entryName);
-              gtk_label_set_xalign(GTK_LABEL(lab), 0.0);
-              gtk_list_box_append(listBox, lab);
-            end else begin
-              g_free(path1);
-            end;
-            Break;
-          end;
-        end;
-      end;
-    until entryName = nil;
-    //    Result := PPgchar(g_ptr_array_free(files, False));
-  end;
-end;
+  cmdOk = 1000;
+  cmdCancel = 1001;
+  cmdAdd = 1002;
+  cmHelp = 1003;
 
-
-// ========
-
-// https://www.perplexity.ai/search/7cd9037c-44ad-4395-befa-9d21f853ea40?0=d&1=d
 procedure LoadTitlesPath(listBox: PGtkListBox; path: Pgchar);
 var
   dir: PGDir;
@@ -103,7 +71,9 @@ var
   lab: PGtkWidget;
 begin
   gtk_list_box_remove_all(listBox);
+  path1 := g_build_filename(path, '..', nil);
   lab := gtk_label_new('..');
+  g_object_set_data_full(G_OBJECT(lab), FullPathKey, path1, @g_free);
   gtk_label_set_xalign(GTK_LABEL(lab), 0.0);
   gtk_list_box_append(listBox, lab);
 
@@ -117,6 +87,7 @@ begin
         path1 := g_build_filename(path, entryName, nil);
         if g_file_test(path1, G_FILE_TEST_IS_DIR) then  begin
           lab := gtk_label_new(entryName);
+          g_object_set_data_full(G_OBJECT(lab), FullPathKey, path1, @g_free);
           gtk_label_set_xalign(GTK_LABEL(lab), 0.0);
           gtk_list_box_append(listBox, lab);
         end else begin
@@ -127,14 +98,48 @@ begin
   end;
 end;
 
-const
-  cmd_Key = 'cmd-key';
-  dialog_win_Key = 'dialog-win-key';
+procedure LoadTitlesFiles(listBox: PGtkListBox; path: Pgchar);
+var
+  dir: PGDir;
+  entryName, path1: Pgchar;
+  i: integer;
+  lab: PGtkWidget;
+begin
+  gtk_list_box_remove_all(listBox);
 
-  cmdOk = 1000;
-  cmdCancel = 1001;
-  cmdApply = 1002;
-  cmHelp = 1003;
+  dir := g_dir_open(path, 0, nil);
+  if dir = nil then begin
+    g_print('Konnte Ordner nicht öffnen !'#10);
+    Exit;
+  end else begin
+    repeat
+      entryName := g_dir_read_name(dir);
+      if entryName <> nil then begin
+        for i := 0 to Length(AudioExtensions) - 1 do begin
+          if g_str_has_suffix(entryName, AudioExtensions[i]) then  begin
+            path1 := g_build_filename(path, entryName, nil);
+            if g_file_test(path1, G_FILE_TEST_IS_REGULAR) then  begin
+              lab := gtk_label_new(entryName);
+              g_object_set_data_full(G_OBJECT(lab), FullPathKey, path1, @g_free);
+              gtk_label_set_xalign(GTK_LABEL(lab), 0.0);
+              gtk_list_box_append(listBox, lab);
+            end else begin
+              g_free(path1);
+            end;
+            Break;
+          end;
+        end;
+      end;
+    until entryName = nil;
+  end;
+end;
+
+
+// ========
+
+// https://www.perplexity.ai/search/7cd9037c-44ad-4395-befa-9d21f853ea40?0=d&1=d
+var
+  listBoxPath, listBoxFiles: PGtkWidget;
 
 procedure on_clicked(widget: PGtkWidget; user_data: Tgpointer); cdecl;
 var
@@ -143,6 +148,9 @@ var
   dialogWindow: PGtkWindow;
   selection_model: PGtkSelectionModel;
   store: PGListStore;
+  selectedRows, iter: PGList;
+  FullPath: Pgchar;
+  lab: PGtkWidget;
 begin
   cmd := GPOINTER_TO_INT(g_object_get_data(G_OBJECT(widget), cmd_Key));
   dialogWindow := g_object_get_data(G_OBJECT(widget), dialog_win_Key);
@@ -150,8 +158,16 @@ begin
   selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW(sharedWidgets^.columnView));
   store := G_LIST_STORE(gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model)));
 
-  if (cmd = cmdOk) or (cmd = cmdApply) then begin
-    Load_Song(store, '/home/tux/Schreibtisch/sound/test.mp3');  // test
+  if (cmd = cmdOk) or (cmd = cmdAdd) then begin
+    selectedRows := gtk_list_box_get_selected_rows(GTK_LIST_BOX(listBoxFiles));
+    iter := selectedRows;
+    while iter <> nil do begin
+      lab := gtk_list_box_row_get_child(GTK_LIST_BOX_ROW(iter^.Data));
+      FullPath := g_object_get_data(G_OBJECT(lab), FullPathKey);
+      Load_Song(store, FullPath);
+      iter := iter^.Next;
+    end;
+    g_list_free(selectedRows);
   end;
 
   if (cmd = cmdOk) or (cmd = cmdCancel) then begin
@@ -166,10 +182,8 @@ end;
 procedure AddSongsDialog(shardedWidgets: PSharedWidget);
 var
   dialgWindow, mainBox, button_box, help_button, ok_button,
-  apply_button, cancel_button, paned, listboxPath, listboxFiles, lab,
+  add_button, cancel_button, paned,
   scrolledWindowPath, scrolledWindowFiles: PGtkWidget;
-  sa, p: PPgchar;
-  filename: Pgchar;
 const
   sp = '/n4800/Multimedia/Music/Disco/C.C. Catch/1986 - Catch The Catch';
   //  sp=                 '/n4800/Multimedia/Music/Disco/C.C. Catch';
@@ -194,31 +208,32 @@ begin
 
   // ----
 
-  listboxPath := gtk_list_box_new;
-  gtk_widget_set_hexpand(listboxPath, True);
-  gtk_widget_set_vexpand(listboxPath, True);
-  gtk_widget_set_halign(listboxPath, GTK_ALIGN_FILL);
-  LoadTitlesPath(GTK_LIST_BOX(listboxPath), sp);
+  listBoxPath := gtk_list_box_new;
+  gtk_widget_set_hexpand(listBoxPath, True);
+  gtk_widget_set_vexpand(listBoxPath, True);
+  gtk_widget_set_halign(listBoxPath, GTK_ALIGN_FILL);
+  LoadTitlesPath(GTK_LIST_BOX(listBoxPath), sp);
 
   scrolledWindowPath := gtk_scrolled_window_new;
   gtk_widget_set_hexpand(scrolledWindowPath, True);
   gtk_widget_set_vexpand(scrolledWindowPath, True);
-  gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolledWindowPath), listboxPath);
+  gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolledWindowPath), listBoxPath);
 
   gtk_paned_set_start_child(GTK_PANED(paned), scrolledWindowPath);
 
   // ----
 
-  listboxFiles := gtk_list_box_new;
-  gtk_widget_set_hexpand(listboxFiles, True);
-  gtk_widget_set_vexpand(listboxFiles, True);
-  gtk_widget_set_halign(listboxFiles, GTK_ALIGN_FILL);
-  LoadTitlesFiles(GTK_LIST_BOX(listboxFiles), sp);
+  listBoxFiles := gtk_list_box_new;
+  gtk_list_box_set_selection_mode(GTK_LIST_BOX(listBoxFiles), GTK_SELECTION_MULTIPLE);
+  gtk_widget_set_hexpand(listBoxFiles, True);
+  gtk_widget_set_vexpand(listBoxFiles, True);
+  gtk_widget_set_halign(listBoxFiles, GTK_ALIGN_FILL);
+  LoadTitlesFiles(GTK_LIST_BOX(listBoxFiles), sp);
 
   scrolledWindowFiles := gtk_scrolled_window_new;
   gtk_widget_set_hexpand(scrolledWindowFiles, True);
   gtk_widget_set_vexpand(scrolledWindowFiles, True);
-  gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolledWindowFiles), listboxFiles);
+  gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolledWindowFiles), listBoxFiles);
 
   gtk_paned_set_end_child(GTK_PANED(paned), scrolledWindowFiles);
 
@@ -242,11 +257,11 @@ begin
   gtk_box_append(GTK_BOX(button_box), ok_button);
   g_signal_connect(ok_button, 'clicked', G_CALLBACK(@on_clicked), shardedWidgets);
 
-  apply_button := gtk_button_new_with_label('Apply');
-  g_object_set_data(G_OBJECT(apply_button), cmd_Key, GINT_TO_POINTER(cmdApply));
-  g_object_set_data(G_OBJECT(apply_button), dialog_win_Key, dialgWindow);
-  gtk_box_append(GTK_BOX(button_box), apply_button);
-  g_signal_connect(apply_button, 'clicked', G_CALLBACK(@on_clicked), shardedWidgets);
+  add_button := gtk_button_new_with_label('Add');
+  g_object_set_data(G_OBJECT(add_button), cmd_Key, GINT_TO_POINTER(cmdAdd));
+  g_object_set_data(G_OBJECT(add_button), dialog_win_Key, dialgWindow);
+  gtk_box_append(GTK_BOX(button_box), add_button);
+  g_signal_connect(add_button, 'clicked', G_CALLBACK(@on_clicked), shardedWidgets);
 
   cancel_button := gtk_button_new_with_label('Abbrechen');
   g_object_set_data(G_OBJECT(cancel_button), cmd_Key, GINT_TO_POINTER(cmdCancel));
