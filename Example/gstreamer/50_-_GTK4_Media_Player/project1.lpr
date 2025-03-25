@@ -220,6 +220,18 @@ uses
     action: PGSimpleAction;
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
+
+
+//    g_object_set (gtk_settings_get_default (),
+//                  'gtk-enable-animations', FALSE,
+//                  'gtk-font-name', 'Adwaita Sans 33',
+//                  'gtk-icon-theme-name', 'Adwaita',
+//                  'gtk-decoration-layout', ':close',
+//                  'gtk-hint-font-metrics', TRUE,
+////                  'gtk-font-rendering', GTK_FONT_RENDERING_MANUAL,
+//                  nil);
+
+
     gtk_application_set_menubar(GTK_APPLICATION(app), G_MENU_MODEL(CreateMenu));
 
     action := g_simple_action_new('quit', nil);
