@@ -20,8 +20,6 @@ static int answer_to_connection(void *cls, struct MHD_Connection *connection,
     struct MHD_Response *response;
     int ret;
 
-          printf("%s\n", url);
-
     if (strcmp(url, "/click") == 0) {
         clickCount++;
         FILE *f = fopen(FILENAME, "w");

@@ -1,5 +1,7 @@
   {$IFDEF read_interface}
 
+// Läuft nicht mit der Bindung !!!!!
+
 
 function graphene_simd4f_init(x: single; y: single; z: single; w: single): Tgraphene_simd4f_t; cdecl; external libgraphene;
 function graphene_simd4f_init_zero: Tgraphene_simd4f_t; cdecl; external libgraphene;

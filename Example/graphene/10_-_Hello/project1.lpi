@@ -23,6 +23,14 @@
     <RunParams>
       <FormatVersion Value="2"/>
     </RunParams>
+    <RequiredPackages>
+      <Item>
+        <PackageName Value="fp_graphene_package"/>
+      </Item>
+      <Item>
+        <PackageName Value="fp_GLIB2_package"/>
+      </Item>
+    </RequiredPackages>
     <Units>
       <Unit>
         <Filename Value="project1.lpr"/>
@@ -37,7 +45,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="../unit"/>
+      <OtherUnitFiles Value="../pas_units;../../../Package_Tools/pas_units"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>
