@@ -18,11 +18,15 @@ uses
 
   function main(argc: cint; argv: PPChar): cint;
   var
-    vec: Pgraphene_vec4_t;
+    move_vec, vec: Pgraphene_vec4_t;
   begin
     vec := graphene_vec4_alloc;
-
+    move_vec := graphene_vec4_alloc;
+    graphene_vec4_init(move_vec, 2.0, 2.0, 0.0, 0.0);
     graphene_vec4_init(vec, 1.0, 2.0, 3.0, 4.0);
+    printVec4(vec);
+
+    graphene_vec4_add(vec, move_vec, vec);
     printVec4(vec);
 
     graphene_vec4_scale(vec, 0.5, vec);
@@ -31,6 +35,7 @@ uses
     graphene_vec4_negate(vec, vec);
     printVec4(vec);
 
+    graphene_vec4_free(move_vec);
     graphene_vec4_free(vec);
     Result := 0;
   end;

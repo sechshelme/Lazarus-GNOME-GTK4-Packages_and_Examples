@@ -1,21 +1,7 @@
 program project1;
 
-{$ALIGN 16}
-
-const
-  libgraphene = 'libgraphene-1.0';
-
-type
-  Tgraphene_simd4f_t = record
-    x, y, z, w: single;
-  end;
-
-  function graphene_simd4f_init(x: single; y: single; z: single; w: single): Tgraphene_simd4f_t; cdecl; external libgraphene;
-
-  function graphene_simd4f_get_x(s: Tgraphene_simd4f_t): single; cdecl; external libgraphene;
-  function graphene_simd4f_get_y(s: Tgraphene_simd4f_t): single; cdecl; external libgraphene;
-  function graphene_simd4f_get_z(s: Tgraphene_simd4f_t): single; cdecl; external libgraphene;
-  function graphene_simd4f_get_w(s: Tgraphene_simd4f_t): single; cdecl; external libgraphene;
+uses
+  fp_graphene;
 
 var
   res: Tgraphene_simd4f_t;

@@ -37,7 +37,7 @@ implementation
 {$UNDEF read_implementation}
 
 // wegen "division_by_zero" in den clibs
-{$IFDEF Linux}
+//{$IFDEF Linux}
 {$IF defined(CPUX86) or defined(CPUX64)}
 procedure SetMXCSR;
 var
@@ -47,14 +47,14 @@ begin
                Ldmxcsr w2
   end;
 end;
-{$ENDIF}
+//{$ENDIF}
 {$ENDIF}
 
 begin
 //  SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide, exOverflow, exUnderflow, exPrecision]);
-{$IFDEF Linux}
+//{$IFDEF Linux}
 {$IF defined(CPUX86) or defined(CPUX64)}
     SetMXCSR;
-{$ENDIF}
+//{$ENDIF}
 {$ENDIF}
 end.
