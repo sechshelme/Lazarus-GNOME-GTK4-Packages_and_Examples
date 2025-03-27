@@ -5,14 +5,13 @@ uses
   SysUtils,
   fp_glib2,
   fp_GLIBTools,
-  fp_graphene,
   fp_cairo,
   fp_GDK4,
   fp_GSK4,
   fp_GTK4;
 
 
-  procedure quit_clicked_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
+  procedure quit_clicked_cp({%H-}widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
     window: PGtkWindow absolute user_data;
   begin
@@ -21,26 +20,26 @@ uses
 
   procedure draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
   var
-    bound: Tgraphene_rect_t;
-    start_point: Tgraphene_point_t = (x: 0.0; y: 0.0);
-    end_point: Tgraphene_point_t;
-    color_stops: array[0..1] of TGskColorStop = (
-      (offset: 0.0; color: (red: 1.0; green: 0.0; blue: 0.0; alpha: 1.0)),
-      (offset: 1.0; color: (red: 0.0; green: 0.0; blue: 1.0; alpha: 1.0)));
-    gradient_node: PGskRenderNode;
+    border_node: PGskRenderNode;
+    outline: TGskRoundedRect;
+  const
+    border_width = 10.0;
+    border_widths: array[0..3] of single = (border_width, border_width, border_width, border_width);
+    border_colors: array[0..3] of TGdkRGBA = (
+      (red: 1.0; green: 0.0; blue: 0.0; alpha: 1.0),
+      (red: 0.0; green: 1.0; blue: 0.0; alpha: 1.0),
+      (red: 0.0; green: 0.0; blue: 1.0; alpha: 1.0),
+      (red: 1.0; green: 1.0; blue: 0.0; alpha: 1.0));
+
   begin
-    graphene_rect_init(@bound, 0, 0, Width, Height);
-    end_point.x := Width;
-    end_point.y := Height;
+    outline := GSK_ROUNDED_RECT_INIT(0, 0, Width - 10, Height - 10);
+    border_node := gsk_border_node_new(@outline, border_widths, border_colors);
 
-    gradient_node := gsk_linear_gradient_node_new(@bound, @start_point, @end_point, color_stops, Length(color_stops));
-
-    gsk_render_node_draw(gradient_node, cr);
-
-    gsk_render_node_unref(gradient_node);
+    gsk_render_node_draw(border_node, cr);
+    gsk_render_node_unref(border_node);
   end;
 
-  function CreateDrawingArea(boxNr: Tgint): PGtkWidget;
+  function CreateDrawingArea: PGtkWidget;
   begin
     Result := gtk_drawing_area_new;
     gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(Result), @draw_func, nil, nil);
@@ -75,7 +74,7 @@ uses
 
     gtk_box_append(GTK_BOX(box), grid);
     for i := 0 to GRID_COUNT * GRID_COUNT - 1 do begin
-      drawing_area := CreateDrawingArea(i);
+      drawing_area := CreateDrawingArea;
       gtk_grid_attach(GTK_GRID(grid), drawing_area, i mod GRID_COUNT, i div GRID_COUNT, 1, 1);
     end;
 

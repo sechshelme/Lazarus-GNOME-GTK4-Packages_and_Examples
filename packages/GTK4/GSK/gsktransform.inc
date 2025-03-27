@@ -52,5 +52,4 @@ begin
 end;
 
 
-
 {$ENDIF read_implementation}

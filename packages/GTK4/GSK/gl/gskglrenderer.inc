@@ -65,9 +65,6 @@ end;
 
 // ====
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
 function GSK_INCLUDE_WARNING(x: longint): longint;
 begin
   GSK_INCLUDE_WARNING := x;
