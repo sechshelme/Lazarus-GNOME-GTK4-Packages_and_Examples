@@ -9,7 +9,7 @@ uses
   fp_GTK4;
 
 
-  procedure btn_click_cp(widget: PGtkWidget; Data: Tgpointer);
+  procedure btn_click_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
   var
     box, vbox, child, box1, box2: PGtkWidget;
   begin
