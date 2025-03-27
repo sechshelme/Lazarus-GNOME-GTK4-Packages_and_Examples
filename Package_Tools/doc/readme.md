@@ -65,6 +65,12 @@ https://gitlab.com/freepascal.org/lazarus/lazarus/-/merge_requests/207
 gir2pas -P Laz -e Set -i /usr/share/gir-1.0/Gtk-3.0.gir -o gtk3bindings
 ```
 
+# Ubuntu im Browser 
+Im Browser: http://localhost:3000
+
+`docker run -d --name=webtop -e PUID=1000 -e PGID=1000 -e TZ=Etc/UTC -p 3000:3000 --shm-size="1gb" --restart unless-stopped lscr.io/linuxserver/webtop:ubuntu-mate`
+
+
 
 
 

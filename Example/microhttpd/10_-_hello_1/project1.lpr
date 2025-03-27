@@ -5,6 +5,8 @@ program project1;
 uses
   fp_microhttpd;
 
+// http://localhost:8080/
+
 const
   PORT = 8080;
   FILENAME = 'clickCount.txt';
