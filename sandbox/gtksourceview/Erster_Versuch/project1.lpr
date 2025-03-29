@@ -5,57 +5,58 @@ uses
   fp_glib2,
   fp_cairo,
   fp_GTK4,
+  fp_gtksourceview,
 
-  gtksourceversion,                        // io.
-  gtksourcetypes,                          // io.
-  gtksource_enumtypes,                     // io.
-  gtksourceregion,                         // io.
-  gtksourcelanguage,                       // io.
-  gtksourcelanguagemanager,                // io. -> gtksourcelanguage
-  gtksourcemark,                           // io.
-  gtksourcestyle,                          // io.
-  gtksourcestylescheme,                    // io. -> gtksourcestyle
-  gtksourcebuffer,                         // io. -> gtksourcelanguage, gtksourcestylescheme, gtksourcemark
-  gtksourcestyleschememanager,             // io. -> gtksourcestylescheme
-  gtksourcesnippetcontext,                 // io.
-  gtksourcesnippetchunk,                   // io. -> gtksourcesnippetcontext
-  gtksourcesnippet,                        // io. -> gtksourcesnippetchunk, gtksourcesnippetcontext
-  gtksourcecompletioncontext,              // io. -> gtksourcebuffer, gtksourcelanguage
-  gtksourcecompletioncell,                 // io.
-  gtksourcecompletionproposal,             // io.
-  gtksourcecompletionprovider,             // io. -> gtksourcecompletioncontext, gtksourcecompletionproposal, gtksourcecompletioncell
-  gtksourcecompletion,                     // io. -> gtksourcebuffer, gtksourcecompletionprovider
-  gtksourcemarkattributes,                 // io. -> gtksourcemark
-  gtksourcehoverdisplay,                   // io.
-  gtksourcehovercontext,                   // io. -> gtksourcebuffer
-  gtksourcehoverprovider,                  // io. -> gtksourcehovercontext, gtksourcehoverdisplay
-  gtksourcehover,                          // io. -> gtksourcehoverprovider
-  gtksourceindenter,                       // io.
-  gtksourcegutterrenderer,                 // io. -> gtksourcebuffer
-  gtksourcegutterlines,                    // io. -> gtksourcegutterrenderer
-  gtksourcegutter,                         // io. -> gtksourcegutterrenderer
-  gtksourcespacedrawer,                    // io.
-  gtksourceview,                           // io. -> gtksourcesnippet, gtksourcebuffer, gtksourcemarkattributes, gtksourcecompletion, gtksourcehover, gtksourceindenter, gtksourcegutter, gtksourcespacedrawer
-  gtksourceprintcompositor,                // io. -> gtksourcebuffer
-  gtksourceencoding,                       // io.
-  gtksourcefile,                           // io. -> gtksourceencoding
-  gtksourcefileloader,                     // io. -> gtksourcebuffer, gtksourcefile, gtksourceencoding
-  gtksourcefilesaver,                      // io. -> gtksourcebuffer, gtksourcefile, gtksourceencoding
-  gtksourcesearchsettings,                 // io.
-  gtksourcesearchcontext,                  // io. -> gtksourcebuffer, gtksourcesearchsettings, gtksourcestyle
-  gtksourcegutterrendererpixbuf,           // io. -> gtksourcegutterrenderer
-  gtksourcegutterrenderertext,             // io. -> gtksourcegutterrenderer
-  gtksourcescheduler,                      // io.
-  gtksourcesnippetmanager,                 // io. -> gtksourcesnippet
-  gtksourcestyleschemechooser,             // io. -> gtksourcestylescheme
-  gtksourcestyleschemepreview,             // io. -> gtksourcestylescheme
-  gtksourcevimimcontext,                   // io.
-  gtksourceinit,                           // io.
-  gtksourcemap,                            // io. -> gtksourceview
-  gtksourcestyleschemechooserbutton,       // io.
-  gtksourcestyleschemechooserwidget,       // io.
-  gtksourcetag,                            // io.
-  gtksourceutils,                          // io.
+  //gtksourceversion,                        // io.
+  //gtksourcetypes,                          // io.
+  //gtksource_enumtypes,                     // io.
+  //gtksourceregion,                         // io.
+  //gtksourcelanguage,                       // io.
+  //gtksourcelanguagemanager,                // io. -> gtksourcelanguage
+  //gtksourcemark,                           // io.
+  //gtksourcestyle,                          // io.
+  //gtksourcestylescheme,                    // io. -> gtksourcestyle
+  //gtksourcebuffer,                         // io. -> gtksourcelanguage, gtksourcestylescheme, gtksourcemark
+  //gtksourcestyleschememanager,             // io. -> gtksourcestylescheme
+  //gtksourcesnippetcontext,                 // io.
+  //gtksourcesnippetchunk,                   // io. -> gtksourcesnippetcontext
+  //gtksourcesnippet,                        // io. -> gtksourcesnippetchunk, gtksourcesnippetcontext
+  //gtksourcecompletioncontext,              // io. -> gtksourcebuffer, gtksourcelanguage
+  //gtksourcecompletioncell,                 // io.
+  //gtksourcecompletionproposal,             // io.
+  //gtksourcecompletionprovider,             // io. -> gtksourcecompletioncontext, gtksourcecompletionproposal, gtksourcecompletioncell
+  //gtksourcecompletion,                     // io. -> gtksourcebuffer, gtksourcecompletionprovider
+  //gtksourcemarkattributes,                 // io. -> gtksourcemark
+  //gtksourcehoverdisplay,                   // io.
+  //gtksourcehovercontext,                   // io. -> gtksourcebuffer
+  //gtksourcehoverprovider,                  // io. -> gtksourcehovercontext, gtksourcehoverdisplay
+  //gtksourcehover,                          // io. -> gtksourcehoverprovider
+  //gtksourceindenter,                       // io.
+  //gtksourcegutterrenderer,                 // io. -> gtksourcebuffer
+  //gtksourcegutterlines,                    // io. -> gtksourcegutterrenderer
+  //gtksourcegutter,                         // io. -> gtksourcegutterrenderer
+  //gtksourcespacedrawer,                    // io.
+  //gtksourceview,                           // io. -> gtksourcesnippet, gtksourcebuffer, gtksourcemarkattributes, gtksourcecompletion, gtksourcehover, gtksourceindenter, gtksourcegutter, gtksourcespacedrawer
+  //gtksourceprintcompositor,                // io. -> gtksourcebuffer
+  //gtksourceencoding,                       // io.
+  //gtksourcefile,                           // io. -> gtksourceencoding
+  //gtksourcefileloader,                     // io. -> gtksourcebuffer, gtksourcefile, gtksourceencoding
+  //gtksourcefilesaver,                      // io. -> gtksourcebuffer, gtksourcefile, gtksourceencoding
+  //gtksourcesearchsettings,                 // io.
+  //gtksourcesearchcontext,                  // io. -> gtksourcebuffer, gtksourcesearchsettings, gtksourcestyle
+  //gtksourcegutterrendererpixbuf,           // io. -> gtksourcegutterrenderer
+  //gtksourcegutterrenderertext,             // io. -> gtksourcegutterrenderer
+  //gtksourcescheduler,                      // io.
+  //gtksourcesnippetmanager,                 // io. -> gtksourcesnippet
+  //gtksourcestyleschemechooser,             // io. -> gtksourcestylescheme
+  //gtksourcestyleschemepreview,             // io. -> gtksourcestylescheme
+  //gtksourcevimimcontext,                   // io.
+  //gtksourceinit,                           // io.
+  //gtksourcemap,                            // io. -> gtksourceview
+  //gtksourcestyleschemechooserbutton,       // io.
+  //gtksourcestyleschemechooserwidget,       // io.
+  //gtksourcetag,                            // io.
+  //gtksourceutils,                          // io.
 
 
   math;
