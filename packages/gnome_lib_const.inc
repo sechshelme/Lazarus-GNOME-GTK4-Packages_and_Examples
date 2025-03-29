@@ -141,6 +141,17 @@ const
   libjavascriptcoregtk ='javascriptcoregtk-6.0.0.dll';  // ????????
   {$ENDIF}
 
+  // ==== GTKSourceView 5
+const
+  {$IFDEF Linux}
+  libgtksourceview5 = 'libgtksourceview-5';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libgtksourceview5 = 'libgtksourceview-5-0.dll'; // ????
+  {$ENDIF}
+
+
   // ==== gstreamer
 const
   {$ifdef Linux}

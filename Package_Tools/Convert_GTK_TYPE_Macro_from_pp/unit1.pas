@@ -120,6 +120,8 @@ const
 
     (libs: 'libxml2'; units: 'ctypes, xml2_common'),
 
+    (libs: 'libgtksourceview5'; units: 'fp_glib2, fp_GTK4'),
+
     (libs: ''; units: ''));
 
 

@@ -106,6 +106,10 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'ADW_AVAILABLE_IN_1_4', 'extern', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'ADW_AVAILABLE_IN_1_5', 'extern', [rfReplaceAll]);
 
+      slHeader[j] := StringReplace(slHeader[j], 'GTK_SOURCE_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'GTK_SOURCE_AVAILABLE_IN_5_4', 'extern', [rfReplaceAll]);
+
+
       slHeader[j] := StringReplace(slHeader[j], 'PANGO_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'PANGO_DEPRECATED', 'extern', [rfReplaceAll]);
 
