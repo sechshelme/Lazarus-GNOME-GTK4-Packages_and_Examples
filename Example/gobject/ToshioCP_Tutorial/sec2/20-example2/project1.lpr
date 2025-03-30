@@ -32,6 +32,7 @@ uses
     show_ref_count(instance);
 
     g_object_unref(instance);
+    instance:=nil;
     show_ref_count(instance);
     g_print('Call g_object_unref.'#10);
     g_print('Now the reference count is zero and the instance is destroyed.'#10);
