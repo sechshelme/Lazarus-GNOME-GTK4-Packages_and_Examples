@@ -5,8 +5,6 @@ uses
   fp_glib2,
   fp_glib_unix;
 
-  // https://www.perplexity.ai/search/was-ist-bei-dieser-funktion-pa-R7sZ7u8bSkmRsWbUMWKsJg
-
   procedure main;
   const
     username = 'tux';

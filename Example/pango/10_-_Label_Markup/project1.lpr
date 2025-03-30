@@ -79,8 +79,6 @@ uses
     Label1 := gtk_label_new('Hello World !');
     gtk_box_append(GTK_BOX(box), Label1);
 
-     // https://www.perplexity.ai/search/gib-mir-ein-pango-besipiel-wel-5xDvcKw4RuWTm6My1V9z2g
-
     // button
     button := gtk_button_new_with_label('Untertreichen');
     gtk_box_append(GTK_BOX(box), button);
@@ -90,7 +88,6 @@ uses
     gtk_box_append(GTK_BOX(box), button);
     g_signal_connect(button, 'clicked', G_CALLBACK(@reset_cp), Label1);
 
-//    gtk_widget_show(window);
     gtk_window_present(GTK_WINDOW(window));
   end;
 

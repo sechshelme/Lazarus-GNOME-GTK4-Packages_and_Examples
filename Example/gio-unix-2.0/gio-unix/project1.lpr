@@ -5,11 +5,6 @@ uses
   fp_glib2,
   fp_gio_unix_2;
 
-  // /usr/share/applications/org.gnome.Calendar.desktop
-
-
-  // https://www.perplexity.ai/search/gib-mir-ein-c-beispiel-mit-gde-jvWhrS19T8WLXZCq6u7t9Q
-
   procedure PrintInfo(app_info: PGAppInfo);
   begin
     g_print('Name:              %s'#10, g_app_info_get_name(G_APP_INFO(app_info)));
@@ -104,8 +99,8 @@ uses
       buffer[bytes_read] := #0;
       g_print('%s', buffer);
     until bytes_read <= 0;
-    g_print(#10);
 
+    g_print(#10);
     g_object_unref(stream);
   end;
 
@@ -115,11 +110,12 @@ uses
   begin
     g_type_init;
     g_print(#10'============ Variante 1'#10#10);
-        Variante1;
+    Variante1;
     g_print(#10'============ Variante 2'#10#10);
     //    Variante2;
     g_print(#10'============ Variante 3'#10#10);
     PrintAppInfo;
+    Result := 0;
   end;
 
 begin

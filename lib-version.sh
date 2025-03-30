@@ -19,6 +19,9 @@ packages=(
     "gstreamer-1.0"
     "gst-editing-services-1.0"
     "chafa"
+    
+    "libxml-2.0" 
+    "libmicrohttpd"
 )
 
 echo -e "${BLUE}======================================${NC}"

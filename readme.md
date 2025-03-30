@@ -1,42 +1,37 @@
 # Inhalt
 | **Paket Name:**   | **Version:** | **Beschrieb:**                             | **Download:**                                                  |
 | ---               | ---          | ---                                        | ---                                                            |
+| **libxml2**       | 2.9.14       | Bearbeiten von XML-Dateien                 | https://gitlab.gnome.org/GNOME/libxml2                         |
+| **FreeType2**     | 2.13.2       | Schriftartenrasterung                      | https://gitlab.freedesktop.org/freetype/freetype               |
+| **harfbuzz**      | 8.3.0        | Softwarebibliothek für Text-Shaping        | https://github.com/harfbuzz/harfbuzz                           |
+| **graphene**      | 1.10.8       | Graphen (Bibliothek grafischer Datentypen) | https://github.com/ebassi/graphene                             |
+| **Cairo**         | 1.18.1       | 2D Grafik Bibliothek                       | https://gitlab.freedesktop.org/cairo/cairo                     |
 | **glib2**         | 2.80.0       | GIMP Library                               | https://gitlab.gnome.org/GNOME/glib                            |
 | **gio-unix-2.0**  | 2.80.0       | Unix input/output                          | gehört zu glib2                                                |
-| **Cairo**         | 1.18.1       | 2D Grafik Bibliothek                       | https://gitlab.freedesktop.org/cairo/cairo                     |
-| **FreeType2**     | 2.13.2       | Schriftartenrasterung                      | https://gitlab.freedesktop.org/freetype/freetype               |
-| **graphene**      | 1.10.8       | Graphen (Bibliothek grafischer Datentypen) | https://github.com/ebassi/graphene                             |
-| **harfbuzz**      | 8.3.0        | Softwarebibliothek für Text-Shaping        | https://github.com/harfbuzz/harfbuzz                           |
 | **Pango**         | 1.52.1       | Text Layout                                | https://gitlab.gnome.org/GNOME/pango                           |
 | **GdkPixbuf2**    | 2.42.10      | Bildpuffer für GTKx                        | https://gitlab.gnome.org/GNOME/gdk-pixbuf                      |
 | **GTK4**          | 4.14.2       | GIMP Toolkit                               | https://gitlab.gnome.org/GNOME/gtk                             |
+| **GSK4**          | 4.14.2       | GTK Scene Kit)                             | gehört zu gtk4                                                 |
+| **GDK4**          | 4.14.2       | GIMP Drawing Kit                           | gehört zu gtk4                                                 |
 |                   |              |                                            |                                                                |
 | **WebKitGTK6**    | 2.46.4       | GTK4 Web-Browser                           | https://github.com/WebKit                                      |
+| **GTKSourceView** | 5.12.0       | GTK4 Source Viewer                         | https://gitlab.gnome.org/GNOME/gtksourceview                   |
 | **gstreamer**     | 1.24.2.0     | GStreamer Multimedia Framework             | https://gitlab.freedesktop.org/gstreamer                       |
 | **gstreamer ges** | 1.24.2.0     | GStreamer Editing Services                 | https://gitlab.freedesktop.org/gstreamer/gst-editing-services  |
 |                   |              |                                            |                                                                |
 | **chafa**         | 1.14.0       | Console Grafik Ausgabe                     | https://github.com/hpjansson/chafa                             |
+| **microhttpd**    | 1.0.0        | HTTP-Server-Bibliothek                     | https://github.com/Karlson2k/libmicrohttpd                     |
 
 
 ## Pakete installieren
-- `sudo apt install libgstreamer-plugins-bad1.0-dev`
-- `sudo apt install libgstreamer-plugins-base1.0-dev`
-- `sudo apt install libges-1.0-dev` 
+`sudo apt install libxml2-dev libfreetype6-dev libharfbuzz-dev libgraphene-1.0-dev libcairo2-dev libglib2.0-dev libpango1.0-dev libgdk-pixbuf2.0-dev libgtk-4-dev libwebkit2gtk-6.0-dev libgtksourceview-5-dev gstreamer1.0-tools gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav libges-1.0-dev libchafa-dev libmicrohttpd-dev`
 
 
 ## Paketinfo
-Installierte Version der C-Libs abfragen:
-- glib `pkg-config --modversion glib-2.0` 
-- cairo `pkg-config --modversion cairo` 
-- graphene `pkg-config --modversion graphene-1.0`
-- harfbuzz `pkg-config --modversion harfbuzz`
-- pango `pkg-config --modversion pango` 
-- gdk-pixbuf `pkg-config --modversion gdk-pixbuf-2.0` 
-- gtk4 `pkg-config --modversion gtk4` 
-- gstreamer `pkg-config --modversion gstreamer-1.0` 
+Siehe:
+`lib-version.sh`
 
 # Hierachie
-
 ```mermaid
 classDiagram
 direction RL
@@ -87,10 +82,6 @@ Da dies in der glib2-packages schon gemacht wird, kann man auf dies bei Verwendu
 hb-view Ubuntu-B.ttf "Hello"
 
 
-
-
-
-
 ## GLIB2 
 https://github.com/wadester/wh_test_glib/blob/master/glib_test1.c
 
@@ -127,11 +118,8 @@ Aktualisieren:
 - mp3tag
 - kid3
 
-### Vorgeekte pakete
+### Vorgemerkte pakete
 
-/usr/include/webkitgtk-6.0
-/usr/include/libadwaita-1
-/usr/include/gstreamer-1.0/ges
 /usr/include/sysprof-6
 
 ### GTK Inspector

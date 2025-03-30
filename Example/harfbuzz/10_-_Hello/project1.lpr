@@ -108,9 +108,6 @@ uses
     status := g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
 
-//    if cr<>nil then cairo_destroy(cr);
-//    if surface<>nil then cairo_surface_destroy(surface);
-
     Exit(status);
   end;
 
