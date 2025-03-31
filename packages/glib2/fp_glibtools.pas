@@ -158,11 +158,11 @@ begin
     end;
     G_TYPE_FLOAT: begin
       valueType := 'G_TYPE_FLOAT';
-      WriteStr(ValueStr, g_value_get_float(Value):8:4);
+      WriteStr(ValueStr, g_value_get_float(Value): 8: 4);
     end;
     G_TYPE_DOUBLE: begin
       valueType := 'G_TYPE_DOUBLE';
-      WriteStr(ValueStr, g_value_get_double(Value):8:4);
+      WriteStr(ValueStr, g_value_get_double(Value): 8: 4);
     end;
     G_TYPE_STRING: begin
       valueType := 'G_TYPE_STRING';
@@ -206,7 +206,7 @@ var
   i: integer;
   Name: Pgchar;
   Value: TGValue;
-  objectClass: PGObjectClass;
+  objectClass, parent_class: PGObjectClass;
 begin
   if (obj <> nil) and G_IS_OBJECT(obj) then begin
     objectClass := G_OBJECT_GET_CLASS(obj);
@@ -227,6 +227,16 @@ begin
       end;
     end;
     g_free(paramspec);
+
+// https://www.perplexity.ai/search/gib-mir-ein-beispiel-mit-gdk-m-DZJc2RVLS4iP0laDTVRtiA?0=d
+
+    parent_class := G_OBJECT_CLASS(g_type_class_peek_parent(objectClass));
+    if parent_class <> nil then begin
+      GObjectShowProperty(parent_class);
+      WriteLn('parent Klasse');
+    end else begin
+      WriteLn('keine parent Klasse');
+    end;
   end else begin
     WriteLn('not a Object');
   end;
@@ -284,7 +294,7 @@ begin
     for i := 0 to Count - 1 do begin
       Name := g_type_name(children[i]);
       g_printf('  %3d. %s'#10, i, Name);
-//      g_free(Name);
+      //      g_free(Name);
     end;
     g_free(children);
   end else begin
