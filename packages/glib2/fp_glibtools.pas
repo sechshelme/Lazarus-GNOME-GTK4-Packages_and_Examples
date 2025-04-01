@@ -208,6 +208,10 @@ var
   Value: TGValue;
   objectClass, parent_class: PGObjectClass;
 begin
+//  if G_IS_OBJECT(obj) then     objectClass := G_OBJECT_GET_CLASS(obj);
+//  if G_IS_OBJECT_CLASS(obj) then     objectClass := obj;
+
+
   if (obj <> nil) and G_IS_OBJECT(obj) then begin
     objectClass := G_OBJECT_GET_CLASS(obj);
     paramspec := g_object_class_list_properties(objectClass, @n_properties);
@@ -232,7 +236,9 @@ begin
 
     parent_class := G_OBJECT_CLASS(g_type_class_peek_parent(objectClass));
     if parent_class <> nil then begin
-      GObjectShowProperty(parent_class);
+
+       GSignalShow(G_OBJECT_TYPE(obj));
+//      GObjectShowProperty(parent_class);
       WriteLn('parent Klasse');
     end else begin
       WriteLn('keine parent Klasse');
@@ -297,6 +303,7 @@ begin
       //      g_free(Name);
     end;
     g_free(children);
+    GSignalShow(g_type_parent( typ));
   end else begin
     g_printf('Typ is not GObject'#10);
   end;

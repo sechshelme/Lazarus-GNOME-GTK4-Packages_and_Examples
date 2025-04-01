@@ -67,8 +67,8 @@ function webkit_settings_get_enable_resizable_text_areas(settings: PWebKitSettin
 procedure webkit_settings_set_enable_resizable_text_areas(settings: PWebKitSettings; Enabled: Tgboolean); cdecl; external libwebkit;
 function webkit_settings_get_enable_tabs_to_links(settings: PWebKitSettings): Tgboolean; cdecl; external libwebkit;
 procedure webkit_settings_set_enable_tabs_to_links(settings: PWebKitSettings; Enabled: Tgboolean); cdecl; external libwebkit;
-function webkit_settings_get_enable_dns_prefetching(settings: PWebKitSettings): Tgboolean; cdecl; external libwebkit;
-procedure webkit_settings_set_enable_dns_prefetching(settings: PWebKitSettings; Enabled: Tgboolean); cdecl; external libwebkit;
+function webkit_settings_get_enable_dns_prefetching(settings: PWebKitSettings): Tgboolean; cdecl; external libwebkit; deprecated 'WEBKIT_DEPRECATED';
+procedure webkit_settings_set_enable_dns_prefetching(settings: PWebKitSettings; Enabled: Tgboolean); cdecl; external libwebkit; deprecated 'WEBKIT_DEPRECATED';
 function webkit_settings_get_enable_caret_browsing(settings: PWebKitSettings): Tgboolean; cdecl; external libwebkit;
 procedure webkit_settings_set_enable_caret_browsing(settings: PWebKitSettings; Enabled: Tgboolean); cdecl; external libwebkit;
 function webkit_settings_get_enable_fullscreen(settings: PWebKitSettings): Tgboolean; cdecl; external libwebkit;
@@ -144,6 +144,8 @@ function webkit_settings_get_all_features: PWebKitFeatureList; cdecl; external l
 function webkit_settings_get_experimental_features: PWebKitFeatureList; cdecl; external libwebkit;
 function webkit_settings_get_development_features: PWebKitFeatureList; cdecl; external libwebkit;
 function webkit_settings_apply_from_key_file(settings: PWebKitSettings; key_file: PGKeyFile; group_name: Pgchar; error: PPGError): Tgboolean; cdecl; external libwebkit;
+function webkit_settings_get_webrtc_udp_ports_range(settings:PWebKitSettings):Pgchar;cdecl;external libwebkit;
+procedure webkit_settings_set_webrtc_udp_ports_range(settings:PWebKitSettings; udp_port_range:Pgchar);cdecl;external libwebkit;
 
 // === Konventiert am: 3-1-25 19:43:05 ===
 

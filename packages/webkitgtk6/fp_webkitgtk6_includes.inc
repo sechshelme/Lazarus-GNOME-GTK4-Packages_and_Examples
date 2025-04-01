@@ -80,6 +80,8 @@
 {$include webkit/WebKitDeviceInfoPermissionRequest.inc}         // io.
 {$include webkit/WebKitURIUtilities.inc}                        // io.
 
+// neu: 2.48.0
+{$include webkit/WebKitWebExtensionMatchPattern.inc}            // io.
 
 
 

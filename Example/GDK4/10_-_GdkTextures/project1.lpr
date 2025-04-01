@@ -40,7 +40,10 @@ const
 
     bytes := g_bytes_new_static(@texture_data, SizeOf(texture_data));
     texture := gdk_memory_texture_new(2, 2, GDK_MEMORY_R8G8B8A8, bytes, 2 * 4);
-    GObjectShowProperty(texture);
+//    GObjectShowProperty(texture);
+GSignalShow(GDK_TYPE_MEMORY_TEXTURE);
+WriteLn('-------------------');
+GSignalShow(GDK_TYPE_TEXTURE);
     g_bytes_unref(bytes);
 
     picture := gtk_picture_new_for_paintable(GDK_PAINTABLE(texture));

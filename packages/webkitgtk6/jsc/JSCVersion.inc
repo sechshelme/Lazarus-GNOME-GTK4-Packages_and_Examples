@@ -2,8 +2,8 @@
 
 const
   JSC_MAJOR_VERSION = 2;
-  JSC_MINOR_VERSION = 46;
-  JSC_MICRO_VERSION = 4;
+  JSC_MINOR_VERSION = 48;
+  JSC_MICRO_VERSION = 0;
 
 function JSC_CHECK_VERSION(major, minor, micro: longint): Tgboolean;
 

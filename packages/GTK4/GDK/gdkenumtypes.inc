@@ -44,7 +44,6 @@ function GDK_TYPE_DRAG_ACTION: TGType;
 function gdk_memory_format_get_type: TGType; cdecl; external libgtk4;
 function GDK_TYPE_MEMORY_FORMAT: TGType;
 
-{ enumerations from "gdkevents.h"  }
 function gdk_event_type_get_type: TGType; cdecl; external libgtk4;
 function GDK_TYPE_EVENT_TYPE: TGType;
 
@@ -66,31 +65,24 @@ function GDK_TYPE_CROSSING_MODE: TGType;
 function gdk_key_match_get_type: TGType; cdecl; external libgtk4;
 function GDK_TYPE_KEY_MATCH: TGType;
 
-{ enumerations from "gdkframeclock.h"  }
 function gdk_frame_clock_phase_get_type: TGType; cdecl; external libgtk4;
 function GDK_TYPE_FRAME_CLOCK_PHASE: TGType;
 
-{ enumerations from "gdkmonitor.h"  }
 function gdk_subpixel_layout_get_type: TGType; cdecl; external libgtk4;
 function GDK_TYPE_SUBPIXEL_LAYOUT: TGType;
 
-{ enumerations from "gdkpaintable.h"  }
 function gdk_paintable_flags_get_type: TGType; cdecl; external libgtk4;
 function GDK_TYPE_PAINTABLE_FLAGS: TGType;
 
-{ enumerations from "gdkpopuplayout.h"  }
 function gdk_anchor_hints_get_type: TGType; cdecl; external libgtk4;
 function GDK_TYPE_ANCHOR_HINTS: TGType;
 
-{ enumerations from "gdkseat.h"  }
 function gdk_seat_capabilities_get_type: TGType; cdecl; external libgtk4;
 function GDK_TYPE_SEAT_CAPABILITIES: TGType;
 
-{ enumerations from "gdktexture.h"  }
 function gdk_texture_error_get_type: TGType; cdecl; external libgtk4;
 function GDK_TYPE_TEXTURE_ERROR: TGType;
 
-{ enumerations from "gdktoplevel.h"  }
 function gdk_surface_edge_get_type: TGType; cdecl; external libgtk4;
 function GDK_TYPE_SURFACE_EDGE: TGType;
 
@@ -102,8 +94,6 @@ function GDK_TYPE_TOPLEVEL_STATE: TGType;
 
 function gdk_titlebar_gesture_get_type: TGType; cdecl; external libgtk4;
 function GDK_TYPE_TITLEBAR_GESTURE: TGType;
-
-{ Generated data ends here  }
 
 // === Konventiert am: 31-7-24 19:26:16 ===
 

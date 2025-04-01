@@ -101,6 +101,12 @@ function jsc_value_constructor_callv(Value: PJSCValue; n_parameters: Tguint; par
 function jsc_value_new_from_json(context: PJSCContext; json: pchar): PJSCValue; cdecl; external libjavascriptcoregtk;
 function jsc_value_to_json(Value: PJSCValue; indent: Tguint): pchar; cdecl; external libjavascriptcoregtk;
 
+type
+  TJSCExecutor = procedure(resolve: PJSCValue; reject: PJSCValue; user_data: Tgpointer); cdecl;
+
+function jsc_value_new_promise(context: PJSCContext; executor: TJSCExecutor; user_data: Tgpointer): PJSCValue; cdecl; external libjavascriptcoregtk;
+
+
 // === Konventiert am: 4-1-25 17:29:05 ===
 
 function JSC_TYPE_VALUE: TGType;

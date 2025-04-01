@@ -58,6 +58,16 @@ const
   WEBKIT_SNAPSHOT_ERROR_FAILED_TO_CREATE = 799;
 
 type
+  PWebKitWebExtensionMatchPatternError = ^TWebKitWebExtensionMatchPatternError;
+  TWebKitWebExtensionMatchPatternError = longint;
+
+const
+  WEBKIT_WEB_EXTENSION_MATCH_PATTERN_ERROR_UNKNOWN = 899;
+  WEBKIT_WEB_EXTENSION_MATCH_PATTERN_ERROR_INVALID_SCHEME = 808;
+  WEBKIT_WEB_EXTENSION_MATCH_PATTERN_ERROR_INVALID_HOST = 809;
+  WEBKIT_WEB_EXTENSION_MATCH_PATTERN_ERROR_INVALID_PATH = 810;
+
+type
   PWebKitUserContentFilterError = ^TWebKitUserContentFilterError;
   TWebKitUserContentFilterError = longint;
 
@@ -78,6 +88,7 @@ function webkit_download_error_quark: TGQuark; cdecl; external libwebkit;
 function webkit_print_error_quark: TGQuark; cdecl; external libwebkit;
 function webkit_javascript_error_quark: TGQuark; cdecl; external libwebkit;
 function webkit_snapshot_error_quark: TGQuark; cdecl; external libwebkit;
+function webkit_web_extension_match_pattern_error_quark: TGQuark; cdecl; external libwebkit;
 function webkit_user_content_filter_error_quark: TGQuark; cdecl; external libwebkit;
 function webkit_media_error_quark: TGQuark; cdecl; external libwebkit;
 
@@ -87,6 +98,7 @@ function WEBKIT_DOWNLOAD_ERROR: TGQuark;
 function WEBKIT_JAVASCRIPT_ERROR: TGQuark;
 function WEBKIT_SNAPSHOT_ERROR: TGQuark;
 function WEBKIT_USER_CONTENT_FILTER_ERROR: TGQuark;
+function WEBKIT_WEB_EXTENSION_MATCH_PATTERN_ERROR: TGQuark;
 function WEBKIT_PRINT_ERROR: TGQuark;
 function WEBKIT_MEDIA_ERROR: TGQuark;
 
@@ -127,6 +139,13 @@ end;
 function WEBKIT_USER_CONTENT_FILTER_ERROR: TGQuark;
 begin
   WEBKIT_USER_CONTENT_FILTER_ERROR := webkit_user_content_filter_error_quark;
+end;
+
+function WEBKIT_WEB_EXTENSION_MATCH_PATTERN_ERROR: TGQuark;
+begin
+  Result := webkit_web_extension_match_pattern_error_quark;
+  // Bug im original Header ???
+//  WEBKIT_WEB_EXTENSION_MATCH_PATTERN_ERROR := webkit_web_extension_error_quark
 end;
 
 function WEBKIT_PRINT_ERROR: TGQuark;

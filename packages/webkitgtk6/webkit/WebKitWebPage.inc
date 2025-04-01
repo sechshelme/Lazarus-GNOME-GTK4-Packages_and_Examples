@@ -11,7 +11,7 @@ type
 function webkit_web_page_get_type: TGType; cdecl; external libwebkit;
 function webkit_web_page_get_id(web_page: PWebKitWebPage): Tguint64; cdecl; external libwebkit;
 function webkit_web_page_get_uri(web_page: PWebKitWebPage): Pgchar; cdecl; external libwebkit;
-function webkit_web_page_get_main_frame(web_page: PWebKitWebPage): PWebKitFrame; cdecl; external libwebkit;
+function webkit_web_page_get_main_frame(web_page: PWebKitWebPage): PWebKitFrame; cdecl; external libwebkit; deprecated 'WEBKIT_DEPRECATED';
 function webkit_web_page_get_editor(web_page: PWebKitWebPage): PWebKitWebEditor; cdecl; external libwebkit;
 function webkit_web_page_get_form_manager(web_page: PWebKitWebPage; world: PWebKitScriptWorld): PWebKitWebFormManager; cdecl; external libwebkit;
 procedure webkit_web_page_send_message_to_view(web_page: PWebKitWebPage; message: PWebKitUserMessage; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libwebkit;
