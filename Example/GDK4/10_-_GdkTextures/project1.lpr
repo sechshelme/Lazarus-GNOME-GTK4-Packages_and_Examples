@@ -40,10 +40,21 @@ const
 
     bytes := g_bytes_new_static(@texture_data, SizeOf(texture_data));
     texture := gdk_memory_texture_new(2, 2, GDK_MEMORY_R8G8B8A8, bytes, 2 * 4);
-//    GObjectShowProperty(texture);
-GSignalShow(GDK_TYPE_MEMORY_TEXTURE);
-WriteLn('-------------------');
-GSignalShow(GDK_TYPE_TEXTURE);
+
+    //texture:=  g_object_new(GDK_TYPE_MEMORY_TEXTURE,
+    //                 'width', 2,
+    //                 'height', 2,
+    //                 'format', GDK_MEMORY_R8G8B8A8,
+    //                 'pixels', bytes,
+    //                 nil);
+
+
+
+////    GObjectShowProperty(texture);
+//GSignalShow(GDK_TYPE_MEMORY_TEXTURE);
+//WriteLn('-------------------');
+//GSignalShow(GDK_TYPE_TEXTURE);
+
     g_bytes_unref(bytes);
 
     picture := gtk_picture_new_for_paintable(GDK_PAINTABLE(texture));
@@ -62,6 +73,8 @@ GSignalShow(GDK_TYPE_TEXTURE);
     gtk_widget_set_halign(button, GTK_ALIGN_CENTER);
     gtk_box_append(GTK_BOX(button_box), button);
     g_signal_connect(button, 'clicked', G_CALLBACK(@button_quit_cb), nil);
+
+//    GObjectShowProperty(button);
 
     gtk_window_present(GTK_WINDOW(window));
   end;
