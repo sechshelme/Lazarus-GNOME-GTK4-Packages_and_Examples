@@ -108,22 +108,13 @@ type
 const
   GTK_BUILDER_CLOSURE_SWAPPED = 1 shl 0;
 
+  GTK_INVALID_LIST_POSITION = Tguint($ffffffff);
 
   // =======================
-
-
-
-function GTK_INVALID_LIST_POSITION: Tguint;
 
 {$ENDIF read_interface}
 
 
 {$IFDEF read_implementation}
-
-function GTK_INVALID_LIST_POSITION: Tguint;
-begin
-  GTK_INVALID_LIST_POSITION := Tguint($ffffffff);
-end;
-
 
 {$ENDIF read_implementation}
