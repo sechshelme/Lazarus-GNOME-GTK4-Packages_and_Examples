@@ -22,10 +22,10 @@ const
     g_printf(#10'-----------'#10);
   end;
 
-  procedure my_free(Data: Tgpointer; user_date:Tgpointer); cdecl;
+  procedure my_free(Data: Tgpointer); cdecl;
   begin
     g_printf('(free)'#10);
-    g_printf('user_data: %s'#10, user_date);
+    g_printf('user_data: %s'#10, Data);
     g_free(Data);
   end;
 
@@ -42,7 +42,7 @@ const
     g_bytes_unref(bytes);
     g_bytes_unref(sub_bytes);
 
-    bytes := g_bytes_new_with_free_func(@hello, SizeOf(hello), TGDestroyNotify(@my_free), PChar('blabla'));
+    bytes := g_bytes_new_with_free_func(@hello, SizeOf(hello), @my_free, g_strdup('blabla'));
     printByte(bytes);
     g_bytes_unref(bytes);
   end;
