@@ -295,6 +295,7 @@ type
   PTcl_FreeInternalRepProc = ^TTcl_FreeInternalRepProc;
   TTcl_FreeProc = procedure(blockPtr: pansichar);
   PTcl_FreeProc = ^TTcl_FreeProc;
+  PPTcl_FreeProc = ^PTcl_FreeProc;
   TTcl_IdleProc = procedure(clientData: TClientData);
   PTcl_IdleProc=^TTcl_IdleProc;
   TTcl_InterpDeleteProc = procedure(clientData, interp: PTcl_Interp);

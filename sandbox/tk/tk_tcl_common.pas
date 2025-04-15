@@ -14,6 +14,9 @@ Pstat=procedure;  // /usr/include/x86_64-linux-gnu/sys/stat.h
 
 Tva_list=Pointer;
 
+PTkOption=Pointer; //????????
+PTk_ItemType=Pointer;//?????????
+
 implementation
 
 end.

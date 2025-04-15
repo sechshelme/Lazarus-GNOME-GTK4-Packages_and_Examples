@@ -3,58 +3,12 @@ unit tk;
 interface
 
 uses
-  ctypes;
+  x, xlib,
+  ctypes, tcl, tk_tcl_common;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
-
-
-{
- * tk.h --
- *
- *	Declarations for Tk-related things that are visible outside of the Tk
- *	module itself.
- *
- * Copyright (c) 1989-1994 The Regents of the University of California.
- * Copyright (c) 1994 The Australian National University.
- * Copyright (c) 1994-1998 Sun Microsystems, Inc.
- * Copyright (c) 1998-2000 Ajuba Solutions.
- *
- * See the file "license.terms" for information on usage and redistribution of
- * this file, and for a DISCLAIMER OF ALL WARRANTIES.
-  }
-{$ifndef _TK}
-{$define _TK}
-{$include <tcl.h>}
-{$if (TCL_MAJOR_VERSION != 8) || (TCL_MINOR_VERSION < 6)}
-{$error Tk 8.6 must be compiled with tcl.h from Tcl 8.6 or better}
-{$endif}
-{
- * Utility macros: STRINGIFY takes an argument and wraps it in "" (double
- * quotation marks), JOIN joins two arguments.
-  }
-{
- * For C++ compilers, use extern "C"
-  }
-{ C++ extern C conditionnal removed }
-{
- * When version numbers change here, you must also go into the following files
- * and update the version numbers:
- *
- * library/tk.tcl	(1 LOC patch)
- * unix/configure.in	(2 LOC Major, 2 LOC minor, 1 LOC patch)
- * win/configure.in	(as above)
- * README		(sections 0 and 1)
- * macosx/Tk-Common.xcconfig (not patchlevel) 1 LOC
- * win/README		(not patchlevel)
- * unix/README		(not patchlevel)
- * unix/tk.spec		(1 LOC patch)
- * win/tcl.m4		(not patchlevel)
- *
- * You may also need to update some of these files when the numbers change for
- * the version of Tcl that this release of Tk is compiled against.
-  }
 
 const
   TK_MAJOR_VERSION = 8;  
@@ -63,87 +17,57 @@ const
   TK_RELEASE_SERIAL = 14;  
   TK_VERSION = '8.6';  
   TK_PATCH_LEVEL = '8.6.14';  
-{
- * A special definition used to allow this header file to be included from
- * windows or mac resource files so that they can obtain version information.
- * RC_INVOKED is defined by default by the windows RC tool and manually set
- * for macintosh.
- *
- * Resource compilers don't like all the C stuff, like typedefs and procedure
- * declarations, that occur below, so block them out.
-  }
-{$ifndef RC_INVOKED}
-{
- *----------------------------------------------------------------------
- *
- * Decide whether or not to use input methods.
-  }
-{$if defined(XNQueryInputStyle) && !defined(_WIN32) && !defined(MAC_OSX_TK)}
-{$define TK_USE_INPUT_METHODS}
-{$endif}
-{
- * Dummy types that are used by clients:
-  }
-
-const
-  Tk_ImageModel = Tk_ImageMaster;  
 type
   PTk_BindingTable = ^TTk_BindingTable;
-  TTk_BindingTable = PTk_BindingTable_;
+  TTk_BindingTable = record end;
 
   PTk_Canvas = ^TTk_Canvas;
-  TTk_Canvas = PTk_Canvas_;
+  TTk_Canvas =  record end;
 
   PTk_Cursor = ^TTk_Cursor;
-  TTk_Cursor = PTk_Cursor_;
+  TTk_Cursor =  record end;
 
   PTk_ErrorHandler = ^TTk_ErrorHandler;
-  TTk_ErrorHandler = PTk_ErrorHandler_;
+  TTk_ErrorHandler =  record end;
 
   PTk_Font = ^TTk_Font;
-  TTk_Font = PTk_Font_;
+  TTk_Font =  record end;
 
   PTk_Image = ^TTk_Image;
-  TTk_Image = PTk_Image__;
+  TTk_Image =  record end;
 
   PTk_ImageMaster = ^TTk_ImageMaster;
-  TTk_ImageMaster = PTk_ImageMaster_;
+  TTk_ImageMaster =  record end;
 
   PTk_OptionTable = ^TTk_OptionTable;
-  TTk_OptionTable = PTk_OptionTable_;
+  TTk_OptionTable =  record end;
 
   PTk_PostscriptInfo = ^TTk_PostscriptInfo;
-  TTk_PostscriptInfo = PTk_PostscriptInfo_;
+  TTk_PostscriptInfo =  record end;
 
   PTk_TextLayout = ^TTk_TextLayout;
-  TTk_TextLayout = PTk_TextLayout_;
+  TTk_TextLayout =  record end;
 
   PTk_Window = ^TTk_Window;
-  TTk_Window = PTk_Window_;
+  TTk_Window =  record end;
 
   PTk_3DBorder = ^TTk_3DBorder;
-  TTk_3DBorder = PTk_3DBorder_;
+  TTk_3DBorder =  record end;
 
   PTk_Style = ^TTk_Style;
-  TTk_Style = PTk_Style_;
+  TTk_Style =  record end;
 
   PTk_StyleEngine = ^TTk_StyleEngine;
-  TTk_StyleEngine = PTk_StyleEngine_;
+  TTk_StyleEngine =  record end;
 
   PTk_StyledElement = ^TTk_StyledElement;
-  TTk_StyledElement = PTk_StyledElement_;
-{
- * Additional types exported to clients.
-  }
+  TTk_StyledElement =  record end;
 
   PTk_Uid = ^TTk_Uid;
   TTk_Uid = Pchar;
-{
- *----------------------------------------------------------------------
- *
- * The enum below defines the valid types for Tk configuration options as
- * implemented by Tk_InitOptions, Tk_SetOptions, etc.
-  }
+
+type
+  TTk_ImageModel = TTk_ImageMaster;
 
   PTk_OptionType = ^TTk_OptionType;
   TTk_OptionType =  Longint;
@@ -167,51 +91,7 @@ type
     TK_OPTION_END = 16;
     TK_OPTION_CUSTOM = 17;
     TK_OPTION_STYLE = 18;
-;
-{
- * Structures of the following type are used by widgets to specify their
- * configuration options. Typically each widget has a static array of these
- * structures, where each element of the array describes a single
- * configuration option. The array is passed to Tk_CreateOptionTable.
-  }
-{ Type of option, such as TK_OPTION_COLOR;
-				 * see definitions above. Last option in table
-				 * must have type TK_OPTION_END.  }
-{ Name used to specify option in Tcl
-				 * commands.  }
-{ Name for option in option database.  }
-{ Class for option in database.  }
-{ Default value for option if not specified
-				 * in command line, the option database, or
-				 * the system.  }
-{ Where in record to store a Tcl_Obj * that
-				 * holds the value of this option, specified
-				 * as an offset in bytes from the start of the
-				 * record. Use the Tk_Offset macro to generate
-				 * values for this. -1 means don't store the
-				 * Tcl_Obj in the record.  }
-{ Where in record to store the internal
-				 * representation of the value of this option,
-				 * such as an int or XColor *. This field is
-				 * specified as an offset in bytes from the
-				 * start of the record. Use the Tk_Offset
-				 * macro to generate values for it. -1 means
-				 * don't store the internal representation in
-				 * the record.  }
-{ Any combination of the values defined
-				 * below.  }
-{ An alternate place to put option-specific
-				 * data. Used for the monochrome default value
-				 * for colors, etc.  }
-{ An arbitrary bit mask defined by the class
-				 * manager; typically bits correspond to
-				 * certain kinds of options such as all those
-				 * that require a redisplay when they change.
-				 * Tk_SetOptions returns the bit-wise OR of
-				 * the typeMasks of all options that were
-				 * changed.  }
 type
-  PTk_OptionSpec = ^TTk_OptionSpec;
   TTk_OptionSpec = record
       _type : TTk_OptionType;
       optionName : Pchar;
@@ -224,33 +104,20 @@ type
       clientData : pointer;
       typeMask : longint;
     end;
-{
- * Flag values for Tk_OptionSpec structures. These flags are shared by
- * Tk_ConfigSpec structures, so be sure to coordinate any changes carefully.
-  }
+  PTk_OptionSpec = ^TTk_OptionSpec;
 
 const
   TK_OPTION_NULL_OK = 1 shl 0;  
   TK_OPTION_DONT_SET_DEFAULT = 1 shl 3;  
-{
- * The following structure and function types are used by TK_OPTION_CUSTOM
- * options; the structure holds pointers to the functions needed by the Tk
- * option config code to handle a custom option.
-  }
 type
-{ ????????????  Tcl_Obj * }
-{ Name of the custom option.  }
-{ Function to use to set a record's option
-				 * value from a Tcl_Obj  }
-{ Function to use to get a Tcl_Obj
-				 * representation from an internal
-				 * representation of an option.  }
-{ Function to use to restore a saved value
-				 * for the internal representation.  }
-{ Function to use to free the internal
-				 * representation of an option.  }
-{ Arbitrary one-word value passed to the
-				 * handling procs.  }
+  TTk_CustomOptionSetProc = function(clientData: TClientData; interp: TTcl_Interp;    tkwin: TTk_Window; value: PPTcl_Obj; widgRec: PChar; offset: Integer;    saveInternalPtr: PChar; flags: Integer): Integer;
+  PTk_CustomOptionSetProc=^TTk_CustomOptionSetProc;
+  TTk_CustomOptionGetProc = function(clientData: TClientData; tkwin: TTk_Window;    widgRec: PChar; offset: Integer): Pointer;
+  PTk_CustomOptionGetProc=^TTk_CustomOptionGetProc;
+  TTk_CustomOptionRestoreProc = procedure(clientData: TClientData; tkwin: TTk_Window;    internalPtr: PChar; saveInternalPtr: PChar);
+  PTk_CustomOptionRestoreProc=^TTk_CustomOptionRestoreProc;
+  TTk_CustomOptionFreeProc = procedure(clientData: TClientData; tkwin: TTk_Window;    internalPtr: PChar);
+  PTk_CustomOptionFreeProc=^TTk_CustomOptionFreeProc;
 
   PTk_ObjCustomOption = ^TTk_ObjCustomOption;
   TTk_ObjCustomOption = record
@@ -261,72 +128,16 @@ type
       freeProc : PTk_CustomOptionFreeProc;
       clientData : TClientData;
     end;
-{
- * Macro to use to fill in "offset" fields of the Tk_OptionSpec structure.
- * Computes number of bytes from beginning of structure to a given field.
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
 
-function Tk_Offset(_type,field : longint) : longint;
-
-{ Workaround for platforms missing offsetof(), e.g. VC++ 6.0  }
-{$ifndef offsetof}
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-
-function offsetof(_type,field : longint) : Tsize_t;
-
-{$endif}
-{
- * The following two structures are used for error handling. When config
- * options are being modified, the old values are saved in a Tk_SavedOptions
- * structure. If an error occurs, then the contents of the structure can be
- * used to restore all of the old values. The contents of this structure are
- * for the private use Tk. No-one outside Tk should ever read or write any of
- * the fields of these structures.
-  }
-{ Points to information that describes the
-				 * option.  }
-{ The old value of the option, in the form of
-				 * a Tcl object; may be NULL if the value was
-				 * not saved as an object.  }
-{ The old value of the option, in some
-				 * internal representation such as an int or
-				 * (XColor *). Valid only if the field
-				 * optionPtr->specPtr->objOffset is < 0. The
-				 * space must be large enough to accommodate a
-				 * double, a long, or a pointer; right now it
-				 * looks like a double (i.e., 8 bytes) is big
-				 * enough. Also, using a double guarantees
-				 * that the field is properly aligned for
-				 * storing large values.  }
 type
   PTk_SavedOption = ^TTk_SavedOption;
   TTk_SavedOption = record
       optionPtr : PTkOption;
       valuePtr : PTcl_Obj;
-      internalForm : Tdouble;
+      internalForm : double;
     end;
-{$ifdef TCL_MEM_DEBUG}
-
-const
-  TK_NUM_SAVED_OPTIONS = 2;  
-{$else}
-
 const
   TK_NUM_SAVED_OPTIONS = 20;  
-{$endif}
-{ The data structure in which to restore
-				 * configuration options.  }
-{ Window associated with recordPtr; needed to
-				 * restore certain options.  }
-{ The number of valid items in items field.  }
-{ Items used to hold old values.  }
-{ Points to next structure in list; needed if
-				 * too many options changed to hold all the
-				 * old values in a single structure. NULL
-				 * means no more structures.  }
 type
   PTk_SavedOptions = ^TTk_SavedOptions;
   TTk_SavedOptions = record
@@ -336,26 +147,11 @@ type
       items : array[0..(TK_NUM_SAVED_OPTIONS)-1] of TTk_SavedOption;
       nextPtr : PTk_SavedOptions;
     end;
-{
- * Structure used to describe application-specific configuration options:
- * indicates procedures to call to parse an option and to return a text string
- * describing an option. THESE ARE DEPRECATED; PLEASE USE THE NEW STRUCTURES
- * LISTED ABOVE.
-  }
-{
- * This is a temporary flag used while tkObjConfig and new widgets are in
- * development.
-  }
-{$ifndef __NO_OLD_CONFIG}
 type
-{ ?????????  char * }
-{ Procedure to call to parse an option and
-				 * store it in converted form.  }
-{ Procedure to return a printable string
-				 * describing an existing option.  }
-{ Arbitrary one-word value used by option
-				 * parser: passed to parseProc and
-				 * printProc.  }
+  TTk_OptionParseProc = function(clientData: TClientData; interp: PTcl_Interp;    tkwin: TTk_Window; value: PChar; widgRec: PChar; offset: Integer): Integer; cdecl;
+  PTk_OptionParseProc=^TTk_OptionParseProc;
+  TTk_OptionPrintProc = function(clientData: TClientData; tkwin: TTk_Window;    widgRec: PChar; offset: Integer;  freeProcPtr: PPTcl_FreeProc): PChar; cdecl;
+  PTk_OptionPrintProc=^TTk_OptionPrintProc;
 
   PTk_CustomOption = ^TTk_CustomOption;
   TTk_CustomOption = record
@@ -363,31 +159,6 @@ type
       printProc : PTk_OptionPrintProc;
       clientData : TClientData;
     end;
-{
- * Structure used to specify information for Tk_ConfigureWidget. Each
- * structure gives complete information for one option, including how the
- * option is specified on the command line, where it appears in the option
- * database, etc.
-  }
-{ Type of option, such as TK_CONFIG_COLOR;
-				 * see definitions below. Last option in table
-				 * must have type TK_CONFIG_END.  }
-{ Switch used to specify option in argv. NULL
-				 * means this spec is part of a group.  }
-{ Name for option in option database.  }
-{ Class for option in database.  }
-{ Default value for option if not specified
-				 * in command line or database.  }
-{ Where in widget record to store value; use
-				 * Tk_Offset macro to generate values for
-				 * this.  }
-{ Any combination of the values defined
-				 * below; other bits are used internally by
-				 * tkConfig.c.  }
-{ If type is TK_CONFIG_CUSTOM then this is a
-				 * pointer to info about how to parse and
-				 * print the option. Otherwise it is
-				 * irrelevant.  }
 
   PTk_ConfigSpec = ^TTk_ConfigSpec;
   TTk_ConfigSpec = record
@@ -400,10 +171,6 @@ type
       specFlags : longint;
       customPtr : PTk_CustomOption;
     end;
-{
- * Type values for Tk_ConfigSpec structures. See the user documentation for
- * details.
-  }
 
   PTk_ConfigTypes = ^TTk_ConfigTypes;
   TTk_ConfigTypes =  Longint;
@@ -430,38 +197,15 @@ type
     TK_CONFIG_WINDOW = 19;
     TK_CONFIG_CUSTOM = 20;
     TK_CONFIG_END = 21;
-;
-{
- * Possible values for flags argument to Tk_ConfigureWidget:
-  }
-  TK_CONFIG_ARGV_ONLY = 1;  
+const
+  TK_CONFIG_ARGV_ONLY = 1;
   TK_CONFIG_OBJS = $80;  
-{
- * Possible flag values for Tk_ConfigSpec structures. Any bits at or above
- * TK_CONFIG_USER_BIT may be used by clients for selecting certain entries.
- * Before changing any values here, coordinate with tkOldConfig.c
- * (internal-use-only flags are defined there).
-  }
-  TK_CONFIG_NULL_OK = 1 shl 0;  
+  TK_CONFIG_NULL_OK = 1 shl 0;
   TK_CONFIG_COLOR_ONLY = 1 shl 1;  
   TK_CONFIG_MONO_ONLY = 1 shl 2;  
   TK_CONFIG_DONT_SET_DEFAULT = 1 shl 3;  
   TK_CONFIG_OPTION_SPECIFIED = 1 shl 4;  
   TK_CONFIG_USER_BIT = $100;  
-{$endif}
-{ __NO_OLD_CONFIG  }
-{
- * Structure used to specify how to handle argv options.
-  }
-{ The key string that flags the option in the
-				 * argv array.  }
-{ Indicates option type; see below.  }
-{ Value to be used in setting dst; usage
-				 * depends on type.  }
-{ Address of value to be modified; usage
-				 * depends on type.  }
-{ Documentation message describing this
-				 * option.  }
 type
   PTk_ArgvInfo = ^TTk_ArgvInfo;
   TTk_ArgvInfo = record
@@ -471,10 +215,6 @@ type
       dst : Pchar;
       help : Pchar;
     end;
-{
- * Legal values for the type field of a Tk_ArgvInfo: see the user
- * documentation for details.
-  }
 
 const
   TK_ARGV_CONSTANT = 15;  
@@ -490,17 +230,10 @@ const
   TK_ARGV_OPTION_VALUE = 25;  
   TK_ARGV_OPTION_NAME_VALUE = 26;  
   TK_ARGV_END = 27;  
-{
- * Flag bits for passing to Tk_ParseArgv:
-  }
-  TK_ARGV_NO_DEFAULTS = $1;  
+  TK_ARGV_NO_DEFAULTS = $1;
   TK_ARGV_NO_LEFTOVERS = $2;  
   TK_ARGV_NO_ABBREV = $4;  
   TK_ARGV_DONT_SKIP_FIRST_ARG = $8;  
-{
- * Enumerated type for describing actions to be taken in response to a
- * restrictProc established by Tk_RestrictEvents.
-  }
 type
   PTk_RestrictAction = ^TTk_RestrictAction;
   TTk_RestrictAction =  Longint;
@@ -508,41 +241,23 @@ type
     TK_DEFER_EVENT = 0;
     TK_PROCESS_EVENT = 1;
     TK_DISCARD_EVENT = 2;
-;
-{
- * Priority levels to pass to Tk_AddOption:
-  }
-  TK_WIDGET_DEFAULT_PRIO = 20;  
+const
+  TK_WIDGET_DEFAULT_PRIO = 20;
   TK_STARTUP_FILE_PRIO = 40;  
   TK_USER_DEFAULT_PRIO = 60;  
   TK_INTERACTIVE_PRIO = 80;  
   TK_MAX_PRIO = 100;  
-{
- * Relief values returned by Tk_GetRelief:
-  }
-  TK_RELIEF_NULL = -(1);  
+  TK_RELIEF_NULL = -(1);
   TK_RELIEF_FLAT = 0;  
   TK_RELIEF_GROOVE = 1;  
   TK_RELIEF_RAISED = 2;  
   TK_RELIEF_RIDGE = 3;  
   TK_RELIEF_SOLID = 4;  
   TK_RELIEF_SUNKEN = 5;  
-{
- * "Which" argument values for Tk_3DBorderGC:
-  }
-  TK_3D_FLAT_GC = 1;  
+  TK_3D_FLAT_GC = 1;
   TK_3D_LIGHT_GC = 2;  
   TK_3D_DARK_GC = 3;  
-{
- * Special EnterNotify/LeaveNotify "mode" for use in events generated by
- * tkShare.c. Pick a high enough value that it's unlikely to conflict with
- * existing values (like NotifyNormal) or any new values defined in the
- * future.
-  }
-  TK_NOTIFY_SHARE = 20;  
-{
- * Enumerated type for describing a point by which to anchor something:
-  }
+  TK_NOTIFY_SHARE = 20;
 type
   PTk_Anchor = ^TTk_Anchor;
   TTk_Anchor =  Longint;
@@ -556,10 +271,6 @@ type
     TK_ANCHOR_W = 6;
     TK_ANCHOR_NW = 7;
     TK_ANCHOR_CENTER = 8;
-;
-{
- * Enumerated type for describing a style of justification:
-  }
 type
   PTk_Justify = ^TTk_Justify;
   TTk_Justify =  Longint;
@@ -567,24 +278,6 @@ type
     TK_JUSTIFY_LEFT = 0;
     TK_JUSTIFY_RIGHT = 1;
     TK_JUSTIFY_CENTER = 2;
-;
-{
- * The following structure is used by Tk_GetFontMetrics() to return
- * information about the properties of a Tk_Font.
-  }
-{ The amount in pixels that the tallest
-				 * letter sticks up above the baseline, plus
-				 * any extra blank space added by the designer
-				 * of the font.  }
-{ The largest amount in pixels that any
-				 * letter sticks below the baseline, plus any
-				 * extra blank space added by the designer of
-				 * the font.  }
-{ The sum of the ascent and descent. How far
-				 * apart two lines of text in the same font
-				 * should be placed so that none of the
-				 * characters in one line overlap any of the
-				 * characters in the other line.  }
 type
   PTk_FontMetrics = ^TTk_FontMetrics;
   TTk_FontMetrics = record
@@ -592,32 +285,20 @@ type
       descent : longint;
       linespace : longint;
     end;
-{
- * Flags passed to Tk_MeasureChars:
-  }
 
 const
   TK_WHOLE_WORDS = 1;  
   TK_AT_LEAST_ONE = 2;  
   TK_PARTIAL_OK = 4;  
-{
- * Flags passed to Tk_ComputeTextLayout:
-  }
-  TK_IGNORE_TABS = 8;  
-  TK_IGNORE_NEWLINES = 16;  
-{
- * Widget class procedures used to implement platform specific widget
- * behavior.
-  }
+  TK_IGNORE_TABS = 8;
+  TK_IGNORE_NEWLINES = 16;
 type
-{ Procedure to invoke when the widget needs
-				 * to respond in some way to a change in the
-				 * world (font changes, etc.)  }
-{ Procedure to invoke when the platform-
-				 * dependent window needs to be created.  }
-{ Procedure to invoke after all bindings on a
-				 * widget have been triggered in order to
-				 * handle a modal loop.  }
+  TTk_ClassCreateProc = function(tkwin: TTk_Window; parent: TWindow; instanceData: TClientData): TWindow;
+  PTk_ClassCreateProc=^TTk_ClassCreateProc;
+  TTk_ClassWorldChangedProc = procedure(instanceData: TClientData);
+  PTk_ClassWorldChangedProc=^TTk_ClassWorldChangedProc;
+  TTk_ClassModalProc = procedure(tkwin: TTk_Window; eventPtr: PXEvent);
+  PTk_ClassModalProc=^TTk_ClassModalProc;
 
   PTk_ClassProcs = ^TTk_ClassProcs;
   TTk_ClassProcs = record
@@ -626,42 +307,12 @@ type
       createProc : PTk_ClassCreateProc;
       modalProc : PTk_ClassModalProc;
     end;
-{
- * Simple accessor for Tk_ClassProcs structure. Checks that the structure is
- * not NULL, then checks the size field and returns either the requested
- * field, if present, or NULL if the structure is too small to have the field
- * (or NULL if the structure is NULL).
- *
- * A more general version of this function may be useful if other
- * size-versioned structure pop up in the future:
- *
- *	#define Tk_GetField(name, who, which) \
- *	    (((who) == NULL) ? NULL :
- *	    (((who)->size <= Tk_Offset(name, which)) ? NULL :(name)->which))
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
 
-function Tk_GetClassProc(procs,which : longint) : longint;
-
-{
- * Each geometry manager (the packer, the placer, etc.) is represented by a
- * structure of the following form, which indicates procedures to invoke in
- * the geometry manager to carry out certain functions.
-  }
-const
-  Tk_GeomLostContentProc = Tk_GeomLostSlaveProc;  
 type
-{ Name of the geometry manager (command used
-				 * to invoke it, or name of widget class that
-				 * allows embedded widgets).  }
-{ Procedure to invoke when a content's
-				 * requested geometry changes.  }
-{ Procedure to invoke when content is taken
-				 * away from one geometry manager by another.
-				 * NULL means geometry manager doesn't care
-				 * when content lost.  }
+  TTk_GeomRequestProc = procedure(clientData: TClientData; tkwin: TTk_Window); cdecl;
+  PTk_GeomRequestProc=^TTk_GeomRequestProc;
+  TTk_GeomLostContentProc = procedure(clientData: TClientData; tkwin: TTk_Window); cdecl;
+  PTk_GeomLostContentProc=^TTk_GeomLostContentProc;
 
   PTk_GeomMgr = ^TTk_GeomMgr;
   TTk_GeomMgr = record
@@ -669,23 +320,16 @@ type
       requestProc : PTk_GeomRequestProc;
       lostSlaveProc : PTk_GeomLostContentProc;
     end;
-{
- * Result values returned by Tk_GetScrollInfo:
-  }
+
+  TTk_GeomLostSlaveProc=  TTk_GeomLostContentProc ;
 
 const
   TK_SCROLL_MOVETO = 1;  
   TK_SCROLL_PAGES = 2;  
   TK_SCROLL_UNITS = 3;  
   TK_SCROLL_ERROR = 4;  
-{
- *----------------------------------------------------------------------
- *
- * Extensions to the X event set
- *
- *----------------------------------------------------------------------
-  }
-  VirtualEvent = MappingNotify+1;  
+
+  VirtualEvent = MappingNotify+1;
   ActivateNotify = MappingNotify+2;  
   DeactivateNotify = MappingNotify+3;  
   MouseWheelEvent = MappingNotify+4;  
@@ -693,35 +337,6 @@ const
   MouseWheelMask = 1 shl 28;  
   ActivateMask = 1 shl 29;  
   VirtualEventMask = 1 shl 30;  
-{
- * A virtual event shares most of its fields with the XKeyEvent and
- * XButtonEvent structures. 99% of the time a virtual event will be an
- * abstraction of a key or button event, so this structure provides the most
- * information to the user. The only difference is the changing of the detail
- * field for a virtual event so that it holds the name of the virtual event
- * being triggered.
- *
- * When using this structure, you should ensure that you zero out all the
- * fields first using memset() or bzero().
-  }
-{ # of last request processed by server.  }
-{ True if this came from a SendEvent
-				 * request.  }
-{ Display the event was read from.  }
-{ Window on which event was requested.  }
-{ Root window that the event occurred on.  }
-{ Child window.  }
-{ Milliseconds.  }
-{ Pointer x, y coordinates in event
-				 * window.  }
-{ Coordinates relative to root.  }
-{ Key or button mask  }
-{ Name of virtual event.  }
-{ Same screen flag.  }
-{ Application-specific data reference; Tk
-				 * will decrement the reference count *once*
-				 * when it has finished processing the
-				 * event.  }
 type
   PXVirtualEvent = ^TXVirtualEvent;
   TXVirtualEvent = record
@@ -742,11 +357,6 @@ type
       same_screen : TBool;
       user_data : PTcl_Obj;
     end;
-{ # of last request processed by server.  }
-{ True if this came from a SendEvent
-				 * request.  }
-{ Display the event was read from.  }
-{ Window in which event occurred.  }
 
   PXActivateDeactivateEvent = ^TXActivateDeactivateEvent;
   TXActivateDeactivateEvent = record
@@ -762,223 +372,7 @@ type
 
   PXDeactivateEvent = ^TXDeactivateEvent;
   TXDeactivateEvent = TXActivateDeactivateEvent;
-{
- *----------------------------------------------------------------------
- *
- * Macros for querying Tk_Window structures. See the manual entries for
- * documentation.
- *
- *----------------------------------------------------------------------
-  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
 
-function Tk_Display(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_ScreenNumber(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_Screen(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_Depth(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_Visual(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_WindowId(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_PathName(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_Name(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_Class(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_X(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_Y(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_Width(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_Height(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_Changes(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_Attributes(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_IsEmbedded(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_IsContainer(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_IsMapped(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_IsTopLevel(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_HasWrapper(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_WinManaged(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_TopWinHierarchy(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_IsManageable(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_ReqWidth(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_ReqHeight(tkwin : longint) : longint;
-
-{ Tk_InternalBorderWidth is deprecated  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_InternalBorderWidth(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_InternalBorderLeft(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_InternalBorderRight(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_InternalBorderTop(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_InternalBorderBottom(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_MinReqWidth(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_MinReqHeight(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_Parent(tkwin : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function Tk_Colormap(tkwin : longint) : longint;
-
-{
- * The structure below is needed by the macros above so that they can access
- * the fields of a Tk_Window. The fields not needed by the macros are declared
- * as "dummyX". The structure has its own type in order to prevent apps from
- * accessing Tk_Window fields except using official macros. WARNING!! The
- * structure definition must be kept consistent with the TkWindow structure in
- * tkInt.h. If you change one, then change the other. See the declaration in
- * tkInt.h for documentation on what the fields are used for internally.
-  }
-{ dispPtr  }
-{ childList  }
-{ lastChildPtr  }
-{ parentPtr  }
-{ nextPtr  }
-{ mainPtr  }
-{ dirtyChanges  }
-{ dirtyAtts  }
-{ handlerList  }
-{$ifdef TK_USE_INPUT_METHODS}
-{ inputContext  }
-{$endif}
-{ TK_USE_INPUT_METHODS  }
-{ tagPtr  }
-{ numTags  }
-{ optionLevel  }
-{ selHandlerList  }
-{ geomMgrPtr  }
-{ geomData  }
-{ wmInfoPtr  }
-{ classProcPtr  }
-{ instanceData  }
-{ privatePtr  }
-{$ifdef TK_USE_INPUT_METHODS}
-{$endif}
-{ TK_USE_INPUT_METHODS  }
-{ geomMgrName  }
-{ maintainerPtr  }
 type
   PTk_FakeWin = ^TTk_FakeWin;
   TTk_FakeWin = record
@@ -1025,74 +419,6 @@ type
       dummy21 : Pchar;
       dummy22 : TTk_Window;
     end;
-{
- * Flag values for TkWindow (and Tk_FakeWin) structures are:
- *
- * TK_MAPPED:			1 means window is currently mapped,
- *				0 means unmapped.
- * TK_TOP_LEVEL:		1 means this is a top-level widget.
- * TK_ALREADY_DEAD:		1 means the window is in the process of
- *				being destroyed already.
- * TK_NEED_CONFIG_NOTIFY:	1 means that the window has been reconfigured
- *				before it was made to exist. At the time of
- *				making it exist a ConfigureNotify event needs
- *				to be generated.
- * TK_GRAB_FLAG:		Used to manage grabs. See tkGrab.c for details
- * TK_CHECKED_IC:		1 means we've already tried to get an input
- *				context for this window; if the ic field is
- *				NULL it means that there isn't a context for
- *				the field.
- * TK_DONT_DESTROY_WINDOW:	1 means that Tk_DestroyWindow should not
- *				invoke XDestroyWindow to destroy this widget's
- *				X window. The flag is set when the window has
- *				already been destroyed elsewhere (e.g. by
- *				another application) or when it will be
- *				destroyed later (e.g. by destroying its parent)
- * TK_WM_COLORMAP_WINDOW:	1 means that this window has at some time
- *				appeared in the WM_COLORMAP_WINDOWS property
- *				for its toplevel, so we have to remove it from
- *				that property if the window is deleted and the
- *				toplevel isn't.
- * TK_EMBEDDED:			1 means that this window (which must be a
- *				toplevel) is not a free-standing window but
- *				rather is embedded in some other application.
- * TK_CONTAINER:		1 means that this window is a container, and
- *				that some other application (either in this
- *				process or elsewhere) may be embedding itself
- *				inside the window.
- * TK_BOTH_HALVES:		1 means that this window is used for
- *				application embedding (either as container or
- *				embedded application), and both the containing
- *				and embedded halves are associated with
- *				windows in this particular process.
- * TK_WRAPPER:			1 means that this window is the extra wrapper
- *				window created around a toplevel to hold the
- *				menubar under Unix. See tkUnixWm.c for more
- *				information.
- * TK_REPARENTED:		1 means that this window has been reparented
- *				so that as far as the window system is
- *				concerned it isn't a child of its Tk parent.
- *				Initially this is used only for special Unix
- *				menubar windows.
- * TK_ANONYMOUS_WINDOW:		1 means that this window has no name, and is
- *				thus not accessible from Tk.
- * TK_HAS_WRAPPER		1 means that this window has a wrapper window
- * TK_WIN_MANAGED		1 means that this window is a child of the root
- *				window, and is managed by the window manager.
- * TK_TOP_HIERARCHY		1 means this window is at the top of a physical
- *				window hierarchy within this process, i.e. the
- *				window's parent either doesn't exist or is not
- *				owned by this Tk application.
- * TK_PROP_PROPCHANGE		1 means that PropertyNotify events in the
- *				window's children should propagate up to this
- *				window.
- * TK_WM_MANAGEABLE		1 marks a window as capable of being converted
- *				into a toplevel using [wm manage].
- * TK_CAN_INPUT_TEXT            1 means that this window accepts text input.
- *                              Used on macOS to indicate that key events can be
- *                              processed with the NSTextInputClient protocol.
- *                              Not currently accessible through the public API.
-  }
 
 const
   TK_MAPPED = 1;  
@@ -1115,13 +441,6 @@ const
   TK_PROP_PROPCHANGE = $40000;  
   TK_WM_MANAGEABLE = $80000;  
   TK_CAN_INPUT_TEXT = $100000;  
-{
- *----------------------------------------------------------------------
- *
- * Procedure prototypes and structures used for defining new canvas items:
- *
- *----------------------------------------------------------------------
-  }
 type
   PTk_State = ^TTk_State;
   TTk_State =  Longint;
@@ -1131,7 +450,7 @@ type
     TK_STATE_DISABLED = (-(1))+2;
     TK_STATE_NORMAL = (-(1))+3;
     TK_STATE_HIDDEN = (-(1))+4;
-;
+
 type
   PTk_SmoothMethod = ^TTk_SmoothMethod;
   TTk_SmoothMethod = record
@@ -1140,48 +459,9 @@ type
                    dblPoints:Pdouble):longint;cdecl;
       postscriptProc : procedure (interp:PTcl_Interp; canvas:TTk_Canvas; coordPtr:Pdouble; numPoints:longint; numSteps:longint);cdecl;
     end;
-{
- * For each item in a canvas widget there exists one record with the following
- * structure. Each actual item is represented by a record with the following
- * stuff at its beginning, plus additional type-specific stuff after that.
-  }
 
 const
   TK_TAG_SPACE = 3;  
-{ Unique identifier for this item (also
-				 * serves as first tag for item).  }
-{ Next in display list of all items in this
-				 * canvas. Later items in list are drawn on
-				 * top of earlier ones.  }
-{ Built-in space for limited # of tags.  }
-{ Pointer to array of tags. Usually points to
-				 * staticTagSpace, but may point to malloc-ed
-				 * space if there are lots of tags.  }
-{ Total amount of tag space available at
-				 * tagPtr.  }
-{ Number of tag slots actually used at
-				 * *tagPtr.  }
-{ Table of procedures that implement this
-				 * type of item.  }
-{ Bounding box for item, in integer canvas
-				 * units. Set by item-specific code and
-				 * guaranteed to contain every pixel drawn in
-				 * item. Item area includes x1 and y1 but not
-				 * x2 and y2.  }
-{ Previous in display list of all items in
-				 * this canvas. Later items in list are drawn
-				 * just below earlier ones.  }
-{ State of item.  }
-{ reserved for future use  }
-{ Some flags used in the canvas  }
-{
-     *------------------------------------------------------------------
-     * Starting here is additional type-specific stuff; see the declarations
-     * for individual types to see what is part of each type. The actual space
-     * below is determined by the "itemInfoSize" of the type's Tk_ItemType
-     * record.
-     *------------------------------------------------------------------
-      }
 type
   PTk_Item = ^TTk_Item;
   TTk_Item = record
@@ -1201,88 +481,43 @@ type
       reserved1 : Pchar;
       redraw_flags : longint;
     end;
-{
- * Flag bits for canvases (redraw_flags):
- *
- * TK_ITEM_STATE_DEPENDANT -	1 means that object needs to be redrawn if the
- *				canvas state changes.
- * TK_ITEM_DONT_REDRAW - 	1 means that the object redraw is already been
- *				prepared, so the general canvas code doesn't
- *				need to do that any more.
-  }
 
 const
   TK_ITEM_STATE_DEPENDANT = 1;  
   TK_ITEM_DONT_REDRAW = 2;  
-{
- * Records of the following type are used to describe a type of item (e.g.
- * lines, circles, etc.) that can form part of a canvas widget.
-  }
-{$ifdef USE_OLD_CANVAS}
 type
-{$else}
+  TTk_ItemCreateProc = function(interp: PTcl_Interp; canvas: TTk_Canvas;    itemPtr: PTk_Item; argc: Integer; argv: PPChar): Integer;
+  PTk_ItemCreateProc=^TTk_ItemCreateProc;
+  TTk_ItemConfigureProc = function(interp: PTcl_Interp; canvas: TTk_Canvas;    itemPtr: PTk_Item; argc: Integer; argv: PPChar; flags: Integer): Integer;
+  PTk_ItemConfigureProc=^TTk_ItemConfigureProc;
+  TTk_ItemCoordProc = function(interp: PTcl_Interp; canvas: TTk_Canvas;    itemPtr: PTk_Item; argc: Integer; argv: PPChar): Integer;
+  PTk_ItemCoordProc=^TTk_ItemCoordProc;
+  TTk_ItemDeleteProc = procedure(canvas: TTk_Canvas; itemPtr: PTk_Item;    display: PDisplay);
+  PTk_ItemDeleteProc=^TTk_ItemDeleteProc;
+  TTk_ItemDisplayProc = procedure(canvas: TTk_Canvas; itemPtr: PTk_Item;    display: PDisplay; dst: TDrawable; x, y, width, height: Integer);
+  PTk_ItemDisplayProc=^TTk_ItemDisplayProc;
+  TTk_ItemPointProc = function(canvas: TTk_Canvas; itemPtr: PTk_Item;    pointPtr: PDouble): Double;
+  PTk_ItemPointProc=^TTk_ItemPointProc;
+  TTk_ItemAreaProc = function(canvas: TTk_Canvas; itemPtr: PTk_Item;    rectPtr: PDouble): Integer;
+  PTk_ItemAreaProc=^TTk_ItemAreaProc;
+  TTk_ItemPostscriptProc = function(interp: PTcl_Interp; canvas: TTk_Canvas;    itemPtr: PTk_Item; prepass: Integer): Integer;
+  PTk_ItemPostscriptProc=^TTk_ItemPostscriptProc;
+  TTk_ItemScaleProc = procedure(canvas: TTk_Canvas; itemPtr: PTk_Item;    originX, originY, scaleX, scaleY: Double);
+  PTk_ItemScaleProc=^TTk_ItemScaleProc;
+  TTk_ItemTranslateProc = procedure(canvas: TTk_Canvas; itemPtr: PTk_Item;    deltaX, deltaY: Double);
+  PTk_ItemTranslateProc=^TTk_ItemTranslateProc;
+  TTk_ItemIndexProc = function(interp: PTcl_Interp; canvas: TTk_Canvas; itemPtr: PTk_Item; indexString: PChar; indexPtr: PInteger): Integer;
+  PTk_ItemIndexProc=^TTk_ItemIndexProc;
+      TTk_ItemCursorProc = procedure(canvas: TTk_Canvas; itemPtr: TTk_Item; index: Integer);
+      PTk_ItemCursorProc=^TTk_ItemCursorProc;
+      TTk_ItemSelectionProc = function(canvas: TTk_Canvas; itemPtr: TTk_Item; offset: Integer;                                               buffer: PChar; maxBytes: Integer): Integer;
+      PTk_ItemSelectionProc=^TTk_ItemSelectionProc;
+      TTk_ItemInsertProc = procedure(canvas: TTk_Canvas; itemPtr: TTk_Item; beforeThis: Integer;                                    str: PTcl_Obj);
+      PTk_ItemInsertProc=^tTk_ItemInsertProc;
+      TTk_ItemDCharsProc = procedure(canvas: TTk_Canvas; itemPtr: TTk_Item; first, last: Integer);
+      PTk_ItemDCharsProc=^TTk_ItemDCharsProc;
+
 type
-{$endif}
-{ USE_OLD_CANVAS  }
-type
-{$ifdef USE_OLD_CANVAS}
-{$else}
-type
-{$endif}
-{ USE_OLD_CANVAS  }
-type
-{$ifdef USE_OLD_CANVAS}
-{$else}
-type
-{$endif}
-{ USE_OLD_CANVAS  }
-type
-{$ifndef __NO_OLD_CONFIG}
-{ The name of this type of item, such as
-				 * "line".  }
-{ Total amount of space needed for item's
-				 * record.  }
-{ Procedure to create a new item of this
-				 * type.  }
-{ Pointer to array of configuration specs for
-				 * this type. Used for returning configuration
-				 * info.  }
-{ Procedure to call to change configuration
-				 * options.  }
-{ Procedure to call to get and set the item's
-				 * coordinates.  }
-{ Procedure to delete existing item of this
-				 * type.  }
-{ Procedure to display items of this type.  }
-{ Non-zero means displayProc should be called
-				 * even when the item has been moved
-				 * off-screen.  }
-{ Computes distance from item to a given
-				 * point.  }
-{ Computes whether item is inside, outside,
-				 * or overlapping an area.  }
-{ Procedure to write a Postscript description
-				 * for items of this type.  }
-{ Procedure to rescale items of this type.  }
-{ Procedure to translate items of this
-				 * type.  }
-{ Procedure to determine index of indicated
-				 * character. NULL if item doesn't support
-				 * indexing.  }
-{ Procedure to set insert cursor posn to just
-				 * before a given position.  }
-{ Procedure to return selection (in STRING
-				 * format) when it is in this item.  }
-{ Procedure to insert something into an
-				 * item.  }
-{ Procedure to delete characters from an
-				 * item.  }
-{ Used to link types together into a list.  }
-{ Reserved for future extension.  }
-{ Carefully compatible with  }
-{ Jan Nijtmans dash patch  }
-type
-  PTk_ItemType = ^TTk_ItemType;
   TTk_ItemType = record
       name : Pchar;
       itemSize : longint;
@@ -1309,57 +544,11 @@ type
       reserved3 : Pchar;
       reserved4 : Pchar;
     end;
-{
- * Flag (used in the alwaysRedraw field) to say whether an item supports
- * point-level manipulation like the line and polygon items.
-  }
+  PTk_ItemType = ^TTk_ItemType;
 
 const
   TK_MOVABLE_POINTS = 2;  
-{$endif}
-{ __NO_OLD_CONFIG  }
-{
- * The following structure provides information about the selection and the
- * insertion cursor. It is needed by only a few items, such as those that
- * display text. It is shared by the generic canvas code and the item-specific
- * code, but most of the fields should be written only by the canvas generic
- * code.
-  }
-{ Border and background for selected
-				 * characters. Read-only to items. }
-{ Width of border around selection. Read-only
-				 * to items.  }
-{ Foreground color for selected text.
-				 * Read-only to items.  }
-{ Pointer to selected item. NULL means
-				 * selection isn't in this canvas. Writable by
-				 * items.  }
-{ Character index of first selected
-				 * character. Writable by items.  }
-{ Character index of last selected character.
-				 * Writable by items.  }
-{ Item corresponding to "selectAnchor": not
-				 * necessarily selItemPtr. Read-only to
-				 * items.  }
-{ Character index of fixed end of selection
-				 * (i.e. "select to" operation will use this
-				 * as one end of the selection). Writable by
-				 * items.  }
-{ Used to draw vertical bar for insertion
-				 * cursor. Read-only to items.  }
-{ Total width of insertion cursor. Read-only
-				 * to items.  }
-{ Width of 3-D border around insert cursor.
-				 * Read-only to items.  }
-{ Item that currently has the input focus, or
-				 * NULL if no such item. Read-only to items.  }
-{ Non-zero means that the canvas widget has
-				 * the input focus. Read-only to items. }
-{ Non-zero means that an insertion cursor
-				 * should be displayed in focusItemPtr.
-				 * Read-only to items. }
 type
-  PTk_CanvasTextInfo = ^TTk_CanvasTextInfo;
   TTk_CanvasTextInfo = record
       selBorder : TTk_3DBorder;
       selBorderWidth : longint;
@@ -1376,11 +565,7 @@ type
       gotFocus : longint;
       cursorOn : longint;
     end;
-{
- * Structures used for Dashing and Outline.
-  }
-{ ???????????????? }
-{	char array[sizeof(char *)]; }
+  PTk_CanvasTextInfo = ^TTk_CanvasTextInfo;
 
   PTk_Dash = ^TTk_Dash;
   TTk_Dash = record
@@ -1390,11 +575,6 @@ type
             0 : ( pt : Pchar );
           end;
     end;
-{ ???????????????? }
-{ ???????????????? }
-{ Flags; see below for possible values  }
-{ x offset  }
-{ y offset  }
 
   PTk_TSOffset = ^TTk_TSOffset;
   TTk_TSOffset = record
@@ -1402,9 +582,6 @@ type
       xoffset : longint;
       yoffset : longint;
     end;
-{
- * Bit fields in Tk_TSOffset->flags:
-  }
 
 const
   TK_OFFSET_INDEX = 1;  
@@ -1415,31 +592,12 @@ const
   TK_OFFSET_TOP = 32;  
   TK_OFFSET_MIDDLE = 64;  
   TK_OFFSET_BOTTOM = 128;  
-{ Graphics context.  }
-{ Width of outline.  }
-{ Width of outline.  }
-{ Width of outline.  }
-{ Dash offset.  }
-{ Dash pattern.  }
-{ Dash pattern if state is active.  }
-{ Dash pattern if state is disabled.  }
-{ Reserved for future expansion.  }
-{ Stipple offset for outline.  }
-{ Outline color.  }
-{ Outline color if state is active.  }
-{ Outline color if state is disabled.  }
-{ Outline Stipple pattern.  }
-{ Outline Stipple pattern if state is
-				 * active.  }
-{ Outline Stipple pattern if state is
-				 * disabled.  }
 type
-  PTk_Outline = ^TTk_Outline;
   TTk_Outline = record
       gc : TGC;
-      width : Tdouble;
-      activeWidth : Tdouble;
-      disabledWidth : Tdouble;
+      width : double;
+      activeWidth : double;
+      disabledWidth : double;
       offset : longint;
       dash : TTk_Dash;
       activeDash : TTk_Dash;
@@ -1455,47 +613,26 @@ type
       activeStipple : TPixmap;
       disabledStipple : TPixmap;
     end;
-{
- *----------------------------------------------------------------------
- *
- * Procedure prototypes and structures used for managing images:
- *
- *----------------------------------------------------------------------
-  }
-{$ifdef USE_OLD_IMAGE}
-{$else}
+  PTk_Outline = ^TTk_Outline;
+
 type
-{$endif}
-{ USE_OLD_IMAGE  }
-type
-{
- * The following structure represents a particular type of image (bitmap, xpm
- * image, etc.). It provides information common to all images of that type,
- * such as the type name and a collection of procedures in the image manager
- * that respond to various events. Each image manager is represented by one of
- * these structures.
-  }
-{ Name of image type.  }
-{ Procedure to call to create a new image of
-				 * this type.  }
-{ Procedure to call the first time
-				 * Tk_GetImage is called in a new way (new
-				 * visual or screen).  }
-{ Call to draw image, in response to
-				 * Tk_RedrawImage calls.  }
-{ Procedure to call whenever Tk_FreeImage is
-				 * called to release an instance of an
-				 * image.  }
-{ Procedure to call to delete image. It will
-				 * not be called until after freeProc has been
-				 * called for each instance of the image.  }
-{ Procedure to call to produce postscript
-				 * output for the image.  }
-{ Next in list of all image types currently
-				 * known. Filled in by Tk, not by image
-				 * manager.  }
-{ reserved for future expansion  }
-  PTk_ImageType = ^TTk_ImageType;
+PTk_ImageType = ^TTk_ImageType;
+
+  TTk_ImageCreateProc = function(    interp: PTcl_Interp;    name: PChar;    argc: Integer;    argv: PPChar;    typePtr: PTk_ImageType;    model: TTk_ImageMaster;    clientDataPtr: PClientData  ): Integer;
+  PTk_ImageCreateProc=^TTk_ImageCreateProc;
+  TTk_ImageGetProc = function(    tkwin: TTk_Window;    clientData: TClientData  ): TClientData;
+  PTk_ImageGetProc=^TTk_ImageGetProc;
+  TTk_ImageDisplayProc = procedure(    clientData: TClientData;    display: PDisplay;    drawable: TDrawable;    imageX, imageY, width, height, drawableX, drawableY: Integer  );
+  PTk_ImageDisplayProc=^TTk_ImageDisplayProc;
+  TTk_ImageFreeProc = procedure(    clientData: TClientData;    display: PDisplay   );
+  PTk_ImageFreeProc=^TTk_ImageFreeProc;
+  TTk_ImageDeleteProc = procedure(    clientData: TClientData  );
+  PTk_ImageDeleteProc=^TTk_ImageDeleteProc;
+  TTk_ImageChangedProc = procedure(    clientData: TClientData;    x, y, width, height, imageWidth, imageHeight: Integer  );
+  PTk_ImageChangedProc=^TTk_ImageChangedProc;
+  TTk_ImagePostscriptProc = function(    clientData: TClientData;    interp: PTcl_Interp;    tkwin: TTk_Window;    psinfo: TTk_PostscriptInfo;    x, y, width, height, prepass: Integer  ): Integer;
+  PTk_ImagePostscriptProc=^TTk_ImagePostscriptProc;
+
   TTk_ImageType = record
       name : Pchar;
       createProc : PTk_ImageCreateProc;
@@ -1508,35 +645,10 @@ type
       reserved : Pchar;
     end;
 
-{
- *----------------------------------------------------------------------
- *
- * Additional definitions used to manage images of type "photo".
- *
- *----------------------------------------------------------------------
-  }
-{
- * The following type is used to identify a particular photo image to be
- * manipulated:
-  }
 
   PTk_PhotoHandle = ^TTk_PhotoHandle;
   TTk_PhotoHandle = pointer;
-{
- * The following structure describes a block of pixels in memory:
-  }
-{ Pointer to the first pixel.  }
-{ Width of block, in pixels.  }
-{ Height of block, in pixels.  }
-{ Address difference between corresponding
-				 * pixels in successive lines.  }
-{ Address difference between successive
-				 * pixels in the same line.  }
-{ Address differences between the red, green,
-				 * blue and alpha components of the pixel and
-				 * the pixel as a whole.  }
 
-  PTk_PhotoImageBlock = ^TTk_PhotoImageBlock;
   TTk_PhotoImageBlock = record
       pixelPtr : Pbyte;
       width : longint;
@@ -1545,46 +657,11 @@ type
       pixelSize : longint;
       offset : array[0..3] of longint;
     end;
-{
- * The following values control how blocks are combined into photo images when
- * the alpha component of a pixel is not 255, a.k.a. the compositing rule.
-  }
+  PTk_PhotoImageBlock = ^TTk_PhotoImageBlock;
 
 const
   TK_PHOTO_COMPOSITE_OVERLAY = 0;  
   TK_PHOTO_COMPOSITE_SET = 1;  
-{
- * Procedure prototypes and structures used in reading and writing photo
- * images:
-  }
-type
-{$ifdef USE_OLD_IMAGE}
-{$else}
-type
-{$endif}
-{ USE_OLD_IMAGE  }
-{
- * The following structure represents a particular file format for storing
- * images (e.g., PPM, GIF, JPEG, etc.). It provides information to allow image
- * files of that format to be recognized and read into a photo image.
-  }
-{ Name of image file format  }
-{ Procedure to call to determine whether an
-				 * image file matches this format.  }
-{ Procedure to call to determine whether the
-				 * data in a string matches this format.  }
-{ Procedure to call to read data from an
-				 * image file into a photo image.  }
-{ Procedure to call to read data from a
-				 * string into a photo image.  }
-{ Procedure to call to write data from a
-				 * photo image to a file.  }
-{ Procedure to call to obtain a string
-				 * representation of the data in a photo
-				 * image. }
-{ Next in list of all photo image formats
-				 * currently known. Filled in by Tk, not by
-				 * image format handler.  }
 type
   PTk_PhotoImageFormat = ^TTk_PhotoImageFormat;
   TTk_PhotoImageFormat = record
@@ -1806,6 +883,188 @@ const
  * fill-column: 78
  * End:
   }
+
+  function Tk_Offset(_type,field : longint) : longint;
+  function offsetof(_type,field : longint) : Tsize_t;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+
+  function Tk_GetClassProc(procs,which : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+
+  function Tk_Display(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_ScreenNumber(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_Screen(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_Depth(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_Visual(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_WindowId(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_PathName(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_Name(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_Class(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_X(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_Y(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_Width(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_Height(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_Changes(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_Attributes(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_IsEmbedded(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_IsContainer(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_IsMapped(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_IsTopLevel(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_HasWrapper(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_WinManaged(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_TopWinHierarchy(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_IsManageable(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_ReqWidth(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_ReqHeight(tkwin : longint) : longint;
+
+  { Tk_InternalBorderWidth is deprecated  }
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_InternalBorderWidth(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_InternalBorderLeft(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_InternalBorderRight(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_InternalBorderTop(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_InternalBorderBottom(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_MinReqWidth(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_MinReqHeight(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_Parent(tkwin : longint) : longint;
+
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+  function Tk_Colormap(tkwin : longint) : longint;
+
 
 // === Konventiert am: 15-4-25 13:26:46 ===
 

@@ -4,7 +4,8 @@ uses
 tk_tcl_common,
 tclPlatDecls,
 tclDecls,
-tcl;
+tcl,
+tk;
 
 
 // Funktion zum Auslesen und Ausgeben des ausgewählten Elements aus der Listbox
@@ -31,25 +32,25 @@ tcl;
 //    return TCL_OK;
 //}
 
-procedure main(argc:Integer; argv:PPChar) ;
+function main(argc:Integer; argv:PPChar):Integer ;
 var
   interp: PTcl_Interp;
 begin
     interp := Tcl_CreateInterp();
     if Tcl_Init(interp) = TCL_ERROR then begin
-        fprintf(stderr, "Tcl_Init Fehler: %s\n", Tcl_GetStringResult(interp));
-        return 1;
+        WriteLn('Tcl_Init Fehler: ', Tcl_GetStringResult(interp));
+        Exit(1);
+    end;
     }
-    if (Tk_Init(interp) == TCL_ERROR) {
-        fprintf(stderr, "Tk_Init Fehler: %s\n", Tcl_GetStringResult(interp));
-        return 1;
-    }
+    if Tk_Init(interp) =TCL_ERROR then begin
+        WriteLn('Tk_Init Fehler: ', Tcl_GetStringResult(interp));
+        Exit(1);
+    end;
 
-    // Erstelle das Hauptfenster
-    mainWindow = Tk_MainWindow(interp);
+    mainWindow := Tk_MainWindow(interp);
     if (!mainWindow) {
         fprintf(stderr, "Fehler beim Erstellen des Hauptfensters: %s\n", Tcl_GetStringResult(interp));
-        return 1;
+        Exit(1);
     }
     Tk_SetAppName(mainWindow, "Listbox Beispiel");
 
@@ -58,21 +59,21 @@ begin
                  "listbox .listbox -height 10 -selectmode browse; "
                  "pack .listbox -side top -padx 10 -pady 10") != TCL_OK) {
         fprintf(stderr, "Fehler beim Erstellen der Listbox: %s\n", Tcl_GetStringResult(interp));
-        return 1;
+        Exit(1);
     }
 
     // Füge Elemente zur Listbox hinzu
     if (Tcl_Eval(interp,
                  ".listbox insert end \"Apfel\" \"Orange\" \"Banane\" \"Pfirsich\" \"Traube\"") != TCL_OK) {
         fprintf(stderr, "Fehler beim Hinzufügen von Elementen: %s\n", Tcl_GetStringResult(interp));
-        return 1;
+        Exit(1);
     }
 
     // Registriere die Funktion `printSelection` als Tcl-Befehl
     if (Tcl_CreateCommand(interp, "printSelection", printSelection,
                           NULL, NULL) == NULL) {
         fprintf(stderr, "Fehler beim Registrieren der printSelection-Funktion.\n");
-        return 1;
+        Exit(1);
     }
 
     // Erstelle den Button zum Beenden der Anwendung
@@ -80,7 +81,7 @@ begin
                  "button .quit -text \"Quit\" -command {exit}; "
                  "pack .quit -side left -padx 10 -pady 10") != TCL_OK) {
         fprintf(stderr, "Fehler beim Erstellen des Quit-Buttons: %s\n", Tcl_GetStringResult(interp));
-        return 1;
+        Exit(1);
     }
 
     // Erstelle den Button zum Ausgeben der Auswahl
@@ -88,7 +89,7 @@ begin
                  "button .print -text \"Print Selection\" -command printSelection; "
                  "pack .print -side left -padx 10 -pady 10") != TCL_OK) {
         fprintf(stderr, "Fehler beim Erstellen des Print-Buttons: %s\n", Tcl_GetStringResult(interp));
-        return 1;
+        Exit(1);
     }
 
 // ================
@@ -102,7 +103,7 @@ begin
                  "entry .entry -width 30; "
                  "pack .entry -side top -padx 10 -pady 10") != TCL_OK) {
         fprintf(stderr, "Fehler beim Erstellen des Eingabefeldes: %s\n", Tcl_GetStringResult(interp));
-        return 1;
+        Exit(1);
     }
 
 
