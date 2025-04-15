@@ -122,6 +122,12 @@ const
     (libs: 'libmicrohttpd'; units: 'ctypes'),
     (libs: 'libchafa'; units: 'fp_glib2'),
 
+
+    (libs: 'libtk8_6'; units: 'ctypes'),
+    (libs: 'libtkstub8_6'; units: 'ctypes'),
+    (libs: 'libtcl8_6'; units: 'ctypes'),
+    (libs: 'libtclstub8_6'; units: 'ctypes'),
+
     (libs: ''; units: ''));
 
 
