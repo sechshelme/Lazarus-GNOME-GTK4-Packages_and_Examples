@@ -110,14 +110,14 @@ const
   TK_OPTION_NULL_OK = 1 shl 0;  
   TK_OPTION_DONT_SET_DEFAULT = 1 shl 3;  
 type
-  TTk_CustomOptionSetProc = function(clientData: TClientData; interp: TTcl_Interp;    tkwin: TTk_Window; value: PPTcl_Obj; widgRec: PChar; offset: Integer;    saveInternalPtr: PChar; flags: Integer): Integer;
-  PTk_CustomOptionSetProc=^TTk_CustomOptionSetProc;
-  TTk_CustomOptionGetProc = function(clientData: TClientData; tkwin: TTk_Window;    widgRec: PChar; offset: Integer): Pointer;
-  PTk_CustomOptionGetProc=^TTk_CustomOptionGetProc;
-  TTk_CustomOptionRestoreProc = procedure(clientData: TClientData; tkwin: TTk_Window;    internalPtr: PChar; saveInternalPtr: PChar);
-  PTk_CustomOptionRestoreProc=^TTk_CustomOptionRestoreProc;
-  TTk_CustomOptionFreeProc = procedure(clientData: TClientData; tkwin: TTk_Window;    internalPtr: PChar);
-  PTk_CustomOptionFreeProc=^TTk_CustomOptionFreeProc;
+    TTk_CustomOptionSetProc = function (clientData:TClientData; interp:PTcl_Interp; tkwin:TTk_Window; value:PPTcl_Obj; widgRec:Pchar;                 offset:longint; saveInternalPtr:Pchar; flags:longint):longint;cdecl;
+    PTk_CustomOptionSetProc=^TTk_CustomOptionSetProc;
+    TTk_CustomOptionGetProc = function (clientData:TClientData; tkwin:TTk_Window; widgRec:Pchar; offset:longint):PTcl_Obj;cdecl;
+    PTk_CustomOptionGetProc = ^TTk_CustomOptionGetProc;
+    TTk_CustomOptionRestoreProc = procedure (clientData:TClientData; tkwin:TTk_Window; internalPtr:Pchar; saveInternalPtr:Pchar);cdecl;
+    PTk_CustomOptionRestoreProc=^TTk_CustomOptionRestoreProc;
+    TTk_CustomOptionFreeProc = procedure (clientData:TClientData; tkwin:TTk_Window; internalPtr:Pchar);cdecl;
+    PTk_CustomOptionFreeProc=^TTk_CustomOptionFreeProc;
 
   PTk_ObjCustomOption = ^TTk_ObjCustomOption;
   TTk_ObjCustomOption = record
@@ -148,10 +148,10 @@ type
       nextPtr : PTk_SavedOptions;
     end;
 type
-  TTk_OptionParseProc = function(clientData: TClientData; interp: PTcl_Interp;    tkwin: TTk_Window; value: PChar; widgRec: PChar; offset: Integer): Integer; cdecl;
-  PTk_OptionParseProc=^TTk_OptionParseProc;
-  TTk_OptionPrintProc = function(clientData: TClientData; tkwin: TTk_Window;    widgRec: PChar; offset: Integer;  freeProcPtr: PPTcl_FreeProc): PChar; cdecl;
-  PTk_OptionPrintProc=^TTk_OptionPrintProc;
+    TTk_OptionParseProc = function (clientData:TClientData; interp:PTcl_Interp; tkwin:TTk_Window; value:Pchar; widgRec:Pchar;                 offset:longint):longint;cdecl;
+    PTk_OptionParseProc=^TTk_OptionParseProc;
+    TTk_OptionPrintProc = function (clientData:TClientData; tkwin:TTk_Window; widgRec:Pchar; offset:longint; freeProcPtr:PPTcl_FreeProc):Pchar;cdecl;
+    PTk_OptionPrintProc = ^TTk_OptionPrintProc;
 
   PTk_CustomOption = ^TTk_CustomOption;
   TTk_CustomOption = record
@@ -293,12 +293,12 @@ const
   TK_IGNORE_TABS = 8;
   TK_IGNORE_NEWLINES = 16;
 type
-  TTk_ClassCreateProc = function(tkwin: TTk_Window; parent: TWindow; instanceData: TClientData): TWindow;
-  PTk_ClassCreateProc=^TTk_ClassCreateProc;
-  TTk_ClassWorldChangedProc = procedure(instanceData: TClientData);
-  PTk_ClassWorldChangedProc=^TTk_ClassWorldChangedProc;
-  TTk_ClassModalProc = procedure(tkwin: TTk_Window; eventPtr: PXEvent);
-  PTk_ClassModalProc=^TTk_ClassModalProc;
+    TTk_ClassCreateProc = function (tkwin:TTk_Window; parent:TWindow; instanceData:TClientData):TWindow;cdecl;
+    PTk_ClassCreateProc=^TTk_ClassCreateProc;
+    TTk_ClassWorldChangedProc = procedure (instanceData:TClientData);cdecl;
+    PTk_ClassWorldChangedProc=^TTk_ClassWorldChangedProc;
+    TTk_ClassModalProc = procedure (tkwin:TTk_Window; eventPtr:PXEvent);cdecl;
+    PTk_ClassModalProc=^TTk_ClassModalProc;
 
   PTk_ClassProcs = ^TTk_ClassProcs;
   TTk_ClassProcs = record
@@ -309,10 +309,10 @@ type
     end;
 
 type
-  TTk_GeomRequestProc = procedure(clientData: TClientData; tkwin: TTk_Window); cdecl;
-  PTk_GeomRequestProc=^TTk_GeomRequestProc;
-  TTk_GeomLostContentProc = procedure(clientData: TClientData; tkwin: TTk_Window); cdecl;
-  PTk_GeomLostContentProc=^TTk_GeomLostContentProc;
+TTk_GeomRequestProc = procedure (clientData:TClientData; tkwin:TTk_Window);cdecl;
+PTk_GeomRequestProc=^TTk_GeomRequestProc;
+TTk_GeomLostContentProc = procedure (clientData:TClientData; tkwin:TTk_Window);cdecl;
+PTk_GeomLostContentProc=^TTk_GeomLostContentProc;
 
   PTk_GeomMgr = ^TTk_GeomMgr;
   TTk_GeomMgr = record
@@ -486,36 +486,36 @@ const
   TK_ITEM_STATE_DEPENDANT = 1;  
   TK_ITEM_DONT_REDRAW = 2;  
 type
-  TTk_ItemCreateProc = function(interp: PTcl_Interp; canvas: TTk_Canvas;    itemPtr: PTk_Item; argc: Integer; argv: PPChar): Integer;
-  PTk_ItemCreateProc=^TTk_ItemCreateProc;
-  TTk_ItemConfigureProc = function(interp: PTcl_Interp; canvas: TTk_Canvas;    itemPtr: PTk_Item; argc: Integer; argv: PPChar; flags: Integer): Integer;
-  PTk_ItemConfigureProc=^TTk_ItemConfigureProc;
-  TTk_ItemCoordProc = function(interp: PTcl_Interp; canvas: TTk_Canvas;    itemPtr: PTk_Item; argc: Integer; argv: PPChar): Integer;
-  PTk_ItemCoordProc=^TTk_ItemCoordProc;
-  TTk_ItemDeleteProc = procedure(canvas: TTk_Canvas; itemPtr: PTk_Item;    display: PDisplay);
-  PTk_ItemDeleteProc=^TTk_ItemDeleteProc;
-  TTk_ItemDisplayProc = procedure(canvas: TTk_Canvas; itemPtr: PTk_Item;    display: PDisplay; dst: TDrawable; x, y, width, height: Integer);
-  PTk_ItemDisplayProc=^TTk_ItemDisplayProc;
-  TTk_ItemPointProc = function(canvas: TTk_Canvas; itemPtr: PTk_Item;    pointPtr: PDouble): Double;
-  PTk_ItemPointProc=^TTk_ItemPointProc;
-  TTk_ItemAreaProc = function(canvas: TTk_Canvas; itemPtr: PTk_Item;    rectPtr: PDouble): Integer;
-  PTk_ItemAreaProc=^TTk_ItemAreaProc;
-  TTk_ItemPostscriptProc = function(interp: PTcl_Interp; canvas: TTk_Canvas;    itemPtr: PTk_Item; prepass: Integer): Integer;
-  PTk_ItemPostscriptProc=^TTk_ItemPostscriptProc;
-  TTk_ItemScaleProc = procedure(canvas: TTk_Canvas; itemPtr: PTk_Item;    originX, originY, scaleX, scaleY: Double);
-  PTk_ItemScaleProc=^TTk_ItemScaleProc;
-  TTk_ItemTranslateProc = procedure(canvas: TTk_Canvas; itemPtr: PTk_Item;    deltaX, deltaY: Double);
-  PTk_ItemTranslateProc=^TTk_ItemTranslateProc;
-  TTk_ItemIndexProc = function(interp: PTcl_Interp; canvas: TTk_Canvas; itemPtr: PTk_Item; indexString: PChar; indexPtr: PInteger): Integer;
-  PTk_ItemIndexProc=^TTk_ItemIndexProc;
-      TTk_ItemCursorProc = procedure(canvas: TTk_Canvas; itemPtr: TTk_Item; index: Integer);
-      PTk_ItemCursorProc=^TTk_ItemCursorProc;
-      TTk_ItemSelectionProc = function(canvas: TTk_Canvas; itemPtr: TTk_Item; offset: Integer;                                               buffer: PChar; maxBytes: Integer): Integer;
-      PTk_ItemSelectionProc=^TTk_ItemSelectionProc;
-      TTk_ItemInsertProc = procedure(canvas: TTk_Canvas; itemPtr: TTk_Item; beforeThis: Integer;                                    str: PTcl_Obj);
-      PTk_ItemInsertProc=^tTk_ItemInsertProc;
-      TTk_ItemDCharsProc = procedure(canvas: TTk_Canvas; itemPtr: TTk_Item; first, last: Integer);
-      PTk_ItemDCharsProc=^TTk_ItemDCharsProc;
+    TTk_ItemCreateProc = function (interp:PTcl_Interp; canvas:TTk_Canvas; itemPtr:PTk_Item; objc:longint; objv:PPTcl_Obj):longint;cdecl;
+    PTk_ItemCreateProc=^TTk_ItemCreateProc;
+    TTk_ItemConfigureProc = function (interp:PTcl_Interp; canvas:TTk_Canvas; itemPtr:PTk_Item; objc:longint; objv:PPTcl_Obj;                 flags:longint):longint;cdecl;
+    PTk_ItemConfigureProc=^TTk_ItemConfigureProc;
+    TTk_ItemCoordProc = function (interp:PTcl_Interp; canvas:TTk_Canvas; itemPtr:PTk_Item; objc:longint; objv:PPTcl_Obj):longint;cdecl;
+    PTk_ItemCoordProc=^TTk_ItemCoordProc;
+    TTk_ItemDeleteProc = procedure (canvas:TTk_Canvas; itemPtr:PTk_Item; display:PDisplay);cdecl;
+    PTk_ItemDeleteProc=^TTk_ItemDeleteProc;
+    TTk_ItemDisplayProc = procedure (canvas:TTk_Canvas; itemPtr:PTk_Item; display:PDisplay; dst:TDrawable; x:longint;                  y:longint; width:longint; height:longint);cdecl;
+    PTk_ItemDisplayProc=^TTk_ItemDisplayProc;
+    TTk_ItemPointProc = function (canvas:TTk_Canvas; itemPtr:PTk_Item; pointPtr:Pdouble):Tdouble;cdecl;
+    PTk_ItemPointProc=^TTk_ItemPointProc;
+    TTk_ItemAreaProc = function (canvas:TTk_Canvas; itemPtr:PTk_Item; rectPtr:Pdouble):longint;cdecl;
+    PTk_ItemAreaProc=^TTk_ItemAreaProc;
+    TTk_ItemPostscriptProc = function (interp:PTcl_Interp; canvas:TTk_Canvas; itemPtr:PTk_Item; prepass:longint):longint;cdecl;
+    PTk_ItemPostscriptProc=^TTk_ItemPostscriptProc;
+    TTk_ItemScaleProc = procedure (canvas:TTk_Canvas; itemPtr:PTk_Item; originX:Tdouble; originY:Tdouble; scaleX:Tdouble;                  scaleY:Tdouble);cdecl;
+    PTk_ItemScaleProc=^TTk_ItemScaleProc;
+    TTk_ItemTranslateProc = procedure (canvas:TTk_Canvas; itemPtr:PTk_Item; deltaX:Tdouble; deltaY:Tdouble);cdecl;
+    PTk_ItemTranslateProc=^TTk_ItemTranslateProc;
+    TTk_ItemIndexProc = function (interp:PTcl_Interp; canvas:TTk_Canvas; itemPtr:PTk_Item; indexString:PTcl_Obj; indexPtr:Plongint):longint;cdecl;
+    PTk_ItemIndexProc=^TTk_ItemIndexProc;
+    TTk_ItemCursorProc = procedure (canvas:TTk_Canvas; itemPtr:PTk_Item; index:longint);cdecl;
+    PTk_ItemCursorProc=^TTk_ItemCursorProc;
+    TTk_ItemSelectionProc = function (canvas:TTk_Canvas; itemPtr:PTk_Item; offset:longint; buffer:Pchar; maxBytes:longint):longint;cdecl;
+    PTk_ItemSelectionProc=^TTk_ItemSelectionProc;
+    TTk_ItemInsertProc = procedure (canvas:TTk_Canvas; itemPtr:PTk_Item; beforeThis:longint; _string:PTcl_Obj);cdecl;
+    PTk_ItemInsertProc=^tTk_ItemInsertProc;
+    TTk_ItemDCharsProc = procedure (canvas:TTk_Canvas; itemPtr:PTk_Item; first:longint; last:longint);cdecl;
+    PTk_ItemDCharsProc=^TTk_ItemDCharsProc;
 
 type
   TTk_ItemType = record
@@ -618,20 +618,20 @@ type
 type
 PTk_ImageType = ^TTk_ImageType;
 
-  TTk_ImageCreateProc = function(    interp: PTcl_Interp;    name: PChar;    argc: Integer;    argv: PPChar;    typePtr: PTk_ImageType;    model: TTk_ImageMaster;    clientDataPtr: PClientData  ): Integer;
-  PTk_ImageCreateProc=^TTk_ImageCreateProc;
-  TTk_ImageGetProc = function(    tkwin: TTk_Window;    clientData: TClientData  ): TClientData;
-  PTk_ImageGetProc=^TTk_ImageGetProc;
-  TTk_ImageDisplayProc = procedure(    clientData: TClientData;    display: PDisplay;    drawable: TDrawable;    imageX, imageY, width, height, drawableX, drawableY: Integer  );
-  PTk_ImageDisplayProc=^TTk_ImageDisplayProc;
-  TTk_ImageFreeProc = procedure(    clientData: TClientData;    display: PDisplay   );
-  PTk_ImageFreeProc=^TTk_ImageFreeProc;
-  TTk_ImageDeleteProc = procedure(    clientData: TClientData  );
-  PTk_ImageDeleteProc=^TTk_ImageDeleteProc;
-  TTk_ImageChangedProc = procedure(    clientData: TClientData;    x, y, width, height, imageWidth, imageHeight: Integer  );
-  PTk_ImageChangedProc=^TTk_ImageChangedProc;
-  TTk_ImagePostscriptProc = function(    clientData: TClientData;    interp: PTcl_Interp;    tkwin: TTk_Window;    psinfo: TTk_PostscriptInfo;    x, y, width, height, prepass: Integer  ): Integer;
-  PTk_ImagePostscriptProc=^TTk_ImagePostscriptProc;
+TTk_ImageCreateProc = function (interp:PTcl_Interp; name:Pchar; objc:longint; objv:PPTcl_Obj; typePtr:PTk_ImageType;             model:TTk_ImageMaster; clientDataPtr:PClientData):longint;cdecl;
+PTk_ImageCreateProc=^TTk_ImageCreateProc;
+TTk_ImageGetProc = function (tkwin:TTk_Window; clientData:TClientData):TClientData;cdecl;
+PTk_ImageGetProc=^TTk_ImageGetProc;
+TTk_ImageDisplayProc = procedure (clientData:TClientData; display:PDisplay; drawable:TDrawable; imageX:longint; imageY:longint;              width:longint; height:longint; drawableX:longint; drawableY:longint);cdecl;
+PTk_ImageDisplayProc=^TTk_ImageDisplayProc;
+TTk_ImageFreeProc = procedure (clientData:TClientData; display:PDisplay);cdecl;
+PTk_ImageFreeProc=^TTk_ImageFreeProc;
+TTk_ImageDeleteProc = procedure (clientData:TClientData);cdecl;
+PTk_ImageDeleteProc=^TTk_ImageDeleteProc;
+TTk_ImageChangedProc = procedure (clientData:TClientData; x:longint; y:longint; width:longint; height:longint;              imageWidth:longint; imageHeight:longint);cdecl;
+PTk_ImageChangedProc=^TTk_ImageChangedProc;
+TTk_ImagePostscriptProc = function (clientData:TClientData; interp:PTcl_Interp; tkwin:TTk_Window; psinfo:TTk_PostscriptInfo; x:longint;             y:longint; width:longint; height:longint; prepass:longint):longint;cdecl;
+PTk_ImagePostscriptProc=^TTk_ImagePostscriptProc;
 
   TTk_ImageType = record
       name : Pchar;
@@ -644,7 +644,6 @@ PTk_ImageType = ^TTk_ImageType;
       nextPtr : PTk_ImageType;
       reserved : Pchar;
     end;
-
 
   PTk_PhotoHandle = ^TTk_PhotoHandle;
   TTk_PhotoHandle = pointer;
@@ -661,9 +660,21 @@ PTk_ImageType = ^TTk_ImageType;
 
 const
   TK_PHOTO_COMPOSITE_OVERLAY = 0;  
-  TK_PHOTO_COMPOSITE_SET = 1;  
+  TK_PHOTO_COMPOSITE_SET = 1;
+
 type
-  PTk_PhotoImageFormat = ^TTk_PhotoImageFormat;
+  TTk_ImageFileMatchProc = function (chan:TTcl_Channel; fileName:Pchar; format:PTcl_Obj; widthPtr:Plongint; heightPtr:Plongint;
+               interp:PTcl_Interp):longint;cdecl;
+  TTk_ImageStringMatchProc = function (dataObj:PTcl_Obj; format:PTcl_Obj; widthPtr:Plongint; heightPtr:Plongint; interp:PTcl_Interp):longint;cdecl;
+  TTk_ImageFileReadProc = function (interp:PTcl_Interp; chan:TTcl_Channel; fileName:Pchar; format:PTcl_Obj; imageHandle:TTk_PhotoHandle;
+               destX:longint; destY:longint; width:longint; height:longint; srcX:longint;
+               srcY:longint):longint;cdecl;
+  TTk_ImageStringReadProc = function (interp:PTcl_Interp; dataObj:PTcl_Obj; format:PTcl_Obj; imageHandle:TTk_PhotoHandle; destX:longint;
+               destY:longint; width:longint; height:longint; srcX:longint; srcY:longint):longint;cdecl;
+  TTk_ImageFileWriteProc = function (interp:PTcl_Interp; fileName:Pchar; format:PTcl_Obj; blockPtr:PTk_PhotoImageBlock):longint;cdecl;
+  TTk_ImageStringWriteProc = function (interp:PTcl_Interp; format:PTcl_Obj; blockPtr:PTk_PhotoImageBlock):longint;cdecl;
+
+type
   TTk_PhotoImageFormat = record
       name : Pchar;
       fileMatchProc : PTk_ImageFileMatchProc;
@@ -673,49 +684,30 @@ type
       fileWriteProc : PTk_ImageFileWriteProc;
       stringWriteProc : PTk_ImageStringWriteProc;
       nextPtr : PTk_PhotoImageFormat;
+      PTk_PhotoImageFormat = ^TTk_PhotoImageFormat;
     end;
-
-{
- *----------------------------------------------------------------------
- *
- * Procedure prototypes and structures used for managing styles:
- *
- *----------------------------------------------------------------------
-  }
-{
- * Style support version tag.
-  }
 
 const
   TK_STYLE_VERSION_1 = $1;  
-  TK_STYLE_VERSION = TK_STYLE_VERSION_1;  
-{
- * The following structures and prototypes are used as static templates to
- * declare widget elements.
-  }
-type
-{ Name of the required option.  }
-{ Accepted option type. TK_OPTION_END means
-				 * any.  }
+  TK_STYLE_VERSION = TK_STYLE_VERSION_1;
 
-  PTk_ElementOptionSpec = ^TTk_ElementOptionSpec;
+type
+    TTk_GetElementSizeProc = procedure (clientData:TClientData; recordPtr:Pchar; optionsPtr:PPTk_OptionSpec; tkwin:TTk_Window; width:longint;
+                  height:longint; inner:longint; widthPtr:Plongint; heightPtr:Plongint);cdecl;
+    TTk_GetElementBoxProc = procedure (clientData:TClientData; recordPtr:Pchar; optionsPtr:PPTk_OptionSpec; tkwin:TTk_Window; x:longint;
+                  y:longint; width:longint; height:longint; inner:longint; xPtr:Plongint;
+                  yPtr:Plongint; widthPtr:Plongint; heightPtr:Plongint);cdecl;
+    TTk_GetElementBorderWidthProc = function (clientData:TClientData; recordPtr:Pchar; optionsPtr:PPTk_OptionSpec; tkwin:TTk_Window):longint;cdecl;
+    TTk_DrawElementProc = procedure (clientData:TClientData; recordPtr:Pchar; optionsPtr:PPTk_OptionSpec; tkwin:TTk_Window; d:TDrawable;
+                  x:longint; y:longint; width:longint; height:longint; state:longint);cdecl;
+
+
+type
   TTk_ElementOptionSpec = record
       name : Pchar;
       _type : TTk_OptionType;
     end;
-{ Version of the style support.  }
-{ Name of element.  }
-{ List of required options. Last one's name
-				 * must be NULL.  }
-{ Compute the external (resp. internal) size
-				 * of the element from its desired internal
-				 * (resp. external) size.  }
-{ Compute the inscribed or bounding boxes
-				 * within a given area.  }
-{ Return the element's internal border width.
-				 * Mostly useful for widgets.  }
-{ Draw the element in the given bounding
-				 * box.  }
+  PTk_ElementOptionSpec = ^TTk_ElementOptionSpec;
 
   PTk_ElementSpec = ^TTk_ElementSpec;
   TTk_ElementSpec = record
@@ -733,16 +725,8 @@ const
   TK_ELEMENT_STATE_DISABLED = 1 shl 1;  
   TK_ELEMENT_STATE_FOCUS = 1 shl 2;  
   TK_ELEMENT_STATE_PRESSED = 1 shl 3;  
-{
- *----------------------------------------------------------------------
- *
- * The definitions below provide backward compatibility for functions and
- * types related to event handling that used to be in Tk but have moved to
- * Tcl.
- *
- *----------------------------------------------------------------------
-  }
-  TK_READABLE = TCL_READABLE;  
+
+  TK_READABLE = TCL_READABLE;
   TK_WRITABLE = TCL_WRITABLE;  
   TK_EXCEPTION = TCL_EXCEPTION;  
   TK_DONT_WAIT = TCL_DONT_WAIT;  
@@ -773,33 +757,17 @@ const
 
 function Tk_InitStubs(interp:PTcl_Interp; version:Pchar; exact:longint):Pchar;cdecl;external libtk8_6;
 function Tk_PkgInitStubsCheck(interp:PTcl_Interp; version:Pchar; exact:longint):Pchar;cdecl;external libtk8_6;
-{$ifndef USE_TK_STUBS}
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
 
-function Tk_InitStubs(interp,version,exact : longint) : longint;
-
-{$endif}
-{ USE_TK_STUBS  }
-{
- *----------------------------------------------------------------------
- *
- * Additional procedure types defined by Tk.
- *
- *----------------------------------------------------------------------
-  }
 type
-{
- *----------------------------------------------------------------------
- *
- * Platform independent exported procedures and variables.
- *
- *----------------------------------------------------------------------
-  }
-{$include "tkDecls.h"}
-{$ifdef USE_OLD_IMAGE}
-{$undef Tk_CreateImageType}
+TTk_ErrorProc = function (clientData:TClientData; errEventPtr:PXErrorEvent):longint;cdecl;
+TTk_EventProc = procedure (clientData:TClientData; eventPtr:PXEvent);cdecl;
+TTk_GenericProc = function (clientData:TClientData; eventPtr:PXEvent):longint;cdecl;
+TTk_ClientMessageProc = function (tkwin:TTk_Window; eventPtr:PXEvent):longint;cdecl;
+TTk_GetSelProc = function (clientData:TClientData; interp:PTcl_Interp; portion:Pchar):longint;cdecl;
+TTk_LostSelProc = procedure (clientData:TClientData);cdecl;
+TTk_RestrictProc = function (clientData:TClientData; eventPtr:PXEvent):TTk_RestrictAction;cdecl;
+TTk_SelectionProc = function (clientData:TClientData; offset:longint; buffer:Pchar; maxBytes:longint):longint;cdecl;
+
 
 const
   Tk_CreateImageType = Tk_CreateOldImageType;  
@@ -884,8 +852,18 @@ const
  * End:
   }
 
+  { was #define dname(params) para_def_expr }
+  { argument types are unknown }
+  { return type might be wrong }
+
+  function Tk_InitStubs(interp,version,exact : longint) : longint;
+
+
   function Tk_Offset(_type,field : longint) : longint;
   function offsetof(_type,field : longint) : Tsize_t;
+
+
+
 
   { was #define dname(params) para_def_expr }
   { argument types are unknown }
