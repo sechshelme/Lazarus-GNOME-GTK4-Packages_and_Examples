@@ -5,6 +5,8 @@ tk_tcl_common,
 tclPlatDecls,
 tclDecls,
 tcl,
+//tkInt,
+tkDecls,
 tk;
 
 
@@ -41,7 +43,7 @@ begin
         WriteLn('Tcl_Init Fehler: ', Tcl_GetStringResult(interp));
         Exit(1);
     end;
-    }
+
     if Tk_Init(interp) =TCL_ERROR then begin
         WriteLn('Tk_Init Fehler: ', Tcl_GetStringResult(interp));
         Exit(1);

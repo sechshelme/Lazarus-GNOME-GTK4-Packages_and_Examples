@@ -12,6 +12,10 @@ const
 type
 Pstat=procedure;  // /usr/include/x86_64-linux-gnu/sys/stat.h
 
+Tsize_t=SizeUInt;
+
+PBusy=Pointer;
+
 Tva_list=Pointer;
 
 PTkOption=Pointer; //????????
