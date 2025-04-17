@@ -1036,14 +1036,6 @@ procedure Tcl_MainEx(argc: longint; argv: PPchar; appInitProc: PTcl_AppInitProc;
 function Tcl_PkgInitStubsCheck(interp: PTcl_Interp; version: pchar; exact: longint): pchar; cdecl; external libtcl8_6;
 procedure Tcl_GetMemoryInfo(dsPtr: PTcl_DString); cdecl; external libtcl8_6;
 
-//const
-//  Tcl_Ckalloc = Tcl_Alloc;  
-//  Tcl_Ckfree = Tcl_Free;  
-//  Tcl_Ckrealloc = Tcl_Realloc;  
-//  Tcl_Return = Tcl_SetResult;  
-//  Tcl_TildeSubst = Tcl_TranslateFileName;  
-//  panic = Tcl_Panic;
-//  panicVA = Tcl_PanicVA;
 var
   Tcl_AppInit: TTcl_AppInitProc; cvar;external libtcl8_6;
 

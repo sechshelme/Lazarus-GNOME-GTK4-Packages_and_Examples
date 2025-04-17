@@ -675,6 +675,7 @@ type
 
 type
   PTk_ImageType = ^TTk_ImageType;
+  PPTk_ImageType = ^PTk_ImageType;
 
   TTk_ImageCreateProc = function(interp: PTcl_Interp; Name: pchar; objc: longint; objv: PPTcl_Obj; typePtr: PTk_ImageType; model: TTk_ImageMaster; clientDataPtr: PClientData): longint; cdecl;
   PTk_ImageCreateProc = ^TTk_ImageCreateProc;
@@ -824,13 +825,21 @@ function Tk_PkgInitStubsCheck(interp: PTcl_Interp; version: pchar; exact: longin
 
 type
   TTk_ErrorProc = function(clientData: TClientData; errEventPtr: PXErrorEvent): longint; cdecl;
+  PTk_ErrorProc = ^TTk_ErrorProc;
   TTk_EventProc = procedure(clientData: TClientData; eventPtr: PXEvent); cdecl;
+  PTk_EventProc = ^TTk_EventProc;
   TTk_GenericProc = function(clientData: TClientData; eventPtr: PXEvent): longint; cdecl;
+  PTk_GenericProc = ^TTk_GenericProc;
   TTk_ClientMessageProc = function(tkwin: TTk_Window; eventPtr: PXEvent): longint; cdecl;
+  PTk_ClientMessageProc = ^TTk_ClientMessageProc;
   TTk_GetSelProc = function(clientData: TClientData; interp: PTcl_Interp; portion: pchar): longint; cdecl;
+  PTk_GetSelProc = ^TTk_GetSelProc;
   TTk_LostSelProc = procedure(clientData: TClientData); cdecl;
+  PTk_LostSelProc = ^TTk_LostSelProc;
   TTk_RestrictProc = function(clientData: TClientData; eventPtr: PXEvent): TTk_RestrictAction; cdecl;
+  PTk_RestrictProc = ^TTk_RestrictProc;
   TTk_SelectionProc = function(clientData: TClientData; offset: longint; buffer: pchar; maxBytes: longint): longint; cdecl;
+  PTk_SelectionProc = ^TTk_SelectionProc;
 
 function Tk_Display(tkwin: PTk_Window): PDisplay;
 function Tk_ScreenNumber(tkwin: PTk_Window): longint;

@@ -14,6 +14,10 @@ Pstat=procedure;  // /usr/include/x86_64-linux-gnu/sys/stat.h
 
 Tsize_t=SizeUInt;
 
+Twchar_t=WideChar;
+Pwchar_t=^Twchar_t;
+PPwchar_t=^Pwchar_t;
+
 PBusy=Pointer;
 
 Tva_list=Pointer;

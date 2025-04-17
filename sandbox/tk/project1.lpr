@@ -3,9 +3,9 @@ program project1;
 uses
 tk_tcl_common,
 tclPlatDecls,
+tkPlatDecls,
 tclDecls,
 tcl,
-//tkInt,
 tkDecls,
 tk;
 
@@ -37,6 +37,7 @@ tk;
 function main(argc:Integer; argv:PPChar):Integer ;
 var
   interp: PTcl_Interp;
+  mainWindow: TTk_Window;
 begin
     interp := Tcl_CreateInterp();
     if Tcl_Init(interp) = TCL_ERROR then begin
