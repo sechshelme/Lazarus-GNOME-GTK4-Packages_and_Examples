@@ -2,12 +2,17 @@ program project1;
 
 uses
 tk_tcl_common,
+
+tcl,
+tclDecls,
+tk,
+tkDecls,
 tclPlatDecls,
 tkPlatDecls,
-tclDecls,
-tcl,
-tkDecls,
-tk;
+tclOO,
+tclOODecls,
+
+math;
 
 
 // Funktion zum Auslesen und Ausgeben des ausgewählten Elements aus der Listbox
@@ -38,6 +43,7 @@ function main(argc:Integer; argv:PPChar):Integer ;
 var
   interp: PTcl_Interp;
   mainWindow: TTk_Window;
+  printSelection: TTcl_CmdProc=nil;
 begin
     interp := Tcl_CreateInterp();
     if Tcl_Init(interp) = TCL_ERROR then begin
@@ -51,49 +57,41 @@ begin
     end;
 
     mainWindow := Tk_MainWindow(interp);
-    if (!mainWindow) {
-        fprintf(stderr, "Fehler beim Erstellen des Hauptfensters: %s\n", Tcl_GetStringResult(interp));
+    if mainWindow=nil then begin
+        WriteLn('Fehler beim Erstellen des Hauptfensters: ', Tcl_GetStringResult(interp));
         Exit(1);
-    }
-    Tk_SetAppName(mainWindow, "Listbox Beispiel");
+    end;
+    Tk_SetAppName(mainWindow, 'Listbox Beispiel');
 
     // Erstelle die Listbox
-    if (Tcl_Eval(interp,
-                 "listbox .listbox -height 10 -selectmode browse; "
-                 "pack .listbox -side top -padx 10 -pady 10") != TCL_OK) {
-        fprintf(stderr, "Fehler beim Erstellen der Listbox: %s\n", Tcl_GetStringResult(interp));
+    if Tcl_Eval(interp, 'listbox .listbox -height 10 -selectmode browse; pack .listbox -side top -padx 10 -pady 10') <> TCL_OK then begin
+        WriteLn('Fehler beim Erstellen der Listbox: ', Tcl_GetStringResult(interp));
         Exit(1);
-    }
+end;
 
     // Füge Elemente zur Listbox hinzu
-    if (Tcl_Eval(interp,
-                 ".listbox insert end \"Apfel\" \"Orange\" \"Banane\" \"Pfirsich\" \"Traube\"") != TCL_OK) {
-        fprintf(stderr, "Fehler beim Hinzufügen von Elementen: %s\n", Tcl_GetStringResult(interp));
+    if Tcl_Eval(interp,'.listbox insert end "Apfel" "Orange" "Banane" "Pfirsich" "Traube"') <> TCL_OK then begin
+        WriteLn('Fehler beim Hinzufügen von Elementen: ', Tcl_GetStringResult(interp));
         Exit(1);
-    }
+    end;
 
     // Registriere die Funktion `printSelection` als Tcl-Befehl
-    if (Tcl_CreateCommand(interp, "printSelection", printSelection,
-                          NULL, NULL) == NULL) {
-        fprintf(stderr, "Fehler beim Registrieren der printSelection-Funktion.\n");
+    if Tcl_CreateCommand(interp, 'printSelection', @printSelection,                          nil, nil) = nil then begin
+        WriteLn('Fehler beim Registrieren der printSelection-Funktion.');
         Exit(1);
-    }
+    end;
 
     // Erstelle den Button zum Beenden der Anwendung
-    if (Tcl_Eval(interp,
-                 "button .quit -text \"Quit\" -command {exit}; "
-                 "pack .quit -side left -padx 10 -pady 10") != TCL_OK) {
-        fprintf(stderr, "Fehler beim Erstellen des Quit-Buttons: %s\n", Tcl_GetStringResult(interp));
+    if Tcl_Eval(interp, 'button .quit -text "Quit" -command {exit}; pack .quit -side left -padx 10 -pady 10') <> TCL_OK  then begin
+        WriteLn('Fehler beim Erstellen des Quit-Buttons: ', Tcl_GetStringResult(interp));
         Exit(1);
-    }
+    end;
 
     // Erstelle den Button zum Ausgeben der Auswahl
-    if (Tcl_Eval(interp,
-                 "button .print -text \"Print Selection\" -command printSelection; "
-                 "pack .print -side left -padx 10 -pady 10") != TCL_OK) {
-        fprintf(stderr, "Fehler beim Erstellen des Print-Buttons: %s\n", Tcl_GetStringResult(interp));
+    if Tcl_Eval(interp, 'button .print -text "Print Selection" -command printSelection; pack .print -side left -padx 10 -pady 10') <> TCL_OK then begin
+        WriteLn('Fehler beim Erstellen des Print-Buttons: ', Tcl_GetStringResult(interp));
         Exit(1);
-    }
+    end;
 
 // ================
 
@@ -102,14 +100,10 @@ begin
 
 
   // Erstelle ein Eingabefeld
-    if (Tcl_Eval(interp,
-                 "entry .entry -width 30; "
-                 "pack .entry -side top -padx 10 -pady 10") != TCL_OK) {
-        fprintf(stderr, "Fehler beim Erstellen des Eingabefeldes: %s\n", Tcl_GetStringResult(interp));
+    if Tcl_Eval(interp, 'entry .entry -width 30; pack .entry -side top -padx 10 -pady 10') <> TCL_OK then begin
+        WriteLn('Fehler beim Erstellen des Eingabefeldes: ', Tcl_GetStringResult(interp));
         Exit(1);
-    }
-
-
+    end;
 
 // =====================0
 
@@ -121,13 +115,11 @@ begin
     // Aufräumen
     Tcl_DeleteInterp(interp);
 
-    return 0;
-}
+    Result:=0;
 
-
-
+end;
 
 begin
-
+main(0,nil);
 end.
 

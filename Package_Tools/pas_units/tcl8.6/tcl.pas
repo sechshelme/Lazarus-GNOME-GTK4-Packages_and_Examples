@@ -85,80 +85,61 @@ type
   PTcl_Interp = ^TTcl_Interp;
   PPTcl_Interp = ^PTcl_Interp;
 
-  TTcl_AsyncHandler = record
-  end;
+  TTcl_AsyncHandler = Pointer;
   PTcl_AsyncHandler = ^TTcl_AsyncHandler;
 
-  TTcl_Channel = record
-  end;
+  TTcl_Channel = Pointer;
   PTcl_Channel = ^TTcl_Channel;
 
-  TTcl_ChannelTypeVersion = record
-  end;
+  TTcl_ChannelTypeVersion = Pointer;
   PTcl_ChannelTypeVersion = ^TTcl_ChannelTypeVersion;
 
-  TTcl_Command = record
-  end;
+  TTcl_Command = Pointer;
   PTcl_Command = ^TTcl_Command;
 
-  TTcl_Condition = record
-  end;
+  TTcl_Condition = Pointer;
   PTcl_Condition = ^TTcl_Condition;
 
-  TTcl_Dict = record
-  end;
+  TTcl_Dict = Pointer;
   PTcl_Dict = ^TTcl_Dict;
 
-  TTcl_EncodingState = record
-  end;
+  TTcl_EncodingState = Pointer;
   PTcl_EncodingState = ^TTcl_EncodingState;
 
-  TTcl_Encoding = record
-  end;
+  TTcl_Encoding = Pointer;
   PTcl_Encoding = ^TTcl_Encoding;
 
-  TTcl_InterpState = record
-  end;
+  TTcl_InterpState = Pointer;
   PTcl_InterpState = ^TTcl_InterpState;
 
-  TTcl_LoadHandle = record
-  end;
+  TTcl_LoadHandle = Pointer;
   PTcl_LoadHandle = ^TTcl_LoadHandle;
 
-  TTcl_Mutex = record
-  end;
+  TTcl_Mutex = Pointer;
   PTcl_Mutex = ^TTcl_Mutex;
 
-  TTcl_Pid = record
-  end;
+  TTcl_Pid = Pointer;
   PTcl_Pid = ^TTcl_Pid;
 
-  TTcl_RegExp = record
-  end;
+  TTcl_RegExp = Pointer;
   PTcl_RegExp = ^TTcl_RegExp;
 
-  TTcl_ThreadDataKey = record
-  end;
+  TTcl_ThreadDataKey = Pointer;
   PTcl_ThreadDataKey = ^TTcl_ThreadDataKey;
 
-  TTcl_ThreadId = record
-  end;
+  TTcl_ThreadId = Pointer;
   PTcl_ThreadId = ^TTcl_ThreadId;
 
-  TTcl_TimerToken = record
-  end;
+  TTcl_TimerToken = Pointer;
   PTcl_TimerToken = ^TTcl_TimerToken;
 
-  TTcl_Trace = record
-  end;
+  TTcl_Trace = Pointer;
   PTcl_Trace = ^TTcl_Trace;
 
-  TTcl_Var = record
-  end;
+  TTcl_Var = Pointer;
   PTcl_Var = ^TTcl_Var;
 
-  TTcl_ZlibStream = record
-  end;
+  TTcl_ZlibStream = Pointer;
   PTcl_ZlibStream = ^TTcl_ZlibStream;
 
 type
@@ -812,8 +793,7 @@ type
   TTcl_FSCreateInternalRepProc = function(pathPtr: PTcl_Obj): TClientData; cdecl;
   PTcl_FSCreateInternalRepProc = ^TTcl_FSCreateInternalRepProc;
 
-  TTcl_FSVersion = record
-  end;
+  TTcl_FSVersion = Pointer;
   PTcl_FSVersion = ^TTcl_FSVersion;
 
   PTcl_Filesystem = ^TTcl_Filesystem;

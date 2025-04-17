@@ -20,64 +20,49 @@ const
 
 type
   PTk_BindingTable = ^TTk_BindingTable;
-  TTk_BindingTable = record
-  end;
+  TTk_BindingTable = Pointer;
 
   PTk_Canvas = ^TTk_Canvas;
-  TTk_Canvas = record
-  end;
+  TTk_Canvas =  Pointer;
 
   PTk_Cursor = ^TTk_Cursor;
-  TTk_Cursor = record
-  end;
+  TTk_Cursor = Pointer;
 
   PTk_ErrorHandler = ^TTk_ErrorHandler;
-  TTk_ErrorHandler = record
-  end;
+  TTk_ErrorHandler = Pointer;
 
   PTk_Font = ^TTk_Font;
-  TTk_Font = record
-  end;
+  TTk_Font = Pointer;
 
   PTk_Image = ^TTk_Image;
-  TTk_Image = record
-  end;
+  TTk_Image = Pointer;
 
   PTk_ImageMaster = ^TTk_ImageMaster;
-  TTk_ImageMaster = record
-  end;
+  TTk_ImageMaster = Pointer;
 
   PTk_OptionTable = ^TTk_OptionTable;
-  TTk_OptionTable = record
-  end;
+  TTk_OptionTable = Pointer;
 
   PTk_PostscriptInfo = ^TTk_PostscriptInfo;
-  TTk_PostscriptInfo = record
-  end;
+  TTk_PostscriptInfo = Pointer;
 
   PTk_TextLayout = ^TTk_TextLayout;
-  TTk_TextLayout = record
-  end;
+  TTk_TextLayout = Pointer;
 
   PTk_Window = ^TTk_Window;
-  TTk_Window = record
-  end;
+  TTk_Window = Pointer;
 
   PTk_3DBorder = ^TTk_3DBorder;
-  TTk_3DBorder = record
-  end;
+  TTk_3DBorder = Pointer;
 
   PTk_Style = ^TTk_Style;
-  TTk_Style = record
-  end;
+  TTk_Style = Pointer;
 
   PTk_StyleEngine = ^TTk_StyleEngine;
-  TTk_StyleEngine = record
-  end;
+  TTk_StyleEngine = Pointer;
 
   PTk_StyledElement = ^TTk_StyledElement;
-  TTk_StyledElement = record
-  end;
+  TTk_StyledElement = Pointer;
 
   PTk_Uid = ^TTk_Uid;
   TTk_Uid = pchar;
@@ -421,8 +406,6 @@ type
   TXDeactivateEvent = TXActivateDeactivateEvent;
 
 type
-  PTk_FakeWin = ^TTk_FakeWin;
-
   TTk_FakeWin = record
     display: PDisplay;
     dummy1: pchar;
@@ -467,6 +450,7 @@ type
     dummy21: pchar;
     dummy22: TTk_Window;
   end;
+  PTk_FakeWin = ^TTk_FakeWin;
 
 const
   TK_MAPPED = 1;
@@ -841,40 +825,40 @@ type
   TTk_SelectionProc = function(clientData: TClientData; offset: longint; buffer: pchar; maxBytes: longint): longint; cdecl;
   PTk_SelectionProc = ^TTk_SelectionProc;
 
-function Tk_Display(tkwin: PTk_Window): PDisplay;
-function Tk_ScreenNumber(tkwin: PTk_Window): longint;
-function Tk_Screen(tkwin: PTk_Window): PScreen;
-function Tk_Depth(tkwin: PTk_Window): longint;
-function Tk_Visual(tkwin: PTk_Window): PVisual;
-function Tk_WindowId(tkwin: PTk_Window): longint;
-function Tk_PathName(tkwin: PTk_Window): pchar;
-function Tk_Name(tkwin: PTk_Window): pchar;
-function Tk_Class(tkwin: PTk_Window): pchar;
-function Tk_X(tkwin: PTk_Window): longint;
-function Tk_Y(tkwin: PTk_Window): longint;
-function Tk_Width(tkwin: PTk_Window): longint;
-function Tk_Height(tkwin: PTk_Window): longint;
-function Tk_Changes(tkwin: PTk_Window): Pointer;
-function Tk_Attributes(tkwin: PTk_Window): Pointer;
-function Tk_IsEmbedded(tkwin: PTk_Window): longint;
-function Tk_IsContainer(tkwin: PTk_Window): longint;
-function Tk_IsMapped(tkwin: PTk_Window): longint;
-function Tk_IsTopLevel(tkwin: PTk_Window): longint;
-function Tk_HasWrapper(tkwin: PTk_Window): longint;
-function Tk_WinManaged(tkwin: PTk_Window): longint;
-function Tk_TopWinHierarchy(tkwin: PTk_Window): longint;
-function Tk_IsManageable(tkwin: PTk_Window): longint;
-function Tk_ReqWidth(tkwin: PTk_Window): longint;
-function Tk_ReqHeight(tkwin: PTk_Window): longint;
-function Tk_InternalBorderWidth(tkwin: PTk_Window): longint;
-function Tk_InternalBorderLeft(tkwin: PTk_Window): longint;
-function Tk_InternalBorderRight(tkwin: PTk_Window): longint;
-function Tk_InternalBorderTop(tkwin: PTk_Window): longint;
-function Tk_InternalBorderBottom(tkwin: PTk_Window): longint;
-function Tk_MinReqWidth(tkwin: PTk_Window): longint;
-function Tk_MinReqHeight(tkwin: PTk_Window): longint;
-function Tk_Parent(tkwin: PTk_Window): TTk_Window;
-function Tk_Colormap(tkwin: PTk_Window): longint;
+function Tk_Display(tkwin: TTk_Window): PDisplay;
+function Tk_ScreenNumber(tkwin: TTk_Window): longint;
+function Tk_Screen(tkwin: TTk_Window): PScreen;
+function Tk_Depth(tkwin: TTk_Window): longint;
+function Tk_Visual(tkwin: TTk_Window): PVisual;
+function Tk_WindowId(tkwin: TTk_Window): longint;
+function Tk_PathName(tkwin: TTk_Window): pchar;
+function Tk_Name(tkwin: TTk_Window): pchar;
+function Tk_Class(tkwin: TTk_Window): pchar;
+function Tk_X(tkwin: TTk_Window): longint;
+function Tk_Y(tkwin: TTk_Window): longint;
+function Tk_Width(tkwin: TTk_Window): longint;
+function Tk_Height(tkwin: TTk_Window): longint;
+function Tk_Changes(tkwin: TTk_Window): Pointer;
+function Tk_Attributes(tkwin: TTk_Window): Pointer;
+function Tk_IsEmbedded(tkwin: TTk_Window): longint;
+function Tk_IsContainer(tkwin: TTk_Window): longint;
+function Tk_IsMapped(tkwin: TTk_Window): longint;
+function Tk_IsTopLevel(tkwin: TTk_Window): longint;
+function Tk_HasWrapper(tkwin: TTk_Window): longint;
+function Tk_WinManaged(tkwin: TTk_Window): longint;
+function Tk_TopWinHierarchy(tkwin: TTk_Window): longint;
+function Tk_IsManageable(tkwin: TTk_Window): longint;
+function Tk_ReqWidth(tkwin: TTk_Window): longint;
+function Tk_ReqHeight(tkwin: TTk_Window): longint;
+function Tk_InternalBorderWidth(tkwin: TTk_Window): longint;
+function Tk_InternalBorderLeft(tkwin: TTk_Window): longint;
+function Tk_InternalBorderRight(tkwin: TTk_Window): longint;
+function Tk_InternalBorderTop(tkwin: TTk_Window): longint;
+function Tk_InternalBorderBottom(tkwin: TTk_Window): longint;
+function Tk_MinReqWidth(tkwin: TTk_Window): longint;
+function Tk_MinReqHeight(tkwin: TTk_Window): longint;
+function Tk_Parent(tkwin: TTk_Window): TTk_Window;
+function Tk_Colormap(tkwin: TTk_Window): longint;
 
 
 // === Konventiert am: 15-4-25 13:26:46 ===
@@ -884,172 +868,172 @@ implementation
 
 
 
-function Tk_Display(tkwin: PTk_Window): PDisplay;
+function Tk_Display(tkwin: TTk_Window): PDisplay;
 begin
   Tk_Display := (PTk_FakeWin(tkwin))^.display;
 end;
 
-function Tk_ScreenNumber(tkwin: PTk_Window): longint;
+function Tk_ScreenNumber(tkwin: TTk_Window): longint;
 begin
   Tk_ScreenNumber := (PTk_FakeWin(tkwin))^.screenNum;
 end;
 
-function Tk_Screen(tkwin: PTk_Window): PScreen;
+function Tk_Screen(tkwin: TTk_Window): PScreen;
 begin
   Tk_Screen := ScreenOfDisplay(Tk_Display(tkwin), Tk_ScreenNumber(tkwin));
 end;
 
-function Tk_Depth(tkwin: PTk_Window): longint;
+function Tk_Depth(tkwin: TTk_Window): longint;
 begin
   Tk_Depth := (PTk_FakeWin(tkwin))^.depth;
 end;
 
-function Tk_Visual(tkwin: PTk_Window): PVisual;
+function Tk_Visual(tkwin: TTk_Window): PVisual;
 begin
   Tk_Visual := (PTk_FakeWin(tkwin))^.visual;
 end;
 
-function Tk_WindowId(tkwin: PTk_Window): longint;
+function Tk_WindowId(tkwin: TTk_Window): longint;
 begin
   Tk_WindowId := (PTk_FakeWin(tkwin))^.window;
 end;
 
-function Tk_PathName(tkwin: PTk_Window): pchar;
+function Tk_PathName(tkwin: TTk_Window): pchar;
 begin
   Tk_PathName := (PTk_FakeWin(tkwin))^.pathName;
 end;
 
-function Tk_Name(tkwin: PTk_Window): pchar;
+function Tk_Name(tkwin: TTk_Window): pchar;
 begin
   Tk_Name := (PTk_FakeWin(tkwin))^.nameUid;
 end;
 
-function Tk_Class(tkwin: PTk_Window): pchar;
+function Tk_Class(tkwin: TTk_Window): pchar;
 begin
   Tk_Class := (PTk_FakeWin(tkwin))^.classUid;
 end;
 
-function Tk_X(tkwin: PTk_Window): longint;
+function Tk_X(tkwin: TTk_Window): longint;
 begin
   Tk_X := (PTk_FakeWin(tkwin))^.changes.x;
 end;
 
-function Tk_Y(tkwin: PTk_Window): longint;
+function Tk_Y(tkwin: TTk_Window): longint;
 begin
   Tk_Y := (PTk_FakeWin(tkwin))^.changes.y;
 end;
 
-function Tk_Width(tkwin: PTk_Window): longint;
+function Tk_Width(tkwin: TTk_Window): longint;
 begin
   Tk_Width := (PTk_FakeWin(tkwin))^.changes.Width;
 end;
 
-function Tk_Height(tkwin: PTk_Window): longint;
+function Tk_Height(tkwin: TTk_Window): longint;
 begin
   Tk_Height := (PTk_FakeWin(tkwin))^.changes.Height;
 end;
 
-function Tk_Changes(tkwin: PTk_Window): Pointer;
+function Tk_Changes(tkwin: TTk_Window): Pointer;
 begin
   Tk_Changes := @((PTk_FakeWin(tkwin))^.changes);
 end;
 
-function Tk_Attributes(tkwin: PTk_Window): Pointer;
+function Tk_Attributes(tkwin: TTk_Window): Pointer;
 begin
   Tk_Attributes := @((PTk_FakeWin(tkwin))^.atts);
 end;
 
-function Tk_IsEmbedded(tkwin: PTk_Window): longint;
+function Tk_IsEmbedded(tkwin: TTk_Window): longint;
 begin
   Tk_IsEmbedded := ((PTk_FakeWin(tkwin))^.flags) and TK_EMBEDDED;
 end;
 
-function Tk_IsContainer(tkwin: PTk_Window): longint;
+function Tk_IsContainer(tkwin: TTk_Window): longint;
 begin
   Tk_IsContainer := ((PTk_FakeWin(tkwin))^.flags) and TK_CONTAINER;
 end;
 
-function Tk_IsMapped(tkwin: PTk_Window): longint;
+function Tk_IsMapped(tkwin: TTk_Window): longint;
 begin
   Tk_IsMapped := ((PTk_FakeWin(tkwin))^.flags) and TK_MAPPED;
 end;
 
-function Tk_IsTopLevel(tkwin: PTk_Window): longint;
+function Tk_IsTopLevel(tkwin: TTk_Window): longint;
 begin
   Tk_IsTopLevel := ((PTk_FakeWin(tkwin))^.flags) and TK_TOP_LEVEL;
 end;
 
-function Tk_HasWrapper(tkwin: PTk_Window): longint;
+function Tk_HasWrapper(tkwin: TTk_Window): longint;
 begin
   Tk_HasWrapper := ((PTk_FakeWin(tkwin))^.flags) and TK_HAS_WRAPPER;
 end;
 
-function Tk_WinManaged(tkwin: PTk_Window): longint;
+function Tk_WinManaged(tkwin: TTk_Window): longint;
 begin
   Tk_WinManaged := ((PTk_FakeWin(tkwin))^.flags) and TK_WIN_MANAGED;
 end;
 
-function Tk_TopWinHierarchy(tkwin: PTk_Window): longint;
+function Tk_TopWinHierarchy(tkwin: TTk_Window): longint;
 begin
   Tk_TopWinHierarchy := ((PTk_FakeWin(tkwin))^.flags) and TK_TOP_HIERARCHY;
 end;
 
-function Tk_IsManageable(tkwin: PTk_Window): longint;
+function Tk_IsManageable(tkwin: TTk_Window): longint;
 begin
   Tk_IsManageable := ((PTk_FakeWin(tkwin))^.flags) and TK_WM_MANAGEABLE;
 end;
 
-function Tk_ReqWidth(tkwin: PTk_Window): longint;
+function Tk_ReqWidth(tkwin: TTk_Window): longint;
 begin
   Tk_ReqWidth := (PTk_FakeWin(tkwin))^.reqWidth;
 end;
 
-function Tk_ReqHeight(tkwin: PTk_Window): longint;
+function Tk_ReqHeight(tkwin: TTk_Window): longint;
 begin
   Tk_ReqHeight := (PTk_FakeWin(tkwin))^.reqHeight;
 end;
 
-function Tk_InternalBorderWidth(tkwin: PTk_Window): longint;
+function Tk_InternalBorderWidth(tkwin: TTk_Window): longint;
 begin
   Tk_InternalBorderWidth := (PTk_FakeWin(tkwin))^.internalBorderLeft;
 end;
 
-function Tk_InternalBorderLeft(tkwin: PTk_Window): longint;
+function Tk_InternalBorderLeft(tkwin: TTk_Window): longint;
 begin
   Tk_InternalBorderLeft := (PTk_FakeWin(tkwin))^.internalBorderLeft;
 end;
 
-function Tk_InternalBorderRight(tkwin: PTk_Window): longint;
+function Tk_InternalBorderRight(tkwin: TTk_Window): longint;
 begin
   Tk_InternalBorderRight := (PTk_FakeWin(tkwin))^.internalBorderRight;
 end;
 
-function Tk_InternalBorderTop(tkwin: PTk_Window): longint;
+function Tk_InternalBorderTop(tkwin: TTk_Window): longint;
 begin
   Tk_InternalBorderTop := (PTk_FakeWin(tkwin))^.internalBorderTop;
 end;
 
-function Tk_InternalBorderBottom(tkwin: PTk_Window): longint;
+function Tk_InternalBorderBottom(tkwin: TTk_Window): longint;
 begin
   Tk_InternalBorderBottom := (PTk_FakeWin(tkwin))^.internalBorderBottom;
 end;
 
-function Tk_MinReqWidth(tkwin: PTk_Window): longint;
+function Tk_MinReqWidth(tkwin: TTk_Window): longint;
 begin
   Tk_MinReqWidth := (PTk_FakeWin(tkwin))^.minReqWidth;
 end;
 
-function Tk_MinReqHeight(tkwin: PTk_Window): longint;
+function Tk_MinReqHeight(tkwin: TTk_Window): longint;
 begin
   Tk_MinReqHeight := (PTk_FakeWin(tkwin))^.minReqHeight;
 end;
 
-function Tk_Parent(tkwin: PTk_Window): TTk_Window;
+function Tk_Parent(tkwin: TTk_Window): TTk_Window;
 begin
   Tk_Parent := (PTk_FakeWin(tkwin))^.parentPtr;
 end;
 
-function Tk_Colormap(tkwin: PTk_Window): longint;
+function Tk_Colormap(tkwin: TTk_Window): longint;
 begin
   Tk_Colormap := (PTk_FakeWin(tkwin))^.atts.colormap;
 end;
