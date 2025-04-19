@@ -133,9 +133,19 @@ Strg + Shift + D: Öffnet den Inspector und wählt automatisch das Widget unter 
 
 `sudo apt install gnome-builder`
 
-
-
 https://www.perplexity.ai/search/wie-installiert-man-den-gtk-in-3L9fGIGmTL.WqgEg.TOEQw
+
+
+## Extensionen
+Hat *.vala Dateien 
+`git clone https://github.com/lcallarec/live-chart.git`
+
+
+Ist veraltet
+`git clone https://github.com/lundmar/gtkchart.git`
+
+
+
 
 # Quellen für DLLs
 - https://repo.msys2.org/mingw/mingw64/

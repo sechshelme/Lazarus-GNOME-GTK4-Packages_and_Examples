@@ -30,25 +30,19 @@ type
 
 type
   TTcl_MethodCallProc = function(clientData: pointer; interp: PTcl_Interp; objectContext: TTcl_ObjectContext; objc: longint; objv: PPTcl_Obj): longint; cdecl;
-  PTcl_MethodCallProc = ^TTcl_MethodCallProc;
   TTcl_MethodDeleteProc = procedure(clientData: pointer); cdecl;
-  PTcl_MethodDeleteProc = ^TTcl_MethodDeleteProc;
   TTcl_CloneProc = function(interp: PTcl_Interp; oldClientData: pointer; newClientData: Ppointer): longint; cdecl;
-  PTcl_CloneProc = ^TTcl_CloneProc;
   TTcl_ObjectMetadataDeleteProc = procedure(clientData: pointer); cdecl;
-  PTcl_ObjectMetadataDeleteProc = ^TTcl_ObjectMetadataDeleteProc;
   TTcl_ObjectMapMethodNameProc = function(interp: PTcl_Interp; obj: TTcl_Object; startClsPtr: PTcl_Class; methodNameObj: PTcl_Obj): longint; cdecl;
-  PTcl_ObjectMapMethodNameProc = ^TTcl_ObjectMapMethodNameProc;
-
-  PTcl_MethodType = ^TTcl_MethodType;
 
   TTcl_MethodType = record
     version: longint;
     Name: pchar;
-    callProc: PTcl_MethodCallProc;
-    deleteProc: PTcl_MethodDeleteProc;
-    cloneProc: PTcl_CloneProc;
+    callProc: TTcl_MethodCallProc;
+    deleteProc: TTcl_MethodDeleteProc;
+    cloneProc: TTcl_CloneProc;
   end;
+  PTcl_MethodType = ^TTcl_MethodType;
 
 const
   TCL_OO_METHOD_VERSION_CURRENT = 1;
@@ -59,8 +53,8 @@ type
   TTcl_ObjectMetadataType = record
     version: longint;
     Name: pchar;
-    deleteProc: PTcl_ObjectMetadataDeleteProc;
-    cloneProc: PTcl_CloneProc;
+    deleteProc: TTcl_ObjectMetadataDeleteProc;
+    cloneProc: TTcl_CloneProc;
   end;
 
 const

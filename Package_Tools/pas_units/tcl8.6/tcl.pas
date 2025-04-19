@@ -148,7 +148,6 @@ type
   {$else}
   TTcl_ThreadCreateProc = procedure(clientData: TClientData); cdecl;
   {$endif}
-  PTcl_ThreadCreateProc = ^TTcl_ThreadCreateProc;
 
 const
   TCL_THREAD_STACK_DEFAULT = 0;
@@ -224,116 +223,73 @@ type
   end;
   PTcl_Value = ^TTcl_Value;
 
-  PTcl_EventProc = ^TTcl_EventProc;
   PTcl_Obj = ^TTcl_Obj;
   PPTcl_Obj = ^PTcl_Obj;
   PPPTcl_Obj = ^PPTcl_Obj;
 
   PTcl_Event = ^TTcl_Event;
 
-  TTcl_Event = record
-    proc: PTcl_EventProc;
-    nextPtr: PTcl_Event;
-  end;
-
-
-
   TTcl_AppInitProc = function(interp: PTcl_Interp): longint; cdecl;
-  PTcl_AppInitProc = ^TTcl_AppInitProc;
   TTcl_AsyncProc = function(clientData: TClientData; interp: PTcl_Interp; code: longint): longint; cdecl;
-  PTcl_AsyncProc = ^TTcl_AsyncProc;
   TTcl_ChannelProc = procedure(clientData: TClientData; mask: longint); cdecl;
-  PTcl_ChannelProc = ^TTcl_ChannelProc;
   TTcl_CloseProc = procedure(Data: TClientData); cdecl;
-  PTcl_CloseProc = ^TTcl_CloseProc;
   TTcl_CmdDeleteProc = procedure(clientData: TClientData); cdecl;
-  PTcl_CmdDeleteProc = ^TTcl_CmdDeleteProc;
   TTcl_CmdProc = function(clientData: TClientData; interp: PTcl_Interp; argc: longint; argv: PPchar): longint; cdecl;
-  PTcl_CmdProc = ^TTcl_CmdProc;
-  TTcl_CmdTraceProc = procedure(clientData: TClientData; interp: PTcl_Interp; level: longint; command: pchar; proc: PTcl_CmdProc;
+  TTcl_CmdTraceProc = procedure(clientData: TClientData; interp: PTcl_Interp; level: longint; command: pchar; proc: TTcl_CmdProc;
     cmdClientData: TClientData; argc: longint; argv: PPchar); cdecl;
-  PTcl_CmdTraceProc = ^TTcl_CmdTraceProc;
   TTcl_CmdObjTraceProc = function(clientData: TClientData; interp: PTcl_Interp; level: longint; command: pchar; commandInfo: TTcl_Command;
     objc: longint; objv: PPTcl_Obj): longint; cdecl;
-  PTcl_CmdObjTraceProc = ^TTcl_CmdObjTraceProc;
   TTcl_CmdObjTraceDeleteProc = procedure(clientData: TClientData); cdecl;
-  PTcl_CmdObjTraceDeleteProc = ^TTcl_CmdObjTraceDeleteProc;
   TTcl_DupInternalRepProc = procedure(srcPtr: PTcl_Obj; dupPtr: PTcl_Obj); cdecl;
-  PTcl_DupInternalRepProc = ^TTcl_DupInternalRepProc;
   TTcl_EncodingConvertProc = function(clientData: TClientData; src: pchar; srcLen: longint; flags: longint; statePtr: PTcl_EncodingState;
     dst: pchar; dstLen: longint; srcReadPtr: Plongint; dstWrotePtr: Plongint; dstCharsPtr: Plongint): longint; cdecl;
   TTcl_EncodingFreeProc = procedure(clientData: TClientData); cdecl;
-  PTcl_EncodingFreeProc = ^TTcl_EncodingFreeProc;
-  PTcl_EncodingConvertProc = ^TTcl_EncodingConvertProc;
   TTcl_EventProc = function(evPtr: PTcl_Event; flags: longint): longint; cdecl;
   TTcl_EventCheckProc = procedure(clientData: TClientData; flags: longint); cdecl;
-  PTcl_EventCheckProc = ^TTcl_EventCheckProc;
   TTcl_EventDeleteProc = function(evPtr: PTcl_Event; clientData: TClientData): longint; cdecl;
-  PTcl_EventDeleteProc = ^TTcl_EventDeleteProc;
   TTcl_EventSetupProc = procedure(clientData: TClientData; flags: longint); cdecl;
-  PTcl_EventSetupProc = ^TTcl_EventSetupProc;
   TTcl_ExitProc = procedure(clientData: TClientData); cdecl;
-  PTcl_ExitProc = ^TTcl_ExitProc;
   TTcl_FileProc = procedure(clientData: TClientData; mask: longint); cdecl;
-  PTcl_FileProc = ^TTcl_FileProc;
   TTcl_FileFreeProc = procedure(clientData: TClientData); cdecl;
   TTcl_FreeInternalRepProc = procedure(objPtr: PTcl_Obj); cdecl;
-  PTcl_FreeInternalRepProc = ^TTcl_FreeInternalRepProc;
   TTcl_FreeProc = procedure(blockPtr: pchar); cdecl;
   PTcl_FreeProc = ^TTcl_FreeProc;
-  PPTcl_FreeProc = ^PTcl_FreeProc;
   TTcl_IdleProc = procedure(clientData: TClientData); cdecl;
-  PTcl_IdleProc = ^TTcl_IdleProc;
   TTcl_InterpDeleteProc = procedure(clientData: TClientData; interp: PTcl_Interp); cdecl;
   PTcl_InterpDeleteProc = ^TTcl_InterpDeleteProc;
-  PPTcl_InterpDeleteProc = ^PTcl_InterpDeleteProc;
   TTcl_MathProc = function(clientData: TClientData; interp: PTcl_Interp; args: PTcl_Value; resultPtr: PTcl_Value): longint; cdecl;
   PTcl_MathProc = ^TTcl_MathProc;
-  PPTcl_MathProc = ^PTcl_MathProc;
   TTcl_NamespaceDeleteProc = procedure(clientData: TClientData); cdecl;
-  PTcl_NamespaceDeleteProc = ^TTcl_NamespaceDeleteProc;
   TTcl_ObjCmdProc = function(clientData: TClientData; interp: PTcl_Interp; objc: longint; objv: PPTcl_Obj): longint; cdecl;
-  PTcl_ObjCmdProc = ^TTcl_ObjCmdProc;
   TTcl_PackageInitProc = function(interp: PTcl_Interp): longint; cdecl;
   PTcl_PackageInitProc = ^TTcl_PackageInitProc;
-  PPTcl_PackageInitProc = ^PTcl_PackageInitProc;
   TTcl_PackageUnloadProc = function(interp: PTcl_Interp; flags: longint): longint; cdecl;
   TTcl_PanicProc = procedure(format: pchar; args: array of const); cdecl;
-  PTcl_PanicProc = ^TTcl_PanicProc;
   TTcl_TcpAcceptProc = procedure(callbackData: TClientData; chan: TTcl_Channel; address: pchar; port: longint); cdecl;
-  PTcl_TcpAcceptProc = ^TTcl_TcpAcceptProc;
   TTcl_TimerProc = procedure(clientData: TClientData); cdecl;
-  PTcl_TimerProc = ^TTcl_TimerProc;
   TTcl_SetFromAnyProc = function(interp: PTcl_Interp; objPtr: PTcl_Obj): longint; cdecl;
-  PTcl_SetFromAnyProc = ^TTcl_SetFromAnyProc;
   TTcl_UpdateStringProc = procedure(objPtr: PTcl_Obj); cdecl;
-  PTcl_UpdateStringProc = ^TTcl_UpdateStringProc;
   TTcl_VarTraceProc = function(clientData: TClientData; interp: PTcl_Interp; part1: pchar; part2: pchar; flags: longint): pchar; cdecl;
-  PTcl_VarTraceProc = ^TTcl_VarTraceProc;
   TTcl_CommandTraceProc = procedure(clientData: TClientData; interp: PTcl_Interp; oldName: pchar; newName: pchar; flags: longint); cdecl;
-  PTcl_CommandTraceProc = ^TTcl_CommandTraceProc;
-  TTcl_CreateFileHandlerProc = procedure(fd: longint; mask: longint; proc: PTcl_FileProc; clientData: TClientData); cdecl;
-  PTcl_CreateFileHandlerProc = ^TTcl_CreateFileHandlerProc;
+  TTcl_CreateFileHandlerProc = procedure(fd: longint; mask: longint; proc: TTcl_FileProc; clientData: TClientData); cdecl;
   TTcl_DeleteFileHandlerProc = procedure(fd: longint); cdecl;
-  PTcl_DeleteFileHandlerProc = ^TTcl_DeleteFileHandlerProc;
   TTcl_AlertNotifierProc = procedure(clientData: TClientData); cdecl;
-  PTcl_AlertNotifierProc = ^TTcl_AlertNotifierProc;
   TTcl_ServiceModeHookProc = procedure(mode: longint); cdecl;
-  PTcl_ServiceModeHookProc = ^TTcl_ServiceModeHookProc;
   TTcl_FinalizeNotifierProc = procedure(clientData: TClientData); cdecl;
-  PTcl_FinalizeNotifierProc = ^TTcl_FinalizeNotifierProc;
   TTcl_InitNotifierProc = function(): TClientData;
-  PTcl_InitNotifierProc = ^TTcl_InitNotifierProc;
   TTcl_MainLoopProc = procedure(para1: pointer); cdecl;
-  PTcl_MainLoopProc = ^TTcl_MainLoopProc;
 
+  TTcl_Event = record
+    proc: TTcl_EventProc;
+    nextPtr: PTcl_Event;
+  end;
 
   TTcl_ObjType = record
     Name: pchar;
-    freeIntRepProc: PTcl_FreeInternalRepProc;
-    dupIntRepProc: PTcl_DupInternalRepProc;
-    updateStringProc: PTcl_UpdateStringProc;
-    setFromAnyProc: PTcl_SetFromAnyProc;
+    freeIntRepProc: TTcl_FreeInternalRepProc;
+    dupIntRepProc: TTcl_DupInternalRepProc;
+    updateStringProc: TTcl_UpdateStringProc;
+    setFromAnyProc: TTcl_SetFromAnyProc;
   end;
   PTcl_ObjType = ^TTcl_ObjType;
 
@@ -364,17 +320,16 @@ procedure Tcl_DecrRefCount(objPtr: PTcl_Obj); cdecl; external libtcl8_6;
 function Tcl_IsShared(objPtr: PTcl_Obj): longint; cdecl; external libtcl8_6;
 
 type
-  PTcl_SavedResult = ^TTcl_SavedResult;
-
   TTcl_SavedResult = record
     Result: pchar;
-    freeProc: PTcl_FreeProc;
+    freeProc: TTcl_FreeProc;
     objResultPtr: PTcl_Obj;
     appendResult: pchar;
     appendAvl: longint;
     appendUsed: longint;
     resultSpace: array[0..(TCL_RESULT_SIZE + 1) - 1] of char;
   end;
+  PTcl_SavedResult = ^TTcl_SavedResult;
 
   PTcl_Namespace = ^TTcl_Namespace;
   PPTcl_Namespace = ^PTcl_Namespace;
@@ -383,11 +338,9 @@ type
     Name: pchar;
     fullName: pchar;
     clientData: TClientData;
-    deleteProc: PTcl_NamespaceDeleteProc;
+    deleteProc: TTcl_NamespaceDeleteProc;
     parentPtr: PTcl_Namespace;
   end;
-
-  PTcl_CallFrame = ^TTcl_CallFrame;
 
   TTcl_CallFrame = record
     nsPtr: PTcl_Namespace;
@@ -405,35 +358,33 @@ type
     dummy12: pointer;
     dummy13: pointer;
   end;
-
-  PTcl_CmdInfo = ^TTcl_CmdInfo;
+  PTcl_CallFrame = ^TTcl_CallFrame;
 
   TTcl_CmdInfo = record
     isNativeObjectProc: longint;
-    objProc: PTcl_ObjCmdProc;
+    objProc: TTcl_ObjCmdProc;
     objClientData: TClientData;
-    proc: PTcl_CmdProc;
+    proc: TTcl_CmdProc;
     clientData: TClientData;
-    deleteProc: PTcl_CmdDeleteProc;
+    deleteProc: TTcl_CmdDeleteProc;
     deleteData: TClientData;
     namespacePtr: PTcl_Namespace;
   end;
+  PTcl_CmdInfo = ^TTcl_CmdInfo;
 
 const
   TCL_DSTRING_STATIC_SIZE = 200;
 
 type
-  PTcl_DString = ^TTcl_DString;
-
   TTcl_DString = record
     _string: pchar;
     length: longint;
     spaceAvl: longint;
     staticSpace: array[0..(TCL_DSTRING_STATIC_SIZE) - 1] of char;
   end;
+  PTcl_DString = ^TTcl_DString;
 
 const
-  //  Tcl_DStringTrunc = Tcl_DStringSetLength;
   TCL_MAX_PREC = 17;
   TCL_DOUBLE_SPACE = TCL_MAX_PREC + 10;
   TCL_INTEGER_SPACE = 24;
@@ -446,7 +397,6 @@ const
   TCL_EVAL_INVOKE = $080000;
   TCL_CANCEL_UNWIND = $100000;
   TCL_EVAL_NOERR = $200000;
-
 
 const
   TCL_GLOBAL_ONLY = 1;
@@ -540,21 +490,17 @@ type
   end;
 
   TTcl_HashKeyProc = function(tablePtr: PTcl_HashTable; keyPtr: pointer): dword; cdecl;
-  PTcl_HashKeyProc = ^TTcl_HashKeyProc;
   TTcl_CompareHashKeysProc = function(keyPtr: pointer; hPtr: PTcl_HashEntry): longint; cdecl;
-  PTcl_CompareHashKeysProc = ^TTcl_CompareHashKeysProc;
   TTcl_AllocHashEntryProc = function(tablePtr: PTcl_HashTable; keyPtr: pointer): PTcl_HashEntry; cdecl;
-  PTcl_AllocHashEntryProc = ^TTcl_AllocHashEntryProc;
   TTcl_FreeHashEntryProc = procedure(hPtr: PTcl_HashEntry); cdecl;
-  PTcl_FreeHashEntryProc = ^TTcl_FreeHashEntryProc;
 
   TTcl_HashKeyType = record
     version: longint;
     flags: longint;
-    hashKeyProc: PTcl_HashKeyProc;
-    compareKeysProc: PTcl_CompareHashKeysProc;
-    allocEntryProc: PTcl_AllocHashEntryProc;
-    freeEntryProc: PTcl_FreeHashEntryProc;
+    hashKeyProc: TTcl_HashKeyProc;
+    compareKeysProc: TTcl_CompareHashKeysProc;
+    allocEntryProc: TTcl_AllocHashEntryProc;
+    freeEntryProc: TTcl_FreeHashEntryProc;
   end;
 
   TTcl_HashSearch = record
@@ -608,15 +554,11 @@ type
   end;
 
   TTcl_SetTimerProc = procedure(timePtr: PTcl_Time); cdecl;
-  PTcl_SetTimerProc = ^TTcl_SetTimerProc;
   TTcl_WaitForEventProc = function(timePtr: PTcl_Time): longint; cdecl;
-  PTcl_WaitForEventProc = ^TTcl_WaitForEventProc;
   TTcl_GetTimeProc = procedure(timebuf: PTcl_Time; clientData: TClientData); cdecl;
   PTcl_GetTimeProc = ^TTcl_GetTimeProc;
-  PPTcl_GetTimeProc = ^PTcl_GetTimeProc;
   TTcl_ScaleTimeProc = procedure(timebuf: PTcl_Time; clientData: TClientData); cdecl;
   PTcl_ScaleTimeProc = ^TTcl_ScaleTimeProc;
-  PPTcl_ScaleTimeProc = ^PTcl_ScaleTimeProc;
 
 const
   TCL_READABLE = 1 shl 1;
@@ -635,57 +577,42 @@ const
 
 type
   TTcl_DriverBlockModeProc = function(instanceData: TClientData; mode: longint): longint; cdecl;
-  PTcl_DriverBlockModeProc = ^TTcl_DriverBlockModeProc;
   TTcl_DriverCloseProc = function(instanceData: TClientData; interp: PTcl_Interp): longint; cdecl;
   PTcl_DriverCloseProc = ^TTcl_DriverCloseProc;
   TTcl_DriverClose2Proc = function(instanceData: TClientData; interp: PTcl_Interp; flags: longint): longint; cdecl;
-  PTcl_DriverClose2Proc = ^TTcl_DriverClose2Proc;
   TTcl_DriverInputProc = function(instanceData: TClientData; buf: pchar; toRead: longint; errorCodePtr: Plongint): longint; cdecl;
-  PTcl_DriverInputProc = ^TTcl_DriverInputProc;
   TTcl_DriverOutputProc = function(instanceData: TClientData; buf: pchar; toWrite: longint; errorCodePtr: Plongint): longint; cdecl;
-  PTcl_DriverOutputProc = ^TTcl_DriverOutputProc;
   TTcl_DriverSeekProc = function(instanceData: TClientData; offset: longint; mode: longint; errorCodePtr: Plongint): longint; cdecl;
-  PTcl_DriverSeekProc = ^TTcl_DriverSeekProc;
   TTcl_DriverSetOptionProc = function(instanceData: TClientData; interp: PTcl_Interp; optionName: pchar; Value: pchar): longint; cdecl;
-  PTcl_DriverSetOptionProc = ^TTcl_DriverSetOptionProc;
   TTcl_DriverGetOptionProc = function(instanceData: TClientData; interp: PTcl_Interp; optionName: pchar; dsPtr: PTcl_DString): longint; cdecl;
-  PTcl_DriverGetOptionProc = ^TTcl_DriverGetOptionProc;
   TTcl_DriverWatchProc = procedure(instanceData: TClientData; mask: longint); cdecl;
-  PTcl_DriverWatchProc = ^TTcl_DriverWatchProc;
   TTcl_DriverGetHandleProc = function(instanceData: TClientData; direction: longint; handlePtr: PClientData): longint; cdecl;
-  PTcl_DriverGetHandleProc = ^TTcl_DriverGetHandleProc;
   TTcl_DriverFlushProc = function(instanceData: TClientData): longint; cdecl;
-  PTcl_DriverFlushProc = ^TTcl_DriverFlushProc;
   TTcl_DriverHandlerProc = function(instanceData: TClientData; interestMask: longint): longint; cdecl;
-  PTcl_DriverHandlerProc = ^TTcl_DriverHandlerProc;
   TTcl_DriverWideSeekProc = function(instanceData: TClientData; offset: TTcl_WideInt; mode: longint; errorCodePtr: Plongint): TTcl_WideInt; cdecl;
-  PTcl_DriverWideSeekProc = ^TTcl_DriverWideSeekProc;
   TTcl_DriverThreadActionProc = procedure(instanceData: TClientData; action: longint); cdecl;
-  PTcl_DriverThreadActionProc = ^TTcl_DriverThreadActionProc;
   TTcl_DriverTruncateProc = function(instanceData: TClientData; length: TTcl_WideInt): longint; cdecl;
-  PTcl_DriverTruncateProc = ^TTcl_DriverTruncateProc;
-
-  PTcl_ChannelType = ^TTcl_ChannelType;
 
   TTcl_ChannelType = record
     typeName: pchar;
     version: TTcl_ChannelTypeVersion;
-    closeProc: PTcl_DriverCloseProc;
-    inputProc: PTcl_DriverInputProc;
-    outputProc: PTcl_DriverOutputProc;
-    seekProc: PTcl_DriverSeekProc;
-    setOptionProc: PTcl_DriverSetOptionProc;
-    getOptionProc: PTcl_DriverGetOptionProc;
-    watchProc: PTcl_DriverWatchProc;
-    getHandleProc: PTcl_DriverGetHandleProc;
-    close2Proc: PTcl_DriverClose2Proc;
-    blockModeProc: PTcl_DriverBlockModeProc;
-    flushProc: PTcl_DriverFlushProc;
-    handlerProc: PTcl_DriverHandlerProc;
-    wideSeekProc: PTcl_DriverWideSeekProc;
-    threadActionProc: PTcl_DriverThreadActionProc;
-    truncateProc: PTcl_DriverTruncateProc;
+    closeProc: TTcl_DriverCloseProc;
+    inputProc: TTcl_DriverInputProc;
+    outputProc: TTcl_DriverOutputProc;
+    seekProc: TTcl_DriverSeekProc;
+    setOptionProc: TTcl_DriverSetOptionProc;
+    getOptionProc: TTcl_DriverGetOptionProc;
+    watchProc: TTcl_DriverWatchProc;
+    getHandleProc: TTcl_DriverGetHandleProc;
+    close2Proc: TTcl_DriverClose2Proc;
+    blockModeProc: TTcl_DriverBlockModeProc;
+    flushProc: TTcl_DriverFlushProc;
+    handlerProc: TTcl_DriverHandlerProc;
+    wideSeekProc: TTcl_DriverWideSeekProc;
+    threadActionProc: TTcl_DriverThreadActionProc;
+    truncateProc: TTcl_DriverTruncateProc;
   end;
+  PTcl_ChannelType = ^TTcl_ChannelType;
 
 const
   TCL_MODE_BLOCKING = 0;
@@ -701,14 +628,13 @@ const
   TCL_PATH_VOLUME_RELATIVE = 2;
 
 type
-  PTcl_GlobTypeData = ^TTcl_GlobTypeData;
-
   TTcl_GlobTypeData = record
     _type: longint;
     perm: longint;
     macType: PTcl_Obj;
     macCreator: PTcl_Obj;
   end;
+  PTcl_GlobTypeData = ^TTcl_GlobTypeData;
 
 const
   TCL_GLOB_TYPE_BLOCK = 1 shl 0;
@@ -729,128 +655,95 @@ const
 
 type
   TTcl_FSStatProc = function(pathPtr: PTcl_Obj; buf: PTcl_StatBuf): longint; cdecl;
-  PTcl_FSStatProc = ^TTcl_FSStatProc;
   TTcl_FSAccessProc = function(pathPtr: PTcl_Obj; mode: longint): longint; cdecl;
-  PTcl_FSAccessProc = ^TTcl_FSAccessProc;
   TTcl_FSOpenFileChannelProc = function(interp: PTcl_Interp; pathPtr: PTcl_Obj; mode: longint; permissions: longint): TTcl_Channel; cdecl;
-  PTcl_FSOpenFileChannelProc = ^TTcl_FSOpenFileChannelProc;
   TTcl_FSMatchInDirectoryProc = function(interp: PTcl_Interp; Result: PTcl_Obj; pathPtr: PTcl_Obj; pattern: pchar; types: PTcl_GlobTypeData): longint; cdecl;
-  PTcl_FSMatchInDirectoryProc = ^TTcl_FSMatchInDirectoryProc;
   TTcl_FSGetCwdProc = function(interp: PTcl_Interp): PTcl_Obj; cdecl;
-  PTcl_FSGetCwdProc = ^TTcl_FSGetCwdProc;
   TTcl_FSChdirProc = function(pathPtr: PTcl_Obj): longint; cdecl;
-  PTcl_FSChdirProc = ^TTcl_FSChdirProc;
   TTcl_FSLstatProc = function(pathPtr: PTcl_Obj; buf: PTcl_StatBuf): longint; cdecl;
-  PTcl_FSLstatProc = ^TTcl_FSLstatProc;
   TTcl_FSCreateDirectoryProc = function(pathPtr: PTcl_Obj): longint; cdecl;
-  PTcl_FSCreateDirectoryProc = ^TTcl_FSCreateDirectoryProc;
   TTcl_FSDeleteFileProc = function(pathPtr: PTcl_Obj): longint; cdecl;
-  PTcl_FSDeleteFileProc = ^TTcl_FSDeleteFileProc;
   TTcl_FSCopyDirectoryProc = function(srcPathPtr: PTcl_Obj; destPathPtr: PTcl_Obj; errorPtr: PPTcl_Obj): longint; cdecl;
-  PTcl_FSCopyDirectoryProc = ^TTcl_FSCopyDirectoryProc;
   TTcl_FSCopyFileProc = function(srcPathPtr: PTcl_Obj; destPathPtr: PTcl_Obj): longint; cdecl;
-  PTcl_FSCopyFileProc = ^TTcl_FSCopyFileProc;
   TTcl_FSRemoveDirectoryProc = function(pathPtr: PTcl_Obj; recursive: longint; errorPtr: PPTcl_Obj): longint; cdecl;
-  PTcl_FSRemoveDirectoryProc = ^TTcl_FSRemoveDirectoryProc;
   TTcl_FSRenameFileProc = function(srcPathPtr: PTcl_Obj; destPathPtr: PTcl_Obj): longint; cdecl;
-  PTcl_FSRenameFileProc = ^TTcl_FSRenameFileProc;
   TTcl_FSUnloadFileProc = procedure(loadHandle: TTcl_LoadHandle); cdecl;
   PTcl_FSUnloadFileProc = ^TTcl_FSUnloadFileProc;
-  PPTcl_FSUnloadFileProc = ^PTcl_FSUnloadFileProc;
 
   Putimbuf = ^Tutimbuf;
   Tutimbuf = record
   end;
 
   TTcl_FSListVolumesProc = function: PTcl_Obj; cdecl;
-  PTcl_FSListVolumesProc = ^TTcl_FSListVolumesProc;
   TTcl_FSUtimeProc = function(pathPtr: PTcl_Obj; tval: Putimbuf): longint; cdecl;
-  PTcl_FSUtimeProc = ^TTcl_FSUtimeProc;
   TTcl_FSNormalizePathProc = function(interp: PTcl_Interp; pathPtr: PTcl_Obj; nextCheckpoint: longint): longint; cdecl;
-  PTcl_FSNormalizePathProc = ^TTcl_FSNormalizePathProc;
   TTcl_FSFileAttrsGetProc = function(interp: PTcl_Interp; index: longint; pathPtr: PTcl_Obj; objPtrRef: PPTcl_Obj): longint; cdecl;
-  PTcl_FSFileAttrsGetProc = ^TTcl_FSFileAttrsGetProc;
   TTcl_FSFileAttrStringsProc = function(pathPtr: PTcl_Obj; objPtrRef: PPTcl_Obj): PPchar; cdecl;
-  PTcl_FSFileAttrStringsProc = ^TTcl_FSFileAttrStringsProc;
   TTcl_FSFileAttrsSetProc = function(interp: PTcl_Interp; index: longint; pathPtr: PTcl_Obj; objPtr: PTcl_Obj): longint; cdecl;
-  PTcl_FSFileAttrsSetProc = ^TTcl_FSFileAttrsSetProc;
   TTcl_FSLinkProc = function(pathPtr: PTcl_Obj; toPtr: PTcl_Obj; linkType: longint): PTcl_Obj; cdecl;
-  PTcl_FSLinkProc = ^TTcl_FSLinkProc;
-  TTcl_FSLoadFileProc = function(interp: PTcl_Interp; pathPtr: PTcl_Obj; handlePtr: PTcl_LoadHandle; unloadProcPtr: PPTcl_FSUnloadFileProc): longint; cdecl;
-  PTcl_FSLoadFileProc = ^TTcl_FSLoadFileProc;
+  TTcl_FSLoadFileProc = function(interp: PTcl_Interp; pathPtr: PTcl_Obj; handlePtr: PTcl_LoadHandle; unloadProcPtr: PTcl_FSUnloadFileProc): longint; cdecl;
   TTcl_FSPathInFilesystemProc = function(pathPtr: PTcl_Obj; clientDataPtr: PClientData): longint; cdecl;
-  PTcl_FSPathInFilesystemProc = ^TTcl_FSPathInFilesystemProc;
   TTcl_FSFilesystemPathTypeProc = function(pathPtr: PTcl_Obj): PTcl_Obj; cdecl;
-  PTcl_FSFilesystemPathTypeProc = ^TTcl_FSFilesystemPathTypeProc;
   TTcl_FSFilesystemSeparatorProc = function(pathPtr: PTcl_Obj): PTcl_Obj; cdecl;
-  PTcl_FSFilesystemSeparatorProc = ^TTcl_FSFilesystemSeparatorProc;
   TTcl_FSFreeInternalRepProc = procedure(clientData: TClientData); cdecl;
-  PTcl_FSFreeInternalRepProc = ^TTcl_FSFreeInternalRepProc;
   TTcl_FSDupInternalRepProc = function(clientData: TClientData): TClientData; cdecl;
-  PTcl_FSDupInternalRepProc = ^TTcl_FSDupInternalRepProc;
   TTcl_FSInternalToNormalizedProc = function(clientData: TClientData): PTcl_Obj; cdecl;
-  PTcl_FSInternalToNormalizedProc = ^TTcl_FSInternalToNormalizedProc;
   TTcl_FSCreateInternalRepProc = function(pathPtr: PTcl_Obj): TClientData; cdecl;
-  PTcl_FSCreateInternalRepProc = ^TTcl_FSCreateInternalRepProc;
 
   TTcl_FSVersion = Pointer;
   PTcl_FSVersion = ^TTcl_FSVersion;
-
-  PTcl_Filesystem = ^TTcl_Filesystem;
 
   TTcl_Filesystem = record
     typeName: pchar;
     structureLength: longint;
     version: TTcl_FSVersion;
-    pathInFilesystemProc: PTcl_FSPathInFilesystemProc;
-    dupInternalRepProc: PTcl_FSDupInternalRepProc;
-    freeInternalRepProc: PTcl_FSFreeInternalRepProc;
-    internalToNormalizedProc: PTcl_FSInternalToNormalizedProc;
-    createInternalRepProc: PTcl_FSCreateInternalRepProc;
-    normalizePathProc: PTcl_FSNormalizePathProc;
-    filesystemPathTypeProc: PTcl_FSFilesystemPathTypeProc;
-    filesystemSeparatorProc: PTcl_FSFilesystemSeparatorProc;
-    statProc: PTcl_FSStatProc;
-    accessProc: PTcl_FSAccessProc;
-    openFileChannelProc: PTcl_FSOpenFileChannelProc;
-    matchInDirectoryProc: PTcl_FSMatchInDirectoryProc;
-    utimeProc: PTcl_FSUtimeProc;
-    linkProc: PTcl_FSLinkProc;
-    listVolumesProc: PTcl_FSListVolumesProc;
-    fileAttrStringsProc: PTcl_FSFileAttrStringsProc;
-    fileAttrsGetProc: PTcl_FSFileAttrsGetProc;
-    fileAttrsSetProc: PTcl_FSFileAttrsSetProc;
-    createDirectoryProc: PTcl_FSCreateDirectoryProc;
-    removeDirectoryProc: PTcl_FSRemoveDirectoryProc;
-    deleteFileProc: PTcl_FSDeleteFileProc;
-    copyFileProc: PTcl_FSCopyFileProc;
-    renameFileProc: PTcl_FSRenameFileProc;
-    copyDirectoryProc: PTcl_FSCopyDirectoryProc;
-    lstatProc: PTcl_FSLstatProc;
-    loadFileProc: PTcl_FSLoadFileProc;
-    getCwdProc: PTcl_FSGetCwdProc;
-    chdirProc: PTcl_FSChdirProc;
+    pathInFilesystemProc: TTcl_FSPathInFilesystemProc;
+    dupInternalRepProc: TTcl_FSDupInternalRepProc;
+    freeInternalRepProc: TTcl_FSFreeInternalRepProc;
+    internalToNormalizedProc: TTcl_FSInternalToNormalizedProc;
+    createInternalRepProc: TTcl_FSCreateInternalRepProc;
+    normalizePathProc: TTcl_FSNormalizePathProc;
+    filesystemPathTypeProc: TTcl_FSFilesystemPathTypeProc;
+    filesystemSeparatorProc: TTcl_FSFilesystemSeparatorProc;
+    statProc: TTcl_FSStatProc;
+    accessProc: TTcl_FSAccessProc;
+    openFileChannelProc: TTcl_FSOpenFileChannelProc;
+    matchInDirectoryProc: TTcl_FSMatchInDirectoryProc;
+    utimeProc: TTcl_FSUtimeProc;
+    linkProc: TTcl_FSLinkProc;
+    listVolumesProc: TTcl_FSListVolumesProc;
+    fileAttrStringsProc: TTcl_FSFileAttrStringsProc;
+    fileAttrsGetProc: TTcl_FSFileAttrsGetProc;
+    fileAttrsSetProc: TTcl_FSFileAttrsSetProc;
+    createDirectoryProc: TTcl_FSCreateDirectoryProc;
+    removeDirectoryProc: TTcl_FSRemoveDirectoryProc;
+    deleteFileProc: TTcl_FSDeleteFileProc;
+    copyFileProc: TTcl_FSCopyFileProc;
+    renameFileProc: TTcl_FSRenameFileProc;
+    copyDirectoryProc: TTcl_FSCopyDirectoryProc;
+    lstatProc: TTcl_FSLstatProc;
+    loadFileProc: TTcl_FSLoadFileProc;
+    getCwdProc: TTcl_FSGetCwdProc;
+    chdirProc: TTcl_FSChdirProc;
   end;
+  PTcl_Filesystem = ^TTcl_Filesystem;
 
 const
   TCL_CREATE_SYMBOLIC_LINK = $01;
   TCL_CREATE_HARD_LINK = $02;
 
 type
-  PTcl_NotifierProcs = ^TTcl_NotifierProcs;
-
   TTcl_NotifierProcs = record
-    setTimerProc: PTcl_SetTimerProc;
-    waitForEventProc: PTcl_WaitForEventProc;
-    createFileHandlerProc: PTcl_CreateFileHandlerProc;
-    deleteFileHandlerProc: PTcl_DeleteFileHandlerProc;
-    initNotifierProc: PTcl_InitNotifierProc;
-    finalizeNotifierProc: PTcl_FinalizeNotifierProc;
-    alertNotifierProc: PTcl_AlertNotifierProc;
-    serviceModeHookProc: PTcl_ServiceModeHookProc;
+    setTimerProc: TTcl_SetTimerProc;
+    waitForEventProc: TTcl_WaitForEventProc;
+    createFileHandlerProc: TTcl_CreateFileHandlerProc;
+    deleteFileHandlerProc: TTcl_DeleteFileHandlerProc;
+    initNotifierProc: TTcl_InitNotifierProc;
+    finalizeNotifierProc: TTcl_FinalizeNotifierProc;
+    alertNotifierProc: TTcl_AlertNotifierProc;
+    serviceModeHookProc: TTcl_ServiceModeHookProc;
   end;
-
-  PTcl_Token = ^TTcl_Token;
+  PTcl_NotifierProcs = ^TTcl_NotifierProcs;
 
   TTcl_Token = record
     _type: longint;
@@ -858,6 +751,7 @@ type
     size: longint;
     numComponents: longint;
   end;
+  PTcl_Token = ^TTcl_Token;
 
 const
   TCL_TOKEN_WORD = 1;
@@ -905,9 +799,9 @@ type
 
   TTcl_EncodingType = record
     encodingName: pchar;
-    toUtfProc: PTcl_EncodingConvertProc;
-    fromUtfProc: PTcl_EncodingConvertProc;
-    freeProc: PTcl_EncodingFreeProc;
+    toUtfProc: TTcl_EncodingConvertProc;
+    fromUtfProc: TTcl_EncodingConvertProc;
+    freeProc: TTcl_EncodingFreeProc;
     clientData: TClientData;
     nullSize: longint;
   end;
@@ -947,9 +841,7 @@ const
 
 type
   TTcl_LimitHandlerProc = procedure(clientData: TClientData; interp: PTcl_Interp); cdecl;
-  PTcl_LimitHandlerProc = ^TTcl_LimitHandlerProc;
   TTcl_LimitHandlerDeleteProc = procedure(clientData: TClientData); cdecl;
-  PTcl_LimitHandlerDeleteProc = ^TTcl_LimitHandlerDeleteProc;
 
 type
   Tmp_int = record
@@ -1008,11 +900,10 @@ const
 
 type
   TTcl_NRPostProc = function(Data: PClientData; interp: PTcl_Interp; Result: integer): integer;
-  PTcl_NRPostProc = ^TTcl_NRPostProc;
 
 function Tcl_InitStubs(interp: PTcl_Interp; version: pchar; exact: longint): pchar; cdecl; external libtcl8_6;
 function TclTomMathInitializeStubs(interp: PTcl_Interp; version: pchar; epoch: longint; revision: longint): pchar; cdecl; external libtcl8_6;
-procedure Tcl_MainEx(argc: longint; argv: PPchar; appInitProc: PTcl_AppInitProc; interp: PTcl_Interp); cdecl; external libtcl8_6;
+procedure Tcl_MainEx(argc: longint; argv: PPchar; appInitProc: TTcl_AppInitProc; interp: PTcl_Interp); cdecl; external libtcl8_6;
 function Tcl_PkgInitStubsCheck(interp: PTcl_Interp; version: pchar; exact: longint): pchar; cdecl; external libtcl8_6;
 procedure Tcl_GetMemoryInfo(dsPtr: PTcl_DString); cdecl; external libtcl8_6;
 

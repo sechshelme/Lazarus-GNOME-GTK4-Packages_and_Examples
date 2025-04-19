@@ -33,7 +33,7 @@ function Tk_CanvasPsY(canvas:TTk_Canvas; y:double):double;cdecl;external libtkst
 procedure Tk_CanvasSetStippleOrigin(canvas:TTk_Canvas; gc:TGC);cdecl;external libtkstub8_6;
 function Tk_CanvasTagsParseProc(clientData:TClientData; interp:PTcl_Interp; tkwin:TTk_Window; value:Pchar; widgRec:Pchar;
            offset:longint):longint;cdecl;external libtkstub8_6;
-function Tk_CanvasTagsPrintProc(clientData:TClientData; tkwin:TTk_Window; widgRec:Pchar; offset:longint; freeProcPtr:PPTcl_FreeProc):Pchar;cdecl;external libtkstub8_6;
+function Tk_CanvasTagsPrintProc(clientData:TClientData; tkwin:TTk_Window; widgRec:Pchar; offset:longint; freeProcPtr:PTcl_FreeProc):Pchar;cdecl;external libtkstub8_6;
 function Tk_CanvasTkwin(canvas:TTk_Canvas):TTk_Window;cdecl;external libtkstub8_6;
 procedure Tk_CanvasWindowCoords(canvas:TTk_Canvas; x:double; y:double; screenXPtr:Psmallint; screenYPtr:Psmallint);cdecl;external libtkstub8_6;
 procedure Tk_ChangeWindowAttributes(tkwin:TTk_Window; valueMask:dword; attsPtr:PXSetWindowAttributes);cdecl;external libtkstub8_6;
@@ -55,14 +55,14 @@ function Tk_CoordsToWindow(rootX:longint; rootY:longint; tkwin:TTk_Window):TTk_W
 function Tk_CreateBinding(interp:PTcl_Interp; bindingTable:TTk_BindingTable; obj:TClientData; eventStr:Pchar; script:Pchar;
            append:longint):dword;cdecl;external libtkstub8_6;
 function Tk_CreateBindingTable(interp:PTcl_Interp):TTk_BindingTable;cdecl;external libtkstub8_6;
-function Tk_CreateErrorHandler(display:PDisplay; errNum:longint; request:longint; minorCode:longint; errorProc:PTk_ErrorProc;
+function Tk_CreateErrorHandler(display:PDisplay; errNum:longint; request:longint; minorCode:longint; errorProc:TTk_ErrorProc;
            clientData:TClientData):TTk_ErrorHandler;cdecl;external libtkstub8_6;
-procedure Tk_CreateEventHandler(token:TTk_Window; mask:dword; proc:PTk_EventProc; clientData:TClientData);cdecl;external libtkstub8_6;
-procedure Tk_CreateGenericHandler(proc:PTk_GenericProc; clientData:TClientData);cdecl;external libtkstub8_6;
+procedure Tk_CreateEventHandler(token:TTk_Window; mask:dword; proc:TTk_EventProc; clientData:TClientData);cdecl;external libtkstub8_6;
+procedure Tk_CreateGenericHandler(proc:TTk_GenericProc; clientData:TClientData);cdecl;external libtkstub8_6;
 procedure Tk_CreateImageType(typePtr:PTk_ImageType);cdecl;external libtkstub8_6;
 procedure Tk_CreateItemType(typePtr:PTk_ItemType);cdecl;external libtkstub8_6;
 procedure Tk_CreatePhotoImageFormat(formatPtr:PTk_PhotoImageFormat);cdecl;external libtkstub8_6;
-procedure Tk_CreateSelHandler(tkwin:TTk_Window; selection:TAtom; target:TAtom; proc:PTk_SelectionProc; clientData:TClientData;
+procedure Tk_CreateSelHandler(tkwin:TTk_Window; selection:TAtom; target:TAtom; proc:TTk_SelectionProc; clientData:TClientData;
             format:TAtom);cdecl;external libtkstub8_6;
 function Tk_CreateWindow(interp:PTcl_Interp; parent:TTk_Window; name:Pchar; screenName:Pchar):TTk_Window;cdecl;external libtkstub8_6;
 function Tk_CreateWindowFromPath(interp:PTcl_Interp; tkwin:TTk_Window; pathName:Pchar; screenName:Pchar):TTk_Window;cdecl;external libtkstub8_6;
@@ -72,8 +72,8 @@ procedure Tk_DeleteAllBindings(bindingTable:TTk_BindingTable; obj:TClientData);c
 function Tk_DeleteBinding(interp:PTcl_Interp; bindingTable:TTk_BindingTable; obj:TClientData; eventStr:Pchar):longint;cdecl;external libtkstub8_6;
 procedure Tk_DeleteBindingTable(bindingTable:TTk_BindingTable);cdecl;external libtkstub8_6;
 procedure Tk_DeleteErrorHandler(handler:TTk_ErrorHandler);cdecl;external libtkstub8_6;
-procedure Tk_DeleteEventHandler(token:TTk_Window; mask:dword; proc:PTk_EventProc; clientData:TClientData);cdecl;external libtkstub8_6;
-procedure Tk_DeleteGenericHandler(proc:PTk_GenericProc; clientData:TClientData);cdecl;external libtkstub8_6;
+procedure Tk_DeleteEventHandler(token:TTk_Window; mask:dword; proc:TTk_EventProc; clientData:TClientData);cdecl;external libtkstub8_6;
+procedure Tk_DeleteGenericHandler(proc:TTk_GenericProc; clientData:TClientData);cdecl;external libtkstub8_6;
 procedure Tk_DeleteImage(interp:PTcl_Interp; name:Pchar);cdecl;external libtkstub8_6;
 procedure Tk_DeleteSelHandler(tkwin:TTk_Window; selection:TAtom; target:TAtom);cdecl;external libtkstub8_6;
 procedure Tk_DestroyWindow(tkwin:TTk_Window);cdecl;external libtkstub8_6;
@@ -126,7 +126,7 @@ function Tk_GetFont(interp:PTcl_Interp; tkwin:TTk_Window; str:Pchar):TTk_Font;cd
 function Tk_GetFontFromObj(tkwin:TTk_Window; objPtr:PTcl_Obj):TTk_Font;cdecl;external libtkstub8_6;
 procedure Tk_GetFontMetrics(font:TTk_Font; fmPtr:PTk_FontMetrics);cdecl;external libtkstub8_6;
 function Tk_GetGC(tkwin:TTk_Window; valueMask:dword; valuePtr:PXGCValues):TGC;cdecl;external libtkstub8_6;
-function Tk_GetImage(interp:PTcl_Interp; tkwin:TTk_Window; name:Pchar; changeProc:PTk_ImageChangedProc; clientData:TClientData):TTk_Image;cdecl;external libtkstub8_6;
+function Tk_GetImage(interp:PTcl_Interp; tkwin:TTk_Window; name:Pchar; changeProc:TTk_ImageChangedProc; clientData:TClientData):TTk_Image;cdecl;external libtkstub8_6;
 function Tk_GetImageMasterData(interp:PTcl_Interp; name:Pchar; typePtrPtr:PPTk_ImageType):TClientData;cdecl;external libtkstub8_6;
 function Tk_GetItemTypes:PTk_ItemType;cdecl;external libtkstub8_6;
 function Tk_GetJoinStyle(interp:PTcl_Interp; str:Pchar; joinPtr:Plongint):longint;cdecl;external libtkstub8_6;
@@ -139,7 +139,7 @@ function Tk_GetRelief(interp:PTcl_Interp; name:Pchar; reliefPtr:Plongint):longin
 procedure Tk_GetRootCoords(tkwin:TTk_Window; xPtr:Plongint; yPtr:Plongint);cdecl;external libtkstub8_6;
 function Tk_GetScrollInfo(interp:PTcl_Interp; argc:longint; argv:PPchar; dblPtr:Pdouble; intPtr:Plongint):longint;cdecl;external libtkstub8_6;
 function Tk_GetScreenMM(interp:PTcl_Interp; tkwin:TTk_Window; str:Pchar; doublePtr:Pdouble):longint;cdecl;external libtkstub8_6;
-function Tk_GetSelection(interp:PTcl_Interp; tkwin:TTk_Window; selection:TAtom; target:TAtom; proc:PTk_GetSelProc;
+function Tk_GetSelection(interp:PTcl_Interp; tkwin:TTk_Window; selection:TAtom; target:TAtom; proc:TTk_GetSelProc;
            clientData:TClientData):longint;cdecl;external libtkstub8_6;
 function Tk_GetUid(str:Pchar):TTk_Uid;cdecl;external libtkstub8_6;
 function Tk_GetVisual(interp:PTcl_Interp; tkwin:TTk_Window; str:Pchar; depthPtr:Plongint; colormapPtr:PColormap):PVisual;cdecl;external libtkstub8_6;
@@ -175,7 +175,7 @@ function Tk_NameOfJoinStyle(join:longint):Pchar;cdecl;external libtkstub8_6;
 function Tk_NameOfJustify(justify:TTk_Justify):Pchar;cdecl;external libtkstub8_6;
 function Tk_NameOfRelief(relief:longint):Pchar;cdecl;external libtkstub8_6;
 function Tk_NameToWindow(interp:PTcl_Interp; pathName:Pchar; tkwin:TTk_Window):TTk_Window;cdecl;external libtkstub8_6;
-procedure Tk_OwnSelection(tkwin:TTk_Window; selection:TAtom; proc:PTk_LostSelProc; clientData:TClientData);cdecl;external libtkstub8_6;
+procedure Tk_OwnSelection(tkwin:TTk_Window; selection:TAtom; proc:TTk_LostSelProc; clientData:TClientData);cdecl;external libtkstub8_6;
 function Tk_ParseArgv(interp:PTcl_Interp; tkwin:TTk_Window; argcPtr:Plongint; argv:PPchar; argTable:PTk_ArgvInfo;
            flags:longint):longint;cdecl;external libtkstub8_6;
 procedure Tk_PhotoPutBlock_NoComposite(handle:TTk_PhotoHandle; blockPtr:PTk_PhotoImageBlock; x:longint; y:longint; width:longint;
@@ -195,7 +195,7 @@ procedure Tk_RedrawImage(image:TTk_Image; imageX:longint; imageY:longint; width:
             drawable:TDrawable; drawableX:longint; drawableY:longint);cdecl;external libtkstub8_6;
 procedure Tk_ResizeWindow(tkwin:TTk_Window; width:longint; height:longint);cdecl;external libtkstub8_6;
 function Tk_RestackWindow(tkwin:TTk_Window; aboveBelow:longint; other:TTk_Window):longint;cdecl;external libtkstub8_6;
-function Tk_RestrictEvents(proc:PTk_RestrictProc; arg:TClientData; prevArgPtr:PClientData):PTk_RestrictProc;cdecl;external libtkstub8_6;
+function Tk_RestrictEvents(proc:TTk_RestrictProc; arg:TClientData; prevArgPtr:PClientData):TTk_RestrictProc;cdecl;external libtkstub8_6;
 function Tk_SafeInit(interp:PTcl_Interp):longint;cdecl;external libtkstub8_6;
 function Tk_SetAppName(tkwin:TTk_Window; name:Pchar):Pchar;cdecl;external libtkstub8_6;
 procedure Tk_SetBackgroundFromBorder(tkwin:TTk_Window; border:TTk_3DBorder);cdecl;external libtkstub8_6;
@@ -251,7 +251,7 @@ function Tk_GetPixelsFromObj(interp:PTcl_Interp; tkwin:TTk_Window; objPtr:PTcl_O
 function Tk_GetReliefFromObj(interp:PTcl_Interp; objPtr:PTcl_Obj; resultPtr:Plongint):longint;cdecl;external libtkstub8_6;
 function Tk_GetScrollInfoObj(interp:PTcl_Interp; objc:longint; objv:PPTcl_Obj; dblPtr:Pdouble; intPtr:Plongint):longint;cdecl;external libtkstub8_6;
 function Tk_InitOptions(interp:PTcl_Interp; recordPtr:Pchar; optionToken:TTk_OptionTable; tkwin:TTk_Window):longint;cdecl;external libtkstub8_6;
-procedure Tk_MainEx(argc:longint; argv:PPchar; appInitProc:PTcl_AppInitProc; interp:PTcl_Interp);cdecl;external libtkstub8_6;
+procedure Tk_MainEx(argc:longint; argv:PPchar; appInitProc:TTcl_AppInitProc; interp:PTcl_Interp);cdecl;external libtkstub8_6;
 procedure Tk_RestoreSavedOptions(savePtr:PTk_SavedOptions);cdecl;external libtkstub8_6;
 function Tk_SetOptions(interp:PTcl_Interp; recordPtr:Pchar; optionTable:TTk_OptionTable; objc:longint; objv:PPTcl_Obj;
            tkwin:TTk_Window; savePtr:PTk_SavedOptions; maskPtr:Plongint):longint;cdecl;external libtkstub8_6;
@@ -279,8 +279,8 @@ procedure Tk_PostscriptPath(interp:PTcl_Interp; psInfo:TTk_PostscriptInfo; coord
 function Tk_PostscriptStipple(interp:PTcl_Interp; tkwin:TTk_Window; psInfo:TTk_PostscriptInfo; bitmap:TPixmap):longint;cdecl;external libtkstub8_6;
 function Tk_PostscriptY(y:double; psInfo:TTk_PostscriptInfo):double;cdecl;external libtkstub8_6;
 function Tk_PostscriptPhoto(interp:PTcl_Interp; blockPtr:PTk_PhotoImageBlock; psInfo:TTk_PostscriptInfo; width:longint; height:longint):longint;cdecl;external libtkstub8_6;
-procedure Tk_CreateClientMessageHandler(proc:PTk_ClientMessageProc);cdecl;external libtkstub8_6;
-procedure Tk_DeleteClientMessageHandler(proc:PTk_ClientMessageProc);cdecl;external libtkstub8_6;
+procedure Tk_CreateClientMessageHandler(proc:TTk_ClientMessageProc);cdecl;external libtkstub8_6;
+procedure Tk_DeleteClientMessageHandler(proc:TTk_ClientMessageProc);cdecl;external libtkstub8_6;
 function Tk_CreateAnonymousWindow(interp:PTcl_Interp; parent:TTk_Window; screenName:Pchar):TTk_Window;cdecl;external libtkstub8_6;
 procedure Tk_SetClassProcs(tkwin:TTk_Window; procs:PTk_ClassProcs; instanceData:TClientData);cdecl;external libtkstub8_6;
 procedure Tk_SetInternalBorderEx(tkwin:TTk_Window; left:longint; right:longint; top:longint; bottom:longint);cdecl;external libtkstub8_6;
@@ -338,7 +338,7 @@ type
     tkStubsPtr : PTkStubs;cvar;external libtkstub8_6;
 
 
-procedure Tk_MainExW(argc:longint; argv:PPwchar_t; appInitProc:PTcl_AppInitProc; interp:PTcl_Interp);cdecl;external libtkstub8_6;
+procedure Tk_MainExW(argc:longint; argv:PPwchar_t; appInitProc:TTcl_AppInitProc; interp:PTcl_Interp);cdecl;external libtkstub8_6;
 
 function Tk_FreeStyleFromObj(objPtr : longint) : pointer;
 
