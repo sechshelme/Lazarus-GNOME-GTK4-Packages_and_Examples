@@ -28,7 +28,6 @@ const
   TCL_PATCH_LEVEL = '8.6.14';
 
 type
-
   PSHORT = ^TSHORT;
   TSHORT = smallint;
 

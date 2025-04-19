@@ -24,8 +24,6 @@ uses
       Exit(1);
     end;
 
-
-
     // Hole den Index des ausgewählten Elements
     if Tcl_Eval(interp, 'set selectedIndex [.listbox curselection]') <> TCL_OK then begin
       WriteLn('Fehler beim Auslesen der Auswahl: ', Tcl_GetStringResult(interp));
@@ -71,11 +69,11 @@ var
 
     Tcl_Eval(interp, '.c delete circle');
 
-    WriteStr(cmd, '.c create oval ', x1 - 20,' ', y1 - 20,' ', x1 + 20,' ', y1 + 20, ' -outline black -fill yellow -tags circle');
+    WriteStr(cmd, '.c create oval ', x1 - 20, ' ', y1 - 20, ' ', x1 + 20, ' ', y1 + 20, ' -outline black -fill yellow -tags circle');
     if Tcl_Eval(interp, PChar(cmd)) <> TCL_OK then begin
       WriteLn('Fehler beim Erstellen des Kreises: ', Tcl_GetStringResult(interp));
     end;
-    WriteStr(cmd, '.c create oval ', x2 - 20,' ', y2 - 20,' ', x2 + 20,' ', y2 + 20, ' -outline black -fill green -tags circle');
+    WriteStr(cmd, '.c create oval ', x2 - 20, ' ', y2 - 20, ' ', x2 + 20, ' ', y2 + 20, ' -outline black -fill green -tags circle');
     if Tcl_Eval(interp, PChar(cmd)) <> TCL_OK then begin
       WriteLn('Fehler beim Erstellen des Kreises: ', Tcl_GetStringResult(interp));
     end;
@@ -142,7 +140,7 @@ var
     Tcl_Eval(interp, 'set ida1 [.c create oval 10 10 60 60 -fill red]');
     Tcl_Eval(interp, 'set id2 [.c create oval 100 100 150 150 -fill blue]');
 
-    WriteLn('id1: ', Tcl_GetVar(interp, 'id1',TCL_GLOBAL_ONLY));
+    WriteLn('id1: ', Tcl_GetVar(interp, 'id1', TCL_GLOBAL_ONLY));
 
     Tcl_CreateTimerHandler(30, @MoveCircle, nil);
 
@@ -184,6 +182,7 @@ var
   procedure Test;
   var
     interp: PTcl_Interp;
+    f: double;
   begin
     interp := Tcl_CreateInterp; // Tcl-Interpreter erzeugen
 
@@ -191,6 +190,19 @@ var
       WriteLn('Tcl_Init error: ', Tcl_GetStringResult(interp));
       Exit;
     end;
+
+    if Tcl_ExprString(interp, '3 * (7 + 2)') <> TCL_OK then begin
+      WriteLn('Fehler: ', Tcl_GetStringResult(interp));
+    end else begin
+      WriteLn('Ergebniss: ', Tcl_GetStringResult(interp));
+    end;
+
+    if Tcl_ExprDouble(interp, 'sin(0.5) + pow(3, 4) / sqrt(2)', @f) <> TCL_OK then begin
+      WriteLn('Fehler: ', Tcl_GetStringResult(interp));
+    end else begin
+      WriteLn('Ergebniss: ', f: 4: 2);
+    end;
+
 
     // Einfache Tcl-Anweisung ausführen
     if Tcl_Eval(interp, 'set hw "Hello World! ( Tcl_Eval )"; puts $hw') = TCL_ERROR then begin
@@ -216,8 +228,55 @@ var
 
   end;
 
+function DoubleCmd(clientData: TClientData; interp: PTcl_Interp; objc: longint; objv: PPTcl_Obj): longint; cdecl;
+var
+  num1, num2: Double;
+  ch: PChar;
+begin
+  WriteLn('args: ', objc);
+
+  if objc <> 3 then begin
+      Tcl_WrongNumArgs(interp, 1, objv, 'Zahl');
+      WriteLn('cmd error 1');
+      Exit(TCL_ERROR);
+  end;
+
+  ch:=Tcl_GetString(objv[0]);
+  WriteLn('objv[i]: ',ch);
+
+  if Tcl_GetDoubleFromObj(interp, objv[1], @num1) <> TCL_OK then begin
+      WriteLn('cmd error 2');
+      Exit(TCL_ERROR);
+  end;
+
+  if Tcl_GetDoubleFromObj(interp, objv[2], @num2) <> TCL_OK then begin
+      WriteLn('cmd error 2');
+      Exit(TCL_ERROR);
+  end;
+
+  Tcl_SetObjResult(interp, Tcl_NewDoubleObj(num1 + num2));
+  Exit(TCL_OK);
+end;
+
+procedure doubleTest;
+var
+  interp: PTcl_Interp;
+begin
+  interp := Tcl_CreateInterp; // Tcl-Interpreter erzeugen
+
+  Tcl_Init(interp);
+
+  Tcl_CreateObjCommand(interp, 'double', @DoubleCmd, nil, nil);
+
+  Tcl_Eval(interp, 'puts [double 3.3 6.7]');
+
+
+  Tcl_DeleteInterp(interp); // Interpreter freigeben
+  end;
+
 begin
   test;
+  doubleTest;
   main(0, nil);
 
 end.
