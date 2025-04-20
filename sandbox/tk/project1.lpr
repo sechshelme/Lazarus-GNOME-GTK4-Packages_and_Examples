@@ -1,22 +1,7 @@
 program project1;
 
 uses
-  fp_tcl,
-
-  //tk_tcl_common,
-  //
-  //tcl,
-  //tclDecls,        // -> tcl
-  //tclPlatDecls,    // -> tcl
-  //tclOO,           // -> tcl
-  //tclOODecls,      // -> tk, tclOO
-  //tclTomMath,      // -> tcl
-  //tclTomMathDecls, // -> tcl, tclTomMath
-  //tk,              // -> tcl
-  //tkDecls,         // -> tcl, tk
-  //tkPlatDecls,     // -> tcl, tk
-
-  Math;
+  fp_tcl;
 
 
   function printSelection(clientData: TClientData; interp: PTcl_Interp; argc: longint; argv: PPchar): longint; cdecl;
@@ -50,12 +35,9 @@ uses
   end;
 
 
-
-var
-  interp: PTcl_Interp;
-
-
   procedure MoveCircle(clientData: TClientData); cdecl;
+  var
+    interp: PTcl_Interp absolute clientData;
   const
     x1: integer = 50;
     y1: integer = 100;
@@ -82,12 +64,13 @@ var
       WriteLn('Fehler beim Erstellen des Kreises: ', Tcl_GetStringResult(interp));
     end;
 
-    Tcl_CreateTimerHandler(30, @MoveCircle, nil);
+    Tcl_CreateTimerHandler(30, @MoveCircle, interp);
   end;
 
   function main(argc: integer; argv: PPChar): integer;
   var
     mainWindow: TTk_Window;
+    interp: PTcl_Interp;
   begin
     interp := Tcl_CreateInterp();
     if Tcl_Init(interp) = TCL_ERROR then begin
@@ -146,7 +129,7 @@ var
 
     WriteLn('id1: ', Tcl_GetVar(interp, 'id1', TCL_GLOBAL_ONLY));
 
-    Tcl_CreateTimerHandler(30, @MoveCircle, nil);
+    Tcl_CreateTimerHandler(30, @MoveCircle, interp);
 
 
 
