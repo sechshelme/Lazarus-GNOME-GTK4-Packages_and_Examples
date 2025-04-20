@@ -1,17 +1,4 @@
-unit tclTomMath;
-
-interface
-
-uses
-  ctypes, tk_tcl_common, tcl;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
-
-type
-  Pmp_digit = ^Tmp_digit;
-  Tmp_digit = uint32;
+{$IFDEF read_interface}
 
 type
   Pprivate_mp_word = ^Tprivate_mp_word;
@@ -91,16 +78,6 @@ const
 const
   DIGIT_BIT = MP_DIGIT_BIT;
 
-type
-  Pmp_int = ^Tmp_int;
-
-  Tmp_int = record
-    used: longint;
-    alloc: longint;
-    sign: Tmp_sign;
-    dp: Pmp_digit;
-  end;
-
 const
   PRIVATE_MP_PRIME_TAB_SIZE = 256;
 
@@ -125,7 +102,10 @@ function mp_isneg(a: Pmp_int): Tmp_bool;
 // === Konventiert am: 15-4-25 13:26:34 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 function USED(m: Pmp_int): longint;
@@ -179,4 +159,4 @@ begin
   end;
 end;
 
-end.
+{$ENDIF read_implementation}

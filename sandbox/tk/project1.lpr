@@ -1,18 +1,20 @@
 program project1;
 
 uses
-  tk_tcl_common,
+  fp_tcl,
 
-  tcl,
-  tclDecls,        // -> tcl
-  tclPlatDecls,    // -> tcl
-  tclOO,           // -> tcl
-  tclOODecls,      // -> tk, tclOO
-  tclTomMath,
-  tclTomMathDecls,
-  tk,              // -> tcl
-  tkDecls,         // -> tcl, tk
-  tkPlatDecls,     // -> tcl, tk
+  //tk_tcl_common,
+  //
+  //tcl,
+  //tclDecls,        // -> tcl
+  //tclPlatDecls,    // -> tcl
+  //tclOO,           // -> tcl
+  //tclOODecls,      // -> tk, tclOO
+  //tclTomMath,      // -> tcl
+  //tclTomMathDecls, // -> tcl, tclTomMath
+  //tk,              // -> tcl
+  //tkDecls,         // -> tcl, tk
+  //tkPlatDecls,     // -> tcl, tk
 
   Math;
 

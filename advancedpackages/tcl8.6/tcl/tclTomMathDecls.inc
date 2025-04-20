@@ -1,13 +1,4 @@
-unit tclTomMathDecls;
-
-interface
-
-uses
- tk_tcl_common, tcl, tclTomMath;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -112,8 +103,11 @@ var
   // === Konventiert am: 15-4-25 13:26:41 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}
