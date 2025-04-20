@@ -3,7 +3,7 @@ unit tkPlatDecls;
 interface
 
 uses
-  ctypes, tk_tcl_common;
+  tk_tcl_common;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}

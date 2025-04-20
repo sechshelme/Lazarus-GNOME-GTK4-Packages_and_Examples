@@ -4,7 +4,6 @@ interface
 
 uses
   tk_tcl_common,
-  //  tclDecls,
   ctypes;
 
   {$IFDEF FPC}

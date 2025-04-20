@@ -10,13 +10,9 @@ uses
   {$ENDIF}
 
   {$IFDEF MSWINDOWS}
-  {$IFDEF UNICODE}
 type
-  TCHAR = widechar;
-  {$ELSE}
-type
-  TCHAR = ansichar;
-  {$ENDIF}
+  TTCHAR = widechar;
+  PTCHAR = ^TTCHAR;
 const
   _TCHAR_DEFINED = True;
   {$ENDIF}

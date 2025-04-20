@@ -3,7 +3,7 @@ unit tkDecls;
 interface
 
 uses
- x,xlib, ctypes, tk_tcl_common, tcl, tk, tclPlatDecls, tkPlatDecls;
+ x,xlib, ctypes, tk_tcl_common, tcl, tk;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}

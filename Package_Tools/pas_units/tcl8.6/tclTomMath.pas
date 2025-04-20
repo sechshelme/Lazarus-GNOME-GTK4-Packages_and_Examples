@@ -9,123 +9,31 @@ uses
 {$PACKRECORDS C}
 {$ENDIF}
 
-
-{ LibTomMath, multiple-precision integer library -- Tom St Denis  }
-{ SPDX-License-Identifier: Unlicense  }
-{$ifndef BN_H_}
-{$define BN_H_}
-{ some default configurations.
- *
- * A "mp_digit" must be able to hold MP_DIGIT_BIT + 1 bits
- * A "mp_word" must be able to hold 2*MP_DIGIT_BIT + 1 bits
- *
- * At the very least a mp_digit must be able to hold 7 bits
- * [any size beyond that is ok provided it doesn't overflow the data type]
-  }
-{$ifdef MP_8BIT}
-{$ifndef MP_DIGIT_DECLARED}
 type
   Pmp_digit = ^Tmp_digit;
-  Tmp_digit = byte;
-{$define MP_DIGIT_DECLARED}
-{$endif}
-{$ifndef MP_WORD_DECLARED}
-type
-  Pprivate_mp_word = ^Tprivate_mp_word;
-  Tprivate_mp_word = word;
-{$define MP_WORD_DECLARED}
-{$endif}
-
-const
-  MP_SIZEOF_MP_DIGIT = 1;  
-{$ifdef MP_DIGIT_BIT}
-{$error You must not define MP_DIGIT_BIT when using MP_8BIT}
-{$endif}
-(*** was #elif ****){$else defined(MP_16BIT)}
-{$ifndef MP_DIGIT_DECLARED}
-type
-  Pmp_digit = ^Tmp_digit;
-  Tmp_digit = word;
-{$define MP_DIGIT_DECLARED}
-{$endif}
-{$ifndef MP_WORD_DECLARED}
+  Tmp_digit = UInt32;
 type
   Pprivate_mp_word = ^Tprivate_mp_word;
   Tprivate_mp_word = dword;
-{$define MP_WORD_DECLARED}
-{$endif}
 
 const
   MP_SIZEOF_MP_DIGIT = 2;  
-{$ifdef MP_DIGIT_BIT}
-{$error You must not define MP_DIGIT_BIT when using MP_16BIT}
-{$endif}
-(*** was #elif ****){$else defined(MP_64BIT)}
-{ for GCC only on supported platforms  }
-{$ifndef MP_DIGIT_DECLARED}
-type
-  Pmp_digit = ^Tmp_digit;
-  Tmp_digit = qword;
-{$define MP_DIGIT_DECLARED}
-{$endif}
-{typedef unsigned long        private_mp_word ((mode(TI))); }
 
 const
-  MP_DIGIT_BIT = 60;  
-{$else}
-{ this is the default case, 28-bit digits  }
-{ this is to make porting into LibTomCrypt easier :-)  }
-{$ifndef MP_DIGIT_DECLARED}
-type
-  Pmp_digit = ^Tmp_digit;
-  Tmp_digit = dword;
-{$define MP_DIGIT_DECLARED}
-{$endif}
-{$ifndef MP_WORD_DECLARED}
-{$ifdef _WIN32}
-type
-  Pprivate_mp_word = ^Tprivate_mp_word;
-  Tprivate_mp_word = qword;
-{$else}
-type
-  Pprivate_mp_word = ^Tprivate_mp_word;
-  Tprivate_mp_word = qword;
-{$endif}
-{$define MP_WORD_DECLARED}
-{$endif}
-{ otherwise the bits per digit is calculated automatically from the size of a mp_digit  }
-{$ifndef MP_DIGIT_BIT}
-{#   define MP_DIGIT_BIT (((CHAR_BIT * MP_SIZEOF_MP_DIGIT) - 1))  /* bits per digit */ }
-{$endif}
+  MP_DIGIT_BIT = 60;
 
-{ was #define dname def_expr }
-function MP_MASK : longint; { return type might be wrong }
+const  MP_MASK=((Tmp_digit(1)) shl (Tmp_digit(MP_DIGIT_BIT)))-(Tmp_digit(1));
 
 const
   MP_DIGIT_MAX = MP_MASK;  
-{ Primality generation flags  }
-{ BBS style prime  }
-  MP_PRIME_BBS = $0001;  
-{ Safe prime (p-1)/2 == prime  }
-  MP_PRIME_SAFE = $0002;  
-{ force 2nd MSB to 1  }
-  MP_PRIME_2MSB_ON = $0008;  
-  LTM_PRIME_BBS = 'LTM_PRIME_BBS has been deprecated, use MP_PRIME_BBS';  
-  LTM_PRIME_SAFE = 'LTM_PRIME_SAFE has been deprecated, use MP_PRIME_SAFE';  
-  LTM_PRIME_2MSB_ON = 'LTM_PRIME_2MSB_ON has been deprecated, use MP_PRIME_2MSB_ON';  
-{$ifdef MP_USE_ENUMS}
-{ positive  }
-{ negative  }
+  MP_PRIME_BBS = $0001;
+  MP_PRIME_SAFE = $0002;
 type
   Pmp_sign = ^Tmp_sign;
   Tmp_sign =  Longint;
   Const
     MP_ZPOS = 0;
     MP_NEG = 1;
-;
-{ less than  }
-{ equal  }
-{ greater than  }
 type
   Pmp_ord = ^Tmp_ord;
   Tmp_ord =  Longint;
@@ -133,20 +41,13 @@ type
     MP_LT = -(1);
     MP_EQ = 0;
     MP_GT = 1;
-;
+
 type
   Pmp_bool = ^Tmp_bool;
   Tmp_bool =  Longint;
   Const
     MP_NO = 0;
     MP_YES = 1;
-;
-{ no error  }
-{ unknown error  }
-{ out of mem  }
-{ invalid input  }
-{ maximum iterations reached  }
-{ buffer overflow, supplied buffer too small  }
 type
   Pmp_err = ^Tmp_err;
   Tmp_err =  Longint;
@@ -157,14 +58,14 @@ type
     MP_VAL = -(3);
     MP_ITER = -(4);
     MP_BUF = -(5);
-;
+
 type
   Pmp_order = ^Tmp_order;
   Tmp_order =  Longint;
   Const
     MP_LSB_FIRST = -(1);
     MP_MSB_FIRST = 1;
-;
+
 type
   Pmp_endian = ^Tmp_endian;
   Tmp_endian =  Longint;
@@ -172,133 +73,12 @@ type
     MP_LITTLE_ENDIAN = -(1);
     MP_NATIVE_ENDIAN = 0;
     MP_BIG_ENDIAN = 1;
-;
-{$else}
-type
-  Pmp_sign = ^Tmp_sign;
-  Tmp_sign = longint;
-{ positive integer  }
-
-const
-  MP_ZPOS = 0;  
-{ negative  }
-  MP_NEG = 1;  
-type
-  Pmp_ord = ^Tmp_ord;
-  Tmp_ord = longint;
-{ less than  }
-
-const
-  MP_LT = -(1);  
-{ equal to  }
-  MP_EQ = 0;  
-{ greater than  }
-  MP_GT = 1;  
-type
-  Pmp_bool = ^Tmp_bool;
-  Tmp_bool = longint;
-
-const
-  MP_YES = 1;  
-  MP_NO = 0;  
-type
-  Pmp_err = ^Tmp_err;
-  Tmp_err = longint;
-{ no error  }
-
-const
-  MP_OKAY = 0;  
-{ unknown error  }
-  MP_ERR = -(1);  
-{ out of mem  }
-  MP_MEM = -(2);  
-{ invalid input  }
-  MP_VAL = -(3);  
-  MP_RANGE = 'MP_RANGE has been deprecated in favor of MP_VAL';  
-{ maximum iterations reached  }
-  MP_ITER = -(4);  
-{ buffer overflow, supplied buffer too small  }
-  MP_BUF = -(5);  
-type
-  Pmp_order = ^Tmp_order;
-  Tmp_order = longint;
-
-const
-  MP_LSB_FIRST = -(1);  
-  MP_MSB_FIRST = 1;  
-type
-  Pmp_endian = ^Tmp_endian;
-  Tmp_endian = longint;
-
-const
-  MP_LITTLE_ENDIAN = -(1);  
-  MP_NATIVE_ENDIAN = 0;  
-  MP_BIG_ENDIAN = 1;  
-{$endif}
-{ tunable cutoffs  }
-{$ifndef MP_FIXED_CUTOFFS}
-  var
-    KARATSUBA_MUL_CUTOFF : longint;cvar;external libtcl8_6;
-{$endif}
-{ define this to use lower memory usage routines (exptmods mostly)  }
-{ #define MP_LOW_MEM  }
-{ default precision  }
-{$ifndef MP_PREC}
-{$ifndef MP_LOW_MEM}
-{ default digits of precision  }
 
 const
   MP_PREC = 32;  
-(*** was #elif ****){$else defined(MP_8BIT)}
-{ default digits of precision  }
-
-const
-  MP_PREC = 16;  
-{$else}
-{ default digits of precision  }
-
-const
-  MP_PREC = 8;  
-{$endif}
-{$endif}
-{ size of comba arrays, should be at least 2 * 2**(BITS_PER_WORD - BITS_PER_DIGIT*2)  }
-{#define PRIVATE_MP_WARRAY (int)(1 << (((CHAR_BIT * sizeof(private_mp_word)) - (2 * MP_DIGIT_BIT)) + 1)) }
-{
- * MP_WUR - warn unused result
- * ---------------------------
- *
- * The result of functions annotated with MP_WUR must be
- * checked and cannot be ignored.
- *
- * Most functions in libtommath return an error code.
- * This error code must be checked in order to prevent crashes or invalid
- * results.
- *
- * If you still want to avoid the error checks for quick and dirty programs
- * without robustness guarantees, you can `#define MP_WUR` before including
- * tommath.h, disabling the warnings.
-  }
 
 const
   DIGIT_BIT = MP_DIGIT_BIT;  
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-
-function USED(m : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function DIGIT(m,k : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SIGN(m : longint) : longint;
-
-type
-{$endif}
 type
   Pmp_int = ^Tmp_int;
   Tmp_int = record
@@ -1059,17 +839,32 @@ function mp_to_hex(M,S,N : longint) : longint;
 {$include "tclTomMathDecls.h"}
 {$endif}
 
+
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }
+
+function USED(m : longint) : longint;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }
+function DIGIT(m,k : longint) : longint;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }
+function SIGN(m : longint) : longint;
+
+
+
+
 // === Konventiert am: 15-4-25 13:26:34 ===
 
 
 implementation
 
-
-{ was #define dname def_expr }
-function MP_MASK : longint; { return type might be wrong }
-  begin
-    MP_MASK:=((Tmp_digit(1)) shl (Tmp_digit(MP_DIGIT_BIT)))-(Tmp_digit(1));
-  end;
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }

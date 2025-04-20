@@ -4,13 +4,15 @@ uses
   tk_tcl_common,
 
   tcl,
-  tclDecls,
-  tk,
-  tkDecls,
-  tclPlatDecls,
-  tkPlatDecls,
-  tclOO,
-  tclOODecls,
+  tclDecls,        // -> tcl
+  tclPlatDecls,    // -> tcl
+  tclOO,           // -> tcl
+  tclOODecls,      // -> tk, tclOO
+  tclTomMath,
+  tclTomMathDecls,
+  tk,              // -> tcl
+  tkDecls,         // -> tcl, tk
+  tkPlatDecls,     // -> tcl, tk
 
   Math;
 
