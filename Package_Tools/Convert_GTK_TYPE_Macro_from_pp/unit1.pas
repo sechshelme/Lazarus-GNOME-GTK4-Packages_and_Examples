@@ -128,6 +128,7 @@ const
     (libs: 'libtclstub8_6'; units: 'ctypes'),
 
     (libs: 'libttommath'; units: 'ctypes'),
+    (libs: 'libgmp'; units: 'ctypes'),
 
     (libs: ''; units: ''));
 

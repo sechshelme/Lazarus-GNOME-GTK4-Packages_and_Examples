@@ -9,7 +9,7 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
-// Version: 1.2.1-2build1
+  // Version: 1.2.1-2build1
 
 
 const
@@ -125,10 +125,8 @@ type
 function mp_error_to_string(code: Tmp_err): pchar; cdecl; external libttommath;
 function mp_init(a: Pmp_int): Tmp_err; cdecl; external libttommath;
 procedure mp_clear(a: Pmp_int); cdecl; external libttommath;
-function mp_init_multi(mp: Pmp_int; args: array of const): Tmp_err; cdecl; external libttommath;
-function mp_init_multi(mp: Pmp_int): Tmp_err; cdecl; external libttommath;
-procedure mp_clear_multi(mp: Pmp_int; args: array of const); cdecl; external libttommath;
-procedure mp_clear_multi(mp: Pmp_int); cdecl; external libttommath;
+function mp_init_multi(mp: Pmp_int): Tmp_err; varargs; cdecl; external libttommath;
+procedure mp_clear_multi(mp: Pmp_int); varargs; cdecl; external libttommath;
 procedure mp_exch(a: Pmp_int; b: Pmp_int); cdecl; external libttommath;
 function mp_shrink(a: Pmp_int): Tmp_err; cdecl; external libttommath;
 function mp_grow(a: Pmp_int; size: longint): Tmp_err; cdecl; external libttommath;
