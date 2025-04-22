@@ -33,7 +33,7 @@ implementation
 
 const
   srcPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/gmp/gmp_old.pas';
-  destPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/gmp/gmp.pas';
+  destPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/gmp/gmp_new.pas';
 
 
   //   procedure mpz_init(para1: Tmpz_ptr); cdecl; external libgmp name '__gmpz_init';
