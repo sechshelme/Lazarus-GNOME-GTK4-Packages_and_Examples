@@ -24,7 +24,7 @@ type
   Tsize_t = SizeInt;
   Psize_t = ^Tsize_t;
 
-  // ptr und struc in den Bezeichnern wurde entfernt
+  // ptr und struc in den Bezeichnern wurde entfernt und durch PAscla taugliches T und P ersetzt.
 
   // =====================
 
@@ -155,8 +155,8 @@ procedure mpz_clears(para1: Pmpz); varargs; cdecl; external libgmp name '__gmpz_
 procedure mpz_clrbit(para1: Pmpz; para2: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpz_clrbit';
 function mpz_cmp(para1: Pmpz; para2: Pmpz): longint; cdecl; external libgmp name '__gmpz_cmp';
 function mpz_cmp_d(para1: Pmpz; para2: double): longint; cdecl; external libgmp name '__gmpz_cmp_d';
-function _mpz_cmp_si(para1: Pmpz; para2: longint): longint; cdecl; external libgmp name '__g_mpz_cmp_si';
-function _mpz_cmp_ui(para1: Pmpz; para2: dword): longint; cdecl; external libgmp name '__g_mpz_cmp_ui';
+function _mpz_cmp_si(para1: Pmpz; para2: longint): longint; cdecl; external libgmp name '__gmpz_cmp_si';
+function _mpz_cmp_ui(para1: Pmpz; para2: dword): longint; cdecl; external libgmp name '__gmpz_cmp_ui';
 function mpz_cmpabs(para1: Pmpz; para2: Pmpz): longint; cdecl; external libgmp name '__gmpz_cmpabs';
 function mpz_cmpabs_d(para1: Pmpz; para2: double): longint; cdecl; external libgmp name '__gmpz_cmpabs_d';
 function mpz_cmpabs_ui(para1: Pmpz; para2: dword): longint; cdecl; external libgmp name '__gmpz_cmpabs_ui';
@@ -297,8 +297,8 @@ procedure mpq_canonicalize(para1: Pmpq); cdecl; external libgmp name '__gmpq_can
 procedure mpq_clear(para1: Pmpq); cdecl; external libgmp name '__gmpq_clear';
 procedure mpq_clears(para1: Pmpq); varargs; cdecl; external libgmp name '__gmpq_clears';
 function mpq_cmp(para1: Pmpq; para2: Pmpq): longint; cdecl; external libgmp name '__gmpq_cmp';
-function _mpq_cmp_si(para1: Pmpq; para2: longint; para3: dword): longint; cdecl; external libgmp name '__g_mpq_cmp_si';
-function _mpq_cmp_ui(para1: Pmpq; para2: dword; para3: dword): longint; cdecl; external libgmp name '__g_mpq_cmp_ui';
+function _mpq_cmp_si(para1: Pmpq; para2: longint; para3: dword): longint; cdecl; external libgmp name '__gmpq_cmp_si';
+function _mpq_cmp_ui(para1: Pmpq; para2: dword; para3: dword): longint; cdecl; external libgmp name '__gmpq_cmp_ui';
 function mpq_cmp_z(para1: Pmpq; para2: Pmpz): longint; cdecl; external libgmp name '__gmpq_cmp_z';
 procedure mpq_div(para1: Pmpq; para2: Pmpq; para3: Pmpq); cdecl; external libgmp name '__gmpq_div';
 procedure mpq_div_2exp(para1: Pmpq; para2: Pmpq; para3: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpq_div_2exp';
@@ -493,6 +493,19 @@ const
 
 function mpq_numref(Q: Pmpq): Pmpz;
 function mpq_denref(Q: Pmpq): Pmpz;
+function mpz_sgn(Z: Pmpz): longint;
+function mpf_sgn(F: Pmpf): longint;
+function mpq_sgn(Q: Pmpq): longint;
+function mpz_cmp_ui(Z: Pmpz; UI: cardinal): longint;
+function mpz_cmp_si(Z: Pmpz; UI: cardinal): longint;
+function mpq_cmp_ui(Q: Pmpq; NUI, DUI: cardinal): longint;
+function mpq_cmp_si(q: Pmpq; n: longint; d: cardinal): longint;
+function mpz_odd_p(z: Pmpz): boolean;
+function mpz_even_p(z: Pmpz): boolean;
+function mpn_divmod(qp, np: Pointer; nsize: Tmp_size_t; dp: Pointer; dsize: Tmp_size_t): Tmp_limb_t;
+procedure mpz_mdivmod_ui(q, r, n: Pmpz; d: Tmp_limb_t);
+function mpz_mmod_ui(r, n: Pmpz; d: Tmp_limb_t): Tmp_limb_t;
+
 
 
 // === Konventiert am: 21-4-25 15:21:24 ===
@@ -511,4 +524,101 @@ begin
   mpq_denref := @(Q^._mp_den);
 end;
 
+function mpz_sgn(Z: Pmpz): longint;
+begin
+  if Z^._mp_size < 0 then begin
+    Result := -1;
+  end else if Z^._mp_size > 0 then begin
+    Result := 1;
+  end else begin
+    Result := 0;
+  end;
+end;
+
+function mpf_sgn(F: Pmpf): longint;
+begin
+  if F^._mp_size < 0 then begin
+    Result := -1;
+  end else if F^._mp_size > 0 then begin
+    Result := 1;
+  end else begin
+    Result := 0;
+  end;
+end;
+
+function mpq_sgn(Q: Pmpq): longint;
+begin
+  if Q^._mp_num._mp_size < 0 then begin
+    Result := -1;
+  end else if Q^._mp_num._mp_size > 0 then begin
+    Result := 1;
+  end else begin
+    Result := 0;
+  end;
+end;
+
+function mpz_cmp_ui(Z: Pmpz; UI: cardinal): longint;
+begin
+  mpz_cmp_ui := _mpz_cmp_ui(Z, UI);
+end;
+
+function mpz_cmp_si(Z: Pmpz; UI: cardinal): longint;
+begin
+  mpz_cmp_si := _mpz_cmp_si(Z, UI);
+end;
+
+function mpq_cmp_ui(Q: Pmpq; NUI, DUI: cardinal): longint;
+begin
+  mpq_cmp_ui := _mpq_cmp_ui(Q, NUI, DUI);
+end;
+
+function mpq_cmp_si(q: Pmpq; n: longint; d: cardinal): longint;
+begin
+  mpq_cmp_si := _mpq_cmp_si(q, n, d);
+end;
+
+function mpz_odd_p(z: Pmpz): boolean;
+begin
+  mpz_odd_p := (z^._mp_size <> 0) and ((z^._mp_d^ and 1) <> 0);
+end;
+
+function mpz_even_p(z: Pmpz): boolean;
+begin
+  mpz_even_p := not (mpz_odd_p(z));
+end;
+
+function mpn_divmod(qp, np: Pointer; nsize: Tmp_size_t; dp: Pointer; dsize: Tmp_size_t): Tmp_limb_t;
+begin
+  Result := mpn_divrem(qp, 0, np, nsize, dp, dsize);
+end;
+
+procedure mpz_mdivmod_ui(q, r, n: Pmpz; d: Tmp_limb_t);
+begin
+  if r = nil then begin
+    mpz_fdiv_q_ui(q, n, d);
+  end else begin
+    mpz_fdiv_qr_ui(q, r, n, d);
+  end;
+end;
+
+function mpz_mmod_ui(r, n: Pmpz; d: Tmp_limb_t): Tmp_limb_t;
+begin
+  if r = nil then begin
+    Result := mpz_fdiv_ui(n, d);
+  end else begin
+    Result := mpz_fdiv_r_ui(r, n, d);
+  end;
+end;
+
+procedure SetMXCSR;
+var
+  w2: word = 8064;
+begin
+  asm
+           Ldmxcsr w2
+  end;
+end;
+
+begin
+  SetMXCSR;
 end.

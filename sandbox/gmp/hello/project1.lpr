@@ -13,17 +13,42 @@ uses
     mpz_init(@b);
     mpz_init(@sum);
 
-    mpz_set_str(@a, '1111', 10);
-    mpz_set_str(@b, '3333', 10);
+    mpz_set_str(@a, '3333', 10);
+    mpz_set_str(@b, '1111', 10);
 
     mpz_add(@sum, @a, @b);
     gmp_printf('Summe: %Zd + %Zd = %Zd'#10, @a, @b, @sum);
     mpz_mul(@sum, @a, @b);
-    gmp_printf('Summe: %Zd * %Zd = %Zd'#10, @a, @b, @sum);
+    gmp_printf('Mutiplikator: %Zd * %Zd = %Zd'#10, @a, @b, @sum);
+    mpz_tdiv_q(@sum, @a, @b);
+    gmp_printf('Quotient: %Zd / %Zd = %Zd'#10, @a, @b, @sum);
 
     mpz_clear(@a);
     mpz_clear(@b);
     mpz_clear(@sum);
+  end;
+
+  procedure Division;
+  var
+    a, b, q, r: Tmpz;
+  begin
+    mpz_init_set_str(@a, '10', 10);
+    mpz_init_set_str(@b, '3', 10);
+    mpz_init(@q);
+    mpz_init(@r);
+
+    mpz_tdiv_q(@q, @a, @b); // q = a / b (Ganzzahl, abrunden Richtung 0)
+    gmp_printf('Quotient: %Zd'#10, @q);
+    mpz_tdiv_r(@q, @a, @b);
+    gmp_printf('Rest: %Zd'#10, @q);
+    mpz_tdiv_qr(@q, @r, @a, @b);
+    gmp_printf('Rest: %Zd'#10, @q);
+    gmp_printf('Q: %Zd   R: %Zd'#10, @q, @r);
+
+    mpz_clear(@a);
+    mpz_clear(@b);
+    mpz_clear(@q);
+    mpz_clear(@r);
   end;
 
   procedure mpz_rand;
@@ -82,6 +107,8 @@ begin
   WriteLn('Version: ', gmp_version);
   WriteLn('--- Calculate -----------------');
   Calculate;
+  WriteLn('--- Division ------------------');
+  Division;
   WriteLn('--- Int Random ----------------');
   mpz_rand;
   WriteLn('--- Float Random --------------');
