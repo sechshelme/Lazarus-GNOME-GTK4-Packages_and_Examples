@@ -104,13 +104,13 @@ uses
   end;
 
 begin
-  WriteLn('Version: ', gmp_version);
-  WriteLn('--- Calculate -----------------');
+  gmp_printf('Version: %s'#10, gmp_version);
+  gmp_printf('--- Calculate -----------------'#10);
   Calculate;
-  WriteLn('--- Division ------------------');
+  gmp_printf('--- Division ------------------'#10);
   Division;
-  WriteLn('--- Int Random ----------------');
+  gmp_printf('--- Int Random ----------------'#10);
   mpz_rand;
-  WriteLn('--- Float Random --------------');
+  gmp_printf('--- Float Random --------------'#10);
   mpf_rand;
 end.

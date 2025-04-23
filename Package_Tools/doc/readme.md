@@ -47,6 +47,10 @@ for file in *-*; do mv "$file" "${file//-/_}"; done
 ## MinGW Installer
 (https://github.com/Vuniverse0/mingwInstaller/releases)
 
+## DLL verkleinern
+`x86_64-w64-mingw32-strip xxx.dll`
+
+
 CMAKE:
 (https://cmake.org/download/)
 

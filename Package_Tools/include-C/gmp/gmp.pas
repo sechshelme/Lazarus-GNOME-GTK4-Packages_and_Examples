@@ -14,6 +14,10 @@ const
   libgmp = 'libgmp';
   {$ENDIF}
 
+  {$IFDEF mswindows}
+  libgmp = 'libgmp-10.dll';
+  {$ENDIF}
+
   // Version 6.3.0
 
 type
@@ -620,5 +624,5 @@ begin
 end;
 
 begin
-  SetMXCSR;
+//  SetMXCSR;
 end.
