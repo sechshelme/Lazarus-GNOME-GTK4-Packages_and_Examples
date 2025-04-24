@@ -12,8 +12,15 @@ uses
   // Version: 1.2.1-2build1
 
 
-const
-  libttommath = 'libtommath';
+  const
+    {$IFDEF Linux}
+    libttommath = 'libtommath';
+    {$ENDIF}
+
+    {$IFDEF mswindows}
+    libttommath = 'libtommath.dll';
+    {$ENDIF}
+
 
   // ======================
 

@@ -46,7 +46,7 @@ type
   Pmp_limb_signed_t = ^Tmp_limb_signed_t;
   Tmp_limb_signed_t = int64;
 
-  Tmp_bitcnt_t = qword;
+  Tmp_bitcnt_t = uint64;
 
   Pmp_size_t = ^Tmp_size_t;
   Tmp_size_t = SizeInt;
@@ -624,5 +624,5 @@ begin
 end;
 
 begin
-//  SetMXCSR;
+  //  SetMXCSR;
 end.
