@@ -9,28 +9,38 @@ uses
   procedure Add;
   var
     a, b, sum: Tmp_int;
-    size: longint;
-    buf: pchar;
+    size: longint = 0;
+    buf: array[0..127] of char;
+    i: integer;
+    err: Tmp_err;
   begin
+    FillChar(buf, Length(buf), $00);
+
     mp_init(@a);
     mp_init(@b);
     mp_init(@sum);
 
-    mp_read_radix(@a, '111111', 10);
-    mp_read_radix(@b, '222222', 10);
+    err := mp_read_radix(@a, '1111', 10);
+    WriteLn('err: ', err);
+    err := mp_read_radix(@b, '2222', 10);
+    WriteLn('err: ', err);
 
-    mp_add(@a, @b, @sum);
+    err := mp_add(@a, @b, @sum);
+    WriteLn('err: ', err);
 
-    mp_radix_size(@sum, 10, @size);
+    err := mp_radix_size(@sum, 10, @size);
+    WriteLn('err: ', err);
     WriteLn('size: ', size);
-    buf := GetMem(size);
 
-    mp_to_radix(@sum, buf, size, nil, 10);
+    err := mp_to_radix(@sum, buf, SizeOf(buf), nil, 10);
+    WriteLn('err: ', err);
 
-    WriteLn('len: ',Length(buf));
-    WriteLn(buf);
+    WriteLn('len: ', Length(buf), '  Data: ', buf);
+    for i := 0 to 20 do begin
+      Write(byte(buf[i]), ' - ');
+    end;
+    WriteLn(#10);
 
-    Freemem(buf);
   end;
 
 begin
