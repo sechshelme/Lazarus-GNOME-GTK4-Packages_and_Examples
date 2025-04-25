@@ -3,46 +3,59 @@ program project1;
 uses
   tommath;
 
-  // https://www.perplexity.ai/search/gibt-es-eine-alternative-zu-mp-Yz.L3goxQkmufFUlYLzQcQ
-  // GMP
-
-  procedure Add;
+  function Read_mp_int(mp: Pmp_int): string;
   var
-    a, b, sum: Tmp_int;
-    size: longint = 0;
-    buf: array[0..127] of char;
-    i: integer;
-    err: Tmp_err;
+    size: Tsize_t;
+    buf: pchar = nil;
   begin
-    FillChar(buf, Length(buf), $00);
+    mp_radix_size(mp, 10, @size);
+    buf := GetMem(size + 1);
 
+    mp_to_radix(mp, buf, size, nil, 10);
+    Result := buf;
+    Freemem(buf);
+  end;
+
+  procedure Calc;
+  var
+    a, b, sum, r: Tmp_int;
+  begin
     mp_init(@a);
     mp_init(@b);
+    mp_init(@r);
     mp_init(@sum);
 
-    err := mp_read_radix(@a, '1111', 10);
-    WriteLn('err: ', err);
-    err := mp_read_radix(@b, '2222', 10);
-    WriteLn('err: ', err);
+    mp_read_radix(@a, '3333', 10);
+    mp_read_radix(@b, '2222', 10);
 
-    err := mp_add(@a, @b, @sum);
-    WriteLn('err: ', err);
+    WriteLn(#10'--- Add ---------');
 
-    err := mp_radix_size(@sum, 10, @size);
-    WriteLn('err: ', err);
-    WriteLn('size: ', size);
+    mp_add(@a, @b, @sum);
+    WriteLn(Read_mp_int(@a), ' + ', Read_mp_int(@b), ' = ', Read_mp_int(@sum));
 
-    err := mp_to_radix(@sum, buf, SizeOf(buf), nil, 10);
-    WriteLn('err: ', err);
+    WriteLn(#10'--- Sub ---------');
 
-    WriteLn('len: ', Length(buf), '  Data: ', buf);
-    for i := 0 to 20 do begin
-      Write(byte(buf[i]), ' - ');
-    end;
-    WriteLn(#10);
+    mp_sub(@a, @b, @sum);
+    WriteLn(Read_mp_int(@a), ' - ', Read_mp_int(@b), ' = ', Read_mp_int(@sum));
 
+    WriteLn(#10'--- Mul ---------');
+
+    mp_mul(@a, @b, @sum);
+    WriteLn(Read_mp_int(@a), ' * ', Read_mp_int(@b), ' = ', Read_mp_int(@sum));
+
+    WriteLn(#10'--- Div ---------');
+
+    mp_div(@a, @b, @sum, @r);
+    WriteLn(Read_mp_int(@a), ' / ', Read_mp_int(@b), ' = ', Read_mp_int(@sum), '   Rest: ', Read_mp_int(@r));
+
+    WriteLn(#10'------------'#10);
+
+    mp_clear(@a);
+    mp_clear(@b);
+    mp_clear(@sum);
+    mp_clear(@r);
   end;
 
 begin
-  Add;
+  Calc;
 end.
