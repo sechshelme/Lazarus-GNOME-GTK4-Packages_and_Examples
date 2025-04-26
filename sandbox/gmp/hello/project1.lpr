@@ -2,7 +2,7 @@ program project1;
 
 uses
   SysUtils,
-  gmp;
+  fp_gmp;
 
 
   procedure Calculate;
@@ -26,6 +26,7 @@ uses
     mpz_clear(@a);
     mpz_clear(@b);
     mpz_clear(@sum);
+    gmp_printf(#10);
   end;
 
   procedure Division;
@@ -49,6 +50,7 @@ uses
     mpz_clear(@b);
     mpz_clear(@q);
     mpz_clear(@r);
+    gmp_printf(#10);
   end;
 
   procedure mpz_rand;
@@ -75,6 +77,7 @@ uses
     mpz_clear(@limit);
     mpz_clear(@seed);
     gmp_randclear(@state);
+    gmp_printf(#10);
   end;
 
   procedure mpf_rand;
@@ -101,6 +104,7 @@ uses
     mpf_clear(@rand_f);
     mpz_clear(@seed);
     gmp_randclear(@state);
+    gmp_printf(#10);
   end;
 
 begin

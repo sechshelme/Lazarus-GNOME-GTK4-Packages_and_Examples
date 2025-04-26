@@ -1,4 +1,4 @@
-unit gmp;
+unit fp_gmp;
 
 interface
 

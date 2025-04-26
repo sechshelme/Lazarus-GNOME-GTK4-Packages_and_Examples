@@ -1,7 +1,7 @@
 program project1;
 
 uses
-  tommath;
+  fp_tommath_1_3_0;
 
   function Read_mp_int(mp: Pmp_int): string;
   var
