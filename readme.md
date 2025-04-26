@@ -25,11 +25,12 @@ Diese Package Sammlung stellt **FPC/Lazarus Bindungen** für folgende Pakete zu 
 |                   |                  |                                            |           |          |                                                                |
 | **chafa**         | 1.14.0           | Console Grafik Ausgabe                     |  ✅       | ❌       | https://github.com/hpjansson/chafa                             |
 | **microhttpd**    | 1.0.0            | HTTP-Server-Bibliothek                     |  ❌       | ❌       | https://github.com/Karlson2k/libmicrohttpd                     |
-| **tommath**       | 1.2.1/1.3.0 [^1] | Rechnen mit übewrgrossen Ganz-Zahlen       |  ❌       | ❌       | https://github.com/hpjansson/chafa                             |
+| **tommath**       | 1.2.1/1.3.0 [[1]](#fn1) | Rechnen mit übewrgrossen Ganz-Zahlen       |  ❌       | ❌       | https://github.com/hpjansson/chafa                             |
 | **gmp**           | 6.3.0            | Rechnen mit übewrgrossen Zahlen            |  ❌       | ❌       | https://gmplib.org/                                            |
 | **tcl/tk**        | 1.14.0           | Tool Command Language                      |  ❌       | ❌       | https://github.com/hpjansson/chafa                             |
 
-[^1] 1.2.1 ist bei Mint dabei, hat aber Fehler bei SizeInt
+<a id="fn1"></a>
+**1**: 1.2.1 ist bei Mint dabei, hat aber Fehler bei SizeInt
 
 
 ## Pakete installieren
