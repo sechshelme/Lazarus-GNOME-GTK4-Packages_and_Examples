@@ -4,7 +4,7 @@
 Diese Package Sammlung stellt **FPC/Lazarus Bindungen** für folgende Pakete zu Verfügung:
 
 | **Paket Name:**   | **Version:**     | **Beschrieb:**                             | **Download:**                                                  | **GLIB** | **GTK4** |
-| ---               | ---              | ---                                        | ---                                                            | [ ]      |[ ]       |
+| ---               | ---              | ---                                        | ---                                                            |          |          |
 | **libxml2**       | 2.9.14           | Bearbeiten von XML-Dateien                 | https://gitlab.gnome.org/GNOME/libxml2                         | [ ]      |[ ]       |
 | **FreeType2**     | 2.13.2           | Schriftartenrasterung                      | https://gitlab.freedesktop.org/freetype/freetype               | [ ]      |[ ]       |
 | **harfbuzz**      | 8.3.0            | Softwarebibliothek für Text-Shaping        | https://github.com/harfbuzz/harfbuzz                           | [ ]      |[ ]       |
