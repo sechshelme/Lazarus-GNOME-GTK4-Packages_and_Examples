@@ -5,7 +5,7 @@ uses
 
 procedure main;
 begin
-  print
+  printf('Hello World %d'#10, 123);
 end;
 
 begin
