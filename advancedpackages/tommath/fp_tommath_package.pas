@@ -8,7 +8,7 @@ unit fp_tommath_package;
 interface
 
 uses
-  fp_tommath_1_3_0, LazarusPackageIntf;
+  fp_tommath_1_2_1, fp_tommath_1_3_0, LazarusPackageIntf;
 
 implementation
 

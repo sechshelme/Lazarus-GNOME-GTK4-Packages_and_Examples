@@ -130,6 +130,8 @@ const
     (libs: 'libttommath'; units: 'ctypes'),
     (libs: 'libgmp'; units: 'ctypes'),
 
+    (libs: 'libc'; units: 'ctypes'),
+
     (libs: ''; units: ''));
 
 
