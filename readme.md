@@ -3,31 +3,31 @@
 
 Diese Package Sammlung stellt **FPC/Lazarus Bindungen** für folgende Pakete zu Verfügung:
 
-| **Paket Name:**   | **Version:**     | **Beschrieb:**                             | **Download:**                                                  | **GLIB** | **GTK4** |
-| ---               | ---              | ---                                        | ---                                                            | ---      | ---      |
-| **libxml2**       | 2.9.14           | Bearbeiten von XML-Dateien                 | https://gitlab.gnome.org/GNOME/libxml2                         |  ❌      | ❌       |
-| **FreeType2**     | 2.13.2           | Schriftartenrasterung                      | https://gitlab.freedesktop.org/freetype/freetype               |  ❌      | ❌       |
-| **harfbuzz**      | 8.3.0            | Softwarebibliothek für Text-Shaping        | https://github.com/harfbuzz/harfbuzz                           |  ❌      | ❌       |
-| **graphene**      | 1.10.8           | Graphen (Bibliothek grafischer Datentypen) | https://github.com/ebassi/graphene                             |  ❌      | ❌       |
-| **Cairo**         | 1.18.1           | 2D Grafik Bibliothek                       | https://gitlab.freedesktop.org/cairo/cairo                     |  ❌      | ❌       |
-| **glib2**         | 2.80.0           | GIMP Library                               | https://gitlab.gnome.org/GNOME/glib                            |  ❌      | ❌       |
-| **gio-unix-2.0**  | 2.80.0           | Unix input/output                          | gehört zu glib2                                                |  ❌      | ❌       |
-| **Pango**         | 1.52.1           | Text Layout                                | https://gitlab.gnome.org/GNOME/pango                           |  ✅       | ❌       |
-| **GdkPixbuf2**    | 2.42.10          | Bildpuffer für GTKx                        | https://gitlab.gnome.org/GNOME/gdk-pixbuf                      |  ✅       | ✅        |
-| **GTK4**          | 4.14.2           | GIMP Toolkit                               | https://gitlab.gnome.org/GNOME/gtk                             |  ✅       | ✅        |
-| **GSK4**          | 4.14.2           | GTK Scene Kit)                             | gehört zu gtk4                                                 |  ✅       | ✅        |
-| **GDK4**          | 4.14.2           | GIMP Drawing Kit                           | gehört zu gtk4                                                 |  ✅       | ✅        |
-|                   |                  |                                            |                                                                |          |          |
-| **WebKitGTK6**    | 2.46.4           | GTK4 Web-Browser                           | https://github.com/WebKit                                      |  ✅       | ✅        |
-| **GTKSourceView** | 5.12.0           | GTK4 Source Viewer                         | https://gitlab.gnome.org/GNOME/gtksourceview                   |  ✅       | ✅        |
-| **gstreamer**     | 1.24.2.0         | GStreamer Multimedia Framework             | https://gitlab.freedesktop.org/gstreamer                       |  ✅       | ✅        |
-| **gstreamer ges** | 1.24.2.0         | GStreamer Editing Services                 | https://gitlab.freedesktop.org/gstreamer/gst-editing-services  |  ✅       | ✅        |
-|                   |                  |                                            |                                                                |          |          |
-| **chafa**         | 1.14.0           | Console Grafik Ausgabe                     | https://github.com/hpjansson/chafa                             |  ✅       | ❌       |
-| **microhttpd**    | 1.0.0            | HTTP-Server-Bibliothek                     | https://github.com/Karlson2k/libmicrohttpd                     |  ❌      | ❌       |
-| **tommath**       | 1.2.1/1.3.0 [^1] | Rechnen mit übewrgrossen Ganz-Zahlen       | https://github.com/hpjansson/chafa                             |  ❌      | ❌       |
-| **gmp**           | 6.3.0            | Rechnen mit übewrgrossen Zahlen            | https://gmplib.org/                                            |  ❌      | ❌       |
-| **tcl/tk**        | 1.14.0           | Tool Command Language                      | https://github.com/hpjansson/chafa                             |  ❌      | ❌       |
+| **Paket Name:**   | **Version:**     | **Beschrieb:**                             | **GLIB2** | **GTK4** | **Download:**                                                  |
+| ---               | ---              | ---                                        | ---       | ---      | ---                                                            |
+| **libxml2**       | 2.9.14           | Bearbeiten von XML-Dateien                 |  ❌       | ❌       | https://gitlab.gnome.org/GNOME/libxml2                         |
+| **FreeType2**     | 2.13.2           | Schriftartenrasterung                      |  ❌       | ❌       | https://gitlab.freedesktop.org/freetype/freetype               |
+| **harfbuzz**      | 8.3.0            | Softwarebibliothek für Text-Shaping        |  ❌       | ❌       | https://github.com/harfbuzz/harfbuzz                           |
+| **graphene**      | 1.10.8           | Graphen (Bibliothek grafischer Datentypen) |  ❌       | ❌       | https://github.com/ebassi/graphene                             |
+| **Cairo**         | 1.18.1           | 2D Grafik Bibliothek                       |  ❌       | ❌       | https://gitlab.freedesktop.org/cairo/cairo                     |
+| **glib2**         | 2.80.0           | GIMP Library                               |  ❌       | ❌       | https://gitlab.gnome.org/GNOME/glib                            |
+| **gio-unix-2.0**  | 2.80.0           | Unix input/output                          |  ❌       | ❌       | gehört zu glib2                                                |
+| **Pango**         | 1.52.1           | Text Layout                                |  ✅       | ❌       | https://gitlab.gnome.org/GNOME/pango                           |
+| **GdkPixbuf2**    | 2.42.10          | Bildpuffer für GTKx                        |  ✅       | ✅       | https://gitlab.gnome.org/GNOME/gdk-pixbuf                      |
+| **GTK4**          | 4.14.2           | GIMP Toolkit                               |  ✅       | ✅       | https://gitlab.gnome.org/GNOME/gtk                             |
+| **GSK4**          | 4.14.2           | GTK Scene Kit)                             |  ✅       | ✅       | gehört zu gtk4                                                 |
+| **GDK4**          | 4.14.2           | GIMP Drawing Kit                           |  ✅       | ✅       | gehört zu gtk4                                                 |
+|                   |                  |                                            |           |          |                                                                |
+| **WebKitGTK6**    | 2.46.4           | GTK4 Web-Browser                           |  ✅       | ✅       | https://github.com/WebKit                                      |
+| **GTKSourceView** | 5.12.0           | GTK4 Source Viewer                         |  ✅       | ✅       | https://gitlab.gnome.org/GNOME/gtksourceview                   |
+| **gstreamer**     | 1.24.2.0         | GStreamer Multimedia Framework             |  ✅       | ✅       | https://gitlab.freedesktop.org/gstreamer                       |
+| **gstreamer ges** | 1.24.2.0         | GStreamer Editing Services                 |  ✅       | ✅       | https://gitlab.freedesktop.org/gstreamer/gst-editing-services  |
+|                   |                  |                                            |           |          |                                                                |
+| **chafa**         | 1.14.0           | Console Grafik Ausgabe                     |  ✅       | ❌       | https://github.com/hpjansson/chafa                             |
+| **microhttpd**    | 1.0.0            | HTTP-Server-Bibliothek                     |  ❌       | ❌       | https://github.com/Karlson2k/libmicrohttpd                     |
+| **tommath**       | 1.2.1/1.3.0 [^1] | Rechnen mit übewrgrossen Ganz-Zahlen       |  ❌       | ❌       | https://github.com/hpjansson/chafa                             |
+| **gmp**           | 6.3.0            | Rechnen mit übewrgrossen Zahlen            |  ❌       | ❌       | https://gmplib.org/                                            |
+| **tcl/tk**        | 1.14.0           | Tool Command Language                      |  ❌       | ❌       | https://github.com/hpjansson/chafa                             |
 
 [^1] 1.2.1 ist bei Mint dabei, hat aber Fehler bei SizeInt
 
