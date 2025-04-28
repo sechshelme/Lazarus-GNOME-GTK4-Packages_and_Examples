@@ -132,6 +132,7 @@ const
 
     (libs: 'libc'; units: 'ctypes'),
 
+    (libs: 'libnewt'; units: 'ctypes'),
     (libs: ''; units: ''));
 
 
