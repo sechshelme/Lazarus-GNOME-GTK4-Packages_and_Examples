@@ -15,7 +15,7 @@ const
   {$ENDIF}
 
   {$IFDEF mswindows}
-  libnewt = 'newt';
+  libnewt = 'newt.dll';
   {$ENDIF}
 
   {$IFDEF darwin}
@@ -148,15 +148,16 @@ const
   NEWT_FORM_NOF12 = NEWT_FLAG_NOF12;
 
 type
-  PnewtComponent = ^TnewtComponent;
-  TnewtComponent = record
+  TnewtComponent = record     // typedef struct newtComponent_struct * newtComponent;
   end;
+  PnewtComponent = ^TnewtComponent;
+  PPnewtComponent = ^PnewtComponent;
 
 var
   newtDefaultColorPalette: TnewtColors; cvar;external libnewt;
 
 type
-  TnewtCallback = procedure(para1: TnewtComponent; para2: pointer); cdecl;
+  TnewtCallback = procedure(para1: PnewtComponent; para2: pointer); cdecl;
   TnewtSuspendCallback = procedure(Data: pointer); cdecl;
 
 function newtInit: longint; cdecl; external libnewt;
@@ -184,59 +185,59 @@ procedure newtDrawRootText(col: longint; row: longint; Text: pchar); cdecl; exte
 procedure newtBell; cdecl; external libnewt;
 procedure newtCursorOff; cdecl; external libnewt;
 procedure newtCursorOn; cdecl; external libnewt;
-function newtCompactButton(left: longint; top: longint; Text: pchar): TnewtComponent; cdecl; external libnewt;
-function newtButton(left: longint; top: longint; Text: pchar): TnewtComponent; cdecl; external libnewt;
+function newtCompactButton(left: longint; top: longint; Text: pchar): PnewtComponent; cdecl; external libnewt;
+function newtButton(left: longint; top: longint; Text: pchar): PnewtComponent; cdecl; external libnewt;
 function newtCheckbox(left: longint; top: longint; Text: pchar; defValue: char; seq: pchar;
-  Result: pchar): TnewtComponent; cdecl; external libnewt;
-function newtCheckboxGetValue(co: TnewtComponent): char; cdecl; external libnewt;
-procedure newtCheckboxSetValue(co: TnewtComponent; Value: char); cdecl; external libnewt;
-procedure newtCheckboxSetFlags(co: TnewtComponent; flags: longint; sense: TnewtFlagsSense); cdecl; external libnewt;
-function newtRadiobutton(left: longint; top: longint; Text: pchar; isDefault: longint; prevButton: TnewtComponent): TnewtComponent; cdecl; external libnewt;
-function newtRadioGetCurrent(setMember: TnewtComponent): TnewtComponent; cdecl; external libnewt;
-procedure newtRadioSetCurrent(setMember: TnewtComponent); cdecl; external libnewt;
+  Result: pchar): PnewtComponent; cdecl; external libnewt;
+function newtCheckboxGetValue(co: PnewtComponent): char; cdecl; external libnewt;
+procedure newtCheckboxSetValue(co: PnewtComponent; Value: char); cdecl; external libnewt;
+procedure newtCheckboxSetFlags(co: PnewtComponent; flags: longint; sense: TnewtFlagsSense); cdecl; external libnewt;
+function newtRadiobutton(left: longint; top: longint; Text: pchar; isDefault: longint; prevButton: PnewtComponent): PnewtComponent; cdecl; external libnewt;
+function newtRadioGetCurrent(setMember: PnewtComponent): PnewtComponent; cdecl; external libnewt;
+procedure newtRadioSetCurrent(setMember: PnewtComponent); cdecl; external libnewt;
 procedure newtGetScreenSize(cols: Plongint; rows: Plongint); cdecl; external libnewt;
-function newtLabel(left: longint; top: longint; Text: pchar): TnewtComponent; cdecl; external libnewt;
-procedure newtLabelSetText(co: TnewtComponent; Text: pchar); cdecl; external libnewt;
-procedure newtLabelSetColors(co: TnewtComponent; colorset: longint); cdecl; external libnewt;
-function newtVerticalScrollbar(left: longint; top: longint; Height: longint; normalColorset: longint; thumbColorset: longint): TnewtComponent; cdecl; external libnewt;
-procedure newtScrollbarSet(co: TnewtComponent; where: longint; total: longint); cdecl; external libnewt;
-procedure newtScrollbarSetColors(co: TnewtComponent; normal: longint; thumb: longint); cdecl; external libnewt;
-function newtListbox(left: longint; top: longint; Height: longint; flags: longint): TnewtComponent; cdecl; external libnewt;
-function newtListboxGetCurrent(co: TnewtComponent): pointer; cdecl; external libnewt;
-procedure newtListboxSetCurrent(co: TnewtComponent; num: longint); cdecl; external libnewt;
-procedure newtListboxSetCurrentByKey(co: TnewtComponent; key: pointer); cdecl; external libnewt;
-procedure newtListboxSetEntry(co: TnewtComponent; num: longint; Text: pchar); cdecl; external libnewt;
-procedure newtListboxSetWidth(co: TnewtComponent; Width: longint); cdecl; external libnewt;
-procedure newtListboxSetData(co: TnewtComponent; num: longint; Data: pointer); cdecl; external libnewt;
-function newtListboxAppendEntry(co: TnewtComponent; Text: pchar; Data: pointer): longint; cdecl; external libnewt;
-function newtListboxInsertEntry(co: TnewtComponent; Text: pchar; Data: pointer; key: pointer): longint; cdecl; external libnewt;
-function newtListboxDeleteEntry(co: TnewtComponent; Data: pointer): longint; cdecl; external libnewt;
-procedure newtListboxClear(co: TnewtComponent); cdecl; external libnewt;
-procedure newtListboxGetEntry(co: TnewtComponent; num: longint; Text: PPchar; Data: Ppointer); cdecl; external libnewt;
-function newtListboxGetSelection(co: TnewtComponent; numitems: Plongint): PPointer; cdecl; external libnewt;
-procedure newtListboxClearSelection(co: TnewtComponent); cdecl; external libnewt;
-procedure newtListboxSelectItem(co: TnewtComponent; key: pointer; sense: TnewtFlagsSense); cdecl; external libnewt;
-function newtListboxItemCount(co: TnewtComponent): longint; cdecl; external libnewt;
-function newtCheckboxTree(left: longint; top: longint; Height: longint; flags: longint): TnewtComponent; cdecl; external libnewt;
-function newtCheckboxTreeMulti(left: longint; top: longint; Height: longint; seq: pchar; flags: longint): TnewtComponent; cdecl; external libnewt;
-function newtCheckboxTreeGetSelection(co: TnewtComponent; numitems: Plongint): PPointer; cdecl; external libnewt;
-function newtCheckboxTreeGetCurrent(co: TnewtComponent): pointer; cdecl; external libnewt;
-procedure newtCheckboxTreeSetCurrent(co: TnewtComponent; item: pointer); cdecl; external libnewt;
-function newtCheckboxTreeGetMultiSelection(co: TnewtComponent; numitems: Plongint; seqnum: char): PPointer; cdecl; external libnewt;
-function newtCheckboxTreeAddItem(co: TnewtComponent; Text: pchar; Data: pointer; flags: longint; index: longint): longint; cdecl; varargs; external libnewt;
-function newtCheckboxTreeAddArray(co: TnewtComponent; Text: pchar; Data: pointer; flags: longint; indexes: Plongint): longint; cdecl; external libnewt;
-function newtCheckboxTreeFindItem(co: TnewtComponent; Data: pointer): Plongint; cdecl; external libnewt;
-procedure newtCheckboxTreeSetEntry(co: TnewtComponent; Data: pointer; Text: pchar); cdecl; external libnewt;
-procedure newtCheckboxTreeSetWidth(co: TnewtComponent; Width: longint); cdecl; external libnewt;
-function newtCheckboxTreeGetEntryValue(co: TnewtComponent; Data: pointer): char; cdecl; external libnewt;
-procedure newtCheckboxTreeSetEntryValue(co: TnewtComponent; Data: pointer; Value: char); cdecl; external libnewt;
+function newtLabel(left: longint; top: longint; Text: pchar): PnewtComponent; cdecl; external libnewt;
+procedure newtLabelSetText(co: PnewtComponent; Text: pchar); cdecl; external libnewt;
+procedure newtLabelSetColors(co: PnewtComponent; colorset: longint); cdecl; external libnewt;
+function newtVerticalScrollbar(left: longint; top: longint; Height: longint; normalColorset: longint; thumbColorset: longint): PnewtComponent; cdecl; external libnewt;
+procedure newtScrollbarSet(co: PnewtComponent; where: longint; total: longint); cdecl; external libnewt;
+procedure newtScrollbarSetColors(co: PnewtComponent; normal: longint; thumb: longint); cdecl; external libnewt;
+function newtListbox(left: longint; top: longint; Height: longint; flags: longint): PnewtComponent; cdecl; external libnewt;
+function newtListboxGetCurrent(co: PnewtComponent): pointer; cdecl; external libnewt;
+procedure newtListboxSetCurrent(co: PnewtComponent; num: longint); cdecl; external libnewt;
+procedure newtListboxSetCurrentByKey(co: PnewtComponent; key: pointer); cdecl; external libnewt;
+procedure newtListboxSetEntry(co: PnewtComponent; num: longint; Text: pchar); cdecl; external libnewt;
+procedure newtListboxSetWidth(co: PnewtComponent; Width: longint); cdecl; external libnewt;
+procedure newtListboxSetData(co: PnewtComponent; num: longint; Data: pointer); cdecl; external libnewt;
+function newtListboxAppendEntry(co: PnewtComponent; Text: pchar; Data: pointer): longint; cdecl; external libnewt;
+function newtListboxInsertEntry(co: PnewtComponent; Text: pchar; Data: pointer; key: pointer): longint; cdecl; external libnewt;
+function newtListboxDeleteEntry(co: PnewtComponent; Data: pointer): longint; cdecl; external libnewt;
+procedure newtListboxClear(co: PnewtComponent); cdecl; external libnewt;
+procedure newtListboxGetEntry(co: PnewtComponent; num: longint; Text: PPchar; Data: Ppointer); cdecl; external libnewt;
+function newtListboxGetSelection(co: PnewtComponent; numitems: Plongint): PPointer; cdecl; external libnewt;
+procedure newtListboxClearSelection(co: PnewtComponent); cdecl; external libnewt;
+procedure newtListboxSelectItem(co: PnewtComponent; key: pointer; sense: TnewtFlagsSense); cdecl; external libnewt;
+function newtListboxItemCount(co: PnewtComponent): longint; cdecl; external libnewt;
+function newtCheckboxTree(left: longint; top: longint; Height: longint; flags: longint): PnewtComponent; cdecl; external libnewt;
+function newtCheckboxTreeMulti(left: longint; top: longint; Height: longint; seq: pchar; flags: longint): PnewtComponent; cdecl; external libnewt;
+function newtCheckboxTreeGetSelection(co: PnewtComponent; numitems: Plongint): PPointer; cdecl; external libnewt;
+function newtCheckboxTreeGetCurrent(co: PnewtComponent): pointer; cdecl; external libnewt;
+procedure newtCheckboxTreeSetCurrent(co: PnewtComponent; item: pointer); cdecl; external libnewt;
+function newtCheckboxTreeGetMultiSelection(co: PnewtComponent; numitems: Plongint; seqnum: char): PPointer; cdecl; external libnewt;
+function newtCheckboxTreeAddItem(co: PnewtComponent; Text: pchar; Data: pointer; flags: longint; index: longint): longint; cdecl; varargs; external libnewt;
+function newtCheckboxTreeAddArray(co: PnewtComponent; Text: pchar; Data: pointer; flags: longint; indexes: Plongint): longint; cdecl; external libnewt;
+function newtCheckboxTreeFindItem(co: PnewtComponent; Data: pointer): Plongint; cdecl; external libnewt;
+procedure newtCheckboxTreeSetEntry(co: PnewtComponent; Data: pointer; Text: pchar); cdecl; external libnewt;
+procedure newtCheckboxTreeSetWidth(co: PnewtComponent; Width: longint); cdecl; external libnewt;
+function newtCheckboxTreeGetEntryValue(co: PnewtComponent; Data: pointer): char; cdecl; external libnewt;
+procedure newtCheckboxTreeSetEntryValue(co: PnewtComponent; Data: pointer; Value: char); cdecl; external libnewt;
 function newtTextboxReflowed(left: longint; top: longint; Text: pchar; Width: longint; flexDown: longint;
-  flexUp: longint; flags: longint): TnewtComponent; cdecl; external libnewt;
-function newtTextbox(left: longint; top: longint; Width: longint; Height: longint; flags: longint): TnewtComponent; cdecl; external libnewt;
-procedure newtTextboxSetText(co: TnewtComponent; Text: pchar); cdecl; external libnewt;
-procedure newtTextboxSetHeight(co: TnewtComponent; Height: longint); cdecl; external libnewt;
-function newtTextboxGetNumLines(co: TnewtComponent): longint; cdecl; external libnewt;
-procedure newtTextboxSetColors(co: TnewtComponent; normal: longint; active: longint); cdecl; external libnewt;
+  flexUp: longint; flags: longint): PnewtComponent; cdecl; external libnewt;
+function newtTextbox(left: longint; top: longint; Width: longint; Height: longint; flags: longint): PnewtComponent; cdecl; external libnewt;
+procedure newtTextboxSetText(co: PnewtComponent; Text: pchar); cdecl; external libnewt;
+procedure newtTextboxSetHeight(co: PnewtComponent; Height: longint); cdecl; external libnewt;
+function newtTextboxGetNumLines(co: PnewtComponent): longint; cdecl; external libnewt;
+procedure newtTextboxSetColors(co: PnewtComponent; normal: longint; active: longint); cdecl; external libnewt;
 function newtReflowText(Text: pchar; Width: longint; flexDown: longint; flexUp: longint; actualWidth: Plongint;
   actualHeight: Plongint): pchar; cdecl; external libnewt;
 
@@ -254,51 +255,51 @@ type
       case longint of
         0: (watch: longint);
         1: (key: longint);
-        2: (co: TnewtComponent);
+        2: (co: PnewtComponent);
       end;
   end;
   PnewtExitStruct = ^TnewtExitStruct;
 
-function newtForm(vertBar: TnewtComponent; helpTag: pointer; flags: longint): TnewtComponent; cdecl; external libnewt;
-procedure newtFormSetTimer(form: TnewtComponent; millisecs: longint); cdecl; external libnewt;
-procedure newtFormWatchFd(form: TnewtComponent; fd: longint; fdFlags: longint); cdecl; external libnewt;
-procedure newtFormSetSize(co: TnewtComponent); cdecl; external libnewt;
-function newtFormGetCurrent(co: TnewtComponent): TnewtComponent; cdecl; external libnewt;
-procedure newtFormSetBackground(co: TnewtComponent; color: longint); cdecl; external libnewt;
-procedure newtFormSetCurrent(co: TnewtComponent; subco: TnewtComponent); cdecl; external libnewt;
-procedure newtFormAddComponent(form: TnewtComponent; co: TnewtComponent); cdecl; external libnewt;
-procedure newtFormAddComponents(form: TnewtComponent); cdecl; varargs; external libnewt;
-procedure newtFormSetHeight(co: TnewtComponent; Height: longint); cdecl; external libnewt;
-procedure newtFormSetWidth(co: TnewtComponent; Width: longint); cdecl; external libnewt;
-function newtRunForm(form: TnewtComponent): TnewtComponent; cdecl; external libnewt;
-procedure newtFormRun(co: TnewtComponent; es: PnewtExitStruct); cdecl; external libnewt;
-procedure newtDrawForm(form: TnewtComponent); cdecl; external libnewt;
-procedure newtFormAddHotKey(co: TnewtComponent; key: longint); cdecl; external libnewt;
-function newtFormGetScrollPosition(co: TnewtComponent): longint; cdecl; external libnewt;
-procedure newtFormSetScrollPosition(co: TnewtComponent; position: longint); cdecl; external libnewt;
+function newtForm(vertBar: PnewtComponent; helpTag: pointer; flags: longint): PnewtComponent; cdecl; external libnewt;
+procedure newtFormSetTimer(form: PnewtComponent; millisecs: longint); cdecl; external libnewt;
+procedure newtFormWatchFd(form: PnewtComponent; fd: longint; fdFlags: longint); cdecl; external libnewt;
+procedure newtFormSetSize(co: PnewtComponent); cdecl; external libnewt;
+function newtFormGetCurrent(co: PnewtComponent): PnewtComponent; cdecl; external libnewt;
+procedure newtFormSetBackground(co: PnewtComponent; color: longint); cdecl; external libnewt;
+procedure newtFormSetCurrent(co: PnewtComponent; subco: PnewtComponent); cdecl; external libnewt;
+procedure newtFormAddComponent(form: PnewtComponent; co: PnewtComponent); cdecl; external libnewt;
+procedure newtFormAddComponents(form: PnewtComponent); cdecl; varargs; external libnewt;
+procedure newtFormSetHeight(co: PnewtComponent; Height: longint); cdecl; external libnewt;
+procedure newtFormSetWidth(co: PnewtComponent; Width: longint); cdecl; external libnewt;
+function newtRunForm(form: PnewtComponent): PnewtComponent; cdecl; external libnewt;
+procedure newtFormRun(co: PnewtComponent; es: PnewtExitStruct); cdecl; external libnewt;
+procedure newtDrawForm(form: PnewtComponent); cdecl; external libnewt;
+procedure newtFormAddHotKey(co: PnewtComponent; key: longint); cdecl; external libnewt;
+function newtFormGetScrollPosition(co: PnewtComponent): longint; cdecl; external libnewt;
+procedure newtFormSetScrollPosition(co: PnewtComponent; position: longint); cdecl; external libnewt;
 
 type
-  TnewtEntryFilter = function(entry: TnewtComponent; Data: pointer; ch: longint; cursor: longint): longint; cdecl;
+  TnewtEntryFilter = function(entry: PnewtComponent; Data: pointer; ch: longint; cursor: longint): longint; cdecl;
 
 function newtEntry(left: longint; top: longint; initialValue: pchar; Width: longint; resultPtr: PPchar;
-  flags: longint): TnewtComponent; cdecl; external libnewt;
-procedure newtEntrySet(co: TnewtComponent; Value: pchar; cursorAtEnd: longint); cdecl; external libnewt;
-procedure newtEntrySetFilter(co: TnewtComponent; filter: TnewtEntryFilter; Data: pointer); cdecl; external libnewt;
-function newtEntryGetValue(co: TnewtComponent): pchar; cdecl; external libnewt;
-procedure newtEntrySetFlags(co: TnewtComponent; flags: longint; sense: TnewtFlagsSense); cdecl; external libnewt;
-procedure newtEntrySetColors(co: TnewtComponent; normal: longint; disabled: longint); cdecl; external libnewt;
-function newtEntryGetCursorPosition(co: TnewtComponent): longint; cdecl; external libnewt;
-procedure newtEntrySetCursorPosition(co: TnewtComponent; position: longint); cdecl; external libnewt;
-function newtScale(left: longint; top: longint; Width: longint; fullValue: int64): TnewtComponent; cdecl; external libnewt;
-procedure newtScaleSet(co: TnewtComponent; amount: qword); cdecl; external libnewt;
-procedure newtScaleSetColors(co: TnewtComponent; empty: longint; full: longint); cdecl; external libnewt;
-procedure newtComponentAddCallback(co: TnewtComponent; f: TnewtCallback; Data: pointer); cdecl; external libnewt;
-procedure newtComponentTakesFocus(co: TnewtComponent; val: longint); cdecl; external libnewt;
-procedure newtComponentGetPosition(co: TnewtComponent; left: Plongint; top: Plongint); cdecl; external libnewt;
-procedure newtComponentGetSize(co: TnewtComponent; Width: Plongint; Height: Plongint); cdecl; external libnewt;
-procedure newtComponentAddDestroyCallback(co: TnewtComponent; f: TnewtCallback; Data: pointer); cdecl; external libnewt;
-procedure newtFormDestroy(form: TnewtComponent); cdecl; external libnewt;
-procedure newtComponentDestroy(co: TnewtComponent); cdecl; external libnewt;
+  flags: longint): PnewtComponent; cdecl; external libnewt;
+procedure newtEntrySet(co: PnewtComponent; Value: pchar; cursorAtEnd: longint); cdecl; external libnewt;
+procedure newtEntrySetFilter(co: PnewtComponent; filter: TnewtEntryFilter; Data: pointer); cdecl; external libnewt;
+function newtEntryGetValue(co: PnewtComponent): pchar; cdecl; external libnewt;
+procedure newtEntrySetFlags(co: PnewtComponent; flags: longint; sense: TnewtFlagsSense); cdecl; external libnewt;
+procedure newtEntrySetColors(co: PnewtComponent; normal: longint; disabled: longint); cdecl; external libnewt;
+function newtEntryGetCursorPosition(co: PnewtComponent): longint; cdecl; external libnewt;
+procedure newtEntrySetCursorPosition(co: PnewtComponent; position: longint); cdecl; external libnewt;
+function newtScale(left: longint; top: longint; Width: longint; fullValue: int64): PnewtComponent; cdecl; external libnewt;
+procedure newtScaleSet(co: PnewtComponent; amount: qword); cdecl; external libnewt;
+procedure newtScaleSetColors(co: PnewtComponent; empty: longint; full: longint); cdecl; external libnewt;
+procedure newtComponentAddCallback(co: PnewtComponent; f: TnewtCallback; Data: pointer); cdecl; external libnewt;
+procedure newtComponentTakesFocus(co: PnewtComponent; val: longint); cdecl; external libnewt;
+procedure newtComponentGetPosition(co: PnewtComponent; left: Plongint; top: Plongint); cdecl; external libnewt;
+procedure newtComponentGetSize(co: PnewtComponent; Width: Plongint; Height: Plongint); cdecl; external libnewt;
+procedure newtComponentAddDestroyCallback(co: PnewtComponent; f: TnewtCallback; Data: pointer); cdecl; external libnewt;
+procedure newtFormDestroy(form: PnewtComponent); cdecl; external libnewt;
+procedure newtComponentDestroy(co: PnewtComponent); cdecl; external libnewt;
 
 const
   NEWT_KEY_TAB = 9;
@@ -356,8 +357,8 @@ function newtGridVStacked(_type: TnewtGridElement; what: pointer): TnewtGrid; cd
 function newtGridVCloseStacked(_type: TnewtGridElement; what: pointer): TnewtGrid; cdecl; varargs; external libnewt;
 function newtGridHStacked(type1: TnewtGridElement; what1: pointer): TnewtGrid; cdecl; varargs; external libnewt;
 function newtGridHCloseStacked(type1: TnewtGridElement; what1: pointer): TnewtGrid; cdecl; varargs; external libnewt;
-function newtGridBasicWindow(Text: TnewtComponent; middle: TnewtGrid; Buttons: TnewtGrid): TnewtGrid; cdecl; external libnewt;
-function newtGridSimpleWindow(Text: TnewtComponent; middle: TnewtComponent; Buttons: TnewtGrid): TnewtGrid; cdecl; external libnewt;
+function newtGridBasicWindow(Text: PnewtComponent; middle: TnewtGrid; Buttons: TnewtGrid): TnewtGrid; cdecl; external libnewt;
+function newtGridSimpleWindow(Text: PnewtComponent; middle: PnewtComponent; Buttons: TnewtGrid): TnewtGrid; cdecl; external libnewt;
 procedure newtGridSetField(grid: TnewtGrid; col: longint; row: longint; _type: TnewtGridElement; val: pointer;
   padLeft: longint; padTop: longint; padRight: longint; padBottom: longint; anchor: longint;
   flags: longint); cdecl; external libnewt;
@@ -369,9 +370,9 @@ procedure newtGridFree(grid: TnewtGrid; recurse: longint); cdecl; external libne
 procedure newtGridGetSize(grid: TnewtGrid; Width: Plongint; Height: Plongint); cdecl; external libnewt;
 procedure newtGridWrappedWindow(grid: TnewtGrid; title: pchar); cdecl; external libnewt;
 procedure newtGridWrappedWindowAt(grid: TnewtGrid; title: pchar; left: longint; top: longint); cdecl; external libnewt;
-procedure newtGridAddComponentsToForm(grid: TnewtGrid; form: TnewtComponent; recurse: longint); cdecl; external libnewt;
-function newtButtonBarv(button1: pchar; b1comp: PnewtComponent; args: Tva_list): TnewtGrid; cdecl; external libnewt;
-function newtButtonBar(button1: pchar; b1comp: PnewtComponent): TnewtGrid; cdecl; varargs; external libnewt;
+procedure newtGridAddComponentsToForm(grid: TnewtGrid; form: PnewtComponent; recurse: longint); cdecl; external libnewt;
+function newtButtonBarv(button1: pchar; b1comp: PPnewtComponent; args: Tva_list): TnewtGrid; cdecl; external libnewt;
+function newtButtonBar(button1: pchar; b1comp: PPnewtComponent): TnewtGrid; cdecl; varargs; external libnewt;
 procedure newtWinMessage(title: pchar; buttonText: pchar; Text: pchar); cdecl; varargs; external libnewt;
 procedure newtWinMessagev(title: pchar; buttonText: pchar; Text: pchar; argv: Tva_list); cdecl; external libnewt;
 function newtWinChoice(title: pchar; button1: pchar; button2: pchar; Text: pchar): longint; cdecl; varargs; external libnewt;

@@ -1,0 +1,73 @@
+program project1;
+
+uses
+  stdio,
+  ncurses,
+  cdk,
+
+  cdkscreen,
+
+
+
+  math;
+
+  procedure main;
+  const
+    items :array[0..3 ]of PChar = (
+        'Option 1',
+        'Option 2',
+        'Option 3',
+        'Beenden'    );
+  var
+    n_items: SizeInt;
+    cursesWin: PWINDOW;
+    cdkScreen_: PCDKSCREEN;
+  begin
+    n_items := Length(items);
+    //int choice;
+
+    // ncurses und CDK initialisieren
+    cursesWin := initscr();
+    cdkScreen_ := initCDKScreen(cursesWin);
+    initCDKColor();
+
+    // Scroll-Menü erzeugen
+    scroll_ := newCDKScroll(
+        cdkScreen_,
+        CENTER, CENTER,        // Position
+        NONE,                  // Border
+        n_items + 4, 40,       // Höhe, Breite
+        'Menü:',               // Titel
+        items, n_items,        // Einträge und Anzahl
+        FALSE,                 // Zahlen anzeigen
+        A_REVERSE,             // Attribut für Auswahl
+        TRUE,                  // Box
+        TRUE                  // Shadow
+    );
+
+    // Menü anzeigen und Auswahl abfragen
+    choice = activateCDKScroll(scroll_, 0);
+
+    // Ergebnis anzeigen
+    if (choice != -1) {
+        char msg[64];
+        snprintf(msg, sizeof(msg), "Du hast '%s' gewählt.", items[choice]);
+        char *msgarr[3];
+        msgarr[0] = "*******************";
+        msgarr[1] = msg;
+        msgarr[2] = "*******************";
+        popupLabel(cdkScreen, msgarr, 3);
+    }
+
+    // Aufräumen
+    destroyCDKScroll(scroll_);
+    destroyCDKScreen(cdkScreen_);
+    endCDK();
+
+
+  end;
+
+
+begin
+  main;
+end.

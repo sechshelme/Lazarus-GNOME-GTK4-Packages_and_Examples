@@ -130,6 +130,8 @@ Aktualisieren:
 ### Vorgemerkte pakete
 
 /usr/include/sysprof-6
+libxml2b
+slang
 
 ### GTK Inspector
 
