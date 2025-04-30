@@ -7,9 +7,9 @@
 #define CDK_CONFIG_H 1
 
 
-#define CDK_CONST /*nothing*/
-#define CDK_CSTRING CDK_CONST char *
-#define CDK_CSTRING2 CDK_CONST char * CDK_CONST *
+//#define CDK_CONST /*nothing*/
+//#define CDK_CSTRING CDK_CONST char *
+//#define CDK_CSTRING2 CDK_CONST char * CDK_CONST *
 #define CDK_PATCHDATE 20230201
 #define CDK_VERSION "5.0"
 #define CDK_HAVE_DIRENT_H 1

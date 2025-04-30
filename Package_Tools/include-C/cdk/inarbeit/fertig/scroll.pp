@@ -90,15 +90,12 @@ const
  * Declare scrolling list definitions.
   }
 { This field must stay on top  }
-(* error 
-   SCROLLER_FIELDS;
- in declarator_list *)
+{   SCROLLER_FIELDS; ?????????????????? }
 {  }
 {  }
 type
   PSScroll = ^TSScroll;
   TSScroll = record
-;
       numbers : Tboolean;
       titlehighlight : Tchtype;
       listWin : PWINDOW;

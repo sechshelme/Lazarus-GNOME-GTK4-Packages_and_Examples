@@ -60,7 +60,7 @@ extern "C" {
  */
 struct SScroll {
    /* This field must stay on top */
-   SCROLLER_FIELDS;
+//   SCROLLER_FIELDS; ??????????????????
 
    boolean	numbers;	/* */
    chtype	titlehighlight;	/* */

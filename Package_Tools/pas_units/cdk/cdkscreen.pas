@@ -10,9 +10,6 @@ uses
   {$ENDIF}
 
 const
-  CDKSCREEN_H = 1;
-
-const
   MAX_OBJECTS = 1000;
 
 type
@@ -40,7 +37,7 @@ type
   PSScreen = ^TSScreen;
 
   TCDKSCREEN=  TSScreen  ;
-  PCDKSCREEN=PSScreen;
+  PCDKSCREEN=^TCDKSCREEN;
 
 function initCDKScreen(para1: PWINDOW): PCDKSCREEN; cdecl; external libcdk;
 function setDefaultCDKScreen(para1: longint): PCDKSCREEN; cdecl; external libcdk;

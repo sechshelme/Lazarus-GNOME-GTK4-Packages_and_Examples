@@ -4,8 +4,13 @@ uses
   stdio,
   ncurses,
   cdk,
-
+  binding,
+  cdk_objs,     // -> binding    ( Viele Makros entfernt, TCDKOBJS geleert )
+  cdk_config,
   cdkscreen,
+  scroll,       // -> cdk_config, cdkscreen    ( TSScroll geleert )
+
+  cdk_util,
 
 
 
@@ -22,6 +27,10 @@ uses
     n_items: SizeInt;
     cursesWin: PWINDOW;
     cdkScreen_: PCDKSCREEN;
+    scroll_: PCDKSCROLL;
+    choice: LongInt;
+    msg:array[0..63]of Char;
+    msgarr:array[0..2]of PChar;
   begin
     n_items := Length(items);
     //int choice;
@@ -46,18 +55,17 @@ uses
     );
 
     // Menü anzeigen und Auswahl abfragen
-    choice = activateCDKScroll(scroll_, 0);
+    choice := activateCDKScroll(scroll_, nil);
 
     // Ergebnis anzeigen
-    if (choice != -1) {
-        char msg[64];
-        snprintf(msg, sizeof(msg), "Du hast '%s' gewählt.", items[choice]);
-        char *msgarr[3];
-        msgarr[0] = "*******************";
-        msgarr[1] = msg;
-        msgarr[2] = "*******************";
-        popupLabel(cdkScreen, msgarr, 3);
-    }
+    if (choice <> -1) then begin
+        snprintf(msg, sizeof(msg), 'Du hast ''%s'' gewählt.', items[choice]);
+//        char *msgarr[3];
+        msgarr[0] := '*******************';
+        msgarr[1] := msg;
+        msgarr[2] := '*******************';
+        popupLabel(cdkScreen_, msgarr, 3);
+    end;
 
     // Aufräumen
     destroyCDKScroll(scroll_);

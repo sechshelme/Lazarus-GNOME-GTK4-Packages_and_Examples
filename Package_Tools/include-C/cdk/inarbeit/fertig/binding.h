@@ -48,17 +48,8 @@ extern "C" {
  * Create definitions for the key bindings.
  */
 
-/*
- * This is the key binding prototype, typed for use with Perl.
- */
-#define BINDFN_PROTO(func)  \
-	int (func) ( \
-		EObjectType	/* cdktype */, \
-		void *		/* object */, \
-		void *		/* clientData */, \
-		chtype		/* input */)
 
-typedef BINDFN_PROTO(*BINDFN);
+//typedef BINDFN_PROTO(*BINDFN);
 
 /*
  * Bind to this function to simply translate keys without doing anything else,

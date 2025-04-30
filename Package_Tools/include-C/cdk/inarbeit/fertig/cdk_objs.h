@@ -106,30 +106,6 @@ typedef struct CDKFUNCS {
    void         (*setBKattrObj)    (struct CDKOBJS *, chtype);
 } CDKFUNCS;
 
-/* The cast is needed because traverse.c wants to use CDKOBJS pointers */
-#define ObjPtr(p)           ((CDKOBJS*)(p))
-
-#define MethodPtr(p,m)      ((ObjPtr(p))->fn->m)
-
-/* Use these when we're certain it is a CDKOBJS pointer */
-#define ObjTypeOf(p)            MethodPtr(p,objectType)
-#define DataTypeOf(p)           MethodPtr(p,returnType)
-#define DrawObj(p)              MethodPtr(p,drawObj)         (p,p->box)
-#define EraseObj(p)             MethodPtr(p,eraseObj)        (p)
-#define DestroyObj(p)           MethodPtr(p,destroyObj)      (p)
-#define InjectObj(p,k)          MethodPtr(p,injectObj)       (p,(k))
-#define InputWindowObj(p)       MethodPtr(p,inputWindowObj)  (p)
-#define FocusObj(p)             MethodPtr(p,focusObj)        (p)
-#define UnfocusObj(p)           MethodPtr(p,unfocusObj)      (p)
-#define SaveDataObj(p)          MethodPtr(p,saveDataObj)     (p)
-#define RefreshDataObj(p)       MethodPtr(p,refreshDataObj)  (p)
-#define SetBackAttrObj(p,c)     MethodPtr(p,setBKattrObj)    (p,c)
-
-#define AcceptsFocusObj(p)      (ObjPtr(p)->acceptsFocus)
-#define HasFocusObj(p)          (ObjPtr(p)->hasFocus)
-#define IsVisibleObj(p)         (ObjPtr(p)->isVisible)
-#define InputWindowOf(p)        (ObjPtr(p)->inputWindow)
-
 /*
  * Data common to all objects (widget instances).  This appears first in
  * each widget's struct to allow us to use generic functions in binding.c,
@@ -226,84 +202,14 @@ void _destroyCDKObject (CDKOBJS *);
 #define drawCDKObject(o,box)           MethodOf(o)->drawObj       (ObjOf(o),box)
 #define eraseCDKObject(o)              MethodOf(o)->eraseObj      (ObjOf(o))
 #define moveCDKObject(o,x,y,rel,ref)   MethodOf(o)->moveObj       (ObjOf(o),x,y,rel,ref)
-#define injectCDKObject(o,c,type)      (MethodOf(o)->injectObj    (ObjOf(o),c) ? ResultOf(o).value ## type : unknown ## type)
+//#define injectCDKObject(o,c,type)      (MethodOf(o)->injectObj    (ObjOf(o),c) ? ResultOf(o).value ## type : unknown ## type)
 
 /* functions to set line-drawing are bound to cdk_objs.c if the widget is
  * simple, but are built into the widget for complex widgets.
  */
-#define DeclareSetXXchar(storage,line) \
-storage void line ## ULchar(struct CDKOBJS *, chtype); \
-storage void line ## URchar(struct CDKOBJS *, chtype); \
-storage void line ## LLchar(struct CDKOBJS *, chtype); \
-storage void line ## LRchar(struct CDKOBJS *, chtype); \
-storage void line ## VTchar(struct CDKOBJS *, chtype); \
-storage void line ## HZchar(struct CDKOBJS *, chtype); \
-storage void line ## BXattr(struct CDKOBJS *, chtype)
 
-DeclareSetXXchar(extern,setCdk);
+//DeclareSetXXchar(extern,setCdk);
 
-#define DeclareCDKObjects(upper, mixed, line, type) \
-static int  _injectCDK ## mixed        (struct CDKOBJS *, chtype); \
-static void _destroyCDK ## mixed       (struct CDKOBJS *); \
-static void _drawCDK ## mixed          (struct CDKOBJS *, boolean); \
-static void _eraseCDK ## mixed         (struct CDKOBJS *); \
-static void _focusCDK ## mixed         (struct CDKOBJS *); \
-static void _moveCDK ## mixed          (struct CDKOBJS *, int, int, boolean, boolean); \
-static void _refreshDataCDK ## mixed   (struct CDKOBJS *); \
-static void _saveDataCDK ## mixed      (struct CDKOBJS *); \
-static void _unfocusCDK ## mixed       (struct CDKOBJS *); \
-static void _setBKattr ## mixed        (struct CDKOBJS *, chtype); \
-static const CDKFUNCS my_funcs = { \
-   v ## upper, \
-   DataType ## type, \
-   _drawCDK ## mixed, \
-   _eraseCDK ## mixed, \
-   _moveCDK ## mixed, \
-   _injectCDK ## mixed, \
-   _focusCDK ## mixed, \
-   _unfocusCDK ## mixed, \
-   _saveDataCDK ## mixed, \
-   _refreshDataCDK ## mixed, \
-   _destroyCDK ## mixed, \
-   line ## ULchar, \
-   line ## URchar, \
-   line ## LLchar, \
-   line ## LRchar, \
-   line ## VTchar, \
-   line ## HZchar, \
-   line ## BXattr, \
-   _setBKattr ## mixed, \
-}
-
-/*
- * Some methods are unused.  Define macros to represent dummy methods
- * to make it simple to maintain them.
- */
-#define dummyInject(mixed) \
-static int _injectCDK ## mixed (CDKOBJS * object GCC_UNUSED, chtype input GCC_UNUSED) \
-{ \
-   return 0; \
-}
-
-#define dummyFocus(mixed) \
-static void _focusCDK ## mixed (CDKOBJS * object GCC_UNUSED) \
-{ \
-}
-
-#define dummyUnfocus(mixed) \
-static void _unfocusCDK ## mixed (CDKOBJS * object GCC_UNUSED) \
-{ \
-}
-
-#define dummySaveData(mixed) \
-static void _saveDataCDK ## mixed (CDKOBJS * object GCC_UNUSED) \
-{ \
-}
-
-#define dummyRefreshData(mixed) \
-static void _refreshDataCDK ## mixed (CDKOBJS * object GCC_UNUSED) \
-{ \
-}
 
 /*
  * Read keycode from object, optionally translating bindings.
@@ -353,7 +259,7 @@ extern int setCdkTitle (CDKOBJS *, const char *, int);
 extern void drawCdkTitle (WINDOW *, CDKOBJS *);
 extern void cleanCdkTitle (CDKOBJS *);
 
-#define setCdkEarlyExit(p,q)    EarlyExitOf(p) = q
+//#define setCdkEarlyExit(p,q)    EarlyExitOf(p) = q
 
 extern void setCdkExitType(
 		CDKOBJS *	/* obj */,
