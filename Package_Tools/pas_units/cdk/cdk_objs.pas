@@ -3,7 +3,7 @@ unit cdk_objs;
 interface
 
 uses
-  ncurses, cdk, binding;
+  ncurses, cdk, binding, cdkscreen;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
@@ -17,11 +17,6 @@ type
       bindData : pointer;
       callbackfn : TPROCESSFN;
     end;
-  PCDKOBJS = ^TCDKOBJS;
-  TCDKOBJS = record
-      {undefined structure}
-    end;
-
 
   PCDKDataType = ^TCDKDataType;
   TCDKDataType =  Longint;
@@ -74,6 +69,41 @@ type
       setBKattrObj : procedure (para1:PCDKOBJS; para2:Tchtype);cdecl;
     end;
 
+  PCDKOBJS = ^TCDKOBJS;
+  TCDKOBJS = record
+      screenIndex : longint;
+      screen : PCDKSCREEN;
+      fn : PCDKFUNCS;
+      box : Tboolean;
+      borderSize : longint;
+      acceptsFocus : Tboolean;
+      hasFocus : Tboolean;
+      isVisible : Tboolean;
+      inputWindow : PWINDOW;
+      dataPtr : pointer;
+      resultData : TCDKDataUnion;
+      bindingCount : dword;
+      bindingList : PCDKBINDING;
+      title : ^Pchtype;
+      titlePos : Plongint;
+      titleLen : Plongint;
+      titleLines : longint;
+      ULChar : Tchtype;
+      URChar : Tchtype;
+      LLChar : Tchtype;
+      LRChar : Tchtype;
+      VTChar : Tchtype;
+      HZChar : Tchtype;
+      BXAttr : Tchtype;
+      exitType : TEExitType;
+      earlyExit : TEExitType;
+      preProcessFunction : TPROCESSFN;
+      preProcessData : pointer;
+      postProcessFunction : TPROCESSFN;
+      postProcessData : pointer;
+    end;
+
+
 function validCDKObject(para1:PCDKOBJS):Boolean;cdecl;external libcdk;
 function _newCDKObject(para1:dword; para2:PCDKFUNCS):pointer;cdecl;external libcdk;
 
@@ -93,17 +123,74 @@ procedure setCdkExitType(para1:PCDKOBJS; para2:PEExitType; para3:Tchtype);cdecl;
 
 function unknownString : Pchar;
 
-
 // === Konventiert am: 30-4-25 17:36:59 ===
+
+function ObjOf(ptr : PCDKOBJS) : PCDKOBJS;
+function MethodOf(ptr : PCDKOBJS) : PCDKFUNCS;
+function ScreenOf(ptr : PCDKOBJS) : PCDKSCREEN;
+function WindowOf(ptr : PCDKOBJS) : PWINDOW;
+function BorderOf(p : PCDKOBJS) : longint;
+function ResultOf(p : PCDKOBJS) : TCDKDataUnion;
+function ExitTypeOf(p : PCDKOBJS) : TEExitType;
+function EarlyExitOf(p : PCDKOBJS) : TEExitType;
+
+
+procedure destroyCDKObject(o : Pointer);
 
 
 implementation
-
 
 function unknownString : Pchar;
   begin
     unknownString:=Pchar(0);
   end;
+
+function ObjOf(ptr: PCDKOBJS): PCDKOBJS;
+begin
+  Result:=ptr;
+//  ObjOf:=@(ptr^.obj);
+end;
+
+function MethodOf(ptr: PCDKOBJS): PCDKFUNCS;
+begin
+  MethodOf:=ObjOf(ptr)^.fn;
+end;
+
+function ScreenOf(ptr: PCDKOBJS): PCDKSCREEN;
+begin
+  ScreenOf:=ObjOf(ptr)^.screen;
+end;
+
+function WindowOf(ptr: PCDKOBJS): PWINDOW;
+begin
+  WindowOf:=ScreenOf(ptr)^.window;
+end;
+
+function BorderOf(p: PCDKOBJS): longint;
+begin
+  BorderOf:=(ObjOf(p))^.borderSize;
+end;
+
+function ResultOf(p: PCDKOBJS): TCDKDataUnion;
+begin
+  ResultOf:=(ObjOf(p))^.resultData;
+end;
+
+function ExitTypeOf(p: PCDKOBJS): TEExitType;
+begin
+  ExitTypeOf:=(ObjOf(p))^.exitType;
+end;
+
+function EarlyExitOf(p: PCDKOBJS): TEExitType;
+begin
+  EarlyExitOf:=(ObjOf(p))^.earlyExit;
+end;
+
+procedure destroyCDKObject(o: Pointer);
+begin
+//  _destroyCDKObject(ObjOf(o));
+  _destroyCDKObject(o);
+end;
 
 
 end.

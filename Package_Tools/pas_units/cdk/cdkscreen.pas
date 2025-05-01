@@ -3,7 +3,7 @@ unit cdkscreen;
 interface
 
 uses
- ncurses, cdk;
+  ncurses, cdk;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -13,6 +13,7 @@ const
   MAX_OBJECTS = 1000;
 
 type
+  PPCDKOBJS = ^PCDKOBJS;
   PCDKOBJS = ^TCDKOBJS;
   TCDKOBJS = record
   end;
@@ -28,7 +29,7 @@ const
 type
   TSScreen = record
     window: PWINDOW;
-    obj: ^PCDKOBJS;
+    obj: PPCDKOBJS;
     objectCount: longint;
     objectLimit: longint;
     exitStatus: TEExitStatus;
@@ -36,8 +37,8 @@ type
   end;
   PSScreen = ^TSScreen;
 
-  TCDKSCREEN=  TSScreen  ;
-  PCDKSCREEN=^TCDKSCREEN;
+  TCDKSCREEN = TSScreen;
+  PCDKSCREEN = ^TCDKSCREEN;
 
 function initCDKScreen(para1: PWINDOW): PCDKSCREEN; cdecl; external libcdk;
 function setDefaultCDKScreen(para1: longint): PCDKSCREEN; cdecl; external libcdk;

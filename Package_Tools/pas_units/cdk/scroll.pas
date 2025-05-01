@@ -3,7 +3,7 @@ unit scroll;
 interface
 
 uses
-  ncurses, cdk, cdk_config, cdkscreen;
+  ncurses, cdk, cdk_config, cdk_objs, cdkscreen;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -53,7 +53,13 @@ procedure deleteCDKScrollItem(para1: PCDKSCROLL; para2: longint); cdecl; externa
 
 // === Konventiert am: 30-4-25 16:55:41 ===
 
+procedure destroyCDKScroll(scroll: PCDKSCROLL);
 
 implementation
+
+procedure destroyCDKScroll(scroll: PCDKSCROLL);
+begin
+   destroyCDKObject(scroll);
+end;
 
 end.

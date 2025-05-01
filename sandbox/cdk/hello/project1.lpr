@@ -8,9 +8,11 @@ uses
   cdk_objs,     // -> binding    ( Viele Makros entfernt, TCDKOBJS geleert )
   cdk_config,
   cdkscreen,
-  scroll,       // -> cdk_config, cdkscreen    ( TSScroll geleert )
+  scroll,       // -> cdk_config, cdkscreen                           ( Viele Makros entfernt, TSScroll geleert )
+  cdk_util,     // -> cdk_config, cdkscreen
 
-  cdk_util,
+  entry,        // -> cdkscreen, cdk_objs                             ( Viele Makros entfernt )
+  fselect,      // -> cdk_config, cdkscreen, binding, scroll, entry   ( Viele Makros entfernt )
 
 
 
@@ -24,7 +26,6 @@ uses
         'Option 3',
         'Beenden'    );
   var
-    n_items: SizeInt;
     cursesWin: PWINDOW;
     cdkScreen_: PCDKSCREEN;
     scroll_: PCDKSCROLL;
@@ -32,8 +33,6 @@ uses
     msg:array[0..63]of Char;
     msgarr:array[0..2]of PChar;
   begin
-    n_items := Length(items);
-    //int choice;
 
     // ncurses und CDK initialisieren
     cursesWin := initscr();
@@ -45,13 +44,13 @@ uses
         cdkScreen_,
         CENTER, CENTER,        // Position
         NONE,                  // Border
-        n_items + 4, 40,       // Höhe, Breite
+        Length(items) + 4, 40, // Höhe, Breite
         'Menü:',               // Titel
-        items, n_items,        // Einträge und Anzahl
-        FALSE,                 // Zahlen anzeigen
+        items, Length(items),  // Einträge und Anzahl
+        False,                 // Zahlen anzeigen
         A_REVERSE,             // Attribut für Auswahl
-        TRUE,                  // Box
-        TRUE                  // Shadow
+        True,                  // Box
+        True                   // Shadow
     );
 
     // Menü anzeigen und Auswahl abfragen
@@ -60,11 +59,10 @@ uses
     // Ergebnis anzeigen
     if (choice <> -1) then begin
         snprintf(msg, sizeof(msg), 'Du hast ''%s'' gewählt.', items[choice]);
-//        char *msgarr[3];
         msgarr[0] := '*******************';
         msgarr[1] := msg;
         msgarr[2] := '*******************';
-        popupLabel(cdkScreen_, msgarr, 3);
+        popupLabel(cdkScreen_, msgarr, Length(msgarr));
     end;
 
     // Aufräumen
@@ -75,7 +73,27 @@ uses
 
   end;
 
+type
+  Tr=record
+    obj:Pointer;
+  end;
+  Pr=^Tr;
+
+var
+  r:  Tr;
+
+  procedure Test(o:Pr);
+  begin
+    WriteLn('struct: ',PtrUInt(o));
+    WriteLn('obj: ',PtrUInt(@o^.obj));
+
+  end;
 
 begin
+  //WriteLn('struct: ',PtrUInt(@r));
+  //WriteLn('obj: ',PtrUInt(@r.obj));
+  //Test(@r);
+  //ReadLn;
+
   main;
 end.

@@ -21,10 +21,10 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add option="`pkg-config gtk4 --cflags`" />
 		</Compiler>
 		<Linker>
-			<Add option="`pkg-config gtk4 --libs`" />
+			<Add library="cdk" />
+			<Add library="ncurses" />
 		</Linker>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />

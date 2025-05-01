@@ -51,9 +51,15 @@ int main() {
     }
 
     // Aufräumen
+    //printf("struct %ld\n", scroll);
+    //printf("obj    %ld\n", &scroll->obj);
+    //return 0;
+
+
     destroyCDKScroll(scroll);
     destroyCDKScreen(cdkScreen);
     endCDK();
+
 
     return 0;
 }
