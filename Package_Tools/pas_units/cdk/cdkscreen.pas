@@ -12,21 +12,52 @@ uses
 const
   MAX_OBJECTS = 1000;
 
-type
-  PPCDKOBJS = ^PCDKOBJS;
-  PCDKOBJS = ^TCDKOBJS;
-  TCDKOBJS = record
-  end;
-
-  PEExitStatus = ^TEExitStatus;
-  TEExitStatus = longint;
-
 const
   CDKSCREEN_NOEXIT = 0;
   CDKSCREEN_EXITOK = 1;
   CDKSCREEN_EXITCANCEL = 2;
 
 type
+  PCDKSCREEN = ^TCDKSCREEN;
+
+  PPCDKOBJS = ^PCDKOBJS;
+  PCDKOBJS = ^TCDKOBJS;
+  TCDKOBJS = record
+    screenIndex : longint;
+    screen : PCDKSCREEN;
+    fn : Pointer; //  PCDKFUNCS;
+    box : Tboolean;
+    borderSize : longint;
+    acceptsFocus : Tboolean;
+    hasFocus : Tboolean;
+    isVisible : Tboolean;
+    inputWindow : PWINDOW;
+    dataPtr : pointer;
+//    resultData :  TCDKDataUnion;
+    bindingCount : dword;
+    bindingList : Pointer; // PCDKBINDING;
+    title : ^Pchtype;
+    titlePos : Plongint;
+    titleLen : Plongint;
+    titleLines : longint;
+    ULChar : Tchtype;
+    URChar : Tchtype;
+    LLChar : Tchtype;
+    LRChar : Tchtype;
+    VTChar : Tchtype;
+    HZChar : Tchtype;
+    BXAttr : Tchtype;
+    exitType : TEExitType;
+    earlyExit : TEExitType;
+//    preProcessFunction : TPROCESSFN;
+    preProcessData : pointer;
+//    postProcessFunction : TPROCESSFN;
+    postProcessData : pointer;
+  end;
+
+  PEExitStatus = ^TEExitStatus;
+  TEExitStatus = longint;
+
   TSScreen = record
     window: PWINDOW;
     obj: PPCDKOBJS;
@@ -38,7 +69,6 @@ type
   PSScreen = ^TSScreen;
 
   TCDKSCREEN = TSScreen;
-  PCDKSCREEN = ^TCDKSCREEN;
 
 function initCDKScreen(para1: PWINDOW): PCDKSCREEN; cdecl; external libcdk;
 function setDefaultCDKScreen(para1: longint): PCDKSCREEN; cdecl; external libcdk;

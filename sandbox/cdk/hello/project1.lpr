@@ -63,6 +63,7 @@ uses
     buttonLabel: array of pchar = ('Ok', 'Cancel', 'Help');
     button1, button2: PCDKBUTTON;
     dialog_: PCDKDIALOG;
+    tf: TCDKFUNCS;
   begin
 
     // ncurses und CDK initialisieren
@@ -85,6 +86,8 @@ uses
       True,                  // Box
       True                   // Shadow
       );
+
+
 
     // Menü anzeigen und Auswahl abfragen
     choice := activateCDKScroll(scroll_, nil);
