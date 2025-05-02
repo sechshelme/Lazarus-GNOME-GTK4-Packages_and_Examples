@@ -133,6 +133,7 @@ const
     (libs: 'libc'; units: 'ctypes'),
 
     (libs: 'libnewt'; units: 'ctypes'),
+    (libs: 'libtickit'; units: 'ctypes'),
     (libs: 'libcdk'; units: 'ctypes, ncurses, cdk'),
     (libs: ''; units: ''));
 

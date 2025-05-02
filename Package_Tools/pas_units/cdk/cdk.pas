@@ -15,7 +15,7 @@ const
   {$ENDIF}
 
   {$IFDEF mswindows}
-  libcdk = 'libcdk.dll';
+  libcdk = 'libcdk.dll';  // ????
   {$ENDIF}
 
 type
