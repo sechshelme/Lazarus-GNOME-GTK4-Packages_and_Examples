@@ -1,9 +1,9 @@
-unit tickit_mockterm;
+unit fp_tickit_mockterm;
 
 interface
 
 uses
-  tickit;
+  fp_tickit;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

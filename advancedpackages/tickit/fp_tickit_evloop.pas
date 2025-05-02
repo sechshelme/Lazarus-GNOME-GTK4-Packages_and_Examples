@@ -1,9 +1,9 @@
-unit tickit_evloop;
+unit fp_tickit_evloop;
 
 interface
 
 uses
-  tickit;
+  fp_tickit;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

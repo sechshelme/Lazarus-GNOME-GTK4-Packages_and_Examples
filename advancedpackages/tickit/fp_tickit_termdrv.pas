@@ -1,9 +1,9 @@
-unit tickit_termdrv;
+unit fp_tickit_termdrv;
 
 interface
 
 uses
-  tickit;
+  fp_tickit;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -11,6 +11,7 @@ uses
 
 type
   PTickitTermDriver = ^TTickitTermDriver;
+  PTickitTermDriverVTable = ^TTickitTermDriverVTable;
 
   TTickitTermDriverVTable = record
     attach: procedure(ttd: PTickitTermDriver; tt: PTickitTerm); cdecl;
@@ -33,7 +34,6 @@ type
     on_modereport: function(ttd: PTickitTermDriver; initial: longint; mode: longint; Value: longint): longint; cdecl;
     on_decrqss: function(ttd: PTickitTermDriver; args: pchar; arglen: Tsize_t): longint; cdecl;
   end;
-  PTickitTermDriverVTable = ^TTickitTermDriverVTable;
 
   TTickitTermDriver = record
     tt: PTickitTerm;

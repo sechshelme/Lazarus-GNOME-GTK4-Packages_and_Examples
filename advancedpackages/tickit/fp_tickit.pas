@@ -1,9 +1,6 @@
-unit tickit;
+unit fp_tickit;
 
 interface
-
-uses
-  ctypes;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

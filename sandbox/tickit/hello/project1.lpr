@@ -1,11 +1,12 @@
 program project1;
 
 uses
-  stdio,
-  tickit,
-  tickit_evloop,
-  tickit_mockterm,
-  tickit_termdrv;
+  sysutils,
+//  stdio,
+  fp_tickit,
+  fp_tickit_evloop,
+  fp_tickit_mockterm,
+  fp_tickit_termdrv;
 
 
   function on_key(tt: PTickitTerm; flags: TTickitEventFlags; info: pointer; user: pointer): longint; cdecl;
@@ -41,7 +42,7 @@ uses
     msglen, col: SizeInt;
     term: PTickitTerm;
   const
-    msg = 'Hallo, libtickit!'#10;
+    msg = 'Bitte drücke eine Taste...'#10;
   begin
     t := tickit_new_stdio;
     term := tickit_get_term(t);
@@ -56,12 +57,14 @@ uses
 
     // Text ausgeben
     tickit_term_goto(term, row, col);
-    tickit_term_print(term, msg);
-
-    tickit_term_flush(term);
 
     tickit_term_bind_event(term, TICKIT_TERM_ON_KEY, 0, @on_key, term);
     tickit_term_bind_event(term, TICKIT_TERM_ON_MOUSE, 0, @on_Mouse, term);
+
+    tickit_term_print(term, msg);
+    tickit_term_flush(term);
+
+    Sleep(1000);
 
     tickit_run(t);
 

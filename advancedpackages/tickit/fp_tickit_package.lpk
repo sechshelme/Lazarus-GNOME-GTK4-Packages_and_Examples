@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="5">
+    <Name Value="fp_tickit_package"/>
+    <Type Value="RunAndDesignTime"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+    </CompilerOptions>
+    <Files>
+      <Item>
+        <Filename Value="fp_tickit.pas"/>
+        <UnitName Value="tickit"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_tickit_evloop.pas"/>
+        <UnitName Value="tickit_evloop"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_tickit_mockterm.pas"/>
+        <UnitName Value="tickit_mockterm"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_tickit_termdrv.pas"/>
+        <UnitName Value="tickit_termdrv"/>
+      </Item>
+    </Files>
+    <RequiredPkgs>
+      <Item>
+        <PackageName Value="FCL"/>
+      </Item>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <UseFileFilters Value="True"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>
