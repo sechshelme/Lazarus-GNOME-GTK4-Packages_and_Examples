@@ -2,9 +2,9 @@ unit fp_tickit;
 
 interface
 
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
 
 const
   {$IFDEF Linux}
@@ -84,10 +84,9 @@ type
 
 type
   TTickitRect = record
-    top: longint;
-    left: longint;
-    Lines: longint;
-    cols: longint;
+    case byte of
+      1: (top, left, Lines, cols: longint);
+      2: (items: array[0..3] of longint);
   end;
   PTickitRect = ^TTickitRect;
 
