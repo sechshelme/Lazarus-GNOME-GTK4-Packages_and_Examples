@@ -704,7 +704,8 @@ function tickit_window_lookup_ctl(Name: pchar): TTickitWindowCtl; cdecl; externa
 function tickit_window_ctltype(ctl: TTickitWindowCtl): TTickitType; cdecl; external libtickit; deprecated;
 
 type
-  TTickitCallbackFn = function(t: PTickit; flags: TTickitEventFlags; info: pointer; user: pointer): longint; cdecl;
+//  TTickitCallbackFn = function(t: PTickit; flags: TTickitEventFlags; info: pointer; user: pointer): longint; cdecl;
+  TTickitCallbackFn = procedure(t: PTickit; flags: TTickitEventFlags; info: pointer; user: pointer); cdecl;
 
 function tickit_new_for_term(tt: PTickitTerm): PTickit; cdecl; external libtickit;
 function tickit_new_stdio: PTickit; cdecl; external libtickit;

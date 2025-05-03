@@ -117,6 +117,7 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'HB_EXTERN', 'extern', [rfReplaceAll]);
 
       slHeader[j] := StringReplace(slHeader[j], 'CHAFA_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], '_VTE_PUBLIC', 'extern', [rfReplaceAll]);
 
 
       // libxml

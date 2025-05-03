@@ -188,16 +188,50 @@ var
     Exit(1);
   end;
 
-  function event_mouse(win: PTickitWindow; flags: TTickitEventFlags;
-    info: pointer; user: pointer): longint; cdecl;
+  function event_mouse(win: PTickitWindow; flags: TTickitEventFlags; _info: pointer; user: pointer): longint; cdecl;
+  var
+    info: PTickitMouseEventInfo absolute _info;
   begin
-
+    lastmouse := info^;
+    tickit_window_expose(mousewin, nil);
+    Exit(1);
   end;
 
-  function render_timer(win: PTickitWindow; flags: TTickitEventFlags;
-    info: pointer; user: pointer): longint; cdecl;
+  function render_timer(win: PTickitWindow; flags: TTickitEventFlags; _info: pointer; user: pointer): longint; cdecl;
+  var
+    info: PTickitExposeEventInfo absolute _info;
+    rb: PTickitRenderBuffer = nil;
+    counterp: PInteger absolute user;
   begin
+    rb := info^.rb;
 
+    tickit_renderbuffer_eraserect(rb, @info^.rect);
+
+    tickit_renderbuffer_goto(rb, 0, 0);
+
+    tickit_renderbuffer_savepen(rb);
+    tickit_renderbuffer_setpen(rb, mkpen_highlight());
+    tickit_renderbuffer_text(rb, 'Counter:');
+    tickit_renderbuffer_restore(rb);
+
+    tickit_renderbuffer_goto(rb, 2, 2);
+    tickit_renderbuffer_textf(rb, '%d', counterp^);
+
+    Exit(1);
+  end;
+
+//  function on_timer(t: PTickit; flags: TTickitEventFlags; info: pointer; user: pointer): longint; cdecl;
+  procedure on_timer(t: PTickit; flags: TTickitEventFlags; info: pointer; user: pointer); cdecl;
+  var
+    counterp: PInteger absolute user;
+  begin
+    Inc(counterp^);
+
+    tickit_window_expose(timerwin, nil);
+
+    tickit_watch_timer_after_msec(t, 1000, 0, @on_timer, user);
+
+//    Exit(0);
   end;
 
   function render_root(win: PTickitWindow; flags: TTickitEventFlags; _info: pointer; user: pointer): longint; cdecl;
@@ -253,22 +287,30 @@ var
     Exit(1);
   end;
 
-  function event_resize(win: PTickitWindow; flags: TTickitEventFlags;
-    info: pointer; user: pointer): longint; cdecl;
+  function event_resize(win: PTickitWindow; flags: TTickitEventFlags; info: pointer; user: pointer): longint; cdecl;
+  var
+    cols: longint;
+    TickitRect: TTickitRect;
   begin
+    cols := tickit_window_cols(win);
 
-  end;
+    TickitRect.items := [2, 2, 3, cols - 7];
+    tickit_window_set_geometry(keywin, TickitRect);
 
-  function on_timer(t: PTickit; flags: TTickitEventFlags; info: pointer;
-    user: pointer): longint; cdecl;
-  begin
+    TickitRect.items := [8, 2, 3, cols - 7];
+    tickit_window_set_geometry(mousewin, TickitRect);
 
+    TickitRect.items := [15, 2, 3, cols - 7];
+    tickit_window_set_geometry(timerwin, TickitRect);
+
+    tickit_window_expose(root, nil);
+
+    Exit(1);
   end;
 
   procedure main;
   var
     t: PTickit;
-    root: PTickitWindow;
     TickitRect: TTickitRect;
     counter: integer = 0;
   begin

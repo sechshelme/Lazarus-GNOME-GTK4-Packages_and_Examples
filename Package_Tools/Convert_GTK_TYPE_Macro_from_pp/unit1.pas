@@ -135,6 +135,7 @@ const
     (libs: 'libnewt'; units: 'ctypes'),
     (libs: 'libtickit'; units: 'ctypes'),
     (libs: 'libcdk'; units: 'ctypes, ncurses, cdk'),
+    (libs: 'libvte_2_91_gtk4 '; units: 'fp_glib2, fp_GTK4'),
     (libs: ''; units: ''));
 
 
