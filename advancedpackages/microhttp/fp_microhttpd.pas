@@ -2,14 +2,21 @@ unit fp_microhttpd;
 
 interface
 
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+const
+  {$IFDEF Linux}
+  libmicrohttpd = 'microhttpd';
   {$ENDIF}
 
-  // ==== Eigenes
-const
-  libmicrohttpd = 'microhttpd';
+  {$IFDEF mswindows}
+  libmicrohttpd = 'microhttpd.dll';  // ?????
+  {$ENDIF}
 
+
+  // ==== Eigenes
 const
   UINT64_MAX = High(uint64);
   FD_SETSIZE = 1024; // Nur Linux    Windows = 64

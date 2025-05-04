@@ -261,6 +261,11 @@ type
 
   Tptrdiff_t = PtrInt;
 
+  Tuint8_t=UInt8;
+  Tuint16_t=UInt16;
+  Tuint32_t=UInt32;
+  Tuint64_t=UInt64;
+
   Tsize_t = SizeUInt;
   Ttime_t = clong; // types.h
   Ptime_t = ^Ttime_t;

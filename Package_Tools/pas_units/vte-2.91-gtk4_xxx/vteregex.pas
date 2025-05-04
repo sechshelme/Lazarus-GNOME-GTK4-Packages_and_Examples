@@ -13,6 +13,7 @@ type
   TVteRegex = record
   end;
   PVteRegex = ^TVteRegex;
+  PPVteRegex = ^PVteRegex;
 
 function vte_regex_get_type: TGType; cdecl; external libvte_2_91_gtk4;
 function vte_regex_error_quark: TGQuark; cdecl; external libvte_2_91_gtk4;

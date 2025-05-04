@@ -5,9 +5,9 @@ interface
 uses
   fp_glib2, fp_GTK4;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 const
   {$IFDEF Linux}
@@ -24,7 +24,7 @@ const
 
 
 
-// === Konventiert am: 3-5-25 17:03:34 ===
+  // === Konventiert am: 3-5-25 17:03:34 ===
 
 
 implementation

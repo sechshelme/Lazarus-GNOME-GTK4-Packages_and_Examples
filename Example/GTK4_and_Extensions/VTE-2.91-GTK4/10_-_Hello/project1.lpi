@@ -25,10 +25,7 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_GLIB2_package"/>
-      </Item>
-      <Item>
-        <PackageName Value="fp_GTK4_package"/>
+        <PackageName Value="fp_vte_2_91_package"/>
       </Item>
     </RequiredPackages>
     <Units>
@@ -45,7 +42,6 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="../../../Package_Tools/pas_units/vte-2.91-gtk4"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

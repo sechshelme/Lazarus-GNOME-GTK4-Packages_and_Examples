@@ -19,6 +19,7 @@ Diese Package Sammlung stellt **FPC/Lazarus Bindungen** für folgende Pakete zu 
 | **GDK4**          | 4.14.2           | GIMP Drawing Kit                           |  ✅       | ✅       | gehört zu gtk4                                                 |
 |                   |                  |                                            |           |          |                                                                |
 | **WebKitGTK6**    | 2.46.4           | GTK4 Web-Browser                           |  ✅       | ✅       | https://github.com/WebKit                                      |
+| **VTE-2.91-gtk4**    | 2.46.4        | Virtueles Terminal für GTK4                |  ✅       | ✅       | https://gitlab.gnome.org/GNOME/vte                             |
 | **GTKSourceView** | 5.12.0           | GTK4 Source Viewer                         |  ✅       | ✅       | https://gitlab.gnome.org/GNOME/gtksourceview                   |
 | **gstreamer**     | 1.24.2.0         | GStreamer Multimedia Framework             |  ✅       | ✅       | https://gitlab.freedesktop.org/gstreamer                       |
 | **gstreamer ges** | 1.24.2.0         | GStreamer Editing Services                 |  ✅       | ✅       | https://gitlab.freedesktop.org/gstreamer/gst-editing-services  |
