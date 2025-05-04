@@ -1,8 +1,8 @@
 program project1;
 
 uses
-  stdio,
-  newt;
+ // stdio,
+  fp_newt;
 
   // https://github.com/netkiller/example/blob/master/C/newt/example.c
 
@@ -20,10 +20,10 @@ uses
 
     case res of
       1: begin
-        printf('Sie haben ''Ja'' gewählt.'#10);
+        WriteLn('Sie haben ''Ja'' gewählt.'#10);
       end;
       2: begin
-        printf('Sie haben ''Nein'' gewählt.'#10);
+        WriteLn('Sie haben ''Nein'' gewählt.'#10);
       end;
     end;
 
@@ -34,15 +34,9 @@ uses
     menuContents: array of pchar = ('One', 'Two', 'Three', 'Four', 'Five', nil);
     //  int textWidth;
     entries: array[0..9] of pchar;
-    rc, textWidth: longint;
+    textWidth, rc: longint;
     autoEntries: array[0..4] of TNewtWinEntry;
     i: integer;
-    //autoEntries: array[0..4] of TNewtWinEntry = (
-    //  (Text: 'An entry';      Value: @entries[0]; Flags: 0),
-    //  (Text: 'Another entry'; Value: @entries[1]; Flags: 0),
-    //  (Text: 'Third entry';   Value: @entries[2]; Flags: 0),
-    //  (Text: 'Fourth entry';  Value: @entries[3]; Flags: 0),
-    //  (Text: nil;             Value: nil;         Flags: 0)
   begin
     autoEntries[0].Text := 'An entry';
     autoEntries[1].Text := 'Another entry';

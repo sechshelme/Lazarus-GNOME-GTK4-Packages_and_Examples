@@ -28,6 +28,8 @@ Diese Package Sammlung stellt **FPC/Lazarus Bindungen** für folgende Pakete zu 
 | **tommath**       | 1.2.1/1.3.0 📌   | Rechnen mit übewrgrossen Ganz-Zahlen       |  ❌       | ❌       | https://github.com/hpjansson/chafa                             |
 | **gmp**           | 6.3.0            | Rechnen mit übewrgrossen Zahlen            |  ❌       | ❌       | https://gmplib.org/                                            |
 | **tcl/tk**        | 1.14.0           | Tool Command Language                      |  ❌       | ❌       | https://github.com/hpjansson/chafa                             |
+| **newt**          | 0.52.24          | A library for text mode user interfaces    |  ❌       | ❌       | https://pagure.io/newt/commits/master                          |
+| **tickit**        | 0.4.3            | Terminal Interface Construction Kit        |  ❌       | ❌       | https://github.com/leonerd/libtickit                           |
 
 **📌** 1.2.1 ist bei Mint dabei, hat aber Fehler bei SizeInt.
 

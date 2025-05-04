@@ -1,9 +1,9 @@
-unit newt;
+unit fp_newt;
 
 interface
 
 uses
-  ctypes;
+   ctypes;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

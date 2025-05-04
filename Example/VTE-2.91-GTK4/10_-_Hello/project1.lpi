@@ -25,7 +25,10 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_newt_package"/>
+        <PackageName Value="fp_GLIB2_package"/>
+      </Item>
+      <Item>
+        <PackageName Value="fp_GTK4_package"/>
       </Item>
     </RequiredPackages>
     <Units>
@@ -42,12 +45,11 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="../../../Package_Tools/pas_units/vte-2.91-gtk4"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>
       <Debugging>
-        <GenerateDebugInfo Value="False"/>
-        <RunWithoutDebug Value="True"/>
         <DebugInfoType Value="dsDwarf3"/>
       </Debugging>
     </Linking>
