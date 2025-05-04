@@ -4,7 +4,6 @@ uses
   SysUtils,
   fp_gmp;
 
-
   procedure Calculate;
   var
     a, b, sum: Tmpz;

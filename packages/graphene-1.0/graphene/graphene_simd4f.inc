@@ -2,6 +2,14 @@
 
 // Läuft nicht mit der Bindung !!!!!
 
+type
+  Pgraphene_simd4f_union_t = ^Tgraphene_simd4f_union_t;
+  Tgraphene_simd4f_union_t = record
+      case longint of
+        0 : ( s : Tgraphene_simd4f_t );
+        1 : ( f : array[0..3] of single );
+      end;
+
 
 function graphene_simd4f_init(x: single; y: single; z: single; w: single): Tgraphene_simd4f_t; cdecl; external libgraphene;
 function graphene_simd4f_init_zero: Tgraphene_simd4f_t; cdecl; external libgraphene;
