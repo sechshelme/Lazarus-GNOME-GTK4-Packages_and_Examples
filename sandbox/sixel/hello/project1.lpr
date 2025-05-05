@@ -27,10 +27,12 @@ uses
   end;
 
   procedure main2;
+  const
+    SIZE=7;
   var
-    output_: Psixel_output_t;
-    dither: Psixel_dither_t;
-    pixels: array[0..11] of byte;
+    output_: Psixel_output_t=nil;
+    dither: Psixel_dither_t=nil;
+    pixels: array[0..SIZE*SIZE*3-1] of byte;
     i: integer;
   begin
     for i := 0 to Length(pixels) - 1 do begin
@@ -39,9 +41,8 @@ uses
 
     sixel_output_new(@output_, nil, nil, nil);
     sixel_dither_new(@dither, 16, nil);
-//        dither := sixel_dither_get(SIXEL_BUILTIN_DITHER_AUTO));
 
-    sixel_encode(pbyte(pixels), 2, 2, 3, dither, output_);
+    sixel_encode(pbyte(pixels), SIZE, SIZE, 3, dither, output_);
 
     sixel_output_unref(output_);
     sixel_dither_unref(dither);

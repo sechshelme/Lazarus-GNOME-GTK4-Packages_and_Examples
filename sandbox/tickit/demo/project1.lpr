@@ -220,8 +220,8 @@ var
     Exit(1);
   end;
 
-//  function on_timer(t: PTickit; flags: TTickitEventFlags; info: pointer; user: pointer): longint; cdecl;
-  procedure on_timer(t: PTickit; flags: TTickitEventFlags; info: pointer; user: pointer); cdecl;
+  function on_timer(t: PTickit; flags: TTickitEventFlags; info: pointer; user: pointer): longint; cdecl;
+//  procedure on_timer(t: PTickit; flags: TTickitEventFlags; info: pointer; user: pointer); cdecl;
   var
     counterp: PInteger absolute user;
   begin
@@ -229,9 +229,9 @@ var
 
     tickit_window_expose(timerwin, nil);
 
-    tickit_watch_timer_after_msec(t, 1000, 0, @on_timer, user);
+    tickit_watch_timer_after_msec(t, 1000, 0, TTickitCallbackFn(on_timer), user);
 
-//    Exit(0);
+    Exit(1);
   end;
 
   function render_root(win: PTickitWindow; flags: TTickitEventFlags; _info: pointer; user: pointer): longint; cdecl;
