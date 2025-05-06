@@ -56,6 +56,19 @@ int main() {
     //return 0;
 
 
+
+   CDKBUTTON *     button1 = newCDKButton(
+      cdkScreen,
+      20, 10,              // Position (x, y)
+      "Ok",
+      0, TRUE, FALSE);
+
+      setCDKButtonBoxAttribute(button1, A_BLINK);
+
+      setCDKButtonBackgroundColor(button1, "red");
+      activateCDKButton(button1, 0);
+
+
     destroyCDKScroll(scroll);
     destroyCDKScreen(cdkScreen);
     endCDK();

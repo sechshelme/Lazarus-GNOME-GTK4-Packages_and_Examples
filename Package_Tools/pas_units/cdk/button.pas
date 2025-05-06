@@ -61,8 +61,8 @@ function getCDKButtonHighlight(button : PSButton) : longint;
 //function setCDKButtonLRChar(w,c : longint) : longint;
 //function setCDKButtonVerticalChar(w,c : longint) : longint;
 //function setCDKButtonHorizontalChar(w,c : longint) : longint;
-//function setCDKButtonBoxAttribute(w,c : longint) : longint;
-//function setCDKButtonBackgroundColor(w,c : longint) : longint;
+procedure setCDKButtonBoxAttribute(w:PCDKBUTTON;c : Tchtype);
+procedure setCDKButtonBackgroundColor(w:PCDKBUTTON;c : PChar);
 //function setCDKButtonBackgroundAttrib(w,c : longint) : longint;
 //function eraseCDKButton(obj : longint) : longint;
 //function destroyCDKButton(obj : longint) : longint;
@@ -140,15 +140,20 @@ end;
 //  setCDKButtonHorizontalChar:=setHZCharOf(w,c);
 //end;
 //
-//function setCDKButtonBoxAttribute(w,c : longint) : longint;
-//begin
+procedure setCDKButtonBoxAttribute(w: PCDKBUTTON; c: Tchtype);
+begin
+  w^.obj.fn^.setBKattrObj(@w^.obj, c);
 //  setCDKButtonBoxAttribute:=setBXAttrOf(w,c);
-//end;
-//
-//function setCDKButtonBackgroundColor(w,c : longint) : longint;
-//begin
-//  setCDKButtonBackgroundColor:=setCDKObjectBackgroundColor(ObjOf(w),c);
-//end;
+end;
+
+procedure setCDKButtonBackgroundColor(w: PCDKBUTTON; c: PChar);
+begin
+  setCDKObjectBackgroundColor(@w^.obj, c);
+
+  //  setCDKButtonBackgroundColor:=setCDKObjectBackgroundColor(ObjOf(w),c);
+
+end;
+
 //
 //function setCDKButtonBackgroundAttrib(w,c : longint) : longint;
 //begin

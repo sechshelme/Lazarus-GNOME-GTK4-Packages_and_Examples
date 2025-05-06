@@ -88,7 +88,6 @@ uses
       );
 
 
-
     // Menü anzeigen und Auswahl abfragen
     choice := activateCDKScroll(scroll_, nil);
 
@@ -110,10 +109,7 @@ uses
       PPChar(buttonLabel), Length(buttonLabel),
       A_REVERSE, True, True, False);
 
-    selection := activateCDKDialog(dialog_
-      ,
-      nil
-      );
+    selection := activateCDKDialog(dialog_, nil);
     case selection of
       0: begin
         mvprintw(Lines - 2, 0, 'OK wurde gewählt.');
@@ -144,6 +140,12 @@ uses
       30, 10,              // Position (x, y)
       'Cancel',
       @BtnClick, True, False);
+
+    setCDKButtonBoxAttribute(button1, A_BLINK or A_COLOR);
+    setCDKButtonBoxAttribute(button2, A_BLINK or A_COLOR);
+
+    //    setCDKButtonBackgroundColor(button1, '{green}' );
+
 
     // Zeige den Button und warte auf Auswahl
     selection := activateCDKButton(button1, nil);

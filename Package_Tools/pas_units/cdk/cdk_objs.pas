@@ -46,6 +46,7 @@ const
   unknownDouble = 0.0;  
   unknownUnsigned = 0;  
 type
+
   PCDKFUNCS = ^TCDKFUNCS;
   TCDKFUNCS = record
       objectType : TEObjectType;
