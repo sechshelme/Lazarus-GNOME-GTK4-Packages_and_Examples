@@ -2,71 +2,13 @@ unit stdio;
 
 interface
 
-// https://en.cppreference.com/w/c/header
+uses
+  clib;
+
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
-
-  // ============
-
-const
-  {$IFDEF Linux}
-  libc = 'c';
-  {$ENDIF}
-
-  {$IFDEF mswindows}
-  libc = 'msvcrt';
-  {$ENDIF}
-
-  {$IFDEF darwin}
-  libc = 'libc.dylib';
-  {$ENDIF}
-
-type
-  Tsize_t = SizeInt;
-  Psize_t = ^Tsize_t;
-
-  Tgnuc_va_list = Pointer;
-
-  Toff64_t = SizeUInt;
-  Poff64_t = ^Toff64_t;
-
-  Tssize_t = SizeUInt;
-  Pssize_t = ^Tssize_t;
-
-  Tfpos64_t = SizeUInt;
-  Pfpos64_t = ^Tfpos64_t;
-
-  Tfpos_t = Tfpos64_t;
-  Pfpos_t = ^Tfpos_t;
-
-  Twchar_t = widechar;
-  Pwchar_t = ^Twchar_t;
-  PPwchar_t = ^Pwchar_t;
-
-  PFILE = Pointer;
-
-type
-  // Die genauen Signaturen müssen ggf. angepasst werden!
-  Tcookie_read_function_t = function(cookie: Pointer; buf: Pointer; size: SizeInt): SizeInt; cdecl;
-  Tcookie_write_function_t = function(cookie: Pointer; buf: Pointer; size: SizeInt): SizeInt; cdecl;
-  Tcookie_seek_function_t = function(cookie: Pointer; offset: int64; whence: integer): integer; cdecl;
-  Tcookie_close_function_t = function(cookie: Pointer): integer; cdecl;
-
-  Pcookie_read_function_t = ^Tcookie_read_function_t;
-  Pcookie_write_function_t = ^Tcookie_write_function_t;
-  Pcookie_seek_function_t = ^Tcookie_seek_function_t;
-  Pcookie_close_function_t = ^Tcookie_close_function_t;
-
-  Tcookie_io_functions_t = record
-    Read: Pcookie_read_function_t;
-    Write: Pcookie_write_function_t;
-    seek: Pcookie_seek_function_t;
-    Close: Pcookie_close_function_t;
-  end;
-
-  // ============
 
 const
   _STDIO_H = 1;
