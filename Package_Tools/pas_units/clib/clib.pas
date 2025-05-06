@@ -92,6 +92,14 @@ type
       end;
   Pstack_t=^Tstack_t;
 
+  // /usr/include/asm-generic/signal-defs.h
+  Tsigrestore_t=record  // ????????
+  end;
+  Psigrestore_t=^Tsigrestore_t;
+
+  // /usr/include/asm-generic/posix_types.h
+  Tkernel_size_t=Integer;   // ????????
+
 
 
 type

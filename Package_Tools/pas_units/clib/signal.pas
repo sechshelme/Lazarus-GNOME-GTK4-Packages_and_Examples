@@ -69,7 +69,7 @@ function SIGRTMAX: longint;
 const
   _NSIG = 64;
   _NSIG_BPW = __BITS_PER_LONG;
-  _NSIG_WORDS = _NSIG/_NSIG_BPW;
+  _NSIG_WORDS = _NSIG div _NSIG_BPW;
   SIGHUP = 1;
   SIGINT = 2;
   SIGQUIT = 3;
@@ -138,7 +138,6 @@ type
   Pstack_t = ^Tstack_t;
 
   // === end   asm-generic ===========
-
 
 implementation
 
