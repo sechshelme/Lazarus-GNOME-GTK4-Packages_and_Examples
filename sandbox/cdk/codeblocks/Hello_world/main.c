@@ -1,10 +1,25 @@
 // gcc main.c -o main -lcdk -lncurses
 
 #include <cdk/cdk.h>
+#include <stdio.h>
+#include <signal.h>
+#include <sys/ioctl.h>
+#include <unistd.h>
 
 // https://www.perplexity.ai/search/wen-ich-beim-linux-kernel-make-PuLHDhVhS6aXEz.IpP2Rwg
 
+void handle_winch(int sig) {
+    struct winsize ws;
+    ioctl(STDIN_FILENO, TIOCGWINSZ, &ws);
+    printf("Neue Terminalgröße: %d Zeilen, %d Spalten\n", ws.ws_row, ws.ws_col);
+}
+
+
 int main() {
+
+ signal(SIGWINCH, handle_winch);
+
+
     CDKSCREEN *cdkScreen;
     CDKSCROLL *scroll;
     WINDOW *cursesWin;

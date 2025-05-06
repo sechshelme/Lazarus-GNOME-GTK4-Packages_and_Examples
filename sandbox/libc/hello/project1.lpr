@@ -4,7 +4,10 @@ program project1;
 
 // https://www.perplexity.ai/search/was-gibt-es-fur-standard-heade-mgrBB3i0Qra8x6wkP2tawQ
 
+// https://www.perplexity.ai/search/das-ist-echt-komisch-mit-dem-s-DYKAX_A1RT6MgsLLEnUlhA
+
 uses
+  signal,
   stdio;
 
 procedure main;
