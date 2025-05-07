@@ -49,11 +49,6 @@ type
   PFILE = Pointer;
 
 type
-  // types.h
-  Ppid_t = ^Tpid_t;
-  Tpid_t = int32;
-  Puid_t = ^Tuid_t;
-  Tuid_t = Int32;
 
   // /usr/include/x86_64-linux-gnu/bits/types/siginfo_t.h
   Tsiginfo_t=record

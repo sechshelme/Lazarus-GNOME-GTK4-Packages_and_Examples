@@ -83,6 +83,8 @@ var
 
 begin
 //  ssignal(0,nil);
+  access
+  lseek64
 
   main;
   readln;

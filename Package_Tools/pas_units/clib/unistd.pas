@@ -3,372 +3,71 @@ unit unistd;
 interface
 
 uses
-  ctypes;
+  clib;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
 
 
-{ Copyright (C) 1991-2024 Free Software Foundation, Inc.
-   This file is part of the GNU C Library.
-
-   The GNU C Library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Lesser General Public
-   License as published by the Free Software Foundation; either
-   version 2.1 of the License, or (at your option) any later version.
-
-   The GNU C Library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Lesser General Public License for more details.
-
-   You should have received a copy of the GNU Lesser General Public
-   License along with the GNU C Library; if not, see
-   <https://www.gnu.org/licenses/>.   }
-{
- *	POSIX Standard: 2.10 Symbolic Constants		<unistd.h>
-  }
-{$ifndef	_UNISTD_H}
-
-const
-  _UNISTD_H = 1;  
-{$include <features.h>}
-{ These may be used to determine what facilities are present at compile time.
-   Their values can be obtained at run time from `sysconf'.   }
-{$ifdef __USE_XOPEN2K8}
-{ POSIX Standard approved as ISO/IEC 9945-1 as of September 2008.   }
-
-const
-  _POSIX_VERSION = 200809;  
-(*** was #elif ****){$else defined __USE_XOPEN2K}
-{ POSIX Standard approved as ISO/IEC 9945-1 as of December 2001.   }
-
-const
-  _POSIX_VERSION = 200112;  
-(*** was #elif ****){$else defined __USE_POSIX199506}
-{ POSIX Standard approved as ISO/IEC 9945-1 as of June 1995.   }
-
-const
-  _POSIX_VERSION = 199506;  
-(*** was #elif ****){$else defined __USE_POSIX199309}
-{ POSIX Standard approved as ISO/IEC 9945-1 as of September 1993.   }
-
-const
-  _POSIX_VERSION = 199309;  
-{$else}
-{ POSIX Standard approved as ISO/IEC 9945-1 as of September 1990.   }
-
-const
-  _POSIX_VERSION = 199009;  
-{$endif}
-{ These are not #ifdef __USE_POSIX2 because they are
-   in the theoretically application-owned namespace.   }
-{$ifdef __USE_XOPEN2K8}
-
-const
-  __POSIX2_THIS_VERSION = 200809;  
-{ The utilities on GNU systems also correspond to this version.   }
-(*** was #elif ****){$else defined __USE_XOPEN2K}
-{ The utilities on GNU systems also correspond to this version.   }
-
-const
-  __POSIX2_THIS_VERSION = 200112;  
-(*** was #elif ****){$else defined __USE_POSIX199506}
-{ The utilities on GNU systems also correspond to this version.   }
-
-const
-  __POSIX2_THIS_VERSION = 199506;  
-{$else}
-{ The utilities on GNU systems also correspond to this version.   }
-
-const
-  __POSIX2_THIS_VERSION = 199209;  
-{$endif}
-{ The utilities on GNU systems also correspond to this version.   }
-
-const
-  _POSIX2_VERSION = __POSIX2_THIS_VERSION;  
-{ This symbol was required until the 2001 edition of POSIX.   }
-  _POSIX2_C_VERSION = __POSIX2_THIS_VERSION;  
-{ If defined, the implementation supports the
-   C Language Bindings Option.   }
-  _POSIX2_C_BIND = __POSIX2_THIS_VERSION;  
-{ If defined, the implementation supports the
-   C Language Development Utilities Option.   }
-  _POSIX2_C_DEV = __POSIX2_THIS_VERSION;  
-{ If defined, the implementation supports the
-   Software Development Utilities Option.   }
-  _POSIX2_SW_DEV = __POSIX2_THIS_VERSION;  
-{ If defined, the implementation supports the
-   creation of locales with the localedef utility.   }
-  _POSIX2_LOCALEDEF = __POSIX2_THIS_VERSION;  
-{ X/Open version number to which the library conforms.  It is selectable.   }
-{$ifdef __USE_XOPEN2K8}
-  _XOPEN_VERSION = 700;  
-(*** was #elif ****){$else defined __USE_XOPEN2K}
-
-const
-  _XOPEN_VERSION = 600;  
-(*** was #elif ****){$else defined __USE_UNIX98}
-
-const
-  _XOPEN_VERSION = 500;  
-{$else}
-
-const
-  _XOPEN_VERSION = 4;  
-{$endif}
-{ Commands and utilities from XPG4 are available.   }
-
-const
-  _XOPEN_XCU_VERSION = 4;  
-{ We are compatible with the old published standards as well.   }
-  _XOPEN_XPG2 = 1;  
-  _XOPEN_XPG3 = 1;  
-  _XOPEN_XPG4 = 1;  
-{ The X/Open Unix extensions are available.   }
-  _XOPEN_UNIX = 1;  
-{ The enhanced internationalization capabilities according to XPG4.2
-   are present.   }
-  _XOPEN_ENH_I18N = 1;  
-{ The legacy interfaces are also available.   }
-  _XOPEN_LEGACY = 1;  
-{ Get values of POSIX options:
-
-   If these symbols are defined, the corresponding features are
-   always available.  If not, they may be available sometimes.
-   The current values can be obtained with `sysconf'.
-
-   _POSIX_JOB_CONTROL		Job control is supported.
-   _POSIX_SAVED_IDS		Processes have a saved set-user-ID
-				and a saved set-group-ID.
-   _POSIX_REALTIME_SIGNALS	Real-time, queued signals are supported.
-   _POSIX_PRIORITY_SCHEDULING	Priority scheduling is supported.
-   _POSIX_TIMERS		POSIX.4 clocks and timers are supported.
-   _POSIX_ASYNCHRONOUS_IO	Asynchronous I/O is supported.
-   _POSIX_PRIORITIZED_IO	Prioritized asynchronous I/O is supported.
-   _POSIX_SYNCHRONIZED_IO	Synchronizing file data is supported.
-   _POSIX_FSYNC			The fsync function is present.
-   _POSIX_MAPPED_FILES		Mapping of files to memory is supported.
-   _POSIX_MEMLOCK		Locking of all memory is supported.
-   _POSIX_MEMLOCK_RANGE		Locking of ranges of memory is supported.
-   _POSIX_MEMORY_PROTECTION	Setting of memory protections is supported.
-   _POSIX_MESSAGE_PASSING	POSIX.4 message queues are supported.
-   _POSIX_SEMAPHORES		POSIX.4 counting semaphores are supported.
-   _POSIX_SHARED_MEMORY_OBJECTS	POSIX.4 shared memory objects are supported.
-   _POSIX_THREADS		POSIX.1c pthreads are supported.
-   _POSIX_THREAD_ATTR_STACKADDR	Thread stack address attribute option supported.
-   _POSIX_THREAD_ATTR_STACKSIZE	Thread stack size attribute option supported.
-   _POSIX_THREAD_SAFE_FUNCTIONS	Thread-safe functions are supported.
-   _POSIX_THREAD_PRIORITY_SCHEDULING
-				POSIX.1c thread execution scheduling supported.
-   _POSIX_THREAD_PRIO_INHERIT	Thread priority inheritance option supported.
-   _POSIX_THREAD_PRIO_PROTECT	Thread priority protection option supported.
-   _POSIX_THREAD_PROCESS_SHARED	Process-shared synchronization supported.
-   _POSIX_PII			Protocol-independent interfaces are supported.
-   _POSIX_PII_XTI		XTI protocol-indep. interfaces are supported.
-   _POSIX_PII_SOCKET		Socket protocol-indep. interfaces are supported.
-   _POSIX_PII_INTERNET		Internet family of protocols supported.
-   _POSIX_PII_INTERNET_STREAM	Connection-mode Internet protocol supported.
-   _POSIX_PII_INTERNET_DGRAM	Connectionless Internet protocol supported.
-   _POSIX_PII_OSI		ISO/OSI family of protocols supported.
-   _POSIX_PII_OSI_COTS		Connection-mode ISO/OSI service supported.
-   _POSIX_PII_OSI_CLTS		Connectionless ISO/OSI service supported.
-   _POSIX_POLL			Implementation supports `poll' function.
-   _POSIX_SELECT		Implementation supports `select' and `pselect'.
-
-   _XOPEN_REALTIME		X/Open realtime support is available.
-   _XOPEN_REALTIME_THREADS	X/Open realtime thread support is available.
-   _XOPEN_SHM			Shared memory interface according to XPG4.2.
-
-   _XBS5_ILP32_OFF32		Implementation provides environment with 32-bit
-				int, long, pointer, and off_t types.
-   _XBS5_ILP32_OFFBIG		Implementation provides environment with 32-bit
-				int, long, and pointer and off_t with at least
-				64 bits.
-   _XBS5_LP64_OFF64		Implementation provides environment with 32-bit
-				int, and 64-bit long, pointer, and off_t types.
-   _XBS5_LPBIG_OFFBIG		Implementation provides environment with at
-				least 32 bits int and long, pointer, and off_t
-				with at least 64 bits.
-
-   If any of these symbols is defined as -1, the corresponding option is not
-   true for any file.  If any is defined as other than -1, the corresponding
-   option is true for all files.  If a symbol is not defined at all, the value
-   for a specific file can be obtained from `pathconf' and `fpathconf'.
-
-   _POSIX_CHOWN_RESTRICTED	Only the super user can use `chown' to change
-				the owner of a file.  `chown' can only be used
-				to change the group ID of a file to a group of
-				which the calling process is a member.
-   _POSIX_NO_TRUNC		Pathname components longer than
-				NAME_MAX generate an error.
-   _POSIX_VDISABLE		If defined, if the value of an element of the
-				`c_cc' member of `struct termios' is
-				_POSIX_VDISABLE, no character will have the
-				effect associated with that element.
-   _POSIX_SYNC_IO		Synchronous I/O may be performed.
-   _POSIX_ASYNC_IO		Asynchronous I/O may be performed.
-   _POSIX_PRIO_IO		Prioritized Asynchronous I/O may be performed.
-
-   Support for the Large File Support interface is not generally available.
-   If it is available the following constants are defined to one.
-   _LFS64_LARGEFILE		Low-level I/O supports large files.
-   _LFS64_STDIO			Standard I/O supports large files.
-    }
-{$include <bits/posix_opt.h>}
-{ Get the environment definitions from Unix98.   }
-{$if defined __USE_UNIX98 || defined __USE_XOPEN2K}
-{$include <bits/environments.h>}
-{$endif}
-{ Standard file descriptors.   }
-{ Standard input.   }
-
 const
   STDIN_FILENO = 0;  
-{ Standard output.   }
-  STDOUT_FILENO = 1;  
-{ Standard error output.   }
-  STDERR_FILENO = 2;  
-{ All functions that are not declared anywhere else.   }
-{$include <bits/types.h>}
-{$ifndef	__ssize_t_defined}
+  STDOUT_FILENO = 1;
+  STDERR_FILENO = 2;
 type
   Pssize_t = ^Tssize_t;
-  Tssize_t = Tssize_t;
-{$define __ssize_t_defined}
-{$endif}
-{$define __need_size_t}
-{$define __need_NULL}
-{$include <stddef.h>}
-{$if defined __USE_XOPEN || defined __USE_XOPEN2K}
-{ The Single Unix specification says that some more types are
-   available here.   }
-{$ifndef __gid_t_defined}
+  Tssize_t = SizeUInt;
 type
-  Pgid_t = ^Tgid_t;
-  Tgid_t = Tgid_t;
-{$define __gid_t_defined}
-{$endif}
-{$ifndef __uid_t_defined}
-type
+  Ppid_t = ^Tpid_t;
+  Tpid_t = int32;
+
   Puid_t = ^Tuid_t;
-  Tuid_t = Tuid_t;
-{$define __uid_t_defined}
-{$endif}
-{$ifndef __off_t_defined}
-{$ifndef __USE_FILE_OFFSET64}
+  Tuid_t = Int32;
+
+  Pgid_t = ^Tgid_t;
+  Tgid_t = Int32;
 type
-  Poff_t = ^Toff_t;
-  Toff_t = Toff_t;
-{$else}
+  Poff64_t = ^Toff64_t;
+  Toff64_t = Int64;
 type
   Poff_t = ^Toff_t;
   Toff_t = Toff64_t;
-{$endif}
-{$define __off_t_defined}
-{$endif}
-{$if defined __USE_LARGEFILE64 && !defined __off64_t_defined}
-type
-  Poff64_t = ^Toff64_t;
-  Toff64_t = Toff64_t;
-{$define __off64_t_defined}
-{$endif}
-{$ifndef __useconds_t_defined}
 type
   Puseconds_t = ^Tuseconds_t;
-  Tuseconds_t = Tuseconds_t;
-{$define __useconds_t_defined}
-{$endif}
-{$ifndef __pid_t_defined}
-type
-  Ppid_t = ^Tpid_t;
-  Tpid_t = Tpid_t;
-{$define __pid_t_defined}
-{$endif}
-{$endif}
-{ X/Open  }
-{$if defined __USE_XOPEN_EXTENDED || defined __USE_XOPEN2K}
-{$ifndef __intptr_t_defined}
+  Tuseconds_t = UInt32;
 type
   Pintptr_t = ^Tintptr_t;
-  Tintptr_t = Tintptr_t;
-{$define __intptr_t_defined}
-{$endif}
-{$endif}
-{$if defined __USE_MISC || defined __USE_XOPEN}
-{$ifndef __socklen_t_defined}
+  Tintptr_t = PtrUInt;
 type
   Psocklen_t = ^Tsocklen_t;
-  Tsocklen_t = Tsocklen_t;
-{$define __socklen_t_defined}
-{$endif}
-{$endif}
-{ Values for the second argument to access.
-   These may be OR'd together.   }
-{ Test for read permission.   }
+  Tsocklen_t = UInt32;
 
 const
   R_OK = 4;  
-{ Test for write permission.   }
-  W_OK = 2;  
-{ Test for execute permission.   }
-  X_OK = 1;  
-{ Test for existence.   }
-  F_OK = 0;  
-{ Test for access to NAME using the real UID and real GID.   }
+  W_OK = 2;
+  X_OK = 1;
+  F_OK = 0;
 
 function access(__name:Pchar; __type:longint):longint;cdecl;external libc;
 {$ifdef __USE_GNU}
-{ Test for access to NAME using the effective UID and GID
-   (as normal file operations use).   }
 function euidaccess(__name:Pchar; __type:longint):longint;cdecl;external libc;
-{ An alias for `euidaccess', used by some other systems.   }
 function eaccess(__name:Pchar; __type:longint):longint;cdecl;external libc;
-{ Execute program relative to a directory file descriptor.   }
 function execveat(__fd:longint; __path:Pchar; __argv:PPchar; __envp:PPchar; __flags:longint):longint;cdecl;external libc;
 {$endif}
 {$ifdef __USE_ATFILE}
-{ Test for access to FILE relative to the directory FD is open on.
-   If AT_EACCESS is set in FLAG, then use effective IDs like `eaccess',
-   otherwise use real IDs like `access'.   }
-
 function faccessat(__fd:longint; __file:Pchar; __type:longint; __flag:longint):longint;cdecl;external libc;
 {$endif}
-{ Use GNU.   }
-{ Values for the WHENCE argument to lseek.   }
-{$ifndef	_STDIO_H		/* <stdio.h> has the same definitions.  */}
-{ Seek from beginning of file.   }
-
 const
-  SEEK_SET = 0;  
-{ Seek from current position.   }
-  SEEK_CUR = 1;  
-{ Seek from end of file.   }
-  SEEK_END = 2;  
-{$ifdef __USE_GNU}
-{ Seek to next data.   }
-
-const
-  SEEK_DATA = 3;  
-{ Seek to next hole.   }
-  SEEK_HOLE = 4;  
-{$endif}
-{$endif}
-{$if defined __USE_MISC && !defined L_SET}
-{ Old BSD names for the same constants; just for compatibility.   }
-
-const
-  L_SET = SEEK_SET;  
-  L_INCR = SEEK_CUR;  
-  L_XTND = SEEK_END;  
-{$endif}
-{ Move FD's file position to OFFSET bytes from the
-   beginning of the file (if WHENCE is SEEK_SET),
-   the current position (if WHENCE is SEEK_CUR),
-   or the end of the file (if WHENCE is SEEK_END).
-   Return the new file position.   }
+  SEEK_SET  = 0;
+  SEEK_CUR  = 1;
+  SEEK_END  = 2;
+  {$IFDEF LINUX}
+  SEEK_DATA = 3;
+  SEEK_HOLE = 4;
+  {$ENDIF}
+  L_SET  = SEEK_SET;
+  L_INCR = SEEK_CUR;
+  L_XTND = SEEK_END;
 {$ifndef __USE_FILE_OFFSET64}
 
 function lseek(__fd:longint; __offset:Toff_t; __whence:longint):Toff_t;cdecl;external libc;
