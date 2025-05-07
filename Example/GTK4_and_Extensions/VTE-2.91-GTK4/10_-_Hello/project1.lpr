@@ -9,6 +9,7 @@ uses
   procedure activate(app: PGtkApplication; user_data: Tgpointer);
   var
     window, main_box, sw, terminal: PGtkWidget;
+    version: Pgchar;
   const
     argv: array of pchar = ('/bin/bash', nil);
   begin
@@ -18,6 +19,10 @@ uses
 
     main_box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
     gtk_window_set_child(GTK_WINDOW(window), main_box);
+
+    version:=g_strdup_printf('Version: %d.%d.%d',vte_get_major_version,vte_get_minor_version,vte_get_micro_version );
+    gtk_box_append(GTK_BOX(main_box), gtk_label_new(version));
+    g_free(version);
 
     sw := gtk_scrolled_window_new;
     gtk_widget_set_vexpand(sw, True);

@@ -220,17 +220,19 @@ var
     Exit(1);
   end;
 
+
+  function on_timer(t: PTickit; flags: TTickitEventFlags; info: pointer; user: pointer): longint; cdecl; forward;
+
+var
+  tempFunc: TTickitCallbackFn = @on_timer;
+
   function on_timer(t: PTickit; flags: TTickitEventFlags; info: pointer; user: pointer): longint; cdecl;
-//  procedure on_timer(t: PTickit; flags: TTickitEventFlags; info: pointer; user: pointer); cdecl;
   var
     counterp: PInteger absolute user;
   begin
     Inc(counterp^);
-
     tickit_window_expose(timerwin, nil);
-
-    tickit_watch_timer_after_msec(t, 1000, 0, TTickitCallbackFn(on_timer), user);
-
+    tickit_watch_timer_after_msec(t, 1000, 0, tempFunc, user);
     Exit(1);
   end;
 
@@ -346,6 +348,7 @@ var
     tickit_window_bind_event(root, TICKIT_WINDOW_ON_EXPOSE, 0, @render_root, nil);
     tickit_window_bind_event(root, TICKIT_WINDOW_ON_GEOMCHANGE, 0, @event_resize, nil);
 
+    tempFunc:= @on_timer;
     tickit_watch_timer_after_msec(t, 1000, 0, @on_timer, @counter);
 
     tickit_window_take_focus(root);

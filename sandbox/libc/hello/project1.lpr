@@ -8,6 +8,9 @@ program project1;
 // https://www.perplexity.ai/search/was-gibt-es-fur-standard-heade-mgrBB3i0Qra8x6wkP2tawQ
 
 // https://www.perplexity.ai/search/das-ist-echt-komisch-mit-dem-s-DYKAX_A1RT6MgsLLEnUlhA
+// https://www.perplexity.ai/search/ich-will-eine-pascal-bindung-z-_jDwG2CfRNeTmuLcknniDA
+
+// usr/include/x86_64-linux-gnu/bits/stdio.h
 
 uses
   BaseUnix,
@@ -15,29 +18,29 @@ uses
 
   signal,
   stdio,
+  unistd,
   clib;
 
 
 const
-  STDIN_FILENO = 0;//  /* Standard input.  */
+//  STDIN_FILENO = 0;//  /* Standard input.  */
   STDOUT_FILENO = 1;//  /* Standard output.  */
   STDERR_FILENO = 2;//  /* Standard error output.  */
 
   TIOCGWINSZ = $5413;
   TIOCSWINSZ = $5414;
 
-  SIGWINCH = 28; //  /* Window size change (4.3 BSD, Sun).  */
 
   procedure Resize_cp(para1: longint); cdecl;
   type
     Twinsize = record
-    ws_row, ws_col, ws_xpixel, ws_ypixel: cshort;
+//    ws_row, ws_col, ws_xpixel, ws_ypixel: cshort;
   end;
   var
     ws: Twinsize;
   begin
     FpIOCtl(STDIN_FILENO, TIOCGWINSZ, @ws);
-    printf('Size: %dx%d'#10, ws.ws_col, ws.ws_row);
+//    printf('Size: %dx%d'#10, ws.ws_col, ws.ws_row);
   end;
 
   procedure Ctrl_C_cp(para1: longint); cdecl;
@@ -55,14 +58,22 @@ const
     Inc(cnt);
   end;
 
+  procedure sighub_cp(para1: longint); cdecl;
+  begin
+    printf('[x] geklickt'#10);
+  end;
+
   procedure main;
   begin
+    {$IFDEF unix}
     WriteLn('SIGRTMIN: ', SIGRTMIN, '   SIGRTMAX: ', SIGRTMAX);
-
     signal.signal(SIGWINCH, @Resize_cp);
+    signal.signal(SIGHUP, @sighub_cp);
+    {$ENDIF}
+
     signal.signal(SIGINT, @Ctrl_C_cp);
     signal.signal(SIGSEGV, @SIGSEGV_cp);
-//    signal(SIGFPE, handler);  divisio by zero
+    signal.signal(SIGFPE, @SIGSEGV_cp);
 
     printf('Hello World %d'#10, 123);
   end;
@@ -71,6 +82,8 @@ var
   p: PInteger;
 
 begin
+//  ssignal(0,nil);
+
   main;
   readln;
   p^ := 123;

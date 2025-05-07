@@ -1,5 +1,6 @@
 
 
+{$include vte/vteversion.inc}
 {$include vte/vteenums.inc}
 {$include vte/vtepty.inc}
 {$include vte/vteregex.inc}

@@ -3,7 +3,7 @@ unit clib;
 interface
 
 const
-  {$IFDEF Linux}
+  {$IFDEF unix}
   libc = 'c';
   {$ENDIF}
 
