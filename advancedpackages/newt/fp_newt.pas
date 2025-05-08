@@ -185,23 +185,30 @@ procedure newtDrawRootText(col: longint; row: longint; Text: pchar); cdecl; exte
 procedure newtBell; cdecl; external libnewt;
 procedure newtCursorOff; cdecl; external libnewt;
 procedure newtCursorOn; cdecl; external libnewt;
+
 function newtCompactButton(left: longint; top: longint; Text: pchar): PnewtComponent; cdecl; external libnewt;
+
 function newtButton(left: longint; top: longint; Text: pchar): PnewtComponent; cdecl; external libnewt;
-function newtCheckbox(left: longint; top: longint; Text: pchar; defValue: char; seq: pchar;
-  Result: pchar): PnewtComponent; cdecl; external libnewt;
+
+function newtCheckbox(left: longint; top: longint; Text: pchar; defValue: char; seq: pchar;  Result: pchar): PnewtComponent; cdecl; external libnewt;
 function newtCheckboxGetValue(co: PnewtComponent): char; cdecl; external libnewt;
 procedure newtCheckboxSetValue(co: PnewtComponent; Value: char); cdecl; external libnewt;
 procedure newtCheckboxSetFlags(co: PnewtComponent; flags: longint; sense: TnewtFlagsSense); cdecl; external libnewt;
+
 function newtRadiobutton(left: longint; top: longint; Text: pchar; isDefault: longint; prevButton: PnewtComponent): PnewtComponent; cdecl; external libnewt;
 function newtRadioGetCurrent(setMember: PnewtComponent): PnewtComponent; cdecl; external libnewt;
 procedure newtRadioSetCurrent(setMember: PnewtComponent); cdecl; external libnewt;
+
 procedure newtGetScreenSize(cols: Plongint; rows: Plongint); cdecl; external libnewt;
+
 function newtLabel(left: longint; top: longint; Text: pchar): PnewtComponent; cdecl; external libnewt;
 procedure newtLabelSetText(co: PnewtComponent; Text: pchar); cdecl; external libnewt;
 procedure newtLabelSetColors(co: PnewtComponent; colorset: longint); cdecl; external libnewt;
+
 function newtVerticalScrollbar(left: longint; top: longint; Height: longint; normalColorset: longint; thumbColorset: longint): PnewtComponent; cdecl; external libnewt;
 procedure newtScrollbarSet(co: PnewtComponent; where: longint; total: longint); cdecl; external libnewt;
 procedure newtScrollbarSetColors(co: PnewtComponent; normal: longint; thumb: longint); cdecl; external libnewt;
+
 function newtListbox(left: longint; top: longint; Height: longint; flags: longint): PnewtComponent; cdecl; external libnewt;
 function newtListboxGetCurrent(co: PnewtComponent): pointer; cdecl; external libnewt;
 procedure newtListboxSetCurrent(co: PnewtComponent; num: longint); cdecl; external libnewt;
@@ -218,6 +225,7 @@ function newtListboxGetSelection(co: PnewtComponent; numitems: Plongint): PPoint
 procedure newtListboxClearSelection(co: PnewtComponent); cdecl; external libnewt;
 procedure newtListboxSelectItem(co: PnewtComponent; key: pointer; sense: TnewtFlagsSense); cdecl; external libnewt;
 function newtListboxItemCount(co: PnewtComponent): longint; cdecl; external libnewt;
+
 function newtCheckboxTree(left: longint; top: longint; Height: longint; flags: longint): PnewtComponent; cdecl; external libnewt;
 function newtCheckboxTreeMulti(left: longint; top: longint; Height: longint; seq: pchar; flags: longint): PnewtComponent; cdecl; external libnewt;
 function newtCheckboxTreeGetSelection(co: PnewtComponent; numitems: Plongint): PPointer; cdecl; external libnewt;
@@ -231,15 +239,15 @@ procedure newtCheckboxTreeSetEntry(co: PnewtComponent; Data: pointer; Text: pcha
 procedure newtCheckboxTreeSetWidth(co: PnewtComponent; Width: longint); cdecl; external libnewt;
 function newtCheckboxTreeGetEntryValue(co: PnewtComponent; Data: pointer): char; cdecl; external libnewt;
 procedure newtCheckboxTreeSetEntryValue(co: PnewtComponent; Data: pointer; Value: char); cdecl; external libnewt;
-function newtTextboxReflowed(left: longint; top: longint; Text: pchar; Width: longint; flexDown: longint;
-  flexUp: longint; flags: longint): PnewtComponent; cdecl; external libnewt;
+
+function newtTextboxReflowed(left: longint; top: longint; Text: pchar; Width: longint; flexDown: longint;  flexUp: longint; flags: longint): PnewtComponent; cdecl; external libnewt;
 function newtTextbox(left: longint; top: longint; Width: longint; Height: longint; flags: longint): PnewtComponent; cdecl; external libnewt;
 procedure newtTextboxSetText(co: PnewtComponent; Text: pchar); cdecl; external libnewt;
 procedure newtTextboxSetHeight(co: PnewtComponent; Height: longint); cdecl; external libnewt;
 function newtTextboxGetNumLines(co: PnewtComponent): longint; cdecl; external libnewt;
 procedure newtTextboxSetColors(co: PnewtComponent; normal: longint; active: longint); cdecl; external libnewt;
-function newtReflowText(Text: pchar; Width: longint; flexDown: longint; flexUp: longint; actualWidth: Plongint;
-  actualHeight: Plongint): pchar; cdecl; external libnewt;
+
+function newtReflowText(Text: pchar; Width: longint; flexDown: longint; flexUp: longint; actualWidth: Plongint;  actualHeight: Plongint): pchar; cdecl; external libnewt;
 
 const
   NEWT_EXIT_HOTKEY = 0;
@@ -250,7 +258,7 @@ const
 
 type
   TnewtExitStruct = record
-    reason: longint;
+    reason: LongInt;
     u: record
       case longint of
         0: (watch: longint);
@@ -371,8 +379,10 @@ procedure newtGridGetSize(grid: TnewtGrid; Width: Plongint; Height: Plongint); c
 procedure newtGridWrappedWindow(grid: TnewtGrid; title: pchar); cdecl; external libnewt;
 procedure newtGridWrappedWindowAt(grid: TnewtGrid; title: pchar; left: longint; top: longint); cdecl; external libnewt;
 procedure newtGridAddComponentsToForm(grid: TnewtGrid; form: PnewtComponent; recurse: longint); cdecl; external libnewt;
+
 function newtButtonBarv(button1: pchar; b1comp: PPnewtComponent; args: Tva_list): TnewtGrid; cdecl; external libnewt;
 function newtButtonBar(button1: pchar; b1comp: PPnewtComponent): TnewtGrid; cdecl; varargs; external libnewt;
+
 procedure newtWinMessage(title: pchar; buttonText: pchar; Text: pchar); cdecl; varargs; external libnewt;
 procedure newtWinMessagev(title: pchar; buttonText: pchar; Text: pchar; argv: Tva_list); cdecl; external libnewt;
 function newtWinChoice(title: pchar; button1: pchar; button2: pchar; Text: pchar): longint; cdecl; varargs; external libnewt;
