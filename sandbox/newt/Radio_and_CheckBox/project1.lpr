@@ -1,100 +1,87 @@
 program project1;
 
 uses
-  // stdio,
+  stdio,
   fp_newt;
 
-var
-  buttonOk, buttonQuit, buttonHelp: PnewtComponent;
-
-  function CreateRadioGroup: PnewtComponent;
-  var
-    r1, r2, r3, r4: PnewtComponent;
-  begin
-    r1 := newtRadiobutton(20, 10, 'rot', 0, nil);
-    r2 := newtRadiobutton(20, 12, 'grün', 1, r1);
-    r3 := newtRadiobutton(20, 14, 'blau', 0, r2);
-    r4 := newtRadiobutton(20, 16, 'gelb', 0, r3);
-
-    Result := newtForm(nil, nil, 0);
-    newtFormAddComponents(Result, r1, r2, r3, r4, nil);
-  end;
-
-  function CreateCheckGroup: PnewtComponent;
-  var
-    r1, r2, r3, r4: PnewtComponent;
-  begin
-    r1 := newtCheckbox(20, 10, 'rot', ' ', nil, nil);
-    r2 := newtCheckbox(20, 11, 'grün', ' ', nil, nil);
-    r3 := newtCheckbox(20, 12, 'blau', ' ', nil, nil);
-    r4 := newtCheckbox(20, 13, 'gelb', ' ', nil, nil);
-
-    Result := newtForm(nil, nil, 0);
-    newtFormAddComponents(Result, r1, r2, r3, r4, nil);
-  end;
-
-  function CreateButtonBox: PnewtComponent;
-  begin
-    buttonOk := newtButton(1, 1, 'Ok');
-    buttonQuit := newtButton(10, 1, 'Quit');
-    buttonHelp := newtButton(20, 1, 'Help');
-
-    Result := newtForm(nil, nil, 0);
-    newtFormAddComponents(Result, buttonOk, buttonQuit, buttonHelp, nil);
-  end;
+const
+  rbLabels: array of pchar = ('rot', 'grün', 'blau', 'gelb', 'rosa','mint','orange');
 
 
   procedure main;
   var
-    form, radioGroup, buttonBox, checkGroup: PnewtComponent;
-    grid: TnewtGrid;
-    es: TnewtExitStruct;
-    w,h, l, t: Longint;
+    cols, rows, win_x, win_y: longint;
+    cb1, cb2, okBtn, cancelBtn, form, pressed: PnewtComponent;
+    state_cb1, state_cb2: char;
+    rb1_selected: integer;
+
+    tempRB: PnewtComponent;
+    i: integer;
+  const
+    win_width = 40;
+    win_height = 12;
+
+    rb: array of PnewtComponent = nil;
   begin
+    SetLength(rb, Length(rbLabels));
+
     newtInit;
     newtCls;
 
-    newtDrawRootText(0, 0, 'Some root text');
-    newtDrawRootText(-25, -2, 'Root text in the other corner');
+    // Terminalgröße abfragen
+    newtGetScreenSize(@cols, @rows);
 
-    grid := newtCreateGrid(2, 2);
+    // Fensterposition berechnen (zentriert)
+    win_x := (cols - win_width) div 2;
+    win_y := (rows - win_height) div 2;
 
-    radioGroup := CreateRadioGroup;
-    checkGroup := CreateCheckGroup;
-    buttonBox := CreateButtonBox;
-
-    newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT, radioGroup, 0, 0, 0, 1, 0, 0);
-    newtGridSetField(grid, 1, 0, NEWT_GRID_COMPONENT, checkGroup, 0, 0, 0, 1, 0, 0);
-    newtGridSetField(grid, 1, 1, NEWT_GRID_COMPONENT, buttonBox, 0, 0, 0, 0, 0, 0);
-
-    newtGridWrappedWindow(grid, 'Checkbox Tree Test');
-//    newtGridFree(grid, 1);
+    // Fensterrahmen mit Titel setzen
+    newtOpenWindow(win_x, win_y, win_width, win_height, 'Mein Dialog');
 
     form := newtForm(nil, nil, 0);
-    newtFormAddComponents(form, radioGroup, checkGroup, buttonBox, nil);
 
-    repeat
-           newtFormRun(form,@es);
 
-              newtRefresh();
+    // Widgets: Koordinaten relativ zum Fenster!
+    cb1 := newtCheckbox(20, 2, 'Option 1', ' ', @state_cb1, nil);
+    cb2 := newtCheckbox(20, 3, 'Option 2', '*', @state_cb2, nil);
 
-//           WriteLn(' Box ',PtrUInt(buttonBox),' Ok ',PtrUInt(buttonOk),' quit ',PtrUInt(buttonQuit),' help ',PtrUInt(buttonHelp),' co ',PtrUInt(es.u.co),'  ');
+    tempRB := nil;
+    for i := 0 to Length(rb) - 1 do begin
+      rb[i] := newtRadiobutton(4, 3 + i, rbLabels[i], 0, tempRB);
+      tempRB := rb[i];
+      newtFormAddComponents(form, tempRB, nil);
+    end;
 
-newtComponentGetSize(es.u.co, @w,@h);
-newtComponentGetPosition(es.u.co, @l,@t);
-//           WriteLn(' Left:  ',l,' Top:  ',t,' heigth:  ',h, '   width: ', w, '  ');
+    okBtn := newtButton(2, 8, 'OK');
+    cancelBtn := newtButton(12, 8, 'Abbrechen');
 
-           newtFormAddComponents(form,es.u.co , nil);
-    until es.u.co=buttonQuit;
+    newtFormAddComponents(form, cb1, cb2, okBtn, cancelBtn, nil);
 
-    //    newtRunForm(form);
-    newtFinished();
+    pressed := newtRunForm(form);
 
-    newtFormDestroy(form);
+    rb1_selected := -1;
+    for i := 0 to Length(rb) - 1 do begin
+      if rb[i]= newtRadioGetCurrent(rb[0])   then begin
+        rb1_selected := i;
+        Break;
+      end;
+    end;
+
+    newtFinished;
+
+    WriteLn('RadioButton Selected: ', rb1_selected);
+
+    writeln('Checkbox 1: ', state_cb1 = ' ');
+    writeln('Checkbox 2: ', state_cb2 = ' ');
+
+
+    if pressed = okBtn then begin
+      writeln('Button gedrückt: OK');
+    end else begin
+      writeln('Button gedrückt: Abbrechen');
+    end;
   end;
 
-
 begin
-  //  menu;
   main;
 end.
