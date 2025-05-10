@@ -3,6 +3,9 @@ program project1;
 uses
 elf,
 
+Evas_Common,
+Evas_Legacy,
+
 elm_general,               // io.               makro ELM_MAIN entfernt
 elm_win_legacy,            // io.
 elm_box_legacy,            // io.
@@ -46,7 +49,7 @@ begin
     elm_win_autodel_set(win, EINA_TRUE);
 
     // Callback für das Schließen des Fensters hinzufügen
-//(    evas_object_smart_callback_add(win, "delete,request", on_win_del, NULL);
+    evas_object_smart_callback_add(win, "delete,request", on_win_del, NULL);
 
     // Box als Container für die Buttons
     box := elm_box_add(win);

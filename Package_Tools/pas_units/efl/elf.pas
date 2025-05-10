@@ -5,10 +5,12 @@ interface
 const
   {$IFDEF Linux}
   libelementary = 'libelementary';
+  libevas = 'libevas';
   {$ENDIF}
 
   {$IFDEF mswindows}
   libelementary = 'libelementary.dll'; // ???
+  libevas = 'libevas.dll';
   {$ENDIF}
 
 
@@ -28,6 +30,9 @@ type
   TEvas_Object = record
   end;
   PEvas_Object = ^TEvas_Object;
+
+  PEvas = Pointer;
+  PEo = Pointer;
 
 const
   EVAS_LAYER_MIN = -32768;
@@ -50,6 +55,35 @@ type
 
   // /usr/include/evas-1/Evas_Legacy.h
   TEvas_Modifier_Mask = uint64;
+
+  // /usr/include/eina-1/Efl_Config.h
+const
+  EFL_VERSION_MAJOR = 1;
+  EFL_VERSION_MINOR = 27;
+  EFL_VERSION_MICRO = 0;
+  EFL_BUILD_ID = 'none';
+
+  // /usr/include/eo-1/Eo.h
+type
+  TEo = record
+  end;
+  // /usr/include/eina-1/eina/eina_list.h
+  PEina_List = Pointer;
+
+  // /usr/include/efl-1/interfaces/efl_text_types.eot.h
+  TEfl_Text_Bidirectional_Type=LongInt;
+
+  // /usr/include/efl-1/interfaces/efl_text_types.eot.h
+const
+  EFL_TEXT_BIDIRECTIONAL_TYPE_NATURAL = 0;  // Natural/Neutral, identisch
+  EFL_TEXT_BIDIRECTIONAL_TYPE_NEUTRAL = 0;  // Alias für NATURAL
+  EFL_TEXT_BIDIRECTIONAL_TYPE_LTR     = 1;  // Left to right
+  EFL_TEXT_BIDIRECTIONAL_TYPE_RTL     = 2;  // Right to left
+  EFL_TEXT_BIDIRECTIONAL_TYPE_INHERIT = 3;   // Inherit
+
+// /usr/include/eina-1/eina/eina_unicode.h
+  type
+    TEina_Unicode=WideChar;
 
 
 
