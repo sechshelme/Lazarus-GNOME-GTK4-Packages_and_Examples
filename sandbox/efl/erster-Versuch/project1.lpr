@@ -3,8 +3,9 @@ program project1;
 uses
 elf,
 
-
-elm_general,               // makro ELM_MAIN entfern
+elm_general,               // io.               makro ELM_MAIN entfernt
+elm_win_legacy,            // io.
+elm_box_legacy,            // io.
 
   Math;
 
@@ -32,21 +33,23 @@ elm_general,               // makro ELM_MAIN entfern
 //}
 
 function main( argc:Integer; argv:PPChar):Integer;
+var
+  win, box: PEvas_Object;
 begin
 
     elm_init(argc, argv);
 
-    Evas_Object *win, *box, *btn1, *btn2;
+//    Evas_Object *win, *box, *btn1, *btn2;
 
     // Fenster erstellen
-    win = elm_win_util_standard_add("EFL Beispiel", "EFL Beispiel");
+    win := elm_win_util_standard_add('EFL Beispiel', 'EFL Beispiel');
     elm_win_autodel_set(win, EINA_TRUE);
 
     // Callback für das Schließen des Fensters hinzufügen
-    evas_object_smart_callback_add(win, "delete,request", on_win_del, NULL);
+//(    evas_object_smart_callback_add(win, "delete,request", on_win_del, NULL);
 
     // Box als Container für die Buttons
-    box = elm_box_add(win);
+    box := elm_box_add(win);
     evas_object_size_hint_weight_set(box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
     elm_win_resize_object_add(win, box);
     evas_object_show(box);

@@ -1,4 +1,50 @@
-/**
+
+unit elm_win_legacy;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from elm_win_legacy.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    elm_win_legacy.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pchar  = ^char;
+Pdword  = ^dword;
+PEcore_Cocoa_Window  = ^Ecore_Cocoa_Window;
+PEcore_Evas  = ^Ecore_Evas;
+PEcore_Win32_Window  = ^Ecore_Win32_Window;
+PEcore_Wl2_Window  = ^Ecore_Wl2_Window;
+PElm_Illume_Command  = ^Elm_Illume_Command;
+PElm_Win  = ^Elm_Win;
+PElm_Win_Indicator_Mode  = ^Elm_Win_Indicator_Mode;
+PElm_Win_Indicator_Opacity_Mode  = ^Elm_Win_Indicator_Opacity_Mode;
+PElm_Win_Keyboard_Mode  = ^Elm_Win_Keyboard_Mode;
+PElm_Win_Keygrab_Mode  = ^Elm_Win_Keygrab_Mode;
+PElm_Win_Move_Resize_Mode  = ^Elm_Win_Move_Resize_Mode;
+PElm_Win_Type  = ^Elm_Win_Type;
+PEvas_Object  = ^Evas_Object;
+Plongint  = ^longint;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{*
  * @brief In some environments, like phones, you may have an indicator that
  * shows battery status, reception, time etc. This is the indicator.
  *
@@ -9,47 +55,60 @@
  * have the indicator hidden.
  *
  * @ingroup Elm_Win_Group
- */
-typedef enum
-{
-  ELM_WIN_INDICATOR_UNKNOWN = 0, /** Unknown indicator state */
-  ELM_WIN_INDICATOR_HIDE, /** Hides the indicator */
-  ELM_WIN_INDICATOR_SHOW /** Shows the indicator */
-} Elm_Win_Indicator_Mode;
-
-/** Defines the opacity modes of indicator that can be shown
+  }
+{* Unknown indicator state  }
+{* Hides the indicator  }
+{* Shows the indicator  }
+type
+  PElm_Win_Indicator_Mode = ^TElm_Win_Indicator_Mode;
+  TElm_Win_Indicator_Mode =  Longint;
+  Const
+    ELM_WIN_INDICATOR_UNKNOWN = 0;
+    ELM_WIN_INDICATOR_HIDE = 1;
+    ELM_WIN_INDICATOR_SHOW = 2;
+;
+{* Defines the opacity modes of indicator that can be shown
  *
  * @ingroup Elm_Win_Group
- */
-typedef enum
-{
-  ELM_WIN_INDICATOR_OPACITY_UNKNOWN = 0, /** Unknown indicator opacity mode */
-  ELM_WIN_INDICATOR_OPAQUE, /** Opacifies the indicator */
-  ELM_WIN_INDICATOR_TRANSLUCENT, /** Be translucent the indicator */
-  ELM_WIN_INDICATOR_TRANSPARENT /** Transparentizes the indicator */
-} Elm_Win_Indicator_Opacity_Mode;
-
-/**
+  }
+{* Unknown indicator opacity mode  }
+{* Opacifies the indicator  }
+{* Be translucent the indicator  }
+{* Transparentizes the indicator  }
+type
+  PElm_Win_Indicator_Opacity_Mode = ^TElm_Win_Indicator_Opacity_Mode;
+  TElm_Win_Indicator_Opacity_Mode =  Longint;
+  Const
+    ELM_WIN_INDICATOR_OPACITY_UNKNOWN = 0;
+    ELM_WIN_INDICATOR_OPAQUE = 1;
+    ELM_WIN_INDICATOR_TRANSLUCENT = 2;
+    ELM_WIN_INDICATOR_TRANSPARENT = 3;
+;
+{*
  * @brief Available commands that can be sent to the Illume manager.
  *
  * When running under an Illume session, a window may send commands to the
  * Illume manager to perform different actions.
  *
  * @ingroup Elm
- */
-typedef enum
-{
-  ELM_ILLUME_COMMAND_FOCUS_BACK = 0, /** Reverts focus to the previous window
-                                      */
-  ELM_ILLUME_COMMAND_FOCUS_FORWARD, /** Sends focus to the next window in the
-                                     * list */
-  ELM_ILLUME_COMMAND_FOCUS_HOME, /** Hides all windows to show the Home screen
-                                  */
-  ELM_ILLUME_COMMAND_CLOSE /** Closes the currently active window */
-} Elm_Illume_Command;
-
-
-/**
+  }
+{* Reverts focus to the previous window
+                                       }
+{* Sends focus to the next window in the
+                                     * list  }
+{* Hides all windows to show the Home screen
+                                   }
+{* Closes the currently active window  }
+type
+  PElm_Illume_Command = ^TElm_Illume_Command;
+  TElm_Illume_Command =  Longint;
+  Const
+    ELM_ILLUME_COMMAND_FOCUS_BACK = 0;
+    ELM_ILLUME_COMMAND_FOCUS_FORWARD = 1;
+    ELM_ILLUME_COMMAND_FOCUS_HOME = 2;
+    ELM_ILLUME_COMMAND_CLOSE = 3;
+;
+{*
  * @brief Defines the types of window that can be created
  *
  * These are hints set on a window so that a running Window Manager knows how
@@ -58,108 +117,147 @@ typedef enum
  * Currently, only the X11 backed engines use them.
  *
  * @ingroup Elm_Win_Group
- */
-typedef enum
-{
-  ELM_WIN_UNKNOWN = -1 /* +1 */, /**< Default, unknown, type */
-  ELM_WIN_BASIC, /**< A normal window. Indicates a normal, top-level window.
-                     * Almost every window will be created with this type. */
-  ELM_WIN_DIALOG_BASIC, /**< Used for simple dialog windows. */
-  ELM_WIN_DESKTOP, /**< For special desktop windows, like a background window
-                       * holding desktop icons. */
-  ELM_WIN_DOCK, /**< The window is used as a dock or panel. Usually would be
-                    * kept on top of any other window by the Window Manager. */
-  ELM_WIN_TOOLBAR, /**< The window is used to hold a floating toolbar, or
-                       * similar. */
-  ELM_WIN_MENU, /**< Similar to @.toolbar. */
-  ELM_WIN_UTILITY, /**< A persistent utility window, like a toolbox or
-                       * palette. */
-  ELM_WIN_SPLASH, /**< Splash window for a starting up application. */
-  ELM_WIN_DROPDOWN_MENU, /**< The window is a dropdown menu, as when an
+  }
+{ +1  }{*< Default, unknown, type  }
+{*< A normal window. Indicates a normal, top-level window.
+                     * Almost every window will be created with this type.  }
+{*< Used for simple dialog windows.  }
+{*< For special desktop windows, like a background window
+                       * holding desktop icons.  }
+{*< The window is used as a dock or panel. Usually would be
+                    * kept on top of any other window by the Window Manager.  }
+{*< The window is used to hold a floating toolbar, or
+                       * similar.  }
+{*< Similar to @.toolbar.  }
+{*< A persistent utility window, like a toolbox or
+                       * palette.  }
+{*< Splash window for a starting up application.  }
+{*< The window is a dropdown menu, as when an
                              *  entry in a menubar is clicked. This hint exists
                              * for completion only, as the EFL way of
                              * implementing a menu would not normally use a
-                             * separate window for its contents. */
-  ELM_WIN_POPUP_MENU, /**< Like @.dropdown_menu, but for the menu triggered
-                          * by right-clicking an object. */
-  ELM_WIN_TOOLTIP, /**< The window is a tooltip. A short piece of explanatory
+                             * separate window for its contents.  }
+{*< Like @.dropdown_menu, but for the menu triggered
+                          * by right-clicking an object.  }
+{*< The window is a tooltip. A short piece of explanatory
                        * text that typically appear after the mouse cursor
                        * hovers over an object for a while. Typically not very
-                       * commonly used in the EFL. */
-  ELM_WIN_NOTIFICATION, /**< A notification window, like a warning about
-                            * battery life or a new E-Mail received. */
-  ELM_WIN_COMBO, /**< A window holding the contents of a combo box. Not
-                     * usually used in the EFL. */
-
-/**
+                       * commonly used in the EFL.  }
+{*< A notification window, like a warning about
+                            * battery life or a new E-Mail received.  }
+{*< A window holding the contents of a combo box. Not
+                     * usually used in the EFL.  }
+{*
  * Used to indicate the window is a representation of an object being
  * dragged across different windows, or even applications. Typically
  * used with elm_win_override_set().
- */
-  ELM_WIN_DND,
-  ELM_WIN_INLINED_IMAGE, /**< The window is an image. */
-  ELM_WIN_SOCKET_IMAGE, /**< The window is an image received through a socket. */
-  ELM_WIN_FAKE, /**< See elm_win_fake_add(). @since 1.13 */
-
-  ELM_WIN_NAVIFRAME_BASIC, /**< Used for naviframe style replacement with
+  }
+{*< The window is an image.  }
+{*< The window is an image received through a socket.  }
+{*< See elm_win_fake_add(). @since 1.13  }
+{*< Used for naviframe style replacement with
                                    * a back button instead of a close button.
                                    *
-                                   * @since 1.19 */
-} Elm_Win_Type;
-
-/**
+                                   * @since 1.19  }
+type
+  PElm_Win_Type = ^TElm_Win_Type;
+  TElm_Win_Type =  Longint;
+  Const
+    ELM_WIN_UNKNOWN = -(1);
+    ELM_WIN_BASIC = (-(1))+1;
+    ELM_WIN_DIALOG_BASIC = (-(1))+2;
+    ELM_WIN_DESKTOP = (-(1))+3;
+    ELM_WIN_DOCK = (-(1))+4;
+    ELM_WIN_TOOLBAR = (-(1))+5;
+    ELM_WIN_MENU = (-(1))+6;
+    ELM_WIN_UTILITY = (-(1))+7;
+    ELM_WIN_SPLASH = (-(1))+8;
+    ELM_WIN_DROPDOWN_MENU = (-(1))+9;
+    ELM_WIN_POPUP_MENU = (-(1))+10;
+    ELM_WIN_TOOLTIP = (-(1))+11;
+    ELM_WIN_NOTIFICATION = (-(1))+12;
+    ELM_WIN_COMBO = (-(1))+13;
+    ELM_WIN_DND = (-(1))+14;
+    ELM_WIN_INLINED_IMAGE = (-(1))+15;
+    ELM_WIN_SOCKET_IMAGE = (-(1))+16;
+    ELM_WIN_FAKE = (-(1))+17;
+    ELM_WIN_NAVIFRAME_BASIC = (-(1))+18;
+;
+{*
  * @brief The different layouts that can be requested for the virtual keyboard.
  *
  * When the application window is being managed by Illume it may request any of
  * the following layouts for the virtual keyboard.
  *
  * @ingroup Elm_Win_Group
- */
-typedef enum
-{
-  ELM_WIN_KEYBOARD_UNKNOWN = 0, /**< Unknown keyboard state */
-  ELM_WIN_KEYBOARD_OFF, /**< Request to deactivate the keyboard */
-  ELM_WIN_KEYBOARD_ON, /**< Enable keyboard with default layout */
-  ELM_WIN_KEYBOARD_ALPHA, /**< Alpha (a-z) keyboard layout */
-  ELM_WIN_KEYBOARD_NUMERIC, /**< Numeric keyboard layout */
-  ELM_WIN_KEYBOARD_PIN, /**< PIN keyboard layout */
-  ELM_WIN_KEYBOARD_PHONE_NUMBER, /**< Phone keyboard layout */
-  ELM_WIN_KEYBOARD_HEX, /**< Hexadecimal numeric keyboard layout */
-  ELM_WIN_KEYBOARD_TERMINAL, /**< Full (QWERTY) keyboard layout */
-  ELM_WIN_KEYBOARD_PASSWORD, /**< Password keyboard layout */
-  ELM_WIN_KEYBOARD_IP, /**< IP keyboard layout */
-  ELM_WIN_KEYBOARD_HOST, /**< Host keyboard layout */
-  ELM_WIN_KEYBOARD_FILE, /**< File keyboard layout */
-  ELM_WIN_KEYBOARD_URL, /**< URL keyboard layout */
-  ELM_WIN_KEYBOARD_KEYPAD, /**< Keypad layout */
-  ELM_WIN_KEYBOARD_J2ME /**< J2ME keyboard layout */
-} Elm_Win_Keyboard_Mode;
-
-/** Define the keygrab modes of window. A window may send commands to the
+  }
+{*< Unknown keyboard state  }
+{*< Request to deactivate the keyboard  }
+{*< Enable keyboard with default layout  }
+{*< Alpha (a-z) keyboard layout  }
+{*< Numeric keyboard layout  }
+{*< PIN keyboard layout  }
+{*< Phone keyboard layout  }
+{*< Hexadecimal numeric keyboard layout  }
+{*< Full (QWERTY) keyboard layout  }
+{*< Password keyboard layout  }
+{*< IP keyboard layout  }
+{*< Host keyboard layout  }
+{*< File keyboard layout  }
+{*< URL keyboard layout  }
+{*< Keypad layout  }
+{*< J2ME keyboard layout  }
+type
+  PElm_Win_Keyboard_Mode = ^TElm_Win_Keyboard_Mode;
+  TElm_Win_Keyboard_Mode =  Longint;
+  Const
+    ELM_WIN_KEYBOARD_UNKNOWN = 0;
+    ELM_WIN_KEYBOARD_OFF = 1;
+    ELM_WIN_KEYBOARD_ON = 2;
+    ELM_WIN_KEYBOARD_ALPHA = 3;
+    ELM_WIN_KEYBOARD_NUMERIC = 4;
+    ELM_WIN_KEYBOARD_PIN = 5;
+    ELM_WIN_KEYBOARD_PHONE_NUMBER = 6;
+    ELM_WIN_KEYBOARD_HEX = 7;
+    ELM_WIN_KEYBOARD_TERMINAL = 8;
+    ELM_WIN_KEYBOARD_PASSWORD = 9;
+    ELM_WIN_KEYBOARD_IP = 10;
+    ELM_WIN_KEYBOARD_HOST = 11;
+    ELM_WIN_KEYBOARD_FILE = 12;
+    ELM_WIN_KEYBOARD_URL = 13;
+    ELM_WIN_KEYBOARD_KEYPAD = 14;
+    ELM_WIN_KEYBOARD_J2ME = 15;
+;
+{* Define the keygrab modes of window. A window may send commands to the
  * Keyrouter according this mode, and perform different actions.
  *
  * @ingroup Elm_Win_Group
- */
-typedef enum
-{
-  ELM_WIN_KEYGRAB_UNKNOWN = 0, /**< Unknown keygrab mode */
-  ELM_WIN_KEYGRAB_SHARED = 256 /* 1 >> 8 */, /**< Get the grabbed-key
+  }
+{*< Unknown keygrab mode  }
+{ 1 >> 8  }{*< Get the grabbed-key
                                                  * together with the other
-                                                 * client windows */
-  ELM_WIN_KEYGRAB_TOPMOST = 512 /* 1 >> 9 */, /**< Get the grabbed-key only
+                                                 * client windows  }
+{ 1 >> 9  }{*< Get the grabbed-key only
                                                   * when window is top of the
-                                                  * stack */
-  ELM_WIN_KEYGRAB_EXCLUSIVE = 1024 /* 1 >> 10 */, /**< Get the grabbed-key
+                                                  * stack  }
+{ 1 >> 10  }{*< Get the grabbed-key
                                                       * exclusively regardless
-                                                      * of window's position */
-  ELM_WIN_KEYGRAB_OVERRIDE_EXCLUSIVE = 2048 /* 1 >> 11 */ /**< Get the grabbed-key exclusively
+                                                      * of window's position  }
+{ 1 >> 11  }{*< Get the grabbed-key exclusively
                                                               * regardless of window's position.
                                                               * This is overrided by grabs from the
-                                                              * other client window */
-} Elm_Win_Keygrab_Mode;
-
-
-/**
+                                                              * other client window  }
+type
+  PElm_Win_Keygrab_Mode = ^TElm_Win_Keygrab_Mode;
+  TElm_Win_Keygrab_Mode =  Longint;
+  Const
+    ELM_WIN_KEYGRAB_UNKNOWN = 0;
+    ELM_WIN_KEYGRAB_SHARED = 256;
+    ELM_WIN_KEYGRAB_TOPMOST = 512;
+    ELM_WIN_KEYGRAB_EXCLUSIVE = 1024;
+    ELM_WIN_KEYGRAB_OVERRIDE_EXCLUSIVE = 2048;
+;
+{*
  * @brief Define the move or resize mode of window.
  *
  * The user can request the display server to start moving or resizing the
@@ -173,22 +271,27 @@ typedef enum
  * @since 1.19
  *
  * @ingroup Elm_Win_Group
- */
-typedef enum
-{
-  ELM_WIN_MOVE_RESIZE_MOVE = 1, /**< Start moving window */
-  ELM_WIN_MOVE_RESIZE_TOP = 2 /* 1 >> 1 */, /**< Start resizing window to the
-                                                * top */
-  ELM_WIN_MOVE_RESIZE_BOTTOM = 4 /* 1 >> 2 */, /**< Start resizing window to
-                                                   * the bottom */
-  ELM_WIN_MOVE_RESIZE_LEFT = 8 /* 1 >> 3 */, /**< Start resizing window to
-                                                 * the left */
-  ELM_WIN_MOVE_RESIZE_RIGHT = 16 /* 1 >> 4 */ /**< Start resizing window to
-                                                  * the right */
-} Elm_Win_Move_Resize_Mode;
-
-
-/**
+  }
+{*< Start moving window  }
+{ 1 >> 1  }{*< Start resizing window to the
+                                                * top  }
+{ 1 >> 2  }{*< Start resizing window to
+                                                   * the bottom  }
+{ 1 >> 3  }{*< Start resizing window to
+                                                 * the left  }
+{ 1 >> 4  }{*< Start resizing window to
+                                                  * the right  }
+type
+  PElm_Win_Move_Resize_Mode = ^TElm_Win_Move_Resize_Mode;
+  TElm_Win_Move_Resize_Mode =  Longint;
+  Const
+    ELM_WIN_MOVE_RESIZE_MOVE = 1;
+    ELM_WIN_MOVE_RESIZE_TOP = 2;
+    ELM_WIN_MOVE_RESIZE_BOTTOM = 4;
+    ELM_WIN_MOVE_RESIZE_LEFT = 8;
+    ELM_WIN_MOVE_RESIZE_RIGHT = 16;
+;
+{*
  * Adds a window object. If this is the first window created, pass NULL as
  * @p parent.
  *
@@ -203,12 +306,14 @@ typedef enum
  * @return The created object, or @c NULL on failure
  *
  * @ingroup Elm_Win_Group
- */
-extern Evas_Object          *elm_win_add(Evas_Object *parent, const char *name, Elm_Win_Type type);
+  }
+(* Const before type ignored *)
 
-typedef Evas_Object Elm_Win;
-
-/**
+function elm_win_add(parent:PEvas_Object; name:Pchar; _type:TElm_Win_Type):PEvas_Object;cdecl;external;
+type
+  PElm_Win = ^TElm_Win;
+  TElm_Win = TEvas_Object;
+{*
  * Creates a fake window object using a pre-existing canvas.
  *
  * @param ee The Ecore_Evas to use
@@ -224,10 +329,10 @@ typedef Evas_Object Elm_Win;
  * @ingroup Elm_Win_Group
  *
  * @since 1.13
- */
-extern Evas_Object          *elm_win_fake_add(Ecore_Evas *ee);
+  }
 
-/**
+function elm_win_fake_add(ee:PEcore_Evas):PEvas_Object;cdecl;external;
+{*
  * Adds a window object with standard setup
  *
  * @param name The name of the window
@@ -243,10 +348,11 @@ extern Evas_Object          *elm_win_fake_add(Ecore_Evas *ee);
  * @see elm_win_add()
  *
  * @ingroup Elm_Win_Group
- */
-extern Evas_Object          *elm_win_util_standard_add(const char *name, const char *title);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function elm_win_util_standard_add(name:Pchar; title:Pchar):PEvas_Object;cdecl;external;
+{*
  * Adds a window object with dialog setup
  *
  * @param parent The parent window
@@ -265,10 +371,11 @@ extern Evas_Object          *elm_win_util_standard_add(const char *name, const c
  *
  * @ingroup Elm_Win_Group
  * @since 1.13
- */
-extern Evas_Object          *elm_win_util_dialog_add(Evas_Object *parent, const char *name, const char *title);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function elm_win_util_dialog_add(parent:PEvas_Object; name:Pchar; title:Pchar):PEvas_Object;cdecl;external;
+{*
  * @brief Set the window's autodel state.
  *
  * When closing the window in any way outside of the program control, like
@@ -287,10 +394,9 @@ extern Evas_Object          *elm_win_util_dialog_add(Evas_Object *parent, const 
  * when closed.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_autodel_set(Evas_Object *obj, Eina_Bool autodel);
-
-/**
+  }
+procedure elm_win_autodel_set(obj:PEvas_Object; autodel:TEina_Bool);cdecl;external;
+{*
  * @brief Get the window's autodel state.
  *
  * @param[in] obj The object.
@@ -298,10 +404,10 @@ extern void elm_win_autodel_set(Evas_Object *obj, Eina_Bool autodel);
  * @return If @c true, the window will automatically delete itself when closed.
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_autodel_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_autodel_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * Set the floating mode of a window.
  *
  * @param obj The window object
@@ -316,10 +422,9 @@ extern Eina_Bool elm_win_autodel_get(const Evas_Object *obj);
  * @ingroup Elm_Win_Group
  * @see elm_win_floating_mode_get()
  * @since 1.8
- */
-extern void                  elm_win_floating_mode_set(Evas_Object *obj, Eina_Bool floating);
-
-/**
+  }
+procedure elm_win_floating_mode_set(obj:PEvas_Object; floating:TEina_Bool);cdecl;external;
+{*
  * Get the floating mode of a window.
  *
  * @param obj The window object
@@ -328,10 +433,10 @@ extern void                  elm_win_floating_mode_set(Evas_Object *obj, Eina_Bo
  * @ingroup Elm_Win_Group
  * @see elm_win_floating_mode_set()
  * @since 1.8
- */
-extern Eina_Bool             elm_win_floating_mode_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_floating_mode_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * This pushes (increments) the norender counter on the window
  *
  * @param obj The window object
@@ -354,10 +459,9 @@ extern Eina_Bool             elm_win_floating_mode_get(const Evas_Object *obj);
  * @see elm_win_render()
  * @ingroup Elm_Win_Group
  * @since 1.7
- */
-extern void                  elm_win_norender_push(Evas_Object *obj);
-
-/**
+  }
+procedure elm_win_norender_push(obj:PEvas_Object);cdecl;external;
+{*
  * This pops (decrements) the norender counter on the window
  *
  * @param obj The window object
@@ -370,10 +474,9 @@ extern void                  elm_win_norender_push(Evas_Object *obj);
  * @see elm_win_render()
  * @ingroup Elm_Win_Group
  * @since 1.7
- */
-extern void                  elm_win_norender_pop(Evas_Object *obj);
-
-/**
+  }
+procedure elm_win_norender_pop(obj:PEvas_Object);cdecl;external;
+{*
  * The returns how many times norender has been pushed on the window
  * @param obj The window object
  * @return The number of times norender has been pushed
@@ -383,10 +486,10 @@ extern void                  elm_win_norender_pop(Evas_Object *obj);
  * @see elm_win_render()
  * @ingroup Elm_Win_Group
  * @since 1.7
- */
-extern int                   elm_win_norender_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_norender_get(obj:PEvas_Object):longint;cdecl;external;
+{*
  * This manually asks evas to render the window now
  *
  * @param obj The window object
@@ -402,11 +505,10 @@ extern int                   elm_win_norender_get(const Evas_Object *obj);
  * @see elm_win_norender_get()
  * @ingroup Elm_Win_Group
  * @since 1.7
- */
-extern void                  elm_win_render(Evas_Object *obj);
-
-/* Wayland specific call - returns NULL on non-Wayland engines */
-/**
+  }
+procedure elm_win_render(obj:PEvas_Object);cdecl;external;
+{ Wayland specific call - returns NULL on non-Wayland engines  }
+{*
  * Get the Ecore_Wl_Window of an Evas_Object
  *
  * Do not use this function if you'd like your application/library be portable.
@@ -417,11 +519,11 @@ extern void                  elm_win_render(Evas_Object *obj);
  * @return The Ecore_Wl_Window of @p obj
  *
  * @ingroup Elm_Win_Group
- */
-extern Ecore_Wl2_Window *elm_win_wl_window_get(const Evas_Object *obj);
-
-/* Windows specific call - returns NULL on non-Windows engines */
-/**
+  }
+(* Const before type ignored *)
+function elm_win_wl_window_get(obj:PEvas_Object):PEcore_Wl2_Window;cdecl;external;
+{ Windows specific call - returns NULL on non-Windows engines  }
+{*
  * Get the Ecore_Win32_Window of an Evas_Object
  *
  * Do not use this function if you'd like your application/library be portable.
@@ -434,10 +536,10 @@ extern Ecore_Wl2_Window *elm_win_wl_window_get(const Evas_Object *obj);
  * @ingroup Elm_Win_Group
  *
  * @since 1.16
- */
-extern Ecore_Win32_Window *elm_win_win32_window_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_win32_window_get(obj:PEvas_Object):PEcore_Win32_Window;cdecl;external;
+{*
  * Set the preferred rotation value.
  *
  * This function is used to set the orientation of window @p obj to specific angle fixed.
@@ -450,10 +552,9 @@ extern Ecore_Win32_Window *elm_win_win32_window_get(const Evas_Object *obj);
  *
  * @ingroup Elm_Win_Group
  * @since 1.9
- */
-extern void                  elm_win_wm_rotation_preferred_rotation_set(Evas_Object *obj, int rotation);
-
-/**
+  }
+procedure elm_win_wm_rotation_preferred_rotation_set(obj:PEvas_Object; rotation:longint);cdecl;external;
+{*
  * @brief Add @c subobj as a resize object of window @c obj.
  *
  * Setting an object as a resize object of the window means that the @c subobj
@@ -478,10 +579,9 @@ extern void                  elm_win_wm_rotation_preferred_rotation_set(Evas_Obj
  * @param[in] subobj The resize object to add.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_resize_object_add(Evas_Object *obj, Evas_Object *subobj);
-
-/**
+  }
+procedure elm_win_resize_object_add(obj:PEvas_Object; subobj:PEvas_Object);cdecl;external;
+{*
  * @brief Delete @c subobj as a resize object of window @c obj.
  *
  * This function removes the object @c subobj from the resize objects of the
@@ -492,26 +592,24 @@ extern void elm_win_resize_object_add(Evas_Object *obj, Evas_Object *subobj);
  * @param[in] subobj The resize object to add.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_resize_object_del(Evas_Object *obj, Evas_Object *subobj);
-
-/** Get the Ecore_X_Window of an Evas_Object.
+  }
+procedure elm_win_resize_object_del(obj:PEvas_Object; subobj:PEvas_Object);cdecl;external;
+{* Get the Ecore_X_Window of an Evas_Object.
  *
  * @ingroup Elm_Win_Group
- */
-extern Ecore_X_Window elm_win_xwindow_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_xwindow_get(obj:PEvas_Object):TEcore_X_Window;cdecl;external;
+{*
  * @brief Get the Ecore_Wl2_Window of an Evas_Object.
  *
  * @return The Ecore_Wl2_Window of @c obj.
  *
  * @ingroup Elm_Win_Group
- */
-extern Ecore_Wl2_Window *elm_win_wl_window_get(const Evas_Object *obj);
-
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_wl_window_get(obj:PEvas_Object):PEcore_Wl2_Window;cdecl;external;
+{*
  * @brief Get the Ecore_Win32_Window of an Evas_Object
  *
  * @return The Ecore_Win32_Window of @c obj.
@@ -519,10 +617,10 @@ extern Ecore_Wl2_Window *elm_win_wl_window_get(const Evas_Object *obj);
  * @since 1.17
  *
  * @ingroup Elm_Win_Group
- */
-extern Ecore_Win32_Window *elm_win_win32_window_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_win32_window_get(obj:PEvas_Object):PEcore_Win32_Window;cdecl;external;
+{*
  * @brief Get the Ecore_Cocoa_Window of an Efl.Canvas.Object.
  *
  * @return The Ecore_Cocoa_Window of @c obj.
@@ -530,10 +628,10 @@ extern Ecore_Win32_Window *elm_win_win32_window_get(const Evas_Object *obj);
  * @since 1.17
  *
  * @ingroup Elm_Win_Group
- */
-extern Ecore_Cocoa_Window *elm_win_cocoa_window_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_cocoa_window_get(obj:PEvas_Object):PEcore_Cocoa_Window;cdecl;external;
+{*
  * @brief Get the trap data associated with a window.
  *
  * @return The trap data of the window.
@@ -541,10 +639,10 @@ extern Ecore_Cocoa_Window *elm_win_cocoa_window_get(const Evas_Object *obj);
  * @since 1.12
  *
  * @ingroup Elm_Win_Group
- */
-extern void *elm_win_trap_data_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_trap_data_get(obj:PEvas_Object):pointer;cdecl;external;
+{*
  * @brief Set the override state of a window.
  *
  * A window with @c override set to true will not be managed by the Window
@@ -560,19 +658,18 @@ extern void *elm_win_trap_data_get(const Evas_Object *obj);
  * @param[in] override If true, the window is overridden.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_override_set(Evas_Object *obj, Eina_Bool override);
-
-/**
+  }
+procedure elm_win_override_set(obj:PEvas_Object; override:TEina_Bool);cdecl;external;
+{*
  * @brief Get the override state of a window.
  *
  * @return If true, the window is overridden.
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_override_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_override_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Lower a window object.
  *
  * Places the window pointed by @c obj at the bottom of the stack, so that no
@@ -582,10 +679,9 @@ extern Eina_Bool elm_win_override_get(const Evas_Object *obj);
  * request.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_lower(Evas_Object *obj);
-
-/**
+  }
+procedure elm_win_lower(obj:PEvas_Object);cdecl;external;
+{*
  * @brief Set a window to be an illume quickpanel window.
  *
  * By default window objects are not quickpanel windows.
@@ -593,143 +689,137 @@ extern void elm_win_lower(Evas_Object *obj);
  * @param[in] quickpanel The quickpanel flag.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_quickpanel_set(Evas_Object *obj, Eina_Bool quickpanel);
-
-/**
+  }
+procedure elm_win_quickpanel_set(obj:PEvas_Object; quickpanel:TEina_Bool);cdecl;external;
+{*
  * @brief Get if this window is a quickpanel or not.
  *
  * @return The quickpanel flag.
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_quickpanel_get(const Evas_Object *obj);
-/**
+  }
+(* Const before type ignored *)
+function elm_win_quickpanel_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Set which zone this quickpanel should appear in.
  *
  * @param[in] zone The requested zone for this quickpanel.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_quickpanel_zone_set(Evas_Object *obj, int zone);
-
-/**
+  }
+procedure elm_win_quickpanel_zone_set(obj:PEvas_Object; zone:longint);cdecl;external;
+{*
  * @brief Get which zone this quickpanel should appear in.
  *
  * @return The requested zone for this quickpanel.
  *
  * @ingroup Elm_Win_Group
- */
-extern int elm_win_quickpanel_zone_get(const Evas_Object *obj);
-/**
+  }
+(* Const before type ignored *)
+function elm_win_quickpanel_zone_get(obj:PEvas_Object):longint;cdecl;external;
+{*
  * @brief Set the major priority of a quickpanel window.
  *
  * @param[in] priority The major priority for this quickpanel or -1.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_quickpanel_priority_major_set(Evas_Object *obj, int priority);
-
-/**
+  }
+procedure elm_win_quickpanel_priority_major_set(obj:PEvas_Object; priority:longint);cdecl;external;
+{*
  * @brief Get the major priority of a quickpanel window.
  *
  * @return The major priority for this quickpanel or -1.
  *
  * @ingroup Elm_Win_Group
- */
-extern int elm_win_quickpanel_priority_major_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_quickpanel_priority_major_get(obj:PEvas_Object):longint;cdecl;external;
+{*
  * @brief Set the minor priority of a quickpanel window.
  *
  * @param[in] priority The minor priority for this quickpanel.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_quickpanel_priority_minor_set(Evas_Object *obj, int priority);
-
-/**
+  }
+procedure elm_win_quickpanel_priority_minor_set(obj:PEvas_Object; priority:longint);cdecl;external;
+{*
  * @brief Get the minor priority of a quickpanel window.
  *
  * @return The minor priority for this quickpanel.
  *
  * @ingroup Elm_Win_Group
- */
-extern int elm_win_quickpanel_priority_minor_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_quickpanel_priority_minor_get(obj:PEvas_Object):longint;cdecl;external;
+{*
  * @brief Sets the indicator mode of the window.
  *
  * @param[in] mode The mode, one of #Elm_Win_Indicator_Mode.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_indicator_mode_set(Evas_Object *obj, Elm_Win_Indicator_Mode mode);
-
-/**
+  }
+procedure elm_win_indicator_mode_set(obj:PEvas_Object; mode:TElm_Win_Indicator_Mode);cdecl;external;
+{*
  * @brief Get the indicator mode of the window.
  *
  * @return The mode, one of #Elm_Win_Indicator_Mode.
  *
  * @ingroup Elm_Win_Group
- */
-extern Elm_Win_Indicator_Mode elm_win_indicator_mode_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_indicator_mode_get(obj:PEvas_Object):TElm_Win_Indicator_Mode;cdecl;external;
+{*
  * @brief Sets the indicator opacity mode of the window.
  *
  * @param[in] mode The mode, one of #Elm_Win_Indicator_Opacity_Mode.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_indicator_opacity_set(Evas_Object *obj, Elm_Win_Indicator_Opacity_Mode mode);
-
-/**
+  }
+procedure elm_win_indicator_opacity_set(obj:PEvas_Object; mode:TElm_Win_Indicator_Opacity_Mode);cdecl;external;
+{*
  * @brief Get the indicator opacity mode of the window.
  *
  * @return The mode, one of #Elm_Win_Indicator_Opacity_Mode.
  *
  * @ingroup Elm_Win_Group
- */
-extern Elm_Win_Indicator_Opacity_Mode elm_win_indicator_opacity_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_indicator_opacity_get(obj:PEvas_Object):TElm_Win_Indicator_Opacity_Mode;cdecl;external;
+{*
  * @brief Sets whether the window is a keyboard.
  *
  * @param[in] is_keyboard If true, the window is a virtual keyboard..
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_keyboard_win_set(Evas_Object *obj, Eina_Bool is_keyboard);
-
-/**
+  }
+procedure elm_win_keyboard_win_set(obj:PEvas_Object; is_keyboard:TEina_Bool);cdecl;external;
+{*
  * @brief Get whether the window is a keyboard
  *
  * @return The mode, If true, the window is a virtual keyboard..
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_keyboard_win_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_keyboard_win_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Set if this window is an illume conformant window.
  *
  * @param[in] conformant The conformant flag.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_conformant_set(Evas_Object *obj, Eina_Bool conformant);
-
-/**
+  }
+procedure elm_win_conformant_set(obj:PEvas_Object; conformant:TEina_Bool);cdecl;external;
+{*
  * @brief Get if this window is an illume conformant window.
  *
  * @return The conformant flag.
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_conformant_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_conformant_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Set the manual rotation done mode.
  *
  * This function is used to set or reset the manual rotation done mode. the
@@ -742,10 +832,9 @@ extern Eina_Bool elm_win_conformant_get(const Evas_Object *obj);
  * @since 1.9
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_wm_rotation_manual_rotation_done_set(Evas_Object *obj, Eina_Bool set);
-
-/**
+  }
+procedure elm_win_wm_rotation_manual_rotation_done_set(obj:PEvas_Object; set:TEina_Bool);cdecl;external;
+{*
  * @brief Get the state of manual rotation done mode.
  *
  * This function is used to get the state of manual rotation done mode.
@@ -755,10 +844,10 @@ extern void elm_win_wm_rotation_manual_rotation_done_set(Evas_Object *obj, Eina_
  * @since 1.9
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_wm_rotation_manual_rotation_done_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_wm_rotation_manual_rotation_done_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief To notify the rotation done to WM manually.
  *
  * This function is used to notify the rotation done to WM manually.
@@ -766,10 +855,9 @@ extern Eina_Bool elm_win_wm_rotation_manual_rotation_done_get(const Evas_Object 
  * @since 1.9
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_wm_rotation_manual_rotation_done(Evas_Object *obj);
-
-/**
+  }
+procedure elm_win_wm_rotation_manual_rotation_done(obj:PEvas_Object);cdecl;external;
+{*
  * @brief Set the rotation of the window.
  *
  * Most engines only work with multiples of 90.
@@ -783,19 +871,18 @@ extern void elm_win_wm_rotation_manual_rotation_done(Evas_Object *obj);
  * counter-clockwise.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_rotation_set(Evas_Object *obj, int rotation);
-
-/**
+  }
+procedure elm_win_rotation_set(obj:PEvas_Object; rotation:longint);cdecl;external;
+{*
  * @brief Get the rotation of the window.
  *
  * @return The rotation of the window, in degrees (0-360), counter-clockwise.
  *
  * @ingroup Elm_Win_Group
- */
-extern int elm_win_rotation_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_rotation_get(obj:PEvas_Object):longint;cdecl;external;
+{*
  * @brief Rotates the window and resizes it.
  *
  * Like @ref elm_win_rotation_set, but it also resizes the window's contents so
@@ -805,10 +892,9 @@ extern int elm_win_rotation_get(const Evas_Object *obj);
  * counter-clockwise.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_rotation_with_resize_set(Evas_Object *obj, int rotation);
-
-/**
+  }
+procedure elm_win_rotation_with_resize_set(obj:PEvas_Object; rotation:longint);cdecl;external;
+{*
  * @brief Query whether window manager supports window rotation or not.
  *
  * The window manager rotation allows the WM to controls the rotation of
@@ -821,10 +907,10 @@ extern void elm_win_rotation_with_resize_set(Evas_Object *obj, int rotation);
  * @since 1.9
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_wm_rotation_supported_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_wm_rotation_supported_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Get the preferred rotation value.
  *
  * This function is used to get the preferred rotation value.
@@ -835,21 +921,20 @@ extern Eina_Bool elm_win_wm_rotation_supported_get(const Evas_Object *obj);
  * @since 1.9
  *
  * @ingroup Elm_Win_Group
- */
-extern int elm_win_wm_rotation_preferred_rotation_get(const Evas_Object *obj);
-
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_wm_rotation_preferred_rotation_get(obj:PEvas_Object):longint;cdecl;external;
+{*
  * @brief Get the screen position of a window.
  *
  * @param[out] x The int to store the x coordinate to.
  * @param[out] y The int to store the y coordinate to.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_screen_position_get(const Evas_Object *obj, int *x, int *y);
-
-/**
+  }
+(* Const before type ignored *)
+procedure elm_win_screen_position_get(obj:PEvas_Object; x:Plongint; y:Plongint);cdecl;external;
+{*
  * @brief Get screen geometry details for the screen that a window is on.
  *
  * @param[out] x Where to return the horizontal offset value. May be @c null.
@@ -858,10 +943,10 @@ extern void elm_win_screen_position_get(const Evas_Object *obj, int *x, int *y);
  * @param[out] h Where to return the height value. May be @c null.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_screen_size_get(const Evas_Object *obj, int *x, int *y, int *w, int *h);
-
-/**
+  }
+(* Const before type ignored *)
+procedure elm_win_screen_size_get(obj:PEvas_Object; x:Plongint; y:Plongint; w:Plongint; h:Plongint);cdecl;external;
+{*
  * @brief Get screen dpi for the screen that a window is on.
  *
  * @param[out] xdpi Pointer to value to store return horizontal dpi. May be
@@ -872,19 +957,19 @@ extern void elm_win_screen_size_get(const Evas_Object *obj, int *x, int *y, int 
  * @since 1.7
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_screen_dpi_get(const Evas_Object *obj, int *xdpi, int *ydpi);
-
-/**
+  }
+(* Const before type ignored *)
+procedure elm_win_screen_dpi_get(obj:PEvas_Object; xdpi:Plongint; ydpi:Plongint);cdecl;external;
+{*
  * @brief Set the icon name of the window.
  *
  * @param[in] icon_name The icon name to set.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_icon_name_set(Evas_Object *obj, const char *icon_name);
-
-/**
+  }
+(* Const before type ignored *)
+procedure elm_win_icon_name_set(obj:PEvas_Object; icon_name:Pchar);cdecl;external;
+{*
  * @brief Get the icon name of the window.
  *
  * The returned string is an internal one and should not be freed or modified.
@@ -894,82 +979,79 @@ extern void elm_win_icon_name_set(Evas_Object *obj, const char *icon_name);
  * @return The icon name to set.
  *
  * @ingroup Elm_Win_Group
- */
-extern const char *elm_win_icon_name_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function elm_win_icon_name_get(obj:PEvas_Object):Pchar;cdecl;external;
+{*
  * @brief Set the withdrawn state of a window.
  *
  * @param[in] withdrawn If true, the window is withdrawn.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_withdrawn_set(Evas_Object *obj, Eina_Bool withdrawn);
-
-/**
+  }
+procedure elm_win_withdrawn_set(obj:PEvas_Object; withdrawn:TEina_Bool);cdecl;external;
+{*
  * @brief Get the withdrawn state of a window.
  *
  * @return If true, the window is withdrawn.
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_withdrawn_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_withdrawn_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Set the urgent state of a window.
  *
  * @param[in] urgent If true, the window is urgent.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_urgent_set(Evas_Object *obj, Eina_Bool urgent);
-
-/**
+  }
+procedure elm_win_urgent_set(obj:PEvas_Object; urgent:TEina_Bool);cdecl;external;
+{*
  * @brief Get the urgent state of a window.
  *
  * @return If true, the window is urgent.
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_urgent_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_urgent_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Set the demand_attention state of a window.
  *
  * @param[in] demand_attention If true, the window is demand_attention.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_demand_attention_set(Evas_Object *obj, Eina_Bool demand_attention);
-
-/**
+  }
+procedure elm_win_demand_attention_set(obj:PEvas_Object; demand_attention:TEina_Bool);cdecl;external;
+{*
  * @brief Get the demand_attention state of a window.
  *
  * @return If true, the window is demand_attention.
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_demand_attention_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_demand_attention_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Set the modal state of a window.
  *
  * @param[in] modal If true, the window is modal.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_modal_set(Evas_Object *obj, Eina_Bool modal);
-
-/**
+  }
+procedure elm_win_modal_set(obj:PEvas_Object; modal:TEina_Bool);cdecl;external;
+{*
  * @brief Get the modal state of a window.
  *
  * @return If true, the window is modal.
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_modal_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_modal_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Set the shaped state of a window.
  *
  * Shaped windows, when supported, will render the parts of the window that has
@@ -982,28 +1064,27 @@ extern Eina_Bool elm_win_modal_get(const Evas_Object *obj);
  * @param[in] shaped If @c true, the window is shaped.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_shaped_set(Evas_Object *obj, Eina_Bool shaped);
-
-/**
+  }
+procedure elm_win_shaped_set(obj:PEvas_Object; shaped:TEina_Bool);cdecl;external;
+{*
  * @brief Get the shaped state of a window.
  *
  * @return If @c true, the window is shaped.
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_shaped_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_shaped_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Set the title of the window.
  *
  * @param[in] title The title.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_title_set(Evas_Object *obj, const char *title);
-
-/**
+  }
+(* Const before type ignored *)
+procedure elm_win_title_set(obj:PEvas_Object; title:Pchar);cdecl;external;
+{*
  * @brief Get the title of the window.
  *
  * The returned string is an internal one and should not be freed or modified.
@@ -1012,10 +1093,11 @@ extern void elm_win_title_set(Evas_Object *obj, const char *title);
  * @return The title.
  *
  * @ingroup Elm_Win_Group
- */
-extern const char *elm_win_title_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function elm_win_title_get(obj:PEvas_Object):Pchar;cdecl;external;
+{*
  * @brief Set the base window size used with stepping calculation
  *
  * Base size + stepping is what is calculated for window sizing restrictions.
@@ -1026,10 +1108,9 @@ extern const char *elm_win_title_get(const Evas_Object *obj);
  * @since 1.7
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_size_base_set(Evas_Object *obj, int w, int h);
-
-/**
+  }
+procedure elm_win_size_base_set(obj:PEvas_Object; w:longint; h:longint);cdecl;external;
+{*
  * @brief Get the base size of a window.
  *
  * @param[out] w The base width.
@@ -1038,10 +1119,10 @@ extern void elm_win_size_base_set(Evas_Object *obj, int w, int h);
  * @since 1.7
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_size_base_get(const Evas_Object *obj, int *w, int *h);
-
-/**
+  }
+(* Const before type ignored *)
+procedure elm_win_size_base_get(obj:PEvas_Object; w:Plongint; h:Plongint);cdecl;external;
+{*
  * @brief Set the window stepping used with sizing calculation.
  *
  * Base size + stepping is what is calculated for window sizing restrictions.
@@ -1052,10 +1133,9 @@ extern void elm_win_size_base_get(const Evas_Object *obj, int *w, int *h);
  * @since 1.7
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_size_step_set(Evas_Object *obj, int w, int h);
-
-/**
+  }
+procedure elm_win_size_step_set(obj:PEvas_Object; w:longint; h:longint);cdecl;external;
+{*
  * @brief Get the stepping of a window.
  *
  * @param[out] w The stepping width (0 disables).
@@ -1064,10 +1144,10 @@ extern void elm_win_size_step_set(Evas_Object *obj, int w, int h);
  * @since 1.7
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_size_step_get(const Evas_Object *obj, int *w, int *h);
-
-/**
+  }
+(* Const before type ignored *)
+procedure elm_win_size_step_get(obj:PEvas_Object; w:Plongint; h:Plongint);cdecl;external;
+{*
  * @brief Send a command to the windowing environment
  *
  * This is intended to work in touchscreen or small screen device environments
@@ -1079,10 +1159,9 @@ extern void elm_win_size_step_get(const Evas_Object *obj, int *w, int *h);
  * @param[in] params Optional parameters for the command.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_illume_command_send(Evas_Object *obj, Elm_Illume_Command command, void *params);
-
-/**
+  }
+procedure elm_win_illume_command_send(obj:PEvas_Object; command:TElm_Illume_Command; params:pointer);cdecl;external;
+{*
  * @brief Set the profile of a window.
  *
  * @param[in] profile The string value of a window profile.
@@ -1090,10 +1169,10 @@ extern void elm_win_illume_command_send(Evas_Object *obj, Elm_Illume_Command com
  * @since 1.8
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_profile_set(Evas_Object *obj, const char *profile);
-
-/**
+  }
+(* Const before type ignored *)
+procedure elm_win_profile_set(obj:PEvas_Object; profile:Pchar);cdecl;external;
+{*
  * @brief Get the profile of a window.
  *
  * @return The string value of a window profile.
@@ -1101,10 +1180,11 @@ extern void elm_win_profile_set(Evas_Object *obj, const char *profile);
  * @since 1.8
  *
  * @ingroup Elm_Win_Group
- */
-extern const char *elm_win_profile_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function elm_win_profile_get(obj:PEvas_Object):Pchar;cdecl;external;
+{*
  * @brief Set the layer of the window.
  *
  * What this means exactly will depend on the underlying engine used.
@@ -1117,19 +1197,18 @@ extern const char *elm_win_profile_get(const Evas_Object *obj);
  * @param[in] layer The layer of the window.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_layer_set(Evas_Object *obj, int layer);
-
-/**
+  }
+procedure elm_win_layer_set(obj:PEvas_Object; layer:longint);cdecl;external;
+{*
  * @brief Get the layer of the window.
  *
  * @return The layer of the window.
  *
  * @ingroup Elm_Win_Group
- */
-extern int elm_win_layer_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_layer_get(obj:PEvas_Object):longint;cdecl;external;
+{*
  * @brief Get the inlined image object handle
  *
  * When you create a window with elm_win_add() of type #ELM_WIN_INLINED_IMAGE,
@@ -1141,10 +1220,10 @@ extern int elm_win_layer_get(const Evas_Object *obj);
  * @return The inlined image object or @c null if none exists.
  *
  * @ingroup Elm_Win_Group
- */
-extern Evas_Object *elm_win_inlined_image_object_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_inlined_image_object_get(obj:PEvas_Object):PEvas_Object;cdecl;external;
+{*
  * @brief Internal. Used to complete the fake window type.
  *
  * @param[in] oee
@@ -1152,10 +1231,10 @@ extern Evas_Object *elm_win_inlined_image_object_get(const Evas_Object *obj);
  * @ingroup Elm_Win_Group
  *
  * @deprecated
- */
-extern void elm_win_fake_canvas_set(Evas_Object *obj, Ecore_Evas *oee) EINA_DEPRECATED;
-
-/**
+  }
+{ xxxxxxxxxxxxxxxxxxxxx EINA_DEPRECATED }
+procedure elm_win_fake_canvas_set(obj:PEvas_Object; oee:PEcore_Evas);cdecl;external;
+{*
  * Get the Ecore_Window of an Evas_Object
  *
  * When Elementary is using a Wayland engine, this function will return the surface id of the elm window's surface.
@@ -1167,53 +1246,50 @@ extern void elm_win_fake_canvas_set(Evas_Object *obj, Ecore_Evas *oee) EINA_DEPR
  * @since 1.8
  * @note Unless you are getting the window id for the purpose of communicating between client<->compositor over dbus,
  * this is definitely not the function you are looking for.
- */
-extern Ecore_Window          elm_win_window_id_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_window_id_get(obj:PEvas_Object):TEcore_Window;cdecl;external;
+{*
  * @brief Get the Main Menu of a window.
  *
  * @return The Main Menu of the window ($null on error).
  *
  * @ingroup Elm_Win_Group
- */
-extern Evas_Object *elm_win_main_menu_get(Evas_Object *obj);
-
-/**
+  }
+function elm_win_main_menu_get(obj:PEvas_Object):PEvas_Object;cdecl;external;
+{*
  * @brief Sets the keyboard mode of the window.
  *
  * @param[in] mode The mode, one of #Elm_Win_Keyboard_Mode.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_keyboard_mode_set(Elm_Win *obj, Elm_Win_Keyboard_Mode mode);
-
-/**
+  }
+procedure elm_win_keyboard_mode_set(obj:PElm_Win; mode:TElm_Win_Keyboard_Mode);cdecl;external;
+{*
  * @brief Get the keyboard mode of the window.
  *
  * @return The mode, one of #Elm_Win_Keyboard_Mode.
  *
  * @ingroup Elm_Win_Group
- */
-extern Elm_Win_Keyboard_Mode elm_win_keyboard_mode_get(const Elm_Win *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_keyboard_mode_get(obj:PElm_Win):TElm_Win_Keyboard_Mode;cdecl;external;
+{*
  * @brief Set the aspect ratio of a window.
  *
  * @param[in] aspect If 0, the window has no aspect limits, otherwise it is
  * width divided by height.
- */
-extern void elm_win_aspect_set(Elm_Win *obj, double aspect);
-
-/**
+  }
+procedure elm_win_aspect_set(obj:PElm_Win; aspect:Tdouble);cdecl;external;
+{*
  * @brief Get the aspect ratio of a window.
  *
  * @return If 0, the window has no aspect limits, otherwise it is width divided
  * by height.
- */
-extern double elm_win_aspect_get(const Elm_Win *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_aspect_get(obj:PElm_Win):Tdouble;cdecl;external;
+{*
  * @brief Set keygrab value of the window
  *
  * This function grabs the @c key of window using @c grab_mode.
@@ -1228,10 +1304,11 @@ extern double elm_win_aspect_get(const Elm_Win *obj);
  * stacking.
  *
  * @return @c true on success, @c false otherwise
- */
-extern Eina_Bool elm_win_keygrab_set(Elm_Win *obj, const char *key, Evas_Modifier_Mask modifiers, Evas_Modifier_Mask not_modifiers, int priority, Elm_Win_Keygrab_Mode grab_mode);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_keygrab_set(obj:PElm_Win; key:Pchar; modifiers:TEvas_Modifier_Mask; not_modifiers:TEvas_Modifier_Mask; priority:longint; 
+           grab_mode:TElm_Win_Keygrab_Mode):TEina_Bool;cdecl;external;
+{*
  * @brief Unset keygrab value of the window
  *
  * This function unset keygrab value. Ungrab @c key of window.
@@ -1243,18 +1320,17 @@ extern Eina_Bool elm_win_keygrab_set(Elm_Win *obj, const char *key, Evas_Modifie
  * present to trigger the event. Not supported yet.
  *
  * @return @c true on success, @c false otherwise
- */
-extern Eina_Bool elm_win_keygrab_unset(Elm_Win *obj, const char *key, Evas_Modifier_Mask modifiers, Evas_Modifier_Mask not_modifiers);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_keygrab_unset(obj:PElm_Win; key:Pchar; modifiers:TEvas_Modifier_Mask; not_modifiers:TEvas_Modifier_Mask):TEina_Bool;cdecl;external;
+{*
  * @brief Get the elm_win object from any child object
  *
  * @return The elm_win, or @c NULL on failure
  * @since 1.20
- */
-extern Evas_Object *elm_win_get(Evas_Object *obj);
-
-/**
+  }
+function elm_win_get(obj:PEvas_Object):PEvas_Object;cdecl;external;
+{*
  * @brief Create a socket to provide the service for Plug widget.
  *
  * @param[in] svcname The name of the service to be advertised. Eensure that it
@@ -1268,29 +1344,28 @@ extern Evas_Object *elm_win_get(Evas_Object *obj);
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_socket_listen(Elm_Win *obj, const char *svcname, int svcnum, Eina_Bool svcsys);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_socket_listen(obj:PElm_Win; svcname:Pchar; svcnum:longint; svcsys:TEina_Bool):TEina_Bool;cdecl;external;
+{*
  * @brief Get whether a window has focus.
  *
  * @return @c true if window has focus, @c false otherwise
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_focus_get(const Elm_Win *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_focus_get(obj:PElm_Win):TEina_Bool;cdecl;external;
+{*
  * @brief Raise a window object.
  *
  * Places the window pointed by @c obj at the top of the stack, so that it's
  * not covered by any other window.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_raise(Elm_Win *obj);
-
-/**
+  }
+procedure elm_win_raise(obj:PElm_Win);cdecl;external;
+{*
  * @brief Set the array of available profiles to a window.
  *
  * @param[in] profiles The string array of available profiles.
@@ -1299,10 +1374,10 @@ extern void elm_win_raise(Elm_Win *obj);
  * @since 1.8
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_available_profiles_set(Elm_Win *obj, const char **profiles, unsigned int count);
-
-/**
+  }
+(* Const before type ignored *)
+procedure elm_win_available_profiles_set(obj:PElm_Win; profiles:PPchar; count:dword);cdecl;external;
+{*
  * @brief Get the array of available profiles of a window.
  *
  * @param[out] profiles The string array of available profiles.
@@ -1313,10 +1388,10 @@ extern void elm_win_available_profiles_set(Elm_Win *obj, const char **profiles, 
  * @since 1.8
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_available_profiles_get(const Elm_Win *obj, char ***profiles, unsigned int *count);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_available_profiles_get(obj:PElm_Win; profiles:PPPchar; count:Pdword):TEina_Bool;cdecl;external;
+{*
  * @brief Set the array of available window rotations.
  *
  * This function is used to set the available rotations to give the hints to
@@ -1329,10 +1404,10 @@ extern Eina_Bool elm_win_available_profiles_get(const Elm_Win *obj, char ***prof
  * @since 1.9
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_wm_rotation_available_rotations_set(Elm_Win *obj, const int *rotations, unsigned int count);
-
-/**
+  }
+(* Const before type ignored *)
+procedure elm_win_wm_rotation_available_rotations_set(obj:PElm_Win; rotations:Plongint; count:dword);cdecl;external;
+{*
  * @brief Get the array of available window rotations.
  *
  * This function is used to get the available rotations.
@@ -1346,11 +1421,10 @@ extern void elm_win_wm_rotation_available_rotations_set(Elm_Win *obj, const int 
  * @since 1.9
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_wm_rotation_available_rotations_get(const Elm_Win *obj, int **rotations, unsigned int *count);
-
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_wm_rotation_available_rotations_get(obj:PElm_Win; rotations:PPlongint; count:Pdword):TEina_Bool;cdecl;external;
+{*
  * @brief Constrain the maximum width and height of a window to the width and
  * height of the screen.
  *
@@ -1361,10 +1435,9 @@ extern Eina_Bool elm_win_wm_rotation_available_rotations_get(const Elm_Win *obj,
  * @param[in] constrain @c true to restrict the window's maximum size.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_screen_constrain_set(Evas_Object *obj, Eina_Bool constrain);
-
-/**
+  }
+procedure elm_win_screen_constrain_set(obj:PEvas_Object; constrain:TEina_Bool);cdecl;external;
+{*
  * @brief Get the constraints on the maximum width and height of a window
  * relative to the width and height of the screen.
  *
@@ -1376,10 +1449,10 @@ extern void elm_win_screen_constrain_set(Evas_Object *obj, Eina_Bool constrain);
  * @return @c true to restrict the window's maximum size.
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_screen_constrain_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_screen_constrain_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Set the window to be skipped by keyboard focus.
  *
  * This sets the window to be skipped by normal keyboard input. This means a
@@ -1398,10 +1471,9 @@ extern Eina_Bool elm_win_screen_constrain_get(const Evas_Object *obj);
  * @param[in] skip The skip flag state ($true if it is to be skipped).
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_prop_focus_skip_set(Evas_Object *obj, Eina_Bool skip);
-
-/**
+  }
+procedure elm_win_prop_focus_skip_set(obj:PEvas_Object; skip:TEina_Bool);cdecl;external;
+{*
  * @brief Window's autohide state.
  *
  * When closing the window in any way outside of the program control, like
@@ -1426,10 +1498,9 @@ extern void elm_win_prop_focus_skip_set(Evas_Object *obj, Eina_Bool skip);
  * when closed.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_autohide_set(Evas_Object *obj, Eina_Bool autohide);
-
-/**
+  }
+procedure elm_win_autohide_set(obj:PEvas_Object; autohide:TEina_Bool);cdecl;external;
+{*
  * @brief Window's autohide state.
  *
  * When closing the window in any way outside of the program control, like
@@ -1454,10 +1525,10 @@ extern void elm_win_autohide_set(Evas_Object *obj, Eina_Bool autohide);
  * @return If @c true, the window will automatically hide itself when closed.
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_autohide_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_autohide_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Set a window object's icon.
  *
  * This sets an image to be used as the icon for the given window, in the
@@ -1472,10 +1543,9 @@ extern Eina_Bool elm_win_autohide_get(const Evas_Object *obj);
  * @param[in] icon The image object to use for an icon.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_icon_object_set(Evas_Object *obj, Evas_Object *icon);
-
-/**
+  }
+procedure elm_win_icon_object_set(obj:PEvas_Object; icon:PEvas_Object);cdecl;external;
+{*
  * @brief Get the icon object used for the window.
  *
  * The object returns is the one marked by @ref elm_win_icon_object_set as the
@@ -1486,20 +1556,20 @@ extern void elm_win_icon_object_set(Evas_Object *obj, Evas_Object *icon);
  * @return The Evas image object to use for an icon.
  *
  * @ingroup Elm_Win_Group
- */
-extern const Evas_Object *elm_win_icon_object_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function elm_win_icon_object_get(obj:PEvas_Object):PEvas_Object;cdecl;external;
+{*
  * @brief Set the iconified state of a window.
  *
  * @param[in] obj The object.
  * @param[in] iconified If @c true, the window is iconified.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_iconified_set(Evas_Object *obj, Eina_Bool iconified);
-
-/**
+  }
+procedure elm_win_iconified_set(obj:PEvas_Object; iconified:TEina_Bool);cdecl;external;
+{*
  * @brief Get the iconified state of a window.
  *
  * @param[in] obj The object.
@@ -1507,20 +1577,19 @@ extern void elm_win_iconified_set(Evas_Object *obj, Eina_Bool iconified);
  * @return If @c true, the window is iconified.
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_iconified_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_iconified_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Set the maximized state of a window.
  *
  * @param[in] obj The object.
  * @param[in] maximized If @c true, the window is maximized.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_maximized_set(Evas_Object *obj, Eina_Bool maximized);
-
-/**
+  }
+procedure elm_win_maximized_set(obj:PEvas_Object; maximized:TEina_Bool);cdecl;external;
+{*
  * @brief Get the maximized state of a window.
  *
  * @param[in] obj The object.
@@ -1528,20 +1597,19 @@ extern void elm_win_maximized_set(Evas_Object *obj, Eina_Bool maximized);
  * @return If @c true, the window is maximized.
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_maximized_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_maximized_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Set the fullscreen state of a window.
  *
  * @param[in] obj The object.
  * @param[in] fullscreen If @c true, the window is fullscreen.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_fullscreen_set(Evas_Object *obj, Eina_Bool fullscreen);
-
-/**
+  }
+procedure elm_win_fullscreen_set(obj:PEvas_Object; fullscreen:TEina_Bool);cdecl;external;
+{*
  * @brief Get the fullscreen state of a window.
  *
  * @param[in] obj The object.
@@ -1549,10 +1617,10 @@ extern void elm_win_fullscreen_set(Evas_Object *obj, Eina_Bool fullscreen);
  * @return If @c true, the window is fullscreen.
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_fullscreen_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_fullscreen_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Set the sticky state of the window.
  *
  * Hints the Window Manager that the window in @c obj should be left fixed at
@@ -1562,10 +1630,9 @@ extern Eina_Bool elm_win_fullscreen_get(const Evas_Object *obj);
  * @param[in] sticky If @c true, the window's sticky state is enabled.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_sticky_set(Evas_Object *obj, Eina_Bool sticky);
-
-/**
+  }
+procedure elm_win_sticky_set(obj:PEvas_Object; sticky:TEina_Bool);cdecl;external;
+{*
  * @brief Get the sticky state of the window.
  *
  * @param[in] obj The object.
@@ -1573,14 +1640,10 @@ extern void elm_win_sticky_set(Evas_Object *obj, Eina_Bool sticky);
  * @return If @c true, the window's sticky state is enabled.
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_sticky_get(const Evas_Object *obj);
-
-
-
-
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_sticky_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Set the noblank property of a window.
  *
  * The "noblank" property is a way to request the display on which the window
@@ -1595,10 +1658,9 @@ extern Eina_Bool elm_win_sticky_get(const Evas_Object *obj);
  * @since 1.11
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_noblank_set(Evas_Object *obj, Eina_Bool noblank);
-
-/**
+  }
+procedure elm_win_noblank_set(obj:PEvas_Object; noblank:TEina_Bool);cdecl;external;
+{*
  * @brief Get the noblank property of a window.
  *
  * @param[in] obj The object.
@@ -1608,10 +1670,10 @@ extern void elm_win_noblank_set(Evas_Object *obj, Eina_Bool noblank);
  * @since 1.11
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_noblank_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_noblank_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Set the borderless state of a window.
  *
  * This function requests the Window Manager not to draw any decoration around
@@ -1621,10 +1683,9 @@ extern Eina_Bool elm_win_noblank_get(const Evas_Object *obj);
  * @param[in] borderless If @c true, the window is borderless.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_borderless_set(Evas_Object *obj, Eina_Bool borderless);
-
-/**
+  }
+procedure elm_win_borderless_set(obj:PEvas_Object; borderless:TEina_Bool);cdecl;external;
+{*
  * @brief Get the borderless state of a window.
  *
  * @param[in] obj The object.
@@ -1632,10 +1693,10 @@ extern void elm_win_borderless_set(Evas_Object *obj, Eina_Bool borderless);
  * @return If @c true, the window is borderless.
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_borderless_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_borderless_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief The role of the window.
  *
  * It is a hint of how the Window Manager should handle it. Unlike
@@ -1648,10 +1709,10 @@ extern Eina_Bool elm_win_borderless_get(const Evas_Object *obj);
  * @param[in] role The role to set.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_role_set(Evas_Object *obj, const char *role);
-
-/**
+  }
+(* Const before type ignored *)
+procedure elm_win_role_set(obj:PEvas_Object; role:Pchar);cdecl;external;
+{*
  * @brief The role of the window.
  *
  * It is a hint of how the Window Manager should handle it. Unlike
@@ -1668,11 +1729,11 @@ extern void elm_win_role_set(Evas_Object *obj, const char *role);
  * @return The role to set.
  *
  * @ingroup Elm_Win_Group
- */
-extern const char *elm_win_role_get(const Evas_Object *obj);
-
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function elm_win_role_get(obj:PEvas_Object):Pchar;cdecl;external;
+{*
  * @brief The window name.
  *
  * The meaning of name depends on the underlying windowing system.
@@ -1691,11 +1752,11 @@ extern const char *elm_win_role_get(const Evas_Object *obj);
  * @since 1.18
  *
  * @ingroup Elm_Win_Group
- */
-extern const char *elm_win_name_get(const Evas_Object *obj);
-
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function elm_win_name_get(obj:PEvas_Object):Pchar;cdecl;external;
+{*
  * @brief The type of the window.
  *
  * It is a hint of how the Window Manager should handle it.
@@ -1712,11 +1773,10 @@ extern const char *elm_win_name_get(const Evas_Object *obj);
  * @return Window type
  *
  * @ingroup Elm_Win_Group
- */
-extern Elm_Win_Type elm_win_type_get(const Evas_Object *obj);
-
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_type_get(obj:PEvas_Object):TElm_Win_Type;cdecl;external;
+{*
  * @brief The hardware acceleration preference for this window.
  *
  * This is a constructor function and can only be called before
@@ -1738,7 +1798,7 @@ extern Elm_Win_Type elm_win_type_get(const Evas_Object *obj);
  * Since 1.14, it is also possible to specify some GL properties for the GL
  * window surface. This allows applications to use GLView with depth, stencil
  * and MSAA buffers with direct rendering. The new accel preference string
- * format is thus "{HW Accel}[:depth{value}[:stencil{value}[:msaa{str}$]$]$]".
+ * format is thus "HW Accel[:depthvalue[:stencilvalue[:msaastr$]$]$]".
  *
  * Accepted values for depth are for instance "depth", "depth16", "depth24".
  * Accepted values for stencil are "stencil", "stencil1", "stencil8". For MSAA,
@@ -1767,10 +1827,11 @@ extern Elm_Win_Type elm_win_type_get(const Evas_Object *obj);
  * @since 1.18
  *
  * @ingroup Elm_Win_Group
- */
-extern const char *elm_win_accel_preference_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function elm_win_accel_preference_get(obj:PEvas_Object):Pchar;cdecl;external;
+{*
  * @brief Set the alpha channel state of a window.
  *
  * If @c alpha is true, the alpha channel of the canvas will be enabled
@@ -1788,10 +1849,9 @@ extern const char *elm_win_accel_preference_get(const Evas_Object *obj);
  * otherwise.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_alpha_set(Evas_Object *obj, Eina_Bool alpha);
-
-/**
+  }
+procedure elm_win_alpha_set(obj:PEvas_Object; alpha:TEina_Bool);cdecl;external;
+{*
  * @brief Get the alpha channel state of a window.
  *
  * @param[in] obj The object.
@@ -1799,10 +1859,10 @@ extern void elm_win_alpha_set(Evas_Object *obj, Eina_Bool alpha);
  * @return @c true if the window alpha channel is enabled, @c false otherwise.
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_alpha_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_alpha_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Activate a window object.
  *
  * This function sends a request to the Window Manager to activate the window
@@ -1815,10 +1875,9 @@ extern Eina_Bool elm_win_alpha_get(const Evas_Object *obj);
  * @param[in] obj The object.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_activate(Evas_Object *obj);
-
-/**
+  }
+procedure elm_win_activate(obj:PEvas_Object);cdecl;external;
+{*
  * @brief Center a window on the screen.
  *
  * This function centers window @c obj horizontally and/or vertically based on
@@ -1835,12 +1894,9 @@ extern void elm_win_activate(Evas_Object *obj);
  * vertical location.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_center(Evas_Object *obj, Eina_Bool h, Eina_Bool v);
-
-
-
-/**
+  }
+procedure elm_win_center(obj:PEvas_Object; h:TEina_Bool; v:TEina_Bool);cdecl;external;
+{*
  * @brief Start moving or resizing the window.
  *
  * The user can request the display server to start moving or resizing the
@@ -1882,10 +1938,9 @@ extern void elm_win_center(Evas_Object *obj, Eina_Bool h, Eina_Bool v);
  * @since 1.19
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_move_resize_start(Evas_Object *obj, Elm_Win_Move_Resize_Mode mode);
-
-/**
+  }
+function elm_win_move_resize_start(obj:PEvas_Object; mode:TElm_Win_Move_Resize_Mode):TEina_Bool;cdecl;external;
+{*
  * @brief Set the animate status for the focus highlight for this window.
  *
  * This function will enable or disable the animation of focus highlight only
@@ -1894,19 +1949,18 @@ extern Eina_Bool elm_win_move_resize_start(Evas_Object *obj, Elm_Win_Move_Resize
  * @param[in] animate The enabled value for the highlight animation.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_focus_highlight_animate_set(Elm_Win *obj, Eina_Bool animate);
-
-/**
+  }
+procedure elm_win_focus_highlight_animate_set(obj:PElm_Win; animate:TEina_Bool);cdecl;external;
+{*
  * @brief Get the animate value of the focus highlight for this window.
  *
  * @return The enabled value for the highlight animation.
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_focus_highlight_animate_get(const Elm_Win *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_focus_highlight_animate_get(obj:PElm_Win):TEina_Bool;cdecl;external;
+{*
  * @brief Set the enabled status for the focus highlight in a window.
  *
  * This function will enable or disable the focus highlight only for the given
@@ -1915,19 +1969,18 @@ extern Eina_Bool elm_win_focus_highlight_animate_get(const Elm_Win *obj);
  * @param[in] enabled The enabled value for the highlight.
  *
  * @ingroup Elm_Win_Group
- */
-extern void elm_win_focus_highlight_enabled_set(Elm_Win *obj, Eina_Bool enabled);
-
-/**
+  }
+procedure elm_win_focus_highlight_enabled_set(obj:PElm_Win; enabled:TEina_Bool);cdecl;external;
+{*
  * @brief Get the enabled value of the focus highlight for this window.
  *
  * @return The enabled value for the highlight.
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_focus_highlight_enabled_get(const Elm_Win *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_focus_highlight_enabled_get(obj:PElm_Win):TEina_Bool;cdecl;external;
+{*
  * @brief Set the style for the focus highlight on this window.
  *
  * Sets the style to use for theming the highlight of focused objects on the
@@ -1936,14 +1989,21 @@ extern Eina_Bool elm_win_focus_highlight_enabled_get(const Elm_Win *obj);
  * @param[in] style The style or @c null if none.
  *
  * @ingroup Elm_Win_Group
- */
-extern Eina_Bool elm_win_focus_highlight_style_set(Elm_Win *obj, const char *style);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_win_focus_highlight_style_set(obj:PElm_Win; style:Pchar):TEina_Bool;cdecl;external;
+{*
  * @brief Get the style set for the focus highlight object.
  *
  * @return The style or @c null if none.
  *
  * @ingroup Elm_Win_Group
- */
-extern const char *elm_win_focus_highlight_style_get(const Elm_Win *obj);
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function elm_win_focus_highlight_style_get(obj:PElm_Win):Pchar;cdecl;external;
+
+implementation
+
+
+end.
