@@ -77,19 +77,19 @@ begin
       //  WriteLn();
       //end;
 
-      slHeader[j] := StringReplace(slHeader[j], 'GRAPHENE_BEGIN_DECLS', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GRAPHENE_END_DECLS', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'HB_BEGIN_DECLS', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'HB_END_DECLS', '', [rfReplaceAll]);
-
-      slHeader[j] := StringReplace(slHeader[j], 'G_BEGIN_DECLS', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'G_END_DECLS', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_PURE', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_CONST', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NULL_TERMINATED', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_BEGIN_IGNORE_DEPRECATIONS', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_END_IGNORE_DEPRECATIONS', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'GRAPHENE_BEGIN_DECLS', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'GRAPHENE_END_DECLS', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'HB_BEGIN_DECLS', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'HB_END_DECLS', '', [rfReplaceAll]);
+      //
+      //slHeader[j] := StringReplace(slHeader[j], 'G_BEGIN_DECLS', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'G_END_DECLS', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_PURE', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_CONST', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NULL_TERMINATED', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_BEGIN_IGNORE_DEPRECATIONS', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_END_IGNORE_DEPRECATIONS', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
 
       //for a := 0 to Length(availables) - 1 do begin
       //  for v := 98 downto 2 do begin
@@ -99,32 +99,35 @@ begin
       //  s := availables[a] + '_VAR';
       //end;
 
-      slHeader[j] := StringReplace(slHeader[j], 'WEBKIT_API', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'JSC_API', 'extern', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'WEBKIT_API', 'extern', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'JSC_API', 'extern', [rfReplaceAll]);
+      //
+      //slHeader[j] := StringReplace(slHeader[j], 'ADW_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'ADW_AVAILABLE_IN_1_4', 'extern', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'ADW_AVAILABLE_IN_1_5', 'extern', [rfReplaceAll]);
+      //
+      //slHeader[j] := StringReplace(slHeader[j], 'GTK_SOURCE_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'GTK_SOURCE_AVAILABLE_IN_5_4', 'extern', [rfReplaceAll]);
+      //
+      //
+      //slHeader[j] := StringReplace(slHeader[j], 'PANGO_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'PANGO_DEPRECATED', 'extern', [rfReplaceAll]);
+      //
+      //slHeader[j] := StringReplace(slHeader[j], 'GES_API', 'extern', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'HB_EXTERN', 'extern', [rfReplaceAll]);
+      //
+      //slHeader[j] := StringReplace(slHeader[j], 'CHAFA_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], '_VTE_PUBLIC', 'extern', [rfReplaceAll]);
+      //
+      //
+      //// libxml
+      //slHeader[j] := StringReplace(slHeader[j], 'XMLPUBFUN', 'extern', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'XMLPUBVAR', 'extern', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'XMLCALL', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'XMLCDECL', '', [rfReplaceAll]);
 
-      slHeader[j] := StringReplace(slHeader[j], 'ADW_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'ADW_AVAILABLE_IN_1_4', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'ADW_AVAILABLE_IN_1_5', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'EAPI', 'extern', [rfReplaceAll]);
 
-      slHeader[j] := StringReplace(slHeader[j], 'GTK_SOURCE_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'GTK_SOURCE_AVAILABLE_IN_5_4', 'extern', [rfReplaceAll]);
-
-
-      slHeader[j] := StringReplace(slHeader[j], 'PANGO_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'PANGO_DEPRECATED', 'extern', [rfReplaceAll]);
-
-      slHeader[j] := StringReplace(slHeader[j], 'GES_API', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'HB_EXTERN', 'extern', [rfReplaceAll]);
-
-      slHeader[j] := StringReplace(slHeader[j], 'CHAFA_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], '_VTE_PUBLIC', 'extern', [rfReplaceAll]);
-
-
-      // libxml
-      slHeader[j] := StringReplace(slHeader[j], 'XMLPUBFUN', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'XMLPUBVAR', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'XMLCALL', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'XMLCDECL', '', [rfReplaceAll]);
     end;
     slHeader.SaveToFile(slFile[i]);
     slHeader.Free;

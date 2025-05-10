@@ -138,6 +138,8 @@ const
 
     (libs: 'libsixel'; units: 'ctypes'),
 
+    (libs: 'libelementary'; units: 'ctypes'),
+
     (libs: ''; units: ''));
 
 
