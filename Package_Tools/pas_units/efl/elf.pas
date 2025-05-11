@@ -15,8 +15,9 @@ const
 
   // === System
 
-  type Tva_list=Pointer;
-    Ttime_t   =UInt64;
+type
+  Tva_list = Pointer;
+  Ttime_t = uint64;
 
 
   // /usr/include/eina-1/eina/eina_types.h
@@ -32,10 +33,10 @@ const
 type
   TEvas_Callback_Type = longint;
 
-  TEvas_Object = record
-  end;
-  PEvas_Object = ^TEvas_Object;
-
+  //TEvas_Object = record
+  //end;
+  //PEvas_Object = ^TEvas_Object;
+  //
   PEvas = Pointer;
   PEo = Pointer;
 
@@ -73,103 +74,148 @@ type
   TEo = record
   end;
 
-  TEfl_Class=TEo;
-  PEfl_Class=^TEfl_Class;
+  TEfl_Class = TEo;
+  PEfl_Class = ^TEfl_Class;
 
   // /usr/include/eina-1/eina/eina_list.h
-  type
+type
   PEina_List = Pointer;
 
   // /usr/include/efl-1/interfaces/efl_text_types.eot.h
-  type
-  TEfl_Text_Bidirectional_Type=LongInt;
+type
+  TEfl_Text_Bidirectional_Type = longint;
 
   // /usr/include/efl-1/interfaces/efl_text_types.eot.h
 const
   EFL_TEXT_BIDIRECTIONAL_TYPE_NATURAL = 0;  // Natural/Neutral, identisch
   EFL_TEXT_BIDIRECTIONAL_TYPE_NEUTRAL = 0;  // Alias für NATURAL
-  EFL_TEXT_BIDIRECTIONAL_TYPE_LTR     = 1;  // Left to right
-  EFL_TEXT_BIDIRECTIONAL_TYPE_RTL     = 2;  // Right to left
+  EFL_TEXT_BIDIRECTIONAL_TYPE_LTR = 1;  // Left to right
+  EFL_TEXT_BIDIRECTIONAL_TYPE_RTL = 2;  // Right to left
   EFL_TEXT_BIDIRECTIONAL_TYPE_INHERIT = 3;   // Inherit
 
-// /usr/include/eina-1/eina/eina_unicode.h
-  type
-    TEina_Unicode=WideChar;
+  // /usr/include/eina-1/eina/eina_unicode.h
+type
+  TEina_Unicode = widechar;
 
-    // /usr/include/emile-1/emile_image.h
-    TEmile_Image_Animated_Loop_Hint=LongInt; // enum
+  // /usr/include/emile-1/emile_image.h
+  TEmile_Image_Animated_Loop_Hint = longint; // enum
 
-    const  // enum
-      EMILE_IMAGE_ANIMATED_HINT_NONE = 0;
-      EMILE_IMAGE_ANIMATED_HINT_LOOP = 1;
-      EMILE_IMAGE_ANIMATED_HINT_PINGPONG = 2;
+const  // enum
+  EMILE_IMAGE_ANIMATED_HINT_NONE = 0;
+  EMILE_IMAGE_ANIMATED_HINT_LOOP = 1;
+  EMILE_IMAGE_ANIMATED_HINT_PINGPONG = 2;
 
-      type
-    TEmile_Image_Scale_Hint=LongInt; // enum
+type
+  TEmile_Image_Scale_Hint = longint; // enum
 
-    const                               // enum
-      EMILE_IMAGE_SCALE_HINT_NONE = 0;
-      EMILE_IMAGE_SCALE_HINT_DYNAMIC = 1;
-      EMILE_IMAGE_SCALE_HINT_STATIC = 2;
+const                               // enum
+  EMILE_IMAGE_SCALE_HINT_NONE = 0;
+  EMILE_IMAGE_SCALE_HINT_DYNAMIC = 1;
+  EMILE_IMAGE_SCALE_HINT_STATIC = 2;
 
-    type
-      PEmile_Colorspace = ^TEmile_Colorspace;
-      TEmile_Colorspace =  Longint;
-      Const
-        EMILE_COLORSPACE_ARGB8888 = 0;
-        EMILE_COLORSPACE_YCBCR422P601_PL = 1;
-        EMILE_COLORSPACE_YCBCR422P709_PL = 2;
-        EMILE_COLORSPACE_RGB565_A5P = 3;
-        EMILE_COLORSPACE_GRY8 = 4;
-        EMILE_COLORSPACE_YCBCR422601_PL = 5;
-        EMILE_COLORSPACE_YCBCR420NV12601_PL = 6;
-        EMILE_COLORSPACE_YCBCR420TM12601_PL = 7;
-        EMILE_COLORSPACE_AGRY88 = 8;
-        EMILE_COLORSPACE_ETC1 = 9;
-        EMILE_COLORSPACE_RGB8_ETC2 = 10;
-        EMILE_COLORSPACE_RGBA8_ETC2_EAC = 11;
-        EMILE_COLORSPACE_ETC1_ALPHA = 12;
-        EMILE_COLORSPACE_RGB_S3TC_DXT1 = 13;
-        EMILE_COLORSPACE_RGBA_S3TC_DXT1 = 14;
-        EMILE_COLORSPACE_RGBA_S3TC_DXT2 = 15;
-        EMILE_COLORSPACE_RGBA_S3TC_DXT3 = 16;
-        EMILE_COLORSPACE_RGBA_S3TC_DXT4 = 17;
-        EMILE_COLORSPACE_RGBA_S3TC_DXT5 = 18;
+type
+  PEmile_Colorspace = ^TEmile_Colorspace;
+  TEmile_Colorspace = longint;
 
-
-    type
-      TEmile_Image_Load_Opts=record
-          // Muss aufgelöst werden
-      end;
-
-      TEmile_Image_Animated=record
-        // Muss aufgelöst werden
-        end;
-
-      TEmile_Image_Property=record
-        // Muss aufgelöst werden
-      end;
-
-      // /usr/include/eina-1/eina/eina_rectangle.h
-    type
-      TEina_Rectangle=record
-        x,y,w,h:Integer;
-      end;
-
-      // /usr/include/eina-1/eina/eina_file.h
-      type
-        PEina_File=Pointer;
-
-        // /usr/include/eina-1/eina/eina_stringshare.h
-        type
-          TEina_Stringshare=char;
-          PEina_Stringshare=^TEina_Stringshare;
+const
+  EMILE_COLORSPACE_ARGB8888 = 0;
+  EMILE_COLORSPACE_YCBCR422P601_PL = 1;
+  EMILE_COLORSPACE_YCBCR422P709_PL = 2;
+  EMILE_COLORSPACE_RGB565_A5P = 3;
+  EMILE_COLORSPACE_GRY8 = 4;
+  EMILE_COLORSPACE_YCBCR422601_PL = 5;
+  EMILE_COLORSPACE_YCBCR420NV12601_PL = 6;
+  EMILE_COLORSPACE_YCBCR420TM12601_PL = 7;
+  EMILE_COLORSPACE_AGRY88 = 8;
+  EMILE_COLORSPACE_ETC1 = 9;
+  EMILE_COLORSPACE_RGB8_ETC2 = 10;
+  EMILE_COLORSPACE_RGBA8_ETC2_EAC = 11;
+  EMILE_COLORSPACE_ETC1_ALPHA = 12;
+  EMILE_COLORSPACE_RGB_S3TC_DXT1 = 13;
+  EMILE_COLORSPACE_RGBA_S3TC_DXT1 = 14;
+  EMILE_COLORSPACE_RGBA_S3TC_DXT2 = 15;
+  EMILE_COLORSPACE_RGBA_S3TC_DXT3 = 16;
+  EMILE_COLORSPACE_RGBA_S3TC_DXT4 = 17;
+  EMILE_COLORSPACE_RGBA_S3TC_DXT5 = 18;
 
 
-    // Unauffindbar
-    TEina_Lock=Pointer;
+type
+  TEmile_Image_Load_Opts = record
+    // Muss aufgelöst werden
+  end;
+
+  TEmile_Image_Animated = record
+    // Muss aufgelöst werden
+  end;
+
+  TEmile_Image_Property = record
+    // Muss aufgelöst werden
+  end;
+
+  // /usr/include/eina-1/eina/eina_rectangle.h
+type
+  TEina_Rectangle = record
+    x, y, w, h: integer;
+  end;
+
+  // /usr/include/eina-1/eina/eina_file.h
+type
+  PEina_File = Pointer;
+  PPEina_File = ^PEina_File;
+
+  // /usr/include/eina-1/eina/eina_stringshare.h
+type
+  TEina_Stringshare = char;
+  PEina_Stringshare = ^TEina_Stringshare;
+
+  // /usr/include/eina-1/eina/eina_matrix.h
+type
+  PEina_Matrix3 = ^TEina_Matrix3;
+
+  TEina_Matrix3 = record
+    xx: double;
+    xy: double;
+    xz: double;
+    yx: double;
+    yy: double;
+    yz: double;
+    zx: double;
+    zy: double;
+    zz: double;
+  end;
+
+  // /usr/include/eina-1/eina/eina_iterator.h
+type
+  PEina_Iterator = Pointer;   // Muss aufgelöst werden
+
+  // /usr/include/edje-1/Edje_Common.h
+type
+  TEdje_Signal_Cb = Pointer; // callproc
+
+
+
+  // Unauffindbar
+  TEina_Lock = Pointer;
 
 
 implementation
 
+{$IF defined(CPUX86) or defined(CPUX64)}
+procedure SetMXCSR;
+var
+  w2: word = 8064;
+begin
+  asm
+           Ldmxcsr w2
+  end;
+end;
+//{$ENDIF}
+{$ENDIF}
+
+begin
+  //  SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide, exOverflow, exUnderflow, exPrecision]);
+  //{$IFDEF Linux}
+  {$IF defined(CPUX86) or defined(CPUX64)}
+  SetMXCSR;
+  {$ENDIF}
 end.

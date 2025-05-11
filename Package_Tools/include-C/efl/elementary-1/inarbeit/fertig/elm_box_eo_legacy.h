@@ -140,7 +140,7 @@ extern void elm_box_padding_get(const Elm_Box *obj, int *horizontal, int *vertic
  *
  * @ingroup Elm_Box_Group
  */
-extern Eina_List *elm_box_children_get(const Elm_Box *obj) EINA_WARN_UNUSED_RESULT;
+extern Eina_List *elm_box_children_get(const Elm_Box *obj);
 
 /**
  * @brief Add an object at the end of the pack list

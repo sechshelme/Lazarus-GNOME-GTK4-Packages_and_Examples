@@ -26,7 +26,7 @@ typedef Eo Evas_Vg_Container;
  *
  * @ingroup Evas_Vg_Container_Group
  */
-EVAS_API Evas_Vg_Node *evas_vg_container_child_get(Evas_Vg_Container *obj, const char *name);
+Evas_Vg_Node *evas_vg_container_child_get(Evas_Vg_Container *obj, const char *name);
 
 /**
  * @brief Get all children of container.
@@ -39,6 +39,6 @@ EVAS_API Evas_Vg_Node *evas_vg_container_child_get(Evas_Vg_Container *obj, const
  *
  * @ingroup Evas_Vg_Container_Group
  */
-EVAS_API Eina_Iterator *evas_vg_container_children_get(Evas_Vg_Container *obj) EINA_WARN_UNUSED_RESULT;
+ Eina_Iterator *evas_vg_container_children_get(Evas_Vg_Container *obj) ;
 
 #endif

@@ -2,7 +2,7 @@ unit elm_general;
 
 interface
 
-uses  elf, ctypes;
+uses  ctypes, elf, Evas_Common;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

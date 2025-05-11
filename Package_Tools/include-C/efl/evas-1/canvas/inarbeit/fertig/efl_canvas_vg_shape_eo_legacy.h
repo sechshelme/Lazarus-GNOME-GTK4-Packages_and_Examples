@@ -28,7 +28,7 @@ typedef Eo Evas_Vg_Shape;
  *
  * @ingroup Evas_Vg_Shape_Group
  */
-EVAS_API void evas_vg_shape_fill_set(Evas_Vg_Shape *obj, Evas_Vg_Node *f);
+extern void evas_vg_shape_fill_set(Evas_Vg_Shape *obj, Evas_Vg_Node *f);
 
 /**
  * @brief Fill of the shape object.
@@ -40,7 +40,7 @@ EVAS_API void evas_vg_shape_fill_set(Evas_Vg_Shape *obj, Evas_Vg_Node *f);
  *
  * @ingroup Evas_Vg_Shape_Group
  */
-EVAS_API Evas_Vg_Node *evas_vg_shape_fill_get(const Evas_Vg_Shape *obj);
+extern Evas_Vg_Node *evas_vg_shape_fill_get(const Evas_Vg_Shape *obj);
 
 /**
  * @brief Stroke fill of the shape object.
@@ -52,7 +52,7 @@ EVAS_API Evas_Vg_Node *evas_vg_shape_fill_get(const Evas_Vg_Shape *obj);
  *
  * @ingroup Evas_Vg_Shape_Group
  */
-EVAS_API void evas_vg_shape_stroke_fill_set(Evas_Vg_Shape *obj, Evas_Vg_Node *f);
+extern void evas_vg_shape_stroke_fill_set(Evas_Vg_Shape *obj, Evas_Vg_Node *f);
 
 /**
  * @brief Stroke fill of the shape object.
@@ -64,7 +64,7 @@ EVAS_API void evas_vg_shape_stroke_fill_set(Evas_Vg_Shape *obj, Evas_Vg_Node *f)
  *
  * @ingroup Evas_Vg_Shape_Group
  */
-EVAS_API Evas_Vg_Node *evas_vg_shape_stroke_fill_get(const Evas_Vg_Shape *obj);
+extern Evas_Vg_Node *evas_vg_shape_stroke_fill_get(const Evas_Vg_Shape *obj);
 
 /**
  * @brief Stroke marker of the shape object
@@ -76,7 +76,7 @@ EVAS_API Evas_Vg_Node *evas_vg_shape_stroke_fill_get(const Evas_Vg_Shape *obj);
  *
  * @ingroup Evas_Vg_Shape_Group
  */
-EVAS_API void evas_vg_shape_stroke_marker_set(Evas_Vg_Shape *obj, Evas_Vg_Node *m);
+extern void evas_vg_shape_stroke_marker_set(Evas_Vg_Shape *obj, Evas_Vg_Node *m);
 
 /**
  * @brief Stroke marker of the shape object
@@ -88,6 +88,6 @@ EVAS_API void evas_vg_shape_stroke_marker_set(Evas_Vg_Shape *obj, Evas_Vg_Node *
  *
  * @ingroup Evas_Vg_Shape_Group
  */
-EVAS_API Evas_Vg_Node *evas_vg_shape_stroke_marker_get(const Evas_Vg_Shape *obj);
+extern Evas_Vg_Node *evas_vg_shape_stroke_marker_get(const Evas_Vg_Shape *obj);
 
 #endif

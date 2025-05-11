@@ -31,7 +31,7 @@ typedef Eo Evas_Vg_Node;
  *
  * @ingroup Evas_Vg_Node_Group
  */
-EVAS_API void evas_vg_node_transformation_set(Evas_Vg_Node *obj, const Eina_Matrix3 *m);
+extern void evas_vg_node_transformation_set(Evas_Vg_Node *obj, const Eina_Matrix3 *m);
 
 /**
  * @brief Gets the transformation matrix used for this node object.
@@ -43,7 +43,7 @@ EVAS_API void evas_vg_node_transformation_set(Evas_Vg_Node *obj, const Eina_Matr
  *
  * @ingroup Evas_Vg_Node_Group
  */
-EVAS_API const Eina_Matrix3 *evas_vg_node_transformation_get(const Evas_Vg_Node *obj);
+extern const Eina_Matrix3 *evas_vg_node_transformation_get(const Evas_Vg_Node *obj);
 
 /**
  * @brief Sets the origin position of the node object.
@@ -58,7 +58,7 @@ EVAS_API const Eina_Matrix3 *evas_vg_node_transformation_get(const Evas_Vg_Node 
  *
  * @ingroup Evas_Vg_Node_Group
  */
-EVAS_API void evas_vg_node_origin_set(Evas_Vg_Node *obj, double x, double y);
+extern void evas_vg_node_origin_set(Evas_Vg_Node *obj, double x, double y);
 
 /**
  * @brief Gets the origin position of the node object.
@@ -71,7 +71,7 @@ EVAS_API void evas_vg_node_origin_set(Evas_Vg_Node *obj, double x, double y);
  *
  * @ingroup Evas_Vg_Node_Group
  */
-EVAS_API void evas_vg_node_origin_get(const Evas_Vg_Node *obj, double *x, double *y);
+extern void evas_vg_node_origin_get(const Evas_Vg_Node *obj, double *x, double *y);
 
 /**
  * @brief Set Mask Node to this renderer
@@ -84,6 +84,6 @@ EVAS_API void evas_vg_node_origin_get(const Evas_Vg_Node *obj, double *x, double
  *
  * @ingroup Evas_Vg_Node_Group
  */
-EVAS_API void evas_vg_node_mask_set(Evas_Vg_Node *obj, Evas_Vg_Node *mask, int op);
+extern void evas_vg_node_mask_set(Evas_Vg_Node *obj, Evas_Vg_Node *mask, int op);
 
 #endif
