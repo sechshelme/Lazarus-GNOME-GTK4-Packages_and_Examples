@@ -13,6 +13,11 @@ const
   libevas = 'libevas.dll';
   {$ENDIF}
 
+  // === System
+
+  type Tva_list=Pointer;
+    Ttime_t   =UInt64;
+
 
   // /usr/include/eina-1/eina/eina_types.h
 type
@@ -67,10 +72,16 @@ const
 type
   TEo = record
   end;
+
+  TEfl_Class=TEo;
+  PEfl_Class=^TEfl_Class;
+
   // /usr/include/eina-1/eina/eina_list.h
+  type
   PEina_List = Pointer;
 
   // /usr/include/efl-1/interfaces/efl_text_types.eot.h
+  type
   TEfl_Text_Bidirectional_Type=LongInt;
 
   // /usr/include/efl-1/interfaces/efl_text_types.eot.h
@@ -85,7 +96,78 @@ const
   type
     TEina_Unicode=WideChar;
 
+    // /usr/include/emile-1/emile_image.h
+    TEmile_Image_Animated_Loop_Hint=LongInt; // enum
 
+    const  // enum
+      EMILE_IMAGE_ANIMATED_HINT_NONE = 0;
+      EMILE_IMAGE_ANIMATED_HINT_LOOP = 1;
+      EMILE_IMAGE_ANIMATED_HINT_PINGPONG = 2;
+
+      type
+    TEmile_Image_Scale_Hint=LongInt; // enum
+
+    const                               // enum
+      EMILE_IMAGE_SCALE_HINT_NONE = 0;
+      EMILE_IMAGE_SCALE_HINT_DYNAMIC = 1;
+      EMILE_IMAGE_SCALE_HINT_STATIC = 2;
+
+    type
+      PEmile_Colorspace = ^TEmile_Colorspace;
+      TEmile_Colorspace =  Longint;
+      Const
+        EMILE_COLORSPACE_ARGB8888 = 0;
+        EMILE_COLORSPACE_YCBCR422P601_PL = 1;
+        EMILE_COLORSPACE_YCBCR422P709_PL = 2;
+        EMILE_COLORSPACE_RGB565_A5P = 3;
+        EMILE_COLORSPACE_GRY8 = 4;
+        EMILE_COLORSPACE_YCBCR422601_PL = 5;
+        EMILE_COLORSPACE_YCBCR420NV12601_PL = 6;
+        EMILE_COLORSPACE_YCBCR420TM12601_PL = 7;
+        EMILE_COLORSPACE_AGRY88 = 8;
+        EMILE_COLORSPACE_ETC1 = 9;
+        EMILE_COLORSPACE_RGB8_ETC2 = 10;
+        EMILE_COLORSPACE_RGBA8_ETC2_EAC = 11;
+        EMILE_COLORSPACE_ETC1_ALPHA = 12;
+        EMILE_COLORSPACE_RGB_S3TC_DXT1 = 13;
+        EMILE_COLORSPACE_RGBA_S3TC_DXT1 = 14;
+        EMILE_COLORSPACE_RGBA_S3TC_DXT2 = 15;
+        EMILE_COLORSPACE_RGBA_S3TC_DXT3 = 16;
+        EMILE_COLORSPACE_RGBA_S3TC_DXT4 = 17;
+        EMILE_COLORSPACE_RGBA_S3TC_DXT5 = 18;
+
+
+    type
+      TEmile_Image_Load_Opts=record
+          // Muss aufgelöst werden
+      end;
+
+      TEmile_Image_Animated=record
+        // Muss aufgelöst werden
+        end;
+
+      TEmile_Image_Property=record
+        // Muss aufgelöst werden
+      end;
+
+      // /usr/include/eina-1/eina/eina_rectangle.h
+    type
+      TEina_Rectangle=record
+        x,y,w,h:Integer;
+      end;
+
+      // /usr/include/eina-1/eina/eina_file.h
+      type
+        PEina_File=Pointer;
+
+        // /usr/include/eina-1/eina/eina_stringshare.h
+        type
+          TEina_Stringshare=char;
+          PEina_Stringshare=^TEina_Stringshare;
+
+
+    // Unauffindbar
+    TEina_Lock=Pointer;
 
 
 implementation

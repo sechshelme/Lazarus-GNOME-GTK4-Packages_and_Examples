@@ -39,7 +39,7 @@
 #include "Eina.h"
 #include "Emile.h"
 
-#include <evas_api.h>
+#include <.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -215,64 +215,13 @@ struct _Evas_Image_Load_Func
   Eina_Bool do_region;
 };
 
-EVAS_API Eina_Bool    evas_module_register   (const Evas_Module_Api *module, Evas_Module_Type type);
-EVAS_API Eina_Bool    evas_module_unregister (const Evas_Module_Api *module, Evas_Module_Type type);
+ Eina_Bool    evas_module_register   (const Evas_Module_Api *module, Evas_Module_Type type);
+ Eina_Bool    evas_module_unregister (const Evas_Module_Api *module, Evas_Module_Type type);
 
-EVAS_API Eina_Bool    evas_module_task_cancelled (void); /**< @since 1.19 */
+ Eina_Bool    evas_module_task_cancelled (void); /**< @since 1.19 */
 
-#define EVAS_MODULE_TASK_CHECK(Count, Mask, Error, Error_Handler)       \
-  do {                                                                  \
-     Count++;                                                           \
-     if ((Count & Mask) == Mask)                                        \
-       {                                                                \
-          Count = 0;                                                    \
-          if (evas_module_task_cancelled())                             \
-            {                                                           \
-               *Error = EVAS_LOAD_ERROR_CANCELLED;                 \
-               goto Error_Handler;                                      \
-            }                                                           \
-       }                                                                \
-  } while (0)
 
-#define EVAS_MODULE_DEFINE(Type, Tn, Name)		\
-  Eina_Bool evas_##Tn##_##Name##_init(void)		\
-  {							\
-     return evas_module_register(&evas_modapi, Type);	\
-  }							\
-  void evas_##Tn##_##Name##_shutdown(void)		\
-  {							\
-     evas_module_unregister(&evas_modapi, Type);	\
-  }
 
-#define EVAS_EINA_MODULE_DEFINE(Tn, Name)	\
-  EINA_MODULE_INIT(evas_##Tn##_##Name##_init);	\
-  EINA_MODULE_SHUTDOWN(evas_##Tn##_##Name##_shutdown);
-
-static inline Eina_Bool
-evas_loader_helper_stretch_region_push(uint8_t **region,
-                                       uint8_t *offset,
-                                       Eina_Bool stretchable)
-{
-   uint32_t length = 0;
-   void *tmp;
-
-   if (*offset == 0) return EINA_TRUE;
-
-   while (*region && (*region)[length] != 0)
-     length++;
-
-   // +1 for termination and +1 for the region being pushed
-   tmp = realloc(*region, sizeof (uint8_t) * (length + 2));
-   if (!tmp) return EINA_FALSE;
-
-   *region = (uint8_t *) tmp;
-   (*region)[length] = (*offset) | (stretchable ? 0x80 : 0);
-   (*region)[length + 1] = 0;
-
-   *offset = 0;
-
-   return EINA_TRUE;
-}
 
 /**
  * @}

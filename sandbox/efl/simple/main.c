@@ -71,4 +71,7 @@ int main(int argc, char **argv)
     elm_shutdown();
 
     return 0;
+
+    _efl_class_creation_lock();
 }
+

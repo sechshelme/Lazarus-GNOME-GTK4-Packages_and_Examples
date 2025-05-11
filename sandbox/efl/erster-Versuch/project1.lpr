@@ -3,6 +3,7 @@ program project1;
 uses
 elf,
 
+Evas_Loader,
 Evas_Common,
 Evas_Legacy,
 
