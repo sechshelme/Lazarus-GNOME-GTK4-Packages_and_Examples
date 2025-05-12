@@ -34,7 +34,7 @@ typedef Eo Efl_Gfx_Mapping;
  */
 #define EFL_GFX_MAPPING_MIXIN efl_gfx_mapping_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_mapping_mixin_get(void) ;
+extern  const Efl_Class *efl_gfx_mapping_mixin_get(void) ;
 
 /**
  * @brief Read-only property indicating whether an object is mapped.
@@ -49,7 +49,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_mapping_mixin_get(void) ;
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK Eina_Bool efl_gfx_mapping_has(Eo *obj);
+extern  Eina_Bool efl_gfx_mapping_has(Eo *obj);
 
 /**
  * @brief Resets the map transformation to its default state.
@@ -66,7 +66,7 @@ extern extern_WEAK Eina_Bool efl_gfx_mapping_has(Eo *obj);
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_reset(Eo *obj);
+extern  void efl_gfx_mapping_reset(Eo *obj);
 
 /**
  * @brief Number of points of a map.
@@ -81,7 +81,7 @@ extern extern_WEAK void efl_gfx_mapping_reset(Eo *obj);
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_point_count_set(Eo *obj, int count);
+extern  void efl_gfx_mapping_point_count_set(Eo *obj, int count);
 
 /**
  * @brief Number of points of a map.
@@ -97,7 +97,7 @@ extern extern_WEAK void efl_gfx_mapping_point_count_set(Eo *obj, int count);
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK int efl_gfx_mapping_point_count_get(const Eo *obj);
+extern  int efl_gfx_mapping_point_count_get(const Eo *obj);
 
 /**
  * @brief Clockwise state of a map (read-only).
@@ -115,7 +115,7 @@ extern extern_WEAK int efl_gfx_mapping_point_count_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK Eina_Bool efl_gfx_mapping_clockwise_get(const Eo *obj);
+extern  Eina_Bool efl_gfx_mapping_clockwise_get(const Eo *obj);
 
 /**
  * @brief Smoothing state for map rendering.
@@ -131,7 +131,7 @@ extern extern_WEAK Eina_Bool efl_gfx_mapping_clockwise_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_smooth_set(Eo *obj, Eina_Bool smooth);
+extern  void efl_gfx_mapping_smooth_set(Eo *obj, Eina_Bool smooth);
 
 /**
  * @brief Smoothing state for map rendering.
@@ -148,7 +148,7 @@ extern extern_WEAK void efl_gfx_mapping_smooth_set(Eo *obj, Eina_Bool smooth);
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK Eina_Bool efl_gfx_mapping_smooth_get(const Eo *obj);
+extern  Eina_Bool efl_gfx_mapping_smooth_get(const Eo *obj);
 
 /**
  * @brief Alpha flag for map rendering.
@@ -169,7 +169,7 @@ extern extern_WEAK Eina_Bool efl_gfx_mapping_smooth_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_alpha_set(Eo *obj, Eina_Bool alpha);
+extern  void efl_gfx_mapping_alpha_set(Eo *obj, Eina_Bool alpha);
 
 /**
  * @brief Alpha flag for map rendering.
@@ -191,7 +191,7 @@ extern extern_WEAK void efl_gfx_mapping_alpha_set(Eo *obj, Eina_Bool alpha);
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK Eina_Bool efl_gfx_mapping_alpha_get(const Eo *obj);
+extern  Eina_Bool efl_gfx_mapping_alpha_get(const Eo *obj);
 
 /**
  * @brief A point's absolute coordinate on the canvas.
@@ -224,7 +224,7 @@ extern extern_WEAK Eina_Bool efl_gfx_mapping_alpha_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_coord_absolute_set(Eo *obj, int idx, double x, double y, double z);
+extern  void efl_gfx_mapping_coord_absolute_set(Eo *obj, int idx, double x, double y, double z);
 
 /**
  * @brief A point's absolute coordinate on the canvas.
@@ -257,7 +257,7 @@ extern extern_WEAK void efl_gfx_mapping_coord_absolute_set(Eo *obj, int idx, dou
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_coord_absolute_get(const Eo *obj, int idx, double *x, double *y, double *z);
+extern  void efl_gfx_mapping_coord_absolute_get(const Eo *obj, int idx, double *x, double *y, double *z);
 
 /**
  * @brief Map point's U and V texture source point.
@@ -279,7 +279,7 @@ extern extern_WEAK void efl_gfx_mapping_coord_absolute_get(const Eo *obj, int id
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_uv_set(Eo *obj, int idx, double u, double v);
+extern  void efl_gfx_mapping_uv_set(Eo *obj, int idx, double u, double v);
 
 /**
  * @brief Map point's U and V texture source point.
@@ -301,7 +301,7 @@ extern extern_WEAK void efl_gfx_mapping_uv_set(Eo *obj, int idx, double u, doubl
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_uv_get(const Eo *obj, int idx, double *u, double *v);
+extern  void efl_gfx_mapping_uv_get(const Eo *obj, int idx, double *u, double *v);
 
 /**
  * @brief Color of a vertex in the map.
@@ -326,7 +326,7 @@ extern extern_WEAK void efl_gfx_mapping_uv_get(const Eo *obj, int idx, double *u
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_color_set(Eo *obj, int idx, int r, int g, int b, int a);
+extern  void efl_gfx_mapping_color_set(Eo *obj, int idx, int r, int g, int b, int a);
 
 /**
  * @brief Color of a vertex in the map.
@@ -351,7 +351,7 @@ extern extern_WEAK void efl_gfx_mapping_color_set(Eo *obj, int idx, int r, int g
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_color_get(const Eo *obj, int idx, int *r, int *g, int *b, int *a);
+extern  void efl_gfx_mapping_color_get(const Eo *obj, int idx, int *r, int *g, int *b, int *a);
 
 /**
  * @brief Apply a translation to the object using map.
@@ -368,7 +368,7 @@ extern extern_WEAK void efl_gfx_mapping_color_get(const Eo *obj, int idx, int *r
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_translate(Eo *obj, double dx, double dy, double dz);
+extern  void efl_gfx_mapping_translate(Eo *obj, double dx, double dy, double dz);
 
 /**
  * @brief Apply a rotation to the object.
@@ -396,7 +396,7 @@ extern extern_WEAK void efl_gfx_mapping_translate(Eo *obj, double dx, double dy,
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_rotate(Eo *obj, double degrees, const Efl_Gfx_Entity *pivot, double cx, double cy);
+extern  void efl_gfx_mapping_rotate(Eo *obj, double degrees, const Efl_Gfx_Entity *pivot, double cx, double cy);
 
 /**
  * @brief Rotate the object around 3 axes in 3D.
@@ -425,7 +425,7 @@ extern extern_WEAK void efl_gfx_mapping_rotate(Eo *obj, double degrees, const Ef
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_rotate_3d(Eo *obj, double dx, double dy, double dz, const Efl_Gfx_Entity *pivot, double cx, double cy, double cz);
+extern  void efl_gfx_mapping_rotate_3d(Eo *obj, double dx, double dy, double dz, const Efl_Gfx_Entity *pivot, double cx, double cy, double cz);
 
 /**
  * @brief Rotate the object in 3D using a unit quaternion.
@@ -453,7 +453,7 @@ extern extern_WEAK void efl_gfx_mapping_rotate_3d(Eo *obj, double dx, double dy,
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_rotate_quat(Eo *obj, double qx, double qy, double qz, double qw, const Efl_Gfx_Entity *pivot, double cx, double cy, double cz);
+extern  void efl_gfx_mapping_rotate_quat(Eo *obj, double qx, double qy, double qz, double qw, const Efl_Gfx_Entity *pivot, double cx, double cy, double cz);
 
 /**
  * @brief Apply a zoom to the object.
@@ -477,7 +477,7 @@ extern extern_WEAK void efl_gfx_mapping_rotate_quat(Eo *obj, double qx, double q
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_zoom(Eo *obj, double zoomx, double zoomy, const Efl_Gfx_Entity *pivot, double cx, double cy);
+extern  void efl_gfx_mapping_zoom(Eo *obj, double zoomx, double zoomy, const Efl_Gfx_Entity *pivot, double cx, double cy);
 
 /**
  * @brief Apply a lighting effect on the object.
@@ -511,7 +511,7 @@ extern extern_WEAK void efl_gfx_mapping_zoom(Eo *obj, double zoomx, double zoomy
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_lighting_3d(Eo *obj, const Efl_Gfx_Entity *pivot, double lx, double ly, double lz, int lr, int lg, int lb, int ar, int ag, int ab);
+extern  void efl_gfx_mapping_lighting_3d(Eo *obj, const Efl_Gfx_Entity *pivot, double lx, double ly, double lz, int lr, int lg, int lb, int ar, int ag, int ab);
 
 /**
  * @brief Apply a perspective transform to the map
@@ -545,7 +545,7 @@ extern extern_WEAK void efl_gfx_mapping_lighting_3d(Eo *obj, const Efl_Gfx_Entit
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_perspective_3d(Eo *obj, const Efl_Gfx_Entity *pivot, double px, double py, double z0, double foc);
+extern  void efl_gfx_mapping_perspective_3d(Eo *obj, const Efl_Gfx_Entity *pivot, double px, double py, double z0, double foc);
 
 /**
  * @brief Apply a rotation to the object, using absolute coordinates.
@@ -568,7 +568,7 @@ extern extern_WEAK void efl_gfx_mapping_perspective_3d(Eo *obj, const Efl_Gfx_En
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_rotate_absolute(Eo *obj, double degrees, double cx, double cy);
+extern  void efl_gfx_mapping_rotate_absolute(Eo *obj, double degrees, double cx, double cy);
 
 /**
  * @brief Rotate the object around 3 axes in 3D, using absolute coordinates.
@@ -595,7 +595,7 @@ extern extern_WEAK void efl_gfx_mapping_rotate_absolute(Eo *obj, double degrees,
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_rotate_3d_absolute(Eo *obj, double dx, double dy, double dz, double cx, double cy, double cz);
+extern  void efl_gfx_mapping_rotate_3d_absolute(Eo *obj, double dx, double dy, double dz, double cx, double cy, double cz);
 
 /**
  * @brief Rotate the object in 3D using a unit quaternion, using absolute
@@ -622,7 +622,7 @@ extern extern_WEAK void efl_gfx_mapping_rotate_3d_absolute(Eo *obj, double dx, d
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_rotate_quat_absolute(Eo *obj, double qx, double qy, double qz, double qw, double cx, double cy, double cz);
+extern  void efl_gfx_mapping_rotate_quat_absolute(Eo *obj, double qx, double qy, double qz, double qw, double cx, double cy, double cz);
 
 /**
  * @brief Apply a zoom to the object, using absolute coordinates.
@@ -645,7 +645,7 @@ extern extern_WEAK void efl_gfx_mapping_rotate_quat_absolute(Eo *obj, double qx,
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_zoom_absolute(Eo *obj, double zoomx, double zoomy, double cx, double cy);
+extern  void efl_gfx_mapping_zoom_absolute(Eo *obj, double zoomx, double zoomy, double cx, double cy);
 
 /**
  * @brief Apply a lighting effect to the object.
@@ -677,7 +677,7 @@ extern extern_WEAK void efl_gfx_mapping_zoom_absolute(Eo *obj, double zoomx, dou
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_lighting_3d_absolute(Eo *obj, double lx, double ly, double lz, int lr, int lg, int lb, int ar, int ag, int ab);
+extern  void efl_gfx_mapping_lighting_3d_absolute(Eo *obj, double lx, double ly, double lz, int lr, int lg, int lb, int ar, int ag, int ab);
 
 /**
  * @brief Apply a perspective transform to the map
@@ -709,6 +709,6 @@ extern extern_WEAK void efl_gfx_mapping_lighting_3d_absolute(Eo *obj, double lx,
  *
  * @ingroup Efl_Gfx_Mapping
  */
-extern extern_WEAK void efl_gfx_mapping_perspective_3d_absolute(Eo *obj, double px, double py, double z0, double foc);
+extern  void efl_gfx_mapping_perspective_3d_absolute(Eo *obj, double px, double py, double z0, double foc);
 
 #endif

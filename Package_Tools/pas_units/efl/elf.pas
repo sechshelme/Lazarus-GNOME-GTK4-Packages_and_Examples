@@ -67,6 +67,13 @@ type
 type
   TEfl_Callback_Priority = int16;
 
+  // /usr/include/eo-1/efl_object.eo.h
+type
+  TEfl_Event_Description = record
+    // Muss aufgelöst werden
+  end;
+  PEfl_Event_Description = ^TEfl_Event_Description;
+
 
   // /usr/include/eina-1/eina/eina_list.h
 type
@@ -76,7 +83,6 @@ type
 type
   TEfl_Text_Bidirectional_Type = longint;
 
-  // /usr/include/efl-1/interfaces/efl_text_types.eot.h
 const
   EFL_TEXT_BIDIRECTIONAL_TYPE_NATURAL = 0;  // Natural/Neutral, identisch
   EFL_TEXT_BIDIRECTIONAL_TYPE_NEUTRAL = 0;  // Alias für NATURAL
@@ -87,6 +93,11 @@ const
   // /usr/include/efl-1/interfaces/efl_gfx_types.eot.h
 type
   TEfl_Gfx_Vg_Composite_Method = longint; // enum
+  TEfl_Gfx_Render_Op = longint; // enum
+
+  // /usr/include/efl-1/interfaces/efl_gfx_entity.eo.h
+type
+  PEfl_Gfx_Entity = Pointer;
 
   // /usr/include/emile-1/emile_image.h
 type
@@ -156,6 +167,10 @@ type
 
   TEina_Size2D = record
     w, h: longint;
+  end;
+
+  TEina_Position2D = record
+    x, y: integer;
   end;
 
   // /usr/include/eina-1/eina/eina_file.h

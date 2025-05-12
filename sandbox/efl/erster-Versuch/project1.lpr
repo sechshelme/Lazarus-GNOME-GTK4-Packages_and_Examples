@@ -6,21 +6,33 @@ uses
   elf,
 
   // evas/canvas
+  efl_input_types_eot,                        // io.
+  efl_gfx_mapping_eo,                         // io.
   efl_canvas_vg_node_eo_legacy,               // io.
-  efl_canvas_vg_gradient_eo_legacy,           // io.
+  efl_canvas_vg_node_eo,                      // io.
   efl_canvas_vg_container_eo_legacy,          // io. -> efl_canvas_vg_node_eo_legacy
   efl_canvas_vg_shape_eo_legacy,              // io. -> efl_canvas_vg_node_eo_legacy
-  efl_canvas_vg_node_eo,                      // io.
   efl_canvas_vg_object_eo,                    // io. ->  efl_canvas_vg_node_eo
   efl_canvas_vg_shape_eo,                     // io. ->  efl_canvas_vg_node_eo
+  efl_canvas_vg_gradient_eo_legacy,           // io.
+  evas_ector_software_buffer_eo,              // io.        ( record zerkleinert )
+  Evas_Engine_Buffer,                         // io.
+  Evas_Eo,                                    // io.
   // evas
+  Efl_Canvas,                                 // io.  evtl. löschen
+  Evas,                                       // io.  evtl. löschen
   Evas_Loader,                                // io.
   Evas_Common,                                // io. -> Evas_Loader
   Evas_Legacy,                                // io. -> Evas_Common, Evas_Loader, efl_canvas_vg_container_eo_legacy, efl_canvas_vg_shape_eo_legacy, efl_canvas_vg_node_eo_legacy,efl_canvas_vg_gradient_eo_legacy;
+
+
   // evas/canvas
   evas_textblock_legacy,                      // io. -> Evas_Common
   evas_canvas_eo_legacy,                      // io. -> Evas_Common
   efl_canvas_vg_object_eo_legacy,             // io. -> Evas_Common, efl_canvas_vg_node_eo_legacy
+  efl_canvas_object_eo,                       // io. -> Evas_Common, efl_input_types_eot
+
+// =======================================
 
 
   // elementary        -> Evas

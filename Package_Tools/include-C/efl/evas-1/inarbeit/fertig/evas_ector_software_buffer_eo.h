@@ -20,7 +20,7 @@ typedef Eo Evas_Ector_Software_Buffer;
  */
 #define EVAS_ECTOR_SOFTWARE_BUFFER_CLASS evas_ector_software_buffer_class_get()
 
-extern extern_WEAK const Efl_Class *evas_ector_software_buffer_class_get(void) ;
+extern  const Efl_Class *evas_ector_software_buffer_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif
