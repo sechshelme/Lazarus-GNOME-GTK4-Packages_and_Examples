@@ -21,7 +21,7 @@ typedef Eo Efl_Input_State;
  */
 #define EFL_INPUT_STATE_INTERFACE efl_input_state_interface_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_input_state_interface_get(void) EINA_CONST;
+extern extern_WEAK const Efl_Class *efl_input_state_interface_get(void) ;
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -37,7 +37,7 @@ EVAS_API EVAS_API_WEAK const Efl_Class *efl_input_state_interface_get(void) EINA
  *
  * @ingroup Efl_Input_State
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_input_modifier_enabled_get(const Eo *obj, Efl_Input_Modifier mod, const Efl_Input_Device *seat);
+extern extern_WEAK Eina_Bool efl_input_modifier_enabled_get(const Eo *obj, Efl_Input_Modifier mod, const Efl_Input_Device *seat);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -54,7 +54,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_input_modifier_enabled_get(const Eo *obj, E
  *
  * @ingroup Efl_Input_State
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_input_lock_enabled_get(const Eo *obj, Efl_Input_Lock lock, const Efl_Input_Device *seat);
+extern extern_WEAK Eina_Bool efl_input_lock_enabled_get(const Eo *obj, Efl_Input_Lock lock, const Efl_Input_Device *seat);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

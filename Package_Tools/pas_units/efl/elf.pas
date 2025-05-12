@@ -13,11 +13,17 @@ const
   libevas = 'libevas.dll';
   {$ENDIF}
 
+
+  //  {$define EFL_BETA_API_SUPPORT}
+
   // === System
 
 type
   Tva_list = Pointer;
   Ttime_t = uint64;
+
+  Tsize_t = SizeUInt;
+  Psize_t = ^Tsize_t;
 
 
   // /usr/include/eina-1/eina/eina_types.h
@@ -29,25 +35,9 @@ const
   EINA_TRUE = TEina_Bool(1);
 
 
-  // /usr/include/evas-1/Evas_Common.h
+  // /usr/include/ecore-1/Ecore_Common.h
 type
-  TEvas_Callback_Type = longint;
-
-  //TEvas_Object = record
-  //end;
-  //PEvas_Object = ^TEvas_Object;
-  //
-  PEvas = Pointer;
-  PEo = Pointer;
-
-const
-  EVAS_LAYER_MIN = -32768;
-  EVAS_LAYER_MAX = 32767;
-
-type
-  TEvas_Object_Box_Layout = Pointer; // CallProc;
   TEcore_Cb = Pointer; // CallProc;
-
 
   // /usr/include/ecore-evas-1/Ecore_Evas_Types.h
 type
@@ -57,10 +47,6 @@ type
   TEcore_X_Window = uint32;
   PEcore_Cocoa_Window = Pointer;
   TEcore_Window = PtrUInt;
-
-
-  // /usr/include/evas-1/Evas_Legacy.h
-  TEvas_Modifier_Mask = uint64;
 
   // /usr/include/eina-1/Efl_Config.h
 const
@@ -73,9 +59,14 @@ const
 type
   TEo = record
   end;
+  PEo = ^TEo;
 
   TEfl_Class = TEo;
   PEfl_Class = ^TEfl_Class;
+
+type
+  TEfl_Callback_Priority = int16;
+
 
   // /usr/include/eina-1/eina/eina_list.h
 type
@@ -93,11 +84,12 @@ const
   EFL_TEXT_BIDIRECTIONAL_TYPE_RTL = 2;  // Right to left
   EFL_TEXT_BIDIRECTIONAL_TYPE_INHERIT = 3;   // Inherit
 
-  // /usr/include/eina-1/eina/eina_unicode.h
+  // /usr/include/efl-1/interfaces/efl_gfx_types.eot.h
 type
-  TEina_Unicode = widechar;
+  TEfl_Gfx_Vg_Composite_Method = longint; // enum
 
   // /usr/include/emile-1/emile_image.h
+type
   TEmile_Image_Animated_Loop_Hint = longint; // enum
 
 const  // enum
@@ -152,10 +144,18 @@ type
     // Muss aufgelöst werden
   end;
 
+  // /usr/include/eina-1/eina/eina_unicode.h
+type
+  TEina_Unicode = widechar;
+
   // /usr/include/eina-1/eina/eina_rectangle.h
 type
   TEina_Rectangle = record
     x, y, w, h: integer;
+  end;
+
+  TEina_Size2D = record
+    w, h: longint;
   end;
 
   // /usr/include/eina-1/eina/eina_file.h
@@ -167,6 +167,11 @@ type
 type
   TEina_Stringshare = char;
   PEina_Stringshare = ^TEina_Stringshare;
+
+  // /usr/include/eina-1/eina/eina_rectangle.h
+type
+  TEina_Rect = record // Muss aufgelöst werden
+  end;
 
   // /usr/include/eina-1/eina/eina_matrix.h
 type

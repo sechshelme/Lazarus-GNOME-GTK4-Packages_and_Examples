@@ -26,7 +26,7 @@ typedef Eo Efl_Canvas_Object_Animation;
  */
 #define EFL_CANVAS_OBJECT_ANIMATION_MIXIN efl_canvas_object_animation_mixin_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_object_animation_mixin_get(void) EINA_CONST;
+extern extern_WEAK const Efl_Class *efl_canvas_object_animation_mixin_get(void) ;
 
 /**
  * @brief The animation that is currently played on the canvas object.
@@ -41,7 +41,7 @@ EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_object_animation_mixin_get(vo
  *
  * @ingroup Efl_Canvas_Object_Animation
  */
-EVAS_API EVAS_API_WEAK Efl_Canvas_Animation *efl_canvas_object_animation_get(const Eo *obj);
+extern extern_WEAK Efl_Canvas_Animation *efl_canvas_object_animation_get(const Eo *obj);
 
 /**
  * @brief The current progress of the animation, between <tt>0.0</tt> and
@@ -60,7 +60,7 @@ EVAS_API EVAS_API_WEAK Efl_Canvas_Animation *efl_canvas_object_animation_get(con
  *
  * @ingroup Efl_Canvas_Object_Animation
  */
-EVAS_API EVAS_API_WEAK double efl_canvas_object_animation_progress_get(const Eo *obj);
+extern extern_WEAK double efl_canvas_object_animation_progress_get(const Eo *obj);
 
 /**
  * @brief Pause the animation.
@@ -76,7 +76,7 @@ EVAS_API EVAS_API_WEAK double efl_canvas_object_animation_progress_get(const Eo 
  *
  * @ingroup Efl_Canvas_Object_Animation
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_object_animation_pause_set(Eo *obj, Eina_Bool pause);
+extern extern_WEAK void efl_canvas_object_animation_pause_set(Eo *obj, Eina_Bool pause);
 
 /**
  * @brief Pause the animation.
@@ -93,7 +93,7 @@ EVAS_API EVAS_API_WEAK void efl_canvas_object_animation_pause_set(Eo *obj, Eina_
  *
  * @ingroup Efl_Canvas_Object_Animation
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_animation_pause_get(const Eo *obj);
+extern extern_WEAK Eina_Bool efl_canvas_object_animation_pause_get(const Eo *obj);
 
 /**
  * @brief Start a new animation.
@@ -115,7 +115,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_animation_pause_get(const Eo 
  *
  * @ingroup Efl_Canvas_Object_Animation
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_object_animation_start(Eo *obj, Efl_Canvas_Animation *animation EFL_TRANSFER_OWNERSHIP, double speed, double starting_progress);
+extern extern_WEAK void efl_canvas_object_animation_start(Eo *obj, Efl_Canvas_Animation *animation EFL_TRANSFER_OWNERSHIP, double speed, double starting_progress);
 
 /**
  * @brief Stop the animation.
@@ -130,9 +130,9 @@ EVAS_API EVAS_API_WEAK void efl_canvas_object_animation_start(Eo *obj, Efl_Canva
  *
  * @ingroup Efl_Canvas_Object_Animation
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_object_animation_stop(Eo *obj);
+extern extern_WEAK void efl_canvas_object_animation_stop(Eo *obj);
 
-EVAS_API EVAS_API_WEAK extern const Efl_Event_Description _EFL_CANVAS_OBJECT_ANIMATION_EVENT_ANIMATION_CHANGED;
+extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_OBJECT_ANIMATION_EVENT_ANIMATION_CHANGED;
 
 /** The animation object got changed.
  * @return Efl_Canvas_Animation *
@@ -143,7 +143,7 @@ EVAS_API EVAS_API_WEAK extern const Efl_Event_Description _EFL_CANVAS_OBJECT_ANI
  */
 #define EFL_CANVAS_OBJECT_ANIMATION_EVENT_ANIMATION_CHANGED (&(_EFL_CANVAS_OBJECT_ANIMATION_EVENT_ANIMATION_CHANGED))
 
-EVAS_API EVAS_API_WEAK extern const Efl_Event_Description _EFL_CANVAS_OBJECT_ANIMATION_EVENT_ANIMATION_PROGRESS_UPDATED;
+extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_OBJECT_ANIMATION_EVENT_ANIMATION_PROGRESS_UPDATED;
 
 /** The animation progress got changed.
  * @return double

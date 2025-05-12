@@ -27,7 +27,7 @@ typedef Eo Efl_Canvas_Gesture_Rotate;
  */
 #define EFL_CANVAS_GESTURE_ROTATE_CLASS efl_canvas_gesture_rotate_class_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_gesture_rotate_class_get(void) EINA_CONST;
+extern extern_WEAK const Efl_Class *efl_canvas_gesture_rotate_class_get(void) ;
 
 /**
  * @brief The current radius (i.e. the distance between the two fingers) of the
@@ -39,7 +39,7 @@ EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_gesture_rotate_class_get(void
  *
  * @ingroup Efl_Canvas_Gesture_Rotate
  */
-EVAS_API EVAS_API_WEAK unsigned int efl_gesture_rotate_radius_get(const Eo *obj);
+extern extern_WEAK unsigned int efl_gesture_rotate_radius_get(const Eo *obj);
 
 /**
  * @brief The current angle of rotation for this gesture.
@@ -51,7 +51,7 @@ EVAS_API EVAS_API_WEAK unsigned int efl_gesture_rotate_radius_get(const Eo *obj)
  *
  * @ingroup Efl_Canvas_Gesture_Rotate
  */
-EVAS_API EVAS_API_WEAK double efl_gesture_rotate_angle_get(const Eo *obj);
+extern extern_WEAK double efl_gesture_rotate_angle_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

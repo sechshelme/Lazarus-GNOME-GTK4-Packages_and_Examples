@@ -38,7 +38,7 @@ typedef struct _Efl_Input_Clickable_Clicked
  */
 #define EFL_INPUT_CLICKABLE_MIXIN efl_input_clickable_mixin_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_input_clickable_mixin_get(void) EINA_CONST;
+extern extern_WEAK const Efl_Class *efl_input_clickable_mixin_get(void) ;
 
 #ifdef EFL_INPUT_CLICKABLE_PROTECTED
 /**
@@ -54,7 +54,7 @@ EVAS_API EVAS_API_WEAK const Efl_Class *efl_input_clickable_mixin_get(void) EINA
  *
  * @ingroup Efl_Input_Clickable
  */
-EVAS_API EVAS_API_WEAK void efl_input_clickable_press(Eo *obj, unsigned int button);
+extern extern_WEAK void efl_input_clickable_press(Eo *obj, unsigned int button);
 #endif
 
 #ifdef EFL_INPUT_CLICKABLE_PROTECTED
@@ -71,7 +71,7 @@ EVAS_API EVAS_API_WEAK void efl_input_clickable_press(Eo *obj, unsigned int butt
  *
  * @ingroup Efl_Input_Clickable
  */
-EVAS_API EVAS_API_WEAK void efl_input_clickable_unpress(Eo *obj, unsigned int button);
+extern extern_WEAK void efl_input_clickable_unpress(Eo *obj, unsigned int button);
 #endif
 
 #ifdef EFL_INPUT_CLICKABLE_PROTECTED
@@ -88,7 +88,7 @@ EVAS_API EVAS_API_WEAK void efl_input_clickable_unpress(Eo *obj, unsigned int bu
  *
  * @ingroup Efl_Input_Clickable
  */
-EVAS_API EVAS_API_WEAK void efl_input_clickable_button_state_reset(Eo *obj, unsigned int button);
+extern extern_WEAK void efl_input_clickable_button_state_reset(Eo *obj, unsigned int button);
 #endif
 
 #ifdef EFL_INPUT_CLICKABLE_PROTECTED
@@ -104,7 +104,7 @@ EVAS_API EVAS_API_WEAK void efl_input_clickable_button_state_reset(Eo *obj, unsi
  *
  * @ingroup Efl_Input_Clickable
  */
-EVAS_API EVAS_API_WEAK void efl_input_clickable_longpress_abort(Eo *obj, unsigned int button);
+extern extern_WEAK void efl_input_clickable_longpress_abort(Eo *obj, unsigned int button);
 #endif
 
 /** This returns true if the given object is currently in event emission
@@ -113,9 +113,9 @@ EVAS_API EVAS_API_WEAK void efl_input_clickable_longpress_abort(Eo *obj, unsigne
  *
  * @ingroup Efl_Input_Clickable
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_input_clickable_interaction_get(const Eo *obj);
+extern extern_WEAK Eina_Bool efl_input_clickable_interaction_get(const Eo *obj);
 
-EVAS_API EVAS_API_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_CLICKED;
+extern extern_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_CLICKED;
 
 /** Called when object is in sequence pressed and unpressed by the primary
  * button
@@ -127,7 +127,7 @@ EVAS_API EVAS_API_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_CLICK
  */
 #define EFL_INPUT_EVENT_CLICKED (&(_EFL_INPUT_EVENT_CLICKED))
 
-EVAS_API EVAS_API_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_CLICKED_ANY;
+extern extern_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_CLICKED_ANY;
 
 /** Called when object is in sequence pressed and unpressed by any button. The
  * button that triggered the event can be found in the event information.
@@ -139,7 +139,7 @@ EVAS_API EVAS_API_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_CLICK
  */
 #define EFL_INPUT_EVENT_CLICKED_ANY (&(_EFL_INPUT_EVENT_CLICKED_ANY))
 
-EVAS_API EVAS_API_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_PRESSED;
+extern extern_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_PRESSED;
 
 /** Called when the object is pressed, event_info is the button that got
  * pressed
@@ -151,7 +151,7 @@ EVAS_API EVAS_API_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_PRESS
  */
 #define EFL_INPUT_EVENT_PRESSED (&(_EFL_INPUT_EVENT_PRESSED))
 
-EVAS_API EVAS_API_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_UNPRESSED;
+extern extern_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_UNPRESSED;
 
 /** Called when the object is no longer pressed, event_info is the button that
  * got pressed
@@ -163,7 +163,7 @@ EVAS_API EVAS_API_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_UNPRE
  */
 #define EFL_INPUT_EVENT_UNPRESSED (&(_EFL_INPUT_EVENT_UNPRESSED))
 
-EVAS_API EVAS_API_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_LONGPRESSED;
+extern extern_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_LONGPRESSED;
 
 /** Called when the object receives a long press, event_info is the button that
  * got pressed

@@ -21,7 +21,7 @@ typedef Eo Efl_Input_Key;
  */
 #define EFL_INPUT_KEY_CLASS efl_input_key_class_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_input_key_class_get(void) EINA_CONST;
+extern extern_WEAK const Efl_Class *efl_input_key_class_get(void) ;
 
 /**
  * @brief @c true if the key is down, @c false if it is released.
@@ -33,7 +33,7 @@ EVAS_API EVAS_API_WEAK const Efl_Class *efl_input_key_class_get(void) EINA_CONST
  *
  * @ingroup Efl_Input_Key
  */
-EVAS_API EVAS_API_WEAK void efl_input_key_pressed_set(Eo *obj, Eina_Bool val);
+extern extern_WEAK void efl_input_key_pressed_set(Eo *obj, Eina_Bool val);
 
 /**
  * @brief @c true if the key is down, @c false if it is released.
@@ -46,7 +46,7 @@ EVAS_API EVAS_API_WEAK void efl_input_key_pressed_set(Eo *obj, Eina_Bool val);
  *
  * @ingroup Efl_Input_Key
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_input_key_pressed_get(const Eo *obj);
+extern extern_WEAK Eina_Bool efl_input_key_pressed_get(const Eo *obj);
 
 /**
  * @brief Name string of the physical key that produced this event.
@@ -66,7 +66,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_input_key_pressed_get(const Eo *obj);
  *
  * @ingroup Efl_Input_Key
  */
-EVAS_API EVAS_API_WEAK void efl_input_key_name_set(Eo *obj, const char *val);
+extern extern_WEAK void efl_input_key_name_set(Eo *obj, const char *val);
 
 /**
  * @brief Name string of the physical key that produced this event.
@@ -87,7 +87,7 @@ EVAS_API EVAS_API_WEAK void efl_input_key_name_set(Eo *obj, const char *val);
  *
  * @ingroup Efl_Input_Key
  */
-EVAS_API EVAS_API_WEAK const char *efl_input_key_name_get(const Eo *obj);
+extern extern_WEAK const char *efl_input_key_name_get(const Eo *obj);
 
 /**
  * @brief Name of the symbol produced by this key event.
@@ -107,7 +107,7 @@ EVAS_API EVAS_API_WEAK const char *efl_input_key_name_get(const Eo *obj);
  *
  * @ingroup Efl_Input_Key
  */
-EVAS_API EVAS_API_WEAK void efl_input_key_sym_set(Eo *obj, const char *val);
+extern extern_WEAK void efl_input_key_sym_set(Eo *obj, const char *val);
 
 /**
  * @brief Name of the symbol produced by this key event.
@@ -128,7 +128,7 @@ EVAS_API EVAS_API_WEAK void efl_input_key_sym_set(Eo *obj, const char *val);
  *
  * @ingroup Efl_Input_Key
  */
-EVAS_API EVAS_API_WEAK const char *efl_input_key_sym_get(const Eo *obj);
+extern extern_WEAK const char *efl_input_key_sym_get(const Eo *obj);
 
 /**
  * @brief A UTF8 string if this keystroke has produced a visible string to be
@@ -141,7 +141,7 @@ EVAS_API EVAS_API_WEAK const char *efl_input_key_sym_get(const Eo *obj);
  *
  * @ingroup Efl_Input_Key
  */
-EVAS_API EVAS_API_WEAK void efl_input_key_string_set(Eo *obj, const char *val);
+extern extern_WEAK void efl_input_key_string_set(Eo *obj, const char *val);
 
 /**
  * @brief A UTF8 string if this keystroke has produced a visible string to be
@@ -155,7 +155,7 @@ EVAS_API EVAS_API_WEAK void efl_input_key_string_set(Eo *obj, const char *val);
  *
  * @ingroup Efl_Input_Key
  */
-EVAS_API EVAS_API_WEAK const char *efl_input_key_string_get(const Eo *obj);
+extern extern_WEAK const char *efl_input_key_string_get(const Eo *obj);
 
 /**
  * @brief A UTF8 string if this keystroke has modified a string in the middle
@@ -170,7 +170,7 @@ EVAS_API EVAS_API_WEAK const char *efl_input_key_string_get(const Eo *obj);
  *
  * @ingroup Efl_Input_Key
  */
-EVAS_API EVAS_API_WEAK void efl_input_key_compose_string_set(Eo *obj, const char *val);
+extern extern_WEAK void efl_input_key_compose_string_set(Eo *obj, const char *val);
 
 /**
  * @brief A UTF8 string if this keystroke has modified a string in the middle
@@ -186,7 +186,7 @@ EVAS_API EVAS_API_WEAK void efl_input_key_compose_string_set(Eo *obj, const char
  *
  * @ingroup Efl_Input_Key
  */
-EVAS_API EVAS_API_WEAK const char *efl_input_key_compose_string_get(const Eo *obj);
+extern extern_WEAK const char *efl_input_key_compose_string_get(const Eo *obj);
 
 /**
  * @brief Keyboard scan code of the physical key that produced this event.
@@ -203,7 +203,7 @@ EVAS_API EVAS_API_WEAK const char *efl_input_key_compose_string_get(const Eo *ob
  *
  * @ingroup Efl_Input_Key
  */
-EVAS_API EVAS_API_WEAK void efl_input_key_code_set(Eo *obj, int val);
+extern extern_WEAK void efl_input_key_code_set(Eo *obj, int val);
 
 /**
  * @brief Keyboard scan code of the physical key that produced this event.
@@ -221,6 +221,6 @@ EVAS_API EVAS_API_WEAK void efl_input_key_code_set(Eo *obj, int val);
  *
  * @ingroup Efl_Input_Key
  */
-EVAS_API EVAS_API_WEAK int efl_input_key_code_get(const Eo *obj);
+extern extern_WEAK int efl_input_key_code_get(const Eo *obj);
 
 #endif

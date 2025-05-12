@@ -1,32 +1,32 @@
-#ifndef _EFL_EVAS_API_H
-#define _EFL_EVAS_API_H
+#ifndef _EFL_extern_H
+#define _EFL_extern_H
 
-#ifdef EVAS_API
-#error EVAS_API should not be already defined
+#ifdef extern
+#error extern should not be already defined
 #endif
 
 #ifdef _WIN32
 # ifndef EVAS_STATIC
 #  ifdef EVAS_BUILD
-#   define EVAS_API __declspec(dllexport)
+#   define extern __declspec(dllexport)
 #  else
-#   define EVAS_API __declspec(dllimport)
+#   define extern __declspec(dllimport)
 #  endif
 # else
-#  define EVAS_API
+#  define extern
 # endif
-# define EVAS_API_WEAK
+# define extern_WEAK
 #elif __GNUC__
 # if __GNUC__ >= 4
-#  define EVAS_API __attribute__ ((visibility("default")))
-#  define EVAS_API_WEAK __attribute__ ((weak))
+#  define extern __attribute__ ((visibility("default")))
+#  define extern_WEAK __attribute__ ((weak))
 # else
-#  define EVAS_API
-#  define EVAS_API_WEAK
+#  define extern
+#  define extern_WEAK
 # endif
 #else
-# define EVAS_API
-# define EVAS_API_WEAK
+# define extern
+# define extern_WEAK
 #endif
 
 #endif

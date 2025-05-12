@@ -92,6 +92,9 @@
         <DebugInfoType Value="dsDwarf3"/>
       </Debugging>
     </Linking>
+    <Other>
+      <CustomOptions Value="-XX"/>
+    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions>

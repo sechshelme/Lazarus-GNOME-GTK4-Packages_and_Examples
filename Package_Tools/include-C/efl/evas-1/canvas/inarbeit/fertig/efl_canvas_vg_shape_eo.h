@@ -20,7 +20,7 @@ typedef Eo Efl_Canvas_Vg_Shape;
  */
 #define EFL_CANVAS_VG_SHAPE_CLASS efl_canvas_vg_shape_class_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_vg_shape_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_canvas_vg_shape_class_get(void) ;
 
 /**
  * @brief Fill of the shape object
@@ -30,7 +30,7 @@ EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_vg_shape_class_get(void) EINA
  *
  * @ingroup Efl_Canvas_Vg_Shape
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_vg_shape_fill_set(Eo *obj, Efl_Canvas_Vg_Node *f);
+extern  void efl_canvas_vg_shape_fill_set(Eo *obj, Efl_Canvas_Vg_Node *f);
 
 /**
  * @brief Fill of the shape object
@@ -41,7 +41,7 @@ EVAS_API EVAS_API_WEAK void efl_canvas_vg_shape_fill_set(Eo *obj, Efl_Canvas_Vg_
  *
  * @ingroup Efl_Canvas_Vg_Shape
  */
-EVAS_API EVAS_API_WEAK Efl_Canvas_Vg_Node *efl_canvas_vg_shape_fill_get(const Eo *obj);
+extern  Efl_Canvas_Vg_Node *efl_canvas_vg_shape_fill_get(const Eo *obj);
 
 /**
  * @brief Stroke fill of the shape object
@@ -51,7 +51,7 @@ EVAS_API EVAS_API_WEAK Efl_Canvas_Vg_Node *efl_canvas_vg_shape_fill_get(const Eo
  *
  * @ingroup Efl_Canvas_Vg_Shape
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_vg_shape_stroke_fill_set(Eo *obj, Efl_Canvas_Vg_Node *f);
+extern  void efl_canvas_vg_shape_stroke_fill_set(Eo *obj, Efl_Canvas_Vg_Node *f);
 
 /**
  * @brief Stroke fill of the shape object
@@ -62,7 +62,7 @@ EVAS_API EVAS_API_WEAK void efl_canvas_vg_shape_stroke_fill_set(Eo *obj, Efl_Can
  *
  * @ingroup Efl_Canvas_Vg_Shape
  */
-EVAS_API EVAS_API_WEAK Efl_Canvas_Vg_Node *efl_canvas_vg_shape_stroke_fill_get(const Eo *obj);
+extern  Efl_Canvas_Vg_Node *efl_canvas_vg_shape_stroke_fill_get(const Eo *obj);
 
 /**
  * @brief Stroke marker of the shape object
@@ -72,7 +72,7 @@ EVAS_API EVAS_API_WEAK Efl_Canvas_Vg_Node *efl_canvas_vg_shape_stroke_fill_get(c
  *
  * @ingroup Efl_Canvas_Vg_Shape
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_vg_shape_stroke_marker_set(Eo *obj, Efl_Canvas_Vg_Node *m);
+extern  void efl_canvas_vg_shape_stroke_marker_set(Eo *obj, Efl_Canvas_Vg_Node *m);
 
 /**
  * @brief Stroke marker of the shape object
@@ -83,7 +83,7 @@ EVAS_API EVAS_API_WEAK void efl_canvas_vg_shape_stroke_marker_set(Eo *obj, Efl_C
  *
  * @ingroup Efl_Canvas_Vg_Shape
  */
-EVAS_API EVAS_API_WEAK Efl_Canvas_Vg_Node *efl_canvas_vg_shape_stroke_marker_get(const Eo *obj);
+extern  Efl_Canvas_Vg_Node *efl_canvas_vg_shape_stroke_marker_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

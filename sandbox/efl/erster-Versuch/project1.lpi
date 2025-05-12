@@ -49,6 +49,9 @@
         <DebugInfoType Value="dsDwarf3"/>
       </Debugging>
     </Linking>
+    <Other>
+      <CustomOptions Value="-dEFL_BETA_API_SUPPORT"/>
+    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions>

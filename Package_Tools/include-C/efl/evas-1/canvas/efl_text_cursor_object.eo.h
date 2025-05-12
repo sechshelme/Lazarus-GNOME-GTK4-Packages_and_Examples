@@ -109,7 +109,7 @@ typedef enum
  */
 #define EFL_TEXT_CURSOR_OBJECT_CLASS efl_text_cursor_object_class_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_text_cursor_object_class_get(void) EINA_CONST;
+extern extern_WEAK const Efl_Class *efl_text_cursor_object_class_get(void) ;
 
 /**
  * @brief Cursor position.
@@ -121,7 +121,7 @@ EVAS_API EVAS_API_WEAK const Efl_Class *efl_text_cursor_object_class_get(void) E
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK void efl_text_cursor_object_position_set(Eo *obj, int position);
+extern extern_WEAK void efl_text_cursor_object_position_set(Eo *obj, int position);
 
 /**
  * @brief Cursor position.
@@ -134,7 +134,7 @@ EVAS_API EVAS_API_WEAK void efl_text_cursor_object_position_set(Eo *obj, int pos
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK int efl_text_cursor_object_position_get(const Eo *obj);
+extern extern_WEAK int efl_text_cursor_object_position_get(const Eo *obj);
 
 /**
  * @brief The content of the cursor (the character under the cursor).
@@ -147,7 +147,7 @@ EVAS_API EVAS_API_WEAK int efl_text_cursor_object_position_get(const Eo *obj);
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Unicode efl_text_cursor_object_content_get(const Eo *obj);
+extern extern_WEAK Eina_Unicode efl_text_cursor_object_content_get(const Eo *obj);
 
 /**
  * @brief The geometry of the item/char pointed by the cursor.
@@ -160,7 +160,7 @@ EVAS_API EVAS_API_WEAK Eina_Unicode efl_text_cursor_object_content_get(const Eo 
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Rect efl_text_cursor_object_content_geometry_get(const Eo *obj);
+extern extern_WEAK Eina_Rect efl_text_cursor_object_content_geometry_get(const Eo *obj);
 
 /**
  * @brief The line the cursor is on.
@@ -172,7 +172,7 @@ EVAS_API EVAS_API_WEAK Eina_Rect efl_text_cursor_object_content_geometry_get(con
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK void efl_text_cursor_object_line_number_set(Eo *obj, int line_number);
+extern extern_WEAK void efl_text_cursor_object_line_number_set(Eo *obj, int line_number);
 
 /**
  * @brief The line the cursor is on.
@@ -185,7 +185,7 @@ EVAS_API EVAS_API_WEAK void efl_text_cursor_object_line_number_set(Eo *obj, int 
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK int efl_text_cursor_object_line_number_get(const Eo *obj);
+extern extern_WEAK int efl_text_cursor_object_line_number_get(const Eo *obj);
 
 /**
  * @brief Returns the geometry of cursor, if cursor is shown for the text of
@@ -205,7 +205,7 @@ EVAS_API EVAS_API_WEAK int efl_text_cursor_object_line_number_get(const Eo *obj)
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Rect efl_text_cursor_object_cursor_geometry_get(const Eo *obj, Efl_Text_Cursor_Type ctype);
+extern extern_WEAK Eina_Rect efl_text_cursor_object_cursor_geometry_get(const Eo *obj, Efl_Text_Cursor_Type ctype);
 
 /**
  * @brief Returns the geometry of the lower ("split cursor"), if logical cursor
@@ -224,7 +224,7 @@ EVAS_API EVAS_API_WEAK Eina_Rect efl_text_cursor_object_cursor_geometry_get(cons
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_text_cursor_object_lower_cursor_geometry_get(const Eo *obj, Eina_Rect *geometry);
+extern extern_WEAK Eina_Bool efl_text_cursor_object_lower_cursor_geometry_get(const Eo *obj, Eina_Rect *geometry);
 
 /**
  * @brief Check if two cursors are equal - faster than compare if all you want
@@ -239,7 +239,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_text_cursor_object_lower_cursor_geometry_ge
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_text_cursor_object_equal(const Eo *obj, const Efl_Text_Cursor_Object *dst);
+extern extern_WEAK Eina_Bool efl_text_cursor_object_equal(const Eo *obj, const Efl_Text_Cursor_Object *dst);
 
 /**
  * @brief Compare two cursors Return <0 if cursor position less than dst, 0 if
@@ -254,7 +254,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_text_cursor_object_equal(const Eo *obj, con
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK int efl_text_cursor_object_compare(const Eo *obj, const Efl_Text_Cursor_Object *dst);
+extern extern_WEAK int efl_text_cursor_object_compare(const Eo *obj, const Efl_Text_Cursor_Object *dst);
 
 /**
  * @brief Move the cursor.
@@ -268,7 +268,7 @@ EVAS_API EVAS_API_WEAK int efl_text_cursor_object_compare(const Eo *obj, const E
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_text_cursor_object_move(Eo *obj, Efl_Text_Cursor_Move_Type type);
+extern extern_WEAK Eina_Bool efl_text_cursor_object_move(Eo *obj, Efl_Text_Cursor_Move_Type type);
 
 /** Deletes a single character from position pointed by given cursor.
  *
@@ -276,7 +276,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_text_cursor_object_move(Eo *obj, Efl_Text_C
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK void efl_text_cursor_object_char_delete(Eo *obj);
+extern extern_WEAK void efl_text_cursor_object_char_delete(Eo *obj);
 
 /**
  * @brief Jump the cursor by the given number of lines.
@@ -290,7 +290,7 @@ EVAS_API EVAS_API_WEAK void efl_text_cursor_object_char_delete(Eo *obj);
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_text_cursor_object_line_jump_by(Eo *obj, int by);
+extern extern_WEAK Eina_Bool efl_text_cursor_object_line_jump_by(Eo *obj, int by);
 
 /**
  * @brief Set cursor coordinates.
@@ -302,7 +302,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_text_cursor_object_line_jump_by(Eo *obj, in
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK void efl_text_cursor_object_char_coord_set(Eo *obj, Eina_Position2D coord);
+extern extern_WEAK void efl_text_cursor_object_char_coord_set(Eo *obj, Eina_Position2D coord);
 
 /**
  * @brief Set cursor coordinates according to grapheme clusters. It does not
@@ -315,7 +315,7 @@ EVAS_API EVAS_API_WEAK void efl_text_cursor_object_char_coord_set(Eo *obj, Eina_
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK void efl_text_cursor_object_cluster_coord_set(Eo *obj, Eina_Position2D coord);
+extern extern_WEAK void efl_text_cursor_object_cluster_coord_set(Eo *obj, Eina_Position2D coord);
 
 /**
  * @brief Adds text to the current cursor position and set the cursor to
@@ -328,7 +328,7 @@ EVAS_API EVAS_API_WEAK void efl_text_cursor_object_cluster_coord_set(Eo *obj, Ei
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK void efl_text_cursor_object_text_insert(Eo *obj, const char *text);
+extern extern_WEAK void efl_text_cursor_object_text_insert(Eo *obj, const char *text);
 
 /**
  * @brief Inserts a markup text at cursor position.
@@ -340,7 +340,7 @@ EVAS_API EVAS_API_WEAK void efl_text_cursor_object_text_insert(Eo *obj, const ch
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK void efl_text_cursor_object_markup_insert(Eo *obj, const char *markup);
+extern extern_WEAK void efl_text_cursor_object_markup_insert(Eo *obj, const char *markup);
 
 /**
  * @brief Markup of a given range in the text.
@@ -354,7 +354,7 @@ EVAS_API EVAS_API_WEAK void efl_text_cursor_object_markup_insert(Eo *obj, const 
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK char *efl_text_cursor_object_range_markup_get(const Eo *obj, Efl_Text_Cursor_Object *cur2) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern extern_WEAK char *efl_text_cursor_object_range_markup_get(const Eo *obj, Efl_Text_Cursor_Object *cur2) EFL_TRANSFER_OWNERSHIP ;
 
 /**
  * @brief Returns the text in the range between cursor and @c cur2.
@@ -368,7 +368,7 @@ EVAS_API EVAS_API_WEAK char *efl_text_cursor_object_range_markup_get(const Eo *o
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK char *efl_text_cursor_object_range_text_get(const Eo *obj, Efl_Text_Cursor_Object *cur2) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern extern_WEAK char *efl_text_cursor_object_range_text_get(const Eo *obj, Efl_Text_Cursor_Object *cur2) EFL_TRANSFER_OWNERSHIP ;
 
 /**
  * @brief Get the simple geometry in pixels of a range in the text.
@@ -386,7 +386,7 @@ EVAS_API EVAS_API_WEAK char *efl_text_cursor_object_range_text_get(const Eo *obj
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Iterator *efl_text_cursor_object_range_geometry_get(Eo *obj, Efl_Text_Cursor_Object *cur2) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern extern_WEAK Eina_Iterator *efl_text_cursor_object_range_geometry_get(Eo *obj, Efl_Text_Cursor_Object *cur2) EFL_TRANSFER_OWNERSHIP ;
 
 /**
  * @brief Get the "precise" geometry in pixels of a range.
@@ -403,7 +403,7 @@ EVAS_API EVAS_API_WEAK Eina_Iterator *efl_text_cursor_object_range_geometry_get(
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Iterator *efl_text_cursor_object_range_precise_geometry_get(Eo *obj, Efl_Text_Cursor_Object *cur2) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern extern_WEAK Eina_Iterator *efl_text_cursor_object_range_precise_geometry_get(Eo *obj, Efl_Text_Cursor_Object *cur2) EFL_TRANSFER_OWNERSHIP ;
 
 /**
  * @brief Deletes the range between given cursors.
@@ -417,7 +417,7 @@ EVAS_API EVAS_API_WEAK Eina_Iterator *efl_text_cursor_object_range_precise_geome
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK void efl_text_cursor_object_range_delete(Eo *obj, Efl_Text_Cursor_Object *cur2);
+extern extern_WEAK void efl_text_cursor_object_range_delete(Eo *obj, Efl_Text_Cursor_Object *cur2);
 
 /**
  * @brief The text object this cursor is associated with.
@@ -430,9 +430,9 @@ EVAS_API EVAS_API_WEAK void efl_text_cursor_object_range_delete(Eo *obj, Efl_Tex
  *
  * @ingroup Efl_Text_Cursor_Object
  */
-EVAS_API EVAS_API_WEAK Efl_Canvas_Object *efl_text_cursor_object_text_object_get(const Eo *obj);
+extern extern_WEAK Efl_Canvas_Object *efl_text_cursor_object_text_object_get(const Eo *obj);
 
-EVAS_API EVAS_API_WEAK extern const Efl_Event_Description _EFL_TEXT_CURSOR_OBJECT_EVENT_CHANGED;
+extern extern_WEAK extern const Efl_Event_Description _EFL_TEXT_CURSOR_OBJECT_EVENT_CHANGED;
 
 /** Called when its position has changed.
  *

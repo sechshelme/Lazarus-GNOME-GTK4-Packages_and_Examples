@@ -21,7 +21,7 @@ typedef Eo Efl_Canvas_Pointer;
  */
 #define EFL_CANVAS_POINTER_INTERFACE efl_canvas_pointer_interface_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_pointer_interface_get(void) EINA_CONST;
+extern extern_WEAK const Efl_Class *efl_canvas_pointer_interface_get(void) ;
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -46,7 +46,7 @@ EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_pointer_interface_get(void) E
  *
  * @ingroup Efl_Canvas_Pointer
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_pointer_inside_get(const Eo *obj, Efl_Input_Device *seat);
+extern extern_WEAK Eina_Bool efl_canvas_pointer_inside_get(const Eo *obj, Efl_Input_Device *seat);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

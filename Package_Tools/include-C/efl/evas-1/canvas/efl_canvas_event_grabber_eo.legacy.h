@@ -25,7 +25,7 @@ typedef Eo Efl_Canvas_Event_Grabber;
  *
  * @ingroup Evas_Object_Event_Grabber_Group
  */
-EVAS_API void evas_object_event_grabber_freeze_when_visible_set(Efl_Canvas_Event_Grabber *obj, Eina_Bool set);
+extern void evas_object_event_grabber_freeze_when_visible_set(Efl_Canvas_Event_Grabber *obj, Eina_Bool set);
 
 /**
  * @brief Stops the grabber from updating its internal stacking order while
@@ -39,6 +39,6 @@ EVAS_API void evas_object_event_grabber_freeze_when_visible_set(Efl_Canvas_Event
  *
  * @ingroup Evas_Object_Event_Grabber_Group
  */
-EVAS_API Eina_Bool evas_object_event_grabber_freeze_when_visible_get(const Efl_Canvas_Event_Grabber *obj);
+extern Eina_Bool evas_object_event_grabber_freeze_when_visible_get(const Efl_Canvas_Event_Grabber *obj);
 
 #endif

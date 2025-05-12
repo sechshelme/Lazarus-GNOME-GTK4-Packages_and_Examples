@@ -29,7 +29,7 @@ typedef Eo Efl_Canvas_Rotate_Animation;
  */
 #define EFL_CANVAS_ROTATE_ANIMATION_CLASS efl_canvas_rotate_animation_class_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_rotate_animation_class_get(void) EINA_CONST;
+extern extern_WEAK const Efl_Class *efl_canvas_rotate_animation_class_get(void) ;
 
 /**
  * @brief Degree range to animate and pivot object. The object will rotate from
@@ -52,7 +52,7 @@ EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_rotate_animation_class_get(vo
  *
  * @ingroup Efl_Canvas_Rotate_Animation
  */
-EVAS_API EVAS_API_WEAK void efl_animation_rotate_set(Eo *obj, double from_degree, double to_degree, Efl_Canvas_Object *pivot, Eina_Vector2 center_point);
+extern extern_WEAK void efl_animation_rotate_set(Eo *obj, double from_degree, double to_degree, Efl_Canvas_Object *pivot, Eina_Vector2 center_point);
 
 /**
  * @brief Degree range to animate and pivot object. The object will rotate from
@@ -75,7 +75,7 @@ EVAS_API EVAS_API_WEAK void efl_animation_rotate_set(Eo *obj, double from_degree
  *
  * @ingroup Efl_Canvas_Rotate_Animation
  */
-EVAS_API EVAS_API_WEAK void efl_animation_rotate_get(const Eo *obj, double *from_degree, double *to_degree, Efl_Canvas_Object **pivot, Eina_Vector2 *center_point);
+extern extern_WEAK void efl_animation_rotate_get(const Eo *obj, double *from_degree, double *to_degree, Efl_Canvas_Object **pivot, Eina_Vector2 *center_point);
 
 /**
  * @brief Degree range to animate and absolute pivot point. The object will
@@ -94,7 +94,7 @@ EVAS_API EVAS_API_WEAK void efl_animation_rotate_get(const Eo *obj, double *from
  *
  * @ingroup Efl_Canvas_Rotate_Animation
  */
-EVAS_API EVAS_API_WEAK void efl_animation_rotate_absolute_set(Eo *obj, double from_degree, double to_degree, Eina_Position2D pivot_point);
+extern extern_WEAK void efl_animation_rotate_absolute_set(Eo *obj, double from_degree, double to_degree, Eina_Position2D pivot_point);
 
 /**
  * @brief Degree range to animate and absolute pivot point. The object will
@@ -113,6 +113,6 @@ EVAS_API EVAS_API_WEAK void efl_animation_rotate_absolute_set(Eo *obj, double fr
  *
  * @ingroup Efl_Canvas_Rotate_Animation
  */
-EVAS_API EVAS_API_WEAK void efl_animation_rotate_absolute_get(const Eo *obj, double *from_degree, double *to_degree, Eina_Position2D *pivot_point);
+extern extern_WEAK void efl_animation_rotate_absolute_get(const Eo *obj, double *from_degree, double *to_degree, Eina_Position2D *pivot_point);
 
 #endif

@@ -27,7 +27,7 @@ typedef Eo Efl_Canvas_Gesture_Recognizer_Custom;
  */
 #define EFL_CANVAS_GESTURE_RECOGNIZER_CUSTOM_CLASS efl_canvas_gesture_recognizer_custom_class_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_gesture_recognizer_custom_class_get(void) EINA_CONST;
+extern extern_WEAK const Efl_Class *efl_canvas_gesture_recognizer_custom_class_get(void) ;
 
 /**
  * @brief This is the name of the gesture recognizer.
@@ -37,7 +37,7 @@ EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_gesture_recognizer_custom_cla
  *
  * @ingroup Efl_Canvas_Gesture_Recognizer_Custom
  */
-EVAS_API EVAS_API_WEAK void efl_gesture_recognizer_custom_gesture_name_set(Eo *obj, const char *gesture_name);
+extern extern_WEAK void efl_gesture_recognizer_custom_gesture_name_set(Eo *obj, const char *gesture_name);
 
 /**
  * @brief This is the name of the gesture recognizer.
@@ -48,7 +48,7 @@ EVAS_API EVAS_API_WEAK void efl_gesture_recognizer_custom_gesture_name_set(Eo *o
  *
  * @ingroup Efl_Canvas_Gesture_Recognizer_Custom
  */
-EVAS_API EVAS_API_WEAK const char *efl_gesture_recognizer_custom_gesture_name_get(const Eo *obj);
+extern extern_WEAK const char *efl_gesture_recognizer_custom_gesture_name_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

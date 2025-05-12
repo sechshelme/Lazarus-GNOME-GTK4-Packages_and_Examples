@@ -34,7 +34,7 @@ typedef Eo Evas_Box;
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API void evas_object_box_align_set(Evas_Box *obj, double horizontal, double vertical);
+extern void evas_object_box_align_set(Evas_Box *obj, double horizontal, double vertical);
 
 /**
  * @brief Get the alignment of the whole bounding box of contents, for a given
@@ -48,7 +48,7 @@ EVAS_API void evas_object_box_align_set(Evas_Box *obj, double horizontal, double
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API void evas_object_box_align_get(const Evas_Box *obj, double *horizontal, double *vertical);
+extern void evas_object_box_align_get(const Evas_Box *obj, double *horizontal, double *vertical);
 
 /**
  * @brief Set the (space) padding between cells set for a given box object.
@@ -63,7 +63,7 @@ EVAS_API void evas_object_box_align_get(const Evas_Box *obj, double *horizontal,
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API void evas_object_box_padding_set(Evas_Box *obj, int horizontal, int vertical);
+extern void evas_object_box_padding_set(Evas_Box *obj, int horizontal, int vertical);
 
 /**
  * @brief Get the (space) padding between cells set for a given box object.
@@ -76,7 +76,7 @@ EVAS_API void evas_object_box_padding_set(Evas_Box *obj, int horizontal, int ver
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API void evas_object_box_padding_get(const Evas_Box *obj, int *horizontal, int *vertical);
+extern void evas_object_box_padding_get(const Evas_Box *obj, int *horizontal, int *vertical);
 
 /**
  * @brief Set a new layouting function to a given box object
@@ -105,7 +105,7 @@ EVAS_API void evas_object_box_padding_get(const Evas_Box *obj, int *horizontal, 
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API void evas_object_box_layout_set(Evas_Box *obj, Evas_Object_Box_Layout cb, const void *data, Eina_Free_Cb free_data) EINA_ARG_NONNULL(2);
+extern void evas_object_box_layout_set(Evas_Box *obj, Evas_Object_Box_Layout cb, const void *data, Eina_Free_Cb free_data) ;
 
 /**
  * @brief Layout function which sets the box o to a (basic) horizontal box
@@ -156,7 +156,7 @@ EVAS_API void evas_object_box_layout_set(Evas_Box *obj, Evas_Object_Box_Layout c
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API void evas_object_box_layout_horizontal(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
+extern void evas_object_box_layout_horizontal(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
 
 /**
  * @brief Layout function which sets the box o to a (basic) vertical box
@@ -171,7 +171,7 @@ EVAS_API void evas_object_box_layout_horizontal(Evas_Box *obj, Evas_Object_Box_D
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API void evas_object_box_layout_vertical(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
+extern void evas_object_box_layout_vertical(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
 
 /**
  * @brief Layout function which sets the box o to a maximum size, homogeneous
@@ -216,7 +216,7 @@ EVAS_API void evas_object_box_layout_vertical(Evas_Box *obj, Evas_Object_Box_Dat
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API void evas_object_box_layout_homogeneous_max_size_horizontal(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
+extern void evas_object_box_layout_homogeneous_max_size_horizontal(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
 
 
 /**
@@ -232,7 +232,7 @@ EVAS_API void evas_object_box_layout_homogeneous_max_size_horizontal(Evas_Box *o
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API void evas_object_box_layout_flow_vertical(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
+extern void evas_object_box_layout_flow_vertical(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
 
 
 /**
@@ -258,7 +258,7 @@ EVAS_API void evas_object_box_layout_flow_vertical(Evas_Box *obj, Evas_Object_Bo
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API Evas_Object_Box_Option *evas_object_box_insert_after(Evas_Box *obj, Efl_Canvas_Object *child, const Efl_Canvas_Object *reference) EINA_ARG_NONNULL(2, 3);
+extern Evas_Object_Box_Option *evas_object_box_insert_after(Evas_Box *obj, Efl_Canvas_Object *child, const Efl_Canvas_Object *reference) EINA_ARG_NONNULL(2, 3);
 
 /**
  * @brief Remove all child objects from a box object, unparenting them again.
@@ -274,7 +274,7 @@ EVAS_API Evas_Object_Box_Option *evas_object_box_insert_after(Evas_Box *obj, Efl
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API Eina_Bool evas_object_box_remove_all(Evas_Box *obj, Eina_Bool clear);
+extern Eina_Bool evas_object_box_remove_all(Evas_Box *obj, Eina_Bool clear);
 
 /**
  * @brief Get an iterator to walk the list of children of a given box object.
@@ -288,7 +288,7 @@ EVAS_API Eina_Bool evas_object_box_remove_all(Evas_Box *obj, Eina_Bool clear);
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API Eina_Iterator *evas_object_box_iterator_new(const Evas_Box *obj) EINA_WARN_UNUSED_RESULT;
+extern Eina_Iterator *evas_object_box_iterator_new(const Evas_Box *obj) ;
 
 /**
  * @brief Add a new box as a child of a given smart object.
@@ -302,7 +302,7 @@ EVAS_API Eina_Iterator *evas_object_box_iterator_new(const Evas_Box *obj) EINA_W
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API Efl_Canvas_Object *evas_object_box_add_to(Evas_Box *obj) EINA_WARN_UNUSED_RESULT;
+extern Efl_Canvas_Object *evas_object_box_add_to(Evas_Box *obj) ;
 
 /**
  * @brief Append a new child object to the given box object o.
@@ -324,7 +324,7 @@ EVAS_API Efl_Canvas_Object *evas_object_box_add_to(Evas_Box *obj) EINA_WARN_UNUS
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API Evas_Object_Box_Option *evas_object_box_append(Evas_Box *obj, Efl_Canvas_Object *child) EINA_ARG_NONNULL(2);
+extern Evas_Object_Box_Option *evas_object_box_append(Evas_Box *obj, Efl_Canvas_Object *child) ;
 
 /**
  * @brief Get the numerical identifier of the property of the child elements of
@@ -344,7 +344,7 @@ EVAS_API Evas_Object_Box_Option *evas_object_box_append(Evas_Box *obj, Efl_Canva
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API int evas_object_box_option_property_id_get(const Evas_Box *obj, const char *name) EINA_WARN_UNUSED_RESULT EINA_ARG_NONNULL(2);
+extern int evas_object_box_option_property_id_get(const Evas_Box *obj, const char *name)  ;
 
 /**
  * @brief Prepend a new child object to the given box object o.
@@ -366,7 +366,7 @@ EVAS_API int evas_object_box_option_property_id_get(const Evas_Box *obj, const c
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API Evas_Object_Box_Option *evas_object_box_prepend(Evas_Box *obj, Efl_Canvas_Object *child) EINA_ARG_NONNULL(2);
+extern Evas_Object_Box_Option *evas_object_box_prepend(Evas_Box *obj, Efl_Canvas_Object *child) ;
 
 /**
  * @brief Get an accessor (a structure providing random items access) to the
@@ -381,7 +381,7 @@ EVAS_API Evas_Object_Box_Option *evas_object_box_prepend(Evas_Box *obj, Efl_Canv
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API Eina_Accessor *evas_object_box_accessor_new(const Evas_Box *obj) EINA_WARN_UNUSED_RESULT;
+extern Eina_Accessor *evas_object_box_accessor_new(const Evas_Box *obj) ;
 
 
 
@@ -409,7 +409,7 @@ EVAS_API Eina_Accessor *evas_object_box_accessor_new(const Evas_Box *obj) EINA_W
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API Eina_Bool evas_object_box_remove_at(Evas_Box *obj, unsigned int pos);
+extern Eina_Bool evas_object_box_remove_at(Evas_Box *obj, unsigned int pos);
 
 
 
@@ -436,7 +436,7 @@ EVAS_API Eina_Bool evas_object_box_remove_at(Evas_Box *obj, unsigned int pos);
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API Evas_Object_Box_Option *evas_object_box_insert_before(Evas_Box *obj, Efl_Canvas_Object *child, const Efl_Canvas_Object *reference) EINA_ARG_NONNULL(2, 3);
+extern Evas_Object_Box_Option *evas_object_box_insert_before(Evas_Box *obj, Efl_Canvas_Object *child, const Efl_Canvas_Object *reference) EINA_ARG_NONNULL(2, 3);
 
 /**
  * @brief Get the name of the property of the child elements of the box o which
@@ -457,7 +457,7 @@ EVAS_API Evas_Object_Box_Option *evas_object_box_insert_before(Evas_Box *obj, Ef
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API const char *evas_object_box_option_property_name_get(const Evas_Box *obj, int property) EINA_WARN_UNUSED_RESULT;
+extern const char *evas_object_box_option_property_name_get(const Evas_Box *obj, int property) ;
 
 
 /**
@@ -495,7 +495,7 @@ EVAS_API const char *evas_object_box_option_property_name_get(const Evas_Box *ob
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API void evas_object_box_layout_homogeneous_horizontal(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
+extern void evas_object_box_layout_homogeneous_horizontal(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
 
 
 /**
@@ -512,7 +512,7 @@ EVAS_API void evas_object_box_layout_homogeneous_horizontal(Evas_Box *obj, Evas_
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API void evas_object_box_layout_homogeneous_max_size_vertical(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
+extern void evas_object_box_layout_homogeneous_max_size_vertical(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
 
 
 /**
@@ -540,7 +540,7 @@ EVAS_API void evas_object_box_layout_homogeneous_max_size_vertical(Evas_Box *obj
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API Evas_Object_Box_Option *evas_object_box_insert_at(Evas_Box *obj, Efl_Canvas_Object *child, unsigned int pos) EINA_ARG_NONNULL(2);
+extern Evas_Object_Box_Option *evas_object_box_insert_at(Evas_Box *obj, Efl_Canvas_Object *child, unsigned int pos) ;
 
 
 /**
@@ -561,7 +561,7 @@ EVAS_API Evas_Object_Box_Option *evas_object_box_insert_at(Evas_Box *obj, Efl_Ca
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API Eina_Bool evas_object_box_remove(Evas_Box *obj, Efl_Canvas_Object *child) EINA_ARG_NONNULL(2);
+extern Eina_Bool evas_object_box_remove(Evas_Box *obj, Efl_Canvas_Object *child) ;
 
 /**
  * @brief Layout function which sets the box o to a stacking box
@@ -587,7 +587,7 @@ EVAS_API Eina_Bool evas_object_box_remove(Evas_Box *obj, Efl_Canvas_Object *chil
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API void evas_object_box_layout_stack(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
+extern void evas_object_box_layout_stack(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
 
 /**
  * @brief Layout function which sets the box o to a homogeneous vertical box.
@@ -602,7 +602,7 @@ EVAS_API void evas_object_box_layout_stack(Evas_Box *obj, Evas_Object_Box_Data *
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API void evas_object_box_layout_homogeneous_vertical(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
+extern void evas_object_box_layout_homogeneous_vertical(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
 
 /**
  * @brief Layout function which sets the box o to a flow horizontal box.
@@ -640,7 +640,7 @@ EVAS_API void evas_object_box_layout_homogeneous_vertical(Evas_Box *obj, Evas_Ob
  *
  * @ingroup Evas_Object_Box_Group
  */
-EVAS_API void evas_object_box_layout_flow_horizontal(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
+extern void evas_object_box_layout_flow_horizontal(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
 
 
 #endif

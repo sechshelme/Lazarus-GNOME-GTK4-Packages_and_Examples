@@ -22,7 +22,7 @@ typedef Eo Efl_Canvas_Gesture_Recognizer_Rotate;
  */
 #define EFL_CANVAS_GESTURE_RECOGNIZER_ROTATE_CLASS efl_canvas_gesture_recognizer_rotate_class_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_gesture_recognizer_rotate_class_get(void) EINA_CONST;
+extern extern_WEAK const Efl_Class *efl_canvas_gesture_recognizer_rotate_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

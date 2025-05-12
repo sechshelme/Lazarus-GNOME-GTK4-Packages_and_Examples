@@ -70,6 +70,8 @@ int main(int argc, char **argv)
     elm_run();
     elm_shutdown();
 
+    efl_canvas_vg_node_class_get();
+
     return 0;
 }
 

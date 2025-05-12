@@ -20,7 +20,7 @@ typedef Eo Efl_Canvas_Vg_Node;
  */
 #define EFL_CANVAS_VG_NODE_CLASS efl_canvas_vg_node_class_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_vg_node_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_canvas_vg_node_class_get(void) ;
 
 /**
  * @brief The transformation matrix to be used for this node object.
@@ -32,7 +32,7 @@ EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_vg_node_class_get(void) EINA_
  *
  * @ingroup Efl_Canvas_Vg_Node
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_vg_node_transformation_set(Eo *obj, const Eina_Matrix3 *m);
+extern  void efl_canvas_vg_node_transformation_set(Eo *obj, const Eina_Matrix3 *m);
 
 /**
  * @brief The transformation matrix to be used for this node object.
@@ -45,7 +45,7 @@ EVAS_API EVAS_API_WEAK void efl_canvas_vg_node_transformation_set(Eo *obj, const
  *
  * @ingroup Efl_Canvas_Vg_Node
  */
-EVAS_API EVAS_API_WEAK const Eina_Matrix3 *efl_canvas_vg_node_transformation_get(const Eo *obj);
+extern  const Eina_Matrix3 *efl_canvas_vg_node_transformation_get(const Eo *obj);
 
 /**
  * @brief The origin position of the node object.
@@ -58,7 +58,7 @@ EVAS_API EVAS_API_WEAK const Eina_Matrix3 *efl_canvas_vg_node_transformation_get
  *
  * @ingroup Efl_Canvas_Vg_Node
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_vg_node_origin_set(Eo *obj, double x, double y);
+extern  void efl_canvas_vg_node_origin_set(Eo *obj, double x, double y);
 
 /**
  * @brief The origin position of the node object.
@@ -71,7 +71,7 @@ EVAS_API EVAS_API_WEAK void efl_canvas_vg_node_origin_set(Eo *obj, double x, dou
  *
  * @ingroup Efl_Canvas_Vg_Node
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_vg_node_origin_get(const Eo *obj, double *x, double *y);
+extern  void efl_canvas_vg_node_origin_get(const Eo *obj, double *x, double *y);
 
 /**
  * @brief Set a composite target node to this node object.
@@ -82,7 +82,7 @@ EVAS_API EVAS_API_WEAK void efl_canvas_vg_node_origin_get(const Eo *obj, double 
  *
  * @ingroup Efl_Canvas_Vg_Node
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_vg_node_comp_method_set(Eo *obj, Efl_Canvas_Vg_Node *target, Efl_Gfx_Vg_Composite_Method method);
+extern  void efl_canvas_vg_node_comp_method_set(Eo *obj, Efl_Canvas_Vg_Node *target, Efl_Gfx_Vg_Composite_Method method);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

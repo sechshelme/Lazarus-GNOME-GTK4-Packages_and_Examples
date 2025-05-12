@@ -32,8 +32,13 @@ const
   EVAS_CALLBACK_PRIORITY_AFTER = 100;
 
 type
+  {$ifdef EFL_BETA_API_SUPPORT}
+  PEvas_Callback_Priority = ^TEvas_Callback_Priority;
+  TEvas_Callback_Priority = TEfl_Callback_Priority;
+  {$else}
   PEvas_Callback_Priority = ^TEvas_Callback_Priority;
   TEvas_Callback_Priority = smallint;
+  {$endif}
 
 type
   PEvas_Coord = ^TEvas_Coord;
@@ -172,11 +177,11 @@ const
   //#define evas_object_size_hint_expand_set evas_object_size_hint_weight_set
   //#define evas_object_size_hint_expand_get evas_object_size_hint_weight_get
 
-type
-  evas_object_size_hint_fill_set = Pointer;   // unimplemented
-  evas_object_size_hint_fill_get = Pointer;   // unimplemented
-  evas_object_size_hint_expand_set = Pointer; // unimplemented
-  evas_object_size_hint_expand_get = Pointer; // unimplemented
+var
+  evas_object_size_hint_fill_set: procedure unimplemented;
+  evas_object_size_hint_fill_get: procedure unimplemented;
+  evas_object_size_hint_expand_set: procedure unimplemented;
+  evas_object_size_hint_expand_get: procedure unimplemented;
 
 type
   PEvas_Engine_Render_Mode = ^TEvas_Engine_Render_Mode;

@@ -57,7 +57,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/efl/evas-1', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -126,7 +126,18 @@ begin
       //slHeader[j] := StringReplace(slHeader[j], 'XMLCALL', '', [rfReplaceAll]);
       //slHeader[j] := StringReplace(slHeader[j], 'XMLCDECL', '', [rfReplaceAll]);
 
-      slHeader[j] := StringReplace(slHeader[j], 'EAPI', 'extern', [rfReplaceAll]);
+//      slHeader[j] := StringReplace(slHeader[j], 'EAPI', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'EVAS_API', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'EINA_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'EINA_CONST', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(1)', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(2)', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(3)', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(4)', '', [rfReplaceAll]);
+
+
+
+
 
     end;
     slHeader.SaveToFile(slFile[i]);

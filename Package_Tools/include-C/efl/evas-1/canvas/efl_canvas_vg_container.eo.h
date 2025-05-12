@@ -20,7 +20,7 @@ typedef Eo Efl_Canvas_Vg_Container;
  */
 #define EFL_CANVAS_VG_CONTAINER_CLASS efl_canvas_vg_container_class_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_vg_container_class_get(void) EINA_CONST;
+extern extern_WEAK const Efl_Class *efl_canvas_vg_container_class_get(void) ;
 
 /**
  * @brief Get child of container
@@ -32,7 +32,7 @@ EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_vg_container_class_get(void) 
  *
  * @ingroup Efl_Canvas_Vg_Container
  */
-EVAS_API EVAS_API_WEAK Efl_Canvas_Vg_Node *efl_canvas_vg_container_child_get(Eo *obj, const char *name);
+extern extern_WEAK Efl_Canvas_Vg_Node *efl_canvas_vg_container_child_get(Eo *obj, const char *name);
 
 /**
  * @brief Get all children of container
@@ -43,7 +43,7 @@ EVAS_API EVAS_API_WEAK Efl_Canvas_Vg_Node *efl_canvas_vg_container_child_get(Eo 
  *
  * @ingroup Efl_Canvas_Vg_Container
  */
-EVAS_API EVAS_API_WEAK Eina_Iterator *efl_canvas_vg_container_children_get(Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern extern_WEAK Eina_Iterator *efl_canvas_vg_container_children_get(Eo *obj) EFL_TRANSFER_OWNERSHIP ;
 
 /**
  * @brief Get all children of container
@@ -54,7 +54,7 @@ EVAS_API EVAS_API_WEAK Eina_Iterator *efl_canvas_vg_container_children_get(Eo *o
  *
  * @ingroup Efl_Canvas_Vg_Container
  */
-EVAS_API EVAS_API_WEAK const Eina_List *efl_canvas_vg_container_children_direct_get(Eo *obj) EINA_WARN_UNUSED_RESULT;
+extern extern_WEAK const Eina_List *efl_canvas_vg_container_children_direct_get(Eo *obj) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

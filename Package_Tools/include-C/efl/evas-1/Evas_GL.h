@@ -557,7 +557,7 @@ struct _Evas_GL_Config
  *
  * @return The created Evas_GL object, or @c NULL in case of failure
  */
-EVAS_API Evas_GL                 *evas_gl_new                (Evas *e) EINA_WARN_UNUSED_RESULT EINA_ARG_NONNULL(1);
+extern Evas_GL                 *evas_gl_new                (Evas *e)  ;
 
 /**
  * @brief Frees an Evas_GL object.
@@ -566,7 +566,7 @@ EVAS_API Evas_GL                 *evas_gl_new                (Evas *e) EINA_WARN
  *
  * @see evas_gl_new
  */
-EVAS_API void                     evas_gl_free               (Evas_GL *evas_gl) EINA_ARG_NONNULL(1);
+extern void                     evas_gl_free               (Evas_GL *evas_gl) ;
 
 /**
  * @brief Allocates a new config object for the user to fill out.
@@ -576,7 +576,7 @@ EVAS_API void                     evas_gl_free               (Evas_GL *evas_gl) 
  *
  * @see evas_gl_config_free
  */
-EVAS_API Evas_GL_Config          *evas_gl_config_new         (void);
+extern Evas_GL_Config          *evas_gl_config_new         (void);
 
 /**
  * @brief Frees a config object created from evas_gl_config_new.
@@ -588,7 +588,7 @@ EVAS_API Evas_GL_Config          *evas_gl_config_new         (void);
  *
  * @see evas_gl_config_new
  */
-EVAS_API void                     evas_gl_config_free        (Evas_GL_Config *cfg) EINA_ARG_NONNULL(1);
+extern void                     evas_gl_config_free        (Evas_GL_Config *cfg) ;
 
 /**
  * @brief Creates and returns a new @ref Evas_GL_Surface object for GL Rendering.
@@ -603,7 +603,7 @@ EVAS_API void                     evas_gl_config_free        (Evas_GL_Config *cf
  *
  * @see evas_gl_surface_destroy
  */
-EVAS_API Evas_GL_Surface         *evas_gl_surface_create     (Evas_GL *evas_gl, Evas_GL_Config *cfg, int w, int h) EINA_WARN_UNUSED_RESULT EINA_ARG_NONNULL(1,2);
+extern Evas_GL_Surface         *evas_gl_surface_create     (Evas_GL *evas_gl, Evas_GL_Config *cfg, int w, int h)  EINA_ARG_NONNULL(1,2);
 
 /**
  * @brief Create a pixel buffer surface
@@ -636,7 +636,7 @@ EVAS_API Evas_GL_Surface         *evas_gl_surface_create     (Evas_GL *evas_gl, 
  *
  * @since 1.12
  */
-EVAS_API Evas_GL_Surface         *evas_gl_pbuffer_surface_create(Evas_GL *evas_gl, Evas_GL_Config *cfg, int w, int h, const int *attrib_list) EINA_WARN_UNUSED_RESULT EINA_ARG_NONNULL(1,2);
+extern Evas_GL_Surface         *evas_gl_pbuffer_surface_create(Evas_GL *evas_gl, Evas_GL_Config *cfg, int w, int h, const int *attrib_list)  EINA_ARG_NONNULL(1,2);
 
 /**
  * @brief Destroys an Evas GL Surface.
@@ -646,7 +646,7 @@ EVAS_API Evas_GL_Surface         *evas_gl_pbuffer_surface_create(Evas_GL *evas_g
  *
  * @note This function can also destroy pbuffer surfaces.
  */
-EVAS_API void                     evas_gl_surface_destroy    (Evas_GL *evas_gl, Evas_GL_Surface *surf) EINA_ARG_NONNULL(1,2);
+extern void                     evas_gl_surface_destroy    (Evas_GL *evas_gl, Evas_GL_Surface *surf) EINA_ARG_NONNULL(1,2);
 
 /**
  * @brief Creates and returns a new Evas GL context object.
@@ -657,7 +657,7 @@ EVAS_API void                     evas_gl_surface_destroy    (Evas_GL *evas_gl, 
  * @return The created context,
  *         otherwise @c NULL on failure
  */
-EVAS_API Evas_GL_Context         *evas_gl_context_create     (Evas_GL *evas_gl, Evas_GL_Context *share_ctx) EINA_WARN_UNUSED_RESULT EINA_ARG_NONNULL(1);
+extern Evas_GL_Context         *evas_gl_context_create     (Evas_GL *evas_gl, Evas_GL_Context *share_ctx)  ;
 
 /**
  * @brief Creates and returns a new Evas GL context object for OpenGL-ES 1.1 or 2.0.
@@ -682,7 +682,7 @@ EVAS_API Evas_GL_Context         *evas_gl_context_create     (Evas_GL *evas_gl, 
  *
  * @since 1.12
  */
-EVAS_API Evas_GL_Context         *evas_gl_context_version_create(Evas_GL *evas_gl, Evas_GL_Context *share_ctx, Evas_GL_Context_Version version) EINA_WARN_UNUSED_RESULT EINA_ARG_NONNULL(1);
+extern Evas_GL_Context         *evas_gl_context_version_create(Evas_GL *evas_gl, Evas_GL_Context *share_ctx, Evas_GL_Context_Version version)  ;
 
 /**
  * @brief Destroys the given Evas GL context object.
@@ -693,7 +693,7 @@ EVAS_API Evas_GL_Context         *evas_gl_context_version_create(Evas_GL *evas_g
  * @see evas_gl_context_create
  * @see evas_gl_context_version_create
  */
-EVAS_API void                     evas_gl_context_destroy    (Evas_GL *evas_gl, Evas_GL_Context *ctx) EINA_ARG_NONNULL(1,2);
+extern void                     evas_gl_context_destroy    (Evas_GL *evas_gl, Evas_GL_Context *ctx) EINA_ARG_NONNULL(1,2);
 
 /**
  * @brief Sets the given context as the current context for the given surface.
@@ -704,7 +704,7 @@ EVAS_API void                     evas_gl_context_destroy    (Evas_GL *evas_gl, 
  * @return @c EINA_TRUE if successful,
  *         otherwise @c EINA_FALSE if not
  */
-EVAS_API Eina_Bool                evas_gl_make_current       (Evas_GL *evas_gl, Evas_GL_Surface *surf, Evas_GL_Context *ctx) EINA_ARG_NONNULL(1,2);
+extern Eina_Bool                evas_gl_make_current       (Evas_GL *evas_gl, Evas_GL_Surface *surf, Evas_GL_Context *ctx) EINA_ARG_NONNULL(1,2);
 
 /**
  * @brief Returns a pointer to a static, null-terminated string describing some aspect of Evas GL.
@@ -712,7 +712,7 @@ EVAS_API Eina_Bool                evas_gl_make_current       (Evas_GL *evas_gl, 
  * @param[in] evas_gl The given Evas_GL object
  * @param[in] name    A symbolic constant, only @ref EVAS_GL_EXTENSIONS is supported for now
  */
-EVAS_API const char              *evas_gl_string_query       (Evas_GL *evas_gl, int name) EINA_WARN_UNUSED_RESULT EINA_ARG_NONNULL(1) EINA_PURE;
+extern const char              *evas_gl_string_query       (Evas_GL *evas_gl, int name)   EINA_PURE;
 
 /**
  * @brief Returns a extension function from OpenGL or the Evas_GL glue layer.
@@ -725,7 +725,7 @@ EVAS_API const char              *evas_gl_string_query       (Evas_GL *evas_gl, 
  *
  * @return A function pointer to the Evas_GL extension.
  */
-EVAS_API Evas_GL_Func             evas_gl_proc_address_get   (Evas_GL *evas_gl, const char *name) EINA_WARN_UNUSED_RESULT EINA_ARG_NONNULL(1,2) EINA_PURE;
+extern Evas_GL_Func             evas_gl_proc_address_get   (Evas_GL *evas_gl, const char *name)  EINA_ARG_NONNULL(1,2) EINA_PURE;
 
 /**
  * @brief Fills in the Native Surface information from a given Evas GL surface.
@@ -744,7 +744,7 @@ EVAS_API Evas_GL_Func             evas_gl_proc_address_get   (Evas_GL *evas_gl, 
  *          since its properties are internal to Evas and are not meant to be
  *          tampered with in any way or form from outside Evas.
  */
-EVAS_API Eina_Bool                evas_gl_native_surface_get (Evas_GL *evas_gl, Evas_GL_Surface *surf, Evas_Native_Surface *ns) EINA_ARG_NONNULL(1,2,3);
+extern Eina_Bool                evas_gl_native_surface_get (Evas_GL *evas_gl, Evas_GL_Surface *surf, Evas_Native_Surface *ns) EINA_ARG_NONNULL(1,2,3);
 
 /**
  * @brief Gets the API for rendering using OpenGL.
@@ -766,7 +766,7 @@ EVAS_API Eina_Bool                evas_gl_native_surface_get (Evas_GL *evas_gl, 
  * @see evas_gl_context_api_get
  *
  */
-EVAS_API Evas_GL_API             *evas_gl_api_get            (Evas_GL *evas_gl) EINA_ARG_NONNULL(1);
+extern Evas_GL_API             *evas_gl_api_get            (Evas_GL *evas_gl) ;
 
 /**
  * @brief Gets the API for rendering using OpenGL with non standard contexts.
@@ -793,7 +793,7 @@ EVAS_API Evas_GL_API             *evas_gl_api_get            (Evas_GL *evas_gl) 
  *
  * @since 1.12
  */
-EVAS_API Evas_GL_API             *evas_gl_context_api_get    (Evas_GL *evas_gl, Evas_GL_Context *ctx) EINA_ARG_NONNULL(1);
+extern Evas_GL_API             *evas_gl_context_api_get    (Evas_GL *evas_gl, Evas_GL_Context *ctx) ;
 
 /**
  * @brief Get the current rotation of the view, in degrees.
@@ -818,7 +818,7 @@ EVAS_API Evas_GL_API             *evas_gl_context_api_get    (Evas_GL *evas_gl, 
  *
  * @since 1.12
  */
-EVAS_API int                      evas_gl_rotation_get       (Evas_GL *evas_gl) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+extern int                      evas_gl_rotation_get       (Evas_GL *evas_gl)  ;
 
 /**
  * @brief Query a surface for its properties
@@ -838,7 +838,7 @@ EVAS_API int                      evas_gl_rotation_get       (Evas_GL *evas_gl) 
  *
  * @since 1.12
  */
-EVAS_API Eina_Bool                evas_gl_surface_query      (Evas_GL *evas_gl, Evas_GL_Surface *surface, int attribute, void *value) EINA_ARG_NONNULL(1,2);
+extern Eina_Bool                evas_gl_surface_query      (Evas_GL *evas_gl, Evas_GL_Surface *surface, int attribute, void *value) EINA_ARG_NONNULL(1,2);
 
 /**
  * @brief Returns the last error of any evas_gl function called in the current thread.
@@ -862,7 +862,7 @@ EVAS_API Eina_Bool                evas_gl_surface_query      (Evas_GL *evas_gl, 
  *
  * @since 1.12
  */
-EVAS_API int                      evas_gl_error_get          (Evas_GL *evas_gl) EINA_ARG_NONNULL(1);
+extern int                      evas_gl_error_get          (Evas_GL *evas_gl) ;
 
 /**
  * @brief Returns the Evas GL context object in use or set by @ref evas_gl_make_current.
@@ -874,7 +874,7 @@ EVAS_API int                      evas_gl_error_get          (Evas_GL *evas_gl) 
  *
  * @since 1.12
  */
-EVAS_API Evas_GL_Context         *evas_gl_current_context_get (Evas_GL *evas_gl) EINA_WARN_UNUSED_RESULT EINA_ARG_NONNULL(1);
+extern Evas_GL_Context         *evas_gl_current_context_get (Evas_GL *evas_gl)  ;
 
 /**
  * @brief Returns the Evas GL surface object in use or set by @ref evas_gl_make_current
@@ -892,7 +892,7 @@ EVAS_API Evas_GL_Context         *evas_gl_current_context_get (Evas_GL *evas_gl)
  *
  * @since 1.12
  */
-EVAS_API Evas_GL_Surface         *evas_gl_current_surface_get (Evas_GL *evas_gl) EINA_WARN_UNUSED_RESULT EINA_ARG_NONNULL(1);
+extern Evas_GL_Surface         *evas_gl_current_surface_get (Evas_GL *evas_gl)  ;
 
 /**
  * @brief Get current Evas GL
@@ -910,7 +910,7 @@ EVAS_API Evas_GL_Surface         *evas_gl_current_surface_get (Evas_GL *evas_gl)
  *
  * @since 1.16
  */
-EVAS_API Evas_GL                 *evas_gl_current_evas_gl_get (Evas_GL_Context **context, Evas_GL_Surface **surface) EINA_WARN_UNUSED_RESULT;
+extern Evas_GL                 *evas_gl_current_evas_gl_get (Evas_GL_Context **context, Evas_GL_Surface **surface) ;
 
 
 /*-------------------------------------------------------------------------
@@ -5398,7 +5398,7 @@ struct _Evas_GL_API
     * @deprecated
     * @note Please consider using @ref evasglCreateImageForContext instead.
     */
-   EvasGLImage  (*evasglCreateImage) (int target, void* buffer, const int* attrib_list) EINA_WARN_UNUSED_RESULT EINA_DEPRECATED;
+   EvasGLImage  (*evasglCreateImage) (int target, void* buffer, const int* attrib_list)  EINA_DEPRECATED;
 
    /**
     * @anchor evasglDestroyImage
@@ -5446,7 +5446,7 @@ EvasGLImage *img = glapi->evasglCreateImageForContext
     *
     * @since 1.12
     */
-   EvasGLImage  (*evasglCreateImageForContext) (Evas_GL *evas_gl, Evas_GL_Context *ctx, int target, void* buffer, const int* attrib_list) EINA_WARN_UNUSED_RESULT;
+   EvasGLImage  (*evasglCreateImageForContext) (Evas_GL *evas_gl, Evas_GL_Context *ctx, int target, void* buffer, const int* attrib_list) ;
 
    /* This defines shows that Evas_GL_API supports GLES1 APIs */
 #define EVAS_GL_GLES1 1

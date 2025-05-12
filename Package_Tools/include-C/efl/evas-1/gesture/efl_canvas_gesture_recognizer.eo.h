@@ -29,7 +29,7 @@ typedef Eo Efl_Canvas_Gesture_Recognizer;
  */
 #define EFL_CANVAS_GESTURE_RECOGNIZER_CLASS efl_canvas_gesture_recognizer_class_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_gesture_recognizer_class_get(void) EINA_CONST;
+extern extern_WEAK const Efl_Class *efl_canvas_gesture_recognizer_class_get(void) ;
 
 /**
  * @brief This property returns the class type of gesture recognized by this
@@ -41,7 +41,7 @@ EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_gesture_recognizer_class_get(
  *
  * @ingroup Efl_Canvas_Gesture_Recognizer
  */
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_gesture_recognizer_type_get(const Eo *obj);
+extern extern_WEAK const Efl_Class *efl_gesture_recognizer_type_get(const Eo *obj);
 
 /**
  * @brief Analyzes the given @c event and the current state of the @c gesture
@@ -62,7 +62,7 @@ EVAS_API EVAS_API_WEAK const Efl_Class *efl_gesture_recognizer_type_get(const Eo
  *
  * @ingroup Efl_Canvas_Gesture_Recognizer
  */
-EVAS_API EVAS_API_WEAK Efl_Canvas_Gesture_Recognizer_Result efl_gesture_recognizer_recognize(Eo *obj, Efl_Canvas_Gesture *gesture, Efl_Object *watched, Efl_Canvas_Gesture_Touch *event);
+extern extern_WEAK Efl_Canvas_Gesture_Recognizer_Result efl_gesture_recognizer_recognize(Eo *obj, Efl_Canvas_Gesture *gesture, Efl_Object *watched, Efl_Canvas_Gesture_Touch *event);
 
 /**
  * @brief This property determines whether a gesture recognizer should continue
@@ -75,7 +75,7 @@ EVAS_API EVAS_API_WEAK Efl_Canvas_Gesture_Recognizer_Result efl_gesture_recogniz
  *
  * @ingroup Efl_Canvas_Gesture_Recognizer
  */
-EVAS_API EVAS_API_WEAK void efl_gesture_recognizer_continues_set(Eo *obj, Eina_Bool value);
+extern extern_WEAK void efl_gesture_recognizer_continues_set(Eo *obj, Eina_Bool value);
 
 /**
  * @brief This property determines whether a gesture recognizer should continue
@@ -89,7 +89,7 @@ EVAS_API EVAS_API_WEAK void efl_gesture_recognizer_continues_set(Eo *obj, Eina_B
  *
  * @ingroup Efl_Canvas_Gesture_Recognizer
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_gesture_recognizer_continues_get(const Eo *obj);
+extern extern_WEAK Eina_Bool efl_gesture_recognizer_continues_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

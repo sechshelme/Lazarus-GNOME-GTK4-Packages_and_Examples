@@ -34,7 +34,7 @@ typedef struct _Efl_Event_Animator_Tick
  */
 #define EFL_CANVAS_OBJECT_CLASS efl_canvas_object_class_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_object_class_get(void) EINA_CONST;
+extern extern_WEAK const Efl_Class *efl_canvas_object_class_get(void) ;
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -53,7 +53,7 @@ EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_object_class_get(void) EINA_C
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_pointer_mode_by_device_set(Eo *obj, Efl_Input_Device *dev, Efl_Input_Object_Pointer_Mode pointer_mode);
+extern extern_WEAK Eina_Bool efl_canvas_object_pointer_mode_by_device_set(Eo *obj, Efl_Input_Device *dev, Efl_Input_Object_Pointer_Mode pointer_mode);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -72,7 +72,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_pointer_mode_by_device_set(Eo
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Efl_Input_Object_Pointer_Mode efl_canvas_object_pointer_mode_by_device_get(const Eo *obj, Efl_Input_Device *dev);
+extern extern_WEAK Efl_Input_Object_Pointer_Mode efl_canvas_object_pointer_mode_by_device_get(const Eo *obj, Efl_Input_Device *dev);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -103,7 +103,7 @@ EVAS_API EVAS_API_WEAK Efl_Input_Object_Pointer_Mode efl_canvas_object_pointer_m
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_pointer_mode_set(Eo *obj, Efl_Input_Object_Pointer_Mode pointer_mode);
+extern extern_WEAK Eina_Bool efl_canvas_object_pointer_mode_set(Eo *obj, Efl_Input_Object_Pointer_Mode pointer_mode);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -133,7 +133,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_pointer_mode_set(Eo *obj, Efl
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Efl_Input_Object_Pointer_Mode efl_canvas_object_pointer_mode_get(const Eo *obj);
+extern extern_WEAK Efl_Input_Object_Pointer_Mode efl_canvas_object_pointer_mode_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 /**
@@ -157,7 +157,7 @@ EVAS_API EVAS_API_WEAK Efl_Input_Object_Pointer_Mode efl_canvas_object_pointer_m
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_object_render_op_set(Eo *obj, Efl_Gfx_Render_Op render_op);
+extern extern_WEAK void efl_canvas_object_render_op_set(Eo *obj, Efl_Gfx_Render_Op render_op);
 
 /**
  * @brief Render mode to be used for compositing the Evas object.
@@ -181,7 +181,7 @@ EVAS_API EVAS_API_WEAK void efl_canvas_object_render_op_set(Eo *obj, Efl_Gfx_Ren
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Efl_Gfx_Render_Op efl_canvas_object_render_op_get(const Eo *obj);
+extern extern_WEAK Efl_Gfx_Render_Op efl_canvas_object_render_op_get(const Eo *obj);
 
 /**
  * @brief Clip one object to another.
@@ -227,7 +227,7 @@ EVAS_API EVAS_API_WEAK Efl_Gfx_Render_Op efl_canvas_object_render_op_get(const E
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_object_clipper_set(Eo *obj, Efl_Canvas_Object *clipper);
+extern extern_WEAK void efl_canvas_object_clipper_set(Eo *obj, Efl_Canvas_Object *clipper);
 
 /**
  * @brief Clip one object to another.
@@ -274,7 +274,7 @@ EVAS_API EVAS_API_WEAK void efl_canvas_object_clipper_set(Eo *obj, Efl_Canvas_Ob
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Efl_Canvas_Object *efl_canvas_object_clipper_get(const Eo *obj);
+extern extern_WEAK Efl_Canvas_Object *efl_canvas_object_clipper_get(const Eo *obj);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -292,7 +292,7 @@ EVAS_API EVAS_API_WEAK Efl_Canvas_Object *efl_canvas_object_clipper_get(const Eo
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_object_has_fixed_size_set(Eo *obj, Eina_Bool enable);
+extern extern_WEAK void efl_canvas_object_has_fixed_size_set(Eo *obj, Eina_Bool enable);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -312,7 +312,7 @@ EVAS_API EVAS_API_WEAK void efl_canvas_object_has_fixed_size_set(Eo *obj, Eina_B
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_has_fixed_size_get(const Eo *obj);
+extern extern_WEAK Eina_Bool efl_canvas_object_has_fixed_size_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 /**
@@ -333,7 +333,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_has_fixed_size_get(const Eo *
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_object_repeat_events_set(Eo *obj, Eina_Bool repeat);
+extern extern_WEAK void efl_canvas_object_repeat_events_set(Eo *obj, Eina_Bool repeat);
 
 /**
  * @brief Whether an Evas object is to repeat events to objects below it.
@@ -353,7 +353,7 @@ EVAS_API EVAS_API_WEAK void efl_canvas_object_repeat_events_set(Eo *obj, Eina_Bo
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_repeat_events_get(const Eo *obj);
+extern extern_WEAK Eina_Bool efl_canvas_object_repeat_events_get(const Eo *obj);
 
 /**
  * @brief Indicates that this object is the keyboard event receiver on its
@@ -374,7 +374,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_repeat_events_get(const Eo *o
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_object_key_focus_set(Eo *obj, Eina_Bool focus);
+extern extern_WEAK void efl_canvas_object_key_focus_set(Eo *obj, Eina_Bool focus);
 
 /**
  * @brief Indicates that this object is the keyboard event receiver on its
@@ -396,7 +396,7 @@ EVAS_API EVAS_API_WEAK void efl_canvas_object_key_focus_set(Eo *obj, Eina_Bool f
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_key_focus_get(const Eo *obj);
+extern extern_WEAK Eina_Bool efl_canvas_object_key_focus_get(const Eo *obj);
 
 /**
  * @brief Check if this object is focused.
@@ -409,7 +409,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_key_focus_get(const Eo *obj);
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_seat_focus_get(const Eo *obj);
+extern extern_WEAK Eina_Bool efl_canvas_object_seat_focus_get(const Eo *obj);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -425,7 +425,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_seat_focus_get(const Eo *obj)
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_seat_focus_check(Eo *obj, Efl_Input_Device *seat);
+extern extern_WEAK Eina_Bool efl_canvas_object_seat_focus_check(Eo *obj, Efl_Input_Device *seat);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -450,7 +450,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_seat_focus_check(Eo *obj, Efl
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_seat_focus_add(Eo *obj, Efl_Input_Device *seat);
+extern extern_WEAK Eina_Bool efl_canvas_object_seat_focus_add(Eo *obj, Efl_Input_Device *seat);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -468,7 +468,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_seat_focus_add(Eo *obj, Efl_I
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_seat_focus_del(Eo *obj, Efl_Input_Device *seat);
+extern extern_WEAK Eina_Bool efl_canvas_object_seat_focus_del(Eo *obj, Efl_Input_Device *seat);
 #endif /* EFL_BETA_API_SUPPORT */
 
 /**
@@ -489,7 +489,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_seat_focus_del(Eo *obj, Efl_I
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_object_precise_is_inside_set(Eo *obj, Eina_Bool precise);
+extern extern_WEAK void efl_canvas_object_precise_is_inside_set(Eo *obj, Eina_Bool precise);
 
 /**
  * @brief Whether to use precise (usually expensive) point collision detection
@@ -510,7 +510,7 @@ EVAS_API EVAS_API_WEAK void efl_canvas_object_precise_is_inside_set(Eo *obj, Ein
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_precise_is_inside_get(const Eo *obj);
+extern extern_WEAK Eina_Bool efl_canvas_object_precise_is_inside_get(const Eo *obj);
 
 /**
  * @brief Whether events on a smart object's member should be propagated up to
@@ -533,7 +533,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_precise_is_inside_get(const E
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_object_propagate_events_set(Eo *obj, Eina_Bool propagate);
+extern extern_WEAK void efl_canvas_object_propagate_events_set(Eo *obj, Eina_Bool propagate);
 
 /**
  * @brief Whether events on a smart object's member should be propagated up to
@@ -557,7 +557,7 @@ EVAS_API EVAS_API_WEAK void efl_canvas_object_propagate_events_set(Eo *obj, Eina
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_propagate_events_get(const Eo *obj);
+extern extern_WEAK Eina_Bool efl_canvas_object_propagate_events_get(const Eo *obj);
 
 /**
  * @brief Whether an Evas object is to pass (ignore) events.
@@ -578,7 +578,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_propagate_events_get(const Eo
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_object_pass_events_set(Eo *obj, Eina_Bool pass);
+extern extern_WEAK void efl_canvas_object_pass_events_set(Eo *obj, Eina_Bool pass);
 
 /**
  * @brief Whether an Evas object is to pass (ignore) events.
@@ -600,7 +600,7 @@ EVAS_API EVAS_API_WEAK void efl_canvas_object_pass_events_set(Eo *obj, Eina_Bool
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_pass_events_get(const Eo *obj);
+extern extern_WEAK Eina_Bool efl_canvas_object_pass_events_get(const Eo *obj);
 
 /**
  * @brief Whether or not the given Evas object is to be drawn anti-aliased.
@@ -613,7 +613,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_pass_events_get(const Eo *obj
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_object_anti_alias_set(Eo *obj, Eina_Bool anti_alias);
+extern extern_WEAK void efl_canvas_object_anti_alias_set(Eo *obj, Eina_Bool anti_alias);
 
 /**
  * @brief Whether or not the given Evas object is to be drawn anti-aliased.
@@ -626,7 +626,7 @@ EVAS_API EVAS_API_WEAK void efl_canvas_object_anti_alias_set(Eo *obj, Eina_Bool 
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_anti_alias_get(const Eo *obj);
+extern extern_WEAK Eina_Bool efl_canvas_object_anti_alias_get(const Eo *obj);
 
 /**
  * @brief List of objects currently clipped by @c obj.
@@ -650,7 +650,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_anti_alias_get(const Eo *obj)
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Iterator *efl_canvas_object_clipped_objects_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern extern_WEAK Eina_Iterator *efl_canvas_object_clipped_objects_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP ;
 
 #ifdef EFL_CANVAS_OBJECT_PROTECTED
 /**
@@ -668,7 +668,7 @@ EVAS_API EVAS_API_WEAK Eina_Iterator *efl_canvas_object_clipped_objects_get(cons
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Efl_Canvas_Object *efl_canvas_object_render_parent_get(const Eo *obj);
+extern extern_WEAK Efl_Canvas_Object *efl_canvas_object_render_parent_get(const Eo *obj);
 #endif
 
 /**
@@ -684,7 +684,7 @@ EVAS_API EVAS_API_WEAK Efl_Canvas_Object *efl_canvas_object_render_parent_get(co
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_object_paragraph_direction_set(Eo *obj, Efl_Text_Bidirectional_Type dir);
+extern extern_WEAK void efl_canvas_object_paragraph_direction_set(Eo *obj, Efl_Text_Bidirectional_Type dir);
 
 /**
  * @brief This handles text paragraph direction of the given object. Even if
@@ -700,7 +700,7 @@ EVAS_API EVAS_API_WEAK void efl_canvas_object_paragraph_direction_set(Eo *obj, E
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Efl_Text_Bidirectional_Type efl_canvas_object_paragraph_direction_get(const Eo *obj);
+extern extern_WEAK Efl_Text_Bidirectional_Type efl_canvas_object_paragraph_direction_get(const Eo *obj);
 
 /**
  * @brief Returns the number of objects clipped by @c obj
@@ -713,7 +713,7 @@ EVAS_API EVAS_API_WEAK Efl_Text_Bidirectional_Type efl_canvas_object_paragraph_d
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK unsigned int efl_canvas_object_clipped_objects_count(const Eo *obj) EINA_WARN_UNUSED_RESULT;
+extern extern_WEAK unsigned int efl_canvas_object_clipped_objects_count(const Eo *obj) ;
 
 /**
  * @brief Requests @c keyname key events be directed to @c obj.
@@ -749,7 +749,7 @@ EVAS_API EVAS_API_WEAK unsigned int efl_canvas_object_clipped_objects_count(cons
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_key_grab(Eo *obj, const char *keyname, Efl_Input_Modifier modifiers, Efl_Input_Modifier not_modifiers, Eina_Bool exclusive) EINA_WARN_UNUSED_RESULT;
+extern extern_WEAK Eina_Bool efl_canvas_object_key_grab(Eo *obj, const char *keyname, Efl_Input_Modifier modifiers, Efl_Input_Modifier not_modifiers, Eina_Bool exclusive) ;
 
 /**
  * @brief Removes the grab on @c keyname key events by @c obj.
@@ -772,7 +772,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_key_grab(Eo *obj, const char 
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_object_key_ungrab(Eo *obj, const char *keyname, Efl_Input_Modifier modifiers, Efl_Input_Modifier not_modifiers);
+extern extern_WEAK void efl_canvas_object_key_ungrab(Eo *obj, const char *keyname, Efl_Input_Modifier modifiers, Efl_Input_Modifier not_modifiers);
 
 /**
  * @brief Disables all rendering on the canvas.
@@ -796,7 +796,7 @@ EVAS_API EVAS_API_WEAK void efl_canvas_object_key_ungrab(Eo *obj, const char *ke
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK void efl_canvas_object_no_render_set(Eo *obj, Eina_Bool enable);
+extern extern_WEAK void efl_canvas_object_no_render_set(Eo *obj, Eina_Bool enable);
 
 /**
  * @brief Disables all rendering on the canvas.
@@ -821,7 +821,7 @@ EVAS_API EVAS_API_WEAK void efl_canvas_object_no_render_set(Eo *obj, Eina_Bool e
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_no_render_get(const Eo *obj);
+extern extern_WEAK Eina_Bool efl_canvas_object_no_render_get(const Eo *obj);
 
 /**
  * @brief Whether the coordinates are logically inside the object.
@@ -840,9 +840,9 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_no_render_get(const Eo *obj);
  *
  * @ingroup Efl_Canvas_Object
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_canvas_object_coords_inside_get(const Eo *obj, Eina_Position2D pos);
+extern extern_WEAK Eina_Bool efl_canvas_object_coords_inside_get(const Eo *obj, Eina_Position2D pos);
 
-EVAS_API EVAS_API_WEAK extern const Efl_Event_Description _EFL_CANVAS_OBJECT_EVENT_ANIMATOR_TICK;
+extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_OBJECT_EVENT_ANIMATOR_TICK;
 
 /** Animator tick synchronized with screen vsync if possible.
  * @return Efl_Event_Animator_Tick

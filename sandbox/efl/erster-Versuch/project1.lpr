@@ -1,29 +1,40 @@
 program project1;
 
+//{$define EFL_BETA_API_SUPPORT}
+
 uses
   elf,
 
-  // evas
+  // evas/canvas
   efl_canvas_vg_node_eo_legacy,               // io.
   efl_canvas_vg_gradient_eo_legacy,           // io.
   efl_canvas_vg_container_eo_legacy,          // io. -> efl_canvas_vg_node_eo_legacy
   efl_canvas_vg_shape_eo_legacy,              // io. -> efl_canvas_vg_node_eo_legacy
+  efl_canvas_vg_node_eo,                      // io.
+  efl_canvas_vg_object_eo,                    // io. ->  efl_canvas_vg_node_eo
+  efl_canvas_vg_shape_eo,                     // io. ->  efl_canvas_vg_node_eo
+  // evas
   Evas_Loader,                                // io.
   Evas_Common,                                // io. -> Evas_Loader
   Evas_Legacy,                                // io. -> Evas_Common, Evas_Loader, efl_canvas_vg_container_eo_legacy, efl_canvas_vg_shape_eo_legacy, efl_canvas_vg_node_eo_legacy,efl_canvas_vg_gradient_eo_legacy;
+  // evas/canvas
+  evas_textblock_legacy,                      // io. -> Evas_Common
+  evas_canvas_eo_legacy,                      // io. -> Evas_Common
+  efl_canvas_vg_object_eo_legacy,             // io. -> Evas_Common, efl_canvas_vg_node_eo_legacy
+
 
   // elementary        -> Evas
-  elm_general,                                // io.               makro ELM_MAIN entfernt
-  elm_win_legacy,                             // io.               Doppelt Methoden evtl. Bug in C-Hedader
+  elm_general,                                // io.                                  ( makro ELM_MAIN entfernt )
+  elm_win_legacy,                             // io. -> Evas_Common, Evas_Legacy      ( Doppelt Methoden evtl. Bug in C-Hedader )
   elm_box_legacy,                             // io.
   elm_box_eo_legacy,                          // io.
   elm_button_legacy,                          // io.
   elm_object,                                 // io. -> elm_general
 
+
   Math;
 
-  procedure on_win_del(data: pointer; obj: PEvas_Object; event_info: pointer);
-  cdecl;
+  procedure on_win_del(data: pointer; obj: PEvas_Object; event_info: pointer); cdecl;
   begin
     elm_exit;
   end;
@@ -81,5 +92,6 @@ uses
   end;
 
 begin
+  evas_object_size_hint_fill_set:=nil;
   main(argc, argv);
 end.

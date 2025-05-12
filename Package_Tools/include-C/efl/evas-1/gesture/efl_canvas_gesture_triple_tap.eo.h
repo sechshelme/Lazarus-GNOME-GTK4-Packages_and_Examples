@@ -27,7 +27,7 @@ typedef Eo Efl_Canvas_Gesture_Triple_Tap;
  */
 #define EFL_CANVAS_GESTURE_TRIPLE_TAP_CLASS efl_canvas_gesture_triple_tap_class_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_gesture_triple_tap_class_get(void) EINA_CONST;
+extern extern_WEAK const Efl_Class *efl_canvas_gesture_triple_tap_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

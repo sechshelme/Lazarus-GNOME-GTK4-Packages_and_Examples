@@ -26,7 +26,7 @@ typedef Eo Efl_Canvas_Alpha_Animation;
  */
 #define EFL_CANVAS_ALPHA_ANIMATION_CLASS efl_canvas_alpha_animation_class_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_alpha_animation_class_get(void) EINA_CONST;
+extern extern_WEAK const Efl_Class *efl_canvas_alpha_animation_class_get(void) ;
 
 /**
  * @brief Alpha range to animate. <tt>0.0</tt> means the object is
@@ -40,7 +40,7 @@ EVAS_API EVAS_API_WEAK const Efl_Class *efl_canvas_alpha_animation_class_get(voi
  *
  * @ingroup Efl_Canvas_Alpha_Animation
  */
-EVAS_API EVAS_API_WEAK void efl_animation_alpha_set(Eo *obj, double from_alpha, double to_alpha);
+extern extern_WEAK void efl_animation_alpha_set(Eo *obj, double from_alpha, double to_alpha);
 
 /**
  * @brief Alpha range to animate. <tt>0.0</tt> means the object is
@@ -54,6 +54,6 @@ EVAS_API EVAS_API_WEAK void efl_animation_alpha_set(Eo *obj, double from_alpha, 
  *
  * @ingroup Efl_Canvas_Alpha_Animation
  */
-EVAS_API EVAS_API_WEAK void efl_animation_alpha_get(const Eo *obj, double *from_alpha, double *to_alpha);
+extern extern_WEAK void efl_animation_alpha_get(const Eo *obj, double *from_alpha, double *to_alpha);
 
 #endif

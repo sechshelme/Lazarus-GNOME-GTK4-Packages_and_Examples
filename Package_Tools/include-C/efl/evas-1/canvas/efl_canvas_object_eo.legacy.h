@@ -58,7 +58,7 @@ typedef struct _Efl_Event_Animator_Tick
  *
  * @ingroup Evas_Object_Group
  */
-EVAS_API Eina_Bool evas_object_pointer_mode_set(Efl_Canvas_Object *obj, Evas_Object_Pointer_Mode pointer_mode);
+extern Eina_Bool evas_object_pointer_mode_set(Efl_Canvas_Object *obj, Evas_Object_Pointer_Mode pointer_mode);
 
 /**
  * @brief Low-level pointer behaviour.
@@ -85,7 +85,7 @@ EVAS_API Eina_Bool evas_object_pointer_mode_set(Efl_Canvas_Object *obj, Evas_Obj
  *
  * @ingroup Evas_Object_Group
  */
-EVAS_API Evas_Object_Pointer_Mode evas_object_pointer_mode_get(const Efl_Canvas_Object *obj);
+extern Evas_Object_Pointer_Mode evas_object_pointer_mode_get(const Efl_Canvas_Object *obj);
 
 
 
@@ -131,7 +131,7 @@ EVAS_API Evas_Object_Pointer_Mode evas_object_pointer_mode_get(const Efl_Canvas_
  *
  * @ingroup Evas_Object_Group
  */
-EVAS_API void evas_object_clip_set(Efl_Canvas_Object *obj, Efl_Canvas_Object *clip) EINA_ARG_NONNULL(2);
+extern void evas_object_clip_set(Efl_Canvas_Object *obj, Efl_Canvas_Object *clip) ;
 
 /**
  * @brief Get the object clipping @c obj (if any).
@@ -146,7 +146,7 @@ EVAS_API void evas_object_clip_set(Efl_Canvas_Object *obj, Efl_Canvas_Object *cl
  *
  * @ingroup Evas_Object_Group
  */
-EVAS_API Efl_Canvas_Object *evas_object_clip_get(const Efl_Canvas_Object *obj);
+extern Efl_Canvas_Object *evas_object_clip_get(const Efl_Canvas_Object *obj);
 
 /**
  * @brief Set whether an Evas object is to repeat events.
@@ -164,7 +164,7 @@ EVAS_API Efl_Canvas_Object *evas_object_clip_get(const Efl_Canvas_Object *obj);
  *
  * @ingroup Evas_Object_Group
  */
-EVAS_API void evas_object_repeat_events_set(Efl_Canvas_Object *obj, Eina_Bool repeat);
+extern void evas_object_repeat_events_set(Efl_Canvas_Object *obj, Eina_Bool repeat);
 
 /**
  * @brief Determine whether an object is set to repeat events.
@@ -175,7 +175,7 @@ EVAS_API void evas_object_repeat_events_set(Efl_Canvas_Object *obj, Eina_Bool re
  *
  * @ingroup Evas_Object_Group
  */
-EVAS_API Eina_Bool evas_object_repeat_events_get(const Efl_Canvas_Object *obj);
+extern Eina_Bool evas_object_repeat_events_get(const Efl_Canvas_Object *obj);
 
 /**
  * @brief Indicates that this object is the keyboard event receiver on its
@@ -194,7 +194,7 @@ EVAS_API Eina_Bool evas_object_repeat_events_get(const Efl_Canvas_Object *obj);
  *
  * @ingroup Evas_Object_Group
  */
-EVAS_API void evas_object_focus_set(Efl_Canvas_Object *obj, Eina_Bool focus);
+extern void evas_object_focus_set(Efl_Canvas_Object *obj, Eina_Bool focus);
 
 /**
  * @brief Indicates that this object is the keyboard event receiver on its
@@ -214,7 +214,7 @@ EVAS_API void evas_object_focus_set(Efl_Canvas_Object *obj, Eina_Bool focus);
  *
  * @ingroup Evas_Object_Group
  */
-EVAS_API Eina_Bool evas_object_focus_get(const Efl_Canvas_Object *obj);
+extern Eina_Bool evas_object_focus_get(const Efl_Canvas_Object *obj);
 
 
 
@@ -237,7 +237,7 @@ EVAS_API Eina_Bool evas_object_focus_get(const Efl_Canvas_Object *obj);
  *
  * @ingroup Evas_Object_Group
  */
-EVAS_API void evas_object_precise_is_inside_set(Efl_Canvas_Object *obj, Eina_Bool precise);
+extern void evas_object_precise_is_inside_set(Efl_Canvas_Object *obj, Eina_Bool precise);
 
 /**
  * @brief Determine whether an object is set to use precise point collision
@@ -250,7 +250,7 @@ EVAS_API void evas_object_precise_is_inside_set(Efl_Canvas_Object *obj, Eina_Boo
  *
  * @ingroup Evas_Object_Group
  */
-EVAS_API Eina_Bool evas_object_precise_is_inside_get(const Efl_Canvas_Object *obj);
+extern Eina_Bool evas_object_precise_is_inside_get(const Efl_Canvas_Object *obj);
 
 /**
  * @brief Set whether events on a smart object's member should be propagated up
@@ -271,7 +271,7 @@ EVAS_API Eina_Bool evas_object_precise_is_inside_get(const Efl_Canvas_Object *ob
  *
  * @ingroup Evas_Object_Group
  */
-EVAS_API void evas_object_propagate_events_set(Efl_Canvas_Object *obj, Eina_Bool propagate);
+extern void evas_object_propagate_events_set(Efl_Canvas_Object *obj, Eina_Bool propagate);
 
 /**
  * @brief Retrieve whether an Evas object is set to propagate events.
@@ -285,7 +285,7 @@ EVAS_API void evas_object_propagate_events_set(Efl_Canvas_Object *obj, Eina_Bool
  *
  * @ingroup Evas_Object_Group
  */
-EVAS_API Eina_Bool evas_object_propagate_events_get(const Efl_Canvas_Object *obj);
+extern Eina_Bool evas_object_propagate_events_get(const Efl_Canvas_Object *obj);
 
 /**
  * @brief Set whether an Evas object is to pass (ignore) events.
@@ -304,7 +304,7 @@ EVAS_API Eina_Bool evas_object_propagate_events_get(const Efl_Canvas_Object *obj
  *
  * @ingroup Evas_Object_Group
  */
-EVAS_API void evas_object_pass_events_set(Efl_Canvas_Object *obj, Eina_Bool pass);
+extern void evas_object_pass_events_set(Efl_Canvas_Object *obj, Eina_Bool pass);
 
 /**
  * @brief Determine whether an object is set to pass (ignore) events.
@@ -318,7 +318,7 @@ EVAS_API void evas_object_pass_events_set(Efl_Canvas_Object *obj, Eina_Bool pass
  *
  * @ingroup Evas_Object_Group
  */
-EVAS_API Eina_Bool evas_object_pass_events_get(const Efl_Canvas_Object *obj);
+extern Eina_Bool evas_object_pass_events_get(const Efl_Canvas_Object *obj);
 
 /**
  * @brief Sets whether or not the given Evas object is to be drawn
@@ -330,7 +330,7 @@ EVAS_API Eina_Bool evas_object_pass_events_get(const Efl_Canvas_Object *obj);
  *
  * @ingroup Evas_Object_Group
  */
-EVAS_API void evas_object_anti_alias_set(Efl_Canvas_Object *obj, Eina_Bool anti_alias);
+extern void evas_object_anti_alias_set(Efl_Canvas_Object *obj, Eina_Bool anti_alias);
 
 /**
  * @brief Retrieves whether or not the given Evas object is to be drawn
@@ -342,7 +342,7 @@ EVAS_API void evas_object_anti_alias_set(Efl_Canvas_Object *obj, Eina_Bool anti_
  *
  * @ingroup Evas_Object_Group
  */
-EVAS_API Eina_Bool evas_object_anti_alias_get(const Efl_Canvas_Object *obj);
+extern Eina_Bool evas_object_anti_alias_get(const Efl_Canvas_Object *obj);
 
 
 /**
@@ -360,7 +360,7 @@ EVAS_API Eina_Bool evas_object_anti_alias_get(const Efl_Canvas_Object *obj);
  *
  * @ingroup Evas_Object_Group
  */
-EVAS_API Efl_Canvas_Object *evas_object_smart_parent_get(const Efl_Canvas_Object *obj);
+extern Efl_Canvas_Object *evas_object_smart_parent_get(const Efl_Canvas_Object *obj);
 
 /**
  * @brief This handles text paragraph direction of the given object. Even if
@@ -373,7 +373,7 @@ EVAS_API Efl_Canvas_Object *evas_object_smart_parent_get(const Efl_Canvas_Object
  *
  * @ingroup Evas_Object_Group
  */
-EVAS_API void evas_object_paragraph_direction_set(Efl_Canvas_Object *obj, Evas_BiDi_Direction dir);
+extern void evas_object_paragraph_direction_set(Efl_Canvas_Object *obj, Evas_BiDi_Direction dir);
 
 /**
  * @brief This handles text paragraph direction of the given object. Even if
@@ -387,7 +387,7 @@ EVAS_API void evas_object_paragraph_direction_set(Efl_Canvas_Object *obj, Evas_B
  *
  * @ingroup Evas_Object_Group
  */
-EVAS_API Evas_BiDi_Direction evas_object_paragraph_direction_get(const Efl_Canvas_Object *obj);
+extern Evas_BiDi_Direction evas_object_paragraph_direction_get(const Efl_Canvas_Object *obj);
 
 /**
  * @brief Test if any object is clipped by @c obj.
@@ -400,7 +400,7 @@ EVAS_API Evas_BiDi_Direction evas_object_paragraph_direction_get(const Efl_Canva
  *
  * @ingroup Evas_Object_Group
  */
-EVAS_API Eina_Bool evas_object_clipees_has(const Efl_Canvas_Object *obj) EINA_WARN_UNUSED_RESULT;
+extern Eina_Bool evas_object_clipees_has(const Efl_Canvas_Object *obj) ;
 
 
 

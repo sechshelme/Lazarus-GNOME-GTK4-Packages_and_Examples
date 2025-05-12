@@ -61,7 +61,7 @@ typedef enum
  */
 #define EFL_INPUT_DEVICE_CLASS efl_input_device_class_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_input_device_class_get(void) EINA_CONST;
+extern extern_WEAK const Efl_Class *efl_input_device_class_get(void) ;
 
 /**
  * @brief Device type property
@@ -73,7 +73,7 @@ EVAS_API EVAS_API_WEAK const Efl_Class *efl_input_device_class_get(void) EINA_CO
  *
  * @ingroup Efl_Input_Device
  */
-EVAS_API EVAS_API_WEAK void efl_input_device_type_set(Eo *obj, Efl_Input_Device_Type klass);
+extern extern_WEAK void efl_input_device_type_set(Eo *obj, Efl_Input_Device_Type klass);
 
 /**
  * @brief Device type property
@@ -86,7 +86,7 @@ EVAS_API EVAS_API_WEAK void efl_input_device_type_set(Eo *obj, Efl_Input_Device_
  *
  * @ingroup Efl_Input_Device
  */
-EVAS_API EVAS_API_WEAK Efl_Input_Device_Type efl_input_device_type_get(const Eo *obj);
+extern extern_WEAK Efl_Input_Device_Type efl_input_device_type_get(const Eo *obj);
 
 /**
  * @brief Device source property
@@ -98,7 +98,7 @@ EVAS_API EVAS_API_WEAK Efl_Input_Device_Type efl_input_device_type_get(const Eo 
  *
  * @ingroup Efl_Input_Device
  */
-EVAS_API EVAS_API_WEAK void efl_input_device_source_set(Eo *obj, Efl_Input_Device *src);
+extern extern_WEAK void efl_input_device_source_set(Eo *obj, Efl_Input_Device *src);
 
 /**
  * @brief Device source property
@@ -111,7 +111,7 @@ EVAS_API EVAS_API_WEAK void efl_input_device_source_set(Eo *obj, Efl_Input_Devic
  *
  * @ingroup Efl_Input_Device
  */
-EVAS_API EVAS_API_WEAK Efl_Input_Device *efl_input_device_source_get(const Eo *obj);
+extern extern_WEAK Efl_Input_Device *efl_input_device_source_get(const Eo *obj);
 
 /**
  * @brief Get the @ref Efl_Input_Device that represents a seat.
@@ -131,7 +131,7 @@ EVAS_API EVAS_API_WEAK Efl_Input_Device *efl_input_device_source_get(const Eo *o
  *
  * @ingroup Efl_Input_Device
  */
-EVAS_API EVAS_API_WEAK Efl_Input_Device *efl_input_device_seat_get(const Eo *obj);
+extern extern_WEAK Efl_Input_Device *efl_input_device_seat_get(const Eo *obj);
 
 /**
  * @brief Seat id number
@@ -143,7 +143,7 @@ EVAS_API EVAS_API_WEAK Efl_Input_Device *efl_input_device_seat_get(const Eo *obj
  *
  * @ingroup Efl_Input_Device
  */
-EVAS_API EVAS_API_WEAK void efl_input_device_seat_id_set(Eo *obj, unsigned int id);
+extern extern_WEAK void efl_input_device_seat_id_set(Eo *obj, unsigned int id);
 
 /**
  * @brief Seat id number
@@ -156,7 +156,7 @@ EVAS_API EVAS_API_WEAK void efl_input_device_seat_id_set(Eo *obj, unsigned int i
  *
  * @ingroup Efl_Input_Device
  */
-EVAS_API EVAS_API_WEAK unsigned int efl_input_device_seat_id_get(const Eo *obj);
+extern extern_WEAK unsigned int efl_input_device_seat_id_get(const Eo *obj);
 
 /**
  * @brief Lists the children attached to this device.
@@ -172,7 +172,7 @@ EVAS_API EVAS_API_WEAK unsigned int efl_input_device_seat_id_get(const Eo *obj);
  *
  * @ingroup Efl_Input_Device
  */
-EVAS_API EVAS_API_WEAK Eina_Iterator *efl_input_device_children_iterate(Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern extern_WEAK Eina_Iterator *efl_input_device_children_iterate(Eo *obj) EFL_TRANSFER_OWNERSHIP ;
 
 /**
  * @brief The number of pointer devices in this seat.
@@ -189,7 +189,7 @@ EVAS_API EVAS_API_WEAK Eina_Iterator *efl_input_device_children_iterate(Eo *obj)
  *
  * @ingroup Efl_Input_Device
  */
-EVAS_API EVAS_API_WEAK int efl_input_device_pointer_device_count_get(const Eo *obj);
+extern extern_WEAK int efl_input_device_pointer_device_count_get(const Eo *obj);
 
 /**
  * @brief @c true if @ref efl_input_device_type_get is @c mouse, @c pen,
@@ -203,6 +203,6 @@ EVAS_API EVAS_API_WEAK int efl_input_device_pointer_device_count_get(const Eo *o
  *
  * @ingroup Efl_Input_Device
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_input_device_is_pointer_type_get(const Eo *obj);
+extern extern_WEAK Eina_Bool efl_input_device_is_pointer_type_get(const Eo *obj);
 
 #endif

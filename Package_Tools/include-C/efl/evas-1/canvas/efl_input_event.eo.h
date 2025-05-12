@@ -26,7 +26,7 @@ typedef Eo Efl_Input_Event;
  */
 #define EFL_INPUT_EVENT_MIXIN efl_input_event_mixin_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_input_event_mixin_get(void) EINA_CONST;
+extern extern_WEAK const Efl_Class *efl_input_event_mixin_get(void) ;
 
 /**
  * @brief The time at which an event was generated.
@@ -44,7 +44,7 @@ EVAS_API EVAS_API_WEAK const Efl_Class *efl_input_event_mixin_get(void) EINA_CON
  *
  * @ingroup Efl_Input_Event
  */
-EVAS_API EVAS_API_WEAK void efl_input_timestamp_set(Eo *obj, double ms);
+extern extern_WEAK void efl_input_timestamp_set(Eo *obj, double ms);
 
 /**
  * @brief The time at which an event was generated.
@@ -61,7 +61,7 @@ EVAS_API EVAS_API_WEAK void efl_input_timestamp_set(Eo *obj, double ms);
  *
  * @ingroup Efl_Input_Event
  */
-EVAS_API EVAS_API_WEAK double efl_input_timestamp_get(const Eo *obj);
+extern extern_WEAK double efl_input_timestamp_get(const Eo *obj);
 
 /** Resets the internal data to 0 or default values.
  *
@@ -69,7 +69,7 @@ EVAS_API EVAS_API_WEAK double efl_input_timestamp_get(const Eo *obj);
  *
  * @ingroup Efl_Input_Event
  */
-EVAS_API EVAS_API_WEAK void efl_input_reset(Eo *obj);
+extern extern_WEAK void efl_input_reset(Eo *obj);
 
 /**
  * @brief Input device that originated this event.
@@ -81,7 +81,7 @@ EVAS_API EVAS_API_WEAK void efl_input_reset(Eo *obj);
  *
  * @ingroup Efl_Input_Event
  */
-EVAS_API EVAS_API_WEAK void efl_input_device_set(Eo *obj, Efl_Input_Device *dev);
+extern extern_WEAK void efl_input_device_set(Eo *obj, Efl_Input_Device *dev);
 
 /**
  * @brief Input device that originated this event.
@@ -94,7 +94,7 @@ EVAS_API EVAS_API_WEAK void efl_input_device_set(Eo *obj, Efl_Input_Device *dev)
  *
  * @ingroup Efl_Input_Event
  */
-EVAS_API EVAS_API_WEAK Efl_Input_Device *efl_input_device_get(const Eo *obj);
+extern extern_WEAK Efl_Input_Device *efl_input_device_get(const Eo *obj);
 
 /**
  * @brief Extra flags for this event, may be changed by the user.
@@ -106,7 +106,7 @@ EVAS_API EVAS_API_WEAK Efl_Input_Device *efl_input_device_get(const Eo *obj);
  *
  * @ingroup Efl_Input_Event
  */
-EVAS_API EVAS_API_WEAK void efl_input_event_flags_set(Eo *obj, Efl_Input_Flags flags);
+extern extern_WEAK void efl_input_event_flags_set(Eo *obj, Efl_Input_Flags flags);
 
 /**
  * @brief Extra flags for this event, may be changed by the user.
@@ -119,7 +119,7 @@ EVAS_API EVAS_API_WEAK void efl_input_event_flags_set(Eo *obj, Efl_Input_Flags f
  *
  * @ingroup Efl_Input_Event
  */
-EVAS_API EVAS_API_WEAK Efl_Input_Flags efl_input_event_flags_get(const Eo *obj);
+extern extern_WEAK Efl_Input_Flags efl_input_event_flags_get(const Eo *obj);
 
 /**
  * @brief @c true if @ref efl_input_event_flags_get indicates the event is on
@@ -132,7 +132,7 @@ EVAS_API EVAS_API_WEAK Efl_Input_Flags efl_input_event_flags_get(const Eo *obj);
  *
  * @ingroup Efl_Input_Event
  */
-EVAS_API EVAS_API_WEAK void efl_input_processed_set(Eo *obj, Eina_Bool val);
+extern extern_WEAK void efl_input_processed_set(Eo *obj, Eina_Bool val);
 
 /**
  * @brief @c true if @ref efl_input_event_flags_get indicates the event is on
@@ -146,7 +146,7 @@ EVAS_API EVAS_API_WEAK void efl_input_processed_set(Eo *obj, Eina_Bool val);
  *
  * @ingroup Efl_Input_Event
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_input_processed_get(const Eo *obj);
+extern extern_WEAK Eina_Bool efl_input_processed_get(const Eo *obj);
 
 /**
  * @brief @c true if @ref efl_input_event_flags_get indicates the event
@@ -160,7 +160,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_input_processed_get(const Eo *obj);
  *
  * @ingroup Efl_Input_Event
  */
-EVAS_API EVAS_API_WEAK void efl_input_scrolling_set(Eo *obj, Eina_Bool val);
+extern extern_WEAK void efl_input_scrolling_set(Eo *obj, Eina_Bool val);
 
 /**
  * @brief @c true if @ref efl_input_event_flags_get indicates the event
@@ -174,7 +174,7 @@ EVAS_API EVAS_API_WEAK void efl_input_scrolling_set(Eo *obj, Eina_Bool val);
  *
  * @ingroup Efl_Input_Event
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_input_scrolling_get(const Eo *obj);
+extern extern_WEAK Eina_Bool efl_input_scrolling_get(const Eo *obj);
 
 /**
  * @brief @c true if the event was fake, not triggered by real hardware.
@@ -187,6 +187,6 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_input_scrolling_get(const Eo *obj);
  *
  * @ingroup Efl_Input_Event
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_input_fake_get(const Eo *obj);
+extern extern_WEAK Eina_Bool efl_input_fake_get(const Eo *obj);
 
 #endif

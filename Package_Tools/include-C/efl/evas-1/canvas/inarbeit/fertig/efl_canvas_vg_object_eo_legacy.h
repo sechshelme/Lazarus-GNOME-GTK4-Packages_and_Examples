@@ -43,7 +43,7 @@ typedef enum
  * @since 1.24
  * @ingroup Evas_Object_Vg_Group
  */
-EVAS_API void evas_object_vg_fill_mode_set(Evas_Object *obj, Evas_Object_Vg_Fill_Mode fill_mode);
+extern void evas_object_vg_fill_mode_set(Evas_Object *obj, Evas_Object_Vg_Fill_Mode fill_mode);
 
 /**
  * @brief Control how the viewbox is mapped to the vg canvas's viewport.
@@ -55,7 +55,7 @@ EVAS_API void evas_object_vg_fill_mode_set(Evas_Object *obj, Evas_Object_Vg_Fill
  * @since 1.24
  * @ingroup Evas_Object_Vg_Group
  */
-EVAS_API Evas_Object_Vg_Fill_Mode evas_object_vg_fill_mode_get(const Evas_Object *obj);
+extern Evas_Object_Vg_Fill_Mode evas_object_vg_fill_mode_get(const Evas_Object *obj);
 
 /**
  * @brief Sets the viewbox for the evas vg canvas. viewbox if set should be
@@ -67,7 +67,7 @@ EVAS_API Evas_Object_Vg_Fill_Mode evas_object_vg_fill_mode_get(const Evas_Object
  * @since 1.24
  * @ingroup Evas_Object_Vg_Group
  */
-EVAS_API void evas_object_vg_viewbox_set(Evas_Object *obj, Eina_Rect viewbox);
+extern void evas_object_vg_viewbox_set(Evas_Object *obj, Eina_Rect viewbox);
 
 /**
  * @brief Get the current viewbox from the  evas_object_vg
@@ -79,7 +79,7 @@ EVAS_API void evas_object_vg_viewbox_set(Evas_Object *obj, Eina_Rect viewbox);
  * @since 1.24
  * @ingroup Evas_Object_Vg_Group
  */
-EVAS_API Eina_Rect evas_object_vg_viewbox_get(const Evas_Object *obj);
+extern Eina_Rect evas_object_vg_viewbox_get(const Evas_Object *obj);
 
 /**
  * @brief Control how the viewbox is positioned inside the viewport.
@@ -91,7 +91,7 @@ EVAS_API Eina_Rect evas_object_vg_viewbox_get(const Evas_Object *obj);
  * @since 1.24
  * @ingroup Evas_Object_Vg_Group
  */
-EVAS_API void evas_object_vg_viewbox_align_set(Evas_Object *obj, double align_x, double align_y);
+extern void evas_object_vg_viewbox_align_set(Evas_Object *obj, double align_x, double align_y);
 
 /**
  * @brief Control how the viewbox is positioned inside the viewport.
@@ -103,7 +103,7 @@ EVAS_API void evas_object_vg_viewbox_align_set(Evas_Object *obj, double align_x,
  * @since 1.24
  * @ingroup Evas_Object_Vg_Group
  */
-EVAS_API void evas_object_vg_viewbox_align_get(const Evas_Object *obj, double *align_x, double *align_y);
+extern void evas_object_vg_viewbox_align_get(const Evas_Object *obj, double *align_x, double *align_y);
 
 /**
  * @brief Set the root node of the evas_object_vg.
@@ -119,7 +119,7 @@ EVAS_API void evas_object_vg_viewbox_align_get(const Evas_Object *obj, double *a
  * @since 1.24
  * @ingroup Evas_Object_Vg_Group
  */
-EVAS_API void evas_object_vg_root_node_set(Evas_Object *obj, Evas_Vg_Node *root);
+extern void evas_object_vg_root_node_set(Evas_Object *obj, Evas_Vg_Node *root);
 
 /**
  * @brief Get the root node of the evas_object_vg.
@@ -132,6 +132,6 @@ EVAS_API void evas_object_vg_root_node_set(Evas_Object *obj, Evas_Vg_Node *root)
  *
  * @ingroup Evas_Object_Vg_Group
  */
-EVAS_API Evas_Vg_Node *evas_object_vg_root_node_get(const Evas_Object *obj);
+extern Evas_Vg_Node *evas_object_vg_root_node_get(const Evas_Object *obj);
 
 #endif

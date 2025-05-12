@@ -21,7 +21,7 @@ typedef Eo Efl_Input_Pointer;
  */
 #define EFL_INPUT_POINTER_CLASS efl_input_pointer_class_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_input_pointer_class_get(void) EINA_CONST;
+extern extern_WEAK const Efl_Class *efl_input_pointer_class_get(void) ;
 
 /**
  * @brief The action represented by this event.
@@ -33,7 +33,7 @@ EVAS_API EVAS_API_WEAK const Efl_Class *efl_input_pointer_class_get(void) EINA_C
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK void efl_input_pointer_action_set(Eo *obj, Efl_Pointer_Action act);
+extern extern_WEAK void efl_input_pointer_action_set(Eo *obj, Efl_Pointer_Action act);
 
 /**
  * @brief The action represented by this event.
@@ -46,7 +46,7 @@ EVAS_API EVAS_API_WEAK void efl_input_pointer_action_set(Eo *obj, Efl_Pointer_Ac
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK Efl_Pointer_Action efl_input_pointer_action_get(const Eo *obj);
+extern extern_WEAK Efl_Pointer_Action efl_input_pointer_action_get(const Eo *obj);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -61,7 +61,7 @@ EVAS_API EVAS_API_WEAK Efl_Pointer_Action efl_input_pointer_action_get(const Eo 
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_input_pointer_value_has_get(const Eo *obj, Efl_Input_Value key);
+extern extern_WEAK Eina_Bool efl_input_pointer_value_has_get(const Eo *obj, Efl_Input_Value key);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -87,7 +87,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_input_pointer_value_has_get(const Eo *obj, 
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_input_pointer_value_set(Eo *obj, Efl_Input_Value key, double val);
+extern extern_WEAK Eina_Bool efl_input_pointer_value_set(Eo *obj, Efl_Input_Value key, double val);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -112,7 +112,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_input_pointer_value_set(Eo *obj, Efl_Input_
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK double efl_input_pointer_value_get(const Eo *obj, Efl_Input_Value key);
+extern extern_WEAK double efl_input_pointer_value_get(const Eo *obj, Efl_Input_Value key);
 #endif /* EFL_BETA_API_SUPPORT */
 
 /**
@@ -128,7 +128,7 @@ EVAS_API EVAS_API_WEAK double efl_input_pointer_value_get(const Eo *obj, Efl_Inp
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK void efl_input_pointer_button_set(Eo *obj, int but);
+extern extern_WEAK void efl_input_pointer_button_set(Eo *obj, int but);
 
 /**
  * @brief The mouse button that triggered the event.
@@ -144,7 +144,7 @@ EVAS_API EVAS_API_WEAK void efl_input_pointer_button_set(Eo *obj, int but);
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK int efl_input_pointer_button_get(const Eo *obj);
+extern extern_WEAK int efl_input_pointer_button_get(const Eo *obj);
 
 /**
  * @brief Whether a mouse button is pressed at the moment of the event.
@@ -160,7 +160,7 @@ EVAS_API EVAS_API_WEAK int efl_input_pointer_button_get(const Eo *obj);
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK void efl_input_pointer_button_pressed_set(Eo *obj, int button, Eina_Bool pressed);
+extern extern_WEAK void efl_input_pointer_button_pressed_set(Eo *obj, int button, Eina_Bool pressed);
 
 /**
  * @brief Whether a mouse button is pressed at the moment of the event.
@@ -177,7 +177,7 @@ EVAS_API EVAS_API_WEAK void efl_input_pointer_button_pressed_set(Eo *obj, int bu
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_input_pointer_button_pressed_get(const Eo *obj, int button);
+extern extern_WEAK Eina_Bool efl_input_pointer_button_pressed_get(const Eo *obj, int button);
 
 /**
  * @brief Position where the event happened, relative to the window.
@@ -192,7 +192,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_input_pointer_button_pressed_get(const Eo *
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK void efl_input_pointer_position_set(Eo *obj, Eina_Position2D pos);
+extern extern_WEAK void efl_input_pointer_position_set(Eo *obj, Eina_Position2D pos);
 
 /**
  * @brief Position where the event happened, relative to the window.
@@ -208,7 +208,7 @@ EVAS_API EVAS_API_WEAK void efl_input_pointer_position_set(Eo *obj, Eina_Positio
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK Eina_Position2D efl_input_pointer_position_get(const Eo *obj);
+extern extern_WEAK Eina_Position2D efl_input_pointer_position_get(const Eo *obj);
 
 /**
  * @brief Position where the event happened, relative to the window.
@@ -227,7 +227,7 @@ EVAS_API EVAS_API_WEAK Eina_Position2D efl_input_pointer_position_get(const Eo *
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK void efl_input_pointer_precise_position_set(Eo *obj, Eina_Vector2 pos);
+extern extern_WEAK void efl_input_pointer_precise_position_set(Eo *obj, Eina_Vector2 pos);
 
 /**
  * @brief Position where the event happened, relative to the window.
@@ -247,7 +247,7 @@ EVAS_API EVAS_API_WEAK void efl_input_pointer_precise_position_set(Eo *obj, Eina
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK Eina_Vector2 efl_input_pointer_precise_position_get(const Eo *obj);
+extern extern_WEAK Eina_Vector2 efl_input_pointer_precise_position_get(const Eo *obj);
 
 /**
  * @brief Position of the previous event, valid for move events.
@@ -268,7 +268,7 @@ EVAS_API EVAS_API_WEAK Eina_Vector2 efl_input_pointer_precise_position_get(const
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK void efl_input_pointer_previous_position_set(Eo *obj, Eina_Position2D pos);
+extern extern_WEAK void efl_input_pointer_previous_position_set(Eo *obj, Eina_Position2D pos);
 
 /**
  * @brief Position of the previous event, valid for move events.
@@ -290,7 +290,7 @@ EVAS_API EVAS_API_WEAK void efl_input_pointer_previous_position_set(Eo *obj, Ein
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK Eina_Position2D efl_input_pointer_previous_position_get(const Eo *obj);
+extern extern_WEAK Eina_Position2D efl_input_pointer_previous_position_get(const Eo *obj);
 
 /**
  * @brief The ID associated with this pointer.
@@ -308,7 +308,7 @@ EVAS_API EVAS_API_WEAK Eina_Position2D efl_input_pointer_previous_position_get(c
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK void efl_input_pointer_touch_id_set(Eo *obj, int id);
+extern extern_WEAK void efl_input_pointer_touch_id_set(Eo *obj, int id);
 
 /**
  * @brief The ID associated with this pointer.
@@ -327,7 +327,7 @@ EVAS_API EVAS_API_WEAK void efl_input_pointer_touch_id_set(Eo *obj, int id);
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK int efl_input_pointer_touch_id_get(const Eo *obj);
+extern extern_WEAK int efl_input_pointer_touch_id_get(const Eo *obj);
 
 /**
  * @brief The object where this event first originated, in case of propagation
@@ -340,7 +340,7 @@ EVAS_API EVAS_API_WEAK int efl_input_pointer_touch_id_get(const Eo *obj);
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK void efl_input_pointer_source_set(Eo *obj, Efl_Object *src);
+extern extern_WEAK void efl_input_pointer_source_set(Eo *obj, Efl_Object *src);
 
 /**
  * @brief The object where this event first originated, in case of propagation
@@ -354,7 +354,7 @@ EVAS_API EVAS_API_WEAK void efl_input_pointer_source_set(Eo *obj, Efl_Object *sr
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK Efl_Object *efl_input_pointer_source_get(const Eo *obj);
+extern extern_WEAK Efl_Object *efl_input_pointer_source_get(const Eo *obj);
 
 /**
  * @brief Double or triple click information.
@@ -366,7 +366,7 @@ EVAS_API EVAS_API_WEAK Efl_Object *efl_input_pointer_source_get(const Eo *obj);
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK void efl_input_pointer_button_flags_set(Eo *obj, Efl_Pointer_Flags flags);
+extern extern_WEAK void efl_input_pointer_button_flags_set(Eo *obj, Efl_Pointer_Flags flags);
 
 /**
  * @brief Double or triple click information.
@@ -379,7 +379,7 @@ EVAS_API EVAS_API_WEAK void efl_input_pointer_button_flags_set(Eo *obj, Efl_Poin
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK Efl_Pointer_Flags efl_input_pointer_button_flags_get(const Eo *obj);
+extern extern_WEAK Efl_Pointer_Flags efl_input_pointer_button_flags_get(const Eo *obj);
 
 /**
  * @brief @c true if @ref efl_input_pointer_button_flags_get indicates a double
@@ -396,7 +396,7 @@ EVAS_API EVAS_API_WEAK Efl_Pointer_Flags efl_input_pointer_button_flags_get(cons
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK void efl_input_pointer_double_click_set(Eo *obj, Eina_Bool val);
+extern extern_WEAK void efl_input_pointer_double_click_set(Eo *obj, Eina_Bool val);
 
 /**
  * @brief @c true if @ref efl_input_pointer_button_flags_get indicates a double
@@ -413,7 +413,7 @@ EVAS_API EVAS_API_WEAK void efl_input_pointer_double_click_set(Eo *obj, Eina_Boo
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_input_pointer_double_click_get(const Eo *obj);
+extern extern_WEAK Eina_Bool efl_input_pointer_double_click_get(const Eo *obj);
 
 /**
  * @brief @c true if @ref efl_input_pointer_button_flags_get indicates a triple
@@ -430,7 +430,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_input_pointer_double_click_get(const Eo *ob
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK void efl_input_pointer_triple_click_set(Eo *obj, Eina_Bool val);
+extern extern_WEAK void efl_input_pointer_triple_click_set(Eo *obj, Eina_Bool val);
 
 /**
  * @brief @c true if @ref efl_input_pointer_button_flags_get indicates a triple
@@ -447,7 +447,7 @@ EVAS_API EVAS_API_WEAK void efl_input_pointer_triple_click_set(Eo *obj, Eina_Boo
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_input_pointer_triple_click_get(const Eo *obj);
+extern extern_WEAK Eina_Bool efl_input_pointer_triple_click_get(const Eo *obj);
 
 /**
  * @brief Direction of the wheel, usually vertical.
@@ -459,7 +459,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_input_pointer_triple_click_get(const Eo *ob
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK void efl_input_pointer_wheel_horizontal_set(Eo *obj, Eina_Bool horizontal);
+extern extern_WEAK void efl_input_pointer_wheel_horizontal_set(Eo *obj, Eina_Bool horizontal);
 
 /**
  * @brief Direction of the wheel, usually vertical.
@@ -472,7 +472,7 @@ EVAS_API EVAS_API_WEAK void efl_input_pointer_wheel_horizontal_set(Eo *obj, Eina
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK Eina_Bool efl_input_pointer_wheel_horizontal_get(const Eo *obj);
+extern extern_WEAK Eina_Bool efl_input_pointer_wheel_horizontal_get(const Eo *obj);
 
 /**
  * @brief Delta movement of the wheel in discrete steps.
@@ -484,7 +484,7 @@ EVAS_API EVAS_API_WEAK Eina_Bool efl_input_pointer_wheel_horizontal_get(const Eo
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK void efl_input_pointer_wheel_delta_set(Eo *obj, int dist);
+extern extern_WEAK void efl_input_pointer_wheel_delta_set(Eo *obj, int dist);
 
 /**
  * @brief Delta movement of the wheel in discrete steps.
@@ -497,6 +497,6 @@ EVAS_API EVAS_API_WEAK void efl_input_pointer_wheel_delta_set(Eo *obj, int dist)
  *
  * @ingroup Efl_Input_Pointer
  */
-EVAS_API EVAS_API_WEAK int efl_input_pointer_wheel_delta_get(const Eo *obj);
+extern extern_WEAK int efl_input_pointer_wheel_delta_get(const Eo *obj);
 
 #endif

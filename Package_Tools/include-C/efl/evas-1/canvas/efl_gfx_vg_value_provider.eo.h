@@ -53,7 +53,7 @@ typedef enum
  */
 #define EFL_GFX_VG_VALUE_PROVIDER_CLASS efl_gfx_vg_value_provider_class_get()
 
-EVAS_API EVAS_API_WEAK const Efl_Class *efl_gfx_vg_value_provider_class_get(void) EINA_CONST;
+extern extern_WEAK const Efl_Class *efl_gfx_vg_value_provider_class_get(void) ;
 
 /**
  * @brief Keypath is the target a specific content or a set of contents that
@@ -65,7 +65,7 @@ EVAS_API EVAS_API_WEAK const Efl_Class *efl_gfx_vg_value_provider_class_get(void
  *
  * @ingroup Efl_Gfx_Vg_Value_Provider
  */
-EVAS_API EVAS_API_WEAK void efl_gfx_vg_value_provider_keypath_set(Eo *obj, Eina_Stringshare *keypath);
+extern extern_WEAK void efl_gfx_vg_value_provider_keypath_set(Eo *obj, Eina_Stringshare *keypath);
 
 /**
  * @brief Keypath is the target a specific content or a set of contents that
@@ -78,7 +78,7 @@ EVAS_API EVAS_API_WEAK void efl_gfx_vg_value_provider_keypath_set(Eo *obj, Eina_
  *
  * @ingroup Efl_Gfx_Vg_Value_Provider
  */
-EVAS_API EVAS_API_WEAK Eina_Stringshare *efl_gfx_vg_value_provider_keypath_get(const Eo *obj);
+extern extern_WEAK Eina_Stringshare *efl_gfx_vg_value_provider_keypath_get(const Eo *obj);
 
 /**
  * @brief User can adjust transform value of the content specified by the
@@ -89,7 +89,7 @@ EVAS_API EVAS_API_WEAK Eina_Stringshare *efl_gfx_vg_value_provider_keypath_get(c
  *
  * @ingroup Efl_Gfx_Vg_Value_Provider
  */
-EVAS_API EVAS_API_WEAK void efl_gfx_vg_value_provider_transform_set(Eo *obj, Eina_Matrix4 *m);
+extern extern_WEAK void efl_gfx_vg_value_provider_transform_set(Eo *obj, Eina_Matrix4 *m);
 
 /**
  * @brief User can adjust transform value of the content specified by the
@@ -101,7 +101,7 @@ EVAS_API EVAS_API_WEAK void efl_gfx_vg_value_provider_transform_set(Eo *obj, Ein
  *
  * @ingroup Efl_Gfx_Vg_Value_Provider
  */
-EVAS_API EVAS_API_WEAK Eina_Matrix4 *efl_gfx_vg_value_provider_transform_get(const Eo *obj);
+extern extern_WEAK Eina_Matrix4 *efl_gfx_vg_value_provider_transform_get(const Eo *obj);
 
 /**
  * @brief User can adjust color value of the fill content specified by the
@@ -115,7 +115,7 @@ EVAS_API EVAS_API_WEAK Eina_Matrix4 *efl_gfx_vg_value_provider_transform_get(con
  *
  * @ingroup Efl_Gfx_Vg_Value_Provider
  */
-EVAS_API EVAS_API_WEAK void efl_gfx_vg_value_provider_fill_color_set(Eo *obj, int r, int g, int b, int a);
+extern extern_WEAK void efl_gfx_vg_value_provider_fill_color_set(Eo *obj, int r, int g, int b, int a);
 
 /**
  * @brief User can adjust color value of the fill content specified by the
@@ -129,7 +129,7 @@ EVAS_API EVAS_API_WEAK void efl_gfx_vg_value_provider_fill_color_set(Eo *obj, in
  *
  * @ingroup Efl_Gfx_Vg_Value_Provider
  */
-EVAS_API EVAS_API_WEAK void efl_gfx_vg_value_provider_fill_color_get(const Eo *obj, int *r, int *g, int *b, int *a);
+extern extern_WEAK void efl_gfx_vg_value_provider_fill_color_get(const Eo *obj, int *r, int *g, int *b, int *a);
 
 /**
  * @brief User can adjust color value of the stroke content specified by the
@@ -143,7 +143,7 @@ EVAS_API EVAS_API_WEAK void efl_gfx_vg_value_provider_fill_color_get(const Eo *o
  *
  * @ingroup Efl_Gfx_Vg_Value_Provider
  */
-EVAS_API EVAS_API_WEAK void efl_gfx_vg_value_provider_stroke_color_set(Eo *obj, int r, int g, int b, int a);
+extern extern_WEAK void efl_gfx_vg_value_provider_stroke_color_set(Eo *obj, int r, int g, int b, int a);
 
 /**
  * @brief User can adjust color value of the stroke content specified by the
@@ -157,7 +157,7 @@ EVAS_API EVAS_API_WEAK void efl_gfx_vg_value_provider_stroke_color_set(Eo *obj, 
  *
  * @ingroup Efl_Gfx_Vg_Value_Provider
  */
-EVAS_API EVAS_API_WEAK void efl_gfx_vg_value_provider_stroke_color_get(const Eo *obj, int *r, int *g, int *b, int *a);
+extern extern_WEAK void efl_gfx_vg_value_provider_stroke_color_get(const Eo *obj, int *r, int *g, int *b, int *a);
 
 /**
  * @brief User can adjust width value of the stroke content specified by the
@@ -168,7 +168,7 @@ EVAS_API EVAS_API_WEAK void efl_gfx_vg_value_provider_stroke_color_get(const Eo 
  *
  * @ingroup Efl_Gfx_Vg_Value_Provider
  */
-EVAS_API EVAS_API_WEAK void efl_gfx_vg_value_provider_stroke_width_set(Eo *obj, double width);
+extern extern_WEAK void efl_gfx_vg_value_provider_stroke_width_set(Eo *obj, double width);
 
 /**
  * @brief User can adjust width value of the stroke content specified by the
@@ -180,7 +180,7 @@ EVAS_API EVAS_API_WEAK void efl_gfx_vg_value_provider_stroke_width_set(Eo *obj, 
  *
  * @ingroup Efl_Gfx_Vg_Value_Provider
  */
-EVAS_API EVAS_API_WEAK double efl_gfx_vg_value_provider_stroke_width_get(const Eo *obj);
+extern extern_WEAK double efl_gfx_vg_value_provider_stroke_width_get(const Eo *obj);
 
 /**
  * @brief Flag of properties updated in value provider object.
@@ -191,7 +191,7 @@ EVAS_API EVAS_API_WEAK double efl_gfx_vg_value_provider_stroke_width_get(const E
  *
  * @ingroup Efl_Gfx_Vg_Value_Provider
  */
-EVAS_API EVAS_API_WEAK Efl_Gfx_Vg_Value_Provider_Flags efl_gfx_vg_value_provider_updated_get(const Eo *obj);
+extern extern_WEAK Efl_Gfx_Vg_Value_Provider_Flags efl_gfx_vg_value_provider_updated_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif
