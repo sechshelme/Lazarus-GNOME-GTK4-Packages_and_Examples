@@ -51,6 +51,7 @@ type
   TEina_Vector2 = record
     x, y: double;
   end;
+  PEina_Vector2=^TEina_Vector2;
 
   TEina_Vector3 = record
     x, y, z: double;
@@ -85,6 +86,11 @@ type
     zz: double;
   end;
   PEina_Matrix3 = ^TEina_Matrix3;
+
+  TEina_Matrix4 = record
+    // Muss aufgelöst werden
+  end;
+  PEina_Matrix4 = ^TEina_Matrix4;
 
   // /usr/include/eina-1/eina/eina_iterator.h
 type
@@ -159,6 +165,10 @@ type
   end;
   PEfl_Event_Description = ^TEfl_Event_Description;
 
+
+  // /usr/include/efl-1/Efl.h
+type
+  PEfl_Text_Cursor_Handle = Pointer;
 
   // /usr/include/efl-1/interfaces/efl_text_types.eot.h
 type

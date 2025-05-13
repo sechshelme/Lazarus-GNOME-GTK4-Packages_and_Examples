@@ -78,7 +78,7 @@ extern  void efl_input_seat_event_filter_set(Eo *obj, Efl_Input_Device *seat, Ei
 extern  Eina_Bool efl_input_seat_event_filter_get(const Eo *obj, Efl_Input_Device *seat);
 #endif /* EFL_BETA_API_SUPPORT */
 
-extern  extern const Efl_Event_Description _EFL_EVENT_POINTER_MOVE;
+extern const Efl_Event_Description _EFL_EVENT_POINTER_MOVE;
 
 /** Main pointer move (current and previous positions are known).
  * @return Efl_Input_Pointer *
@@ -89,7 +89,7 @@ extern  extern const Efl_Event_Description _EFL_EVENT_POINTER_MOVE;
  */
 #define EFL_EVENT_POINTER_MOVE (&(_EFL_EVENT_POINTER_MOVE))
 
-extern  extern const Efl_Event_Description _EFL_EVENT_POINTER_DOWN;
+extern const Efl_Event_Description _EFL_EVENT_POINTER_DOWN;
 
 /** Main pointer button pressed (button id is known).
  * @return Efl_Input_Pointer *
@@ -100,7 +100,7 @@ extern  extern const Efl_Event_Description _EFL_EVENT_POINTER_DOWN;
  */
 #define EFL_EVENT_POINTER_DOWN (&(_EFL_EVENT_POINTER_DOWN))
 
-extern  extern const Efl_Event_Description _EFL_EVENT_POINTER_UP;
+extern const Efl_Event_Description _EFL_EVENT_POINTER_UP;
 
 /** Main pointer button released (button id is known).
  * @return Efl_Input_Pointer *
@@ -111,7 +111,7 @@ extern  extern const Efl_Event_Description _EFL_EVENT_POINTER_UP;
  */
 #define EFL_EVENT_POINTER_UP (&(_EFL_EVENT_POINTER_UP))
 
-extern  extern const Efl_Event_Description _EFL_EVENT_POINTER_CANCEL;
+extern const Efl_Event_Description _EFL_EVENT_POINTER_CANCEL;
 
 /** Main pointer button press was cancelled (button id is known). This can
  * happen in rare cases when the window manager passes the focus to a more
@@ -125,7 +125,7 @@ extern  extern const Efl_Event_Description _EFL_EVENT_POINTER_CANCEL;
  */
 #define EFL_EVENT_POINTER_CANCEL (&(_EFL_EVENT_POINTER_CANCEL))
 
-extern  extern const Efl_Event_Description _EFL_EVENT_POINTER_IN;
+extern const Efl_Event_Description _EFL_EVENT_POINTER_IN;
 
 /** Pointer entered a window or a widget.
  * @return Efl_Input_Pointer *
@@ -136,7 +136,7 @@ extern  extern const Efl_Event_Description _EFL_EVENT_POINTER_IN;
  */
 #define EFL_EVENT_POINTER_IN (&(_EFL_EVENT_POINTER_IN))
 
-extern  extern const Efl_Event_Description _EFL_EVENT_POINTER_OUT;
+extern const Efl_Event_Description _EFL_EVENT_POINTER_OUT;
 
 /** Pointer left a window or a widget.
  * @return Efl_Input_Pointer *
@@ -147,7 +147,7 @@ extern  extern const Efl_Event_Description _EFL_EVENT_POINTER_OUT;
  */
 #define EFL_EVENT_POINTER_OUT (&(_EFL_EVENT_POINTER_OUT))
 
-extern  extern const Efl_Event_Description _EFL_EVENT_POINTER_WHEEL;
+extern const Efl_Event_Description _EFL_EVENT_POINTER_WHEEL;
 
 /** Mouse wheel event.
  * @return Efl_Input_Pointer *
@@ -158,7 +158,7 @@ extern  extern const Efl_Event_Description _EFL_EVENT_POINTER_WHEEL;
  */
 #define EFL_EVENT_POINTER_WHEEL (&(_EFL_EVENT_POINTER_WHEEL))
 
-extern  extern const Efl_Event_Description _EFL_EVENT_POINTER_AXIS;
+extern const Efl_Event_Description _EFL_EVENT_POINTER_AXIS;
 
 /** Pen or other axis event update.
  * @return Efl_Input_Pointer *
@@ -169,7 +169,7 @@ extern  extern const Efl_Event_Description _EFL_EVENT_POINTER_AXIS;
  */
 #define EFL_EVENT_POINTER_AXIS (&(_EFL_EVENT_POINTER_AXIS))
 
-extern  extern const Efl_Event_Description _EFL_EVENT_FINGER_MOVE;
+extern const Efl_Event_Description _EFL_EVENT_FINGER_MOVE;
 
 /** Finger moved (current and previous positions are known).
  * @return Efl_Input_Pointer *
@@ -180,7 +180,7 @@ extern  extern const Efl_Event_Description _EFL_EVENT_FINGER_MOVE;
  */
 #define EFL_EVENT_FINGER_MOVE (&(_EFL_EVENT_FINGER_MOVE))
 
-extern  extern const Efl_Event_Description _EFL_EVENT_FINGER_DOWN;
+extern const Efl_Event_Description _EFL_EVENT_FINGER_DOWN;
 
 /** Finger pressed (finger id is known).
  * @return Efl_Input_Pointer *
@@ -191,7 +191,7 @@ extern  extern const Efl_Event_Description _EFL_EVENT_FINGER_DOWN;
  */
 #define EFL_EVENT_FINGER_DOWN (&(_EFL_EVENT_FINGER_DOWN))
 
-extern  extern const Efl_Event_Description _EFL_EVENT_FINGER_UP;
+extern const Efl_Event_Description _EFL_EVENT_FINGER_UP;
 
 /** Finger released (finger id is known).
  * @return Efl_Input_Pointer *
@@ -202,7 +202,7 @@ extern  extern const Efl_Event_Description _EFL_EVENT_FINGER_UP;
  */
 #define EFL_EVENT_FINGER_UP (&(_EFL_EVENT_FINGER_UP))
 
-extern  extern const Efl_Event_Description _EFL_EVENT_KEY_DOWN;
+extern const Efl_Event_Description _EFL_EVENT_KEY_DOWN;
 
 /** Keyboard key press.
  * @return Efl_Input_Key *
@@ -213,7 +213,7 @@ extern  extern const Efl_Event_Description _EFL_EVENT_KEY_DOWN;
  */
 #define EFL_EVENT_KEY_DOWN (&(_EFL_EVENT_KEY_DOWN))
 
-extern  extern const Efl_Event_Description _EFL_EVENT_KEY_UP;
+extern const Efl_Event_Description _EFL_EVENT_KEY_UP;
 
 /** Keyboard key release.
  * @return Efl_Input_Key *
@@ -224,7 +224,7 @@ extern  extern const Efl_Event_Description _EFL_EVENT_KEY_UP;
  */
 #define EFL_EVENT_KEY_UP (&(_EFL_EVENT_KEY_UP))
 
-extern  extern const Efl_Event_Description _EFL_EVENT_HOLD;
+extern const Efl_Event_Description _EFL_EVENT_HOLD;
 
 /** All input events are on hold or resumed.
  * @return Efl_Input_Hold *
@@ -235,7 +235,7 @@ extern  extern const Efl_Event_Description _EFL_EVENT_HOLD;
  */
 #define EFL_EVENT_HOLD (&(_EFL_EVENT_HOLD))
 
-extern  extern const Efl_Event_Description _EFL_EVENT_FOCUS_IN;
+extern const Efl_Event_Description _EFL_EVENT_FOCUS_IN;
 
 /** A focus in event.
  * @return Efl_Input_Focus *
@@ -246,7 +246,7 @@ extern  extern const Efl_Event_Description _EFL_EVENT_FOCUS_IN;
  */
 #define EFL_EVENT_FOCUS_IN (&(_EFL_EVENT_FOCUS_IN))
 
-extern  extern const Efl_Event_Description _EFL_EVENT_FOCUS_OUT;
+extern const Efl_Event_Description _EFL_EVENT_FOCUS_OUT;
 
 /** A focus out event.
  * @return Efl_Input_Focus *

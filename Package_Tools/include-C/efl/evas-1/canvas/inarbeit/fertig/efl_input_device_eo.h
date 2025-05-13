@@ -172,7 +172,7 @@ extern  unsigned int efl_input_device_seat_id_get(const Eo *obj);
  *
  * @ingroup Efl_Input_Device
  */
-extern  Eina_Iterator *efl_input_device_children_iterate(Eo *obj) EFL_TRANSFER_OWNERSHIP ;
+extern  Eina_Iterator *efl_input_device_children_iterate(Eo *obj) ;
 
 /**
  * @brief The number of pointer devices in this seat.

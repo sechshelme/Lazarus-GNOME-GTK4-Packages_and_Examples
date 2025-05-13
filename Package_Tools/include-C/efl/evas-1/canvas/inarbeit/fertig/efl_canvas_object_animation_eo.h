@@ -115,7 +115,7 @@ extern  Eina_Bool efl_canvas_object_animation_pause_get(const Eo *obj);
  *
  * @ingroup Efl_Canvas_Object_Animation
  */
-extern  void efl_canvas_object_animation_start(Eo *obj, Efl_Canvas_Animation *animation EFL_TRANSFER_OWNERSHIP, double speed, double starting_progress);
+extern  void efl_canvas_object_animation_start(Eo *obj, Efl_Canvas_Animation *animation , double speed, double starting_progress);
 
 /**
  * @brief Stop the animation.
@@ -132,7 +132,7 @@ extern  void efl_canvas_object_animation_start(Eo *obj, Efl_Canvas_Animation *an
  */
 extern  void efl_canvas_object_animation_stop(Eo *obj);
 
-extern  extern const Efl_Event_Description _EFL_CANVAS_OBJECT_ANIMATION_EVENT_ANIMATION_CHANGED;
+  extern const Efl_Event_Description _EFL_CANVAS_OBJECT_ANIMATION_EVENT_ANIMATION_CHANGED;
 
 /** The animation object got changed.
  * @return Efl_Canvas_Animation *
@@ -143,7 +143,7 @@ extern  extern const Efl_Event_Description _EFL_CANVAS_OBJECT_ANIMATION_EVENT_AN
  */
 #define EFL_CANVAS_OBJECT_ANIMATION_EVENT_ANIMATION_CHANGED (&(_EFL_CANVAS_OBJECT_ANIMATION_EVENT_ANIMATION_CHANGED))
 
-extern  extern const Efl_Event_Description _EFL_CANVAS_OBJECT_ANIMATION_EVENT_ANIMATION_PROGRESS_UPDATED;
+  extern const Efl_Event_Description _EFL_CANVAS_OBJECT_ANIMATION_EVENT_ANIMATION_PROGRESS_UPDATED;
 
 /** The animation progress got changed.
  * @return double

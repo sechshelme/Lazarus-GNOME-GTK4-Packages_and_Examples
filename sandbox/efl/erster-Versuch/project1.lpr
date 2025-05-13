@@ -28,26 +28,40 @@ uses
   Evas_Eo,                                    // io.
   efl_canvas_vg_object_eo_legacy,             // io. -> Evas_Common, efl_canvas_vg_node_eo_legacy
   efl_canvas_vg_object_eo,                    // io. -> efl_canvas_vg_node_eo
+  efl_gfx_vg_value_provider_eo,               // io.
   efl_input_types_eot,                        // io.
   efl_input_pointer_eo,                       // io. -> efl_input_types_eot
+  efl_input_interface_eo,                     // io.
+  efl_input_key_eo,                           // io.
+  efl_input_clickable_eo,                     // io.
+  efl_input_device_eo,                        // io.
   efl_gfx_mapping_eo,                         // io.
   efl_text_cursor_object_eo,                  // io. -> Evas_Common
+  efl_canvas_textblock_eo_legacy,             // io. -> Evas_Common
   efl_canvas_textblock_eo,                    // io. -> Evas_Common, efl_text_cursor_object_eo
   efl_canvas_animation_types_eot,             // io.
   efl_canvas_animation_eo,                    // io. -> Evas_Common, efl_canvas_animation_types_eot
+  efl_canvas_object_animation_eo,             // io. -> efl_canvas_animation_eo
   efl_canvas_scene_eo,                        // io. -> Evas_Common
   efl_canvas_object_eo,                       // io. -> Evas_Common, efl_input_types_eot
   efl_canvas_object_eo_legacy,                // io. -> Evas_Common
-  evas_ector_software_buffer_eo,              // io.        ( record zerkleinert )
-  evas_textblock_legacy,                      // io. -> Evas_Common
+  efl_canvas_group_eo,                        // io. -> Evas_Common
+  efl_canvas_filter_internal_eo,              // io.
+  efl_canvas_proxy_eo,                        // io. -> Evas_Common
+  efl_canvas_rotate_animation_eo,             // io. -> Evas_Common
+  efl_canvas_scale_animation_eo,              // io. -> Evas_Common
   evas_canvas_eo_legacy,                      // io. -> Evas_Common
-  evas_box_eo_legacy,                         // io. -> Evas_Common
+  evas_ector_software_buffer_eo,              // io.        ( record zerkleinert )
   evas_text_eo_legacy,                        // io. -> Evas_Legacy
+  evas_textblock_legacy,                      // io. -> Evas_Common
   evas_textgrid_eo_legacy,                    // io. -> Evas_Common
+  evas_box_eo_legacy,                         // io. -> Evas_Common
   evas_table_eo_legacy,                       // io. -> Evas_Common
   evas_grid_eo_legacy,                        // io. -> Evas_Common
   evas_image_eo_legacy,                       // io.
   evas_line_eo_legacy,                        // io.
+
+
 
   // =======================================
 

@@ -123,7 +123,7 @@ extern  void efl_canvas_group_calculate(Eo *obj);
  *
  * @ingroup Efl_Canvas_Group
  */
-extern  Eina_Iterator *efl_canvas_group_members_iterate(const Eo *obj) EFL_TRANSFER_OWNERSHIP ;
+extern  Eina_Iterator *efl_canvas_group_members_iterate(const Eo *obj);
 
 /**
  * @brief Set a canvas object as a member of a given group (or smart object).
@@ -200,7 +200,7 @@ extern  Eina_Bool efl_canvas_group_member_is(const Eo *obj, const Efl_Canvas_Obj
 extern  const Efl_Canvas_Object *efl_canvas_group_clipper_get(const Eo *obj);
 #endif
 
-extern  extern const Efl_Event_Description _EFL_CANVAS_GROUP_EVENT_MEMBER_ADDED;
+extern const Efl_Event_Description _EFL_CANVAS_GROUP_EVENT_MEMBER_ADDED;
 
 /** Called when a member is added to the group.
  * @return Efl_Gfx_Entity *
@@ -211,7 +211,7 @@ extern  extern const Efl_Event_Description _EFL_CANVAS_GROUP_EVENT_MEMBER_ADDED;
  */
 #define EFL_CANVAS_GROUP_EVENT_MEMBER_ADDED (&(_EFL_CANVAS_GROUP_EVENT_MEMBER_ADDED))
 
-extern  extern const Efl_Event_Description _EFL_CANVAS_GROUP_EVENT_MEMBER_REMOVED;
+extern const Efl_Event_Description _EFL_CANVAS_GROUP_EVENT_MEMBER_REMOVED;
 
 /** Called when a member is removed from the group.
  * @return Efl_Gfx_Entity *

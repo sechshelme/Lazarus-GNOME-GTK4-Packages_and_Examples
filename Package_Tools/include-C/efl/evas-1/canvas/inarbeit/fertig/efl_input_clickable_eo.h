@@ -115,7 +115,7 @@ extern  void efl_input_clickable_longpress_abort(Eo *obj, unsigned int button);
  */
 extern  Eina_Bool efl_input_clickable_interaction_get(const Eo *obj);
 
-extern  extern const Efl_Event_Description _EFL_INPUT_EVENT_CLICKED;
+extern  const Efl_Event_Description _EFL_INPUT_EVENT_CLICKED;
 
 /** Called when object is in sequence pressed and unpressed by the primary
  * button
@@ -127,7 +127,7 @@ extern  extern const Efl_Event_Description _EFL_INPUT_EVENT_CLICKED;
  */
 #define EFL_INPUT_EVENT_CLICKED (&(_EFL_INPUT_EVENT_CLICKED))
 
-extern  extern const Efl_Event_Description _EFL_INPUT_EVENT_CLICKED_ANY;
+extern  const Efl_Event_Description _EFL_INPUT_EVENT_CLICKED_ANY;
 
 /** Called when object is in sequence pressed and unpressed by any button. The
  * button that triggered the event can be found in the event information.
@@ -139,7 +139,7 @@ extern  extern const Efl_Event_Description _EFL_INPUT_EVENT_CLICKED_ANY;
  */
 #define EFL_INPUT_EVENT_CLICKED_ANY (&(_EFL_INPUT_EVENT_CLICKED_ANY))
 
-extern  extern const Efl_Event_Description _EFL_INPUT_EVENT_PRESSED;
+extern  const Efl_Event_Description _EFL_INPUT_EVENT_PRESSED;
 
 /** Called when the object is pressed, event_info is the button that got
  * pressed
@@ -151,7 +151,7 @@ extern  extern const Efl_Event_Description _EFL_INPUT_EVENT_PRESSED;
  */
 #define EFL_INPUT_EVENT_PRESSED (&(_EFL_INPUT_EVENT_PRESSED))
 
-extern  extern const Efl_Event_Description _EFL_INPUT_EVENT_UNPRESSED;
+extern  const Efl_Event_Description _EFL_INPUT_EVENT_UNPRESSED;
 
 /** Called when the object is no longer pressed, event_info is the button that
  * got pressed
@@ -163,7 +163,7 @@ extern  extern const Efl_Event_Description _EFL_INPUT_EVENT_UNPRESSED;
  */
 #define EFL_INPUT_EVENT_UNPRESSED (&(_EFL_INPUT_EVENT_UNPRESSED))
 
-extern  extern const Efl_Event_Description _EFL_INPUT_EVENT_LONGPRESSED;
+extern  const Efl_Event_Description _EFL_INPUT_EVENT_LONGPRESSED;
 
 /** Called when the object receives a long press, event_info is the button that
  * got pressed
