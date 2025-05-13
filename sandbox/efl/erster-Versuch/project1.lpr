@@ -14,16 +14,16 @@ uses
   efl_canvas_vg_node_eo,                      // io.
   efl_canvas_vg_container_eo_legacy,          // io. -> efl_canvas_vg_node_eo_legacy
   efl_canvas_vg_shape_eo_legacy,              // io. -> efl_canvas_vg_node_eo_legacy
-  efl_canvas_vg_object_eo,                    // io. ->  efl_canvas_vg_node_eo
-  efl_canvas_vg_shape_eo,                     // io. ->  efl_canvas_vg_node_eo
+  efl_canvas_vg_object_eo,                    // io. -> efl_canvas_vg_node_eo
+  efl_canvas_vg_shape_eo,                     // io. -> efl_canvas_vg_node_eo
   efl_canvas_vg_gradient_eo_legacy,           // io.
   evas_ector_software_buffer_eo,              // io.        ( record zerkleinert )
   Evas_Engine_Buffer,                         // io.
   Evas_Eo,                                    // io.
 
   // evas
-  Efl_Canvas,                                 // io.  evtl. löschen
-  Evas,                                       // io.  evtl. löschen
+  Efl_Canvas,                                 // io.  ( evtl. löschen )
+  Evas,                                       // io.  ( evtl. löschen )
   Evas_Loader,                                // io.
   Evas_Common,                                // io. -> Evas_Loader
   Evas_Legacy,                                // io. -> Evas_Common, Evas_Loader, efl_canvas_vg_container_eo_legacy, efl_canvas_vg_shape_eo_legacy, efl_canvas_vg_node_eo_legacy,efl_canvas_vg_gradient_eo_legacy;
@@ -34,18 +34,24 @@ uses
   evas_canvas_eo_legacy,                      // io. -> Evas_Common
   efl_canvas_vg_object_eo_legacy,             // io. -> Evas_Common, efl_canvas_vg_node_eo_legacy
   efl_canvas_object_eo,                       // io. -> Evas_Common, efl_input_types_eot
+  efl_text_cursor_object_eo,                  // io. -> Evas_Common
+  efl_canvas_textblock_eo,                    // io. -> Evas_Common, efl_text_cursor_object_eo
+  efl_input_pointer_eo,                       // io. -> efl_input_types_eot
+  evas_box_eo_legacy,                         // io. -> Evas_Common
+  evas_text_eo_legacy,                        // io. -> Evas_Legacy
 
-// =======================================
+  // =======================================
 
 
   // elementary        -> Evas
-  elm_general,                                // io.                                  ( makro ELM_MAIN entfernt )
-  elm_win_legacy,                             // io. -> Evas_Common, Evas_Legacy      ( Doppelt Methoden evtl. Bug in C-Hedader )
+  elm_general,                                // io.     ( makro ELM_MAIN entfernt )
+  elm_win_legacy,                             // io.     ( Doppelt Methoden evtl. Bug in C-Hedader )
   elm_box_legacy,                             // io.
   elm_box_eo_legacy,                          // io.
   elm_button_legacy,                          // io.
+  elm_entry_common,                           // io. -> elm_general
+  elm_entry_eo_legacy,                        // io. -> elm_general, elm_entry_common
   elm_entry_legacy,                           // io. -> elm_general
-  elm_entry_eo_legacy,
   elm_object,                                 // io. -> elm_general
 
 
@@ -104,7 +110,7 @@ uses
     // Entry (Textfeld) hinzufügen
     entry := elm_entry_add(win);
     elm_entry_single_line_set(entry, EINA_TRUE); // Einzelne Zeile
-    elm_object_text_set(entry, "Hier Text eingeben...");
+    elm_object_text_set(entry, 'Hier Text eingeben...');
     evas_object_size_hint_weight_set(entry, EVAS_HINT_EXPAND, 0.0);
     evas_object_size_hint_align_set(entry, EVAS_HINT_FILL, 0.0);
     elm_box_pack_end(box, entry);
@@ -119,6 +125,5 @@ uses
   end;
 
 begin
-  evas_object_size_hint_fill_set:=nil;
   main(argc, argv);
 end.

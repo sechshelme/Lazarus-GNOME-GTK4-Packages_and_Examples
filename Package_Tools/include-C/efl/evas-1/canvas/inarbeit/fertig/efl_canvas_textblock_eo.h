@@ -30,7 +30,7 @@ typedef Eo Efl_Canvas_Textblock;
  */
 #define EFL_CANVAS_TEXTBLOCK_CLASS efl_canvas_textblock_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_textblock_class_get(void) ;
+extern  const Efl_Class *efl_canvas_textblock_class_get(void) ;
 
 /**
  * @brief Whether the object is empty (no text) or not.
@@ -43,7 +43,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_textblock_class_get(void) ;
  *
  * @ingroup Efl_Canvas_Textblock
  */
-extern extern_WEAK Eina_Bool efl_canvas_textblock_is_empty_get(const Eo *obj);
+extern  Eina_Bool efl_canvas_textblock_is_empty_get(const Eo *obj);
 
 /**
  * @brief Creates a new cursor and adds it to the text object. This cursor can
@@ -57,7 +57,7 @@ extern extern_WEAK Eina_Bool efl_canvas_textblock_is_empty_get(const Eo *obj);
  *
  * @ingroup Efl_Canvas_Textblock
  */
-extern extern_WEAK Efl_Text_Cursor_Object *efl_canvas_textblock_cursor_create(Eo *obj) EFL_TRANSFER_OWNERSHIP ;
+extern  Efl_Text_Cursor_Object *efl_canvas_textblock_cursor_create(Eo *obj);
 
 /**
  * @brief Returns the currently visible range.
@@ -76,7 +76,7 @@ extern extern_WEAK Efl_Text_Cursor_Object *efl_canvas_textblock_cursor_create(Eo
  *
  * @ingroup Efl_Canvas_Textblock
  */
-extern extern_WEAK Eina_Bool efl_canvas_textblock_visible_range_get(Eo *obj, Efl_Text_Cursor_Object *start, Efl_Text_Cursor_Object *end);
+extern  Eina_Bool efl_canvas_textblock_visible_range_get(Eo *obj, Efl_Text_Cursor_Object *start, Efl_Text_Cursor_Object *end);
 
 /**
  * @brief Gets the left, right, top and bottom insets of the text.
@@ -94,7 +94,7 @@ extern extern_WEAK Eina_Bool efl_canvas_textblock_visible_range_get(Eo *obj, Efl
  *
  * @ingroup Efl_Canvas_Textblock
  */
-extern extern_WEAK void efl_canvas_textblock_style_insets_get(const Eo *obj, int *l, int *r, int *t, int *b);
+extern  void efl_canvas_textblock_style_insets_get(const Eo *obj, int *l, int *r, int *t, int *b);
 
 /**
  * @brief BiDi delimiters are used for in-paragraph separation of bidirectional
@@ -110,7 +110,7 @@ extern extern_WEAK void efl_canvas_textblock_style_insets_get(const Eo *obj, int
  *
  * @ingroup Efl_Canvas_Textblock
  */
-extern extern_WEAK void efl_canvas_textblock_bidi_delimiters_set(Eo *obj, const char *delim);
+extern  void efl_canvas_textblock_bidi_delimiters_set(Eo *obj, const char *delim);
 
 /**
  * @brief BiDi delimiters are used for in-paragraph separation of bidirectional
@@ -127,7 +127,7 @@ extern extern_WEAK void efl_canvas_textblock_bidi_delimiters_set(Eo *obj, const 
  *
  * @ingroup Efl_Canvas_Textblock
  */
-extern extern_WEAK const char *efl_canvas_textblock_bidi_delimiters_get(const Eo *obj);
+extern  const char *efl_canvas_textblock_bidi_delimiters_get(const Eo *obj);
 
 /**
  * @brief When @c true, the newline character will behave as a paragraph
@@ -143,7 +143,7 @@ extern extern_WEAK const char *efl_canvas_textblock_bidi_delimiters_get(const Eo
  *
  * @ingroup Efl_Canvas_Textblock
  */
-extern extern_WEAK void efl_canvas_textblock_newline_as_paragraph_separator_set(Eo *obj, Eina_Bool mode);
+extern  void efl_canvas_textblock_newline_as_paragraph_separator_set(Eo *obj, Eina_Bool mode);
 
 /**
  * @brief When @c true, the newline character will behave as a paragraph
@@ -160,7 +160,7 @@ extern extern_WEAK void efl_canvas_textblock_newline_as_paragraph_separator_set(
  *
  * @ingroup Efl_Canvas_Textblock
  */
-extern extern_WEAK Eina_Bool efl_canvas_textblock_newline_as_paragraph_separator_get(const Eo *obj);
+extern  Eina_Bool efl_canvas_textblock_newline_as_paragraph_separator_get(const Eo *obj);
 
 /**
  * @brief Applies several style attributes at once using a formatting string.
@@ -421,7 +421,7 @@ extern extern_WEAK Eina_Bool efl_canvas_textblock_newline_as_paragraph_separator
  *
  * @ingroup Efl_Canvas_Textblock
  */
-extern extern_WEAK void efl_canvas_textblock_style_apply(Eo *obj, const char *style);
+extern  void efl_canvas_textblock_style_apply(Eo *obj, const char *style);
 
 /**
  * @brief A string representing the complete set of attributes applied to this
@@ -441,7 +441,7 @@ extern extern_WEAK void efl_canvas_textblock_style_apply(Eo *obj, const char *st
  *
  * @ingroup Efl_Canvas_Textblock
  */
-extern extern_WEAK const char *efl_canvas_textblock_all_styles_get(const Eo *obj);
+extern  const char *efl_canvas_textblock_all_styles_get(const Eo *obj);
 
 /**
  * @brief The formatted width and height of this text block.
@@ -473,7 +473,7 @@ extern extern_WEAK const char *efl_canvas_textblock_all_styles_get(const Eo *obj
  *
  * @ingroup Efl_Canvas_Textblock
  */
-extern extern_WEAK Eina_Size2D efl_canvas_textblock_size_formatted_get(const Eo *obj);
+extern  Eina_Size2D efl_canvas_textblock_size_formatted_get(const Eo *obj);
 
 /**
  * @brief The native width and height of this text block.
@@ -505,7 +505,7 @@ extern extern_WEAK Eina_Size2D efl_canvas_textblock_size_formatted_get(const Eo 
  *
  * @ingroup Efl_Canvas_Textblock
  */
-extern extern_WEAK Eina_Size2D efl_canvas_textblock_size_native_get(const Eo *obj);
+extern  Eina_Size2D efl_canvas_textblock_size_native_get(const Eo *obj);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -523,7 +523,7 @@ extern extern_WEAK Eina_Size2D efl_canvas_textblock_size_native_get(const Eo *ob
  *
  * @ingroup Efl_Canvas_Textblock
  */
-extern extern_WEAK Eina_Bool efl_canvas_textblock_obstacle_add(Eo *obj, Efl_Canvas_Object *eo_obs);
+extern  Eina_Bool efl_canvas_textblock_obstacle_add(Eo *obj, Efl_Canvas_Object *eo_obs);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -539,7 +539,7 @@ extern extern_WEAK Eina_Bool efl_canvas_textblock_obstacle_add(Eo *obj, Efl_Canv
  *
  * @ingroup Efl_Canvas_Textblock
  */
-extern extern_WEAK Eina_Bool efl_canvas_textblock_obstacle_del(Eo *obj, Efl_Canvas_Object *eo_obs);
+extern  Eina_Bool efl_canvas_textblock_obstacle_del(Eo *obj, Efl_Canvas_Object *eo_obs);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -560,7 +560,7 @@ extern extern_WEAK Eina_Bool efl_canvas_textblock_obstacle_del(Eo *obj, Efl_Canv
  *
  * @ingroup Efl_Canvas_Textblock
  */
-extern extern_WEAK void efl_canvas_textblock_obstacles_update(Eo *obj);
+extern  void efl_canvas_textblock_obstacles_update(Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 /**
@@ -580,9 +580,9 @@ extern extern_WEAK void efl_canvas_textblock_obstacles_update(Eo *obj);
  *
  * @ingroup Efl_Canvas_Textblock
  */
-extern extern_WEAK Eina_Future *efl_canvas_textblock_async_layout(Eo *obj);
+extern  Eina_Future *efl_canvas_textblock_async_layout(Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_TEXTBLOCK_EVENT_CHANGED;
+extern   const Efl_Event_Description _EFL_CANVAS_TEXTBLOCK_EVENT_CHANGED;
 
 /** Called when canvas text changed
  *
@@ -592,7 +592,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_TEXTBLOCK_EVEN
  */
 #define EFL_CANVAS_TEXTBLOCK_EVENT_CHANGED (&(_EFL_CANVAS_TEXTBLOCK_EVENT_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_TEXTBLOCK_EVENT_LAYOUT_FINISHED;
+extern   const Efl_Event_Description _EFL_CANVAS_TEXTBLOCK_EVENT_LAYOUT_FINISHED;
 
 /** Called when the object has been layed out
  *
@@ -602,7 +602,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_TEXTBLOCK_EVEN
  */
 #define EFL_CANVAS_TEXTBLOCK_EVENT_LAYOUT_FINISHED (&(_EFL_CANVAS_TEXTBLOCK_EVENT_LAYOUT_FINISHED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_TEXTBLOCK_EVENT_STYLE_INSETS_CHANGED;
+extern   const Efl_Event_Description _EFL_CANVAS_TEXTBLOCK_EVENT_STYLE_INSETS_CHANGED;
 
 /** Called when the property @ref efl_canvas_textblock_style_insets_get
  * changed.

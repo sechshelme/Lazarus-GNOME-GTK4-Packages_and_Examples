@@ -25,17 +25,103 @@ type
   Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;
 
-  Tptrdiff_t=PtrInt;
+  Tptrdiff_t = PtrInt;
 
+  // =====================
+
+  // /usr/include/eina-1/eina/eina_unicode.h
+type
+  TEina_Unicode = widechar;
+
+  // /usr/include/eina-1/eina/eina_rectangle.h
+type
+  TEina_Rectangle = record
+    x, y, w, h: integer;
+  end;
+
+  TEina_Size2D = record
+    w, h: longint;
+  end;
+
+  TEina_Position2D = record
+    x, y: integer;
+  end;
+
+  TEina_Vector2 = record
+    x, y: double;
+  end;
+
+  TEina_Vector3 = record
+    x, y, z: double;
+  end;
+
+  // /usr/include/eina-1/eina/eina_file.h
+type
+  PEina_File = Pointer;
+  PPEina_File = ^PEina_File;
+
+  // /usr/include/eina-1/eina/eina_stringshare.h
+type
+  TEina_Stringshare = char;
+  PEina_Stringshare = ^TEina_Stringshare;
+
+  // /usr/include/eina-1/eina/eina_rectangle.h
+type
+  TEina_Rect = record // Muss aufgelöst werden
+  end;
+  PEina_Rect = ^TEina_Rect;
+
+  // /usr/include/eina-1/eina/eina_matrix.h
+type
+  TEina_Matrix3 = record
+    xx: double;
+    xy: double;
+    xz: double;
+    yx: double;
+    yy: double;
+    yz: double;
+    zx: double;
+    zy: double;
+    zz: double;
+  end;
+  PEina_Matrix3 = ^TEina_Matrix3;
+
+  // /usr/include/eina-1/eina/eina_iterator.h
+type
+  PEina_Iterator = Pointer;   // Muss aufgelöst werden
+
+  // /usr/include/eina-1/eina/eina_list.h
+type
+  PEina_List = Pointer;
+
+  // /usr/include/eina-1/Efl_Config.h
+const
+  EFL_VERSION_MAJOR = 1;
+  EFL_VERSION_MINOR = 27;
+  EFL_VERSION_MICRO = 0;
+  EFL_BUILD_ID = 'none';
+
+  // /usr/include/eina-1/eina/eina_promise.h
+type
+  PEina_Future = Pointer;
 
   // /usr/include/eina-1/eina/eina_types.h
 type
+  TEina_Free_Cb = Pointer; // callproc
+
   TEina_Bool = Boolean8;
-  PEina_Bool=^TEina_Bool;
+  PEina_Bool = ^TEina_Bool;
 
 const
   EINA_FALSE = TEina_Bool(0);
   EINA_TRUE = TEina_Bool(1);
+
+  // /usr/include/eina-1/eina/eina_accessor.h
+type
+  TEina_Accessor = record
+    // Muss aufgelöst werden
+  end;
+  PEina_Accessor = ^TEina_Accessor;
 
 
   // /usr/include/ecore-1/Ecore_Common.h
@@ -51,13 +137,6 @@ type
   PEcore_Cocoa_Window = Pointer;
   TEcore_Window = PtrUInt;
 
-  // /usr/include/eina-1/Efl_Config.h
-const
-  EFL_VERSION_MAJOR = 1;
-  EFL_VERSION_MINOR = 27;
-  EFL_VERSION_MICRO = 0;
-  EFL_BUILD_ID = 'none';
-
   // /usr/include/eo-1/Eo.h
 type
   TEo = record
@@ -66,6 +145,9 @@ type
 
   TEfl_Class = TEo;
   PEfl_Class = ^TEfl_Class;
+
+  TEfl_Object = TEo;
+  PEfl_Object = ^TEfl_Object;
 
 type
   TEfl_Callback_Priority = int16;
@@ -77,10 +159,6 @@ type
   end;
   PEfl_Event_Description = ^TEfl_Event_Description;
 
-
-  // /usr/include/eina-1/eina/eina_list.h
-type
-  PEina_List = Pointer;
 
   // /usr/include/efl-1/interfaces/efl_text_types.eot.h
 type
@@ -158,63 +236,14 @@ type
     // Muss aufgelöst werden
   end;
 
-  // /usr/include/eina-1/eina/eina_unicode.h
-type
-  TEina_Unicode = widechar;
-
-  // /usr/include/eina-1/eina/eina_rectangle.h
-type
-  TEina_Rectangle = record
-    x, y, w, h: integer;
-  end;
-
-  TEina_Size2D = record
-    w, h: longint;
-  end;
-
-  TEina_Position2D = record
-    x, y: integer;
-  end;
-
-  // /usr/include/eina-1/eina/eina_file.h
-type
-  PEina_File = Pointer;
-  PPEina_File = ^PEina_File;
-
-  // /usr/include/eina-1/eina/eina_stringshare.h
-type
-  TEina_Stringshare = char;
-  PEina_Stringshare = ^TEina_Stringshare;
-
-  // /usr/include/eina-1/eina/eina_rectangle.h
-type
-  TEina_Rect = record // Muss aufgelöst werden
-  end;
-
-  // /usr/include/eina-1/eina/eina_matrix.h
-type
-  PEina_Matrix3 = ^TEina_Matrix3;
-
-  TEina_Matrix3 = record
-    xx: double;
-    xy: double;
-    xz: double;
-    yx: double;
-    yy: double;
-    yz: double;
-    zx: double;
-    zy: double;
-    zz: double;
-  end;
-
-  // /usr/include/eina-1/eina/eina_iterator.h
-type
-  PEina_Iterator = Pointer;   // Muss aufgelöst werden
-
   // /usr/include/edje-1/Edje_Common.h
 type
   TEdje_Signal_Cb = Pointer; // callproc
 
+  TEdje_Entry_Change_Info = record
+    // Muss aufgelöst werden
+  end;
+  PEdje_Entry_Change_Info = ^TEdje_Entry_Change_Info;
 
 
   // Unauffindbar

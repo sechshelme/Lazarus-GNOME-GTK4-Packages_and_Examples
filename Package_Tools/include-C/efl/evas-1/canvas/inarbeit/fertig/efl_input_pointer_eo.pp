@@ -1,29 +1,61 @@
-#ifndef _EFL_INPUT_POINTER_EO_H_
-#define _EFL_INPUT_POINTER_EO_H_
 
-#ifndef _EFL_INPUT_POINTER_EO_CLASS_TYPE
-#define _EFL_INPUT_POINTER_EO_CLASS_TYPE
+unit efl_input_pointer_eo;
+interface
 
-typedef Eo Efl_Input_Pointer;
+{
+  Automatically converted by H2Pas 1.0.0 from efl_input_pointer_eo.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    efl_input_pointer_eo.h
+}
 
-#endif
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
 
-#ifndef _EFL_INPUT_POINTER_EO_TYPES
-#define _EFL_INPUT_POINTER_EO_TYPES
+Type
+PEfl_Class  = ^Efl_Class;
+PEfl_Input_Pointer  = ^Efl_Input_Pointer;
+PEfl_Object  = ^Efl_Object;
+PEo  = ^Eo;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
 
 
-#endif
-/** Event data carried over with any pointer event (mouse, touch, pen, ...)
+{$ifndef _EFL_INPUT_POINTER_EO_H_}
+{$define _EFL_INPUT_POINTER_EO_H_}
+{$ifndef _EFL_INPUT_POINTER_EO_CLASS_TYPE}
+{$define _EFL_INPUT_POINTER_EO_CLASS_TYPE}
+type
+  PEfl_Input_Pointer = ^TEfl_Input_Pointer;
+  TEfl_Input_Pointer = TEo;
+{$endif}
+{$ifndef _EFL_INPUT_POINTER_EO_TYPES}
+{$define _EFL_INPUT_POINTER_EO_TYPES}
+{$endif}
+{* Event data carried over with any pointer event (mouse, touch, pen, ...)
  *
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-#define EFL_INPUT_POINTER_CLASS efl_input_pointer_class_get()
+  }
 
-extern extern_WEAK const Efl_Class *efl_input_pointer_class_get(void) ;
+{ was #define dname def_expr }
+function EFL_INPUT_POINTER_CLASS : longint; { return type might be wrong }
 
-/**
+(* Const before type ignored *)
+function efl_input_pointer_class_get:PEfl_Class;cdecl;external;
+{*
  * @brief The action represented by this event.
  *
  * @param[in] obj The object.
@@ -32,10 +64,9 @@ extern extern_WEAK const Efl_Class *efl_input_pointer_class_get(void) ;
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK void efl_input_pointer_action_set(Eo *obj, Efl_Pointer_Action act);
-
-/**
+  }
+procedure efl_input_pointer_action_set(obj:PEo; act:TEfl_Pointer_Action);cdecl;external;
+{*
  * @brief The action represented by this event.
  *
  * @param[in] obj The object.
@@ -45,11 +76,11 @@ extern extern_WEAK void efl_input_pointer_action_set(Eo *obj, Efl_Pointer_Action
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK Efl_Pointer_Action efl_input_pointer_action_get(const Eo *obj);
-
-#ifdef EFL_BETA_API_SUPPORT
-/**
+  }
+(* Const before type ignored *)
+function efl_input_pointer_action_get(obj:PEo):TEfl_Pointer_Action;cdecl;external;
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief @c true if this event carries a valid value for the specified @c key.
  *
  * @param[in] obj The object.
@@ -60,12 +91,13 @@ extern extern_WEAK Efl_Pointer_Action efl_input_pointer_action_get(const Eo *obj
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK Eina_Bool efl_input_pointer_value_has_get(const Eo *obj, Efl_Input_Value key);
-#endif /* EFL_BETA_API_SUPPORT */
-
-#ifdef EFL_BETA_API_SUPPORT
-/**
+  }
+(* Const before type ignored *)
+function efl_input_pointer_value_has_get(obj:PEo; key:TEfl_Input_Value):TEina_Bool;cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief Represents a generic value for this event.
  *
  * Refer to the documentation of @ref Efl_Input_Value for each value's meaning,
@@ -86,12 +118,13 @@ extern extern_WEAK Eina_Bool efl_input_pointer_value_has_get(const Eo *obj, Efl_
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK Eina_Bool efl_input_pointer_value_set(Eo *obj, Efl_Input_Value key, double val);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+function efl_input_pointer_value_set(obj:PEo; key:TEfl_Input_Value; val:Tdouble):TEina_Bool;cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief Represents a generic value for this event.
  *
  * Refer to the documentation of @ref Efl_Input_Value for each value's meaning,
@@ -111,11 +144,13 @@ extern extern_WEAK Eina_Bool efl_input_pointer_value_set(Eo *obj, Efl_Input_Valu
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK double efl_input_pointer_value_get(const Eo *obj, Efl_Input_Value key);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
+(* Const before type ignored *)
 
-/**
+function efl_input_pointer_value_get(obj:PEo; key:TEfl_Input_Value):Tdouble;cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{*
  * @brief The mouse button that triggered the event.
  *
  * Valid if and only if @ref efl_input_pointer_value_has_get($button) is
@@ -127,10 +162,10 @@ extern extern_WEAK double efl_input_pointer_value_get(const Eo *obj, Efl_Input_V
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK void efl_input_pointer_button_set(Eo *obj, int but);
+  }
 
-/**
+procedure efl_input_pointer_button_set(obj:PEo; but:longint);cdecl;external;
+{*
  * @brief The mouse button that triggered the event.
  *
  * Valid if and only if @ref efl_input_pointer_value_has_get($button) is
@@ -143,10 +178,10 @@ extern extern_WEAK void efl_input_pointer_button_set(Eo *obj, int but);
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK int efl_input_pointer_button_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_input_pointer_button_get(obj:PEo):longint;cdecl;external;
+{*
  * @brief Whether a mouse button is pressed at the moment of the event.
  *
  * Valid if and only if @ref efl_input_pointer_value_has_get($button_pressed)
@@ -159,10 +194,9 @@ extern extern_WEAK int efl_input_pointer_button_get(const Eo *obj);
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK void efl_input_pointer_button_pressed_set(Eo *obj, int button, Eina_Bool pressed);
-
-/**
+  }
+procedure efl_input_pointer_button_pressed_set(obj:PEo; button:longint; pressed:TEina_Bool);cdecl;external;
+{*
  * @brief Whether a mouse button is pressed at the moment of the event.
  *
  * Valid if and only if @ref efl_input_pointer_value_has_get($button_pressed)
@@ -176,10 +210,10 @@ extern extern_WEAK void efl_input_pointer_button_pressed_set(Eo *obj, int button
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK Eina_Bool efl_input_pointer_button_pressed_get(const Eo *obj, int button);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_input_pointer_button_pressed_get(obj:PEo; button:longint):TEina_Bool;cdecl;external;
+{*
  * @brief Position where the event happened, relative to the window.
  *
  * See @ref efl_input_pointer_precise_position_get for floating point precision
@@ -191,10 +225,9 @@ extern extern_WEAK Eina_Bool efl_input_pointer_button_pressed_get(const Eo *obj,
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK void efl_input_pointer_position_set(Eo *obj, Eina_Position2D pos);
-
-/**
+  }
+procedure efl_input_pointer_position_set(obj:PEo; pos:TEina_Position2D);cdecl;external;
+{*
  * @brief Position where the event happened, relative to the window.
  *
  * See @ref efl_input_pointer_precise_position_get for floating point precision
@@ -207,10 +240,10 @@ extern extern_WEAK void efl_input_pointer_position_set(Eo *obj, Eina_Position2D 
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK Eina_Position2D efl_input_pointer_position_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_input_pointer_position_get(obj:PEo):TEina_Position2D;cdecl;external;
+{*
  * @brief Position where the event happened, relative to the window.
  *
  * This position is in floating point values, for more precise coordinates, in
@@ -226,10 +259,9 @@ extern extern_WEAK Eina_Position2D efl_input_pointer_position_get(const Eo *obj)
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK void efl_input_pointer_precise_position_set(Eo *obj, Eina_Vector2 pos);
-
-/**
+  }
+procedure efl_input_pointer_precise_position_set(obj:PEo; pos:TEina_Vector2);cdecl;external;
+{*
  * @brief Position where the event happened, relative to the window.
  *
  * This position is in floating point values, for more precise coordinates, in
@@ -246,10 +278,10 @@ extern extern_WEAK void efl_input_pointer_precise_position_set(Eo *obj, Eina_Vec
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK Eina_Vector2 efl_input_pointer_precise_position_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_input_pointer_precise_position_get(obj:PEo):TEina_Vector2;cdecl;external;
+{*
  * @brief Position of the previous event, valid for move events.
  *
  * Relative to the window. May be equal to @ref efl_input_pointer_position_get
@@ -267,10 +299,9 @@ extern extern_WEAK Eina_Vector2 efl_input_pointer_precise_position_get(const Eo 
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK void efl_input_pointer_previous_position_set(Eo *obj, Eina_Position2D pos);
-
-/**
+  }
+procedure efl_input_pointer_previous_position_set(obj:PEo; pos:TEina_Position2D);cdecl;external;
+{*
  * @brief Position of the previous event, valid for move events.
  *
  * Relative to the window. May be equal to @ref efl_input_pointer_position_get
@@ -289,10 +320,10 @@ extern extern_WEAK void efl_input_pointer_previous_position_set(Eo *obj, Eina_Po
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK Eina_Position2D efl_input_pointer_previous_position_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_input_pointer_previous_position_get(obj:PEo):TEina_Position2D;cdecl;external;
+{*
  * @brief The ID associated with this pointer.
  *
  * In case there are multiple pointers (for example when multiple fingers are
@@ -307,10 +338,9 @@ extern extern_WEAK Eina_Position2D efl_input_pointer_previous_position_get(const
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK void efl_input_pointer_touch_id_set(Eo *obj, int id);
-
-/**
+  }
+procedure efl_input_pointer_touch_id_set(obj:PEo; id:longint);cdecl;external;
+{*
  * @brief The ID associated with this pointer.
  *
  * In case there are multiple pointers (for example when multiple fingers are
@@ -326,10 +356,10 @@ extern extern_WEAK void efl_input_pointer_touch_id_set(Eo *obj, int id);
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK int efl_input_pointer_touch_id_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_input_pointer_touch_id_get(obj:PEo):longint;cdecl;external;
+{*
  * @brief The object where this event first originated, in case of propagation
  * or repetition of the event.
  *
@@ -339,10 +369,9 @@ extern extern_WEAK int efl_input_pointer_touch_id_get(const Eo *obj);
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK void efl_input_pointer_source_set(Eo *obj, Efl_Object *src);
-
-/**
+  }
+procedure efl_input_pointer_source_set(obj:PEo; src:PEfl_Object);cdecl;external;
+{*
  * @brief The object where this event first originated, in case of propagation
  * or repetition of the event.
  *
@@ -353,10 +382,10 @@ extern extern_WEAK void efl_input_pointer_source_set(Eo *obj, Efl_Object *src);
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK Efl_Object *efl_input_pointer_source_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_input_pointer_source_get(obj:PEo):PEfl_Object;cdecl;external;
+{*
  * @brief Double or triple click information.
  *
  * @param[in] obj The object.
@@ -365,10 +394,9 @@ extern extern_WEAK Efl_Object *efl_input_pointer_source_get(const Eo *obj);
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK void efl_input_pointer_button_flags_set(Eo *obj, Efl_Pointer_Flags flags);
-
-/**
+  }
+procedure efl_input_pointer_button_flags_set(obj:PEo; flags:TEfl_Pointer_Flags);cdecl;external;
+{*
  * @brief Double or triple click information.
  *
  * @param[in] obj The object.
@@ -378,10 +406,10 @@ extern extern_WEAK void efl_input_pointer_button_flags_set(Eo *obj, Efl_Pointer_
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK Efl_Pointer_Flags efl_input_pointer_button_flags_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_input_pointer_button_flags_get(obj:PEo):TEfl_Pointer_Flags;cdecl;external;
+{*
  * @brief @c true if @ref efl_input_pointer_button_flags_get indicates a double
  * click (2nd press).
  *
@@ -395,10 +423,9 @@ extern extern_WEAK Efl_Pointer_Flags efl_input_pointer_button_flags_get(const Eo
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK void efl_input_pointer_double_click_set(Eo *obj, Eina_Bool val);
-
-/**
+  }
+procedure efl_input_pointer_double_click_set(obj:PEo; val:TEina_Bool);cdecl;external;
+{*
  * @brief @c true if @ref efl_input_pointer_button_flags_get indicates a double
  * click (2nd press).
  *
@@ -412,10 +439,10 @@ extern extern_WEAK void efl_input_pointer_double_click_set(Eo *obj, Eina_Bool va
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK Eina_Bool efl_input_pointer_double_click_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_input_pointer_double_click_get(obj:PEo):TEina_Bool;cdecl;external;
+{*
  * @brief @c true if @ref efl_input_pointer_button_flags_get indicates a triple
  * click (3rd press).
  *
@@ -429,10 +456,9 @@ extern extern_WEAK Eina_Bool efl_input_pointer_double_click_get(const Eo *obj);
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK void efl_input_pointer_triple_click_set(Eo *obj, Eina_Bool val);
-
-/**
+  }
+procedure efl_input_pointer_triple_click_set(obj:PEo; val:TEina_Bool);cdecl;external;
+{*
  * @brief @c true if @ref efl_input_pointer_button_flags_get indicates a triple
  * click (3rd press).
  *
@@ -446,10 +472,10 @@ extern extern_WEAK void efl_input_pointer_triple_click_set(Eo *obj, Eina_Bool va
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK Eina_Bool efl_input_pointer_triple_click_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_input_pointer_triple_click_get(obj:PEo):TEina_Bool;cdecl;external;
+{*
  * @brief Direction of the wheel, usually vertical.
  *
  * @param[in] obj The object.
@@ -458,10 +484,9 @@ extern extern_WEAK Eina_Bool efl_input_pointer_triple_click_get(const Eo *obj);
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK void efl_input_pointer_wheel_horizontal_set(Eo *obj, Eina_Bool horizontal);
-
-/**
+  }
+procedure efl_input_pointer_wheel_horizontal_set(obj:PEo; horizontal:TEina_Bool);cdecl;external;
+{*
  * @brief Direction of the wheel, usually vertical.
  *
  * @param[in] obj The object.
@@ -471,10 +496,10 @@ extern extern_WEAK void efl_input_pointer_wheel_horizontal_set(Eo *obj, Eina_Boo
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK Eina_Bool efl_input_pointer_wheel_horizontal_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_input_pointer_wheel_horizontal_get(obj:PEo):TEina_Bool;cdecl;external;
+{*
  * @brief Delta movement of the wheel in discrete steps.
  *
  * @param[in] obj The object.
@@ -483,10 +508,9 @@ extern extern_WEAK Eina_Bool efl_input_pointer_wheel_horizontal_get(const Eo *ob
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK void efl_input_pointer_wheel_delta_set(Eo *obj, int dist);
-
-/**
+  }
+procedure efl_input_pointer_wheel_delta_set(obj:PEo; dist:longint);cdecl;external;
+{*
  * @brief Delta movement of the wheel in discrete steps.
  *
  * @param[in] obj The object.
@@ -496,7 +520,18 @@ extern extern_WEAK void efl_input_pointer_wheel_delta_set(Eo *obj, int dist);
  * @since 1.23
  *
  * @ingroup Efl_Input_Pointer
- */
-extern extern_WEAK int efl_input_pointer_wheel_delta_get(const Eo *obj);
+  }
+(* Const before type ignored *)
+function efl_input_pointer_wheel_delta_get(obj:PEo):longint;cdecl;external;
+{$endif}
 
-#endif
+implementation
+
+{ was #define dname def_expr }
+function EFL_INPUT_POINTER_CLASS : longint; { return type might be wrong }
+  begin
+    EFL_INPUT_POINTER_CLASS:=efl_input_pointer_class_get;
+  end;
+
+
+end.

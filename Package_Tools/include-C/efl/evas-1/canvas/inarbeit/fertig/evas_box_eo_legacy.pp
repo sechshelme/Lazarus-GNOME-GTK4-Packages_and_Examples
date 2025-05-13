@@ -1,20 +1,54 @@
-#ifndef _EVAS_BOX_EO_LEGACY_H_
-#define _EVAS_BOX_EO_LEGACY_H_
 
-#ifndef _EVAS_BOX_EO_CLASS_TYPE
-#define _EVAS_BOX_EO_CLASS_TYPE
+unit evas_box_eo_legacy;
+interface
 
-typedef Eo Evas_Box;
+{
+  Automatically converted by H2Pas 1.0.0 from evas_box_eo_legacy.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    evas_box_eo_legacy.h
+}
 
-#endif
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
 
-#ifndef _EVAS_BOX_EO_TYPES
-#define _EVAS_BOX_EO_TYPES
+Type
+Pchar  = ^char;
+Pdouble  = ^double;
+PEfl_Canvas_Object  = ^Efl_Canvas_Object;
+PEina_Accessor  = ^Eina_Accessor;
+PEina_Iterator  = ^Eina_Iterator;
+PEvas_Box  = ^Evas_Box;
+PEvas_Object_Box_Data  = ^Evas_Object_Box_Data;
+PEvas_Object_Box_Option  = ^Evas_Object_Box_Option;
+Plongint  = ^longint;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
 
 
-#endif
-
-/**
+{$ifndef _EVAS_BOX_EO_LEGACY_H_}
+{$define _EVAS_BOX_EO_LEGACY_H_}
+{$ifndef _EVAS_BOX_EO_CLASS_TYPE}
+{$define _EVAS_BOX_EO_CLASS_TYPE}
+type
+  PEvas_Box = ^TEvas_Box;
+  TEvas_Box = TEo;
+{$endif}
+{$ifndef _EVAS_BOX_EO_TYPES}
+{$define _EVAS_BOX_EO_TYPES}
+{$endif}
+{*
  * @brief Set the alignment of the whole bounding box of contents, for a given
  * box object.
  *
@@ -33,10 +67,10 @@ typedef Eo Evas_Box;
  * @param[in] vertical The vertical alignment, in pixels.
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern void evas_object_box_align_set(Evas_Box *obj, double horizontal, double vertical);
+  }
 
-/**
+procedure evas_object_box_align_set(obj:PEvas_Box; horizontal:Tdouble; vertical:Tdouble);cdecl;external;
+{*
  * @brief Get the alignment of the whole bounding box of contents, for a given
  * box object.
  *
@@ -47,10 +81,10 @@ extern void evas_object_box_align_set(Evas_Box *obj, double horizontal, double v
  * @param[out] vertical The vertical alignment, in pixels.
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern void evas_object_box_align_get(const Evas_Box *obj, double *horizontal, double *vertical);
-
-/**
+  }
+(* Const before type ignored *)
+procedure evas_object_box_align_get(obj:PEvas_Box; horizontal:Pdouble; vertical:Pdouble);cdecl;external;
+{*
  * @brief Set the (space) padding between cells set for a given box object.
  *
  * @note The default values for both padding components is $0.
@@ -62,10 +96,9 @@ extern void evas_object_box_align_get(const Evas_Box *obj, double *horizontal, d
  * @param[in] vertical The vertical padding, in pixels.
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern void evas_object_box_padding_set(Evas_Box *obj, int horizontal, int vertical);
-
-/**
+  }
+procedure evas_object_box_padding_set(obj:PEvas_Box; horizontal:longint; vertical:longint);cdecl;external;
+{*
  * @brief Get the (space) padding between cells set for a given box object.
  *
  * See also @ref evas_object_box_padding_set.
@@ -75,10 +108,10 @@ extern void evas_object_box_padding_set(Evas_Box *obj, int horizontal, int verti
  * @param[out] vertical The vertical padding, in pixels.
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern void evas_object_box_padding_get(const Evas_Box *obj, int *horizontal, int *vertical);
-
-/**
+  }
+(* Const before type ignored *)
+procedure evas_object_box_padding_get(obj:PEvas_Box; horizontal:Plongint; vertical:Plongint);cdecl;external;
+{*
  * @brief Set a new layouting function to a given box object
  *
  * A box layout function affects how a box object displays child elements
@@ -104,17 +137,17 @@ extern void evas_object_box_padding_get(const Evas_Box *obj, int *horizontal, in
  * @param[in] free_data Function to free @c data, if need be.
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern void evas_object_box_layout_set(Evas_Box *obj, Evas_Object_Box_Layout cb, const void *data, Eina_Free_Cb free_data) ;
-
-/**
+  }
+(* Const before type ignored *)
+procedure evas_object_box_layout_set(obj:PEvas_Box; cb:TEvas_Object_Box_Layout; data:pointer; free_data:TEina_Free_Cb);cdecl;external;
+{*
  * @brief Layout function which sets the box o to a (basic) horizontal box
  *
  * In this layout, the box object's overall behavior is controlled by its
  * padding/alignment properties, which are set by the
- * evas_object_box_{h,v}_{align,padding}_set family of functions. The size
+ * evas_object_box_h,v_align,padding_set family of functions. The size
  * hints of the elements in the box -- set by the
- * evas_object_size_hint_{align,padding,weight}_set functions -- also control
+ * evas_object_size_hint_align,padding,weight_set functions -- also control
  * the way this function works.
  *
  * Box's properties: @c align_h controls the horizontal alignment of the child
@@ -148,17 +181,16 @@ extern void evas_object_box_layout_set(Evas_Box *obj, Evas_Object_Box_Layout cb,
  *
  * If one desires that, besides having weights, child elements must be resized
  * bounded to a minimum or maximum size, those size hints must be set, by the
- * evas_object_size_hint_{min,max}_set functions.
+ * evas_object_size_hint_min,max_set functions.
  *
  * @param[in] obj The object.
  * @param[in] priv Private data pointer
  * @param[in] data Data pointer
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern void evas_object_box_layout_horizontal(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
-
-/**
+  }
+procedure evas_object_box_layout_horizontal(obj:PEvas_Box; priv:PEvas_Object_Box_Data; data:pointer);cdecl;external;
+{*
  * @brief Layout function which sets the box o to a (basic) vertical box
  *
  * This function behaves analogously to evas_object_box_layout_horizontal. The
@@ -170,10 +202,9 @@ extern void evas_object_box_layout_horizontal(Evas_Box *obj, Evas_Object_Box_Dat
  * @param[in] data Data pointer
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern void evas_object_box_layout_vertical(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
-
-/**
+  }
+procedure evas_object_box_layout_vertical(obj:PEvas_Box; priv:PEvas_Object_Box_Data; data:pointer);cdecl;external;
+{*
  * @brief Layout function which sets the box o to a maximum size, homogeneous
  * horizontal box
  *
@@ -181,9 +212,9 @@ extern void evas_object_box_layout_vertical(Evas_Box *obj, Evas_Object_Box_Data 
  * size reserved for the child objects, this size will be defined by the size
  * of the largest child in the box (in width). The box's overall behavior is
  * controlled by its properties, which are set by the
- * evas_object_box_{h,v}_{align,padding}_set family of functions.  The size
+ * evas_object_box_h,v_align,padding_set family of functions.  The size
  * hints of the elements in the box -- set by the
- * evas_object_size_hint_{align,padding,weight}_set functions -- also control
+ * evas_object_size_hint_align,padding,weight_set functions -- also control
  * the way this function works.
  *
  * Box's properties: @c padding_h tells the box to draw empty spaces of that
@@ -215,11 +246,9 @@ extern void evas_object_box_layout_vertical(Evas_Box *obj, Evas_Object_Box_Data 
  * @param[in] data Data pointer
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern void evas_object_box_layout_homogeneous_max_size_horizontal(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
-
-
-/**
+  }
+procedure evas_object_box_layout_homogeneous_max_size_horizontal(obj:PEvas_Box; priv:PEvas_Object_Box_Data; data:pointer);cdecl;external;
+{*
  * @brief Layout function which sets the box o to a flow vertical box.
  *
  * This function behaves analogously to evas_object_box_layout_flow_horizontal.
@@ -231,11 +260,9 @@ extern void evas_object_box_layout_homogeneous_max_size_horizontal(Evas_Box *obj
  * @param[in] data Data pointer
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern void evas_object_box_layout_flow_vertical(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
-
-
-/**
+  }
+procedure evas_object_box_layout_flow_vertical(obj:PEvas_Box; priv:PEvas_Object_Box_Data; data:pointer);cdecl;external;
+{*
  * @brief Insert a new child object after another existing one, in a given box
  * object o.
  *
@@ -257,10 +284,10 @@ extern void evas_object_box_layout_flow_vertical(Evas_Box *obj, Evas_Object_Box_
  * errors
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern Evas_Object_Box_Option *evas_object_box_insert_after(Evas_Box *obj, Efl_Canvas_Object *child, const Efl_Canvas_Object *reference) EINA_ARG_NONNULL(2, 3);
-
-/**
+  }
+(* Const before type ignored *)
+function evas_object_box_insert_after(obj:PEvas_Box; child:PEfl_Canvas_Object; reference:PEfl_Canvas_Object):PEvas_Object_Box_Option;cdecl;external;
+{*
  * @brief Remove all child objects from a box object, unparenting them again.
  *
  * This has the same effect of calling evas_object_box_remove on each of @c o's
@@ -273,10 +300,9 @@ extern Evas_Object_Box_Option *evas_object_box_insert_after(Evas_Box *obj, Efl_C
  * @return @c true on success, @c false otherwise.
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern Eina_Bool evas_object_box_remove_all(Evas_Box *obj, Eina_Bool clear);
-
-/**
+  }
+function evas_object_box_remove_all(obj:PEvas_Box; clear:TEina_Bool):TEina_Bool;cdecl;external;
+{*
  * @brief Get an iterator to walk the list of children of a given box object.
  *
  * @note Do not remove or delete objects while walking the list.
@@ -287,10 +313,10 @@ extern Eina_Bool evas_object_box_remove_all(Evas_Box *obj, Eina_Bool clear);
  * errors.
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern Eina_Iterator *evas_object_box_iterator_new(const Evas_Box *obj) ;
-
-/**
+  }
+(* Const before type ignored *)
+function evas_object_box_iterator_new(obj:PEvas_Box):PEina_Iterator;cdecl;external;
+{*
  * @brief Add a new box as a child of a given smart object.
  *
  * This is a helper function that has the same effect of putting a new box
@@ -301,10 +327,9 @@ extern Eina_Iterator *evas_object_box_iterator_new(const Evas_Box *obj) ;
  * @return @c null on error, a pointer to a new box object on success.
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern Efl_Canvas_Object *evas_object_box_add_to(Evas_Box *obj) ;
-
-/**
+  }
+function evas_object_box_add_to(obj:PEvas_Box):PEfl_Canvas_Object;cdecl;external;
+{*
  * @brief Append a new child object to the given box object o.
  *
  * On success, the $"child,added" smart event will take place.
@@ -323,10 +348,9 @@ extern Efl_Canvas_Object *evas_object_box_add_to(Evas_Box *obj) ;
  * errors.
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern Evas_Object_Box_Option *evas_object_box_append(Evas_Box *obj, Efl_Canvas_Object *child) ;
-
-/**
+  }
+function evas_object_box_append(obj:PEvas_Box; child:PEfl_Canvas_Object):PEvas_Object_Box_Option;cdecl;external;
+{*
  * @brief Get the numerical identifier of the property of the child elements of
  * the box o which have name as name string
  *
@@ -343,10 +367,11 @@ extern Evas_Object_Box_Option *evas_object_box_append(Evas_Box *obj, Efl_Canvas_
  * @return The numerical ID of the given property or $-1, on errors.
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern int evas_object_box_option_property_id_get(const Evas_Box *obj, const char *name)  ;
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function evas_object_box_option_property_id_get(obj:PEvas_Box; name:Pchar):longint;cdecl;external;
+{*
  * @brief Prepend a new child object to the given box object o.
  *
  * On success, the $"child,added" smart event will take place.
@@ -365,10 +390,9 @@ extern int evas_object_box_option_property_id_get(const Evas_Box *obj, const cha
  * errors.
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern Evas_Object_Box_Option *evas_object_box_prepend(Evas_Box *obj, Efl_Canvas_Object *child) ;
-
-/**
+  }
+function evas_object_box_prepend(obj:PEvas_Box; child:PEfl_Canvas_Object):PEvas_Object_Box_Option;cdecl;external;
+{*
  * @brief Get an accessor (a structure providing random items access) to the
  * list of children of a given box object.
  *
@@ -380,13 +404,10 @@ extern Evas_Object_Box_Option *evas_object_box_prepend(Evas_Box *obj, Efl_Canvas
  * errors.
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern Eina_Accessor *evas_object_box_accessor_new(const Evas_Box *obj) ;
-
-
-
-
-/**
+  }
+(* Const before type ignored *)
+function evas_object_box_accessor_new(obj:PEvas_Box):PEina_Accessor;cdecl;external;
+{*
  * @brief Remove an object, bound to a given position in a box object,
  * unparenting it again.
  *
@@ -408,12 +429,9 @@ extern Eina_Accessor *evas_object_box_accessor_new(const Evas_Box *obj) ;
  * @return @c true on success, @c false on failure.
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern Eina_Bool evas_object_box_remove_at(Evas_Box *obj, unsigned int pos);
-
-
-
-/**
+  }
+function evas_object_box_remove_at(obj:PEvas_Box; pos:dword):TEina_Bool;cdecl;external;
+{*
  * @brief Insert a new child object before another existing one, in a given box
  * object o.
  *
@@ -435,10 +453,10 @@ extern Eina_Bool evas_object_box_remove_at(Evas_Box *obj, unsigned int pos);
  * errors.
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern Evas_Object_Box_Option *evas_object_box_insert_before(Evas_Box *obj, Efl_Canvas_Object *child, const Efl_Canvas_Object *reference) EINA_ARG_NONNULL(2, 3);
-
-/**
+  }
+(* Const before type ignored *)
+function evas_object_box_insert_before(obj:PEvas_Box; child:PEfl_Canvas_Object; reference:PEfl_Canvas_Object):PEvas_Object_Box_Option;cdecl;external;
+{*
  * @brief Get the name of the property of the child elements of the box o which
  * have id as identifier
  *
@@ -456,19 +474,19 @@ extern Evas_Object_Box_Option *evas_object_box_insert_before(Evas_Box *obj, Efl_
  * @return The name of the given property or @c null, on errors.
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern const char *evas_object_box_option_property_name_get(const Evas_Box *obj, int property) ;
-
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function evas_object_box_option_property_name_get(obj:PEvas_Box; _property:longint):Pchar;cdecl;external;
+{*
  * @brief Layout function which sets the box o to a homogeneous horizontal box
  *
  * In a homogeneous horizontal box, its width is divided equally between the
  * contained objects. The box's overall behavior is controlled by its
  * padding/alignment properties, which are set by the
- * evas_object_box_{h,v}_{align,padding}_set family of functions.  The size
+ * evas_object_box_h,v_align,padding_set family of functions.  The size
  * hints the elements in the box -- set by the
- * evas_object_size_hint_{align,padding,weight}_set functions -- also control
+ * evas_object_size_hint_align,padding,weight_set functions -- also control
  * the way this function works.
  *
  * Box's properties: @c align_h has no influence on the box for this layout.
@@ -494,11 +512,9 @@ extern const char *evas_object_box_option_property_name_get(const Evas_Box *obj,
  * @param[in] data Data pointer
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern void evas_object_box_layout_homogeneous_horizontal(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
-
-
-/**
+  }
+procedure evas_object_box_layout_homogeneous_horizontal(obj:PEvas_Box; priv:PEvas_Object_Box_Data; data:pointer);cdecl;external;
+{*
  * @brief Layout function which sets the box o to a maximum size, homogeneous
  * vertical box
  *
@@ -511,11 +527,9 @@ extern void evas_object_box_layout_homogeneous_horizontal(Evas_Box *obj, Evas_Ob
  * @param[in] data Data pointer
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern void evas_object_box_layout_homogeneous_max_size_vertical(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
-
-
-/**
+  }
+procedure evas_object_box_layout_homogeneous_max_size_vertical(obj:PEvas_Box; priv:PEvas_Object_Box_Data; data:pointer);cdecl;external;
+{*
  * @brief Insert a new child object at a given position, in a given box object
  * @c o.
  *
@@ -539,11 +553,9 @@ extern void evas_object_box_layout_homogeneous_max_size_vertical(Evas_Box *obj, 
  * errors.
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern Evas_Object_Box_Option *evas_object_box_insert_at(Evas_Box *obj, Efl_Canvas_Object *child, unsigned int pos) ;
-
-
-/**
+  }
+function evas_object_box_insert_at(obj:PEvas_Box; child:PEfl_Canvas_Object; pos:dword):PEvas_Object_Box_Option;cdecl;external;
+{*
  * @brief Remove a given object from a box object, unparenting it again.
  *
  * On removal, you'll get an unparented object again, just as it was before you
@@ -560,10 +572,9 @@ extern Evas_Object_Box_Option *evas_object_box_insert_at(Evas_Box *obj, Efl_Canv
  * @return @c true on success, @c false otherwise.
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern Eina_Bool evas_object_box_remove(Evas_Box *obj, Efl_Canvas_Object *child) ;
-
-/**
+  }
+function evas_object_box_remove(obj:PEvas_Box; child:PEfl_Canvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Layout function which sets the box o to a stacking box
  *
  * In a stacking box, all children will be given the same size -- the box's own
@@ -586,10 +597,9 @@ extern Eina_Bool evas_object_box_remove(Evas_Box *obj, Efl_Canvas_Object *child)
  * @param[in] data Data pointer
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern void evas_object_box_layout_stack(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
-
-/**
+  }
+procedure evas_object_box_layout_stack(obj:PEvas_Box; priv:PEvas_Object_Box_Data; data:pointer);cdecl;external;
+{*
  * @brief Layout function which sets the box o to a homogeneous vertical box.
  *
  * This function behaves analogously to
@@ -601,18 +611,17 @@ extern void evas_object_box_layout_stack(Evas_Box *obj, Evas_Object_Box_Data *pr
  * @param[in] data Data pointer
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern void evas_object_box_layout_homogeneous_vertical(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
-
-/**
+  }
+procedure evas_object_box_layout_homogeneous_vertical(obj:PEvas_Box; priv:PEvas_Object_Box_Data; data:pointer);cdecl;external;
+{*
  * @brief Layout function which sets the box o to a flow horizontal box.
  *
  * In a flow horizontal box, the box's child elements are placed in rows (think
  * of text as an analogy). A row has as many elements as can fit into the box's
  * width. The box's overall behavior is controlled by its properties, which are
- * set by the evas_object_box_{h,v}_{align,padding}_set family of functions.
+ * set by the evas_object_box_h,v_align,padding_set family of functions.
  *  The size hints of the elements in the box -- set by the
- * evas_object_size_hint_{align,padding,weight}_set functions -- also control
+ * evas_object_size_hint_align,padding,weight_set functions -- also control
  * the way this function works.
  *
  * Box's properties: @c padding_h tells the box to draw empty spaces of that
@@ -639,8 +648,11 @@ extern void evas_object_box_layout_homogeneous_vertical(Evas_Box *obj, Evas_Obje
  * @param[in] data Data pointer
  *
  * @ingroup Evas_Object_Box_Group
- */
-extern void evas_object_box_layout_flow_horizontal(Evas_Box *obj, Evas_Object_Box_Data *priv, void *data);
+  }
+procedure evas_object_box_layout_flow_horizontal(obj:PEvas_Box; priv:PEvas_Object_Box_Data; data:pointer);cdecl;external;
+{$endif}
+
+implementation
 
 
-#endif
+end.

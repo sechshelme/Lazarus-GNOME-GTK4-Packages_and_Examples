@@ -138,7 +138,7 @@ const
 
     (libs: 'libsixel'; units: 'ctypes'),
 
-    (libs: 'libelementary'; units: 'ctypes, elf'),
+    (libs: 'libelementary'; units: 'ctypes, elf, Evas_Common'),
     (libs: 'libevas'; units: 'ctypes, elf'),
 
     (libs: ''; units: ''));
