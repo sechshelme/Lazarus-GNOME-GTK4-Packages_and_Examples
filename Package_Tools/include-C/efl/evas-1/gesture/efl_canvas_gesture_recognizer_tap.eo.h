@@ -21,7 +21,7 @@ typedef Eo Efl_Canvas_Gesture_Recognizer_Tap;
  */
 #define EFL_CANVAS_GESTURE_RECOGNIZER_TAP_CLASS efl_canvas_gesture_recognizer_tap_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_gesture_recognizer_tap_class_get(void) ;
+extern  const Efl_Class *efl_canvas_gesture_recognizer_tap_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

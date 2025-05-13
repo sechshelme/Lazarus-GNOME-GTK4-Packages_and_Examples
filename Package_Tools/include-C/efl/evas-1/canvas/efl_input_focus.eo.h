@@ -21,7 +21,7 @@ typedef Eo Efl_Input_Focus;
  */
 #define EFL_INPUT_FOCUS_CLASS efl_input_focus_class_get()
 
-extern extern_WEAK const Efl_Class *efl_input_focus_class_get(void) ;
+extern  const Efl_Class *efl_input_focus_class_get(void) ;
 
 /**
  * @brief The focused object.
@@ -34,7 +34,7 @@ extern extern_WEAK const Efl_Class *efl_input_focus_class_get(void) ;
  *
  * @ingroup Efl_Input_Focus
  */
-extern extern_WEAK void efl_input_focus_object_set(Eo *obj, Efl_Object *object);
+extern  void efl_input_focus_object_set(Eo *obj, Efl_Object *object);
 
 /**
  * @brief The focused object.
@@ -47,6 +47,6 @@ extern extern_WEAK void efl_input_focus_object_set(Eo *obj, Efl_Object *object);
  *
  * @ingroup Efl_Input_Focus
  */
-extern extern_WEAK Efl_Object *efl_input_focus_object_get(const Eo *obj);
+extern  Efl_Object *efl_input_focus_object_get(const Eo *obj);
 
 #endif

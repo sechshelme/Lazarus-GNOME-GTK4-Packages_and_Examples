@@ -32,7 +32,7 @@ typedef Eo Efl_Canvas_Gesture_Custom;
  */
 #define EFL_CANVAS_GESTURE_CUSTOM_CLASS efl_canvas_gesture_custom_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_gesture_custom_class_get(void) ;
+extern  const Efl_Class *efl_canvas_gesture_custom_class_get(void) ;
 
 #ifdef EFL_CANVAS_GESTURE_CUSTOM_PROTECTED
 /**
@@ -43,7 +43,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_gesture_custom_class_get(void) ;
  *
  * @ingroup Efl_Canvas_Gesture_Custom
  */
-extern extern_WEAK void efl_gesture_custom_gesture_name_set(Eo *obj, const char *gesture_name);
+extern  void efl_gesture_custom_gesture_name_set(Eo *obj, const char *gesture_name);
 #endif
 
 /**
@@ -55,7 +55,7 @@ extern extern_WEAK void efl_gesture_custom_gesture_name_set(Eo *obj, const char 
  *
  * @ingroup Efl_Canvas_Gesture_Custom
  */
-extern extern_WEAK const char *efl_gesture_custom_gesture_name_get(const Eo *obj);
+extern  const char *efl_gesture_custom_gesture_name_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

@@ -130,6 +130,7 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'EVAS_API', 'extern', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'EINA_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'EINA_CONST', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'extern_WEAK', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(1)', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(2)', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(3)', '', [rfReplaceAll]);

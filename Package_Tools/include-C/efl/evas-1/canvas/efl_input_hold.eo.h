@@ -21,7 +21,7 @@ typedef Eo Efl_Input_Hold;
  */
 #define EFL_INPUT_HOLD_CLASS efl_input_hold_class_get()
 
-extern extern_WEAK const Efl_Class *efl_input_hold_class_get(void) ;
+extern  const Efl_Class *efl_input_hold_class_get(void) ;
 
 /**
  * @brief Property to show if inputs are now on hold.
@@ -33,7 +33,7 @@ extern extern_WEAK const Efl_Class *efl_input_hold_class_get(void) ;
  *
  * @ingroup Efl_Input_Hold
  */
-extern extern_WEAK void efl_input_hold_set(Eo *obj, Eina_Bool val);
+extern  void efl_input_hold_set(Eo *obj, Eina_Bool val);
 
 /**
  * @brief Property to show if inputs are now on hold.
@@ -46,6 +46,6 @@ extern extern_WEAK void efl_input_hold_set(Eo *obj, Eina_Bool val);
  *
  * @ingroup Efl_Input_Hold
  */
-extern extern_WEAK Eina_Bool efl_input_hold_get(const Eo *obj);
+extern  Eina_Bool efl_input_hold_get(const Eo *obj);
 
 #endif

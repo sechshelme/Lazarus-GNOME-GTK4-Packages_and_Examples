@@ -27,7 +27,7 @@ typedef Eo Efl_Canvas_Gesture_Flick;
  */
 #define EFL_CANVAS_GESTURE_FLICK_CLASS efl_canvas_gesture_flick_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_gesture_flick_class_get(void) ;
+extern  const Efl_Class *efl_canvas_gesture_flick_class_get(void) ;
 
 /**
  * @brief The flick gesture momentum value, this is, the direction in which the
@@ -39,7 +39,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_gesture_flick_class_get(void) ;
  *
  * @ingroup Efl_Canvas_Gesture_Flick
  */
-extern extern_WEAK Eina_Vector2 efl_gesture_flick_momentum_get(const Eo *obj);
+extern  Eina_Vector2 efl_gesture_flick_momentum_get(const Eo *obj);
 
 /**
  * @brief The flick gesture direction angle, this is, the angle in which the
@@ -51,7 +51,7 @@ extern extern_WEAK Eina_Vector2 efl_gesture_flick_momentum_get(const Eo *obj);
  *
  * @ingroup Efl_Canvas_Gesture_Flick
  */
-extern extern_WEAK double efl_gesture_flick_angle_get(const Eo *obj);
+extern  double efl_gesture_flick_angle_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

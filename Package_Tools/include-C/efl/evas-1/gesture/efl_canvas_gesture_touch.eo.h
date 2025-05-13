@@ -25,7 +25,7 @@ typedef Eo Efl_Canvas_Gesture_Touch;
  */
 #define EFL_CANVAS_GESTURE_TOUCH_CLASS efl_canvas_gesture_touch_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_gesture_touch_class_get(void) ;
+extern  const Efl_Class *efl_canvas_gesture_touch_class_get(void) ;
 
 /**
  * @brief Touch point record method
@@ -35,7 +35,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_gesture_touch_class_get(void) ;
  *
  * @ingroup Efl_Canvas_Gesture_Touch
  */
-extern extern_WEAK void efl_gesture_touch_point_record(Eo *obj, Efl_Input_Pointer *event);
+extern  void efl_gesture_touch_point_record(Eo *obj, Efl_Input_Pointer *event);
 
 /**
  * @brief Compute the distance between the last two events
@@ -47,7 +47,7 @@ extern extern_WEAK void efl_gesture_touch_point_record(Eo *obj, Efl_Input_Pointe
  *
  * @ingroup Efl_Canvas_Gesture_Touch
  */
-extern extern_WEAK Eina_Vector2 efl_gesture_touch_delta(const Eo *obj, int tool);
+extern  Eina_Vector2 efl_gesture_touch_delta(const Eo *obj, int tool);
 
 /**
  * @brief Compute the distance between the first touch and the last event.
@@ -59,7 +59,7 @@ extern extern_WEAK Eina_Vector2 efl_gesture_touch_delta(const Eo *obj, int tool)
  *
  * @ingroup Efl_Canvas_Gesture_Touch
  */
-extern extern_WEAK Eina_Vector2 efl_gesture_touch_distance(const Eo *obj, int tool);
+extern  Eina_Vector2 efl_gesture_touch_distance(const Eo *obj, int tool);
 
 /**
  * @brief Returns the first touch point.
@@ -70,7 +70,7 @@ extern extern_WEAK Eina_Vector2 efl_gesture_touch_distance(const Eo *obj, int to
  *
  * @ingroup Efl_Canvas_Gesture_Touch
  */
-extern extern_WEAK Eina_Position2D efl_gesture_touch_start_point_get(const Eo *obj);
+extern  Eina_Position2D efl_gesture_touch_start_point_get(const Eo *obj);
 
 /**
  * @brief Returns the current touch point.
@@ -81,7 +81,7 @@ extern extern_WEAK Eina_Position2D efl_gesture_touch_start_point_get(const Eo *o
  *
  * @ingroup Efl_Canvas_Gesture_Touch
  */
-extern extern_WEAK Eina_Position2D efl_gesture_touch_current_point_get(const Eo *obj);
+extern  Eina_Position2D efl_gesture_touch_current_point_get(const Eo *obj);
 
 /**
  * @brief Returns the timestamp.
@@ -92,7 +92,7 @@ extern extern_WEAK Eina_Position2D efl_gesture_touch_current_point_get(const Eo 
  *
  * @ingroup Efl_Canvas_Gesture_Touch
  */
-extern extern_WEAK unsigned int efl_gesture_touch_current_timestamp_get(const Eo *obj);
+extern  unsigned int efl_gesture_touch_current_timestamp_get(const Eo *obj);
 
 /**
  * @brief This provides the number of touch points active.
@@ -103,7 +103,7 @@ extern extern_WEAK unsigned int efl_gesture_touch_current_timestamp_get(const Eo
  *
  * @ingroup Efl_Canvas_Gesture_Touch
  */
-extern extern_WEAK unsigned int efl_gesture_touch_points_count_get(const Eo *obj);
+extern  unsigned int efl_gesture_touch_points_count_get(const Eo *obj);
 
 /**
  * @brief This property holds the state of the touch event.
@@ -114,7 +114,7 @@ extern extern_WEAK unsigned int efl_gesture_touch_points_count_get(const Eo *obj
  *
  * @ingroup Efl_Canvas_Gesture_Touch
  */
-extern extern_WEAK Efl_Canvas_Gesture_Touch_State efl_gesture_touch_state_get(const Eo *obj);
+extern  Efl_Canvas_Gesture_Touch_State efl_gesture_touch_state_get(const Eo *obj);
 
 /**
  * @brief This property holds the data struct of the most recent touch point.
@@ -125,7 +125,7 @@ extern extern_WEAK Efl_Canvas_Gesture_Touch_State efl_gesture_touch_state_get(co
  *
  * @ingroup Efl_Canvas_Gesture_Touch
  */
-extern extern_WEAK const Efl_Gesture_Touch_Point_Data *efl_gesture_touch_current_data_get(const Eo *obj);
+extern  const Efl_Gesture_Touch_Point_Data *efl_gesture_touch_current_data_get(const Eo *obj);
 
 /**
  * @brief This property holds the data struct of the second-most recent touch
@@ -137,7 +137,7 @@ extern extern_WEAK const Efl_Gesture_Touch_Point_Data *efl_gesture_touch_current
  *
  * @ingroup Efl_Canvas_Gesture_Touch
  */
-extern extern_WEAK const Efl_Gesture_Touch_Point_Data *efl_gesture_touch_previous_data_get(const Eo *obj);
+extern  const Efl_Gesture_Touch_Point_Data *efl_gesture_touch_previous_data_get(const Eo *obj);
 
 /**
  * @brief This fetches the data for a specified touch point.
@@ -149,7 +149,7 @@ extern extern_WEAK const Efl_Gesture_Touch_Point_Data *efl_gesture_touch_previou
  *
  * @ingroup Efl_Canvas_Gesture_Touch
  */
-extern extern_WEAK const Efl_Gesture_Touch_Point_Data *efl_gesture_touch_data_get(const Eo *obj, unsigned int id);
+extern  const Efl_Gesture_Touch_Point_Data *efl_gesture_touch_data_get(const Eo *obj, unsigned int id);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

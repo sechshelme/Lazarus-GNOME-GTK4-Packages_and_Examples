@@ -29,7 +29,7 @@ typedef Eo Efl_Canvas_Group_Animation;
  */
 #define EFL_CANVAS_GROUP_ANIMATION_CLASS efl_canvas_group_animation_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_group_animation_class_get(void) ;
+extern  const Efl_Class *efl_canvas_group_animation_class_get(void) ;
 
 /**
  * @brief Adds the given animation to the animation group.
@@ -41,7 +41,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_group_animation_class_get(void) ;
  *
  * @ingroup Efl_Canvas_Group_Animation
  */
-extern extern_WEAK void efl_animation_group_animation_add(Eo *obj, Efl_Canvas_Animation *animation);
+extern  void efl_animation_group_animation_add(Eo *obj, Efl_Canvas_Animation *animation);
 
 /**
  * @brief Removes the given animation from the animation group.
@@ -53,7 +53,7 @@ extern extern_WEAK void efl_animation_group_animation_add(Eo *obj, Efl_Canvas_An
  *
  * @ingroup Efl_Canvas_Group_Animation
  */
-extern extern_WEAK void efl_animation_group_animation_del(Eo *obj, Efl_Canvas_Animation *animation);
+extern  void efl_animation_group_animation_del(Eo *obj, Efl_Canvas_Animation *animation);
 
 /**
  * @brief All animations that are currently part of this group.
@@ -66,6 +66,6 @@ extern extern_WEAK void efl_animation_group_animation_del(Eo *obj, Efl_Canvas_An
  *
  * @ingroup Efl_Canvas_Group_Animation
  */
-extern extern_WEAK Eina_Iterator *efl_animation_group_animations_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP ;
+extern  Eina_Iterator *efl_animation_group_animations_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP ;
 
 #endif

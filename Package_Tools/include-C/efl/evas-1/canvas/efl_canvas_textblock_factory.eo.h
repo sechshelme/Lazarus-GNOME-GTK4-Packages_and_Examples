@@ -27,7 +27,7 @@ typedef Eo Efl_Canvas_Textblock_Factory;
  */
 #define EFL_CANVAS_TEXTBLOCK_FACTORY_INTERFACE efl_canvas_textblock_factory_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_textblock_factory_interface_get(void) ;
+extern  const Efl_Class *efl_canvas_textblock_factory_interface_get(void) ;
 
 /**
  * @brief Translates a given @c key to an item object, and returns the object.
@@ -39,7 +39,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_textblock_factory_interface_get(v
  *
  * @ingroup Efl_Canvas_Textblock_Factory
  */
-extern extern_WEAK Efl_Canvas_Object *efl_canvas_textblock_factory_create(Eo *obj, Efl_Canvas_Object *object, const char *key) EFL_TRANSFER_OWNERSHIP ;
+extern  Efl_Canvas_Object *efl_canvas_textblock_factory_create(Eo *obj, Efl_Canvas_Object *object, const char *key) EFL_TRANSFER_OWNERSHIP ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

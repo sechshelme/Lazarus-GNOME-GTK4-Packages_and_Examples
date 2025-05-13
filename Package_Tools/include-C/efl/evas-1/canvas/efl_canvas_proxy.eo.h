@@ -25,7 +25,7 @@ typedef Eo Efl_Canvas_Proxy;
  */
 #define EFL_CANVAS_PROXY_CLASS efl_canvas_proxy_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_proxy_class_get(void) ;
+extern  const Efl_Class *efl_canvas_proxy_class_get(void) ;
 
 /**
  * @brief The source object for this proxy.
@@ -50,7 +50,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_proxy_class_get(void) ;
  *
  * @ingroup Efl_Canvas_Proxy
  */
-extern extern_WEAK Eina_Bool efl_canvas_proxy_source_set(Eo *obj, Efl_Canvas_Object *src);
+extern  Eina_Bool efl_canvas_proxy_source_set(Eo *obj, Efl_Canvas_Object *src);
 
 /**
  * @brief The source object for this proxy.
@@ -74,7 +74,7 @@ extern extern_WEAK Eina_Bool efl_canvas_proxy_source_set(Eo *obj, Efl_Canvas_Obj
  *
  * @ingroup Efl_Canvas_Proxy
  */
-extern extern_WEAK Efl_Canvas_Object *efl_canvas_proxy_source_get(const Eo *obj);
+extern  Efl_Canvas_Object *efl_canvas_proxy_source_get(const Eo *obj);
 
 /**
  * @brief Clip this proxy object with the source object's clipper.
@@ -90,7 +90,7 @@ extern extern_WEAK Efl_Canvas_Object *efl_canvas_proxy_source_get(const Eo *obj)
  *
  * @ingroup Efl_Canvas_Proxy
  */
-extern extern_WEAK void efl_canvas_proxy_source_clip_set(Eo *obj, Eina_Bool source_clip);
+extern  void efl_canvas_proxy_source_clip_set(Eo *obj, Eina_Bool source_clip);
 
 /**
  * @brief Clip this proxy object with the source object's clipper.
@@ -107,7 +107,7 @@ extern extern_WEAK void efl_canvas_proxy_source_clip_set(Eo *obj, Eina_Bool sour
  *
  * @ingroup Efl_Canvas_Proxy
  */
-extern extern_WEAK Eina_Bool efl_canvas_proxy_source_clip_get(const Eo *obj);
+extern  Eina_Bool efl_canvas_proxy_source_clip_get(const Eo *obj);
 
 /**
  * @brief Defines whether the events on this object are repeated to the source.
@@ -126,7 +126,7 @@ extern extern_WEAK Eina_Bool efl_canvas_proxy_source_clip_get(const Eo *obj);
  *
  * @ingroup Efl_Canvas_Proxy
  */
-extern extern_WEAK void efl_canvas_proxy_source_events_set(Eo *obj, Eina_Bool repeat);
+extern  void efl_canvas_proxy_source_events_set(Eo *obj, Eina_Bool repeat);
 
 /**
  * @brief Defines whether the events on this object are repeated to the source.
@@ -146,7 +146,7 @@ extern extern_WEAK void efl_canvas_proxy_source_events_set(Eo *obj, Eina_Bool re
  *
  * @ingroup Efl_Canvas_Proxy
  */
-extern extern_WEAK Eina_Bool efl_canvas_proxy_source_events_get(const Eo *obj);
+extern  Eina_Bool efl_canvas_proxy_source_events_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

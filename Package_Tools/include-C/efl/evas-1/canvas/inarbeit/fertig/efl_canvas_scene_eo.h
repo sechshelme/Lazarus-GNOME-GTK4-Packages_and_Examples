@@ -21,7 +21,7 @@ typedef Eo Efl_Canvas_Scene;
  */
 #define EFL_CANVAS_SCENE_INTERFACE efl_canvas_scene_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_scene_interface_get(void) ;
+extern  const Efl_Class *efl_canvas_scene_interface_get(void) ;
 
 /**
  * @brief The maximum image size the canvas can possibly handle.
@@ -41,7 +41,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_scene_interface_get(void) ;
  *
  * @ingroup Efl_Canvas_Scene
  */
-extern extern_WEAK Eina_Bool efl_canvas_scene_image_max_size_get(const Eo *obj, Eina_Size2D *max);
+extern  Eina_Bool efl_canvas_scene_image_max_size_get(const Eo *obj, Eina_Size2D *max);
 
 /** Call user-provided @c calculate group functions and unset the flag
  * signalling that the object needs to get recalculated to all group objects in
@@ -51,7 +51,7 @@ extern extern_WEAK Eina_Bool efl_canvas_scene_image_max_size_get(const Eo *obj, 
  *
  * @ingroup Efl_Canvas_Scene
  */
-extern extern_WEAK void efl_canvas_scene_group_objects_calculate(Eo *obj);
+extern  void efl_canvas_scene_group_objects_calculate(Eo *obj);
 
 /**
  * @brief Get if the canvas is currently calculating group objects.
@@ -64,7 +64,7 @@ extern extern_WEAK void efl_canvas_scene_group_objects_calculate(Eo *obj);
  *
  * @ingroup Efl_Canvas_Scene
  */
-extern extern_WEAK Eina_Bool efl_canvas_scene_group_objects_calculating_get(const Eo *obj);
+extern  Eina_Bool efl_canvas_scene_group_objects_calculating_get(const Eo *obj);
 
 /**
  * @brief Retrieve a list of objects at a given position in a canvas.
@@ -90,7 +90,7 @@ extern extern_WEAK Eina_Bool efl_canvas_scene_group_objects_calculating_get(cons
  *
  * @ingroup Efl_Canvas_Scene
  */
-extern extern_WEAK Eina_Iterator *efl_canvas_scene_objects_at_xy_get(Eo *obj, Eina_Position2D pos, Eina_Bool include_pass_events_objects, Eina_Bool include_hidden_objects) EFL_TRANSFER_OWNERSHIP ;
+extern  Eina_Iterator *efl_canvas_scene_objects_at_xy_get(Eo *obj, Eina_Position2D pos, Eina_Bool include_pass_events_objects, Eina_Bool include_hidden_objects) ;
 
 /**
  * @brief Retrieve the object stacked at the top of a given position in a
@@ -118,7 +118,7 @@ extern extern_WEAK Eina_Iterator *efl_canvas_scene_objects_at_xy_get(Eo *obj, Ei
  *
  * @ingroup Efl_Canvas_Scene
  */
-extern extern_WEAK Efl_Gfx_Entity *efl_canvas_scene_object_top_at_xy_get(const Eo *obj, Eina_Position2D pos, Eina_Bool include_pass_events_objects, Eina_Bool include_hidden_objects) ;
+extern  Efl_Gfx_Entity *efl_canvas_scene_object_top_at_xy_get(const Eo *obj, Eina_Position2D pos, Eina_Bool include_pass_events_objects, Eina_Bool include_hidden_objects) ;
 
 /**
  * @brief Retrieve a list of objects overlapping a given rectangular region in
@@ -145,7 +145,7 @@ extern extern_WEAK Efl_Gfx_Entity *efl_canvas_scene_object_top_at_xy_get(const E
  *
  * @ingroup Efl_Canvas_Scene
  */
-extern extern_WEAK Eina_Iterator *efl_canvas_scene_objects_in_rectangle_get(Eo *obj, Eina_Rect rect, Eina_Bool include_pass_events_objects, Eina_Bool include_hidden_objects) EFL_TRANSFER_OWNERSHIP ;
+extern  Eina_Iterator *efl_canvas_scene_objects_in_rectangle_get(Eo *obj, Eina_Rect rect, Eina_Bool include_pass_events_objects, Eina_Bool include_hidden_objects) ;
 
 /**
  * @brief Retrieve the canvas object stacked at the top of a given rectangular
@@ -173,7 +173,7 @@ extern extern_WEAK Eina_Iterator *efl_canvas_scene_objects_in_rectangle_get(Eo *
  *
  * @ingroup Efl_Canvas_Scene
  */
-extern extern_WEAK Efl_Gfx_Entity *efl_canvas_scene_object_top_in_rectangle_get(const Eo *obj, Eina_Rect rect, Eina_Bool include_pass_events_objects, Eina_Bool include_hidden_objects) ;
+extern  Efl_Gfx_Entity *efl_canvas_scene_object_top_in_rectangle_get(const Eo *obj, Eina_Rect rect, Eina_Bool include_pass_events_objects, Eina_Bool include_hidden_objects) ;
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -191,7 +191,7 @@ extern extern_WEAK Efl_Gfx_Entity *efl_canvas_scene_object_top_in_rectangle_get(
  *
  * @ingroup Efl_Canvas_Scene
  */
-extern extern_WEAK Eina_Iterator *efl_canvas_scene_seats(Eo *obj) EFL_TRANSFER_OWNERSHIP ;
+extern  Eina_Iterator *efl_canvas_scene_seats(Eo *obj) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -214,7 +214,7 @@ extern extern_WEAK Eina_Iterator *efl_canvas_scene_seats(Eo *obj) EFL_TRANSFER_O
  *
  * @ingroup Efl_Canvas_Scene
  */
-extern extern_WEAK Efl_Input_Device *efl_canvas_scene_device_get(const Eo *obj, const char *name);
+extern  Efl_Input_Device *efl_canvas_scene_device_get(const Eo *obj, const char *name);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -239,7 +239,7 @@ extern extern_WEAK Efl_Input_Device *efl_canvas_scene_device_get(const Eo *obj, 
  *
  * @ingroup Efl_Canvas_Scene
  */
-extern extern_WEAK Efl_Input_Device *efl_canvas_scene_seat_get(const Eo *obj, int id);
+extern  Efl_Input_Device *efl_canvas_scene_seat_get(const Eo *obj, int id);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -261,7 +261,7 @@ extern extern_WEAK Efl_Input_Device *efl_canvas_scene_seat_get(const Eo *obj, in
  *
  * @ingroup Efl_Canvas_Scene
  */
-extern extern_WEAK Efl_Input_Device *efl_canvas_scene_seat_default_get(const Eo *obj);
+extern  Efl_Input_Device *efl_canvas_scene_seat_default_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -281,10 +281,10 @@ extern extern_WEAK Efl_Input_Device *efl_canvas_scene_seat_default_get(const Eo 
  *
  * @ingroup Efl_Canvas_Scene
  */
-extern extern_WEAK Eina_Bool efl_canvas_scene_pointer_position_get(const Eo *obj, Efl_Input_Device *seat, Eina_Position2D *pos);
+extern  Eina_Bool efl_canvas_scene_pointer_position_get(const Eo *obj, Efl_Input_Device *seat, Eina_Position2D *pos);
 #endif /* EFL_BETA_API_SUPPORT */
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_SCENE_FOCUS_IN;
+extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_SCENE_FOCUS_IN;
 
 /** Called when scene got focus
  *
@@ -294,7 +294,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_SC
  */
 #define EFL_CANVAS_SCENE_EVENT_SCENE_FOCUS_IN (&(_EFL_CANVAS_SCENE_EVENT_SCENE_FOCUS_IN))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_SCENE_FOCUS_OUT;
+extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_SCENE_FOCUS_OUT;
 
 /** Called when scene lost focus
  *
@@ -304,7 +304,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_SC
  */
 #define EFL_CANVAS_SCENE_EVENT_SCENE_FOCUS_OUT (&(_EFL_CANVAS_SCENE_EVENT_SCENE_FOCUS_OUT))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_OBJECT_FOCUS_IN;
+extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_OBJECT_FOCUS_IN;
 
 /** Called when object got focus
  * @return Efl_Input_Focus *
@@ -315,7 +315,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_OB
  */
 #define EFL_CANVAS_SCENE_EVENT_OBJECT_FOCUS_IN (&(_EFL_CANVAS_SCENE_EVENT_OBJECT_FOCUS_IN))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_OBJECT_FOCUS_OUT;
+extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_OBJECT_FOCUS_OUT;
 
 /** Called when object lost focus
  * @return Efl_Input_Focus *
@@ -326,7 +326,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_OB
  */
 #define EFL_CANVAS_SCENE_EVENT_OBJECT_FOCUS_OUT (&(_EFL_CANVAS_SCENE_EVENT_OBJECT_FOCUS_OUT))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_RENDER_PRE;
+extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_RENDER_PRE;
 
 /** Called when pre render happens
  *
@@ -336,7 +336,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_RE
  */
 #define EFL_CANVAS_SCENE_EVENT_RENDER_PRE (&(_EFL_CANVAS_SCENE_EVENT_RENDER_PRE))
 #ifdef EFL_BETA_API_SUPPORT
-extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_RENDER_POST;
+extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_RENDER_POST;
 
 /** Called when post render happens
  * @return Efl_Gfx_Event_Render_Post
@@ -348,7 +348,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_RE
 #define EFL_CANVAS_SCENE_EVENT_RENDER_POST (&(_EFL_CANVAS_SCENE_EVENT_RENDER_POST))
 #endif /* EFL_BETA_API_SUPPORT */
 #ifdef EFL_BETA_API_SUPPORT
-extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_DEVICE_CHANGED;
+extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_DEVICE_CHANGED;
 
 /** Called when input device changed
  * @return Efl_Input_Device *
@@ -360,7 +360,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_DE
 #define EFL_CANVAS_SCENE_EVENT_DEVICE_CHANGED (&(_EFL_CANVAS_SCENE_EVENT_DEVICE_CHANGED))
 #endif /* EFL_BETA_API_SUPPORT */
 #ifdef EFL_BETA_API_SUPPORT
-extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_DEVICE_ADDED;
+extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_DEVICE_ADDED;
 
 /** Called when input device was added
  * @return Efl_Input_Device *
@@ -372,7 +372,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_DE
 #define EFL_CANVAS_SCENE_EVENT_DEVICE_ADDED (&(_EFL_CANVAS_SCENE_EVENT_DEVICE_ADDED))
 #endif /* EFL_BETA_API_SUPPORT */
 #ifdef EFL_BETA_API_SUPPORT
-extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_DEVICE_REMOVED;
+extern const Efl_Event_Description _EFL_CANVAS_SCENE_EVENT_DEVICE_REMOVED;
 
 /** Called when input device was removed
  * @return Efl_Input_Device *

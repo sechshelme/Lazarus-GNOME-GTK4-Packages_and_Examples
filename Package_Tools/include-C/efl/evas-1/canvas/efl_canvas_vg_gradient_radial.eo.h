@@ -20,7 +20,7 @@ typedef Eo Efl_Canvas_Vg_Gradient_Radial;
  */
 #define EFL_CANVAS_VG_GRADIENT_RADIAL_CLASS efl_canvas_vg_gradient_radial_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_vg_gradient_radial_class_get(void) ;
+extern  const Efl_Class *efl_canvas_vg_gradient_radial_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

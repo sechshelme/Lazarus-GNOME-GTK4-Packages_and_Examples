@@ -31,7 +31,7 @@ typedef Eo Efl_Canvas_Gesture;
  */
 #define EFL_CANVAS_GESTURE_CLASS efl_canvas_gesture_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_gesture_class_get(void) ;
+extern  const Efl_Class *efl_canvas_gesture_class_get(void) ;
 
 /**
  * @brief Current state of the gesture, from initial detection to successful
@@ -42,7 +42,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_gesture_class_get(void) ;
  *
  * @ingroup Efl_Canvas_Gesture
  */
-extern extern_WEAK void efl_gesture_state_set(Eo *obj, Efl_Canvas_Gesture_State state);
+extern  void efl_gesture_state_set(Eo *obj, Efl_Canvas_Gesture_State state);
 
 /**
  * @brief Current state of the gesture, from initial detection to successful
@@ -54,7 +54,7 @@ extern extern_WEAK void efl_gesture_state_set(Eo *obj, Efl_Canvas_Gesture_State 
  *
  * @ingroup Efl_Canvas_Gesture
  */
-extern extern_WEAK Efl_Canvas_Gesture_State efl_gesture_state_get(const Eo *obj);
+extern  Efl_Canvas_Gesture_State efl_gesture_state_get(const Eo *obj);
 
 /**
  * @brief Hotspot of the gesture currently being analyzed. The exact meaning
@@ -66,7 +66,7 @@ extern extern_WEAK Efl_Canvas_Gesture_State efl_gesture_state_get(const Eo *obj)
  *
  * @ingroup Efl_Canvas_Gesture
  */
-extern extern_WEAK void efl_gesture_hotspot_set(Eo *obj, Eina_Position2D hotspot);
+extern  void efl_gesture_hotspot_set(Eo *obj, Eina_Position2D hotspot);
 
 /**
  * @brief Hotspot of the gesture currently being analyzed. The exact meaning
@@ -79,7 +79,7 @@ extern extern_WEAK void efl_gesture_hotspot_set(Eo *obj, Eina_Position2D hotspot
  *
  * @ingroup Efl_Canvas_Gesture
  */
-extern extern_WEAK Eina_Position2D efl_gesture_hotspot_get(const Eo *obj);
+extern  Eina_Position2D efl_gesture_hotspot_get(const Eo *obj);
 
 /**
  * @brief Moment when the gesture currently being analyzed started.
@@ -89,7 +89,7 @@ extern extern_WEAK Eina_Position2D efl_gesture_hotspot_get(const Eo *obj);
  *
  * @ingroup Efl_Canvas_Gesture
  */
-extern extern_WEAK void efl_gesture_timestamp_set(Eo *obj, unsigned int timestamp);
+extern  void efl_gesture_timestamp_set(Eo *obj, unsigned int timestamp);
 
 /**
  * @brief Moment when the gesture currently being analyzed started.
@@ -100,7 +100,7 @@ extern extern_WEAK void efl_gesture_timestamp_set(Eo *obj, unsigned int timestam
  *
  * @ingroup Efl_Canvas_Gesture
  */
-extern extern_WEAK unsigned int efl_gesture_timestamp_get(const Eo *obj);
+extern  unsigned int efl_gesture_timestamp_get(const Eo *obj);
 
 #ifdef EFL_CANVAS_GESTURE_PROTECTED
 /**
@@ -111,7 +111,7 @@ extern extern_WEAK unsigned int efl_gesture_timestamp_get(const Eo *obj);
  *
  * @ingroup Efl_Canvas_Gesture
  */
-extern extern_WEAK void efl_gesture_touch_count_set(Eo *obj, unsigned int touch_count);
+extern  void efl_gesture_touch_count_set(Eo *obj, unsigned int touch_count);
 #endif
 
 /**
@@ -123,7 +123,7 @@ extern extern_WEAK void efl_gesture_touch_count_set(Eo *obj, unsigned int touch_
  *
  * @ingroup Efl_Canvas_Gesture
  */
-extern extern_WEAK unsigned int efl_gesture_touch_count_get(const Eo *obj);
+extern  unsigned int efl_gesture_touch_count_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

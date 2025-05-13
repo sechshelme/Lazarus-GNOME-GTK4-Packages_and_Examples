@@ -28,6 +28,6 @@ typedef Eo Efl_Canvas_Parallel_Group_Animation;
  */
 #define EFL_CANVAS_PARALLEL_GROUP_ANIMATION_CLASS efl_canvas_parallel_group_animation_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_parallel_group_animation_class_get(void) ;
+extern  const Efl_Class *efl_canvas_parallel_group_animation_class_get(void) ;
 
 #endif

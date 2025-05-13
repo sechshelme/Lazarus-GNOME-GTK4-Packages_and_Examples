@@ -31,7 +31,7 @@ typedef Eo Efl_Canvas_Scale_Animation;
  */
 #define EFL_CANVAS_SCALE_ANIMATION_CLASS efl_canvas_scale_animation_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_scale_animation_class_get(void) ;
+extern  const Efl_Class *efl_canvas_scale_animation_class_get(void) ;
 
 /**
  * @brief Scale range and pivot object. The object's scale will change from
@@ -52,7 +52,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_scale_animation_class_get(void) ;
  *
  * @ingroup Efl_Canvas_Scale_Animation
  */
-extern extern_WEAK void efl_animation_scale_set(Eo *obj, Eina_Vector2 from_scale, Eina_Vector2 to_scale, Efl_Canvas_Object *pivot, Eina_Vector2 center_point);
+extern  void efl_animation_scale_set(Eo *obj, Eina_Vector2 from_scale, Eina_Vector2 to_scale, Efl_Canvas_Object *pivot, Eina_Vector2 center_point);
 
 /**
  * @brief Scale range and pivot object. The object's scale will change from
@@ -73,7 +73,7 @@ extern extern_WEAK void efl_animation_scale_set(Eo *obj, Eina_Vector2 from_scale
  *
  * @ingroup Efl_Canvas_Scale_Animation
  */
-extern extern_WEAK void efl_animation_scale_get(const Eo *obj, Eina_Vector2 *from_scale, Eina_Vector2 *to_scale, Efl_Canvas_Object **pivot, Eina_Vector2 *center_point);
+extern  void efl_animation_scale_get(const Eo *obj, Eina_Vector2 *from_scale, Eina_Vector2 *to_scale, Efl_Canvas_Object **pivot, Eina_Vector2 *center_point);
 
 /**
  * @brief Scale range and pivot position, relative to the canvas. The object's
@@ -93,7 +93,7 @@ extern extern_WEAK void efl_animation_scale_get(const Eo *obj, Eina_Vector2 *fro
  *
  * @ingroup Efl_Canvas_Scale_Animation
  */
-extern extern_WEAK void efl_animation_scale_absolute_set(Eo *obj, Eina_Vector2 from_scale, Eina_Vector2 to_scale, Eina_Position2D pivot_point);
+extern  void efl_animation_scale_absolute_set(Eo *obj, Eina_Vector2 from_scale, Eina_Vector2 to_scale, Eina_Position2D pivot_point);
 
 /**
  * @brief Scale range and pivot position, relative to the canvas. The object's
@@ -113,6 +113,6 @@ extern extern_WEAK void efl_animation_scale_absolute_set(Eo *obj, Eina_Vector2 f
  *
  * @ingroup Efl_Canvas_Scale_Animation
  */
-extern extern_WEAK void efl_animation_scale_absolute_get(const Eo *obj, Eina_Vector2 *from_scale, Eina_Vector2 *to_scale, Eina_Position2D *pivot_point);
+extern  void efl_animation_scale_absolute_get(const Eo *obj, Eina_Vector2 *from_scale, Eina_Vector2 *to_scale, Eina_Position2D *pivot_point);
 
 #endif

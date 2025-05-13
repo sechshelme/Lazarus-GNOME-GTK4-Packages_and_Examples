@@ -38,7 +38,7 @@ typedef struct _Efl_Input_Clickable_Clicked
  */
 #define EFL_INPUT_CLICKABLE_MIXIN efl_input_clickable_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_input_clickable_mixin_get(void) ;
+extern  const Efl_Class *efl_input_clickable_mixin_get(void) ;
 
 #ifdef EFL_INPUT_CLICKABLE_PROTECTED
 /**
@@ -54,7 +54,7 @@ extern extern_WEAK const Efl_Class *efl_input_clickable_mixin_get(void) ;
  *
  * @ingroup Efl_Input_Clickable
  */
-extern extern_WEAK void efl_input_clickable_press(Eo *obj, unsigned int button);
+extern  void efl_input_clickable_press(Eo *obj, unsigned int button);
 #endif
 
 #ifdef EFL_INPUT_CLICKABLE_PROTECTED
@@ -71,7 +71,7 @@ extern extern_WEAK void efl_input_clickable_press(Eo *obj, unsigned int button);
  *
  * @ingroup Efl_Input_Clickable
  */
-extern extern_WEAK void efl_input_clickable_unpress(Eo *obj, unsigned int button);
+extern  void efl_input_clickable_unpress(Eo *obj, unsigned int button);
 #endif
 
 #ifdef EFL_INPUT_CLICKABLE_PROTECTED
@@ -88,7 +88,7 @@ extern extern_WEAK void efl_input_clickable_unpress(Eo *obj, unsigned int button
  *
  * @ingroup Efl_Input_Clickable
  */
-extern extern_WEAK void efl_input_clickable_button_state_reset(Eo *obj, unsigned int button);
+extern  void efl_input_clickable_button_state_reset(Eo *obj, unsigned int button);
 #endif
 
 #ifdef EFL_INPUT_CLICKABLE_PROTECTED
@@ -104,7 +104,7 @@ extern extern_WEAK void efl_input_clickable_button_state_reset(Eo *obj, unsigned
  *
  * @ingroup Efl_Input_Clickable
  */
-extern extern_WEAK void efl_input_clickable_longpress_abort(Eo *obj, unsigned int button);
+extern  void efl_input_clickable_longpress_abort(Eo *obj, unsigned int button);
 #endif
 
 /** This returns true if the given object is currently in event emission
@@ -113,9 +113,9 @@ extern extern_WEAK void efl_input_clickable_longpress_abort(Eo *obj, unsigned in
  *
  * @ingroup Efl_Input_Clickable
  */
-extern extern_WEAK Eina_Bool efl_input_clickable_interaction_get(const Eo *obj);
+extern  Eina_Bool efl_input_clickable_interaction_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_CLICKED;
+extern  extern const Efl_Event_Description _EFL_INPUT_EVENT_CLICKED;
 
 /** Called when object is in sequence pressed and unpressed by the primary
  * button
@@ -127,7 +127,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_CLICKED;
  */
 #define EFL_INPUT_EVENT_CLICKED (&(_EFL_INPUT_EVENT_CLICKED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_CLICKED_ANY;
+extern  extern const Efl_Event_Description _EFL_INPUT_EVENT_CLICKED_ANY;
 
 /** Called when object is in sequence pressed and unpressed by any button. The
  * button that triggered the event can be found in the event information.
@@ -139,7 +139,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_CLICKED_A
  */
 #define EFL_INPUT_EVENT_CLICKED_ANY (&(_EFL_INPUT_EVENT_CLICKED_ANY))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_PRESSED;
+extern  extern const Efl_Event_Description _EFL_INPUT_EVENT_PRESSED;
 
 /** Called when the object is pressed, event_info is the button that got
  * pressed
@@ -151,7 +151,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_PRESSED;
  */
 #define EFL_INPUT_EVENT_PRESSED (&(_EFL_INPUT_EVENT_PRESSED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_UNPRESSED;
+extern  extern const Efl_Event_Description _EFL_INPUT_EVENT_UNPRESSED;
 
 /** Called when the object is no longer pressed, event_info is the button that
  * got pressed
@@ -163,7 +163,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_UNPRESSED
  */
 #define EFL_INPUT_EVENT_UNPRESSED (&(_EFL_INPUT_EVENT_UNPRESSED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_INPUT_EVENT_LONGPRESSED;
+extern  extern const Efl_Event_Description _EFL_INPUT_EVENT_LONGPRESSED;
 
 /** Called when the object receives a long press, event_info is the button that
  * got pressed

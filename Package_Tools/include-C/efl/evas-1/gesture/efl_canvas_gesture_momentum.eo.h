@@ -27,7 +27,7 @@ typedef Eo Efl_Canvas_Gesture_Momentum;
  */
 #define EFL_CANVAS_GESTURE_MOMENTUM_CLASS efl_canvas_gesture_momentum_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_gesture_momentum_class_get(void) ;
+extern  const Efl_Class *efl_canvas_gesture_momentum_class_get(void) ;
 
 /**
  * @brief The momentum value, this is, the direction in which the action
@@ -39,7 +39,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_gesture_momentum_class_get(void) 
  *
  * @ingroup Efl_Canvas_Gesture_Momentum
  */
-extern extern_WEAK Eina_Vector2 efl_gesture_momentum_get(const Eo *obj);
+extern  Eina_Vector2 efl_gesture_momentum_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

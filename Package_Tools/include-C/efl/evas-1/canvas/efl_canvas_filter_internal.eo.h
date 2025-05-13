@@ -78,7 +78,7 @@ typedef struct _Efl_Canvas_Filter_State
  */
 #define EFL_CANVAS_FILTER_INTERNAL_MIXIN efl_canvas_filter_internal_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_filter_internal_mixin_get(void) ;
+extern  const Efl_Class *efl_canvas_filter_internal_mixin_get(void) ;
 
 #ifdef EFL_CANVAS_FILTER_INTERNAL_PROTECTED
 /**
@@ -89,7 +89,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_filter_internal_mixin_get(void) ;
  *
  * @ingroup Efl_Canvas_Filter_Internal
  */
-extern extern_WEAK void evas_filter_changed_set(Eo *obj, Eina_Bool val);
+extern  void evas_filter_changed_set(Eo *obj, Eina_Bool val);
 #endif
 
 #ifdef EFL_CANVAS_FILTER_INTERNAL_PROTECTED
@@ -101,7 +101,7 @@ extern extern_WEAK void evas_filter_changed_set(Eo *obj, Eina_Bool val);
  *
  * @ingroup Efl_Canvas_Filter_Internal
  */
-extern extern_WEAK void evas_filter_invalid_set(Eo *obj, Eina_Bool val);
+extern  void evas_filter_invalid_set(Eo *obj, Eina_Bool val);
 #endif
 
 #ifdef EFL_CANVAS_FILTER_INTERNAL_PROTECTED
@@ -115,7 +115,7 @@ extern extern_WEAK void evas_filter_invalid_set(Eo *obj, Eina_Bool val);
  *
  * @ingroup Efl_Canvas_Filter_Internal
  */
-extern extern_WEAK Eina_Bool evas_filter_input_alpha(Eo *obj);
+extern  Eina_Bool evas_filter_input_alpha(Eo *obj);
 #endif
 
 #ifdef EFL_CANVAS_FILTER_INTERNAL_PROTECTED
@@ -129,7 +129,7 @@ extern extern_WEAK Eina_Bool evas_filter_input_alpha(Eo *obj);
  *
  * @ingroup Efl_Canvas_Filter_Internal
  */
-extern extern_WEAK void evas_filter_state_prepare(Eo *obj, Efl_Canvas_Filter_State *state, void *data);
+extern  void evas_filter_state_prepare(Eo *obj, Efl_Canvas_Filter_State *state, void *data);
 #endif
 
 #ifdef EFL_CANVAS_FILTER_INTERNAL_PROTECTED
@@ -156,7 +156,7 @@ extern extern_WEAK void evas_filter_state_prepare(Eo *obj, Efl_Canvas_Filter_Sta
  *
  * @ingroup Efl_Canvas_Filter_Internal
  */
-extern extern_WEAK Eina_Bool evas_filter_input_render(Eo *obj, void *filter, void *engine, void *output, void *drawctx, void *data, int l, int r, int t, int b, int x, int y, Eina_Bool do_async);
+extern  Eina_Bool evas_filter_input_render(Eo *obj, void *filter, void *engine, void *output, void *drawctx, void *data, int l, int r, int t, int b, int x, int y, Eina_Bool do_async);
 #endif
 
 #ifdef EFL_CANVAS_FILTER_INTERNAL_PROTECTED
@@ -168,7 +168,7 @@ extern extern_WEAK Eina_Bool evas_filter_input_render(Eo *obj, void *filter, voi
  *
  * @ingroup Efl_Canvas_Filter_Internal
  */
-extern extern_WEAK void evas_filter_dirty(Eo *obj);
+extern  void evas_filter_dirty(Eo *obj);
 #endif
 
 #ifdef EFL_CANVAS_FILTER_INTERNAL_PROTECTED
@@ -183,7 +183,7 @@ extern extern_WEAK void evas_filter_dirty(Eo *obj);
  *
  * @ingroup Efl_Canvas_Filter_Internal
  */
-extern extern_WEAK void *evas_filter_output_buffer_get(const Eo *obj);
+extern  void *evas_filter_output_buffer_get(const Eo *obj);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 

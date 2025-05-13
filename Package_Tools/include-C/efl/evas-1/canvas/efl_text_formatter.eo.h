@@ -34,7 +34,7 @@ typedef Eo Efl_Text_Formatter;
  */
 #define EFL_TEXT_FORMATTER_CLASS efl_text_formatter_class_get()
 
-extern extern_WEAK const Efl_Class *efl_text_formatter_class_get(void) ;
+extern  const Efl_Class *efl_text_formatter_class_get(void) ;
 
 /**
  * @brief Inserts an attribute format in a specified range [$start, @c end -
@@ -52,7 +52,7 @@ extern extern_WEAK const Efl_Class *efl_text_formatter_class_get(void) ;
  *
  * @ingroup Efl_Text_Formatter
  */
-extern extern_WEAK void efl_text_formatter_attribute_insert(const Efl_Text_Cursor_Object *start, const Efl_Text_Cursor_Object *end, const char *format);
+extern  void efl_text_formatter_attribute_insert(const Efl_Text_Cursor_Object *start, const Efl_Text_Cursor_Object *end, const char *format);
 
 /**
  * @brief Clear (remove) attributes in the specified range [$start, @c end -
@@ -67,6 +67,6 @@ extern extern_WEAK void efl_text_formatter_attribute_insert(const Efl_Text_Curso
  *
  * @ingroup Efl_Text_Formatter
  */
-extern extern_WEAK unsigned int efl_text_formatter_attribute_clear(const Efl_Text_Cursor_Object *start, const Efl_Text_Cursor_Object *end);
+extern  unsigned int efl_text_formatter_attribute_clear(const Efl_Text_Cursor_Object *start, const Efl_Text_Cursor_Object *end);
 
 #endif

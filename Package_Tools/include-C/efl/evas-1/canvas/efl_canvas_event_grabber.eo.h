@@ -35,7 +35,7 @@ typedef Eo Efl_Canvas_Event_Grabber;
  */
 #define EFL_CANVAS_EVENT_GRABBER_CLASS efl_canvas_event_grabber_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_event_grabber_class_get(void) ;
+extern  const Efl_Class *efl_canvas_event_grabber_class_get(void) ;
 
 /**
  * @brief Stops the grabber from updating its internal stacking order while
@@ -46,7 +46,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_event_grabber_class_get(void) ;
  *
  * @ingroup Efl_Canvas_Event_Grabber
  */
-extern extern_WEAK void efl_canvas_event_grabber_freeze_when_visible_set(Eo *obj, Eina_Bool set);
+extern  void efl_canvas_event_grabber_freeze_when_visible_set(Eo *obj, Eina_Bool set);
 
 /**
  * @brief Stops the grabber from updating its internal stacking order while
@@ -58,7 +58,7 @@ extern extern_WEAK void efl_canvas_event_grabber_freeze_when_visible_set(Eo *obj
  *
  * @ingroup Efl_Canvas_Event_Grabber
  */
-extern extern_WEAK Eina_Bool efl_canvas_event_grabber_freeze_when_visible_get(const Eo *obj);
+extern  Eina_Bool efl_canvas_event_grabber_freeze_when_visible_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

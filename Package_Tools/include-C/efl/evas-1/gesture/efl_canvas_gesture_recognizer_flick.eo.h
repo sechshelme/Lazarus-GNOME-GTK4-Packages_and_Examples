@@ -22,7 +22,7 @@ typedef Eo Efl_Canvas_Gesture_Recognizer_Flick;
  */
 #define EFL_CANVAS_GESTURE_RECOGNIZER_FLICK_CLASS efl_canvas_gesture_recognizer_flick_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_gesture_recognizer_flick_class_get(void) ;
+extern  const Efl_Class *efl_canvas_gesture_recognizer_flick_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

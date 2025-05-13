@@ -20,7 +20,7 @@ typedef Eo Efl_Canvas_Polygon;
  */
 #define EFL_CANVAS_POLYGON_CLASS efl_canvas_polygon_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_polygon_class_get(void) ;
+extern  const Efl_Class *efl_canvas_polygon_class_get(void) ;
 
 /**
  * @brief Adds the given point to the given evas polygon object.
@@ -30,13 +30,13 @@ extern extern_WEAK const Efl_Class *efl_canvas_polygon_class_get(void) ;
  *
  * @ingroup Efl_Canvas_Polygon
  */
-extern extern_WEAK void efl_canvas_polygon_point_add(Eo *obj, Eina_Position2D pos);
+extern  void efl_canvas_polygon_point_add(Eo *obj, Eina_Position2D pos);
 
 /** Removes all of the points from the given evas polygon object.
  *
  * @ingroup Efl_Canvas_Polygon
  */
-extern extern_WEAK void efl_canvas_polygon_points_clear(Eo *obj);
+extern  void efl_canvas_polygon_points_clear(Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

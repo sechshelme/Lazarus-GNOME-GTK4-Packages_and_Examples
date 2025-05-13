@@ -28,7 +28,7 @@ typedef Eo Efl_Canvas_Group;
  */
 #define EFL_CANVAS_GROUP_CLASS efl_canvas_group_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_group_class_get(void) ;
+extern  const Efl_Class *efl_canvas_group_class_get(void) ;
 
 /**
  * @brief Indicates that the group's layout needs to be recalculated.
@@ -52,7 +52,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_group_class_get(void) ;
  *
  * @ingroup Efl_Canvas_Group
  */
-extern extern_WEAK void efl_canvas_group_need_recalculate_set(Eo *obj, Eina_Bool value);
+extern  void efl_canvas_group_need_recalculate_set(Eo *obj, Eina_Bool value);
 
 /**
  * @brief Indicates that the group's layout needs to be recalculated.
@@ -77,7 +77,7 @@ extern extern_WEAK void efl_canvas_group_need_recalculate_set(Eo *obj, Eina_Bool
  *
  * @ingroup Efl_Canvas_Group
  */
-extern extern_WEAK Eina_Bool efl_canvas_group_need_recalculate_get(const Eo *obj);
+extern  Eina_Bool efl_canvas_group_need_recalculate_get(const Eo *obj);
 
 /**
  * @brief Marks the object as dirty.
@@ -92,7 +92,7 @@ extern extern_WEAK Eina_Bool efl_canvas_group_need_recalculate_get(const Eo *obj
  *
  * @ingroup Efl_Canvas_Group
  */
-extern extern_WEAK void efl_canvas_group_change(Eo *obj);
+extern  void efl_canvas_group_change(Eo *obj);
 
 /**
  * @brief Triggers an immediate recalculation of this object's geometry.
@@ -105,7 +105,7 @@ extern extern_WEAK void efl_canvas_group_change(Eo *obj);
  *
  * @ingroup Efl_Canvas_Group
  */
-extern extern_WEAK void efl_canvas_group_calculate(Eo *obj);
+extern  void efl_canvas_group_calculate(Eo *obj);
 
 /**
  * @brief Returns an iterator over the children of this object, which are
@@ -123,7 +123,7 @@ extern extern_WEAK void efl_canvas_group_calculate(Eo *obj);
  *
  * @ingroup Efl_Canvas_Group
  */
-extern extern_WEAK Eina_Iterator *efl_canvas_group_members_iterate(const Eo *obj) EFL_TRANSFER_OWNERSHIP ;
+extern  Eina_Iterator *efl_canvas_group_members_iterate(const Eo *obj) EFL_TRANSFER_OWNERSHIP ;
 
 /**
  * @brief Set a canvas object as a member of a given group (or smart object).
@@ -147,7 +147,7 @@ extern extern_WEAK Eina_Iterator *efl_canvas_group_members_iterate(const Eo *obj
  *
  * @ingroup Efl_Canvas_Group
  */
-extern extern_WEAK void efl_canvas_group_member_add(Eo *obj, Efl_Canvas_Object *sub_obj);
+extern  void efl_canvas_group_member_add(Eo *obj, Efl_Canvas_Object *sub_obj);
 
 /**
  * @brief Removes a member object from a given smart object.
@@ -166,7 +166,7 @@ extern extern_WEAK void efl_canvas_group_member_add(Eo *obj, Efl_Canvas_Object *
  *
  * @ingroup Efl_Canvas_Group
  */
-extern extern_WEAK void efl_canvas_group_member_remove(Eo *obj, Efl_Canvas_Object *sub_obj);
+extern  void efl_canvas_group_member_remove(Eo *obj, Efl_Canvas_Object *sub_obj);
 
 /**
  * @brief Finds out if a given object is a member of this group.
@@ -180,7 +180,7 @@ extern extern_WEAK void efl_canvas_group_member_remove(Eo *obj, Efl_Canvas_Objec
  *
  * @ingroup Efl_Canvas_Group
  */
-extern extern_WEAK Eina_Bool efl_canvas_group_member_is(const Eo *obj, const Efl_Canvas_Object *sub_obj);
+extern  Eina_Bool efl_canvas_group_member_is(const Eo *obj, const Efl_Canvas_Object *sub_obj);
 
 #ifdef EFL_CANVAS_GROUP_PROTECTED
 /**
@@ -197,10 +197,10 @@ extern extern_WEAK Eina_Bool efl_canvas_group_member_is(const Eo *obj, const Efl
  *
  * @ingroup Efl_Canvas_Group
  */
-extern extern_WEAK const Efl_Canvas_Object *efl_canvas_group_clipper_get(const Eo *obj);
+extern  const Efl_Canvas_Object *efl_canvas_group_clipper_get(const Eo *obj);
 #endif
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_GROUP_EVENT_MEMBER_ADDED;
+extern  extern const Efl_Event_Description _EFL_CANVAS_GROUP_EVENT_MEMBER_ADDED;
 
 /** Called when a member is added to the group.
  * @return Efl_Gfx_Entity *
@@ -211,7 +211,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_GROUP_EVENT_ME
  */
 #define EFL_CANVAS_GROUP_EVENT_MEMBER_ADDED (&(_EFL_CANVAS_GROUP_EVENT_MEMBER_ADDED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_GROUP_EVENT_MEMBER_REMOVED;
+extern  extern const Efl_Event_Description _EFL_CANVAS_GROUP_EVENT_MEMBER_REMOVED;
 
 /** Called when a member is removed from the group.
  * @return Efl_Gfx_Entity *

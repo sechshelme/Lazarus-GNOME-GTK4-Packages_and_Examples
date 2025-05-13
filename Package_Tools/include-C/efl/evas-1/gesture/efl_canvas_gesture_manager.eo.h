@@ -25,7 +25,7 @@ typedef Eo Efl_Canvas_Gesture_Manager;
  */
 #define EFL_CANVAS_GESTURE_MANAGER_CLASS efl_canvas_gesture_manager_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_gesture_manager_class_get(void) ;
+extern  const Efl_Class *efl_canvas_gesture_manager_class_get(void) ;
 
 /**
  * @brief Registers a new @ref Efl_Canvas_Gesture_Recognizer.
@@ -35,7 +35,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_gesture_manager_class_get(void) ;
  *
  * @ingroup Efl_Canvas_Gesture_Manager
  */
-extern extern_WEAK void efl_gesture_manager_recognizer_register(Eo *obj, Efl_Canvas_Gesture_Recognizer *recognizer);
+extern  void efl_gesture_manager_recognizer_register(Eo *obj, Efl_Canvas_Gesture_Recognizer *recognizer);
 
 /**
  * @brief Unregisters an existing @ref Efl_Canvas_Gesture_Recognizer.
@@ -45,7 +45,7 @@ extern extern_WEAK void efl_gesture_manager_recognizer_register(Eo *obj, Efl_Can
  *
  * @ingroup Efl_Canvas_Gesture_Manager
  */
-extern extern_WEAK void efl_gesture_manager_recognizer_unregister(Eo *obj, Efl_Canvas_Gesture_Recognizer *recognizer);
+extern  void efl_gesture_manager_recognizer_unregister(Eo *obj, Efl_Canvas_Gesture_Recognizer *recognizer);
 
 /**
  * @brief Perform cleanup for a gesture which ends after a delay.
@@ -56,7 +56,7 @@ extern extern_WEAK void efl_gesture_manager_recognizer_unregister(Eo *obj, Efl_C
  *
  * @ingroup Efl_Canvas_Gesture_Manager
  */
-extern extern_WEAK void efl_gesture_manager_recognizer_cleanup(Eo *obj, const Efl_Canvas_Gesture_Recognizer *recognizer, const Efl_Canvas_Object *target);
+extern  void efl_gesture_manager_recognizer_cleanup(Eo *obj, const Efl_Canvas_Gesture_Recognizer *recognizer, const Efl_Canvas_Object *target);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

@@ -40,7 +40,7 @@ typedef Eo Efl_Canvas_Animation;
  */
 #define EFL_CANVAS_ANIMATION_CLASS efl_canvas_animation_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_animation_class_get(void) ;
+extern  const Efl_Class *efl_canvas_animation_class_get(void) ;
 
 /**
  * @brief If @c true the last mapping state the animation applies will be kept.
@@ -59,7 +59,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_animation_class_get(void) ;
  *
  * @ingroup Efl_Canvas_Animation
  */
-extern extern_WEAK void efl_animation_final_state_keep_set(Eo *obj, Eina_Bool keep);
+extern  void efl_animation_final_state_keep_set(Eo *obj, Eina_Bool keep);
 
 /**
  * @brief If @c true the last mapping state the animation applies will be kept.
@@ -79,7 +79,7 @@ extern extern_WEAK void efl_animation_final_state_keep_set(Eo *obj, Eina_Bool ke
  *
  * @ingroup Efl_Canvas_Animation
  */
-extern extern_WEAK Eina_Bool efl_animation_final_state_keep_get(const Eo *obj);
+extern  Eina_Bool efl_animation_final_state_keep_get(const Eo *obj);
 
 /**
  * @brief The duration of a single animation "run". The
@@ -94,7 +94,7 @@ extern extern_WEAK Eina_Bool efl_animation_final_state_keep_get(const Eo *obj);
  *
  * @ingroup Efl_Canvas_Animation
  */
-extern extern_WEAK void efl_animation_duration_set(Eo *obj, double sec);
+extern  void efl_animation_duration_set(Eo *obj, double sec);
 
 /**
  * @brief The duration of a single animation "run". The
@@ -110,7 +110,7 @@ extern extern_WEAK void efl_animation_duration_set(Eo *obj, double sec);
  *
  * @ingroup Efl_Canvas_Animation
  */
-extern extern_WEAK double efl_animation_duration_get(const Eo *obj);
+extern  double efl_animation_duration_get(const Eo *obj);
 
 /**
  * @brief What to do when the animation finishes.
@@ -122,7 +122,7 @@ extern extern_WEAK double efl_animation_duration_get(const Eo *obj);
  *
  * @ingroup Efl_Canvas_Animation
  */
-extern extern_WEAK void efl_animation_repeat_mode_set(Eo *obj, Efl_Canvas_Animation_Repeat_Mode mode);
+extern  void efl_animation_repeat_mode_set(Eo *obj, Efl_Canvas_Animation_Repeat_Mode mode);
 
 /**
  * @brief What to do when the animation finishes.
@@ -135,7 +135,7 @@ extern extern_WEAK void efl_animation_repeat_mode_set(Eo *obj, Efl_Canvas_Animat
  *
  * @ingroup Efl_Canvas_Animation
  */
-extern extern_WEAK Efl_Canvas_Animation_Repeat_Mode efl_animation_repeat_mode_get(const Eo *obj);
+extern  Efl_Canvas_Animation_Repeat_Mode efl_animation_repeat_mode_get(const Eo *obj);
 
 /**
  * @brief How many times to play an animation. <tt>1</tt> means that the
@@ -152,7 +152,7 @@ extern extern_WEAK Efl_Canvas_Animation_Repeat_Mode efl_animation_repeat_mode_ge
  *
  * @ingroup Efl_Canvas_Animation
  */
-extern extern_WEAK void efl_animation_play_count_set(Eo *obj, int count);
+extern  void efl_animation_play_count_set(Eo *obj, int count);
 
 /**
  * @brief How many times to play an animation. <tt>1</tt> means that the
@@ -170,7 +170,7 @@ extern extern_WEAK void efl_animation_play_count_set(Eo *obj, int count);
  *
  * @ingroup Efl_Canvas_Animation
  */
-extern extern_WEAK int efl_animation_play_count_get(const Eo *obj);
+extern  int efl_animation_play_count_get(const Eo *obj);
 
 /**
  * @brief The time that passes since the animation is started and the first
@@ -183,7 +183,7 @@ extern extern_WEAK int efl_animation_play_count_get(const Eo *obj);
  *
  * @ingroup Efl_Canvas_Animation
  */
-extern extern_WEAK void efl_animation_start_delay_set(Eo *obj, double sec);
+extern  void efl_animation_start_delay_set(Eo *obj, double sec);
 
 /**
  * @brief The time that passes since the animation is started and the first
@@ -197,7 +197,7 @@ extern extern_WEAK void efl_animation_start_delay_set(Eo *obj, double sec);
  *
  * @ingroup Efl_Canvas_Animation
  */
-extern extern_WEAK double efl_animation_start_delay_get(const Eo *obj);
+extern  double efl_animation_start_delay_get(const Eo *obj);
 
 /**
  * @brief Optional mapping function.
@@ -215,7 +215,7 @@ extern extern_WEAK double efl_animation_start_delay_get(const Eo *obj);
  *
  * @ingroup Efl_Canvas_Animation
  */
-extern extern_WEAK void efl_animation_interpolator_set(Eo *obj, Efl_Interpolator *interpolator);
+extern  void efl_animation_interpolator_set(Eo *obj, Efl_Interpolator *interpolator);
 
 /**
  * @brief Optional mapping function.
@@ -233,7 +233,7 @@ extern extern_WEAK void efl_animation_interpolator_set(Eo *obj, Efl_Interpolator
  *
  * @ingroup Efl_Canvas_Animation
  */
-extern extern_WEAK Efl_Interpolator *efl_animation_interpolator_get(const Eo *obj);
+extern  Efl_Interpolator *efl_animation_interpolator_get(const Eo *obj);
 
 /**
  * @brief Overwrite this method to implement your own animation subclasses.
@@ -257,7 +257,7 @@ extern extern_WEAK Efl_Interpolator *efl_animation_interpolator_get(const Eo *ob
  *
  * @ingroup Efl_Canvas_Animation
  */
-extern extern_WEAK double efl_animation_apply(Eo *obj, double progress, Efl_Canvas_Object *target);
+extern  double efl_animation_apply(Eo *obj, double progress, Efl_Canvas_Object *target);
 
 /**
  * @brief Duration that will be used by default on all animations unless
@@ -269,7 +269,7 @@ extern extern_WEAK double efl_animation_apply(Eo *obj, double progress, Efl_Canv
  *
  * @ingroup Efl_Canvas_Animation
  */
-extern extern_WEAK void efl_animation_default_duration_set(double animation_time);
+extern  void efl_animation_default_duration_set(double animation_time);
 
 /**
  * @brief Duration that will be used by default on all animations unless
@@ -281,6 +281,6 @@ extern extern_WEAK void efl_animation_default_duration_set(double animation_time
  *
  * @ingroup Efl_Canvas_Animation
  */
-extern extern_WEAK double efl_animation_default_duration_get(void);
+extern  double efl_animation_default_duration_get(void);
 
 #endif

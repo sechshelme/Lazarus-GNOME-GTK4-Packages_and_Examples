@@ -20,7 +20,7 @@ typedef Eo Efl_Canvas_Vg_Image;
  */
 #define EFL_CANVAS_VG_IMAGE_CLASS efl_canvas_vg_image_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_vg_image_class_get(void) ;
+extern  const Efl_Class *efl_canvas_vg_image_class_get(void) ;
 
 /**
  * @brief Set image data
@@ -31,7 +31,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_vg_image_class_get(void) ;
  *
  * @ingroup Efl_Canvas_Vg_Image
  */
-extern extern_WEAK void efl_canvas_vg_image_data_set(Eo *obj, void *pixels, Eina_Size2D size);
+extern  void efl_canvas_vg_image_data_set(Eo *obj, void *pixels, Eina_Size2D size);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

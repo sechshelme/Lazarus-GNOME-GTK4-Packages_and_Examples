@@ -35,16 +35,17 @@ type
 
   // /usr/include/eina-1/eina/eina_rectangle.h
 type
-  TEina_Rectangle = record
-    x, y, w, h: integer;
+  TEina_Rect = record // Muss aufgelöst werden
   end;
+  PEina_Rect = ^TEina_Rect;
 
   TEina_Size2D = record
     w, h: longint;
   end;
+  PEina_Size2D = ^TEina_Size2D;
 
-  TEina_Position2D = record
-    x, y: integer;
+  TEina_Rectangle = record
+    x, y, w, h: integer;
   end;
 
   TEina_Vector2 = record
@@ -55,6 +56,11 @@ type
     x, y, z: double;
   end;
 
+  TEina_Position2D = record
+    x, y: longint;
+  end;
+  PEina_Position2D = ^TEina_Position2D;
+
   // /usr/include/eina-1/eina/eina_file.h
 type
   PEina_File = Pointer;
@@ -64,12 +70,6 @@ type
 type
   TEina_Stringshare = char;
   PEina_Stringshare = ^TEina_Stringshare;
-
-  // /usr/include/eina-1/eina/eina_rectangle.h
-type
-  TEina_Rect = record // Muss aufgelöst werden
-  end;
-  PEina_Rect = ^TEina_Rect;
 
   // /usr/include/eina-1/eina/eina_matrix.h
 type
@@ -244,6 +244,10 @@ type
     // Muss aufgelöst werden
   end;
   PEdje_Entry_Change_Info = ^TEdje_Entry_Change_Info;
+
+type
+  // /usr/include/efl-1/interfaces/efl_interpolator.eo.h
+  PEfl_Interpolator = Pointer;
 
 
   // Unauffindbar
