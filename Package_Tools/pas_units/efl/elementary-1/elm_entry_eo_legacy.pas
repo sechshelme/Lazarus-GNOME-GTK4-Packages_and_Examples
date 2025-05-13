@@ -1,151 +1,28 @@
-#ifndef _ELM_ENTRY_EO_LEGACY_H_
-#define _ELM_ENTRY_EO_LEGACY_H_
+unit elm_entry_eo_legacy;
 
-#ifndef _ELM_ENTRY_EO_CLASS_TYPE
-#define _ELM_ENTRY_EO_CLASS_TYPE
+interface
 
-typedef Eo Elm_Entry;
+uses
+  ctypes, elf;
 
-#endif
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
 
-#ifndef _ELM_ENTRY_EO_TYPES
-#define _ELM_ENTRY_EO_TYPES
+type
+  PElm_Entry = ^TElm_Entry;
+  TElm_Entry = TEo;
 
-
-#endif
-
-/**
- * @brief Enable or disable scrolling in entry
- *
- * Normally the entry is not scrollable unless you enable it with this call.
- *
- * @param[in] obj The object.
- * @param[in] scroll @c true if it is to be scrollable, @c false otherwise.
- *
- * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_scrollable_set(Elm_Entry *obj, Eina_Bool scroll);
-
-/**
- * @brief Get the scrollable state of the entry
- *
- * Normally the entry is not scrollable. This gets the scrollable state of the
- * entry.
- *
- * @param[in] obj The object.
- *
- * @return @c true if it is to be scrollable, @c false otherwise.
- *
- * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_scrollable_get(const Elm_Entry *obj);
-
-/**
- * @brief Set the attribute to show the input panel in case of only a user's
- * explicit Mouse Up event. It doesn't request to show the input panel even
- * though it has focus.
- *
- * @param[in] obj The object.
- * @param[in] ondemand If @c true, the input panel will be shown in case of
- * only Mouse up event. (Focus event will be ignored.)
- *
- * @since 1.9
- *
- * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_input_panel_show_on_demand_set(Elm_Entry *obj, Eina_Bool ondemand);
-
-/**
- * @brief Get the attribute to show the input panel in case of only a user's
- * explicit Mouse Up event.
- *
- * @param[in] obj The object.
- *
- * @return If @c true, the input panel will be shown in case of only Mouse up
- * event. (Focus event will be ignored.)
- *
- * @since 1.9
- *
- * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_input_panel_show_on_demand_get(const Elm_Entry *obj);
-
-/**
- * @brief This disables the entry's contextual (longpress) menu.
- *
- * @param[in] obj The object.
- * @param[in] disabled If @c true, the menu is disabled.
- *
- * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_context_menu_disabled_set(Elm_Entry *obj, Eina_Bool disabled);
-
-/**
- * @brief This returns whether the entry's contextual (longpress) menu is
- * disabled.
- *
- * @param[in] obj The object.
- *
- * @return If @c true, the menu is disabled.
- *
- * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_context_menu_disabled_get(const Elm_Entry *obj);
-
-/**
- * @brief Control pasting of text and images for the widget.
- *
- * Normally the entry allows both text and images to be pasted. By setting
- * cnp_mode to be #ELM_CNP_MODE_NO_IMAGE, this prevents images from being copy
- * or past. By setting cnp_mode to be #ELM_CNP_MODE_PLAINTEXT, this remove all
- * tags in text .
- *
- * @note This only changes the behaviour of text.
- *
- * @param[in] obj The object.
- * @param[in] cnp_mode One of #Elm_Cnp_Mode: #ELM_CNP_MODE_MARKUP,
- * #ELM_CNP_MODE_NO_IMAGE, #ELM_CNP_MODE_PLAINTEXT.
- *
- * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_cnp_mode_set(Elm_Entry *obj, Elm_Cnp_Mode cnp_mode);
-
-/**
- * @brief Getting elm_entry text paste/drop mode.
- *
- * Normally the entry allows both text and images to be pasted. This gets the
- * copy & paste mode of the entry.
- *
- * @param[in] obj The object.
- *
- * @return One of #Elm_Cnp_Mode: #ELM_CNP_MODE_MARKUP, #ELM_CNP_MODE_NO_IMAGE,
- * #ELM_CNP_MODE_PLAINTEXT.
- *
- * @ingroup Elm_Entry_Group
- */
-extern Elm_Cnp_Mode elm_entry_cnp_mode_get(const Elm_Entry *obj);
-
-/**
- * @brief Text format used to load and save the file, which could be plain text
- * or markup text.
- *
- * Default is @c ELM_TEXT_FORMAT_PLAIN_UTF8, if you want to use
- * @c ELM_TEXT_FORMAT_MARKUP_UTF8 then you need to set the text format before
- * calling @ref Efl.File.load.
- *
- * You could also set it before a call to @ref elm_entry_file_save in order to
- * save with the given format.
- *
- * Use it before calling @ref Efl.File.load or @ref elm_entry_file_save.
- *
- * @param[in] obj The object.
- * @param[in] format The file format
- *
- * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_file_text_format_set(Elm_Entry *obj, Elm_Text_Format format);
-
-/**
+procedure elm_entry_scrollable_set(obj:PElm_Entry; scroll:TEina_Bool);cdecl;external libelementary;
+function elm_entry_scrollable_get(obj:PElm_Entry):TEina_Bool;cdecl;external libelementary;
+procedure elm_entry_input_panel_show_on_demand_set(obj:PElm_Entry; ondemand:TEina_Bool);cdecl;external libelementary;
+function elm_entry_input_panel_show_on_demand_get(obj:PElm_Entry):TEina_Bool;cdecl;external libelementary;
+procedure elm_entry_context_menu_disabled_set(obj:PElm_Entry; disabled:TEina_Bool);cdecl;external libelementary;
+function elm_entry_context_menu_disabled_get(obj:PElm_Entry):TEina_Bool;cdecl;external libelementary;
+procedure elm_entry_cnp_mode_set(obj:PElm_Entry; cnp_mode:TElm_Cnp_Mode);cdecl;external libelementary;
+function elm_entry_cnp_mode_get(obj:PElm_Entry):TElm_Cnp_Mode;cdecl;external libelementary;
+procedure elm_entry_file_text_format_set(obj:PElm_Entry; format:TElm_Text_Format);cdecl;external libelementary;
+{*
  * @brief Set the language mode of the input panel.
  *
  * This API can be used if you want to show the alphabet keyboard mode.
@@ -154,10 +31,9 @@ extern void elm_entry_file_text_format_set(Elm_Entry *obj, Elm_Text_Format forma
  * @param[in] lang Language to be set to the input panel.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_input_panel_language_set(Elm_Entry *obj, Elm_Input_Panel_Lang lang);
-
-/**
+  }
+procedure elm_entry_input_panel_language_set(obj:PElm_Entry; lang:TElm_Input_Panel_Lang);cdecl;external libelementary;
+{*
  * @brief Get the language mode of the input panel.
  *
  * @param[in] obj The object.
@@ -165,21 +41,18 @@ extern void elm_entry_input_panel_language_set(Elm_Entry *obj, Elm_Input_Panel_L
  * @return Language to be set to the input panel.
  *
  * @ingroup Elm_Entry_Group
- */
-extern Elm_Input_Panel_Lang elm_entry_input_panel_language_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_input_panel_language_get(obj:PElm_Entry):TElm_Input_Panel_Lang;cdecl;external libelementary;
+{*
  * @brief This disabled the entry's selection handlers.
  *
  * @param[in] obj The object.
  * @param[in] disabled If @c true, the selection handlers are disabled.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_selection_handler_disabled_set(Elm_Entry *obj, Eina_Bool disabled);
-
-
-/**
+  }
+procedure elm_entry_selection_handler_disabled_set(obj:PElm_Entry; disabled:TEina_Bool);cdecl;external libelementary;
+{*
  * @brief Set the input panel layout variation of the entry
  *
  * @param[in] obj The object.
@@ -188,10 +61,9 @@ extern void elm_entry_selection_handler_disabled_set(Elm_Entry *obj, Eina_Bool d
  * @since 1.8
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_input_panel_layout_variation_set(Elm_Entry *obj, int variation);
-
-/**
+  }
+procedure elm_entry_input_panel_layout_variation_set(obj:PElm_Entry; variation:longint);cdecl;external libelementary;
+{*
  * @brief Get the input panel layout variation of the entry
  *
  * @param[in] obj The object.
@@ -201,20 +73,18 @@ extern void elm_entry_input_panel_layout_variation_set(Elm_Entry *obj, int varia
  * @since 1.8
  *
  * @ingroup Elm_Entry_Group
- */
-extern int elm_entry_input_panel_layout_variation_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_input_panel_layout_variation_get(obj:PElm_Entry):longint;cdecl;external libelementary;
+{*
  * @brief Set the autocapitalization type on the immodule.
  *
  * @param[in] obj The object.
  * @param[in] autocapital_type The type of autocapitalization.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_autocapital_type_set(Elm_Entry *obj, Elm_Autocapital_Type autocapital_type);
-
-/**
+  }
+procedure elm_entry_autocapital_type_set(obj:PElm_Entry; autocapital_type:TElm_Autocapital_Type);cdecl;external libelementary;
+{*
  * @brief Get the autocapitalization type on the immodule.
  *
  * @param[in] obj The object.
@@ -222,10 +92,9 @@ extern void elm_entry_autocapital_type_set(Elm_Entry *obj, Elm_Autocapital_Type 
  * @return The type of autocapitalization.
  *
  * @ingroup Elm_Entry_Group
- */
-extern Elm_Autocapital_Type elm_entry_autocapital_type_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_autocapital_type_get(obj:PElm_Entry):TElm_Autocapital_Type;cdecl;external libelementary;
+{*
  * @brief Sets if the entry is to be editable or not.
  *
  * By default, entries are editable and when focused, any text input by the
@@ -242,10 +111,9 @@ extern Elm_Autocapital_Type elm_entry_autocapital_type_get(const Elm_Entry *obj)
  * not, the entry is read-only and no user input is allowed.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_editable_set(Elm_Entry *obj, Eina_Bool editable);
-
-/**
+  }
+procedure elm_entry_editable_set(obj:PElm_Entry; editable:TEina_Bool);cdecl;external libelementary;
+{*
  * @brief Get whether the entry is editable or not.
  *
  * @param[in] obj The object.
@@ -254,10 +122,9 @@ extern void elm_entry_editable_set(Elm_Entry *obj, Eina_Bool editable);
  * entry is read-only and no user input is allowed.
  *
  * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_editable_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_editable_get(obj:PElm_Entry):TEina_Bool;cdecl;external libelementary;
+{*
  * @brief Set the style that the hover should use
  *
  * When creating the popup hover, entry will request that it's themed according
@@ -269,10 +136,9 @@ extern Eina_Bool elm_entry_editable_get(const Elm_Entry *obj);
  * @param[in] style The style to use for the underlying hover.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_anchor_hover_style_set(Elm_Entry *obj, const char *style);
-
-/**
+  }
+procedure elm_entry_anchor_hover_style_set(obj:PElm_Entry; style:Pchar);cdecl;external libelementary;
+{*
  * @brief Get the style that the hover should use.
  *
  * @param[in] obj The object.
@@ -280,10 +146,9 @@ extern void elm_entry_anchor_hover_style_set(Elm_Entry *obj, const char *style);
  * @return The style to use for the underlying hover.
  *
  * @ingroup Elm_Entry_Group
- */
-extern const char *elm_entry_anchor_hover_style_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_anchor_hover_style_get(obj:PElm_Entry):Pchar;cdecl;external libelementary;
+{*
  * @brief Sets the entry to single line mode.
  *
  * In single line mode, entries don't ever wrap when the text reaches the edge,
@@ -299,10 +164,9 @@ extern const char *elm_entry_anchor_hover_style_get(const Elm_Entry *obj);
  * line.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_single_line_set(Elm_Entry *obj, Eina_Bool single_line);
-
-/**
+  }
+procedure elm_entry_single_line_set(obj:PElm_Entry; single_line:TEina_Bool);cdecl;external libelementary;
+{*
  * @brief Get whether the entry is set to be single line.
  *
  * @param[in] obj The object.
@@ -310,10 +174,9 @@ extern void elm_entry_single_line_set(Elm_Entry *obj, Eina_Bool single_line);
  * @return If @c true, the text in the entry will be on a single line.
  *
  * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_single_line_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_single_line_get(obj:PElm_Entry):TEina_Bool;cdecl;external libelementary;
+{*
  * @brief Sets the entry to password mode.
  *
  * In password mode, entries are implicitly single line and the display of any
@@ -323,10 +186,9 @@ extern Eina_Bool elm_entry_single_line_get(const Elm_Entry *obj);
  * @param[in] password If @c true, password mode is enabled.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_password_set(Elm_Entry *obj, Eina_Bool password);
-
-/**
+  }
+procedure elm_entry_password_set(obj:PElm_Entry; password:TEina_Bool);cdecl;external libelementary;
+{*
  * @brief Get whether the entry is set to password mode.
  *
  * @param[in] obj The object.
@@ -334,10 +196,9 @@ extern void elm_entry_password_set(Elm_Entry *obj, Eina_Bool password);
  * @return If @c true, password mode is enabled.
  *
  * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_password_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_password_get(obj:PElm_Entry):TEina_Bool;cdecl;external libelementary;
+{*
  * @brief Set the return key on the input panel to be disabled.
  *
  * @param[in] obj The object.
@@ -345,10 +206,9 @@ extern Eina_Bool elm_entry_password_get(const Elm_Entry *obj);
  * for enabled.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_input_panel_return_key_disabled_set(Elm_Entry *obj, Eina_Bool disabled);
-
-/**
+  }
+procedure elm_entry_input_panel_return_key_disabled_set(obj:PElm_Entry; disabled:TEina_Bool);cdecl;external libelementary;
+{*
  * @brief Get whether the return key on the input panel should be disabled or
  * not.
  *
@@ -357,20 +217,18 @@ extern void elm_entry_input_panel_return_key_disabled_set(Elm_Entry *obj, Eina_B
  * @return The state to put in in: @c true for disabled, @c false for enabled.
  *
  * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_input_panel_return_key_disabled_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_input_panel_return_key_disabled_get(obj:PElm_Entry):TEina_Bool;cdecl;external libelementary;
+{*
  * @brief This sets the entry object to 'autosave' the loaded text file or not.
  *
  * @param[in] obj The object.
  * @param[in] auto_save Autosave the loaded file or not.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_autosave_set(Elm_Entry *obj, Eina_Bool auto_save);
-
-/**
+  }
+procedure elm_entry_autosave_set(obj:PElm_Entry; auto_save:TEina_Bool);cdecl;external libelementary;
+{*
  * @brief This gets the entry object's 'autosave' status.
  *
  * @param[in] obj The object.
@@ -378,10 +236,9 @@ extern void elm_entry_autosave_set(Elm_Entry *obj, Eina_Bool auto_save);
  * @return Autosave the loaded file or not.
  *
  * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_autosave_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_autosave_get(obj:PElm_Entry):TEina_Bool;cdecl;external libelementary;
+{*
  * @brief Set the parent of the hover popup
  *
  * Sets the parent object to use by the hover created by the entry when an
@@ -391,10 +248,9 @@ extern Eina_Bool elm_entry_autosave_get(const Elm_Entry *obj);
  * @param[in] parent The object to use as parent for the hover.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_anchor_hover_parent_set(Elm_Entry *obj, Efl_Canvas_Object *parent);
-
-/**
+  }
+procedure elm_entry_anchor_hover_parent_set(obj:PElm_Entry; parent:PEfl_Canvas_Object);cdecl;external libelementary;
+{*
  * @brief Get the parent of the hover popup
  *
  * Get the object used as parent for the hover created by the entry widget. If
@@ -405,10 +261,9 @@ extern void elm_entry_anchor_hover_parent_set(Elm_Entry *obj, Efl_Canvas_Object 
  * @return The object to use as parent for the hover.
  *
  * @ingroup Elm_Entry_Group
- */
-extern Efl_Canvas_Object *elm_entry_anchor_hover_parent_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_anchor_hover_parent_get(obj:PElm_Entry):PEfl_Canvas_Object;cdecl;external libelementary;
+{*
  * @brief Set whether the entry should allow to use the text prediction.
  *
  * @param[in] obj The object.
@@ -416,10 +271,9 @@ extern Efl_Canvas_Object *elm_entry_anchor_hover_parent_get(const Elm_Entry *obj
  * prediction.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_prediction_allow_set(Elm_Entry *obj, Eina_Bool prediction);
-
-/**
+  }
+procedure elm_entry_prediction_allow_set(obj:PElm_Entry; prediction:TEina_Bool);cdecl;external libelementary;
+{*
  * @brief Get whether the entry should allow to use the text prediction.
  *
  * @param[in] obj The object.
@@ -427,10 +281,9 @@ extern void elm_entry_prediction_allow_set(Elm_Entry *obj, Eina_Bool prediction)
  * @return Whether the entry should allow to use the text prediction.
  *
  * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_prediction_allow_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_prediction_allow_get(obj:PElm_Entry):TEina_Bool;cdecl;external libelementary;
+{*
  * @brief Sets the input hint which allows input methods to fine-tune their
  * behavior.
  *
@@ -438,10 +291,9 @@ extern Eina_Bool elm_entry_prediction_allow_get(const Elm_Entry *obj);
  * @param[in] hints Input hint.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_input_hint_set(Elm_Entry *obj, Elm_Input_Hints hints);
-
-/**
+  }
+procedure elm_entry_input_hint_set(obj:PElm_Entry; hints:TElm_Input_Hints);cdecl;external libelementary;
+{*
  * @brief Gets the value of input hint.
  *
  * @param[in] obj The object.
@@ -449,20 +301,18 @@ extern void elm_entry_input_hint_set(Elm_Entry *obj, Elm_Input_Hints hints);
  * @return Input hint.
  *
  * @ingroup Elm_Entry_Group
- */
-extern Elm_Input_Hints elm_entry_input_hint_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_input_hint_get(obj:PElm_Entry):TElm_Input_Hints;cdecl;external libelementary;
+{*
  * @brief Set the input panel layout of the entry.
  *
  * @param[in] obj The object.
  * @param[in] layout Layout type.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_input_panel_layout_set(Elm_Entry *obj, Elm_Input_Panel_Layout layout);
-
-/**
+  }
+procedure elm_entry_input_panel_layout_set(obj:PElm_Entry; layout:TElm_Input_Panel_Layout);cdecl;external libelementary;
+{*
  * @brief Get the input panel layout of the entry.
  *
  * @param[in] obj The object.
@@ -470,10 +320,9 @@ extern void elm_entry_input_panel_layout_set(Elm_Entry *obj, Elm_Input_Panel_Lay
  * @return Layout type.
  *
  * @ingroup Elm_Entry_Group
- */
-extern Elm_Input_Panel_Layout elm_entry_input_panel_layout_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_input_panel_layout_get(obj:PElm_Entry):TElm_Input_Panel_Layout;cdecl;external libelementary;
+{*
  * @brief Set the "return" key type. This type is used to set string or icon on
  * the "return" key of the input panel.
  *
@@ -486,10 +335,9 @@ extern Elm_Input_Panel_Layout elm_entry_input_panel_layout_get(const Elm_Entry *
  * @param[in] return_key_type The type of "return" key on the input panel.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_input_panel_return_key_type_set(Elm_Entry *obj, Elm_Input_Panel_Return_Key_Type return_key_type);
-
-/**
+  }
+procedure elm_entry_input_panel_return_key_type_set(obj:PElm_Entry; return_key_type:TElm_Input_Panel_Return_Key_Type);cdecl;external libelementary;
+{*
  * @brief Get the "return" key type.
  *
  * @param[in] obj The object.
@@ -497,10 +345,9 @@ extern void elm_entry_input_panel_return_key_type_set(Elm_Entry *obj, Elm_Input_
  * @return The type of "return" key on the input panel.
  *
  * @ingroup Elm_Entry_Group
- */
-extern Elm_Input_Panel_Return_Key_Type elm_entry_input_panel_return_key_type_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_input_panel_return_key_type_get(obj:PElm_Entry):TElm_Input_Panel_Return_Key_Type;cdecl;external libelementary;
+{*
  * @brief Sets the attribute to show the input panel automatically.
  *
  * @param[in] obj The object.
@@ -508,10 +355,9 @@ extern Elm_Input_Panel_Return_Key_Type elm_entry_input_panel_return_key_type_get
  * clicked or has a focus.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_input_panel_enabled_set(Elm_Entry *obj, Eina_Bool enabled);
-
-/**
+  }
+procedure elm_entry_input_panel_enabled_set(obj:PElm_Entry; enabled:TEina_Bool);cdecl;external libelementary;
+{*
  * @brief Get the attribute to show the input panel automatically.
  *
  * @param[in] obj The object.
@@ -520,10 +366,9 @@ extern void elm_entry_input_panel_enabled_set(Elm_Entry *obj, Eina_Bool enabled)
  * a focus.
  *
  * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_input_panel_enabled_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_input_panel_enabled_get(obj:PElm_Entry):TEina_Bool;cdecl;external libelementary;
+{*
  * @brief Set the line wrap type to use on multi-line entries.
  *
  * Sets the wrap type used by the entry to any of the specified in
@@ -538,10 +383,9 @@ extern Eina_Bool elm_entry_input_panel_enabled_get(const Elm_Entry *obj);
  * @param[in] wrap The wrap mode to use. See Elm_Wrap_Type for details on them.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_line_wrap_set(Elm_Entry *obj, Elm_Wrap_Type wrap);
-
-/**
+  }
+procedure elm_entry_line_wrap_set(obj:PElm_Entry; wrap:TElm_Wrap_Type);cdecl;external libelementary;
+{*
  * @brief Get the wrap mode the entry was set to use.
  *
  * @param[in] obj The object.
@@ -549,10 +393,9 @@ extern void elm_entry_line_wrap_set(Elm_Entry *obj, Elm_Wrap_Type wrap);
  * @return The wrap mode to use. See Elm_Wrap_Type for details on them.
  *
  * @ingroup Elm_Entry_Group
- */
-extern Elm_Wrap_Type elm_entry_line_wrap_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_line_wrap_get(obj:PElm_Entry):TElm_Wrap_Type;cdecl;external libelementary;
+{*
  * @brief Sets the cursor position in the entry to the given value
  *
  * The value in @c pos is the index of the character position within the
@@ -562,10 +405,9 @@ extern Elm_Wrap_Type elm_entry_line_wrap_get(const Elm_Entry *obj);
  * @param[in] pos The position of the cursor.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_cursor_pos_set(Elm_Entry *obj, int pos);
-
-/**
+  }
+procedure elm_entry_cursor_pos_set(obj:PElm_Entry; pos:longint);cdecl;external libelementary;
+{*
  * @brief Get the current position of the cursor in the entry.
  *
  * @param[in] obj The object.
@@ -573,10 +415,9 @@ extern void elm_entry_cursor_pos_set(Elm_Entry *obj, int pos);
  * @return The position of the cursor.
  *
  * @ingroup Elm_Entry_Group
- */
-extern int elm_entry_cursor_pos_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_cursor_pos_get(obj:PElm_Entry):longint;cdecl;external libelementary;
+{*
  * @brief Sets the visibility of the left-side widget of the entry, set by @ref
  * elm_object_part_content_set.
  *
@@ -585,16 +426,14 @@ extern int elm_entry_cursor_pos_get(const Elm_Entry *obj);
  * not.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_icon_visible_set(Elm_Entry *obj, Eina_Bool setting);
-
-/** This moves the cursor to the end of the current line.
+  }
+procedure elm_entry_icon_visible_set(obj:PElm_Entry; setting:TEina_Bool);cdecl;external libelementary;
+{* This moves the cursor to the end of the current line.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_cursor_line_end_set(Elm_Entry *obj);
-
-/**
+  }
+procedure elm_entry_cursor_line_end_set(obj:PElm_Entry);cdecl;external libelementary;
+{*
  * @brief This selects a region of text within the entry.
  *
  * @param[in] obj The object.
@@ -604,10 +443,9 @@ extern void elm_entry_cursor_line_end_set(Elm_Entry *obj);
  * @since 1.9
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_select_region_set(Elm_Entry *obj, int start, int end);
-
-/**
+  }
+procedure elm_entry_select_region_set(obj:PElm_Entry; start:longint; end:longint);cdecl;external libelementary;
+{*
  * @brief Get the current position of the selection cursors in the entry.
  *
  * @param[in] obj The object.
@@ -617,10 +455,9 @@ extern void elm_entry_select_region_set(Elm_Entry *obj, int start, int end);
  * @since 1.18
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_select_region_get(const Elm_Entry *obj, int *start, int *end);
-
-/**
+  }
+procedure elm_entry_select_region_get(obj:PElm_Entry; start:Plongint; end:Plongint);cdecl;external libelementary;
+{*
  * @brief Set whether the return key on the input panel is disabled
  * automatically when entry has no text.
  *
@@ -633,10 +470,9 @@ extern void elm_entry_select_region_get(const Elm_Entry *obj, int *start, int *e
  * disabled when the entry has no text.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_input_panel_return_key_autoenabled_set(Elm_Entry *obj, Eina_Bool enabled);
-
-/**
+  }
+procedure elm_entry_input_panel_return_key_autoenabled_set(obj:PElm_Entry; enabled:TEina_Bool);cdecl;external libelementary;
+{*
  * @brief Sets the visibility of the end widget of the entry, set by @ref
  * elm_object_part_content_set(ent, "end", content).
  *
@@ -644,28 +480,24 @@ extern void elm_entry_input_panel_return_key_autoenabled_set(Elm_Entry *obj, Ein
  * @param[in] setting @c true if the object should be displayed, false if not.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_end_visible_set(Elm_Entry *obj, Eina_Bool setting);
-
-/** This moves the cursor to the beginning of the entry.
+  }
+procedure elm_entry_end_visible_set(obj:PElm_Entry; setting:TEina_Bool);cdecl;external libelementary;
+{* This moves the cursor to the beginning of the entry.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_cursor_begin_set(Elm_Entry *obj);
-
-/** This moves the cursor to the beginning of the current line.
+  }
+procedure elm_entry_cursor_begin_set(obj:PElm_Entry);cdecl;external libelementary;
+{* This moves the cursor to the beginning of the current line.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_cursor_line_begin_set(Elm_Entry *obj);
-
-/** This moves the cursor to the end of the entry.
+  }
+procedure elm_entry_cursor_line_begin_set(obj:PElm_Entry);cdecl;external libelementary;
+{* This moves the cursor to the end of the entry.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_cursor_end_set(Elm_Entry *obj);
-
-/**
+  }
+procedure elm_entry_cursor_end_set(obj:PElm_Entry);cdecl;external libelementary;
+{*
  * @brief Returns the actual textblock object of the entry.
  *
  * This function exposes the internal textblock object that actually contains
@@ -693,10 +525,9 @@ extern void elm_entry_cursor_end_set(Elm_Entry *obj);
  * @return Textblock object
  *
  * @ingroup Elm_Entry_Group
- */
-extern Efl_Canvas_Object *elm_entry_textblock_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_textblock_get(obj:PElm_Entry):PEfl_Canvas_Object;cdecl;external libelementary;
+{*
  * @brief This function returns the geometry of the cursor.
  *
  * It's useful if you want to draw something on the cursor (or where it is), or
@@ -711,10 +542,9 @@ extern Efl_Canvas_Object *elm_entry_textblock_get(const Elm_Entry *obj);
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_cursor_geometry_get(const Elm_Entry *obj, int *x, int *y, int *w, int *h);
-
-/**
+  }
+function elm_entry_cursor_geometry_get(obj:PElm_Entry; x:Plongint; y:Plongint; w:Plongint; h:Plongint):TEina_Bool;cdecl;external libelementary;
+{*
  * @brief Returns the input method context of the entry.
  *
  * This function exposes the internal input method context.
@@ -727,10 +557,9 @@ extern Eina_Bool elm_entry_cursor_geometry_get(const Elm_Entry *obj, int *x, int
  * @return Input method context
  *
  * @ingroup Elm_Entry_Group
- */
-extern void *elm_entry_imf_context_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_imf_context_get(obj:PElm_Entry):pointer;cdecl;external libelementary;
+{*
  * @brief Get whether a format node exists at the current cursor position.
  *
  * A format node is anything that defines how the text is rendered. It can be a
@@ -743,10 +572,9 @@ extern void *elm_entry_imf_context_get(const Elm_Entry *obj);
  * @return @c true if format node exists, @c false otherwise
  *
  * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_cursor_is_format_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_cursor_is_format_get(obj:PElm_Entry):TEina_Bool;cdecl;external libelementary;
+{*
  * @brief Get the character pointed by the cursor at its current position.
  *
  * This function returns a string with the utf8 character stored at the current
@@ -759,10 +587,9 @@ extern Eina_Bool elm_entry_cursor_is_format_get(const Elm_Entry *obj);
  * @return Character
  *
  * @ingroup Elm_Entry_Group
- */
-extern char *elm_entry_cursor_content_get(const Elm_Entry *obj) EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+function elm_entry_cursor_content_get(obj:PElm_Entry):Pchar;cdecl;external libelementary;
+{*
  * @brief Get any selected text within the entry.
  *
  * If there's any selected text in the entry, this function returns it as a
@@ -778,10 +605,9 @@ extern char *elm_entry_cursor_content_get(const Elm_Entry *obj) EINA_WARN_UNUSED
  * @return Selected string
  *
  * @ingroup Elm_Entry_Group
- */
-extern const char *elm_entry_selection_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_selection_get(obj:PElm_Entry):Pchar;cdecl;external libelementary;
+{*
  * @brief Get if the current cursor position holds a visible format node.
  *
  * @param[in] obj The object.
@@ -789,10 +615,9 @@ extern const char *elm_entry_selection_get(const Elm_Entry *obj);
  * @return @c true if position has a visible format, @c false otherwise
  *
  * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_cursor_is_visible_format_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_cursor_is_visible_format_get(obj:PElm_Entry):TEina_Bool;cdecl;external libelementary;
+{*
  * @brief Allow selection in the entry.
  *
  * @param[in] obj The object.
@@ -801,10 +626,9 @@ extern Eina_Bool elm_entry_cursor_is_visible_format_get(const Elm_Entry *obj);
  * @since 1.18
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_select_allow_set(Elm_Entry *obj, Eina_Bool allow);
-
-/**
+  }
+procedure elm_entry_select_allow_set(obj:PElm_Entry; allow:TEina_Bool);cdecl;external libelementary;
+{*
  * @brief Allow selection in the entry.
  *
  * @param[in] obj The object.
@@ -814,10 +638,9 @@ extern void elm_entry_select_allow_set(Elm_Entry *obj, Eina_Bool allow);
  * @since 1.18
  *
  * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_select_allow_get(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_select_allow_get(obj:PElm_Entry):TEina_Bool;cdecl;external libelementary;
+{*
  * @brief This moves the cursor one place to the left within the entry.
  *
  * @param[in] obj The object.
@@ -825,18 +648,16 @@ extern Eina_Bool elm_entry_select_allow_get(const Elm_Entry *obj);
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_cursor_prev(Elm_Entry *obj);
-
-/** Remove the style in the top of user style stack.
+  }
+function elm_entry_cursor_prev(obj:PElm_Entry):TEina_Bool;cdecl;external libelementary;
+{* Remove the style in the top of user style stack.
  *
  * @since 1.7
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_text_style_user_pop(Elm_Entry *obj);
-
-/**
+  }
+procedure elm_entry_text_style_user_pop(obj:PElm_Entry);cdecl;external libelementary;
+{*
  * @brief This prepends a custom item provider to the list for that entry
  *
  * This prepends the given callback.
@@ -846,10 +667,9 @@ extern void elm_entry_text_style_user_pop(Elm_Entry *obj);
  * @param[in] data The data passed to @c func.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_item_provider_prepend(Elm_Entry *obj, Elm_Entry_Item_Provider_Cb func, void *data);
-
-/**
+  }
+procedure elm_entry_item_provider_prepend(obj:PElm_Entry; func:TElm_Entry_Item_Provider_Cb; data:pointer);cdecl;external libelementary;
+{*
  * @brief Show the input panel (virtual keyboard) based on the input panel
  * property of entry such as layout, autocapital types, and so on.
  *
@@ -859,10 +679,9 @@ extern void elm_entry_item_provider_prepend(Elm_Entry *obj, Elm_Entry_Item_Provi
  * @param[in] obj The object.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_input_panel_show(Elm_Entry *obj);
-
-/**
+  }
+procedure elm_entry_input_panel_show(obj:PElm_Entry);cdecl;external libelementary;
+{*
  * @brief Reset the input method context of the entry if needed.
  *
  * This can be necessary in the case where modifying the buffer would confuse
@@ -871,10 +690,9 @@ extern void elm_entry_input_panel_show(Elm_Entry *obj);
  * @param[in] obj The object.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_imf_context_reset(Elm_Entry *obj);
-
-/**
+  }
+procedure elm_entry_imf_context_reset(obj:PElm_Entry);cdecl;external libelementary;
+{*
  * @brief Ends the hover popup in the entry
  *
  * When an anchor is clicked, the entry widget will create a hover object to
@@ -883,17 +701,15 @@ extern void elm_entry_imf_context_reset(Elm_Entry *obj);
  * @param[in] obj The object.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_anchor_hover_end(Elm_Entry *obj);
-
-/** This begins a selection within the entry as though the user were holding
+  }
+procedure elm_entry_anchor_hover_end(obj:PElm_Entry);cdecl;external libelementary;
+{* This begins a selection within the entry as though the user were holding
  * down the mouse button to make a selection.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_cursor_selection_begin(Elm_Entry *obj);
-
-/**
+  }
+procedure elm_entry_cursor_selection_begin(obj:PElm_Entry);cdecl;external libelementary;
+{*
  * @brief This moves the cursor one line down within the entry.
  *
  * @param[in] obj The object.
@@ -901,23 +717,20 @@ extern void elm_entry_cursor_selection_begin(Elm_Entry *obj);
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_cursor_down(Elm_Entry *obj);
-
-/** This function writes any changes made to the file set with @ref
+  }
+function elm_entry_cursor_down(obj:PElm_Entry):TEina_Bool;cdecl;external libelementary;
+{* This function writes any changes made to the file set with @ref
  * elm_entry_file_set.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_file_save(Elm_Entry *obj);
-
-/** This executes a "copy" action on the selected text in the entry.
+  }
+procedure elm_entry_file_save(obj:PElm_Entry);cdecl;external libelementary;
+{* This executes a "copy" action on the selected text in the entry.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_selection_copy(Elm_Entry *obj);
-
-/**
+  }
+procedure elm_entry_selection_copy(obj:PElm_Entry);cdecl;external libelementary;
+{*
  * @brief Push the style to the top of user style stack. If there is styles in
  * the user style stack, the properties in the top style of user style stack
  * will replace the properties in current theme. The input style is specified
@@ -930,10 +743,9 @@ extern void elm_entry_selection_copy(Elm_Entry *obj);
  * @since 1.7
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_text_style_user_push(Elm_Entry *obj, const char *style);
-
-/**
+  }
+procedure elm_entry_text_style_user_push(obj:PElm_Entry; style:Pchar);cdecl;external libelementary;
+{*
  * @brief This removes a custom item provider to the list for that entry
  *
  * This removes the given callback. See @ref elm_entry_item_provider_append for
@@ -944,10 +756,9 @@ extern void elm_entry_text_style_user_push(Elm_Entry *obj, const char *style);
  * @param[in] data The data passed to @c func.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_item_provider_remove(Elm_Entry *obj, Elm_Entry_Item_Provider_Cb func, void *data);
-
-/**
+  }
+procedure elm_entry_item_provider_remove(obj:PElm_Entry; func:TElm_Entry_Item_Provider_Cb; data:pointer);cdecl;external libelementary;
+{*
  * @brief Get the style on the top of user style stack.
  *
  * See also @ref elm_entry_text_style_user_push.
@@ -959,10 +770,9 @@ extern void elm_entry_item_provider_remove(Elm_Entry *obj, Elm_Entry_Item_Provid
  * @since 1.7
  *
  * @ingroup Elm_Entry_Group
- */
-extern const char *elm_entry_text_style_user_peek(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_text_style_user_peek(obj:PElm_Entry):Pchar;cdecl;external libelementary;
+{*
  * @brief This clears and frees the items in a entry's contextual (longpress)
  * menu.
  *
@@ -970,10 +780,9 @@ extern const char *elm_entry_text_style_user_peek(const Elm_Entry *obj);
  * @param[in] obj The object.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_context_menu_clear(Elm_Entry *obj);
-
-/**
+  }
+procedure elm_entry_context_menu_clear(obj:PElm_Entry);cdecl;external libelementary;
+{*
  * @brief This moves the cursor one line up within the entry.
  *
  * @param[in] obj The object.
@@ -981,10 +790,9 @@ extern void elm_entry_context_menu_clear(Elm_Entry *obj);
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_cursor_up(Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_cursor_up(obj:PElm_Entry):TEina_Bool;cdecl;external libelementary;
+{*
  * @brief Inserts the given text into the entry at the current cursor position.
  *
  * This inserts text at the cursor position as if it was typed by the user
@@ -1003,10 +811,9 @@ extern Eina_Bool elm_entry_cursor_up(Elm_Entry *obj);
  * @param[in] entry The text to insert.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_entry_insert(Elm_Entry *obj, const char *entry);
-
-/**
+  }
+procedure elm_entry_entry_insert(obj:PElm_Entry; entry:Pchar);cdecl;external libelementary;
+{*
  * @brief Set the input panel-specific data to deliver to the input panel.
  *
  * This API is used by applications to deliver specific data to the input
@@ -1018,10 +825,9 @@ extern void elm_entry_entry_insert(Elm_Entry *obj, const char *entry);
  * @param[in] len The length of data, in bytes, to send to the input panel.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_input_panel_imdata_set(Elm_Entry *obj, const void *data, int len);
-
-/**
+  }
+procedure elm_entry_input_panel_imdata_set(obj:PElm_Entry; data:pointer; len:longint);cdecl;external libelementary;
+{*
  * @brief Get the specific data of the current input panel.
  *
  * @param[in] obj The object.
@@ -1029,16 +835,14 @@ extern void elm_entry_input_panel_imdata_set(Elm_Entry *obj, const void *data, i
  * @param[out] len The length of data.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_input_panel_imdata_get(const Elm_Entry *obj, void *data, int *len);
-
-/** This executes a "paste" action in the entry.
+  }
+procedure elm_entry_input_panel_imdata_get(obj:PElm_Entry; data:pointer; len:Plongint);cdecl;external libelementary;
+{* This executes a "paste" action in the entry.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_selection_paste(Elm_Entry *obj);
-
-/**
+  }
+procedure elm_entry_selection_paste(obj:PElm_Entry);cdecl;external libelementary;
+{*
  * @brief This moves the cursor one place to the right within the entry.
  *
  * @param[in] obj The object.
@@ -1046,16 +850,14 @@ extern void elm_entry_selection_paste(Elm_Entry *obj);
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_cursor_next(Elm_Entry *obj);
-
-/** This drops any existing text selection within the entry.
+  }
+function elm_entry_cursor_next(obj:PElm_Entry):TEina_Bool;cdecl;external libelementary;
+{* This drops any existing text selection within the entry.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_select_none(Elm_Entry *obj);
-
-/**
+  }
+procedure elm_entry_select_none(obj:PElm_Entry);cdecl;external libelementary;
+{*
  * @brief Hide the input panel (virtual keyboard).
  *
  * Note that input panel is shown or hidden automatically according to the
@@ -1064,29 +866,25 @@ extern void elm_entry_select_none(Elm_Entry *obj);
  * @param[in] obj The object.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_input_panel_hide(Elm_Entry *obj);
-
-/** This selects all text within the entry.
+  }
+procedure elm_entry_input_panel_hide(obj:PElm_Entry);cdecl;external libelementary;
+{* This selects all text within the entry.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_select_all(Elm_Entry *obj);
-
-/** This ends a selection within the entry as though the user had just released
+  }
+procedure elm_entry_select_all(obj:PElm_Entry);cdecl;external libelementary;
+{* This ends a selection within the entry as though the user had just released
  * the mouse button while making a selection.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_cursor_selection_end(Elm_Entry *obj);
-
-/** This executes a "cut" action on the selected text in the entry.
+  }
+procedure elm_entry_cursor_selection_end(obj:PElm_Entry);cdecl;external libelementary;
+{* This executes a "cut" action on the selected text in the entry.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_selection_cut(Elm_Entry *obj);
-
-/**
+  }
+procedure elm_entry_selection_cut(obj:PElm_Entry);cdecl;external libelementary;
+{*
  * @brief Get whether the entry is empty.
  *
  * Empty means no text at all. If there are any markup tags, like an item tag
@@ -1098,10 +896,9 @@ extern void elm_entry_selection_cut(Elm_Entry *obj);
  * @return @c true if empty, @c false otherwise
  *
  * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_is_empty(const Elm_Entry *obj);
-
-/**
+  }
+function elm_entry_is_empty(obj:PElm_Entry):TEina_Bool;cdecl;external libelementary;
+{*
  * @brief Remove a markup filter from the list
  *
  * Removes the given callback from the filter list. See
@@ -1112,10 +909,9 @@ extern Eina_Bool elm_entry_is_empty(const Elm_Entry *obj);
  * @param[in] data The user data passed when adding the function.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_markup_filter_remove(Elm_Entry *obj, Elm_Entry_Filter_Cb func, void *data);
-
-/**
+  }
+procedure elm_entry_markup_filter_remove(obj:PElm_Entry; func:TElm_Entry_Filter_Cb; data:pointer);cdecl;external libelementary;
+{*
  * @brief This appends a custom item provider to the list for that entry
  *
  * This appends the given callback. The list is walked from beginning to end
@@ -1132,10 +928,9 @@ extern void elm_entry_markup_filter_remove(Elm_Entry *obj, Elm_Entry_Filter_Cb f
  * @param[in] data The data passed to @c func.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_item_provider_append(Elm_Entry *obj, Elm_Entry_Item_Provider_Cb func, void *data);
-
-/**
+  }
+procedure elm_entry_item_provider_append(obj:PElm_Entry; func:TElm_Entry_Item_Provider_Cb; data:pointer);cdecl;external libelementary;
+{*
  * @brief Append a markup filter function for text inserted in the entry
  *
  * Append the given callback to the list. This functions will be called
@@ -1151,10 +946,9 @@ extern void elm_entry_item_provider_append(Elm_Entry *obj, Elm_Entry_Item_Provid
  * @param[in] data User data to pass to @c func.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_markup_filter_append(Elm_Entry *obj, Elm_Entry_Filter_Cb func, void *data);
-
-/**
+  }
+procedure elm_entry_markup_filter_append(obj:PElm_Entry; func:TElm_Entry_Filter_Cb; data:pointer);cdecl;external libelementary;
+{*
  * @brief Appends @c str to the text of the entry.
  *
  * Adds the text in @c str to the end of any text already present in the
@@ -1168,10 +962,9 @@ extern void elm_entry_markup_filter_append(Elm_Entry *obj, Elm_Entry_Filter_Cb f
  * @param[in] str The text to be appended.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_entry_append(Elm_Entry *obj, const char *str);
-
-/**
+  }
+procedure elm_entry_entry_append(obj:PElm_Entry; str:Pchar);cdecl;external libelementary;
+{*
  * @brief This adds an item to the entry's contextual menu.
  *
  * A longpress on an entry will make the contextual menu show up, if this
@@ -1191,10 +984,10 @@ extern void elm_entry_entry_append(Elm_Entry *obj, const char *str);
  * @param[in] data The data to associate with the item for related functions.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_context_menu_item_add(Elm_Entry *obj, const char *label, const char *icon_file, Elm_Icon_Type icon_type, Evas_Smart_Cb func, const void *data);
-
-/**
+  }
+procedure elm_entry_context_menu_item_add(obj:PElm_Entry; _label:Pchar; icon_file:Pchar; icon_type:TElm_Icon_Type; func:TEvas_Smart_Cb; 
+            data:pointer);cdecl;external libelementary;
+{*
  * @brief Prepend a markup filter function for text inserted in the entry
  *
  * Prepend the given callback to the list.
@@ -1204,10 +997,9 @@ extern void elm_entry_context_menu_item_add(Elm_Entry *obj, const char *label, c
  * @param[in] data User data to pass to @c func.
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_markup_filter_prepend(Elm_Entry *obj, Elm_Entry_Filter_Cb func, void *data);
-
-/**
+  }
+procedure elm_entry_markup_filter_prepend(obj:PElm_Entry; func:TElm_Entry_Filter_Cb; data:pointer);cdecl;external libelementary;
+{*
  * @brief Sets the prediction hint to use an intelligent reply suggestion
  * service.
  *
@@ -1217,10 +1009,9 @@ extern void elm_entry_markup_filter_prepend(Elm_Entry *obj, Elm_Entry_Filter_Cb 
  * @since 1.20
  *
  * @ingroup Elm_Entry_Group
- */
-extern void elm_entry_prediction_hint_set(Elm_Entry *obj, const char *prediction_hint);
-
-/**
+  }
+procedure elm_entry_prediction_hint_set(obj:PElm_Entry; prediction_hint:Pchar);cdecl;external libelementary;
+{*
  * @brief Sets the prediction hint data at the specified key.
  *
  * @param[in] obj The object.
@@ -1232,10 +1023,9 @@ extern void elm_entry_prediction_hint_set(Elm_Entry *obj, const char *prediction
  * @since 1.21
  *
  * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_prediction_hint_hash_set(Elm_Entry *obj, const char *key, const char *value);
-
-/**
+  }
+function elm_entry_prediction_hint_hash_set(obj:PElm_Entry; key:Pchar; value:Pchar):TEina_Bool;cdecl;external libelementary;
+{*
  * @brief Removes the prediction hint data identified by a key.
  *
  * @param[in] obj The object.
@@ -1246,7 +1036,15 @@ extern Eina_Bool elm_entry_prediction_hint_hash_set(Elm_Entry *obj, const char *
  * @since 1.21
  *
  * @ingroup Elm_Entry_Group
- */
-extern Eina_Bool elm_entry_prediction_hint_hash_del(Elm_Entry *obj, const char *key);
+  }
+function elm_entry_prediction_hint_hash_del(obj:PElm_Entry; key:Pchar):TEina_Bool;cdecl;external libelementary;
+{$endif}
 
-#endif
+// === Konventiert am: 13-5-25 14:06:07 ===
+
+
+implementation
+
+
+
+end.

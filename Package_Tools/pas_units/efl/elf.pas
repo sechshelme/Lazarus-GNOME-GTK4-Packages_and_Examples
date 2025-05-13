@@ -25,10 +25,13 @@ type
   Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;
 
+  Tptrdiff_t=PtrInt;
+
 
   // /usr/include/eina-1/eina/eina_types.h
 type
   TEina_Bool = Boolean8;
+  PEina_Bool=^TEina_Bool;
 
 const
   EINA_FALSE = TEina_Bool(0);
