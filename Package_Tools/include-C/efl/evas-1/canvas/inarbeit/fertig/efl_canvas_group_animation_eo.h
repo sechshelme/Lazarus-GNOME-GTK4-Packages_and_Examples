@@ -66,6 +66,6 @@ extern  void efl_animation_group_animation_del(Eo *obj, Efl_Canvas_Animation *an
  *
  * @ingroup Efl_Canvas_Group_Animation
  */
-extern  Eina_Iterator *efl_animation_group_animations_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP ;
+extern  Eina_Iterator *efl_animation_group_animations_get(const Eo *obj) ;
 
 #endif

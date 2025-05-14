@@ -86,3 +86,11 @@ int main(int argc, char **argv)
 
     return 0;
 }
+
+
+Efl_Text_Cursor_Object
+
+
+
+
+

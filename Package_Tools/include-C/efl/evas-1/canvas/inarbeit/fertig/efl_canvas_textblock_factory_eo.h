@@ -39,7 +39,7 @@ extern  const Efl_Class *efl_canvas_textblock_factory_interface_get(void) ;
  *
  * @ingroup Efl_Canvas_Textblock_Factory
  */
-extern  Efl_Canvas_Object *efl_canvas_textblock_factory_create(Eo *obj, Efl_Canvas_Object *object, const char *key) EFL_TRANSFER_OWNERSHIP ;
+extern  Efl_Canvas_Object *efl_canvas_textblock_factory_create(Eo *obj, Efl_Canvas_Object *object, const char *key) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

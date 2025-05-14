@@ -43,7 +43,7 @@ extern  Efl_Canvas_Vg_Node *efl_canvas_vg_container_child_get(Eo *obj, const cha
  *
  * @ingroup Efl_Canvas_Vg_Container
  */
-extern  Eina_Iterator *efl_canvas_vg_container_children_get(Eo *obj) EFL_TRANSFER_OWNERSHIP ;
+extern  Eina_Iterator *efl_canvas_vg_container_children_get(Eo *obj) ;
 
 /**
  * @brief Get all children of container
