@@ -88,7 +88,6 @@ int main(int argc, char **argv)
 }
 
 
-Efl_Text_Cursor_Object
 
 
 
