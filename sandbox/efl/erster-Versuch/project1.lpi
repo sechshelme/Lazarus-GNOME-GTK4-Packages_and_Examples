@@ -41,7 +41,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="../../../Package_Tools/pas_units/efl/elementary-1;../../../Package_Tools/pas_units/efl;../../../Package_Tools/pas_units/efl/evas-1;../../../Package_Tools/pas_units/efl/evas-1/canvas"/>
+      <OtherUnitFiles Value="../../../Package_Tools/pas_units/efl/elementary-1;../../../Package_Tools/pas_units/efl;../../../Package_Tools/pas_units/efl/evas-1;../../../Package_Tools/pas_units/efl/evas-1/canvas;../../../Package_Tools/pas_units/efl/evas-1/gesture"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>
