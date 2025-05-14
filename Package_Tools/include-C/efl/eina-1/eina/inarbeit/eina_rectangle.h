@@ -40,24 +40,24 @@
  */
 
 /** A zero-size rectangle. */
-#define EINA_RECTANGLE_INIT { 0, 0, 0, 0}
+//#define EINA_RECTANGLE_INIT { 0, 0, 0, 0}
 /** A format string useful for printf-like functions. */
 #define EINA_RECTANGLE_FORMAT "dx%d - %dx%d"
 /** Separates the components of the rectangle structure into a comma-separated list,
  * so they can be used as parameters. */
-#define EINA_RECTANGLE_ARGS(r) (r)->x, (r)->y, (r)->w, (r)->h
+//#define EINA_RECTANGLE_ARGS(r) (r)->x, (r)->y, (r)->w, (r)->h
 
 /** Creates an instance of an #Eina_Rect */
-#define EINA_RECT(x, y, w, h) ((Eina_Rect) { { (x), (y), (w), (h) } })
+//#define EINA_RECT(x, y, w, h) ((Eina_Rect) { { (x), (y), (w), (h) } })
 /** A zero-size rectangle that can be used to initialize #Eina_Rect structures. */
-#define EINA_RECT_ZERO() { EINA_RECTANGLE_INIT }
+//#define EINA_RECT_ZERO() { EINA_RECTANGLE_INIT }
 /** A zero-size rectangle that can be used to initialize #Eina_Rect structures. */
 #define EINA_RECT_EMPTY() ((Eina_Rect) EINA_RECT_ZERO())
 
 /** Creates an instance of an #Eina_Position2D */
-#define EINA_POSITION2D(x, y) ((Eina_Position2D) { (x), (y) })
+//#define EINA_POSITION2D(x, y) ((Eina_Position2D) { (x), (y) })
 /** Creates an instance of an #Eina_Size2D */
-#define EINA_SIZE2D(x, y) ((Eina_Size2D) { (x), (y) })
+//#define EINA_SIZE2D(x, y) ((Eina_Size2D) { (x), (y) })
 
 /** @brief A 2D position in pixel coordinates */
 typedef struct _Eina_Position2D
@@ -123,13 +123,13 @@ typedef union _Eina_Rect
    struct {
       Eina_Position2D pos; /**< Top-left corner in pixels */
       Eina_Size2D size; /**< Size in pixels */
-   };
+   } xxx;
    struct {
       int x; /**< Top-left x coordinate of rectangle */
       int y; /**< Top-left y coordinate of rectangle */
       int w; /**< Width of rectangle */
       int h; /**< Height of rectangle */
-   };
+   } xxx;
 } Eina_Rect;
 
 /**
@@ -173,18 +173,6 @@ typedef enum {
  * @param[in] l2 The length of the second span.
  * @return #EINA_TRUE if the given spans intersect, #EINA_FALSE otherwise.
  */
-static inline int         eina_spans_intersect(int c1, int l1, int c2, int l2) EINA_WARN_UNUSED_RESULT;
-
-/**
- * @brief Checks if the given rectangle is empty.
- *
- * @param[in] rect The rectangle to check.
- * @return #EINA_TRUE if the rectangle @p r is empty, #EINA_FALSE
- * otherwise.
- *
- * No check is done on @p r, so it must be a valid rectangle.
- */
-static inline Eina_Bool   eina_rectangle_is_empty(const Eina_Rectangle *rect)  EINA_WARN_UNUSED_RESULT;
 
 /**
  * @brief Sets the coordinates and size of a rectangle.
@@ -200,44 +188,6 @@ static inline Eina_Bool   eina_rectangle_is_empty(const Eina_Rectangle *rect)  E
  *
  * No check is done on @p r, so it must be a valid rectangle.
  */
-static inline void        eina_rectangle_coords_from(Eina_Rectangle *rect, int x, int y, int w, int h) ;
-
-/**
- * @brief Checks if two rectangles intersect.
- *
- * @param[in] rect1 The first rectangle.
- * @param[in] rect2 The second rectangle.
- * @return #EINA_TRUE if the rectangles @p rect1 and @p rect2 intersect,
- * #EINA_FALSE otherwise.
- *
- * No check is done on @p rect1 and @p rect2, so they must be valid
- * rectangles.
- */
-static inline Eina_Bool   eina_rectangles_intersect(const Eina_Rectangle *rect1, const Eina_Rectangle *rect2) EINA_ARG_NONNULL(1, 2) EINA_WARN_UNUSED_RESULT;
-
-/**
- * @brief Checks if the given X-coordinate is in the rectangle.
- *
- * @param[in] rect The rectangle.
- * @param[in] x The X coordinate.
- * @return #EINA_TRUE if @p x is between the rectangle's left and right
- * edges, #EINA_FALSE otherwise.
- *
- * No check is done on @p r, so it must be a valid rectangle.
- */
-static inline Eina_Bool   eina_rectangle_xcoord_inside(const Eina_Rectangle *rect, int x)  EINA_WARN_UNUSED_RESULT;
-
-/**
- * @brief Checks if the given Y-coordinate is in the rectangle.
- *
- * @param[in] rect The rectangle.
- * @param[in] y The Y coordinate.
- * @return #EINA_TRUE if @p y is between the rectangle's top and bottom
- * edges, #EINA_FALSE otherwise.
- *
- * No check is done on @p r, so it must be a valid rectangle.
- */
-static inline Eina_Bool   eina_rectangle_ycoord_inside(const Eina_Rectangle *rect, int y)  EINA_WARN_UNUSED_RESULT;
 
 /**
  * @brief Checks if the given point is inside the rectangle.
@@ -250,38 +200,6 @@ static inline Eina_Bool   eina_rectangle_ycoord_inside(const Eina_Rectangle *rec
  *
  * No check is done on @p r, so it must be a valid rectangle.
  */
-static inline Eina_Bool   eina_rectangle_coords_inside(const Eina_Rectangle *rect, int x, int y)  EINA_WARN_UNUSED_RESULT;
-
-/**
- * @brief Gets the union of two rectangles.
- *
- * @param[in,out] dst The first rectangle.
- * @param[in] src The second rectangle.
- *
- * Changes @p dst to be the bounding box of both rectangles @p dst and
- * @p src.
- *
- * No check is done on @p dst or @p src, so they must be valid
- * rectangles.
- */
-static inline void        eina_rectangle_union(Eina_Rectangle *dst, const Eina_Rectangle *src) EINA_ARG_NONNULL(1, 2);
-
-/**
- * @brief Gets the intersection of two rectangles.
- *
- * @param[in,out] dst The first rectangle.
- * @param[in] src The second rectangle.
- * @return #EINA_TRUE if the rectangles intersect, #EINA_FALSE
- * otherwise.
- *
- * Changes @p dst to be the rectangle represented by the intersection of
- * @p dst and @p src. @p dst is unchanged if the two rectangles do not
- * intersect.
- *
- * No check is done on @p dst or @p src, so they must be valid
- * rectangles.
- */
-static inline Eina_Bool   eina_rectangle_intersection(Eina_Rectangle *dst, const Eina_Rectangle *src) EINA_ARG_NONNULL(1, 2) EINA_WARN_UNUSED_RESULT;
 
 /**
  * @brief FIXME I am useless and used by no one
@@ -291,51 +209,6 @@ static inline Eina_Bool   eina_rectangle_intersection(Eina_Rectangle *dst, const
  * @param res The resulting rectangle.
  *
  */
-static inline void        eina_rectangle_rescale_in(const Eina_Rectangle *out, const Eina_Rectangle *in, Eina_Rectangle *res) EINA_ARG_NONNULL(1, 2, 3);
-
-/**
- * @brief FIXME I am useless and used by no one
- *
- * @param in The inner rectangle.
- * @param out The outer rectangle.
- * @param res The resulting rectangle.
- *
- */
-static inline void        eina_rectangle_rescale_out(const Eina_Rectangle *out, const Eina_Rectangle *in, Eina_Rectangle *res) EINA_ARG_NONNULL(1, 2, 3);
-
-/**
- * @brief Tells whether a rectangle is valid.
- *
- * @param[in] rect The rectangle.
- * @return #EINA_TRUE if the rectangle is valid, #EINA_FALSE otherwise.
- *
- * This function checks if both width and height attributes of the rectangle are
- * positive integers. If so, the rectangle is considered valid, else the
- * rectangle is invalid.
- */
-static inline Eina_Bool   eina_rectangle_is_valid(const Eina_Rectangle *rect) ;
-
-/**
- * @brief Gets the rectangle's maximum X coordinate.
- *
- * @param[in] rect The rectangle.
- * @return The maximum X coordinate.
- *
- * This function calculates the maximum X coordinate of the rectangle by summing
- * the @p width with the current @p x coordinate of the rectangle.
- */
-static inline int         eina_rectangle_max_x(Eina_Rectangle *rect) ;
-
-/**
- * @brief Gets the rectangle maximum Y coordinate.
- *
- * @param[in] rect The rectangle.
- * @return The maximum Y coordinate.
- *
- * This function calculates the maximum Y coordinate of the rectangle by summing
- * the @p height with the current @p y coordinate of the rectangle.
- */
-static inline int         eina_rectangle_max_y(Eina_Rectangle *rect) ;
 
 /**
  * @brief Slices a rectangle vertically into two subrectangles.
@@ -350,66 +223,6 @@ static inline int         eina_rectangle_max_y(Eina_Rectangle *rect) ;
  * rectangle's left edge.  If the @p amount value is greater than the
  * rectangle's width, no cut is performed and #EINA_FALSE is returned.
  */
-static inline Eina_Bool   eina_rectangle_x_cut(Eina_Rectangle *rect, Eina_Rectangle *slice, Eina_Rectangle *remainder, int amount) ;
-
-/**
- * @brief Slices a rectangle horizontally into two subrectangles.
- *
- * @param[in] rect The rectangle to slice.
- * @param[out] slice The sliced part of the rectangle.
- * @param[out] remainder The left over part of the rectangle after slicing.
- * @param[in] amount The slice location's vertical distance from the bottom.
- * @return #EINA_TRUE if the cut succeeds, #EINA_FALSE otherwise
- *
- * Cut a rectangle horizontally at a distance @p amount from the
- * rectangle's bottom edge. If the @p amount value is greater than the
- * rectangle's height, no cut is performed and #EINA_FALSE is returned.
- */
-static inline Eina_Bool   eina_rectangle_y_cut(Eina_Rectangle *rect, Eina_Rectangle *slice, Eina_Rectangle *remainder, int amount) ;
-
-/**
- * @brief Slices a rectangle vertically starting from right edge.
- *
- * @param[in] rect The rectangle to slice.
- * @param[out] slice The sliced part of the rectangle.
- * @param[out] remainder The left over part of the rectangle after slicing.
- * @param[in] amount The slice location's horizontal distance from the right.
- * @return #EINA_TRUE if the cut succeeds, #EINA_FALSE otherwise
- *
- * Cut a rectangle vertically at a distance @p amount from the
- * rectangle's right edge.  If the @p amount value is greater than the
- * rectangle's width, no cut is performed and #EINA_FALSE is returned.
- */
-static inline Eina_Bool   eina_rectangle_width_cut(Eina_Rectangle *rect, Eina_Rectangle *slice, Eina_Rectangle *remainder, int amount) ;
-
-/**
- * @brief Slices a rectangle horizontally starting from top edge.
- *
- * @param[in] rect The rectangle to slice.
- * @param[out] slice The sliced part of the rectangle.
- * @param[out] remainder The left over part of the rectangle after slicing.
- * @param[in] amount The slice location's vertical distance from the top.
- * @return #EINA_TRUE if the cut succeeds, #EINA_FALSE otherwise.
- *
- * Cut a rectangle horizontally at a distance @p amount from the
- * rectangle's top edge.  If the @p amount value is greater than the
- * rectangle width, no cut is performed and #EINA_FALSE is returned.
- */
-static inline Eina_Bool   eina_rectangle_height_cut(Eina_Rectangle *rect, Eina_Rectangle *slice, Eina_Rectangle *remainder, int amount) ;
-
-/**
- * @brief Subtracts two rectangles and returns the differences.
- *
- * @param[in] rect The minuend rectangle.
- * @param[in] other The subtrahend rectangle.
- * @param[out] out An array of differences between the two rectangles.
- * @return #EINA_TRUE on success, #EINA_FALSE otherwise.
- *
- * This function subtracts two rectangles and stores the resulting
- * differences into the @p out array.  There will be at most four
- * differences; use eina_rectangle_is_valid to confirm the exact number.
- */
-static inline Eina_Bool   eina_rectangle_subtract(Eina_Rectangle *rect, Eina_Rectangle *other, Eina_Rectangle out[4]) ;
 
 /**
  * @brief Adds a rectangle in a new pool.
@@ -422,7 +235,7 @@ static inline Eina_Bool   eina_rectangle_subtract(Eina_Rectangle *rect, Eina_Rec
  * new pool. If the pool can not be created, @c NULL is
  * returned. Otherwise the newly allocated pool is returned.
  */
-extern Eina_Rectangle_Pool *eina_rectangle_pool_new(int w, int h) EINA_MALLOC EINA_WARN_UNUSED_RESULT;
+extern Eina_Rectangle_Pool *eina_rectangle_pool_new(int w, int h)  ;
 
 /**
  * @brief Returns the pool of the given rectangle.
@@ -433,7 +246,7 @@ extern Eina_Rectangle_Pool *eina_rectangle_pool_new(int w, int h) EINA_MALLOC EI
  * This function returns the pool in which @p rect is. If  @p rect is
  * @c NULL, @c NULL is returned.
  */
-extern Eina_Rectangle_Pool *eina_rectangle_pool_get(Eina_Rectangle *rect) EINA_WARN_UNUSED_RESULT ;
+extern Eina_Rectangle_Pool *eina_rectangle_pool_get(Eina_Rectangle *rect)  ;
 
 /**
  * @brief Returns the width and height of the given pool.
@@ -448,7 +261,7 @@ extern Eina_Rectangle_Pool *eina_rectangle_pool_get(Eina_Rectangle *rect) EINA_W
  * @p pool is @c NULL, #EINA_FALSE is returned. Otherwise #EINA_TRUE is
  * returned.
  */
-extern Eina_Bool            eina_rectangle_pool_geometry_get(Eina_Rectangle_Pool *pool, int *w, int *h) EINA_WARN_UNUSED_RESULT  EINA_WARN_UNUSED_RESULT;
+extern Eina_Bool            eina_rectangle_pool_geometry_get(Eina_Rectangle_Pool *pool, int *w, int *h)   ;
 
 /**
  * @brief Gets the data from the given pool.
@@ -460,7 +273,7 @@ extern Eina_Bool            eina_rectangle_pool_geometry_get(Eina_Rectangle_Pool
  * eina_rectangle_pool_data_set(). If @p pool is @c NULL, this
  * function returns @c NULL.
  */
-extern void                *eina_rectangle_pool_data_get(Eina_Rectangle_Pool *pool) EINA_WARN_UNUSED_RESULT ;
+extern void                *eina_rectangle_pool_data_get(Eina_Rectangle_Pool *pool)  ;
 
 /**
  * @brief Sets the data to the given pool.
@@ -491,7 +304,7 @@ extern void                 eina_rectangle_pool_free(Eina_Rectangle_Pool *pool) 
  *
  * This function returns the number of rectangles in @p pool.
  */
-extern int                  eina_rectangle_pool_count(Eina_Rectangle_Pool *pool)  EINA_WARN_UNUSED_RESULT;
+extern int                  eina_rectangle_pool_count(Eina_Rectangle_Pool *pool)  ;
 
 /**
  * @brief Requests a rectangle of given size in the given pool.
@@ -508,7 +321,7 @@ extern int                  eina_rectangle_pool_count(Eina_Rectangle_Pool *pool)
  * returns the rectangle which matches the size (@p w, @p h).
  * Otherwise it returns @c NULL.
  */
-extern Eina_Rectangle      *eina_rectangle_pool_request(Eina_Rectangle_Pool *pool, int w, int h) EINA_WARN_UNUSED_RESULT ;
+extern Eina_Rectangle      *eina_rectangle_pool_request(Eina_Rectangle_Pool *pool, int w, int h)  ;
 
 /**
  * @brief Removes the given rectangle from the pool.
@@ -535,19 +348,21 @@ extern void                 eina_rectangle_pool_release(Eina_Rectangle *rect) ;
  * coordinates of the top left corner of @p Rectangle, @p W is its
  * width and @p H is its height.
  */
-#define EINA_RECTANGLE_SET(Rectangle, X, Y, W, H) \
-    {						  \
-      (Rectangle)->x = X;			  \
-      (Rectangle)->y = Y;			  \
-      (Rectangle)->w = W;			  \
-      (Rectangle)->h = H;			  \
-    }
+// xxxxxxxxxxxxxxxxxxx
+//#define EINA_RECTANGLE_SET(Rectangle, X, Y, W, H) \
+//    {						  \
+//      (Rectangle)->x = X;			  \
+      //(Rectangle)->y = Y;			  \
+//      (Rectangle)->w = W;			  \
+//      (Rectangle)->h = H;			  \
+//    }
 
 /**
  * @def EINA_RECT_SET
  * Functionally equivalent to #EINA_RECTANGLE_SET
  */
-#define EINA_RECT_SET(rect, x, y, w, h) do { EINA_RECTANGLE_SET((&rect), x, y, w, h) } while (0)
+// xxxxxxxxxxxxxxxxxxxxxxxx
+//#define EINA_RECT_SET(rect, x, y, w, h) do { EINA_RECTANGLE_SET((&rect), x, y, w, h) } while (0)
 
 
 /**
@@ -565,7 +380,7 @@ extern void                 eina_rectangle_pool_release(Eina_Rectangle *rect) ;
  *
  * No check is done on @p w and @p h.
  */
-extern Eina_Rectangle *eina_rectangle_new(int x, int y, int w, int h) EINA_MALLOC EINA_WARN_UNUSED_RESULT;
+extern Eina_Rectangle *eina_rectangle_new(int x, int y, int w, int h)  ;
 
 /**
  * @brief Frees the given rectangle.
@@ -611,7 +426,6 @@ extern Eina_Rectangle_Outside eina_rectangle_outside_position(Eina_Rectangle *re
  *
  * @since 1.21
  */
-static inline Eina_Bool eina_rectangle_equal(const Eina_Rectangle *rect1, const Eina_Rectangle *rect2) EINA_ARG_NONNULL(1, 2) EINA_WARN_UNUSED_RESULT;
 
 #include "eina_inline_rectangle.x"
 

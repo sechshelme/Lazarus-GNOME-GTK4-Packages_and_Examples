@@ -1,4 +1,38 @@
-/* EINA - EFL data type library
+
+unit eina_hash;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from eina_hash.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    eina_hash.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pchar  = ^char;
+PEina_Hash  = ^Eina_Hash;
+PEina_Hash_Tuple  = ^Eina_Hash_Tuple;
+PEina_Iterator  = ^Eina_Iterator;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ EINA - EFL data type library
  * Copyright (C) 2002-2008 Carsten Haitzler, Gustavo Sverzut Barbieri,
  *                         Vincent Torri, Jorge Luis Zapata Muga, Cedric Bail
  *
@@ -15,15 +49,12 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library;
  * if not, see <http://www.gnu.org/licenses/>.
- */
-
-#ifndef EINA_HASH_H_
-#define EINA_HASH_H_
-
-#include "eina_types.h"
-#include "eina_iterator.h"
-
-/**
+  }
+{$ifndef EINA_HASH_H_}
+{$define EINA_HASH_H_}
+{$include "eina_types.h"}
+{$include "eina_iterator.h"}
+{*
  * @page hash_01_example_page Eina_Hash in action
  * @dontinclude eina_hash_01.c
  *
@@ -38,13 +69,13 @@
  * strings, we just need to free them:
  *
  * @skip static
- * @until }
+ * @until 
  *
  * We also need a callback to iterate over the elements of the list later, so
  * we are defining it now:
  *
  * @skip Eina_Bool
- * @until }
+ * @until 
  *
  * Now let's create our @ref Eina_Hash using @ref
  * eina_hash_string_superfast_new :
@@ -57,7 +88,7 @@
  * the data (phone numbers).
  *
  * @skip for
- * @until }
+ * @until 
  *
  * Some basic manipulations with the hash, like finding a value given a key,
  * deleting an entry, modifying an entry are exemplified in the following lines.
@@ -98,16 +129,14 @@
  *
  *
  * The full code for this example can be seen here: @ref eina_hash_01_c
- */
-
-/**
+  }
+{*
  * @page eina_hash_01_c Hash table in action
  *
  * @include eina_hash_01.c
  * @example eina_hash_01.c
- */
-
-/**
+  }
+{*
  * @page hash_02_example_page Different types of tables
  *
  * This example shows two more types of hash tables that can be created using
@@ -115,47 +144,40 @@
  * eina_hash_new.
  * @include eina_hash_02.c
  * @example eina_hash_02.c
- */
-
-/**
+  }
+{*
  * @example eina_hash_03.c
  * Same example as @ref hash_01_example_page but using a "string small" hash
  * table instead of "string superfast".
- */
-
-/**
+  }
+{*
  * @example eina_hash_04.c
  * Same example as @ref hash_01_example_page but using a "string djb2" hash
  * table instead of "string superfast".
- */
-
-/**
+  }
+{*
  * @example eina_hash_05.c
  * Same example as @ref hash_01_example_page but using a "int32" hash
  * table instead of "string superfast".
- */
-
-/**
+  }
+{*
  * @example eina_hash_06.c
  * Same example as @ref hash_01_example_page but using a "int64" hash
  * table instead of "string superfast".
- */
-
-/**
+  }
+{*
  * @example eina_hash_07.c
  * Same example as @ref hash_01_example_page but using a "pointer" hash
  * table instead of "string superfast".
- */
-
-/**
+  }
+{*
  * @example eina_hash_08.c
  * This example shows the the usage of eina_hash_add(), eina_hash_add_by_hash(),
  * eina_hash_direct_add_by_hash(), eina_hash_del(), eina_hash_del_by_key_hash(),
  * eina_hash_del_by_key(), eina_hash_del_by_data(), eina_hash_find_by_hash() and
  * eina_hash_modify_by_hash().
- */
-
-/**
+  }
+{*
  * @addtogroup Eina_Hash_Group Hash Table
  *
  * @brief Hash table management. Maps keys to values.
@@ -258,91 +280,107 @@
  *      </ul>
  * <li> @ref eina_hash_08.c "Different add and delete functions"
  * </ul>
- */
-
-/**
+  }
+{*
  * @addtogroup Eina_Data_Types_Group Data Types
  *
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * @addtogroup Eina_Containers_Group Containers
  *
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * @defgroup Eina_Hash_Group Hash Table
  *
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * @typedef Eina_Hash
  * Type for a generic hash table.
- */
-typedef struct _Eina_Hash       Eina_Hash;
-
-/**
+  }
+type
+{*
  * @typedef Eina_Hash_Tuple
  * Type for a hash table of key/value pairs.
- */
-typedef struct _Eina_Hash_Tuple Eina_Hash_Tuple;
-
-/**
+  }
+{*
  * @struct _Eina_Hash_Tuple
  * Data for a hash table of key/value pairs.
- */
-struct _Eina_Hash_Tuple
-{
-   const void  *key; /**< The key */
-   void        *data; /**< The data associated to the key */
-   unsigned int key_length; /**< The length of the key */
-};
+  }
+(* Const before type ignored *)
+{*< The key  }
+{*< The data associated to the key  }
+{*< The length of the key  }
+  PEina_Hash_Tuple = ^TEina_Hash_Tuple;
+  TEina_Hash_Tuple = record
+      key : pointer;
+      data : pointer;
+      key_length : dword;
+    end;
 
-/**
+{*
  * @typedef Eina_Key_Length
  * Type for a function to determine the length of a hash key.
- */
-typedef unsigned int (*Eina_Key_Length)(const void *key);
+  }
+(* Const before type ignored *)
 
-/**
+  TEina_Key_Length = function (key:pointer):dword;cdecl;
+{*
  * @def EINA_KEY_LENGTH
  * @param[in] Function The function used to calculate length of hash key.
- */
-#define EINA_KEY_LENGTH(Function) ((Eina_Key_Length)Function)
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
 
-/**
+function EINA_KEY_LENGTH(_Function : longint) : TEina_Key_Length;
+
+{*
  * @typedef Eina_Key_Cmp
  * Type for a function to compare two hash keys.
- */
-typedef int          (*Eina_Key_Cmp)(const void *key1, int key1_length, const void *key2, int key2_length);
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+type
+
+  TEina_Key_Cmp = function (key1:pointer; key1_length:longint; key2:pointer; key2_length:longint):longint;cdecl;
+{*
  * @def EINA_KEY_CMP
  * @param[in] Function The function used to compare hash key.
- */
-#define EINA_KEY_CMP(Function)    ((Eina_Key_Cmp)Function)
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
 
-/**
+function EINA_KEY_CMP(_Function : longint) : TEina_Key_Cmp;
+
+{*
  * @typedef Eina_Key_Hash
  * Type for a function to create a hash key.
- */
-typedef int          (*Eina_Key_Hash)(const void *key, int key_length);
-/**
+  }
+(* Const before type ignored *)
+type
+
+  TEina_Key_Hash = function (key:pointer; key_length:longint):longint;cdecl;
+{*
  * @def EINA_KEY_HASH
  * @param[in] Function The function used to hash key.
- */
-#define EINA_KEY_HASH(Function)   ((Eina_Key_Hash)Function)
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
 
-/**
+function EINA_KEY_HASH(_Function : longint) : TEina_Key_Hash;
+
+{*
  * @typedef Eina_Hash_Foreach
  * Type for a function to iterate over a hash table.
- */
-typedef Eina_Bool    (*Eina_Hash_Foreach)(const Eina_Hash *hash, const void *key, void *data, void *fdata);
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+type
 
-
-/**
+  TEina_Hash_Foreach = function (hash:PEina_Hash; key:pointer; data:pointer; fdata:pointer):TEina_Bool;cdecl;
+{*
  * @brief Creates a new hash table.
  *
  * @param[in] key_length_cb The function called when getting the size of the key.
@@ -370,14 +408,10 @@ typedef Eina_Bool    (*Eina_Hash_Foreach)(const Eina_Hash *hash, const void *key
  * eina_hash_string_small_new(), eina_hash_int32_new(),
  * eina_hash_int64_new(), eina_hash_pointer_new() and
  * eina_hash_stringshared_new().
- */
-extern Eina_Hash *eina_hash_new(Eina_Key_Length key_length_cb,
-                              Eina_Key_Cmp    key_cmp_cb,
-                              Eina_Key_Hash   key_hash_cb,
-                              Eina_Free_Cb    data_free_cb,
-                              int             buckets_power_size) EINA_MALLOC EINA_WARN_UNUSED_RESULT EINA_ARG_NONNULL(2, 3);
+  }
 
-/**
+function eina_hash_new(key_length_cb:TEina_Key_Length; key_cmp_cb:TEina_Key_Cmp; key_hash_cb:TEina_Key_Hash; data_free_cb:TEina_Free_Cb; buckets_power_size:longint):PEina_Hash;cdecl;external;
+{*
  * @brief Sets the data cleanup callback for a hash.
  *
  * @param[in,out] hash The given hash table.
@@ -390,10 +424,9 @@ extern Eina_Hash *eina_hash_new(Eina_Key_Length key_length_cb,
  *
  * @since 1.1
  * @see eina_hash_new.
- */
-extern void eina_hash_free_cb_set(Eina_Hash *hash, Eina_Free_Cb data_free_cb) ;
-
-/**
+  }
+procedure eina_hash_free_cb_set(hash:PEina_Hash; data_free_cb:TEina_Free_Cb);cdecl;external;
+{*
  * @brief Creates a new hash table using the djb2 algorithm.
  *
  * @param[in] data_free_cb The function called on each value when the hash table
@@ -405,10 +438,9 @@ extern void eina_hash_free_cb_set(Eina_Hash *hash, Eina_Free_Cb data_free_cb) ;
  * table management and strcmp() to compare the keys. Values can then
  * be looked up with pointers other than the original key pointer that
  * was used to add values.
- */
-extern Eina_Hash *eina_hash_string_djb2_new(Eina_Free_Cb data_free_cb);
-
-/**
+  }
+function eina_hash_string_djb2_new(data_free_cb:TEina_Free_Cb):PEina_Hash;cdecl;external;
+{*
  * @brief Creates a new hash table for use with strings.
  *
  * @param[in] data_free_cb The function called on each value when the hash table
@@ -424,10 +456,9 @@ extern Eina_Hash *eina_hash_string_djb2_new(Eina_Free_Cb data_free_cb);
  * @warning Don't use this kind of hash when there is a possibility to
  * remotely request and push data in it. This hash is subject to denial
  * of service.
- */
-extern Eina_Hash *eina_hash_string_superfast_new(Eina_Free_Cb data_free_cb);
-
-/**
+  }
+function eina_hash_string_superfast_new(data_free_cb:TEina_Free_Cb):PEina_Hash;cdecl;external;
+{*
  * @brief Creates a new hash table for use with strings with small bucket size.
  *
  * @param[in] data_free_cb  The function called on each value when the hash table
@@ -441,10 +472,9 @@ extern Eina_Hash *eina_hash_string_superfast_new(Eina_Free_Cb data_free_cb);
  * which will minimize the memory used by the returned hash
  * table. Values can then be looked up with pointers other than the
  * original key pointer that was used to add values.
- */
-extern Eina_Hash *eina_hash_string_small_new(Eina_Free_Cb data_free_cb);
-
-/**
+  }
+function eina_hash_string_small_new(data_free_cb:TEina_Free_Cb):PEina_Hash;cdecl;external;
+{*
  * @brief Creates a new hash table for use with 32bit integers.
  *
  * @param[in] data_free_cb  The function called on each value when the hash table
@@ -459,10 +489,9 @@ extern Eina_Hash *eina_hash_string_small_new(Eina_Free_Cb data_free_cb);
  * be looked up with pointers other than the original key pointer that was
  * used to add values. This method is not suitable to match string keys as
  * it would only match the first character.
- */
-extern Eina_Hash *eina_hash_int32_new(Eina_Free_Cb data_free_cb);
-
-/**
+  }
+function eina_hash_int32_new(data_free_cb:TEina_Free_Cb):PEina_Hash;cdecl;external;
+{*
  * @brief Creates a new hash table for use with 64bit integers.
  *
  * @param[in] data_free_cb  The function called on each value when the hash table
@@ -476,10 +505,9 @@ extern Eina_Hash *eina_hash_int32_new(Eina_Free_Cb data_free_cb);
  * be looked up with pointers other than the original key pointer that was
  * used to add values. This method is not suitable to match string keys as
  * it would only match the first character.
- */
-extern Eina_Hash *eina_hash_int64_new(Eina_Free_Cb data_free_cb);
-
-/**
+  }
+function eina_hash_int64_new(data_free_cb:TEina_Free_Cb):PEina_Hash;cdecl;external;
+{*
  * @brief Creates a new hash table for use with pointers.
  *
  * @param[in] data_free_cb  The function called on each value when the hash table
@@ -502,10 +530,9 @@ extern Eina_Hash *eina_hash_int64_new(Eina_Free_Cb data_free_cb);
  * if (!eina_hash_find(hash, &data))
  *    eina_hash_add(hash, &data, data);
  * @endcode
- */
-extern Eina_Hash *eina_hash_pointer_new(Eina_Free_Cb data_free_cb);
-
-/**
+  }
+function eina_hash_pointer_new(data_free_cb:TEina_Free_Cb):PEina_Hash;cdecl;external;
+{*
  * @brief Creates a new hash table optimized for stringshared values.
  *
  * @param[in] data_free_cb  The function called on each value when the hash table
@@ -527,10 +554,9 @@ extern Eina_Hash *eina_hash_pointer_new(Eina_Free_Cb data_free_cb);
  * eina_hash_add(hash, a, value);
  * eina_hash_find(hash, "key");
  * @endcode
- */
-extern Eina_Hash *eina_hash_stringshared_new(Eina_Free_Cb data_free_cb);
-
-/**
+  }
+function eina_hash_stringshared_new(data_free_cb:TEina_Free_Cb):PEina_Hash;cdecl;external;
+{*
  * @brief Adds an entry to the given hash table.
  *
  * @param[in,out] hash The given hash table. Cannot be @c NULL.
@@ -552,12 +578,11 @@ extern Eina_Hash *eina_hash_stringshared_new(Eina_Free_Cb data_free_cb);
  * with @ref eina_hash_find(), and removed with @ref eina_hash_del().
  *
  * Key strings are case sensitive.
- */
-extern Eina_Bool  eina_hash_add(Eina_Hash  *hash,
-                              const void *key,
-                              const void *data) EINA_ARG_NONNULL(1, 2, 3);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_hash_add(hash:PEina_Hash; key:pointer; data:pointer):TEina_Bool;cdecl;external;
+{*
  * @brief Adds an entry to the given hash table without duplicating the string.
  *
  * @param[in,out] hash The given hash table. Cannot be @c NULL.
@@ -581,12 +606,11 @@ extern Eina_Bool  eina_hash_add(Eina_Hash  *hash,
  * Unlike @ref eina_hash_add(), this function does not make a copy of
  * @p key, so it must be a string constant or stored elsewhere (such as
  * in the object being added). Key strings are case sensitive.
- */
-extern Eina_Bool eina_hash_direct_add(Eina_Hash  *hash,
-                                    const void *key,
-                                    const void *data) EINA_ARG_NONNULL(1, 2, 3);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_hash_direct_add(hash:PEina_Hash; key:pointer; data:pointer):TEina_Bool;cdecl;external;
+{*
  * @brief Removes the entry identified by a key or a data from the given
  * hash table.
  *
@@ -606,12 +630,11 @@ extern Eina_Bool eina_hash_direct_add(Eina_Hash  *hash,
  * @note If you already have the key, use eina_hash_del_by_key() or
  * eina_hash_del_by_key_hash(). If you don't have the key, use
  * eina_hash_del_by_data() directly.
- */
-extern Eina_Bool eina_hash_del(Eina_Hash  *hash,
-                             const void *key,
-                             const void *data) ;
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_hash_del(hash:PEina_Hash; key:pointer; data:pointer):TEina_Bool;cdecl;external;
+{*
  * @brief Retrieves a specific entry in the given hash table.
  *
  * @param[in] hash The given hash table.
@@ -621,11 +644,11 @@ extern Eina_Bool eina_hash_del(Eina_Hash  *hash,
  *
  * This function retrieves the entry associated with @p key in
  * @p hash. If @p hash is @c NULL, this function returns @c NULL.
- */
-extern void *eina_hash_find(const Eina_Hash *hash,
-                          const void      *key) ;
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_hash_find(hash:PEina_Hash; key:pointer):pointer;cdecl;external;
+{*
  * @brief Modifies the entry pointer at the specified key and returns
  * the previous entry.
  * @param[in,out] hash The given hash table.
@@ -636,12 +659,11 @@ extern void *eina_hash_find(const Eina_Hash *hash,
  *
  * This function modifies the data of @p key with @p data in @p
  * hash. If no entry is found, nothing is added to @p hash.
- */
-extern void *eina_hash_modify(Eina_Hash  *hash,
-                            const void *key,
-                            const void *data) EINA_ARG_NONNULL(1, 2, 3);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_hash_modify(hash:PEina_Hash; key:pointer; data:pointer):pointer;cdecl;external;
+{*
  * @brief Modifies the entry pointer at the specified key and returns the
  * previous entry or adds the entry if not found.
  *
@@ -654,12 +676,11 @@ extern void *eina_hash_modify(Eina_Hash  *hash,
  * This function modifies the value of @p key to @p data in @p
  * hash. If no entry is found, @p data is added to @p hash with the
  * key @p key.
- */
-extern void *eina_hash_set(Eina_Hash  *hash,
-                         const void *key,
-                         const void *data) EINA_ARG_NONNULL(1, 2);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_hash_set(hash:PEina_Hash; key:pointer; data:pointer):pointer;cdecl;external;
+{*
  * @brief Changes the key of an entry in a hash without triggering the
  * free callback.
  *
@@ -671,12 +692,11 @@ extern void *eina_hash_set(Eina_Hash  *hash,
  * This function moves data from one key to another,
  * but does not call the Eina_Free_Cb associated with the hash table
  * when destroying the old key.
- */
-extern Eina_Bool eina_hash_move(Eina_Hash  *hash,
-                              const void *old_key,
-                              const void *new_key) EINA_ARG_NONNULL(1, 2, 3);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_hash_move(hash:PEina_Hash; old_key:pointer; new_key:pointer):TEina_Bool;cdecl;external;
+{*
  * @brief Frees the given hash table's resources.
  *
  * @param[in] hash The hash table to be freed.
@@ -698,10 +718,9 @@ extern Eina_Bool eina_hash_move(Eina_Hash  *hash,
  * eina_hash_free(hash);
  * hash = NULL;
  * @endcode
- */
-extern void      eina_hash_free(Eina_Hash *hash) ;
-
-/**
+  }
+procedure eina_hash_free(hash:PEina_Hash);cdecl;external;
+{*
  * @brief Frees the given hash table buckets resources.
  *
  * @param[in] hash The hash table whose buckets have to be freed.
@@ -714,19 +733,18 @@ extern void      eina_hash_free(Eina_Hash *hash) ;
  * elements may now be lost, if not stored or freed elsewhere.
  *
  * If @p hash is @c NULL, the function returns immediately.
- */
-extern void      eina_hash_free_buckets(Eina_Hash *hash) ;
-
-/**
+  }
+procedure eina_hash_free_buckets(hash:PEina_Hash);cdecl;external;
+{*
  * @brief Returns the number of entries in the given hash table.
  *
  * @param[in] hash The given hash table.
  * @return The number of entries in the hash table, or @c 0 on error or
  * if @p hash is @c NULL.
- */
-extern int       eina_hash_population(const Eina_Hash *hash) ;
-
-/**
+  }
+(* Const before type ignored *)
+function eina_hash_population(hash:PEina_Hash):longint;cdecl;external;
+{*
  * @brief Adds an entry to the given hash table by its key hash.
  *
  * @param[in,out] hash The given hash table. Cannot be @c NULL.
@@ -746,14 +764,11 @@ extern int       eina_hash_population(const Eina_Hash *hash) ;
  * sensitive.
  *
  * @see eina_hash_add()
- */
-extern Eina_Bool eina_hash_add_by_hash(Eina_Hash  *hash,
-                                     const void *key,
-                                     int         key_length,
-                                     int         key_hash,
-                                     const void *data) EINA_ARG_NONNULL(1, 2, 5);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_hash_add_by_hash(hash:PEina_Hash; key:pointer; key_length:longint; key_hash:longint; data:pointer):TEina_Bool;cdecl;external;
+{*
  * @brief Adds an entry to a hash table by its key hash without duplicating the string key.
  *
  * @param[in,out] hash The given hash table. Cannot be @c NULL.
@@ -777,14 +792,11 @@ extern Eina_Bool eina_hash_add_by_hash(Eina_Hash  *hash,
  * (such as inside the object being added).
  *
  * @see eina_hash_direct_add()
- */
-extern Eina_Bool eina_hash_direct_add_by_hash(Eina_Hash  *hash,
-                                            const void *key,
-                                            int         key_length,
-                                            int         key_hash,
-                                            const void *data) EINA_ARG_NONNULL(1, 2, 5);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_hash_direct_add_by_hash(hash:PEina_Hash; key:pointer; key_length:longint; key_hash:longint; data:pointer):TEina_Bool;cdecl;external;
+{*
  * @brief Removes the entry identified by a key and a key hash from the given
  * hash table.
  *
@@ -802,13 +814,10 @@ extern Eina_Bool eina_hash_direct_add_by_hash(Eina_Hash  *hash,
  *
  * @note If you don't have the key_hash, use eina_hash_del_by_key()
  * instead.  If you don't have the key, use eina_hash_del_by_data().
- */
-extern Eina_Bool eina_hash_del_by_key_hash(Eina_Hash  *hash,
-                                         const void *key,
-                                         int         key_length,
-                                         int         key_hash) EINA_ARG_NONNULL(1, 2);
-
-/**
+  }
+(* Const before type ignored *)
+function eina_hash_del_by_key_hash(hash:PEina_Hash; key:pointer; key_length:longint; key_hash:longint):TEina_Bool;cdecl;external;
+{*
  * @brief Removes the entry identified by a key from the given hash table.
  *
  * This version will calculate key length and hash by using functions
@@ -827,11 +836,10 @@ extern Eina_Bool eina_hash_del_by_key_hash(Eina_Hash  *hash,
  *
  * @note If you already have the key_hash, use eina_hash_del_by_key_hash().
  * If you don't have the key, use eina_hash_del_by_data() instead.
- */
-extern Eina_Bool eina_hash_del_by_key(Eina_Hash  *hash,
-                                    const void *key) EINA_ARG_NONNULL(1, 2);
-
-/**
+  }
+(* Const before type ignored *)
+function eina_hash_del_by_key(hash:PEina_Hash; key:pointer):TEina_Bool;cdecl;external;
+{*
  * @brief Removes an entry from a hash table identified by its data value.
  *
  * @param[in,out] hash The given hash table. Cannot be @c NULL.
@@ -849,11 +857,10 @@ extern Eina_Bool eina_hash_del_by_key(Eina_Hash  *hash,
  *
  * @note If you already have the key, use eina_hash_del_by_key()
  * or eina_hash_del_by_key_hash() instead.
- */
-extern Eina_Bool eina_hash_del_by_data(Eina_Hash  *hash,
-                                     const void *data) EINA_ARG_NONNULL(1, 2);
-
-/**
+  }
+(* Const before type ignored *)
+function eina_hash_del_by_data(hash:PEina_Hash; data:pointer):TEina_Bool;cdecl;external;
+{*
  * @brief Removes the entry identified by a key and a key hash, or a
  * data value from the given hash table.
  *
@@ -879,14 +886,11 @@ extern Eina_Bool eina_hash_del_by_data(Eina_Hash  *hash,
  *
  * @note If you already have the key, use eina_hash_del_by_key_hash().
  * If you don't have the key, use eina_hash_del_by_data() directly.
- */
-extern Eina_Bool eina_hash_del_by_hash(Eina_Hash  *hash,
-                                     const void *key,
-                                     int         key_length,
-                                     int         key_hash,
-                                     const void *data) ;
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_hash_del_by_hash(hash:PEina_Hash; key:pointer; key_length:longint; key_hash:longint; data:pointer):TEina_Bool;cdecl;external;
+{*
  * @brief Retrieves a specific entry from the given hash table.
  *
  * @param[in] hash The given hash table. Cannot be @c NULL.
@@ -900,13 +904,11 @@ extern Eina_Bool eina_hash_del_by_hash(Eina_Hash  *hash,
  * @p key_length in @p hash. @p key_hash is the hash that always matches
  * @p key. It is ignored if @p key is @c NULL. Do not forget to count
  * '\\0' for string when setting the value of @p key_length.
- */
-extern void *eina_hash_find_by_hash(const Eina_Hash *hash,
-                                  const void      *key,
-                                  int              key_length,
-                                  int              key_hash) EINA_ARG_NONNULL(1, 2);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_hash_find_by_hash(hash:PEina_Hash; key:pointer; key_length:longint; key_hash:longint):pointer;cdecl;external;
+{*
  * @brief Modifies the entry pointer at the specified key and returns
  * the previous entry.
  *
@@ -920,14 +922,11 @@ extern void *eina_hash_find_by_hash(const Eina_Hash *hash,
  * @return The data pointer for the previously stored entry, or @c NULL
  * if not found. If an existing entry is not found, nothing is added to
  * the hash.
- */
-extern void *eina_hash_modify_by_hash(Eina_Hash  *hash,
-                                    const void *key,
-                                    int         key_length,
-                                    int         key_hash,
-                                    const void *data) EINA_ARG_NONNULL(1, 2, 5);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_hash_modify_by_hash(hash:PEina_Hash; key:pointer; key_length:longint; key_hash:longint; data:pointer):pointer;cdecl;external;
+{*
  * @brief Returns a new iterator associated with hash keys.
  *
  * @param[in] hash The hash.
@@ -940,10 +939,10 @@ extern void *eina_hash_modify_by_hash(Eina_Hash  *hash,
  *
  * @warning If the hash structure changes then the iterator becomes
  * invalid; adding or removing items may lead to program crash.
- */
-extern Eina_Iterator *eina_hash_iterator_key_new(const Eina_Hash *hash) EINA_MALLOC  EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+(* Const before type ignored *)
+function eina_hash_iterator_key_new(hash:PEina_Hash):PEina_Iterator;cdecl;external;
+{*
  * @brief Returns a new iterator associated with a hash.
  *
  * @param[in] hash The hash.
@@ -956,10 +955,10 @@ extern Eina_Iterator *eina_hash_iterator_key_new(const Eina_Hash *hash) EINA_MAL
  *
  * @warning If the hash structure changes then the iterator becomes
  * invalid; adding or removing items may lead to program crash.
- */
-extern Eina_Iterator *eina_hash_iterator_data_new(const Eina_Hash *hash) EINA_MALLOC  EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+(* Const before type ignored *)
+function eina_hash_iterator_data_new(hash:PEina_Hash):PEina_Iterator;cdecl;external;
+{*
  * @brief Returned a new iterator associated with hash keys and data.
  *
  * @param[in] hash The hash.
@@ -975,10 +974,10 @@ extern Eina_Iterator *eina_hash_iterator_data_new(const Eina_Hash *hash) EINA_MA
  *
  * @warning If the hash structure changes then the iterator becomes
  * invalid; adding or removing items may lead to program crash.
- */
-extern Eina_Iterator *eina_hash_iterator_tuple_new(const Eina_Hash *hash) EINA_MALLOC  EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+(* Const before type ignored *)
+function eina_hash_iterator_tuple_new(hash:PEina_Hash):PEina_Iterator;cdecl;external;
+{*
  * @brief Calls a function on every member stored in the hash table.
  *
  * @param[in] hash The hash table whose members will be walked.
@@ -997,28 +996,26 @@ extern Eina_Iterator *eina_hash_iterator_tuple_new(const Eina_Hash *hash) EINA_M
  *
  * Eina_Bool hash_fn(const Eina_Hash *hash, const void *key,
  *                   void *data, void *fdata)
- * {
+ * 
  *   printf("Func data: %s, Hash entry: %s / %p\n",
  *          fdata, (const char *)key, data);
  *   return EINA_TRUE;
- * }
+ * 
  *
  * int main(int argc, char **argv)
- * {
+ * 
  *   char *hash_fn_data;
  *
  *   hash_fn_data = strdup("Hello World");
  *   eina_hash_foreach(hash, hash_fn, hash_fn_data);
  *   free(hash_fn_data);
- * }
+ * 
  * @endcode
- */
-extern void           eina_hash_foreach(const Eina_Hash  *hash,
-                                      Eina_Hash_Foreach func,
-                                      const void       *fdata) EINA_ARG_NONNULL(1, 2);
-
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure eina_hash_foreach(hash:PEina_Hash; func:TEina_Hash_Foreach; fdata:pointer);cdecl;external;
+{*
  * @brief Appends data to an #Eina_List inside a hash.
  *
  * This function is identical to the sequence of calling
@@ -1030,10 +1027,11 @@ extern void           eina_hash_foreach(const Eina_Hash  *hash,
  * @param[in] data The data to append to the list.
  *
  * @since 1.10
- */
-extern void eina_hash_list_append(Eina_Hash *hash, const void *key, const void *data) EINA_ARG_NONNULL(1, 2, 3);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure eina_hash_list_append(hash:PEina_Hash; key:pointer; data:pointer);cdecl;external;
+{*
  * @brief Appends data to an #Eina_List inside a hash using eina_hash_direct_add().
  *
  * This function is identical to the sequence of calling
@@ -1045,10 +1043,11 @@ extern void eina_hash_list_append(Eina_Hash *hash, const void *key, const void *
  * @param[in] data The data to append to the list.
  *
  * @since 1.23
- */
-extern void eina_hash_list_direct_append(Eina_Hash *hash, const void *key, const void *data) EINA_ARG_NONNULL(1, 2, 3);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure eina_hash_list_direct_append(hash:PEina_Hash; key:pointer; data:pointer);cdecl;external;
+{*
  * @brief Prepends data to an #Eina_List inside a hash.
  *
  * This function is identical to the sequence of calling
@@ -1060,10 +1059,11 @@ extern void eina_hash_list_direct_append(Eina_Hash *hash, const void *key, const
  * @param[in] data The data to prepend to the list.
  *
  * @since 1.10
- */
-extern void eina_hash_list_prepend(Eina_Hash *hash, const void *key, const void *data) EINA_ARG_NONNULL(1, 2, 3);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure eina_hash_list_prepend(hash:PEina_Hash; key:pointer; data:pointer);cdecl;external;
+{*
  * @brief Prepends data to an #Eina_List inside a hash using eina_hash_direct_add().
  *
  * This function is identical to the sequence of calling
@@ -1075,10 +1075,11 @@ extern void eina_hash_list_prepend(Eina_Hash *hash, const void *key, const void 
  * @param[in] data The data to prepend to the list.
  *
  * @since 1.23
- */
-extern void eina_hash_list_direct_prepend(Eina_Hash *hash, const void *key, const void *data) EINA_ARG_NONNULL(1, 2, 3);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure eina_hash_list_direct_prepend(hash:PEina_Hash; key:pointer; data:pointer);cdecl;external;
+{*
  * @brief Removes data from an #Eina_List inside a hash.
  *
  * This function is identical to the sequence of calling
@@ -1090,98 +1091,63 @@ extern void eina_hash_list_direct_prepend(Eina_Hash *hash, const void *key, cons
  * @param[in] data The data to remove from the list.
  *
  * @since 1.10
- */
-extern void eina_hash_list_remove(Eina_Hash *hash, const void *key, const void *data) EINA_ARG_NONNULL(1, 2, 3);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure eina_hash_list_remove(hash:PEina_Hash; key:pointer; data:pointer);cdecl;external;
+{*
  * @brief
  * Paul Hsieh (http://www.azillionmonkeys.com/qed/hash.html) hash function used by WebCore (http://webkit.org/blog/8/hashtables-part-2/)
  *
  * @param[in] key The key to hash.
  * @param[in] len The length of the key.
  * @return The hash value.
- */
-extern int eina_hash_superfast(const char *key,
-                             int         len) ;
-
-/**
+  }
+(* Const before type ignored *)
+function eina_hash_superfast(key:Pchar; len:longint):longint;cdecl;external;
+{*
  * @brief
  * Hash function first reported by Dan Bernstein many years ago in comp.lang.c
  *
  * @param[in] key The key to hash.
  * @param[in] len The length of the key.
  * @return The hash value.
- */
-static inline int eina_hash_djb2(const char *key,
-                                 int         len) ;
+  }
+{$include "eina_inline_hash.x"}
+{*
+ * @
+  }
+{*
+ * @
+  }
+{*
+ * @
+  }
+{$endif}
+{EINA_HASH_H_ }
 
-/**
- * @brief
- * Hash function first reported by Dan Bernstein many years ago in comp.lang.c
- *
- * @param[in] key The key to hash.
- * @param[in] plen The length of the key.
- * @return The hash value.
- */
-static inline int eina_hash_djb2_len(const char *key,
-                                     int        *plen) EINA_ARG_NONNULL(1, 2);
+implementation
 
-/**
- * @brief
- * Hash function from http://web.archive.org/web/20071223173210/http://www.concentric.net/~Ttwang/tech/inthash.htm
- *
- * @param[in] pkey The key to hash.
- * @param[in] len The length of the key.
- * @return The hash value.
- */
-static inline int eina_hash_int32(const unsigned int *pkey,
-                                  int                 len) ;
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+function EINA_KEY_LENGTH(_Function : longint) : TEina_Key_Length;
+begin
+  EINA_KEY_LENGTH:=TEina_Key_Length(_Function);
+end;
 
-/**
- * @brief
- * Hash function from http://web.archive.org/web/20071223173210/http://www.concentric.net/~Ttwang/tech/inthash.htm
- *
- * @param[in] pkey The key to hash.
- * @param[in] len The length of the key.
- * @return The hash value.
- */
-static inline int eina_hash_int64(const unsigned long long int *pkey,
-                                  int                      len) ;
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+function EINA_KEY_CMP(_Function : longint) : TEina_Key_Cmp;
+begin
+  EINA_KEY_CMP:=TEina_Key_Cmp(_Function);
+end;
 
-/**
- * @brief
- * Hash function from http://sites.google.com/site/murmurhash/
- *
- * @param[in] key The key to hash.
- * @param[in] len The length of the key.
- * @return The hash value.
- */
-static inline int eina_hash_murmur3(const char *key,
-                           int         len) ;
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+function EINA_KEY_HASH(_Function : longint) : TEina_Key_Hash;
+begin
+  EINA_KEY_HASH:=TEina_Key_Hash(_Function);
+end;
 
-/**
- * @brief
- * Hash function using crc-32 algorithm and and 0xEDB88320 polynomial
- *
- * @param[in] key The key to hash.
- * @param[in] len The length of the key.
- * @return The hash value.
- */
-static inline int eina_hash_crc(const char *key,
-                           int         len) ;
 
-#include "eina_inline_hash.x"
-
-/**
- * @}
- */
-
-/**
- * @}
- */
-
-/**
- * @}
- */
-
-#endif /*EINA_HASH_H_*/
+end.

@@ -6,11 +6,13 @@ const
   {$IFDEF Linux}
   libelementary = 'libelementary';
   libevas = 'libevas';
+  libeina = 'libeina';
   {$ENDIF}
 
   {$IFDEF mswindows}
   libelementary = 'libelementary.dll'; // ???
   libevas = 'libevas.dll';
+  libeina = 'libeina.dll';
   {$ENDIF}
 
 
@@ -33,34 +35,16 @@ type
 type
   TEina_Unicode = widechar;
 
-  // /usr/include/eina-1/eina/eina_rectangle.h
+  // /usr/include/eina-1/eina/eina_vector.h
 type
-  TEina_Rect = record // Muss aufgelöst werden
-  end;
-  PEina_Rect = ^TEina_Rect;
-
-  TEina_Size2D = record
-    w, h: longint;
-  end;
-  PEina_Size2D = ^TEina_Size2D;
-
-  TEina_Rectangle = record
-    x, y, w, h: integer;
-  end;
-
   TEina_Vector2 = record
     x, y: double;
   end;
-  PEina_Vector2=^TEina_Vector2;
+  PEina_Vector2 = ^TEina_Vector2;
 
   TEina_Vector3 = record
     x, y, z: double;
   end;
-
-  TEina_Position2D = record
-    x, y: longint;
-  end;
-  PEina_Position2D = ^TEina_Position2D;
 
   // /usr/include/eina-1/eina/eina_file.h
 type
@@ -100,27 +84,9 @@ type
 type
   PEina_List = Pointer;
 
-//  // /usr/include/eina-1/Efl_Config.h
-//const
-//  EFL_VERSION_MAJOR = 1;
-//  EFL_VERSION_MINOR = 27;
-//  EFL_VERSION_MICRO = 0;
-//  EFL_BUILD_ID = 'none';
-
   // /usr/include/eina-1/eina/eina_promise.h
 type
   PEina_Future = Pointer;
-
-  // /usr/include/eina-1/eina/eina_types.h
-type
-  TEina_Free_Cb = Pointer; // callproc
-
-  TEina_Bool = Boolean8;
-  PEina_Bool = ^TEina_Bool;
-
-const
-  EINA_FALSE = TEina_Bool(0);
-  EINA_TRUE = TEina_Bool(1);
 
   // /usr/include/eina-1/eina/eina_accessor.h
 type

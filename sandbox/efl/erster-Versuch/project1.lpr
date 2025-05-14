@@ -7,13 +7,18 @@ uses
 
   // =======================================
 
+  // eina-1/eina
+  eina_types,                                         // io.                                           ( Viele Makros einfertn )
+  eina_error,                                         // io. -> eina_types
+  eina_inarray,                                       // io.
+  eina_hash,                                          // io.                                           ( Wenig inline entfernt )
+  eina_value,                                         // io. -> ina_error, eina_inarray, eina_hash     ( Viele inline entfernt )
+  eina_rectangle,                                                          //  ( Viele inline entfernt )
+
   // eina-1
   Efl_Config,                                         // io.
   Eina,                                               // io.  ( evtl. löschen )
   eina_config,                                        // io.
-
-  // eina-1/eina
-  eina_value,
 
 
   // =======================================

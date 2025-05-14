@@ -3,7 +3,7 @@ unit efl_text_cursor_object_eo;
 interface
 
 uses
-  ctypes, efl, Evas_Common;
+  ctypes, efl, eina_rectangle, eina_types, Evas_Common;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

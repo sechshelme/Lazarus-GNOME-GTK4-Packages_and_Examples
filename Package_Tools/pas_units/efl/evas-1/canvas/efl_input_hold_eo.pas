@@ -3,7 +3,7 @@ unit efl_input_hold_eo;
 interface
 
 uses
-  ctypes, efl;
+  ctypes, efl, eina_types;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

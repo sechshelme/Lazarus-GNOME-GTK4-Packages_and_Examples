@@ -28,10 +28,6 @@
         <Filename Value="project1.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit>
-      <Unit>
-        <Filename Value="../../../Package_Tools/pas_units/efl/elf.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -41,7 +37,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="../../../Package_Tools/pas_units/efl/elementary-1;../../../Package_Tools/pas_units/efl;../../../Package_Tools/pas_units/efl/evas-1;../../../Package_Tools/pas_units/efl/evas-1/canvas;../../../Package_Tools/pas_units/efl/evas-1/gesture;../../../Package_Tools/pas_units/efl/eina-1;../../../Package_Tools/pas_units/efl/eina-1/eina"/>
+      <OtherUnitFiles Value="../../../Package_Tools/pas_units/efl/elementary-1;../../../Package_Tools/pas_units/efl/evas-1;../../../Package_Tools/pas_units/efl/evas-1/canvas;../../../Package_Tools/pas_units/efl/evas-1/gesture;../../../Package_Tools/pas_units/efl/eina-1;../../../Package_Tools/pas_units/efl/eina-1/eina;../../../Package_Tools/pas_units/efl"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

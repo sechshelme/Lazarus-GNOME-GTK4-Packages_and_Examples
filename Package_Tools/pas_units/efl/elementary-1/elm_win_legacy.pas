@@ -3,7 +3,7 @@ unit elm_win_legacy;
 interface
 
 uses
-  ctypes, efl, Evas_Common, Evas_Legacy;
+  ctypes, efl, eina_types, Evas_Common, Evas_Legacy;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

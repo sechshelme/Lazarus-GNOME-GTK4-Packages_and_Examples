@@ -3,7 +3,7 @@ unit efl_gfx_mapping_eo;
 interface
 
 uses
-  ctypes, efl;
+  ctypes, efl, eina_types;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

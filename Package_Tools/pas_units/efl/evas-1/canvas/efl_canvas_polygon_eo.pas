@@ -3,7 +3,7 @@ unit efl_canvas_polygon_eo;
 interface
 
 uses
-  ctypes, efl;
+  ctypes, efl, eina_rectangle;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
