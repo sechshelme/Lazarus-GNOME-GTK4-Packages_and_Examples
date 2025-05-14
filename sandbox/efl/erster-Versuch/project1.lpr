@@ -3,11 +3,22 @@ program project1;
 //{$define EFL_BETA_API_SUPPORT}
 
 uses
-  elf,
+  efl,
 
   // =======================================
 
-  // evas/canvas
+  // eina-1
+  Efl_Config,                                         // io.
+  Eina,                                               // io.  ( evtl. löschen )
+  eina_config,                                        // io.
+
+  // eina-1/eina
+  eina_value,
+
+
+  // =======================================
+
+  // evas-1/canvas
   efl_canvas_vg_node_eo_legacy,                       // io.
   efl_canvas_vg_node_eo,                              // io.
   efl_canvas_vg_container_eo_legacy,                  // io. -> efl_canvas_vg_node_eo_legacy
@@ -15,7 +26,7 @@ uses
   efl_canvas_vg_shape_eo,                             // io. -> efl_canvas_vg_node_eo
   efl_canvas_vg_gradient_eo_legacy,                   // io.
 
-  // evas
+  // evas-1
   Efl_Canvas,                                         // io.  ( evtl. löschen )
   Evas,                                               // io.  ( evtl. löschen )
   Evas_Loader,                                        // io.
@@ -23,7 +34,7 @@ uses
   Evas_Legacy,                                        // io. -> Evas_Common, Evas_Loader, efl_canvas_vg_container_eo_legacy, efl_canvas_vg_shape_eo_legacy, efl_canvas_vg_node_eo_legacy,efl_canvas_vg_gradient_eo_legacy;
   Evas_GL,                                            // io. -> Evas_Common, Evas_Legacy ( Viele doppelte Conste entfernt )
 
-  // evas/canvas
+  // evas-1/canvas
   Evas_Engine_Buffer,                                 // io.
   Evas_Eo,                                            // io.
   efl_canvas_vg_object_eo_legacy,                     // io. -> Evas_Common, efl_canvas_vg_node_eo_legacy
@@ -86,7 +97,7 @@ uses
   evas_image_eo_legacy,                               // io.
   evas_line_eo_legacy,                                // io.
 
-  // evas/gesture
+  // evas-1/gesture
   efl_canvas_gesture_types_eot,                       // io. -> efl_input_types_eot
   efl_canvas_gesture_custom_eo,                       // io.
   efl_canvas_gesture_eo,                              // io. -> efl_canvas_gesture_types_eot
@@ -116,7 +127,7 @@ uses
   // =======================================
 
 
-  // elementary        -> Evas
+  // elementary-1        -> Evas
   elm_general,                                         // io.     ( makro ELM_MAIN entfernt )
   elm_win_legacy,                                      // io.     ( Doppelt Methoden evtl. Bug in C-Hedader )
   elm_box_legacy,                                      // io.

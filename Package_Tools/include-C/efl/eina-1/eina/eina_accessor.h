@@ -155,8 +155,8 @@ struct _Eina_Accessor
    int                                  version; /**< Version of the Accessor API */
 
    Eina_Accessor_Get_At_Callback        get_at        EINA_ARG_NONNULL(1, 3) EINA_WARN_UNUSED_RESULT; /**< Callback called when a data element is requested */
-   Eina_Accessor_Get_Container_Callback get_container EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT; /**< Callback called when the container is requested */
-   Eina_Accessor_Free_Callback          free          EINA_ARG_NONNULL(1); /**< Callback called when the container is freed */
+   Eina_Accessor_Get_Container_Callback get_container  EINA_WARN_UNUSED_RESULT; /**< Callback called when the container is requested */
+   Eina_Accessor_Free_Callback          free          ; /**< Callback called when the container is freed */
 
    Eina_Accessor_Lock_Callback          lock          EINA_WARN_UNUSED_RESULT; /**< Callback called when the container is locked */
    Eina_Accessor_Lock_Callback          unlock        EINA_WARN_UNUSED_RESULT; /**< Callback called when the container is unlocked */
@@ -205,7 +205,7 @@ struct _Eina_Accessor
  * @param[in] accessor The accessor to free
  *
  */
-EINA_API void      eina_accessor_free(Eina_Accessor *accessor);
+extern void      eina_accessor_free(Eina_Accessor *accessor);
 
 /**
  * @brief Gets the data of an accessor at the given position.
@@ -219,9 +219,9 @@ EINA_API void      eina_accessor_free(Eina_Accessor *accessor);
  * @return #EINA_TRUE on success, otherwise #EINA_FALSE
  *
  */
-EINA_API Eina_Bool eina_accessor_data_get(Eina_Accessor *accessor,
+extern Eina_Bool eina_accessor_data_get(Eina_Accessor *accessor,
                                       unsigned int   position,
-                                      void         **data) EINA_ARG_NONNULL(1);
+                                      void         **data) ;
 
 /**
  * @brief Gets the container of an accessor.
@@ -231,7 +231,7 @@ EINA_API Eina_Bool eina_accessor_data_get(Eina_Accessor *accessor,
  * @return The container that created the accessor
  *
  */
-EINA_API void *eina_accessor_container_get(Eina_Accessor *accessor) EINA_ARG_NONNULL(1) EINA_PURE;
+extern void *eina_accessor_container_get(Eina_Accessor *accessor)  EINA_PURE;
 
 /**
  * @brief Iterates over the container and executes a callback on the chosen elements.
@@ -249,11 +249,11 @@ EINA_API void *eina_accessor_container_get(Eina_Accessor *accessor) EINA_ARG_NON
  * @param[in] fdata The data passed to the callback
  *
  */
-EINA_API void  eina_accessor_over(Eina_Accessor *accessor,
+extern void  eina_accessor_over(Eina_Accessor *accessor,
                               Eina_Each_Cb   cb,
                               unsigned int   start,
                               unsigned int   end,
-                              const void    *fdata) EINA_ARG_NONNULL(2);
+                              const void    *fdata) ;
 
 /**
  * @brief Locks the container of the accessor.
@@ -269,7 +269,7 @@ EINA_API void  eina_accessor_over(Eina_Accessor *accessor,
  *
  * @warning None of the existing eina data structures are lockable.
  */
-EINA_API Eina_Bool eina_accessor_lock(Eina_Accessor *accessor) EINA_ARG_NONNULL(1);
+extern Eina_Bool eina_accessor_lock(Eina_Accessor *accessor) ;
 
 /**
  * @brief Clones the container of the accessor.
@@ -278,7 +278,7 @@ EINA_API Eina_Bool eina_accessor_lock(Eina_Accessor *accessor) EINA_ARG_NONNULL(
  * @return Another accessor
  * @since 1.10
  */
-EINA_API Eina_Accessor* eina_accessor_clone(Eina_Accessor *accessor) EINA_ARG_NONNULL(1);
+extern Eina_Accessor* eina_accessor_clone(Eina_Accessor *accessor) ;
 
 /**
  * @brief Unlocks the container of the accessor.
@@ -293,7 +293,7 @@ EINA_API Eina_Accessor* eina_accessor_clone(Eina_Accessor *accessor) EINA_ARG_NO
  *
  * @warning None of the existing eina data structures are lockable.
  */
-EINA_API Eina_Bool eina_accessor_unlock(Eina_Accessor *accessor) EINA_ARG_NONNULL(1);
+extern Eina_Bool eina_accessor_unlock(Eina_Accessor *accessor) ;
 
 /**
  * @def EINA_ACCESSOR_FOREACH
@@ -363,7 +363,7 @@ EINA_API Eina_Bool eina_accessor_unlock(Eina_Accessor *accessor) EINA_ARG_NONNUL
  *
  * @since 1.23
  */
-EINA_API Eina_Accessor* eina_carray_length_accessor_new(void** array, unsigned int step, unsigned int length);
+extern Eina_Accessor* eina_carray_length_accessor_new(void** array, unsigned int step, unsigned int length);
 
 
 /**
@@ -383,7 +383,7 @@ EINA_API Eina_Accessor* eina_carray_length_accessor_new(void** array, unsigned i
 
  * @since 1.24
  */
-EINA_API Eina_Accessor* eina_carray_length_ptr_accessor_new(void** array, unsigned int step, unsigned int length);
+extern Eina_Accessor* eina_carray_length_ptr_accessor_new(void** array, unsigned int step, unsigned int length);
 /**
  * @def EINA_C_ARRAY_ACCESSOR_NEW
  * @brief Creates an Eina_Accessor that wraps a plain fixed size C array

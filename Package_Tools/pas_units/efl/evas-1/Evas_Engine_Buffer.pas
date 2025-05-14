@@ -3,7 +3,7 @@ unit Evas_Engine_Buffer;
 interface
 
 uses
-  ctypes, elf;
+  ctypes, efl;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

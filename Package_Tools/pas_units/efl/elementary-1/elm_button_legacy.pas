@@ -3,7 +3,7 @@ unit elm_button_legacy;
 interface
 
 uses
-  ctypes, elf, Evas_Common;
+  ctypes, efl, Evas_Common;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

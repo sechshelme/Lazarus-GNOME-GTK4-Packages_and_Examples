@@ -3,7 +3,7 @@ unit efl_input_pointer_eo;
 interface
 
 uses
-  ctypes, elf, efl_input_types_eot;
+  ctypes, efl, efl_input_types_eot;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

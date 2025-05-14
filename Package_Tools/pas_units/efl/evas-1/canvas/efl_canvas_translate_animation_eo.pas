@@ -3,7 +3,7 @@ unit efl_canvas_translate_animation_eo;
 interface
 
 uses
-  ctypes, elf;
+  ctypes, efl;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

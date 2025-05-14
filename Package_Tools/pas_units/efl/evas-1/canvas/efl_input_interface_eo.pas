@@ -3,7 +3,7 @@ unit efl_input_interface_eo;
 interface
 
 uses
-  ctypes, elf, Evas_Common;
+  ctypes, efl, Evas_Common;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

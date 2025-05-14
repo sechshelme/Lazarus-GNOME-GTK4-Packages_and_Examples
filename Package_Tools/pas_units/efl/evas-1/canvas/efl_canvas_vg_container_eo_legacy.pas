@@ -3,7 +3,7 @@ unit efl_canvas_vg_container_eo_legacy;
 interface
 
 uses
-  ctypes, elf, efl_canvas_vg_node_eo_legacy;
+  ctypes, efl, efl_canvas_vg_node_eo_legacy;
 
 type
   PEvas_Vg_Container = ^TEvas_Vg_Container;

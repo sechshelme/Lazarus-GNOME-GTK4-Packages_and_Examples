@@ -3,7 +3,7 @@ unit evas_ector_software_buffer_eo;
 interface
 
 uses
-  ctypes, elf;
+  ctypes, efl;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

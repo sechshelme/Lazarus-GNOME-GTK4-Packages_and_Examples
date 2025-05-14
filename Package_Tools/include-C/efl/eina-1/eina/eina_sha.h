@@ -32,7 +32,7 @@
  *
  * @since 1.27
  */
-EINA_API void eina_sha1(const unsigned char *data, int size, unsigned char dst[20]) EINA_ARG_NONNULL(1);
+extern void eina_sha1(const unsigned char *data, int size, unsigned char dst[20]) ;
 
 
 #endif

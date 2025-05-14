@@ -251,7 +251,7 @@ struct _Eina_Array
  * This function return a valid array on success, or @c NULL if memory
  * allocation fails.
  */
-EINA_API Eina_Array *eina_array_new(unsigned int step) EINA_WARN_UNUSED_RESULT EINA_MALLOC EINA_WARN_UNUSED_RESULT;
+extern Eina_Array *eina_array_new(unsigned int step) EINA_WARN_UNUSED_RESULT EINA_MALLOC EINA_WARN_UNUSED_RESULT;
 
 /**
  * @brief Frees an array.
@@ -263,7 +263,7 @@ EINA_API Eina_Array *eina_array_new(unsigned int step) EINA_WARN_UNUSED_RESULT E
  * does not free the memory allocated for the elements of @p array. To
  * free them, walk the array with #EINA_ARRAY_ITER_NEXT.
  */
-EINA_API void eina_array_free(Eina_Array *array);
+extern void eina_array_free(Eina_Array *array);
 
 /**
  * @brief Sets the step of an array.
@@ -278,9 +278,9 @@ EINA_API void eina_array_free(Eina_Array *array);
  *
  * @warning This function can @b only be called on uninitialized arrays.
  */
-EINA_API void        eina_array_step_set(Eina_Array  *array,
+extern void        eina_array_step_set(Eina_Array  *array,
                                      unsigned int sizeof_eina_array,
-                                     unsigned int step) EINA_ARG_NONNULL(1);
+                                     unsigned int step) ;
 /**
  * @brief Clears an array of its elements, without deallocating memory.
  *
@@ -291,7 +291,7 @@ EINA_API void        eina_array_step_set(Eina_Array  *array,
  * with new elements.  For performance reasons, there is no check of @p
  * array. If it is @c NULL or invalid, the program may crash.
  */
-static inline void eina_array_clean(Eina_Array *array) EINA_ARG_NONNULL(1);
+static inline void eina_array_clean(Eina_Array *array) ;
 
 /**
  * @brief Clears an array's elements and deallocates the memory.
@@ -303,7 +303,7 @@ static inline void eina_array_clean(Eina_Array *array) EINA_ARG_NONNULL(1);
  * there is no check of @p array. If it is @c NULL or invalid, the
  * program may crash.
  */
-EINA_API void eina_array_flush(Eina_Array *array) EINA_ARG_NONNULL(1);
+extern void eina_array_flush(Eina_Array *array) ;
 
 /**
  * @brief Rebuilds an array by specifying the data to keep.
@@ -321,7 +321,7 @@ EINA_API void eina_array_flush(Eina_Array *array) EINA_ARG_NONNULL(1);
  * If it wasn't able to remove items due to an allocation failure, it will
  * return #EINA_FALSE.
  */
-EINA_API Eina_Bool eina_array_remove(Eina_Array * array,
+extern Eina_Bool eina_array_remove(Eina_Array * array,
                                  Eina_Bool (*keep)(void *data, void *gdata),
                                  void *gdata) EINA_ARG_NONNULL(1, 2);
 
@@ -351,7 +351,7 @@ static inline Eina_Bool eina_array_push(Eina_Array *array,
  * there is no check of @p array, so if it is @c NULL or invalid, the
  * program may crash.
  */
-static inline void     *eina_array_pop(Eina_Array *array) EINA_ARG_NONNULL(1);
+static inline void     *eina_array_pop(Eina_Array *array) ;
 
 /**
  * @brief Returns the data at a given position in an array.
@@ -366,7 +366,7 @@ static inline void     *eina_array_pop(Eina_Array *array) EINA_ARG_NONNULL(1);
  * the array's size, the program may crash.
  */
 static inline void     *eina_array_data_get(const Eina_Array *array,
-                                            unsigned int      idx) EINA_ARG_NONNULL(1);
+                                            unsigned int      idx) ;
 /**
  * @brief Sets the data at a given position in an array.
  *
@@ -383,7 +383,7 @@ static inline void     *eina_array_data_get(const Eina_Array *array,
 */
 static inline void      eina_array_data_set(const Eina_Array *array,
                                             unsigned int      idx,
-                                            const void       *data) EINA_ARG_NONNULL(1);
+                                            const void       *data) ;
 
 /**
  * @deprecated use eina_array_count()
@@ -397,7 +397,7 @@ static inline void      eina_array_data_set(const Eina_Array *array,
  * @c NULL or invalid, the program may crash.
  *
  */
-static inline unsigned int eina_array_count_get(const Eina_Array *array) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+static inline unsigned int eina_array_count_get(const Eina_Array *array)  EINA_WARN_UNUSED_RESULT;
 
 /**
  * @brief Returns the number of elements in an array.
@@ -409,7 +409,7 @@ static inline unsigned int eina_array_count_get(const Eina_Array *array) EINA_AR
  * performance reasons, there is no check of @p array, so if it is
  * @c NULL or invalid, the program may crash.
  */
-static inline unsigned int eina_array_count(const Eina_Array *array) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+static inline unsigned int eina_array_count(const Eina_Array *array)  EINA_WARN_UNUSED_RESULT;
 
 /**
  * @brief Search for the given data in an array.
@@ -427,7 +427,7 @@ static inline unsigned int eina_array_count(const Eina_Array *array) EINA_ARG_NO
  */
 static inline Eina_Bool  eina_array_find(const Eina_Array *array,
                                          const void       *data,
-                                         unsigned int     *out_idx) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+                                         unsigned int     *out_idx)  EINA_WARN_UNUSED_RESULT;
 /**
  * @brief Gets a new iterator associated with an array.
  *
@@ -441,7 +441,7 @@ static inline Eina_Bool  eina_array_find(const Eina_Array *array,
  *
  * @see Eina_Iterator_Group
  */
-EINA_API Eina_Iterator        *eina_array_iterator_new(const Eina_Array *array) EINA_MALLOC EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+extern Eina_Iterator        *eina_array_iterator_new(const Eina_Array *array) EINA_MALLOC  EINA_WARN_UNUSED_RESULT;
 
 /**
  * @brief Gets a new accessor associated with an array.
@@ -456,7 +456,7 @@ EINA_API Eina_Iterator        *eina_array_iterator_new(const Eina_Array *array) 
  *
  * @see Eina_Accessor_Group
  */
-EINA_API Eina_Accessor        *eina_array_accessor_new(const Eina_Array *array) EINA_MALLOC EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+extern Eina_Accessor        *eina_array_accessor_new(const Eina_Array *array) EINA_MALLOC  EINA_WARN_UNUSED_RESULT;
 
 /**
  * @brief Iterates over an array using a callback function.

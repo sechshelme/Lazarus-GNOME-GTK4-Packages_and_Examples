@@ -124,7 +124,7 @@ typedef struct _Eina_Counter Eina_Counter;
  * @note When the new counter is not needed anymore, use eina_counter_free() to
  *       free the allocated memory.
  */
-EINA_API Eina_Counter *eina_counter_new(const char *name) EINA_WARN_UNUSED_RESULT EINA_ARG_NONNULL(1);
+extern Eina_Counter *eina_counter_new(const char *name) EINA_WARN_UNUSED_RESULT ;
 
 /**
  * @brief Deletes a counter.
@@ -135,7 +135,7 @@ EINA_API Eina_Counter *eina_counter_new(const char *name) EINA_WARN_UNUSED_RESUL
  * @param[in] counter The counter to delete
  *
  */
-EINA_API void          eina_counter_free(Eina_Counter *counter) EINA_ARG_NONNULL(1);
+extern void          eina_counter_free(Eina_Counter *counter) ;
 
 /**
  * @brief Starts the time count.
@@ -152,7 +152,7 @@ EINA_API void          eina_counter_free(Eina_Counter *counter) EINA_ARG_NONNULL
  * @note To stop the timing, eina_counter_stop() must be called with the
  *       same counter.
  */
-EINA_API void          eina_counter_start(Eina_Counter *counter) EINA_ARG_NONNULL(1);
+extern void          eina_counter_start(Eina_Counter *counter) ;
 
 /**
  * @brief Stops the time count.
@@ -165,8 +165,8 @@ EINA_API void          eina_counter_start(Eina_Counter *counter) EINA_ARG_NONNUL
  * @param[in] specimen The number of the test
  *
  */
-EINA_API void          eina_counter_stop(Eina_Counter *counter,
-                                     int           specimen) EINA_ARG_NONNULL(1);
+extern void          eina_counter_stop(Eina_Counter *counter,
+                                     int           specimen) ;
 
 /**
  * @brief Dumps the result of all the clocks of a counter to a stream.
@@ -185,7 +185,7 @@ EINA_API void          eina_counter_stop(Eina_Counter *counter,
  *
  * @note The unit of time is nanoseconds.
  */
-EINA_API char         *eina_counter_dump(Eina_Counter *counter) EINA_ARG_NONNULL(1);
+extern char         *eina_counter_dump(Eina_Counter *counter) ;
 
 /**
  * @}

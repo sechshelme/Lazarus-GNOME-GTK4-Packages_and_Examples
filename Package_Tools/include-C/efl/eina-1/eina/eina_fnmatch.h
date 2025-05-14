@@ -29,6 +29,6 @@ typedef enum
    EINA_FNMATCH_FILE_NAME   = EINA_FNMATCH_PATHNAME,
 } Eina_Fnmatch_Flags;
 
-EINA_API Eina_Bool eina_fnmatch(const char *glob, const char *string, Eina_Fnmatch_Flags flags);
+extern Eina_Bool eina_fnmatch(const char *glob, const char *string, Eina_Fnmatch_Flags flags);
 
 #endif

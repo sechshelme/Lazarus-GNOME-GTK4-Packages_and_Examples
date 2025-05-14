@@ -3,7 +3,7 @@ unit efl_canvas_gesture_flick_eo;
 interface
 
 uses
-  ctypes, elf;
+  ctypes, efl;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

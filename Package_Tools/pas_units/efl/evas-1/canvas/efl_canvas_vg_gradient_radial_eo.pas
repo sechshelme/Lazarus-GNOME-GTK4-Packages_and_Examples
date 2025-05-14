@@ -3,7 +3,7 @@ unit efl_canvas_vg_gradient_radial_eo;
 interface
 
 uses
-  ctypes, elf;
+  ctypes, efl;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

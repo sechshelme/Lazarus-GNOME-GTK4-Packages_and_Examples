@@ -1,4 +1,4 @@
-unit elf;
+unit efl;
 
 interface
 
@@ -100,12 +100,12 @@ type
 type
   PEina_List = Pointer;
 
-  // /usr/include/eina-1/Efl_Config.h
-const
-  EFL_VERSION_MAJOR = 1;
-  EFL_VERSION_MINOR = 27;
-  EFL_VERSION_MICRO = 0;
-  EFL_BUILD_ID = 'none';
+//  // /usr/include/eina-1/Efl_Config.h
+//const
+//  EFL_VERSION_MAJOR = 1;
+//  EFL_VERSION_MINOR = 27;
+//  EFL_VERSION_MICRO = 0;
+//  EFL_BUILD_ID = 'none';
 
   // /usr/include/eina-1/eina/eina_promise.h
 type

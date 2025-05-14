@@ -3,7 +3,7 @@ unit efl_canvas_group_eo_legacy;
 interface
 
 uses
-  ctypes, elf;
+  ctypes, efl;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

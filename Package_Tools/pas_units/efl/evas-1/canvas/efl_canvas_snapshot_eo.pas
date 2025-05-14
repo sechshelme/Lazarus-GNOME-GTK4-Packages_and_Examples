@@ -3,7 +3,7 @@ unit efl_canvas_snapshot_eo;
 interface
 
 uses
-  ctypes, elf;
+  ctypes, efl;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

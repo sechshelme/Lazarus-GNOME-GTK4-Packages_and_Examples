@@ -3,7 +3,7 @@ unit efl_canvas_gesture_long_press_eo;
 interface
 
 uses
-  ctypes, elf;
+  ctypes, efl;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}

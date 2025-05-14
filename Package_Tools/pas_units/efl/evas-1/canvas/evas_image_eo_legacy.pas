@@ -3,7 +3,7 @@ unit evas_image_eo_legacy;
 interface
 
 uses
-  ctypes, elf;
+  ctypes, efl;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

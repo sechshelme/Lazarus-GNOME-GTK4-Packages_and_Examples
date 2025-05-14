@@ -71,7 +71,7 @@ struct _Eina_Bezier
  * @p b. No check is done on @p b.
  * @since 1.16
  */
-EINA_API void eina_bezier_values_set(Eina_Bezier *b, double start_x, double start_y, double ctrl_start_x, double ctrl_start_y, double ctrl_end_x, double ctrl_end_y, double end_x, double end_y) EINA_ARG_NONNULL(1);
+extern void eina_bezier_values_set(Eina_Bezier *b, double start_x, double start_y, double ctrl_start_x, double ctrl_start_y, double ctrl_end_x, double ctrl_end_y, double end_x, double end_y) ;
 
 /**
  * @brief Gets the values of the points of the given floating
@@ -90,7 +90,7 @@ EINA_API void eina_bezier_values_set(Eina_Bezier *b, double start_x, double star
  * @p b. No check is done on @p b.
  * @since 1.16
  */
-EINA_API void eina_bezier_values_get(const Eina_Bezier *b, double *start_x, double *start_y, double *ctrl_start_x, double *ctrl_start_y, double *ctrl_end_x, double *ctrl_end_y, double *end_x, double *end_y) EINA_ARG_NONNULL(1);
+extern void eina_bezier_values_get(const Eina_Bezier *b, double *start_x, double *start_y, double *ctrl_start_x, double *ctrl_start_y, double *ctrl_end_x, double *ctrl_end_y, double *end_x, double *end_y) ;
 
 /**
  * @brief Calculates the approximate length of the given floating point
@@ -106,7 +106,7 @@ EINA_API void eina_bezier_values_get(const Eina_Bezier *b, double *start_x, doub
  * No check is done on @p b.
  * @since 1.16
  */
-EINA_API double eina_bezier_length_get(const Eina_Bezier *b) EINA_ARG_NONNULL(1);
+extern double eina_bezier_length_get(const Eina_Bezier *b) ;
 
 /**
  * @brief Returns the relative position on a bezier at a given length.
@@ -123,7 +123,7 @@ EINA_API double eina_bezier_length_get(const Eina_Bezier *b) EINA_ARG_NONNULL(1)
  *
  * @since 1.16
  */
-EINA_API double eina_bezier_t_at(const Eina_Bezier *b, double len) EINA_ARG_NONNULL(1);
+extern double eina_bezier_t_at(const Eina_Bezier *b, double len) ;
 
 /**
  * @brief Gets the point on the bezier curve at position t.
@@ -136,7 +136,7 @@ EINA_API double eina_bezier_t_at(const Eina_Bezier *b, double len) EINA_ARG_NONN
  * No check is done on @p b.
  * @since 1.16
  */
-EINA_API void eina_bezier_point_at(const Eina_Bezier *b, double t, double *px, double *py) EINA_ARG_NONNULL(1);
+extern void eina_bezier_point_at(const Eina_Bezier *b, double t, double *px, double *py) ;
 
 /**
  * @brief Determines the slope of the bezier at a given position.
@@ -147,7 +147,7 @@ EINA_API void eina_bezier_point_at(const Eina_Bezier *b, double t, double *px, d
  * No check is done on @p b.
  * @since 1.16
  */
-EINA_API double eina_bezier_angle_at(const Eina_Bezier *b, double t) EINA_ARG_NONNULL(1);
+extern double eina_bezier_angle_at(const Eina_Bezier *b, double t) ;
 
 /**
  * @brief Splits the bezier at a given length.
@@ -160,7 +160,7 @@ EINA_API double eina_bezier_angle_at(const Eina_Bezier *b, double t) EINA_ARG_NO
  * No check is done on @p b.
  * @since 1.16
  */
-EINA_API void eina_bezier_split_at_length(const Eina_Bezier *b, double len, Eina_Bezier *left, Eina_Bezier *right) EINA_ARG_NONNULL(1);
+extern void eina_bezier_split_at_length(const Eina_Bezier *b, double len, Eina_Bezier *left, Eina_Bezier *right) ;
 
 /**
  * @brief Calculates the bounding box for the bezier.
@@ -174,7 +174,7 @@ EINA_API void eina_bezier_split_at_length(const Eina_Bezier *b, double len, Eina
  * No check is done on @p b.
  * @since 1.17
  */
-EINA_API void eina_bezier_bounds_get(const Eina_Bezier *b, double *x, double *y, double *w, double *h) EINA_ARG_NONNULL(1);
+extern void eina_bezier_bounds_get(const Eina_Bezier *b, double *x, double *y, double *w, double *h) ;
 
 /**
  * @brief Finds the bezier between the given interval.
@@ -187,7 +187,7 @@ EINA_API void eina_bezier_bounds_get(const Eina_Bezier *b, double *x, double *y,
  * No check is done on @p b.
  * @since 1.17
  */
-EINA_API void eina_bezier_on_interval(Eina_Bezier *b, double t0, double t1, Eina_Bezier *result);
+extern void eina_bezier_on_interval(Eina_Bezier *b, double t0, double t1, Eina_Bezier *result);
 
 /**
  * @}

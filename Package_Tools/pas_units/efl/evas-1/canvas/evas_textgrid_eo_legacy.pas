@@ -3,7 +3,7 @@ unit evas_textgrid_eo_legacy;
 interface
 
 uses
-  ctypes, elf, Evas_Common;
+  ctypes, efl, Evas_Common;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
