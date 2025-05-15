@@ -29,6 +29,10 @@ type
 
   Tptrdiff_t = PtrInt;
 
+  Twchar_t=WideChar;
+
+  PFILE=Pointer;
+
   // =====================
 
   // /usr/include/eina-1/eina/eina_unicode.h
@@ -52,33 +56,33 @@ type
   PPEina_File = ^PEina_File;
 
   // /usr/include/eina-1/eina/eina_stringshare.h
-type
-  TEina_Stringshare = char;
-  PEina_Stringshare = ^TEina_Stringshare;
+//type
+//  TEina_Stringshare = char;
+//  PEina_Stringshare = ^TEina_Stringshare;
 
   // /usr/include/eina-1/eina/eina_matrix.h
-type
-  TEina_Matrix3 = record
-    xx: double;
-    xy: double;
-    xz: double;
-    yx: double;
-    yy: double;
-    yz: double;
-    zx: double;
-    zy: double;
-    zz: double;
-  end;
-  PEina_Matrix3 = ^TEina_Matrix3;
-
-  TEina_Matrix4 = record
-    // Muss aufgelöst werden
-  end;
-  PEina_Matrix4 = ^TEina_Matrix4;
+//type
+//  TEina_Matrix3 = record
+//    xx: double;
+//    xy: double;
+//    xz: double;
+//    yx: double;
+//    yy: double;
+//    yz: double;
+//    zx: double;
+//    zy: double;
+//    zz: double;
+//  end;
+//  PEina_Matrix3 = ^TEina_Matrix3;
+//
+//  TEina_Matrix4 = record
+//    // Muss aufgelöst werden
+//  end;
+//  PEina_Matrix4 = ^TEina_Matrix4;
 
   // /usr/include/eina-1/eina/eina_iterator.h
-type
-  PEina_Iterator = Pointer;   // Muss aufgelöst werden
+//type
+//  PEina_Iterator = Pointer;   // Muss aufgelöst werden
 
   // /usr/include/eina-1/eina/eina_list.h
 type

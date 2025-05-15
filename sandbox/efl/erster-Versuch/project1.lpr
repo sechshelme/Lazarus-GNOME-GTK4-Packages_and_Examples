@@ -9,17 +9,32 @@ uses
 
   // eina-1/eina
   eina_types,                                         // io.                                           ( Viele Makros einfertn )
-  eina_error,                                         // io. -> eina_types
-  eina_inarray,                                       // io.
-  eina_hash,                                          // io.                                           ( Wenig inline entfernt )
+  eina_iterator,                                      // io.
+  eina_error,                                         // io.
+  eina_inarray,                                       // io. -> eina_iterator
+  eina_hash,                                          // io. -> eina_iterator                          ( Wenig inline entfernt )
   eina_value,                                         // io. -> ina_error, eina_inarray, eina_hash     ( Viele inline entfernt )
-  eina_rectangle,                                                          //  ( Viele inline entfernt )
+
+  eina_tmpstr,                                        // io.
+  eina_array,                                         // io.
+  eina_log,                                           // io.
+  eina_fp,                                            // io.
+  eina_accessor,                                      // io.
+  eina_file,                                          // io. -> eina_array, eina_tmpstr
+  eina_list,                                          // io.
+  eina_vector,                                        // io.
+  eina_rectangle,                                     // io.                                           ( Viele inline entfernt )
+  eina_quad,                                          // io. -> eina_rectangle
+  eina_matrix,                                        // io. -> eina_fp, eina_rectangle, eina_quad
+  eina_matrixsparse,                                  // io.
+  eina_promise,                                       // io. -> eina_value, eina_error, eina_log
+  eina_stringshare,                                   // io.
+  eina_unicode,                                       // io.
 
   // eina-1
   Efl_Config,                                         // io.
   Eina,                                               // io.  ( evtl. löschen )
   eina_config,                                        // io.
-
 
   // =======================================
 
