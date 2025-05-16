@@ -135,10 +135,17 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(2)', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(3)', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(4)', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(1, 2)', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(2, 3)', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(1, 2, 3)', '', [rfReplaceAll]);
 
 
+      slHeader[j] := StringReplace(slHeader[j], 'EINA_PURE', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'EINA_MALLOC', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'EINA_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'EINA_API', 'extern', [rfReplaceAll]);
 
+      slHeader[j] := StringReplace(slHeader[j], 'EINA_INLIST;', 'Eina_Inlist __in_list;', [rfReplaceAll]);
 
 
     end;

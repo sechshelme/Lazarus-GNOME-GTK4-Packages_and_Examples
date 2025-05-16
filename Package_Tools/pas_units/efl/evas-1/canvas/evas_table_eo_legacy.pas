@@ -3,7 +3,7 @@ unit evas_table_eo_legacy;
 interface
 
 uses
-  ctypes, efl, eina_types, eina_iterator, Evas_Common;
+  ctypes, efl, eina_types, eina_accessor, eina_list, eina_iterator, Evas_Common;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

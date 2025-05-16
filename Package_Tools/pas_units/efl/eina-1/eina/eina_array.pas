@@ -3,7 +3,7 @@ unit eina_array;
 interface
 
 uses
-  ctypes, efl, eina_types, eina_iterator;
+  ctypes, efl, eina_types, eina_accessor, eina_iterator;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

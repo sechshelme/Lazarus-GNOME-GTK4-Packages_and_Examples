@@ -1,4 +1,48 @@
-/* EINA - EFL data type library
+
+unit eina_simple_xml_parser;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from eina_simple_xml_parser.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    eina_simple_xml_parser.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pchar  = ^char;
+PEina_Inlist  = ^Eina_Inlist;
+PEina_Simple_XML_Attribute  = ^Eina_Simple_XML_Attribute;
+PEina_Simple_XML_Node  = ^Eina_Simple_XML_Node;
+PEina_Simple_XML_Node_CData  = ^Eina_Simple_XML_Node_CData;
+PEina_Simple_XML_Node_Comment  = ^Eina_Simple_XML_Node_Comment;
+PEina_Simple_XML_Node_Data  = ^Eina_Simple_XML_Node_Data;
+PEina_Simple_XML_Node_Doctype  = ^Eina_Simple_XML_Node_Doctype;
+PEina_Simple_XML_Node_Doctype_Child  = ^Eina_Simple_XML_Node_Doctype_Child;
+PEina_Simple_XML_Node_Processing  = ^Eina_Simple_XML_Node_Processing;
+PEina_Simple_XML_Node_Root  = ^Eina_Simple_XML_Node_Root;
+PEina_Simple_XML_Node_Tag  = ^Eina_Simple_XML_Node_Tag;
+PEina_Simple_XML_Node_Type  = ^Eina_Simple_XML_Node_Type;
+PEina_Simple_XML_Type  = ^Eina_Simple_XML_Type;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ EINA - EFL data type library
  * Copyright (C) 2011 Gustavo Sverzut Barbieri
  *                    Cedric Bail
  *
@@ -15,18 +59,14 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library;
  * if not, see <http://www.gnu.org/licenses/>.
- */
-
-#ifndef EINA_SIMPLE_XML_H_
-#define EINA_SIMPLE_XML_H_
-
-#include "eina_config.h"
-
-#include "eina_types.h"
-#include "eina_magic.h"
-#include "eina_inlist.h"
-
-/**
+  }
+{$ifndef EINA_SIMPLE_XML_H_}
+{$define EINA_SIMPLE_XML_H_}
+{$include "eina_config.h"}
+{$include "eina_types.h"}
+{$include "eina_magic.h"}
+{$include "eina_inlist.h"}
+{*
  * @page eina_simple_xml_parser_example_01_page
  * @dontinclude eina_simple_xml_parser_01.c
  *
@@ -92,15 +132,13 @@
  *
  * You can see the full source code
  * @ref eina_simple_xml_parser_example_01 "here".
- */
-
-/**
+  }
+{*
  * @page eina_simple_xml_parser_example_01
  * @include eina_simple_xml_parser_01.c
  * @example eina_simple_xml_parser_01.c
- */
-
-/**
+  }
+{*
  * @defgroup Eina_Simple_XML_Group Simple_XML
  *
  * Simplistic relaxed SAX-like XML parser.
@@ -127,89 +165,104 @@
  * @ref eina_simple_xml_parser_example_01_page "this example".
  * @ingroup Eina_Tools_Group Tools
  *
- * @{
- */
+ * @
+  }
+type
+  TEina_Simple_XML_Node_Tag = TEina_Simple_XML_Node_Root;
+  TEina_Simple_XML_Node_Data = TEina_Simple_XML_Node_CData;
+  TEina_Simple_XML_Node_Data = TEina_Simple_XML_Node_Processing;
+  TEina_Simple_XML_Node_Data = TEina_Simple_XML_Node_Doctype;
+  TEina_Simple_XML_Node_Data = TEina_Simple_XML_Node_Doctype_Child;
+{*< @since 1.8  }
+  TEina_Simple_XML_Node_Data = TEina_Simple_XML_Node_Comment;
+(* Const before type ignored *)
+(* Const before type ignored *)
+  PEina_Simple_XML_Attribute = ^TEina_Simple_XML_Attribute;
+  TEina_Simple_XML_Attribute = record
+      __in_list : TEina_Inlist;
+      parent : PEina_Simple_XML_Node_Tag;
+      key : Pchar;
+      value : Pchar;
+    end;
 
-typedef struct _Eina_Simple_XML_Node      Eina_Simple_XML_Node;
-typedef struct _Eina_Simple_XML_Node_Tag  Eina_Simple_XML_Node_Root;
-typedef struct _Eina_Simple_XML_Node_Tag  Eina_Simple_XML_Node_Tag;
-typedef struct _Eina_Simple_XML_Node_Data Eina_Simple_XML_Node_Data;
-typedef struct _Eina_Simple_XML_Node_Data Eina_Simple_XML_Node_CData;
-typedef struct _Eina_Simple_XML_Node_Data Eina_Simple_XML_Node_Processing;
-typedef struct _Eina_Simple_XML_Node_Data Eina_Simple_XML_Node_Doctype;
-typedef struct _Eina_Simple_XML_Node_Data Eina_Simple_XML_Node_Doctype_Child; /**< @since 1.8 */
-typedef struct _Eina_Simple_XML_Node_Data Eina_Simple_XML_Node_Comment;
-typedef struct _Eina_Simple_XML_Attribute Eina_Simple_XML_Attribute;
+{*< @since 1.8  }
 
-struct _Eina_Simple_XML_Attribute
-{
-   EINA_INLIST;
-   EINA_MAGIC;
+  PEina_Simple_XML_Node_Type = ^TEina_Simple_XML_Node_Type;
+  TEina_Simple_XML_Node_Type =  Longint;
+  Const
+    EINA_SIMPLE_XML_NODE_ROOT = 0;
+    EINA_SIMPLE_XML_NODE_TAG = 1;
+    EINA_SIMPLE_XML_NODE_DATA = 2;
+    EINA_SIMPLE_XML_NODE_CDATA = 3;
+    EINA_SIMPLE_XML_NODE_PROCESSING = 4;
+    EINA_SIMPLE_XML_NODE_DOCTYPE = 5;
+    EINA_SIMPLE_XML_NODE_COMMENT = 6;
+    EINA_SIMPLE_XML_NODE_DOCTYPE_CHILD = 7;
+;
+type
+  PEina_Simple_XML_Node = ^TEina_Simple_XML_Node;
+  TEina_Simple_XML_Node = record
+      __in_list : TEina_Inlist;
+      parent : PEina_Simple_XML_Node_Tag;
+      _type : TEina_Simple_XML_Node_Type;
+    end;
 
-   Eina_Simple_XML_Node_Tag *parent;
-   const char *key;
-   const char *value;
-};
+(* Const before type ignored *)
+  PEina_Simple_XML_Node_Tag = ^TEina_Simple_XML_Node_Tag;
+  TEina_Simple_XML_Node_Tag = record
+      base : TEina_Simple_XML_Node;
+      children : PEina_Inlist;
+      attributes : PEina_Inlist;
+      name : Pchar;
+    end;
 
-typedef enum _Eina_Simple_XML_Node_Type
-{
-  EINA_SIMPLE_XML_NODE_ROOT = 0,
-  EINA_SIMPLE_XML_NODE_TAG,
-  EINA_SIMPLE_XML_NODE_DATA,
-  EINA_SIMPLE_XML_NODE_CDATA,
-  EINA_SIMPLE_XML_NODE_PROCESSING,
-  EINA_SIMPLE_XML_NODE_DOCTYPE,
-  EINA_SIMPLE_XML_NODE_COMMENT,
-  EINA_SIMPLE_XML_NODE_DOCTYPE_CHILD, /**< @since 1.8 */
-} Eina_Simple_XML_Node_Type;
+  PEina_Simple_XML_Node_Data = ^TEina_Simple_XML_Node_Data;
+  TEina_Simple_XML_Node_Data = record
+      base : TEina_Simple_XML_Node;
+      length : Tsize_t;
+      data : Pchar;
+    end;
 
-struct _Eina_Simple_XML_Node
-{
-   EINA_INLIST;
-   EINA_MAGIC;
-
-   Eina_Simple_XML_Node_Tag *parent;
-   Eina_Simple_XML_Node_Type type;
-};
-
-struct _Eina_Simple_XML_Node_Tag
-{
-   Eina_Simple_XML_Node base;
-   Eina_Inlist *children;
-   Eina_Inlist *attributes;
-   const char *name;
-};
-
-struct _Eina_Simple_XML_Node_Data
-{
-   Eina_Simple_XML_Node base;
-   size_t length;
-   char data[];
-};
-/**
+{*
  * @typedef _Eina_Simple_XML_Type
  * a simple XML type.
- */
-typedef enum _Eina_Simple_XML_Type
-{
-  EINA_SIMPLE_XML_OPEN = 0, /*!< \<tag attribute="value"\> */
-  EINA_SIMPLE_XML_OPEN_EMPTY, /*!< \<tag attribute="value" /\> */
-  EINA_SIMPLE_XML_CLOSE, /*!< \</tag\> */
-  EINA_SIMPLE_XML_DATA, /*!< tag text data */
-  EINA_SIMPLE_XML_CDATA, /*!< \<![CDATA[something]]\> */
-  EINA_SIMPLE_XML_ERROR, /*!< error contents */
-  EINA_SIMPLE_XML_PROCESSING, /*!< \<?xml ... ?\> \<?php .. ?\> */
-  EINA_SIMPLE_XML_DOCTYPE, /*!< \<!DOCTYPE html */
-  EINA_SIMPLE_XML_COMMENT, /*!< \<!-- something --\> */
-  EINA_SIMPLE_XML_IGNORED, /*!< whatever is ignored by parser, like whitespace */
-  EINA_SIMPLE_XML_DOCTYPE_CHILD /*!< \<!DOCTYPE_CHILD @since 1.8 */
-} Eina_Simple_XML_Type;
+  }
+{!< \<tag attribute="value"\>  }
+{!< \<tag attribute="value" /\>  }
+{!< \</tag\>  }
+{!< tag text data  }
+{!< \<![CDATA[something]]\>  }
+{!< error contents  }
+{!< \<?xml ... ?\> \<?php .. ?\>  }
+{!< \<!DOCTYPE html  }
+{!< \<!-- something --\>  }
+{!< whatever is ignored by parser, like whitespace  }
+{!< \<!DOCTYPE_CHILD @since 1.8  }
 
-typedef Eina_Bool (*Eina_Simple_XML_Cb)(void *data, Eina_Simple_XML_Type type, const char *content, unsigned offset, unsigned length);
-typedef Eina_Bool (*Eina_Simple_XML_Attribute_Cb)(void *data, const char *key, const char *value);
+  PEina_Simple_XML_Type = ^TEina_Simple_XML_Type;
+  TEina_Simple_XML_Type =  Longint;
+  Const
+    EINA_SIMPLE_XML_OPEN = 0;
+    EINA_SIMPLE_XML_OPEN_EMPTY = 1;
+    EINA_SIMPLE_XML_CLOSE = 2;
+    EINA_SIMPLE_XML_DATA = 3;
+    EINA_SIMPLE_XML_CDATA = 4;
+    EINA_SIMPLE_XML_ERROR = 5;
+    EINA_SIMPLE_XML_PROCESSING = 6;
+    EINA_SIMPLE_XML_DOCTYPE = 7;
+    EINA_SIMPLE_XML_COMMENT = 8;
+    EINA_SIMPLE_XML_IGNORED = 9;
+    EINA_SIMPLE_XML_DOCTYPE_CHILD = 10;
+;
+(* Const before type ignored *)
+type
 
+  TEina_Simple_XML_Cb = function (data:pointer; _type:TEina_Simple_XML_Type; content:Pchar; offset:dword; length:dword):TEina_Bool;cdecl;
+(* Const before type ignored *)
+(* Const before type ignored *)
 
-/**
+  TEina_Simple_XML_Attribute_Cb = function (data:pointer; key:Pchar; value:Pchar):TEina_Bool;cdecl;
+{*
  * @brief Parses a section of XML string text
  *
  * @param[in] buf The input string. May not contain \0 terminator.
@@ -228,13 +281,12 @@ typedef Eina_Bool (*Eina_Simple_XML_Attribute_Cb)(void *data, const char *key, c
  * @param[in] data What to give as context to @a func.
  * @return #EINA_TRUE on success, or #EINA_FALSE if it was aborted by user or
  * parsing error.
- */
-extern Eina_Bool eina_simple_xml_parse(const char *buf, unsigned buflen,
-                                     Eina_Bool strip,
-                                     Eina_Simple_XML_Cb func, const void *data);
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
 
-
-/**
+function eina_simple_xml_parse(buf:Pchar; buflen:dword; strip:TEina_Bool; func:TEina_Simple_XML_Cb; data:pointer):TEina_Bool;cdecl;external;
+{*
  * @brief Given the contents of a tag, find where the attributes start.
  *
  * @param[in] buf The input string. May not contain \0 terminator.
@@ -246,10 +298,11 @@ extern Eina_Bool eina_simple_xml_parse(const char *buf, unsigned buflen,
  * The tag contents is returned by eina_simple_xml_parse() when
  * type is #EINA_SIMPLE_XML_OPEN or #EINA_SIMPLE_XML_OPEN_EMPTY.
  *
- */
-extern const char * eina_simple_xml_tag_attributes_find(const char *buf, unsigned buflen);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_simple_xml_tag_attributes_find(buf:Pchar; buflen:dword):Pchar;cdecl;external;
+{*
  * @brief Given a buffer with xml attributes, parse them to key=value pairs.
  *
  * @param[in] buf The input string. May not contain \0 terminator.
@@ -263,11 +316,11 @@ extern const char * eina_simple_xml_tag_attributes_find(const char *buf, unsigne
  *
  * @return #EINA_TRUE on success, or #EINA_FALSE if it was aborted by user or
  *         parsing error.
- */
-extern Eina_Bool eina_simple_xml_attributes_parse(const char *buf, unsigned buflen,
-						Eina_Simple_XML_Attribute_Cb func, const void *data);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_simple_xml_attributes_parse(buf:Pchar; buflen:dword; func:TEina_Simple_XML_Attribute_Cb; data:pointer):TEina_Bool;cdecl;external;
+{*
  * @brief Given a buffer with the xml value of an attributes, parse them to key:value pairs.
  *
  * @param[in] buf the input string. Need to contain \0 terminator.
@@ -282,11 +335,11 @@ extern Eina_Bool eina_simple_xml_attributes_parse(const char *buf, unsigned bufl
  *          parsing error.
  *
  * @since 1.14
- */
-extern Eina_Bool
-eina_simple_xml_attribute_w3c_parse(const char *buf, Eina_Simple_XML_Attribute_Cb func, const void *data);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_simple_xml_attribute_w3c_parse(buf:Pchar; func:TEina_Simple_XML_Attribute_Cb; data:pointer):TEina_Bool;cdecl;external;
+{*
  * @brief Creates (and appends) new attribute to tag.
  *
  * @param[in,out] parent If provided, will be set in the resulting
@@ -298,17 +351,17 @@ eina_simple_xml_attribute_w3c_parse(const char *buf, Eina_Simple_XML_Attribute_C
  * @return Newly allocated memory or @c NULL on error. This memory should be
  *         released with eina_simple_xml_attribute_free() or indirectly
  *         with eina_simple_xml_node_tag_free().
- */
-extern Eina_Simple_XML_Attribute * eina_simple_xml_attribute_new(Eina_Simple_XML_Node_Tag *parent, const char *key, const char *value);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_simple_xml_attribute_new(parent:PEina_Simple_XML_Node_Tag; key:Pchar; value:Pchar):PEina_Simple_XML_Attribute;cdecl;external;
+{*
  * @brief Removes attribute from parent and deletes it.
  *
  * @param[in] attr attribute to release memory.
- */
-extern void eina_simple_xml_attribute_free(Eina_Simple_XML_Attribute *attr);
-
-/**
+  }
+procedure eina_simple_xml_attribute_free(attr:PEina_Simple_XML_Attribute);cdecl;external;
+{*
  * @brief Creates new tag. If parent is provided, it is automatically appended.
  *
  * @param[in] parent If provided, will be set in the resulting structure
@@ -318,18 +371,16 @@ extern void eina_simple_xml_attribute_free(Eina_Simple_XML_Attribute *attr);
  * @return Newly allocated memory or @c NULL on error. This memory should be
  *         released with eina_simple_xml_node_tag_free() or indirectly
  *         with eina_simple_xml_node_tag_free() of the parent.
- */
-extern Eina_Simple_XML_Node_Tag * eina_simple_xml_node_tag_new(Eina_Simple_XML_Node_Tag *parent, const char *name);
-
-/**
+  }
+(* Const before type ignored *)
+function eina_simple_xml_node_tag_new(parent:PEina_Simple_XML_Node_Tag; name:Pchar):PEina_Simple_XML_Node_Tag;cdecl;external;
+{*
  * @brief Removes tag from parent and deletes it.
  *
  * @param[in] tag to release memory.
- */
-extern void eina_simple_xml_node_tag_free(Eina_Simple_XML_Node_Tag *tag);
-
-
-/**
+  }
+procedure eina_simple_xml_node_tag_free(tag:PEina_Simple_XML_Node_Tag);cdecl;external;
+{*
  * @brief Creates new data. If parent is provided, it is automatically appended.
  *
  * @param[in,out] parent If provided, will be set in the resulting structure
@@ -340,18 +391,16 @@ extern void eina_simple_xml_node_tag_free(Eina_Simple_XML_Node_Tag *tag);
  * @return Newly allocated memory or NULL on error. This memory should be
  *         released with eina_simple_xml_node_data_free() or indirectly
  *         with eina_simple_xml_node_tag_free() of the parent.
- */
-extern Eina_Simple_XML_Node_Data * eina_simple_xml_node_data_new(Eina_Simple_XML_Node_Tag *parent, const char *contents, size_t length);
-
-/**
+  }
+(* Const before type ignored *)
+function eina_simple_xml_node_data_new(parent:PEina_Simple_XML_Node_Tag; contents:Pchar; length:Tsize_t):PEina_Simple_XML_Node_Data;cdecl;external;
+{*
  * @brief Removes data from parent and deletes it.
  *
  * @param[in] node to release memory.
- */
-extern void eina_simple_xml_node_data_free(Eina_Simple_XML_Node_Data *node);
-
-
-/**
+  }
+procedure eina_simple_xml_node_data_free(node:PEina_Simple_XML_Node_Data);cdecl;external;
+{*
  * @brief Creates new cdata. If parent is provided, it is automatically appended.
  *
  * @param[in,out] parent If provided, will be set in the resulting structure
@@ -362,18 +411,16 @@ extern void eina_simple_xml_node_data_free(Eina_Simple_XML_Node_Data *node);
  * @return Newly allocated memory or @c NULL on error. This memory should be
  *         released with eina_simple_xml_node_cdata_free() or indirectly
  *         with eina_simple_xml_node_tag_free() of the parent.
- */
-extern Eina_Simple_XML_Node_CData * eina_simple_xml_node_cdata_new(Eina_Simple_XML_Node_Tag *parent, const char *contents, size_t length);
-
-/**
+  }
+(* Const before type ignored *)
+function eina_simple_xml_node_cdata_new(parent:PEina_Simple_XML_Node_Tag; contents:Pchar; length:Tsize_t):PEina_Simple_XML_Node_CData;cdecl;external;
+{*
  * @brief Removes cdata from parent and deletes it.
  *
  * @param[in] node to release memory.
- */
-extern void eina_simple_xml_node_cdata_free(Eina_Simple_XML_Node_Data *node);
-
-
-/**
+  }
+procedure eina_simple_xml_node_cdata_free(node:PEina_Simple_XML_Node_Data);cdecl;external;
+{*
  * @brief Creates new doctype child. If parent is provided, it is automatically appended.
  *
  * @param[in,out] parent If provided, will be set in the resulting structure
@@ -386,20 +433,18 @@ extern void eina_simple_xml_node_cdata_free(Eina_Simple_XML_Node_Data *node);
  *         with eina_simple_xml_node_tag_free() of the parent.
  *
  * @since 1.8
- */
-extern Eina_Simple_XML_Node_Doctype_Child * eina_simple_xml_node_doctype_child_new(Eina_Simple_XML_Node_Tag *parent, const char *contents, size_t length);
-
-/**
+  }
+(* Const before type ignored *)
+function eina_simple_xml_node_doctype_child_new(parent:PEina_Simple_XML_Node_Tag; contents:Pchar; length:Tsize_t):PEina_Simple_XML_Node_Doctype_Child;cdecl;external;
+{*
  * @brief Removes doctype child from parent and deletes it.
  *
  * @param[in] node to release memory.
  *
  * @since 1.8
- */
-extern void eina_simple_xml_node_doctype_child_free(Eina_Simple_XML_Node_Data *node);
-
-
-/**
+  }
+procedure eina_simple_xml_node_doctype_child_free(node:PEina_Simple_XML_Node_Data);cdecl;external;
+{*
  * @brief Creates new processing. If parent is provided, it is automatically appended.
  *
  * @param[in,out] parent If provided, will be set in the resulting structure
@@ -410,18 +455,16 @@ extern void eina_simple_xml_node_doctype_child_free(Eina_Simple_XML_Node_Data *n
  * @return Newly allocated memory or @c NULL on error. This memory should be
  *         released with eina_simple_xml_node_processing_free() or indirectly
  *         with eina_simple_xml_node_tag_free() of the parent.
- */
-extern Eina_Simple_XML_Node_Processing * eina_simple_xml_node_processing_new(Eina_Simple_XML_Node_Tag *parent, const char *contents, size_t length);
-
-/**
+  }
+(* Const before type ignored *)
+function eina_simple_xml_node_processing_new(parent:PEina_Simple_XML_Node_Tag; contents:Pchar; length:Tsize_t):PEina_Simple_XML_Node_Processing;cdecl;external;
+{*
  * @brief Removes processing from parent and deletes it.
  *
  * @param[in] node processing to release memory.
- */
-extern void eina_simple_xml_node_processing_free(Eina_Simple_XML_Node_Data *node);
-
-
-/**
+  }
+procedure eina_simple_xml_node_processing_free(node:PEina_Simple_XML_Node_Data);cdecl;external;
+{*
  * @brief Creates new doctype. If parent is provided, it is automatically appended.
  *
  * @param[in,out] parent If provided, will be set in the resulting structure
@@ -432,18 +475,16 @@ extern void eina_simple_xml_node_processing_free(Eina_Simple_XML_Node_Data *node
  * @return Newly allocated memory or @c NULL on error. This memory should be
  *         released with eina_simple_xml_node_doctype_free() or indirectly
  *         with eina_simple_xml_node_tag_free() of the parent.
- */
-extern Eina_Simple_XML_Node_Doctype * eina_simple_xml_node_doctype_new(Eina_Simple_XML_Node_Tag *parent, const char *contents, size_t length);
-
-/**
+  }
+(* Const before type ignored *)
+function eina_simple_xml_node_doctype_new(parent:PEina_Simple_XML_Node_Tag; contents:Pchar; length:Tsize_t):PEina_Simple_XML_Node_Doctype;cdecl;external;
+{*
  * @brief Removes doctype from parent and deletes it.
  *
  * @param[in] node doctype to release memory.
- */
-extern void eina_simple_xml_node_doctype_free(Eina_Simple_XML_Node_Data *node);
-
-
-/**
+  }
+procedure eina_simple_xml_node_doctype_free(node:PEina_Simple_XML_Node_Data);cdecl;external;
+{*
  * @brief Creates new comment. If parent is provided, it is automatically appended.
  *
  * @param[in,out] parent If provided, will be set in the resulting structure
@@ -454,18 +495,16 @@ extern void eina_simple_xml_node_doctype_free(Eina_Simple_XML_Node_Data *node);
  * @return Newly allocated memory or @c NULL on error. This memory should be
  *         released with eina_simple_xml_node_comment_free() or indirectly
  *         with eina_simple_xml_node_tag_free() of the parent.
- */
-extern Eina_Simple_XML_Node_Comment * eina_simple_xml_node_comment_new(Eina_Simple_XML_Node_Tag *parent, const char *contents, size_t length);
-
-/**
+  }
+(* Const before type ignored *)
+function eina_simple_xml_node_comment_new(parent:PEina_Simple_XML_Node_Tag; contents:Pchar; length:Tsize_t):PEina_Simple_XML_Node_Comment;cdecl;external;
+{*
  * @brief Removes comment from parent and deletes it.
  *
  * @param[in] node comment to release memory.
- */
-extern void eina_simple_xml_node_comment_free(Eina_Simple_XML_Node_Data *node);
-
-
-/**
+  }
+procedure eina_simple_xml_node_comment_free(node:PEina_Simple_XML_Node_Data);cdecl;external;
+{*
  * @brief Loads a XML node tree based on the given string.
  *
  * @param[in] buf The input string. May not contain \0 terminator.
@@ -476,29 +515,32 @@ extern void eina_simple_xml_node_comment_free(Eina_Simple_XML_Node_Data *node);
  * @return Document root with children tags, or @c NULL on errors.
  *         Document with errors may return partial tree instead of @c NULL,
  *         we'll do our best to avoid returning nothing.
- */
-extern Eina_Simple_XML_Node_Root * eina_simple_xml_node_load(const char *buf, unsigned buflen, Eina_Bool strip);
-
-/**
+  }
+(* Const before type ignored *)
+function eina_simple_xml_node_load(buf:Pchar; buflen:dword; strip:TEina_Bool):PEina_Simple_XML_Node_Root;cdecl;external;
+{*
  * @brief Frees node tree build with eina_simple_xml_node_load()
  *
  * @param[in] root Memory returned by eina_simple_xml_node_load()
- */
-extern void eina_simple_xml_node_root_free(Eina_Simple_XML_Node_Root *root);
-
-/**
+  }
+procedure eina_simple_xml_node_root_free(root:PEina_Simple_XML_Node_Root);cdecl;external;
+{*
  * @brief Converts the node tree under the given element to a XML string.
  *
  * @param[in,out] node The base node to convert.
  * @param[in] indent Indentation string, or @c NULL to disable it.
  *
  * @return @c NULL on errors, or a newly allocated string on success.
- */
-extern char * eina_simple_xml_node_dump(Eina_Simple_XML_Node *node, const char *indent);
+  }
+(* Const before type ignored *)
+function eina_simple_xml_node_dump(node:PEina_Simple_XML_Node; indent:Pchar):Pchar;cdecl;external;
+{*
+ * @
+  }
+{$endif}
+{ EINA_SIMPLE_XML_H_  }
+
+implementation
 
 
-/**
- * @}
- */
-
-#endif /* EINA_SIMPLE_XML_H_ */
+end.

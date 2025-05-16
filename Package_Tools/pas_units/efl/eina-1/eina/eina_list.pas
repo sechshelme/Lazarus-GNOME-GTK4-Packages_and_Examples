@@ -3,13 +3,16 @@ unit eina_list;
 interface
 
 uses
-  ctypes, efl, eina_types, eina_iterator;
+  ctypes, efl, eina_types, eina_accessor, eina_iterator;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 type
+  PEina_List = ^TEina_List;
+  PPEina_List = ^PEina_List;
+
   TEina_List_Accounting = record
     last: PEina_List;
     count: dword;
@@ -22,9 +25,6 @@ type
     prev: PEina_List;
     accounting: PEina_List_Accounting;
   end;
-  PEina_List = ^TEina_List;
-  PPEina_List = ^PEina_List;
-
 
 function eina_list_append(list: PEina_List; data: pointer): PEina_List; cdecl; external libeina;
 function eina_list_prepend(list: PEina_List; data: pointer): PEina_List; cdecl; external libeina;

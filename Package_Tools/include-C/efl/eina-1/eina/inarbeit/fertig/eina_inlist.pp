@@ -1,4 +1,40 @@
-/* EINA - EFL data type library
+
+unit eina_inlist;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from eina_inlist.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    eina_inlist.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pchar  = ^char;
+PEina_Accessor  = ^Eina_Accessor;
+PEina_Inlist  = ^Eina_Inlist;
+PEina_Inlist_Sorted_State  = ^Eina_Inlist_Sorted_State;
+PEina_Iterator  = ^Eina_Iterator;
+Ptype  = ^type;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ EINA - EFL data type library
  * Copyright (C) 2002-2008 Carsten Haitzler, Vincent Torri
  *
  * This library is free software; you can redistribute it and/or
@@ -14,17 +50,14 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library;
  * if not, see <http://www.gnu.org/licenses/>.
- */
-
-#ifndef EINA_INLIST_H_
-#define EINA_INLIST_H_
-
-#include "eina_types.h"
-#include "eina_iterator.h"
-#include "eina_accessor.h"
-#include <stddef.h>
-
-/**
+  }
+{$ifndef EINA_INLIST_H_}
+{$define EINA_INLIST_H_}
+{$include "eina_types.h"}
+{$include "eina_iterator.h"}
+{$include "eina_accessor.h"}
+{$include <stddef.h>}
+{*
  * @page eina_inlist_01_example_page Eina_Inlist basic usage
  * @dontinclude eina_inlist_01.c
  *
@@ -36,7 +69,7 @@
  * data structure that will be used:
  *
  * @skip struct
- * @until };
+ * @until ;
  *
  * The resulting node representing this struct can be exemplified by the
  * following picture:
@@ -49,7 +82,7 @@
  * sorting of the list:
  *
  * @skip int
- * @until }
+ * @until 
  *
  * The @ref Eina_Inlist can be used exactly the same way as @ref Eina_List when
  * appending, prepending and removing items. But since we already have the node
@@ -96,7 +129,7 @@
  * Another way of walking through the inlist.
  *
  * @skip for
- * @until }
+ * @until 
  *
  * Notice that in the previous piece of code, since we only have the pointers to
  * the inlist nodes, we have to use the @ref EINA_INLIST_CONTAINER_GET macro
@@ -107,11 +140,10 @@
  * Now to finish this example, lets delete this list:
  *
  * @skip while
- * @until }
+ * @until 
  * @example eina_inlist_01.c
- */
-
-/**
+  }
+{*
  * @page eina_inlist_02_example_page Eina_Inlist advanced usage - lists and inlists
  * @dontinclude eina_inlist_02.c
  *
@@ -125,7 +157,7 @@
  * declare the inlist node info:
  *
  * @skip struct
- * @until };
+ * @until ;
  *
  * The resulting node representing this struct can be exemplified by the
  * following picture:
@@ -144,7 +176,7 @@
  * elements also go to the normal list:
  *
  * @skip for
- * @until }
+ * @until 
  *
  * After this point, what we have are two distinct lists that share some
  * elements. The first list (inlist) is defined by the pointers inside the
@@ -177,13 +209,12 @@
  * allocated until now):
  *
  * @skip eina_list_free
- * @until }
+ * @until 
  *
  * Here is the full source code for this example: @ref eina_inlist_02_c
  * @example eina_inlist_02.c
- */
-
-/**
+  }
+{*
  * @page eina_inlist_03_example_page Eina_Inlist advanced usage - multi-inlists
  * @dontinclude eina_inlist_03.c
  *
@@ -199,7 +230,7 @@
  * Eina_Inlist too:
  *
  * @skip struct
- * @until };
+ * @until ;
  *
  * The representation for this struct is:
  *
@@ -225,7 +256,7 @@
  * get the pointer to the even list node info:
  *
  * @skip for
- * @until }
+ * @until 
  *
  * And the resulting lists will be as follow:
  *
@@ -245,7 +276,7 @@
  * do it manually:
  *
  * @skip for
- * @until }
+ * @until 
  *
  * Let's just check that the two lists have the expected number of elements:
  *
@@ -269,24 +300,20 @@
  * To see the full source code for this example, click here: @ref
  * eina_inlist_03_c
  * @example eina_inlist_03.c
- */
-
-/**
+  }
+{*
  * @page eina_inlist_01_c eina_inlist_01.c Eina_Inlist basic usage source
  * @include eina_inlist_01.c
- */
-
-/**
+  }
+{*
  * @page eina_inlist_02_c eina_inlist_02.c Eina_Inlist advanced usage - lists and inlists source
  * @include eina_inlist_02.c
- */
-
-/**
+  }
+{*
  * @page eina_inlist_03_c eina_inlist_03.c Eina_Inlist advanced usage - multi-inlists source
  * @include eina_inlist_03.c
- */
-
-/**
+  }
+{*
  * @addtogroup Eina_Inline_List_Group Inline List
  *
  * @brief These functions provide inline list management.
@@ -364,60 +391,61 @@
  * @li @ref eina_inlist_01_example_page
  * @li @ref eina_inlist_02_example_page
  * @li @ref eina_inlist_03_example_page
- */
-
-/**
+  }
+{*
  * @addtogroup Eina_Data_Types_Group Data Types
  *
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * @addtogroup Eina_Containers_Group Containers
  *
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * @defgroup Eina_Inline_List_Group Inline List
  *
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * @typedef Eina_Inlist
  * Inlined list type.
- */
-typedef struct _Eina_Inlist Eina_Inlist;
-
-/**
+  }
+type
+{*
  * @typedef Eina_Inlist_Sorted_State
  * @since 1.1.0
  * State of sorted Eina_Inlist
- */
-typedef struct _Eina_Inlist_Sorted_State Eina_Inlist_Sorted_State;
-
-/**
+  }
+{*
  * @struct _Eina_Inlist
  * Inlined list type.
- */
-struct _Eina_Inlist
-{
-   Eina_Inlist *next; /**< next node */
-   Eina_Inlist *prev; /**< previous node */
-   Eina_Inlist *last; /**< last node */
-};
-/** Used for declaring an inlist member in a struct */
-#define EINA_INLIST Eina_Inlist __in_list
-/** Utility macro to get the inlist object of a struct */
-#define EINA_INLIST_GET(Inlist)         (& ((Inlist)->__in_list))
-/** Utility macro to get the container object of an inlist */
-#define EINA_INLIST_CONTAINER_GET(ptr,                          \
-                                  type) ((type *)(void *)((char *)ptr - \
-                                                  offsetof(type, __in_list)))
+  }
+{*< next node  }
+{*< previous node  }
+{*< last node  }
+  PEina_Inlist = ^TEina_Inlist;
+  TEina_Inlist = record
+      next : PEina_Inlist;
+      prev : PEina_Inlist;
+      last : PEina_Inlist;
+    end;
 
+{* Used for declaring an inlist member in a struct  }
+{#define EINA_INLIST Eina_Inlist __in_list }
+{* Utility macro to get the inlist object of a struct  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
 
-/**
+function EINA_INLIST_GET(Inlist : longint) : longint;
+
+{* Utility macro to get the container object of an inlist  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+function EINA_INLIST_CONTAINER_GET(ptr,_type : longint) : Ptype;
+
+{*
  * @brief Adds a new node to end of a list.
  *
  * @note This code is meant to be fast: appends are O(1) and do not
@@ -432,11 +460,9 @@ struct _Eina_Inlist
  * @param[in] in_item New list node, must not be @c NULL.
  *
  * @return The new list head. Use it and not @a in_list anymore.
- */
-extern Eina_Inlist *eina_inlist_append(Eina_Inlist *in_list,
-                                     Eina_Inlist *in_item)  EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+function eina_inlist_append(in_list:PEina_Inlist; in_item:PEina_Inlist):PEina_Inlist;cdecl;external;
+{*
  * @brief Adds a new node to beginning of list.
  *
  * @note This code is meant to be fast: appends are O(1) and do not
@@ -451,11 +477,9 @@ extern Eina_Inlist *eina_inlist_append(Eina_Inlist *in_list,
  * @param[in] in_item New list node, must not be @c NULL.
  *
  * @return The new list head. Use it and not @a in_list anymore.
- */
-extern Eina_Inlist *eina_inlist_prepend(Eina_Inlist *in_list,
-                                      Eina_Inlist *in_item)  EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+function eina_inlist_prepend(in_list:PEina_Inlist; in_item:PEina_Inlist):PEina_Inlist;cdecl;external;
+{*
  * @brief Adds a new node after the given relative item in list.
  *
  * @note This code is meant to be fast: appends are O(1) and do not
@@ -476,12 +500,9 @@ extern Eina_Inlist *eina_inlist_prepend(Eina_Inlist *in_list,
  * @param[in] in_relative Reference node, @a in_item will be added after it.
  *
  * @return The new list head. Use it and not @a list anymore.
- */
-extern Eina_Inlist *eina_inlist_append_relative(Eina_Inlist *in_list,
-                                              Eina_Inlist *in_item,
-                                              Eina_Inlist *in_relative)  EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+function eina_inlist_append_relative(in_list:PEina_Inlist; in_item:PEina_Inlist; in_relative:PEina_Inlist):PEina_Inlist;cdecl;external;
+{*
  * @brief Adds a new node before the given relative item in list.
  *
  * @note This code is meant to be fast: appends are O(1) and do not
@@ -502,12 +523,9 @@ extern Eina_Inlist *eina_inlist_append_relative(Eina_Inlist *in_list,
  * @param[in] in_relative Reference node, @a in_item will be added before it.
  *
  * @return The new list head. Use it and not @a in_list anymore.
- */
-extern Eina_Inlist *eina_inlist_prepend_relative(Eina_Inlist *in_list,
-                                               Eina_Inlist *in_item,
-                                               Eina_Inlist *in_relative)  EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+function eina_inlist_prepend_relative(in_list:PEina_Inlist; in_item:PEina_Inlist; in_relative:PEina_Inlist):PEina_Inlist;cdecl;external;
+{*
  * @brief Removes node from list.
  *
  * @note This code is meant to be fast: appends are O(1) and do not
@@ -523,11 +541,9 @@ extern Eina_Inlist *eina_inlist_prepend_relative(Eina_Inlist *in_list,
  * @param[in] in_item Existing list node, must not be @c NULL.
  *
  * @return The new list head. Use it and not @a list anymore.
- */
-extern Eina_Inlist   *eina_inlist_remove(Eina_Inlist *in_list,
-                                       Eina_Inlist *in_item) EINA_ARG_NONNULL(1, 2) EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+function eina_inlist_remove(in_list:PEina_Inlist; in_item:PEina_Inlist):PEina_Inlist;cdecl;external;
+{*
  * @brief Finds given node in list, returns itself if found, NULL if not.
  *
  * @warning This is an expensive call and has O(n) cost, possibly
@@ -537,11 +553,9 @@ extern Eina_Inlist   *eina_inlist_remove(Eina_Inlist *in_list,
  * @param[in] in_item What to search for, must not be @c NULL.
  *
  * @return @a in_item if found, @c NULL if not.
- */
-extern Eina_Inlist   *eina_inlist_find(Eina_Inlist *in_list,
-                                     Eina_Inlist *in_item)  EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+function eina_inlist_find(in_list:PEina_Inlist; in_item:PEina_Inlist):PEina_Inlist;cdecl;external;
+{*
  * @brief Moves existing node to beginning of list.
  *
  * @note This code is meant to be fast: appends are O(1) and do not
@@ -555,11 +569,9 @@ extern Eina_Inlist   *eina_inlist_find(Eina_Inlist *in_list,
  * @param[in] item List node to move to beginning (head), must not be @c NULL.
  *
  * @return The new list head. Use it and not @a list anymore.
- */
-extern Eina_Inlist   *eina_inlist_promote(Eina_Inlist *list,
-                                        Eina_Inlist *item) EINA_ARG_NONNULL(1, 2) EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+function eina_inlist_promote(list:PEina_Inlist; item:PEina_Inlist):PEina_Inlist;cdecl;external;
+{*
  * @brief Moves existing node to end of list.
  *
  * @note This code is meant to be fast: appends are O(1) and do not
@@ -573,11 +585,9 @@ extern Eina_Inlist   *eina_inlist_promote(Eina_Inlist *list,
  * @param[in] item List node to move to end (tail), must not be @c NULL.
  *
  * @return The new list head. Use it and not @a list anymore.
- */
-extern Eina_Inlist   *eina_inlist_demote(Eina_Inlist *list,
-                                       Eina_Inlist *item) EINA_ARG_NONNULL(1, 2) EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+function eina_inlist_demote(list:PEina_Inlist; item:PEina_Inlist):PEina_Inlist;cdecl;external;
+{*
  * @brief Gets the first list node in the list.
  *
  * @param[in] list The list to get the first list node from.
@@ -590,26 +600,8 @@ extern Eina_Inlist   *eina_inlist_demote(Eina_Inlist *list,
  * to the length of the list).
  *
  * @since 1.8
- */
-static inline Eina_Inlist *eina_inlist_first(const Eina_Inlist *list) EINA_PURE EINA_WARN_UNUSED_RESULT;
-
-/**
- * @brief Gets the last list node in the list.
- *
- * @param[in] list The list to get the last list node from.
- * @return The last list node in the list.
- *
- * This function returns the last list node in the list @p list. If
- * @p list is @c NULL, @c NULL is returned.
- *
- * This is a O(N) operation (it takes time proportional
- * to the length of the list).
- *
- * @since 1.8
- */
-static inline Eina_Inlist *eina_inlist_last(const Eina_Inlist *list) EINA_PURE EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+{*
  * @brief Gets the count of the number of items in a list.
  *
  * @param[in] list The list whose count to return.
@@ -621,11 +613,10 @@ static inline Eina_Inlist *eina_inlist_last(const Eina_Inlist *list) EINA_PURE E
  * @warning This is an order-N operation and so the time will depend
  *    on the number of elements on the list, so, it might become
  *    slow for big lists!
- */
-extern unsigned int   eina_inlist_count(const Eina_Inlist *list) EINA_WARN_UNUSED_RESULT;
-
-
-/**
+  }
+(* Const before type ignored *)
+function eina_inlist_count(list:PEina_Inlist):dword;cdecl;external;
+{*
  * @brief Returns a new iterator associated to @a list.
  *
  * @param[in] in_list The list.
@@ -643,10 +634,10 @@ extern unsigned int   eina_inlist_count(const Eina_Inlist *list) EINA_WARN_UNUSE
  * @warning if the list structure changes then the iterator becomes
  *    invalid, and if you add or remove nodes iterator
  *    behavior is undefined, and your program may crash!
- */
-extern Eina_Iterator *eina_inlist_iterator_new(const Eina_Inlist *in_list) EINA_MALLOC EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+(* Const before type ignored *)
+function eina_inlist_iterator_new(in_list:PEina_Inlist):PEina_Iterator;cdecl;external;
+{*
  * @brief Returns a new accessor associated to a list.
  *
  * @param[in] in_list The list.
@@ -657,10 +648,10 @@ extern Eina_Iterator *eina_inlist_iterator_new(const Eina_Inlist *in_list) EINA_
  * less or equal than @c 0, this function returns @c NULL. If the memory can
  * not be allocated, @c NULL is returned and Otherwise, a valid accessor is
  * returned.
- */
-extern Eina_Accessor *eina_inlist_accessor_new(const Eina_Inlist *in_list) EINA_MALLOC EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+(* Const before type ignored *)
+function eina_inlist_accessor_new(in_list:PEina_Inlist):PEina_Accessor;cdecl;external;
+{*
  * @brief Inserts a new node into a sorted list.
  *
  * @param[in,out] list The given linked list, @b must be sorted.
@@ -681,10 +672,9 @@ extern Eina_Accessor *eina_inlist_accessor_new(const Eina_Inlist *in_list) EINA_
  * dereference (list walk).
  *
  * @since 1.1.0
- */
-extern Eina_Inlist *eina_inlist_sorted_insert(Eina_Inlist *list, Eina_Inlist *item, Eina_Compare_Cb func) EINA_ARG_NONNULL(2, 3) EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+function eina_inlist_sorted_insert(list:PEina_Inlist; item:PEina_Inlist; func:TEina_Compare_Cb):PEina_Inlist;cdecl;external;
+{*
  * @brief Creates state with valid data in it.
  *
  * @return A valid Eina_Inlist_Sorted_State.
@@ -692,10 +682,9 @@ extern Eina_Inlist *eina_inlist_sorted_insert(Eina_Inlist *list, Eina_Inlist *it
  * @since 1.1.0
  *
  * See eina_inlist_sorted_state_insert() for more information.
- */
-extern Eina_Inlist_Sorted_State *eina_inlist_sorted_state_new(void);
-
-/**
+  }
+function eina_inlist_sorted_state_new:PEina_Inlist_Sorted_State;cdecl;external;
+{*
  * @brief Forces an Eina_Inlist_Sorted_State to match the content of a list.
  *
  * @param[in,out] state The state to update
@@ -707,10 +696,9 @@ extern Eina_Inlist_Sorted_State *eina_inlist_sorted_state_new(void);
  * See eina_inlist_sorted_state_insert() for more information. This function is
  * useful if you didn't use eina_inlist_sorted_state_insert() at some point, but
  * still think you have a sorted list. It will only correctly work on a sorted list.
- */
-extern int eina_inlist_sorted_state_init(Eina_Inlist_Sorted_State *state, Eina_Inlist *list);
-
-/**
+  }
+function eina_inlist_sorted_state_init(state:PEina_Inlist_Sorted_State; list:PEina_Inlist):longint;cdecl;external;
+{*
  * @brief Frees an Eina_Inlist_Sorted_State.
  *
  * @param[in,out] state The state to destroy
@@ -718,10 +706,9 @@ extern int eina_inlist_sorted_state_init(Eina_Inlist_Sorted_State *state, Eina_I
  * @since 1.1.0
  *
  * See eina_inlist_sorted_state_insert() for more information.
- */
-extern void eina_inlist_sorted_state_free(Eina_Inlist_Sorted_State *state);
-
-/**
+  }
+procedure eina_inlist_sorted_state_free(state:PEina_Inlist_Sorted_State);cdecl;external;
+{*
  * @brief Inserts a new node into a sorted list.
  *
  * @param[in,out] list The given linked list, @b must be sorted.
@@ -748,12 +735,9 @@ extern void eina_inlist_sorted_state_free(Eina_Inlist_Sorted_State *state);
  * O(log2(n)) for number small number. After n == 256, it starts to add a
  * linear cost again. Consider worst case to be almost O(n) pointer
  * dereference (list walk).
- */
-extern Eina_Inlist *eina_inlist_sorted_state_insert(Eina_Inlist *list,
-						  Eina_Inlist *item,
-						  Eina_Compare_Cb func,
-						  Eina_Inlist_Sorted_State *state);
-/**
+  }
+function eina_inlist_sorted_state_insert(list:PEina_Inlist; item:PEina_Inlist; func:TEina_Compare_Cb; state:PEina_Inlist_Sorted_State):PEina_Inlist;cdecl;external;
+{*
  * @brief Sorts a list according to the ordering func will return.
  *
  * @param[in,out] head The list handle to sort.
@@ -776,14 +760,14 @@ extern Eina_Inlist *eina_inlist_sorted_state_insert(Eina_Inlist *list,
  * @code
  * typedef struct _Sort_Ex Sort_Ex;
  * struct _Sort_Ex
- * {
+ * 
  *   EINA_INLIST;
  *   const char *text;
- * };
+ * ;
  *
  * int
  * sort_cb(const Inlist *l1, const Inlist *l2)
- * {
+ * 
  *    const Sort_Ex *x1;
  *    const Sort_Ex *x2;
  *
@@ -791,49 +775,47 @@ extern Eina_Inlist *eina_inlist_sorted_state_insert(Eina_Inlist *list,
  *    x2 = EINA_INLIST_CONTAINER_GET(l2, Sort_Ex);
  *
  *    return(strcmp(x1->text, x2->text));
- * }
+ * 
  * extern Eina_Inlist *list;
  *
  * list = eina_inlist_sort(list, sort_cb);
  * @endcode
- */
-extern Eina_Inlist *eina_inlist_sort(Eina_Inlist *head, Eina_Compare_Cb func);
-
-/* These two macros are helpers for the _FOREACH ones, don't use them */
-/**
+  }
+function eina_inlist_sort(head:PEina_Inlist; func:TEina_Compare_Cb):PEina_Inlist;cdecl;external;
+{ These two macros are helpers for the _FOREACH ones, don't use them  }
+{*
  * @def _EINA_INLIST_OFFSET
  * @param[in,out] ref The reference to be used.
- */
-#define _EINA_INLIST_OFFSET(ref)         ((char *)&(ref)->__in_list - (char *)(ref))
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function _EINA_INLIST_OFFSET(ref : longint) : longint;
 
-#if !defined(__cplusplus)
-/**
+{$if !defined(__cplusplus)}
+{*
  * @def _EINA_INLIST_CONTAINER
  * @param[in,out] ref The reference to be used.
  * @param[out] ptr The pointer to be used.
- */
-#define _EINA_INLIST_CONTAINER(ref, ptr) (void *)((char *)(ptr) - \
-                                                  _EINA_INLIST_OFFSET(ref))
-#else
-/*
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+
+function _EINA_INLIST_CONTAINER(ref,ptr : longint) : pointer;
+
+{$else}
+{
  * In C++ we can't assign a "type*" pointer to void* so we rely on GCC's typeof
  * operator.
- */
-# define _EINA_INLIST_CONTAINER(ref, ptr) (__typeof__(ref))((char *)(ptr) - \
-							    _EINA_INLIST_OFFSET(ref))
-#endif
-
-/**
+  }
+{$endif}
+{*
  * @def EINA_INLIST_FOREACH
  * @param[in,out] list The list to iterate on.
  * @param[out] it The pointer to the list item, i.e. a pointer to each
  *             item that is part of the list.
- */
-#define EINA_INLIST_FOREACH(list, it)                                     \
-  for (it = NULL, it = (list ? _EINA_INLIST_CONTAINER(it, list) : NULL); it; \
-       it = (EINA_INLIST_GET(it)->next ? _EINA_INLIST_CONTAINER(it, EINA_INLIST_GET(it)->next) : NULL))
-
-/**
+  }
+{*
  * @def EINA_INLIST_FOREACH_SAFE
  * @param[in,out] list The list to iterate on.
  * @param[out] list2 Auxiliary Eina_Inlist variable so we can save the
@@ -843,23 +825,14 @@ extern Eina_Inlist *eina_inlist_sort(Eina_Inlist *head, Eina_Compare_Cb func);
  *             allowed to be removed.
  * @param[out] it The pointer to the list item, i.e. a pointer to each
  *             item that is part of the list.
- */
-#define EINA_INLIST_FOREACH_SAFE(list, list2, it) \
-   for (it = NULL, it = (list ? _EINA_INLIST_CONTAINER(it, list) : NULL), list2 = it ? EINA_INLIST_GET(it)->next : NULL; \
-        it; \
-        it = NULL, it = list2 ? _EINA_INLIST_CONTAINER(it, list2) : NULL, list2 = list2 ? list2->next : NULL)
-
-/**
+  }
+{*
  * @def EINA_INLIST_REVERSE_FOREACH
  * @param[in,out] list The list to traverse in reverse order.
  * @param[out] it The pointer to the list item, i.e. a pointer to each
  *             item that is part of the list.
- */
-#define EINA_INLIST_REVERSE_FOREACH(list, it)                                \
-  for (it = NULL, it = (list ? _EINA_INLIST_CONTAINER(it, list->last) : NULL); \
-       it; it = (EINA_INLIST_GET(it)->prev ? _EINA_INLIST_CONTAINER(it, EINA_INLIST_GET(it)->prev) : NULL))
-
-/**
+  }
+{*
  * @def EINA_INLIST_REVERSE_FOREACH_FROM
  * @param[in,out] list The last list to traverse in reverse order.
  * @param[in] it The pointer to the list item, i.e. a pointer to each
@@ -870,12 +843,8 @@ extern Eina_Inlist *eina_inlist_sort(Eina_Inlist *head, Eina_Compare_Cb func);
  *
  * EINA_INLIST_REVERSE_FOREACH() starts from last list of the given list.
  * This starts from given list, not the last one.
- */
-#define EINA_INLIST_REVERSE_FOREACH_FROM(list, it)                                \
-  for (it = NULL, it = (list ? _EINA_INLIST_CONTAINER(it, list) : NULL); \
-       it; it = (EINA_INLIST_GET(it)->prev ? _EINA_INLIST_CONTAINER(it, EINA_INLIST_GET(it)->prev) : NULL))
-
-/**
+  }
+{*
  * @def EINA_INLIST_FREE
  * @param[in,out] list The list to free.
  * @param[in] it The pointer to the list item, i.e. a pointer to each item
@@ -885,22 +854,51 @@ extern Eina_Inlist *eina_inlist_sort(Eina_Inlist *head, Eina_Compare_Cb func);
  * inlist and free it. This function will turn into a infinite loop if you
  * don't remove all items from the list.
  * @since 1.8
- */
-#define EINA_INLIST_FREE(list, it)				\
-  for (it = (__typeof__(it)) list; list; it = (__typeof__(it)) list)
+  }
+{$include "eina_inline_inlist.x"}
+{*
+ * @
+  }
+{*
+ * @
+  }
+{*
+ * @
+  }
+{$endif}
+{EINA_INLIST_H_ }
 
-#include "eina_inline_inlist.x"
+implementation
 
-/**
- * @}
- */
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function EINA_INLIST_GET(Inlist : longint) : longint;
+begin
+  EINA_INLIST_GET:=@(Inlist^.__in_list);
+end;
 
-/**
- * @}
- */
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+function EINA_INLIST_CONTAINER_GET(ptr,_type : longint) : Ptype;
+begin
+  EINA_INLIST_CONTAINER_GET:=Ptype(pointer((Pchar(ptr))-(offsetof(_type,__in_list))));
+end;
 
-/**
- * @}
- */
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function _EINA_INLIST_OFFSET(ref : longint) : longint;
+begin
+  _EINA_INLIST_OFFSET:=(Pchar(@(ref^.__in_list)))-(Pchar(ref));
+end;
 
-#endif /*EINA_INLIST_H_*/
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+function _EINA_INLIST_CONTAINER(ref,ptr : longint) : pointer;
+begin
+  _EINA_INLIST_CONTAINER:=pointer(Pchar(Tptr(-(_EINA_INLIST_OFFSET(ref)))));
+end;
+
+
+end.

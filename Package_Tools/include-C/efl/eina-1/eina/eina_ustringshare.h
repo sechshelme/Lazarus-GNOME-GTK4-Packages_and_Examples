@@ -109,7 +109,7 @@
  *
  * @see eina_ustringshare_add()
  */
-extern const Eina_Unicode *eina_ustringshare_add_length(const Eina_Unicode *str, unsigned int slen) EINA_WARN_UNUSED_RESULT;
+extern const Eina_Unicode *eina_ustringshare_add_length(const Eina_Unicode *str, unsigned int slen) ;
 
 /**
  * @brief Retrieves an instance of a string for use in a program.
@@ -130,7 +130,7 @@ extern const Eina_Unicode *eina_ustringshare_add_length(const Eina_Unicode *str,
  *
  * @see eina_ustringshare_add_length()
  */
-extern const Eina_Unicode *eina_ustringshare_add(const Eina_Unicode *str) EINA_WARN_UNUSED_RESULT;
+extern const Eina_Unicode *eina_ustringshare_add(const Eina_Unicode *str) ;
 
 /**
  * @brief Increments references of the given shared string.
@@ -176,7 +176,7 @@ extern void                eina_ustringshare_del(const Eina_Unicode *str);
  * @note If the given pointer is not shared, bad things will happen, likely a
  * segmentation fault. If in doubt, try strlen().
  */
-extern int                 eina_ustringshare_strlen(const Eina_Unicode *str) EINA_PURE EINA_WARN_UNUSED_RESULT;
+extern int                 eina_ustringshare_strlen(const Eina_Unicode *str)  ;
 
 /**
  * @brief Dumps the contents of the share_common.

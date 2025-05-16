@@ -61,7 +61,7 @@ typedef void Eina_Cow_Data;
  * @param[in] gc Is it possible to run garbage collection on this pool.
  * @return A valid new Eina_Cow, or @c NULL on error.
  */
-extern Eina_Cow *eina_cow_add(const char *name, unsigned int struct_size, unsigned int step, const void *default_value, Eina_Bool gc) EINA_WARN_UNUSED_RESULT;
+extern Eina_Cow *eina_cow_add(const char *name, unsigned int struct_size, unsigned int step, const void *default_value, Eina_Bool gc) ;
 
 /**
  * @brief Destroys an Eina_Cow pool and all the allocated memory.
@@ -76,7 +76,7 @@ extern void eina_cow_del(Eina_Cow *cow);
  * @param[in] cow The pool to take things from.
  * @return A pointer to the new pool instance
  */
-extern const Eina_Cow_Data *eina_cow_alloc(Eina_Cow *cow) EINA_WARN_UNUSED_RESULT;
+extern const Eina_Cow_Data *eina_cow_alloc(Eina_Cow *cow) ;
 
 /**
  * @brief Frees a pointer from the pool.
@@ -98,7 +98,7 @@ extern void eina_cow_free(Eina_Cow *cow, const Eina_Cow_Data **data);
  * @note This function is not thread safe.
  */
 extern void *eina_cow_write(Eina_Cow *cow,
-			  const Eina_Cow_Data * const *src) EINA_WARN_UNUSED_RESULT;
+			  const Eina_Cow_Data * const *src) ;
 
 /**
  * @brief Sets back a pointer into read only.

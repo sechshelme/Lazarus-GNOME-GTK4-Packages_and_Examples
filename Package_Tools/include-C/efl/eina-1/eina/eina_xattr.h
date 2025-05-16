@@ -68,7 +68,7 @@ struct _Eina_Xattr
  *
  * @since 1.1
  */
-extern Eina_Iterator *eina_xattr_ls(const char *file)  EINA_WARN_UNUSED_RESULT;
+extern Eina_Iterator *eina_xattr_ls(const char *file)  ;
 
 /**
  * @brief Gets an iterator that list all extended attribute value related to a fd.
@@ -81,7 +81,7 @@ extern Eina_Iterator *eina_xattr_ls(const char *file)  EINA_WARN_UNUSED_RESULT;
  *
  * @since 1.2
  */
-extern Eina_Iterator *eina_xattr_value_ls(const char *file)  EINA_WARN_UNUSED_RESULT;
+extern Eina_Iterator *eina_xattr_value_ls(const char *file)  ;
 
 /**
  * @brief Gets an iterator that list all extended attribute related to a fd.
@@ -94,7 +94,7 @@ extern Eina_Iterator *eina_xattr_value_ls(const char *file)  EINA_WARN_UNUSED_RE
  *
  * @since 1.2
  */
-extern Eina_Iterator *eina_xattr_fd_ls(int fd) EINA_WARN_UNUSED_RESULT;
+extern Eina_Iterator *eina_xattr_fd_ls(int fd) ;
 
 /**
  * @brief Gets an iterator that list all extended attribute value related to a fd.
@@ -107,7 +107,7 @@ extern Eina_Iterator *eina_xattr_fd_ls(int fd) EINA_WARN_UNUSED_RESULT;
  *
  * @since 1.2
  */
-extern Eina_Iterator *eina_xattr_value_fd_ls(int fd) EINA_WARN_UNUSED_RESULT;
+extern Eina_Iterator *eina_xattr_value_fd_ls(int fd) ;
 
 /**
  * @brief Copies the extended attribute from one file to another.
@@ -120,7 +120,7 @@ extern Eina_Iterator *eina_xattr_value_fd_ls(int fd) EINA_WARN_UNUSED_RESULT;
  *
  * @since 1.8
  */
-extern Eina_Bool eina_xattr_copy(const char *src, const char *dst) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool eina_xattr_copy(const char *src, const char *dst) ;
 
 /**
  * @brief Copies the extended attribute from one file descriptor to another.
@@ -147,7 +147,7 @@ extern Eina_Bool eina_xattr_fd_copy(int src, int dst);
  *
  * @since 1.1
  */
-extern void *eina_xattr_get(const char *file, const char *attribute, ssize_t *size) EINA_ARG_NONNULL(1, 2, 3) EINA_WARN_UNUSED_RESULT;
+extern void *eina_xattr_get(const char *file, const char *attribute, ssize_t *size)  ;
 
 /**
  * @brief Retrieves an extended attribute from a file descriptor.
@@ -161,7 +161,7 @@ extern void *eina_xattr_get(const char *file, const char *attribute, ssize_t *si
  *
  * @since 1.8
  */
-extern void *eina_xattr_fd_get(int fd, const char *attribute, ssize_t *size) EINA_ARG_NONNULL(2, 3) EINA_WARN_UNUSED_RESULT;
+extern void *eina_xattr_fd_get(int fd, const char *attribute, ssize_t *size)  ;
 
 /**
  * @brief Sets an extended attribute on a file.
@@ -175,7 +175,7 @@ extern void *eina_xattr_fd_get(int fd, const char *attribute, ssize_t *size) EIN
  *
  * @since 1.1
  */
-extern Eina_Bool eina_xattr_set(const char *file, const char *attribute, const void *data, ssize_t length, Eina_Xattr_Flags flags) EINA_ARG_NONNULL(1, 2, 3);
+extern Eina_Bool eina_xattr_set(const char *file, const char *attribute, const void *data, ssize_t length, Eina_Xattr_Flags flags) ;
 
 /**
  * @brief Sets an extended attribute on a file descriptor.
@@ -189,7 +189,7 @@ extern Eina_Bool eina_xattr_set(const char *file, const char *attribute, const v
  *
  * @since 1.8
  */
-extern Eina_Bool eina_xattr_fd_set(int fd, const char *attribute, const void *data, ssize_t length, Eina_Xattr_Flags flags) EINA_ARG_NONNULL(2, 3);
+extern Eina_Bool eina_xattr_fd_set(int fd, const char *attribute, const void *data, ssize_t length, Eina_Xattr_Flags flags) ;
 
 
 /**
@@ -201,7 +201,7 @@ extern Eina_Bool eina_xattr_fd_set(int fd, const char *attribute, const void *da
  *
  * @since 1.8
  */
-extern Eina_Bool eina_xattr_del(const char *file, const char *attribute) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool eina_xattr_del(const char *file, const char *attribute) ;
 
 /**
  * @brief Deletes (removes) an extended attribute from a file descriptor.

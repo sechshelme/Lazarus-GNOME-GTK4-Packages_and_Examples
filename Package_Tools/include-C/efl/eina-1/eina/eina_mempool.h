@@ -84,7 +84,7 @@ extern extern Eina_Error EINA_ERROR_NOT_MEMPOOL_MODULE;
  * @param[in] ... Additional options to pass to the allocator; depends entirely on the type of mempool ("int pool size" for chained and "int item_size" for one_big.
  * @return Newly allocated mempool instance, NULL otherwise.
  */
-extern Eina_Mempool  *eina_mempool_add(const char *name, const char *context, const char *options, ...) EINA_MALLOC EINA_WARN_UNUSED_RESULT ;
+extern Eina_Mempool  *eina_mempool_add(const char *name, const char *context, const char *options, ...)   ;
 
 /**
  * @brief Deletes the given mempool.
@@ -107,7 +107,7 @@ extern void           eina_mempool_del(Eina_Mempool *mp) ;
  *
  * @see eina_mempool_free()
  */
-static inline void *eina_mempool_realloc(Eina_Mempool *mp, void *element, unsigned int size)  EINA_WARN_UNUSED_RESULT;
+static inline void *eina_mempool_realloc(Eina_Mempool *mp, void *element, unsigned int size)  ;
 
 /**
  * @brief Allocates memory using the given mempool.
@@ -122,7 +122,7 @@ static inline void *eina_mempool_realloc(Eina_Mempool *mp, void *element, unsign
  *
  * @see eina_mempool_free()
  */
-static inline void *eina_mempool_malloc(Eina_Mempool *mp, unsigned int size) EINA_MALLOC  EINA_WARN_UNUSED_RESULT;
+static inline void *eina_mempool_malloc(Eina_Mempool *mp, unsigned int size)   ;
 
 /**
  * @brief Allocates memory in the given mempool using locality hint to improve future memory access use.
@@ -145,7 +145,7 @@ static inline void *eina_mempool_malloc(Eina_Mempool *mp, unsigned int size) EIN
  *
  * @see eina_mempool_free()
  */
-static inline void *eina_mempool_malloc_near(Eina_Mempool *mp, void *after, void *before, unsigned int size) EINA_WARN_UNUSED_RESULT;
+static inline void *eina_mempool_malloc_near(Eina_Mempool *mp, void *after, void *before, unsigned int size) ;
 
 /**
  * @brief Allocates and zeros memory using the given mempool.
@@ -162,7 +162,7 @@ static inline void *eina_mempool_malloc_near(Eina_Mempool *mp, void *after, void
  *
  * @see eina_mempool_free()
  */
-static inline void *eina_mempool_calloc(Eina_Mempool *mp, unsigned int size) EINA_MALLOC  EINA_WARN_UNUSED_RESULT;
+static inline void *eina_mempool_calloc(Eina_Mempool *mp, unsigned int size)   ;
 
 /**
  * @brief Frees resources previously allocated by the given mempool.
@@ -192,7 +192,7 @@ static inline void  eina_mempool_free(Eina_Mempool *mp, void *element) ;
  * @see Eina_Mempool_Repack_Cb
  * @see _Eina_Mempool_Backend
  */
-extern void           eina_mempool_repack(Eina_Mempool *mp, Eina_Mempool_Repack_Cb cb, void *data) EINA_ARG_NONNULL(1, 2);
+extern void           eina_mempool_repack(Eina_Mempool *mp, Eina_Mempool_Repack_Cb cb, void *data) ;
 
 /**
  * @brief Runs a garbage collection cycle.

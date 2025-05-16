@@ -124,7 +124,7 @@ extern extern Eina_Error EINA_ERROR_MODULE_INIT_FAILED;
  * @see eina_module_load
  */
 extern Eina_Module *
- eina_module_new(const char *file) EINA_MALLOC EINA_WARN_UNUSED_RESULT ;
+ eina_module_new(const char *file)   ;
 
 /**
  * @brief Deletes a module.
@@ -191,7 +191,7 @@ extern Eina_Bool
  * function returns immediately @c NULL.
  */
 extern void *
- eina_module_symbol_get(const Eina_Module *module, const char *symbol) EINA_PURE EINA_ARG_NONNULL(1, 2) EINA_WARN_UNUSED_RESULT;
+ eina_module_symbol_get(const Eina_Module *module, const char *symbol)   ;
 
 /**
  * @brief Returns the file name associated with the module.
@@ -204,7 +204,7 @@ extern void *
  * returned value must no be freed.
  */
 extern const char *
- eina_module_file_get(const Eina_Module *module) EINA_PURE EINA_WARN_UNUSED_RESULT ;
+ eina_module_file_get(const Eina_Module *module)   ;
 
 /**
  * @brief Defines if on module load we should expose all symbol
@@ -231,7 +231,7 @@ extern void eina_module_symbol_global_set(Eina_Module *module, Eina_Bool global)
  * or allocation fails, this function returns @c NULL.
  */
 extern char *
- eina_module_symbol_path_get(const void *symbol, const char *sub_dir) EINA_MALLOC EINA_ARG_NONNULL(1, 2);
+ eina_module_symbol_path_get(const void *symbol, const char *sub_dir)  ;
 
 /**
  * @brief Returns the path built from the value of an environment variable and a
@@ -248,7 +248,7 @@ extern char *
  * allocation fails, this function returns @c NULL.
  */
 extern char *
- eina_module_environment_path_get(const char *env, const char *sub_dir) EINA_MALLOC EINA_ARG_NONNULL(1, 2);
+ eina_module_environment_path_get(const char *env, const char *sub_dir)  ;
 
 
 /**
@@ -287,7 +287,7 @@ extern Eina_Array *
  * elements. @p cb can be @c NULL.
  */
 extern Eina_Array *
- eina_module_list_get(Eina_Array *array, const char *path, Eina_Bool recursive, Eina_Module_Cb cb, void *data) EINA_MALLOC EINA_WARN_UNUSED_RESULT;
+ eina_module_list_get(Eina_Array *array, const char *path, Eina_Bool recursive, Eina_Module_Cb cb, void *data)  ;
 
 /**
  * @brief Loads every module on the list of modules.
@@ -334,7 +334,7 @@ extern void
  * @c NULL is returned.
  */
 extern Eina_Module *
- eina_module_find(const Eina_Array *array, const char *module) EINA_ARG_NONNULL(1, 2);
+ eina_module_find(const Eina_Array *array, const char *module) ;
 
 /**
  * @}

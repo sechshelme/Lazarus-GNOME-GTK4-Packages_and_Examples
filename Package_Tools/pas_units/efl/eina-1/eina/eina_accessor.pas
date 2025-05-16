@@ -9,7 +9,13 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+  const
+    EINA_ACCESSOR_VERSION = 2;
+    _ACCESSOR = $98761232;
+
 type
+  PEina_Accessor = ^TEina_Accessor;
+
   TEina_Accessor_Get_At_Callback = function(it: PEina_Accessor; idx: dword; data: Ppointer): TEina_Bool; cdecl;
 
   PEina_Accessor_Get_Container_Callback = ^TEina_Accessor_Get_Container_Callback;
@@ -21,11 +27,6 @@ type
   PEina_Accessor_Clone_Callback = ^TEina_Accessor_Clone_Callback;
   TEina_Accessor_Clone_Callback = function(it: PEina_Accessor): PEina_Accessor; cdecl;
 
-const
-  EINA_ACCESSOR_VERSION = 2;
-  _ACCESSOR = $98761232;
-
-type
   TEina_Accessor = record
     version: longint;
     get_at: TEina_Accessor_Get_At_Callback;
@@ -35,8 +36,6 @@ type
     unlock: TEina_Accessor_Lock_Callback;
     clone: TEina_Accessor_Clone_Callback;
   end;
-  PEina_Accessor = ^TEina_Accessor;
-
 
 function FUNC_ACCESSOR_GET_AT(_Function: Pointer): TEina_Accessor_Get_At_Callback;
 function FUNC_ACCESSOR_GET_CONTAINER(_Function: Pointer): TEina_Accessor_Get_Container_Callback;

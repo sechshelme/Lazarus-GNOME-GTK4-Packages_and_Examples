@@ -74,7 +74,7 @@ typedef enum _Eina_Thread_Priority
  * @return identifier of current thread.
  * @since 1.8
  */
-extern Eina_Thread eina_thread_self(void) EINA_WARN_UNUSED_RESULT;
+extern Eina_Thread eina_thread_self(void) ;
 
 /**
  * @brief Checks if two thread identifiers are the same.
@@ -83,7 +83,7 @@ extern Eina_Thread eina_thread_self(void) EINA_WARN_UNUSED_RESULT;
  * @return #EINA_TRUE if they are equal, #EINA_FALSE otherwise.
  * @since 1.8
  */
-extern Eina_Bool eina_thread_equal(Eina_Thread t1, Eina_Thread t2) EINA_WARN_UNUSED_RESULT;
+extern Eina_Bool eina_thread_equal(Eina_Thread t1, Eina_Thread t2) ;
 
 /**
  * @brief Creates a new thread, setting its priority and affinity.
@@ -98,7 +98,7 @@ extern Eina_Bool eina_thread_equal(Eina_Thread t1, Eina_Thread t2) EINA_WARN_UNU
  */
 extern Eina_Bool eina_thread_create(Eina_Thread *t,
                                   Eina_Thread_Priority prio, int affinity,
-                                  Eina_Thread_Cb func, const void *data) EINA_ARG_NONNULL(1, 4) EINA_WARN_UNUSED_RESULT;
+                                  Eina_Thread_Cb func, const void *data);
 
 /**
  * @brief The return value of eina_thread_join() if it was canceled with
@@ -112,7 +112,7 @@ extern Eina_Bool eina_thread_create(Eina_Thread *t,
  *
  * @since 1.19
  */
-extern extern const void *EINA_THREAD_JOIN_CANCELED;
+ extern const void *EINA_THREAD_JOIN_CANCELED;
 
 /**
  * @brief Joins a currently running thread, waiting until it finishes.

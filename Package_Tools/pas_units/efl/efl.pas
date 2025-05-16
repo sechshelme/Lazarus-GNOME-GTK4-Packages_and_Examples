@@ -2,6 +2,10 @@ unit efl;
 
 interface
 
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
 const
   {$IFDEF Linux}
   libelementary = 'libelementary';
@@ -29,76 +33,29 @@ type
 
   Tptrdiff_t = PtrInt;
 
+  Tuintptr_t=PtrUInt;
+
   Twchar_t=WideChar;
 
   PFILE=Pointer;
 
+type
+  Ttm = record
+      tm_sec : longint;
+      tm_min : longint;
+      tm_hour : longint;
+      tm_mday : longint;
+      tm_mon : longint;
+      tm_year : longint;
+      tm_wday : longint;
+      tm_yday : longint;
+      tm_isdst : longint;
+      tm_gmtoff : Int64;
+      tm_zone : Pchar;
+    end;
+  Ptm = ^Ttm;
+
   // =====================
-
-  // /usr/include/eina-1/eina/eina_unicode.h
-type
-  TEina_Unicode = widechar;
-
-  // /usr/include/eina-1/eina/eina_vector.h
-type
-  TEina_Vector2 = record
-    x, y: double;
-  end;
-  PEina_Vector2 = ^TEina_Vector2;
-
-  TEina_Vector3 = record
-    x, y, z: double;
-  end;
-
-  // /usr/include/eina-1/eina/eina_file.h
-type
-  PEina_File = Pointer;
-  PPEina_File = ^PEina_File;
-
-  // /usr/include/eina-1/eina/eina_stringshare.h
-//type
-//  TEina_Stringshare = char;
-//  PEina_Stringshare = ^TEina_Stringshare;
-
-  // /usr/include/eina-1/eina/eina_matrix.h
-//type
-//  TEina_Matrix3 = record
-//    xx: double;
-//    xy: double;
-//    xz: double;
-//    yx: double;
-//    yy: double;
-//    yz: double;
-//    zx: double;
-//    zy: double;
-//    zz: double;
-//  end;
-//  PEina_Matrix3 = ^TEina_Matrix3;
-//
-//  TEina_Matrix4 = record
-//    // Muss aufgelöst werden
-//  end;
-//  PEina_Matrix4 = ^TEina_Matrix4;
-
-  // /usr/include/eina-1/eina/eina_iterator.h
-//type
-//  PEina_Iterator = Pointer;   // Muss aufgelöst werden
-
-  // /usr/include/eina-1/eina/eina_list.h
-type
-  PEina_List = Pointer;
-
-  // /usr/include/eina-1/eina/eina_promise.h
-type
-  PEina_Future = Pointer;
-
-  // /usr/include/eina-1/eina/eina_accessor.h
-type
-  TEina_Accessor = record
-    // Muss aufgelöst werden
-  end;
-  PEina_Accessor = ^TEina_Accessor;
-
 
   // /usr/include/ecore-1/Ecore_Common.h
 type
@@ -232,6 +189,7 @@ type
 
   // Unauffindbar
   TEina_Lock = Pointer;
+  PEina_Lock=^TEina_Lock;
 
 
 implementation

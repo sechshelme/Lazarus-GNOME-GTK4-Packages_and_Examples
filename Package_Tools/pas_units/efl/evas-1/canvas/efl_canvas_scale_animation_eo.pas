@@ -3,7 +3,7 @@ unit efl_canvas_scale_animation_eo;
 interface
 
 uses
-  ctypes, efl, eina_rectangle, Evas_Common;
+  ctypes, efl, eina_rectangle, eina_vector, Evas_Common;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

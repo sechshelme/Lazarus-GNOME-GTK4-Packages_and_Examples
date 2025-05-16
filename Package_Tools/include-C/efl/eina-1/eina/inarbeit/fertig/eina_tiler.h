@@ -380,7 +380,6 @@ extern Eina_Bool           eina_tiler_equal(const Eina_Tiler *t1, const Eina_Til
  *
  * @note Consider using eina_tile_grid_slicer_iterator_new() instead.
  */
-static inline Eina_Bool eina_tile_grid_slicer_next(Eina_Tile_Grid_Slicer *slc, const Eina_Tile_Grid_Info **rect);
 
 /**
  * @brief Sets up an Eina_Tile_Grid_Slicer struct.
@@ -400,7 +399,6 @@ static inline Eina_Bool eina_tile_grid_slicer_next(Eina_Tile_Grid_Slicer *slc, c
  *
  * @note Consider using eina_tile_grid_slicer_iterator_new() instead.
  */
-static inline Eina_Bool eina_tile_grid_slicer_setup(Eina_Tile_Grid_Slicer *slc, int x, int y, int w, int h, int tile_w, int tile_h);
 
 #include "eina_inline_tiler.x"
 

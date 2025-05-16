@@ -7,6 +7,17 @@
 
 #include <Elementary.h>
 
+
+struct Node
+{
+   Eina_Inlist __in_list;
+   EINA_MAGIC;
+   ;;;;;;;;;;;;;
+
+   Eina_Simple_XML_Node_Tag *parent;
+   Eina_Simple_XML_Node_Type type;
+};
+
 static void
 on_button_click(void *data, Evas_Object *obj, void *event_info)
 {
@@ -86,10 +97,5 @@ int main(int argc, char **argv)
 
     return 0;
 }
-
-
-
-
-
 
 

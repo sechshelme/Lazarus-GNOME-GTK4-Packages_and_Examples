@@ -8,28 +8,42 @@ uses
   // =======================================
 
   // eina-1/eina
-  eina_types,                                         // io.                                           ( Viele Makros einfertn )
+  eina_types,                                         // io.                      ( Viele Makros einfertn )
   eina_iterator,                                      // io.
   eina_error,                                         // io.
-  eina_inarray,                                       // io. -> eina_iterator
-  eina_hash,                                          // io. -> eina_iterator                          ( Wenig inline entfernt )
-  eina_value,                                         // io. -> ina_error, eina_inarray, eina_hash     ( Viele inline entfernt )
-
-  eina_tmpstr,                                        // io.
-  eina_array,                                         // io.
-  eina_log,                                           // io.
-  eina_fp,                                            // io.
+  eina_lock,                                          // io. -> eina_error
+  eina_safety_checks,                                 // io. -> eina_error
+  eina_hash,                                          // io. -> eina_iterator
   eina_accessor,                                      // io.
-  eina_file,                                          // io. -> eina_array, eina_tmpstr
-  eina_list,                                          // io.
+  eina_inarray,                                       // io. -> eina_iterator, eina_accessor
+  eina_list,                                          // io. -> eina_iterator, eina_accessor
+  eina_clist,                                         // io.
+  eina_array,                                         // io. -> eina_iterator, eina_accessor
+  eina_benchmark,                                     // io. -> eina_array
+  eina_inlist,                                        // io. -> eina_iterator, eina_accessor
+  eina_simple_xml_parser,                             // io. -> eina_inlist
+  eina_value,                                         // io. -> eina_list, eina_error, eina_inarray, eina_hash
+  eina_fp,                                            // io.
+  eina_tmpstr,                                        // io.
+  eina_file,                                          // io. -> eina_array, eina_tmpstr, eina_iterator
   eina_vector,                                        // io.
-  eina_rectangle,                                     // io.                                           ( Viele inline entfernt )
+  eina_rectangle,                                     // io.
+  eina_tiler,                                         // io. -> eina_iterator, eina_rectangle
   eina_quad,                                          // io. -> eina_rectangle
   eina_matrix,                                        // io. -> eina_fp, eina_rectangle, eina_quad
-  eina_matrixsparse,                                  // io.
-  eina_promise,                                       // io. -> eina_value, eina_error, eina_log
+  eina_matrixsparse,                                  // io. -> eina_iterator
+  eina_log,                                           // io.
+  eina_promise,                                       // io. -> eina_value, eina_error, eina_log, eina_iterator
   eina_stringshare,                                   // io.
+  eina_slice,                                         // io.
+  eina_str,                                           // io.
+  eina_strbuf,                                        // io. -> eina_slice
   eina_unicode,                                       // io.
+  eina_ustrbuf,                                       // io. -> eina_slice, eina_strbuf, eina_unicode
+  eina_binbuf,                                        // io. -> eina_strbuf, eina_slice
+  eina_thread,                                        // io.
+
+
 
   // eina-1
   Efl_Config,                                         // io.

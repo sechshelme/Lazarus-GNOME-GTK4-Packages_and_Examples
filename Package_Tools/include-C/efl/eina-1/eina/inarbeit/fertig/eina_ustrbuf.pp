@@ -1,12 +1,41 @@
-#ifndef EINA_USTRBUF_H
-#define EINA_USTRBUF_H
 
-#include <stddef.h>
+unit eina_ustrbuf;
+interface
 
-#include "eina_types.h"
-#include "eina_unicode.h"
+{
+  Automatically converted by H2Pas 1.0.0 from eina_ustrbuf.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    eina_ustrbuf.h
+}
 
-/**
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+PEina_Unicode  = ^Eina_Unicode;
+PEina_UStrbuf  = ^Eina_UStrbuf;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{$ifndef EINA_USTRBUF_H}
+{$define EINA_USTRBUF_H}
+{$include <stddef.h>}
+{$include "eina_types.h"}
+{$include "eina_unicode.h"}
+{*
  * @addtogroup Eina_Unicode_String_Buffer_Group Unicode String Buffer
  *
  * @brief These functions provide unicode string buffer management.
@@ -14,27 +43,24 @@
  * The Unicode String Buffer data type is designed to be a mutable
  * string, allowing the appending, prepending or insertion of a string
  * to a buffer.
- */
-
-/**
+  }
+{*
  * @addtogroup Eina_Data_Types_Group Data Types
  *
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * @defgroup Eina_Unicode_String_Buffer_Group Unicode String Buffer
  *
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * @typedef Eina_UStrbuf
  * Type for a unicode string buffer.
- */
-typedef struct _Eina_Strbuf Eina_UStrbuf;
-
-/**
+  }
+type
+  TEina_Strbuf = TEina_UStrbuf;
+{*
  * @brief Creates a new unicode string buffer.
  *
  * @return Newly allocated string buffer instance, or @c NULL on error.
@@ -45,10 +71,10 @@ typedef struct _Eina_Strbuf Eina_UStrbuf;
  * @see eina_ustrbuf_free()
  * @see eina_ustrbuf_append()
  * @see eina_ustrbuf_string_get()
- */
-extern Eina_UStrbuf *eina_ustrbuf_new(void) EINA_MALLOC EINA_WARN_UNUSED_RESULT;
+  }
 
-/**
+function eina_ustrbuf_new:PEina_UStrbuf;cdecl;external;
+{*
  * @brief Creates a new string buffer using the passed string.
  *
  * @param[in] str The string to manage.
@@ -64,10 +90,9 @@ extern Eina_UStrbuf *eina_ustrbuf_new(void) EINA_MALLOC EINA_WARN_UNUSED_RESULT;
  * @see eina_ustrbuf_string_get()
  *
  * @since 1.1.0
- */
-extern Eina_UStrbuf *eina_ustrbuf_manage_new(Eina_Unicode *str) EINA_MALLOC EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+function eina_ustrbuf_manage_new(str:PEina_Unicode):PEina_UStrbuf;cdecl;external;
+{*
  * @brief Creates a new string buffer using the passed string.
  *
  * @param[in] str The string to manage.
@@ -82,30 +107,27 @@ extern Eina_UStrbuf *eina_ustrbuf_manage_new(Eina_Unicode *str) EINA_MALLOC EINA
  * @see eina_ustrbuf_manage_new()
  *
  * @since 1.2.0
- */
-extern Eina_UStrbuf *eina_ustrbuf_manage_new_length(Eina_Unicode *str, size_t length) EINA_MALLOC EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+function eina_ustrbuf_manage_new_length(str:PEina_Unicode; length:Tsize_t):PEina_UStrbuf;cdecl;external;
+{*
  * @brief Frees a string buffer.
  *
  * @param[in,out] buf The string buffer to free.
  *
  * This function frees the memory of @p buf. @p buf must have been
  * created by eina_ustrbuf_new().
- */
-extern void eina_ustrbuf_free(Eina_UStrbuf *buf) ;
-
-/**
+  }
+procedure eina_ustrbuf_free(buf:PEina_UStrbuf);cdecl;external;
+{*
  * @brief Resets a string buffer.
  *
  * @param[in,out] buf The string buffer.
  *
  * This function resets @p buf: the buffer len is set to 0, and the
  * string data is set to '\\0'. No memory is freed.
- */
-extern void eina_ustrbuf_reset(Eina_UStrbuf *buf) ;
-
-/**
+  }
+procedure eina_ustrbuf_reset(buf:PEina_UStrbuf);cdecl;external;
+{*
  * @brief Appends a string to a buffer, reallocating as necessary.
  *
  * @param[in,out] buf The string buffer.
@@ -119,10 +141,10 @@ extern void eina_ustrbuf_reset(Eina_UStrbuf *buf) ;
  *
  * @see eina_ustrbuf_append()
  * @see eina_ustrbuf_append_length()
- */
-extern Eina_Bool eina_ustrbuf_append(Eina_UStrbuf *buf, const Eina_Unicode *str) EINA_ARG_NONNULL(1, 2);
-
-/**
+  }
+(* Const before type ignored *)
+function eina_ustrbuf_append(buf:PEina_UStrbuf; str:PEina_Unicode):TEina_Bool;cdecl;external;
+{*
  * @brief Appends an escaped string to a buffer, reallocating as necessary.
  *
  * @param[in,out] buf The string buffer.
@@ -130,10 +152,10 @@ extern Eina_Bool eina_ustrbuf_append(Eina_UStrbuf *buf, const Eina_Unicode *str)
  * @return #EINA_TRUE on success, #EINA_FALSE if @p str could not be appended.
  *
  * This function appends the escaped string @p str to @p buf.
- */
-extern Eina_Bool eina_ustrbuf_append_escaped(Eina_UStrbuf *buf, const Eina_Unicode *str) EINA_ARG_NONNULL(1, 2);
-
-/**
+  }
+(* Const before type ignored *)
+function eina_ustrbuf_append_escaped(buf:PEina_UStrbuf; str:PEina_Unicode):TEina_Bool;cdecl;external;
+{*
  * @brief Appends a string to a buffer, reallocating as necessary,
  * limited by the given length.
  *
@@ -151,10 +173,10 @@ extern Eina_Bool eina_ustrbuf_append_escaped(Eina_UStrbuf *buf, const Eina_Unico
  *
  * @see eina_ustrbuf_append()
  * @see eina_ustrbuf_append_length()
- */
-extern Eina_Bool eina_ustrbuf_append_n(Eina_UStrbuf *buf, const Eina_Unicode *str, size_t maxlen) EINA_ARG_NONNULL(1, 2);
-
-/**
+  }
+(* Const before type ignored *)
+function eina_ustrbuf_append_n(buf:PEina_UStrbuf; str:PEina_Unicode; maxlen:Tsize_t):TEina_Bool;cdecl;external;
+{*
  * @brief Appends a string of exact length to a buffer, reallocating as
  * necessary.
  *
@@ -171,10 +193,10 @@ extern Eina_Bool eina_ustrbuf_append_n(Eina_UStrbuf *buf, const Eina_Unicode *st
  * @see eina_stringshare_length()
  * @see eina_ustrbuf_append()
  * @see eina_ustrbuf_append_n()
- */
-extern Eina_Bool eina_ustrbuf_append_length(Eina_UStrbuf *buf, const Eina_Unicode *str, size_t length) EINA_ARG_NONNULL(1, 2);
-
-/**
+  }
+(* Const before type ignored *)
+function eina_ustrbuf_append_length(buf:PEina_UStrbuf; str:PEina_Unicode; length:Tsize_t):TEina_Bool;cdecl;external;
+{*
  * @brief Appends a slice to a buffer, reallocating as necessary.
  *
  * @param[in,out] buf The string buffer.
@@ -184,10 +206,10 @@ extern Eina_Bool eina_ustrbuf_append_length(Eina_UStrbuf *buf, const Eina_Unicod
  * This function appends @p slice to @p buf.
  *
  * @since 1.19.0
- */
-extern Eina_Bool eina_ustrbuf_append_slice(Eina_UStrbuf *buf, const Eina_Slice slice) ;
-
-/**
+  }
+(* Const before type ignored *)
+function eina_ustrbuf_append_slice(buf:PEina_UStrbuf; slice:TEina_Slice):TEina_Bool;cdecl;external;
+{*
  * @brief Appends a character to a string buffer, reallocating as
  * necessary.
  *
@@ -196,10 +218,9 @@ extern Eina_Bool eina_ustrbuf_append_slice(Eina_UStrbuf *buf, const Eina_Slice s
  * @return #EINA_TRUE on success, #EINA_FALSE if @p c could not be appended.
  *
  * This function appends @p c to @p buf.
- */
-extern Eina_Bool eina_ustrbuf_append_char(Eina_UStrbuf *buf, Eina_Unicode c) ;
-
-/**
+  }
+function eina_ustrbuf_append_char(buf:PEina_UStrbuf; c:TEina_Unicode):TEina_Bool;cdecl;external;
+{*
  * @brief Inserts a string to a buffer, reallocating as necessary.
  *
  * @param[in,out] buf The string buffer.
@@ -211,10 +232,10 @@ extern Eina_Bool eina_ustrbuf_append_char(Eina_UStrbuf *buf, Eina_Unicode c) ;
  * computes the length of @p str, so is slightly slower than
  * eina_ustrbuf_insert_length(). If  the length is known beforehand,
  * consider using that variant.
- */
-extern Eina_Bool eina_ustrbuf_insert(Eina_UStrbuf *buf, const Eina_Unicode *str, size_t pos) EINA_ARG_NONNULL(1, 2);
-
-/**
+  }
+(* Const before type ignored *)
+function eina_ustrbuf_insert(buf:PEina_UStrbuf; str:PEina_Unicode; pos:Tsize_t):TEina_Bool;cdecl;external;
+{*
  * @brief Inserts an escaped string to a buffer, reallocating as
  * necessary.
  *
@@ -225,10 +246,10 @@ extern Eina_Bool eina_ustrbuf_insert(Eina_UStrbuf *buf, const Eina_Unicode *str,
  *
  * This function inserts the escaped string @p str to @p buf at
  * position @p pos.
- */
-extern Eina_Bool eina_ustrbuf_insert_escaped(Eina_UStrbuf *buf, const Eina_Unicode *str, size_t pos) EINA_ARG_NONNULL(1, 2);
-
-/**
+  }
+(* Const before type ignored *)
+function eina_ustrbuf_insert_escaped(buf:PEina_UStrbuf; str:PEina_Unicode; pos:Tsize_t):TEina_Bool;cdecl;external;
+{*
  * @brief Inserts a string to a buffer, reallocating as necessary. Limited by maxlen.
  *
  * @param[in,out] buf The string buffer.
@@ -244,10 +265,10 @@ extern Eina_Bool eina_ustrbuf_insert_escaped(Eina_UStrbuf *buf, const Eina_Unico
  * length is known beforehand, consider using that variant (@p maxlen
  * should then be checked so that it is greater than the size of
  * @p str).
- */
-extern Eina_Bool eina_ustrbuf_insert_n(Eina_UStrbuf *buf, const Eina_Unicode *str, size_t maxlen, size_t pos) EINA_ARG_NONNULL(1, 2);
-
-/**
+  }
+(* Const before type ignored *)
+function eina_ustrbuf_insert_n(buf:PEina_UStrbuf; str:PEina_Unicode; maxlen:Tsize_t; pos:Tsize_t):TEina_Bool;cdecl;external;
+{*
  * @brief Inserts a string of exact length to a buffer, reallocating as necessary.
  *
  * @param[in,out] buf The string buffer.
@@ -264,10 +285,10 @@ extern Eina_Bool eina_ustrbuf_insert_n(Eina_UStrbuf *buf, const Eina_Unicode *st
  * @see eina_stringshare_length()
  * @see eina_ustrbuf_insert()
  * @see eina_ustrbuf_insert_n()
- */
-extern Eina_Bool eina_ustrbuf_insert_length(Eina_UStrbuf *buf, const Eina_Unicode *str, size_t length, size_t pos) EINA_ARG_NONNULL(1, 2);
-
-/**
+  }
+(* Const before type ignored *)
+function eina_ustrbuf_insert_length(buf:PEina_UStrbuf; str:PEina_Unicode; length:Tsize_t; pos:Tsize_t):TEina_Bool;cdecl;external;
+{*
  * @brief Inserts a slice to a buffer, reallocating as necessary.
  *
  * @param[in,out] buf The string buffer.
@@ -278,10 +299,10 @@ extern Eina_Bool eina_ustrbuf_insert_length(Eina_UStrbuf *buf, const Eina_Unicod
  * This function inserts @p slice to @p buf at position @p pos.
  *
  * @since 1.19.0
- */
-extern Eina_Bool eina_ustrbuf_insert_slice(Eina_UStrbuf *buf, const Eina_Slice slice, size_t pos) ;
-
-/**
+  }
+(* Const before type ignored *)
+function eina_ustrbuf_insert_slice(buf:PEina_UStrbuf; slice:TEina_Slice; pos:Tsize_t):TEina_Bool;cdecl;external;
+{*
  * @brief Inserts a character to a string buffer, reallocating as
  * necessary.
  *
@@ -291,10 +312,9 @@ extern Eina_Bool eina_ustrbuf_insert_slice(Eina_UStrbuf *buf, const Eina_Slice s
  * @return #EINA_TRUE on success, #EINA_FALSE if @p c could not be inserted.
  *
  * This function inserts @p c to @p buf at position @p pos.
- */
-extern Eina_Bool eina_ustrbuf_insert_char(Eina_UStrbuf *buf, Eina_Unicode c, size_t pos) ;
-
-/**
+  }
+function eina_ustrbuf_insert_char(buf:PEina_UStrbuf; c:TEina_Unicode; pos:Tsize_t):TEina_Bool;cdecl;external;
+{*
  * @def eina_ustrbuf_prepend(buf, str)
  * @brief Prepends a string to the given buffer.
  *
@@ -303,10 +323,13 @@ extern Eina_Bool eina_ustrbuf_insert_char(Eina_UStrbuf *buf, Eina_Unicode c, siz
  * @return #EINA_TRUE on success, #EINA_FALSE if @p str could not be prepended.
  *
  * This macro simply calls eina_ustrbuf_insert() with position 0.
- */
-#define eina_ustrbuf_prepend(buf, str) eina_ustrbuf_insert(buf, str, 0)
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function eina_ustrbuf_prepend(buf,str : longint) : longint;
 
-/**
+{*
  * @def eina_ustrbuf_prepend_escaped(buf, str)
  * @brief Prepends an escaped string to the given buffer.
  *
@@ -315,10 +338,13 @@ extern Eina_Bool eina_ustrbuf_insert_char(Eina_UStrbuf *buf, Eina_Unicode c, siz
  * @return #EINA_TRUE on success, #EINA_FALSE if @p str could not be prepended.
  *
  * This macro simply calls eina_ustrbuf_insert_escaped() with position 0.
- */
-#define eina_ustrbuf_prepend_escaped(buf, str) eina_ustrbuf_insert_escaped(buf, str, 0)
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function eina_ustrbuf_prepend_escaped(buf,str : longint) : longint;
 
-/**
+{*
  * @def eina_ustrbuf_prepend_n(buf, str)
  * @brief Prepends an escaped string to the given buffer.
  *
@@ -328,10 +354,13 @@ extern Eina_Bool eina_ustrbuf_insert_char(Eina_UStrbuf *buf, Eina_Unicode c, siz
  * @return #EINA_TRUE on success, #EINA_FALSE if @p str could not be prepended.
  *
  * This macro simply calls eina_ustrbuf_insert_n() with position 0.
- */
-#define eina_ustrbuf_prepend_n(buf, str, maxlen) eina_ustrbuf_insert_n(buf, str, maxlen, 0)
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function eina_ustrbuf_prepend_n(buf,str,maxlen : longint) : longint;
 
-/**
+{*
  * @def eina_ustrbuf_prepend_length(buf, str)
  * @brief Prepends an escaped string to the given buffer.
  *
@@ -341,10 +370,13 @@ extern Eina_Bool eina_ustrbuf_insert_char(Eina_UStrbuf *buf, Eina_Unicode c, siz
  * @return #EINA_TRUE on success, #EINA_FALSE if @p str could not be prepended.
  *
  * This macro simply calls eina_ustrbuf_insert_length() with position 0.
- */
-#define eina_ustrbuf_prepend_length(buf, str, length) eina_ustrbuf_insert_length(buf, str, length, 0)
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function eina_ustrbuf_prepend_length(buf,str,length : longint) : longint;
 
-/**
+{*
  * @def eina_ustrbuf_prepend_char(buf, c)
  * @brief Prepends a unicode character to the given buffer.
  *
@@ -353,10 +385,13 @@ extern Eina_Bool eina_ustrbuf_insert_char(Eina_UStrbuf *buf, Eina_Unicode c, siz
  * @return #EINA_TRUE on success, #EINA_FALSE if @p c could not be prepended.
  *
  * This macro is calling eina_ustrbuf_insert_Eina_Unicode() at position 0.
- */
-#define eina_ustrbuf_prepend_char(buf, c) eina_ustrbuf_insert_char(buf, c, 0)
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function eina_ustrbuf_prepend_char(buf,c : longint) : longint;
 
-/**
+{*
  * @brief Removes a section of the given string buffer.
  *
  * @param[in,out] buf The string buffer to remove a slice.
@@ -369,11 +404,9 @@ extern Eina_Bool eina_ustrbuf_insert_char(Eina_UStrbuf *buf, Eina_Unicode c, siz
  * This function removes a slice of @p buf, starting at @p start
  * (inclusive) and ending at @p end (non-inclusive). Both values are
  * in bytes.
- */
-extern Eina_Bool
-eina_ustrbuf_remove(Eina_UStrbuf *buf, size_t start, size_t end) ;
-
-/**
+  }
+function eina_ustrbuf_remove(buf:PEina_UStrbuf; start:Tsize_t; end:Tsize_t):TEina_Bool;cdecl;external;
+{*
  * @brief Retrieves a pointer to the contents of a string buffer.
  *
  * @param[in] buf The string buffer.
@@ -385,11 +418,11 @@ eina_ustrbuf_remove(Eina_UStrbuf *buf, size_t start, size_t end) ;
  * functions will make this pointer invalid.
  *
  * @see eina_ustrbuf_string_steal()
- */
-extern const Eina_Unicode *
-eina_ustrbuf_string_get(const Eina_UStrbuf *buf)  EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_ustrbuf_string_get(buf:PEina_UStrbuf):PEina_Unicode;cdecl;external;
+{*
  * @brief Steals the contents of a string buffer.
  *
  * @param[in] buf The string buffer.
@@ -401,33 +434,28 @@ eina_ustrbuf_string_get(const Eina_UStrbuf *buf)  EINA_WARN_UNUSED_RESULT;
  * free().
  *
  * @see eina_ustrbuf_string_get()
- */
-extern Eina_Unicode *
-eina_ustrbuf_string_steal(Eina_UStrbuf *buf) EINA_MALLOC EINA_WARN_UNUSED_RESULT ;
-
-/**
+  }
+function eina_ustrbuf_string_steal(buf:PEina_UStrbuf):PEina_Unicode;cdecl;external;
+{*
  * @brief Frees the contents of a string buffer but not the buffer.
  *
  * @param[in,out] buf The string buffer.
  *
  * This function frees the string contained in @p buf without freeing
  * @p buf.
- */
-extern void
-eina_ustrbuf_string_free(Eina_UStrbuf *buf) ;
-
-/**
+  }
+procedure eina_ustrbuf_string_free(buf:PEina_UStrbuf);cdecl;external;
+{*
  * @brief Retrieves the length of the string buffer's content.
  *
  * @param[in] buf The string buffer.
  * @return The current length of the string, in bytes.
  *
  * This function returns the length of @p buf.
- */
-extern size_t
-eina_ustrbuf_length_get(const Eina_UStrbuf *buf)  EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+(* Const before type ignored *)
+function eina_ustrbuf_length_get(buf:PEina_UStrbuf):Tsize_t;cdecl;external;
+{*
  * @brief Gets a read-only slice of the buffer contents.
  *
  * @param[in] buf The string buffer.
@@ -435,10 +463,10 @@ eina_ustrbuf_length_get(const Eina_UStrbuf *buf)  EINA_WARN_UNUSED_RESULT;
  * invalid as soon as @a buf is changed.
  *
  * @since 1.19
- */
-extern Eina_Slice eina_ustrbuf_slice_get(const Eina_UStrbuf *buf) EINA_WARN_UNUSED_RESULT ;
-
-/**
+  }
+(* Const before type ignored *)
+function eina_ustrbuf_slice_get(buf:PEina_UStrbuf):TEina_Slice;cdecl;external;
+{*
  * @brief Gets a read-write slice of the buffer contents.
  *
  * @param[in] buf The string buffer.
@@ -447,10 +475,10 @@ extern Eina_Slice eina_ustrbuf_slice_get(const Eina_UStrbuf *buf) EINA_WARN_UNUS
  * eina_ustrbuf_append() or eina_ustrbuf_remove().
  *
  * @since 1.19.0
- */
-extern Eina_Rw_Slice eina_ustrbuf_rw_slice_get(const Eina_UStrbuf *buf) EINA_WARN_UNUSED_RESULT ;
-
-/**
+  }
+(* Const before type ignored *)
+function eina_ustrbuf_rw_slice_get(buf:PEina_UStrbuf):TEina_Rw_Slice;cdecl;external;
+{*
  * @brief Frees the buffer, returning its old contents.
  *
  * @param[in,out] buf The string buffer.
@@ -458,15 +486,58 @@ extern Eina_Rw_Slice eina_ustrbuf_rw_slice_get(const Eina_UStrbuf *buf) EINA_WAR
  * memory of the returned string by calling free().
  *
  * @since 1.19
- */
-extern Eina_Unicode* eina_ustrbuf_release(Eina_UStrbuf *buf) EINA_WARN_UNUSED_RESULT ;
+  }
+function eina_ustrbuf_release(buf:PEina_UStrbuf):PEina_Unicode;cdecl;external;
+{*
+ * @
+  }
+{*
+ * @
+  }
+{$endif}
+{ EINA_STRBUF_H  }
 
-/**
- * @}
- */
+implementation
 
-/**
- * @}
- */
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function eina_ustrbuf_prepend(buf,str : longint) : longint;
+begin
+  eina_ustrbuf_prepend:=eina_ustrbuf_insert(buf,str,0);
+end;
 
-#endif /* EINA_STRBUF_H */
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function eina_ustrbuf_prepend_escaped(buf,str : longint) : longint;
+begin
+  eina_ustrbuf_prepend_escaped:=eina_ustrbuf_insert_escaped(buf,str,0);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function eina_ustrbuf_prepend_n(buf,str,maxlen : longint) : longint;
+begin
+  eina_ustrbuf_prepend_n:=eina_ustrbuf_insert_n(buf,str,maxlen,0);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function eina_ustrbuf_prepend_length(buf,str,length : longint) : longint;
+begin
+  eina_ustrbuf_prepend_length:=eina_ustrbuf_insert_length(buf,str,length,0);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function eina_ustrbuf_prepend_char(buf,c : longint) : longint;
+begin
+  eina_ustrbuf_prepend_char:=eina_ustrbuf_insert_char(buf,c,0);
+end;
+
+
+end.

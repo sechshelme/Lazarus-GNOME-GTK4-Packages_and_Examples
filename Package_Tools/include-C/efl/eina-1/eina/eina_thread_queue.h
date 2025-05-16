@@ -121,7 +121,7 @@ eina_thread_queue_send(Eina_Thread_Queue *thq, int size, void **allocref) EINA_A
  * @since 1.11
  */
 extern void
-eina_thread_queue_send_done(Eina_Thread_Queue *thq, void *allocref) EINA_ARG_NONNULL(1, 2);
+eina_thread_queue_send_done(Eina_Thread_Queue *thq, void *allocref) ;
 
 /**
  * @brief Fetches a message from a thread queue.
@@ -141,7 +141,7 @@ eina_thread_queue_send_done(Eina_Thread_Queue *thq, void *allocref) EINA_ARG_NON
  * @since 1.11
  */
 extern void *
-eina_thread_queue_wait(Eina_Thread_Queue *thq, void **allocref) EINA_ARG_NONNULL(1, 2);
+eina_thread_queue_wait(Eina_Thread_Queue *thq, void **allocref) ;
 
 /**
  * @brief Finishes fetching a message from a thread queue.
@@ -155,7 +155,7 @@ eina_thread_queue_wait(Eina_Thread_Queue *thq, void **allocref) EINA_ARG_NONNULL
  * @since 1.11
  */
 extern void
-eina_thread_queue_wait_done(Eina_Thread_Queue *thq, void *allocref) EINA_ARG_NONNULL(1, 2);
+eina_thread_queue_wait_done(Eina_Thread_Queue *thq, void *allocref) ;
 
 /**
  * @brief Fetches a message from a thread queue, but return immediately if there is none with NULL.
@@ -173,7 +173,7 @@ eina_thread_queue_wait_done(Eina_Thread_Queue *thq, void *allocref) EINA_ARG_NON
  * @since 1.11
  */
 extern void *
-eina_thread_queue_poll(Eina_Thread_Queue *thq, void **allocref) EINA_ARG_NONNULL(1, 2);
+eina_thread_queue_poll(Eina_Thread_Queue *thq, void **allocref) ;
 
 /**
  * @brief Gets the number of messages on a queue as yet unfetched.

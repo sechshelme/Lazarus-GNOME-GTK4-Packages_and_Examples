@@ -3,7 +3,7 @@ unit eina_value;
 interface
 
 uses
-  ctypes, efl, eina_types, eina_error, eina_inarray, eina_hash;
+  ctypes, efl, eina_types, eina_list, eina_error, eina_inarray, eina_hash;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}

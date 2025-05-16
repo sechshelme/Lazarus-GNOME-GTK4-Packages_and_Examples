@@ -52,7 +52,7 @@
  *
  * @since 1.15
  */
-static inline unsigned int eina_crc(const char *key, int len, unsigned int seed, Eina_Bool start_stream) EINA_ARG_NONNULL(2, 3);
+static inline unsigned int eina_crc(const char *key, int len, unsigned int seed, Eina_Bool start_stream) ;
 
 #include "eina_inline_crc.x"
 

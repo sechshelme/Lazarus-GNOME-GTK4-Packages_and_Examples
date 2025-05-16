@@ -79,7 +79,7 @@ typedef struct _Eina_Lalloc Eina_Lalloc;
 extern Eina_Lalloc *eina_lalloc_new(void             *data,
                                   Eina_Lalloc_Alloc alloc_cb,
                                   Eina_Lalloc_Free  free_cb,
-                                  int               num_init) EINA_ARG_NONNULL(2, 3);
+                                  int               num_init) ;
 
 /**
  * @brief Frees the resources for a lazy allocator.

@@ -30,6 +30,11 @@ type
   PEina_File_Populate = ^TEina_File_Populate;
   TEina_File_Populate = longint;
 
+  TEina_File = record
+  end;
+  PEina_File = ^TEina_File;
+  PPEina_File = ^PEina_File;
+
 const
   EINA_FILE_RANDOM = 0;
   EINA_FILE_SEQUENTIAL = 1;

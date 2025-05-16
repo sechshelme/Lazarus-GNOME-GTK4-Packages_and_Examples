@@ -153,7 +153,7 @@ typedef struct _Eina_Prefix Eina_Prefix;
 extern Eina_Prefix *eina_prefix_new(const char *argv0, void *symbol, const char *envprefix,
                                   const char *sharedir, const char *magicsharefile,
                                   const char *pkg_bin, const char *pkg_lib,
-                                  const char *pkg_data, const char *pkg_locale) EINA_ARG_NONNULL(6, 7, 8, 9) EINA_WARN_UNUSED_RESULT;
+                                  const char *pkg_data, const char *pkg_locale) EINA_ARG_NONNULL(6, 7, 8, 9) ;
 
 /**
  * @brief Frees the prefix object and all its contents.
@@ -178,7 +178,7 @@ extern void eina_prefix_free(Eina_Prefix *pfx) ;
  *
  * @since 1.1.0
  */
-extern const char *eina_prefix_get(Eina_Prefix *pfx)  EINA_WARN_UNUSED_RESULT EINA_PURE;
+extern const char *eina_prefix_get(Eina_Prefix *pfx)   ;
 
 /**
  * @brief Gets the binary installation directory.
@@ -189,7 +189,7 @@ extern const char *eina_prefix_get(Eina_Prefix *pfx)  EINA_WARN_UNUSED_RESULT EI
  *
  * @since 1.1.0
  */
-extern const char *eina_prefix_bin_get(Eina_Prefix *pfx)  EINA_WARN_UNUSED_RESULT EINA_PURE;
+extern const char *eina_prefix_bin_get(Eina_Prefix *pfx)   ;
 
 /**
  * @brief Gets the library installation directory.
@@ -200,7 +200,7 @@ extern const char *eina_prefix_bin_get(Eina_Prefix *pfx)  EINA_WARN_UNUSED_RESUL
  *
  * @since 1.1.0
  */
-extern const char *eina_prefix_lib_get(Eina_Prefix *pfx)  EINA_WARN_UNUSED_RESULT EINA_PURE;
+extern const char *eina_prefix_lib_get(Eina_Prefix *pfx)   ;
 
 /**
  * @brief Gets the data installation directory.
@@ -211,7 +211,7 @@ extern const char *eina_prefix_lib_get(Eina_Prefix *pfx)  EINA_WARN_UNUSED_RESUL
  *
  * @since 1.1.0
  */
-extern const char *eina_prefix_data_get(Eina_Prefix *pfx)  EINA_WARN_UNUSED_RESULT EINA_PURE;
+extern const char *eina_prefix_data_get(Eina_Prefix *pfx)   ;
 
 /**
  * @brief Gets the locale installation directory.
@@ -222,7 +222,7 @@ extern const char *eina_prefix_data_get(Eina_Prefix *pfx)  EINA_WARN_UNUSED_RESU
  *
  * @since 1.1.0
  */
-extern const char *eina_prefix_locale_get(Eina_Prefix *pfx)  EINA_WARN_UNUSED_RESULT EINA_PURE;
+extern const char *eina_prefix_locale_get(Eina_Prefix *pfx)   ;
 
 /**
  * @}

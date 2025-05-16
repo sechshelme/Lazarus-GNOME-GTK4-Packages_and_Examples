@@ -79,7 +79,7 @@ typedef struct _Eina_Strbuf Eina_Strbuf;
  * @see eina_strbuf_append()
  * @see eina_strbuf_string_get()
  */
-extern Eina_Strbuf *eina_strbuf_new(void) EINA_MALLOC EINA_WARN_UNUSED_RESULT;
+extern Eina_Strbuf *eina_strbuf_new(void)  ;
 
 /**
  * @brief Creates a new string buffer using the passed string.
@@ -99,7 +99,7 @@ extern Eina_Strbuf *eina_strbuf_new(void) EINA_MALLOC EINA_WARN_UNUSED_RESULT;
  *
  * @since 1.1.0
  */
-extern Eina_Strbuf *eina_strbuf_manage_new(char *str) EINA_MALLOC EINA_WARN_UNUSED_RESULT;
+extern Eina_Strbuf *eina_strbuf_manage_new(char *str)  ;
 
 /**
  * @brief Creates a new string buffer using the passed string.
@@ -117,7 +117,7 @@ extern Eina_Strbuf *eina_strbuf_manage_new(char *str) EINA_MALLOC EINA_WARN_UNUS
  *
  * @since 1.2.0
  */
-extern Eina_Strbuf *eina_strbuf_manage_new_length(char *str, size_t length) EINA_MALLOC EINA_WARN_UNUSED_RESULT;
+extern Eina_Strbuf *eina_strbuf_manage_new_length(char *str, size_t length)  ;
 
 /**
  * @brief Creates a new string buffer using the passed string.
@@ -138,7 +138,7 @@ extern Eina_Strbuf *eina_strbuf_manage_new_length(char *str, size_t length) EINA
  *
  * @since 1.9.0
  */
-extern Eina_Strbuf *eina_strbuf_manage_read_only_new_length(const char *str, size_t length) EINA_MALLOC EINA_WARN_UNUSED_RESULT;
+extern Eina_Strbuf *eina_strbuf_manage_read_only_new_length(const char *str, size_t length)  ;
 
 /**
  * @brief Frees a string buffer.
@@ -175,7 +175,7 @@ extern void eina_strbuf_reset(Eina_Strbuf *buf) ;
  * @see eina_strbuf_append()
  * @see eina_strbuf_append_length()
  */
-extern Eina_Bool eina_strbuf_append(Eina_Strbuf *buf, const char *str) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool eina_strbuf_append(Eina_Strbuf *buf, const char *str) ;
 
 /**
  * @brief Appends an escaped string to a buffer, reallocating as necessary.
@@ -186,7 +186,7 @@ extern Eina_Bool eina_strbuf_append(Eina_Strbuf *buf, const char *str) EINA_ARG_
  *
  * This function escapes and then appends the string @p str to @p buf.
  */
-extern Eina_Bool eina_strbuf_append_escaped(Eina_Strbuf *buf, const char *str) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool eina_strbuf_append_escaped(Eina_Strbuf *buf, const char *str) ;
 
 /**
  * @brief Appends a string to a buffer, reallocating as necessary,
@@ -207,7 +207,7 @@ extern Eina_Bool eina_strbuf_append_escaped(Eina_Strbuf *buf, const char *str) E
  * @see eina_strbuf_append()
  * @see eina_strbuf_append_length()
  */
-extern Eina_Bool eina_strbuf_append_n(Eina_Strbuf *buf, const char *str, size_t maxlen) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool eina_strbuf_append_n(Eina_Strbuf *buf, const char *str, size_t maxlen) ;
 
 /**
  * @brief Appends a string of exact length to a buffer, reallocating as
@@ -227,7 +227,7 @@ extern Eina_Bool eina_strbuf_append_n(Eina_Strbuf *buf, const char *str, size_t 
  * @see eina_strbuf_append()
  * @see eina_strbuf_append_n()
  */
-extern Eina_Bool eina_strbuf_append_length(Eina_Strbuf *buf, const char *str, size_t length) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool eina_strbuf_append_length(Eina_Strbuf *buf, const char *str, size_t length) ;
 
 /**
  * @brief Append a slice to a buffer, reallocating as necessary.
@@ -259,7 +259,7 @@ extern Eina_Bool eina_strbuf_append_slice(Eina_Strbuf *buf, const Eina_Slice sli
  *
  * @since 1.9.0
  */
-extern Eina_Bool eina_strbuf_append_buffer(Eina_Strbuf *buf, const Eina_Strbuf *data) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool eina_strbuf_append_buffer(Eina_Strbuf *buf, const Eina_Strbuf *data) ;
 
 /**
  * @brief Appends a character to a string buffer, reallocating as
@@ -288,7 +288,7 @@ extern Eina_Bool eina_strbuf_append_char(Eina_Strbuf *buf, char c) ;
  *
  * @see eina_strbuf_append()
  */
-extern Eina_Bool eina_strbuf_append_printf(Eina_Strbuf *buf, const char *fmt, ...) EINA_ARG_NONNULL(1, 2) EINA_PRINTF(2, 3);
+extern Eina_Bool eina_strbuf_append_printf(Eina_Strbuf *buf, const char *fmt, ...) ;
 
 /**
  * @brief Appends data elements to a string buffer using a va_list.
@@ -300,7 +300,7 @@ extern Eina_Bool eina_strbuf_append_printf(Eina_Strbuf *buf, const char *fmt, ..
  *
  * @see eina_strbuf_append_printf()
  */
-extern Eina_Bool eina_strbuf_append_vprintf(Eina_Strbuf *buf, const char *fmt, va_list args) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool eina_strbuf_append_vprintf(Eina_Strbuf *buf, const char *fmt, va_list args) ;
 
 /**
  * @brief Inserts a string into a buffer, reallocating as necessary.
@@ -315,7 +315,7 @@ extern Eina_Bool eina_strbuf_append_vprintf(Eina_Strbuf *buf, const char *fmt, v
  * eina_strbuf_insert_length(). If the length is known beforehand,
  * consider using that variant.
  */
-extern Eina_Bool eina_strbuf_insert(Eina_Strbuf *buf, const char *str, size_t pos) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool eina_strbuf_insert(Eina_Strbuf *buf, const char *str, size_t pos) ;
 
 /**
  * @brief Inserts an escaped string into a buffer, reallocating as
@@ -329,7 +329,7 @@ extern Eina_Bool eina_strbuf_insert(Eina_Strbuf *buf, const char *str, size_t po
  * This function escapes and inserts the string @p str into @p buf at
  * position @p pos.
  */
-extern Eina_Bool eina_strbuf_insert_escaped(Eina_Strbuf *buf, const char *str, size_t pos) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool eina_strbuf_insert_escaped(Eina_Strbuf *buf, const char *str, size_t pos) ;
 
 /**
  * @brief Inserts a string of a maximum length into a buffer, reallocating as necessary.
@@ -348,7 +348,7 @@ extern Eina_Bool eina_strbuf_insert_escaped(Eina_Strbuf *buf, const char *str, s
  * should then be checked so that it is greater than the size of
  * @p str).
  */
-extern Eina_Bool eina_strbuf_insert_n(Eina_Strbuf *buf, const char *str, size_t maxlen, size_t pos) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool eina_strbuf_insert_n(Eina_Strbuf *buf, const char *str, size_t maxlen, size_t pos) ;
 
 /**
  * @brief Inserts a string of an exact length into a buffer, reallocating as necessary.
@@ -368,7 +368,7 @@ extern Eina_Bool eina_strbuf_insert_n(Eina_Strbuf *buf, const char *str, size_t 
  * @see eina_strbuf_insert()
  * @see eina_strbuf_insert_n()
  */
-extern Eina_Bool eina_strbuf_insert_length(Eina_Strbuf *buf, const char *str, size_t length, size_t pos) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool eina_strbuf_insert_length(Eina_Strbuf *buf, const char *str, size_t length, size_t pos) ;
 
 /**
  * @brief Insert a slice into a buffer, reallocating as necessary.
@@ -410,7 +410,7 @@ extern Eina_Bool eina_strbuf_insert_char(Eina_Strbuf *buf, char c, size_t pos) ;
  * the position @p pos. @p fmt must be of a valid format for printf family of
  * functions.
  */
-extern Eina_Bool eina_strbuf_insert_printf(Eina_Strbuf *buf, const char *fmt, size_t pos, ...) EINA_ARG_NONNULL(1, 2) EINA_PRINTF(2, 4);
+extern Eina_Bool eina_strbuf_insert_printf(Eina_Strbuf *buf, const char *fmt, size_t pos, ...) ;
 
 /**
  * @brief Inserts data elements into a buffer using a va_list.
@@ -423,7 +423,7 @@ extern Eina_Bool eina_strbuf_insert_printf(Eina_Strbuf *buf, const char *fmt, si
  *
  * @see eina_strbuf_insert_printf
  */
-extern Eina_Bool eina_strbuf_insert_vprintf(Eina_Strbuf *buf, const char *fmt, size_t pos, va_list args) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool eina_strbuf_insert_vprintf(Eina_Strbuf *buf, const char *fmt, size_t pos, va_list args) ;
 
 /**
  * @def eina_strbuf_prepend(buf, str)
@@ -498,7 +498,6 @@ extern Eina_Bool eina_strbuf_insert_vprintf(Eina_Strbuf *buf, const char *fmt, s
  *
  * This macro simply calls eina_strbuf_insert_printf() with position 0.
  */
-#define eina_strbuf_prepend_printf(buf, fmt, ...) eina_strbuf_insert_printf(buf, fmt, 0, ## __VA_ARGS__)
 
 /**
  * @def eina_strbuf_prepend_vprintf(buf, fmt, args)
@@ -542,7 +541,7 @@ extern Eina_Bool eina_strbuf_remove(Eina_Strbuf *buf, size_t start, size_t end) 
  *
  * @see eina_strbuf_string_steal()
  */
-extern const char *eina_strbuf_string_get(const Eina_Strbuf *buf)  EINA_WARN_UNUSED_RESULT;
+extern const char *eina_strbuf_string_get(const Eina_Strbuf *buf)  ;
 
 /**
  * @brief Steals the contents of a string buffer.
@@ -557,7 +556,7 @@ extern const char *eina_strbuf_string_get(const Eina_Strbuf *buf)  EINA_WARN_UNU
  *
  * @see eina_strbuf_string_get()
  */
-extern char *eina_strbuf_string_steal(Eina_Strbuf *buf) EINA_MALLOC EINA_WARN_UNUSED_RESULT ;
+extern char *eina_strbuf_string_steal(Eina_Strbuf *buf)   ;
 
 /**
  * @brief Frees the contents of a string buffer but not the buffer.
@@ -577,7 +576,7 @@ extern void eina_strbuf_string_free(Eina_Strbuf *buf) ;
  *
  * This function returns the length of @p buf.
  */
-extern size_t eina_strbuf_length_get(const Eina_Strbuf *buf)  EINA_WARN_UNUSED_RESULT;
+extern size_t eina_strbuf_length_get(const Eina_Strbuf *buf)  ;
 
 /**
  * @brief Replaces a substring in the buffer with another string.
@@ -591,7 +590,7 @@ extern size_t eina_strbuf_length_get(const Eina_Strbuf *buf)  EINA_WARN_UNUSED_R
  * This function replaces the n-th occurrence of @p str in @p buf with
  * @p with.
  */
-extern Eina_Bool eina_strbuf_replace(Eina_Strbuf *buf, const char *str, const char *with, unsigned int n) EINA_ARG_NONNULL(1, 2, 3);
+extern Eina_Bool eina_strbuf_replace(Eina_Strbuf *buf, const char *str, const char *with, unsigned int n) ;
 
 /**
  * @def eina_strbuf_replace_first(buf, str, with)
@@ -619,7 +618,7 @@ extern Eina_Bool eina_strbuf_replace(Eina_Strbuf *buf, const char *str, const ch
  * This function replaces the last occurrence of @p str in @p buf with
  * @p with.
  */
-extern Eina_Bool eina_strbuf_replace_last(Eina_Strbuf *buf, const char *str, const char *with) EINA_ARG_NONNULL(1, 2, 3);
+extern Eina_Bool eina_strbuf_replace_last(Eina_Strbuf *buf, const char *str, const char *with) ;
 
 /**
  * @brief Replaces all matching substrings with another string.
@@ -632,7 +631,7 @@ extern Eina_Bool eina_strbuf_replace_last(Eina_Strbuf *buf, const char *str, con
  * This function replaces all the occurrences of @p str in @p buf with
  * the string @p with.
  */
-extern int eina_strbuf_replace_all(Eina_Strbuf *buf, const char *str, const char *with) EINA_ARG_NONNULL(1, 2, 3);
+extern int eina_strbuf_replace_all(Eina_Strbuf *buf, const char *str, const char *with) ;
 
 /**
  * @brief Trims the string buffer.
@@ -690,7 +689,7 @@ extern void eina_strbuf_tolower(Eina_Strbuf *buf) ;
  *
  * @since 1.17
  */
-extern Eina_Strbuf * eina_strbuf_substr_get(Eina_Strbuf *buf, size_t pos, size_t len) EINA_MALLOC EINA_WARN_UNUSED_RESULT;
+extern Eina_Strbuf * eina_strbuf_substr_get(Eina_Strbuf *buf, size_t pos, size_t len)  ;
 
 /**
  * @brief Gets a read-only slice of the buffer contents.
@@ -701,7 +700,7 @@ extern Eina_Strbuf * eina_strbuf_substr_get(Eina_Strbuf *buf, size_t pos, size_t
  *
  * @since 1.19
  */
-extern Eina_Slice eina_strbuf_slice_get(const Eina_Strbuf *buf) EINA_WARN_UNUSED_RESULT ;
+extern Eina_Slice eina_strbuf_slice_get(const Eina_Strbuf *buf)  ;
 
 /**
  * @brief Gets a read-write slice of the buffer contents.
@@ -713,7 +712,7 @@ extern Eina_Slice eina_strbuf_slice_get(const Eina_Strbuf *buf) EINA_WARN_UNUSED
  *
  * @since 1.19.0
  */
-extern Eina_Rw_Slice eina_strbuf_rw_slice_get(const Eina_Strbuf *buf) EINA_WARN_UNUSED_RESULT ;
+extern Eina_Rw_Slice eina_strbuf_rw_slice_get(const Eina_Strbuf *buf)  ;
 
 /**
  * @brief Frees the buffer, returning its old contents.
@@ -724,7 +723,7 @@ extern Eina_Rw_Slice eina_strbuf_rw_slice_get(const Eina_Strbuf *buf) EINA_WARN_
  *
  * @since 1.19
  */
-extern char* eina_strbuf_release(Eina_Strbuf *buf) EINA_WARN_UNUSED_RESULT ;
+extern char* eina_strbuf_release(Eina_Strbuf *buf)  ;
 
 /**
  * @brief Appends a strftime-style timestamp to the buffer.

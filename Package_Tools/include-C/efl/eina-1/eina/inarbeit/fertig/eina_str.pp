@@ -1,13 +1,45 @@
-#ifndef _EINA_STR_H
-#define _EINA_STR_H
 
-#include <stddef.h>
-#include <string.h>
-#include <time.h>
+unit eina_str;
+interface
 
-#include "eina_types.h"
+{
+  Automatically converted by H2Pas 1.0.0 from eina_str.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    eina_str.h
+}
 
-/**
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pbyte  = ^byte;
+Pchar  = ^char;
+Pdword  = ^dword;
+Psize_t  = ^size_t;
+Ptm  = ^tm;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{$ifndef _EINA_STR_H}
+{$define _EINA_STR_H}
+{$include <stddef.h>}
+{$include <string.h>}
+{$include <time.h>}
+{$include "eina_types.h"}
+{*
  * @page tutorial_eina_string Eina String example
  * @dontinclude eina_str_01.c
  *
@@ -50,10 +82,10 @@
  * @until printf("
  *
  * And then shut eina down and exit:
- * @until }
+ * @until 
  * @example eina_str_01.c
- */
-/**
+  }
+{*
  * @addtogroup Eina_String_Group String
  *
  * @brief Provides useful functions for C string manipulation.
@@ -65,25 +97,21 @@
  * shared strings(eina_stringshare).
  *
  * See an example @ref tutorial_eina_string "here".
- */
-
-/**
+  }
+{*
  * @addtogroup Eina_Tools_Group Tools
  *
  * For more information refer to the @ref tutorial_eina_string "string example".
  *
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * @defgroup Eina_String_Group String
  *
- * @{
- */
-
-/* strlcpy implementation for libc's lacking it */
-
-/**
+ * @
+  }
+{ strlcpy implementation for libc's lacking it  }
+{*
  * @brief Copies a c-string to another.
  *
  * @param[out] dst The destination string.
@@ -100,10 +128,11 @@
  * @note The main difference between eina_strlcpy and strncpy is that this
  * ensures @p dst is NULL-terminated even if no @c NULL byte is found in the first
  * @p siz bytes of src.
- */
-extern size_t          eina_strlcpy(char *dst, const char *src, size_t siz) EINA_ARG_NONNULL(1, 2);
+  }
+(* Const before type ignored *)
 
-/**
+function eina_strlcpy(dst:Pchar; src:Pchar; siz:Tsize_t):Tsize_t;cdecl;external;
+{*
  * @brief Appends a c-string.
  *
  * @param[out] dst The destination string.
@@ -117,11 +146,10 @@ extern size_t          eina_strlcpy(char *dst, const char *src, size_t siz) EINA
  * (unless @p siz <= strlen(dst)). This function returns strlen(src) +
  * MIN(siz, strlen(initial dst)). If the returned value is greater or
  * equal than @p siz, truncation occurred.
- */
-extern size_t          eina_strlcat(char *dst, const char *src, size_t siz) EINA_ARG_NONNULL(1, 2);
-
-
-/**
+  }
+(* Const before type ignored *)
+function eina_strlcat(dst:Pchar; src:Pchar; siz:Tsize_t):Tsize_t;cdecl;external;
+{*
  * @brief Checks if the given string has the given prefix.
  *
  * @param[in] str The string to work with.
@@ -131,10 +159,11 @@ extern size_t          eina_strlcat(char *dst, const char *src, size_t siz) EINA
  * This function returns #EINA_TRUE if @p str has the prefix
  * @p prefix, #EINA_FALSE otherwise. If the length of @p prefix is
  * greater than @p str, #EINA_FALSE is returned.
- */
-extern Eina_Bool       eina_str_has_prefix(const char *str, const char *prefix) EINA_PURE EINA_ARG_NONNULL(1, 2) EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_str_has_prefix(str:Pchar; prefix:Pchar):TEina_Bool;cdecl;external;
+{*
  * @brief Checks if the given string has the given suffix.
  *
  * @param[in] str The string to work with.
@@ -144,10 +173,11 @@ extern Eina_Bool       eina_str_has_prefix(const char *str, const char *prefix) 
  * This function returns #EINA_TRUE if @p str has the suffix
  * @p suffix, #EINA_FALSE otherwise. If the length of @p suffix is
  * greater than @p str, #EINA_FALSE is returned.
- */
-extern Eina_Bool       eina_str_has_suffix(const char *str, const char *suffix) EINA_PURE EINA_ARG_NONNULL(1, 2) EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_str_has_suffix(str:Pchar; suffix:Pchar):TEina_Bool;cdecl;external;
+{*
  * @brief Checks if the given string has the given extension.
  *
  * @param[in] str The string to work with.
@@ -156,10 +186,11 @@ extern Eina_Bool       eina_str_has_suffix(const char *str, const char *suffix) 
  *
  * This function does the same as eina_str_has_suffix(), except it's case
  * insensitive.
- */
-extern Eina_Bool       eina_str_has_extension(const char *str, const char *ext) EINA_PURE EINA_ARG_NONNULL(1, 2) EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_str_has_extension(str:Pchar; ext:Pchar):TEina_Bool;cdecl;external;
+{*
  * @brief Splits a string using a delimiter.
  *
  * @param[in] string The string to split.
@@ -182,10 +213,11 @@ extern Eina_Bool       eina_str_has_extension(const char *str, const char *ext) 
  *
  * @note If you need the number of elements in the returned array see
  * eina_str_split_full().
- */
-extern char          **eina_str_split(const char *string, const char *delimiter, int max_tokens) EINA_ARG_NONNULL(1, 2) EINA_MALLOC EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_str_split(_string:Pchar; delimiter:Pchar; max_tokens:longint):^Pchar;cdecl;external;
+{*
  * @brief Splits a string using a delimiter and returns number of elements.
  *
  * @param[in] string The string to split.
@@ -215,11 +247,11 @@ extern char          **eina_str_split(const char *string, const char *delimiter,
  *       will be 6, but the size of the array (including the @c NULL element) will actually be 7.
  *
  * @see eina_str_split()
- */
-extern char          **eina_str_split_full(const char *string, const char *delimiter, int max_tokens, unsigned int *elements) EINA_ARG_NONNULL(1, 2, 4) EINA_MALLOC EINA_WARN_UNUSED_RESULT;
-
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_str_split_full(_string:Pchar; delimiter:Pchar; max_tokens:longint; elements:Pdword):^Pchar;cdecl;external;
+{*
  * @brief Joins two strings of known length.
  *
  * @param[out] dst The buffer to store the result.
@@ -244,11 +276,12 @@ extern char          **eina_str_split_full(const char *string, const char *delim
  *
  * @see eina_str_join()
  * @see eina_str_join_static()
- */
-extern size_t          eina_str_join_len(char *dst, size_t size, char sep, const char *a, size_t a_len, const char *b, size_t b_len) EINA_ARG_NONNULL(1, 4, 6);
-
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_str_join_len(dst:Pchar; size:Tsize_t; sep:char; a:Pchar; a_len:Tsize_t; 
+           b:Pchar; b_len:Tsize_t):Tsize_t;cdecl;external;
+{*
  * @brief Uses Iconv to convert a text string from one encoding to another.
  *
  * @param[in] enc_from Encoding to convert from.
@@ -264,10 +297,12 @@ extern size_t          eina_str_join_len(char *dst, size_t size, char sep, const
  *
  * @warning This function is guaranteed to break when '\0' characters are in @p text.
  * DO NOT USE THIS FUNCTION IF YOUR TEXT CONTAINS NON-TERMINATING '\0' CHARACTERS.
- */
-extern char           *eina_str_convert(const char *enc_from, const char *enc_to, const char *text) EINA_WARN_UNUSED_RESULT EINA_MALLOC EINA_ARG_NONNULL(1, 2, 3);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_str_convert(enc_from:Pchar; enc_to:Pchar; text:Pchar):Pchar;cdecl;external;
+{*
  * @brief Uses Iconv to convert a text string from one encoding to another.
  *
  * @param[in] enc_from Encoding to convert from.
@@ -284,11 +319,12 @@ extern char           *eina_str_convert(const char *enc_from, const char *enc_to
  * the returned value must be freed.
  *
  * @since 1.8
- */
-extern char           *eina_str_convert_len(const char *enc_from, const char *enc_to, const char *text, size_t len, size_t *retlen) EINA_WARN_UNUSED_RESULT EINA_MALLOC EINA_ARG_NONNULL(1, 2, 3);
-
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_str_convert_len(enc_from:Pchar; enc_to:Pchar; text:Pchar; len:Tsize_t; retlen:Psize_t):Pchar;cdecl;external;
+{*
  * @brief Escapes slashes, spaces and apostrophes in strings.
  *
  * @param[in] str The string to escape.
@@ -299,11 +335,10 @@ extern char           *eina_str_convert_len(const char *enc_from, const char *en
  * function returns a newly allocated escaped string on success, @c NULL on
  * failure. When not used anymore, the
  * returned value must be freed.
- */
-extern char           *eina_str_escape(const char *str) EINA_WARN_UNUSED_RESULT EINA_MALLOC ;
-
-
-/**
+  }
+(* Const before type ignored *)
+function eina_str_escape(str:Pchar):Pchar;cdecl;external;
+{*
  * @brief Lowercases all the characters in range [A-Z] in the given string.
  *
  * @param[in,out] str The string to lowercase.
@@ -311,10 +346,9 @@ extern char           *eina_str_escape(const char *str) EINA_WARN_UNUSED_RESULT 
  * This function modifies the original string, changing all characters
  * in [A-Z] to lowercase. If @p str is @c NULL or is an empty string,
  * this function does nothing.
- */
-extern void            eina_str_tolower(char **str);
-
-/**
+  }
+procedure eina_str_tolower(str:PPchar);cdecl;external;
+{*
  * @brief Uppercases all the characters in range [a-z] in the given string.
  *
  * @param[in,out] str The string to uppercase.
@@ -322,12 +356,9 @@ extern void            eina_str_tolower(char **str);
  * This function modifies the original string, changing all characters
  * in [a-z] to uppercase. If @p str is @c NULL or is an empty string,
  * this function does nothing.
- */
-extern void            eina_str_toupper(char **str);
-
-static inline size_t eina_str_join(char *dst, size_t size, char sep, const char *a, const char *b) EINA_ARG_NONNULL(1, 4, 5);
-
-/**
+  }
+procedure eina_str_toupper(str:PPchar);cdecl;external;
+{*
  * @def eina_str_join_static(dst, sep, a, b)
  * @brief Joins two static strings and store the result in a static buffer.
  *
@@ -342,22 +373,22 @@ static inline size_t eina_str_join(char *dst, size_t size, char sep, const char 
  *
  * @see eina_str_join()
  * @see eina_str_join_static()
- */
-#define eina_str_join_static(dst, sep, a, b) eina_str_join_len(dst, sizeof(dst), sep, a, (sizeof(a) > 0) ? sizeof(a) - 1 : 0, b, (sizeof(b) > 0) ? sizeof(b) - 1 : 0)
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function eina_str_join_static(dst,sep,a,b : longint) : longint;
 
-static inline size_t eina_strlen_bounded(const char *str, size_t maxlen) EINA_PURE EINA_WARN_UNUSED_RESULT ;
-
-/**
+{*
  * @brief Memory duplication function with optional termination for strings
  * @param[in] mem The memory to copy
  * @param[in] size The size of @p mem
  * @param[in] terminate If true, the returned memory will be nul terminated with '\0'
  * @return The copied memory, must be freed
  * @since 1.13
- */
-extern unsigned char *eina_memdup(unsigned char *mem, size_t size, Eina_Bool terminate);
-
-/**
+  }
+function eina_memdup(mem:Pbyte; size:Tsize_t; terminate:TEina_Bool):Pbyte;cdecl;external;
+{*
  * @brief Creates and update the buffer based on strftime output.
  *
  * @param[in] tm Pointer to a tm structure needed by strftime.
@@ -380,27 +411,32 @@ extern unsigned char *eina_memdup(unsigned char *mem, size_t size, Eina_Bool ter
  * @endcode
  *
  * @since 1.17.0
- */
-extern char *eina_strftime(const char *format, const struct tm *tm);
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_strftime(format:Pchar; tm:Ptm):Pchar;cdecl;external;
+{$include "eina_inline_str.x"}
+{*
+ * @
+  }
+{*
+ * @
+  }
+{$endif}
+{ EINA_STR_H  }
 
-static inline size_t eina_strlen_bounded(const char *str, size_t maxlen);
+implementation
 
-static inline size_t eina_str_join(char *dst, size_t size, char sep, const char *a, const char *b);
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function eina_str_join_static(dst,sep,a,b : longint) : longint;
+var
+   if_local1, if_local2 : longint;
+(* result types are not known *)
+begin
+  eina_str_join_static:=eina_str_join_len(dst,sizeof(dst),sep,a,if_local1,b,if_local2);
+end;
 
-static inline char *eina_strdup(const char *str);
 
-static inline char *eina_strndup(const char *str, size_t n);
-
-static inline Eina_Bool eina_streq(const char *a, const char *b);
-
-#include "eina_inline_str.x"
-
-/**
- * @}
- */
-
-/**
- * @}
- */
-
-#endif /* EINA_STR_H */
+end.

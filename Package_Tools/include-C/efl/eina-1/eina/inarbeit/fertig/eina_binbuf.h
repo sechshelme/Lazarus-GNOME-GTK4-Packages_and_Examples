@@ -47,7 +47,7 @@ typedef struct _Eina_Strbuf Eina_Binbuf;
  * @see eina_binbuf_append()
  * @see eina_binbuf_string_get()
  */
-extern Eina_Binbuf *eina_binbuf_new(void) EINA_MALLOC EINA_WARN_UNUSED_RESULT;
+extern Eina_Binbuf *eina_binbuf_new(void)  ;
 
 /**
  * @brief Creates a new string buffer using the passed string.
@@ -73,7 +73,7 @@ extern Eina_Binbuf *eina_binbuf_new(void) EINA_MALLOC EINA_WARN_UNUSED_RESULT;
  *
  * @since 1.14.0
  */
-extern Eina_Binbuf *eina_binbuf_manage_new(const unsigned char *str, size_t length, Eina_Bool ro) EINA_MALLOC EINA_WARN_UNUSED_RESULT;
+extern Eina_Binbuf *eina_binbuf_manage_new(const unsigned char *str, size_t length, Eina_Bool ro)  ;
 
 /**
  * @brief Creates a new string buffer using the passed string.
@@ -89,7 +89,8 @@ extern Eina_Binbuf *eina_binbuf_manage_new(const unsigned char *str, size_t leng
  *
  * @since 1.2.0
  */
-extern Eina_Binbuf *eina_binbuf_manage_new_length(unsigned char *str, size_t length) EINA_MALLOC EINA_WARN_UNUSED_RESULT EINA_DEPRECATED;
+// EINA_DEPRECATED xxxxxxxx
+extern Eina_Binbuf *eina_binbuf_manage_new_length(unsigned char *str, size_t length)   ;
 
 /**
  * @brief Creates a new string buffer using the passed string.
@@ -110,7 +111,8 @@ extern Eina_Binbuf *eina_binbuf_manage_new_length(unsigned char *str, size_t len
  *
  * @since 1.9.0
  */
-extern Eina_Binbuf *eina_binbuf_manage_read_only_new_length(const unsigned char *str, size_t length) EINA_MALLOC EINA_WARN_UNUSED_RESULT EINA_DEPRECATED;
+// EINA_DEPRECATED xxxxxxxxxxxxxxxxxxx
+extern Eina_Binbuf *eina_binbuf_manage_read_only_new_length(const unsigned char *str, size_t length)  ;
 
 /**
  * @brief Frees a string buffer.
@@ -200,7 +202,7 @@ extern Eina_Bool eina_binbuf_use(Eina_Binbuf *buf, size_t extra_bytes) ;
  * @see eina_binbuf_append()
  * @see eina_binbuf_append_n()
  */
-extern Eina_Bool eina_binbuf_append_length(Eina_Binbuf *buf, const unsigned char *str, size_t length) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool eina_binbuf_append_length(Eina_Binbuf *buf, const unsigned char *str, size_t length) ;
 
 /**
  * @brief Appends a slice to a buffer, reallocating as necessary.
@@ -232,7 +234,7 @@ extern Eina_Bool eina_binbuf_append_slice(Eina_Binbuf *buf, const Eina_Slice sli
  *
  * @since 1.9.0
  */
-extern Eina_Bool eina_binbuf_append_buffer(Eina_Binbuf *buf, const Eina_Binbuf *data) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool eina_binbuf_append_buffer(Eina_Binbuf *buf, const Eina_Binbuf *data) ;
 
 /**
  * @brief Appends a character to a string buffer, reallocating as
@@ -264,7 +266,7 @@ extern Eina_Bool eina_binbuf_append_char(Eina_Binbuf *buf, unsigned char c) ;
  * @see eina_binbuf_insert()
  * @see eina_binbuf_insert_n()
  */
-extern Eina_Bool eina_binbuf_insert_length(Eina_Binbuf *buf, const unsigned char *str, size_t length, size_t pos) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool eina_binbuf_insert_length(Eina_Binbuf *buf, const unsigned char *str, size_t length, size_t pos) ;
 
 /**
  * @brief Inserts a slice into a buffer, reallocating as necessary.
@@ -322,7 +324,7 @@ extern Eina_Bool eina_binbuf_remove(Eina_Binbuf *buf, size_t start, size_t end) 
  *
  * @see eina_binbuf_string_steal()
  */
-extern const unsigned char *eina_binbuf_string_get(const Eina_Binbuf *buf)  EINA_WARN_UNUSED_RESULT;
+extern const unsigned char *eina_binbuf_string_get(const Eina_Binbuf *buf)  ;
 
 /**
  * @brief Steals the contents of a string buffer.
@@ -337,7 +339,7 @@ extern const unsigned char *eina_binbuf_string_get(const Eina_Binbuf *buf)  EINA
  *
  * @see eina_binbuf_string_get()
  */
-extern unsigned char *eina_binbuf_string_steal(Eina_Binbuf *buf) EINA_MALLOC EINA_WARN_UNUSED_RESULT ;
+extern unsigned char *eina_binbuf_string_steal(Eina_Binbuf *buf)   ;
 
 /**
  * @brief Frees the contents of a string buffer but not the buffer.
@@ -357,7 +359,7 @@ extern void eina_binbuf_string_free(Eina_Binbuf *buf) ;
  *
  * This function returns the length of @p buf.
  */
-extern size_t eina_binbuf_length_get(const Eina_Binbuf *buf)  EINA_WARN_UNUSED_RESULT;
+extern size_t eina_binbuf_length_get(const Eina_Binbuf *buf)  ;
 
 /**
  * @brief Gets a read-only slice of the buffer contents.
@@ -368,7 +370,7 @@ extern size_t eina_binbuf_length_get(const Eina_Binbuf *buf)  EINA_WARN_UNUSED_R
  *
  * @since 1.19
  */
-extern Eina_Slice eina_binbuf_slice_get(const Eina_Binbuf *buf) EINA_WARN_UNUSED_RESULT ;
+extern Eina_Slice eina_binbuf_slice_get(const Eina_Binbuf *buf)  ;
 
 /**
  * @brief Gets a read-write slice of the buffer contents.
@@ -382,7 +384,7 @@ extern Eina_Slice eina_binbuf_slice_get(const Eina_Binbuf *buf) EINA_WARN_UNUSED
  *
  * @since 1.19
  */
-extern Eina_Rw_Slice eina_binbuf_rw_slice_get(const Eina_Binbuf *buf) EINA_WARN_UNUSED_RESULT ;
+extern Eina_Rw_Slice eina_binbuf_rw_slice_get(const Eina_Binbuf *buf)  ;
 
 /**
  * @brief Frees the buffer, returning its old contents.
@@ -393,7 +395,7 @@ extern Eina_Rw_Slice eina_binbuf_rw_slice_get(const Eina_Binbuf *buf) EINA_WARN_
  *
  * @since 1.19
  */
-extern unsigned char* eina_binbuf_release(Eina_Binbuf *buf) EINA_WARN_UNUSED_RESULT ;
+extern unsigned char* eina_binbuf_release(Eina_Binbuf *buf)  ;
 
 /**
  * @}

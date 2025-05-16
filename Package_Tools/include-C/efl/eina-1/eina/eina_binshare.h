@@ -94,7 +94,7 @@
  * @see eina_binshare_add()
  */
 extern const void *eina_binshare_add_length(const void  *obj,
-                                          unsigned int olen) EINA_WARN_UNUSED_RESULT;
+                                          unsigned int olen) ;
 
 /**
  * @brief Increments references of the given shared object.
@@ -138,7 +138,7 @@ extern void        eina_binshare_del(const void *obj);
  * @warning If the given pointer is not shared, bad things happen, mostly a
  *          segmentation fault. If in doubt, try strlen().
  */
-extern int         eina_binshare_length(const void *obj) EINA_WARN_UNUSED_RESULT EINA_PURE;
+extern int         eina_binshare_length(const void *obj)  ;
 
 /**
  * @brief Dumps the contents of share_common.
