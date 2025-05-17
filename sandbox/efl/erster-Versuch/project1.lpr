@@ -15,18 +15,27 @@ program project1;
 
 
 uses
-  efl,
+  efl_common,
 
   // =======================================
+
+  // eina-1
+  Efl_Config,                                         // io.
+  Eina,                                               // io.  ( evtl. löschen )
+  eina_config,                                        // io.
 
   // eina-1/eina
   eina_types,                                         // io.                      ( Viele Makros einfertn )
   eina_iterator,                                      // io.
   eina_error,                                         // io.
+  eina_mempool,                                       // io. -> eina_error
   eina_lock,                                          // io. -> eina_error
   eina_magic,                                         // io. -> eina_error
   eina_safety_checks,                                 // io. -> eina_error
+  eina_main,                                          // io. -> Efl_Config, eina_error
+  eina_rbtree,                                        // io. -> eina_iterator
   eina_hash,                                          // io. -> eina_iterator
+  eina_xattr,                                         // io. -> eina_iterator
   eina_accessor,                                      // io.
   eina_inarray,                                       // io. -> eina_iterator, eina_accessor
   eina_list,                                          // io. -> eina_iterator, eina_accessor
@@ -36,6 +45,7 @@ uses
   eina_benchmark,                                     // io. -> eina_array
   eina_inlist,                                        // io. -> eina_iterator, eina_accessor
   eina_simple_xml_parser,                             // io. -> eina_inlist
+  eina_quadtree,                                      // io. -> eina_inlist
   eina_value,                                         // io. -> eina_list, eina_error, eina_inarray, eina_hash
   eina_fp,                                            // io.
   eina_convert,                                       // io. -> eina_error, eina_fp
@@ -56,10 +66,15 @@ uses
   eina_abstract_content,                              // io. -> eina_value, eina_iterator, eina_slice
   eina_str,                                           // io.
   eina_strbuf,                                        // io. -> eina_slice
+  eina_slstr,                                         // io. -> eina_tmpstr, eina_stringshare, eina_strbuf
   eina_unicode,                                       // io.
+  eina_ustringshare,                                  // io. -> eina_unicode
   eina_ustrbuf,                                       // io. -> eina_slice, eina_strbuf, eina_unicode
   eina_binbuf,                                        // io. -> eina_strbuf, eina_slice
   eina_thread,                                        // io.
+  eina_thread_queue,                                  // io.
+  eina_debug,                                         // io.
+  eina_debug_private,                                 // io. -> eina_thread, eina_debug
   eina_freeq,                                         // io.
   eina_prefix,                                        // io.
   eina_alloca,                                        // io.
@@ -67,13 +82,22 @@ uses
   eina_counter,                                       // io.
   eina_cow,                                           // io.
   eina_cpu,                                           // io.
+  eina_evlog,                                         // io.
+  eina_trash,                                         // io.
+  eina_vpath,                                         // io.
+  eina_lalloc,                                        // io.
+  eina_mmap,                                          // io.
+  eina_range,                                         // io.
+  eina_refcount,                                      // io.
+  eina_safepointer,                                   // io.
+  eina_util,                                          // io.
+  eina_crc,                                           // io.
+  eina_fnmatch,                                       // io.
+  eina_hamster,                                       // io.
+  eina_sha,                                           // io.
+  eina_value_util,                                    // io.
 
 
-
-  // eina-1
-  Efl_Config,                                         // io.
-  Eina,                                               // io.  ( evtl. löschen )
-  eina_config,                                        // io.
 
   // =======================================
 

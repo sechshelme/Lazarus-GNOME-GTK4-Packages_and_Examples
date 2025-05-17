@@ -5,6 +5,11 @@ interface
 uses
   ctypes, efl, eina_iterator, efl_canvas_vg_node_eo_legacy;
 
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
+
 type
   PEvas_Vg_Container = ^TEvas_Vg_Container;
   TEvas_Vg_Container = TEo;
