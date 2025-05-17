@@ -113,7 +113,7 @@ extern Eina_Bool eina_content_converter_convert_can(const char *from, const char
  */
 extern Eina_Iterator* eina_content_converter_possible_conversions(const char *from);
 
-extern extern const Eina_Value_Type *EINA_VALUE_TYPE_CONTENT;
+ extern const Eina_Value_Type *EINA_VALUE_TYPE_CONTENT;
 
 /**
  * Convert the Eina_Content object to an Eina_Value.
@@ -144,11 +144,12 @@ extern Eina_Value eina_value_content_init(Eina_Content *content);
  */
 extern Eina_Content* eina_value_to_content(const Eina_Value *value);
 
-
+/*
 static inline Eina_Iterator*
 eina_content_possible_conversions(Eina_Content *content)
 {
    return eina_content_converter_possible_conversions(eina_content_type_get(content));
 }
+*/
 
 #endif

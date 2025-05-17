@@ -1,13 +1,41 @@
-#ifndef EINA_FREEQ_H_
-#define EINA_FREEQ_H_
 
-#include <stdlib.h>
+unit eina_freeq;
+interface
 
-#include "eina_config.h"
+{
+  Automatically converted by H2Pas 1.0.0 from eina_freeq.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    eina_freeq.h
+}
 
-#include "eina_types.h"
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
 
-/**
+Type
+PEina_FreeQ  = ^Eina_FreeQ;
+PEina_FreeQ_Type  = ^Eina_FreeQ_Type;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{$ifndef EINA_FREEQ_H_}
+{$define EINA_FREEQ_H_}
+{$include <stdlib.h>}
+{$include "eina_config.h"}
+{$include "eina_types.h"}
+{*
  * @addtogroup Eina_FreeQ_Group Free Queue Group
  * @ingroup Eina
  *
@@ -63,7 +91,7 @@
  * is 0x77 (119). Memory is only filled if the size of the allocation is
  * less than the max that you can adjust with EINA_FREEQ_FILL_MAX.
  *
- * @{
+ * @
  *
  * @since 1.19
  *
@@ -74,16 +102,13 @@
  * mainloop will free things as it iterates, or eina will free everything
  * on shut down.
  *
- */
-typedef struct _Eina_FreeQ Eina_FreeQ;
-
-/** @brief Type of free queues
+  }
+type
+{* @brief Type of free queues
  *
  * @since 1.19
- */
-typedef enum _Eina_FreeQ_Type
-{
-   /** @brief Default type of free queue.
+  }
+{* @brief Default type of free queue.
     *
     * Default free queue, any object added to it should be considered freed
     * immediately. Use this kind of freeq for debugging and additional memory
@@ -93,10 +118,8 @@ typedef enum _Eina_FreeQ_Type
     * also be thread-safe (e.g.. libc free()).
     *
     * @since 1.19
-    */
-   EINA_FREEQ_DEFAULT,
-
-   /** @brief Postponed type of free queue.
+     }
+{* @brief Postponed type of free queue.
     *
     * Postponed free queues behave differently in that objects added to it
     * are not to be considered freed immediately, but rather they are
@@ -116,50 +139,47 @@ typedef enum _Eina_FreeQ_Type
     * to a single thread.
     *
     * @since 1.19
-    */
-   EINA_FREEQ_POSTPONED,
-} Eina_FreeQ_Type;
+     }
 
-/**
+  PEina_FreeQ_Type = ^TEina_FreeQ_Type;
+  TEina_FreeQ_Type =  Longint;
+  Const
+    EINA_FREEQ_DEFAULT = 0;
+    EINA_FREEQ_POSTPONED = 1;
+;
+{*
  * @brief Create a new free queue to defer freeing of data with
  *
  * @return A new free queue
  * @since 1.19
- */
-extern Eina_FreeQ *
-eina_freeq_new(Eina_FreeQ_Type type);
+  }
 
-/**
+function eina_freeq_new(_type:TEina_FreeQ_Type):PEina_FreeQ;cdecl;external;
+{*
  * @brief Free a free queue and anything that is queued in it.
  *
  * @param[in,out] fq The free queue to free and clear.
  *
  * @since 1.19
- */
-extern void
-eina_freeq_free(Eina_FreeQ *fq);
-
-/**
+  }
+procedure eina_freeq_free(fq:PEina_FreeQ);cdecl;external;
+{*
  * @brief Query the type of a free queue.
  *
  * @param[in] fq The free queue to inspect.
  *
  * @since 1.19
- */
-extern Eina_FreeQ_Type
-eina_freeq_type_get(Eina_FreeQ *fq);
-
-/**
+  }
+function eina_freeq_type_get(fq:PEina_FreeQ):TEina_FreeQ_Type;cdecl;external;
+{*
  * @brief Get the main loop free queue.
  *
  * @return The main loop free queue.
  *
  * @since 1.19
- */
-extern Eina_FreeQ *
-eina_freeq_main_get(void);
-
-/**
+  }
+function eina_freeq_main_get:PEina_FreeQ;cdecl;external;
+{*
  * @brief Set the maximum number of free pointers this queue is allowed
  *
  * @param[in,out] fq The free queue to alter
@@ -176,22 +196,18 @@ eina_freeq_main_get(void);
  *       behavior.
  *
  * @since 1.19
- */
-extern void
-eina_freeq_count_max_set(Eina_FreeQ *fq, int count);
-
-/**
+  }
+procedure eina_freeq_count_max_set(fq:PEina_FreeQ; count:longint);cdecl;external;
+{*
  * @brief Get the maximum number of free pointers this queue is allowed
  *
  * @param[in] fq The free queue to query
  * @return The maximum number of free items allowed or -1 for infinity
  *
  * @since 1.19
- */
-extern int
-eina_freeq_count_max_get(Eina_FreeQ *fq);
-
-/**
+  }
+function eina_freeq_count_max_get(fq:PEina_FreeQ):longint;cdecl;external;
+{*
  * @brief Set the maximum amount of memory allowed
  *
  * @param[in,out] fq The free queue to alter
@@ -209,22 +225,18 @@ eina_freeq_count_max_get(Eina_FreeQ *fq);
  *       behavior.
  *
  * @since 1.19
- */
-extern void
-eina_freeq_mem_max_set(Eina_FreeQ *fq, size_t mem);
-
-/**
+  }
+procedure eina_freeq_mem_max_set(fq:PEina_FreeQ; mem:Tsize_t);cdecl;external;
+{*
  * @brief Get the maximum amount of memory allowed
  *
  * @param[in] fq The free queue to query
  * @return The maximum amount of memory in bytes
  *
  * @since 1.19
- */
-extern size_t
-eina_freeq_mem_max_get(Eina_FreeQ *fq);
-
-/**
+  }
+function eina_freeq_mem_max_get(fq:PEina_FreeQ):Tsize_t;cdecl;external;
+{*
  * @brief Clear out all queued items to be freed by freeing them
  *
  * @param[in,out] fq The free queue to clear
@@ -234,11 +246,9 @@ eina_freeq_mem_max_get(Eina_FreeQ *fq);
  * empty.
  *
  * @since 1.19
- */
-extern void
-eina_freeq_clear(Eina_FreeQ *fq);
-
-/**
+  }
+procedure eina_freeq_clear(fq:PEina_FreeQ);cdecl;external;
+{*
  * @brief Reduce the number of items in the free queue by up to @p count
  *
  * @param[in,out] fq The free queue to reduce in item count
@@ -250,22 +260,18 @@ eina_freeq_clear(Eina_FreeQ *fq);
  * to remove from the queue.
  *
  * @since 1.19
- */
-extern void
-eina_freeq_reduce(Eina_FreeQ *fq, int count);
-
-/**
+  }
+procedure eina_freeq_reduce(fq:PEina_FreeQ; count:longint);cdecl;external;
+{*
  * @brief Return if there are any items pending a free in the free queue
  *
  * @param[in] fq The free queue to query
  * @return EINA_TRUE if there are items to free, EINA_FALSE otherwise
  *
  * @since 1.19
- */
-extern Eina_Bool
-eina_freeq_ptr_pending(Eina_FreeQ *fq);
-
-/**
+  }
+function eina_freeq_ptr_pending(fq:PEina_FreeQ):TEina_Bool;cdecl;external;
+{*
  * @brief Add a pointer with free function and size to the free queue
  *
  * @param[in,out] fq The free queue to add the pointer to
@@ -305,11 +311,9 @@ eina_freeq_ptr_pending(Eina_FreeQ *fq);
  * queue.
  *
  * @since 1.19
- */
-extern void
-eina_freeq_ptr_add(Eina_FreeQ *fq, void *ptr, void (*free_func) (void *ptr), size_t size);
-
-/**
+  }
+procedure eina_freeq_ptr_add(fq:PEina_FreeQ; ptr:pointer; free_func:procedure (ptr:pointer); size:Tsize_t);cdecl;external;
+{*
  * @brief Add a pointer to the main free queue
  *
  * @param[in] ptr The pointer to free
@@ -320,14 +324,13 @@ eina_freeq_ptr_add(Eina_FreeQ *fq, void *ptr, void (*free_func) (void *ptr), siz
  * fetched by eina_freeq_main_get().
  *
  * @since 1.19
- */
-static inline void
-eina_freeq_ptr_main_add(void *ptr, void (*free_func) (void *ptr), size_t size)
-{
-   eina_freeq_ptr_add(eina_freeq_main_get(), ptr, free_func, size);
-}
-
-/**
+  }
+{static inline void }
+{eina_freeq_ptr_main_add(void *ptr, void (*free_func) (void *ptr), size_t size) }
+{ }
+{   eina_freeq_ptr_add(eina_freeq_main_get(), ptr, free_func, size); }
+{ }
+{*
  * @brief Convenience macro for well known structures and types
  *
  * @param[in] ptr The pointer to free
@@ -338,10 +341,8 @@ eina_freeq_ptr_main_add(void *ptr, void (*free_func) (void *ptr), size_t size)
  * for pointers to arrays. For arrays please use EINA_FREEQ_ARRAY_FREE()
  *
  * @since 1.19
- */
-#define EINA_FREEQ_FREE(ptr) eina_freeq_ptr_main_add(ptr, NULL, sizeof(*(ptr)))
-
-/**
+  }
+{*
  * @brief Convenience macro for well known structures and types
  *
  * @param[in] ptr The pointer to free
@@ -352,11 +353,13 @@ eina_freeq_ptr_main_add(void *ptr, void (*free_func) (void *ptr), size_t size)
  * by the count @p n so it should work well for arrays of types.
  *
  * @since 1.19
- */
-#define EINA_FREEQ_N_FREE(ptr, n) eina_freeq_ptr_main_add(ptr, NULL, sizeof(*(ptr)) * n)
+  }
+{*
+ * @
+  }
+{$endif}
 
-/**
- * @}
- */
+implementation
 
-#endif
+
+end.

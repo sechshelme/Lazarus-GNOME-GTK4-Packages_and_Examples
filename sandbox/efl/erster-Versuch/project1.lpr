@@ -2,6 +2,18 @@ program project1;
 
 //{$define EFL_BETA_API_SUPPORT}
 
+
+// pcregrep -Mn 'static inline.*\n(.+\n)?\s*{' *.h
+// pcregrep -Mn 'static inline.*\n(.+\n){0,2}\s*{' *.h  ??????????
+
+// https://www.perplexity.ai/search/ich-will-die-mit-grep-dateien-aw7Pr2mpROKi9qznTFxhUQ
+// unit eina_freeq;
+// eina_abstract_content
+
+
+
+
+
 uses
   efl,
 
@@ -12,6 +24,7 @@ uses
   eina_iterator,                                      // io.
   eina_error,                                         // io.
   eina_lock,                                          // io. -> eina_error
+  eina_magic,                                         // io. -> eina_error
   eina_safety_checks,                                 // io. -> eina_error
   eina_hash,                                          // io. -> eina_iterator
   eina_accessor,                                      // io.
@@ -19,11 +32,13 @@ uses
   eina_list,                                          // io. -> eina_iterator, eina_accessor
   eina_clist,                                         // io.
   eina_array,                                         // io. -> eina_iterator, eina_accessor
+  eina_module,                                        // io. -> eina_error, eina_array
   eina_benchmark,                                     // io. -> eina_array
   eina_inlist,                                        // io. -> eina_iterator, eina_accessor
   eina_simple_xml_parser,                             // io. -> eina_inlist
   eina_value,                                         // io. -> eina_list, eina_error, eina_inarray, eina_hash
   eina_fp,                                            // io.
+  eina_convert,                                       // io. -> eina_error, eina_fp
   eina_tmpstr,                                        // io.
   eina_file,                                          // io. -> eina_array, eina_tmpstr, eina_iterator
   eina_vector,                                        // io.
@@ -31,17 +46,27 @@ uses
   eina_tiler,                                         // io. -> eina_iterator, eina_rectangle
   eina_quad,                                          // io. -> eina_rectangle
   eina_matrix,                                        // io. -> eina_fp, eina_rectangle, eina_quad
+  eina_bezier,                                        // io.
   eina_matrixsparse,                                  // io. -> eina_iterator
+  eina_quaternion,                                    // io. -> eina_fp, eina_matrix
   eina_log,                                           // io.
   eina_promise,                                       // io. -> eina_value, eina_error, eina_log, eina_iterator
   eina_stringshare,                                   // io.
   eina_slice,                                         // io.
+  eina_abstract_content,                              // io. -> eina_value, eina_iterator, eina_slice
   eina_str,                                           // io.
   eina_strbuf,                                        // io. -> eina_slice
   eina_unicode,                                       // io.
   eina_ustrbuf,                                       // io. -> eina_slice, eina_strbuf, eina_unicode
   eina_binbuf,                                        // io. -> eina_strbuf, eina_slice
   eina_thread,                                        // io.
+  eina_freeq,                                         // io.
+  eina_prefix,                                        // io.
+  eina_alloca,                                        // io.
+  eina_binshare,                                      // io.
+  eina_counter,                                       // io.
+  eina_cow,                                           // io.
+  eina_cpu,                                           // io.
 
 
 

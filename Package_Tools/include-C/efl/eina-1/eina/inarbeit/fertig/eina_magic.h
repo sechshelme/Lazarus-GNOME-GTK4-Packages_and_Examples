@@ -200,7 +200,7 @@ extern Eina_Bool   eina_magic_string_static_set(Eina_Magic  magic,
  * @var EINA_ERROR_MAGIC_FAILED
  * @brief The error identifier corresponding to the magic check failure.
  */
-extern extern Eina_Error EINA_ERROR_MAGIC_FAILED;
+ extern Eina_Error EINA_ERROR_MAGIC_FAILED;
 
 #ifdef EINA_MAGIC_DEBUG
 
@@ -221,7 +221,7 @@ extern extern Eina_Error EINA_ERROR_MAGIC_FAILED;
  *
  * @note If the magic feature of Eina is disabled, #EINA_MAGIC does nothing.
  */
-#define EINA_MAGIC Eina_Magic __magic;
+//#define EINA_MAGIC Eina_Magic __magic;
 
 /**
  * @def EINA_MAGIC_SET(d, m)
@@ -232,7 +232,7 @@ extern extern Eina_Error EINA_ERROR_MAGIC_FAILED;
  * @note If the magic feature of Eina is disabled, #EINA_MAGIC_CHECK is just
  *       the value @c 0.
  */
-#define EINA_MAGIC_SET(d, m)   (d)->__magic = (m)
+//#define EINA_MAGIC_SET(d, m)   (d)->__magic = (m)
 
 /**
  * @def EINA_MAGIC_CHECK(d, m)
@@ -256,13 +256,6 @@ extern extern Eina_Error EINA_ERROR_MAGIC_FAILED;
  * @note If the magic feature of Eina is disabled, #EINA_MAGIC_FAIL does
  *       nothing.
  */
-#define EINA_MAGIC_FAIL(d, m)             \
-  eina_magic_fail((void *)(d),            \
-                  (d) ? (d)->__magic : 0, \
-                  (m),                    \
-                  __FILE__,               \
-                  __func__,               \
-                  __LINE__);
 
 /**
  * @brief Displays a message or aborts if a magic check failed.
@@ -291,7 +284,7 @@ extern extern Eina_Error EINA_ERROR_MAGIC_FAILED;
  */
 extern void eina_magic_fail(void *d, Eina_Magic m, Eina_Magic req_m,
                           const char *file, const char *fnc,
-                          int line) EINA_ARG_NONNULL(4, 5);
+                          int line);
 
 #else
 

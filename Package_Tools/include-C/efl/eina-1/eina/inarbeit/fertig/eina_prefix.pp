@@ -1,19 +1,49 @@
-#ifndef EINA_PREFIX_H_
-#define EINA_PREFIX_H_
 
-/**
+unit eina_prefix;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from eina_prefix.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    eina_prefix.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pchar  = ^char;
+PEina_Prefix  = ^Eina_Prefix;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{$ifndef EINA_PREFIX_H_}
+{$define EINA_PREFIX_H_}
+{*
  * @defgroup Eina_Prefix_Group Prefix
  * @ingroup Eina_Tools_Group
  *
  * @brief This group discusses the functions that provide the ability to determine the runtime
  *        location of a software package.
  *
- * @{
+ * @
  *
  * @since 1.1.0
- */
-
-/**
+  }
+{*
  * @typedef Eina_Prefix
  * @brief An opaque type for prefix handle.
  * @details This is a prefix object that is returned by eina_prefix_new() when trying
@@ -22,10 +52,9 @@
  *          libraries, modules, and locale files can be found.
  *
  * @since 1.1.0
- */
-typedef struct _Eina_Prefix Eina_Prefix;
-
-/**
+  }
+type
+{*
  * @brief Creates a new prefix handle given that some input information is provided.
  *
  * @param[in] argv0 If this is an executable this is argv[0] of the binary, otherwise @c NULL if it is used from a shared library
@@ -129,7 +158,7 @@ typedef struct _Eina_Prefix Eina_Prefix;
  * static Eina_Prefix *pfx = NULL;
  *
  * int main(int argc, char **argv)
- * {
+ * 
  *   eina_init();
  *
  *   pfx = eina_prefix_new(argv[0], main, "APPNAME", "appname", NULL,
@@ -143,19 +172,25 @@ typedef struct _Eina_Prefix Eina_Prefix;
  *   eina_prefix_free(pfx);
  *
  *   eina_shutdown();
- * }
+ * 
  * @endcode
  *
  * @since 1.1.0
  *
  * @see eina_prefix_free()
- */
-extern Eina_Prefix *eina_prefix_new(const char *argv0, void *symbol, const char *envprefix,
-                                  const char *sharedir, const char *magicsharefile,
-                                  const char *pkg_bin, const char *pkg_lib,
-                                  const char *pkg_data, const char *pkg_locale) EINA_ARG_NONNULL(6, 7, 8, 9) ;
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
 
-/**
+function eina_prefix_new(argv0:Pchar; symbol:pointer; envprefix:Pchar; sharedir:Pchar; magicsharefile:Pchar; 
+           pkg_bin:Pchar; pkg_lib:Pchar; pkg_data:Pchar; pkg_locale:Pchar):PEina_Prefix;cdecl;external;
+{*
  * @brief Frees the prefix object and all its contents.
  *
  * @param[in] pfx The prefix object
@@ -166,10 +201,9 @@ extern Eina_Prefix *eina_prefix_new(const char *argv0, void *symbol, const char 
  * @since 1.1.0
  *
  * @see eina_prefix_new()
- */
-extern void eina_prefix_free(Eina_Prefix *pfx) ;
-
-/**
+  }
+procedure eina_prefix_free(pfx:PEina_Prefix);cdecl;external;
+{*
  * @brief Gets the prefix base directory.
  *
  * @param[in] pfx The prefix object
@@ -177,10 +211,10 @@ extern void eina_prefix_free(Eina_Prefix *pfx) ;
  *         "/home/user/myapps/appname", etc.) that the software resides in at runtime
  *
  * @since 1.1.0
- */
-extern const char *eina_prefix_get(Eina_Prefix *pfx)   ;
-
-/**
+  }
+(* Const before type ignored *)
+function eina_prefix_get(pfx:PEina_Prefix):Pchar;cdecl;external;
+{*
  * @brief Gets the binary installation directory.
  *
  * @param[in] pfx The prefix object
@@ -188,10 +222,10 @@ extern const char *eina_prefix_get(Eina_Prefix *pfx)   ;
  *         "/usr/bin", "/opt/appname/bin", "/home/user/myapps/appname/bin" etc.)
  *
  * @since 1.1.0
- */
-extern const char *eina_prefix_bin_get(Eina_Prefix *pfx)   ;
-
-/**
+  }
+(* Const before type ignored *)
+function eina_prefix_bin_get(pfx:PEina_Prefix):Pchar;cdecl;external;
+{*
  * @brief Gets the library installation directory.
  *
  * @param[in] pfx The prefix object
@@ -199,10 +233,10 @@ extern const char *eina_prefix_bin_get(Eina_Prefix *pfx)   ;
  *         "/usr/lib32", "/opt/appname/lib64", "/home/user/myapps/appname/lib" etc.)
  *
  * @since 1.1.0
- */
-extern const char *eina_prefix_lib_get(Eina_Prefix *pfx)   ;
-
-/**
+  }
+(* Const before type ignored *)
+function eina_prefix_lib_get(pfx:PEina_Prefix):Pchar;cdecl;external;
+{*
  * @brief Gets the data installation directory.
  *
  * @param[in] pfx The prefix object
@@ -210,10 +244,10 @@ extern const char *eina_prefix_lib_get(Eina_Prefix *pfx)   ;
  *         "/usr/share/appname", "/opt/appname/share/appname", "/home/user/myapps/appname/share/appname" etc.)
  *
  * @since 1.1.0
- */
-extern const char *eina_prefix_data_get(Eina_Prefix *pfx)   ;
-
-/**
+  }
+(* Const before type ignored *)
+function eina_prefix_data_get(pfx:PEina_Prefix):Pchar;cdecl;external;
+{*
  * @brief Gets the locale installation directory.
  *
  * @param[in] pfx The prefix object
@@ -221,10 +255,15 @@ extern const char *eina_prefix_data_get(Eina_Prefix *pfx)   ;
  *         "/usr/share/locale", "/opt/appname/share/locale", "/home/user/myapps/appname/share/locale" etc.)
  *
  * @since 1.1.0
- */
-extern const char *eina_prefix_locale_get(Eina_Prefix *pfx)   ;
+  }
+(* Const before type ignored *)
+function eina_prefix_locale_get(pfx:PEina_Prefix):Pchar;cdecl;external;
+{*
+ * @
+  }
+{$endif}
 
-/**
- * @}
- */
-#endif
+implementation
+
+
+end.

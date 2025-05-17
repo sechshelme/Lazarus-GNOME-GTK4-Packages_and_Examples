@@ -1,4 +1,37 @@
-/* EINA - EFL data type library
+
+unit eina_module;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from eina_module.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    eina_module.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pchar  = ^char;
+PEina_Array  = ^Eina_Array;
+PEina_Module  = ^Eina_Module;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ EINA - EFL data type library
  * Copyright (C) 2007-2008 Jorge Luis Zapata Muga
  *
  * This library is free software; you can redistribute it and/or
@@ -14,17 +47,14 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library;
  * if not, see <http://www.gnu.org/licenses/>.
- */
-
-#ifndef EINA_MODULE_H_
-#define EINA_MODULE_H_
-
-#include "eina_types.h"
-#include "eina_array.h"
-#include "eina_error.h"
-#include "eina_inline_modinfo.x"
-
-/**
+  }
+{$ifndef EINA_MODULE_H_}
+{$define EINA_MODULE_H_}
+{$include "eina_types.h"}
+{$include "eina_array.h"}
+{$include "eina_error.h"}
+{$include "eina_inline_modinfo.x"}
+{*
  * @defgroup Eina_Module_Group Module
  * @ingroup Eina_Tools_Group Tools
  * @brief These functions provide module management.
@@ -52,64 +82,60 @@
  * #EINA_MODULE_LICENSE, #EINA_MODULE_AUTHOR, #EINA_MODULE_VERSION and
  * #EINA_MODULE_DESCRIPTION allow you to define module information that can
  * be retrieved with the @c eina_modinfo tool.
-   @code{.sh}
+   @code.sh
    $ eina_modinfo module.so
    version: 0.1
    description:   Entry test
    license: GPLv2
    author:  Enlightenment Community
    @endcode
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * @typedef Eina_Module
  * Dynamic module loader handle.
- */
-typedef struct _Eina_Module Eina_Module;
-
-/**
+  }
+type
+{*
  * @typedef Eina_Module_Cb
  * Dynamic module loader callback.
- */
-typedef Eina_Bool         (*Eina_Module_Cb)(Eina_Module *m, void *data);
+  }
 
-/**
+  TEina_Module_Cb = function (m:PEina_Module; data:pointer):TEina_Bool;cdecl;
+{*
  * @typedef Eina_Module_Init
  * If a function with this signature is exported by module as
  * __eina_module_init, it will be called on the first load after
  * dlopen() and if #EINA_FALSE is returned, load will fail, #EINA_TRUE
  * means the module was successfully initialized.
  * @see Eina_Module_Shutdown
- */
-typedef Eina_Bool (*Eina_Module_Init)(void);
+  }
 
-/**
+  TEina_Module_Init = function (para1:pointer):TEina_Bool;cdecl;
+{*
  * @typedef Eina_Module_Shutdown
  * If a function with this signature is exported by module as
  * __eina_module_shutdown, it will be called before calling dlclose()
  * @see Eina_Module_Init
- */
-typedef void (*Eina_Module_Shutdown)(void);
+  }
 
-/**
+  TEina_Module_Shutdown = procedure (para1:pointer);cdecl;
+{*
  * @def EINA_MODULE_INIT
  * declares the given function as the module initializer (__eina_module_init).
  * It must be of signature #Eina_Module_Init
- */
-#define EINA_MODULE_INIT(f) EXPORTAPI Eina_Module_Init __eina_module_init = &f
-
-/**
+  }
+{#define EINA_MODULE_INIT(f) EXPORTAPI Eina_Module_Init __eina_module_init = &f }
+{*
  * @def EINA_MODULE_SHUTDOWN
  * declares the given function as to be called on shutdown
  * (__eina_module_shutdown). It must be of signature #Eina_Module_Shutdown
- */
-#define EINA_MODULE_SHUTDOWN(f) EXPORTAPI Eina_Module_Shutdown __eina_module_shutdown = &f
-
-extern extern Eina_Error EINA_ERROR_WRONG_MODULE;
-extern extern Eina_Error EINA_ERROR_MODULE_INIT_FAILED;
-
-/**
+  }
+{#define EINA_MODULE_SHUTDOWN(f) EXPORTAPI Eina_Module_Shutdown __eina_module_shutdown = &f }
+  var
+    EINA_ERROR_WRONG_MODULE : TEina_Error;cvar;external;
+    EINA_ERROR_MODULE_INIT_FAILED : TEina_Error;cvar;external;
+{*
  * @brief Returns a new module.
  *
  * @param[in] file The name of the file module to load.
@@ -122,11 +148,11 @@ extern extern Eina_Error EINA_ERROR_MODULE_INIT_FAILED;
  * to free the allocated memory.
  *
  * @see eina_module_load
- */
-extern Eina_Module *
- eina_module_new(const char *file)   ;
+  }
+(* Const before type ignored *)
 
-/**
+function eina_module_new(file:Pchar):PEina_Module;cdecl;external;
+{*
  * @brief Deletes a module.
  *
  * @param[in,out] module The module to delete.
@@ -136,11 +162,9 @@ extern Eina_Module *
  * loaded and frees the allocated memory. On success this function
  * returns #EINA_TRUE and #EINA_FALSE otherwise. If @p module is @c NULL, the
  * function returns immediately.
- */
-extern Eina_Bool
- eina_module_free(Eina_Module *module) ;
-
-/**
+  }
+function eina_module_free(module:PEina_Module):TEina_Bool;cdecl;external;
+{*
  * @brief Loads a module.
  *
  * @param[in,out] module The module to load.
@@ -157,11 +181,9 @@ extern Eina_Bool
  *
  * When the symbols of the shared file objects are not needed
  * anymore, call eina_module_unload() to unload the module.
- */
-extern Eina_Bool
- eina_module_load(Eina_Module *module) ;
-
-/**
+  }
+function eina_module_load(module:PEina_Module):TEina_Bool;cdecl;external;
+{*
  * @brief Unloads a module.
  *
  * @param[in,out] module The module to load.
@@ -174,11 +196,9 @@ extern Eina_Bool
  * is shut down just before. In that case, #EINA_TRUE is
  * returned. In all case, the reference counter is decreased. If @p module
  * is @c NULL, the function returns immediately #EINA_FALSE.
- */
-extern Eina_Bool
- eina_module_unload(Eina_Module *module) ;
-
-/**
+  }
+function eina_module_unload(module:PEina_Module):TEina_Bool;cdecl;external;
+{*
  * @brief Retrieves the data associated with a symbol.
  *
  * @param[in] module The module.
@@ -189,11 +209,11 @@ extern Eina_Bool
  * module must have been loaded before with eina_module_load(). If @p module
  * is @c NULL, or if it has not been correctly loaded before, the
  * function returns immediately @c NULL.
- */
-extern void *
- eina_module_symbol_get(const Eina_Module *module, const char *symbol)   ;
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_module_symbol_get(module:PEina_Module; symbol:Pchar):pointer;cdecl;external;
+{*
  * @brief Returns the file name associated with the module.
  *
  * @param[in] module The module.
@@ -202,21 +222,20 @@ extern void *
  * This function returns the file name passed in eina_module_new(). If
  * @p module is @c NULL, the function returns immediately @c NULL. The
  * returned value must no be freed.
- */
-extern const char *
- eina_module_file_get(const Eina_Module *module)   ;
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_module_file_get(module:PEina_Module):Pchar;cdecl;external;
+{*
  * @brief Defines if on module load we should expose all symbol
  *
  * @param[in,out] module The module to turn off/on symbol to be exposed
  * @param[in] global @c true to turn on symbol to be exposed, @c false otherwise
  *
  * @since 1.11
- */
-extern void eina_module_symbol_global_set(Eina_Module *module, Eina_Bool global) ;
-
-/**
+  }
+procedure eina_module_symbol_global_set(module:PEina_Module; global:TEina_Bool);cdecl;external;
+{*
  * @brief Returns the path built from the location of a library and a
  * given sub directory.
  *
@@ -229,11 +248,11 @@ extern void eina_module_symbol_global_set(Eina_Module *module, Eina_Bool global)
  * can be @c NULL. The returned path must be freed when not used
  * anymore. If the symbol is not found, or dl_addr() is not supported,
  * or allocation fails, this function returns @c NULL.
- */
-extern char *
- eina_module_symbol_path_get(const void *symbol, const char *sub_dir)  ;
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_module_symbol_path_get(symbol:pointer; sub_dir:Pchar):Pchar;cdecl;external;
+{*
  * @brief Returns the path built from the value of an environment variable and a
  * given sub directory.
  *
@@ -246,12 +265,11 @@ extern char *
  * can be @c NULL. The returned path must be freed when not used
  * anymore. If the symbol is not found, or @p env does not exist, or
  * allocation fails, this function returns @c NULL.
- */
-extern char *
- eina_module_environment_path_get(const char *env, const char *sub_dir)  ;
-
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_module_environment_path_get(env:Pchar; sub_dir:Pchar):Pchar;cdecl;external;
+{*
  * @brief Gets an array of modules found on the directory path matching an arch type.
  *
  * @param[in,out] array The array that stores the list of the modules.
@@ -263,11 +281,11 @@ extern char *
  * which match the cpu architecture @p arch. If @p path or @p arch is
  * @c NULL, the function returns immediately @p array. @p array can be
  * @c NULL. In that case, it is created with 4 elements.
- */
-extern Eina_Array *
- eina_module_arch_list_get(Eina_Array *array, const char *path, const char *arch);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_module_arch_list_get(array:PEina_Array; path:Pchar; arch:Pchar):PEina_Array;cdecl;external;
+{*
  * @brief Gets a list of modules found on the directory path.
  *
  * @param[in,out] array The array that stores the list of the modules.
@@ -285,44 +303,37 @@ extern Eina_Array *
  * module will not be added to the list, otherwise it will be added.
  * @p array can be @c NULL. In that case, it is created with 4
  * elements. @p cb can be @c NULL.
- */
-extern Eina_Array *
- eina_module_list_get(Eina_Array *array, const char *path, Eina_Bool recursive, Eina_Module_Cb cb, void *data)  ;
-
-/**
+  }
+(* Const before type ignored *)
+function eina_module_list_get(array:PEina_Array; path:Pchar; recursive:TEina_Bool; cb:TEina_Module_Cb; data:pointer):PEina_Array;cdecl;external;
+{*
  * @brief Loads every module on the list of modules.
  *
  * @param[in,out] array The array of modules to load.
  *
  * This function calls eina_module_load() on each element found in
  * @p array. If @p array is @c NULL, this function does nothing.
- */
-extern void
- eina_module_list_load(Eina_Array *array) ;
-
-/**
+  }
+procedure eina_module_list_load(array:PEina_Array);cdecl;external;
+{*
  * @brief Unloads every module on the list of modules.
  *
  * @param[in,out] array The array of modules to unload.
  *
  * This function calls eina_module_unload() on each element found in
  * @p array. If @p array is @c NULL, this function does nothing.
- */
-extern void
- eina_module_list_unload(Eina_Array *array) ;
-
-/**
+  }
+procedure eina_module_list_unload(array:PEina_Array);cdecl;external;
+{*
  * @p Frees every module on the list of modules.
  *
  * @param[in,out] array The array of modules to free.
  *
  * This function calls eina_module_free() on each element found in
  * @p array. If @p array is @c NULL, this function does nothing.
- */
-extern void
- eina_module_list_free(Eina_Array *array) ;
-
-/**
+  }
+procedure eina_module_list_free(array:PEina_Array);cdecl;external;
+{*
  * @brief Finds a module in array.
  *
  * @param[in] array The array to find the module.
@@ -332,12 +343,17 @@ extern void
  * This function finds a @p module in @p array.
  * If the element is found  the function returns the module, else
  * @c NULL is returned.
- */
-extern Eina_Module *
- eina_module_find(const Eina_Array *array, const char *module) ;
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function eina_module_find(array:PEina_Array; module:Pchar):PEina_Module;cdecl;external;
+{*
+ * @
+  }
+{$endif}
+{EINA_MODULE_H_ }
 
-/**
- * @}
- */
+implementation
 
-#endif /*EINA_MODULE_H_*/
+
+end.

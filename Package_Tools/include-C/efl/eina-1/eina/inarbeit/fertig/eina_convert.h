@@ -158,9 +158,9 @@
  * @{
  */
 
-extern extern Eina_Error EINA_ERROR_CONVERT_P_NOT_FOUND; /**< Not used, perhaps a placeholder?  Defined as 0 in eina_convert.c*/
-extern extern Eina_Error EINA_ERROR_CONVERT_0X_NOT_FOUND; /**< Not used, perhaps a placeholder?  Defined as 0 in eina_convert.c*/
-extern extern Eina_Error EINA_ERROR_CONVERT_OUTRUN_STRING_LENGTH; /**< Not used, perhaps a placeholder?  Defined as 0 in eina_convert.c*/
+ extern Eina_Error EINA_ERROR_CONVERT_P_NOT_FOUND; /**< Not used, perhaps a placeholder?  Defined as 0 in eina_convert.c*/
+extern Eina_Error EINA_ERROR_CONVERT_0X_NOT_FOUND; /**< Not used, perhaps a placeholder?  Defined as 0 in eina_convert.c*/
+ extern Eina_Error EINA_ERROR_CONVERT_OUTRUN_STRING_LENGTH; /**< Not used, perhaps a placeholder?  Defined as 0 in eina_convert.c*/
 
 /**
  * @brief Converts an integer number to a string in decimal base.
@@ -260,7 +260,7 @@ extern int       eina_convert_dtoa(double d, char *des) ;
 extern Eina_Bool eina_convert_atod(const char *src,
                                  int         length,
                                  long long  *m,
-                                 long       *e) EINA_ARG_NONNULL(1, 3, 4);
+                                 long       *e) ;
 
 /**
  * @brief Converts a 32.32 fixed point number to a string.
@@ -331,7 +331,7 @@ extern int       eina_convert_fptoa(Eina_F32p32 fp,
  */
 extern Eina_Bool eina_convert_atofp(const char  *src,
                                   int          length,
-                                  Eina_F32p32 *fp) EINA_ARG_NONNULL(1, 3);
+                                  Eina_F32p32 *fp);
 
 /**
  * @brief Converts a string to a floating point number.

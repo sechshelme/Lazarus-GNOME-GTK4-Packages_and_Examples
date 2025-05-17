@@ -64,7 +64,7 @@ typedef enum _Eina_Cpu_Features
  *
  * @return the current cpu features
  */
-extern extern Eina_Cpu_Features eina_cpu_features;
+ extern Eina_Cpu_Features eina_cpu_features;
 
 /**
  * @brief Cpu features accessor.
@@ -99,18 +99,6 @@ extern int               eina_cpu_page_size(void);
  * On big endian systems, the number is converted to little endian byte order.
  * On little endian systems, the number is converted to big endian byte order.
  */
-static inline unsigned short eina_swap16(unsigned short x);
-
-/**
- * @brief Reverses the byte order of a 32-bit (destination) register.
- *
- * @param[in] x The binary word to swap
- * @return A byte order swapped 32-bit integer.
- *
- * On big endian systems, the number is converted to little endian byte order.
- * On little endian systems, the number is converted to big endian byte order.
- */
-static inline unsigned int eina_swap32(unsigned int x);
 
 /**
  * @brief Reverses the byte order of a 64-bit (destination) register.
@@ -121,19 +109,6 @@ static inline unsigned int eina_swap32(unsigned int x);
  * On big endian systems, the number is converted to little endian byte order.
  * On little endian systems, the number is converted to big endian byte order.
  */
-static inline unsigned long long eina_swap64(unsigned long long x);
-
-static inline unsigned short eina_htons(unsigned short host);
-
-static inline unsigned int eina_htonl(unsigned int host);
-
-static inline unsigned long long eina_htonll(unsigned long long host);
-
-static inline unsigned short eina_ntohs(unsigned short net);
-
-static inline unsigned int eina_ntohl(unsigned int net);
-
-static inline unsigned long long eina_ntohll(unsigned long long net);
 
 #ifndef MIN
 /** Returns the minimum of the two parameters
