@@ -3,7 +3,7 @@ unit efl_gfx_vg_value_provider_eo;
 interface
 
 uses
-  ctypes, efl, eina_matrix, eina_stringshare;
+  ctypes, efl, fp_eina;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

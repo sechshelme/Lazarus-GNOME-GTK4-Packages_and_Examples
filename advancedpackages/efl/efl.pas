@@ -11,14 +11,15 @@ const
   libelementary = 'libelementary';
   libevas = 'libevas';
   libeina = 'libeina';
+  libeo = 'libeo';
   {$ENDIF}
 
   {$IFDEF mswindows}
-  libelementary = 'libelementary.dll'; // ???
-  libevas = 'libevas.dll';
-  libeina = 'libeina.dll';
+  libelementary = 'libelementary-1.dll';
+  libevas = 'libevas-1.dll';
+  libeina = 'libeina-1.dll';
+  libeo = 'libeo-1,dd';
   {$ENDIF}
-
 
   //  {$define EFL_BETA_API_SUPPORT}
 
@@ -31,31 +32,31 @@ type
   Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;
 
-  Tssize_t=SizeInt;
-  Pssize_t=^Tssize_t;
+  Tssize_t = SizeInt;
+  Pssize_t = ^Tssize_t;
 
   Tptrdiff_t = PtrInt;
 
-  Tuintptr_t=PtrUInt;
+  Tuintptr_t = PtrUInt;
 
-  Twchar_t=WideChar;
+  Twchar_t = widechar;
 
-  PFILE=Pointer;
+  PFILE = Pointer;
 
 type
   Ttm = record
-      tm_sec : longint;
-      tm_min : longint;
-      tm_hour : longint;
-      tm_mday : longint;
-      tm_mon : longint;
-      tm_year : longint;
-      tm_wday : longint;
-      tm_yday : longint;
-      tm_isdst : longint;
-      tm_gmtoff : Int64;
-      tm_zone : Pchar;
-    end;
+    tm_sec: longint;
+    tm_min: longint;
+    tm_hour: longint;
+    tm_mday: longint;
+    tm_mon: longint;
+    tm_year: longint;
+    tm_wday: longint;
+    tm_yday: longint;
+    tm_isdst: longint;
+    tm_gmtoff: int64;
+    tm_zone: pchar;
+  end;
   Ptm = ^Ttm;
 
   // =====================
@@ -193,11 +194,11 @@ type
 type
   // /usr/include/eina-1/eina/eina_inline_lock_posix.x
   TEina_Lock = Pointer;
-  PEina_Lock=^TEina_Lock;
+  PEina_Lock = ^TEina_Lock;
 
   // /usr/include/eina-1/eina/eina_inline_lock_posix.x
-  TEina_Spinlock=TEina_Lock;
-  PEina_Spinlock=^TEina_Spinlock;
+  TEina_Spinlock = TEina_Lock;
+  PEina_Spinlock = ^TEina_Spinlock;
 
 
 implementation

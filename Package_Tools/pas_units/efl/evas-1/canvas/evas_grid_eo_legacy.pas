@@ -3,8 +3,7 @@ unit evas_grid_eo_legacy;
 interface
 
 uses
-  ctypes, efl, eina_types, eina_list, eina_accessor, eina_iterator, Evas_Common;
-
+  ctypes, efl, fp_eina, Evas_Common;
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}

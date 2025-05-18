@@ -3,7 +3,7 @@ unit efl_input_state_eo;
 interface
 
 uses
-  ctypes, efl, eina_types, Evas_Common, efl_input_types_eot;
+  ctypes, efl, fp_eina, Evas_Common, efl_input_types_eot;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

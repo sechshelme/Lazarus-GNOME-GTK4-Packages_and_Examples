@@ -3,7 +3,7 @@ unit efl_canvas_textblock_eo_legacy;
 interface
 
 uses
-  ctypes, efl, eina_types, Evas_Common;
+  ctypes, efl, fp_eina, Evas_Common;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

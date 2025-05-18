@@ -3,7 +3,7 @@ unit efl_canvas_gesture_types_eot;
 interface
 
 uses
-  ctypes, efl, eina_rectangle, eina_types, efl_input_types_eot;
+  ctypes, efl, fp_eina, efl_input_types_eot;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

@@ -3,7 +3,7 @@ unit evas_text_eo_legacy;
 interface
 
 uses
-  ctypes, efl, eina_types, Evas_Legacy;
+  ctypes, efl, fp_eina, Evas_Legacy;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

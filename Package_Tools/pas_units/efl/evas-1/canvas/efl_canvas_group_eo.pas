@@ -3,7 +3,7 @@ unit efl_canvas_group_eo;
 interface
 
 uses
-  ctypes, efl, eina_types, eina_iterator, Evas_Common;
+  ctypes, efl, fp_eina, Evas_Common;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

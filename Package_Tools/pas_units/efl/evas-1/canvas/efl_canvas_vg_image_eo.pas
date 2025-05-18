@@ -3,7 +3,7 @@ unit efl_canvas_vg_image_eo;
 interface
 
 uses
-  ctypes, efl, eina_rectangle;
+  ctypes, efl,  fp_eina;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

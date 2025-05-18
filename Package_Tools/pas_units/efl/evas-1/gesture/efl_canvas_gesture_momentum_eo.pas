@@ -3,7 +3,7 @@ unit efl_canvas_gesture_momentum_eo;
 interface
 
 uses
-  ctypes, efl, eina_rectangle, eina_vector;
+  ctypes, efl, fp_eina;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

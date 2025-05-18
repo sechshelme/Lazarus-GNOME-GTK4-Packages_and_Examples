@@ -3,7 +3,7 @@ unit efl_canvas_rotate_animation_eo;
 interface
 
 uses
-  ctypes, efl, eina_rectangle, eina_vector, Evas_Common;
+  ctypes, efl, fp_eina, Evas_Common;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

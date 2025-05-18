@@ -3,7 +3,7 @@ unit efl_canvas_filter_internal_eo;
 interface
 
 uses
-  ctypes, efl, eina_types;
+  ctypes, efl, fp_eina;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

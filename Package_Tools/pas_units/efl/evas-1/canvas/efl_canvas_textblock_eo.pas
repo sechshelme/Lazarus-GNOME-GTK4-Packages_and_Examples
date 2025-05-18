@@ -3,7 +3,7 @@ unit efl_canvas_textblock_eo;
 interface
 
 uses
-  ctypes, efl, eina_rectangle, eina_types, eina_promise, Evas_Common, efl_text_cursor_object_eo;
+  ctypes, efl, fp_eina, Evas_Common, efl_text_cursor_object_eo;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

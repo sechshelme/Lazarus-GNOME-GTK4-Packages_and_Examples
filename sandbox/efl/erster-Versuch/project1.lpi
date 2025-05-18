@@ -42,9 +42,12 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="../../../Package_Tools/pas_units/efl/elementary-1;../../../Package_Tools/pas_units/efl/evas-1;../../../Package_Tools/pas_units/efl/evas-1/canvas;../../../Package_Tools/pas_units/efl/evas-1/gesture;../../../Package_Tools/pas_units/efl/eina-1;../../../Package_Tools/pas_units/efl/eina-1/eina;../../../Package_Tools/pas_units/efl"/>
+      <OtherUnitFiles Value="../../../Package_Tools/pas_units/efl/elementary-1;../../../Package_Tools/pas_units/efl/evas-1;../../../Package_Tools/pas_units/efl/evas-1/canvas;../../../Package_Tools/pas_units/efl/evas-1/gesture;../../../Package_Tools/pas_units/efl/eina-1;../../../Package_Tools/pas_units/efl/eina-1/eina;../../../Package_Tools/pas_units/efl;../../../Package_Tools/pas_units/efl/eo-1"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
+    <CodeGeneration>
+      <TargetOS Value="win64"/>
+    </CodeGeneration>
     <Linking>
       <Debugging>
         <DebugInfoType Value="dsDwarf3"/>

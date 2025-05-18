@@ -2,8 +2,8 @@ unit fp_eina;
 
 interface
 
-uses
-  ctypes;
+  uses
+    efl;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

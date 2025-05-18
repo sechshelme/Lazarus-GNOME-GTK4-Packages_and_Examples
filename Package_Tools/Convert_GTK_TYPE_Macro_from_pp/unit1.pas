@@ -141,6 +141,7 @@ const
     (libs: 'libelementary'; units: 'ctypes, efl, Evas_Common'),
     (libs: 'libevas'; units: 'ctypes, efl'),
     (libs: 'libeina'; units: 'ctypes, efl'),
+    (libs: 'libeo'; units: 'ctypes, efl'),
 
     (libs: ''; units: ''));
 

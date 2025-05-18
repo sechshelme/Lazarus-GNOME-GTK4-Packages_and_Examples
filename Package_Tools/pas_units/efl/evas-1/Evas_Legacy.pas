@@ -3,7 +3,7 @@ unit Evas_Legacy;
 interface
 
 uses
-  efl, eina_types, eina_file, eina_list, eina_iterator, Evas_Common, Evas_Loader, efl_canvas_vg_container_eo_legacy, efl_canvas_vg_shape_eo_legacy, efl_canvas_vg_node_eo_legacy, efl_canvas_vg_gradient_eo_legacy;
+  efl, fp_eina, Evas_Common, Evas_Loader, efl_canvas_vg_container_eo_legacy, efl_canvas_vg_shape_eo_legacy, efl_canvas_vg_node_eo_legacy, efl_canvas_vg_gradient_eo_legacy;
 
 
   {$IFDEF FPC}

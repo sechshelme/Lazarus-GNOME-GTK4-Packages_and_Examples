@@ -3,7 +3,7 @@ unit efl_canvas_event_grabber_eo;
 interface
 
 uses
-  ctypes, eina_types, efl;
+  ctypes, fp_eina, efl;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

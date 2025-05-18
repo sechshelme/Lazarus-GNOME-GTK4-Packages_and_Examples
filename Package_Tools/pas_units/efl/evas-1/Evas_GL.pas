@@ -3,7 +3,7 @@ unit Evas_GL;
 interface
 
 uses
-  ctypes, efl, eina_types, Evas_Common, Evas_Legacy;
+  ctypes, efl, fp_eina, Evas_Common, Evas_Legacy;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
