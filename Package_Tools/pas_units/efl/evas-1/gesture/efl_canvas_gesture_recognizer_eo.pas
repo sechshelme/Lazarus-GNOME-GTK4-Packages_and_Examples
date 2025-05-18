@@ -3,7 +3,7 @@ unit efl_canvas_gesture_recognizer_eo;
 interface
 
 uses
-  ctypes, efl, fp_eina, efl_canvas_gesture_eo, efl_canvas_gesture_touch_eo, efl_canvas_gesture_types_eot, efl_canvas_gesture_recognizer_custom_eo;
+  ctypes, efl, fp_eina,fp_eo, efl_canvas_gesture_eo, efl_canvas_gesture_touch_eo, efl_canvas_gesture_types_eot, efl_canvas_gesture_recognizer_custom_eo;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}

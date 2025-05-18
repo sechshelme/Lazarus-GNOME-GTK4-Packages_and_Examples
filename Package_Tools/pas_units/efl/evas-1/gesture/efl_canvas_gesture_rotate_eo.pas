@@ -3,7 +3,7 @@ unit efl_canvas_gesture_rotate_eo;
 interface
 
 uses
-  ctypes, efl;
+  ctypes, efl,fp_eo;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

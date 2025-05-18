@@ -8,6 +8,7 @@ interface
 
 const
   {$IFDEF Linux}
+  libclib='c';
   libelementary = 'libelementary';
   libevas = 'libevas';
   libeina = 'libeina';
@@ -15,11 +16,17 @@ const
   {$ENDIF}
 
   {$IFDEF mswindows}
+  libclib = 'msvcrt';
   libelementary = 'libelementary-1.dll';
   libevas = 'libevas-1.dll';
   libeina = 'libeina-1.dll';
   libeo = 'libeo-1,dd';
   {$ENDIF}
+
+  {$IFDEF darwin}
+  libclib = 'libc.dylib';
+  {$ENDIF}
+
 
   //  {$define EFL_BETA_API_SUPPORT}
 
@@ -73,29 +80,6 @@ type
   TEcore_X_Window = uint32;
   PEcore_Cocoa_Window = Pointer;
   TEcore_Window = PtrUInt;
-
-  // /usr/include/eo-1/Eo.h
-type
-  TEo = record
-  end;
-  PEo = ^TEo;
-
-  TEfl_Class = TEo;
-  PEfl_Class = ^TEfl_Class;
-
-  TEfl_Object = TEo;
-  PEfl_Object = ^TEfl_Object;
-
-type
-  TEfl_Callback_Priority = int16;
-
-  // /usr/include/eo-1/efl_object.eo.h
-type
-  TEfl_Event_Description = record
-    // Muss aufgelöst werden
-  end;
-  PEfl_Event_Description = ^TEfl_Event_Description;
-
 
   // /usr/include/efl-1/Efl.h
 type
@@ -199,6 +183,8 @@ type
   // /usr/include/eina-1/eina/eina_inline_lock_posix.x
   TEina_Spinlock = TEina_Lock;
   PEina_Spinlock = ^TEina_Spinlock;
+
+function calloc(num, size:Tsize_t):Pointer;cdecl; external libclib;
 
 
 implementation

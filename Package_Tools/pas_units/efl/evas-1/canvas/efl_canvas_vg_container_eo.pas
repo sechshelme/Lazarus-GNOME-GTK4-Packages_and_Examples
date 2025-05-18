@@ -3,7 +3,7 @@ unit efl_canvas_vg_container_eo;
 interface
 
 uses
-  ctypes, efl, fp_eina, efl_canvas_vg_node_eo;
+  ctypes, efl, fp_eina,fp_eo, efl_canvas_vg_node_eo;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

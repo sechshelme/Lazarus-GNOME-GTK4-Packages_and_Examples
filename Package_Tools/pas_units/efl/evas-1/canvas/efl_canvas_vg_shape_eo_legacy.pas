@@ -3,7 +3,7 @@ unit efl_canvas_vg_shape_eo_legacy;
 interface
 
 uses
-  ctypes, efl, efl_canvas_vg_node_eo_legacy;
+  ctypes, efl,fp_eo, efl_canvas_vg_node_eo_legacy;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

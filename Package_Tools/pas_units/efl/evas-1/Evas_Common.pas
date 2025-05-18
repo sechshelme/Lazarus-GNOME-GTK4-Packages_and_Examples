@@ -3,7 +3,7 @@ unit Evas_Common;
 interface
 
 uses
-  ctypes, efl, fp_eina, Evas_Loader;
+  ctypes, efl, fp_eina,fp_eo, Evas_Loader;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

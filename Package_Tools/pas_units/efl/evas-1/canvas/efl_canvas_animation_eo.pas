@@ -3,7 +3,7 @@ unit efl_canvas_animation_eo;
 interface
 
 uses
-  ctypes, efl, fp_eina, Evas_Common, efl_canvas_animation_types_eot;
+  ctypes, efl, fp_eina,fp_eo, Evas_Common, efl_canvas_animation_types_eot;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

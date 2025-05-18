@@ -3,7 +3,7 @@ unit efl_text_formatter_eo;
 interface
 
 uses
-  ctypes, efl, efl_text_cursor_object_eo;
+  ctypes, efl,fp_eo, efl_text_cursor_object_eo;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

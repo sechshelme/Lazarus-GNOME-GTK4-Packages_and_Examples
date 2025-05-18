@@ -98,4 +98,9 @@ int main(int argc, char **argv)
     return 0;
 }
 
+efl_event_callback_priority_add
+Eo
+Efl_Callback_Priority
+efl_object_class_get
+
 

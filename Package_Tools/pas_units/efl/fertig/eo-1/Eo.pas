@@ -87,22 +87,6 @@ procedure efl_dbg_info_get(obj: PEo; root_node: PEfl_Dbg_Info); cdecl; external 
 
 var
   EFL_DBG_INFO_TYPE: PEina_Value_Type; cvar;external libeo;
-{
-static inline Efl_Dbg_Info *
-EFL_DBG_INFO_LIST_APPEND(Efl_Dbg_Info *list, const char *name)
-
-   Efl_Dbg_Info *tmp = (Efl_Dbg_Info *)calloc(1, sizeof(*tmp));
-
-   if (!tmp) return NULL;
-   tmp->name = eina_stringshare_add(name);
-   eina_value_list_setup(&(tmp->value), EFL_DBG_INFO_TYPE);
-   if (list)
-     
-        eina_value_list_pappend(&(list->value), tmp);
-     
-   return tmp;
-
- }
 
 procedure efl_dbg_info_free(info: PEfl_Dbg_Info); cdecl; external libeo;
 
@@ -274,16 +258,14 @@ type
 
 function efl_callbacks_cmp(a: PEfl_Callback_Array_Item; b: PEfl_Callback_Array_Item): longint; cdecl; external libeo;
 
-function efl_event_callback_add(obj, desc, cb, data: longint): longint;
-function efl_event_callback_array_add(obj, arr, data: longint): longint;
-function efl_event_callback_forwarder_add(obj, desc, new_obj: longint): longint;
+function efl_event_callback_add(obj: PEo; desc: PEfl_Event_Description; cb: TEfl_Event_Cb; data: Pointer): TEina_Bool;
+function efl_event_callback_array_add(obj: PEo; arr: PEfl_Callback_Array_Item; data: Pointer): TEina_Bool;
+procedure efl_event_callback_forwarder_add(obj: PEo; desc: PEfl_Event_Description; new_obj: PEfl_Object);
 
 function efl_event_callback_count(obj: PEo; desc: PEfl_Event_Description): dword; cdecl; external libeo;
 
 var
   EINA_VALUE_TYPE_OBJECT: PEina_Value_Type; cvar;external libeo;
-  {$ifdef EFL_BETA_API_SUPPORT}
-  {$endif}
 
 var
   _EFL_EVENT_CALLBACK_ADD: TEfl_Event_Description; cvar;external libeo;
@@ -296,15 +278,126 @@ function eo_classes_iterator_new: PEina_Iterator; cdecl; external libeo;
 function eo_objects_iterator_new: PEina_Iterator; cdecl; external libeo;
 function efl_ownable_get(obj: PEo): TEina_Bool; cdecl; external libeo;
 
-procedure efl_data_xunref(obj,data:Pointer; ref_obj: PEo);
-procedure efl_data_unref(obj, data:Pointer);
+procedure efl_data_xunref(obj, data: Pointer; ref_obj: PEo);
+procedure efl_data_unref(obj, data: Pointer);
 
 
 
 // === Konventiert am: 18-5-25 13:19:14 ===
 
+// === static inline
+function EFL_DBG_INFO_LIST_APPEND(list: PEfl_Dbg_Info; name: pchar): PEfl_Dbg_Info; unimplemented;
+function efl_replace(storage: PPEo; new_obj: PEo): TEina_Bool;
+function eina_value_object_new(obj: PEo): PEina_Value; unimplemented;
+function eina_value_object_init(obj: PEo): TEina_Value; unimplemented;
+function eina_value_object_get(const v: PEina_Value): PEo; unimplemented;
+{$ifdef EFL_BETA_API_SUPPORT}
+function efl_alive_get(const obj: PEo): boolean;
+{$endif}
+
+
+
 
 implementation
+
+function EFL_DBG_INFO_LIST_APPEND(list: PEfl_Dbg_Info; name: pchar): PEfl_Dbg_Info;
+var
+  tmp: PEfl_Dbg_Info = nil;
+begin
+  {$warning "inline von eina_value fehlt"}
+
+  tmp := calloc(1, SizeOf(tmp^));
+  if tmp = nil then  begin
+    Exit(nil);
+  end;
+
+  tmp^.name := eina_stringshare_add(name);
+  //  eina_value_list_setup(tmp^.value, EFL_DBG_INFO_TYPE);
+
+  if list <> nil then  begin
+    //    eina_value_list_pappend(list^.value, tmp);
+  end;
+
+  Result := tmp;
+end;
+
+function efl_replace(storage: PPEo; new_obj: PEo): TEina_Bool;
+var
+  tmp: PEo;
+begin
+  tmp := nil;
+
+  if storage = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if storage^ = new_obj then begin
+    Exit(EINA_FALSE);
+  end;
+  if new_obj <> nil then begin
+    tmp := efl_ref(new_obj);
+  end;
+  if storage^ <> nil then begin
+    efl_unref(storage^);
+  end;
+  storage^ := tmp;
+  Result := EINA_TRUE;
+end;
+
+
+function eina_value_object_new(obj: PEo): PEina_Value;
+var
+  v: PEina_Value;
+begin
+  {$warning "inline von eina_value fehlt"}
+  v := eina_value_new(EINA_VALUE_TYPE_OBJECT);
+  if v <> nil then begin
+    //    eina_value_set(v, obj);
+  end;
+  Result := v;
+end;
+
+function eina_value_object_init(obj: PEo): TEina_Value;
+var
+  v: TEina_Value;
+begin
+  {$warning "inline von eina_value fehlt"}
+  //  v := EINA_VALUE_EMPTY;
+  FillChar(v, SizeOf(v), 0);
+
+  //  if eina_value_setup(@v, EINA_VALUE_TYPE_OBJECT) then begin
+  //    eina_value_set(@v, obj);
+  //  end;
+  Result := v;
+end;
+
+function eina_value_object_get(const v: PEina_Value): PEo;
+var
+  r: PEo = nil;
+begin
+  if v = nil then begin
+    Exit(nil);
+  end;
+  {$warning "inline von eina_value fehlt"}
+  //  if eina_value_type_get(v) <> EINA_VALUE_TYPE_OBJECT then begin
+  //    Exit(nil);
+  //  end;
+
+  //  if not eina_value_pget(v, @r) then begin
+  //    Exit(nil);
+  //  end;
+  Result := r;
+end;
+
+{$ifdef EFL_BETA_API_SUPPORT}
+function efl_alive_get(const obj: PEo): boolean;
+begin
+  Result := efl_finalized_get(obj) and not efl_invalidating_get(obj) and not efl_invalidated_get(obj);
+end;
+{$endif}
+
+
+
+// =============
 
 
 function EFL_NOOP: TEfl_Object_Op;
@@ -322,19 +415,19 @@ begin
   efl_data_xunref_internal(obj, data, obj);
 end;
 
-function efl_event_callback_add(obj, desc, cb, data: longint): longint;
+function efl_event_callback_add(obj: PEo; desc: PEfl_Event_Description; cb: TEfl_Event_Cb; data: Pointer): TEina_Bool;
 begin
   efl_event_callback_add := efl_event_callback_priority_add(obj, desc, EFL_CALLBACK_PRIORITY_DEFAULT, cb, data);
 end;
 
-function efl_event_callback_array_add(obj, arr, data: longint): longint;
+function efl_event_callback_array_add(obj: PEo; arr: PEfl_Callback_Array_Item; data: Pointer): TEina_Bool;
 begin
   efl_event_callback_array_add := efl_event_callback_array_priority_add(obj, arr, EFL_CALLBACK_PRIORITY_DEFAULT, data);
 end;
 
-function efl_event_callback_forwarder_add(obj, desc, new_obj: longint): longint;
+procedure efl_event_callback_forwarder_add(obj: PEo; desc: PEfl_Event_Description; new_obj: PEfl_Object);
 begin
-  efl_event_callback_forwarder_add := efl_event_callback_forwarder_priority_add(obj, desc, EFL_CALLBACK_PRIORITY_DEFAULT, new_obj);
+  efl_event_callback_forwarder_priority_add(obj, desc, EFL_CALLBACK_PRIORITY_DEFAULT, new_obj);
 end;
 
 function EFL_EVENT_CALLBACK_ADD: PEfl_Event_Description;
