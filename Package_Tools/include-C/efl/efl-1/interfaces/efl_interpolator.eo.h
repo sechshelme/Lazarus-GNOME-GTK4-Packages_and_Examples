@@ -33,7 +33,7 @@ typedef Eo Efl_Interpolator;
  */
 #define EFL_INTERPOLATOR_INTERFACE efl_interpolator_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_interpolator_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_interpolator_interface_get(void) ;
 
 /**
  * @brief Performs the mapping operation.
@@ -49,6 +49,6 @@ extern extern_WEAK const Efl_Class *efl_interpolator_interface_get(void) EINA_CO
  *
  * @ingroup Efl_Interpolator
  */
-extern extern_WEAK double efl_interpolator_interpolate(Eo *obj, double progress);
+extern  double efl_interpolator_interpolate(Eo *obj, double progress);
 
 #endif

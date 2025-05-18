@@ -85,7 +85,7 @@ typedef enum
  */
 #define EFL_GFX_IMAGE_ORIENTABLE_INTERFACE efl_gfx_image_orientable_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_image_orientable_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_gfx_image_orientable_interface_get(void) ;
 
 /**
  * @brief Control the orientation (rotation and flipping) of a visual object.
@@ -99,7 +99,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_image_orientable_interface_get(void)
  *
  * @ingroup Efl_Gfx_Image_Orientable
  */
-extern extern_WEAK void efl_gfx_image_orientation_set(Eo *obj, Efl_Gfx_Image_Orientation dir);
+extern  void efl_gfx_image_orientation_set(Eo *obj, Efl_Gfx_Image_Orientation dir);
 
 /**
  * @brief Control the orientation (rotation and flipping) of a visual object.
@@ -114,6 +114,6 @@ extern extern_WEAK void efl_gfx_image_orientation_set(Eo *obj, Efl_Gfx_Image_Ori
  *
  * @ingroup Efl_Gfx_Image_Orientable
  */
-extern extern_WEAK Efl_Gfx_Image_Orientation efl_gfx_image_orientation_get(const Eo *obj);
+extern  Efl_Gfx_Image_Orientation efl_gfx_image_orientation_get(const Eo *obj);
 
 #endif

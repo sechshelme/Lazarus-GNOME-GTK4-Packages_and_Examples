@@ -33,7 +33,7 @@ typedef enum
  */
 #define EFL_IO_POSITIONER_MIXIN efl_io_positioner_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_io_positioner_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_io_positioner_mixin_get(void) ;
 
 /**
  * @brief Seek in data
@@ -46,7 +46,7 @@ extern extern_WEAK const Efl_Class *efl_io_positioner_mixin_get(void) EINA_CONST
  *
  * @ingroup Efl_Io_Positioner
  */
-extern extern_WEAK Eina_Error efl_io_positioner_seek(Eo *obj, int64_t offset, Efl_Io_Positioner_Whence whence);
+extern  Eina_Error efl_io_positioner_seek(Eo *obj, int64_t offset, Efl_Io_Positioner_Whence whence);
 
 /**
  * @brief Position property
@@ -61,7 +61,7 @@ extern extern_WEAK Eina_Error efl_io_positioner_seek(Eo *obj, int64_t offset, Ef
  *
  * @ingroup Efl_Io_Positioner
  */
-extern extern_WEAK Eina_Bool efl_io_positioner_position_set(Eo *obj, uint64_t position);
+extern  Eina_Bool efl_io_positioner_position_set(Eo *obj, uint64_t position);
 
 /**
  * @brief Position property
@@ -72,9 +72,9 @@ extern extern_WEAK Eina_Bool efl_io_positioner_position_set(Eo *obj, uint64_t po
  *
  * @ingroup Efl_Io_Positioner
  */
-extern extern_WEAK uint64_t efl_io_positioner_position_get(const Eo *obj);
+extern  uint64_t efl_io_positioner_position_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_POSITIONER_EVENT_POSITION_CHANGED;
+extern  extern const Efl_Event_Description _EFL_IO_POSITIONER_EVENT_POSITION_CHANGED;
 
 /** Notifies position changed
  *

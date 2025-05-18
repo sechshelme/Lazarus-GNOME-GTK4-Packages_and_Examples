@@ -7,6 +7,7 @@
 
 type
   PEina_Iterator = ^TEina_Iterator;
+  PPEina_Iterator = ^PEina_Iterator;
 
   TEina_Iterator_Next_Callback = function(it: PEina_Iterator; data: Ppointer): TEina_Bool; cdecl;
 

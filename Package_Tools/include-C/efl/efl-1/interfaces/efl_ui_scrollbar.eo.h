@@ -47,7 +47,7 @@ typedef enum
  */
 #define EFL_UI_SCROLLBAR_INTERFACE efl_ui_scrollbar_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_scrollbar_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_scrollbar_interface_get(void) ;
 
 /**
  * @brief Scrollbar visibility mode, for each of the scrollbars.
@@ -60,7 +60,7 @@ extern extern_WEAK const Efl_Class *efl_ui_scrollbar_interface_get(void) EINA_CO
  *
  * @ingroup Efl_Ui_Scrollbar
  */
-extern extern_WEAK void efl_ui_scrollbar_bar_mode_set(Eo *obj, Efl_Ui_Scrollbar_Mode hbar, Efl_Ui_Scrollbar_Mode vbar);
+extern  void efl_ui_scrollbar_bar_mode_set(Eo *obj, Efl_Ui_Scrollbar_Mode hbar, Efl_Ui_Scrollbar_Mode vbar);
 
 /**
  * @brief Scrollbar visibility mode, for each of the scrollbars.
@@ -73,7 +73,7 @@ extern extern_WEAK void efl_ui_scrollbar_bar_mode_set(Eo *obj, Efl_Ui_Scrollbar_
  *
  * @ingroup Efl_Ui_Scrollbar
  */
-extern extern_WEAK void efl_ui_scrollbar_bar_mode_get(const Eo *obj, Efl_Ui_Scrollbar_Mode *hbar, Efl_Ui_Scrollbar_Mode *vbar);
+extern  void efl_ui_scrollbar_bar_mode_get(const Eo *obj, Efl_Ui_Scrollbar_Mode *hbar, Efl_Ui_Scrollbar_Mode *vbar);
 
 /**
  * @brief This returns the relative size the thumb should have, given the
@@ -91,7 +91,7 @@ extern extern_WEAK void efl_ui_scrollbar_bar_mode_get(const Eo *obj, Efl_Ui_Scro
  *
  * @ingroup Efl_Ui_Scrollbar
  */
-extern extern_WEAK void efl_ui_scrollbar_bar_size_get(const Eo *obj, double *width, double *height);
+extern  void efl_ui_scrollbar_bar_size_get(const Eo *obj, double *width, double *height);
 
 /**
  * @brief Position of the thumb (the draggable zone) inside the scrollbar. It
@@ -110,7 +110,7 @@ extern extern_WEAK void efl_ui_scrollbar_bar_size_get(const Eo *obj, double *wid
  *
  * @ingroup Efl_Ui_Scrollbar
  */
-extern extern_WEAK void efl_ui_scrollbar_bar_position_set(Eo *obj, double posx, double posy);
+extern  void efl_ui_scrollbar_bar_position_set(Eo *obj, double posx, double posy);
 
 /**
  * @brief Position of the thumb (the draggable zone) inside the scrollbar. It
@@ -129,7 +129,7 @@ extern extern_WEAK void efl_ui_scrollbar_bar_position_set(Eo *obj, double posx, 
  *
  * @ingroup Efl_Ui_Scrollbar
  */
-extern extern_WEAK void efl_ui_scrollbar_bar_position_get(const Eo *obj, double *posx, double *posy);
+extern  void efl_ui_scrollbar_bar_position_get(const Eo *obj, double *posx, double *posy);
 
 /**
  * @brief Current visibility state of the scrollbars. This is useful in
@@ -144,7 +144,7 @@ extern extern_WEAK void efl_ui_scrollbar_bar_position_get(const Eo *obj, double 
  *
  * @ingroup Efl_Ui_Scrollbar
  */
-extern extern_WEAK void efl_ui_scrollbar_bar_visibility_get(const Eo *obj, Eina_Bool *hbar, Eina_Bool *vbar);
+extern  void efl_ui_scrollbar_bar_visibility_get(const Eo *obj, Eina_Bool *hbar, Eina_Bool *vbar);
 
 #ifdef EFL_BETA_API_SUPPORT
 #ifdef EFL_UI_SCROLLBAR_PROTECTED
@@ -160,11 +160,11 @@ extern extern_WEAK void efl_ui_scrollbar_bar_visibility_get(const Eo *obj, Eina_
  *
  * @ingroup Efl_Ui_Scrollbar
  */
-extern extern_WEAK void efl_ui_scrollbar_bar_visibility_update(Eo *obj);
+extern  void efl_ui_scrollbar_bar_visibility_update(Eo *obj);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_PRESSED;
+extern  extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_PRESSED;
 
 /** Emitted when thumb is pressed.
  * @return Efl_Ui_Layout_Orientation
@@ -175,7 +175,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BA
  */
 #define EFL_UI_SCROLLBAR_EVENT_BAR_PRESSED (&(_EFL_UI_SCROLLBAR_EVENT_BAR_PRESSED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_UNPRESSED;
+extern  extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_UNPRESSED;
 
 /** Emitted when thumb is unpressed.
  * @return Efl_Ui_Layout_Orientation
@@ -186,7 +186,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BA
  */
 #define EFL_UI_SCROLLBAR_EVENT_BAR_UNPRESSED (&(_EFL_UI_SCROLLBAR_EVENT_BAR_UNPRESSED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_DRAGGED;
+extern  extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_DRAGGED;
 
 /** Emitted when thumb is dragged.
  * @return Efl_Ui_Layout_Orientation
@@ -197,7 +197,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BA
  */
 #define EFL_UI_SCROLLBAR_EVENT_BAR_DRAGGED (&(_EFL_UI_SCROLLBAR_EVENT_BAR_DRAGGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_SIZE_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_SIZE_CHANGED;
 
 /** Emitted when thumb size has changed.
  *
@@ -207,7 +207,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BA
  */
 #define EFL_UI_SCROLLBAR_EVENT_BAR_SIZE_CHANGED (&(_EFL_UI_SCROLLBAR_EVENT_BAR_SIZE_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_POS_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_POS_CHANGED;
 
 /** Emitted when thumb position has changed.
  *
@@ -217,7 +217,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BA
  */
 #define EFL_UI_SCROLLBAR_EVENT_BAR_POS_CHANGED (&(_EFL_UI_SCROLLBAR_EVENT_BAR_POS_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_SHOW;
+extern  extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_SHOW;
 
 /** Emitted when scrollbar is shown.
  * @return Efl_Ui_Layout_Orientation
@@ -228,7 +228,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BA
  */
 #define EFL_UI_SCROLLBAR_EVENT_BAR_SHOW (&(_EFL_UI_SCROLLBAR_EVENT_BAR_SHOW))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_HIDE;
+extern  extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_HIDE;
 
 /** Emitted when scrollbar is hidden.
  * @return Efl_Ui_Layout_Orientation

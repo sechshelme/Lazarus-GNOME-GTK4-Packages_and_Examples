@@ -44,7 +44,7 @@ typedef Eo Efl_Part;
  */
 #define EFL_PART_INTERFACE efl_part_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_part_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_part_interface_get(void) ;
 
 #ifdef EFL_PART_PROTECTED
 /**
@@ -59,7 +59,7 @@ extern extern_WEAK const Efl_Class *efl_part_interface_get(void) EINA_CONST;
  *
  * @ingroup Efl_Part
  */
-extern extern_WEAK Efl_Object *efl_part_get(const Eo *obj, const char *name);
+extern  Efl_Object *efl_part_get(const Eo *obj, const char *name);
 #endif
 
 #endif

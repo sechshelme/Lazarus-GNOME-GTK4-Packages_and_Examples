@@ -37,7 +37,7 @@ typedef struct _Efl_Model_Changed_Event
  */
 #define EFL_UI_VIEW_INTERFACE efl_ui_view_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_view_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_view_interface_get(void) ;
 
 /**
  * @brief Model that is/will be
@@ -49,7 +49,7 @@ extern extern_WEAK const Efl_Class *efl_ui_view_interface_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_View
  */
-extern extern_WEAK void efl_ui_view_model_set(Eo *obj, Efl_Model *model);
+extern  void efl_ui_view_model_set(Eo *obj, Efl_Model *model);
 
 /**
  * @brief Model that is/will be
@@ -62,9 +62,9 @@ extern extern_WEAK void efl_ui_view_model_set(Eo *obj, Efl_Model *model);
  *
  * @ingroup Efl_Ui_View
  */
-extern extern_WEAK Efl_Model *efl_ui_view_model_get(const Eo *obj);
+extern  Efl_Model *efl_ui_view_model_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_VIEW_EVENT_MODEL_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_VIEW_EVENT_MODEL_CHANGED;
 
 /** Event dispatched when a new model is set.
  * @return Efl_Model_Changed_Event

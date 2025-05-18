@@ -24,7 +24,7 @@ typedef Eo Efl_Gfx_Blur;
  */
 #define EFL_GFX_BLUR_INTERFACE efl_gfx_blur_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_blur_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_gfx_blur_interface_get(void) ;
 
 /**
  * @brief The blur radius in pixels.
@@ -35,7 +35,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_blur_interface_get(void) EINA_CONST;
  *
  * @ingroup Efl_Gfx_Blur
  */
-extern extern_WEAK void efl_gfx_blur_radius_set(Eo *obj, double rx, double ry);
+extern  void efl_gfx_blur_radius_set(Eo *obj, double rx, double ry);
 
 /**
  * @brief The blur radius in pixels.
@@ -46,7 +46,7 @@ extern extern_WEAK void efl_gfx_blur_radius_set(Eo *obj, double rx, double ry);
  *
  * @ingroup Efl_Gfx_Blur
  */
-extern extern_WEAK void efl_gfx_blur_radius_get(const Eo *obj, double *rx, double *ry);
+extern  void efl_gfx_blur_radius_get(const Eo *obj, double *rx, double *ry);
 
 /**
  * @brief An offset relative to the original pixels.
@@ -59,7 +59,7 @@ extern extern_WEAK void efl_gfx_blur_radius_get(const Eo *obj, double *rx, doubl
  *
  * @ingroup Efl_Gfx_Blur
  */
-extern extern_WEAK void efl_gfx_blur_offset_set(Eo *obj, double ox, double oy);
+extern  void efl_gfx_blur_offset_set(Eo *obj, double ox, double oy);
 
 /**
  * @brief An offset relative to the original pixels.
@@ -72,7 +72,7 @@ extern extern_WEAK void efl_gfx_blur_offset_set(Eo *obj, double ox, double oy);
  *
  * @ingroup Efl_Gfx_Blur
  */
-extern extern_WEAK void efl_gfx_blur_offset_get(const Eo *obj, double *ox, double *oy);
+extern  void efl_gfx_blur_offset_get(const Eo *obj, double *ox, double *oy);
 
 /**
  * @brief How much the original image should be "grown" before blurring.
@@ -88,7 +88,7 @@ extern extern_WEAK void efl_gfx_blur_offset_get(const Eo *obj, double *ox, doubl
  *
  * @ingroup Efl_Gfx_Blur
  */
-extern extern_WEAK void efl_gfx_blur_grow_set(Eo *obj, double radius);
+extern  void efl_gfx_blur_grow_set(Eo *obj, double radius);
 
 /**
  * @brief How much the original image should be "grown" before blurring.
@@ -105,7 +105,7 @@ extern extern_WEAK void efl_gfx_blur_grow_set(Eo *obj, double radius);
  *
  * @ingroup Efl_Gfx_Blur
  */
-extern extern_WEAK double efl_gfx_blur_grow_get(const Eo *obj);
+extern  double efl_gfx_blur_grow_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

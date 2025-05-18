@@ -20,7 +20,7 @@ typedef Eo Efl_Gfx_Shape;
  */
 #define EFL_GFX_SHAPE_MIXIN efl_gfx_shape_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_shape_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_gfx_shape_mixin_get(void) ;
 
 /**
  * @brief The stroke scale to be used for stroking the path. Will be used along
@@ -31,7 +31,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_shape_mixin_get(void) EINA_CONST;
  *
  * @ingroup Efl_Gfx_Shape
  */
-extern extern_WEAK void efl_gfx_shape_stroke_scale_set(Eo *obj, double s);
+extern  void efl_gfx_shape_stroke_scale_set(Eo *obj, double s);
 
 /**
  * @brief The stroke scale to be used for stroking the path. Will be used along
@@ -43,7 +43,7 @@ extern extern_WEAK void efl_gfx_shape_stroke_scale_set(Eo *obj, double s);
  *
  * @ingroup Efl_Gfx_Shape
  */
-extern extern_WEAK double efl_gfx_shape_stroke_scale_get(const Eo *obj);
+extern  double efl_gfx_shape_stroke_scale_get(const Eo *obj);
 
 /**
  * @brief The color to be used for stroking the path.
@@ -56,7 +56,7 @@ extern extern_WEAK double efl_gfx_shape_stroke_scale_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Shape
  */
-extern extern_WEAK void efl_gfx_shape_stroke_color_set(Eo *obj, int r, int g, int b, int a);
+extern  void efl_gfx_shape_stroke_color_set(Eo *obj, int r, int g, int b, int a);
 
 /**
  * @brief The color to be used for stroking the path.
@@ -69,7 +69,7 @@ extern extern_WEAK void efl_gfx_shape_stroke_color_set(Eo *obj, int r, int g, in
  *
  * @ingroup Efl_Gfx_Shape
  */
-extern extern_WEAK void efl_gfx_shape_stroke_color_get(const Eo *obj, int *r, int *g, int *b, int *a);
+extern  void efl_gfx_shape_stroke_color_get(const Eo *obj, int *r, int *g, int *b, int *a);
 
 /**
  * @brief The stroke width to be used for stroking the path.
@@ -79,7 +79,7 @@ extern extern_WEAK void efl_gfx_shape_stroke_color_get(const Eo *obj, int *r, in
  *
  * @ingroup Efl_Gfx_Shape
  */
-extern extern_WEAK void efl_gfx_shape_stroke_width_set(Eo *obj, double w);
+extern  void efl_gfx_shape_stroke_width_set(Eo *obj, double w);
 
 /**
  * @brief The stroke width to be used for stroking the path.
@@ -90,7 +90,7 @@ extern extern_WEAK void efl_gfx_shape_stroke_width_set(Eo *obj, double w);
  *
  * @ingroup Efl_Gfx_Shape
  */
-extern extern_WEAK double efl_gfx_shape_stroke_width_get(const Eo *obj);
+extern  double efl_gfx_shape_stroke_width_get(const Eo *obj);
 
 /**
  * @brief Not implemented
@@ -100,7 +100,7 @@ extern extern_WEAK double efl_gfx_shape_stroke_width_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Shape
  */
-extern extern_WEAK void efl_gfx_shape_stroke_location_set(Eo *obj, double centered);
+extern  void efl_gfx_shape_stroke_location_set(Eo *obj, double centered);
 
 /**
  * @brief Not implemented
@@ -111,7 +111,7 @@ extern extern_WEAK void efl_gfx_shape_stroke_location_set(Eo *obj, double center
  *
  * @ingroup Efl_Gfx_Shape
  */
-extern extern_WEAK double efl_gfx_shape_stroke_location_get(const Eo *obj);
+extern  double efl_gfx_shape_stroke_location_get(const Eo *obj);
 
 /**
  * @brief Set stroke dash pattern. A dash pattern is specified by dashes, an
@@ -126,7 +126,7 @@ extern extern_WEAK double efl_gfx_shape_stroke_location_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Shape
  */
-extern extern_WEAK void efl_gfx_shape_stroke_dash_set(Eo *obj, const Efl_Gfx_Dash *dash, unsigned int length);
+extern  void efl_gfx_shape_stroke_dash_set(Eo *obj, const Efl_Gfx_Dash *dash, unsigned int length);
 
 /**
  * @brief Set stroke dash pattern. A dash pattern is specified by dashes, an
@@ -141,7 +141,7 @@ extern extern_WEAK void efl_gfx_shape_stroke_dash_set(Eo *obj, const Efl_Gfx_Das
  *
  * @ingroup Efl_Gfx_Shape
  */
-extern extern_WEAK void efl_gfx_shape_stroke_dash_get(const Eo *obj, const Efl_Gfx_Dash **dash, unsigned int *length);
+extern  void efl_gfx_shape_stroke_dash_get(const Eo *obj, const Efl_Gfx_Dash **dash, unsigned int *length);
 
 /**
  * @brief The cap style to be used for stroking the path. The cap will be used
@@ -154,7 +154,7 @@ extern extern_WEAK void efl_gfx_shape_stroke_dash_get(const Eo *obj, const Efl_G
  *
  * @ingroup Efl_Gfx_Shape
  */
-extern extern_WEAK void efl_gfx_shape_stroke_cap_set(Eo *obj, Efl_Gfx_Cap c);
+extern  void efl_gfx_shape_stroke_cap_set(Eo *obj, Efl_Gfx_Cap c);
 
 /**
  * @brief The cap style to be used for stroking the path. The cap will be used
@@ -168,7 +168,7 @@ extern extern_WEAK void efl_gfx_shape_stroke_cap_set(Eo *obj, Efl_Gfx_Cap c);
  *
  * @ingroup Efl_Gfx_Shape
  */
-extern extern_WEAK Efl_Gfx_Cap efl_gfx_shape_stroke_cap_get(const Eo *obj);
+extern  Efl_Gfx_Cap efl_gfx_shape_stroke_cap_get(const Eo *obj);
 
 /**
  * @brief The join style to be used for stroking the path. The join style will
@@ -181,7 +181,7 @@ extern extern_WEAK Efl_Gfx_Cap efl_gfx_shape_stroke_cap_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Shape
  */
-extern extern_WEAK void efl_gfx_shape_stroke_join_set(Eo *obj, Efl_Gfx_Join j);
+extern  void efl_gfx_shape_stroke_join_set(Eo *obj, Efl_Gfx_Join j);
 
 /**
  * @brief The join style to be used for stroking the path. The join style will
@@ -195,7 +195,7 @@ extern extern_WEAK void efl_gfx_shape_stroke_join_set(Eo *obj, Efl_Gfx_Join j);
  *
  * @ingroup Efl_Gfx_Shape
  */
-extern extern_WEAK Efl_Gfx_Join efl_gfx_shape_stroke_join_get(const Eo *obj);
+extern  Efl_Gfx_Join efl_gfx_shape_stroke_join_get(const Eo *obj);
 
 /**
  * @brief The stroke_miterlimit is a presentation defining a limit on the ratio
@@ -206,7 +206,7 @@ extern extern_WEAK Efl_Gfx_Join efl_gfx_shape_stroke_join_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Shape
  */
-extern extern_WEAK void efl_gfx_shape_stroke_miterlimit_set(Eo *obj, double miterlimit);
+extern  void efl_gfx_shape_stroke_miterlimit_set(Eo *obj, double miterlimit);
 
 /**
  * @brief The stroke_miterlimit is a presentation defining a limit on the ratio
@@ -218,7 +218,7 @@ extern extern_WEAK void efl_gfx_shape_stroke_miterlimit_set(Eo *obj, double mite
  *
  * @ingroup Efl_Gfx_Shape
  */
-extern extern_WEAK double efl_gfx_shape_stroke_miterlimit_get(const Eo *obj);
+extern  double efl_gfx_shape_stroke_miterlimit_get(const Eo *obj);
 
 /**
  * @brief The fill rule of the given shape object.
@@ -230,7 +230,7 @@ extern extern_WEAK double efl_gfx_shape_stroke_miterlimit_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Shape
  */
-extern extern_WEAK void efl_gfx_shape_fill_rule_set(Eo *obj, Efl_Gfx_Fill_Rule fill_rule);
+extern  void efl_gfx_shape_fill_rule_set(Eo *obj, Efl_Gfx_Fill_Rule fill_rule);
 
 /**
  * @brief The fill rule of the given shape object.
@@ -243,7 +243,7 @@ extern extern_WEAK void efl_gfx_shape_fill_rule_set(Eo *obj, Efl_Gfx_Fill_Rule f
  *
  * @ingroup Efl_Gfx_Shape
  */
-extern extern_WEAK Efl_Gfx_Fill_Rule efl_gfx_shape_fill_rule_get(const Eo *obj);
+extern  Efl_Gfx_Fill_Rule efl_gfx_shape_fill_rule_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

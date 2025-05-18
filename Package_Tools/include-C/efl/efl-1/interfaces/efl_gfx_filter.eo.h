@@ -28,7 +28,7 @@ typedef Eo Efl_Gfx_Filter;
  */
 #define EFL_GFX_FILTER_INTERFACE efl_gfx_filter_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_filter_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_gfx_filter_interface_get(void) ;
 
 /**
  * @brief A graphical filter program on this object.
@@ -47,7 +47,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_filter_interface_get(void) EINA_CONS
  *
  * @ingroup Efl_Gfx_Filter
  */
-extern extern_WEAK void efl_gfx_filter_program_set(Eo *obj, const char *code, const char *name);
+extern  void efl_gfx_filter_program_set(Eo *obj, const char *code, const char *name);
 
 /**
  * @brief A graphical filter program on this object.
@@ -66,7 +66,7 @@ extern extern_WEAK void efl_gfx_filter_program_set(Eo *obj, const char *code, co
  *
  * @ingroup Efl_Gfx_Filter
  */
-extern extern_WEAK void efl_gfx_filter_program_get(const Eo *obj, const char **code, const char **name);
+extern  void efl_gfx_filter_program_get(const Eo *obj, const char **code, const char **name);
 
 /**
  * @brief Set the current state of the filter.
@@ -88,7 +88,7 @@ extern extern_WEAK void efl_gfx_filter_program_get(const Eo *obj, const char **c
  *
  * @ingroup Efl_Gfx_Filter
  */
-extern extern_WEAK void efl_gfx_filter_state_set(Eo *obj, const char *cur_state, double cur_val, const char *next_state, double next_val, double pos);
+extern  void efl_gfx_filter_state_set(Eo *obj, const char *cur_state, double cur_val, const char *next_state, double next_val, double pos);
 
 /**
  * @brief Set the current state of the filter.
@@ -110,7 +110,7 @@ extern extern_WEAK void efl_gfx_filter_state_set(Eo *obj, const char *cur_state,
  *
  * @ingroup Efl_Gfx_Filter
  */
-extern extern_WEAK void efl_gfx_filter_state_get(const Eo *obj, const char **cur_state, double *cur_val, const char **next_state, double *next_val, double *pos);
+extern  void efl_gfx_filter_state_get(const Eo *obj, const char **cur_state, double *cur_val, const char **next_state, double *next_val, double *pos);
 
 /**
  * @brief Required padding to apply this filter without cropping.
@@ -127,7 +127,7 @@ extern extern_WEAK void efl_gfx_filter_state_get(const Eo *obj, const char **cur
  *
  * @ingroup Efl_Gfx_Filter
  */
-extern extern_WEAK void efl_gfx_filter_padding_get(const Eo *obj, int *l, int *r, int *t, int *b);
+extern  void efl_gfx_filter_padding_get(const Eo *obj, int *l, int *r, int *t, int *b);
 
 /**
  * @brief Bind an object to use as a mask or texture in a filter program.
@@ -141,7 +141,7 @@ extern extern_WEAK void efl_gfx_filter_padding_get(const Eo *obj, int *l, int *r
  *
  * @ingroup Efl_Gfx_Filter
  */
-extern extern_WEAK void efl_gfx_filter_source_set(Eo *obj, const char *name, Efl_Gfx_Entity *source);
+extern  void efl_gfx_filter_source_set(Eo *obj, const char *name, Efl_Gfx_Entity *source);
 
 /**
  * @brief Bind an object to use as a mask or texture in a filter program.
@@ -156,7 +156,7 @@ extern extern_WEAK void efl_gfx_filter_source_set(Eo *obj, const char *name, Efl
  *
  * @ingroup Efl_Gfx_Filter
  */
-extern extern_WEAK Efl_Gfx_Entity *efl_gfx_filter_source_get(const Eo *obj, const char *name);
+extern  Efl_Gfx_Entity *efl_gfx_filter_source_get(const Eo *obj, const char *name);
 
 /**
  * @brief Extra data used by the filter program.
@@ -175,7 +175,7 @@ extern extern_WEAK Efl_Gfx_Entity *efl_gfx_filter_source_get(const Eo *obj, cons
  *
  * @ingroup Efl_Gfx_Filter
  */
-extern extern_WEAK void efl_gfx_filter_data_set(Eo *obj, const char *name, const char *value, Eina_Bool execute);
+extern  void efl_gfx_filter_data_set(Eo *obj, const char *name, const char *value, Eina_Bool execute);
 
 /**
  * @brief Extra data used by the filter program.
@@ -194,7 +194,7 @@ extern extern_WEAK void efl_gfx_filter_data_set(Eo *obj, const char *name, const
  *
  * @ingroup Efl_Gfx_Filter
  */
-extern extern_WEAK void efl_gfx_filter_data_get(const Eo *obj, const char *name, const char **value, Eina_Bool *execute);
+extern  void efl_gfx_filter_data_get(const Eo *obj, const char *name, const char **value, Eina_Bool *execute);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

@@ -20,7 +20,7 @@ typedef Eo Efl_Audio_Control;
  */
 #define EFL_AUDIO_CONTROL_INTERFACE efl_audio_control_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_audio_control_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_audio_control_interface_get(void) ;
 
 /**
  * @brief Control the audio volume.
@@ -35,7 +35,7 @@ extern extern_WEAK const Efl_Class *efl_audio_control_interface_get(void) EINA_C
  *
  * @ingroup Efl_Audio_Control
  */
-extern extern_WEAK void efl_audio_control_volume_set(Eo *obj, double volume);
+extern  void efl_audio_control_volume_set(Eo *obj, double volume);
 
 /**
  * @brief Control the audio volume.
@@ -51,7 +51,7 @@ extern extern_WEAK void efl_audio_control_volume_set(Eo *obj, double volume);
  *
  * @ingroup Efl_Audio_Control
  */
-extern extern_WEAK double efl_audio_control_volume_get(const Eo *obj);
+extern  double efl_audio_control_volume_get(const Eo *obj);
 
 /**
  * @brief This property controls the audio mute state.
@@ -61,7 +61,7 @@ extern extern_WEAK double efl_audio_control_volume_get(const Eo *obj);
  *
  * @ingroup Efl_Audio_Control
  */
-extern extern_WEAK void efl_audio_control_mute_set(Eo *obj, Eina_Bool mute);
+extern  void efl_audio_control_mute_set(Eo *obj, Eina_Bool mute);
 
 /**
  * @brief This property controls the audio mute state.
@@ -72,7 +72,7 @@ extern extern_WEAK void efl_audio_control_mute_set(Eo *obj, Eina_Bool mute);
  *
  * @ingroup Efl_Audio_Control
  */
-extern extern_WEAK Eina_Bool efl_audio_control_mute_get(const Eo *obj);
+extern  Eina_Bool efl_audio_control_mute_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

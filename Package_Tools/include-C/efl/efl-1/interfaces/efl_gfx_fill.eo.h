@@ -20,7 +20,7 @@ typedef Eo Efl_Gfx_Fill;
  */
 #define EFL_GFX_FILL_INTERFACE efl_gfx_fill_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_fill_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_gfx_fill_interface_get(void) ;
 
 /**
  * @brief Binds the object's @ref efl_gfx_fill_get property to its actual
@@ -42,7 +42,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_fill_interface_get(void) EINA_CONST;
  *
  * @ingroup Efl_Gfx_Fill
  */
-extern extern_WEAK void efl_gfx_fill_auto_set(Eo *obj, Eina_Bool filled);
+extern  void efl_gfx_fill_auto_set(Eo *obj, Eina_Bool filled);
 
 /**
  * @brief Binds the object's @ref efl_gfx_fill_get property to its actual
@@ -65,7 +65,7 @@ extern extern_WEAK void efl_gfx_fill_auto_set(Eo *obj, Eina_Bool filled);
  *
  * @ingroup Efl_Gfx_Fill
  */
-extern extern_WEAK Eina_Bool efl_gfx_fill_auto_get(const Eo *obj);
+extern  Eina_Bool efl_gfx_fill_auto_get(const Eo *obj);
 
 /**
  * @brief Specifies how to tile an image to fill its rectangle geometry.
@@ -84,7 +84,7 @@ extern extern_WEAK Eina_Bool efl_gfx_fill_auto_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Fill
  */
-extern extern_WEAK void efl_gfx_fill_set(Eo *obj, Eina_Rect fill);
+extern  void efl_gfx_fill_set(Eo *obj, Eina_Rect fill);
 
 /**
  * @brief Specifies how to tile an image to fill its rectangle geometry.
@@ -104,7 +104,7 @@ extern extern_WEAK void efl_gfx_fill_set(Eo *obj, Eina_Rect fill);
  *
  * @ingroup Efl_Gfx_Fill
  */
-extern extern_WEAK Eina_Rect efl_gfx_fill_get(const Eo *obj);
+extern  Eina_Rect efl_gfx_fill_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

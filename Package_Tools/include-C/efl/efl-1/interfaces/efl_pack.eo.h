@@ -22,7 +22,7 @@ typedef Eo Efl_Pack;
  */
 #define EFL_PACK_INTERFACE efl_pack_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_pack_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_pack_interface_get(void) ;
 
 /**
  * @brief Removes all packed sub-objects and unreferences them.
@@ -35,7 +35,7 @@ extern extern_WEAK const Efl_Class *efl_pack_interface_get(void) EINA_CONST;
  *
  * @ingroup Efl_Pack
  */
-extern extern_WEAK Eina_Bool efl_pack_clear(Eo *obj);
+extern  Eina_Bool efl_pack_clear(Eo *obj);
 
 /**
  * @brief Removes all packed sub-objects without unreferencing them.
@@ -50,7 +50,7 @@ extern extern_WEAK Eina_Bool efl_pack_clear(Eo *obj);
  *
  * @ingroup Efl_Pack
  */
-extern extern_WEAK Eina_Bool efl_pack_unpack_all(Eo *obj);
+extern  Eina_Bool efl_pack_unpack_all(Eo *obj);
 
 /**
  * @brief Removes an existing sub-object from the container without deleting
@@ -66,7 +66,7 @@ extern extern_WEAK Eina_Bool efl_pack_unpack_all(Eo *obj);
  *
  * @ingroup Efl_Pack
  */
-extern extern_WEAK Eina_Bool efl_pack_unpack(Eo *obj, Efl_Gfx_Entity *subobj);
+extern  Eina_Bool efl_pack_unpack(Eo *obj, Efl_Gfx_Entity *subobj);
 
 /**
  * @brief Adds a sub-object to this container.
@@ -88,6 +88,6 @@ extern extern_WEAK Eina_Bool efl_pack_unpack(Eo *obj, Efl_Gfx_Entity *subobj);
  *
  * @ingroup Efl_Pack
  */
-extern extern_WEAK Eina_Bool efl_pack(Eo *obj, Efl_Gfx_Entity *subobj);
+extern  Eina_Bool efl_pack(Eo *obj, Efl_Gfx_Entity *subobj);
 
 #endif

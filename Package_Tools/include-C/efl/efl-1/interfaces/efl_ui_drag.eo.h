@@ -20,7 +20,7 @@ typedef Eo Efl_Ui_Drag;
  */
 #define EFL_UI_DRAG_INTERFACE efl_ui_drag_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_drag_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_drag_interface_get(void) ;
 
 /**
  * @brief The draggable object relative location.
@@ -47,7 +47,7 @@ extern extern_WEAK const Efl_Class *efl_ui_drag_interface_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Drag
  */
-extern extern_WEAK Eina_Bool efl_ui_drag_value_set(Eo *obj, double dx, double dy);
+extern  Eina_Bool efl_ui_drag_value_set(Eo *obj, double dx, double dy);
 
 /**
  * @brief The draggable object relative location.
@@ -74,7 +74,7 @@ extern extern_WEAK Eina_Bool efl_ui_drag_value_set(Eo *obj, double dx, double dy
  *
  * @ingroup Efl_Ui_Drag
  */
-extern extern_WEAK Eina_Bool efl_ui_drag_value_get(const Eo *obj, double *dx, double *dy);
+extern  Eina_Bool efl_ui_drag_value_get(const Eo *obj, double *dx, double *dy);
 
 /**
  * @brief The draggable object relative size.
@@ -93,7 +93,7 @@ extern extern_WEAK Eina_Bool efl_ui_drag_value_get(const Eo *obj, double *dx, do
  *
  * @ingroup Efl_Ui_Drag
  */
-extern extern_WEAK Eina_Bool efl_ui_drag_size_set(Eo *obj, double dw, double dh);
+extern  Eina_Bool efl_ui_drag_size_set(Eo *obj, double dw, double dh);
 
 /**
  * @brief The draggable object relative size.
@@ -112,7 +112,7 @@ extern extern_WEAK Eina_Bool efl_ui_drag_size_set(Eo *obj, double dw, double dh)
  *
  * @ingroup Efl_Ui_Drag
  */
-extern extern_WEAK Eina_Bool efl_ui_drag_size_get(const Eo *obj, double *dw, double *dh);
+extern  Eina_Bool efl_ui_drag_size_get(const Eo *obj, double *dw, double *dh);
 
 /**
  * @brief Determines the draggable directions (read-only).
@@ -127,7 +127,7 @@ extern extern_WEAK Eina_Bool efl_ui_drag_size_get(const Eo *obj, double *dw, dou
  *
  * @ingroup Efl_Ui_Drag
  */
-extern extern_WEAK Efl_Ui_Drag_Dir efl_ui_drag_dir_get(const Eo *obj);
+extern  Efl_Ui_Drag_Dir efl_ui_drag_dir_get(const Eo *obj);
 
 /**
  * @brief The drag step increment.
@@ -149,7 +149,7 @@ extern extern_WEAK Efl_Ui_Drag_Dir efl_ui_drag_dir_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Drag
  */
-extern extern_WEAK Eina_Bool efl_ui_drag_step_set(Eo *obj, double dx, double dy);
+extern  Eina_Bool efl_ui_drag_step_set(Eo *obj, double dx, double dy);
 
 /**
  * @brief The drag step increment.
@@ -171,7 +171,7 @@ extern extern_WEAK Eina_Bool efl_ui_drag_step_set(Eo *obj, double dx, double dy)
  *
  * @ingroup Efl_Ui_Drag
  */
-extern extern_WEAK Eina_Bool efl_ui_drag_step_get(const Eo *obj, double *dx, double *dy);
+extern  Eina_Bool efl_ui_drag_step_get(const Eo *obj, double *dx, double *dy);
 
 /**
  * @brief Moves the draggable by @c dx,$dy steps.
@@ -190,7 +190,7 @@ extern extern_WEAK Eina_Bool efl_ui_drag_step_get(const Eo *obj, double *dx, dou
  *
  * @ingroup Efl_Ui_Drag
  */
-extern extern_WEAK Eina_Bool efl_ui_drag_step_move(Eo *obj, double dx, double dy);
+extern  Eina_Bool efl_ui_drag_step_move(Eo *obj, double dx, double dy);
 
 /**
  * @brief The page step increments.
@@ -213,7 +213,7 @@ extern extern_WEAK Eina_Bool efl_ui_drag_step_move(Eo *obj, double dx, double dy
  *
  * @ingroup Efl_Ui_Drag
  */
-extern extern_WEAK Eina_Bool efl_ui_drag_page_set(Eo *obj, double dx, double dy);
+extern  Eina_Bool efl_ui_drag_page_set(Eo *obj, double dx, double dy);
 
 /**
  * @brief The page step increments.
@@ -236,7 +236,7 @@ extern extern_WEAK Eina_Bool efl_ui_drag_page_set(Eo *obj, double dx, double dy)
  *
  * @ingroup Efl_Ui_Drag
  */
-extern extern_WEAK Eina_Bool efl_ui_drag_page_get(const Eo *obj, double *dx, double *dy);
+extern  Eina_Bool efl_ui_drag_page_get(const Eo *obj, double *dx, double *dy);
 
 /**
  * @brief Moves the draggable by @c dx,$dy pages.
@@ -257,7 +257,7 @@ extern extern_WEAK Eina_Bool efl_ui_drag_page_get(const Eo *obj, double *dx, dou
  *
  * @ingroup Efl_Ui_Drag
  */
-extern extern_WEAK Eina_Bool efl_ui_drag_page_move(Eo *obj, double dx, double dy);
+extern  Eina_Bool efl_ui_drag_page_move(Eo *obj, double dx, double dy);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

@@ -21,7 +21,7 @@ typedef Eo Efl_Gfx_Color;
  */
 #define EFL_GFX_COLOR_MIXIN efl_gfx_color_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_color_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_gfx_color_mixin_get(void) ;
 
 /**
  * @brief The general/main color of the given Evas object.
@@ -51,7 +51,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_color_mixin_get(void) EINA_CONST;
  *
  * @ingroup Efl_Gfx_Color
  */
-extern extern_WEAK void efl_gfx_color_set(Eo *obj, int r, int g, int b, int a);
+extern  void efl_gfx_color_set(Eo *obj, int r, int g, int b, int a);
 
 /**
  * @brief The general/main color of the given Evas object.
@@ -81,7 +81,7 @@ extern extern_WEAK void efl_gfx_color_set(Eo *obj, int r, int g, int b, int a);
  *
  * @ingroup Efl_Gfx_Color
  */
-extern extern_WEAK void efl_gfx_color_get(const Eo *obj, int *r, int *g, int *b, int *a);
+extern  void efl_gfx_color_get(const Eo *obj, int *r, int *g, int *b, int *a);
 
 /**
  * @brief Hexadecimal color code of given Evas object (#RRGGBBAA).
@@ -93,7 +93,7 @@ extern extern_WEAK void efl_gfx_color_get(const Eo *obj, int *r, int *g, int *b,
  *
  * @ingroup Efl_Gfx_Color
  */
-extern extern_WEAK void efl_gfx_color_code_set(Eo *obj, const char *colorcode);
+extern  void efl_gfx_color_code_set(Eo *obj, const char *colorcode);
 
 /**
  * @brief Hexadecimal color code of given Evas object (#RRGGBBAA).
@@ -106,6 +106,6 @@ extern extern_WEAK void efl_gfx_color_code_set(Eo *obj, const char *colorcode);
  *
  * @ingroup Efl_Gfx_Color
  */
-extern extern_WEAK const char *efl_gfx_color_code_get(const Eo *obj);
+extern  const char *efl_gfx_color_code_get(const Eo *obj);
 
 #endif

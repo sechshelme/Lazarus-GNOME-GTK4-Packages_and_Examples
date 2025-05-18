@@ -25,7 +25,7 @@ typedef Eo Efl_Model_Provider;
  */
 #define EFL_MODEL_PROVIDER_CLASS efl_model_provider_class_get()
 
-extern extern_WEAK const Efl_Class *efl_model_provider_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_model_provider_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

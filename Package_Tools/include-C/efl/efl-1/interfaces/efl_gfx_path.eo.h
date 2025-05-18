@@ -20,7 +20,7 @@ typedef Eo Efl_Gfx_Path;
  */
 #define EFL_GFX_PATH_MIXIN efl_gfx_path_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_path_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_gfx_path_mixin_get(void) ;
 
 /**
  * @brief Set the list of commands and points to be used to create the content
@@ -32,7 +32,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_path_mixin_get(void) EINA_CONST;
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_set(Eo *obj, const Efl_Gfx_Path_Command_Type *op, const double *points);
+extern  void efl_gfx_path_set(Eo *obj, const Efl_Gfx_Path_Command_Type *op, const double *points);
 
 /**
  * @brief Set the list of commands and points to be used to create the content
@@ -44,7 +44,7 @@ extern extern_WEAK void efl_gfx_path_set(Eo *obj, const Efl_Gfx_Path_Command_Typ
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_get(const Eo *obj, const Efl_Gfx_Path_Command_Type **op, const double **points);
+extern  void efl_gfx_path_get(const Eo *obj, const Efl_Gfx_Path_Command_Type **op, const double **points);
 
 /**
  * @brief Path length property
@@ -55,7 +55,7 @@ extern extern_WEAK void efl_gfx_path_get(const Eo *obj, const Efl_Gfx_Path_Comma
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_length_get(const Eo *obj, unsigned int *commands, unsigned int *points);
+extern  void efl_gfx_path_length_get(const Eo *obj, unsigned int *commands, unsigned int *points);
 
 /**
  * @brief Current point coordinates
@@ -66,7 +66,7 @@ extern extern_WEAK void efl_gfx_path_length_get(const Eo *obj, unsigned int *com
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_current_get(const Eo *obj, double *x, double *y);
+extern  void efl_gfx_path_current_get(const Eo *obj, double *x, double *y);
 
 /**
  * @brief Current control point coordinates
@@ -77,7 +77,7 @@ extern extern_WEAK void efl_gfx_path_current_get(const Eo *obj, double *x, doubl
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_current_ctrl_get(const Eo *obj, double *x, double *y);
+extern  void efl_gfx_path_current_ctrl_get(const Eo *obj, double *x, double *y);
 
 /**
  * @brief Copy the path data from the object specified.
@@ -87,7 +87,7 @@ extern extern_WEAK void efl_gfx_path_current_ctrl_get(const Eo *obj, double *x, 
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_copy_from(Eo *obj, const Efl_Object *dup_from);
+extern  void efl_gfx_path_copy_from(Eo *obj, const Efl_Object *dup_from);
 
 /**
  * @brief Compute and return the bounding box of the currently set path
@@ -97,13 +97,13 @@ extern extern_WEAK void efl_gfx_path_copy_from(Eo *obj, const Efl_Object *dup_fr
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_bounds_get(const Eo *obj, Eina_Rect *r);
+extern  void efl_gfx_path_bounds_get(const Eo *obj, Eina_Rect *r);
 
 /** Reset the path data of the path object.
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_reset(Eo *obj);
+extern  void efl_gfx_path_reset(Eo *obj);
 
 /**
  * @brief Moves the current point to the given point,  implicitly starting a
@@ -117,7 +117,7 @@ extern extern_WEAK void efl_gfx_path_reset(Eo *obj);
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_append_move_to(Eo *obj, double x, double y);
+extern  void efl_gfx_path_append_move_to(Eo *obj, double x, double y);
 
 /**
  * @brief Adds a straight line from the current position to the given end
@@ -135,7 +135,7 @@ extern extern_WEAK void efl_gfx_path_append_move_to(Eo *obj, double x, double y)
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_append_line_to(Eo *obj, double x, double y);
+extern  void efl_gfx_path_append_line_to(Eo *obj, double x, double y);
 
 /**
  * @brief Adds a quadratic Bezier curve between the current position and the
@@ -151,7 +151,7 @@ extern extern_WEAK void efl_gfx_path_append_line_to(Eo *obj, double x, double y)
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_append_quadratic_to(Eo *obj, double x, double y, double ctrl_x, double ctrl_y);
+extern  void efl_gfx_path_append_quadratic_to(Eo *obj, double x, double y, double ctrl_x, double ctrl_y);
 
 /**
  * @brief Same as @ref efl_gfx_path_append_quadratic_to api only difference is
@@ -163,7 +163,7 @@ extern extern_WEAK void efl_gfx_path_append_quadratic_to(Eo *obj, double x, doub
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_append_squadratic_to(Eo *obj, double x, double y);
+extern  void efl_gfx_path_append_squadratic_to(Eo *obj, double x, double y);
 
 /**
  * @brief Adds a cubic Bezier curve between the current position and the given
@@ -181,7 +181,7 @@ extern extern_WEAK void efl_gfx_path_append_squadratic_to(Eo *obj, double x, dou
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_append_cubic_to(Eo *obj, double ctrl_x0, double ctrl_y0, double ctrl_x1, double ctrl_y1, double x, double y);
+extern  void efl_gfx_path_append_cubic_to(Eo *obj, double ctrl_x0, double ctrl_y0, double ctrl_x1, double ctrl_y1, double x, double y);
 
 /**
  * @brief Same as @ref efl_gfx_path_append_cubic_to api only difference is that
@@ -195,7 +195,7 @@ extern extern_WEAK void efl_gfx_path_append_cubic_to(Eo *obj, double ctrl_x0, do
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_append_scubic_to(Eo *obj, double x, double y, double ctrl_x, double ctrl_y);
+extern  void efl_gfx_path_append_scubic_to(Eo *obj, double x, double y, double ctrl_x, double ctrl_y);
 
 /**
  * @brief Append an arc that connects from the current point int the point list
@@ -219,7 +219,7 @@ extern extern_WEAK void efl_gfx_path_append_scubic_to(Eo *obj, double x, double 
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_append_arc_to(Eo *obj, double x, double y, double rx, double ry, double angle, Eina_Bool large_arc, Eina_Bool sweep);
+extern  void efl_gfx_path_append_arc_to(Eo *obj, double x, double y, double rx, double ry, double angle, Eina_Bool large_arc, Eina_Bool sweep);
 
 /**
  * @brief Append an arc that enclosed in the given rectangle (x, y, w, h). The
@@ -235,7 +235,7 @@ extern extern_WEAK void efl_gfx_path_append_arc_to(Eo *obj, double x, double y, 
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_append_arc(Eo *obj, double x, double y, double w, double h, double start_angle, double sweep_length);
+extern  void efl_gfx_path_append_arc(Eo *obj, double x, double y, double w, double h, double start_angle, double sweep_length);
 
 /**
  * @brief Closes the current subpath by drawing a line to the beginning of the
@@ -247,7 +247,7 @@ extern extern_WEAK void efl_gfx_path_append_arc(Eo *obj, double x, double y, dou
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_append_close(Eo *obj);
+extern  void efl_gfx_path_append_close(Eo *obj);
 
 /**
  * @brief Append a circle with given center and radius.
@@ -259,7 +259,7 @@ extern extern_WEAK void efl_gfx_path_append_close(Eo *obj);
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_append_circle(Eo *obj, double x, double y, double radius);
+extern  void efl_gfx_path_append_circle(Eo *obj, double x, double y, double radius);
 
 /**
  * @brief Append the given rectangle with rounded corner to the path.
@@ -283,7 +283,7 @@ extern extern_WEAK void efl_gfx_path_append_circle(Eo *obj, double x, double y, 
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_append_rect(Eo *obj, double x, double y, double w, double h, double rx, double ry);
+extern  void efl_gfx_path_append_rect(Eo *obj, double x, double y, double w, double h, double rx, double ry);
 
 /**
  * @brief Append SVG path data
@@ -293,7 +293,7 @@ extern extern_WEAK void efl_gfx_path_append_rect(Eo *obj, double x, double y, do
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_append_svg_path(Eo *obj, const char *svg_path_data);
+extern  void efl_gfx_path_append_svg_path(Eo *obj, const char *svg_path_data);
 
 /**
  * @brief Creates intermediary path part-way between two paths
@@ -316,7 +316,7 @@ extern extern_WEAK void efl_gfx_path_append_svg_path(Eo *obj, const char *svg_pa
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK Eina_Bool efl_gfx_path_interpolate(Eo *obj, const Efl_Object *from, const Efl_Object *to, double pos_map);
+extern  Eina_Bool efl_gfx_path_interpolate(Eo *obj, const Efl_Object *from, const Efl_Object *to, double pos_map);
 
 /**
  * @brief Equal commands in object
@@ -328,7 +328,7 @@ extern extern_WEAK Eina_Bool efl_gfx_path_interpolate(Eo *obj, const Efl_Object 
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK Eina_Bool efl_gfx_path_equal_commands(Eo *obj, const Efl_Object *with);
+extern  Eina_Bool efl_gfx_path_equal_commands(Eo *obj, const Efl_Object *with);
 
 /**
  * @brief Reserve path commands buffer in advance. If you know the count of
@@ -341,7 +341,7 @@ extern extern_WEAK Eina_Bool efl_gfx_path_equal_commands(Eo *obj, const Efl_Obje
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_reserve(Eo *obj, unsigned int cmd_count, unsigned int pts_count);
+extern  void efl_gfx_path_reserve(Eo *obj, unsigned int cmd_count, unsigned int pts_count);
 
 /**
  * @brief Request to update the path object.
@@ -354,7 +354,7 @@ extern extern_WEAK void efl_gfx_path_reserve(Eo *obj, unsigned int cmd_count, un
  *
  * @ingroup Efl_Gfx_Path
  */
-extern extern_WEAK void efl_gfx_path_commit(Eo *obj);
+extern  void efl_gfx_path_commit(Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

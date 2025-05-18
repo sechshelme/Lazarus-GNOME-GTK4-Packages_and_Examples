@@ -21,7 +21,7 @@ typedef Eo Efl_Screen;
  */
 #define EFL_SCREEN_INTERFACE efl_screen_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_screen_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_screen_interface_get(void) ;
 
 /**
  * @brief Screen size (in pixels) for the screen.
@@ -37,7 +37,7 @@ extern extern_WEAK const Efl_Class *efl_screen_interface_get(void) EINA_CONST;
  *
  * @ingroup Efl_Screen
  */
-extern extern_WEAK Eina_Size2D efl_screen_size_in_pixels_get(const Eo *obj);
+extern  Eina_Size2D efl_screen_size_in_pixels_get(const Eo *obj);
 
 /**
  * @brief Screen scaling factor.
@@ -55,7 +55,7 @@ extern extern_WEAK Eina_Size2D efl_screen_size_in_pixels_get(const Eo *obj);
  *
  * @ingroup Efl_Screen
  */
-extern extern_WEAK float efl_screen_scale_factor_get(const Eo *obj);
+extern  float efl_screen_scale_factor_get(const Eo *obj);
 
 /**
  * @brief The rotation of the screen.
@@ -70,7 +70,7 @@ extern extern_WEAK float efl_screen_scale_factor_get(const Eo *obj);
  *
  * @ingroup Efl_Screen
  */
-extern extern_WEAK int efl_screen_rotation_get(const Eo *obj);
+extern  int efl_screen_rotation_get(const Eo *obj);
 
 /**
  * @brief The pixel density in DPI (Dots Per Inch) for the screen that a window
@@ -84,6 +84,6 @@ extern extern_WEAK int efl_screen_rotation_get(const Eo *obj);
  *
  * @ingroup Efl_Screen
  */
-extern extern_WEAK void efl_screen_dpi_get(const Eo *obj, int *xdpi, int *ydpi);
+extern  void efl_screen_dpi_get(const Eo *obj, int *xdpi, int *ydpi);
 
 #endif

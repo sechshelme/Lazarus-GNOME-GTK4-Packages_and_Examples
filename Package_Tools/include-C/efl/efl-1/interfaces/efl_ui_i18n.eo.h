@@ -20,7 +20,7 @@ typedef Eo Efl_Ui_I18n;
  */
 #define EFL_UI_I18N_INTERFACE efl_ui_i18n_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_i18n_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_i18n_interface_get(void) ;
 
 /**
  * @brief Whether this object should be mirrored.
@@ -33,7 +33,7 @@ extern extern_WEAK const Efl_Class *efl_ui_i18n_interface_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_I18n
  */
-extern extern_WEAK void efl_ui_mirrored_set(Eo *obj, Eina_Bool rtl);
+extern  void efl_ui_mirrored_set(Eo *obj, Eina_Bool rtl);
 
 /**
  * @brief Whether this object should be mirrored.
@@ -47,7 +47,7 @@ extern extern_WEAK void efl_ui_mirrored_set(Eo *obj, Eina_Bool rtl);
  *
  * @ingroup Efl_Ui_I18n
  */
-extern extern_WEAK Eina_Bool efl_ui_mirrored_get(const Eo *obj);
+extern  Eina_Bool efl_ui_mirrored_get(const Eo *obj);
 
 /**
  * @brief Whether the property @ref efl_ui_mirrored_get should be set
@@ -65,7 +65,7 @@ extern extern_WEAK Eina_Bool efl_ui_mirrored_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_I18n
  */
-extern extern_WEAK void efl_ui_mirrored_automatic_set(Eo *obj, Eina_Bool automatic);
+extern  void efl_ui_mirrored_automatic_set(Eo *obj, Eina_Bool automatic);
 
 /**
  * @brief Whether the property @ref efl_ui_mirrored_get should be set
@@ -84,7 +84,7 @@ extern extern_WEAK void efl_ui_mirrored_automatic_set(Eo *obj, Eina_Bool automat
  *
  * @ingroup Efl_Ui_I18n
  */
-extern extern_WEAK Eina_Bool efl_ui_mirrored_automatic_get(const Eo *obj);
+extern  Eina_Bool efl_ui_mirrored_automatic_get(const Eo *obj);
 
 /**
  * @brief The (human) language for this object.
@@ -94,7 +94,7 @@ extern extern_WEAK Eina_Bool efl_ui_mirrored_automatic_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_I18n
  */
-extern extern_WEAK void efl_ui_language_set(Eo *obj, const char *language);
+extern  void efl_ui_language_set(Eo *obj, const char *language);
 
 /**
  * @brief The (human) language for this object.
@@ -105,7 +105,7 @@ extern extern_WEAK void efl_ui_language_set(Eo *obj, const char *language);
  *
  * @ingroup Efl_Ui_I18n
  */
-extern extern_WEAK const char *efl_ui_language_get(const Eo *obj);
+extern  const char *efl_ui_language_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

@@ -29,7 +29,7 @@ typedef Eo Efl_Ui_Scrollable;
  */
 #define EFL_UI_SCROLLABLE_INTERFACE efl_ui_scrollable_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_scrollable_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_scrollable_interface_get(void) ;
 
 /**
  * @brief Position of the content inside the scroller.
@@ -42,7 +42,7 @@ extern extern_WEAK const Efl_Class *efl_ui_scrollable_interface_get(void) EINA_C
  *
  * @ingroup Efl_Ui_Scrollable
  */
-extern extern_WEAK void efl_ui_scrollable_content_pos_set(Eo *obj, Eina_Position2D pos);
+extern  void efl_ui_scrollable_content_pos_set(Eo *obj, Eina_Position2D pos);
 
 /**
  * @brief Position of the content inside the scroller.
@@ -56,7 +56,7 @@ extern extern_WEAK void efl_ui_scrollable_content_pos_set(Eo *obj, Eina_Position
  *
  * @ingroup Efl_Ui_Scrollable
  */
-extern extern_WEAK Eina_Position2D efl_ui_scrollable_content_pos_get(const Eo *obj);
+extern  Eina_Position2D efl_ui_scrollable_content_pos_get(const Eo *obj);
 
 /**
  * @brief Current size of the content, for convenience.
@@ -69,7 +69,7 @@ extern extern_WEAK Eina_Position2D efl_ui_scrollable_content_pos_get(const Eo *o
  *
  * @ingroup Efl_Ui_Scrollable
  */
-extern extern_WEAK Eina_Size2D efl_ui_scrollable_content_size_get(const Eo *obj);
+extern  Eina_Size2D efl_ui_scrollable_content_size_get(const Eo *obj);
 
 /**
  * @brief Current position and size of the viewport (or scroller window), for
@@ -85,7 +85,7 @@ extern extern_WEAK Eina_Size2D efl_ui_scrollable_content_size_get(const Eo *obj)
  *
  * @ingroup Efl_Ui_Scrollable
  */
-extern extern_WEAK Eina_Rect efl_ui_scrollable_viewport_geometry_get(const Eo *obj);
+extern  Eina_Rect efl_ui_scrollable_viewport_geometry_get(const Eo *obj);
 
 /**
  * @brief When scrolling, the scroller may "bounce" when reaching the edge of
@@ -102,7 +102,7 @@ extern extern_WEAK Eina_Rect efl_ui_scrollable_viewport_geometry_get(const Eo *o
  *
  * @ingroup Efl_Ui_Scrollable
  */
-extern extern_WEAK void efl_ui_scrollable_bounce_enabled_set(Eo *obj, Eina_Bool horiz, Eina_Bool vert);
+extern  void efl_ui_scrollable_bounce_enabled_set(Eo *obj, Eina_Bool horiz, Eina_Bool vert);
 
 /**
  * @brief When scrolling, the scroller may "bounce" when reaching the edge of
@@ -119,7 +119,7 @@ extern extern_WEAK void efl_ui_scrollable_bounce_enabled_set(Eo *obj, Eina_Bool 
  *
  * @ingroup Efl_Ui_Scrollable
  */
-extern extern_WEAK void efl_ui_scrollable_bounce_enabled_get(const Eo *obj, Eina_Bool *horiz, Eina_Bool *vert);
+extern  void efl_ui_scrollable_bounce_enabled_get(const Eo *obj, Eina_Bool *horiz, Eina_Bool *vert);
 
 /**
  * @brief Freezes scrolling movement (by input of a user). Unlike
@@ -134,7 +134,7 @@ extern extern_WEAK void efl_ui_scrollable_bounce_enabled_get(const Eo *obj, Eina
  *
  * @ingroup Efl_Ui_Scrollable
  */
-extern extern_WEAK void efl_ui_scrollable_scroll_freeze_set(Eo *obj, Eina_Bool freeze);
+extern  void efl_ui_scrollable_scroll_freeze_set(Eo *obj, Eina_Bool freeze);
 
 /**
  * @brief Freezes scrolling movement (by input of a user). Unlike
@@ -150,7 +150,7 @@ extern extern_WEAK void efl_ui_scrollable_scroll_freeze_set(Eo *obj, Eina_Bool f
  *
  * @ingroup Efl_Ui_Scrollable
  */
-extern extern_WEAK Eina_Bool efl_ui_scrollable_scroll_freeze_get(const Eo *obj);
+extern  Eina_Bool efl_ui_scrollable_scroll_freeze_get(const Eo *obj);
 
 /**
  * @brief When hold turns on, it only scrolls by holding action.
@@ -162,7 +162,7 @@ extern extern_WEAK Eina_Bool efl_ui_scrollable_scroll_freeze_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Scrollable
  */
-extern extern_WEAK void efl_ui_scrollable_scroll_hold_set(Eo *obj, Eina_Bool hold);
+extern  void efl_ui_scrollable_scroll_hold_set(Eo *obj, Eina_Bool hold);
 
 /**
  * @brief When hold turns on, it only scrolls by holding action.
@@ -175,7 +175,7 @@ extern extern_WEAK void efl_ui_scrollable_scroll_hold_set(Eo *obj, Eina_Bool hol
  *
  * @ingroup Efl_Ui_Scrollable
  */
-extern extern_WEAK Eina_Bool efl_ui_scrollable_scroll_hold_get(const Eo *obj);
+extern  Eina_Bool efl_ui_scrollable_scroll_hold_get(const Eo *obj);
 
 /**
  * @brief Controls infinite looping for a scroller.
@@ -188,7 +188,7 @@ extern extern_WEAK Eina_Bool efl_ui_scrollable_scroll_hold_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Scrollable
  */
-extern extern_WEAK void efl_ui_scrollable_looping_set(Eo *obj, Eina_Bool loop_h, Eina_Bool loop_v);
+extern  void efl_ui_scrollable_looping_set(Eo *obj, Eina_Bool loop_h, Eina_Bool loop_v);
 
 /**
  * @brief Controls infinite looping for a scroller.
@@ -201,7 +201,7 @@ extern extern_WEAK void efl_ui_scrollable_looping_set(Eo *obj, Eina_Bool loop_h,
  *
  * @ingroup Efl_Ui_Scrollable
  */
-extern extern_WEAK void efl_ui_scrollable_looping_get(const Eo *obj, Eina_Bool *loop_h, Eina_Bool *loop_v);
+extern  void efl_ui_scrollable_looping_get(const Eo *obj, Eina_Bool *loop_h, Eina_Bool *loop_v);
 
 /**
  * @brief Blocking of scrolling (per axis).
@@ -218,7 +218,7 @@ extern extern_WEAK void efl_ui_scrollable_looping_get(const Eo *obj, Eina_Bool *
  *
  * @ingroup Efl_Ui_Scrollable
  */
-extern extern_WEAK void efl_ui_scrollable_movement_block_set(Eo *obj, Efl_Ui_Layout_Orientation block);
+extern  void efl_ui_scrollable_movement_block_set(Eo *obj, Efl_Ui_Layout_Orientation block);
 
 /**
  * @brief Blocking of scrolling (per axis).
@@ -236,7 +236,7 @@ extern extern_WEAK void efl_ui_scrollable_movement_block_set(Eo *obj, Efl_Ui_Lay
  *
  * @ingroup Efl_Ui_Scrollable
  */
-extern extern_WEAK Efl_Ui_Layout_Orientation efl_ui_scrollable_movement_block_get(const Eo *obj);
+extern  Efl_Ui_Layout_Orientation efl_ui_scrollable_movement_block_get(const Eo *obj);
 
 /**
  * @brief Control scrolling gravity on the scrollable.
@@ -259,7 +259,7 @@ extern extern_WEAK Efl_Ui_Layout_Orientation efl_ui_scrollable_movement_block_ge
  *
  * @ingroup Efl_Ui_Scrollable
  */
-extern extern_WEAK void efl_ui_scrollable_gravity_set(Eo *obj, double x, double y);
+extern  void efl_ui_scrollable_gravity_set(Eo *obj, double x, double y);
 
 /**
  * @brief Control scrolling gravity on the scrollable.
@@ -282,7 +282,7 @@ extern extern_WEAK void efl_ui_scrollable_gravity_set(Eo *obj, double x, double 
  *
  * @ingroup Efl_Ui_Scrollable
  */
-extern extern_WEAK void efl_ui_scrollable_gravity_get(const Eo *obj, double *x, double *y);
+extern  void efl_ui_scrollable_gravity_get(const Eo *obj, double *x, double *y);
 
 /**
  * @brief Prevent the scrollable from being smaller than the minimum size of
@@ -301,7 +301,7 @@ extern extern_WEAK void efl_ui_scrollable_gravity_get(const Eo *obj, double *x, 
  *
  * @ingroup Efl_Ui_Scrollable
  */
-extern extern_WEAK void efl_ui_scrollable_match_content_set(Eo *obj, Eina_Bool w, Eina_Bool h);
+extern  void efl_ui_scrollable_match_content_set(Eo *obj, Eina_Bool w, Eina_Bool h);
 
 /**
  * @brief Amount to scroll in response to cursor key presses.
@@ -313,7 +313,7 @@ extern extern_WEAK void efl_ui_scrollable_match_content_set(Eo *obj, Eina_Bool w
  *
  * @ingroup Efl_Ui_Scrollable
  */
-extern extern_WEAK void efl_ui_scrollable_step_size_set(Eo *obj, Eina_Position2D step);
+extern  void efl_ui_scrollable_step_size_set(Eo *obj, Eina_Position2D step);
 
 /**
  * @brief Amount to scroll in response to cursor key presses.
@@ -326,7 +326,7 @@ extern extern_WEAK void efl_ui_scrollable_step_size_set(Eo *obj, Eina_Position2D
  *
  * @ingroup Efl_Ui_Scrollable
  */
-extern extern_WEAK Eina_Position2D efl_ui_scrollable_step_size_get(const Eo *obj);
+extern  Eina_Position2D efl_ui_scrollable_step_size_get(const Eo *obj);
 
 /**
  * @brief Show a specific virtual region within the scroller content object.
@@ -346,9 +346,9 @@ extern extern_WEAK Eina_Position2D efl_ui_scrollable_step_size_get(const Eo *obj
  *
  * @ingroup Efl_Ui_Scrollable
  */
-extern extern_WEAK void efl_ui_scrollable_scroll(Eo *obj, Eina_Rect rect, Eina_Bool animation);
+extern  void efl_ui_scrollable_scroll(Eo *obj, Eina_Rect rect, Eina_Bool animation);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_STARTED;
+extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_STARTED;
 
 /** Called when scroll operation starts.
  *
@@ -358,7 +358,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_START
  */
 #define EFL_UI_EVENT_SCROLL_STARTED (&(_EFL_UI_EVENT_SCROLL_STARTED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_CHANGED;
+extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_CHANGED;
 
 /** Called when scrolling.
  *
@@ -368,7 +368,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_CHANG
  */
 #define EFL_UI_EVENT_SCROLL_CHANGED (&(_EFL_UI_EVENT_SCROLL_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_FINISHED;
+extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_FINISHED;
 
 /** Called when scroll operation finishes.
  *
@@ -378,7 +378,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_FINIS
  */
 #define EFL_UI_EVENT_SCROLL_FINISHED (&(_EFL_UI_EVENT_SCROLL_FINISHED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_UP;
+extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_UP;
 
 /** Called when scrolling upwards.
  *
@@ -388,7 +388,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_UP;
  */
 #define EFL_UI_EVENT_SCROLL_UP (&(_EFL_UI_EVENT_SCROLL_UP))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_DOWN;
+extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_DOWN;
 
 /** Called when scrolling downwards.
  *
@@ -398,7 +398,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_DOWN;
  */
 #define EFL_UI_EVENT_SCROLL_DOWN (&(_EFL_UI_EVENT_SCROLL_DOWN))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_LEFT;
+extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_LEFT;
 
 /** Called when scrolling left.
  *
@@ -408,7 +408,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_LEFT;
  */
 #define EFL_UI_EVENT_SCROLL_LEFT (&(_EFL_UI_EVENT_SCROLL_LEFT))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_RIGHT;
+extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_RIGHT;
 
 /** Called when scrolling right.
  *
@@ -418,7 +418,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_RIGHT
  */
 #define EFL_UI_EVENT_SCROLL_RIGHT (&(_EFL_UI_EVENT_SCROLL_RIGHT))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_EDGE_UP;
+extern const Efl_Event_Description _EFL_UI_EVENT_EDGE_UP;
 
 /** Called when hitting the top edge.
  *
@@ -428,7 +428,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_EDGE_UP;
  */
 #define EFL_UI_EVENT_EDGE_UP (&(_EFL_UI_EVENT_EDGE_UP))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_EDGE_DOWN;
+extern const Efl_Event_Description _EFL_UI_EVENT_EDGE_DOWN;
 
 /** Called when hitting the bottom edge.
  *
@@ -438,7 +438,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_EDGE_DOWN;
  */
 #define EFL_UI_EVENT_EDGE_DOWN (&(_EFL_UI_EVENT_EDGE_DOWN))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_EDGE_LEFT;
+extern const Efl_Event_Description _EFL_UI_EVENT_EDGE_LEFT;
 
 /** Called when hitting the left edge.
  *
@@ -448,7 +448,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_EDGE_LEFT;
  */
 #define EFL_UI_EVENT_EDGE_LEFT (&(_EFL_UI_EVENT_EDGE_LEFT))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_EDGE_RIGHT;
+extern const Efl_Event_Description _EFL_UI_EVENT_EDGE_RIGHT;
 
 /** Called when hitting the right edge.
  *
@@ -458,7 +458,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_EDGE_RIGHT;
  */
 #define EFL_UI_EVENT_EDGE_RIGHT (&(_EFL_UI_EVENT_EDGE_RIGHT))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_ANIM_STARTED;
+extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_ANIM_STARTED;
 
 /** Called when scroll animation starts.
  *
@@ -468,7 +468,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_ANIM_
  */
 #define EFL_UI_EVENT_SCROLL_ANIM_STARTED (&(_EFL_UI_EVENT_SCROLL_ANIM_STARTED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_ANIM_FINISHED;
+extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_ANIM_FINISHED;
 
 /** Called when scroll animation finishes.
  *
@@ -478,7 +478,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_ANIM_
  */
 #define EFL_UI_EVENT_SCROLL_ANIM_FINISHED (&(_EFL_UI_EVENT_SCROLL_ANIM_FINISHED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_DRAG_STARTED;
+extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_DRAG_STARTED;
 
 /** Called when scroll drag starts.
  *
@@ -488,7 +488,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_DRAG_
  */
 #define EFL_UI_EVENT_SCROLL_DRAG_STARTED (&(_EFL_UI_EVENT_SCROLL_DRAG_STARTED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_DRAG_FINISHED;
+extern const Efl_Event_Description _EFL_UI_EVENT_SCROLL_DRAG_FINISHED;
 
 /** Called when scroll drag finishes.
  *

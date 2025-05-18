@@ -32,7 +32,7 @@ typedef struct _Efl_Observable_Tuple
  */
 #define EFL_OBSERVABLE_CLASS efl_observable_class_get()
 
-extern extern_WEAK const Efl_Class *efl_observable_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_observable_class_get(void) ;
 
 /**
  * @brief Add an observer to a group of observers.
@@ -46,7 +46,7 @@ extern extern_WEAK const Efl_Class *efl_observable_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Observable
  */
-extern extern_WEAK void efl_observable_observer_add(Eo *obj, const char *key, Efl_Observer *obs);
+extern  void efl_observable_observer_add(Eo *obj, const char *key, Efl_Observer *obs);
 
 /**
  * @brief Delete an observer from a group of observers.
@@ -59,7 +59,7 @@ extern extern_WEAK void efl_observable_observer_add(Eo *obj, const char *key, Ef
  *
  * @ingroup Efl_Observable
  */
-extern extern_WEAK void efl_observable_observer_del(Eo *obj, const char *key, Efl_Observer *obs);
+extern  void efl_observable_observer_del(Eo *obj, const char *key, Efl_Observer *obs);
 
 /**
  * @brief Clear an observer from all groups of observers.
@@ -69,7 +69,7 @@ extern extern_WEAK void efl_observable_observer_del(Eo *obj, const char *key, Ef
  *
  * @ingroup Efl_Observable
  */
-extern extern_WEAK void efl_observable_observer_clean(Eo *obj, Efl_Observer *obs);
+extern  void efl_observable_observer_clean(Eo *obj, Efl_Observer *obs);
 
 /**
  * @brief Return a new iterator associated with a group of observers.
@@ -81,7 +81,7 @@ extern extern_WEAK void efl_observable_observer_clean(Eo *obj, Efl_Observer *obs
  *
  * @ingroup Efl_Observable
  */
-extern extern_WEAK Eina_Iterator *efl_observable_observers_iterator_new(Eo *obj, const char *key) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Iterator *efl_observable_observers_iterator_new(Eo *obj, const char *key);
 
 /**
  * @brief Update all observers in a group by calling their update() method.
@@ -92,7 +92,7 @@ extern extern_WEAK Eina_Iterator *efl_observable_observers_iterator_new(Eo *obj,
  *
  * @ingroup Efl_Observable
  */
-extern extern_WEAK void efl_observable_observers_update(Eo *obj, const char *key, void *data);
+extern  void efl_observable_observers_update(Eo *obj, const char *key, void *data);
 
 /**
  * @brief Return a new iterator associated to this observable.
@@ -103,7 +103,7 @@ extern extern_WEAK void efl_observable_observers_update(Eo *obj, const char *key
  *
  * @ingroup Efl_Observable
  */
-extern extern_WEAK Eina_Iterator *efl_observable_iterator_tuple_new(Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Iterator *efl_observable_iterator_tuple_new(Eo *obj)  ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

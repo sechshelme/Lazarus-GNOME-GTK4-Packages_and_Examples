@@ -20,7 +20,7 @@ typedef Eo Efl_Text_Markup_Util;
  */
 #define EFL_TEXT_MARKUP_UTIL_CLASS efl_text_markup_util_class_get()
 
-extern extern_WEAK const Efl_Class *efl_text_markup_util_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_text_markup_util_class_get(void) ;
 
 /**
  * @brief Converts a given (UTF-8) text to a markup-compatible string. This is
@@ -32,7 +32,7 @@ extern extern_WEAK const Efl_Class *efl_text_markup_util_class_get(void) EINA_CO
  *
  * @ingroup Efl_Text_Markup_Util
  */
-extern extern_WEAK char *efl_text_markup_util_text_to_markup(const char *text) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  char *efl_text_markup_util_text_to_markup(const char *text) EFL_TRANSFER_OWNERSHIP ;
 
 /**
  * @brief Converts a markup string to a (UTF-8) plain text. This is used mainly
@@ -44,7 +44,7 @@ extern extern_WEAK char *efl_text_markup_util_text_to_markup(const char *text) E
  *
  * @ingroup Efl_Text_Markup_Util
  */
-extern extern_WEAK char *efl_text_markup_util_markup_to_text(const char *text) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  char *efl_text_markup_util_markup_to_text(const char *text) EFL_TRANSFER_OWNERSHIP ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

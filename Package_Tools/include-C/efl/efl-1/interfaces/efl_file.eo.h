@@ -21,7 +21,7 @@ typedef Eo Efl_File;
  */
 #define EFL_FILE_MIXIN efl_file_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_file_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_file_mixin_get(void) ;
 
 /**
  * @brief The mmaped file from where an object will fetch the real data (it
@@ -39,7 +39,7 @@ extern extern_WEAK const Efl_Class *efl_file_mixin_get(void) EINA_CONST;
  *
  * @ingroup Efl_File
  */
-extern extern_WEAK Eina_Error efl_file_mmap_set(Eo *obj, const Eina_File *f);
+extern  Eina_Error efl_file_mmap_set(Eo *obj, const Eina_File *f);
 
 /**
  * @brief The mmaped file from where an object will fetch the real data (it
@@ -56,7 +56,7 @@ extern extern_WEAK Eina_Error efl_file_mmap_set(Eo *obj, const Eina_File *f);
  *
  * @ingroup Efl_File
  */
-extern extern_WEAK const Eina_File *efl_file_mmap_get(const Eo *obj);
+extern  const Eina_File *efl_file_mmap_get(const Eo *obj);
 
 /**
  * @brief The file path from where an object will fetch the data.
@@ -75,7 +75,7 @@ extern extern_WEAK const Eina_File *efl_file_mmap_get(const Eo *obj);
  *
  * @ingroup Efl_File
  */
-extern extern_WEAK Eina_Error efl_file_set(Eo *obj, const char *file);
+extern  Eina_Error efl_file_set(Eo *obj, const char *file);
 
 /**
  * @brief The file path from where an object will fetch the data.
@@ -93,7 +93,7 @@ extern extern_WEAK Eina_Error efl_file_set(Eo *obj, const char *file);
  *
  * @ingroup Efl_File
  */
-extern extern_WEAK const char *efl_file_get(const Eo *obj);
+extern  const char *efl_file_get(const Eo *obj);
 
 /**
  * @brief The key which corresponds to the target data within a file.
@@ -113,7 +113,7 @@ extern extern_WEAK const char *efl_file_get(const Eo *obj);
  *
  * @ingroup Efl_File
  */
-extern extern_WEAK void efl_file_key_set(Eo *obj, const char *key);
+extern  void efl_file_key_set(Eo *obj, const char *key);
 
 /**
  * @brief The key which corresponds to the target data within a file.
@@ -134,7 +134,7 @@ extern extern_WEAK void efl_file_key_set(Eo *obj, const char *key);
  *
  * @ingroup Efl_File
  */
-extern extern_WEAK const char *efl_file_key_get(const Eo *obj);
+extern  const char *efl_file_key_get(const Eo *obj);
 
 /**
  * @brief The load state of the object.
@@ -147,7 +147,7 @@ extern extern_WEAK const char *efl_file_key_get(const Eo *obj);
  *
  * @ingroup Efl_File
  */
-extern extern_WEAK Eina_Bool efl_file_loaded_get(const Eo *obj);
+extern  Eina_Bool efl_file_loaded_get(const Eo *obj);
 
 /**
  * @brief Perform all necessary operations to open and load file data into the
@@ -169,7 +169,7 @@ extern extern_WEAK Eina_Bool efl_file_loaded_get(const Eo *obj);
  *
  * @ingroup Efl_File
  */
-extern extern_WEAK Eina_Error efl_file_load(Eo *obj);
+extern  Eina_Error efl_file_load(Eo *obj);
 
 /**
  * @brief Perform all necessary operations to unload file data from the object.
@@ -186,6 +186,6 @@ extern extern_WEAK Eina_Error efl_file_load(Eo *obj);
  *
  * @ingroup Efl_File
  */
-extern extern_WEAK void efl_file_unload(Eo *obj);
+extern  void efl_file_unload(Eo *obj);
 
 #endif

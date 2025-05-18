@@ -57,7 +57,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/efl/eo-1', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/efl/efl-1', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -147,6 +147,9 @@ begin
 //      slHeader[j] := StringReplace(slHeader[j], 'EINA_API', 'extern', [rfReplaceAll]);
 slHeader[j] := StringReplace(slHeader[j], 'EO_API_WEAK', '', [rfReplaceAll]);
 slHeader[j] := StringReplace(slHeader[j], 'EO_API', 'extern', [rfReplaceAll]);
+slHeader[j] := StringReplace(slHeader[j], 'EAPI_WEAK', '', [rfReplaceAll]);
+slHeader[j] := StringReplace(slHeader[j], 'EAPI', 'extern', [rfReplaceAll]);
+slHeader[j] := StringReplace(slHeader[j], 'EWAPI', 'extern', [rfReplaceAll]);
 
       slHeader[j] := StringReplace(slHeader[j], 'EINA_INLIST;', 'Eina_Inlist __in_list;', [rfReplaceAll]);
 

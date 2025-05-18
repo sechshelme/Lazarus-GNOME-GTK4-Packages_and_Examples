@@ -8,11 +8,37 @@ program project1;
 
 // https://www.perplexity.ai/search/ich-will-die-mit-grep-dateien-aw7Pr2mpROKi9qznTFxhUQ
 
+// array of const !!
+
+
 uses
   efl,
   fp_eina,
   fp_eo,
 
+
+  // === efl-1/interfaces
+
+  efl_gfx_types_eot,                                   // io.
+  efl_model_eo,                                        // io.
+  efl_observable_eo,                                   // io.
+  efl_config_eo,                                       // io.
+
+  // === efl-1
+
+  Efl_xxx,                                             // io. -> efl_gfx_types_eot, efl_observable_eo, efl_config_eo     ( Name ändern )
+  Efl_MVVM_Common,                                     // io. -> efl_model_eo
+
+  // === efl-1/interfaces
+
+  efl_gfx_image_eo,                                    // io.
+  efl_input_text_entity_eo,                            // io.
+  efl_text_style_eo,                                   // io.
+  efl_gfx_hint_eo,                                     // io. -> efl_gfx_types_eot
+  efl_text_font_properties_eo,                         // io. -> efl_gfx_types_eot
+  efl_text_format_eo,                                  // io.
+  efl_ui_layout_orientable_eo,                         // io.
+  efl_ui_scrollable_eo,                                // io. -> efl_ui_layout_orientable_eo
 
 
   // =======================================
@@ -206,7 +232,7 @@ uses
     elm_run;
     elm_shutdown;
 
-    Result:=0;
+    Result := 0;
   end;
 
 begin

@@ -20,7 +20,7 @@ typedef Eo Efl_Gfx_Size_Class;
  */
 #define EFL_GFX_SIZE_CLASS_INTERFACE efl_gfx_size_class_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_size_class_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_gfx_size_class_interface_get(void) ;
 
 /**
  * @brief Width and height of size class.
@@ -41,7 +41,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_size_class_interface_get(void) EINA_
  *
  * @ingroup Efl_Gfx_Size_Class
  */
-extern extern_WEAK Eina_Bool efl_gfx_size_class_set(Eo *obj, const char *size_class, int minw, int minh, int maxw, int maxh);
+extern  Eina_Bool efl_gfx_size_class_set(Eo *obj, const char *size_class, int minw, int minh, int maxw, int maxh);
 
 /**
  * @brief Width and height of size class.
@@ -62,7 +62,7 @@ extern extern_WEAK Eina_Bool efl_gfx_size_class_set(Eo *obj, const char *size_cl
  *
  * @ingroup Efl_Gfx_Size_Class
  */
-extern extern_WEAK Eina_Bool efl_gfx_size_class_get(const Eo *obj, const char *size_class, int *minw, int *minh, int *maxw, int *maxh);
+extern  Eina_Bool efl_gfx_size_class_get(const Eo *obj, const char *size_class, int *minw, int *minh, int *maxw, int *maxh);
 
 /**
  * @brief Delete the size class.
@@ -77,7 +77,7 @@ extern extern_WEAK Eina_Bool efl_gfx_size_class_get(const Eo *obj, const char *s
  *
  * @ingroup Efl_Gfx_Size_Class
  */
-extern extern_WEAK void efl_gfx_size_class_del(Eo *obj, const char *size_class);
+extern  void efl_gfx_size_class_del(Eo *obj, const char *size_class);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

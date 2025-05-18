@@ -37,7 +37,7 @@ typedef struct _Efl_Ui_Property_Event
  */
 #define EFL_UI_PROPERTY_BIND_INTERFACE efl_ui_property_bind_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_property_bind_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_property_bind_interface_get(void) ;
 
 /**
  * @brief bind property data with the given key string. when the data is ready
@@ -53,9 +53,9 @@ extern extern_WEAK const Efl_Class *efl_ui_property_bind_interface_get(void) EIN
  *
  * @ingroup Efl_Ui_Property_Bind
  */
-extern extern_WEAK Eina_Error efl_ui_property_bind(Eo *obj, const char *key, const char *property);
+extern  Eina_Error efl_ui_property_bind(Eo *obj, const char *key, const char *property);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_PROPERTY_BIND_EVENT_PROPERTIES_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_PROPERTY_BIND_EVENT_PROPERTIES_CHANGED;
 
 /** Event dispatched when a property on the object has changed due to a user
  * interaction on the object that a model could be interested in.
@@ -67,7 +67,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_PROPERTY_BIND_EVEN
  */
 #define EFL_UI_PROPERTY_BIND_EVENT_PROPERTIES_CHANGED (&(_EFL_UI_PROPERTY_BIND_EVENT_PROPERTIES_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_PROPERTY_BIND_EVENT_PROPERTY_BOUND;
+extern  extern const Efl_Event_Description _EFL_UI_PROPERTY_BIND_EVENT_PROPERTY_BOUND;
 
 /** Event dispatched when a property on the object is bound to a model. This is
  * useful to avoid generating too many events.

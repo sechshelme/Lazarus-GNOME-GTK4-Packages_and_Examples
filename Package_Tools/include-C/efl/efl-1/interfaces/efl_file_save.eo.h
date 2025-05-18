@@ -42,7 +42,7 @@ typedef struct _Efl_File_Save_Info
  */
 #define EFL_FILE_SAVE_INTERFACE efl_file_save_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_file_save_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_file_save_interface_get(void) ;
 
 /**
  * @brief Save the given image object's contents to an (image) file.
@@ -68,6 +68,6 @@ extern extern_WEAK const Efl_Class *efl_file_save_interface_get(void) EINA_CONST
  *
  * @ingroup Efl_File_Save
  */
-extern extern_WEAK Eina_Bool efl_file_save(const Eo *obj, const char *file, const char *key, const Efl_File_Save_Info *info);
+extern  Eina_Bool efl_file_save(const Eo *obj, const char *file, const char *key, const Efl_File_Save_Info *info);
 
 #endif

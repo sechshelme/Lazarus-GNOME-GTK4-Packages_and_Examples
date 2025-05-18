@@ -32,7 +32,7 @@ typedef Eo Efl_Io_Buffer;
  */
 #define EFL_IO_BUFFER_CLASS efl_io_buffer_class_get()
 
-extern extern_WEAK const Efl_Class *efl_io_buffer_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_io_buffer_class_get(void) ;
 
 /**
  * @brief Immediately pre-allocate a buffer of at least a given size.
@@ -42,7 +42,7 @@ extern extern_WEAK const Efl_Class *efl_io_buffer_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Io_Buffer
  */
-extern extern_WEAK void efl_io_buffer_preallocate(Eo *obj, size_t size);
+extern  void efl_io_buffer_preallocate(Eo *obj, size_t size);
 
 /**
  * @brief Adopt a read-only slice as buffer's backing store.
@@ -57,7 +57,7 @@ extern extern_WEAK void efl_io_buffer_preallocate(Eo *obj, size_t size);
  *
  * @ingroup Efl_Io_Buffer
  */
-extern extern_WEAK void efl_io_buffer_adopt_readonly(Eo *obj, const Eina_Slice slice);
+extern  void efl_io_buffer_adopt_readonly(Eo *obj, const Eina_Slice slice);
 
 /**
  * @brief Adopt a read-write slice as buffer's backing store.
@@ -74,7 +74,7 @@ extern extern_WEAK void efl_io_buffer_adopt_readonly(Eo *obj, const Eina_Slice s
  *
  * @ingroup Efl_Io_Buffer
  */
-extern extern_WEAK void efl_io_buffer_adopt_readwrite(Eo *obj, Eina_Rw_Slice slice);
+extern  void efl_io_buffer_adopt_readwrite(Eo *obj, Eina_Rw_Slice slice);
 
 /**
  * @brief Limit how big the buffer can grow.
@@ -93,7 +93,7 @@ extern extern_WEAK void efl_io_buffer_adopt_readwrite(Eo *obj, Eina_Rw_Slice sli
  *
  * @ingroup Efl_Io_Buffer
  */
-extern extern_WEAK void efl_io_buffer_limit_set(Eo *obj, size_t size);
+extern  void efl_io_buffer_limit_set(Eo *obj, size_t size);
 
 /**
  * @brief Limit how big the buffer can grow.
@@ -111,7 +111,7 @@ extern extern_WEAK void efl_io_buffer_limit_set(Eo *obj, size_t size);
  *
  * @ingroup Efl_Io_Buffer
  */
-extern extern_WEAK size_t efl_io_buffer_limit_get(const Eo *obj);
+extern  size_t efl_io_buffer_limit_get(const Eo *obj);
 
 /**
  * @brief The position used by @ref efl_io_reader_read.
@@ -130,7 +130,7 @@ extern extern_WEAK size_t efl_io_buffer_limit_get(const Eo *obj);
  *
  * @ingroup Efl_Io_Buffer
  */
-extern extern_WEAK Eina_Bool efl_io_buffer_position_read_set(Eo *obj, uint64_t position);
+extern  Eina_Bool efl_io_buffer_position_read_set(Eo *obj, uint64_t position);
 
 /**
  * @brief The position used by @ref efl_io_reader_read.
@@ -148,7 +148,7 @@ extern extern_WEAK Eina_Bool efl_io_buffer_position_read_set(Eo *obj, uint64_t p
  *
  * @ingroup Efl_Io_Buffer
  */
-extern extern_WEAK uint64_t efl_io_buffer_position_read_get(const Eo *obj);
+extern  uint64_t efl_io_buffer_position_read_get(const Eo *obj);
 
 /**
  * @brief The position used by @ref efl_io_writer_write.
@@ -167,7 +167,7 @@ extern extern_WEAK uint64_t efl_io_buffer_position_read_get(const Eo *obj);
  *
  * @ingroup Efl_Io_Buffer
  */
-extern extern_WEAK Eina_Bool efl_io_buffer_position_write_set(Eo *obj, uint64_t position);
+extern  Eina_Bool efl_io_buffer_position_write_set(Eo *obj, uint64_t position);
 
 /**
  * @brief The position used by @ref efl_io_writer_write.
@@ -185,7 +185,7 @@ extern extern_WEAK Eina_Bool efl_io_buffer_position_write_set(Eo *obj, uint64_t 
  *
  * @ingroup Efl_Io_Buffer
  */
-extern extern_WEAK uint64_t efl_io_buffer_position_write_get(const Eo *obj);
+extern  uint64_t efl_io_buffer_position_write_get(const Eo *obj);
 
 /**
  * @brief Get a temporary access to buffer's internal memory.
@@ -202,7 +202,7 @@ extern extern_WEAK uint64_t efl_io_buffer_position_write_get(const Eo *obj);
  *
  * @ingroup Efl_Io_Buffer
  */
-extern extern_WEAK Eina_Slice efl_io_buffer_slice_get(const Eo *obj);
+extern  Eina_Slice efl_io_buffer_slice_get(const Eo *obj);
 
 /**
  * @brief Steals the internal buffer memory and returns it as a binbuf.
@@ -218,9 +218,9 @@ extern extern_WEAK Eina_Slice efl_io_buffer_slice_get(const Eo *obj);
  *
  * @ingroup Efl_Io_Buffer
  */
-extern extern_WEAK Eina_Binbuf *efl_io_buffer_binbuf_steal(Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Binbuf *efl_io_buffer_binbuf_steal(Eo *obj) EFL_TRANSFER_OWNERSHIP ;
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_BUFFER_EVENT_POSITION_READ_CHANGED;
+extern  extern const Efl_Event_Description _EFL_IO_BUFFER_EVENT_POSITION_READ_CHANGED;
 
 /** Notifies @ref efl_io_buffer_position_read_get changed
  *
@@ -228,7 +228,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_IO_BUFFER_EVENT_POSIT
  */
 #define EFL_IO_BUFFER_EVENT_POSITION_READ_CHANGED (&(_EFL_IO_BUFFER_EVENT_POSITION_READ_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_BUFFER_EVENT_POSITION_WRITE_CHANGED;
+extern  extern const Efl_Event_Description _EFL_IO_BUFFER_EVENT_POSITION_WRITE_CHANGED;
 
 /** Notifies @ref efl_io_buffer_position_write_get changed
  *
@@ -236,7 +236,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_IO_BUFFER_EVENT_POSIT
  */
 #define EFL_IO_BUFFER_EVENT_POSITION_WRITE_CHANGED (&(_EFL_IO_BUFFER_EVENT_POSITION_WRITE_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_BUFFER_EVENT_REALLOCATED;
+extern  extern const Efl_Event_Description _EFL_IO_BUFFER_EVENT_REALLOCATED;
 
 /** Notifies the internal buffer was reallocated, thus whatever was returned by
  * @ref efl_io_buffer_slice_get becomes invalid.

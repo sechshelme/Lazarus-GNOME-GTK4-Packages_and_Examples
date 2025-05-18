@@ -39,7 +39,7 @@ typedef enum
  */
 #define EFL_UI_ZOOM_INTERFACE efl_ui_zoom_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_zoom_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_zoom_interface_get(void) ;
 
 /**
  * @brief This sets the zoom animation state to on or off for zoomable. The
@@ -52,7 +52,7 @@ extern extern_WEAK const Efl_Class *efl_ui_zoom_interface_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Zoom
  */
-extern extern_WEAK void efl_ui_zoom_animation_set(Eo *obj, Eina_Bool paused);
+extern  void efl_ui_zoom_animation_set(Eo *obj, Eina_Bool paused);
 
 /**
  * @brief This sets the zoom animation state to on or off for zoomable. The
@@ -66,7 +66,7 @@ extern extern_WEAK void efl_ui_zoom_animation_set(Eo *obj, Eina_Bool paused);
  *
  * @ingroup Efl_Ui_Zoom
  */
-extern extern_WEAK Eina_Bool efl_ui_zoom_animation_get(const Eo *obj);
+extern  Eina_Bool efl_ui_zoom_animation_get(const Eo *obj);
 
 /**
  * @brief Zoom level of the image.
@@ -89,7 +89,7 @@ extern extern_WEAK Eina_Bool efl_ui_zoom_animation_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Zoom
  */
-extern extern_WEAK void efl_ui_zoom_level_set(Eo *obj, double zoom);
+extern  void efl_ui_zoom_level_set(Eo *obj, double zoom);
 
 /**
  * @brief Zoom level of the image.
@@ -113,7 +113,7 @@ extern extern_WEAK void efl_ui_zoom_level_set(Eo *obj, double zoom);
  *
  * @ingroup Efl_Ui_Zoom
  */
-extern extern_WEAK double efl_ui_zoom_level_get(const Eo *obj);
+extern  double efl_ui_zoom_level_get(const Eo *obj);
 
 /**
  * @brief Zoom mode.
@@ -130,7 +130,7 @@ extern extern_WEAK double efl_ui_zoom_level_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Zoom
  */
-extern extern_WEAK void efl_ui_zoom_mode_set(Eo *obj, Efl_Ui_Zoom_Mode mode);
+extern  void efl_ui_zoom_mode_set(Eo *obj, Efl_Ui_Zoom_Mode mode);
 
 /**
  * @brief Zoom mode.
@@ -148,9 +148,9 @@ extern extern_WEAK void efl_ui_zoom_mode_set(Eo *obj, Efl_Ui_Zoom_Mode mode);
  *
  * @ingroup Efl_Ui_Zoom
  */
-extern extern_WEAK Efl_Ui_Zoom_Mode efl_ui_zoom_mode_get(const Eo *obj);
+extern  Efl_Ui_Zoom_Mode efl_ui_zoom_mode_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_ZOOM_START;
+extern  extern const Efl_Event_Description _EFL_UI_EVENT_ZOOM_START;
 
 /** Called when zooming started
  *
@@ -158,7 +158,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_ZOOM_START;
  */
 #define EFL_UI_EVENT_ZOOM_START (&(_EFL_UI_EVENT_ZOOM_START))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_ZOOM_STOP;
+extern  extern const Efl_Event_Description _EFL_UI_EVENT_ZOOM_STOP;
 
 /** Called when zooming stopped
  *
@@ -166,7 +166,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_ZOOM_STOP;
  */
 #define EFL_UI_EVENT_ZOOM_STOP (&(_EFL_UI_EVENT_ZOOM_STOP))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_ZOOM_CHANGE;
+extern  extern const Efl_Event_Description _EFL_UI_EVENT_ZOOM_CHANGE;
 
 /** Called when zooming changed
  *

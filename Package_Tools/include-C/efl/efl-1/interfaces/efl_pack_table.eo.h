@@ -27,7 +27,7 @@ typedef Eo Efl_Pack_Table;
  */
 #define EFL_PACK_TABLE_INTERFACE efl_pack_table_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_pack_table_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_pack_table_interface_get(void) ;
 
 /**
  * @brief Pack object at a given location in the table.
@@ -49,7 +49,7 @@ extern extern_WEAK const Efl_Class *efl_pack_table_interface_get(void) EINA_CONS
  *
  * @ingroup Efl_Pack_Table
  */
-extern extern_WEAK Eina_Bool efl_pack_table(Eo *obj, Efl_Gfx_Entity *subobj, int col, int row, int colspan, int rowspan);
+extern  Eina_Bool efl_pack_table(Eo *obj, Efl_Gfx_Entity *subobj, int col, int row, int colspan, int rowspan);
 
 /**
  * @brief Returns all objects at a given position in this table.
@@ -65,7 +65,7 @@ extern extern_WEAK Eina_Bool efl_pack_table(Eo *obj, Efl_Gfx_Entity *subobj, int
  *
  * @ingroup Efl_Pack_Table
  */
-extern extern_WEAK Eina_Iterator *efl_pack_table_contents_get(Eo *obj, int col, int row, Eina_Bool below) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Iterator *efl_pack_table_contents_get(Eo *obj, int col, int row, Eina_Bool below) EFL_TRANSFER_OWNERSHIP ;
 
 /**
  * @brief Returns a child at a given position, see
@@ -81,7 +81,7 @@ extern extern_WEAK Eina_Iterator *efl_pack_table_contents_get(Eo *obj, int col, 
  *
  * @ingroup Efl_Pack_Table
  */
-extern extern_WEAK Efl_Gfx_Entity *efl_pack_table_content_get(Eo *obj, int col, int row);
+extern  Efl_Gfx_Entity *efl_pack_table_content_get(Eo *obj, int col, int row);
 
 /**
  * @brief column of the @c subobj in this container.
@@ -95,7 +95,7 @@ extern extern_WEAK Efl_Gfx_Entity *efl_pack_table_content_get(Eo *obj, int col, 
  *
  * @ingroup Efl_Pack_Table
  */
-extern extern_WEAK void efl_pack_table_cell_column_set(Eo *obj, Efl_Gfx_Entity *subobj, int col, int colspan);
+extern  void efl_pack_table_cell_column_set(Eo *obj, Efl_Gfx_Entity *subobj, int col, int colspan);
 
 /**
  * @brief column of the @c subobj in this container.
@@ -111,7 +111,7 @@ extern extern_WEAK void efl_pack_table_cell_column_set(Eo *obj, Efl_Gfx_Entity *
  *
  * @ingroup Efl_Pack_Table
  */
-extern extern_WEAK Eina_Bool efl_pack_table_cell_column_get(const Eo *obj, Efl_Gfx_Entity *subobj, int *col, int *colspan);
+extern  Eina_Bool efl_pack_table_cell_column_get(const Eo *obj, Efl_Gfx_Entity *subobj, int *col, int *colspan);
 
 /**
  * @brief row of the @c subobj in this container.
@@ -125,7 +125,7 @@ extern extern_WEAK Eina_Bool efl_pack_table_cell_column_get(const Eo *obj, Efl_G
  *
  * @ingroup Efl_Pack_Table
  */
-extern extern_WEAK void efl_pack_table_cell_row_set(Eo *obj, Efl_Gfx_Entity *subobj, int row, int rowspan);
+extern  void efl_pack_table_cell_row_set(Eo *obj, Efl_Gfx_Entity *subobj, int row, int rowspan);
 
 /**
  * @brief row of the @c subobj in this container.
@@ -141,7 +141,7 @@ extern extern_WEAK void efl_pack_table_cell_row_set(Eo *obj, Efl_Gfx_Entity *sub
  *
  * @ingroup Efl_Pack_Table
  */
-extern extern_WEAK Eina_Bool efl_pack_table_cell_row_get(const Eo *obj, Efl_Gfx_Entity *subobj, int *row, int *rowspan);
+extern  Eina_Bool efl_pack_table_cell_row_get(const Eo *obj, Efl_Gfx_Entity *subobj, int *row, int *rowspan);
 
 /**
  * @brief Combines @ref efl_pack_table_columns_get and
@@ -155,7 +155,7 @@ extern extern_WEAK Eina_Bool efl_pack_table_cell_row_get(const Eo *obj, Efl_Gfx_
  *
  * @ingroup Efl_Pack_Table
  */
-extern extern_WEAK void efl_pack_table_size_set(Eo *obj, int cols, int rows);
+extern  void efl_pack_table_size_set(Eo *obj, int cols, int rows);
 
 /**
  * @brief Combines @ref efl_pack_table_columns_get and
@@ -169,7 +169,7 @@ extern extern_WEAK void efl_pack_table_size_set(Eo *obj, int cols, int rows);
  *
  * @ingroup Efl_Pack_Table
  */
-extern extern_WEAK void efl_pack_table_size_get(const Eo *obj, int *cols, int *rows);
+extern  void efl_pack_table_size_get(const Eo *obj, int *cols, int *rows);
 
 /**
  * @brief Specifies the amount of columns the table will have when the fill
@@ -183,7 +183,7 @@ extern extern_WEAK void efl_pack_table_size_get(const Eo *obj, int *cols, int *r
  *
  * @ingroup Efl_Pack_Table
  */
-extern extern_WEAK void efl_pack_table_columns_set(Eo *obj, int cols);
+extern  void efl_pack_table_columns_set(Eo *obj, int cols);
 
 /**
  * @brief Specifies the amount of columns the table will have when the fill
@@ -198,7 +198,7 @@ extern extern_WEAK void efl_pack_table_columns_set(Eo *obj, int cols);
  *
  * @ingroup Efl_Pack_Table
  */
-extern extern_WEAK int efl_pack_table_columns_get(const Eo *obj);
+extern  int efl_pack_table_columns_get(const Eo *obj);
 
 /**
  * @brief Specifies the amount of rows the table will have when the fill
@@ -212,7 +212,7 @@ extern extern_WEAK int efl_pack_table_columns_get(const Eo *obj);
  *
  * @ingroup Efl_Pack_Table
  */
-extern extern_WEAK void efl_pack_table_rows_set(Eo *obj, int rows);
+extern  void efl_pack_table_rows_set(Eo *obj, int rows);
 
 /**
  * @brief Specifies the amount of rows the table will have when the fill
@@ -227,6 +227,6 @@ extern extern_WEAK void efl_pack_table_rows_set(Eo *obj, int rows);
  *
  * @ingroup Efl_Pack_Table
  */
-extern extern_WEAK int efl_pack_table_rows_get(const Eo *obj);
+extern  int efl_pack_table_rows_get(const Eo *obj);
 
 #endif

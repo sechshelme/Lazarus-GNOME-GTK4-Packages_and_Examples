@@ -303,7 +303,7 @@ typedef enum
  */
 #define EFL_INPUT_TEXT_ENTITY_INTERFACE efl_input_text_entity_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_input_text_entity_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_input_text_entity_interface_get(void) ;
 
 /**
  * @brief Set/Get the attribute to show the input panel in case of only a
@@ -318,7 +318,7 @@ extern extern_WEAK const Efl_Class *efl_input_text_entity_interface_get(void) EI
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK void efl_input_text_input_panel_show_on_demand_set(Eo *obj, Eina_Bool ondemand);
+extern  void efl_input_text_input_panel_show_on_demand_set(Eo *obj, Eina_Bool ondemand);
 
 /**
  * @brief Set/Get the attribute to show the input panel in case of only a
@@ -334,7 +334,7 @@ extern extern_WEAK void efl_input_text_input_panel_show_on_demand_set(Eo *obj, E
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK Eina_Bool efl_input_text_input_panel_show_on_demand_get(const Eo *obj);
+extern  Eina_Bool efl_input_text_input_panel_show_on_demand_get(const Eo *obj);
 
 /**
  * @brief The language mode of the input panel. This API can be used if you
@@ -347,7 +347,7 @@ extern extern_WEAK Eina_Bool efl_input_text_input_panel_show_on_demand_get(const
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK void efl_input_text_input_panel_language_set(Eo *obj, Efl_Input_Text_Panel_Language_Type lang);
+extern  void efl_input_text_input_panel_language_set(Eo *obj, Efl_Input_Text_Panel_Language_Type lang);
 
 /**
  * @brief The language mode of the input panel. This API can be used if you
@@ -361,7 +361,7 @@ extern extern_WEAK void efl_input_text_input_panel_language_set(Eo *obj, Efl_Inp
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK Efl_Input_Text_Panel_Language_Type efl_input_text_input_panel_language_get(const Eo *obj);
+extern  Efl_Input_Text_Panel_Language_Type efl_input_text_input_panel_language_get(const Eo *obj);
 
 /**
  * @brief The input panel layout variation of the entry, this can be
@@ -376,7 +376,7 @@ extern extern_WEAK Efl_Input_Text_Panel_Language_Type efl_input_text_input_panel
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK void efl_input_text_input_panel_layout_variation_set(Eo *obj, int variation);
+extern  void efl_input_text_input_panel_layout_variation_set(Eo *obj, int variation);
 
 /**
  * @brief The input panel layout variation of the entry, this can be
@@ -392,7 +392,7 @@ extern extern_WEAK void efl_input_text_input_panel_layout_variation_set(Eo *obj,
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK int efl_input_text_input_panel_layout_variation_get(const Eo *obj);
+extern  int efl_input_text_input_panel_layout_variation_get(const Eo *obj);
 
 /**
  * @brief The autocapitalization type on the immodule.
@@ -404,7 +404,7 @@ extern extern_WEAK int efl_input_text_input_panel_layout_variation_get(const Eo 
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK void efl_input_text_autocapitalization_set(Eo *obj, Efl_Input_Text_Capitalize_Type autocapital_type);
+extern  void efl_input_text_autocapitalization_set(Eo *obj, Efl_Input_Text_Capitalize_Type autocapital_type);
 
 /**
  * @brief The autocapitalization type on the immodule.
@@ -417,7 +417,7 @@ extern extern_WEAK void efl_input_text_autocapitalization_set(Eo *obj, Efl_Input
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK Efl_Input_Text_Capitalize_Type efl_input_text_autocapitalization_get(const Eo *obj);
+extern  Efl_Input_Text_Capitalize_Type efl_input_text_autocapitalization_get(const Eo *obj);
 
 /**
  * @brief Whether the entry should allow predictive text.
@@ -429,7 +429,7 @@ extern extern_WEAK Efl_Input_Text_Capitalize_Type efl_input_text_autocapitalizat
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK void efl_input_text_predictable_set(Eo *obj, Eina_Bool prediction);
+extern  void efl_input_text_predictable_set(Eo *obj, Eina_Bool prediction);
 
 /**
  * @brief Whether the entry should allow predictive text.
@@ -442,7 +442,7 @@ extern extern_WEAK void efl_input_text_predictable_set(Eo *obj, Eina_Bool predic
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK Eina_Bool efl_input_text_predictable_get(const Eo *obj);
+extern  Eina_Bool efl_input_text_predictable_get(const Eo *obj);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -456,7 +456,7 @@ extern extern_WEAK Eina_Bool efl_input_text_predictable_get(const Eo *obj);
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK void efl_input_text_input_content_type_set(Eo *obj, Efl_Input_Text_Content_Type hints);
+extern  void efl_input_text_input_content_type_set(Eo *obj, Efl_Input_Text_Content_Type hints);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -472,7 +472,7 @@ extern extern_WEAK void efl_input_text_input_content_type_set(Eo *obj, Efl_Input
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK Efl_Input_Text_Content_Type efl_input_text_input_content_type_get(const Eo *obj);
+extern  Efl_Input_Text_Content_Type efl_input_text_input_content_type_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 /**
@@ -485,7 +485,7 @@ extern extern_WEAK Efl_Input_Text_Content_Type efl_input_text_input_content_type
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK void efl_input_text_input_panel_layout_set(Eo *obj, Efl_Input_Text_Panel_Layout_Type layout);
+extern  void efl_input_text_input_panel_layout_set(Eo *obj, Efl_Input_Text_Panel_Layout_Type layout);
 
 /**
  * @brief The input panel layout of the entry.
@@ -498,7 +498,7 @@ extern extern_WEAK void efl_input_text_input_panel_layout_set(Eo *obj, Efl_Input
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK Efl_Input_Text_Panel_Layout_Type efl_input_text_input_panel_layout_get(const Eo *obj);
+extern  Efl_Input_Text_Panel_Layout_Type efl_input_text_input_panel_layout_get(const Eo *obj);
 
 /**
  * @brief The "return" key type. This type is used to set string or icon on the
@@ -512,7 +512,7 @@ extern extern_WEAK Efl_Input_Text_Panel_Layout_Type efl_input_text_input_panel_l
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK void efl_input_text_input_panel_return_key_type_set(Eo *obj, Efl_Input_Text_Panel_Return_Key_Type return_key_type);
+extern  void efl_input_text_input_panel_return_key_type_set(Eo *obj, Efl_Input_Text_Panel_Return_Key_Type return_key_type);
 
 /**
  * @brief The "return" key type. This type is used to set string or icon on the
@@ -527,7 +527,7 @@ extern extern_WEAK void efl_input_text_input_panel_return_key_type_set(Eo *obj, 
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK Efl_Input_Text_Panel_Return_Key_Type efl_input_text_input_panel_return_key_type_get(const Eo *obj);
+extern  Efl_Input_Text_Panel_Return_Key_Type efl_input_text_input_panel_return_key_type_get(const Eo *obj);
 
 /**
  * @brief The attribute to show the input panel automatically.
@@ -540,7 +540,7 @@ extern extern_WEAK Efl_Input_Text_Panel_Return_Key_Type efl_input_text_input_pan
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK void efl_input_text_input_panel_autoshow_set(Eo *obj, Eina_Bool enabled);
+extern  void efl_input_text_input_panel_autoshow_set(Eo *obj, Eina_Bool enabled);
 
 /**
  * @brief The attribute to show the input panel automatically.
@@ -554,7 +554,7 @@ extern extern_WEAK void efl_input_text_input_panel_autoshow_set(Eo *obj, Eina_Bo
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK Eina_Bool efl_input_text_input_panel_autoshow_get(const Eo *obj);
+extern  Eina_Bool efl_input_text_input_panel_autoshow_get(const Eo *obj);
 
 /**
  * @brief State for the return key on the input panel see
@@ -568,7 +568,7 @@ extern extern_WEAK Eina_Bool efl_input_text_input_panel_autoshow_get(const Eo *o
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK void efl_input_text_input_panel_return_key_state_set(Eo *obj, Efl_Input_Text_Panel_Return_Key_State state);
+extern  void efl_input_text_input_panel_return_key_state_set(Eo *obj, Efl_Input_Text_Panel_Return_Key_State state);
 
 /**
  * @brief State for the return key on the input panel see
@@ -583,7 +583,7 @@ extern extern_WEAK void efl_input_text_input_panel_return_key_state_set(Eo *obj,
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK Efl_Input_Text_Panel_Return_Key_State efl_input_text_input_panel_return_key_state_get(const Eo *obj);
+extern  Efl_Input_Text_Panel_Return_Key_State efl_input_text_input_panel_return_key_state_get(const Eo *obj);
 
 /**
  * @brief Show the input panel (virtual keyboard) based on the input panel
@@ -600,7 +600,7 @@ extern extern_WEAK Efl_Input_Text_Panel_Return_Key_State efl_input_text_input_pa
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK void efl_input_text_input_panel_show(Eo *obj);
+extern  void efl_input_text_input_panel_show(Eo *obj);
 
 /** Hide the input panel (virtual keyboard). Note that input panel is shown or
  * hidden automatically according to the focus state of entry widget. This API
@@ -611,7 +611,7 @@ extern extern_WEAK void efl_input_text_input_panel_show(Eo *obj);
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK void efl_input_text_input_panel_hide(Eo *obj);
+extern  void efl_input_text_input_panel_hide(Eo *obj);
 
 /**
  * @brief Set/Get the input panel-specific data to deliver to the input panel.
@@ -627,7 +627,7 @@ extern extern_WEAK void efl_input_text_input_panel_hide(Eo *obj);
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK void efl_input_text_input_panel_imdata_set(Eo *obj, Eina_Slice value);
+extern  void efl_input_text_input_panel_imdata_set(Eo *obj, Eina_Slice value);
 
 /**
  * @brief Set/Get the input panel-specific data to deliver to the input panel.
@@ -644,6 +644,6 @@ extern extern_WEAK void efl_input_text_input_panel_imdata_set(Eo *obj, Eina_Slic
  *
  * @ingroup Efl_Input_Text_Entity
  */
-extern extern_WEAK Eina_Slice efl_input_text_input_panel_imdata_get(const Eo *obj);
+extern  Eina_Slice efl_input_text_input_panel_imdata_get(const Eo *obj);
 
 #endif

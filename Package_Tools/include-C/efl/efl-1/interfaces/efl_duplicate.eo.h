@@ -24,7 +24,7 @@ typedef Eo Efl_Duplicate;
  */
 #define EFL_DUPLICATE_INTERFACE efl_duplicate_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_duplicate_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_duplicate_interface_get(void) ;
 
 /**
  * @brief Creates a carbon copy of this object and returns it.
@@ -38,7 +38,7 @@ extern extern_WEAK const Efl_Class *efl_duplicate_interface_get(void) EINA_CONST
  *
  * @ingroup Efl_Duplicate
  */
-extern extern_WEAK Efl_Duplicate *efl_duplicate(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Efl_Duplicate *efl_duplicate(const Eo *obj) EFL_TRANSFER_OWNERSHIP ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

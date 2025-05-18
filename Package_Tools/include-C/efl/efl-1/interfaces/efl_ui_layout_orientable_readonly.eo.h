@@ -16,7 +16,7 @@ typedef Eo Efl_Ui_Layout_Orientable_Readonly;
 #ifdef EFL_BETA_API_SUPPORT
 #define EFL_UI_LAYOUT_ORIENTABLE_READONLY_MIXIN efl_ui_layout_orientable_readonly_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_layout_orientable_readonly_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_layout_orientable_readonly_mixin_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

@@ -29,7 +29,7 @@ typedef Eo Efl_Ui_Autorepeat;
  */
 #define EFL_UI_AUTOREPEAT_INTERFACE efl_ui_autorepeat_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_autorepeat_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_autorepeat_interface_get(void) ;
 
 /**
  * @brief The initial timeout before the autorepeat event is generated.
@@ -48,7 +48,7 @@ extern extern_WEAK const Efl_Class *efl_ui_autorepeat_interface_get(void) EINA_C
  *
  * @ingroup Efl_Ui_Autorepeat
  */
-extern extern_WEAK void efl_ui_autorepeat_initial_timeout_set(Eo *obj, double t);
+extern  void efl_ui_autorepeat_initial_timeout_set(Eo *obj, double t);
 
 /**
  * @brief The initial timeout before the autorepeat event is generated.
@@ -68,7 +68,7 @@ extern extern_WEAK void efl_ui_autorepeat_initial_timeout_set(Eo *obj, double t)
  *
  * @ingroup Efl_Ui_Autorepeat
  */
-extern extern_WEAK double efl_ui_autorepeat_initial_timeout_get(const Eo *obj);
+extern  double efl_ui_autorepeat_initial_timeout_get(const Eo *obj);
 
 /**
  * @brief The interval between each generated autorepeat event.
@@ -85,7 +85,7 @@ extern extern_WEAK double efl_ui_autorepeat_initial_timeout_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Autorepeat
  */
-extern extern_WEAK void efl_ui_autorepeat_gap_timeout_set(Eo *obj, double t);
+extern  void efl_ui_autorepeat_gap_timeout_set(Eo *obj, double t);
 
 /**
  * @brief The interval between each generated autorepeat event.
@@ -103,7 +103,7 @@ extern extern_WEAK void efl_ui_autorepeat_gap_timeout_set(Eo *obj, double t);
  *
  * @ingroup Efl_Ui_Autorepeat
  */
-extern extern_WEAK double efl_ui_autorepeat_gap_timeout_get(const Eo *obj);
+extern  double efl_ui_autorepeat_gap_timeout_get(const Eo *obj);
 
 /**
  * @brief Turn on/off the autorepeat event generated when a button is kept
@@ -119,7 +119,7 @@ extern extern_WEAK double efl_ui_autorepeat_gap_timeout_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Autorepeat
  */
-extern extern_WEAK void efl_ui_autorepeat_enabled_set(Eo *obj, Eina_Bool on);
+extern  void efl_ui_autorepeat_enabled_set(Eo *obj, Eina_Bool on);
 
 /**
  * @brief Turn on/off the autorepeat event generated when a button is kept
@@ -136,9 +136,9 @@ extern extern_WEAK void efl_ui_autorepeat_enabled_set(Eo *obj, Eina_Bool on);
  *
  * @ingroup Efl_Ui_Autorepeat
  */
-extern extern_WEAK Eina_Bool efl_ui_autorepeat_enabled_get(const Eo *obj);
+extern  Eina_Bool efl_ui_autorepeat_enabled_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_AUTOREPEAT_EVENT_REPEATED;
+extern  extern const Efl_Event_Description _EFL_UI_AUTOREPEAT_EVENT_REPEATED;
 
 /** Called when a repeated event is emitted
  *

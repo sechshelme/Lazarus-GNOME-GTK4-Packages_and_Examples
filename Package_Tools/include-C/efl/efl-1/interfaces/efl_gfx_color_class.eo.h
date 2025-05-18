@@ -22,7 +22,7 @@ typedef Eo Efl_Gfx_Color_Class;
  */
 #define EFL_GFX_COLOR_CLASS_MIXIN efl_gfx_color_class_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_color_class_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_gfx_color_class_mixin_get(void) ;
 
 /**
  * @brief Color for the color class.
@@ -54,7 +54,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_color_class_mixin_get(void) EINA_CON
  *
  * @ingroup Efl_Gfx_Color_Class
  */
-extern extern_WEAK Eina_Bool efl_gfx_color_class_set(Eo *obj, const char *color_class, Efl_Gfx_Color_Class_Layer layer, int r, int g, int b, int a);
+extern  Eina_Bool efl_gfx_color_class_set(Eo *obj, const char *color_class, Efl_Gfx_Color_Class_Layer layer, int r, int g, int b, int a);
 
 /**
  * @brief Color for the color class.
@@ -86,7 +86,7 @@ extern extern_WEAK Eina_Bool efl_gfx_color_class_set(Eo *obj, const char *color_
  *
  * @ingroup Efl_Gfx_Color_Class
  */
-extern extern_WEAK Eina_Bool efl_gfx_color_class_get(const Eo *obj, const char *color_class, Efl_Gfx_Color_Class_Layer layer, int *r, int *g, int *b, int *a);
+extern  Eina_Bool efl_gfx_color_class_get(const Eo *obj, const char *color_class, Efl_Gfx_Color_Class_Layer layer, int *r, int *g, int *b, int *a);
 
 /**
  * @brief Hexadecimal color code string of the color class.
@@ -115,7 +115,7 @@ extern extern_WEAK Eina_Bool efl_gfx_color_class_get(const Eo *obj, const char *
  *
  * @ingroup Efl_Gfx_Color_Class
  */
-extern extern_WEAK Eina_Bool efl_gfx_color_class_code_set(Eo *obj, const char *color_class, Efl_Gfx_Color_Class_Layer layer, const char *colorcode);
+extern  Eina_Bool efl_gfx_color_class_code_set(Eo *obj, const char *color_class, Efl_Gfx_Color_Class_Layer layer, const char *colorcode);
 
 /**
  * @brief Hexadecimal color code string of the color class.
@@ -143,7 +143,7 @@ extern extern_WEAK Eina_Bool efl_gfx_color_class_code_set(Eo *obj, const char *c
  *
  * @ingroup Efl_Gfx_Color_Class
  */
-extern extern_WEAK const char *efl_gfx_color_class_code_get(const Eo *obj, const char *color_class, Efl_Gfx_Color_Class_Layer layer);
+extern  const char *efl_gfx_color_class_code_get(const Eo *obj, const char *color_class, Efl_Gfx_Color_Class_Layer layer);
 
 /**
  * @brief Get the description of a color class.
@@ -157,7 +157,7 @@ extern extern_WEAK const char *efl_gfx_color_class_code_get(const Eo *obj, const
  *
  * @ingroup Efl_Gfx_Color_Class
  */
-extern extern_WEAK const char *efl_gfx_color_class_description_get(const Eo *obj, const char *color_class);
+extern  const char *efl_gfx_color_class_description_get(const Eo *obj, const char *color_class);
 
 /**
  * @brief Delete the color class.
@@ -175,7 +175,7 @@ extern extern_WEAK const char *efl_gfx_color_class_description_get(const Eo *obj
  *
  * @ingroup Efl_Gfx_Color_Class
  */
-extern extern_WEAK void efl_gfx_color_class_del(Eo *obj, const char *color_class);
+extern  void efl_gfx_color_class_del(Eo *obj, const char *color_class);
 
 /**
  * @brief Delete all color classes defined in object level.
@@ -187,7 +187,7 @@ extern extern_WEAK void efl_gfx_color_class_del(Eo *obj, const char *color_class
  *
  * @ingroup Efl_Gfx_Color_Class
  */
-extern extern_WEAK void efl_gfx_color_class_clear(Eo *obj);
+extern  void efl_gfx_color_class_clear(Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

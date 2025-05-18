@@ -20,7 +20,7 @@ typedef Eo Efl_Gfx_Gradient_Linear;
  */
 #define EFL_GFX_GRADIENT_LINEAR_INTERFACE efl_gfx_gradient_linear_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_gradient_linear_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_gfx_gradient_linear_interface_get(void) ;
 
 /**
  * @brief The start point of this linear gradient.
@@ -31,7 +31,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_gradient_linear_interface_get(void) 
  *
  * @ingroup Efl_Gfx_Gradient_Linear
  */
-extern extern_WEAK void efl_gfx_gradient_linear_start_set(Eo *obj, double x, double y);
+extern  void efl_gfx_gradient_linear_start_set(Eo *obj, double x, double y);
 
 /**
  * @brief The start point of this linear gradient.
@@ -42,7 +42,7 @@ extern extern_WEAK void efl_gfx_gradient_linear_start_set(Eo *obj, double x, dou
  *
  * @ingroup Efl_Gfx_Gradient_Linear
  */
-extern extern_WEAK void efl_gfx_gradient_linear_start_get(const Eo *obj, double *x, double *y);
+extern  void efl_gfx_gradient_linear_start_get(const Eo *obj, double *x, double *y);
 
 /**
  * @brief The end point of this linear gradient.
@@ -53,7 +53,7 @@ extern extern_WEAK void efl_gfx_gradient_linear_start_get(const Eo *obj, double 
  *
  * @ingroup Efl_Gfx_Gradient_Linear
  */
-extern extern_WEAK void efl_gfx_gradient_linear_end_set(Eo *obj, double x, double y);
+extern  void efl_gfx_gradient_linear_end_set(Eo *obj, double x, double y);
 
 /**
  * @brief The end point of this linear gradient.
@@ -64,7 +64,7 @@ extern extern_WEAK void efl_gfx_gradient_linear_end_set(Eo *obj, double x, doubl
  *
  * @ingroup Efl_Gfx_Gradient_Linear
  */
-extern extern_WEAK void efl_gfx_gradient_linear_end_get(const Eo *obj, double *x, double *y);
+extern  void efl_gfx_gradient_linear_end_get(const Eo *obj, double *x, double *y);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

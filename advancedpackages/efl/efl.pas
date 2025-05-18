@@ -13,6 +13,7 @@ const
   libevas = 'libevas';
   libeina = 'libeina';
   libeo = 'libeo';
+  libefl = 'libefl';
   {$ENDIF}
 
   {$IFDEF mswindows}
@@ -20,7 +21,8 @@ const
   libelementary = 'libelementary-1.dll';
   libevas = 'libevas-1.dll';
   libeina = 'libeina-1.dll';
-  libeo = 'libeo-1,dd';
+  libeo = 'libeo-1.dll';
+  libefl = 'libefl-1.dll';
   {$ENDIF}
 
   {$IFDEF darwin}

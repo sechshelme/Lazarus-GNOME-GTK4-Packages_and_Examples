@@ -32,7 +32,7 @@ typedef Eo Efl_Io_Reader;
  */
 #define EFL_IO_READER_INTERFACE efl_io_reader_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_io_reader_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_io_reader_interface_get(void) ;
 
 /**
  * @brief Reads data into a pre-allocated buffer.
@@ -55,7 +55,7 @@ extern extern_WEAK const Efl_Class *efl_io_reader_interface_get(void) EINA_CONST
  *
  * @ingroup Efl_Io_Reader
  */
-extern extern_WEAK Eina_Error efl_io_reader_read(Eo *obj, Eina_Rw_Slice *rw_slice);
+extern  Eina_Error efl_io_reader_read(Eo *obj, Eina_Rw_Slice *rw_slice);
 
 #ifdef EFL_IO_READER_PROTECTED
 /**
@@ -70,7 +70,7 @@ extern extern_WEAK Eina_Error efl_io_reader_read(Eo *obj, Eina_Rw_Slice *rw_slic
  *
  * @ingroup Efl_Io_Reader
  */
-extern extern_WEAK void efl_io_reader_can_read_set(Eo *obj, Eina_Bool can_read);
+extern  void efl_io_reader_can_read_set(Eo *obj, Eina_Bool can_read);
 #endif
 
 /**
@@ -86,7 +86,7 @@ extern extern_WEAK void efl_io_reader_can_read_set(Eo *obj, Eina_Bool can_read);
  *
  * @ingroup Efl_Io_Reader
  */
-extern extern_WEAK Eina_Bool efl_io_reader_can_read_get(const Eo *obj);
+extern  Eina_Bool efl_io_reader_can_read_get(const Eo *obj);
 
 #ifdef EFL_IO_READER_PROTECTED
 /**
@@ -99,7 +99,7 @@ extern extern_WEAK Eina_Bool efl_io_reader_can_read_get(const Eo *obj);
  *
  * @ingroup Efl_Io_Reader
  */
-extern extern_WEAK void efl_io_reader_eos_set(Eo *obj, Eina_Bool is_eos);
+extern  void efl_io_reader_eos_set(Eo *obj, Eina_Bool is_eos);
 #endif
 
 /**
@@ -113,9 +113,9 @@ extern extern_WEAK void efl_io_reader_eos_set(Eo *obj, Eina_Bool is_eos);
  *
  * @ingroup Efl_Io_Reader
  */
-extern extern_WEAK Eina_Bool efl_io_reader_eos_get(const Eo *obj);
+extern  Eina_Bool efl_io_reader_eos_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_READER_EVENT_CAN_READ_CHANGED;
+extern  extern const Efl_Event_Description _EFL_IO_READER_EVENT_CAN_READ_CHANGED;
 
 /**
  * @brief Notifies can_read property changed.
@@ -136,7 +136,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_IO_READER_EVENT_CAN_R
  */
 #define EFL_IO_READER_EVENT_CAN_READ_CHANGED (&(_EFL_IO_READER_EVENT_CAN_READ_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_READER_EVENT_EOS;
+extern  extern const Efl_Event_Description _EFL_IO_READER_EVENT_EOS;
 
 /**
  * @brief Notifies end of stream, when property is marked as true.

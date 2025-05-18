@@ -20,7 +20,7 @@ typedef Eo Efl_Observer;
  */
 #define EFL_OBSERVER_INTERFACE efl_observer_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_observer_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_observer_interface_get(void) ;
 
 /**
  * @brief Update observer according to the changes of observable object.
@@ -33,7 +33,7 @@ extern extern_WEAK const Efl_Class *efl_observer_interface_get(void) EINA_CONST;
  *
  * @ingroup Efl_Observer
  */
-extern extern_WEAK void efl_observer_update(Eo *obj, Efl_Object *obs, const char *key, void *data);
+extern  void efl_observer_update(Eo *obj, Efl_Object *obs, const char *key, void *data);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

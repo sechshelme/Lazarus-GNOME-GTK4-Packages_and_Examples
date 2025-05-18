@@ -26,7 +26,7 @@ typedef Eo Efl_Ui_Range_Interactive;
  */
 #define EFL_UI_RANGE_INTERACTIVE_INTERFACE efl_ui_range_interactive_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_range_interactive_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_range_interactive_interface_get(void) ;
 
 /**
  * @brief Control the step used to increment or decrement values for given
@@ -45,7 +45,7 @@ extern extern_WEAK const Efl_Class *efl_ui_range_interactive_interface_get(void)
  *
  * @ingroup Efl_Ui_Range_Interactive
  */
-extern extern_WEAK void efl_ui_range_step_set(Eo *obj, double step);
+extern  void efl_ui_range_step_set(Eo *obj, double step);
 
 /**
  * @brief Control the step used to increment or decrement values for given
@@ -65,9 +65,9 @@ extern extern_WEAK void efl_ui_range_step_set(Eo *obj, double step);
  *
  * @ingroup Efl_Ui_Range_Interactive
  */
-extern extern_WEAK double efl_ui_range_step_get(const Eo *obj);
+extern  double efl_ui_range_step_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_STEADY;
+extern  extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_STEADY;
 
 /** Called when the widget's value has changed and has remained unchanged for
  * 0.2s. This allows filtering out unwanted "noise" from the widget if you are

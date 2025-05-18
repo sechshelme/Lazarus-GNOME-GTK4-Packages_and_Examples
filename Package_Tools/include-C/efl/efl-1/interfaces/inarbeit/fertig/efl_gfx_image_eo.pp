@@ -1,112 +1,164 @@
-#ifndef _EFL_GFX_IMAGE_EO_H_
-#define _EFL_GFX_IMAGE_EO_H_
 
-#ifndef _EFL_GFX_IMAGE_EO_CLASS_TYPE
-#define _EFL_GFX_IMAGE_EO_CLASS_TYPE
+unit efl_gfx_image_eo;
+interface
 
-typedef Eo Efl_Gfx_Image;
+{
+  Automatically converted by H2Pas 1.0.0 from efl_gfx_image_eo.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    efl_gfx_image_eo.h
+}
 
-#endif
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
 
-#ifndef _EFL_GFX_IMAGE_EO_TYPES
-#define _EFL_GFX_IMAGE_EO_TYPES
+Type
+PEfl_Class  = ^Efl_Class;
+PEfl_Gfx_Image  = ^Efl_Gfx_Image;
+PEfl_Gfx_Image_Content_Hint  = ^Efl_Gfx_Image_Content_Hint;
+PEfl_Gfx_Image_Scale_Hint  = ^Efl_Gfx_Image_Scale_Hint;
+PEfl_Gfx_Image_Scale_Method  = ^Efl_Gfx_Image_Scale_Method;
+PEfl_Gfx_Image_Stretch_Region  = ^Efl_Gfx_Image_Stretch_Region;
+PEina_Iterator  = ^Eina_Iterator;
+PEo  = ^Eo;
+Plongint  = ^longint;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
 
-/** How an image's data is to be treated by EFL, for optimization.
+
+{$ifndef _EFL_GFX_IMAGE_EO_H_}
+{$define _EFL_GFX_IMAGE_EO_H_}
+{$ifndef _EFL_GFX_IMAGE_EO_CLASS_TYPE}
+{$define _EFL_GFX_IMAGE_EO_CLASS_TYPE}
+type
+  PEfl_Gfx_Image = ^TEfl_Gfx_Image;
+  TEfl_Gfx_Image = TEo;
+{$endif}
+{$ifndef _EFL_GFX_IMAGE_EO_TYPES}
+{$define _EFL_GFX_IMAGE_EO_TYPES}
+{* How an image's data is to be treated by EFL, for optimization.
  *
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image_Content_Hint
- */
-typedef enum
-{
-  EFL_GFX_IMAGE_CONTENT_HINT_NONE = 0, /**< No hint on the content (default).
+  }
+{*< No hint on the content (default).
                                         *
-                                        * @since 1.23 */
-  EFL_GFX_IMAGE_CONTENT_HINT_DYNAMIC = 1, /**< The content will change over
+                                        * @since 1.23  }
+{*< The content will change over
                                            * time.
                                            *
-                                           * @since 1.23 */
-  EFL_GFX_IMAGE_CONTENT_HINT_STATIC = 2 /**< The content won't change over time.
+                                           * @since 1.23  }
+{*< The content won't change over time.
                                          *
-                                         * @since 1.23 */
-} Efl_Gfx_Image_Content_Hint;
-
-/** How an image's data is to be treated by EFL, with regard to scaling cache.
+                                         * @since 1.23  }
+type
+  PEfl_Gfx_Image_Content_Hint = ^TEfl_Gfx_Image_Content_Hint;
+  TEfl_Gfx_Image_Content_Hint =  Longint;
+  Const
+    EFL_GFX_IMAGE_CONTENT_HINT_NONE = 0;
+    EFL_GFX_IMAGE_CONTENT_HINT_DYNAMIC = 1;
+    EFL_GFX_IMAGE_CONTENT_HINT_STATIC = 2;
+;
+{* How an image's data is to be treated by EFL, with regard to scaling cache.
  *
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image_Scale_Hint
- */
-typedef enum
-{
-  EFL_GFX_IMAGE_SCALE_HINT_NONE = 0, /**< No hint on the scaling (default).
+  }
+{*< No hint on the scaling (default).
                                       *
-                                      * @since 1.23 */
-  EFL_GFX_IMAGE_SCALE_HINT_DYNAMIC = 1, /**< Image will be re-scaled over time,
+                                      * @since 1.23  }
+{*< Image will be re-scaled over time,
                                          * thus turning scaling cache OFF for
                                          * its data.
                                          *
-                                         * @since 1.23 */
-  EFL_GFX_IMAGE_SCALE_HINT_STATIC = 2 /**< Image will not be re-scaled over
+                                         * @since 1.23  }
+{*< Image will not be re-scaled over
                                        * time, thus turning scaling cache ON
                                        * for its data.
                                        *
-                                       * @since 1.23 */
-} Efl_Gfx_Image_Scale_Hint;
-
-/** Enumeration that defines scaling methods to be used when rendering an
+                                       * @since 1.23  }
+type
+  PEfl_Gfx_Image_Scale_Hint = ^TEfl_Gfx_Image_Scale_Hint;
+  TEfl_Gfx_Image_Scale_Hint =  Longint;
+  Const
+    EFL_GFX_IMAGE_SCALE_HINT_NONE = 0;
+    EFL_GFX_IMAGE_SCALE_HINT_DYNAMIC = 1;
+    EFL_GFX_IMAGE_SCALE_HINT_STATIC = 2;
+;
+{* Enumeration that defines scaling methods to be used when rendering an
  * image.
  *
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image_Scale_Method
- */
-typedef enum
-{
-  EFL_GFX_IMAGE_SCALE_METHOD_NONE = 0, /**< Use the image's natural size.
+  }
+{*< Use the image's natural size.
                                         *
-                                        * @since 1.23 */
-  EFL_GFX_IMAGE_SCALE_METHOD_FILL, /**< Scale the image so that it matches the
+                                        * @since 1.23  }
+{*< Scale the image so that it matches the
                                     * object's area exactly. The image's aspect
                                     * ratio might be changed.
                                     *
-                                    * @since 1.23 */
-  EFL_GFX_IMAGE_SCALE_METHOD_FIT, /**< Scale the image so that it fits
+                                    * @since 1.23  }
+{*< Scale the image so that it fits
                                    * completely inside the object's area while
                                    * maintaining the aspect ratio. At least one
                                    * of the dimensions of the image will be
                                    * equal to the corresponding dimension of
                                    * the object.
                                    *
-                                   * @since 1.23 */
-  EFL_GFX_IMAGE_SCALE_METHOD_FIT_WIDTH, /**< Scale the image so that it covers
+                                   * @since 1.23  }
+{*< Scale the image so that it covers
                                          * the entire object area horizontally
                                          * while maintaining the aspect ratio.
                                          * The image may become taller than the
                                          * object.
                                          *
-                                         * @since 1.23 */
-  EFL_GFX_IMAGE_SCALE_METHOD_FIT_HEIGHT, /**< Scale the image so that it covers
+                                         * @since 1.23  }
+{*< Scale the image so that it covers
                                           * the entire object area vertically
                                           * while maintaining the aspect ratio.
                                           * The image may become wider than the
                                           * object.
                                           *
-                                          * @since 1.23 */
-  EFL_GFX_IMAGE_SCALE_METHOD_EXPAND, /**< Scale the image so that it covers the
+                                          * @since 1.23  }
+{*< Scale the image so that it covers the
                                       * entire object area on one axis while
                                       * maintaining the aspect ratio,
                                       * preferring whichever axis is largest.
                                       * The image may become larger than the
                                       * object.
                                       *
-                                      * @since 1.23 */
-  EFL_GFX_IMAGE_SCALE_METHOD_TILE /**< Tile image at its original size.
+                                      * @since 1.23  }
+{*< Tile image at its original size.
                                    *
-                                   * @since 1.23 */
-} Efl_Gfx_Image_Scale_Method;
-
-/**
+                                   * @since 1.23  }
+type
+  PEfl_Gfx_Image_Scale_Method = ^TEfl_Gfx_Image_Scale_Method;
+  TEfl_Gfx_Image_Scale_Method =  Longint;
+  Const
+    EFL_GFX_IMAGE_SCALE_METHOD_NONE = 0;
+    EFL_GFX_IMAGE_SCALE_METHOD_FILL = 1;
+    EFL_GFX_IMAGE_SCALE_METHOD_FIT = 2;
+    EFL_GFX_IMAGE_SCALE_METHOD_FIT_WIDTH = 3;
+    EFL_GFX_IMAGE_SCALE_METHOD_FIT_HEIGHT = 4;
+    EFL_GFX_IMAGE_SCALE_METHOD_EXPAND = 5;
+    EFL_GFX_IMAGE_SCALE_METHOD_TILE = 6;
+;
+{*
  * @brief This struct holds the description of a stretchable region in one
  * dimension (vertical or horizontal). Used when scaling an image.
  *
@@ -115,21 +167,22 @@ typedef enum
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image_Stretch_Region
- */
-typedef struct _Efl_Gfx_Image_Stretch_Region
-{
-  unsigned int offset; /**< First pixel of the stretchable region, starting at
+  }
+{*< First pixel of the stretchable region, starting at
                         * 0.
                         *
-                        * @since 1.23 */
-  unsigned int length; /**< Length of the stretchable region in pixels.
+                        * @since 1.23  }
+{*< Length of the stretchable region in pixels.
                         *
-                        * @since 1.23 */
-} Efl_Gfx_Image_Stretch_Region;
-
-
-#endif
-/**
+                        * @since 1.23  }
+type
+  PEfl_Gfx_Image_Stretch_Region = ^TEfl_Gfx_Image_Stretch_Region;
+  TEfl_Gfx_Image_Stretch_Region = record
+      offset : dword;
+      length : dword;
+    end;
+{$endif}
+{*
  * @brief This interface defines a set of common APIs which should be
  * implemented by image objects.
  *
@@ -140,12 +193,14 @@ typedef struct _Efl_Gfx_Image_Stretch_Region
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-#define EFL_GFX_IMAGE_INTERFACE efl_gfx_image_interface_get()
+  }
 
-extern extern_WEAK const Efl_Class *efl_gfx_image_interface_get(void) EINA_CONST;
+{ was #define dname def_expr }
+function EFL_GFX_IMAGE_INTERFACE : longint; { return type might be wrong }
 
-/**
+(* Const before type ignored *)
+function efl_gfx_image_interface_get:PEfl_Class;cdecl;external;
+{*
  * @brief Whether to use high-quality image scaling algorithm for this image.
  *
  * When enabled, a higher quality image scaling algorithm is used when scaling
@@ -158,10 +213,9 @@ extern extern_WEAK const Efl_Class *efl_gfx_image_interface_get(void) EINA_CONST
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK void efl_gfx_image_smooth_scale_set(Eo *obj, Eina_Bool smooth_scale);
-
-/**
+  }
+procedure efl_gfx_image_smooth_scale_set(obj:PEo; smooth_scale:TEina_Bool);cdecl;external;
+{*
  * @brief Whether to use high-quality image scaling algorithm for this image.
  *
  * When enabled, a higher quality image scaling algorithm is used when scaling
@@ -175,10 +229,10 @@ extern extern_WEAK void efl_gfx_image_smooth_scale_set(Eo *obj, Eina_Bool smooth
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK Eina_Bool efl_gfx_image_smooth_scale_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_gfx_image_smooth_scale_get(obj:PEo):TEina_Bool;cdecl;external;
+{*
  * @brief Determine how the image is scaled at render time.
  *
  * This allows more granular controls for how an image object should display
@@ -190,10 +244,9 @@ extern extern_WEAK Eina_Bool efl_gfx_image_smooth_scale_get(const Eo *obj);
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK void efl_gfx_image_scale_method_set(Eo *obj, Efl_Gfx_Image_Scale_Method scale_method);
-
-/**
+  }
+procedure efl_gfx_image_scale_method_set(obj:PEo; scale_method:TEfl_Gfx_Image_Scale_Method);cdecl;external;
+{*
  * @brief Determine how the image is scaled at render time.
  *
  * This allows more granular controls for how an image object should display
@@ -206,10 +259,10 @@ extern extern_WEAK void efl_gfx_image_scale_method_set(Eo *obj, Efl_Gfx_Image_Sc
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK Efl_Gfx_Image_Scale_Method efl_gfx_image_scale_method_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_gfx_image_scale_method_get(obj:PEo):TEfl_Gfx_Image_Scale_Method;cdecl;external;
+{*
  * @brief If @c true, the image may be scaled to a larger size. If @c false,
  * the image will never be resized larger than its native size.
  *
@@ -219,10 +272,9 @@ extern extern_WEAK Efl_Gfx_Image_Scale_Method efl_gfx_image_scale_method_get(con
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK void efl_gfx_image_can_upscale_set(Eo *obj, Eina_Bool upscale);
-
-/**
+  }
+procedure efl_gfx_image_can_upscale_set(obj:PEo; upscale:TEina_Bool);cdecl;external;
+{*
  * @brief If @c true, the image may be scaled to a larger size. If @c false,
  * the image will never be resized larger than its native size.
  *
@@ -233,10 +285,10 @@ extern extern_WEAK void efl_gfx_image_can_upscale_set(Eo *obj, Eina_Bool upscale
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK Eina_Bool efl_gfx_image_can_upscale_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_gfx_image_can_upscale_get(obj:PEo):TEina_Bool;cdecl;external;
+{*
  * @brief If @c true, the image may be scaled to a smaller size. If @c false,
  * the image will never be resized smaller than its native size.
  *
@@ -246,10 +298,9 @@ extern extern_WEAK Eina_Bool efl_gfx_image_can_upscale_get(const Eo *obj);
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK void efl_gfx_image_can_downscale_set(Eo *obj, Eina_Bool downscale);
-
-/**
+  }
+procedure efl_gfx_image_can_downscale_set(obj:PEo; downscale:TEina_Bool);cdecl;external;
+{*
  * @brief If @c true, the image may be scaled to a smaller size. If @c false,
  * the image will never be resized smaller than its native size.
  *
@@ -260,10 +311,10 @@ extern extern_WEAK void efl_gfx_image_can_downscale_set(Eo *obj, Eina_Bool downs
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK Eina_Bool efl_gfx_image_can_downscale_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_gfx_image_can_downscale_get(obj:PEo):TEina_Bool;cdecl;external;
+{*
  * @brief The native width/height ratio of the image.
  *
  * The ratio will be 1.0 if it cannot be calculated (e.g. height = 0).
@@ -275,10 +326,10 @@ extern extern_WEAK Eina_Bool efl_gfx_image_can_downscale_get(const Eo *obj);
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK double efl_gfx_image_ratio_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_gfx_image_ratio_get(obj:PEo):Tdouble;cdecl;external;
+{*
  * @brief Return the relative area enclosed inside the image where content is
  * expected.
  *
@@ -301,10 +352,10 @@ extern extern_WEAK double efl_gfx_image_ratio_get(const Eo *obj);
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK Eina_Rect efl_gfx_image_content_region_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_gfx_image_content_region_get(obj:PEo):TEina_Rect;cdecl;external;
+{*
  * @brief Dimensions of this image's border, a region that does not scale with
  * the center area.
  *
@@ -333,10 +384,9 @@ extern extern_WEAK Eina_Rect efl_gfx_image_content_region_get(const Eo *obj);
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK void efl_gfx_image_border_insets_set(Eo *obj, int l, int r, int t, int b);
-
-/**
+  }
+procedure efl_gfx_image_border_insets_set(obj:PEo; l:longint; r:longint; t:longint; b:longint);cdecl;external;
+{*
  * @brief Dimensions of this image's border, a region that does not scale with
  * the center area.
  *
@@ -365,10 +415,10 @@ extern extern_WEAK void efl_gfx_image_border_insets_set(Eo *obj, int l, int r, i
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK void efl_gfx_image_border_insets_get(const Eo *obj, int *l, int *r, int *t, int *b);
-
-/**
+  }
+(* Const before type ignored *)
+procedure efl_gfx_image_border_insets_get(obj:PEo; l:Plongint; r:Plongint; t:Plongint; b:Plongint);cdecl;external;
+{*
  * @brief Scaling factor applied to the image borders.
  *
  * This value multiplies the size of the @ref efl_gfx_image_border_insets_get
@@ -380,10 +430,9 @@ extern extern_WEAK void efl_gfx_image_border_insets_get(const Eo *obj, int *l, i
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK void efl_gfx_image_border_insets_scale_set(Eo *obj, double scale);
-
-/**
+  }
+procedure efl_gfx_image_border_insets_scale_set(obj:PEo; scale:Tdouble);cdecl;external;
+{*
  * @brief Scaling factor applied to the image borders.
  *
  * This value multiplies the size of the @ref efl_gfx_image_border_insets_get
@@ -396,10 +445,10 @@ extern extern_WEAK void efl_gfx_image_border_insets_scale_set(Eo *obj, double sc
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK double efl_gfx_image_border_insets_scale_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_gfx_image_border_insets_scale_get(obj:PEo):Tdouble;cdecl;external;
+{*
  * @brief Specifies how the center part of the object (not the borders) should
  * be drawn when EFL is rendering it.
  *
@@ -417,10 +466,9 @@ extern extern_WEAK double efl_gfx_image_border_insets_scale_get(const Eo *obj);
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK void efl_gfx_image_center_fill_mode_set(Eo *obj, Efl_Gfx_Center_Fill_Mode fill);
-
-/**
+  }
+procedure efl_gfx_image_center_fill_mode_set(obj:PEo; fill:TEfl_Gfx_Center_Fill_Mode);cdecl;external;
+{*
  * @brief Specifies how the center part of the object (not the borders) should
  * be drawn when EFL is rendering it.
  *
@@ -439,10 +487,10 @@ extern extern_WEAK void efl_gfx_image_center_fill_mode_set(Eo *obj, Efl_Gfx_Cent
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK Efl_Gfx_Center_Fill_Mode efl_gfx_image_center_fill_mode_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_gfx_image_center_fill_mode_get(obj:PEo):TEfl_Gfx_Center_Fill_Mode;cdecl;external;
+{*
  * @brief This property defines the stretchable pixels region of an image.
  *
  * When the regions are set by the user, the method will walk the iterators
@@ -465,10 +513,9 @@ extern extern_WEAK Efl_Gfx_Center_Fill_Mode efl_gfx_image_center_fill_mode_get(c
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK Eina_Error efl_gfx_image_stretch_region_set(Eo *obj, Eina_Iterator *horizontal EFL_TRANSFER_OWNERSHIP, Eina_Iterator *vertical EFL_TRANSFER_OWNERSHIP);
-
-/**
+  }
+function efl_gfx_image_stretch_region_set(obj:PEo; horizontal:PEina_Iterator; vertical:PEina_Iterator):TEina_Error;cdecl;external;
+{*
  * @brief This property defines the stretchable pixels region of an image.
  *
  * When the regions are set by the user, the method will walk the iterators
@@ -489,10 +536,10 @@ extern extern_WEAK Eina_Error efl_gfx_image_stretch_region_set(Eo *obj, Eina_Ite
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK void efl_gfx_image_stretch_region_get(const Eo *obj, Eina_Iterator **horizontal EFL_TRANSFER_OWNERSHIP, Eina_Iterator **vertical EFL_TRANSFER_OWNERSHIP);
-
-/**
+  }
+(* Const before type ignored *)
+procedure efl_gfx_image_stretch_region_get(obj:PEo; horizontal:PPEina_Iterator; vertical:PPEina_Iterator);cdecl;external;
+{*
  * @brief This represents the size of the original image in pixels.
  *
  * This may be different from the actual geometry on screen or even the size of
@@ -509,10 +556,10 @@ extern extern_WEAK void efl_gfx_image_stretch_region_get(const Eo *obj, Eina_Ite
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK Eina_Size2D efl_gfx_image_size_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_gfx_image_size_get(obj:PEo):TEina_Size2D;cdecl;external;
+{*
  * @brief Content hint setting for the image. These hints might be used by EFL
  * to enable optimizations.
  *
@@ -527,10 +574,9 @@ extern extern_WEAK Eina_Size2D efl_gfx_image_size_get(const Eo *obj);
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK void efl_gfx_image_content_hint_set(Eo *obj, Efl_Gfx_Image_Content_Hint hint);
-
-/**
+  }
+procedure efl_gfx_image_content_hint_set(obj:PEo; hint:TEfl_Gfx_Image_Content_Hint);cdecl;external;
+{*
  * @brief Content hint setting for the image. These hints might be used by EFL
  * to enable optimizations.
  *
@@ -546,10 +592,10 @@ extern extern_WEAK void efl_gfx_image_content_hint_set(Eo *obj, Efl_Gfx_Image_Co
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK Efl_Gfx_Image_Content_Hint efl_gfx_image_content_hint_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_gfx_image_content_hint_get(obj:PEo):TEfl_Gfx_Image_Content_Hint;cdecl;external;
+{*
  * @brief The scale hint of a given image of the canvas.
  *
  * The scale hint affects how EFL is to cache scaled versions of its original
@@ -561,10 +607,9 @@ extern extern_WEAK Efl_Gfx_Image_Content_Hint efl_gfx_image_content_hint_get(con
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK void efl_gfx_image_scale_hint_set(Eo *obj, Efl_Gfx_Image_Scale_Hint hint);
-
-/**
+  }
+procedure efl_gfx_image_scale_hint_set(obj:PEo; hint:TEfl_Gfx_Image_Scale_Hint);cdecl;external;
+{*
  * @brief The scale hint of a given image of the canvas.
  *
  * The scale hint affects how EFL is to cache scaled versions of its original
@@ -577,10 +622,10 @@ extern extern_WEAK void efl_gfx_image_scale_hint_set(Eo *obj, Efl_Gfx_Image_Scal
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK Efl_Gfx_Image_Scale_Hint efl_gfx_image_scale_hint_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_gfx_image_scale_hint_get(obj:PEo):TEfl_Gfx_Image_Scale_Hint;cdecl;external;
+{*
  * @brief The (last) file loading error for a given object. This value is set
  * to a nonzero value if an error has occurred.
  *
@@ -591,30 +636,59 @@ extern extern_WEAK Efl_Gfx_Image_Scale_Hint efl_gfx_image_scale_hint_get(const E
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-extern extern_WEAK Eina_Error efl_gfx_image_load_error_get(const Eo *obj);
-
-extern extern_WEAK extern const Efl_Event_Description _EFL_GFX_IMAGE_EVENT_IMAGE_PRELOAD_STATE_CHANGED;
-
-/** If @c true, image data has been preloaded and can be displayed. If
+  }
+(* Const before type ignored *)
+function efl_gfx_image_load_error_get(obj:PEo):TEina_Error;cdecl;external;
+(* Const before type ignored *)
+  var
+    _EFL_GFX_IMAGE_EVENT_IMAGE_PRELOAD_STATE_CHANGED : TEfl_Event_Description;cvar;external;
+{* If @c true, image data has been preloaded and can be displayed. If
  * @c false, the image data has been unloaded and can no longer be displayed.
  * @return Eina_Bool
  *
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-#define EFL_GFX_IMAGE_EVENT_IMAGE_PRELOAD_STATE_CHANGED (&(_EFL_GFX_IMAGE_EVENT_IMAGE_PRELOAD_STATE_CHANGED))
+  }
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_GFX_IMAGE_EVENT_IMAGE_RESIZED;
+{ was #define dname def_expr }
+function EFL_GFX_IMAGE_EVENT_IMAGE_PRELOAD_STATE_CHANGED : longint; { return type might be wrong }
 
-/** Image was resized (its pixel data). The event data is the image's new size.
+(* Const before type ignored *)
+  var
+    _EFL_GFX_IMAGE_EVENT_IMAGE_RESIZED : TEfl_Event_Description;cvar;external;
+{* Image was resized (its pixel data). The event data is the image's new size.
  * @return Eina_Size2D
  *
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Image
- */
-#define EFL_GFX_IMAGE_EVENT_IMAGE_RESIZED (&(_EFL_GFX_IMAGE_EVENT_IMAGE_RESIZED))
+  }
 
-#endif
+{ was #define dname def_expr }
+function EFL_GFX_IMAGE_EVENT_IMAGE_RESIZED : longint; { return type might be wrong }
+
+{$endif}
+
+implementation
+
+{ was #define dname def_expr }
+function EFL_GFX_IMAGE_INTERFACE : longint; { return type might be wrong }
+  begin
+    EFL_GFX_IMAGE_INTERFACE:=efl_gfx_image_interface_get;
+  end;
+
+{ was #define dname def_expr }
+function EFL_GFX_IMAGE_EVENT_IMAGE_PRELOAD_STATE_CHANGED : longint; { return type might be wrong }
+  begin
+    EFL_GFX_IMAGE_EVENT_IMAGE_PRELOAD_STATE_CHANGED:=@(_EFL_GFX_IMAGE_EVENT_IMAGE_PRELOAD_STATE_CHANGED);
+  end;
+
+{ was #define dname def_expr }
+function EFL_GFX_IMAGE_EVENT_IMAGE_RESIZED : longint; { return type might be wrong }
+  begin
+    EFL_GFX_IMAGE_EVENT_IMAGE_RESIZED:=@(_EFL_GFX_IMAGE_EVENT_IMAGE_RESIZED);
+  end;
+
+
+end.

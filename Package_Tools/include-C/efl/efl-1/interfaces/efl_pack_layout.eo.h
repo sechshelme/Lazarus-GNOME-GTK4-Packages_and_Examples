@@ -24,7 +24,7 @@ typedef Eo Efl_Pack_Layout;
  */
 #define EFL_PACK_LAYOUT_INTERFACE efl_pack_layout_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_pack_layout_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_pack_layout_interface_get(void) ;
 
 /**
  * @brief Requests EFL to recalculate the layout of this object.
@@ -37,7 +37,7 @@ extern extern_WEAK const Efl_Class *efl_pack_layout_interface_get(void) EINA_CON
  *
  * @ingroup Efl_Pack_Layout
  */
-extern extern_WEAK void efl_pack_layout_request(Eo *obj);
+extern  void efl_pack_layout_request(Eo *obj);
 
 #ifdef EFL_PACK_LAYOUT_PROTECTED
 /**
@@ -54,10 +54,10 @@ extern extern_WEAK void efl_pack_layout_request(Eo *obj);
  *
  * @ingroup Efl_Pack_Layout
  */
-extern extern_WEAK void efl_pack_layout_update(Eo *obj);
+extern  void efl_pack_layout_update(Eo *obj);
 #endif
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_PACK_EVENT_LAYOUT_UPDATED;
+extern  extern const Efl_Event_Description _EFL_PACK_EVENT_LAYOUT_UPDATED;
 
 /** Sent after the layout was updated.
  *

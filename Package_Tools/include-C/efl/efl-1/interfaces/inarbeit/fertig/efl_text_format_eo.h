@@ -90,7 +90,7 @@ typedef enum
  */
 #define EFL_TEXT_FORMAT_INTERFACE efl_text_format_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_text_format_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_text_format_interface_get(void) ;
 
 /**
  * @brief Controls automatic addition of ellipsis "..." to replace text which
@@ -108,7 +108,7 @@ extern extern_WEAK const Efl_Class *efl_text_format_interface_get(void) EINA_CON
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK void efl_text_ellipsis_set(Eo *obj, double value);
+extern  void efl_text_ellipsis_set(Eo *obj, double value);
 
 /**
  * @brief Controls automatic addition of ellipsis "..." to replace text which
@@ -127,7 +127,7 @@ extern extern_WEAK void efl_text_ellipsis_set(Eo *obj, double value);
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK double efl_text_ellipsis_get(const Eo *obj);
+extern  double efl_text_ellipsis_get(const Eo *obj);
 
 /**
  * @brief Wrapping policy for the text.
@@ -144,7 +144,7 @@ extern extern_WEAK double efl_text_ellipsis_get(const Eo *obj);
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK void efl_text_wrap_set(Eo *obj, Efl_Text_Format_Wrap wrap);
+extern  void efl_text_wrap_set(Eo *obj, Efl_Text_Format_Wrap wrap);
 
 /**
  * @brief Wrapping policy for the text.
@@ -162,7 +162,7 @@ extern extern_WEAK void efl_text_wrap_set(Eo *obj, Efl_Text_Format_Wrap wrap);
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK Efl_Text_Format_Wrap efl_text_wrap_get(const Eo *obj);
+extern  Efl_Text_Format_Wrap efl_text_wrap_get(const Eo *obj);
 
 /**
  * @brief Enables text to span multiple lines.
@@ -176,7 +176,7 @@ extern extern_WEAK Efl_Text_Format_Wrap efl_text_wrap_get(const Eo *obj);
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK void efl_text_multiline_set(Eo *obj, Eina_Bool enabled);
+extern  void efl_text_multiline_set(Eo *obj, Eina_Bool enabled);
 
 /**
  * @brief Enables text to span multiple lines.
@@ -191,7 +191,7 @@ extern extern_WEAK void efl_text_multiline_set(Eo *obj, Eina_Bool enabled);
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK Eina_Bool efl_text_multiline_get(const Eo *obj);
+extern  Eina_Bool efl_text_multiline_get(const Eo *obj);
 
 /**
  * @brief Specifies when the text's horizontal alignment should be set
@@ -204,7 +204,7 @@ extern extern_WEAK Eina_Bool efl_text_multiline_get(const Eo *obj);
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK void efl_text_horizontal_align_auto_type_set(Eo *obj, Efl_Text_Format_Horizontal_Alignment_Auto_Type value);
+extern  void efl_text_horizontal_align_auto_type_set(Eo *obj, Efl_Text_Format_Horizontal_Alignment_Auto_Type value);
 
 /**
  * @brief Specifies when the text's horizontal alignment should be set
@@ -218,7 +218,7 @@ extern extern_WEAK void efl_text_horizontal_align_auto_type_set(Eo *obj, Efl_Tex
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK Efl_Text_Format_Horizontal_Alignment_Auto_Type efl_text_horizontal_align_auto_type_get(const Eo *obj);
+extern  Efl_Text_Format_Horizontal_Alignment_Auto_Type efl_text_horizontal_align_auto_type_get(const Eo *obj);
 
 /**
  * @brief Manual horizontal alignment of text. <tt>0.0</tt> means "left"
@@ -236,7 +236,7 @@ extern extern_WEAK Efl_Text_Format_Horizontal_Alignment_Auto_Type efl_text_horiz
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK void efl_text_horizontal_align_set(Eo *obj, double value);
+extern  void efl_text_horizontal_align_set(Eo *obj, double value);
 
 /**
  * @brief Manual horizontal alignment of text. <tt>0.0</tt> means "left"
@@ -254,7 +254,7 @@ extern extern_WEAK void efl_text_horizontal_align_set(Eo *obj, double value);
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK double efl_text_horizontal_align_get(const Eo *obj);
+extern  double efl_text_horizontal_align_get(const Eo *obj);
 
 /**
  * @brief Vertical alignment of text. <tt>0.0</tt> means "top" and
@@ -268,7 +268,7 @@ extern extern_WEAK double efl_text_horizontal_align_get(const Eo *obj);
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK void efl_text_vertical_align_set(Eo *obj, double value);
+extern  void efl_text_vertical_align_set(Eo *obj, double value);
 
 /**
  * @brief Vertical alignment of text. <tt>0.0</tt> means "top" and
@@ -282,7 +282,7 @@ extern extern_WEAK void efl_text_vertical_align_set(Eo *obj, double value);
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK double efl_text_vertical_align_get(const Eo *obj);
+extern  double efl_text_vertical_align_get(const Eo *obj);
 
 /**
  * @brief Minimal line gap (top and bottom) for each line in the text.
@@ -296,7 +296,7 @@ extern extern_WEAK double efl_text_vertical_align_get(const Eo *obj);
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK void efl_text_line_gap_set(Eo *obj, double value);
+extern  void efl_text_line_gap_set(Eo *obj, double value);
 
 /**
  * @brief Minimal line gap (top and bottom) for each line in the text.
@@ -311,7 +311,7 @@ extern extern_WEAK void efl_text_line_gap_set(Eo *obj, double value);
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK double efl_text_line_gap_get(const Eo *obj);
+extern  double efl_text_line_gap_get(const Eo *obj);
 
 /**
  * @brief Relative line gap (top and bottom) for each line in the text.
@@ -326,7 +326,7 @@ extern extern_WEAK double efl_text_line_gap_get(const Eo *obj);
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK void efl_text_line_rel_gap_set(Eo *obj, double value);
+extern  void efl_text_line_rel_gap_set(Eo *obj, double value);
 
 /**
  * @brief Relative line gap (top and bottom) for each line in the text.
@@ -341,7 +341,7 @@ extern extern_WEAK void efl_text_line_rel_gap_set(Eo *obj, double value);
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK double efl_text_line_rel_gap_get(const Eo *obj);
+extern  double efl_text_line_rel_gap_get(const Eo *obj);
 
 /**
  * @brief Size (in pixels) of the tab character.
@@ -353,7 +353,7 @@ extern extern_WEAK double efl_text_line_rel_gap_get(const Eo *obj);
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK void efl_text_tab_stops_set(Eo *obj, int value);
+extern  void efl_text_tab_stops_set(Eo *obj, int value);
 
 /**
  * @brief Size (in pixels) of the tab character.
@@ -366,7 +366,7 @@ extern extern_WEAK void efl_text_tab_stops_set(Eo *obj, int value);
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK int efl_text_tab_stops_get(const Eo *obj);
+extern  int efl_text_tab_stops_get(const Eo *obj);
 
 /**
  * @brief Enabling this causes all characters to be replaced by
@@ -381,7 +381,7 @@ extern extern_WEAK int efl_text_tab_stops_get(const Eo *obj);
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK void efl_text_password_set(Eo *obj, Eina_Bool enabled);
+extern  void efl_text_password_set(Eo *obj, Eina_Bool enabled);
 
 /**
  * @brief Enabling this causes all characters to be replaced by
@@ -397,7 +397,7 @@ extern extern_WEAK void efl_text_password_set(Eo *obj, Eina_Bool enabled);
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK Eina_Bool efl_text_password_get(const Eo *obj);
+extern  Eina_Bool efl_text_password_get(const Eo *obj);
 
 /**
  * @brief The character used to replace characters that can't be displayed.
@@ -411,7 +411,7 @@ extern extern_WEAK Eina_Bool efl_text_password_get(const Eo *obj);
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK void efl_text_replacement_char_set(Eo *obj, const char *repch);
+extern  void efl_text_replacement_char_set(Eo *obj, const char *repch);
 
 /**
  * @brief The character used to replace characters that can't be displayed.
@@ -426,6 +426,6 @@ extern extern_WEAK void efl_text_replacement_char_set(Eo *obj, const char *repch
  *
  * @ingroup Efl_Text_Format
  */
-extern extern_WEAK const char *efl_text_replacement_char_get(const Eo *obj);
+extern  const char *efl_text_replacement_char_get(const Eo *obj);
 
 #endif

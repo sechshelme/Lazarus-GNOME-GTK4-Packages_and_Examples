@@ -31,7 +31,7 @@ typedef Eo Efl_Cached_Item;
  */
 #define EFL_CACHED_ITEM_INTERFACE efl_cached_item_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_cached_item_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_cached_item_interface_get(void) ;
 
 /**
  * @brief The amount of memory currently used by this object.
@@ -42,7 +42,7 @@ extern extern_WEAK const Efl_Class *efl_cached_item_interface_get(void) EINA_CON
  *
  * @ingroup Efl_Cached_Item
  */
-extern extern_WEAK unsigned int efl_cached_item_memory_size_get(const Eo *obj);
+extern  unsigned int efl_cached_item_memory_size_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

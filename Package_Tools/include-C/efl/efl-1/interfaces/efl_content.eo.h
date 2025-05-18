@@ -26,7 +26,7 @@ typedef Eo Efl_Content;
  */
 #define EFL_CONTENT_INTERFACE efl_content_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_content_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_content_interface_get(void) ;
 
 /**
  * @brief Sub-object currently set as this object's single content.
@@ -44,7 +44,7 @@ extern extern_WEAK const Efl_Class *efl_content_interface_get(void) EINA_CONST;
  *
  * @ingroup Efl_Content
  */
-extern extern_WEAK Eina_Bool efl_content_set(Eo *obj, Efl_Gfx_Entity *content);
+extern  Eina_Bool efl_content_set(Eo *obj, Efl_Gfx_Entity *content);
 
 /**
  * @brief Sub-object currently set as this object's single content.
@@ -61,7 +61,7 @@ extern extern_WEAK Eina_Bool efl_content_set(Eo *obj, Efl_Gfx_Entity *content);
  *
  * @ingroup Efl_Content
  */
-extern extern_WEAK Efl_Gfx_Entity *efl_content_get(const Eo *obj);
+extern  Efl_Gfx_Entity *efl_content_get(const Eo *obj);
 
 /**
  * @brief Remove the sub-object currently set as content of this object and
@@ -75,9 +75,9 @@ extern extern_WEAK Efl_Gfx_Entity *efl_content_get(const Eo *obj);
  *
  * @ingroup Efl_Content
  */
-extern extern_WEAK Efl_Gfx_Entity *efl_content_unset(Eo *obj);
+extern  Efl_Gfx_Entity *efl_content_unset(Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_CONTENT_EVENT_CONTENT_CHANGED;
+extern  extern const Efl_Event_Description _EFL_CONTENT_EVENT_CONTENT_CHANGED;
 
 /** Sent after the content is set or unset using the current content object.
  * @return Efl_Gfx_Entity *

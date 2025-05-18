@@ -21,7 +21,7 @@ typedef Eo Efl_Player;
  */
 #define EFL_PLAYER_INTERFACE efl_player_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_player_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_player_interface_get(void) ;
 
 /**
  * @brief Playback state of the media file.
@@ -47,7 +47,7 @@ extern extern_WEAK const Efl_Class *efl_player_interface_get(void) EINA_CONST;
  *
  * @ingroup Efl_Player
  */
-extern extern_WEAK Eina_Bool efl_player_playing_set(Eo *obj, Eina_Bool playing);
+extern  Eina_Bool efl_player_playing_set(Eo *obj, Eina_Bool playing);
 
 /**
  * @brief Playback state of the media file.
@@ -72,7 +72,7 @@ extern extern_WEAK Eina_Bool efl_player_playing_set(Eo *obj, Eina_Bool playing);
  *
  * @ingroup Efl_Player
  */
-extern extern_WEAK Eina_Bool efl_player_playing_get(const Eo *obj);
+extern  Eina_Bool efl_player_playing_get(const Eo *obj);
 
 /**
  * @brief Pause state of the media file.
@@ -94,7 +94,7 @@ extern extern_WEAK Eina_Bool efl_player_playing_get(const Eo *obj);
  *
  * @ingroup Efl_Player
  */
-extern extern_WEAK Eina_Bool efl_player_paused_set(Eo *obj, Eina_Bool paused);
+extern  Eina_Bool efl_player_paused_set(Eo *obj, Eina_Bool paused);
 
 /**
  * @brief Pause state of the media file.
@@ -115,7 +115,7 @@ extern extern_WEAK Eina_Bool efl_player_paused_set(Eo *obj, Eina_Bool paused);
  *
  * @ingroup Efl_Player
  */
-extern extern_WEAK Eina_Bool efl_player_paused_get(const Eo *obj);
+extern  Eina_Bool efl_player_paused_get(const Eo *obj);
 
 /**
  * @brief Position in the media file.
@@ -132,7 +132,7 @@ extern extern_WEAK Eina_Bool efl_player_paused_get(const Eo *obj);
  *
  * @ingroup Efl_Player
  */
-extern extern_WEAK void efl_player_playback_position_set(Eo *obj, double sec);
+extern  void efl_player_playback_position_set(Eo *obj, double sec);
 
 /**
  * @brief Position in the media file.
@@ -150,7 +150,7 @@ extern extern_WEAK void efl_player_playback_position_set(Eo *obj, double sec);
  *
  * @ingroup Efl_Player
  */
-extern extern_WEAK double efl_player_playback_position_get(const Eo *obj);
+extern  double efl_player_playback_position_get(const Eo *obj);
 
 /**
  * @brief How much of the file has been played.
@@ -165,7 +165,7 @@ extern extern_WEAK double efl_player_playback_position_get(const Eo *obj);
  *
  * @ingroup Efl_Player
  */
-extern extern_WEAK void efl_player_playback_progress_set(Eo *obj, double progress);
+extern  void efl_player_playback_progress_set(Eo *obj, double progress);
 
 /**
  * @brief How much of the file has been played.
@@ -181,7 +181,7 @@ extern extern_WEAK void efl_player_playback_progress_set(Eo *obj, double progres
  *
  * @ingroup Efl_Player
  */
-extern extern_WEAK double efl_player_playback_progress_get(const Eo *obj);
+extern  double efl_player_playback_progress_get(const Eo *obj);
 
 /**
  * @brief Control the playback speed of the media file.
@@ -196,7 +196,7 @@ extern extern_WEAK double efl_player_playback_progress_get(const Eo *obj);
  *
  * @ingroup Efl_Player
  */
-extern extern_WEAK void efl_player_playback_speed_set(Eo *obj, double speed);
+extern  void efl_player_playback_speed_set(Eo *obj, double speed);
 
 /**
  * @brief Control the playback speed of the media file.
@@ -212,7 +212,7 @@ extern extern_WEAK void efl_player_playback_speed_set(Eo *obj, double speed);
  *
  * @ingroup Efl_Player
  */
-extern extern_WEAK double efl_player_playback_speed_get(const Eo *obj);
+extern  double efl_player_playback_speed_get(const Eo *obj);
 
 /**
  * @brief When @c true, playback will start as soon as the media is ready.
@@ -234,7 +234,7 @@ extern extern_WEAK double efl_player_playback_speed_get(const Eo *obj);
  *
  * @ingroup Efl_Player
  */
-extern extern_WEAK void efl_player_autoplay_set(Eo *obj, Eina_Bool autoplay);
+extern  void efl_player_autoplay_set(Eo *obj, Eina_Bool autoplay);
 
 /**
  * @brief When @c true, playback will start as soon as the media is ready.
@@ -257,7 +257,7 @@ extern extern_WEAK void efl_player_autoplay_set(Eo *obj, Eina_Bool autoplay);
  *
  * @ingroup Efl_Player
  */
-extern extern_WEAK Eina_Bool efl_player_autoplay_get(const Eo *obj);
+extern  Eina_Bool efl_player_autoplay_get(const Eo *obj);
 
 /**
  * @brief Enable playback looping.
@@ -274,7 +274,7 @@ extern extern_WEAK Eina_Bool efl_player_autoplay_get(const Eo *obj);
  *
  * @ingroup Efl_Player
  */
-extern extern_WEAK void efl_player_playback_loop_set(Eo *obj, Eina_Bool looping);
+extern  void efl_player_playback_loop_set(Eo *obj, Eina_Bool looping);
 
 /**
  * @brief Enable playback looping.
@@ -292,9 +292,9 @@ extern extern_WEAK void efl_player_playback_loop_set(Eo *obj, Eina_Bool looping)
  *
  * @ingroup Efl_Player
  */
-extern extern_WEAK Eina_Bool efl_player_playback_loop_get(const Eo *obj);
+extern  Eina_Bool efl_player_playback_loop_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_PLAYER_EVENT_PLAYING_CHANGED;
+extern  extern const Efl_Event_Description _EFL_PLAYER_EVENT_PLAYING_CHANGED;
 
 /** Called when the playing state has changed. The event value reflects the
  * current state.
@@ -306,7 +306,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_PLAYER_EVENT_PLAYING_
  */
 #define EFL_PLAYER_EVENT_PLAYING_CHANGED (&(_EFL_PLAYER_EVENT_PLAYING_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_PLAYER_EVENT_PAUSED_CHANGED;
+extern  extern const Efl_Event_Description _EFL_PLAYER_EVENT_PAUSED_CHANGED;
 
 /** Called when the paused state has changed. The event value reflects the
  * current state.
@@ -318,7 +318,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_PLAYER_EVENT_PAUSED_C
  */
 #define EFL_PLAYER_EVENT_PAUSED_CHANGED (&(_EFL_PLAYER_EVENT_PAUSED_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_PLAYER_EVENT_PLAYBACK_PROGRESS_CHANGED;
+extern  extern const Efl_Event_Description _EFL_PLAYER_EVENT_PLAYBACK_PROGRESS_CHANGED;
 
 /** Called when the playback_progress state has changed. The event value
  * reflects the current state.
@@ -330,7 +330,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_PLAYER_EVENT_PLAYBACK
  */
 #define EFL_PLAYER_EVENT_PLAYBACK_PROGRESS_CHANGED (&(_EFL_PLAYER_EVENT_PLAYBACK_PROGRESS_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_PLAYER_EVENT_PLAYBACK_POSITION_CHANGED;
+extern  extern const Efl_Event_Description _EFL_PLAYER_EVENT_PLAYBACK_POSITION_CHANGED;
 
 /** Called when the playback_position state has changed. The event value
  * reflects the current state.
@@ -342,7 +342,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_PLAYER_EVENT_PLAYBACK
  */
 #define EFL_PLAYER_EVENT_PLAYBACK_POSITION_CHANGED (&(_EFL_PLAYER_EVENT_PLAYBACK_POSITION_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_PLAYER_EVENT_PLAYBACK_REPEATED;
+extern  extern const Efl_Event_Description _EFL_PLAYER_EVENT_PLAYBACK_REPEATED;
 
 /** Called when the player has begun to repeat its data stream. The event value
  * is the current number of repeats.
@@ -354,7 +354,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_PLAYER_EVENT_PLAYBACK
  */
 #define EFL_PLAYER_EVENT_PLAYBACK_REPEATED (&(_EFL_PLAYER_EVENT_PLAYBACK_REPEATED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_PLAYER_EVENT_PLAYBACK_FINISHED;
+extern  extern const Efl_Event_Description _EFL_PLAYER_EVENT_PLAYBACK_FINISHED;
 
 /** Called when the player has completed playing its data stream.
  *

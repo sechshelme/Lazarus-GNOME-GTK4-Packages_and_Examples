@@ -28,7 +28,7 @@ typedef Eo Efl_Io_Closer;
  */
 #define EFL_IO_CLOSER_INTERFACE efl_io_closer_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_io_closer_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_io_closer_interface_get(void) ;
 
 /**
  * @brief Closes the Input/Output object.
@@ -48,7 +48,7 @@ extern extern_WEAK const Efl_Class *efl_io_closer_interface_get(void) EINA_CONST
  *
  * @ingroup Efl_Io_Closer
  */
-extern extern_WEAK Eina_Error efl_io_closer_close(Eo *obj);
+extern  Eina_Error efl_io_closer_close(Eo *obj);
 
 /**
  * @brief If true will notify object was closed.
@@ -61,7 +61,7 @@ extern extern_WEAK Eina_Error efl_io_closer_close(Eo *obj);
  *
  * @ingroup Efl_Io_Closer
  */
-extern extern_WEAK Eina_Bool efl_io_closer_closed_get(const Eo *obj);
+extern  Eina_Bool efl_io_closer_closed_get(const Eo *obj);
 
 /**
  * @brief If true will automatically close resources on exec() calls.
@@ -80,7 +80,7 @@ extern extern_WEAK Eina_Bool efl_io_closer_closed_get(const Eo *obj);
  *
  * @ingroup Efl_Io_Closer
  */
-extern extern_WEAK Eina_Bool efl_io_closer_close_on_exec_set(Eo *obj, Eina_Bool close_on_exec);
+extern  Eina_Bool efl_io_closer_close_on_exec_set(Eo *obj, Eina_Bool close_on_exec);
 
 /**
  * @brief If true will automatically close resources on exec() calls.
@@ -96,7 +96,7 @@ extern extern_WEAK Eina_Bool efl_io_closer_close_on_exec_set(Eo *obj, Eina_Bool 
  *
  * @ingroup Efl_Io_Closer
  */
-extern extern_WEAK Eina_Bool efl_io_closer_close_on_exec_get(const Eo *obj);
+extern  Eina_Bool efl_io_closer_close_on_exec_get(const Eo *obj);
 
 /**
  * @brief If true will automatically close() on object invalidate.
@@ -112,7 +112,7 @@ extern extern_WEAK Eina_Bool efl_io_closer_close_on_exec_get(const Eo *obj);
  *
  * @ingroup Efl_Io_Closer
  */
-extern extern_WEAK void efl_io_closer_close_on_invalidate_set(Eo *obj, Eina_Bool close_on_invalidate);
+extern  void efl_io_closer_close_on_invalidate_set(Eo *obj, Eina_Bool close_on_invalidate);
 
 /**
  * @brief If true will automatically close() on object invalidate.
@@ -128,9 +128,9 @@ extern extern_WEAK void efl_io_closer_close_on_invalidate_set(Eo *obj, Eina_Bool
  *
  * @ingroup Efl_Io_Closer
  */
-extern extern_WEAK Eina_Bool efl_io_closer_close_on_invalidate_get(const Eo *obj);
+extern  Eina_Bool efl_io_closer_close_on_invalidate_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_CLOSER_EVENT_CLOSED;
+extern  extern const Efl_Event_Description _EFL_IO_CLOSER_EVENT_CLOSED;
 
 /** Notifies closed, when property is marked as true
  *

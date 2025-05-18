@@ -20,7 +20,7 @@ typedef Eo Efl_Ui_Draggable;
  */
 #define EFL_UI_DRAGGABLE_INTERFACE efl_ui_draggable_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_draggable_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_draggable_interface_get(void) ;
 
 /**
  * @brief Control whether the object's content is changed by drag and drop.
@@ -36,7 +36,7 @@ extern extern_WEAK const Efl_Class *efl_ui_draggable_interface_get(void) EINA_CO
  *
  * @ingroup Efl_Ui_Draggable
  */
-extern extern_WEAK void efl_ui_draggable_drag_target_set(Eo *obj, Eina_Bool set);
+extern  void efl_ui_draggable_drag_target_set(Eo *obj, Eina_Bool set);
 
 /**
  * @brief Control whether the object's content is changed by drag and drop.
@@ -53,7 +53,7 @@ extern extern_WEAK void efl_ui_draggable_drag_target_set(Eo *obj, Eina_Bool set)
  *
  * @ingroup Efl_Ui_Draggable
  */
-extern extern_WEAK Eina_Bool efl_ui_draggable_drag_target_get(const Eo *obj);
+extern  Eina_Bool efl_ui_draggable_drag_target_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

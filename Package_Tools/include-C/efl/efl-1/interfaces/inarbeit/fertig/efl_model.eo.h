@@ -67,7 +67,7 @@ typedef struct _Efl_Model_Children_Event
  */
 #define EFL_MODEL_INTERFACE efl_model_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_model_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_model_interface_get(void) ;
 
 /**
  * @brief Get properties from model.
@@ -87,7 +87,7 @@ extern extern_WEAK const Efl_Class *efl_model_interface_get(void) EINA_CONST;
  *
  * @ingroup Efl_Model
  */
-extern extern_WEAK Eina_Iterator *efl_model_properties_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Iterator *efl_model_properties_get(const Eo *obj) ;
 
 /**
  * @brief No description supplied.
@@ -117,7 +117,7 @@ extern extern_WEAK Eina_Iterator *efl_model_properties_get(const Eo *obj) EFL_TR
  *
  * @ingroup Efl_Model
  */
-extern extern_WEAK Eina_Future *efl_model_property_set(Eo *obj, const char *property, Eina_Value *value);
+extern  Eina_Future *efl_model_property_set(Eo *obj, const char *property, Eina_Value *value);
 
 /**
  * @brief No description supplied.
@@ -139,7 +139,7 @@ extern extern_WEAK Eina_Future *efl_model_property_set(Eo *obj, const char *prop
  *
  * @ingroup Efl_Model
  */
-extern extern_WEAK Eina_Value *efl_model_property_get(const Eo *obj, const char *property);
+extern  Eina_Value *efl_model_property_get(const Eo *obj, const char *property);
 
 /**
  * @brief Get a future value when it changes to something that is not
@@ -163,7 +163,7 @@ extern extern_WEAK Eina_Value *efl_model_property_get(const Eo *obj, const char 
  *
  * @ingroup Efl_Model
  */
-extern extern_WEAK Eina_Future *efl_model_property_ready_get(Eo *obj, const char *property);
+extern  Eina_Future *efl_model_property_ready_get(Eo *obj, const char *property);
 
 /**
  * @brief Get children slice OR full range.
@@ -196,7 +196,7 @@ extern extern_WEAK Eina_Future *efl_model_property_ready_get(Eo *obj, const char
  *
  * @ingroup Efl_Model
  */
-extern extern_WEAK Eina_Future *efl_model_children_slice_get(Eo *obj, unsigned int start, unsigned int count);
+extern  Eina_Future *efl_model_children_slice_get(Eo *obj, unsigned int start, unsigned int count);
 
 /**
  * @brief Get children as specified by iterator.
@@ -214,7 +214,7 @@ extern extern_WEAK Eina_Future *efl_model_children_slice_get(Eo *obj, unsigned i
  *
  * @ingroup Efl_Model
  */
-extern extern_WEAK Eina_Future *efl_model_children_index_get(Eo *obj, Eina_Iterator *indices);
+extern  Eina_Future *efl_model_children_index_get(Eo *obj, Eina_Iterator *indices);
 
 /**
  * @brief Number of children.
@@ -235,7 +235,7 @@ extern extern_WEAK Eina_Future *efl_model_children_index_get(Eo *obj, Eina_Itera
  *
  * @ingroup Efl_Model
  */
-extern extern_WEAK unsigned int efl_model_children_count_get(const Eo *obj);
+extern  unsigned int efl_model_children_count_get(const Eo *obj);
 
 /**
  * @brief Add a new child.
@@ -253,7 +253,7 @@ extern extern_WEAK unsigned int efl_model_children_count_get(const Eo *obj);
  *
  * @ingroup Efl_Model
  */
-extern extern_WEAK Efl_Object *efl_model_child_add(Eo *obj);
+extern  Efl_Object *efl_model_child_add(Eo *obj);
 
 /**
  * @brief Remove a child.
@@ -269,9 +269,9 @@ extern extern_WEAK Efl_Object *efl_model_child_add(Eo *obj);
  *
  * @ingroup Efl_Model
  */
-extern extern_WEAK void efl_model_child_del(Eo *obj, Efl_Object *child);
+extern  void efl_model_child_del(Eo *obj, Efl_Object *child);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_MODEL_EVENT_PROPERTIES_CHANGED;
+extern  const Efl_Event_Description _EFL_MODEL_EVENT_PROPERTIES_CHANGED;
 
 /** Event dispatched when properties list is available.
  * @return Efl_Model_Property_Event
@@ -282,7 +282,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_MODEL_EVENT_PROPERTIE
  */
 #define EFL_MODEL_EVENT_PROPERTIES_CHANGED (&(_EFL_MODEL_EVENT_PROPERTIES_CHANGED))
 #ifdef EFL_BETA_API_SUPPORT
-extern extern_WEAK extern const Efl_Event_Description _EFL_MODEL_EVENT_CHILD_ADDED;
+extern  const Efl_Event_Description _EFL_MODEL_EVENT_CHILD_ADDED;
 
 /** Event dispatched when new child is added.
  * @return Efl_Model_Children_Event
@@ -294,7 +294,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_MODEL_EVENT_CHILD_ADD
 #define EFL_MODEL_EVENT_CHILD_ADDED (&(_EFL_MODEL_EVENT_CHILD_ADDED))
 #endif /* EFL_BETA_API_SUPPORT */
 #ifdef EFL_BETA_API_SUPPORT
-extern extern_WEAK extern const Efl_Event_Description _EFL_MODEL_EVENT_CHILD_REMOVED;
+extern  const Efl_Event_Description _EFL_MODEL_EVENT_CHILD_REMOVED;
 
 /** Event dispatched when child is removed.
  * @return Efl_Model_Children_Event
@@ -306,7 +306,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_MODEL_EVENT_CHILD_REM
 #define EFL_MODEL_EVENT_CHILD_REMOVED (&(_EFL_MODEL_EVENT_CHILD_REMOVED))
 #endif /* EFL_BETA_API_SUPPORT */
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_MODEL_EVENT_CHILDREN_COUNT_CHANGED;
+extern  const Efl_Event_Description _EFL_MODEL_EVENT_CHILDREN_COUNT_CHANGED;
 
 /** Event dispatched when children count is finished.
  *

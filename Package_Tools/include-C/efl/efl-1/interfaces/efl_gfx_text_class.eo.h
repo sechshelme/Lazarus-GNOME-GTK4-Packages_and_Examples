@@ -20,7 +20,7 @@ typedef Eo Efl_Gfx_Text_Class;
  */
 #define EFL_GFX_TEXT_CLASS_INTERFACE efl_gfx_text_class_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_text_class_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_gfx_text_class_interface_get(void) ;
 
 /**
  * @brief Font and font size from edje text class.
@@ -37,7 +37,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_text_class_interface_get(void) EINA_
  *
  * @ingroup Efl_Gfx_Text_Class
  */
-extern extern_WEAK Eina_Bool efl_gfx_text_class_set(Eo *obj, const char *text_class, const char *font, Efl_Font_Size size);
+extern  Eina_Bool efl_gfx_text_class_set(Eo *obj, const char *text_class, const char *font, Efl_Font_Size size);
 
 /**
  * @brief Font and font size from edje text class.
@@ -54,7 +54,7 @@ extern extern_WEAK Eina_Bool efl_gfx_text_class_set(Eo *obj, const char *text_cl
  *
  * @ingroup Efl_Gfx_Text_Class
  */
-extern extern_WEAK Eina_Bool efl_gfx_text_class_get(const Eo *obj, const char *text_class, const char **font, Efl_Font_Size *size);
+extern  Eina_Bool efl_gfx_text_class_get(const Eo *obj, const char *text_class, const char **font, Efl_Font_Size *size);
 
 /**
  * @brief Delete the text class.
@@ -69,7 +69,7 @@ extern extern_WEAK Eina_Bool efl_gfx_text_class_get(const Eo *obj, const char *t
  *
  * @ingroup Efl_Gfx_Text_Class
  */
-extern extern_WEAK void efl_gfx_text_class_del(Eo *obj, const char *text_class);
+extern  void efl_gfx_text_class_del(Eo *obj, const char *text_class);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

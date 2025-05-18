@@ -22,7 +22,7 @@ typedef Eo Efl_Gfx_Arrangement;
  */
 #define EFL_GFX_ARRANGEMENT_INTERFACE efl_gfx_arrangement_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_arrangement_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_gfx_arrangement_interface_get(void) ;
 
 /**
  * @brief This property determines how contents will be aligned within a
@@ -44,7 +44,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_arrangement_interface_get(void) EINA
  *
  * @ingroup Efl_Gfx_Arrangement
  */
-extern extern_WEAK void efl_gfx_arrangement_content_align_set(Eo *obj, Efl_Gfx_Align align_horiz, Efl_Gfx_Align align_vert);
+extern  void efl_gfx_arrangement_content_align_set(Eo *obj, Efl_Gfx_Align align_horiz, Efl_Gfx_Align align_vert);
 
 /**
  * @brief This property determines how contents will be aligned within a
@@ -66,7 +66,7 @@ extern extern_WEAK void efl_gfx_arrangement_content_align_set(Eo *obj, Efl_Gfx_A
  *
  * @ingroup Efl_Gfx_Arrangement
  */
-extern extern_WEAK void efl_gfx_arrangement_content_align_get(const Eo *obj, Efl_Gfx_Align *align_horiz, Efl_Gfx_Align *align_vert);
+extern  void efl_gfx_arrangement_content_align_get(const Eo *obj, Efl_Gfx_Align *align_horiz, Efl_Gfx_Align *align_vert);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -87,7 +87,7 @@ extern extern_WEAK void efl_gfx_arrangement_content_align_get(const Eo *obj, Efl
  *
  * @ingroup Efl_Gfx_Arrangement
  */
-extern extern_WEAK void efl_gfx_arrangement_content_padding_set(Eo *obj, unsigned int pad_horiz, unsigned int pad_vert);
+extern  void efl_gfx_arrangement_content_padding_set(Eo *obj, unsigned int pad_horiz, unsigned int pad_vert);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -109,7 +109,7 @@ extern extern_WEAK void efl_gfx_arrangement_content_padding_set(Eo *obj, unsigne
  *
  * @ingroup Efl_Gfx_Arrangement
  */
-extern extern_WEAK void efl_gfx_arrangement_content_padding_get(const Eo *obj, unsigned int *pad_horiz, unsigned int *pad_vert);
+extern  void efl_gfx_arrangement_content_padding_get(const Eo *obj, unsigned int *pad_horiz, unsigned int *pad_vert);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

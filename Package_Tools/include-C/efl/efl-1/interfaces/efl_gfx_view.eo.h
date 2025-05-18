@@ -22,7 +22,7 @@ typedef Eo Efl_Gfx_View;
  */
 #define EFL_GFX_VIEW_INTERFACE efl_gfx_view_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_view_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_gfx_view_interface_get(void) ;
 
 /**
  * @brief The dimensions of this object's viewport.
@@ -48,7 +48,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_view_interface_get(void) EINA_CONST;
  *
  * @ingroup Efl_Gfx_View
  */
-extern extern_WEAK void efl_gfx_view_size_set(Eo *obj, Eina_Size2D size);
+extern  void efl_gfx_view_size_set(Eo *obj, Eina_Size2D size);
 
 /**
  * @brief The dimensions of this object's viewport.
@@ -75,7 +75,7 @@ extern extern_WEAK void efl_gfx_view_size_set(Eo *obj, Eina_Size2D size);
  *
  * @ingroup Efl_Gfx_View
  */
-extern extern_WEAK Eina_Size2D efl_gfx_view_size_get(const Eo *obj);
+extern  Eina_Size2D efl_gfx_view_size_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

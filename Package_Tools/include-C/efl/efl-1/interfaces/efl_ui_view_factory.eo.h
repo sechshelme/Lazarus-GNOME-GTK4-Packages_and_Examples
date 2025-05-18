@@ -21,7 +21,7 @@ typedef Eo Efl_Ui_View_Factory;
  */
 #define EFL_UI_VIEW_FACTORY_CLASS efl_ui_view_factory_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_view_factory_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_view_factory_class_get(void) ;
 
 /**
  * @brief Create a UI object from the necessary properties in the specified
@@ -38,7 +38,7 @@ extern extern_WEAK const Efl_Class *efl_ui_view_factory_class_get(void) EINA_CON
  *
  * @ingroup Efl_Ui_View_Factory
  */
-extern extern_WEAK Eina_Future *efl_ui_view_factory_create_with_event(Efl_Ui_Factory *factory, Eina_Iterator *models EFL_TRANSFER_OWNERSHIP);
+extern  Eina_Future *efl_ui_view_factory_create_with_event(Efl_Ui_Factory *factory, Eina_Iterator *models EFL_TRANSFER_OWNERSHIP);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

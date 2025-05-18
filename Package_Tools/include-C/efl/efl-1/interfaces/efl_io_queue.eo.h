@@ -28,7 +28,7 @@ typedef Eo Efl_Io_Queue;
  */
 #define EFL_IO_QUEUE_CLASS efl_io_queue_class_get()
 
-extern extern_WEAK const Efl_Class *efl_io_queue_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_io_queue_class_get(void) ;
 
 /**
  * @brief Immediately pre-allocate a buffer of at least a given size.
@@ -38,7 +38,7 @@ extern extern_WEAK const Efl_Class *efl_io_queue_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Io_Queue
  */
-extern extern_WEAK void efl_io_queue_preallocate(Eo *obj, size_t size);
+extern  void efl_io_queue_preallocate(Eo *obj, size_t size);
 
 /**
  * @brief Limit how big the buffer can grow.
@@ -57,7 +57,7 @@ extern extern_WEAK void efl_io_queue_preallocate(Eo *obj, size_t size);
  *
  * @ingroup Efl_Io_Queue
  */
-extern extern_WEAK void efl_io_queue_limit_set(Eo *obj, size_t size);
+extern  void efl_io_queue_limit_set(Eo *obj, size_t size);
 
 /**
  * @brief Limit how big the buffer can grow.
@@ -75,7 +75,7 @@ extern extern_WEAK void efl_io_queue_limit_set(Eo *obj, size_t size);
  *
  * @ingroup Efl_Io_Queue
  */
-extern extern_WEAK size_t efl_io_queue_limit_get(const Eo *obj);
+extern  size_t efl_io_queue_limit_get(const Eo *obj);
 
 /**
  * @brief How many bytes are available for read
@@ -86,7 +86,7 @@ extern extern_WEAK size_t efl_io_queue_limit_get(const Eo *obj);
  *
  * @ingroup Efl_Io_Queue
  */
-extern extern_WEAK size_t efl_io_queue_usage_get(const Eo *obj);
+extern  size_t efl_io_queue_usage_get(const Eo *obj);
 
 /**
  * @brief Gain temporary access to queue's internal read memory.
@@ -103,7 +103,7 @@ extern extern_WEAK size_t efl_io_queue_usage_get(const Eo *obj);
  *
  * @ingroup Efl_Io_Queue
  */
-extern extern_WEAK Eina_Slice efl_io_queue_slice_get(const Eo *obj);
+extern  Eina_Slice efl_io_queue_slice_get(const Eo *obj);
 
 /**
  * @brief Discard the given number of bytes.
@@ -127,7 +127,7 @@ extern extern_WEAK Eina_Slice efl_io_queue_slice_get(const Eo *obj);
  *
  * @ingroup Efl_Io_Queue
  */
-extern extern_WEAK void efl_io_queue_discard(Eo *obj, size_t amount);
+extern  void efl_io_queue_discard(Eo *obj, size_t amount);
 
 /**
  * @brief Clears the queue. Same as reading all data.
@@ -138,7 +138,7 @@ extern extern_WEAK void efl_io_queue_discard(Eo *obj, size_t amount);
  *
  * @ingroup Efl_Io_Queue
  */
-extern extern_WEAK void efl_io_queue_clear(Eo *obj);
+extern  void efl_io_queue_clear(Eo *obj);
 
 /**
  * @brief Mark this end-of-stream.
@@ -151,9 +151,9 @@ extern extern_WEAK void efl_io_queue_clear(Eo *obj);
  *
  * @ingroup Efl_Io_Queue
  */
-extern extern_WEAK void efl_io_queue_eos_mark(Eo *obj);
+extern  void efl_io_queue_eos_mark(Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_QUEUE_EVENT_SLICE_CHANGED;
+extern  extern const Efl_Event_Description _EFL_IO_QUEUE_EVENT_SLICE_CHANGED;
 
 /** The read-slice returned by @ref efl_io_queue_slice_get may have changed.
  *

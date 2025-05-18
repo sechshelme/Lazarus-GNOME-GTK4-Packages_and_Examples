@@ -20,9 +20,9 @@ typedef Eo Efl_Ui_Container_Selectable;
  */
 #define EFL_UI_CONTAINER_SELECTABLE_INTERFACE efl_ui_container_selectable_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_container_selectable_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_container_selectable_interface_get(void) ;
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_ITEM_SELECTED;
+extern  extern const Efl_Event_Description _EFL_UI_EVENT_ITEM_SELECTED;
 
 /** Called when selected
  * @return Efl_Object *
@@ -31,7 +31,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_ITEM_SELECTE
  */
 #define EFL_UI_EVENT_ITEM_SELECTED (&(_EFL_UI_EVENT_ITEM_SELECTED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_ITEM_UNSELECTED;
+extern  extern const Efl_Event_Description _EFL_UI_EVENT_ITEM_UNSELECTED;
 
 /** Called when no longer selected
  * @return Efl_Object *

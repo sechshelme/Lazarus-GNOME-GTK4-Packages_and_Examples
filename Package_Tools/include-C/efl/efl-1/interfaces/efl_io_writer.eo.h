@@ -32,7 +32,7 @@ typedef Eo Efl_Io_Writer;
  */
 #define EFL_IO_WRITER_INTERFACE efl_io_writer_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_io_writer_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_io_writer_interface_get(void) ;
 
 /**
  * @brief Writes data from a pre-populated buffer.
@@ -58,7 +58,7 @@ extern extern_WEAK const Efl_Class *efl_io_writer_interface_get(void) EINA_CONST
  *
  * @ingroup Efl_Io_Writer
  */
-extern extern_WEAK Eina_Error efl_io_writer_write(Eo *obj, Eina_Slice *slice, Eina_Slice *remaining);
+extern  Eina_Error efl_io_writer_write(Eo *obj, Eina_Slice *slice, Eina_Slice *remaining);
 
 #ifdef EFL_IO_WRITER_PROTECTED
 /**
@@ -73,7 +73,7 @@ extern extern_WEAK Eina_Error efl_io_writer_write(Eo *obj, Eina_Slice *slice, Ei
  *
  * @ingroup Efl_Io_Writer
  */
-extern extern_WEAK void efl_io_writer_can_write_set(Eo *obj, Eina_Bool can_write);
+extern  void efl_io_writer_can_write_set(Eo *obj, Eina_Bool can_write);
 #endif
 
 /**
@@ -89,9 +89,9 @@ extern extern_WEAK void efl_io_writer_can_write_set(Eo *obj, Eina_Bool can_write
  *
  * @ingroup Efl_Io_Writer
  */
-extern extern_WEAK Eina_Bool efl_io_writer_can_write_get(const Eo *obj);
+extern  Eina_Bool efl_io_writer_can_write_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_WRITER_EVENT_CAN_WRITE_CHANGED;
+extern  extern const Efl_Event_Description _EFL_IO_WRITER_EVENT_CAN_WRITE_CHANGED;
 
 /**
  * @brief Notifies can_write property changed.

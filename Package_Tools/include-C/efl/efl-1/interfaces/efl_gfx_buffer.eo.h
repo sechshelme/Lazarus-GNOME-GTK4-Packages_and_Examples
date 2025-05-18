@@ -35,7 +35,7 @@ typedef enum
  */
 #define EFL_GFX_BUFFER_INTERFACE efl_gfx_buffer_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_buffer_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_gfx_buffer_interface_get(void) ;
 
 /**
  * @brief Rectangular size of the pixel buffer as allocated in memory.
@@ -47,7 +47,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_buffer_interface_get(void) EINA_CONS
  *
  * @ingroup Efl_Gfx_Buffer
  */
-extern extern_WEAK void efl_gfx_buffer_size_set(Eo *obj, Eina_Size2D sz);
+extern  void efl_gfx_buffer_size_set(Eo *obj, Eina_Size2D sz);
 
 /**
  * @brief Rectangular size of the pixel buffer as allocated in memory.
@@ -58,7 +58,7 @@ extern extern_WEAK void efl_gfx_buffer_size_set(Eo *obj, Eina_Size2D sz);
  *
  * @ingroup Efl_Gfx_Buffer
  */
-extern extern_WEAK Eina_Size2D efl_gfx_buffer_size_get(const Eo *obj);
+extern  Eina_Size2D efl_gfx_buffer_size_get(const Eo *obj);
 
 /**
  * @brief The colorspace defines how pixels are encoded in the image in memory.
@@ -80,7 +80,7 @@ extern extern_WEAK Eina_Size2D efl_gfx_buffer_size_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Buffer
  */
-extern extern_WEAK Efl_Gfx_Colorspace efl_gfx_buffer_colorspace_get(const Eo *obj);
+extern  Efl_Gfx_Colorspace efl_gfx_buffer_colorspace_get(const Eo *obj);
 
 /**
  * @brief Indicates whether the alpha channel should be used.
@@ -100,7 +100,7 @@ extern extern_WEAK Efl_Gfx_Colorspace efl_gfx_buffer_colorspace_get(const Eo *ob
  *
  * @ingroup Efl_Gfx_Buffer
  */
-extern extern_WEAK void efl_gfx_buffer_alpha_set(Eo *obj, Eina_Bool alpha);
+extern  void efl_gfx_buffer_alpha_set(Eo *obj, Eina_Bool alpha);
 
 /**
  * @brief Indicates whether the alpha channel should be used.
@@ -116,7 +116,7 @@ extern extern_WEAK void efl_gfx_buffer_alpha_set(Eo *obj, Eina_Bool alpha);
  *
  * @ingroup Efl_Gfx_Buffer
  */
-extern extern_WEAK Eina_Bool efl_gfx_buffer_alpha_get(const Eo *obj);
+extern  Eina_Bool efl_gfx_buffer_alpha_get(const Eo *obj);
 
 /**
  * @brief Length in bytes of one row of pixels in memory.
@@ -133,7 +133,7 @@ extern extern_WEAK Eina_Bool efl_gfx_buffer_alpha_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Buffer
  */
-extern extern_WEAK int efl_gfx_buffer_stride_get(const Eo *obj);
+extern  int efl_gfx_buffer_stride_get(const Eo *obj);
 
 /**
  * @brief Mark a sub-region of the given image object to be redrawn.
@@ -146,7 +146,7 @@ extern extern_WEAK int efl_gfx_buffer_stride_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Buffer
  */
-extern extern_WEAK void efl_gfx_buffer_update_add(Eo *obj, const Eina_Rect *region);
+extern  void efl_gfx_buffer_update_add(Eo *obj, const Eina_Rect *region);
 
 /**
  * @brief Duplicated pixel borders inside this buffer.
@@ -164,7 +164,7 @@ extern extern_WEAK void efl_gfx_buffer_update_add(Eo *obj, const Eina_Rect *regi
  *
  * @ingroup Efl_Gfx_Buffer
  */
-extern extern_WEAK void efl_gfx_buffer_borders_get(const Eo *obj, unsigned int *l, unsigned int *r, unsigned int *t, unsigned int *b);
+extern  void efl_gfx_buffer_borders_get(const Eo *obj, unsigned int *l, unsigned int *r, unsigned int *t, unsigned int *b);
 
 /**
  * @brief Map a region of this buffer for read or write access by the CPU.
@@ -191,7 +191,7 @@ extern extern_WEAK void efl_gfx_buffer_borders_get(const Eo *obj, unsigned int *
  *
  * @ingroup Efl_Gfx_Buffer
  */
-extern extern_WEAK Eina_Rw_Slice efl_gfx_buffer_map(Eo *obj, Efl_Gfx_Buffer_Access_Mode mode, const Eina_Rect *region, Efl_Gfx_Colorspace cspace, int plane, int *stride);
+extern  Eina_Rw_Slice efl_gfx_buffer_map(Eo *obj, Efl_Gfx_Buffer_Access_Mode mode, const Eina_Rect *region, Efl_Gfx_Colorspace cspace, int plane, int *stride);
 
 /**
  * @brief Unmap a region of this buffer, and update the internal data if
@@ -211,7 +211,7 @@ extern extern_WEAK Eina_Rw_Slice efl_gfx_buffer_map(Eo *obj, Efl_Gfx_Buffer_Acce
  *
  * @ingroup Efl_Gfx_Buffer
  */
-extern extern_WEAK Eina_Bool efl_gfx_buffer_unmap(Eo *obj, Eina_Rw_Slice slice);
+extern  Eina_Bool efl_gfx_buffer_unmap(Eo *obj, Eina_Rw_Slice slice);
 
 /**
  * @brief Set the pixels for this buffer by copying them, or allocate a new
@@ -241,7 +241,7 @@ extern extern_WEAK Eina_Bool efl_gfx_buffer_unmap(Eo *obj, Eina_Rw_Slice slice);
  *
  * @ingroup Efl_Gfx_Buffer
  */
-extern extern_WEAK Eina_Bool efl_gfx_buffer_copy_set(Eo *obj, const Eina_Slice *slice, Eina_Size2D size, int stride, Efl_Gfx_Colorspace cspace, int plane);
+extern  Eina_Bool efl_gfx_buffer_copy_set(Eo *obj, const Eina_Slice *slice, Eina_Size2D size, int stride, Efl_Gfx_Colorspace cspace, int plane);
 
 /**
  * @brief Set the pixels for this buffer, managed externally by the client.
@@ -270,7 +270,7 @@ extern extern_WEAK Eina_Bool efl_gfx_buffer_copy_set(Eo *obj, const Eina_Slice *
  *
  * @ingroup Efl_Gfx_Buffer
  */
-extern extern_WEAK Eina_Bool efl_gfx_buffer_managed_set(Eo *obj, const Eina_Slice *slice, Eina_Size2D size, int stride, Efl_Gfx_Colorspace cspace, int plane);
+extern  Eina_Bool efl_gfx_buffer_managed_set(Eo *obj, const Eina_Slice *slice, Eina_Size2D size, int stride, Efl_Gfx_Colorspace cspace, int plane);
 
 /**
  * @brief Get a direct pointer to the internal pixel data, if available.
@@ -286,7 +286,7 @@ extern extern_WEAK Eina_Bool efl_gfx_buffer_managed_set(Eo *obj, const Eina_Slic
  *
  * @ingroup Efl_Gfx_Buffer
  */
-extern extern_WEAK Eina_Slice efl_gfx_buffer_managed_get(Eo *obj, int plane);
+extern  Eina_Slice efl_gfx_buffer_managed_get(Eo *obj, int plane);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

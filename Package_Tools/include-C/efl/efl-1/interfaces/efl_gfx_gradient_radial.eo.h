@@ -20,7 +20,7 @@ typedef Eo Efl_Gfx_Gradient_Radial;
  */
 #define EFL_GFX_GRADIENT_RADIAL_INTERFACE efl_gfx_gradient_radial_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_gradient_radial_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_gfx_gradient_radial_interface_get(void) ;
 
 /**
  * @brief The center of this radial gradient.
@@ -31,7 +31,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_gradient_radial_interface_get(void) 
  *
  * @ingroup Efl_Gfx_Gradient_Radial
  */
-extern extern_WEAK void efl_gfx_gradient_radial_center_set(Eo *obj, double x, double y);
+extern  void efl_gfx_gradient_radial_center_set(Eo *obj, double x, double y);
 
 /**
  * @brief The center of this radial gradient.
@@ -42,7 +42,7 @@ extern extern_WEAK void efl_gfx_gradient_radial_center_set(Eo *obj, double x, do
  *
  * @ingroup Efl_Gfx_Gradient_Radial
  */
-extern extern_WEAK void efl_gfx_gradient_radial_center_get(const Eo *obj, double *x, double *y);
+extern  void efl_gfx_gradient_radial_center_get(const Eo *obj, double *x, double *y);
 
 /**
  * @brief The radius of this radial gradient.
@@ -52,7 +52,7 @@ extern extern_WEAK void efl_gfx_gradient_radial_center_get(const Eo *obj, double
  *
  * @ingroup Efl_Gfx_Gradient_Radial
  */
-extern extern_WEAK void efl_gfx_gradient_radial_radius_set(Eo *obj, double r);
+extern  void efl_gfx_gradient_radial_radius_set(Eo *obj, double r);
 
 /**
  * @brief The radius of this radial gradient.
@@ -63,7 +63,7 @@ extern extern_WEAK void efl_gfx_gradient_radial_radius_set(Eo *obj, double r);
  *
  * @ingroup Efl_Gfx_Gradient_Radial
  */
-extern extern_WEAK double efl_gfx_gradient_radial_radius_get(const Eo *obj);
+extern  double efl_gfx_gradient_radial_radius_get(const Eo *obj);
 
 /**
  * @brief The focal point of this radial gradient.
@@ -74,7 +74,7 @@ extern extern_WEAK double efl_gfx_gradient_radial_radius_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Gradient_Radial
  */
-extern extern_WEAK void efl_gfx_gradient_radial_focal_set(Eo *obj, double x, double y);
+extern  void efl_gfx_gradient_radial_focal_set(Eo *obj, double x, double y);
 
 /**
  * @brief The focal point of this radial gradient.
@@ -85,7 +85,7 @@ extern extern_WEAK void efl_gfx_gradient_radial_focal_set(Eo *obj, double x, dou
  *
  * @ingroup Efl_Gfx_Gradient_Radial
  */
-extern extern_WEAK void efl_gfx_gradient_radial_focal_get(const Eo *obj, double *x, double *y);
+extern  void efl_gfx_gradient_radial_focal_get(const Eo *obj, double *x, double *y);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

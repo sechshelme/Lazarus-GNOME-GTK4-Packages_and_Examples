@@ -21,7 +21,7 @@ typedef Eo Efl_Text_Markup;
  */
 #define EFL_TEXT_MARKUP_INTERFACE efl_text_markup_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_text_markup_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_text_markup_interface_get(void) ;
 
 /**
  * @brief Markup property
@@ -33,7 +33,7 @@ extern extern_WEAK const Efl_Class *efl_text_markup_interface_get(void) EINA_CON
  *
  * @ingroup Efl_Text_Markup
  */
-extern extern_WEAK void efl_text_markup_set(Eo *obj, const char *markup);
+extern  void efl_text_markup_set(Eo *obj, const char *markup);
 
 /**
  * @brief Markup property
@@ -46,6 +46,6 @@ extern extern_WEAK void efl_text_markup_set(Eo *obj, const char *markup);
  *
  * @ingroup Efl_Text_Markup
  */
-extern extern_WEAK const char *efl_text_markup_get(const Eo *obj);
+extern  const char *efl_text_markup_get(const Eo *obj);
 
 #endif

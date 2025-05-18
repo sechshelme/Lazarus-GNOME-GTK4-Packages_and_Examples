@@ -21,7 +21,7 @@ typedef Eo Efl_Text;
  */
 #define EFL_TEXT_INTERFACE efl_text_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_text_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_text_interface_get(void) ;
 
 /**
  * @brief The text string to be displayed by the given text object.
@@ -35,7 +35,7 @@ extern extern_WEAK const Efl_Class *efl_text_interface_get(void) EINA_CONST;
  *
  * @ingroup Efl_Text
  */
-extern extern_WEAK void efl_text_set(Eo *obj, const char *text);
+extern  void efl_text_set(Eo *obj, const char *text);
 
 /**
  * @brief The text string to be displayed by the given text object.
@@ -50,6 +50,6 @@ extern extern_WEAK void efl_text_set(Eo *obj, const char *text);
  *
  * @ingroup Efl_Text
  */
-extern extern_WEAK const char *efl_text_get(const Eo *obj);
+extern  const char *efl_text_get(const Eo *obj);
 
 #endif

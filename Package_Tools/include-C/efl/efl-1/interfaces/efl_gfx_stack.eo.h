@@ -41,7 +41,7 @@ typedef Eo Efl_Gfx_Stack;
  */
 #define EFL_GFX_STACK_INTERFACE efl_gfx_stack_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_stack_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_gfx_stack_interface_get(void) ;
 
 /**
  * @brief The layer of its canvas that the given object will be part of.
@@ -65,7 +65,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_stack_interface_get(void) EINA_CONST
  *
  * @ingroup Efl_Gfx_Stack
  */
-extern extern_WEAK void efl_gfx_stack_layer_set(Eo *obj, short l);
+extern  void efl_gfx_stack_layer_set(Eo *obj, short l);
 
 /**
  * @brief The layer of its canvas that the given object will be part of.
@@ -90,7 +90,7 @@ extern extern_WEAK void efl_gfx_stack_layer_set(Eo *obj, short l);
  *
  * @ingroup Efl_Gfx_Stack
  */
-extern extern_WEAK short efl_gfx_stack_layer_get(const Eo *obj);
+extern  short efl_gfx_stack_layer_get(const Eo *obj);
 
 /**
  * @brief The Evas object stacked right below this object.
@@ -109,7 +109,7 @@ extern extern_WEAK short efl_gfx_stack_layer_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Stack
  */
-extern extern_WEAK Efl_Gfx_Stack *efl_gfx_stack_below_get(const Eo *obj);
+extern  Efl_Gfx_Stack *efl_gfx_stack_below_get(const Eo *obj);
 
 /**
  * @brief Get the Evas object stacked right above this object.
@@ -128,7 +128,7 @@ extern extern_WEAK Efl_Gfx_Stack *efl_gfx_stack_below_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Stack
  */
-extern extern_WEAK Efl_Gfx_Stack *efl_gfx_stack_above_get(const Eo *obj);
+extern  Efl_Gfx_Stack *efl_gfx_stack_above_get(const Eo *obj);
 
 /**
  * @brief Stack @c obj immediately @c below
@@ -157,7 +157,7 @@ extern extern_WEAK Efl_Gfx_Stack *efl_gfx_stack_above_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Stack
  */
-extern extern_WEAK void efl_gfx_stack_below(Eo *obj, Efl_Gfx_Stack *below);
+extern  void efl_gfx_stack_below(Eo *obj, Efl_Gfx_Stack *below);
 
 /**
  * @brief Raise @c obj to the top of its layer.
@@ -174,7 +174,7 @@ extern extern_WEAK void efl_gfx_stack_below(Eo *obj, Efl_Gfx_Stack *below);
  *
  * @ingroup Efl_Gfx_Stack
  */
-extern extern_WEAK void efl_gfx_stack_raise_to_top(Eo *obj);
+extern  void efl_gfx_stack_raise_to_top(Eo *obj);
 
 /**
  * @brief Stack @c obj immediately @c above
@@ -203,7 +203,7 @@ extern extern_WEAK void efl_gfx_stack_raise_to_top(Eo *obj);
  *
  * @ingroup Efl_Gfx_Stack
  */
-extern extern_WEAK void efl_gfx_stack_above(Eo *obj, Efl_Gfx_Stack *above);
+extern  void efl_gfx_stack_above(Eo *obj, Efl_Gfx_Stack *above);
 
 /**
  * @brief Lower @c obj to the bottom of its layer.
@@ -220,9 +220,9 @@ extern extern_WEAK void efl_gfx_stack_above(Eo *obj, Efl_Gfx_Stack *above);
  *
  * @ingroup Efl_Gfx_Stack
  */
-extern extern_WEAK void efl_gfx_stack_lower_to_bottom(Eo *obj);
+extern  void efl_gfx_stack_lower_to_bottom(Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_STACKING_CHANGED;
+extern  extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_STACKING_CHANGED;
 
 /** Object stacking was changed.
  *

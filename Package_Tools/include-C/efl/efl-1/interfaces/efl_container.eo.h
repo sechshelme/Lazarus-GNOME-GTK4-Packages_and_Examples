@@ -26,7 +26,7 @@ typedef Eo Efl_Container;
  */
 #define EFL_CONTAINER_INTERFACE efl_container_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_container_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_container_interface_get(void) ;
 
 /**
  * @brief Begin iterating over this object's contents.
@@ -39,7 +39,7 @@ extern extern_WEAK const Efl_Class *efl_container_interface_get(void) EINA_CONST
  *
  * @ingroup Efl_Container
  */
-extern extern_WEAK Eina_Iterator *efl_content_iterate(Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Iterator *efl_content_iterate(Eo *obj) EFL_TRANSFER_OWNERSHIP ;
 
 /**
  * @brief Returns the number of contained sub-objects.
@@ -52,9 +52,9 @@ extern extern_WEAK Eina_Iterator *efl_content_iterate(Eo *obj) EFL_TRANSFER_OWNE
  *
  * @ingroup Efl_Container
  */
-extern extern_WEAK int efl_content_count(Eo *obj);
+extern  int efl_content_count(Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_CONTAINER_EVENT_CONTENT_ADDED;
+extern  extern const Efl_Event_Description _EFL_CONTAINER_EVENT_CONTENT_ADDED;
 
 /** Sent after a new sub-object was added.
  * @return Efl_Gfx_Entity *
@@ -65,7 +65,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_CONTAINER_EVENT_CONTE
  */
 #define EFL_CONTAINER_EVENT_CONTENT_ADDED (&(_EFL_CONTAINER_EVENT_CONTENT_ADDED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_CONTAINER_EVENT_CONTENT_REMOVED;
+extern  extern const Efl_Event_Description _EFL_CONTAINER_EVENT_CONTENT_REMOVED;
 
 /** Sent after a sub-object was removed, before unref.
  * @return Efl_Gfx_Entity *

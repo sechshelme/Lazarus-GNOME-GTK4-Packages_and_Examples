@@ -20,7 +20,7 @@ typedef Eo Efl_Playable;
  */
 #define EFL_PLAYABLE_INTERFACE efl_playable_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_playable_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_playable_interface_get(void) ;
 
 /**
  * @brief Get the length of play for the media file.
@@ -31,9 +31,9 @@ extern extern_WEAK const Efl_Class *efl_playable_interface_get(void) EINA_CONST;
  *
  * @ingroup Efl_Playable
  */
-extern extern_WEAK double efl_playable_length_get(const Eo *obj);
+extern  double efl_playable_length_get(const Eo *obj);
 
-extern extern_WEAK Eina_Bool efl_playable_get(const Eo *obj);
+extern  Eina_Bool efl_playable_get(const Eo *obj);
 
 /**
  * @brief Get whether the media file is seekable.
@@ -44,7 +44,7 @@ extern extern_WEAK Eina_Bool efl_playable_get(const Eo *obj);
  *
  * @ingroup Efl_Playable
  */
-extern extern_WEAK Eina_Bool efl_playable_seekable_get(const Eo *obj);
+extern  Eina_Bool efl_playable_seekable_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

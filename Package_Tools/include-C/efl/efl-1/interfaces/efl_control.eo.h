@@ -20,7 +20,7 @@ typedef Eo Efl_Control;
  */
 #define EFL_CONTROL_INTERFACE efl_control_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_control_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_control_interface_get(void) ;
 
 /**
  * @brief Control the priority of the object.
@@ -30,7 +30,7 @@ extern extern_WEAK const Efl_Class *efl_control_interface_get(void) EINA_CONST;
  *
  * @ingroup Efl_Control
  */
-extern extern_WEAK void efl_control_priority_set(Eo *obj, int priority);
+extern  void efl_control_priority_set(Eo *obj, int priority);
 
 /**
  * @brief Control the priority of the object.
@@ -41,7 +41,7 @@ extern extern_WEAK void efl_control_priority_set(Eo *obj, int priority);
  *
  * @ingroup Efl_Control
  */
-extern extern_WEAK int efl_control_priority_get(const Eo *obj);
+extern  int efl_control_priority_get(const Eo *obj);
 
 /**
  * @brief Controls whether the object is suspended or not.
@@ -51,7 +51,7 @@ extern extern_WEAK int efl_control_priority_get(const Eo *obj);
  *
  * @ingroup Efl_Control
  */
-extern extern_WEAK void efl_control_suspend_set(Eo *obj, Eina_Bool suspend);
+extern  void efl_control_suspend_set(Eo *obj, Eina_Bool suspend);
 
 /**
  * @brief Controls whether the object is suspended or not.
@@ -62,7 +62,7 @@ extern extern_WEAK void efl_control_suspend_set(Eo *obj, Eina_Bool suspend);
  *
  * @ingroup Efl_Control
  */
-extern extern_WEAK Eina_Bool efl_control_suspend_get(const Eo *obj);
+extern  Eina_Bool efl_control_suspend_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

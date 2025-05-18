@@ -1,50 +1,9 @@
 #ifndef _EFL_H
 #define _EFL_H
 
-#if defined ( __cplusplus )
-extern "C" {
-#endif
 
 #include <Eo.h>
 
-#ifdef extern
-# undef extern
-#endif
-#ifdef EWAPI
-# undef EWAPI
-#endif
-#ifdef EOAPI
-# undef EOAPI
-#endif
-
-#ifdef _WIN32
-# ifdef EFL_BUILD
-#  ifdef DLL_EXPORT
-#   define extern __declspec(dllexport)
-#  else
-#   define extern
-#  endif
-# else
-#  define extern __declspec(dllimport)
-# endif
-# define extern_WEAK
-#else
-# ifdef __GNUC__
-#  if __GNUC__ >= 4
-#   define extern __attribute__ ((visibility("default")))
-#   define extern_WEAK __attribute__ ((weak))
-#  else
-#   define extern
-#   define extern_WEAK
-#  endif
-# else
-#  define extern
-#  define extern_WEAK
-# endif
-#endif
-
-#define EWAPI extern extern_WEAK
-#define EOAPI extern extern_WEAK
 
 #define EFL_VERSION_1_18 1
 #define EFL_VERSION_1_19 1
@@ -56,11 +15,6 @@ extern "C" {
 #define EFL_VERSION_1_25 1
 #define EFL_VERSION_1_26 1
 
-/* Add here all the required ifdef for any @protected method */
-#ifdef EFL_BUILD
-# define EFL_PACK_LAYOUT_PROTECTED
-# define EFL_GFX_HINT_PROTECTED
-#endif
 
 /**
  * @ingroup Efl
@@ -83,39 +37,39 @@ typedef struct _Efl_Text_Attribute_Handle Efl_Text_Attribute_Handle;
 
 #ifdef EFL_BETA_API_SUPPORT
 /** No error on load */
-extern EWAPI Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_NONE;
+extern  Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_NONE;
 
 /** A non-specific error occurred */
-extern EWAPI Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_GENERIC;
+extern  Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_GENERIC;
 
 /** File (or file path) does not exist */
-extern EWAPI Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_DOES_NOT_EXIST;
+extern  Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_DOES_NOT_EXIST;
 
 /** Permission denied to an existing file (or path) */
-extern EWAPI Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_PERMISSION_DENIED;
+extern  Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_PERMISSION_DENIED;
 
 /** Allocation of resources failure prevented load */
-extern EWAPI Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_RESOURCE_ALLOCATION_FAILED;
+extern  Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_RESOURCE_ALLOCATION_FAILED;
 
 /** File corrupt (but was detected as a known format) */
-extern EWAPI Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_CORRUPT_FILE;
+extern  Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_CORRUPT_FILE;
 
 /** File is not a known format */
-extern EWAPI Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_UNKNOWN_FORMAT;
+extern  Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_UNKNOWN_FORMAT;
 
 /** Reading operation has been cancelled during decoding */
-extern EWAPI Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_CANCELLED;
+extern  Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_CANCELLED;
 
 /** (Edje only) The file pointed to is incompatible, i.e., it doesn't
  * match the library's current version's format. */
-extern EWAPI Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_INCOMPATIBLE_FILE;
+extern  Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_INCOMPATIBLE_FILE;
 
 /** (Edje only) The group/collection set to load from was not found in the file */
-extern EWAPI Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_UNKNOWN_COLLECTION;
+extern  Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_UNKNOWN_COLLECTION;
 
 /** (Edje only) The group/collection set to load from had recursive references
  * on its components */
-extern EWAPI Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_RECURSIVE_REFERENCE;
+extern  Eina_Error EFL_GFX_IMAGE_LOAD_ERROR_RECURSIVE_REFERENCE;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #include "interfaces/efl_gfx_types.eot.h"
@@ -238,7 +192,7 @@ extern Efl_Object *efl_part(const Eo *obj, const char *name);
 extern void efl_observable_tuple_free(Efl_Observable_Tuple *tuple);
 
 
-
+/*
 static inline Eina_Bool
 efl_config_bool_set(Efl_Config *obj, const char * name, Eina_Bool val)
 {
@@ -330,6 +284,7 @@ efl_config_string_get(const Efl_Config *obj, const char *name)
    eina_value_free(v);
    return s;
 }
+*/
 
 #else
 
@@ -344,11 +299,5 @@ efl_config_string_get(const Efl_Config *obj, const char *name)
 /* work-around bug in gcc --as-needed link optimization */
 extern void __efl_internal_init(void);
 
-#if defined ( __cplusplus )
-}
-#endif
 
-#undef extern
-#define extern
 
-#endif

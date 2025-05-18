@@ -74,7 +74,7 @@ typedef enum
  */
 #define EFL_UI_LAYOUT_ORIENTABLE_INTERFACE efl_ui_layout_orientable_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_layout_orientable_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_layout_orientable_interface_get(void) ;
 
 /**
  * @brief Control the direction of a given widget.
@@ -93,7 +93,7 @@ extern extern_WEAK const Efl_Class *efl_ui_layout_orientable_interface_get(void)
  *
  * @ingroup Efl_Ui_Layout_Orientable
  */
-extern extern_WEAK void efl_ui_layout_orientation_set(Eo *obj, Efl_Ui_Layout_Orientation dir);
+extern  void efl_ui_layout_orientation_set(Eo *obj, Efl_Ui_Layout_Orientation dir);
 
 /**
  * @brief Control the direction of a given widget.
@@ -113,6 +113,6 @@ extern extern_WEAK void efl_ui_layout_orientation_set(Eo *obj, Efl_Ui_Layout_Ori
  *
  * @ingroup Efl_Ui_Layout_Orientable
  */
-extern extern_WEAK Efl_Ui_Layout_Orientation efl_ui_layout_orientation_get(const Eo *obj);
+extern  Efl_Ui_Layout_Orientation efl_ui_layout_orientation_get(const Eo *obj);
 
 #endif

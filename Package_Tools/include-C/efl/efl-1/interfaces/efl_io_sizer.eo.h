@@ -25,7 +25,7 @@ typedef Eo Efl_Io_Sizer;
  */
 #define EFL_IO_SIZER_MIXIN efl_io_sizer_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_io_sizer_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_io_sizer_mixin_get(void) ;
 
 /**
  * @brief Resize object
@@ -37,7 +37,7 @@ extern extern_WEAK const Efl_Class *efl_io_sizer_mixin_get(void) EINA_CONST;
  *
  * @ingroup Efl_Io_Sizer
  */
-extern extern_WEAK Eina_Error efl_io_sizer_resize(Eo *obj, uint64_t size);
+extern  Eina_Error efl_io_sizer_resize(Eo *obj, uint64_t size);
 
 /**
  * @brief Size property
@@ -51,7 +51,7 @@ extern extern_WEAK Eina_Error efl_io_sizer_resize(Eo *obj, uint64_t size);
  *
  * @ingroup Efl_Io_Sizer
  */
-extern extern_WEAK Eina_Bool efl_io_sizer_size_set(Eo *obj, uint64_t size);
+extern  Eina_Bool efl_io_sizer_size_set(Eo *obj, uint64_t size);
 
 /**
  * @brief Size property
@@ -62,9 +62,9 @@ extern extern_WEAK Eina_Bool efl_io_sizer_size_set(Eo *obj, uint64_t size);
  *
  * @ingroup Efl_Io_Sizer
  */
-extern extern_WEAK uint64_t efl_io_sizer_size_get(const Eo *obj);
+extern  uint64_t efl_io_sizer_size_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_SIZER_EVENT_SIZE_CHANGED;
+extern  extern const Efl_Event_Description _EFL_IO_SIZER_EVENT_SIZE_CHANGED;
 
 /** Notifies size changed
  *

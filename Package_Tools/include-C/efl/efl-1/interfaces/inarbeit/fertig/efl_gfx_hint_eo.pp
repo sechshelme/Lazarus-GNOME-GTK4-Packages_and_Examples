@@ -1,89 +1,132 @@
-#ifndef _EFL_GFX_HINT_EO_H_
-#define _EFL_GFX_HINT_EO_H_
 
-#ifndef _EFL_GFX_HINT_EO_CLASS_TYPE
-#define _EFL_GFX_HINT_EO_CLASS_TYPE
+unit efl_gfx_hint_eo;
+interface
 
-typedef Eo Efl_Gfx_Hint;
+{
+  Automatically converted by H2Pas 1.0.0 from efl_gfx_hint_eo.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    efl_gfx_hint_eo.h
+}
 
-#endif
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
 
-#ifndef _EFL_GFX_HINT_EO_TYPES
-#define _EFL_GFX_HINT_EO_TYPES
+Type
+Pdouble  = ^double;
+PEfl_Class  = ^Efl_Class;
+PEfl_Gfx_Align  = ^Efl_Gfx_Align;
+PEfl_Gfx_Hint  = ^Efl_Gfx_Hint;
+PEfl_Gfx_Hint_Aspect  = ^Efl_Gfx_Hint_Aspect;
+PEina_Bool  = ^Eina_Bool;
+PEina_Size2D  = ^Eina_Size2D;
+PEo  = ^Eo;
+Plongint  = ^longint;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
 
-#ifndef EFL_GFX_HINT_EXPAND
-/** Use with @ref efl_gfx_hint_weight_get.
+
+{$ifndef _EFL_GFX_HINT_EO_H_}
+{$define _EFL_GFX_HINT_EO_H_}
+{$ifndef _EFL_GFX_HINT_EO_CLASS_TYPE}
+{$define _EFL_GFX_HINT_EO_CLASS_TYPE}
+type
+  PEfl_Gfx_Hint = ^TEfl_Gfx_Hint;
+  TEfl_Gfx_Hint = TEo;
+{$endif}
+{$ifndef _EFL_GFX_HINT_EO_TYPES}
+{$define _EFL_GFX_HINT_EO_TYPES}
+{$ifndef EFL_GFX_HINT_EXPAND}
+{* Use with @ref efl_gfx_hint_weight_get.
  *
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Hint_Expand
- */
-#define EFL_GFX_HINT_EXPAND 1.000000
-#endif
+  }
 
-#ifndef EFL_GFX_HINT_ALIGN_LEFT
-/** Use with @ref efl_gfx_hint_align_get.
+const
+  EFL_GFX_HINT_EXPAND = 1.000000;  
+{$endif}
+{$ifndef EFL_GFX_HINT_ALIGN_LEFT}
+{* Use with @ref efl_gfx_hint_align_get.
  *
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Hint_Align_Left
- */
-#define EFL_GFX_HINT_ALIGN_LEFT 0.000000
-#endif
+  }
 
-#ifndef EFL_GFX_HINT_ALIGN_RIGHT
-/** Use with @ref efl_gfx_hint_align_get.
+const
+  EFL_GFX_HINT_ALIGN_LEFT = 0.000000;  
+{$endif}
+{$ifndef EFL_GFX_HINT_ALIGN_RIGHT}
+{* Use with @ref efl_gfx_hint_align_get.
  *
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Hint_Align_Right
- */
-#define EFL_GFX_HINT_ALIGN_RIGHT 1.000000
-#endif
+  }
 
-#ifndef EFL_GFX_HINT_ALIGN_TOP
-/** Use with @ref efl_gfx_hint_align_get.
+const
+  EFL_GFX_HINT_ALIGN_RIGHT = 1.000000;  
+{$endif}
+{$ifndef EFL_GFX_HINT_ALIGN_TOP}
+{* Use with @ref efl_gfx_hint_align_get.
  *
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Hint_Align_Top
- */
-#define EFL_GFX_HINT_ALIGN_TOP 0.000000
-#endif
+  }
 
-#ifndef EFL_GFX_HINT_ALIGN_BOTTOM
-/** Use with @ref efl_gfx_hint_align_get.
+const
+  EFL_GFX_HINT_ALIGN_TOP = 0.000000;  
+{$endif}
+{$ifndef EFL_GFX_HINT_ALIGN_BOTTOM}
+{* Use with @ref efl_gfx_hint_align_get.
  *
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Hint_Align_Bottom
- */
-#define EFL_GFX_HINT_ALIGN_BOTTOM 1.000000
-#endif
+  }
 
-#ifndef EFL_GFX_HINT_ALIGN_CENTER
-/** Use with @ref efl_gfx_hint_align_get.
+const
+  EFL_GFX_HINT_ALIGN_BOTTOM = 1.000000;  
+{$endif}
+{$ifndef EFL_GFX_HINT_ALIGN_CENTER}
+{* Use with @ref efl_gfx_hint_align_get.
  *
  * @since 1.23
  *
  * @ingroup Efl_Gfx_Hint_Align_Center
- */
-#define EFL_GFX_HINT_ALIGN_CENTER 0.500000
-#endif
+  }
 
-
-#endif
-/** Efl graphics hint interface
+const
+  EFL_GFX_HINT_ALIGN_CENTER = 0.500000;  
+{$endif}
+{$endif}
+{* Efl graphics hint interface
  *
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-#define EFL_GFX_HINT_INTERFACE efl_gfx_hint_interface_get()
+  }
 
-extern extern_WEAK const Efl_Class *efl_gfx_hint_interface_get(void) EINA_CONST;
+{ was #define dname def_expr }
+function EFL_GFX_HINT_INTERFACE : longint; { return type might be wrong }
 
-/**
+(* Const before type ignored *)
+function efl_gfx_hint_interface_get:PEfl_Class;cdecl;external;
+{*
  * @brief Defines the aspect ratio to respect when scaling this object.
  *
  * The aspect ratio is defined as the width / height ratio of the object.
@@ -101,10 +144,9 @@ extern extern_WEAK const Efl_Class *efl_gfx_hint_interface_get(void) EINA_CONST;
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-extern extern_WEAK void efl_gfx_hint_aspect_set(Eo *obj, Efl_Gfx_Hint_Aspect mode, Eina_Size2D sz);
-
-/**
+  }
+procedure efl_gfx_hint_aspect_set(obj:PEo; mode:TEfl_Gfx_Hint_Aspect; sz:TEina_Size2D);cdecl;external;
+{*
  * @brief Defines the aspect ratio to respect when scaling this object.
  *
  * The aspect ratio is defined as the width / height ratio of the object.
@@ -122,10 +164,10 @@ extern extern_WEAK void efl_gfx_hint_aspect_set(Eo *obj, Efl_Gfx_Hint_Aspect mod
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-extern extern_WEAK void efl_gfx_hint_aspect_get(const Eo *obj, Efl_Gfx_Hint_Aspect *mode, Eina_Size2D *sz);
-
-/**
+  }
+(* Const before type ignored *)
+procedure efl_gfx_hint_aspect_get(obj:PEo; mode:PEfl_Gfx_Hint_Aspect; sz:PEina_Size2D);cdecl;external;
+{*
  * @brief Hints on the object's maximum size.
  *
  * This is not a size enforcement in any way, it's just a hint that should be
@@ -151,10 +193,9 @@ extern extern_WEAK void efl_gfx_hint_aspect_get(const Eo *obj, Efl_Gfx_Hint_Aspe
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-extern extern_WEAK void efl_gfx_hint_size_max_set(Eo *obj, Eina_Size2D sz);
-
-/**
+  }
+procedure efl_gfx_hint_size_max_set(obj:PEo; sz:TEina_Size2D);cdecl;external;
+{*
  * @brief Hints on the object's maximum size.
  *
  * This is not a size enforcement in any way, it's just a hint that should be
@@ -181,11 +222,11 @@ extern extern_WEAK void efl_gfx_hint_size_max_set(Eo *obj, Eina_Size2D sz);
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-extern extern_WEAK Eina_Size2D efl_gfx_hint_size_max_get(const Eo *obj);
-
-#ifdef EFL_GFX_HINT_PROTECTED
-/**
+  }
+(* Const before type ignored *)
+function efl_gfx_hint_size_max_get(obj:PEo):TEina_Size2D;cdecl;external;
+{$ifdef EFL_GFX_HINT_PROTECTED}
+{*
  * @brief Internal hints for an object's maximum size.
  *
  * This is not a size enforcement in any way, it's just a hint that should be
@@ -213,11 +254,10 @@ extern extern_WEAK Eina_Size2D efl_gfx_hint_size_max_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-extern extern_WEAK void efl_gfx_hint_size_restricted_max_set(Eo *obj, Eina_Size2D sz);
-#endif
-
-/**
+  }
+procedure efl_gfx_hint_size_restricted_max_set(obj:PEo; sz:TEina_Size2D);cdecl;external;
+{$endif}
+{*
  * @brief Internal hints for an object's maximum size.
  *
  * This is not a size enforcement in any way, it's just a hint that should be
@@ -243,10 +283,11 @@ extern extern_WEAK void efl_gfx_hint_size_restricted_max_set(Eo *obj, Eina_Size2
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-extern extern_WEAK Eina_Size2D efl_gfx_hint_size_restricted_max_get(const Eo *obj);
+  }
+(* Const before type ignored *)
 
-/**
+function efl_gfx_hint_size_restricted_max_get(obj:PEo):TEina_Size2D;cdecl;external;
+{*
  * @brief Read-only maximum size combining both
  * @ref efl_gfx_hint_size_restricted_max_get and @ref efl_gfx_hint_size_max_get
  * hints.
@@ -264,10 +305,10 @@ extern extern_WEAK Eina_Size2D efl_gfx_hint_size_restricted_max_get(const Eo *ob
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-extern extern_WEAK Eina_Size2D efl_gfx_hint_size_combined_max_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_gfx_hint_size_combined_max_get(obj:PEo):TEina_Size2D;cdecl;external;
+{*
  * @brief Hints on the object's minimum size.
  *
  * This is not a size enforcement in any way, it's just a hint that should be
@@ -289,10 +330,9 @@ extern extern_WEAK Eina_Size2D efl_gfx_hint_size_combined_max_get(const Eo *obj)
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-extern extern_WEAK void efl_gfx_hint_size_min_set(Eo *obj, Eina_Size2D sz);
-
-/**
+  }
+procedure efl_gfx_hint_size_min_set(obj:PEo; sz:TEina_Size2D);cdecl;external;
+{*
  * @brief Hints on the object's minimum size.
  *
  * This is not a size enforcement in any way, it's just a hint that should be
@@ -315,11 +355,11 @@ extern extern_WEAK void efl_gfx_hint_size_min_set(Eo *obj, Eina_Size2D sz);
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-extern extern_WEAK Eina_Size2D efl_gfx_hint_size_min_get(const Eo *obj);
-
-#ifdef EFL_GFX_HINT_PROTECTED
-/**
+  }
+(* Const before type ignored *)
+function efl_gfx_hint_size_min_get(obj:PEo):TEina_Size2D;cdecl;external;
+{$ifdef EFL_GFX_HINT_PROTECTED}
+{*
  * @brief Internal hints for an object's minimum size.
  *
  * This is not a size enforcement in any way, it's just a hint that should be
@@ -346,11 +386,10 @@ extern extern_WEAK Eina_Size2D efl_gfx_hint_size_min_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-extern extern_WEAK void efl_gfx_hint_size_restricted_min_set(Eo *obj, Eina_Size2D sz);
-#endif
-
-/**
+  }
+procedure efl_gfx_hint_size_restricted_min_set(obj:PEo; sz:TEina_Size2D);cdecl;external;
+{$endif}
+{*
  * @brief Internal hints for an object's minimum size.
  *
  * This is not a size enforcement in any way, it's just a hint that should be
@@ -377,10 +416,11 @@ extern extern_WEAK void efl_gfx_hint_size_restricted_min_set(Eo *obj, Eina_Size2
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-extern extern_WEAK Eina_Size2D efl_gfx_hint_size_restricted_min_get(const Eo *obj);
+  }
+(* Const before type ignored *)
 
-/**
+function efl_gfx_hint_size_restricted_min_get(obj:PEo):TEina_Size2D;cdecl;external;
+{*
  * @brief Read-only minimum size combining both
  * @ref efl_gfx_hint_size_restricted_min_get and @ref efl_gfx_hint_size_min_get
  * hints.
@@ -398,10 +438,10 @@ extern extern_WEAK Eina_Size2D efl_gfx_hint_size_restricted_min_get(const Eo *ob
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-extern extern_WEAK Eina_Size2D efl_gfx_hint_size_combined_min_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_gfx_hint_size_combined_min_get(obj:PEo):TEina_Size2D;cdecl;external;
+{*
  * @brief Hints for an object's margin or padding space.
  *
  * This is not a size enforcement in any way, it's just a hint that should be
@@ -422,10 +462,9 @@ extern extern_WEAK Eina_Size2D efl_gfx_hint_size_combined_min_get(const Eo *obj)
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-extern extern_WEAK void efl_gfx_hint_margin_set(Eo *obj, int l, int r, int t, int b);
-
-/**
+  }
+procedure efl_gfx_hint_margin_set(obj:PEo; l:longint; r:longint; t:longint; b:longint);cdecl;external;
+{*
  * @brief Hints for an object's margin or padding space.
  *
  * This is not a size enforcement in any way, it's just a hint that should be
@@ -446,10 +485,10 @@ extern extern_WEAK void efl_gfx_hint_margin_set(Eo *obj, int l, int r, int t, in
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-extern extern_WEAK void efl_gfx_hint_margin_get(const Eo *obj, int *l, int *r, int *t, int *b);
-
-/**
+  }
+(* Const before type ignored *)
+procedure efl_gfx_hint_margin_get(obj:PEo; l:Plongint; r:Plongint; t:Plongint; b:Plongint);cdecl;external;
+{*
  * @brief Hints for an object's weight.
  *
  * This is a hint on how a container object should resize a given child within
@@ -475,10 +514,9 @@ extern extern_WEAK void efl_gfx_hint_margin_get(const Eo *obj, int *l, int *r, i
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-extern extern_WEAK void efl_gfx_hint_weight_set(Eo *obj, double x, double y);
-
-/**
+  }
+procedure efl_gfx_hint_weight_set(obj:PEo; x:Tdouble; y:Tdouble);cdecl;external;
+{*
  * @brief Hints for an object's weight.
  *
  * This is a hint on how a container object should resize a given child within
@@ -504,10 +542,10 @@ extern extern_WEAK void efl_gfx_hint_weight_set(Eo *obj, double x, double y);
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-extern extern_WEAK void efl_gfx_hint_weight_get(const Eo *obj, double *x, double *y);
-
-/**
+  }
+(* Const before type ignored *)
+procedure efl_gfx_hint_weight_get(obj:PEo; x:Pdouble; y:Pdouble);cdecl;external;
+{*
  * @brief Hints for an object's alignment.
  *
  * These are hints on how to align this object inside the boundaries of its
@@ -523,10 +561,9 @@ extern extern_WEAK void efl_gfx_hint_weight_get(const Eo *obj, double *x, double
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-extern extern_WEAK void efl_gfx_hint_align_set(Eo *obj, Efl_Gfx_Align x, Efl_Gfx_Align y);
-
-/**
+  }
+procedure efl_gfx_hint_align_set(obj:PEo; x:TEfl_Gfx_Align; y:TEfl_Gfx_Align);cdecl;external;
+{*
  * @brief Hints for an object's alignment.
  *
  * These are hints on how to align this object inside the boundaries of its
@@ -542,10 +579,10 @@ extern extern_WEAK void efl_gfx_hint_align_set(Eo *obj, Efl_Gfx_Align x, Efl_Gfx
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-extern extern_WEAK void efl_gfx_hint_align_get(const Eo *obj, Efl_Gfx_Align *x, Efl_Gfx_Align *y);
-
-/**
+  }
+(* Const before type ignored *)
+procedure efl_gfx_hint_align_get(obj:PEo; x:PEfl_Gfx_Align; y:PEfl_Gfx_Align);cdecl;external;
+{*
  * @brief Hints for an object's fill property that used to specify "justify" or
  * "fill" by some users. @ref efl_gfx_hint_fill_get specify whether to fill the
  * space inside the boundaries of a container/manager.
@@ -571,10 +608,9 @@ extern extern_WEAK void efl_gfx_hint_align_get(const Eo *obj, Efl_Gfx_Align *x, 
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-extern extern_WEAK void efl_gfx_hint_fill_set(Eo *obj, Eina_Bool x, Eina_Bool y);
-
-/**
+  }
+procedure efl_gfx_hint_fill_set(obj:PEo; x:TEina_Bool; y:TEina_Bool);cdecl;external;
+{*
  * @brief Hints for an object's fill property that used to specify "justify" or
  * "fill" by some users. @ref efl_gfx_hint_fill_get specify whether to fill the
  * space inside the boundaries of a container/manager.
@@ -600,17 +636,37 @@ extern extern_WEAK void efl_gfx_hint_fill_set(Eo *obj, Eina_Bool x, Eina_Bool y)
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-extern extern_WEAK void efl_gfx_hint_fill_get(const Eo *obj, Eina_Bool *x, Eina_Bool *y);
-
-extern extern_WEAK extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_HINTS_CHANGED;
-
-/** Object hints changed.
+  }
+(* Const before type ignored *)
+procedure efl_gfx_hint_fill_get(obj:PEo; x:PEina_Bool; y:PEina_Bool);cdecl;external;
+(* Const before type ignored *)
+  var
+    _EFL_GFX_ENTITY_EVENT_HINTS_CHANGED : TEfl_Event_Description;cvar;external;
+{* Object hints changed.
  *
  * @since 1.22
  *
  * @ingroup Efl_Gfx_Hint
- */
-#define EFL_GFX_ENTITY_EVENT_HINTS_CHANGED (&(_EFL_GFX_ENTITY_EVENT_HINTS_CHANGED))
+  }
 
-#endif
+{ was #define dname def_expr }
+function EFL_GFX_ENTITY_EVENT_HINTS_CHANGED : longint; { return type might be wrong }
+
+{$endif}
+
+implementation
+
+{ was #define dname def_expr }
+function EFL_GFX_HINT_INTERFACE : longint; { return type might be wrong }
+  begin
+    EFL_GFX_HINT_INTERFACE:=efl_gfx_hint_interface_get;
+  end;
+
+{ was #define dname def_expr }
+function EFL_GFX_ENTITY_EVENT_HINTS_CHANGED : longint; { return type might be wrong }
+  begin
+    EFL_GFX_ENTITY_EVENT_HINTS_CHANGED:=@(_EFL_GFX_ENTITY_EVENT_HINTS_CHANGED);
+  end;
+
+
+end.

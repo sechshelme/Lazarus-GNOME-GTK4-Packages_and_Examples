@@ -21,7 +21,7 @@ typedef Eo Efl_Gfx_Entity;
  */
 #define EFL_GFX_ENTITY_INTERFACE efl_gfx_entity_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_entity_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_gfx_entity_interface_get(void) ;
 
 /**
  * @brief The 2D position of a canvas object.
@@ -41,7 +41,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_entity_interface_get(void) EINA_CONS
  *
  * @ingroup Efl_Gfx_Entity
  */
-extern extern_WEAK void efl_gfx_entity_position_set(Eo *obj, Eina_Position2D pos);
+extern  void efl_gfx_entity_position_set(Eo *obj, Eina_Position2D pos);
 
 /**
  * @brief The 2D position of a canvas object.
@@ -59,7 +59,7 @@ extern extern_WEAK void efl_gfx_entity_position_set(Eo *obj, Eina_Position2D pos
  *
  * @ingroup Efl_Gfx_Entity
  */
-extern extern_WEAK Eina_Position2D efl_gfx_entity_position_get(const Eo *obj);
+extern  Eina_Position2D efl_gfx_entity_position_get(const Eo *obj);
 
 /**
  * @brief The 2D size of a canvas object.
@@ -77,7 +77,7 @@ extern extern_WEAK Eina_Position2D efl_gfx_entity_position_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Entity
  */
-extern extern_WEAK void efl_gfx_entity_size_set(Eo *obj, Eina_Size2D size);
+extern  void efl_gfx_entity_size_set(Eo *obj, Eina_Size2D size);
 
 /**
  * @brief The 2D size of a canvas object.
@@ -92,7 +92,7 @@ extern extern_WEAK void efl_gfx_entity_size_set(Eo *obj, Eina_Size2D size);
  *
  * @ingroup Efl_Gfx_Entity
  */
-extern extern_WEAK Eina_Size2D efl_gfx_entity_size_get(const Eo *obj);
+extern  Eina_Size2D efl_gfx_entity_size_get(const Eo *obj);
 
 /**
  * @brief Rectangular geometry that combines both position and size.
@@ -104,7 +104,7 @@ extern extern_WEAK Eina_Size2D efl_gfx_entity_size_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Entity
  */
-extern extern_WEAK void efl_gfx_entity_geometry_set(Eo *obj, Eina_Rect rect);
+extern  void efl_gfx_entity_geometry_set(Eo *obj, Eina_Rect rect);
 
 /**
  * @brief Rectangular geometry that combines both position and size.
@@ -117,7 +117,7 @@ extern extern_WEAK void efl_gfx_entity_geometry_set(Eo *obj, Eina_Rect rect);
  *
  * @ingroup Efl_Gfx_Entity
  */
-extern extern_WEAK Eina_Rect efl_gfx_entity_geometry_get(const Eo *obj);
+extern  Eina_Rect efl_gfx_entity_geometry_get(const Eo *obj);
 
 /**
  * @brief The visibility of a canvas object.
@@ -142,7 +142,7 @@ extern extern_WEAK Eina_Rect efl_gfx_entity_geometry_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Entity
  */
-extern extern_WEAK void efl_gfx_entity_visible_set(Eo *obj, Eina_Bool v);
+extern  void efl_gfx_entity_visible_set(Eo *obj, Eina_Bool v);
 
 /**
  * @brief The visibility of a canvas object.
@@ -168,7 +168,7 @@ extern extern_WEAK void efl_gfx_entity_visible_set(Eo *obj, Eina_Bool v);
  *
  * @ingroup Efl_Gfx_Entity
  */
-extern extern_WEAK Eina_Bool efl_gfx_entity_visible_get(const Eo *obj);
+extern  Eina_Bool efl_gfx_entity_visible_get(const Eo *obj);
 
 /**
  * @brief The scaling factor of an object.
@@ -193,7 +193,7 @@ extern extern_WEAK Eina_Bool efl_gfx_entity_visible_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Entity
  */
-extern extern_WEAK void efl_gfx_entity_scale_set(Eo *obj, double scale);
+extern  void efl_gfx_entity_scale_set(Eo *obj, double scale);
 
 /**
  * @brief The scaling factor of an object.
@@ -219,9 +219,9 @@ extern extern_WEAK void efl_gfx_entity_scale_set(Eo *obj, double scale);
  *
  * @ingroup Efl_Gfx_Entity
  */
-extern extern_WEAK double efl_gfx_entity_scale_get(const Eo *obj);
+extern  double efl_gfx_entity_scale_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_VISIBILITY_CHANGED;
+extern  extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_VISIBILITY_CHANGED;
 
 /** Object's visibility state changed, the event value is the new state.
  * @return Eina_Bool
@@ -232,7 +232,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_VISI
  */
 #define EFL_GFX_ENTITY_EVENT_VISIBILITY_CHANGED (&(_EFL_GFX_ENTITY_EVENT_VISIBILITY_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_POSITION_CHANGED;
+extern  extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_POSITION_CHANGED;
 
 /** Object was moved, its position during the event is the new one.
  * @return Eina_Position2D
@@ -243,7 +243,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_POSI
  */
 #define EFL_GFX_ENTITY_EVENT_POSITION_CHANGED (&(_EFL_GFX_ENTITY_EVENT_POSITION_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_SIZE_CHANGED;
+extern  extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_SIZE_CHANGED;
 
 /** Object was resized, its size during the event is the new one.
  * @return Eina_Size2D

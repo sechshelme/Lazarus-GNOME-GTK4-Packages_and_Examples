@@ -27,7 +27,7 @@ typedef Eo Efl_Ui_Range_Display;
  */
 #define EFL_UI_RANGE_DISPLAY_INTERFACE efl_ui_range_display_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_range_display_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_range_display_interface_get(void) ;
 
 /**
  * @brief Control the value (position) of the widget within its valid range.
@@ -43,7 +43,7 @@ extern extern_WEAK const Efl_Class *efl_ui_range_display_interface_get(void) EIN
  *
  * @ingroup Efl_Ui_Range_Display
  */
-extern extern_WEAK void efl_ui_range_value_set(Eo *obj, double val);
+extern  void efl_ui_range_value_set(Eo *obj, double val);
 
 /**
  * @brief Control the value (position) of the widget within its valid range.
@@ -60,7 +60,7 @@ extern extern_WEAK void efl_ui_range_value_set(Eo *obj, double val);
  *
  * @ingroup Efl_Ui_Range_Display
  */
-extern extern_WEAK double efl_ui_range_value_get(const Eo *obj);
+extern  double efl_ui_range_value_get(const Eo *obj);
 
 /**
  * @brief Set the minimum and maximum values for given range widget.
@@ -81,7 +81,7 @@ extern extern_WEAK double efl_ui_range_value_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Range_Display
  */
-extern extern_WEAK void efl_ui_range_limits_set(Eo *obj, double min, double max);
+extern  void efl_ui_range_limits_set(Eo *obj, double min, double max);
 
 /**
  * @brief Set the minimum and maximum values for given range widget.
@@ -102,9 +102,9 @@ extern extern_WEAK void efl_ui_range_limits_set(Eo *obj, double min, double max)
  *
  * @ingroup Efl_Ui_Range_Display
  */
-extern extern_WEAK void efl_ui_range_limits_get(const Eo *obj, double *min, double *max);
+extern  void efl_ui_range_limits_get(const Eo *obj, double *min, double *max);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_CHANGED;
 
 /** Emitted when the @ref efl_ui_range_value_get is getting changed.
  *
@@ -114,7 +114,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_CHANGE
  */
 #define EFL_UI_RANGE_EVENT_CHANGED (&(_EFL_UI_RANGE_EVENT_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_MIN_REACHED;
+extern  extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_MIN_REACHED;
 
 /** Emitted when the @ref efl_ui_range_value_get has reached the minimum of
  * @ref efl_ui_range_limits_get.
@@ -125,7 +125,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_MIN_RE
  */
 #define EFL_UI_RANGE_EVENT_MIN_REACHED (&(_EFL_UI_RANGE_EVENT_MIN_REACHED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_MAX_REACHED;
+extern  extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_MAX_REACHED;
 
 /** Emitted when the @c range_value has reached the maximum of
  * @ref efl_ui_range_limits_get.

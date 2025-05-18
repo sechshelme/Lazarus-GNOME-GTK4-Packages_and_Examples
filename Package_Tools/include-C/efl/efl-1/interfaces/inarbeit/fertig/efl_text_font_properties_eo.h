@@ -154,7 +154,7 @@ typedef enum
  */
 #define EFL_TEXT_FONT_PROPERTIES_INTERFACE efl_text_font_properties_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_text_font_properties_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_text_font_properties_interface_get(void) ;
 
 /**
  * @brief The font family, filename for a given text object.
@@ -175,7 +175,7 @@ extern extern_WEAK const Efl_Class *efl_text_font_properties_interface_get(void)
  *
  * @ingroup Efl_Text_Font_Properties
  */
-extern extern_WEAK void efl_text_font_family_set(Eo *obj, const char *font);
+extern  void efl_text_font_family_set(Eo *obj, const char *font);
 
 /**
  * @brief The font family, filename for a given text object.
@@ -197,7 +197,7 @@ extern extern_WEAK void efl_text_font_family_set(Eo *obj, const char *font);
  *
  * @ingroup Efl_Text_Font_Properties
  */
-extern extern_WEAK const char *efl_text_font_family_get(const Eo *obj);
+extern  const char *efl_text_font_family_get(const Eo *obj);
 
 /**
  * @brief The font size to use, in points.
@@ -212,7 +212,7 @@ extern extern_WEAK const char *efl_text_font_family_get(const Eo *obj);
  *
  * @ingroup Efl_Text_Font_Properties
  */
-extern extern_WEAK void efl_text_font_size_set(Eo *obj, Efl_Font_Size size);
+extern  void efl_text_font_size_set(Eo *obj, Efl_Font_Size size);
 
 /**
  * @brief The font size to use, in points.
@@ -228,7 +228,7 @@ extern extern_WEAK void efl_text_font_size_set(Eo *obj, Efl_Font_Size size);
  *
  * @ingroup Efl_Text_Font_Properties
  */
-extern extern_WEAK Efl_Font_Size efl_text_font_size_get(const Eo *obj);
+extern  Efl_Font_Size efl_text_font_size_get(const Eo *obj);
 
 /**
  * @brief The font (source) file to be used on a given text object.
@@ -246,7 +246,7 @@ extern extern_WEAK Efl_Font_Size efl_text_font_size_get(const Eo *obj);
  *
  * @ingroup Efl_Text_Font_Properties
  */
-extern extern_WEAK void efl_text_font_source_set(Eo *obj, const char *font_source);
+extern  void efl_text_font_source_set(Eo *obj, const char *font_source);
 
 /**
  * @brief The font (source) file to be used on a given text object.
@@ -265,7 +265,7 @@ extern extern_WEAK void efl_text_font_source_set(Eo *obj, const char *font_sourc
  *
  * @ingroup Efl_Text_Font_Properties
  */
-extern extern_WEAK const char *efl_text_font_source_get(const Eo *obj);
+extern  const char *efl_text_font_source_get(const Eo *obj);
 
 /**
  * @brief Comma-separated list of font fallbacks.
@@ -279,7 +279,7 @@ extern extern_WEAK const char *efl_text_font_source_get(const Eo *obj);
  *
  * @ingroup Efl_Text_Font_Properties
  */
-extern extern_WEAK void efl_text_font_fallbacks_set(Eo *obj, const char *font_fallbacks);
+extern  void efl_text_font_fallbacks_set(Eo *obj, const char *font_fallbacks);
 
 /**
  * @brief Comma-separated list of font fallbacks.
@@ -294,7 +294,7 @@ extern extern_WEAK void efl_text_font_fallbacks_set(Eo *obj, const char *font_fa
  *
  * @ingroup Efl_Text_Font_Properties
  */
-extern extern_WEAK const char *efl_text_font_fallbacks_get(const Eo *obj);
+extern  const char *efl_text_font_fallbacks_get(const Eo *obj);
 
 /**
  * @brief Type of weight (e.g. bold or normal) of the displayed font
@@ -308,7 +308,7 @@ extern extern_WEAK const char *efl_text_font_fallbacks_get(const Eo *obj);
  *
  * @ingroup Efl_Text_Font_Properties
  */
-extern extern_WEAK void efl_text_font_weight_set(Eo *obj, Efl_Text_Font_Weight font_weight);
+extern  void efl_text_font_weight_set(Eo *obj, Efl_Text_Font_Weight font_weight);
 
 /**
  * @brief Type of weight (e.g. bold or normal) of the displayed font
@@ -323,7 +323,7 @@ extern extern_WEAK void efl_text_font_weight_set(Eo *obj, Efl_Text_Font_Weight f
  *
  * @ingroup Efl_Text_Font_Properties
  */
-extern extern_WEAK Efl_Text_Font_Weight efl_text_font_weight_get(const Eo *obj);
+extern  Efl_Text_Font_Weight efl_text_font_weight_get(const Eo *obj);
 
 /**
  * @brief Type of slant (e.g. italic or normal) of the displayed font.
@@ -337,7 +337,7 @@ extern extern_WEAK Efl_Text_Font_Weight efl_text_font_weight_get(const Eo *obj);
  *
  * @ingroup Efl_Text_Font_Properties
  */
-extern extern_WEAK void efl_text_font_slant_set(Eo *obj, Efl_Text_Font_Slant style);
+extern  void efl_text_font_slant_set(Eo *obj, Efl_Text_Font_Slant style);
 
 /**
  * @brief Type of slant (e.g. italic or normal) of the displayed font.
@@ -352,7 +352,7 @@ extern extern_WEAK void efl_text_font_slant_set(Eo *obj, Efl_Text_Font_Slant sty
  *
  * @ingroup Efl_Text_Font_Properties
  */
-extern extern_WEAK Efl_Text_Font_Slant efl_text_font_slant_get(const Eo *obj);
+extern  Efl_Text_Font_Slant efl_text_font_slant_get(const Eo *obj);
 
 /**
  * @brief Type of width (e.g. condensed, expanded or normal) of the displayed
@@ -367,7 +367,7 @@ extern extern_WEAK Efl_Text_Font_Slant efl_text_font_slant_get(const Eo *obj);
  *
  * @ingroup Efl_Text_Font_Properties
  */
-extern extern_WEAK void efl_text_font_width_set(Eo *obj, Efl_Text_Font_Width width);
+extern  void efl_text_font_width_set(Eo *obj, Efl_Text_Font_Width width);
 
 /**
  * @brief Type of width (e.g. condensed, expanded or normal) of the displayed
@@ -383,7 +383,7 @@ extern extern_WEAK void efl_text_font_width_set(Eo *obj, Efl_Text_Font_Width wid
  *
  * @ingroup Efl_Text_Font_Properties
  */
-extern extern_WEAK Efl_Text_Font_Width efl_text_font_width_get(const Eo *obj);
+extern  Efl_Text_Font_Width efl_text_font_width_get(const Eo *obj);
 
 /**
  * @brief Specific language of the displayed font
@@ -399,7 +399,7 @@ extern extern_WEAK Efl_Text_Font_Width efl_text_font_width_get(const Eo *obj);
  *
  * @ingroup Efl_Text_Font_Properties
  */
-extern extern_WEAK void efl_text_font_lang_set(Eo *obj, const char *lang);
+extern  void efl_text_font_lang_set(Eo *obj, const char *lang);
 
 /**
  * @brief Specific language of the displayed font
@@ -416,7 +416,7 @@ extern extern_WEAK void efl_text_font_lang_set(Eo *obj, const char *lang);
  *
  * @ingroup Efl_Text_Font_Properties
  */
-extern extern_WEAK const char *efl_text_font_lang_get(const Eo *obj);
+extern  const char *efl_text_font_lang_get(const Eo *obj);
 
 /**
  * @brief Bitmap fonts have fixed size glyphs for several available sizes.
@@ -432,7 +432,7 @@ extern extern_WEAK const char *efl_text_font_lang_get(const Eo *obj);
  *
  * @ingroup Efl_Text_Font_Properties
  */
-extern extern_WEAK void efl_text_font_bitmap_scalable_set(Eo *obj, Efl_Text_Font_Bitmap_Scalable scalable);
+extern  void efl_text_font_bitmap_scalable_set(Eo *obj, Efl_Text_Font_Bitmap_Scalable scalable);
 
 /**
  * @brief Bitmap fonts have fixed size glyphs for several available sizes.
@@ -449,6 +449,6 @@ extern extern_WEAK void efl_text_font_bitmap_scalable_set(Eo *obj, Efl_Text_Font
  *
  * @ingroup Efl_Text_Font_Properties
  */
-extern extern_WEAK Efl_Text_Font_Bitmap_Scalable efl_text_font_bitmap_scalable_get(const Eo *obj);
+extern  Efl_Text_Font_Bitmap_Scalable efl_text_font_bitmap_scalable_get(const Eo *obj);
 
 #endif

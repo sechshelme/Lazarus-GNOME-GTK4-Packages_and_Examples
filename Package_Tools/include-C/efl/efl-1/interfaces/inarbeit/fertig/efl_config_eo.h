@@ -20,7 +20,7 @@ typedef Eo Efl_Config;
  */
 #define EFL_CONFIG_INTERFACE efl_config_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_config_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_config_interface_get(void) ;
 
 /**
  * @brief A generic configuration value, referred to by name.
@@ -34,7 +34,7 @@ extern extern_WEAK const Efl_Class *efl_config_interface_get(void) EINA_CONST;
  *
  * @ingroup Efl_Config
  */
-extern extern_WEAK Eina_Bool efl_config_set(Eo *obj, const char *name, const Eina_Value *value);
+extern  Eina_Bool efl_config_set(Eo *obj, const char *name, const Eina_Value *value);
 
 /**
  * @brief A generic configuration value, referred to by name.
@@ -47,9 +47,9 @@ extern extern_WEAK Eina_Bool efl_config_set(Eo *obj, const char *name, const Ein
  *
  * @ingroup Efl_Config
  */
-extern extern_WEAK Eina_Value *efl_config_get(const Eo *obj, const char *name) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Value *efl_config_get(const Eo *obj, const char *name) ;
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_CONFIG_EVENT_CONFIG_CHANGED;
+  extern const Efl_Event_Description _EFL_CONFIG_EVENT_CONFIG_CHANGED;
 
 /** Called when a config value has been changed for the manager object. Passed
  * string is the name of the value or NULL if all values were changed.

@@ -24,7 +24,7 @@ typedef Eo Efl_Ui_Factory_Bind;
  */
 #define EFL_UI_FACTORY_BIND_INTERFACE efl_ui_factory_bind_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_factory_bind_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_factory_bind_interface_get(void) ;
 
 /**
  * @brief bind the factory with the given key string. when the data is ready or
@@ -43,6 +43,6 @@ extern extern_WEAK const Efl_Class *efl_ui_factory_bind_interface_get(void) EINA
  *
  * @ingroup Efl_Ui_Factory_Bind
  */
-extern extern_WEAK Eina_Error efl_ui_factory_bind(Eo *obj, const char *key, Efl_Ui_Factory *factory);
+extern  Eina_Error efl_ui_factory_bind(Eo *obj, const char *key, Efl_Ui_Factory *factory);
 
 #endif

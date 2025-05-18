@@ -20,7 +20,7 @@ typedef Eo Efl_Gfx_Gradient;
  */
 #define EFL_GFX_GRADIENT_INTERFACE efl_gfx_gradient_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_gradient_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_gfx_gradient_interface_get(void) ;
 
 /**
  * @brief The list of color stops for the gradient
@@ -31,7 +31,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_gradient_interface_get(void) EINA_CO
  *
  * @ingroup Efl_Gfx_Gradient
  */
-extern extern_WEAK void efl_gfx_gradient_stop_set(Eo *obj, const Efl_Gfx_Gradient_Stop *colors, unsigned int length);
+extern  void efl_gfx_gradient_stop_set(Eo *obj, const Efl_Gfx_Gradient_Stop *colors, unsigned int length);
 
 /**
  * @brief The list of color stops for the gradient
@@ -42,7 +42,7 @@ extern extern_WEAK void efl_gfx_gradient_stop_set(Eo *obj, const Efl_Gfx_Gradien
  *
  * @ingroup Efl_Gfx_Gradient
  */
-extern extern_WEAK void efl_gfx_gradient_stop_get(const Eo *obj, const Efl_Gfx_Gradient_Stop **colors, unsigned int *length);
+extern  void efl_gfx_gradient_stop_get(const Eo *obj, const Efl_Gfx_Gradient_Stop **colors, unsigned int *length);
 
 /**
  * @brief The spread method that should be used for this gradient. The default
@@ -53,7 +53,7 @@ extern extern_WEAK void efl_gfx_gradient_stop_get(const Eo *obj, const Efl_Gfx_G
  *
  * @ingroup Efl_Gfx_Gradient
  */
-extern extern_WEAK void efl_gfx_gradient_spread_set(Eo *obj, Efl_Gfx_Gradient_Spread s);
+extern  void efl_gfx_gradient_spread_set(Eo *obj, Efl_Gfx_Gradient_Spread s);
 
 /**
  * @brief The spread method that should be used for this gradient. The default
@@ -65,7 +65,7 @@ extern extern_WEAK void efl_gfx_gradient_spread_set(Eo *obj, Efl_Gfx_Gradient_Sp
  *
  * @ingroup Efl_Gfx_Gradient
  */
-extern extern_WEAK Efl_Gfx_Gradient_Spread efl_gfx_gradient_spread_get(const Eo *obj);
+extern  Efl_Gfx_Gradient_Spread efl_gfx_gradient_spread_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

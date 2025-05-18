@@ -21,7 +21,7 @@ typedef Eo Efl_Gfx_Image_Load_Controller;
  */
 #define EFL_GFX_IMAGE_LOAD_CONTROLLER_INTERFACE efl_gfx_image_load_controller_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_image_load_controller_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_gfx_image_load_controller_interface_get(void) ;
 
 /**
  * @brief Begin preloading an image object's image data in the background.
@@ -35,7 +35,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_image_load_controller_interface_get(
  *
  * @ingroup Efl_Gfx_Image_Load_Controller
  */
-extern extern_WEAK void efl_gfx_image_load_controller_load_async_start(Eo *obj);
+extern  void efl_gfx_image_load_controller_load_async_start(Eo *obj);
 
 /**
  * @brief Cancel preloading an image object's image data in the background.
@@ -49,7 +49,7 @@ extern extern_WEAK void efl_gfx_image_load_controller_load_async_start(Eo *obj);
  *
  * @ingroup Efl_Gfx_Image_Load_Controller
  */
-extern extern_WEAK void efl_gfx_image_load_controller_load_async_cancel(Eo *obj);
+extern  void efl_gfx_image_load_controller_load_async_cancel(Eo *obj);
 
 /**
  * @brief The load size of an image.
@@ -70,7 +70,7 @@ extern extern_WEAK void efl_gfx_image_load_controller_load_async_cancel(Eo *obj)
  *
  * @ingroup Efl_Gfx_Image_Load_Controller
  */
-extern extern_WEAK void efl_gfx_image_load_controller_load_size_set(Eo *obj, Eina_Size2D size);
+extern  void efl_gfx_image_load_controller_load_size_set(Eo *obj, Eina_Size2D size);
 
 /**
  * @brief The load size of an image.
@@ -92,7 +92,7 @@ extern extern_WEAK void efl_gfx_image_load_controller_load_size_set(Eo *obj, Ein
  *
  * @ingroup Efl_Gfx_Image_Load_Controller
  */
-extern extern_WEAK Eina_Size2D efl_gfx_image_load_controller_load_size_get(const Eo *obj);
+extern  Eina_Size2D efl_gfx_image_load_controller_load_size_get(const Eo *obj);
 
 /**
  * @brief The DPI resolution of an image object's source image.
@@ -106,7 +106,7 @@ extern extern_WEAK Eina_Size2D efl_gfx_image_load_controller_load_size_get(const
  *
  * @ingroup Efl_Gfx_Image_Load_Controller
  */
-extern extern_WEAK void efl_gfx_image_load_controller_load_dpi_set(Eo *obj, double dpi);
+extern  void efl_gfx_image_load_controller_load_dpi_set(Eo *obj, double dpi);
 
 /**
  * @brief The DPI resolution of an image object's source image.
@@ -121,7 +121,7 @@ extern extern_WEAK void efl_gfx_image_load_controller_load_dpi_set(Eo *obj, doub
  *
  * @ingroup Efl_Gfx_Image_Load_Controller
  */
-extern extern_WEAK double efl_gfx_image_load_controller_load_dpi_get(const Eo *obj);
+extern  double efl_gfx_image_load_controller_load_dpi_get(const Eo *obj);
 
 /**
  * @brief Indicates whether the
@@ -137,7 +137,7 @@ extern extern_WEAK double efl_gfx_image_load_controller_load_dpi_get(const Eo *o
  *
  * @ingroup Efl_Gfx_Image_Load_Controller
  */
-extern extern_WEAK Eina_Bool efl_gfx_image_load_controller_load_region_support_get(const Eo *obj);
+extern  Eina_Bool efl_gfx_image_load_controller_load_region_support_get(const Eo *obj);
 
 /**
  * @brief Inform a given image object to load a selective region of its source
@@ -157,7 +157,7 @@ extern extern_WEAK Eina_Bool efl_gfx_image_load_controller_load_region_support_g
  *
  * @ingroup Efl_Gfx_Image_Load_Controller
  */
-extern extern_WEAK void efl_gfx_image_load_controller_load_region_set(Eo *obj, Eina_Rect region);
+extern  void efl_gfx_image_load_controller_load_region_set(Eo *obj, Eina_Rect region);
 
 /**
  * @brief Inform a given image object to load a selective region of its source
@@ -178,7 +178,7 @@ extern extern_WEAK void efl_gfx_image_load_controller_load_region_set(Eo *obj, E
  *
  * @ingroup Efl_Gfx_Image_Load_Controller
  */
-extern extern_WEAK Eina_Rect efl_gfx_image_load_controller_load_region_get(const Eo *obj);
+extern  Eina_Rect efl_gfx_image_load_controller_load_region_get(const Eo *obj);
 
 /**
  * @brief Defines whether the orientation information in the image file should
@@ -196,7 +196,7 @@ extern extern_WEAK Eina_Rect efl_gfx_image_load_controller_load_region_get(const
  *
  * @ingroup Efl_Gfx_Image_Load_Controller
  */
-extern extern_WEAK void efl_gfx_image_load_controller_load_orientation_set(Eo *obj, Eina_Bool enable);
+extern  void efl_gfx_image_load_controller_load_orientation_set(Eo *obj, Eina_Bool enable);
 
 /**
  * @brief Defines whether the orientation information in the image file should
@@ -214,7 +214,7 @@ extern extern_WEAK void efl_gfx_image_load_controller_load_orientation_set(Eo *o
  *
  * @ingroup Efl_Gfx_Image_Load_Controller
  */
-extern extern_WEAK Eina_Bool efl_gfx_image_load_controller_load_orientation_get(const Eo *obj);
+extern  Eina_Bool efl_gfx_image_load_controller_load_orientation_get(const Eo *obj);
 
 /**
  * @brief The scale down factor is a divider on the original image size.
@@ -234,7 +234,7 @@ extern extern_WEAK Eina_Bool efl_gfx_image_load_controller_load_orientation_get(
  *
  * @ingroup Efl_Gfx_Image_Load_Controller
  */
-extern extern_WEAK void efl_gfx_image_load_controller_load_scale_down_set(Eo *obj, int div);
+extern  void efl_gfx_image_load_controller_load_scale_down_set(Eo *obj, int div);
 
 /**
  * @brief The scale down factor is a divider on the original image size.
@@ -255,7 +255,7 @@ extern extern_WEAK void efl_gfx_image_load_controller_load_scale_down_set(Eo *ob
  *
  * @ingroup Efl_Gfx_Image_Load_Controller
  */
-extern extern_WEAK int efl_gfx_image_load_controller_load_scale_down_get(const Eo *obj);
+extern  int efl_gfx_image_load_controller_load_scale_down_get(const Eo *obj);
 
 /**
  * @brief Initial load should skip header check and leave it all to data load.
@@ -271,7 +271,7 @@ extern extern_WEAK int efl_gfx_image_load_controller_load_scale_down_get(const E
  *
  * @ingroup Efl_Gfx_Image_Load_Controller
  */
-extern extern_WEAK void efl_gfx_image_load_controller_load_skip_header_set(Eo *obj, Eina_Bool skip);
+extern  void efl_gfx_image_load_controller_load_skip_header_set(Eo *obj, Eina_Bool skip);
 
 /**
  * @brief Initial load should skip header check and leave it all to data load.
@@ -288,6 +288,6 @@ extern extern_WEAK void efl_gfx_image_load_controller_load_skip_header_set(Eo *o
  *
  * @ingroup Efl_Gfx_Image_Load_Controller
  */
-extern extern_WEAK Eina_Bool efl_gfx_image_load_controller_load_skip_header_get(const Eo *obj);
+extern  Eina_Bool efl_gfx_image_load_controller_load_skip_header_get(const Eo *obj);
 
 #endif

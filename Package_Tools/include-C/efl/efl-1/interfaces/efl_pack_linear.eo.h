@@ -25,7 +25,7 @@ typedef Eo Efl_Pack_Linear;
  */
 #define EFL_PACK_LINEAR_INTERFACE efl_pack_linear_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_pack_linear_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_pack_linear_interface_get(void) ;
 
 /**
  * @brief Prepend an object at the beginning of this container.
@@ -45,7 +45,7 @@ extern extern_WEAK const Efl_Class *efl_pack_linear_interface_get(void) EINA_CON
  *
  * @ingroup Efl_Pack_Linear
  */
-extern extern_WEAK Eina_Bool efl_pack_begin(Eo *obj, Efl_Gfx_Entity *subobj);
+extern  Eina_Bool efl_pack_begin(Eo *obj, Efl_Gfx_Entity *subobj);
 
 /**
  * @brief Append object at the end of this container.
@@ -65,7 +65,7 @@ extern extern_WEAK Eina_Bool efl_pack_begin(Eo *obj, Efl_Gfx_Entity *subobj);
  *
  * @ingroup Efl_Pack_Linear
  */
-extern extern_WEAK Eina_Bool efl_pack_end(Eo *obj, Efl_Gfx_Entity *subobj);
+extern  Eina_Bool efl_pack_end(Eo *obj, Efl_Gfx_Entity *subobj);
 
 /**
  * @brief Prepend an object before the @c existing sub-object.
@@ -88,7 +88,7 @@ extern extern_WEAK Eina_Bool efl_pack_end(Eo *obj, Efl_Gfx_Entity *subobj);
  *
  * @ingroup Efl_Pack_Linear
  */
-extern extern_WEAK Eina_Bool efl_pack_before(Eo *obj, Efl_Gfx_Entity *subobj, const Efl_Gfx_Entity *existing);
+extern  Eina_Bool efl_pack_before(Eo *obj, Efl_Gfx_Entity *subobj, const Efl_Gfx_Entity *existing);
 
 /**
  * @brief Append an object after the @c existing sub-object.
@@ -111,7 +111,7 @@ extern extern_WEAK Eina_Bool efl_pack_before(Eo *obj, Efl_Gfx_Entity *subobj, co
  *
  * @ingroup Efl_Pack_Linear
  */
-extern extern_WEAK Eina_Bool efl_pack_after(Eo *obj, Efl_Gfx_Entity *subobj, const Efl_Gfx_Entity *existing);
+extern  Eina_Bool efl_pack_after(Eo *obj, Efl_Gfx_Entity *subobj, const Efl_Gfx_Entity *existing);
 
 /**
  * @brief Inserts @c subobj BEFORE the sub-object at position @c index.
@@ -141,7 +141,7 @@ extern extern_WEAK Eina_Bool efl_pack_after(Eo *obj, Efl_Gfx_Entity *subobj, con
  *
  * @ingroup Efl_Pack_Linear
  */
-extern extern_WEAK Eina_Bool efl_pack_at(Eo *obj, Efl_Gfx_Entity *subobj, int index);
+extern  Eina_Bool efl_pack_at(Eo *obj, Efl_Gfx_Entity *subobj, int index);
 
 /**
  * @brief Sub-object at a given @c index in this container.
@@ -166,7 +166,7 @@ extern extern_WEAK Eina_Bool efl_pack_at(Eo *obj, Efl_Gfx_Entity *subobj, int in
  *
  * @ingroup Efl_Pack_Linear
  */
-extern extern_WEAK Efl_Gfx_Entity *efl_pack_content_get(Eo *obj, int index);
+extern  Efl_Gfx_Entity *efl_pack_content_get(Eo *obj, int index);
 
 /**
  * @brief Get the index of a sub-object in this container.
@@ -181,7 +181,7 @@ extern extern_WEAK Efl_Gfx_Entity *efl_pack_content_get(Eo *obj, int index);
  *
  * @ingroup Efl_Pack_Linear
  */
-extern extern_WEAK int efl_pack_index_get(Eo *obj, const Efl_Gfx_Entity *subobj);
+extern  int efl_pack_index_get(Eo *obj, const Efl_Gfx_Entity *subobj);
 
 /**
  * @brief Pop out (remove) the sub-object at the specified @c index.
@@ -205,6 +205,6 @@ extern extern_WEAK int efl_pack_index_get(Eo *obj, const Efl_Gfx_Entity *subobj)
  *
  * @ingroup Efl_Pack_Linear
  */
-extern extern_WEAK Efl_Gfx_Entity *efl_pack_unpack_at(Eo *obj, int index);
+extern  Efl_Gfx_Entity *efl_pack_unpack_at(Eo *obj, int index);
 
 #endif

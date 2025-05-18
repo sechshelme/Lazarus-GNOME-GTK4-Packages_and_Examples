@@ -8,6 +8,9 @@
       <SearchPaths>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
+      <Other>
+        <CustomOptions Value="-dEFL_BETA_API_SUPPORT"/>
+      </Other>
     </CompilerOptions>
     <Files>
       <Item>

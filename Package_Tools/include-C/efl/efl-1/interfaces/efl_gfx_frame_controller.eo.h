@@ -36,7 +36,7 @@ typedef enum
  */
 #define EFL_GFX_FRAME_CONTROLLER_INTERFACE efl_gfx_frame_controller_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_gfx_frame_controller_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_gfx_frame_controller_interface_get(void) ;
 
 /**
  * @brief Whether an object can be animated (has multiple frames).
@@ -50,7 +50,7 @@ extern extern_WEAK const Efl_Class *efl_gfx_frame_controller_interface_get(void)
  *
  * @ingroup Efl_Gfx_Frame_Controller
  */
-extern extern_WEAK Eina_Bool efl_gfx_frame_controller_animated_get(const Eo *obj);
+extern  Eina_Bool efl_gfx_frame_controller_animated_get(const Eo *obj);
 
 /**
  * @brief Index of the current frame of an animated object.
@@ -65,7 +65,7 @@ extern extern_WEAK Eina_Bool efl_gfx_frame_controller_animated_get(const Eo *obj
  *
  * @ingroup Efl_Gfx_Frame_Controller
  */
-extern extern_WEAK Eina_Bool efl_gfx_frame_controller_frame_set(Eo *obj, int frame_index);
+extern  Eina_Bool efl_gfx_frame_controller_frame_set(Eo *obj, int frame_index);
 
 /**
  * @brief Index of the current frame of an animated object.
@@ -79,7 +79,7 @@ extern extern_WEAK Eina_Bool efl_gfx_frame_controller_frame_set(Eo *obj, int fra
  *
  * @ingroup Efl_Gfx_Frame_Controller
  */
-extern extern_WEAK int efl_gfx_frame_controller_frame_get(const Eo *obj);
+extern  int efl_gfx_frame_controller_frame_get(const Eo *obj);
 
 /**
  * @brief The total number of frames of the object, if animated.
@@ -92,7 +92,7 @@ extern extern_WEAK int efl_gfx_frame_controller_frame_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Frame_Controller
  */
-extern extern_WEAK int efl_gfx_frame_controller_frame_count_get(const Eo *obj);
+extern  int efl_gfx_frame_controller_frame_count_get(const Eo *obj);
 
 /**
  * @brief The kind of looping the animated object does.
@@ -111,7 +111,7 @@ extern extern_WEAK int efl_gfx_frame_controller_frame_count_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Frame_Controller
  */
-extern extern_WEAK Efl_Gfx_Frame_Controller_Loop_Hint efl_gfx_frame_controller_loop_type_get(const Eo *obj);
+extern  Efl_Gfx_Frame_Controller_Loop_Hint efl_gfx_frame_controller_loop_type_get(const Eo *obj);
 
 /**
  * @brief The number times the animation of the object loops.
@@ -129,7 +129,7 @@ extern extern_WEAK Efl_Gfx_Frame_Controller_Loop_Hint efl_gfx_frame_controller_l
  *
  * @ingroup Efl_Gfx_Frame_Controller
  */
-extern extern_WEAK int efl_gfx_frame_controller_loop_count_get(const Eo *obj);
+extern  int efl_gfx_frame_controller_loop_count_get(const Eo *obj);
 
 /**
  * @brief The duration of a sequence of frames.
@@ -150,7 +150,7 @@ extern extern_WEAK int efl_gfx_frame_controller_loop_count_get(const Eo *obj);
  *
  * @ingroup Efl_Gfx_Frame_Controller
  */
-extern extern_WEAK double efl_gfx_frame_controller_frame_duration_get(const Eo *obj, int start_frame, int frame_num);
+extern  double efl_gfx_frame_controller_frame_duration_get(const Eo *obj, int start_frame, int frame_num);
 
 /**
  * @brief The sector for playing section.
@@ -166,7 +166,7 @@ extern extern_WEAK double efl_gfx_frame_controller_frame_duration_get(const Eo *
  *
  * @ingroup Efl_Gfx_Frame_Controller
  */
-extern extern_WEAK Eina_Bool efl_gfx_frame_controller_sector_set(Eo *obj, const char *name, int startframe, int endframe);
+extern  Eina_Bool efl_gfx_frame_controller_sector_set(Eo *obj, const char *name, int startframe, int endframe);
 
 /**
  * @brief The sector for playing section.
@@ -182,7 +182,7 @@ extern extern_WEAK Eina_Bool efl_gfx_frame_controller_sector_set(Eo *obj, const 
  *
  * @ingroup Efl_Gfx_Frame_Controller
  */
-extern extern_WEAK Eina_Bool efl_gfx_frame_controller_sector_get(const Eo *obj, const char *name, int *startframe, int *endframe);
+extern  Eina_Bool efl_gfx_frame_controller_sector_get(const Eo *obj, const char *name, int *startframe, int *endframe);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif
