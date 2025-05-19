@@ -1,29 +1,60 @@
-#ifndef _EFL_PLAYER_EO_H_
-#define _EFL_PLAYER_EO_H_
 
-#ifndef _EFL_PLAYER_EO_CLASS_TYPE
-#define _EFL_PLAYER_EO_CLASS_TYPE
+unit efl_player_eo;
+interface
 
-typedef Eo Efl_Player;
+{
+  Automatically converted by H2Pas 1.0.0 from efl_player_eo.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    efl_player_eo.h
+}
 
-#endif
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
 
-#ifndef _EFL_PLAYER_EO_TYPES
-#define _EFL_PLAYER_EO_TYPES
+Type
+PEfl_Class  = ^Efl_Class;
+PEfl_Player  = ^Efl_Player;
+PEo  = ^Eo;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
 
 
-#endif
-/** Efl media player interface
+{$ifndef _EFL_PLAYER_EO_H_}
+{$define _EFL_PLAYER_EO_H_}
+{$ifndef _EFL_PLAYER_EO_CLASS_TYPE}
+{$define _EFL_PLAYER_EO_CLASS_TYPE}
+type
+  PEfl_Player = ^TEfl_Player;
+  TEfl_Player = TEo;
+{$endif}
+{$ifndef _EFL_PLAYER_EO_TYPES}
+{$define _EFL_PLAYER_EO_TYPES}
+{$endif}
+{* Efl media player interface
  *
  * @since 1.23
  *
  * @ingroup Efl_Player
- */
-#define EFL_PLAYER_INTERFACE efl_player_interface_get()
+  }
 
-extern  const Efl_Class *efl_player_interface_get(void) ;
+{ was #define dname def_expr }
+function EFL_PLAYER_INTERFACE : longint; { return type might be wrong }
 
-/**
+(* Const before type ignored *)
+function efl_player_interface_get:PEfl_Class;cdecl;external;
+{*
  * @brief Playback state of the media file.
  *
  * This property sets the playback state of the object. Re-setting the current
@@ -46,10 +77,9 @@ extern  const Efl_Class *efl_player_interface_get(void) ;
  * @since 1.23
  *
  * @ingroup Efl_Player
- */
-extern  Eina_Bool efl_player_playing_set(Eo *obj, Eina_Bool playing);
-
-/**
+  }
+function efl_player_playing_set(obj:PEo; playing:TEina_Bool):TEina_Bool;cdecl;external;
+{*
  * @brief Playback state of the media file.
  *
  * This property sets the playback state of the object. Re-setting the current
@@ -71,10 +101,10 @@ extern  Eina_Bool efl_player_playing_set(Eo *obj, Eina_Bool playing);
  * @since 1.23
  *
  * @ingroup Efl_Player
- */
-extern  Eina_Bool efl_player_playing_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_player_playing_get(obj:PEo):TEina_Bool;cdecl;external;
+{*
  * @brief Pause state of the media file.
  *
  * This property sets the pause state of the media.  Re-setting the current
@@ -93,10 +123,9 @@ extern  Eina_Bool efl_player_playing_get(const Eo *obj);
  * @since 1.23
  *
  * @ingroup Efl_Player
- */
-extern  Eina_Bool efl_player_paused_set(Eo *obj, Eina_Bool paused);
-
-/**
+  }
+function efl_player_paused_set(obj:PEo; paused:TEina_Bool):TEina_Bool;cdecl;external;
+{*
  * @brief Pause state of the media file.
  *
  * This property sets the pause state of the media.  Re-setting the current
@@ -114,10 +143,10 @@ extern  Eina_Bool efl_player_paused_set(Eo *obj, Eina_Bool paused);
  * @since 1.23
  *
  * @ingroup Efl_Player
- */
-extern  Eina_Bool efl_player_paused_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_player_paused_get(obj:PEo):TEina_Bool;cdecl;external;
+{*
  * @brief Position in the media file.
  *
  * This property sets the current position of the media file to @c sec seconds
@@ -131,10 +160,9 @@ extern  Eina_Bool efl_player_paused_get(const Eo *obj);
  * @since 1.23
  *
  * @ingroup Efl_Player
- */
-extern  void efl_player_playback_position_set(Eo *obj, double sec);
-
-/**
+  }
+procedure efl_player_playback_position_set(obj:PEo; sec:Tdouble);cdecl;external;
+{*
  * @brief Position in the media file.
  *
  * This property sets the current position of the media file to @c sec seconds
@@ -149,10 +177,10 @@ extern  void efl_player_playback_position_set(Eo *obj, double sec);
  * @since 1.23
  *
  * @ingroup Efl_Player
- */
-extern  double efl_player_playback_position_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_player_playback_position_get(obj:PEo):Tdouble;cdecl;external;
+{*
  * @brief How much of the file has been played.
  *
  * This function sets or gets the progress in playing the file, the value is in
@@ -164,10 +192,9 @@ extern  double efl_player_playback_position_get(const Eo *obj);
  * @since 1.23
  *
  * @ingroup Efl_Player
- */
-extern  void efl_player_playback_progress_set(Eo *obj, double progress);
-
-/**
+  }
+procedure efl_player_playback_progress_set(obj:PEo; progress:Tdouble);cdecl;external;
+{*
  * @brief How much of the file has been played.
  *
  * This function sets or gets the progress in playing the file, the value is in
@@ -180,10 +207,10 @@ extern  void efl_player_playback_progress_set(Eo *obj, double progress);
  * @since 1.23
  *
  * @ingroup Efl_Player
- */
-extern  double efl_player_playback_progress_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_player_playback_progress_get(obj:PEo):Tdouble;cdecl;external;
+{*
  * @brief Control the playback speed of the media file.
  *
  * This function control the speed with which the media file will be played.
@@ -195,10 +222,9 @@ extern  double efl_player_playback_progress_get(const Eo *obj);
  * @since 1.23
  *
  * @ingroup Efl_Player
- */
-extern  void efl_player_playback_speed_set(Eo *obj, double speed);
-
-/**
+  }
+procedure efl_player_playback_speed_set(obj:PEo; speed:Tdouble);cdecl;external;
+{*
  * @brief Control the playback speed of the media file.
  *
  * This function control the speed with which the media file will be played.
@@ -211,10 +237,10 @@ extern  void efl_player_playback_speed_set(Eo *obj, double speed);
  * @since 1.23
  *
  * @ingroup Efl_Player
- */
-extern  double efl_player_playback_speed_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_player_playback_speed_get(obj:PEo):Tdouble;cdecl;external;
+{*
  * @brief When @c true, playback will start as soon as the media is ready.
  *
  * This means that the media file has been successfully loaded and the object
@@ -233,10 +259,9 @@ extern  double efl_player_playback_speed_get(const Eo *obj);
  * @since 1.24
  *
  * @ingroup Efl_Player
- */
-extern  void efl_player_autoplay_set(Eo *obj, Eina_Bool autoplay);
-
-/**
+  }
+procedure efl_player_autoplay_set(obj:PEo; autoplay:TEina_Bool);cdecl;external;
+{*
  * @brief When @c true, playback will start as soon as the media is ready.
  *
  * This means that the media file has been successfully loaded and the object
@@ -256,10 +281,10 @@ extern  void efl_player_autoplay_set(Eo *obj, Eina_Bool autoplay);
  * @since 1.24
  *
  * @ingroup Efl_Player
- */
-extern  Eina_Bool efl_player_autoplay_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_player_autoplay_get(obj:PEo):TEina_Bool;cdecl;external;
+{*
  * @brief Enable playback looping.
  *
  * When @c true, playback continues from the beginning when it reaches the last
@@ -273,10 +298,9 @@ extern  Eina_Bool efl_player_autoplay_get(const Eo *obj);
  * @since 1.24
  *
  * @ingroup Efl_Player
- */
-extern  void efl_player_playback_loop_set(Eo *obj, Eina_Bool looping);
-
-/**
+  }
+procedure efl_player_playback_loop_set(obj:PEo; looping:TEina_Bool);cdecl;external;
+{*
  * @brief Enable playback looping.
  *
  * When @c true, playback continues from the beginning when it reaches the last
@@ -291,77 +315,142 @@ extern  void efl_player_playback_loop_set(Eo *obj, Eina_Bool looping);
  * @since 1.24
  *
  * @ingroup Efl_Player
- */
-extern  Eina_Bool efl_player_playback_loop_get(const Eo *obj);
-
-extern  extern const Efl_Event_Description _EFL_PLAYER_EVENT_PLAYING_CHANGED;
-
-/** Called when the playing state has changed. The event value reflects the
+  }
+(* Const before type ignored *)
+function efl_player_playback_loop_get(obj:PEo):TEina_Bool;cdecl;external;
+(* Const before type ignored *)
+  var
+    _EFL_PLAYER_EVENT_PLAYING_CHANGED : TEfl_Event_Description;cvar;external;
+{* Called when the playing state has changed. The event value reflects the
  * current state.
  * @return Eina_Bool
  *
  * @since 1.24
  *
  * @ingroup Efl_Player
- */
-#define EFL_PLAYER_EVENT_PLAYING_CHANGED (&(_EFL_PLAYER_EVENT_PLAYING_CHANGED))
+  }
 
-extern  extern const Efl_Event_Description _EFL_PLAYER_EVENT_PAUSED_CHANGED;
+{ was #define dname def_expr }
+function EFL_PLAYER_EVENT_PLAYING_CHANGED : longint; { return type might be wrong }
 
-/** Called when the paused state has changed. The event value reflects the
+(* Const before type ignored *)
+  var
+    _EFL_PLAYER_EVENT_PAUSED_CHANGED : TEfl_Event_Description;cvar;external;
+{* Called when the paused state has changed. The event value reflects the
  * current state.
  * @return Eina_Bool
  *
  * @since 1.24
  *
  * @ingroup Efl_Player
- */
-#define EFL_PLAYER_EVENT_PAUSED_CHANGED (&(_EFL_PLAYER_EVENT_PAUSED_CHANGED))
+  }
 
-extern  extern const Efl_Event_Description _EFL_PLAYER_EVENT_PLAYBACK_PROGRESS_CHANGED;
+{ was #define dname def_expr }
+function EFL_PLAYER_EVENT_PAUSED_CHANGED : longint; { return type might be wrong }
 
-/** Called when the playback_progress state has changed. The event value
+(* Const before type ignored *)
+  var
+    _EFL_PLAYER_EVENT_PLAYBACK_PROGRESS_CHANGED : TEfl_Event_Description;cvar;external;
+{* Called when the playback_progress state has changed. The event value
  * reflects the current state.
  * @return double
  *
  * @since 1.24
  *
  * @ingroup Efl_Player
- */
-#define EFL_PLAYER_EVENT_PLAYBACK_PROGRESS_CHANGED (&(_EFL_PLAYER_EVENT_PLAYBACK_PROGRESS_CHANGED))
+  }
 
-extern  extern const Efl_Event_Description _EFL_PLAYER_EVENT_PLAYBACK_POSITION_CHANGED;
+{ was #define dname def_expr }
+function EFL_PLAYER_EVENT_PLAYBACK_PROGRESS_CHANGED : longint; { return type might be wrong }
 
-/** Called when the playback_position state has changed. The event value
+(* Const before type ignored *)
+  var
+    _EFL_PLAYER_EVENT_PLAYBACK_POSITION_CHANGED : TEfl_Event_Description;cvar;external;
+{* Called when the playback_position state has changed. The event value
  * reflects the current state.
  * @return double
  *
  * @since 1.24
  *
  * @ingroup Efl_Player
- */
-#define EFL_PLAYER_EVENT_PLAYBACK_POSITION_CHANGED (&(_EFL_PLAYER_EVENT_PLAYBACK_POSITION_CHANGED))
+  }
 
-extern  extern const Efl_Event_Description _EFL_PLAYER_EVENT_PLAYBACK_REPEATED;
+{ was #define dname def_expr }
+function EFL_PLAYER_EVENT_PLAYBACK_POSITION_CHANGED : longint; { return type might be wrong }
 
-/** Called when the player has begun to repeat its data stream. The event value
+(* Const before type ignored *)
+  var
+    _EFL_PLAYER_EVENT_PLAYBACK_REPEATED : TEfl_Event_Description;cvar;external;
+{* Called when the player has begun to repeat its data stream. The event value
  * is the current number of repeats.
  * @return int
  *
  * @since 1.24
  *
  * @ingroup Efl_Player
- */
-#define EFL_PLAYER_EVENT_PLAYBACK_REPEATED (&(_EFL_PLAYER_EVENT_PLAYBACK_REPEATED))
+  }
 
-extern  extern const Efl_Event_Description _EFL_PLAYER_EVENT_PLAYBACK_FINISHED;
+{ was #define dname def_expr }
+function EFL_PLAYER_EVENT_PLAYBACK_REPEATED : longint; { return type might be wrong }
 
-/** Called when the player has completed playing its data stream.
+(* Const before type ignored *)
+  var
+    _EFL_PLAYER_EVENT_PLAYBACK_FINISHED : TEfl_Event_Description;cvar;external;
+{* Called when the player has completed playing its data stream.
  *
  * @since 1.24
  *
  * @ingroup Efl_Player
- */
-#define EFL_PLAYER_EVENT_PLAYBACK_FINISHED (&(_EFL_PLAYER_EVENT_PLAYBACK_FINISHED))
+  }
 
-#endif
+{ was #define dname def_expr }
+function EFL_PLAYER_EVENT_PLAYBACK_FINISHED : longint; { return type might be wrong }
+
+{$endif}
+
+implementation
+
+{ was #define dname def_expr }
+function EFL_PLAYER_INTERFACE : longint; { return type might be wrong }
+  begin
+    EFL_PLAYER_INTERFACE:=efl_player_interface_get;
+  end;
+
+{ was #define dname def_expr }
+function EFL_PLAYER_EVENT_PLAYING_CHANGED : longint; { return type might be wrong }
+  begin
+    EFL_PLAYER_EVENT_PLAYING_CHANGED:=@(_EFL_PLAYER_EVENT_PLAYING_CHANGED);
+  end;
+
+{ was #define dname def_expr }
+function EFL_PLAYER_EVENT_PAUSED_CHANGED : longint; { return type might be wrong }
+  begin
+    EFL_PLAYER_EVENT_PAUSED_CHANGED:=@(_EFL_PLAYER_EVENT_PAUSED_CHANGED);
+  end;
+
+{ was #define dname def_expr }
+function EFL_PLAYER_EVENT_PLAYBACK_PROGRESS_CHANGED : longint; { return type might be wrong }
+  begin
+    EFL_PLAYER_EVENT_PLAYBACK_PROGRESS_CHANGED:=@(_EFL_PLAYER_EVENT_PLAYBACK_PROGRESS_CHANGED);
+  end;
+
+{ was #define dname def_expr }
+function EFL_PLAYER_EVENT_PLAYBACK_POSITION_CHANGED : longint; { return type might be wrong }
+  begin
+    EFL_PLAYER_EVENT_PLAYBACK_POSITION_CHANGED:=@(_EFL_PLAYER_EVENT_PLAYBACK_POSITION_CHANGED);
+  end;
+
+{ was #define dname def_expr }
+function EFL_PLAYER_EVENT_PLAYBACK_REPEATED : longint; { return type might be wrong }
+  begin
+    EFL_PLAYER_EVENT_PLAYBACK_REPEATED:=@(_EFL_PLAYER_EVENT_PLAYBACK_REPEATED);
+  end;
+
+{ was #define dname def_expr }
+function EFL_PLAYER_EVENT_PLAYBACK_FINISHED : longint; { return type might be wrong }
+  begin
+    EFL_PLAYER_EVENT_PLAYBACK_FINISHED:=@(_EFL_PLAYER_EVENT_PLAYBACK_FINISHED);
+  end;
+
+
+end.

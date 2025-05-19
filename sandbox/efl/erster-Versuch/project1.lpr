@@ -5,7 +5,6 @@ program project1;
 
 // pcregrep -Mn 'static inline.*\n(.+\n)?\s*{' *.h
 // pcregrep -Mn 'static inline.*\n(.+\n){0,2}\s*{' *.h  ??????????
-
 // https://www.perplexity.ai/search/ich-will-die-mit-grep-dateien-aw7Pr2mpROKi9qznTFxhUQ
 
 // array of const !!
@@ -39,6 +38,16 @@ uses
   efl_text_format_eo,                                  // io.
   efl_ui_layout_orientable_eo,                         // io.
   efl_ui_scrollable_eo,                                // io. -> efl_ui_layout_orientable_eo
+  efl_gfx_entity_eo,                                   // io.
+  efl_text_types_eot,                                  // io.
+
+  efl_gfx_buffer_eo,                                   // io. -> efl_gfx_types_eot
+  efl_gfx_image_load_controller_eo,                    // io.
+  efl_gfx_path_eo,                                     // io. -> efl_gfx_types_eot
+  efl_io_buffer_eo,                                    // io.
+  efl_player_eo,                                       // io.
+  efl_ui_drag_types_eot,                               // io.
+  efl_ui_drag_eo,                                      // io. -> efl_ui_drag_types_eot
 
 
   // =======================================

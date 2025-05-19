@@ -49,6 +49,7 @@ const
   EFL_GFX_RENDER_OP_LAST = 2;
 
 type
+  PPEfl_Gfx_Path_Command_Type = ^PEfl_Gfx_Path_Command_Type;
   PEfl_Gfx_Path_Command_Type = ^TEfl_Gfx_Path_Command_Type;
   TEfl_Gfx_Path_Command_Type = longint;
 

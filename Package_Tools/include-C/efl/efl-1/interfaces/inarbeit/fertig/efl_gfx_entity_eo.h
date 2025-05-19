@@ -221,7 +221,7 @@ extern  void efl_gfx_entity_scale_set(Eo *obj, double scale);
  */
 extern  double efl_gfx_entity_scale_get(const Eo *obj);
 
-extern  extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_VISIBILITY_CHANGED;
+ extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_VISIBILITY_CHANGED;
 
 /** Object's visibility state changed, the event value is the new state.
  * @return Eina_Bool
@@ -232,7 +232,7 @@ extern  extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_VISIBILITY_CHAN
  */
 #define EFL_GFX_ENTITY_EVENT_VISIBILITY_CHANGED (&(_EFL_GFX_ENTITY_EVENT_VISIBILITY_CHANGED))
 
-extern  extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_POSITION_CHANGED;
+  extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_POSITION_CHANGED;
 
 /** Object was moved, its position during the event is the new one.
  * @return Eina_Position2D
@@ -243,7 +243,7 @@ extern  extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_POSITION_CHANGE
  */
 #define EFL_GFX_ENTITY_EVENT_POSITION_CHANGED (&(_EFL_GFX_ENTITY_EVENT_POSITION_CHANGED))
 
-extern  extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_SIZE_CHANGED;
+  extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_SIZE_CHANGED;
 
 /** Object was resized, its size during the event is the new one.
  * @return Eina_Size2D

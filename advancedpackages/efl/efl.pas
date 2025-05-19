@@ -83,29 +83,6 @@ type
   PEcore_Cocoa_Window = Pointer;
   TEcore_Window = PtrUInt;
 
-  // /usr/include/efl-1/Efl.h
-type
-  PEfl_Text_Cursor_Handle = Pointer;
-
-  // /usr/include/efl-1/interfaces/efl_text_types.eot.h
-type
-  TEfl_Text_Bidirectional_Type = longint;
-
-const
-  EFL_TEXT_BIDIRECTIONAL_TYPE_NATURAL = 0;  // Natural/Neutral, identisch
-  EFL_TEXT_BIDIRECTIONAL_TYPE_NEUTRAL = 0;  // Alias für NATURAL
-  EFL_TEXT_BIDIRECTIONAL_TYPE_LTR = 1;  // Left to right
-  EFL_TEXT_BIDIRECTIONAL_TYPE_RTL = 2;  // Right to left
-  EFL_TEXT_BIDIRECTIONAL_TYPE_INHERIT = 3;   // Inherit
-
-  // /usr/include/efl-1/interfaces/efl_gfx_types.eot.h
-type
-  TEfl_Gfx_Vg_Composite_Method = longint; // enum
-  TEfl_Gfx_Render_Op = longint; // enum
-
-  // /usr/include/efl-1/interfaces/efl_gfx_entity.eo.h
-type
-  PEfl_Gfx_Entity = Pointer;
 
   // /usr/include/emile-1/emile_image.h
 type

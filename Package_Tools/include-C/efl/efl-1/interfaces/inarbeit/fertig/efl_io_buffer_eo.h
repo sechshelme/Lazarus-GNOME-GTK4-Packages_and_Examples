@@ -218,9 +218,9 @@ extern  Eina_Slice efl_io_buffer_slice_get(const Eo *obj);
  *
  * @ingroup Efl_Io_Buffer
  */
-extern  Eina_Binbuf *efl_io_buffer_binbuf_steal(Eo *obj) EFL_TRANSFER_OWNERSHIP ;
+extern  Eina_Binbuf *efl_io_buffer_binbuf_steal(Eo *obj);
 
-extern  extern const Efl_Event_Description _EFL_IO_BUFFER_EVENT_POSITION_READ_CHANGED;
+  extern const Efl_Event_Description _EFL_IO_BUFFER_EVENT_POSITION_READ_CHANGED;
 
 /** Notifies @ref efl_io_buffer_position_read_get changed
  *
@@ -228,7 +228,7 @@ extern  extern const Efl_Event_Description _EFL_IO_BUFFER_EVENT_POSITION_READ_CH
  */
 #define EFL_IO_BUFFER_EVENT_POSITION_READ_CHANGED (&(_EFL_IO_BUFFER_EVENT_POSITION_READ_CHANGED))
 
-extern  extern const Efl_Event_Description _EFL_IO_BUFFER_EVENT_POSITION_WRITE_CHANGED;
+  extern const Efl_Event_Description _EFL_IO_BUFFER_EVENT_POSITION_WRITE_CHANGED;
 
 /** Notifies @ref efl_io_buffer_position_write_get changed
  *
@@ -236,7 +236,7 @@ extern  extern const Efl_Event_Description _EFL_IO_BUFFER_EVENT_POSITION_WRITE_C
  */
 #define EFL_IO_BUFFER_EVENT_POSITION_WRITE_CHANGED (&(_EFL_IO_BUFFER_EVENT_POSITION_WRITE_CHANGED))
 
-extern  extern const Efl_Event_Description _EFL_IO_BUFFER_EVENT_REALLOCATED;
+ extern const Efl_Event_Description _EFL_IO_BUFFER_EVENT_REALLOCATED;
 
 /** Notifies the internal buffer was reallocated, thus whatever was returned by
  * @ref efl_io_buffer_slice_get becomes invalid.

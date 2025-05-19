@@ -24,6 +24,14 @@ const
 type
   TEfl_Time = Ttm;
 
+  TEfl_Text_Cursor_Handle = record
+  end;
+  PEfl_Text_Cursor_Handle = ^TEfl_Text_Cursor_Handle;
+
+  TEfl_Text_Attribute_Handle = record
+  end;
+  PEfl_Text_Attribute_Handle = ^TEfl_Text_Attribute_Handle;
+
   {$ifdef EFL_BETA_API_SUPPORT}
 var
   EFL_GFX_IMAGE_LOAD_ERROR_NONE: TEina_Error; cvar;external libefl;
