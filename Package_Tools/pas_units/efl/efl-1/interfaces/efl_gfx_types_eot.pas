@@ -107,6 +107,7 @@ type
     gap: double;
   end;
   PEfl_Gfx_Dash = ^TEfl_Gfx_Dash;
+  PPEfl_Gfx_Dash = ^PEfl_Gfx_Dash;
 
   TEfl_Gfx_Gradient_Stop = record
     offset: double;

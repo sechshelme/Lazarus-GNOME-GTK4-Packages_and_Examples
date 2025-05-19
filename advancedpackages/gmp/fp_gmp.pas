@@ -18,6 +18,11 @@ const
   libgmp = 'libgmp-10.dll';
   {$ENDIF}
 
+  {$ifdef darwin}
+  libgmp = 'gmp.dylib';
+  {$endif}
+
+
   // Version 6.3.0
 
 type

@@ -164,7 +164,7 @@ extern  void efl_ui_scrollbar_bar_visibility_update(Eo *obj);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
-extern  extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_PRESSED;
+extern  const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_PRESSED;
 
 /** Emitted when thumb is pressed.
  * @return Efl_Ui_Layout_Orientation
@@ -175,7 +175,7 @@ extern  extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_PRESSED;
  */
 #define EFL_UI_SCROLLBAR_EVENT_BAR_PRESSED (&(_EFL_UI_SCROLLBAR_EVENT_BAR_PRESSED))
 
-extern  extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_UNPRESSED;
+extern  const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_UNPRESSED;
 
 /** Emitted when thumb is unpressed.
  * @return Efl_Ui_Layout_Orientation
@@ -186,7 +186,7 @@ extern  extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_UNPRESSED
  */
 #define EFL_UI_SCROLLBAR_EVENT_BAR_UNPRESSED (&(_EFL_UI_SCROLLBAR_EVENT_BAR_UNPRESSED))
 
-extern  extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_DRAGGED;
+extern  const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_DRAGGED;
 
 /** Emitted when thumb is dragged.
  * @return Efl_Ui_Layout_Orientation
@@ -197,7 +197,7 @@ extern  extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_DRAGGED;
  */
 #define EFL_UI_SCROLLBAR_EVENT_BAR_DRAGGED (&(_EFL_UI_SCROLLBAR_EVENT_BAR_DRAGGED))
 
-extern  extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_SIZE_CHANGED;
+extern  const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_SIZE_CHANGED;
 
 /** Emitted when thumb size has changed.
  *
@@ -207,7 +207,7 @@ extern  extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_SIZE_CHAN
  */
 #define EFL_UI_SCROLLBAR_EVENT_BAR_SIZE_CHANGED (&(_EFL_UI_SCROLLBAR_EVENT_BAR_SIZE_CHANGED))
 
-extern  extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_POS_CHANGED;
+extern  const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_POS_CHANGED;
 
 /** Emitted when thumb position has changed.
  *
@@ -217,7 +217,7 @@ extern  extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_POS_CHANG
  */
 #define EFL_UI_SCROLLBAR_EVENT_BAR_POS_CHANGED (&(_EFL_UI_SCROLLBAR_EVENT_BAR_POS_CHANGED))
 
-extern  extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_SHOW;
+extern  const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_SHOW;
 
 /** Emitted when scrollbar is shown.
  * @return Efl_Ui_Layout_Orientation
@@ -228,7 +228,7 @@ extern  extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_SHOW;
  */
 #define EFL_UI_SCROLLBAR_EVENT_BAR_SHOW (&(_EFL_UI_SCROLLBAR_EVENT_BAR_SHOW))
 
-extern  extern const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_HIDE;
+extern  const Efl_Event_Description _EFL_UI_SCROLLBAR_EVENT_BAR_HIDE;
 
 /** Emitted when scrollbar is hidden.
  * @return Efl_Ui_Layout_Orientation

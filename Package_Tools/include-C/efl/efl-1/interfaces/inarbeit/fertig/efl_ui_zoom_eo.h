@@ -150,28 +150,28 @@ extern  void efl_ui_zoom_mode_set(Eo *obj, Efl_Ui_Zoom_Mode mode);
  */
 extern  Efl_Ui_Zoom_Mode efl_ui_zoom_mode_get(const Eo *obj);
 
-extern  extern const Efl_Event_Description _EFL_UI_EVENT_ZOOM_START;
+  extern const Efl_Event_Description _EFL_UI_EVENT_ZOOM_START;
 
 /** Called when zooming started
  *
  * @ingroup Efl_Ui_Zoom
  */
-#define EFL_UI_EVENT_ZOOM_START (&(_EFL_UI_EVENT_ZOOM_START))
 
-extern  extern const Efl_Event_Description _EFL_UI_EVENT_ZOOM_STOP;
+  extern const Efl_Event_Description _EFL_UI_EVENT_ZOOM_STOP;
 
 /** Called when zooming stopped
  *
  * @ingroup Efl_Ui_Zoom
  */
-#define EFL_UI_EVENT_ZOOM_STOP (&(_EFL_UI_EVENT_ZOOM_STOP))
 
-extern  extern const Efl_Event_Description _EFL_UI_EVENT_ZOOM_CHANGE;
+  extern const Efl_Event_Description _EFL_UI_EVENT_ZOOM_CHANGE;
 
 /** Called when zooming changed
  *
  * @ingroup Efl_Ui_Zoom
  */
+#define EFL_UI_EVENT_ZOOM_START (&(_EFL_UI_EVENT_ZOOM_START))
+#define EFL_UI_EVENT_ZOOM_STOP (&(_EFL_UI_EVENT_ZOOM_STOP))
 #define EFL_UI_EVENT_ZOOM_CHANGE (&(_EFL_UI_EVENT_ZOOM_CHANGE))
 #endif /* EFL_BETA_API_SUPPORT */
 

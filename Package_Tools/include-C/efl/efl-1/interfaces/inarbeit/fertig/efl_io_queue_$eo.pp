@@ -1,20 +1,49 @@
-#ifndef _EFL_IO_QUEUE_EO_H_
-#define _EFL_IO_QUEUE_EO_H_
 
-#ifndef _EFL_IO_QUEUE_EO_CLASS_TYPE
-#define _EFL_IO_QUEUE_EO_CLASS_TYPE
+unit efl_io_queue_$eo;
+interface
 
-typedef Eo Efl_Io_Queue;
+{
+  Automatically converted by H2Pas 1.0.0 from efl_io_queue_$eo.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    efl_io_queue_$eo.h
+}
 
-#endif
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
 
-#ifndef _EFL_IO_QUEUE_EO_TYPES
-#define _EFL_IO_QUEUE_EO_TYPES
+Type
+PEfl_Class  = ^Efl_Class;
+PEfl_Io_Queue  = ^Efl_Io_Queue;
+PEo  = ^Eo;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
 
 
-#endif
-#ifdef EFL_BETA_API_SUPPORT
-/**
+{$ifndef _EFL_IO_QUEUE_EO_H_}
+{$define _EFL_IO_QUEUE_EO_H_}
+{$ifndef _EFL_IO_QUEUE_EO_CLASS_TYPE}
+{$define _EFL_IO_QUEUE_EO_CLASS_TYPE}
+type
+  PEfl_Io_Queue = ^TEfl_Io_Queue;
+  TEfl_Io_Queue = TEo;
+{$endif}
+{$ifndef _EFL_IO_QUEUE_EO_TYPES}
+{$define _EFL_IO_QUEUE_EO_TYPES}
+{$endif}
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief Generic In-memory queue of data to be used as I/O.
  *
  * This class is to be used to receive temporary data using
@@ -25,22 +54,23 @@ typedef Eo Efl_Io_Queue;
  * @ref efl_io_queue_limit_get followed by @ref efl_io_queue_preallocate
  *
  * @ingroup Efl_Io_Queue
- */
-#define EFL_IO_QUEUE_CLASS efl_io_queue_class_get()
+  }
 
-extern  const Efl_Class *efl_io_queue_class_get(void) ;
+{ was #define dname def_expr }
+function EFL_IO_QUEUE_CLASS : longint; { return type might be wrong }
 
-/**
+(* Const before type ignored *)
+function efl_io_queue_class_get:PEfl_Class;cdecl;external;
+{*
  * @brief Immediately pre-allocate a buffer of at least a given size.
  *
  * @param[in] obj The object.
  * @param[in] size Amount of bytes to pre-allocate.
  *
  * @ingroup Efl_Io_Queue
- */
-extern  void efl_io_queue_preallocate(Eo *obj, size_t size);
-
-/**
+  }
+procedure efl_io_queue_preallocate(obj:PEo; size:Tsize_t);cdecl;external;
+{*
  * @brief Limit how big the buffer can grow.
  *
  * This affects both @ref efl_io_queue_preallocate and how buffer grows when
@@ -56,10 +86,9 @@ extern  void efl_io_queue_preallocate(Eo *obj, size_t size);
  * amount of bytes
  *
  * @ingroup Efl_Io_Queue
- */
-extern  void efl_io_queue_limit_set(Eo *obj, size_t size);
-
-/**
+  }
+procedure efl_io_queue_limit_set(obj:PEo; size:Tsize_t);cdecl;external;
+{*
  * @brief Limit how big the buffer can grow.
  *
  * This affects both @ref efl_io_queue_preallocate and how buffer grows when
@@ -74,10 +103,10 @@ extern  void efl_io_queue_limit_set(Eo *obj, size_t size);
  * bytes
  *
  * @ingroup Efl_Io_Queue
- */
-extern  size_t efl_io_queue_limit_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_io_queue_limit_get(obj:PEo):Tsize_t;cdecl;external;
+{*
  * @brief How many bytes are available for read
  *
  * @param[in] obj The object.
@@ -85,10 +114,10 @@ extern  size_t efl_io_queue_limit_get(const Eo *obj);
  * @return Bytes available to read
  *
  * @ingroup Efl_Io_Queue
- */
-extern  size_t efl_io_queue_usage_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_io_queue_usage_get(obj:PEo):Tsize_t;cdecl;external;
+{*
  * @brief Gain temporary access to queue's internal read memory.
  *
  * The memory pointed to by slice may be changed by other methods of this
@@ -102,10 +131,10 @@ extern  size_t efl_io_queue_usage_get(const Eo *obj);
  * reading.
  *
  * @ingroup Efl_Io_Queue
- */
-extern  Eina_Slice efl_io_queue_slice_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_io_queue_slice_get(obj:PEo):TEina_Slice;cdecl;external;
+{*
  * @brief Discard the given number of bytes.
  *
  * This has the same effect as reading and discarding the given amount of
@@ -126,10 +155,9 @@ extern  Eina_Slice efl_io_queue_slice_get(const Eo *obj);
  * @param[in] amount Bytes to discard
  *
  * @ingroup Efl_Io_Queue
- */
-extern  void efl_io_queue_discard(Eo *obj, size_t amount);
-
-/**
+  }
+procedure efl_io_queue_discard(obj:PEo; amount:Tsize_t);cdecl;external;
+{*
  * @brief Clears the queue. Same as reading all data.
  *
  * This is equivalent to calling @ref efl_io_queue_discard with
@@ -137,10 +165,9 @@ extern  void efl_io_queue_discard(Eo *obj, size_t amount);
  * @param[in] obj The object.
  *
  * @ingroup Efl_Io_Queue
- */
-extern  void efl_io_queue_clear(Eo *obj);
-
-/**
+  }
+procedure efl_io_queue_clear(obj:PEo);cdecl;external;
+{*
  * @brief Mark this end-of-stream.
  *
  * That will set @ref efl_io_reader_eos_get to @c true and forbid any further
@@ -150,16 +177,36 @@ extern  void efl_io_queue_clear(Eo *obj);
  * @param[in] obj The object.
  *
  * @ingroup Efl_Io_Queue
- */
-extern  void efl_io_queue_eos_mark(Eo *obj);
-
-extern  extern const Efl_Event_Description _EFL_IO_QUEUE_EVENT_SLICE_CHANGED;
-
-/** The read-slice returned by @ref efl_io_queue_slice_get may have changed.
+  }
+procedure efl_io_queue_eos_mark(obj:PEo);cdecl;external;
+(* Const before type ignored *)
+  var
+    _EFL_IO_QUEUE_EVENT_SLICE_CHANGED : TEfl_Event_Description;cvar;external;
+{* The read-slice returned by @ref efl_io_queue_slice_get may have changed.
  *
  * @ingroup Efl_Io_Queue
- */
-#define EFL_IO_QUEUE_EVENT_SLICE_CHANGED (&(_EFL_IO_QUEUE_EVENT_SLICE_CHANGED))
-#endif /* EFL_BETA_API_SUPPORT */
+  }
 
-#endif
+{ was #define dname def_expr }
+function EFL_IO_QUEUE_EVENT_SLICE_CHANGED : longint; { return type might be wrong }
+
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$endif}
+
+implementation
+
+{ was #define dname def_expr }
+function EFL_IO_QUEUE_CLASS : longint; { return type might be wrong }
+  begin
+    EFL_IO_QUEUE_CLASS:=efl_io_queue_class_get;
+  end;
+
+{ was #define dname def_expr }
+function EFL_IO_QUEUE_EVENT_SLICE_CHANGED : longint; { return type might be wrong }
+  begin
+    EFL_IO_QUEUE_EVENT_SLICE_CHANGED:=@(_EFL_IO_QUEUE_EVENT_SLICE_CHANGED);
+  end;
+
+
+end.

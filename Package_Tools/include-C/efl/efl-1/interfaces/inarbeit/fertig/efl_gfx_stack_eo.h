@@ -222,7 +222,7 @@ extern  void efl_gfx_stack_above(Eo *obj, Efl_Gfx_Stack *above);
  */
 extern  void efl_gfx_stack_lower_to_bottom(Eo *obj);
 
-extern  extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_STACKING_CHANGED;
+ extern const Efl_Event_Description _EFL_GFX_ENTITY_EVENT_STACKING_CHANGED;
 
 /** Object stacking was changed.
  *

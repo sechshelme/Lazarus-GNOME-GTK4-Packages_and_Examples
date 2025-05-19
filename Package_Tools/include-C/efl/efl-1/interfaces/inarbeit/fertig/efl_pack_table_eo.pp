@@ -1,19 +1,51 @@
-#ifndef _EFL_PACK_TABLE_EO_H_
-#define _EFL_PACK_TABLE_EO_H_
 
-#ifndef _EFL_PACK_TABLE_EO_CLASS_TYPE
-#define _EFL_PACK_TABLE_EO_CLASS_TYPE
+unit efl_pack_table_eo;
+interface
 
-typedef Eo Efl_Pack_Table;
+{
+  Automatically converted by H2Pas 1.0.0 from efl_pack_table_eo.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    efl_pack_table_eo.h
+}
 
-#endif
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
 
-#ifndef _EFL_PACK_TABLE_EO_TYPES
-#define _EFL_PACK_TABLE_EO_TYPES
+Type
+PEfl_Class  = ^Efl_Class;
+PEfl_Gfx_Entity  = ^Efl_Gfx_Entity;
+PEfl_Pack_Table  = ^Efl_Pack_Table;
+PEina_Iterator  = ^Eina_Iterator;
+PEo  = ^Eo;
+Plongint  = ^longint;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
 
 
-#endif
-/**
+{$ifndef _EFL_PACK_TABLE_EO_H_}
+{$define _EFL_PACK_TABLE_EO_H_}
+{$ifndef _EFL_PACK_TABLE_EO_CLASS_TYPE}
+{$define _EFL_PACK_TABLE_EO_CLASS_TYPE}
+type
+  PEfl_Pack_Table = ^TEfl_Pack_Table;
+  TEfl_Pack_Table = TEo;
+{$endif}
+{$ifndef _EFL_PACK_TABLE_EO_TYPES}
+{$define _EFL_PACK_TABLE_EO_TYPES}
+{$endif}
+{*
  * @brief Interface for 2D containers which arrange their elements on a table
  * with rows and columns.
  *
@@ -24,12 +56,14 @@ typedef Eo Efl_Pack_Table;
  * @since 1.23
  *
  * @ingroup Efl_Pack_Table
- */
-#define EFL_PACK_TABLE_INTERFACE efl_pack_table_interface_get()
+  }
 
-extern  const Efl_Class *efl_pack_table_interface_get(void) ;
+{ was #define dname def_expr }
+function EFL_PACK_TABLE_INTERFACE : longint; { return type might be wrong }
 
-/**
+(* Const before type ignored *)
+function efl_pack_table_interface_get:PEfl_Class;cdecl;external;
+{*
  * @brief Pack object at a given location in the table.
  *
  * When this container is deleted, it will request deletion of the given
@@ -48,10 +82,10 @@ extern  const Efl_Class *efl_pack_table_interface_get(void) ;
  * @since 1.23
  *
  * @ingroup Efl_Pack_Table
- */
-extern  Eina_Bool efl_pack_table(Eo *obj, Efl_Gfx_Entity *subobj, int col, int row, int colspan, int rowspan);
-
-/**
+  }
+function efl_pack_table(obj:PEo; subobj:PEfl_Gfx_Entity; col:longint; row:longint; colspan:longint; 
+           rowspan:longint):TEina_Bool;cdecl;external;
+{*
  * @brief Returns all objects at a given position in this table.
  *
  * @param[in] obj The object.
@@ -64,10 +98,9 @@ extern  Eina_Bool efl_pack_table(Eo *obj, Efl_Gfx_Entity *subobj, int col, int r
  * @since 1.23
  *
  * @ingroup Efl_Pack_Table
- */
-extern  Eina_Iterator *efl_pack_table_contents_get(Eo *obj, int col, int row, Eina_Bool below) EFL_TRANSFER_OWNERSHIP ;
-
-/**
+  }
+function efl_pack_table_contents_get(obj:PEo; col:longint; row:longint; below:TEina_Bool):PEina_Iterator;cdecl;external;
+{*
  * @brief Returns a child at a given position, see
  * @ref efl_pack_table_contents_get.
  *
@@ -80,10 +113,9 @@ extern  Eina_Iterator *efl_pack_table_contents_get(Eo *obj, int col, int row, Ei
  * @since 1.23
  *
  * @ingroup Efl_Pack_Table
- */
-extern  Efl_Gfx_Entity *efl_pack_table_content_get(Eo *obj, int col, int row);
-
-/**
+  }
+function efl_pack_table_content_get(obj:PEo; col:longint; row:longint):PEfl_Gfx_Entity;cdecl;external;
+{*
  * @brief column of the @c subobj in this container.
  *
  * @param[in] obj The object.
@@ -94,10 +126,9 @@ extern  Efl_Gfx_Entity *efl_pack_table_content_get(Eo *obj, int col, int row);
  * @since 1.23
  *
  * @ingroup Efl_Pack_Table
- */
-extern  void efl_pack_table_cell_column_set(Eo *obj, Efl_Gfx_Entity *subobj, int col, int colspan);
-
-/**
+  }
+procedure efl_pack_table_cell_column_set(obj:PEo; subobj:PEfl_Gfx_Entity; col:longint; colspan:longint);cdecl;external;
+{*
  * @brief column of the @c subobj in this container.
  *
  * @param[in] obj The object.
@@ -110,10 +141,10 @@ extern  void efl_pack_table_cell_column_set(Eo *obj, Efl_Gfx_Entity *subobj, int
  * @since 1.23
  *
  * @ingroup Efl_Pack_Table
- */
-extern  Eina_Bool efl_pack_table_cell_column_get(const Eo *obj, Efl_Gfx_Entity *subobj, int *col, int *colspan);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_pack_table_cell_column_get(obj:PEo; subobj:PEfl_Gfx_Entity; col:Plongint; colspan:Plongint):TEina_Bool;cdecl;external;
+{*
  * @brief row of the @c subobj in this container.
  *
  * @param[in] obj The object.
@@ -124,10 +155,9 @@ extern  Eina_Bool efl_pack_table_cell_column_get(const Eo *obj, Efl_Gfx_Entity *
  * @since 1.23
  *
  * @ingroup Efl_Pack_Table
- */
-extern  void efl_pack_table_cell_row_set(Eo *obj, Efl_Gfx_Entity *subobj, int row, int rowspan);
-
-/**
+  }
+procedure efl_pack_table_cell_row_set(obj:PEo; subobj:PEfl_Gfx_Entity; row:longint; rowspan:longint);cdecl;external;
+{*
  * @brief row of the @c subobj in this container.
  *
  * @param[in] obj The object.
@@ -140,10 +170,10 @@ extern  void efl_pack_table_cell_row_set(Eo *obj, Efl_Gfx_Entity *subobj, int ro
  * @since 1.23
  *
  * @ingroup Efl_Pack_Table
- */
-extern  Eina_Bool efl_pack_table_cell_row_get(const Eo *obj, Efl_Gfx_Entity *subobj, int *row, int *rowspan);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_pack_table_cell_row_get(obj:PEo; subobj:PEfl_Gfx_Entity; row:Plongint; rowspan:Plongint):TEina_Bool;cdecl;external;
+{*
  * @brief Combines @ref efl_pack_table_columns_get and
  * @ref efl_pack_table_rows_get
  *
@@ -154,10 +184,9 @@ extern  Eina_Bool efl_pack_table_cell_row_get(const Eo *obj, Efl_Gfx_Entity *sub
  * @since 1.23
  *
  * @ingroup Efl_Pack_Table
- */
-extern  void efl_pack_table_size_set(Eo *obj, int cols, int rows);
-
-/**
+  }
+procedure efl_pack_table_size_set(obj:PEo; cols:longint; rows:longint);cdecl;external;
+{*
  * @brief Combines @ref efl_pack_table_columns_get and
  * @ref efl_pack_table_rows_get
  *
@@ -168,10 +197,10 @@ extern  void efl_pack_table_size_set(Eo *obj, int cols, int rows);
  * @since 1.23
  *
  * @ingroup Efl_Pack_Table
- */
-extern  void efl_pack_table_size_get(const Eo *obj, int *cols, int *rows);
-
-/**
+  }
+(* Const before type ignored *)
+procedure efl_pack_table_size_get(obj:PEo; cols:Plongint; rows:Plongint);cdecl;external;
+{*
  * @brief Specifies the amount of columns the table will have when the fill
  * direction is horizontal. If it is vertical, the amount of columns depends on
  * the amount of cells added and @ref efl_pack_table_rows_get.
@@ -182,10 +211,9 @@ extern  void efl_pack_table_size_get(const Eo *obj, int *cols, int *rows);
  * @since 1.23
  *
  * @ingroup Efl_Pack_Table
- */
-extern  void efl_pack_table_columns_set(Eo *obj, int cols);
-
-/**
+  }
+procedure efl_pack_table_columns_set(obj:PEo; cols:longint);cdecl;external;
+{*
  * @brief Specifies the amount of columns the table will have when the fill
  * direction is horizontal. If it is vertical, the amount of columns depends on
  * the amount of cells added and @ref efl_pack_table_rows_get.
@@ -197,10 +225,10 @@ extern  void efl_pack_table_columns_set(Eo *obj, int cols);
  * @since 1.23
  *
  * @ingroup Efl_Pack_Table
- */
-extern  int efl_pack_table_columns_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_pack_table_columns_get(obj:PEo):longint;cdecl;external;
+{*
  * @brief Specifies the amount of rows the table will have when the fill
  * direction is vertical. If it is horizontal, the amount of rows depends on
  * the amount of cells added and @ref efl_pack_table_columns_get.
@@ -211,10 +239,9 @@ extern  int efl_pack_table_columns_get(const Eo *obj);
  * @since 1.23
  *
  * @ingroup Efl_Pack_Table
- */
-extern  void efl_pack_table_rows_set(Eo *obj, int rows);
-
-/**
+  }
+procedure efl_pack_table_rows_set(obj:PEo; rows:longint);cdecl;external;
+{*
  * @brief Specifies the amount of rows the table will have when the fill
  * direction is vertical. If it is horizontal, the amount of rows depends on
  * the amount of cells added and @ref efl_pack_table_columns_get.
@@ -226,7 +253,18 @@ extern  void efl_pack_table_rows_set(Eo *obj, int rows);
  * @since 1.23
  *
  * @ingroup Efl_Pack_Table
- */
-extern  int efl_pack_table_rows_get(const Eo *obj);
+  }
+(* Const before type ignored *)
+function efl_pack_table_rows_get(obj:PEo):longint;cdecl;external;
+{$endif}
 
-#endif
+implementation
+
+{ was #define dname def_expr }
+function EFL_PACK_TABLE_INTERFACE : longint; { return type might be wrong }
+  begin
+    EFL_PACK_TABLE_INTERFACE:=efl_pack_table_interface_get;
+  end;
+
+
+end.

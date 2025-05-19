@@ -31,23 +31,36 @@ uses
   // === efl-1/interfaces
 
   efl_gfx_image_eo,                                    // io.
-  efl_input_text_entity_eo,                            // io.
-  efl_text_style_eo,                                   // io.
-  efl_gfx_hint_eo,                                     // io. -> efl_gfx_types_eot
-  efl_text_font_properties_eo,                         // io. -> efl_gfx_types_eot
-  efl_text_format_eo,                                  // io.
-  efl_ui_layout_orientable_eo,                         // io.
-  efl_ui_scrollable_eo,                                // io. -> efl_ui_layout_orientable_eo
   efl_gfx_entity_eo,                                   // io.
-  efl_text_types_eot,                                  // io.
-
+  efl_gfx_hint_eo,                                     // io. -> efl_gfx_types_eot
   efl_gfx_buffer_eo,                                   // io. -> efl_gfx_types_eot
-  efl_gfx_image_load_controller_eo,                    // io.
   efl_gfx_path_eo,                                     // io. -> efl_gfx_types_eot
-  efl_io_buffer_eo,                                    // io.
-  efl_player_eo,                                       // io.
+  efl_gfx_color_class_eo,                              // io. -> efl_gfx_types_eot
+  efl_gfx_shape_eo,                                    // io. -> efl_gfx_types_eot
+  efl_gfx_filter_eo,                                   // io. -> efl_gfx_entity_eo
+  efl_gfx_image_load_controller_eo,                    // io.
+  efl_gfx_stack_eo,                                    // io.
+  efl_gfx_frame_controller_eo,                         // io.
+  efl_gfx_image_orientable_eo,                         // io.
+  efl_text_font_properties_eo,                         // io. -> efl_gfx_types_eot
+  efl_text_style_eo,                                   // io.
+  efl_text_types_eot,                                  // io.
+  efl_text_format_eo,                                  // io.
+  efl_input_text_entity_eo,                            // io.
   efl_ui_drag_types_eot,                               // io.
   efl_ui_drag_eo,                                      // io. -> efl_ui_drag_types_eot
+  efl_ui_scrollbar_eo,                                 // io.
+  efl_ui_layout_orientable_eo,                         // io.
+  efl_ui_scrollable_eo,                                // io. -> efl_ui_layout_orientable_eo
+  efl_ui_zoom_eo,                                      // io.
+  efl_pack_linear_eo,                                  // io. -> efl_gfx_entity_eo
+  efl_io_buffer_eo,                                    // io.
+  efl_io_queue_eo,                                     // io.
+  efl_player_eo,                                       // io.
+  efl_pack_table_eo,                                   // io. -> efl_gfx_entity_eo
+  efl_file_eo,                                         // io.
+
+
 
 
   // =======================================
