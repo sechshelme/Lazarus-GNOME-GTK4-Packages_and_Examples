@@ -8,13 +8,14 @@ interface
 
 const
   {$IFDEF Linux}
-  libclib='c';
+  libclib = 'c';
   libelementary = 'libelementary';
   libevas = 'libevas';
   libeina = 'libeina';
   libeo = 'libeo';
   libefl = 'libefl';
   libemile = 'libemile';
+  libecore = 'libecore';
   {$ENDIF}
 
   {$IFDEF mswindows}
@@ -25,6 +26,7 @@ const
   libeo = 'libeo-1.dll';
   libefl = 'libefl-1.dll';
   libemile = 'libemile-1.dll';
+  libecore = 'libecore-1.dll';
   {$ENDIF}
 
   {$IFDEF darwin}
@@ -54,6 +56,10 @@ type
 
   PFILE = Pointer;
 
+  // /usr/include/unistd.h
+  Tpid_t = longint;
+
+  // /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h
 type
   Ttm = record
     tm_sec: longint;
@@ -70,11 +76,26 @@ type
   end;
   Ptm = ^Ttm;
 
-  function calloc(num, size:Tsize_t):Pointer;cdecl; external libclib;
+  // /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h
+type
+  Ptimeval = Pointer;
 
-  // =====================
+  // /usr/include/x86_64-linux-gnu/sys/select.h
+type
+  Pfd_set = Pointer;
 
-  // /usr/include/ecore-1/Ecore_Common.h
+  // /usr/include/x86_64-linux-gnu/bits/types/siginfo_t.h
+type
+  Tsiginfo_t = record
+    // Muss aufgelöst werden
+  end;
+  Psiginfo_t = ^Tsiginfo_t;
+
+function calloc(num, size: Tsize_t): Pointer; cdecl; external libclib;
+
+// =====================
+
+// /usr/include/ecore-1/Ecore_Common.h
 type
   TEcore_Cb = Pointer; // CallProc;
 
@@ -104,6 +125,11 @@ type
   // /usr/include/eina-1/eina/eina_inline_lock_posix.x
   TEina_Spinlock = TEina_Lock;
   PEina_Spinlock = ^TEina_Spinlock;
+
+  // Unbekannte Herkunft
+type
+  TEcore_Factorized_Idle = record
+  end;
 
 
 

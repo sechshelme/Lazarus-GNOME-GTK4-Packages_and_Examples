@@ -6,6 +6,7 @@ program project1;
 // pcregrep -Mn 'static inline.*\n(.+\n)?\s*{' *.h
 // pcregrep -Mn 'static inline.*\n(.+\n){0,2}\s*{' *.h  ??????????
 // https://www.perplexity.ai/search/ich-will-die-mit-grep-dateien-aw7Pr2mpROKi9qznTFxhUQ
+// rename 's/\.eo/_eo/' *.h
 
 // array of const !!
 
@@ -23,6 +24,9 @@ uses
   // =======================================
 
 
+  ecore_exe_eo,
+  ecore_exe_eo_legacy,
+  Ecore_Common,
 
 
   // =======================================

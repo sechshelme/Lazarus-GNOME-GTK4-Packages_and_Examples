@@ -80,7 +80,7 @@ typedef enum
  */
 #define ECORE_EXE_CLASS ecore_exe_class_get()
 
-EWAPI const Efl_Class *ecore_exe_class_get(void) EINA_CONST;
+extern const Efl_Class *ecore_exe_class_get(void) ;
 
 /**
  * @brief Controls the command that's executed. FIXME: May need a split/rename.
@@ -91,7 +91,7 @@ EWAPI const Efl_Class *ecore_exe_class_get(void) EINA_CONST;
  *
  * @ingroup Ecore_Exe
  */
-EOAPI void ecore_obj_exe_command_set(Eo *obj, const char *exe_cmd, Ecore_Exe_Flags flags);
+extern void ecore_obj_exe_command_set(Eo *obj, const char *exe_cmd, Ecore_Exe_Flags flags);
 
 /**
  * @brief Controls the command that's executed. FIXME: May need a split/rename.
@@ -102,24 +102,24 @@ EOAPI void ecore_obj_exe_command_set(Eo *obj, const char *exe_cmd, Ecore_Exe_Fla
  *
  * @ingroup Ecore_Exe
  */
-EOAPI void ecore_obj_exe_command_get(const Eo *obj, const char **exe_cmd, Ecore_Exe_Flags *flags);
+extern void ecore_obj_exe_command_get(const Eo *obj, const char **exe_cmd, Ecore_Exe_Flags *flags);
 
-EWAPI extern const Efl_Event_Description _ECORE_EXE_EVENT_DATA_GET;
+ extern const Efl_Event_Description _ECORE_EXE_EVENT_DATA_GET;
 
 /** Data received event from the child process
  * @return Ecore_Exe_Event_Data
  *
  * @ingroup Ecore_Exe
  */
-#define ECORE_EXE_EVENT_DATA_GET (&(_ECORE_EXE_EVENT_DATA_GET))
 
-EWAPI extern const Efl_Event_Description _ECORE_EXE_EVENT_DATA_ERROR;
+ extern const Efl_Event_Description _ECORE_EXE_EVENT_DATA_ERROR;
 
 /** Error received event from the child process
  * @return Ecore_Exe_Event_Data
  *
  * @ingroup Ecore_Exe
  */
+#define ECORE_EXE_EVENT_DATA_GET (&(_ECORE_EXE_EVENT_DATA_GET))
 #define ECORE_EXE_EVENT_DATA_ERROR (&(_ECORE_EXE_EVENT_DATA_ERROR))
 
 #endif
