@@ -14,6 +14,7 @@ const
   libeina = 'libeina';
   libeo = 'libeo';
   libefl = 'libefl';
+  libemile = 'libemile';
   {$ENDIF}
 
   {$IFDEF mswindows}
@@ -23,6 +24,7 @@ const
   libeina = 'libeina-1.dll';
   libeo = 'libeo-1.dll';
   libefl = 'libefl-1.dll';
+  libemile = 'libemile-1.dll';
   {$ENDIF}
 
   {$IFDEF darwin}
@@ -68,6 +70,8 @@ type
   end;
   Ptm = ^Ttm;
 
+  function calloc(num, size:Tsize_t):Pointer;cdecl; external libclib;
+
   // =====================
 
   // /usr/include/ecore-1/Ecore_Common.h
@@ -83,63 +87,6 @@ type
   PEcore_Cocoa_Window = Pointer;
   TEcore_Window = PtrUInt;
 
-
-  // /usr/include/emile-1/emile_image.h
-type
-  TEmile_Image_Animated_Loop_Hint = longint; // enum
-
-const  // enum
-  EMILE_IMAGE_ANIMATED_HINT_NONE = 0;
-  EMILE_IMAGE_ANIMATED_HINT_LOOP = 1;
-  EMILE_IMAGE_ANIMATED_HINT_PINGPONG = 2;
-
-type
-  TEmile_Image_Scale_Hint = longint; // enum
-
-const                               // enum
-  EMILE_IMAGE_SCALE_HINT_NONE = 0;
-  EMILE_IMAGE_SCALE_HINT_DYNAMIC = 1;
-  EMILE_IMAGE_SCALE_HINT_STATIC = 2;
-
-type
-  PEmile_Colorspace = ^TEmile_Colorspace;
-  TEmile_Colorspace = longint;
-
-const
-  EMILE_COLORSPACE_ARGB8888 = 0;
-  EMILE_COLORSPACE_YCBCR422P601_PL = 1;
-  EMILE_COLORSPACE_YCBCR422P709_PL = 2;
-  EMILE_COLORSPACE_RGB565_A5P = 3;
-  EMILE_COLORSPACE_GRY8 = 4;
-  EMILE_COLORSPACE_YCBCR422601_PL = 5;
-  EMILE_COLORSPACE_YCBCR420NV12601_PL = 6;
-  EMILE_COLORSPACE_YCBCR420TM12601_PL = 7;
-  EMILE_COLORSPACE_AGRY88 = 8;
-  EMILE_COLORSPACE_ETC1 = 9;
-  EMILE_COLORSPACE_RGB8_ETC2 = 10;
-  EMILE_COLORSPACE_RGBA8_ETC2_EAC = 11;
-  EMILE_COLORSPACE_ETC1_ALPHA = 12;
-  EMILE_COLORSPACE_RGB_S3TC_DXT1 = 13;
-  EMILE_COLORSPACE_RGBA_S3TC_DXT1 = 14;
-  EMILE_COLORSPACE_RGBA_S3TC_DXT2 = 15;
-  EMILE_COLORSPACE_RGBA_S3TC_DXT3 = 16;
-  EMILE_COLORSPACE_RGBA_S3TC_DXT4 = 17;
-  EMILE_COLORSPACE_RGBA_S3TC_DXT5 = 18;
-
-
-type
-  TEmile_Image_Load_Opts = record
-    // Muss aufgelöst werden
-  end;
-
-  TEmile_Image_Animated = record
-    // Muss aufgelöst werden
-  end;
-
-  TEmile_Image_Property = record
-    // Muss aufgelöst werden
-  end;
-
   // /usr/include/edje-1/Edje_Common.h
 type
   TEdje_Signal_Cb = Pointer; // callproc
@@ -150,11 +97,6 @@ type
   PEdje_Entry_Change_Info = ^TEdje_Entry_Change_Info;
 
 type
-  // /usr/include/efl-1/interfaces/efl_interpolator.eo.h
-  PEfl_Interpolator = Pointer;
-
-
-type
   // /usr/include/eina-1/eina/eina_inline_lock_posix.x
   TEina_Lock = Pointer;
   PEina_Lock = ^TEina_Lock;
@@ -163,7 +105,6 @@ type
   TEina_Spinlock = TEina_Lock;
   PEina_Spinlock = ^TEina_Spinlock;
 
-function calloc(num, size:Tsize_t):Pointer;cdecl; external libclib;
 
 
 implementation

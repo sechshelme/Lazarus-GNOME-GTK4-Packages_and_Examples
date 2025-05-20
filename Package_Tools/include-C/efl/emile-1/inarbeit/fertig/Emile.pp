@@ -1,4 +1,33 @@
-/* EMILE - EFL serialization, compression and crypto library.
+
+unit Emile;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from Emile.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    Emile.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ EMILE - EFL serialization, compression and crypto library.
  * Copyright (C) 2013 Enlightenment Developers:
  *           Cedric Bail <cedric.bail@samsung.com>
  *
@@ -15,66 +44,31 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with this library;
  * if not, see <http://www.gnu.org/licenses/>.
- */
-#ifndef EMILE_H_
-#define EMILE_H_
-
-#include <Eina.h>
-
-#ifdef extern
-# undef extern
-#endif
-
-#ifdef _WIN32
-# ifdef EFL_BUILD
-#  ifdef DLL_EXPORT
-#   define extern __declspec(dllexport)
-#  else
-#   define extern
-#  endif
-# else
-#  define extern __declspec(dllimport)
-# endif
-#else
-# ifdef __GNUC__
-#  if __GNUC__ >= 4
-#   define extern __attribute__ ((visibility("default")))
-#  else
-#   define extern
-#  endif
-# else
-#  define extern
-# endif
-#endif
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/**
+  }
+{$ifndef EMILE_H_}
+{$define EMILE_H_}
+{$include <Eina.h>}
+{*
  * @brief Emile serialization, compression and ciphering public API calls.
  *
  * These routines are used for Emile Library interaction
  *
  * @date 2013 (created)
- */
-
-/**
+  }
+{*
  * @file Emile.h
  * @brief The file that provide the Emile function
  *
  * This header provides the Emile management functions.
- */
-
-/**
+  }
+{*
  * @defgroup Emile_Group Top level functions
  * @ingroup Emile
  * Function that affect Emile as a whole.
  *
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * Initialize the Emile library
  *
  * The first time this function is called, it will perform all the internal
@@ -86,10 +80,10 @@ extern "C" {
  * @return The new init count. Will be 0 if initialization failed.
  *
  * @since 1.14
- */
-extern int emile_init(void);
+  }
 
-/**
+function emile_init:longint;cdecl;external;
+{*
  * Shut down the Emile library
  *
  * If emile_init() was called more than once for the running application,
@@ -99,23 +93,19 @@ extern int emile_init(void);
  *
  * @return The new init count.
  * @since 1.14
- */
-extern int emile_shutdown(void);
+  }
+function emile_shutdown:longint;cdecl;external;
+{*
+ * @
+  }
+{$include "emile_cipher.h"}
+{$include "emile_compress.h"}
+{$include "emile_image.h"}
+{$include "emile_base64.h"}
+{ C++ end of extern C conditionnal removed }
+{$endif}
 
-/**
- * @}
- */
+implementation
 
-#include "emile_cipher.h"
-#include "emile_compress.h"
-#include "emile_image.h"
-#include "emile_base64.h"
 
-#ifdef __cplusplus
-}
-#endif
-
-#undef extern
-#define extern
-
-#endif
+end.

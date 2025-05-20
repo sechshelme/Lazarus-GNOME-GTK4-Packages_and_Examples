@@ -25,6 +25,14 @@
         <Filename Value="fp_eo.pas"/>
         <UnitName Value="fp_eo"/>
       </Item>
+      <Item>
+        <Filename Value="fp_efl.pas"/>
+        <UnitName Value="fp_efl"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_emile.pas"/>
+        <UnitName Value="fp_emile"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

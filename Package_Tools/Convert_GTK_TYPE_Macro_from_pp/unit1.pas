@@ -143,6 +143,7 @@ const
     (libs: 'libeina'; units: 'ctypes, efl'),
     (libs: 'libeo'; units: 'ctypes, efl'),
     (libs: 'libefl'; units: 'efl, fp_eo, fp_eina'),
+    (libs: 'libemile'; units: 'efl, fp_eo, fp_eina'),
 
     (libs: ''; units: ''));
 

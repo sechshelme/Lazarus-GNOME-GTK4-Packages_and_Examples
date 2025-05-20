@@ -3,7 +3,7 @@ unit efl_canvas_object_eo;
 interface
 
 uses
-  ctypes, efl, fp_eina,fp_eo, efl_text_types_eot, efl_gfx_types_eot, Evas_Common, efl_input_types_eot;
+  ctypes, efl, fp_eina,fp_eo, fp_efl, Evas_Common, efl_input_types_eot;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

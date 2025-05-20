@@ -79,6 +79,4 @@
 {$include eina-1/eina/eina_sha.inc}                                           // io.
 {$include eina-1/eina/eina_value_util.inc}                                    // io.
 
-//{$include chafa/chafa_common.inc}             // io.
-//{$include chafa/chafa_version_macros.inc}     // io.
 

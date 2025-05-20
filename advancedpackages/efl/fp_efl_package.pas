@@ -8,7 +8,7 @@ unit fp_efl_package;
 interface
 
 uses
-  fp_eina, efl, fp_eo, LazarusPackageIntf;
+  fp_eina, efl, fp_eo, fp_efl, fp_emile, LazarusPackageIntf;
 
 implementation
 
