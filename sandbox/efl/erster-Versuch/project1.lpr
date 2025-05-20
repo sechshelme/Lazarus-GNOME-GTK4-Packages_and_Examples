@@ -53,9 +53,12 @@ uses
   efl_gfx_gradient_eo,                                 // io. -> efl_gfx_types_eot
   efl_gfx_gradient_linear_eo,                          // io.
   efl_text_font_properties_eo,                         // io. -> efl_gfx_types_eot
+  efl_text_eo,                                         // io.
   efl_text_style_eo,                                   // io.
   efl_text_types_eot,                                  // io.
   efl_text_format_eo,                                  // io.
+  efl_text_markup_eo,                                  // io.
+  efl_text_markup_util_eo,                             // io.
   efl_input_text_entity_eo,                            // io.
   efl_ui_drag_types_eot,                               // io.
   efl_ui_drag_eo,                                      // io. -> efl_ui_drag_types_eot
@@ -70,24 +73,39 @@ uses
   efl_ui_property_bind_eo,                             // io.
   efl_ui_range_interactive_eo,                         // io.
   efl_ui_draggable_eo,                                 // io.
+  efl_ui_factory_bind_eo,                              // io.
+  efl_ui_container_selectable_eo,                      // io.
+  efl_ui_layout_orientable_readonly_eo,                // io.
+  efl_ui_view_eo,                                      // io. -> efl_model_eo
+  efl_ui_view_factory_eo,                              // io. -> efl_ui_factory_eo
   efl_pack_linear_eo,                                  // io. -> efl_gfx_entity_eo
   efl_pack_table_eo,                                   // io. -> efl_gfx_entity_eo
   efl_pack_eo,                                         // io. -> efl_gfx_entity_eo
+  efl_pack_layout_eo,                                  // io.
   efl_content_eo,                                      // io. -> efl_gfx_entity_eo
   efl_io_buffer_eo,                                    // io.
   efl_io_queue_eo,                                     // io.
   efl_io_closer_eo,                                    // io.
   efl_io_reader_eo,                                    // io.
   efl_io_writer_eo,                                    // io.
+  efl_io_sizer_eo,                                     // io.
   efl_io_positioner_eo,                                // io.
   efl_player_eo,                                       // io.
+  efl_file,                                            // io.
   efl_file_eo,                                         // io.
   efl_file_save_eo,                                    // io.
   efl_audio_control_eo,                                // io.
   efl_screen_eo,                                       // io.
-
-
-
+  efl_container_eo,                                    // io.
+  efl_control_eo,                                      // io.
+  efl_interpolator_eo,                                 // io.
+  efl_part_eo,                                         // io.
+  efl_cached_item_eo,                                  // io.
+  efl_duplicate_eo,                                    // io.
+  efl_model_provider_eo,                               // io.
+  efl_observer_eo,                                     // io.
+  efl_playable_eo,                                     // io.
+  efl_types_eot,                                       // io.
 
 
   // =======================================
