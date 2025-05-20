@@ -67,7 +67,7 @@ extern  const Efl_Class *efl_ui_factory_interface_get(void) ;
  *
  * @ingroup Efl_Ui_Factory
  */
-extern  Eina_Future *efl_ui_factory_create(Eo *obj, Eina_Iterator *models EFL_TRANSFER_OWNERSHIP) EFL_TRANSFER_OWNERSHIP ;
+extern  Eina_Future *efl_ui_factory_create(Eo *obj, Eina_Iterator *models )  ;
 #endif
 
 /**
@@ -80,9 +80,9 @@ extern  Eina_Future *efl_ui_factory_create(Eo *obj, Eina_Iterator *models EFL_TR
  *
  * @ingroup Efl_Ui_Factory
  */
-extern  void efl_ui_factory_release(Eo *obj, Eina_Iterator *ui_views EFL_TRANSFER_OWNERSHIP);
+extern  void efl_ui_factory_release(Eo *obj, Eina_Iterator *ui_views );
 
-extern  extern const Efl_Event_Description _EFL_UI_FACTORY_EVENT_ITEM_CONSTRUCTING;
+extern const Efl_Event_Description _EFL_UI_FACTORY_EVENT_ITEM_CONSTRUCTING;
 
 /** Event emitted when an item is under construction (between the
  * @ref efl_constructor and @ref efl_finalize call on the item). Note: If the
@@ -94,9 +94,8 @@ extern  extern const Efl_Event_Description _EFL_UI_FACTORY_EVENT_ITEM_CONSTRUCTI
  *
  * @ingroup Efl_Ui_Factory
  */
-#define EFL_UI_FACTORY_EVENT_ITEM_CONSTRUCTING (&(_EFL_UI_FACTORY_EVENT_ITEM_CONSTRUCTING))
 
-extern  extern const Efl_Event_Description _EFL_UI_FACTORY_EVENT_ITEM_BUILDING;
+extern const Efl_Event_Description _EFL_UI_FACTORY_EVENT_ITEM_BUILDING;
 
 /** Event emitted when an item has processed @ref efl_finalize, but before all
  * the factory are done building it. Note: If the @ref Efl_Ui_Factory keeps a
@@ -108,9 +107,8 @@ extern  extern const Efl_Event_Description _EFL_UI_FACTORY_EVENT_ITEM_BUILDING;
  *
  * @ingroup Efl_Ui_Factory
  */
-#define EFL_UI_FACTORY_EVENT_ITEM_BUILDING (&(_EFL_UI_FACTORY_EVENT_ITEM_BUILDING))
 
-extern  extern const Efl_Event_Description _EFL_UI_FACTORY_EVENT_ITEM_CREATED;
+extern const Efl_Event_Description _EFL_UI_FACTORY_EVENT_ITEM_CREATED;
 
 /** Event emitted when an item has been successfully created by the factory and
  * is about to be used by an @ref Efl_Ui_View.
@@ -120,9 +118,8 @@ extern  extern const Efl_Event_Description _EFL_UI_FACTORY_EVENT_ITEM_CREATED;
  *
  * @ingroup Efl_Ui_Factory
  */
-#define EFL_UI_FACTORY_EVENT_ITEM_CREATED (&(_EFL_UI_FACTORY_EVENT_ITEM_CREATED))
 
-extern  extern const Efl_Event_Description _EFL_UI_FACTORY_EVENT_ITEM_RELEASING;
+extern const Efl_Event_Description _EFL_UI_FACTORY_EVENT_ITEM_RELEASING;
 
 /** Event emitted when an item is being released by the @ref Efl_Ui_Factory. It
  * must be assumed that after this call, the object can be recycles to another
@@ -133,6 +130,9 @@ extern  extern const Efl_Event_Description _EFL_UI_FACTORY_EVENT_ITEM_RELEASING;
  *
  * @ingroup Efl_Ui_Factory
  */
+#define EFL_UI_FACTORY_EVENT_ITEM_CONSTRUCTING (&(_EFL_UI_FACTORY_EVENT_ITEM_CONSTRUCTING))
+#define EFL_UI_FACTORY_EVENT_ITEM_BUILDING (&(_EFL_UI_FACTORY_EVENT_ITEM_BUILDING))
+#define EFL_UI_FACTORY_EVENT_ITEM_CREATED (&(_EFL_UI_FACTORY_EVENT_ITEM_CREATED))
 #define EFL_UI_FACTORY_EVENT_ITEM_RELEASING (&(_EFL_UI_FACTORY_EVENT_ITEM_RELEASING))
 
 #endif

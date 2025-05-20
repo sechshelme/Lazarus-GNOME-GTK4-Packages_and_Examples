@@ -104,7 +104,7 @@ extern  void efl_ui_range_limits_set(Eo *obj, double min, double max);
  */
 extern  void efl_ui_range_limits_get(const Eo *obj, double *min, double *max);
 
-extern  extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_CHANGED;
+extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_CHANGED;
 
 /** Emitted when the @ref efl_ui_range_value_get is getting changed.
  *
@@ -112,9 +112,8 @@ extern  extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_CHANGED;
  *
  * @ingroup Efl_Ui_Range_Display
  */
-#define EFL_UI_RANGE_EVENT_CHANGED (&(_EFL_UI_RANGE_EVENT_CHANGED))
 
-extern  extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_MIN_REACHED;
+extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_MIN_REACHED;
 
 /** Emitted when the @ref efl_ui_range_value_get has reached the minimum of
  * @ref efl_ui_range_limits_get.
@@ -123,9 +122,8 @@ extern  extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_MIN_REACHED;
  *
  * @ingroup Efl_Ui_Range_Display
  */
-#define EFL_UI_RANGE_EVENT_MIN_REACHED (&(_EFL_UI_RANGE_EVENT_MIN_REACHED))
 
-extern  extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_MAX_REACHED;
+extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_MAX_REACHED;
 
 /** Emitted when the @c range_value has reached the maximum of
  * @ref efl_ui_range_limits_get.
@@ -134,6 +132,8 @@ extern  extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_MAX_REACHED;
  *
  * @ingroup Efl_Ui_Range_Display
  */
+#define EFL_UI_RANGE_EVENT_CHANGED (&(_EFL_UI_RANGE_EVENT_CHANGED))
+#define EFL_UI_RANGE_EVENT_MIN_REACHED (&(_EFL_UI_RANGE_EVENT_MIN_REACHED))
 #define EFL_UI_RANGE_EVENT_MAX_REACHED (&(_EFL_UI_RANGE_EVENT_MAX_REACHED))
 
 #endif

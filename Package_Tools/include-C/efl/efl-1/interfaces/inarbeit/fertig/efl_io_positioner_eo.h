@@ -73,8 +73,7 @@ extern  Eina_Bool efl_io_positioner_position_set(Eo *obj, uint64_t position);
  * @ingroup Efl_Io_Positioner
  */
 extern  uint64_t efl_io_positioner_position_get(const Eo *obj);
-
-extern  extern const Efl_Event_Description _EFL_IO_POSITIONER_EVENT_POSITION_CHANGED;
+  extern const Efl_Event_Description _EFL_IO_POSITIONER_EVENT_POSITION_CHANGED;
 
 /** Notifies position changed
  *

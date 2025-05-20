@@ -117,6 +117,7 @@ type
     a: longint;
   end;
   PEfl_Gfx_Gradient_Stop = ^TEfl_Gfx_Gradient_Stop;
+  PPEfl_Gfx_Gradient_Stop = ^PEfl_Gfx_Gradient_Stop;
 
   {$ifdef EFL_BETA_API_SUPPORT}
   TEfl_Gfx_Stroke_Color = record

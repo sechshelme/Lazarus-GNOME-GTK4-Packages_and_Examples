@@ -67,7 +67,7 @@ extern  void efl_ui_range_step_set(Eo *obj, double step);
  */
 extern  double efl_ui_range_step_get(const Eo *obj);
 
-extern  extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_STEADY;
+  extern const Efl_Event_Description _EFL_UI_RANGE_EVENT_STEADY;
 
 /** Called when the widget's value has changed and has remained unchanged for
  * 0.2s. This allows filtering out unwanted "noise" from the widget if you are

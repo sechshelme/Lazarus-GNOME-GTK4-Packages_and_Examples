@@ -1,19 +1,48 @@
-#ifndef _EFL_UI_AUTOREPEAT_EO_H_
-#define _EFL_UI_AUTOREPEAT_EO_H_
 
-#ifndef _EFL_UI_AUTOREPEAT_EO_CLASS_TYPE
-#define _EFL_UI_AUTOREPEAT_EO_CLASS_TYPE
+unit efl_ui_autorepeat_eo;
+interface
 
-typedef Eo Efl_Ui_Autorepeat;
+{
+  Automatically converted by H2Pas 1.0.0 from efl_ui_autorepeat_eo.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    efl_ui_autorepeat_eo.h
+}
 
-#endif
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
 
-#ifndef _EFL_UI_AUTOREPEAT_EO_TYPES
-#define _EFL_UI_AUTOREPEAT_EO_TYPES
+Type
+PEfl_Class  = ^Efl_Class;
+PEfl_Ui_Autorepeat  = ^Efl_Ui_Autorepeat;
+PEo  = ^Eo;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
 
 
-#endif
-/**
+{$ifndef _EFL_UI_AUTOREPEAT_EO_H_}
+{$define _EFL_UI_AUTOREPEAT_EO_H_}
+{$ifndef _EFL_UI_AUTOREPEAT_EO_CLASS_TYPE}
+{$define _EFL_UI_AUTOREPEAT_EO_CLASS_TYPE}
+type
+  PEfl_Ui_Autorepeat = ^TEfl_Ui_Autorepeat;
+  TEfl_Ui_Autorepeat = TEo;
+{$endif}
+{$ifndef _EFL_UI_AUTOREPEAT_EO_TYPES}
+{$define _EFL_UI_AUTOREPEAT_EO_TYPES}
+{$endif}
+{*
  * @brief Interface for autorepeating clicks.
  *
  * This interface abstracts functions for enabling / disabling this feature.
@@ -26,12 +55,14 @@ typedef Eo Efl_Ui_Autorepeat;
  * @since 1.23
  *
  * @ingroup Efl_Ui_Autorepeat
- */
-#define EFL_UI_AUTOREPEAT_INTERFACE efl_ui_autorepeat_interface_get()
+  }
 
-extern  const Efl_Class *efl_ui_autorepeat_interface_get(void) ;
+{ was #define dname def_expr }
+function EFL_UI_AUTOREPEAT_INTERFACE : longint; { return type might be wrong }
 
-/**
+(* Const before type ignored *)
+function efl_ui_autorepeat_interface_get:PEfl_Class;cdecl;external;
+{*
  * @brief The initial timeout before the autorepeat event is generated.
  *
  * Sets the timeout, in seconds, since the button is pressed until the first
@@ -47,10 +78,9 @@ extern  const Efl_Class *efl_ui_autorepeat_interface_get(void) ;
  * @since 1.23
  *
  * @ingroup Efl_Ui_Autorepeat
- */
-extern  void efl_ui_autorepeat_initial_timeout_set(Eo *obj, double t);
-
-/**
+  }
+procedure efl_ui_autorepeat_initial_timeout_set(obj:PEo; t:Tdouble);cdecl;external;
+{*
  * @brief The initial timeout before the autorepeat event is generated.
  *
  * Sets the timeout, in seconds, since the button is pressed until the first
@@ -67,10 +97,10 @@ extern  void efl_ui_autorepeat_initial_timeout_set(Eo *obj, double t);
  * @since 1.23
  *
  * @ingroup Efl_Ui_Autorepeat
- */
-extern  double efl_ui_autorepeat_initial_timeout_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_ui_autorepeat_initial_timeout_get(obj:PEo):Tdouble;cdecl;external;
+{*
  * @brief The interval between each generated autorepeat event.
  *
  * After the first @c repeated event is fired, all subsequent ones will follow
@@ -84,10 +114,9 @@ extern  double efl_ui_autorepeat_initial_timeout_get(const Eo *obj);
  * @since 1.23
  *
  * @ingroup Efl_Ui_Autorepeat
- */
-extern  void efl_ui_autorepeat_gap_timeout_set(Eo *obj, double t);
-
-/**
+  }
+procedure efl_ui_autorepeat_gap_timeout_set(obj:PEo; t:Tdouble);cdecl;external;
+{*
  * @brief The interval between each generated autorepeat event.
  *
  * After the first @c repeated event is fired, all subsequent ones will follow
@@ -102,10 +131,10 @@ extern  void efl_ui_autorepeat_gap_timeout_set(Eo *obj, double t);
  * @since 1.23
  *
  * @ingroup Efl_Ui_Autorepeat
- */
-extern  double efl_ui_autorepeat_gap_timeout_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_ui_autorepeat_gap_timeout_get(obj:PEo):Tdouble;cdecl;external;
+{*
  * @brief Turn on/off the autorepeat event generated when a button is kept
  * pressed.
  *
@@ -118,10 +147,9 @@ extern  double efl_ui_autorepeat_gap_timeout_get(const Eo *obj);
  * @since 1.23
  *
  * @ingroup Efl_Ui_Autorepeat
- */
-extern  void efl_ui_autorepeat_enabled_set(Eo *obj, Eina_Bool on);
-
-/**
+  }
+procedure efl_ui_autorepeat_enabled_set(obj:PEo; on:TEina_Bool);cdecl;external;
+{*
  * @brief Turn on/off the autorepeat event generated when a button is kept
  * pressed.
  *
@@ -135,17 +163,37 @@ extern  void efl_ui_autorepeat_enabled_set(Eo *obj, Eina_Bool on);
  * @since 1.23
  *
  * @ingroup Efl_Ui_Autorepeat
- */
-extern  Eina_Bool efl_ui_autorepeat_enabled_get(const Eo *obj);
-
-extern  extern const Efl_Event_Description _EFL_UI_AUTOREPEAT_EVENT_REPEATED;
-
-/** Called when a repeated event is emitted
+  }
+(* Const before type ignored *)
+function efl_ui_autorepeat_enabled_get(obj:PEo):TEina_Bool;cdecl;external;
+(* Const before type ignored *)
+  var
+    _EFL_UI_AUTOREPEAT_EVENT_REPEATED : TEfl_Event_Description;cvar;external;
+{* Called when a repeated event is emitted
  *
  * @since 1.23
  *
  * @ingroup Efl_Ui_Autorepeat
- */
-#define EFL_UI_AUTOREPEAT_EVENT_REPEATED (&(_EFL_UI_AUTOREPEAT_EVENT_REPEATED))
+  }
 
-#endif
+{ was #define dname def_expr }
+function EFL_UI_AUTOREPEAT_EVENT_REPEATED : longint; { return type might be wrong }
+
+{$endif}
+
+implementation
+
+{ was #define dname def_expr }
+function EFL_UI_AUTOREPEAT_INTERFACE : longint; { return type might be wrong }
+  begin
+    EFL_UI_AUTOREPEAT_INTERFACE:=efl_ui_autorepeat_interface_get;
+  end;
+
+{ was #define dname def_expr }
+function EFL_UI_AUTOREPEAT_EVENT_REPEATED : longint; { return type might be wrong }
+  begin
+    EFL_UI_AUTOREPEAT_EVENT_REPEATED:=@(_EFL_UI_AUTOREPEAT_EVENT_REPEATED);
+  end;
+
+
+end.

@@ -54,8 +54,7 @@ extern  const Efl_Class *efl_ui_property_bind_interface_get(void) ;
  * @ingroup Efl_Ui_Property_Bind
  */
 extern  Eina_Error efl_ui_property_bind(Eo *obj, const char *key, const char *property);
-
-extern  extern const Efl_Event_Description _EFL_UI_PROPERTY_BIND_EVENT_PROPERTIES_CHANGED;
+ extern const Efl_Event_Description _EFL_UI_PROPERTY_BIND_EVENT_PROPERTIES_CHANGED;
 
 /** Event dispatched when a property on the object has changed due to a user
  * interaction on the object that a model could be interested in.
@@ -65,9 +64,9 @@ extern  extern const Efl_Event_Description _EFL_UI_PROPERTY_BIND_EVENT_PROPERTIE
  *
  * @ingroup Efl_Ui_Property_Bind
  */
-#define EFL_UI_PROPERTY_BIND_EVENT_PROPERTIES_CHANGED (&(_EFL_UI_PROPERTY_BIND_EVENT_PROPERTIES_CHANGED))
 
-extern  extern const Efl_Event_Description _EFL_UI_PROPERTY_BIND_EVENT_PROPERTY_BOUND;
+ extern const Efl_Event_Description _EFL_UI_PROPERTY_BIND_EVENT_PROPERTY_BOUND;
+#define EFL_UI_PROPERTY_BIND_EVENT_PROPERTIES_CHANGED (&(_EFL_UI_PROPERTY_BIND_EVENT_PROPERTIES_CHANGED))
 
 /** Event dispatched when a property on the object is bound to a model. This is
  * useful to avoid generating too many events.

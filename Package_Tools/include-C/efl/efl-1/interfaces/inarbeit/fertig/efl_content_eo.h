@@ -77,7 +77,7 @@ extern  Efl_Gfx_Entity *efl_content_get(const Eo *obj);
  */
 extern  Efl_Gfx_Entity *efl_content_unset(Eo *obj);
 
-extern  extern const Efl_Event_Description _EFL_CONTENT_EVENT_CONTENT_CHANGED;
+  extern const Efl_Event_Description _EFL_CONTENT_EVENT_CONTENT_CHANGED;
 
 /** Sent after the content is set or unset using the current content object.
  * @return Efl_Gfx_Entity *

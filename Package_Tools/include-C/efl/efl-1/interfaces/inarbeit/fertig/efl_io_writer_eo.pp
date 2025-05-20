@@ -1,19 +1,49 @@
-#ifndef _EFL_IO_WRITER_EO_H_
-#define _EFL_IO_WRITER_EO_H_
 
-#ifndef _EFL_IO_WRITER_EO_CLASS_TYPE
-#define _EFL_IO_WRITER_EO_CLASS_TYPE
+unit efl_io_writer_eo;
+interface
 
-typedef Eo Efl_Io_Writer;
+{
+  Automatically converted by H2Pas 1.0.0 from efl_io_writer_eo.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    efl_io_writer_eo.h
+}
 
-#endif
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
 
-#ifndef _EFL_IO_WRITER_EO_TYPES
-#define _EFL_IO_WRITER_EO_TYPES
+Type
+PEfl_Class  = ^Efl_Class;
+PEfl_Io_Writer  = ^Efl_Io_Writer;
+PEina_Slice  = ^Eina_Slice;
+PEo  = ^Eo;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
 
 
-#endif
-/**
+{$ifndef _EFL_IO_WRITER_EO_H_}
+{$define _EFL_IO_WRITER_EO_H_}
+{$ifndef _EFL_IO_WRITER_EO_CLASS_TYPE}
+{$define _EFL_IO_WRITER_EO_CLASS_TYPE}
+type
+  PEfl_Io_Writer = ^TEfl_Io_Writer;
+  TEfl_Io_Writer = TEo;
+{$endif}
+{$ifndef _EFL_IO_WRITER_EO_TYPES}
+{$define _EFL_IO_WRITER_EO_TYPES}
+{$endif}
+{*
  * @brief Generic interface for objects that can write data from a provided
  * memory.
  *
@@ -29,12 +59,14 @@ typedef Eo Efl_Io_Writer;
  * @since 1.22
  *
  * @ingroup Efl_Io_Writer
- */
-#define EFL_IO_WRITER_INTERFACE efl_io_writer_interface_get()
+  }
 
-extern  const Efl_Class *efl_io_writer_interface_get(void) ;
+{ was #define dname def_expr }
+function EFL_IO_WRITER_INTERFACE : longint; { return type might be wrong }
 
-/**
+(* Const before type ignored *)
+function efl_io_writer_interface_get:PEfl_Class;cdecl;external;
+{*
  * @brief Writes data from a pre-populated buffer.
  *
  * This operation will be executed immediately and may or may not block the
@@ -57,11 +89,10 @@ extern  const Efl_Class *efl_io_writer_interface_get(void) ;
  * @since 1.22
  *
  * @ingroup Efl_Io_Writer
- */
-extern  Eina_Error efl_io_writer_write(Eo *obj, Eina_Slice *slice, Eina_Slice *remaining);
-
-#ifdef EFL_IO_WRITER_PROTECTED
-/**
+  }
+function efl_io_writer_write(obj:PEo; slice:PEina_Slice; remaining:PEina_Slice):TEina_Error;cdecl;external;
+{$ifdef EFL_IO_WRITER_PROTECTED}
+{*
  * @brief If @c true will notify @ref efl_io_writer_write can be called without
  * blocking or failing.
  *
@@ -72,11 +103,10 @@ extern  Eina_Error efl_io_writer_write(Eo *obj, Eina_Slice *slice, Eina_Slice *r
  * @since 1.22
  *
  * @ingroup Efl_Io_Writer
- */
-extern  void efl_io_writer_can_write_set(Eo *obj, Eina_Bool can_write);
-#endif
-
-/**
+  }
+procedure efl_io_writer_can_write_set(obj:PEo; can_write:TEina_Bool);cdecl;external;
+{$endif}
+{*
  * @brief If @c true will notify @ref efl_io_writer_write can be called without
  * blocking or failing.
  *
@@ -88,12 +118,14 @@ extern  void efl_io_writer_can_write_set(Eo *obj, Eina_Bool can_write);
  * @since 1.22
  *
  * @ingroup Efl_Io_Writer
- */
-extern  Eina_Bool efl_io_writer_can_write_get(const Eo *obj);
+  }
+(* Const before type ignored *)
 
-extern  extern const Efl_Event_Description _EFL_IO_WRITER_EVENT_CAN_WRITE_CHANGED;
-
-/**
+function efl_io_writer_can_write_get(obj:PEo):TEina_Bool;cdecl;external;
+(* Const before type ignored *)
+  var
+    _EFL_IO_WRITER_EVENT_CAN_WRITE_CHANGED : TEfl_Event_Description;cvar;external;
+{*
  * @brief Notifies can_write property changed.
  *
  * If @ref efl_io_writer_can_write_get is @c true there is data to
@@ -109,7 +141,26 @@ extern  extern const Efl_Event_Description _EFL_IO_WRITER_EVENT_CAN_WRITE_CHANGE
  * @since 1.22
  *
  * @ingroup Efl_Io_Writer
- */
-#define EFL_IO_WRITER_EVENT_CAN_WRITE_CHANGED (&(_EFL_IO_WRITER_EVENT_CAN_WRITE_CHANGED))
+  }
 
-#endif
+{ was #define dname def_expr }
+function EFL_IO_WRITER_EVENT_CAN_WRITE_CHANGED : longint; { return type might be wrong }
+
+{$endif}
+
+implementation
+
+{ was #define dname def_expr }
+function EFL_IO_WRITER_INTERFACE : longint; { return type might be wrong }
+  begin
+    EFL_IO_WRITER_INTERFACE:=efl_io_writer_interface_get;
+  end;
+
+{ was #define dname def_expr }
+function EFL_IO_WRITER_EVENT_CAN_WRITE_CHANGED : longint; { return type might be wrong }
+  begin
+    EFL_IO_WRITER_EVENT_CAN_WRITE_CHANGED:=@(_EFL_IO_WRITER_EVENT_CAN_WRITE_CHANGED);
+  end;
+
+
+end.

@@ -1,19 +1,48 @@
-#ifndef _EFL_IO_CLOSER_EO_H_
-#define _EFL_IO_CLOSER_EO_H_
 
-#ifndef _EFL_IO_CLOSER_EO_CLASS_TYPE
-#define _EFL_IO_CLOSER_EO_CLASS_TYPE
+unit efl_io_closer_eo;
+interface
 
-typedef Eo Efl_Io_Closer;
+{
+  Automatically converted by H2Pas 1.0.0 from efl_io_closer_eo.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    efl_io_closer_eo.h
+}
 
-#endif
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
 
-#ifndef _EFL_IO_CLOSER_EO_TYPES
-#define _EFL_IO_CLOSER_EO_TYPES
+Type
+PEfl_Class  = ^Efl_Class;
+PEfl_Io_Closer  = ^Efl_Io_Closer;
+PEo  = ^Eo;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
 
 
-#endif
-/**
+{$ifndef _EFL_IO_CLOSER_EO_H_}
+{$define _EFL_IO_CLOSER_EO_H_}
+{$ifndef _EFL_IO_CLOSER_EO_CLASS_TYPE}
+{$define _EFL_IO_CLOSER_EO_CLASS_TYPE}
+type
+  PEfl_Io_Closer = ^TEfl_Io_Closer;
+  TEfl_Io_Closer = TEo;
+{$endif}
+{$ifndef _EFL_IO_CLOSER_EO_TYPES}
+{$define _EFL_IO_CLOSER_EO_TYPES}
+{$endif}
+{*
  * @brief Generic interface for objects that can close themselves.
  *
  * This interface allows external objects to transparently close an input or
@@ -25,12 +54,14 @@ typedef Eo Efl_Io_Closer;
  * @since 1.22
  *
  * @ingroup Efl_Io_Closer
- */
-#define EFL_IO_CLOSER_INTERFACE efl_io_closer_interface_get()
+  }
 
-extern  const Efl_Class *efl_io_closer_interface_get(void) ;
+{ was #define dname def_expr }
+function EFL_IO_CLOSER_INTERFACE : longint; { return type might be wrong }
 
-/**
+(* Const before type ignored *)
+function efl_io_closer_interface_get:PEfl_Class;cdecl;external;
+{*
  * @brief Closes the Input/Output object.
  *
  * This operation will be executed immediately and may or may not block the
@@ -47,10 +78,9 @@ extern  const Efl_Class *efl_io_closer_interface_get(void) ;
  * @since 1.22
  *
  * @ingroup Efl_Io_Closer
- */
-extern  Eina_Error efl_io_closer_close(Eo *obj);
-
-/**
+  }
+function efl_io_closer_close(obj:PEo):TEina_Error;cdecl;external;
+{*
  * @brief If true will notify object was closed.
  *
  * @param[in] obj The object.
@@ -60,10 +90,10 @@ extern  Eina_Error efl_io_closer_close(Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Io_Closer
- */
-extern  Eina_Bool efl_io_closer_closed_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_io_closer_closed_get(obj:PEo):TEina_Bool;cdecl;external;
+{*
  * @brief If true will automatically close resources on exec() calls.
  *
  * When using file descriptors this should set FD_CLOEXEC so they are not
@@ -79,10 +109,9 @@ extern  Eina_Bool efl_io_closer_closed_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Io_Closer
- */
-extern  Eina_Bool efl_io_closer_close_on_exec_set(Eo *obj, Eina_Bool close_on_exec);
-
-/**
+  }
+function efl_io_closer_close_on_exec_set(obj:PEo; close_on_exec:TEina_Bool):TEina_Bool;cdecl;external;
+{*
  * @brief If true will automatically close resources on exec() calls.
  *
  * When using file descriptors this should set FD_CLOEXEC so they are not
@@ -95,10 +124,10 @@ extern  Eina_Bool efl_io_closer_close_on_exec_set(Eo *obj, Eina_Bool close_on_ex
  * @since 1.22
  *
  * @ingroup Efl_Io_Closer
- */
-extern  Eina_Bool efl_io_closer_close_on_exec_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_io_closer_close_on_exec_get(obj:PEo):TEina_Bool;cdecl;external;
+{*
  * @brief If true will automatically close() on object invalidate.
  *
  * If the object was disconnected from its parent (including the main loop)
@@ -111,10 +140,9 @@ extern  Eina_Bool efl_io_closer_close_on_exec_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Io_Closer
- */
-extern  void efl_io_closer_close_on_invalidate_set(Eo *obj, Eina_Bool close_on_invalidate);
-
-/**
+  }
+procedure efl_io_closer_close_on_invalidate_set(obj:PEo; close_on_invalidate:TEina_Bool);cdecl;external;
+{*
  * @brief If true will automatically close() on object invalidate.
  *
  * If the object was disconnected from its parent (including the main loop)
@@ -127,17 +155,37 @@ extern  void efl_io_closer_close_on_invalidate_set(Eo *obj, Eina_Bool close_on_i
  * @since 1.22
  *
  * @ingroup Efl_Io_Closer
- */
-extern  Eina_Bool efl_io_closer_close_on_invalidate_get(const Eo *obj);
-
-extern  extern const Efl_Event_Description _EFL_IO_CLOSER_EVENT_CLOSED;
-
-/** Notifies closed, when property is marked as true
+  }
+(* Const before type ignored *)
+function efl_io_closer_close_on_invalidate_get(obj:PEo):TEina_Bool;cdecl;external;
+(* Const before type ignored *)
+  var
+    _EFL_IO_CLOSER_EVENT_CLOSED : TEfl_Event_Description;cvar;external;
+{* Notifies closed, when property is marked as true
  *
  * @since 1.22
  *
  * @ingroup Efl_Io_Closer
- */
-#define EFL_IO_CLOSER_EVENT_CLOSED (&(_EFL_IO_CLOSER_EVENT_CLOSED))
+  }
 
-#endif
+{ was #define dname def_expr }
+function EFL_IO_CLOSER_EVENT_CLOSED : longint; { return type might be wrong }
+
+{$endif}
+
+implementation
+
+{ was #define dname def_expr }
+function EFL_IO_CLOSER_INTERFACE : longint; { return type might be wrong }
+  begin
+    EFL_IO_CLOSER_INTERFACE:=efl_io_closer_interface_get;
+  end;
+
+{ was #define dname def_expr }
+function EFL_IO_CLOSER_EVENT_CLOSED : longint; { return type might be wrong }
+  begin
+    EFL_IO_CLOSER_EVENT_CLOSED:=@(_EFL_IO_CLOSER_EVENT_CLOSED);
+  end;
+
+
+end.

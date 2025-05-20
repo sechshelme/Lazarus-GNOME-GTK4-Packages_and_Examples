@@ -1,19 +1,49 @@
-#ifndef _EFL_IO_READER_EO_H_
-#define _EFL_IO_READER_EO_H_
 
-#ifndef _EFL_IO_READER_EO_CLASS_TYPE
-#define _EFL_IO_READER_EO_CLASS_TYPE
+unit efl_io_reader_eo;
+interface
 
-typedef Eo Efl_Io_Reader;
+{
+  Automatically converted by H2Pas 1.0.0 from efl_io_reader_eo.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    efl_io_reader_eo.h
+}
 
-#endif
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
 
-#ifndef _EFL_IO_READER_EO_TYPES
-#define _EFL_IO_READER_EO_TYPES
+Type
+PEfl_Class  = ^Efl_Class;
+PEfl_Io_Reader  = ^Efl_Io_Reader;
+PEina_Rw_Slice  = ^Eina_Rw_Slice;
+PEo  = ^Eo;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
 
 
-#endif
-/**
+{$ifndef _EFL_IO_READER_EO_H_}
+{$define _EFL_IO_READER_EO_H_}
+{$ifndef _EFL_IO_READER_EO_CLASS_TYPE}
+{$define _EFL_IO_READER_EO_CLASS_TYPE}
+type
+  PEfl_Io_Reader = ^TEfl_Io_Reader;
+  TEfl_Io_Reader = TEo;
+{$endif}
+{$ifndef _EFL_IO_READER_EO_TYPES}
+{$define _EFL_IO_READER_EO_TYPES}
+{$endif}
+{*
  * @brief Generic interface for objects that can read data into a provided
  * memory.
  *
@@ -29,12 +59,14 @@ typedef Eo Efl_Io_Reader;
  * @since 1.22
  *
  * @ingroup Efl_Io_Reader
- */
-#define EFL_IO_READER_INTERFACE efl_io_reader_interface_get()
+  }
 
-extern  const Efl_Class *efl_io_reader_interface_get(void) ;
+{ was #define dname def_expr }
+function EFL_IO_READER_INTERFACE : longint; { return type might be wrong }
 
-/**
+(* Const before type ignored *)
+function efl_io_reader_interface_get:PEfl_Class;cdecl;external;
+{*
  * @brief Reads data into a pre-allocated buffer.
  *
  * This operation will be executed immediately and may or may not block the
@@ -54,11 +86,10 @@ extern  const Efl_Class *efl_io_reader_interface_get(void) ;
  * @since 1.22
  *
  * @ingroup Efl_Io_Reader
- */
-extern  Eina_Error efl_io_reader_read(Eo *obj, Eina_Rw_Slice *rw_slice);
-
-#ifdef EFL_IO_READER_PROTECTED
-/**
+  }
+function efl_io_reader_read(obj:PEo; rw_slice:PEina_Rw_Slice):TEina_Error;cdecl;external;
+{$ifdef EFL_IO_READER_PROTECTED}
+{*
  * @brief If @c true will notify @ref efl_io_reader_read can be called without
  * blocking or failing.
  *
@@ -69,11 +100,10 @@ extern  Eina_Error efl_io_reader_read(Eo *obj, Eina_Rw_Slice *rw_slice);
  * @since 1.22
  *
  * @ingroup Efl_Io_Reader
- */
-extern  void efl_io_reader_can_read_set(Eo *obj, Eina_Bool can_read);
-#endif
-
-/**
+  }
+procedure efl_io_reader_can_read_set(obj:PEo; can_read:TEina_Bool);cdecl;external;
+{$endif}
+{*
  * @brief If @c true will notify @ref efl_io_reader_read can be called without
  * blocking or failing.
  *
@@ -85,11 +115,12 @@ extern  void efl_io_reader_can_read_set(Eo *obj, Eina_Bool can_read);
  * @since 1.22
  *
  * @ingroup Efl_Io_Reader
- */
-extern  Eina_Bool efl_io_reader_can_read_get(const Eo *obj);
+  }
+(* Const before type ignored *)
 
-#ifdef EFL_IO_READER_PROTECTED
-/**
+function efl_io_reader_can_read_get(obj:PEo):TEina_Bool;cdecl;external;
+{$ifdef EFL_IO_READER_PROTECTED}
+{*
  * @brief If @c true will notify end of stream.
  *
  * @param[in] obj The object.
@@ -98,11 +129,10 @@ extern  Eina_Bool efl_io_reader_can_read_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Io_Reader
- */
-extern  void efl_io_reader_eos_set(Eo *obj, Eina_Bool is_eos);
-#endif
-
-/**
+  }
+procedure efl_io_reader_eos_set(obj:PEo; is_eos:TEina_Bool);cdecl;external;
+{$endif}
+{*
  * @brief If @c true will notify end of stream.
  *
  * @param[in] obj The object.
@@ -112,12 +142,14 @@ extern  void efl_io_reader_eos_set(Eo *obj, Eina_Bool is_eos);
  * @since 1.22
  *
  * @ingroup Efl_Io_Reader
- */
-extern  Eina_Bool efl_io_reader_eos_get(const Eo *obj);
+  }
+(* Const before type ignored *)
 
-extern  extern const Efl_Event_Description _EFL_IO_READER_EVENT_CAN_READ_CHANGED;
-
-/**
+function efl_io_reader_eos_get(obj:PEo):TEina_Bool;cdecl;external;
+(* Const before type ignored *)
+  var
+    _EFL_IO_READER_EVENT_CAN_READ_CHANGED : TEfl_Event_Description;cvar;external;
+{*
  * @brief Notifies can_read property changed.
  *
  * If @ref efl_io_reader_can_read_get is @c true there is data to
@@ -133,12 +165,14 @@ extern  extern const Efl_Event_Description _EFL_IO_READER_EVENT_CAN_READ_CHANGED
  * @since 1.22
  *
  * @ingroup Efl_Io_Reader
- */
-#define EFL_IO_READER_EVENT_CAN_READ_CHANGED (&(_EFL_IO_READER_EVENT_CAN_READ_CHANGED))
+  }
+(* Const before type ignored *)
+    _EFL_IO_READER_EVENT_EOS : TEfl_Event_Description;cvar;external;
 
-extern  extern const Efl_Event_Description _EFL_IO_READER_EVENT_EOS;
+{ was #define dname def_expr }
+function EFL_IO_READER_EVENT_CAN_READ_CHANGED : longint; { return type might be wrong }
 
-/**
+{*
  * @brief Notifies end of stream, when property is marked as true.
  *
  * If this is used alongside with an @ref Efl_Io_Closer, then it should be
@@ -153,7 +187,31 @@ extern  extern const Efl_Event_Description _EFL_IO_READER_EVENT_EOS;
  * @since 1.22
  *
  * @ingroup Efl_Io_Reader
- */
-#define EFL_IO_READER_EVENT_EOS (&(_EFL_IO_READER_EVENT_EOS))
+  }
+{ was #define dname def_expr }
+function EFL_IO_READER_EVENT_EOS : longint; { return type might be wrong }
 
-#endif
+{$endif}
+
+implementation
+
+{ was #define dname def_expr }
+function EFL_IO_READER_INTERFACE : longint; { return type might be wrong }
+  begin
+    EFL_IO_READER_INTERFACE:=efl_io_reader_interface_get;
+  end;
+
+{ was #define dname def_expr }
+function EFL_IO_READER_EVENT_CAN_READ_CHANGED : longint; { return type might be wrong }
+  begin
+    EFL_IO_READER_EVENT_CAN_READ_CHANGED:=@(_EFL_IO_READER_EVENT_CAN_READ_CHANGED);
+  end;
+
+{ was #define dname def_expr }
+function EFL_IO_READER_EVENT_EOS : longint; { return type might be wrong }
+  begin
+    EFL_IO_READER_EVENT_EOS:=@(_EFL_IO_READER_EVENT_EOS);
+  end;
+
+
+end.
