@@ -33,6 +33,10 @@
         <Filename Value="fp_emile.pas"/>
         <UnitName Value="fp_emile"/>
       </Item>
+      <Item>
+        <Filename Value="fp_evas.pas"/>
+        <UnitName Value="fp_evas"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

@@ -9,6 +9,8 @@ program project1;
 
 // array of const !!
 
+// Bei eina *.x behandeln
+
 
 uses
   efl,
@@ -16,117 +18,12 @@ uses
   fp_efl,
   fp_eo,
   fp_emile,
-
-
+  fp_evas,
 
   // =======================================
 
 
-  // evas-1/canvas
-  efl_canvas_vg_node_eo_legacy,                       // io.
-  efl_canvas_vg_node_eo,                              // io.
-  efl_canvas_vg_container_eo_legacy,                  // io. -> efl_canvas_vg_node_eo_legacy
-  efl_canvas_vg_shape_eo_legacy,                      // io. -> efl_canvas_vg_node_eo_legacy
-  efl_canvas_vg_shape_eo,                             // io. -> efl_canvas_vg_node_eo
-  efl_canvas_vg_gradient_eo_legacy,                   // io.
 
-  // evas-1
-  Efl_Canvas,                                         // io.  ( evtl. löschen )
-  Evas,                                               // io.  ( evtl. löschen )
-  Evas_Loader,                                        // io.
-  Evas_Common,                                        // io. -> Evas_Loader
-  Evas_Legacy,                                        // io. -> Evas_Common, Evas_Loader, efl_canvas_vg_container_eo_legacy, efl_canvas_vg_shape_eo_legacy, efl_canvas_vg_node_eo_legacy,efl_canvas_vg_gradient_eo_legacy;
-  Evas_GL,                                            // io. -> Evas_Common, Evas_Legacy ( Viele doppelte Conste entfernt )
-
-  // evas-1/canvas
-  Evas_Engine_Buffer,                                 // io.
-  Evas_Eo,                                            // io.
-  efl_canvas_vg_object_eo_legacy,                     // io. -> Evas_Common, efl_canvas_vg_node_eo_legacy
-  efl_canvas_vg_object_eo,                            // io. -> efl_canvas_vg_node_eo
-  efl_canvas_vg_container_eo,                         // io. -> efl_canvas_vg_node_eo
-  efl_canvas_vg_image_eo,                             // io.
-  efl_canvas_vg_gradient_eo,                          // io.
-  efl_canvas_vg_gradient_linear_eo,                   // io.
-  efl_canvas_vg_gradient_radial_eo,                   // io.
-  efl_gfx_vg_value_provider_eo,                       // io.
-  efl_input_types_eot,                                // io.
-  efl_input_pointer_eo,                               // io. -> efl_input_types_eot
-  efl_input_event_eo,                                 // io. -> Evas_Common, efl_input_types_eot
-  efl_input_state_eo,                                 // io. -> Evas_Common, efl_input_types_eot
-  efl_input_interface_eo,                             // io.
-  efl_input_key_eo,                                   // io.
-  efl_input_clickable_eo,                             // io.
-  efl_input_device_eo,                                // io.
-  efl_input_focus_eo,                                 // io.
-  efl_input_hold_eo,                                  // io.
-  efl_gfx_mapping_eo,                                 // io.
-  efl_text_cursor_object_eo,                          // io. -> Evas_Common
-  efl_text_formatter_eo,                              // io. -> efl_text_cursor_object_eo
-  efl_canvas_textblock_eo_legacy,                     // io. -> Evas_Common
-  efl_canvas_textblock_eo,                            // io. -> Evas_Common, efl_text_cursor_object_eo
-  efl_canvas_textblock_factory_eo,                    // io. -> Evas_Common
-  efl_canvas_animation_types_eot,                     // io.
-  efl_canvas_animation_eo,                            // io. -> Evas_Common, efl_canvas_animation_types_eot
-  efl_canvas_group_animation_eo,                      // io. -> efl_canvas_animation_eo
-  efl_canvas_object_animation_eo,                     // io. -> efl_canvas_animation_eo
-  efl_canvas_scene_eo,                                // io. -> Evas_Common
-  efl_canvas_object_eo,                               // io. -> Evas_Common, efl_input_types_eot
-  efl_canvas_object_eo_legacy,                        // io. -> Evas_Common
-  efl_canvas_group_eo_legacy,                         // io.
-  efl_canvas_group_eo,                                // io. -> Evas_Common
-  efl_canvas_filter_internal_eo,                      // io.
-  efl_canvas_proxy_eo,                                // io. -> Evas_Common
-  efl_canvas_rotate_animation_eo,                     // io. -> Evas_Common
-  efl_canvas_scale_animation_eo,                      // io. -> Evas_Common
-  efl_canvas_alpha_animation_eo,                      // io.
-  efl_canvas_event_grabber_eo_legacy,                 // io.
-  efl_canvas_event_grabber_eo,                        // io.
-  efl_canvas_pointer_eo,                              // io. -> Evas_Common
-  efl_canvas_translate_animation_eo,                  // io.
-  efl_canvas_parallel_group_animation_eo,             // io.
-  efl_canvas_polygon_eo,                              // io.
-  efl_canvas_sequential_group_animation_eo,           // io.
-  efl_canvas_snapshot_eo,                             // io.
-  efl_canvas_image_eo,                                // io.
-  efl_canvas_image_internal_eo,                       // io.
-  efl_canvas_rectangle_eo,                            // io.
-  evas_canvas_eo_legacy,                              // io. -> Evas_Common
-  evas_ector_software_buffer_eo,                      // io.        ( record zerkleinert )
-  evas_text_eo_legacy,                                // io. -> Evas_Legacy
-  evas_textblock_legacy,                              // io. -> Evas_Common
-  evas_textgrid_eo_legacy,                            // io. -> Evas_Common
-  evas_box_eo_legacy,                                 // io. -> Evas_Common
-  evas_table_eo_legacy,                               // io. -> Evas_Common
-  evas_grid_eo_legacy,                                // io. -> Evas_Common
-  evas_image_eo_legacy,                               // io.
-  evas_line_eo_legacy,                                // io.
-
-  // evas-1/gesture
-  efl_canvas_gesture_types_eot,                       // io. -> efl_input_types_eot
-  efl_canvas_gesture_custom_eo,                       // io.
-  efl_canvas_gesture_eo,                              // io. -> efl_canvas_gesture_types_eot
-  efl_canvas_gesture_events_eo,                       // io.
-  efl_canvas_gesture_flick_eo,                        // io.
-  efl_canvas_gesture_recognizer_custom_eo,            // io.
-  efl_canvas_gesture_touch_eo,                        // io. -> efl_input_pointer_eo, efl_canvas_gesture_types_eot
-  efl_canvas_gesture_recognizer_eo,                   // io. -> efl_canvas_gesture_eo, efl_canvas_gesture_touch_eo, efl_canvas_gesture_types_eot, efl_canvas_gesture_recognizer_custom_eo
-  efl_canvas_gesture_manager_eo,                      // io. -> Evas_Common, efl_canvas_gesture_recognizer_eo
-  efl_canvas_gesture_momentum_eo,                     // io.
-  efl_canvas_gesture_rotate_eo,                       // io.
-  efl_canvas_gesture_zoom_eo,                         // io.
-
-  efl_canvas_gesture_double_tap_eo,                   // io.
-  efl_canvas_gesture_long_press_eo,                   // io.
-  efl_canvas_gesture_recognizer_double_tap_eo,        // io.
-  efl_canvas_gesture_recognizer_flick_eo,             // io.
-  efl_canvas_gesture_recognizer_long_press_eo,        // io.
-  efl_canvas_gesture_recognizer_momentum_eo,          // io.
-  efl_canvas_gesture_recognizer_rotate_eo,            // io.
-  efl_canvas_gesture_recognizer_tap_eo,               // io.
-  efl_canvas_gesture_recognizer_triple_tap_eo,        // io.
-  efl_canvas_gesture_recognizer_zoom_eo,              // io.
-  efl_canvas_gesture_tap_eo,                          // io.
-  efl_canvas_gesture_triple_tap_eo,                   // io.
 
   // =======================================
 
