@@ -4,31 +4,6 @@
 #include <Evas.h>
 #include <Ecore_Evas_Types.h>
 
-#ifdef extern
-# undef extern
-#endif
-
-#ifdef _WIN32
-# ifdef EFL_BUILD
-#  ifdef DLL_EXPORT
-#   define extern __declspec(dllexport)
-#  else
-#   define extern
-#  endif
-# else
-#  define extern __declspec(dllimport)
-# endif
-#else
-# ifdef __GNUC__
-#  if __GNUC__ >= 4
-#   define extern __attribute__ ((visibility("default")))
-#  else
-#   define extern
-#  endif
-# else
-#  define extern
-# endif
-#endif
 
 /**
  * @file Ecore_Evas.h
@@ -1466,24 +1441,24 @@ extern Ecore_Evas     *ecore_evas_gl_x11_pixmap_new(const char *disp_name, Ecore
  */
 extern Ecore_X_Pixmap ecore_evas_gl_x11_pixmap_get(const Ecore_Evas *ee);
 
-extern Ecore_Evas     *ecore_evas_xrender_x11_new(const char *disp_name, Ecore_X_Window parent, int x, int y, int w, int h) EINA_DEPRECATED;
-extern Ecore_X_Window  ecore_evas_xrender_x11_window_get(const Ecore_Evas *ee) EINA_DEPRECATED;
-extern void            ecore_evas_xrender_x11_direct_resize_set(Ecore_Evas *ee, Eina_Bool on) EINA_DEPRECATED;
-extern Eina_Bool       ecore_evas_xrender_x11_direct_resize_get(const Ecore_Evas *ee) EINA_DEPRECATED;
-extern void            ecore_evas_xrender_x11_extra_event_window_add(Ecore_Evas *ee, Ecore_X_Window win) EINA_DEPRECATED;
+extern Ecore_Evas     *ecore_evas_xrender_x11_new(const char *disp_name, Ecore_X_Window parent, int x, int y, int w, int h) /*EINA_DEPRECATED*/;
+extern Ecore_X_Window  ecore_evas_xrender_x11_window_get(const Ecore_Evas *ee) /*EINA_DEPRECATED*/;
+extern void            ecore_evas_xrender_x11_direct_resize_set(Ecore_Evas *ee, Eina_Bool on) /*EINA_DEPRECATED*/;
+extern Eina_Bool       ecore_evas_xrender_x11_direct_resize_get(const Ecore_Evas *ee) /*EINA_DEPRECATED*/;
+extern void            ecore_evas_xrender_x11_extra_event_window_add(Ecore_Evas *ee, Ecore_X_Window win) /*EINA_DEPRECATED*/;
 
-extern Ecore_Evas     *ecore_evas_software_x11_8_new(const char *disp_name, Ecore_X_Window parent, int x, int y, int w, int h) EINA_DEPRECATED;
-extern Ecore_X_Window  ecore_evas_software_x11_8_window_get(const Ecore_Evas *ee) EINA_DEPRECATED;
-extern Ecore_X_Window  ecore_evas_software_x11_8_subwindow_get(const Ecore_Evas *ee) EINA_DEPRECATED;
-extern void            ecore_evas_software_x11_8_direct_resize_set(Ecore_Evas *ee, Eina_Bool on) EINA_DEPRECATED;
-extern Eina_Bool       ecore_evas_software_x11_8_direct_resize_get(const Ecore_Evas *ee) EINA_DEPRECATED;
-extern void            ecore_evas_software_x11_8_extra_event_window_add(Ecore_Evas *ee, Ecore_X_Window win) EINA_DEPRECATED;
+extern Ecore_Evas     *ecore_evas_software_x11_8_new(const char *disp_name, Ecore_X_Window parent, int x, int y, int w, int h) /*EINA_DEPRECATED*/;
+extern Ecore_X_Window  ecore_evas_software_x11_8_window_get(const Ecore_Evas *ee) /*EINA_DEPRECATED*/;
+extern Ecore_X_Window  ecore_evas_software_x11_8_subwindow_get(const Ecore_Evas *ee) /*EINA_DEPRECATED*/;
+extern void            ecore_evas_software_x11_8_direct_resize_set(Ecore_Evas *ee, Eina_Bool on) /*EINA_DEPRECATED*/;
+extern Eina_Bool       ecore_evas_software_x11_8_direct_resize_get(const Ecore_Evas *ee) /*EINA_DEPRECATED*/;
+extern void            ecore_evas_software_x11_8_extra_event_window_add(Ecore_Evas *ee, Ecore_X_Window win) /*EINA_DEPRECATED*/;
 
-extern Ecore_Evas     *ecore_evas_software_x11_16_new(const char *disp_name, Ecore_X_Window parent, int x, int y, int w, int h) EINA_DEPRECATED;
-extern Ecore_X_Window  ecore_evas_software_x11_16_window_get(const Ecore_Evas *ee) EINA_DEPRECATED;
-extern void            ecore_evas_software_x11_16_direct_resize_set(Ecore_Evas *ee, Eina_Bool on) EINA_DEPRECATED;
-extern Eina_Bool       ecore_evas_software_x11_16_direct_resize_get(const Ecore_Evas *ee) EINA_DEPRECATED;
-extern void            ecore_evas_software_x11_16_extra_event_window_add(Ecore_Evas *ee, Ecore_X_Window win) EINA_DEPRECATED;
+extern Ecore_Evas     *ecore_evas_software_x11_16_new(const char *disp_name, Ecore_X_Window parent, int x, int y, int w, int h) /*EINA_DEPRECATED*/;
+extern Ecore_X_Window  ecore_evas_software_x11_16_window_get(const Ecore_Evas *ee) /*EINA_DEPRECATED*/;
+extern void            ecore_evas_software_x11_16_direct_resize_set(Ecore_Evas *ee, Eina_Bool on) /*EINA_DEPRECATED*/;
+extern Eina_Bool       ecore_evas_software_x11_16_direct_resize_get(const Ecore_Evas *ee) /*EINA_DEPRECATED*/;
+extern void            ecore_evas_software_x11_16_extra_event_window_add(Ecore_Evas *ee, Ecore_X_Window win) /*EINA_DEPRECATED*/;
 
 /**
  * @brief Creates Ecore_Evas using fb backend.
@@ -1496,8 +1471,8 @@ extern void            ecore_evas_software_x11_16_extra_event_window_add(Ecore_E
  */
 extern Ecore_Evas     *ecore_evas_fb_new(const char *disp_name, int rotation, int w, int h);
 
-extern Ecore_Evas     *ecore_evas_directfb_new(const char *disp_name, int windowed, int x, int y, int w, int h) EINA_DEPRECATED;
-extern Ecore_DirectFB_Window *ecore_evas_directfb_window_get(const Ecore_Evas *ee) EINA_DEPRECATED;
+extern Ecore_Evas     *ecore_evas_directfb_new(const char *disp_name, int windowed, int x, int y, int w, int h) /*EINA_DEPRECATED*/;
+extern Ecore_DirectFB_Window *ecore_evas_directfb_window_get(const Ecore_Evas *ee) /*EINA_DEPRECATED*/;
 
 /**
  * @brief Create an Ecore_Evas window using the wayland-shm engine.
@@ -1985,33 +1960,33 @@ extern Ecore_Evas     *ecore_evas_software_wince_new(Ecore_WinCE_Window *parent,
                                                    int                 x,
                                                    int                 y,
                                                    int                 width,
-                                                   int                 height) EINA_DEPRECATED;
+                                                   int                 height) /*EINA_DEPRECATED*/;
 
 extern Ecore_Evas     *ecore_evas_software_wince_fb_new(Ecore_WinCE_Window *parent,
                                                       int                 x,
                                                       int                 y,
                                                       int                 width,
-                                                      int                 height) EINA_DEPRECATED;
+                                                      int                 height) /*EINA_DEPRECATED*/;
 
 extern Ecore_Evas     *ecore_evas_software_wince_gapi_new(Ecore_WinCE_Window *parent,
                                                         int                 x,
                                                         int                 y,
                                                         int                 width,
-                                                        int                 height) EINA_DEPRECATED;
+                                                        int                 height) /*EINA_DEPRECATED*/;
 
 extern Ecore_Evas     *ecore_evas_software_wince_ddraw_new(Ecore_WinCE_Window *parent,
                                                          int                 x,
                                                          int                 y,
                                                          int                 width,
-                                                         int                 height) EINA_DEPRECATED;
+                                                         int                 height) /*EINA_DEPRECATED*/;
 
 extern Ecore_Evas     *ecore_evas_software_wince_gdi_new(Ecore_WinCE_Window *parent,
                                                        int                 x,
                                                        int                 y,
                                                        int                 width,
-                                                       int                 height) EINA_DEPRECATED;
+                                                       int                 height) /*EINA_DEPRECATED*/;
 
-extern Ecore_WinCE_Window *ecore_evas_software_wince_window_get(const Ecore_Evas *ee) EINA_DEPRECATED;
+extern Ecore_WinCE_Window *ecore_evas_software_wince_window_get(const Ecore_Evas *ee) /*EINA_DEPRECATED*/;
 
 /**
  * @brief Creates a new @c Ecore_Evas canvas bound to the Evas
@@ -2042,7 +2017,7 @@ extern Ecore_Evas *ecore_evas_cocoa_new(Ecore_Cocoa_Window *parent,
  *
  * The psl1ght backend is used for the PS3 GameOS.
  */
-extern Ecore_Evas *ecore_evas_psl1ght_new(const char* name, int w, int h) EINA_DEPRECATED;
+extern Ecore_Evas *ecore_evas_psl1ght_new(const char* name, int w, int h) /*EINA_DEPRECATED*/;
 
 
 /* generic manipulation calls */
@@ -2932,8 +2907,8 @@ extern void        ecore_evas_screen_geometry_get(const Ecore_Evas *ee, int *x, 
  */
 extern void        ecore_evas_screen_dpi_get(const Ecore_Evas *ee, int *xdpi, int *ydpi);
 
-extern void        ecore_evas_draw_frame_set(Ecore_Evas *ee, Eina_Bool draw_frame) EINA_DEPRECATED;
-extern Eina_Bool   ecore_evas_draw_frame_get(const Ecore_Evas *ee) EINA_DEPRECATED;
+extern void        ecore_evas_draw_frame_set(Ecore_Evas *ee, Eina_Bool draw_frame) /*EINA_DEPRECATED*/;
+extern Eina_Bool   ecore_evas_draw_frame_get(const Ecore_Evas *ee) /*EINA_DEPRECATED*/;
 
 /**
  * @brief Sets shadow geometry for client-side decorations.
@@ -3334,24 +3309,24 @@ extern void        ecore_evas_ews_manager_set(const void *manager);
  */
 extern const void *ecore_evas_ews_manager_get(void);
 
-extern extern int ECORE_EVAS_EWS_EVENT_MANAGER_CHANGE; /**< manager was changed @since 1.1 */
-extern extern int ECORE_EVAS_EWS_EVENT_ADD; /**< window was created @since 1.1 */
-extern extern int ECORE_EVAS_EWS_EVENT_DEL; /**< window was deleted, pointer is already invalid but may be used as reference for further cleanup work. @since 1.1 */
-extern extern int ECORE_EVAS_EWS_EVENT_RESIZE; /**< window was resized @since 1.1 */
-extern extern int ECORE_EVAS_EWS_EVENT_MOVE; /**< window was moved @since 1.1 */
-extern extern int ECORE_EVAS_EWS_EVENT_SHOW; /**< window become visible @since 1.1 */
-extern extern int ECORE_EVAS_EWS_EVENT_HIDE; /**< window become hidden @since 1.1 */
-extern extern int ECORE_EVAS_EWS_EVENT_FOCUS; /**< window was focused @since 1.1 */
-extern extern int ECORE_EVAS_EWS_EVENT_UNFOCUS; /**< window lost focus @since 1.1 */
-extern extern int ECORE_EVAS_EWS_EVENT_RAISE; /**< window was raised @since 1.1 */
-extern extern int ECORE_EVAS_EWS_EVENT_LOWER; /**< window was lowered @since 1.1 */
-extern extern int ECORE_EVAS_EWS_EVENT_ACTIVATE; /**< window was activated @since 1.1 */
+extern  int ECORE_EVAS_EWS_EVENT_MANAGER_CHANGE; /**< manager was changed @since 1.1 */
+extern  int ECORE_EVAS_EWS_EVENT_ADD; /**< window was created @since 1.1 */
+extern  int ECORE_EVAS_EWS_EVENT_DEL; /**< window was deleted, pointer is already invalid but may be used as reference for further cleanup work. @since 1.1 */
+extern  int ECORE_EVAS_EWS_EVENT_RESIZE; /**< window was resized @since 1.1 */
+extern  int ECORE_EVAS_EWS_EVENT_MOVE; /**< window was moved @since 1.1 */
+extern  int ECORE_EVAS_EWS_EVENT_SHOW; /**< window become visible @since 1.1 */
+extern  int ECORE_EVAS_EWS_EVENT_HIDE; /**< window become hidden @since 1.1 */
+extern  int ECORE_EVAS_EWS_EVENT_FOCUS; /**< window was focused @since 1.1 */
+extern  int ECORE_EVAS_EWS_EVENT_UNFOCUS; /**< window lost focus @since 1.1 */
+extern  int ECORE_EVAS_EWS_EVENT_RAISE; /**< window was raised @since 1.1 */
+extern  int ECORE_EVAS_EWS_EVENT_LOWER; /**< window was lowered @since 1.1 */
+extern  int ECORE_EVAS_EWS_EVENT_ACTIVATE; /**< window was activated @since 1.1 */
 
-extern extern int ECORE_EVAS_EWS_EVENT_ICONIFIED_CHANGE; /**< window minimized/iconified changed @since 1.1 */
-extern extern int ECORE_EVAS_EWS_EVENT_MAXIMIZED_CHANGE; /**< window maximized changed @since 1.1 */
-extern extern int ECORE_EVAS_EWS_EVENT_LAYER_CHANGE; /**< window layer changed @since 1.1 */
-extern extern int ECORE_EVAS_EWS_EVENT_FULLSCREEN_CHANGE; /**< window fullscreen changed @since 1.1 */
-extern extern int ECORE_EVAS_EWS_EVENT_CONFIG_CHANGE; /**< some other window property changed (title, name, class, alpha, transparent, shaped...) @since 1.1 */
+extern  int ECORE_EVAS_EWS_EVENT_ICONIFIED_CHANGE; /**< window minimized/iconified changed @since 1.1 */
+extern  int ECORE_EVAS_EWS_EVENT_MAXIMIZED_CHANGE; /**< window maximized changed @since 1.1 */
+extern  int ECORE_EVAS_EWS_EVENT_LAYER_CHANGE; /**< window layer changed @since 1.1 */
+extern  int ECORE_EVAS_EWS_EVENT_FULLSCREEN_CHANGE; /**< window fullscreen changed @since 1.1 */
+extern  int ECORE_EVAS_EWS_EVENT_CONFIG_CHANGE; /**< some other window property changed (title, name, class, alpha, transparent, shaped...) @since 1.1 */
 
 /**
  * @}
@@ -3372,8 +3347,8 @@ extern extern int ECORE_EVAS_EWS_EVENT_CONFIG_CHANGE; /**< some other window pro
  * @{
  */
 
-extern extern int ECORE_EVAS_EXTN_CLIENT_ADD; /**< this event is received when a plug has connected to an extn socket @since 1.2 */
-extern extern int ECORE_EVAS_EXTN_CLIENT_DEL; /**< this event is received when a plug has disconnected from an extn socket @since 1.2 */
+extern  int ECORE_EVAS_EXTN_CLIENT_ADD; /**< this event is received when a plug has connected to an extn socket @since 1.2 */
+extern  int ECORE_EVAS_EXTN_CLIENT_DEL; /**< this event is received when a plug has disconnected from an extn socket @since 1.2 */
 
 /**
  * @brief Creates a new Ecore_Evas canvas for the new external ecore evas socket
@@ -3952,13 +3927,6 @@ extern Eina_Accessor* ecore_evas_drop_available_types_get(Ecore_Evas *ee, unsign
 /**
  * @}
  */
-
-#ifdef __cplusplus
-}
-#endif
-
-#undef extern
-#define extern
 
 #endif
 

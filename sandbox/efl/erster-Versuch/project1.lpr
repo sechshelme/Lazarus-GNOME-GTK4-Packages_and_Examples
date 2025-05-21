@@ -21,9 +21,9 @@ uses
   fp_emile,
   fp_ecore,
   fp_evas,
+  fp_ecore_evas,
 
   // =======================================
-
 
 
 

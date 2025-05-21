@@ -45,6 +45,7 @@ type
   PEfl_Canvas_Object = ^TEfl_Canvas_Object;
   PPEfl_Canvas_Object = ^PEfl_Canvas_Object;
 
+  PPEvas_Object = ^PEvas_Object;
   PEvas_Object = ^TEvas_Object;
   TEvas_Object = TEfl_Canvas_Object;
 

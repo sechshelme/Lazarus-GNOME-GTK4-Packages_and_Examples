@@ -16,6 +16,7 @@ const
   libefl = 'libefl';
   libemile = 'libemile';
   libecore = 'libecore';
+  libecore_eva = 'libecore_evas';
 
   libencore = 'libecore';
   {$ENDIF}
@@ -29,6 +30,7 @@ const
   libefl = 'libefl-1.dll';
   libemile = 'libemile-1.dll';
   libecore = 'libecore-1.dll';
+  libecore_evas = 'libecore_evas-1.dll';
   {$ENDIF}
 
   {$IFDEF darwin}
@@ -96,15 +98,6 @@ type
 function calloc(num, size: Tsize_t): Pointer; cdecl; external libclib;
 
 // =====================
-
-  // /usr/include/ecore-evas-1/Ecore_Evas_Types.h
-type
-  PEcore_Evas = Pointer;
-  PEcore_Wl2_Window = Pointer;
-  PEcore_Win32_Window = Pointer;
-  TEcore_X_Window = uint32;
-  PEcore_Cocoa_Window = Pointer;
-  TEcore_Window = PtrUInt;
 
   // /usr/include/edje-1/Edje_Common.h
 type

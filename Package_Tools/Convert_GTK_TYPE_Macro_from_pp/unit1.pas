@@ -145,6 +145,7 @@ const
     (libs: 'libefl'; units: 'efl, fp_eo, fp_eina'),
     (libs: 'libemile'; units: 'efl, fp_eo, fp_eina'),
     (libs: 'libecore'; units: 'efl, fp_eo, fp_eina, fp_efl'),
+    (libs: 'libecore_eva'; units: 'efl, fp_eo, fp_eina, fp_efl'),
 
     (libs: ''; units: ''));
 
