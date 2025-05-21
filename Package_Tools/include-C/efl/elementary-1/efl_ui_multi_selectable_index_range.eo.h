@@ -29,7 +29,7 @@ typedef Eo Efl_Ui_Multi_Selectable_Index_Range;
  */
 #define EFL_UI_MULTI_SELECTABLE_INDEX_RANGE_INTERFACE efl_ui_multi_selectable_index_range_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_multi_selectable_index_range_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_multi_selectable_index_range_interface_get(void) ;
 
 /**
  * @brief Gets an iterator over the indices of all the selected children.
@@ -43,7 +43,7 @@ extern extern_WEAK const Efl_Class *efl_ui_multi_selectable_index_range_interfac
  *
  * @ingroup Efl_Ui_Multi_Selectable_Index_Range
  */
-extern extern_WEAK Eina_Iterator *efl_ui_multi_selectable_selected_ndx_iterator_new(Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Iterator *efl_ui_multi_selectable_selected_ndx_iterator_new(Eo *obj)  ;
 
 /**
  * @brief Gets an iterator over the indices of all the unselected children.
@@ -57,7 +57,7 @@ extern extern_WEAK Eina_Iterator *efl_ui_multi_selectable_selected_ndx_iterator_
  *
  * @ingroup Efl_Ui_Multi_Selectable_Index_Range
  */
-extern extern_WEAK Eina_Iterator *efl_ui_multi_selectable_unselected_ndx_iterator_new(Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Iterator *efl_ui_multi_selectable_unselected_ndx_iterator_new(Eo *obj)  ;
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -77,7 +77,7 @@ extern extern_WEAK Eina_Iterator *efl_ui_multi_selectable_unselected_ndx_iterato
  *
  * @ingroup Efl_Ui_Multi_Selectable_Index_Range
  */
-extern extern_WEAK void efl_ui_multi_selectable_ndx_range_select(Eo *obj, unsigned int a, unsigned int b);
+extern  void efl_ui_multi_selectable_ndx_range_select(Eo *obj, unsigned int a, unsigned int b);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -99,7 +99,7 @@ extern extern_WEAK void efl_ui_multi_selectable_ndx_range_select(Eo *obj, unsign
  *
  * @ingroup Efl_Ui_Multi_Selectable_Index_Range
  */
-extern extern_WEAK void efl_ui_multi_selectable_ndx_range_unselect(Eo *obj, unsigned int a, unsigned int b);
+extern  void efl_ui_multi_selectable_ndx_range_unselect(Eo *obj, unsigned int a, unsigned int b);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

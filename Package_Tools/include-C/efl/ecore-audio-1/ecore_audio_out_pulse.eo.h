@@ -20,7 +20,7 @@ typedef Eo Ecore_Audio_Out_Pulse;
  */
 #define ECORE_AUDIO_OUT_PULSE_CLASS ecore_audio_out_pulse_class_get()
 
-ECORE_AUDIO_API ECORE_AUDIO_API_WEAK const Efl_Class *ecore_audio_out_pulse_class_get(void) EINA_CONST;
+ECORE_AUDIO_API ECORE_AUDIO_API_WEAK const Efl_Class *ecore_audio_out_pulse_class_get(void) ;
 
 ECORE_AUDIO_API ECORE_AUDIO_API_WEAK extern const Efl_Event_Description _ECORE_AUDIO_OUT_PULSE_EVENT_CONTEXT_READY;
 

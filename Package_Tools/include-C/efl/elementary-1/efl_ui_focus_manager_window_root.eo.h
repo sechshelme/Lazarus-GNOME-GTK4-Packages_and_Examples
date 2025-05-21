@@ -26,6 +26,6 @@ typedef Eo Efl_Ui_Focus_Manager_Window_Root;
  */
 #define EFL_UI_FOCUS_MANAGER_WINDOW_ROOT_INTERFACE efl_ui_focus_manager_window_root_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_focus_manager_window_root_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_focus_manager_window_root_interface_get(void) ;
 
 #endif

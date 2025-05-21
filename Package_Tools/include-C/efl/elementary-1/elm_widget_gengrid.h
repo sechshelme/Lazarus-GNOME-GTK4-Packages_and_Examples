@@ -181,7 +181,7 @@ struct Elm_Gen_Item_Type
 typedef struct _Item_Cache Item_Cache;
 struct _Item_Cache
 {
-   EINA_INLIST;
+   Eina_Inlist __in_list;
    Evas_Object *base_view, *spacer;
    const char  *item_style; // it->itc->item_style
    Eina_List *contents;

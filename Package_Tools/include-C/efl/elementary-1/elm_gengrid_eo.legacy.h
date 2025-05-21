@@ -371,7 +371,7 @@ extern Elm_Widget_Item *elm_gengrid_selected_item_get(const Elm_Gengrid *obj);
  *
  * @ingroup Elm_Gengrid_Group
  */
-extern Eina_List *elm_gengrid_realized_items_get(const Elm_Gengrid *obj) EINA_WARN_UNUSED_RESULT;
+extern Eina_List *elm_gengrid_realized_items_get(const Elm_Gengrid *obj) ;
 
 /**
  * @brief Get the first item in a given gengrid widget.

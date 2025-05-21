@@ -22,7 +22,7 @@ typedef Eo Efl_Ui_Tags;
  */
 #define EFL_UI_TAGS_CLASS efl_ui_tags_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_tags_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_tags_class_get(void) ;
 
 /**
  * @brief Control if the tag list is to be editable by the user or not.
@@ -33,7 +33,7 @@ extern extern_WEAK const Efl_Class *efl_ui_tags_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Tags
  */
-extern extern_WEAK void efl_ui_tags_editable_set(Eo *obj, Eina_Bool editable);
+extern  void efl_ui_tags_editable_set(Eo *obj, Eina_Bool editable);
 
 /**
  * @brief Control if the tag list is to be editable by the user or not.
@@ -45,7 +45,7 @@ extern extern_WEAK void efl_ui_tags_editable_set(Eo *obj, Eina_Bool editable);
  *
  * @ingroup Efl_Ui_Tags
  */
-extern extern_WEAK Eina_Bool efl_ui_tags_editable_get(const Eo *obj);
+extern  Eina_Bool efl_ui_tags_editable_get(const Eo *obj);
 
 /**
  * @brief Control whether the tag list is expanded or not.
@@ -60,7 +60,7 @@ extern extern_WEAK Eina_Bool efl_ui_tags_editable_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Tags
  */
-extern extern_WEAK void efl_ui_tags_expanded_set(Eo *obj, Eina_Bool expanded);
+extern  void efl_ui_tags_expanded_set(Eo *obj, Eina_Bool expanded);
 
 /**
  * @brief Control whether the tag list is expanded or not.
@@ -76,7 +76,7 @@ extern extern_WEAK void efl_ui_tags_expanded_set(Eo *obj, Eina_Bool expanded);
  *
  * @ingroup Efl_Ui_Tags
  */
-extern extern_WEAK Eina_Bool efl_ui_tags_expanded_get(const Eo *obj);
+extern  Eina_Bool efl_ui_tags_expanded_get(const Eo *obj);
 
 /**
  * @brief List of tags in the tag list. Tags can be added and removed by the
@@ -87,7 +87,7 @@ extern extern_WEAK Eina_Bool efl_ui_tags_expanded_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Tags
  */
-extern extern_WEAK void efl_ui_tags_items_set(Eo *obj, const Eina_Array *items);
+extern  void efl_ui_tags_items_set(Eo *obj, const Eina_Array *items);
 
 /**
  * @brief List of tags in the tag list. Tags can be added and removed by the
@@ -99,9 +99,9 @@ extern extern_WEAK void efl_ui_tags_items_set(Eo *obj, const Eina_Array *items);
  *
  * @ingroup Efl_Ui_Tags
  */
-extern extern_WEAK const Eina_Array *efl_ui_tags_items_get(const Eo *obj);
+extern  const Eina_Array *efl_ui_tags_items_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_ITEM_SELECTED;
+extern  extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_ITEM_SELECTED;
 
 /** Called when item was selected
  * @return const char *
@@ -110,7 +110,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_ITEM_SE
  */
 #define EFL_UI_TAGS_EVENT_ITEM_SELECTED (&(_EFL_UI_TAGS_EVENT_ITEM_SELECTED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_ITEM_ADDED;
+extern  extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_ITEM_ADDED;
 
 /** Called when item was added
  * @return const char *
@@ -119,7 +119,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_ITEM_AD
  */
 #define EFL_UI_TAGS_EVENT_ITEM_ADDED (&(_EFL_UI_TAGS_EVENT_ITEM_ADDED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_ITEM_DELETED;
+extern  extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_ITEM_DELETED;
 
 /** Called when item was deleted
  * @return const char *
@@ -128,7 +128,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_ITEM_DE
  */
 #define EFL_UI_TAGS_EVENT_ITEM_DELETED (&(_EFL_UI_TAGS_EVENT_ITEM_DELETED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_ITEM_CLICKED;
+extern  extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_ITEM_CLICKED;
 
 /** Called when item was clicked
  * @return const char *
@@ -137,7 +137,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_ITEM_CL
  */
 #define EFL_UI_TAGS_EVENT_ITEM_CLICKED (&(_EFL_UI_TAGS_EVENT_ITEM_CLICKED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_ITEM_LONGPRESSED;
+extern  extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_ITEM_LONGPRESSED;
 
 /** Called when item got a longpress
  * @return const char *
@@ -146,7 +146,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_ITEM_LO
  */
 #define EFL_UI_TAGS_EVENT_ITEM_LONGPRESSED (&(_EFL_UI_TAGS_EVENT_ITEM_LONGPRESSED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_EXPANDED;
+extern  extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_EXPANDED;
 
 /** Called when expanded
  *
@@ -154,7 +154,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_EXPANDE
  */
 #define EFL_UI_TAGS_EVENT_EXPANDED (&(_EFL_UI_TAGS_EVENT_EXPANDED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_CONTRACTED;
+extern  extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_CONTRACTED;
 
 /** Called when contracted
  *
@@ -162,7 +162,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_CONTRAC
  */
 #define EFL_UI_TAGS_EVENT_CONTRACTED (&(_EFL_UI_TAGS_EVENT_CONTRACTED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_EXPAND_STATE_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_TAGS_EVENT_EXPAND_STATE_CHANGED;
 
 /** Called when expanded state changed
  * @return int

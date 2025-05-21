@@ -36,7 +36,7 @@ typedef Eo Efl_Ui_Caching_Factory;
  */
 #define EFL_UI_CACHING_FACTORY_CLASS efl_ui_caching_factory_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_caching_factory_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_caching_factory_class_get(void) ;
 
 /**
  * @brief Define the maximum size in Bytes that all the objects waiting on
@@ -51,7 +51,7 @@ extern extern_WEAK const Efl_Class *efl_ui_caching_factory_class_get(void) EINA_
  *
  * @ingroup Efl_Ui_Caching_Factory
  */
-extern extern_WEAK void efl_ui_caching_factory_memory_limit_set(Eo *obj, unsigned int limit);
+extern  void efl_ui_caching_factory_memory_limit_set(Eo *obj, unsigned int limit);
 
 /**
  * @brief Define the maximum size in Bytes that all the objects waiting on
@@ -67,7 +67,7 @@ extern extern_WEAK void efl_ui_caching_factory_memory_limit_set(Eo *obj, unsigne
  *
  * @ingroup Efl_Ui_Caching_Factory
  */
-extern extern_WEAK unsigned int efl_ui_caching_factory_memory_limit_get(const Eo *obj);
+extern  unsigned int efl_ui_caching_factory_memory_limit_get(const Eo *obj);
 
 /**
  * @brief Define how many maximum number of items are waiting on standby in the
@@ -81,7 +81,7 @@ extern extern_WEAK unsigned int efl_ui_caching_factory_memory_limit_get(const Eo
  *
  * @ingroup Efl_Ui_Caching_Factory
  */
-extern extern_WEAK void efl_ui_caching_factory_items_limit_set(Eo *obj, unsigned int limit);
+extern  void efl_ui_caching_factory_items_limit_set(Eo *obj, unsigned int limit);
 
 /**
  * @brief Define how many maximum number of items are waiting on standby in the
@@ -96,6 +96,6 @@ extern extern_WEAK void efl_ui_caching_factory_items_limit_set(Eo *obj, unsigned
  *
  * @ingroup Efl_Ui_Caching_Factory
  */
-extern extern_WEAK unsigned int efl_ui_caching_factory_items_limit_get(const Eo *obj);
+extern  unsigned int efl_ui_caching_factory_items_limit_get(const Eo *obj);
 
 #endif

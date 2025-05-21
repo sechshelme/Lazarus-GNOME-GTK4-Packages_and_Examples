@@ -24,7 +24,7 @@ typedef Eo Efl_Ui_Focus_Composition;
  */
 #define EFL_UI_FOCUS_COMPOSITION_MIXIN efl_ui_focus_composition_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_focus_composition_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_focus_composition_mixin_get(void) ;
 
 #ifdef EFL_UI_FOCUS_COMPOSITION_PROTECTED
 /**
@@ -48,7 +48,7 @@ extern extern_WEAK const Efl_Class *efl_ui_focus_composition_mixin_get(void) EIN
  *
  * @ingroup Efl_Ui_Focus_Composition
  */
-extern extern_WEAK void efl_ui_focus_composition_elements_set(Eo *obj, Eina_List *logical_order EFL_TRANSFER_OWNERSHIP);
+extern  void efl_ui_focus_composition_elements_set(Eo *obj, Eina_List *logical_order );
 #endif
 
 #ifdef EFL_UI_FOCUS_COMPOSITION_PROTECTED
@@ -74,7 +74,7 @@ extern extern_WEAK void efl_ui_focus_composition_elements_set(Eo *obj, Eina_List
  *
  * @ingroup Efl_Ui_Focus_Composition
  */
-extern extern_WEAK Eina_List *efl_ui_focus_composition_elements_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_List *efl_ui_focus_composition_elements_get(const Eo *obj)  ;
 #endif
 
 #ifdef EFL_UI_FOCUS_COMPOSITION_PROTECTED
@@ -83,7 +83,7 @@ extern extern_WEAK Eina_List *efl_ui_focus_composition_elements_get(const Eo *ob
  *
  * @ingroup Efl_Ui_Focus_Composition
  */
-extern extern_WEAK void efl_ui_focus_composition_dirty(Eo *obj);
+extern  void efl_ui_focus_composition_dirty(Eo *obj);
 #endif
 
 #ifdef EFL_UI_FOCUS_COMPOSITION_PROTECTED
@@ -96,7 +96,7 @@ extern extern_WEAK void efl_ui_focus_composition_dirty(Eo *obj);
  *
  * @ingroup Efl_Ui_Focus_Composition
  */
-extern extern_WEAK void efl_ui_focus_composition_prepare(Eo *obj);
+extern  void efl_ui_focus_composition_prepare(Eo *obj);
 #endif
 
 #ifdef EFL_UI_FOCUS_COMPOSITION_PROTECTED
@@ -108,7 +108,7 @@ extern extern_WEAK void efl_ui_focus_composition_prepare(Eo *obj);
  *
  * @ingroup Efl_Ui_Focus_Composition
  */
-extern extern_WEAK void efl_ui_focus_composition_logical_mode_set(Eo *obj, Eina_Bool logical_mode);
+extern  void efl_ui_focus_composition_logical_mode_set(Eo *obj, Eina_Bool logical_mode);
 #endif
 
 #ifdef EFL_UI_FOCUS_COMPOSITION_PROTECTED
@@ -121,7 +121,7 @@ extern extern_WEAK void efl_ui_focus_composition_logical_mode_set(Eo *obj, Eina_
  *
  * @ingroup Efl_Ui_Focus_Composition
  */
-extern extern_WEAK Eina_Bool efl_ui_focus_composition_logical_mode_get(const Eo *obj);
+extern  Eina_Bool efl_ui_focus_composition_logical_mode_get(const Eo *obj);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 

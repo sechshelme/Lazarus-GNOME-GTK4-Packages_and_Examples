@@ -20,7 +20,7 @@ typedef Eo Efl_Ui_Theme;
  */
 #define EFL_UI_THEME_CLASS efl_ui_theme_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_theme_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_theme_class_get(void) ;
 
 /**
  * @brief This is the default theme.
@@ -31,7 +31,7 @@ extern extern_WEAK const Efl_Class *efl_ui_theme_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Theme
  */
-extern extern_WEAK Efl_Ui_Theme *efl_ui_theme_default_get(void);
+extern  Efl_Ui_Theme *efl_ui_theme_default_get(void);
 
 /**
  * @brief Appends a theme extension to the list of extensions. This is intended
@@ -51,7 +51,7 @@ extern extern_WEAK Efl_Ui_Theme *efl_ui_theme_default_get(void);
  *
  * @ingroup Efl_Ui_Theme
  */
-extern extern_WEAK void efl_ui_theme_extension_add(Eo *obj, const char *item);
+extern  void efl_ui_theme_extension_add(Eo *obj, const char *item);
 
 /**
  * @brief Deletes a theme extension from the list of extensions.
@@ -61,7 +61,7 @@ extern extern_WEAK void efl_ui_theme_extension_add(Eo *obj, const char *item);
  *
  * @ingroup Efl_Ui_Theme
  */
-extern extern_WEAK void efl_ui_theme_extension_del(Eo *obj, const char *item);
+extern  void efl_ui_theme_extension_del(Eo *obj, const char *item);
 
 /**
  * @brief Prepends a theme overlay to the list of overlays. Use this if your
@@ -78,7 +78,7 @@ extern extern_WEAK void efl_ui_theme_extension_del(Eo *obj, const char *item);
  *
  * @ingroup Efl_Ui_Theme
  */
-extern extern_WEAK void efl_ui_theme_overlay_add(Eo *obj, const char *item);
+extern  void efl_ui_theme_overlay_add(Eo *obj, const char *item);
 
 /**
  * @brief Delete a theme overlay from the list of overlays.
@@ -88,7 +88,7 @@ extern extern_WEAK void efl_ui_theme_overlay_add(Eo *obj, const char *item);
  *
  * @ingroup Efl_Ui_Theme
  */
-extern extern_WEAK void efl_ui_theme_overlay_del(Eo *obj, const char *item);
+extern  void efl_ui_theme_overlay_del(Eo *obj, const char *item);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

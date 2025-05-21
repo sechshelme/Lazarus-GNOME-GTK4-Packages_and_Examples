@@ -27,7 +27,7 @@ typedef Eo Efl_Ui_Win_Inlined;
  */
 #define EFL_UI_WIN_INLINED_CLASS efl_ui_win_inlined_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_win_inlined_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_win_inlined_class_get(void) ;
 
 /**
  * @brief This property holds the parent object in the parent canvas.
@@ -38,7 +38,7 @@ extern extern_WEAK const Efl_Class *efl_ui_win_inlined_class_get(void) EINA_CONS
  *
  * @ingroup Efl_Ui_Win_Inlined
  */
-extern extern_WEAK Efl_Canvas_Object *efl_ui_win_inlined_parent_get(const Eo *obj);
+extern  Efl_Canvas_Object *efl_ui_win_inlined_parent_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

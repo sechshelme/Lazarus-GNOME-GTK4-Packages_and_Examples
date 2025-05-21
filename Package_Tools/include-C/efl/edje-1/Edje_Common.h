@@ -666,7 +666,7 @@ typedef struct _Edje_External_Param
  * @param type the identifier to convert.
  * @return the string with the string representation, or @c "(unknown)".
  */
-extern const char *edje_external_param_type_str(Edje_External_Param_Type type) EINA_PURE;
+extern const char *edje_external_param_type_str(Edje_External_Param_Type type) ;
 
 /**
  * Helper macro to indicate an EXTERNAL's integer parameter is undefined.
@@ -981,7 +981,7 @@ extern void         edje_external_type_array_unregister     (const Edje_External
  * @return The external ABI version the Edje library was compiled with. That
  * is, the value #EDJE_EXTERNAL_TYPE_ABI_VERSION had at that moment.
  */
-extern unsigned int edje_external_type_abi_version_get      (void) EINA_CONST;
+extern unsigned int edje_external_type_abi_version_get      (void) ;
 
 /**
  *

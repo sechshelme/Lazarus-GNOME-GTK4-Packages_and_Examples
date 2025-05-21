@@ -46,7 +46,7 @@ typedef Eo Efl_Ui_Box;
  */
 #define EFL_UI_BOX_CLASS efl_ui_box_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_box_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_box_class_get(void) ;
 
 /**
  * @brief In homogeneous mode all children of a vertical Box have the same
@@ -62,7 +62,7 @@ extern extern_WEAK const Efl_Class *efl_ui_box_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Box
  */
-extern extern_WEAK void efl_ui_box_homogeneous_set(Eo *obj, Eina_Bool homogeneous);
+extern  void efl_ui_box_homogeneous_set(Eo *obj, Eina_Bool homogeneous);
 
 /**
  * @brief In homogeneous mode all children of a vertical Box have the same
@@ -78,6 +78,6 @@ extern extern_WEAK void efl_ui_box_homogeneous_set(Eo *obj, Eina_Bool homogeneou
  *
  * @ingroup Efl_Ui_Box
  */
-extern extern_WEAK Eina_Bool efl_ui_box_homogeneous_get(const Eo *obj);
+extern  Eina_Bool efl_ui_box_homogeneous_get(const Eo *obj);
 
 #endif

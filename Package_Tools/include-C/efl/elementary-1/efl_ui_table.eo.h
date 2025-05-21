@@ -33,7 +33,7 @@ typedef Eo Efl_Ui_Table;
  */
 #define EFL_UI_TABLE_CLASS efl_ui_table_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_table_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_table_class_get(void) ;
 
 /**
  * @brief Control homogeneous mode.
@@ -51,7 +51,7 @@ extern extern_WEAK const Efl_Class *efl_ui_table_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Table
  */
-extern extern_WEAK void efl_ui_table_homogeneous_set(Eo *obj, Eina_Bool homogeneoush, Eina_Bool homogeneousv);
+extern  void efl_ui_table_homogeneous_set(Eo *obj, Eina_Bool homogeneoush, Eina_Bool homogeneousv);
 
 /**
  * @brief Control homogeneous mode.
@@ -69,6 +69,6 @@ extern extern_WEAK void efl_ui_table_homogeneous_set(Eo *obj, Eina_Bool homogene
  *
  * @ingroup Efl_Ui_Table
  */
-extern extern_WEAK void efl_ui_table_homogeneous_get(const Eo *obj, Eina_Bool *homogeneoush, Eina_Bool *homogeneousv);
+extern  void efl_ui_table_homogeneous_get(const Eo *obj, Eina_Bool *homogeneoush, Eina_Bool *homogeneousv);
 
 #endif

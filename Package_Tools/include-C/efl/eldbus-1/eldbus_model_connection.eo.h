@@ -20,7 +20,7 @@ typedef Eo Eldbus_Model_Connection;
  */
 #define ELDBUS_MODEL_CONNECTION_CLASS eldbus_model_connection_class_get()
 
-extern extern_WEAK const Efl_Class *eldbus_model_connection_class_get(void) EINA_CONST;
+extern  const Efl_Class *eldbus_model_connection_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

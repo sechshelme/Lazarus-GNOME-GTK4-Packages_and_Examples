@@ -3273,7 +3273,7 @@ extern int
 eet_data_text_dump(const void *data_in,
                    int size_in,
                    Eet_Dump_Callback dumpfunc,
-                   void *dumpdata) EINA_ARG_NONNULL(3);
+                   void *dumpdata) ;
 
 /**
  * @ingroup Eet_Data_Group
@@ -3297,7 +3297,7 @@ eet_data_text_dump(const void *data_in,
 extern void *
 eet_data_text_undump(const char *text,
                      int textlen,
-                     int *size_ret) EINA_ARG_NONNULL(3);
+                     int *size_ret) ;
 
 /**
  * @ingroup Eet_Data_Group
@@ -3326,7 +3326,7 @@ extern int
 eet_data_dump(Eet_File *ef,
               const char *name,
               Eet_Dump_Callback dumpfunc,
-              void *dumpdata) EINA_ARG_NONNULL(3);
+              void *dumpdata) ;
 
 /**
  * @ingroup Eet_Data_Group
@@ -4128,7 +4128,7 @@ eet_data_text_dump_cipher(const void *data_in,
                           const char *cipher_key,
                           int size_in,
                           Eet_Dump_Callback dumpfunc,
-                          void *dumpdata) EINA_ARG_NONNULL(4);
+                          void *dumpdata) ;
 
 /**
  * @ingroup Eet_Data_Cipher_Group
@@ -4155,7 +4155,7 @@ extern void *
 eet_data_text_undump_cipher(const char *text,
                             const char *cipher_key,
                             int textlen,
-                            int *size_ret) EINA_ARG_NONNULL(4);
+                            int *size_ret) ;
 
 /**
  * @ingroup Eet_Data_Cipher_Group
@@ -4187,7 +4187,7 @@ eet_data_dump_cipher(Eet_File *ef,
                      const char *name,
                      const char *cipher_key,
                      Eet_Dump_Callback dumpfunc,
-                     void *dumpdata) EINA_ARG_NONNULL(4);
+                     void *dumpdata) ;
 
 /**
  * @ingroup Eet_Data_Cipher_Group

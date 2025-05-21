@@ -47,7 +47,7 @@ typedef enum
  */
 #define EFL_UI_CALENDAR_CLASS efl_ui_calendar_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_calendar_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_calendar_class_get(void) ;
 
 /**
  * @brief The first day of week to use on calendar widgets.
@@ -60,7 +60,7 @@ extern extern_WEAK const Efl_Class *efl_ui_calendar_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Calendar
  */
-extern extern_WEAK void efl_ui_calendar_first_day_of_week_set(Eo *obj, Efl_Ui_Calendar_Weekday day);
+extern  void efl_ui_calendar_first_day_of_week_set(Eo *obj, Efl_Ui_Calendar_Weekday day);
 
 /**
  * @brief The first day of week to use on calendar widgets.
@@ -74,7 +74,7 @@ extern extern_WEAK void efl_ui_calendar_first_day_of_week_set(Eo *obj, Efl_Ui_Ca
  *
  * @ingroup Efl_Ui_Calendar
  */
-extern extern_WEAK Efl_Ui_Calendar_Weekday efl_ui_calendar_first_day_of_week_get(const Eo *obj);
+extern  Efl_Ui_Calendar_Weekday efl_ui_calendar_first_day_of_week_get(const Eo *obj);
 
 /**
  * @brief Minimum date on calendar.
@@ -91,7 +91,7 @@ extern extern_WEAK Efl_Ui_Calendar_Weekday efl_ui_calendar_first_day_of_week_get
  *
  * @ingroup Efl_Ui_Calendar
  */
-extern extern_WEAK Eina_Bool efl_ui_calendar_date_min_set(Eo *obj, Efl_Time min);
+extern  Eina_Bool efl_ui_calendar_date_min_set(Eo *obj, Efl_Time min);
 
 /**
  * @brief Minimum date on calendar.
@@ -104,7 +104,7 @@ extern extern_WEAK Eina_Bool efl_ui_calendar_date_min_set(Eo *obj, Efl_Time min)
  *
  * @ingroup Efl_Ui_Calendar
  */
-extern extern_WEAK Efl_Time efl_ui_calendar_date_min_get(const Eo *obj);
+extern  Efl_Time efl_ui_calendar_date_min_get(const Eo *obj);
 
 /**
  * @brief Maximum date on calendar.
@@ -121,7 +121,7 @@ extern extern_WEAK Efl_Time efl_ui_calendar_date_min_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Calendar
  */
-extern extern_WEAK Eina_Bool efl_ui_calendar_date_max_set(Eo *obj, Efl_Time max);
+extern  Eina_Bool efl_ui_calendar_date_max_set(Eo *obj, Efl_Time max);
 
 /**
  * @brief Maximum date on calendar.
@@ -137,7 +137,7 @@ extern extern_WEAK Eina_Bool efl_ui_calendar_date_max_set(Eo *obj, Efl_Time max)
  *
  * @ingroup Efl_Ui_Calendar
  */
-extern extern_WEAK Efl_Time efl_ui_calendar_date_max_get(const Eo *obj);
+extern  Efl_Time efl_ui_calendar_date_max_get(const Eo *obj);
 
 /**
  * @brief The selected date on calendar.
@@ -153,7 +153,7 @@ extern extern_WEAK Efl_Time efl_ui_calendar_date_max_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Calendar
  */
-extern extern_WEAK Eina_Bool efl_ui_calendar_date_set(Eo *obj, Efl_Time date);
+extern  Eina_Bool efl_ui_calendar_date_set(Eo *obj, Efl_Time date);
 
 /**
  * @brief The selected date on calendar.
@@ -164,9 +164,9 @@ extern extern_WEAK Eina_Bool efl_ui_calendar_date_set(Eo *obj, Efl_Time date);
  *
  * @ingroup Efl_Ui_Calendar
  */
-extern extern_WEAK Efl_Time efl_ui_calendar_date_get(const Eo *obj);
+extern  Efl_Time efl_ui_calendar_date_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CALENDAR_EVENT_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_CALENDAR_EVENT_CHANGED;
 
 /** Emitted when the selected date in the calendar is changed
  *

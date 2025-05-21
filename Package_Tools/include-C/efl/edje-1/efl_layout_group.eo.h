@@ -21,7 +21,7 @@ typedef Eo Efl_Layout_Group;
  */
 #define EFL_LAYOUT_GROUP_INTERFACE efl_layout_group_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_layout_group_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_layout_group_interface_get(void) ;
 
 /**
  * @brief The minimum size specified -- as an EDC property -- for a given Edje
@@ -46,7 +46,7 @@ extern extern_WEAK const Efl_Class *efl_layout_group_interface_get(void) EINA_CO
  *
  * @ingroup Efl_Layout_Group
  */
-extern extern_WEAK Eina_Size2D efl_layout_group_size_min_get(const Eo *obj);
+extern  Eina_Size2D efl_layout_group_size_min_get(const Eo *obj);
 
 /**
  * @brief The maximum size specified -- as an EDC property -- for a given Edje
@@ -71,7 +71,7 @@ extern extern_WEAK Eina_Size2D efl_layout_group_size_min_get(const Eo *obj);
  *
  * @ingroup Efl_Layout_Group
  */
-extern extern_WEAK Eina_Size2D efl_layout_group_size_max_get(const Eo *obj);
+extern  Eina_Size2D efl_layout_group_size_max_get(const Eo *obj);
 
 /**
  * @brief The EDC data field's value from a given Edje object's group.
@@ -99,7 +99,7 @@ extern extern_WEAK Eina_Size2D efl_layout_group_size_max_get(const Eo *obj);
  *
  * @ingroup Efl_Layout_Group
  */
-extern extern_WEAK const char *efl_layout_group_data_get(const Eo *obj, const char *key);
+extern  const char *efl_layout_group_data_get(const Eo *obj, const char *key);
 
 /**
  * @brief Whether the given part exists in this group.
@@ -123,6 +123,6 @@ extern extern_WEAK const char *efl_layout_group_data_get(const Eo *obj, const ch
  *
  * @ingroup Efl_Layout_Group
  */
-extern extern_WEAK Eina_Bool efl_layout_group_part_exist_get(const Eo *obj, const char *part);
+extern  Eina_Bool efl_layout_group_part_exist_get(const Eo *obj, const char *part);
 
 #endif

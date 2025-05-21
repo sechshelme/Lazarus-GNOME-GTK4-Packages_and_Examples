@@ -47,7 +47,7 @@ typedef enum
  */
 #define EFL_UI_TEXTBOX_CLASS efl_ui_textbox_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_textbox_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_textbox_class_get(void) ;
 
 /**
  * @brief Enable or disable scrolling in the widget.
@@ -65,7 +65,7 @@ extern extern_WEAK const Efl_Class *efl_ui_textbox_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Textbox
  */
-extern extern_WEAK void efl_ui_textbox_scrollable_set(Eo *obj, Eina_Bool scroll);
+extern  void efl_ui_textbox_scrollable_set(Eo *obj, Eina_Bool scroll);
 
 /**
  * @brief Enable or disable scrolling in the widget.
@@ -84,7 +84,7 @@ extern extern_WEAK void efl_ui_textbox_scrollable_set(Eo *obj, Eina_Bool scroll)
  *
  * @ingroup Efl_Ui_Textbox
  */
-extern extern_WEAK Eina_Bool efl_ui_textbox_scrollable_get(const Eo *obj);
+extern  Eina_Bool efl_ui_textbox_scrollable_get(const Eo *obj);
 
 /**
  * @brief This enables or disables the widget's contextual menu, typically
@@ -97,7 +97,7 @@ extern extern_WEAK Eina_Bool efl_ui_textbox_scrollable_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Textbox
  */
-extern extern_WEAK void efl_ui_textbox_context_menu_enabled_set(Eo *obj, Eina_Bool enabled);
+extern  void efl_ui_textbox_context_menu_enabled_set(Eo *obj, Eina_Bool enabled);
 
 /**
  * @brief This enables or disables the widget's contextual menu, typically
@@ -111,7 +111,7 @@ extern extern_WEAK void efl_ui_textbox_context_menu_enabled_set(Eo *obj, Eina_Bo
  *
  * @ingroup Efl_Ui_Textbox
  */
-extern extern_WEAK Eina_Bool efl_ui_textbox_context_menu_enabled_get(const Eo *obj);
+extern  Eina_Bool efl_ui_textbox_context_menu_enabled_get(const Eo *obj);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -126,7 +126,7 @@ extern extern_WEAK Eina_Bool efl_ui_textbox_context_menu_enabled_get(const Eo *o
  *
  * @ingroup Efl_Ui_Textbox
  */
-extern extern_WEAK void efl_ui_textbox_cnp_dnd_mode_set(Eo *obj, Efl_Ui_Textbox_Cnp_Content allowed_formats);
+extern  void efl_ui_textbox_cnp_dnd_mode_set(Eo *obj, Efl_Ui_Textbox_Cnp_Content allowed_formats);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -143,7 +143,7 @@ extern extern_WEAK void efl_ui_textbox_cnp_dnd_mode_set(Eo *obj, Efl_Ui_Textbox_
  *
  * @ingroup Efl_Ui_Textbox
  */
-extern extern_WEAK Efl_Ui_Textbox_Cnp_Content efl_ui_textbox_cnp_dnd_mode_get(const Eo *obj);
+extern  Efl_Ui_Textbox_Cnp_Content efl_ui_textbox_cnp_dnd_mode_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 /**
@@ -157,7 +157,7 @@ extern extern_WEAK Efl_Ui_Textbox_Cnp_Content efl_ui_textbox_cnp_dnd_mode_get(co
  *
  * @ingroup Efl_Ui_Textbox
  */
-extern extern_WEAK void efl_ui_textbox_selection_handles_enabled_set(Eo *obj, Eina_Bool enabled);
+extern  void efl_ui_textbox_selection_handles_enabled_set(Eo *obj, Eina_Bool enabled);
 
 /**
  * @brief This enables or disables the visual handles around selected text, to
@@ -171,7 +171,7 @@ extern extern_WEAK void efl_ui_textbox_selection_handles_enabled_set(Eo *obj, Ei
  *
  * @ingroup Efl_Ui_Textbox
  */
-extern extern_WEAK Eina_Bool efl_ui_textbox_selection_handles_enabled_get(const Eo *obj);
+extern  Eina_Bool efl_ui_textbox_selection_handles_enabled_get(const Eo *obj);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -185,7 +185,7 @@ extern extern_WEAK Eina_Bool efl_ui_textbox_selection_handles_enabled_get(const 
  *
  * @ingroup Efl_Ui_Textbox
  */
-extern extern_WEAK void efl_ui_textbox_item_factory_set(Eo *obj, Efl_Canvas_Textblock_Factory *item_factory);
+extern  void efl_ui_textbox_item_factory_set(Eo *obj, Efl_Canvas_Textblock_Factory *item_factory);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -201,7 +201,7 @@ extern extern_WEAK void efl_ui_textbox_item_factory_set(Eo *obj, Efl_Canvas_Text
  *
  * @ingroup Efl_Ui_Textbox
  */
-extern extern_WEAK Efl_Canvas_Textblock_Factory *efl_ui_textbox_item_factory_get(const Eo *obj);
+extern  Efl_Canvas_Textblock_Factory *efl_ui_textbox_item_factory_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 /**
@@ -215,7 +215,7 @@ extern extern_WEAK Efl_Canvas_Textblock_Factory *efl_ui_textbox_item_factory_get
  *
  * @ingroup Efl_Ui_Textbox
  */
-extern extern_WEAK Efl_Text_Cursor_Object *efl_ui_textbox_cursor_create(Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Efl_Text_Cursor_Object *efl_ui_textbox_cursor_create(Eo *obj)  ;
 
 /** This executes a "copy" action on the selected text in the widget.
  *
@@ -223,7 +223,7 @@ extern extern_WEAK Efl_Text_Cursor_Object *efl_ui_textbox_cursor_create(Eo *obj)
  *
  * @ingroup Efl_Ui_Textbox
  */
-extern extern_WEAK void efl_ui_textbox_selection_copy(Eo *obj);
+extern  void efl_ui_textbox_selection_copy(Eo *obj);
 
 /** This executes a "paste" action in the widget.
  *
@@ -231,7 +231,7 @@ extern extern_WEAK void efl_ui_textbox_selection_copy(Eo *obj);
  *
  * @ingroup Efl_Ui_Textbox
  */
-extern extern_WEAK void efl_ui_textbox_selection_paste(Eo *obj);
+extern  void efl_ui_textbox_selection_paste(Eo *obj);
 
 /** This executes a "cut" action on the selected text in the widget.
  *
@@ -239,9 +239,9 @@ extern extern_WEAK void efl_ui_textbox_selection_paste(Eo *obj);
  *
  * @ingroup Efl_Ui_Textbox
  */
-extern extern_WEAK void efl_ui_textbox_selection_cut(Eo *obj);
+extern  void efl_ui_textbox_selection_cut(Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TEXTBOX_EVENT_SELECTION_PASTE;
+extern  extern const Efl_Event_Description _EFL_UI_TEXTBOX_EVENT_SELECTION_PASTE;
 
 /** Called when selection is pasted.
  *
@@ -251,7 +251,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TEXTBOX_EVENT_SELE
  */
 #define EFL_UI_TEXTBOX_EVENT_SELECTION_PASTE (&(_EFL_UI_TEXTBOX_EVENT_SELECTION_PASTE))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TEXTBOX_EVENT_SELECTION_COPY;
+extern  extern const Efl_Event_Description _EFL_UI_TEXTBOX_EVENT_SELECTION_COPY;
 
 /** Called when selection is copied.
  *
@@ -261,7 +261,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TEXTBOX_EVENT_SELE
  */
 #define EFL_UI_TEXTBOX_EVENT_SELECTION_COPY (&(_EFL_UI_TEXTBOX_EVENT_SELECTION_COPY))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TEXTBOX_EVENT_SELECTION_CUT;
+extern  extern const Efl_Event_Description _EFL_UI_TEXTBOX_EVENT_SELECTION_CUT;
 
 /** Called when selection is cut.
  *
@@ -271,7 +271,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TEXTBOX_EVENT_SELE
  */
 #define EFL_UI_TEXTBOX_EVENT_SELECTION_CUT (&(_EFL_UI_TEXTBOX_EVENT_SELECTION_CUT))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TEXTBOX_EVENT_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_TEXTBOX_EVENT_CHANGED;
 
 /** Called when entry changes
  *
@@ -281,7 +281,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TEXTBOX_EVENT_CHAN
  */
 #define EFL_UI_TEXTBOX_EVENT_CHANGED (&(_EFL_UI_TEXTBOX_EVENT_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TEXTBOX_EVENT_CONTEXT_OPEN;
+extern  extern const Efl_Event_Description _EFL_UI_TEXTBOX_EVENT_CONTEXT_OPEN;
 
 /** Called when context menu was opened
  *

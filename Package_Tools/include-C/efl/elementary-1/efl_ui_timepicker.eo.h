@@ -26,7 +26,7 @@ typedef Eo Efl_Ui_Timepicker;
  */
 #define EFL_UI_TIMEPICKER_CLASS efl_ui_timepicker_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_timepicker_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_timepicker_class_get(void) ;
 
 /**
  * @brief The current value of time
@@ -43,7 +43,7 @@ extern extern_WEAK const Efl_Class *efl_ui_timepicker_class_get(void) EINA_CONST
  *
  * @ingroup Efl_Ui_Timepicker
  */
-extern extern_WEAK void efl_ui_timepicker_time_set(Eo *obj, int hour, int min);
+extern  void efl_ui_timepicker_time_set(Eo *obj, int hour, int min);
 
 /**
  * @brief The current value of time
@@ -60,7 +60,7 @@ extern extern_WEAK void efl_ui_timepicker_time_set(Eo *obj, int hour, int min);
  *
  * @ingroup Efl_Ui_Timepicker
  */
-extern extern_WEAK void efl_ui_timepicker_time_get(const Eo *obj, int *hour, int *min);
+extern  void efl_ui_timepicker_time_get(const Eo *obj, int *hour, int *min);
 
 /**
  * @brief Control if the Timepicker displays 24 hour time or 12 hour time
@@ -74,7 +74,7 @@ extern extern_WEAK void efl_ui_timepicker_time_get(const Eo *obj, int *hour, int
  *
  * @ingroup Efl_Ui_Timepicker
  */
-extern extern_WEAK void efl_ui_timepicker_is_24hour_set(Eo *obj, Eina_Bool is_24hour);
+extern  void efl_ui_timepicker_is_24hour_set(Eo *obj, Eina_Bool is_24hour);
 
 /**
  * @brief Control if the Timepicker displays 24 hour time or 12 hour time
@@ -89,9 +89,9 @@ extern extern_WEAK void efl_ui_timepicker_is_24hour_set(Eo *obj, Eina_Bool is_24
  *
  * @ingroup Efl_Ui_Timepicker
  */
-extern extern_WEAK Eina_Bool efl_ui_timepicker_is_24hour_get(const Eo *obj);
+extern  Eina_Bool efl_ui_timepicker_is_24hour_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_TIMEPICKER_EVENT_TIME_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_TIMEPICKER_EVENT_TIME_CHANGED;
 
 /** Called when time is changed
  *

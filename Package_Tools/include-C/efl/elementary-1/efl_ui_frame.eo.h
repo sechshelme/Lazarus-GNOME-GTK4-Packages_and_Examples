@@ -25,7 +25,7 @@ typedef Eo Efl_Ui_Frame;
  */
 #define EFL_UI_FRAME_CLASS efl_ui_frame_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_frame_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_frame_class_get(void) ;
 
 /**
  * @brief Manually collapse a frame without animations. Use this to toggle the
@@ -36,7 +36,7 @@ extern extern_WEAK const Efl_Class *efl_ui_frame_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Frame
  */
-extern extern_WEAK void efl_ui_frame_collapse_set(Eo *obj, Eina_Bool collapse);
+extern  void efl_ui_frame_collapse_set(Eo *obj, Eina_Bool collapse);
 
 /**
  * @brief Manually collapse a frame without animations. Use this to toggle the
@@ -48,7 +48,7 @@ extern extern_WEAK void efl_ui_frame_collapse_set(Eo *obj, Eina_Bool collapse);
  *
  * @ingroup Efl_Ui_Frame
  */
-extern extern_WEAK Eina_Bool efl_ui_frame_collapse_get(const Eo *obj);
+extern  Eina_Bool efl_ui_frame_collapse_get(const Eo *obj);
 
 /**
  * @brief Toggle autocollapsing of a frame. When @c enable is @c true, clicking
@@ -60,7 +60,7 @@ extern extern_WEAK Eina_Bool efl_ui_frame_collapse_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Frame
  */
-extern extern_WEAK void efl_ui_frame_autocollapse_set(Eo *obj, Eina_Bool autocollapse);
+extern  void efl_ui_frame_autocollapse_set(Eo *obj, Eina_Bool autocollapse);
 
 /**
  * @brief Toggle autocollapsing of a frame. When @c enable is @c true, clicking
@@ -73,7 +73,7 @@ extern extern_WEAK void efl_ui_frame_autocollapse_set(Eo *obj, Eina_Bool autocol
  *
  * @ingroup Efl_Ui_Frame
  */
-extern extern_WEAK Eina_Bool efl_ui_frame_autocollapse_get(const Eo *obj);
+extern  Eina_Bool efl_ui_frame_autocollapse_get(const Eo *obj);
 
 /**
  * @brief Manually collapse a frame with animations Use this to toggle the
@@ -84,7 +84,7 @@ extern extern_WEAK Eina_Bool efl_ui_frame_autocollapse_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Frame
  */
-extern extern_WEAK void efl_ui_frame_collapse_go(Eo *obj, Eina_Bool collapse);
+extern  void efl_ui_frame_collapse_go(Eo *obj, Eina_Bool collapse);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

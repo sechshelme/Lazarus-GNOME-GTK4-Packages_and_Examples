@@ -25,7 +25,7 @@ typedef Eo Efl_Ui_Spotlight_Indicator;
  */
 #define EFL_UI_SPOTLIGHT_INDICATOR_CLASS efl_ui_spotlight_indicator_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_spotlight_indicator_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_spotlight_indicator_class_get(void) ;
 
 /**
  * @brief This method is called the first time an
@@ -43,7 +43,7 @@ extern extern_WEAK const Efl_Class *efl_ui_spotlight_indicator_class_get(void) E
  *
  * @ingroup Efl_Ui_Spotlight_Indicator
  */
-extern extern_WEAK void efl_ui_spotlight_indicator_bind(Eo *obj, Efl_Ui_Spotlight_Container *spotlight);
+extern  void efl_ui_spotlight_indicator_bind(Eo *obj, Efl_Ui_Spotlight_Container *spotlight);
 
 /**
  * @brief A @c subobj has been added at position @c index in the bound
@@ -55,7 +55,7 @@ extern extern_WEAK void efl_ui_spotlight_indicator_bind(Eo *obj, Efl_Ui_Spotligh
  *
  * @ingroup Efl_Ui_Spotlight_Indicator
  */
-extern extern_WEAK void efl_ui_spotlight_indicator_content_add(Eo *obj, Efl_Gfx_Entity *subobj, int index);
+extern  void efl_ui_spotlight_indicator_content_add(Eo *obj, Efl_Gfx_Entity *subobj, int index);
 
 /**
  * @brief The @c subobj at position @c index in the bound container has been
@@ -67,7 +67,7 @@ extern extern_WEAK void efl_ui_spotlight_indicator_content_add(Eo *obj, Efl_Gfx_
  *
  * @ingroup Efl_Ui_Spotlight_Indicator
  */
-extern extern_WEAK void efl_ui_spotlight_indicator_content_del(Eo *obj, Efl_Gfx_Entity *subobj, int index);
+extern  void efl_ui_spotlight_indicator_content_del(Eo *obj, Efl_Gfx_Entity *subobj, int index);
 
 /**
  * @brief This method tells the indicator that
@@ -87,7 +87,7 @@ extern extern_WEAK void efl_ui_spotlight_indicator_content_del(Eo *obj, Efl_Gfx_
  *
  * @ingroup Efl_Ui_Spotlight_Indicator
  */
-extern extern_WEAK void efl_ui_spotlight_indicator_position_update(Eo *obj, double position);
+extern  void efl_ui_spotlight_indicator_position_update(Eo *obj, double position);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

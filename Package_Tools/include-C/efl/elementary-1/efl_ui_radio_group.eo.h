@@ -25,7 +25,7 @@ typedef Eo Efl_Ui_Radio_Group;
  */
 #define EFL_UI_RADIO_GROUP_INTERFACE efl_ui_radio_group_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_radio_group_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_radio_group_interface_get(void) ;
 
 /**
  * @brief The value associated with the currently selected button in the group.
@@ -43,7 +43,7 @@ extern extern_WEAK const Efl_Class *efl_ui_radio_group_interface_get(void) EINA_
  *
  * @ingroup Efl_Ui_Radio_Group
  */
-extern extern_WEAK void efl_ui_radio_group_selected_value_set(Eo *obj, int selected_value);
+extern  void efl_ui_radio_group_selected_value_set(Eo *obj, int selected_value);
 
 /**
  * @brief The value associated with the currently selected button in the group.
@@ -61,7 +61,7 @@ extern extern_WEAK void efl_ui_radio_group_selected_value_set(Eo *obj, int selec
  *
  * @ingroup Efl_Ui_Radio_Group
  */
-extern extern_WEAK int efl_ui_radio_group_selected_value_get(const Eo *obj);
+extern  int efl_ui_radio_group_selected_value_get(const Eo *obj);
 
 /**
  * @brief Register a new @ref Efl_Ui_Radio button to this group. Keep in mind
@@ -80,7 +80,7 @@ extern extern_WEAK int efl_ui_radio_group_selected_value_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Radio_Group
  */
-extern extern_WEAK void efl_ui_radio_group_register(Eo *obj, Efl_Ui_Radio *radio);
+extern  void efl_ui_radio_group_register(Eo *obj, Efl_Ui_Radio *radio);
 
 /**
  * @brief Unregister an @ref Efl_Ui_Radio button from this group. This will
@@ -100,9 +100,9 @@ extern extern_WEAK void efl_ui_radio_group_register(Eo *obj, Efl_Ui_Radio *radio
  *
  * @ingroup Efl_Ui_Radio_Group
  */
-extern extern_WEAK void efl_ui_radio_group_unregister(Eo *obj, Efl_Ui_Radio *radio);
+extern  void efl_ui_radio_group_unregister(Eo *obj, Efl_Ui_Radio *radio);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_RADIO_GROUP_EVENT_VALUE_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_RADIO_GROUP_EVENT_VALUE_CHANGED;
 
 /** Emitted each time the @c selected_value changes. The event information
  * contains the @ref efl_ui_radio_state_value_get of the newly selected button

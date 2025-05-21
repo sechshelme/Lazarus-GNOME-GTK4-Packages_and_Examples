@@ -20,7 +20,7 @@ typedef Eo Ecore_Audio_In_Tone;
  */
 #define ECORE_AUDIO_IN_TONE_CLASS ecore_audio_in_tone_class_get()
 
-ECORE_AUDIO_API ECORE_AUDIO_API_WEAK const Efl_Class *ecore_audio_in_tone_class_get(void) EINA_CONST;
+ECORE_AUDIO_API ECORE_AUDIO_API_WEAK const Efl_Class *ecore_audio_in_tone_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

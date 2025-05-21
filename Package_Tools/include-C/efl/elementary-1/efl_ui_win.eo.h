@@ -206,7 +206,7 @@ typedef enum
  */
 #define EFL_UI_WIN_CLASS efl_ui_win_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_win_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_win_class_get(void) ;
 
 /**
  * @brief In some environments you may have an indicator that shows battery
@@ -225,7 +225,7 @@ extern extern_WEAK const Efl_Class *efl_ui_win_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_indicator_mode_set(Eo *obj, Efl_Ui_Win_Indicator_Mode type);
+extern  void efl_ui_win_indicator_mode_set(Eo *obj, Efl_Ui_Win_Indicator_Mode type);
 
 /**
  * @brief In some environments you may have an indicator that shows battery
@@ -245,7 +245,7 @@ extern extern_WEAK void efl_ui_win_indicator_mode_set(Eo *obj, Efl_Ui_Win_Indica
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Efl_Ui_Win_Indicator_Mode efl_ui_win_indicator_mode_get(const Eo *obj);
+extern  Efl_Ui_Win_Indicator_Mode efl_ui_win_indicator_mode_get(const Eo *obj);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -258,7 +258,7 @@ extern extern_WEAK Efl_Ui_Win_Indicator_Mode efl_ui_win_indicator_mode_get(const
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_keyboard_mode_set(Eo *obj, Efl_Ui_Win_Keyboard_Mode mode);
+extern  void efl_ui_win_keyboard_mode_set(Eo *obj, Efl_Ui_Win_Keyboard_Mode mode);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -273,7 +273,7 @@ extern extern_WEAK void efl_ui_win_keyboard_mode_set(Eo *obj, Efl_Ui_Win_Keyboar
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Efl_Ui_Win_Keyboard_Mode efl_ui_win_keyboard_mode_get(const Eo *obj);
+extern  Efl_Ui_Win_Keyboard_Mode efl_ui_win_keyboard_mode_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -293,7 +293,7 @@ extern extern_WEAK Efl_Ui_Win_Keyboard_Mode efl_ui_win_keyboard_mode_get(const E
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_wm_available_rotations_set(Eo *obj, Eina_Bool allow_0, Eina_Bool allow_90, Eina_Bool allow_180, Eina_Bool allow_270);
+extern  void efl_ui_win_wm_available_rotations_set(Eo *obj, Eina_Bool allow_0, Eina_Bool allow_90, Eina_Bool allow_180, Eina_Bool allow_270);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -315,7 +315,7 @@ extern extern_WEAK void efl_ui_win_wm_available_rotations_set(Eo *obj, Eina_Bool
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Eina_Bool efl_ui_win_wm_available_rotations_get(const Eo *obj, Eina_Bool *allow_0, Eina_Bool *allow_90, Eina_Bool *allow_180, Eina_Bool *allow_270);
+extern  Eina_Bool efl_ui_win_wm_available_rotations_get(const Eo *obj, Eina_Bool *allow_0, Eina_Bool *allow_90, Eina_Bool *allow_180, Eina_Bool *allow_270);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -329,7 +329,7 @@ extern extern_WEAK Eina_Bool efl_ui_win_wm_available_rotations_get(const Eo *obj
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_wm_available_profiles_set(Eo *obj, const Eina_Array *profiles);
+extern  void efl_ui_win_wm_available_profiles_set(Eo *obj, const Eina_Array *profiles);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -344,7 +344,7 @@ extern extern_WEAK void efl_ui_win_wm_available_profiles_set(Eo *obj, const Eina
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK const Eina_Array *efl_ui_win_wm_available_profiles_get(const Eo *obj);
+extern  const Eina_Array *efl_ui_win_wm_available_profiles_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -362,7 +362,7 @@ extern extern_WEAK const Eina_Array *efl_ui_win_wm_available_profiles_get(const 
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_screen_constrain_set(Eo *obj, Eina_Bool constrain);
+extern  void efl_ui_win_screen_constrain_set(Eo *obj, Eina_Bool constrain);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -381,7 +381,7 @@ extern extern_WEAK void efl_ui_win_screen_constrain_set(Eo *obj, Eina_Bool const
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Eina_Bool efl_ui_win_screen_constrain_get(const Eo *obj);
+extern  Eina_Bool efl_ui_win_screen_constrain_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -407,7 +407,7 @@ extern extern_WEAK Eina_Bool efl_ui_win_screen_constrain_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_prop_focus_skip_set(Eo *obj, Eina_Bool skip);
+extern  void efl_ui_win_prop_focus_skip_set(Eo *obj, Eina_Bool skip);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -439,7 +439,7 @@ extern extern_WEAK void efl_ui_win_prop_focus_skip_set(Eo *obj, Eina_Bool skip);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_autohide_set(Eo *obj, Eina_Bool autohide);
+extern  void efl_ui_win_autohide_set(Eo *obj, Eina_Bool autohide);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -471,7 +471,7 @@ extern extern_WEAK void efl_ui_win_autohide_set(Eo *obj, Eina_Bool autohide);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Eina_Bool efl_ui_win_autohide_get(const Eo *obj);
+extern  Eina_Bool efl_ui_win_autohide_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 /**
@@ -493,7 +493,7 @@ extern extern_WEAK Eina_Bool efl_ui_win_autohide_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_exit_on_close_set(Eo *obj, const Eina_Value *exit_code);
+extern  void efl_ui_win_exit_on_close_set(Eo *obj, const Eina_Value *exit_code);
 
 /**
  * @brief Enable quitting the main loop when this window is closed.
@@ -515,7 +515,7 @@ extern extern_WEAK void efl_ui_win_exit_on_close_set(Eo *obj, const Eina_Value *
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK const Eina_Value *efl_ui_win_exit_on_close_get(const Eo *obj);
+extern  const Eina_Value *efl_ui_win_exit_on_close_get(const Eo *obj);
 
 /**
  * @brief A window object's icon.
@@ -535,7 +535,7 @@ extern extern_WEAK const Eina_Value *efl_ui_win_exit_on_close_get(const Eo *obj)
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_icon_object_set(Eo *obj, Efl_Canvas_Object *icon);
+extern  void efl_ui_win_icon_object_set(Eo *obj, Efl_Canvas_Object *icon);
 
 /**
  * @brief A window object's icon.
@@ -556,7 +556,7 @@ extern extern_WEAK void efl_ui_win_icon_object_set(Eo *obj, Efl_Canvas_Object *i
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK const Efl_Canvas_Object *efl_ui_win_icon_object_get(const Eo *obj);
+extern  const Efl_Canvas_Object *efl_ui_win_icon_object_get(const Eo *obj);
 
 /**
  * @brief The minimized state of a window.
@@ -568,7 +568,7 @@ extern extern_WEAK const Efl_Canvas_Object *efl_ui_win_icon_object_get(const Eo 
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_minimized_set(Eo *obj, Eina_Bool state);
+extern  void efl_ui_win_minimized_set(Eo *obj, Eina_Bool state);
 
 /**
  * @brief The minimized state of a window.
@@ -581,7 +581,7 @@ extern extern_WEAK void efl_ui_win_minimized_set(Eo *obj, Eina_Bool state);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Eina_Bool efl_ui_win_minimized_get(const Eo *obj);
+extern  Eina_Bool efl_ui_win_minimized_get(const Eo *obj);
 
 /**
  * @brief The maximized state of a window.
@@ -593,7 +593,7 @@ extern extern_WEAK Eina_Bool efl_ui_win_minimized_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_maximized_set(Eo *obj, Eina_Bool maximized);
+extern  void efl_ui_win_maximized_set(Eo *obj, Eina_Bool maximized);
 
 /**
  * @brief The maximized state of a window.
@@ -606,7 +606,7 @@ extern extern_WEAK void efl_ui_win_maximized_set(Eo *obj, Eina_Bool maximized);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Eina_Bool efl_ui_win_maximized_get(const Eo *obj);
+extern  Eina_Bool efl_ui_win_maximized_get(const Eo *obj);
 
 /**
  * @brief The fullscreen state of a window.
@@ -618,7 +618,7 @@ extern extern_WEAK Eina_Bool efl_ui_win_maximized_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_fullscreen_set(Eo *obj, Eina_Bool fullscreen);
+extern  void efl_ui_win_fullscreen_set(Eo *obj, Eina_Bool fullscreen);
 
 /**
  * @brief The fullscreen state of a window.
@@ -631,7 +631,7 @@ extern extern_WEAK void efl_ui_win_fullscreen_set(Eo *obj, Eina_Bool fullscreen)
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Eina_Bool efl_ui_win_fullscreen_get(const Eo *obj);
+extern  Eina_Bool efl_ui_win_fullscreen_get(const Eo *obj);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -647,7 +647,7 @@ extern extern_WEAK Eina_Bool efl_ui_win_fullscreen_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_sticky_set(Eo *obj, Eina_Bool sticky);
+extern  void efl_ui_win_sticky_set(Eo *obj, Eina_Bool sticky);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -665,7 +665,7 @@ extern extern_WEAK void efl_ui_win_sticky_set(Eo *obj, Eina_Bool sticky);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Eina_Bool efl_ui_win_sticky_get(const Eo *obj);
+extern  Eina_Bool efl_ui_win_sticky_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -680,7 +680,7 @@ extern extern_WEAK Eina_Bool efl_ui_win_sticky_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_urgent_set(Eo *obj, Efl_Ui_Win_Urgent_Mode urgent);
+extern  void efl_ui_win_urgent_set(Eo *obj, Efl_Ui_Win_Urgent_Mode urgent);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -695,7 +695,7 @@ extern extern_WEAK void efl_ui_win_urgent_set(Eo *obj, Efl_Ui_Win_Urgent_Mode ur
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Efl_Ui_Win_Urgent_Mode efl_ui_win_urgent_get(const Eo *obj);
+extern  Efl_Ui_Win_Urgent_Mode efl_ui_win_urgent_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -709,7 +709,7 @@ extern extern_WEAK Efl_Ui_Win_Urgent_Mode efl_ui_win_urgent_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_modal_set(Eo *obj, Efl_Ui_Win_Modal_Mode modal);
+extern  void efl_ui_win_modal_set(Eo *obj, Efl_Ui_Win_Modal_Mode modal);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -724,7 +724,7 @@ extern extern_WEAK void efl_ui_win_modal_set(Eo *obj, Efl_Ui_Win_Modal_Mode moda
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Efl_Ui_Win_Modal_Mode efl_ui_win_modal_get(const Eo *obj);
+extern  Efl_Ui_Win_Modal_Mode efl_ui_win_modal_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -741,7 +741,7 @@ extern extern_WEAK Efl_Ui_Win_Modal_Mode efl_ui_win_modal_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_borderless_set(Eo *obj, Eina_Bool borderless);
+extern  void efl_ui_win_borderless_set(Eo *obj, Eina_Bool borderless);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -759,7 +759,7 @@ extern extern_WEAK void efl_ui_win_borderless_set(Eo *obj, Eina_Bool borderless)
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Eina_Bool efl_ui_win_borderless_get(const Eo *obj);
+extern  Eina_Bool efl_ui_win_borderless_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -780,7 +780,7 @@ extern extern_WEAK Eina_Bool efl_ui_win_borderless_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_role_set(Eo *obj, const char *role);
+extern  void efl_ui_win_role_set(Eo *obj, const char *role);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -802,7 +802,7 @@ extern extern_WEAK void efl_ui_win_role_set(Eo *obj, const char *role);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK const char *efl_ui_win_role_get(const Eo *obj);
+extern  const char *efl_ui_win_role_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 /**
@@ -822,7 +822,7 @@ extern extern_WEAK const char *efl_ui_win_role_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_name_set(Eo *obj, const char *name);
+extern  void efl_ui_win_name_set(Eo *obj, const char *name);
 
 /**
  * @brief The window name.
@@ -842,7 +842,7 @@ extern extern_WEAK void efl_ui_win_name_set(Eo *obj, const char *name);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK const char *efl_ui_win_name_get(const Eo *obj);
+extern  const char *efl_ui_win_name_get(const Eo *obj);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -864,7 +864,7 @@ extern extern_WEAK const char *efl_ui_win_name_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_type_set(Eo *obj, Efl_Ui_Win_Type type);
+extern  void efl_ui_win_type_set(Eo *obj, Efl_Ui_Win_Type type);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -888,7 +888,7 @@ extern extern_WEAK void efl_ui_win_type_set(Eo *obj, Efl_Ui_Win_Type type);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Efl_Ui_Win_Type efl_ui_win_type_get(const Eo *obj);
+extern  Efl_Ui_Win_Type efl_ui_win_type_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -940,7 +940,7 @@ extern extern_WEAK Efl_Ui_Win_Type efl_ui_win_type_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_accel_preference_set(Eo *obj, const char *accel);
+extern  void efl_ui_win_accel_preference_set(Eo *obj, const char *accel);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -993,7 +993,7 @@ extern extern_WEAK void efl_ui_win_accel_preference_set(Eo *obj, const char *acc
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK const char *efl_ui_win_accel_preference_get(const Eo *obj);
+extern  const char *efl_ui_win_accel_preference_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 /**
@@ -1017,7 +1017,7 @@ extern extern_WEAK const char *efl_ui_win_accel_preference_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_alpha_set(Eo *obj, Eina_Bool alpha);
+extern  void efl_ui_win_alpha_set(Eo *obj, Eina_Bool alpha);
 
 /**
  * @brief The alpha channel state of a window.
@@ -1040,7 +1040,7 @@ extern extern_WEAK void efl_ui_win_alpha_set(Eo *obj, Eina_Bool alpha);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Eina_Bool efl_ui_win_alpha_get(const Eo *obj);
+extern  Eina_Bool efl_ui_win_alpha_get(const Eo *obj);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -1064,7 +1064,7 @@ extern extern_WEAK Eina_Bool efl_ui_win_alpha_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK const char *efl_ui_win_stack_id_get(const Eo *obj);
+extern  const char *efl_ui_win_stack_id_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -1083,7 +1083,7 @@ extern extern_WEAK const char *efl_ui_win_stack_id_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_stack_master_id_set(Eo *obj, const char *id);
+extern  void efl_ui_win_stack_master_id_set(Eo *obj, const char *id);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -1103,7 +1103,7 @@ extern extern_WEAK void efl_ui_win_stack_master_id_set(Eo *obj, const char *id);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK const char *efl_ui_win_stack_master_id_get(const Eo *obj);
+extern  const char *efl_ui_win_stack_master_id_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -1124,7 +1124,7 @@ extern extern_WEAK const char *efl_ui_win_stack_master_id_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_stack_base_set(Eo *obj, Eina_Bool base);
+extern  void efl_ui_win_stack_base_set(Eo *obj, Eina_Bool base);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -1146,7 +1146,7 @@ extern extern_WEAK void efl_ui_win_stack_base_set(Eo *obj, Eina_Bool base);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Eina_Bool efl_ui_win_stack_base_get(const Eo *obj);
+extern  Eina_Bool efl_ui_win_stack_base_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -1162,7 +1162,7 @@ extern extern_WEAK Eina_Bool efl_ui_win_stack_base_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_stack_pop_to(Eo *obj);
+extern  void efl_ui_win_stack_pop_to(Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 /**
@@ -1183,7 +1183,7 @@ extern extern_WEAK void efl_ui_win_stack_pop_to(Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_exit_on_all_windows_closed_set(const Eina_Value *exit_code);
+extern  void efl_ui_win_exit_on_all_windows_closed_set(const Eina_Value *exit_code);
 
 /**
  * @brief Enable quitting the main loop when all windows are closed.
@@ -1203,7 +1203,7 @@ extern extern_WEAK void efl_ui_win_exit_on_all_windows_closed_set(const Eina_Val
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK const Eina_Value *efl_ui_win_exit_on_all_windows_closed_get(void);
+extern  const Eina_Value *efl_ui_win_exit_on_all_windows_closed_get(void);
 
 /**
  * @brief Activate a window object.
@@ -1222,7 +1222,7 @@ extern extern_WEAK const Eina_Value *efl_ui_win_exit_on_all_windows_closed_get(v
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_activate(Eo *obj);
+extern  void efl_ui_win_activate(Eo *obj);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -1245,7 +1245,7 @@ extern extern_WEAK void efl_ui_win_activate(Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_center(Eo *obj, Eina_Bool h, Eina_Bool v);
+extern  void efl_ui_win_center(Eo *obj, Eina_Bool h, Eina_Bool v);
 #endif /* EFL_BETA_API_SUPPORT */
 
 /**
@@ -1297,7 +1297,7 @@ extern extern_WEAK void efl_ui_win_center(Eo *obj, Eina_Bool h, Eina_Bool v);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Eina_Bool efl_ui_win_move_resize_start(Eo *obj, Efl_Ui_Win_Move_Resize_Mode mode);
+extern  Eina_Bool efl_ui_win_move_resize_start(Eo *obj, Efl_Ui_Win_Move_Resize_Mode mode);
 
 /**
  * @brief Base size for objects with sizing restrictions.
@@ -1317,7 +1317,7 @@ extern extern_WEAK Eina_Bool efl_ui_win_move_resize_start(Eo *obj, Efl_Ui_Win_Mo
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_hint_base_set(Eo *obj, Eina_Size2D sz);
+extern  void efl_ui_win_hint_base_set(Eo *obj, Eina_Size2D sz);
 
 /**
  * @brief Base size for objects with sizing restrictions.
@@ -1338,7 +1338,7 @@ extern extern_WEAK void efl_ui_win_hint_base_set(Eo *obj, Eina_Size2D sz);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Eina_Size2D efl_ui_win_hint_base_get(const Eo *obj);
+extern  Eina_Size2D efl_ui_win_hint_base_get(const Eo *obj);
 
 /**
  * @brief Step size for objects with sizing restrictions.
@@ -1358,7 +1358,7 @@ extern extern_WEAK Eina_Size2D efl_ui_win_hint_base_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_hint_step_set(Eo *obj, Eina_Size2D sz);
+extern  void efl_ui_win_hint_step_set(Eo *obj, Eina_Size2D sz);
 
 /**
  * @brief Step size for objects with sizing restrictions.
@@ -1379,7 +1379,7 @@ extern extern_WEAK void efl_ui_win_hint_step_set(Eo *obj, Eina_Size2D sz);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Eina_Size2D efl_ui_win_hint_step_get(const Eo *obj);
+extern  Eina_Size2D efl_ui_win_hint_step_get(const Eo *obj);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -1408,7 +1408,7 @@ extern extern_WEAK Eina_Size2D efl_ui_win_hint_step_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Eina_Iterator *efl_ui_win_pointer_iterate(const Eo *obj, Eina_Bool hover) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Iterator *efl_ui_win_pointer_iterate(const Eo *obj, Eina_Bool hover)  ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -1426,7 +1426,7 @@ extern extern_WEAK Eina_Iterator *efl_ui_win_pointer_iterate(const Eo *obj, Eina
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_rotation_set(Eo *obj, int rotation);
+extern  void efl_ui_win_rotation_set(Eo *obj, int rotation);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -1445,7 +1445,7 @@ extern extern_WEAK void efl_ui_win_rotation_set(Eo *obj, int rotation);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK int efl_ui_win_rotation_get(const Eo *obj);
+extern  int efl_ui_win_rotation_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 /**
@@ -1462,7 +1462,7 @@ extern extern_WEAK int efl_ui_win_rotation_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_focus_highlight_enabled_set(Eo *obj, Eina_Bool enabled);
+extern  void efl_ui_win_focus_highlight_enabled_set(Eo *obj, Eina_Bool enabled);
 
 /**
  * @brief Whether focus highlight is enabled or not on this window, regardless
@@ -1479,7 +1479,7 @@ extern extern_WEAK void efl_ui_win_focus_highlight_enabled_set(Eo *obj, Eina_Boo
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Eina_Bool efl_ui_win_focus_highlight_enabled_get(const Eo *obj);
+extern  Eina_Bool efl_ui_win_focus_highlight_enabled_get(const Eo *obj);
 
 /**
  * @brief Control the widget focus highlight style.
@@ -1498,7 +1498,7 @@ extern extern_WEAK Eina_Bool efl_ui_win_focus_highlight_enabled_get(const Eo *ob
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Eina_Bool efl_ui_win_focus_highlight_style_set(Eo *obj, const char *style);
+extern  Eina_Bool efl_ui_win_focus_highlight_style_set(Eo *obj, const char *style);
 
 /**
  * @brief Control the widget focus highlight style.
@@ -1516,7 +1516,7 @@ extern extern_WEAK Eina_Bool efl_ui_win_focus_highlight_style_set(Eo *obj, const
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK const char *efl_ui_win_focus_highlight_style_get(const Eo *obj);
+extern  const char *efl_ui_win_focus_highlight_style_get(const Eo *obj);
 
 /**
  * @brief Whether focus highlight should animate or not.
@@ -1531,7 +1531,7 @@ extern extern_WEAK const char *efl_ui_win_focus_highlight_style_get(const Eo *ob
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK void efl_ui_win_focus_highlight_animate_set(Eo *obj, Eina_Bool animate);
+extern  void efl_ui_win_focus_highlight_animate_set(Eo *obj, Eina_Bool animate);
 
 /**
  * @brief Whether focus highlight should animate or not.
@@ -1547,9 +1547,9 @@ extern extern_WEAK void efl_ui_win_focus_highlight_animate_set(Eo *obj, Eina_Boo
  *
  * @ingroup Efl_Ui_Win
  */
-extern extern_WEAK Eina_Bool efl_ui_win_focus_highlight_animate_get(const Eo *obj);
+extern  Eina_Bool efl_ui_win_focus_highlight_animate_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_DELETE_REQUEST;
+extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_DELETE_REQUEST;
 
 /** Called when the window receives a delete request
  *
@@ -1559,7 +1559,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_DELETE_R
  */
 #define EFL_UI_WIN_EVENT_DELETE_REQUEST (&(_EFL_UI_WIN_EVENT_DELETE_REQUEST))
 #ifdef EFL_BETA_API_SUPPORT
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_WITHDRAWN;
+extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_WITHDRAWN;
 
 /** Called when window is withdrawn
  *
@@ -1570,7 +1570,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_WITHDRAW
 #define EFL_UI_WIN_EVENT_WITHDRAWN (&(_EFL_UI_WIN_EVENT_WITHDRAWN))
 #endif /* EFL_BETA_API_SUPPORT */
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_MINIMIZED;
+extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_MINIMIZED;
 
 /** Called when window is minimized
  *
@@ -1580,7 +1580,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_MINIMIZE
  */
 #define EFL_UI_WIN_EVENT_MINIMIZED (&(_EFL_UI_WIN_EVENT_MINIMIZED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_NORMAL;
+extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_NORMAL;
 
 /** Called when window is set to normal state
  *
@@ -1590,7 +1590,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_NORMAL;
  */
 #define EFL_UI_WIN_EVENT_NORMAL (&(_EFL_UI_WIN_EVENT_NORMAL))
 #ifdef EFL_BETA_API_SUPPORT
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_STICK;
+extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_STICK;
 
 /** Called when window is set as sticky
  *
@@ -1601,7 +1601,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_STICK;
 #define EFL_UI_WIN_EVENT_STICK (&(_EFL_UI_WIN_EVENT_STICK))
 #endif /* EFL_BETA_API_SUPPORT */
 #ifdef EFL_BETA_API_SUPPORT
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_UNSTICK;
+extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_UNSTICK;
 
 /** Called when window is no  longer set as sticky
  *
@@ -1612,7 +1612,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_UNSTICK;
 #define EFL_UI_WIN_EVENT_UNSTICK (&(_EFL_UI_WIN_EVENT_UNSTICK))
 #endif /* EFL_BETA_API_SUPPORT */
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_FULLSCREEN_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_FULLSCREEN_CHANGED;
 
 /** Called when window is set to or from fullscreen
  * @return Eina_Bool
@@ -1623,7 +1623,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_FULLSCRE
  */
 #define EFL_UI_WIN_EVENT_FULLSCREEN_CHANGED (&(_EFL_UI_WIN_EVENT_FULLSCREEN_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_MAXIMIZED_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_MAXIMIZED_CHANGED;
 
 /** Called when window is set to or from maximized
  * @return Eina_Bool
@@ -1634,7 +1634,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_MAXIMIZE
  */
 #define EFL_UI_WIN_EVENT_MAXIMIZED_CHANGED (&(_EFL_UI_WIN_EVENT_MAXIMIZED_CHANGED))
 #ifdef EFL_BETA_API_SUPPORT
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_INDICATOR_PROP_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_INDICATOR_PROP_CHANGED;
 
 /** Called when indicator is property changed
  *
@@ -1645,7 +1645,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_INDICATO
 #define EFL_UI_WIN_EVENT_INDICATOR_PROP_CHANGED (&(_EFL_UI_WIN_EVENT_INDICATOR_PROP_CHANGED))
 #endif /* EFL_BETA_API_SUPPORT */
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_WIN_ROTATION_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_WIN_ROTATION_CHANGED;
 
 /** Called when window rotation is changed, sends current rotation in degrees
  * @return int
@@ -1656,7 +1656,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_WIN_ROTA
  */
 #define EFL_UI_WIN_EVENT_WIN_ROTATION_CHANGED (&(_EFL_UI_WIN_EVENT_WIN_ROTATION_CHANGED))
 #ifdef EFL_BETA_API_SUPPORT
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_PROFILE_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_PROFILE_CHANGED;
 
 /** Called when profile is changed
  *
@@ -1667,7 +1667,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_PROFILE_
 #define EFL_UI_WIN_EVENT_PROFILE_CHANGED (&(_EFL_UI_WIN_EVENT_PROFILE_CHANGED))
 #endif /* EFL_BETA_API_SUPPORT */
 #ifdef EFL_BETA_API_SUPPORT
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_WM_ROTATION_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_WM_ROTATION_CHANGED;
 
 /** Called when window manager rotation is changed
  *
@@ -1678,7 +1678,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_WM_ROTAT
 #define EFL_UI_WIN_EVENT_WM_ROTATION_CHANGED (&(_EFL_UI_WIN_EVENT_WM_ROTATION_CHANGED))
 #endif /* EFL_BETA_API_SUPPORT */
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_THEME_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_THEME_CHANGED;
 
 /** Called when theme is changed
  *
@@ -1688,7 +1688,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_THEME_CH
  */
 #define EFL_UI_WIN_EVENT_THEME_CHANGED (&(_EFL_UI_WIN_EVENT_THEME_CHANGED))
 #ifdef EFL_BETA_API_SUPPORT
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_ELM_ACTION_BLOCK_MENU;
+extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_ELM_ACTION_BLOCK_MENU;
 
 /** Called when elementary block menu action occurs
  *
@@ -1699,7 +1699,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_ELM_ACTI
 #define EFL_UI_WIN_EVENT_ELM_ACTION_BLOCK_MENU (&(_EFL_UI_WIN_EVENT_ELM_ACTION_BLOCK_MENU))
 #endif /* EFL_BETA_API_SUPPORT */
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_PAUSE;
+extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_PAUSE;
 
 /** Called when the window is not going be displayed for some time
  *
@@ -1709,7 +1709,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_PAUSE;
  */
 #define EFL_UI_WIN_EVENT_PAUSE (&(_EFL_UI_WIN_EVENT_PAUSE))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIN_EVENT_RESUME;
+extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_RESUME;
 
 /** Called before a window is rendered after a pause event
  *

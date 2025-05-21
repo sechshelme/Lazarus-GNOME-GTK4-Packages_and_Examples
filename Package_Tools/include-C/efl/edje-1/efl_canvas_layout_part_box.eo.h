@@ -24,7 +24,7 @@ typedef Eo Efl_Canvas_Layout_Part_Box;
  */
 #define EFL_CANVAS_LAYOUT_PART_BOX_CLASS efl_canvas_layout_part_box_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_layout_part_box_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_canvas_layout_part_box_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

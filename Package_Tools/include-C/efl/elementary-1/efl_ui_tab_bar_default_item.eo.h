@@ -25,7 +25,7 @@ typedef Eo Efl_Ui_Tab_Bar_Default_Item;
  */
 #define EFL_UI_TAB_BAR_DEFAULT_ITEM_CLASS efl_ui_tab_bar_default_item_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_tab_bar_default_item_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_tab_bar_default_item_class_get(void) ;
 
 /**
  * @brief Set the content of the default item as a image.
@@ -38,7 +38,7 @@ extern extern_WEAK const Efl_Class *efl_ui_tab_bar_default_item_class_get(void) 
  *
  * @ingroup Efl_Ui_Tab_Bar_Default_Item
  */
-extern extern_WEAK void efl_ui_tab_bar_default_item_icon_set(Eo *obj, const char *standard_name);
+extern  void efl_ui_tab_bar_default_item_icon_set(Eo *obj, const char *standard_name);
 
 /**
  * @brief Set the content of the default item as a image.
@@ -52,7 +52,7 @@ extern extern_WEAK void efl_ui_tab_bar_default_item_icon_set(Eo *obj, const char
  *
  * @ingroup Efl_Ui_Tab_Bar_Default_Item
  */
-extern extern_WEAK const char *efl_ui_tab_bar_default_item_icon_get(const Eo *obj);
+extern  const char *efl_ui_tab_bar_default_item_icon_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

@@ -29,7 +29,7 @@ struct Elm_Gen_Item_Tooltip
 struct Elm_Gen_Item
 {
    Elm_Widget_Item_Data     *base;
-   EINA_INLIST;
+   Eina_Inlist __in_list;
 
    Elm_Gen_Item_Type        *item;
    const Elm_Gen_Item_Class *itc;

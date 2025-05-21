@@ -177,7 +177,7 @@ typedef enum
  */
 #define EFL_NET_CONTROL_ACCESS_POINT_CLASS efl_net_control_access_point_class_get()
 
-ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_control_access_point_class_get(void) EINA_CONST;
+ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_control_access_point_class_get(void) ;
 
 /**
  * @brief Connects to this access point.
@@ -203,7 +203,7 @@ ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_control_access_point_c
  *
  * @ingroup Efl_Net_Control_Access_Point
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Future *efl_net_control_access_point_connect(Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Future *efl_net_control_access_point_connect(Eo *obj)  ;
 
 /**
  * @brief Disconnects from this access point.
@@ -436,7 +436,7 @@ ECORE_CON_API ECORE_CON_API_WEAK Efl_Net_Control_Access_Point_Security efl_net_c
  *
  * @ingroup Efl_Net_Control_Access_Point
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_access_point_name_servers_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_access_point_name_servers_get(const Eo *obj)  ;
 
 /**
  * @brief NTP (Time Server) in use for this access point.
@@ -451,7 +451,7 @@ ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_access_point_nam
  *
  * @ingroup Efl_Net_Control_Access_Point
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_access_point_time_servers_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_access_point_time_servers_get(const Eo *obj)  ;
 
 /**
  * @brief Searches domains in use for this access point.
@@ -466,7 +466,7 @@ ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_access_point_tim
  *
  * @ingroup Efl_Net_Control_Access_Point
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_access_point_domains_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_access_point_domains_get(const Eo *obj)  ;
 
 /**
  * @brief IPv4 in use for this access point.
@@ -524,7 +524,7 @@ ECORE_CON_API ECORE_CON_API_WEAK void efl_net_control_access_point_ipv6_get(cons
  *
  * @ingroup Efl_Net_Control_Access_Point
  */
-ECORE_CON_API ECORE_CON_API_WEAK void efl_net_control_access_point_proxy_get(const Eo *obj, Efl_Net_Control_Access_Point_Proxy_Method *method, const char **url, Eina_Iterator **servers EFL_TRANSFER_OWNERSHIP, Eina_Iterator **excludes EFL_TRANSFER_OWNERSHIP);
+ECORE_CON_API ECORE_CON_API_WEAK void efl_net_control_access_point_proxy_get(const Eo *obj, Efl_Net_Control_Access_Point_Proxy_Method *method, const char **url, Eina_Iterator **servers , Eina_Iterator **excludes );
 
 /**
  * @brief DNS (Domain Name Servers) configured by user for this access point.
@@ -539,7 +539,7 @@ ECORE_CON_API ECORE_CON_API_WEAK void efl_net_control_access_point_proxy_get(con
  *
  * @ingroup Efl_Net_Control_Access_Point
  */
-ECORE_CON_API ECORE_CON_API_WEAK void efl_net_control_access_point_configuration_name_servers_set(Eo *obj, Eina_Iterator *name_servers EFL_TRANSFER_OWNERSHIP);
+ECORE_CON_API ECORE_CON_API_WEAK void efl_net_control_access_point_configuration_name_servers_set(Eo *obj, Eina_Iterator *name_servers );
 
 /**
  * @brief DNS (Domain Name Servers) configured by user for this access point.
@@ -555,7 +555,7 @@ ECORE_CON_API ECORE_CON_API_WEAK void efl_net_control_access_point_configuration
  *
  * @ingroup Efl_Net_Control_Access_Point
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_access_point_configuration_name_servers_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_access_point_configuration_name_servers_get(const Eo *obj)  ;
 
 /**
  * @brief NTP (Time Server) configured by user for this access point.
@@ -570,7 +570,7 @@ ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_access_point_con
  *
  * @ingroup Efl_Net_Control_Access_Point
  */
-ECORE_CON_API ECORE_CON_API_WEAK void efl_net_control_access_point_configuration_time_servers_set(Eo *obj, Eina_Iterator *time_servers EFL_TRANSFER_OWNERSHIP);
+ECORE_CON_API ECORE_CON_API_WEAK void efl_net_control_access_point_configuration_time_servers_set(Eo *obj, Eina_Iterator *time_servers );
 
 /**
  * @brief NTP (Time Server) configured by user for this access point.
@@ -586,7 +586,7 @@ ECORE_CON_API ECORE_CON_API_WEAK void efl_net_control_access_point_configuration
  *
  * @ingroup Efl_Net_Control_Access_Point
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_access_point_configuration_time_servers_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_access_point_configuration_time_servers_get(const Eo *obj)  ;
 
 /**
  * @brief Searches domains configured by user for this access point.
@@ -601,7 +601,7 @@ ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_access_point_con
  *
  * @ingroup Efl_Net_Control_Access_Point
  */
-ECORE_CON_API ECORE_CON_API_WEAK void efl_net_control_access_point_configuration_domains_set(Eo *obj, Eina_Iterator *domains EFL_TRANSFER_OWNERSHIP);
+ECORE_CON_API ECORE_CON_API_WEAK void efl_net_control_access_point_configuration_domains_set(Eo *obj, Eina_Iterator *domains );
 
 /**
  * @brief Searches domains configured by user for this access point.
@@ -617,7 +617,7 @@ ECORE_CON_API ECORE_CON_API_WEAK void efl_net_control_access_point_configuration
  *
  * @ingroup Efl_Net_Control_Access_Point
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_access_point_configuration_domains_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_access_point_configuration_domains_get(const Eo *obj)  ;
 
 /**
  * @brief IPv4 configured by user for this access point.
@@ -715,7 +715,7 @@ ECORE_CON_API ECORE_CON_API_WEAK void efl_net_control_access_point_configuration
  *
  * @ingroup Efl_Net_Control_Access_Point
  */
-ECORE_CON_API ECORE_CON_API_WEAK void efl_net_control_access_point_configuration_proxy_set(Eo *obj, Efl_Net_Control_Access_Point_Proxy_Method method, const char *url, Eina_Iterator *servers EFL_TRANSFER_OWNERSHIP, Eina_Iterator *excludes EFL_TRANSFER_OWNERSHIP);
+ECORE_CON_API ECORE_CON_API_WEAK void efl_net_control_access_point_configuration_proxy_set(Eo *obj, Efl_Net_Control_Access_Point_Proxy_Method method, const char *url, Eina_Iterator *servers , Eina_Iterator *excludes );
 
 /**
  * @brief Proxy configured by user for this access point.
@@ -739,7 +739,7 @@ ECORE_CON_API ECORE_CON_API_WEAK void efl_net_control_access_point_configuration
  *
  * @ingroup Efl_Net_Control_Access_Point
  */
-ECORE_CON_API ECORE_CON_API_WEAK void efl_net_control_access_point_configuration_proxy_get(const Eo *obj, Efl_Net_Control_Access_Point_Proxy_Method *method, const char **url, Eina_Iterator **servers EFL_TRANSFER_OWNERSHIP, Eina_Iterator **excludes EFL_TRANSFER_OWNERSHIP);
+ECORE_CON_API ECORE_CON_API_WEAK void efl_net_control_access_point_configuration_proxy_get(const Eo *obj, Efl_Net_Control_Access_Point_Proxy_Method *method, const char **url, Eina_Iterator **servers , Eina_Iterator **excludes );
 
 ECORE_CON_API ECORE_CON_API_WEAK extern const Efl_Event_Description _EFL_NET_CONTROL_ACCESS_POINT_EVENT_CHANGED;
 

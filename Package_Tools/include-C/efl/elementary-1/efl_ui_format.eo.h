@@ -94,7 +94,7 @@ typedef enum
  */
 #define EFL_UI_FORMAT_MIXIN efl_ui_format_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_format_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_format_mixin_get(void) ;
 
 /**
  * @brief User-provided function which takes care of converting an
@@ -110,7 +110,7 @@ extern extern_WEAK const Efl_Class *efl_ui_format_mixin_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Format
  */
-extern extern_WEAK void efl_ui_format_func_set(Eo *obj, void *func_data, Efl_Ui_Format_Func func, Eina_Free_Cb func_free_cb);
+extern  void efl_ui_format_func_set(Eo *obj, void *func_data, Efl_Ui_Format_Func func, Eina_Free_Cb func_free_cb);
 
 /**
  * @brief User-provided function which takes care of converting an
@@ -127,7 +127,7 @@ extern extern_WEAK void efl_ui_format_func_set(Eo *obj, void *func_data, Efl_Ui_
  *
  * @ingroup Efl_Ui_Format
  */
-extern extern_WEAK Efl_Ui_Format_Func efl_ui_format_func_get(const Eo *obj);
+extern  Efl_Ui_Format_Func efl_ui_format_func_get(const Eo *obj);
 
 /**
  * @brief User-provided list of values which are to be rendered using specific
@@ -149,7 +149,7 @@ extern extern_WEAK Efl_Ui_Format_Func efl_ui_format_func_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Format
  */
-extern extern_WEAK void efl_ui_format_values_set(Eo *obj, Eina_Accessor *values EFL_TRANSFER_OWNERSHIP);
+extern  void efl_ui_format_values_set(Eo *obj, Eina_Accessor *values );
 
 /**
  * @brief User-provided list of values which are to be rendered using specific
@@ -172,7 +172,7 @@ extern extern_WEAK void efl_ui_format_values_set(Eo *obj, Eina_Accessor *values 
  *
  * @ingroup Efl_Ui_Format
  */
-extern extern_WEAK Eina_Accessor *efl_ui_format_values_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Accessor *efl_ui_format_values_get(const Eo *obj)  ;
 
 /**
  * @brief A user-provided, string used to format the numerical value.
@@ -200,7 +200,7 @@ extern extern_WEAK Eina_Accessor *efl_ui_format_values_get(const Eo *obj) EFL_TR
  *
  * @ingroup Efl_Ui_Format
  */
-extern extern_WEAK void efl_ui_format_string_set(Eo *obj, const char *string, Efl_Ui_Format_String_Type type);
+extern  void efl_ui_format_string_set(Eo *obj, const char *string, Efl_Ui_Format_String_Type type);
 
 /**
  * @brief A user-provided, string used to format the numerical value.
@@ -228,7 +228,7 @@ extern extern_WEAK void efl_ui_format_string_set(Eo *obj, const char *string, Ef
  *
  * @ingroup Efl_Ui_Format
  */
-extern extern_WEAK void efl_ui_format_string_get(const Eo *obj, const char **string, Efl_Ui_Format_String_Type *type);
+extern  void efl_ui_format_string_get(const Eo *obj, const char **string, Efl_Ui_Format_String_Type *type);
 
 #ifdef EFL_UI_FORMAT_PROTECTED
 /**
@@ -249,7 +249,7 @@ extern extern_WEAK void efl_ui_format_string_get(const Eo *obj, const char **str
  *
  * @ingroup Efl_Ui_Format
  */
-extern extern_WEAK void efl_ui_format_formatted_value_get(Eo *obj, Eina_Strbuf *str, const Eina_Value value);
+extern  void efl_ui_format_formatted_value_get(Eo *obj, Eina_Strbuf *str, const Eina_Value value);
 #endif
 
 #ifdef EFL_UI_FORMAT_PROTECTED
@@ -269,7 +269,7 @@ extern extern_WEAK void efl_ui_format_formatted_value_get(Eo *obj, Eina_Strbuf *
  *
  * @ingroup Efl_Ui_Format
  */
-extern extern_WEAK int efl_ui_format_decimal_places_get(Eo *obj);
+extern  int efl_ui_format_decimal_places_get(Eo *obj);
 #endif
 
 #ifdef EFL_UI_FORMAT_PROTECTED
@@ -289,7 +289,7 @@ extern extern_WEAK int efl_ui_format_decimal_places_get(Eo *obj);
  *
  * @ingroup Efl_Ui_Format
  */
-extern extern_WEAK void efl_ui_format_apply_formatted_value(Eo *obj);
+extern  void efl_ui_format_apply_formatted_value(Eo *obj);
 #endif
 
 #endif

@@ -166,7 +166,7 @@ typedef Efl_Ui_Position_Manager_Size_Batch_Result (*Efl_Ui_Position_Manager_Size
  */
 #define EFL_UI_POSITION_MANAGER_DATA_ACCESS_V1_INTERFACE efl_ui_position_manager_data_access_v1_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_position_manager_data_access_v1_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_position_manager_data_access_v1_interface_get(void) ;
 
 /**
  * @brief This gives access to items to be managed. The manager reads this
@@ -198,7 +198,7 @@ extern extern_WEAK const Efl_Class *efl_ui_position_manager_data_access_v1_inter
  *
  * @ingroup Efl_Ui_Position_Manager_Data_Access_V1
  */
-extern extern_WEAK void efl_ui_position_manager_data_access_v1_data_access_set(Eo *obj, Efl_Ui_Win *canvas, void *obj_access_data, Efl_Ui_Position_Manager_Object_Batch_Callback obj_access, Eina_Free_Cb obj_access_free_cb, void *size_access_data, Efl_Ui_Position_Manager_Size_Batch_Callback size_access, Eina_Free_Cb size_access_free_cb, int size);
+extern  void efl_ui_position_manager_data_access_v1_data_access_set(Eo *obj, Efl_Ui_Win *canvas, void *obj_access_data, Efl_Ui_Position_Manager_Object_Batch_Callback obj_access, Eina_Free_Cb obj_access_free_cb, void *size_access_data, Efl_Ui_Position_Manager_Size_Batch_Callback size_access, Eina_Free_Cb size_access_free_cb, int size);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

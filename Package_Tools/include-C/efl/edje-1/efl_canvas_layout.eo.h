@@ -24,7 +24,7 @@ typedef Eo Efl_Canvas_Layout;
  */
 #define EFL_CANVAS_LAYOUT_CLASS efl_canvas_layout_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_layout_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_canvas_layout_class_get(void) ;
 
 /**
  * @brief Whether this object is animating or not.
@@ -41,7 +41,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_layout_class_get(void) EINA_CONST
  *
  * @ingroup Efl_Canvas_Layout
  */
-extern extern_WEAK void efl_canvas_layout_animated_set(Eo *obj, Eina_Bool on);
+extern  void efl_canvas_layout_animated_set(Eo *obj, Eina_Bool on);
 
 /**
  * @brief Whether this object is animating or not.
@@ -59,7 +59,7 @@ extern extern_WEAK void efl_canvas_layout_animated_set(Eo *obj, Eina_Bool on);
  *
  * @ingroup Efl_Canvas_Layout
  */
-extern extern_WEAK Eina_Bool efl_canvas_layout_animated_get(const Eo *obj);
+extern  Eina_Bool efl_canvas_layout_animated_get(const Eo *obj);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -71,7 +71,7 @@ extern extern_WEAK Eina_Bool efl_canvas_layout_animated_get(const Eo *obj);
  *
  * @ingroup Efl_Canvas_Layout
  */
-extern extern_WEAK Eina_Iterator *efl_canvas_layout_access_part_iterate(Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Iterator *efl_canvas_layout_access_part_iterate(Eo *obj)  ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 /**
@@ -88,7 +88,7 @@ extern extern_WEAK Eina_Iterator *efl_canvas_layout_access_part_iterate(Eo *obj)
  *
  * @ingroup Efl_Canvas_Layout
  */
-extern extern_WEAK Efl_Input_Device *efl_canvas_layout_seat_get(const Eo *obj, Eina_Stringshare *name);
+extern  Efl_Input_Device *efl_canvas_layout_seat_get(const Eo *obj, Eina_Stringshare *name);
 
 /**
  * @brief The name given to a set by Edje.
@@ -104,7 +104,7 @@ extern extern_WEAK Efl_Input_Device *efl_canvas_layout_seat_get(const Eo *obj, E
  *
  * @ingroup Efl_Canvas_Layout
  */
-extern extern_WEAK Eina_Stringshare *efl_canvas_layout_seat_name_get(const Eo *obj, Efl_Input_Device *device);
+extern  Eina_Stringshare *efl_canvas_layout_seat_name_get(const Eo *obj, Efl_Input_Device *device);
 
 /**
  * @brief The (last) file loading error for a given object.
@@ -115,7 +115,7 @@ extern extern_WEAK Eina_Stringshare *efl_canvas_layout_seat_name_get(const Eo *o
  *
  * @ingroup Efl_Canvas_Layout
  */
-extern extern_WEAK Eina_Error efl_canvas_layout_load_error_get(const Eo *obj);
+extern  Eina_Error efl_canvas_layout_load_error_get(const Eo *obj);
 
 /**
  * @brief Unswallow an object from this Edje.
@@ -127,9 +127,9 @@ extern extern_WEAK Eina_Error efl_canvas_layout_load_error_get(const Eo *obj);
  *
  * @ingroup Efl_Canvas_Layout
  */
-extern extern_WEAK Eina_Bool efl_canvas_layout_content_remove(Eo *obj, Efl_Gfx_Entity *content);
+extern  Eina_Bool efl_canvas_layout_content_remove(Eo *obj, Efl_Gfx_Entity *content);
 #ifdef EFL_BETA_API_SUPPORT
-extern extern_WEAK extern const Efl_Event_Description _EFL_LAYOUT_EVENT_PART_INVALID;
+extern  extern const Efl_Event_Description _EFL_LAYOUT_EVENT_PART_INVALID;
 
 /** Emitted when trying to use an invalid part. The value passed is the part
  * name.

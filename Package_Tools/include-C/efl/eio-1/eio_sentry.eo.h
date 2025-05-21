@@ -32,7 +32,7 @@ typedef struct _Eio_Sentry_Event
  */
 #define EIO_SENTRY_CLASS eio_sentry_class_get()
 
-EIO_API EIO_API_WEAK const Efl_Class *eio_sentry_class_get(void) EINA_CONST;
+EIO_API EIO_API_WEAK const Efl_Class *eio_sentry_class_get(void) ;
 
 /**
  * @brief Adds a new path to the list of monitored paths.

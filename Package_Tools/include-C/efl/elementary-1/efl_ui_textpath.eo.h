@@ -40,7 +40,7 @@ typedef enum
  */
 #define EFL_UI_TEXTPATH_CLASS efl_ui_textpath_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_textpath_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_textpath_class_get(void) ;
 
 /**
  * @brief Set a circle with given radius and start angle. The center of the
@@ -53,7 +53,7 @@ extern extern_WEAK const Efl_Class *efl_ui_textpath_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Textpath
  */
-extern extern_WEAK void efl_ui_textpath_circular_set(Eo *obj, double radius, double start_angle, Efl_Ui_Textpath_Direction direction);
+extern  void efl_ui_textpath_circular_set(Eo *obj, double radius, double start_angle, Efl_Ui_Textpath_Direction direction);
 
 /**
  * @brief The number of slices. The larger the number of slice_num is, The
@@ -64,7 +64,7 @@ extern extern_WEAK void efl_ui_textpath_circular_set(Eo *obj, double radius, dou
  *
  * @ingroup Efl_Ui_Textpath
  */
-extern extern_WEAK void efl_ui_textpath_slice_number_set(Eo *obj, int slice_no);
+extern  void efl_ui_textpath_slice_number_set(Eo *obj, int slice_no);
 
 /**
  * @brief The number of slices. The larger the number of slice_num is, The
@@ -76,7 +76,7 @@ extern extern_WEAK void efl_ui_textpath_slice_number_set(Eo *obj, int slice_no);
  *
  * @ingroup Efl_Ui_Textpath
  */
-extern extern_WEAK int efl_ui_textpath_slice_number_get(const Eo *obj);
+extern  int efl_ui_textpath_slice_number_get(const Eo *obj);
 
 /**
  * @brief Control the ellipsis behavior of the textpath.
@@ -86,7 +86,7 @@ extern extern_WEAK int efl_ui_textpath_slice_number_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Textpath
  */
-extern extern_WEAK void efl_ui_textpath_ellipsis_set(Eo *obj, Eina_Bool ellipsis);
+extern  void efl_ui_textpath_ellipsis_set(Eo *obj, Eina_Bool ellipsis);
 
 /**
  * @brief Control the ellipsis behavior of the textpath.
@@ -97,7 +97,7 @@ extern extern_WEAK void efl_ui_textpath_ellipsis_set(Eo *obj, Eina_Bool ellipsis
  *
  * @ingroup Efl_Ui_Textpath
  */
-extern extern_WEAK Eina_Bool efl_ui_textpath_ellipsis_get(const Eo *obj);
+extern  Eina_Bool efl_ui_textpath_ellipsis_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

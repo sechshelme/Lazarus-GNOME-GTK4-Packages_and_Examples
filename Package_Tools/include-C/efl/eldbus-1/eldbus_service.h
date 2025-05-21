@@ -125,7 +125,7 @@ typedef struct _Eldbus_Service_Interface_Desc2
  *
  * @return Interface
  */
-extern Eldbus_Service_Interface *eldbus_service_interface_register(Eldbus_Connection *conn, const char *path, const Eldbus_Service_Interface_Desc *desc) EINA_ARG_NONNULL(1, 2, 3);
+extern Eldbus_Service_Interface *eldbus_service_interface_register(Eldbus_Connection *conn, const char *path, const Eldbus_Service_Interface_Desc *desc) ;
 
 /**
  * @brief Register a fallback interface handler for a given subsection of the object hierarchy.
@@ -140,7 +140,7 @@ extern Eldbus_Service_Interface *eldbus_service_interface_register(Eldbus_Connec
  * @return Interface
  */
 extern Eldbus_Service_Interface *
-eldbus_service_interface_fallback_register(Eldbus_Connection *conn, const char *path, const Eldbus_Service_Interface_Desc *desc) EINA_ARG_NONNULL(1, 2, 3);
+eldbus_service_interface_fallback_register(Eldbus_Connection *conn, const char *path, const Eldbus_Service_Interface_Desc *desc) ;
 
 /**
  * @brief Register an interface in the given path and connection. This
@@ -156,7 +156,7 @@ eldbus_service_interface_fallback_register(Eldbus_Connection *conn, const char *
  *
  * @return Interface
  */
-extern Eldbus_Service_Interface *eldbus_service_interface_register2(Eldbus_Connection *conn, const char *path, const Eldbus_Service_Interface_Desc2 *desc) EINA_ARG_NONNULL(1, 2, 3);
+extern Eldbus_Service_Interface *eldbus_service_interface_register2(Eldbus_Connection *conn, const char *path, const Eldbus_Service_Interface_Desc2 *desc) ;
 
 /**
  * @brief Register a fallback interface handler for a given subsection
@@ -175,7 +175,7 @@ extern Eldbus_Service_Interface *eldbus_service_interface_register2(Eldbus_Conne
  * @return Interface
  */
 extern Eldbus_Service_Interface *
-eldbus_service_interface_fallback_register2(Eldbus_Connection *conn, const char *path, const Eldbus_Service_Interface_Desc2 *desc) EINA_ARG_NONNULL(1, 2, 3);
+eldbus_service_interface_fallback_register2(Eldbus_Connection *conn, const char *path, const Eldbus_Service_Interface_Desc2 *desc) ;
 
 
 /**
@@ -185,7 +185,7 @@ eldbus_service_interface_fallback_register2(Eldbus_Connection *conn, const char 
  *
  * @param iface interface to unregister
  */
-extern void eldbus_service_interface_unregister(Eldbus_Service_Interface *iface) EINA_ARG_NONNULL(1);
+extern void eldbus_service_interface_unregister(Eldbus_Service_Interface *iface) ;
 
 /**
  * @brief Unregister all interfaces of the object path that this interface belongs
@@ -193,9 +193,9 @@ extern void eldbus_service_interface_unregister(Eldbus_Service_Interface *iface)
  *
  * @param iface interface to unregister
  */
-extern void eldbus_service_object_unregister(Eldbus_Service_Interface *iface) EINA_ARG_NONNULL(1);
-extern Eldbus_Connection *eldbus_service_connection_get(const Eldbus_Service_Interface *iface) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
-extern const char *eldbus_service_object_path_get(const Eldbus_Service_Interface *iface) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+extern void eldbus_service_object_unregister(Eldbus_Service_Interface *iface) ;
+extern Eldbus_Connection *eldbus_service_connection_get(const Eldbus_Service_Interface *iface)  ;
+extern const char *eldbus_service_object_path_get(const Eldbus_Service_Interface *iface)  ;
 
 /**
  * @brief Emit a signal handler of the interface with non-complex types.
@@ -208,7 +208,7 @@ extern const char *eldbus_service_object_path_get(const Eldbus_Service_Interface
  *
  * @return EINA_TRUE if success
  */
-extern Eina_Bool eldbus_service_signal_emit(const Eldbus_Service_Interface *iface, unsigned int signal_id, ...) EINA_ARG_NONNULL(1);
+extern Eina_Bool eldbus_service_signal_emit(const Eldbus_Service_Interface *iface, unsigned int signal_id, ...) ;
 
 /**
  * @brief Create signal message.
@@ -221,7 +221,7 @@ extern Eina_Bool eldbus_service_signal_emit(const Eldbus_Service_Interface *ifac
  *
  * @return EINA_TRUE if success
  */
-extern Eldbus_Message *eldbus_service_signal_new(const Eldbus_Service_Interface *iface, unsigned int signal_id) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+extern Eldbus_Message *eldbus_service_signal_new(const Eldbus_Service_Interface *iface, unsigned int signal_id)  ;
 
 /**
  * @brief Send a signal message.
@@ -235,7 +235,7 @@ extern Eldbus_Message *eldbus_service_signal_new(const Eldbus_Service_Interface 
  *
  * @return EINA_TRUE if success
  */
-extern Eina_Bool eldbus_service_signal_send(const Eldbus_Service_Interface *iface, Eldbus_Message *signal_msg) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool eldbus_service_signal_send(const Eldbus_Service_Interface *iface, Eldbus_Message *signal_msg) ;
 
 /**
  * @brief Store data at object path, this data can be obtained from all interfaces
@@ -246,7 +246,7 @@ extern Eina_Bool eldbus_service_signal_send(const Eldbus_Service_Interface *ifac
  * @param key to identify data
  * @param data
  */
-extern void eldbus_service_object_data_set(Eldbus_Service_Interface *iface, const char *key, const void *data) EINA_ARG_NONNULL(1, 2, 3);
+extern void eldbus_service_object_data_set(Eldbus_Service_Interface *iface, const char *key, const void *data) ;
 
 /**
  * @brief Get data stored in object path.
@@ -256,7 +256,7 @@ extern void eldbus_service_object_data_set(Eldbus_Service_Interface *iface, cons
  *
  * @return pointer to data if found otherwise NULL
  */
-extern void *eldbus_service_object_data_get(const Eldbus_Service_Interface *iface, const char *key) EINA_ARG_NONNULL(1, 2) EINA_WARN_UNUSED_RESULT;
+extern void *eldbus_service_object_data_get(const Eldbus_Service_Interface *iface, const char *key)  ;
 
 /**
  * @brief Del data stored in object path.
@@ -266,7 +266,7 @@ extern void *eldbus_service_object_data_get(const Eldbus_Service_Interface *ifac
  *
  * @return pointer to data if found otherwise NULL
  */
-extern void *eldbus_service_object_data_del(Eldbus_Service_Interface *iface, const char *key) EINA_ARG_NONNULL(1, 2);
+extern void *eldbus_service_object_data_del(Eldbus_Service_Interface *iface, const char *key) ;
 
 /**
  * @brief Add property to list of changed properties
@@ -278,9 +278,9 @@ extern void *eldbus_service_object_data_del(Eldbus_Service_Interface *iface, con
  *
  * @return EINA_TRUE if success
  */
-extern Eina_Bool eldbus_service_property_changed(const Eldbus_Service_Interface *iface, const char *name) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool eldbus_service_property_changed(const Eldbus_Service_Interface *iface, const char *name) ;
 
-extern Eina_Bool eldbus_service_property_invalidate_set(const Eldbus_Service_Interface *iface, const char *name, Eina_Bool is_invalidate) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool eldbus_service_property_invalidate_set(const Eldbus_Service_Interface *iface, const char *name, Eina_Bool is_invalidate) ;
 
 /**
  * Attach ObjectManager interface.
@@ -288,7 +288,7 @@ extern Eina_Bool eldbus_service_property_invalidate_set(const Eldbus_Service_Int
  * @param iface ObjectManager will be attach in object path of this interface.
  * @return EINA_TRUE if success
  */
-extern Eina_Bool eldbus_service_object_manager_attach(Eldbus_Service_Interface *iface) EINA_ARG_NONNULL(1);
+extern Eina_Bool eldbus_service_object_manager_attach(Eldbus_Service_Interface *iface) ;
 
 /**
  * Detach ObjectManager interface.
@@ -296,7 +296,7 @@ extern Eina_Bool eldbus_service_object_manager_attach(Eldbus_Service_Interface *
  * @param iface ObjectManager of object path of this interface will be detach.
  * @return EINA_TRUE if success
  */
-extern Eina_Bool eldbus_service_object_manager_detach(Eldbus_Service_Interface *iface) EINA_ARG_NONNULL(1);
+extern Eina_Bool eldbus_service_object_manager_detach(Eldbus_Service_Interface *iface) ;
 
 /**
  * @}

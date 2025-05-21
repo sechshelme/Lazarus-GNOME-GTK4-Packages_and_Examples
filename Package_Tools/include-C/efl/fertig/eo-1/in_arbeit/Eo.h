@@ -189,7 +189,7 @@ typedef void (*Efl_Del_Intercept) (Eo *obj_id);
  * For non-Objects, ownership transfer means that the responsibility of freeing a
  * segment of memory is passed on.
  */
-#define EFL_TRANSFER_OWNERSHIP
+#define 
 
 #include "efl_object_override.eo.h"
 #include "efl_object.eo.h"

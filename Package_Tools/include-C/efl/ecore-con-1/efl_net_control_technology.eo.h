@@ -48,7 +48,7 @@ typedef enum
  */
 #define EFL_NET_CONTROL_TECHNOLOGY_CLASS efl_net_control_technology_class_get()
 
-ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_control_technology_class_get(void) EINA_CONST;
+ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_control_technology_class_get(void) ;
 
 /**
  * @brief If @c true the technology is available. If @c false technology is
@@ -150,7 +150,7 @@ ECORE_CON_API ECORE_CON_API_WEAK Efl_Net_Control_Technology_Type efl_net_control
  *
  * @ingroup Efl_Net_Control_Technology
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Future *efl_net_control_technology_scan(Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Future *efl_net_control_technology_scan(Eo *obj)  ;
 
 ECORE_CON_API ECORE_CON_API_WEAK extern const Efl_Event_Description _EFL_NET_CONTROL_TECHNOLOGY_EVENT_CHANGED;
 

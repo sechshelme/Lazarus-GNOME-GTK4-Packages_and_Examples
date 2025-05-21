@@ -42,7 +42,7 @@ typedef Eo Efl_Ui_Collection;
  */
 #define EFL_UI_COLLECTION_CLASS efl_ui_collection_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_collection_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_collection_class_get(void) ;
 
 /**
  * @brief Brings the passed item into the viewport.
@@ -55,7 +55,7 @@ extern extern_WEAK const Efl_Class *efl_ui_collection_class_get(void) EINA_CONST
  *
  * @ingroup Efl_Ui_Collection
  */
-extern extern_WEAK void efl_ui_collection_item_scroll(Eo *obj, Efl_Ui_Item *item, Eina_Bool animation);
+extern  void efl_ui_collection_item_scroll(Eo *obj, Efl_Ui_Item *item, Eina_Bool animation);
 
 /**
  * @brief Brings the passed item into the viewport and align it.
@@ -75,7 +75,7 @@ extern extern_WEAK void efl_ui_collection_item_scroll(Eo *obj, Efl_Ui_Item *item
  *
  * @ingroup Efl_Ui_Collection
  */
-extern extern_WEAK void efl_ui_collection_item_scroll_align(Eo *obj, Efl_Ui_Item *item, double align, Eina_Bool animation);
+extern  void efl_ui_collection_item_scroll_align(Eo *obj, Efl_Ui_Item *item, double align, Eina_Bool animation);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -88,7 +88,7 @@ extern extern_WEAK void efl_ui_collection_item_scroll_align(Eo *obj, Efl_Ui_Item
  *
  * @ingroup Efl_Ui_Collection
  */
-extern extern_WEAK void efl_ui_collection_position_manager_set(Eo *obj, Efl_Ui_Position_Manager_Entity *position_manager EFL_TRANSFER_OWNERSHIP);
+extern  void efl_ui_collection_position_manager_set(Eo *obj, Efl_Ui_Position_Manager_Entity *position_manager );
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -103,7 +103,7 @@ extern extern_WEAK void efl_ui_collection_position_manager_set(Eo *obj, Efl_Ui_P
  *
  * @ingroup Efl_Ui_Collection
  */
-extern extern_WEAK Efl_Ui_Position_Manager_Entity *efl_ui_collection_position_manager_get(const Eo *obj);
+extern  Efl_Ui_Position_Manager_Entity *efl_ui_collection_position_manager_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

@@ -26,7 +26,7 @@ typedef Eo Efl_Sinusoidal_Interpolator;
  */
 #define EFL_SINUSOIDAL_INTERPOLATOR_CLASS efl_sinusoidal_interpolator_class_get()
 
-extern extern_WEAK const Efl_Class *efl_sinusoidal_interpolator_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_sinusoidal_interpolator_class_get(void) ;
 
 /**
  * @brief Customize the sinusoidal effect.
@@ -40,7 +40,7 @@ extern extern_WEAK const Efl_Class *efl_sinusoidal_interpolator_class_get(void) 
  *
  * @ingroup Efl_Sinusoidal_Interpolator
  */
-extern extern_WEAK void efl_sinusoidal_interpolator_slope_set(Eo *obj, double slope);
+extern  void efl_sinusoidal_interpolator_slope_set(Eo *obj, double slope);
 
 /**
  * @brief Customize the sinusoidal effect.
@@ -55,6 +55,6 @@ extern extern_WEAK void efl_sinusoidal_interpolator_slope_set(Eo *obj, double sl
  *
  * @ingroup Efl_Sinusoidal_Interpolator
  */
-extern extern_WEAK double efl_sinusoidal_interpolator_slope_get(const Eo *obj);
+extern  double efl_sinusoidal_interpolator_slope_get(const Eo *obj);
 
 #endif

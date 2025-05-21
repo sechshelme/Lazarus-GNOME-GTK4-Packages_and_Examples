@@ -52,7 +52,7 @@ typedef enum
  */
 #define EFL_UI_SPOTLIGHT_MANAGER_CLASS efl_ui_spotlight_manager_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_spotlight_manager_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_spotlight_manager_class_get(void) ;
 
 /**
  * @brief This method is called the first time an @ref Efl_Ui_Spotlight_Manager
@@ -65,7 +65,7 @@ extern extern_WEAK const Efl_Class *efl_ui_spotlight_manager_class_get(void) EIN
  *
  * @ingroup Efl_Ui_Spotlight_Manager
  */
-extern extern_WEAK void efl_ui_spotlight_manager_bind(Eo *obj, Efl_Ui_Spotlight_Container *spotlight);
+extern  void efl_ui_spotlight_manager_bind(Eo *obj, Efl_Ui_Spotlight_Container *spotlight);
 
 /**
  * @brief A @c subobj has been added at position @c index in the bound
@@ -77,7 +77,7 @@ extern extern_WEAK void efl_ui_spotlight_manager_bind(Eo *obj, Efl_Ui_Spotlight_
  *
  * @ingroup Efl_Ui_Spotlight_Manager
  */
-extern extern_WEAK void efl_ui_spotlight_manager_content_add(Eo *obj, Efl_Gfx_Entity *subobj, int index);
+extern  void efl_ui_spotlight_manager_content_add(Eo *obj, Efl_Gfx_Entity *subobj, int index);
 
 /**
  * @brief The @c subobj at position @c index in the bound container has been
@@ -89,7 +89,7 @@ extern extern_WEAK void efl_ui_spotlight_manager_content_add(Eo *obj, Efl_Gfx_En
  *
  * @ingroup Efl_Ui_Spotlight_Manager
  */
-extern extern_WEAK void efl_ui_spotlight_manager_content_del(Eo *obj, Efl_Gfx_Entity *subobj, int index);
+extern  void efl_ui_spotlight_manager_content_del(Eo *obj, Efl_Gfx_Entity *subobj, int index);
 
 /**
  * @brief Switch from one sub-widget to another. If there was no previous
@@ -104,7 +104,7 @@ extern extern_WEAK void efl_ui_spotlight_manager_content_del(Eo *obj, Efl_Gfx_En
  *
  * @ingroup Efl_Ui_Spotlight_Manager
  */
-extern extern_WEAK void efl_ui_spotlight_manager_switch_to(Eo *obj, int from, int to, Efl_Ui_Spotlight_Manager_Switch_Reason reason);
+extern  void efl_ui_spotlight_manager_switch_to(Eo *obj, int from, int to, Efl_Ui_Spotlight_Manager_Switch_Reason reason);
 
 /**
  * @brief Will be called whenever the @ref efl_ui_spotlight_size_get changes so
@@ -115,7 +115,7 @@ extern extern_WEAK void efl_ui_spotlight_manager_switch_to(Eo *obj, int from, in
  *
  * @ingroup Efl_Ui_Spotlight_Manager
  */
-extern extern_WEAK void efl_ui_spotlight_manager_size_set(Eo *obj, Eina_Size2D size);
+extern  void efl_ui_spotlight_manager_size_set(Eo *obj, Eina_Size2D size);
 
 /**
  * @brief When this flag is @c true the transition from the previous element to
@@ -128,7 +128,7 @@ extern extern_WEAK void efl_ui_spotlight_manager_size_set(Eo *obj, Eina_Size2D s
  *
  * @ingroup Efl_Ui_Spotlight_Manager
  */
-extern extern_WEAK void efl_ui_spotlight_manager_animated_transition_set(Eo *obj, Eina_Bool enable);
+extern  void efl_ui_spotlight_manager_animated_transition_set(Eo *obj, Eina_Bool enable);
 
 /**
  * @brief When this flag is @c true the transition from the previous element to
@@ -142,9 +142,9 @@ extern extern_WEAK void efl_ui_spotlight_manager_animated_transition_set(Eo *obj
  *
  * @ingroup Efl_Ui_Spotlight_Manager
  */
-extern extern_WEAK Eina_Bool efl_ui_spotlight_manager_animated_transition_get(const Eo *obj);
+extern  Eina_Bool efl_ui_spotlight_manager_animated_transition_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SPOTLIGHT_MANAGER_EVENT_POS_UPDATE;
+extern  extern const Efl_Event_Description _EFL_UI_SPOTLIGHT_MANAGER_EVENT_POS_UPDATE;
 
 /** Index of the sub-widget currently being displayed. Fractional values
  * indicate a position in-between sub-widgets. For instance, when transitioning

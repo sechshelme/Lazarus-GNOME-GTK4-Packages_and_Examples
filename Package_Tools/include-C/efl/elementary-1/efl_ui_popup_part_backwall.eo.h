@@ -33,7 +33,7 @@ typedef Eo Efl_Ui_Popup_Part_Backwall;
  */
 #define EFL_UI_POPUP_PART_BACKWALL_CLASS efl_ui_popup_part_backwall_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_popup_part_backwall_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_popup_part_backwall_class_get(void) ;
 
 /**
  * @brief If this property is set to @c true, input events will be able to
@@ -48,7 +48,7 @@ extern extern_WEAK const Efl_Class *efl_ui_popup_part_backwall_class_get(void) E
  *
  * @ingroup Efl_Ui_Popup_Part_Backwall
  */
-extern extern_WEAK void efl_ui_popup_part_backwall_repeat_events_set(Eo *obj, Eina_Bool repeat);
+extern  void efl_ui_popup_part_backwall_repeat_events_set(Eo *obj, Eina_Bool repeat);
 
 /**
  * @brief If this property is set to @c true, input events will be able to
@@ -64,6 +64,6 @@ extern extern_WEAK void efl_ui_popup_part_backwall_repeat_events_set(Eo *obj, Ei
  *
  * @ingroup Efl_Ui_Popup_Part_Backwall
  */
-extern extern_WEAK Eina_Bool efl_ui_popup_part_backwall_repeat_events_get(const Eo *obj);
+extern  Eina_Bool efl_ui_popup_part_backwall_repeat_events_get(const Eo *obj);
 
 #endif

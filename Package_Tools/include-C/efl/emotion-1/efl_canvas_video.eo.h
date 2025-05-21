@@ -20,7 +20,7 @@ typedef Eo Efl_Canvas_Video;
  */
 #define EFL_CANVAS_VIDEO_CLASS efl_canvas_video_class_get()
 
-EMOTION_API EMOTION_API_WEAK const Efl_Class *efl_canvas_video_class_get(void) EINA_CONST;
+EMOTION_API EMOTION_API_WEAK const Efl_Class *efl_canvas_video_class_get(void) ;
 
 /**
  * @brief Sets options for the current module.

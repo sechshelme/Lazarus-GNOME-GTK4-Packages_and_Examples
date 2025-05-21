@@ -104,7 +104,7 @@ extern Eina_Bool elm_naviframe_prev_btn_auto_pushed_get(const Elm_Naviframe *obj
  *
  * @ingroup Elm_Naviframe_Group
  */
-extern Eina_List *elm_naviframe_items_get(const Elm_Naviframe *obj) EINA_WARN_UNUSED_RESULT;
+extern Eina_List *elm_naviframe_items_get(const Elm_Naviframe *obj) ;
 
 /**
  * @brief Get a top item on the naviframe stack

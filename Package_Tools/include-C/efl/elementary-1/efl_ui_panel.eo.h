@@ -46,7 +46,7 @@ typedef struct _Efl_Ui_Panel_Scroll_Info
  */
 #define EFL_UI_PANEL_CLASS efl_ui_panel_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_panel_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_panel_class_get(void) ;
 
 /**
  * @brief The orientation of the panel
@@ -58,7 +58,7 @@ extern extern_WEAK const Efl_Class *efl_ui_panel_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Panel
  */
-extern extern_WEAK void efl_ui_panel_orient_set(Eo *obj, Efl_Ui_Panel_Orient orient);
+extern  void efl_ui_panel_orient_set(Eo *obj, Efl_Ui_Panel_Orient orient);
 
 /**
  * @brief The orientation of the panel
@@ -71,7 +71,7 @@ extern extern_WEAK void efl_ui_panel_orient_set(Eo *obj, Efl_Ui_Panel_Orient ori
  *
  * @ingroup Efl_Ui_Panel
  */
-extern extern_WEAK Efl_Ui_Panel_Orient efl_ui_panel_orient_get(const Eo *obj);
+extern  Efl_Ui_Panel_Orient efl_ui_panel_orient_get(const Eo *obj);
 
 /**
  * @brief The state of the panel.
@@ -81,7 +81,7 @@ extern extern_WEAK Efl_Ui_Panel_Orient efl_ui_panel_orient_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Panel
  */
-extern extern_WEAK void efl_ui_panel_hidden_set(Eo *obj, Eina_Bool hidden);
+extern  void efl_ui_panel_hidden_set(Eo *obj, Eina_Bool hidden);
 
 /**
  * @brief The state of the panel.
@@ -92,7 +92,7 @@ extern extern_WEAK void efl_ui_panel_hidden_set(Eo *obj, Eina_Bool hidden);
  *
  * @ingroup Efl_Ui_Panel
  */
-extern extern_WEAK Eina_Bool efl_ui_panel_hidden_get(const Eo *obj);
+extern  Eina_Bool efl_ui_panel_hidden_get(const Eo *obj);
 
 /**
  * @brief The scrollability of the panel.
@@ -102,7 +102,7 @@ extern extern_WEAK Eina_Bool efl_ui_panel_hidden_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Panel
  */
-extern extern_WEAK void efl_ui_panel_scrollable_set(Eo *obj, Eina_Bool scrollable);
+extern  void efl_ui_panel_scrollable_set(Eo *obj, Eina_Bool scrollable);
 
 /**
  * @brief The scrollability of the panel.
@@ -113,7 +113,7 @@ extern extern_WEAK void efl_ui_panel_scrollable_set(Eo *obj, Eina_Bool scrollabl
  *
  * @ingroup Efl_Ui_Panel
  */
-extern extern_WEAK Eina_Bool efl_ui_panel_scrollable_get(const Eo *obj);
+extern  Eina_Bool efl_ui_panel_scrollable_get(const Eo *obj);
 
 /**
  * @brief The size of the scrollable panel.
@@ -123,7 +123,7 @@ extern extern_WEAK Eina_Bool efl_ui_panel_scrollable_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Panel
  */
-extern extern_WEAK void efl_ui_panel_scrollable_content_size_set(Eo *obj, double ratio);
+extern  void efl_ui_panel_scrollable_content_size_set(Eo *obj, double ratio);
 
 /**
  * @brief The size of the scrollable panel.
@@ -134,15 +134,15 @@ extern extern_WEAK void efl_ui_panel_scrollable_content_size_set(Eo *obj, double
  *
  * @ingroup Efl_Ui_Panel
  */
-extern extern_WEAK double efl_ui_panel_scrollable_content_size_get(const Eo *obj);
+extern  double efl_ui_panel_scrollable_content_size_get(const Eo *obj);
 
 /** Toggle the hidden state of the panel from code
  *
  * @ingroup Efl_Ui_Panel
  */
-extern extern_WEAK void efl_ui_panel_toggle(Eo *obj);
+extern  void efl_ui_panel_toggle(Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_PANEL_EVENT_TOGGLED;
+extern  extern const Efl_Event_Description _EFL_UI_PANEL_EVENT_TOGGLED;
 
 /** Called when the hidden state was toggled
  *

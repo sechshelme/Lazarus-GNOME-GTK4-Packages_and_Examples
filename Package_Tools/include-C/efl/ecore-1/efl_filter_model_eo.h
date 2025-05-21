@@ -30,7 +30,7 @@ typedef Eina_Future * (*EflFilterModel)(void *data, Efl_Filter_Model *parent, Ef
  */
 #define EFL_FILTER_MODEL_CLASS efl_filter_model_class_get()
 
-extern extern_WEAK const Efl_Class *efl_filter_model_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_filter_model_class_get(void) ;
 
 /**
  * @brief Set a filter function that will catch children from the composited
@@ -41,7 +41,7 @@ extern extern_WEAK const Efl_Class *efl_filter_model_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Filter_Model
  */
-extern extern_WEAK void efl_filter_model_filter_set(Eo *obj, void *filter_data, EflFilterModel filter, Eina_Free_Cb filter_free_cb);
+extern  void efl_filter_model_filter_set(Eo *obj, void *filter_data, EflFilterModel filter, Eina_Free_Cb filter_free_cb);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

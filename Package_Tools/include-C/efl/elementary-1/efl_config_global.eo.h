@@ -21,7 +21,7 @@ typedef Eo Efl_Config_Global;
  */
 #define EFL_CONFIG_GLOBAL_CLASS efl_config_global_class_get()
 
-extern extern_WEAK const Efl_Class *efl_config_global_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_config_global_class_get(void) ;
 
 #ifdef EFL_CONFIG_GLOBAL_PROTECTED
 /**
@@ -45,7 +45,7 @@ extern extern_WEAK const Efl_Class *efl_config_global_class_get(void) EINA_CONST
  *
  * @ingroup Efl_Config_Global
  */
-extern extern_WEAK Eina_Bool efl_config_save(Eo *obj, const char *profile);
+extern  Eina_Bool efl_config_save(Eo *obj, const char *profile);
 #endif
 
 /**
@@ -65,7 +65,7 @@ extern extern_WEAK Eina_Bool efl_config_save(Eo *obj, const char *profile);
  *
  * @ingroup Efl_Config_Global
  */
-extern extern_WEAK void efl_config_profile_set(Eo *obj, const char *profile);
+extern  void efl_config_profile_set(Eo *obj, const char *profile);
 
 /**
  * @brief The profile for the running application.
@@ -85,7 +85,7 @@ extern extern_WEAK void efl_config_profile_set(Eo *obj, const char *profile);
  *
  * @ingroup Efl_Config_Global
  */
-extern extern_WEAK const char *efl_config_profile_get(const Eo *obj);
+extern  const char *efl_config_profile_get(const Eo *obj);
 
 /**
  * @brief Returns the list of available profiles.
@@ -98,7 +98,7 @@ extern extern_WEAK const char *efl_config_profile_get(const Eo *obj);
  *
  * @ingroup Efl_Config_Global
  */
-extern extern_WEAK Eina_Iterator *efl_config_profile_iterate(Eo *obj, Eina_Bool hidden) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Iterator *efl_config_profile_iterate(Eo *obj, Eina_Bool hidden)  ;
 
 /**
  * @brief Returns whether a profile exists or not.
@@ -110,7 +110,7 @@ extern extern_WEAK Eina_Iterator *efl_config_profile_iterate(Eo *obj, Eina_Bool 
  *
  * @ingroup Efl_Config_Global
  */
-extern extern_WEAK Eina_Bool efl_config_profile_exists(Eo *obj, const char *profile);
+extern  Eina_Bool efl_config_profile_exists(Eo *obj, const char *profile);
 
 /**
  * @brief Returns the directory where a profile is stored.
@@ -124,7 +124,7 @@ extern extern_WEAK Eina_Bool efl_config_profile_exists(Eo *obj, const char *prof
  *
  * @ingroup Efl_Config_Global
  */
-extern extern_WEAK Eina_Stringshare *efl_config_profile_dir_get(Eo *obj, const char *profile, Eina_Bool is_user) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Stringshare *efl_config_profile_dir_get(Eo *obj, const char *profile, Eina_Bool is_user)  ;
 
 #ifdef EFL_CONFIG_GLOBAL_PROTECTED
 /**
@@ -145,7 +145,7 @@ extern extern_WEAK Eina_Stringshare *efl_config_profile_dir_get(Eo *obj, const c
  *
  * @ingroup Efl_Config_Global
  */
-extern extern_WEAK void efl_config_profile_derived_add(Eo *obj, const char *profile, const char *options);
+extern  void efl_config_profile_derived_add(Eo *obj, const char *profile, const char *options);
 #endif
 
 #ifdef EFL_CONFIG_GLOBAL_PROTECTED
@@ -165,7 +165,7 @@ extern extern_WEAK void efl_config_profile_derived_add(Eo *obj, const char *prof
  *
  * @ingroup Efl_Config_Global
  */
-extern extern_WEAK void efl_config_profile_derived_del(Eo *obj, const char *profile);
+extern  void efl_config_profile_derived_del(Eo *obj, const char *profile);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 

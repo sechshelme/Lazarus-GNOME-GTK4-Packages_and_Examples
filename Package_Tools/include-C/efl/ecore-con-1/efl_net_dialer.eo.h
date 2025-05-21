@@ -62,7 +62,7 @@ ECORE_CON_API ECORE_CON_API_WEAK Eina_Error efl_net_dialer_error_proxy_authentic
  */
 #define EFL_NET_DIALER_INTERFACE efl_net_dialer_interface_get()
 
-ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_dialer_interface_get(void) EINA_CONST;
+ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_dialer_interface_get(void) ;
 
 /**
  * @brief Dials to the remote peer.

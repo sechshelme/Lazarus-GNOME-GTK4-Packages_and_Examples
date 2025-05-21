@@ -62,7 +62,7 @@ typedef enum
  */
 #define EFL_UI_VG_ANIMATION_CLASS efl_ui_vg_animation_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_vg_animation_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_vg_animation_class_get(void) ;
 
 /**
  * @brief Number of current frame.
@@ -76,7 +76,7 @@ extern extern_WEAK const Efl_Class *efl_ui_vg_animation_class_get(void) EINA_CON
  *
  * @ingroup Efl_Ui_Vg_Animation
  */
-extern extern_WEAK void efl_ui_vg_animation_frame_set(Eo *obj, int frame_num);
+extern  void efl_ui_vg_animation_frame_set(Eo *obj, int frame_num);
 
 /**
  * @brief Number of current frame.
@@ -91,7 +91,7 @@ extern extern_WEAK void efl_ui_vg_animation_frame_set(Eo *obj, int frame_num);
  *
  * @ingroup Efl_Ui_Vg_Animation
  */
-extern extern_WEAK int efl_ui_vg_animation_frame_get(const Eo *obj);
+extern  int efl_ui_vg_animation_frame_get(const Eo *obj);
 
 /** The default view size that specified from vector resource.
  *
@@ -99,7 +99,7 @@ extern extern_WEAK int efl_ui_vg_animation_frame_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Vg_Animation
  */
-extern extern_WEAK Eina_Size2D efl_ui_vg_animation_default_view_size_get(const Eo *obj);
+extern  Eina_Size2D efl_ui_vg_animation_default_view_size_get(const Eo *obj);
 
 /**
  * @brief Current vg animation state. See @ref Efl_Ui_Vg_Animation_State
@@ -112,7 +112,7 @@ extern extern_WEAK Eina_Size2D efl_ui_vg_animation_default_view_size_get(const E
  *
  * @ingroup Efl_Ui_Vg_Animation
  */
-extern extern_WEAK Efl_Ui_Vg_Animation_State efl_ui_vg_animation_state_get(const Eo *obj);
+extern  Efl_Ui_Vg_Animation_State efl_ui_vg_animation_state_get(const Eo *obj);
 
 /**
  * @brief The index of end frame of the vg animation, if it's animated. Note :
@@ -126,7 +126,7 @@ extern extern_WEAK Efl_Ui_Vg_Animation_State efl_ui_vg_animation_state_get(const
  *
  * @ingroup Efl_Ui_Vg_Animation
  */
-extern extern_WEAK int efl_ui_vg_animation_frame_count_get(const Eo *obj);
+extern  int efl_ui_vg_animation_frame_count_get(const Eo *obj);
 
 /**
  * @brief The start progress of the play.
@@ -138,7 +138,7 @@ extern extern_WEAK int efl_ui_vg_animation_frame_count_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Vg_Animation
  */
-extern extern_WEAK void efl_ui_vg_animation_min_progress_set(Eo *obj, double min_progress);
+extern  void efl_ui_vg_animation_min_progress_set(Eo *obj, double min_progress);
 
 /**
  * @brief The start progress of the play.
@@ -151,7 +151,7 @@ extern extern_WEAK void efl_ui_vg_animation_min_progress_set(Eo *obj, double min
  *
  * @ingroup Efl_Ui_Vg_Animation
  */
-extern extern_WEAK double efl_ui_vg_animation_min_progress_get(const Eo *obj);
+extern  double efl_ui_vg_animation_min_progress_get(const Eo *obj);
 
 /**
  * @brief The last progress of the play.
@@ -163,7 +163,7 @@ extern extern_WEAK double efl_ui_vg_animation_min_progress_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Vg_Animation
  */
-extern extern_WEAK void efl_ui_vg_animation_max_progress_set(Eo *obj, double max_progress);
+extern  void efl_ui_vg_animation_max_progress_set(Eo *obj, double max_progress);
 
 /**
  * @brief The last progress of the play.
@@ -176,7 +176,7 @@ extern extern_WEAK void efl_ui_vg_animation_max_progress_set(Eo *obj, double max
  *
  * @ingroup Efl_Ui_Vg_Animation
  */
-extern extern_WEAK double efl_ui_vg_animation_max_progress_get(const Eo *obj);
+extern  double efl_ui_vg_animation_max_progress_get(const Eo *obj);
 
 /**
  * @brief The start frame of the play.
@@ -189,7 +189,7 @@ extern extern_WEAK double efl_ui_vg_animation_max_progress_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Vg_Animation
  */
-extern extern_WEAK void efl_ui_vg_animation_min_frame_set(Eo *obj, int min_frame);
+extern  void efl_ui_vg_animation_min_frame_set(Eo *obj, int min_frame);
 
 /**
  * @brief The start frame of the play.
@@ -203,7 +203,7 @@ extern extern_WEAK void efl_ui_vg_animation_min_frame_set(Eo *obj, int min_frame
  *
  * @ingroup Efl_Ui_Vg_Animation
  */
-extern extern_WEAK int efl_ui_vg_animation_min_frame_get(const Eo *obj);
+extern  int efl_ui_vg_animation_min_frame_get(const Eo *obj);
 
 /**
  * @brief The last frame of the play.
@@ -217,7 +217,7 @@ extern extern_WEAK int efl_ui_vg_animation_min_frame_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Vg_Animation
  */
-extern extern_WEAK void efl_ui_vg_animation_max_frame_set(Eo *obj, int max_frame);
+extern  void efl_ui_vg_animation_max_frame_set(Eo *obj, int max_frame);
 
 /**
  * @brief The last frame of the play.
@@ -232,7 +232,7 @@ extern extern_WEAK void efl_ui_vg_animation_max_frame_set(Eo *obj, int max_frame
  *
  * @ingroup Efl_Ui_Vg_Animation
  */
-extern extern_WEAK int efl_ui_vg_animation_max_frame_get(const Eo *obj);
+extern  int efl_ui_vg_animation_max_frame_get(const Eo *obj);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -262,7 +262,7 @@ extern extern_WEAK int efl_ui_vg_animation_max_frame_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Vg_Animation
  */
-extern extern_WEAK Eina_Bool efl_ui_vg_animation_playing_sector(Eo *obj, const char *start, const char *end);
+extern  Eina_Bool efl_ui_vg_animation_playing_sector(Eo *obj, const char *start, const char *end);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -284,7 +284,7 @@ extern extern_WEAK Eina_Bool efl_ui_vg_animation_playing_sector(Eo *obj, const c
  *
  * @ingroup Efl_Ui_Vg_Animation
  */
-extern extern_WEAK void efl_ui_vg_animation_value_provider_override(Eo *obj, Efl_Gfx_Vg_Value_Provider *value_provider);
+extern  void efl_ui_vg_animation_value_provider_override(Eo *obj, Efl_Gfx_Vg_Value_Provider *value_provider);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

@@ -19,7 +19,7 @@ typedef Eo Elm_View_List;
  */
 #define ELM_VIEW_LIST_CLASS elm_view_list_class_get()
 
-EWAPI const Efl_Class *elm_view_list_class_get(void) EINA_CONST;
+extern const Efl_Class *elm_view_list_class_get(void) ;
 
 /**
  * @brief Constructor wrapper
@@ -85,7 +85,7 @@ EOAPI void elm_view_list_model_set(Eo *obj, Efl_Model *model);
  */
 EOAPI Efl_Model *elm_view_list_model_get(const Eo *obj);
 
-EWAPI extern const Efl_Event_Description _ELM_VIEW_LIST_EVENT_MODEL_SELECTED;
+extern extern const Efl_Event_Description _ELM_VIEW_LIST_EVENT_MODEL_SELECTED;
 
 /** Called when model was selected
  * @return Efl_Object *

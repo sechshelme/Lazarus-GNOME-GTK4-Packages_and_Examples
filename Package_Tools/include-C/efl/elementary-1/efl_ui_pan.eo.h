@@ -30,7 +30,7 @@ typedef Eo Efl_Ui_Pan;
  */
 #define EFL_UI_PAN_CLASS efl_ui_pan_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_pan_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_pan_class_get(void) ;
 
 /**
  * @brief Position of the content inside the Pan widget.
@@ -45,7 +45,7 @@ extern extern_WEAK const Efl_Class *efl_ui_pan_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Pan
  */
-extern extern_WEAK void efl_ui_pan_position_set(Eo *obj, Eina_Position2D position);
+extern  void efl_ui_pan_position_set(Eo *obj, Eina_Position2D position);
 
 /**
  * @brief Position of the content inside the Pan widget.
@@ -61,7 +61,7 @@ extern extern_WEAK void efl_ui_pan_position_set(Eo *obj, Eina_Position2D positio
  *
  * @ingroup Efl_Ui_Pan
  */
-extern extern_WEAK Eina_Position2D efl_ui_pan_position_get(const Eo *obj);
+extern  Eina_Position2D efl_ui_pan_position_get(const Eo *obj);
 
 /**
  * @brief Size of the content currently set through @ref efl_content_get. This
@@ -73,7 +73,7 @@ extern extern_WEAK Eina_Position2D efl_ui_pan_position_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Pan
  */
-extern extern_WEAK Eina_Size2D efl_ui_pan_content_size_get(const Eo *obj);
+extern  Eina_Size2D efl_ui_pan_content_size_get(const Eo *obj);
 
 /**
  * @brief Position you can set to @ref efl_ui_pan_position_get so that the
@@ -85,7 +85,7 @@ extern extern_WEAK Eina_Size2D efl_ui_pan_content_size_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Pan
  */
-extern extern_WEAK Eina_Position2D efl_ui_pan_position_min_get(const Eo *obj);
+extern  Eina_Position2D efl_ui_pan_position_min_get(const Eo *obj);
 
 /**
  * @brief Position you can set to @ref efl_ui_pan_position_get so that the
@@ -98,9 +98,9 @@ extern extern_WEAK Eina_Position2D efl_ui_pan_position_min_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Pan
  */
-extern extern_WEAK Eina_Position2D efl_ui_pan_position_max_get(const Eo *obj);
+extern  Eina_Position2D efl_ui_pan_position_max_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_PAN_EVENT_PAN_CONTENT_POSITION_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_PAN_EVENT_PAN_CONTENT_POSITION_CHANGED;
 
 /** The content's position has changed, its position in the event is the new
  * position.
@@ -110,7 +110,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_PAN_EVENT_PAN_CONT
  */
 #define EFL_UI_PAN_EVENT_PAN_CONTENT_POSITION_CHANGED (&(_EFL_UI_PAN_EVENT_PAN_CONTENT_POSITION_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_PAN_EVENT_PAN_CONTENT_SIZE_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_PAN_EVENT_PAN_CONTENT_SIZE_CHANGED;
 
 /** The content's size has changed, its size in the event is the new size.
  * @return Eina_Size2D

@@ -32,7 +32,7 @@ typedef Eo Efl_Ui_Widget_Scrollable_Content;
  */
 #define EFL_UI_WIDGET_SCROLLABLE_CONTENT_MIXIN efl_ui_widget_scrollable_content_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_widget_scrollable_content_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_widget_scrollable_content_mixin_get(void) ;
 
 #ifdef EFL_BETA_API_SUPPORT
 #ifdef EFL_UI_WIDGET_SCROLLABLE_CONTENT_PROTECTED
@@ -60,7 +60,7 @@ extern extern_WEAK const Efl_Class *efl_ui_widget_scrollable_content_mixin_get(v
  *
  * @ingroup Efl_Ui_Widget_Scrollable_Content
  */
-extern extern_WEAK Eina_Bool efl_ui_widget_scrollable_content_did_group_calc_get(const Eo *obj);
+extern  Eina_Bool efl_ui_widget_scrollable_content_did_group_calc_get(const Eo *obj);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -79,7 +79,7 @@ extern extern_WEAK Eina_Bool efl_ui_widget_scrollable_content_did_group_calc_get
  *
  * @ingroup Efl_Ui_Widget_Scrollable_Content
  */
-extern extern_WEAK Eina_Bool efl_ui_widget_scrollable_content_set(Eo *obj, Efl_Canvas_Object *content);
+extern  Eina_Bool efl_ui_widget_scrollable_content_set(Eo *obj, Efl_Canvas_Object *content);
 
 /**
  * @brief This is the content which will be placed in the internal scroller.
@@ -95,7 +95,7 @@ extern extern_WEAK Eina_Bool efl_ui_widget_scrollable_content_set(Eo *obj, Efl_C
  *
  * @ingroup Efl_Ui_Widget_Scrollable_Content
  */
-extern extern_WEAK Efl_Canvas_Object *efl_ui_widget_scrollable_content_get(const Eo *obj);
+extern  Efl_Canvas_Object *efl_ui_widget_scrollable_content_get(const Eo *obj);
 
 /**
  * @brief The text string to be displayed by the given text object. The text
@@ -111,7 +111,7 @@ extern extern_WEAK Efl_Canvas_Object *efl_ui_widget_scrollable_content_get(const
  *
  * @ingroup Efl_Ui_Widget_Scrollable_Content
  */
-extern extern_WEAK void efl_ui_widget_scrollable_text_set(Eo *obj, const char *text);
+extern  void efl_ui_widget_scrollable_text_set(Eo *obj, const char *text);
 
 /**
  * @brief The text string to be displayed by the given text object. The text
@@ -128,9 +128,9 @@ extern extern_WEAK void efl_ui_widget_scrollable_text_set(Eo *obj, const char *t
  *
  * @ingroup Efl_Ui_Widget_Scrollable_Content
  */
-extern extern_WEAK const char *efl_ui_widget_scrollable_text_get(const Eo *obj);
+extern  const char *efl_ui_widget_scrollable_text_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIDGET_SCROLLABLE_CONTENT_EVENT_OPTIMAL_SIZE_CALC;
+extern  extern const Efl_Event_Description _EFL_UI_WIDGET_SCROLLABLE_CONTENT_EVENT_OPTIMAL_SIZE_CALC;
 
 /** The optimal size for the widget based on scrollable content.
  * @return Eina_Size2D

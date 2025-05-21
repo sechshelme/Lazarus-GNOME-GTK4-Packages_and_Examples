@@ -29,6 +29,6 @@ typedef Eo Efl_Generic_Model;
  */
 #define EFL_GENERIC_MODEL_CLASS efl_generic_model_class_get()
 
-extern extern_WEAK const Efl_Class *efl_generic_model_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_generic_model_class_get(void) ;
 
 #endif

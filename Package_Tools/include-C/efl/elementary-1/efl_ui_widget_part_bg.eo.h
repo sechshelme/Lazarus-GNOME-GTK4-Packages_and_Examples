@@ -29,6 +29,6 @@ typedef Eo Efl_Ui_Widget_Part_Bg;
  */
 #define EFL_UI_WIDGET_PART_BG_CLASS efl_ui_widget_part_bg_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_widget_part_bg_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_widget_part_bg_class_get(void) ;
 
 #endif

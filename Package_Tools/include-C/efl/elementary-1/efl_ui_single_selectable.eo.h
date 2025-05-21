@@ -27,7 +27,7 @@ typedef Eo Efl_Ui_Single_Selectable;
  */
 #define EFL_UI_SINGLE_SELECTABLE_INTERFACE efl_ui_single_selectable_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_single_selectable_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_single_selectable_interface_get(void) ;
 
 /**
  * @brief The selectable that was selected most recently.
@@ -40,7 +40,7 @@ extern extern_WEAK const Efl_Class *efl_ui_single_selectable_interface_get(void)
  *
  * @ingroup Efl_Ui_Single_Selectable
  */
-extern extern_WEAK Efl_Ui_Selectable *efl_ui_selectable_last_selected_get(const Eo *obj);
+extern  Efl_Ui_Selectable *efl_ui_selectable_last_selected_get(const Eo *obj);
 
 /**
  * @brief A object that will be selected in case nothing is selected
@@ -60,7 +60,7 @@ extern extern_WEAK Efl_Ui_Selectable *efl_ui_selectable_last_selected_get(const 
  *
  * @ingroup Efl_Ui_Single_Selectable
  */
-extern extern_WEAK void efl_ui_selectable_fallback_selection_set(Eo *obj, Efl_Ui_Selectable *fallback);
+extern  void efl_ui_selectable_fallback_selection_set(Eo *obj, Efl_Ui_Selectable *fallback);
 
 /**
  * @brief A object that will be selected in case nothing is selected
@@ -79,7 +79,7 @@ extern extern_WEAK void efl_ui_selectable_fallback_selection_set(Eo *obj, Efl_Ui
  *
  * @ingroup Efl_Ui_Single_Selectable
  */
-extern extern_WEAK Efl_Ui_Selectable *efl_ui_selectable_fallback_selection_get(const Eo *obj);
+extern  Efl_Ui_Selectable *efl_ui_selectable_fallback_selection_get(const Eo *obj);
 
 /**
  * @brief This controlls if a selected item can be deselected due to clicking
@@ -92,7 +92,7 @@ extern extern_WEAK Efl_Ui_Selectable *efl_ui_selectable_fallback_selection_get(c
  *
  * @ingroup Efl_Ui_Single_Selectable
  */
-extern extern_WEAK void efl_ui_selectable_allow_manual_deselection_set(Eo *obj, Eina_Bool allow_manual_deselection);
+extern  void efl_ui_selectable_allow_manual_deselection_set(Eo *obj, Eina_Bool allow_manual_deselection);
 
 /**
  * @brief This controlls if a selected item can be deselected due to clicking
@@ -106,9 +106,9 @@ extern extern_WEAK void efl_ui_selectable_allow_manual_deselection_set(Eo *obj, 
  *
  * @ingroup Efl_Ui_Single_Selectable
  */
-extern extern_WEAK Eina_Bool efl_ui_selectable_allow_manual_deselection_get(const Eo *obj);
+extern  Eina_Bool efl_ui_selectable_allow_manual_deselection_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SELECTABLE_EVENT_SELECTION_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_SELECTABLE_EVENT_SELECTION_CHANGED;
 
 /** Emitted when there is a change in the selection state. This event will
  * collect all the item selection change events that are happening within one

@@ -703,7 +703,7 @@ ECORE_CON_API int               ecore_con_shutdown(void);
  * @return @c true if the request did not fail to be set up, @c false
  * otherwise.
  */
-ECORE_CON_API Eina_Bool ecore_con_lookup(const char *name, Ecore_Con_Dns_Cb done_cb, const void *data) EINA_ARG_NONNULL(1);
+ECORE_CON_API Eina_Bool ecore_con_lookup(const char *name, Ecore_Con_Dns_Cb done_cb, const void *data) ;
 
 /**
  * @}
@@ -1153,7 +1153,7 @@ ECORE_CON_API void             ecore_con_socks_apply_always(Ecore_Con_Socks *ecs
  *
  * @since 1.19
  */
-ECORE_CON_API char *ecore_con_local_path_new(Eina_Bool is_system, const char *name, int port) EINA_WARN_UNUSED_RESULT EINA_MALLOC EINA_ARG_NONNULL(2);
+ECORE_CON_API char *ecore_con_local_path_new(Eina_Bool is_system, const char *name, int port)   ;
 
 /**
  * @brief Creates a server to listen for connections.

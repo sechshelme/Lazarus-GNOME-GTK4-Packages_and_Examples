@@ -1417,7 +1417,7 @@ extern Ecore_Wl2_Seat_Capabilities ecore_wl2_input_seat_capabilities_get(Ecore_W
  * @ingroup Ecore_Wl2_Input_Group
  * @since 1.19
  */
-extern unsigned int ecore_wl2_input_seat_id_get(Ecore_Wl2_Input *input) EINA_WARN_UNUSED_RESULT;
+extern unsigned int ecore_wl2_input_seat_id_get(Ecore_Wl2_Input *input) ;
 
 /**
  * Get the display object of an input

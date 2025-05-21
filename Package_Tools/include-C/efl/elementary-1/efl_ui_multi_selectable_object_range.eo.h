@@ -27,7 +27,7 @@ typedef Eo Efl_Ui_Multi_Selectable_Object_Range;
  */
 #define EFL_UI_MULTI_SELECTABLE_OBJECT_RANGE_INTERFACE efl_ui_multi_selectable_object_range_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_multi_selectable_object_range_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_multi_selectable_object_range_interface_get(void) ;
 
 /**
  * @brief Get the selected items in an iterator. The iterator sequence will be
@@ -41,7 +41,7 @@ extern extern_WEAK const Efl_Class *efl_ui_multi_selectable_object_range_interfa
  *
  * @ingroup Efl_Ui_Multi_Selectable_Object_Range
  */
-extern extern_WEAK Eina_Iterator *efl_ui_multi_selectable_selected_iterator_new(Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Iterator *efl_ui_multi_selectable_selected_iterator_new(Eo *obj)  ;
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -61,7 +61,7 @@ extern extern_WEAK Eina_Iterator *efl_ui_multi_selectable_selected_iterator_new(
  *
  * @ingroup Efl_Ui_Multi_Selectable_Object_Range
  */
-extern extern_WEAK void efl_ui_multi_selectable_range_select(Eo *obj, Efl_Ui_Selectable *a, Efl_Ui_Selectable *b);
+extern  void efl_ui_multi_selectable_range_select(Eo *obj, Efl_Ui_Selectable *a, Efl_Ui_Selectable *b);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -82,7 +82,7 @@ extern extern_WEAK void efl_ui_multi_selectable_range_select(Eo *obj, Efl_Ui_Sel
  *
  * @ingroup Efl_Ui_Multi_Selectable_Object_Range
  */
-extern extern_WEAK void efl_ui_multi_selectable_range_unselect(Eo *obj, Efl_Ui_Selectable *a, Efl_Ui_Selectable *b);
+extern  void efl_ui_multi_selectable_range_unselect(Eo *obj, Efl_Ui_Selectable *a, Efl_Ui_Selectable *b);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

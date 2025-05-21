@@ -88,7 +88,7 @@ typedef struct _Efl_Access_Text_Change_Info
  */
 #define EFL_ACCESS_TEXT_INTERFACE efl_access_text_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_access_text_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_access_text_interface_get(void) ;
 
 #ifdef EFL_BETA_API_SUPPORT
 #ifdef EFL_ACCESS_TEXT_PROTECTED
@@ -105,7 +105,7 @@ extern extern_WEAK const Efl_Class *efl_access_text_interface_get(void) EINA_CON
  *
  * @ingroup Efl_Access_Text
  */
-extern extern_WEAK Eina_Unicode efl_access_text_character_get(const Eo *obj, int offset);
+extern  Eina_Unicode efl_access_text_character_get(const Eo *obj, int offset);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -126,7 +126,7 @@ extern extern_WEAK Eina_Unicode efl_access_text_character_get(const Eo *obj, int
  *
  * @ingroup Efl_Access_Text
  */
-extern extern_WEAK void efl_access_text_string_get(const Eo *obj, Efl_Access_Text_Granularity granularity, int *start_offset, int *end_offset, char **string EFL_TRANSFER_OWNERSHIP);
+extern  void efl_access_text_string_get(const Eo *obj, Efl_Access_Text_Granularity granularity, int *start_offset, int *end_offset, char **string );
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -143,7 +143,7 @@ extern extern_WEAK void efl_access_text_string_get(const Eo *obj, Efl_Access_Tex
  *
  * @ingroup Efl_Access_Text
  */
-extern extern_WEAK char *efl_access_text_get(const Eo *obj, int start_offset, int end_offset) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  char *efl_access_text_get(const Eo *obj, int start_offset, int end_offset)  ;
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -159,7 +159,7 @@ extern extern_WEAK char *efl_access_text_get(const Eo *obj, int start_offset, in
  *
  * @ingroup Efl_Access_Text
  */
-extern extern_WEAK Eina_Bool efl_access_text_caret_offset_set(Eo *obj, int offset);
+extern  Eina_Bool efl_access_text_caret_offset_set(Eo *obj, int offset);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -174,7 +174,7 @@ extern extern_WEAK Eina_Bool efl_access_text_caret_offset_set(Eo *obj, int offse
  *
  * @ingroup Efl_Access_Text
  */
-extern extern_WEAK int efl_access_text_caret_offset_get(const Eo *obj);
+extern  int efl_access_text_caret_offset_get(const Eo *obj);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -193,7 +193,7 @@ extern extern_WEAK int efl_access_text_caret_offset_get(const Eo *obj);
  *
  * @ingroup Efl_Access_Text
  */
-extern extern_WEAK Eina_Bool efl_access_text_attribute_get(const Eo *obj, const char *name, int *start_offset, int *end_offset, char **value EFL_TRANSFER_OWNERSHIP);
+extern  Eina_Bool efl_access_text_attribute_get(const Eo *obj, const char *name, int *start_offset, int *end_offset, char **value );
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -209,7 +209,7 @@ extern extern_WEAK Eina_Bool efl_access_text_attribute_get(const Eo *obj, const 
  *
  * @ingroup Efl_Access_Text
  */
-extern extern_WEAK void efl_access_text_attributes_get(const Eo *obj, int *start_offset, int *end_offset, Eina_List **attributes EFL_TRANSFER_OWNERSHIP);
+extern  void efl_access_text_attributes_get(const Eo *obj, int *start_offset, int *end_offset, Eina_List **attributes );
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -224,7 +224,7 @@ extern extern_WEAK void efl_access_text_attributes_get(const Eo *obj, int *start
  *
  * @ingroup Efl_Access_Text
  */
-extern extern_WEAK Eina_List *efl_access_text_default_attributes_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_List *efl_access_text_default_attributes_get(const Eo *obj)  ;
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -243,7 +243,7 @@ extern extern_WEAK Eina_List *efl_access_text_default_attributes_get(const Eo *o
  *
  * @ingroup Efl_Access_Text
  */
-extern extern_WEAK Eina_Bool efl_access_text_character_extents_get(const Eo *obj, int offset, Eina_Bool screen_coords, Eina_Rect *rect);
+extern  Eina_Bool efl_access_text_character_extents_get(const Eo *obj, int offset, Eina_Bool screen_coords, Eina_Rect *rect);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -258,7 +258,7 @@ extern extern_WEAK Eina_Bool efl_access_text_character_extents_get(const Eo *obj
  *
  * @ingroup Efl_Access_Text
  */
-extern extern_WEAK int efl_access_text_character_count_get(const Eo *obj);
+extern  int efl_access_text_character_count_get(const Eo *obj);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -277,7 +277,7 @@ extern extern_WEAK int efl_access_text_character_count_get(const Eo *obj);
  *
  * @ingroup Efl_Access_Text
  */
-extern extern_WEAK int efl_access_text_offset_at_point_get(const Eo *obj, Eina_Bool screen_coords, int x, int y);
+extern  int efl_access_text_offset_at_point_get(const Eo *obj, Eina_Bool screen_coords, int x, int y);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -297,7 +297,7 @@ extern extern_WEAK int efl_access_text_offset_at_point_get(const Eo *obj, Eina_B
  *
  * @ingroup Efl_Access_Text
  */
-extern extern_WEAK Eina_List *efl_access_text_bounded_ranges_get(const Eo *obj, Eina_Bool screen_coords, Eina_Rect rect, Efl_Access_Text_Clip_Type xclip, Efl_Access_Text_Clip_Type yclip) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_List *efl_access_text_bounded_ranges_get(const Eo *obj, Eina_Bool screen_coords, Eina_Rect rect, Efl_Access_Text_Clip_Type xclip, Efl_Access_Text_Clip_Type yclip)  ;
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -317,7 +317,7 @@ extern extern_WEAK Eina_List *efl_access_text_bounded_ranges_get(const Eo *obj, 
  *
  * @ingroup Efl_Access_Text
  */
-extern extern_WEAK Eina_Bool efl_access_text_range_extents_get(const Eo *obj, Eina_Bool screen_coords, int start_offset, int end_offset, Eina_Rect *rect);
+extern  Eina_Bool efl_access_text_range_extents_get(const Eo *obj, Eina_Bool screen_coords, int start_offset, int end_offset, Eina_Rect *rect);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -332,7 +332,7 @@ extern extern_WEAK Eina_Bool efl_access_text_range_extents_get(const Eo *obj, Ei
  *
  * @ingroup Efl_Access_Text
  */
-extern extern_WEAK int efl_access_text_selections_count_get(const Eo *obj);
+extern  int efl_access_text_selections_count_get(const Eo *obj);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -350,7 +350,7 @@ extern extern_WEAK int efl_access_text_selections_count_get(const Eo *obj);
  *
  * @ingroup Efl_Access_Text
  */
-extern extern_WEAK Eina_Bool efl_access_text_access_selection_set(Eo *obj, int selection_number, int start_offset, int end_offset);
+extern  Eina_Bool efl_access_text_access_selection_set(Eo *obj, int selection_number, int start_offset, int end_offset);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -366,7 +366,7 @@ extern extern_WEAK Eina_Bool efl_access_text_access_selection_set(Eo *obj, int s
  *
  * @ingroup Efl_Access_Text
  */
-extern extern_WEAK void efl_access_text_access_selection_get(const Eo *obj, int selection_number, int *start_offset, int *end_offset);
+extern  void efl_access_text_access_selection_get(const Eo *obj, int selection_number, int *start_offset, int *end_offset);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -383,7 +383,7 @@ extern extern_WEAK void efl_access_text_access_selection_get(const Eo *obj, int 
  *
  * @ingroup Efl_Access_Text
  */
-extern extern_WEAK Eina_Bool efl_access_text_selection_add(Eo *obj, int start_offset, int end_offset);
+extern  Eina_Bool efl_access_text_selection_add(Eo *obj, int start_offset, int end_offset);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -399,11 +399,11 @@ extern extern_WEAK Eina_Bool efl_access_text_selection_add(Eo *obj, int start_of
  *
  * @ingroup Efl_Access_Text
  */
-extern extern_WEAK Eina_Bool efl_access_text_selection_remove(Eo *obj, int selection_number);
+extern  Eina_Bool efl_access_text_selection_remove(Eo *obj, int selection_number);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_TEXT_EVENT_ACCESS_TEXT_CARET_MOVED;
+extern  extern const Efl_Event_Description _EFL_ACCESS_TEXT_EVENT_ACCESS_TEXT_CARET_MOVED;
 
 /** Caret moved
  *
@@ -411,7 +411,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_TEXT_EVENT_ACC
  */
 #define EFL_ACCESS_TEXT_EVENT_ACCESS_TEXT_CARET_MOVED (&(_EFL_ACCESS_TEXT_EVENT_ACCESS_TEXT_CARET_MOVED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_TEXT_EVENT_ACCESS_TEXT_INSERTED;
+extern  extern const Efl_Event_Description _EFL_ACCESS_TEXT_EVENT_ACCESS_TEXT_INSERTED;
 
 /** Text was inserted
  * @return Efl_Access_Text_Change_Info
@@ -420,7 +420,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_TEXT_EVENT_ACC
  */
 #define EFL_ACCESS_TEXT_EVENT_ACCESS_TEXT_INSERTED (&(_EFL_ACCESS_TEXT_EVENT_ACCESS_TEXT_INSERTED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_TEXT_EVENT_ACCESS_TEXT_REMOVED;
+extern  extern const Efl_Event_Description _EFL_ACCESS_TEXT_EVENT_ACCESS_TEXT_REMOVED;
 
 /** Text was removed
  * @return Efl_Access_Text_Change_Info
@@ -429,7 +429,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_TEXT_EVENT_ACC
  */
 #define EFL_ACCESS_TEXT_EVENT_ACCESS_TEXT_REMOVED (&(_EFL_ACCESS_TEXT_EVENT_ACCESS_TEXT_REMOVED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_TEXT_EVENT_ACCESS_TEXT_SELECTION_CHANGED;
+extern  extern const Efl_Event_Description _EFL_ACCESS_TEXT_EVENT_ACCESS_TEXT_SELECTION_CHANGED;
 
 /** Text selection has changed
  *

@@ -20,7 +20,7 @@ typedef Eo Eldbus_Model_Arguments;
  */
 #define ELDBUS_MODEL_ARGUMENTS_CLASS eldbus_model_arguments_class_get()
 
-extern extern_WEAK const Efl_Class *eldbus_model_arguments_class_get(void) EINA_CONST;
+extern  const Efl_Class *eldbus_model_arguments_class_get(void) ;
 
 /**
  * @brief Custom Eldbus_Model_Arguments constructor.
@@ -34,7 +34,7 @@ extern extern_WEAK const Efl_Class *eldbus_model_arguments_class_get(void) EINA_
  *
  * @ingroup Eldbus_Model_Arguments
  */
-extern extern_WEAK void eldbus_model_arguments_custom_constructor(Eo *obj, Eldbus_Proxy *proxy, const char *name, const Eina_List *arguments);
+extern  void eldbus_model_arguments_custom_constructor(Eo *obj, Eldbus_Proxy *proxy, const char *name, const Eina_List *arguments);
 
 /**
  * @brief Name of the argument
@@ -45,7 +45,7 @@ extern extern_WEAK void eldbus_model_arguments_custom_constructor(Eo *obj, Eldbu
  *
  * @ingroup Eldbus_Model_Arguments
  */
-extern extern_WEAK const char *eldbus_model_arguments_arg_name_get(const Eo *obj);
+extern  const char *eldbus_model_arguments_arg_name_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

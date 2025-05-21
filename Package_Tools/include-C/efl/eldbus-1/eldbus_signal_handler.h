@@ -30,7 +30,7 @@ extern Eldbus_Signal_Handler *eldbus_signal_handler_add(Eldbus_Connection *conn,
  *
  * @return the same signal handler, @p handler
  */
-extern Eldbus_Signal_Handler *eldbus_signal_handler_ref(Eldbus_Signal_Handler *handler) EINA_ARG_NONNULL(1);
+extern Eldbus_Signal_Handler *eldbus_signal_handler_ref(Eldbus_Signal_Handler *handler) ;
 
 /**
  * @brief Decrease signal handler reference.
@@ -38,7 +38,7 @@ extern Eldbus_Signal_Handler *eldbus_signal_handler_ref(Eldbus_Signal_Handler *h
  *
  * @param handler signal handler
  */
-extern void                  eldbus_signal_handler_unref(Eldbus_Signal_Handler *handler) EINA_ARG_NONNULL(1);
+extern void                  eldbus_signal_handler_unref(Eldbus_Signal_Handler *handler) ;
 
 /**
  * @brief Decrease signal handler reference like eldbus_signal_handler_unref()
@@ -47,7 +47,7 @@ extern void                  eldbus_signal_handler_unref(Eldbus_Signal_Handler *
  *
  * @param handler signal handler to delete
  */
-extern void                  eldbus_signal_handler_del(Eldbus_Signal_Handler *handler) EINA_ARG_NONNULL(1);
+extern void                  eldbus_signal_handler_del(Eldbus_Signal_Handler *handler) ;
 
 /**
  * @brief Add extra argument in match of signal handler to obtain specifics signals.
@@ -67,7 +67,7 @@ extern void                  eldbus_signal_handler_del(Eldbus_Signal_Handler *ha
  * @note For more information:
  * http://dbus.freedesktop.org/doc/dbus-specification.html#message-bus-routing-match-rules
  */
-extern Eina_Bool             eldbus_signal_handler_match_extra_set(Eldbus_Signal_Handler *sh, ...) EINA_ARG_NONNULL(1) EINA_SENTINEL;
+extern Eina_Bool             eldbus_signal_handler_match_extra_set(Eldbus_Signal_Handler *sh, ...)  EINA_SENTINEL;
 
 /**
  * @brief Add extra argument in match of signal handler to obtain specifics signals.
@@ -87,7 +87,7 @@ extern Eina_Bool             eldbus_signal_handler_match_extra_set(Eldbus_Signal
  * @note To information:
  * http://dbus.freedesktop.org/doc/dbus-specification.html#message-bus-routing-match-rules
  */
-extern Eina_Bool             eldbus_signal_handler_match_extra_vset(Eldbus_Signal_Handler *sh, va_list ap) EINA_ARG_NONNULL(1);
+extern Eina_Bool             eldbus_signal_handler_match_extra_vset(Eldbus_Signal_Handler *sh, va_list ap) ;
 
 /**
  * @brief Add a callback function to be called when signal handler will be freed.
@@ -96,7 +96,7 @@ extern Eina_Bool             eldbus_signal_handler_match_extra_vset(Eldbus_Signa
  * @param cb callback that will be called when this signal handler is freed
  * @param data data that will be passed to callback
  */
-extern void                  eldbus_signal_handler_free_cb_add(Eldbus_Signal_Handler *handler, Eldbus_Free_Cb cb, const void *data) EINA_ARG_NONNULL(1, 2);
+extern void                  eldbus_signal_handler_free_cb_add(Eldbus_Signal_Handler *handler, Eldbus_Free_Cb cb, const void *data) ;
 
 /**
  * @brief Remove callback registered in eldbus_signal_handler_free_cb_add().
@@ -105,15 +105,15 @@ extern void                  eldbus_signal_handler_free_cb_add(Eldbus_Signal_Han
  * @param cb registered callback to remove
  * @param data data that will be passed to callback
  */
-extern void                  eldbus_signal_handler_free_cb_del(Eldbus_Signal_Handler *handler, Eldbus_Free_Cb cb, const void *data) EINA_ARG_NONNULL(1, 2);
+extern void                  eldbus_signal_handler_free_cb_del(Eldbus_Signal_Handler *handler, Eldbus_Free_Cb cb, const void *data) ;
 
-extern const char           *eldbus_signal_handler_sender_get(const Eldbus_Signal_Handler *handler) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
-extern const char           *eldbus_signal_handler_path_get(const Eldbus_Signal_Handler *handler) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
-extern const char           *eldbus_signal_handler_interface_get(const Eldbus_Signal_Handler *handler) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
-extern const char           *eldbus_signal_handler_member_get(const Eldbus_Signal_Handler *handler) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
-extern const char           *eldbus_signal_handler_match_get(const Eldbus_Signal_Handler *handler) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+extern const char           *eldbus_signal_handler_sender_get(const Eldbus_Signal_Handler *handler)  ;
+extern const char           *eldbus_signal_handler_path_get(const Eldbus_Signal_Handler *handler)  ;
+extern const char           *eldbus_signal_handler_interface_get(const Eldbus_Signal_Handler *handler)  ;
+extern const char           *eldbus_signal_handler_member_get(const Eldbus_Signal_Handler *handler)  ;
+extern const char           *eldbus_signal_handler_match_get(const Eldbus_Signal_Handler *handler)  ;
 
-extern Eldbus_Connection     *eldbus_signal_handler_connection_get(const Eldbus_Signal_Handler *handler) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+extern Eldbus_Connection     *eldbus_signal_handler_connection_get(const Eldbus_Signal_Handler *handler)  ;
 
 /**
  * @}

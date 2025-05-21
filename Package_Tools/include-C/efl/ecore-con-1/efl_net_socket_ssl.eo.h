@@ -46,7 +46,7 @@ ECORE_CON_API ECORE_CON_API_WEAK Eina_Error efl_net_socket_ssl_error_certificate
  */
 #define EFL_NET_SOCKET_SSL_CLASS efl_net_socket_ssl_class_get()
 
-ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_socket_ssl_class_get(void) EINA_CONST;
+ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_socket_ssl_class_get(void) ;
 
 /**
  * @brief Adopt an Efl.Net.Dialer or regular Efl.Net.Socket that will be used

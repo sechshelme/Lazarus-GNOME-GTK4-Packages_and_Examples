@@ -28,7 +28,7 @@ typedef Eo Efl_Ui_Tab_Pager;
  */
 #define EFL_UI_TAB_PAGER_CLASS efl_ui_tab_pager_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_tab_pager_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_tab_pager_class_get(void) ;
 
 /**
  * @brief Tab bar where to add items of the @ref Efl_Ui_Tab_Page into.
@@ -39,7 +39,7 @@ extern extern_WEAK const Efl_Class *efl_ui_tab_pager_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Tab_Pager
  */
-extern extern_WEAK Efl_Ui_Tab_Bar *efl_ui_tab_pager_tab_bar_get(const Eo *obj);
+extern  Efl_Ui_Tab_Bar *efl_ui_tab_pager_tab_bar_get(const Eo *obj);
 
 /**
  * @brief Spotlight manager of the internal spotlight container
@@ -50,7 +50,7 @@ extern extern_WEAK Efl_Ui_Tab_Bar *efl_ui_tab_pager_tab_bar_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Tab_Pager
  */
-extern extern_WEAK void efl_ui_tab_pager_spotlight_manager_set(Eo *obj, Efl_Ui_Spotlight_Manager *manager EFL_TRANSFER_OWNERSHIP);
+extern  void efl_ui_tab_pager_spotlight_manager_set(Eo *obj, Efl_Ui_Spotlight_Manager *manager );
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

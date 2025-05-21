@@ -20,7 +20,7 @@ typedef Eo Efl_Ui_Layout_Part_Legacy;
  */
 #define EFL_UI_LAYOUT_PART_LEGACY_CLASS efl_ui_layout_part_legacy_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_layout_part_legacy_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_layout_part_legacy_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

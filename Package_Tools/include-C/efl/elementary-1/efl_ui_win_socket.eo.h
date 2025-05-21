@@ -26,7 +26,7 @@ typedef Eo Efl_Ui_Win_Socket;
  */
 #define EFL_UI_WIN_SOCKET_CLASS efl_ui_win_socket_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_win_socket_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_win_socket_class_get(void) ;
 
 /**
  * @brief Create a socket to provide the service for Plug widget.
@@ -44,7 +44,7 @@ extern extern_WEAK const Efl_Class *efl_ui_win_socket_class_get(void) EINA_CONST
  *
  * @ingroup Efl_Ui_Win_Socket
  */
-extern extern_WEAK Eina_Bool efl_ui_win_socket_listen(Eo *obj, const char *svcname, int svcnum, Eina_Bool svcsys);
+extern  Eina_Bool efl_ui_win_socket_listen(Eo *obj, const char *svcname, int svcnum, Eina_Bool svcsys);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

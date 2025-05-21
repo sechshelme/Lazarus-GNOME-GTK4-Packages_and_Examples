@@ -22,6 +22,6 @@ typedef Eo Efl_Linear_Interpolator;
  */
 #define EFL_LINEAR_INTERPOLATOR_CLASS efl_linear_interpolator_class_get()
 
-extern extern_WEAK const Efl_Class *efl_linear_interpolator_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_linear_interpolator_class_get(void) ;
 
 #endif

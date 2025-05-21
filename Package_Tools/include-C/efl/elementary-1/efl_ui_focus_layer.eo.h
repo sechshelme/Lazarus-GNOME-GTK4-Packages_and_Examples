@@ -28,7 +28,7 @@ typedef Eo Efl_Ui_Focus_Layer;
  */
 #define EFL_UI_FOCUS_LAYER_MIXIN efl_ui_focus_layer_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_focus_layer_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_focus_layer_mixin_get(void) ;
 
 #ifdef EFL_UI_FOCUS_LAYER_PROTECTED
 /**
@@ -41,7 +41,7 @@ extern extern_WEAK const Efl_Class *efl_ui_focus_layer_mixin_get(void) EINA_CONS
  *
  * @ingroup Efl_Ui_Focus_Layer
  */
-extern extern_WEAK void efl_ui_focus_layer_enable_set(Eo *obj, Eina_Bool v);
+extern  void efl_ui_focus_layer_enable_set(Eo *obj, Eina_Bool v);
 #endif
 
 #ifdef EFL_UI_FOCUS_LAYER_PROTECTED
@@ -56,7 +56,7 @@ extern extern_WEAK void efl_ui_focus_layer_enable_set(Eo *obj, Eina_Bool v);
  *
  * @ingroup Efl_Ui_Focus_Layer
  */
-extern extern_WEAK Eina_Bool efl_ui_focus_layer_enable_get(const Eo *obj);
+extern  Eina_Bool efl_ui_focus_layer_enable_get(const Eo *obj);
 #endif
 
 #ifdef EFL_UI_FOCUS_LAYER_PROTECTED
@@ -71,7 +71,7 @@ extern extern_WEAK Eina_Bool efl_ui_focus_layer_enable_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Focus_Layer
  */
-extern extern_WEAK void efl_ui_focus_layer_behaviour_set(Eo *obj, Eina_Bool enable_on_visible, Eina_Bool cycle);
+extern  void efl_ui_focus_layer_behaviour_set(Eo *obj, Eina_Bool enable_on_visible, Eina_Bool cycle);
 #endif
 
 #ifdef EFL_UI_FOCUS_LAYER_PROTECTED
@@ -86,7 +86,7 @@ extern extern_WEAK void efl_ui_focus_layer_behaviour_set(Eo *obj, Eina_Bool enab
  *
  * @ingroup Efl_Ui_Focus_Layer
  */
-extern extern_WEAK void efl_ui_focus_layer_behaviour_get(const Eo *obj, Eina_Bool *enable_on_visible, Eina_Bool *cycle);
+extern  void efl_ui_focus_layer_behaviour_get(const Eo *obj, Eina_Bool *enable_on_visible, Eina_Bool *cycle);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 

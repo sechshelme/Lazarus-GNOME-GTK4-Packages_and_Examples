@@ -43,7 +43,7 @@ typedef struct _Elm_Naviframe_Item_Data Elm_Naviframe_Item_Data;
 struct _Elm_Naviframe_Item_Data
 {
    Elm_Widget_Item_Data *base;
-   EINA_INLIST;
+   Eina_Inlist __in_list;
 
    Eina_Inlist *content_list;
    Eina_Inlist *text_list;
@@ -79,7 +79,7 @@ struct _Elm_Naviframe_Op
 typedef struct _Elm_Naviframe_Content_Item_Pair Elm_Naviframe_Content_Item_Pair;
 struct _Elm_Naviframe_Content_Item_Pair
 {
-   EINA_INLIST;
+   Eina_Inlist __in_list;
    const char *part;
    Evas_Object *content;
    Elm_Naviframe_Item_Data *it;
@@ -88,7 +88,7 @@ struct _Elm_Naviframe_Content_Item_Pair
 typedef struct _Elm_Naviframe_Text_Item_Pair Elm_Naviframe_Text_Item_Pair;
 struct _Elm_Naviframe_Text_Item_Pair
 {
-   EINA_INLIST;
+   Eina_Inlist __in_list;
    const char *part;
 };
 

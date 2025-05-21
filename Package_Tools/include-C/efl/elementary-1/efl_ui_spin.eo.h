@@ -26,6 +26,6 @@ typedef Eo Efl_Ui_Spin;
  */
 #define EFL_UI_SPIN_CLASS efl_ui_spin_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_spin_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_spin_class_get(void) ;
 
 #endif

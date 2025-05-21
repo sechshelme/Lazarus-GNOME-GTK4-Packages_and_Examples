@@ -20,7 +20,7 @@ typedef Eo Efl_Access_Editable_Text;
  */
 #define EFL_ACCESS_EDITABLE_TEXT_INTERFACE efl_access_editable_text_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_access_editable_text_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_access_editable_text_interface_get(void) ;
 
 #ifdef EFL_BETA_API_SUPPORT
 #ifdef EFL_ACCESS_EDITABLE_TEXT_PROTECTED
@@ -34,7 +34,7 @@ extern extern_WEAK const Efl_Class *efl_access_editable_text_interface_get(void)
  *
  * @ingroup Efl_Access_Editable_Text
  */
-extern extern_WEAK Eina_Bool efl_access_editable_text_content_set(Eo *obj, const char *string);
+extern  Eina_Bool efl_access_editable_text_content_set(Eo *obj, const char *string);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -51,7 +51,7 @@ extern extern_WEAK Eina_Bool efl_access_editable_text_content_set(Eo *obj, const
  *
  * @ingroup Efl_Access_Editable_Text
  */
-extern extern_WEAK Eina_Bool efl_access_editable_text_insert(Eo *obj, const char *string, int position);
+extern  Eina_Bool efl_access_editable_text_insert(Eo *obj, const char *string, int position);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -68,7 +68,7 @@ extern extern_WEAK Eina_Bool efl_access_editable_text_insert(Eo *obj, const char
  *
  * @ingroup Efl_Access_Editable_Text
  */
-extern extern_WEAK Eina_Bool efl_access_editable_text_copy(Eo *obj, int start, int end);
+extern  Eina_Bool efl_access_editable_text_copy(Eo *obj, int start, int end);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -85,7 +85,7 @@ extern extern_WEAK Eina_Bool efl_access_editable_text_copy(Eo *obj, int start, i
  *
  * @ingroup Efl_Access_Editable_Text
  */
-extern extern_WEAK Eina_Bool efl_access_editable_text_cut(Eo *obj, int start, int end);
+extern  Eina_Bool efl_access_editable_text_cut(Eo *obj, int start, int end);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -102,7 +102,7 @@ extern extern_WEAK Eina_Bool efl_access_editable_text_cut(Eo *obj, int start, in
  *
  * @ingroup Efl_Access_Editable_Text
  */
-extern extern_WEAK Eina_Bool efl_access_editable_text_delete(Eo *obj, int start, int end);
+extern  Eina_Bool efl_access_editable_text_delete(Eo *obj, int start, int end);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -118,7 +118,7 @@ extern extern_WEAK Eina_Bool efl_access_editable_text_delete(Eo *obj, int start,
  *
  * @ingroup Efl_Access_Editable_Text
  */
-extern extern_WEAK Eina_Bool efl_access_editable_text_paste(Eo *obj, int position);
+extern  Eina_Bool efl_access_editable_text_paste(Eo *obj, int position);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 #endif /* EFL_BETA_API_SUPPORT */

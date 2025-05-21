@@ -26,7 +26,7 @@ typedef Eo Efl_Spring_Interpolator;
  */
 #define EFL_SPRING_INTERPOLATOR_CLASS efl_spring_interpolator_class_get()
 
-extern extern_WEAK const Efl_Class *efl_spring_interpolator_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_spring_interpolator_class_get(void) ;
 
 /**
  * @brief Customize the decay factor.
@@ -39,7 +39,7 @@ extern extern_WEAK const Efl_Class *efl_spring_interpolator_class_get(void) EINA
  *
  * @ingroup Efl_Spring_Interpolator
  */
-extern extern_WEAK void efl_spring_interpolator_decay_set(Eo *obj, double decay);
+extern  void efl_spring_interpolator_decay_set(Eo *obj, double decay);
 
 /**
  * @brief Customize the decay factor.
@@ -53,7 +53,7 @@ extern extern_WEAK void efl_spring_interpolator_decay_set(Eo *obj, double decay)
  *
  * @ingroup Efl_Spring_Interpolator
  */
-extern extern_WEAK double efl_spring_interpolator_decay_get(const Eo *obj);
+extern  double efl_spring_interpolator_decay_get(const Eo *obj);
 
 /**
  * @brief Customize number of oscillations.
@@ -65,7 +65,7 @@ extern extern_WEAK double efl_spring_interpolator_decay_get(const Eo *obj);
  *
  * @ingroup Efl_Spring_Interpolator
  */
-extern extern_WEAK void efl_spring_interpolator_oscillations_set(Eo *obj, int oscillations);
+extern  void efl_spring_interpolator_oscillations_set(Eo *obj, int oscillations);
 
 /**
  * @brief Customize number of oscillations.
@@ -78,6 +78,6 @@ extern extern_WEAK void efl_spring_interpolator_oscillations_set(Eo *obj, int os
  *
  * @ingroup Efl_Spring_Interpolator
  */
-extern extern_WEAK int efl_spring_interpolator_oscillations_get(const Eo *obj);
+extern  int efl_spring_interpolator_oscillations_get(const Eo *obj);
 
 #endif

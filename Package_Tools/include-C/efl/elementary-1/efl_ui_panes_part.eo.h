@@ -20,7 +20,7 @@ typedef Eo Efl_Ui_Panes_Part;
  */
 #define EFL_UI_PANES_PART_CLASS efl_ui_panes_part_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_panes_part_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_panes_part_class_get(void) ;
 
 /**
  * @brief Allows the user to set size hints to be respected and ignored
@@ -32,7 +32,7 @@ extern extern_WEAK const Efl_Class *efl_ui_panes_part_class_get(void) EINA_CONST
  *
  * @ingroup Efl_Ui_Panes_Part
  */
-extern extern_WEAK void efl_ui_panes_part_hint_min_allow_set(Eo *obj, Eina_Bool allow);
+extern  void efl_ui_panes_part_hint_min_allow_set(Eo *obj, Eina_Bool allow);
 
 /**
  * @brief Allows the user to set size hints to be respected and ignored
@@ -45,7 +45,7 @@ extern extern_WEAK void efl_ui_panes_part_hint_min_allow_set(Eo *obj, Eina_Bool 
  *
  * @ingroup Efl_Ui_Panes_Part
  */
-extern extern_WEAK Eina_Bool efl_ui_panes_part_hint_min_allow_get(const Eo *obj);
+extern  Eina_Bool efl_ui_panes_part_hint_min_allow_get(const Eo *obj);
 
 /**
  * @brief Controls the relative minimum size of panes widget's part.
@@ -60,7 +60,7 @@ extern extern_WEAK Eina_Bool efl_ui_panes_part_hint_min_allow_get(const Eo *obj)
  *
  * @ingroup Efl_Ui_Panes_Part
  */
-extern extern_WEAK void efl_ui_panes_part_split_ratio_min_set(Eo *obj, double size);
+extern  void efl_ui_panes_part_split_ratio_min_set(Eo *obj, double size);
 
 /**
  * @brief Controls the relative minimum size of panes widget's part.
@@ -76,7 +76,7 @@ extern extern_WEAK void efl_ui_panes_part_split_ratio_min_set(Eo *obj, double si
  *
  * @ingroup Efl_Ui_Panes_Part
  */
-extern extern_WEAK double efl_ui_panes_part_split_ratio_min_get(const Eo *obj);
+extern  double efl_ui_panes_part_split_ratio_min_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

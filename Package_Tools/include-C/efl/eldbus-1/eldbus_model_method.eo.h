@@ -20,7 +20,7 @@ typedef Eo Eldbus_Model_Method;
  */
 #define ELDBUS_MODEL_METHOD_CLASS eldbus_model_method_class_get()
 
-extern extern_WEAK const Efl_Class *eldbus_model_method_class_get(void) EINA_CONST;
+extern  const Efl_Class *eldbus_model_method_class_get(void) ;
 
 /**
  * @brief Custom Eldbus_Model_Method constructor.
@@ -32,7 +32,7 @@ extern extern_WEAK const Efl_Class *eldbus_model_method_class_get(void) EINA_CON
  *
  * @ingroup Eldbus_Model_Method
  */
-extern extern_WEAK void eldbus_model_method_proxy_set(Eo *obj, Eldbus_Proxy *proxy);
+extern  void eldbus_model_method_proxy_set(Eo *obj, Eldbus_Proxy *proxy);
 
 /**
  * @brief Object
@@ -42,7 +42,7 @@ extern extern_WEAK void eldbus_model_method_proxy_set(Eo *obj, Eldbus_Proxy *pro
  *
  * @ingroup Eldbus_Model_Method
  */
-extern extern_WEAK void eldbus_model_method_set(Eo *obj, const Eldbus_Introspection_Method *method);
+extern  void eldbus_model_method_set(Eo *obj, const Eldbus_Introspection_Method *method);
 
 /**
  * @brief Calls the method. The properties must have been set.
@@ -59,9 +59,9 @@ extern extern_WEAK void eldbus_model_method_set(Eo *obj, const Eldbus_Introspect
  *
  * @ingroup Eldbus_Model_Method
  */
-extern extern_WEAK void eldbus_model_method_call(Eo *obj);
+extern  void eldbus_model_method_call(Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _ELDBUS_MODEL_METHOD_EVENT_SUCCESSFUL_CALL;
+extern  extern const Efl_Event_Description _ELDBUS_MODEL_METHOD_EVENT_SUCCESSFUL_CALL;
 
 /** Event dispatched for a successful method call.
  *

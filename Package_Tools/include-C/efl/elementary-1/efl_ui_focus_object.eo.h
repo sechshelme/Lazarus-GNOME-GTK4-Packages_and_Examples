@@ -21,7 +21,7 @@ typedef Eo Efl_Ui_Focus_Object;
  */
 #define EFL_UI_FOCUS_OBJECT_MIXIN efl_ui_focus_object_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_focus_object_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_focus_object_mixin_get(void) ;
 
 /**
  * @brief The geometry (that is, the bounding rectangle) used to calculate the
@@ -35,7 +35,7 @@ extern extern_WEAK const Efl_Class *efl_ui_focus_object_mixin_get(void) EINA_CON
  *
  * @ingroup Efl_Ui_Focus_Object
  */
-extern extern_WEAK Eina_Rect efl_ui_focus_object_focus_geometry_get(const Eo *obj);
+extern  Eina_Rect efl_ui_focus_object_focus_geometry_get(const Eo *obj);
 
 #ifdef EFL_UI_FOCUS_OBJECT_PROTECTED
 /**
@@ -53,7 +53,7 @@ extern extern_WEAK Eina_Rect efl_ui_focus_object_focus_geometry_get(const Eo *ob
  *
  * @ingroup Efl_Ui_Focus_Object
  */
-extern extern_WEAK void efl_ui_focus_object_focus_set(Eo *obj, Eina_Bool focus);
+extern  void efl_ui_focus_object_focus_set(Eo *obj, Eina_Bool focus);
 #endif
 
 /**
@@ -67,7 +67,7 @@ extern extern_WEAK void efl_ui_focus_object_focus_set(Eo *obj, Eina_Bool focus);
  *
  * @ingroup Efl_Ui_Focus_Object
  */
-extern extern_WEAK Eina_Bool efl_ui_focus_object_focus_get(const Eo *obj);
+extern  Eina_Bool efl_ui_focus_object_focus_get(const Eo *obj);
 
 /**
  * @brief This is the focus manager where this focus object is registered in.
@@ -83,7 +83,7 @@ extern extern_WEAK Eina_Bool efl_ui_focus_object_focus_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Focus_Object
  */
-extern extern_WEAK Efl_Ui_Focus_Manager *efl_ui_focus_object_focus_manager_get(const Eo *obj);
+extern  Efl_Ui_Focus_Manager *efl_ui_focus_object_focus_manager_get(const Eo *obj);
 
 /**
  * @brief The logical parent used by this object.
@@ -96,7 +96,7 @@ extern extern_WEAK Efl_Ui_Focus_Manager *efl_ui_focus_object_focus_manager_get(c
  *
  * @ingroup Efl_Ui_Focus_Object
  */
-extern extern_WEAK Efl_Ui_Focus_Object *efl_ui_focus_object_focus_parent_get(const Eo *obj);
+extern  Efl_Ui_Focus_Object *efl_ui_focus_object_focus_parent_get(const Eo *obj);
 
 #ifdef EFL_UI_FOCUS_OBJECT_PROTECTED
 /**
@@ -109,7 +109,7 @@ extern extern_WEAK Efl_Ui_Focus_Object *efl_ui_focus_object_focus_parent_get(con
  *
  * @ingroup Efl_Ui_Focus_Object
  */
-extern extern_WEAK void efl_ui_focus_object_child_focus_set(Eo *obj, Eina_Bool child_focus);
+extern  void efl_ui_focus_object_child_focus_set(Eo *obj, Eina_Bool child_focus);
 #endif
 
 #ifdef EFL_UI_FOCUS_OBJECT_PROTECTED
@@ -124,7 +124,7 @@ extern extern_WEAK void efl_ui_focus_object_child_focus_set(Eo *obj, Eina_Bool c
  *
  * @ingroup Efl_Ui_Focus_Object
  */
-extern extern_WEAK Eina_Bool efl_ui_focus_object_child_focus_get(const Eo *obj);
+extern  Eina_Bool efl_ui_focus_object_child_focus_get(const Eo *obj);
 #endif
 
 /** Tells the object that its children will be queried soon by the focus
@@ -136,7 +136,7 @@ extern extern_WEAK Eina_Bool efl_ui_focus_object_child_focus_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Focus_Object
  */
-extern extern_WEAK void efl_ui_focus_object_setup_order(Eo *obj);
+extern  void efl_ui_focus_object_setup_order(Eo *obj);
 
 #ifdef EFL_UI_FOCUS_OBJECT_PROTECTED
 /** This is called when @ref efl_ui_focus_object_setup_order is called, but
@@ -147,7 +147,7 @@ extern extern_WEAK void efl_ui_focus_object_setup_order(Eo *obj);
  *
  * @ingroup Efl_Ui_Focus_Object
  */
-extern extern_WEAK void efl_ui_focus_object_setup_order_non_recursive(Eo *obj);
+extern  void efl_ui_focus_object_setup_order_non_recursive(Eo *obj);
 #endif
 
 #ifdef EFL_UI_FOCUS_OBJECT_PROTECTED
@@ -162,10 +162,10 @@ extern extern_WEAK void efl_ui_focus_object_setup_order_non_recursive(Eo *obj);
  *
  * @ingroup Efl_Ui_Focus_Object
  */
-extern extern_WEAK Eina_Bool efl_ui_focus_object_on_focus_update(Eo *obj);
+extern  Eina_Bool efl_ui_focus_object_on_focus_update(Eo *obj);
 #endif
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FOCUS_OBJECT_EVENT_FOCUS_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_FOCUS_OBJECT_EVENT_FOCUS_CHANGED;
 
 /** Emitted if the focus state has changed.
  * @return Eina_Bool
@@ -176,7 +176,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FOCUS_OBJECT_EVENT
  */
 #define EFL_UI_FOCUS_OBJECT_EVENT_FOCUS_CHANGED (&(_EFL_UI_FOCUS_OBJECT_EVENT_FOCUS_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FOCUS_OBJECT_EVENT_FOCUS_MANAGER_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_FOCUS_OBJECT_EVENT_FOCUS_MANAGER_CHANGED;
 
 /** Emitted when a new manager is the parent for this object.
  * @return Efl_Ui_Focus_Manager *
@@ -187,7 +187,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FOCUS_OBJECT_EVENT
  */
 #define EFL_UI_FOCUS_OBJECT_EVENT_FOCUS_MANAGER_CHANGED (&(_EFL_UI_FOCUS_OBJECT_EVENT_FOCUS_MANAGER_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FOCUS_OBJECT_EVENT_FOCUS_PARENT_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_FOCUS_OBJECT_EVENT_FOCUS_PARENT_CHANGED;
 
 /** Emitted when a new logical parent should be used.
  * @return Efl_Ui_Focus_Object *
@@ -198,7 +198,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FOCUS_OBJECT_EVENT
  */
 #define EFL_UI_FOCUS_OBJECT_EVENT_FOCUS_PARENT_CHANGED (&(_EFL_UI_FOCUS_OBJECT_EVENT_FOCUS_PARENT_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FOCUS_OBJECT_EVENT_CHILD_FOCUS_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_FOCUS_OBJECT_EVENT_CHILD_FOCUS_CHANGED;
 
 /** Emitted if child_focus has changed.
  * @return Eina_Bool
@@ -209,7 +209,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FOCUS_OBJECT_EVENT
  */
 #define EFL_UI_FOCUS_OBJECT_EVENT_CHILD_FOCUS_CHANGED (&(_EFL_UI_FOCUS_OBJECT_EVENT_CHILD_FOCUS_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FOCUS_OBJECT_EVENT_FOCUS_GEOMETRY_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_FOCUS_OBJECT_EVENT_FOCUS_GEOMETRY_CHANGED;
 
 /** Emitted if focus geometry of this object has changed.
  * @return Eina_Rect

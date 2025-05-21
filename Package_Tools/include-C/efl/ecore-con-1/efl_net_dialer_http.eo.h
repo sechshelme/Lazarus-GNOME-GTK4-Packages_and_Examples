@@ -69,7 +69,7 @@ typedef enum
  */
 #define EFL_NET_DIALER_HTTP_CLASS efl_net_dialer_http_class_get()
 
-ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_dialer_http_class_get(void) EINA_CONST;
+ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_dialer_http_class_get(void) ;
 
 /**
  * @brief The HTTP method to use.
@@ -328,7 +328,7 @@ ECORE_CON_API ECORE_CON_API_WEAK void efl_net_dialer_http_request_headers_clear(
  *
  * @ingroup Efl_Net_Dialer_Http
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_dialer_http_request_headers_get(Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_dialer_http_request_headers_get(Eo *obj)  ;
 
 /**
  * @brief "Content-Length:" Header used for uploading/sending.
@@ -442,7 +442,7 @@ ECORE_CON_API ECORE_CON_API_WEAK Efl_Net_Http_Status efl_net_dialer_http_respons
  *
  * @ingroup Efl_Net_Dialer_Http
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_dialer_http_response_headers_get(Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_dialer_http_response_headers_get(Eo *obj)  ;
 
 /**
  * @brief Returns an iterator to the key-value pairs for all response headers.
@@ -470,7 +470,7 @@ ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_dialer_http_response_hea
  *
  * @ingroup Efl_Net_Dialer_Http
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_dialer_http_response_headers_all_get(Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_dialer_http_response_headers_all_get(Eo *obj)  ;
 
 /** Saves memory by disposing of the received headers
  *
@@ -658,7 +658,7 @@ ECORE_CON_API ECORE_CON_API_WEAK int64_t efl_net_dialer_http_date_parse(const ch
  *
  * @ingroup Efl_Net_Dialer_Http
  */
-ECORE_CON_API ECORE_CON_API_WEAK char *efl_net_dialer_http_date_serialize(int64_t epochtime) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK char *efl_net_dialer_http_date_serialize(int64_t epochtime)  ;
 
 ECORE_CON_API ECORE_CON_API_WEAK extern const Efl_Event_Description _EFL_NET_DIALER_HTTP_EVENT_HEADERS_DONE;
 

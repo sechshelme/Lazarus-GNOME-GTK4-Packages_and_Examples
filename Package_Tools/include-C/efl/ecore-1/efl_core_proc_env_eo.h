@@ -16,7 +16,7 @@ typedef Eo Efl_Core_Proc_Env;
 #ifdef EFL_BETA_API_SUPPORT
 #define EFL_CORE_PROC_ENV_CLASS efl_core_proc_env_class_get()
 
-extern extern_WEAK const Efl_Class *efl_core_proc_env_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_core_proc_env_class_get(void) ;
 
 /**
  * @brief Get a instance of this object
@@ -25,7 +25,7 @@ extern extern_WEAK const Efl_Class *efl_core_proc_env_class_get(void) EINA_CONST
  *
  * @ingroup Efl_Core_Proc_Env
  */
-extern extern_WEAK Efl_Core_Env *efl_env_self(void);
+extern  Efl_Core_Env *efl_env_self(void);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

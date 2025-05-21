@@ -20,7 +20,7 @@ typedef Eo Elm_Fileselector_Entry_Part;
  */
 #define ELM_FILESELECTOR_ENTRY_PART_CLASS elm_fileselector_entry_part_class_get()
 
-extern extern_WEAK const Efl_Class *elm_fileselector_entry_part_class_get(void) EINA_CONST;
+extern  const Efl_Class *elm_fileselector_entry_part_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

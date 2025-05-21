@@ -32,7 +32,7 @@ typedef Eo Efl_Ui_List_View;
  */
 #define EFL_UI_LIST_VIEW_CLASS efl_ui_list_view_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_list_view_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_list_view_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

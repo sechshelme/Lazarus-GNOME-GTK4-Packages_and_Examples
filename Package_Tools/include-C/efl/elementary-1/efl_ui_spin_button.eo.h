@@ -26,7 +26,7 @@ typedef Eo Efl_Ui_Spin_Button;
  */
 #define EFL_UI_SPIN_BUTTON_CLASS efl_ui_spin_button_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_spin_button_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_spin_button_class_get(void) ;
 
 /**
  * @brief Control whether the spin should circulate value when it reaches its
@@ -56,7 +56,7 @@ extern extern_WEAK const Efl_Class *efl_ui_spin_button_class_get(void) EINA_CONS
  *
  * @ingroup Efl_Ui_Spin_Button
  */
-extern extern_WEAK void efl_ui_spin_button_wraparound_set(Eo *obj, Eina_Bool circulate);
+extern  void efl_ui_spin_button_wraparound_set(Eo *obj, Eina_Bool circulate);
 
 /**
  * @brief Control whether the spin should circulate value when it reaches its
@@ -87,7 +87,7 @@ extern extern_WEAK void efl_ui_spin_button_wraparound_set(Eo *obj, Eina_Bool cir
  *
  * @ingroup Efl_Ui_Spin_Button
  */
-extern extern_WEAK Eina_Bool efl_ui_spin_button_wraparound_get(const Eo *obj);
+extern  Eina_Bool efl_ui_spin_button_wraparound_get(const Eo *obj);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -107,7 +107,7 @@ extern extern_WEAK Eina_Bool efl_ui_spin_button_wraparound_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Spin_Button
  */
-extern extern_WEAK void efl_ui_spin_button_direct_text_input_set(Eo *obj, Eina_Bool direct_text_input);
+extern  void efl_ui_spin_button_direct_text_input_set(Eo *obj, Eina_Bool direct_text_input);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -128,7 +128,7 @@ extern extern_WEAK void efl_ui_spin_button_direct_text_input_set(Eo *obj, Eina_B
  *
  * @ingroup Efl_Ui_Spin_Button
  */
-extern extern_WEAK Eina_Bool efl_ui_spin_button_direct_text_input_get(const Eo *obj);
+extern  Eina_Bool efl_ui_spin_button_direct_text_input_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

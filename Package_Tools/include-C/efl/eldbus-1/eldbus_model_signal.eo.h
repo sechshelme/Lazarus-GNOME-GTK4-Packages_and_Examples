@@ -20,7 +20,7 @@ typedef Eo Eldbus_Model_Signal;
  */
 #define ELDBUS_MODEL_SIGNAL_CLASS eldbus_model_signal_class_get()
 
-extern extern_WEAK const Efl_Class *eldbus_model_signal_class_get(void) EINA_CONST;
+extern  const Efl_Class *eldbus_model_signal_class_get(void) ;
 
 /**
  * @brief Custom Eldbus_Model_Signal constructor.
@@ -33,7 +33,7 @@ extern extern_WEAK const Efl_Class *eldbus_model_signal_class_get(void) EINA_CON
  *
  * @ingroup Eldbus_Model_Signal
  */
-extern extern_WEAK void eldbus_model_signal_constructor(Eo *obj, Eldbus_Proxy *proxy, const Eldbus_Introspection_Signal *signal);
+extern  void eldbus_model_signal_constructor(Eo *obj, Eldbus_Proxy *proxy, const Eldbus_Introspection_Signal *signal);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

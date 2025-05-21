@@ -57,7 +57,7 @@ typedef enum
  */
 #define ELM_INTERFACE_SCROLLABLE_MIXIN elm_interface_scrollable_mixin_get()
 
-extern extern_WEAK const Efl_Class *elm_interface_scrollable_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *elm_interface_scrollable_mixin_get(void) ;
 
 /**
  * @brief Control scrolling gravity on the scrollable
@@ -80,7 +80,7 @@ extern extern_WEAK const Efl_Class *elm_interface_scrollable_mixin_get(void) EIN
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_gravity_set(Eo *obj, double x, double y);
+extern  void elm_interface_scrollable_gravity_set(Eo *obj, double x, double y);
 
 /**
  * @brief Control scrolling gravity on the scrollable
@@ -103,7 +103,7 @@ extern extern_WEAK void elm_interface_scrollable_gravity_set(Eo *obj, double x, 
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_gravity_get(const Eo *obj, double *x, double *y);
+extern  void elm_interface_scrollable_gravity_get(const Eo *obj, double *x, double *y);
 
 /**
  * @brief Bouncing behavior
@@ -119,7 +119,7 @@ extern extern_WEAK void elm_interface_scrollable_gravity_get(const Eo *obj, doub
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_bounce_allow_set(Eo *obj, Eina_Bool horiz, Eina_Bool vert);
+extern  void elm_interface_scrollable_bounce_allow_set(Eo *obj, Eina_Bool horiz, Eina_Bool vert);
 
 /**
  * @brief Bouncing behavior
@@ -135,7 +135,7 @@ extern extern_WEAK void elm_interface_scrollable_bounce_allow_set(Eo *obj, Eina_
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_bounce_allow_get(const Eo *obj, Eina_Bool *horiz, Eina_Bool *vert);
+extern  void elm_interface_scrollable_bounce_allow_get(const Eo *obj, Eina_Bool *horiz, Eina_Bool *vert);
 
 /**
  * @brief Control Wheel disable Enable or disable mouse wheel to be used to
@@ -146,7 +146,7 @@ extern extern_WEAK void elm_interface_scrollable_bounce_allow_get(const Eo *obj,
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_wheel_disabled_set(Eo *obj, Eina_Bool disabled);
+extern  void elm_interface_scrollable_wheel_disabled_set(Eo *obj, Eina_Bool disabled);
 
 /**
  * @brief Control Wheel disable Enable or disable mouse wheel to be used to
@@ -158,7 +158,7 @@ extern extern_WEAK void elm_interface_scrollable_wheel_disabled_set(Eo *obj, Ein
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK Eina_Bool elm_interface_scrollable_wheel_disabled_get(const Eo *obj);
+extern  Eina_Bool elm_interface_scrollable_wheel_disabled_get(const Eo *obj);
 
 /**
  * @brief Blocking of scrolling (per axis)
@@ -177,7 +177,7 @@ extern extern_WEAK Eina_Bool elm_interface_scrollable_wheel_disabled_get(const E
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_movement_block_set(Eo *obj, Efl_Ui_Layout_Orientation block);
+extern  void elm_interface_scrollable_movement_block_set(Eo *obj, Efl_Ui_Layout_Orientation block);
 
 /**
  * @brief Blocking of scrolling (per axis)
@@ -197,7 +197,7 @@ extern extern_WEAK void elm_interface_scrollable_movement_block_set(Eo *obj, Efl
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK Efl_Ui_Layout_Orientation elm_interface_scrollable_movement_block_get(const Eo *obj);
+extern  Efl_Ui_Layout_Orientation elm_interface_scrollable_movement_block_get(const Eo *obj);
 
 /**
  * @brief Momentum animator
@@ -207,7 +207,7 @@ extern extern_WEAK Efl_Ui_Layout_Orientation elm_interface_scrollable_movement_b
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_momentum_animator_disabled_set(Eo *obj, Eina_Bool disabled);
+extern  void elm_interface_scrollable_momentum_animator_disabled_set(Eo *obj, Eina_Bool disabled);
 
 /**
  * @brief Momentum animator
@@ -218,7 +218,7 @@ extern extern_WEAK void elm_interface_scrollable_momentum_animator_disabled_set(
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK Eina_Bool elm_interface_scrollable_momentum_animator_disabled_get(const Eo *obj);
+extern  Eina_Bool elm_interface_scrollable_momentum_animator_disabled_get(const Eo *obj);
 
 /**
  * @brief Scrollbar visibility policy
@@ -229,7 +229,7 @@ extern extern_WEAK Eina_Bool elm_interface_scrollable_momentum_animator_disabled
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_policy_set(Eo *obj, Elm_Scroller_Policy hbar, Elm_Scroller_Policy vbar);
+extern  void elm_interface_scrollable_policy_set(Eo *obj, Elm_Scroller_Policy hbar, Elm_Scroller_Policy vbar);
 
 /**
  * @brief Scrollbar visibility policy
@@ -240,7 +240,7 @@ extern extern_WEAK void elm_interface_scrollable_policy_set(Eo *obj, Elm_Scrolle
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_policy_get(const Eo *obj, Elm_Scroller_Policy *hbar, Elm_Scroller_Policy *vbar);
+extern  void elm_interface_scrollable_policy_get(const Eo *obj, Elm_Scroller_Policy *hbar, Elm_Scroller_Policy *vbar);
 
 /**
  * @brief Currently visible content region
@@ -261,7 +261,7 @@ extern extern_WEAK void elm_interface_scrollable_policy_get(const Eo *obj, Elm_S
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_content_region_set(Eo *obj, int x, int y, int w, int h);
+extern  void elm_interface_scrollable_content_region_set(Eo *obj, int x, int y, int w, int h);
 
 /**
  * @brief Currently visible content region
@@ -282,7 +282,7 @@ extern extern_WEAK void elm_interface_scrollable_content_region_set(Eo *obj, int
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_content_region_get(const Eo *obj, int *x, int *y, int *w, int *h);
+extern  void elm_interface_scrollable_content_region_get(const Eo *obj, int *x, int *y, int *w, int *h);
 
 /**
  * @brief It decides whether the scrollable object propagates the events to
@@ -294,7 +294,7 @@ extern extern_WEAK void elm_interface_scrollable_content_region_get(const Eo *ob
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_content_events_set(Eo *obj, Eina_Bool repeat_events);
+extern  void elm_interface_scrollable_content_events_set(Eo *obj, Eina_Bool repeat_events);
 
 /**
  * @brief It decides whether the scrollable object propagates the events to
@@ -306,7 +306,7 @@ extern extern_WEAK void elm_interface_scrollable_content_events_set(Eo *obj, Ein
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK Eina_Bool elm_interface_scrollable_content_events_get(const Eo *obj);
+extern  Eina_Bool elm_interface_scrollable_content_events_get(const Eo *obj);
 
 /**
  * @brief Scroll page size relative to viewport size.
@@ -328,7 +328,7 @@ extern extern_WEAK Eina_Bool elm_interface_scrollable_content_events_get(const E
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_page_size_set(Eo *obj, int x, int y);
+extern  void elm_interface_scrollable_page_size_set(Eo *obj, int x, int y);
 
 /**
  * @brief Scroll page size relative to viewport size.
@@ -350,7 +350,7 @@ extern extern_WEAK void elm_interface_scrollable_page_size_set(Eo *obj, int x, i
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_page_size_get(const Eo *obj, int *x, int *y);
+extern  void elm_interface_scrollable_page_size_get(const Eo *obj, int *x, int *y);
 
 /**
  * @brief Bounce animator
@@ -361,7 +361,7 @@ extern extern_WEAK void elm_interface_scrollable_page_size_get(const Eo *obj, in
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_bounce_animator_disabled_set(Eo *obj, Eina_Bool disabled);
+extern  void elm_interface_scrollable_bounce_animator_disabled_set(Eo *obj, Eina_Bool disabled);
 
 /**
  * @brief Bounce animator
@@ -372,7 +372,7 @@ extern extern_WEAK void elm_interface_scrollable_bounce_animator_disabled_set(Eo
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK Eina_Bool elm_interface_scrollable_bounce_animator_disabled_get(const Eo *obj);
+extern  Eina_Bool elm_interface_scrollable_bounce_animator_disabled_get(const Eo *obj);
 
 /**
  * @brief Page scroll limit
@@ -383,7 +383,7 @@ extern extern_WEAK Eina_Bool elm_interface_scrollable_bounce_animator_disabled_g
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_page_scroll_limit_set(Eo *obj, int page_limit_h, int page_limit_v);
+extern  void elm_interface_scrollable_page_scroll_limit_set(Eo *obj, int page_limit_h, int page_limit_v);
 
 /**
  * @brief Page scroll limit
@@ -394,7 +394,7 @@ extern extern_WEAK void elm_interface_scrollable_page_scroll_limit_set(Eo *obj, 
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_page_scroll_limit_get(const Eo *obj, int *page_limit_h, int *page_limit_v);
+extern  void elm_interface_scrollable_page_scroll_limit_get(const Eo *obj, int *page_limit_h, int *page_limit_v);
 
 /**
  * @brief Page snapping behavior
@@ -414,7 +414,7 @@ extern extern_WEAK void elm_interface_scrollable_page_scroll_limit_get(const Eo 
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_page_snap_allow_set(Eo *obj, Eina_Bool horiz, Eina_Bool vert);
+extern  void elm_interface_scrollable_page_snap_allow_set(Eo *obj, Eina_Bool horiz, Eina_Bool vert);
 
 /**
  * @brief Page snapping behavior
@@ -434,7 +434,7 @@ extern extern_WEAK void elm_interface_scrollable_page_snap_allow_set(Eo *obj, Ei
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_page_snap_allow_get(const Eo *obj, Eina_Bool *horiz, Eina_Bool *vert);
+extern  void elm_interface_scrollable_page_snap_allow_get(const Eo *obj, Eina_Bool *horiz, Eina_Bool *vert);
 
 /**
  * @brief Paging property
@@ -447,7 +447,7 @@ extern extern_WEAK void elm_interface_scrollable_page_snap_allow_get(const Eo *o
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_paging_set(Eo *obj, double pagerel_h, double pagerel_v, int pagesize_h, int pagesize_v);
+extern  void elm_interface_scrollable_paging_set(Eo *obj, double pagerel_h, double pagerel_v, int pagesize_h, int pagesize_v);
 
 /**
  * @brief Paging property
@@ -460,7 +460,7 @@ extern extern_WEAK void elm_interface_scrollable_paging_set(Eo *obj, double page
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_paging_get(const Eo *obj, double *pagerel_h, double *pagerel_v, int *pagesize_h, int *pagesize_v);
+extern  void elm_interface_scrollable_paging_get(const Eo *obj, double *pagerel_h, double *pagerel_v, int *pagesize_h, int *pagesize_v);
 
 /**
  * @brief Single direction scroll configuration
@@ -479,7 +479,7 @@ extern extern_WEAK void elm_interface_scrollable_paging_get(const Eo *obj, doubl
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_single_direction_set(Eo *obj, Elm_Scroller_Single_Direction single_dir);
+extern  void elm_interface_scrollable_single_direction_set(Eo *obj, Elm_Scroller_Single_Direction single_dir);
 
 /**
  * @brief Single direction scroll configuration
@@ -499,7 +499,7 @@ extern extern_WEAK void elm_interface_scrollable_single_direction_set(Eo *obj, E
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK Elm_Scroller_Single_Direction elm_interface_scrollable_single_direction_get(const Eo *obj);
+extern  Elm_Scroller_Single_Direction elm_interface_scrollable_single_direction_get(const Eo *obj);
 
 /**
  * @brief Step size
@@ -510,7 +510,7 @@ extern extern_WEAK Elm_Scroller_Single_Direction elm_interface_scrollable_single
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_step_size_set(Eo *obj, int x, int y);
+extern  void elm_interface_scrollable_step_size_set(Eo *obj, int x, int y);
 
 /**
  * @brief Step size
@@ -521,7 +521,7 @@ extern extern_WEAK void elm_interface_scrollable_step_size_set(Eo *obj, int x, i
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_step_size_get(const Eo *obj, int *x, int *y);
+extern  void elm_interface_scrollable_step_size_get(const Eo *obj, int *x, int *y);
 
 /**
  * @brief Controls an infinite loop for a scroller.
@@ -532,7 +532,7 @@ extern extern_WEAK void elm_interface_scrollable_step_size_get(const Eo *obj, in
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_content_loop_set(Eo *obj, Eina_Bool loop_h, Eina_Bool loop_v);
+extern  void elm_interface_scrollable_content_loop_set(Eo *obj, Eina_Bool loop_h, Eina_Bool loop_v);
 
 /**
  * @brief Controls an infinite loop for a scroller.
@@ -543,7 +543,7 @@ extern extern_WEAK void elm_interface_scrollable_content_loop_set(Eo *obj, Eina_
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_content_loop_get(const Eo *obj, Eina_Bool *loop_h, Eina_Bool *loop_v);
+extern  void elm_interface_scrollable_content_loop_get(const Eo *obj, Eina_Bool *loop_h, Eina_Bool *loop_v);
 
 /**
  * @brief Set the callback to run when the content has been moved up.
@@ -553,7 +553,7 @@ extern extern_WEAK void elm_interface_scrollable_content_loop_get(const Eo *obj,
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_scroll_up_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb scroll_up_cb);
+extern  void elm_interface_scrollable_scroll_up_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb scroll_up_cb);
 
 /**
  * @brief Set the callback to run when the horizontal scrollbar is dragged.
@@ -563,7 +563,7 @@ extern extern_WEAK void elm_interface_scrollable_scroll_up_cb_set(Eo *obj, Elm_I
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_hbar_drag_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb hbar_drag_cb);
+extern  void elm_interface_scrollable_hbar_drag_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb hbar_drag_cb);
 
 /**
  * @brief Set the callback to run when dragging of the contents has started.
@@ -573,7 +573,7 @@ extern extern_WEAK void elm_interface_scrollable_hbar_drag_cb_set(Eo *obj, Elm_I
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_drag_start_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb drag_start_cb);
+extern  void elm_interface_scrollable_drag_start_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb drag_start_cb);
 
 /**
  * @brief Freeze property
@@ -583,7 +583,7 @@ extern extern_WEAK void elm_interface_scrollable_drag_start_cb_set(Eo *obj, Elm_
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_freeze_set(Eo *obj, Eina_Bool freeze);
+extern  void elm_interface_scrollable_freeze_set(Eo *obj, Eina_Bool freeze);
 
 /**
  * @brief When the viewport is resized, the callback is called.
@@ -593,7 +593,7 @@ extern extern_WEAK void elm_interface_scrollable_freeze_set(Eo *obj, Eina_Bool f
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_content_viewport_resize_cb_set(Eo *obj, Elm_Interface_Scrollable_Resize_Cb viewport_resize_cb);
+extern  void elm_interface_scrollable_content_viewport_resize_cb_set(Eo *obj, Elm_Interface_Scrollable_Resize_Cb viewport_resize_cb);
 
 /**
  * @brief Set the callback to run when the content has been moved to the left
@@ -603,7 +603,7 @@ extern extern_WEAK void elm_interface_scrollable_content_viewport_resize_cb_set(
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_scroll_left_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb scroll_left_cb);
+extern  void elm_interface_scrollable_scroll_left_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb scroll_left_cb);
 
 /**
  * @brief Set the callback to run when the vertical scrollbar is pressed.
@@ -613,7 +613,7 @@ extern extern_WEAK void elm_interface_scrollable_scroll_left_cb_set(Eo *obj, Elm
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_vbar_press_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb vbar_press_cb);
+extern  void elm_interface_scrollable_vbar_press_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb vbar_press_cb);
 
 /**
  * @brief Set the callback to run when the horizontal scrollbar is pressed.
@@ -623,7 +623,7 @@ extern extern_WEAK void elm_interface_scrollable_vbar_press_cb_set(Eo *obj, Elm_
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_hbar_press_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb hbar_press_cb);
+extern  void elm_interface_scrollable_hbar_press_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb hbar_press_cb);
 
 /**
  * @brief Set the callback to run when the horizontal scrollbar is unpressed.
@@ -633,7 +633,7 @@ extern extern_WEAK void elm_interface_scrollable_hbar_press_cb_set(Eo *obj, Elm_
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_hbar_unpress_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb hbar_unpress_cb);
+extern  void elm_interface_scrollable_hbar_unpress_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb hbar_unpress_cb);
 
 /**
  * @brief Set the callback to run when dragging of the contents has stopped.
@@ -643,7 +643,7 @@ extern extern_WEAK void elm_interface_scrollable_hbar_unpress_cb_set(Eo *obj, El
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_drag_stop_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb drag_stop_cb);
+extern  void elm_interface_scrollable_drag_stop_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb drag_stop_cb);
 
 /**
  * @brief Extern pan
@@ -653,7 +653,7 @@ extern extern_WEAK void elm_interface_scrollable_drag_stop_cb_set(Eo *obj, Elm_I
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_extern_pan_set(Eo *obj, Efl_Canvas_Object *pan);
+extern  void elm_interface_scrollable_extern_pan_set(Eo *obj, Efl_Canvas_Object *pan);
 
 /**
  * @brief Set the callback to run when the visible page changes.
@@ -663,7 +663,7 @@ extern extern_WEAK void elm_interface_scrollable_extern_pan_set(Eo *obj, Efl_Can
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_page_change_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb page_change_cb);
+extern  void elm_interface_scrollable_page_change_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb page_change_cb);
 
 /**
  * @brief Hold property
@@ -673,7 +673,7 @@ extern extern_WEAK void elm_interface_scrollable_page_change_cb_set(Eo *obj, Elm
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_hold_set(Eo *obj, Eina_Bool hold);
+extern  void elm_interface_scrollable_hold_set(Eo *obj, Eina_Bool hold);
 
 /**
  * @brief Set the callback to run when the scrolling animation has started.
@@ -683,7 +683,7 @@ extern extern_WEAK void elm_interface_scrollable_hold_set(Eo *obj, Eina_Bool hol
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_animate_start_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb animate_start_cb);
+extern  void elm_interface_scrollable_animate_start_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb animate_start_cb);
 
 /**
  * @brief Set the callback to run when the content has been moved down.
@@ -693,7 +693,7 @@ extern extern_WEAK void elm_interface_scrollable_animate_start_cb_set(Eo *obj, E
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_scroll_down_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb scroll_down_cb);
+extern  void elm_interface_scrollable_scroll_down_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb scroll_down_cb);
 
 /**
  * @brief Set scroll page size relative to viewport size.
@@ -704,7 +704,7 @@ extern extern_WEAK void elm_interface_scrollable_scroll_down_cb_set(Eo *obj, Elm
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_page_relative_set(Eo *obj, double h_pagerel, double v_pagerel);
+extern  void elm_interface_scrollable_page_relative_set(Eo *obj, double h_pagerel, double v_pagerel);
 
 /**
  * @brief Set the callback to run when the content has been moved.
@@ -714,7 +714,7 @@ extern extern_WEAK void elm_interface_scrollable_page_relative_set(Eo *obj, doub
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_scroll_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb scroll_cb);
+extern  void elm_interface_scrollable_scroll_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb scroll_cb);
 
 /**
  * @brief Set the callback to run when the scrolling animation has stopped.
@@ -724,7 +724,7 @@ extern extern_WEAK void elm_interface_scrollable_scroll_cb_set(Eo *obj, Elm_Inte
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_animate_stop_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb animate_stop_cb);
+extern  void elm_interface_scrollable_animate_stop_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb animate_stop_cb);
 
 /**
  * @brief set the callback to run on minimal limit content
@@ -734,7 +734,7 @@ extern extern_WEAK void elm_interface_scrollable_animate_stop_cb_set(Eo *obj, El
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_content_min_limit_cb_set(Eo *obj, Elm_Interface_Scrollable_Min_Limit_Cb min_limit_cb);
+extern  void elm_interface_scrollable_content_min_limit_cb_set(Eo *obj, Elm_Interface_Scrollable_Min_Limit_Cb min_limit_cb);
 
 /**
  * @brief Set the callback to run when the content has been moved to the right.
@@ -744,7 +744,7 @@ extern extern_WEAK void elm_interface_scrollable_content_min_limit_cb_set(Eo *ob
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_scroll_right_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb scroll_right_cb);
+extern  void elm_interface_scrollable_scroll_right_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb scroll_right_cb);
 
 /**
  * @brief Content property
@@ -754,7 +754,7 @@ extern extern_WEAK void elm_interface_scrollable_scroll_right_cb_set(Eo *obj, El
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_content_set(Eo *obj, Efl_Canvas_Object *content);
+extern  void elm_interface_scrollable_content_set(Eo *obj, Efl_Canvas_Object *content);
 
 /**
  * @brief Set the callback to run when the left edge of the content has been
@@ -765,7 +765,7 @@ extern extern_WEAK void elm_interface_scrollable_content_set(Eo *obj, Efl_Canvas
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_edge_left_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb edge_left_cb);
+extern  void elm_interface_scrollable_edge_left_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb edge_left_cb);
 
 /**
  * @brief Set the callback to run when the horizontal scrollbar is dragged.
@@ -775,7 +775,7 @@ extern extern_WEAK void elm_interface_scrollable_edge_left_cb_set(Eo *obj, Elm_I
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_vbar_drag_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb vbar_drag_cb);
+extern  void elm_interface_scrollable_vbar_drag_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb vbar_drag_cb);
 
 /**
  * @brief Set the callback to run when the horizontal scrollbar is unpressed.
@@ -785,7 +785,7 @@ extern extern_WEAK void elm_interface_scrollable_vbar_drag_cb_set(Eo *obj, Elm_I
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_vbar_unpress_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb vbar_unpress_cb);
+extern  void elm_interface_scrollable_vbar_unpress_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb vbar_unpress_cb);
 
 /**
  * @brief Set the callback to run when the bottom edge of the content has been
@@ -796,7 +796,7 @@ extern extern_WEAK void elm_interface_scrollable_vbar_unpress_cb_set(Eo *obj, El
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_edge_bottom_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb edge_bottom_cb);
+extern  void elm_interface_scrollable_edge_bottom_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb edge_bottom_cb);
 
 /**
  * @brief Set the callback to run when the right edge of the content has been
@@ -807,7 +807,7 @@ extern extern_WEAK void elm_interface_scrollable_edge_bottom_cb_set(Eo *obj, Elm
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_edge_right_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb edge_right_cb);
+extern  void elm_interface_scrollable_edge_right_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb edge_right_cb);
 
 /**
  * @brief Set the callback to run when the top edge of the content has been
@@ -818,7 +818,7 @@ extern extern_WEAK void elm_interface_scrollable_edge_right_cb_set(Eo *obj, Elm_
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_edge_top_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb edge_top_cb);
+extern  void elm_interface_scrollable_edge_top_cb_set(Eo *obj, Elm_Interface_Scrollable_Cb edge_top_cb);
 
 /**
  * @brief Object property
@@ -829,7 +829,7 @@ extern extern_WEAK void elm_interface_scrollable_edge_top_cb_set(Eo *obj, Elm_In
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_objects_set(Eo *obj, Efl_Canvas_Object *edje_object, Efl_Canvas_Object *hit_rectangle);
+extern  void elm_interface_scrollable_objects_set(Eo *obj, Efl_Canvas_Object *edje_object, Efl_Canvas_Object *hit_rectangle);
 
 /**
  * @brief Scroll last page number.
@@ -847,7 +847,7 @@ extern extern_WEAK void elm_interface_scrollable_objects_set(Eo *obj, Efl_Canvas
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_last_page_get(const Eo *obj, int *pagenumber_h, int *pagenumber_v);
+extern  void elm_interface_scrollable_last_page_get(const Eo *obj, int *pagenumber_h, int *pagenumber_v);
 
 /**
  * @brief Scroll current page number.
@@ -867,7 +867,7 @@ extern extern_WEAK void elm_interface_scrollable_last_page_get(const Eo *obj, in
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_current_page_get(const Eo *obj, int *pagenumber_h, int *pagenumber_v);
+extern  void elm_interface_scrollable_current_page_get(const Eo *obj, int *pagenumber_h, int *pagenumber_v);
 
 /**
  * @brief Content viewport geometry
@@ -880,7 +880,7 @@ extern extern_WEAK void elm_interface_scrollable_current_page_get(const Eo *obj,
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_content_viewport_geometry_get(const Eo *obj, int *x, int *y, int *w, int *h);
+extern  void elm_interface_scrollable_content_viewport_geometry_get(const Eo *obj, int *x, int *y, int *w, int *h);
 
 /**
  * @brief Get the size of the content object
@@ -893,7 +893,7 @@ extern extern_WEAK void elm_interface_scrollable_content_viewport_geometry_get(c
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_content_size_get(const Eo *obj, int *w, int *h);
+extern  void elm_interface_scrollable_content_size_get(const Eo *obj, int *w, int *h);
 
 /**
  * @brief Set the content position
@@ -906,7 +906,7 @@ extern extern_WEAK void elm_interface_scrollable_content_size_get(const Eo *obj,
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_content_pos_set(Eo *obj, int x, int y, Eina_Bool sig);
+extern  void elm_interface_scrollable_content_pos_set(Eo *obj, int x, int y, Eina_Bool sig);
 
 /**
  * @brief Get content position
@@ -917,7 +917,7 @@ extern extern_WEAK void elm_interface_scrollable_content_pos_set(Eo *obj, int x,
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_content_pos_get(const Eo *obj, int *x, int *y);
+extern  void elm_interface_scrollable_content_pos_get(const Eo *obj, int *x, int *y);
 
 /**
  * @brief Show a specific virtual region within the scroller content object by
@@ -934,7 +934,7 @@ extern extern_WEAK void elm_interface_scrollable_content_pos_get(const Eo *obj, 
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_page_show(Eo *obj, int pagenumber_h, int pagenumber_v);
+extern  void elm_interface_scrollable_page_show(Eo *obj, int pagenumber_h, int pagenumber_v);
 
 /**
  * @brief Show a specific virtual region within the scroller content object.
@@ -957,7 +957,7 @@ extern extern_WEAK void elm_interface_scrollable_page_show(Eo *obj, int pagenumb
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_region_bring_in(Eo *obj, int x, int y, int w, int h);
+extern  void elm_interface_scrollable_region_bring_in(Eo *obj, int x, int y, int w, int h);
 
 /**
  * @brief Show a specific virtual region within the scroller content object by
@@ -974,7 +974,7 @@ extern extern_WEAK void elm_interface_scrollable_region_bring_in(Eo *obj, int x,
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_page_bring_in(Eo *obj, int pagenumber_h, int pagenumber_v);
+extern  void elm_interface_scrollable_page_bring_in(Eo *obj, int pagenumber_h, int pagenumber_v);
 
 /**
  * @brief Show a specific virtual region within the scroller content object
@@ -991,7 +991,7 @@ extern extern_WEAK void elm_interface_scrollable_page_bring_in(Eo *obj, int page
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_content_region_show(Eo *obj, int x, int y, int w, int h);
+extern  void elm_interface_scrollable_content_region_show(Eo *obj, int x, int y, int w, int h);
 
 /**
  * @brief Prevent the scrollable from being smaller than the minimum size of
@@ -1008,7 +1008,7 @@ extern extern_WEAK void elm_interface_scrollable_content_region_show(Eo *obj, in
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_content_min_limit(Eo *obj, Eina_Bool w, Eina_Bool h);
+extern  void elm_interface_scrollable_content_min_limit(Eo *obj, Eina_Bool w, Eina_Bool h);
 
 /**
  * @brief Whether scrolling should loop around.
@@ -1018,7 +1018,7 @@ extern extern_WEAK void elm_interface_scrollable_content_min_limit(Eo *obj, Eina
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_item_loop_enabled_set(Eo *obj, Eina_Bool enable);
+extern  void elm_interface_scrollable_item_loop_enabled_set(Eo *obj, Eina_Bool enable);
 
 /**
  * @brief Whether scrolling should loop around.
@@ -1029,16 +1029,16 @@ extern extern_WEAK void elm_interface_scrollable_item_loop_enabled_set(Eo *obj, 
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK Eina_Bool elm_interface_scrollable_item_loop_enabled_get(const Eo *obj);
+extern  Eina_Bool elm_interface_scrollable_item_loop_enabled_get(const Eo *obj);
 
 /** Call this if you have changed the group of the object passed to
  * @ref elm_interface_scrollable_objects_set
  *
  * @ingroup Elm_Interface_Scrollable
  */
-extern extern_WEAK void elm_interface_scrollable_reset_signals(Eo *obj);
+extern  void elm_interface_scrollable_reset_signals(Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _ELM_INTERFACE_SCROLLABLE_EVENT_CHANGED;
+extern  extern const Efl_Event_Description _ELM_INTERFACE_SCROLLABLE_EVENT_CHANGED;
 
 /** Called when content changed
  *

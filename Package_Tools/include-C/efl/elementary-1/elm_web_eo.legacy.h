@@ -366,7 +366,7 @@ extern double elm_web_load_progress_get(const Elm_Web *obj);
  *
  * @ingroup Elm_Web_Group
  */
-extern char *elm_web_selection_get(const Elm_Web *obj) EINA_WARN_UNUSED_RESULT;
+extern char *elm_web_selection_get(const Elm_Web *obj) ;
 
 /**
  * @brief Get the current title.
@@ -380,7 +380,7 @@ extern char *elm_web_selection_get(const Elm_Web *obj) EINA_WARN_UNUSED_RESULT;
  *
  * @ingroup Elm_Web_Group
  */
-extern Eina_Stringshare *elm_web_title_get(const Elm_Web *obj) EINA_WARN_UNUSED_RESULT;
+extern Eina_Stringshare *elm_web_title_get(const Elm_Web *obj) ;
 
 /**
  * @brief Jumps the given number of steps in the browsing history.

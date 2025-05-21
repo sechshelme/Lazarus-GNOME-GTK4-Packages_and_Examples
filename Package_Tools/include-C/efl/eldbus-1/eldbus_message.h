@@ -14,7 +14,7 @@
  * @param msg The Eldbus_Message object.
  * @return The previous Eldbus_Message with incremented refcount.
  */
-extern Eldbus_Message        *eldbus_message_ref(Eldbus_Message *msg) EINA_ARG_NONNULL(1);
+extern Eldbus_Message        *eldbus_message_ref(Eldbus_Message *msg) ;
 
 /**
  * @brief Decrease message reference.
@@ -24,7 +24,7 @@ extern Eldbus_Message        *eldbus_message_ref(Eldbus_Message *msg) EINA_ARG_N
  *
  * @param msg The Eldbus_Message object.
  */
-extern void                  eldbus_message_unref(Eldbus_Message *msg) EINA_ARG_NONNULL(1);
+extern void                  eldbus_message_unref(Eldbus_Message *msg) ;
 
 /**
  * Get the Eldbus message path.
@@ -32,7 +32,7 @@ extern void                  eldbus_message_unref(Eldbus_Message *msg) EINA_ARG_
  * @param msg The Eldbus_Message object.
  * @return A string containing the dbus message path.
  */
-extern const char           *eldbus_message_path_get(const Eldbus_Message *msg) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+extern const char           *eldbus_message_path_get(const Eldbus_Message *msg)  ;
 
 /**
  * Get the Eldbus message interface.
@@ -40,7 +40,7 @@ extern const char           *eldbus_message_path_get(const Eldbus_Message *msg) 
  * @param msg The Eldbus_Message object.
  * @return A string containing the dbus message interface.
  */
-extern const char           *eldbus_message_interface_get(const Eldbus_Message *msg) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+extern const char           *eldbus_message_interface_get(const Eldbus_Message *msg)  ;
 
 /**
  * Get the Eldbus message member.
@@ -48,7 +48,7 @@ extern const char           *eldbus_message_interface_get(const Eldbus_Message *
  * @param msg The Eldbus_Message object.
  * @return A string containing the dbus message member.
  */
-extern const char           *eldbus_message_member_get(const Eldbus_Message *msg) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+extern const char           *eldbus_message_member_get(const Eldbus_Message *msg)  ;
 
 /**
  * Get the Eldbus message destination.
@@ -56,7 +56,7 @@ extern const char           *eldbus_message_member_get(const Eldbus_Message *msg
  * @param msg The Eldbus_Message object.
  * @return A string containing the dbus message destination.
  */
-extern const char           *eldbus_message_destination_get(const Eldbus_Message *msg) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+extern const char           *eldbus_message_destination_get(const Eldbus_Message *msg)  ;
 
 /**
  * Get the Eldbus message sender.
@@ -64,7 +64,7 @@ extern const char           *eldbus_message_destination_get(const Eldbus_Message
  * @param msg The Eldbus_Message object.
  * @return A string containing the dbus message sender.
  */
-extern const char           *eldbus_message_sender_get(const Eldbus_Message *msg) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+extern const char           *eldbus_message_sender_get(const Eldbus_Message *msg)  ;
 
 /**
  * Get the Eldbus message signature.
@@ -72,7 +72,7 @@ extern const char           *eldbus_message_sender_get(const Eldbus_Message *msg
  * @param msg The Eldbus_Message object.
  * @return A string containing the dbus message signature.
  */
-extern const char           *eldbus_message_signature_get(const Eldbus_Message *msg) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+extern const char           *eldbus_message_signature_get(const Eldbus_Message *msg)  ;
 
 /**
  * @brief Create a new message to invoke a method on a remote object.
@@ -84,7 +84,7 @@ extern const char           *eldbus_message_signature_get(const Eldbus_Message *
  *
  * @return a new Eldbus_Message, free with eldbus_message_unref()
  */
-extern Eldbus_Message        *eldbus_message_method_call_new(const char *dest, const char *path, const char *iface, const char *method) EINA_ARG_NONNULL(1, 2, 3, 4) EINA_WARN_UNUSED_RESULT EINA_MALLOC;
+extern Eldbus_Message        *eldbus_message_method_call_new(const char *dest, const char *path, const char *iface, const char *method) EINA_ARG_NONNULL(1, 2, 3, 4)  ;
 
 /**
  * @brief Create a new signal message.
@@ -97,7 +97,7 @@ extern Eldbus_Message        *eldbus_message_method_call_new(const char *dest, c
  *
  * @since 1.16
  */
-extern Eldbus_Message *eldbus_message_signal_new(const char *path, const char *interface, const char *name) EINA_ARG_NONNULL(1, 2, 3) EINA_WARN_UNUSED_RESULT;
+extern Eldbus_Message *eldbus_message_signal_new(const char *path, const char *interface, const char *name)  ;
 
 /**
  * @brief Create a new message that is an error reply to another message.
@@ -108,7 +108,7 @@ extern Eldbus_Message *eldbus_message_signal_new(const char *path, const char *i
  *
  * @return a new Eldbus_Message, free with eldbus_message_unref()
  */
-extern Eldbus_Message        *eldbus_message_error_new(const Eldbus_Message *msg, const char *error_name, const char *error_msg) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+extern Eldbus_Message        *eldbus_message_error_new(const Eldbus_Message *msg, const char *error_name, const char *error_msg)  ;
 
 /**
  * @brief Create a message that is a reply to a method call.
@@ -117,7 +117,7 @@ extern Eldbus_Message        *eldbus_message_error_new(const Eldbus_Message *msg
  *
  * @return new Eldbus_Message, free with eldbus_message_unref()
  */
-extern Eldbus_Message        *eldbus_message_method_return_new(const Eldbus_Message *msg) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+extern Eldbus_Message        *eldbus_message_method_return_new(const Eldbus_Message *msg)  ;
 
 
 /**
@@ -133,7 +133,7 @@ extern Eldbus_Message        *eldbus_message_method_return_new(const Eldbus_Mess
  * desired.
  * @return EINA_TRUE on success, else EINA_FALSE.
  */
-extern Eina_Bool             eldbus_message_error_get(const Eldbus_Message *msg, const char **name, const char **text) EINA_ARG_NONNULL(1);
+extern Eina_Bool             eldbus_message_error_get(const Eldbus_Message *msg, const char **name, const char **text) ;
 
 /**
  * @brief Get the arguments from an Eldbus_Message
@@ -152,7 +152,7 @@ extern Eina_Bool             eldbus_message_error_get(const Eldbus_Message *msg,
  * @return EINA_TRUE if the arguments were read successfully and stored in the
  * respective pointer arguments.
  */
-extern Eina_Bool             eldbus_message_arguments_get(const Eldbus_Message *msg, const char *signature, ...) EINA_ARG_NONNULL(1, 2) EINA_WARN_UNUSED_RESULT;
+extern Eina_Bool             eldbus_message_arguments_get(const Eldbus_Message *msg, const char *signature, ...)  ;
 
 /**
  * @brief Get the arguments from an Eldbus_Message using a va_list.
@@ -166,7 +166,7 @@ extern Eina_Bool             eldbus_message_arguments_get(const Eldbus_Message *
  * @return EINA_TRUE if the arguments were read successfully and stored in the
  * respective pointer arguments.
  */
-extern Eina_Bool             eldbus_message_arguments_vget(const Eldbus_Message *msg, const char *signature, va_list ap) EINA_ARG_NONNULL(1, 2) EINA_WARN_UNUSED_RESULT;
+extern Eina_Bool             eldbus_message_arguments_vget(const Eldbus_Message *msg, const char *signature, va_list ap)  ;
 
 /**
  * @brief Append arguments into an Eldbus_Message
@@ -184,7 +184,7 @@ extern Eina_Bool             eldbus_message_arguments_vget(const Eldbus_Message 
  *
  * @return EINA_TRUE on success, EINA_FALSE otherwise.
  */
-extern Eina_Bool             eldbus_message_arguments_append(Eldbus_Message *msg, const char *signature, ...) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool             eldbus_message_arguments_append(Eldbus_Message *msg, const char *signature, ...) ;
 
 /**
  * @brief Append arguments into an Eldbus_Message using a va_list.
@@ -197,7 +197,7 @@ extern Eina_Bool             eldbus_message_arguments_append(Eldbus_Message *msg
  *
  * @return EINA_TRUE on success, EINA_FALSE otherwise.
  */
-extern Eina_Bool             eldbus_message_arguments_vappend(Eldbus_Message *msg, const char *signature, va_list ap) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool             eldbus_message_arguments_vappend(Eldbus_Message *msg, const char *signature, va_list ap) ;
 
 /**
  * @defgroup Eldbus_Message_Iter Iterator
@@ -222,7 +222,7 @@ extern Eina_Bool             eldbus_message_arguments_vappend(Eldbus_Message *ms
  *
  * @return the new iterator
  */
-extern Eldbus_Message_Iter *eldbus_message_iter_container_new(Eldbus_Message_Iter *iter, int type, const char* contained_signature) EINA_ARG_NONNULL(1, 3) EINA_WARN_UNUSED_RESULT;
+extern Eldbus_Message_Iter *eldbus_message_iter_container_new(Eldbus_Message_Iter *iter, int type, const char* contained_signature) EINA_ARG_NONNULL(1, 3) ;
 
 /**
  * @brief Append a basic type into an Eldbus_Iterator.
@@ -258,7 +258,7 @@ extern Eina_Bool               eldbus_message_iter_basic_append(Eldbus_Message_I
  * eldbus_message_iter_container_new() instead to create the variant, fill
  * with data and close it.
  */
-extern Eina_Bool               eldbus_message_iter_arguments_append(Eldbus_Message_Iter *iter, const char *signature, ...) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool               eldbus_message_iter_arguments_append(Eldbus_Message_Iter *iter, const char *signature, ...) ;
 
 /**
  * @brief Set data to Eldbus_Message_Iter. For each complete in signature
@@ -279,7 +279,7 @@ extern Eina_Bool               eldbus_message_iter_arguments_append(Eldbus_Messa
  * eldbus_message_iter_container_new() to create the variant fill
  * data and close it.
  */
-extern Eina_Bool               eldbus_message_iter_arguments_vappend(Eldbus_Message_Iter *iter, const char *signature, va_list ap) EINA_ARG_NONNULL(1, 2, 3);
+extern Eina_Bool               eldbus_message_iter_arguments_vappend(Eldbus_Message_Iter *iter, const char *signature, va_list ap) ;
 
 
 /**
@@ -301,7 +301,7 @@ extern Eina_Bool               eldbus_message_iter_fixed_array_append(Eldbus_Mes
  *
  * @return EINA_FALSE if iterator was already close or if not enough memory
  */
-extern Eina_Bool               eldbus_message_iter_container_close(Eldbus_Message_Iter *iter, Eldbus_Message_Iter *sub) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool               eldbus_message_iter_container_close(Eldbus_Message_Iter *iter, Eldbus_Message_Iter *sub) ;
 
 /**
  * @brief Get the main Eldbus_Message_Iter from the Eldbus_Message.
@@ -310,7 +310,7 @@ extern Eina_Bool               eldbus_message_iter_container_close(Eldbus_Messag
  *
  * @return The iterator of the message.
  */
-extern Eldbus_Message_Iter *eldbus_message_iter_get(const Eldbus_Message *msg) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+extern Eldbus_Message_Iter *eldbus_message_iter_get(const Eldbus_Message *msg)  ;
 
 /**
  * @brief Get a basic type from Eldbus_Iterator.
@@ -318,7 +318,7 @@ extern Eldbus_Message_Iter *eldbus_message_iter_get(const Eldbus_Message *msg) E
  * @param iter The iterator to get the basic type from.
  * @param value The basic type of the iterator.
  */
-extern void                    eldbus_message_iter_basic_get(Eldbus_Message_Iter *iter, void *value) EINA_ARG_NONNULL(1, 2);
+extern void                    eldbus_message_iter_basic_get(Eldbus_Message_Iter *iter, void *value) ;
 
 /**
  * @brief Returns the current signature of a message iterator.
@@ -328,7 +328,7 @@ extern void                    eldbus_message_iter_basic_get(Eldbus_Message_Iter
  *
  * @note The returned string must be freed.
  */
-extern char                   *eldbus_message_iter_signature_get(Eldbus_Message_Iter *iter) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+extern char                   *eldbus_message_iter_signature_get(Eldbus_Message_Iter *iter)  ;
 
 /**
  * @brief Moves the iterator to the next field, if any.
@@ -336,7 +336,7 @@ extern char                   *eldbus_message_iter_signature_get(Eldbus_Message_
  *
  * @return if iterator was reach to end return EINA_FALSE
  */
-extern Eina_Bool               eldbus_message_iter_next(Eldbus_Message_Iter *iter) EINA_ARG_NONNULL(1);
+extern Eina_Bool               eldbus_message_iter_next(Eldbus_Message_Iter *iter) ;
 
 /**
  * @brief Get a complete type from Eldbus_Message_Iter if is not at the end
@@ -351,7 +351,7 @@ extern Eina_Bool               eldbus_message_iter_next(Eldbus_Message_Iter *ite
  * iterator points return EINA_FALSE
  *
  */
-extern Eina_Bool               eldbus_message_iter_get_and_next(Eldbus_Message_Iter *iter, char signature, ...) EINA_ARG_NONNULL(1, 2, 3);
+extern Eina_Bool               eldbus_message_iter_get_and_next(Eldbus_Message_Iter *iter, char signature, ...) ;
 
 /**
  * @brief Reads a block of fixed-length values from the message iterator.
@@ -389,7 +389,7 @@ extern Eina_Bool eldbus_message_iter_fixed_array_get(Eldbus_Message_Iter *iter, 
  *
  * @return EINA_FALSE if signature different from signature in iterator
  */
-extern Eina_Bool               eldbus_message_iter_arguments_get(Eldbus_Message_Iter *iter, const char *signature, ...) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool               eldbus_message_iter_arguments_get(Eldbus_Message_Iter *iter, const char *signature, ...) ;
 
 /**
  * @brief Get data from Eldbus_Message_Iter, for each complete type must have
@@ -402,7 +402,7 @@ extern Eina_Bool               eldbus_message_iter_arguments_get(Eldbus_Message_
  *
  * @return EINA_FALSE if signature different from signature in iterator
  */
-extern Eina_Bool               eldbus_message_iter_arguments_vget(Eldbus_Message_Iter *iter, const char *signature, va_list ap) EINA_ARG_NONNULL(1, 2);
+extern Eina_Bool               eldbus_message_iter_arguments_vget(Eldbus_Message_Iter *iter, const char *signature, va_list ap) ;
 
 /**
  * @brief Manually delete the iterator.
@@ -418,7 +418,7 @@ extern Eina_Bool               eldbus_message_iter_arguments_vget(Eldbus_Message
  *
  * @param iter the iterator to be deleted.
  */
-extern void                  eldbus_message_iter_del(Eldbus_Message_Iter *iter) EINA_ARG_NONNULL(1);
+extern void                  eldbus_message_iter_del(Eldbus_Message_Iter *iter) ;
 
 /**
  * @}

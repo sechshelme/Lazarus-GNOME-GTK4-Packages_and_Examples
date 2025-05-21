@@ -32,7 +32,7 @@ typedef Eo Efl_Ui_Spotlight_Animation_Manager;
  */
 #define EFL_UI_SPOTLIGHT_ANIMATION_MANAGER_CLASS efl_ui_spotlight_animation_manager_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_spotlight_animation_manager_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_spotlight_animation_manager_class_get(void) ;
 
 /**
  * @brief Animation that is used to animate the @c to argument of a
@@ -50,7 +50,7 @@ extern extern_WEAK const Efl_Class *efl_ui_spotlight_animation_manager_class_get
  *
  * @ingroup Efl_Ui_Spotlight_Animation_Manager
  */
-extern extern_WEAK void efl_ui_spotlight_manager_animation_push_setup_set(Eo *obj, Efl_Canvas_Animation *in, Efl_Canvas_Animation *out);
+extern  void efl_ui_spotlight_manager_animation_push_setup_set(Eo *obj, Efl_Canvas_Animation *in, Efl_Canvas_Animation *out);
 
 /**
  * @brief Animation that is used to animate the @c from argument of a
@@ -71,7 +71,7 @@ extern extern_WEAK void efl_ui_spotlight_manager_animation_push_setup_set(Eo *ob
  *
  * @ingroup Efl_Ui_Spotlight_Animation_Manager
  */
-extern extern_WEAK void efl_ui_spotlight_manager_animation_pop_setup_set(Eo *obj, Efl_Canvas_Animation *in, Efl_Canvas_Animation *out);
+extern  void efl_ui_spotlight_manager_animation_pop_setup_set(Eo *obj, Efl_Canvas_Animation *in, Efl_Canvas_Animation *out);
 
 /**
  * @brief Sets the animation objects you want to play on a jump in or jump out.
@@ -92,7 +92,7 @@ extern extern_WEAK void efl_ui_spotlight_manager_animation_pop_setup_set(Eo *obj
  *
  * @ingroup Efl_Ui_Spotlight_Animation_Manager
  */
-extern extern_WEAK void efl_ui_spotlight_manager_animation_jump_setup_set(Eo *obj, Efl_Canvas_Animation *in, Efl_Canvas_Animation *out);
+extern  void efl_ui_spotlight_manager_animation_jump_setup_set(Eo *obj, Efl_Canvas_Animation *in, Efl_Canvas_Animation *out);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

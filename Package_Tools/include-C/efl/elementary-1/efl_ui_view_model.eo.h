@@ -24,7 +24,7 @@ typedef Eina_Value * (*EflUiViewModelPropertyGet)(void *data, const Efl_Ui_View_
  *
  * @ingroup EflUiViewModelPropertySet
  */
-typedef Eina_Future * (*EflUiViewModelPropertySet)(void *data, Efl_Ui_View_Model *view_model, Eina_Stringshare *property, Eina_Value *value EFL_TRANSFER_OWNERSHIP);
+typedef Eina_Future * (*EflUiViewModelPropertySet)(void *data, Efl_Ui_View_Model *view_model, Eina_Stringshare *property, Eina_Value *value );
 #endif /* EFL_BETA_API_SUPPORT */
 
 
@@ -43,7 +43,7 @@ typedef Eina_Future * (*EflUiViewModelPropertySet)(void *data, Efl_Ui_View_Model
  */
 #define EFL_UI_VIEW_MODEL_CLASS efl_ui_view_model_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_view_model_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_view_model_class_get(void) ;
 
 /**
  * @brief Adds a synthetic string property, generated from a @c definition
@@ -77,7 +77,7 @@ extern extern_WEAK const Efl_Class *efl_ui_view_model_class_get(void) EINA_CONST
  *
  * @ingroup Efl_Ui_View_Model
  */
-extern extern_WEAK Eina_Error efl_ui_view_model_property_string_add(Eo *obj, const char *name, const char *definition, const char *not_ready, const char *on_error);
+extern  Eina_Error efl_ui_view_model_property_string_add(Eo *obj, const char *name, const char *definition, const char *not_ready, const char *on_error);
 
 /**
  * @brief Delete a synthetic property previously defined by
@@ -92,7 +92,7 @@ extern extern_WEAK Eina_Error efl_ui_view_model_property_string_add(Eo *obj, con
  *
  * @ingroup Efl_Ui_View_Model
  */
-extern extern_WEAK Eina_Error efl_ui_view_model_property_string_del(Eo *obj, const char *name);
+extern  Eina_Error efl_ui_view_model_property_string_del(Eo *obj, const char *name);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -116,7 +116,7 @@ extern extern_WEAK Eina_Error efl_ui_view_model_property_string_del(Eo *obj, con
  *
  * @ingroup Efl_Ui_View_Model
  */
-extern extern_WEAK Eina_Error efl_ui_view_model_property_logic_add(Eo *obj, const char *property, void *get_data, EflUiViewModelPropertyGet get, Eina_Free_Cb get_free_cb, void *set_data, EflUiViewModelPropertySet set, Eina_Free_Cb set_free_cb, Eina_Iterator *bound EFL_TRANSFER_OWNERSHIP);
+extern  Eina_Error efl_ui_view_model_property_logic_add(Eo *obj, const char *property, void *get_data, EflUiViewModelPropertyGet get, Eina_Free_Cb get_free_cb, void *set_data, EflUiViewModelPropertySet set, Eina_Free_Cb set_free_cb, Eina_Iterator *bound );
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -135,7 +135,7 @@ extern extern_WEAK Eina_Error efl_ui_view_model_property_logic_add(Eo *obj, cons
  *
  * @ingroup Efl_Ui_View_Model
  */
-extern extern_WEAK Eina_Error efl_ui_view_model_property_logic_del(Eo *obj, const char *property);
+extern  Eina_Error efl_ui_view_model_property_logic_del(Eo *obj, const char *property);
 #endif /* EFL_BETA_API_SUPPORT */
 
 /**
@@ -154,7 +154,7 @@ extern extern_WEAK Eina_Error efl_ui_view_model_property_logic_del(Eo *obj, cons
  *
  * @ingroup Efl_Ui_View_Model
  */
-extern extern_WEAK void efl_ui_view_model_property_bind(Eo *obj, const char *source, const char *destination);
+extern  void efl_ui_view_model_property_bind(Eo *obj, const char *source, const char *destination);
 
 /**
  * @brief Stop automatically updating the field for the event
@@ -169,7 +169,7 @@ extern extern_WEAK void efl_ui_view_model_property_bind(Eo *obj, const char *sou
  *
  * @ingroup Efl_Ui_View_Model
  */
-extern extern_WEAK void efl_ui_view_model_property_unbind(Eo *obj, const char *source, const char *destination);
+extern  void efl_ui_view_model_property_unbind(Eo *obj, const char *source, const char *destination);
 
 /**
  * @brief Define if we will intercept all children object reference and bind
@@ -185,7 +185,7 @@ extern extern_WEAK void efl_ui_view_model_property_unbind(Eo *obj, const char *s
  *
  * @ingroup Efl_Ui_View_Model
  */
-extern extern_WEAK void efl_ui_view_model_children_bind_set(Eo *obj, Eina_Bool enable);
+extern  void efl_ui_view_model_children_bind_set(Eo *obj, Eina_Bool enable);
 
 /**
  * @brief Define if we will intercept all children object reference and bind
@@ -202,6 +202,6 @@ extern extern_WEAK void efl_ui_view_model_children_bind_set(Eo *obj, Eina_Bool e
  *
  * @ingroup Efl_Ui_View_Model
  */
-extern extern_WEAK Eina_Bool efl_ui_view_model_children_bind_get(const Eo *obj);
+extern  Eina_Bool efl_ui_view_model_children_bind_get(const Eo *obj);
 
 #endif

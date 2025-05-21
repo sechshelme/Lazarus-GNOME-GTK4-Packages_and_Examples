@@ -24,7 +24,7 @@ typedef Eo Efl_Ui_L10n;
  */
 #define EFL_UI_L10N_INTERFACE efl_ui_l10n_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_l10n_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_l10n_interface_get(void) ;
 
 /**
  * @brief A unique string to be translated.
@@ -44,7 +44,7 @@ extern extern_WEAK const Efl_Class *efl_ui_l10n_interface_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_L10n
  */
-extern extern_WEAK void efl_ui_l10n_text_set(Eo *obj, const char *label, const char *domain);
+extern  void efl_ui_l10n_text_set(Eo *obj, const char *label, const char *domain);
 
 /**
  * @brief A unique string to be translated.
@@ -64,7 +64,7 @@ extern extern_WEAK void efl_ui_l10n_text_set(Eo *obj, const char *label, const c
  *
  * @ingroup Efl_Ui_L10n
  */
-extern extern_WEAK const char *efl_ui_l10n_text_get(const Eo *obj, const char **domain);
+extern  const char *efl_ui_l10n_text_get(const Eo *obj, const char **domain);
 
 #ifdef EFL_UI_L10N_PROTECTED
 /**
@@ -83,7 +83,7 @@ extern extern_WEAK const char *efl_ui_l10n_text_get(const Eo *obj, const char **
  *
  * @ingroup Efl_Ui_L10n
  */
-extern extern_WEAK void efl_ui_l10n_translation_update(Eo *obj);
+extern  void efl_ui_l10n_translation_update(Eo *obj);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 

@@ -25,7 +25,7 @@ typedef Eo Efl_Canvas_Layout_Part_Type_Provider;
  */
 #define EFL_CANVAS_LAYOUT_PART_TYPE_PROVIDER_INTERFACE efl_canvas_layout_part_type_provider_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_layout_part_type_provider_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_canvas_layout_part_type_provider_interface_get(void) ;
 
 /**
  * @brief Type of this part in the layout.
@@ -36,7 +36,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_layout_part_type_provider_interfa
  *
  * @ingroup Efl_Canvas_Layout_Part_Type_Provider
  */
-extern extern_WEAK Efl_Canvas_Layout_Part_Type efl_canvas_layout_part_type_get(const Eo *obj);
+extern  Efl_Canvas_Layout_Part_Type efl_canvas_layout_part_type_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

@@ -44,7 +44,7 @@ typedef Eo Efl_Ui_Item;
  */
 #define EFL_UI_ITEM_CLASS efl_ui_item_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_item_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_item_class_get(void) ;
 
 /**
  * @brief The index of this item inside its container.
@@ -65,7 +65,7 @@ extern extern_WEAK const Efl_Class *efl_ui_item_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Item
  */
-extern extern_WEAK int efl_ui_item_index_get(const Eo *obj);
+extern  int efl_ui_item_index_get(const Eo *obj);
 
 /**
  * @brief The container this object is part of.
@@ -81,7 +81,7 @@ extern extern_WEAK int efl_ui_item_index_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Item
  */
-extern extern_WEAK void efl_ui_item_container_set(Eo *obj, Efl_Ui_Widget *container);
+extern  void efl_ui_item_container_set(Eo *obj, Efl_Ui_Widget *container);
 
 /**
  * @brief The container this object is part of.
@@ -98,7 +98,7 @@ extern extern_WEAK void efl_ui_item_container_set(Eo *obj, Efl_Ui_Widget *contai
  *
  * @ingroup Efl_Ui_Item
  */
-extern extern_WEAK Efl_Ui_Widget *efl_ui_item_container_get(const Eo *obj);
+extern  Efl_Ui_Widget *efl_ui_item_container_get(const Eo *obj);
 
 /**
  * @brief The parent of the item.
@@ -115,7 +115,7 @@ extern extern_WEAK Efl_Ui_Widget *efl_ui_item_container_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Item
  */
-extern extern_WEAK void efl_ui_item_parent_set(Eo *obj, Efl_Ui_Item *parent);
+extern  void efl_ui_item_parent_set(Eo *obj, Efl_Ui_Item *parent);
 
 /**
  * @brief The parent of the item.
@@ -131,7 +131,7 @@ extern extern_WEAK void efl_ui_item_parent_set(Eo *obj, Efl_Ui_Item *parent);
  *
  * @ingroup Efl_Ui_Item
  */
-extern extern_WEAK Efl_Ui_Item *efl_ui_item_parent_get(const Eo *obj);
+extern  Efl_Ui_Item *efl_ui_item_parent_get(const Eo *obj);
 
 /**
  * @brief If the item has its calc locked it will not trigger
@@ -149,7 +149,7 @@ extern extern_WEAK Efl_Ui_Item *efl_ui_item_parent_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Item
  */
-extern extern_WEAK void efl_ui_item_calc_locked_set(Eo *obj, Eina_Bool locked);
+extern  void efl_ui_item_calc_locked_set(Eo *obj, Eina_Bool locked);
 
 /**
  * @brief If the item has its calc locked it will not trigger
@@ -168,6 +168,6 @@ extern extern_WEAK void efl_ui_item_calc_locked_set(Eo *obj, Eina_Bool locked);
  *
  * @ingroup Efl_Ui_Item
  */
-extern extern_WEAK Eina_Bool efl_ui_item_calc_locked_get(const Eo *obj);
+extern  Eina_Bool efl_ui_item_calc_locked_get(const Eo *obj);
 
 #endif

@@ -20,7 +20,7 @@ typedef Eo Efl_Access_Widget_Action;
  */
 #define EFL_ACCESS_WIDGET_ACTION_MIXIN efl_access_widget_action_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_access_widget_action_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_access_widget_action_mixin_get(void) ;
 
 #ifdef EFL_BETA_API_SUPPORT
 #ifdef EFL_ACCESS_WIDGET_ACTION_PROTECTED
@@ -33,7 +33,7 @@ extern extern_WEAK const Efl_Class *efl_access_widget_action_mixin_get(void) EIN
  *
  * @ingroup Efl_Access_Widget_Action
  */
-extern extern_WEAK const Efl_Access_Action_Data *efl_access_widget_action_elm_actions_get(const Eo *obj);
+extern  const Efl_Access_Action_Data *efl_access_widget_action_elm_actions_get(const Eo *obj);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 #endif /* EFL_BETA_API_SUPPORT */

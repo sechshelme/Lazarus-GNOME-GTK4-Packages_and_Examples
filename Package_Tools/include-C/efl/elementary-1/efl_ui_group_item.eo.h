@@ -30,7 +30,7 @@ typedef Eo Efl_Ui_Group_Item;
  */
 #define EFL_UI_GROUP_ITEM_CLASS efl_ui_group_item_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_group_item_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_group_item_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

@@ -21,7 +21,7 @@ typedef Eo Efl_Ui_Image_Zoomable;
  */
 #define EFL_UI_IMAGE_ZOOMABLE_CLASS efl_ui_image_zoomable_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_image_zoomable_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_image_zoomable_class_get(void) ;
 
 /**
  * @brief The gesture state for photocam.
@@ -36,7 +36,7 @@ extern extern_WEAK const Efl_Class *efl_ui_image_zoomable_class_get(void) EINA_C
  *
  * @ingroup Efl_Ui_Image_Zoomable
  */
-extern extern_WEAK void efl_ui_image_zoomable_gesture_enabled_set(Eo *obj, Eina_Bool gesture);
+extern  void efl_ui_image_zoomable_gesture_enabled_set(Eo *obj, Eina_Bool gesture);
 
 /**
  * @brief The gesture state for photocam.
@@ -52,7 +52,7 @@ extern extern_WEAK void efl_ui_image_zoomable_gesture_enabled_set(Eo *obj, Eina_
  *
  * @ingroup Efl_Ui_Image_Zoomable
  */
-extern extern_WEAK Eina_Bool efl_ui_image_zoomable_gesture_enabled_get(const Eo *obj);
+extern  Eina_Bool efl_ui_image_zoomable_gesture_enabled_get(const Eo *obj);
 
 /**
  * @brief The region of the image that is currently shown
@@ -66,7 +66,7 @@ extern extern_WEAK Eina_Bool efl_ui_image_zoomable_gesture_enabled_get(const Eo 
  *
  * @ingroup Efl_Ui_Image_Zoomable
  */
-extern extern_WEAK void efl_ui_image_zoomable_image_region_set(Eo *obj, Eina_Rect region);
+extern  void efl_ui_image_zoomable_image_region_set(Eo *obj, Eina_Rect region);
 
 /**
  * @brief The region of the image that is currently shown
@@ -81,9 +81,9 @@ extern extern_WEAK void efl_ui_image_zoomable_image_region_set(Eo *obj, Eina_Rec
  *
  * @ingroup Efl_Ui_Image_Zoomable
  */
-extern extern_WEAK Eina_Rect efl_ui_image_zoomable_image_region_get(const Eo *obj);
+extern  Eina_Rect efl_ui_image_zoomable_image_region_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVENT_PRESS;
+extern  extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVENT_PRESS;
 
 /** Called when photocam got pressed
  *
@@ -93,7 +93,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVE
  */
 #define EFL_UI_IMAGE_ZOOMABLE_EVENT_PRESS (&(_EFL_UI_IMAGE_ZOOMABLE_EVENT_PRESS))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVENT_LOAD;
+extern  extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVENT_LOAD;
 
 /** Called when photocam loading started
  *
@@ -103,7 +103,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVE
  */
 #define EFL_UI_IMAGE_ZOOMABLE_EVENT_LOAD (&(_EFL_UI_IMAGE_ZOOMABLE_EVENT_LOAD))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVENT_LOADED;
+extern  extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVENT_LOADED;
 
 /** Called when photocam loading finished
  *
@@ -113,7 +113,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVE
  */
 #define EFL_UI_IMAGE_ZOOMABLE_EVENT_LOADED (&(_EFL_UI_IMAGE_ZOOMABLE_EVENT_LOADED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVENT_LOAD_DETAIL;
+extern  extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVENT_LOAD_DETAIL;
 
 /** Called when photocal detail loading started
  *
@@ -123,7 +123,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVE
  */
 #define EFL_UI_IMAGE_ZOOMABLE_EVENT_LOAD_DETAIL (&(_EFL_UI_IMAGE_ZOOMABLE_EVENT_LOAD_DETAIL))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVENT_LOADED_DETAIL;
+extern  extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVENT_LOADED_DETAIL;
 
 /** Called when photocam detail loading finished
  *
@@ -133,7 +133,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVE
  */
 #define EFL_UI_IMAGE_ZOOMABLE_EVENT_LOADED_DETAIL (&(_EFL_UI_IMAGE_ZOOMABLE_EVENT_LOADED_DETAIL))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVENT_DOWNLOAD_START;
+extern  extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVENT_DOWNLOAD_START;
 
 /** Called when photocam download started
  *
@@ -143,7 +143,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVE
  */
 #define EFL_UI_IMAGE_ZOOMABLE_EVENT_DOWNLOAD_START (&(_EFL_UI_IMAGE_ZOOMABLE_EVENT_DOWNLOAD_START))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVENT_DOWNLOAD_PROGRESS;
+extern  extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVENT_DOWNLOAD_PROGRESS;
 
 /** Called when photocam download progress updated
  * @return Elm_Photocam_Progress
@@ -154,7 +154,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVE
  */
 #define EFL_UI_IMAGE_ZOOMABLE_EVENT_DOWNLOAD_PROGRESS (&(_EFL_UI_IMAGE_ZOOMABLE_EVENT_DOWNLOAD_PROGRESS))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVENT_DOWNLOAD_DONE;
+extern  extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVENT_DOWNLOAD_DONE;
 
 /** Called when photocam download finished
  *
@@ -164,7 +164,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVE
  */
 #define EFL_UI_IMAGE_ZOOMABLE_EVENT_DOWNLOAD_DONE (&(_EFL_UI_IMAGE_ZOOMABLE_EVENT_DOWNLOAD_DONE))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVENT_DOWNLOAD_ERROR;
+extern  extern const Efl_Event_Description _EFL_UI_IMAGE_ZOOMABLE_EVENT_DOWNLOAD_ERROR;
 
 /** Called when photocam download failed
  * @return Elm_Photocam_Error

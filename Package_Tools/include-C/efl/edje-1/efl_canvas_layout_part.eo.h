@@ -26,7 +26,7 @@ typedef Eo Efl_Canvas_Layout_Part;
  */
 #define EFL_CANVAS_LAYOUT_PART_CLASS efl_canvas_layout_part_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_layout_part_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_canvas_layout_part_class_get(void) ;
 
 /**
  * @brief The name and value of the current state of this part (read-only).
@@ -41,7 +41,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_layout_part_class_get(void) EINA_
  *
  * @ingroup Efl_Canvas_Layout_Part
  */
-extern extern_WEAK void efl_canvas_layout_part_state_get(const Eo *obj, const char **state, double *val);
+extern  void efl_canvas_layout_part_state_get(const Eo *obj, const char **state, double *val);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

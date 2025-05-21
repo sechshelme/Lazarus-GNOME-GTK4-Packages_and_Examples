@@ -24,7 +24,7 @@ typedef Eo Efl_Text_Interactive;
  */
 #define EFL_TEXT_INTERACTIVE_INTERFACE efl_text_interactive_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_text_interactive_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_text_interactive_interface_get(void) ;
 
 /**
  * @brief The cursor used to insert new text, the one that's visible to the
@@ -38,7 +38,7 @@ extern extern_WEAK const Efl_Class *efl_text_interactive_interface_get(void) EIN
  *
  * @ingroup Efl_Text_Interactive
  */
-extern extern_WEAK Efl_Text_Cursor_Object *efl_text_interactive_main_cursor_get(const Eo *obj);
+extern  Efl_Text_Cursor_Object *efl_text_interactive_main_cursor_get(const Eo *obj);
 
 /**
  * @brief Whether or not text selection is allowed on this object.
@@ -50,7 +50,7 @@ extern extern_WEAK Efl_Text_Cursor_Object *efl_text_interactive_main_cursor_get(
  *
  * @ingroup Efl_Text_Interactive
  */
-extern extern_WEAK void efl_text_interactive_selection_allowed_set(Eo *obj, Eina_Bool allowed);
+extern  void efl_text_interactive_selection_allowed_set(Eo *obj, Eina_Bool allowed);
 
 /**
  * @brief Whether or not text selection is allowed on this object.
@@ -63,7 +63,7 @@ extern extern_WEAK void efl_text_interactive_selection_allowed_set(Eo *obj, Eina
  *
  * @ingroup Efl_Text_Interactive
  */
-extern extern_WEAK Eina_Bool efl_text_interactive_selection_allowed_get(const Eo *obj);
+extern  Eina_Bool efl_text_interactive_selection_allowed_get(const Eo *obj);
 
 /**
  * @brief The cursors used for selection handling. If the cursors are equal
@@ -82,7 +82,7 @@ extern extern_WEAK Eina_Bool efl_text_interactive_selection_allowed_get(const Eo
  *
  * @ingroup Efl_Text_Interactive
  */
-extern extern_WEAK void efl_text_interactive_selection_cursors_set(Eo *obj, Efl_Text_Cursor_Object *start, Efl_Text_Cursor_Object *end);
+extern  void efl_text_interactive_selection_cursors_set(Eo *obj, Efl_Text_Cursor_Object *start, Efl_Text_Cursor_Object *end);
 
 /**
  * @brief The cursors used for selection handling. If the cursors are equal
@@ -99,7 +99,7 @@ extern extern_WEAK void efl_text_interactive_selection_cursors_set(Eo *obj, Efl_
  *
  * @ingroup Efl_Text_Interactive
  */
-extern extern_WEAK void efl_text_interactive_selection_cursors_get(const Eo *obj, Efl_Text_Cursor_Object **start, Efl_Text_Cursor_Object **end);
+extern  void efl_text_interactive_selection_cursors_get(const Eo *obj, Efl_Text_Cursor_Object **start, Efl_Text_Cursor_Object **end);
 
 /**
  * @brief Whether the entry is editable.
@@ -115,7 +115,7 @@ extern extern_WEAK void efl_text_interactive_selection_cursors_get(const Eo *obj
  *
  * @ingroup Efl_Text_Interactive
  */
-extern extern_WEAK void efl_text_interactive_editable_set(Eo *obj, Eina_Bool editable);
+extern  void efl_text_interactive_editable_set(Eo *obj, Eina_Bool editable);
 
 /**
  * @brief Whether the entry is editable.
@@ -132,7 +132,7 @@ extern extern_WEAK void efl_text_interactive_editable_set(Eo *obj, Eina_Bool edi
  *
  * @ingroup Efl_Text_Interactive
  */
-extern extern_WEAK Eina_Bool efl_text_interactive_editable_get(const Eo *obj);
+extern  Eina_Bool efl_text_interactive_editable_get(const Eo *obj);
 
 /** Clears the selection.
  *
@@ -140,7 +140,7 @@ extern extern_WEAK Eina_Bool efl_text_interactive_editable_get(const Eo *obj);
  *
  * @ingroup Efl_Text_Interactive
  */
-extern extern_WEAK void efl_text_interactive_all_unselect(Eo *obj);
+extern  void efl_text_interactive_all_unselect(Eo *obj);
 
 /** Select all the content.
  *
@@ -148,7 +148,7 @@ extern extern_WEAK void efl_text_interactive_all_unselect(Eo *obj);
  *
  * @ingroup Efl_Text_Interactive
  */
-extern extern_WEAK void efl_text_interactive_all_select(Eo *obj);
+extern  void efl_text_interactive_all_select(Eo *obj);
 
 /**
  * @brief Whether the entry has a selected text.
@@ -161,9 +161,9 @@ extern extern_WEAK void efl_text_interactive_all_select(Eo *obj);
  *
  * @ingroup Efl_Text_Interactive
  */
-extern extern_WEAK Eina_Bool efl_text_interactive_have_selection_get(const Eo *obj);
+extern  Eina_Bool efl_text_interactive_have_selection_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_TEXT_INTERACTIVE_EVENT_PREEDIT_CHANGED;
+extern  extern const Efl_Event_Description _EFL_TEXT_INTERACTIVE_EVENT_PREEDIT_CHANGED;
 
 /** Emitted when key presses do not result in a new character being added.
  * Multiple key presses are needed to produce a character in some languages
@@ -177,7 +177,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_TEXT_INTERACTIVE_EVEN
  */
 #define EFL_TEXT_INTERACTIVE_EVENT_PREEDIT_CHANGED (&(_EFL_TEXT_INTERACTIVE_EVENT_PREEDIT_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_TEXT_INTERACTIVE_EVENT_HAVE_SELECTION_CHANGED;
+extern  extern const Efl_Event_Description _EFL_TEXT_INTERACTIVE_EVENT_HAVE_SELECTION_CHANGED;
 
 /** Emitted when the @ref efl_text_interactive_have_selection_get property
  * value changes.
@@ -189,7 +189,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_TEXT_INTERACTIVE_EVEN
  */
 #define EFL_TEXT_INTERACTIVE_EVENT_HAVE_SELECTION_CHANGED (&(_EFL_TEXT_INTERACTIVE_EVENT_HAVE_SELECTION_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_TEXT_INTERACTIVE_EVENT_SELECTION_CHANGED;
+extern  extern const Efl_Event_Description _EFL_TEXT_INTERACTIVE_EVENT_SELECTION_CHANGED;
 
 /** Emitted when selection has changed. Query using
  * @ref efl_text_interactive_selection_cursors_get.
@@ -201,7 +201,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_TEXT_INTERACTIVE_EVEN
  */
 #define EFL_TEXT_INTERACTIVE_EVENT_SELECTION_CHANGED (&(_EFL_TEXT_INTERACTIVE_EVENT_SELECTION_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_TEXT_INTERACTIVE_EVENT_REDO_REQUEST;
+extern  extern const Efl_Event_Description _EFL_TEXT_INTERACTIVE_EVENT_REDO_REQUEST;
 
 /** Emitted when a redo operation is requested.
  *
@@ -211,7 +211,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_TEXT_INTERACTIVE_EVEN
  */
 #define EFL_TEXT_INTERACTIVE_EVENT_REDO_REQUEST (&(_EFL_TEXT_INTERACTIVE_EVENT_REDO_REQUEST))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_TEXT_INTERACTIVE_EVENT_UNDO_REQUEST;
+extern  extern const Efl_Event_Description _EFL_TEXT_INTERACTIVE_EVENT_UNDO_REQUEST;
 
 /** Emitted when a undo operation is requested.
  *
@@ -221,7 +221,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_TEXT_INTERACTIVE_EVEN
  */
 #define EFL_TEXT_INTERACTIVE_EVENT_UNDO_REQUEST (&(_EFL_TEXT_INTERACTIVE_EVENT_UNDO_REQUEST))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_TEXT_INTERACTIVE_EVENT_CHANGED_USER;
+extern  extern const Efl_Event_Description _EFL_TEXT_INTERACTIVE_EVENT_CHANGED_USER;
 
 /** Emitted when the text content has changed due to user interaction.
  * @return Efl_Text_Change_Info

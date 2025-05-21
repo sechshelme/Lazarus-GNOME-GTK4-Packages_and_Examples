@@ -26,7 +26,7 @@ typedef Eo Efl_Net_Server_Unix;
  */
 #define EFL_NET_SERVER_UNIX_CLASS efl_net_server_unix_class_get()
 
-ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_server_unix_class_get(void) EINA_CONST;
+ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_server_unix_class_get(void) ;
 
 /**
  * @brief AF_UNIX paths may be stale due to crashes. Remove files and try

@@ -37,7 +37,7 @@ typedef Eo Efl_Ui_Layout_Base;
  */
 #define EFL_UI_LAYOUT_BASE_CLASS efl_ui_layout_base_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_layout_base_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_layout_base_class_get(void) ;
 
 /**
  * @brief Set a multiplier for applying finger size to the layout.
@@ -58,7 +58,7 @@ extern extern_WEAK const Efl_Class *efl_ui_layout_base_class_get(void) EINA_CONS
  *
  * @ingroup Efl_Ui_Layout_Base
  */
-extern extern_WEAK void efl_ui_layout_finger_size_multiplier_set(Eo *obj, unsigned int multiplier_x, unsigned int multiplier_y);
+extern  void efl_ui_layout_finger_size_multiplier_set(Eo *obj, unsigned int multiplier_x, unsigned int multiplier_y);
 
 /**
  * @brief Set a multiplier for applying finger size to the layout.
@@ -79,7 +79,7 @@ extern extern_WEAK void efl_ui_layout_finger_size_multiplier_set(Eo *obj, unsign
  *
  * @ingroup Efl_Ui_Layout_Base
  */
-extern extern_WEAK void efl_ui_layout_finger_size_multiplier_get(const Eo *obj, unsigned int *multiplier_x, unsigned int *multiplier_y);
+extern  void efl_ui_layout_finger_size_multiplier_get(const Eo *obj, unsigned int *multiplier_x, unsigned int *multiplier_y);
 
 /**
  * @brief The theme of this widget, defines which edje group will be used.
@@ -110,7 +110,7 @@ extern extern_WEAK void efl_ui_layout_finger_size_multiplier_get(const Eo *obj, 
  *
  * @ingroup Efl_Ui_Layout_Base
  */
-extern extern_WEAK Eina_Error efl_ui_layout_theme_set(Eo *obj, const char *klass, const char *group, const char *style);
+extern  Eina_Error efl_ui_layout_theme_set(Eo *obj, const char *klass, const char *group, const char *style);
 
 /**
  * @brief The theme of this widget, defines which edje group will be used.
@@ -138,7 +138,7 @@ extern extern_WEAK Eina_Error efl_ui_layout_theme_set(Eo *obj, const char *klass
  *
  * @ingroup Efl_Ui_Layout_Base
  */
-extern extern_WEAK void efl_ui_layout_theme_get(const Eo *obj, const char **klass, const char **group, const char **style);
+extern  void efl_ui_layout_theme_get(const Eo *obj, const char **klass, const char **group, const char **style);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -153,7 +153,7 @@ extern extern_WEAK void efl_ui_layout_theme_get(const Eo *obj, const char **klas
  *
  * @ingroup Efl_Ui_Layout_Base
  */
-extern extern_WEAK void efl_ui_layout_automatic_theme_rotation_set(Eo *obj, Eina_Bool automatic);
+extern  void efl_ui_layout_automatic_theme_rotation_set(Eo *obj, Eina_Bool automatic);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -170,7 +170,7 @@ extern extern_WEAK void efl_ui_layout_automatic_theme_rotation_set(Eo *obj, Eina
  *
  * @ingroup Efl_Ui_Layout_Base
  */
-extern extern_WEAK Eina_Bool efl_ui_layout_automatic_theme_rotation_get(const Eo *obj);
+extern  Eina_Bool efl_ui_layout_automatic_theme_rotation_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -184,7 +184,7 @@ extern extern_WEAK Eina_Bool efl_ui_layout_automatic_theme_rotation_get(const Eo
  *
  * @ingroup Efl_Ui_Layout_Base
  */
-extern extern_WEAK void efl_ui_layout_theme_rotation_apply(Eo *obj, int orientation);
+extern  void efl_ui_layout_theme_rotation_apply(Eo *obj, int orientation);
 #endif /* EFL_BETA_API_SUPPORT */
 
 /**
@@ -208,9 +208,9 @@ extern extern_WEAK void efl_ui_layout_theme_rotation_apply(Eo *obj, int orientat
  *
  * @ingroup Efl_Ui_Layout_Base
  */
-extern extern_WEAK int efl_ui_layout_theme_version_get(const Eo *obj);
+extern  int efl_ui_layout_theme_version_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_LAYOUT_EVENT_THEME_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_LAYOUT_EVENT_THEME_CHANGED;
 
 /** Called when theme changed
  *

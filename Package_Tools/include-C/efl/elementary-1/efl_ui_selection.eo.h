@@ -51,7 +51,7 @@ typedef struct _Efl_Ui_Wm_Selection_Changed
  */
 #define EFL_UI_SELECTION_MIXIN efl_ui_selection_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_selection_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_selection_mixin_get(void) ;
 
 /**
  * @brief Sets the current selection.
@@ -68,7 +68,7 @@ extern extern_WEAK const Efl_Class *efl_ui_selection_mixin_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Selection
  */
-extern extern_WEAK void efl_ui_selection_set(Eo *obj, Efl_Ui_Cnp_Buffer buffer, Eina_Content *content, unsigned int seat);
+extern  void efl_ui_selection_set(Eo *obj, Efl_Ui_Cnp_Buffer buffer, Eina_Content *content, unsigned int seat);
 
 /**
  * @brief Clears the current selection.
@@ -82,7 +82,7 @@ extern extern_WEAK void efl_ui_selection_set(Eo *obj, Efl_Ui_Cnp_Buffer buffer, 
  *
  * @ingroup Efl_Ui_Selection
  */
-extern extern_WEAK void efl_ui_selection_clear(Eo *obj, Efl_Ui_Cnp_Buffer buffer, unsigned int seat);
+extern  void efl_ui_selection_clear(Eo *obj, Efl_Ui_Cnp_Buffer buffer, unsigned int seat);
 
 /**
  * @brief Retrieves the data currently held in the specified buffer.
@@ -106,7 +106,7 @@ extern extern_WEAK void efl_ui_selection_clear(Eo *obj, Efl_Ui_Cnp_Buffer buffer
  *
  * @ingroup Efl_Ui_Selection
  */
-extern extern_WEAK Eina_Future *efl_ui_selection_get(Eo *obj, Efl_Ui_Cnp_Buffer buffer, unsigned int seat, Eina_Iterator *acceptable_types) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Future *efl_ui_selection_get(Eo *obj, Efl_Ui_Cnp_Buffer buffer, unsigned int seat, Eina_Iterator *acceptable_types)  ;
 
 /**
  * @brief Checks if the specified system buffer has content.
@@ -119,9 +119,9 @@ extern extern_WEAK Eina_Future *efl_ui_selection_get(Eo *obj, Efl_Ui_Cnp_Buffer 
  *
  * @ingroup Efl_Ui_Selection
  */
-extern extern_WEAK Eina_Bool efl_ui_selection_has_selection(Eo *obj, Efl_Ui_Cnp_Buffer buffer, unsigned int seat);
+extern  Eina_Bool efl_ui_selection_has_selection(Eo *obj, Efl_Ui_Cnp_Buffer buffer, unsigned int seat);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SELECTION_EVENT_WM_SELECTION_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_SELECTION_EVENT_WM_SELECTION_CHANGED;
 
 /** Event emitted when the content of one of the system's buffers changes.
  * @return Efl_Ui_Wm_Selection_Changed

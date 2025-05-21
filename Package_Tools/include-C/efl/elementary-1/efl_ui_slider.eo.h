@@ -30,9 +30,9 @@ typedef Eo Efl_Ui_Slider;
  */
 #define EFL_UI_SLIDER_CLASS efl_ui_slider_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_slider_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_slider_class_get(void) ;
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SLIDER_EVENT_SLIDER_DRAG_START;
+extern  extern const Efl_Event_Description _EFL_UI_SLIDER_EVENT_SLIDER_DRAG_START;
 
 /** Called when a slider drag operation has started. This means a @c press
  * event has been received on the slider thumb but not the @c unpress.
@@ -43,7 +43,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SLIDER_EVENT_SLIDE
  */
 #define EFL_UI_SLIDER_EVENT_SLIDER_DRAG_START (&(_EFL_UI_SLIDER_EVENT_SLIDER_DRAG_START))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SLIDER_EVENT_SLIDER_DRAG_STOP;
+extern  extern const Efl_Event_Description _EFL_UI_SLIDER_EVENT_SLIDER_DRAG_STOP;
 
 /** Called when a slider drag operation has finished. This means an @c unpress
  * event has been received on the slider thumb.

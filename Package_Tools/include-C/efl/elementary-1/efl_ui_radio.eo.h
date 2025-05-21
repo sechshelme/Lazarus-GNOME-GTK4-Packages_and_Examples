@@ -34,7 +34,7 @@ typedef Eo Efl_Ui_Radio;
  */
 #define EFL_UI_RADIO_CLASS efl_ui_radio_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_radio_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_radio_class_get(void) ;
 
 /**
  * @brief Integer value that this radio button represents.
@@ -58,7 +58,7 @@ extern extern_WEAK const Efl_Class *efl_ui_radio_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Radio
  */
-extern extern_WEAK void efl_ui_radio_state_value_set(Eo *obj, int value);
+extern  void efl_ui_radio_state_value_set(Eo *obj, int value);
 
 /**
  * @brief Integer value that this radio button represents.
@@ -83,6 +83,6 @@ extern extern_WEAK void efl_ui_radio_state_value_set(Eo *obj, int value);
  *
  * @ingroup Efl_Ui_Radio
  */
-extern extern_WEAK int efl_ui_radio_state_value_get(const Eo *obj);
+extern  int efl_ui_radio_state_value_get(const Eo *obj);
 
 #endif

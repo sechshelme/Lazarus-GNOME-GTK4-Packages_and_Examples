@@ -35,7 +35,7 @@ typedef Eo Efl_Ui_Progressbar;
  */
 #define EFL_UI_PROGRESSBAR_CLASS efl_ui_progressbar_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_progressbar_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_progressbar_class_get(void) ;
 
 /**
  * @brief When this mode is enabled the progress bar indicates that there is an
@@ -50,7 +50,7 @@ extern extern_WEAK const Efl_Class *efl_ui_progressbar_class_get(void) EINA_CONS
  *
  * @ingroup Efl_Ui_Progressbar
  */
-extern extern_WEAK void efl_ui_progressbar_infinite_mode_set(Eo *obj, Eina_Bool state);
+extern  void efl_ui_progressbar_infinite_mode_set(Eo *obj, Eina_Bool state);
 
 /**
  * @brief When this mode is enabled the progress bar indicates that there is an
@@ -66,7 +66,7 @@ extern extern_WEAK void efl_ui_progressbar_infinite_mode_set(Eo *obj, Eina_Bool 
  *
  * @ingroup Efl_Ui_Progressbar
  */
-extern extern_WEAK Eina_Bool efl_ui_progressbar_infinite_mode_get(const Eo *obj);
+extern  Eina_Bool efl_ui_progressbar_infinite_mode_get(const Eo *obj);
 
 /**
  * @brief Whether a textual progress label is shown alongside the progress bar
@@ -84,7 +84,7 @@ extern extern_WEAK Eina_Bool efl_ui_progressbar_infinite_mode_get(const Eo *obj)
  *
  * @ingroup Efl_Ui_Progressbar
  */
-extern extern_WEAK void efl_ui_progressbar_show_progress_label_set(Eo *obj, Eina_Bool show);
+extern  void efl_ui_progressbar_show_progress_label_set(Eo *obj, Eina_Bool show);
 
 /**
  * @brief Whether a textual progress label is shown alongside the progress bar
@@ -103,7 +103,7 @@ extern extern_WEAK void efl_ui_progressbar_show_progress_label_set(Eo *obj, Eina
  *
  * @ingroup Efl_Ui_Progressbar
  */
-extern extern_WEAK Eina_Bool efl_ui_progressbar_show_progress_label_get(const Eo *obj);
+extern  Eina_Bool efl_ui_progressbar_show_progress_label_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

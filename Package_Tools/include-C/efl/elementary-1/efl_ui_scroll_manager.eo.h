@@ -20,7 +20,7 @@ typedef Eo Efl_Ui_Scroll_Manager;
  */
 #define EFL_UI_SCROLL_MANAGER_CLASS efl_ui_scroll_manager_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_scroll_manager_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_scroll_manager_class_get(void) ;
 
 #ifdef EFL_UI_SCROLL_MANAGER_PROTECTED
 /**
@@ -35,7 +35,7 @@ extern extern_WEAK const Efl_Class *efl_ui_scroll_manager_class_get(void) EINA_C
  *
  * @ingroup Efl_Ui_Scroll_Manager
  */
-extern extern_WEAK void efl_ui_scroll_manager_pan_set(Eo *obj, Efl_Ui_Pan *pan);
+extern  void efl_ui_scroll_manager_pan_set(Eo *obj, Efl_Ui_Pan *pan);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 

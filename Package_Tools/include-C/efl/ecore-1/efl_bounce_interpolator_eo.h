@@ -27,7 +27,7 @@ typedef Eo Efl_Bounce_Interpolator;
  */
 #define EFL_BOUNCE_INTERPOLATOR_CLASS efl_bounce_interpolator_class_get()
 
-extern extern_WEAK const Efl_Class *efl_bounce_interpolator_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_bounce_interpolator_class_get(void) ;
 
 /**
  * @brief Customize the number of bounces.
@@ -39,7 +39,7 @@ extern extern_WEAK const Efl_Class *efl_bounce_interpolator_class_get(void) EINA
  *
  * @ingroup Efl_Bounce_Interpolator
  */
-extern extern_WEAK void efl_bounce_interpolator_bounces_set(Eo *obj, int bounces);
+extern  void efl_bounce_interpolator_bounces_set(Eo *obj, int bounces);
 
 /**
  * @brief Customize the number of bounces.
@@ -52,7 +52,7 @@ extern extern_WEAK void efl_bounce_interpolator_bounces_set(Eo *obj, int bounces
  *
  * @ingroup Efl_Bounce_Interpolator
  */
-extern extern_WEAK int efl_bounce_interpolator_bounces_get(const Eo *obj);
+extern  int efl_bounce_interpolator_bounces_get(const Eo *obj);
 
 /**
  * @brief Customize the rigidness.
@@ -65,7 +65,7 @@ extern extern_WEAK int efl_bounce_interpolator_bounces_get(const Eo *obj);
  *
  * @ingroup Efl_Bounce_Interpolator
  */
-extern extern_WEAK void efl_bounce_interpolator_rigidness_set(Eo *obj, double rigidness);
+extern  void efl_bounce_interpolator_rigidness_set(Eo *obj, double rigidness);
 
 /**
  * @brief Customize the rigidness.
@@ -79,6 +79,6 @@ extern extern_WEAK void efl_bounce_interpolator_rigidness_set(Eo *obj, double ri
  *
  * @ingroup Efl_Bounce_Interpolator
  */
-extern extern_WEAK double efl_bounce_interpolator_rigidness_get(const Eo *obj);
+extern  double efl_bounce_interpolator_rigidness_get(const Eo *obj);
 
 #endif

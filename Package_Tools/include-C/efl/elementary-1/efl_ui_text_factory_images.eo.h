@@ -25,7 +25,7 @@ typedef Eo Efl_Ui_Text_Factory_Images;
  */
 #define EFL_UI_TEXT_FACTORY_IMAGES_CLASS efl_ui_text_factory_images_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_text_factory_images_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_text_factory_images_class_get(void) ;
 
 /**
  * @brief Associates given name with a path of an image or EET file.
@@ -46,7 +46,7 @@ extern extern_WEAK const Efl_Class *efl_ui_text_factory_images_class_get(void) E
  *
  * @ingroup Efl_Ui_Text_Factory_Images
  */
-extern extern_WEAK Eina_Bool efl_ui_text_factory_images_matches_add(Eo *obj, const char *name, const char *path, const char *key);
+extern  Eina_Bool efl_ui_text_factory_images_matches_add(Eo *obj, const char *name, const char *path, const char *key);
 
 /**
  * @brief Deletes an association of @c key with its respective file path.
@@ -60,7 +60,7 @@ extern extern_WEAK Eina_Bool efl_ui_text_factory_images_matches_add(Eo *obj, con
  *
  * @ingroup Efl_Ui_Text_Factory_Images
  */
-extern extern_WEAK Eina_Bool efl_ui_text_factory_images_matches_del(Eo *obj, const char *key);
+extern  Eina_Bool efl_ui_text_factory_images_matches_del(Eo *obj, const char *key);
 
 /**
  * @brief Associates given name with a mmap'd image or EET file and key.
@@ -77,7 +77,7 @@ extern extern_WEAK Eina_Bool efl_ui_text_factory_images_matches_del(Eo *obj, con
  *
  * @ingroup Efl_Ui_Text_Factory_Images
  */
-extern extern_WEAK Eina_Bool efl_ui_text_factory_images_matches_mmap_add(Eo *obj, const char *name, const Eina_File *file, const char *key);
+extern  Eina_Bool efl_ui_text_factory_images_matches_mmap_add(Eo *obj, const char *name, const Eina_File *file, const char *key);
 
 /**
  * @brief Deletes an association of @c key with its respective file.
@@ -91,7 +91,7 @@ extern extern_WEAK Eina_Bool efl_ui_text_factory_images_matches_mmap_add(Eo *obj
  *
  * @ingroup Efl_Ui_Text_Factory_Images
  */
-extern extern_WEAK Eina_Bool efl_ui_text_factory_images_matches_mmap_del(Eo *obj, const char *key);
+extern  Eina_Bool efl_ui_text_factory_images_matches_mmap_del(Eo *obj, const char *key);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

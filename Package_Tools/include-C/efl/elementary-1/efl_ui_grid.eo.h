@@ -36,6 +36,6 @@ typedef Eo Efl_Ui_Grid;
  */
 #define EFL_UI_GRID_CLASS efl_ui_grid_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_grid_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_grid_class_get(void) ;
 
 #endif

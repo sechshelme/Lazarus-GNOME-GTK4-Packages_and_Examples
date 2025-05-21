@@ -60,7 +60,7 @@ typedef struct _Efl_Ui_Spotlight_Transition_Event
  */
 #define EFL_UI_SPOTLIGHT_CONTAINER_CLASS efl_ui_spotlight_container_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_spotlight_container_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_spotlight_container_class_get(void) ;
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -75,7 +75,7 @@ extern extern_WEAK const Efl_Class *efl_ui_spotlight_container_class_get(void) E
  *
  * @ingroup Efl_Ui_Spotlight_Container
  */
-extern extern_WEAK void efl_ui_spotlight_manager_set(Eo *obj, Efl_Ui_Spotlight_Manager *spotlight_manager EFL_TRANSFER_OWNERSHIP);
+extern  void efl_ui_spotlight_manager_set(Eo *obj, Efl_Ui_Spotlight_Manager *spotlight_manager );
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -92,7 +92,7 @@ extern extern_WEAK void efl_ui_spotlight_manager_set(Eo *obj, Efl_Ui_Spotlight_M
  *
  * @ingroup Efl_Ui_Spotlight_Container
  */
-extern extern_WEAK Efl_Ui_Spotlight_Manager *efl_ui_spotlight_manager_get(const Eo *obj);
+extern  Efl_Ui_Spotlight_Manager *efl_ui_spotlight_manager_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -110,7 +110,7 @@ extern extern_WEAK Efl_Ui_Spotlight_Manager *efl_ui_spotlight_manager_get(const 
  *
  * @ingroup Efl_Ui_Spotlight_Container
  */
-extern extern_WEAK void efl_ui_spotlight_indicator_set(Eo *obj, Efl_Ui_Spotlight_Indicator *indicator EFL_TRANSFER_OWNERSHIP);
+extern  void efl_ui_spotlight_indicator_set(Eo *obj, Efl_Ui_Spotlight_Indicator *indicator );
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -129,7 +129,7 @@ extern extern_WEAK void efl_ui_spotlight_indicator_set(Eo *obj, Efl_Ui_Spotlight
  *
  * @ingroup Efl_Ui_Spotlight_Container
  */
-extern extern_WEAK Efl_Ui_Spotlight_Indicator *efl_ui_spotlight_indicator_get(const Eo *obj);
+extern  Efl_Ui_Spotlight_Indicator *efl_ui_spotlight_indicator_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 /**
@@ -146,7 +146,7 @@ extern extern_WEAK Efl_Ui_Spotlight_Indicator *efl_ui_spotlight_indicator_get(co
  *
  * @ingroup Efl_Ui_Spotlight_Container
  */
-extern extern_WEAK void efl_ui_spotlight_active_element_set(Eo *obj, Efl_Ui_Widget *element);
+extern  void efl_ui_spotlight_active_element_set(Eo *obj, Efl_Ui_Widget *element);
 
 /**
  * @brief Currently active sub-widget (the one with the spotlight) among all
@@ -163,7 +163,7 @@ extern extern_WEAK void efl_ui_spotlight_active_element_set(Eo *obj, Efl_Ui_Widg
  *
  * @ingroup Efl_Ui_Spotlight_Container
  */
-extern extern_WEAK Efl_Ui_Widget *efl_ui_spotlight_active_element_get(const Eo *obj);
+extern  Efl_Ui_Widget *efl_ui_spotlight_active_element_get(const Eo *obj);
 
 /**
  * @brief The size to use when displaying the Sub-Widget which has the
@@ -179,7 +179,7 @@ extern extern_WEAK Efl_Ui_Widget *efl_ui_spotlight_active_element_get(const Eo *
  *
  * @ingroup Efl_Ui_Spotlight_Container
  */
-extern extern_WEAK void efl_ui_spotlight_size_set(Eo *obj, Eina_Size2D size);
+extern  void efl_ui_spotlight_size_set(Eo *obj, Eina_Size2D size);
 
 /**
  * @brief The size to use when displaying the Sub-Widget which has the
@@ -196,7 +196,7 @@ extern extern_WEAK void efl_ui_spotlight_size_set(Eo *obj, Eina_Size2D size);
  *
  * @ingroup Efl_Ui_Spotlight_Container
  */
-extern extern_WEAK Eina_Size2D efl_ui_spotlight_size_get(const Eo *obj);
+extern  Eina_Size2D efl_ui_spotlight_size_get(const Eo *obj);
 
 /**
  * @brief When this flag is @c true the transitions caused by
@@ -213,7 +213,7 @@ extern extern_WEAK Eina_Size2D efl_ui_spotlight_size_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Spotlight_Container
  */
-extern extern_WEAK void efl_ui_spotlight_animated_transition_set(Eo *obj, Eina_Bool enable);
+extern  void efl_ui_spotlight_animated_transition_set(Eo *obj, Eina_Bool enable);
 
 /**
  * @brief When this flag is @c true the transitions caused by
@@ -231,7 +231,7 @@ extern extern_WEAK void efl_ui_spotlight_animated_transition_set(Eo *obj, Eina_B
  *
  * @ingroup Efl_Ui_Spotlight_Container
  */
-extern extern_WEAK Eina_Bool efl_ui_spotlight_animated_transition_get(const Eo *obj);
+extern  Eina_Bool efl_ui_spotlight_animated_transition_get(const Eo *obj);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -254,7 +254,7 @@ extern extern_WEAK Eina_Bool efl_ui_spotlight_animated_transition_get(const Eo *
  *
  * @ingroup Efl_Ui_Spotlight_Container
  */
-extern extern_WEAK void efl_ui_spotlight_push(Eo *obj, Efl_Gfx_Entity *widget);
+extern  void efl_ui_spotlight_push(Eo *obj, Efl_Gfx_Entity *widget);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -290,10 +290,10 @@ extern extern_WEAK void efl_ui_spotlight_push(Eo *obj, Efl_Gfx_Entity *widget);
  *
  * @ingroup Efl_Ui_Spotlight_Container
  */
-extern extern_WEAK Eina_Future *efl_ui_spotlight_pop(Eo *obj, Eina_Bool deletion_on_transition_end);
+extern  Eina_Future *efl_ui_spotlight_pop(Eo *obj, Eina_Bool deletion_on_transition_end);
 #endif /* EFL_BETA_API_SUPPORT */
 #ifdef EFL_BETA_API_SUPPORT
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SPOTLIGHT_EVENT_TRANSITION_START;
+extern  extern const Efl_Event_Description _EFL_UI_SPOTLIGHT_EVENT_TRANSITION_START;
 
 /** A transition animation has started.
  * @return Efl_Ui_Spotlight_Transition_Event
@@ -305,7 +305,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SPOTLIGHT_EVENT_TR
 #define EFL_UI_SPOTLIGHT_EVENT_TRANSITION_START (&(_EFL_UI_SPOTLIGHT_EVENT_TRANSITION_START))
 #endif /* EFL_BETA_API_SUPPORT */
 #ifdef EFL_BETA_API_SUPPORT
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SPOTLIGHT_EVENT_TRANSITION_END;
+extern  extern const Efl_Event_Description _EFL_UI_SPOTLIGHT_EVENT_TRANSITION_END;
 
 /** A transition animation has ended.
  * @return Efl_Ui_Spotlight_Transition_Event

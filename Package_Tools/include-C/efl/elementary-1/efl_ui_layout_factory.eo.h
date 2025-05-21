@@ -31,7 +31,7 @@ typedef Eo Efl_Ui_Layout_Factory;
  */
 #define EFL_UI_LAYOUT_FACTORY_CLASS efl_ui_layout_factory_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_layout_factory_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_layout_factory_class_get(void) ;
 
 /**
  * @brief Set the theme that will be applied to the created @ref Efl_Ui_Layout
@@ -46,6 +46,6 @@ extern extern_WEAK const Efl_Class *efl_ui_layout_factory_class_get(void) EINA_C
  *
  * @ingroup Efl_Ui_Layout_Factory
  */
-extern extern_WEAK void efl_ui_layout_factory_theme_config(Eo *obj, const char *klass, const char *group, const char *style);
+extern  void efl_ui_layout_factory_theme_config(Eo *obj, const char *klass, const char *group, const char *style);
 
 #endif

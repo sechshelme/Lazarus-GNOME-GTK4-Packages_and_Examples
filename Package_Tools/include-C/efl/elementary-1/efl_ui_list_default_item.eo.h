@@ -23,6 +23,6 @@ typedef Eo Efl_Ui_List_Default_Item;
  */
 #define EFL_UI_LIST_DEFAULT_ITEM_CLASS efl_ui_list_default_item_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_list_default_item_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_list_default_item_class_get(void) ;
 
 #endif

@@ -86,7 +86,7 @@ typedef enum
  */
 #define EFL_UI_POPUP_CLASS efl_ui_popup_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_popup_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_popup_class_get(void) ;
 
 /**
  * @brief The align property specifies a Popup's current positioning relative
@@ -103,7 +103,7 @@ extern extern_WEAK const Efl_Class *efl_ui_popup_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Popup
  */
-extern extern_WEAK void efl_ui_popup_align_set(Eo *obj, Efl_Ui_Popup_Align type);
+extern  void efl_ui_popup_align_set(Eo *obj, Efl_Ui_Popup_Align type);
 
 /**
  * @brief The align property specifies a Popup's current positioning relative
@@ -121,7 +121,7 @@ extern extern_WEAK void efl_ui_popup_align_set(Eo *obj, Efl_Ui_Popup_Align type)
  *
  * @ingroup Efl_Ui_Popup
  */
-extern extern_WEAK Efl_Ui_Popup_Align efl_ui_popup_align_get(const Eo *obj);
+extern  Efl_Ui_Popup_Align efl_ui_popup_align_get(const Eo *obj);
 
 /**
  * @brief The closing_timeout property is the time after which the Popup widget
@@ -139,7 +139,7 @@ extern extern_WEAK Efl_Ui_Popup_Align efl_ui_popup_align_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Popup
  */
-extern extern_WEAK void efl_ui_popup_closing_timeout_set(Eo *obj, double time);
+extern  void efl_ui_popup_closing_timeout_set(Eo *obj, double time);
 
 /**
  * @brief The closing_timeout property is the time after which the Popup widget
@@ -158,7 +158,7 @@ extern extern_WEAK void efl_ui_popup_closing_timeout_set(Eo *obj, double time);
  *
  * @ingroup Efl_Ui_Popup
  */
-extern extern_WEAK double efl_ui_popup_closing_timeout_get(const Eo *obj);
+extern  double efl_ui_popup_closing_timeout_get(const Eo *obj);
 
 /**
  * @brief The anchor object is the reference object for positioning a Popup
@@ -184,7 +184,7 @@ extern extern_WEAK double efl_ui_popup_closing_timeout_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Popup
  */
-extern extern_WEAK void efl_ui_popup_anchor_set(Eo *obj, Efl_Canvas_Object *anchor);
+extern  void efl_ui_popup_anchor_set(Eo *obj, Efl_Canvas_Object *anchor);
 
 /**
  * @brief The anchor object is the reference object for positioning a Popup
@@ -210,7 +210,7 @@ extern extern_WEAK void efl_ui_popup_anchor_set(Eo *obj, Efl_Canvas_Object *anch
  *
  * @ingroup Efl_Ui_Popup
  */
-extern extern_WEAK Efl_Canvas_Object *efl_ui_popup_anchor_get(const Eo *obj);
+extern  Efl_Canvas_Object *efl_ui_popup_anchor_get(const Eo *obj);
 
 /**
  * @brief This is the priority in which alignments will be tested using the
@@ -239,7 +239,7 @@ extern extern_WEAK Efl_Canvas_Object *efl_ui_popup_anchor_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Popup
  */
-extern extern_WEAK void efl_ui_popup_align_priority_set(Eo *obj, Efl_Ui_Popup_Align first, Efl_Ui_Popup_Align second, Efl_Ui_Popup_Align third, Efl_Ui_Popup_Align fourth, Efl_Ui_Popup_Align fifth);
+extern  void efl_ui_popup_align_priority_set(Eo *obj, Efl_Ui_Popup_Align first, Efl_Ui_Popup_Align second, Efl_Ui_Popup_Align third, Efl_Ui_Popup_Align fourth, Efl_Ui_Popup_Align fifth);
 
 /**
  * @brief This is the priority in which alignments will be tested using the
@@ -268,9 +268,9 @@ extern extern_WEAK void efl_ui_popup_align_priority_set(Eo *obj, Efl_Ui_Popup_Al
  *
  * @ingroup Efl_Ui_Popup
  */
-extern extern_WEAK void efl_ui_popup_align_priority_get(const Eo *obj, Efl_Ui_Popup_Align *first, Efl_Ui_Popup_Align *second, Efl_Ui_Popup_Align *third, Efl_Ui_Popup_Align *fourth, Efl_Ui_Popup_Align *fifth);
+extern  void efl_ui_popup_align_priority_get(const Eo *obj, Efl_Ui_Popup_Align *first, Efl_Ui_Popup_Align *second, Efl_Ui_Popup_Align *third, Efl_Ui_Popup_Align *fourth, Efl_Ui_Popup_Align *fifth);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_POPUP_EVENT_BACKWALL_CLICKED;
+extern  extern const Efl_Event_Description _EFL_UI_POPUP_EVENT_BACKWALL_CLICKED;
 
 /** This is called whenever the user clicks the backwall part of the Popup.
  *
@@ -280,7 +280,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_POPUP_EVENT_BACKWA
  */
 #define EFL_UI_POPUP_EVENT_BACKWALL_CLICKED (&(_EFL_UI_POPUP_EVENT_BACKWALL_CLICKED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_POPUP_EVENT_TIMEOUT;
+extern  extern const Efl_Event_Description _EFL_UI_POPUP_EVENT_TIMEOUT;
 
 /** This is called when Popup times out.
  *

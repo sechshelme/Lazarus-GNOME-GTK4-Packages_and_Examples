@@ -21,6 +21,6 @@ typedef Eo Efl_Ui_Radio_Group_Impl;
  */
 #define EFL_UI_RADIO_GROUP_IMPL_CLASS efl_ui_radio_group_impl_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_radio_group_impl_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_radio_group_impl_class_get(void) ;
 
 #endif

@@ -47,7 +47,7 @@ typedef enum
  */
 #define ELM_TOOLBAR_CLASS elm_toolbar_class_get()
 
-EWAPI const Efl_Class *elm_toolbar_class_get(void) EINA_CONST;
+extern const Efl_Class *elm_toolbar_class_get(void) ;
 
 /**
  * @brief Get the selected item in the widget.
@@ -91,7 +91,7 @@ EOAPI Elm_Widget_Item *elm_obj_toolbar_last_item_get(const Eo *obj);
  *
  * @ingroup Elm_Toolbar
  */
-EOAPI Eina_Iterator *elm_obj_toolbar_items_get(const Eo *obj) EINA_WARN_UNUSED_RESULT;
+EOAPI Eina_Iterator *elm_obj_toolbar_items_get(const Eo *obj) ;
 
 /**
  * @brief Control homogeneous mode.
@@ -530,7 +530,7 @@ EOAPI Elm_Widget_Item *elm_obj_toolbar_item_prepend(Eo *obj, const char *icon, c
  */
 EOAPI Elm_Widget_Item *elm_obj_toolbar_item_find_by_label(const Eo *obj, const char *label);
 
-EWAPI extern const Efl_Event_Description _ELM_TOOLBAR_EVENT_ITEM_FOCUSED;
+extern extern const Efl_Event_Description _ELM_TOOLBAR_EVENT_ITEM_FOCUSED;
 
 /** Called when toolbar item got focus
  * @return Efl_Object *
@@ -539,7 +539,7 @@ EWAPI extern const Efl_Event_Description _ELM_TOOLBAR_EVENT_ITEM_FOCUSED;
  */
 #define ELM_TOOLBAR_EVENT_ITEM_FOCUSED (&(_ELM_TOOLBAR_EVENT_ITEM_FOCUSED))
 
-EWAPI extern const Efl_Event_Description _ELM_TOOLBAR_EVENT_ITEM_UNFOCUSED;
+extern extern const Efl_Event_Description _ELM_TOOLBAR_EVENT_ITEM_UNFOCUSED;
 
 /** Called when toolbar item lost focus
  * @return Efl_Object *

@@ -32,7 +32,7 @@ typedef Eo Efl_Ui_Grid_View;
  */
 #define EFL_UI_GRID_VIEW_CLASS efl_ui_grid_view_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_grid_view_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_grid_view_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

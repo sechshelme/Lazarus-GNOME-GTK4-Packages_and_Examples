@@ -20,7 +20,7 @@ typedef Eo Efl_Access_Component;
  */
 #define EFL_ACCESS_COMPONENT_MIXIN efl_access_component_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_access_component_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_access_component_mixin_get(void) ;
 
 #ifdef EFL_BETA_API_SUPPORT
 #ifdef EFL_ACCESS_COMPONENT_PROTECTED
@@ -34,7 +34,7 @@ extern extern_WEAK const Efl_Class *efl_access_component_mixin_get(void) EINA_CO
  *
  * @ingroup Efl_Access_Component
  */
-extern extern_WEAK int efl_access_component_z_order_get(const Eo *obj);
+extern  int efl_access_component_z_order_get(const Eo *obj);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -52,7 +52,7 @@ extern extern_WEAK int efl_access_component_z_order_get(const Eo *obj);
  *
  * @ingroup Efl_Access_Component
  */
-extern extern_WEAK Eina_Bool efl_access_component_extents_set(Eo *obj, Eina_Bool screen_coords, Eina_Rect rect);
+extern  Eina_Bool efl_access_component_extents_set(Eo *obj, Eina_Bool screen_coords, Eina_Rect rect);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -69,7 +69,7 @@ extern extern_WEAK Eina_Bool efl_access_component_extents_set(Eo *obj, Eina_Bool
  *
  * @ingroup Efl_Access_Component
  */
-extern extern_WEAK Eina_Rect efl_access_component_extents_get(const Eo *obj, Eina_Bool screen_coords);
+extern  Eina_Rect efl_access_component_extents_get(const Eo *obj, Eina_Bool screen_coords);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -86,7 +86,7 @@ extern extern_WEAK Eina_Rect efl_access_component_extents_get(const Eo *obj, Ein
  *
  * @ingroup Efl_Access_Component
  */
-extern extern_WEAK Eina_Bool efl_access_component_screen_position_set(Eo *obj, int x, int y);
+extern  Eina_Bool efl_access_component_screen_position_set(Eo *obj, int x, int y);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -101,7 +101,7 @@ extern extern_WEAK Eina_Bool efl_access_component_screen_position_set(Eo *obj, i
  *
  * @ingroup Efl_Access_Component
  */
-extern extern_WEAK void efl_access_component_screen_position_get(const Eo *obj, int *x, int *y);
+extern  void efl_access_component_screen_position_get(const Eo *obj, int *x, int *y);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -120,7 +120,7 @@ extern extern_WEAK void efl_access_component_screen_position_get(const Eo *obj, 
  *
  * @ingroup Efl_Access_Component
  */
-extern extern_WEAK Eina_Bool efl_access_component_contains(Eo *obj, Eina_Bool screen_coords, int x, int y);
+extern  Eina_Bool efl_access_component_contains(Eo *obj, Eina_Bool screen_coords, int x, int y);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -135,7 +135,7 @@ extern extern_WEAK Eina_Bool efl_access_component_contains(Eo *obj, Eina_Bool sc
  *
  * @ingroup Efl_Access_Component
  */
-extern extern_WEAK Eina_Bool efl_access_component_focus_grab(Eo *obj);
+extern  Eina_Bool efl_access_component_focus_grab(Eo *obj);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -154,7 +154,7 @@ extern extern_WEAK Eina_Bool efl_access_component_focus_grab(Eo *obj);
  *
  * @ingroup Efl_Access_Component
  */
-extern extern_WEAK Efl_Object *efl_access_component_accessible_at_point_get(Eo *obj, Eina_Bool screen_coords, int x, int y);
+extern  Efl_Object *efl_access_component_accessible_at_point_get(Eo *obj, Eina_Bool screen_coords, int x, int y);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 #endif /* EFL_BETA_API_SUPPORT */

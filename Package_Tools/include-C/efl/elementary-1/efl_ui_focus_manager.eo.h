@@ -68,7 +68,7 @@ typedef struct _Efl_Ui_Focus_Manager_Logical_End_Detail
  */
 #define EFL_UI_FOCUS_MANAGER_INTERFACE efl_ui_focus_manager_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_focus_manager_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_focus_manager_interface_get(void) ;
 
 /**
  * @brief Moves the focus in the given direction to the next regular widget.
@@ -85,7 +85,7 @@ extern extern_WEAK const Efl_Class *efl_ui_focus_manager_interface_get(void) EIN
  *
  * @ingroup Efl_Ui_Focus_Manager
  */
-extern extern_WEAK Efl_Ui_Focus_Object *efl_ui_focus_manager_move(Eo *obj, Efl_Ui_Focus_Direction direction);
+extern  Efl_Ui_Focus_Object *efl_ui_focus_manager_move(Eo *obj, Efl_Ui_Focus_Direction direction);
 
 /**
  * @brief Returns the object in the @c direction from @c child.
@@ -104,7 +104,7 @@ extern extern_WEAK Efl_Ui_Focus_Object *efl_ui_focus_manager_move(Eo *obj, Efl_U
  *
  * @ingroup Efl_Ui_Focus_Manager
  */
-extern extern_WEAK Efl_Ui_Focus_Object *efl_ui_focus_manager_request_move(Eo *obj, Efl_Ui_Focus_Direction direction, Efl_Ui_Focus_Object *child, Eina_Bool logical);
+extern  Efl_Ui_Focus_Object *efl_ui_focus_manager_request_move(Eo *obj, Efl_Ui_Focus_Direction direction, Efl_Ui_Focus_Object *child, Eina_Bool logical);
 
 /**
  * @brief The element which is currently focused by this manager.
@@ -121,7 +121,7 @@ extern extern_WEAK Efl_Ui_Focus_Object *efl_ui_focus_manager_request_move(Eo *ob
  *
  * @ingroup Efl_Ui_Focus_Manager
  */
-extern extern_WEAK void efl_ui_focus_manager_focus_set(Eo *obj, Efl_Ui_Focus_Object *focus);
+extern  void efl_ui_focus_manager_focus_set(Eo *obj, Efl_Ui_Focus_Object *focus);
 
 /**
  * @brief The element which is currently focused by this manager.
@@ -139,7 +139,7 @@ extern extern_WEAK void efl_ui_focus_manager_focus_set(Eo *obj, Efl_Ui_Focus_Obj
  *
  * @ingroup Efl_Ui_Focus_Manager
  */
-extern extern_WEAK Efl_Ui_Focus_Object *efl_ui_focus_manager_focus_get(const Eo *obj);
+extern  Efl_Ui_Focus_Object *efl_ui_focus_manager_focus_get(const Eo *obj);
 
 /**
  * @brief Add another manager to serve the move requests.
@@ -154,7 +154,7 @@ extern extern_WEAK Efl_Ui_Focus_Object *efl_ui_focus_manager_focus_get(const Eo 
  *
  * @ingroup Efl_Ui_Focus_Manager
  */
-extern extern_WEAK void efl_ui_focus_manager_redirect_set(Eo *obj, Efl_Ui_Focus_Manager *redirect);
+extern  void efl_ui_focus_manager_redirect_set(Eo *obj, Efl_Ui_Focus_Manager *redirect);
 
 /**
  * @brief Add another manager to serve the move requests.
@@ -170,7 +170,7 @@ extern extern_WEAK void efl_ui_focus_manager_redirect_set(Eo *obj, Efl_Ui_Focus_
  *
  * @ingroup Efl_Ui_Focus_Manager
  */
-extern extern_WEAK Efl_Ui_Focus_Manager *efl_ui_focus_manager_redirect_get(const Eo *obj);
+extern  Efl_Ui_Focus_Manager *efl_ui_focus_manager_redirect_get(const Eo *obj);
 
 /**
  * @brief Elements which are at the border of the graph.
@@ -186,7 +186,7 @@ extern extern_WEAK Efl_Ui_Focus_Manager *efl_ui_focus_manager_redirect_get(const
  *
  * @ingroup Efl_Ui_Focus_Manager
  */
-extern extern_WEAK Eina_Iterator *efl_ui_focus_manager_border_elements_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Iterator *efl_ui_focus_manager_border_elements_get(const Eo *obj)  ;
 
 /**
  * @brief Return @c true if the border elements have changed since the last
@@ -200,7 +200,7 @@ extern extern_WEAK Eina_Iterator *efl_ui_focus_manager_border_elements_get(const
  *
  * @ingroup Efl_Ui_Focus_Manager
  */
-extern extern_WEAK Eina_Bool efl_ui_focus_manager_border_elements_changed_get(const Eo *obj);
+extern  Eina_Bool efl_ui_focus_manager_border_elements_changed_get(const Eo *obj);
 
 /**
  * @brief Elements that are at the border of the viewport
@@ -217,7 +217,7 @@ extern extern_WEAK Eina_Bool efl_ui_focus_manager_border_elements_changed_get(co
  *
  * @ingroup Efl_Ui_Focus_Manager
  */
-extern extern_WEAK Eina_Iterator *efl_ui_focus_manager_viewport_elements_get(const Eo *obj, Eina_Rect viewport) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Iterator *efl_ui_focus_manager_viewport_elements_get(const Eo *obj, Eina_Rect viewport)  ;
 
 /**
  * @brief Root node for all logical sub-trees.
@@ -233,7 +233,7 @@ extern extern_WEAK Eina_Iterator *efl_ui_focus_manager_viewport_elements_get(con
  *
  * @ingroup Efl_Ui_Focus_Manager
  */
-extern extern_WEAK Eina_Bool efl_ui_focus_manager_root_set(Eo *obj, Efl_Ui_Focus_Object *root);
+extern  Eina_Bool efl_ui_focus_manager_root_set(Eo *obj, Efl_Ui_Focus_Object *root);
 
 /**
  * @brief Root node for all logical sub-trees.
@@ -248,7 +248,7 @@ extern extern_WEAK Eina_Bool efl_ui_focus_manager_root_set(Eo *obj, Efl_Ui_Focus
  *
  * @ingroup Efl_Ui_Focus_Manager
  */
-extern extern_WEAK Efl_Ui_Focus_Object *efl_ui_focus_manager_root_get(const Eo *obj);
+extern  Efl_Ui_Focus_Object *efl_ui_focus_manager_root_get(const Eo *obj);
 
 /**
  * @brief Returns the widget in the direction next.
@@ -266,7 +266,7 @@ extern extern_WEAK Efl_Ui_Focus_Object *efl_ui_focus_manager_root_get(const Eo *
  *
  * @ingroup Efl_Ui_Focus_Manager
  */
-extern extern_WEAK Efl_Ui_Focus_Object *efl_ui_focus_manager_request_subchild(Eo *obj, Efl_Ui_Focus_Object *root);
+extern  Efl_Ui_Focus_Object *efl_ui_focus_manager_request_subchild(Eo *obj, Efl_Ui_Focus_Object *root);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -283,7 +283,7 @@ extern extern_WEAK Efl_Ui_Focus_Object *efl_ui_focus_manager_request_subchild(Eo
  *
  * @ingroup Efl_Ui_Focus_Manager
  */
-extern extern_WEAK Efl_Ui_Focus_Relations *efl_ui_focus_manager_fetch(Eo *obj, Efl_Ui_Focus_Object *child) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Efl_Ui_Focus_Relations *efl_ui_focus_manager_fetch(Eo *obj, Efl_Ui_Focus_Object *child)  ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 /**
@@ -300,7 +300,7 @@ extern extern_WEAK Efl_Ui_Focus_Relations *efl_ui_focus_manager_fetch(Eo *obj, E
  *
  * @ingroup Efl_Ui_Focus_Manager
  */
-extern extern_WEAK Efl_Ui_Focus_Manager_Logical_End_Detail efl_ui_focus_manager_logical_end(Eo *obj);
+extern  Efl_Ui_Focus_Manager_Logical_End_Detail efl_ui_focus_manager_logical_end(Eo *obj);
 
 /**
  * @brief Resets the history stack of this manager object. This means the
@@ -316,7 +316,7 @@ extern extern_WEAK Efl_Ui_Focus_Manager_Logical_End_Detail efl_ui_focus_manager_
  *
  * @ingroup Efl_Ui_Focus_Manager
  */
-extern extern_WEAK void efl_ui_focus_manager_reset_history(Eo *obj);
+extern  void efl_ui_focus_manager_reset_history(Eo *obj);
 
 /**
  * @brief Removes the uppermost history element, and focuses the previous one.
@@ -330,7 +330,7 @@ extern extern_WEAK void efl_ui_focus_manager_reset_history(Eo *obj);
  *
  * @ingroup Efl_Ui_Focus_Manager
  */
-extern extern_WEAK void efl_ui_focus_manager_pop_history_stack(Eo *obj);
+extern  void efl_ui_focus_manager_pop_history_stack(Eo *obj);
 
 /**
  * @brief Called when this manager is set as redirect.
@@ -347,7 +347,7 @@ extern extern_WEAK void efl_ui_focus_manager_pop_history_stack(Eo *obj);
  *
  * @ingroup Efl_Ui_Focus_Manager
  */
-extern extern_WEAK void efl_ui_focus_manager_setup_on_first_touch(Eo *obj, Efl_Ui_Focus_Direction direction, Efl_Ui_Focus_Object *entry);
+extern  void efl_ui_focus_manager_setup_on_first_touch(Eo *obj, Efl_Ui_Focus_Direction direction, Efl_Ui_Focus_Object *entry);
 
 /**
  * @brief Disables the cache invalidation when an object is moved.
@@ -365,7 +365,7 @@ extern extern_WEAK void efl_ui_focus_manager_setup_on_first_touch(Eo *obj, Efl_U
  *
  * @ingroup Efl_Ui_Focus_Manager
  */
-extern extern_WEAK void efl_ui_focus_manager_dirty_logic_freeze(Eo *obj);
+extern  void efl_ui_focus_manager_dirty_logic_freeze(Eo *obj);
 
 /**
  * @brief Enables the cache invalidation when an object is moved.
@@ -378,9 +378,9 @@ extern extern_WEAK void efl_ui_focus_manager_dirty_logic_freeze(Eo *obj);
  *
  * @ingroup Efl_Ui_Focus_Manager
  */
-extern extern_WEAK void efl_ui_focus_manager_dirty_logic_unfreeze(Eo *obj);
+extern  void efl_ui_focus_manager_dirty_logic_unfreeze(Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FOCUS_MANAGER_EVENT_REDIRECT_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_FOCUS_MANAGER_EVENT_REDIRECT_CHANGED;
 
 /** Redirect object has changed, the old manager is passed as an event
  * argument.
@@ -392,7 +392,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FOCUS_MANAGER_EVEN
  */
 #define EFL_UI_FOCUS_MANAGER_EVENT_REDIRECT_CHANGED (&(_EFL_UI_FOCUS_MANAGER_EVENT_REDIRECT_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FOCUS_MANAGER_EVENT_FLUSH_PRE;
+extern  extern const Efl_Event_Description _EFL_UI_FOCUS_MANAGER_EVENT_FLUSH_PRE;
 
 /** After this event, the manager object will calculate relations in the graph.
  * Can be used to add / remove children in a lazy fashion.
@@ -403,7 +403,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FOCUS_MANAGER_EVEN
  */
 #define EFL_UI_FOCUS_MANAGER_EVENT_FLUSH_PRE (&(_EFL_UI_FOCUS_MANAGER_EVENT_FLUSH_PRE))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FOCUS_MANAGER_EVENT_COORDS_DIRTY;
+extern  extern const Efl_Event_Description _EFL_UI_FOCUS_MANAGER_EVENT_COORDS_DIRTY;
 
 /** Cached relationship calculation results have been invalidated.
  *
@@ -413,7 +413,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FOCUS_MANAGER_EVEN
  */
 #define EFL_UI_FOCUS_MANAGER_EVENT_COORDS_DIRTY (&(_EFL_UI_FOCUS_MANAGER_EVENT_COORDS_DIRTY))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FOCUS_MANAGER_EVENT_MANAGER_FOCUS_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_FOCUS_MANAGER_EVENT_MANAGER_FOCUS_CHANGED;
 
 /** The manager_focus property has changed. The previously focused object is
  * passed as an event argument.
@@ -425,7 +425,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FOCUS_MANAGER_EVEN
  */
 #define EFL_UI_FOCUS_MANAGER_EVENT_MANAGER_FOCUS_CHANGED (&(_EFL_UI_FOCUS_MANAGER_EVENT_MANAGER_FOCUS_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FOCUS_MANAGER_EVENT_DIRTY_LOGIC_FREEZE_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_FOCUS_MANAGER_EVENT_DIRTY_LOGIC_FREEZE_CHANGED;
 
 /** Called when this focus manager is frozen or thawed, even_info being @c true
  * indicates that it is now frozen, @c false indicates that it is thawed.

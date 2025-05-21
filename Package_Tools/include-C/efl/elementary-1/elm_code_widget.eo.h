@@ -38,7 +38,7 @@ typedef enum
  */
 #define ELM_CODE_WIDGET_CLASS elm_code_widget_class_get()
 
-extern extern_WEAK const Efl_Class *elm_code_widget_class_get(void) EINA_CONST;
+extern  const Efl_Class *elm_code_widget_class_get(void) ;
 
 /**
  * @brief The underlying code object that this widget renders. This can only be
@@ -50,7 +50,7 @@ extern extern_WEAK const Efl_Class *elm_code_widget_class_get(void) EINA_CONST;
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_code_set(Eo *obj, Elm_Code *code);
+extern  void efl_ui_code_widget_code_set(Eo *obj, Elm_Code *code);
 
 /**
  * @brief The underlying code object that this widget renders. This can only be
@@ -63,7 +63,7 @@ extern extern_WEAK void efl_ui_code_widget_code_set(Eo *obj, Elm_Code *code);
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK Elm_Code *efl_ui_code_widget_code_get(const Eo *obj);
+extern  Elm_Code *efl_ui_code_widget_code_get(const Eo *obj);
 
 /**
  * @brief Set the font that this widget uses, the font should be a monospaced
@@ -77,7 +77,7 @@ extern extern_WEAK Elm_Code *efl_ui_code_widget_code_get(const Eo *obj);
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_font_set(Eo *obj, const char *name, int size);
+extern  void efl_ui_code_widget_font_set(Eo *obj, const char *name, int size);
 
 /**
  * @brief Set the font that this widget uses, the font should be a monospaced
@@ -91,7 +91,7 @@ extern extern_WEAK void efl_ui_code_widget_font_set(Eo *obj, const char *name, i
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_font_get(const Eo *obj, const char **name, int *size);
+extern  void efl_ui_code_widget_font_get(const Eo *obj, const char **name, int *size);
 
 /**
  * @brief The number of columns in the widget currently. This will be the max
@@ -104,7 +104,7 @@ extern extern_WEAK void efl_ui_code_widget_font_get(const Eo *obj, const char **
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK unsigned int efl_ui_code_widget_columns_get(const Eo *obj);
+extern  unsigned int efl_ui_code_widget_columns_get(const Eo *obj);
 
 /**
  * @brief Set how this widget's scroller should respond to new lines being
@@ -123,7 +123,7 @@ extern extern_WEAK unsigned int efl_ui_code_widget_columns_get(const Eo *obj);
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_gravity_set(Eo *obj, double x, double y);
+extern  void efl_ui_code_widget_gravity_set(Eo *obj, double x, double y);
 
 /**
  * @brief Set how this widget's scroller should respond to new lines being
@@ -142,7 +142,7 @@ extern extern_WEAK void efl_ui_code_widget_gravity_set(Eo *obj, double x, double
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_gravity_get(const Eo *obj, double *x, double *y);
+extern  void efl_ui_code_widget_gravity_get(const Eo *obj, double *x, double *y);
 
 /**
  * @brief The widget's policy for scrollbar visibility.
@@ -153,7 +153,7 @@ extern extern_WEAK void efl_ui_code_widget_gravity_get(const Eo *obj, double *x,
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_policy_set(Eo *obj, Elm_Code_Widget_Scroller_Policy policy_h, Elm_Code_Widget_Scroller_Policy policy_v);
+extern  void efl_ui_code_widget_policy_set(Eo *obj, Elm_Code_Widget_Scroller_Policy policy_h, Elm_Code_Widget_Scroller_Policy policy_v);
 
 /**
  * @brief The widget's policy for scrollbar visibility.
@@ -164,7 +164,7 @@ extern extern_WEAK void efl_ui_code_widget_policy_set(Eo *obj, Elm_Code_Widget_S
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_policy_get(const Eo *obj, Elm_Code_Widget_Scroller_Policy *policy_h, Elm_Code_Widget_Scroller_Policy *policy_v);
+extern  void efl_ui_code_widget_policy_get(const Eo *obj, Elm_Code_Widget_Scroller_Policy *policy_h, Elm_Code_Widget_Scroller_Policy *policy_v);
 
 /**
  * @brief The width of a tab stop, used purely for visual layout of tab
@@ -177,7 +177,7 @@ extern extern_WEAK void efl_ui_code_widget_policy_get(const Eo *obj, Elm_Code_Wi
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_tabstop_set(Eo *obj, unsigned int tabstop);
+extern  void efl_ui_code_widget_tabstop_set(Eo *obj, unsigned int tabstop);
 
 /**
  * @brief The width of a tab stop, used purely for visual layout of tab
@@ -191,7 +191,7 @@ extern extern_WEAK void efl_ui_code_widget_tabstop_set(Eo *obj, unsigned int tab
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK unsigned int efl_ui_code_widget_tabstop_get(const Eo *obj);
+extern  unsigned int efl_ui_code_widget_tabstop_get(const Eo *obj);
 
 /**
  * @brief Whether this widget allows editing.
@@ -206,7 +206,7 @@ extern extern_WEAK unsigned int efl_ui_code_widget_tabstop_get(const Eo *obj);
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_editable_set(Eo *obj, Eina_Bool editable);
+extern  void efl_ui_code_widget_editable_set(Eo *obj, Eina_Bool editable);
 
 /**
  * @brief Whether this widget allows editing.
@@ -226,7 +226,7 @@ extern extern_WEAK void efl_ui_code_widget_editable_set(Eo *obj, Eina_Bool edita
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_code_widget_editable_get(const Eo *obj);
+extern  Eina_Bool efl_ui_code_widget_editable_get(const Eo *obj);
 
 /**
  * @brief Whether line numbers should be displayed in the left gutter.
@@ -240,7 +240,7 @@ extern extern_WEAK Eina_Bool efl_ui_code_widget_editable_get(const Eo *obj);
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_line_numbers_set(Eo *obj, Eina_Bool line_numbers);
+extern  void efl_ui_code_widget_line_numbers_set(Eo *obj, Eina_Bool line_numbers);
 
 /**
  * @brief Whether line numbers should be displayed in the left gutter.
@@ -254,7 +254,7 @@ extern extern_WEAK void efl_ui_code_widget_line_numbers_set(Eo *obj, Eina_Bool l
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_code_widget_line_numbers_get(const Eo *obj);
+extern  Eina_Bool efl_ui_code_widget_line_numbers_get(const Eo *obj);
 
 /**
  * @brief Where the line width market should be shown.
@@ -267,7 +267,7 @@ extern extern_WEAK Eina_Bool efl_ui_code_widget_line_numbers_get(const Eo *obj);
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_line_width_marker_set(Eo *obj, unsigned int line_width_marker);
+extern  void efl_ui_code_widget_line_width_marker_set(Eo *obj, unsigned int line_width_marker);
 
 /**
  * @brief Where the line width market should be shown.
@@ -281,7 +281,7 @@ extern extern_WEAK void efl_ui_code_widget_line_width_marker_set(Eo *obj, unsign
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK unsigned int efl_ui_code_widget_line_width_marker_get(const Eo *obj);
+extern  unsigned int efl_ui_code_widget_line_width_marker_get(const Eo *obj);
 
 /**
  * @brief Whether white space should be shown.
@@ -291,7 +291,7 @@ extern extern_WEAK unsigned int efl_ui_code_widget_line_width_marker_get(const E
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_show_whitespace_set(Eo *obj, Eina_Bool show_whitespace);
+extern  void efl_ui_code_widget_show_whitespace_set(Eo *obj, Eina_Bool show_whitespace);
 
 /**
  * @brief Whether white space should be shown.
@@ -302,7 +302,7 @@ extern extern_WEAK void efl_ui_code_widget_show_whitespace_set(Eo *obj, Eina_Boo
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_code_widget_show_whitespace_get(const Eo *obj);
+extern  Eina_Bool efl_ui_code_widget_show_whitespace_get(const Eo *obj);
 
 /**
  * @brief Set an alpha color value for this widget (0 - 255) default is fully
@@ -313,7 +313,7 @@ extern extern_WEAK Eina_Bool efl_ui_code_widget_show_whitespace_get(const Eo *ob
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_alpha_set(Eo *obj, int alpha);
+extern  void efl_ui_code_widget_alpha_set(Eo *obj, int alpha);
 
 /**
  * @brief Set an alpha color value for this widget (0 - 255) default is fully
@@ -325,7 +325,7 @@ extern extern_WEAK void efl_ui_code_widget_alpha_set(Eo *obj, int alpha);
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK int efl_ui_code_widget_alpha_get(const Eo *obj);
+extern  int efl_ui_code_widget_alpha_get(const Eo *obj);
 
 /**
  * @brief Whether syntax highlighting should be use for this widget.
@@ -335,7 +335,7 @@ extern extern_WEAK int efl_ui_code_widget_alpha_get(const Eo *obj);
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_syntax_enabled_set(Eo *obj, Eina_Bool syntax_enabled);
+extern  void efl_ui_code_widget_syntax_enabled_set(Eo *obj, Eina_Bool syntax_enabled);
 
 /**
  * @brief Whether syntax highlighting should be use for this widget.
@@ -346,7 +346,7 @@ extern extern_WEAK void efl_ui_code_widget_syntax_enabled_set(Eo *obj, Eina_Bool
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_code_widget_syntax_enabled_get(const Eo *obj);
+extern  Eina_Bool efl_ui_code_widget_syntax_enabled_get(const Eo *obj);
 
 /**
  * @brief Whether space characters should be inserted instead of tabs.
@@ -357,7 +357,7 @@ extern extern_WEAK Eina_Bool efl_ui_code_widget_syntax_enabled_get(const Eo *obj
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_tab_inserts_spaces_set(Eo *obj, Eina_Bool tab_inserts_spaces);
+extern  void efl_ui_code_widget_tab_inserts_spaces_set(Eo *obj, Eina_Bool tab_inserts_spaces);
 
 /**
  * @brief Whether space characters should be inserted instead of tabs.
@@ -369,7 +369,7 @@ extern extern_WEAK void efl_ui_code_widget_tab_inserts_spaces_set(Eo *obj, Eina_
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_code_widget_tab_inserts_spaces_get(const Eo *obj);
+extern  Eina_Bool efl_ui_code_widget_tab_inserts_spaces_get(const Eo *obj);
 
 /**
  * @brief The current location of the text cursor.
@@ -380,7 +380,7 @@ extern extern_WEAK Eina_Bool efl_ui_code_widget_tab_inserts_spaces_get(const Eo 
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_cursor_position_set(Eo *obj, unsigned int row, unsigned int col);
+extern  void efl_ui_code_widget_cursor_position_set(Eo *obj, unsigned int row, unsigned int col);
 
 /**
  * @brief The current location of the text cursor.
@@ -392,13 +392,13 @@ extern extern_WEAK void efl_ui_code_widget_cursor_position_set(Eo *obj, unsigned
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_cursor_position_get(const Eo *obj, unsigned int *row, unsigned int *col);
+extern  void efl_ui_code_widget_cursor_position_get(const Eo *obj, unsigned int *row, unsigned int *col);
 
 /** Update and refresh theme for widget.
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_theme_refresh(Eo *obj);
+extern  void efl_ui_code_widget_theme_refresh(Eo *obj);
 
 /**
  * @brief Refresh code line in widget
@@ -408,7 +408,7 @@ extern extern_WEAK void efl_ui_code_widget_theme_refresh(Eo *obj);
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_line_refresh(Eo *obj, Elm_Code_Line *line);
+extern  void efl_ui_code_widget_line_refresh(Eo *obj, Elm_Code_Line *line);
 
 /**
  * @brief Check if the code line is currently visible
@@ -421,7 +421,7 @@ extern extern_WEAK void efl_ui_code_widget_line_refresh(Eo *obj, Elm_Code_Line *
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_code_widget_line_visible_get(Eo *obj, Elm_Code_Line *line);
+extern  Eina_Bool efl_ui_code_widget_line_visible_get(Eo *obj, Elm_Code_Line *line);
 
 /**
  * @brief Get the number of code lines currently visible in the widget
@@ -432,7 +432,7 @@ extern extern_WEAK Eina_Bool efl_ui_code_widget_line_visible_get(Eo *obj, Elm_Co
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK unsigned int efl_ui_code_widget_lines_visible_get(Eo *obj);
+extern  unsigned int efl_ui_code_widget_lines_visible_get(Eo *obj);
 
 /**
  * @brief Get the row, col position for a given coordinate on the widget.
@@ -447,7 +447,7 @@ extern extern_WEAK unsigned int efl_ui_code_widget_lines_visible_get(Eo *obj);
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_code_widget_position_at_coordinates_get(Eo *obj, int x, int y, unsigned int *row, int *col);
+extern  Eina_Bool efl_ui_code_widget_position_at_coordinates_get(Eo *obj, int x, int y, unsigned int *row, int *col);
 
 /**
  * @brief Get the geometry for the cell at the specified position.
@@ -464,7 +464,7 @@ extern extern_WEAK Eina_Bool efl_ui_code_widget_position_at_coordinates_get(Eo *
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_code_widget_geometry_for_position_get(Eo *obj, unsigned int row, int col, int *x, int *y, int *w, int *h);
+extern  Eina_Bool efl_ui_code_widget_geometry_for_position_get(Eo *obj, unsigned int row, int col, int *x, int *y, int *w, int *h);
 
 /**
  * @brief Get the column width of the gutter
@@ -475,7 +475,7 @@ extern extern_WEAK Eina_Bool efl_ui_code_widget_geometry_for_position_get(Eo *ob
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK int efl_ui_code_widget_text_left_gutter_width_get(Eo *obj);
+extern  int efl_ui_code_widget_text_left_gutter_width_get(Eo *obj);
 
 /**
  * @brief Get text between given positions
@@ -490,7 +490,7 @@ extern extern_WEAK int efl_ui_code_widget_text_left_gutter_width_get(Eo *obj);
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK char *efl_ui_code_widget_text_between_positions_get(Eo *obj, unsigned int start_line, unsigned int start_col, unsigned int end_line, unsigned int end_col);
+extern  char *efl_ui_code_widget_text_between_positions_get(Eo *obj, unsigned int start_line, unsigned int start_col, unsigned int end_line, unsigned int end_col);
 
 /**
  * @brief Insert the provided text at the cursor position. This will add the
@@ -501,7 +501,7 @@ extern extern_WEAK char *efl_ui_code_widget_text_between_positions_get(Eo *obj, 
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_text_at_cursor_insert(Eo *obj, const char *text);
+extern  void efl_ui_code_widget_text_at_cursor_insert(Eo *obj, const char *text);
 
 /**
  * @brief Get text column width at given position
@@ -514,7 +514,7 @@ extern extern_WEAK void efl_ui_code_widget_text_at_cursor_insert(Eo *obj, const 
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK unsigned int efl_ui_code_widget_line_text_column_width_to_position(Eo *obj, Elm_Code_Line *line, unsigned int position);
+extern  unsigned int efl_ui_code_widget_line_text_column_width_to_position(Eo *obj, Elm_Code_Line *line, unsigned int position);
 
 /**
  * @brief Get text column width for code line
@@ -526,7 +526,7 @@ extern extern_WEAK unsigned int efl_ui_code_widget_line_text_column_width_to_pos
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK unsigned int efl_ui_code_widget_line_text_column_width_get(Eo *obj, Elm_Code_Line *line);
+extern  unsigned int efl_ui_code_widget_line_text_column_width_get(Eo *obj, Elm_Code_Line *line);
 
 /**
  * @brief Get position from column
@@ -539,7 +539,7 @@ extern extern_WEAK unsigned int efl_ui_code_widget_line_text_column_width_get(Eo
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK unsigned int efl_ui_code_widget_line_text_position_for_column_get(Eo *obj, Elm_Code_Line *line, unsigned int column);
+extern  unsigned int efl_ui_code_widget_line_text_position_for_column_get(Eo *obj, Elm_Code_Line *line, unsigned int column);
 
 /**
  * @brief Get tabwidth for column
@@ -551,7 +551,7 @@ extern extern_WEAK unsigned int efl_ui_code_widget_line_text_position_for_column
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK unsigned int efl_ui_code_widget_text_tabwidth_at_column_get(Eo *obj, unsigned int column);
+extern  unsigned int efl_ui_code_widget_text_tabwidth_at_column_get(Eo *obj, unsigned int column);
 
 /**
  * @brief Toggle the display of the line status widget
@@ -561,13 +561,13 @@ extern extern_WEAK unsigned int efl_ui_code_widget_text_tabwidth_at_column_get(E
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_line_status_toggle(Eo *obj, Elm_Code_Line *line);
+extern  void efl_ui_code_widget_line_status_toggle(Eo *obj, Elm_Code_Line *line);
 
 /** Undo last action
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_undo(Eo *obj);
+extern  void efl_ui_code_widget_undo(Eo *obj);
 
 /**
  * @brief Determine if there are any available undo operations
@@ -578,13 +578,13 @@ extern extern_WEAK void efl_ui_code_widget_undo(Eo *obj);
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_code_widget_can_undo_get(Eo *obj);
+extern  Eina_Bool efl_ui_code_widget_can_undo_get(Eo *obj);
 
 /** Redo last action
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK void efl_ui_code_widget_redo(Eo *obj);
+extern  void efl_ui_code_widget_redo(Eo *obj);
 
 /**
  * @brief Determine if there are any available redo operations
@@ -595,9 +595,9 @@ extern extern_WEAK void efl_ui_code_widget_redo(Eo *obj);
  *
  * @ingroup Elm_Code_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_code_widget_can_redo_get(Eo *obj);
+extern  Eina_Bool efl_ui_code_widget_can_redo_get(Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_LINE_CLICKED;
+extern  extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_LINE_CLICKED;
 
 /** Called when text line was clicked
  * @return Elm_Code_Line
@@ -606,7 +606,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_
  */
 #define EFL_UI_CODE_WIDGET_EVENT_LINE_CLICKED (&(_EFL_UI_CODE_WIDGET_EVENT_LINE_CLICKED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_LINE_GUTTER_CLICKED;
+extern  extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_LINE_GUTTER_CLICKED;
 
 /** Called when gutter was clicked
  * @return Elm_Code_Line
@@ -615,7 +615,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_
  */
 #define EFL_UI_CODE_WIDGET_EVENT_LINE_GUTTER_CLICKED (&(_EFL_UI_CODE_WIDGET_EVENT_LINE_GUTTER_CLICKED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CHANGED_USER;
+extern  extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CHANGED_USER;
 
 /** Called when object changed due to user interaction
  *
@@ -623,7 +623,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_
  */
 #define EFL_UI_CODE_WIDGET_EVENT_CHANGED_USER (&(_EFL_UI_CODE_WIDGET_EVENT_CHANGED_USER))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CURSOR_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CURSOR_CHANGED;
 
 /** Called when cursor changed
  * @return Elm_Code_Widget *
@@ -632,7 +632,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_
  */
 #define EFL_UI_CODE_WIDGET_EVENT_CURSOR_CHANGED (&(_EFL_UI_CODE_WIDGET_EVENT_CURSOR_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_START;
+extern  extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_START;
 
 /** Called when a selection is started
  * @return Elm_Code_Widget *
@@ -641,7 +641,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_
  */
 #define EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_START (&(_EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_START))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CHANGED;
 
 /** Called when selection changed
  * @return Elm_Code_Widget *
@@ -650,7 +650,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_
  */
 #define EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CHANGED (&(_EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CLEARED;
+extern  extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CLEARED;
 
 /** Called when selection was cleared
  * @return Elm_Code_Widget *
@@ -659,7 +659,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_
  */
 #define EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CLEARED (&(_EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CLEARED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CUT;
+extern  extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CUT;
 
 /** Called when a cut action is performed
  * @return Elm_Code_Widget *
@@ -668,7 +668,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_
  */
 #define EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CUT (&(_EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CUT))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_COPY;
+extern  extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_COPY;
 
 /** Called when a copy action is performed
  * @return Elm_Code_Widget *
@@ -677,7 +677,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_
  */
 #define EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_COPY (&(_EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_COPY))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_PASTE;
+extern  extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_PASTE;
 
 /** Called when a paste action is performed
  * @return Elm_Code_Widget *

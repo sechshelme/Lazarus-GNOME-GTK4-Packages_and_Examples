@@ -16,7 +16,7 @@ typedef Eo Eldbus_Model;
 #ifdef EFL_BETA_API_SUPPORT
 #define ELDBUS_MODEL_CLASS eldbus_model_class_get()
 
-extern extern_WEAK const Efl_Class *eldbus_model_class_get(void) EINA_CONST;
+extern  const Efl_Class *eldbus_model_class_get(void) ;
 
 /**
  * @brief Define connection parameters.
@@ -30,7 +30,7 @@ extern extern_WEAK const Efl_Class *eldbus_model_class_get(void) EINA_CONST;
  *
  * @ingroup Eldbus_Model
  */
-extern extern_WEAK void eldbus_model_connect(Eo *obj, Eldbus_Connection_Type type, const char *address, Eina_Bool priv);
+extern  void eldbus_model_connect(Eo *obj, Eldbus_Connection_Type type, const char *address, Eina_Bool priv);
 
 /**
  * @brief Define the connection.
@@ -42,7 +42,7 @@ extern extern_WEAK void eldbus_model_connect(Eo *obj, Eldbus_Connection_Type typ
  *
  * @ingroup Eldbus_Model
  */
-extern extern_WEAK void eldbus_model_connection_set(Eo *obj, Eldbus_Connection *dbus);
+extern  void eldbus_model_connection_set(Eo *obj, Eldbus_Connection *dbus);
 
 /**
  * @brief Define the connection.
@@ -55,7 +55,7 @@ extern extern_WEAK void eldbus_model_connection_set(Eo *obj, Eldbus_Connection *
  *
  * @ingroup Eldbus_Model
  */
-extern extern_WEAK Eldbus_Connection *eldbus_model_connection_get(const Eo *obj);
+extern  Eldbus_Connection *eldbus_model_connection_get(const Eo *obj);
 
 /**
  * @brief Connection type
@@ -66,7 +66,7 @@ extern extern_WEAK Eldbus_Connection *eldbus_model_connection_get(const Eo *obj)
  *
  * @ingroup Eldbus_Model
  */
-extern extern_WEAK Eldbus_Connection_Type eldbus_model_type_get(const Eo *obj);
+extern  Eldbus_Connection_Type eldbus_model_type_get(const Eo *obj);
 
 /**
  * @brief Remote DBus address
@@ -77,7 +77,7 @@ extern extern_WEAK Eldbus_Connection_Type eldbus_model_type_get(const Eo *obj);
  *
  * @ingroup Eldbus_Model
  */
-extern extern_WEAK const char *eldbus_model_address_get(const Eo *obj);
+extern  const char *eldbus_model_address_get(const Eo *obj);
 
 /**
  * @brief Indicate if the DBus connection is shared or private
@@ -88,7 +88,7 @@ extern extern_WEAK const char *eldbus_model_address_get(const Eo *obj);
  *
  * @ingroup Eldbus_Model
  */
-extern extern_WEAK Eina_Bool eldbus_model_private_get(const Eo *obj);
+extern  Eina_Bool eldbus_model_private_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

@@ -40,7 +40,7 @@ typedef struct _Efl_Ui_Position_Manager_Range_Update
  */
 #define EFL_UI_POSITION_MANAGER_ENTITY_INTERFACE efl_ui_position_manager_entity_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_position_manager_entity_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_position_manager_entity_interface_get(void) ;
 
 /**
  * @brief Returns the version of Data_Access that is used. This object needs to
@@ -54,7 +54,7 @@ extern extern_WEAK const Efl_Class *efl_ui_position_manager_entity_interface_get
  *
  * @ingroup Efl_Ui_Position_Manager_Entity
  */
-extern extern_WEAK int efl_ui_position_manager_entity_version(Eo *obj, int max);
+extern  int efl_ui_position_manager_entity_version(Eo *obj, int max);
 
 /**
  * @brief This is the position and size of the viewport, where elements are
@@ -65,7 +65,7 @@ extern extern_WEAK int efl_ui_position_manager_entity_version(Eo *obj, int max);
  *
  * @ingroup Efl_Ui_Position_Manager_Entity
  */
-extern extern_WEAK void efl_ui_position_manager_entity_viewport_set(Eo *obj, Eina_Rect viewport);
+extern  void efl_ui_position_manager_entity_viewport_set(Eo *obj, Eina_Rect viewport);
 
 /**
  * @brief Move the items relative to the viewport.
@@ -81,7 +81,7 @@ extern extern_WEAK void efl_ui_position_manager_entity_viewport_set(Eo *obj, Ein
  *
  * @ingroup Efl_Ui_Position_Manager_Entity
  */
-extern extern_WEAK void efl_ui_position_manager_entity_scroll_position_set(Eo *obj, double x, double y);
+extern  void efl_ui_position_manager_entity_scroll_position_set(Eo *obj, double x, double y);
 
 /**
  * @brief Return the position and size of item idx.
@@ -97,7 +97,7 @@ extern extern_WEAK void efl_ui_position_manager_entity_scroll_position_set(Eo *o
  *
  * @ingroup Efl_Ui_Position_Manager_Entity
  */
-extern extern_WEAK Eina_Rect efl_ui_position_manager_entity_position_single_item(Eo *obj, int idx);
+extern  Eina_Rect efl_ui_position_manager_entity_position_single_item(Eo *obj, int idx);
 
 /**
  * @brief The new item @c subobj has been added at the @c added_index field.
@@ -112,7 +112,7 @@ extern extern_WEAK Eina_Rect efl_ui_position_manager_entity_position_single_item
  *
  * @ingroup Efl_Ui_Position_Manager_Entity
  */
-extern extern_WEAK void efl_ui_position_manager_entity_item_added(Eo *obj, int added_index, Efl_Gfx_Entity *subobj);
+extern  void efl_ui_position_manager_entity_item_added(Eo *obj, int added_index, Efl_Gfx_Entity *subobj);
 
 /**
  * @brief The item @c subobj previously at position @c removed_index has been
@@ -126,7 +126,7 @@ extern extern_WEAK void efl_ui_position_manager_entity_item_added(Eo *obj, int a
  *
  * @ingroup Efl_Ui_Position_Manager_Entity
  */
-extern extern_WEAK void efl_ui_position_manager_entity_item_removed(Eo *obj, int removed_index, Efl_Gfx_Entity *subobj);
+extern  void efl_ui_position_manager_entity_item_removed(Eo *obj, int removed_index, Efl_Gfx_Entity *subobj);
 
 /**
  * @brief The size of the items from @c start_id to @c end_id have been
@@ -138,7 +138,7 @@ extern extern_WEAK void efl_ui_position_manager_entity_item_removed(Eo *obj, int
  *
  * @ingroup Efl_Ui_Position_Manager_Entity
  */
-extern extern_WEAK void efl_ui_position_manager_entity_item_size_changed(Eo *obj, int start_id, int end_id);
+extern  void efl_ui_position_manager_entity_item_size_changed(Eo *obj, int start_id, int end_id);
 
 /**
  * @brief The items from @c start_id to @c end_id now have their entities ready
@@ -152,7 +152,7 @@ extern extern_WEAK void efl_ui_position_manager_entity_item_size_changed(Eo *obj
  *
  * @ingroup Efl_Ui_Position_Manager_Entity
  */
-extern extern_WEAK void efl_ui_position_manager_entity_entities_ready(Eo *obj, unsigned int start_id, unsigned int end_id);
+extern  void efl_ui_position_manager_entity_entities_ready(Eo *obj, unsigned int start_id, unsigned int end_id);
 
 /**
  * @brief Translates the @c current_id, into a new id which is oriented in the
@@ -168,9 +168,9 @@ extern extern_WEAK void efl_ui_position_manager_entity_entities_ready(Eo *obj, u
  *
  * @ingroup Efl_Ui_Position_Manager_Entity
  */
-extern extern_WEAK Eina_Bool efl_ui_position_manager_entity_relative_item(Eo *obj, unsigned int current_id, Efl_Ui_Focus_Direction direction, unsigned int *index);
+extern  Eina_Bool efl_ui_position_manager_entity_relative_item(Eo *obj, unsigned int current_id, Efl_Ui_Focus_Direction direction, unsigned int *index);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_POSITION_MANAGER_ENTITY_EVENT_CONTENT_SIZE_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_POSITION_MANAGER_ENTITY_EVENT_CONTENT_SIZE_CHANGED;
 
 /** Emitted when the aggregate size of all items has changed. This can be used
  * to resize an enclosing Pan object.
@@ -180,7 +180,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_POSITION_MANAGER_E
  */
 #define EFL_UI_POSITION_MANAGER_ENTITY_EVENT_CONTENT_SIZE_CHANGED (&(_EFL_UI_POSITION_MANAGER_ENTITY_EVENT_CONTENT_SIZE_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_POSITION_MANAGER_ENTITY_EVENT_CONTENT_MIN_SIZE_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_POSITION_MANAGER_ENTITY_EVENT_CONTENT_MIN_SIZE_CHANGED;
 
 /** Emitted when the minimum size of all items has changed. The minimum size is
  * the size that this position_manager needs to display a single item.
@@ -190,7 +190,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_POSITION_MANAGER_E
  */
 #define EFL_UI_POSITION_MANAGER_ENTITY_EVENT_CONTENT_MIN_SIZE_CHANGED (&(_EFL_UI_POSITION_MANAGER_ENTITY_EVENT_CONTENT_MIN_SIZE_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_POSITION_MANAGER_ENTITY_EVENT_VISIBLE_RANGE_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_POSITION_MANAGER_ENTITY_EVENT_VISIBLE_RANGE_CHANGED;
 
 /**
  * No description

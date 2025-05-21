@@ -52,7 +52,7 @@ typedef enum
  */
 #define EFL_CANVAS_WL_CLASS efl_canvas_wl_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_wl_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_canvas_wl_class_get(void) ;
 
 /**
  * @brief Run a specified command in the compositor widget. If GL is available,
@@ -68,7 +68,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_wl_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Canvas_Wl
  */
-extern extern_WEAK Efl_Exe *efl_canvas_wl_run(Eo *obj, const char *cmd);
+extern  Efl_Exe *efl_canvas_wl_run(Eo *obj, const char *cmd);
 
 /**
  * @brief The flags to be used when running commands with
@@ -84,7 +84,7 @@ extern extern_WEAK Efl_Exe *efl_canvas_wl_run(Eo *obj, const char *cmd);
  *
  * @ingroup Efl_Canvas_Wl
  */
-extern extern_WEAK void efl_canvas_wl_exec_flags_set(Eo *obj, Efl_Exe_Flags flags);
+extern  void efl_canvas_wl_exec_flags_set(Eo *obj, Efl_Exe_Flags flags);
 
 /**
  * @brief The flags to be used when running commands with
@@ -101,7 +101,7 @@ extern extern_WEAK void efl_canvas_wl_exec_flags_set(Eo *obj, Efl_Exe_Flags flag
  *
  * @ingroup Efl_Canvas_Wl
  */
-extern extern_WEAK Efl_Exe_Flags efl_canvas_wl_exec_flags_get(const Eo *obj);
+extern  Efl_Exe_Flags efl_canvas_wl_exec_flags_get(const Eo *obj);
 
 /**
  * @brief Add a process to the list of allowed clients for the compositor
@@ -117,7 +117,7 @@ extern extern_WEAK Efl_Exe_Flags efl_canvas_wl_exec_flags_get(const Eo *obj);
  *
  * @ingroup Efl_Canvas_Wl
  */
-extern extern_WEAK void efl_canvas_wl_allowed_pid_add(Eo *obj, int pid);
+extern  void efl_canvas_wl_allowed_pid_add(Eo *obj, int pid);
 
 /**
  * @brief Remove a process from the list of allowed clients for the compositor
@@ -133,7 +133,7 @@ extern extern_WEAK void efl_canvas_wl_allowed_pid_add(Eo *obj, int pid);
  *
  * @ingroup Efl_Canvas_Wl
  */
-extern extern_WEAK void efl_canvas_wl_allowed_pid_del(Eo *obj, int pid);
+extern  void efl_canvas_wl_allowed_pid_del(Eo *obj, int pid);
 
 /**
  * @brief Activate and raise the bottom-most toplevel surface.
@@ -146,7 +146,7 @@ extern extern_WEAK void efl_canvas_wl_allowed_pid_del(Eo *obj, int pid);
  *
  * @ingroup Efl_Canvas_Wl
  */
-extern extern_WEAK Efl_Canvas_Wl_Surface *efl_canvas_wl_surface_next(Eo *obj);
+extern  Efl_Canvas_Wl_Surface *efl_canvas_wl_surface_next(Eo *obj);
 
 /**
  * @brief Activate and raise the second top-most toplevel surface.
@@ -159,7 +159,7 @@ extern extern_WEAK Efl_Canvas_Wl_Surface *efl_canvas_wl_surface_next(Eo *obj);
  *
  * @ingroup Efl_Canvas_Wl
  */
-extern extern_WEAK Efl_Canvas_Wl_Surface *efl_canvas_wl_surface_prev(Eo *obj);
+extern  Efl_Canvas_Wl_Surface *efl_canvas_wl_surface_prev(Eo *obj);
 
 /**
  * @brief This is the currently activated surface in the compositor widget.
@@ -174,7 +174,7 @@ extern extern_WEAK Efl_Canvas_Wl_Surface *efl_canvas_wl_surface_prev(Eo *obj);
  *
  * @ingroup Efl_Canvas_Wl
  */
-extern extern_WEAK Eina_Bool efl_canvas_wl_active_surface_set(Eo *obj, Efl_Canvas_Wl_Surface *surface);
+extern  Eina_Bool efl_canvas_wl_active_surface_set(Eo *obj, Efl_Canvas_Wl_Surface *surface);
 
 /**
  * @brief This is the currently activated surface in the compositor widget.
@@ -188,7 +188,7 @@ extern extern_WEAK Eina_Bool efl_canvas_wl_active_surface_set(Eo *obj, Efl_Canva
  *
  * @ingroup Efl_Canvas_Wl
  */
-extern extern_WEAK Efl_Canvas_Wl_Surface *efl_canvas_wl_active_surface_get(const Eo *obj);
+extern  Efl_Canvas_Wl_Surface *efl_canvas_wl_active_surface_get(const Eo *obj);
 
 /**
  * @brief When set to @c true, the compositor will propagate the aspect ratio
@@ -202,7 +202,7 @@ extern extern_WEAK Efl_Canvas_Wl_Surface *efl_canvas_wl_active_surface_get(const
  *
  * @ingroup Efl_Canvas_Wl
  */
-extern extern_WEAK void efl_canvas_wl_aspect_propagate_set(Eo *obj, Eina_Bool set);
+extern  void efl_canvas_wl_aspect_propagate_set(Eo *obj, Eina_Bool set);
 
 /**
  * @brief When set to @c true, the compositor will propagate the aspect ratio
@@ -217,7 +217,7 @@ extern extern_WEAK void efl_canvas_wl_aspect_propagate_set(Eo *obj, Eina_Bool se
  *
  * @ingroup Efl_Canvas_Wl
  */
-extern extern_WEAK Eina_Bool efl_canvas_wl_aspect_propagate_get(const Eo *obj);
+extern  Eina_Bool efl_canvas_wl_aspect_propagate_get(const Eo *obj);
 
 /**
  * @brief When set to @c true, the compositor will propagate the min and max
@@ -231,7 +231,7 @@ extern extern_WEAK Eina_Bool efl_canvas_wl_aspect_propagate_get(const Eo *obj);
  *
  * @ingroup Efl_Canvas_Wl
  */
-extern extern_WEAK void efl_canvas_wl_minmax_propagate_set(Eo *obj, Eina_Bool set);
+extern  void efl_canvas_wl_minmax_propagate_set(Eo *obj, Eina_Bool set);
 
 /**
  * @brief When set to @c true, the compositor will propagate the min and max
@@ -246,7 +246,7 @@ extern extern_WEAK void efl_canvas_wl_minmax_propagate_set(Eo *obj, Eina_Bool se
  *
  * @ingroup Efl_Canvas_Wl
  */
-extern extern_WEAK Eina_Bool efl_canvas_wl_minmax_propagate_get(const Eo *obj);
+extern  Eina_Bool efl_canvas_wl_minmax_propagate_get(const Eo *obj);
 
 /**
  * @brief Set the rotation and flip for the compositor's internal output, which
@@ -262,7 +262,7 @@ extern extern_WEAK Eina_Bool efl_canvas_wl_minmax_propagate_get(const Eo *obj);
  *
  * @ingroup Efl_Canvas_Wl
  */
-extern extern_WEAK void efl_canvas_wl_rotation_set(Eo *obj, Efl_Canvas_Wl_Rotation rotation, Eina_Bool rtl);
+extern  void efl_canvas_wl_rotation_set(Eo *obj, Efl_Canvas_Wl_Rotation rotation, Eina_Bool rtl);
 
 /**
  * @brief Set the rotation and flip for the compositor's internal output, which
@@ -278,7 +278,7 @@ extern extern_WEAK void efl_canvas_wl_rotation_set(Eo *obj, Efl_Canvas_Wl_Rotati
  *
  * @ingroup Efl_Canvas_Wl
  */
-extern extern_WEAK void efl_canvas_wl_rotation_get(const Eo *obj, Efl_Canvas_Wl_Rotation *rotation, Eina_Bool *rtl);
+extern  void efl_canvas_wl_rotation_get(const Eo *obj, Efl_Canvas_Wl_Rotation *rotation, Eina_Bool *rtl);
 
 /**
  * @brief Add a new wl_global to the internal compositor.
@@ -301,7 +301,7 @@ extern extern_WEAK void efl_canvas_wl_rotation_get(const Eo *obj, Efl_Canvas_Wl_
  *
  * @ingroup Efl_Canvas_Wl
  */
-extern extern_WEAK Efl_Canvas_Wl_Wl_Global *efl_canvas_wl_global_add(Eo *obj, const Efl_Canvas_Wl_Wl_Interface *interface, unsigned int version, Efl_Canvas_Wl_Wl_Interface_Data *data, Efl_Canvas_Wl_Wl_Interface_Bind_Cb *bind_cb);
+extern  Efl_Canvas_Wl_Wl_Global *efl_canvas_wl_global_add(Eo *obj, const Efl_Canvas_Wl_Wl_Interface *interface, unsigned int version, Efl_Canvas_Wl_Wl_Interface_Data *data, Efl_Canvas_Wl_Wl_Interface_Bind_Cb *bind_cb);
 
 /**
  * @brief Sets the keymap for the internal compositor's seat.
@@ -321,7 +321,7 @@ extern extern_WEAK Efl_Canvas_Wl_Wl_Global *efl_canvas_wl_global_add(Eo *obj, co
  *
  * @ingroup Efl_Canvas_Wl
  */
-extern extern_WEAK void efl_canvas_wl_seat_keymap_set(Eo *obj, Efl_Input_Device *seat, Efl_Canvas_Wl_Xkb_State *state, const char *keymap_str, Efl_Canvas_Wl_Wl_Array *key_array);
+extern  void efl_canvas_wl_seat_keymap_set(Eo *obj, Efl_Input_Device *seat, Efl_Canvas_Wl_Xkb_State *state, const char *keymap_str, Efl_Canvas_Wl_Wl_Array *key_array);
 
 /**
  * @brief Modify the key repeat rate and delay of the internal compositor for a
@@ -339,9 +339,9 @@ extern extern_WEAK void efl_canvas_wl_seat_keymap_set(Eo *obj, Efl_Input_Device 
  *
  * @ingroup Efl_Canvas_Wl
  */
-extern extern_WEAK void efl_canvas_wl_seat_key_repeat_set(Eo *obj, Efl_Input_Device *seat, int repeat_rate, int repeat_delay);
+extern  void efl_canvas_wl_seat_key_repeat_set(Eo *obj, Efl_Input_Device *seat, int repeat_rate, int repeat_delay);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_TOPLEVEL_ADDED;
+extern  extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_TOPLEVEL_ADDED;
 
 /** Contains the toplevel surface which was added.
  * @return Efl_Canvas_Wl_Surface *
@@ -352,7 +352,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_TOPLE
  */
 #define EFL_CANVAS_WL_EVENT_TOPLEVEL_ADDED (&(_EFL_CANVAS_WL_EVENT_TOPLEVEL_ADDED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_CHILD_ADDED;
+extern  extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_CHILD_ADDED;
 
 /** Contains the toplevel child surface which was added.
  * @return Efl_Canvas_Wl_Surface *
@@ -363,7 +363,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_CHILD
  */
 #define EFL_CANVAS_WL_EVENT_CHILD_ADDED (&(_EFL_CANVAS_WL_EVENT_CHILD_ADDED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_POPUP_ADDED;
+extern  extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_POPUP_ADDED;
 
 /** Contains the popup surface which was added.
  * @return Efl_Canvas_Wl_Surface *
@@ -374,7 +374,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_POPUP
  */
 #define EFL_CANVAS_WL_EVENT_POPUP_ADDED (&(_EFL_CANVAS_WL_EVENT_POPUP_ADDED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_SEAT_ADDED;
+extern  extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_SEAT_ADDED;
 
 /** Contains the seat object that was added.
  * @return Efl_Input_Device *

@@ -45,7 +45,7 @@ typedef enum
  */
 #define EFL_CANVAS_LAYOUT_PART_TEXT_CLASS efl_canvas_layout_part_text_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_layout_part_text_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_canvas_layout_part_text_class_get(void) ;
 
 /**
  * @brief Sizing policy for text parts.
@@ -58,7 +58,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_layout_part_text_class_get(void) 
  *
  * @ingroup Efl_Canvas_Layout_Part_Text
  */
-extern extern_WEAK void efl_canvas_layout_part_text_expand_set(Eo *obj, Efl_Canvas_Layout_Part_Text_Expand type);
+extern  void efl_canvas_layout_part_text_expand_set(Eo *obj, Efl_Canvas_Layout_Part_Text_Expand type);
 
 /**
  * @brief Sizing policy for text parts.
@@ -72,7 +72,7 @@ extern extern_WEAK void efl_canvas_layout_part_text_expand_set(Eo *obj, Efl_Canv
  *
  * @ingroup Efl_Canvas_Layout_Part_Text
  */
-extern extern_WEAK Efl_Canvas_Layout_Part_Text_Expand efl_canvas_layout_part_text_expand_get(const Eo *obj);
+extern  Efl_Canvas_Layout_Part_Text_Expand efl_canvas_layout_part_text_expand_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

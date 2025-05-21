@@ -25,7 +25,7 @@ typedef Eo Efl_Ui_Position_Manager_List;
  */
 #define EFL_UI_POSITION_MANAGER_LIST_CLASS efl_ui_position_manager_list_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_position_manager_list_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_position_manager_list_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

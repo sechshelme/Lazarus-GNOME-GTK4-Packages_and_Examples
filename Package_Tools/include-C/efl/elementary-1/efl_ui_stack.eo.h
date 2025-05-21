@@ -24,6 +24,6 @@ typedef Eo Efl_Ui_Stack;
  */
 #define EFL_UI_STACK_CLASS efl_ui_stack_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_stack_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_stack_class_get(void) ;
 
 #endif

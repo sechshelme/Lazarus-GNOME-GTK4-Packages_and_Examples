@@ -156,7 +156,7 @@ typedef struct _Efl_Net_Control_Agent_Browser_Url
  */
 #define EFL_NET_CONTROL_MANAGER_CLASS efl_net_control_manager_class_get()
 
-ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_control_manager_class_get(void) EINA_CONST;
+ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_control_manager_class_get(void) ;
 
 /**
  * @brief If @c true disable all network technologies that use radio
@@ -220,7 +220,7 @@ ECORE_CON_API ECORE_CON_API_WEAK Efl_Net_Control_State efl_net_control_manager_s
  *
  * @ingroup Efl_Net_Control_Manager
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_manager_access_points_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_manager_access_points_get(const Eo *obj)  ;
 
 /**
  * @brief The iterator of current technologies.
@@ -235,7 +235,7 @@ ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_manager_access_p
  *
  * @ingroup Efl_Net_Control_Manager
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_manager_technologies_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_control_manager_technologies_get(const Eo *obj)  ;
 
 /**
  * @brief The agent is responsible for user interaction.

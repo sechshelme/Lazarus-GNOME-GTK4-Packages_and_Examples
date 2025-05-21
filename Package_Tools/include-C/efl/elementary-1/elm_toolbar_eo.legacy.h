@@ -83,7 +83,7 @@ extern Elm_Widget_Item *elm_toolbar_last_item_get(const Elm_Toolbar *obj);
  *
  * @ingroup Elm_Toolbar
  */
-extern Eina_Iterator *elm_toolbar_items_get(const Elm_Toolbar *obj) EINA_WARN_UNUSED_RESULT;
+extern Eina_Iterator *elm_toolbar_items_get(const Elm_Toolbar *obj) ;
 
 /**
  * @brief Control homogeneous mode.

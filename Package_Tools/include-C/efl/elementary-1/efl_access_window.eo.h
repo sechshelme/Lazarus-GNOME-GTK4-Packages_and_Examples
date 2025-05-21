@@ -20,9 +20,9 @@ typedef Eo Efl_Access_Window;
  */
 #define EFL_ACCESS_WINDOW_INTERFACE efl_access_window_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_access_window_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_access_window_interface_get(void) ;
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_WINDOW_EVENT_WINDOW_CREATED;
+extern  extern const Efl_Event_Description _EFL_ACCESS_WINDOW_EVENT_WINDOW_CREATED;
 
 /** Called when new window has been created.
  *
@@ -30,7 +30,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_WINDOW_EVENT_W
  */
 #define EFL_ACCESS_WINDOW_EVENT_WINDOW_CREATED (&(_EFL_ACCESS_WINDOW_EVENT_WINDOW_CREATED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_WINDOW_EVENT_WINDOW_DESTROYED;
+extern  extern const Efl_Event_Description _EFL_ACCESS_WINDOW_EVENT_WINDOW_DESTROYED;
 
 /** Called when window has been destroyed.
  *
@@ -38,7 +38,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_WINDOW_EVENT_W
  */
 #define EFL_ACCESS_WINDOW_EVENT_WINDOW_DESTROYED (&(_EFL_ACCESS_WINDOW_EVENT_WINDOW_DESTROYED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_WINDOW_EVENT_WINDOW_ACTIVATED;
+extern  extern const Efl_Event_Description _EFL_ACCESS_WINDOW_EVENT_WINDOW_ACTIVATED;
 
 /** Called when window has been activated. (focused)
  *
@@ -46,7 +46,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_WINDOW_EVENT_W
  */
 #define EFL_ACCESS_WINDOW_EVENT_WINDOW_ACTIVATED (&(_EFL_ACCESS_WINDOW_EVENT_WINDOW_ACTIVATED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_WINDOW_EVENT_WINDOW_DEACTIVATED;
+extern  extern const Efl_Event_Description _EFL_ACCESS_WINDOW_EVENT_WINDOW_DEACTIVATED;
 
 /** Called when window has been deactivated (unfocused).
  *
@@ -54,7 +54,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_WINDOW_EVENT_W
  */
 #define EFL_ACCESS_WINDOW_EVENT_WINDOW_DEACTIVATED (&(_EFL_ACCESS_WINDOW_EVENT_WINDOW_DEACTIVATED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_WINDOW_EVENT_WINDOW_MAXIMIZED;
+extern  extern const Efl_Event_Description _EFL_ACCESS_WINDOW_EVENT_WINDOW_MAXIMIZED;
 
 /** Called when window has been maximized
  *
@@ -62,7 +62,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_WINDOW_EVENT_W
  */
 #define EFL_ACCESS_WINDOW_EVENT_WINDOW_MAXIMIZED (&(_EFL_ACCESS_WINDOW_EVENT_WINDOW_MAXIMIZED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_WINDOW_EVENT_WINDOW_MINIMIZED;
+extern  extern const Efl_Event_Description _EFL_ACCESS_WINDOW_EVENT_WINDOW_MINIMIZED;
 
 /** Called when window has been minimized
  *
@@ -70,7 +70,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_WINDOW_EVENT_W
  */
 #define EFL_ACCESS_WINDOW_EVENT_WINDOW_MINIMIZED (&(_EFL_ACCESS_WINDOW_EVENT_WINDOW_MINIMIZED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_WINDOW_EVENT_WINDOW_RESTORED;
+extern  extern const Efl_Event_Description _EFL_ACCESS_WINDOW_EVENT_WINDOW_RESTORED;
 
 /** Called when window has been restored
  *

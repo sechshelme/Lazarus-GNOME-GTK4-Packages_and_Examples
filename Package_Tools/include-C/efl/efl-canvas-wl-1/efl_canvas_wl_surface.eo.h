@@ -44,7 +44,7 @@ typedef Eo Efl_Canvas_Wl_Surface;
  */
 #define EFL_CANVAS_WL_SURFACE_CLASS efl_canvas_wl_surface_class_get()
 
-extern extern_WEAK const Efl_Class *efl_canvas_wl_surface_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_canvas_wl_surface_class_get(void) ;
 
 /**
  * @brief Extract a surface from the compositor widget.
@@ -63,7 +63,7 @@ extern extern_WEAK const Efl_Class *efl_canvas_wl_surface_class_get(void) EINA_C
  *
  * @ingroup Efl_Canvas_Wl_Surface
  */
-extern extern_WEAK Eina_Bool efl_canvas_wl_surface_extract(Eo *obj);
+extern  Eina_Bool efl_canvas_wl_surface_extract(Eo *obj);
 
 /**
  * @brief The process id of the surface's application.
@@ -77,7 +77,7 @@ extern extern_WEAK Eina_Bool efl_canvas_wl_surface_extract(Eo *obj);
  *
  * @ingroup Efl_Canvas_Wl_Surface
  */
-extern extern_WEAK int efl_canvas_wl_surface_pid_get(const Eo *obj);
+extern  int efl_canvas_wl_surface_pid_get(const Eo *obj);
 
 /**
  * @brief The parent surface of the given surface. This value is @c NULL for
@@ -95,7 +95,7 @@ extern extern_WEAK int efl_canvas_wl_surface_pid_get(const Eo *obj);
  *
  * @ingroup Efl_Canvas_Wl_Surface
  */
-extern extern_WEAK Efl_Canvas_Wl_Surface *efl_canvas_wl_surface_parent_surface_get(const Eo *obj);
+extern  Efl_Canvas_Wl_Surface *efl_canvas_wl_surface_parent_surface_get(const Eo *obj);
 
 /**
  * @brief The extracted state of the surface.
@@ -109,7 +109,7 @@ extern extern_WEAK Efl_Canvas_Wl_Surface *efl_canvas_wl_surface_parent_surface_g
  *
  * @ingroup Efl_Canvas_Wl_Surface
  */
-extern extern_WEAK Eina_Bool efl_canvas_wl_surface_extracted_get(const Eo *obj);
+extern  Eina_Bool efl_canvas_wl_surface_extracted_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

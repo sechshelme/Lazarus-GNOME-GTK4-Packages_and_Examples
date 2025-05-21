@@ -21,7 +21,7 @@ typedef Eo Efl_Ui_Widget_Focus_Manager;
  */
 #define EFL_UI_WIDGET_FOCUS_MANAGER_MIXIN efl_ui_widget_focus_manager_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_widget_focus_manager_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_widget_focus_manager_mixin_get(void) ;
 
 #ifdef EFL_UI_WIDGET_FOCUS_MANAGER_PROTECTED
 /**
@@ -39,7 +39,7 @@ extern extern_WEAK const Efl_Class *efl_ui_widget_focus_manager_mixin_get(void) 
  *
  * @ingroup Efl_Ui_Widget_Focus_Manager
  */
-extern extern_WEAK Efl_Ui_Focus_Manager *efl_ui_widget_focus_manager_create(Eo *obj, Efl_Ui_Focus_Object *root);
+extern  Efl_Ui_Focus_Manager *efl_ui_widget_focus_manager_create(Eo *obj, Efl_Ui_Focus_Object *root);
 #endif
 
 #endif

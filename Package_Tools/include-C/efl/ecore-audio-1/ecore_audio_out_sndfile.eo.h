@@ -20,7 +20,7 @@ typedef Eo Ecore_Audio_Out_Sndfile;
  */
 #define ECORE_AUDIO_OUT_SNDFILE_CLASS ecore_audio_out_sndfile_class_get()
 
-ECORE_AUDIO_API ECORE_AUDIO_API_WEAK const Efl_Class *ecore_audio_out_sndfile_class_get(void) EINA_CONST;
+ECORE_AUDIO_API ECORE_AUDIO_API_WEAK const Efl_Class *ecore_audio_out_sndfile_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

@@ -30,7 +30,7 @@ typedef void (*EflLayoutSignalCb)(void *data, Efl_Layout_Signal *object, const c
  */
 #define EFL_LAYOUT_SIGNAL_INTERFACE efl_layout_signal_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_layout_signal_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_layout_signal_interface_get(void) ;
 
 /**
  * @brief Sends an (Edje) message to a given Edje object
@@ -54,7 +54,7 @@ extern extern_WEAK const Efl_Class *efl_layout_signal_interface_get(void) EINA_C
  *
  * @ingroup Efl_Layout_Signal
  */
-extern extern_WEAK void efl_layout_signal_message_send(Eo *obj, int id, const Eina_Value msg);
+extern  void efl_layout_signal_message_send(Eo *obj, int id, const Eina_Value msg);
 
 /**
  * @brief Adds a callback for an arriving Edje signal, emitted by a given Edje
@@ -105,7 +105,7 @@ extern extern_WEAK void efl_layout_signal_message_send(Eo *obj, int id, const Ei
  *
  * @ingroup Efl_Layout_Signal
  */
-extern extern_WEAK Eina_Bool efl_layout_signal_callback_add(Eo *obj, const char *emission, const char *source, void *func_data, EflLayoutSignalCb func, Eina_Free_Cb func_free_cb);
+extern  Eina_Bool efl_layout_signal_callback_add(Eo *obj, const char *emission, const char *source, void *func_data, EflLayoutSignalCb func, Eina_Free_Cb func_free_cb);
 
 /**
  * @brief Removes a signal-triggered callback from an object.
@@ -129,7 +129,7 @@ extern extern_WEAK Eina_Bool efl_layout_signal_callback_add(Eo *obj, const char 
  *
  * @ingroup Efl_Layout_Signal
  */
-extern extern_WEAK Eina_Bool efl_layout_signal_callback_del(Eo *obj, const char *emission, const char *source, void *func_data, EflLayoutSignalCb func, Eina_Free_Cb func_free_cb);
+extern  Eina_Bool efl_layout_signal_callback_del(Eo *obj, const char *emission, const char *source, void *func_data, EflLayoutSignalCb func, Eina_Free_Cb func_free_cb);
 
 /**
  * @brief Sends/emits an Edje signal to this layout.
@@ -150,7 +150,7 @@ extern extern_WEAK Eina_Bool efl_layout_signal_callback_del(Eo *obj, const char 
  *
  * @ingroup Efl_Layout_Signal
  */
-extern extern_WEAK void efl_layout_signal_emit(Eo *obj, const char *emission, const char *source);
+extern  void efl_layout_signal_emit(Eo *obj, const char *emission, const char *source);
 
 /**
  * @brief Processes an object's messages and signals queue.
@@ -169,6 +169,6 @@ extern extern_WEAK void efl_layout_signal_emit(Eo *obj, const char *emission, co
  *
  * @ingroup Efl_Layout_Signal
  */
-extern extern_WEAK void efl_layout_signal_process(Eo *obj, Eina_Bool recurse);
+extern  void efl_layout_signal_process(Eo *obj, Eina_Bool recurse);
 
 #endif

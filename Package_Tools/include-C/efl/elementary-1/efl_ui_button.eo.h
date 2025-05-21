@@ -31,6 +31,6 @@ typedef Eo Efl_Ui_Button;
  */
 #define EFL_UI_BUTTON_CLASS efl_ui_button_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_button_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_button_class_get(void) ;
 
 #endif

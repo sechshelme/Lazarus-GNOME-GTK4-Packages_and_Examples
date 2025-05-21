@@ -58,7 +58,7 @@ extern Eldbus_Connection *eldbus_private_connection_get(Eldbus_Connection_Type t
  *
  * @return connection with bus
  */
-extern Eldbus_Connection *eldbus_address_connection_get(const char *address) EINA_ARG_NONNULL(1);
+extern Eldbus_Connection *eldbus_address_connection_get(const char *address) ;
 
 /**
  * Always create and establish a new connection to bus and integrate it with
@@ -70,7 +70,7 @@ extern Eldbus_Connection *eldbus_address_connection_get(const char *address) EIN
  *
  * @return connection with bus
  */
-extern Eldbus_Connection *eldbus_private_address_connection_get(const char *address) EINA_ARG_NONNULL(1);
+extern Eldbus_Connection *eldbus_private_address_connection_get(const char *address) ;
 
 /**
  * @brief Increment connection reference count.
@@ -78,7 +78,7 @@ extern Eldbus_Connection *eldbus_private_address_connection_get(const char *addr
  * @param conn The given Eldbus_Connection object to reference.
  * @return The Eldbus_Connection object given as parameter.
  */
-extern Eldbus_Connection *eldbus_connection_ref(Eldbus_Connection *conn) EINA_ARG_NONNULL(1);
+extern Eldbus_Connection *eldbus_connection_ref(Eldbus_Connection *conn) ;
 
 /**
  * @brief Decrement connection reference count.
@@ -88,7 +88,7 @@ extern Eldbus_Connection *eldbus_connection_ref(Eldbus_Connection *conn) EINA_AR
  *
  * @param conn The given Eldbus_Connection object to unreference.
  */
-extern void              eldbus_connection_unref(Eldbus_Connection *conn) EINA_ARG_NONNULL(1);
+extern void              eldbus_connection_unref(Eldbus_Connection *conn) ;
 
 /**
  * @brief Add a callback function to be called when connection is freed
@@ -97,7 +97,7 @@ extern void              eldbus_connection_unref(Eldbus_Connection *conn) EINA_A
  * @param cb The callback to be called when the connection is free.
  * @param data The data passed to the callback.
  */
-extern void              eldbus_connection_free_cb_add(Eldbus_Connection *conn, Eldbus_Free_Cb cb, const void *data) EINA_ARG_NONNULL(1, 2);
+extern void              eldbus_connection_free_cb_add(Eldbus_Connection *conn, Eldbus_Free_Cb cb, const void *data) ;
 
 /**
  * @brief Remove callback registered in eldbus_connection_free_cb_add().
@@ -106,7 +106,7 @@ extern void              eldbus_connection_free_cb_add(Eldbus_Connection *conn, 
  * @param cb The callback that was called when the connection was free.
  * @param data The data that was passed to the callback.
  */
-extern void              eldbus_connection_free_cb_del(Eldbus_Connection *conn, Eldbus_Free_Cb cb, const void *data) EINA_ARG_NONNULL(1, 2);
+extern void              eldbus_connection_free_cb_del(Eldbus_Connection *conn, Eldbus_Free_Cb cb, const void *data) ;
 
 /**
  * @brief Set an attached data pointer to an object with a given string key.
@@ -115,7 +115,7 @@ extern void              eldbus_connection_free_cb_del(Eldbus_Connection *conn, 
  * @param key to identify data
  * @param data data that will be stored
  */
-extern void              eldbus_connection_data_set(Eldbus_Connection *conn, const char *key, const void *data) EINA_ARG_NONNULL(1, 2, 3);
+extern void              eldbus_connection_data_set(Eldbus_Connection *conn, const char *key, const void *data) ;
 
 /**
  * @brief Get data stored in connection.
@@ -125,7 +125,7 @@ extern void              eldbus_connection_data_set(Eldbus_Connection *conn, con
  *
  * @return pointer to data if found otherwise NULL
  */
-extern void             *eldbus_connection_data_get(const Eldbus_Connection *conn, const char *key) EINA_ARG_NONNULL(1, 2);
+extern void             *eldbus_connection_data_get(const Eldbus_Connection *conn, const char *key) ;
 
 /**
  * @brief Del data stored in connection.
@@ -135,7 +135,7 @@ extern void             *eldbus_connection_data_get(const Eldbus_Connection *con
  *
  * @return pointer to data if found otherwise NULL
  */
-extern void             *eldbus_connection_data_del(Eldbus_Connection *conn, const char *key) EINA_ARG_NONNULL(1, 2);
+extern void             *eldbus_connection_data_del(Eldbus_Connection *conn, const char *key) ;
 
 /**
  * @typedef Eldbus_Connection_Event_Type
@@ -188,7 +188,7 @@ extern void                  eldbus_connection_event_callback_del(Eldbus_Connect
  * ELDBUS_TIMEOUT_INFINITE for no timeout
  * @return A Eldbus_Pending struct.
  */
-extern Eldbus_Pending *eldbus_connection_send(Eldbus_Connection *conn, Eldbus_Message *msg, Eldbus_Message_Cb cb, const void *cb_data, double timeout) EINA_ARG_NONNULL(1, 2);
+extern Eldbus_Pending *eldbus_connection_send(Eldbus_Connection *conn, Eldbus_Message *msg, Eldbus_Message_Cb cb, const void *cb_data, double timeout) ;
 
 /**
  * @brief Gets unique name assigned by the message bus.
@@ -198,7 +198,7 @@ extern Eldbus_Pending *eldbus_connection_send(Eldbus_Connection *conn, Eldbus_Me
  * @return pointer to unique name string or NULL or error. Returned value
  * remains valid until connection is free.
  */
-extern const char *eldbus_connection_unique_name_get(Eldbus_Connection *conn) EINA_ARG_NONNULL(1);
+extern const char *eldbus_connection_unique_name_get(Eldbus_Connection *conn) ;
 /**
  * @}
  */

@@ -25,7 +25,7 @@ typedef Eo Efl_Ui_Relative_Container;
  */
 #define EFL_UI_RELATIVE_CONTAINER_CLASS efl_ui_relative_container_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_relative_container_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_relative_container_class_get(void) ;
 
 /**
  * @brief Specifies the left side edge of the @c child object relative to the
@@ -45,7 +45,7 @@ extern extern_WEAK const Efl_Class *efl_ui_relative_container_class_get(void) EI
  *
  * @ingroup Efl_Ui_Relative_Container
  */
-extern extern_WEAK void efl_ui_relative_container_relation_left_set(Eo *obj, Efl_Gfx_Entity *child, Efl_Gfx_Entity *base, Efl_Gfx_Align relative_position);
+extern  void efl_ui_relative_container_relation_left_set(Eo *obj, Efl_Gfx_Entity *child, Efl_Gfx_Entity *base, Efl_Gfx_Align relative_position);
 
 /**
  * @brief Specifies the left side edge of the @c child object relative to the
@@ -65,7 +65,7 @@ extern extern_WEAK void efl_ui_relative_container_relation_left_set(Eo *obj, Efl
  *
  * @ingroup Efl_Ui_Relative_Container
  */
-extern extern_WEAK void efl_ui_relative_container_relation_left_get(const Eo *obj, Efl_Gfx_Entity *child, Efl_Gfx_Entity **base, Efl_Gfx_Align *relative_position);
+extern  void efl_ui_relative_container_relation_left_get(const Eo *obj, Efl_Gfx_Entity *child, Efl_Gfx_Entity **base, Efl_Gfx_Align *relative_position);
 
 /**
  * @brief Specifies the right side edge of the @c child object relative to the
@@ -85,7 +85,7 @@ extern extern_WEAK void efl_ui_relative_container_relation_left_get(const Eo *ob
  *
  * @ingroup Efl_Ui_Relative_Container
  */
-extern extern_WEAK void efl_ui_relative_container_relation_right_set(Eo *obj, Efl_Gfx_Entity *child, Efl_Gfx_Entity *base, Efl_Gfx_Align relative_position);
+extern  void efl_ui_relative_container_relation_right_set(Eo *obj, Efl_Gfx_Entity *child, Efl_Gfx_Entity *base, Efl_Gfx_Align relative_position);
 
 /**
  * @brief Specifies the right side edge of the @c child object relative to the
@@ -105,7 +105,7 @@ extern extern_WEAK void efl_ui_relative_container_relation_right_set(Eo *obj, Ef
  *
  * @ingroup Efl_Ui_Relative_Container
  */
-extern extern_WEAK void efl_ui_relative_container_relation_right_get(const Eo *obj, Efl_Gfx_Entity *child, Efl_Gfx_Entity **base, Efl_Gfx_Align *relative_position);
+extern  void efl_ui_relative_container_relation_right_get(const Eo *obj, Efl_Gfx_Entity *child, Efl_Gfx_Entity **base, Efl_Gfx_Align *relative_position);
 
 /**
  * @brief Specifies the top side edge of the @c child object relative to the
@@ -125,7 +125,7 @@ extern extern_WEAK void efl_ui_relative_container_relation_right_get(const Eo *o
  *
  * @ingroup Efl_Ui_Relative_Container
  */
-extern extern_WEAK void efl_ui_relative_container_relation_top_set(Eo *obj, Efl_Gfx_Entity *child, Efl_Gfx_Entity *base, Efl_Gfx_Align relative_position);
+extern  void efl_ui_relative_container_relation_top_set(Eo *obj, Efl_Gfx_Entity *child, Efl_Gfx_Entity *base, Efl_Gfx_Align relative_position);
 
 /**
  * @brief Specifies the top side edge of the @c child object relative to the
@@ -145,7 +145,7 @@ extern extern_WEAK void efl_ui_relative_container_relation_top_set(Eo *obj, Efl_
  *
  * @ingroup Efl_Ui_Relative_Container
  */
-extern extern_WEAK void efl_ui_relative_container_relation_top_get(const Eo *obj, Efl_Gfx_Entity *child, Efl_Gfx_Entity **base, Efl_Gfx_Align *relative_position);
+extern  void efl_ui_relative_container_relation_top_get(const Eo *obj, Efl_Gfx_Entity *child, Efl_Gfx_Entity **base, Efl_Gfx_Align *relative_position);
 
 /**
  * @brief Specifies the bottom side edge of the @c child object relative to the
@@ -165,7 +165,7 @@ extern extern_WEAK void efl_ui_relative_container_relation_top_get(const Eo *obj
  *
  * @ingroup Efl_Ui_Relative_Container
  */
-extern extern_WEAK void efl_ui_relative_container_relation_bottom_set(Eo *obj, Efl_Gfx_Entity *child, Efl_Gfx_Entity *base, Efl_Gfx_Align relative_position);
+extern  void efl_ui_relative_container_relation_bottom_set(Eo *obj, Efl_Gfx_Entity *child, Efl_Gfx_Entity *base, Efl_Gfx_Align relative_position);
 
 /**
  * @brief Specifies the bottom side edge of the @c child object relative to the
@@ -185,6 +185,6 @@ extern extern_WEAK void efl_ui_relative_container_relation_bottom_set(Eo *obj, E
  *
  * @ingroup Efl_Ui_Relative_Container
  */
-extern extern_WEAK void efl_ui_relative_container_relation_bottom_get(const Eo *obj, Efl_Gfx_Entity *child, Efl_Gfx_Entity **base, Efl_Gfx_Align *relative_position);
+extern  void efl_ui_relative_container_relation_bottom_get(const Eo *obj, Efl_Gfx_Entity *child, Efl_Gfx_Entity **base, Efl_Gfx_Align *relative_position);
 
 #endif

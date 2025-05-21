@@ -20,7 +20,7 @@ typedef Eo Efl_Ui_Panes;
  */
 #define EFL_UI_PANES_CLASS efl_ui_panes_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_panes_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_panes_class_get(void) ;
 
 /**
  * @brief Set the split ratio between panes widget first and second parts.
@@ -43,7 +43,7 @@ extern extern_WEAK const Efl_Class *efl_ui_panes_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Panes
  */
-extern extern_WEAK void efl_ui_panes_split_ratio_set(Eo *obj, double ratio);
+extern  void efl_ui_panes_split_ratio_set(Eo *obj, double ratio);
 
 /**
  * @brief Set the split ratio between panes widget first and second parts.
@@ -67,7 +67,7 @@ extern extern_WEAK void efl_ui_panes_split_ratio_set(Eo *obj, double ratio);
  *
  * @ingroup Efl_Ui_Panes
  */
-extern extern_WEAK double efl_ui_panes_split_ratio_get(const Eo *obj);
+extern  double efl_ui_panes_split_ratio_get(const Eo *obj);
 
 /**
  * @brief Set whether the left and right panes can be resized by user
@@ -82,7 +82,7 @@ extern extern_WEAK double efl_ui_panes_split_ratio_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Panes
  */
-extern extern_WEAK void efl_ui_panes_fixed_set(Eo *obj, Eina_Bool fixed);
+extern  void efl_ui_panes_fixed_set(Eo *obj, Eina_Bool fixed);
 
 /**
  * @brief Set whether the left and right panes can be resized by user
@@ -97,7 +97,7 @@ extern extern_WEAK void efl_ui_panes_fixed_set(Eo *obj, Eina_Bool fixed);
  *
  * @ingroup Efl_Ui_Panes
  */
-extern extern_WEAK Eina_Bool efl_ui_panes_fixed_get(const Eo *obj);
+extern  Eina_Bool efl_ui_panes_fixed_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

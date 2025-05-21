@@ -21,6 +21,6 @@ typedef Eo Efl_Ui_Alert_Popup_Part_Title;
  */
 #define EFL_UI_ALERT_POPUP_PART_TITLE_CLASS efl_ui_alert_popup_part_title_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_alert_popup_part_title_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_alert_popup_part_title_class_get(void) ;
 
 #endif

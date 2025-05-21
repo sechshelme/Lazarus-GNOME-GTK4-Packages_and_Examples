@@ -20,7 +20,7 @@ typedef Eo Efl_Divisor_Interpolator;
  */
 #define EFL_DIVISOR_INTERPOLATOR_CLASS efl_divisor_interpolator_class_get()
 
-extern extern_WEAK const Efl_Class *efl_divisor_interpolator_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_divisor_interpolator_class_get(void) ;
 
 /**
  * @brief Customize divisor factor.
@@ -30,7 +30,7 @@ extern extern_WEAK const Efl_Class *efl_divisor_interpolator_class_get(void) EIN
  *
  * @ingroup Efl_Divisor_Interpolator
  */
-extern extern_WEAK void efl_divisor_interpolator_divisor_set(Eo *obj, double divisor);
+extern  void efl_divisor_interpolator_divisor_set(Eo *obj, double divisor);
 
 /**
  * @brief Customize divisor factor.
@@ -41,7 +41,7 @@ extern extern_WEAK void efl_divisor_interpolator_divisor_set(Eo *obj, double div
  *
  * @ingroup Efl_Divisor_Interpolator
  */
-extern extern_WEAK double efl_divisor_interpolator_divisor_get(const Eo *obj);
+extern  double efl_divisor_interpolator_divisor_get(const Eo *obj);
 
 /**
  * @brief Customize power factor.
@@ -51,7 +51,7 @@ extern extern_WEAK double efl_divisor_interpolator_divisor_get(const Eo *obj);
  *
  * @ingroup Efl_Divisor_Interpolator
  */
-extern extern_WEAK void efl_divisor_interpolator_power_set(Eo *obj, int power);
+extern  void efl_divisor_interpolator_power_set(Eo *obj, int power);
 
 /**
  * @brief Customize power factor.
@@ -62,7 +62,7 @@ extern extern_WEAK void efl_divisor_interpolator_power_set(Eo *obj, int power);
  *
  * @ingroup Efl_Divisor_Interpolator
  */
-extern extern_WEAK int efl_divisor_interpolator_power_get(const Eo *obj);
+extern  int efl_divisor_interpolator_power_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

@@ -32,7 +32,7 @@ typedef int (*EflIoFilter)(void *data, Efl_Io_Model *model, Eina_File_Direct_Inf
  */
 #define EFL_IO_MODEL_CLASS efl_io_model_class_get()
 
-EIO_API EIO_API_WEAK const Efl_Class *efl_io_model_class_get(void) EINA_CONST;
+EIO_API EIO_API_WEAK const Efl_Class *efl_io_model_class_get(void) ;
 
 /**
  * @brief Set children filter callback.

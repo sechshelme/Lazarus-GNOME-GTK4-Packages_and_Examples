@@ -20,7 +20,7 @@ typedef Eo Efl_Net_Server_Fd;
  */
 #define EFL_NET_SERVER_FD_CLASS efl_net_server_fd_class_get()
 
-ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_server_fd_class_get(void) EINA_CONST;
+ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_server_fd_class_get(void) ;
 
 /**
  * @brief If this method is called, use an already activated socket.

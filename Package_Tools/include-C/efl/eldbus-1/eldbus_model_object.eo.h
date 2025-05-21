@@ -20,7 +20,7 @@ typedef Eo Eldbus_Model_Object;
  */
 #define ELDBUS_MODEL_OBJECT_CLASS eldbus_model_object_class_get()
 
-extern extern_WEAK const Efl_Class *eldbus_model_object_class_get(void) EINA_CONST;
+extern  const Efl_Class *eldbus_model_object_class_get(void) ;
 
 /**
  * @brief DBus Name or unique-id
@@ -30,7 +30,7 @@ extern extern_WEAK const Efl_Class *eldbus_model_object_class_get(void) EINA_CON
  *
  * @ingroup Eldbus_Model_Object
  */
-extern extern_WEAK void eldbus_model_object_bus_set(Eo *obj, const char *bus);
+extern  void eldbus_model_object_bus_set(Eo *obj, const char *bus);
 
 /**
  * @brief DBus Name or unique-id
@@ -41,7 +41,7 @@ extern extern_WEAK void eldbus_model_object_bus_set(Eo *obj, const char *bus);
  *
  * @ingroup Eldbus_Model_Object
  */
-extern extern_WEAK const char *eldbus_model_object_bus_get(const Eo *obj);
+extern  const char *eldbus_model_object_bus_get(const Eo *obj);
 
 /**
  * @brief DBus path
@@ -51,7 +51,7 @@ extern extern_WEAK const char *eldbus_model_object_bus_get(const Eo *obj);
  *
  * @ingroup Eldbus_Model_Object
  */
-extern extern_WEAK void eldbus_model_object_path_set(Eo *obj, const char *path);
+extern  void eldbus_model_object_path_set(Eo *obj, const char *path);
 
 /**
  * @brief DBus path
@@ -62,7 +62,7 @@ extern extern_WEAK void eldbus_model_object_path_set(Eo *obj, const char *path);
  *
  * @ingroup Eldbus_Model_Object
  */
-extern extern_WEAK const char *eldbus_model_object_path_get(const Eo *obj);
+extern  const char *eldbus_model_object_path_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

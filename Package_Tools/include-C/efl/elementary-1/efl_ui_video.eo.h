@@ -20,7 +20,7 @@ typedef Eo Efl_Ui_Video;
  */
 #define EFL_UI_VIDEO_CLASS efl_ui_video_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_video_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_video_class_get(void) ;
 
 /**
  * @brief Whether the object can remember the last played position.
@@ -33,7 +33,7 @@ extern extern_WEAK const Efl_Class *efl_ui_video_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Video
  */
-extern extern_WEAK void efl_ui_video_remember_position_set(Eo *obj, Eina_Bool remember);
+extern  void efl_ui_video_remember_position_set(Eo *obj, Eina_Bool remember);
 
 /**
  * @brief Whether the object can remember the last played position.
@@ -47,7 +47,7 @@ extern extern_WEAK void efl_ui_video_remember_position_set(Eo *obj, Eina_Bool re
  *
  * @ingroup Efl_Ui_Video
  */
-extern extern_WEAK Eina_Bool efl_ui_video_remember_position_get(const Eo *obj);
+extern  Eina_Bool efl_ui_video_remember_position_get(const Eo *obj);
 
 /**
  * @brief The underlying Emotion object.
@@ -58,7 +58,7 @@ extern extern_WEAK Eina_Bool efl_ui_video_remember_position_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Video
  */
-extern extern_WEAK Efl_Canvas_Object *efl_ui_video_emotion_get(const Eo *obj);
+extern  Efl_Canvas_Object *efl_ui_video_emotion_get(const Eo *obj);
 
 /**
  * @brief The title (for instance DVD title) from this emotion object.
@@ -73,7 +73,7 @@ extern extern_WEAK Efl_Canvas_Object *efl_ui_video_emotion_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Video
  */
-extern extern_WEAK const char *efl_ui_video_title_get(const Eo *obj);
+extern  const char *efl_ui_video_title_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

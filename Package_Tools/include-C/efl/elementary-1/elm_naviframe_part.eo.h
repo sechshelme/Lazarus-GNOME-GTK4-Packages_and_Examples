@@ -20,7 +20,7 @@ typedef Eo Elm_Naviframe_Part;
  */
 #define ELM_NAVIFRAME_PART_CLASS elm_naviframe_part_class_get()
 
-extern extern_WEAK const Efl_Class *elm_naviframe_part_class_get(void) EINA_CONST;
+extern  const Efl_Class *elm_naviframe_part_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

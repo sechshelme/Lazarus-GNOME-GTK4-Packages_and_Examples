@@ -20,7 +20,7 @@ typedef Eo Efl_Io_Stderr;
  */
 #define EFL_IO_STDERR_CLASS efl_io_stderr_class_get()
 
-extern extern_WEAK const Efl_Class *efl_io_stderr_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_io_stderr_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

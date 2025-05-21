@@ -46,7 +46,7 @@ typedef Eo Efl_Ui_Collection_View;
  */
 #define EFL_UI_COLLECTION_VIEW_CLASS efl_ui_collection_view_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_collection_view_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_collection_view_class_get(void) ;
 
 /**
  * @brief Define the factory used to create all the items.
@@ -58,7 +58,7 @@ extern extern_WEAK const Efl_Class *efl_ui_collection_view_class_get(void) EINA_
  *
  * @ingroup Efl_Ui_Collection_View
  */
-extern extern_WEAK void efl_ui_collection_view_factory_set(Eo *obj, Efl_Ui_Factory *factory);
+extern  void efl_ui_collection_view_factory_set(Eo *obj, Efl_Ui_Factory *factory);
 
 /**
  * @brief Define the factory used to create all the items.
@@ -71,7 +71,7 @@ extern extern_WEAK void efl_ui_collection_view_factory_set(Eo *obj, Efl_Ui_Facto
  *
  * @ingroup Efl_Ui_Collection_View
  */
-extern extern_WEAK Efl_Ui_Factory *efl_ui_collection_view_factory_get(const Eo *obj);
+extern  Efl_Ui_Factory *efl_ui_collection_view_factory_get(const Eo *obj);
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -85,7 +85,7 @@ extern extern_WEAK Efl_Ui_Factory *efl_ui_collection_view_factory_get(const Eo *
  *
  * @ingroup Efl_Ui_Collection_View
  */
-extern extern_WEAK void efl_ui_collection_view_position_manager_set(Eo *obj, Efl_Ui_Position_Manager_Entity *position_manager EFL_TRANSFER_OWNERSHIP);
+extern  void efl_ui_collection_view_position_manager_set(Eo *obj, Efl_Ui_Position_Manager_Entity *position_manager );
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -100,10 +100,10 @@ extern extern_WEAK void efl_ui_collection_view_position_manager_set(Eo *obj, Efl
  *
  * @ingroup Efl_Ui_Collection_View
  */
-extern extern_WEAK Efl_Ui_Position_Manager_Entity *efl_ui_collection_view_position_manager_get(const Eo *obj);
+extern  Efl_Ui_Position_Manager_Entity *efl_ui_collection_view_position_manager_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_COLLECTION_VIEW_EVENT_ITEM_REALIZED;
+extern  extern const Efl_Event_Description _EFL_UI_COLLECTION_VIEW_EVENT_ITEM_REALIZED;
 
 /** Event triggered when an @ref Efl_Ui_Item has been provided by the
  * @ref Efl_Ui_Factory and is about to be used.
@@ -115,7 +115,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_COLLECTION_VIEW_EV
  */
 #define EFL_UI_COLLECTION_VIEW_EVENT_ITEM_REALIZED (&(_EFL_UI_COLLECTION_VIEW_EVENT_ITEM_REALIZED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_COLLECTION_VIEW_EVENT_ITEM_UNREALIZED;
+extern  extern const Efl_Event_Description _EFL_UI_COLLECTION_VIEW_EVENT_ITEM_UNREALIZED;
 
 /** Event triggered when the @ref Efl_Ui_Collection_View is about to give an
  * @ref Efl_Ui_Item back to the @ref Efl_Ui_Factory.

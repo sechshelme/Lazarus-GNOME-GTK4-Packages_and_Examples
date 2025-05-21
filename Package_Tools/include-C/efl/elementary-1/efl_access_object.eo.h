@@ -327,7 +327,7 @@ typedef struct _Efl_Access_Relation
  */
 #define EFL_ACCESS_OBJECT_MIXIN efl_access_object_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_access_object_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_access_object_mixin_get(void) ;
 
 #ifdef EFL_BETA_API_SUPPORT
 #ifdef EFL_ACCESS_OBJECT_PROTECTED
@@ -340,7 +340,7 @@ extern extern_WEAK const Efl_Class *efl_access_object_mixin_get(void) EINA_CONST
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK const char *efl_access_object_localized_role_name_get(const Eo *obj);
+extern  const char *efl_access_object_localized_role_name_get(const Eo *obj);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -353,7 +353,7 @@ extern extern_WEAK const char *efl_access_object_localized_role_name_get(const E
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK void efl_access_object_i18n_name_set(Eo *obj, const char *i18n_name);
+extern  void efl_access_object_i18n_name_set(Eo *obj, const char *i18n_name);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -366,7 +366,7 @@ extern extern_WEAK void efl_access_object_i18n_name_set(Eo *obj, const char *i18
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK const char *efl_access_object_i18n_name_get(const Eo *obj);
+extern  const char *efl_access_object_i18n_name_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -381,7 +381,7 @@ extern extern_WEAK const char *efl_access_object_i18n_name_get(const Eo *obj);
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK Eina_Iterator *efl_access_object_relations_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Iterator *efl_access_object_relations_get(const Eo *obj)  ;
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -394,7 +394,7 @@ extern extern_WEAK Eina_Iterator *efl_access_object_relations_get(const Eo *obj)
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK void efl_access_object_role_set(Eo *obj, Efl_Access_Role role);
+extern  void efl_access_object_role_set(Eo *obj, Efl_Access_Role role);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -407,7 +407,7 @@ extern extern_WEAK void efl_access_object_role_set(Eo *obj, Efl_Access_Role role
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK Efl_Access_Role efl_access_object_role_get(const Eo *obj);
+extern  Efl_Access_Role efl_access_object_role_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -421,7 +421,7 @@ extern extern_WEAK Efl_Access_Role efl_access_object_role_get(const Eo *obj);
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK Eina_List *efl_access_object_access_children_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_List *efl_access_object_access_children_get(const Eo *obj)  ;
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -436,7 +436,7 @@ extern extern_WEAK Eina_List *efl_access_object_access_children_get(const Eo *ob
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK const char *efl_access_object_role_name_get(const Eo *obj);
+extern  const char *efl_access_object_role_name_get(const Eo *obj);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -452,7 +452,7 @@ extern extern_WEAK const char *efl_access_object_role_name_get(const Eo *obj);
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK Eina_List *efl_access_object_attributes_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_List *efl_access_object_attributes_get(const Eo *obj)  ;
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -465,7 +465,7 @@ extern extern_WEAK Eina_List *efl_access_object_attributes_get(const Eo *obj) EF
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK void efl_access_object_attribute_append(Eo *obj, const char *key, const char *value);
+extern  void efl_access_object_attribute_append(Eo *obj, const char *key, const char *value);
 
 /**
  * @brief delete key-value pair identifying object extra attributes when key is
@@ -476,13 +476,13 @@ extern extern_WEAK void efl_access_object_attribute_append(Eo *obj, const char *
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK void efl_access_object_attribute_del(Eo *obj, const char *key);
+extern  void efl_access_object_attribute_del(Eo *obj, const char *key);
 
 /** Removes all attributes in accessible object.
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK void efl_access_object_attributes_clear(Eo *obj);
+extern  void efl_access_object_attributes_clear(Eo *obj);
 
 #ifdef EFL_ACCESS_OBJECT_PROTECTED
 /**
@@ -497,7 +497,7 @@ extern extern_WEAK void efl_access_object_attributes_clear(Eo *obj);
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK void efl_access_object_reading_info_type_set(Eo *obj, Efl_Access_Reading_Info_Type reading_info);
+extern  void efl_access_object_reading_info_type_set(Eo *obj, Efl_Access_Reading_Info_Type reading_info);
 #endif
 
 #ifdef EFL_ACCESS_OBJECT_PROTECTED
@@ -514,7 +514,7 @@ extern extern_WEAK void efl_access_object_reading_info_type_set(Eo *obj, Efl_Acc
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK Efl_Access_Reading_Info_Type efl_access_object_reading_info_type_get(const Eo *obj);
+extern  Efl_Access_Reading_Info_Type efl_access_object_reading_info_type_get(const Eo *obj);
 #endif
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -528,7 +528,7 @@ extern extern_WEAK Efl_Access_Reading_Info_Type efl_access_object_reading_info_t
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK int efl_access_object_index_in_parent_get(const Eo *obj);
+extern  int efl_access_object_index_in_parent_get(const Eo *obj);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -541,7 +541,7 @@ extern extern_WEAK int efl_access_object_index_in_parent_get(const Eo *obj);
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK void efl_access_object_description_set(Eo *obj, const char *description);
+extern  void efl_access_object_description_set(Eo *obj, const char *description);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -554,7 +554,7 @@ extern extern_WEAK void efl_access_object_description_set(Eo *obj, const char *d
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK const char *efl_access_object_description_get(const Eo *obj);
+extern  const char *efl_access_object_description_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -568,7 +568,7 @@ extern extern_WEAK const char *efl_access_object_description_get(const Eo *obj);
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK Efl_Access_State_Set efl_access_object_state_set_get(const Eo *obj);
+extern  Efl_Access_State_Set efl_access_object_state_set_get(const Eo *obj);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -584,7 +584,7 @@ extern extern_WEAK Efl_Access_State_Set efl_access_object_state_set_get(const Eo
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK Efl_Access_Event_Handler *efl_access_object_event_handler_add(Efl_Event_Cb cb, void *data);
+extern  Efl_Access_Event_Handler *efl_access_object_event_handler_add(Efl_Event_Cb cb, void *data);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -597,7 +597,7 @@ extern extern_WEAK Efl_Access_Event_Handler *efl_access_object_event_handler_add
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK void efl_access_object_event_handler_del(Efl_Access_Event_Handler *handler);
+extern  void efl_access_object_event_handler_del(Efl_Access_Event_Handler *handler);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -612,7 +612,7 @@ extern extern_WEAK void efl_access_object_event_handler_del(Efl_Access_Event_Han
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK void efl_access_object_event_emit(Efl_Access_Object *accessible, const Efl_Event_Description *event, void *event_info);
+extern  void efl_access_object_event_emit(Efl_Access_Object *accessible, const Efl_Event_Description *event, void *event_info);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -636,7 +636,7 @@ extern extern_WEAK void efl_access_object_event_emit(Efl_Access_Object *accessib
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK void efl_access_object_translation_domain_set(Eo *obj, const char *domain);
+extern  void efl_access_object_translation_domain_set(Eo *obj, const char *domain);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -660,7 +660,7 @@ extern extern_WEAK void efl_access_object_translation_domain_set(Eo *obj, const 
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK const char *efl_access_object_translation_domain_get(const Eo *obj);
+extern  const char *efl_access_object_translation_domain_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -672,7 +672,7 @@ extern extern_WEAK const char *efl_access_object_translation_domain_get(const Eo
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK void efl_access_object_access_type_set(Eo *obj, Efl_Access_Type type);
+extern  void efl_access_object_access_type_set(Eo *obj, Efl_Access_Type type);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -685,7 +685,7 @@ extern extern_WEAK void efl_access_object_access_type_set(Eo *obj, Efl_Access_Ty
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK Efl_Access_Type efl_access_object_access_type_get(const Eo *obj);
+extern  Efl_Access_Type efl_access_object_access_type_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -712,7 +712,7 @@ extern extern_WEAK Efl_Access_Type efl_access_object_access_type_get(const Eo *o
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK Eina_Bool efl_access_object_relationship_append(Eo *obj, Efl_Access_Relation_Type type, const Efl_Access_Object *relation_object);
+extern  Eina_Bool efl_access_object_relationship_append(Eo *obj, Efl_Access_Relation_Type type, const Efl_Access_Object *relation_object);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -728,7 +728,7 @@ extern extern_WEAK Eina_Bool efl_access_object_relationship_append(Eo *obj, Efl_
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK void efl_access_object_relationship_remove(Eo *obj, Efl_Access_Relation_Type type, const Efl_Access_Object *relation_object);
+extern  void efl_access_object_relationship_remove(Eo *obj, Efl_Access_Relation_Type type, const Efl_Access_Object *relation_object);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -736,7 +736,7 @@ extern extern_WEAK void efl_access_object_relationship_remove(Eo *obj, Efl_Acces
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK void efl_access_object_relationships_clear(Eo *obj);
+extern  void efl_access_object_relationships_clear(Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -747,10 +747,10 @@ extern extern_WEAK void efl_access_object_relationships_clear(Eo *obj);
  *
  * @ingroup Efl_Access_Object
  */
-extern extern_WEAK Efl_Object *efl_access_object_access_root_get(void);
+extern  Efl_Object *efl_access_object_access_root_get(void);
 #endif /* EFL_BETA_API_SUPPORT */
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_PROPERTY_CHANGED;
+extern  extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_PROPERTY_CHANGED;
 
 /** Called when property has changed
  * @return const char *
@@ -759,7 +759,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_P
  */
 #define EFL_ACCESS_OBJECT_EVENT_PROPERTY_CHANGED (&(_EFL_ACCESS_OBJECT_EVENT_PROPERTY_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_CHILDREN_CHANGED;
+extern  extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_CHILDREN_CHANGED;
 
 /** Called when children have changed
  * @return Efl_Access_Event_Children_Changed_Data
@@ -768,7 +768,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_C
  */
 #define EFL_ACCESS_OBJECT_EVENT_CHILDREN_CHANGED (&(_EFL_ACCESS_OBJECT_EVENT_CHILDREN_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_STATE_CHANGED;
+extern  extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_STATE_CHANGED;
 
 /** Called when state has changed
  * @return Efl_Access_Event_State_Changed_Data
@@ -777,7 +777,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_S
  */
 #define EFL_ACCESS_OBJECT_EVENT_STATE_CHANGED (&(_EFL_ACCESS_OBJECT_EVENT_STATE_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_BOUNDS_CHANGED;
+extern  extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_BOUNDS_CHANGED;
 
 /** Called when boundaries have changed
  * @return Efl_Access_Event_Geometry_Changed_Data
@@ -786,7 +786,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_B
  */
 #define EFL_ACCESS_OBJECT_EVENT_BOUNDS_CHANGED (&(_EFL_ACCESS_OBJECT_EVENT_BOUNDS_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_VISIBLE_DATA_CHANGED;
+extern  extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_VISIBLE_DATA_CHANGED;
 
 /** Called when visibility has changed
  *
@@ -794,7 +794,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_V
  */
 #define EFL_ACCESS_OBJECT_EVENT_VISIBLE_DATA_CHANGED (&(_EFL_ACCESS_OBJECT_EVENT_VISIBLE_DATA_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_ACTIVE_DESCENDANT_CHANGED;
+extern  extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_ACTIVE_DESCENDANT_CHANGED;
 
 /** Called when active state of descendant has changed
  * @return Efl_Object *
@@ -803,7 +803,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_A
  */
 #define EFL_ACCESS_OBJECT_EVENT_ACTIVE_DESCENDANT_CHANGED (&(_EFL_ACCESS_OBJECT_EVENT_ACTIVE_DESCENDANT_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_ADDED;
+extern  extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_ADDED;
 
 /** Called when item is added
  *
@@ -811,7 +811,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_A
  */
 #define EFL_ACCESS_OBJECT_EVENT_ADDED (&(_EFL_ACCESS_OBJECT_EVENT_ADDED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_REMOVED;
+extern  extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_REMOVED;
 
 /** Called when item is removed
  *

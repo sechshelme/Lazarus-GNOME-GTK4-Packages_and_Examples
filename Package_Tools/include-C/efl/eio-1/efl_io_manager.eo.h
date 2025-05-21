@@ -48,7 +48,7 @@ typedef void (*EflIoDirectInfo)(void *data, Eina_Array *entries);
  */
 #define EFL_IO_MANAGER_CLASS efl_io_manager_class_get()
 
-EIO_API EIO_API_WEAK const Efl_Class *efl_io_manager_class_get(void) EINA_CONST;
+EIO_API EIO_API_WEAK const Efl_Class *efl_io_manager_class_get(void) ;
 
 /**
  * @brief Lists entries in a given path. See @ref Eina_File.
@@ -61,7 +61,7 @@ EIO_API EIO_API_WEAK const Efl_Class *efl_io_manager_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Io_Manager
  */
-EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_ls(const Eo *obj, const char *path, void *paths_data, EflIoPath paths, Eina_Free_Cb paths_free_cb) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_ls(const Eo *obj, const char *path, void *paths_data, EflIoPath paths, Eina_Free_Cb paths_free_cb)  ;
 
 /**
  * @brief Lists entries in a given path with more information.
@@ -77,7 +77,7 @@ EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_ls(const Eo *obj, const char *p
  *
  * @ingroup Efl_Io_Manager
  */
-EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_direct_ls(const Eo *obj, const char *path, Eina_Bool recursive, void *info_data, EflIoDirectInfo info, Eina_Free_Cb info_free_cb) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_direct_ls(const Eo *obj, const char *path, Eina_Bool recursive, void *info_data, EflIoDirectInfo info, Eina_Free_Cb info_free_cb)  ;
 
 /**
  * @brief Lists entries in a given path with stat information.
@@ -93,7 +93,7 @@ EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_direct_ls(const Eo *obj, const 
  *
  * @ingroup Efl_Io_Manager
  */
-EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_stat_ls(const Eo *obj, const char *path, Eina_Bool recursive, void *info_data, EflIoDirectInfo info, Eina_Free_Cb info_free_cb) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_stat_ls(const Eo *obj, const char *path, Eina_Bool recursive, void *info_data, EflIoDirectInfo info, Eina_Free_Cb info_free_cb)  ;
 
 /**
  * @brief Lists all extended attributes asynchronously.
@@ -107,7 +107,7 @@ EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_stat_ls(const Eo *obj, const ch
  *
  * @ingroup Efl_Io_Manager
  */
-EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_xattr_ls(const Eo *obj, const char *path, void *paths_data, EflIoPath paths, Eina_Free_Cb paths_free_cb) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_xattr_ls(const Eo *obj, const char *path, void *paths_data, EflIoPath paths, Eina_Free_Cb paths_free_cb)  ;
 
 /**
  * @brief Get stat info on a given file/directory.
@@ -134,7 +134,7 @@ EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_stat(const Eo *obj, const char 
  *
  * @ingroup Efl_Io_Manager
  */
-EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_xattr_set(Eo *obj, const char *path, const char *attribute, Eina_Binbuf *data, Eina_Xattr_Flags flags) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_xattr_set(Eo *obj, const char *path, const char *attribute, Eina_Binbuf *data, Eina_Xattr_Flags flags)  ;
 
 /**
  * @brief Retrieves or sets information of a given extended attribute.
@@ -147,7 +147,7 @@ EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_xattr_set(Eo *obj, const char *
  *
  * @ingroup Efl_Io_Manager
  */
-EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_xattr_get(const Eo *obj, const char *path, const char *attribute) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_xattr_get(const Eo *obj, const char *path, const char *attribute)  ;
 
 /**
  * @brief Opens a file.
@@ -163,7 +163,7 @@ EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_xattr_get(const Eo *obj, const 
  *
  * @ingroup Efl_Io_Manager
  */
-EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_open(const Eo *obj, const char *path, Eina_Bool shared) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_open(const Eo *obj, const char *path, Eina_Bool shared)  ;
 
 /**
  * @brief Closes an open Eina.File.
@@ -175,7 +175,7 @@ EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_open(const Eo *obj, const char 
  *
  * @ingroup Efl_Io_Manager
  */
-EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_close(const Eo *obj, Eina_File *file) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+EIO_API EIO_API_WEAK Eina_Future *efl_io_manager_close(const Eo *obj, Eina_File *file)  ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

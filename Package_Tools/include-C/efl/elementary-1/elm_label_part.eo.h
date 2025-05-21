@@ -20,7 +20,7 @@ typedef Eo Elm_Label_Part;
  */
 #define ELM_LABEL_PART_CLASS elm_label_part_class_get()
 
-extern extern_WEAK const Efl_Class *elm_label_part_class_get(void) EINA_CONST;
+extern  const Efl_Class *elm_label_part_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

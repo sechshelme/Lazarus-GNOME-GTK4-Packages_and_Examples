@@ -20,7 +20,7 @@ typedef Eo Elm_Mapbuf_Part;
  */
 #define ELM_MAPBUF_PART_CLASS elm_mapbuf_part_class_get()
 
-extern extern_WEAK const Efl_Class *elm_mapbuf_part_class_get(void) EINA_CONST;
+extern  const Efl_Class *elm_mapbuf_part_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

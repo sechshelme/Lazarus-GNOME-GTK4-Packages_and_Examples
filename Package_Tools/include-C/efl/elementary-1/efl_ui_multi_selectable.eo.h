@@ -26,7 +26,7 @@ typedef Eo Efl_Ui_Multi_Selectable;
  */
 #define EFL_UI_MULTI_SELECTABLE_INTERFACE efl_ui_multi_selectable_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_multi_selectable_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_multi_selectable_interface_get(void) ;
 
 /**
  * @brief The mode type for children selection.
@@ -38,7 +38,7 @@ extern extern_WEAK const Efl_Class *efl_ui_multi_selectable_interface_get(void) 
  *
  * @ingroup Efl_Ui_Multi_Selectable
  */
-extern extern_WEAK void efl_ui_multi_selectable_select_mode_set(Eo *obj, Efl_Ui_Select_Mode mode);
+extern  void efl_ui_multi_selectable_select_mode_set(Eo *obj, Efl_Ui_Select_Mode mode);
 
 /**
  * @brief The mode type for children selection.
@@ -51,7 +51,7 @@ extern extern_WEAK void efl_ui_multi_selectable_select_mode_set(Eo *obj, Efl_Ui_
  *
  * @ingroup Efl_Ui_Multi_Selectable
  */
-extern extern_WEAK Efl_Ui_Select_Mode efl_ui_multi_selectable_select_mode_get(const Eo *obj);
+extern  Efl_Ui_Select_Mode efl_ui_multi_selectable_select_mode_get(const Eo *obj);
 
 /** Select all @ref Efl_Ui_Selectable
  *
@@ -59,7 +59,7 @@ extern extern_WEAK Efl_Ui_Select_Mode efl_ui_multi_selectable_select_mode_get(co
  *
  * @ingroup Efl_Ui_Multi_Selectable
  */
-extern extern_WEAK void efl_ui_multi_selectable_all_select(Eo *obj);
+extern  void efl_ui_multi_selectable_all_select(Eo *obj);
 
 /** Unselect all @ref Efl_Ui_Selectable
  *
@@ -67,6 +67,6 @@ extern extern_WEAK void efl_ui_multi_selectable_all_select(Eo *obj);
  *
  * @ingroup Efl_Ui_Multi_Selectable
  */
-extern extern_WEAK void efl_ui_multi_selectable_all_unselect(Eo *obj);
+extern  void efl_ui_multi_selectable_all_unselect(Eo *obj);
 
 #endif

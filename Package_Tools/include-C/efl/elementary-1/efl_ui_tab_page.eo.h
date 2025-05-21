@@ -25,7 +25,7 @@ typedef Eo Efl_Ui_Tab_Page;
  */
 #define EFL_UI_TAB_PAGE_CLASS efl_ui_tab_page_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_tab_page_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_tab_page_class_get(void) ;
 
 /**
  * @brief Get this page represented as a @ref Efl_Ui_Tab_Bar_Default_Item
@@ -40,7 +40,7 @@ extern extern_WEAK const Efl_Class *efl_ui_tab_page_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Tab_Page
  */
-extern extern_WEAK Efl_Ui_Tab_Bar_Default_Item *efl_ui_tab_page_tab_bar_item_get(const Eo *obj);
+extern  Efl_Ui_Tab_Bar_Default_Item *efl_ui_tab_page_tab_bar_item_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

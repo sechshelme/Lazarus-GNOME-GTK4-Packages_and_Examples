@@ -25,7 +25,7 @@ typedef Eo Efl_Ui_Text_Factory_Fallback;
  */
 #define EFL_UI_TEXT_FACTORY_FALLBACK_CLASS efl_ui_text_factory_fallback_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_text_factory_fallback_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_text_factory_fallback_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

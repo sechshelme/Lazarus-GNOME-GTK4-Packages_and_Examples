@@ -20,7 +20,7 @@ typedef Eo Efl_Loop_Message_Future;
  */
 #define EFL_LOOP_MESSAGE_FUTURE_CLASS efl_loop_message_future_class_get()
 
-extern extern_WEAK const Efl_Class *efl_loop_message_future_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_loop_message_future_class_get(void) ;
 
 /**
  * @brief No description supplied.
@@ -30,7 +30,7 @@ extern extern_WEAK const Efl_Class *efl_loop_message_future_class_get(void) EINA
  *
  * @ingroup Efl_Loop_Message_Future
  */
-extern extern_WEAK void efl_loop_message_future_data_set(Eo *obj, void *data);
+extern  void efl_loop_message_future_data_set(Eo *obj, void *data);
 
 /**
  * @brief No description supplied.
@@ -41,7 +41,7 @@ extern extern_WEAK void efl_loop_message_future_data_set(Eo *obj, void *data);
  *
  * @ingroup Efl_Loop_Message_Future
  */
-extern extern_WEAK void *efl_loop_message_future_data_get(const Eo *obj);
+extern  void *efl_loop_message_future_data_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

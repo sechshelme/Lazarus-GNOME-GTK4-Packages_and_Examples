@@ -30,7 +30,7 @@ typedef Eo Efl_Net_Ssl_Context;
  */
 #define EFL_NET_SSL_CONTEXT_CLASS efl_net_ssl_context_class_get()
 
-ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_ssl_context_class_get(void) EINA_CONST;
+ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_ssl_context_class_get(void) ;
 
 /**
  * @brief The default context for dialers.
@@ -68,7 +68,7 @@ ECORE_CON_API ECORE_CON_API_WEAK void efl_net_ssl_context_setup(Eo *obj, Efl_Net
  *
  * @ingroup Efl_Net_Ssl_Context
  */
-ECORE_CON_API ECORE_CON_API_WEAK void efl_net_ssl_context_certificates_set(Eo *obj, Eina_Iterator *paths EFL_TRANSFER_OWNERSHIP);
+ECORE_CON_API ECORE_CON_API_WEAK void efl_net_ssl_context_certificates_set(Eo *obj, Eina_Iterator *paths );
 
 /**
  * @brief The list of paths to certificates to use.
@@ -81,7 +81,7 @@ ECORE_CON_API ECORE_CON_API_WEAK void efl_net_ssl_context_certificates_set(Eo *o
  *
  * @ingroup Efl_Net_Ssl_Context
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_ssl_context_certificates_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_ssl_context_certificates_get(const Eo *obj)  ;
 
 /**
  * @brief The list of paths to private keys to use.
@@ -93,7 +93,7 @@ ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_ssl_context_certificates
  *
  * @ingroup Efl_Net_Ssl_Context
  */
-ECORE_CON_API ECORE_CON_API_WEAK void efl_net_ssl_context_private_keys_set(Eo *obj, Eina_Iterator *paths EFL_TRANSFER_OWNERSHIP);
+ECORE_CON_API ECORE_CON_API_WEAK void efl_net_ssl_context_private_keys_set(Eo *obj, Eina_Iterator *paths );
 
 /**
  * @brief The list of paths to private keys to use.
@@ -106,7 +106,7 @@ ECORE_CON_API ECORE_CON_API_WEAK void efl_net_ssl_context_private_keys_set(Eo *o
  *
  * @ingroup Efl_Net_Ssl_Context
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_ssl_context_private_keys_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_ssl_context_private_keys_get(const Eo *obj)  ;
 
 /**
  * @brief The list of paths to CRL (certificate revocation list) to use.
@@ -118,7 +118,7 @@ ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_ssl_context_private_keys
  *
  * @ingroup Efl_Net_Ssl_Context
  */
-ECORE_CON_API ECORE_CON_API_WEAK void efl_net_ssl_context_certificate_revocation_lists_set(Eo *obj, Eina_Iterator *paths EFL_TRANSFER_OWNERSHIP);
+ECORE_CON_API ECORE_CON_API_WEAK void efl_net_ssl_context_certificate_revocation_lists_set(Eo *obj, Eina_Iterator *paths );
 
 /**
  * @brief The list of paths to CRL (certificate revocation list) to use.
@@ -131,7 +131,7 @@ ECORE_CON_API ECORE_CON_API_WEAK void efl_net_ssl_context_certificate_revocation
  *
  * @ingroup Efl_Net_Ssl_Context
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_ssl_context_certificate_revocation_lists_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_ssl_context_certificate_revocation_lists_get(const Eo *obj)  ;
 
 /**
  * @brief The list of paths to CA (certificate authoritie) to use.
@@ -143,7 +143,7 @@ ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_ssl_context_certificate_
  *
  * @ingroup Efl_Net_Ssl_Context
  */
-ECORE_CON_API ECORE_CON_API_WEAK void efl_net_ssl_context_certificate_authorities_set(Eo *obj, Eina_Iterator *paths EFL_TRANSFER_OWNERSHIP);
+ECORE_CON_API ECORE_CON_API_WEAK void efl_net_ssl_context_certificate_authorities_set(Eo *obj, Eina_Iterator *paths );
 
 /**
  * @brief The list of paths to CA (certificate authoritie) to use.
@@ -156,7 +156,7 @@ ECORE_CON_API ECORE_CON_API_WEAK void efl_net_ssl_context_certificate_authoritie
  *
  * @ingroup Efl_Net_Ssl_Context
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_ssl_context_certificate_authorities_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_ssl_context_certificate_authorities_get(const Eo *obj)  ;
 
 /**
  * @brief If @c true, will use system's default certificate storage

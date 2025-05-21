@@ -6,21 +6,21 @@
 #ifdef extern
 # undef extern
 #endif
-#ifdef extern_WEAK
-# undef extern_WEAK
+#ifdef 
+# undef 
 #endif
 
 # ifdef __GNUC__
 #  if __GNUC__ >= 4
 #   define extern __attribute__ ((visibility("default")))
-#   define extern_WEAK
+#   define 
 #  else
 #   define extern
-#   define extern_WEAK
+#   define 
 #  endif
 # endif
 
-#define EWAPI extern extern_WEAK
+#define extern extern 
 
 #ifdef WAYLAND_UTIL_H
 typedef struct wl_surface Efl_Canvas_Wl_Wl_Surface;
@@ -56,6 +56,6 @@ typedef struct Efl_Canvas_Wl_Xkb_State Efl_Canvas_Wl_Xkb_State;
 extern Evas_Object *efl_canvas_wl_extracted_surface_object_find(void *surface_resource);
 #undef extern
 #define extern
-#undef extern_WEAK
-#define extern_WEAK
+#undef 
+#define 
 #endif

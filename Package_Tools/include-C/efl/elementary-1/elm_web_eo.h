@@ -19,7 +19,7 @@ typedef Eo Elm_Web;
  */
 #define ELM_WEB_CLASS elm_web_class_get()
 
-EWAPI const Efl_Class *elm_web_class_get(void) EINA_CONST;
+extern const Efl_Class *elm_web_class_get(void) ;
 
 /**
  * @brief Sets whether to highlight the matched marks.
@@ -373,7 +373,7 @@ EOAPI double elm_obj_web_load_progress_get(const Eo *obj);
  *
  * @ingroup Elm_Web
  */
-EOAPI char *elm_obj_web_selection_get(const Eo *obj) EINA_WARN_UNUSED_RESULT;
+EOAPI char *elm_obj_web_selection_get(const Eo *obj) ;
 
 /**
  * @brief Get the current title.
@@ -387,7 +387,7 @@ EOAPI char *elm_obj_web_selection_get(const Eo *obj) EINA_WARN_UNUSED_RESULT;
  *
  * @ingroup Elm_Web
  */
-EOAPI Eina_Stringshare *elm_obj_web_title_get(const Eo *obj) EINA_WARN_UNUSED_RESULT;
+EOAPI Eina_Stringshare *elm_obj_web_title_get(const Eo *obj) ;
 
 /**
  * @brief Jumps the given number of steps in the browsing history.

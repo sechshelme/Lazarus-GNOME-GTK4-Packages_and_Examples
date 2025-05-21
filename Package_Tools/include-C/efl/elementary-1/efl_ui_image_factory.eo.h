@@ -20,7 +20,7 @@ typedef Eo Efl_Ui_Image_Factory;
  */
 #define EFL_UI_IMAGE_FACTORY_CLASS efl_ui_image_factory_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_image_factory_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_image_factory_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

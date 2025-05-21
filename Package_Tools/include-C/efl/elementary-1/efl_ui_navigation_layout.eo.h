@@ -25,7 +25,7 @@ typedef Eo Efl_Ui_Navigation_Layout;
  */
 #define EFL_UI_NAVIGATION_LAYOUT_CLASS efl_ui_navigation_layout_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_navigation_layout_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_navigation_layout_class_get(void) ;
 
 /**
  * @brief The bar object which is located at the top area as a title. e.g.
@@ -37,7 +37,7 @@ extern extern_WEAK const Efl_Class *efl_ui_navigation_layout_class_get(void) EIN
  *
  * @ingroup Efl_Ui_Navigation_Layout
  */
-extern extern_WEAK void efl_ui_navigation_layout_bar_set(Eo *obj, Efl_Ui_Layout_Base *value);
+extern  void efl_ui_navigation_layout_bar_set(Eo *obj, Efl_Ui_Layout_Base *value);
 
 /**
  * @brief The bar object which is located at the top area as a title. e.g.
@@ -49,7 +49,7 @@ extern extern_WEAK void efl_ui_navigation_layout_bar_set(Eo *obj, Efl_Ui_Layout_
  *
  * @ingroup Efl_Ui_Navigation_Layout
  */
-extern extern_WEAK Efl_Ui_Layout_Base *efl_ui_navigation_layout_bar_get(const Eo *obj);
+extern  Efl_Ui_Layout_Base *efl_ui_navigation_layout_bar_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

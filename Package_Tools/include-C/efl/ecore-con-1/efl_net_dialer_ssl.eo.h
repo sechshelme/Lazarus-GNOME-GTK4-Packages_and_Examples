@@ -40,7 +40,7 @@ typedef Eo Efl_Net_Dialer_Ssl;
  */
 #define EFL_NET_DIALER_SSL_CLASS efl_net_dialer_ssl_class_get()
 
-ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_dialer_ssl_class_get(void) EINA_CONST;
+ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_dialer_ssl_class_get(void) ;
 
 /**
  * @brief Defines the SSL context to use for this dialer.

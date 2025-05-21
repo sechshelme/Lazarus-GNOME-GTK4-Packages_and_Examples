@@ -66,17 +66,17 @@ function ECORE_EXE_EVENT_DATA_ERROR: PEfl_Event_Description;
 implementation
 
 
-function ECORE_EXE_CLASS: PEfl_Class;
+function ECORE_EXE_CLASS: PEfl_Class; unimplemented;
 begin
 //  ECORE_EXE_CLASS := ecore_exe_class_get;
 end;
 
-function ECORE_EXE_EVENT_DATA_GET: PEfl_Event_Description;
+function ECORE_EXE_EVENT_DATA_GET: PEfl_Event_Description; unimplemented;
 begin
 //  ECORE_EXE_EVENT_DATA_GET := @(_ECORE_EXE_EVENT_DATA_GET);
 end;
 
-function ECORE_EXE_EVENT_DATA_ERROR: PEfl_Event_Description;
+function ECORE_EXE_EVENT_DATA_ERROR: PEfl_Event_Description; unimplemented;
 begin
 //  ECORE_EXE_EVENT_DATA_ERROR := @(_ECORE_EXE_EVENT_DATA_ERROR);
 end;

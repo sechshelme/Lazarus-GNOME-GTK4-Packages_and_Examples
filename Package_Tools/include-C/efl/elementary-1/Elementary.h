@@ -82,11 +82,11 @@
 #ifdef extern
 # undef extern
 #endif
-#ifdef EWAPI
-# undef EWAPI
+#ifdef extern
+# undef extern
 #endif
-#ifdef extern_WEAK
-# undef extern_WEAK
+#ifdef 
+# undef 
 #endif
 
 #ifdef _WIN32
@@ -99,23 +99,23 @@
 # else
 #  define extern __declspec(dllimport)
 # endif
-# define extern_WEAK
+# define 
 #else
 # ifdef __GNUC__
 #  if __GNUC__ >= 4
 #   define extern __attribute__ ((visibility("default")))
-#   define extern_WEAK __attribute__ ((weak))
+#   define  __attribute__ ((weak))
 #  else
 #   define extern
-#   define extern_WEAK
+#   define 
 # endif
 # else
 #  define extern
-#  define extern_WEAK
+#  define 
 # endif
 #endif
 
-#define EWAPI extern extern_WEAK
+#define extern extern 
 
 
 /* allow usage from c++ */

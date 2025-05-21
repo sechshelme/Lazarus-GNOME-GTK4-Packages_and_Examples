@@ -26,7 +26,7 @@ typedef Eo Efl_Layout_Calc;
  */
 #define EFL_LAYOUT_CALC_INTERFACE efl_layout_calc_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_layout_calc_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_layout_calc_interface_get(void) ;
 
 /**
  * @brief Whether this object updates its size hints automatically.
@@ -48,7 +48,7 @@ extern extern_WEAK const Efl_Class *efl_layout_calc_interface_get(void) EINA_CON
  *
  * @ingroup Efl_Layout_Calc
  */
-extern extern_WEAK void efl_layout_calc_auto_update_hints_set(Eo *obj, Eina_Bool update);
+extern  void efl_layout_calc_auto_update_hints_set(Eo *obj, Eina_Bool update);
 
 /**
  * @brief Whether this object updates its size hints automatically.
@@ -71,7 +71,7 @@ extern extern_WEAK void efl_layout_calc_auto_update_hints_set(Eo *obj, Eina_Bool
  *
  * @ingroup Efl_Layout_Calc
  */
-extern extern_WEAK Eina_Bool efl_layout_calc_auto_update_hints_get(const Eo *obj);
+extern  Eina_Bool efl_layout_calc_auto_update_hints_get(const Eo *obj);
 
 /**
  * @brief Calculates the minimum required size for a given layout object.
@@ -99,7 +99,7 @@ extern extern_WEAK Eina_Bool efl_layout_calc_auto_update_hints_get(const Eo *obj
  *
  * @ingroup Efl_Layout_Calc
  */
-extern extern_WEAK Eina_Size2D efl_layout_calc_size_min(Eo *obj, Eina_Size2D restricted);
+extern  Eina_Size2D efl_layout_calc_size_min(Eo *obj, Eina_Size2D restricted);
 
 /**
  * @brief Calculates the geometry of the region, relative to a given layout
@@ -122,7 +122,7 @@ extern extern_WEAK Eina_Size2D efl_layout_calc_size_min(Eo *obj, Eina_Size2D res
  *
  * @ingroup Efl_Layout_Calc
  */
-extern extern_WEAK Eina_Rect efl_layout_calc_parts_extends(Eo *obj);
+extern  Eina_Rect efl_layout_calc_parts_extends(Eo *obj);
 
 /**
  * @brief Freezes the layout object.
@@ -140,7 +140,7 @@ extern extern_WEAK Eina_Rect efl_layout_calc_parts_extends(Eo *obj);
  *
  * @ingroup Efl_Layout_Calc
  */
-extern extern_WEAK int efl_layout_calc_freeze(Eo *obj);
+extern  int efl_layout_calc_freeze(Eo *obj);
 
 /**
  * @brief Thaws the layout object.
@@ -160,7 +160,7 @@ extern extern_WEAK int efl_layout_calc_freeze(Eo *obj);
  *
  * @ingroup Efl_Layout_Calc
  */
-extern extern_WEAK int efl_layout_calc_thaw(Eo *obj);
+extern  int efl_layout_calc_thaw(Eo *obj);
 
 #ifdef EFL_LAYOUT_CALC_PROTECTED
 /**
@@ -177,10 +177,10 @@ extern extern_WEAK int efl_layout_calc_thaw(Eo *obj);
  *
  * @ingroup Efl_Layout_Calc
  */
-extern extern_WEAK void efl_layout_calc_force(Eo *obj);
+extern  void efl_layout_calc_force(Eo *obj);
 #endif
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_LAYOUT_EVENT_RECALC;
+extern  extern const Efl_Event_Description _EFL_LAYOUT_EVENT_RECALC;
 
 /** The layout was recalculated.
  *
@@ -190,7 +190,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_LAYOUT_EVENT_RECALC;
  */
 #define EFL_LAYOUT_EVENT_RECALC (&(_EFL_LAYOUT_EVENT_RECALC))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_LAYOUT_EVENT_CIRCULAR_DEPENDENCY;
+extern  extern const Efl_Event_Description _EFL_LAYOUT_EVENT_CIRCULAR_DEPENDENCY;
 
 /** A circular dependency between parts of the object was found.
  * @return const Eina_Array *

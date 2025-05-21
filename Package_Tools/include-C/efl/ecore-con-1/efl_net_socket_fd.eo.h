@@ -28,7 +28,7 @@ typedef Eo Efl_Net_Socket_Fd;
  */
 #define EFL_NET_SOCKET_FD_CLASS efl_net_socket_fd_class_get()
 
-ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_socket_fd_class_get(void) EINA_CONST;
+ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_socket_fd_class_get(void) ;
 
 #ifdef EFL_NET_SOCKET_FD_PROTECTED
 /**

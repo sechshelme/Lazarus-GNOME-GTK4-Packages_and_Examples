@@ -26,7 +26,7 @@ typedef Eo Efl_Composite_Model;
  */
 #define EFL_COMPOSITE_MODEL_CLASS efl_composite_model_class_get()
 
-extern extern_WEAK const Efl_Class *efl_composite_model_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_composite_model_class_get(void) ;
 
 /**
  * @brief Position of this object in the parent model.
@@ -43,7 +43,7 @@ extern extern_WEAK const Efl_Class *efl_composite_model_class_get(void) EINA_CON
  *
  * @ingroup Efl_Composite_Model
  */
-extern extern_WEAK void efl_composite_model_index_set(Eo *obj, unsigned int index);
+extern  void efl_composite_model_index_set(Eo *obj, unsigned int index);
 
 /**
  * @brief Position of this object in the parent model.
@@ -61,6 +61,6 @@ extern extern_WEAK void efl_composite_model_index_set(Eo *obj, unsigned int inde
  *
  * @ingroup Efl_Composite_Model
  */
-extern extern_WEAK unsigned int efl_composite_model_index_get(const Eo *obj);
+extern  unsigned int efl_composite_model_index_get(const Eo *obj);
 
 #endif

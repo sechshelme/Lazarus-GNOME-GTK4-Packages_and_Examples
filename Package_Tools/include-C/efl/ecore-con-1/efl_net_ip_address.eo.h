@@ -62,7 +62,7 @@ typedef struct _Efl_Net_Ip_Address_Resolve_Results
  */
 #define EFL_NET_IP_ADDRESS_CLASS efl_net_ip_address_class_get()
 
-ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_ip_address_class_get(void) EINA_CONST;
+ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_ip_address_class_get(void) ;
 
 /**
  * @brief Creates an object given family, port and address.
@@ -79,7 +79,7 @@ ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_ip_address_class_get(v
  *
  * @ingroup Efl_Net_Ip_Address
  */
-ECORE_CON_API ECORE_CON_API_WEAK Efl_Net_Ip_Address *efl_net_ip_address_create(uint16_t port, const Eina_Slice address) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Efl_Net_Ip_Address *efl_net_ip_address_create(uint16_t port, const Eina_Slice address)  ;
 
 /**
  * @brief Creates an object given sockaddr
@@ -95,7 +95,7 @@ ECORE_CON_API ECORE_CON_API_WEAK Efl_Net_Ip_Address *efl_net_ip_address_create(u
  *
  * @ingroup Efl_Net_Ip_Address
  */
-ECORE_CON_API ECORE_CON_API_WEAK Efl_Net_Ip_Address *efl_net_ip_address_create_sockaddr(const void *sockaddr) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Efl_Net_Ip_Address *efl_net_ip_address_create_sockaddr(const void *sockaddr)  ;
 
 /**
  * @brief Parses a numeric address and return an object representing it.
@@ -118,7 +118,7 @@ ECORE_CON_API ECORE_CON_API_WEAK Efl_Net_Ip_Address *efl_net_ip_address_create_s
  *
  * @ingroup Efl_Net_Ip_Address
  */
-ECORE_CON_API ECORE_CON_API_WEAK Efl_Net_Ip_Address *efl_net_ip_address_parse(const char *numeric_address) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Efl_Net_Ip_Address *efl_net_ip_address_parse(const char *numeric_address)  ;
 
 /**
  * @brief Asynchronously resolves host and port names.

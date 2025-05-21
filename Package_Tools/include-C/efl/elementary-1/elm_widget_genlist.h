@@ -258,7 +258,7 @@ struct Elm_Gen_Item_Type
 
 struct _Item_Block
 {
-   EINA_INLIST;
+   Eina_Inlist __in_list;
 
    int                     count;
    int                     vis_count;
@@ -282,7 +282,7 @@ struct _Item_Block
 
 struct _Item_Cache
 {
-   EINA_INLIST;
+   Eina_Inlist __in_list;
 
    Evas_Object *base_view, *spacer;
    const Elm_Genlist_Item_Class  *item_class; // it->itc

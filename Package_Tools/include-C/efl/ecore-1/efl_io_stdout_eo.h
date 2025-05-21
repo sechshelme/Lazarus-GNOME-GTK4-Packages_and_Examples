@@ -20,7 +20,7 @@ typedef Eo Efl_Io_Stdout;
  */
 #define EFL_IO_STDOUT_CLASS efl_io_stdout_class_get()
 
-extern extern_WEAK const Efl_Class *efl_io_stdout_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_io_stdout_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

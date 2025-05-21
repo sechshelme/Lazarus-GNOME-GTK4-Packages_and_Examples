@@ -50,7 +50,7 @@ extern void elm_grid_size_get(const Elm_Grid *obj, int *w, int *h);
  *
  * @ingroup Elm_Grid_Group
  */
-extern Eina_List *elm_grid_children_get(const Elm_Grid *obj) EINA_WARN_UNUSED_RESULT;
+extern Eina_List *elm_grid_children_get(const Elm_Grid *obj) ;
 
 /**
  * @brief Faster way to remove all child objects from a grid object.

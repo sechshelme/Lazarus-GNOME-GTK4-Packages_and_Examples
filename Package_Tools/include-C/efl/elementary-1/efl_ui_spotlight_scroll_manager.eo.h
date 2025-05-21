@@ -16,7 +16,7 @@ typedef Eo Efl_Ui_Spotlight_Scroll_Manager;
 #ifdef EFL_BETA_API_SUPPORT
 #define EFL_UI_SPOTLIGHT_SCROLL_MANAGER_CLASS efl_ui_spotlight_scroll_manager_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_spotlight_scroll_manager_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_spotlight_scroll_manager_class_get(void) ;
 
 /**
  * @brief User scrolling forbidden.
@@ -28,7 +28,7 @@ extern extern_WEAK const Efl_Class *efl_ui_spotlight_scroll_manager_class_get(vo
  *
  * @ingroup Efl_Ui_Spotlight_Scroll_Manager
  */
-extern extern_WEAK void efl_ui_spotlight_manager_scroll_block_set(Eo *obj, Eina_Bool scroll_block);
+extern  void efl_ui_spotlight_manager_scroll_block_set(Eo *obj, Eina_Bool scroll_block);
 
 /**
  * @brief User scrolling forbidden.
@@ -41,7 +41,7 @@ extern extern_WEAK void efl_ui_spotlight_manager_scroll_block_set(Eo *obj, Eina_
  *
  * @ingroup Efl_Ui_Spotlight_Scroll_Manager
  */
-extern extern_WEAK Eina_Bool efl_ui_spotlight_manager_scroll_block_get(const Eo *obj);
+extern  Eina_Bool efl_ui_spotlight_manager_scroll_block_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

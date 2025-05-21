@@ -29,7 +29,7 @@ typedef Eo Efl_Net_Server;
  */
 #define EFL_NET_SERVER_INTERFACE efl_net_server_interface_get()
 
-ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_server_interface_get(void) EINA_CONST;
+ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_server_interface_get(void) ;
 
 /**
  * @brief Starts serving requests.

@@ -25,7 +25,7 @@ typedef Eo Efl_Ui_Focus_Manager_Calc;
  */
 #define EFL_UI_FOCUS_MANAGER_CALC_CLASS efl_ui_focus_manager_calc_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_focus_manager_calc_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_focus_manager_calc_class_get(void) ;
 
 /**
  * @brief Registers a new item in the graph.
@@ -44,7 +44,7 @@ extern extern_WEAK const Efl_Class *efl_ui_focus_manager_calc_class_get(void) EI
  *
  * @ingroup Efl_Ui_Focus_Manager_Calc
  */
-extern extern_WEAK Eina_Bool efl_ui_focus_manager_calc_register(Eo *obj, Efl_Ui_Focus_Object *child, Efl_Ui_Focus_Object *parent, Efl_Ui_Focus_Manager *redirect);
+extern  Eina_Bool efl_ui_focus_manager_calc_register(Eo *obj, Efl_Ui_Focus_Object *child, Efl_Ui_Focus_Object *parent, Efl_Ui_Focus_Manager *redirect);
 
 /**
  * @brief Registers a new logical item in the graph.
@@ -62,7 +62,7 @@ extern extern_WEAK Eina_Bool efl_ui_focus_manager_calc_register(Eo *obj, Efl_Ui_
  *
  * @ingroup Efl_Ui_Focus_Manager_Calc
  */
-extern extern_WEAK Eina_Bool efl_ui_focus_manager_calc_register_logical(Eo *obj, Efl_Ui_Focus_Object *child, Efl_Ui_Focus_Object *parent, Efl_Ui_Focus_Manager *redirect);
+extern  Eina_Bool efl_ui_focus_manager_calc_register_logical(Eo *obj, Efl_Ui_Focus_Object *child, Efl_Ui_Focus_Object *parent, Efl_Ui_Focus_Manager *redirect);
 
 /**
  * @brief Sets a new redirect object for the given child.
@@ -79,7 +79,7 @@ extern extern_WEAK Eina_Bool efl_ui_focus_manager_calc_register_logical(Eo *obj,
  *
  * @ingroup Efl_Ui_Focus_Manager_Calc
  */
-extern extern_WEAK Eina_Bool efl_ui_focus_manager_calc_update_redirect(Eo *obj, Efl_Ui_Focus_Object *child, Efl_Ui_Focus_Manager *redirect);
+extern  Eina_Bool efl_ui_focus_manager_calc_update_redirect(Eo *obj, Efl_Ui_Focus_Object *child, Efl_Ui_Focus_Manager *redirect);
 
 /**
  * @brief Sets a new logical parent for the given child.
@@ -92,7 +92,7 @@ extern extern_WEAK Eina_Bool efl_ui_focus_manager_calc_update_redirect(Eo *obj, 
  *
  * @ingroup Efl_Ui_Focus_Manager_Calc
  */
-extern extern_WEAK Eina_Bool efl_ui_focus_manager_calc_update_parent(Eo *obj, Efl_Ui_Focus_Object *child, Efl_Ui_Focus_Object *parent);
+extern  Eina_Bool efl_ui_focus_manager_calc_update_parent(Eo *obj, Efl_Ui_Focus_Object *child, Efl_Ui_Focus_Object *parent);
 
 /**
  * @brief Unregister the given item from the focus graph.
@@ -102,7 +102,7 @@ extern extern_WEAK Eina_Bool efl_ui_focus_manager_calc_update_parent(Eo *obj, Ef
  *
  * @ingroup Efl_Ui_Focus_Manager_Calc
  */
-extern extern_WEAK void efl_ui_focus_manager_calc_unregister(Eo *obj, Efl_Ui_Focus_Object *child);
+extern  void efl_ui_focus_manager_calc_unregister(Eo *obj, Efl_Ui_Focus_Object *child);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

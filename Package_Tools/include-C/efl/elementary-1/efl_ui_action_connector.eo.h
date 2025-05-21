@@ -25,7 +25,7 @@ typedef Eo Efl_Ui_Action_Connector;
  */
 #define EFL_UI_ACTION_CONNECTOR_CLASS efl_ui_action_connector_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_action_connector_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_action_connector_class_get(void) ;
 
 /**
  * @brief This will listen to the standard "click" events on a theme and emit
@@ -42,7 +42,7 @@ extern extern_WEAK const Efl_Class *efl_ui_action_connector_class_get(void) EINA
  *
  * @ingroup Efl_Ui_Action_Connector
  */
-extern extern_WEAK void efl_ui_action_connector_bind_clickable_to_theme(Efl_Canvas_Layout *object, Efl_Input_Clickable *clickable);
+extern  void efl_ui_action_connector_bind_clickable_to_theme(Efl_Canvas_Layout *object, Efl_Input_Clickable *clickable);
 
 /**
  * @brief This will listen to the standard "click" events on an object, and
@@ -59,7 +59,7 @@ extern extern_WEAK void efl_ui_action_connector_bind_clickable_to_theme(Efl_Canv
  *
  * @ingroup Efl_Ui_Action_Connector
  */
-extern extern_WEAK void efl_ui_action_connector_bind_clickable_to_object(Efl_Input_Interface *object, Efl_Input_Clickable *clickable);
+extern  void efl_ui_action_connector_bind_clickable_to_object(Efl_Input_Interface *object, Efl_Input_Clickable *clickable);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

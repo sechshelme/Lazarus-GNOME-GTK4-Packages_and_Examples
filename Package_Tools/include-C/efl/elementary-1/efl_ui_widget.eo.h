@@ -54,7 +54,7 @@ typedef struct _Efl_Ui_Widget_Focus_State
  */
 #define EFL_UI_WIDGET_CLASS efl_ui_widget_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_widget_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_widget_class_get(void) ;
 
 #ifdef EFL_BETA_API_SUPPORT
 /**
@@ -81,7 +81,7 @@ extern extern_WEAK const Efl_Class *efl_ui_widget_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_widget_cursor_set(Eo *obj, const char *cursor);
+extern  Eina_Bool efl_ui_widget_cursor_set(Eo *obj, const char *cursor);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -107,7 +107,7 @@ extern extern_WEAK Eina_Bool efl_ui_widget_cursor_set(Eo *obj, const char *curso
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK const char *efl_ui_widget_cursor_get(const Eo *obj);
+extern  const char *efl_ui_widget_cursor_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -127,7 +127,7 @@ extern extern_WEAK const char *efl_ui_widget_cursor_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_widget_cursor_style_set(Eo *obj, const char *style);
+extern  Eina_Bool efl_ui_widget_cursor_style_set(Eo *obj, const char *style);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -146,7 +146,7 @@ extern extern_WEAK Eina_Bool efl_ui_widget_cursor_style_set(Eo *obj, const char 
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK const char *efl_ui_widget_cursor_style_get(const Eo *obj);
+extern  const char *efl_ui_widget_cursor_style_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -165,7 +165,7 @@ extern extern_WEAK const char *efl_ui_widget_cursor_style_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_widget_cursor_theme_search_enabled_set(Eo *obj, Eina_Bool allow);
+extern  Eina_Bool efl_ui_widget_cursor_theme_search_enabled_set(Eo *obj, Eina_Bool allow);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -183,7 +183,7 @@ extern extern_WEAK Eina_Bool efl_ui_widget_cursor_theme_search_enabled_set(Eo *o
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_widget_cursor_theme_search_enabled_get(const Eo *obj);
+extern  Eina_Bool efl_ui_widget_cursor_theme_search_enabled_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_UI_WIDGET_PROTECTED
@@ -201,7 +201,7 @@ extern extern_WEAK Eina_Bool efl_ui_widget_cursor_theme_search_enabled_get(const
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK void efl_ui_widget_resize_object_set(Eo *obj, Efl_Canvas_Object *sobj);
+extern  void efl_ui_widget_resize_object_set(Eo *obj, Efl_Canvas_Object *sobj);
 #endif
 
 /**
@@ -225,7 +225,7 @@ extern extern_WEAK void efl_ui_widget_resize_object_set(Eo *obj, Efl_Canvas_Obje
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK void efl_ui_widget_disabled_set(Eo *obj, Eina_Bool disabled);
+extern  void efl_ui_widget_disabled_set(Eo *obj, Eina_Bool disabled);
 
 /**
  * @brief Whether the widget is enabled (accepts and reacts to user inputs).
@@ -249,7 +249,7 @@ extern extern_WEAK void efl_ui_widget_disabled_set(Eo *obj, Eina_Bool disabled);
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_widget_disabled_get(const Eo *obj);
+extern  Eina_Bool efl_ui_widget_disabled_get(const Eo *obj);
 
 /**
  * @brief The widget style to use.
@@ -272,7 +272,7 @@ extern extern_WEAK Eina_Bool efl_ui_widget_disabled_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK Eina_Error efl_ui_widget_style_set(Eo *obj, const char *style);
+extern  Eina_Error efl_ui_widget_style_set(Eo *obj, const char *style);
 
 /**
  * @brief The widget style to use.
@@ -293,7 +293,7 @@ extern extern_WEAK Eina_Error efl_ui_widget_style_set(Eo *obj, const char *style
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK const char *efl_ui_widget_style_get(const Eo *obj);
+extern  const char *efl_ui_widget_style_get(const Eo *obj);
 
 #ifdef EFL_UI_WIDGET_PROTECTED
 /**
@@ -318,7 +318,7 @@ extern extern_WEAK const char *efl_ui_widget_style_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_widget_input_event_handler(Eo *obj, const Efl_Event *eo_event, Efl_Canvas_Object *source);
+extern  Eina_Bool efl_ui_widget_input_event_handler(Eo *obj, const Efl_Event *eo_event, Efl_Canvas_Object *source);
 #endif
 
 /**
@@ -342,7 +342,7 @@ extern extern_WEAK Eina_Bool efl_ui_widget_input_event_handler(Eo *obj, const Ef
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK void efl_ui_widget_focus_allow_set(Eo *obj, Eina_Bool can_focus);
+extern  void efl_ui_widget_focus_allow_set(Eo *obj, Eina_Bool can_focus);
 
 /**
  * @brief The ability for a widget to be focused.
@@ -366,7 +366,7 @@ extern extern_WEAK void efl_ui_widget_focus_allow_set(Eo *obj, Eina_Bool can_foc
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_widget_focus_allow_get(const Eo *obj);
+extern  Eina_Bool efl_ui_widget_focus_allow_get(const Eo *obj);
 
 #ifdef EFL_UI_WIDGET_PROTECTED
 /**
@@ -383,7 +383,7 @@ extern extern_WEAK Eina_Bool efl_ui_widget_focus_allow_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK void efl_ui_widget_parent_set(Eo *obj, Efl_Ui_Widget *parent);
+extern  void efl_ui_widget_parent_set(Eo *obj, Efl_Ui_Widget *parent);
 #endif
 
 #ifdef EFL_UI_WIDGET_PROTECTED
@@ -402,7 +402,7 @@ extern extern_WEAK void efl_ui_widget_parent_set(Eo *obj, Efl_Ui_Widget *parent)
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK Efl_Ui_Widget *efl_ui_widget_parent_get(const Eo *obj);
+extern  Efl_Ui_Widget *efl_ui_widget_parent_get(const Eo *obj);
 #endif
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -422,7 +422,7 @@ extern extern_WEAK Efl_Ui_Widget *efl_ui_widget_parent_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK void efl_ui_widget_access_info_set(Eo *obj, const char *txt);
+extern  void efl_ui_widget_access_info_set(Eo *obj, const char *txt);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -443,7 +443,7 @@ extern extern_WEAK void efl_ui_widget_access_info_set(Eo *obj, const char *txt);
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK const char *efl_ui_widget_access_info_get(const Eo *obj);
+extern  const char *efl_ui_widget_access_info_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -463,7 +463,7 @@ extern extern_WEAK const char *efl_ui_widget_access_info_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_widget_on_access_activate(Eo *obj, Efl_Ui_Activate act);
+extern  Eina_Bool efl_ui_widget_on_access_activate(Eo *obj, Efl_Ui_Activate act);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -482,7 +482,7 @@ extern extern_WEAK Eina_Bool efl_ui_widget_on_access_activate(Eo *obj, Efl_Ui_Ac
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK void efl_ui_widget_on_access_update(Eo *obj, Eina_Bool enable);
+extern  void efl_ui_widget_on_access_update(Eo *obj, Eina_Bool enable);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -510,7 +510,7 @@ extern extern_WEAK void efl_ui_widget_on_access_update(Eo *obj, Eina_Bool enable
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_widget_sub_object_add(Eo *obj, Efl_Canvas_Object *sub_obj);
+extern  Eina_Bool efl_ui_widget_sub_object_add(Eo *obj, Efl_Canvas_Object *sub_obj);
 #endif
 
 #ifdef EFL_UI_WIDGET_PROTECTED
@@ -538,7 +538,7 @@ extern extern_WEAK Eina_Bool efl_ui_widget_sub_object_add(Eo *obj, Efl_Canvas_Ob
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_widget_sub_object_del(Eo *obj, Efl_Canvas_Object *sub_obj);
+extern  Eina_Bool efl_ui_widget_sub_object_del(Eo *obj, Efl_Canvas_Object *sub_obj);
 #endif
 
 #ifdef EFL_UI_WIDGET_PROTECTED
@@ -561,7 +561,7 @@ extern extern_WEAK Eina_Bool efl_ui_widget_sub_object_del(Eo *obj, Efl_Canvas_Ob
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK Eina_Error efl_ui_widget_theme_apply(Eo *obj);
+extern  Eina_Error efl_ui_widget_theme_apply(Eo *obj);
 #endif
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -571,7 +571,7 @@ extern extern_WEAK Eina_Error efl_ui_widget_theme_apply(Eo *obj);
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK void efl_ui_widget_scroll_hold_push(Eo *obj);
+extern  void efl_ui_widget_scroll_hold_push(Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -581,7 +581,7 @@ extern extern_WEAK void efl_ui_widget_scroll_hold_push(Eo *obj);
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK void efl_ui_widget_scroll_hold_pop(Eo *obj);
+extern  void efl_ui_widget_scroll_hold_pop(Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -591,7 +591,7 @@ extern extern_WEAK void efl_ui_widget_scroll_hold_pop(Eo *obj);
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK void efl_ui_widget_scroll_freeze_push(Eo *obj);
+extern  void efl_ui_widget_scroll_freeze_push(Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -601,7 +601,7 @@ extern extern_WEAK void efl_ui_widget_scroll_freeze_push(Eo *obj);
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK void efl_ui_widget_scroll_freeze_pop(Eo *obj);
+extern  void efl_ui_widget_scroll_freeze_pop(Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_UI_WIDGET_PROTECTED
@@ -629,7 +629,7 @@ extern extern_WEAK void efl_ui_widget_scroll_freeze_pop(Eo *obj);
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK Eina_Rect efl_ui_widget_interest_region_get(const Eo *obj);
+extern  Eina_Rect efl_ui_widget_interest_region_get(const Eo *obj);
 #endif
 
 #ifdef EFL_UI_WIDGET_PROTECTED
@@ -646,7 +646,7 @@ extern extern_WEAK Eina_Rect efl_ui_widget_interest_region_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK Eina_Rect efl_ui_widget_focus_highlight_geometry_get(const Eo *obj);
+extern  Eina_Rect efl_ui_widget_focus_highlight_geometry_get(const Eo *obj);
 #endif
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -660,7 +660,7 @@ extern extern_WEAK Eina_Rect efl_ui_widget_focus_highlight_geometry_get(const Eo
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK void efl_ui_widget_focus_move_policy_set(Eo *obj, Efl_Ui_Focus_Move_Policy policy);
+extern  void efl_ui_widget_focus_move_policy_set(Eo *obj, Efl_Ui_Focus_Move_Policy policy);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -675,7 +675,7 @@ extern extern_WEAK void efl_ui_widget_focus_move_policy_set(Eo *obj, Efl_Ui_Focu
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK Efl_Ui_Focus_Move_Policy efl_ui_widget_focus_move_policy_get(const Eo *obj);
+extern  Efl_Ui_Focus_Move_Policy efl_ui_widget_focus_move_policy_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -690,7 +690,7 @@ extern extern_WEAK Efl_Ui_Focus_Move_Policy efl_ui_widget_focus_move_policy_get(
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK void efl_ui_widget_focus_move_policy_automatic_set(Eo *obj, Eina_Bool automatic);
+extern  void efl_ui_widget_focus_move_policy_automatic_set(Eo *obj, Eina_Bool automatic);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_BETA_API_SUPPORT
@@ -706,7 +706,7 @@ extern extern_WEAK void efl_ui_widget_focus_move_policy_automatic_set(Eo *obj, E
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_widget_focus_move_policy_automatic_get(const Eo *obj);
+extern  Eina_Bool efl_ui_widget_focus_move_policy_automatic_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #ifdef EFL_UI_WIDGET_PROTECTED
@@ -734,10 +734,10 @@ extern extern_WEAK Eina_Bool efl_ui_widget_focus_move_policy_automatic_get(const
  *
  * @ingroup Efl_Ui_Widget
  */
-extern extern_WEAK Eina_Bool efl_ui_widget_focus_state_apply(Eo *obj, Efl_Ui_Widget_Focus_State current_state, Efl_Ui_Widget_Focus_State *configured_state, Efl_Ui_Widget *redirect);
+extern  Eina_Bool efl_ui_widget_focus_state_apply(Eo *obj, Efl_Ui_Widget_Focus_State current_state, Efl_Ui_Widget_Focus_State *configured_state, Efl_Ui_Widget *redirect);
 #endif
 #ifdef EFL_BETA_API_SUPPORT
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIDGET_EVENT_LANGUAGE_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_WIDGET_EVENT_LANGUAGE_CHANGED;
 
 /** Called when widget language changed
  *
@@ -748,7 +748,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIDGET_EVENT_LANGU
 #define EFL_UI_WIDGET_EVENT_LANGUAGE_CHANGED (&(_EFL_UI_WIDGET_EVENT_LANGUAGE_CHANGED))
 #endif /* EFL_BETA_API_SUPPORT */
 #ifdef EFL_BETA_API_SUPPORT
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_WIDGET_EVENT_ACCESS_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_WIDGET_EVENT_ACCESS_CHANGED;
 
 /** Called when accessibility changed
  *

@@ -150,7 +150,7 @@ extern void elm_dayselector_weekdays_names_set(Elm_Dayselector *obj, const char 
  *
  * @ingroup Elm_Dayselector_Group
  */
-extern Eina_List *elm_dayselector_weekdays_names_get(const Elm_Dayselector *obj) EINA_WARN_UNUSED_RESULT;
+extern Eina_List *elm_dayselector_weekdays_names_get(const Elm_Dayselector *obj) ;
 
 /**
  * @brief Set the state of given Dayselector_Day.

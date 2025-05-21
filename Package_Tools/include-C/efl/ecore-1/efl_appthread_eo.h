@@ -24,7 +24,7 @@ typedef Eo Efl_Appthread;
  */
 #define EFL_APPTHREAD_CLASS efl_appthread_class_get()
 
-extern extern_WEAK const Efl_Class *efl_appthread_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_appthread_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

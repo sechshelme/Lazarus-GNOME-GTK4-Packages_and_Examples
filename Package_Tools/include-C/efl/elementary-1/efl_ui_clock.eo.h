@@ -39,7 +39,7 @@ typedef enum
  */
 #define EFL_UI_CLOCK_CLASS efl_ui_clock_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_clock_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_clock_class_get(void) ;
 
 /**
  * @brief The current clock format. Format is a combination of allowed Libc
@@ -63,7 +63,7 @@ extern extern_WEAK const Efl_Class *efl_ui_clock_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Clock
  */
-extern extern_WEAK void efl_ui_clock_format_set(Eo *obj, const char *fmt);
+extern  void efl_ui_clock_format_set(Eo *obj, const char *fmt);
 
 /**
  * @brief The current clock format. Format is a combination of allowed Libc
@@ -88,7 +88,7 @@ extern extern_WEAK void efl_ui_clock_format_set(Eo *obj, const char *fmt);
  *
  * @ingroup Efl_Ui_Clock
  */
-extern extern_WEAK const char *efl_ui_clock_format_get(const Eo *obj);
+extern  const char *efl_ui_clock_format_get(const Eo *obj);
 
 /**
  * @brief Whether the given clock widget should be paused or not.
@@ -100,7 +100,7 @@ extern extern_WEAK const char *efl_ui_clock_format_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Clock
  */
-extern extern_WEAK void efl_ui_clock_pause_set(Eo *obj, Eina_Bool paused);
+extern  void efl_ui_clock_pause_set(Eo *obj, Eina_Bool paused);
 
 /**
  * @brief Whether the given clock widget should be paused or not.
@@ -113,7 +113,7 @@ extern extern_WEAK void efl_ui_clock_pause_set(Eo *obj, Eina_Bool paused);
  *
  * @ingroup Efl_Ui_Clock
  */
-extern extern_WEAK Eina_Bool efl_ui_clock_pause_get(const Eo *obj);
+extern  Eina_Bool efl_ui_clock_pause_get(const Eo *obj);
 
 /**
  * @brief Digits of the given clock widget should be editable when in editing
@@ -124,7 +124,7 @@ extern extern_WEAK Eina_Bool efl_ui_clock_pause_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Clock
  */
-extern extern_WEAK void efl_ui_clock_edit_mode_set(Eo *obj, Eina_Bool value);
+extern  void efl_ui_clock_edit_mode_set(Eo *obj, Eina_Bool value);
 
 /**
  * @brief Digits of the given clock widget should be editable when in editing
@@ -136,7 +136,7 @@ extern extern_WEAK void efl_ui_clock_edit_mode_set(Eo *obj, Eina_Bool value);
  *
  * @ingroup Efl_Ui_Clock
  */
-extern extern_WEAK Eina_Bool efl_ui_clock_edit_mode_get(const Eo *obj);
+extern  Eina_Bool efl_ui_clock_edit_mode_get(const Eo *obj);
 
 /**
  * @brief The lower boundary of a field.
@@ -160,7 +160,7 @@ extern extern_WEAK Eina_Bool efl_ui_clock_edit_mode_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Clock
  */
-extern extern_WEAK void efl_ui_clock_time_min_set(Eo *obj, Efl_Time mintime);
+extern  void efl_ui_clock_time_min_set(Eo *obj, Efl_Time mintime);
 
 /**
  * @brief The lower boundary of a field.
@@ -185,7 +185,7 @@ extern extern_WEAK void efl_ui_clock_time_min_set(Eo *obj, Efl_Time mintime);
  *
  * @ingroup Efl_Ui_Clock
  */
-extern extern_WEAK Efl_Time efl_ui_clock_time_min_get(const Eo *obj);
+extern  Efl_Time efl_ui_clock_time_min_get(const Eo *obj);
 
 /**
  * @brief The upper boundary of a field.
@@ -209,7 +209,7 @@ extern extern_WEAK Efl_Time efl_ui_clock_time_min_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Clock
  */
-extern extern_WEAK void efl_ui_clock_time_max_set(Eo *obj, Efl_Time maxtime);
+extern  void efl_ui_clock_time_max_set(Eo *obj, Efl_Time maxtime);
 
 /**
  * @brief The upper boundary of a field.
@@ -234,7 +234,7 @@ extern extern_WEAK void efl_ui_clock_time_max_set(Eo *obj, Efl_Time maxtime);
  *
  * @ingroup Efl_Ui_Clock
  */
-extern extern_WEAK Efl_Time efl_ui_clock_time_max_get(const Eo *obj);
+extern  Efl_Time efl_ui_clock_time_max_get(const Eo *obj);
 
 /**
  * @brief The current value of a clock object.
@@ -255,7 +255,7 @@ extern extern_WEAK Efl_Time efl_ui_clock_time_max_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Clock
  */
-extern extern_WEAK void efl_ui_clock_time_set(Eo *obj, Efl_Time curtime);
+extern  void efl_ui_clock_time_set(Eo *obj, Efl_Time curtime);
 
 /**
  * @brief The current value of a clock object.
@@ -277,7 +277,7 @@ extern extern_WEAK void efl_ui_clock_time_set(Eo *obj, Efl_Time curtime);
  *
  * @ingroup Efl_Ui_Clock
  */
-extern extern_WEAK Efl_Time efl_ui_clock_time_get(const Eo *obj);
+extern  Efl_Time efl_ui_clock_time_get(const Eo *obj);
 
 /**
  * @brief Visibility of each field.
@@ -300,7 +300,7 @@ extern extern_WEAK Efl_Time efl_ui_clock_time_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Clock
  */
-extern extern_WEAK void efl_ui_clock_field_visible_set(Eo *obj, Efl_Ui_Clock_Type fieldtype, Eina_Bool visible);
+extern  void efl_ui_clock_field_visible_set(Eo *obj, Efl_Ui_Clock_Type fieldtype, Eina_Bool visible);
 
 /**
  * @brief Visibility of each field.
@@ -324,7 +324,7 @@ extern extern_WEAK void efl_ui_clock_field_visible_set(Eo *obj, Efl_Ui_Clock_Typ
  *
  * @ingroup Efl_Ui_Clock
  */
-extern extern_WEAK Eina_Bool efl_ui_clock_field_visible_get(const Eo *obj, Efl_Ui_Clock_Type fieldtype);
+extern  Eina_Bool efl_ui_clock_field_visible_get(const Eo *obj, Efl_Ui_Clock_Type fieldtype);
 
 /**
  * @brief Numerical limits of each field.
@@ -348,7 +348,7 @@ extern extern_WEAK Eina_Bool efl_ui_clock_field_visible_get(const Eo *obj, Efl_U
  *
  * @ingroup Efl_Ui_Clock
  */
-extern extern_WEAK void efl_ui_clock_field_limit_set(Eo *obj, Efl_Ui_Clock_Type fieldtype, int min, int max);
+extern  void efl_ui_clock_field_limit_set(Eo *obj, Efl_Ui_Clock_Type fieldtype, int min, int max);
 
 /**
  * @brief Numerical limits of each field.
@@ -372,9 +372,9 @@ extern extern_WEAK void efl_ui_clock_field_limit_set(Eo *obj, Efl_Ui_Clock_Type 
  *
  * @ingroup Efl_Ui_Clock
  */
-extern extern_WEAK void efl_ui_clock_field_limit_get(const Eo *obj, Efl_Ui_Clock_Type fieldtype, int *min, int *max);
+extern  void efl_ui_clock_field_limit_get(const Eo *obj, Efl_Ui_Clock_Type fieldtype, int *min, int *max);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_CLOCK_EVENT_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_CLOCK_EVENT_CHANGED;
 
 /** Called when clock changed
  *

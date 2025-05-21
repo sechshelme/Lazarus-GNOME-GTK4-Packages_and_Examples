@@ -63,7 +63,7 @@ typedef struct _Efl_Ui_Alert_Popup_Button_Clicked_Event
  */
 #define EFL_UI_ALERT_POPUP_CLASS efl_ui_alert_popup_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_alert_popup_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_alert_popup_class_get(void) ;
 
 /**
  * @brief This property changes the text and icon for the specified button
@@ -89,9 +89,9 @@ extern extern_WEAK const Efl_Class *efl_ui_alert_popup_class_get(void) EINA_CONS
  *
  * @ingroup Efl_Ui_Alert_Popup
  */
-extern extern_WEAK void efl_ui_alert_popup_button_set(Eo *obj, Efl_Ui_Alert_Popup_Button type, const char *text, Efl_Canvas_Object *icon);
+extern  void efl_ui_alert_popup_button_set(Eo *obj, Efl_Ui_Alert_Popup_Button type, const char *text, Efl_Canvas_Object *icon);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_ALERT_POPUP_EVENT_BUTTON_CLICKED;
+extern  extern const Efl_Event_Description _EFL_UI_ALERT_POPUP_EVENT_BUTTON_CLICKED;
 
 /** Called when an Alert_Popup button was clicked.
  * @return Efl_Ui_Alert_Popup_Button_Clicked_Event

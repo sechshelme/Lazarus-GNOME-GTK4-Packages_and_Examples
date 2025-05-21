@@ -20,7 +20,7 @@ typedef Eo Efl_Net_Server_Ip;
  */
 #define EFL_NET_SERVER_IP_CLASS efl_net_server_ip_class_get()
 
-ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_server_ip_class_get(void) EINA_CONST;
+ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_server_ip_class_get(void) ;
 
 /**
  * @brief Whenever IPv6 listen address will accept only same-family clients or

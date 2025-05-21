@@ -20,7 +20,7 @@ typedef Eo Eldbus_Model_Proxy;
  */
 #define ELDBUS_MODEL_PROXY_CLASS eldbus_model_proxy_class_get()
 
-extern extern_WEAK const Efl_Class *eldbus_model_proxy_class_get(void) EINA_CONST;
+extern  const Efl_Class *eldbus_model_proxy_class_get(void) ;
 
 /**
  * @brief Object
@@ -30,7 +30,7 @@ extern extern_WEAK const Efl_Class *eldbus_model_proxy_class_get(void) EINA_CONS
  *
  * @ingroup Eldbus_Model_Proxy
  */
-extern extern_WEAK void eldbus_model_proxy_object_set(Eo *obj, Eldbus_Object *object);
+extern  void eldbus_model_proxy_object_set(Eo *obj, Eldbus_Object *object);
 
 /**
  * @brief Object
@@ -40,7 +40,7 @@ extern extern_WEAK void eldbus_model_proxy_object_set(Eo *obj, Eldbus_Object *ob
  *
  * @ingroup Eldbus_Model_Proxy
  */
-extern extern_WEAK void eldbus_model_proxy_interface_set(Eo *obj, const Eldbus_Introspection_Interface *interface);
+extern  void eldbus_model_proxy_interface_set(Eo *obj, const Eldbus_Introspection_Interface *interface);
 
 /**
  * @brief Proxy name
@@ -51,7 +51,7 @@ extern extern_WEAK void eldbus_model_proxy_interface_set(Eo *obj, const Eldbus_I
  *
  * @ingroup Eldbus_Model_Proxy
  */
-extern extern_WEAK const char *eldbus_model_proxy_name_get(const Eo *obj);
+extern  const char *eldbus_model_proxy_name_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

@@ -26,7 +26,7 @@ typedef Eo Efl_Ui_Widget_Factory;
  */
 #define EFL_UI_WIDGET_FACTORY_CLASS efl_ui_widget_factory_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_widget_factory_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_widget_factory_class_get(void) ;
 
 /**
  * @brief Define the class of the item returned by this factory.
@@ -38,7 +38,7 @@ extern extern_WEAK const Efl_Class *efl_ui_widget_factory_class_get(void) EINA_C
  *
  * @ingroup Efl_Ui_Widget_Factory
  */
-extern extern_WEAK void efl_ui_widget_factory_item_class_set(Eo *obj, const Efl_Class *klass);
+extern  void efl_ui_widget_factory_item_class_set(Eo *obj, const Efl_Class *klass);
 
 /**
  * @brief Define the class of the item returned by this factory.
@@ -51,6 +51,6 @@ extern extern_WEAK void efl_ui_widget_factory_item_class_set(Eo *obj, const Efl_
  *
  * @ingroup Efl_Ui_Widget_Factory
  */
-extern extern_WEAK const Efl_Class *efl_ui_widget_factory_item_class_get(const Eo *obj);
+extern  const Efl_Class *efl_ui_widget_factory_item_class_get(const Eo *obj);
 
 #endif

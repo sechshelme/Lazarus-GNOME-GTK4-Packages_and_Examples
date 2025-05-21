@@ -29,7 +29,7 @@ typedef struct _Ecore_Con_Reply Ecore_Con_Reply;
  */
 #define ECORE_CON_EET_BASE_CLASS ecore_con_eet_base_class_get()
 
-ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *ecore_con_eet_base_class_get(void) EINA_CONST;
+ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *ecore_con_eet_base_class_get(void) ;
 
 /**
  * @brief The server object to which we send and receive.

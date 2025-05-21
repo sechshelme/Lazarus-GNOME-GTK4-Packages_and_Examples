@@ -103,7 +103,7 @@ typedef enum
  */
 #define EFL_UI_FLIP_CLASS efl_ui_flip_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_flip_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_flip_class_get(void) ;
 
 /**
  * @brief Interactive flip mode.
@@ -130,7 +130,7 @@ extern extern_WEAK const Efl_Class *efl_ui_flip_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Flip
  */
-extern extern_WEAK void efl_ui_flip_interaction_set(Eo *obj, Efl_Ui_Flip_Interaction mode);
+extern  void efl_ui_flip_interaction_set(Eo *obj, Efl_Ui_Flip_Interaction mode);
 
 /**
  * @brief Interactive flip mode.
@@ -158,7 +158,7 @@ extern extern_WEAK void efl_ui_flip_interaction_set(Eo *obj, Efl_Ui_Flip_Interac
  *
  * @ingroup Efl_Ui_Flip
  */
-extern extern_WEAK Efl_Ui_Flip_Interaction efl_ui_flip_interaction_get(const Eo *obj);
+extern  Efl_Ui_Flip_Interaction efl_ui_flip_interaction_get(const Eo *obj);
 
 /**
  * @brief Get flip front visibility state.
@@ -169,7 +169,7 @@ extern extern_WEAK Efl_Ui_Flip_Interaction efl_ui_flip_interaction_get(const Eo 
  *
  * @ingroup Efl_Ui_Flip
  */
-extern extern_WEAK Eina_Bool efl_ui_flip_front_visible_get(const Eo *obj);
+extern  Eina_Bool efl_ui_flip_front_visible_get(const Eo *obj);
 
 /**
  * @brief Set the amount of the flip that is sensitive to interactive flip.
@@ -195,7 +195,7 @@ extern extern_WEAK Eina_Bool efl_ui_flip_front_visible_get(const Eo *obj);
  *
  * @ingroup Efl_Ui_Flip
  */
-extern extern_WEAK void efl_ui_flip_interaction_direction_hitsize_set(Eo *obj, Efl_Ui_Layout_Orientation dir, double hitsize);
+extern  void efl_ui_flip_interaction_direction_hitsize_set(Eo *obj, Efl_Ui_Layout_Orientation dir, double hitsize);
 
 /**
  * @brief Get the amount of the flip that is sensitive to interactive flip.
@@ -207,7 +207,7 @@ extern extern_WEAK void efl_ui_flip_interaction_direction_hitsize_set(Eo *obj, E
  *
  * @ingroup Efl_Ui_Flip
  */
-extern extern_WEAK double efl_ui_flip_interaction_direction_hitsize_get(Eo *obj, Efl_Ui_Layout_Orientation dir);
+extern  double efl_ui_flip_interaction_direction_hitsize_get(Eo *obj, Efl_Ui_Layout_Orientation dir);
 
 /**
  * @brief Set which directions of the flip respond to interactive flip
@@ -226,7 +226,7 @@ extern extern_WEAK double efl_ui_flip_interaction_direction_hitsize_get(Eo *obj,
  *
  * @ingroup Efl_Ui_Flip
  */
-extern extern_WEAK void efl_ui_flip_interaction_direction_enabled_set(Eo *obj, Efl_Ui_Layout_Orientation dir, Eina_Bool enabled);
+extern  void efl_ui_flip_interaction_direction_enabled_set(Eo *obj, Efl_Ui_Layout_Orientation dir, Eina_Bool enabled);
 
 /**
  * @brief Get the enabled state of that flip direction.
@@ -238,7 +238,7 @@ extern extern_WEAK void efl_ui_flip_interaction_direction_enabled_set(Eo *obj, E
  *
  * @ingroup Efl_Ui_Flip
  */
-extern extern_WEAK Eina_Bool efl_ui_flip_interaction_direction_enabled_get(Eo *obj, Efl_Ui_Layout_Orientation dir);
+extern  Eina_Bool efl_ui_flip_interaction_direction_enabled_get(Eo *obj, Efl_Ui_Layout_Orientation dir);
 
 /**
  * @brief Runs the flip animation.
@@ -253,7 +253,7 @@ extern extern_WEAK Eina_Bool efl_ui_flip_interaction_direction_enabled_get(Eo *o
  *
  * @ingroup Efl_Ui_Flip
  */
-extern extern_WEAK void efl_ui_flip_go(Eo *obj, Efl_Ui_Flip_Mode mode);
+extern  void efl_ui_flip_go(Eo *obj, Efl_Ui_Flip_Mode mode);
 
 /**
  * @brief Runs the flip animation to front or back as selected with @c front.
@@ -269,9 +269,9 @@ extern extern_WEAK void efl_ui_flip_go(Eo *obj, Efl_Ui_Flip_Mode mode);
  *
  * @ingroup Efl_Ui_Flip
  */
-extern extern_WEAK void efl_ui_flip_go_to(Eo *obj, Eina_Bool front, Efl_Ui_Flip_Mode mode);
+extern  void efl_ui_flip_go_to(Eo *obj, Eina_Bool front, Efl_Ui_Flip_Mode mode);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FLIP_EVENT_ANIMATE_BEGIN;
+extern  extern const Efl_Event_Description _EFL_UI_FLIP_EVENT_ANIMATE_BEGIN;
 
 /** Called when flip animation begins
  *
@@ -279,7 +279,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FLIP_EVENT_ANIMATE
  */
 #define EFL_UI_FLIP_EVENT_ANIMATE_BEGIN (&(_EFL_UI_FLIP_EVENT_ANIMATE_BEGIN))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_FLIP_EVENT_ANIMATE_DONE;
+extern  extern const Efl_Event_Description _EFL_UI_FLIP_EVENT_ANIMATE_DONE;
 
 /** Called when flip animation is done
  *

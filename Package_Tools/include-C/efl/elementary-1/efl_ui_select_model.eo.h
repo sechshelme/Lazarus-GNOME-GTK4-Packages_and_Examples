@@ -20,9 +20,9 @@ typedef Eo Efl_Ui_Select_Model;
  */
 #define EFL_UI_SELECT_MODEL_CLASS efl_ui_select_model_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_select_model_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_select_model_class_get(void) ;
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SELECT_MODEL_EVENT_SELECTED;
+extern  extern const Efl_Event_Description _EFL_UI_SELECT_MODEL_EVENT_SELECTED;
 
 /**
  * No description
@@ -30,7 +30,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SELECT_MODEL_EVENT
  */
 #define EFL_UI_SELECT_MODEL_EVENT_SELECTED (&(_EFL_UI_SELECT_MODEL_EVENT_SELECTED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_SELECT_MODEL_EVENT_UNSELECTED;
+extern  extern const Efl_Event_Description _EFL_UI_SELECT_MODEL_EVENT_UNSELECTED;
 
 /**
  * No description

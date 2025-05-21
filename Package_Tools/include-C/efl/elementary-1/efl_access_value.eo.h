@@ -20,7 +20,7 @@ typedef Eo Efl_Access_Value;
  */
 #define EFL_ACCESS_VALUE_INTERFACE efl_access_value_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_access_value_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_access_value_interface_get(void) ;
 
 #ifdef EFL_BETA_API_SUPPORT
 #ifdef EFL_ACCESS_VALUE_PROTECTED
@@ -35,7 +35,7 @@ extern extern_WEAK const Efl_Class *efl_access_value_interface_get(void) EINA_CO
  *
  * @ingroup Efl_Access_Value
  */
-extern extern_WEAK Eina_Bool efl_access_value_and_text_set(Eo *obj, double value, const char *text);
+extern  Eina_Bool efl_access_value_and_text_set(Eo *obj, double value, const char *text);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -50,7 +50,7 @@ extern extern_WEAK Eina_Bool efl_access_value_and_text_set(Eo *obj, double value
  *
  * @ingroup Efl_Access_Value
  */
-extern extern_WEAK void efl_access_value_and_text_get(const Eo *obj, double *value, const char **text);
+extern  void efl_access_value_and_text_get(const Eo *obj, double *value, const char **text);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -66,7 +66,7 @@ extern extern_WEAK void efl_access_value_and_text_get(const Eo *obj, double *val
  *
  * @ingroup Efl_Access_Value
  */
-extern extern_WEAK void efl_access_value_range_get(const Eo *obj, double *lower_limit, double *upper_limit, const char **description);
+extern  void efl_access_value_range_get(const Eo *obj, double *lower_limit, double *upper_limit, const char **description);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -81,7 +81,7 @@ extern extern_WEAK void efl_access_value_range_get(const Eo *obj, double *lower_
  *
  * @ingroup Efl_Access_Value
  */
-extern extern_WEAK double efl_access_value_increment_get(const Eo *obj);
+extern  double efl_access_value_increment_get(const Eo *obj);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 #endif /* EFL_BETA_API_SUPPORT */

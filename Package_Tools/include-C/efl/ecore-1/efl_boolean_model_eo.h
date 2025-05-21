@@ -25,7 +25,7 @@ typedef Eo Efl_Boolean_Model;
  */
 #define EFL_BOOLEAN_MODEL_CLASS efl_boolean_model_class_get()
 
-extern extern_WEAK const Efl_Class *efl_boolean_model_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_boolean_model_class_get(void) ;
 
 /**
  * @brief Adds a new named boolean property with a default value.
@@ -36,7 +36,7 @@ extern extern_WEAK const Efl_Class *efl_boolean_model_class_get(void) EINA_CONST
  *
  * @ingroup Efl_Boolean_Model
  */
-extern extern_WEAK void efl_boolean_model_boolean_add(Eo *obj, const char *name, Eina_Bool default_value);
+extern  void efl_boolean_model_boolean_add(Eo *obj, const char *name, Eina_Bool default_value);
 
 /**
  * @brief Deletes an existing named boolean property.
@@ -46,7 +46,7 @@ extern extern_WEAK void efl_boolean_model_boolean_add(Eo *obj, const char *name,
  *
  * @ingroup Efl_Boolean_Model
  */
-extern extern_WEAK void efl_boolean_model_boolean_del(Eo *obj, const char *name);
+extern  void efl_boolean_model_boolean_del(Eo *obj, const char *name);
 
 /**
  * @brief Gets an iterator that will quickly find all the indices with the
@@ -60,7 +60,7 @@ extern extern_WEAK void efl_boolean_model_boolean_del(Eo *obj, const char *name)
  *
  * @ingroup Efl_Boolean_Model
  */
-extern extern_WEAK Eina_Iterator *efl_boolean_model_boolean_iterator_get(Eo *obj, const char *name, Eina_Bool request) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Iterator *efl_boolean_model_boolean_iterator_get(Eo *obj, const char *name, Eina_Bool request)  ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

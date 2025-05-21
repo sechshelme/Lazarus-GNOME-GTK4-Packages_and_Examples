@@ -20,7 +20,7 @@ typedef Eo Efl_Access_Selection;
  */
 #define EFL_ACCESS_SELECTION_INTERFACE efl_access_selection_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_access_selection_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_access_selection_interface_get(void) ;
 
 #ifdef EFL_BETA_API_SUPPORT
 #ifdef EFL_ACCESS_SELECTION_PROTECTED
@@ -33,7 +33,7 @@ extern extern_WEAK const Efl_Class *efl_access_selection_interface_get(void) EIN
  *
  * @ingroup Efl_Access_Selection
  */
-extern extern_WEAK int efl_access_selection_selected_children_count_get(const Eo *obj);
+extern  int efl_access_selection_selected_children_count_get(const Eo *obj);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -49,7 +49,7 @@ extern extern_WEAK int efl_access_selection_selected_children_count_get(const Eo
  *
  * @ingroup Efl_Access_Selection
  */
-extern extern_WEAK Efl_Object *efl_access_selection_selected_child_get(const Eo *obj, int selected_child_index);
+extern  Efl_Object *efl_access_selection_selected_child_get(const Eo *obj, int selected_child_index);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -65,7 +65,7 @@ extern extern_WEAK Efl_Object *efl_access_selection_selected_child_get(const Eo 
  *
  * @ingroup Efl_Access_Selection
  */
-extern extern_WEAK Eina_Bool efl_access_selection_child_select(Eo *obj, int child_index);
+extern  Eina_Bool efl_access_selection_child_select(Eo *obj, int child_index);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -81,7 +81,7 @@ extern extern_WEAK Eina_Bool efl_access_selection_child_select(Eo *obj, int chil
  *
  * @ingroup Efl_Access_Selection
  */
-extern extern_WEAK Eina_Bool efl_access_selection_selected_child_deselect(Eo *obj, int child_index);
+extern  Eina_Bool efl_access_selection_selected_child_deselect(Eo *obj, int child_index);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -97,7 +97,7 @@ extern extern_WEAK Eina_Bool efl_access_selection_selected_child_deselect(Eo *ob
  *
  * @ingroup Efl_Access_Selection
  */
-extern extern_WEAK Eina_Bool efl_access_selection_is_child_selected(Eo *obj, int child_index);
+extern  Eina_Bool efl_access_selection_is_child_selected(Eo *obj, int child_index);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -112,7 +112,7 @@ extern extern_WEAK Eina_Bool efl_access_selection_is_child_selected(Eo *obj, int
  *
  * @ingroup Efl_Access_Selection
  */
-extern extern_WEAK Eina_Bool efl_access_selection_all_children_select(Eo *obj);
+extern  Eina_Bool efl_access_selection_all_children_select(Eo *obj);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -127,7 +127,7 @@ extern extern_WEAK Eina_Bool efl_access_selection_all_children_select(Eo *obj);
  *
  * @ingroup Efl_Access_Selection
  */
-extern extern_WEAK Eina_Bool efl_access_selection_clear(Eo *obj);
+extern  Eina_Bool efl_access_selection_clear(Eo *obj);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -143,11 +143,11 @@ extern extern_WEAK Eina_Bool efl_access_selection_clear(Eo *obj);
  *
  * @ingroup Efl_Access_Selection
  */
-extern extern_WEAK Eina_Bool efl_access_selection_child_deselect(Eo *obj, int child_index);
+extern  Eina_Bool efl_access_selection_child_deselect(Eo *obj, int child_index);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_ACCESS_SELECTION_EVENT_ACCESS_SELECTION_CHANGED;
+extern  extern const Efl_Event_Description _EFL_ACCESS_SELECTION_EVENT_ACCESS_SELECTION_CHANGED;
 
 /** Called when selection has been changed.
  *

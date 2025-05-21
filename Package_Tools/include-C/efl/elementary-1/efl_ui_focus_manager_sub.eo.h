@@ -33,7 +33,7 @@ typedef Eo Efl_Ui_Focus_Manager_Sub;
  */
 #define EFL_UI_FOCUS_MANAGER_SUB_MIXIN efl_ui_focus_manager_sub_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_focus_manager_sub_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_focus_manager_sub_mixin_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

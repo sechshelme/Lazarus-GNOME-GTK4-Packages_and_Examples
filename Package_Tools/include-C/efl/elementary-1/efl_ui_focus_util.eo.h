@@ -24,7 +24,7 @@ typedef Eo Efl_Ui_Focus_Util;
  */
 #define EFL_UI_FOCUS_UTIL_CLASS efl_ui_focus_util_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_focus_util_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_focus_util_class_get(void) ;
 
 /**
  * @brief Sets the focus to the given object.
@@ -33,7 +33,7 @@ extern extern_WEAK const Efl_Class *efl_ui_focus_util_class_get(void) EINA_CONST
  *
  * @ingroup Efl_Ui_Focus_Util
  */
-extern extern_WEAK void efl_ui_focus_util_focus(Efl_Ui_Focus_Object *focus_elem);
+extern  void efl_ui_focus_util_focus(Efl_Ui_Focus_Object *focus_elem);
 
 /**
  * @brief Gets the highest manager in the redirect chain.
@@ -42,7 +42,7 @@ extern extern_WEAK void efl_ui_focus_util_focus(Efl_Ui_Focus_Object *focus_elem)
  *
  * @ingroup Efl_Ui_Focus_Util
  */
-extern extern_WEAK Efl_Ui_Focus_Manager *efl_ui_focus_util_active_manager(Efl_Ui_Focus_Manager *manager);
+extern  Efl_Ui_Focus_Manager *efl_ui_focus_util_active_manager(Efl_Ui_Focus_Manager *manager);
 
 /**
  * @brief Returns the complementary (opposite) focus direction.
@@ -55,7 +55,7 @@ extern extern_WEAK Efl_Ui_Focus_Manager *efl_ui_focus_util_active_manager(Efl_Ui
  *
  * @ingroup Efl_Ui_Focus_Util
  */
-extern extern_WEAK Efl_Ui_Focus_Direction efl_ui_focus_util_direction_complement(Efl_Ui_Focus_Direction dir);
+extern  Efl_Ui_Focus_Direction efl_ui_focus_util_direction_complement(Efl_Ui_Focus_Direction dir);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

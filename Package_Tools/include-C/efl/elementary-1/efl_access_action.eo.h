@@ -20,7 +20,7 @@ typedef Eo Efl_Access_Action;
  */
 #define EFL_ACCESS_ACTION_MIXIN efl_access_action_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_access_action_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_access_action_mixin_get(void) ;
 
 #ifdef EFL_BETA_API_SUPPORT
 #ifdef EFL_ACCESS_ACTION_PROTECTED
@@ -34,7 +34,7 @@ extern extern_WEAK const Efl_Class *efl_access_action_mixin_get(void) EINA_CONST
  *
  * @ingroup Efl_Access_Action
  */
-extern extern_WEAK const char *efl_access_action_name_get(const Eo *obj, int id);
+extern  const char *efl_access_action_name_get(const Eo *obj, int id);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -50,7 +50,7 @@ extern extern_WEAK const char *efl_access_action_name_get(const Eo *obj, int id)
  *
  * @ingroup Efl_Access_Action
  */
-extern extern_WEAK const char *efl_access_action_localized_name_get(const Eo *obj, int id);
+extern  const char *efl_access_action_localized_name_get(const Eo *obj, int id);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -67,7 +67,7 @@ extern extern_WEAK const char *efl_access_action_localized_name_get(const Eo *ob
  *
  * @ingroup Efl_Access_Action
  */
-extern extern_WEAK Eina_Bool efl_access_action_description_set(Eo *obj, int id, const char *description);
+extern  Eina_Bool efl_access_action_description_set(Eo *obj, int id, const char *description);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -83,7 +83,7 @@ extern extern_WEAK Eina_Bool efl_access_action_description_set(Eo *obj, int id, 
  *
  * @ingroup Efl_Access_Action
  */
-extern extern_WEAK const char *efl_access_action_description_get(const Eo *obj, int id);
+extern  const char *efl_access_action_description_get(const Eo *obj, int id);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -98,7 +98,7 @@ extern extern_WEAK const char *efl_access_action_description_get(const Eo *obj, 
  *
  * @ingroup Efl_Access_Action
  */
-extern extern_WEAK Eina_List *efl_access_action_actions_get(const Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_List *efl_access_action_actions_get(const Eo *obj)  ;
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -114,7 +114,7 @@ extern extern_WEAK Eina_List *efl_access_action_actions_get(const Eo *obj) EFL_T
  *
  * @ingroup Efl_Access_Action
  */
-extern extern_WEAK Eina_Bool efl_access_action_do(Eo *obj, int id);
+extern  Eina_Bool efl_access_action_do(Eo *obj, int id);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 
@@ -130,7 +130,7 @@ extern extern_WEAK Eina_Bool efl_access_action_do(Eo *obj, int id);
  *
  * @ingroup Efl_Access_Action
  */
-extern extern_WEAK char *efl_access_action_keybinding_get(Eo *obj, int id) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  char *efl_access_action_keybinding_get(Eo *obj, int id)  ;
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 #endif /* EFL_BETA_API_SUPPORT */

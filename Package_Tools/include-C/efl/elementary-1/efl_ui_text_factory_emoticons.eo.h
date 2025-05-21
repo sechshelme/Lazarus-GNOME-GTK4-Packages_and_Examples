@@ -20,7 +20,7 @@ typedef Eo Efl_Ui_Text_Factory_Emoticons;
  */
 #define EFL_UI_TEXT_FACTORY_EMOTICONS_CLASS efl_ui_text_factory_emoticons_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_text_factory_emoticons_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_text_factory_emoticons_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

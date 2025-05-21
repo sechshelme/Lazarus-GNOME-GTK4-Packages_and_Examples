@@ -37,7 +37,7 @@ typedef Eo Efl_Net_Dialer_Tcp;
  */
 #define EFL_NET_DIALER_TCP_CLASS efl_net_dialer_tcp_class_get()
 
-ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_dialer_tcp_class_get(void) EINA_CONST;
+ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_dialer_tcp_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

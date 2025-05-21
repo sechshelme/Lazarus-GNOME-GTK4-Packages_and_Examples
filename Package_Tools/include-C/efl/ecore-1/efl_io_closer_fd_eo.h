@@ -20,7 +20,7 @@ typedef Eo Efl_Io_Closer_Fd;
  */
 #define EFL_IO_CLOSER_FD_MIXIN efl_io_closer_fd_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_io_closer_fd_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_io_closer_fd_mixin_get(void) ;
 
 #ifdef EFL_IO_CLOSER_FD_PROTECTED
 /**
@@ -31,7 +31,7 @@ extern extern_WEAK const Efl_Class *efl_io_closer_fd_mixin_get(void) EINA_CONST;
  *
  * @ingroup Efl_Io_Closer_Fd
  */
-extern extern_WEAK void efl_io_closer_fd_set(Eo *obj, int fd);
+extern  void efl_io_closer_fd_set(Eo *obj, int fd);
 #endif
 
 /**
@@ -43,7 +43,7 @@ extern extern_WEAK void efl_io_closer_fd_set(Eo *obj, int fd);
  *
  * @ingroup Efl_Io_Closer_Fd
  */
-extern extern_WEAK int efl_io_closer_fd_get(const Eo *obj);
+extern  int efl_io_closer_fd_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

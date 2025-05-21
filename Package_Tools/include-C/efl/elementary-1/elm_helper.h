@@ -51,7 +51,7 @@ typedef enum
  * @since 1.14
  */
 extern Elm_Validator_Regexp *
-elm_validator_regexp_new(const char *pattern, const char *signal) EINA_ARG_NONNULL(1);
+elm_validator_regexp_new(const char *pattern, const char *signal) ;
 
 /**
  * @brief Delete the existing regex validator.
@@ -63,7 +63,7 @@ elm_validator_regexp_new(const char *pattern, const char *signal) EINA_ARG_NONNU
  * @since 1.14
  */
 extern void
-elm_validator_regexp_free(Elm_Validator_Regexp *validator) EINA_ARG_NONNULL(1);
+elm_validator_regexp_free(Elm_Validator_Regexp *validator) ;
 
 /**
  * @brief Get the validation status.
@@ -75,7 +75,7 @@ elm_validator_regexp_free(Elm_Validator_Regexp *validator) EINA_ARG_NONNULL(1);
  * @since 1.14
  */
 extern Elm_Regexp_Status
-elm_validator_regexp_status_get(Elm_Validator_Regexp *validator) EINA_ARG_NONNULL(1);
+elm_validator_regexp_status_get(Elm_Validator_Regexp *validator) ;
 
 #if defined(EFL_BETA_API_SUPPORT)
 /**

@@ -198,7 +198,7 @@ typedef struct _Efl_Net_Dialer_Websocket_Closed_Reason
  */
 #define EFL_NET_DIALER_WEBSOCKET_CLASS efl_net_dialer_websocket_class_get()
 
-ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_dialer_websocket_class_get(void) EINA_CONST;
+ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_dialer_websocket_class_get(void) ;
 
 /**
  * @brief Sends a PING (opcode=0x9) to the server.
@@ -287,7 +287,7 @@ ECORE_CON_API ECORE_CON_API_WEAK void efl_net_dialer_websocket_request_protocol_
  *
  * @ingroup Efl_Net_Dialer_Websocket
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_dialer_websocket_request_protocols_get(Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_dialer_websocket_request_protocols_get(Eo *obj)  ;
 
 /** Clears all request protocols
  *
@@ -305,7 +305,7 @@ ECORE_CON_API ECORE_CON_API_WEAK void efl_net_dialer_websocket_request_protocols
  *
  * @ingroup Efl_Net_Dialer_Websocket
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_dialer_websocket_response_protocols_get(Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_dialer_websocket_response_protocols_get(Eo *obj)  ;
 
 /**
  * @brief Configures how to map streaming APIs to WebSocket.
@@ -491,7 +491,7 @@ ECORE_CON_API ECORE_CON_API_WEAK void efl_net_dialer_websocket_request_headers_c
  *
  * @ingroup Efl_Net_Dialer_Websocket
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_dialer_websocket_request_headers_get(Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_dialer_websocket_request_headers_get(Eo *obj)  ;
 
 /**
  * @brief This property sets the filename where to read and write cookies.

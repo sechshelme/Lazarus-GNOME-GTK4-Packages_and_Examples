@@ -26,7 +26,7 @@ typedef Eo Efl_Ui_Datepicker;
  */
 #define EFL_UI_DATEPICKER_CLASS efl_ui_datepicker_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_datepicker_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_datepicker_class_get(void) ;
 
 /**
  * @brief The lower boundary of date.
@@ -46,7 +46,7 @@ extern extern_WEAK const Efl_Class *efl_ui_datepicker_class_get(void) EINA_CONST
  *
  * @ingroup Efl_Ui_Datepicker
  */
-extern extern_WEAK void efl_ui_datepicker_date_min_set(Eo *obj, int year, int month, int day);
+extern  void efl_ui_datepicker_date_min_set(Eo *obj, int year, int month, int day);
 
 /**
  * @brief The lower boundary of date.
@@ -66,7 +66,7 @@ extern extern_WEAK void efl_ui_datepicker_date_min_set(Eo *obj, int year, int mo
  *
  * @ingroup Efl_Ui_Datepicker
  */
-extern extern_WEAK void efl_ui_datepicker_date_min_get(const Eo *obj, int *year, int *month, int *day);
+extern  void efl_ui_datepicker_date_min_get(const Eo *obj, int *year, int *month, int *day);
 
 /**
  * @brief The upper boundary of date.
@@ -86,7 +86,7 @@ extern extern_WEAK void efl_ui_datepicker_date_min_get(const Eo *obj, int *year,
  *
  * @ingroup Efl_Ui_Datepicker
  */
-extern extern_WEAK void efl_ui_datepicker_date_max_set(Eo *obj, int year, int month, int day);
+extern  void efl_ui_datepicker_date_max_set(Eo *obj, int year, int month, int day);
 
 /**
  * @brief The upper boundary of date.
@@ -106,7 +106,7 @@ extern extern_WEAK void efl_ui_datepicker_date_max_set(Eo *obj, int year, int mo
  *
  * @ingroup Efl_Ui_Datepicker
  */
-extern extern_WEAK void efl_ui_datepicker_date_max_get(const Eo *obj, int *year, int *month, int *day);
+extern  void efl_ui_datepicker_date_max_get(const Eo *obj, int *year, int *month, int *day);
 
 /**
  * @brief The current value of date.
@@ -126,7 +126,7 @@ extern extern_WEAK void efl_ui_datepicker_date_max_get(const Eo *obj, int *year,
  *
  * @ingroup Efl_Ui_Datepicker
  */
-extern extern_WEAK void efl_ui_datepicker_date_set(Eo *obj, int year, int month, int day);
+extern  void efl_ui_datepicker_date_set(Eo *obj, int year, int month, int day);
 
 /**
  * @brief The current value of date.
@@ -146,9 +146,9 @@ extern extern_WEAK void efl_ui_datepicker_date_set(Eo *obj, int year, int month,
  *
  * @ingroup Efl_Ui_Datepicker
  */
-extern extern_WEAK void efl_ui_datepicker_date_get(const Eo *obj, int *year, int *month, int *day);
+extern  void efl_ui_datepicker_date_get(const Eo *obj, int *year, int *month, int *day);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_DATEPICKER_EVENT_DATE_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_DATEPICKER_EVENT_DATE_CHANGED;
 
 /** Called when date value is changed
  *

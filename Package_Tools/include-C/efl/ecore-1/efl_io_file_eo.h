@@ -25,7 +25,7 @@ typedef Eo Efl_Io_File;
  */
 #define EFL_IO_FILE_CLASS efl_io_file_class_get()
 
-extern extern_WEAK const Efl_Class *efl_io_file_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_io_file_class_get(void) ;
 
 /**
  * @brief Bitwise OR'ed flags to open the file, like O_CREAT, O_APPEND...
@@ -43,7 +43,7 @@ extern extern_WEAK const Efl_Class *efl_io_file_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Io_File
  */
-extern extern_WEAK void efl_io_file_flags_set(Eo *obj, uint32_t flags);
+extern  void efl_io_file_flags_set(Eo *obj, uint32_t flags);
 
 /**
  * @brief Bitwise OR'ed flags to open the file, like O_CREAT, O_APPEND...
@@ -60,7 +60,7 @@ extern extern_WEAK void efl_io_file_flags_set(Eo *obj, uint32_t flags);
  *
  * @ingroup Efl_Io_File
  */
-extern extern_WEAK uint32_t efl_io_file_flags_get(const Eo *obj);
+extern  uint32_t efl_io_file_flags_get(const Eo *obj);
 
 /**
  * @brief Mode property
@@ -72,7 +72,7 @@ extern extern_WEAK uint32_t efl_io_file_flags_get(const Eo *obj);
  *
  * @ingroup Efl_Io_File
  */
-extern extern_WEAK void efl_io_file_mode_set(Eo *obj, uint32_t mode);
+extern  void efl_io_file_mode_set(Eo *obj, uint32_t mode);
 
 /**
  * @brief Mode property
@@ -83,7 +83,7 @@ extern extern_WEAK void efl_io_file_mode_set(Eo *obj, uint32_t mode);
  *
  * @ingroup Efl_Io_File
  */
-extern extern_WEAK uint32_t efl_io_file_mode_get(const Eo *obj);
+extern  uint32_t efl_io_file_mode_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

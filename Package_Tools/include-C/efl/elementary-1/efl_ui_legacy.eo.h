@@ -26,7 +26,7 @@ typedef Eo Efl_Ui_Legacy;
  */
 #define EFL_UI_LEGACY_INTERFACE efl_ui_legacy_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_legacy_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_legacy_interface_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

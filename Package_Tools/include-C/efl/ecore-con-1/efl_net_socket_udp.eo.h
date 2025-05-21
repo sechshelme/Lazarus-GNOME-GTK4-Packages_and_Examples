@@ -28,7 +28,7 @@ typedef Eo Efl_Net_Socket_Udp;
  */
 #define EFL_NET_SOCKET_UDP_CLASS efl_net_socket_udp_class_get()
 
-ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_socket_udp_class_get(void) EINA_CONST;
+ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *efl_net_socket_udp_class_get(void) ;
 
 /**
  * @brief Queries the next datagram size.
@@ -196,7 +196,7 @@ ECORE_CON_API ECORE_CON_API_WEAK Eina_Error efl_net_socket_udp_multicast_leave(E
  *
  * @ingroup Efl_Net_Socket_Udp
  */
-ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_socket_udp_multicast_groups_get(Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+ECORE_CON_API ECORE_CON_API_WEAK Eina_Iterator *efl_net_socket_udp_multicast_groups_get(Eo *obj)  ;
 
 /**
  * @brief Controls time to live in number of hops.

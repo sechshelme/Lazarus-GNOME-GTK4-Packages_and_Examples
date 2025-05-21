@@ -27,6 +27,6 @@ typedef Eo Efl_Ui_Radio_Box;
  */
 #define EFL_UI_RADIO_BOX_CLASS efl_ui_radio_box_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_radio_box_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_radio_box_class_get(void) ;
 
 #endif

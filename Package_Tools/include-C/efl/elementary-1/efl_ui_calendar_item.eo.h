@@ -26,7 +26,7 @@ typedef Eo Efl_Ui_Calendar_Item;
  */
 #define EFL_UI_CALENDAR_ITEM_CLASS efl_ui_calendar_item_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_calendar_item_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_calendar_item_class_get(void) ;
 
 /**
  * @brief Day number
@@ -36,7 +36,7 @@ extern extern_WEAK const Efl_Class *efl_ui_calendar_item_class_get(void) EINA_CO
  *
  * @ingroup Efl_Ui_Calendar_Item
  */
-extern extern_WEAK void efl_ui_calendar_item_day_number_set(Eo *obj, int i);
+extern  void efl_ui_calendar_item_day_number_set(Eo *obj, int i);
 
 /**
  * @brief Day number
@@ -47,7 +47,7 @@ extern extern_WEAK void efl_ui_calendar_item_day_number_set(Eo *obj, int i);
  *
  * @ingroup Efl_Ui_Calendar_Item
  */
-extern extern_WEAK int efl_ui_calendar_item_day_number_get(const Eo *obj);
+extern  int efl_ui_calendar_item_day_number_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

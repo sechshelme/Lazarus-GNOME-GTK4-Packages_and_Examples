@@ -10,7 +10,7 @@
  * @param msg Message
  * @return Eina_Value of type Eina_Value_Type_Struct
  */
-extern Eina_Value *eldbus_message_to_eina_value(const Eldbus_Message *msg) EINA_ARG_NONNULL(1) EINA_WARN_UNUSED_RESULT;
+extern Eina_Value *eldbus_message_to_eina_value(const Eldbus_Message *msg)  ;
 
 /**
  * Convert Eldbus_Message_Iter of type variant, struct or dict entry to
@@ -29,7 +29,7 @@ extern Eina_Value *eldbus_message_iter_struct_like_to_eina_value(const Eldbus_Me
  * @param value source of data, must be of type Eina_Value_Type_Struct
  * @return success or not
  */
-extern Eina_Bool eldbus_message_from_eina_value(const char *signature, Eldbus_Message *msg, const Eina_Value *value) EINA_ARG_NONNULL(1, 2, 3);
+extern Eina_Bool eldbus_message_from_eina_value(const char *signature, Eldbus_Message *msg, const Eina_Value *value) ;
 
 /**
  * @}

@@ -24,7 +24,7 @@ typedef Eo Efl_Ui_Tab_Bar;
  */
 #define EFL_UI_TAB_BAR_CLASS efl_ui_tab_bar_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_tab_bar_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_tab_bar_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

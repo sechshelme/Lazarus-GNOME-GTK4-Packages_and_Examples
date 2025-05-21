@@ -21,7 +21,7 @@ typedef Eo Efl_Loop_Model;
  */
 #define EFL_LOOP_MODEL_CLASS efl_loop_model_class_get()
 
-extern extern_WEAK const Efl_Class *efl_loop_model_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_loop_model_class_get(void) ;
 
 /**
  * @brief To be called when a Child model is created by
@@ -39,6 +39,6 @@ extern extern_WEAK const Efl_Class *efl_loop_model_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Loop_Model
  */
-extern extern_WEAK void efl_loop_model_volatile_make(Eo *obj);
+extern  void efl_loop_model_volatile_make(Eo *obj);
 
 #endif

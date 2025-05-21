@@ -29,7 +29,7 @@ typedef Eo Efl_Container_Model;
  */
 #define EFL_CONTAINER_MODEL_CLASS efl_container_model_class_get()
 
-extern extern_WEAK const Efl_Class *efl_container_model_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_container_model_class_get(void) ;
 
 /**
  * @brief Gets the type of the given property.
@@ -41,7 +41,7 @@ extern extern_WEAK const Efl_Class *efl_container_model_class_get(void) EINA_CON
  *
  * @ingroup Efl_Container_Model
  */
-extern extern_WEAK const Eina_Value_Type *efl_container_model_child_property_value_type_get(Eo *obj, const char *name);
+extern  const Eina_Value_Type *efl_container_model_child_property_value_type_get(Eo *obj, const char *name);
 
 /**
  * @brief Adds the given property to child objects and supply the values.
@@ -62,7 +62,7 @@ extern extern_WEAK const Eina_Value_Type *efl_container_model_child_property_val
  *
  * @ingroup Efl_Container_Model
  */
-extern extern_WEAK Eina_Bool efl_container_model_child_property_add(Eo *obj, const char *name, const Eina_Value_Type *type, Eina_Iterator *values EFL_TRANSFER_OWNERSHIP);
+extern  Eina_Bool efl_container_model_child_property_add(Eo *obj, const char *name, const Eina_Value_Type *type, Eina_Iterator *values );
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

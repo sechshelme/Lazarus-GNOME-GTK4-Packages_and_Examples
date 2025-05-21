@@ -21,7 +21,7 @@ typedef Eo Efl_Ui_Collection_View_Focus_Manager;
  */
 #define EFL_UI_COLLECTION_VIEW_FOCUS_MANAGER_CLASS efl_ui_collection_view_focus_manager_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_collection_view_focus_manager_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_collection_view_focus_manager_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

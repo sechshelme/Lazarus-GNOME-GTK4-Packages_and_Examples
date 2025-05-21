@@ -31,6 +31,6 @@ typedef Eo Efl_Ui_Check;
  */
 #define EFL_UI_CHECK_CLASS efl_ui_check_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_check_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_check_class_get(void) ;
 
 #endif

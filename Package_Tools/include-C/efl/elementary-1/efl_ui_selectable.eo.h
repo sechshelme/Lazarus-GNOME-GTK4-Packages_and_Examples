@@ -26,7 +26,7 @@ typedef Eo Efl_Ui_Selectable;
  */
 #define EFL_UI_SELECTABLE_INTERFACE efl_ui_selectable_interface_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_selectable_interface_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_selectable_interface_get(void) ;
 
 /**
  * @brief The selected state of this object
@@ -40,7 +40,7 @@ extern extern_WEAK const Efl_Class *efl_ui_selectable_interface_get(void) EINA_C
  *
  * @ingroup Efl_Ui_Selectable
  */
-extern extern_WEAK void efl_ui_selectable_selected_set(Eo *obj, Eina_Bool selected);
+extern  void efl_ui_selectable_selected_set(Eo *obj, Eina_Bool selected);
 
 /**
  * @brief The selected state of this object
@@ -55,9 +55,9 @@ extern extern_WEAK void efl_ui_selectable_selected_set(Eo *obj, Eina_Bool select
  *
  * @ingroup Efl_Ui_Selectable
  */
-extern extern_WEAK Eina_Bool efl_ui_selectable_selected_get(const Eo *obj);
+extern  Eina_Bool efl_ui_selectable_selected_get(const Eo *obj);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_EVENT_SELECTED_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_EVENT_SELECTED_CHANGED;
 
 /** Called when the selected state has changed.
  * @return Eina_Bool

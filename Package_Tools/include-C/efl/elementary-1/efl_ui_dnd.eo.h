@@ -85,7 +85,7 @@ typedef struct _Efl_Ui_Drag_Finished_Event
  */
 #define EFL_UI_DND_MIXIN efl_ui_dnd_mixin_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_dnd_mixin_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_dnd_mixin_get(void) ;
 
 /**
  * @brief Starts a drag from this client.
@@ -106,7 +106,7 @@ extern extern_WEAK const Efl_Class *efl_ui_dnd_mixin_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Dnd
  */
-extern extern_WEAK Efl_Content *efl_ui_dnd_drag_start(Eo *obj, Eina_Content *content, const char *action, unsigned int seat);
+extern  Efl_Content *efl_ui_dnd_drag_start(Eo *obj, Eina_Content *content, const char *action, unsigned int seat);
 
 /**
  * @brief Set the offset during a drag that was initiated through drag_start
@@ -119,7 +119,7 @@ extern extern_WEAK Efl_Content *efl_ui_dnd_drag_start(Eo *obj, Eina_Content *con
  *
  * @ingroup Efl_Ui_Dnd
  */
-extern extern_WEAK void efl_ui_dnd_drag_offset_set(Eo *obj, unsigned int seat, Eina_Size2D offset);
+extern  void efl_ui_dnd_drag_offset_set(Eo *obj, unsigned int seat, Eina_Size2D offset);
 
 /**
  * @brief Cancels an on-going drag operation.
@@ -129,7 +129,7 @@ extern extern_WEAK void efl_ui_dnd_drag_offset_set(Eo *obj, unsigned int seat, E
  *
  * @ingroup Efl_Ui_Dnd
  */
-extern extern_WEAK void efl_ui_dnd_drag_cancel(Eo *obj, unsigned int seat);
+extern  void efl_ui_dnd_drag_cancel(Eo *obj, unsigned int seat);
 
 /**
  * @brief Retrieves the dropped data.
@@ -146,9 +146,9 @@ extern extern_WEAK void efl_ui_dnd_drag_cancel(Eo *obj, unsigned int seat);
  *
  * @ingroup Efl_Ui_Dnd
  */
-extern extern_WEAK Eina_Future *efl_ui_dnd_drop_data_get(Eo *obj, unsigned int seat, Eina_Iterator *acceptable_types) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
+extern  Eina_Future *efl_ui_dnd_drop_data_get(Eo *obj, unsigned int seat, Eina_Iterator *acceptable_types)  ;
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_DND_EVENT_DROP_ENTERED;
+extern  extern const Efl_Event_Description _EFL_UI_DND_EVENT_DROP_ENTERED;
 
 /** Dragged content entered the window. Its type can already be checked with
  * @ref efl_ui_dnd_drop_data_get to react before it is dropped, for example.
@@ -158,7 +158,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_DND_EVENT_DROP_ENT
  */
 #define EFL_UI_DND_EVENT_DROP_ENTERED (&(_EFL_UI_DND_EVENT_DROP_ENTERED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_DND_EVENT_DROP_LEFT;
+extern  extern const Efl_Event_Description _EFL_UI_DND_EVENT_DROP_LEFT;
 
 /** Dragged content left the window.
  * @return Efl_Ui_Drop_Event
@@ -167,7 +167,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_DND_EVENT_DROP_LEF
  */
 #define EFL_UI_DND_EVENT_DROP_LEFT (&(_EFL_UI_DND_EVENT_DROP_LEFT))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_DND_EVENT_DROP_POSITION_CHANGED;
+extern  extern const Efl_Event_Description _EFL_UI_DND_EVENT_DROP_POSITION_CHANGED;
 
 /** Dragged content moved over the window. Its type can already be checked with
  * @ref efl_ui_dnd_drop_data_get to react before it is dropped, for example.
@@ -177,7 +177,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_DND_EVENT_DROP_POS
  */
 #define EFL_UI_DND_EVENT_DROP_POSITION_CHANGED (&(_EFL_UI_DND_EVENT_DROP_POSITION_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_DND_EVENT_DROP_DROPPED;
+extern  extern const Efl_Event_Description _EFL_UI_DND_EVENT_DROP_DROPPED;
 
 /** Dragged content was dropped over the window.
  * @return Efl_Ui_Drop_Dropped_Event
@@ -186,7 +186,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_DND_EVENT_DROP_DRO
  */
 #define EFL_UI_DND_EVENT_DROP_DROPPED (&(_EFL_UI_DND_EVENT_DROP_DROPPED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_DND_EVENT_DRAG_STARTED;
+extern  extern const Efl_Event_Description _EFL_UI_DND_EVENT_DRAG_STARTED;
 
 /** A Drag operation started.
  * @return Efl_Ui_Drag_Started_Event
@@ -195,7 +195,7 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_UI_DND_EVENT_DRAG_STA
  */
 #define EFL_UI_DND_EVENT_DRAG_STARTED (&(_EFL_UI_DND_EVENT_DRAG_STARTED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_DND_EVENT_DRAG_FINISHED;
+extern  extern const Efl_Event_Description _EFL_UI_DND_EVENT_DRAG_FINISHED;
 
 /** A Drag operation finished.
  * @return Efl_Ui_Drag_Finished_Event

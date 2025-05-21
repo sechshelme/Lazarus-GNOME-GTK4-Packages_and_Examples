@@ -426,7 +426,7 @@ extern Elm_Widget_Item *elm_genlist_first_item_get(const Elm_Genlist *obj);
  *
  * @ingroup Elm_Genlist_Group
  */
-extern Eina_List *elm_genlist_realized_items_get(const Elm_Genlist *obj) EINA_WARN_UNUSED_RESULT;
+extern Eina_List *elm_genlist_realized_items_get(const Elm_Genlist *obj) ;
 
 /**
  * @brief Get a list of selected items in the genlist.

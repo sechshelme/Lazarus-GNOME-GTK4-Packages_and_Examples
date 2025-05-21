@@ -51,7 +51,7 @@ typedef struct _Efl_Ui_Image_Error
  */
 #define EFL_UI_IMAGE_CLASS efl_ui_image_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_image_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_image_class_get(void) ;
 
 /**
  * @brief The image name, using icon standards names.
@@ -82,7 +82,7 @@ extern extern_WEAK const Efl_Class *efl_ui_image_class_get(void) EINA_CONST;
  *
  * @ingroup Efl_Ui_Image
  */
-extern extern_WEAK Eina_Bool efl_ui_image_icon_set(Eo *obj, const char *name);
+extern  Eina_Bool efl_ui_image_icon_set(Eo *obj, const char *name);
 
 /**
  * @brief The image name, using icon standards names.
@@ -112,9 +112,9 @@ extern extern_WEAK Eina_Bool efl_ui_image_icon_set(Eo *obj, const char *name);
  *
  * @ingroup Efl_Ui_Image
  */
-extern extern_WEAK const char *efl_ui_image_icon_get(const Eo *obj);
+extern  const char *efl_ui_image_icon_get(const Eo *obj);
 #ifdef EFL_BETA_API_SUPPORT
-extern extern_WEAK extern const Efl_Event_Description _EFL_UI_IMAGE_EVENT_DROP;
+extern  extern const Efl_Event_Description _EFL_UI_IMAGE_EVENT_DROP;
 
 /** Called when drop from drag and drop happened
  * @return const char *

@@ -16,7 +16,7 @@ typedef Eo Efl_Thread;
 #ifdef EFL_BETA_API_SUPPORT
 #define EFL_THREAD_CLASS efl_thread_class_get()
 
-extern extern_WEAK const Efl_Class *efl_thread_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_thread_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

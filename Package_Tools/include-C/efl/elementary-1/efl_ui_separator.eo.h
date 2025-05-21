@@ -26,6 +26,6 @@ typedef Eo Efl_Ui_Separator;
  */
 #define EFL_UI_SEPARATOR_CLASS efl_ui_separator_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_separator_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_separator_class_get(void) ;
 
 #endif

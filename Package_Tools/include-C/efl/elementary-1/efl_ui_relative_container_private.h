@@ -25,7 +25,7 @@ typedef struct _Efl_Ui_Relative_Container_Content_Iterator Efl_Ui_Relative_Conta
 
 struct _Efl_Ui_Relative_Container_Calc
 {
-   EINA_INLIST;
+   Eina_Inlist __in_list;
 
    int                                max[2];
    int                                min[2];

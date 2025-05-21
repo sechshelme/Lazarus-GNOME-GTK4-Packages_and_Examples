@@ -21,6 +21,6 @@ typedef Eo Efl_Ui_Layout_Part_Text;
  */
 #define EFL_UI_LAYOUT_PART_TEXT_CLASS efl_ui_layout_part_text_class_get()
 
-extern extern_WEAK const Efl_Class *efl_ui_layout_part_text_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_ui_layout_part_text_class_get(void) ;
 
 #endif

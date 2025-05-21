@@ -4,7 +4,7 @@
 #ifndef _EFL_UI_EOT_TYPES
 #define _EFL_UI_EOT_TYPES
 
-extern extern_WEAK Eina_Error efl_ui_theme_apply_error_default_get(void);
+extern  Eina_Error efl_ui_theme_apply_error_default_get(void);
 
 /** Successfully applied the default style. The widget may look different from
  * the rest of the UI if a custom theme is in use, but it should be usable.
@@ -13,7 +13,7 @@ extern extern_WEAK Eina_Error efl_ui_theme_apply_error_default_get(void);
  */
 #define EFL_UI_THEME_APPLY_ERROR_DEFAULT efl_ui_theme_apply_error_default_get()
 
-extern extern_WEAK Eina_Error efl_ui_theme_apply_error_generic_get(void);
+extern  Eina_Error efl_ui_theme_apply_error_generic_get(void);
 
 /** Failed to apply theme. The widget may become unusable.
  *
@@ -21,7 +21,7 @@ extern extern_WEAK Eina_Error efl_ui_theme_apply_error_generic_get(void);
  */
 #define EFL_UI_THEME_APPLY_ERROR_GENERIC efl_ui_theme_apply_error_generic_get()
 
-extern extern_WEAK Eina_Error efl_ui_theme_apply_error_version_get(void);
+extern  Eina_Error efl_ui_theme_apply_error_version_get(void);
 
 /** The theme was applied. The widget may not function or look as expected.
  *
