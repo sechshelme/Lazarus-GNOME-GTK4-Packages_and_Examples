@@ -1,20 +1,53 @@
-#ifndef _EFL_IO_COPIER_EO_H_
-#define _EFL_IO_COPIER_EO_H_
 
-#ifndef _EFL_IO_COPIER_EO_CLASS_TYPE
-#define _EFL_IO_COPIER_EO_CLASS_TYPE
+unit efl_io_copier_eo;
+interface
 
-typedef Eo Efl_Io_Copier;
+{
+  Automatically converted by H2Pas 1.0.0 from efl_io_copier_eo.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    efl_io_copier_eo.h
+}
 
-#endif
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
 
-#ifndef _EFL_IO_COPIER_EO_TYPES
-#define _EFL_IO_COPIER_EO_TYPES
+Type
+PEfl_Class  = ^Efl_Class;
+PEfl_Io_Copier  = ^Efl_Io_Copier;
+PEfl_Io_Reader  = ^Efl_Io_Reader;
+PEfl_Io_Writer  = ^Efl_Io_Writer;
+PEina_Binbuf  = ^Eina_Binbuf;
+PEo  = ^Eo;
+Puint64_t  = ^uint64_t;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
 
 
-#endif
-#ifdef EFL_BETA_API_SUPPORT
-/**
+{$ifndef _EFL_IO_COPIER_EO_H_}
+{$define _EFL_IO_COPIER_EO_H_}
+{$ifndef _EFL_IO_COPIER_EO_CLASS_TYPE}
+{$define _EFL_IO_COPIER_EO_CLASS_TYPE}
+type
+  PEfl_Io_Copier = ^TEfl_Io_Copier;
+  TEfl_Io_Copier = TEo;
+{$endif}
+{$ifndef _EFL_IO_COPIER_EO_TYPES}
+{$define _EFL_IO_COPIER_EO_TYPES}
+{$endif}
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief Copy from an @ref Efl_Io_Reader source to @ref Efl_Io_Writer
  * destination.
  *
@@ -76,12 +109,14 @@ typedef Eo Efl_Io_Copier;
  * source and destination. Both default to @c true.
  *
  * @ingroup Efl_Io_Copier
- */
-#define EFL_IO_COPIER_CLASS efl_io_copier_class_get()
+  }
 
-extern extern_WEAK const Efl_Class *efl_io_copier_class_get(void) EINA_CONST;
+{ was #define dname def_expr }
+function EFL_IO_COPIER_CLASS : longint; { return type might be wrong }
 
-/**
+(* Const before type ignored *)
+function efl_io_copier_class_get:PEfl_Class;cdecl;external;
+{*
  * @brief Copier source object.
  *
  * The source object must implement the @ref Efl_Io_Reader interface and will
@@ -133,10 +168,9 @@ extern extern_WEAK const Efl_Class *efl_io_copier_class_get(void) EINA_CONST;
  * @param[in] source @ref Efl_Io_Reader source
  *
  * @ingroup Efl_Io_Copier
- */
-extern extern_WEAK void efl_io_copier_source_set(Eo *obj, Efl_Io_Reader *source);
-
-/**
+  }
+procedure efl_io_copier_source_set(obj:PEo; source:PEfl_Io_Reader);cdecl;external;
+{*
  * @brief Copier source object.
  *
  * The source object must implement the @ref Efl_Io_Reader interface and will
@@ -187,10 +221,10 @@ extern extern_WEAK void efl_io_copier_source_set(Eo *obj, Efl_Io_Reader *source)
  * @return @ref Efl_Io_Reader source
  *
  * @ingroup Efl_Io_Copier
- */
-extern extern_WEAK Efl_Io_Reader *efl_io_copier_source_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_io_copier_source_get(obj:PEo):PEfl_Io_Reader;cdecl;external;
+{*
  * @brief Copier destination object.
  *
  * If set it must implement @ref Efl_Io_Writer interface and will receive read
@@ -237,10 +271,9 @@ extern extern_WEAK Efl_Io_Reader *efl_io_copier_source_get(const Eo *obj);
  * @param[in] destination @ref Efl_Io_Writer destination
  *
  * @ingroup Efl_Io_Copier
- */
-extern extern_WEAK void efl_io_copier_destination_set(Eo *obj, Efl_Io_Writer *destination);
-
-/**
+  }
+procedure efl_io_copier_destination_set(obj:PEo; destination:PEfl_Io_Writer);cdecl;external;
+{*
  * @brief Copier destination object.
  *
  * If set it must implement @ref Efl_Io_Writer interface and will receive read
@@ -286,10 +319,10 @@ extern extern_WEAK void efl_io_copier_destination_set(Eo *obj, Efl_Io_Writer *de
  * @return @ref Efl_Io_Writer destination
  *
  * @ingroup Efl_Io_Copier
- */
-extern extern_WEAK Efl_Io_Writer *efl_io_copier_destination_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_io_copier_destination_get(obj:PEo):PEfl_Io_Writer;cdecl;external;
+{*
  * @brief If there is a line delimiter, reads will buffer/queue up to the line
  * delimiter before calling @ref efl_io_writer_write on the
  * @ref efl_io_copier_destination_get and the event line is emitted with the
@@ -303,10 +336,10 @@ extern extern_WEAK Efl_Io_Writer *efl_io_copier_destination_get(const Eo *obj);
  * @param[in] slice The contents may contain \0 and will be copied
  *
  * @ingroup Efl_Io_Copier
- */
-extern extern_WEAK void efl_io_copier_line_delimiter_set(Eo *obj, const Eina_Slice slice);
-
-/**
+  }
+(* Const before type ignored *)
+procedure efl_io_copier_line_delimiter_set(obj:PEo; slice:TEina_Slice);cdecl;external;
+{*
  * @brief If there is a line delimiter, reads will buffer/queue up to the line
  * delimiter before calling @ref efl_io_writer_write on the
  * @ref efl_io_copier_destination_get and the event line is emitted with the
@@ -319,10 +352,10 @@ extern extern_WEAK void efl_io_copier_line_delimiter_set(Eo *obj, const Eina_Sli
  * @return The contents may contain \0 and will be copied
  *
  * @ingroup Efl_Io_Copier
- */
-extern extern_WEAK Eina_Slice efl_io_copier_line_delimiter_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_io_copier_line_delimiter_get(obj:PEo):TEina_Slice;cdecl;external;
+{*
  * @brief Copier buffer limit property, in bytes.
  *
  * During the read-write cycle, an intermediate storage buffer is used. By
@@ -352,10 +385,9 @@ extern extern_WEAK Eina_Slice efl_io_copier_line_delimiter_get(const Eo *obj);
  * amount of bytes
  *
  * @ingroup Efl_Io_Copier
- */
-extern extern_WEAK void efl_io_copier_buffer_limit_set(Eo *obj, size_t size);
-
-/**
+  }
+procedure efl_io_copier_buffer_limit_set(obj:PEo; size:Tsize_t);cdecl;external;
+{*
  * @brief Copier buffer limit property, in bytes.
  *
  * During the read-write cycle, an intermediate storage buffer is used. By
@@ -384,10 +416,10 @@ extern extern_WEAK void efl_io_copier_buffer_limit_set(Eo *obj, size_t size);
  * bytes
  *
  * @ingroup Efl_Io_Copier
- */
-extern extern_WEAK size_t efl_io_copier_buffer_limit_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_io_copier_buffer_limit_get(obj:PEo):Tsize_t;cdecl;external;
+{*
  * @brief Copier read chunk size property, in bytes.
  *
  * When a @ref efl_io_copier_source_get is flagged with
@@ -408,10 +440,9 @@ extern extern_WEAK size_t efl_io_copier_buffer_limit_get(const Eo *obj);
  * @param[in] size This is the chunk size to use for read operations
  *
  * @ingroup Efl_Io_Copier
- */
-extern extern_WEAK void efl_io_copier_read_chunk_size_set(Eo *obj, size_t size);
-
-/**
+  }
+procedure efl_io_copier_read_chunk_size_set(obj:PEo; size:Tsize_t);cdecl;external;
+{*
  * @brief Copier read chunk size property, in bytes.
  *
  * When a @ref efl_io_copier_source_get is flagged with
@@ -431,10 +462,10 @@ extern extern_WEAK void efl_io_copier_read_chunk_size_set(Eo *obj, size_t size);
  * @return This is the chunk size to use for read operations
  *
  * @ingroup Efl_Io_Copier
- */
-extern extern_WEAK size_t efl_io_copier_read_chunk_size_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_io_copier_read_chunk_size_get(obj:PEo):Tsize_t;cdecl;external;
+{*
  * @brief Progress for read and write.
  *
  * Reports value read from @ref efl_io_copier_source_get, written to
@@ -448,10 +479,10 @@ extern extern_WEAK size_t efl_io_copier_read_chunk_size_get(const Eo *obj);
  * its total size. Otherwise 0 to report unknown size
  *
  * @ingroup Efl_Io_Copier
- */
-extern extern_WEAK void efl_io_copier_progress_get(const Eo *obj, uint64_t *read, uint64_t *written, uint64_t *total);
-
-/**
+  }
+(* Const before type ignored *)
+procedure efl_io_copier_progress_get(obj:PEo; read:Puint64_t; written:Puint64_t; total:Puint64_t);cdecl;external;
+{*
  * @brief Terminates the copier with ETIMEDOUT if it becomes inactive for some
  * time.
  *
@@ -466,10 +497,9 @@ extern extern_WEAK void efl_io_copier_progress_get(const Eo *obj, uint64_t *read
  * or less, it will be disabled.
  *
  * @ingroup Efl_Io_Copier
- */
-extern extern_WEAK void efl_io_copier_timeout_inactivity_set(Eo *obj, double seconds);
-
-/**
+  }
+procedure efl_io_copier_timeout_inactivity_set(obj:PEo; seconds:Tdouble);cdecl;external;
+{*
  * @brief Terminates the copier with ETIMEDOUT if it becomes inactive for some
  * time.
  *
@@ -485,11 +515,11 @@ extern extern_WEAK void efl_io_copier_timeout_inactivity_set(Eo *obj, double sec
  * will be disabled.
  *
  * @ingroup Efl_Io_Copier
- */
-extern extern_WEAK double efl_io_copier_timeout_inactivity_get(const Eo *obj);
-
-#ifdef EFL_IO_COPIER_PROTECTED
-/**
+  }
+(* Const before type ignored *)
+function efl_io_copier_timeout_inactivity_get(obj:PEo):Tdouble;cdecl;external;
+{$ifdef EFL_IO_COPIER_PROTECTED}
+{*
  * @brief Reports if copier is done.
  *
  * A copier is done if source reached "eos" and all data is written to
@@ -502,11 +532,10 @@ extern extern_WEAK double efl_io_copier_timeout_inactivity_get(const Eo *obj);
  * "destination". If @c false, it's still pending some more copies
  *
  * @ingroup Efl_Io_Copier
- */
-extern extern_WEAK void efl_io_copier_done_set(Eo *obj, Eina_Bool done);
-#endif
-
-/**
+  }
+procedure efl_io_copier_done_set(obj:PEo; done:TEina_Bool);cdecl;external;
+{$endif}
+{*
  * @brief Reports if copier is done.
  *
  * A copier is done if source reached "eos" and all data is written to
@@ -520,10 +549,11 @@ extern extern_WEAK void efl_io_copier_done_set(Eo *obj, Eina_Bool done);
  * "destination". If @c false, it's still pending some more copies
  *
  * @ingroup Efl_Io_Copier
- */
-extern extern_WEAK Eina_Bool efl_io_copier_done_get(const Eo *obj);
+  }
+(* Const before type ignored *)
 
-/**
+function efl_io_copier_done_get(obj:PEo):TEina_Bool;cdecl;external;
+{*
  * @brief Steals the internal binbuf and returns it to caller.
  *
  * The buffer is then owned by caller which should call eina_binbuf_free() when
@@ -538,10 +568,9 @@ extern extern_WEAK Eina_Bool efl_io_copier_done_get(const Eo *obj);
  * @return Binbuf
  *
  * @ingroup Efl_Io_Copier
- */
-extern extern_WEAK Eina_Binbuf *efl_io_copier_binbuf_steal(Eo *obj) EFL_TRANSFER_OWNERSHIP EINA_WARN_UNUSED_RESULT;
-
-/**
+  }
+function efl_io_copier_binbuf_steal(obj:PEo):PEina_Binbuf;cdecl;external;
+{*
  * @brief Returns the size of the pending buffer.
  *
  * The pending buffer is an intermediate buffer where data is read from
@@ -557,10 +586,10 @@ extern extern_WEAK Eina_Binbuf *efl_io_copier_binbuf_steal(Eo *obj) EFL_TRANSFER
  * @return The pending buffer size, in bytes.
  *
  * @ingroup Efl_Io_Copier
- */
-extern extern_WEAK size_t efl_io_copier_pending_size_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_io_copier_pending_size_get(obj:PEo):Tsize_t;cdecl;external;
+{*
  * @brief Forces reading from source and writing to destination.
  *
  * This executes a single read->write cycle if more data can be read from
@@ -586,55 +615,103 @@ extern extern_WEAK size_t efl_io_copier_pending_size_get(const Eo *obj);
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Efl_Io_Copier
- */
-extern extern_WEAK Eina_Bool efl_io_copier_flush(Eo *obj, Eina_Bool may_block, Eina_Bool ignore_line_delimiter);
-
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_COPIER_EVENT_DONE;
-
-/** All available data was copied from source to destination
+  }
+function efl_io_copier_flush(obj:PEo; may_block:TEina_Bool; ignore_line_delimiter:TEina_Bool):TEina_Bool;cdecl;external;
+(* Const before type ignored *)
+  var
+    _EFL_IO_COPIER_EVENT_DONE : TEfl_Event_Description;cvar;external;
+{* All available data was copied from source to destination
  *
  * @ingroup Efl_Io_Copier
- */
-#define EFL_IO_COPIER_EVENT_DONE (&(_EFL_IO_COPIER_EVENT_DONE))
-
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_COPIER_EVENT_ERROR;
-
-/** An error happened and the copy stopped
+  }
+(* Const before type ignored *)
+    _EFL_IO_COPIER_EVENT_ERROR : TEfl_Event_Description;cvar;external;
+{* An error happened and the copy stopped
  * @return Eina_Error
  *
  * @ingroup Efl_Io_Copier
- */
-#define EFL_IO_COPIER_EVENT_ERROR (&(_EFL_IO_COPIER_EVENT_ERROR))
-
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_COPIER_EVENT_PROGRESS;
-
-/** Total size changed or Data was read/written
+  }
+(* Const before type ignored *)
+    _EFL_IO_COPIER_EVENT_PROGRESS : TEfl_Event_Description;cvar;external;
+{* Total size changed or Data was read/written
  *
  * @ingroup Efl_Io_Copier
- */
-#define EFL_IO_COPIER_EVENT_PROGRESS (&(_EFL_IO_COPIER_EVENT_PROGRESS))
-
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_COPIER_EVENT_DATA;
-
-/** When data is read to internal buffer, it's emitted in this event. The
+  }
+(* Const before type ignored *)
+    _EFL_IO_COPIER_EVENT_DATA : TEfl_Event_Description;cvar;external;
+{* When data is read to internal buffer, it's emitted in this event. The
  * memory is only valid during event callback dispatched and should not be
  * modified.
  * @return const Eina_Slice *
  *
  * @ingroup Efl_Io_Copier
- */
-#define EFL_IO_COPIER_EVENT_DATA (&(_EFL_IO_COPIER_EVENT_DATA))
-
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_COPIER_EVENT_LINE;
-
-/** If @ref efl_io_copier_line_delimiter_get is set, will be emitted with
+  }
+(* Const before type ignored *)
+    _EFL_IO_COPIER_EVENT_LINE : TEfl_Event_Description;cvar;external;
+{* If @ref efl_io_copier_line_delimiter_get is set, will be emitted with
  * current line. The memory is only valid during event callback dispatched and
  * should not be modified.
  * @return const Eina_Slice *
  *
  * @ingroup Efl_Io_Copier
- */
-#define EFL_IO_COPIER_EVENT_LINE (&(_EFL_IO_COPIER_EVENT_LINE))
-#endif /* EFL_BETA_API_SUPPORT */
+  }
 
-#endif
+{ was #define dname def_expr }
+function EFL_IO_COPIER_EVENT_DONE : longint; { return type might be wrong }
+
+{ was #define dname def_expr }
+function EFL_IO_COPIER_EVENT_ERROR : longint; { return type might be wrong }
+
+{ was #define dname def_expr }
+function EFL_IO_COPIER_EVENT_PROGRESS : longint; { return type might be wrong }
+
+{ was #define dname def_expr }
+function EFL_IO_COPIER_EVENT_DATA : longint; { return type might be wrong }
+
+{ was #define dname def_expr }
+function EFL_IO_COPIER_EVENT_LINE : longint; { return type might be wrong }
+
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$endif}
+
+implementation
+
+{ was #define dname def_expr }
+function EFL_IO_COPIER_CLASS : longint; { return type might be wrong }
+  begin
+    EFL_IO_COPIER_CLASS:=efl_io_copier_class_get;
+  end;
+
+{ was #define dname def_expr }
+function EFL_IO_COPIER_EVENT_DONE : longint; { return type might be wrong }
+  begin
+    EFL_IO_COPIER_EVENT_DONE:=@(_EFL_IO_COPIER_EVENT_DONE);
+  end;
+
+{ was #define dname def_expr }
+function EFL_IO_COPIER_EVENT_ERROR : longint; { return type might be wrong }
+  begin
+    EFL_IO_COPIER_EVENT_ERROR:=@(_EFL_IO_COPIER_EVENT_ERROR);
+  end;
+
+{ was #define dname def_expr }
+function EFL_IO_COPIER_EVENT_PROGRESS : longint; { return type might be wrong }
+  begin
+    EFL_IO_COPIER_EVENT_PROGRESS:=@(_EFL_IO_COPIER_EVENT_PROGRESS);
+  end;
+
+{ was #define dname def_expr }
+function EFL_IO_COPIER_EVENT_DATA : longint; { return type might be wrong }
+  begin
+    EFL_IO_COPIER_EVENT_DATA:=@(_EFL_IO_COPIER_EVENT_DATA);
+  end;
+
+{ was #define dname def_expr }
+function EFL_IO_COPIER_EVENT_LINE : longint; { return type might be wrong }
+  begin
+    EFL_IO_COPIER_EVENT_LINE:=@(_EFL_IO_COPIER_EVENT_LINE);
+  end;
+
+
+end.

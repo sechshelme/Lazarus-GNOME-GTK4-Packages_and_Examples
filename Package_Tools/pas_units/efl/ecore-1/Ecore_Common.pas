@@ -3,7 +3,7 @@ unit Ecore_Common;
 interface
 
 uses
-  efl, fp_eo, fp_eina, ecore_exe_eo;
+  efl, fp_eo, fp_eina, ecore_exe_eo_legacy;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -389,8 +389,15 @@ function ecore_timer_dump: pchar; cdecl; external libecore;
 
 type
   TEcore_Idler = TEcore_Factorized_Idle;
+  PEcore_Idler = ^TEcore_Idler;
   TEcore_Idle_Enterer = TEcore_Factorized_Idle;
+  PEcore_Idle_Enterer = ^TEcore_Idle_Enterer;
   TEcore_Idle_Exiter = TEcore_Factorized_Idle;
+  PEcore_Idle_Exiter = ^TEcore_Idle_Exiter;
+
+  TEcore_Job = record
+  end;
+  PEcore_Job = ^TEcore_Job;
 
   // === Konventiert am: 20-5-25 19:18:30 ===
 

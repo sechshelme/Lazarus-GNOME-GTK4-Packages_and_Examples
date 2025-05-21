@@ -144,7 +144,7 @@ const
     (libs: 'libeo'; units: 'ctypes, efl'),
     (libs: 'libefl'; units: 'efl, fp_eo, fp_eina'),
     (libs: 'libemile'; units: 'efl, fp_eo, fp_eina'),
-    (libs: 'libencore'; units: 'efl, fp_eo, fp_eina'),
+    (libs: 'libecore'; units: 'efl, fp_eo, fp_eina, fp_efl'),
 
     (libs: ''; units: ''));
 

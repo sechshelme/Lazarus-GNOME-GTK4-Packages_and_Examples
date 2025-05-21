@@ -24,9 +24,16 @@ uses
   // =======================================
 
 
-  ecore_exe_eo,
+//  ecore_exe_eo,                        // Doppelt mit  ecore_exe_eo_legacy und fehlerhafte Functionen
   ecore_exe_eo_legacy,
-  Ecore_Common,
+  Ecore_Common,                          // io. -> ecore_exe_eo_legacy
+
+  Ecore_Getopt,                          // io.             ( Makros verseucht )
+  Ecore_Legacy,                          // io. -> Ecore_Common
+  efl_io_buffered_stream_eo,             // io.
+  efl_io_copier_eo,                      // io.
+
+
 
 
   // =======================================

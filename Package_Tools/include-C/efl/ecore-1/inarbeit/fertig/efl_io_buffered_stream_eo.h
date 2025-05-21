@@ -56,7 +56,7 @@ typedef Eo Efl_Io_Buffered_Stream;
  */
 #define EFL_IO_BUFFERED_STREAM_CLASS efl_io_buffered_stream_class_get()
 
-extern extern_WEAK const Efl_Class *efl_io_buffered_stream_class_get(void) EINA_CONST;
+extern  const Efl_Class *efl_io_buffered_stream_class_get(void) ;
 
 /**
  * @brief The inner I/O this wrapper operates on.
@@ -68,7 +68,7 @@ extern extern_WEAK const Efl_Class *efl_io_buffered_stream_class_get(void) EINA_
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-extern extern_WEAK void efl_io_buffered_stream_inner_io_set(Eo *obj, Efl_Object *io);
+extern  void efl_io_buffered_stream_inner_io_set(Eo *obj, Efl_Object *io);
 
 /**
  * @brief The inner I/O this wrapper operates on.
@@ -81,7 +81,7 @@ extern extern_WEAK void efl_io_buffered_stream_inner_io_set(Eo *obj, Efl_Object 
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-extern extern_WEAK Efl_Object *efl_io_buffered_stream_inner_io_get(const Eo *obj);
+extern  Efl_Object *efl_io_buffered_stream_inner_io_get(const Eo *obj);
 
 /**
  * @brief Limits how big the input queue can grow, in bytes.
@@ -97,7 +97,7 @@ extern extern_WEAK Efl_Object *efl_io_buffered_stream_inner_io_get(const Eo *obj
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-extern extern_WEAK void efl_io_buffered_stream_max_queue_size_input_set(Eo *obj, size_t max_queue_size_input);
+extern  void efl_io_buffered_stream_max_queue_size_input_set(Eo *obj, size_t max_queue_size_input);
 
 /**
  * @brief Limits how big the input queue can grow, in bytes.
@@ -112,7 +112,7 @@ extern extern_WEAK void efl_io_buffered_stream_max_queue_size_input_set(Eo *obj,
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-extern extern_WEAK size_t efl_io_buffered_stream_max_queue_size_input_get(const Eo *obj);
+extern  size_t efl_io_buffered_stream_max_queue_size_input_get(const Eo *obj);
 
 /**
  * @brief Limits how big the output queue can grow in bytes.
@@ -128,7 +128,7 @@ extern extern_WEAK size_t efl_io_buffered_stream_max_queue_size_input_get(const 
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-extern extern_WEAK void efl_io_buffered_stream_max_queue_size_output_set(Eo *obj, size_t max_queue_size_output);
+extern  void efl_io_buffered_stream_max_queue_size_output_set(Eo *obj, size_t max_queue_size_output);
 
 /**
  * @brief Limits how big the output queue can grow in bytes.
@@ -143,7 +143,7 @@ extern extern_WEAK void efl_io_buffered_stream_max_queue_size_output_set(Eo *obj
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-extern extern_WEAK size_t efl_io_buffered_stream_max_queue_size_output_get(const Eo *obj);
+extern  size_t efl_io_buffered_stream_max_queue_size_output_get(const Eo *obj);
 
 /**
  * @brief If set incoming data will be checked for the delimiter and "line"
@@ -157,7 +157,7 @@ extern extern_WEAK size_t efl_io_buffered_stream_max_queue_size_output_get(const
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-extern extern_WEAK void efl_io_buffered_stream_line_delimiter_set(Eo *obj, const Eina_Slice slice);
+extern  void efl_io_buffered_stream_line_delimiter_set(Eo *obj, const Eina_Slice slice);
 
 /**
  * @brief If set incoming data will be checked for the delimiter and "line"
@@ -170,7 +170,7 @@ extern extern_WEAK void efl_io_buffered_stream_line_delimiter_set(Eo *obj, const
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-extern extern_WEAK Eina_Slice efl_io_buffered_stream_line_delimiter_get(const Eo *obj);
+extern  Eina_Slice efl_io_buffered_stream_line_delimiter_get(const Eo *obj);
 
 /**
  * @brief Error as ETIMEDOUT if it becomes inactive for some time.
@@ -187,7 +187,7 @@ extern extern_WEAK Eina_Slice efl_io_buffered_stream_line_delimiter_get(const Eo
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-extern extern_WEAK void efl_io_buffered_stream_timeout_inactivity_set(Eo *obj, double seconds);
+extern  void efl_io_buffered_stream_timeout_inactivity_set(Eo *obj, double seconds);
 
 /**
  * @brief Error as ETIMEDOUT if it becomes inactive for some time.
@@ -205,7 +205,7 @@ extern extern_WEAK void efl_io_buffered_stream_timeout_inactivity_set(Eo *obj, d
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-extern extern_WEAK double efl_io_buffered_stream_timeout_inactivity_get(const Eo *obj);
+extern  double efl_io_buffered_stream_timeout_inactivity_get(const Eo *obj);
 
 /**
  * @brief Reads chunk size property, in bytes.
@@ -229,7 +229,7 @@ extern extern_WEAK double efl_io_buffered_stream_timeout_inactivity_get(const Eo
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-extern extern_WEAK void efl_io_buffered_stream_read_chunk_size_set(Eo *obj, size_t size);
+extern  void efl_io_buffered_stream_read_chunk_size_set(Eo *obj, size_t size);
 
 /**
  * @brief Reads chunk size property, in bytes.
@@ -252,7 +252,7 @@ extern extern_WEAK void efl_io_buffered_stream_read_chunk_size_set(Eo *obj, size
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-extern extern_WEAK size_t efl_io_buffered_stream_read_chunk_size_get(const Eo *obj);
+extern  size_t efl_io_buffered_stream_read_chunk_size_get(const Eo *obj);
 
 /**
  * @brief How many bytes are pending write to
@@ -264,7 +264,7 @@ extern extern_WEAK size_t efl_io_buffered_stream_read_chunk_size_get(const Eo *o
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-extern extern_WEAK size_t efl_io_buffered_stream_pending_write_get(const Eo *obj);
+extern  size_t efl_io_buffered_stream_pending_write_get(const Eo *obj);
 
 /**
  * @brief How many bytes are pending (available) for read
@@ -275,7 +275,7 @@ extern extern_WEAK size_t efl_io_buffered_stream_pending_write_get(const Eo *obj
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-extern extern_WEAK size_t efl_io_buffered_stream_pending_read_get(const Eo *obj);
+extern  size_t efl_io_buffered_stream_pending_read_get(const Eo *obj);
 
 /**
  * @brief How many bytes were written and read.
@@ -286,7 +286,7 @@ extern extern_WEAK size_t efl_io_buffered_stream_pending_read_get(const Eo *obj)
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-extern extern_WEAK void efl_io_buffered_stream_progress_get(const Eo *obj, size_t *read_bytes, size_t *written_bytes);
+extern  void efl_io_buffered_stream_progress_get(const Eo *obj, size_t *read_bytes, size_t *written_bytes);
 
 /**
  * @brief Gets a temporary access to input queue's internal read memory.
@@ -303,7 +303,7 @@ extern extern_WEAK void efl_io_buffered_stream_progress_get(const Eo *obj, size_
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-extern extern_WEAK Eina_Slice efl_io_buffered_stream_slice_get(const Eo *obj);
+extern  Eina_Slice efl_io_buffered_stream_slice_get(const Eo *obj);
 
 /**
  * @brief Discards the given number of bytes.
@@ -327,7 +327,7 @@ extern extern_WEAK Eina_Slice efl_io_buffered_stream_slice_get(const Eo *obj);
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-extern extern_WEAK void efl_io_buffered_stream_discard(Eo *obj, size_t amount);
+extern  void efl_io_buffered_stream_discard(Eo *obj, size_t amount);
 
 /**
  * @brief Clears the incoming queue. Same as reading all data.
@@ -338,7 +338,7 @@ extern extern_WEAK void efl_io_buffered_stream_discard(Eo *obj, size_t amount);
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-extern extern_WEAK void efl_io_buffered_stream_clear(Eo *obj);
+extern  void efl_io_buffered_stream_clear(Eo *obj);
 
 /**
  * @brief Marks the end-of-stream. Signals nothing else will be written.
@@ -352,7 +352,7 @@ extern extern_WEAK void efl_io_buffered_stream_clear(Eo *obj);
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-extern extern_WEAK void efl_io_buffered_stream_eos_mark(Eo *obj);
+extern  void efl_io_buffered_stream_eos_mark(Eo *obj);
 
 /**
  * @brief Forces writing all pending data to destination.
@@ -378,60 +378,54 @@ extern extern_WEAK void efl_io_buffered_stream_eos_mark(Eo *obj);
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-extern extern_WEAK Eina_Bool efl_io_buffered_stream_flush(Eo *obj, Eina_Bool may_block, Eina_Bool ignore_line_delimiter);
+extern  Eina_Bool efl_io_buffered_stream_flush(Eo *obj, Eina_Bool may_block, Eina_Bool ignore_line_delimiter);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_BUFFERED_STREAM_EVENT_WRITE_FINISHED;
+extern const Efl_Event_Description _EFL_IO_BUFFERED_STREAM_EVENT_WRITE_FINISHED;
 
 /** @ref efl_io_buffered_stream_eos_mark was called and all available data was
  * sent to destination
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-#define EFL_IO_BUFFERED_STREAM_EVENT_WRITE_FINISHED (&(_EFL_IO_BUFFERED_STREAM_EVENT_WRITE_FINISHED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_BUFFERED_STREAM_EVENT_READ_FINISHED;
+extern const Efl_Event_Description _EFL_IO_BUFFERED_STREAM_EVENT_READ_FINISHED;
 
 /** Same as @ref Efl_Io_Reader "eos", for consistency.
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-#define EFL_IO_BUFFERED_STREAM_EVENT_READ_FINISHED (&(_EFL_IO_BUFFERED_STREAM_EVENT_READ_FINISHED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_BUFFERED_STREAM_EVENT_FINISHED;
+extern const Efl_Event_Description _EFL_IO_BUFFERED_STREAM_EVENT_FINISHED;
 
 /** Both read and write are finished.
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-#define EFL_IO_BUFFERED_STREAM_EVENT_FINISHED (&(_EFL_IO_BUFFERED_STREAM_EVENT_FINISHED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_BUFFERED_STREAM_EVENT_ERROR;
+extern const Efl_Event_Description _EFL_IO_BUFFERED_STREAM_EVENT_ERROR;
 
 /** An error has occurred and I/O has stopped
  * @return Eina_Error
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-#define EFL_IO_BUFFERED_STREAM_EVENT_ERROR (&(_EFL_IO_BUFFERED_STREAM_EVENT_ERROR))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_BUFFERED_STREAM_EVENT_PROGRESS;
+extern const Efl_Event_Description _EFL_IO_BUFFERED_STREAM_EVENT_PROGRESS;
 
 /** Property @ref efl_io_buffered_stream_progress_get changed
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-#define EFL_IO_BUFFERED_STREAM_EVENT_PROGRESS (&(_EFL_IO_BUFFERED_STREAM_EVENT_PROGRESS))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_BUFFERED_STREAM_EVENT_SLICE_CHANGED;
+extern const Efl_Event_Description _EFL_IO_BUFFERED_STREAM_EVENT_SLICE_CHANGED;
 
 /** The read-slice returned by @ref efl_io_buffered_stream_slice_get may have
  * changed.
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
-#define EFL_IO_BUFFERED_STREAM_EVENT_SLICE_CHANGED (&(_EFL_IO_BUFFERED_STREAM_EVENT_SLICE_CHANGED))
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_IO_BUFFERED_STREAM_EVENT_LINE;
+extern const Efl_Event_Description _EFL_IO_BUFFERED_STREAM_EVENT_LINE;
 
 /** If @ref efl_io_buffered_stream_line_delimiter_get is set, will be emitted
  * with current line. The memory is only valid during event callback dispatched
@@ -441,6 +435,13 @@ extern extern_WEAK extern const Efl_Event_Description _EFL_IO_BUFFERED_STREAM_EV
  *
  * @ingroup Efl_Io_Buffered_Stream
  */
+
+#define EFL_IO_BUFFERED_STREAM_EVENT_WRITE_FINISHED (&(_EFL_IO_BUFFERED_STREAM_EVENT_WRITE_FINISHED))
+#define EFL_IO_BUFFERED_STREAM_EVENT_READ_FINISHED (&(_EFL_IO_BUFFERED_STREAM_EVENT_READ_FINISHED))
+#define EFL_IO_BUFFERED_STREAM_EVENT_FINISHED (&(_EFL_IO_BUFFERED_STREAM_EVENT_FINISHED))
+#define EFL_IO_BUFFERED_STREAM_EVENT_ERROR (&(_EFL_IO_BUFFERED_STREAM_EVENT_ERROR))
+#define EFL_IO_BUFFERED_STREAM_EVENT_PROGRESS (&(_EFL_IO_BUFFERED_STREAM_EVENT_PROGRESS))
+#define EFL_IO_BUFFERED_STREAM_EVENT_SLICE_CHANGED (&(_EFL_IO_BUFFERED_STREAM_EVENT_SLICE_CHANGED))
 #define EFL_IO_BUFFERED_STREAM_EVENT_LINE (&(_EFL_IO_BUFFERED_STREAM_EVENT_LINE))
 #endif /* EFL_BETA_API_SUPPORT */
 

@@ -16,6 +16,8 @@ const
   libefl = 'libefl';
   libemile = 'libemile';
   libecore = 'libecore';
+
+  libencore = 'libecore';
   {$ENDIF}
 
   {$IFDEF mswindows}
