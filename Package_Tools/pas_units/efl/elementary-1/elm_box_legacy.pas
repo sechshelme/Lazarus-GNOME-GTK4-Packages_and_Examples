@@ -3,7 +3,7 @@ unit elm_box_legacy;
 interface
 
 uses
-  ctypes, efl, fp_evas;
+  ctypes, efl, fp_evas, fp_ecore;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

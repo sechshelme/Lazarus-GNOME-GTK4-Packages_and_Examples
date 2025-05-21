@@ -19,43 +19,19 @@ uses
   fp_efl,
   fp_eo,
   fp_emile,
+  fp_ecore,
   fp_evas,
 
   // =======================================
 
 
-//  ecore_exe_eo,                        // Doppelt mit  ecore_exe_eo_legacy und fehlerhafte Functionen
-  ecore_exe_eo_legacy,
-  ecore_event_message_eo,                // io.
-  ecore_event_message_handler_eo,        // io. -> ecore_event_message_eo
-  Ecore,                                 // io.
-  Ecore_Common,                          // io. -> ecore_exe_eo_legacy
-  Ecore_Getopt,                          // io.             ( Makros verseucht )
-  Ecore_Legacy,                          // io. -> Ecore_Common
-  efl_io_buffered_stream_eo,             // io.
-  efl_io_copier_eo,                      // io.
-  efl_core_env_eo,                       // io.
-  efl_exe_eo,                            // io. -> efl_core_env_eo
-  efl_general,                           // io.     ( evtl. löschen )
-  efl_loop_eo,                           // io.
-  efl_loop_message_eo,                   // io.
-  efl_loop_fd_eo,                        // io.
-  efl_loop_message_handler_eo,           // io.
-  efl_loop_timer_eo,                     // io.
-  efl_loop_handler_eo,                   // io.
-  efl_task_eo,                           // io.
-  Ecore_Eo,                              // io. -> efl_loop_eo
-  efl_loop_consumer_eo,                  // io. -> efl_loop_eo
-  efl_app_eo,                            // io.
-  efl_core_command_line_eo,              // io.
-  efl_cubic_bezier_interpolator_eo,      // io.
-  efl_threadio_eo,                       // io.
+
 
 
   // =======================================
 
 
-  // elementary-1        -> Evas
+  // elementary-1
   elm_general,                                         // io.     ( makro ELM_MAIN entfernt )
   elm_win_legacy,                                      // io.     ( Doppelt Methoden evtl. Bug in C-Hedader )
   elm_box_legacy,                                      // io.

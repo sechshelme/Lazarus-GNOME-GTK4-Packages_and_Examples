@@ -97,10 +97,6 @@ function calloc(num, size: Tsize_t): Pointer; cdecl; external libclib;
 
 // =====================
 
-// /usr/include/ecore-1/Ecore_Common.h
-type
-  TEcore_Cb = Pointer; // CallProc;
-
   // /usr/include/ecore-evas-1/Ecore_Evas_Types.h
 type
   PEcore_Evas = Pointer;

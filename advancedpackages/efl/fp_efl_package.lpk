@@ -37,6 +37,10 @@
         <Filename Value="fp_evas.pas"/>
         <UnitName Value="fp_evas"/>
       </Item>
+      <Item>
+        <Filename Value="fp_ecore.pas"/>
+        <UnitName Value="fp_ecore"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
