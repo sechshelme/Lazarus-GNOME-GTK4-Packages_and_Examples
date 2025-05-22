@@ -129,7 +129,7 @@ extern  Eina_Error efl_canvas_layout_load_error_get(const Eo *obj);
  */
 extern  Eina_Bool efl_canvas_layout_content_remove(Eo *obj, Efl_Gfx_Entity *content);
 #ifdef EFL_BETA_API_SUPPORT
-extern  extern const Efl_Event_Description _EFL_LAYOUT_EVENT_PART_INVALID;
+  extern const Efl_Event_Description _EFL_LAYOUT_EVENT_PART_INVALID;
 
 /** Emitted when trying to use an invalid part. The value passed is the part
  * name.

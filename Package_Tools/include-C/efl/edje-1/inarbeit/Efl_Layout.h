@@ -15,27 +15,6 @@
 # undef extern
 #endif
 
-#ifdef _WIN32
-# ifdef EFL_BUILD
-#  ifdef DLL_EXPORT
-#   define extern __declspec(dllexport)
-#  else
-#   define extern
-#  endif
-# else
-#  define extern __declspec(dllimport)
-# endif
-#else
-# ifdef __GNUC__
-#  if __GNUC__ >= 4
-#   define extern __attribute__ ((visibility("default")))
-#  else
-#   define extern
-#  endif
-# else
-#  define extern
-# endif
-#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -60,6 +39,5 @@ extern "C" {
 }
 #endif
 
-#undef extern
 
 #endif

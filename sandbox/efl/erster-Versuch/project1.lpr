@@ -25,13 +25,29 @@ uses
 
   // =======================================
 
-  //Edje,
-  //Edje_Common,
-  //Edje_Eo,
-  //Edje_Legacy,
-  //
-  //Edje_Edit,
-
+  Edje,                                       // io.
+  Edje_Eo,                                    // io.                    ( Evtl. löschen )
+  Edje_Common,                                // io.                    ( Macros entfernt )
+  Edje_Legacy,                                // io. -> Edje_Common
+  Edje_Edit,                                  // io. -> Edje_Legacy, Edje_Common
+  Efl_Layout,                                 // io.                    ( Evtl. löschen )
+  efl_canvas_layout_eo,                       // io.
+  efl_canvas_layout_eo_legacy,                // io.
+  efl_canvas_layout_part_eo,                  // io.
+  efl_canvas_layout_part_external_eo,         // io.
+  efl_canvas_layout_part_text_eo,             // io.
+  efl_canvas_layout_part_box_eo,              // io.
+  efl_canvas_layout_part_invalid_eo,          // io.
+  efl_canvas_layout_part_swallow_eo,          // io.
+  efl_canvas_layout_part_table_eo,            // io.
+  efl_canvas_layout_types_eot,                // io.
+  efl_canvas_layout_part_type_provider_eo,    // io. -> efl_canvas_layout_types_eot
+  efl_layout_calc_eo,                         // io.
+  efl_layout_group_eo,                        // io.
+  efl_layout_signal_eo,                       // io.
+  efl_layout_group_eo_legacy,                 // io.
+  edje_edit_eo,                               // io.
+  edje_edit_eo_legacy,                        // io.
 
   // =======================================
 
@@ -57,7 +73,7 @@ uses
 
   procedure on_button_click(data: pointer; obj: PEvas_Object; event_info: pointer); cdecl;
   begin
-    elm_object_text_set(obj, 'Geklickt!');
+    elm_object_text_set(obj, 'Geklickt !');
   end;
 
   procedure on_exit_button_click(data: pointer; obj: PEvas_Object; event_info: pointer); cdecl;

@@ -101,15 +101,6 @@ function calloc(num, size: Tsize_t): Pointer; cdecl; external libclib;
 
 // =====================
 
-  // /usr/include/edje-1/Edje_Common.h
-type
-  TEdje_Signal_Cb = Pointer; // callproc
-
-  TEdje_Entry_Change_Info = record
-    // Muss aufgelöst werden
-  end;
-  PEdje_Entry_Change_Info = ^TEdje_Entry_Change_Info;
-
 type
   // /usr/include/eina-1/eina/eina_inline_lock_posix.x
   TEina_Lock = Pointer;

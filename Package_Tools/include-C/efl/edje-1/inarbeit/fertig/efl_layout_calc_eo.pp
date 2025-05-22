@@ -1,19 +1,48 @@
-#ifndef _EFL_LAYOUT_CALC_EO_H_
-#define _EFL_LAYOUT_CALC_EO_H_
 
-#ifndef _EFL_LAYOUT_CALC_EO_CLASS_TYPE
-#define _EFL_LAYOUT_CALC_EO_CLASS_TYPE
+unit efl_layout_calc_eo;
+interface
 
-typedef Eo Efl_Layout_Calc;
+{
+  Automatically converted by H2Pas 1.0.0 from efl_layout_calc_eo.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    efl_layout_calc_eo.h
+}
 
-#endif
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
 
-#ifndef _EFL_LAYOUT_CALC_EO_TYPES
-#define _EFL_LAYOUT_CALC_EO_TYPES
+Type
+PEfl_Class  = ^Efl_Class;
+PEfl_Layout_Calc  = ^Efl_Layout_Calc;
+PEo  = ^Eo;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
 
 
-#endif
-/**
+{$ifndef _EFL_LAYOUT_CALC_EO_H_}
+{$define _EFL_LAYOUT_CALC_EO_H_}
+{$ifndef _EFL_LAYOUT_CALC_EO_CLASS_TYPE}
+{$define _EFL_LAYOUT_CALC_EO_CLASS_TYPE}
+type
+  PEfl_Layout_Calc = ^TEfl_Layout_Calc;
+  TEfl_Layout_Calc = TEo;
+{$endif}
+{$ifndef _EFL_LAYOUT_CALC_EO_TYPES}
+{$define _EFL_LAYOUT_CALC_EO_TYPES}
+{$endif}
+{*
  * @brief This interface defines a common set of APIs used to trigger
  * calculations with layout objects.
  *
@@ -23,12 +52,14 @@ typedef Eo Efl_Layout_Calc;
  * @since 1.22
  *
  * @ingroup Efl_Layout_Calc
- */
-#define EFL_LAYOUT_CALC_INTERFACE efl_layout_calc_interface_get()
+  }
 
-extern  const Efl_Class *efl_layout_calc_interface_get(void) ;
+{ was #define dname def_expr }
+function EFL_LAYOUT_CALC_INTERFACE : longint; { return type might be wrong }
 
-/**
+(* Const before type ignored *)
+function efl_layout_calc_interface_get:PEfl_Class;cdecl;external;
+{*
  * @brief Whether this object updates its size hints automatically.
  *
  * By default edje doesn't set size hints on itself. If this property is set to
@@ -47,10 +78,9 @@ extern  const Efl_Class *efl_layout_calc_interface_get(void) ;
  * @since 1.22
  *
  * @ingroup Efl_Layout_Calc
- */
-extern  void efl_layout_calc_auto_update_hints_set(Eo *obj, Eina_Bool update);
-
-/**
+  }
+procedure efl_layout_calc_auto_update_hints_set(obj:PEo; update:TEina_Bool);cdecl;external;
+{*
  * @brief Whether this object updates its size hints automatically.
  *
  * By default edje doesn't set size hints on itself. If this property is set to
@@ -70,10 +100,10 @@ extern  void efl_layout_calc_auto_update_hints_set(Eo *obj, Eina_Bool update);
  * @since 1.22
  *
  * @ingroup Efl_Layout_Calc
- */
-extern  Eina_Bool efl_layout_calc_auto_update_hints_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_layout_calc_auto_update_hints_get(obj:PEo):TEina_Bool;cdecl;external;
+{*
  * @brief Calculates the minimum required size for a given layout object.
  *
  * This call will trigger an internal recalculation of all parts of the object,
@@ -98,10 +128,9 @@ extern  Eina_Bool efl_layout_calc_auto_update_hints_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Layout_Calc
- */
-extern  Eina_Size2D efl_layout_calc_size_min(Eo *obj, Eina_Size2D restricted);
-
-/**
+  }
+function efl_layout_calc_size_min(obj:PEo; restricted:TEina_Size2D):TEina_Size2D;cdecl;external;
+{*
  * @brief Calculates the geometry of the region, relative to a given layout
  * object's area, occupied by all parts in the object.
  *
@@ -121,10 +150,9 @@ extern  Eina_Size2D efl_layout_calc_size_min(Eo *obj, Eina_Size2D restricted);
  * @since 1.22
  *
  * @ingroup Efl_Layout_Calc
- */
-extern  Eina_Rect efl_layout_calc_parts_extends(Eo *obj);
-
-/**
+  }
+function efl_layout_calc_parts_extends(obj:PEo):TEina_Rect;cdecl;external;
+{*
  * @brief Freezes the layout object.
  *
  * This function puts all changes on hold. Successive freezes will nest,
@@ -139,10 +167,9 @@ extern  Eina_Rect efl_layout_calc_parts_extends(Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Layout_Calc
- */
-extern  int efl_layout_calc_freeze(Eo *obj);
-
-/**
+  }
+function efl_layout_calc_freeze(obj:PEo):longint;cdecl;external;
+{*
  * @brief Thaws the layout object.
  *
  * This function thaws (in other words "unfreezes") the given layout object.
@@ -159,11 +186,10 @@ extern  int efl_layout_calc_freeze(Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Layout_Calc
- */
-extern  int efl_layout_calc_thaw(Eo *obj);
-
-#ifdef EFL_LAYOUT_CALC_PROTECTED
-/**
+  }
+function efl_layout_calc_thaw(obj:PEo):longint;cdecl;external;
+{$ifdef EFL_LAYOUT_CALC_PROTECTED}
+{*
  * @brief Forces a Size/Geometry calculation.
  *
  * Forces the object to recalculate its layout regardless of freeze/thaw. This
@@ -176,29 +202,55 @@ extern  int efl_layout_calc_thaw(Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Layout_Calc
- */
-extern  void efl_layout_calc_force(Eo *obj);
-#endif
-
-extern  extern const Efl_Event_Description _EFL_LAYOUT_EVENT_RECALC;
-
-/** The layout was recalculated.
+  }
+procedure efl_layout_calc_force(obj:PEo);cdecl;external;
+{$endif}
+(* Const before type ignored *)
+  var
+    _EFL_LAYOUT_EVENT_RECALC : TEfl_Event_Description;cvar;external;
+{* The layout was recalculated.
  *
  * @since 1.22
  *
  * @ingroup Efl_Layout_Calc
- */
-#define EFL_LAYOUT_EVENT_RECALC (&(_EFL_LAYOUT_EVENT_RECALC))
-
-extern  extern const Efl_Event_Description _EFL_LAYOUT_EVENT_CIRCULAR_DEPENDENCY;
-
-/** A circular dependency between parts of the object was found.
+  }
+(* Const before type ignored *)
+    _EFL_LAYOUT_EVENT_CIRCULAR_DEPENDENCY : TEfl_Event_Description;cvar;external;
+{* A circular dependency between parts of the object was found.
  * @return const Eina_Array *
  *
  * @since 1.22
  *
  * @ingroup Efl_Layout_Calc
- */
-#define EFL_LAYOUT_EVENT_CIRCULAR_DEPENDENCY (&(_EFL_LAYOUT_EVENT_CIRCULAR_DEPENDENCY))
+  }
 
-#endif
+{ was #define dname def_expr }
+function EFL_LAYOUT_EVENT_RECALC : longint; { return type might be wrong }
+
+{ was #define dname def_expr }
+function EFL_LAYOUT_EVENT_CIRCULAR_DEPENDENCY : longint; { return type might be wrong }
+
+{$endif}
+
+implementation
+
+{ was #define dname def_expr }
+function EFL_LAYOUT_CALC_INTERFACE : longint; { return type might be wrong }
+  begin
+    EFL_LAYOUT_CALC_INTERFACE:=efl_layout_calc_interface_get;
+  end;
+
+{ was #define dname def_expr }
+function EFL_LAYOUT_EVENT_RECALC : longint; { return type might be wrong }
+  begin
+    EFL_LAYOUT_EVENT_RECALC:=@(_EFL_LAYOUT_EVENT_RECALC);
+  end;
+
+{ was #define dname def_expr }
+function EFL_LAYOUT_EVENT_CIRCULAR_DEPENDENCY : longint; { return type might be wrong }
+  begin
+    EFL_LAYOUT_EVENT_CIRCULAR_DEPENDENCY:=@(_EFL_LAYOUT_EVENT_CIRCULAR_DEPENDENCY);
+  end;
+
+
+end.
