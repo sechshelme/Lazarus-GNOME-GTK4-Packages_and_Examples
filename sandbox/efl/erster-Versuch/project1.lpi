@@ -42,7 +42,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="../../../Package_Tools/pas_units/efl/elementary-1;../../../Package_Tools/pas_units/efl/ecore-evas-1"/>
+      <OtherUnitFiles Value="../../../Package_Tools/pas_units/efl/elementary-1;../../../Package_Tools/pas_units/efl/edje-1"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

@@ -7,31 +7,6 @@
 
 #include <Edje.h>
 
-#ifdef extern
-# undef extern
-#endif
-
-#ifdef _WIN32
-# ifdef EFL_BUILD
-#  ifdef DLL_EXPORT
-#   define extern __declspec(dllexport)
-#  else
-#   define extern
-#  endif
-# else
-#  define extern __declspec(dllimport)
-# endif
-#else
-# ifdef __GNUC__
-#  if __GNUC__ >= 4
-#   define extern __attribute__ ((visibility("default")))
-#  else
-#   define extern
-#  endif
-# else
-#  define extern
-# endif
-#endif
 
 /**
  * Compression type for the image.
@@ -2515,7 +2490,7 @@ extern unsigned char edje_edit_state_table_homogeneous_get(Evas_Object *obj, con
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.14
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_state_container_min_get(Evas_Object *obj, const char *part, const char *state, double value, Eina_Bool *h, Eina_Bool *v);
 
 /**
@@ -2569,7 +2544,7 @@ edje_edit_state_container_min_v_get(Evas_Object *obj, const char *part, const ch
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.14
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_state_container_min_set(Evas_Object *obj, const char *part, const char *state, double value, Eina_Bool h, Eina_Bool v);
 
 /**
@@ -2621,7 +2596,7 @@ edje_edit_state_container_min_v_set(Evas_Object *obj, const char *part, const ch
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.14
  */
-EINA_DEPRECATED extern Eina_Bool
+/*xxxxxxxxxx    EINA_DEPRECATED*/ extern Eina_Bool
 edje_edit_state_container_padding_get(Evas_Object *obj, const char *part, const char *state, double value, int *x, int *y);
 
 /**
@@ -2668,7 +2643,7 @@ edje_edit_state_container_padding_y_get(Evas_Object *obj, const char *part, cons
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.14
  */
-EINA_DEPRECATED extern Eina_Bool
+/*xxxxxxxxxx    EINA_DEPRECATED*/ extern Eina_Bool
 edje_edit_state_container_padding_set(Evas_Object *obj, const char *part, const char *state, double value, int x, int y);
 
 /**
@@ -2717,7 +2692,7 @@ edje_edit_state_container_padding_y_set(Evas_Object *obj, const char *part, cons
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.14
  */
-EINA_DEPRECATED extern Eina_Bool
+/*xxxxxxxxxx    EINA_DEPRECATED*/ extern Eina_Bool
 edje_edit_state_container_align_set(Evas_Object *obj, const char *part, const char *state, double value, double x, double y);
 
 /**
@@ -2766,7 +2741,7 @@ edje_edit_state_container_align_y_set(Evas_Object *obj, const char *part, const 
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.14
  */
-EINA_DEPRECATED extern Eina_Bool
+/*xxxxxxxxxx    EINA_DEPRECATED*/ extern Eina_Bool
 edje_edit_state_container_align_get(Evas_Object *obj, const char *part, const char *state, double value, double *x, double *y);
 
 /**
@@ -2830,7 +2805,7 @@ extern Eina_Bool edje_edit_part_item_append(Evas_Object *obj, const char *part, 
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.18
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool
 edje_edit_part_item_insert_before(Evas_Object *obj, const char *part, const char *item_name, const char *item_before, const char *source_group);
 
@@ -2861,7 +2836,7 @@ edje_edit_part_item_insert_before_index(Evas_Object *obj, const char *part, cons
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.18
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool
 edje_edit_part_item_insert_after(Evas_Object *obj, const char *part, const char *item_name, const char *item_after, const char *source_group);
 
@@ -2906,7 +2881,7 @@ edje_edit_part_item_insert_at(Evas_Object *obj, const char *part, const char *it
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.18
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool
 edje_edit_part_item_move_above(Evas_Object *obj, const char *part, const char *item_name);
 
@@ -2933,7 +2908,7 @@ edje_edit_part_item_move_above_index(Evas_Object *obj, const char *part, unsigne
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.18
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool
 edje_edit_part_item_move_below(Evas_Object *obj, const char *part, const char *item_name);
 
@@ -2959,7 +2934,7 @@ edje_edit_part_item_move_below_index(Evas_Object *obj, const char *part, unsigne
  * @return A List containing all part items names found in the edje file.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_List * edje_edit_part_items_list_get(Evas_Object *obj, const char *part);
 
 /**
@@ -2984,7 +2959,7 @@ edje_edit_part_items_count_get(Evas_Object *obj, const char *part);
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_del(Evas_Object *obj, const char *part, const char* name);
 
 /**
@@ -3038,7 +3013,7 @@ edje_edit_part_item_index_name_get(Evas_Object *obj, const char *part, unsigned 
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_source_set(Evas_Object *obj, const char *part, const char *item_name, const char *source_group);
 
 /**
@@ -3065,7 +3040,7 @@ edje_edit_part_item_index_source_set(Evas_Object *obj, const char *part, unsigne
  * @return source of the given item.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern const char * edje_edit_part_item_source_get(Evas_Object *obj, const char *part, const char *item_name);
 
 /**
@@ -3091,7 +3066,7 @@ edje_edit_part_item_index_source_get(Evas_Object *obj, const char *part, unsigne
  * @return The minimum width value.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern int edje_edit_part_item_min_w_get(Evas_Object *obj, const char *part, const char *item);
 
 /**
@@ -3106,7 +3081,7 @@ extern int edje_edit_part_item_min_w_get(Evas_Object *obj, const char *part, con
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_min_w_set(Evas_Object *obj, const char *part, const char *item, int min_w);
 
 /**
@@ -3119,7 +3094,7 @@ extern Eina_Bool edje_edit_part_item_min_w_set(Evas_Object *obj, const char *par
  * @return The minimum height value.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern int edje_edit_part_item_min_h_get(Evas_Object *obj, const char *part, const char *item);
 
 /**
@@ -3134,7 +3109,7 @@ extern int edje_edit_part_item_min_h_get(Evas_Object *obj, const char *part, con
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_min_h_set(Evas_Object *obj, const char *part, const char *item, int min_h);
 
 /**
@@ -3147,7 +3122,7 @@ extern Eina_Bool edje_edit_part_item_min_h_set(Evas_Object *obj, const char *par
  * @return The maximum width value.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern int edje_edit_part_item_max_w_get(Evas_Object *obj, const char *part, const char *item);
 
 /**
@@ -3164,7 +3139,7 @@ extern int edje_edit_part_item_max_w_get(Evas_Object *obj, const char *part, con
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_max_w_set(Evas_Object *obj, const char *part, const char *item, int max_w);
 
 /**
@@ -3177,7 +3152,7 @@ extern Eina_Bool edje_edit_part_item_max_w_set(Evas_Object *obj, const char *par
  * @return The maximum height value.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern int edje_edit_part_item_max_h_get(Evas_Object *obj, const char *part, const char *item);
 
 /**
@@ -3194,7 +3169,7 @@ extern int edje_edit_part_item_max_h_get(Evas_Object *obj, const char *part, con
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_max_h_set(Evas_Object *obj, const char *part, const char *item, int max_h);
 
 /**
@@ -3207,7 +3182,7 @@ extern Eina_Bool edje_edit_part_item_max_h_set(Evas_Object *obj, const char *par
  * @return The aspect width value.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern int edje_edit_part_item_aspect_w_get(Evas_Object *obj, const char *part, const char *item);
 
 /**
@@ -3221,7 +3196,7 @@ extern int edje_edit_part_item_aspect_w_get(Evas_Object *obj, const char *part, 
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_aspect_w_set(Evas_Object *obj, const char *part, const char *item, int aspect_w);
 
 /**
@@ -3234,7 +3209,7 @@ extern Eina_Bool edje_edit_part_item_aspect_w_set(Evas_Object *obj, const char *
  * @return The maximum height value.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern int edje_edit_part_item_aspect_h_get(Evas_Object *obj, const char *part, const char *item);
 
 /**
@@ -3248,7 +3223,7 @@ extern int edje_edit_part_item_aspect_h_get(Evas_Object *obj, const char *part, 
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_aspect_h_set(Evas_Object *obj, const char *part, const char *item, int aspect_h);
 
 /**
@@ -3261,7 +3236,7 @@ extern Eina_Bool edje_edit_part_item_aspect_h_set(Evas_Object *obj, const char *
  * @return The prefer width value.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern int edje_edit_part_item_prefer_w_get(Evas_Object *obj, const char *part, const char *item);
 
 /**
@@ -3281,7 +3256,7 @@ extern int edje_edit_part_item_prefer_w_get(Evas_Object *obj, const char *part, 
  * @return One of possible enum Edje_Aspect_Control.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Edje_Aspect_Control
 edje_edit_part_item_aspect_mode_get(Evas_Object *obj, const char *part, const char *item);
 
@@ -3303,7 +3278,7 @@ edje_edit_part_item_aspect_mode_get(Evas_Object *obj, const char *part, const ch
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_aspect_mode_set(Evas_Object *obj, const char *part, const char *item, Edje_Aspect_Control mode);
 
 /**
@@ -3317,7 +3292,7 @@ extern Eina_Bool edje_edit_part_item_aspect_mode_set(Evas_Object *obj, const cha
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_prefer_w_set(Evas_Object *obj, const char *part, const char *item, int prefer_w);
 
 /**
@@ -3330,7 +3305,7 @@ extern Eina_Bool edje_edit_part_item_prefer_w_set(Evas_Object *obj, const char *
  * @return The maximum height value.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern int edje_edit_part_item_prefer_h_get(Evas_Object *obj, const char *part, const char *item);
 
 /**
@@ -3344,7 +3319,7 @@ extern int edje_edit_part_item_prefer_h_get(Evas_Object *obj, const char *part, 
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_prefer_h_set(Evas_Object *obj, const char *part, const char *item, int prefer_h);
 
 /**
@@ -3357,7 +3332,7 @@ extern Eina_Bool edje_edit_part_item_prefer_h_set(Evas_Object *obj, const char *
  * @return The spread width value.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern int edje_edit_part_item_spread_w_get(Evas_Object *obj, const char *part, const char *item);
 
 /**
@@ -3376,7 +3351,7 @@ extern int edje_edit_part_item_spread_w_get(Evas_Object *obj, const char *part, 
  * @return @c EINA_TRUE if successful, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_spread_w_set(Evas_Object *obj, const char *part, const char *item, int spread_w);
 
 /**
@@ -3394,7 +3369,7 @@ extern Eina_Bool edje_edit_part_item_spread_w_set(Evas_Object *obj, const char *
  * @return The spread height value.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern int edje_edit_part_item_spread_h_get(Evas_Object *obj, const char *part, const char *item);
 
 /**
@@ -3408,7 +3383,7 @@ extern int edje_edit_part_item_spread_h_get(Evas_Object *obj, const char *part, 
  * @return @c EINA_TRUE if successful, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_spread_h_set(Evas_Object *obj, const char *part, const char *item, int spread_h);
 
 /**
@@ -3754,7 +3729,7 @@ edje_edit_part_item_index_spread_h_set(Evas_Object *obj, const char *part, unsig
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_padding_get(Evas_Object *obj, const char *part, const char *item_name, int *l, int *r, int *t, int *b);
 
 /**
@@ -3771,7 +3746,7 @@ extern Eina_Bool edje_edit_part_item_padding_get(Evas_Object *obj, const char *p
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_padding_set(Evas_Object *obj, const char *part, const char *item_name, int l, int r, int t, int b);
 
 /**
@@ -3818,7 +3793,7 @@ edje_edit_part_item_index_padding_set(Evas_Object *obj, const char *part, unsign
  * @return The horizontal align value for the given align (value is between -1.0 and 1.0)
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern double edje_edit_part_item_align_x_get(Evas_Object *obj, const char *part, const char *item);
 
 /**
@@ -3845,7 +3820,7 @@ edje_edit_part_item_index_align_x_get(Evas_Object *obj, const char *part, unsign
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_align_x_set(Evas_Object *obj, const char *part, const char *item, double align_x);
 
 /**
@@ -3872,7 +3847,7 @@ edje_edit_part_item_index_align_x_set(Evas_Object *obj, const char *part, unsign
  * @return The vertical align value for the given align (value is between -1.0 and 1.0)
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern double edje_edit_part_item_align_y_get(Evas_Object *obj, const char *part, const char *item);
 
 /**
@@ -3899,7 +3874,7 @@ edje_edit_part_item_index_align_y_get(Evas_Object *obj, const char *part, unsign
  * @return @c EINA_TRUE in case of success, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_align_y_set(Evas_Object *obj, const char *part, const char *item, double align_y);
 
 /**
@@ -3926,7 +3901,7 @@ edje_edit_part_item_index_align_y_set(Evas_Object *obj, const char *part, unsign
  * @return The horizontal weight value for the given item (value is between -1.0 and 1.0)
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern double edje_edit_part_item_weight_x_get(Evas_Object *obj, const char *part, const char *item);
 
 /**
@@ -3953,7 +3928,7 @@ edje_edit_part_item_index_weight_x_get(Evas_Object *obj, const char *part, unsig
  * @return @c EINA_TRUE If successful, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_weight_x_set(Evas_Object *obj, const char *part, const char *item, double weight_x);
 
 /**
@@ -3980,7 +3955,7 @@ edje_edit_part_item_index_weight_x_set(Evas_Object *obj, const char *part, unsig
  * @return The vertical weight value for the given item (value is between -1.0 and 1.0)
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern double edje_edit_part_item_weight_y_get(Evas_Object *obj, const char *part, const char *item);
 
 /**
@@ -4007,7 +3982,7 @@ edje_edit_part_item_index_weight_y_get(Evas_Object *obj, const char *part, unsig
  * @return @c EINA_TRUE If successful, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_weight_y_set(Evas_Object *obj, const char *part, const char *item, double weight_y);
 
 /**
@@ -4039,7 +4014,7 @@ edje_edit_part_item_index_weight_y_set(Evas_Object *obj, const char *part, unsig
  * @return @c EINA_TRUE If successful, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_position_get(Evas_Object *obj, const char *part, const char *item_name, unsigned short *col, unsigned short *row);
 
 /**
@@ -4160,7 +4135,7 @@ edje_edit_part_item_item_weight_y_set(Evas_Object *obj, const char *part, unsign
  * @return The item column value.
  * @since 1.16
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern unsigned short
 edje_edit_part_item_position_col_get(Evas_Object *obj, const char *part, const char *item_name);
 
@@ -4174,7 +4149,7 @@ edje_edit_part_item_position_col_get(Evas_Object *obj, const char *part, const c
  * @return The item row value.
  * @since 1.16
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern unsigned short
 edje_edit_part_item_position_row_get(Evas_Object *obj, const char *part, const char *item_name);
 
@@ -4219,7 +4194,7 @@ edje_edit_part_item_index_position_row_get(Evas_Object *obj, const char *part, u
  * @return @c EINA_TRUE If successful, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_position_set(Evas_Object *obj, const char *part, const char *item_name, unsigned short col, unsigned short row);
 
 /**
@@ -4233,7 +4208,7 @@ extern Eina_Bool edje_edit_part_item_position_set(Evas_Object *obj, const char *
  * @return @c EINA_TRUE If successful, @c EINA_FALSE otherwise.
  * @since 1.16
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool
 edje_edit_part_item_position_col_set(Evas_Object *obj, const char *part, const char *item_name, unsigned short col);
 
@@ -4248,7 +4223,7 @@ edje_edit_part_item_position_col_set(Evas_Object *obj, const char *part, const c
  * @return @c EINA_TRUE If successful, @c EINA_FALSE otherwise.
  * @since 1.16
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool
 edje_edit_part_item_position_row_set(Evas_Object *obj, const char *part, const char *item_name, unsigned short row);
 
@@ -4295,7 +4270,7 @@ edje_edit_part_item_index_position_row_set(Evas_Object *obj, const char *part, u
  *
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern void edje_edit_part_item_span_get(Evas_Object *obj, const char *part, const char *item, unsigned char *col, unsigned char *row);
 
 /**
@@ -4308,7 +4283,7 @@ extern void edje_edit_part_item_span_get(Evas_Object *obj, const char *part, con
  * @return The count of span columns.
  * @since 1.16
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern unsigned short
 edje_edit_part_item_span_col_get(Evas_Object *obj, const char *part, const char *item);
 
@@ -4322,7 +4297,7 @@ edje_edit_part_item_span_col_get(Evas_Object *obj, const char *part, const char 
  * @return The count of span rows.
  * @since 1.16
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern unsigned short
 edje_edit_part_item_span_row_get(Evas_Object *obj, const char *part, const char *item);
 
@@ -4338,7 +4313,7 @@ edje_edit_part_item_span_row_get(Evas_Object *obj, const char *part, const char 
  * @return @c EINA_TRUE if successful, @c EINA_FALSE otherwise.
  * @since 1.11
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool edje_edit_part_item_span_set(Evas_Object *obj, const char *part, const char *item, unsigned char col, unsigned char row);
 
 /**
@@ -4352,7 +4327,7 @@ extern Eina_Bool edje_edit_part_item_span_set(Evas_Object *obj, const char *part
  * @return @c EINA_TRUE if successful, @c EINA_FALSE otherwise.
  * @since 1.16
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool
 edje_edit_part_item_span_col_set(Evas_Object *obj, const char *part, const char *item, unsigned short col);
 
@@ -4367,7 +4342,7 @@ edje_edit_part_item_span_col_set(Evas_Object *obj, const char *part, const char 
  * @return @c EINA_TRUE if successful, @c EINA_FALSE otherwise.
  * @since 1.16
  */
-EINA_DEPRECATED
+/*xxxxxxxxxx    EINA_DEPRECATED*/
 extern Eina_Bool
 edje_edit_part_item_span_row_set(Evas_Object *obj, const char *part, const char *item, unsigned short row);
 
@@ -8943,16 +8918,15 @@ edje_edit_color_classes_source_generate(Evas_Object *obj, Eina_List *color_class
  * Functions to deal with error messages (see @ref edcref).
  */ //@{
 
-extern extern Eina_Error EDJE_EDIT_ERROR_GROUP_CURRENTLY_USED;
-extern extern Eina_Error EDJE_EDIT_ERROR_GROUP_REFERENCED;
-extern extern Eina_Error EDJE_EDIT_ERROR_GROUP_DOES_NOT_EXIST;
+extern Eina_Error EDJE_EDIT_ERROR_GROUP_CURRENTLY_USED;
+extern Eina_Error EDJE_EDIT_ERROR_GROUP_REFERENCED;
+ extern Eina_Error EDJE_EDIT_ERROR_GROUP_DOES_NOT_EXIST;
 
 
 #ifdef __cplusplus
 }
 #endif
 
-#undef extern
-#define extern
+
 
 #endif

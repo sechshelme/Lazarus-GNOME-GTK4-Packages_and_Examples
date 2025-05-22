@@ -162,7 +162,7 @@ typedef struct _Edje_Version
  * Current Edje Version info
  *
  */
-extern extern Edje_Version *edje_version;
+extern Edje_Version *edje_version;
 
 #ifndef _EDJE_OBJECT_EO_CLASS_TYPE
 #define _EDJE_OBJECT_EO_CLASS_TYPE
@@ -744,18 +744,6 @@ struct _Edje_External_Param_Info
    } info;
 };
 
-#define EDJE_EXTERNAL_PARAM_INFO_INT_FULL_FLAGS(name, def, min, max, step, flags) \
-  {name, EDJE_EXTERNAL_PARAM_TYPE_INT, flags, {.i = {def, min, max, step}}}
-#define EDJE_EXTERNAL_PARAM_INFO_DOUBLE_FULL_FLAGS(name, def, min, max, step, flags) \
-  {name, EDJE_EXTERNAL_PARAM_TYPE_DOUBLE, flags, {.d = {def, min, max, step}}}
-#define EDJE_EXTERNAL_PARAM_INFO_STRING_FULL_FLAGS(name, def, accept, deny, flags) \
-  {name, EDJE_EXTERNAL_PARAM_TYPE_STRING, flags, {.s = {def, accept, deny}}}
-#define EDJE_EXTERNAL_PARAM_INFO_BOOL_FULL_FLAGS(name, def, false_str, true_str, flags) \
-  {name, EDJE_EXTERNAL_PARAM_TYPE_BOOL, flags, {.b = {def, false_str, true_str}}}
-#define EDJE_EXTERNAL_PARAM_INFO_CHOICE_FULL_FLAGS(name, def, choices, flags) \
-  {name, EDJE_EXTERNAL_PARAM_TYPE_CHOICE, flags, {.c = {def, choices, NULL, NULL}}}
-#define EDJE_EXTERNAL_PARAM_INFO_CHOICE_DYNAMIC_FULL_FLAGS(name, def_get, query, flags) \
-  {name, EDJE_EXTERNAL_PARAM_TYPE_CHOICE, flags, {.c = {NULL, NULL, def_get, query}}}
 
 #define EDJE_EXTERNAL_PARAM_INFO_INT_FULL(name, def, min, max, step) \
   EDJE_EXTERNAL_PARAM_INFO_INT_FULL_FLAGS(name, def, min, max, step, EDJE_EXTERNAL_PARAM_FLAGS_REGULAR)
@@ -806,7 +794,7 @@ struct _Edje_External_Param_Info
 #define EDJE_EXTERNAL_PARAM_INFO_BOOL_FLAGS(name, flags) \
    EDJE_EXTERNAL_PARAM_INFO_BOOL_DEFAULT_FLAGS(name, 0, flags)
 
-#define EDJE_EXTERNAL_PARAM_INFO_SENTINEL {NULL, 0, 0, {.s = {NULL, NULL, NULL}}}
+//#define EDJE_EXTERNAL_PARAM_INFO_SENTINEL {NULL, 0, 0, {.s = {NULL, NULL, NULL}}}
 
 /** Version of the EDJE External ABI used by this library .*/
 #define EDJE_EXTERNAL_TYPE_ABI_VERSION (3)
@@ -1311,14 +1299,14 @@ typedef enum _Edje_Text_Filter_Type
    EDJE_TEXT_FILTER_MARKUP = 2  /**< Markup type filter */
 } Edje_Text_Filter_Type;
 
-enum
+enum xxxx
 {
    EDJE_INPUT_PANEL_LAYOUT_NORMAL_VARIATION_NORMAL,         /**< The plain normal layout @since 1.12 */
    EDJE_INPUT_PANEL_LAYOUT_NORMAL_VARIATION_FILENAME,       /**< Filename layout. Symbols such as '/' should be disabled. @since 1.12 */
    EDJE_INPUT_PANEL_LAYOUT_NORMAL_VARIATION_PERSON_NAME     /**< The name of a person. @since 1.12 */
 };
 
-enum
+enum xxx
 {
    EDJE_INPUT_PANEL_LAYOUT_NUMBERONLY_VARIATION_NORMAL,             /**< The plain normal number layout @since 1.8 */
    EDJE_INPUT_PANEL_LAYOUT_NUMBERONLY_VARIATION_SIGNED,             /**< The number layout to allow a positive or negative sign at the start @since 1.8 */
@@ -1326,7 +1314,7 @@ enum
    EDJE_INPUT_PANEL_LAYOUT_NUMBERONLY_VARIATION_SIGNED_AND_DECIMAL  /**< The number layout to allow decimal point and negative sign @since 1.8 */
 };
 
-enum
+enum xxxxxx
 {
    EDJE_INPUT_PANEL_LAYOUT_PASSWORD_VARIATION_NORMAL,       /**< The normal password layout @since 1.12 */
    EDJE_INPUT_PANEL_LAYOUT_PASSWORD_VARIATION_NUMBERONLY    /**< The password layout to allow only number @since 1.12 */
@@ -1857,7 +1845,7 @@ extern Eina_Bool         edje_mmap_group_exists(Eina_File *f, const char *glob);
  * @deprecated
  * @since 1.18
  */
-EINA_DEPRECATED extern Eina_Bool         edje_mmap_3d_has(Eina_File *f, const char *group);
+/*xxxxxxxxxx    EINA_DEPRECATED*/ extern Eina_Bool         edje_mmap_3d_has(Eina_File *f, const char *group);
 
 /**
  * @brief Iterates over all the opened Edje files.
@@ -2141,13 +2129,6 @@ extern double       edje_transition_duration_factor_get                  (void);
  * @{
  */
 
-#define EDJE_TEXT_EFFECT_MASK_BASIC 0xf
-#define EDJE_TEXT_EFFECT_BASIC_SET(x, s) \
-   do { x = ((x) & ~EDJE_TEXT_EFFECT_MASK_BASIC) | (s); } while (0)
-
-#define EDJE_TEXT_EFFECT_MASK_SHADOW_DIRECTION (0x7 << 4)
-#define EDJE_TEXT_EFFECT_SHADOW_DIRECTION_SET(x, s) \
-   do { x = ((x) & ~EDJE_TEXT_EFFECT_MASK_SHADOW_DIRECTION) | (s); } while (0)
 
 /**
  * @typedef Edje_Text_Effect

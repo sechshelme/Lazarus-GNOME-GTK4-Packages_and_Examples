@@ -17,6 +17,7 @@ const
   libemile = 'libemile';
   libecore = 'libecore';
   libecore_eva = 'libecore_evas';
+  libedje = 'libedje';
 
   libencore = 'libecore';
   {$ENDIF}
@@ -31,6 +32,7 @@ const
   libemile = 'libemile-1.dll';
   libecore = 'libecore-1.dll';
   libecore_evas = 'libecore_evas-1.dll';
+  libedje = 'libedje-1.dll';
   {$ENDIF}
 
   {$IFDEF darwin}

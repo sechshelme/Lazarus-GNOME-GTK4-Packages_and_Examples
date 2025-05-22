@@ -1,4 +1,60 @@
-/**
+
+unit Edje_Legacy;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from Edje_Legacy.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    Edje_Legacy.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pchar  = ^char;
+Pdouble  = ^double;
+PEdje_Drag_Dir  = ^Edje_Drag_Dir;
+PEdje_External_Param  = ^Edje_External_Param;
+PEdje_Load_Error  = ^Edje_Load_Error;
+PEdje_Message_Float  = ^Edje_Message_Float;
+PEdje_Message_Float_Set  = ^Edje_Message_Float_Set;
+PEdje_Message_Int  = ^Edje_Message_Int;
+PEdje_Message_Int_Set  = ^Edje_Message_Int_Set;
+PEdje_Message_String  = ^Edje_Message_String;
+PEdje_Message_String_Float  = ^Edje_Message_String_Float;
+PEdje_Message_String_Float_Set  = ^Edje_Message_String_Float_Set;
+PEdje_Message_String_Int  = ^Edje_Message_String_Int;
+PEdje_Message_String_Int_Set  = ^Edje_Message_String_Int_Set;
+PEdje_Message_String_Set  = ^Edje_Message_String_Set;
+PEdje_Message_Type  = ^Edje_Message_Type;
+PEdje_Object  = ^Edje_Object;
+PEdje_Part_Type  = ^Edje_Part_Type;
+PEdje_Perspective  = ^Edje_Perspective;
+PEfl_Canvas_Object  = ^Efl_Canvas_Object;
+PEina_File  = ^Eina_File;
+PEina_List  = ^Eina_List;
+PEvas  = ^Evas;
+PEvas_Font_Size  = ^Evas_Font_Size;
+PEvas_Object  = ^Evas_Object;
+Plongint  = ^longint;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{*
  * @brief Instantiates a new Edje object.
  *
  * @param evas A valid Evas handle, the canvas to place the new object
@@ -14,13 +70,13 @@
  *
  * edje = edje_object_add(canvas);
  * if (!edje)
- *   {
+ *   
  *      fprintf(stderr, "could not create edje object!\n");
  *      return NULL;
- *   }
+ *   
  *
  * if (!edje_object_file_set(edje, "theme.edj", "group_name"))
- *   {
+ *   
  *      int err = edje_object_load_error_get(edje);
  *      const char *errmsg = edje_load_error_str(err);
  *      fprintf(stderr, "could not load 'group_name' from theme.edj: %s",
@@ -28,7 +84,7 @@
  *
  *      evas_object_del(edje);
  *      return NULL;
- *   }
+ *   
  *
  * @endcode
  *
@@ -51,10 +107,10 @@
  *
  * @ingroup Edje_Object_Group
  *
- */
-extern Evas_Object *edje_object_add                 (Evas *evas);
+  }
 
-/**
+function edje_object_add(evas:PEvas):PEvas_Object;cdecl;external;
+{*
  * @brief Preloads the images on the Edje Object in the background.
  *
  * This function requests the preload of all data images (on the given object)
@@ -73,10 +129,9 @@ extern Evas_Object *edje_object_add                 (Evas *evas);
  *
  * @ingroup Edje_Object_Group
  *
- */
-extern Eina_Bool edje_object_preload(Evas_Object *obj, Eina_Bool cancel);
-
-/**
+  }
+function edje_object_preload(obj:PEvas_Object; cancel:TEina_Bool):TEina_Bool;cdecl;external;
+{*
  * @brief Adds a callback for an arriving Edje signal, emitted by a given Edje
  * object.
  *
@@ -119,10 +174,11 @@ extern Eina_Bool edje_object_preload(Evas_Object *obj, Eina_Bool cancel);
  *
  * @ingroup Edje_Object_Group
  *
- */
-extern void edje_object_signal_callback_add(Evas_Object *obj, const char *emission, const char *source, Edje_Signal_Cb func, void *data);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure edje_object_signal_callback_add(obj:PEvas_Object; emission:Pchar; source:Pchar; func:TEdje_Signal_Cb; data:pointer);cdecl;external;
+{*
  * @brief Sends/emits an Edje signal to a given Edje object
  *
  * This function sends a signal to the object  obj. An Edje program, at obj's
@@ -137,10 +193,11 @@ extern void edje_object_signal_callback_add(Evas_Object *obj, const char *emissi
  *
  * @ingroup Edje_Object_Group
  *
- */
-extern void edje_object_signal_emit(Evas_Object *obj, const char *emission, const char *source);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure edje_object_signal_emit(obj:PEvas_Object; emission:Pchar; source:Pchar);cdecl;external;
+{*
  * @brief Removes a signal-triggered callback from an object.
  *
  * @param obj A valid Evas_Object handle.
@@ -160,10 +217,11 @@ extern void edje_object_signal_emit(Evas_Object *obj, const char *emission, cons
  *
  * @ingroup Edje_Object_Group
  *
- */
-extern void        *edje_object_signal_callback_del (Evas_Object *obj, const char *emission, const char *source, Edje_Signal_Cb func);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_signal_callback_del(obj:PEvas_Object; emission:Pchar; source:Pchar; func:TEdje_Signal_Cb):pointer;cdecl;external;
+{*
  * @brief Unregisters/deletes a callback set for an arriving Edje
  * signal, emitted by a given Edje object.
  *
@@ -187,28 +245,40 @@ extern void        *edje_object_signal_callback_del (Evas_Object *obj, const cha
  *
  * @ingroup Edje_Object_Group
  *
- */
-extern void        *edje_object_signal_callback_del_full(Evas_Object *obj, const char *emission, const char *source, Edje_Signal_Cb func, void *data);
-
-/** Edje file loading error codes one can get - see edje_load_error_str() too. */
-typedef enum
-{
-  EDJE_LOAD_ERROR_NONE = 0, /**< No error happened, the loading was successful */
-  EDJE_LOAD_ERROR_GENERIC = 1, /**< A generic error happened during the loading */
-  EDJE_LOAD_ERROR_DOES_NOT_EXIST = 2, /**< The file pointed to did not exist */
-  EDJE_LOAD_ERROR_PERMISSION_DENIED = 3, /**< Permission to read the given file was denied */
-  EDJE_LOAD_ERROR_RESOURCE_ALLOCATION_FAILED = 4, /**< Resource allocation failed during the loading */
-  EDJE_LOAD_ERROR_CORRUPT_FILE = 5, /**< The file pointed to was corrupt */
-  EDJE_LOAD_ERROR_UNKNOWN_FORMAT = 6, /**< The file pointed to had an unknown format */
-  EDJE_LOAD_ERROR_INCOMPATIBLE_FILE = 7, /**< The file pointed to is incompatible, i.e., it doesn't
-                                          * match the library's current version's format */
-  EDJE_LOAD_ERROR_UNKNOWN_COLLECTION = 8, /**< The group/collection set to load
-                                           * from was not found in the file */
-  EDJE_LOAD_ERROR_RECURSIVE_REFERENCE = 9 /**< The group/collection set to load from had
-                                           * <b>recursive references</b> on its components */
-} Edje_Load_Error;
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_signal_callback_del_full(obj:PEvas_Object; emission:Pchar; source:Pchar; func:TEdje_Signal_Cb; data:pointer):pointer;cdecl;external;
+{* Edje file loading error codes one can get - see edje_load_error_str() too.  }
+{*< No error happened, the loading was successful  }
+{*< A generic error happened during the loading  }
+{*< The file pointed to did not exist  }
+{*< Permission to read the given file was denied  }
+{*< Resource allocation failed during the loading  }
+{*< The file pointed to was corrupt  }
+{*< The file pointed to had an unknown format  }
+{*< The file pointed to is incompatible, i.e., it doesn't
+                                          * match the library's current version's format  }
+{*< The group/collection set to load
+                                           * from was not found in the file  }
+{*< The group/collection set to load from had
+                                           * <b>recursive references</b> on its components  }
+type
+  PEdje_Load_Error = ^TEdje_Load_Error;
+  TEdje_Load_Error =  Longint;
+  Const
+    EDJE_LOAD_ERROR_NONE = 0;
+    EDJE_LOAD_ERROR_GENERIC = 1;
+    EDJE_LOAD_ERROR_DOES_NOT_EXIST = 2;
+    EDJE_LOAD_ERROR_PERMISSION_DENIED = 3;
+    EDJE_LOAD_ERROR_RESOURCE_ALLOCATION_FAILED = 4;
+    EDJE_LOAD_ERROR_CORRUPT_FILE = 5;
+    EDJE_LOAD_ERROR_UNKNOWN_FORMAT = 6;
+    EDJE_LOAD_ERROR_INCOMPATIBLE_FILE = 7;
+    EDJE_LOAD_ERROR_UNKNOWN_COLLECTION = 8;
+    EDJE_LOAD_ERROR_RECURSIVE_REFERENCE = 9;
+;
+{*
  * @brief Gets the (last) file loading error for a given Edje object
  *
  * This function is meant to be used after an Edje EDJ file loading, what takes
@@ -226,10 +296,11 @@ typedef enum
  *
  * @ingroup Edje_Object_Group
  *
- */
-extern Edje_Load_Error edje_object_load_error_get(const Evas_Object *obj);
+  }
+(* Const before type ignored *)
 
-/**
+function edje_object_load_error_get(obj:PEvas_Object):TEdje_Load_Error;cdecl;external;
+{*
  * @brief Converts the given Edje file load error code into a string
  * describing it in English.
  *
@@ -245,10 +316,10 @@ extern Edje_Load_Error edje_object_load_error_get(const Evas_Object *obj);
  *
  * @ingroup Edje_Object_Group
  *
- */
-extern const char	      *edje_load_error_str	  (Edje_Load_Error error);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_load_error_str(error:TEdje_Load_Error):Pchar;cdecl;external;
+{*
  * @brief Retrieves the geometry of a given Edje part, in a given Edje object's
  * group definition, relative to the object's area.
  *
@@ -271,10 +342,12 @@ extern const char	      *edje_load_error_str	  (Edje_Load_Error error);
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Edje_Object_Group
- */
-extern Eina_Bool edje_object_part_geometry_get(const Evas_Object *obj, const char * part, int *x, int *y, int *w, int *h);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_geometry_get(obj:PEvas_Object; part:Pchar; x:Plongint; y:Plongint; w:Plongint; 
+           h:Plongint):TEina_Bool;cdecl;external;
+{*
  * @brief Returns the state of the Edje part.
  *
  * @param[in] part The part name
@@ -283,10 +356,12 @@ extern Eina_Bool edje_object_part_geometry_get(const Evas_Object *obj, const cha
  * @return The part state: "default" for the default state "" for other states
  *
  * @ingroup Edje_Object_Group
- */
-extern const char *edje_object_part_state_get(const Evas_Object *obj, const char * part, double *val_ret);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_state_get(obj:PEvas_Object; part:Pchar; val_ret:Pdouble):Pchar;cdecl;external;
+{*
  * @brief Gets a handle to the Evas object implementing a given Edje part, in
  * an Edje object.
  *
@@ -309,10 +384,12 @@ extern const char *edje_object_part_state_get(const Evas_Object *obj, const char
  * failure (e.g. the given part doesn't exist)
  *
  * @ingroup Edje_Object_Group
- */
-extern const Efl_Canvas_Object *edje_object_part_object_get(const Evas_Object *obj, const char * part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_object_get(obj:PEvas_Object; part:Pchar):PEfl_Canvas_Object;cdecl;external;
+{*
  * @brief Whether this object updates its size hints automatically.
  *
  * By default edje doesn't set size hints on itself. If this property is set to
@@ -330,10 +407,9 @@ extern const Efl_Canvas_Object *edje_object_part_object_get(const Evas_Object *o
  * @param[in] update Whether or not update the size hints.
  *
  * @ingroup Edje_Object_Group
- */
-extern void edje_object_update_hints_set(Evas_Object *obj, Eina_Bool update);
-
-/**
+  }
+procedure edje_object_update_hints_set(obj:PEvas_Object; update:TEina_Bool);cdecl;external;
+{*
  * @brief Whether this object updates its size hints automatically.
  *
  * By default edje doesn't set size hints on itself. If this property is set to
@@ -351,10 +427,10 @@ extern void edje_object_update_hints_set(Evas_Object *obj, Eina_Bool update);
  * @return Whether or not update the size hints.
  *
  * @ingroup Edje_Object_Group
- */
-extern Eina_Bool edje_object_update_hints_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_update_hints_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Calculates the minimum required size for a given Edje object.
  *
  * This call works exactly as edje_object_size_min_restricted_calc(), with the
@@ -364,10 +440,9 @@ extern Eina_Bool edje_object_update_hints_get(const Evas_Object *obj);
  * @param[out] minh The minimum required height (return value)
  *
  * @ingroup Edje_Object_Group
- */
-extern void edje_object_size_min_calc(Evas_Object *obj, int *minw, int *minh);
-
-/**
+  }
+procedure edje_object_size_min_calc(obj:PEvas_Object; minw:Plongint; minh:Plongint);cdecl;external;
+{*
  * @brief Calculates the minimum required size for a given Edje object.
  *
  * This call will trigger an internal recalculation of all parts of the object,
@@ -391,10 +466,9 @@ extern void edje_object_size_min_calc(Evas_Object *obj, int *minw, int *minh);
  * not be lower than this
  *
  * @ingroup Edje_Object_Group
- */
-extern void edje_object_size_min_restricted_calc(Evas_Object *obj, int *minw, int *minh, int restrictedw, int restrictedh);
-
-/**
+  }
+procedure edje_object_size_min_restricted_calc(obj:PEvas_Object; minw:Plongint; minh:Plongint; restrictedw:longint; restrictedh:longint);cdecl;external;
+{*
  * @brief Calculates the geometry of the region, relative to a given Edje
  * object's area, occupied by all parts in the object.
  *
@@ -415,10 +489,9 @@ extern void edje_object_size_min_restricted_calc(Evas_Object *obj, int *minw, in
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Edje_Object_Group
- */
-extern Eina_Bool edje_object_parts_extends_calc(Evas_Object *obj, int *x, int *y, int *w, int *h);
-
-/**
+  }
+function edje_object_parts_extends_calc(obj:PEvas_Object; x:Plongint; y:Plongint; w:Plongint; h:Plongint):TEina_Bool;cdecl;external;
+{*
  * @brief Forces a Size/Geometry calculation.
  *
  * Forces the object to recalculate its layout regardless of freeze/thaw.
@@ -426,10 +499,9 @@ extern Eina_Bool edje_object_parts_extends_calc(Evas_Object *obj, int *x, int *y
  * See also @ref edje_object_freeze and @ref edje_object_thaw.
  *
  * @ingroup Edje_Object_Group
- */
-extern void edje_object_calc_force(Evas_Object *obj);
-
-/**
+  }
+procedure edje_object_calc_force(obj:PEvas_Object);cdecl;external;
+{*
  * @brief Freezes the Edje object.
  *
  * This function puts all changes on hold. Successive freezes will nest,
@@ -440,10 +512,9 @@ extern void edje_object_calc_force(Evas_Object *obj);
  * @return The frozen state or 0 on error
  *
  * @ingroup Edje_Object_Group
- */
-extern int edje_object_freeze(Evas_Object *obj);
-
-/**
+  }
+function edje_object_freeze(obj:PEvas_Object):longint;cdecl;external;
+{*
  * @brief Thaws the Edje object.
  *
  * This function thaws the given Edje object.
@@ -456,23 +527,24 @@ extern int edje_object_freeze(Evas_Object *obj);
  * @return The frozen state or 0 if the object is not frozen or on error.
  *
  * @ingroup Edje_Object_Group
- */
-extern int edje_object_thaw(Evas_Object *obj);
-
-/**
+  }
+function edje_object_thaw(obj:PEvas_Object):longint;cdecl;external;
+{*
  * @typedef (*Edje_Text_Change_Cb)
  *
  * Callback prototype for Edje_Text_Change.
  * @param data User provided data to pass to the callback
  * @param obj The Evas_Object
  * @param part The edje part
- */
-typedef void         (*Edje_Text_Change_Cb)     (void *data, Evas_Object *obj, const char *part);
-/**
- * @}
- */
+  }
+(* Const before type ignored *)
+type
 
-/**
+  TEdje_Text_Change_Cb = procedure (data:pointer; obj:PEvas_Object; part:Pchar);cdecl;
+{*
+ * @
+  }
+{*
  * @brief Sets the object text callback.
  *
  * This function sets the callback to be called when the text changes.
@@ -480,138 +552,179 @@ typedef void         (*Edje_Text_Change_Cb)     (void *data, Evas_Object *obj, c
  * @param[in] obj The object.
  * @param[in] func The callback function to handle the text change
  * @param[in] data The data associated to the callback function.
- */
-extern void edje_object_text_change_cb_set(Evas_Object *obj, Edje_Text_Change_Cb func, void *data);
+  }
 
-
-
-/**
+procedure edje_object_text_change_cb_set(obj:PEvas_Object; func:TEdje_Text_Change_Cb; data:pointer);cdecl;external;
+{*
  * @addtogroup Edje_Object_Communication_Interface_Message
  *
- * @{
- */
+ * @
+  }
+type
+{*< Alias for _Edje_Message_String.  }
+{*< Alias for _Edje_Message_Int  }
+{*< Alias for _Edje_Message_Float  }
+{*< Alias for _Edje_Message_String_Set  }
+{*< Alias for _Edje_Message_Int_Set  }
+{*< Alias for _Edje_Message_Float_Set  }
+{*< Alias for _Edje_Message_String_Int  }
+{*< Alias for _Edje_Message_String_Float  }
+{*< Alias for _Edje_Message_String_Int_Set  }
+{*< Alias for _Edje_Message_String_Float_Set  }
+{*< The message's string pointer  }
+  PEdje_Message_String = ^TEdje_Message_String;
+  TEdje_Message_String = record
+      str : Pchar;cdecl;
+    end;
 
-typedef struct _Edje_Message_String           Edje_Message_String; /**< Alias for _Edje_Message_String. */
-typedef struct _Edje_Message_Int              Edje_Message_Int; /**< Alias for _Edje_Message_Int */
-typedef struct _Edje_Message_Float            Edje_Message_Float; /**< Alias for _Edje_Message_Float */
-typedef struct _Edje_Message_String_Set       Edje_Message_String_Set; /**< Alias for _Edje_Message_String_Set */
-typedef struct _Edje_Message_Int_Set          Edje_Message_Int_Set; /**< Alias for _Edje_Message_Int_Set */
-typedef struct _Edje_Message_Float_Set        Edje_Message_Float_Set; /**< Alias for _Edje_Message_Float_Set */
-typedef struct _Edje_Message_String_Int       Edje_Message_String_Int; /**< Alias for _Edje_Message_String_Int */
-typedef struct _Edje_Message_String_Float     Edje_Message_String_Float; /**< Alias for _Edje_Message_String_Float */
-typedef struct _Edje_Message_String_Int_Set   Edje_Message_String_Int_Set; /**< Alias for _Edje_Message_String_Int_Set */
-typedef struct _Edje_Message_String_Float_Set Edje_Message_String_Float_Set; /**< Alias for _Edje_Message_String_Float_Set */
+{*< Structure passed as value on #EDJE_MESSAGE_STRING messages. The string in it is automatically freed Edje if passed to you by Edje  }
+{*< The message's value  }
+  PEdje_Message_Int = ^TEdje_Message_Int;
+  TEdje_Message_Int = record
+      val : longint;
+    end;
 
-struct _Edje_Message_String
-{
-   char *str; /**< The message's string pointer */
-}; /**< Structure passed as value on #EDJE_MESSAGE_STRING messages. The string in it is automatically freed Edje if passed to you by Edje */
+{*< Structure passed as value on #EDJE_MESSAGE_INT messages  }
+{*< The message's value  }
+  PEdje_Message_Float = ^TEdje_Message_Float;
+  TEdje_Message_Float = record
+      val : Tdouble;
+    end;
 
-struct _Edje_Message_Int
-{
-   int val; /**< The message's value */
-}; /**< Structure passed as value on #EDJE_MESSAGE_INT messages */
+{*< Structure passed as value on #EDJE_MESSAGE_FLOAT messages  }
+{*< The size of the message's array (may be greater than 1)  }
+{*< The message's @b array of string pointers  }
+  PEdje_Message_String_Set = ^TEdje_Message_String_Set;
+  TEdje_Message_String_Set = record
+      count : longint;
+      str : array[0..0] of Pchar;
+    end;
 
-struct _Edje_Message_Float
-{
-   double val; /**< The message's value */
-}; /**< Structure passed as value on #EDJE_MESSAGE_FLOAT messages */
+{*< Structure passed as value on #EDJE_MESSAGE_STRING_SET messages. The array in it is automatically freed if passed to you by Edje  }
+{*< The size of the message's array (may be greater than 1)  }
+{*< The message's @b array of integers  }
+  PEdje_Message_Int_Set = ^TEdje_Message_Int_Set;
+  TEdje_Message_Int_Set = record
+      count : longint;
+      val : array[0..0] of longint;
+    end;
 
-struct _Edje_Message_String_Set
-{
-   int count; /**< The size of the message's array (may be greater than 1) */
-   char *str[1]; /**< The message's @b array of string pointers */
-}; /**< Structure passed as value on #EDJE_MESSAGE_STRING_SET messages. The array in it is automatically freed if passed to you by Edje */
+{*< Structure passed as value on #EDJE_MESSAGE_INT_SET messages. The array in it is automatically freed if passed to you by Edje  }
+{*< The size of the message's array (may be greater than 1)  }
+{*< The message's @b array of floats  }
+  PEdje_Message_Float_Set = ^TEdje_Message_Float_Set;
+  TEdje_Message_Float_Set = record
+      count : longint;
+      val : array[0..0] of Tdouble;
+    end;
 
-struct _Edje_Message_Int_Set
-{
-   int count; /**< The size of the message's array (may be greater than 1) */
-   int val[1]; /**< The message's @b array of integers */
-}; /**< Structure passed as value on #EDJE_MESSAGE_INT_SET messages. The array in it is automatically freed if passed to you by Edje */
+{*< Structure passed as value on #EDJE_MESSAGE_FLOAT_SET messages. The array in it is automatically freed if passed to you by Edje  }
+{*< The message's string value  }
+{*< The message's integer value  }
+  PEdje_Message_String_Int = ^TEdje_Message_String_Int;
+  TEdje_Message_String_Int = record
+      str : Pchar;
+      val : longint;
+    end;
 
-struct _Edje_Message_Float_Set
-{
-   int count; /**< The size of the message's array (may be greater than 1) */
-   double val[1]; /**< The message's @b array of floats */
-}; /**< Structure passed as value on #EDJE_MESSAGE_FLOAT_SET messages. The array in it is automatically freed if passed to you by Edje */
+{*< Structure passed as value on #EDJE_MESSAGE_STRING_INT messages. The string in it is automatically freed if passed to you by Edje  }
+{*< The message's string value  }
+{*< The message's float value  }
+  PEdje_Message_String_Float = ^TEdje_Message_String_Float;
+  TEdje_Message_String_Float = record
+      str : Pchar;
+      val : Tdouble;
+    end;
 
-struct _Edje_Message_String_Int
-{
-   char *str; /**< The message's string value */
-   int val; /**< The message's integer value */
-}; /**< Structure passed as value on #EDJE_MESSAGE_STRING_INT messages. The string in it is automatically freed if passed to you by Edje */
+{*< Structure passed as value on #EDJE_MESSAGE_STRING_FLOAT messages. The string in it is automatically freed if passed to you by Edje  }
+{*< The message's string value  }
+{*< The size of the message's array (may be greater than 1)  }
+{*< The message's @b array of integers  }
+  PEdje_Message_String_Int_Set = ^TEdje_Message_String_Int_Set;
+  TEdje_Message_String_Int_Set = record
+      str : Pchar;
+      count : longint;
+      val : array[0..0] of longint;
+    end;
 
-struct _Edje_Message_String_Float
-{
-   char *str; /**< The message's string value */
-   double val; /**< The message's float value */
-}; /**< Structure passed as value on #EDJE_MESSAGE_STRING_FLOAT messages. The string in it is automatically freed if passed to you by Edje */
+{*< Structure passed as value on #EDJE_MESSAGE_STRING_INT_SET messages. The array and string in it are automatically freed if passed to you by Edje  }
+{*< The message's string value  }
+{*< The size of the message's array (may be greater than 1)  }
+{*< The message's @b array of floats  }
+  PEdje_Message_String_Float_Set = ^TEdje_Message_String_Float_Set;
+  TEdje_Message_String_Float_Set = record
+      str : Pchar;
+      count : longint;
+      val : array[0..0] of Tdouble;
+    end;
 
-struct _Edje_Message_String_Int_Set
-{
-   char *str; /**< The message's string value */
-   int count; /**< The size of the message's array (may be greater than 1) */
-   int val[1]; /**< The message's @b array of integers */
-}; /**< Structure passed as value on #EDJE_MESSAGE_STRING_INT_SET messages. The array and string in it are automatically freed if passed to you by Edje */
-
-struct _Edje_Message_String_Float_Set
-{
-   char *str; /**< The message's string value */
-   int count; /**< The size of the message's array (may be greater than 1) */
-   double val[1]; /**< The message's @b array of floats */
-}; /**< Structure passed as value on #EDJE_MESSAGE_STRING_FLOAT_SET messages. The array and string in it are automatically freed if passed to you by Edje */
-
-/** Identifiers of Edje message types, which can be sent back and forth code
+{*< Structure passed as value on #EDJE_MESSAGE_STRING_FLOAT_SET messages. The array and string in it are automatically freed if passed to you by Edje  }
+{* Identifiers of Edje message types, which can be sent back and forth code
  * and a given Edje object's theme file/group.
  *
  * @ref edje_object_message_send
  * @ref edje_object_message_handler_set
- */
-typedef enum
-{
-  EDJE_MESSAGE_NONE = 0, /**< No message type */
-  EDJE_MESSAGE_SIGNAL = 1, /**< DO NOT USE THIS */
-  EDJE_MESSAGE_STRING = 2, /**< A message with a string as value. Use
+  }
+{*< No message type  }
+{*< DO NOT USE THIS  }
+{*< A message with a string as value. Use
                             * #Edje_Message_String structs as message body, for
-                            * this type. */
-  EDJE_MESSAGE_INT = 3, /**< A message with an integer number as value. Use
+                            * this type.  }
+{*< A message with an integer number as value. Use
                          * #Edje_Message_Int structs as message body, for this
-                         * type. */
-  EDJE_MESSAGE_FLOAT = 4, /**< A message with a floating pointer number as
+                         * type.  }
+{*< A message with a floating pointer number as
                            * value. Use #Edje_Message_Float structs as message
-                           * body, for this type. */
-  EDJE_MESSAGE_STRING_SET = 5, /**< A message with a list of strings as value.
+                           * body, for this type.  }
+{*< A message with a list of strings as value.
                                 * Use #Edje_Message_String_Set structs as
-                                * message body, for this type. */
-  EDJE_MESSAGE_INT_SET = 6, /**< A message with a list of integer numbers as
+                                * message body, for this type.  }
+{*< A message with a list of integer numbers as
                              * value. Use #Edje_Message_Int_Set structs as
-                             * message body, for this type. */
-  EDJE_MESSAGE_FLOAT_SET = 7, /**< A message with a list of floating point
+                             * message body, for this type.  }
+{*< A message with a list of floating point
                                * numbers as value. Use #Edje_Message_Float_Set
-                               * structs as message body, for this type. */
-  EDJE_MESSAGE_STRING_INT = 8, /**< A message with a struct containing a string
+                               * structs as message body, for this type.  }
+{*< A message with a struct containing a string
                                 * and an integer number as value. Use
                                 * #Edje_Message_String_Int structs as message
-                                * body, for this type. */
-  EDJE_MESSAGE_STRING_FLOAT = 9, /**< A message with a struct containing a
+                                * body, for this type.  }
+{*< A message with a struct containing a
                                   * string and a floating point number as
                                   * value. Use #Edje_Message_String_Float
-                                  * structs as message body, for this type. */
-  EDJE_MESSAGE_STRING_INT_SET = 10, /**< A message with a struct containing a
+                                  * structs as message body, for this type.  }
+{*< A message with a struct containing a
                                      * string and list of integer numbers as
                                      * value. Use #Edje_Message_String_Int_Set
                                      * structs as message body, for this type.
-                                     */
-  EDJE_MESSAGE_STRING_FLOAT_SET = 11 /**< A message with a struct containing a
+                                      }
+{*< A message with a struct containing a
                                       * string and list of floating point
                                       * numbers as value. Use
                                       * #Edje_Message_String_Float_Set structs
-                                      * as message body, for this type. */
-} Edje_Message_Type;
+                                      * as message body, for this type.  }
 
-typedef void         (*Edje_Message_Handler_Cb) (void *data, Evas_Object *obj, Edje_Message_Type type, int id, void *msg); /**< Edje message handler callback functions's prototype definition. @c data will have the auxiliary data pointer set at the time the callback registration. @c obj will be a pointer the Edje object where the message comes from. @c type will identify the type of the given message and @c msg will be a pointer the message's contents, de facto, which depend on @c type. */
+  PEdje_Message_Type = ^TEdje_Message_Type;
+  TEdje_Message_Type =  Longint;
+  Const
+    EDJE_MESSAGE_NONE = 0;
+    EDJE_MESSAGE_SIGNAL = 1;
+    EDJE_MESSAGE_STRING = 2;
+    EDJE_MESSAGE_INT = 3;
+    EDJE_MESSAGE_FLOAT = 4;
+    EDJE_MESSAGE_STRING_SET = 5;
+    EDJE_MESSAGE_INT_SET = 6;
+    EDJE_MESSAGE_FLOAT_SET = 7;
+    EDJE_MESSAGE_STRING_INT = 8;
+    EDJE_MESSAGE_STRING_FLOAT = 9;
+    EDJE_MESSAGE_STRING_INT_SET = 10;
+    EDJE_MESSAGE_STRING_FLOAT_SET = 11;
+;
+type
 
-/**
+  TEdje_Message_Handler_Cb = procedure (data:pointer; obj:PEvas_Object; _type:TEdje_Message_Type; id:longint; msg:pointer);cdecl;
+{*< Edje message handler callback functions's prototype definition. @c data will have the auxiliary data pointer set at the time the callback registration. @c obj will be a pointer the Edje object where the message comes from. @c type will identify the type of the given message and @c msg will be a pointer the message's contents, de facto, which depend on @c type.  }
+{*
  * @brief Sets an Edje message handler function for a given Edje object.
  *
  * For scriptable programs on an Edje object's defining EDC file which send
@@ -626,10 +739,10 @@ typedef void         (*Edje_Message_Handler_Cb) (void *data, Evas_Object *obj, E
  *
  * @param[in] func The function to handle messages  coming from obj
  * @param[in] data Auxiliary data to be passed to func
- */
-extern void edje_object_message_handler_set(Evas_Object *obj, Edje_Message_Handler_Cb func, void *data);
+  }
 
-/**
+procedure edje_object_message_handler_set(obj:PEvas_Object; func:TEdje_Message_Handler_Cb; data:pointer);cdecl;external;
+{*
  * @brief Sends an (Edje) message to a given Edje object
  *
  * This function sends an Edje message to obj and to all of its child objects,
@@ -647,10 +760,9 @@ extern void edje_object_message_handler_set(Evas_Object *obj, Edje_Message_Handl
  * @param[in] type The type of message to send to obj
  * @param[in] id A identification number for the message to be sent
  * @param[in] msg The message's body, a struct depending on type
- */
-extern void edje_object_message_send(Evas_Object *obj, Edje_Message_Type type, int id, void *msg);
-
-/**
+  }
+procedure edje_object_message_send(obj:PEvas_Object; _type:TEdje_Message_Type; id:longint; msg:pointer);cdecl;external;
+{*
  * @brief Processes an object's message queue.
  *
  * This function goes through the object message queue processing the pending
@@ -658,10 +770,9 @@ extern void edje_object_message_send(Evas_Object *obj, Edje_Message_Type type, i
  * at idle time. Child objects will not be affected.
  *
  * @see edje_object_message_signal_recursive_process
- */
-extern void edje_object_message_signal_process(Evas_Object *obj);
-
-/**
+  }
+procedure edje_object_message_signal_process(obj:PEvas_Object);cdecl;external;
+{*
  * @brief Processes an object's message queue recursively.
  *
  * This function goes through the object message queue processing the pending
@@ -671,20 +782,17 @@ extern void edje_object_message_signal_process(Evas_Object *obj);
  * @see edje_object_message_signal_process
  *
  * @since 1.20
- */
-extern void edje_object_message_signal_recursive_process(Evas_Object *obj);
-
-/**
- * @}
- */
-
-/**
+  }
+procedure edje_object_message_signal_recursive_process(obj:PEvas_Object);cdecl;external;
+{*
+ * @
+  }
+{*
  * @addgroup Edje_Object_Group
  *
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * @brief Facility to query the type of the given parameter of the given part.
  *
  * @param[in] part The part name
@@ -694,10 +802,12 @@ extern void edje_object_message_signal_recursive_process(Evas_Object *obj);
  * @ref Edje_External_Param_Type on success.
  *
  * @ingroup Edje_Object_Part
- */
-extern Edje_External_Param_Type edje_object_part_external_param_type_get(const Evas_Object *obj, const char *part, const char * param);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_external_param_type_get(obj:PEvas_Object; part:Pchar; param:Pchar):TEdje_External_Param_Type;cdecl;external;
+{*
  * @brief Sets the parameter for the external part.
  *
  * Parts of type external may carry extra properties that have meanings defined
@@ -723,10 +833,11 @@ extern Edje_External_Param_Type edje_object_part_external_param_type_get(const E
  * @return @c true if everything went fine, @c false on errors.
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_external_param_set(Evas_Object *obj, const char *part, const Edje_External_Param *param);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_external_param_set(obj:PEvas_Object; part:Pchar; param:PEdje_External_Param):TEina_Bool;cdecl;external;
+{*
  * @brief Gets the parameter for the external part.
  *
  * Parts of type external may carry extra properties that have meanings defined
@@ -749,10 +860,11 @@ extern Eina_Bool edje_object_part_external_param_set(Evas_Object *obj, const cha
  * valid.
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_external_param_get(const Evas_Object *obj, const char *part, Edje_External_Param *param);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_external_param_get(obj:PEvas_Object; part:Pchar; param:PEdje_External_Param):TEina_Bool;cdecl;external;
+{*
  * @brief Gets the object created by this external part.
  *
  * Parts of type external creates the part object using information provided by
@@ -772,10 +884,11 @@ extern Eina_Bool edje_object_part_external_param_get(const Evas_Object *obj, con
  * is not an external.
  *
  * @ingroup Edje_Object_Part
- */
-extern Evas_Object *edje_object_part_external_object_get(const Evas_Object *obj, const char * part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_external_object_get(obj:PEvas_Object; part:Pchar):PEvas_Object;cdecl;external;
+{*
  * @brief Gets an object contained in an part of type EXTERNAL
  *
  * The content string must not be @c null. Its actual value depends on the code
@@ -788,14 +901,15 @@ extern Evas_Object *edje_object_part_external_object_get(const Evas_Object *obj,
  * @return Canvas object
  *
  * @ingroup Edje_Object_Part
- */
-extern Evas_Object *edje_object_part_external_content_get(const Evas_Object *obj, const char *part, const char *content);
-
-/**
- * @}
- */
-
- /**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_external_content_get(obj:PEvas_Object; part:Pchar; content:Pchar):PEvas_Object;cdecl;external;
+{*
+ * @
+  }
+{*
  * @deprecated use evas_object_size_hint_min_set() instead.
  * @brief Sets the object minimum size.
  *
@@ -807,10 +921,9 @@ extern Evas_Object *edje_object_part_external_content_get(const Evas_Object *obj
  *
  * @ingroup Edje_Object_Group
  *
- */
-EINA_DEPRECATED extern void         edje_extern_object_min_size_set (Evas_Object *obj, Evas_Coord minw, Evas_Coord minh);
-
-/**
+  }
+{xxxxxxxxxx    EINA_DEPRECATED }procedure edje_extern_object_min_size_set(obj:PEvas_Object; minw:TEvas_Coord; minh:TEvas_Coord);cdecl;external;
+{*
  * @deprecated use evas_object_size_hint_max_set() instead.
  * @brief Sets the object maximum size.
  *
@@ -822,10 +935,9 @@ EINA_DEPRECATED extern void         edje_extern_object_min_size_set (Evas_Object
  *
  * @ingroup Edje_Object_Group
  *
- */
-EINA_DEPRECATED extern void         edje_extern_object_max_size_set (Evas_Object *obj, Evas_Coord maxw, Evas_Coord maxh);
-
-/**
+  }
+{xxxxxxxxxx    EINA_DEPRECATED }procedure edje_extern_object_max_size_set(obj:PEvas_Object; maxw:TEvas_Coord; maxh:TEvas_Coord);cdecl;external;
+{*
  * @deprecated use evas_object_size_hint_aspect_set() instead.
  * @brief Sets the object aspect size.
  *
@@ -841,10 +953,9 @@ EINA_DEPRECATED extern void         edje_extern_object_max_size_set (Evas_Object
  *
  * @ingroup Edje_Object_Group
  *
- */
-EINA_DEPRECATED extern void         edje_extern_object_aspect_set   (Evas_Object *obj, Edje_Aspect_Control aspect, Evas_Coord aw, Evas_Coord ah);
-
-/**
+  }
+{xxxxxxxxxx    EINA_DEPRECATED }procedure edje_extern_object_aspect_set(obj:PEvas_Object; aspect:TEdje_Aspect_Control; aw:TEvas_Coord; ah:TEvas_Coord);cdecl;external;
+{*
  * @brief Sets the @b EDJ file (and group within it) to load an Edje
  * object's contents from
  *
@@ -876,10 +987,11 @@ EINA_DEPRECATED extern void         edje_extern_object_aspect_set   (Evas_Object
 Edje object
  *
  * @ingroup Edje_Object_Group
- */
-extern Eina_Bool edje_object_file_set(Evas_Object *obj, const char *file, const char *group);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_file_set(obj:PEvas_Object; file:Pchar; group:Pchar):TEina_Bool;cdecl;external;
+{*
  * @brief Gets the file and group name that a given Edje object is bound to.
  *
  * This gets the EDJ file's path, with the respective group set for
@@ -898,11 +1010,12 @@ extern Eina_Bool edje_object_file_set(Evas_Object *obj, const char *file, const 
 Edje object
  *
  * @ingroup Edje_Object_Group
- */
-extern void edje_object_file_get(const Evas_Object *obj, const char **file, const char **group);
-
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure edje_object_file_get(obj:PEvas_Object; file:PPchar; group:PPchar);cdecl;external;
+{*
  * @brief Sets the @b EDJ file (and group within it) to load an Edje
  * object's contents from.
  *
@@ -935,10 +1048,11 @@ Edje object
  *
  * @ingroup Edje_Object_Group
  *
- */
-extern Eina_Bool edje_object_mmap_set(Evas_Object *obj, const Eina_File *file, const char *group);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_mmap_set(obj:PEvas_Object; file:PEina_File; group:Pchar):TEina_Bool;cdecl;external;
+{*
  * @brief "Swallows" an object into one of the Edje object @c SWALLOW parts.
  *
  * Swallowing an object into an Edje object is, for a given part of type
@@ -970,10 +1084,10 @@ extern Eina_Bool edje_object_mmap_set(Evas_Object *obj, const Eina_File *file, c
  * @param[in] obj_swallow The object to occupy that part
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_swallow(Evas_Object *obj, const char *part, Evas_Object *obj_swallow);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_swallow(obj:PEvas_Object; part:Pchar; obj_swallow:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Gets the object currently swallowed by a part.
  *
  * @param[in] part The part name
@@ -981,10 +1095,11 @@ extern Eina_Bool edje_object_part_swallow(Evas_Object *obj, const char *part, Ev
  * @return The swallowed object, or @c null if there is none.
  *
  * @ingroup Edje_Object_Part
- */
-extern Evas_Object *edje_object_part_swallow_get(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_swallow_get(obj:PEvas_Object; part:Pchar):PEvas_Object;cdecl;external;
+{*
  * @brief Unswallows an object.
  *
  * Causes the edje to regurgitate a previously swallowed object. :)
@@ -996,10 +1111,9 @@ extern Evas_Object *edje_object_part_swallow_get(const Evas_Object *obj, const c
  * @param[in] obj_swallow The swallowed object
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_unswallow(Evas_Object *obj, Evas_Object *obj_swallow);
-
-/**
+  }
+procedure edje_object_part_unswallow(obj:PEvas_Object; obj_swallow:PEvas_Object);cdecl;external;
+{*
  * @brief Retrieves a list all accessibility part names
  *
  * @return A list all accessibility part names on obj
@@ -1007,10 +1121,10 @@ extern void edje_object_part_unswallow(Evas_Object *obj, Evas_Object *obj_swallo
  * @since 1.7.0
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_List *edje_object_access_part_list_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_access_part_list_get(obj:PEvas_Object):PEina_List;cdecl;external;
+{*
  * @brief Appends an object to the box.
  *
  * Appends child to the box indicated by part.
@@ -1025,10 +1139,10 @@ extern Eina_List *edje_object_access_part_list_get(const Evas_Object *obj);
  * @return @c true: Successfully added. @c false: An error occurred.
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_box_append(Evas_Object *obj, const char *part, Evas_Object *child);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_box_append(obj:PEvas_Object; part:Pchar; child:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Prepends an object to the box.
  *
  * Prepends child to the box indicated by part.
@@ -1043,10 +1157,10 @@ extern Eina_Bool edje_object_part_box_append(Evas_Object *obj, const char *part,
  * @return @c true: Successfully added. @c false: An error occurred.
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_box_prepend(Evas_Object *obj, const char *part, Evas_Object *child);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_box_prepend(obj:PEvas_Object; part:Pchar; child:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Adds an object to the box.
  *
  * Inserts child in the box given by part, in the position marked by reference.
@@ -1062,10 +1176,11 @@ extern Eina_Bool edje_object_part_box_prepend(Evas_Object *obj, const char *part
  * @return @c true: Successfully added. @c false: An error occurred.
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_box_insert_before(Evas_Object *obj, const char *part, Evas_Object *child, const Evas_Object *reference);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_box_insert_before(obj:PEvas_Object; part:Pchar; child:PEvas_Object; reference:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Adds an object to the box.
  *
  * Inserts child in the box given by part, in the position marked by reference.
@@ -1082,10 +1197,11 @@ extern Eina_Bool edje_object_part_box_insert_before(Evas_Object *obj, const char
  *
  * @since 1.18
  * @ingroup Edje_Object
- */
-extern Eina_Bool edje_object_part_box_insert_after(Evas_Object *obj, const char *part, Evas_Object *child, const Evas_Object *reference);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_box_insert_after(obj:PEvas_Object; part:Pchar; child:PEvas_Object; reference:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Inserts an object to the box.
  *
  * Adds child to the box indicated by part, in the position given by pos.
@@ -1101,10 +1217,10 @@ extern Eina_Bool edje_object_part_box_insert_after(Evas_Object *obj, const char 
  * @return @c true: Successfully added. @c false: An error occurred.
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_box_insert_at(Evas_Object *obj, const char *part, Evas_Object *child, unsigned int pos);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_box_insert_at(obj:PEvas_Object; part:Pchar; child:PEvas_Object; pos:dword):TEina_Bool;cdecl;external;
+{*
  * @brief Removes an object from the box.
  *
  * Removes from the box indicated by part, the object in the position pos.
@@ -1117,10 +1233,10 @@ extern Eina_Bool edje_object_part_box_insert_at(Evas_Object *obj, const char *pa
  * @return Pointer to the object removed, or @c null.
  *
  * @ingroup Edje_Object_Part
- */
-extern Evas_Object *edje_object_part_box_remove_at(Evas_Object *obj, const char *part, unsigned int pos);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_box_remove_at(obj:PEvas_Object; part:Pchar; pos:dword):PEvas_Object;cdecl;external;
+{*
  * @brief Removes an object from the box.
  *
  * Removes child from the box indicated by part.
@@ -1133,10 +1249,10 @@ extern Evas_Object *edje_object_part_box_remove_at(Evas_Object *obj, const char 
  * @return Pointer to the object removed, or @c null.
  *
  * @ingroup Edje_Object_Part
- */
-extern Evas_Object *edje_object_part_box_remove(Evas_Object *obj, const char *part, Evas_Object *child);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_box_remove(obj:PEvas_Object; part:Pchar; child:PEvas_Object):PEvas_Object;cdecl;external;
+{*
  * @brief Removes all elements from the box.
  *
  * Removes all the external objects from the box indicated by part. Elements
@@ -1150,10 +1266,10 @@ extern Evas_Object *edje_object_part_box_remove(Evas_Object *obj, const char *pa
  * @return 1: Successfully cleared. 0: An error occurred.
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_box_remove_all(Evas_Object *obj, const char *part, Eina_Bool clear);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_box_remove_all(obj:PEvas_Object; part:Pchar; clear:TEina_Bool):TEina_Bool;cdecl;external;
+{*
  * @brief Packs an object into the table.
  *
  * Packs an object into the table indicated by part.
@@ -1167,10 +1283,11 @@ extern Eina_Bool edje_object_part_box_remove_all(Evas_Object *obj, const char *p
  * @return @c true object was added, @c false on failure
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_table_pack(Evas_Object *obj, const char *part, Evas_Object *child_obj, unsigned short col, unsigned short row, unsigned short colspan, unsigned short rowspan);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_table_pack(obj:PEvas_Object; part:Pchar; child_obj:PEvas_Object; col:word; row:word; 
+           colspan:word; rowspan:word):TEina_Bool;cdecl;external;
+{*
  * @brief Removes an object from the table.
  *
  * Removes an object from the table indicated by part.
@@ -1180,10 +1297,10 @@ extern Eina_Bool edje_object_part_table_pack(Evas_Object *obj, const char *part,
  * @return @c true object removed, @c false on failure
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_table_unpack(Evas_Object *obj, const char *part, Evas_Object *child_obj);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_table_unpack(obj:PEvas_Object; part:Pchar; child_obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Gets the number of columns and rows the table has.
  *
  * Retrieves the size of the table in number of columns and rows.
@@ -1194,10 +1311,11 @@ extern Eina_Bool edje_object_part_table_unpack(Evas_Object *obj, const char *par
  * @return @c true get some data, @c false on failure
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_table_col_row_size_get(const Evas_Object *obj, const char *part, int *cols, int *rows);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_table_col_row_size_get(obj:PEvas_Object; part:Pchar; cols:Plongint; rows:Plongint):TEina_Bool;cdecl;external;
+{*
  * @brief Retrieves a child from a table
  *
  * @param[in] col The column of the child to get
@@ -1206,10 +1324,11 @@ extern Eina_Bool edje_object_part_table_col_row_size_get(const Evas_Object *obj,
  * @return The child Efl.Canvas.Object
  *
  * @ingroup Edje_Object_Part
- */
-extern Evas_Object *edje_object_part_table_child_get(const Evas_Object *obj, const char *part, unsigned int col, unsigned int row);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_table_child_get(obj:PEvas_Object; part:Pchar; col:dword; row:dword):PEvas_Object;cdecl;external;
+{*
  * @brief Removes all object from the table.
  *
  * Removes all object from the table indicated by part, except the internal
@@ -1220,10 +1339,10 @@ extern Evas_Object *edje_object_part_table_child_get(const Evas_Object *obj, con
  * @return @c true clear the table, @c false on failure
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_table_clear(Evas_Object *obj, const char *part, Eina_Bool clear);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_table_clear(obj:PEvas_Object; part:Pchar; clear:TEina_Bool):TEina_Bool;cdecl;external;
+{*
  * @brief Sets the object color class.
  *
  * This function sets the color values for an object level color class. This
@@ -1254,10 +1373,12 @@ extern Eina_Bool edje_object_part_table_clear(Evas_Object *obj, const char *part
  * @param[in] a3 Shadow Alpha value
  *
  * @ingroup Edje_Object_Color_Class
- */
-extern Eina_Bool edje_object_color_class_set(Evas_Object *obj, const char * color_class, int r, int g, int b, int a, int r2, int g2, int b2, int a2, int r3, int g3, int b3, int a3);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_color_class_set(obj:PEvas_Object; color_class:Pchar; r:longint; g:longint; b:longint; 
+           a:longint; r2:longint; g2:longint; b2:longint; a2:longint; 
+           r3:longint; g3:longint; b3:longint; a3:longint):TEina_Bool;cdecl;external;
+{*
  * @brief Gets the object color class.
  *
  * This function gets the color values for an object level color class. If no
@@ -1286,10 +1407,13 @@ extern Eina_Bool edje_object_color_class_set(Evas_Object *obj, const char * colo
  * @return true if found or false if not found and all values are zeroed.
  *
  * @ingroup Edje_Object_Color_Class
- */
-extern Eina_Bool edje_object_color_class_get(const Evas_Object *obj, const char * color_class, int *r, int *g, int *b, int *a, int *r2, int *g2, int *b2, int *a2, int *r3, int *g3, int *b3, int *a3);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_color_class_get(obj:PEvas_Object; color_class:Pchar; r:Plongint; g:Plongint; b:Plongint; 
+           a:Plongint; r2:Plongint; g2:Plongint; b2:Plongint; a2:Plongint; 
+           r3:Plongint; g3:Plongint; b3:Plongint; a3:Plongint):TEina_Bool;cdecl;external;
+{*
  * @brief Delete the object color class.
  *
  * This function deletes any values at the object level for the specified
@@ -1304,10 +1428,10 @@ extern Eina_Bool edje_object_color_class_get(const Evas_Object *obj, const char 
  * @param[in] color_class The color class to be deleted.
  *
  * @ingroup Edje_Object_Color_Class
- */
-extern void edje_object_color_class_del(Evas_Object *obj, const char *color_class);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_color_class_del(obj:PEvas_Object; color_class:Pchar);cdecl;external;
+{*
  * @brief Delete all color classes defined in object level.
  *
  * This function deletes any color classes defined in object level.
@@ -1319,10 +1443,10 @@ extern void edje_object_color_class_del(Evas_Object *obj, const char *color_clas
  * @since 1.17.0
  *
  * @ingroup Edje_Object_Color_Class
- */
-extern Eina_Bool edje_object_color_class_clear(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_color_class_clear(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Sets Edje text class.
  *
  * This function sets the text class for the Edje.
@@ -1334,10 +1458,11 @@ extern Eina_Bool edje_object_color_class_clear(const Evas_Object *obj);
  * @return @c true, on success or @c false, on error
  *
  * @ingroup Edje_Object_Text_Class
- */
-extern Eina_Bool edje_object_text_class_set(Evas_Object *obj, const char * text_class, const char *font, Evas_Font_Size size);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_text_class_set(obj:PEvas_Object; text_class:Pchar; font:Pchar; size:TEvas_Font_Size):TEina_Bool;cdecl;external;
+{*
  * @brief Gets font and font size from edje text class.
  *
  * This function gets the font and the font size from the object text class.
@@ -1351,10 +1476,12 @@ extern Eina_Bool edje_object_text_class_set(Evas_Object *obj, const char * text_
  * @return @c true, on success or @c false, on error
  *
  * @ingroup Edje_Object_Text_Class
- */
-extern Eina_Bool edje_object_text_class_get(const Evas_Object *obj, const char * text_class, const char **font, Evas_Font_Size *size);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_text_class_get(obj:PEvas_Object; text_class:Pchar; font:PPchar; size:PEvas_Font_Size):TEina_Bool;cdecl;external;
+{*
  * @brief Delete the object text class.
  *
  * This function deletes any values at the object level for the specified
@@ -1368,10 +1495,10 @@ extern Eina_Bool edje_object_text_class_get(const Evas_Object *obj, const char *
  * @since 1.17
  *
  * @ingroup Edje_Object_Text_Class
- */
-extern void edje_object_text_class_del(Evas_Object *obj, const char *text_class);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_text_class_del(obj:PEvas_Object; text_class:Pchar);cdecl;external;
+{*
  * @brief Sets the object size class.
  *
  * This function sets the min and max values for an object level size class.
@@ -1389,10 +1516,11 @@ extern void edje_object_text_class_del(Evas_Object *obj, const char *text_class)
  * @since 1.17
  *
  * @ingroup Edje_Object_Size_Class
- */
-extern Eina_Bool edje_object_size_class_set(Evas_Object *obj, const char * size_class, int minw, int minh, int maxw, int maxh);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_size_class_set(obj:PEvas_Object; size_class:Pchar; minw:longint; minh:longint; maxw:longint; 
+           maxh:longint):TEina_Bool;cdecl;external;
+{*
  * @brief Gets the object size class.
  *
  * This function gets the min and max values for an object level size class.
@@ -1410,10 +1538,12 @@ extern Eina_Bool edje_object_size_class_set(Evas_Object *obj, const char * size_
  * @since 1.17
  *
  * @ingroup Edje_Object_Size_Class
- */
-extern Eina_Bool edje_object_size_class_get(const Evas_Object *obj, const char * size_class, int *minw, int *minh, int *maxw, int *maxh);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_size_class_get(obj:PEvas_Object; size_class:Pchar; minw:Plongint; minh:Plongint; maxw:Plongint; 
+           maxh:Plongint):TEina_Bool;cdecl;external;
+{*
  * @brief Delete the object size class.
  *
  * This function deletes any values at the object level for the specified
@@ -1427,10 +1557,10 @@ extern Eina_Bool edje_object_size_class_get(const Evas_Object *obj, const char *
  * @since 1.17
  *
  * @ingroup Edje_Object_Size_Class
- */
-extern void edje_object_size_class_del(Evas_Object *obj, const char *size_class);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_size_class_del(obj:PEvas_Object; size_class:Pchar);cdecl;external;
+{*
  * @brief Enables selection if the entry is an EXPLICIT selection mode type.
  *
  * The default is to  not allow selection. This function only affects user
@@ -1441,10 +1571,11 @@ extern void edje_object_size_class_del(Evas_Object *obj, const char *size_class)
  * @param[in] allow true to enable, false otherwise
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_select_allow_set(const Evas_Object *obj, const char *part, Eina_Bool allow);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure edje_object_part_text_select_allow_set(obj:PEvas_Object; part:Pchar; allow:TEina_Bool);cdecl;external;
+{*
  * @brief Sets the RTL orientation for this object.
  *
  * @param[in] rtl New value of flag @c true/$false
@@ -1452,10 +1583,9 @@ extern void edje_object_part_text_select_allow_set(const Evas_Object *obj, const
  * @since 1.1.0
  *
  * @ingroup Edje_Object_Group
- */
-extern void edje_object_mirrored_set(Evas_Object *obj, Eina_Bool rtl);
-
-/**
+  }
+procedure edje_object_mirrored_set(obj:PEvas_Object; rtl:TEina_Bool);cdecl;external;
+{*
  * @brief Gets the RTL orientation for this object.
  *
  * You can RTL orientation explicitly with edje_object_mirrored_set.
@@ -1465,10 +1595,10 @@ extern void edje_object_mirrored_set(Evas_Object *obj, Eina_Bool rtl);
  * @since 1.1.0
  *
  * @ingroup Edje_Object_Group
- */
-extern Eina_Bool edje_object_mirrored_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_mirrored_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Sets the language for this object.
  *
  * @param[in] language The language value
@@ -1476,10 +1606,10 @@ extern Eina_Bool edje_object_mirrored_get(const Evas_Object *obj);
  * @since 1.1.0
  *
  * @ingroup Edje_Object_Group
- */
-extern void edje_object_language_set(Evas_Object *obj, const char *language);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_language_set(obj:PEvas_Object; language:Pchar);cdecl;external;
+{*
  * @brief Gets the language for this object.
  *
  * @return The language value
@@ -1487,10 +1617,11 @@ extern void edje_object_language_set(Evas_Object *obj, const char *language);
  * @since 1.1.0
  *
  * @ingroup Edje_Object_Group
- */
-extern const char *edje_object_language_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_language_get(obj:PEvas_Object):Pchar;cdecl;external;
+{*
  * @brief Sets the scaling factor for a given Edje object.
  *
  * This function sets an  individual scaling factor on the  obj Edje object.
@@ -1511,10 +1642,9 @@ extern const char *edje_object_language_get(const Evas_Object *obj);
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Edje_Object_Scale
- */
-extern Eina_Bool edje_object_scale_set(Evas_Object *obj, double scale);
-
-/**
+  }
+function edje_object_scale_set(obj:PEvas_Object; scale:Tdouble):TEina_Bool;cdecl;external;
+{*
  * @brief Gets a given Edje object's scaling factor.
  *
  * This function returns the individual scaling factor set on the obj Edje
@@ -1526,10 +1656,10 @@ extern Eina_Bool edje_object_scale_set(Evas_Object *obj, double scale);
  * scaling  not set)
  *
  * @ingroup Edje_Object_Scale
- */
-extern double edje_object_scale_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_scale_get(obj:PEvas_Object):Tdouble;cdecl;external;
+{*
  * @brief Gets a given Edje object's base_scale factor.
  *
  * This function returns the base_scale factor set on the obj Edje object. The
@@ -1540,10 +1670,10 @@ extern double edje_object_scale_get(const Evas_Object *obj);
  * edc file is made based on scale 1.0.
  *
  * @ingroup Edje_Object_Scale
- */
-extern double edje_object_base_scale_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_base_scale_get(obj:PEvas_Object):Tdouble;cdecl;external;
+{*
  * @defgroup Edje_Part_Drag Edje Drag
  * @ingroup Edje_Object_Part
  *
@@ -1558,19 +1688,23 @@ extern double edje_object_base_scale_get(const Evas_Object *obj);
  *
  * @see @ref tutorial_edje_drag *
  *
- * @{
- */
-
-/** Directions in which a part can be dragged .*/
-typedef enum _Edje_Drag_Dir
-{
-   EDJE_DRAG_DIR_NONE = 0, /**< Part cannot be dragged. */
-   EDJE_DRAG_DIR_X = 1, /**< Part can be dragged in the horizontal direction. */
-   EDJE_DRAG_DIR_Y = 2, /**< Part can be dragged in the vertical direction. */
-   EDJE_DRAG_DIR_XY = 3 /**< Part can be dragged in every direction. */
-} Edje_Drag_Dir;
-
-/**
+ * @
+  }
+{* Directions in which a part can be dragged . }
+{*< Part cannot be dragged.  }
+{*< Part can be dragged in the horizontal direction.  }
+{*< Part can be dragged in the vertical direction.  }
+{*< Part can be dragged in every direction.  }
+type
+  PEdje_Drag_Dir = ^TEdje_Drag_Dir;
+  TEdje_Drag_Dir =  Longint;
+  Const
+    EDJE_DRAG_DIR_NONE = 0;
+    EDJE_DRAG_DIR_X = 1;
+    EDJE_DRAG_DIR_Y = 2;
+    EDJE_DRAG_DIR_XY = 3;
+;
+{*
  * @brief Sets the dragable object location.
  *
  * Places the dragable object at the given location.
@@ -1594,10 +1728,11 @@ typedef enum _Edje_Drag_Dir
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Edje_Part_Drag
- */
-extern Eina_Bool edje_object_part_drag_value_set(Evas_Object *obj, const char * part, double dx, double dy);
+  }
+(* Const before type ignored *)
 
-/**
+function edje_object_part_drag_value_set(obj:PEvas_Object; part:Pchar; dx:Tdouble; dy:Tdouble):TEina_Bool;cdecl;external;
+{*
  * @brief Gets the dragable object location.
  *
  * Values for dx and dy are real numbers that range from 0 to 1, representing
@@ -1614,10 +1749,11 @@ extern Eina_Bool edje_object_part_drag_value_set(Evas_Object *obj, const char * 
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Edje_Part_Drag
- */
-extern Eina_Bool edje_object_part_drag_value_get(const Evas_Object *obj, const char * part, double *dx, double *dy);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_drag_value_get(obj:PEvas_Object; part:Pchar; dx:Pdouble; dy:Pdouble):TEina_Bool;cdecl;external;
+{*
  * @brief Sets the dragable object size.
  *
  * Values for dw and dh are real numbers that range from 0 to 1, representing
@@ -1634,10 +1770,10 @@ extern Eina_Bool edje_object_part_drag_value_get(const Evas_Object *obj, const c
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Edje_Part_Drag
- */
-extern Eina_Bool edje_object_part_drag_size_set(Evas_Object *obj, const char * part, double dw, double dh);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_drag_size_set(obj:PEvas_Object; part:Pchar; dw:Tdouble; dh:Tdouble):TEina_Bool;cdecl;external;
+{*
  * @brief Gets the dragable object size.
  *
  * Gets the dragable object size.
@@ -1651,10 +1787,11 @@ extern Eina_Bool edje_object_part_drag_size_set(Evas_Object *obj, const char * p
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Edje_Part_Drag
- */
-extern Eina_Bool edje_object_part_drag_size_get(const Evas_Object *obj, const char * part, double *dw, double *dh);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_drag_size_get(obj:PEvas_Object; part:Pchar; dw:Pdouble; dh:Pdouble):TEina_Bool;cdecl;external;
+{*
  * @brief Determines dragable directions.
  *
  * The dragable directions are defined in the EDC file, inside the
@@ -1668,10 +1805,11 @@ extern Eina_Bool edje_object_part_drag_size_get(const Evas_Object *obj, const ch
  * Dragable in X & Y directions
  *
  * @ingroup Edje_Part_Drag
- */
-extern Edje_Drag_Dir edje_object_part_drag_dir_get(const Evas_Object *obj, const char * part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_drag_dir_get(obj:PEvas_Object; part:Pchar):TEdje_Drag_Dir;cdecl;external;
+{*
  * @brief Sets the drag step increment.
  *
  * Sets the x,y step increments for a dragable object.
@@ -1689,10 +1827,10 @@ extern Edje_Drag_Dir edje_object_part_drag_dir_get(const Evas_Object *obj, const
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Edje_Part_Drag
- */
-extern Eina_Bool edje_object_part_drag_step_set(Evas_Object *obj, const char * part, double dx, double dy);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_drag_step_set(obj:PEvas_Object; part:Pchar; dx:Tdouble; dy:Tdouble):TEina_Bool;cdecl;external;
+{*
  * @brief Gets the drag step increment values.
  *
  * Gets the x and y step increments for the dragable object.
@@ -1706,10 +1844,11 @@ extern Eina_Bool edje_object_part_drag_step_set(Evas_Object *obj, const char * p
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Edje_Part_Drag
- */
-extern Eina_Bool edje_object_part_drag_step_get(const Evas_Object *obj, const char * part, double *dx, double *dy);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_drag_step_get(obj:PEvas_Object; part:Pchar; dx:Pdouble; dy:Pdouble):TEina_Bool;cdecl;external;
+{*
  * @brief Steps the dragable x,y steps.
  *
  * Steps x,y where the step increment is the amount set by
@@ -1726,10 +1865,10 @@ extern Eina_Bool edje_object_part_drag_step_get(const Evas_Object *obj, const ch
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Edje_Part_Drag
- */
-extern Eina_Bool edje_object_part_drag_step(Evas_Object *obj, const char *part, double dx, double dy);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_drag_step(obj:PEvas_Object; part:Pchar; dx:Tdouble; dy:Tdouble):TEina_Bool;cdecl;external;
+{*
  * @brief Sets the page step increments.
  *
  * Sets the x,y page step increment values.
@@ -1747,10 +1886,10 @@ extern Eina_Bool edje_object_part_drag_step(Evas_Object *obj, const char *part, 
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Edje_Part_Drag
- */
-extern Eina_Bool edje_object_part_drag_page_set(Evas_Object *obj, const char * part, double dx, double dy);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_drag_page_set(obj:PEvas_Object; part:Pchar; dx:Tdouble; dy:Tdouble):TEina_Bool;cdecl;external;
+{*
  * @brief Gets the page step increments.
  *
  * Gets the x,y page step increments for the dragable object.
@@ -1764,10 +1903,11 @@ extern Eina_Bool edje_object_part_drag_page_set(Evas_Object *obj, const char * p
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Edje_Part_Drag
- */
-extern Eina_Bool edje_object_part_drag_page_get(const Evas_Object *obj, const char * part, double *dx, double *dy);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_drag_page_get(obj:PEvas_Object; part:Pchar; dx:Pdouble; dy:Pdouble):TEina_Bool;cdecl;external;
+{*
  * @brief Pages x,y steps.
  *
  * Pages x,y where the increment is defined by
@@ -1786,14 +1926,13 @@ extern Eina_Bool edje_object_part_drag_page_get(const Evas_Object *obj, const ch
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Edje_Part_Drag
- */
-extern Eina_Bool edje_object_part_drag_page(Evas_Object *obj, const char *part, double dx, double dy);
-
-/**
- * @}
- */
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_drag_page(obj:PEvas_Object; part:Pchar; dx:Tdouble; dy:Tdouble):TEina_Bool;cdecl;external;
+{*
+ * @
+  }
+{*
  * @brief Sets a given text to an Edje object @c TEXT or TEXTBLOCK
  * parts.
  *
@@ -1801,10 +1940,12 @@ extern Eina_Bool edje_object_part_drag_page(Evas_Object *obj, const char *part, 
  * @param[in] text The text to set on that part
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_text_set(const Evas_Object *obj, const char *part, const char *text);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_set(obj:PEvas_Object; part:Pchar; text:Pchar):TEina_Bool;cdecl;external;
+{*
  * @brief Gets the text currntly set to the given part
  *
  * @param[in] part The part name
@@ -1812,10 +1953,12 @@ extern Eina_Bool edje_object_part_text_set(const Evas_Object *obj, const char *p
  * @return The text set on the part, @c null otherwise.
  *
  * @ingroup Edje_Object_Part
- */
-extern const char * edje_object_part_text_get(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_get(obj:PEvas_Object; part:Pchar):Pchar;cdecl;external;
+{*
  * @brief Moves the cursor to the beginning of the text part @ref
  * evas_textblock_cursor_paragraph_first
  *
@@ -1823,10 +1966,10 @@ extern const char * edje_object_part_text_get(const Evas_Object *obj, const char
  * @param[in] cur The edje cursor to work on
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_cursor_begin_set(Evas_Object *obj, const char *part, Edje_Cursor cur);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_part_text_cursor_begin_set(obj:PEvas_Object; part:Pchar; cur:TEdje_Cursor);cdecl;external;
+{*
  * @brief Moves the cursor to the end of the text part. @ref
  * evas_textblock_cursor_paragraph_last
  *
@@ -1834,10 +1977,10 @@ extern void edje_object_part_text_cursor_begin_set(Evas_Object *obj, const char 
  * @param[in] cur The edje cursor to work on
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_cursor_end_set(Evas_Object *obj, const char *part, Edje_Cursor cur);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_part_text_cursor_end_set(obj:PEvas_Object; part:Pchar; cur:TEdje_Cursor);cdecl;external;
+{*
  * @brief Sets the cursor position to the given value
  *
  * @param[in] part The part name
@@ -1847,10 +1990,10 @@ extern void edje_object_part_text_cursor_end_set(Evas_Object *obj, const char *p
  * @since 1.1.0
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_cursor_pos_set(Evas_Object *obj, const char * part, Edje_Cursor cur, int pos);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_part_text_cursor_pos_set(obj:PEvas_Object; part:Pchar; cur:TEdje_Cursor; pos:longint);cdecl;external;
+{*
  * @brief Retrieves the current position of the cursor
  *
  * @param[in] part The part name
@@ -1861,10 +2004,11 @@ extern void edje_object_part_text_cursor_pos_set(Evas_Object *obj, const char * 
  * @since 1.1.0
  *
  * @ingroup Edje_Object_Part
- */
-extern int edje_object_part_text_cursor_pos_get(const Evas_Object *obj, const char * part, Edje_Cursor cur);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_cursor_pos_get(obj:PEvas_Object; part:Pchar; cur:TEdje_Cursor):longint;cdecl;external;
+{*
  * @brief Position the given cursor to a X,Y position.
  *
  * This is frequently used with the user cursor.
@@ -1877,10 +2021,10 @@ extern int edje_object_part_text_cursor_pos_get(const Evas_Object *obj, const ch
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_text_cursor_coord_set(Evas_Object *obj, const char *part, Edje_Cursor cur, int x, int y);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_text_cursor_coord_set(obj:PEvas_Object; part:Pchar; cur:TEdje_Cursor; x:longint; y:longint):TEina_Bool;cdecl;external;
+{*
  * @brief Moves the cursor to the beginning of the line. @ref
  * evas_textblock_cursor_line_char_first
  *
@@ -1888,10 +2032,10 @@ extern Eina_Bool edje_object_part_text_cursor_coord_set(Evas_Object *obj, const 
  * @param[in] cur The edje cursor to work on
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_cursor_line_begin_set(Evas_Object *obj, const char *part, Edje_Cursor cur);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_part_text_cursor_line_begin_set(obj:PEvas_Object; part:Pchar; cur:TEdje_Cursor);cdecl;external;
+{*
  * @brief Moves the cursor to the end of the line. @ref
  * evas_textblock_cursor_line_char_last
  *
@@ -1899,10 +2043,10 @@ extern void edje_object_part_text_cursor_line_begin_set(Evas_Object *obj, const 
  * @param[in] cur The edje cursor to work on
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_cursor_line_end_set(Evas_Object *obj, const char *part, Edje_Cursor cur);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_part_text_cursor_line_end_set(obj:PEvas_Object; part:Pchar; cur:TEdje_Cursor);cdecl;external;
+{*
  * @brief Moves the cursor to the previous char @ref
  * evas_textblock_cursor_char_prev
  *
@@ -1912,10 +2056,10 @@ extern void edje_object_part_text_cursor_line_end_set(Evas_Object *obj, const ch
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_text_cursor_prev(Evas_Object *obj, const char *part, Edje_Cursor cur);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_text_cursor_prev(obj:PEvas_Object; part:Pchar; cur:TEdje_Cursor):TEina_Bool;cdecl;external;
+{*
  * @brief Advances the cursor to the next cursor position. @ref
  * evas_textblock_cursor_char_next
  *
@@ -1925,10 +2069,10 @@ extern Eina_Bool edje_object_part_text_cursor_prev(Evas_Object *obj, const char 
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_text_cursor_next(Evas_Object *obj, const char *part, Edje_Cursor cur);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_text_cursor_next(obj:PEvas_Object; part:Pchar; cur:TEdje_Cursor):TEina_Bool;cdecl;external;
+{*
  * @brief Moves the cursor to the char above the current cursor position.
  *
  * @param[in] part The part name
@@ -1937,10 +2081,10 @@ extern Eina_Bool edje_object_part_text_cursor_next(Evas_Object *obj, const char 
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_text_cursor_up(Evas_Object *obj, const char *part, Edje_Cursor cur);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_text_cursor_up(obj:PEvas_Object; part:Pchar; cur:TEdje_Cursor):TEina_Bool;cdecl;external;
+{*
  * @brief Moves the cursor to the char below the current cursor position.
  *
  * @param[in] part The part name
@@ -1949,10 +2093,10 @@ extern Eina_Bool edje_object_part_text_cursor_up(Evas_Object *obj, const char *p
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_text_cursor_down(Evas_Object *obj, const char *part, Edje_Cursor cur);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_text_cursor_down(obj:PEvas_Object; part:Pchar; cur:TEdje_Cursor):TEina_Bool;cdecl;external;
+{*
  * @brief Copies the cursor to another cursor.
  *
  * @param[in] part The part name
@@ -1960,10 +2104,10 @@ extern Eina_Bool edje_object_part_text_cursor_down(Evas_Object *obj, const char 
  * @param[in] dst The cursor to copy to
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_cursor_copy(Evas_Object *obj, const char *part, Edje_Cursor src, Edje_Cursor dst);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_part_text_cursor_copy(obj:PEvas_Object; part:Pchar; src:TEdje_Cursor; dst:TEdje_Cursor);cdecl;external;
+{*
  * @brief Returns the content (char) at the cursor position. @ref
  * evas_textblock_cursor_content_get
  *
@@ -1976,10 +2120,11 @@ extern void edje_object_part_text_cursor_copy(Evas_Object *obj, const char *part
  * terminated by a null byte.
  *
  * @ingroup Edje_Object_Part
- */
-extern char *edje_object_part_text_cursor_content_get(const Evas_Object *obj, const char * part, Edje_Cursor cur);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_cursor_content_get(obj:PEvas_Object; part:Pchar; cur:TEdje_Cursor):Pchar;cdecl;external;
+{*
  * @brief Returns the cursor geometry of the part relative to the edje object.
  *
  * @param[in] part The part name
@@ -1989,10 +2134,12 @@ extern char *edje_object_part_text_cursor_content_get(const Evas_Object *obj, co
  * @param[out] h Cursor height
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_cursor_geometry_get(const Evas_Object *obj, const char * part, int *x, int *y, int *w, int *h);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure edje_object_part_text_cursor_geometry_get(obj:PEvas_Object; part:Pchar; x:Plongint; y:Plongint; w:Plongint; 
+            h:Plongint);cdecl;external;
+{*
  * @brief Hides visible last character for password mode.
  *
  * @param[in] part The part name
@@ -2003,10 +2150,10 @@ extern void edje_object_part_text_cursor_geometry_get(const Evas_Object *obj, co
  * @since 1.18.0
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_text_hide_visible_password(Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_part_text_hide_visible_password(obj:PEvas_Object; part:Pchar):TEina_Bool;cdecl;external;
+{*
  * @brief Returns whether the cursor points to a format. @ref
  * evas_textblock_cursor_is_format
  *
@@ -2016,10 +2163,11 @@ extern Eina_Bool edje_object_part_text_hide_visible_password(Evas_Object *obj, c
  * @return @c true if the cursor points to a format, @c false otherwise.
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_text_cursor_is_format_get(const Evas_Object *obj, const char * part, Edje_Cursor cur);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_cursor_is_format_get(obj:PEvas_Object; part:Pchar; cur:TEdje_Cursor):TEina_Bool;cdecl;external;
+{*
  * @brief Returns @c true if the cursor points to a visible format For example
  * \\t, \\n, item and etc. @ref evas_textblock_cursor_format_is_visible_get
  *
@@ -2030,10 +2178,11 @@ extern Eina_Bool edje_object_part_text_cursor_is_format_get(const Evas_Object *o
  * otherwise.
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_text_cursor_is_visible_format_get(const Evas_Object *obj, const char * part, Edje_Cursor cur);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_cursor_is_visible_format_get(obj:PEvas_Object; part:Pchar; cur:TEdje_Cursor):TEina_Bool;cdecl;external;
+{*
  * @brief Returns a list of Evas_Textblock_Rectangle anchor rectangles.
  *
  * This function return a list of Evas_Textblock_Rectangle anchor rectangles.
@@ -2045,10 +2194,13 @@ extern Eina_Bool edje_object_part_text_cursor_is_visible_format_get(const Evas_O
  * modify! Geometry is relative to entry part.
  *
  * @ingroup Edje_Object_Part
- */
-extern const Eina_List *edje_object_part_text_anchor_geometry_get(const Evas_Object *obj, const char * part, const char * anchor);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_anchor_geometry_get(obj:PEvas_Object; part:Pchar; anchor:Pchar):PEina_List;cdecl;external;
+{*
  * @brief Returns a list of char anchor names.
  *
  * This function returns a list of char anchor names.
@@ -2058,10 +2210,12 @@ extern const Eina_List *edje_object_part_text_anchor_geometry_get(const Evas_Obj
  * @return The list of anchors (const char *), do not modify!
  *
  * @ingroup Edje_Object_Part
- */
-extern const Eina_List *edje_object_part_text_anchor_list_get(const Evas_Object *obj, const char * part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_anchor_list_get(obj:PEvas_Object; part:Pchar):PEina_List;cdecl;external;
+{*
  * @brief Returns the text of the object part.
  *
  * This function returns the style associated with the textblock part.
@@ -2073,10 +2227,12 @@ extern const Eina_List *edje_object_part_text_anchor_list_get(const Evas_Object 
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Part
- */
-extern const char *edje_object_part_text_style_user_peek(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_style_user_peek(obj:PEvas_Object; part:Pchar):Pchar;cdecl;external;
+{*
  * @brief Sets the style of the
  *
  * This function sets the style associated with the textblock part.
@@ -2087,10 +2243,11 @@ extern const char *edje_object_part_text_style_user_peek(const Evas_Object *obj,
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_style_user_push(Evas_Object *obj, const char *part, const char *style);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure edje_object_part_text_style_user_push(obj:PEvas_Object; part:Pchar; style:Pchar);cdecl;external;
+{*
  * @brief Deletes the top style form the user style stack.
  *
  * @param[in] part The part name
@@ -2098,10 +2255,10 @@ extern void edje_object_part_text_style_user_push(Evas_Object *obj, const char *
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_style_user_pop(Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_part_text_style_user_pop(obj:PEvas_Object; part:Pchar);cdecl;external;
+{*
  * @brief Returns item geometry.
  *
  * This function return a list of Evas_Textblock_Rectangle item rectangles.
@@ -2116,10 +2273,13 @@ extern void edje_object_part_text_style_user_pop(Evas_Object *obj, const char *p
  * @return $1 if item exists, $0 if not
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_text_item_geometry_get(const Evas_Object *obj, const char * part, const char * item, int *cx, int *cy, int *cw, int *ch);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_item_geometry_get(obj:PEvas_Object; part:Pchar; item:Pchar; cx:Plongint; cy:Plongint; 
+           cw:Plongint; ch:Plongint):TEina_Bool;cdecl;external;
+{*
  * @brief Returns a list of char item names.
  *
  * This function returns a list of char item names.
@@ -2129,10 +2289,12 @@ extern Eina_Bool edje_object_part_text_item_geometry_get(const Evas_Object *obj,
  * @return The list of items (const char *), do not modify!
  *
  * @ingroup Edje_Object_Part
- */
-extern const Eina_List *edje_object_part_text_item_list_get(const Evas_Object *obj, const char * part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_item_list_get(obj:PEvas_Object; part:Pchar):PEina_List;cdecl;external;
+{*
  * @brief Adds a filter function for newly inserted text.
  *
  * Whenever text is inserted (not the same as set) into the given part, the
@@ -2164,10 +2326,10 @@ extern const Eina_List *edje_object_part_text_item_list_get(const Evas_Object *o
  * @param[in] data User provided data to pass to the filter function
  *
  * @ingroup Edje_Object_Group
- */
-extern void edje_object_text_insert_filter_callback_add(Evas_Object *obj, const char *part, Edje_Text_Filter_Cb func, void *data);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_text_insert_filter_callback_add(obj:PEvas_Object; part:Pchar; func:TEdje_Text_Filter_Cb; data:pointer);cdecl;external;
+{*
  * @brief Deletes a function from the filter list.
  *
  * Delete the given func filter from the list in part. Returns the user data
@@ -2182,10 +2344,10 @@ extern void edje_object_text_insert_filter_callback_add(Evas_Object *obj, const 
  * @return The user data pointer if successful, or @c null otherwise
  *
  * @ingroup Edje_Object_Group
- */
-extern void *edje_object_text_insert_filter_callback_del(Evas_Object *obj, const char *part, Edje_Text_Filter_Cb func);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_text_insert_filter_callback_del(obj:PEvas_Object; part:Pchar; func:TEdje_Text_Filter_Cb):pointer;cdecl;external;
+{*
  * @brief Deletes a function and matching user data from the filter list.
  *
  * Delete the given func filter and data user data from the list in part.
@@ -2201,10 +2363,10 @@ extern void *edje_object_text_insert_filter_callback_del(Evas_Object *obj, const
  * @return The same data pointer if successful, or @c null otherwise
  *
  * @ingroup Edje_Object_Group
- */
-extern void *edje_object_text_insert_filter_callback_del_full(Evas_Object *obj, const char *part, Edje_Text_Filter_Cb func, void *data);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_text_insert_filter_callback_del_full(obj:PEvas_Object; part:Pchar; func:TEdje_Text_Filter_Cb; data:pointer):pointer;cdecl;external;
+{*
  * @brief Adds a markup filter function for newly inserted text.
  *
  * Whenever text is inserted (not the same as set) into the given part, the
@@ -2234,10 +2396,10 @@ extern void *edje_object_text_insert_filter_callback_del_full(Evas_Object *obj, 
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Group
- */
-extern void edje_object_text_markup_filter_callback_add(Evas_Object *obj, const char *part, Edje_Markup_Filter_Cb func, void *data);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_text_markup_filter_callback_add(obj:PEvas_Object; part:Pchar; func:TEdje_Markup_Filter_Cb; data:pointer);cdecl;external;
+{*
  * @brief Deletes a function from the markup filter list.
  *
  * Delete the given func filter from the list in part. Returns the user data
@@ -2254,10 +2416,10 @@ extern void edje_object_text_markup_filter_callback_add(Evas_Object *obj, const 
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Group
- */
-extern void *edje_object_text_markup_filter_callback_del(Evas_Object *obj, const char *part, Edje_Markup_Filter_Cb func);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_text_markup_filter_callback_del(obj:PEvas_Object; part:Pchar; func:TEdje_Markup_Filter_Cb):pointer;cdecl;external;
+{*
  * @brief Deletes a function and matching user data from the markup filter
  * list.
  *
@@ -2276,10 +2438,10 @@ extern void *edje_object_text_markup_filter_callback_del(Evas_Object *obj, const
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Group
- */
-extern void *edje_object_text_markup_filter_callback_del_full(Evas_Object *obj, const char *part, Edje_Markup_Filter_Cb func, void *data);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_text_markup_filter_callback_del_full(obj:PEvas_Object; part:Pchar; func:TEdje_Markup_Filter_Cb; data:pointer):pointer;cdecl;external;
+{*
  * @brief This function inserts text as if the user has inserted it.
  *
  * This means it actually registers as a change and emits signals, triggers
@@ -2291,10 +2453,12 @@ extern void *edje_object_text_markup_filter_callback_del_full(Evas_Object *obj, 
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_user_insert(const Evas_Object *obj, const char *part, const char *text);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure edje_object_part_text_user_insert(obj:PEvas_Object; part:Pchar; text:Pchar);cdecl;external;
+{*
  * @brief Inserts text for an object part.
  *
  * This function inserts the text for an object part at the end; It does not
@@ -2306,10 +2470,11 @@ extern void edje_object_part_text_user_insert(const Evas_Object *obj, const char
  * @since 1.1
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_append(Evas_Object *obj, const char *part, const char *text);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure edje_object_part_text_append(obj:PEvas_Object; part:Pchar; text:Pchar);cdecl;external;
+{*
  * @brief Sets the text for an object part, but converts HTML escapes to UTF8
  *
  * This converts the given string text to UTF8 assuming it contains HTML style
@@ -2324,10 +2489,11 @@ extern void edje_object_part_text_append(Evas_Object *obj, const char *part, con
  * @since 1.2
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_text_escaped_set(Evas_Object *obj, const char *part, const char *text);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_escaped_set(obj:PEvas_Object; part:Pchar; text:Pchar):TEina_Bool;cdecl;external;
+{*
  * @brief Sets the raw (non escaped) text for an object part.
  *
  * This function will not do escape for you if it is a TEXTBLOCK part, that is,
@@ -2342,10 +2508,11 @@ extern Eina_Bool edje_object_part_text_escaped_set(Evas_Object *obj, const char 
  * @return @c true on success, @c false otherwise
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_text_unescaped_set(Evas_Object *obj, const char * part, const char *text_to_escape);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_unescaped_set(obj:PEvas_Object; part:Pchar; text_to_escape:Pchar):TEina_Bool;cdecl;external;
+{*
  * @brief Returns the text of the object part, without escaping.
  *
  * This function is the counterpart of
@@ -2359,10 +2526,11 @@ extern Eina_Bool edje_object_part_text_unescaped_set(Evas_Object *obj, const cha
  * @return The text string
  *
  * @ingroup Edje_Object_Part
- */
-extern char *edje_object_part_text_unescaped_get(const Evas_Object *obj, const char * part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_unescaped_get(obj:PEvas_Object; part:Pchar):Pchar;cdecl;external;
+{*
  * @brief Inserts text for an object part.
  *
  * This function inserts the text for an object part just before the cursor
@@ -2372,10 +2540,11 @@ extern char *edje_object_part_text_unescaped_get(const Evas_Object *obj, const c
  * @param[in] text The text string
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_insert(Evas_Object *obj, const char *part, const char *text);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure edje_object_part_text_insert(obj:PEvas_Object; part:Pchar; text:Pchar);cdecl;external;
+{*
  * @brief Sets the autocapitalization type on the immodule.
  *
  * @param[in] part The part name
@@ -2384,10 +2553,10 @@ extern void edje_object_part_text_insert(Evas_Object *obj, const char *part, con
  * @since 1.1.0
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_autocapital_type_set(Evas_Object *obj, const char *part, Edje_Text_Autocapital_Type autocapital_type);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_part_text_autocapital_type_set(obj:PEvas_Object; part:Pchar; autocapital_type:TEdje_Text_Autocapital_Type);cdecl;external;
+{*
  * @brief Retrieves the autocapitalization type
  *
  * @param[in] part The part name
@@ -2397,10 +2566,11 @@ extern void edje_object_part_text_autocapital_type_set(Evas_Object *obj, const c
  * @since 1.1.0
  *
  * @ingroup Edje_Object_Part
- */
-extern Edje_Text_Autocapital_Type edje_object_part_text_autocapital_type_get(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_autocapital_type_get(obj:PEvas_Object; part:Pchar):TEdje_Text_Autocapital_Type;cdecl;external;
+{*
  * @brief Sets whether the prediction is allowed or not.
  *
  * @param[in] part The part name
@@ -2409,10 +2579,10 @@ extern Edje_Text_Autocapital_Type edje_object_part_text_autocapital_type_get(con
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_prediction_allow_set(Evas_Object *obj, const char *part, Eina_Bool prediction);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_part_text_prediction_allow_set(obj:PEvas_Object; part:Pchar; prediction:TEina_Bool);cdecl;external;
+{*
  * @brief Gets whether the prediction is allowed or not.
  *
  * @param[in] part The part name
@@ -2422,10 +2592,11 @@ extern void edje_object_part_text_prediction_allow_set(Evas_Object *obj, const c
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_text_prediction_allow_get(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_prediction_allow_get(obj:PEvas_Object; part:Pchar):TEina_Bool;cdecl;external;
+{*
  * @brief Gets the input method context in entry.
  *
  * If ecore_imf was not available when edje was compiled, this function returns
@@ -2438,10 +2609,11 @@ extern Eina_Bool edje_object_part_text_prediction_allow_get(const Evas_Object *o
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Part
- */
-extern void *edje_object_part_text_imf_context_get(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_imf_context_get(obj:PEvas_Object; part:Pchar):pointer;cdecl;external;
+{*
  * @brief Resets the input method context if needed.
  *
  * This can be necessary in the case where modifying the buffer would confuse
@@ -2452,10 +2624,11 @@ extern void *edje_object_part_text_imf_context_get(const Evas_Object *obj, const
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_imf_context_reset(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure edje_object_part_text_imf_context_reset(obj:PEvas_Object; part:Pchar);cdecl;external;
+{*
  * @brief Sets the input hint which allows input methods to fine-tune their
  * behavior.
  *
@@ -2465,10 +2638,10 @@ extern void edje_object_part_text_imf_context_reset(const Evas_Object *obj, cons
  * @since 1.12.0
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_input_hint_set(Evas_Object *obj, const char *part, Edje_Input_Hints input_hints);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_part_text_input_hint_set(obj:PEvas_Object; part:Pchar; input_hints:TEdje_Input_Hints);cdecl;external;
+{*
  * @brief Gets the value of input hint
  *
  * @param[in] part The part name
@@ -2478,10 +2651,11 @@ extern void edje_object_part_text_input_hint_set(Evas_Object *obj, const char *p
  * @since 1.12.0
  *
  * @ingroup Edje_Object_Part
- */
-extern Edje_Input_Hints edje_object_part_text_input_hint_get(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_input_hint_get(obj:PEvas_Object; part:Pchar):TEdje_Input_Hints;cdecl;external;
+{*
  * @brief Shows the input panel (virtual keyboard) based on the input panel
  * property such as layout, autocapital types, and so on.
  *
@@ -2494,10 +2668,11 @@ extern Edje_Input_Hints edje_object_part_text_input_hint_get(const Evas_Object *
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_input_panel_show(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure edje_object_part_text_input_panel_show(obj:PEvas_Object; part:Pchar);cdecl;external;
+{*
  * @brief Hides the input panel (virtual keyboard). See also
  * @ref edje_object_part_text_input_panel_show
  *
@@ -2510,10 +2685,11 @@ extern void edje_object_part_text_input_panel_show(const Evas_Object *obj, const
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_input_panel_hide(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure edje_object_part_text_input_panel_hide(obj:PEvas_Object; part:Pchar);cdecl;external;
+{*
  * @brief Sets the input panel-specific data to deliver to the input panel.
  *
  * This API is used by applications to deliver specific data to the input
@@ -2527,10 +2703,11 @@ extern void edje_object_part_text_input_panel_hide(const Evas_Object *obj, const
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_input_panel_imdata_set(Evas_Object *obj, const char *part, const void *data, int len);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure edje_object_part_text_input_panel_imdata_set(obj:PEvas_Object; part:Pchar; data:pointer; len:longint);cdecl;external;
+{*
  * @brief Gets the specific data of the current active input panel.
  *
  * @param[in] part The part name
@@ -2542,10 +2719,11 @@ extern void edje_object_part_text_input_panel_imdata_set(Evas_Object *obj, const
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_input_panel_imdata_get(const Evas_Object *obj, const char *part, void *data, int *len);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure edje_object_part_text_input_panel_imdata_get(obj:PEvas_Object; part:Pchar; data:pointer; len:Plongint);cdecl;external;
+{*
  * @brief Sets the layout of the input panel.
  *
  * The layout of the input panel or virtual keyboard can make it easier or
@@ -2559,10 +2737,10 @@ extern void edje_object_part_text_input_panel_imdata_get(const Evas_Object *obj,
  * @since 1.1
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_input_panel_layout_set(Evas_Object *obj, const char *part, Edje_Input_Panel_Layout layout);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_part_text_input_panel_layout_set(obj:PEvas_Object; part:Pchar; layout:TEdje_Input_Panel_Layout);cdecl;external;
+{*
  * @brief Gets the layout of the input panel.
  *
  * See also @ref edje_object_part_text_input_panel_layout_set
@@ -2574,10 +2752,11 @@ extern void edje_object_part_text_input_panel_layout_set(Evas_Object *obj, const
  * @since 1.1
  *
  * @ingroup Edje_Object_Part
- */
-extern Edje_Input_Panel_Layout edje_object_part_text_input_panel_layout_get(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_input_panel_layout_get(obj:PEvas_Object; part:Pchar):TEdje_Input_Panel_Layout;cdecl;external;
+{*
  * @brief Sets the language mode of the input panel.
  *
  * This API can be used if you want to show the Alphabet keyboard.
@@ -2588,10 +2767,10 @@ extern Edje_Input_Panel_Layout edje_object_part_text_input_panel_layout_get(cons
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_input_panel_language_set(Evas_Object *obj, const char *part, Edje_Input_Panel_Lang lang);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_part_text_input_panel_language_set(obj:PEvas_Object; part:Pchar; lang:TEdje_Input_Panel_Lang);cdecl;external;
+{*
  * @brief Gets the language mode of the input panel.
  *
  * See also @ref edje_object_part_text_input_panel_language_set for more
@@ -2604,10 +2783,11 @@ extern void edje_object_part_text_input_panel_language_set(Evas_Object *obj, con
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Part
- */
-extern Edje_Input_Panel_Lang edje_object_part_text_input_panel_language_get(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_input_panel_language_get(obj:PEvas_Object; part:Pchar):TEdje_Input_Panel_Lang;cdecl;external;
+{*
  * @brief Sets the layout variation of the input panel.
  *
  * The layout variation of the input panel or virtual keyboard can make it
@@ -2621,10 +2801,10 @@ extern Edje_Input_Panel_Lang edje_object_part_text_input_panel_language_get(cons
  * @since 1.8
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_input_panel_layout_variation_set(Evas_Object *obj, const char *part, int variation);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_part_text_input_panel_layout_variation_set(obj:PEvas_Object; part:Pchar; variation:longint);cdecl;external;
+{*
  * @brief Gets the layout variation of the input panel.
  *
  * See also @ref edje_object_part_text_input_panel_layout_variation_set
@@ -2636,10 +2816,11 @@ extern void edje_object_part_text_input_panel_layout_variation_set(Evas_Object *
  * @since 1.8
  *
  * @ingroup Edje_Object_Part
- */
-extern int edje_object_part_text_input_panel_layout_variation_get(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_input_panel_layout_variation_get(obj:PEvas_Object; part:Pchar):longint;cdecl;external;
+{*
  * @brief Sets the attribute to show the input panel automatically.
  *
  * @param[in] part The part name
@@ -2649,10 +2830,10 @@ extern int edje_object_part_text_input_panel_layout_variation_get(const Evas_Obj
  * @since 1.1.0
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_input_panel_enabled_set(Evas_Object *obj, const char *part, Eina_Bool enabled);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_part_text_input_panel_enabled_set(obj:PEvas_Object; part:Pchar; enabled:TEina_Bool);cdecl;external;
+{*
  * @brief Retrieves the attribute to show the input panel automatically. See
  * also @ref edje_object_part_text_input_panel_enabled_set
  *
@@ -2664,10 +2845,11 @@ extern void edje_object_part_text_input_panel_enabled_set(Evas_Object *obj, cons
  * @since 1.1.0
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_text_input_panel_enabled_get(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_input_panel_enabled_get(obj:PEvas_Object; part:Pchar):TEina_Bool;cdecl;external;
+{*
  * @brief Sets the return key on the input panel to be disabled.
  *
  * @param[in] part The part name
@@ -2676,10 +2858,10 @@ extern Eina_Bool edje_object_part_text_input_panel_enabled_get(const Evas_Object
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_input_panel_return_key_disabled_set(Evas_Object *obj, const char *part, Eina_Bool disabled);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_part_text_input_panel_return_key_disabled_set(obj:PEvas_Object; part:Pchar; disabled:TEina_Bool);cdecl;external;
+{*
  * @brief Gets whether the return key on the input panel should be disabled or
  * not.
  *
@@ -2690,10 +2872,11 @@ extern void edje_object_part_text_input_panel_return_key_disabled_set(Evas_Objec
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_text_input_panel_return_key_disabled_get(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_input_panel_return_key_disabled_get(obj:PEvas_Object; part:Pchar):TEina_Bool;cdecl;external;
+{*
  * @brief Sets the "return" key type. This type is used to set string or icon
  * on the "return" key of the input panel.
  *
@@ -2705,10 +2888,10 @@ extern Eina_Bool edje_object_part_text_input_panel_return_key_disabled_get(const
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_input_panel_return_key_type_set(Evas_Object *obj, const char *part, Edje_Input_Panel_Return_Key_Type return_key_type);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_part_text_input_panel_return_key_type_set(obj:PEvas_Object; part:Pchar; return_key_type:TEdje_Input_Panel_Return_Key_Type);cdecl;external;
+{*
  * @brief Gets the "return" key type.
  *
  * See also @ref edje_object_part_text_input_panel_return_key_type_set() for
@@ -2721,10 +2904,11 @@ extern void edje_object_part_text_input_panel_return_key_type_set(Evas_Object *o
  * @since 1.2.0
  *
  * @ingroup Edje_Object_Part
- */
-extern Edje_Input_Panel_Return_Key_Type edje_object_part_text_input_panel_return_key_type_get(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_input_panel_return_key_type_get(obj:PEvas_Object; part:Pchar):TEdje_Input_Panel_Return_Key_Type;cdecl;external;
+{*
  * @brief Sets the attribute to show the input panel in case of only a user's
  * explicit Mouse Up event. It doesn't request to show the input panel even
  * though it has focus.
@@ -2736,10 +2920,10 @@ extern Edje_Input_Panel_Return_Key_Type edje_object_part_text_input_panel_return
  * @since 1.9.0
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_input_panel_show_on_demand_set(Evas_Object *obj, const char *part, Eina_Bool ondemand);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_part_text_input_panel_show_on_demand_set(obj:PEvas_Object; part:Pchar; ondemand:TEina_Bool);cdecl;external;
+{*
  * @brief Gets the attribute to show the input panel in case of only a user's
  * explicit Mouse Up event.
  *
@@ -2751,10 +2935,11 @@ extern void edje_object_part_text_input_panel_show_on_demand_set(Evas_Object *ob
  * @since 1.9.0
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_text_input_panel_show_on_demand_get(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_input_panel_show_on_demand_get(obj:PEvas_Object; part:Pchar):TEina_Bool;cdecl;external;
+{*
  * @brief Sets the prediction hint to use an intelligent reply suggestion
  * service.
  *
@@ -2764,10 +2949,11 @@ extern Eina_Bool edje_object_part_text_input_panel_show_on_demand_get(const Evas
  * @since 1.20.0
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_prediction_hint_set(Evas_Object *obj, const char *part, const char *prediction_hint);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure edje_object_part_text_prediction_hint_set(obj:PEvas_Object; part:Pchar; prediction_hint:Pchar);cdecl;external;
+{*
  * @brief Sets the prediction hint data at the specified key.
  *
  * @param[in] part The part name
@@ -2779,10 +2965,12 @@ extern void edje_object_part_text_prediction_hint_set(Evas_Object *obj, const ch
  * @since 1.21.0
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_text_prediction_hint_hash_set(Evas_Object *obj, const char *part, const char *key, const char *value);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_prediction_hint_hash_set(obj:PEvas_Object; part:Pchar; key:Pchar; value:Pchar):TEina_Bool;cdecl;external;
+{*
  * @brief Removes the prediction hint data identified by a key
  *
  * @param[in] part The part name
@@ -2793,37 +2981,41 @@ extern Eina_Bool edje_object_part_text_prediction_hint_hash_set(Evas_Object *obj
  * @since 1.21.0
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_text_prediction_hint_hash_del(Evas_Object *obj, const char *part, const char *key);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_prediction_hint_hash_del(obj:PEvas_Object; part:Pchar; key:Pchar):TEina_Bool;cdecl;external;
+{*
  * @brief Starts selecting at current cursor position
  *
  * @param[in] part The part name
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_select_begin(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure edje_object_part_text_select_begin(obj:PEvas_Object; part:Pchar);cdecl;external;
+{*
  * @brief Aborts any selection action on a part.
  *
  * @param[in] part The part name
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_select_abort(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure edje_object_part_text_select_abort(obj:PEvas_Object; part:Pchar);cdecl;external;
+{*
  * @brief Extends the current selection to the current cursor position
  *
  * @param[in] part The part name
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_select_extend(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure edje_object_part_text_select_extend(obj:PEvas_Object; part:Pchar);cdecl;external;
+{*
  * @brief Sets the selection to be everything.
  *
  * This function selects all text of the object of the part.
@@ -2831,10 +3023,11 @@ extern void edje_object_part_text_select_extend(const Evas_Object *obj, const ch
  * @param[in] part The part name
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_select_all(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure edje_object_part_text_select_all(obj:PEvas_Object; part:Pchar);cdecl;external;
+{*
  * @brief Sets the selection to be none.
  *
  * This function sets the selection text to be none.
@@ -2842,10 +3035,11 @@ extern void edje_object_part_text_select_all(const Evas_Object *obj, const char 
  * @param[in] part The part name
  *
  * @ingroup Edje_Object_Part
- */
-extern void edje_object_part_text_select_none(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure edje_object_part_text_select_none(obj:PEvas_Object; part:Pchar);cdecl;external;
+{*
  * @brief Returns the selection text of the object part.
  *
  * This function returns selection text of the object part.
@@ -2858,10 +3052,12 @@ extern void edje_object_part_text_select_none(const Evas_Object *obj, const char
  * @return The text string
  *
  * @ingroup Edje_Object_Part
- */
-extern const char *edje_object_part_text_selection_get(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_text_selection_get(obj:PEvas_Object; part:Pchar):Pchar;cdecl;external;
+{*
  * @brief Whether this object is playing or not.
  *
  * This property indicates whether the object is running or not. If stopped (or
@@ -2880,10 +3076,9 @@ extern const char *edje_object_part_text_selection_get(const Evas_Object *obj, c
  * @param[in] play The play state, @c true by default.
  *
  * @ingroup Edje_Object_Group
- */
-extern void edje_object_play_set(Evas_Object *obj, Eina_Bool play);
-
-/**
+  }
+procedure edje_object_play_set(obj:PEvas_Object; play:TEina_Bool);cdecl;external;
+{*
  * @brief Whether this object is playing or not.
  *
  * This property indicates whether the object is running or not. If stopped (or
@@ -2902,10 +3097,10 @@ extern void edje_object_play_set(Evas_Object *obj, Eina_Bool play);
  * @return The play state, @c true by default.
  *
  * @ingroup Edje_Object_Group
- */
-extern Eina_Bool edje_object_play_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_play_get(obj:PEvas_Object):TEina_Bool;cdecl;external;
+{*
  * @brief Transition duration factor.
  *
  * This defines a multiplier for the duration of transitions as they are
@@ -2917,10 +3112,9 @@ extern Eina_Bool edje_object_play_get(const Evas_Object *obj);
  * @param[in] scale The transition duration factor.
  *
  * @ingroup Edje_Object_Group
- */
-extern void edje_object_transition_duration_factor_set(Evas_Object *obj, double scale);
-
-/**
+  }
+procedure edje_object_transition_duration_factor_set(obj:PEvas_Object; scale:Tdouble);cdecl;external;
+{*
  * @brief Transition duration factor.
  *
  * This defines a multiplier for the duration of transitions as they are
@@ -2932,16 +3126,16 @@ extern void edje_object_transition_duration_factor_set(Evas_Object *obj, double 
  * @return The transition duration factor.
  *
  * @ingroup Edje_Object_Group
- */
-extern double edje_object_transition_duration_factor_get(const Evas_Object *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function edje_object_transition_duration_factor_get(obj:PEvas_Object):Tdouble;cdecl;external;
+{*
  * @brief Gets the minimum size specified -- as an EDC property -- for a given
  * Edje object
  *
  * This function retrieves the obj object's minimum size values, as declared in
  * its EDC group definition. For instance, for an Edje object of minimum size
- * 100x100 pixels: collections { group { name: "a_group"; min: 100 100; } }
+ * 100x100 pixels: collections  group  name: "a_group"; min: 100 100;  
  *
  * @note If the @c min EDC property was not declared for this object, this call
  * will return 0x0.
@@ -2954,16 +3148,16 @@ extern double edje_object_transition_duration_factor_get(const Evas_Object *obj)
  * @param[out] minh Pointer to a variable where to store the minimum height
  *
  * @ingroup Edje_Object_Group
- */
-extern void edje_object_size_min_get(const Evas_Object *obj, int *minw, int *minh);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_size_min_get(obj:PEvas_Object; minw:Plongint; minh:Plongint);cdecl;external;
+{*
  * @brief Gets the maximum size specified -- as an EDC property -- for a given
  * Edje object
  *
  * This function retrieves the object's maximum size values, as declared in its
  * EDC group definition. For instance, for an Edje object of maximum size
- * 100x100 pixels: collections { group { name: "a_group"; max: 100 100; } }
+ * 100x100 pixels: collections  group  name: "a_group"; max: 100 100;  
  *
  * @note If the @c max EDC property was not declared for the object, this call
  * will return the maximum size a given Edje object may have, for each axis.
@@ -2976,10 +3170,10 @@ extern void edje_object_size_min_get(const Evas_Object *obj, int *minw, int *min
  * @param[out] maxh The maximum height
  *
  * @ingroup Edje_Object_Group
- */
-extern void edje_object_size_max_get(const Evas_Object *obj, int *maxw, int *maxh);
-
-/**
+  }
+(* Const before type ignored *)
+procedure edje_object_size_max_get(obj:PEvas_Object; maxw:Plongint; maxh:Plongint);cdecl;external;
+{*
  * @brief Checks if a part exists in a given Edje object's group definition.
  *
  * This function returns if a given part exists in the Edje group bound to this
@@ -2994,10 +3188,11 @@ extern void edje_object_size_max_get(const Evas_Object *obj, int *maxw, int *max
  * otherwise (and on errors)
  *
  * @ingroup Edje_Object_Part
- */
-extern Eina_Bool edje_object_part_exists(const Evas_Object *obj, const char *part);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_part_exists(obj:PEvas_Object; part:Pchar):TEina_Bool;cdecl;external;
+{*
  * @brief Sets the function that provides item objects for named items in an
  * edje entry text
  *
@@ -3010,11 +3205,9 @@ extern Eina_Bool edje_object_part_exists(const Evas_Object *obj, const char *par
  * @param[in] data The data pointer to pass to the func callback
  *
  * @ingroup Edje_Object_Group
- */
-extern void edje_object_item_provider_set(Edje_Object *obj, Edje_Item_Provider_Cb func, void *data);
-
-
-/**
+  }
+procedure edje_object_item_provider_set(obj:PEdje_Object; func:TEdje_Item_Provider_Cb; data:pointer);cdecl;external;
+{*
  * @brief Gets the description of an object color class.
  *
  * This function gets the description of a color class in use by an object.
@@ -3024,19 +3217,20 @@ extern void edje_object_item_provider_set(Edje_Object *obj, Edje_Item_Provider_C
  * @return The description of the target color class or @c null if not found
  *
  * @ingroup Edje_Object_Color_Class
- */
-extern const char *edje_object_color_class_description_get(const Edje_Object *obj, const char * color_class);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_color_class_description_get(obj:PEdje_Object; color_class:Pchar):Pchar;cdecl;external;
+{*
  * @defgroup Edje_Perspective Edje Perspective
  * @ingroup Edje_Object_Group
  *
  * @brief Functions that deal with 3D projection of an 2D object.
  *
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * @brief Creates a new perspective in the given canvas.
  *
  * @param e The given canvas (Evas).
@@ -3047,9 +3241,9 @@ extern const char *edje_object_color_class_description_get(const Edje_Object *ob
  *
  * @see edje_perspective_set()
  * @see edje_perspective_free()
- */
-extern Edje_Perspective       *edje_perspective_new            (Evas *e);
-/**
+  }
+function edje_perspective_new(e:PEvas):PEdje_Perspective;cdecl;external;
+{*
  * @brief Deletes the given perspective object.
  *
  * @param ps A valid perspective object, or @c NULL.
@@ -3059,9 +3253,9 @@ extern Edje_Perspective       *edje_perspective_new            (Evas *e);
  * applied anymore.
  *
  * @see edje_perspective_new()
- */
-extern void                    edje_perspective_free           (Edje_Perspective *ps);
-/**
+  }
+procedure edje_perspective_free(ps:PEdje_Perspective);cdecl;external;
+{*
  * @brief Sets up the transform for this perspective object.
  *
  * This sets the parameters of the perspective transformation. X, Y and Z
@@ -3082,9 +3276,9 @@ extern void                    edje_perspective_free           (Edje_Perspective
  * @param py The perspective distance Y coordinate
  * @param z0 The "0" z plane value
  * @param foc The focal distance
- */
-extern void                    edje_perspective_set            (Edje_Perspective *ps, Evas_Coord px, Evas_Coord py, Evas_Coord z0, Evas_Coord foc);
-/**
+  }
+procedure edje_perspective_set(ps:PEdje_Perspective; px:TEvas_Coord; py:TEvas_Coord; z0:TEvas_Coord; foc:TEvas_Coord);cdecl;external;
+{*
  * @brief Makes this perspective object be global for its canvas.
  *
  * @param ps The given perspective object
@@ -3106,9 +3300,9 @@ extern void                    edje_perspective_set            (Edje_Perspective
  * @see edje_object_perspective_set()
  * @see edje_perspective_global_get()
  * @see edje_perspective_new()
- */
-extern void                    edje_perspective_global_set     (Edje_Perspective *ps, Eina_Bool global);
-/**
+  }
+procedure edje_perspective_global_set(ps:PEdje_Perspective; global:TEina_Bool);cdecl;external;
+{*
  * @brief Gets whether the given perspective object is global or not.
  *
  * @param ps The given perspective object.
@@ -3116,9 +3310,10 @@ extern void                    edje_perspective_global_set     (Edje_Perspective
  * otherwise.
  *
  * @see edje_perspective_global_set()
- */
-extern Eina_Bool               edje_perspective_global_get     (const Edje_Perspective *ps);
-/**
+  }
+(* Const before type ignored *)
+function edje_perspective_global_get(ps:PEdje_Perspective):TEina_Bool;cdecl;external;
+{*
  * @brief Gets the global perspective object set for this canvas.
  *
  * @param e The given canvas (Evas).
@@ -3130,10 +3325,11 @@ extern Eina_Bool               edje_perspective_global_get     (const Edje_Persp
  *
  * @see edje_perspective_global_set()
  * @see edje_perspective_global_get()
- */
-extern const Edje_Perspective *edje_evas_global_perspective_get(const Evas *e);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_evas_global_perspective_get(e:PEvas):PEdje_Perspective;cdecl;external;
+{*
  * @brief Sets the given perspective object on this Edje object.
  *
  * Make the given perspective object be the default perspective for this Edje
@@ -3150,10 +3346,9 @@ extern const Edje_Perspective *edje_evas_global_perspective_get(const Evas *e);
  *
  * @param[in] obj The object.
  * @param[in] ps The perspective object that will be used.
- */
-extern void edje_object_perspective_set(Evas_Object *obj, Edje_Perspective *ps);
-
-/**
+  }
+procedure edje_object_perspective_set(obj:PEvas_Object; ps:PEdje_Perspective);cdecl;external;
+{*
  * @brief Gets the current perspective used on this Edje object.
  *
  * See also @ref edje_object_perspective_set()
@@ -3161,14 +3356,14 @@ extern void edje_object_perspective_set(Evas_Object *obj, Edje_Perspective *ps);
  * @param[in] obj The object.
  *
  * @return The perspective object that will be used.
- */
-extern const Edje_Perspective *edje_object_perspective_get(const Evas_Object *obj);
-
-/**
- * @}
- */
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_object_perspective_get(obj:PEvas_Object):PEdje_Perspective;cdecl;external;
+{*
+ * @
+  }
+{*
  * @brief Sets Edje text class for edje file (if loaded)
  *
  * This function sets the text class for All Edje Objects created from Edje file.
@@ -3183,10 +3378,12 @@ extern const Edje_Perspective *edje_object_perspective_get(const Evas_Object *ob
  *
  * @ingroup Edje_Object_Text_Class
  *
- */
-extern Eina_Bool edje_file_text_class_set(const char *file, const char *text_class, const char *font, Evas_Font_Size size);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_file_text_class_set(file:Pchar; text_class:Pchar; font:Pchar; size:TEvas_Font_Size):TEina_Bool;cdecl;external;
+{*
  * @brief Delete the file text class.
  *
  * This function deletes any values at the file level for the specified
@@ -3196,10 +3393,11 @@ extern Eina_Bool edje_file_text_class_set(const char *file, const char *text_cla
  *
  * @ingroup Edje_Object_Text_Class
  *
- */
-extern Eina_Bool edje_file_text_class_del(const char *file, const char *text_class);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_file_text_class_del(file:Pchar; text_class:Pchar):TEina_Bool;cdecl;external;
+{*
  * @brief Gets font and font size from edje file if loaded.
  *
  * This function gets the font and the font size from the file text class.
@@ -3212,11 +3410,12 @@ extern Eina_Bool edje_file_text_class_del(const char *file, const char *text_cla
  *
  * @ingroup Edje_Object_Text_Class
  *
- */
-extern Eina_Bool edje_file_text_class_get(const char *file, const char * text_class, const char **font, Evas_Font_Size *size);
-
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function edje_file_text_class_get(file:Pchar; text_class:Pchar; font:PPchar; size:PEvas_Font_Size):TEina_Bool;cdecl;external;
+{*
  * @defgroup Edje_Object_Part Edje Part
  *
  * @brief Functions that deal with layout components
@@ -3233,40 +3432,61 @@ extern Eina_Bool edje_file_text_class_get(const char *file, const char * text_cl
  *
  * @ingroup Edje_Object_Group
  *
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * @typedef Edje_Part_Type
  *
  * All possible "part" types in Edje
- */
-typedef enum _Edje_Part_Type
-{
-   EDJE_PART_TYPE_NONE      = 0,  /**< None type value */
-   EDJE_PART_TYPE_RECTANGLE = 1,  /**< Rectangle type value */
-   EDJE_PART_TYPE_TEXT      = 2,  /**< Text type value */
-   EDJE_PART_TYPE_IMAGE     = 3,  /**< Image type value */
-   EDJE_PART_TYPE_SWALLOW   = 4,  /**< Swallow  type value */
-   EDJE_PART_TYPE_TEXTBLOCK = 5,  /**< Text block type value */
-   EDJE_PART_TYPE_GRADIENT  = 6,  /**< Gradient type value */
-   EDJE_PART_TYPE_GROUP     = 7,  /**< Group type value */
-   EDJE_PART_TYPE_BOX       = 8,  /**< Box type value */
-   EDJE_PART_TYPE_TABLE     = 9,  /**< Table type value */
-   EDJE_PART_TYPE_EXTERNAL  = 10, /**< External type value */
-   EDJE_PART_TYPE_PROXY     = 11, /**< Proxy type value */
-   EDJE_PART_TYPE_SPACER    = 12, /**< Spacer type value @since 1.7 */
-   EDJE_PART_TYPE_MESH_NODE = 13,
-   EDJE_PART_TYPE_LIGHT     = 14,
-   EDJE_PART_TYPE_CAMERA    = 15,
-   EDJE_PART_TYPE_SNAPSHOT  = 16, /**< Snapshot @since 1.16 */
-   EDJE_PART_TYPE_VECTOR    = 17, /**< Vector @since 1.18 */
-   EDJE_PART_TYPE_LAST      = 18  /**< Last type value */
-} Edje_Part_Type;
-/**
- * @}
- */
+  }
+{*< None type value  }
+{*< Rectangle type value  }
+{*< Text type value  }
+{*< Image type value  }
+{*< Swallow  type value  }
+{*< Text block type value  }
+{*< Gradient type value  }
+{*< Group type value  }
+{*< Box type value  }
+{*< Table type value  }
+{*< External type value  }
+{*< Proxy type value  }
+{*< Spacer type value @since 1.7  }
+{*< Snapshot @since 1.16  }
+{*< Vector @since 1.18  }
+{*< Last type value  }
+type
+  PEdje_Part_Type = ^TEdje_Part_Type;
+  TEdje_Part_Type =  Longint;
+  Const
+    EDJE_PART_TYPE_NONE = 0;
+    EDJE_PART_TYPE_RECTANGLE = 1;
+    EDJE_PART_TYPE_TEXT = 2;
+    EDJE_PART_TYPE_IMAGE = 3;
+    EDJE_PART_TYPE_SWALLOW = 4;
+    EDJE_PART_TYPE_TEXTBLOCK = 5;
+    EDJE_PART_TYPE_GRADIENT = 6;
+    EDJE_PART_TYPE_GROUP = 7;
+    EDJE_PART_TYPE_BOX = 8;
+    EDJE_PART_TYPE_TABLE = 9;
+    EDJE_PART_TYPE_EXTERNAL = 10;
+    EDJE_PART_TYPE_PROXY = 11;
+    EDJE_PART_TYPE_SPACER = 12;
+    EDJE_PART_TYPE_MESH_NODE = 13;
+    EDJE_PART_TYPE_LIGHT = 14;
+    EDJE_PART_TYPE_CAMERA = 15;
+    EDJE_PART_TYPE_SNAPSHOT = 16;
+    EDJE_PART_TYPE_VECTOR = 17;
+    EDJE_PART_TYPE_LAST = 18;
+;
+{*
+ * @
+  }
+{$include "efl_canvas_layout_eo.legacy.h"}
+{$include "edje_edit_eo.legacy.h"}
+{$include "efl_layout_group_eo.legacy.h"}
 
-#include "efl_canvas_layout_eo.legacy.h"
-#include "edje_edit_eo.legacy.h"
-#include "efl_layout_group_eo.legacy.h"
+implementation
+
+
+end.
