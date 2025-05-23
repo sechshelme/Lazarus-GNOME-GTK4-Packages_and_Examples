@@ -3,7 +3,7 @@ unit elm_entry_common;
 interface
 
 uses
-  ctypes, efl, fp_evas, elm_general, Edje_Common;
+  ctypes, efl, fp_evas, fp_edje, elm_general;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

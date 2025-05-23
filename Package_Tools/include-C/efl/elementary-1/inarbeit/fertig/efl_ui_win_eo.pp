@@ -1,18 +1,60 @@
-#ifndef _EFL_UI_WIN_EO_H_
-#define _EFL_UI_WIN_EO_H_
 
-#ifndef _EFL_UI_WIN_EO_CLASS_TYPE
-#define _EFL_UI_WIN_EO_CLASS_TYPE
+unit efl_ui_win_eo;
+interface
 
-typedef Eo Efl_Ui_Win;
+{
+  Automatically converted by H2Pas 1.0.0 from efl_ui_win_eo.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    efl_ui_win_eo.h
+}
 
-#endif
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
 
-#ifndef _EFL_UI_WIN_EO_TYPES
-#define _EFL_UI_WIN_EO_TYPES
+Type
+Pchar  = ^char;
+PEfl_Canvas_Object  = ^Efl_Canvas_Object;
+PEfl_Class  = ^Efl_Class;
+PEfl_Ui_Win  = ^Efl_Ui_Win;
+PEfl_Ui_Win_Indicator_Mode  = ^Efl_Ui_Win_Indicator_Mode;
+PEfl_Ui_Win_Keyboard_Mode  = ^Efl_Ui_Win_Keyboard_Mode;
+PEfl_Ui_Win_Modal_Mode  = ^Efl_Ui_Win_Modal_Mode;
+PEfl_Ui_Win_Move_Resize_Mode  = ^Efl_Ui_Win_Move_Resize_Mode;
+PEfl_Ui_Win_Type  = ^Efl_Ui_Win_Type;
+PEfl_Ui_Win_Urgent_Mode  = ^Efl_Ui_Win_Urgent_Mode;
+PEina_Array  = ^Eina_Array;
+PEina_Bool  = ^Eina_Bool;
+PEina_Iterator  = ^Eina_Iterator;
+PEina_Value  = ^Eina_Value;
+PEo  = ^Eo;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+
+{$ifndef _EFL_UI_WIN_EO_H_}
+{$define _EFL_UI_WIN_EO_H_}
+{$ifndef _EFL_UI_WIN_EO_CLASS_TYPE}
+{$define _EFL_UI_WIN_EO_CLASS_TYPE}
+type
+  PEfl_Ui_Win = ^TEfl_Ui_Win;
+  TEfl_Ui_Win = TEo;
+{$endif}
+{$ifndef _EFL_UI_WIN_EO_TYPES}
+{$define _EFL_UI_WIN_EO_TYPES}
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief Defines the types of window that can be created.
  *
  * These are hints set on a window so that a running Window Manager knows how
@@ -21,102 +63,139 @@ typedef Eo Efl_Ui_Win;
  * Currently, only the X11 backed engines use them.
  *
  * @ingroup Efl_Ui_Win_Type
- */
-typedef enum
-{
-  EFL_UI_WIN_TYPE_UNKNOWN = -1 /* +1 */, /**< Default, unknown type. */
-  EFL_UI_WIN_TYPE_BASIC, /**< A normal window. Indicates a normal, top-level
+  }
+{ +1  }{*< Default, unknown type.  }
+{*< A normal window. Indicates a normal, top-level
                           * window. Almost every window will be created with
-                          * this type. */
-  EFL_UI_WIN_TYPE_DIALOG_BASIC, /**< Used for simple dialog windows. */
-  EFL_UI_WIN_TYPE_DESKTOP, /**< For special desktop windows, like a background
-                            * window holding desktop icons. */
-  EFL_UI_WIN_TYPE_DOCK, /**< The window is used as a dock or panel. Usually
+                          * this type.  }
+{*< Used for simple dialog windows.  }
+{*< For special desktop windows, like a background
+                            * window holding desktop icons.  }
+{*< The window is used as a dock or panel. Usually
                          * would be kept on top of any other window by the
-                         * Window Manager. */
-  EFL_UI_WIN_TYPE_TOOLBAR, /**< The window is used to hold a floating toolbar or
-                            * similar. */
-  EFL_UI_WIN_TYPE_MENU, /**< Similar to @ref EFL_UI_WIN_TYPE_TOOLBAR. */
-  EFL_UI_WIN_TYPE_UTILITY, /**< A persistent utility window, like a toolbox or
-                            * palette. */
-  EFL_UI_WIN_TYPE_SPLASH, /**< Splash window for a starting up application. */
-  EFL_UI_WIN_TYPE_DROPDOWN_MENU, /**< The window is a dropdown menu, as when an
+                         * Window Manager.  }
+{*< The window is used to hold a floating toolbar or
+                            * similar.  }
+{*< Similar to @ref EFL_UI_WIN_TYPE_TOOLBAR.  }
+{*< A persistent utility window, like a toolbox or
+                            * palette.  }
+{*< Splash window for a starting up application.  }
+{*< The window is a dropdown menu, as when an
                                   *  entry in a menu bar is clicked. This hint
                                   * exists for completeness' sake, as the EFL
                                   * way of implementing a menu would not
                                   * normally use a separate window for its
-                                  * contents. */
-  EFL_UI_WIN_TYPE_POPUP_MENU, /**< Like @ref EFL_UI_WIN_TYPE_DROPDOWN_MENU, but
+                                  * contents.  }
+{*< Like @ref EFL_UI_WIN_TYPE_DROPDOWN_MENU, but
                                * for the menu triggered by right-clicking an
-                               * object. */
-  EFL_UI_WIN_TYPE_TOOLTIP, /**< The window is a tooltip. A short piece of
+                               * object.  }
+{*< The window is a tooltip. A short piece of
                             * explanatory text that typically appear after the
                             * mouse cursor hovers over an object for a while.
-                            * Not commonly used in the EFL. */
-  EFL_UI_WIN_TYPE_NOTIFICATION, /**< A notification window, like a warning about
-                                 * battery life or a new E-Mail received. */
-  EFL_UI_WIN_TYPE_COMBO, /**< A window holding the contents of a combo box. Not
-                          * commonly used in the EFL. */
-  EFL_UI_WIN_TYPE_DND, /**< Internal use. */
-  EFL_UI_WIN_TYPE_INLINED_IMAGE, /**< Internal use. */
-  EFL_UI_WIN_TYPE_SOCKET_IMAGE, /**< Internal use. */
-  EFL_UI_WIN_TYPE_FAKE, /**< Internal use. */
-  EFL_UI_WIN_TYPE_NAVIFRAME_BASIC = 17 /**< Used for naviframe style replacement
+                            * Not commonly used in the EFL.  }
+{*< A notification window, like a warning about
+                                 * battery life or a new E-Mail received.  }
+{*< A window holding the contents of a combo box. Not
+                          * commonly used in the EFL.  }
+{*< Internal use.  }
+{*< Internal use.  }
+{*< Internal use.  }
+{*< Internal use.  }
+{*< Used for naviframe style replacement
                                         * with a back button instead of a close
-                                        * button. */
-} Efl_Ui_Win_Type;
-#endif /* EFL_BETA_API_SUPPORT */
-
-#ifdef EFL_BETA_API_SUPPORT
-/**
+                                        * button.  }
+type
+  PEfl_Ui_Win_Type = ^TEfl_Ui_Win_Type;
+  TEfl_Ui_Win_Type =  Longint;
+  Const
+    EFL_UI_WIN_TYPE_UNKNOWN = -(1);
+    EFL_UI_WIN_TYPE_BASIC = (-(1))+1;
+    EFL_UI_WIN_TYPE_DIALOG_BASIC = (-(1))+2;
+    EFL_UI_WIN_TYPE_DESKTOP = (-(1))+3;
+    EFL_UI_WIN_TYPE_DOCK = (-(1))+4;
+    EFL_UI_WIN_TYPE_TOOLBAR = (-(1))+5;
+    EFL_UI_WIN_TYPE_MENU = (-(1))+6;
+    EFL_UI_WIN_TYPE_UTILITY = (-(1))+7;
+    EFL_UI_WIN_TYPE_SPLASH = (-(1))+8;
+    EFL_UI_WIN_TYPE_DROPDOWN_MENU = (-(1))+9;
+    EFL_UI_WIN_TYPE_POPUP_MENU = (-(1))+10;
+    EFL_UI_WIN_TYPE_TOOLTIP = (-(1))+11;
+    EFL_UI_WIN_TYPE_NOTIFICATION = (-(1))+12;
+    EFL_UI_WIN_TYPE_COMBO = (-(1))+13;
+    EFL_UI_WIN_TYPE_DND = (-(1))+14;
+    EFL_UI_WIN_TYPE_INLINED_IMAGE = (-(1))+15;
+    EFL_UI_WIN_TYPE_SOCKET_IMAGE = (-(1))+16;
+    EFL_UI_WIN_TYPE_FAKE = (-(1))+17;
+    EFL_UI_WIN_TYPE_NAVIFRAME_BASIC = 17;
+;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The different layouts that can be requested for the virtual keyboard.
  *
  * When the application window is being managed by Illume it may request any of
  * the following layouts for the virtual keyboard.
  *
  * @ingroup Efl_Ui_Win_Keyboard_Mode
- */
-typedef enum
-{
-  EFL_UI_WIN_KEYBOARD_MODE_UNKNOWN = 0, /**< Unknown keyboard state */
-  EFL_UI_WIN_KEYBOARD_MODE_OFF, /**< Request to deactivate the keyboard */
-  EFL_UI_WIN_KEYBOARD_MODE_ON, /**< Enable keyboard with default layout */
-  EFL_UI_WIN_KEYBOARD_MODE_ALPHA, /**< Alpha (a-z) keyboard layout */
-  EFL_UI_WIN_KEYBOARD_MODE_NUMERIC, /**< Numeric keyboard layout */
-  EFL_UI_WIN_KEYBOARD_MODE_PIN, /**< PIN keyboard layout */
-  EFL_UI_WIN_KEYBOARD_MODE_PHONE_NUMBER, /**< Phone keyboard layout */
-  EFL_UI_WIN_KEYBOARD_MODE_HEX, /**< Hexadecimal numeric keyboard layout */
-  EFL_UI_WIN_KEYBOARD_MODE_TERMINAL, /**< Full (QWERTY) keyboard layout */
-  EFL_UI_WIN_KEYBOARD_MODE_PASSWORD, /**< Password keyboard layout */
-  EFL_UI_WIN_KEYBOARD_MODE_IP, /**< IP keyboard layout */
-  EFL_UI_WIN_KEYBOARD_MODE_HOST, /**< Host keyboard layout */
-  EFL_UI_WIN_KEYBOARD_MODE_FILE, /**< File keyboard layout */
-  EFL_UI_WIN_KEYBOARD_MODE_URL, /**< URL keyboard layout */
-  EFL_UI_WIN_KEYBOARD_MODE_KEYPAD, /**< Keypad layout */
-  EFL_UI_WIN_KEYBOARD_MODE_J2ME /**< J2ME keyboard layout */
-} Efl_Ui_Win_Keyboard_Mode;
-#endif /* EFL_BETA_API_SUPPORT */
-
-/** Defines the type indicator that can be shown.
+  }
+{*< Unknown keyboard state  }
+{*< Request to deactivate the keyboard  }
+{*< Enable keyboard with default layout  }
+{*< Alpha (a-z) keyboard layout  }
+{*< Numeric keyboard layout  }
+{*< PIN keyboard layout  }
+{*< Phone keyboard layout  }
+{*< Hexadecimal numeric keyboard layout  }
+{*< Full (QWERTY) keyboard layout  }
+{*< Password keyboard layout  }
+{*< IP keyboard layout  }
+{*< Host keyboard layout  }
+{*< File keyboard layout  }
+{*< URL keyboard layout  }
+{*< Keypad layout  }
+{*< J2ME keyboard layout  }
+type
+  PEfl_Ui_Win_Keyboard_Mode = ^TEfl_Ui_Win_Keyboard_Mode;
+  TEfl_Ui_Win_Keyboard_Mode =  Longint;
+  Const
+    EFL_UI_WIN_KEYBOARD_MODE_UNKNOWN = 0;
+    EFL_UI_WIN_KEYBOARD_MODE_OFF = 1;
+    EFL_UI_WIN_KEYBOARD_MODE_ON = 2;
+    EFL_UI_WIN_KEYBOARD_MODE_ALPHA = 3;
+    EFL_UI_WIN_KEYBOARD_MODE_NUMERIC = 4;
+    EFL_UI_WIN_KEYBOARD_MODE_PIN = 5;
+    EFL_UI_WIN_KEYBOARD_MODE_PHONE_NUMBER = 6;
+    EFL_UI_WIN_KEYBOARD_MODE_HEX = 7;
+    EFL_UI_WIN_KEYBOARD_MODE_TERMINAL = 8;
+    EFL_UI_WIN_KEYBOARD_MODE_PASSWORD = 9;
+    EFL_UI_WIN_KEYBOARD_MODE_IP = 10;
+    EFL_UI_WIN_KEYBOARD_MODE_HOST = 11;
+    EFL_UI_WIN_KEYBOARD_MODE_FILE = 12;
+    EFL_UI_WIN_KEYBOARD_MODE_URL = 13;
+    EFL_UI_WIN_KEYBOARD_MODE_KEYPAD = 14;
+    EFL_UI_WIN_KEYBOARD_MODE_J2ME = 15;
+;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{* Defines the type indicator that can be shown.
  *
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win_Indicator_Mode
- */
-typedef enum
-{
-  EFL_UI_WIN_INDICATOR_MODE_OFF = 0, /**< Request to deactivate the indicator.
+  }
+{*< Request to deactivate the indicator.
                                       *
-                                      * @since 1.22 */
-  EFL_UI_WIN_INDICATOR_MODE_BG_OPAQUE, /**< The indicator icon is opaque, as is
+                                      * @since 1.22  }
+{*< The indicator icon is opaque, as is
                                         * the indicator background. The content
                                         * of window is located at the end of
                                         * the indicator. The area of indicator
                                         * and window content are not
                                         * overlapped.
                                         *
-                                        * @since 1.22 */
-  EFL_UI_WIN_INDICATOR_MODE_BG_TRANSPARENT, /**< The icon of indicator is
+                                        * @since 1.22  }
+{*< The icon of indicator is
                                              * opaque, but the background is
                                              * transparent. The content of
                                              * window is located under the
@@ -124,41 +203,56 @@ typedef enum
                                              * of indicator and window content
                                              * are overlapped.
                                              *
-                                             * @since 1.22 */
-  EFL_UI_WIN_INDICATOR_MODE_HIDDEN /**< The indicator is hidden so user can see
+                                             * @since 1.22  }
+{*< The indicator is hidden so user can see
                                     * only the content of window such as in
                                     * video mode. If user flicks the upper side
                                     * of window, the indicator is shown
                                     * temporarily.
                                     *
-                                    * @since 1.22 */
-} Efl_Ui_Win_Indicator_Mode;
-
-#ifdef EFL_BETA_API_SUPPORT
-/** Defines the mode of a modal window.
+                                    * @since 1.22  }
+type
+  PEfl_Ui_Win_Indicator_Mode = ^TEfl_Ui_Win_Indicator_Mode;
+  TEfl_Ui_Win_Indicator_Mode =  Longint;
+  Const
+    EFL_UI_WIN_INDICATOR_MODE_OFF = 0;
+    EFL_UI_WIN_INDICATOR_MODE_BG_OPAQUE = 1;
+    EFL_UI_WIN_INDICATOR_MODE_BG_TRANSPARENT = 2;
+    EFL_UI_WIN_INDICATOR_MODE_HIDDEN = 3;
+;
+{$ifdef EFL_BETA_API_SUPPORT}
+{* Defines the mode of a modal window.
  *
  * @ingroup Efl_Ui_Win_Modal_Mode
- */
-typedef enum
-{
-  EFL_UI_WIN_MODAL_MODE_NONE = 0, /**< The window is not a modal window. */
-  EFL_UI_WIN_MODAL_MODE_MODAL /**< The window is a modal window. */
-} Efl_Ui_Win_Modal_Mode;
-#endif /* EFL_BETA_API_SUPPORT */
-
-#ifdef EFL_BETA_API_SUPPORT
-/** Defines the mode of a urgent window.
+  }
+{*< The window is not a modal window.  }
+{*< The window is a modal window.  }
+type
+  PEfl_Ui_Win_Modal_Mode = ^TEfl_Ui_Win_Modal_Mode;
+  TEfl_Ui_Win_Modal_Mode =  Longint;
+  Const
+    EFL_UI_WIN_MODAL_MODE_NONE = 0;
+    EFL_UI_WIN_MODAL_MODE_MODAL = 1;
+;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{* Defines the mode of a urgent window.
  *
  * @ingroup Efl_Ui_Win_Urgent_Mode
- */
-typedef enum
-{
-  EFL_UI_WIN_URGENT_MODE_NONE = 0, /**< The window is not a urgent window. */
-  EFL_UI_WIN_URGENT_MODE_URGENT /**< The window is a urgent window. */
-} Efl_Ui_Win_Urgent_Mode;
-#endif /* EFL_BETA_API_SUPPORT */
-
-/**
+  }
+{*< The window is not a urgent window.  }
+{*< The window is a urgent window.  }
+type
+  PEfl_Ui_Win_Urgent_Mode = ^TEfl_Ui_Win_Urgent_Mode;
+  TEfl_Ui_Win_Urgent_Mode =  Longint;
+  Const
+    EFL_UI_WIN_URGENT_MODE_NONE = 0;
+    EFL_UI_WIN_URGENT_MODE_URGENT = 1;
+;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{*
  * @brief Define the move or resize mode of a window.
  *
  * The user can request the display server to start moving or resizing the
@@ -172,43 +266,50 @@ typedef enum
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win_Move_Resize_Mode
- */
-typedef enum
-{
-  EFL_UI_WIN_MOVE_RESIZE_MODE_MOVE = 1, /**< Start moving window
+  }
+{*< Start moving window
                                          *
-                                         * @since 1.22 */
-  EFL_UI_WIN_MOVE_RESIZE_MODE_TOP = 2 /* 1 >> 1 */, /**< Start resizing window
+                                         * @since 1.22  }
+{ 1 >> 1  }{*< Start resizing window
                                                      * to the top
                                                      *
-                                                     * @since 1.22 */
-  EFL_UI_WIN_MOVE_RESIZE_MODE_BOTTOM = 4 /* 1 >> 2 */, /**< Start resizing
+                                                     * @since 1.22  }
+{ 1 >> 2  }{*< Start resizing
                                                         * window to the bottom
                                                         *
-                                                        * @since 1.22 */
-  EFL_UI_WIN_MOVE_RESIZE_MODE_LEFT = 8 /* 1 >> 3 */, /**< Start resizing window
+                                                        * @since 1.22  }
+{ 1 >> 3  }{*< Start resizing window
                                                       * to the left
                                                       *
-                                                      * @since 1.22 */
-  EFL_UI_WIN_MOVE_RESIZE_MODE_RIGHT = 16 /* 1 >> 4 */ /**< Start resizing window
+                                                      * @since 1.22  }
+{ 1 >> 4  }{*< Start resizing window
                                                        * to the right
                                                        *
-                                                       * @since 1.22 */
-} Efl_Ui_Win_Move_Resize_Mode;
-
-
-#endif
-/** Efl UI window class.
+                                                       * @since 1.22  }
+type
+  PEfl_Ui_Win_Move_Resize_Mode = ^TEfl_Ui_Win_Move_Resize_Mode;
+  TEfl_Ui_Win_Move_Resize_Mode =  Longint;
+  Const
+    EFL_UI_WIN_MOVE_RESIZE_MODE_MOVE = 1;
+    EFL_UI_WIN_MOVE_RESIZE_MODE_TOP = 2;
+    EFL_UI_WIN_MOVE_RESIZE_MODE_BOTTOM = 4;
+    EFL_UI_WIN_MOVE_RESIZE_MODE_LEFT = 8;
+    EFL_UI_WIN_MOVE_RESIZE_MODE_RIGHT = 16;
+;
+{$endif}
+{* Efl UI window class.
  *
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-#define EFL_UI_WIN_CLASS efl_ui_win_class_get()
+  }
 
-extern  const Efl_Class *efl_ui_win_class_get(void) ;
+{ was #define dname def_expr }
+function EFL_UI_WIN_CLASS : longint; { return type might be wrong }
 
-/**
+(* Const before type ignored *)
+function efl_ui_win_class_get:PEfl_Class;cdecl;external;
+{*
  * @brief In some environments you may have an indicator that shows battery
  * status, reception, time etc. This is the indicator.
  *
@@ -224,10 +325,9 @@ extern  const Efl_Class *efl_ui_win_class_get(void) ;
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_indicator_mode_set(Eo *obj, Efl_Ui_Win_Indicator_Mode type);
-
-/**
+  }
+procedure efl_ui_win_indicator_mode_set(obj:PEo; _type:TEfl_Ui_Win_Indicator_Mode);cdecl;external;
+{*
  * @brief In some environments you may have an indicator that shows battery
  * status, reception, time etc. This is the indicator.
  *
@@ -244,11 +344,11 @@ extern  void efl_ui_win_indicator_mode_set(Eo *obj, Efl_Ui_Win_Indicator_Mode ty
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Efl_Ui_Win_Indicator_Mode efl_ui_win_indicator_mode_get(const Eo *obj);
-
-#ifdef EFL_BETA_API_SUPPORT
-/**
+  }
+(* Const before type ignored *)
+function efl_ui_win_indicator_mode_get(obj:PEo):TEfl_Ui_Win_Indicator_Mode;cdecl;external;
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The keyboard mode of the window.
  *
  * @param[in] obj The object.
@@ -257,12 +357,12 @@ extern  Efl_Ui_Win_Indicator_Mode efl_ui_win_indicator_mode_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_keyboard_mode_set(Eo *obj, Efl_Ui_Win_Keyboard_Mode mode);
-#endif /* EFL_BETA_API_SUPPORT */
-
-#ifdef EFL_BETA_API_SUPPORT
-/**
+  }
+procedure efl_ui_win_keyboard_mode_set(obj:PEo; mode:TEfl_Ui_Win_Keyboard_Mode);cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The keyboard mode of the window.
  *
  * @param[in] obj The object.
@@ -272,12 +372,14 @@ extern  void efl_ui_win_keyboard_mode_set(Eo *obj, Efl_Ui_Win_Keyboard_Mode mode
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Efl_Ui_Win_Keyboard_Mode efl_ui_win_keyboard_mode_get(const Eo *obj);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
+(* Const before type ignored *)
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+function efl_ui_win_keyboard_mode_get(obj:PEo):TEfl_Ui_Win_Keyboard_Mode;cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief Defines which rotations this window supports.
  *
  * The window manager will refer to these hints and rotate the window
@@ -292,12 +394,13 @@ extern  Efl_Ui_Win_Keyboard_Mode efl_ui_win_keyboard_mode_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_wm_available_rotations_set(Eo *obj, Eina_Bool allow_0, Eina_Bool allow_90, Eina_Bool allow_180, Eina_Bool allow_270);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+procedure efl_ui_win_wm_available_rotations_set(obj:PEo; allow_0:TEina_Bool; allow_90:TEina_Bool; allow_180:TEina_Bool; allow_270:TEina_Bool);cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief Defines which rotations this window supports.
  *
  * The window manager will refer to these hints and rotate the window
@@ -314,12 +417,14 @@ extern  void efl_ui_win_wm_available_rotations_set(Eo *obj, Eina_Bool allow_0, E
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Eina_Bool efl_ui_win_wm_available_rotations_get(const Eo *obj, Eina_Bool *allow_0, Eina_Bool *allow_90, Eina_Bool *allow_180, Eina_Bool *allow_270);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
+(* Const before type ignored *)
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+function efl_ui_win_wm_available_rotations_get(obj:PEo; allow_0:PEina_Bool; allow_90:PEina_Bool; allow_180:PEina_Bool; allow_270:PEina_Bool):TEina_Bool;cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief Available profiles on a window.
  *
  * @param[in] obj The object.
@@ -328,12 +433,14 @@ extern  Eina_Bool efl_ui_win_wm_available_rotations_get(const Eo *obj, Eina_Bool
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_wm_available_profiles_set(Eo *obj, const Eina_Array *profiles);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
+(* Const before type ignored *)
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+procedure efl_ui_win_wm_available_profiles_set(obj:PEo; profiles:PEina_Array);cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief Available profiles on a window.
  *
  * @param[in] obj The object.
@@ -343,12 +450,15 @@ extern  void efl_ui_win_wm_available_profiles_set(Eo *obj, const Eina_Array *pro
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  const Eina_Array *efl_ui_win_wm_available_profiles_get(const Eo *obj);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+function efl_ui_win_wm_available_profiles_get(obj:PEo):PEina_Array;cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief Constrain the maximum width and height of a window to the width and
  * height of the screen.
  *
@@ -361,12 +471,13 @@ extern  const Eina_Array *efl_ui_win_wm_available_profiles_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_screen_constrain_set(Eo *obj, Eina_Bool constrain);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+procedure efl_ui_win_screen_constrain_set(obj:PEo; constrain:TEina_Bool);cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief Constrain the maximum width and height of a window to the width and
  * height of the screen.
  *
@@ -380,12 +491,14 @@ extern  void efl_ui_win_screen_constrain_set(Eo *obj, Eina_Bool constrain);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Eina_Bool efl_ui_win_screen_constrain_get(const Eo *obj);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
+(* Const before type ignored *)
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+function efl_ui_win_screen_constrain_get(obj:PEo):TEina_Bool;cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief Set the window to be skipped by keyboard focus.
  *
  * This sets the window to be skipped by normal keyboard input. This means a
@@ -406,12 +519,13 @@ extern  Eina_Bool efl_ui_win_screen_constrain_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_prop_focus_skip_set(Eo *obj, Eina_Bool skip);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+procedure efl_ui_win_prop_focus_skip_set(obj:PEo; skip:TEina_Bool);cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief Window's autohide state.
  *
  * When closing the window in any way outside of the program control, like
@@ -438,12 +552,13 @@ extern  void efl_ui_win_prop_focus_skip_set(Eo *obj, Eina_Bool skip);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_autohide_set(Eo *obj, Eina_Bool autohide);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+procedure efl_ui_win_autohide_set(obj:PEo; autohide:TEina_Bool);cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief Window's autohide state.
  *
  * When closing the window in any way outside of the program control, like
@@ -470,11 +585,13 @@ extern  void efl_ui_win_autohide_set(Eo *obj, Eina_Bool autohide);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Eina_Bool efl_ui_win_autohide_get(const Eo *obj);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
+(* Const before type ignored *)
 
-/**
+function efl_ui_win_autohide_get(obj:PEo):TEina_Bool;cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{*
  * @brief Enable quitting the main loop when this window is closed.
  *
  * When set, the window's loop object will exit using the passed exit code if
@@ -492,10 +609,11 @@ extern  Eina_Bool efl_ui_win_autohide_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_exit_on_close_set(Eo *obj, const Eina_Value *exit_code);
+  }
+(* Const before type ignored *)
 
-/**
+procedure efl_ui_win_exit_on_close_set(obj:PEo; exit_code:PEina_Value);cdecl;external;
+{*
  * @brief Enable quitting the main loop when this window is closed.
  *
  * When set, the window's loop object will exit using the passed exit code if
@@ -514,10 +632,11 @@ extern  void efl_ui_win_exit_on_close_set(Eo *obj, const Eina_Value *exit_code);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  const Eina_Value *efl_ui_win_exit_on_close_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function efl_ui_win_exit_on_close_get(obj:PEo):PEina_Value;cdecl;external;
+{*
  * @brief A window object's icon.
  *
  * This sets an image to be used as the icon for the given window, in the
@@ -534,10 +653,9 @@ extern  const Eina_Value *efl_ui_win_exit_on_close_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_icon_object_set(Eo *obj, Efl_Canvas_Object *icon);
-
-/**
+  }
+procedure efl_ui_win_icon_object_set(obj:PEo; icon:PEfl_Canvas_Object);cdecl;external;
+{*
  * @brief A window object's icon.
  *
  * This sets an image to be used as the icon for the given window, in the
@@ -555,10 +673,11 @@ extern  void efl_ui_win_icon_object_set(Eo *obj, Efl_Canvas_Object *icon);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  const Efl_Canvas_Object *efl_ui_win_icon_object_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function efl_ui_win_icon_object_get(obj:PEo):PEfl_Canvas_Object;cdecl;external;
+{*
  * @brief The minimized state of a window.
  *
  * @param[in] obj The object.
@@ -567,10 +686,9 @@ extern  const Efl_Canvas_Object *efl_ui_win_icon_object_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_minimized_set(Eo *obj, Eina_Bool state);
-
-/**
+  }
+procedure efl_ui_win_minimized_set(obj:PEo; state:TEina_Bool);cdecl;external;
+{*
  * @brief The minimized state of a window.
  *
  * @param[in] obj The object.
@@ -580,10 +698,10 @@ extern  void efl_ui_win_minimized_set(Eo *obj, Eina_Bool state);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Eina_Bool efl_ui_win_minimized_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_ui_win_minimized_get(obj:PEo):TEina_Bool;cdecl;external;
+{*
  * @brief The maximized state of a window.
  *
  * @param[in] obj The object.
@@ -592,10 +710,9 @@ extern  Eina_Bool efl_ui_win_minimized_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_maximized_set(Eo *obj, Eina_Bool maximized);
-
-/**
+  }
+procedure efl_ui_win_maximized_set(obj:PEo; maximized:TEina_Bool);cdecl;external;
+{*
  * @brief The maximized state of a window.
  *
  * @param[in] obj The object.
@@ -605,10 +722,10 @@ extern  void efl_ui_win_maximized_set(Eo *obj, Eina_Bool maximized);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Eina_Bool efl_ui_win_maximized_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_ui_win_maximized_get(obj:PEo):TEina_Bool;cdecl;external;
+{*
  * @brief The fullscreen state of a window.
  *
  * @param[in] obj The object.
@@ -617,10 +734,9 @@ extern  Eina_Bool efl_ui_win_maximized_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_fullscreen_set(Eo *obj, Eina_Bool fullscreen);
-
-/**
+  }
+procedure efl_ui_win_fullscreen_set(obj:PEo; fullscreen:TEina_Bool);cdecl;external;
+{*
  * @brief The fullscreen state of a window.
  *
  * @param[in] obj The object.
@@ -630,11 +746,11 @@ extern  void efl_ui_win_fullscreen_set(Eo *obj, Eina_Bool fullscreen);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Eina_Bool efl_ui_win_fullscreen_get(const Eo *obj);
-
-#ifdef EFL_BETA_API_SUPPORT
-/**
+  }
+(* Const before type ignored *)
+function efl_ui_win_fullscreen_get(obj:PEo):TEina_Bool;cdecl;external;
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The sticky state of the window.
  *
  * Hints the Window Manager that the window in @c obj should be left fixed at
@@ -646,12 +762,12 @@ extern  Eina_Bool efl_ui_win_fullscreen_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_sticky_set(Eo *obj, Eina_Bool sticky);
-#endif /* EFL_BETA_API_SUPPORT */
-
-#ifdef EFL_BETA_API_SUPPORT
-/**
+  }
+procedure efl_ui_win_sticky_set(obj:PEo; sticky:TEina_Bool);cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The sticky state of the window.
  *
  * Hints the Window Manager that the window in @c obj should be left fixed at
@@ -664,12 +780,14 @@ extern  void efl_ui_win_sticky_set(Eo *obj, Eina_Bool sticky);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Eina_Bool efl_ui_win_sticky_get(const Eo *obj);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
+(* Const before type ignored *)
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+function efl_ui_win_sticky_get(obj:PEo):TEina_Bool;cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The urgent state of a window.
  *
  * @param[in] obj The object.
@@ -679,12 +797,13 @@ extern  Eina_Bool efl_ui_win_sticky_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_urgent_set(Eo *obj, Efl_Ui_Win_Urgent_Mode urgent);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+procedure efl_ui_win_urgent_set(obj:PEo; urgent:TEfl_Ui_Win_Urgent_Mode);cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The urgent state of a window.
  *
  * @param[in] obj The object.
@@ -694,12 +813,14 @@ extern  void efl_ui_win_urgent_set(Eo *obj, Efl_Ui_Win_Urgent_Mode urgent);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Efl_Ui_Win_Urgent_Mode efl_ui_win_urgent_get(const Eo *obj);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
+(* Const before type ignored *)
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+function efl_ui_win_urgent_get(obj:PEo):TEfl_Ui_Win_Urgent_Mode;cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The modal state of a window.
  *
  * @param[in] obj The object.
@@ -708,12 +829,13 @@ extern  Efl_Ui_Win_Urgent_Mode efl_ui_win_urgent_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_modal_set(Eo *obj, Efl_Ui_Win_Modal_Mode modal);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+procedure efl_ui_win_modal_set(obj:PEo; modal:TEfl_Ui_Win_Modal_Mode);cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The modal state of a window.
  *
  * @param[in] obj The object.
@@ -723,12 +845,14 @@ extern  void efl_ui_win_modal_set(Eo *obj, Efl_Ui_Win_Modal_Mode modal);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Efl_Ui_Win_Modal_Mode efl_ui_win_modal_get(const Eo *obj);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
+(* Const before type ignored *)
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+function efl_ui_win_modal_get(obj:PEo):TEfl_Ui_Win_Modal_Mode;cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The borderless state of a window.
  *
  * This function requests the Window Manager not to draw any decoration around
@@ -740,12 +864,13 @@ extern  Efl_Ui_Win_Modal_Mode efl_ui_win_modal_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_borderless_set(Eo *obj, Eina_Bool borderless);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+procedure efl_ui_win_borderless_set(obj:PEo; borderless:TEina_Bool);cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The borderless state of a window.
  *
  * This function requests the Window Manager not to draw any decoration around
@@ -758,12 +883,14 @@ extern  void efl_ui_win_borderless_set(Eo *obj, Eina_Bool borderless);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Eina_Bool efl_ui_win_borderless_get(const Eo *obj);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
+(* Const before type ignored *)
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+function efl_ui_win_borderless_get(obj:PEo):TEina_Bool;cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The role of the window.
  *
  * It is a hint of how the Window Manager should handle it. Unlike
@@ -779,12 +906,14 @@ extern  Eina_Bool efl_ui_win_borderless_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_role_set(Eo *obj, const char *role);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
+(* Const before type ignored *)
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+procedure efl_ui_win_role_set(obj:PEo; role:Pchar);cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The role of the window.
  *
  * It is a hint of how the Window Manager should handle it. Unlike
@@ -801,11 +930,14 @@ extern  void efl_ui_win_role_set(Eo *obj, const char *role);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  const char *efl_ui_win_role_get(const Eo *obj);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
 
-/**
+function efl_ui_win_role_get(obj:PEo):Pchar;cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{*
  * @brief The window name.
  *
  * The meaning of name depends on the underlying windowing system.
@@ -821,10 +953,11 @@ extern  const char *efl_ui_win_role_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_name_set(Eo *obj, const char *name);
+  }
+(* Const before type ignored *)
 
-/**
+procedure efl_ui_win_name_set(obj:PEo; name:Pchar);cdecl;external;
+{*
  * @brief The window name.
  *
  * The meaning of name depends on the underlying windowing system.
@@ -841,11 +974,12 @@ extern  void efl_ui_win_name_set(Eo *obj, const char *name);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  const char *efl_ui_win_name_get(const Eo *obj);
-
-#ifdef EFL_BETA_API_SUPPORT
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function efl_ui_win_name_get(obj:PEo):Pchar;cdecl;external;
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The type of the window.
  *
  * It is a hint of how the Window Manager should handle it.
@@ -863,12 +997,12 @@ extern  const char *efl_ui_win_name_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_type_set(Eo *obj, Efl_Ui_Win_Type type);
-#endif /* EFL_BETA_API_SUPPORT */
-
-#ifdef EFL_BETA_API_SUPPORT
-/**
+  }
+procedure efl_ui_win_type_set(obj:PEo; _type:TEfl_Ui_Win_Type);cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The type of the window.
  *
  * It is a hint of how the Window Manager should handle it.
@@ -887,12 +1021,14 @@ extern  void efl_ui_win_type_set(Eo *obj, Efl_Ui_Win_Type type);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Efl_Ui_Win_Type efl_ui_win_type_get(const Eo *obj);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
+(* Const before type ignored *)
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+function efl_ui_win_type_get(obj:PEo):TEfl_Ui_Win_Type;cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The hardware acceleration preference for this window.
  *
  * This is a constructor function and can only be called before
@@ -914,7 +1050,7 @@ extern  Efl_Ui_Win_Type efl_ui_win_type_get(const Eo *obj);
  * Since 1.14, it is also possible to specify some GL properties for the GL
  * window surface. This allows applications to use GLView with depth, stencil
  * and MSAA buffers with direct rendering. The new accel preference string
- * format is thus "{HW Accel}[:depth{value}[:stencil{value}[:msaa{str}$]$]$]".
+ * format is thus "HW Accel[:depthvalue[:stencilvalue[:msaastr$]$]$]".
  *
  * Accepted values for depth are for instance "depth", "depth16", "depth24".
  * Accepted values for stencil are "stencil", "stencil1", "stencil8". For MSAA,
@@ -939,12 +1075,14 @@ extern  Efl_Ui_Win_Type efl_ui_win_type_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_accel_preference_set(Eo *obj, const char *accel);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
+(* Const before type ignored *)
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+procedure efl_ui_win_accel_preference_set(obj:PEo; accel:Pchar);cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The hardware acceleration preference for this window.
  *
  * This is a constructor function and can only be called before
@@ -966,7 +1104,7 @@ extern  void efl_ui_win_accel_preference_set(Eo *obj, const char *accel);
  * Since 1.14, it is also possible to specify some GL properties for the GL
  * window surface. This allows applications to use GLView with depth, stencil
  * and MSAA buffers with direct rendering. The new accel preference string
- * format is thus "{HW Accel}[:depth{value}[:stencil{value}[:msaa{str}$]$]$]".
+ * format is thus "HW Accel[:depthvalue[:stencilvalue[:msaastr$]$]$]".
  *
  * Accepted values for depth are for instance "depth", "depth16", "depth24".
  * Accepted values for stencil are "stencil", "stencil1", "stencil8". For MSAA,
@@ -992,11 +1130,14 @@ extern  void efl_ui_win_accel_preference_set(Eo *obj, const char *accel);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  const char *efl_ui_win_accel_preference_get(const Eo *obj);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
 
-/**
+function efl_ui_win_accel_preference_get(obj:PEo):Pchar;cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{*
  * @brief The alpha channel state of a window.
  *
  * If @c alpha is true, the alpha channel of the canvas will be enabled
@@ -1016,10 +1157,10 @@ extern  const char *efl_ui_win_accel_preference_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_alpha_set(Eo *obj, Eina_Bool alpha);
+  }
 
-/**
+procedure efl_ui_win_alpha_set(obj:PEo; alpha:TEina_Bool);cdecl;external;
+{*
  * @brief The alpha channel state of a window.
  *
  * If @c alpha is true, the alpha channel of the canvas will be enabled
@@ -1039,11 +1180,11 @@ extern  void efl_ui_win_alpha_set(Eo *obj, Eina_Bool alpha);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Eina_Bool efl_ui_win_alpha_get(const Eo *obj);
-
-#ifdef EFL_BETA_API_SUPPORT
-/**
+  }
+(* Const before type ignored *)
+function efl_ui_win_alpha_get(obj:PEo):TEina_Bool;cdecl;external;
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief Get the stack ID string of the window as an opaque string.
  *
  * This ID is immutable and can never be modified. It will be an opaque string
@@ -1063,12 +1204,14 @@ extern  Eina_Bool efl_ui_win_alpha_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  const char *efl_ui_win_stack_id_get(const Eo *obj);
-#endif /* EFL_BETA_API_SUPPORT */
-
-#ifdef EFL_BETA_API_SUPPORT
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function efl_ui_win_stack_id_get(obj:PEo):Pchar;cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The window stack ID to use as the master top-level.
  *
  * This sets the ID string to be used as the master top-level window as the
@@ -1082,12 +1225,14 @@ extern  const char *efl_ui_win_stack_id_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_stack_master_id_set(Eo *obj, const char *id);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
+(* Const before type ignored *)
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+procedure efl_ui_win_stack_master_id_set(obj:PEo; id:Pchar);cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The window stack ID to use as the master top-level.
  *
  * This sets the ID string to be used as the master top-level window as the
@@ -1102,12 +1247,15 @@ extern  void efl_ui_win_stack_master_id_set(Eo *obj, const char *id);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  const char *efl_ui_win_stack_master_id_get(const Eo *obj);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+function efl_ui_win_stack_master_id_get(obj:PEo):Pchar;cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The stack base state of this window
  *
  * This is a boolean flag that determines if this window will become the base
@@ -1123,12 +1271,13 @@ extern  const char *efl_ui_win_stack_master_id_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_stack_base_set(Eo *obj, Eina_Bool base);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+procedure efl_ui_win_stack_base_set(obj:PEo; base:TEina_Bool);cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The stack base state of this window
  *
  * This is a boolean flag that determines if this window will become the base
@@ -1145,12 +1294,14 @@ extern  void efl_ui_win_stack_base_set(Eo *obj, Eina_Bool base);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Eina_Bool efl_ui_win_stack_base_get(const Eo *obj);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
+(* Const before type ignored *)
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+function efl_ui_win_stack_base_get(obj:PEo):TEina_Bool;cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief Pop (delete) all windows in the stack above this window.
  *
  * This will try and delete all the windows in the stack that are above the
@@ -1161,11 +1312,12 @@ extern  Eina_Bool efl_ui_win_stack_base_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_stack_pop_to(Eo *obj);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
 
-/**
+procedure efl_ui_win_stack_pop_to(obj:PEo);cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{*
  * @brief Enable quitting the main loop when all windows are closed.
  *
  * When set, the main loop will quit with the passed exit code once all windows
@@ -1182,10 +1334,11 @@ extern  void efl_ui_win_stack_pop_to(Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_exit_on_all_windows_closed_set(const Eina_Value *exit_code);
+  }
+(* Const before type ignored *)
 
-/**
+procedure efl_ui_win_exit_on_all_windows_closed_set(exit_code:PEina_Value);cdecl;external;
+{*
  * @brief Enable quitting the main loop when all windows are closed.
  *
  * When set, the main loop will quit with the passed exit code once all windows
@@ -1202,10 +1355,10 @@ extern  void efl_ui_win_exit_on_all_windows_closed_set(const Eina_Value *exit_co
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  const Eina_Value *efl_ui_win_exit_on_all_windows_closed_get(void);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_ui_win_exit_on_all_windows_closed_get:PEina_Value;cdecl;external;
+{*
  * @brief Activate a window object.
  *
  * This function sends a request to the Window Manager to activate the window
@@ -1221,11 +1374,10 @@ extern  const Eina_Value *efl_ui_win_exit_on_all_windows_closed_get(void);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_activate(Eo *obj);
-
-#ifdef EFL_BETA_API_SUPPORT
-/**
+  }
+procedure efl_ui_win_activate(obj:PEo);cdecl;external;
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief Center a window on the screen.
  *
  * This function centers window @c obj horizontally and/or vertically based on
@@ -1244,11 +1396,11 @@ extern  void efl_ui_win_activate(Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_center(Eo *obj, Eina_Bool h, Eina_Bool v);
-#endif /* EFL_BETA_API_SUPPORT */
-
-/**
+  }
+procedure efl_ui_win_center(obj:PEo; h:TEina_Bool; v:TEina_Bool);cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{*
  * @brief Start moving or resizing the window.
  *
  * The user can request the display server to start moving or resizing the
@@ -1296,10 +1448,10 @@ extern  void efl_ui_win_center(Eo *obj, Eina_Bool h, Eina_Bool v);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Eina_Bool efl_ui_win_move_resize_start(Eo *obj, Efl_Ui_Win_Move_Resize_Mode mode);
+  }
 
-/**
+function efl_ui_win_move_resize_start(obj:PEo; mode:TEfl_Ui_Win_Move_Resize_Mode):TEina_Bool;cdecl;external;
+{*
  * @brief Base size for objects with sizing restrictions.
  *
  * This is not a size enforcement in any way, it's just a hint that should be
@@ -1316,10 +1468,9 @@ extern  Eina_Bool efl_ui_win_move_resize_start(Eo *obj, Efl_Ui_Win_Move_Resize_M
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_hint_base_set(Eo *obj, Eina_Size2D sz);
-
-/**
+  }
+procedure efl_ui_win_hint_base_set(obj:PEo; sz:TEina_Size2D);cdecl;external;
+{*
  * @brief Base size for objects with sizing restrictions.
  *
  * This is not a size enforcement in any way, it's just a hint that should be
@@ -1337,10 +1488,10 @@ extern  void efl_ui_win_hint_base_set(Eo *obj, Eina_Size2D sz);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Eina_Size2D efl_ui_win_hint_base_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_ui_win_hint_base_get(obj:PEo):TEina_Size2D;cdecl;external;
+{*
  * @brief Step size for objects with sizing restrictions.
  *
  * This is not a size enforcement in any way, it's just a hint that should be
@@ -1357,10 +1508,9 @@ extern  Eina_Size2D efl_ui_win_hint_base_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_hint_step_set(Eo *obj, Eina_Size2D sz);
-
-/**
+  }
+procedure efl_ui_win_hint_step_set(obj:PEo; sz:TEina_Size2D);cdecl;external;
+{*
  * @brief Step size for objects with sizing restrictions.
  *
  * This is not a size enforcement in any way, it's just a hint that should be
@@ -1378,11 +1528,11 @@ extern  void efl_ui_win_hint_step_set(Eo *obj, Eina_Size2D sz);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Eina_Size2D efl_ui_win_hint_step_get(const Eo *obj);
-
-#ifdef EFL_BETA_API_SUPPORT
-/**
+  }
+(* Const before type ignored *)
+function efl_ui_win_hint_step_get(obj:PEo):TEina_Size2D;cdecl;external;
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief Returns an iterator over the current known pointer positions.
  *
  * This is used to iterate over the current known multi-touch positions,
@@ -1407,12 +1557,13 @@ extern  Eina_Size2D efl_ui_win_hint_step_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Eina_Iterator *efl_ui_win_pointer_iterate(const Eo *obj, Eina_Bool hover)  ;
-#endif /* EFL_BETA_API_SUPPORT */
-
-#ifdef EFL_BETA_API_SUPPORT
-/**
+  }
+(* Const before type ignored *)
+function efl_ui_win_pointer_iterate(obj:PEo; hover:TEina_Bool):PEina_Iterator;cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The rotation of this window
  *
  * The value will automatically change when the Window Manager of this window
@@ -1425,12 +1576,13 @@ extern  Eina_Iterator *efl_ui_win_pointer_iterate(const Eo *obj, Eina_Bool hover
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_rotation_set(Eo *obj, int rotation);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
 
-#ifdef EFL_BETA_API_SUPPORT
-/**
+procedure efl_ui_win_rotation_set(obj:PEo; rotation:longint);cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+{*
  * @brief The rotation of this window
  *
  * The value will automatically change when the Window Manager of this window
@@ -1444,11 +1596,13 @@ extern  void efl_ui_win_rotation_set(Eo *obj, int rotation);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  int efl_ui_win_rotation_get(const Eo *obj);
-#endif /* EFL_BETA_API_SUPPORT */
+  }
+(* Const before type ignored *)
 
-/**
+function efl_ui_win_rotation_get(obj:PEo):longint;cdecl;external;
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{*
  * @brief Whether focus highlight is enabled or not on this window, regardless
  * of the global setting.
  *
@@ -1461,10 +1615,10 @@ extern  int efl_ui_win_rotation_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_focus_highlight_enabled_set(Eo *obj, Eina_Bool enabled);
+  }
 
-/**
+procedure efl_ui_win_focus_highlight_enabled_set(obj:PEo; enabled:TEina_Bool);cdecl;external;
+{*
  * @brief Whether focus highlight is enabled or not on this window, regardless
  * of the global setting.
  *
@@ -1478,10 +1632,10 @@ extern  void efl_ui_win_focus_highlight_enabled_set(Eo *obj, Eina_Bool enabled);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Eina_Bool efl_ui_win_focus_highlight_enabled_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_ui_win_focus_highlight_enabled_get(obj:PEo):TEina_Bool;cdecl;external;
+{*
  * @brief Control the widget focus highlight style.
  *
  * If @c style is @c null, the default will be used.
@@ -1497,10 +1651,10 @@ extern  Eina_Bool efl_ui_win_focus_highlight_enabled_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Eina_Bool efl_ui_win_focus_highlight_style_set(Eo *obj, const char *style);
-
-/**
+  }
+(* Const before type ignored *)
+function efl_ui_win_focus_highlight_style_set(obj:PEo; style:Pchar):TEina_Bool;cdecl;external;
+{*
  * @brief Control the widget focus highlight style.
  *
  * If @c style is @c null, the default will be used.
@@ -1515,10 +1669,11 @@ extern  Eina_Bool efl_ui_win_focus_highlight_style_set(Eo *obj, const char *styl
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  const char *efl_ui_win_focus_highlight_style_get(const Eo *obj);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function efl_ui_win_focus_highlight_style_get(obj:PEo):Pchar;cdecl;external;
+{*
  * @brief Whether focus highlight should animate or not.
  *
  * See also @ref efl_ui_win_focus_highlight_style_get. See also
@@ -1530,10 +1685,9 @@ extern  const char *efl_ui_win_focus_highlight_style_get(const Eo *obj);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  void efl_ui_win_focus_highlight_animate_set(Eo *obj, Eina_Bool animate);
-
-/**
+  }
+procedure efl_ui_win_focus_highlight_animate_set(obj:PEo; animate:TEina_Bool);cdecl;external;
+{*
  * @brief Whether focus highlight should animate or not.
  *
  * See also @ref efl_ui_win_focus_highlight_style_get. See also
@@ -1546,177 +1700,346 @@ extern  void efl_ui_win_focus_highlight_animate_set(Eo *obj, Eina_Bool animate);
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-extern  Eina_Bool efl_ui_win_focus_highlight_animate_get(const Eo *obj);
-
-extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_DELETE_REQUEST;
-
-/** Called when the window receives a delete request
+  }
+(* Const before type ignored *)
+function efl_ui_win_focus_highlight_animate_get(obj:PEo):TEina_Bool;cdecl;external;
+(* Const before type ignored *)
+  var
+    _EFL_UI_WIN_EVENT_DELETE_REQUEST : TEfl_Event_Description;cvar;external;
+{* Called when the window receives a delete request
  *
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-#define EFL_UI_WIN_EVENT_DELETE_REQUEST (&(_EFL_UI_WIN_EVENT_DELETE_REQUEST))
-#ifdef EFL_BETA_API_SUPPORT
-extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_WITHDRAWN;
+  }
 
-/** Called when window is withdrawn
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_DELETE_REQUEST : longint; { return type might be wrong }
+
+{$ifdef EFL_BETA_API_SUPPORT}
+(* Const before type ignored *)
+  var
+    _EFL_UI_WIN_EVENT_WITHDRAWN : TEfl_Event_Description;cvar;external;
+{* Called when window is withdrawn
  *
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-#define EFL_UI_WIN_EVENT_WITHDRAWN (&(_EFL_UI_WIN_EVENT_WITHDRAWN))
-#endif /* EFL_BETA_API_SUPPORT */
+  }
 
-extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_MINIMIZED;
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_WITHDRAWN : longint; { return type might be wrong }
 
-/** Called when window is minimized
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+(* Const before type ignored *)
+  var
+    _EFL_UI_WIN_EVENT_MINIMIZED : TEfl_Event_Description;cvar;external;
+{* Called when window is minimized
  *
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-#define EFL_UI_WIN_EVENT_MINIMIZED (&(_EFL_UI_WIN_EVENT_MINIMIZED))
+  }
 
-extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_NORMAL;
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_MINIMIZED : longint; { return type might be wrong }
 
-/** Called when window is set to normal state
+(* Const before type ignored *)
+  var
+    _EFL_UI_WIN_EVENT_NORMAL : TEfl_Event_Description;cvar;external;
+{* Called when window is set to normal state
  *
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-#define EFL_UI_WIN_EVENT_NORMAL (&(_EFL_UI_WIN_EVENT_NORMAL))
-#ifdef EFL_BETA_API_SUPPORT
-extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_STICK;
+  }
 
-/** Called when window is set as sticky
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_NORMAL : longint; { return type might be wrong }
+
+{$ifdef EFL_BETA_API_SUPPORT}
+(* Const before type ignored *)
+  var
+    _EFL_UI_WIN_EVENT_STICK : TEfl_Event_Description;cvar;external;
+{* Called when window is set as sticky
  *
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-#define EFL_UI_WIN_EVENT_STICK (&(_EFL_UI_WIN_EVENT_STICK))
-#endif /* EFL_BETA_API_SUPPORT */
-#ifdef EFL_BETA_API_SUPPORT
-extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_UNSTICK;
+  }
 
-/** Called when window is no  longer set as sticky
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_STICK : longint; { return type might be wrong }
+
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+(* Const before type ignored *)
+  var
+    _EFL_UI_WIN_EVENT_UNSTICK : TEfl_Event_Description;cvar;external;
+{* Called when window is no  longer set as sticky
  *
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-#define EFL_UI_WIN_EVENT_UNSTICK (&(_EFL_UI_WIN_EVENT_UNSTICK))
-#endif /* EFL_BETA_API_SUPPORT */
+  }
 
-extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_FULLSCREEN_CHANGED;
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_UNSTICK : longint; { return type might be wrong }
 
-/** Called when window is set to or from fullscreen
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+(* Const before type ignored *)
+  var
+    _EFL_UI_WIN_EVENT_FULLSCREEN_CHANGED : TEfl_Event_Description;cvar;external;
+{* Called when window is set to or from fullscreen
  * @return Eina_Bool
  *
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-#define EFL_UI_WIN_EVENT_FULLSCREEN_CHANGED (&(_EFL_UI_WIN_EVENT_FULLSCREEN_CHANGED))
+  }
 
-extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_MAXIMIZED_CHANGED;
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_FULLSCREEN_CHANGED : longint; { return type might be wrong }
 
-/** Called when window is set to or from maximized
+(* Const before type ignored *)
+  var
+    _EFL_UI_WIN_EVENT_MAXIMIZED_CHANGED : TEfl_Event_Description;cvar;external;
+{* Called when window is set to or from maximized
  * @return Eina_Bool
  *
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-#define EFL_UI_WIN_EVENT_MAXIMIZED_CHANGED (&(_EFL_UI_WIN_EVENT_MAXIMIZED_CHANGED))
-#ifdef EFL_BETA_API_SUPPORT
-extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_INDICATOR_PROP_CHANGED;
+  }
 
-/** Called when indicator is property changed
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_MAXIMIZED_CHANGED : longint; { return type might be wrong }
+
+{$ifdef EFL_BETA_API_SUPPORT}
+(* Const before type ignored *)
+  var
+    _EFL_UI_WIN_EVENT_INDICATOR_PROP_CHANGED : TEfl_Event_Description;cvar;external;
+{* Called when indicator is property changed
  *
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-#define EFL_UI_WIN_EVENT_INDICATOR_PROP_CHANGED (&(_EFL_UI_WIN_EVENT_INDICATOR_PROP_CHANGED))
-#endif /* EFL_BETA_API_SUPPORT */
+  }
 
-extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_WIN_ROTATION_CHANGED;
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_INDICATOR_PROP_CHANGED : longint; { return type might be wrong }
 
-/** Called when window rotation is changed, sends current rotation in degrees
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+(* Const before type ignored *)
+  var
+    _EFL_UI_WIN_EVENT_WIN_ROTATION_CHANGED : TEfl_Event_Description;cvar;external;
+{* Called when window rotation is changed, sends current rotation in degrees
  * @return int
  *
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-#define EFL_UI_WIN_EVENT_WIN_ROTATION_CHANGED (&(_EFL_UI_WIN_EVENT_WIN_ROTATION_CHANGED))
-#ifdef EFL_BETA_API_SUPPORT
-extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_PROFILE_CHANGED;
+  }
 
-/** Called when profile is changed
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_WIN_ROTATION_CHANGED : longint; { return type might be wrong }
+
+{$ifdef EFL_BETA_API_SUPPORT}
+(* Const before type ignored *)
+  var
+    _EFL_UI_WIN_EVENT_PROFILE_CHANGED : TEfl_Event_Description;cvar;external;
+{* Called when profile is changed
  *
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-#define EFL_UI_WIN_EVENT_PROFILE_CHANGED (&(_EFL_UI_WIN_EVENT_PROFILE_CHANGED))
-#endif /* EFL_BETA_API_SUPPORT */
-#ifdef EFL_BETA_API_SUPPORT
-extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_WM_ROTATION_CHANGED;
+  }
 
-/** Called when window manager rotation is changed
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_PROFILE_CHANGED : longint; { return type might be wrong }
+
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+{$ifdef EFL_BETA_API_SUPPORT}
+(* Const before type ignored *)
+  var
+    _EFL_UI_WIN_EVENT_WM_ROTATION_CHANGED : TEfl_Event_Description;cvar;external;
+{* Called when window manager rotation is changed
  *
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-#define EFL_UI_WIN_EVENT_WM_ROTATION_CHANGED (&(_EFL_UI_WIN_EVENT_WM_ROTATION_CHANGED))
-#endif /* EFL_BETA_API_SUPPORT */
+  }
 
-extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_THEME_CHANGED;
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_WM_ROTATION_CHANGED : longint; { return type might be wrong }
 
-/** Called when theme is changed
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+(* Const before type ignored *)
+  var
+    _EFL_UI_WIN_EVENT_THEME_CHANGED : TEfl_Event_Description;cvar;external;
+{* Called when theme is changed
  *
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-#define EFL_UI_WIN_EVENT_THEME_CHANGED (&(_EFL_UI_WIN_EVENT_THEME_CHANGED))
-#ifdef EFL_BETA_API_SUPPORT
-extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_ELM_ACTION_BLOCK_MENU;
+  }
 
-/** Called when elementary block menu action occurs
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_THEME_CHANGED : longint; { return type might be wrong }
+
+{$ifdef EFL_BETA_API_SUPPORT}
+(* Const before type ignored *)
+  var
+    _EFL_UI_WIN_EVENT_ELM_ACTION_BLOCK_MENU : TEfl_Event_Description;cvar;external;
+{* Called when elementary block menu action occurs
  *
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-#define EFL_UI_WIN_EVENT_ELM_ACTION_BLOCK_MENU (&(_EFL_UI_WIN_EVENT_ELM_ACTION_BLOCK_MENU))
-#endif /* EFL_BETA_API_SUPPORT */
+  }
 
-extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_PAUSE;
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_ELM_ACTION_BLOCK_MENU : longint; { return type might be wrong }
 
-/** Called when the window is not going be displayed for some time
+{$endif}
+{ EFL_BETA_API_SUPPORT  }
+(* Const before type ignored *)
+  var
+    _EFL_UI_WIN_EVENT_PAUSE : TEfl_Event_Description;cvar;external;
+{* Called when the window is not going be displayed for some time
  *
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-#define EFL_UI_WIN_EVENT_PAUSE (&(_EFL_UI_WIN_EVENT_PAUSE))
+  }
 
-extern  extern const Efl_Event_Description _EFL_UI_WIN_EVENT_RESUME;
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_PAUSE : longint; { return type might be wrong }
 
-/** Called before a window is rendered after a pause event
+(* Const before type ignored *)
+  var
+    _EFL_UI_WIN_EVENT_RESUME : TEfl_Event_Description;cvar;external;
+{* Called before a window is rendered after a pause event
  *
  * @since 1.22
  *
  * @ingroup Efl_Ui_Win
- */
-#define EFL_UI_WIN_EVENT_RESUME (&(_EFL_UI_WIN_EVENT_RESUME))
+  }
 
-#endif
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_RESUME : longint; { return type might be wrong }
+
+{$endif}
+
+implementation
+
+{ was #define dname def_expr }
+function EFL_UI_WIN_CLASS : longint; { return type might be wrong }
+  begin
+    EFL_UI_WIN_CLASS:=efl_ui_win_class_get;
+  end;
+
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_DELETE_REQUEST : longint; { return type might be wrong }
+  begin
+    EFL_UI_WIN_EVENT_DELETE_REQUEST:=@(_EFL_UI_WIN_EVENT_DELETE_REQUEST);
+  end;
+
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_WITHDRAWN : longint; { return type might be wrong }
+  begin
+    EFL_UI_WIN_EVENT_WITHDRAWN:=@(_EFL_UI_WIN_EVENT_WITHDRAWN);
+  end;
+
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_MINIMIZED : longint; { return type might be wrong }
+  begin
+    EFL_UI_WIN_EVENT_MINIMIZED:=@(_EFL_UI_WIN_EVENT_MINIMIZED);
+  end;
+
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_NORMAL : longint; { return type might be wrong }
+  begin
+    EFL_UI_WIN_EVENT_NORMAL:=@(_EFL_UI_WIN_EVENT_NORMAL);
+  end;
+
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_STICK : longint; { return type might be wrong }
+  begin
+    EFL_UI_WIN_EVENT_STICK:=@(_EFL_UI_WIN_EVENT_STICK);
+  end;
+
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_UNSTICK : longint; { return type might be wrong }
+  begin
+    EFL_UI_WIN_EVENT_UNSTICK:=@(_EFL_UI_WIN_EVENT_UNSTICK);
+  end;
+
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_FULLSCREEN_CHANGED : longint; { return type might be wrong }
+  begin
+    EFL_UI_WIN_EVENT_FULLSCREEN_CHANGED:=@(_EFL_UI_WIN_EVENT_FULLSCREEN_CHANGED);
+  end;
+
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_MAXIMIZED_CHANGED : longint; { return type might be wrong }
+  begin
+    EFL_UI_WIN_EVENT_MAXIMIZED_CHANGED:=@(_EFL_UI_WIN_EVENT_MAXIMIZED_CHANGED);
+  end;
+
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_INDICATOR_PROP_CHANGED : longint; { return type might be wrong }
+  begin
+    EFL_UI_WIN_EVENT_INDICATOR_PROP_CHANGED:=@(_EFL_UI_WIN_EVENT_INDICATOR_PROP_CHANGED);
+  end;
+
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_WIN_ROTATION_CHANGED : longint; { return type might be wrong }
+  begin
+    EFL_UI_WIN_EVENT_WIN_ROTATION_CHANGED:=@(_EFL_UI_WIN_EVENT_WIN_ROTATION_CHANGED);
+  end;
+
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_PROFILE_CHANGED : longint; { return type might be wrong }
+  begin
+    EFL_UI_WIN_EVENT_PROFILE_CHANGED:=@(_EFL_UI_WIN_EVENT_PROFILE_CHANGED);
+  end;
+
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_WM_ROTATION_CHANGED : longint; { return type might be wrong }
+  begin
+    EFL_UI_WIN_EVENT_WM_ROTATION_CHANGED:=@(_EFL_UI_WIN_EVENT_WM_ROTATION_CHANGED);
+  end;
+
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_THEME_CHANGED : longint; { return type might be wrong }
+  begin
+    EFL_UI_WIN_EVENT_THEME_CHANGED:=@(_EFL_UI_WIN_EVENT_THEME_CHANGED);
+  end;
+
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_ELM_ACTION_BLOCK_MENU : longint; { return type might be wrong }
+  begin
+    EFL_UI_WIN_EVENT_ELM_ACTION_BLOCK_MENU:=@(_EFL_UI_WIN_EVENT_ELM_ACTION_BLOCK_MENU);
+  end;
+
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_PAUSE : longint; { return type might be wrong }
+  begin
+    EFL_UI_WIN_EVENT_PAUSE:=@(_EFL_UI_WIN_EVENT_PAUSE);
+  end;
+
+{ was #define dname def_expr }
+function EFL_UI_WIN_EVENT_RESUME : longint; { return type might be wrong }
+  begin
+    EFL_UI_WIN_EVENT_RESUME:=@(_EFL_UI_WIN_EVENT_RESUME);
+  end;
+
+
+end.

@@ -22,32 +22,10 @@ uses
   fp_ecore,
   fp_evas,
   fp_ecore_evas,
+  fp_edje,
 
   // =======================================
 
-  Edje,                                       // io.
-  Edje_Eo,                                    // io.                    ( Evtl. löschen )
-  Edje_Common,                                // io.                    ( Macros entfernt )
-  Edje_Legacy,                                // io. -> Edje_Common
-  Edje_Edit,                                  // io. -> Edje_Legacy, Edje_Common
-  Efl_Layout,                                 // io.                    ( Evtl. löschen )
-  efl_canvas_layout_eo,                       // io.
-  efl_canvas_layout_eo_legacy,                // io.
-  efl_canvas_layout_part_eo,                  // io.
-  efl_canvas_layout_part_external_eo,         // io.
-  efl_canvas_layout_part_text_eo,             // io.
-  efl_canvas_layout_part_box_eo,              // io.
-  efl_canvas_layout_part_invalid_eo,          // io.
-  efl_canvas_layout_part_swallow_eo,          // io.
-  efl_canvas_layout_part_table_eo,            // io.
-  efl_canvas_layout_types_eot,                // io.
-  efl_canvas_layout_part_type_provider_eo,    // io. -> efl_canvas_layout_types_eot
-  efl_layout_calc_eo,                         // io.
-  efl_layout_group_eo,                        // io.
-  efl_layout_signal_eo,                       // io.
-  efl_layout_group_eo_legacy,                 // io.
-  edje_edit_eo,                               // io.
-  edje_edit_eo_legacy,                        // io.
 
   // =======================================
 
@@ -62,18 +40,21 @@ uses
   elm_entry_eo_legacy,                                 // io. -> elm_general, elm_entry_common
   elm_entry_legacy,                                    // io. -> elm_general
   elm_object,                                          // io. -> elm_general
-
-//  elm_config,                                          // io. -> elm_general
-  elm_scroller_legacy,
-  elm_map_common,
-  elm_object_item,
-  elm_tooltip,
-  elm_widget_item_eo_legacy,
-  efl_ui_textpath_eo_legacy,
-  elm_deprecated,                                          // io. -> elm_general
-
+  elm_config,                                          // io. -> elm_general
+  elm_scroller_legacy,                                 // io.
+  elm_map_common,                                      // io.
+  elm_tooltip,                                         // io.
+  elm_widget_item_eo_legacy,                           // io. -> elm_general, elm_tooltip
+  elm_object_item,                                     // io.   ( Macros redifned )
+  efl_ui_textpath_eo_legacy,                           // io.
+  efl_ui_win_eo,                                       // io.
 
 
+
+
+
+
+  elm_deprecated,                                      // io. -> elm_general, elm_scroller_legacy, elm_map_common, elm_win_legacy, efl_ui_textpath_eo_legacy, elm_widget_item_eo_legacy
   Math;
 
   procedure on_win_del(data: pointer; obj: PEvas_Object; event_info: pointer); cdecl;
