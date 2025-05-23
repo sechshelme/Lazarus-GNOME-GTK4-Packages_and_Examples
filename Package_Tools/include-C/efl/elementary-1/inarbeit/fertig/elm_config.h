@@ -1236,7 +1236,7 @@ extern void      elm_config_password_show_last_timeout_set(double password_show_
  * @see elm_config_engine_set()
  * @deprecated use elm_config_accel_preference_get() + elm_config_accel_preference_set()
  */
-EINA_DEPRECATED extern const char *elm_config_engine_get(void);
+/*xxxxxxxxxx    EINA_DEPRECATED*/ extern const char *elm_config_engine_get(void);
 
 /**
  * @brief Set Elementary's rendering engine for use.
@@ -1249,7 +1249,7 @@ EINA_DEPRECATED extern const char *elm_config_engine_get(void);
  * @see elm_win_add()
  * @deprecated use elm_config_accel_preference_get() + elm_config_accel_preference_set()
  */
-EINA_DEPRECATED extern void        elm_config_engine_set(const char *engine);
+/*xxxxxxxxxx    EINA_DEPRECATED*/ extern void        elm_config_engine_set(const char *engine);
 
 /**
  * @brief Get Elementary's preferred engine to use.

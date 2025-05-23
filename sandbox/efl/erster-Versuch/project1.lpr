@@ -63,6 +63,16 @@ uses
   elm_entry_legacy,                                    // io. -> elm_general
   elm_object,                                          // io. -> elm_general
 
+//  elm_config,                                          // io. -> elm_general
+  elm_scroller_legacy,
+  elm_map_common,
+  elm_object_item,
+  elm_tooltip,
+  elm_widget_item_eo_legacy,
+  efl_ui_textpath_eo_legacy,
+  elm_deprecated,                                          // io. -> elm_general
+
+
 
   Math;
 
