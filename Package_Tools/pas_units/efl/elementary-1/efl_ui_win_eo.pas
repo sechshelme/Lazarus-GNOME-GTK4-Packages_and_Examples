@@ -13,6 +13,7 @@ uses
 type
   PEfl_Ui_Win = ^TEfl_Ui_Win;
   TEfl_Ui_Win = TEo;
+
   {$ifdef EFL_BETA_API_SUPPORT}
 type
   PEfl_Ui_Win_Type = ^TEfl_Ui_Win_Type;
@@ -110,6 +111,7 @@ function EFL_UI_WIN_CLASS: PEfl_Class;
 function efl_ui_win_class_get: PEfl_Class; cdecl; external libelementary;
 procedure efl_ui_win_indicator_mode_set(obj: PEo; _type: TEfl_Ui_Win_Indicator_Mode); cdecl; external libelementary;
 function efl_ui_win_indicator_mode_get(obj: PEo): TEfl_Ui_Win_Indicator_Mode; cdecl; external libelementary;
+
 {$ifdef EFL_BETA_API_SUPPORT}
 procedure efl_ui_win_keyboard_mode_set(obj: PEo; mode: TEfl_Ui_Win_Keyboard_Mode); cdecl; external libelementary;
 {$endif}

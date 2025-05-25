@@ -10,13 +10,6 @@ uses
   {$ENDIF}
 
 
-  // ausgelagert
-  //type
-  //  PElm_Object_Item = ^TElm_Object_Item;
-  //  TElm_Object_Item = TEo;
-
-  //  TElm_Object_Item_Signal_Cb = procedure(data: pointer; it: PElm_Object_Item; emission: pchar; source: pchar); cdecl;
-
 function elm_object_item_data_get(it: PElm_Object_Item): pointer; cdecl; external libelementary;
 procedure elm_object_item_data_set(it: PElm_Object_Item; data: pointer); cdecl; external libelementary;
 procedure elm_object_item_del(obj: PElm_Object_Item); cdecl; external libelementary;

@@ -3,21 +3,17 @@ unit elm_widget_item_eo_legacy;
 interface
 
 uses
-//  efl, fp_eo, fp_eina, fp_efl, fp_evas, elm_general, elm_object_item, elm_tooltip;
 efl, fp_eo, fp_eina, fp_efl, fp_evas, elm_general, elm_tooltip;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
-// Ausgelagert
 type
   PElm_Object_Item = ^TElm_Object_Item;
   TElm_Object_Item = TEo;
 
   TElm_Object_Item_Signal_Cb = procedure(data: pointer; it: PElm_Object_Item; emission: pchar; source: pchar); cdecl;
-// =======
-
 
 type
   PElm_Widget_Item = ^TElm_Widget_Item;

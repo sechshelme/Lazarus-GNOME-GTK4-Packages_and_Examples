@@ -45,15 +45,25 @@ uses
   elm_map_common,                                      // io.
   elm_tooltip,                                         // io.
   elm_widget_item_eo_legacy,                           // io. -> elm_general, elm_tooltip
-  elm_object_item,                                     // io.   ( Macros redifned )
+  elm_object_item,                                     // io. -> elm_widget_item_eo_legacy
+  elm_access,                                          // io. -> elm_object_item, elm_widget_item_eo_legacy
+  elm_entry_eo,                                        // io. -> elm_general, elm_entry_common
+  elm_pan_eo_legacy,                                   // io.
+  elm_interface_scrollable,                            // io. -> elm_scroller_legacy, elm_pan_eo_legacy
+  elm_interface_scrollable_eo,                         // io. -> elm_interface_scrollable
+  elm_transit,                                         // io.
+  elm_theme,                                           // io.
   efl_ui_textpath_eo_legacy,                           // io.
   efl_ui_win_eo,                                       // io.
+  efl_ui_eot,                                          // io.
+  efl_ui_focus_object_eo,                              // io.
+  efl_ui_widget_eo,                                    // io. -> efl_ui_focus_object_eo, efl_ui_eot
+  efl_ui_widget_eo_legacy,                             // io. -> efl_ui_focus_object_eo
 
 
 
 
-
-
+  elm_widget,                                          // io. -> elm_widget_item_eo_legacy, elm_theme, efl_ui_widget_eo_legacy, efl_ui_focus_object_eo, elm_access, efl_ui_eot
   elm_deprecated,                                      // io. -> elm_general, elm_scroller_legacy, elm_map_common, elm_win_legacy, efl_ui_textpath_eo_legacy, elm_widget_item_eo_legacy
   Math;
 

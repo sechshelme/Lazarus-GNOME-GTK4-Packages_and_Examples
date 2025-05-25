@@ -146,7 +146,7 @@ const
     (libs: 'libecore'; units: 'efl, fp_eo, fp_eina, fp_efl'),
     (libs: 'libecore_eva'; units: 'efl, fp_eo, fp_eina, fp_efl'),
     (libs: 'libedje'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_evas'),
-    (libs: 'libelementary'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_evas'),
+    (libs: 'libelementary'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_evas, fp_ecore'),
 
     (libs: ''; units: ''));
 
