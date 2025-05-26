@@ -27,7 +27,6 @@
 {$include ecore-1/efl_core_env_eo.inc}                       // io.
 {$include ecore-1/efl_core_proc_env_eo.inc}                  // io. -> efl_core_env_eo
 {$include ecore-1/efl_exe_eo.inc}                            // io. -> efl_core_env_eo
-{$include ecore-1/efl_general.inc}                           // io.     ( evtl. löschen )
 {$include ecore-1/efl_loop_eo.inc}                           // io.
 {$include ecore-1/efl_loop_message_eo.inc}                   // io.
 {$include ecore-1/efl_loop_fd_eo.inc}                        // io.

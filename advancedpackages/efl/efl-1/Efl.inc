@@ -14,6 +14,7 @@ const
 
 type
   TEfl_Time = Ttm;
+  PEfl_Time = ^TEfl_Time;
 
   TEfl_Text_Cursor_Handle = record
   end;

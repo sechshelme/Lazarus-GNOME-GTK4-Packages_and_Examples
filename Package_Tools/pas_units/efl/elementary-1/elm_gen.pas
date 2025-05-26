@@ -9,6 +9,10 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+type
+  TElm_Gen_Item = record
+  end;
+  PElm_Gen_Item = ^TElm_Gen_Item;
 
 type
   PElm_Glob_Match_Flags = ^TElm_Glob_Match_Flags;

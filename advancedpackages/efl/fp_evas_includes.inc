@@ -11,8 +11,6 @@
 {$include evas-1/canvas/efl_canvas_vg_gradient_eo_legacy}                   // io.
 
 // evas-1
-{$include evas-1/Efl_Canvas.inc}                                         // io.  ( evtl. löschen )
-{$include evas-1/Evas.inc}                                               // io.  ( evtl. löschen )
 {$include evas-1/Evas_Loader.inc}                                        // io.
 {$include evas-1/Evas_Common.inc}                                        // io. -> Evas_Loader
 {$include evas-1/Evas_Legacy.inc}                                        // io. -> Evas_Common, Evas_Loader, efl_canvas_vg_container_eo_legacy, efl_canvas_vg_shape_eo_legacy, efl_canvas_vg_node_eo_legacy,efl_canvas_vg_gradient_eo_legacy;

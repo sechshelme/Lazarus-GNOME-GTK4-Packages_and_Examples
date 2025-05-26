@@ -101,6 +101,12 @@ function calloc(num, size: Tsize_t): Pointer; cdecl; external libclib;
 
 // =====================
 
+// /usr/local/include/ecore-file-1/Ecore_File.h
+type
+  PEcore_File_Download_Job=Pointer;
+
+
+
 type
   // /usr/include/eina-1/eina/eina_inline_lock_posix.x
   TEina_Lock = Pointer;

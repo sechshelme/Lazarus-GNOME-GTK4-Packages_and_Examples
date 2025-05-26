@@ -2,9 +2,8 @@
 
 
 // eina-1
-{$include eina-1/Efl_Config.inc}                                         // io.
-{$include eina-1/Eina.inc}                                               // io.  ( evtl. löschen )
-{$include eina-1/eina_config.inc}                                        // io.
+{$include eina-1/Efl_Config.inc}                                              // io.
+{$include eina-1/eina_config.inc}                                             // io.
 
 
 {$include eina-1/eina/eina_types.inc}                                         // io.                      ( Viele Makros entfernt )
@@ -73,7 +72,6 @@
 {$include eina-1/eina/eina_refcount.inc}                                      // io.
 {$include eina-1/eina/eina_safepointer.inc}                                   // io.
 {$include eina-1/eina/eina_util.inc}                                          // io.
-{$include eina-1/eina/eina_crc.inc}                                           // io.
 {$include eina-1/eina/eina_fnmatch.inc}                                       // io.
 {$include eina-1/eina/eina_hamster.inc}                                       // io.
 {$include eina-1/eina/eina_sha.inc}                                           // io.

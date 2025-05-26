@@ -15,7 +15,6 @@ uses
 {$include eo-1/efl_class_eo.inc}                                         // io.
 {$include eo-1/efl_object_eo.inc}                                        // io.
 {$include eo-1/efl_object_override_eo.inc}                               // io.
-{$include eo-1/eina_types_eot.inc}                                       // io.  ( evtl. löschen )
 
 {$UNDEF read_interface}
 
@@ -28,7 +27,6 @@ implementation
 {$include eo-1/efl_class_eo.inc}                                         // io.
 {$include eo-1/efl_object_eo.inc}                                        // io.
 {$include eo-1/efl_object_override_eo.inc}                               // io.
-{$include eo-1/eina_types_eot.inc}                                       // io.  ( evtl. löschen )
 
 {$UNDEF read_implementation}
 

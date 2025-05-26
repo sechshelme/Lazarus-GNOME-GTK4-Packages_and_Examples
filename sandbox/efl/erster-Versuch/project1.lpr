@@ -31,7 +31,6 @@ uses
 
 
   // elementary-1
-  elm_genlist,                                         // io.     ( Evtl. löschen )
   elm_general,                                         // io.     ( makro ELM_MAIN entfernt )
   elm_win_legacy,                                      // io.     ( Doppelt Methoden evtl. Bug in C-Hedader )
   elm_box_legacy,                                      // io.
@@ -44,6 +43,9 @@ uses
   elm_config,                                          // io. -> elm_general
   elm_scroller_legacy,                                 // io.
   elm_map_common,                                      // io.
+  elm_map_eo_legacy,                                   // io. -> elm_map_common
+  elm_map_legacy,                                      // io.
+  elm_widget_map,                                      // io. -> elm_map_common, elm_map_eo_legacy
   elm_tooltip,                                         // io.
   elm_widget_item_eo_legacy,                           // io. -> elm_general, elm_tooltip
   elm_object_item,                                     // io. -> elm_widget_item_eo_legacy
@@ -60,16 +62,31 @@ uses
   elm_cnp,                                             // io. -> elm_widget_item_eo_legacy
   elm_code_common,                                     // io.
   elm_code_line,                                       // io. -> elm_code_common
+  elm_code,                                            // io. -> elm_code_common
+  elm_code_diff_widget,                                // io. -> elm_code_common
+  elm_code_widget_legacy,                              // io. -> elm_code_common
+  elm_code_text,                                       // io. -> elm_code_line
+  elm_code_indent,                                     // io. -> elm_code_line
   elm_code_widget_eo,                                  // io. -> elm_code_common, elm_code_line
+  elm_code_file,                                       // io. -> elm_code_common, elm_code_line
+  elm_code_parse,                                      // io. -> elm_code_common, elm_code_line
+  elm_code_syntax,                                     // io. -> elm_code_common, elm_code_line
+  elm_code_widget_eo_legacy,                           // io. -> elm_code_common, elm_code_line, elm_scroller_legacy
+  elm_code_widget_selection,                           // io.
+  elm_code_widget_legacy_eo_legacy,                    // io.
   elm_gengrid_eo_legacy,                               // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen
+  elm_genlist_item_eo_legacy,                          // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen
+  elm_widget_genlist,                                  // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen
   elm_list_eo_legacy,                                  // io. -> elm_general, elm_widget_item_eo_legacy
   elm_image_legacy,                                    // io.
-  elm_icon,                                            // io.     ( Evtl. löschen )
   elm_icon_eo_legacy,                                  // io.
   elm_icon_legacy,                                     // io.
   elm_store,                                           // io. -> elm_widget_item_eo_legacy, elm_icon_legacy, elm_gen
   elm_toolbar_eo,                                      // io. -> elm_general, elm_widget_item_eo_legacy
   elm_toolbar_eo_legacy,                               // io. -> elm_general, elm_widget_item_eo_legacy
+  elm_toolbar_common,                                  // io. -> elm_widget_item_eo_legacy
+  elm_toolbar_item_eo_legacy,                          // io. -> elm_widget_item_eo_legacy
+  elm_toolbar_legacy,                                  // io. -> elm_icon_legacy
   elm_web_common,                                      // io.
   elm_web_eo,                                          // io. -> elm_web_common
   elm_web_eo_legacy,                                   // io. -> elm_web_common
@@ -79,12 +96,21 @@ uses
   efl_ui_focus_object_eo,                              // io.
   efl_ui_widget_eo,                                    // io. -> efl_ui_focus_object_eo, efl_ui_eot
   efl_ui_widget_eo_legacy,                             // io. -> efl_ui_focus_object_eo
-  efl_access_object_eo,                                // io.
-
-
-
-
   elm_widget,                                          // io. -> elm_widget_item_eo_legacy, elm_theme, efl_ui_widget_eo_legacy, efl_ui_focus_object_eo, elm_access, efl_ui_eot
+  elm_widget_toolbar,                                  // io. -> elm_general, elm_widget_item_eo_legacy, elm_toolbar_eo_legacy, elm_widget, elm_transit
+  elm_gen_common,                                      // io. -> elm_tooltip, elm_widget, elm_widget_genlist, elm_gen
+  efl_access_object_eo,                                // io.
+  efl_ui_vg_animation_eo_legacy,                       // io.
+  elm_calendar_item_eo_legacy,                         // io.
+  elm_calendar_common,                                 // io.
+  elm_calendar_eo_legacy,                              // io. -> elm_calendar_common
+  elm_calendar_legacy,                                 // io. -> elm_calendar_eo_legacy
+  elm_clock_eo_legacy,                                 // io.
+  elm_clock_legacy,                                    // io.
+  elm_clock_eo,                                        // io.
+  elm_datetime,                                        // io. -> elm_clock_eo
+
+
   elm_deprecated,                                      // io. -> elm_general, elm_scroller_legacy, elm_map_common, elm_win_legacy, efl_ui_textpath_eo_legacy, elm_widget_item_eo_legacy
   Math;
 

@@ -1,10 +1,8 @@
 
 {$include edje-1/Edje.inc}                                       // io.
-{$include edje-1/Edje_Eo.inc}                                    // io.                    ( Evtl. löschen )
 {$include edje-1/Edje_Common.inc}                                // io.                    ( Macros entfernt )
 {$include edje-1/Edje_Legacy.inc}                                // io. -> Edje_Common
 {$include edje-1/Edje_Edit.inc}                                  // io. -> Edje_Legacy, Edje_Common
-{$include edje-1/Efl_Layout.inc}                                 // io.                    ( Evtl. löschen )
 {$include edje-1/efl_canvas_layout_eo.inc}                       // io.
 {$include edje-1/efl_canvas_layout_eo_legacy.inc}                // io.
 {$include edje-1/efl_canvas_layout_part_eo.inc}                  // io.
@@ -21,4 +19,4 @@
 {$include edje-1/efl_layout_signal_eo.inc}                       // io.
 {$include edje-1/efl_layout_group_eo_legacy.inc}                 // io.
 {$include edje-1/edje_edit_eo.inc}                               // io.
-{$include edje-1/edje_edit_eo_legacy.inc}                        // io. ( Evtl. löschen )
+
