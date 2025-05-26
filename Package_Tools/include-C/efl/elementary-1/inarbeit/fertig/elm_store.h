@@ -140,7 +140,6 @@ struct _Elm_Store_Item_Info_Filesystem
    char               *path; /**< Extra information specific to the filesystem store */
 };
 
-#define ELM_STORE_ITEM_MAPPING_END { ELM_STORE_ITEM_MAPPING_NONE, NULL, 0, { .empty = { EINA_TRUE } } } /**< Use this to end a list of mappings */
 #define ELM_STORE_ITEM_MAPPING_OFFSET(st, it) offsetof(st, it) /**< Use this to get the offset in bytes in memory for where the data for the mapping lives relative to the item data (a private struct pointed to owned by the user */
 
 /**

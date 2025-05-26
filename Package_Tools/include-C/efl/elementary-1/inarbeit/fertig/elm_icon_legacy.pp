@@ -1,19 +1,57 @@
-/** Lookup order used by elm_icon_standard_set(). Should look for icons in the
+
+unit elm_icon_legacy;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from elm_icon_legacy.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    elm_icon_legacy.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pchar  = ^char;
+PElm_Icon_Lookup_Order  = ^Elm_Icon_Lookup_Order;
+PEvas_Object  = ^Evas_Object;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{* Lookup order used by elm_icon_standard_set(). Should look for icons in the
  * theme, FDO paths, or both?
  *
  * @ingroup Elm_Icon
  *
  * @deprecated Prefer using elm_config "icon_theme" instead.
- */
-typedef enum
-{
-  ELM_ICON_LOOKUP_FDO_THEME = 0, /** Icon look up order: freedesktop, theme. */
-  ELM_ICON_LOOKUP_THEME_FDO, /** Icon look up order: theme, freedesktop. */
-  ELM_ICON_LOOKUP_FDO, /** Icon look up order: freedesktop. */
-  ELM_ICON_LOOKUP_THEME /** Icon look up order: theme. */
-} Elm_Icon_Lookup_Order;
-
-/**
+  }
+{* Icon look up order: freedesktop, theme.  }
+{* Icon look up order: theme, freedesktop.  }
+{* Icon look up order: freedesktop.  }
+{* Icon look up order: theme.  }
+type
+  PElm_Icon_Lookup_Order = ^TElm_Icon_Lookup_Order;
+  TElm_Icon_Lookup_Order =  Longint;
+  Const
+    ELM_ICON_LOOKUP_FDO_THEME = 0;
+    ELM_ICON_LOOKUP_THEME_FDO = 1;
+    ELM_ICON_LOOKUP_FDO = 2;
+    ELM_ICON_LOOKUP_THEME = 3;
+;
+{*
  * Add a new icon object to the parent.
  *
  * @param parent The parent object
@@ -22,10 +60,10 @@ typedef enum
  * @see elm_image_file_set()
  *
  * @ingroup Elm_Icon
- */
-extern Evas_Object          *elm_icon_add(Evas_Object *parent);
+  }
 
-/**
+function elm_icon_add(parent:PEvas_Object):PEvas_Object;cdecl;external;
+{*
  * @brief Set the file that will be used, but use a generated thumbnail.
  *
  * This functions like elm_image_file_set() but requires the Ethumb library
@@ -37,9 +75,11 @@ extern Evas_Object          *elm_icon_add(Evas_Object *parent);
  * @param[in] group The group that the icon belongs to an edje file
  *
  * @ingroup Elm_Icon
- */
-extern void elm_icon_thumb_set(Evas_Object *obj, const char *file, const char *group);
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure elm_icon_thumb_set(obj:PEvas_Object; file:Pchar; group:Pchar);cdecl;external;
+{*
  * @brief Sets the icon lookup order used by elm_icon_standard_set().
  *
  * See also @ref elm_icon_order_lookup_get, @ref Elm_Icon_Lookup_Order.
@@ -49,11 +89,9 @@ extern void elm_icon_thumb_set(Evas_Object *obj, const char *file, const char *g
  * ELM_ICON_LOOKUP_THEME)
  *
  * @ingroup Elm_Icon
- */
-
-extern void elm_icon_order_lookup_set(Evas_Object *obj EINA_UNUSED, Elm_Icon_Lookup_Order order EINA_UNUSED) EINA_DEPRECATED;
-
-/**
+  }
+{xxxxxxxxxx    EINA_DEPRECATED }procedure elm_icon_order_lookup_set(obj:PEvas_Object; order:TElm_Icon_Lookup_Order);cdecl;external;
+{*
  * @brief Get the icon lookup order.
  *
  * See also @ref elm_icon_order_lookup_set, @ref Elm_Icon_Lookup_Order.
@@ -62,10 +100,10 @@ extern void elm_icon_order_lookup_set(Evas_Object *obj EINA_UNUSED, Elm_Icon_Loo
  * ELM_ICON_LOOKUP_THEME_FDO, ELM_ICON_LOOKUP_FDO or ELM_ICON_LOOKUP_THEME)
  *
  * @ingroup Elm_Icon
- */
-extern Elm_Icon_Lookup_Order elm_icon_order_lookup_get(const Evas_Object *obj EINA_UNUSED) EINA_DEPRECATED;
-
-/**
+  }
+(* Const before type ignored *)
+{xxxxxxxxxx    EINA_DEPRECATED }function elm_icon_order_lookup_get(obj:PEvas_Object):TElm_Icon_Lookup_Order;cdecl;external;
+{*
  * @brief Set the icon by icon standards names.
  *
  * For example, freedesktop.org defines standard icon names such as "go-home",
@@ -88,10 +126,10 @@ extern Elm_Icon_Lookup_Order elm_icon_order_lookup_get(const Evas_Object *obj EI
  * @return true on success, false on error
  *
  * @ingroup Elm_Icon
- */
-extern Eina_Bool elm_icon_standard_set(Evas_Object *obj, const char *name);
-
-/**
+  }
+(* Const before type ignored *)
+function elm_icon_standard_set(obj:PEvas_Object; name:Pchar):TEina_Bool;cdecl;external;
+{*
  * @brief Get the icon name set by icon standard names.
  *
  * If the icon image was set using elm_image_file_set() instead of
@@ -100,7 +138,13 @@ extern Eina_Bool elm_icon_standard_set(Evas_Object *obj, const char *name);
  * @return The icon name
  *
  * @ingroup Elm_Icon
- */
-extern const char *elm_icon_standard_get(const Evas_Object *obj);
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function elm_icon_standard_get(obj:PEvas_Object):Pchar;cdecl;external;
+{$include "elm_icon_eo.legacy.h"}
 
-#include "elm_icon_eo.legacy.h"
+implementation
+
+
+end.

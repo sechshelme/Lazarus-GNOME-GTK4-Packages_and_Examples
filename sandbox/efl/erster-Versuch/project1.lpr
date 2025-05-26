@@ -31,7 +31,7 @@ uses
 
 
   // elementary-1
-  elm_genlist,                                         // io. ( Evtl. löschen )
+  elm_genlist,                                         // io.     ( Evtl. löschen )
   elm_general,                                         // io.     ( makro ELM_MAIN entfernt )
   elm_win_legacy,                                      // io.     ( Doppelt Methoden evtl. Bug in C-Hedader )
   elm_box_legacy,                                      // io.
@@ -63,6 +63,16 @@ uses
   elm_code_widget_eo,                                  // io. -> elm_code_common, elm_code_line
   elm_gengrid_eo_legacy,                               // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen
   elm_list_eo_legacy,                                  // io. -> elm_general, elm_widget_item_eo_legacy
+  elm_image_legacy,                                    // io.
+  elm_icon,                                            // io.     ( Evtl. löschen )
+  elm_icon_eo_legacy,                                  // io.
+  elm_icon_legacy,                                     // io.
+  elm_store,                                           // io. -> elm_widget_item_eo_legacy, elm_icon_legacy, elm_gen
+  elm_toolbar_eo,                                      // io. -> elm_general, elm_widget_item_eo_legacy
+  elm_toolbar_eo_legacy,                               // io. -> elm_general, elm_widget_item_eo_legacy
+  elm_web_common,                                      // io.
+  elm_web_eo,                                          // io. -> elm_web_common
+  elm_web_eo_legacy,                                   // io. -> elm_web_common
   efl_ui_textpath_eo_legacy,                           // io.
   efl_ui_win_eo,                                       // io.
   efl_ui_eot,                                          // io.
@@ -70,9 +80,6 @@ uses
   efl_ui_widget_eo,                                    // io. -> efl_ui_focus_object_eo, efl_ui_eot
   efl_ui_widget_eo_legacy,                             // io. -> efl_ui_focus_object_eo
   efl_access_object_eo,                                // io.
-
-
-
 
 
 
