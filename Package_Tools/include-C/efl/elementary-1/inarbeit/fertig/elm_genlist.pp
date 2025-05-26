@@ -1,4 +1,33 @@
-/**
+
+unit elm_genlist;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from elm_genlist.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    elm_genlist.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{*
  * @defgroup Elm_Genlist_Group Genlist (Generic list)
  * @ingroup Elementary
  *
@@ -390,18 +419,19 @@
  * - @ref genlist_example_03
  * - @ref genlist_example_04
  * - @ref genlist_example_05
- */
-
-/**
+  }
+{*
  * @addtogroup Elm_Genlist_Group
- * @{
- */
+ * @
+  }
+{$include <elm_genlist_common.h>}
+{$ifndef EFL_NOLEGACY_API_SUPPORT}
+{$include <elm_genlist_legacy.h>}
+{$endif}
+(* error 
 
-#include <elm_genlist_common.h>
-#ifndef EFL_NOLEGACY_API_SUPPORT
-#include <elm_genlist_legacy.h>
-#endif
 
-/**
- * @}
- */
+implementation
+
+
+end.

@@ -597,94 +597,97 @@ extern  void efl_ui_code_widget_redo(Eo *obj);
  */
 extern  Eina_Bool efl_ui_code_widget_can_redo_get(Eo *obj);
 
-extern  extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_LINE_CLICKED;
+extern  const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_LINE_CLICKED;
 
 /** Called when text line was clicked
  * @return Elm_Code_Line
  *
  * @ingroup Elm_Code_Widget
  */
-#define EFL_UI_CODE_WIDGET_EVENT_LINE_CLICKED (&(_EFL_UI_CODE_WIDGET_EVENT_LINE_CLICKED))
 
-extern  extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_LINE_GUTTER_CLICKED;
+extern  const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_LINE_GUTTER_CLICKED;
 
 /** Called when gutter was clicked
  * @return Elm_Code_Line
  *
  * @ingroup Elm_Code_Widget
  */
-#define EFL_UI_CODE_WIDGET_EVENT_LINE_GUTTER_CLICKED (&(_EFL_UI_CODE_WIDGET_EVENT_LINE_GUTTER_CLICKED))
 
-extern  extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CHANGED_USER;
+extern  const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CHANGED_USER;
 
 /** Called when object changed due to user interaction
  *
  * @ingroup Elm_Code_Widget
  */
-#define EFL_UI_CODE_WIDGET_EVENT_CHANGED_USER (&(_EFL_UI_CODE_WIDGET_EVENT_CHANGED_USER))
 
-extern  extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CURSOR_CHANGED;
+extern  const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CURSOR_CHANGED;
 
 /** Called when cursor changed
  * @return Elm_Code_Widget *
  *
  * @ingroup Elm_Code_Widget
  */
-#define EFL_UI_CODE_WIDGET_EVENT_CURSOR_CHANGED (&(_EFL_UI_CODE_WIDGET_EVENT_CURSOR_CHANGED))
 
-extern  extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_START;
+extern  const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_START;
 
 /** Called when a selection is started
  * @return Elm_Code_Widget *
  *
  * @ingroup Elm_Code_Widget
  */
-#define EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_START (&(_EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_START))
 
-extern  extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CHANGED;
+extern  const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CHANGED;
 
 /** Called when selection changed
  * @return Elm_Code_Widget *
  *
  * @ingroup Elm_Code_Widget
  */
-#define EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CHANGED (&(_EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CHANGED))
 
-extern  extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CLEARED;
+extern  const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CLEARED;
 
 /** Called when selection was cleared
  * @return Elm_Code_Widget *
  *
  * @ingroup Elm_Code_Widget
  */
-#define EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CLEARED (&(_EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CLEARED))
 
-extern  extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CUT;
+extern  const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CUT;
 
 /** Called when a cut action is performed
  * @return Elm_Code_Widget *
  *
  * @ingroup Elm_Code_Widget
  */
-#define EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CUT (&(_EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CUT))
 
-extern  extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_COPY;
+extern  const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_COPY;
 
 /** Called when a copy action is performed
  * @return Elm_Code_Widget *
  *
  * @ingroup Elm_Code_Widget
  */
-#define EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_COPY (&(_EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_COPY))
 
-extern  extern const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_PASTE;
+extern  const Efl_Event_Description _EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_PASTE;
 
 /** Called when a paste action is performed
  * @return Elm_Code_Widget *
  *
  * @ingroup Elm_Code_Widget
  */
+
+#define EFL_UI_CODE_WIDGET_EVENT_LINE_CLICKED (&(_EFL_UI_CODE_WIDGET_EVENT_LINE_CLICKED))
+#define EFL_UI_CODE_WIDGET_EVENT_LINE_GUTTER_CLICKED (&(_EFL_UI_CODE_WIDGET_EVENT_LINE_GUTTER_CLICKED))
+#define EFL_UI_CODE_WIDGET_EVENT_CHANGED_USER (&(_EFL_UI_CODE_WIDGET_EVENT_CHANGED_USER))
+#define EFL_UI_CODE_WIDGET_EVENT_CURSOR_CHANGED (&(_EFL_UI_CODE_WIDGET_EVENT_CURSOR_CHANGED))
+#define EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_START (&(_EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_START))
+#define EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CHANGED (&(_EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CHANGED))
+#define EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CLEARED (&(_EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CLEARED))
+#define EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CUT (&(_EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_CUT))
+#define EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_COPY (&(_EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_COPY))
 #define EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_PASTE (&(_EFL_UI_CODE_WIDGET_EVENT_CODE_SELECTION_PASTE))
+
+
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

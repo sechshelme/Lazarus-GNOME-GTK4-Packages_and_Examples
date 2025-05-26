@@ -31,6 +31,7 @@ uses
 
 
   // elementary-1
+  elm_genlist,                                         // io. ( Evtl. löschen )
   elm_general,                                         // io.     ( makro ELM_MAIN entfernt )
   elm_win_legacy,                                      // io.     ( Doppelt Methoden evtl. Bug in C-Hedader )
   elm_box_legacy,                                      // io.
@@ -53,12 +54,25 @@ uses
   elm_interface_scrollable_eo,                         // io. -> elm_interface_scrollable
   elm_transit,                                         // io.
   elm_theme,                                           // io.
+  elm_gen,                                             // io. -> elm_general
+  elm_genlist_eo_legacy,                               // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen
+  elm_layout_legacy,                                   // io.
+  elm_cnp,                                             // io. -> elm_widget_item_eo_legacy
+  elm_code_common,                                     // io.
+  elm_code_line,                                       // io. -> elm_code_common
+  elm_code_widget_eo,                                  // io. -> elm_code_common, elm_code_line
+  elm_gengrid_eo_legacy,                               // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen
+  elm_list_eo_legacy,                                  // io. -> elm_general, elm_widget_item_eo_legacy
   efl_ui_textpath_eo_legacy,                           // io.
   efl_ui_win_eo,                                       // io.
   efl_ui_eot,                                          // io.
   efl_ui_focus_object_eo,                              // io.
   efl_ui_widget_eo,                                    // io. -> efl_ui_focus_object_eo, efl_ui_eot
   efl_ui_widget_eo_legacy,                             // io. -> efl_ui_focus_object_eo
+  efl_access_object_eo,                                // io.
+
+
+
 
 
 

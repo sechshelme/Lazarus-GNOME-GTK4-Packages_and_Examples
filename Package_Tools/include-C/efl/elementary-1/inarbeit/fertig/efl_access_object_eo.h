@@ -750,73 +750,73 @@ extern  void efl_access_object_relationships_clear(Eo *obj);
 extern  Efl_Object *efl_access_object_access_root_get(void);
 #endif /* EFL_BETA_API_SUPPORT */
 
-extern  extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_PROPERTY_CHANGED;
+extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_PROPERTY_CHANGED;
 
 /** Called when property has changed
  * @return const char *
  *
  * @ingroup Efl_Access_Object
  */
-#define EFL_ACCESS_OBJECT_EVENT_PROPERTY_CHANGED (&(_EFL_ACCESS_OBJECT_EVENT_PROPERTY_CHANGED))
 
-extern  extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_CHILDREN_CHANGED;
+extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_CHILDREN_CHANGED;
 
 /** Called when children have changed
  * @return Efl_Access_Event_Children_Changed_Data
  *
  * @ingroup Efl_Access_Object
  */
-#define EFL_ACCESS_OBJECT_EVENT_CHILDREN_CHANGED (&(_EFL_ACCESS_OBJECT_EVENT_CHILDREN_CHANGED))
 
-extern  extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_STATE_CHANGED;
+extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_STATE_CHANGED;
 
 /** Called when state has changed
  * @return Efl_Access_Event_State_Changed_Data
  *
  * @ingroup Efl_Access_Object
  */
-#define EFL_ACCESS_OBJECT_EVENT_STATE_CHANGED (&(_EFL_ACCESS_OBJECT_EVENT_STATE_CHANGED))
 
-extern  extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_BOUNDS_CHANGED;
+extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_BOUNDS_CHANGED;
 
 /** Called when boundaries have changed
  * @return Efl_Access_Event_Geometry_Changed_Data
  *
  * @ingroup Efl_Access_Object
  */
-#define EFL_ACCESS_OBJECT_EVENT_BOUNDS_CHANGED (&(_EFL_ACCESS_OBJECT_EVENT_BOUNDS_CHANGED))
 
-extern  extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_VISIBLE_DATA_CHANGED;
+extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_VISIBLE_DATA_CHANGED;
 
 /** Called when visibility has changed
  *
  * @ingroup Efl_Access_Object
  */
-#define EFL_ACCESS_OBJECT_EVENT_VISIBLE_DATA_CHANGED (&(_EFL_ACCESS_OBJECT_EVENT_VISIBLE_DATA_CHANGED))
 
-extern  extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_ACTIVE_DESCENDANT_CHANGED;
+extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_ACTIVE_DESCENDANT_CHANGED;
 
 /** Called when active state of descendant has changed
  * @return Efl_Object *
  *
  * @ingroup Efl_Access_Object
  */
-#define EFL_ACCESS_OBJECT_EVENT_ACTIVE_DESCENDANT_CHANGED (&(_EFL_ACCESS_OBJECT_EVENT_ACTIVE_DESCENDANT_CHANGED))
 
-extern  extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_ADDED;
+extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_ADDED;
 
 /** Called when item is added
  *
  * @ingroup Efl_Access_Object
  */
-#define EFL_ACCESS_OBJECT_EVENT_ADDED (&(_EFL_ACCESS_OBJECT_EVENT_ADDED))
 
-extern  extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_REMOVED;
+extern const Efl_Event_Description _EFL_ACCESS_OBJECT_EVENT_REMOVED;
 
 /** Called when item is removed
  *
  * @ingroup Efl_Access_Object
  */
+#define EFL_ACCESS_OBJECT_EVENT_PROPERTY_CHANGED (&(_EFL_ACCESS_OBJECT_EVENT_PROPERTY_CHANGED))
+#define EFL_ACCESS_OBJECT_EVENT_CHILDREN_CHANGED (&(_EFL_ACCESS_OBJECT_EVENT_CHILDREN_CHANGED))
+#define EFL_ACCESS_OBJECT_EVENT_STATE_CHANGED (&(_EFL_ACCESS_OBJECT_EVENT_STATE_CHANGED))
+#define EFL_ACCESS_OBJECT_EVENT_BOUNDS_CHANGED (&(_EFL_ACCESS_OBJECT_EVENT_BOUNDS_CHANGED))
+#define EFL_ACCESS_OBJECT_EVENT_VISIBLE_DATA_CHANGED (&(_EFL_ACCESS_OBJECT_EVENT_VISIBLE_DATA_CHANGED))
+#define EFL_ACCESS_OBJECT_EVENT_ACTIVE_DESCENDANT_CHANGED (&(_EFL_ACCESS_OBJECT_EVENT_ACTIVE_DESCENDANT_CHANGED))
+#define EFL_ACCESS_OBJECT_EVENT_ADDED (&(_EFL_ACCESS_OBJECT_EVENT_ADDED))
 #define EFL_ACCESS_OBJECT_EVENT_REMOVED (&(_EFL_ACCESS_OBJECT_EVENT_REMOVED))
 #endif /* EFL_BETA_API_SUPPORT */
 
