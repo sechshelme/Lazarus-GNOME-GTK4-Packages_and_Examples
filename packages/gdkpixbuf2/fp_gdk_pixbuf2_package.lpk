@@ -14,6 +14,10 @@
         <Filename Value="fp_gdk_pixbuf2.pas"/>
         <UnitName Value="fp_gdk_pixbuf2"/>
       </Item>
+      <Item>
+        <Filename Value="fp_gdk_pixbuf_xlib2.pas"/>
+        <UnitName Value="fp_gdk_pixbuf_xlib2"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

@@ -100,6 +100,7 @@ const
     (libs: 'libgstopencv'; units: 'glib280, gst124'),
     (libs: 'libgstisoff'; units: 'glib280, gst124'),
     (libs: 'libgdk_pixbuf2'; units: 'glib280, gdk_pixbuf_core'),
+    (libs: 'libgdk_pixbuf_xlib2'; units: 'glib280'),
 
     (libs: 'libpixman'; units: 'ctypes'),
     (libs: 'libgraphene'; units: 'ctypes, graphene'),

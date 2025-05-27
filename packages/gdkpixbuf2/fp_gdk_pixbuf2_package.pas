@@ -8,7 +8,7 @@ unit fp_gdk_pixbuf2_package;
 interface
 
 uses
-  fp_gdk_pixbuf2, LazarusPackageIntf;
+  fp_gdk_pixbuf2, fp_gdk_pixbuf_xlib2, LazarusPackageIntf;
 
 implementation
 

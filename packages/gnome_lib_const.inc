@@ -103,6 +103,7 @@ const
 const
   {$IFDEF Linux}
   libgdk_pixbuf2 = 'libgdk_pixbuf-2.0';
+  libgdk_pixbuf_xlib2='libgdk_pixbuf_xlib-2.0';  // Nur Linux
   {$ENDIF}
 
   {$IFDEF Windows}
