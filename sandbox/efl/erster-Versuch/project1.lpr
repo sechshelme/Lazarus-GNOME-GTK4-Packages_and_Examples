@@ -104,6 +104,17 @@ uses
   efl_ui_focus_manager_window_root_eo,                 // io.
   efl_ui_focus_util_eo,                                // io. -> efl_ui_focus_object_eo, efl_ui_eot
   efl_ui_focus_manager_eo,                             // io. -> efl_ui_focus_object_eo, efl_ui_eot
+  efl_ui_flip_eo,                                      // io.
+  efl_ui_clock_eo,                                     // io.
+  efl_ui_spotlight_animation_manager_eo,               // io.
+  efl_ui_spotlight_fade_manager_eo,                    // io.
+  efl_ui_spotlight_icon_indicator_eo,                  // io.
+  efl_ui_spotlight_manager_eo,                         // io.
+  efl_ui_spotlight_indicator_eo,                       // io. -> efl_ui_spotlight_manager_eo
+  efl_ui_spotlight_container_eo,                       // io. -> efl_ui_widget_eo, efl_ui_spotlight_manager_eo, efl_ui_spotlight_indicator_eo
+  efl_ui_spotlight_scroll_manager_eo,                  // io.
+  efl_ui_spotlight_util_eo,                            // io. -> efl_ui_widget_eo, efl_ui_spotlight_manager_eo
+  Efl_Ui,                                              // io. -> efl_ui_focus_manager_eo, efl_ui_win_eo
   elm_widget,                                          // io. -> elm_widget_item_eo_legacy, elm_theme, efl_ui_widget_eo_legacy, efl_ui_focus_object_eo, elm_access, efl_ui_eot
   elm_widget_toolbar,                                  // io. -> elm_general, elm_widget_item_eo_legacy, elm_toolbar_eo_legacy, elm_widget, elm_transit
   elm_gen_common,                                      // io. -> elm_tooltip, elm_widget, elm_widget_genlist, elm_gen
@@ -141,6 +152,10 @@ uses
   elm_genlist_common,                                  // io. -> elm_widget_item_eo_legacy, elm_gen, elm_tooltip
   elm_prefs_data,                                      // io.
   elm_prefs_common,                                    // io. -> elm_prefs_data
+  elm_gesture_layer_common,                            // io.
+  elm_widget_gengrid,                                  // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen, elm_gengrid_eo_legacy
+
+
 
 
 
