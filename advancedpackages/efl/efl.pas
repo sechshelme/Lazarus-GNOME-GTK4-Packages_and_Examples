@@ -16,10 +16,9 @@ const
   libefl = 'libefl';
   libemile = 'libemile';
   libecore = 'libecore';
+  libecore_file = 'libecore_file';
   libecore_eva = 'libecore_evas';
   libedje = 'libedje';
-
-  libencore = 'libecore';
   {$ENDIF}
 
   {$IFDEF mswindows}
@@ -31,6 +30,7 @@ const
   libefl = 'libefl-1.dll';
   libemile = 'libemile-1.dll';
   libecore = 'libecore-1.dll';
+  libecore_file = 'libecore_file-1.dll';
   libecore_evas = 'libecore_evas-1.dll';
   libedje = 'libedje-1.dll';
   {$ENDIF}
@@ -101,9 +101,9 @@ function calloc(num, size: Tsize_t): Pointer; cdecl; external libclib;
 
 // =====================
 
-// /usr/local/include/ecore-file-1/Ecore_File.h
+// /usr/local/include/eet-1/Eet.h
 type
-  PEcore_File_Download_Job=Pointer;
+  TEet_File_Mode=LongInt;
 
 
 

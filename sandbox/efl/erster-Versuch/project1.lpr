@@ -96,6 +96,14 @@ uses
   efl_ui_focus_object_eo,                              // io.
   efl_ui_widget_eo,                                    // io. -> efl_ui_focus_object_eo, efl_ui_eot
   efl_ui_widget_eo_legacy,                             // io. -> efl_ui_focus_object_eo
+  efl_ui_focus_composition_eo,                         // io.
+  efl_ui_focus_layer_eo,                               // io.
+  efl_ui_focus_manager_calc_eo,                        // io. -> efl_ui_focus_object_eo
+  efl_ui_focus_manager_root_focus_eo,                  // io.
+  efl_ui_focus_manager_sub_eo,                         // io.
+  efl_ui_focus_manager_window_root_eo,                 // io.
+  efl_ui_focus_util_eo,                                // io. -> efl_ui_focus_object_eo, efl_ui_eot
+  efl_ui_focus_manager_eo,                             // io. -> efl_ui_focus_object_eo, efl_ui_eot
   elm_widget,                                          // io. -> elm_widget_item_eo_legacy, elm_theme, efl_ui_widget_eo_legacy, efl_ui_focus_object_eo, elm_access, efl_ui_eot
   elm_widget_toolbar,                                  // io. -> elm_general, elm_widget_item_eo_legacy, elm_toolbar_eo_legacy, elm_widget, elm_transit
   elm_gen_common,                                      // io. -> elm_tooltip, elm_widget, elm_widget_genlist, elm_gen
@@ -109,6 +117,34 @@ uses
   elm_clock_legacy,                                    // io.
   elm_clock_eo,                                        // io.
   elm_datetime,                                        // io. -> elm_clock_eo
+  elm_interface_fileselector,                          // io.
+  elm_interface_fileselector_eo_legacy,                // io.
+  elm_fileselector_button_eo_legacy,                   // io.
+  elm_fileselector_entry_eo_legacy,                    // io.
+  elm_fileselector_entry_part_eo,                      // io.
+  elm_fileselector_eo_legacy,                          // io.
+  elm_fileselector_part_eo,                            // io.
+  elc_fileselector_common,                             // io.
+  elc_fileselector_legacy,                             // io. -> elm_interface_fileselector_eo_legacy, elc_fileselector_common
+  elc_fileselector_button_legacy,                      // io. -> elm_fileselector_button_eo_legacy
+  elc_fileselector_entry_legacy,                       // io. -> elm_fileselector_entry_eo_legacy
+  elm_focus,                                           // io. -> elm_general
+  elm_gengrid_common,                                  // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen, elm_tooltip
+  elm_slideshow_common,                                // io.
+  elm_slideshow_eo_legacy,                             // io. -> elm_widget_item_eo_legacy, elm_slideshow_common
+  elm_slideshow_item_eo_legacy,                        // io.
+  elm_slideshow_legacy,                                // io.
+  elm_slider_common,                                   // io.
+  elm_slider_legacy,                                   // io. -> elm_general, elm_slider_common
+  elm_slider_part_indicator_eo_legacy,                 // io.
+  efl_access_text_eo,                                  // io.
+  elm_genlist_common,                                  // io. -> elm_widget_item_eo_legacy, elm_gen, elm_tooltip
+  elm_prefs_data,                                      // io.
+  elm_prefs_common,                                    // io. -> elm_prefs_data
+
+
+
+
 
 
   elm_deprecated,                                      // io. -> elm_general, elm_scroller_legacy, elm_map_common, elm_win_legacy, efl_ui_textpath_eo_legacy, elm_widget_item_eo_legacy

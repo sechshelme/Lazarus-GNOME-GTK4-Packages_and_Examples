@@ -49,6 +49,10 @@
         <Filename Value="fp_edje.pas"/>
         <UnitName Value="fp_edje"/>
       </Item>
+      <Item>
+        <Filename Value="fp_ecore_file.pas"/>
+        <UnitName Value="fp_Ecore_File"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

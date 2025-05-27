@@ -146,6 +146,7 @@ const
     (libs: 'libefl'; units: 'efl, fp_eo, fp_eina'),
     (libs: 'libemile'; units: 'efl, fp_eo, fp_eina'),
     (libs: 'libecore'; units: 'efl, fp_eo, fp_eina, fp_efl'),
+    (libs: 'libecore_file'; units: 'efl, fp_eo, fp_eina, fp_efl'),
     (libs: 'libecore_eva'; units: 'efl, fp_eo, fp_eina, fp_efl'),
     (libs: 'libedje'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_evas'),
     (libs: 'libelementary'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_evas, fp_ecore, fp_edje, elm_general, elm_widget_item_eo_legacy'),

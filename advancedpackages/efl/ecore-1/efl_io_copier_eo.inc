@@ -8,32 +8,32 @@ type
 {$ifdef EFL_BETA_API_SUPPORT}
 function EFL_IO_COPIER_CLASS: PEfl_Class;
 
-function efl_io_copier_class_get: PEfl_Class; cdecl; external libencore;
-procedure efl_io_copier_source_set(obj: PEo; source: PEfl_Io_Reader); cdecl; external libencore;
-function efl_io_copier_source_get(obj: PEo): PEfl_Io_Reader; cdecl; external libencore;
-procedure efl_io_copier_destination_set(obj: PEo; destination: PEfl_Io_Writer); cdecl; external libencore;
-function efl_io_copier_destination_get(obj: PEo): PEfl_Io_Writer; cdecl; external libencore;
-procedure efl_io_copier_line_delimiter_set(obj: PEo; slice: TEina_Slice); cdecl; external libencore;
-function efl_io_copier_line_delimiter_get(obj: PEo): TEina_Slice; cdecl; external libencore;
-procedure efl_io_copier_buffer_limit_set(obj: PEo; size: Tsize_t); cdecl; external libencore;
-function efl_io_copier_buffer_limit_get(obj: PEo): Tsize_t; cdecl; external libencore;
-procedure efl_io_copier_read_chunk_size_set(obj: PEo; size: Tsize_t); cdecl; external libencore;
-function efl_io_copier_read_chunk_size_get(obj: PEo): Tsize_t; cdecl; external libencore;
-procedure efl_io_copier_progress_get(obj: PEo; read: Puint64; written: Puint64; total: Puint64); cdecl; external libencore;
-procedure efl_io_copier_timeout_inactivity_set(obj: PEo; seconds: double); cdecl; external libencore;
-function efl_io_copier_timeout_inactivity_get(obj: PEo): double; cdecl; external libencore;
-procedure efl_io_copier_done_set(obj: PEo; done: TEina_Bool); cdecl; external libencore;
-function efl_io_copier_done_get(obj: PEo): TEina_Bool; cdecl; external libencore;
-function efl_io_copier_binbuf_steal(obj: PEo): PEina_Binbuf; cdecl; external libencore;
-function efl_io_copier_pending_size_get(obj: PEo): Tsize_t; cdecl; external libencore;
-function efl_io_copier_flush(obj: PEo; may_block: TEina_Bool; ignore_line_delimiter: TEina_Bool): TEina_Bool; cdecl; external libencore;
+function efl_io_copier_class_get: PEfl_Class; cdecl; external libecore;
+procedure efl_io_copier_source_set(obj: PEo; source: PEfl_Io_Reader); cdecl; external libecore;
+function efl_io_copier_source_get(obj: PEo): PEfl_Io_Reader; cdecl; external libecore;
+procedure efl_io_copier_destination_set(obj: PEo; destination: PEfl_Io_Writer); cdecl; external libecore;
+function efl_io_copier_destination_get(obj: PEo): PEfl_Io_Writer; cdecl; external libecore;
+procedure efl_io_copier_line_delimiter_set(obj: PEo; slice: TEina_Slice); cdecl; external libecore;
+function efl_io_copier_line_delimiter_get(obj: PEo): TEina_Slice; cdecl; external libecore;
+procedure efl_io_copier_buffer_limit_set(obj: PEo; size: Tsize_t); cdecl; external libecore;
+function efl_io_copier_buffer_limit_get(obj: PEo): Tsize_t; cdecl; external libecore;
+procedure efl_io_copier_read_chunk_size_set(obj: PEo; size: Tsize_t); cdecl; external libecore;
+function efl_io_copier_read_chunk_size_get(obj: PEo): Tsize_t; cdecl; external libecore;
+procedure efl_io_copier_progress_get(obj: PEo; read: Puint64; written: Puint64; total: Puint64); cdecl; external libecore;
+procedure efl_io_copier_timeout_inactivity_set(obj: PEo; seconds: double); cdecl; external libecore;
+function efl_io_copier_timeout_inactivity_get(obj: PEo): double; cdecl; external libecore;
+procedure efl_io_copier_done_set(obj: PEo; done: TEina_Bool); cdecl; external libecore;
+function efl_io_copier_done_get(obj: PEo): TEina_Bool; cdecl; external libecore;
+function efl_io_copier_binbuf_steal(obj: PEo): PEina_Binbuf; cdecl; external libecore;
+function efl_io_copier_pending_size_get(obj: PEo): Tsize_t; cdecl; external libecore;
+function efl_io_copier_flush(obj: PEo; may_block: TEina_Bool; ignore_line_delimiter: TEina_Bool): TEina_Bool; cdecl; external libecore;
 
 var
-  _EFL_IO_COPIER_EVENT_DONE: TEfl_Event_Description; cvar;external libencore;
-  _EFL_IO_COPIER_EVENT_ERROR: TEfl_Event_Description; cvar;external libencore;
-  _EFL_IO_COPIER_EVENT_PROGRESS: TEfl_Event_Description; cvar;external libencore;
-  _EFL_IO_COPIER_EVENT_DATA: TEfl_Event_Description; cvar;external libencore;
-  _EFL_IO_COPIER_EVENT_LINE: TEfl_Event_Description; cvar;external libencore;
+  _EFL_IO_COPIER_EVENT_DONE: TEfl_Event_Description; cvar;external libecore;
+  _EFL_IO_COPIER_EVENT_ERROR: TEfl_Event_Description; cvar;external libecore;
+  _EFL_IO_COPIER_EVENT_PROGRESS: TEfl_Event_Description; cvar;external libecore;
+  _EFL_IO_COPIER_EVENT_DATA: TEfl_Event_Description; cvar;external libecore;
+  _EFL_IO_COPIER_EVENT_LINE: TEfl_Event_Description; cvar;external libecore;
 
 function EFL_IO_COPIER_EVENT_DONE: PEfl_Event_Description;
 function EFL_IO_COPIER_EVENT_ERROR: PEfl_Event_Description;

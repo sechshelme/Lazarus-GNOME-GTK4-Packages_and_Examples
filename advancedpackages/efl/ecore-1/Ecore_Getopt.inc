@@ -124,14 +124,14 @@ type
     descs: PEcore_Getopt_Desc;
   end;
 
-procedure ecore_getopt_help(fp: PFILE; info: PEcore_Getopt); cdecl; external libencore;
-function ecore_getopt_help_category(fp: PFILE; info: PEcore_Getopt; category: pchar): TEina_Bool; cdecl; external libencore;
-function ecore_getopt_parser_has_duplicates(parser: PEcore_Getopt): TEina_Bool; cdecl; external libencore;
-function ecore_getopt_parse(parser: PEcore_Getopt; values: PEcore_Getopt_Value; argc: longint; argv: PPchar): longint; cdecl; external libencore;
-function ecore_getopt_parse_positional(parser: PEcore_Getopt; values: PEcore_Getopt_Value; argc: longint; argv: PPchar; start: longint): longint; cdecl; external libencore;
-function ecore_getopt_list_free(list: PEina_List): PEina_List; cdecl; external libencore;
-function ecore_getopt_callback_geometry_parse(parser: PEcore_Getopt; desc: PEcore_Getopt_Desc; str: pchar; data: pointer; storage: PEcore_Getopt_Value): TEina_Bool; cdecl; external libencore;
-function ecore_getopt_callback_size_parse(parser: PEcore_Getopt; desc: PEcore_Getopt_Desc; str: pchar; data: pointer; storage: PEcore_Getopt_Value): TEina_Bool; cdecl; external libencore;
+procedure ecore_getopt_help(fp: PFILE; info: PEcore_Getopt); cdecl; external libecore;
+function ecore_getopt_help_category(fp: PFILE; info: PEcore_Getopt; category: pchar): TEina_Bool; cdecl; external libecore;
+function ecore_getopt_parser_has_duplicates(parser: PEcore_Getopt): TEina_Bool; cdecl; external libecore;
+function ecore_getopt_parse(parser: PEcore_Getopt; values: PEcore_Getopt_Value; argc: longint; argv: PPchar): longint; cdecl; external libecore;
+function ecore_getopt_parse_positional(parser: PEcore_Getopt; values: PEcore_Getopt_Value; argc: longint; argv: PPchar; start: longint): longint; cdecl; external libecore;
+function ecore_getopt_list_free(list: PEina_List): PEina_List; cdecl; external libecore;
+function ecore_getopt_callback_geometry_parse(parser: PEcore_Getopt; desc: PEcore_Getopt_Desc; str: pchar; data: pointer; storage: PEcore_Getopt_Value): TEina_Bool; cdecl; external libecore;
+function ecore_getopt_callback_size_parse(parser: PEcore_Getopt; desc: PEcore_Getopt_Desc; str: pchar; data: pointer; storage: PEcore_Getopt_Value): TEina_Bool; cdecl; external libecore;
 
 // === Konventiert am: 21-5-25 13:42:47 ===
 

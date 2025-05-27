@@ -3,7 +3,7 @@ unit elm_widget_map;
 interface
 
 uses
-  efl, fp_eo, fp_eina, fp_efl, fp_evas, fp_ecore, fp_edje, elm_map_common, elm_map_eo_legacy;
+  efl, fp_eo, fp_eina, fp_efl, fp_evas, fp_ecore, fp_Ecore_File, fp_edje, elm_map_common, elm_map_eo_legacy;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
