@@ -14,9 +14,13 @@ type
   end;
   PEfl_Ui_Format_Value = ^TEfl_Ui_Format_Value;
 
+type
   PEfl_Ui_Format_String_Type = ^TEfl_Ui_Format_String_Type;
-  TEfl_Ui_Format_String_Type = (EFL_UI_FORMAT_STRING_TYPE_SIMPLE := 0,
-    EFL_UI_FORMAT_STRING_TYPE_TIME);
+  TEfl_Ui_Format_String_Type = LongInt;
+
+const
+  EFL_UI_FORMAT_STRING_TYPE_SIMPLE = 0;
+  EFL_UI_FORMAT_STRING_TYPE_TIME = 1;
 
 function EFL_UI_FORMAT_MIXIN: PEfl_Config;
 

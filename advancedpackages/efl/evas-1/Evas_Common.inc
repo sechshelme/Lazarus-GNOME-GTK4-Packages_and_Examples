@@ -613,6 +613,7 @@ const
   EFL_INPUT_DEVICE_TYPE_GAMEPAD = 7;
 
 type
+  PPEfl_Gfx_Entity = ^PEfl_Gfx_Entity;
   PEfl_Gfx_Entity = ^TEfl_Gfx_Entity;
   TEfl_Gfx_Entity = TEo;
 

@@ -43,53 +43,52 @@ typedef struct _Efl_Ui_Item_Clickable_Pressed
  *
  * @ingroup Efl_Ui_Item_Clickable
  */
-#define EFL_UI_ITEM_CLICKABLE_INTERFACE efl_ui_item_clickable_interface_get()
 
 extern  const Efl_Class *efl_ui_item_clickable_interface_get(void) ;
 
-extern  extern const Efl_Event_Description _EFL_UI_EVENT_ITEM_PRESSED;
+ extern const Efl_Event_Description _EFL_UI_EVENT_ITEM_PRESSED;
 
 /** A @c pressed event occurred over an item.
  * @return Efl_Ui_Item_Clickable_Pressed
  *
  * @ingroup Efl_Ui_Item_Clickable
  */
-#define EFL_UI_EVENT_ITEM_PRESSED (&(_EFL_UI_EVENT_ITEM_PRESSED))
 
-extern  extern const Efl_Event_Description _EFL_UI_EVENT_ITEM_UNPRESSED;
+  extern const Efl_Event_Description _EFL_UI_EVENT_ITEM_UNPRESSED;
 
 /** An @c unpressed event occurred over an item.
  * @return Efl_Ui_Item_Clickable_Pressed
  *
  * @ingroup Efl_Ui_Item_Clickable
  */
-#define EFL_UI_EVENT_ITEM_UNPRESSED (&(_EFL_UI_EVENT_ITEM_UNPRESSED))
 
-extern  extern const Efl_Event_Description _EFL_UI_EVENT_ITEM_LONGPRESSED;
+  extern const Efl_Event_Description _EFL_UI_EVENT_ITEM_LONGPRESSED;
 
 /** A @c longpressed event occurred over an item.
  * @return Efl_Ui_Item_Clickable_Pressed
  *
  * @ingroup Efl_Ui_Item_Clickable
  */
-#define EFL_UI_EVENT_ITEM_LONGPRESSED (&(_EFL_UI_EVENT_ITEM_LONGPRESSED))
 
-extern  extern const Efl_Event_Description _EFL_UI_EVENT_ITEM_CLICKED;
+  extern const Efl_Event_Description _EFL_UI_EVENT_ITEM_CLICKED;
 
 /** A @c clicked event occurred over an item.
  * @return Efl_Ui_Item_Clickable_Clicked
  *
  * @ingroup Efl_Ui_Item_Clickable
  */
-#define EFL_UI_EVENT_ITEM_CLICKED (&(_EFL_UI_EVENT_ITEM_CLICKED))
 
-extern  extern const Efl_Event_Description _EFL_UI_EVENT_ITEM_CLICKED_ANY;
-
+  extern const Efl_Event_Description _EFL_UI_EVENT_ITEM_CLICKED_ANY;
 /** A <tt>clicked,any</tt> event occurred over an item.
  * @return Efl_Ui_Item_Clickable_Clicked
  *
  * @ingroup Efl_Ui_Item_Clickable
  */
+#define EFL_UI_ITEM_CLICKABLE_INTERFACE efl_ui_item_clickable_interface_get()
+#define EFL_UI_EVENT_ITEM_PRESSED (&(_EFL_UI_EVENT_ITEM_PRESSED))
+#define EFL_UI_EVENT_ITEM_UNPRESSED (&(_EFL_UI_EVENT_ITEM_UNPRESSED))
+#define EFL_UI_EVENT_ITEM_LONGPRESSED (&(_EFL_UI_EVENT_ITEM_LONGPRESSED))
+#define EFL_UI_EVENT_ITEM_CLICKED (&(_EFL_UI_EVENT_ITEM_CLICKED))
 #define EFL_UI_EVENT_ITEM_CLICKED_ANY (&(_EFL_UI_EVENT_ITEM_CLICKED_ANY))
 #endif /* EFL_BETA_API_SUPPORT */
 

@@ -33,7 +33,6 @@ uses
   // =======================================
 
 
-  // elementary-1
   //elm_general,                                         // io.     ( makro ELM_MAIN entfernt )
   //elm_win_legacy,                                      // io.     ( Doppelt Methoden evtl. Bug in C-Hedader )
   //elm_box_legacy,                                      // io.
@@ -170,6 +169,25 @@ uses
   //elm_progressbar_common,                              // io.
   //elm_progressbar_legacy,                              // io. -> elm_progressbar_common
   //elm_deprecated,                                      // io. -> elm_general, elm_scroller_legacy, elm_map_common, elm_win_legacy, efl_ui_textpath_eo_legacy, elm_widget_item_eo_legacy
+
+  elc_multibuttonentry_common,                           // io.
+  elm_multibuttonentry_item_eo_legacy,                   // io.
+  elm_multibuttonentry_part_eo,                          // io.
+  elm_multibuttonentry_eo_legacy,                        // io. -> elc_multibuttonentry_common
+  elc_multibuttonentry_legacy,                           // io. -> elc_multibuttonentry_common
+  efl_ui_item_eo,                                        // io.
+  efl_ui_item_clickable_eo,                              // io. -> efl_ui_item_eo
+  efl_ui_position_manager_data_access_v1_eo,             // io. -> efl_ui_item_eo
+  efl_ui_relative_container_eo,                          // io.
+  efl_ui_vg_animation_eo,                                // io.
+  elm_app,                                               // io.
+  elm_ctxpopup_item_eo_legacy,                           // io.
+  elm_ctxpopup_part_eo,                                  // io.
+  elm_ctxpopup_eo_legacy,                                // io.
+  elm_glview_eo_legacy,                                  // io.
+  elm_part_helper,                                       // io.
+  elm_spinner_eo_legacy,                                 // io.
+
   Math;
 
   procedure on_win_del(data: pointer; obj: PEvas_Object; event_info: pointer); cdecl;

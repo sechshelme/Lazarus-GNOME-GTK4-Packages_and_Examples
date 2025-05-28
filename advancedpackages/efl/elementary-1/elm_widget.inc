@@ -9,132 +9,13 @@ type
   TElm_Widget_On_Show_Region_Cb = procedure(data: pointer; obj: PEvas_Object; region: TEina_Rect); cdecl;
 
 type
+  TElm_Widget_Smart_Data = record
+  end;
   PElm_Widget_Smart_Data = ^TElm_Widget_Smart_Data;
 
-  TElm_Widget_Smart_Data = bitpacked record
-    parent_obj: PEvas_Object;
-    children: PEina_Array;
-    resize_obj: PEvas_Object;
-    hover_obj: PEvas_Object;
-    bg: PEvas_Object;
-    window: PEvas_Object;
-    tooltips: PEina_List;
-    cursors: PEina_List;
-    show_region: TEina_Rect;
-    scroll_hold: longint;
-    scroll_freeze: longint;
-    scale: double;
-    theme: PElm_Theme;
-    klass: pchar;
-    group: pchar;
-    style: pchar;
-    access_info: pchar;
-    accessible_name: pchar;
-    child_drag_x_locked: longint;
-    child_drag_y_locked: longint;
-    disabled: longint;
-    tree_unfocusable: longint;
-    translate_strings: PEina_Inlist;
-    event_cb: PEina_List;
-    on_show_region_data: pointer;
-    on_show_region: TElm_Widget_On_Show_Region_Cb;
-    on_show_region_data_free: TEina_Free_Cb;
-    focus_move_policy: TElm_Focus_Move_Policy;
-    focus_region_show_mode: TElm_Focus_Region_Show_Mode;
-    focus: TEfl_Ui_Widget_Focus_State;
-    logical: record
-      child_count: longint;
-      parent: PEfl_Ui_Focus_Object;
-      end;
-    manager: record
-      manager: PEfl_Ui_Focus_Manager;
-      provider: PEfl_Ui_Focus_Object;
-      end;
-    legacy_focus: record
-      listen_to_manager: TEina_Bool;
-      custom_chain: PEina_List;
-      prev: PEvas_Object;
-      next: PEvas_Object;
-      up: PEvas_Object;
-      down: PEvas_Object;
-      right: PEvas_Object;
-      left: PEvas_Object;
-      item_prev: PElm_Object_Item;
-      item_next: PElm_Object_Item;
-      item_up: PElm_Object_Item;
-      item_down: PElm_Object_Item;
-      item_right: PElm_Object_Item;
-      item_left: PElm_Object_Item;
-      end;
-    properties: record
-      model: PEfl_Model;
-      provider: PEfl_Model_Provider;
-      model_lookup: PEina_Hash;
-      view_lookup: PEina_Hash;
-      flag0: word;
-      end;
-    shared_win_data: pointer;
-    scroll_x_locked: 0..1;
-    scroll_y_locked: 0..1;
-    can_focus: 0..1;
-    focused: 0..1;
-    top_win_focused: 0..1;
-    focus_move_policy_auto_mode: 0..1;
-    highlight_ignore: 0..1;
-    highlight_in_theme: 0..1;
-    access_highlight_in_theme: 0..1;
-    is_mirrored: 0..1;
-    mirrored_auto_mode: 0..1;
-    still_in: 0..1;
-    highlighted: 0..1;
-    highlight_root: 0..1;
-    on_translate: 0..1;
-    on_create: 0..1;
-    on_destroy: 0..1;
-    provider_lookup: 0..1;
-    has_shadow: 0..1;
-    internal: 0..1;
+  TElm_Widget_Item_Data = record
   end;
-
-type
   PElm_Widget_Item_Data = ^TElm_Widget_Item_Data;
-
-  TElm_Widget_Item_Data = bitpacked record
-    widget: PEvas_Object;
-    eo_obj: PEo;
-    view: PEvas_Object;
-    del_func: TEvas_Smart_Cb;
-    del_pre_func: TElm_Widget_Del_Pre_Cb;
-    focus_previous: PEvas_Object;
-    focus_next: PEvas_Object;
-    focus_up: PEvas_Object;
-    focus_down: PEvas_Object;
-    focus_right: PEvas_Object;
-    focus_left: PEvas_Object;
-    item_focus_previous: PElm_Object_Item;
-    item_focus_next: PElm_Object_Item;
-    item_focus_up: PElm_Object_Item;
-    item_focus_down: PElm_Object_Item;
-    item_focus_right: PElm_Object_Item;
-    item_focus_left: PElm_Object_Item;
-    style: PEina_Stringshare;
-    access_obj: PEvas_Object;
-    access_info: pchar;
-    accessible_name: pchar;
-    access_order: PEina_List;
-    translate_strings: PEina_Inlist;
-    signals: PEina_List;
-    labels: PEina_Hash;
-    track_obj: PEvas_Object;
-    func: record
-      realized: procedure(obj: PEo); cdecl;
-      unrealized: procedure(obj: PEo); cdecl;
-      end;
-    disabled: 0..1;
-    on_deletion: 0..1;
-    on_translate: 0..1;
-    still_in: 0..1;
-  end;
 
 type
   PEfl_Ui_Widget_Data = ^TEfl_Ui_Widget_Data;
