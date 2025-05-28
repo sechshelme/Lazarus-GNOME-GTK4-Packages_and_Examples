@@ -187,6 +187,22 @@ uses
   elm_glview_eo_legacy,                                  // io.
   elm_part_helper,                                       // io.
   elm_spinner_eo_legacy,                                 // io.
+  efl_ui_layout_base_eo,                                 // io.
+  efl_ui_position_manager_entity_eo,                     // io.
+  efl_ui_textbox_eo,                                     // io.
+  efl_ui_view_model_eo,                                  // io.
+  elm_label_eo_legacy,                                   // io.
+  elm_naviframe_eo_legacy,                               // io.
+  elm_photocam_legacy,                                   // io.
+  elm_thumb_legacy,                                      // io.
+  elm_widget_entry,                                      // io.
+  efl_ui_dnd_eo,                                         // io.
+  elm_diskselector_eo_legacy,                            // io.
+  elm_panes_legacy,                                      // io.
+  elm_popup_eo_legacy,                                   // io.
+
+
+
 
   Math;
 

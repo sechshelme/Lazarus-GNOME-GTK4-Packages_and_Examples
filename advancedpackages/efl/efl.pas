@@ -103,10 +103,13 @@ function calloc(num, size: Tsize_t): Pointer; cdecl; external libclib;
 
 // =====================
 
-//// /usr/local/include/eet-1/Eet.h
-//type
-//  TEet_File_Mode=LongInt;
 
+// /usr/local/include/ethumb-1/Ethumb.h
+type
+  TEthumb_Thumb_Format=LongInt;
+  TEthumb_Thumb_FDO_Size=LongInt;
+  TEthumb_Thumb_Orientation=LongInt;
+  TEthumb_Thumb_Aspect=LongInt;
 
 
 type
