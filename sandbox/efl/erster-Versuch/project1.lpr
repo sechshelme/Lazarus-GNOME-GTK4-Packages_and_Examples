@@ -16,13 +16,16 @@ program project1;
 uses
   efl,
   fp_eina,
-  fp_efl,
   fp_eo,
+  fp_efl,
   fp_emile,
-  fp_ecore,
   fp_evas,
+  fp_ecore,
   fp_ecore_evas,
   fp_edje,
+  fp_ecore_file,
+  fp_eet,
+  fp_elementary,
 
   // =======================================
 
@@ -31,149 +34,142 @@ uses
 
 
   // elementary-1
-  elm_general,                                         // io.     ( makro ELM_MAIN entfernt )
-  elm_win_legacy,                                      // io.     ( Doppelt Methoden evtl. Bug in C-Hedader )
-  elm_box_legacy,                                      // io.
-  elm_box_eo_legacy,                                   // io.
-  elm_button_legacy,                                   // io.
-  elm_entry_common,                                    // io. -> elm_general
-  elm_entry_eo_legacy,                                 // io. -> elm_general, elm_entry_common
-  elm_entry_legacy,                                    // io. -> elm_general
-  elm_object,                                          // io. -> elm_general
-  elm_config,                                          // io. -> elm_general
-  elm_scroller_legacy,                                 // io.
-  elm_map_common,                                      // io.
-  elm_map_eo_legacy,                                   // io. -> elm_map_common
-  elm_map_legacy,                                      // io.
-  elm_widget_map,                                      // io. -> elm_map_common, elm_map_eo_legacy
-  elm_tooltip,                                         // io.
-  elm_widget_item_eo_legacy,                           // io. -> elm_general, elm_tooltip
-  elm_object_item,                                     // io. -> elm_widget_item_eo_legacy
-  elm_access,                                          // io. -> elm_object_item, elm_widget_item_eo_legacy
-  elm_entry_eo,                                        // io. -> elm_general, elm_entry_common
-  elm_pan_eo_legacy,                                   // io.
-  elm_interface_scrollable,                            // io. -> elm_scroller_legacy, elm_pan_eo_legacy
-  elm_interface_scrollable_eo,                         // io. -> elm_interface_scrollable
-  elm_transit,                                         // io.
-  elm_theme,                                           // io.
-  elm_gen,                                             // io. -> elm_general
-  elm_genlist_eo_legacy,                               // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen
-  elm_layout_legacy,                                   // io.
-  elm_cnp,                                             // io. -> elm_widget_item_eo_legacy
-  elm_code_common,                                     // io.
-  elm_code_line,                                       // io. -> elm_code_common
-  elm_code,                                            // io. -> elm_code_common
-  elm_code_diff_widget,                                // io. -> elm_code_common
-  elm_code_widget_legacy,                              // io. -> elm_code_common
-  elm_code_text,                                       // io. -> elm_code_line
-  elm_code_indent,                                     // io. -> elm_code_line
-  elm_code_widget_eo,                                  // io. -> elm_code_common, elm_code_line
-  elm_code_file,                                       // io. -> elm_code_common, elm_code_line
-  elm_code_parse,                                      // io. -> elm_code_common, elm_code_line
-  elm_code_syntax,                                     // io. -> elm_code_common, elm_code_line
-  elm_code_widget_eo_legacy,                           // io. -> elm_code_common, elm_code_line, elm_scroller_legacy
-  elm_code_widget_selection,                           // io.
-  elm_code_widget_legacy_eo_legacy,                    // io.
-  elm_genlist_item_eo_legacy,                          // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen
-  elm_widget_genlist,                                  // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen
-  elm_list_eo_legacy,                                  // io. -> elm_general, elm_widget_item_eo_legacy
-  elm_image_legacy,                                    // io.
-  elm_icon_eo_legacy,                                  // io.
-  elm_icon_legacy,                                     // io.
-  elm_store,                                           // io. -> elm_widget_item_eo_legacy, elm_icon_legacy, elm_gen
-  elm_toolbar_eo,                                      // io. -> elm_general, elm_widget_item_eo_legacy
-  elm_toolbar_eo_legacy,                               // io. -> elm_general, elm_widget_item_eo_legacy
-  elm_toolbar_common,                                  // io. -> elm_widget_item_eo_legacy
-  elm_toolbar_item_eo_legacy,                          // io. -> elm_widget_item_eo_legacy
-  elm_toolbar_legacy,                                  // io. -> elm_icon_legacy
-  elm_web_common,                                      // io.
-  elm_web_eo,                                          // io. -> elm_web_common
-  elm_web_eo_legacy,                                   // io. -> elm_web_common
-  efl_ui_textpath_eo_legacy,                           // io.
-  efl_ui_win_eo,                                       // io.
-  efl_ui_eot,                                          // io.
-  efl_ui_focus_object_eo,                              // io.
-  efl_ui_widget_eo,                                    // io. -> efl_ui_focus_object_eo, efl_ui_eot
-  efl_ui_widget_eo_legacy,                             // io. -> efl_ui_focus_object_eo
-  efl_ui_focus_composition_eo,                         // io.
-  efl_ui_focus_layer_eo,                               // io.
-  efl_ui_focus_manager_calc_eo,                        // io. -> efl_ui_focus_object_eo
-  efl_ui_focus_manager_root_focus_eo,                  // io.
-  efl_ui_focus_manager_sub_eo,                         // io.
-  efl_ui_focus_manager_window_root_eo,                 // io.
-  efl_ui_focus_util_eo,                                // io. -> efl_ui_focus_object_eo, efl_ui_eot
-  efl_ui_focus_manager_eo,                             // io. -> efl_ui_focus_object_eo, efl_ui_eot
-  efl_ui_flip_eo,                                      // io.
-  efl_ui_clock_eo,                                     // io.
-  efl_ui_spotlight_animation_manager_eo,               // io.
-  efl_ui_spotlight_fade_manager_eo,                    // io.
-  efl_ui_spotlight_icon_indicator_eo,                  // io.
-  efl_ui_spotlight_manager_eo,                         // io.
-  efl_ui_spotlight_indicator_eo,                       // io. -> efl_ui_spotlight_manager_eo
-  efl_ui_spotlight_container_eo,                       // io. -> efl_ui_widget_eo, efl_ui_spotlight_manager_eo, efl_ui_spotlight_indicator_eo
-  efl_ui_spotlight_scroll_manager_eo,                  // io.
-  efl_ui_spotlight_util_eo,                            // io. -> efl_ui_widget_eo, efl_ui_spotlight_manager_eo
-  efl_ui_format_eo,                                    // io.
-  efl_ui_popup_eo,                                     // io.
-  Efl_Ui,                                              // io. -> efl_ui_focus_manager_eo, efl_ui_win_eo
-  elm_widget,                                          // io. -> elm_widget_item_eo_legacy, elm_theme, efl_ui_widget_eo_legacy, efl_ui_focus_object_eo, elm_access, efl_ui_eot
-  elm_widget_toolbar,                                  // io. -> elm_general, elm_widget_item_eo_legacy, elm_toolbar_eo_legacy, elm_widget, elm_transit
-  elm_gen_common,                                      // io. -> elm_tooltip, elm_widget, elm_widget_genlist, elm_gen
-  efl_access_object_eo,                                // io.
-  efl_ui_vg_animation_eo_legacy,                       // io.
-  elm_calendar_item_eo_legacy,                         // io.
-  elm_calendar_common,                                 // io.
-  elm_calendar_eo_legacy,                              // io. -> elm_calendar_common
-  elm_calendar_legacy,                                 // io. -> elm_calendar_eo_legacy
-  elm_clock_eo_legacy,                                 // io.
-  elm_clock_legacy,                                    // io.
-  elm_clock_eo,                                        // io.
-  elm_datetime,                                        // io. -> elm_clock_eo
-  elm_interface_fileselector,                          // io.
-  elm_interface_fileselector_eo_legacy,                // io.
-  elm_fileselector_button_eo_legacy,                   // io.
-  elm_fileselector_entry_eo_legacy,                    // io.
-  elm_fileselector_entry_part_eo,                      // io.
-  elm_fileselector_eo_legacy,                          // io.
-  elm_fileselector_part_eo,                            // io.
-  elc_fileselector_common,                             // io.
-  elc_fileselector_legacy,                             // io. -> elm_interface_fileselector_eo_legacy, elc_fileselector_common
-  elc_fileselector_button_legacy,                      // io. -> elm_fileselector_button_eo_legacy
-  elc_fileselector_entry_legacy,                       // io. -> elm_fileselector_entry_eo_legacy
-  elm_focus,                                           // io. -> elm_general
-  elm_gengrid_eo_legacy,                               // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen
-  elm_gengrid_common,                                  // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen, elm_tooltip
-  elm_gengrid_item_eo_legacy,                          // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen
-  elm_gengrid_legacy,                                  // io. -> elm_widget_item_eo_legacy, elm_scroller_legacy
-  elm_gengrid_pan_eo_legacy,                           // io.
-  elm_widget_gengrid,                                  // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen, elm_gengrid_eo_legacy
-  elm_slideshow_common,                                // io.
-  elm_slideshow_eo_legacy,                             // io. -> elm_widget_item_eo_legacy, elm_slideshow_common
-  elm_slideshow_item_eo_legacy,                        // io.
-  elm_slideshow_legacy,                                // io.
-  elm_slider_common,                                   // io.
-  elm_slider_legacy,                                   // io. -> elm_general, elm_slider_common
-  elm_slider_part_indicator_eo_legacy,                 // io.
-  efl_access_text_eo,                                  // io.
-  elm_genlist_common,                                  // io. -> elm_widget_item_eo_legacy, elm_gen, elm_tooltip
-  elm_prefs_data,                                      // io.
-  elm_prefs_common,                                    // io. -> elm_prefs_data
-  elm_gesture_layer_common,                            // io.
-  elm_index_eo_legacy,                                 // io. -> elm_widget_item_eo_legacy
-  elm_index_item_eo_legacy,                            // io.
-  elm_index_legacy,                                    // io.
-  elm_prefs_eo_legacy,                                 // io. -> elm_prefs_data
-  elm_prefs_legacy,                                    // io.
-  elm_progressbar_common,                              // io.
-  elm_progressbar_legacy,                              // io. -> elm_progressbar_common
-
-
-
-
-
-
-
-  elm_deprecated,                                      // io. -> elm_general, elm_scroller_legacy, elm_map_common, elm_win_legacy, efl_ui_textpath_eo_legacy, elm_widget_item_eo_legacy
+  //elm_general,                                         // io.     ( makro ELM_MAIN entfernt )
+  //elm_win_legacy,                                      // io.     ( Doppelt Methoden evtl. Bug in C-Hedader )
+  //elm_box_legacy,                                      // io.
+  //elm_box_eo_legacy,                                   // io.
+  //elm_button_legacy,                                   // io.
+  //elm_entry_common,                                    // io. -> elm_general
+  //elm_entry_eo_legacy,                                 // io. -> elm_general, elm_entry_common
+  //elm_entry_legacy,                                    // io. -> elm_general
+  //elm_object,                                          // io. -> elm_general
+  //elm_config,                                          // io. -> elm_general
+  //elm_scroller_legacy,                                 // io.
+  //elm_map_common,                                      // io.
+  //elm_map_eo_legacy,                                   // io. -> elm_map_common
+  //elm_map_legacy,                                      // io.
+  //elm_widget_map,                                      // io. -> elm_map_common, elm_map_eo_legacy
+  //elm_tooltip,                                         // io.
+  //elm_widget_item_eo_legacy,                           // io. -> elm_general, elm_tooltip
+  //elm_object_item,                                     // io. -> elm_widget_item_eo_legacy
+  //elm_access,                                          // io. -> elm_object_item, elm_widget_item_eo_legacy
+  //elm_entry_eo,                                        // io. -> elm_general, elm_entry_common
+  //elm_pan_eo_legacy,                                   // io.
+  //elm_interface_scrollable,                            // io. -> elm_scroller_legacy, elm_pan_eo_legacy
+  //elm_interface_scrollable_eo,                         // io. -> elm_interface_scrollable
+  //elm_transit,                                         // io.
+  //elm_theme,                                           // io.
+  //elm_gen,                                             // io. -> elm_general
+  //elm_genlist_eo_legacy,                               // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen
+  //elm_layout_legacy,                                   // io.
+  //elm_cnp,                                             // io. -> elm_widget_item_eo_legacy
+  //elm_code_common,                                     // io.
+  //elm_code_line,                                       // io. -> elm_code_common
+  //elm_code,                                            // io. -> elm_code_common
+  //elm_code_diff_widget,                                // io. -> elm_code_common
+  //elm_code_widget_legacy,                              // io. -> elm_code_common
+  //elm_code_text,                                       // io. -> elm_code_line
+  //elm_code_indent,                                     // io. -> elm_code_line
+  //elm_code_widget_eo,                                  // io. -> elm_code_common, elm_code_line
+  //elm_code_file,                                       // io. -> elm_code_common, elm_code_line
+  //elm_code_parse,                                      // io. -> elm_code_common, elm_code_line
+  //elm_code_syntax,                                     // io. -> elm_code_common, elm_code_line
+  //elm_code_widget_eo_legacy,                           // io. -> elm_code_common, elm_code_line, elm_scroller_legacy
+  //elm_code_widget_selection,                           // io.
+  //elm_code_widget_legacy_eo_legacy,                    // io.
+  //elm_genlist_item_eo_legacy,                          // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen
+  //elm_widget_genlist,                                  // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen
+  //elm_list_eo_legacy,                                  // io. -> elm_general, elm_widget_item_eo_legacy
+  //elm_image_legacy,                                    // io.
+  //elm_icon_eo_legacy,                                  // io.
+  //elm_icon_legacy,                                     // io.
+  //elm_store,                                           // io. -> elm_widget_item_eo_legacy, elm_icon_legacy, elm_gen
+  //elm_toolbar_eo,                                      // io. -> elm_general, elm_widget_item_eo_legacy
+  //elm_toolbar_eo_legacy,                               // io. -> elm_general, elm_widget_item_eo_legacy
+  //elm_toolbar_common,                                  // io. -> elm_widget_item_eo_legacy
+  //elm_toolbar_item_eo_legacy,                          // io. -> elm_widget_item_eo_legacy
+  //elm_toolbar_legacy,                                  // io. -> elm_icon_legacy
+  //elm_web_common,                                      // io.
+  //elm_web_eo,                                          // io. -> elm_web_common
+  //elm_web_eo_legacy,                                   // io. -> elm_web_common
+  //efl_ui_textpath_eo_legacy,                           // io.
+  //efl_ui_win_eo,                                       // io.
+  //efl_ui_eot,                                          // io.
+  //efl_ui_focus_object_eo,                              // io.
+  //efl_ui_widget_eo,                                    // io. -> efl_ui_focus_object_eo, efl_ui_eot
+  //efl_ui_widget_eo_legacy,                             // io. -> efl_ui_focus_object_eo
+  //efl_ui_focus_composition_eo,                         // io.
+  //efl_ui_focus_layer_eo,                               // io.
+  //efl_ui_focus_manager_calc_eo,                        // io. -> efl_ui_focus_object_eo
+  //efl_ui_focus_manager_root_focus_eo,                  // io.
+  //efl_ui_focus_manager_sub_eo,                         // io.
+  //efl_ui_focus_manager_window_root_eo,                 // io.
+  //efl_ui_focus_util_eo,                                // io. -> efl_ui_focus_object_eo, efl_ui_eot
+  //efl_ui_focus_manager_eo,                             // io. -> efl_ui_focus_object_eo, efl_ui_eot
+  //efl_ui_flip_eo,                                      // io.
+  //efl_ui_clock_eo,                                     // io.
+  //efl_ui_spotlight_animation_manager_eo,               // io.
+  //efl_ui_spotlight_fade_manager_eo,                    // io.
+  //efl_ui_spotlight_icon_indicator_eo,                  // io.
+  //efl_ui_spotlight_manager_eo,                         // io.
+  //efl_ui_spotlight_indicator_eo,                       // io. -> efl_ui_spotlight_manager_eo
+  //efl_ui_spotlight_container_eo,                       // io. -> efl_ui_widget_eo, efl_ui_spotlight_manager_eo, efl_ui_spotlight_indicator_eo
+  //efl_ui_spotlight_scroll_manager_eo,                  // io.
+  //efl_ui_spotlight_util_eo,                            // io. -> efl_ui_widget_eo, efl_ui_spotlight_manager_eo
+  //efl_ui_format_eo,                                    // io.
+  //efl_ui_popup_eo,                                     // io.
+  //Efl_Ui,                                              // io. -> efl_ui_focus_manager_eo, efl_ui_win_eo
+  //elm_widget,                                          // io. -> elm_widget_item_eo_legacy, elm_theme, efl_ui_widget_eo_legacy, efl_ui_focus_object_eo, elm_access, efl_ui_eot
+  //elm_widget_toolbar,                                  // io. -> elm_general, elm_widget_item_eo_legacy, elm_toolbar_eo_legacy, elm_widget, elm_transit
+  //elm_gen_common,                                      // io. -> elm_tooltip, elm_widget, elm_widget_genlist, elm_gen
+  //efl_access_object_eo,                                // io.
+  //efl_ui_vg_animation_eo_legacy,                       // io.
+  //elm_calendar_item_eo_legacy,                         // io.
+  //elm_calendar_common,                                 // io.
+  //elm_calendar_eo_legacy,                              // io. -> elm_calendar_common
+  //elm_calendar_legacy,                                 // io. -> elm_calendar_eo_legacy
+  //elm_clock_eo_legacy,                                 // io.
+  //elm_clock_legacy,                                    // io.
+  //elm_clock_eo,                                        // io.
+  //elm_datetime,                                        // io. -> elm_clock_eo
+  //elm_interface_fileselector,                          // io.
+  //elm_interface_fileselector_eo_legacy,                // io.
+  //elm_fileselector_button_eo_legacy,                   // io.
+  //elm_fileselector_entry_eo_legacy,                    // io.
+  //elm_fileselector_entry_part_eo,                      // io.
+  //elm_fileselector_eo_legacy,                          // io.
+  //elm_fileselector_part_eo,                            // io.
+  //elc_fileselector_common,                             // io.
+  //elc_fileselector_legacy,                             // io. -> elm_interface_fileselector_eo_legacy, elc_fileselector_common
+  //elc_fileselector_button_legacy,                      // io. -> elm_fileselector_button_eo_legacy
+  //elc_fileselector_entry_legacy,                       // io. -> elm_fileselector_entry_eo_legacy
+  //elm_focus,                                           // io. -> elm_general
+  //elm_gengrid_eo_legacy,                               // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen
+  //elm_gengrid_common,                                  // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen, elm_tooltip
+  //elm_gengrid_item_eo_legacy,                          // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen
+  //elm_gengrid_legacy,                                  // io. -> elm_widget_item_eo_legacy, elm_scroller_legacy
+  //elm_gengrid_pan_eo_legacy,                           // io.
+  //elm_widget_gengrid,                                  // io. -> elm_general, elm_widget_item_eo_legacy, elm_gen, elm_gengrid_eo_legacy
+  //elm_slideshow_common,                                // io.
+  //elm_slideshow_eo_legacy,                             // io. -> elm_widget_item_eo_legacy, elm_slideshow_common
+  //elm_slideshow_item_eo_legacy,                        // io.
+  //elm_slideshow_legacy,                                // io.
+  //elm_slider_common,                                   // io.
+  //elm_slider_legacy,                                   // io. -> elm_general, elm_slider_common
+  //elm_slider_part_indicator_eo_legacy,                 // io.
+  //efl_access_text_eo,                                  // io.
+  //elm_genlist_common,                                  // io. -> elm_widget_item_eo_legacy, elm_gen, elm_tooltip
+  //elm_prefs_data,                                      // io.
+  //elm_prefs_common,                                    // io. -> elm_prefs_data
+  //elm_gesture_layer_common,                            // io.
+  //elm_index_eo_legacy,                                 // io. -> elm_widget_item_eo_legacy
+  //elm_index_item_eo_legacy,                            // io.
+  //elm_index_legacy,                                    // io.
+  //elm_prefs_eo_legacy,                                 // io. -> elm_prefs_data
+  //elm_prefs_legacy,                                    // io.
+  //elm_progressbar_common,                              // io.
+  //elm_progressbar_legacy,                              // io. -> elm_progressbar_common
+  //elm_deprecated,                                      // io. -> elm_general, elm_scroller_legacy, elm_map_common, elm_win_legacy, efl_ui_textpath_eo_legacy, elm_widget_item_eo_legacy
   Math;
 
   procedure on_win_del(data: pointer; obj: PEvas_Object; event_info: pointer); cdecl;

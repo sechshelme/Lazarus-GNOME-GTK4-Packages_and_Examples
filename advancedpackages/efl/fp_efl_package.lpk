@@ -57,6 +57,10 @@
         <Filename Value="fp_eet.pas"/>
         <UnitName Value="fp_eet"/>
       </Item>
+      <Item>
+        <Filename Value="fp_elementary.pas"/>
+        <UnitName Value="fp_elementary"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
