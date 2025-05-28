@@ -1,6 +1,7 @@
 {$IFDEF read_interface}
 
 type
+  PPEfl_Text_Cursor_Object = ^PEfl_Text_Cursor_Object;
   PEfl_Text_Cursor_Object = ^TEfl_Text_Cursor_Object;
   TEfl_Text_Cursor_Object = TEo;
 

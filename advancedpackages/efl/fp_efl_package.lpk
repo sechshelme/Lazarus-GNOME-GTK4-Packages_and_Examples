@@ -61,6 +61,10 @@
         <Filename Value="fp_elementary.pas"/>
         <UnitName Value="fp_elementary"/>
       </Item>
+      <Item>
+        <Filename Value="fp_ethumb.pas"/>
+        <UnitName Value="fp_ethumb"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

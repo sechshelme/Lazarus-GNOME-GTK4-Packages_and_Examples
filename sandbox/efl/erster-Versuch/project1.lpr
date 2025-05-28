@@ -21,6 +21,7 @@ uses
   fp_emile,
   fp_evas,
   fp_ecore,
+  fp_ethumb,
   fp_ecore_evas,
   fp_edje,
   fp_ecore_file,
@@ -180,6 +181,17 @@ uses
   efl_ui_position_manager_data_access_v1_eo,             // io. -> efl_ui_item_eo
   efl_ui_relative_container_eo,                          // io.
   efl_ui_vg_animation_eo,                                // io.
+  efl_ui_layout_base_eo,                                 // io.
+  efl_ui_position_manager_entity_eo,                     // io.
+  efl_ui_textbox_eo,                                     // io.
+  efl_ui_view_model_eo,                                  // io.
+  efl_ui_dnd_eo,                                         // io.
+  efl_ui_flip_legacy,                                    // io.
+  efl_ui_flip_legacy_eo_legacy,                          // io.
+  efl_ui_flip_part_eo,                                   // io.
+  efl_ui_flip_eo_legacy,                                 // io. -> efl_ui_flip_legacy
+  efl_ui_image_zoomable_private,                         // io.
+  efl_ui_relative_container_private,                     // io.
   elm_app,                                               // io.
   elm_ctxpopup_item_eo_legacy,                           // io.
   elm_ctxpopup_part_eo,                                  // io.
@@ -187,23 +199,31 @@ uses
   elm_glview_eo_legacy,                                  // io.
   elm_part_helper,                                       // io.
   elm_spinner_eo_legacy,                                 // io.
-  efl_ui_layout_base_eo,                                 // io.
-  efl_ui_position_manager_entity_eo,                     // io.
-  efl_ui_textbox_eo,                                     // io.
-  efl_ui_view_model_eo,                                  // io.
   elm_label_eo_legacy,                                   // io.
   elm_naviframe_eo_legacy,                               // io.
   elm_photocam_legacy,                                   // io.
   elm_thumb_legacy,                                      // io.
   elm_widget_entry,                                      // io.
-  efl_ui_dnd_eo,                                         // io.
   elm_diskselector_eo_legacy,                            // io.
   elm_panes_legacy,                                      // io.
   elm_popup_eo_legacy,                                   // io.
+  efl_text_interactive_eo,                               // io.
+  elm_bg_legacy,                                         // io.
+  elm_flipselector_eo_legacy,                            // io.
+  elm_gesture_layer_eo_legacy,                           // io.
+  elm_segment_control_eo_legacy,                         // io.
+  elm_widget_fileselector,                               // io.
+  elm_widget_list,                                       // io.
+  efl_config_global_eo,                                  // io.
+  elm_dayselector_eo_legacy,                             // io.
+  elm_mapbuf_eo_legacy,                                  // io.
+  elm_systray_eo_legacy,                                 // io.
+  elm_widget_multibuttonentry,                           // io.
 
 
 
 
+  Elementary,                                            // io.
   Math;
 
   procedure on_win_del(data: pointer; obj: PEvas_Object; event_info: pointer); cdecl;

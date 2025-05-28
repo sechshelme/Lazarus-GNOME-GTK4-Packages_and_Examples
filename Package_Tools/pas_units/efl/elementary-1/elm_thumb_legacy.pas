@@ -3,7 +3,7 @@ unit elm_thumb_legacy;
 interface
 
 uses
-  efl, fp_eo, fp_eina, fp_efl, fp_evas, fp_ecore, fp_edje, fp_elementary;
+  efl, fp_eo, fp_eina, fp_efl, fp_evas, fp_ecore, fp_edje, fp_elementary, fp_ethumb;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

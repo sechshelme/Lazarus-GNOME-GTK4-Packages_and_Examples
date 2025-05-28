@@ -16,6 +16,7 @@ const
   libefl = 'libefl';
   libeet = 'libeet';
   libemile = 'libemile';
+  libethumb = 'libethumb';
   libecore = 'libecore';
   libecore_file = 'libecore_file';
   libecore_eva = 'libecore_evas';
@@ -31,6 +32,7 @@ const
   libefl = 'libefl-1.dll';
   libeet = 'libeet-1.dll';
   libemile = 'libemile-1.dll';
+  libethumb = 'libethumb-1.dll';
   libecore = 'libecore-1.dll';
   libecore_file = 'libecore_file-1.dll';
   libecore_evas = 'libecore_evas-1.dll';
@@ -103,13 +105,6 @@ function calloc(num, size: Tsize_t): Pointer; cdecl; external libclib;
 
 // =====================
 
-
-// /usr/local/include/ethumb-1/Ethumb.h
-type
-  TEthumb_Thumb_Format=LongInt;
-  TEthumb_Thumb_FDO_Size=LongInt;
-  TEthumb_Thumb_Orientation=LongInt;
-  TEthumb_Thumb_Aspect=LongInt;
 
 
 type
