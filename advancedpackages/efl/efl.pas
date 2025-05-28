@@ -14,6 +14,7 @@ const
   libeina = 'libeina';
   libeo = 'libeo';
   libefl = 'libefl';
+  libeet = 'libeet';
   libemile = 'libemile';
   libecore = 'libecore';
   libecore_file = 'libecore_file';
@@ -28,6 +29,7 @@ const
   libeina = 'libeina-1.dll';
   libeo = 'libeo-1.dll';
   libefl = 'libefl-1.dll';
+  libeet = 'libeet-1.dll';
   libemile = 'libemile-1.dll';
   libecore = 'libecore-1.dll';
   libecore_file = 'libecore_file-1.dll';
@@ -101,9 +103,9 @@ function calloc(num, size: Tsize_t): Pointer; cdecl; external libclib;
 
 // =====================
 
-// /usr/local/include/eet-1/Eet.h
-type
-  TEet_File_Mode=LongInt;
+//// /usr/local/include/eet-1/Eet.h
+//type
+//  TEet_File_Mode=LongInt;
 
 
 

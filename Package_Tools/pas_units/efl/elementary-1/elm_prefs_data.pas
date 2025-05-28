@@ -3,7 +3,7 @@ unit elm_prefs_data;
 interface
 
 uses
-  efl, fp_eo, fp_eina, fp_efl, fp_evas, fp_ecore, fp_edje;
+  efl, fp_eo, fp_eina, fp_efl, fp_evas, fp_ecore, fp_edje, fp_eet;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
