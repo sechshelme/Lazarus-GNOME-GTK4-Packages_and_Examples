@@ -102,6 +102,8 @@ type
   Psiginfo_t = ^Tsiginfo_t;
 
 function calloc(num, size: Tsize_t): Pointer; cdecl; external libclib;
+function malloc(size: Tsize_t): Pointer; cdecl; external libclib;
+procedure free(p:Pointer); cdecl; external libclib;
 
 // =====================
 

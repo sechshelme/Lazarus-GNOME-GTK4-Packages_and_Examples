@@ -12,6 +12,8 @@ program project1;
 
 // Bei eina *.x behandeln
 
+// __in_list
+
 
 uses
   efl,
@@ -192,6 +194,12 @@ uses
   efl_ui_flip_eo_legacy,                                 // io. -> efl_ui_flip_legacy
   efl_ui_image_zoomable_private,                         // io.
   efl_ui_relative_container_private,                     // io.
+  efl_ui_calendar_eo,                                    // io.
+  efl_ui_image_zoomable_eo,                              // io.
+  efl_ui_selection_eo,                                   // io.
+  efl_ui_spin_button_eo,                                 // io.
+  efl_ui_tags_eo,                                        // io.
+  efl_ui_widget_scrollable_content_eo,                   // io.
   elm_app,                                               // io.
   elm_ctxpopup_item_eo_legacy,                           // io.
   elm_ctxpopup_part_eo,                                  // io.
@@ -219,6 +227,18 @@ uses
   elm_mapbuf_eo_legacy,                                  // io.
   elm_systray_eo_legacy,                                 // io.
   elm_widget_multibuttonentry,                           // io.
+  elm_hoversel_eo_legacy,                                // io.
+  elm_scroll,                                            // io.
+  elm_spinner_legacy,                                    // io.
+  elm_widget_layout,                                     // io.
+  elm_box_common,                                        // io.
+  elm_color_class,                                       // io.
+  elm_color_item_eo_legacy,                              // io.
+  elm_colorselector_legacy,                              // io.
+  elm_colorselector_eo_legacy,                           // io.
+  elm_colorselector_common,                              // io.
+  elm_widget_colorselector,                              // io. -> elm_colorselector_common
+  elm_widget_naviframe,                                  // io.
 
 
 

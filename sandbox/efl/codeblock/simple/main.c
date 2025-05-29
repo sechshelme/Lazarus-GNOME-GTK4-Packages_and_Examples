@@ -101,3 +101,10 @@ int main(int argc, char **argv)
 
 
 
+Elm_Layout_Data
+efl_ui_tags_class_get
+Elm_Color_RGBA
+Elm_Box_Transition
+
+
+
