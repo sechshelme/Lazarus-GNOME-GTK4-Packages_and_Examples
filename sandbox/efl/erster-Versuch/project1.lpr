@@ -208,6 +208,21 @@ uses
   efl_ui_collection_view_eo,                             // io. -> efl_ui_position_manager_entity_eo
   efl_ui_image_eo,                                       // io.
   efl_ui_pan_eo,                                         // io.
+  efl_ui_multi_selectable_index_range_eo,                // io.
+  efl_ui_panel_eo,                                       // io.
+  efl_ui_progressbar_eo,                                 // io.
+  efl_ui_radio_box_eo,                                   // io.
+  efl_ui_radio_eo,                                       // io.
+  efl_ui_radio_group_impl_eo,                            // io.
+  efl_ui_radio_legacy_eo_legacy,                         // io.
+  efl_ui_radio_legacy_part_eo,                           // io.
+  efl_ui_radio_private,                                  // io.
+  efl_ui_radio_eo_legacy,                                // io.
+  efl_ui_radio_group_eo,                                 // io. -> efl_ui_radio_eo_legacy
+  efl_ui_select_model_eo,                                // io.
+  efl_ui_separator_eo,                                   // io.
+  efl_ui_selectable_eo,                                  // io.
+  efl_ui_single_selectable_eo,                           // io. -> efl_ui_selectable_eo
   elm_app,                                               // io.
   elm_ctxpopup_item_eo_legacy,                           // io.
   elm_ctxpopup_part_eo,                                  // io.
@@ -255,10 +270,11 @@ uses
   efl_access_selection_eo,                               // io.
   elm_menu_item_eo_legacy,                               // io.
   efl_access_object,                                     // io.
-
   elm_cursor,                                            // io.
   elm_table_eo_legacy,                                   // io.
   elm_web_legacy,                                        // io.
+  elm_list_item_eo_legacy,                               // io.
+  elm_win_common,                                        // io.
 
 
 
