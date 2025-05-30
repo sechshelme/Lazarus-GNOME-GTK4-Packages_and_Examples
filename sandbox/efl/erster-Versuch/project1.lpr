@@ -196,6 +196,7 @@ uses
   efl_ui_spin_button_eo,                                 // io.
   efl_ui_tags_eo,                                        // io.
   efl_ui_widget_image,                                   // io.
+  efl_ui_widget_scroll_manager,                          // io.
   efl_ui_widget_scrollable_content_eo,                   // io.
   efl_ui_widget_flip,                                    // io.
   efl_ui_datepicker_eo,                                  // io.
@@ -224,10 +225,13 @@ uses
   efl_ui_select_model_eo,                                // io.
   efl_ui_separator_eo,                                   // io.
   efl_ui_selectable_eo,                                  // io.
+  efl_ui_multi_selectable_object_range_eo,               // io. -> efl_ui_selectable_eo
   efl_ui_single_selectable_eo,                           // io. -> efl_ui_selectable_eo
   efl_ui_alert_popup_eo,                                 // io.
   efl_ui_caching_factory_eo,                             // io.
   efl_ui_text_factory_images_eo,                         // io.
+  efl_ui_panes_eo,                                       // io.
+  efl_ui_theme_eo,                                       // io.
   elm_app,                                               // io.
   elm_ctxpopup_item_eo_legacy,                           // io.
   elm_ctxpopup_part_eo,                                  // io.
@@ -238,6 +242,9 @@ uses
   elm_spinner_legacy,                                    // io.
   elm_label_eo_legacy,                                   // io.
   elm_naviframe_eo_legacy,                               // io.
+  elc_naviframe_common,                                  // io.
+  elm_naviframe_part_eo,                                 // io.
+  elm_naviframe_item_eo_legacy,                          // io.
   elm_photocam_legacy,                                   // io.
   elm_thumb_legacy,                                      // io.
   elm_diskselector_eo_legacy,                            // io.
@@ -278,6 +285,9 @@ uses
   elm_widget_hoversel,                                   // io.
   elm_widget_menu,                                       // io.
   elm_widget_slideshow,                                  // io.
+  elm_widget_fileselector_button,                        // io.
+  elm_widget_segment_control,                            // io.
+  elm_widget_thumb,                                      // io.
   elm_menu_item_eo_legacy,                               // io.
   elm_cursor,                                            // io.
   elm_table_eo_legacy,                                   // io.
@@ -293,6 +303,9 @@ uses
   elm_sys_notify_eo_legacy,                              // io.
   elm_notify_eo_legacy,                                  // io.
   elm_photo_legacy,                                      // io.
+  elm_actionslider_eo_legacy,                            // io.
+  elm_diskselector_item_eo_legacy,                       // io.
+
 
 
 
