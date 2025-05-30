@@ -11,6 +11,7 @@ interface
   fp_evas,
   fp_ecore,
   fp_ecore_evas,
+  fp_ethumb,
   fp_edje,
   fp_ecore_file,
   fp_eet;

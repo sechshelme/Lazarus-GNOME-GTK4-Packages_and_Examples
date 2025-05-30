@@ -1,0 +1,24 @@
+{$IFDEF read_interface}
+
+
+function elm_spinner_add(parent: PEvas_Object): PEvas_Object; cdecl; external libelementary;
+procedure elm_spinner_special_value_del(obj: PEvas_Object; value: double); cdecl; external libelementary;
+function elm_spinner_special_value_get(obj: PEvas_Object; value: double): pchar; cdecl; external libelementary;
+procedure elm_spinner_min_max_set(obj: PEvas_Object; min: double; max: double); cdecl; external libelementary;
+procedure elm_spinner_min_max_get(obj: PEvas_Object; min: Pdouble; max: Pdouble); cdecl; external libelementary;
+procedure elm_spinner_step_set(obj: PEvas_Object; step: double); cdecl; external libelementary;
+function elm_spinner_step_get(obj: PEvas_Object): double; cdecl; external libelementary;
+procedure elm_spinner_value_set(obj: PEvas_Object; val: double); cdecl; external libelementary;
+function elm_spinner_value_get(obj: PEvas_Object): double; cdecl; external libelementary;
+
+// === Konventiert am: 29-5-25 19:47:18 ===
+
+
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
+
+
+
+{$ENDIF read_implementation}

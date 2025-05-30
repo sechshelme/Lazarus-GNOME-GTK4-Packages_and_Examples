@@ -108,7 +108,6 @@ procedure free(p:Pointer); cdecl; external libclib;
 // =====================
 
 
-
 type
   // /usr/include/eina-1/eina/eina_inline_lock_posix.x
   TEina_Lock = Pointer;
