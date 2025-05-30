@@ -178,13 +178,9 @@ uses
   elm_multibuttonentry_part_eo,                          // io.
   elm_multibuttonentry_eo_legacy,                        // io. -> elc_multibuttonentry_common
   elc_multibuttonentry_legacy,                           // io. -> elc_multibuttonentry_common
-  efl_ui_item_eo,                                        // io.
-  efl_ui_item_clickable_eo,                              // io. -> efl_ui_item_eo
-  efl_ui_position_manager_data_access_v1_eo,             // io. -> efl_ui_item_eo
   efl_ui_relative_container_eo,                          // io.
   efl_ui_vg_animation_eo,                                // io.
   efl_ui_layout_base_eo,                                 // io.
-  efl_ui_position_manager_entity_eo,                     // io.
   efl_ui_textbox_eo,                                     // io.
   efl_ui_view_model_eo,                                  // io.
   efl_ui_dnd_eo,                                         // io.
@@ -199,7 +195,19 @@ uses
   efl_ui_selection_eo,                                   // io.
   efl_ui_spin_button_eo,                                 // io.
   efl_ui_tags_eo,                                        // io.
+  efl_ui_widget_image,                                   // io.
   efl_ui_widget_scrollable_content_eo,                   // io.
+  efl_ui_datepicker_eo,                                  // io.
+  efl_ui_video_legacy,                                   // io.
+  efl_ui_item_eo,                                        // io.
+  efl_ui_item_clickable_eo,                              // io. -> efl_ui_item_eo
+  efl_ui_position_manager_data_access_v1_eo,             // io. -> efl_ui_item_eo
+  efl_ui_position_manager_entity_eo,                     // io.
+  efl_ui_position_manager_grid_eo,                       // io.
+  efl_ui_position_manager_list_eo,                       // io.
+  efl_ui_collection_view_eo,                             // io. -> efl_ui_position_manager_entity_eo
+  efl_ui_image_eo,                                       // io.
+  efl_ui_pan_eo,                                         // io.
   elm_app,                                               // io.
   elm_ctxpopup_item_eo_legacy,                           // io.
   elm_ctxpopup_part_eo,                                  // io.
@@ -207,11 +215,11 @@ uses
   elm_glview_eo_legacy,                                  // io.
   elm_part_helper,                                       // io.
   elm_spinner_eo_legacy,                                 // io.
+  elm_spinner_legacy,                                    // io.
   elm_label_eo_legacy,                                   // io.
   elm_naviframe_eo_legacy,                               // io.
   elm_photocam_legacy,                                   // io.
   elm_thumb_legacy,                                      // io.
-  elm_widget_entry,                                      // io.
   elm_diskselector_eo_legacy,                            // io.
   elm_panes_legacy,                                      // io.
   elm_popup_eo_legacy,                                   // io.
@@ -220,17 +228,12 @@ uses
   elm_flipselector_eo_legacy,                            // io.
   elm_gesture_layer_eo_legacy,                           // io.
   elm_segment_control_eo_legacy,                         // io.
-  elm_widget_fileselector,                               // io.
-  elm_widget_list,                                       // io.
   efl_config_global_eo,                                  // io.
   elm_dayselector_eo_legacy,                             // io.
   elm_mapbuf_eo_legacy,                                  // io.
   elm_systray_eo_legacy,                                 // io.
-  elm_widget_multibuttonentry,                           // io.
   elm_hoversel_eo_legacy,                                // io.
   elm_scroll,                                            // io.
-  elm_spinner_legacy,                                    // io.
-  elm_widget_layout,                                     // io.
   elm_box_common,                                        // io.
   elm_color_class,                                       // io.
   elm_color_item_eo_legacy,                              // io.
@@ -238,12 +241,31 @@ uses
   elm_colorselector_eo_legacy,                           // io.
   elm_colorselector_common,                              // io.
   elm_widget_colorselector,                              // io. -> elm_colorselector_common
+  elm_widget_multibuttonentry,                           // io.
   elm_widget_naviframe,                                  // io.
+  elm_widget_diskselector,                               // io.
+  elm_widget_prefs,                                      // io.
+  elm_widget_layout,                                     // io.
+  elm_widget_fileselector,                               // io.
+  elm_widget_list,                                       // io.
+  elm_widget_entry,                                      // io.
+  elm_widget_index,                                      // io.
+  elm_widget_popup,                                      // io.
+  efl_access_component_eo,                               // io.
+  efl_access_selection_eo,                               // io.
+  elm_menu_item_eo_legacy,                               // io.
+  efl_access_object,                                     // io.
+
+  elm_cursor,                                            // io.
+  elm_table_eo_legacy,                                   // io.
+  elm_web_legacy,                                        // io.
+
 
 
 
 
   Elementary,                                            // io.
+  Elementary_Cursor,                                     // io.
   Math;
 
   procedure on_win_del(data: pointer; obj: PEvas_Object; event_info: pointer); cdecl;
