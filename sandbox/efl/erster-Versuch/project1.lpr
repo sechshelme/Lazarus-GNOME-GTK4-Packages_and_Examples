@@ -197,6 +197,7 @@ uses
   efl_ui_tags_eo,                                        // io.
   efl_ui_widget_image,                                   // io.
   efl_ui_widget_scrollable_content_eo,                   // io.
+  efl_ui_widget_flip,                                    // io.
   efl_ui_datepicker_eo,                                  // io.
   efl_ui_video_legacy,                                   // io.
   efl_ui_item_eo,                                        // io.
@@ -206,6 +207,7 @@ uses
   efl_ui_position_manager_grid_eo,                       // io.
   efl_ui_position_manager_list_eo,                       // io.
   efl_ui_collection_view_eo,                             // io. -> efl_ui_position_manager_entity_eo
+  efl_ui_collection_eo,                                  // io. -> efl_ui_item_eo, efl_ui_position_manager_entity_eo
   efl_ui_image_eo,                                       // io.
   efl_ui_pan_eo,                                         // io.
   efl_ui_multi_selectable_index_range_eo,                // io.
@@ -223,6 +225,9 @@ uses
   efl_ui_separator_eo,                                   // io.
   efl_ui_selectable_eo,                                  // io.
   efl_ui_single_selectable_eo,                           // io. -> efl_ui_selectable_eo
+  efl_ui_alert_popup_eo,                                 // io.
+  efl_ui_caching_factory_eo,                             // io.
+  efl_ui_text_factory_images_eo,                         // io.
   elm_app,                                               // io.
   elm_ctxpopup_item_eo_legacy,                           // io.
   elm_ctxpopup_part_eo,                                  // io.
@@ -266,17 +271,28 @@ uses
   elm_widget_entry,                                      // io.
   elm_widget_index,                                      // io.
   elm_widget_popup,                                      // io.
-  efl_access_component_eo,                               // io.
-  efl_access_selection_eo,                               // io.
+  elm_widget_conform,                                    // io.
+  elm_widget_flipselector,                               // io.
+  elm_widget_spinner,                                    // io.
+  elm_widget_ctxpopup,                                   // io.
+  elm_widget_hoversel,                                   // io.
+  elm_widget_menu,                                       // io.
+  elm_widget_slideshow,                                  // io.
   elm_menu_item_eo_legacy,                               // io.
-  efl_access_object,                                     // io.
   elm_cursor,                                            // io.
   elm_table_eo_legacy,                                   // io.
   elm_web_legacy,                                        // io.
   elm_list_item_eo_legacy,                               // io.
   elm_win_common,                                        // io.
-
-
+  efl_access_component_eo,                               // io.
+  efl_access_selection_eo,                               // io.
+  efl_access_action_eo,                                  // io.
+  efl_access_editable_text_eo,                           // io.
+  efl_access_object,                                     // io.
+  elm_photocam,                                          // io.
+  elm_sys_notify_eo_legacy,                              // io.
+  elm_notify_eo_legacy,                                  // io.
+  elm_photo_legacy,                                      // io.
 
 
 
