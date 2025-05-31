@@ -306,11 +306,41 @@ uses
   //elm_actionslider_eo_legacy,                            // io.
   //elm_diskselector_item_eo_legacy,                       // io.
   //
-  //
-  //
-  //
   //Elementary,                                            // io.
   //Elementary_Cursor,                                     // io.
+
+
+  efl_ui_action_connector_eo,                              // io.
+  efl_ui_alert_popup_part_title_eo,                        // io.
+  efl_ui_alert_popup_private,                              // io.
+  efl_ui_bg_eo,                                            // io.
+  efl_ui_bg_eo_legacy,                                     // io.
+  efl_ui_bg_legacy_eo_legacy,                              // io.
+  efl_ui_bg_private,                                       // io.
+  efl_ui_box_eo,                                           // io.
+  efl_ui_box_flow_eo,                                      // io.
+  efl_ui_box_stack_eo,                                     // io.
+  efl_ui_button_eo,                                        // io.
+  efl_ui_button_eo_legacy,                                 // io.
+  efl_ui_button_legacy_eo_legacy,                          // io.
+  efl_ui_button_legacy_part_eo,                            // io.
+  efl_ui_button_private,                                   // io.
+  efl_ui_check_eo,                                         // io.
+  efl_ui_check_eo_legacy,                                  // io.
+  efl_ui_check_legacy_eo_legacy,                           // io.
+  efl_ui_check_legacy_part_eo,                             // io.
+  efl_ui_check_private,                                    // io.
+  efl_access_text,                                         // io.
+  efl_access_value_eo,                                     // io.
+  efl_access_widget_action,                                // io.
+  efl_access_widget_action_eo,                             // io. -> efl_access_widget_action
+  efl_access_window,                                       // io.
+  efl_access_window_eo,                                    // io.
+
+
+
+
+
   Math;
 
   procedure on_win_del(data: pointer; obj: PEvas_Object; event_info: pointer); cdecl;
