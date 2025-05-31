@@ -330,12 +330,55 @@ uses
   efl_ui_check_legacy_eo_legacy,                           // io.
   efl_ui_check_legacy_part_eo,                             // io.
   efl_ui_check_private,                                    // io.
+  efl_ui_calendar_item_eo,                                 // io.
+  efl_ui_calendar_private,                                 // io.
+  efl_ui_clock_legacy_eo,                                  // io.
+  efl_ui_collection_view_focus_manager_eo,                 // io.
+  efl_ui_datepicker_private,                               // io.
+  efl_ui_default_item_eo,                                  // io.
+  efl_ui_frame_eo,                                         // io.
+  efl_ui_frame_eo_legacy,                                  // io.
+  efl_ui_frame_legacy,                                     // io.
+  efl_ui_frame_legacy_eo_legacy,                           // io.
+  efl_ui_grid_default_item_eo,                             // io.
+  efl_ui_grid_eo,                                          // io.
+  efl_ui_grid_view_eo,                                     // io.
+  efl_ui_group_item_eo,                                    // io.
+  efl_ui_image_factory_eo,                                 // io.
+  efl_ui_image_legacy_eo_legacy,                           // io.
+  efl_ui_image_zoomable_eo_legacy,                         // io.
+  efl_ui_image_zoomable_legacy_eo_legacy,                  // io.
+  efl_ui_image_zoomable_pan_eo,                            // io.
+  efl_ui_item_private,                                     // io.
+  efl_ui_l10n_eo,                                          // io.
+  efl_ui_layout_eo,                                        // io.
+  efl_ui_layout_factory_eo,                                // io.
+  efl_ui_layout_legacy_eo_legacy,                          // io.
+  efl_ui_layout_part_bg_eo,                                // io.
+  efl_ui_layout_part_box_eo,                               // io.
+  efl_ui_layout_part_content_eo,                           // io.
+  efl_ui_layout_part_eo,                                   // io.
+  efl_ui_layout_part_legacy_eo,                            // io.
+  efl_ui_layout_part_table_eo,                             // io.
+  efl_ui_layout_part_text_eo,                              // io.
+  efl_ui_navigation_bar_eo,                                // io.
+  efl_ui_navigation_bar_part_back_button_eo,               // io.
+  efl_ui_navigation_bar_part_eo,                           // io.
+  efl_ui_navigation_bar_private,                           // io.
+  efl_ui_navigation_layout_eo,                             // io.
+  efl_ui_navigation_layout_private,                        // io. -> efl_ui_layout_eo
   efl_access_text,                                         // io.
   efl_access_value_eo,                                     // io.
   efl_access_widget_action,                                // io.
   efl_access_widget_action_eo,                             // io. -> efl_access_widget_action
   efl_access_window,                                       // io.
   efl_access_window_eo,                                    // io.
+  efl_ui_legacy_eo,                                        // io.
+  efl_ui_list_default_item_eo,                             // io.
+  efl_ui_list_eo,                                          // io.
+  efl_ui_list_placeholder_item_eo,                         // io.
+  efl_ui_list_view_eo,                                     // io.
+  efl_ui_multi_selectable_eo,                              // io.
 
 
 
