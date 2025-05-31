@@ -361,24 +361,57 @@ uses
   efl_ui_layout_part_legacy_eo,                            // io.
   efl_ui_layout_part_table_eo,                             // io.
   efl_ui_layout_part_text_eo,                              // io.
-  efl_ui_navigation_bar_eo,                                // io.
-  efl_ui_navigation_bar_part_back_button_eo,               // io.
-  efl_ui_navigation_bar_part_eo,                           // io.
-  efl_ui_navigation_bar_private,                           // io.
-  efl_ui_navigation_layout_eo,                             // io.
-  efl_ui_navigation_layout_private,                        // io. -> efl_ui_layout_eo
-  efl_access_text,                                         // io.
-  efl_access_value_eo,                                     // io.
-  efl_access_widget_action,                                // io.
-  efl_access_widget_action_eo,                             // io. -> efl_access_widget_action
-  efl_access_window,                                       // io.
-  efl_access_window_eo,                                    // io.
   efl_ui_legacy_eo,                                        // io.
   efl_ui_list_default_item_eo,                             // io.
   efl_ui_list_eo,                                          // io.
   efl_ui_list_placeholder_item_eo,                         // io.
   efl_ui_list_view_eo,                                     // io.
   efl_ui_multi_selectable_eo,                              // io.
+  efl_ui_navigation_bar_eo,                                // io.
+  efl_ui_navigation_bar_part_back_button_eo,               // io.
+  efl_ui_navigation_bar_part_eo,                           // io.
+  efl_ui_navigation_bar_private,                           // io.
+  efl_ui_navigation_layout_eo,                             // io.
+  efl_ui_navigation_layout_private,                        // io. -> efl_ui_layout_eo
+  efl_ui_pager_eo,                                         // io.
+  efl_ui_panel_private,                                    // io.
+  efl_ui_panes_eo_legacy,                                  // io.
+  efl_ui_panes_legacy_eo_legacy,                           // io.
+  efl_ui_panes_part_eo,                                    // io.
+  efl_ui_panes_private,                                    // io.
+  efl_ui_popup_part_backwall_eo,                           // io.
+  efl_ui_popup_private,                                    // io.
+  efl_ui_progressbar_legacy_eo_legacy,                     // io.
+  efl_ui_progressbar_legacy_part_eo,                       // io.
+  efl_ui_progressbar_part_eo,                              // io.
+  efl_ui_progressbar_private,                              // io.
+  efl_ui_property_bind_part_eo,                            // io.
+  efl_ui_scroller_eo,                                      // io.
+  efl_ui_scroll_manager_eo,                                // io.
+  efl_ui_slider_eo,                                        // io.
+  efl_ui_slider_interval_eo,                               // io.
+  efl_ui_slider_interval_private,                          // io.
+  efl_ui_slider_private,                                   // io.
+  efl_ui_spin_button_private,                              // io.
+  efl_ui_spin_eo,                                          // io.
+  efl_ui_spin_private,                                     // io.
+  efl_ui_stack_eo,                                         // io.
+  efl_ui_tab_bar_private,                                  // io.
+  efl_ui_tab_bar_default_item_eo,                          // io.
+  efl_ui_tab_page_eo,                                      // io. -> efl_ui_tab_bar_default_item_eo
+  efl_ui_tab_page_private,                                 // io.
+  efl_ui_tab_bar_eo,                                       // io.
+  efl_ui_tab_pager_eo,                                     // io. -> efl_ui_tab_bar_eo
+  efl_ui_tab_pager_private,                                // io.
+  efl_ui_table_eo,                                         // io.
+  efl_ui_table_static_eo,                                  // io.
+  efl_access_text,                                         // io.
+  efl_access_value_eo,                                     // io.
+  efl_access_widget_action,                                // io.
+  efl_access_widget_action_eo,                             // io. -> efl_access_widget_action
+  efl_access_window,                                       // io.
+  efl_access_window_eo,                                    // io.
+
 
 
 
