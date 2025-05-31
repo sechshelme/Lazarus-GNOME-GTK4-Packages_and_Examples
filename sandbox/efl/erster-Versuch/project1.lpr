@@ -405,15 +405,64 @@ uses
   efl_ui_tab_pager_private,                                // io.
   efl_ui_table_eo,                                         // io.
   efl_ui_table_static_eo,                                  // io.
+  efl_ui_tags_private,                                     // io.
+  efl_ui_textbox_async_eo,                                 // io.
+  efl_ui_textbox_part_eo,                                  // io.
+  efl_ui_text_factory_emoticons_eo,                        // io.
+  efl_ui_text_factory_fallback_eo,                         // io.
+  efl_ui_textpath_eo,                                      // io.
+  efl_ui_textpath_legacy_eo_legacy,                        // io.
+  efl_ui_textpath_part_eo,                                 // io.
+  efl_ui_timepicker_eo,                                    // io.
+  efl_ui_timepicker_private,                               // io.
+  efl_ui_vg_animation_legacy,                              // io.
+  efl_ui_vg_animation_private,                             // io.
+  efl_ui_video_eo,                                         // io.
+  efl_ui_video_eo_legacy,                                  // io.
+  efl_ui_video_legacy_eo_legacy,                           // io.
+  efl_ui_video_private,                                    // io.
+  efl_ui_widget_common,                                    // io.
+  efl_ui_widget_factory_eo,                                // io.
+  efl_ui_widget_focus_manager_eo,                          // io.
+  efl_ui_widget_frame,                                     // io.
+  efl_ui_widget_pan,                                       // io.
+  efl_ui_widget_part_bg_eo,                                // io.
+  efl_ui_widget_part_eo,                                   // io.
+  efl_ui_widget_part_shadow_eo,                            // io.
+  efl_ui_widget_scroller,                                  // io.
+  efl_ui_win_inlined_eo,                                   // io.
+  efl_ui_win_inlined_legacy_eo_legacy,                     // io.
+  efl_ui_win_legacy_eo_legacy,                             // io.
+  efl_ui_win_part_eo,                                      // io.
+  efl_ui_win_socket_eo,                                    // io.
+  efl_ui_win_socket_legacy_eo_legacy,                      // io.
   efl_access_text,                                         // io.
   efl_access_value_eo,                                     // io.
   efl_access_widget_action,                                // io.
   efl_access_widget_action_eo,                             // io. -> efl_access_widget_action
   efl_access_window,                                       // io.
   efl_access_window_eo,                                    // io.
-
-
-
+  elc_combobox_legacy,                                     // io.
+  elm_access_eo_legacy,                                    // io.
+  Elementary_Options,                                      // io.
+  elc_popup_legacy,                                        // io.
+  elc_naviframe_legacy,                                    // io.
+  elc_hoversel_legacy,                                     // io.
+  elc_ctxpopup_legacy,                                     // io.
+  elm_actionslider_legacy,                                 // io.
+  elm_actionslider_part_eo,                                // io.
+  elm_atspi_app_object_eo_legacy,                          // io.
+  elm_atspi_bridge_eo_legacy,                              // io.
+  elm_bubble_eo_legacy,                                    // io.
+  elm_bubble_legacy,                                       // io.
+  elm_bubble_part_eo,                                      // io.
+  elm_cache,                                               // io.
+  elm_check_legacy,                                        // io.
+  elm_conformant_eo_legacy,                                // io.
+  elm_conform_legacy,                                      // io.
+  elm_dayselector_item_eo_legacy,                          // io.
+  elm_dayselector_legacy,                                  // io.
+  elm_dayselector_part_eo,                                 // io.
 
 
 
