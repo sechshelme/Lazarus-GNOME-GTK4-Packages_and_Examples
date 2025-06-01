@@ -463,6 +463,50 @@ uses
   elm_dayselector_item_eo_legacy,                          // io.
   elm_dayselector_legacy,                                  // io.
   elm_dayselector_part_eo,                                 // io.
+  elm_debug,                                               // io.
+  elm_diskselector_common,                                 // io.
+  elm_diskselector_legacy,                                 // io.
+  elm_entry_part_eo,                                       // io.
+  elm_finger,                                              // io.
+  elm_flip_part_eo,                                        // io.
+  elm_flipselector_item_eo_legacy,                         // io.
+  elm_flipselector_legacy,                                 // io.
+  elm_focus_item,                                          // io.
+  elm_font,                                                // io.
+  elm_genlist_legacy,                                      // io.
+  elm_genlist_pan_eo_legacy,                               // io.
+  elm_gesture_layer_legacy,                                // io.
+  elm_glview_common,                                       // io.
+  elm_glview_legacy,                                       // io. -> elm_glview_common
+  elm_grid_eo_legacy,                                      // io.
+  elm_grid_legacy,                                         // io.
+  elm_helper,                                              // io.
+  elm_hover_eo_legacy,                                     // io.
+  elm_hover_legacy,                                        // io.
+  elm_hover_part_eo,                                       // io.
+  elm_hoversel_item_eo_legacy,                             // io.
+  elm_inwin_eo_legacy,                                     // io.
+  elm_inwin_legacy,                                        // io.
+  elm_label_legacy,                                        // io.
+  elm_label_part_eo,                                       // io.
+  elm_layout_common,                                       // io.
+  elm_list_legacy,                                         // io.
+  elm_macros,                                              // io.
+  elm_mapbuf_legacy,                                       // io.
+  elm_mapbuf_part_eo,                                      // io.
+  elm_map_pan_eo_legacy,                                   // io.
+  elm_menu_eo_legacy,                                      // io.
+  elm_menu_legacy,                                         // io.
+  elm_mirroring,                                           // io.
+  elm_need,                                                // io.
+  elm_notify_common,                                       // io.
+  elm_notify_legacy,                                       // io.
+  elm_notify_part_eo,                                      // io.
+  elm_panel_common,                                        // io.
+  elm_panel_eo_legacy,                                     // io.
+  elm_panel_legacy,                                        // io.
+  elm_panel_part_eo,                                       // io.
+  elm_photo_eo_legacy,                                     // io.
 
 
 
