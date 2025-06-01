@@ -1,23 +1,19 @@
-{$IFDEF read_interface}
+  {$IFDEF read_interface}
 
 type
   TEina_Slice = record
     len: Tsize_t;
-    uni: record
-      case longint of
-        0: (mem: pointer);
-        1: (bytes: Puint8);
-      end;
+    case longint of
+      0: (mem: pointer);
+      1: (bytes: Puint8);
   end;
   PEina_Slice = ^TEina_Slice;
 
   TEina_Rw_Slice = record
     len: Tsize_t;
-    uni: record
-      case longint of
-        0: (mem: pointer);
-        1: (bytes: Puint8);
-      end;
+    case longint of
+      0: (mem: pointer);
+      1: (bytes: Puint8);
   end;
   PEina_Rw_Slice = ^TEina_Rw_Slice;
 
@@ -28,11 +24,11 @@ const
   // === Konventiert am: 16-5-25 17:19:46 ===
 
 
-{$ENDIF read_interface}
+  {$ENDIF read_interface}
 
 
-{$IFDEF read_implementation}
+  {$IFDEF read_implementation}
 
 
 
-{$ENDIF read_implementation}
+  {$ENDIF read_implementation}

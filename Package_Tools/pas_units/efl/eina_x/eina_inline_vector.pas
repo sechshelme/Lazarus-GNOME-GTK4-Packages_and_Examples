@@ -4,8 +4,8 @@ unit eina_inline_vector;
 interface
 
 uses
-  fp_eina, // Assuming Eina.Types contains Teina_Bool, Teina_Vector2, Teina_Vector3, Teina_Matrix2, Teina_Matrix3, Teina_Matrix4, Teina_Quaternion
-  Math;       // For sqrt function
+  fp_eina; // Assuming Eina.Types contains Teina_Bool, Teina_Vector2, Teina_Vector3, Teina_Matrix2, Teina_Matrix3, Teina_Matrix4, Teina_Quaternion
+//  Math;       // For sqrt function
 
 //type
 //  PEina_Vector2 = ^Teina_Vector2;

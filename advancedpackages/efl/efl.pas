@@ -105,12 +105,22 @@ function calloc(num, size: Tsize_t): Pointer; cdecl; external libclib;
 function malloc(size: Tsize_t): Pointer; cdecl; external libclib;
 procedure free(p: Pointer); cdecl; external libclib;
 
+function memcpy(dest, src: Pointer; n: SizeUInt): Pointer; cdecl; external libclib;
+function memchr(ptr: Pointer; value: integer; num: SizeUInt): Pointer; cdecl; external libclib;
+function memcmp(ptr1, ptr2: Pointer; num: SizeUInt): Integer; cdecl; external libclib;
+
 // /usr/include/errno.h
 function __errno_location: PInteger; cdecl; external libclib;
 
 // =====================
 
-// /usr/include/asm-generic/errno-base.h
+// /usr/include/stdio.h
+const
+  SEEK_SET = 0;
+  SEEK_CUR = 1;
+  SEEK_END = 2;
+
+  // /usr/include/asm-generic/errno-base.h
 
 const
   EPERM = 1;
@@ -280,11 +290,11 @@ type
   end;
 
 
-function errno: Integer;
+function errno: integer;
 
 implementation
 
-function errno: Integer;
+function errno: integer;
 begin
   Result := __errno_location^;
 end;

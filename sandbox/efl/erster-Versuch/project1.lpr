@@ -35,7 +35,7 @@ uses
 
   eina_inline_rectangle,
   eina_inline_vector,
-  eina_inline_lock_posix;
+  eina_inline_lock_posix, eina_inline_slice;
 
   procedure on_win_del(data: pointer; obj: PEvas_Object; event_info: pointer); cdecl;
   begin

@@ -6,9 +6,9 @@ interface
 
 uses
   efl,
-  fp_eina, // Assuming Eina.Types contains Eina_Bool, Eina_Lock_Result
-  SysUtils,   // For StrToIntDef (similar to errno if needed, but error handling is different)
-  Classes;    // For TThread.CurrentThreadID (similar to pthread_self)
+  fp_eina; // Assuming Eina.Types contains Eina_Bool, Eina_Lock_Result
+//  SysUtils,   // For StrToIntDef (similar to errno if needed, but error handling is different)
+//  Classes;    // For TThread.CurrentThreadID (similar to pthread_self)
 
 type
   TEina_TLS=pthread_key_t;
