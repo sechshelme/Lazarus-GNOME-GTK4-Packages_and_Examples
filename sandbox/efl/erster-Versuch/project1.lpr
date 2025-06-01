@@ -507,7 +507,63 @@ uses
   elm_panel_legacy,                                        // io.
   elm_panel_part_eo,                                       // io.
   elm_photo_eo_legacy,                                     // io.
-
+  elm_player_eo_legacy,                                    // io.
+  elm_player_part_eo,                                      // io.
+  elm_plug_eo_legacy,                                      // io.
+  elm_plug_legacy,                                         // io.
+  elm_popup_item_eo_legacy,                                // io.
+  elm_popup_part_eo,                                       // io.
+  elm_radio_legacy,                                        // io.
+  elm_route_eo_legacy,                                     // io.
+  elm_route_legacy,                                        // io.
+  elm_scale,                                               // io.
+  elm_scroller_eo_legacy,                                  // io.
+  elm_scroller_part_eo,                                    // io.
+  elm_segment_control_item_eo_legacy,                      // io.
+  elm_segment_control_legacy,                              // io.
+  elm_separator_eo_legacy,                                 // io.
+  elm_separator_legacy,                                    // io.
+  elm_sys_notify,                                          // io.
+  elm_sys_notify_interface_eo_legacy,                      // io. -> elm_sys_notify
+  elm_systray,                                             // io. -> elm_sys_notify
+  elm_sys_notify_dbus_eo_legacy,                           // io.
+  elm_systray_common,                                      // io.
+  elm_systray_watcher,                                     // io.
+  elm_table_legacy,                                        // io.
+  elm_textpath_legacy,                                     // io.
+  elm_thumb_common,                                        // io.
+  elm_thumb_eo_legacy,                                     // io.
+  elm_view_form_eo,                                        // io.
+  elm_view_form_eo_legacy,                                 // io.
+  elm_view_list_eo,                                        // io.
+  elm_view_list_eo_legacy,                                 // io.
+  elm_widget_actionslider,                                 // io.
+  elm_widget_box,                                          // io.
+  elm_widget_bubble,                                       // io. -> elm_bubble_eo_legacy
+  elm_widget_calendar,                                     // io.
+  elm_widget_clock,                                        // io.
+  elm_widget_combobox,                                     // io.
+  elm_widget_dayselector,                                  // io.
+  elm_widget_fileselector_entry,                           // io.
+  elm_widget_glview,                                       // io.
+  elm_widget_hover,                                        // io.
+  elm_widget_icon,                                         // io.
+  elm_widget_inwin,                                        // io.
+  elm_widget_item_container_eo,                            // io.
+  elm_widget_item_container_eo_legacy,                     // io.
+  elm_widget_item_static_focus_eo_legacy,                  // io.
+  elm_widget_label,                                        // io.
+  elm_widget_mapbuf,                                       // io.
+  elm_widget_notify,                                       // io.
+  elm_widget_panel,                                        // io.
+  elm_widget_photo,                                        // io.
+  elm_widget_player,                                       // io.
+  elm_widget_route,                                        // io.
+  elm_widget_scroller,                                     // io.
+  elm_widget_separator,                                    // io.
+  elm_widget_slider,                                       // io.
+  elm_widget_web,                                          // io.
+  elm_win_eo,                                              // io.
 
 
   Math;
@@ -582,5 +638,8 @@ uses
   end;
 
 begin
+  elm_view_form_model_set(nil, nil);
+  elm_view_list_evas_object_get(nil, nil);
+
   main(argc, argv);
 end.
