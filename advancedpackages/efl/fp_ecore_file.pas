@@ -3,7 +3,7 @@ unit fp_ecore_file;
 interface
 
 uses
-  efl, fp_eo, fp_eina, fp_efl, fp_ecore;
+  efl, fp_eina;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

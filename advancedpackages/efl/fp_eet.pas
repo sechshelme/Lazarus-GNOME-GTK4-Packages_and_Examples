@@ -3,7 +3,7 @@ unit fp_eet;
 interface
 
 uses
-  efl, fp_eo, fp_eina, fp_emile, fp_efl, fp_evas, fp_edje;
+  efl, fp_eina, fp_emile;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

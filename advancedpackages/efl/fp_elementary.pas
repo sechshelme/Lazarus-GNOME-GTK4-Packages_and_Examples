@@ -7,7 +7,6 @@ interface
   fp_eina,
   fp_eo,
   fp_efl,
-  fp_emile,
   fp_evas,
   fp_ecore,
   fp_ecore_evas,

@@ -3,7 +3,7 @@ unit fp_ethumb;
 interface
 
 uses
-  efl, fp_eo, fp_eina, fp_efl, fp_evas, fp_edje;
+  efl, fp_eina;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
