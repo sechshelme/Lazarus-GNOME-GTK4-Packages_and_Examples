@@ -1,6 +1,7 @@
 {$IFDEF read_interface}
 
 type
+  PPEina_Stringshare = ^PEina_Stringshare;
   PEina_Stringshare = ^TEina_Stringshare;
   TEina_Stringshare = char;
 

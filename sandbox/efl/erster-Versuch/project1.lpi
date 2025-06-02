@@ -49,6 +49,14 @@
         <Filename Value="../../../Package_Tools/pas_units/efl/eina_x/eina_inline_slice.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
+      <Unit>
+        <Filename Value="../../../Package_Tools/pas_units/efl/eina_x/eina_inline_value.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../Package_Tools/pas_units/efl/eina_x/eina_inline_stringshare.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
