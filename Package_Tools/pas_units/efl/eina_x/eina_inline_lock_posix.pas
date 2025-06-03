@@ -113,16 +113,16 @@ type
 
 // External declarations for functions not implemented inline in C
 // These would typically be provided by a separate Eina library binding in Pascal
-function _eina_lock_new(mutex: PEina_Lock; recursive: Teina_Bool): Teina_Bool; external;
+function _eina_lock_new(mutex: PEina_Lock; recursive: TEina_Bool): TEina_Bool; external;
 procedure _eina_lock_free(mutex: PEina_Lock); external;
-function _eina_condition_new(cond: PEina_Condition; mutex: PEina_Lock): Teina_Bool; external;
+function _eina_condition_new(cond: PEina_Condition; mutex: PEina_Lock): TEina_Bool; external;
 procedure _eina_condition_free(cond: PEina_Condition); external;
-function _eina_rwlock_new(mutex: PEina_RWLock): Teina_Bool; external;
+function _eina_rwlock_new(mutex: PEina_RWLock): TEina_Bool; external;
 procedure _eina_rwlock_free(mutex: PEina_RWLock); external;
-function _eina_spinlock_new(spinlock: PEina_Spinlock): Teina_Bool; external;
+function _eina_spinlock_new(spinlock: PEina_Spinlock): TEina_Bool; external;
 procedure _eina_spinlock_free(spinlock: PEina_Spinlock); external;
-function _eina_semaphore_new(sem: PEina_Semaphore; count_init: Integer): Teina_Bool; external;
-function _eina_semaphore_free(sem: PEina_Semaphore): Teina_Bool; external;
+function _eina_semaphore_new(sem: PEina_Semaphore; count_init: Integer): TEina_Bool; external;
+function _eina_semaphore_free(sem: PEina_Semaphore): TEina_Bool; external;
 
 {$IFDEF EINA_HAVE_OSX_SPINLOCK}
 function _eina_spinlock_macos_take(spinlock: PEina_Spinlock): TEina_Lock_Result; external;
@@ -140,32 +140,32 @@ procedure _eina_lock_debug_abort(err: Integer; const fn: PAnsiChar; const ptr: P
 procedure _eina_lock_debug_deadlock(const fn: PAnsiChar; const ptr: Pointer); cdecl; external;
 
 // Inline functions translated from C
-function eina_lock_new(mutex: PEina_Lock): Teina_Bool; inline;
-function eina_lock_recursive_new(mutex: PEina_Lock): Teina_Bool; inline;
+function eina_lock_new(mutex: PEina_Lock): TEina_Bool; inline;
+function eina_lock_recursive_new(mutex: PEina_Lock): TEina_Bool; inline;
 procedure eina_lock_free(mutex: PEina_Lock); inline;
 function eina_lock_take_try(mutex: PEina_Lock): TEina_Lock_Result; inline;
 function eina_lock_take(mutex: PEina_Lock): TEina_Lock_Result; inline;
 function eina_lock_release(mutex: PEina_Lock): TEina_Lock_Result; inline;
 
-function eina_condition_new(cond: PEina_Condition; mutex: PEina_Lock): Teina_Bool; inline;
+function eina_condition_new(cond: PEina_Condition; mutex: PEina_Lock): TEina_Bool; inline;
 procedure eina_condition_free(cond: PEina_Condition); inline;
-function eina_condition_wait(cond: PEina_Condition): Teina_Bool; inline;
-function eina_condition_timedwait(cond: PEina_Condition; t: Double): Teina_Bool; inline;
-function eina_condition_broadcast(cond: PEina_Condition): Teina_Bool; inline;
-function eina_condition_signal(cond: PEina_Condition): Teina_Bool; inline;
+function eina_condition_wait(cond: PEina_Condition): TEina_Bool; inline;
+function eina_condition_timedwait(cond: PEina_Condition; t: Double): TEina_Bool; inline;
+function eina_condition_broadcast(cond: PEina_Condition): TEina_Bool; inline;
+function eina_condition_signal(cond: PEina_Condition): TEina_Bool; inline;
 
-function eina_rwlock_new(mutex: PEina_RWLock): Teina_Bool; inline;
+function eina_rwlock_new(mutex: PEina_RWLock): TEina_Bool; inline;
 procedure eina_rwlock_free(mutex: PEina_RWLock); inline;
 function eina_rwlock_take_read(mutex: PEina_RWLock): TEina_Lock_Result; inline;
 function eina_rwlock_take_write(mutex: PEina_RWLock): TEina_Lock_Result; inline;
 function eina_rwlock_release(mutex: PEina_RWLock): TEina_Lock_Result; inline;
 
 // TLS functions
-function eina_tls_cb_new(key: PEina_TLS; delete_cb: TEina_TLS_Delete_Cb): Teina_Bool; inline;
-function eina_tls_new(key: PEina_TLS): Teina_Bool; inline;
+function eina_tls_cb_new(key: PEina_TLS; delete_cb: TEina_TLS_Delete_Cb): TEina_Bool; inline;
+function eina_tls_new(key: PEina_TLS): TEina_Bool; inline;
 procedure eina_tls_free(key: TEina_TLS); inline; // TEina_TLS is pthread_key_t, which is a value, not a pointer
 function eina_tls_get(key: TEina_TLS): Pointer; inline;
-function eina_tls_set(key: TEina_TLS; const data: Pointer): Teina_Bool; inline;
+function eina_tls_set(key: TEina_TLS; const data: Pointer): TEina_Bool; inline;
 
 {$IFDEF EINA_HAVE_PTHREAD_BARRIER}
 function eina_barrier_wait(barrier: PEina_Barrier): Teina_Bool; inline;
@@ -181,16 +181,16 @@ procedure eina_barrier_free(barrier: PEina_Barrier); inline;
 {$ENDIF}
 
 
-function eina_spinlock_new(spinlock: PEina_Spinlock): Teina_Bool; inline;
+function eina_spinlock_new(spinlock: PEina_Spinlock): TEina_Bool; inline;
 procedure eina_spinlock_free(spinlock: PEina_Spinlock); inline;
 function eina_spinlock_take_try(spinlock: PEina_Spinlock): TEina_Lock_Result; inline;
 function eina_spinlock_take(spinlock: PEina_Spinlock): TEina_Lock_Result; inline;
 function eina_spinlock_release(spinlock: PEina_Spinlock): TEina_Lock_Result; inline;
 
-function eina_semaphore_new(sem: PEina_Semaphore; count_init: Integer): Teina_Bool; inline;
-function eina_semaphore_free(sem: PEina_Semaphore): Teina_Bool; inline;
-function eina_semaphore_lock(sem: PEina_Semaphore): Teina_Bool; inline;
-function eina_semaphore_release(sem: PEina_Semaphore; count_release: Integer): Teina_Bool; inline;
+function eina_semaphore_new(sem: PEina_Semaphore; count_init: Integer): TEina_Bool; inline;
+function eina_semaphore_free(sem: PEina_Semaphore): TEina_Bool; inline;
+function eina_semaphore_lock(sem: PEina_Semaphore): TEina_Bool; inline;
+function eina_semaphore_release(sem: PEina_Semaphore; count_release: Integer): TEina_Bool; inline;
 
 
 implementation
@@ -211,7 +211,7 @@ end;
 // External variable _eina_threads_activated, assumed to be defined globally in Eina.Types or similar.
 // For demonstration, let's assume it's just a boolean variable for compilation.
 var
-  _eina_threads_activated: Teina_Bool = EINA_TRUE; // Placeholder, set according to your Eina setup.
+  _eina_threads_activated: TEina_Bool = EINA_TRUE; // Placeholder, set according to your Eina setup.
 {$IFDEF EINA_HAVE_DEBUG_THREADS}
 var
   _eina_threads_debug: Integer = 0; // Placeholder for debug level
@@ -221,7 +221,7 @@ var
 {$ENDIF}
 
 
-function eina_lock_new(mutex: PEina_Lock): Teina_Bool;
+function eina_lock_new(mutex: PEina_Lock): TEina_Bool;
 begin
   Result := _eina_lock_new(mutex, EINA_FALSE);
 {$IFDEF EINA_HAVE_DEBUG_THREADS}
@@ -235,7 +235,7 @@ begin
 {$ENDIF}
 end;
 
-function eina_lock_recursive_new(mutex: PEina_Lock): Teina_Bool;
+function eina_lock_recursive_new(mutex: PEina_Lock): TEina_Bool;
 begin
   Result := _eina_lock_new(mutex, EINA_TRUE);
 {$IFDEF EINA_HAVE_DEBUG_THREADS}
@@ -416,7 +416,7 @@ begin
     EINA_LOCK_ABORT_DEBUG(ok, 'unlock', mutex);
 end;
 
-function eina_condition_new(cond: PEina_Condition; mutex: PEina_Lock): Teina_Bool;
+function eina_condition_new(cond: PEina_Condition; mutex: PEina_Lock): TEina_Bool;
 begin
   Result := _eina_condition_new(cond, mutex);
 end;
@@ -426,7 +426,7 @@ begin
   _eina_condition_free(cond);
 end;
 
-function eina_condition_wait(cond: PEina_Condition): Teina_Bool;
+function eina_condition_wait(cond: PEina_Condition): TEina_Bool;
 var
   ok: Integer;
 begin
@@ -457,7 +457,7 @@ begin
 {$ENDIF}
 end;
 
-function eina_condition_timedwait(cond: PEina_Condition; t: Double): Teina_Bool;
+function eina_condition_timedwait(cond: PEina_Condition; t: Double): TEina_Bool;
 var
   ts_sec, ts_nsec: Int64;
   err: Integer;
@@ -526,7 +526,7 @@ begin
   // errno := EINVAL; // Not directly applicable in Pascal this way
 end;
 
-function eina_condition_broadcast(cond: PEina_Condition): Teina_Bool;
+function eina_condition_broadcast(cond: PEina_Condition): TEina_Bool;
 var
   ok: Integer;
 begin
@@ -542,7 +542,7 @@ begin
     EINA_LOCK_ABORT_DEBUG(ok, 'cond_broadcast', cond);
 end;
 
-function eina_condition_signal(cond: PEina_Condition): Teina_Bool;
+function eina_condition_signal(cond: PEina_Condition): TEina_Bool;
 var
   ok: Integer;
 begin
@@ -558,7 +558,7 @@ begin
     EINA_LOCK_ABORT_DEBUG(ok, 'cond_signal', cond);
 end;
 
-function eina_rwlock_new(mutex: PEina_RWLock): Teina_Bool;
+function eina_rwlock_new(mutex: PEina_RWLock): TEina_Bool;
 begin
   Result := _eina_rwlock_new(mutex);
 end;
@@ -641,14 +641,14 @@ begin
     EINA_LOCK_ABORT_DEBUG(ok, 'rwlock_unlock', mutex);
 end;
 
-function eina_tls_cb_new(key: PEina_TLS; delete_cb: TEina_TLS_Delete_Cb): Teina_Bool;
+function eina_tls_cb_new(key: PEina_TLS; delete_cb: TEina_TLS_Delete_Cb): TEina_Bool;
 begin
   // This calls pthread_key_create, which needs a binding.
   // Result := (PosixTLSKeyCreate(key, delete_cb) = 0); // Placeholder
   Result := EINA_TRUE; // Dummy for compilation
 end;
 
-function eina_tls_new(key: PEina_TLS): Teina_Bool;
+function eina_tls_new(key: PEina_TLS): TEina_Bool;
 begin
   Result := eina_tls_cb_new(key, nil);
 end;
@@ -666,7 +666,7 @@ begin
   Result := nil; // Dummy for compilation
 end;
 
-function eina_tls_set(key: TEina_TLS; const data: Pointer): Teina_Bool;
+function eina_tls_set(key: TEina_TLS; const data: Pointer): TEina_Bool;
 begin
   // This calls pthread_setspecific, which needs a binding.
   // Result := (PosixTLSSetSpecific(key, data) = 0); // Placeholder
@@ -698,7 +698,7 @@ begin
 end;
 {$ENDIF}
 
-function eina_spinlock_new(spinlock: PEina_Spinlock): Teina_Bool;
+function eina_spinlock_new(spinlock: PEina_Spinlock): TEina_Bool;
 begin
   Result := _eina_spinlock_new(spinlock);
 end;
@@ -773,17 +773,17 @@ begin
 {$ENDIF}
 end;
 
-function eina_semaphore_new(sem: PEina_Semaphore; count_init: Integer): Teina_Bool;
+function eina_semaphore_new(sem: PEina_Semaphore; count_init: Integer): TEina_Bool;
 begin
   Result := _eina_semaphore_new(sem, count_init);
 end;
 
-function eina_semaphore_free(sem: PEina_Semaphore): Teina_Bool;
+function eina_semaphore_free(sem: PEina_Semaphore): TEina_Bool;
 begin
   Result := _eina_semaphore_free(sem);
 end;
 
-function eina_semaphore_lock(sem: PEina_Semaphore): Teina_Bool;
+function eina_semaphore_lock(sem: PEina_Semaphore): TEina_Bool;
 var
   res: Integer;
 label ErrHandler;
@@ -817,7 +817,7 @@ ErrHandler: // Label for error handling
   Result := EINA_FALSE;
 end;
 
-function eina_semaphore_release(sem: PEina_Semaphore; count_release: Integer): Teina_Bool;
+function eina_semaphore_release(sem: PEina_Semaphore; count_release: Integer): TEina_Bool;
 begin
   Result := EINA_FALSE;
   if Assigned(sem) then

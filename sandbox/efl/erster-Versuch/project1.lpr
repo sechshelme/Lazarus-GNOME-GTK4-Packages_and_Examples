@@ -33,14 +33,14 @@ uses
   // =======================================
 
 
-  eina_inline_rectangle,
-  eina_inline_vector,
+  eina_inline_rectangle,               // io.
+  eina_inline_vector,                  // io.
+  eina_inline_stringshare,             // io.
+  eina_inline_list,                    // io.
   eina_inline_lock_posix,
   eina_inline_slice,
-  eina_inline_value,
+  eina_inline_value;
 
-  math, eina_inline_stringshare,
-  eina_inline_list;
 
   procedure on_win_del(data: pointer; obj: PEvas_Object; event_info: pointer); cdecl;
   begin
