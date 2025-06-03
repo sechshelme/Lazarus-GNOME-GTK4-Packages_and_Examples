@@ -109,6 +109,11 @@ function memcpy(dest, src: Pointer; n: SizeUInt): Pointer; cdecl; external libcl
 function memchr(ptr: Pointer; value: integer; num: SizeUInt): Pointer; cdecl; external libclib;
 function memcmp(ptr1, ptr2: Pointer; num: SizeUInt): Integer; cdecl; external libclib;
 
+function strlen(str :PChar):Tsize_t; cdecl; external libclib;
+function strdup(str :PChar):PChar; cdecl; external libclib;
+function strcmp(str1, str2 :PChar):Integer; cdecl; external libclib;
+
+
 // /usr/include/errno.h
 function __errno_location: PInteger; cdecl; external libclib;
 

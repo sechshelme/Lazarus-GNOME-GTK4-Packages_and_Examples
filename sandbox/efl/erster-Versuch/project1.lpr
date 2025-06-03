@@ -37,8 +37,9 @@ uses
   eina_inline_vector,                  // io.
   eina_inline_stringshare,             // io.
   eina_inline_list,                    // io.
+  eina_inline_str,                     // io.
   eina_inline_lock_posix,
-  eina_inline_slice,
+  eina_inline_slice,                   // io.
   eina_inline_value;
 
 
