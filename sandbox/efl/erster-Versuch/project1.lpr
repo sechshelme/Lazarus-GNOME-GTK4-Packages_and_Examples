@@ -37,9 +37,10 @@ uses
   eina_inline_vector,
   eina_inline_lock_posix,
   eina_inline_slice,
-//  eina_inline_value,
+  eina_inline_value,
 
-  math, eina_inline_stringshare;
+  math, eina_inline_stringshare,
+  eina_inline_list;
 
   procedure on_win_del(data: pointer; obj: PEvas_Object; event_info: pointer); cdecl;
   begin

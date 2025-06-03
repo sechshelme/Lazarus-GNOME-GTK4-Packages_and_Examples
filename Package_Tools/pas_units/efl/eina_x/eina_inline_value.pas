@@ -9,6 +9,7 @@ uses
   efl,
   fp_eina,
   eina_inline_stringshare,
+  eina_inline_list,
   SysUtils, // For MemCopy, etc.
   Types;    // For PAnsiChar, PByte etc. (Free Pascal)
 
@@ -211,7 +212,7 @@ function eina_value_type_pget(const typ: PEina_Value_Type; mem, ptr: Pointer): T
 function eina_value_inner_alloc(size: Cardinal): Pointer; external; // Placeholder
 procedure eina_value_inner_free(size: Cardinal; mem: Pointer); external; // Placeholder
 
-//function eina_value_struct_member_find(const st: PEina_Value_Struct; const name: PAnsiChar): PEina_Value_Struct_Member; external; // Placeholder
+function eina_value_struct_member_find(const st: PEina_Value_Struct; const name: PAnsiChar): PEina_Value_Struct_Member; external; // Placeholder
 
 
 // --- Eina Value Inline Functions ---
@@ -1305,12 +1306,13 @@ begin
   if desc = nil then
     Exit(EINA_FALSE);
 
-  if (desc^.list = nil) and (position = 0) then
-    node := desc^.list := eina_list_append(nil, Pointer(1)) // Use Pointer(1) as sentinel
-  else if position = 0 then
-    node := desc^.list := eina_list_prepend(desc^.list, Pointer(1))
-  else
-  begin
+  if (desc^.list = nil) and (position = 0) then begin
+    node := eina_list_append(nil, Pointer(1)); // Use Pointer(1) as sentinel
+    desc^.list :=node;
+  end   else if position = 0 then begin
+    node := eina_list_prepend(desc^.list, Pointer(1));
+    desc^.list :=node;
+  end                                    else  begin
     rel_node := eina_list_nth_list(desc^.list, position - 1);
     if rel_node = nil then Exit(EINA_FALSE);
     desc^.list := eina_list_append_relative_list(desc^.list, Pointer(1), rel_node);
@@ -1455,10 +1457,14 @@ begin
   if desc = nil then
     Exit(EINA_FALSE);
 
-  if desc^.list = nil then
-    node := desc^.list := eina_list_append(nil, Pointer(1))
-  else if position = 0 then
-    node := desc^.list := eina_list_prepend(desc^.list, Pointer(1))
+  if desc^.list = nil then begin
+    node := eina_list_append(nil, Pointer(1));
+    desc^.list := node;
+  end
+  else if position = 0 then   begin
+    node := eina_list_prepend(desc^.list, Pointer(1));
+    desc^.list := node;
+  end
   else
   begin
     rel_node := eina_list_nth_list(desc^.list, position - 1);
@@ -1538,7 +1544,7 @@ begin
     Result := retval;
     Exit;
   end;
-  if not (value^.typ = EINA_VALUE_TYPE_HASH) then
+  if not (value^._type = EINA_VALUE_TYPE_HASH) then
   begin
     Result := retval;
     Exit;
@@ -1568,7 +1574,7 @@ function eina_value_hash_population(const value: PEina_Value): Cardinal;
 var
   desc: PEina_Value_Hash;
 begin
-  if not EINA_VALUE_TYPE_HASH_CHECK_RETURN_VAL_IMPL(value, 0) then Exit(0);
+  if not EINA_VALUE_TYPE_HASH_CHECK_RETURN_VAL_IMPL(value, EINA_FALSE) then Exit(0);
   desc := PEina_Value_Hash(eina_value_memory_get(value));
   if desc = nil then
     Exit(0);
@@ -1726,7 +1732,7 @@ begin
     Result := retval;
     Exit;
   end;
-  if not (value^.typ = EINA_VALUE_TYPE_STRUCT) then
+  if not (value^._type = EINA_VALUE_TYPE_STRUCT) then
   begin
     Result := retval;
     Exit;
@@ -1755,7 +1761,7 @@ function eina_value_struct_desc_get(const value: PEina_Value): PEina_Value_Struc
 var
   st: PEina_Value_Struct;
 begin
-  if not EINA_VALUE_TYPE_STRUCT_CHECK_RETURN_VAL_IMPL(value, nil) then Exit(nil);
+  if not EINA_VALUE_TYPE_STRUCT_CHECK_RETURN_VAL_IMPL(value, EINA_FALSE) then Exit(nil);
   st := PEina_Value_Struct(eina_value_memory_get(value));
   if (st = nil) or (st^.desc = nil) then
     Exit(nil);
@@ -1790,7 +1796,7 @@ begin
   if mem = nil then
     Exit(EINA_FALSE);
 
-  Result := eina_value_type_vset(member^.typ, mem, args);
+  Result := eina_value_type_vset(member^._type, mem, args);
 end;
 
 function eina_value_struct_vget(const value: PEina_Value; const name: PAnsiChar; args: Pointer): TEina_Bool;
@@ -1814,7 +1820,7 @@ begin
     Exit(EINA_FALSE);
 
   ptr := PPointer(args)^; // Simulating va_arg(args, void *)
-  ret := eina_value_type_pget(member^.typ, mem, ptr);
+  ret := eina_value_type_pget(member^._type, mem, ptr);
   Result := ret;
 end;
 
@@ -1849,7 +1855,7 @@ begin
   if mem = nil then
     Exit(EINA_FALSE);
 
-  Result := eina_value_type_pset(member^.typ, mem, ptr);
+  Result := eina_value_type_pset(member^._type, mem, ptr);
 end;
 
 function eina_value_struct_pget(const value: PEina_Value; const name: PAnsiChar; ptr: Pointer): TEina_Bool;
@@ -1872,7 +1878,7 @@ begin
   if mem = nil then
     Exit(EINA_FALSE);
 
-  ret := eina_value_type_pget(member^.typ, mem, ptr);
+  ret := eina_value_type_pget(member^._type, mem, ptr);
   Result := ret;
 end;
 
@@ -1894,7 +1900,7 @@ begin
   mem := eina_value_struct_member_memory_get(st, member);
   if mem = nil then
     Exit(EINA_FALSE);
-  if not eina_value_setup(dst, member^.typ) then
+  if not eina_value_setup(dst, member^._type) then
     Exit(EINA_FALSE);
   if not eina_value_pset(dst, mem) then
   begin
@@ -1921,7 +1927,7 @@ begin
   member := eina_value_struct_member_find(st, name);
   if member = nil then
     Exit(EINA_FALSE);
-  if not (src^.typ = member^.typ) then Exit(EINA_FALSE);
+  if not (src^._type = member^._type) then Exit(EINA_FALSE);
 
   mem := eina_value_struct_member_memory_get(st, member);
   if mem = nil then
@@ -1931,7 +1937,7 @@ begin
   if ptr = nil then
     Exit(EINA_FALSE);
 
-  Result := eina_value_type_pset(member^.typ, mem, ptr);
+  Result := eina_value_type_pset(member^._type, mem, ptr);
 end;
 
 function eina_value_struct_member_value_get(const src: PEina_Value; const member: PEina_Value_Struct_Member; dst: PEina_Value): TEina_Bool;
@@ -1948,7 +1954,7 @@ begin
   mem := eina_value_struct_member_memory_get(st, member);
   if mem = nil then
     Exit(EINA_FALSE);
-  if not eina_value_setup(dst, member^.typ) then
+  if not eina_value_setup(dst, member^._type) then
     Exit(EINA_FALSE);
   if not eina_value_pset(dst, mem) then
   begin
@@ -1971,7 +1977,7 @@ begin
   st := PEina_Value_Struct(eina_value_memory_get(dst));
   if st = nil then
     Exit(EINA_FALSE);
-  if not (src^.typ = member^.typ) then Exit(EINA_FALSE);
+  if not (src^._type = member^._type) then Exit(EINA_FALSE);
 
   mem := eina_value_struct_member_memory_get(st, member);
   if mem = nil then
@@ -1981,7 +1987,7 @@ begin
   if ptr = nil then
     Exit(EINA_FALSE);
 
-  Result := eina_value_type_pset(member^.typ, mem, ptr);
+  Result := eina_value_type_pset(member^._type, mem, ptr);
 end;
 
 // Eina_Value_Optional functions
@@ -1994,7 +2000,7 @@ begin
   end;
   // This check is a bit tricky from C. It checks if value->type->setup is the same as EINA_VALUE_TYPE_OPTIONAL->setup.
   // We'll approximate this by checking if the type itself is EINA_VALUE_TYPE_OPTIONAL.
-  if not (value^.typ = EINA_VALUE_TYPE_OPTIONAL) then
+  if not (value^._type = EINA_VALUE_TYPE_OPTIONAL) then
   begin
     Result := retval;
     Exit;
@@ -2007,9 +2013,22 @@ begin
   Result := eina_value_new(EINA_VALUE_TYPE_OPTIONAL);
 end;
 
+type
+  PEina_Value_Optional_Outer = ^TEina_Value_Optional_Outer;
+  TEina_Value_Optional_Outer = record
+    subtype: PEina_Value_Type;
+    value: Pointer;
+  end;
+
+  PEina_Value_Optional_Inner = ^TEina_Value_Optional_Inner;
+  TEina_Value_Optional_Inner = record
+    subtype: PEina_Value_Type;
+    value: array[0..0] of AnsiChar; // Flexible Array Member
+  end;
 function eina_value_optional_empty_is(const value: PEina_Value; is_empty: PBoolean): TEina_Bool;
 var
   mem: Pointer;
+  opt: PEina_Value_Optional_Outer;
 begin
   if not EINA_VALUE_TYPE_OPTIONAL_CHECK_RETURN_VAL_IMPL(value, EINA_FALSE) then Exit(EINA_FALSE);
   if is_empty = nil then Exit(EINA_FALSE);
@@ -2020,9 +2039,8 @@ begin
 
   // This logic is platform-dependent due to `sizeof(void*)` vs `sizeof(Eina_Value_Union)`
   // Simulating the C behavior:
-  if 2 * SizeOf(Pointer) <= SizeOf(Eina_Value_Union) then
+  if 2 * SizeOf(Pointer) <= SizeOf(TEina_Value_Union) then
   begin
-    var opt: PEina_Value_Optional_Outer;
     opt := PEina_Value_Optional_Outer(mem);
     is_empty^ := (opt^.subtype = nil);
   end
@@ -2038,22 +2056,22 @@ end;
 function eina_value_optional_type_get(value: PEina_Value): PEina_Value_Type;
 var
   mem: Pointer;
+  opt: PEina_Value_Optional_Outer;
+  opt_inner_ptr: PEina_Value_Optional_Inner;
 begin
-  if not EINA_VALUE_TYPE_OPTIONAL_CHECK_RETURN_VAL_IMPL(value, nil) then Exit(nil);
+  if not EINA_VALUE_TYPE_OPTIONAL_CHECK_RETURN_VAL_IMPL(value, EINA_FALSE) then Exit(nil);
 
   mem := eina_value_memory_get(value);
   if mem = nil then
     Exit(nil);
 
-  if 2 * SizeOf(Pointer) <= SizeOf(Eina_Value_Union) then
+  if 2 * SizeOf(Pointer) <= SizeOf(TEina_Value_Union) then
   begin
-    var opt: PEina_Value_Optional_Outer;
     opt := PEina_Value_Optional_Outer(mem);
     Result := opt^.subtype;
   end
   else
   begin
-    var opt_inner_ptr: PEina_Value_Optional_Inner;
     opt_inner_ptr := PEina_Value_Optional_Inner(PPointer(mem)^); // Get the pointer to the inner struct
     if opt_inner_ptr = nil then
       Result := nil
