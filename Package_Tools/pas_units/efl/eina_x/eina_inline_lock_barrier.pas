@@ -5,38 +5,39 @@ interface
 uses
   efl,
   fp_eina,
-  eina_inline_lock_posix,
-  SysUtils, Classes, SyncObjs;
+  eina_inline_lock_posix;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
-type
-  PEinaBarrier = ^TEinaBarrier;
 
-  TEinaBarrier = record
+function eina_barrier_wait(Barrier: PEina_Barrier): TEina_Bool;
+
+implementation
+
+type
+  TPrivEinaBarrier = record
     needed: integer;
     called: integer;
     cond_lock: TEina_Lock;
     cond: TEina_Condition; // ?????????
   end;
+  PPrivEinaBarrier = ^TPrivEinaBarrier;
 
-function eina_barrier_wait(barrier: PEinaBarrier): TEina_Bool;
-
-implementation
-
-function eina_barrier_wait(barrier: PEinaBarrier): TEina_Bool;
+function eina_barrier_wait(Barrier: PEina_Barrier): TEina_Bool;
+var
+  privBarrier:PPrivEinaBarrier absolute Barrier;
 begin
-  eina_lock_take(@barrier^.cond_lock);
-  Inc(barrier^.called);
-  if barrier^.called = barrier^.needed then begin
-    barrier^.called := 0;
-    eina_condition_broadcast(@barrier^.cond);
+  eina_lock_take(@privBarrier^.cond_lock);
+  Inc(privBarrier^.called);
+  if privBarrier^.called = privBarrier^.needed then begin
+    privBarrier^.called := 0;
+    eina_condition_broadcast(@privBarrier^.cond);
   end else begin
-    eina_condition_wait(@barrier^.cond);
+    eina_condition_wait(@privBarrier^.cond);
   end;
-  eina_lock_release(@barrier^.cond_lock);
+  eina_lock_release(@privBarrier^.cond_lock);
   Result := EINA_TRUE;
 end;
 

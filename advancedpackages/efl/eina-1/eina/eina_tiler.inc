@@ -9,6 +9,7 @@ type
     full: TEina_Bool;
   end;
   PEina_Tile_Grid_Info = ^TEina_Tile_Grid_Info;
+  PPEina_Tile_Grid_Info = ^PEina_Tile_Grid_Info;
 
   TEina_Tiler = record
   end;

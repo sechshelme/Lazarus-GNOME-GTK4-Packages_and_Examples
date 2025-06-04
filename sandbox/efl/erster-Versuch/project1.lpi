@@ -25,6 +25,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="LCL"/>
+      </Item>
+      <Item>
         <PackageName Value="fp_efl_package"/>
       </Item>
     </RequiredPackages>
@@ -75,6 +78,18 @@
       </Unit>
       <Unit>
         <Filename Value="../../../Package_Tools/pas_units/efl/eina_x/eina_inline_lock_barrier.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../Package_Tools/pas_units/efl/eina_x/eina_inline_mempool.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../Package_Tools/pas_units/efl/eina_x/eina_inline_log.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../Package_Tools/pas_units/efl/eina_x/eina_inline_tiler.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
     </Units>

@@ -16,8 +16,6 @@ uses
 
 type
   TEina_Condition = record
-    lock:PEina_Lock;
-
   end;
   PEina_Condition = ^TEina_Condition;
 

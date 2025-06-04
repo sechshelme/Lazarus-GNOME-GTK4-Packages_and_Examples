@@ -114,6 +114,7 @@ procedure free(p: Pointer); cdecl; external libclib;
 function memcpy(dest, src: Pointer; n: SizeUInt): Pointer; cdecl; external libclib;
 function memchr(ptr: Pointer; value: integer; num: SizeUInt): Pointer; cdecl; external libclib;
 function memcmp(ptr1, ptr2: Pointer; num: SizeUInt): Integer; cdecl; external libclib;
+function memset(ptr: Pointer; value: integer; num: SizeUInt): Pointer; cdecl; external libclib;
 
 function strlen(str :PChar):Tsize_t; cdecl; external libclib;
 function strdup(str :PChar):PChar; cdecl; external libclib;
@@ -288,16 +289,6 @@ type
 
 
 
-//type
-  // /usr/include/eina-1/eina/eina_inline_lock_posix.x
-//  TEina_Lock = Pointer;
-//  PEina_Lock = ^TEina_Lock;
-
-  // /usr/include/eina-1/eina/eina_inline_lock_posix.x
-//  TEina_Spinlock = TEina_Lock;
-//  PEina_Spinlock = ^TEina_Spinlock;
-
-  // Unbekannte Herkunft
 type
   TEcore_Factorized_Idle = record
   end;
