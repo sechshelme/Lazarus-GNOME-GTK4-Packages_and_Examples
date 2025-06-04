@@ -190,7 +190,7 @@ var
   array_val: PGValue;
   rms_arr: PGValueArray;
   channels: guint;
-  Value: glib2.PGValue;
+  Value: PGValue;
 begin
   if msg^._type = GST_MESSAGE_ELEMENT then begin
     s := gst_message_get_structure(msg);

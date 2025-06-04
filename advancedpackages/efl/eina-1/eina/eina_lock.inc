@@ -6,9 +6,9 @@ type
   TEina_Lock_Result = longint;
 
 const
-  EINA_LOCK_FAIL = EINA_FALSE;
-  EINA_LOCK_SUCCEED = EINA_TRUE;
-  EINA_LOCK_DEADLOCK = byte(EINA_TRUE) + 1;
+  EINA_LOCK_FAIL = LongInt(EINA_FALSE);
+  EINA_LOCK_SUCCEED = LongInt(EINA_TRUE);
+  EINA_LOCK_DEADLOCK = LongInt(EINA_TRUE) + 1;
 
 type
 

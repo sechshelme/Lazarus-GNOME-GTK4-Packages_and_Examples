@@ -51,6 +51,7 @@ const
 type
   Tva_list = Pointer;
   Ttime_t = uint64;
+  Ptime_t = ^Ttime_t;
 
   Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;

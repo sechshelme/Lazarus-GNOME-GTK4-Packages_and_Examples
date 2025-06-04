@@ -6,27 +6,16 @@ interface
 
 uses
   efl,
-  fp_eina; // Assuming Eina.Types contains Eina_Bool, Eina_Lock_Result
-//  SysUtils,   // For StrToIntDef (similar to errno if needed, but error handling is different)
-//  Classes;    // For TThread.CurrentThreadID (similar to pthread_self)
+  fp_eina;
 
 type
   TEina_TLS=pthread_key_t;
   PEina_TLS=^TEina_TLS;
 
+// ==================
 
 
-// Assuming TEina_Lock, TEina_RWLock, TEina_Condition, TEina_Spinlock, TEina_Semaphore
-// are defined in Eina.Types or a similar core Eina unit, or will be defined here.
-
-// Define types with 'T' prefix as requested
 type
-  // Enum for lock results (assuming Eina_Lock_Result is an enum/integer type in C)
-  TEina_Lock_Result = (
-    TEINA_LOCK_FAIL = 0,
-    TEINA_LOCK_SUCCEED = 1,
-    TEINA_LOCK_DEADLOCK = 2
-  );
 
   // TEina_TLS is pthread_key_t in C, which is usually a simple type or handle.
   // We'll define it as a simple type or handle for now.
@@ -60,16 +49,16 @@ type
     // locked: Boolean;
     // recursive: Boolean;
 {$ENDIF}
-    dummy: Integer; // Placeholder if no debug threads
+//    dummy: Integer; // Placeholder if no debug threads
   end;
 
   TEina_Condition = record
-    lock: PEina_Lock;
+  //  lock: PEina_Lock;
     // condition_handle: Pointer; // Placeholder for OS condition handle
 {$IFDEF __clockid_t_defined} // This requires a Pascal equivalent of __clockid_t_defined
     // clkid: Integer; // Placeholder for clockid_t
 {$ENDIF}
-    dummy: Integer; // Placeholder if no clockid_t
+//    dummy: Integer; // Placeholder if no clockid_t
   end;
 
   TEina_RWLock = record
@@ -77,7 +66,7 @@ type
 {$IFDEF EINA_HAVE_DEBUG_THREADS} // This requires a Pascal equivalent of EINA_HAVE_DEBUG_THREADS
     // lock_thread_wid: TThreadID; // Similar to pthread_t in C
 {$ENDIF}
-    dummy: Integer; // Placeholder if no debug threads
+//    dummy: Integer; // Placeholder if no debug threads
   end;
 
   // TEina_Spinlock, TEina_Semaphore need to be defined based on the #ifdefs.
@@ -100,7 +89,7 @@ type
   end;
 {$ELSE}
   TEina_Semaphore = record // Equivalent to sem_t
-    dummy: Integer;
+//    dummy: Integer;
   end;
 {$ENDIF}
 
@@ -268,11 +257,11 @@ function eina_lock_take_try(mutex: PEina_Lock): TEina_Lock_Result;
 var
   ok: Integer;
 begin
-  Result := TEINA_LOCK_FAIL; // Default value
+  Result := EINA_LOCK_FAIL; // Default value
 {$IFDEF EINA_HAVE_ON_OFF_THREADS}
   if not _eina_threads_activated then
   begin
-    Result := TEINA_LOCK_SUCCEED;
+    Result := EINA_LOCK_SUCCEED;
     Exit;
   end;
 {$ENDIF}
@@ -281,17 +270,17 @@ begin
   // ok := PosixMutexTrylock(mutex^.mutex_handle); // Placeholder for actual call
   ok := 0; // Dummy value for compilation
   if ok = 0 then
-    Result := TEINA_LOCK_SUCCEED
+    Result := EINA_LOCK_SUCCEED
   else if ok = EDEADLK then // EDEADLK is typically 35
   begin
     // eina_lock_debug(mutex); // Assuming this function is defined
-    Result := TEINA_LOCK_DEADLOCK;
+    Result := EINA_LOCK_DEADLOCK;
   end
   else if ok <> EBUSY then // EBUSY is typically 16
     EINA_LOCK_ABORT_DEBUG(ok, 'trylock', mutex);
 
 {$IFDEF EINA_HAVE_DEBUG_THREADS}
-  if (Result = TEINA_LOCK_SUCCEED) and Assigned(mutex) then
+  if (Result = EINA_LOCK_SUCCEED) and Assigned(mutex) then
   begin
     if mutex^.recursive then
       Exit; // recursive locks can't make use of any of this
@@ -314,11 +303,11 @@ var
   dt: Integer;
 {$ENDIF}
 begin
-  Result := TEINA_LOCK_FAIL;
+  Result := EINA_LOCK_FAIL;
 {$IFDEF EINA_HAVE_ON_OFF_THREADS}
   if not _eina_threads_activated then
   begin
-    Result := TEINA_LOCK_SUCCEED;
+    Result := EINA_LOCK_SUCCEED;
     Exit;
   end;
 {$ENDIF}
@@ -351,11 +340,11 @@ begin
   end;
 
   if ok = 0 then
-    Result := TEINA_LOCK_SUCCEED
+    Result := EINA_LOCK_SUCCEED
   else if ok = EDEADLK then
   begin
     // eina_lock_debug(mutex);
-    Result := TEINA_LOCK_DEADLOCK;
+    Result := EINA_LOCK_DEADLOCK;
 {$IFDEF EINA_HAVE_DEBUG_THREADS}
     if _eina_threads_debug > 0 then
       Abort;
@@ -365,7 +354,7 @@ begin
     EINA_LOCK_ABORT_DEBUG(ok, 'lock', mutex);
 
 {$IFDEF EINA_HAVE_DEBUG_THREADS}
-  if (Result = TEINA_LOCK_SUCCEED) and Assigned(mutex) then
+  if (Result = EINA_LOCK_SUCCEED) and Assigned(mutex) then
   begin
     if mutex^.recursive then
       Exit; // recursive locks can't make use of any of this
@@ -384,7 +373,7 @@ function eina_lock_release(mutex: PEina_Lock): TEina_Lock_Result;
 var
   ok: Integer;
 begin
-  Result := TEINA_LOCK_FAIL;
+  Result := EINA_LOCK_FAIL;
 {$IFDEF EINA_HAVE_ON_OFF_THREADS}
   if not _eina_threads_activated then
   begin
@@ -409,9 +398,9 @@ begin
   ok := 0; // Dummy for compilation
 
   if ok = 0 then
-    Result := TEINA_LOCK_SUCCEED
+    Result := EINA_LOCK_SUCCEED
   else if ok = EPERM then // EPERM is typically 1
-    Result := TEINA_LOCK_FAIL
+    Result := EINA_LOCK_FAIL
   else
     EINA_LOCK_ABORT_DEBUG(ok, 'unlock', mutex);
 end;
@@ -572,7 +561,7 @@ function eina_rwlock_take_read(mutex: PEina_RWLock): TEina_Lock_Result;
 var
   ok: Integer;
 begin
-  Result := TEINA_LOCK_FAIL;
+  Result := EINA_LOCK_FAIL;
 {$IFDEF EINA_HAVE_ON_OFF_THREADS}
   if not _eina_threads_activated then
   begin
@@ -584,9 +573,9 @@ begin
   ok := 0; // Dummy for compilation
 
   if ok = 0 then
-    Result := TEINA_LOCK_SUCCEED
+    Result := EINA_LOCK_SUCCEED
   else if (ok = EAGAIN) or (ok = ENOMEM) then // EAGAIN is typically 11, ENOMEM is typically 12
-    Result := TEINA_LOCK_FAIL
+    Result := EINA_LOCK_FAIL
   else if ok = EDEADLK then
     EINA_LOCK_DEADLOCK_DEBUG('rwlock_rdlock', mutex)
   else
@@ -597,7 +586,7 @@ function eina_rwlock_take_write(mutex: PEina_RWLock): TEina_Lock_Result;
 var
   ok: Integer;
 begin
-  Result := TEINA_LOCK_FAIL;
+  Result := EINA_LOCK_FAIL;
 {$IFDEF EINA_HAVE_ON_OFF_THREADS}
   if not _eina_threads_activated then
   begin
@@ -609,9 +598,9 @@ begin
   ok := 0; // Dummy for compilation
 
   if ok = 0 then
-    Result := TEINA_LOCK_SUCCEED
+    Result := EINA_LOCK_SUCCEED
   else if ok = ENOMEM then
-    Result := TEINA_LOCK_FAIL
+    Result := EINA_LOCK_FAIL
   else if ok = EDEADLK then
     EINA_LOCK_DEADLOCK_DEBUG('rwlock_wrlock', mutex)
   else
@@ -622,7 +611,7 @@ function eina_rwlock_release(mutex: PEina_RWLock): TEina_Lock_Result;
 var
   ok: Integer;
 begin
-  Result := TEINA_LOCK_FAIL;
+  Result := EINA_LOCK_FAIL;
 {$IFDEF EINA_HAVE_ON_OFF_THREADS}
   if not _eina_threads_activated then
   begin
@@ -634,9 +623,9 @@ begin
   ok := 0; // Dummy for compilation
 
   if ok = 0 then
-    Result := TEINA_LOCK_SUCCEED
+    Result := EINA_LOCK_SUCCEED
   else if ok = EPERM then
-    Result := TEINA_LOCK_FAIL
+    Result := EINA_LOCK_FAIL
   else
     EINA_LOCK_ABORT_DEBUG(ok, 'rwlock_unlock', mutex);
 end;
@@ -716,9 +705,9 @@ begin
   // t := PosixSpinTrylock(spinlock); // Placeholder
   t := 0; // Dummy for compilation
   if t = 0 then
-    Result := TEINA_LOCK_SUCCEED
+    Result := EINA_LOCK_SUCCEED
   else if t = EBUSY then
-    Result := TEINA_LOCK_FAIL
+    Result := EINA_LOCK_FAIL
   else
     EINA_LOCK_ABORT_DEBUG(t, 'spin_trylock', spinlock);
 {$ELSEIF DEFINED(EINA_HAVE_OSX_SPINLOCK)}
@@ -761,9 +750,9 @@ begin
   // ok := PosixSpinUnlock(spinlock); // Placeholder
   ok := 0; // Dummy for compilation
   if ok = 0 then
-    Result := TEINA_LOCK_SUCCEED
+    Result := EINA_LOCK_SUCCEED
   else if ok = EPERM then
-    Result := TEINA_LOCK_FAIL
+    Result := EINA_LOCK_FAIL
   else
     EINA_LOCK_ABORT_DEBUG(ok, 'spin_unlock', spinlock);
 {$ELSEIF DEFINED(EINA_HAVE_OSX_SPINLOCK)}

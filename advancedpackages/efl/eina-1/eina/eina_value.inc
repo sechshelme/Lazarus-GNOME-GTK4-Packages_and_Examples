@@ -66,14 +66,17 @@ function eina_value_new(_type: PEina_Value_Type): PEina_Value; cdecl; external l
 procedure eina_value_free(value: PEina_Value); cdecl; external libeina;
 function eina_value_copy(value: PEina_Value; copy: PEina_Value): TEina_Bool; cdecl; external libeina;
 
-type
-  PEina_Value_Array = ^TEina_Value_Array;
+function eina_value_convert(value: PEina_Value; convert: PEina_Value): TEina_Bool; cdecl; external libeina;
+function eina_value_to_binbuf(value: PEina_Value): PEina_Binbuf; cdecl; external libeina;
+function eina_value_to_string(value: PEina_Value): pchar; cdecl; external libeina;
 
+type
   TEina_Value_Array = record
     subtype: PEina_Value_Type;
     step: dword;
     arr: PEina_Inarray;
   end;
+  PEina_Value_Array = ^TEina_Value_Array;
 
 
 function eina_value_array_new(subtype: PEina_Value_Type; step: dword): PEina_Value; cdecl; external libeina;

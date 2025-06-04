@@ -27,7 +27,6 @@
 {$include eina-1/eina/eina_inlist.inc}                                        // io. -> eina_iterator, eina_accessor
 {$include eina-1/eina/eina_simple_xml_parser.inc}                             // io. -> eina_inlist
 {$include eina-1/eina/eina_quadtree.inc}                                      // io. -> eina_inlist
-{$include eina-1/eina/eina_value.inc}                                         // io. -> eina_list, eina_error, eina_inarray, eina_hash
 {$include eina-1/eina/eina_fp.inc}                                            // io.
 {$include eina-1/eina/eina_convert.inc}                                       // io. -> eina_error, eina_fp
 {$include eina-1/eina/eina_tmpstr.inc}                                        // io.
@@ -40,11 +39,8 @@
 {$include eina-1/eina/eina_bezier.inc}                                        // io.
 {$include eina-1/eina/eina_matrixsparse.inc}                                  // io. -> eina_iterator
 {$include eina-1/eina/eina_quaternion.inc}                                    // io. -> eina_fp, eina_matrix
-{$include eina-1/eina/eina_log.inc}                                           // io.
-{$include eina-1/eina/eina_promise.inc}                                       // io. -> eina_value, eina_error, eina_log, eina_iterator
 {$include eina-1/eina/eina_stringshare.inc}                                   // io.
 {$include eina-1/eina/eina_slice.inc}                                         // io.
-{$include eina-1/eina/eina_abstract_content.inc}                              // io. -> eina_value, eina_iterator, eina_slice
 {$include eina-1/eina/eina_str.inc}                                           // io.
 {$include eina-1/eina/eina_strbuf.inc}                                        // io. -> eina_slice
 {$include eina-1/eina/eina_slstr.inc}                                         // io. -> eina_tmpstr, eina_stringshare, eina_strbuf
@@ -52,6 +48,10 @@
 {$include eina-1/eina/eina_ustringshare.inc}                                  // io. -> eina_unicode
 {$include eina-1/eina/eina_ustrbuf.inc}                                       // io. -> eina_slice, eina_strbuf, eina_unicode
 {$include eina-1/eina/eina_binbuf.inc}                                        // io. -> eina_strbuf, eina_slice
+{$include eina-1/eina/eina_value.inc}                                         // io. -> eina_list, eina_error, eina_inarray, eina_hash
+{$include eina-1/eina/eina_abstract_content.inc}                              // io. -> eina_value, eina_iterator, eina_slice
+{$include eina-1/eina/eina_log.inc}                                           // io.
+{$include eina-1/eina/eina_promise.inc}                                       // io. -> eina_value, eina_error, eina_log, eina_iterator
 {$include eina-1/eina/eina_thread.inc}                                        // io.
 {$include eina-1/eina/eina_thread_queue.inc}                                  // io.
 {$include eina-1/eina/eina_debug.inc}                                         // io.
