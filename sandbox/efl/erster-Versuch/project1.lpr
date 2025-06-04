@@ -40,7 +40,11 @@ uses
   eina_inline_str,                     // io.
   eina_inline_lock_posix,
   eina_inline_slice,                   // io.
-  eina_inline_value, eina_inline_value_util;
+  eina_inline_value,
+  eina_inline_value_util,
+  eina_inline_safepointer,             // io.
+
+  math, eina_inline_lock_barrier;
 
 
   procedure on_win_del(data: pointer; obj: PEvas_Object; event_info: pointer); cdecl;

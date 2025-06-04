@@ -13,6 +13,12 @@ uses
   SysUtils, // For MemCopy, etc.
   Types;    // For PAnsiChar, PByte etc. (Free Pascal)
 
+  {$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+
 // Forward declarations for external Eina types and functions
 // These would typically be in separate Eina-related Pascal units
 //type
@@ -229,7 +235,7 @@ function eina_value_compare(const a, b: PEina_Value): Integer; inline;
 // These va_list functions are problematic in Pascal. We'll declare them but their implementation
 // will likely be simplified or rely on the PSet/PGet methods.
 // In a full Pascal solution, you'd typically have specific overloads for each type.
-function eina_value_set(value: PEina_Value; const args: Pointer): TEina_Bool; overload; inline; // Placeholder for variadic
+function eina_value_set(value: PEina_Value; args: Pointer): TEina_Bool; overload; inline; // Placeholder for variadic
 function eina_value_get(const value: PEina_Value;  args: Pointer): TEina_Bool; overload; inline; // Placeholder for variadic
 //function eina_value_set(value: PEina_Value; const args: array of const): TEina_Bool; overload; inline; // Placeholder for variadic
 //function eina_value_get(const value: PEina_Value; var args: array of const): TEina_Bool; overload; inline; // Placeholder for variadic
@@ -336,13 +342,13 @@ end;
 // Helper to handle va_list in Pascal (very limited, for compilation only)
 // In a real application, you would manually extract arguments or use overloads.
 // For now, these are just stubs to allow compilation.
-function eina_value_set(value: PEina_Value; const args: Pointer): TEina_Bool;
+function eina_value_set(value: PEina_Value; args: Pointer): TEina_Bool;
 begin
   // This is a placeholder. Real implementation would parse 'args' array.
   // For basic types, it could call eina_value_pset internally if the type is known.
   // For complex types, it would depend on the type's vset implementation.
   // For the purpose of this C-to-Pascal translation, we'll call the vset stub.
-  Result := eina_value_vset(value, @args); // Pass nil as args for now, as direct va_list is not supported
+  Result := eina_value_vset(value, args); // Pass nil as args for now, as direct va_list is not supported
 end;
 
 function eina_value_get(const value: PEina_Value; args: Pointer): TEina_Bool;
@@ -353,18 +359,6 @@ end;
 // Implementations of the inline functions
 function eina_value_memory_get(const value: PEina_Value): Pointer;
 begin
-  //if value = nil then
-  //begin
-  //  Result := nil;
-  //  Exit;
-  //end;
-  //
-//  if (value.typ = nil) then // Also check for value.type as per C
-//  begin
-//    Result := nil;
-//    Exit;
-//  end;
-
   if value^._type^.value_size <= 8 then
     Result := Pointer( value^.value.buf)
   else

@@ -2,6 +2,13 @@
 
 
 type
+  TEina_Lock = record
+  end;
+  PEina_Lock = ^TEina_Lock;
+  //
+  TEina_Spinlock = TEina_Lock;
+  PEina_Spinlock = ^TEina_Spinlock;
+
   PEina_Lock_Result = ^TEina_Lock_Result;
   TEina_Lock_Result = longint;
 
@@ -11,7 +18,6 @@ const
   EINA_LOCK_DEADLOCK = LongInt(EINA_TRUE) + 1;
 
 type
-
   TEina_TLS_Delete_Cb = procedure(ptr: pointer); cdecl;
 
 var

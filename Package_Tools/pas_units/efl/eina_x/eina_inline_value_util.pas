@@ -10,6 +10,12 @@ uses
   eina_inline_value,
   Classes, SysUtils;
 
+  {$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+
 
   // IMPORTANT: The following external functions (eina_value_new, eina_value_set,
   // eina_value_get, eina_value_setup, eina_value_flush, eina_value_type_get,

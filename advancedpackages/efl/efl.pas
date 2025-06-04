@@ -70,6 +70,11 @@ type
   // /usr/include/unistd.h
   Tpid_t = longint;
 
+  // /usr/arm-linux-gnueabihf/include/bits/semaphore.h
+  Tsem_t=record
+  end;
+  Psem_t=^Tsem_t;
+
   // /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h
 type
   Ttm = record
@@ -113,6 +118,8 @@ function memcmp(ptr1, ptr2: Pointer; num: SizeUInt): Integer; cdecl; external li
 function strlen(str :PChar):Tsize_t; cdecl; external libclib;
 function strdup(str :PChar):PChar; cdecl; external libclib;
 function strcmp(str1, str2 :PChar):Integer; cdecl; external libclib;
+
+function printf(__format: pchar): longint; cdecl; varargs; external libclib;
 
 
 // /usr/include/errno.h
@@ -281,14 +288,14 @@ type
 
 
 
-type
+//type
   // /usr/include/eina-1/eina/eina_inline_lock_posix.x
-  TEina_Lock = Pointer;
-  PEina_Lock = ^TEina_Lock;
+//  TEina_Lock = Pointer;
+//  PEina_Lock = ^TEina_Lock;
 
   // /usr/include/eina-1/eina/eina_inline_lock_posix.x
-  TEina_Spinlock = TEina_Lock;
-  PEina_Spinlock = ^TEina_Spinlock;
+//  TEina_Spinlock = TEina_Lock;
+//  PEina_Spinlock = ^TEina_Spinlock;
 
   // Unbekannte Herkunft
 type
