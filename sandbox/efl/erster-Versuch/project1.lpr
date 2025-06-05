@@ -10,10 +10,6 @@ program project1;
 
 // array of const !!
 
-// Bei eina *.x behandeln
-
-// __in_list
-
 
 uses
   efl,
@@ -49,8 +45,13 @@ uses
   eina_inline_tiler,                   // io.
   eina_inline_clist,                   // io.
   eina_inline_crc,                     // io.
-  eina_inline_hash,                  // io -> eina_inline_crc
-  eina_inline_cpu
+  eina_inline_hash,                    // io -> eina_inline_crc
+  eina_inline_cpu,                     // io.
+  eina_inline_f32p32,                  // io.
+  eina_inline_ustringshare,            // io.
+  eina_inline_fp,                      // io.
+  eina_inline_array,                   // io.
+  eina_inline_range                   // io.  min / max !
 
 
 

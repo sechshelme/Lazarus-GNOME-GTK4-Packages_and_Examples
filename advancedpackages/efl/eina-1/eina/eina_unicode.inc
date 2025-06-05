@@ -2,8 +2,9 @@
 
 
 type
-  PEina_Unicode = ^TEina_Unicode;
   TEina_Unicode = Twchar_t;
+  PEina_Unicode = ^TEina_Unicode;
+  PPEina_Unicode = ^PEina_Unicode;
 
 var
   EINA_UNICODE_EMPTY_STRING: PEina_Unicode; cvar;external libeina;

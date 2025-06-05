@@ -10,7 +10,7 @@ const
 type
   TEina_Array = record
     version: longint;
-    data: ^pointer;
+    data: PPointer;
     total: dword;
     count: dword;
     step: dword;
