@@ -39,14 +39,22 @@ uses
   eina_inline_list,                    // io.
   eina_inline_str,                     // io.
   eina_inline_slice,                   // io.  -> eina_inline_str
-  eina_inline_lock_posix,              //             ( TResult falsch )
+  eina_inline_lock_posix,              //             ( Result falsch )
   eina_inline_lock_barrier,            // io. -> eina_inline_lock_posix
   eina_inline_mempool,                 // io.
   eina_inline_safepointer,             // io.
   eina_inline_value,
   eina_inline_value_util,
   eina_inline_log,                     // io.
-  eina_inline_tiler;                   // io.
+  eina_inline_tiler,                   // io.
+  eina_inline_clist,                   // io.
+  eina_inline_crc,                     // io.
+  eina_inline_hash,                  // io -> eina_inline_crc
+  eina_inline_cpu
+
+
+
+  ;
 
 
   procedure on_win_del(data: pointer; obj: PEvas_Object; event_info: pointer); cdecl;
