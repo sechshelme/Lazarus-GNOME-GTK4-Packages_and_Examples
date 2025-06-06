@@ -1,4 +1,4 @@
-{$IFDEF read_interface}
+  {$IFDEF read_interface}
 
 
 function ecore_init: longint; cdecl; external libecore;
@@ -379,6 +379,10 @@ procedure ecore_timer_precision_set(precision: double); cdecl; external libecore
 function ecore_timer_dump: pchar; cdecl; external libecore;
 
 type
+  TEcore_Factorized_Idle = record
+  end;
+  PEcore_Factorized_Idle = ^TEcore_Factorized_Idle;
+
   TEcore_Idler = TEcore_Factorized_Idle;
   PEcore_Idler = ^TEcore_Idler;
   TEcore_Idle_Enterer = TEcore_Factorized_Idle;
@@ -393,10 +397,10 @@ type
   // === Konventiert am: 20-5-25 19:18:30 ===
 
 
-{$ENDIF read_interface}
+  {$ENDIF read_interface}
 
 
-{$IFDEF read_implementation}
+  {$IFDEF read_implementation}
 
 
-{$ENDIF read_implementation}
+  {$ENDIF read_implementation}

@@ -3,7 +3,7 @@
 
 type
   PEina_Trash = ^TEina_Trash;
-
+  PPEina_Trash = ^PEina_Trash;
   TEina_Trash = record
     next: PEina_Trash;
   end;

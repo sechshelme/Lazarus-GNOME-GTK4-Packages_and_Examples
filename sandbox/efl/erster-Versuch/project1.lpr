@@ -51,10 +51,16 @@ uses
   eina_inline_ustringshare,            // io.
   eina_inline_fp,                      // io.
   eina_inline_array,                   // io.
-  eina_inline_range                   // io.  min / max !
-
-
-
+  eina_inline_range,                   // io.  min / max !
+  eina_inline_unicode,                 // io.
+  eina_inline_f8p24,                   // io.
+  eina_inline_f16p16,                  // io.
+  eina_inline_modinfo,                 // io.
+  eina_inline_file,                    // io.
+  eina_inline_inlist,                  // io.
+  eina_inline_rbtree,                  // io.
+  eina_inline_trash,                   // io.
+  eina_inline_util                     // io.
   ;
 
 

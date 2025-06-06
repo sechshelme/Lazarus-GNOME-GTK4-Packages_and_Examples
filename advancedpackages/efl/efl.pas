@@ -126,6 +126,11 @@ function printf(__format: pchar): longint; cdecl; varargs; external libclib;
 // /usr/include/errno.h
 function __errno_location: PInteger; cdecl; external libclib;
 
+// /usr/include/x86_64-linux-gnu/sys/param.h
+
+function Min(a, b: Integer): Integer;
+function Max(a, b: Integer): Integer;
+
 // =====================
 
 // /usr/include/stdio.h
@@ -277,21 +282,9 @@ const
   EHWPOISON = 133;
 
 
-
-  // /usr/include/eina-1/eina/eina_inline_lock_barrier.x
-type
-  TEina_Barrier = record
-
-  end;
-
   // /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
-  pthread_key_t = uint32;
-
-
-
 type
-  TEcore_Factorized_Idle = record
-  end;
+  pthread_key_t = uint32;
 
 
 function errno: integer;
@@ -301,6 +294,22 @@ implementation
 function errno: integer;
 begin
   Result := __errno_location^;
+end;
+
+function Min(a, b: Integer): Integer;
+begin
+  if a < b then
+    Result := a
+  else
+    Result := b;
+end;
+
+function Max(a, b: Integer): Integer;
+begin
+  if a > b then
+    Result := a
+  else
+    Result := b;
 end;
 
 
