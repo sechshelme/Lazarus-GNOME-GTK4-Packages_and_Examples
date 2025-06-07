@@ -85,6 +85,7 @@ var
   res:Int64;
 begin
   value:=eina_value_new(EINA_VALUE_TYPE_INT);
+//  value^.value.ptr:=Pointer(1234);
   eina_value_set(value, Pointer( 42));
 
   WriteLn(3333333);

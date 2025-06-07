@@ -465,6 +465,9 @@ begin
   typ := value^._type;
   mem := eina_value_memory_get(value);
 
+  WriteLn('xxx ',PtrUInt(mem));
+
+
   {$IFNDEF EINA_VALUE_NO_OPTIMIZE}
   if typ = EINA_VALUE_TYPE_UCHAR then begin
     PCardinal(mem)^ := PCardinal(args)^; // Expecting args to point to an unsigned int
@@ -496,7 +499,22 @@ begin
     Exit;
   end else if typ = EINA_VALUE_TYPE_INT then begin
     WriteLn(1111111111111);
-    mem:=Pointer(args);
+
+//    tmem^:=PtrUInt( args);
+
+//  PInteger( mem)^:=PInteger( args)^;
+
+  PtrUInt(mem):=1234;
+
+  WriteLn(22222222222222);
+
+
+   WriteLn('args: ',PtrUInt(args));
+   WriteLn('mem: ',PtrUInt(mem));
+    WriteLn('ptr: ',PtrUInt(value^.value.ptr));
+
+//    value^.value.ptr:=Pointer(args);
+//    WriteLn('args: ',PtrUInt(args));
 //    tmem:=PInteger(mem);
 //    tmem^:=Integer(args);
 
@@ -545,12 +563,6 @@ begin
     Exit;
   end;
   {$ENDIF}
-
-  WriteLn(1111111111111);
-
-
-  // Fallback to type's vset method if not optimized or unknown basic type
-  // This assumes 'args' is treated as a va_list pointer by the external vset.
   r := EINA_FALSE;
   if (typ <> nil) and (typ^.vset <> nil) then begin
     r := typ^.vset(typ, mem, args);
@@ -571,6 +583,7 @@ begin
 
   typ := value^._type;
   mem := eina_value_memory_get(value);
+
   ptr := PPointer(args)^; // Extract the target pointer from args (simulating va_arg(args, void*))
 
   if EINA_VALUE_TYPE_DEFAULT_IMPL(typ) then begin
