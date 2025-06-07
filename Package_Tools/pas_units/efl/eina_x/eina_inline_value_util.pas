@@ -7,364 +7,271 @@ interface
 
 uses
   efl, fp_eina,
-  eina_inline_value,
-  Classes, SysUtils;
+  eina_inline_value;
 
   {$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
+function eina_value_util_type_size(AType: PEina_Value_Type): TSize_t; overload; deprecated;
+function eina_value_util_type_offset(AType: PEina_Value_Type; ABase: cardinal): cardinal; overload; deprecated;
+function eina_value_util_int_new(c: integer): PEina_Value; overload; deprecated;
+function eina_value_util_double_new(c: double): PEina_Value; overload; deprecated;
+function eina_value_util_bool_new(c: TEina_Bool): PEina_Value; overload; deprecated;
+function eina_value_util_string_new(c: pchar): PEina_Value; overload; deprecated;
+function eina_value_util_stringshare_new(c: pchar): PEina_Value; overload; deprecated;
+function eina_value_util_time_new(c: TTime_t): PEina_Value; overload; deprecated;
+function eina_value_util_dup(AVal: PEina_Value): PEina_Value; overload; deprecated;
+function eina_value_util_stringshare_copy(AVal: PEina_Value; AStr: PPEina_Stringshare): TEina_Bool; overload; deprecated;
+function eina_value_util_string_copy(AVal: PEina_Value; AStr: PPChar): TEina_Bool; overload; deprecated;
 
+function eina_value_type_size(AType: PEina_Value_Type): TSize_t;
+function eina_value_type_offset(AType: PEina_Value_Type; ABase: cardinal): cardinal;
 
+// Macro EINA_VALUE_NEW expansion - These call eina_value_set with a value
+function eina_value_uchar_new(c: byte): PEina_Value;
+function eina_value_ushort_new(c: word): PEina_Value;
+function eina_value_uint_new(c: cardinal): PEina_Value;
+function eina_value_ulong_new(c: longword): PEina_Value;
+function eina_value_uint64_new(c: uint64): PEina_Value;
+function eina_value_char_new(c: ansichar): PEina_Value;
+function eina_value_short_new(c: smallint): PEina_Value;
+function eina_value_int_new(c: integer): PEina_Value;
+function eina_value_long_new(c: longint): PEina_Value;
+function eina_value_int64_new(c: int64): PEina_Value;
+function eina_value_float_new(c: single): PEina_Value;
+function eina_value_double_new(c: double): PEina_Value;
+function eina_value_bool_new(c: TEina_Bool): PEina_Value;
+function eina_value_string_new(c: pchar): PEina_Value;
+function eina_value_stringshare_new(c: pchar): PEina_Value;
+function eina_value_time_new(c: TTime_t): PEina_Value;
+function eina_value_error_new(c: TEina_Error): PEina_Value;
 
-  // IMPORTANT: The following external functions (eina_value_new, eina_value_set,
-  // eina_value_get, eina_value_setup, eina_value_flush, eina_value_type_get,
-  // eina_value_copy, eina_stringshare_ref, strdup) are assumed to be declared
-  // in `Eina.Value.pas` (or similar unit) as follows, specifically noting
-  // the `varargs` and `Pointer` for `eina_value_set` and `eina_value_get`
-  // as they are the underlying C variadic functions.
+// Macro EINA_VALUE_INIT expansion - These call eina_value_set with a value
+function eina_value_uchar_init(c: byte): TEina_Value;
+function eina_value_ushort_init(c: word): TEina_Value;
+function eina_value_uint_init(c: cardinal): TEina_Value;
+function eina_value_ulong_init(c: longword): TEina_Value;
+function eina_value_uint64_init(c: uint64): TEina_Value;
+function eina_value_char_init(c: ansichar): TEina_Value;
+function eina_value_short_init(c: smallint): TEina_Value;
+function eina_value_int_init(c: integer): TEina_Value;
+function eina_value_long_init(c: longint): TEina_Value;
+function eina_value_int64_init(c: int64): TEina_Value;
+function eina_value_float_init(c: single): TEina_Value;
+function eina_value_double_init(c: double): TEina_Value;
+function eina_value_bool_init(c: TEina_Bool): TEina_Value;
+function eina_value_string_init(c: pchar): TEina_Value;
+function eina_value_stringshare_init(c: pchar): TEina_Value;
+function eina_value_time_init(c: TTime_t): TEina_Value;
+function eina_value_error_init(c: TEina_Error): TEina_Value;
 
-  // Example (in Eina.Value.pas):
-  // function eina_value_new(AType: PEina_Value_Type): PEina_Value; cdecl; external;
-  // function eina_value_set(AVal: PEina_Value; AData: Pointer): TEina_Bool; cdecl; varargs; external; // Accepts pointer for variadic argument
-  // function eina_value_get(const AVal: PEina_Value; ADataPtr: Pointer): TEina_Bool; cdecl; varargs; external; // Accepts pointer for variadic argument
-  // function eina_value_setup(AVal: PEina_Value; AType: PEina_Value_Type): TEina_Bool; cdecl; external;
-  // function eina_value_flush(AVal: PEina_Value): TEina_Bool; cdecl; external; // Assuming it returns bool, Eina API says void. Adjust as per actual Eina.
-  // function eina_value_type_get(AVal: PEina_Value): PEina_Value_Type; cdecl; external;
-  // function eina_value_copy(ASrc: PEina_Value; ADst: PEina_Value): TEina_Bool; cdecl; external;
-  // function eina_value_convert(ASrc: PEina_Value; ADst: PEina_Value): TEina_Bool; cdecl; external; // This one is usually NOT varargs itself, it converts between two Eina_Value objects.
-  // function eina_stringshare_ref(AStr: PEina_Stringshare): PEina_Stringshare; cdecl; external;
-  // function StrDup(S: PChar): PChar; cdecl; external libc name 'strdup';
+// Macro EINA_VALUE_GET expansion - These call eina_value_get with a pointer
+function eina_value_uchar_get(const V: PEina_Value; C: pbyte): TEina_Bool;
+function eina_value_ushort_get(const V: PEina_Value; C: pWord): TEina_Bool;
+function eina_value_uint_get(const V: PEina_Value; C: pCardinal): TEina_Bool;
+function eina_value_ulong_get(const V: PEina_Value; C: pLongWord): TEina_Bool;
+function eina_value_uint64_get(const V: PEina_Value; C: pUInt64): TEina_Bool;
+function eina_value_char_get(const V: PEina_Value; C: pansichar): TEina_Bool;
+function eina_value_short_get(const V: PEina_Value; C: pSmallInt): TEina_Bool;
+function eina_value_int_get(const V: PEina_Value; C: pInteger): TEina_Bool;
+function eina_value_long_get(const V: PEina_Value; C: pLongint): TEina_Bool;
+function eina_value_int64_get(const V: PEina_Value; C: pInt64): TEina_Bool;
+function eina_value_float_get(const V: PEina_Value; C: pSingle): TEina_Bool;
+function eina_value_double_get(const V: PEina_Value; C: pDouble): TEina_Bool;
+function eina_value_bool_get(const V: PEina_Value; C: PEina_Bool): TEina_Bool;
+function eina_value_string_get(const V: PEina_Value; C: pPChar): TEina_Bool;
+function eina_value_stringshare_get(const V: PEina_Value; C: pPChar): TEina_Bool;
+function eina_value_time_get(const V: PEina_Value; C: pTime_t): TEina_Bool;
+function eina_value_error_get(const V: PEina_Value; C: PEina_Error): TEina_Bool;
 
+// Macro EINA_VALUE_CONVERT expansion - These create a temp Eina_Value and use eina_value_get with a pointer
+function eina_value_uchar_convert(const V: PEina_Value; C: pbyte): TEina_Bool;
+function eina_value_ushort_convert(const V: PEina_Value; C: pWord): TEina_Bool;
+function eina_value_uint_convert(const V: PEina_Value; C: pCardinal): TEina_Bool;
+function eina_value_ulong_convert(const V: PEina_Value; C: pLongWord): TEina_Bool;
+function eina_value_uint64_convert(const V: PEina_Value; C: pUInt64): TEina_Bool;
+function eina_value_char_convert(const V: PEina_Value; C: pansichar): TEina_Bool;
+function eina_value_short_convert(const V: PEina_Value; C: pSmallInt): TEina_Bool;
+function eina_value_int_convert(const V: PEina_Value; C: pInteger): TEina_Bool;
+function eina_value_long_convert(const V: PEina_Value; C: pLongint): TEina_Bool;
+function eina_value_int64_convert(const V: PEina_Value; C: pInt64): TEina_Bool;
+function eina_value_float_convert(const V: PEina_Value; C: pSingle): TEina_Bool;
+function eina_value_double_convert(const V: PEina_Value; C: pDouble): TEina_Bool;
+function eina_value_bool_convert(const V: PEina_Value; C: PEina_Bool): TEina_Bool;
+function eina_value_string_convert(const V: PEina_Value; C: pPChar): TEina_Bool;
+function eina_value_stringshare_convert(const V: PEina_Value; C: pPChar): TEina_Bool;
+function eina_value_time_convert(const V: PEina_Value; C: pTime_t): TEina_Bool;
+function eina_value_error_convert(const V: PEina_Value; C: PEina_Error): TEina_Bool;
 
-  // EINA_VALUE_EMPTY: TEina_Value = (...);
-  // EINA_VALUE_TYPE_UCHAR: PEina_Value_Type;
-  // ... and so on for all EINA_VALUE_TYPE_* constants
-  // EINA_ERROR_VALUE_FAILED: TEina_Error = (...);
-
-  // Legacy compat: calls eina_value_type_size()
-  // @deprecated
-  // @since 1.12
-  function eina_value_util_type_size(AType: PEina_Value_Type): TSize_t; overload; deprecated;
-  // Legacy compat: calls eina_value_type_offset()
-  // @deprecated
-  // @since 1.12
-  function eina_value_util_type_offset(AType: PEina_Value_Type; ABase: Cardinal): Cardinal; overload; deprecated;
-  // Legacy compat: calls eina_value_int_new()
-  // @deprecated
-  // @since 1.12
-  function eina_value_util_int_new(c: Integer): PEina_Value; overload; deprecated;
-  // Legacy compat: calls eina_value_double_new()
-  // @deprecated
-  // @since 1.12
-  function eina_value_util_double_new(c: Double): PEina_Value; overload; deprecated;
-  // Legacy compat: calls eina_value_bool_new()
-  // @deprecated
-  // @since 1.12
-  function eina_value_util_bool_new(c: TEina_Bool): PEina_Value; overload; deprecated;
-  // Legacy compat: calls eina_value_string_new()
-  // @deprecated
-  // @since 1.12
-  function eina_value_util_string_new(c: PChar): PEina_Value; overload; deprecated;
-  // Legacy compat: calls eina_value_stringshare_new()
-  // @deprecated
-  // @since 1.12
-  function eina_value_util_stringshare_new(c: PChar): PEina_Value; overload; deprecated;
-  // Legacy compat: calls eina_value_time_new()
-  // @deprecated
-  // @since 1.12
-  function eina_value_util_time_new(c: TTime_t): PEina_Value; overload; deprecated;
-  // Legacy compat: calls eina_value_dup()
-  // @deprecated
-  // @since 1.12
-  function eina_value_util_dup(AVal: PEina_Value): PEina_Value; overload; deprecated;
-  // Legacy compat: calls eina_value_stringshare_copy()
-  // @deprecated
-  // @since 1.12
-  function eina_value_util_stringshare_copy(AVal: PEina_Value; AStr: PEina_Stringshare): TEina_Bool; overload; deprecated;
-  // Legacy compat: calls eina_value_string_copy()
-  // @deprecated
-  // @since 1.12
-  function eina_value_util_string_copy(AVal: PEina_Value; AStr: PChar): TEina_Bool; overload; deprecated;
-
-  /// @brief Get size of #Eina_Value_Type based on C type
-  /// @param type The type to get the size of
-  /// @return The size of the type
-  /// @since 1.21
-  function eina_value_type_size(AType: PEina_Value_Type): TSize_t;
-
-  /// @brief Get padding of #Eina_Value_Type based on C type and base padding
-  /// @param type The type to get the offset of
-  /// @param base The existing base size
-  /// @return The offset of the type
-  /// @since 1.21
-  function eina_value_type_offset(AType: PEina_Value_Type; ABase: Cardinal): Cardinal;
-
-  // Macro EINA_VALUE_NEW expansion - These call eina_value_set with a value
-  function eina_value_uchar_new(c: Byte): PEina_Value;
-  function eina_value_ushort_new(c: Word): PEina_Value;
-  function eina_value_uint_new(c: Cardinal): PEina_Value;
-  function eina_value_ulong_new(c: LongWord): PEina_Value;
-  function eina_value_uint64_new(c: UInt64): PEina_Value;
-  function eina_value_char_new(c: AnsiChar): PEina_Value;
-  function eina_value_short_new(c: SmallInt): PEina_Value;
-  function eina_value_int_new(c: Integer): PEina_Value;
-  function eina_value_long_new(c: Longint): PEina_Value;
-  function eina_value_int64_new(c: Int64): PEina_Value;
-  function eina_value_float_new(c: Single): PEina_Value;
-  function eina_value_double_new(c: Double): PEina_Value;
-  function eina_value_bool_new(c: TEina_Bool): PEina_Value;
-  function eina_value_string_new(c: PChar): PEina_Value;
-  function eina_value_stringshare_new(c: PChar): PEina_Value;
-  function eina_value_time_new(c: TTime_t): PEina_Value;
-  function eina_value_error_new(c: TEina_Error): PEina_Value;
-
-  // Macro EINA_VALUE_INIT expansion - These call eina_value_set with a value
-  function eina_value_uchar_init(c: Byte): TEina_Value;
-  function eina_value_ushort_init(c: Word): TEina_Value;
-  function eina_value_uint_init(c: Cardinal): TEina_Value;
-  function eina_value_ulong_init(c: LongWord): TEina_Value;
-  function eina_value_uint64_init(c: UInt64): TEina_Value;
-  function eina_value_char_init(c: AnsiChar): TEina_Value;
-  function eina_value_short_init(c: SmallInt): TEina_Value;
-  function eina_value_int_init(c: Integer): TEina_Value;
-  function eina_value_long_init(c: Longint): TEina_Value;
-  function eina_value_int64_init(c: Int64): TEina_Value;
-  function eina_value_float_init(c: Single): TEina_Value;
-  function eina_value_double_init(c: Double): TEina_Value;
-  function eina_value_bool_init(c: TEina_Bool): TEina_Value;
-  function eina_value_string_init(c: PChar): TEina_Value;
-  function eina_value_stringshare_init(c: PChar): TEina_Value;
-  function eina_value_time_init(c: TTime_t): TEina_Value;
-  function eina_value_error_init(c: TEina_Error): TEina_Value;
-
-  // Macro EINA_VALUE_GET expansion - These call eina_value_get with a pointer
-  function eina_value_uchar_get(const V: PEina_Value; C: pByte): TEina_Bool;
-  function eina_value_ushort_get(const V: PEina_Value; C: pWord): TEina_Bool;
-  function eina_value_uint_get(const V: PEina_Value; C: pCardinal): TEina_Bool;
-  function eina_value_ulong_get(const V: PEina_Value; C: pLongWord): TEina_Bool;
-  function eina_value_uint64_get(const V: PEina_Value; C: pUInt64): TEina_Bool;
-  function eina_value_char_get(const V: PEina_Value; C: pAnsiChar): TEina_Bool;
-  function eina_value_short_get(const V: PEina_Value; C: pSmallInt): TEina_Bool;
-  function eina_value_int_get(const V: PEina_Value; C: pInteger): TEina_Bool;
-  function eina_value_long_get(const V: PEina_Value; C: pLongint): TEina_Bool;
-  function eina_value_int64_get(const V: PEina_Value; C: pInt64): TEina_Bool;
-  function eina_value_float_get(const V: PEina_Value; C: pSingle): TEina_Bool;
-  function eina_value_double_get(const V: PEina_Value; C: pDouble): TEina_Bool;
-  function eina_value_bool_get(const V: PEina_Value; C: PEina_Bool): TEina_Bool;
-  function eina_value_string_get(const V: PEina_Value; C: pPChar): TEina_Bool;
-  function eina_value_stringshare_get(const V: PEina_Value; C: pPChar): TEina_Bool;
-  function eina_value_time_get(const V: PEina_Value; C: pTime_t): TEina_Bool;
-  function eina_value_error_get(const V: PEina_Value; C: PEina_Error): TEina_Bool;
-
-  // Macro EINA_VALUE_CONVERT expansion - These create a temp Eina_Value and use eina_value_get with a pointer
-  function eina_value_uchar_convert(const V: PEina_Value; C: pByte): TEina_Bool;
-  function eina_value_ushort_convert(const V: PEina_Value; C: pWord): TEina_Bool;
-  function eina_value_uint_convert(const V: PEina_Value; C: pCardinal): TEina_Bool;
-  function eina_value_ulong_convert(const V: PEina_Value; C: pLongWord): TEina_Bool;
-  function eina_value_uint64_convert(const V: PEina_Value; C: pUInt64): TEina_Bool;
-  function eina_value_char_convert(const V: PEina_Value; C: pAnsiChar): TEina_Bool;
-  function eina_value_short_convert(const V: PEina_Value; C: pSmallInt): TEina_Bool;
-  function eina_value_int_convert(const V: PEina_Value; C: pInteger): TEina_Bool;
-  function eina_value_long_convert(const V: PEina_Value; C: pLongint): TEina_Bool;
-  function eina_value_int64_convert(const V: PEina_Value; C: pInt64): TEina_Bool;
-  function eina_value_float_convert(const V: PEina_Value; C: pSingle): TEina_Bool;
-  function eina_value_double_convert(const V: PEina_Value; C: pDouble): TEina_Bool;
-  function eina_value_bool_convert(const V: PEina_Value; C: PEina_Bool): TEina_Bool;
-  function eina_value_string_convert(const V: PEina_Value; C: pPChar): TEina_Bool;
-  function eina_value_stringshare_convert(const V: PEina_Value; C: pPChar): TEina_Bool;
-  function eina_value_time_convert(const V: PEina_Value; C: pTime_t): TEina_Bool;
-  function eina_value_error_convert(const V: PEina_Value; C: PEina_Error): TEina_Bool;
-
-  /// @brief Create a new #Eina_Value containing the passed parameter
-  /// @param val The value to use
-  /// @return The #Eina_Value
-  /// @since 1.21
-  function eina_value_dup(const AVal: PEina_Value): PEina_Value;
-
-  /// @brief Return a reference to #Eina_Value containing a copy of the passed parameter
-  /// @param val The value to use
-  /// @return The #Eina_Value
-  /// @since 1.21
-  function eina_value_reference_copy(const AVal: PEina_Value): TEina_Value;
-
-  /// @brief Copy the stringshare in the passed #Eina_Value
-  /// @param val The value to copy
-  /// @param str The pointer to copy the stringshare to
-  /// @return @c EINA_TRUE on success
-  /// @since 1.21
-  function eina_value_stringshare_copy(const AVal: PEina_Value; AStr: PEina_Stringshare): TEina_Bool;
-
-  /// @brief Copy the string in the passed #Eina_Value
-  /// @param val The value to copy
-  /// @param str The pointer to copy the string to
-  /// @return @c EINA_TRUE on success
-  /// @since 1.21
-  function eina_value_string_copy(const AVal: PEina_Value; AStr: PChar): TEina_Bool;
+function eina_value_dup(const AVal: PEina_Value): PEina_Value;
+function eina_value_reference_copy(const AVal: PEina_Value): TEina_Value;
+function eina_value_stringshare_copy(const AVal: PEina_Value; AStr: PPEina_Stringshare): TEina_Bool;
+function eina_value_string_copy(const AVal: PEina_Value; AStr: PPChar): TEina_Bool;
 
 implementation
-
-// Assumed external functions (must be declared in Eina.Value.pas or similar)
-// These are the *actual* C library functions being called.
-// Note the 'varargs' and 'Pointer' for the variadic functions.
-// function eina_value_new(AType: PEina_Value_Type): PEina_Value; cdecl; external;
-// function eina_value_set(AVal: PEina_Value; AData: Pointer): TEina_Bool; cdecl; varargs; external;
-// function eina_value_get(const AVal: PEina_Value; ADataPtr: Pointer): TEina_Bool; cdecl; varargs; external;
-// function eina_value_setup(AVal: PEina_Value; AType: PEina_Value_Type): TEina_Bool; cdecl; external;
-// function eina_value_flush(AVal: PEina_Value): TEina_Bool; cdecl; external; // Check actual Eina API for return type
-// function eina_value_type_get(AVal: PEina_Value): PEina_Value_Type; cdecl; external;
-// function eina_value_copy(ASrc: PEina_Value; ADst: PEina_Value): TEina_Bool; cdecl; external;
-// function eina_value_convert(ASrc: PEina_Value; ADst: PEina_Value): TEina_Bool; cdecl; external;
-// function eina_stringshare_ref(AStr: PEina_Stringshare): PEina_Stringshare; cdecl; external;
-// function strdup(S: PChar): PChar; cdecl; external libc name 'strdup';
 
 
 function eina_value_type_size(AType: PEina_Value_Type): TSize_t;
 begin
-  if AType <> nil then
-    Result := AType^.value_size
-  else
+  if AType <> nil then begin
+    Result := AType^.value_size;
+  end else begin
     Result := 0;
+  end;
 end;
 
-function eina_value_type_offset(AType: PEina_Value_Type; ABase: Cardinal): Cardinal;
+function eina_value_type_offset(AType: PEina_Value_Type; ABase: cardinal): cardinal;
 var
-  Size, Padding: Cardinal;
+  Size, Padding: cardinal;
 begin
   Size := eina_value_type_size(AType);
-  if Size = 0 then
+  if Size = 0 then begin
     Exit(ABase);
+  end;
 
-  if (ABase mod Size) = 0 then
-    Result := ABase
-  else
-  begin
-    if ABase > Size then
-      Padding := ABase - Size
-    else
+  if (ABase mod Size) = 0 then begin
+    Result := ABase;
+  end else begin
+    if ABase > Size then begin
+      Padding := ABase - Size;
+    end else begin
       Padding := Size - ABase;
+    end;
     Result := ABase + Padding;
   end;
 end;
 
 // Macro EINA_VALUE_NEW expansion - These call eina_value_set with a value
-function eina_value_uchar_new(c: Byte): PEina_Value;
+function eina_value_uchar_new(c: byte): PEina_Value;
 var
   v: PEina_Value;
 begin
   v := eina_value_new(EINA_VALUE_TYPE_UCHAR);
-  if v <> nil then
-    eina_value_set(v, Pointer(c)); // Pass value as Pointer, C will handle va_arg for Bytes
+  if v <> nil then begin
+    eina_value_set(v, Pointer(c));
+  end; // Pass value as Pointer, C will handle va_arg for Bytes
   Result := v;
 end;
 
-function eina_value_ushort_new(c: Word): PEina_Value;
+function eina_value_ushort_new(c: word): PEina_Value;
 var
   v: PEina_Value;
 begin
   v := eina_value_new(EINA_VALUE_TYPE_USHORT);
-  if v <> nil then
-    eina_value_set(v, Pointer(c)); // Pass value as Pointer
+  if v <> nil then begin
+    eina_value_set(v, Pointer(c));
+  end; // Pass value as Pointer
   Result := v;
 end;
 
-function eina_value_uint_new(c: Cardinal): PEina_Value;
+function eina_value_uint_new(c: cardinal): PEina_Value;
 var
   v: PEina_Value;
 begin
   v := eina_value_new(EINA_VALUE_TYPE_UINT);
-  if v <> nil then
-    eina_value_set(v, Pointer(c)); // Pass value as Pointer
+  if v <> nil then begin
+    eina_value_set(v, Pointer(c));
+  end; // Pass value as Pointer
   Result := v;
 end;
 
-function eina_value_ulong_new(c: LongWord): PEina_Value;
+function eina_value_ulong_new(c: longword): PEina_Value;
 var
   v: PEina_Value;
 begin
   v := eina_value_new(EINA_VALUE_TYPE_ULONG);
-  if v <> nil then
-    eina_value_set(v, Pointer(c)); // Pass value as Pointer
+  if v <> nil then begin
+    eina_value_set(v, Pointer(c));
+  end; // Pass value as Pointer
   Result := v;
 end;
 
-function eina_value_uint64_new(c: UInt64): PEina_Value;
+function eina_value_uint64_new(c: uint64): PEina_Value;
 var
   v: PEina_Value;
 begin
   v := eina_value_new(EINA_VALUE_TYPE_UINT64);
-  if v <> nil then
-    eina_value_set(v, Pointer(c)); // Pass value as Pointer
+  if v <> nil then begin
+    eina_value_set(v, Pointer(c));
+  end; // Pass value as Pointer
   Result := v;
 end;
 
-function eina_value_char_new(c: AnsiChar): PEina_Value;
+function eina_value_char_new(c: ansichar): PEina_Value;
 var
   v: PEina_Value;
 begin
   v := eina_value_new(EINA_VALUE_TYPE_CHAR);
-  if v <> nil then
-    eina_value_set(v, Pointer(NativeUInt(c))); // Convert Char to integer type then to Pointer
+  if v <> nil then begin
+    eina_value_set(v, Pointer(nativeuint(c)));
+  end; // Convert Char to integer type then to Pointer
   Result := v;
 end;
 
-function eina_value_short_new(c: SmallInt): PEina_Value;
+function eina_value_short_new(c: smallint): PEina_Value;
 var
   v: PEina_Value;
 begin
   v := eina_value_new(EINA_VALUE_TYPE_SHORT);
-  if v <> nil then
-    eina_value_set(v, Pointer(c)); // Pass value as Pointer
+  if v <> nil then begin
+    eina_value_set(v, Pointer(c));
+  end; // Pass value as Pointer
   Result := v;
 end;
 
-function eina_value_int_new(c: Integer): PEina_Value;
+function eina_value_int_new(c: integer): PEina_Value;
 var
   v: PEina_Value;
 begin
   v := eina_value_new(EINA_VALUE_TYPE_INT);
-  if v <> nil then
-    eina_value_set(v, Pointer(c)); // Pass value as Pointer
+  if v <> nil then begin
+    eina_value_set(v, Pointer(c));
+  end; // Pass value as Pointer
   Result := v;
 end;
 
-function eina_value_long_new(c: Longint): PEina_Value;
+function eina_value_long_new(c: longint): PEina_Value;
 var
   v: PEina_Value;
 begin
   v := eina_value_new(EINA_VALUE_TYPE_LONG);
-  if v <> nil then
-    eina_value_set(v, Pointer(c)); // Pass value as Pointer
+  if v <> nil then begin
+    eina_value_set(v, Pointer(c));
+  end; // Pass value as Pointer
   Result := v;
 end;
 
-function eina_value_int64_new(c: Int64): PEina_Value;
+function eina_value_int64_new(c: int64): PEina_Value;
 var
   v: PEina_Value;
 begin
   v := eina_value_new(EINA_VALUE_TYPE_INT64);
-  if v <> nil then
-    eina_value_set(v, Pointer(c)); // Pass value as Pointer (handle 64-bit casting for Pointer)
+  if v <> nil then begin
+    eina_value_set(v, Pointer(c));
+  end; // Pass value as Pointer (handle 64-bit casting for Pointer)
   Result := v;
 end;
 
-function eina_value_float_new(c: Single): PEina_Value;
+function eina_value_float_new(c: single): PEina_Value;
 var
   v: PEina_Value;
 begin
   v := eina_value_new(EINA_VALUE_TYPE_FLOAT);
-  if v <> nil then
-//    eina_value_set(v, Pointer(c)); // Pass value as Pointer
-  Result := v;
+  if v <> nil then //    eina_value_set(v, Pointer(c)); // Pass value as Pointer
+  begin
+    Result := v;
+  end;
 end;
 
-function eina_value_double_new(c: Double): PEina_Value;
+function eina_value_double_new(c: double): PEina_Value;
 var
   v: PEina_Value;
 begin
   v := eina_value_new(EINA_VALUE_TYPE_DOUBLE);
-  if v <> nil then
-    eina_value_set(v, Pointer(c)); // Pass value as Pointer
+  if v <> nil then begin
+    eina_value_set(v, Pointer(c));
+  end; // Pass value as Pointer
   Result := v;
 end;
 
@@ -373,28 +280,31 @@ var
   v: PEina_Value;
 begin
   v := eina_value_new(EINA_VALUE_TYPE_BOOL);
-  if v <> nil then
-    eina_value_set(v, Pointer(NativeUInt(c))); // Pass bool as integer value then to Pointer
+  if v <> nil then begin
+    eina_value_set(v, Pointer(nativeuint(c)));
+  end; // Pass bool as integer value then to Pointer
   Result := v;
 end;
 
-function eina_value_string_new(c: PChar): PEina_Value;
+function eina_value_string_new(c: pchar): PEina_Value;
 var
   v: PEina_Value;
 begin
   v := eina_value_new(EINA_VALUE_TYPE_STRING);
-  if v <> nil then
-    eina_value_set(v, c); // PChar is already a Pointer
+  if v <> nil then begin
+    eina_value_set(v, c);
+  end; // PChar is already a Pointer
   Result := v;
 end;
 
-function eina_value_stringshare_new(c: PChar): PEina_Value;
+function eina_value_stringshare_new(c: pchar): PEina_Value;
 var
   v: PEina_Value;
 begin
   v := eina_value_new(EINA_VALUE_TYPE_STRINGSHARE);
-  if v <> nil then
-    eina_value_set(v, c); // PChar is already a Pointer
+  if v <> nil then begin
+    eina_value_set(v, c);
+  end; // PChar is already a Pointer
   Result := v;
 end;
 
@@ -403,8 +313,9 @@ var
   v: PEina_Value;
 begin
   v := eina_value_new(EINA_VALUE_TYPE_TIMESTAMP);
-  if v <> nil then
-    eina_value_set(v, Pointer(c)); // Pass value as Pointer
+  if v <> nil then begin
+    eina_value_set(v, Pointer(c));
+  end; // Pass value as Pointer
   Result := v;
 end;
 
@@ -413,359 +324,492 @@ var
   v: PEina_Value;
 begin
   v := eina_value_new(EINA_VALUE_TYPE_ERROR);
-  if v <> nil then
-    eina_value_set(v, Pointer(NativeUInt(c))); // Pass value as Pointer
+  if v <> nil then begin
+    eina_value_set(v, Pointer(nativeuint(c)));
+  end; // Pass value as Pointer
   Result := v;
 end;
 
 // Macro EINA_VALUE_INIT expansion - These call eina_value_set with a value
-function eina_value_uchar_init(c: Byte): TEina_Value;
+function eina_value_uchar_init(c: byte): TEina_Value;
 begin
-  FillChar(Result, SizeOf(TEina_Value),0);
-  if eina_value_setup(@Result, EINA_VALUE_TYPE_UCHAR) then
+  FillChar(Result, SizeOf(TEina_Value), 0);
+  if eina_value_setup(@Result, EINA_VALUE_TYPE_UCHAR) then begin
     eina_value_set(@Result, Pointer(c));
+  end;
 end;
 
-function eina_value_ushort_init(c: Word): TEina_Value;
+function eina_value_ushort_init(c: word): TEina_Value;
 begin
-  FillChar(Result, SizeOf(TEina_Value),0);
+  FillChar(Result, SizeOf(TEina_Value), 0);
 
-  if eina_value_setup(@Result, EINA_VALUE_TYPE_USHORT) then
+  if eina_value_setup(@Result, EINA_VALUE_TYPE_USHORT) then begin
     eina_value_set(@Result, Pointer(c));
+  end;
 end;
 
-function eina_value_uint_init(c: Cardinal): TEina_Value;
+function eina_value_uint_init(c: cardinal): TEina_Value;
 begin
-  FillChar(Result, SizeOf(TEina_Value),0);
+  FillChar(Result, SizeOf(TEina_Value), 0);
 
-  if eina_value_setup(@Result, EINA_VALUE_TYPE_UINT) then
+  if eina_value_setup(@Result, EINA_VALUE_TYPE_UINT) then begin
     eina_value_set(@Result, Pointer(c));
+  end;
 end;
 
-function eina_value_ulong_init(c: LongWord): TEina_Value;
+function eina_value_ulong_init(c: longword): TEina_Value;
 begin
-  FillChar(Result, SizeOf(TEina_Value),0);
+  FillChar(Result, SizeOf(TEina_Value), 0);
 
-  if eina_value_setup(@Result, EINA_VALUE_TYPE_ULONG) then
+  if eina_value_setup(@Result, EINA_VALUE_TYPE_ULONG) then begin
     eina_value_set(@Result, Pointer(c));
+  end;
 end;
 
-function eina_value_uint64_init(c: UInt64): TEina_Value;
+function eina_value_uint64_init(c: uint64): TEina_Value;
 begin
-  FillChar(Result, SizeOf(TEina_Value),0);
+  FillChar(Result, SizeOf(TEina_Value), 0);
 
-  if eina_value_setup(@Result, EINA_VALUE_TYPE_UINT64) then
+  if eina_value_setup(@Result, EINA_VALUE_TYPE_UINT64) then begin
     eina_value_set(@Result, Pointer(c));
+  end;
 end;
 
-function eina_value_char_init(c: AnsiChar): TEina_Value;
+function eina_value_char_init(c: ansichar): TEina_Value;
 begin
-  FillChar(Result, SizeOf(TEina_Value),0);
+  FillChar(Result, SizeOf(TEina_Value), 0);
 
-  if eina_value_setup(@Result, EINA_VALUE_TYPE_CHAR) then
-    eina_value_set(@Result, Pointer(NativeUInt(c)));
+  if eina_value_setup(@Result, EINA_VALUE_TYPE_CHAR) then begin
+    eina_value_set(@Result, Pointer(nativeuint(c)));
+  end;
 end;
 
-function eina_value_short_init(c: SmallInt): TEina_Value;
+function eina_value_short_init(c: smallint): TEina_Value;
 begin
-  FillChar(Result, SizeOf(TEina_Value),0);
+  FillChar(Result, SizeOf(TEina_Value), 0);
 
-  if eina_value_setup(@Result, EINA_VALUE_TYPE_SHORT) then
+  if eina_value_setup(@Result, EINA_VALUE_TYPE_SHORT) then begin
     eina_value_set(@Result, Pointer(c));
+  end;
 end;
 
-function eina_value_int_init(c: Integer): TEina_Value;
+function eina_value_int_init(c: integer): TEina_Value;
 begin
-  FillChar(Result, SizeOf(TEina_Value),0);
+  FillChar(Result, SizeOf(TEina_Value), 0);
 
-  if eina_value_setup(@Result, EINA_VALUE_TYPE_INT) then
+  if eina_value_setup(@Result, EINA_VALUE_TYPE_INT) then begin
     eina_value_set(@Result, Pointer(c));
+  end;
 end;
 
-function eina_value_long_init(c: Longint): TEina_Value;
+function eina_value_long_init(c: longint): TEina_Value;
 begin
-  FillChar(Result, SizeOf(TEina_Value),0);
+  FillChar(Result, SizeOf(TEina_Value), 0);
 
-  if eina_value_setup(@Result, EINA_VALUE_TYPE_LONG) then
+  if eina_value_setup(@Result, EINA_VALUE_TYPE_LONG) then begin
     eina_value_set(@Result, Pointer(c));
+  end;
 end;
 
-function eina_value_int64_init(c: Int64): TEina_Value;
+function eina_value_int64_init(c: int64): TEina_Value;
 begin
-  FillChar(Result, SizeOf(TEina_Value),0);
+  FillChar(Result, SizeOf(TEina_Value), 0);
 
-  if eina_value_setup(@Result, EINA_VALUE_TYPE_INT64) then
+  if eina_value_setup(@Result, EINA_VALUE_TYPE_INT64) then begin
     eina_value_set(@Result, Pointer(c));
+  end;
 end;
 
-function eina_value_float_init(c: Single): TEina_Value;
+function eina_value_float_init(c: single): TEina_Value;
 begin
-  FillChar(Result, SizeOf(TEina_Value),0);
+  FillChar(Result, SizeOf(TEina_Value), 0);
 
-  if eina_value_setup(@Result, EINA_VALUE_TYPE_FLOAT) then
-//    eina_value_set(@Result, Pointer(c));
+  if eina_value_setup(@Result, EINA_VALUE_TYPE_FLOAT) then //    eina_value_set(@Result, Pointer(c));
+  begin
+  end;
 end;
 
-function eina_value_double_init(c: Double): TEina_Value;
+function eina_value_double_init(c: double): TEina_Value;
 begin
-  FillChar(Result, SizeOf(TEina_Value),0);
+  FillChar(Result, SizeOf(TEina_Value), 0);
 
-  if eina_value_setup(@Result, EINA_VALUE_TYPE_DOUBLE) then
+  if eina_value_setup(@Result, EINA_VALUE_TYPE_DOUBLE) then begin
     eina_value_set(@Result, Pointer(c));
+  end;
 end;
 
 function eina_value_bool_init(c: TEina_Bool): TEina_Value;
 begin
-  FillChar(Result, SizeOf(TEina_Value),0);
+  FillChar(Result, SizeOf(TEina_Value), 0);
 
-  if eina_value_setup(@Result, EINA_VALUE_TYPE_BOOL) then
-    eina_value_set(@Result, Pointer(NativeUInt(c)));
+  if eina_value_setup(@Result, EINA_VALUE_TYPE_BOOL) then begin
+    eina_value_set(@Result, Pointer(nativeuint(c)));
+  end;
 end;
 
-function eina_value_string_init(c: PChar): TEina_Value;
+function eina_value_string_init(c: pchar): TEina_Value;
 begin
-  FillChar(Result, SizeOf(TEina_Value),0);
+  FillChar(Result, SizeOf(TEina_Value), 0);
 
-  if eina_value_setup(@Result, EINA_VALUE_TYPE_STRING) then
+  if eina_value_setup(@Result, EINA_VALUE_TYPE_STRING) then begin
     eina_value_set(@Result, c);
+  end;
 end;
 
-function eina_value_stringshare_init(c: PChar): TEina_Value;
+function eina_value_stringshare_init(c: pchar): TEina_Value;
 begin
-  FillChar(Result, SizeOf(TEina_Value),0);
+  FillChar(Result, SizeOf(TEina_Value), 0);
 
-  if eina_value_setup(@Result, EINA_VALUE_TYPE_STRINGSHARE) then
+  if eina_value_setup(@Result, EINA_VALUE_TYPE_STRINGSHARE) then begin
     eina_value_set(@Result, c);
+  end;
 end;
 
 function eina_value_time_init(c: TTime_t): TEina_Value;
 begin
-  FillChar(Result, SizeOf(TEina_Value),0);
+  FillChar(Result, SizeOf(TEina_Value), 0);
 
-  if eina_value_setup(@Result, EINA_VALUE_TYPE_TIMESTAMP) then
+  if eina_value_setup(@Result, EINA_VALUE_TYPE_TIMESTAMP) then begin
     eina_value_set(@Result, Pointer(c));
+  end;
 end;
 
 function eina_value_error_init(c: TEina_Error): TEina_Value;
 begin
-  FillChar(Result, SizeOf(TEina_Value),0);
+  FillChar(Result, SizeOf(TEina_Value), 0);
 
-  if eina_value_setup(@Result, EINA_VALUE_TYPE_ERROR) then
-    eina_value_set(@Result, Pointer(NativeUInt(c)));
+  if eina_value_setup(@Result, EINA_VALUE_TYPE_ERROR) then begin
+    eina_value_set(@Result, Pointer(nativeuint(c)));
+  end;
 end;
 
 // Macro EINA_VALUE_GET expansion - These call eina_value_get with a pointer
-function eina_value_uchar_get(const V: PEina_Value; C: pByte): TEina_Bool;
+function eina_value_uchar_get(const V: PEina_Value; C: pbyte): TEina_Bool;
 begin
-  if C = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
   C^ := 0; // Initialize through pointer
-  if V = nil then Exit(EINA_FALSE);
-  if V^._type = EINA_VALUE_TYPE_UCHAR then
-    Result := eina_value_get(V, C) // Pass the pointer C directly
-  else
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V^._type = EINA_VALUE_TYPE_UCHAR then begin
+    Result := eina_value_get(V, @C);
+  end // Pass the pointer C directly
+  else begin
     Result := EINA_FALSE;
+  end;
 end;
 
 function eina_value_ushort_get(const V: PEina_Value; C: pWord): TEina_Bool;
 begin
-  if C = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
   C^ := 0;
-  if V = nil then Exit(EINA_FALSE);
-  if V^._type = EINA_VALUE_TYPE_USHORT then
-    Result := eina_value_get(V, C) // Pass the pointer C directly
-  else
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V^._type = EINA_VALUE_TYPE_USHORT then begin
+    Result := eina_value_get(V, @C);
+  end // Pass the pointer C directly
+  else begin
     Result := EINA_FALSE;
+  end;
 end;
 
 function eina_value_uint_get(const V: PEina_Value; C: pCardinal): TEina_Bool;
 begin
-  if C = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
   C^ := 0;
-  if V = nil then Exit(EINA_FALSE);
-  if V^._type = EINA_VALUE_TYPE_UINT then
-    Result := eina_value_get(V, C) // Pass the pointer C directly
-  else
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V^._type = EINA_VALUE_TYPE_UINT then begin
+    Result := eina_value_get(V, @C);
+  end // Pass the pointer C directly
+  else begin
     Result := EINA_FALSE;
+  end;
 end;
 
 function eina_value_ulong_get(const V: PEina_Value; C: pLongWord): TEina_Bool;
 begin
-  if C = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
   C^ := 0;
-  if V = nil then Exit(EINA_FALSE);
-  if V^._type = EINA_VALUE_TYPE_ULONG then
-    Result := eina_value_get(V, C) // Pass the pointer C directly
-  else
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V^._type = EINA_VALUE_TYPE_ULONG then begin
+    Result := eina_value_get(V, @C);
+  end // Pass the pointer C directly
+  else begin
     Result := EINA_FALSE;
+  end;
 end;
 
 function eina_value_uint64_get(const V: PEina_Value; C: pUInt64): TEina_Bool;
 begin
-  if C = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
   C^ := 0;
-  if V = nil then Exit(EINA_FALSE);
-  if V^._type = EINA_VALUE_TYPE_UINT64 then
-    Result := eina_value_get(V, C) // Pass the pointer C directly
-  else
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V^._type = EINA_VALUE_TYPE_UINT64 then begin
+    Result := eina_value_get(V, @C);
+  end // Pass the pointer C directly
+  else begin
     Result := EINA_FALSE;
+  end;
 end;
 
-function eina_value_char_get(const V: PEina_Value; C: pAnsiChar): TEina_Bool;
+function eina_value_char_get(const V: PEina_Value; C: pansichar): TEina_Bool;
 begin
-  if C = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
   C^ := #0;
-  if V = nil then Exit(EINA_FALSE);
-  if V^._type = EINA_VALUE_TYPE_CHAR then
-    Result := eina_value_get(V, C) // Pass the pointer C directly
-  else
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V^._type = EINA_VALUE_TYPE_CHAR then begin
+    Result := eina_value_get(V, @C);
+  end // Pass the pointer C directly
+  else begin
     Result := EINA_FALSE;
+  end;
 end;
 
 function eina_value_short_get(const V: PEina_Value; C: pSmallInt): TEina_Bool;
 begin
-  if C = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
   C^ := 0;
-  if V = nil then Exit(EINA_FALSE);
-  if V^._type = EINA_VALUE_TYPE_SHORT then
-    Result := eina_value_get(V, C) // Pass the pointer C directly
-  else
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V^._type = EINA_VALUE_TYPE_SHORT then begin
+    Result := eina_value_get(V, @C);
+  end // Pass the pointer C directly
+  else begin
     Result := EINA_FALSE;
+  end;
 end;
 
 function eina_value_int_get(const V: PEina_Value; C: pInteger): TEina_Bool;
 begin
-  if C = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
   C^ := 0;
-  if V = nil then Exit(EINA_FALSE);
-  if V^._type = EINA_VALUE_TYPE_INT then
-    Result := eina_value_get(V, C) // Pass the pointer C directly
-  else
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V^._type = EINA_VALUE_TYPE_INT then begin
+    Result := eina_value_get(V, @C);
+  end // Pass the pointer C directly
+  else begin
     Result := EINA_FALSE;
+  end;
 end;
 
 function eina_value_long_get(const V: PEina_Value; C: pLongint): TEina_Bool;
 begin
-  if C = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
   C^ := 0;
-  if V = nil then Exit(EINA_FALSE);
-  if V^._type = EINA_VALUE_TYPE_LONG then
-    Result := eina_value_get(V, C) // Pass the pointer C directly
-  else
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V^._type = EINA_VALUE_TYPE_LONG then begin
+    Result := eina_value_get(V, @C);
+  end // Pass the pointer C directly
+  else begin
     Result := EINA_FALSE;
+  end;
 end;
 
 function eina_value_int64_get(const V: PEina_Value; C: pInt64): TEina_Bool;
 begin
-  if C = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
   C^ := 0;
-  if V = nil then Exit(EINA_FALSE);
-  if V^._type = EINA_VALUE_TYPE_INT64 then
-    Result := eina_value_get(V, C) // Pass the pointer C directly
-  else
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V^._type = EINA_VALUE_TYPE_INT64 then begin
+    Result := eina_value_get(V, @C);
+  end // Pass the pointer C directly
+  else begin
     Result := EINA_FALSE;
+  end;
 end;
 
 function eina_value_float_get(const V: PEina_Value; C: pSingle): TEina_Bool;
 begin
-  if C = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
   C^ := 0.0;
-  if V = nil then Exit(EINA_FALSE);
-  if V^._type = EINA_VALUE_TYPE_FLOAT then
-    Result := eina_value_get(V, C) // Pass the pointer C directly
-  else
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V^._type = EINA_VALUE_TYPE_FLOAT then begin
+    Result := eina_value_get(V, @C);
+  end // Pass the pointer C directly
+  else begin
     Result := EINA_FALSE;
+  end;
 end;
 
 function eina_value_double_get(const V: PEina_Value; C: pDouble): TEina_Bool;
 begin
-  if C = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
   C^ := 0.0;
-  if V = nil then Exit(EINA_FALSE);
-  if V^._type = EINA_VALUE_TYPE_DOUBLE then
-    Result := eina_value_get(V, C) // Pass the pointer C directly
-  else
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V^._type = EINA_VALUE_TYPE_DOUBLE then begin
+    Result := eina_value_get(V, @C);
+  end // Pass the pointer C directly
+  else begin
     Result := EINA_FALSE;
+  end;
 end;
 
 function eina_value_bool_get(const V: PEina_Value; C: PEina_Bool): TEina_Bool;
 begin
-  if C = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
   C^ := EINA_FALSE;
-  if V = nil then Exit(EINA_FALSE);
-  if V^._type = EINA_VALUE_TYPE_BOOL then
-    Result := eina_value_get(V, C) // Pass the pointer C directly
-  else
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V^._type = EINA_VALUE_TYPE_BOOL then begin
+    Result := eina_value_get(V, @C);
+  end // Pass the pointer C directly
+  else begin
     Result := EINA_FALSE;
+  end;
 end;
 
 function eina_value_string_get(const V: PEina_Value; C: pPChar): TEina_Bool;
 begin
-  if C = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
   C^ := nil;
-  if V = nil then Exit(EINA_FALSE);
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
   if V^._type
-  = EINA_VALUE_TYPE_STRING then
-    Result := eina_value_get(V, C) // Pass the pointer C directly
-  else
+    = EINA_VALUE_TYPE_STRING then begin
+    Result := eina_value_get(V, @C);
+  end // Pass the pointer C directly
+  else begin
     Result := EINA_FALSE;
+  end;
 end;
 
 function eina_value_stringshare_get(const V: PEina_Value; C: pPChar): TEina_Bool;
 begin
-  if C = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
   C^ := nil;
-  if V = nil then Exit(EINA_FALSE);
-  if V^._type = EINA_VALUE_TYPE_STRINGSHARE then
-    Result := eina_value_get(V, C) // Pass the pointer C directly
-  else
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V^._type = EINA_VALUE_TYPE_STRINGSHARE then begin
+    Result := eina_value_get(V, @C);
+  end // Pass the pointer C directly
+  else begin
     Result := EINA_FALSE;
+  end;
 end;
 
 function eina_value_time_get(const V: PEina_Value; C: pTime_t): TEina_Bool;
 begin
-  if C = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
   C^ := 0;
-  if V = nil then Exit(EINA_FALSE);
-  if V^._type = EINA_VALUE_TYPE_TIMESTAMP then
-    Result := eina_value_get(V, C) // Pass the pointer C directly
-  else
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V^._type = EINA_VALUE_TYPE_TIMESTAMP then begin
+    Result := eina_value_get(V, @C);
+  end // Pass the pointer C directly
+  else begin
     Result := EINA_FALSE;
+  end;
 end;
 
 function eina_value_error_get(const V: PEina_Value; C: PEina_Error): TEina_Bool;
 begin
-  if C = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
   C^ := 0;
-  if V = nil then Exit(EINA_FALSE);
-  if V^._type = EINA_VALUE_TYPE_ERROR then
-    Result := eina_value_get(V, C) // Pass the pointer C directly
-  else
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V^._type = EINA_VALUE_TYPE_ERROR then begin
+    Result := eina_value_get(V, @C);
+  end // Pass the pointer C directly
+  else begin
     Result := EINA_FALSE;
+  end;
 end;
 
 // Macro EINA_VALUE_CONVERT expansion
-function eina_value_uchar_convert(const V: PEina_Value; C: pByte): TEina_Bool;
+function eina_value_uchar_convert(const V: PEina_Value; C: pbyte): TEina_Bool;
 var
   dst: TEina_Value;
   r: TEina_Bool;
-  label OnError;
+label
+  OnError;
 begin
   r := EINA_FALSE;
-  if C = nil then Exit(EINA_FALSE);
-  if V = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
 
   // Try no conversion first
-  if eina_value_uchar_get(V, C) then Exit(EINA_TRUE);
-  FillChar(dst, SizeOf(TEina_Value),0);
+  if eina_value_uchar_get(V, C) then begin
+    Exit(EINA_TRUE);
+  end;
+  FillChar(dst, SizeOf(TEina_Value), 0);
 
-  if not eina_value_setup(@dst, EINA_VALUE_TYPE_UCHAR) then Exit(EINA_FALSE);
+  if not eina_value_setup(@dst, EINA_VALUE_TYPE_UCHAR) then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if not eina_value_convert(V, @dst) then goto OnError;
-  if not eina_value_uchar_get(@dst, C) then goto OnError; // Pass the pointer C directly
+  if not eina_value_convert(V, @dst) then begin
+    goto OnError;
+  end;
+  if not eina_value_uchar_get(@dst, C) then begin
+    goto OnError;
+  end; // Pass the pointer C directly
   r := EINA_TRUE;
 
-OnError:
-  eina_value_flush(@dst);
+  OnError:
+    eina_value_flush(@dst);
   Result := r;
 end;
 
@@ -773,23 +817,36 @@ function eina_value_ushort_convert(const V: PEina_Value; C: pWord): TEina_Bool;
 var
   dst: TEina_Value;
   r: TEina_Bool;
-label OnError;
+label
+  OnError;
 begin
   r := EINA_FALSE;
-  if C = nil then Exit(EINA_FALSE);
-  if V = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if eina_value_ushort_get(V, C) then Exit(EINA_TRUE);
+  if eina_value_ushort_get(V, C) then begin
+    Exit(EINA_TRUE);
+  end;
 
-  FillChar(dst, SizeOf(TEina_Value),0);
-  if not eina_value_setup(@dst, EINA_VALUE_TYPE_USHORT) then Exit(EINA_FALSE);
+  FillChar(dst, SizeOf(TEina_Value), 0);
+  if not eina_value_setup(@dst, EINA_VALUE_TYPE_USHORT) then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if not eina_value_convert(V, @dst) then goto OnError;
-  if not eina_value_ushort_get(@dst, C) then goto OnError;
+  if not eina_value_convert(V, @dst) then begin
+    goto OnError;
+  end;
+  if not eina_value_ushort_get(@dst, C) then begin
+    goto OnError;
+  end;
   r := EINA_TRUE;
 
-OnError:
-  eina_value_flush(@dst);
+  OnError:
+    eina_value_flush(@dst);
   Result := r;
 end;
 
@@ -797,23 +854,36 @@ function eina_value_uint_convert(const V: PEina_Value; C: pCardinal): TEina_Bool
 var
   dst: TEina_Value;
   r: TEina_Bool;
-label OnError;
+label
+  OnError;
 begin
   r := EINA_FALSE;
-  if C = nil then Exit(EINA_FALSE);
-  if V = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if eina_value_uint_get(V, C) then Exit(EINA_TRUE);
+  if eina_value_uint_get(V, C) then begin
+    Exit(EINA_TRUE);
+  end;
 
-  FillChar(dst, SizeOf(TEina_Value),0);
-  if not eina_value_setup(@dst, EINA_VALUE_TYPE_UINT) then Exit(EINA_FALSE);
+  FillChar(dst, SizeOf(TEina_Value), 0);
+  if not eina_value_setup(@dst, EINA_VALUE_TYPE_UINT) then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if not eina_value_convert(V, @dst) then goto OnError;
-  if not eina_value_uint_get(@dst, C) then goto OnError;
+  if not eina_value_convert(V, @dst) then begin
+    goto OnError;
+  end;
+  if not eina_value_uint_get(@dst, C) then begin
+    goto OnError;
+  end;
   r := EINA_TRUE;
 
-OnError:
-  eina_value_flush(@dst);
+  OnError:
+    eina_value_flush(@dst);
   Result := r;
 end;
 
@@ -821,23 +891,36 @@ function eina_value_ulong_convert(const V: PEina_Value; C: pLongWord): TEina_Boo
 var
   dst: TEina_Value;
   r: TEina_Bool;
-label OnError;
+label
+  OnError;
 begin
   r := EINA_FALSE;
-  if C = nil then Exit(EINA_FALSE);
-  if V = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if eina_value_ulong_get(V, C) then Exit(EINA_TRUE);
+  if eina_value_ulong_get(V, C) then begin
+    Exit(EINA_TRUE);
+  end;
 
-  FillChar(dst, SizeOf(TEina_Value),0);
-  if not eina_value_setup(@dst, EINA_VALUE_TYPE_ULONG) then Exit(EINA_FALSE);
+  FillChar(dst, SizeOf(TEina_Value), 0);
+  if not eina_value_setup(@dst, EINA_VALUE_TYPE_ULONG) then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if not eina_value_convert(V, @dst) then goto OnError;
-  if not eina_value_ulong_get(@dst, C) then goto OnError;
+  if not eina_value_convert(V, @dst) then begin
+    goto OnError;
+  end;
+  if not eina_value_ulong_get(@dst, C) then begin
+    goto OnError;
+  end;
   r := EINA_TRUE;
 
-OnError:
-  eina_value_flush(@dst);
+  OnError:
+    eina_value_flush(@dst);
   Result := r;
 end;
 
@@ -845,49 +928,75 @@ function eina_value_uint64_convert(const V: PEina_Value; C: pUInt64): TEina_Bool
 var
   dst: TEina_Value;
   r: TEina_Bool;
-label OnError;
+label
+  OnError;
 begin
   r := EINA_FALSE;
-  if C = nil then Exit(EINA_FALSE);
-  if V = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if eina_value_uint64_get(V, C) then Exit(EINA_TRUE);
+  if eina_value_uint64_get(V, C) then begin
+    Exit(EINA_TRUE);
+  end;
 
-    FillChar(dst, SizeOf(TEina_Value),0);
+  FillChar(dst, SizeOf(TEina_Value), 0);
 
-  if not eina_value_setup(@dst, EINA_VALUE_TYPE_UINT64) then Exit(EINA_FALSE);
+  if not eina_value_setup(@dst, EINA_VALUE_TYPE_UINT64) then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if not eina_value_convert(V, @dst) then goto OnError;
-  if not eina_value_uint64_get(@dst, C) then goto OnError;
+  if not eina_value_convert(V, @dst) then begin
+    goto OnError;
+  end;
+  if not eina_value_uint64_get(@dst, C) then begin
+    goto OnError;
+  end;
   r := EINA_TRUE;
 
-OnError:
-  eina_value_flush(@dst);
+  OnError:
+    eina_value_flush(@dst);
   Result := r;
 end;
 
-function eina_value_char_convert(const V: PEina_Value; C: pAnsiChar): TEina_Bool;
+function eina_value_char_convert(const V: PEina_Value; C: pansichar): TEina_Bool;
 var
   dst: TEina_Value;
   r: TEina_Bool;
-label OnError;
+label
+  OnError;
 begin
   r := EINA_FALSE;
-  if C = nil then Exit(EINA_FALSE);
-  if V = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if eina_value_char_get(V, C) then Exit(EINA_TRUE);
+  if eina_value_char_get(V, C) then begin
+    Exit(EINA_TRUE);
+  end;
 
-    FillChar(dst, SizeOf(TEina_Value),0);
+  FillChar(dst, SizeOf(TEina_Value), 0);
 
-  if not eina_value_setup(@dst, EINA_VALUE_TYPE_CHAR) then Exit(EINA_FALSE);
+  if not eina_value_setup(@dst, EINA_VALUE_TYPE_CHAR) then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if not eina_value_convert(V, @dst) then goto OnError;
-  if not eina_value_char_get(@dst, C) then goto OnError;
+  if not eina_value_convert(V, @dst) then begin
+    goto OnError;
+  end;
+  if not eina_value_char_get(@dst, C) then begin
+    goto OnError;
+  end;
   r := EINA_TRUE;
 
-OnError:
-  eina_value_flush(@dst);
+  OnError:
+    eina_value_flush(@dst);
   Result := r;
 end;
 
@@ -895,24 +1004,37 @@ function eina_value_short_convert(const V: PEina_Value; C: pSmallInt): TEina_Boo
 var
   dst: TEina_Value;
   r: TEina_Bool;
-label OnError;
+label
+  OnError;
 begin
   r := EINA_FALSE;
-  if C = nil then Exit(EINA_FALSE);
-  if V = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if eina_value_short_get(V, C) then Exit(EINA_TRUE);
+  if eina_value_short_get(V, C) then begin
+    Exit(EINA_TRUE);
+  end;
 
-    FillChar(dst, SizeOf(TEina_Value),0);
+  FillChar(dst, SizeOf(TEina_Value), 0);
 
-  if not eina_value_setup(@dst, EINA_VALUE_TYPE_SHORT) then Exit(EINA_FALSE);
+  if not eina_value_setup(@dst, EINA_VALUE_TYPE_SHORT) then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if not eina_value_convert(V, @dst) then goto OnError;
-  if not eina_value_short_get(@dst, C) then goto OnError;
+  if not eina_value_convert(V, @dst) then begin
+    goto OnError;
+  end;
+  if not eina_value_short_get(@dst, C) then begin
+    goto OnError;
+  end;
   r := EINA_TRUE;
 
-OnError:
-  eina_value_flush(@dst);
+  OnError:
+    eina_value_flush(@dst);
   Result := r;
 end;
 
@@ -920,24 +1042,37 @@ function eina_value_int_convert(const V: PEina_Value; C: pInteger): TEina_Bool;
 var
   dst: TEina_Value;
   r: TEina_Bool;
-label OnError;
+label
+  OnError;
 begin
   r := EINA_FALSE;
-  if C = nil then Exit(EINA_FALSE);
-  if V = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if eina_value_int_get(V, C) then Exit(EINA_TRUE);
+  if eina_value_int_get(V, C) then begin
+    Exit(EINA_TRUE);
+  end;
 
-    FillChar(dst, SizeOf(TEina_Value),0);
+  FillChar(dst, SizeOf(TEina_Value), 0);
 
-  if not eina_value_setup(@dst, EINA_VALUE_TYPE_INT) then Exit(EINA_FALSE);
+  if not eina_value_setup(@dst, EINA_VALUE_TYPE_INT) then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if not eina_value_convert(V, @dst) then goto OnError;
-  if not eina_value_int_get(@dst, C) then goto OnError;
+  if not eina_value_convert(V, @dst) then begin
+    goto OnError;
+  end;
+  if not eina_value_int_get(@dst, C) then begin
+    goto OnError;
+  end;
   r := EINA_TRUE;
 
-OnError:
-  eina_value_flush(@dst);
+  OnError:
+    eina_value_flush(@dst);
   Result := r;
 end;
 
@@ -945,24 +1080,37 @@ function eina_value_long_convert(const V: PEina_Value; C: pLongint): TEina_Bool;
 var
   dst: TEina_Value;
   r: TEina_Bool;
-label OnError;
+label
+  OnError;
 begin
   r := EINA_FALSE;
-  if C = nil then Exit(EINA_FALSE);
-  if V = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if eina_value_long_get(V, C) then Exit(EINA_TRUE);
+  if eina_value_long_get(V, C) then begin
+    Exit(EINA_TRUE);
+  end;
 
-    FillChar(dst, SizeOf(TEina_Value),0);
+  FillChar(dst, SizeOf(TEina_Value), 0);
 
-  if not eina_value_setup(@dst, EINA_VALUE_TYPE_LONG) then Exit(EINA_FALSE);
+  if not eina_value_setup(@dst, EINA_VALUE_TYPE_LONG) then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if not eina_value_convert(V, @dst) then goto OnError;
-  if not eina_value_long_get(@dst, C) then goto OnError;
+  if not eina_value_convert(V, @dst) then begin
+    goto OnError;
+  end;
+  if not eina_value_long_get(@dst, C) then begin
+    goto OnError;
+  end;
   r := EINA_TRUE;
 
-OnError:
-  eina_value_flush(@dst);
+  OnError:
+    eina_value_flush(@dst);
   Result := r;
 end;
 
@@ -970,24 +1118,37 @@ function eina_value_int64_convert(const V: PEina_Value; C: pInt64): TEina_Bool;
 var
   dst: TEina_Value;
   r: TEina_Bool;
-label OnError;
+label
+  OnError;
 begin
   r := EINA_FALSE;
-  if C = nil then Exit(EINA_FALSE);
-  if V = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if eina_value_int64_get(V, C) then Exit(EINA_TRUE);
+  if eina_value_int64_get(V, C) then begin
+    Exit(EINA_TRUE);
+  end;
 
-    FillChar(dst, SizeOf(TEina_Value),0);
+  FillChar(dst, SizeOf(TEina_Value), 0);
 
-  if not eina_value_setup(@dst, EINA_VALUE_TYPE_INT64) then Exit(EINA_FALSE);
+  if not eina_value_setup(@dst, EINA_VALUE_TYPE_INT64) then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if not eina_value_convert(V, @dst) then goto OnError;
-  if not eina_value_int64_get(@dst, C) then goto OnError;
+  if not eina_value_convert(V, @dst) then begin
+    goto OnError;
+  end;
+  if not eina_value_int64_get(@dst, C) then begin
+    goto OnError;
+  end;
   r := EINA_TRUE;
 
-OnError:
-  eina_value_flush(@dst);
+  OnError:
+    eina_value_flush(@dst);
   Result := r;
 end;
 
@@ -995,24 +1156,37 @@ function eina_value_float_convert(const V: PEina_Value; C: pSingle): TEina_Bool;
 var
   dst: TEina_Value;
   r: TEina_Bool;
-label OnError;
+label
+  OnError;
 begin
   r := EINA_FALSE;
-  if C = nil then Exit(EINA_FALSE);
-  if V = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if eina_value_float_get(V, C) then Exit(EINA_TRUE);
+  if eina_value_float_get(V, C) then begin
+    Exit(EINA_TRUE);
+  end;
 
-    FillChar(dst, SizeOf(TEina_Value),0);
+  FillChar(dst, SizeOf(TEina_Value), 0);
 
-  if not eina_value_setup(@dst, EINA_VALUE_TYPE_FLOAT) then Exit(EINA_FALSE);
+  if not eina_value_setup(@dst, EINA_VALUE_TYPE_FLOAT) then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if not eina_value_convert(V, @dst) then goto OnError;
-  if not eina_value_float_get(@dst, C) then goto OnError;
+  if not eina_value_convert(V, @dst) then begin
+    goto OnError;
+  end;
+  if not eina_value_float_get(@dst, C) then begin
+    goto OnError;
+  end;
   r := EINA_TRUE;
 
-OnError:
-  eina_value_flush(@dst);
+  OnError:
+    eina_value_flush(@dst);
   Result := r;
 end;
 
@@ -1020,24 +1194,37 @@ function eina_value_double_convert(const V: PEina_Value; C: pDouble): TEina_Bool
 var
   dst: TEina_Value;
   r: TEina_Bool;
-label OnError;
+label
+  OnError;
 begin
   r := EINA_FALSE;
-  if C = nil then Exit(EINA_FALSE);
-  if V = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if eina_value_double_get(V, C) then Exit(EINA_TRUE);
+  if eina_value_double_get(V, C) then begin
+    Exit(EINA_TRUE);
+  end;
 
-    FillChar(dst, SizeOf(TEina_Value),0);
+  FillChar(dst, SizeOf(TEina_Value), 0);
 
-  if not eina_value_setup(@dst, EINA_VALUE_TYPE_DOUBLE) then Exit(EINA_FALSE);
+  if not eina_value_setup(@dst, EINA_VALUE_TYPE_DOUBLE) then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if not eina_value_convert(V, @dst) then goto OnError;
-  if not eina_value_double_get(@dst, C) then goto OnError;
+  if not eina_value_convert(V, @dst) then begin
+    goto OnError;
+  end;
+  if not eina_value_double_get(@dst, C) then begin
+    goto OnError;
+  end;
   r := EINA_TRUE;
 
-OnError:
-  eina_value_flush(@dst);
+  OnError:
+    eina_value_flush(@dst);
   Result := r;
 end;
 
@@ -1046,24 +1233,37 @@ function eina_value_bool_convert(const V: PEina_Value; C: PEina_Bool
 var
   dst: TEina_Value;
   r: TEina_Bool;
-label OnError;
+label
+  OnError;
 begin
   r := EINA_FALSE;
-  if C = nil then Exit(EINA_FALSE);
-  if V = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if eina_value_bool_get(V, C) then Exit(EINA_TRUE);
+  if eina_value_bool_get(V, C) then begin
+    Exit(EINA_TRUE);
+  end;
 
-    FillChar(dst, SizeOf(TEina_Value),0);
+  FillChar(dst, SizeOf(TEina_Value), 0);
 
-  if not eina_value_setup(@dst, EINA_VALUE_TYPE_BOOL) then Exit(EINA_FALSE);
+  if not eina_value_setup(@dst, EINA_VALUE_TYPE_BOOL) then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if not eina_value_convert(V, @dst) then goto OnError;
-  if not eina_value_bool_get(@dst, C) then goto OnError;
+  if not eina_value_convert(V, @dst) then begin
+    goto OnError;
+  end;
+  if not eina_value_bool_get(@dst, C) then begin
+    goto OnError;
+  end;
   r := EINA_TRUE;
 
-OnError:
-  eina_value_flush(@dst);
+  OnError:
+    eina_value_flush(@dst);
   Result := r;
 end;
 
@@ -1071,24 +1271,37 @@ function eina_value_string_convert(const V: PEina_Value; C: pPChar): TEina_Bool;
 var
   dst: TEina_Value;
   r: TEina_Bool;
-label OnError;
+label
+  OnError;
 begin
   r := EINA_FALSE;
-  if C = nil then Exit(EINA_FALSE);
-  if V = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if eina_value_string_get(V, C) then Exit(EINA_TRUE);
+  if eina_value_string_get(V, C) then begin
+    Exit(EINA_TRUE);
+  end;
 
-    FillChar(dst, SizeOf(TEina_Value),0);
+  FillChar(dst, SizeOf(TEina_Value), 0);
 
-  if not eina_value_setup(@dst, EINA_VALUE_TYPE_STRING) then Exit(EINA_FALSE);
+  if not eina_value_setup(@dst, EINA_VALUE_TYPE_STRING) then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if not eina_value_convert(V, @dst) then goto OnError;
-  if not eina_value_string_get(@dst, C) then goto OnError;
+  if not eina_value_convert(V, @dst) then begin
+    goto OnError;
+  end;
+  if not eina_value_string_get(@dst, C) then begin
+    goto OnError;
+  end;
   r := EINA_TRUE;
 
-OnError:
-  eina_value_flush(@dst);
+  OnError:
+    eina_value_flush(@dst);
   Result := r;
 end;
 
@@ -1096,24 +1309,37 @@ function eina_value_stringshare_convert(const V: PEina_Value; C: pPChar): TEina_
 var
   dst: TEina_Value;
   r: TEina_Bool;
-label OnError;
+label
+  OnError;
 begin
   r := EINA_FALSE;
-  if C = nil then Exit(EINA_FALSE);
-  if V = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if eina_value_stringshare_get(V, C) then Exit(EINA_TRUE);
+  if eina_value_stringshare_get(V, C) then begin
+    Exit(EINA_TRUE);
+  end;
 
-    FillChar(dst, SizeOf(TEina_Value),0);
+  FillChar(dst, SizeOf(TEina_Value), 0);
 
-  if not eina_value_setup(@dst, EINA_VALUE_TYPE_STRINGSHARE) then Exit(EINA_FALSE);
+  if not eina_value_setup(@dst, EINA_VALUE_TYPE_STRINGSHARE) then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if not eina_value_convert(V, @dst) then goto OnError;
-  if not eina_value_stringshare_get(@dst, C) then goto OnError;
+  if not eina_value_convert(V, @dst) then begin
+    goto OnError;
+  end;
+  if not eina_value_stringshare_get(@dst, C) then begin
+    goto OnError;
+  end;
   r := EINA_TRUE;
 
-OnError:
-  eina_value_flush(@dst);
+  OnError:
+    eina_value_flush(@dst);
   Result := r;
 end;
 
@@ -1121,67 +1347,96 @@ function eina_value_time_convert(const V: PEina_Value; C: pTime_t): TEina_Bool;
 var
   dst: TEina_Value;
   r: TEina_Bool;
-label OnError;
+label
+  OnError;
 begin
   r := EINA_FALSE;
-  if C = nil then Exit(EINA_FALSE);
-  if V = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if eina_value_time_get(V, C) then Exit(EINA_TRUE);
+  if eina_value_time_get(V, C) then begin
+    Exit(EINA_TRUE);
+  end;
 
-    FillChar(dst, SizeOf(TEina_Value),0);
+  FillChar(dst, SizeOf(TEina_Value), 0);
 
-  if not eina_value_setup(@dst, EINA_VALUE_TYPE_TIMESTAMP) then Exit(EINA_FALSE);
+  if not eina_value_setup(@dst, EINA_VALUE_TYPE_TIMESTAMP) then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if not eina_value_convert(V, @dst) then goto OnError;
-  if not eina_value_time_get(@dst, C) then goto OnError;
+  if not eina_value_convert(V, @dst) then begin
+    goto OnError;
+  end;
+  if not eina_value_time_get(@dst, C) then begin
+    goto OnError;
+  end;
   r := EINA_TRUE;
 
-OnError:
-  eina_value_flush(@dst);
+  OnError:
+    eina_value_flush(@dst);
   Result := r;
 end;
 
-function eina_value_error_convert(const V: PEina_Value; C: PEina_Error
-  ): TEina_Bool;
+function eina_value_error_convert(const V: PEina_Value; C: PEina_Error): TEina_Bool;
 var
   dst: TEina_Value;
   r: TEina_Bool;
-label OnError;
+label
+  OnError;
 begin
   r := EINA_FALSE;
-  if C = nil then Exit(EINA_FALSE);
-  if V = nil then Exit(EINA_FALSE);
+  if C = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if V = nil then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if eina_value_error_get(V, C) then Exit(EINA_TRUE);
+  if eina_value_error_get(V, C) then begin
+    Exit(EINA_TRUE);
+  end;
 
-    FillChar(dst, SizeOf(TEina_Value),0);
+  FillChar(dst, SizeOf(TEina_Value), 0);
 
-  if not eina_value_setup(@dst, EINA_VALUE_TYPE_ERROR) then Exit(EINA_FALSE);
+  if not eina_value_setup(@dst, EINA_VALUE_TYPE_ERROR) then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if not eina_value_convert(V, @dst) then goto OnError;
-  if not eina_value_error_get(@dst, C) then goto OnError;
+  if not eina_value_convert(V, @dst) then begin
+    goto OnError;
+  end;
+  if not eina_value_error_get(@dst, C) then begin
+    goto OnError;
+  end;
   r := EINA_TRUE;
 
-OnError:
-  eina_value_flush(@dst);
+  OnError:
+    eina_value_flush(@dst);
   Result := r;
 end;
 
+// ================================
 
 function eina_value_dup(const AVal: PEina_Value): PEina_Value;
 var
   v: PEina_Value;
 begin
-  if AVal = nil then Exit(nil);
+  if AVal = nil then begin
+    Exit(nil);
+  end;
 
   v := eina_value_new(eina_value_type_get(AVal));
-  if v = nil then Exit(nil);
+  if v = nil then begin
+    Exit(nil);
+  end;
 
-  if not eina_value_copy(AVal, v) then
-  begin
+  if not eina_value_copy(AVal, v) then begin
     eina_value_setup(v, EINA_VALUE_TYPE_ERROR);
-    eina_value_set(v, Pointer(NativeUInt(EINA_ERROR_VALUE_FAILED)));
+    eina_value_set(v, Pointer(EINA_ERROR_VALUE_FAILED));
   end;
   Result := v;
 end;
@@ -1190,48 +1445,60 @@ function eina_value_reference_copy(const AVal: PEina_Value): TEina_Value;
 var
   v: TEina_Value;
 begin
-  FillChar(v, SizeOf(TEina_Value),0);
+  FillChar(v, SizeOf(TEina_Value), 0);
 
-  if not eina_value_copy(AVal, @v) then
-  begin
+  if not eina_value_copy(AVal, @v) then begin
     eina_value_setup(@v, EINA_VALUE_TYPE_ERROR);
-    eina_value_set(@v, Pointer(NativeUInt(EINA_ERROR_VALUE_FAILED)));
+    eina_value_set(@v, Pointer(EINA_ERROR_VALUE_FAILED));
   end;
   Result := v;
 end;
 
-function eina_value_stringshare_copy(const AVal: PEina_Value; AStr: PEina_Stringshare): TEina_Bool;
-var
-  s: PChar; // Temporary PChar to get the value
+function eina_value_stringshare_copy(const AVal: PEina_Value; AStr: PPEina_Stringshare): TEina_Bool;
 begin
-  if AVal = nil then Exit(EINA_FALSE);
-  if AStr = nil then Exit(EINA_FALSE);
-  AStr^ := #0; // Assign to dereferenced pointer
+  if AVal = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if AStr = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  AStr^ := #0;
 
-  if not (AVal^._type = EINA_VALUE_TYPE_STRINGSHARE) then Exit(EINA_FALSE);
+  if not (AVal^._type = EINA_VALUE_TYPE_STRINGSHARE) then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if not eina_value_get(AVal, @s) then Exit(EINA_FALSE); // Pass address of local PChar
-  AStr := PEina_Stringshare(s);
-  if AStr <> nil then
-    eina_stringshare_ref(AStr); // Ref the dereferenced pointer
+  if not eina_value_get(AVal,PPointer( AStr)) then begin
+    Exit(EINA_FALSE);
+  end;
+  eina_stringshare_ref(AStr^);
   Result := EINA_TRUE;
 end;
 
-function eina_value_string_copy(const AVal: PEina_Value; AStr: PChar): TEina_Bool;
+function eina_value_string_copy(const AVal: PEina_Value; AStr: PPChar): TEina_Bool;
 var
-  s: PChar;
+  s: pchar;
 begin
-  if AVal = nil then Exit(EINA_FALSE);
-  if AStr = nil then Exit(EINA_FALSE);
-  AStr^ := #0; // Assign to dereferenced pointer
+  if AVal = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  if AStr = nil then begin
+    Exit(EINA_FALSE);
+  end;
+  AStr^ := #0;
 
-  if not ((AVal^._type = EINA_VALUE_TYPE_STRINGSHARE) or (AVal^._type = EINA_VALUE_TYPE_STRING)) then Exit(EINA_FALSE);
+  if not ((AVal^._type = EINA_VALUE_TYPE_STRINGSHARE) or (AVal^._type = EINA_VALUE_TYPE_STRING)) then begin
+    Exit(EINA_FALSE);
+  end;
 
-  if not eina_value_get(AVal, @s) then Exit(EINA_FALSE); // Pass address of local PChar
-  if s <> nil then
-    AStr := StrDup(s)
-  else
-    AStr := nil;
+  if not eina_value_get(AVal, @s) then begin
+    Exit(EINA_FALSE);
+  end; // Pass address of local PChar
+  if s <> nil then begin
+    AStr^ := strdup(s);
+  end else begin
+    AStr^ := nil;
+  end;
   Result := EINA_TRUE;
 end;
 
@@ -1241,17 +1508,17 @@ begin
   Result := eina_value_type_size(AType);
 end;
 
-function eina_value_util_type_offset(AType: PEina_Value_Type; ABase: Cardinal): Cardinal;
+function eina_value_util_type_offset(AType: PEina_Value_Type; ABase: cardinal): cardinal;
 begin
   Result := eina_value_type_offset(AType, ABase);
 end;
 
-function eina_value_util_int_new(c: Integer): PEina_Value;
+function eina_value_util_int_new(c: integer): PEina_Value;
 begin
   Result := eina_value_int_new(c);
 end;
 
-function eina_value_util_double_new(c: Double): PEina_Value;
+function eina_value_util_double_new(c: double): PEina_Value;
 begin
   Result := eina_value_double_new(c);
 end;
@@ -1261,12 +1528,12 @@ begin
   Result := eina_value_bool_new(c);
 end;
 
-function eina_value_util_string_new(c: PChar): PEina_Value;
+function eina_value_util_string_new(c: pchar): PEina_Value;
 begin
   Result := eina_value_string_new(c);
 end;
 
-function eina_value_util_stringshare_new(c: PChar): PEina_Value;
+function eina_value_util_stringshare_new(c: pchar): PEina_Value;
 begin
   Result := eina_value_stringshare_new(c);
 end;
@@ -1281,12 +1548,14 @@ begin
   Result := eina_value_dup(AVal);
 end;
 
-function eina_value_util_stringshare_copy(AVal: PEina_Value; AStr: PEina_Stringshare): TEina_Bool;
+function eina_value_util_stringshare_copy(AVal: PEina_Value;
+  AStr: PPEina_Stringshare): TEina_Bool;
 begin
   Result := eina_value_stringshare_copy(AVal, AStr);
 end;
 
-function eina_value_util_string_copy(AVal: PEina_Value; AStr: PChar): TEina_Bool;
+function eina_value_util_string_copy(AVal: PEina_Value; AStr: PPChar
+  ): TEina_Bool;
 begin
   Result := eina_value_string_copy(AVal, AStr);
 end;

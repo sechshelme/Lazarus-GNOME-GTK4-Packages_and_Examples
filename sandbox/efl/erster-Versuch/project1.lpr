@@ -60,8 +60,8 @@ uses
   eina_inline_inlist,                  // io.
   eina_inline_rbtree,                  // io.
   eina_inline_trash,                   // io.
-  eina_inline_util                     // io.
-  ;
+  eina_inline_util;                     // io.
+
 
 
   procedure on_win_del(data: pointer; obj: PEvas_Object; event_info: pointer); cdecl;
@@ -79,11 +79,28 @@ uses
     elm_exit;
   end;
 
+procedure ValueTest;
+var
+  value: PEina_Value;
+  res:Int64;
+begin
+  value:=eina_value_new(EINA_VALUE_TYPE_INT);
+  eina_value_set(value, Pointer( 42));
+
+  WriteLn(3333333);
+  eina_value_get(value, @Pointer( res));
+  WriteLn(44444444444);
+  printf('Der Wert ist: %d'#10, res);
+  eina_value_free(value);
+  end;
+
   function main(argc: integer; argv: PPChar): integer;
   var
     box, win, btn1, btn2, entry: PEvas_Object;
   begin
     elm_init(argc, argv);
+
+    ValueTest;
 
     // Fenster erstellen
     win := elm_win_util_standard_add('EFL Beispiel', 'EFL Beispiel');
@@ -134,8 +151,5 @@ uses
   end;
 
 begin
-  elm_view_form_model_set(nil, nil);
-  elm_view_list_evas_object_get(nil, nil);
-
   main(argc, argv);
 end.

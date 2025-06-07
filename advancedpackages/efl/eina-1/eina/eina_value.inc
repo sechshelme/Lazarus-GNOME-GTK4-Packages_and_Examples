@@ -78,7 +78,6 @@ type
   end;
   PEina_Value_Array = ^TEina_Value_Array;
 
-
 function eina_value_array_new(subtype: PEina_Value_Type; step: dword): PEina_Value; cdecl; external libeina;
 
 type
