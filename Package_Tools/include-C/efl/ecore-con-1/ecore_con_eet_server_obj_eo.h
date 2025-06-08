@@ -19,6 +19,6 @@ typedef Eo Ecore_Con_Eet_Server_Obj;
  */
 #define ECORE_CON_EET_SERVER_OBJ_CLASS ecore_con_eet_server_obj_class_get()
 
-ECORE_CON_API ECORE_CON_API_WEAK const Efl_Class *ecore_con_eet_server_obj_class_get(void) ;
+extern extern_WEAK const Efl_Class *ecore_con_eet_server_obj_class_get(void) ;
 
 #endif

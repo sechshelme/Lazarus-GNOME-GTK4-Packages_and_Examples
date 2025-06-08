@@ -28,6 +28,12 @@ uses
 
   // =======================================
 
+//  Ecore_Con,
+
+
+    // =======================================
+
+
 
   eina_inline_rectangle,               // io.
   eina_inline_vector,                  // io.
@@ -82,15 +88,37 @@ uses
   procedure ValueTest;
   var
     value: PEina_Value;
-    res: int64;
+    res_int64: int64;
+    res_Float:Single;
+    res_Double:Double;
   begin
     // Int64
     value := eina_value_new(EINA_VALUE_TYPE_INT);
     eina_value_set(value, Pointer(1234));
 
-    eina_value_get(value, @res);
-    printf('Der Wert ist: %d'#10, res);
+    eina_value_get(value, @res_int64);
+    printf('Int64: %d'#10, res_int64);
     eina_value_free(value);
+
+    // Double
+    value := eina_value_new(EINA_VALUE_TYPE_DOUBLE);
+    eina_value_set(value, Pointer(Double( 12.34)));
+
+    eina_value_get(value, @res_Double);
+    printf('Double: %f'#10, res_Double);
+    eina_value_free(value);
+
+    // Float
+    //value := eina_value_new(EINA_VALUE_TYPE_FLOAT);
+    //eina_value_set(value, Pointer(Integer( Single( 43.21))));
+    //
+    //eina_value_get(value, @res_Float);
+    //
+    //
+    //printf('Float: %f'#10, res_Float);
+    //WriteLn('Float: ', res_Float:8:4);
+    //eina_value_free(value);
+
   end;
 
   function main(argc: integer; argv: PPChar): integer;

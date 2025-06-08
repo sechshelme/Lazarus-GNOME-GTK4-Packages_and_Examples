@@ -27,7 +27,7 @@ extern "C" {
  * @note This function already calls ecore_init() internally, so you don't need
  * to call it explicitly.
  */
-ECORE_CON_API int               ecore_con_init(void);
+extern int               ecore_con_init(void);
 
 /**
  * @brief Shuts down the Ecore_Con library.
@@ -36,7 +36,7 @@ ECORE_CON_API int               ecore_con_init(void);
  * @note This function already calls ecore_shutdown() internally, so you don't
  * need to call it explicitly unless you called ecore_init() explicitly too.
  */
-ECORE_CON_API int               ecore_con_shutdown(void);
+extern int               ecore_con_shutdown(void);
 
 /**
  * @brief Initializes the Ecore_Con_Url library.
@@ -46,7 +46,7 @@ ECORE_CON_API int               ecore_con_shutdown(void);
  * @note This function doesn't call ecore_con_init(). You still need to call it
  * explicitly before calling this one.
  */
-ECORE_CON_API int               ecore_con_url_init(void);
+extern int               ecore_con_url_init(void);
 
 /**
  * @brief Shuts down the Ecore_Con_Url library.
@@ -55,161 +55,161 @@ ECORE_CON_API int               ecore_con_url_init(void);
  * @note This function doesn't call ecore_con_shutdown(). You still need to call
  * it explicitly after calling this one.
  */
-ECORE_CON_API int               ecore_con_url_shutdown(void);
+extern int               ecore_con_url_shutdown(void);
 
 #ifdef EFL_BETA_API_SUPPORT
 /** HTTP error: bad content encoding */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_BAD_CONTENT_ENCODING;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_BAD_CONTENT_ENCODING;
 
 /** HTTP error: bad download resume */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_BAD_DOWNLOAD_RESUME;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_BAD_DOWNLOAD_RESUME;
 
 /** HTTP error: bad function argument */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_BAD_FUNCTION_ARGUMENT;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_BAD_FUNCTION_ARGUMENT;
 
 /** HTTP error: chunk failed */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_CHUNK_FAILED;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_CHUNK_FAILED;
 
 /** HTTP error: conv failed */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_CONV_FAILED;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_CONV_FAILED;
 
 /** HTTP error: conv reqd */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_CONV_REQD;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_CONV_REQD;
 
 /** HTTP error: failed init */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_FAILED_INIT;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_FAILED_INIT;
 
 /** HTTP error: could not read file */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_FILE_COULDNT_READ_FILE;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_FILE_COULDNT_READ_FILE;
 
 /** HTTP error: filesize exceeded */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_FILESIZE_EXCEEDED;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_FILESIZE_EXCEEDED;
 
 /** HTTP error: function not found */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_FUNCTION_NOT_FOUND;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_FUNCTION_NOT_FOUND;
 
 /** HTTP error: got nothing */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_GOT_NOTHING;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_GOT_NOTHING;
 
 /** HTTP error: http2 */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_HTTP2;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_HTTP2;
 
 /** HTTP error: http2 stream */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_HTTP2_STREAM;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_HTTP2_STREAM;
 
 /** HTTP error: http post error */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_HTTP_POST_ERROR;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_HTTP_POST_ERROR;
 
 /** HTTP error: http returned error */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_HTTP_RETURNED_ERROR;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_HTTP_RETURNED_ERROR;
 
 /** HTTP error: interface failed */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_INTERFACE_FAILED;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_INTERFACE_FAILED;
 
 /** HTTP error: login denied */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_LOGIN_DENIED;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_LOGIN_DENIED;
 
 /** HTTP error: no connection available */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_NO_CONNECTION_AVAILABLE;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_NO_CONNECTION_AVAILABLE;
 
 /** HTTP error: not built in */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_NOT_BUILT_IN;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_NOT_BUILT_IN;
 
 /** HTTP error: operation timeout */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_OPERATION_TIMEDOUT;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_OPERATION_TIMEDOUT;
 
 /** HTTP error: partial file */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_PARTIAL_FILE;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_PARTIAL_FILE;
 
 /** HTTP error: peer failed verification */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_PEER_FAILED_VERIFICATION;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_PEER_FAILED_VERIFICATION;
 
 /** HTTP error: range error */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_RANGE_ERROR;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_RANGE_ERROR;
 
 /** HTTP error: read error */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_READ_ERROR;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_READ_ERROR;
 
 /** HTTP error: receive error */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_RECV_ERROR;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_RECV_ERROR;
 
 /** HTTP error: remote access denied */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_REMOTE_ACCESS_DENIED;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_REMOTE_ACCESS_DENIED;
 
 /** HTTP error: remote disk full */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_REMOTE_DISK_FULL;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_REMOTE_DISK_FULL;
 
 /** HTTP error: remote file exists */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_REMOTE_FILE_EXISTS;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_REMOTE_FILE_EXISTS;
 
 /** HTTP error: remote file not found */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_REMOTE_FILE_NOT_FOUND;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_REMOTE_FILE_NOT_FOUND;
 
 /** HTTP error: send error */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SEND_ERROR;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SEND_ERROR;
 
 /** HTTP error: send fail rewind */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SEND_FAIL_REWIND;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SEND_FAIL_REWIND;
 
 /** HTTP error: SSL cacert */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_CACERT;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_CACERT;
 
 /** HTTP error: SSL cacert bad file */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_CACERT_BADFILE;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_CACERT_BADFILE;
 
 /** HTTP error: SSL certproblem */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_CERTPROBLEM;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_CERTPROBLEM;
 
 /** HTTP error: SSL cipher */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_CIPHER;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_CIPHER;
 
 /** HTTP error: SSL connect error */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_CONNECT_ERROR;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_CONNECT_ERROR;
 
 /** HTTP error: SSL crl bad file */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_CRL_BADFILE;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_CRL_BADFILE;
 
 /** HTTP error: SSL engine init failed */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_ENGINE_INITFAILED;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_ENGINE_INITFAILED;
 
 /** HTTP error: SSL engine not found */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_ENGINE_NOTFOUND;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_ENGINE_NOTFOUND;
 
 /** HTTP error: SSL engine set failed */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_ENGINE_SETFAILED;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_ENGINE_SETFAILED;
 
 /** HTTP error: SSL invalid cert status */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_INVALIDCERTSTATUS;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_INVALIDCERTSTATUS;
 
 /** HTTP error: SSL issuer error */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_ISSUER_ERROR;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_ISSUER_ERROR;
 
 /** HTTP error: SSL pinned pub key does not match */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_PINNEDPUBKEYNOTMATCH;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_PINNEDPUBKEYNOTMATCH;
 
 /** HTTP error: SSL shutdown failed */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_SHUTDOWN_FAILED;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_SSL_SHUTDOWN_FAILED;
 
 /** HTTP error: too many redirects */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_TOO_MANY_REDIRECTS;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_TOO_MANY_REDIRECTS;
 
 /** HTTP error: unknown option */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_UNKNOWN_OPTION;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_UNKNOWN_OPTION;
 
 /** HTTP error: unsupported protocol */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_UNSUPPORTED_PROTOCOL;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_UNSUPPORTED_PROTOCOL;
 
 /** HTTP error: upload failed */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_UPLOAD_FAILED;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_UPLOAD_FAILED;
 
 /** HTTP error: URL mal-formatted */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_URL_MALFORMAT;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_URL_MALFORMAT;
 
 /** HTTP error: usage of SSL failed */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_USE_SSL_FAILED;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_USE_SSL_FAILED;
 
 /** HTTP error: write error */
-ECORE_CON_API ECORE_CON_API_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_WRITE_ERROR;
+extern extern_WEAK extern Eina_Error EFL_NET_HTTP_ERROR_WRITE_ERROR;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #include "efl_net_types.eot.h"

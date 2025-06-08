@@ -1,32 +1,32 @@
-#ifndef _EFL_ECORE_CON_API_H
-#define _EFL_ECORE_CON_API_H
+#ifndef _EFL_extern_H
+#define _EFL_extern_H
 
-#ifdef ECORE_CON_API
-#error ECORE_CON_API should not be already defined
+#ifdef extern
+#error extern should not be already defined
 #endif
 
 #ifdef _WIN32
 # ifndef ECORE_CON_STATIC
 #  ifdef ECORE_CON_BUILD
-#   define ECORE_CON_API __declspec(dllexport)
+#   define extern __declspec(dllexport)
 #  else
-#   define ECORE_CON_API __declspec(dllimport)
+#   define extern __declspec(dllimport)
 #  endif
 # else
-#  define ECORE_CON_API
+#  define extern
 # endif
-# define ECORE_CON_API_WEAK
+# define extern_WEAK
 #elif defined(__GNUC__)
 # if __GNUC__ >= 4
-#  define ECORE_CON_API __attribute__ ((visibility("default")))
-#  define ECORE_CON_API_WEAK __attribute__ ((weak))
+#  define extern __attribute__ ((visibility("default")))
+#  define extern_WEAK __attribute__ ((weak))
 # else
-#  define ECORE_CON_API
-#  define ECORE_CON_API_WEAK
+#  define extern
+#  define extern_WEAK
 # endif
 #else
-# define ECORE_CON_API
-# define ECORE_CON_API_WEAK
+# define extern
+# define extern_WEAK
 #endif
 
 #endif

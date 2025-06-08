@@ -173,7 +173,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="../../../Package_Tools/pas_units/efl/eina_x"/>
+      <OtherUnitFiles Value="../../../Package_Tools/pas_units/efl/eina_x;../../../Package_Tools/pas_units/efl/ecore-con-1"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

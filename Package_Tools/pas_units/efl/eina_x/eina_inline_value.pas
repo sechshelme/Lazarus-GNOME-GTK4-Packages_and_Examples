@@ -455,7 +455,7 @@ var
   mem: Pointer;
   r: TEina_Bool = EINA_FALSE;
   str: pansichar;
-  tmem: PInteger;
+  float_mem: Single absolute mem;
 begin
   if EINA_VALUE_TYPE_CHECK_RETURN_VAL_IMPL(value, 0) = 0 then begin
     Exit(EINA_FALSE);
@@ -494,7 +494,7 @@ begin
     Result := EINA_TRUE;
     Exit;
   end else if typ = EINA_VALUE_TYPE_INT then begin
-    PInteger(mem)^ := integer(args);
+    PInteger(mem)^ := Integer(args);
     Exit(EINA_TRUE);
   end else if typ = EINA_VALUE_TYPE_LONG then begin
     PLongint(mem)^ := PLongint(args)^;
@@ -505,13 +505,15 @@ begin
     Result := EINA_TRUE;
     Exit;
   end else if typ = EINA_VALUE_TYPE_FLOAT then begin
-    PSingle(mem)^ := PSingle(args)^;
-    Result := EINA_TRUE;
-    Exit;
+    PSingle(mem)^ := Double(args);
+
+    WriteLn('xxxx: ',float_mem);
+
+
+    Exit(EINA_TRUE);
   end else if typ = EINA_VALUE_TYPE_DOUBLE then begin
-    PDouble(mem)^ := PDouble(args)^;
-    Result := EINA_TRUE;
-    Exit;
+    PDouble(mem)^ := Double(args);
+    Exit(EINA_TRUE);
   end else if typ = EINA_VALUE_TYPE_STRINGSHARE then begin
     //    Result := eina_stringshare_replace(PAnsiChar(@value^.value.ptr), PAnsiChar(PPointer(args)^));
     Exit;

@@ -153,6 +153,9 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'extern_WEAK', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'EFL_TRANSFER_OWNERSHIP', '', [rfReplaceAll]);
 
+      slHeader[j] := StringReplace(slHeader[j], 'ECORE_CON_API', 'extern', [rfReplaceAll]);
+
+
 
       slHeader[j] := StringReplace(slHeader[j], 'EINA_INLIST;', 'Eina_Inlist __in_list;', [rfReplaceAll]);
 
