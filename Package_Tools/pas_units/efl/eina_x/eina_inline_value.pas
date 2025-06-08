@@ -25,12 +25,12 @@ procedure eina_value_flush(value: PEina_Value);
 function eina_value_compare(const a, b: PEina_Value): integer;
 
 function eina_value_set(value: PEina_Value; args: Pointer): TEina_Bool; overload;  // Placeholder for variadic
-function eina_value_get(value: PEina_Value; args: PPointer): TEina_Bool; overload;  // Placeholder for variadic
+function eina_value_get(value: PEina_Value; args: Pointer): TEina_Bool; overload;  // Placeholder for variadic
 
 function eina_value_vset(value: PEina_Value; args: Pointer): TEina_Bool;  // args is va_list
-function eina_value_vget(value: PEina_Value; args: PPointer): TEina_Bool;  // args is va_list
-function eina_value_pset(value: PEina_Value;  ptr: Pointer): TEina_Bool;
-function eina_value_pget( value: PEina_Value; ptr: Pointer): TEina_Bool;
+function eina_value_vget(value: PEina_Value; args: Pointer): TEina_Bool;  // args is va_list
+function eina_value_pset(value: PEina_Value; ptr: Pointer): TEina_Bool;
+function eina_value_pget(value: PEina_Value; ptr: Pointer): TEina_Bool;
 
 function eina_value_type_get(const value: PEina_Value): PEina_Value_Type;
 
@@ -128,8 +128,6 @@ function eina_value_type_pget(const typ: PEina_Value_Type; mem, ptr: Pointer): T
 
 
 
-
-
 implementation
 
 function eina_value_set(value: PEina_Value; args: Pointer): TEina_Bool;
@@ -137,7 +135,7 @@ begin
   Result := eina_value_vset(value, args);
 end;
 
-function eina_value_get(value: PEina_Value; args: PPointer): TEina_Bool;
+function eina_value_get(value: PEina_Value; args: Pointer): TEina_Bool;
 begin
   Result := eina_value_vget(value, args);
 end;
@@ -145,7 +143,7 @@ end;
 function eina_value_memory_get(value: PEina_Value): Pointer;
 begin
   if value^._type^.value_size <= 8 then begin
-    Result := Pointer(value^.value.buf);
+    Result := Pointer(@value^.value.buf);
   end else begin
     Result := value^.value.ptr;
   end;
@@ -455,8 +453,9 @@ function eina_value_vset(value: PEina_Value; args: Pointer): TEina_Bool;
 var
   typ: PEina_Value_Type;
   mem: Pointer;
-  r: TEina_Bool=EINA_FALSE;
+  r: TEina_Bool = EINA_FALSE;
   str: pansichar;
+  tmem: PInteger;
 begin
   if EINA_VALUE_TYPE_CHECK_RETURN_VAL_IMPL(value, 0) = 0 then begin
     Exit(EINA_FALSE);
@@ -464,9 +463,6 @@ begin
 
   typ := value^._type;
   mem := eina_value_memory_get(value);
-
-  WriteLn('xxx ',PtrUInt(mem));
-
 
   {$IFNDEF EINA_VALUE_NO_OPTIMIZE}
   if typ = EINA_VALUE_TYPE_UCHAR then begin
@@ -498,32 +494,8 @@ begin
     Result := EINA_TRUE;
     Exit;
   end else if typ = EINA_VALUE_TYPE_INT then begin
-    WriteLn(1111111111111);
-
-//    tmem^:=PtrUInt( args);
-
-//  PInteger( mem)^:=PInteger( args)^;
-
-  PtrUInt(mem):=1234;
-
-  WriteLn(22222222222222);
-
-
-   WriteLn('args: ',PtrUInt(args));
-   WriteLn('mem: ',PtrUInt(mem));
-    WriteLn('ptr: ',PtrUInt(value^.value.ptr));
-
-//    value^.value.ptr:=Pointer(args);
-//    WriteLn('args: ',PtrUInt(args));
-//    tmem:=PInteger(mem);
-//    tmem^:=Integer(args);
-
-//    PInteger(mem)^ := PInteger(args)^;
-
-//    PInteger(mem)^ := PInteger(args)^;
-    WriteLn(22222222222222);
-    Result := EINA_TRUE;
-    Exit;
+    PInteger(mem)^ := integer(args);
+    Exit(EINA_TRUE);
   end else if typ = EINA_VALUE_TYPE_LONG then begin
     PLongint(mem)^ := PLongint(args)^;
     Result := EINA_TRUE;
@@ -571,7 +543,7 @@ begin
   Result := r;
 end;
 
-function eina_value_vget(value: PEina_Value; args: PPointer): TEina_Bool;
+function eina_value_vget(value: PEina_Value; args: Pointer): TEina_Bool;
 var
   typ: PEina_Value_Type;
   mem: Pointer;
@@ -583,21 +555,12 @@ begin
 
   typ := value^._type;
   mem := eina_value_memory_get(value);
-
-  ptr := PPointer(args)^; // Extract the target pointer from args (simulating va_arg(args, void*))
-
+  ptr := Pointer(args);
   if EINA_VALUE_TYPE_DEFAULT_IMPL(typ) then begin
-    args^:=mem;
-
-    WriteLn('vget: ', PtrUInt(mem));
-    WriteLn('vget: ', PtrUInt(value^.value.ptr));
-
-//    Move(mem^, ptr^, typ^.value_size);
-    Result := EINA_TRUE;
-    Exit;
+    memcpy(ptr, mem, typ^.value_size);
+    Exit(EINA_TRUE);
   end;
 
-  // EINA_VALUE_TYPE_DISPATCH_RETURN(value, pget, 0, EINA_FALSE, mem, ptr);
   Result := EINA_VALUE_TYPE_DISPATCH_RETURN_IMPL_PGET(typ, EINA_FALSE, mem, ptr);
 end;
 

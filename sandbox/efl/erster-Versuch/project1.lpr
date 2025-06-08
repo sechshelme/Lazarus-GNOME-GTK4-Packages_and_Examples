@@ -79,20 +79,18 @@ uses
     elm_exit;
   end;
 
-procedure ValueTest;
-var
-  value: PEina_Value;
-  res:Int64;
-begin
-  value:=eina_value_new(EINA_VALUE_TYPE_INT);
-//  value^.value.ptr:=Pointer(1234);
-  eina_value_set(value, Pointer( 42));
+  procedure ValueTest;
+  var
+    value: PEina_Value;
+    res: int64;
+  begin
+    // Int64
+    value := eina_value_new(EINA_VALUE_TYPE_INT);
+    eina_value_set(value, Pointer(1234));
 
-  WriteLn(3333333);
-  eina_value_get(value, @Pointer( res));
-  WriteLn(44444444444);
-  printf('Der Wert ist: %d'#10, res);
-  eina_value_free(value);
+    eina_value_get(value, @res);
+    printf('Der Wert ist: %d'#10, res);
+    eina_value_free(value);
   end;
 
   function main(argc: integer; argv: PPChar): integer;

@@ -140,6 +140,9 @@ const
 
     (libs: 'libsixel'; units: 'ctypes'),
 
+    (libs: 'librtlsdr'; units: 'ctypes'),
+
+
     (libs: 'libevas'; units: 'ctypes, efl'),
     (libs: 'libeina'; units: 'ctypes, efl'),
     (libs: 'libeo'; units: 'ctypes, efl'),
