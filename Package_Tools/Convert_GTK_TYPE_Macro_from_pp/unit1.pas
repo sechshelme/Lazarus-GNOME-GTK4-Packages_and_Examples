@@ -154,9 +154,8 @@ const
     (libs: 'libedje'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_evas'),
     (libs: 'libeet'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_evas, fp_edje'),
     (libs: 'libethumb'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_evas, fp_edje'),
-    (libs: 'libecore_con'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
-
     (libs: 'libelementary'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_evas, fp_ecore, fp_edje, fp_elementary'),
+    (libs: 'libecore_con'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
 
     (libs: ''; units: ''));
 

@@ -28,7 +28,15 @@ uses
 
   // =======================================
 
-//  Ecore_Con,
+  Ecore_Con,                               // io.
+  efl_net_http_types_eot,                  // io.
+  efl_net_control_technology_eo,           // io.
+  efl_net_control_access_point_eo,         // io. -> efl_net_control_technology_eo
+  efl_net_control_manager_eo,              // io. -> efl_net_control_access_point_eo
+  efl_net_dialer_http_eo,                  // io. -> efl_net_http_types_eot
+  efl_net_dialer_websocket_eo,             // io. -> efl_net_http_types_eot
+
+
 
 
     // =======================================
@@ -178,5 +186,6 @@ uses
   end;
 
 begin
+  ecore_con_init;
   main(argc, argv);
 end.

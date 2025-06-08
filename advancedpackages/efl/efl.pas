@@ -20,6 +20,7 @@ const
   libecore = 'libecore';
   libecore_file = 'libecore_file';
   libecore_eva = 'libecore_evas';
+  libecore_con = 'libecore_con';
   libedje = 'libedje';
   {$ENDIF}
 
@@ -36,6 +37,7 @@ const
   libecore = 'libecore-1.dll';
   libecore_file = 'libecore_file-1.dll';
   libecore_evas = 'libecore_evas-1.dll';
+  libencore_con = 'libecore_con-1.dll';
   libedje = 'libedje-1.dll';
   {$ENDIF}
 
@@ -70,10 +72,16 @@ type
   // /usr/include/unistd.h
   Tpid_t = longint;
 
+  // /usr/include/stdio.h
+  Toff_t = longint;
+
   // /usr/arm-linux-gnueabihf/include/bits/semaphore.h
-  Tsem_t=record
+  Tsem_t = record
   end;
-  Psem_t=^Tsem_t;
+  Psem_t = ^Tsem_t;
+
+  // /usr/include/x86_64-linux-gnu/bits/socket.h
+  Psockaddr = Pointer;
 
   // /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h
 type
@@ -113,12 +121,12 @@ procedure free(p: Pointer); cdecl; external libclib;
 
 function memcpy(dest, src: Pointer; n: SizeUInt): Pointer; cdecl; external libclib;
 function memchr(ptr: Pointer; value: integer; num: SizeUInt): Pointer; cdecl; external libclib;
-function memcmp(ptr1, ptr2: Pointer; num: SizeUInt): Integer; cdecl; external libclib;
+function memcmp(ptr1, ptr2: Pointer; num: SizeUInt): integer; cdecl; external libclib;
 function memset(ptr: Pointer; value: integer; num: SizeUInt): Pointer; cdecl; external libclib;
 
-function strlen(str :PChar):Tsize_t; cdecl; external libclib;
-function strdup(str :PChar):PChar; cdecl; external libclib;
-function strcmp(str1, str2 :PChar):Integer; cdecl; external libclib;
+function strlen(str: pchar): Tsize_t; cdecl; external libclib;
+function strdup(str: pchar): pchar; cdecl; external libclib;
+function strcmp(str1, str2: pchar): integer; cdecl; external libclib;
 
 function printf(__format: pchar): longint; cdecl; varargs; external libclib;
 
@@ -128,8 +136,8 @@ function __errno_location: PInteger; cdecl; external libclib;
 
 // /usr/include/x86_64-linux-gnu/sys/param.h
 
-function Min(a, b: Integer): Integer;
-function Max(a, b: Integer): Integer;
+function Min(a, b: integer): integer;
+function Max(a, b: integer): integer;
 
 // =====================
 
@@ -296,20 +304,22 @@ begin
   Result := __errno_location^;
 end;
 
-function Min(a, b: Integer): Integer;
+function Min(a, b: integer): integer;
 begin
-  if a < b then
-    Result := a
-  else
+  if a < b then begin
+    Result := a;
+  end else begin
     Result := b;
+  end;
 end;
 
-function Max(a, b: Integer): Integer;
+function Max(a, b: integer): integer;
 begin
-  if a > b then
-    Result := a
-  else
+  if a > b then begin
+    Result := a;
+  end else begin
     Result := b;
+  end;
 end;
 
 
