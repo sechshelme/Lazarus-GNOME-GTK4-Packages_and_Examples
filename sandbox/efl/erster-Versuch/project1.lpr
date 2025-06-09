@@ -29,7 +29,8 @@ uses
 
   // =======================================
 
-
+  Eldbus,                               // io.
+  eldbus_message,                       // io.
 
 
 
@@ -68,7 +69,7 @@ uses
   eina_inline_inlist,                  // io.
   eina_inline_rbtree,                  // io.
   eina_inline_trash,                   // io.
-  eina_inline_util;                     // io.
+  eina_inline_util;                    // io.
 
 
 
@@ -212,5 +213,6 @@ uses
 
 begin
   ecore_con_init;
+  eldbus_message_unref(nil);
   main(argc, argv);
 end.

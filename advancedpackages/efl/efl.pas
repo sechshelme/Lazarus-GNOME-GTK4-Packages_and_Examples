@@ -22,6 +22,7 @@ const
   libecore_eva = 'libecore_evas';
   libecore_con = 'libecore_con';
   libedje = 'libedje';
+  libeldbus='libeldbus';
   {$ENDIF}
 
   {$IFDEF mswindows}
@@ -39,6 +40,7 @@ const
   libecore_evas = 'libecore_evas-1.dll';
   libencore_con = 'libecore_con-1.dll';
   libedje = 'libedje-1.dll';
+  libeldbus='libeldbus-1.dll';
   {$ENDIF}
 
   {$IFDEF darwin}
