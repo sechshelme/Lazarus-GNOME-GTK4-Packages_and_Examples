@@ -26,7 +26,7 @@ typedef Eo Efl_Net_Server_Unix;
  */
 #define EFL_NET_SERVER_UNIX_CLASS efl_net_server_unix_class_get()
 
-extern extern_WEAK const Efl_Class *efl_net_server_unix_class_get(void) ;
+extern  const Efl_Class *efl_net_server_unix_class_get(void) ;
 
 /**
  * @brief AF_UNIX paths may be stale due to crashes. Remove files and try
@@ -43,7 +43,7 @@ extern extern_WEAK const Efl_Class *efl_net_server_unix_class_get(void) ;
  *
  * @ingroup Efl_Net_Server_Unix
  */
-extern extern_WEAK void efl_net_server_unix_unlink_before_bind_set(Eo *obj, Eina_Bool unlink_before_bind);
+extern  void efl_net_server_unix_unlink_before_bind_set(Eo *obj, Eina_Bool unlink_before_bind);
 
 /**
  * @brief AF_UNIX paths may be stale due to crashes. Remove files and try
@@ -60,7 +60,7 @@ extern extern_WEAK void efl_net_server_unix_unlink_before_bind_set(Eo *obj, Eina
  *
  * @ingroup Efl_Net_Server_Unix
  */
-extern extern_WEAK Eina_Bool efl_net_server_unix_unlink_before_bind_get(const Eo *obj);
+extern  Eina_Bool efl_net_server_unix_unlink_before_bind_get(const Eo *obj);
 
 /**
  * @brief If @c true, all parent directories will be created with the given
@@ -76,7 +76,7 @@ extern extern_WEAK Eina_Bool efl_net_server_unix_unlink_before_bind_get(const Eo
  *
  * @ingroup Efl_Net_Server_Unix
  */
-extern extern_WEAK void efl_net_server_unix_leading_directories_create_set(Eo *obj, Eina_Bool leading_directories_create, unsigned int mode);
+extern  void efl_net_server_unix_leading_directories_create_set(Eo *obj, Eina_Bool leading_directories_create, unsigned int mode);
 
 /**
  * @brief If @c true, all parent directories will be created with the given
@@ -92,7 +92,7 @@ extern extern_WEAK void efl_net_server_unix_leading_directories_create_set(Eo *o
  *
  * @ingroup Efl_Net_Server_Unix
  */
-extern extern_WEAK void efl_net_server_unix_leading_directories_create_get(const Eo *obj, Eina_Bool *leading_directories_create, unsigned int *mode);
+extern  void efl_net_server_unix_leading_directories_create_get(const Eo *obj, Eina_Bool *leading_directories_create, unsigned int *mode);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

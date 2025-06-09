@@ -58,7 +58,7 @@ typedef Eo Efl_Net_Dialer_Simple;
  */
 #define EFL_NET_DIALER_SIMPLE_CLASS efl_net_dialer_simple_class_get()
 
-extern extern_WEAK const Efl_Class *efl_net_dialer_simple_class_get(void) ;
+extern  const Efl_Class *efl_net_dialer_simple_class_get(void) ;
 
 /**
  * @brief The class used to create @ref efl_io_buffered_stream_inner_io_get if
@@ -78,7 +78,7 @@ extern extern_WEAK const Efl_Class *efl_net_dialer_simple_class_get(void) ;
  *
  * @ingroup Efl_Net_Dialer_Simple
  */
-extern extern_WEAK void efl_net_dialer_simple_inner_class_set(Eo *obj, const Efl_Class *klass);
+extern  void efl_net_dialer_simple_inner_class_set(Eo *obj, const Efl_Class *klass);
 
 /**
  * @brief The class used to create @ref efl_io_buffered_stream_inner_io_get if
@@ -98,7 +98,7 @@ extern extern_WEAK void efl_net_dialer_simple_inner_class_set(Eo *obj, const Efl
  *
  * @ingroup Efl_Net_Dialer_Simple
  */
-extern extern_WEAK const Efl_Class *efl_net_dialer_simple_inner_class_get(const Eo *obj);
+extern  const Efl_Class *efl_net_dialer_simple_inner_class_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

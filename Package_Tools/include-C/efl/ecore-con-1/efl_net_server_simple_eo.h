@@ -26,7 +26,7 @@ typedef Eo Efl_Net_Server_Simple;
  */
 #define EFL_NET_SERVER_SIMPLE_CLASS efl_net_server_simple_class_get()
 
-extern extern_WEAK const Efl_Class *efl_net_server_simple_class_get(void) ;
+extern  const Efl_Class *efl_net_server_simple_class_get(void) ;
 
 /**
  * @brief The class used to create @ref efl_net_server_simple_inner_server_get
@@ -46,7 +46,7 @@ extern extern_WEAK const Efl_Class *efl_net_server_simple_class_get(void) ;
  *
  * @ingroup Efl_Net_Server_Simple
  */
-extern extern_WEAK void efl_net_server_simple_inner_class_set(Eo *obj, const Efl_Class *klass);
+extern  void efl_net_server_simple_inner_class_set(Eo *obj, const Efl_Class *klass);
 
 /**
  * @brief The class used to create @ref efl_net_server_simple_inner_server_get
@@ -66,7 +66,7 @@ extern extern_WEAK void efl_net_server_simple_inner_class_set(Eo *obj, const Efl
  *
  * @ingroup Efl_Net_Server_Simple
  */
-extern extern_WEAK const Efl_Class *efl_net_server_simple_inner_class_get(const Eo *obj);
+extern  const Efl_Class *efl_net_server_simple_inner_class_get(const Eo *obj);
 
 /**
  * @brief The inner @ref Efl_Net_Server this wrapper operates on.
@@ -78,7 +78,7 @@ extern extern_WEAK const Efl_Class *efl_net_server_simple_inner_class_get(const 
  *
  * @ingroup Efl_Net_Server_Simple
  */
-extern extern_WEAK void efl_net_server_simple_inner_server_set(Eo *obj, Efl_Object *server);
+extern  void efl_net_server_simple_inner_server_set(Eo *obj, Efl_Object *server);
 
 /**
  * @brief The inner @ref Efl_Net_Server this wrapper operates on.
@@ -91,7 +91,7 @@ extern extern_WEAK void efl_net_server_simple_inner_server_set(Eo *obj, Efl_Obje
  *
  * @ingroup Efl_Net_Server_Simple
  */
-extern extern_WEAK Efl_Object *efl_net_server_simple_inner_server_get(const Eo *obj);
+extern  Efl_Object *efl_net_server_simple_inner_server_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

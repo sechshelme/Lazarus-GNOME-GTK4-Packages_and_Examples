@@ -41,7 +41,7 @@ typedef Eo Efl_Net_Dialer_Udp;
  */
 #define EFL_NET_DIALER_UDP_CLASS efl_net_dialer_udp_class_get()
 
-extern extern_WEAK const Efl_Class *efl_net_dialer_udp_class_get(void) ;
+extern  const Efl_Class *efl_net_dialer_udp_class_get(void) ;
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

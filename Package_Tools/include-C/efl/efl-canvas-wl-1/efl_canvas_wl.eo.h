@@ -341,7 +341,7 @@ extern  void efl_canvas_wl_seat_keymap_set(Eo *obj, Efl_Input_Device *seat, Efl_
  */
 extern  void efl_canvas_wl_seat_key_repeat_set(Eo *obj, Efl_Input_Device *seat, int repeat_rate, int repeat_delay);
 
-extern  extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_TOPLEVEL_ADDED;
+extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_TOPLEVEL_ADDED;
 
 /** Contains the toplevel surface which was added.
  * @return Efl_Canvas_Wl_Surface *
@@ -352,7 +352,7 @@ extern  extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_TOPLEVEL_ADDED;
  */
 #define EFL_CANVAS_WL_EVENT_TOPLEVEL_ADDED (&(_EFL_CANVAS_WL_EVENT_TOPLEVEL_ADDED))
 
-extern  extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_CHILD_ADDED;
+extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_CHILD_ADDED;
 
 /** Contains the toplevel child surface which was added.
  * @return Efl_Canvas_Wl_Surface *
@@ -363,7 +363,7 @@ extern  extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_CHILD_ADDED;
  */
 #define EFL_CANVAS_WL_EVENT_CHILD_ADDED (&(_EFL_CANVAS_WL_EVENT_CHILD_ADDED))
 
-extern  extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_POPUP_ADDED;
+extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_POPUP_ADDED;
 
 /** Contains the popup surface which was added.
  * @return Efl_Canvas_Wl_Surface *
@@ -374,7 +374,7 @@ extern  extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_POPUP_ADDED;
  */
 #define EFL_CANVAS_WL_EVENT_POPUP_ADDED (&(_EFL_CANVAS_WL_EVENT_POPUP_ADDED))
 
-extern  extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_SEAT_ADDED;
+extern const Efl_Event_Description _EFL_CANVAS_WL_EVENT_SEAT_ADDED;
 
 /** Contains the seat object that was added.
  * @return Efl_Input_Device *

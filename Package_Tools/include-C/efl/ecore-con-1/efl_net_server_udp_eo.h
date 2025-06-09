@@ -20,7 +20,7 @@ typedef Eo Efl_Net_Server_Udp;
  */
 #define EFL_NET_SERVER_UDP_CLASS efl_net_server_udp_class_get()
 
-extern extern_WEAK const Efl_Class *efl_net_server_udp_class_get(void) ;
+extern  const Efl_Class *efl_net_server_udp_class_get(void) ;
 
 /**
  * @brief Avoids sent UDP packets being routed by a gateway, limiting them to
@@ -38,7 +38,7 @@ extern extern_WEAK const Efl_Class *efl_net_server_udp_class_get(void) ;
  *
  * @ingroup Efl_Net_Server_Udp
  */
-extern extern_WEAK Eina_Bool efl_net_server_udp_dont_route_set(Eo *obj, Eina_Bool dont_route);
+extern  Eina_Bool efl_net_server_udp_dont_route_set(Eo *obj, Eina_Bool dont_route);
 
 /**
  * @brief Avoids sent UDP packets being routed by a gateway, limiting them to
@@ -54,7 +54,7 @@ extern extern_WEAK Eina_Bool efl_net_server_udp_dont_route_set(Eo *obj, Eina_Boo
  *
  * @ingroup Efl_Net_Server_Udp
  */
-extern extern_WEAK Eina_Bool efl_net_server_udp_dont_route_get(const Eo *obj);
+extern  Eina_Bool efl_net_server_udp_dont_route_get(const Eo *obj);
 
 /**
  * @brief Joins a multicast group.
@@ -76,7 +76,7 @@ extern extern_WEAK Eina_Bool efl_net_server_udp_dont_route_get(const Eo *obj);
  *
  * @ingroup Efl_Net_Server_Udp
  */
-extern extern_WEAK Eina_Error efl_net_server_udp_multicast_join(Eo *obj, const char *address);
+extern  Eina_Error efl_net_server_udp_multicast_join(Eo *obj, const char *address);
 
 /**
  * @brief Leaves a multicast group.
@@ -90,7 +90,7 @@ extern extern_WEAK Eina_Error efl_net_server_udp_multicast_join(Eo *obj, const c
  *
  * @ingroup Efl_Net_Server_Udp
  */
-extern extern_WEAK Eina_Error efl_net_server_udp_multicast_leave(Eo *obj, const char *address);
+extern  Eina_Error efl_net_server_udp_multicast_leave(Eo *obj, const char *address);
 
 /**
  * @brief Returns the multicast groups this server has joined.
@@ -105,7 +105,7 @@ extern extern_WEAK Eina_Error efl_net_server_udp_multicast_leave(Eo *obj, const 
  *
  * @ingroup Efl_Net_Server_Udp
  */
-extern extern_WEAK Eina_Iterator *efl_net_server_udp_multicast_groups_get(Eo *obj)  ;
+extern  Eina_Iterator *efl_net_server_udp_multicast_groups_get(Eo *obj)  ;
 
 /**
  * @brief Controls time to live in number of hops.
@@ -119,7 +119,7 @@ extern extern_WEAK Eina_Iterator *efl_net_server_udp_multicast_groups_get(Eo *ob
  *
  * @ingroup Efl_Net_Server_Udp
  */
-extern extern_WEAK Eina_Error efl_net_server_udp_multicast_time_to_live_set(Eo *obj, uint8_t ttl);
+extern  Eina_Error efl_net_server_udp_multicast_time_to_live_set(Eo *obj, uint8_t ttl);
 
 /**
  * @brief Controls time to live in number of hops.
@@ -132,7 +132,7 @@ extern extern_WEAK Eina_Error efl_net_server_udp_multicast_time_to_live_set(Eo *
  *
  * @ingroup Efl_Net_Server_Udp
  */
-extern extern_WEAK uint8_t efl_net_server_udp_multicast_time_to_live_get(const Eo *obj);
+extern  uint8_t efl_net_server_udp_multicast_time_to_live_get(const Eo *obj);
 
 /**
  * @brief Controls whenever multicast will loopback packets locally.
@@ -148,7 +148,7 @@ extern extern_WEAK uint8_t efl_net_server_udp_multicast_time_to_live_get(const E
  *
  * @ingroup Efl_Net_Server_Udp
  */
-extern extern_WEAK Eina_Error efl_net_server_udp_multicast_loopback_set(Eo *obj, Eina_Bool loopback);
+extern  Eina_Error efl_net_server_udp_multicast_loopback_set(Eo *obj, Eina_Bool loopback);
 
 /**
  * @brief Controls whenever multicast will loopback packets locally.
@@ -162,7 +162,7 @@ extern extern_WEAK Eina_Error efl_net_server_udp_multicast_loopback_set(Eo *obj,
  *
  * @ingroup Efl_Net_Server_Udp
  */
-extern extern_WEAK Eina_Bool efl_net_server_udp_multicast_loopback_get(const Eo *obj);
+extern  Eina_Bool efl_net_server_udp_multicast_loopback_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

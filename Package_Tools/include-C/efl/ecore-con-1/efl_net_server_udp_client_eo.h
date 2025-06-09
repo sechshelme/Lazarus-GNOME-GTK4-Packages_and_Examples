@@ -29,7 +29,7 @@ typedef Eo Efl_Net_Server_Udp_Client;
  */
 #define EFL_NET_SERVER_UDP_CLIENT_CLASS efl_net_server_udp_client_class_get()
 
-extern extern_WEAK const Efl_Class *efl_net_server_udp_client_class_get(void) ;
+extern  const Efl_Class *efl_net_server_udp_client_class_get(void) ;
 
 /**
  * @brief Query the next datagram size.
@@ -43,7 +43,7 @@ extern extern_WEAK const Efl_Class *efl_net_server_udp_client_class_get(void) ;
  *
  * @ingroup Efl_Net_Server_Udp_Client
  */
-extern extern_WEAK size_t efl_net_server_udp_client_next_datagram_size_query(Eo *obj);
+extern  size_t efl_net_server_udp_client_next_datagram_size_query(Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

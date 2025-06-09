@@ -20,7 +20,7 @@ typedef Eo Efl_Net_Server_Fd;
  */
 #define EFL_NET_SERVER_FD_CLASS efl_net_server_fd_class_get()
 
-extern extern_WEAK const Efl_Class *efl_net_server_fd_class_get(void) ;
+extern  const Efl_Class *efl_net_server_fd_class_get(void) ;
 
 /**
  * @brief If this method is called, use an already activated socket.
@@ -65,7 +65,7 @@ extern extern_WEAK const Efl_Class *efl_net_server_fd_class_get(void) ;
  *
  * @ingroup Efl_Net_Server_Fd
  */
-extern extern_WEAK Eina_Error efl_net_server_fd_socket_activate(Eo *obj, const char *address);
+extern  Eina_Error efl_net_server_fd_socket_activate(Eo *obj, const char *address);
 
 #ifdef EFL_NET_SERVER_FD_PROTECTED
 /**
@@ -81,7 +81,7 @@ extern extern_WEAK Eina_Error efl_net_server_fd_socket_activate(Eo *obj, const c
  *
  * @ingroup Efl_Net_Server_Fd
  */
-extern extern_WEAK void efl_net_server_fd_family_set(Eo *obj, int family);
+extern  void efl_net_server_fd_family_set(Eo *obj, int family);
 #endif
 
 /**
@@ -98,7 +98,7 @@ extern extern_WEAK void efl_net_server_fd_family_set(Eo *obj, int family);
  *
  * @ingroup Efl_Net_Server_Fd
  */
-extern extern_WEAK int efl_net_server_fd_family_get(const Eo *obj);
+extern  int efl_net_server_fd_family_get(const Eo *obj);
 
 /**
  * @brief Controls Close-on-Exec() using FD_CLOEXEC.
@@ -115,7 +115,7 @@ extern extern_WEAK int efl_net_server_fd_family_get(const Eo *obj);
  *
  * @ingroup Efl_Net_Server_Fd
  */
-extern extern_WEAK Eina_Bool efl_net_server_fd_close_on_exec_set(Eo *obj, Eina_Bool close_on_exec);
+extern  Eina_Bool efl_net_server_fd_close_on_exec_set(Eo *obj, Eina_Bool close_on_exec);
 
 /**
  * @brief Controls Close-on-Exec() using FD_CLOEXEC.
@@ -130,7 +130,7 @@ extern extern_WEAK Eina_Bool efl_net_server_fd_close_on_exec_set(Eo *obj, Eina_B
  *
  * @ingroup Efl_Net_Server_Fd
  */
-extern extern_WEAK Eina_Bool efl_net_server_fd_close_on_exec_get(const Eo *obj);
+extern  Eina_Bool efl_net_server_fd_close_on_exec_get(const Eo *obj);
 
 /**
  * @brief Controls address reuse() using SO_REUSEADDR
@@ -143,7 +143,7 @@ extern extern_WEAK Eina_Bool efl_net_server_fd_close_on_exec_get(const Eo *obj);
  *
  * @ingroup Efl_Net_Server_Fd
  */
-extern extern_WEAK Eina_Bool efl_net_server_fd_reuse_address_set(Eo *obj, Eina_Bool reuse_address);
+extern  Eina_Bool efl_net_server_fd_reuse_address_set(Eo *obj, Eina_Bool reuse_address);
 
 /**
  * @brief Controls address reuse() using SO_REUSEADDR
@@ -154,7 +154,7 @@ extern extern_WEAK Eina_Bool efl_net_server_fd_reuse_address_set(Eo *obj, Eina_B
  *
  * @ingroup Efl_Net_Server_Fd
  */
-extern extern_WEAK Eina_Bool efl_net_server_fd_reuse_address_get(const Eo *obj);
+extern  Eina_Bool efl_net_server_fd_reuse_address_get(const Eo *obj);
 
 /**
  * @brief Controls port reuse() using SO_REUSEPORT (since linux 3.9)
@@ -167,7 +167,7 @@ extern extern_WEAK Eina_Bool efl_net_server_fd_reuse_address_get(const Eo *obj);
  *
  * @ingroup Efl_Net_Server_Fd
  */
-extern extern_WEAK Eina_Bool efl_net_server_fd_reuse_port_set(Eo *obj, Eina_Bool reuse_port);
+extern  Eina_Bool efl_net_server_fd_reuse_port_set(Eo *obj, Eina_Bool reuse_port);
 
 /**
  * @brief Controls port reuse() using SO_REUSEPORT (since linux 3.9)
@@ -178,7 +178,7 @@ extern extern_WEAK Eina_Bool efl_net_server_fd_reuse_port_set(Eo *obj, Eina_Bool
  *
  * @ingroup Efl_Net_Server_Fd
  */
-extern extern_WEAK Eina_Bool efl_net_server_fd_reuse_port_get(const Eo *obj);
+extern  Eina_Bool efl_net_server_fd_reuse_port_get(const Eo *obj);
 
 #ifdef EFL_NET_SERVER_FD_PROTECTED
 /**
@@ -196,7 +196,7 @@ extern extern_WEAK Eina_Bool efl_net_server_fd_reuse_port_get(const Eo *obj);
  *
  * @ingroup Efl_Net_Server_Fd
  */
-extern extern_WEAK void efl_net_server_fd_process_incoming_data(Eo *obj);
+extern  void efl_net_server_fd_process_incoming_data(Eo *obj);
 #endif
 
 #ifdef EFL_NET_SERVER_FD_PROTECTED
@@ -220,7 +220,7 @@ extern extern_WEAK void efl_net_server_fd_process_incoming_data(Eo *obj);
  *
  * @ingroup Efl_Net_Server_Fd
  */
-extern extern_WEAK void efl_net_server_fd_client_add(Eo *obj, int client_fd);
+extern  void efl_net_server_fd_client_add(Eo *obj, int client_fd);
 #endif
 
 #ifdef EFL_NET_SERVER_FD_PROTECTED
@@ -236,7 +236,7 @@ extern extern_WEAK void efl_net_server_fd_client_add(Eo *obj, int client_fd);
  *
  * @ingroup Efl_Net_Server_Fd
  */
-extern extern_WEAK void efl_net_server_fd_client_reject(Eo *obj, int client_fd);
+extern  void efl_net_server_fd_client_reject(Eo *obj, int client_fd);
 #endif
 #endif /* EFL_BETA_API_SUPPORT */
 

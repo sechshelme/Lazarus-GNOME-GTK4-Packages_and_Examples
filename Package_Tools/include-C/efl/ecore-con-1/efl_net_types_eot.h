@@ -5,7 +5,7 @@
 #define _EFL_NET_TYPES_EOT_TYPES
 
 #ifdef EFL_BETA_API_SUPPORT
-extern extern_WEAK Eina_Error efl_net_error_couldnt_resolve_host_get(void);
+extern  Eina_Error efl_net_error_couldnt_resolve_host_get(void);
 
 /** Could not resolve the given host name
  *

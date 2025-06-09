@@ -61,7 +61,7 @@ extern  void eldbus_model_method_set(Eo *obj, const Eldbus_Introspection_Method 
  */
 extern  void eldbus_model_method_call(Eo *obj);
 
-extern  extern const Efl_Event_Description _ELDBUS_MODEL_METHOD_EVENT_SUCCESSFUL_CALL;
+extern const Efl_Event_Description _ELDBUS_MODEL_METHOD_EVENT_SUCCESSFUL_CALL;
 
 /** Event dispatched for a successful method call.
  *

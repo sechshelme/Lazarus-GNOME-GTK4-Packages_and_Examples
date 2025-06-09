@@ -29,7 +29,7 @@ typedef struct _Ecore_Con_Reply Ecore_Con_Reply;
  */
 #define ECORE_CON_EET_BASE_CLASS ecore_con_eet_base_class_get()
 
-extern extern_WEAK const Efl_Class *ecore_con_eet_base_class_get(void) ;
+extern  const Efl_Class *ecore_con_eet_base_class_get(void) ;
 
 /**
  * @brief The server object to which we send and receive.
@@ -39,7 +39,7 @@ extern extern_WEAK const Efl_Class *ecore_con_eet_base_class_get(void) ;
  *
  * @ingroup Ecore_Con_Eet_Base
  */
-extern extern_WEAK void ecore_con_eet_base_server_set(Eo *obj, Ecore_Con_Server *data);
+extern  void ecore_con_eet_base_server_set(Eo *obj, Ecore_Con_Server *data);
 
 /**
  * @brief The server object to which we send and receive.
@@ -50,7 +50,7 @@ extern extern_WEAK void ecore_con_eet_base_server_set(Eo *obj, Ecore_Con_Server 
  *
  * @ingroup Ecore_Con_Eet_Base
  */
-extern extern_WEAK Ecore_Con_Server *ecore_con_eet_base_server_get(const Eo *obj);
+extern  Ecore_Con_Server *ecore_con_eet_base_server_get(const Eo *obj);
 
 /**
  * @brief A callback function which should be called when data is received by
@@ -64,7 +64,7 @@ extern extern_WEAK Ecore_Con_Server *ecore_con_eet_base_server_get(const Eo *obj
  *
  * @ingroup Ecore_Con_Eet_Base
  */
-extern extern_WEAK void ecore_con_eet_base_data_callback_set(Eo *obj, const char *name, Ecore_Con_Eet_Data_Cb func, const void *data);
+extern  void ecore_con_eet_base_data_callback_set(Eo *obj, const char *name, Ecore_Con_Eet_Data_Cb func, const void *data);
 
 /**
  * @brief A callback function which should be calledn when raw data is received
@@ -78,7 +78,7 @@ extern extern_WEAK void ecore_con_eet_base_data_callback_set(Eo *obj, const char
  *
  * @ingroup Ecore_Con_Eet_Base
  */
-extern extern_WEAK void ecore_con_eet_base_raw_data_callback_set(Eo *obj, const char *name, Ecore_Con_Eet_Raw_Data_Cb func, const void *data);
+extern  void ecore_con_eet_base_raw_data_callback_set(Eo *obj, const char *name, Ecore_Con_Eet_Raw_Data_Cb func, const void *data);
 
 /**
  * @brief Function to delete the @ref ecore_con_eet_base_data_callback_set.
@@ -88,7 +88,7 @@ extern extern_WEAK void ecore_con_eet_base_raw_data_callback_set(Eo *obj, const 
  *
  * @ingroup Ecore_Con_Eet_Base
  */
-extern extern_WEAK void ecore_con_eet_base_data_callback_del(Eo *obj, const char *name);
+extern  void ecore_con_eet_base_data_callback_del(Eo *obj, const char *name);
 
 /**
  * @brief Function to delete the @ref ecore_con_eet_base_raw_data_callback_set.
@@ -98,7 +98,7 @@ extern extern_WEAK void ecore_con_eet_base_data_callback_del(Eo *obj, const char
  *
  * @ingroup Ecore_Con_Eet_Base
  */
-extern extern_WEAK void ecore_con_eet_base_raw_data_callback_del(Eo *obj, const char *name);
+extern  void ecore_con_eet_base_raw_data_callback_del(Eo *obj, const char *name);
 
 /**
  * @brief Function to register a @ref Eet.Data.Descriptor to the ecore_con_eet
@@ -110,7 +110,7 @@ extern extern_WEAK void ecore_con_eet_base_raw_data_callback_del(Eo *obj, const 
  *
  * @ingroup Ecore_Con_Eet_Base
  */
-extern extern_WEAK void ecore_con_eet_base_register(Eo *obj, const char *name, Eet_Data_Descriptor *edd);
+extern  void ecore_con_eet_base_register(Eo *obj, const char *name, Eet_Data_Descriptor *edd);
 
 /**
  * @brief Function to send data.
@@ -123,7 +123,7 @@ extern extern_WEAK void ecore_con_eet_base_register(Eo *obj, const char *name, E
  *
  * @ingroup Ecore_Con_Eet_Base
  */
-extern extern_WEAK void ecore_con_eet_base_send(Eo *obj, Ecore_Con_Reply *reply, const char *name, void *value);
+extern  void ecore_con_eet_base_send(Eo *obj, Ecore_Con_Reply *reply, const char *name, void *value);
 
 /**
  * @brief Function to send raw data.
@@ -137,6 +137,6 @@ extern extern_WEAK void ecore_con_eet_base_send(Eo *obj, Ecore_Con_Reply *reply,
  *
  * @ingroup Ecore_Con_Eet_Base
  */
-extern extern_WEAK void ecore_con_eet_base_raw_send(Eo *obj, Ecore_Con_Reply *reply, const char *protocol_name, const char *section, Eina_Binbuf *section_data);
+extern  void ecore_con_eet_base_raw_send(Eo *obj, Ecore_Con_Reply *reply, const char *protocol_name, const char *section, Eina_Binbuf *section_data);
 
 #endif

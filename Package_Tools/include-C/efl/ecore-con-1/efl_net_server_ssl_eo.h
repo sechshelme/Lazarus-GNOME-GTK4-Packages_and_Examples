@@ -20,7 +20,7 @@ typedef Eo Efl_Net_Server_Ssl;
  */
 #define EFL_NET_SERVER_SSL_CLASS efl_net_server_ssl_class_get()
 
-extern extern_WEAK const Efl_Class *efl_net_server_ssl_class_get(void) ;
+extern  const Efl_Class *efl_net_server_ssl_class_get(void) ;
 
 /**
  * @brief Defines the SSL context to use for this server.
@@ -35,7 +35,7 @@ extern extern_WEAK const Efl_Class *efl_net_server_ssl_class_get(void) ;
  *
  * @ingroup Efl_Net_Server_Ssl
  */
-extern extern_WEAK void efl_net_server_ssl_context_set(Eo *obj, Efl_Net_Ssl_Context *ssl_context);
+extern  void efl_net_server_ssl_context_set(Eo *obj, Efl_Net_Ssl_Context *ssl_context);
 
 /**
  * @brief Defines the SSL context to use for this server.
@@ -51,7 +51,7 @@ extern extern_WEAK void efl_net_server_ssl_context_set(Eo *obj, Efl_Net_Ssl_Cont
  *
  * @ingroup Efl_Net_Server_Ssl
  */
-extern extern_WEAK Efl_Net_Ssl_Context *efl_net_server_ssl_context_get(const Eo *obj);
+extern  Efl_Net_Ssl_Context *efl_net_server_ssl_context_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

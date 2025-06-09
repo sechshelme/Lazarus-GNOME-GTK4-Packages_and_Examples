@@ -77,7 +77,7 @@ typedef enum
  */
 #define EFL_NET_SESSION_CLASS efl_net_session_class_get()
 
-extern extern_WEAK const Efl_Class *efl_net_session_class_get(void) ;
+extern  const Efl_Class *efl_net_session_class_get(void) ;
 
 /**
  * @brief Asks the session to be connected.
@@ -98,7 +98,7 @@ extern extern_WEAK const Efl_Class *efl_net_session_class_get(void) ;
  *
  * @ingroup Efl_Net_Session
  */
-extern extern_WEAK void efl_net_session_connect(Eo *obj, Eina_Bool online_required, Efl_Net_Session_Technology technologies_allowed);
+extern  void efl_net_session_connect(Eo *obj, Eina_Bool online_required, Efl_Net_Session_Technology technologies_allowed);
 
 /**
  * @brief Indicates this session doesn't need a connection anymore.
@@ -110,7 +110,7 @@ extern extern_WEAK void efl_net_session_connect(Eo *obj, Eina_Bool online_requir
  *
  * @ingroup Efl_Net_Session
  */
-extern extern_WEAK void efl_net_session_disconnect(Eo *obj);
+extern  void efl_net_session_disconnect(Eo *obj);
 
 /**
  * @brief The user-friendly access point name.
@@ -121,7 +121,7 @@ extern extern_WEAK void efl_net_session_disconnect(Eo *obj);
  *
  * @ingroup Efl_Net_Session
  */
-extern extern_WEAK const char *efl_net_session_network_name_get(const Eo *obj);
+extern  const char *efl_net_session_network_name_get(const Eo *obj);
 
 /**
  * @brief If the session connectivity is offline, local or online.
@@ -138,7 +138,7 @@ extern extern_WEAK const char *efl_net_session_network_name_get(const Eo *obj);
  *
  * @ingroup Efl_Net_Session
  */
-extern extern_WEAK Efl_Net_Session_State efl_net_session_state_get(const Eo *obj);
+extern  Efl_Net_Session_State efl_net_session_state_get(const Eo *obj);
 
 /**
  * @brief The access point technology that backs this session
@@ -149,7 +149,7 @@ extern extern_WEAK Efl_Net_Session_State efl_net_session_state_get(const Eo *obj
  *
  * @ingroup Efl_Net_Session
  */
-extern extern_WEAK Efl_Net_Session_Technology efl_net_session_technology_get(const Eo *obj);
+extern  Efl_Net_Session_Technology efl_net_session_technology_get(const Eo *obj);
 
 /**
  * @brief The interface allows the application to assign the socket to a given
@@ -161,7 +161,7 @@ extern extern_WEAK Efl_Net_Session_Technology efl_net_session_technology_get(con
  *
  * @ingroup Efl_Net_Session
  */
-extern extern_WEAK const char *efl_net_session_interface_get(const Eo *obj);
+extern  const char *efl_net_session_interface_get(const Eo *obj);
 
 /**
  * @brief IPv4 in use for this session.
@@ -173,7 +173,7 @@ extern extern_WEAK const char *efl_net_session_interface_get(const Eo *obj);
  *
  * @ingroup Efl_Net_Session
  */
-extern extern_WEAK void efl_net_session_ipv4_get(const Eo *obj, const char **address, const char **netmask, const char **gateway);
+extern  void efl_net_session_ipv4_get(const Eo *obj, const char **address, const char **netmask, const char **gateway);
 
 /**
  * @brief IPv6 in use for this session.
@@ -186,9 +186,9 @@ extern extern_WEAK void efl_net_session_ipv4_get(const Eo *obj, const char **add
  *
  * @ingroup Efl_Net_Session
  */
-extern extern_WEAK void efl_net_session_ipv6_get(const Eo *obj, const char **address, uint8_t *prefix_length, const char **netmask, const char **gateway);
+extern  void efl_net_session_ipv6_get(const Eo *obj, const char **address, uint8_t *prefix_length, const char **netmask, const char **gateway);
 
-extern extern_WEAK extern const Efl_Event_Description _EFL_NET_SESSION_EVENT_CHANGED;
+extern const Efl_Event_Description _EFL_NET_SESSION_EVENT_CHANGED;
 
 /** Called when some properties were changed.
  *

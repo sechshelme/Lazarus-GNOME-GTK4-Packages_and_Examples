@@ -15,18 +15,18 @@
 # else
 #  define extern
 # endif
-# define extern_WEAK
+# define 
 #elif defined(__GNUC__)
 # if __GNUC__ >= 4
 #  define extern __attribute__ ((visibility("default")))
-#  define extern_WEAK __attribute__ ((weak))
+#  define  __attribute__ ((weak))
 # else
 #  define extern
-#  define extern_WEAK
+#  define 
 # endif
 #else
 # define extern
-# define extern_WEAK
+# define 
 #endif
 
 #endif

@@ -289,6 +289,10 @@ const
   ERFKILL = 132;
   EHWPOISON = 133;
 
+  // /usr/include/eet-1/Eet.h
+type
+  PEet_Data_Descriptor = Pointer;
+
 
   // /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
 type

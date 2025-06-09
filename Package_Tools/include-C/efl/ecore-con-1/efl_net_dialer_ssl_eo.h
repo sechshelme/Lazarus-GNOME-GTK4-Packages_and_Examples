@@ -40,7 +40,7 @@ typedef Eo Efl_Net_Dialer_Ssl;
  */
 #define EFL_NET_DIALER_SSL_CLASS efl_net_dialer_ssl_class_get()
 
-extern extern_WEAK const Efl_Class *efl_net_dialer_ssl_class_get(void) ;
+extern  const Efl_Class *efl_net_dialer_ssl_class_get(void) ;
 
 /**
  * @brief Defines the SSL context to use for this dialer.
@@ -55,7 +55,7 @@ extern extern_WEAK const Efl_Class *efl_net_dialer_ssl_class_get(void) ;
  *
  * @ingroup Efl_Net_Dialer_Ssl
  */
-extern extern_WEAK void efl_net_dialer_ssl_context_set(Eo *obj, Efl_Net_Ssl_Context *ssl_context);
+extern  void efl_net_dialer_ssl_context_set(Eo *obj, Efl_Net_Ssl_Context *ssl_context);
 
 /**
  * @brief Defines the SSL context to use for this dialer.
@@ -71,7 +71,7 @@ extern extern_WEAK void efl_net_dialer_ssl_context_set(Eo *obj, Efl_Net_Ssl_Cont
  *
  * @ingroup Efl_Net_Dialer_Ssl
  */
-extern extern_WEAK Efl_Net_Ssl_Context *efl_net_dialer_ssl_context_get(const Eo *obj);
+extern  Efl_Net_Ssl_Context *efl_net_dialer_ssl_context_get(const Eo *obj);
 
 /**
  * @brief Controls keep-alive using SO_KEEPALIVE
@@ -83,7 +83,7 @@ extern extern_WEAK Efl_Net_Ssl_Context *efl_net_dialer_ssl_context_get(const Eo 
  *
  * @ingroup Efl_Net_Dialer_Ssl
  */
-extern extern_WEAK Eina_Bool efl_net_dialer_ssl_keep_alive_set(Eo *obj, Eina_Bool keep_alive);
+extern  Eina_Bool efl_net_dialer_ssl_keep_alive_set(Eo *obj, Eina_Bool keep_alive);
 
 /**
  * @brief Controls keep-alive using SO_KEEPALIVE
@@ -94,7 +94,7 @@ extern extern_WEAK Eina_Bool efl_net_dialer_ssl_keep_alive_set(Eo *obj, Eina_Boo
  *
  * @ingroup Efl_Net_Dialer_Ssl
  */
-extern extern_WEAK Eina_Bool efl_net_dialer_ssl_keep_alive_get(const Eo *obj);
+extern  Eina_Bool efl_net_dialer_ssl_keep_alive_get(const Eo *obj);
 
 /**
  * @brief Controls TCP's no-delay using TCP_NODELAY
@@ -106,7 +106,7 @@ extern extern_WEAK Eina_Bool efl_net_dialer_ssl_keep_alive_get(const Eo *obj);
  *
  * @ingroup Efl_Net_Dialer_Ssl
  */
-extern extern_WEAK Eina_Bool efl_net_dialer_ssl_no_delay_set(Eo *obj, Eina_Bool no_delay);
+extern  Eina_Bool efl_net_dialer_ssl_no_delay_set(Eo *obj, Eina_Bool no_delay);
 
 /**
  * @brief Controls TCP's no-delay using TCP_NODELAY
@@ -117,7 +117,7 @@ extern extern_WEAK Eina_Bool efl_net_dialer_ssl_no_delay_set(Eo *obj, Eina_Bool 
  *
  * @ingroup Efl_Net_Dialer_Ssl
  */
-extern extern_WEAK Eina_Bool efl_net_dialer_ssl_no_delay_get(const Eo *obj);
+extern  Eina_Bool efl_net_dialer_ssl_no_delay_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif

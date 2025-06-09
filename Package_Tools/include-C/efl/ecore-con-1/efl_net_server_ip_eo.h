@@ -20,7 +20,7 @@ typedef Eo Efl_Net_Server_Ip;
  */
 #define EFL_NET_SERVER_IP_CLASS efl_net_server_ip_class_get()
 
-extern extern_WEAK const Efl_Class *efl_net_server_ip_class_get(void) ;
+extern  const Efl_Class *efl_net_server_ip_class_get(void) ;
 
 /**
  * @brief Whenever IPv6 listen address will accept only same-family clients or
@@ -48,7 +48,7 @@ extern extern_WEAK const Efl_Class *efl_net_server_ip_class_get(void) ;
  *
  * @ingroup Efl_Net_Server_Ip
  */
-extern extern_WEAK void efl_net_server_ip_ipv6_only_set(Eo *obj, Eina_Bool ipv6_only);
+extern  void efl_net_server_ip_ipv6_only_set(Eo *obj, Eina_Bool ipv6_only);
 
 /**
  * @brief Whenever IPv6 listen address will accept only same-family clients or
@@ -77,7 +77,7 @@ extern extern_WEAK void efl_net_server_ip_ipv6_only_set(Eo *obj, Eina_Bool ipv6_
  *
  * @ingroup Efl_Net_Server_Ip
  */
-extern extern_WEAK Eina_Bool efl_net_server_ip_ipv6_only_get(const Eo *obj);
+extern  Eina_Bool efl_net_server_ip_ipv6_only_get(const Eo *obj);
 #endif /* EFL_BETA_API_SUPPORT */
 
 #endif
