@@ -65,6 +65,10 @@
         <Filename Value="fp_ethumb.pas"/>
         <UnitName Value="fp_ethumb"/>
       </Item>
+      <Item>
+        <Filename Value="fp_ecore_con.pas"/>
+        <UnitName Value="fp_ecore_con"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

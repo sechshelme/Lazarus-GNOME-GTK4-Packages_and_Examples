@@ -9,7 +9,8 @@ interface
 
 uses
   fp_eina, efl, fp_eo, fp_efl, fp_emile, fp_evas, fp_ecore, fp_ecore_evas, 
-  fp_edje, fp_ecore_file, fp_eet, fp_elementary, fp_ethumb, LazarusPackageIntf;
+  fp_edje, fp_ecore_file, fp_eet, fp_elementary, fp_ethumb, fp_ecore_con, 
+  LazarusPackageIntf;
 
 implementation
 

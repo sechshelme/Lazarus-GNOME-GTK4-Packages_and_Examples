@@ -9,6 +9,7 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+
 const
   ERROR_REPLACEMENT_BASE = $DC80;
 

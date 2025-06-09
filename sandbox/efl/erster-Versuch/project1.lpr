@@ -18,39 +18,16 @@ uses
   fp_efl,
   fp_emile,
   fp_evas,
-  fp_ecore,
   fp_ethumb,
+  fp_ecore,
   fp_ecore_evas,
-  fp_edje,
+  fp_ecore_con,
   fp_ecore_file,
+  fp_edje,
   fp_eet,
   fp_elementary,
 
   // =======================================
-
-  Ecore_Con,                               // io.
-  Ecore_Con_Eet,                           // io. -> Ecore_Con
-  Efl_Net,                                 // io.
-  efl_net_http_types_eot,                  // io.
-  efl_net_control_technology_eo,           // io.
-  efl_net_control_access_point_eo,         // io. -> efl_net_control_technology_eo
-  efl_net_control_manager_eo,              // io. -> efl_net_control_access_point_eo
-  efl_net_dialer_http_eo,                  // io. -> efl_net_http_types_eot
-  efl_net_dialer_websocket_eo,             // io. -> efl_net_http_types_eot
-  efl_net_ssl_types_eot,                   // io.
-  efl_net_ssl_context_eo,                  // io. -> efl_net_ssl_types_eot
-  efl_net_dialer_eo,                       // io.
-
-  efl_net_ip_address_eo,                   // io.
-  efl_net_socket_eo,                       // io.
-  efl_net_socket_udp_eo,                   // io. -> efl_net_ip_address_eo
-  efl_net_server_eo,                       // io. -> efl_net_socket_eo
-
-  efl_net_socket_fd_eo,                    // io,
-  efl_net_socket_simple_eo,                // io.
-  efl_net_socket_ssl_eo,                   // io. -> efl_net_socket_eo, efl_net_ssl_context_eo, efl_net_ssl_types_eot
-  efl_net_socket_tcp_eo,                   // io.
-  efl_net_socket_unix_eo,                  // io.
 
 
 
