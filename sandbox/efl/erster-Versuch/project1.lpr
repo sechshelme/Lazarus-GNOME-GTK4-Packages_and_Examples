@@ -100,11 +100,12 @@ uses
     res_int64: int64;
     res_Float: single;
     res_Double: double;
-    res_Str:PChar;
+    res_Str: pchar;
+    val: TEina_Value;
   begin
     // Int8
     value := eina_value_new(EINA_VALUE_TYPE_UCHAR);
-    eina_value_set(value, 256+12);
+    eina_value_set(value, 256 + 12);
 
     eina_value_get(value, @res_int8);
     printf('Int8: %d'#10, res_int8);
@@ -134,13 +135,29 @@ uses
     printf('Float: %f'#10, res_Float);
     eina_value_free(value);
 
-    // PCHar
+    // PChar
     value := eina_value_new(EINA_VALUE_TYPE_STRING);
-    eina_value_set(value, PChar('Hello World'));
+    eina_value_set(value, 'Hello World');
 
     eina_value_get(value, @res_Str);
-    printf('PChar: %s'#10, res_Str);
+    printf('PChar:              %s'#10, res_Str);
     eina_value_free(value);
+
+    // PCharwith Pointer
+    value := eina_value_new(EINA_VALUE_TYPE_STRING);
+    eina_value_pset(value, pchar('Hello PChar'));
+
+    eina_value_get(value, @res_Str);
+    printf('PChar with Pointer: %s'#10, res_Str);
+    eina_value_free(value);
+
+    // Value Setup
+    eina_value_setup(@val, EINA_VALUE_TYPE_STRING);
+    eina_value_set(@val, 'eina_value_setup');
+
+    eina_value_get(@val, @res_Str);
+    printf('Not Value Ptr:      %s'#10, res_Str);
+    eina_value_flush(@val);
   end;
 
   function main(argc: integer; argv: PPChar): integer;
