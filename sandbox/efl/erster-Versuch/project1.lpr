@@ -39,7 +39,7 @@ uses
 
 
 
-    // =======================================
+  // =======================================
 
 
 
@@ -53,6 +53,7 @@ uses
   eina_inline_lock_barrier,            // io. -> eina_inline_lock_posix
   eina_inline_mempool,                 // io.
   eina_inline_safepointer,             // io.
+  eina_inline_ustringshare,            // io.
   eina_inline_value,
   eina_inline_value_util,
   eina_inline_log,                     // io.
@@ -62,7 +63,6 @@ uses
   eina_inline_hash,                    // io -> eina_inline_crc
   eina_inline_cpu,                     // io.
   eina_inline_f32p32,                  // io.
-  eina_inline_ustringshare,            // io.
   eina_inline_fp,                      // io.
   eina_inline_array,                   // io.
   eina_inline_range,                   // io.  min / max !
@@ -96,13 +96,23 @@ uses
   procedure ValueTest;
   var
     value: PEina_Value;
+    res_int8: int8;
     res_int64: int64;
-    res_Float:Single;
-    res_Double:Double;
+    res_Float: single;
+    res_Double: double;
+    res_Str:PChar;
   begin
+    // Int8
+    value := eina_value_new(EINA_VALUE_TYPE_UCHAR);
+    eina_value_set(value, 256+12);
+
+    eina_value_get(value, @res_int8);
+    printf('Int8: %d'#10, res_int8);
+    eina_value_free(value);
+
     // Int64
     value := eina_value_new(EINA_VALUE_TYPE_INT);
-    eina_value_set(value, Pointer(1234));
+    eina_value_set(value, 1234);
 
     eina_value_get(value, @res_int64);
     printf('Int64: %d'#10, res_int64);
@@ -110,23 +120,27 @@ uses
 
     // Double
     value := eina_value_new(EINA_VALUE_TYPE_DOUBLE);
-    eina_value_set(value, Pointer(Double( 12.34)));
+    eina_value_set(value, 12.34);
 
     eina_value_get(value, @res_Double);
     printf('Double: %f'#10, res_Double);
     eina_value_free(value);
 
     // Float
-    //value := eina_value_new(EINA_VALUE_TYPE_FLOAT);
-    //eina_value_set(value, Pointer(Integer( Single( 43.21))));
-    //
-    //eina_value_get(value, @res_Float);
-    //
-    //
-    //printf('Float: %f'#10, res_Float);
-    //WriteLn('Float: ', res_Float:8:4);
-    //eina_value_free(value);
+    value := eina_value_new(EINA_VALUE_TYPE_FLOAT);
+    eina_value_set(value, single(43.21));
 
+    eina_value_get(value, @res_Float);
+    printf('Float: %f'#10, res_Float);
+    eina_value_free(value);
+
+    // PCHar
+    value := eina_value_new(EINA_VALUE_TYPE_STRING);
+    eina_value_set(value, PChar('Hello World'));
+
+    eina_value_get(value, @res_Str);
+    printf('PChar: %s'#10, res_Str);
+    eina_value_free(value);
   end;
 
   function main(argc: integer; argv: PPChar): integer;

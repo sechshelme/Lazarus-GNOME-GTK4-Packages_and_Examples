@@ -21,7 +21,7 @@ begin
     Exit(EINA_FALSE);
   end;
 
-  news := eina_ustringshare_add(news);
+  news := eina_ustringshare_ref(news);
   eina_ustringshare_del(p_str^);
   if p_str^ = news then begin
     Exit(EINA_FALSE);

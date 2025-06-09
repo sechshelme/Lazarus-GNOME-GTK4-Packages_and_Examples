@@ -5,6 +5,7 @@ interface
 uses
   efl,
   fp_eina,
+  eina_inline_stringshare,
   eina_inline_list;
 
   {$IFDEF FPC}
@@ -25,6 +26,9 @@ procedure eina_value_flush(value: PEina_Value);
 function eina_value_compare(const a, b: PEina_Value): integer;
 
 function eina_value_set(value: PEina_Value; args: Pointer): TEina_Bool; overload;  // Placeholder for variadic
+function eina_value_set(value: PEina_Value; args: double): TEina_Bool; overload;  // Placeholder for variadic
+function eina_value_set(value: PEina_Value; args: PtrUInt): TEina_Bool; overload;  // Placeholder for variadic
+
 function eina_value_get(value: PEina_Value; args: Pointer): TEina_Bool; overload;  // Placeholder for variadic
 
 function eina_value_vset(value: PEina_Value; args: Pointer): TEina_Bool;  // args is va_list
@@ -131,8 +135,92 @@ function eina_value_type_pget(const typ: PEina_Value_Type; mem, ptr: Pointer): T
 implementation
 
 function eina_value_set(value: PEina_Value; args: Pointer): TEina_Bool;
+var
+  str, tmp: pchar;
+  typ: PEina_Value_Type;
 begin
-  Result := eina_value_vset(value, args);
+  typ := value^._type;
+  Result := EINA_TRUE;
+  if typ = EINA_VALUE_TYPE_STRINGSHARE then begin
+    str := pchar(args);
+    Exit(eina_stringshare_refplace(PPChar(@value^.value.ptr), str));
+  end else if typ = EINA_VALUE_TYPE_STRING then begin
+    str := pchar(args);
+    if value^.value.ptr = str then begin
+      Exit(EINA_TRUE);
+    end;
+    if str = nil then begin
+      free(value^.value.ptr);
+      value^.value.ptr := nil;
+    end else begin
+      tmp := strdup(str);
+      if tmp = nil then begin
+        Exit(EINA_FALSE);
+      end;
+      free(value^.value.ptr);
+      value^.value.ptr := tmp;
+    end;
+    Exit(EINA_TRUE);
+  end else begin
+    Result := EINA_FALSE;
+  end;
+end;
+
+function eina_value_set(value: PEina_Value; args: double): TEina_Bool;
+var
+  typ: PEina_Value_Type;
+  p: Pointer = nil;
+  f: single absolute p;
+  d: double absolute p;
+begin
+  typ := value^._type;
+  Result := EINA_TRUE;
+  if typ = EINA_VALUE_TYPE_FLOAT then begin
+    f := args;
+  end else if typ = EINA_VALUE_TYPE_DOUBLE then begin
+    d := args;
+  end else begin
+    Result := EINA_FALSE;
+  end;
+  value^.value.ptr := p;
+end;
+
+function eina_value_set(value: PEina_Value; args: PtrUInt): TEina_Bool;
+var
+  typ: PEina_Value_Type;
+  p: Pointer = nil;
+  b: uint8 absolute p;
+  w: uint16 absolute p;
+  i: uint32 absolute p;
+  q: uint64 absolute p;
+
+begin
+  typ := value^._type;
+  Result := EINA_TRUE;
+  if typ = EINA_VALUE_TYPE_UCHAR then begin
+    b := args;
+  end else if typ = EINA_VALUE_TYPE_USHORT then begin
+    w := args;
+  end else if typ = EINA_VALUE_TYPE_UINT then begin
+    i := args;
+  end else if (typ = EINA_VALUE_TYPE_ULONG) or (typ = EINA_VALUE_TYPE_TIMESTAMP) then begin
+    q := args;
+  end else if typ = EINA_VALUE_TYPE_UINT64 then begin
+    q := args;
+  end else if typ = EINA_VALUE_TYPE_CHAR then begin
+    b := args;
+  end else if typ = EINA_VALUE_TYPE_SHORT then begin
+    w := args;
+  end else if typ = EINA_VALUE_TYPE_INT then begin
+    i := args;
+  end else if typ = EINA_VALUE_TYPE_LONG then begin
+    q := args;
+  end else if typ = EINA_VALUE_TYPE_INT64 then begin
+    q := args;
+  end else begin
+    Result := EINA_FALSE;
+  end;
+  value^.value.ptr := p;
 end;
 
 function eina_value_get(value: PEina_Value; args: Pointer): TEina_Bool;
@@ -455,7 +543,7 @@ var
   mem: Pointer;
   r: TEina_Bool = EINA_FALSE;
   str: pansichar;
-  float_mem: Single absolute mem;
+  float_mem: single absolute mem;
 begin
   if EINA_VALUE_TYPE_CHECK_RETURN_VAL_IMPL(value, 0) = 0 then begin
     Exit(EINA_FALSE);
@@ -494,7 +582,7 @@ begin
     Result := EINA_TRUE;
     Exit;
   end else if typ = EINA_VALUE_TYPE_INT then begin
-    PInteger(mem)^ := Integer(args);
+    PInteger(mem)^ := integer(args);
     Exit(EINA_TRUE);
   end else if typ = EINA_VALUE_TYPE_LONG then begin
     PLongint(mem)^ := PLongint(args)^;
@@ -504,16 +592,16 @@ begin
     PInt64(mem)^ := PInt64(args)^;
     Result := EINA_TRUE;
     Exit;
-  end else if typ = EINA_VALUE_TYPE_FLOAT then begin
-    PSingle(mem)^ := Double(args);
-
-    WriteLn('xxxx: ',float_mem);
-
-
-    Exit(EINA_TRUE);
-  end else if typ = EINA_VALUE_TYPE_DOUBLE then begin
-    PDouble(mem)^ := Double(args);
-    Exit(EINA_TRUE);
+    //  end else if typ = EINA_VALUE_TYPE_FLOAT then begin
+    //PSingle(mem)^ := Double(args);
+    //
+    //WriteLn('xxxx: ',float_mem);
+    //
+    //
+    //Exit(EINA_TRUE);
+    //  end else if typ = EINA_VALUE_TYPE_DOUBLE then begin
+    //    PDouble(mem)^ := Double(args);
+    //    Exit(EINA_TRUE);
   end else if typ = EINA_VALUE_TYPE_STRINGSHARE then begin
     //    Result := eina_stringshare_replace(PAnsiChar(@value^.value.ptr), PAnsiChar(PPointer(args)^));
     Exit;
