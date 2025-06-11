@@ -12,7 +12,7 @@ uses
   {$ENDIF}
   {$MACRO ON}
 
-{$DEFINE all_includes:=
+{$DEFINE includes:=
   {$include eldbus-1/Eldbus.inc}                               // io.
   {$include eldbus-1/eldbus_message.inc}                       // io.
   {$include eldbus-1/eldbus_signal_handler.inc}                // io.
@@ -36,14 +36,13 @@ uses
 
 
 {$DEFINE read_interface}
-all_includes
+includes
 {$UNDEF read_interface}
-
 
 implementation
 
 {$DEFINE read_implementation}
-all_includes
+includes
 {$UNDEF read_implementation}
 
 end.
