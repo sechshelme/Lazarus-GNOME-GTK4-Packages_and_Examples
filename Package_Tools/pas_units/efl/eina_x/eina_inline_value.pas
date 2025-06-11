@@ -887,7 +887,6 @@ begin
   if not eina_value_pget(value, @desc) then begin
     Exit(EINA_FALSE);
   end;
-
   position := eina_inarray_count(desc.arr);
   mem := eina_inarray_alloc_at(desc.arr, position, 1);
   if mem = nil then begin
@@ -898,6 +897,7 @@ begin
     eina_inarray_remove_at(desc.arr, position);
     Exit(EINA_FALSE);
   end;
+
   if not eina_value_type_vset(desc.subtype, mem, args) then begin
     eina_value_type_flush(desc.subtype, mem);
     eina_inarray_remove_at(desc.arr, position);
@@ -2217,7 +2217,9 @@ begin
   if typ^.vset = nil then begin
     Exit(EINA_FALSE);
   end;
+  WriteLn(111111);
   Result := typ^.vset(typ, mem, args);
+  WriteLn(33333333);
 end;
 
 function eina_value_type_pset(typ: PEina_Value_Type; mem, ptr: Pointer): TEina_Bool;

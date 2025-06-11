@@ -51,7 +51,7 @@
       </Item>
       <Item>
         <Filename Value="fp_ecore_file.pas"/>
-        <UnitName Value="fp_Ecore_File"/>
+        <UnitName Value="fp_ecore_file"/>
       </Item>
       <Item>
         <Filename Value="fp_eet.pas"/>

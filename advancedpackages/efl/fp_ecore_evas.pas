@@ -5,25 +5,25 @@ interface
 uses
   efl, fp_eina, fp_eo, fp_evas;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
-{$MACRO ON}
-
-{$DEFINE includes:=
-  {$include ecore-evas-1/Ecore_Evas_Types.inc}
-  {$include ecore-evas-1/Ecore_Evas.inc}
-}
-
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 {$DEFINE read_interface}
-includes
+
+{$include ecore-evas-1/Ecore_Evas_Types.inc}
+{$include ecore-evas-1/Ecore_Evas.inc}
+
 {$UNDEF read_interface}
+
 
 implementation
 
 {$DEFINE read_implementation}
-includes
+
+{$include ecore-evas-1/Ecore_Evas_Types.inc}
+{$include ecore-evas-1/Ecore_Evas.inc}
+
 {$UNDEF read_implementation}
 
 end.

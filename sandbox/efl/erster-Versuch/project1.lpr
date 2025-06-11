@@ -29,8 +29,9 @@ uses
   fp_elementary,
   fp_efreet,
 
-  // =======================================
+//  fp_ecore_ipc,
 
+  // =======================================
 
 
 
@@ -156,6 +157,17 @@ uses
     eina_value_flush(@val);
   end;
 
+  procedure ValueArrayTest;
+  var
+    i: Integer;
+    value: TEina_Value;
+  begin
+    if not eina_value_array_setup(@value, EINA_VALUE_TYPE_INT, SizeOf(integer)) then begin
+      printf('Array Fehler'#10);
+    end;
+//    for i:=0 to 7 do eina_value_array_append(@value, Pointer(i));
+  end;
+
   function main(argc: integer; argv: PPChar): integer;
   var
     box, win, btn1, btn2, entry: PEvas_Object;
@@ -163,6 +175,7 @@ uses
     elm_init(argc, argv);
 
     ValueTest;
+    ValueArrayTest;
 
     // Fenster erstellen
     win := elm_win_util_standard_add('EFL Beispiel', 'EFL Beispiel');
