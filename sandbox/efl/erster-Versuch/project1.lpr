@@ -27,28 +27,11 @@ uses
   fp_eet,
   fp_eldbus,
   fp_elementary,
+  fp_efreet,
 
   // =======================================
 
-  //Eldbus,                               // io.
-  //eldbus_message,                       // io.
-  //eldbus_signal_handler,                // io.
-  //eldbus_connection,                    // io.
-  //eldbus_object,                        // io. -> eldbus_signal_handler
-  //eldbus_proxy,                         // io.
-  //eldbus_introspection,                 // io.
-  //eldbus_model_method_eo,               // io. -> eldbus_introspection
-  //eldbus_model_proxy_eo,                // io. -> eldbus_introspection
-  //eldbus_model_signal_eo,               // io. -> eldbus_introspection
-  //eldbus_model_eo,                      // io. -> eldbus_connection
-  //eldbus_model_arguments_eo,            // io.
-  //eldbus_model_connection_eo,           // io.
-  //eldbus_model_object_eo,               // io.
-  //eldbus_freedesktop,                   // io.
-  //eldbus_message_eina_value,            // io.
-  //eldbus_message_helper,                // io.
-  //eldbus_pending,                       // io.
-  //eldbus_service,                       // io.
+
 
 
 
@@ -230,6 +213,7 @@ uses
   end;
 
 begin
+  efreet_init;
   ecore_con_init;
   eldbus_message_unref(nil);
   main(argc, argv);
