@@ -25,12 +25,30 @@ uses
   fp_ecore_file,
   fp_edje,
   fp_eet,
+  fp_eldbus,
   fp_elementary,
 
   // =======================================
 
-  Eldbus,                               // io.
-  eldbus_message,                       // io.
+  //Eldbus,                               // io.
+  //eldbus_message,                       // io.
+  //eldbus_signal_handler,                // io.
+  //eldbus_connection,                    // io.
+  //eldbus_object,                        // io. -> eldbus_signal_handler
+  //eldbus_proxy,                         // io.
+  //eldbus_introspection,                 // io.
+  //eldbus_model_method_eo,               // io. -> eldbus_introspection
+  //eldbus_model_proxy_eo,                // io. -> eldbus_introspection
+  //eldbus_model_signal_eo,               // io. -> eldbus_introspection
+  //eldbus_model_eo,                      // io. -> eldbus_connection
+  //eldbus_model_arguments_eo,            // io.
+  //eldbus_model_connection_eo,           // io.
+  //eldbus_model_object_eo,               // io.
+  //eldbus_freedesktop,                   // io.
+  //eldbus_message_eina_value,            // io.
+  //eldbus_message_helper,                // io.
+  //eldbus_pending,                       // io.
+  //eldbus_service,                       // io.
 
 
 

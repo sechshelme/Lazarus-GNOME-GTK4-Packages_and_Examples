@@ -69,6 +69,10 @@
         <Filename Value="fp_ecore_con.pas"/>
         <UnitName Value="fp_ecore_con"/>
       </Item>
+      <Item>
+        <Filename Value="fp_eldbus.pas"/>
+        <UnitName Value="fp_eldbus"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

@@ -2,7 +2,7 @@ unit fp_elementary;
 
 interface
 
-  uses
+uses
   efl,
   fp_eina,
   fp_eo,
@@ -31,4 +31,3 @@ implementation
 {$UNDEF read_implementation}
 
 end.
-
