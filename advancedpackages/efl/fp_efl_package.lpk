@@ -77,6 +77,10 @@
         <Filename Value="fp_efreet.pas"/>
         <UnitName Value="fp_efreet"/>
       </Item>
+      <Item>
+        <Filename Value="fp_ecore_ipc.pas"/>
+        <UnitName Value="fp_ecore_ipc"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

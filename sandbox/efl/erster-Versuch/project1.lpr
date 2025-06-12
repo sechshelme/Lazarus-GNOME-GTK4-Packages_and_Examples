@@ -29,11 +29,14 @@ uses
   fp_elementary,
   fp_efreet,
 
-//  fp_ecore_ipc,
+  fp_ecore_ipc,
 
   // =======================================
 
 
+  efl_canvas_video_eo,
+  efl_canvas_video_eo_legacy,
+  Emotion,
 
 
   // =======================================

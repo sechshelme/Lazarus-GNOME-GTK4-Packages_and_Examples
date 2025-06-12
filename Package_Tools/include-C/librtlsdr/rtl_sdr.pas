@@ -22,11 +22,11 @@ const
 
 type
   Tuint8_t = uint8;
-  Puint8_t = Tuint8_t;
+  Puint8_t = ^Tuint8_t;
   Tuint16_t = uint16;
-  Puint16_t = Tuint16_t;
+  Puint16_t = ^Tuint16_t;
   Tuint32_t = uint32;
-  Puint32_t = Tuint32_t;
+  Puint32_t = ^Tuint32_t;
 
   Trtlsdr_dev_t = record
   end;

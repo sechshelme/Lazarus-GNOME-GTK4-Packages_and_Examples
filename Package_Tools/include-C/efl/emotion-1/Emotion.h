@@ -81,7 +81,7 @@
  * @li @ref Emotion_Audio to control audio parameters.
  * @li @ref Emotion_Play to control playback.
  * @li @ref Emotion_Webcam to show cameras.
- * @li @ref Emotion_API for general programming interface.
+ * @li @ref extern for general programming interface.
  *
  * @section emotion_main_intro_example Introductory Example
  *
@@ -93,7 +93,7 @@
 #include <Evas.h>
 #include <Efl_Config.h>
 
-#include <emotion_api.h>
+#include <extern.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -258,14 +258,14 @@ typedef struct _Emotion_Version
      int revision; /** < git revision (0 if a proper release or the git revision number Emotion is built from) */
   } Emotion_Version;
 
-EMOTION_API extern Emotion_Version *emotion_version;
+extern Emotion_Version *emotion_version;
 
 /* api calls available */
 
 /**
  * @brief How to create, initialize, manipulate and connect to signals of an
  * Emotion object.
- * @defgroup Emotion_API API available for manipulating Emotion object.
+ * @defgroup extern API available for manipulating Emotion object.
  * @ingroup Emotion
  *
  * @{
@@ -347,14 +347,14 @@ EMOTION_API extern Emotion_Version *emotion_version;
  * Initialise needed libraries like eina ecore eet
  * Initialise needed modules like webcam
  */
-EMOTION_API Eina_Bool emotion_init(void);
+extern Eina_Bool emotion_init(void);
 
 /**
  * @brief Shutdown Emotion library
  *
  * Proper shutdown of all loaded modules and initialised libraries.
  */
-EMOTION_API Eina_Bool emotion_shutdown(void);
+extern Eina_Bool emotion_shutdown(void);
 
 /**
  * @brief Add an emotion object to the canvas.
@@ -381,7 +381,7 @@ EMOTION_API Eina_Bool emotion_shutdown(void);
  *
  * @ingroup Emotion_Init
  */
-EMOTION_API Evas_Object *emotion_object_add                   (Evas *evas);
+extern Evas_Object *emotion_object_add                   (Evas *evas);
 
 /**
  * @brief Set borders for the emotion object.
@@ -411,7 +411,7 @@ EMOTION_API Evas_Object *emotion_object_add                   (Evas *evas);
  *
  * @ingroup Emotion_Video
  */
-EMOTION_API void emotion_object_border_set(Evas_Object *obj, int l, int r, int t, int b);
+extern void emotion_object_border_set(Evas_Object *obj, int l, int r, int t, int b);
 
 /**
  * @brief Get the borders set for the emotion object.
@@ -426,7 +426,7 @@ EMOTION_API void emotion_object_border_set(Evas_Object *obj, int l, int r, int t
  *
  * @ingroup Emotion_Video
  */
-EMOTION_API void emotion_object_border_get(const Evas_Object *obj, int *l, int *r, int *t, int *b);
+extern void emotion_object_border_get(const Evas_Object *obj, int *l, int *r, int *t, int *b);
 
 /**
  * @brief Set a color for the background rectangle of this emotion object.
@@ -447,7 +447,7 @@ EMOTION_API void emotion_object_border_get(const Evas_Object *obj, int *l, int *
  *
  * @ingroup Emotion_Video
  */
-EMOTION_API void emotion_object_bg_color_set(Evas_Object *obj, int r, int g, int b, int a);
+extern void emotion_object_bg_color_set(Evas_Object *obj, int r, int g, int b, int a);
 
 /**
  * @brief Get the background color set for the emotion object.
@@ -462,7 +462,7 @@ EMOTION_API void emotion_object_bg_color_set(Evas_Object *obj, int r, int g, int
  *
  * @ingroup Emotion_Video
  */
-EMOTION_API void emotion_object_bg_color_get(const Evas_Object *obj, int *r, int *g, int *b, int *a);
+extern void emotion_object_bg_color_get(const Evas_Object *obj, int *r, int *g, int *b, int *a);
 
 /**
  * @brief Set whether emotion should keep the aspect ratio of the video.
@@ -506,7 +506,7 @@ EMOTION_API void emotion_object_bg_color_get(const Evas_Object *obj, int *r, int
  *
  * @ingroup Emotion_Video
  */
-EMOTION_API void emotion_object_keep_aspect_set(Evas_Object *obj, Emotion_Aspect a);
+extern void emotion_object_keep_aspect_set(Evas_Object *obj, Emotion_Aspect a);
 
 /**
  * @brief Get the current emotion aspect ratio policy.
@@ -519,7 +519,7 @@ EMOTION_API void emotion_object_keep_aspect_set(Evas_Object *obj, Emotion_Aspect
  *
  * @ingroup Emotion_Video
  */
-EMOTION_API Emotion_Aspect emotion_object_keep_aspect_get(const Evas_Object *obj);
+extern Emotion_Aspect emotion_object_keep_aspect_get(const Evas_Object *obj);
 
 /**
  * @brief Set the file to be played in the Emotion object.
@@ -550,7 +550,7 @@ EMOTION_API Emotion_Aspect emotion_object_keep_aspect_get(const Evas_Object *obj
  *
  * @ingroup Emotion_Init
  */
-EMOTION_API Eina_Bool    emotion_object_file_set              (Evas_Object *obj, const char *filename);
+extern Eina_Bool    emotion_object_file_set              (Evas_Object *obj, const char *filename);
 
 /**
  * @brief Get the filename of the file associated with the emotion object.
@@ -568,7 +568,7 @@ EMOTION_API Eina_Bool    emotion_object_file_set              (Evas_Object *obj,
  *
  * @ingroup Emotion_Init
  */
-EMOTION_API const char  *emotion_object_file_get              (const Evas_Object *obj);
+extern const char  *emotion_object_file_get              (const Evas_Object *obj);
 /**
  * @defgroup Emotion_Play Play control functions
  * @ingroup Emotion
@@ -585,14 +585,14 @@ EMOTION_API const char  *emotion_object_file_get              (const Evas_Object
  * This functions sets the currently playing status of the video. Using this
  * function to play or pause the video doesn't alter it's current position.
  */
-EMOTION_API void         emotion_object_play_set              (Evas_Object *obj, Eina_Bool play);
+extern void         emotion_object_play_set              (Evas_Object *obj, Eina_Bool play);
 /**
  * @brief Get play/pause state of the media file.
  *
  * @param obj The emotion object from which the state will be retrieved.
  * @return EINA_TRUE if playing. EINA_FALSE if not playing.
  */
-EMOTION_API Eina_Bool    emotion_object_play_get              (const Evas_Object *obj);
+extern Eina_Bool    emotion_object_play_get              (const Evas_Object *obj);
 /**
  * @brief Set the position in the media file.
  *
@@ -605,7 +605,7 @@ EMOTION_API Eina_Bool    emotion_object_play_get              (const Evas_Object
  *
  * @see emotion_object_seekable_get
  */
-EMOTION_API void         emotion_object_position_set          (Evas_Object *obj, double sec);
+extern void         emotion_object_position_set          (Evas_Object *obj, double sec);
 /**
  * @brief Get the position in the media file.
  *
@@ -615,7 +615,7 @@ EMOTION_API void         emotion_object_position_set          (Evas_Object *obj,
  * The position is returned as the number of seconds since the beginning of the
  * media file.
  */
-EMOTION_API double       emotion_object_position_get          (const Evas_Object *obj);
+extern double       emotion_object_position_get          (const Evas_Object *obj);
 
 /**
  * @brief Get the percentual size of the buffering cache.
@@ -631,7 +631,7 @@ EMOTION_API double       emotion_object_position_get          (const Evas_Object
  *
  * @warning Generic backend don't implement this (will return 1.0).
  */
-EMOTION_API double       emotion_object_buffer_size_get       (const Evas_Object *obj);
+extern double       emotion_object_buffer_size_get       (const Evas_Object *obj);
 
 /**
  * @brief Get whether the media file is seekable.
@@ -640,7 +640,7 @@ EMOTION_API double       emotion_object_buffer_size_get       (const Evas_Object
  * retrieved.
  * @return EINA_TRUE if the media file is seekable, EINA_FALSE otherwise.
  */
-EMOTION_API Eina_Bool    emotion_object_seekable_get          (const Evas_Object *obj);
+extern Eina_Bool    emotion_object_seekable_get          (const Evas_Object *obj);
 /**
  * @brief Get the length of play for the media file.
  *
@@ -652,7 +652,7 @@ EMOTION_API Eina_Bool    emotion_object_seekable_get          (const Evas_Object
  * @warning This will return 0 if called before the "length_change" signal has,
  * been emitted.
  */
-EMOTION_API double       emotion_object_play_length_get       (const Evas_Object *obj);
+extern double       emotion_object_play_length_get       (const Evas_Object *obj);
 
 /**
  * @brief Set the play speed of the media file.
@@ -666,7 +666,7 @@ EMOTION_API double       emotion_object_play_length_get       (const Evas_Object
  * @warning The only backend that implements this is the experimental VLC
  * backend.
  */
-EMOTION_API void         emotion_object_play_speed_set        (Evas_Object *obj, double speed);
+extern void         emotion_object_play_speed_set        (Evas_Object *obj, double speed);
 /**
  * @brief Get  the play speed of the media file.
  *
@@ -675,7 +675,7 @@ EMOTION_API void         emotion_object_play_speed_set        (Evas_Object *obj,
  *
  * @see emotion_object_play_speed_set
  */
-EMOTION_API double       emotion_object_play_speed_get        (const Evas_Object *obj);
+extern double       emotion_object_play_speed_get        (const Evas_Object *obj);
 /**
  * @brief Get how much of the file has been played.
  *
@@ -685,7 +685,7 @@ EMOTION_API double       emotion_object_play_speed_get        (const Evas_Object
  * @warning Don't change of free the returned string.
  * @warning gstreamer xine backends don't implement this(will return NULL).
  */
-EMOTION_API const char  *emotion_object_progress_info_get     (const Evas_Object *obj);
+extern const char  *emotion_object_progress_info_get     (const Evas_Object *obj);
 /**
  * @brief Get how much of the file has been played.
  *
@@ -697,12 +697,12 @@ EMOTION_API const char  *emotion_object_progress_info_get     (const Evas_Object
  *
  * @warning gstreamer xine backends don't implement this(will return 0).
  */
-EMOTION_API double       emotion_object_progress_status_get   (const Evas_Object *obj);
+extern double       emotion_object_progress_status_get   (const Evas_Object *obj);
 /**
  * @}
  */
-EMOTION_API Eina_Bool    emotion_object_video_handled_get     (const Evas_Object *obj);
-EMOTION_API Eina_Bool    emotion_object_audio_handled_get     (const Evas_Object *obj);
+extern Eina_Bool    emotion_object_video_handled_get     (const Evas_Object *obj);
+extern Eina_Bool    emotion_object_audio_handled_get     (const Evas_Object *obj);
 
 /**
  * @brief Retrieve the video aspect ratio of the media file loaded.
@@ -785,7 +785,7 @@ EMOTION_API Eina_Bool    emotion_object_audio_handled_get     (const Evas_Object
  *
  * @ingroup Emotion_Video
  */
-EMOTION_API double       emotion_object_ratio_get             (const Evas_Object *obj);
+extern double       emotion_object_ratio_get             (const Evas_Object *obj);
 
 /**
  * @brief Retrieve the video size of the loaded file.
@@ -809,7 +809,7 @@ EMOTION_API double       emotion_object_ratio_get             (const Evas_Object
  *
  * @ingroup Emotion_Video
  */
-EMOTION_API void         emotion_object_size_get              (const Evas_Object *obj, int *iw, int *ih);
+extern void         emotion_object_size_get              (const Evas_Object *obj, int *iw, int *ih);
 
 /**
  * @brief Sets whether to use of high-quality image scaling algorithm
@@ -826,7 +826,7 @@ EMOTION_API void         emotion_object_size_get              (const Evas_Object
  *
  * @ingroup Emotion_Video
  */
-EMOTION_API void         emotion_object_smooth_scale_set      (Evas_Object *obj, Eina_Bool smooth);
+extern void         emotion_object_smooth_scale_set      (Evas_Object *obj, Eina_Bool smooth);
 
 /**
  * @brief Gets whether the high-quality image scaling algorithm
@@ -839,7 +839,7 @@ EMOTION_API void         emotion_object_smooth_scale_set      (Evas_Object *obj,
  *
  * @ingroup Emotion_Video
  */
-EMOTION_API Eina_Bool    emotion_object_smooth_scale_get      (const Evas_Object *obj);
+extern Eina_Bool    emotion_object_smooth_scale_get      (const Evas_Object *obj);
 
 /**
  * @brief Send an Emotion Event to an Evas object
@@ -849,7 +849,7 @@ EMOTION_API Eina_Bool    emotion_object_smooth_scale_get      (const Evas_Object
  *
  * @see Emotion_Event
  */
-EMOTION_API void         emotion_object_event_simple_send     (Evas_Object *obj, Emotion_Event ev);
+extern void         emotion_object_event_simple_send     (Evas_Object *obj, Emotion_Event ev);
 
 /**
  * @brief Set the audio volume.
@@ -869,7 +869,7 @@ EMOTION_API void         emotion_object_event_simple_send     (Evas_Object *obj,
  *
  * @ingroup Emotion_Audio
  */
-EMOTION_API void         emotion_object_audio_volume_set      (Evas_Object *obj, double vol);
+extern void         emotion_object_audio_volume_set      (Evas_Object *obj, double vol);
 
 /**
  * @brief Get the audio volume.
@@ -884,7 +884,7 @@ EMOTION_API void         emotion_object_audio_volume_set      (Evas_Object *obj,
  *
  * @ingroup Emotion_Audio
  */
-EMOTION_API double       emotion_object_audio_volume_get      (const Evas_Object *obj);
+extern double       emotion_object_audio_volume_get      (const Evas_Object *obj);
 
 /**
  * @brief Set the mute audio option for this object.
@@ -902,7 +902,7 @@ EMOTION_API double       emotion_object_audio_volume_get      (const Evas_Object
  *
  * @ingroup Emotion_Audio
  */
-EMOTION_API void         emotion_object_audio_mute_set        (Evas_Object *obj, Eina_Bool mute);
+extern void         emotion_object_audio_mute_set        (Evas_Object *obj, Eina_Bool mute);
 
 /**
  * @brief Get the mute audio option of this object.
@@ -917,11 +917,11 @@ EMOTION_API void         emotion_object_audio_mute_set        (Evas_Object *obj,
  *
  * @ingroup Emotion_Audio
  */
-EMOTION_API Eina_Bool    emotion_object_audio_mute_get        (const Evas_Object *obj);
-EMOTION_API int          emotion_object_audio_channel_count   (const Evas_Object *obj);
-EMOTION_API const char  *emotion_object_audio_channel_name_get(const Evas_Object *obj, int channel);
-EMOTION_API void         emotion_object_audio_channel_set     (Evas_Object *obj, int channel);
-EMOTION_API int          emotion_object_audio_channel_get     (const Evas_Object *obj);
+extern Eina_Bool    emotion_object_audio_mute_get        (const Evas_Object *obj);
+extern int          emotion_object_audio_channel_count   (const Evas_Object *obj);
+extern const char  *emotion_object_audio_channel_name_get(const Evas_Object *obj, int channel);
+extern void         emotion_object_audio_channel_set     (Evas_Object *obj, int channel);
+extern int          emotion_object_audio_channel_get     (const Evas_Object *obj);
 
 /**
  * @brief Set the mute video option for this object.
@@ -939,7 +939,7 @@ EMOTION_API int          emotion_object_audio_channel_get     (const Evas_Object
  *
  * @ingroup Emotion_Video
  */
-EMOTION_API void         emotion_object_video_mute_set        (Evas_Object *obj, Eina_Bool mute);
+extern void         emotion_object_video_mute_set        (Evas_Object *obj, Eina_Bool mute);
 
 /**
  * @brief Get the mute video option of this object.
@@ -954,7 +954,7 @@ EMOTION_API void         emotion_object_video_mute_set        (Evas_Object *obj,
  *
  * @ingroup Emotion_Video
  */
-EMOTION_API Eina_Bool    emotion_object_video_mute_get        (const Evas_Object *obj);
+extern Eina_Bool    emotion_object_video_mute_get        (const Evas_Object *obj);
 
 /**
  * @brief Set the video's subtitle file path.
@@ -970,7 +970,7 @@ EMOTION_API Eina_Bool    emotion_object_video_mute_get        (const Evas_Object
  * @ingroup Emotion_Video
  * @since 1.8
  */
-EMOTION_API void         emotion_object_video_subtitle_file_set (Evas_Object *obj, const char *filepath);
+extern void         emotion_object_video_subtitle_file_set (Evas_Object *obj, const char *filepath);
 
 /**
  * @brief Get the video's subtitle file path.
@@ -986,7 +986,7 @@ EMOTION_API void         emotion_object_video_subtitle_file_set (Evas_Object *ob
  * @ingroup Emotion_Video
  * @since 1.8
  */
-EMOTION_API const char   *emotion_object_video_subtitle_file_get (const Evas_Object *obj);
+extern const char   *emotion_object_video_subtitle_file_get (const Evas_Object *obj);
 
 /**
  * @brief Get the number of available video channel
@@ -998,7 +998,7 @@ EMOTION_API const char   *emotion_object_video_subtitle_file_get (const Evas_Obj
  *
  * @ingroup Emotion_Video
  */
-EMOTION_API int          emotion_object_video_channel_count   (const Evas_Object *obj);
+extern int          emotion_object_video_channel_count   (const Evas_Object *obj);
 
 /**
  * @brief Get the name of a given video channel
@@ -1011,7 +1011,7 @@ EMOTION_API int          emotion_object_video_channel_count   (const Evas_Object
  *
  * @ingroup Emotion_Video
  */
-EMOTION_API const char  *emotion_object_video_channel_name_get(const Evas_Object *obj, int channel);
+extern const char  *emotion_object_video_channel_name_get(const Evas_Object *obj, int channel);
 
 /**
  * @brief Set the channel for a given video object
@@ -1021,7 +1021,7 @@ EMOTION_API const char  *emotion_object_video_channel_name_get(const Evas_Object
  *
  * @ingroup Emotion_Video
  */
-EMOTION_API void         emotion_object_video_channel_set     (Evas_Object *obj, int channel);
+extern void         emotion_object_video_channel_set     (Evas_Object *obj, int channel);
 
 /**
  * @brief Get the channel for a given video object
@@ -1031,18 +1031,18 @@ EMOTION_API void         emotion_object_video_channel_set     (Evas_Object *obj,
  *
  * @ingroup Emotion_Video
  */
-EMOTION_API int          emotion_object_video_channel_get     (const Evas_Object *obj);
-EMOTION_API void         emotion_object_spu_mute_set          (Evas_Object *obj, Eina_Bool mute);
-EMOTION_API Eina_Bool    emotion_object_spu_mute_get          (const Evas_Object *obj);
-EMOTION_API int          emotion_object_spu_channel_count     (const Evas_Object *obj);
-EMOTION_API const char  *emotion_object_spu_channel_name_get  (const Evas_Object *obj, int channel);
-EMOTION_API void         emotion_object_spu_channel_set       (Evas_Object *obj, int channel);
-EMOTION_API int          emotion_object_spu_channel_get       (const Evas_Object *obj);
-EMOTION_API int          emotion_object_chapter_count         (const Evas_Object *obj);
-EMOTION_API void         emotion_object_chapter_set           (Evas_Object *obj, int chapter);
-EMOTION_API int          emotion_object_chapter_get           (const Evas_Object *obj);
-EMOTION_API const char  *emotion_object_chapter_name_get      (const Evas_Object *obj, int chapter);
-EMOTION_API void         emotion_object_eject                 (Evas_Object *obj);
+extern int          emotion_object_video_channel_get     (const Evas_Object *obj);
+extern void         emotion_object_spu_mute_set          (Evas_Object *obj, Eina_Bool mute);
+extern Eina_Bool    emotion_object_spu_mute_get          (const Evas_Object *obj);
+extern int          emotion_object_spu_channel_count     (const Evas_Object *obj);
+extern const char  *emotion_object_spu_channel_name_get  (const Evas_Object *obj, int channel);
+extern void         emotion_object_spu_channel_set       (Evas_Object *obj, int channel);
+extern int          emotion_object_spu_channel_get       (const Evas_Object *obj);
+extern int          emotion_object_chapter_count         (const Evas_Object *obj);
+extern void         emotion_object_chapter_set           (Evas_Object *obj, int chapter);
+extern int          emotion_object_chapter_get           (const Evas_Object *obj);
+extern const char  *emotion_object_chapter_name_get      (const Evas_Object *obj, int chapter);
+extern void         emotion_object_eject                 (Evas_Object *obj);
 
 /**
  * @brief Get the dvd title from this emotion object.
@@ -1056,11 +1056,11 @@ EMOTION_API void         emotion_object_eject                 (Evas_Object *obj)
  *
  * @ingroup Emotion_Info
  */
-EMOTION_API const char  *emotion_object_title_get             (const Evas_Object *obj);
-EMOTION_API const char  *emotion_object_ref_file_get          (const Evas_Object *obj);
-EMOTION_API int          emotion_object_ref_num_get           (const Evas_Object *obj);
-EMOTION_API int          emotion_object_spu_button_count_get  (const Evas_Object *obj);
-EMOTION_API int          emotion_object_spu_button_get        (const Evas_Object *obj);
+extern const char  *emotion_object_title_get             (const Evas_Object *obj);
+extern const char  *emotion_object_ref_file_get          (const Evas_Object *obj);
+extern int          emotion_object_ref_num_get           (const Evas_Object *obj);
+extern int          emotion_object_spu_button_count_get  (const Evas_Object *obj);
+extern int          emotion_object_spu_button_get        (const Evas_Object *obj);
 
 /**
  * @brief Retrieve meta information from this file being played.
@@ -1082,7 +1082,7 @@ EMOTION_API int          emotion_object_spu_button_get        (const Evas_Object
  *
  * @ingroup Emotion_Info
  */
-EMOTION_API const char  *emotion_object_meta_info_get         (const Evas_Object *obj, Emotion_Meta_Info meta);
+extern const char  *emotion_object_meta_info_get         (const Evas_Object *obj, Emotion_Meta_Info meta);
 
 /**
  * @brief Set the visualization to be used with this object.
@@ -1101,7 +1101,7 @@ EMOTION_API const char  *emotion_object_meta_info_get         (const Evas_Object
  *
  * @ingroup Emotion_Visualization
  */
-EMOTION_API void         emotion_object_vis_set               (Evas_Object *obj, Emotion_Vis visualization);
+extern void         emotion_object_vis_set               (Evas_Object *obj, Emotion_Vis visualization);
 
 /**
  * @brief Get the type of visualization in use by this emotion object.
@@ -1118,7 +1118,7 @@ EMOTION_API void         emotion_object_vis_set               (Evas_Object *obj,
  *
  * @ingroup Emotion_Visualization
  */
-EMOTION_API Emotion_Vis  emotion_object_vis_get               (const Evas_Object *obj);
+extern Emotion_Vis  emotion_object_vis_get               (const Evas_Object *obj);
 
 /**
  * @brief Query whether a type of visualization is supported by this object.
@@ -1136,7 +1136,7 @@ EMOTION_API Emotion_Vis  emotion_object_vis_get               (const Evas_Object
  *
  * @ingroup Emotion_Visualization
  */
-EMOTION_API Eina_Bool    emotion_object_vis_supported         (const Evas_Object *obj, Emotion_Vis visualization);
+extern Eina_Bool    emotion_object_vis_supported         (const Evas_Object *obj, Emotion_Vis visualization);
 
 /**
  * @brief Raise priority of an object so it will have a priviledged access to hardware resources.
@@ -1156,7 +1156,7 @@ EMOTION_API Eina_Bool    emotion_object_vis_supported         (const Evas_Object
  *
  * @ingroup Emotion_Ressource
  */
-EMOTION_API void         emotion_object_priority_set(Evas_Object *obj, Eina_Bool priority);
+extern void         emotion_object_priority_set(Evas_Object *obj, Eina_Bool priority);
 
 /**
  * @brief Get the actual priority of an object.
@@ -1171,7 +1171,7 @@ EMOTION_API void         emotion_object_priority_set(Evas_Object *obj, Eina_Bool
  *
  * @ingroup Emotion_Ressource
  */
-EMOTION_API Eina_Bool    emotion_object_priority_get(const Evas_Object *obj);
+extern Eina_Bool    emotion_object_priority_get(const Evas_Object *obj);
 
 /**
  * @brief Change the state of an object pipeline.
@@ -1188,7 +1188,7 @@ EMOTION_API Eina_Bool    emotion_object_priority_get(const Evas_Object *obj);
  *
  * @ingroup Emotion_Ressource
  */
-EMOTION_API void         emotion_object_suspend_set(Evas_Object *obj, Emotion_Suspend state);
+extern void         emotion_object_suspend_set(Evas_Object *obj, Emotion_Suspend state);
 
 /**
  * @brief Get the current state of the pipeline
@@ -1201,7 +1201,7 @@ EMOTION_API void         emotion_object_suspend_set(Evas_Object *obj, Emotion_Su
  *
  * @ingroup Emotion_Ressource
  */
-EMOTION_API Emotion_Suspend emotion_object_suspend_get(Evas_Object *obj);
+extern Emotion_Suspend emotion_object_suspend_get(Evas_Object *obj);
 
 /**
  * @brief Load the last known position if available
@@ -1217,7 +1217,7 @@ EMOTION_API Emotion_Suspend emotion_object_suspend_get(Evas_Object *obj);
  *
  * @ingroup Emotion_Info
  */
-EMOTION_API void         emotion_object_last_position_load(Evas_Object *obj);
+extern void         emotion_object_last_position_load(Evas_Object *obj);
 
 /**
  * @brief Save the lastest position if possible
@@ -1233,7 +1233,7 @@ EMOTION_API void         emotion_object_last_position_load(Evas_Object *obj);
  *
  * @ingroup Emotion_Info
  */
-EMOTION_API void         emotion_object_last_position_save(Evas_Object *obj);
+extern void         emotion_object_last_position_save(Evas_Object *obj);
 
 /**
  * @brief Do we have a chance to play that file
@@ -1245,7 +1245,7 @@ EMOTION_API void         emotion_object_last_position_save(Evas_Object *obj);
  *
  * @see emotion_object_extension_may_play_get()
  */
-EMOTION_API Eina_Bool    emotion_object_extension_may_play_fast_get(const char *file);
+extern Eina_Bool    emotion_object_extension_may_play_fast_get(const char *file);
 
 /**
  * @brief Do we have a chance to play that file
@@ -1257,7 +1257,7 @@ EMOTION_API Eina_Bool    emotion_object_extension_may_play_fast_get(const char *
  *
  * @see emotion_object_extension_may_play_fast_get()
  */
-EMOTION_API Eina_Bool    emotion_object_extension_may_play_get(const char *file);
+extern Eina_Bool    emotion_object_extension_may_play_get(const char *file);
 
 /**
  * @brief Get the actual image object that contains the pixels of the video stream
@@ -1268,7 +1268,7 @@ EMOTION_API Eina_Bool    emotion_object_extension_may_play_get(const char *file)
  *
  * @see emotion_object_image_get()
  */
-EMOTION_API Evas_Object *emotion_object_image_get(const Evas_Object *obj);
+extern Evas_Object *emotion_object_image_get(const Evas_Object *obj);
 
 /**
  * @defgroup Emotion_Webcam API available for accessing webcam
@@ -1277,9 +1277,9 @@ EMOTION_API Evas_Object *emotion_object_image_get(const Evas_Object *obj);
 
 typedef struct _Emotion_Webcam Emotion_Webcam; /**< Webcam description */
 
-EMOTION_API extern int EMOTION_WEBCAM_UPDATE; /**< Ecore_Event triggered when a new webcam is plugged or unplugged */
-EMOTION_API extern int EMOTION_WEBCAM_ADD; /**< Ecore_Event triggered when a new webcam is plugged in @since 1.8*/
-EMOTION_API extern int EMOTION_WEBCAM_DEL; /**< Ecore_Event triggered when a webcam is unplugged @since 1.8 */
+extern int EMOTION_WEBCAM_UPDATE; /**< Ecore_Event triggered when a new webcam is plugged or unplugged */
+extern int EMOTION_WEBCAM_ADD; /**< Ecore_Event triggered when a new webcam is plugged in @since 1.8*/
+extern int EMOTION_WEBCAM_DEL; /**< Ecore_Event triggered when a webcam is unplugged @since 1.8 */
 
 /**
  * @brief Get a list of active and available webcam
@@ -1291,7 +1291,7 @@ EMOTION_API extern int EMOTION_WEBCAM_DEL; /**< Ecore_Event triggered when a web
  *
  * @ingroup Emotion_Webcam
  */
-EMOTION_API const Eina_List *emotion_webcams_get(void);
+extern const Eina_List *emotion_webcams_get(void);
 
 /**
  * @brief Get the human understandable name of a Webcam
@@ -1301,7 +1301,7 @@ EMOTION_API const Eina_List *emotion_webcams_get(void);
  *
  * @ingroup Emotion_Webcam
  */
-EMOTION_API const char      *emotion_webcam_name_get(const Emotion_Webcam *ew);
+extern const char      *emotion_webcam_name_get(const Emotion_Webcam *ew);
 
 /**
  * @brief Get the uri of a Webcam that will be understood by emotion
@@ -1311,7 +1311,7 @@ EMOTION_API const char      *emotion_webcam_name_get(const Emotion_Webcam *ew);
  *
  * @ingroup Emotion_Webcam
  */
-EMOTION_API const char      *emotion_webcam_device_get(const Emotion_Webcam *ew);
+extern const char      *emotion_webcam_device_get(const Emotion_Webcam *ew);
 
 /**
  * @brief Get the album artwork from file meta data tags.
@@ -1325,7 +1325,7 @@ EMOTION_API const char      *emotion_webcam_device_get(const Emotion_Webcam *ew)
  * @since 1.19
  */
 
-EMOTION_API Evas_Object     *emotion_file_meta_artwork_get(const Evas_Object *obj, const char *path, Emotion_Artwork_Info type);
+extern Evas_Object     *emotion_file_meta_artwork_get(const Evas_Object *obj, const char *path, Emotion_Artwork_Info type);
 /**
  * @}
  */
