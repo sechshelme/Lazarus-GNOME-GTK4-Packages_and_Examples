@@ -25,7 +25,9 @@ const
   libedje = 'libedje';
   libeldbus = 'libeldbus';
   libefreet = 'libefreet';
-
+  libemotion = 'libemotion';
+  libeio = 'libeio';
+  libeeze = 'libeeze';
   {$ENDIF}
 
   {$IFDEF mswindows}
@@ -46,6 +48,9 @@ const
   libedje = 'libedje-1.dll';
   libeldbus = 'libeldbus-1.dll';
   libefreet = 'libefreet-1.dd';
+  libemotion = 'libemotion-1.dll';
+  libeio = 'libeio-1.dll';
+  libeeze = 'libeeze-1.dll';
   {$ENDIF}
 
   {$IFDEF darwin}
@@ -81,6 +86,10 @@ type
 
   // /usr/include/stdio.h
   Toff_t = longint;
+
+  // /usr/include/x86_64-linux-gnu/sys/types.h
+  Tmode_t = longint;
+
 
   // /usr/arm-linux-gnueabihf/include/bits/semaphore.h
   Tsem_t = record

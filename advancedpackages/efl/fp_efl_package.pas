@@ -10,7 +10,8 @@ interface
 uses
   fp_eina, efl, fp_eo, fp_efl, fp_emile, fp_evas, fp_ecore, fp_ecore_evas, 
   fp_edje, fp_ecore_file, fp_eet, fp_elementary, fp_ethumb, fp_ecore_con, 
-  fp_eldbus, fp_efreet, fp_ecore_ipc, LazarusPackageIntf;
+  fp_eldbus, fp_efreet, fp_ecore_ipc, fp_emotion, fp_eio, fp_eeze, 
+  LazarusPackageIntf;
 
 implementation
 

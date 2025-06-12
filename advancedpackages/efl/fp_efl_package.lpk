@@ -81,6 +81,18 @@
         <Filename Value="fp_ecore_ipc.pas"/>
         <UnitName Value="fp_ecore_ipc"/>
       </Item>
+      <Item>
+        <Filename Value="fp_emotion.pas"/>
+        <UnitName Value="fp_emotion"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_eio.pas"/>
+        <UnitName Value="fp_eio"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_eeze.pas"/>
+        <UnitName Value="fp_eeze"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

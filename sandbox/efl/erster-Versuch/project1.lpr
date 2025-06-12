@@ -28,15 +28,14 @@ uses
   fp_eldbus,
   fp_elementary,
   fp_efreet,
-
   fp_ecore_ipc,
+  fp_emotion,
+  fp_eio,
+  fp_eeze,
 
   // =======================================
 
 
-  efl_canvas_video_eo,
-  efl_canvas_video_eo_legacy,
-  Emotion,
 
 
   // =======================================
@@ -228,7 +227,15 @@ uses
     Result := 0;
   end;
 
+//function eina_lock_new(m: PEina_Lock): TEina_Bool; cdecl; external libeina;
+
+
 begin
+//  eina_lock_new(nil);
+  eeze_init;
+
+  eio_init;
+  emotion_init;
   efreet_init;
   ecore_con_init;
   eldbus_message_unref(nil);

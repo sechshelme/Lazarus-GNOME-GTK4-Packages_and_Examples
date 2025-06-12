@@ -10,20 +10,16 @@ uses
   {$ENDIF}
 
 {$DEFINE read_interface}
-
-{$include ecore-evas-1/Ecore_Evas_Types.inc}
-{$include ecore-evas-1/Ecore_Evas.inc}
-
+  {$include ecore-evas-1/Ecore_Evas_Types.inc}
+  {$include ecore-evas-1/Ecore_Evas.inc}
 {$UNDEF read_interface}
 
 
 implementation
 
 {$DEFINE read_implementation}
-
-{$include ecore-evas-1/Ecore_Evas_Types.inc}
-{$include ecore-evas-1/Ecore_Evas.inc}
-
+  {$include ecore-evas-1/Ecore_Evas_Types.inc}
+  {$include ecore-evas-1/Ecore_Evas.inc}
 {$UNDEF read_implementation}
 
 end.

@@ -160,6 +160,8 @@ const
     (libs: 'libeldbus'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
     (libs: 'libefreet'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
     (libs: 'libemotion'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
+    (libs: 'libeio'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
+    (libs: 'libeeze'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
 
     (libs: ''; units: ''));
 
