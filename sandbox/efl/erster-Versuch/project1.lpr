@@ -36,6 +36,8 @@ uses
   // =======================================
 
 
+  Eolian,
+  Eolian_Aux,
 
 
   // =======================================
@@ -232,6 +234,7 @@ uses
 
 begin
 //  eina_lock_new(nil);
+  eolian_init;
   eeze_init;
 
   eio_init;

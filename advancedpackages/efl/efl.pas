@@ -28,6 +28,7 @@ const
   libemotion = 'libemotion';
   libeio = 'libeio';
   libeeze = 'libeeze';
+  libeolian='libeolian';
   {$ENDIF}
 
   {$IFDEF mswindows}
@@ -51,6 +52,7 @@ const
   libemotion = 'libemotion-1.dll';
   libeio = 'libeio-1.dll';
   libeeze = 'libeeze-1.dll';
+  libeolian='libeolian-1.dll';
   {$ENDIF}
 
   {$IFDEF darwin}
