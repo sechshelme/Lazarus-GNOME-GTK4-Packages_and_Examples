@@ -93,6 +93,14 @@
         <Filename Value="fp_eeze.pas"/>
         <UnitName Value="fp_eeze"/>
       </Item>
+      <Item>
+        <Filename Value="fp_eolian.pas"/>
+        <UnitName Value="fp_eolian"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_ecore_audio.pas"/>
+        <UnitName Value="fp_ecore_audio"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

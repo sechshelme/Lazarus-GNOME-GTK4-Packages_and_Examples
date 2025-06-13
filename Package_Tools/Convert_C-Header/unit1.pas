@@ -140,22 +140,27 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(1, 2, 3)', '', [rfReplaceAll]);
 
 
-      slHeader[j] := StringReplace(slHeader[j], 'EINA_PURE', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'EINA_CONST', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'EINA_MALLOC', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'EINA_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'EINA_API', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'EO_API_WEAK', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'EO_API', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'EAPI_WEAK', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'EAPI', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'EWAPI', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'extern_WEAK', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'EFL_TRANSFER_OWNERSHIP', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'EINA_PURE', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'EINA_CONST', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'EINA_MALLOC', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'EINA_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'EINA_API', 'extern', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'EO_API_WEAK', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'EO_API', 'extern', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'EAPI_WEAK', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'EAPI', 'extern', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'EWAPI', 'extern', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'extern_WEAK', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'EFL_TRANSFER_OWNERSHIP', '', [rfReplaceAll]);
+      //
+      //slHeader[j] := StringReplace(slHeader[j], 'ECORE_CON_API', 'extern', [rfReplaceAll]);
+      //
+      //slHeader[j] := StringReplace(slHeader[j], 'extern  extern', 'extern', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'extern  extern', 'extern', [rfReplaceAll]);
 
-      slHeader[j] := StringReplace(slHeader[j], 'ECORE_CON_API', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'ECORE_AUDIO_API_WEAK', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'ECORE_AUDIO_API', 'extern', [rfReplaceAll]);
 
-      slHeader[j] := StringReplace(slHeader[j], 'extern  extern', 'extern', [rfReplaceAll]);
 
 
       slHeader[j] := StringReplace(slHeader[j], 'EINA_INLIST;', 'Eina_Inlist __in_list;', [rfReplaceAll]);

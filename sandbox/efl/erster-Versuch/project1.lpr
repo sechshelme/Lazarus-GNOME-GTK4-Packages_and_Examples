@@ -32,13 +32,22 @@ uses
   fp_emotion,
   fp_eio,
   fp_eeze,
+  fp_eolian,
+  fp_ecore_audio,
 
   // =======================================
 
 
-  Eolian,
-  Eolian_Aux,
-
+  //Ecore_Audio,                        // io.
+  //ecore_audio_eo,                     // io.
+  //ecore_audio_in_eo,                  // io. -> ecore_audio_eo
+  //ecore_audio_in_sndfile_eo,          // io.
+  //ecore_audio_in_tone_eo,             // io.
+  //ecore_audio_out_eo,                 // io. -> ecore_audio_in_eo
+  //ecore_audio_out_pulse_eo,           // io.
+  //ecore_audio_out_sndfile_eo,         // io.
+  //ecore_audio_out_wasapi_eo,          // io.
+  //ecore_audio_obj_in_tone,            // io.
 
   // =======================================
 

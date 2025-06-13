@@ -22,6 +22,7 @@ const
   libecore_eva = 'libecore_evas';
   libecore_con = 'libecore_con';
   libecore_ipc = 'libecore_ipc';
+  libecore_audio='libecore_audio';
   libedje = 'libedje';
   libeldbus = 'libeldbus';
   libefreet = 'libefreet';
@@ -46,6 +47,7 @@ const
   libecore_evas = 'libecore_evas-1.dll';
   libencore_con = 'libecore_con-1.dll';
   libecore_ipc = 'libecore_ipc-1.dll';
+  libecore_audio='libecore_audio-1.dll';
   libedje = 'libedje-1.dll';
   libeldbus = 'libeldbus-1.dll';
   libefreet = 'libefreet-1.dd';

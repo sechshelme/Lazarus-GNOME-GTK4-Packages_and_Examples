@@ -163,6 +163,7 @@ const
     (libs: 'libeio'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
     (libs: 'libeeze'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
     (libs: 'libeolian'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
+    (libs: 'libecore_audio'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
 
 
 
