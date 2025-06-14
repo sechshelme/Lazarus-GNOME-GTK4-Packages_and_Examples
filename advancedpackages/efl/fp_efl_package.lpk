@@ -105,6 +105,18 @@
         <Filename Value="fp_ecore_x.pas"/>
         <UnitName Value="fp_ecore_x"/>
       </Item>
+      <Item>
+        <Filename Value="fp_efl_canvas_wl.pas"/>
+        <UnitName Value="fp_efl_canvas_wl"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_ecore_drm2.pas"/>
+        <UnitName Value="fp_ecore_drm2"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_ecore_fb.pas"/>
+        <UnitName Value="fp_ecore_fb"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

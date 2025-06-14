@@ -35,12 +35,9 @@ uses
   fp_eolian,
   fp_ecore_audio,
   fp_ecore_x,
-
-  // =======================================
-
-  //Ecore_X,
-  //Ecore_X_Atoms,
-  //Ecore_X_Cursor,
+  fp_efl_canvas_wl,
+  fp_ecore_drm2,
+  fp_ecore_fb,
 
   // =======================================
 
@@ -236,7 +233,9 @@ uses
 
 begin
 //  eina_lock_new(nil);
+  ecore_drm2_init;
   ecore_x_init(nil);
+  ecore_fb_init(nil);
   eolian_init;
   eeze_init;
 

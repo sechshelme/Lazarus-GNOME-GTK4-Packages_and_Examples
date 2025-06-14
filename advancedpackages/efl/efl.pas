@@ -14,6 +14,7 @@ const
   libeina = 'libeina';
   libeo = 'libeo';
   libefl = 'libefl';
+  libefl_canvas_wl='libefl_canvas_wl';
   libeet = 'libeet';
   libemile = 'libemile';
   libethumb = 'libethumb';
@@ -24,6 +25,8 @@ const
   libecore_ipc = 'libecore_ipc';
   libecore_audio='libecore_audio';
   libecore_x='libecore_x';
+  libecore_drm2='libecore_drm2';
+  libecore_fb='libecore_fb';
   libedje = 'libedje';
   libeldbus = 'libeldbus';
   libefreet = 'libefreet';
@@ -40,6 +43,7 @@ const
   libeina = 'libeina-1.dll';
   libeo = 'libeo-1.dll';
   libefl = 'libefl-1.dll';
+  libefl_canvas_wl='libefl_canvas_wl-1.dll';
   libeet = 'libeet-1.dll';
   libemile = 'libemile-1.dll';
   libethumb = 'libethumb-1.dll';
@@ -50,6 +54,8 @@ const
   libecore_ipc = 'libecore_ipc-1.dll';
   libecore_audio='libecore_audio-1.dll';
   libecore_x='libecore_x-1.dll';
+  libecore_drm2='libecore_drm2-1.dll';
+  libecore_fb='libecore_fb-1.dll';
   libedje = 'libedje-1.dll';
   libeldbus = 'libeldbus-1.dll';
   libefreet = 'libefreet-1.dd';

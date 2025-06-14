@@ -163,8 +163,10 @@ const
     (libs: 'libeeze'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
     (libs: 'libeolian'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
     (libs: 'libecore_audio'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
-
     (libs: 'libecore_x'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
+    (libs: 'libefl_canvas_wl'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
+    (libs: 'libecore_drm2'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
+    (libs: 'libecore_fb'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
 
 
     (libs: ''; units: ''));
