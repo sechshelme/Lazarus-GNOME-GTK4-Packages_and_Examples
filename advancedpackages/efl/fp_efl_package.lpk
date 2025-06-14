@@ -101,6 +101,10 @@
         <Filename Value="fp_ecore_audio.pas"/>
         <UnitName Value="fp_ecore_audio"/>
       </Item>
+      <Item>
+        <Filename Value="fp_ecore_x.pas"/>
+        <UnitName Value="fp_ecore_x"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

@@ -204,6 +204,18 @@
         <Filename Value="../../../Package_Tools/pas_units/efl/ecore-audio-1/ecore_audio_out_wasapi_eo.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
+      <Unit>
+        <Filename Value="../../../Package_Tools/pas_units/efl/ecore-x-1/Ecore_X.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../Package_Tools/pas_units/efl/ecore-x-1/Ecore_X_Atoms.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="../../../Package_Tools/pas_units/efl/ecore-x-1/Ecore_X_Cursor.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -213,7 +225,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="../../../Package_Tools/pas_units/efl/eina_x;../../../Package_Tools/pas_units/efl/eolian-1;../../../Package_Tools/pas_units/efl/ecore-audio-1"/>
+      <OtherUnitFiles Value="../../../Package_Tools/pas_units/efl/eina_x;../../../Package_Tools/pas_units/efl/eolian-1;../../../Package_Tools/pas_units/efl/ecore-audio-1;../../../Package_Tools/pas_units/efl/ecore-x-1"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

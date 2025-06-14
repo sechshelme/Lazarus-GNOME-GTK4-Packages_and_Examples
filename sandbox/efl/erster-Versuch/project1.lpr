@@ -34,20 +34,13 @@ uses
   fp_eeze,
   fp_eolian,
   fp_ecore_audio,
+  fp_ecore_x,
 
   // =======================================
 
-
-  //Ecore_Audio,                        // io.
-  //ecore_audio_eo,                     // io.
-  //ecore_audio_in_eo,                  // io. -> ecore_audio_eo
-  //ecore_audio_in_sndfile_eo,          // io.
-  //ecore_audio_in_tone_eo,             // io.
-  //ecore_audio_out_eo,                 // io. -> ecore_audio_in_eo
-  //ecore_audio_out_pulse_eo,           // io.
-  //ecore_audio_out_sndfile_eo,         // io.
-  //ecore_audio_out_wasapi_eo,          // io.
-  //ecore_audio_obj_in_tone,            // io.
+  //Ecore_X,
+  //Ecore_X_Atoms,
+  //Ecore_X_Cursor,
 
   // =======================================
 
@@ -243,6 +236,7 @@ uses
 
 begin
 //  eina_lock_new(nil);
+  ecore_x_init(nil);
   eolian_init;
   eeze_init;
 

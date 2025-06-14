@@ -23,6 +23,7 @@ const
   libecore_con = 'libecore_con';
   libecore_ipc = 'libecore_ipc';
   libecore_audio='libecore_audio';
+  libecore_x='libecore_x';
   libedje = 'libedje';
   libeldbus = 'libeldbus';
   libefreet = 'libefreet';
@@ -48,6 +49,7 @@ const
   libencore_con = 'libecore_con-1.dll';
   libecore_ipc = 'libecore_ipc-1.dll';
   libecore_audio='libecore_audio-1.dll';
+  libecore_x='libecore_x-1.dll';
   libedje = 'libedje-1.dll';
   libeldbus = 'libeldbus-1.dll';
   libefreet = 'libefreet-1.dd';
@@ -67,7 +69,23 @@ const
   // === System
 
 type
+  PPdword=^PDWord;
+
+  {$ifdef unix}
+  Tva_list_struct = record
+    gp_offset: uint32;
+    fp_offset: uint32;
+    overflow_arg_area: Pointer;
+    reg_save_area: Pointer;
+  end;
+  Tva_list = ^Tva_list_struct;
+  {$endif}
+  {$ifdef windows}
   Tva_list = Pointer;
+  {$endif}
+  Pva_list = ^Tva_list;
+
+type
   Ttime_t = uint64;
   Ptime_t = ^Ttime_t;
 

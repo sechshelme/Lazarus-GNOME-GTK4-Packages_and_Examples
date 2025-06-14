@@ -17,7 +17,7 @@ const
   {$ENDIF}
 
   {$IFDEF mswindows}
-  librtlsdr = 'librtlsdr.dll'; // ???
+  librtlsdr = 'librtlsdr.dll';
   {$ENDIF}
 
 type

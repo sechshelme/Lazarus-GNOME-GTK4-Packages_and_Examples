@@ -5,11 +5,11 @@ unit Streamer;
 interface
 
 uses
-  Classes, SysUtils, glib2, gst;
+  Classes, SysUtils, fp_glib2, fp_gst;
 
 type
   TLevel = record
-    L, R: gdouble;
+    L, R: Tgdouble;
   end;
 
   TStreamerLevel = procedure(level: TLevel) of object;
@@ -29,8 +29,8 @@ type
       end;
     function GetDuration: TGstClockTime;
     procedure SetOnLevelChange(AValue: TStreamerLevel);
-    procedure SetVolume(vol: gdouble);
-    function GetVolume: gdouble;
+    procedure SetVolume(vol: Tgdouble);
+    function GetVolume: Tgdouble;
     procedure SetPosition(AValue: TGstClockTime);
     function GetPosition: TGstClockTime;
   public
@@ -39,15 +39,15 @@ type
     procedure Play;
     procedure Pause;
     procedure Stop;
-    procedure SetEqualizer0(vol: gdouble);
-    procedure SetEqualizer1(vol: gdouble);
-    procedure SetEqualizer2(vol: gdouble);
+    procedure SetEqualizer0(vol: Tgdouble);
+    procedure SetEqualizer1(vol: Tgdouble);
+    procedure SetEqualizer2(vol: Tgdouble);
     procedure SetMute(mute: boolean);
     procedure printInfo;
     function getState: string;
     property Position: TGstClockTime read GetPosition write SetPosition;
     property Duration: TGstClockTime read GetDuration;
-    property Volume: gdouble read GetVolume write SetVolume;
+    property Volume: Tgdouble read GetVolume write SetVolume;
     function isPlayed: boolean;
     function isEnd: boolean;
     property OnLevelChange: TStreamerLevel read FOnLevelChange write SetOnLevelChange;
@@ -79,7 +79,7 @@ libgstaudio = 'gstaudio-1.0-0.dll';
 {$endif}
 
 
-function gst_stream_volume_get_type(): GType; cdecl; external libgstaudio;
+function gst_stream_volume_get_type(): TGType; cdecl; external libgstaudio;
 
 function gst_discoverer_new(timeout: TGstClockTime; err: PPGError): Pointer; cdecl; external libgstpbutils;
 function gst_discoverer_discover_uri(discoverer: Pointer; uri: Pgchar; err: PPGError): Pointer; cdecl; external libgstpbutils;
@@ -189,7 +189,7 @@ var
   endtime: TGstClockTime;
   array_val: PGValue;
   rms_arr: PGValueArray;
-  channels: guint;
+  channels: Tguint;
   Value: PGValue;
 begin
   if msg^._type = GST_MESSAGE_ELEMENT then begin
@@ -312,39 +312,39 @@ begin
   Result := pipelineElement.Duration div G_USEC_PER_SEC;
 end;
 
-function TStreamer.GetVolume: gdouble;
+function TStreamer.GetVolume: Tgdouble;
 begin
   g_object_get(pipelineElement.volume, 'volume', @Result, nil);
 end;
 
-procedure TStreamer.SetVolume(vol: gdouble);
+procedure TStreamer.SetVolume(vol: Tgdouble);
 begin
   g_object_set(pipelineElement.volume, 'volume', vol, nil);
 end;
 
-procedure TStreamer.SetEqualizer0(vol: gdouble);
+procedure TStreamer.SetEqualizer0(vol: Tgdouble);
 begin
   g_object_set(pipelineElement.equalizer, 'band0', vol, nil);
 end;
 
-procedure TStreamer.SetEqualizer1(vol: gdouble);
+procedure TStreamer.SetEqualizer1(vol: Tgdouble);
 begin
   g_object_set(pipelineElement.equalizer, 'band1', vol, nil);
 end;
 
-procedure TStreamer.SetEqualizer2(vol: gdouble);
+procedure TStreamer.SetEqualizer2(vol: Tgdouble);
 begin
   g_object_set(pipelineElement.equalizer, 'band2', vol, nil);
 end;
 
 procedure TStreamer.SetMute(mute: boolean);
 begin
-  g_object_set(pipelineElement.volume, 'mute', gboolean(mute), nil);
+  g_object_set(pipelineElement.volume, 'mute', Tgboolean(mute), nil);
 end;
 
 procedure TStreamer.printInfo;
 var
-  n_audio, n_text: gint;
+  n_audio, n_text: Tgint;
 begin
   g_object_get(pipelineElement.pipeline, 'n-audio', @n_audio, nil);
   WriteLn('n-audio: ', n_audio);
