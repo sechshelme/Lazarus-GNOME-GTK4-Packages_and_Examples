@@ -1,5 +1,5 @@
 ```mermaid
-flowchart LR
+flowchart RL
     fp_eo --> fp_eina
     fp_eldbus --> fp_eina
     fp_eldbus --> fp_eo
