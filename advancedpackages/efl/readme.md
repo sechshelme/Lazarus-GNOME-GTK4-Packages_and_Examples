@@ -1,0 +1,153 @@
+```
+flowchart TD
+    fp_eo --> efl
+    fp_eo --> fp_eina
+    fp_eldbus --> efl
+    fp_eldbus --> fp_eina
+    fp_eldbus --> fp_eo
+    fp_ecore_drm2 --> efl
+    fp_ecore_drm2 --> fp_eina
+    fp_efl_package --> fp_eina
+    fp_efl_package --> efl
+    fp_efl_package --> fp_eo
+    fp_efl_package --> fp_efl
+    fp_efl_package --> fp_emile
+    fp_efl_package --> fp_evas
+    fp_efl_package --> fp_ecore
+    fp_efl_package --> fp_ecore_evas
+    fp_efl_package --> fp_edje
+    fp_efl_package --> fp_ecore_file
+    fp_efl_package --> fp_eet
+    fp_efl_package --> fp_elementary
+    fp_efl_package --> fp_ethumb
+    fp_efl_package --> fp_ecore_con
+    fp_efl_package --> fp_eldbus
+    fp_efl_package --> fp_efreet
+    fp_efl_package --> fp_ecore_ipc
+    fp_efl_package --> fp_emotion
+    fp_efl_package --> fp_eio
+    fp_efl_package --> fp_eeze
+    fp_efl_package --> fp_eolian
+    fp_efl_package --> fp_ecore_audio
+    fp_efl_package --> fp_ecore_x
+    fp_efl_package --> fp_efl_canvas_wl
+    fp_efl_package --> fp_ecore_drm2
+    fp_efl_package --> fp_ecore_fb
+    fp_efl_package --> fp_ecore_imf
+    fp_efl_package --> fp_ecore_imf_evas
+    fp_efl_package --> fp_ecore_input
+    fp_efl_package --> fp_ecore_input_evas
+    fp_efl_package --> fp_ecore_wl2
+    fp_efl_package --> fp_elput
+    fp_efl_package --> fp_embryo
+    fp_efl_package --> fp_ethumb_client
+    fp_efl_package --> LazarusPackageIntf
+    fp_ethumb_client --> efl
+    fp_ethumb_client --> fp_eina
+    fp_ethumb_client --> fp_ethumb
+    fp_ecore_wl2 --> efl
+    fp_ecore_wl2 --> fp_eo
+    fp_ecore_wl2 --> fp_eina
+    fp_eina --> efl
+    fp_ecore_x --> efl
+    fp_ecore_x --> fp_eina
+    fp_ecore_input_evas --> efl
+    fp_ecore_input_evas --> fp_eina
+    fp_ecore_input_evas --> fp_evas
+    fp_ecore_input_evas --> fp_ecore_evas
+    fp_efl --> efl
+    fp_efl --> fp_eo
+    fp_efl --> fp_eina
+    fp_ecore_fb --> efl
+    fp_ecore_fb --> fp_eina
+    fp_efreet --> efl
+    fp_efreet --> fp_eina
+    fp_evas --> efl
+    fp_evas --> fp_eo
+    fp_evas --> fp_eina
+    fp_evas --> fp_efl
+    fp_evas --> fp_emile
+    fp_eio --> efl
+    fp_eio --> fp_eina
+    fp_eio --> fp_eo
+    fp_eio --> fp_eet
+    fp_ecore_evas --> efl
+    fp_ecore_evas --> fp_eina
+    fp_ecore_evas --> fp_eo
+    fp_ecore_evas --> fp_evas
+    fp_eet --> efl
+    fp_eet --> fp_eina
+    fp_eet --> fp_emile
+    fp_ecore_ipc --> efl
+    fp_ecore_ipc --> fp_eina
+    fp_emile --> efl
+    fp_emile --> fp_eina
+    fp_ecore_file --> efl
+    fp_ecore_file --> fp_eina
+    fp_ecore_input --> efl
+    fp_ecore_input --> fp_eo
+    fp_ecore_input --> fp_eina
+    fp_ecore_imf --> efl
+    fp_ecore_imf --> fp_eina
+    fp_emotion --> efl
+    fp_emotion --> fp_eina
+    fp_emotion --> fp_evas
+    fp_emotion --> fp_eo
+    fp_eolian --> efl
+    fp_eolian --> fp_eina
+    fp_ecore_con --> efl
+    fp_ecore_con --> fp_eo
+    fp_ecore_con --> fp_eina
+    fp_efl_canvas_wl --> efl
+    fp_efl_canvas_wl --> fp_eina
+    fp_efl_canvas_wl --> fp_eo
+    fp_efl_canvas_wl --> fp_evas
+    fp_efl_canvas_wl --> fp_ecore
+    fp_ethumb --> efl
+    fp_ethumb --> fp_eina
+    fp_elementary --> efl
+    fp_elementary --> fp_eina
+    fp_elementary --> fp_eo
+    fp_elementary --> fp_efl
+    fp_elementary --> fp_evas
+    fp_elementary --> fp_ecore
+    fp_elementary --> fp_ecore_evas
+    fp_elementary --> fp_ethumb
+    fp_elementary --> fp_edje
+    fp_elementary --> fp_ecore_file
+    fp_elementary --> fp_eet
+    fp_edje --> efl
+    fp_edje --> fp_eo
+    fp_edje --> fp_eina
+    fp_edje --> fp_evas
+    fp_eeze --> efl
+    fp_eeze --> fp_eina
+    fp_eeze --> fp_ecore
+    fp_ecore_imf_evas --> efl
+    fp_ecore_imf_evas --> fp_evas
+    fp_ecore_imf_evas --> fp_ecore_imf
+    fp_elput --> efl
+    fp_elput --> fp_eina
+    fp_ecore_audio --> efl
+    fp_ecore_audio --> fp_eina
+    fp_ecore_audio --> fp_eo
+    fp_ecore --> efl
+    fp_ecore --> fp_eo
+    fp_ecore --> fp_eina
+    fp_ecore --> fp_efl
+    fp_embryo --> efl
+    fp_embryo --> fp_eina
+```
+```
+
+**So geht’s:**
+- Diesen Block einfach in deine `README.md` kopieren.
+- GitHub & Co. zeigen daraus automatisch ein interaktives Diagramm an[1][4].
+
+**Tipp:**  
+Wenn das Diagramm zu groß ist, kannst du einzelne Abhängigkeitsgruppen herausnehmen oder das Layout z.B. mit `flowchart LR` (links nach rechts) statt `TD` (oben nach unten) variieren[3][7][8].
+
+**Weitere Infos:**  
+- [GitHub-Doku zu Mermaid in Markdown](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams)[1]
+- [Mer
+
