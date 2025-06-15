@@ -174,11 +174,32 @@ uses
   var
     i: integer;
     value: TEina_Value;
+
+    val: array of integer;
+    len: cardinal;
+    v: integer;
   begin
     if not eina_value_array_setup(@value, EINA_VALUE_TYPE_INT, SizeOf(integer)) then begin
       printf('Array Fehler'#10);
     end;
-    //    for i:=0 to 7 do eina_value_array_append(@value, Pointer(i));
+
+    SetLength(val, 8);
+    for i := 0 to Length(val) - 1 do begin
+      val[i] := i * 111;
+      eina_value_array_pappend(@value, @val[i]);
+    end;
+
+    len := eina_value_array_count(@value);
+    printf('Array Count: %d'#10, len);
+
+    for i := 0 to len - 1 do begin
+      eina_value_array_get(@value, i, @v);
+      printf('  %d. %d'#10, i, v);
+    end;
+
+
+
+    //        eina_value_array_append(@value, Pointer(i));
   end;
 
   function main(argc: integer; argv: PPChar): integer;
@@ -239,7 +260,7 @@ uses
   end;
 
 begin
-//  eina_lock_new(nil);
+  //  eina_lock_new(nil);
   ethumb_client_init;
   embryo_init;
   elput_init;

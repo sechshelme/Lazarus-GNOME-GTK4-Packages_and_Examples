@@ -1,9 +1,5 @@
 {$IFDEF read_interface}
 
-// Doppelt im C-Header
-//const
-//  EINA_ARRAY_VERSION = 1;
-
 type
   TEina_Inarray = record
     version: longint;
