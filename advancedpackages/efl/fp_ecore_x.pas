@@ -3,7 +3,7 @@ unit fp_ecore_x;
 interface
 
 uses
-  efl, fp_eina, fp_ecore;
+  efl, fp_eina;
 
 
   {$IFDEF FPC}

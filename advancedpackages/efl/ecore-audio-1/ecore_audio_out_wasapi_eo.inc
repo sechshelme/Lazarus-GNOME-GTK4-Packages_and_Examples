@@ -30,6 +30,8 @@ function ECORE_AUDIO_OUT_WASAPI_EVENT_STOP: PEfl_Event_Description;
 
 
 {$ifdef EFL_BETA_API_SUPPORT}
+// Nicht in der clib vorhanden !
+
 function ECORE_AUDIO_OUT_WASAPI_CLASS: PEfl_Class;
 begin
 //  ECORE_AUDIO_OUT_WASAPI_CLASS := ecore_audio_out_wasapi_class_get;

@@ -4,8 +4,7 @@ interface
 
 uses
   efl,
-  fp_eina,
-  fp_eo;
+  fp_eina;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

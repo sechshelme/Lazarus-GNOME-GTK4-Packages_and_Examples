@@ -117,6 +117,38 @@
         <Filename Value="fp_ecore_fb.pas"/>
         <UnitName Value="fp_ecore_fb"/>
       </Item>
+      <Item>
+        <Filename Value="fp_ecore_imf.pas"/>
+        <UnitName Value="fp_ecore_imf"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_ecore_imf_evas.pas"/>
+        <UnitName Value="fp_ecore_imf_evas"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_ecore_input.pas"/>
+        <UnitName Value="fp_ecore_input"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_ecore_input_evas.pas"/>
+        <UnitName Value="fp_ecore_input_evas"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_ecore_wl2.pas"/>
+        <UnitName Value="fp_ecore_wl2"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_elput.pas"/>
+        <UnitName Value="fp_elput"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_embryo.pas"/>
+        <UnitName Value="fp_embryo"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_ethumb_client.pas"/>
+        <UnitName Value="fp_ethumb_client"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

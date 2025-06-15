@@ -168,6 +168,16 @@ const
     (libs: 'libecore_drm2'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
     (libs: 'libecore_fb'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
 
+    (libs: 'libecore_imf'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
+    (libs: 'libecore_imf_evas'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
+    (libs: 'libecore_input'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
+    (libs: 'libecore_input_evas'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
+    (libs: 'libecore_ipc'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
+    (libs: 'libecore_wl2'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
+    (libs: 'libelput'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
+    (libs: 'libembryo'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
+    (libs: 'libethumb_client'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
+
 
     (libs: ''; units: ''));
 

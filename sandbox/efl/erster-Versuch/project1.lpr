@@ -39,6 +39,16 @@ uses
   fp_ecore_drm2,
   fp_ecore_fb,
 
+  fp_ecore_imf,
+  fp_ecore_imf_evas,
+  fp_ecore_input,
+  fp_ecore_input_evas,
+  fp_ecore_wl2,
+  fp_elput,
+  fp_embryo,
+  fp_ethumb_client,
+
+
   // =======================================
 
 
@@ -162,13 +172,13 @@ uses
 
   procedure ValueArrayTest;
   var
-    i: Integer;
+    i: integer;
     value: TEina_Value;
   begin
     if not eina_value_array_setup(@value, EINA_VALUE_TYPE_INT, SizeOf(integer)) then begin
       printf('Array Fehler'#10);
     end;
-//    for i:=0 to 7 do eina_value_array_append(@value, Pointer(i));
+    //    for i:=0 to 7 do eina_value_array_append(@value, Pointer(i));
   end;
 
   function main(argc: integer; argv: PPChar): integer;
@@ -228,11 +238,17 @@ uses
     Result := 0;
   end;
 
-//function eina_lock_new(m: PEina_Lock): TEina_Bool; cdecl; external libeina;
-
-
 begin
 //  eina_lock_new(nil);
+  ethumb_client_init;
+  embryo_init;
+  elput_init;
+  ecore_wl2_init;
+  ecore_event_evas_init;
+  ecore_event_init;
+  ecore_imf_evas_event_mouse_in_wrap(nil, nil);
+  ecore_imf_init;
+
   ecore_drm2_init;
   ecore_x_init(nil);
   ecore_fb_init(nil);

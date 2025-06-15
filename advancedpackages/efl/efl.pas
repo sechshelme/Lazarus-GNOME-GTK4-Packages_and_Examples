@@ -14,7 +14,7 @@ const
   libeina = 'libeina';
   libeo = 'libeo';
   libefl = 'libefl';
-  libefl_canvas_wl='libefl_canvas_wl';
+  libefl_canvas_wl = 'libefl_canvas_wl';
   libeet = 'libeet';
   libemile = 'libemile';
   libethumb = 'libethumb';
@@ -23,17 +23,25 @@ const
   libecore_eva = 'libecore_evas';
   libecore_con = 'libecore_con';
   libecore_ipc = 'libecore_ipc';
-  libecore_audio='libecore_audio';
-  libecore_x='libecore_x';
-  libecore_drm2='libecore_drm2';
-  libecore_fb='libecore_fb';
+  libecore_audio = 'libecore_audio';
+  libecore_x = 'libecore_x';
+  libecore_drm2 = 'libecore_drm2';
+  libecore_fb = 'libecore_fb';
   libedje = 'libedje';
   libeldbus = 'libeldbus';
   libefreet = 'libefreet';
   libemotion = 'libemotion';
   libeio = 'libeio';
   libeeze = 'libeeze';
-  libeolian='libeolian';
+  libeolian = 'libeolian';
+  libecore_imf = 'libecore_imf';
+  libecore_imf_evas = 'libecore_imf_evas';
+  libecore_input = 'libecore_input';
+  libecore_input_evas = 'libecore_input_evas';
+  libecore_wl2 = 'libecore_wl2';
+  libelput = 'libelput';
+  libembryo = 'libembryo';
+  libethumb_client = 'libethumb_client';
   {$ENDIF}
 
   {$IFDEF mswindows}
@@ -43,7 +51,7 @@ const
   libeina = 'libeina-1.dll';
   libeo = 'libeo-1.dll';
   libefl = 'libefl-1.dll';
-  libefl_canvas_wl='libefl_canvas_wl-1.dll';
+  libefl_canvas_wl = 'libefl_canvas_wl-1.dll';
   libeet = 'libeet-1.dll';
   libemile = 'libemile-1.dll';
   libethumb = 'libethumb-1.dll';
@@ -52,17 +60,25 @@ const
   libecore_evas = 'libecore_evas-1.dll';
   libencore_con = 'libecore_con-1.dll';
   libecore_ipc = 'libecore_ipc-1.dll';
-  libecore_audio='libecore_audio-1.dll';
-  libecore_x='libecore_x-1.dll';
-  libecore_drm2='libecore_drm2-1.dll';
-  libecore_fb='libecore_fb-1.dll';
+  libecore_audio = 'libecore_audio-1.dll';
+  libecore_x = 'libecore_x-1.dll';
+  libecore_drm2 = 'libecore_drm2-1.dll';
+  libecore_fb = 'libecore_fb-1.dll';
   libedje = 'libedje-1.dll';
   libeldbus = 'libeldbus-1.dll';
   libefreet = 'libefreet-1.dd';
   libemotion = 'libemotion-1.dll';
   libeio = 'libeio-1.dll';
   libeeze = 'libeeze-1.dll';
-  libeolian='libeolian-1.dll';
+  libeolian = 'libeolian-1.dll';
+  libecore_imf = 'libecore_imf-1.dll';
+  libecore_imf_evas = 'libecore_imf_evas-1.dll';
+  libecore_input = 'libecore_input-1.dll';
+  libecore_input_evas = 'libecore_input_evas-1.dll';
+  libecore_wl2 = 'libecore_wl2-1.dll';
+  libelput = 'libelput-1.dll';
+  libembryo = 'libembryo-1.dll';
+  libethumb_client = 'libethumb_client-1.dll';
   {$ENDIF}
 
   {$IFDEF darwin}
@@ -75,7 +91,7 @@ const
   // === System
 
 type
-  PPdword=^PDWord;
+  PPdword = ^PDWord;
 
   {$ifdef unix}
   Tva_list_struct = record
@@ -341,6 +357,20 @@ type
   // /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
 type
   pthread_key_t = uint32;
+
+  // Wayland
+type
+  Pwl_client = Pointer;
+  Pwl_resource = Pointer;
+  Pwl_display=Pointer;
+  Pwl_shm=Pointer;
+  Pwl_registry=Pointer;
+  Pwl_surface=Pointer;
+  Pwl_compositor=Pointer;
+  Pwl_seat=Pointer;
+
+  // xkb
+  Pxkb_keymap=Pointer;
 
 
 function errno: integer;

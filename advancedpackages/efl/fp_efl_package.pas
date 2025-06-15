@@ -12,7 +12,8 @@ uses
   fp_edje, fp_ecore_file, fp_eet, fp_elementary, fp_ethumb, fp_ecore_con, 
   fp_eldbus, fp_efreet, fp_ecore_ipc, fp_emotion, fp_eio, fp_eeze, fp_eolian, 
   fp_ecore_audio, fp_ecore_x, fp_efl_canvas_wl, fp_ecore_drm2, fp_ecore_fb, 
-  LazarusPackageIntf;
+  fp_ecore_imf, fp_ecore_imf_evas, fp_ecore_input, fp_ecore_input_evas, 
+  fp_ecore_wl2, fp_elput, fp_embryo, fp_ethumb_client, LazarusPackageIntf;
 
 implementation
 
