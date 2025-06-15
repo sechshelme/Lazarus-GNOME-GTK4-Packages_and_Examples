@@ -898,6 +898,8 @@ begin
     Exit(EINA_FALSE);
   end;
 
+
+
   if not eina_value_type_vset(desc.subtype, mem, args) then begin
     eina_value_type_flush(desc.subtype, mem);
     eina_inarray_remove_at(desc.arr, position);

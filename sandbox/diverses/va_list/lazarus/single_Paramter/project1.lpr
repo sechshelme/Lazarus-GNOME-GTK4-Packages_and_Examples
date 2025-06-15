@@ -11,7 +11,6 @@ const
 
 type
   Tsize_t = SizeInt;
-  Psize_t = ^Tsize_t;
 
 type
   {$ifdef unix}
@@ -40,8 +39,13 @@ type
   function printf(format: pchar): integer; varargs; cdecl; external libclib;
 
 
-  function InitVa(p: Pointer): Tva_list;
+  function NewValueList(ptr: Pointer): Tva_list;
+  var
+    p: PPointer;
   begin
+    p := malloc(16); // Ein Float kann 16 Byte im overflow_arg_area beanspruchen.
+    p^ := ptr;
+
     {$ifdef unix}
     Result := malloc(SizeOf(Tva_list^));
     Result^.gp_offset := $0;
@@ -54,24 +58,26 @@ type
     {$endif}
   end;
 
-  function FloatToVa(f: double): Tva_list;
+  function NewValueList(d: double): Tva_list;
   var
-    ia: PDouble;
+    p: Pointer absolute d;
   begin
-    ia := malloc(SizeOf(double));
-    ia^ := f;
-
-    Result := InitVa(ia);
+    Result := NewValueList(p);
   end;
 
-  function IntToVa(i: PtrUInt): Tva_list;
+  function NewValueList(i: PtrUInt): Tva_list;
   var
-    ia: PPtrUInt;
+    p: Pointer absolute i;
   begin
-    ia := malloc(SizeOf(PtrUInt));
-    ia^ := i;
+    Result := NewValueList(p);
+  end;
 
-    Result := InitVa(ia);
+  procedure Free_ValueList(list: Tva_list);
+  begin
+    {$ifdef unix}
+    free(list^.reg_save_area);
+    {$endif}
+    free(list);
   end;
 
 
@@ -79,35 +85,31 @@ type
   var
     list: Tva_list;
   begin
-    list := IntToVa(1234);
-
-    vprintf('Int  : %ld', list);
-
-    {$ifdef unix}
-    free(list^.reg_save_area);
-    {$endif}
-    free(list);
-
-    printf(#10#10);
+    list := NewValueList(1234);
+    vprintf('Int  : %ld'#10#10, list);
+    Free_ValueList(list);
   end;
 
   procedure main_Float;
   var
     list: Tva_list;
   begin
-    list := FloatToVa(11.11);
+    list := NewValueList(11.11);
+    vprintf('Float: %f'#10#10, list);
+    Free_ValueList(list);
+  end;
 
-    vprintf('Float: %f', list);
-
-    {$ifdef unix}
-    free(list^.reg_save_area);
-    {$endif}
-    free(list);
-
-    printf(#10#10);
+  procedure main_Pointer;
+  var
+    list: Tva_list;
+  begin
+    list := NewValueList(Pointer(3333));
+    vprintf('Pointer: %ld'#10#10, list);
+    Free_ValueList(list);
   end;
 
 begin
   main_Integer;
   main_Float;
+  main_Pointer;
 end.
