@@ -1,4 +1,4 @@
-```
+```mermaid
 flowchart TD
     fp_eo --> efl
     fp_eo --> fp_eina
