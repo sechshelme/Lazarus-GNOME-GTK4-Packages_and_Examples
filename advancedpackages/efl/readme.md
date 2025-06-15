@@ -7,41 +7,6 @@ flowchart LR
     fp_eldbus --> fp_eo
     fp_ecore_drm2 --> efl
     fp_ecore_drm2 --> fp_eina
-    fp_efl_package --> fp_eina
-    fp_efl_package --> efl
-    fp_efl_package --> fp_eo
-    fp_efl_package --> fp_efl
-    fp_efl_package --> fp_emile
-    fp_efl_package --> fp_evas
-    fp_efl_package --> fp_ecore
-    fp_efl_package --> fp_ecore_evas
-    fp_efl_package --> fp_edje
-    fp_efl_package --> fp_ecore_file
-    fp_efl_package --> fp_eet
-    fp_efl_package --> fp_elementary
-    fp_efl_package --> fp_ethumb
-    fp_efl_package --> fp_ecore_con
-    fp_efl_package --> fp_eldbus
-    fp_efl_package --> fp_efreet
-    fp_efl_package --> fp_ecore_ipc
-    fp_efl_package --> fp_emotion
-    fp_efl_package --> fp_eio
-    fp_efl_package --> fp_eeze
-    fp_efl_package --> fp_eolian
-    fp_efl_package --> fp_ecore_audio
-    fp_efl_package --> fp_ecore_x
-    fp_efl_package --> fp_efl_canvas_wl
-    fp_efl_package --> fp_ecore_drm2
-    fp_efl_package --> fp_ecore_fb
-    fp_efl_package --> fp_ecore_imf
-    fp_efl_package --> fp_ecore_imf_evas
-    fp_efl_package --> fp_ecore_input
-    fp_efl_package --> fp_ecore_input_evas
-    fp_efl_package --> fp_ecore_wl2
-    fp_efl_package --> fp_elput
-    fp_efl_package --> fp_embryo
-    fp_efl_package --> fp_ethumb_client
-    fp_efl_package --> LazarusPackageIntf
     fp_ethumb_client --> efl
     fp_ethumb_client --> fp_eina
     fp_ethumb_client --> fp_ethumb
