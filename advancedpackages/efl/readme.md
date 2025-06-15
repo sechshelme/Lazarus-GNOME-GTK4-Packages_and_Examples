@@ -138,16 +138,4 @@ flowchart TD
     fp_embryo --> efl
     fp_embryo --> fp_eina
 ```
-```
-
-**So geht’s:**
-- Diesen Block einfach in deine `README.md` kopieren.
-- GitHub & Co. zeigen daraus automatisch ein interaktives Diagramm an[1][4].
-
-**Tipp:**  
-Wenn das Diagramm zu groß ist, kannst du einzelne Abhängigkeitsgruppen herausnehmen oder das Layout z.B. mit `flowchart LR` (links nach rechts) statt `TD` (oben nach unten) variieren[3][7][8].
-
-**Weitere Infos:**  
-- [GitHub-Doku zu Mermaid in Markdown](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams)[1]
-- [Mer
 
