@@ -170,46 +170,88 @@ uses
     eina_value_flush(@val);
   end;
 
-  procedure ValueArrayTest;
-  var
-    i: integer;
-    value: TEina_Value;
+procedure ValueArrayTest;
+var
+  i: integer;
+  value: TEina_Value;
 
-    val: array of integer;
-    len: cardinal;
-    v: integer;
-  begin
-    if not eina_value_array_setup(@value, EINA_VALUE_TYPE_INT, SizeOf(integer)) then begin
-      printf('Array Fehler'#10);
-    end;
-
-    SetLength(val, 8);
-    for i := 0 to Length(val) - 1 do begin
-      val[i] := i * 111;
-      eina_value_array_pappend(@value, @val[i]);
-    end;
-
-    len := eina_value_array_count(@value);
-    printf('Array Count: %d'#10, len);
-
-    for i := 0 to len - 1 do begin
-      eina_value_array_get(@value, i, @v);
-      printf('  %d. %d'#10, i, v);
-    end;
-
-
-
-    //        eina_value_array_append(@value, Pointer(i));
+  val: array of integer=nil;
+  val1:Integer=200;
+  len: cardinal;
+  v: integer;
+begin
+  if not eina_value_array_setup(@value, EINA_VALUE_TYPE_INT, SizeOf(integer)) then begin
+    printf('Array Fehler'#10);
   end;
+
+  SetLength(val, 8);
+  for i := 0 to Length(val) - 1 do begin
+    val[i] := i * 111;
+    eina_value_array_pappend(@value, @val[i]);
+  end;
+
+  eina_value_array_pinsert(@value,1 ,@val1);
+
+
+  len := eina_value_array_count(@value);
+  printf('Array Count: %d'#10, len);
+
+  for i := 0 to len - 1 do begin
+    eina_value_array_get(@value, i, @v);
+    printf('  %d. %d'#10, i, v);
+  end;
+
+  //        eina_value_array_append(@value, Pointer(i));
+end;
+
+procedure ValueSingleArrayTest;
+var
+  i: integer;
+  value: TEina_Value;
+
+  val1:Integer=200;
+  len: cardinal;
+  v: Single;
+  p:Pointer;
+  fa:array of Single=nil;
+begin
+  if not eina_value_array_setup(@value, EINA_VALUE_TYPE_FLOAT, SizeOf(Single)) then begin
+    printf('Array Fehler'#10);
+  end;
+
+  SetLength(fa, 8);
+  for i := 0 to 7 do begin
+    fa[i]:=i*11.11;
+    eina_value_array_append(@value, @fa[i]);
+  end;
+
+//  eina_value_array_pinsert(@value,1 ,@val1);
+
+
+  len := eina_value_array_count(@value);
+  printf('Array Count: %d'#10, len);
+
+  for i := 0 to len - 1 do begin
+    eina_value_array_get(@value, i, @v);
+    printf('  %d. %f'#10, i, v);
+  end;
+
+  //        eina_value_array_append(@value, Pointer(i));
+end;
 
   function main(argc: integer; argv: PPChar): integer;
   var
     box, win, btn1, btn2, entry: PEvas_Object;
   begin
+    eina_init();
     elm_init(argc, argv);
 
     ValueTest;
+    printf(#10);
     ValueArrayTest;
+    printf(#10);
+//    ValueSingleArrayTest;
+    printf(#10);
 
     // Fenster erstellen
     win := elm_win_util_standard_add('EFL Beispiel', 'EFL Beispiel');
