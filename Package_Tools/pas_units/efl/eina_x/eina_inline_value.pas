@@ -42,22 +42,24 @@ function eina_value_array_remove(value: PEina_Value; position: cardinal): TEina_
 
 function eina_value_array_pset(value: PEina_Value; position: cardinal; ptr: Pointer): TEina_Bool;
 function eina_value_array_set(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool;
-function eina_value_array_set(value: PEina_Value; position: cardinal; f: Double): TEina_Bool;
+function eina_value_array_set(value: PEina_Value; position: cardinal; f: double): TEina_Bool;
 function eina_value_array_set(value: PEina_Value; position: cardinal; i: PtrUInt): TEina_Bool;
 
 function eina_value_array_pget(value: PEina_Value; position: cardinal; ptr: Pointer): TEina_Bool;
-function eina_value_array_get( value: PEina_Value; position: cardinal; args: Pointer): TEina_Bool;
-
-
-
-function eina_value_array_insert(value: PEina_Value; position: cardinal; args: Pointer): TEina_Bool;  // args is va_list
+function eina_value_array_get(value: PEina_Value; position: cardinal; args: Pointer): TEina_Bool;
 
 function eina_value_array_pappend(value: PEina_Value; ptr: Pointer): TEina_Bool;
 function eina_value_array_append(value: PEina_Value; p: Pointer): TEina_Bool;
-function eina_value_array_append(value: PEina_Value; f: Double): TEina_Bool;
+function eina_value_array_append(value: PEina_Value; f: single): TEina_Bool;
+function eina_value_array_append(value: PEina_Value; d: double): TEina_Bool;
 function eina_value_array_append(value: PEina_Value; i: PtrUInt): TEina_Bool;
 
 function eina_value_array_pinsert(value: PEina_Value; position: cardinal; ptr: Pointer): TEina_Bool;
+function eina_value_array_insert(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool;
+function eina_value_array_insert(value: PEina_Value; position: cardinal; d: double): TEina_Bool;
+function eina_value_array_insert(value: PEina_Value; position: cardinal; f: single): TEina_Bool;
+function eina_value_array_insert(value: PEina_Value; position: cardinal; i: PtrUInt): TEina_Bool;
+
 function eina_value_array_value_get(src: PEina_Value; position: cardinal; dst: PEina_Value): TEina_Bool;
 
 // Eina_Value_List
@@ -378,7 +380,7 @@ end;
 
 function eina_value_get(value: PEina_Value; p: Pointer): TEina_Bool;
 begin
-  Result:=eina_value_pget(value,p);
+  Result := eina_value_pget(value, p);
 end;
 
 
@@ -693,24 +695,24 @@ end;
 
 function eina_value_array_set(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool;
 begin
-  Result:=eina_value_array_pset(value, position, p);
+  Result := eina_value_array_pset(value, position, p);
 end;
 
-function eina_value_array_set(value: PEina_Value; position: cardinal;  f: Double): TEina_Bool;
+function eina_value_array_set(value: PEina_Value; position: cardinal; f: double): TEina_Bool;
 var
-  p:Pointer absolute f;
+  p: Pointer absolute f;
 begin
-  Result:=eina_value_array_pset(value, position, p);
+  Result := eina_value_array_pset(value, position, p);
 end;
 
-function eina_value_array_set(value: PEina_Value; position: cardinal;  i: PtrUInt): TEina_Bool;
+function eina_value_array_set(value: PEina_Value; position: cardinal; i: PtrUInt): TEina_Bool;
 var
-  p:Pointer absolute i;
+  p: Pointer absolute i;
 begin
-  Result:=eina_value_array_pset(value, position, p);
+  Result := eina_value_array_pset(value, position, p);
 end;
 
-function eina_value_array_get( value: PEina_Value; position: cardinal; args: Pointer): TEina_Bool;
+function eina_value_array_get(value: PEina_Value; position: cardinal; args: Pointer): TEina_Bool;
 var
   desc: TEina_Value_Array;
   mem: Pointer;
@@ -734,35 +736,6 @@ begin
 
   ret := eina_value_type_pget(desc.subtype, mem, args);
   Result := ret;
-end;
-
-function eina_value_array_insert(value: PEina_Value; position: cardinal; args: Pointer): TEina_Bool;
-var
-  desc: TEina_Value_Array;
-  mem: Pointer;
-begin
-  if not EINA_VALUE_TYPE_ARRAY_CHECK_RETURN_VAL_IMPL(value, EINA_FALSE) then begin
-    Exit(EINA_FALSE);
-  end;
-  if not eina_value_pget(value, @desc) then begin
-    Exit(EINA_FALSE);
-  end;
-
-  mem := eina_inarray_alloc_at(desc.arr, position, 1);
-  if mem = nil then begin
-    Exit(EINA_FALSE);
-  end;
-
-  if not eina_value_type_setup(desc.subtype, mem) then begin
-    eina_inarray_remove_at(desc.arr, position); // goto error_setup
-    Exit(EINA_FALSE);
-  end;
-  if not eina_value_type_vset(desc.subtype, mem, args) then begin
-    eina_value_type_flush(desc.subtype, mem); // goto error_set
-    eina_inarray_remove_at(desc.arr, position);
-    Exit(EINA_FALSE);
-  end;
-  Result := EINA_TRUE;
 end;
 
 function eina_value_array_pget(value: PEina_Value; position: cardinal; ptr: Pointer): TEina_Bool;
@@ -816,6 +789,26 @@ begin
   Result := EINA_TRUE;
 end;
 
+function eina_value_array_insert(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool;
+begin
+  Result := eina_value_array_pinsert(value, position, @p);
+end;
+
+function eina_value_array_insert(value: PEina_Value; position: cardinal; d: double): TEina_Bool;
+begin
+  Result := eina_value_array_pinsert(value, position, @d);
+end;
+
+function eina_value_array_insert(value: PEina_Value; position: cardinal; f: single): TEina_Bool;
+begin
+  Result := eina_value_array_pinsert(value, position, @f);
+end;
+
+function eina_value_array_insert(value: PEina_Value; position: cardinal; i: PtrUInt): TEina_Bool;
+begin
+  Result := eina_value_array_pinsert(value, position, @i);
+end;
+
 function eina_value_array_pappend(value: PEina_Value; ptr: Pointer): TEina_Bool;
 var
   desc: TEina_Value_Array;
@@ -850,26 +843,23 @@ end;
 
 function eina_value_array_append(value: PEina_Value; p: Pointer): TEina_Bool;
 begin
-  WriteLn('--Pointer--');
-Result:= eina_value_array_pappend(value,p);
+  Result := eina_value_array_pappend(value, @p);
 end;
 
-function eina_value_array_append(value: PEina_Value; f: Double): TEina_Bool;
-var
-  p:Pointer absolute f;
+function eina_value_array_append(value: PEina_Value; f: single): TEina_Bool;
 begin
-  WriteLn('--single--');
-  Result:=  eina_value_array_pappend(value,p);
+  Result := eina_value_array_pappend(value, @f);
+end;
+
+function eina_value_array_append(value: PEina_Value; d: double): TEina_Bool;
+begin
+  Result := eina_value_array_pappend(value, @d);
 end;
 
 function eina_value_array_append(value: PEina_Value; i: PtrUInt): TEina_Bool;
-var
-  p:Pointer absolute i;
 begin
-  WriteLn('--Int--');
-  Result:=  eina_value_array_pappend(value,p);
+  Result := eina_value_array_pappend(value, @i);
 end;
-
 
 
 

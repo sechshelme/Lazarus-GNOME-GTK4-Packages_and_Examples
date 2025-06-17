@@ -142,7 +142,7 @@ uses
     eina_value_set(value, single(43.21));
 
     eina_value_get(value, @res_Float);
-    printf('Float: %f'#10, res_Float);
+    printf('Float:  %f'#10, res_Float);
     eina_value_free(value);
 
     // PChar
@@ -170,74 +170,98 @@ uses
     eina_value_flush(@val);
   end;
 
-procedure ValueArrayTest;
-var
-  i: integer;
-  value: TEina_Value;
+  procedure ValueIntArrayTest;
+  var
+    i: integer;
+    value: TEina_Value;
 
-  val: array of integer=nil;
-  val1:Integer=200;
-  len: cardinal;
-  v: integer;
-begin
-  if not eina_value_array_setup(@value, EINA_VALUE_TYPE_INT, SizeOf(integer)) then begin
-    printf('Array Fehler'#10);
+    valsrc: integer;
+    len: cardinal;
+    v: integer;
+  begin
+    printf('--- Int Array ---'#10);
+    if not eina_value_array_setup(@value, EINA_VALUE_TYPE_INT, 16) then begin
+      printf('Array Fehler'#10);
+    end;
+
+    for i := 0 to 8 do begin
+      valsrc := i * 111;
+      eina_value_array_pappend(@value, @valsrc);
+    end;
+
+    valsrc := 200;
+    eina_value_array_pinsert(@value, 1, @valsrc);
+
+
+    len := eina_value_array_count(@value);
+    printf('Array Count: %d'#10, len);
+
+    for i := 0 to len - 1 do begin
+      eina_value_array_get(@value, i, @v);
+      printf('  %d. %d'#10, i, v);
+    end;
   end;
 
-  SetLength(val, 8);
-  for i := 0 to Length(val) - 1 do begin
-    val[i] := i * 111;
-    eina_value_array_pappend(@value, @val[i]);
+  procedure ValueSingleArrayTest;
+  var
+    i: integer;
+    f: single;
+    value: TEina_Value;
+
+    len: cardinal;
+    v: single;
+  begin
+    printf('--- Single Array ---'#10);
+    if not eina_value_array_setup(@value, EINA_VALUE_TYPE_FLOAT, 16) then begin
+      printf('Array Fehler'#10);
+    end;
+
+    for i := 0 to 7 do begin
+      f := i * 11.11;
+      eina_value_array_append(@value, f);
+    end;
+
+    f := 12.34;
+    eina_value_array_insert(@value, 1, f);
+
+    len := eina_value_array_count(@value);
+    printf('Array Count: %d'#10, len);
+
+    for i := 0 to len - 1 do begin
+      eina_value_array_get(@value, i, @v);
+      printf('  %d. %f'#10, i, v);
+    end;
   end;
 
-  eina_value_array_pinsert(@value,1 ,@val1);
+  procedure ValueDoubleArrayTest;
+  var
+    i: integer;
+    value: TEina_Value;
 
+    len: cardinal;
+    v: double;
+  begin
+    printf('--- Double Array ---'#10);
+    if not eina_value_array_setup(@value, EINA_VALUE_TYPE_DOUBLE, 16) then begin
+      printf('Array Fehler'#10);
+    end;
 
-  len := eina_value_array_count(@value);
-  printf('Array Count: %d'#10, len);
+    for i := 0 to 7 do begin
+      eina_value_array_append(@value, i * 11.11);
+    end;
 
-  for i := 0 to len - 1 do begin
-    eina_value_array_get(@value, i, @v);
-    printf('  %d. %d'#10, i, v);
+    eina_value_array_insert(@value, 1, 12.34);
+
+    len := eina_value_array_count(@value);
+    printf('Array Count: %d'#10, len);
+
+    for i := 0 to len - 1 do begin
+      eina_value_array_get(@value, i, @v);
+      printf('  %d. %f'#10, i, v);
+    end;
+
+    //        eina_value_array_append(@value, Pointer(i));
   end;
-
-  //        eina_value_array_append(@value, Pointer(i));
-end;
-
-procedure ValueSingleArrayTest;
-var
-  i: integer;
-  value: TEina_Value;
-
-  val1:Integer=200;
-  len: cardinal;
-  v: Single;
-  p:Pointer;
-  fa:array of Single=nil;
-begin
-  if not eina_value_array_setup(@value, EINA_VALUE_TYPE_FLOAT, SizeOf(Single)) then begin
-    printf('Array Fehler'#10);
-  end;
-
-  SetLength(fa, 8);
-  for i := 0 to 7 do begin
-    fa[i]:=i*11.11;
-    eina_value_array_append(@value, @fa[i]);
-  end;
-
-//  eina_value_array_pinsert(@value,1 ,@val1);
-
-
-  len := eina_value_array_count(@value);
-  printf('Array Count: %d'#10, len);
-
-  for i := 0 to len - 1 do begin
-    eina_value_array_get(@value, i, @v);
-    printf('  %d. %f'#10, i, v);
-  end;
-
-  //        eina_value_array_append(@value, Pointer(i));
-end;
 
   function main(argc: integer; argv: PPChar): integer;
   var
@@ -248,9 +272,11 @@ end;
 
     ValueTest;
     printf(#10);
-    ValueArrayTest;
+    ValueIntArrayTest;
     printf(#10);
-//    ValueSingleArrayTest;
+    ValueSingleArrayTest;
+    printf(#10);
+    ValueDoubleArrayTest;
     printf(#10);
 
     // Fenster erstellen
