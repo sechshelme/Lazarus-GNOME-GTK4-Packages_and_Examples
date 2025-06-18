@@ -5,15 +5,9 @@ uses
   fp_eina,
   fp_eo,
   fp_efl,
-  fp_emile,
-  fp_evas,
   fp_ecore,
-  fp_ethumb,
   fp_ecore_evas,
-  fp_edje,
-  fp_ecore_file,
-  fp_eet,
-  fp_elementary;
+  fp_evas;
 
 type
   TGLData = record
@@ -29,18 +23,22 @@ type
   end;
   PGLData = ^TGLData;
 
+  const
+        gl_Key= 'gld_key';
+
+
   procedure on_del(data: pointer; e: PEvas; obj: PEvas_Object; event_info: pointer); cdecl;
   var
     gld: PGLData;
     gl: PEvas_GL_API;
   begin
-    gld := evas_object_data_get(obj, '..gld');
+    gld := evas_object_data_get(obj, gl_Key);
     if gld = nil then begin
       Exit;
     end;
     gl := gld^.glapi;
 
-    evas_object_data_del(obj, '..gld');
+    evas_object_data_del(obj, gl_Key);
 
     evas_gl_make_current(gld^.evasgl, gld^.sfc, gld^.ctx);
     gl^.glDeleteShader(gld^.vtx_shader);
@@ -157,7 +155,7 @@ type
       0.5, -0.5, 0.0);
 
   begin
-    gld := evas_object_data_get(o, '..gld');
+    gld := evas_object_data_get(o, gl_Key);
     if gld = nil then begin
       Exit;
     end;
@@ -226,7 +224,7 @@ type
     gld^.ctx := evas_gl_context_create(gld^.evasgl, nil);
 
     r1 := evas_object_image_filled_add(canvas);
-    evas_object_data_set(r1, '..gld', gld);
+    evas_object_data_set(r1, gl_Key, gld);
     evas_object_event_callback_add(r1, EVAS_CALLBACK_DEL, @on_del, nil);
     evas_object_image_size_set(r1, w, h);
 
