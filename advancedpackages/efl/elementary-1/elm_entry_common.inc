@@ -42,19 +42,7 @@ type
   end;
   PElm_Entry_Context_Menu_Item = ^TElm_Entry_Context_Menu_Item;
 
-  TElm_Entry_Anchor_Hover_Info = bitpacked record
-    anchor_info: PElm_Entry_Anchor_Info;
-    hover: PEvas_Object;
-    hover_parent: record
-      x: TEvas_Coord;
-      y: TEvas_Coord;
-      w: TEvas_Coord;
-      h: TEvas_Coord;
-      end;
-    hover_left: 0..1;
-    hover_right: 0..1;
-    hover_top: 0..1;
-    hover_bottom: 0..1;
+  TElm_Entry_Anchor_Hover_Info = record
   end;
   PElm_Entry_Anchor_Hover_Info = ^TElm_Entry_Anchor_Hover_Info;
 

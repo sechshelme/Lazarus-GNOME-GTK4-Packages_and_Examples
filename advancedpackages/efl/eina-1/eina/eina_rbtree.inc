@@ -18,15 +18,8 @@ const
 
 type
   PEina_Rbtree = ^TEina_Rbtree;
-
   TEina_Rbtree = record
-    son: array[0..1] of PEina_Rbtree;
-    color: 0..1;
   end;
-
-const
-  bm_TEina_Rbtree_color = $1;
-  bp_TEina_Rbtree_color = 0;
 
 type
   TEina_Rbtree_Cmp_Node_Cb = function(left: PEina_Rbtree; right: PEina_Rbtree; data: pointer): TEina_Rbtree_Direction; cdecl;

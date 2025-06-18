@@ -109,12 +109,7 @@ type
   PEcore_Event_Signal_Hup = ^TEcore_Event_Signal_Hup;
 
 type
-  TEcore_Event_Signal_Exit = bitpacked record
-    interrupt: 0..1;
-    quit: 0..1;
-    terminate: 0..1;
-    ext_data: pointer;
-    data: Tsiginfo_t;
+  TEcore_Event_Signal_Exit = record
   end;
   PEcore_Event_Signal_Exit = ^TEcore_Event_Signal_Exit;
 
@@ -201,15 +196,7 @@ type
   PEcore_Exe_Event_Add = ^TEcore_Exe_Event_Add;
 
 type
-  TEcore_Exe_Event_Del = bitpacked record
-    pid: Tpid_t;
-    exit_code: longint;
-    exe: PEcore_Exe;
-    exit_signal: longint;
-    exited: 0..1;
-    signalled: 0..1;
-    ext_data: Pointer;
-    data: Tsiginfo_t;
+  TEcore_Exe_Event_Del = record
   end;
   PEcore_Exe_Event_Del = ^TEcore_Exe_Event_Del;
 

@@ -321,22 +321,7 @@ procedure edje_scale_set(scale: double); cdecl; external libedje;
 function edje_scale_get: double; cdecl; external libedje;
 
 type
-  TEdje_Entry_Change_Info = bitpacked record
-    change: record
-      case longint of
-        0: (insert: record
-            content: pchar;
-            pos: Tsize_t;
-            plain_length: Tsize_t;
-            end);
-        1: (del: record
-            content: pchar;
-            start: Tsize_t;
-            end_: Tsize_t;
-            end);
-      end;
-    insert: 0..1;
-    merge: 0..1;
+  TEdje_Entry_Change_Info = record
   end;
   PEdje_Entry_Change_Info = ^TEdje_Entry_Change_Info;
 

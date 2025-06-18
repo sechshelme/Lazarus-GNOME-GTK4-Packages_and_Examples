@@ -20,13 +20,7 @@ var
   EINA_LOG_DOMAIN_DEFAULT: longint absolute EINA_LOG_DOMAIN_GLOBAL;
 
 type
-  TEina_Log_Domain = bitpacked record
-    level: longint;
-    domain_str: pchar;
-    name: pchar;
-    namelen: Tsize_t;
-    deleted: 0..1;
-    color: pchar;
+  TEina_Log_Domain = record
   end;
   PEina_Log_Domain = ^TEina_Log_Domain;
 

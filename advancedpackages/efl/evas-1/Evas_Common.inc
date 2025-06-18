@@ -376,17 +376,7 @@ const
   EVAS_TEXT_STYLE_MASK_SHADOW_DIRECTION = $7 shl 4;
 
 type
-  TEvas_Textgrid_Cell = bitpacked record
-    codepoint: TEina_Unicode;
-    fg: byte;
-    bg: byte;
-    bold: 0..1;
-    italic: 0..1;
-    underline: 0..1;
-    strikethrough: 0..1;
-    fg_extended: 0..1;
-    bg_extended: 0..1;
-    double_width: 0..1;
+  TEvas_Textgrid_Cell = record
   end;
   PEvas_Textgrid_Cell = ^TEvas_Textgrid_Cell;
 

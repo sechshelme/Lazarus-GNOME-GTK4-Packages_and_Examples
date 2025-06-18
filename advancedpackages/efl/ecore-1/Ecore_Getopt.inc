@@ -97,31 +97,9 @@ type
   PEcore_Getopt_Desc_Callback = ^TEcore_Getopt_Desc_Callback;
 
   TEcore_Getopt_Desc = record
-    shortname: char;
-    longname: pchar;
-    help: pchar;
-    metavar: pchar;
-    action: TEcore_Getopt_Action;
-    action_param: record
-      case longint of
-        0: (store: TEcore_Getopt_Desc_Store);
-        1: (store_const: pointer);
-        2: (choices: ^pchar);
-        3: (append_type: TEcore_Getopt_Type);
-        4: (callback: TEcore_Getopt_Desc_Callback);
-        5: (dummy: pointer);
-      end;
   end;
 
-  TEcore_Getopt = bitpacked record
-    prog: pchar;
-    usage: pchar;
-    version: pchar;
-    copyright: pchar;
-    license: pchar;
-    description: pchar;
-    strict : 0..1;
-    descs: PEcore_Getopt_Desc;
+  TEcore_Getopt = record
   end;
 
 procedure ecore_getopt_help(fp: PFILE; info: PEcore_Getopt); cdecl; external libecore;

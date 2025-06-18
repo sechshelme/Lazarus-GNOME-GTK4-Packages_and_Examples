@@ -23,15 +23,7 @@ type
   end;
   PElm_Store_Item = ^TElm_Store_Item;
 
-  TElm_Store_Item_Mapping_Icon = bitpacked record
-    w: longint;
-    h: longint;
-    lookup_order: TElm_Icon_Lookup_Order;
-    standard_name: 0..1;
-    no_scale: 0..1;
-    smooth: 0..1;
-    scale_up: 0..1;
-    scale_down: 0..1;
+  TElm_Store_Item_Mapping_Icon = record
   end;
   PElm_Store_Item_Mapping_Icon = ^TElm_Store_Item_Mapping_Icon;
 

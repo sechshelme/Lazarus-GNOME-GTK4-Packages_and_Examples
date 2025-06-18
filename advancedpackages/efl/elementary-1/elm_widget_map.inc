@@ -196,16 +196,7 @@ type
   end;
   PSource_Name = ^TSource_Name;
 
-  TOverlay_Group = bitpacked record
-    wsd: PElm_Map_Data;
-    lon: double;
-    lat: double;
-    overlay: PElm_Map_Overlay;
-    klass: PElm_Map_Overlay;
-    ovl: POverlay_Default;
-    members: PEina_List;
-    in_: 0..1;
-    boss: 0..1;
+  TOverlay_Group = record
   end;
   POverlay_Group = ^TOverlay_Group;
 
@@ -294,21 +285,7 @@ type
   end;
   POverlay_Scale = ^TOverlay_Scale;
 
-  TElm_Map_Overlay = bitpacked record
-    wsd: PElm_Map_Data;
-    zoom_min: TEvas_Coord;
-    c: TColor;
-    data: pointer;
-    _type: TElm_Map_Overlay_Type;
-    ovl: pointer;
-    cb: TElm_Map_Overlay_Get_Cb;
-    cb_data: pointer;
-    del_cb: TElm_Map_Overlay_Del_Cb;
-    del_cb_data: pointer;
-    grp: POverlay_Group;
-    visible: 0..1;
-    paused: 0..1;
-    hide: 0..1;
+  TElm_Map_Overlay = record
   end;
 
   PPath_Node = ^TPath_Node;
@@ -403,104 +380,15 @@ type
   end;
   PGrid = ^TGrid;
 
-  TGrid_Item = bitpacked record
-    g: PGrid;
-    wsd: PElm_Map_Data;
-    img: PEvas_Object;
-    file_: pchar;
-    url: pchar;
-    x: longint;
-    y: longint;
-    job: PEcore_File_Download_Job;
-    file_have: 0..1;
+  TGrid_Item = record
   end;
   PGrid_Item = ^TGrid_Item;
 
-  TCalc_Job = bitpacked record
-    zoom: double;
-    zoom_mode_set: procedure(sd: PElm_Map_Data; zoom: double); cdecl;
-    bring_in: 0..1;
-    lon: double;
-    lat: double;
-    region_show_bring_in: procedure(sd: PElm_Map_Data; lon: double; lat: double; bring_in: TEina_Bool); cdecl;
-    overlays: PEina_List;
-    overlays_show: procedure(sd: PElm_Map_Data; overlays: PEina_List); cdecl;
+  TCalc_Job = record
   end;
   PCalc_Job = ^TCalc_Job;
 
-  TElm_Map_Data = bitpacked record
-    hit_rect: PEvas_Object;
-    pan_obj: PEvas_Object;
-    g_layer: PEvas_Object;
-    obj: PEvas_Object;
-    sep_maps_overlays: PEvas_Object;
-    map: PEvas_Map;
-    src_mods: PEina_Array;
-    src_tile: PSource_Tile;
-    src_tiles: PEina_List;
-    src_tile_names: ^pchar;
-    src_route: PSource_Route;
-    src_routes: PEina_List;
-    src_route_names: ^pchar;
-    src_name: PSource_Name;
-    src_names: PEina_List;
-    src_name_names: ^pchar;
-    grids: PEina_List;
-    zoom_min: longint;
-    zoom_max: longint;
-    tsize: longint;
-    id: longint;
-    zoom: longint;
-    zoom_detail: double;
-    size: record
-      w: longint;
-      h: longint;
-      tile: longint;
-    end;
-    mode: TEfl_Ui_Zoom_Mode;
-    ani: record
-      zoom: double;
-      zoom_diff: double;
-      lon: double;
-      lat: double;
-      lon_diff: double;
-      lat_diff: double;
-      zoom_cnt: longint;
-      region_cnt: longint;
-    end;
-    zoom_timer: PEcore_Timer;
-    loaded_timer: PEcore_Timer;
-    try_num: longint;
-    finish_num: longint;
-    download_num: longint;
-    download_list: PEina_List;
-    download_idler: PEcore_Idler;
-    ua: PEina_Hash;
-    user_agent: pchar;
-    pan_x: TEvas_Coord;
-    pan_y: TEvas_Coord;
-    scr_timer: PEcore_Timer;
-    long_timer: PEcore_Timer;
-    ev: TEvas_Event_Mouse_Down;
-    pinch_zoom: double;
-    rotate: record
-      cx: TEvas_Coord;
-      cy: TEvas_Coord;
-      a: double;
-      d: double;
-    end;
-    routes: PEina_List;
-    track: PEina_List;
-    names: PEina_List;
-    overlays: PEina_List;
-    group_overlays: PEina_List;
-    all_overlays: PEina_List;
-    wheel_disabled: 0..1;
-    on_hold: 0..1;
-    paused: 0..1;
-    zoom_animator: 0..1;
-    calc_job: TCalc_Job;
-    copyright: PEvas_Object;
+  TElm_Map_Data = record
   end;
 
 

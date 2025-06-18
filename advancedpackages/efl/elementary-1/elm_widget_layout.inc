@@ -7,12 +7,7 @@ type
   end;
 
 type
-  TElm_Layout_Data = bitpacked record
-    needs_size_calc: 0..1;
-    restricted_calc_w: 0..1;
-    restricted_calc_h: 0..1;
-    in_calc: 0..1;
-    user_min_sz: 0..1;
+  TElm_Layout_Data = record
   end;
   PElm_Layout_Data = ^TElm_Layout_Data;
 

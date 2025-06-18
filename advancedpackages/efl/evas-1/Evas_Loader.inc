@@ -29,14 +29,7 @@ type
   end;
   PEvas_Module_Api = ^TEvas_Module_Api;
 
-  TEvas_Module = bitpacked record
-    definition: PEvas_Module_Api;
-    functions: pointer;
-    id_engine: longint;
-    ref: longint;
-    last_used: longint;
-    lock: TEina_Lock;
-    loaded: 0..1;
+  TEvas_Module = record
   end;
 
 type

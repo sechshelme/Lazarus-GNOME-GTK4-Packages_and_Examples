@@ -33,14 +33,7 @@ const
 
 type
   PElm_Access_Action_Info = ^TElm_Access_Action_Info;
-
-  TElm_Access_Action_Info = bitpacked record
-    x: TEvas_Coord;
-    y: TEvas_Coord;
-    mouse_type: dword;
-    action_type: TElm_Access_Action_Type;
-    action_by: TElm_Access_Action_Type;
-    highlight_cycle: 0..1;
+  TElm_Access_Action_Info = record
   end;
 
 type

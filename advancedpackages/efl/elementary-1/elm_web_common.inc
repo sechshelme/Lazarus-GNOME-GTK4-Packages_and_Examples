@@ -28,13 +28,7 @@ type
   end;
   PElm_Web_Menu_Item = ^TElm_Web_Menu_Item;
 
-  TElm_Web_Menu = bitpacked record
-    items: PEina_List;
-    x: longint;
-    y: longint;
-    width: longint;
-    height: longint;
-    handled: 0..1;
+  TElm_Web_Menu = record
   end;
   PElm_Web_Menu = ^TElm_Web_Menu;
 

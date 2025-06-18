@@ -14,30 +14,6 @@ type
   PEfl_Ui_Relative_Container_Child = ^TEfl_Ui_Relative_Container_Child;
 
   TEfl_Ui_Relative_Container_Calc = record
-    __in_list: TEina_Inlist;
-    max: array[0..1] of longint;
-    min: array[0..1] of longint;
-    aspect: array[0..1] of longint;
-    margin: array[0..3] of longint;
-    aspect_type: TEfl_Gfx_Hint_Aspect;
-    fill: array[0..1] of TEina_Bool;
-    weight: array[0..1] of double;
-    align: array[0..1] of double;
-    comp_factor: double;
-    m0: array[0..1] of double;
-    mi: array[0..1] of double;
-    mj: array[0..1] of double;
-    space: array[0..1] of record
-      position: longint;
-      length: double;
-      end;
-    want: array[0..1] of record
-      position: longint;
-      length: double;
-      end;
-    state: array[0..1] of TEfl_Ui_Relative_Container_Calc_State;
-    chain_state: array[0..1] of TEfl_Ui_Relative_Container_Calc_State;
-    to_: array[0..3] of PEfl_Ui_Relative_Container_Child;
   end;
   PEfl_Ui_Relative_Container_Calc = ^TEfl_Ui_Relative_Container_Calc;
 
