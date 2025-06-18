@@ -25,10 +25,10 @@ function eina_value_setup(value: PEina_Value; typ: PEina_Value_Type): TEina_Bool
 procedure eina_value_flush(value: PEina_Value);
 function eina_value_compare(a, b: PEina_Value): integer;
 
-function eina_value_pset(value: PEina_Value; ptr: Pointer): TEina_Bool;
+function eina_value_pset(value: PEina_Value; p: Pointer): TEina_Bool;
 function eina_value_set(value: PEina_Value; args: pchar): TEina_Bool; overload;
 function eina_value_set(value: PEina_Value; args: double): TEina_Bool; overload;
-function eina_value_set(value: PEina_Value; args: PtrUInt): TEina_Bool; overload;
+function eina_value_set(value: PEina_Value; args: PtrInt): TEina_Bool; overload;
 
 function eina_value_get(value: PEina_Value; p: Pointer): TEina_Bool;
 function eina_value_pget(value: PEina_Value; p: Pointer): TEina_Bool;
@@ -40,10 +40,10 @@ function eina_value_array_setup(value: PEina_Value; subtype: PEina_Value_Type; s
 function eina_value_array_count(value: PEina_Value): cardinal;
 function eina_value_array_remove(value: PEina_Value; position: cardinal): TEina_Bool;
 
-function eina_value_array_pset(value: PEina_Value; position: cardinal; ptr: Pointer): TEina_Bool;
+function eina_value_array_pset(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool;
 function eina_value_array_set(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool; overload;
 function eina_value_array_set(value: PEina_Value; position: cardinal; f: double): TEina_Bool; overload;
-function eina_value_array_set(value: PEina_Value; position: cardinal; i: PtrUInt): TEina_Bool; overload;
+function eina_value_array_set(value: PEina_Value; position: cardinal; i: PtrInt): TEina_Bool; overload;
 
 function eina_value_array_pget(value: PEina_Value; position: cardinal; ptr: Pointer): TEina_Bool;
 function eina_value_array_get(value: PEina_Value; position: cardinal; args: Pointer): TEina_Bool;
@@ -52,13 +52,13 @@ function eina_value_array_pappend(value: PEina_Value; ptr: Pointer): TEina_Bool;
 function eina_value_array_append(value: PEina_Value; p: Pointer): TEina_Bool; overload;
 function eina_value_array_append(value: PEina_Value; f: single): TEina_Bool; overload;
 function eina_value_array_append(value: PEina_Value; d: double): TEina_Bool; overload;
-function eina_value_array_append(value: PEina_Value; i: PtrUInt): TEina_Bool; overload;
+function eina_value_array_append(value: PEina_Value; i: PtrInt): TEina_Bool; overload;
 
 function eina_value_array_pinsert(value: PEina_Value; position: cardinal; ptr: Pointer): TEina_Bool;
 function eina_value_array_insert(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool; overload;
 function eina_value_array_insert(value: PEina_Value; position: cardinal; d: double): TEina_Bool; overload;
 function eina_value_array_insert(value: PEina_Value; position: cardinal; f: single): TEina_Bool; overload;
-function eina_value_array_insert(value: PEina_Value; position: cardinal; i: PtrUInt): TEina_Bool; overload;
+function eina_value_array_insert(value: PEina_Value; position: cardinal; i: PtrInt): TEina_Bool; overload;
 
 function eina_value_array_value_get(src: PEina_Value; position: cardinal; dst: PEina_Value): TEina_Bool;
 
@@ -73,7 +73,7 @@ function eina_value_list_remove(value: PEina_Value; position: cardinal): TEina_B
 function eina_value_list_pset(value: PEina_Value; position: cardinal; ptr: Pointer): TEina_Bool;
 function eina_value_list_set(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool; overload;
 function eina_value_list_set(value: PEina_Value; position: cardinal; f: single): TEina_Bool; overload;
-function eina_value_list_set(value: PEina_Value; position: cardinal; i: PtrUInt): TEina_Bool; overload;
+function eina_value_list_set(value: PEina_Value; position: cardinal; i: PtrInt): TEina_Bool; overload;
 
 function eina_value_list_pget(value: PEina_Value; position: cardinal; ptr: Pointer): TEina_Bool;
 function eina_value_list_get(value: PEina_Value; position: cardinal; args: Pointer): TEina_Bool;
@@ -82,24 +82,23 @@ function eina_value_list_pappend(value: PEina_Value; p: Pointer): TEina_Bool;
 function eina_value_list_append(value: PEina_Value; p: Pointer): TEina_Bool; overload;
 function eina_value_list_append(value: PEina_Value; f: Single): TEina_Bool; overload;
 function eina_value_list_append(value: PEina_Value; d: Double): TEina_Bool; overload;
-function eina_value_list_append(value: PEina_Value; i: PtrUInt): TEina_Bool; overload;
+function eina_value_list_append(value: PEina_Value; i: PtrInt): TEina_Bool; overload;
 
 function eina_value_list_pinsert(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool;
 function eina_value_list_insert(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool; overload;
 function eina_value_list_insert(value: PEina_Value; position: cardinal; f: Single): TEina_Bool; overload;
 function eina_value_list_insert(value: PEina_Value; position: cardinal; d: Double): TEina_Bool; overload;
-function eina_value_list_insert(value: PEina_Value; position: cardinal; i: PtrUInt): TEina_Bool; overload;
+function eina_value_list_insert(value: PEina_Value; position: cardinal; i: PtrInt): TEina_Bool; overload;
 
 
 // Eina_Value_Hash
 function eina_value_hash_setup(value: PEina_Value; subtype: PEina_Value_Type; buckets_power_size: cardinal): TEina_Bool;
 function eina_value_hash_population(value: PEina_Value): cardinal;
 function eina_value_hash_del(value: PEina_Value; key: pansichar): TEina_Bool;
-function eina_value_hash_vset(value: PEina_Value; key: pansichar; args: Pointer): TEina_Bool;  // args is va_list
-function eina_value_hash_vget(value: PEina_Value; key: pansichar; args: Pointer): TEina_Bool;  // args is va_list
 
-function eina_value_hash_set(value: PEina_Value; key: pansichar; args: Pointer): TEina_Bool; overload;  // Placeholder for variadic
-function eina_value_hash_get(value: PEina_Value; key: pansichar; args: Pointer): TEina_Bool; overload;  // Placeholder for variadic
+function eina_value_hash_set(value: PEina_Value; key: pansichar; args: Pointer): TEina_Bool;  // args is va_list
+function eina_value_hash_get(value: PEina_Value; key: pansichar; args: Pointer): TEina_Bool;  // args is va_list
+
 
 function eina_value_hash_pset(value: PEina_Value; key: pansichar; ptr: Pointer): TEina_Bool;
 function eina_value_hash_pget(value: PEina_Value; key: pansichar; ptr: Pointer): TEina_Bool;
@@ -238,7 +237,7 @@ begin
   end;
 end;
 
-function eina_value_pset(value: PEina_Value; ptr: Pointer): TEina_Bool;
+function eina_value_pset(value: PEina_Value; p: Pointer): TEina_Bool;
 var
   typ: PEina_Value_Type;
   mem: Pointer;
@@ -246,7 +245,7 @@ begin
   if EINA_VALUE_TYPE_CHECK_RETURN_VAL_IMPL(value, 0) = 0 then begin
     Exit(EINA_FALSE);
   end;
-  if ptr = nil then begin
+  if p = nil then begin
     Exit(EINA_FALSE);
   end;
 
@@ -255,14 +254,14 @@ begin
 
   if EINA_VALUE_TYPE_DEFAULT_IMPL(typ) then begin
     if (typ = EINA_VALUE_TYPE_STRINGSHARE) or (typ = EINA_VALUE_TYPE_STRING) then begin
-      Exit(eina_value_set(value, pchar(ptr)));
+      Exit(eina_value_set(value, pchar(p)));
     end else begin
-      memcpy(mem, ptr, typ^.value_size);
+      memcpy(mem, p, typ^.value_size);
     end;
     Exit(EINA_TRUE);
   end;
 
-  Result := EINA_VALUE_TYPE_DISPATCH_RETURN_IMPL_PSET(typ, EINA_FALSE, mem, ptr);
+  Result := EINA_VALUE_TYPE_DISPATCH_RETURN_IMPL_PSET(typ, EINA_FALSE, mem, p);
 end;
 
 function eina_value_set(value: PEina_Value; args: pchar): TEina_Bool;
@@ -322,7 +321,7 @@ begin
   value^.value.ptr := p;
 end;
 
-function eina_value_set(value: PEina_Value; args: PtrUInt): TEina_Bool;
+function eina_value_set(value: PEina_Value; args: PtrInt): TEina_Bool;
 var
   typ: PEina_Value_Type;
   p: Pointer = nil;
@@ -680,7 +679,7 @@ begin
   Result := eina_inarray_remove_at(desc.arr, position);
 end;
 
-function eina_value_array_pset(value: PEina_Value; position: cardinal; ptr: Pointer): TEina_Bool;
+function eina_value_array_pset(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool;
 var
   desc: TEina_Value_Array;
   mem: Pointer;
@@ -697,7 +696,7 @@ begin
     Exit(EINA_FALSE);
   end;
 
-  Result := eina_value_type_pset(desc.subtype, mem, ptr);
+  Result := eina_value_type_pset(desc.subtype, mem, p);
 end;
 
 function eina_value_array_set(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool;
@@ -713,7 +712,8 @@ begin
   Result := eina_value_array_pset(value, position, p);
 end;
 
-function eina_value_array_set(value: PEina_Value; position: cardinal; i: PtrUInt): TEina_Bool;
+function eina_value_array_set(value: PEina_Value; position: cardinal; i: PtrInt
+  ): TEina_Bool;
 var
   p: Pointer absolute i;
 begin
@@ -812,7 +812,8 @@ begin
   Result := eina_value_array_pinsert(value, position, @f);
 end;
 
-function eina_value_array_insert(value: PEina_Value; position: cardinal; i: PtrUInt): TEina_Bool;
+function eina_value_array_insert(value: PEina_Value; position: cardinal;
+  i: PtrInt): TEina_Bool;
 begin
   Result := eina_value_array_pinsert(value, position, @i);
 end;
@@ -863,7 +864,7 @@ begin
   Result := eina_value_array_pappend(value, @d);
 end;
 
-function eina_value_array_append(value: PEina_Value; i: PtrUInt): TEina_Bool;
+function eina_value_array_append(value: PEina_Value; i: PtrInt): TEina_Bool;
 begin
   Result := eina_value_array_pappend(value, @i);
 end;
@@ -1014,7 +1015,8 @@ begin
   Result := eina_value_list_pset(value, position, @f);
 end;
 
-function eina_value_list_set(value: PEina_Value; position: cardinal; i: PtrUInt): TEina_Bool;
+function eina_value_list_set(value: PEina_Value; position: cardinal; i: PtrInt
+  ): TEina_Bool;
 begin
   Result := eina_value_list_pset(value, position, @i);
 end;
@@ -1064,7 +1066,8 @@ begin
   Result := eina_value_list_pinsert(value, position, @d);
 end;
 
-function eina_value_list_insert(value: PEina_Value; position: cardinal;  i: PtrUInt): TEina_Bool;
+function eina_value_list_insert(value: PEina_Value; position: cardinal;
+  i: PtrInt): TEina_Bool;
 begin
   Result := eina_value_list_pinsert(value, position, @i);
 end;
@@ -1084,7 +1087,7 @@ begin
   Result := eina_value_list_pappend(value, @d);
 end;
 
-function eina_value_list_append(value: PEina_Value; i: PtrUInt): TEina_Bool;
+function eina_value_list_append(value: PEina_Value; i: PtrInt): TEina_Bool;
 begin
   Result := eina_value_list_pappend(value, @i);
 end;
@@ -1286,7 +1289,7 @@ begin
   Result := EINA_TRUE;
 end;
 
-function eina_value_hash_vset(value: PEina_Value; key: pansichar; args: Pointer): TEina_Bool;
+function eina_value_hash_set(value: PEina_Value; key: pansichar; args: Pointer): TEina_Bool;
 var
   desc: PEina_Value_Hash;
   mem: Pointer;
@@ -1323,7 +1326,7 @@ begin
   Result := eina_value_type_vset(desc^.subtype, mem, args);
 end;
 
-function eina_value_hash_vget(value: PEina_Value; key: pansichar; args: Pointer): TEina_Bool;
+function eina_value_hash_get(value: PEina_Value; key: pansichar; args: Pointer): TEina_Bool;
 var
   desc: PEina_Value_Hash;
   mem: Pointer;
@@ -1349,19 +1352,6 @@ begin
   ptr := PPointer(args)^; // Simulating va_arg(args, void *)
   ret := eina_value_type_pget(desc^.subtype, mem, ptr);
   Result := ret;
-end;
-
-// Variadic argument stubs for hash functions
-function eina_value_hash_set(value: PEina_Value; key: pansichar;
-  args: Pointer): TEina_Bool;
-begin
-  Result := eina_value_hash_vset(value, key, nil); // Placeholder
-end;
-
-function eina_value_hash_get(value: PEina_Value; key: pansichar;
-  args: Pointer): TEina_Bool;
-begin
-  Result := eina_value_hash_vget(value, key, nil); // Placeholder
 end;
 
 function eina_value_hash_pset(value: PEina_Value; key: pansichar; ptr: Pointer): TEina_Bool;

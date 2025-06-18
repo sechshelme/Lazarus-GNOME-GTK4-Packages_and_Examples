@@ -262,6 +262,7 @@ uses
     end;
 
     eina_value_array_insert(@value, 1, 12.34);
+    eina_value_array_insert(@value, 2, 123.234);
 
     len := eina_value_array_count(@value);
     printf('Array Count: %d'#10, len);
@@ -288,15 +289,12 @@ uses
     val := 30;
     eina_value_list_pappend(@list, @val);
 
-    eina_value_list_insert(@list,2, PtrUInt(2));
-    eina_value_list_insert(@list,1, PtrUInt(1));
-
-
-    eina_value_list_append(@list,PtrUInt( 40));
-    eina_value_list_append(@list,PtrUInt( 50));
-
-
     eina_value_list_set(@list, 1, Pointer(13));
+    eina_value_list_insert(@list,2, 2);
+    eina_value_list_insert(@list,1, 1);
+
+    eina_value_list_append(@list, 40);
+    eina_value_list_append(@list, 50);
 
     len := eina_value_list_count(@list);
     printf('List Count: %d'#10, len);

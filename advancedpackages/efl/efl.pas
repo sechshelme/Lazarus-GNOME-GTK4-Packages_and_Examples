@@ -195,7 +195,6 @@ function printf(__format: pchar): longint; cdecl; varargs; external libclib;
 function __errno_location: PInteger; cdecl; external libclib;
 
 // /usr/include/x86_64-linux-gnu/sys/param.h
-
 function Min(a, b: integer): integer;
 function Max(a, b: integer): integer;
 
@@ -348,11 +347,6 @@ const
   ENOTRECOVERABLE = 131;
   ERFKILL = 132;
   EHWPOISON = 133;
-
-  // /usr/include/eet-1/Eet.h
-type
-  PEet_Data_Descriptor = Pointer;
-
 
   // /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
 type

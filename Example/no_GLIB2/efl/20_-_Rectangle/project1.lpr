@@ -5,14 +5,7 @@ uses
   fp_eina,
   fp_eo,
   fp_efl,
-  fp_emile,
   fp_evas,
-  fp_ecore,
-  fp_ethumb,
-  fp_ecore_evas,
-  fp_edje,
-  fp_ecore_file,
-  fp_eet,
   fp_elementary;
 
   procedure btn_toggle_cb(data: pointer; obj: PEvas_Object; event_info: pointer); cdecl;
