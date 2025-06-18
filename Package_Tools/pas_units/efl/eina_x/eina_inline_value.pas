@@ -41,24 +41,24 @@ function eina_value_array_count(value: PEina_Value): cardinal;
 function eina_value_array_remove(value: PEina_Value; position: cardinal): TEina_Bool;
 
 function eina_value_array_pset(value: PEina_Value; position: cardinal; ptr: Pointer): TEina_Bool;
-function eina_value_array_set(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool;
-function eina_value_array_set(value: PEina_Value; position: cardinal; f: double): TEina_Bool;
-function eina_value_array_set(value: PEina_Value; position: cardinal; i: PtrUInt): TEina_Bool;
+function eina_value_array_set(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool; overload;
+function eina_value_array_set(value: PEina_Value; position: cardinal; f: double): TEina_Bool; overload;
+function eina_value_array_set(value: PEina_Value; position: cardinal; i: PtrUInt): TEina_Bool; overload;
 
 function eina_value_array_pget(value: PEina_Value; position: cardinal; ptr: Pointer): TEina_Bool;
 function eina_value_array_get(value: PEina_Value; position: cardinal; args: Pointer): TEina_Bool;
 
 function eina_value_array_pappend(value: PEina_Value; ptr: Pointer): TEina_Bool;
-function eina_value_array_append(value: PEina_Value; p: Pointer): TEina_Bool;
-function eina_value_array_append(value: PEina_Value; f: single): TEina_Bool;
-function eina_value_array_append(value: PEina_Value; d: double): TEina_Bool;
-function eina_value_array_append(value: PEina_Value; i: PtrUInt): TEina_Bool;
+function eina_value_array_append(value: PEina_Value; p: Pointer): TEina_Bool; overload;
+function eina_value_array_append(value: PEina_Value; f: single): TEina_Bool; overload;
+function eina_value_array_append(value: PEina_Value; d: double): TEina_Bool; overload;
+function eina_value_array_append(value: PEina_Value; i: PtrUInt): TEina_Bool; overload;
 
 function eina_value_array_pinsert(value: PEina_Value; position: cardinal; ptr: Pointer): TEina_Bool;
-function eina_value_array_insert(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool;
-function eina_value_array_insert(value: PEina_Value; position: cardinal; d: double): TEina_Bool;
-function eina_value_array_insert(value: PEina_Value; position: cardinal; f: single): TEina_Bool;
-function eina_value_array_insert(value: PEina_Value; position: cardinal; i: PtrUInt): TEina_Bool;
+function eina_value_array_insert(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool; overload;
+function eina_value_array_insert(value: PEina_Value; position: cardinal; d: double): TEina_Bool; overload;
+function eina_value_array_insert(value: PEina_Value; position: cardinal; f: single): TEina_Bool; overload;
+function eina_value_array_insert(value: PEina_Value; position: cardinal; i: PtrUInt): TEina_Bool; overload;
 
 function eina_value_array_value_get(src: PEina_Value; position: cardinal; dst: PEina_Value): TEina_Bool;
 
@@ -69,20 +69,27 @@ procedure eina_value_list_node_memory_flush(typ: PEina_Value_Type; node: PEina_L
 function eina_value_list_setup(value: PEina_Value; subtype: PEina_Value_Type): TEina_Bool;
 function eina_value_list_count(value: PEina_Value): cardinal;
 function eina_value_list_remove(value: PEina_Value; position: cardinal): TEina_Bool;
-function eina_value_list_vset(value: PEina_Value; position: cardinal; args: Pointer): TEina_Bool;  // args is va_list
-function eina_value_list_vget(value: PEina_Value; position: cardinal; args: Pointer): TEina_Bool;  // args is va_list
-function eina_value_list_vinsert(value: PEina_Value; position: cardinal; args: Pointer): TEina_Bool;  // args is va_list
-function eina_value_list_vappend(value: PEina_Value; args: Pointer): TEina_Bool;  // args is va_list
-
-function eina_value_list_set(value: PEina_Value; position: cardinal; args: Pointer): TEina_Bool; overload;  // Placeholder for variadic
-function eina_value_list_get(value: PEina_Value; position: cardinal; args: Pointer): TEina_Bool; overload;  // Placeholder for variadic
-function eina_value_list_insert(value: PEina_Value; position: cardinal; args: Pointer): TEina_Bool; overload;  // Placeholder for variadic
-function eina_value_list_append(value: PEina_Value; args: Pointer): TEina_Bool; overload;  // Placeholder for variadic
 
 function eina_value_list_pset(value: PEina_Value; position: cardinal; ptr: Pointer): TEina_Bool;
+function eina_value_list_set(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool; overload;
+function eina_value_list_set(value: PEina_Value; position: cardinal; f: single): TEina_Bool; overload;
+function eina_value_list_set(value: PEina_Value; position: cardinal; i: PtrUInt): TEina_Bool; overload;
+
 function eina_value_list_pget(value: PEina_Value; position: cardinal; ptr: Pointer): TEina_Bool;
-function eina_value_list_pinsert(value: PEina_Value; position: cardinal; ptr: Pointer): TEina_Bool;
-function eina_value_list_pappend(value: PEina_Value; ptr: Pointer): TEina_Bool;
+function eina_value_list_get(value: PEina_Value; position: cardinal; args: Pointer): TEina_Bool;
+
+function eina_value_list_pappend(value: PEina_Value; p: Pointer): TEina_Bool;
+function eina_value_list_append(value: PEina_Value; p: Pointer): TEina_Bool; overload;
+function eina_value_list_append(value: PEina_Value; f: Single): TEina_Bool; overload;
+function eina_value_list_append(value: PEina_Value; d: Double): TEina_Bool; overload;
+function eina_value_list_append(value: PEina_Value; i: PtrUInt): TEina_Bool; overload;
+
+function eina_value_list_pinsert(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool;
+function eina_value_list_insert(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool; overload;
+function eina_value_list_insert(value: PEina_Value; position: cardinal; f: Single): TEina_Bool; overload;
+function eina_value_list_insert(value: PEina_Value; position: cardinal; d: Double): TEina_Bool; overload;
+function eina_value_list_insert(value: PEina_Value; position: cardinal; i: PtrUInt): TEina_Bool; overload;
+
 
 // Eina_Value_Hash
 function eina_value_hash_setup(value: PEina_Value; subtype: PEina_Value_Type; buckets_power_size: cardinal): TEina_Bool;
@@ -698,7 +705,8 @@ begin
   Result := eina_value_array_pset(value, position, p);
 end;
 
-function eina_value_array_set(value: PEina_Value; position: cardinal; f: double): TEina_Bool;
+function eina_value_array_set(value: PEina_Value; position: cardinal; f: double
+  ): TEina_Bool;
 var
   p: Pointer absolute f;
 begin
@@ -815,7 +823,6 @@ var
   mem: Pointer;
   position: cardinal;
 begin
-  WriteLn('pappend');
   if not EINA_VALUE_TYPE_ARRAY_CHECK_RETURN_VAL_IMPL(value, EINA_FALSE) then begin
     Exit(EINA_FALSE);
   end;
@@ -860,9 +867,6 @@ function eina_value_array_append(value: PEina_Value; i: PtrUInt): TEina_Bool;
 begin
   Result := eina_value_array_pappend(value, @i);
 end;
-
-
-
 
 function eina_value_array_value_get(src: PEina_Value; position: cardinal; dst: PEina_Value): TEina_Bool;
 var
@@ -923,7 +927,7 @@ begin
   if typ^.value_size <= SizeOf(Pointer) then begin
     Result := @node^.data;
   end else begin
-    node^.data := AllocMem(typ^.value_size);
+    node^.data := malloc(typ^.value_size);
     Result := node^.data;
   end;
 end;
@@ -933,12 +937,9 @@ begin
   if typ^.value_size <= SizeOf(Pointer) then begin
     Exit;
   end;
-  // C has a check for (void*)1L, which is used as a sentinel for newly allocated nodes.
-  // In Pascal, we'd typically use a proper nil/pointer check or a flag.
-  // For this translation, I'll simulate the C behavior.
-  if node^.data <> Pointer(1) then // (void*)1L equivalent
+  if node^.data <> Pointer(1) then
   begin
-    FreeMem(node^.data);
+    free(node^.data);
   end;
 end;
 
@@ -1003,201 +1004,19 @@ begin
   Result := EINA_TRUE;
 end;
 
-function eina_value_list_vset(value: PEina_Value; position: cardinal; args: Pointer): TEina_Bool;
-var
-  desc: PEina_Value_List;
-  node: PEina_List;
-  mem: Pointer;
+function eina_value_list_set(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool;
 begin
-  if not EINA_VALUE_TYPE_LIST_CHECK_RETURN_VAL_IMPL(value, EINA_FALSE) then begin
-    Exit(EINA_FALSE);
-  end;
-  desc := PEina_Value_List(eina_value_memory_get(value));
-  if desc = nil then begin
-    Exit(EINA_FALSE);
-  end;
-
-  node := eina_list_nth_list(desc^.list, position);
-  mem := eina_value_list_node_memory_get(desc^.subtype, node);
-  if mem = nil then begin
-    Exit(EINA_FALSE);
-  end;
-
-  Result := eina_value_type_vset(desc^.subtype, mem, args);
+  Result := eina_value_list_pset(value, position, @p);
 end;
 
-function eina_value_list_vget(value: PEina_Value; position: cardinal; args: Pointer): TEina_Bool;
-var
-  desc: PEina_Value_List;
-  node: PEina_List;
-  mem: Pointer;
-  ptr: Pointer;
-  ret: TEina_Bool;
+function eina_value_list_set(value: PEina_Value; position: cardinal; f: single): TEina_Bool;
 begin
-  if not EINA_VALUE_TYPE_LIST_CHECK_RETURN_VAL_IMPL(value, EINA_FALSE) then begin
-    Exit(EINA_FALSE);
-  end;
-  desc := PEina_Value_List(eina_value_memory_get(value));
-  if desc = nil then begin
-    Exit(EINA_FALSE);
-  end;
-
-  node := eina_list_nth_list(desc^.list, position);
-  mem := eina_value_list_node_memory_get(desc^.subtype, node);
-  if mem = nil then begin
-    Exit(EINA_FALSE);
-  end;
-
-  ptr := PPointer(args)^; // Simulating va_arg(args, void *)
-  ret := eina_value_type_pget(desc^.subtype, mem, ptr);
-  Result := ret;
+  Result := eina_value_list_pset(value, position, @f);
 end;
 
-function eina_value_list_vinsert(value: PEina_Value; position: cardinal; args: Pointer): TEina_Bool;
-var
-  desc: PEina_Value_List;
-  node: PEina_List;
-  mem: Pointer;
-  rel_node: PEina_List;
+function eina_value_list_set(value: PEina_Value; position: cardinal; i: PtrUInt): TEina_Bool;
 begin
-  if not EINA_VALUE_TYPE_LIST_CHECK_RETURN_VAL_IMPL(value, EINA_FALSE) then begin
-    Exit(EINA_FALSE);
-  end;
-  desc := PEina_Value_List(eina_value_memory_get(value));
-  if desc = nil then begin
-    Exit(EINA_FALSE);
-  end;
-
-  if (desc^.list = nil) and (position = 0) then begin
-    node := eina_list_append(nil, Pointer(1)); // Use Pointer(1) as sentinel
-    desc^.list := node;
-  end else if position = 0 then begin
-    node := eina_list_prepend(desc^.list, Pointer(1));
-    desc^.list := node;
-  end else begin
-    rel_node := eina_list_nth_list(desc^.list, position - 1);
-    if rel_node = nil then begin
-      Exit(EINA_FALSE);
-    end;
-    desc^.list := eina_list_append_relative_list(desc^.list, Pointer(1), rel_node);
-    node := rel_node^.next; // In C, this is 'rel->next'
-  end;
-  if node = nil then begin
-    Exit(EINA_FALSE);
-  end;
-  if node^.data <> Pointer(1) then begin
-    Exit(EINA_FALSE);
-  end; // Check if sentinel is correctly set
-
-  mem := eina_value_list_node_memory_setup(desc^.subtype, node);
-  if mem = nil then begin
-    desc^.list := eina_list_remove_list(desc^.list, node);
-    Exit(EINA_FALSE);
-  end;
-
-  if not eina_value_type_setup(desc^.subtype, mem) then begin
-    eina_value_list_node_memory_flush(desc^.subtype, node);
-    desc^.list := eina_list_remove_list(desc^.list, node);
-    Exit(EINA_FALSE); // goto error_setup
-  end;
-  if not eina_value_type_vset(desc^.subtype, mem, args) then begin
-    eina_value_type_flush(desc^.subtype, mem);
-    eina_value_list_node_memory_flush(desc^.subtype, node);
-    desc^.list := eina_list_remove_list(desc^.list, node);
-    Exit(EINA_FALSE); // goto error_set
-  end;
-  Result := EINA_TRUE;
-end;
-
-function eina_value_list_vappend(value: PEina_Value; args: Pointer): TEina_Bool;
-var
-  desc: PEina_Value_List;
-  node: PEina_List;
-  mem: Pointer;
-begin
-  if not EINA_VALUE_TYPE_LIST_CHECK_RETURN_VAL_IMPL(value, EINA_FALSE) then begin
-    Exit(EINA_FALSE);
-  end;
-  desc := PEina_Value_List(eina_value_memory_get(value));
-  if desc = nil then begin
-    Exit(EINA_FALSE);
-  end;
-
-  desc^.list := eina_list_append(desc^.list, Pointer(1)); // Use Pointer(1) as sentinel
-  node := eina_list_last(desc^.list);
-  if node = nil then begin
-    Exit(EINA_FALSE);
-  end;
-  if node^.data <> Pointer(1) then begin
-    Exit(EINA_FALSE);
-  end;
-
-  mem := eina_value_list_node_memory_setup(desc^.subtype, node);
-  if mem = nil then begin
-    desc^.list := eina_list_remove_list(desc^.list, node);
-    Exit(EINA_FALSE);
-  end;
-
-  if not eina_value_type_setup(desc^.subtype, mem) then begin
-    eina_value_list_node_memory_flush(desc^.subtype, node);
-    desc^.list := eina_list_remove_list(desc^.list, node);
-    Exit(EINA_FALSE); // goto error_setup
-  end;
-  if not eina_value_type_vset(desc^.subtype, mem, args) then begin
-    eina_value_type_flush(desc^.subtype, mem);
-    eina_value_list_node_memory_flush(desc^.subtype, node);
-    desc^.list := eina_list_remove_list(desc^.list, node);
-    Exit(EINA_FALSE); // goto error_set
-  end;
-  Result := EINA_TRUE;
-end;
-
-// Variadic argument stubs for list functions
-function eina_value_list_set(value: PEina_Value; position: cardinal;
-  args: Pointer): TEina_Bool;
-begin
-  Result := eina_value_list_vset(value, position, nil); // Placeholder
-end;
-
-function eina_value_list_get(value: PEina_Value; position: cardinal;
-  args: Pointer): TEina_Bool;
-begin
-  Result := eina_value_list_vget(value, position, nil); // Placeholder
-end;
-
-function eina_value_list_insert(value: PEina_Value; position: cardinal;
-  args: Pointer): TEina_Bool;
-begin
-  Result := eina_value_list_vinsert(value, position, nil); // Placeholder
-end;
-
-function eina_value_list_append(value: PEina_Value; args: Pointer): TEina_Bool;
-begin
-  Result := eina_value_list_vappend(value, nil); // Placeholder
-end;
-
-
-function eina_value_list_pset(value: PEina_Value; position: cardinal; ptr: Pointer): TEina_Bool;
-var
-  desc: PEina_Value_List;
-  node: PEina_List;
-  mem: Pointer;
-begin
-  if not EINA_VALUE_TYPE_LIST_CHECK_RETURN_VAL_IMPL(value, EINA_FALSE) then begin
-    Exit(EINA_FALSE);
-  end;
-  desc := PEina_Value_List(eina_value_memory_get(value));
-  if desc = nil then begin
-    Exit(EINA_FALSE);
-  end;
-
-  node := eina_list_nth_list(desc^.list, position);
-  mem := eina_value_list_node_memory_get(desc^.subtype, node);
-  if mem = nil then begin
-    Exit(EINA_FALSE);
-  end;
-
-  Result := eina_value_type_pset(desc^.subtype, mem, ptr);
+  Result := eina_value_list_pset(value, position, @i);
 end;
 
 function eina_value_list_pget(value: PEina_Value; position: cardinal; ptr: Pointer): TEina_Bool;
@@ -1225,7 +1044,76 @@ begin
   Result := ret;
 end;
 
-function eina_value_list_pinsert(value: PEina_Value; position: cardinal; ptr: Pointer): TEina_Bool;
+function eina_value_list_get(value: PEina_Value; position: cardinal; args: Pointer): TEina_Bool;
+begin
+  Result := eina_value_list_pget(value, position, args);
+end;
+
+function eina_value_list_insert(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool;
+begin
+  Result := eina_value_list_pinsert(value, position, @p);
+end;
+
+function eina_value_list_insert(value: PEina_Value; position: cardinal;  f: Single): TEina_Bool;
+begin
+  Result := eina_value_list_pinsert(value, position, @f);
+end;
+
+function eina_value_list_insert(value: PEina_Value; position: cardinal;  d: Double): TEina_Bool;
+begin
+  Result := eina_value_list_pinsert(value, position, @d);
+end;
+
+function eina_value_list_insert(value: PEina_Value; position: cardinal;  i: PtrUInt): TEina_Bool;
+begin
+  Result := eina_value_list_pinsert(value, position, @i);
+end;
+
+function eina_value_list_append(value: PEina_Value; p: Pointer): TEina_Bool;
+begin
+  Result := eina_value_list_pappend(value, @p);
+end;
+
+function eina_value_list_append(value: PEina_Value; f: Single): TEina_Bool;
+begin
+  Result := eina_value_list_pappend(value, @f);
+end;
+
+function eina_value_list_append(value: PEina_Value; d: Double): TEina_Bool;
+begin
+  Result := eina_value_list_pappend(value, @d);
+end;
+
+function eina_value_list_append(value: PEina_Value; i: PtrUInt): TEina_Bool;
+begin
+  Result := eina_value_list_pappend(value, @i);
+end;
+
+
+function eina_value_list_pset(value: PEina_Value; position: cardinal; ptr: Pointer): TEina_Bool;
+var
+  desc: PEina_Value_List;
+  node: PEina_List;
+  mem: Pointer;
+begin
+  if not EINA_VALUE_TYPE_LIST_CHECK_RETURN_VAL_IMPL(value, EINA_FALSE) then begin
+    Exit(EINA_FALSE);
+  end;
+  desc := PEina_Value_List(eina_value_memory_get(value));
+  if desc = nil then begin
+    Exit(EINA_FALSE);
+  end;
+
+  node := eina_list_nth_list(desc^.list, position);
+  mem := eina_value_list_node_memory_get(desc^.subtype, node);
+  if mem = nil then begin
+    Exit(EINA_FALSE);
+  end;
+
+  Result := eina_value_type_pset(desc^.subtype, mem, ptr);
+end;
+
+function eina_value_list_pinsert(value: PEina_Value; position: cardinal; p: Pointer): TEina_Bool;
 var
   desc: PEina_Value_List;
   node: PEina_List;
@@ -1269,7 +1157,7 @@ begin
     desc^.list := eina_list_remove_list(desc^.list, node);
     Exit(EINA_FALSE);
   end;
-  if not eina_value_type_pset(desc^.subtype, mem, ptr) then begin
+  if not eina_value_type_pset(desc^.subtype, mem, p) then begin
     eina_value_type_flush(desc^.subtype, mem);
     eina_value_list_node_memory_flush(desc^.subtype, node);
     desc^.list := eina_list_remove_list(desc^.list, node);
@@ -1278,7 +1166,7 @@ begin
   Result := EINA_TRUE;
 end;
 
-function eina_value_list_pappend(value: PEina_Value; ptr: Pointer): TEina_Bool;
+function eina_value_list_pappend(value: PEina_Value; p: Pointer): TEina_Bool;
 var
   desc: PEina_Value_List;
   node: PEina_List;
@@ -1312,7 +1200,7 @@ begin
     desc^.list := eina_list_remove_list(desc^.list, node);
     Exit(EINA_FALSE);
   end;
-  if not eina_value_type_pset(desc^.subtype, mem, ptr) then begin
+  if not eina_value_type_pset(desc^.subtype, mem, p) then begin
     eina_value_type_flush(desc^.subtype, mem);
     eina_value_list_node_memory_flush(desc^.subtype, node);
     desc^.list := eina_list_remove_list(desc^.list, node);
@@ -1393,7 +1281,7 @@ begin
   end;
 
   eina_value_type_flush(desc^.subtype, mem);
-  FreeMem(mem);
+  free(mem);
   eina_hash_del_by_key(desc^.hash, key);
   Result := EINA_TRUE;
 end;
@@ -1416,18 +1304,18 @@ begin
 
   mem := eina_hash_find(desc^.hash, key);
   if mem = nil then begin
-    mem := AllocMem(desc^.subtype^.value_size);
+    mem := malloc(desc^.subtype^.value_size);
     if mem = nil then begin
       Exit(EINA_FALSE);
     end;
     if not eina_hash_add(desc^.hash, key, mem) then begin
-      FreeMem(mem);
+      free(mem);
       Exit(EINA_FALSE);
     end;
     if not eina_value_type_setup(desc^.subtype, mem) then begin
       eina_value_type_flush(desc^.subtype, mem);
       eina_hash_del_by_key(desc^.hash, key);
-      FreeMem(mem);
+      free(mem);
       Exit(EINA_FALSE);
     end;
   end;
@@ -1494,18 +1382,18 @@ begin
 
   mem := eina_hash_find(desc^.hash, key);
   if mem = nil then begin
-    mem := AllocMem(desc^.subtype^.value_size);
+    mem := malloc(desc^.subtype^.value_size);
     if mem = nil then begin
       Exit(EINA_FALSE);
     end;
     if not eina_hash_add(desc^.hash, key, mem) then begin
-      FreeMem(mem);
+      free(mem);
       Exit(EINA_FALSE);
     end;
     if not eina_value_type_setup(desc^.subtype, mem) then begin
       eina_value_type_flush(desc^.subtype, mem);
       eina_hash_del_by_key(desc^.hash, key);
-      FreeMem(mem);
+      free(mem);
       Exit(EINA_FALSE);
     end;
   end;
@@ -2053,9 +1941,7 @@ begin
   if typ^.vset = nil then begin
     Exit(EINA_FALSE);
   end;
-  WriteLn(111111);
   Result := typ^.vset(typ, mem, args);
-  WriteLn(33333333);
 end;
 
 function eina_value_type_pset(typ: PEina_Value_Type; mem, ptr: Pointer): TEina_Bool;

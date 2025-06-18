@@ -112,7 +112,18 @@ uses
     res_Double: double;
     res_Str: pchar;
     val: TEina_Value;
+    i: integer;
   begin
+    // pset
+    value := eina_value_new(EINA_VALUE_TYPE_INT);
+    i := 123456;
+    eina_value_pset(value, @i);
+    i := 0;
+
+    eina_value_get(value, @i);
+    printf('pset: %d'#10, i);
+    eina_value_free(value);
+
     // Int8
     value := eina_value_new(EINA_VALUE_TYPE_UCHAR);
     eina_value_set(value, 256 + 12);
@@ -259,8 +270,43 @@ uses
       eina_value_array_get(@value, i, @v);
       printf('  %d. %f'#10, i, v);
     end;
+  end;
 
-    //        eina_value_array_append(@value, Pointer(i));
+  procedure ValueListTest;
+  var
+    list: TEina_Value;
+    val, i: integer;
+    len: cardinal;
+  begin
+    printf('--- Value List ---'#10);
+    eina_value_list_setup(@list, EINA_VALUE_TYPE_INT);
+
+    val := 10;
+    eina_value_list_pappend(@list, @val);
+    val := 20;
+    eina_value_list_pappend(@list, @val);
+    val := 30;
+    eina_value_list_pappend(@list, @val);
+
+    eina_value_list_insert(@list,2, PtrUInt(2));
+    eina_value_list_insert(@list,1, PtrUInt(1));
+
+
+    eina_value_list_append(@list,PtrUInt( 40));
+    eina_value_list_append(@list,PtrUInt( 50));
+
+
+    eina_value_list_set(@list, 1, Pointer(13));
+
+    len := eina_value_list_count(@list);
+    printf('List Count: %d'#10, len);
+
+    val := 0;
+    for i := 0 to len - 1 do begin
+
+      eina_value_list_get(@list, i, @val);
+      printf('  %d. %d'#10, i, val);
+    end;
   end;
 
   function main(argc: integer; argv: PPChar): integer;
@@ -277,6 +323,8 @@ uses
     ValueSingleArrayTest;
     printf(#10);
     ValueDoubleArrayTest;
+    printf(#10);
+    ValueListTest;
     printf(#10);
 
     // Fenster erstellen
