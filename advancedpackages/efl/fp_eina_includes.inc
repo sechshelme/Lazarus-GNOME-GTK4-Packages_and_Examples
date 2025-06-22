@@ -78,3 +78,39 @@
 {$include eina-1/eina/eina_value_util.inc}                                    // io.
 
 
+// Achtung, dies konventierten inline können fehlerhaft sein.
+
+{$include eina-1/eina/eina_inline_rectangle.inc}               // io.
+{$include eina-1/eina/eina_inline_vector.inc}                  // io.
+{$include eina-1/eina/eina_inline_stringshare.inc}             // Nicht getestet
+{$include eina-1/eina/eina_inline_list.inc}                    // Nicht getestet
+{$include eina-1/eina/eina_inline_str.inc}                     // Nicht getestet
+{$include eina-1/eina/eina_inline_slice.inc}                   // -> eina_inline_str  Nicht getestet
+{$include eina-1/eina/eina_inline_lock_posix.inc}              // Fehlerhaft !
+{$include eina-1/eina/eina_inline_lock_barrier.inc}            // io. -> eina_inline_lock_posix
+//{$include eina-1/eina/eina_inline_mempool.inc}                 // Fehlerhaft !
+//{$include eina-1/eina/eina_inline_safepointer.inc}             // Fehlerhaft !
+{$include eina-1/eina/eina_inline_ustringshare.inc}            // Nicht getestet
+{$include eina-1/eina/eina_inline_value.inc}                   // -> eina_inline_stringshare, eina_inline_list     Fehlerhaft !
+{$include eina-1/eina/eina_inline_value_util.inc}              // -> eina_inline_value                             Fehlerhaft !
+{$include eina-1/eina/eina_inline_log.inc}                     // Nicht getestet
+{$include eina-1/eina/eina_inline_tiler.inc}                   // Nicht getestet
+{$include eina-1/eina/eina_inline_clist.inc}                   // Nicht getestet
+{$include eina-1/eina/eina_inline_crc.inc}                     // Nicht getestet
+{$include eina-1/eina/eina_inline_hash.inc}                    // io -> eina_inline_crc   Nicht getestet
+{$include eina-1/eina/eina_inline_cpu.inc}                     // Nicht getestet
+{$include eina-1/eina/eina_inline_fp.inc}                      // Nicht getestet
+{$include eina-1/eina/eina_inline_array.inc}                   // Nicht getestet
+{$include eina-1/eina/eina_inline_range.inc}                   // Nicht getestet
+{$include eina-1/eina/eina_inline_unicode.inc}                 // Nicht getestet
+{$include eina-1/eina/eina_inline_f32p32.inc}                  // Nicht getestet
+{$include eina-1/eina/eina_inline_f8p24.inc}                   // Nicht getestet
+{$include eina-1/eina/eina_inline_f16p16.inc}                  // Nicht getestet
+{$include eina-1/eina/eina_inline_file.inc}                    // io.
+{$include eina-1/eina/eina_inline_inlist.inc}                  // Nicht getestet
+//{$include eina-1/eina/eina_inline_rbtree.inc}                  // Fehlerhaft !
+{$include eina-1/eina/eina_inline_trash.inc}                   // io.
+{$include eina-1/eina/eina_inline_util.inc}                    // io.
+
+
+

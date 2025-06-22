@@ -2,8 +2,7 @@
 
 
 type
-  TEina_Safepointer = record
-  end;
+  TEina_Safepointer = PtrUInt;
   PEina_Safepointer = ^TEina_Safepointer;
 
 function eina_safepointer_register(target: pointer): PEina_Safepointer; cdecl; external libeina;

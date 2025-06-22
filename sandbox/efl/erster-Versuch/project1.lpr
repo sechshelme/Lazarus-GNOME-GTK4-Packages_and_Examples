@@ -46,45 +46,44 @@ uses
   fp_ecore_wl2,
   fp_elput,
   fp_embryo,
-  fp_ethumb_client,
+  fp_ethumb_client;
 
 
   // =======================================
 
 
 
-  eina_inline_rectangle,               // io.
-  eina_inline_vector,                  // io.
-  eina_inline_stringshare,             // io.
-  eina_inline_list,                    // io.
-  eina_inline_str,                     // io.
-  eina_inline_slice,                   // io.  -> eina_inline_str
-  eina_inline_lock_posix,              //             ( Result falsch )
-  eina_inline_lock_barrier,            // io. -> eina_inline_lock_posix
-  eina_inline_mempool,                 // io.
-  eina_inline_safepointer,             // io.
-  eina_inline_ustringshare,            // io.
-  eina_inline_value,
-  eina_inline_value_util,
-  eina_inline_log,                     // io.
-  eina_inline_tiler,                   // io.
-  eina_inline_clist,                   // io.
-  eina_inline_crc,                     // io.
-  eina_inline_hash,                    // io -> eina_inline_crc
-  eina_inline_cpu,                     // io.
-  eina_inline_f32p32,                  // io.
-  eina_inline_fp,                      // io.
-  eina_inline_array,                   // io.
-  eina_inline_range,                   // io.  min / max !
-  eina_inline_unicode,                 // io.
-  eina_inline_f8p24,                   // io.
-  eina_inline_f16p16,                  // io.
-  eina_inline_modinfo,                 // io.
-  eina_inline_file,                    // io.
-  eina_inline_inlist,                  // io.
-//  eina_inline_rbtree,                  // Fehlerhaft
-  eina_inline_trash,                   // io.
-  eina_inline_util;                    // io.
+  //eina_inline_rectangle,               // io.
+  //eina_inline_vector,                  // io.
+  //eina_inline_stringshare,             // Nicht getestet
+  //eina_inline_list,                    // Nicht getestet
+  //eina_inline_str,                     // Nicht getestet
+  //eina_inline_slice,                   // -> eina_inline_str  Nicht getestet
+  //eina_inline_lock_posix,              // Fehlerhaft !
+  //eina_inline_lock_barrier,            // io. -> eina_inline_lock_posix
+  //eina_inline_mempool,                 // Nicht getestet
+  //eina_inline_safepointer,             // Nicht getestet
+  //eina_inline_ustringshare,            // Nicht getestet
+  //eina_inline_value,                   // -> eina_inline_stringshare, eina_inline_list     Fehlerhaft !
+  //eina_inline_value_util,              // -> eina_inline_value                             Fehlerhaft !
+  //eina_inline_log,                     // Nicht getestet
+  //eina_inline_tiler,                   // Nicht getestet
+  //eina_inline_clist,                   // Nicht getestet
+  //eina_inline_crc,                     // Nicht getestet
+  //eina_inline_hash,                    // io -> eina_inline_crc   Nicht getestet
+  //eina_inline_cpu,                     // Nicht getestet
+  //eina_inline_fp,                      // Nicht getestet
+  //eina_inline_array,                   // Nicht getestet
+  //eina_inline_range,                   // Nicht getestet
+  //eina_inline_unicode,                 // Nicht getestet
+  //eina_inline_f32p32,                  // Nicht getestet
+  //eina_inline_f8p24,                   // Nicht getestet
+  //eina_inline_f16p16,                  // Nicht getestet
+  //eina_inline_file,                    // io.
+  //eina_inline_inlist,                  // Nicht getestet
+  //eina_inline_rbtree,                  // Fehlerhaft !
+  //eina_inline_trash,                   // io.
+  //eina_inline_util;                    // io.
 
 
 
@@ -307,6 +306,20 @@ uses
     end;
   end;
 
+procedure ValueHashTest;
+var
+  hash,v: TEina_Value;
+begin
+  exit;
+  eina_value_setup(@hash, EINA_VALUE_TYPE_HASH);
+
+  eina_value_setup(@v, EINA_VALUE_TYPE_INT);
+  eina_value_set(@v, 42);
+
+  eina_value_hash_set(@hash, 'Key',@v);
+
+  end;
+
   function main(argc: integer; argv: PPChar): integer;
   var
     box, win, btn1, btn2, entry: PEvas_Object;
@@ -323,6 +336,8 @@ uses
     ValueDoubleArrayTest;
     printf(#10);
     ValueListTest;
+    printf(#10);
+    ValueHashTest;
     printf(#10);
 
     // Fenster erstellen
