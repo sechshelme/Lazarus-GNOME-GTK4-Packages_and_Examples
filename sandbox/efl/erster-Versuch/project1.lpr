@@ -49,43 +49,6 @@ uses
   fp_ethumb_client;
 
 
-  // =======================================
-
-
-
-  //eina_inline_rectangle,               // io.
-  //eina_inline_vector,                  // io.
-  //eina_inline_stringshare,             // Nicht getestet
-  //eina_inline_list,                    // Nicht getestet
-  //eina_inline_str,                     // Nicht getestet
-  //eina_inline_slice,                   // -> eina_inline_str  Nicht getestet
-  //eina_inline_lock_posix,              // Fehlerhaft !
-  //eina_inline_lock_barrier,            // io. -> eina_inline_lock_posix
-  //eina_inline_mempool,                 // Nicht getestet
-  //eina_inline_safepointer,             // Nicht getestet
-  //eina_inline_ustringshare,            // Nicht getestet
-  //eina_inline_value,                   // -> eina_inline_stringshare, eina_inline_list     Fehlerhaft !
-  //eina_inline_value_util,              // -> eina_inline_value                             Fehlerhaft !
-  //eina_inline_log,                     // Nicht getestet
-  //eina_inline_tiler,                   // Nicht getestet
-  //eina_inline_clist,                   // Nicht getestet
-  //eina_inline_crc,                     // Nicht getestet
-  //eina_inline_hash,                    // io -> eina_inline_crc   Nicht getestet
-  //eina_inline_cpu,                     // Nicht getestet
-  //eina_inline_fp,                      // Nicht getestet
-  //eina_inline_array,                   // Nicht getestet
-  //eina_inline_range,                   // Nicht getestet
-  //eina_inline_unicode,                 // Nicht getestet
-  //eina_inline_f32p32,                  // Nicht getestet
-  //eina_inline_f8p24,                   // Nicht getestet
-  //eina_inline_f16p16,                  // Nicht getestet
-  //eina_inline_file,                    // io.
-  //eina_inline_inlist,                  // Nicht getestet
-  //eina_inline_rbtree,                  // Fehlerhaft !
-  //eina_inline_trash,                   // io.
-  //eina_inline_util;                    // io.
-
-
 
   procedure on_win_del(data: pointer; obj: PEvas_Object; event_info: pointer); cdecl;
   begin

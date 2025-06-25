@@ -178,11 +178,14 @@ const
     (libs: 'libembryo'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
     (libs: 'libethumb_client'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
 
-        (libs: 'libshaderc'; units: 'ctypes'),
+    (libs: 'libshaderc'; units: 'ctypes'),
 
-        (libs: 'libglfw'; units: 'ctypes'),
+    (libs: 'libglfw'; units: 'ctypes'),
+    (libs: 'libglut'; units: 'ctypes'),
+    (libs: 'libGLEW'; units: 'ctypes'),
 
 
+    (libs: 'libmgl'; units: 'ctypes'),
 
 
     (libs: ''; units: ''));
