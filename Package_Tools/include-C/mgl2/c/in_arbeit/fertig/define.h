@@ -45,49 +45,11 @@
 #include <pthread.h>
 #endif
 
-#include "mgl2/dllexport.h"
-#if defined(MGL_LIB_MSVC)
-#define MGL_EXTERN
-#else
-#define MGL_EXTERN extern
-#endif
 
-#if defined(_MSC_VER)
-#define MGL_OBSOLETE	MGL_NO_EXPORT
-#else
-#define MGL_OBSOLETE	MGL_EXPORT
-#endif
 
-#if MGL_HAVE_ATTRIBUTE
-#define MGL_FUNC_CONST	__attribute__((const))
-#define MGL_FUNC_PURE	__attribute__((pure))
-#define MGL_FUNC_INIT	__attribute__((constructor))
-#define MGL_FUNC_FINI	__attribute__((destructor))
-#else
-#define MGL_FUNC_CONST
-#define MGL_FUNC_PURE
-#define MGL_FUNC_INIT
-#define MGL_FUNC_FINI
-#endif
-
-#define MGL_EXPORT_CONST	MGL_EXPORT MGL_FUNC_CONST
-#define MGL_EXPORT_PURE		MGL_EXPORT MGL_FUNC_PURE
-#define MGL_LOCAL_CONST		MGL_NO_EXPORT MGL_FUNC_CONST
-#define MGL_LOCAL_PURE		MGL_NO_EXPORT MGL_FUNC_PURE
-
-#if MGL_HAVE_RVAL	// C++11 don't support register keyword
-#endif
-
-#endif
 //-----------------------------------------------------------------------------
 #ifdef MGL_SRC
 
-#if MGL_USE_GETTEXT
-	#include <libintl.h>
-	#define _(x)	gettext(x)
-#else
-	#define _(x)	(x)
-#endif
 
 
 #if MGL_HAVE_ZLIB
@@ -96,7 +58,8 @@
 #define Z_BEST_COMPRESSION 9
 #endif
 #else
-#define gzFile	FILE*
+// ???????????????????''
+//#define gzFile	FILE*
 #define gzread(fp,buf,size)	fread(buf,1,size,fp)
 #define gzopen	fopen
 #define gzclose	fclose
@@ -132,33 +95,17 @@ typedef unsigned long uintptr_t;
 #include <string.h>
 #include <wchar.h>
 
-#if defined(_MSC_VER)
-typedef long msize;
-#define collapse(a)	// MSVS don't support OpenMP 3.*
-#if (_MSC_VER<=1800)
-#define strtoull _strtoui64
-//#define hypot	_hypot
-#define getcwd	_getcwd
-#define chdir	_chdir // BORLAND has chdir
-#endif
-#if (_MSC_VER<1500)
-#define snprintf _snprintf
-#endif
-#if (_MSC_VER<1600) // based on https://hg.python.org/cpython/rev/9aedb876c2d7
-#define hypot	_hypot
-#endif
-#else
 typedef size_t msize;
-#endif
 
 #if !MGL_SYS_NAN
 #include <float.h>
-const unsigned long long mgl_nan[2] = {0x7fffffffffffffff, 0x7fffffff};
-const unsigned long long mgl_inf[2] = {0x7ff0000000000000, 0x7f800000};
-#define NANd    (*(double*)mgl_nan)
-#define NANf    (*(float*)(mgl_nan+1))
-#define INFd    (*(double*)mgl_inf)
-#define INFf    (*(float*)(mgl_inf+1))
+// ??????
+//const unsigned long long mgl_nan[2] = {0x7fffffffffffffff, 0x7fffffff};
+//const unsigned long long mgl_inf[2] = {0x7ff0000000000000, 0x7f800000};
+//#define NANd    (*(double*)mgl_nan)
+//#define NANf    (*(float*)(mgl_nan+1))
+//#define INFd    (*(double*)mgl_inf)
+//#define INFf    (*(float*)(mgl_inf+1))
 
 #if !defined(NAN)
 #if MGL_USE_DOUBLE
@@ -207,7 +154,7 @@ typedef float mreal;
 #define MGL_DEF_VIEWER "evince"
 #endif
 //-----------------------------------------------------------------------------
-enum{	// types of predefined curvelinear coordinate systems
+typedef enum{	// types of predefined curvelinear coordinate systems
 	mglCartesian = 0,	// no transformation
 	mglPolar,
 	mglSpherical,
@@ -222,7 +169,7 @@ enum{	// types of predefined curvelinear coordinate systems
 	mglLogLog,
 	mglLogX,
 	mglLogY
-};
+} xxxxxx;
 //-----------------------------------------------------------------------------
 // types of drawing
 #define MGL_DRAW_WIRE	0	// fastest, no faces
@@ -232,7 +179,7 @@ enum{	// types of predefined curvelinear coordinate systems
 #define MGL_DRAW_DOTS	8	// draw dots instead of primitives
 #define MGL_DRAW_NONE	9	// no ouput (for testing only)
 //-----------------------------------------------------------------------------
-enum{	// Codes for warnings/messages
+typedef enum{	// Codes for warnings/messages
 	mglWarnNone = 0,// Everything OK
 	mglWarnDim,		// Data dimension(s) is incompatible
 	mglWarnLow,		// Data dimension(s) is too small
@@ -256,14 +203,14 @@ enum{	// Codes for warnings/messages
 	mglScrStr,		// Unbalanced ' in MGL script
 	mglScrTemp,		// Change temporary data in MGL script
 	mglWarnEnd		// Maximal number of warnings (must be last)
-};
+}xxxxxxx;
 //-----------------------------------------------------------------------------
 #define MGL_DEF_PAL	"bgrcmyhlnqeupH"	// default palette
 #define MGL_DEF_SCH	"BbcyrR"	// default palette
 #define MGL_COLORS	"kwrgbcymhWRGBCYMHlenpquLENPQU"
 //-----------------------------------------------------------------------------
 /// Brushes for mask with symbol "-+=;oOsS~<>jdD*^" correspondingly
-extern MGL_EXPORT uint64_t mgl_mask_val[16];
+extern  uint64_t mgl_mask_val[16];
 #define MGL_MASK_ID		"-+=;oOsS~<>jdD*^"
 #define MGL_SOLID_MASK	0xffffffffffffffff
 //-----------------------------------------------------------------------------
@@ -303,53 +250,54 @@ struct cmdual	// complex number (bypass C/C++ incompatibility)
 typedef struct cmdual cmdual;
 typedef cmdual mdual;
 //-----------------------------------------------------------------------------
-extern float MGL_EXPORT mgl_cos[360];	///< contain cosine with step 1 degree
-void MGL_EXPORT MGL_FUNC_INIT mgl_init();	///< initialize MathGL structures
-void MGL_EXPORT MGL_FUNC_FINI mgl_fini();	///< free MathGL structures
+extern float  mgl_cos[360];	///< contain cosine with step 1 degree
+void   mgl_init();	///< initialize MathGL structures
+void   mgl_fini();	///< free MathGL structures
 //-----------------------------------------------------------------------------
 /// Calculate sqrt(x*x+y*y)
-double MGL_EXPORT_CONST mgl_hypot(double x, double y);
+double  mgl_hypot(double x, double y);
 /// Find length of wchar_t string (bypass standard wcslen bug)
-size_t MGL_EXPORT_PURE mgl_wcslen(const wchar_t *str);
+size_t  mgl_wcslen(const wchar_t *str);
 /// Get RGB values for given color id or fill by -1 if no one found
-void MGL_EXPORT mgl_chrrgb(char id, float rgb[3]);
+void  mgl_chrrgb(char id, float rgb[3]);
 /// Get number of colors in the string
-size_t MGL_EXPORT_PURE mgl_get_num_color(const char *s, int smooth);
+size_t  mgl_get_num_color(const char *s, int smooth);
 /// Check if string contain color id and return its number
-long MGL_EXPORT_PURE mgl_have_color(const char *stl);
+long  mgl_have_color(const char *stl);
 /// Find symbol in string excluding {} and return its position or NULL
-MGL_EXPORT_PURE const char *mglchr(const char *str, char ch);
+ const char *mglchr(const char *str, char ch);
 /// Find any symbol from chr in string excluding {} and return its position or NULL
-MGL_EXPORT_PURE const char *mglchrs(const char *str, const char *chr);
+ const char *mglchrs(const char *str, const char *chr);
 /// Set number of thread for plotting and data handling (for pthread version only)
-void MGL_EXPORT mgl_set_num_thr(int n);
-void MGL_EXPORT mgl_set_num_thr_(int *n);
-void MGL_EXPORT mgl_test_txt(const char *str, ...);
-void MGL_EXPORT mgl_set_test_mode(int enable);
+void  mgl_set_num_thr(int n);
+void  mgl_set_num_thr_(int *n);
+void  mgl_test_txt(const char *str, ...);
+void  mgl_set_test_mode(int enable);
 /// Remove spaces at begining and at the end of the string
-void MGL_EXPORT mgl_strtrim(char *str);
-void MGL_EXPORT mgl_wcstrim(wchar_t *str);
+void  mgl_strtrim(char *str);
+void  mgl_wcstrim(wchar_t *str);
 /** Change register to lowercase (only for ANSI symbols) */
-void MGL_EXPORT mgl_strlwr(char *str);
-void MGL_EXPORT mgl_wcslwr(wchar_t *str);
+void  mgl_strlwr(char *str);
+void  mgl_wcslwr(wchar_t *str);
 /// Convert wchar_t* string into char* one
-void MGL_EXPORT mgl_wcstombs(char *dst, const wchar_t *src, int size);
+void  mgl_wcstombs(char *dst, const wchar_t *src, int size);
 /// Clear internal data for speeding up FFT and Hankel transforms
-void MGL_EXPORT mgl_clear_fft();
+void  mgl_clear_fft();
 /// Set global warning message
-void MGL_EXPORT mgl_set_global_warn(const char *text);
-void MGL_EXPORT mgl_set_global_warn_(const char *text,int);
+void  mgl_set_global_warn(const char *text);
+void  mgl_set_global_warn_(const char *text,int);
 /// Get text of global warning message(s)
-MGL_EXPORT_PURE const char *mgl_get_global_warn();
-int MGL_EXPORT mgl_get_global_warn_(char *out, int len);
+ const char *mgl_get_global_warn();
+int  mgl_get_global_warn_(char *out, int len);
 /// Clear global warning message
-void MGL_EXPORT mgl_clear_global_warn();
-void MGL_EXPORT mgl_clear_global_warn_();
+void  mgl_clear_global_warn();
+void  mgl_clear_global_warn_();
 /// Setup gettext usage. NOTE: Russian translation MUST be installed.
-void MGL_EXPORT mgl_textdomain(const char *argv0, const char *locale);
-void MGL_EXPORT mgl_textdomain_(const char *locale, int);
+void  mgl_textdomain(const char *argv0, const char *locale);
+void  mgl_textdomain_(const char *locale, int);
 /// size of var array
-const int MGL_VS = 'z'-'a'+1;
+// ????????
+//const int MGL_VS = 'z'-'a'+1;
 #ifdef __cplusplus
 }
 #endif

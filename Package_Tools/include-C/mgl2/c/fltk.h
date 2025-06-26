@@ -26,17 +26,17 @@
 extern "C" {
 #endif
 /// Creates FLTK window for plotting
-HMGL MGL_EXPORT mgl_create_graph_fltk(int (*draw)(HMGL gr, void *p), const char *title, void *par, void (*load)(void *p));
-uintptr_t MGL_EXPORT mgl_create_graph_fltk_(const char *title, int);
+HMGL  mgl_create_graph_fltk(int (*draw)(HMGL gr, void *p), const char *title, void *par, void (*load)(void *p));
+uintptr_t  mgl_create_graph_fltk_(const char *title, int);
 /// Run main FLTK loop for event handling.
-int MGL_EXPORT mgl_fltk_run();
-int MGL_EXPORT mgl_fltk_run_();
+int  mgl_fltk_run();
+int  mgl_fltk_run_();
 /// Run main FLTK loop for event handling in separate thread.
-int MGL_EXPORT mgl_fltk_thr();
+int  mgl_fltk_thr();
 /// FLTK function for asking user.
-void MGL_EXPORT mgl_ask_fltk(const wchar_t *quest, wchar_t *res);
+void  mgl_ask_fltk(const wchar_t *quest, wchar_t *res);
 /// FLTK function for displaying progress of something.
-void MGL_EXPORT mgl_progress_fltk(int value, int maximal, HMGL gr);
+void  mgl_progress_fltk(int value, int maximal, HMGL gr);
 /// Return pointer to widget (Fl_MGLView*) used for plotting
-MGL_EXPORT_PURE void *mgl_fltk_widget(HMGL gr);
+_PURE void *mgl_fltk_widget(HMGL gr);
 #endif

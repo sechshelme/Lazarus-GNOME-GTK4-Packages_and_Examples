@@ -22,30 +22,30 @@
 //-----------------------------------------------------------------------------
 #include "mgl2/define.h"
 /// Get random number with Gaussian distribution
-double MGL_EXPORT mgl_gauss_rnd();
+double  mgl_gauss_rnd();
 /// Fill frequencies for FFT
-void MGL_EXPORT mgl_fft_freq(double *freq,long nn);
+void  mgl_fft_freq(double *freq,long nn);
 
 /// Remove double spaces from the string
-void MGL_EXPORT mgl_strcls(char *str);
+void  mgl_strcls(char *str);
 /// Get position of substring or return -1 if not found
-long MGL_EXPORT_PURE mgl_strpos(const char *str,char *fnd);
+long _PURE mgl_strpos(const char *str,char *fnd);
 /// Get position of symbol or return -1 if not found
-long MGL_EXPORT_PURE mgl_chrpos(const char *str,char fnd);
+long _PURE mgl_chrpos(const char *str,char fnd);
 
 /// Get uncommented string from file (NOTE: it is not thread safe!!!)
-MGL_EXPORT char *mgl_fgetstr(FILE *fp);
+ char *mgl_fgetstr(FILE *fp);
 /// Get parameters from uncommented strings of file (NOTE: it is not thread safe!!!)
-void MGL_EXPORT mgl_fgetpar(FILE *fp, const char *str, ...);
+void  mgl_fgetpar(FILE *fp, const char *str, ...);
 /// Check if symbol denote true
-int MGL_EXPORT_CONST mgl_istrue(char ch);
+int _CONST mgl_istrue(char ch);
 /// Print test message
-void MGL_EXPORT mgl_test(const char *str, ...);
+void  mgl_test(const char *str, ...);
 /// Print info message
-void MGL_EXPORT mgl_info(const char *str, ...);
+void  mgl_info(const char *str, ...);
 /// Locate next data block (block started by -----)
-MGL_EXPORT FILE *mgl_next_data(const char *fname,long p);
+ FILE *mgl_next_data(const char *fname,long p);
 /// Enable executing MGL script if mgl_fgetstr() meet '#MGL fname.mgl [args]. Default value is 0 (false).
-void MGL_EXPORT mgl_fgetstr_mgl(int enable);
+void  mgl_fgetstr_mgl(int enable);
 
 

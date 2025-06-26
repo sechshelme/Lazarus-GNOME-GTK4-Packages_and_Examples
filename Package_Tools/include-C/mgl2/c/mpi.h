@@ -23,10 +23,10 @@
 #include "mgl2/mgl_cf.h"
 
 /// Send graphical information to node id using MPI
-void MGL_EXPORT mgl_mpi_send(HMGL gr, int id);
-void MGL_EXPORT mgl_mpi_send_(uintptr_t *gr, int *id);
+void  mgl_mpi_send(HMGL gr, int id);
+void  mgl_mpi_send_(uintptr_t *gr, int *id);
 /// Receive graphical information from node id using MPI
-void MGL_EXPORT mgl_mpi_recv(HMGL gr, int id);
-void MGL_EXPORT mgl_mpi_recv_(uintptr_t *gr, int *id);
+void  mgl_mpi_recv(HMGL gr, int id);
+void  mgl_mpi_recv_(uintptr_t *gr, int *id);
 //-----------------------------------------------------------------------------
 #endif
