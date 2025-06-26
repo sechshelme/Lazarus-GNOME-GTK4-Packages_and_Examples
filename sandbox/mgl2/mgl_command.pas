@@ -22,8 +22,6 @@ const
   {$endif}
 
 
-
-
 type
   Tuintptr_t = PtrUInt;
   Puintptr_t = ^Tuintptr_t;
@@ -36,6 +34,12 @@ type
   TFILE = record
   end;
   PFILE = ^TFILE;
+
+  PPsingle=^PSingle;
+  PPPsingle=^PPSingle;
+
+  PPdouble=^Pdouble;
+  PPPdouble=^PPdouble;
 
 implementation
 

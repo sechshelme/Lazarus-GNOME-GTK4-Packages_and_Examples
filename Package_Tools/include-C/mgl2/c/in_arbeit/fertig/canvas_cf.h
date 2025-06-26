@@ -332,17 +332,17 @@ void  mgl_write_json_z_(uintptr_t *gr, const char *fname,const char *descr,int,i
  const unsigned char *mgl_get_rgba_(uintptr_t *gr);
 /// Get RGBA values of background image
 /** Position of element {i,j} is [4*i + 4*Width*j]. */
-_PURE const unsigned char *mgl_get_background(HMGL gr);
-_PURE const unsigned char *mgl_get_background_(uintptr_t *gr);
+ const unsigned char *mgl_get_background(HMGL gr);
+ const unsigned char *mgl_get_background_(uintptr_t *gr);
 /// Set object/subplot id
 void  mgl_set_obj_id(HMGL gr, int id);
 void  mgl_set_obj_id_(uintptr_t *gr, int *id);
 /// Get object id
-int _PURE mgl_get_obj_id(HMGL gr, int x, int y);
-int _PURE mgl_get_obj_id_(uintptr_t *gr, int *x, int *y);
+int  mgl_get_obj_id(HMGL gr, int x, int y);
+int  mgl_get_obj_id_(uintptr_t *gr, int *x, int *y);
 /// Get subplot id
-int _PURE mgl_get_spl_id(HMGL gr, int x, int y);
-int _PURE mgl_get_spl_id_(uintptr_t *gr, int *x, int *y);
+int  mgl_get_spl_id(HMGL gr, int x, int y);
+int  mgl_get_spl_id_(uintptr_t *gr, int *x, int *y);
 /// Get width of the image
 int  mgl_get_width(HMGL gr);
 int  mgl_get_width_(uintptr_t *gr);
@@ -356,8 +356,8 @@ void  mgl_calc_xyz_(uintptr_t *gr, int *xs, int *ys, mreal *x, mreal *y, mreal *
 void  mgl_calc_scr(HMGL gr, double x, double y, double z, int *xs, int *ys);
 void  mgl_calc_scr_(uintptr_t *gr, mreal *x, mreal *y, mreal *z, int *xs, int *ys);
 /// Check if {xs,ys} is close to active point with accuracy d, and return its position or -1
-long _PURE mgl_is_active(HMGL gr, int xs, int ys, int d);
-long _PURE mgl_is_active_(uintptr_t *gr, int *xs, int *ys, int *d);
+long  mgl_is_active(HMGL gr, int xs, int ys, int d);
+long  mgl_is_active_(uintptr_t *gr, int *xs, int *ys, int *d);
 
 /// Create new frame.
 int  mgl_new_frame(HMGL gr);
@@ -366,8 +366,8 @@ int  mgl_new_frame_(uintptr_t *gr);
 void  mgl_end_frame(HMGL gr);
 void  mgl_end_frame_(uintptr_t *gr);
 /// Get the number of created frames
-int _PURE mgl_get_num_frame(HMGL gr);
-int _PURE mgl_get_num_frame_(uintptr_t *gr);
+int  mgl_get_num_frame(HMGL gr);
+int  mgl_get_num_frame_(uintptr_t *gr);
 /// Reset frames counter (start it from zero)
 void  mgl_reset_frames(HMGL gr);
 void  mgl_reset_frames_(uintptr_t *gr);
@@ -569,24 +569,24 @@ uintptr_t  mgl_parser_add_var_(uintptr_t* p, const char *name, int);
  mglDataA *mgl_parser_add_varw(HMPR p, const wchar_t *name);
 /// Find variable with given name or return NULL if no one
 /// NOTE !!! You must not delete obtained data arrays !!!
-_PURE mglDataA *mgl_parser_find_var(HMPR p, const char *name);
+ mglDataA *mgl_parser_find_var(HMPR p, const char *name);
 uintptr_t  mgl_parser_find_var_(uintptr_t* p, const char *name, int);
-_PURE mglDataA *mgl_parser_find_varw(HMPR p, const wchar_t *name);
+ mglDataA *mgl_parser_find_varw(HMPR p, const wchar_t *name);
 /// Get variable with given id
 /// NOTE !!! You must not delete obtained data arrays !!!
-_PURE mglDataA *mgl_parser_get_var(HMPR p, unsigned long id);
-uintptr_t _PURE mgl_parser_get_var_(uintptr_t* p, unsigned long *id);
+ mglDataA *mgl_parser_get_var(HMPR p, unsigned long id);
+uintptr_t  mgl_parser_get_var_(uintptr_t* p, unsigned long *id);
 /// Get number of variables
-long _PURE mgl_parser_num_var(HMPR p);
-long _PURE mgl_parser_num_var_(uintptr_t* p);
+long  mgl_parser_num_var(HMPR p);
+long  mgl_parser_num_var_(uintptr_t* p);
 
 /// Get constant with given id
 /// NOTE !!! You must not delete obtained data arrays !!!
-_PURE mglNum *mgl_parser_get_const(HMPR p, unsigned long id);
-uintptr_t _PURE mgl_parser_get_const_(uintptr_t* p, unsigned long *id);
+ mglNum *mgl_parser_get_const(HMPR p, unsigned long id);
+uintptr_t  mgl_parser_get_const_(uintptr_t* p, unsigned long *id);
 /// Get number of constants
-long _PURE mgl_parser_num_const(HMPR p);
-long _PURE mgl_parser_num_const_(uintptr_t* p);
+long  mgl_parser_num_const(HMPR p);
+long  mgl_parser_num_const_(uintptr_t* p);
 
 /// Delete variable with name
 void  mgl_parser_del_var(HMPR p, const char *name);
@@ -647,16 +647,16 @@ void  mgl_parser_start_id_(uintptr_t* p, int *id);
 ///		3 - setup, 4 - data handle, 5 - data create, 6 - subplot, 7 - program
 ///		8 - 1d plot, 9 - 2d plot, 10 - 3d plot, 11 - dd plot, 12 - vector plot
 ///		13 - axis, 14 - primitives, 15 - axis setup, 16 - text/legend, 17 - data transform
-int _PURE mgl_parser_cmd_type(HMPR pr, const char *name);
-int _PURE mgl_parser_cmd_type_(uintptr_t* p, const char *name, int);
+int  mgl_parser_cmd_type(HMPR pr, const char *name);
+int  mgl_parser_cmd_type_(uintptr_t* p, const char *name, int);
 /// Return description of MGL command
-_PURE const char *mgl_parser_cmd_desc(HMPR pr, const char *name);
+ const char *mgl_parser_cmd_desc(HMPR pr, const char *name);
 /// Return string of command format (command name and its argument[s])
-_PURE const char *mgl_parser_cmd_frmt(HMPR pr, const char *name);
+ const char *mgl_parser_cmd_frmt(HMPR pr, const char *name);
 /// Get name of command with number n
-_PURE const char *mgl_parser_cmd_name(HMPR pr, long id);
+ const char *mgl_parser_cmd_name(HMPR pr, long id);
 /// Get number of defined commands
-long _PURE mgl_parser_cmd_num(HMPR pr);
+long  mgl_parser_cmd_num(HMPR pr);
 
 /// Return result of formula evaluation
 HMDT  mgl_parser_calc(HMPR pr, const char *formula);

@@ -1,0 +1,198 @@
+unit canvas_cf;
+
+interface
+
+uses
+  ctypes, mgl_command, define, abstract;
+
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
+
+function mgl_create_graph(width: longint; height: longint): THMGL; cdecl; external libmgl;
+procedure mgl_delete_graph(gr: THMGL); cdecl; external libmgl;
+function mgl_default_graph: THMGL; cdecl; external libmgl;
+function mgl_default_graph_: Tuintptr_t; cdecl; external libmgl;
+procedure mgl_set_size(gr: THMGL; width: longint; height: longint); cdecl; external libmgl;
+procedure mgl_scale_size(gr: THMGL; width: longint; height: longint); cdecl; external libmgl;
+procedure mgl_set_size_scl(scl: double); cdecl; external libmgl;
+procedure mgl_set_def_param(gr: THMGL); cdecl; external libmgl;
+procedure mgl_combine_gr(gr: THMGL; gr2: THMGL); cdecl; external libmgl;
+procedure mgl_finish(gr: THMGL); cdecl; external libmgl;
+procedure mgl_rasterize(gr: THMGL); cdecl; external libmgl;
+procedure mgl_set_bbox(gr: THMGL; x1: longint; y1: longint; x2: longint; y2: longint); cdecl; external libmgl;
+procedure mgl_pen_delta(gr: THMGL; d: double); cdecl; external libmgl;
+procedure mgl_set_tick_len(gr: THMGL; len: double; stt: double); cdecl; external libmgl;
+procedure mgl_set_axis_stl(gr: THMGL; stl: pchar; tck: pchar; sub: pchar); cdecl; external libmgl;
+procedure mgl_adjust_ticks(gr: THMGL; dir: pchar); cdecl; external libmgl;
+procedure mgl_adjust_ticks_ext(gr: THMGL; dir: pchar; stl: pchar); cdecl; external libmgl;
+procedure mgl_set_ticks(gr: THMGL; dir: char; d: double; ns: longint; org: double); cdecl; external libmgl;
+procedure mgl_set_ticks_fact(gr: THMGL; dir: char; d: double; ns: longint; org: double; fact: pchar); cdecl; external libmgl;
+procedure mgl_set_ticks_factw(gr: THMGL; dir: char; d: double; ns: longint; org: double; fact: Pwchar_t); cdecl; external libmgl;
+procedure mgl_set_ticks_str(gr: THMGL; dir: char; lbl: pchar; add: longint); cdecl; external libmgl;
+procedure mgl_set_ticks_wcs(gr: THMGL; dir: char; lbl: Pwchar_t; add: longint); cdecl; external libmgl;
+procedure mgl_set_ticks_val(gr: THMGL; dir: char; val: THCDT; lbl: pchar; add: longint); cdecl; external libmgl;
+procedure mgl_set_ticks_valw(gr: THMGL; dir: char; val: THCDT; lbl: Pwchar_t; add: longint); cdecl; external libmgl;
+procedure mgl_add_tick(gr: THMGL; dir: char; val: double; lbl: pchar); cdecl; external libmgl;
+procedure mgl_add_tickw(gr: THMGL; dir: char; val: double; lbl: Pwchar_t); cdecl; external libmgl;
+procedure mgl_tune_ticks(gr: THMGL; tune: longint; fact_pos: double); cdecl; external libmgl;
+procedure mgl_set_tick_templ(gr: THMGL; dir: char; templ: pchar); cdecl; external libmgl;
+procedure mgl_set_tick_templw(gr: THMGL; dir: char; templ: Pwchar_t); cdecl; external libmgl;
+procedure mgl_set_ticks_time(gr: THMGL; dir: char; d: double; t: pchar); cdecl; external libmgl;
+procedure mgl_set_tick_shift(gr: THMGL; sx: double; sy: double; sz: double; sc: double); cdecl; external libmgl;
+procedure mgl_box(gr: THMGL); cdecl; external libmgl;
+procedure mgl_box_str(gr: THMGL; col: pchar; ticks: longint); cdecl; external libmgl;
+procedure mgl_axis(gr: THMGL; dir: pchar; stl: pchar; opt: pchar); cdecl; external libmgl;
+procedure mgl_axis_grid(gr: THMGL; dir: pchar; pen: pchar; opt: pchar); cdecl; external libmgl;
+procedure mgl_label(gr: THMGL; dir: char; text: pchar; pos: double; opt: pchar); cdecl; external libmgl;
+procedure mgl_labelw(gr: THMGL; dir: char; text: Pwchar_t; pos: double; opt: pchar); cdecl; external libmgl;
+procedure mgl_colorbar(gr: THMGL; sch: pchar; opt: pchar); cdecl; external libmgl;
+procedure mgl_colorbar_ext(gr: THMGL; sch: pchar; x: double; y: double; w: double; h: double; opt: pchar); cdecl; external libmgl;
+procedure mgl_colorbar_val(gr: THMGL; dat: THCDT; sch: pchar; opt: pchar); cdecl; external libmgl;
+procedure mgl_colorbar_val_ext(gr: THMGL; dat: THCDT; sch: pchar; x: double; y: double; w: double; h: double; opt: pchar); cdecl; external libmgl;
+procedure mgl_add_legend(gr: THMGL; text: pchar; style: pchar); cdecl; external libmgl;
+procedure mgl_add_legendw(gr: THMGL; text: Pwchar_t; style: pchar); cdecl; external libmgl;
+procedure mgl_clear_legend(gr: THMGL); cdecl; external libmgl;
+procedure mgl_legend_pos(gr: THMGL; x: double; y: double; font: pchar; opt: pchar); cdecl; external libmgl;
+procedure mgl_legend(gr: THMGL; where: longint; font: pchar; opt: pchar); cdecl; external libmgl;
+procedure mgl_set_legend_marks(gr: THMGL; num: longint); cdecl; external libmgl;
+procedure mgl_show_image(gr: THMGL; viewer: pchar; keep: longint); cdecl; external libmgl;
+procedure mgl_write_frame(gr: THMGL; fname: pchar; descr: pchar); cdecl; external libmgl;
+procedure mgl_write_tga(gr: THMGL; fname: pchar; descr: pchar); cdecl; external libmgl;
+procedure mgl_write_bmp(gr: THMGL; fname: pchar; descr: pchar); cdecl; external libmgl;
+procedure mgl_write_jpg(gr: THMGL; fname: pchar; descr: pchar); cdecl; external libmgl;
+procedure mgl_write_png(gr: THMGL; fname: pchar; descr: pchar); cdecl; external libmgl;
+procedure mgl_write_png_solid(gr: THMGL; fname: pchar; descr: pchar); cdecl; external libmgl;
+procedure mgl_write_bps(gr: THMGL; fname: pchar; descr: pchar); cdecl; external libmgl;
+procedure mgl_write_eps(gr: THMGL; fname: pchar; descr: pchar); cdecl; external libmgl;
+procedure mgl_write_svg(gr: THMGL; fname: pchar; descr: pchar); cdecl; external libmgl;
+procedure mgl_write_tex(gr: THMGL; fname: pchar; descr: pchar); cdecl; external libmgl;
+procedure mgl_write_obj(gr: THMGL; fname: pchar; descr: pchar; use_png: longint); cdecl; external libmgl;
+procedure mgl_write_obj_old(gr: THMGL; fname: pchar; descr: pchar; use_png: longint); cdecl; external libmgl;
+procedure mgl_write_stl(gr: THMGL; fname: pchar; descr: pchar); cdecl; external libmgl;
+procedure mgl_write_off(gr: THMGL; fname: pchar; descr: pchar; colored: longint); cdecl; external libmgl;
+procedure mgl_write_xyz(gr: THMGL; fname: pchar; descr: pchar); cdecl; external libmgl;
+procedure mgl_write_prc(gr: THMGL; fname: pchar; descr: pchar; make_pdf: longint); cdecl; external libmgl;
+procedure mgl_write_gif(gr: THMGL; fname: pchar; descr: pchar); cdecl; external libmgl;
+procedure mgl_start_gif(gr: THMGL; fname: pchar; ms: longint); cdecl; external libmgl;
+procedure mgl_close_gif(gr: THMGL); cdecl; external libmgl;
+procedure _mgld(gr: THMGL; fname: pchar; descr: pchar); cdecl; external libmgl;
+procedure mgl_import_mgld(gr: THMGL; fname: pchar; add: longint); cdecl; external libmgl;
+procedure mgl_write_json(gr: THMGL; fname: pchar; descr: pchar); cdecl; external libmgl;
+procedure mgl_write_json_z(gr: THMGL; fname: pchar; descr: pchar); cdecl; external libmgl;
+function mgl_get_json(gr: THMGL): pchar; cdecl; external libmgl;
+function mgl_get_rgb(gr: THMGL): pbyte; cdecl; external libmgl;
+function mgl_get_rgba(gr: THMGL): pbyte; cdecl; external libmgl;
+function mgl_get_background(gr: THMGL): pbyte; cdecl; external libmgl;
+procedure mgl_set_obj_id(gr: THMGL; id: longint); cdecl; external libmgl;
+function mgl_get_obj_id(gr: THMGL; x: longint; y: longint): longint; cdecl; external libmgl;
+function mgl_get_spl_id(gr: THMGL; x: longint; y: longint): longint; cdecl; external libmgl;
+function mgl_get_width(gr: THMGL): longint; cdecl; external libmgl;
+function mgl_get_height(gr: THMGL): longint; cdecl; external libmgl;
+procedure mgl_calc_xyz(gr: THMGL; xs: longint; ys: longint; x: Pmreal; y: Pmreal; z: Pmreal); cdecl; external libmgl;
+procedure mgl_calc_scr(gr: THMGL; x: double; y: double; z: double; xs: Plongint; ys: Plongint); cdecl; external libmgl;
+function mgl_is_active(gr: THMGL; xs: longint; ys: longint; d: longint): longint; cdecl; external libmgl;
+function mgl_new_frame(gr: THMGL): longint; cdecl; external libmgl;
+procedure mgl_end_frame(gr: THMGL); cdecl; external libmgl;
+function mgl_get_num_frame(gr: THMGL): longint; cdecl; external libmgl;
+procedure mgl_reset_frames(gr: THMGL); cdecl; external libmgl;
+procedure mgl_get_frame(gr: THMGL; i: longint); cdecl; external libmgl;
+procedure mgl_set_frame(gr: THMGL; i: longint); cdecl; external libmgl;
+procedure mgl_show_frame(gr: THMGL; i: longint); cdecl; external libmgl;
+procedure mgl_del_frame(gr: THMGL; i: longint); cdecl; external libmgl;
+procedure mgl_clear_frame(gr: THMGL); cdecl; external libmgl;
+procedure mgl_set_transp_type(gr: THMGL; kind: longint); cdecl; external libmgl;
+procedure mgl_set_alpha(gr: THMGL; enable: longint); cdecl; external libmgl;
+procedure mgl_set_gray(gr: THMGL; enable: longint); cdecl; external libmgl;
+procedure mgl_set_fog(gr: THMGL; d: double; dz: double); cdecl; external libmgl;
+procedure mgl_set_light(gr: THMGL; enable: longint); cdecl; external libmgl;
+procedure mgl_set_light_n(gr: THMGL; n: longint; enable: longint); cdecl; external libmgl;
+procedure mgl_set_attach_light(gr: THMGL; enable: longint); cdecl; external libmgl;
+procedure mgl_add_light(gr: THMGL; n: longint; x: double; y: double; z: double); cdecl; external libmgl;
+procedure mgl_add_light_ext(gr: THMGL; n: longint; x: double; y: double; z: double; c: char; br: double; ap: double); cdecl; external libmgl;
+procedure mgl_add_light_loc(gr: THMGL; n: longint; x: double; y: double; z: double; dx: double; dy: double; dz: double; c: char; br: double; ap: double); cdecl; external libmgl;
+procedure mgl_mat_pop(gr: THMGL); cdecl; external libmgl;
+procedure mgl_mat_push(gr: THMGL); cdecl; external libmgl;
+procedure mgl_clf(gr: THMGL); cdecl; external libmgl;
+procedure mgl_clf_nfog(gr: THMGL); cdecl; external libmgl;
+procedure mgl_clf_rgb(gr: THMGL; r: double; g: double; b: double); cdecl; external libmgl;
+procedure mgl_clf_rgba(gr: THMGL; r: double; g: double; b: double; a: double); cdecl; external libmgl;
+procedure mgl_clf_chr(gr: THMGL; col: char); cdecl; external libmgl;
+procedure mgl_clf_str(gr: THMGL; col: pchar); cdecl; external libmgl;
+procedure mgl_load_background(gr: THMGL; fname: pchar; alpha: double); cdecl; external libmgl;
+procedure mgl_load_background_ext(gr: THMGL; fname: pchar; how: pchar; alpha: double); cdecl; external libmgl;
+procedure mgl_fill_background(gr: THMGL; r: double; g: double; b: double; a: double); cdecl; external libmgl;
+procedure mgl_subplot(gr: THMGL; nx: longint; ny: longint; m: longint; style: pchar); cdecl; external libmgl;
+procedure mgl_subplot_d(gr: THMGL; nx: longint; ny: longint; m: longint; style: pchar; dx: double; dy: double); cdecl; external libmgl;
+procedure mgl_multiplot(gr: THMGL; nx: longint; ny: longint; m: longint; dx: longint; dy: longint; style: pchar); cdecl; external libmgl;
+procedure mgl_multiplot_d(gr: THMGL; nx: longint; ny: longint; m: longint; dx: longint; dy: longint; style: pchar; sx: double; sy: double); cdecl; external libmgl;
+procedure mgl_inplot(gr: THMGL; x1: double; x2: double; y1: double; y2: double); cdecl; external libmgl;
+procedure mgl_relplot(gr: THMGL; x1: double; x2: double; y1: double; y2: double); cdecl; external libmgl;
+procedure mgl_columnplot(gr: THMGL; num: longint; ind: longint; d: double); cdecl; external libmgl;
+procedure mgl_gridplot(gr: THMGL; nx: longint; ny: longint; m: longint; d: double); cdecl; external libmgl;
+procedure mgl_stickplot(gr: THMGL; num: longint; ind: longint; tet: double; phi: double); cdecl; external libmgl;
+procedure mgl_shearplot(gr: THMGL; num: longint; ind: longint; sx: double; sy: double; xd: double; yd: double); cdecl; external libmgl;
+procedure mgl_title(gr: THMGL; title: pchar; stl: pchar; size: double); cdecl; external libmgl;
+procedure mgl_titlew(gr: THMGL; title: Pwchar_t; stl: pchar; size: double); cdecl; external libmgl;
+procedure mgl_set_plotfactor(gr: THMGL; val: double); cdecl; external libmgl;
+procedure mgl_aspect(gr: THMGL; Ax: double; Ay: double; Az: double); cdecl; external libmgl;
+procedure mgl_shear(gr: THMGL; Sx: double; Sz: double); cdecl; external libmgl;
+procedure mgl_rotate(gr: THMGL; TetX: double; TetZ: double; TetY: double); cdecl; external libmgl;
+procedure mgl_rotate_vector(gr: THMGL; Tet: double; x: double; y: double; z: double); cdecl; external libmgl;
+procedure mgl_perspective(gr: THMGL; val: double); cdecl; external libmgl;
+procedure mgl_ask_perspective(gr: THMGL; val: double); cdecl; external libmgl;
+procedure mgl_view(gr: THMGL; TetX: double; TetZ: double; TetY: double); cdecl; external libmgl;
+procedure mgl_zoom(gr: THMGL; x1: double; y1: double; x2: double; y2: double); cdecl; external libmgl;
+
+function mgl_create_parser: THMPR; cdecl; external libmgl;
+function mgl_create_parser_: Tuintptr_t; cdecl; external libmgl;
+function mgl_use_parser(p: THMPR; inc: longint): longint; cdecl; external libmgl;
+procedure mgl_delete_parser(p: THMPR); cdecl; external libmgl;
+procedure mgl_parser_add_param(p: THMPR; id: longint; str: pchar); cdecl; external libmgl;
+procedure mgl_parser_add_paramw(p: THMPR; id: longint; str: Pwchar_t); cdecl; external libmgl;
+function mgl_parser_add_var(p: THMPR; name: pchar): PmglDataA; cdecl; external libmgl;
+function mgl_parser_add_varw(p: THMPR; name: Pwchar_t): PmglDataA; cdecl; external libmgl;
+function mgl_parser_find_var(p: THMPR; name: pchar): PmglDataA; cdecl; external libmgl;
+function mgl_parser_find_varw(p: THMPR; name: Pwchar_t): PmglDataA; cdecl; external libmgl;
+function mgl_parser_get_var(p: THMPR; id: dword): PmglDataA; cdecl; external libmgl;
+function mgl_parser_num_var(p: THMPR): longint; cdecl; external libmgl;
+function mgl_parser_get_const(p: THMPR; id: dword): PmglNum; cdecl; external libmgl;
+function mgl_parser_num_const(p: THMPR): longint; cdecl; external libmgl;
+procedure mgl_parser_del_var(p: THMPR; name: pchar); cdecl; external libmgl;
+procedure mgl_parser_del_varw(p: THMPR; name: Pwchar_t); cdecl; external libmgl;
+procedure mgl_parser_del_all(p: THMPR); cdecl; external libmgl;
+procedure mgl_parser_load(pr: THMPR; dll_name: pchar); cdecl; external libmgl;
+procedure mgl_rk_step(pr: THMPR; eqs: pchar; vars: pchar; dt: Tmreal); cdecl; external libmgl;
+procedure mgl_rk_step_w(pr: THMPR; eqs: Pwchar_t; vars: Pwchar_t; dt: Tmreal); cdecl; external libmgl;
+procedure mgl_parser_openhdf(p: THMPR; fname: pchar); cdecl; external libmgl;
+function mgl_parse_line(gr: THMGL; p: THMPR; str: pchar; pos: longint): longint; cdecl; external libmgl;
+function mgl_parse_linew(gr: THMGL; p: THMPR; str: Pwchar_t; pos: longint): longint; cdecl; external libmgl;
+procedure mgl_parse_file(gr: THMGL; p: THMPR; fp: PFILE; print: longint); cdecl; external libmgl;
+procedure mgl_parse_text(gr: THMGL; p: THMPR; str: pchar); cdecl; external libmgl;
+procedure mgl_parse_textw(gr: THMGL; p: THMPR; str: Pwchar_t); cdecl; external libmgl;
+procedure mgl_parser_restore_once(p: THMPR); cdecl; external libmgl;
+procedure mgl_parser_allow_setsize(p: THMPR; a: longint); cdecl; external libmgl;
+procedure mgl_parser_allow_file_io(p: THMPR; a: longint); cdecl; external libmgl;
+procedure mgl_parser_allow_dll_call(p: THMPR; a: longint); cdecl; external libmgl;
+procedure mgl_parser_stop(p: THMPR); cdecl; external libmgl;
+procedure mgl_parser_variant(p: THMPR; var_: longint); cdecl; external libmgl;
+procedure mgl_parser_start_id(p: THMPR; id: longint); cdecl; external libmgl;
+function mgl_parser_cmd_type(pr: THMPR; name: pchar): longint; cdecl; external libmgl;
+function mgl_parser_cmd_desc(pr: THMPR; name: pchar): pchar; cdecl; external libmgl;
+function mgl_parser_cmd_frmt(pr: THMPR; name: pchar): pchar; cdecl; external libmgl;
+function mgl_parser_cmd_name(pr: THMPR; id: longint): pchar; cdecl; external libmgl;
+function mgl_parser_cmd_num(pr: THMPR): longint; cdecl; external libmgl;
+function mgl_parser_calc(pr: THMPR; formula: pchar): THMDT; cdecl; external libmgl;
+function mgl_parser_calcw(pr: THMPR; formula: Pwchar_t): THMDT; cdecl; external libmgl;
+function mgl_parser_calc_complex(pr: THMPR; formula: pchar): THADT; cdecl; external libmgl;
+function mgl_parser_calc_complexw(pr: THMPR; formula: Pwchar_t): THADT; cdecl; external libmgl;
+
+// === Konventiert am: 26-6-25 18:54:41 ===
+
+
+implementation
+
+
+
+end.

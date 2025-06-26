@@ -3,7 +3,7 @@ unit define;
 interface
 
 uses
-  mgl_command, ctypes;
+  mgl_command;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -153,7 +153,6 @@ function mgl_have_color(stl: pchar): longint; cdecl; external libmgl;
 function mglchr(str: pchar; ch: char): pchar; cdecl; external libmgl;
 function mglchrs(str: pchar; chr: pchar): pchar; cdecl; external libmgl;
 procedure mgl_set_num_thr(n: longint); cdecl; external libmgl;
-procedure mgl_set_num_thr_(n: Plongint); cdecl; external libmgl;
 procedure mgl_test_txt(str: pchar; args: array of const); cdecl; external libmgl;
 procedure mgl_test_txt(str: pchar); cdecl; external libmgl;
 procedure mgl_set_test_mode(enable: longint); cdecl; external libmgl;
@@ -164,13 +163,10 @@ procedure mgl_wcslwr(str: Pwchar_t); cdecl; external libmgl;
 procedure mgl_wcstombs(dst: pchar; src: Pwchar_t; size: longint); cdecl; external libmgl;
 procedure mgl_clear_fft; cdecl; external libmgl;
 procedure mgl_set_global_warn(text: pchar); cdecl; external libmgl;
-procedure mgl_set_global_warn_(text: pchar; para2: longint); cdecl; external libmgl;
 function mgl_get_global_warn: pchar; cdecl; external libmgl;
-function mgl_get_global_warn_(out_: pchar; len: longint): longint; cdecl; external libmgl;
 procedure mgl_clear_global_warn; cdecl; external libmgl;
 procedure mgl_clear_global_warn_; cdecl; external libmgl;
 procedure mgl_textdomain(argv0: pchar; locale: pchar); cdecl; external libmgl;
-procedure mgl_textdomain_(locale: pchar; para2: longint); cdecl; external libmgl;
 
 const
   MGL_VS = Ord('z') - Ord('a') + 1;
