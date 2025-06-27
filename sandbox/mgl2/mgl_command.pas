@@ -8,12 +8,20 @@ const
   libclib = 'c';
   libmgl = 'libmgl';
   libmglqt = 'libmgl-qt';
+  libmglfltk = 'libmgl-fltk';
+  libmglqlut = 'libmgl-glut';
+  libmglmpi = 'libmgl-mpi';
+  libmglwnd = 'libmgl-wnd';
   {$endif}
 
   {$ifdef windows}
   libclib = 'msvcrt';
   libmgl = 'mgl.dll'; // ???
   libmglqt = 'mgl-qt.dll';
+  libmglfltk = 'libmgl-fltk.dll';
+  libmglqlut = 'libmgl-glut.dll';
+  libmglmpi = 'libmgl-mpi.dll';
+  libmglwnd = 'libmgl-wnd.dll';
   {$endif}
 
   {$ifdef darwin}
@@ -31,15 +39,17 @@ type
   Twchar_t = widechar;
   Pwchar_t = ^Twchar_t;
 
+  Ppthread_mutex_t = Pointer;
+
   TFILE = record
   end;
   PFILE = ^TFILE;
 
-  PPsingle=^PSingle;
-  PPPsingle=^PPSingle;
+  PPsingle = ^PSingle;
+  PPPsingle = ^PPSingle;
 
-  PPdouble=^Pdouble;
-  PPPdouble=^PPdouble;
+  PPdouble = ^Pdouble;
+  PPPdouble = ^PPdouble;
 
 implementation
 
@@ -62,5 +72,4 @@ begin
   SetMXCSR;
   {$ENDIF}
 end.
-
 end.
