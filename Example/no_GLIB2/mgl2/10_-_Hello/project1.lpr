@@ -1,13 +1,7 @@
 program project1;
 
-// mglDataA = Pointer ?????     canvas_cg.h
-// mglNum = Pointer ????        canvas_cg.h,
-
 uses
-  fp_mgl2,
-
-
-  math;
+  fp_mgl2;
 
   function sample(gr: THMGL; p: pointer): longint;
   var
@@ -62,13 +56,6 @@ uses
     mgl_delete_graph(gr);
   end;
 
-
 begin
-  mgl_glut_next_frame(nil);
-  mgl_fltk_run;
-  mgl_mpi_send(nil, 0);
-  mgl_set_click_func(nil, nil);
-  mgl_wnd_prev_frame(nil);
-  mgl_wnd_window(nil);
   main;
 end.
