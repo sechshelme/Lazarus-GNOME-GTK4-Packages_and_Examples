@@ -186,6 +186,7 @@ const
     (libs: 'libmgl'; units: 'ctypes'),
 
     (libs: 'libpciaccess'; units: 'ctypes'),
+    (libs: 'libpci'; units: 'ctypes'),
 
 
     (libs: ''; units: ''));
