@@ -179,13 +179,13 @@ const
     (libs: 'libethumb_client'; units: 'efl, fp_eo, fp_eina, fp_efl, fp_ecore'),
 
     (libs: 'libshaderc'; units: 'ctypes'),
-
     (libs: 'libglfw'; units: 'ctypes'),
     (libs: 'libglut'; units: 'ctypes'),
     (libs: 'libGLEW'; units: 'ctypes'),
 
-
     (libs: 'libmgl'; units: 'ctypes'),
+
+    (libs: 'libpciaccess'; units: 'ctypes'),
 
 
     (libs: ''; units: ''));
