@@ -12,8 +12,7 @@ function TclBN_mp_add_d(a: Pmp_int; b: Tmp_digit; c: Pmp_int): Tmp_err; cdecl; e
 function TclBN_mp_and(a: Pmp_int; b: Pmp_int; c: Pmp_int): Tmp_err; cdecl; external libtclstub8_6;
 procedure TclBN_mp_clamp(a: Pmp_int); cdecl; external libtclstub8_6;
 procedure TclBN_mp_clear(a: Pmp_int); cdecl; external libtclstub8_6;
-procedure TclBN_mp_clear_multi(a: Pmp_int; args: array of const); cdecl; external libtclstub8_6;
-procedure TclBN_mp_clear_multi(a: Pmp_int); cdecl; external libtclstub8_6;
+procedure TclBN_mp_clear_multi(a: Pmp_int); cdecl; varargs; external libtclstub8_6;
 function TclBN_mp_cmp(a: Pmp_int; b: Pmp_int): Tmp_ord; cdecl; external libtclstub8_6;
 function TclBN_mp_cmp_d(a: Pmp_int; b: Tmp_digit): Tmp_ord; cdecl; external libtclstub8_6;
 function TclBN_mp_cmp_mag(a: Pmp_int; b: Pmp_int): Tmp_ord; cdecl; external libtclstub8_6;
@@ -29,8 +28,7 @@ function TclBN_mp_expt_d(a: Pmp_int; b: dword; c: Pmp_int): Tmp_err; cdecl; exte
 function TclBN_mp_grow(a: Pmp_int; size: longint): Tmp_err; cdecl; external libtclstub8_6;
 function TclBN_mp_init(a: Pmp_int): Tmp_err; cdecl; external libtclstub8_6;
 function TclBN_mp_init_copy(a: Pmp_int; b: Pmp_int): Tmp_err; cdecl; external libtclstub8_6;
-function TclBN_mp_init_multi(a: Pmp_int; args: array of const): Tmp_err; cdecl; external libtclstub8_6;
-function TclBN_mp_init_multi(a: Pmp_int): Tmp_err; cdecl; external libtclstub8_6;
+function TclBN_mp_init_multi(a: Pmp_int): Tmp_err; cdecl; varargs; external libtclstub8_6;
 function TclBN_mp_init_set(a: Pmp_int; b: Tmp_digit): Tmp_err; cdecl; external libtclstub8_6;
 function TclBN_mp_init_size(a: Pmp_int; size: longint): Tmp_err; cdecl; external libtclstub8_6;
 function TclBN_mp_lshd(a: Pmp_int; shift: longint): Tmp_err; cdecl; external libtclstub8_6;

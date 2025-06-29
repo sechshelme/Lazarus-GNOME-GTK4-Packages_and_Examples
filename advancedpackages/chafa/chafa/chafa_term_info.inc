@@ -42,8 +42,7 @@ procedure chafa_term_info_unref(term_info: PChafaTermInfo); cdecl; external libc
 function chafa_term_info_get_seq(term_info: PChafaTermInfo; seq: TChafaTermSeq): Pgchar; cdecl; external libchafa;
 function chafa_term_info_set_seq(term_info: PChafaTermInfo; seq: TChafaTermSeq; str: Pgchar; error: PPGError): Tgint; cdecl; external libchafa;
 function chafa_term_info_have_seq(term_info: PChafaTermInfo; seq: TChafaTermSeq): Tgboolean; cdecl; external libchafa;
-function chafa_term_info_emit_seq(term_info: PChafaTermInfo; seq: TChafaTermSeq; args: array of const): Pgchar; cdecl; external libchafa;
-function chafa_term_info_emit_seq(term_info: PChafaTermInfo; seq: TChafaTermSeq): Pgchar; cdecl; external libchafa;
+function chafa_term_info_emit_seq(term_info: PChafaTermInfo; seq: TChafaTermSeq): Pgchar; cdecl; varargs; external libchafa;
 function chafa_term_info_parse_seq(term_info: PChafaTermInfo; seq: TChafaTermSeq; input: PPgchar; input_len: Pgint; args_out: Pguint): TChafaParseResult; cdecl; external libchafa;
 procedure chafa_term_info_supplement(term_info: PChafaTermInfo; Source: PChafaTermInfo); cdecl; external libchafa;
 

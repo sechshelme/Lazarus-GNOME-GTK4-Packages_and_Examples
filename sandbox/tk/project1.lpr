@@ -132,7 +132,6 @@ uses
     Tcl_CreateTimerHandler(30, @MoveCircle, interp);
 
 
-
     // Erstelle ein Eingabefeld
     if Tcl_Eval(interp, 'entry .entry -width 30; pack .entry -side top -padx 10 -pady 10') <> TCL_OK then begin
       WriteLn('Fehler beim Erstellen des Eingabefeldes: ', Tcl_GetStringResult(interp));

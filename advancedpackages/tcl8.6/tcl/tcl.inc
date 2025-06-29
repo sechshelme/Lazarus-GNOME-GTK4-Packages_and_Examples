@@ -252,7 +252,7 @@ type
   TTcl_PackageInitProc = function(interp: PTcl_Interp): longint; cdecl;
   PTcl_PackageInitProc = ^TTcl_PackageInitProc;
   TTcl_PackageUnloadProc = function(interp: PTcl_Interp; flags: longint): longint; cdecl;
-  TTcl_PanicProc = procedure(format: pchar; args: array of const); cdecl;
+  TTcl_PanicProc = procedure(format: pchar); cdecl; varargs;
   TTcl_TcpAcceptProc = procedure(callbackData: TClientData; chan: TTcl_Channel; address: pchar; port: longint); cdecl;
   TTcl_TimerProc = procedure(clientData: TClientData); cdecl;
   TTcl_SetFromAnyProc = function(interp: PTcl_Interp; objPtr: PTcl_Obj): longint; cdecl;

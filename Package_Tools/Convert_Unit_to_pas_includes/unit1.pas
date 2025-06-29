@@ -32,8 +32,8 @@ implementation
 { TForm1 }
 
 const
-  srcPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/sandbox/mgl2';
-//  srcPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/gdk-pixbuf-xlib';
+  srcPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/sandbox/pci/pas';
+
   destPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/packagesxx';
 
 procedure TForm1.Button1Click(Sender: TObject);

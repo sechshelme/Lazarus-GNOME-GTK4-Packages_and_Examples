@@ -2,8 +2,7 @@
 
 function Tcl_PkgProvideEx(interp: PTcl_Interp; Name: pchar; version: pchar; clientData: pointer): longint; cdecl; external libtclstub8_6;
 function Tcl_PkgRequireEx(interp: PTcl_Interp; Name: pchar; version: pchar; exact: longint; clientDataPtr: pointer): pchar; cdecl; external libtclstub8_6;
-procedure Tcl_Panic(format: pchar; args: array of const); cdecl; external libtclstub8_6;
-procedure Tcl_Panic(format: pchar); cdecl; external libtclstub8_6;
+procedure Tcl_Panic(format: pchar); cdecl; varargs; external libtclstub8_6;
 function Tcl_Alloc(size: dword): pchar; cdecl; external libtclstub8_6;
 procedure Tcl_Free(ptr: pchar); cdecl; external libtclstub8_6;
 function Tcl_Realloc(ptr: pchar; size: dword): pchar; cdecl; external libtclstub8_6;
@@ -16,8 +15,7 @@ procedure Tcl_SetTimer(timePtr: PTcl_Time); cdecl; external libtclstub8_6;
 procedure Tcl_Sleep(ms: longint); cdecl; external libtclstub8_6;
 function Tcl_WaitForEvent(timePtr: PTcl_Time): longint; cdecl; external libtclstub8_6;
 function Tcl_AppendAllObjTypes(interp: PTcl_Interp; objPtr: PTcl_Obj): longint; cdecl; external libtclstub8_6;
-procedure Tcl_AppendStringsToObj(objPtr: PTcl_Obj; args: array of const); cdecl; external libtclstub8_6;
-procedure Tcl_AppendStringsToObj(objPtr: PTcl_Obj); cdecl; external libtclstub8_6;
+procedure Tcl_AppendStringsToObj(objPtr: PTcl_Obj); cdecl; varargs; external libtclstub8_6;
 procedure Tcl_AppendToObj(objPtr: PTcl_Obj; bytes: pchar; length: longint); cdecl; external libtclstub8_6;
 function Tcl_ConcatObj(objc: longint; objv: PPTcl_Obj): PTcl_Obj; cdecl; external libtclstub8_6;
 function Tcl_ConvertToType(interp: PTcl_Interp; objPtr: PTcl_Obj; typePtr: PTcl_ObjType): longint; cdecl; external libtclstub8_6;
@@ -74,8 +72,7 @@ procedure Tcl_AddErrorInfo(interp: PTcl_Interp; message: pchar); cdecl; external
 procedure Tcl_AddObjErrorInfo(interp: PTcl_Interp; message: pchar; length: longint); cdecl; external libtclstub8_6;
 procedure Tcl_AllowExceptions(interp: PTcl_Interp); cdecl; external libtclstub8_6;
 procedure Tcl_AppendElement(interp: PTcl_Interp; element: pchar); cdecl; external libtclstub8_6;
-procedure Tcl_AppendResult(interp: PTcl_Interp; args: array of const); cdecl; external libtclstub8_6;
-procedure Tcl_AppendResult(interp: PTcl_Interp); cdecl; external libtclstub8_6;
+procedure Tcl_AppendResult(interp: PTcl_Interp); cdecl; varargs; external libtclstub8_6;
 function Tcl_AsyncCreate(proc: TTcl_AsyncProc; clientData: TClientData): TTcl_AsyncHandler; cdecl; external libtclstub8_6;
 procedure Tcl_AsyncDelete(async: TTcl_AsyncHandler); cdecl; external libtclstub8_6;
 function Tcl_AsyncInvoke(interp: PTcl_Interp; code: longint): longint; cdecl; external libtclstub8_6;
@@ -238,8 +235,7 @@ procedure Tcl_SetChannelBufferSize(chan: TTcl_Channel; sz: longint); cdecl; exte
 function Tcl_SetChannelOption(interp: PTcl_Interp; chan: TTcl_Channel; optionName: pchar; newValue: pchar): longint; cdecl; external libtclstub8_6;
 function Tcl_SetCommandInfo(interp: PTcl_Interp; cmdName: pchar; infoPtr: PTcl_CmdInfo): longint; cdecl; external libtclstub8_6;
 procedure Tcl_SetErrno(err: longint); cdecl; external libtclstub8_6;
-procedure Tcl_SetErrorCode(interp: PTcl_Interp; args: array of const); cdecl; external libtclstub8_6;
-procedure Tcl_SetErrorCode(interp: PTcl_Interp); cdecl; external libtclstub8_6;
+procedure Tcl_SetErrorCode(interp: PTcl_Interp); cdecl; varargs; external libtclstub8_6;
 procedure Tcl_SetMaxBlockTime(timePtr: PTcl_Time); cdecl; external libtclstub8_6;
 procedure Tcl_SetPanicProc(panicProc: TTcl_PanicProc); cdecl; external libtclstub8_6;
 function Tcl_SetRecursionLimit(interp: PTcl_Interp; depth: longint): longint; cdecl; external libtclstub8_6;
@@ -274,8 +270,7 @@ procedure Tcl_UpdateLinkedVar(interp: PTcl_Interp; varName: pchar); cdecl; exter
 function Tcl_UpVar(interp: PTcl_Interp; frameName: pchar; varName: pchar; localName: pchar; flags: longint): longint; cdecl; external libtclstub8_6;
 function Tcl_UpVar2(interp: PTcl_Interp; frameName: pchar; part1: pchar; part2: pchar; localName: pchar;
   flags: longint): longint; cdecl; external libtclstub8_6;
-function Tcl_VarEval(interp: PTcl_Interp; args: array of const): longint; cdecl; external libtclstub8_6;
-function Tcl_VarEval(interp: PTcl_Interp): longint; cdecl; external libtclstub8_6;
+function Tcl_VarEval(interp: PTcl_Interp): longint; cdecl; varargs; external libtclstub8_6;
 function Tcl_VarTraceInfo(interp: PTcl_Interp; varName: pchar; flags: longint; procPtr: TTcl_VarTraceProc; prevClientData: TClientData): TClientData; cdecl; external libtclstub8_6;
 function Tcl_VarTraceInfo2(interp: PTcl_Interp; part1: pchar; part2: pchar; flags: longint; procPtr: TTcl_VarTraceProc;
   prevClientData: TClientData): TClientData; cdecl; external libtclstub8_6;
@@ -605,10 +600,8 @@ procedure Tcl_AppendObjToErrorInfo(interp: PTcl_Interp; objPtr: PTcl_Obj); cdecl
 procedure Tcl_AppendLimitedToObj(objPtr: PTcl_Obj; bytes: pchar; length: longint; limit: longint; ellipsis: pchar); cdecl; external libtclstub8_6;
 function Tcl_Format(interp: PTcl_Interp; format: pchar; objc: longint; objv: PPTcl_Obj): PTcl_Obj; cdecl; external libtclstub8_6;
 function Tcl_AppendFormatToObj(interp: PTcl_Interp; objPtr: PTcl_Obj; format: pchar; objc: longint; objv: PPTcl_Obj): longint; cdecl; external libtclstub8_6;
-function Tcl_ObjPrintf(format: pchar; args: array of const): PTcl_Obj; cdecl; external libtclstub8_6;
-function Tcl_ObjPrintf(format: pchar): PTcl_Obj; cdecl; external libtclstub8_6;
-procedure Tcl_AppendPrintfToObj(objPtr: PTcl_Obj; format: pchar; args: array of const); cdecl; external libtclstub8_6;
-procedure Tcl_AppendPrintfToObj(objPtr: PTcl_Obj; format: pchar); cdecl; external libtclstub8_6;
+function Tcl_ObjPrintf(format: pchar): PTcl_Obj; cdecl; varargs; external libtclstub8_6;
+procedure Tcl_AppendPrintfToObj(objPtr: PTcl_Obj; format: pchar); cdecl; varargs; external libtclstub8_6;
 function Tcl_CancelEval(interp: PTcl_Interp; resultObjPtr: PTcl_Obj; clientData: TClientData; flags: longint): longint; cdecl; external libtclstub8_6;
 function Tcl_Canceled(interp: PTcl_Interp; flags: longint): longint; cdecl; external libtclstub8_6;
 function Tcl_CreatePipe(interp: PTcl_Interp; rchan: PTcl_Channel; wchan: PTcl_Channel; flags: longint): longint; cdecl; external libtclstub8_6;

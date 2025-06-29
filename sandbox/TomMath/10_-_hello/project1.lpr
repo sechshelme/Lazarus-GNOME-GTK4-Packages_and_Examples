@@ -9,7 +9,8 @@ uses
     buf: pchar = nil;
   begin
     mp_radix_size(mp, 10, @size);
-    buf := GetMem(size + 1);
+//    buf := GetMem(size + 1); // ????
+    buf := GetMem(1000 + 1); // ????
 
     mp_to_radix(mp, buf, size, nil, 10);
     Result := buf;

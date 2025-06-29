@@ -125,10 +125,8 @@ type
 function mp_error_to_string(code: Tmp_err): pchar; cdecl; external libttommath;
 function mp_init(a: Pmp_int): Tmp_err; cdecl; external libttommath;
 procedure mp_clear(a: Pmp_int); cdecl; external libttommath;
-function mp_init_multi(mp: Pmp_int; args: array of const): Tmp_err; cdecl; external libttommath;
-function mp_init_multi(mp: Pmp_int): Tmp_err; cdecl; external libttommath;
-procedure mp_clear_multi(mp: Pmp_int; args: array of const); cdecl; external libttommath;
-procedure mp_clear_multi(mp: Pmp_int); cdecl; external libttommath;
+function mp_init_multi(mp: Pmp_int): Tmp_err; cdecl; varargs; external libttommath;
+procedure mp_clear_multi(mp: Pmp_int); cdecl; varargs; external libttommath;
 procedure mp_exch(a: Pmp_int; b: Pmp_int); cdecl; external libttommath;
 function mp_shrink(a: Pmp_int): Tmp_err; cdecl; external libttommath;
 function mp_grow(a: Pmp_int; size: longint): Tmp_err; cdecl; external libttommath;

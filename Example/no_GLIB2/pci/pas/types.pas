@@ -5,9 +5,9 @@ interface
 uses
   ctypes;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
 type
@@ -27,7 +27,7 @@ type
   Ppciaddr_t = ^Tpciaddr_t;
   Tpciaddr_t = Tu64;
 
-// === Konventiert am: 28-6-25 19:49:19 ===
+  // === Konventiert am: 28-6-25 19:49:19 ===
 
 
 implementation
