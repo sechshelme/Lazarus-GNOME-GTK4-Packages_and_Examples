@@ -188,6 +188,8 @@ const
     (libs: 'libpciaccess'; units: 'ctypes'),
     (libs: 'libpci'; units: 'ctypes'),
 
+    (libs: 'libc'; units: 'ctypes'),
+
 
     (libs: ''; units: ''));
 

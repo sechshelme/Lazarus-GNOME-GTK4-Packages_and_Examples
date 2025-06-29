@@ -50,6 +50,10 @@ for file in *-*; do mv "$file" "${file//-/_}"; done
 ## DLL verkleinern
 `x86_64-w64-mingw32-strip xxx.dll`
 
+## DLL mit make bauen
+`make CROSS_COMPILE=x86_64-w64-mingw32- HOST=x86_64-windows ZLIB=no IDSDIR="" SHARED=yes -j`
+
+
 
 CMAKE:
 (https://cmake.org/download/)

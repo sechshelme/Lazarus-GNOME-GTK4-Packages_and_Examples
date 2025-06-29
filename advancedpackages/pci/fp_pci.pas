@@ -7,6 +7,10 @@ const
   libpci = 'libpci';
   {$endif}
 
+  {$ifdef windows}
+  libpci = 'libpci3.dll';
+  {$endif}
+
 type
   Ppci_property = Pointer; // ??????
   Pid_bucket = Pointer;
