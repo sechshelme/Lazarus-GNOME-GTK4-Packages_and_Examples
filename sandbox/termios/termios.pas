@@ -3,28 +3,17 @@ unit termios;
 interface
 
 uses
-  termbits_common,
-  termbits;
+  termios_bits,
+  termios_struct;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
+  // /usr/include/linux/termios.h
+
 const
   libc = 'c';
-
-type
-  Ttermios = record
-    c_iflag: Ttcflag_t;
-    c_oflag: Ttcflag_t;
-    c_cflag: Ttcflag_t;
-    c_lflag: Ttcflag_t;
-    c_line: Tcc_t;
-    c_cc: array[0..31] of Tcc_t; // Größe kann je nach System variieren!
-    c_ispeed: Tspeed_t;
-    c_ospeed: Tspeed_t;
-  end;
-  Ptermios = ^Ttermios;
 
 type
   Tpid_t = longint;

@@ -2,12 +2,21 @@ program project1;
 
 uses
   stdio,
-  termbits_common,
-  termbits,
+  termios_struct,
+  termios_c_cflag,
+  termios_c_iflag,
+  termios_c_lflag,
+  termios_c_oflag,
+  termios_c_cc,
+  termios_tcflow,
+  termios_baud,
+  termios_bits,
   termios;
 
 const
   STDIN_FILENO = 0; // <unistd.h>
+//    ECHO = $00008;
+  //    TCSANOW = 0;
 
 const
   MAX_PASSWD_LEN = 100;
@@ -20,6 +29,9 @@ const
     printf('Bitte Passwort eingeben'#10);
     fflush(stdout);
     tcgetattr(STDIN_FILENO, @oldt);
+
+    WriteLn('size: ', SizeOf(oldt));
+
     newt := oldt;
     newt.c_lflag := newt.c_lflag and not ECHO;
 
