@@ -95,6 +95,11 @@ int main(int argc, char **argv)
 }
 
 
+gid_t
+uid_t
+off_t
+intptr_t
+
 
 
 

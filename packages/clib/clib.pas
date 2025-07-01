@@ -25,21 +25,25 @@ const
 
 
 type
-  Tsize_t = SizeInt;
+  Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;
 
+  Tssize_t = SizeInt;
+  Pssize_t = ^Tssize_t;
+
   Tgnuc_va_list = Pointer;
+
+type
+  Toff_t = LongInt;
+  Poff_t = ^Toff_t;
 
   Toff64_t = SizeUInt;
   Poff64_t = ^Toff64_t;
 
-  Tssize_t = SizeUInt;
-  Pssize_t = ^Tssize_t;
-
   Tfpos64_t = SizeUInt;
   Pfpos64_t = ^Tfpos64_t;
 
-  Tfpos_t = Tfpos64_t;
+  Tfpos_t = LongInt;
   Pfpos_t = ^Tfpos_t;
 
   Twchar_t = widechar;
@@ -50,13 +54,15 @@ type
 
 type  // unistd.h
   Ppid_t = ^Tpid_t;
-  Tpid_t = int32;
+  Tpid_t = uint32;
 
   Puid_t = ^Tuid_t;
-  Tuid_t = Int32;
+  Tuid_t = uInt32;
 
   Pgid_t = ^Tgid_t;
-  Tgid_t = Int32;
+  Tgid_t = uInt32;
+
+
 const
   STDIN_FILENO = 0;
   STDOUT_FILENO = 1;

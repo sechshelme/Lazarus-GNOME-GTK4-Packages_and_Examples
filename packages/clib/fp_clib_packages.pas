@@ -8,7 +8,7 @@ unit fp_clib_packages;
 interface
 
 uses
-  clib, signal, stdio, termios, LazarusPackageIntf;
+  clib, fp_signal, fp_stdio, fp_termios, LazarusPackageIntf;
 
 implementation
 

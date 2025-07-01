@@ -1,11 +1,10 @@
 program project1;
 
 uses
-  stdio,
-  termios;
+  fp_stdio,
+  fp_unistd,
+  fp_termios;
 
-const
-  STDIN_FILENO = 0; // <unistd.h>
 
 const
   MAX_PASSWD_LEN = 100;

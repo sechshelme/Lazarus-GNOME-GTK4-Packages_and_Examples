@@ -1,4 +1,4 @@
-unit signal;
+unit fp_signal;
 
 interface
 
