@@ -6,6 +6,7 @@
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
+        <OtherUnitFiles Value="linux"/>
         <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
@@ -21,6 +22,10 @@
       <Item>
         <Filename Value="stdio.pas"/>
         <UnitName Value="stdio"/>
+      </Item>
+      <Item>
+        <Filename Value="linux/termios.pas"/>
+        <UnitName Value="termios"/>
       </Item>
     </Files>
     <RequiredPkgs>
