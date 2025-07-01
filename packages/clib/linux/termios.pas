@@ -7,6 +7,13 @@ interface
 {$PACKRECORDS C}
 {$ENDIF}
 
+
+type  // unistd.h
+  Tpid_t = longint;
+  Ppid_t = ^Tpid_t;
+
+
+
 // ---------- /usr/include/x86_64-linux-gnu/bits/termios.h
 
 type
@@ -221,8 +228,6 @@ const
   NCCS = 32;
 
 type
-  Ptermios = ^Ttermios;
-
   Ttermios = record
     c_iflag: Ttcflag_t;
     c_oflag: Ttcflag_t;
@@ -233,6 +238,7 @@ type
     c_ispeed: Tspeed_t;
     c_ospeed: Tspeed_t;
   end;
+  Ptermios = ^Ttermios;
 
 
   //
@@ -242,10 +248,6 @@ type
 
 const
   libc = 'c';
-
-type
-  Tpid_t = longint;
-  Ppid_t = ^Tpid_t;
 
 function cfgetospeed(__termios_p: Ptermios): Tspeed_t; cdecl; external libc;
 function cfgetispeed(__termios_p: Ptermios): Tspeed_t; cdecl; external libc;
