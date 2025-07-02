@@ -1,4 +1,4 @@
-unit sixel;
+unit fp_sixel;
 
 interface
 
@@ -15,7 +15,7 @@ const
   {$ENDIF}
 
   {$IFDEF mswindows}
-  libsixel = 'libsixel.dll'; // ???
+  libsixel = 'libsixel-1.dll'; // ???
   {$ENDIF}
 
 
