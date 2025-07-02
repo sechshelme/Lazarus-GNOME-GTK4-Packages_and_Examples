@@ -1,0 +1,59 @@
+collections {
+   group {
+      name: "main";
+      parts {
+         part {
+            name: "bg";
+            type: RECT;
+            mouse_events: 1;
+            description {
+               state: "default" 0.0;
+               color: 100 150 220 255;
+            }
+            description {
+               state: "rot" 0.0;
+               color: 220 80 80 255;
+            }
+         }
+         part {
+            name: "label";
+            type: TEXT;
+            description {
+               state: "default" 0.0;
+               text {
+                  text: "Hallo Edje!";
+                  font: "Sans";
+                  size: 24;
+                  align: 0.5 0.5;
+               }
+               color: 255 255 255 255;
+               rel1 { relative: 0.0 0.0; }
+               rel2 { relative: 1.0 1.0; }
+            }
+         }
+      }
+      programs {
+         // Nur wenn bg im default-Zustand ist, auf Klick reagieren
+         program {
+            name: "to_rot";
+            signal: "mouse,clicked,1";
+            source: "bg";
+            filter: "bg" "default";
+            action: STATE_SET "rot" 0.0;
+            target: "bg";
+            transition: LINEAR 1.0;
+         }
+         // Nur wenn bg im rot-Zustand ist, auf Klick reagieren
+         program {
+            name: "to_default";
+            signal: "mouse,clicked,1";
+            source: "bg";
+            filter: "bg" "rot";
+            action: STATE_SET "default" 0.0;
+            target: "bg";
+            transition: LINEAR 1.0;
+         }
+      }
+   }
+}
+
