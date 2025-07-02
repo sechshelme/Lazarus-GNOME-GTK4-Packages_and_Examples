@@ -66,9 +66,6 @@ function renameat2(__oldfd: longint; __old: pchar; __newfd: longint; __new: pcha
 function fclose(__stream: PFILE): longint; cdecl; external libc;
 
 function tmpfile: PFILE; cdecl; external libc;
-//const
-//tmpfile = tmpfile64;
-
 function tmpfile64: PFILE; cdecl; external libc;
 
 type
