@@ -17,6 +17,9 @@
     </Files>
     <RequiredPkgs>
       <Item>
+        <PackageName Value="fp_clib_packages"/>
+      </Item>
+      <Item>
         <PackageName Value="FCL"/>
       </Item>
     </RequiredPkgs>

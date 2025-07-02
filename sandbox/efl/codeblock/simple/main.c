@@ -10,6 +10,8 @@
 #include <termios.h>
 #include <unistd.h>
 #include <string.h>
+#include <libssh/libssh.h>
+#include <libssh/sftp.h>
 
 
 

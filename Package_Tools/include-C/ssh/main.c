@@ -28,7 +28,7 @@ int main(void) {
     }
 
     // Authentifizierung mit Passwort
-    rc = ssh_userauth_password(session, NULL, "123456"); // <--- Passwort anpassen
+    rc = ssh_userauth_password(session, NULL, "xxxxxx"); // <--- Passwort anpassen
     if (rc != SSH_AUTH_SUCCESS) {
         fprintf(stderr, "Authentifizierung fehlgeschlagen: %s\n", ssh_get_error(session));
         ssh_disconnect(session);

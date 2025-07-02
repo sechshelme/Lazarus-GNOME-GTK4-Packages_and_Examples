@@ -1,41 +1,73 @@
 program project1;
 
 uses
-  callbacks,
+  fp_stdio,
+
+
+  callbacks,    // inline
   legacy,
-  libssh,
+  libssh_,    // inline
   libssh_version,
   server,
   sftp,
   ssh2,
 
-  math;
-
-  function printf(__format: pchar): longint; cdecl; varargs; external 'c';
+  math,
+  fp_libssh;
 
   procedure main;
   var
-    err: longint;
-    iter: Ppci_device_iterator;
-    dev: Ppci_device;
+    buffer: array[0..256 - 1] of char;
+    session: Tssh_session;
+    rc, nbytes: longint;
+    channel: Tssh_channel;
   begin
-    err := pci_system_init;
-    if err <> 0 then begin
-      WriteLn('PCI Init failed: ', err);
+    session := ssh_new;
+    if session = nil then begin
+      Exit;
+    end;
+    ssh_options_set(session, SSH_OPTIONS_HOST, pchar('localhost'));
+    ssh_options_set(session, SSH_OPTIONS_USER, pchar('test')); // <--- Benutzername anpassen
+
+    rc := ssh_connect(session);
+    if rc <> SSH_OK then begin
+      fprintf(stderr, 'Fehler beim Verbinden: %s'#10, ssh_get_error(session));
+      ssh_free(session);
       Exit;
     end;
 
-    iter := pci_id_match_iterator_create(nil);
-    repeat
-      dev := pci_device_next(iter);
-      if dev <> nil then begin
-        printf('PCI-Gerät: Bus %02x, Gerät %02x, Funktion %x'#10, dev^.bus, dev^.dev, dev^.func);
-        printf('  Vendor-ID: 0x%04x, Device-ID: 0x%04x'#10, dev^.vendor_id, dev^.device_id);
-        printf(#10);
-      end;
-    until dev = nil;
-    pci_iterator_destroy(iter);
+    rc := ssh_userauth_password(session, nil, 'xxxxxx'); // <--- Passwort anpassen
+    if rc <> SSH_AUTH_SUCCESS then begin
+      fprintf(stderr, 'Authentifizierung fehlgeschlagen: %s'#10, ssh_get_error(session));
+      ssh_disconnect(session);
+      ssh_free(session);
+      Exit;
+    end;
 
+    channel := ssh_channel_new(session);
+    if channel = nil then begin
+      Exit;
+    end;
+    rc := ssh_channel_open_session(channel);
+    if rc <> SSH_OK then begin
+      Exit;
+    end;
+    rc := ssh_channel_request_exec(channel, 'ls');
+    if rc <> SSH_OK then begin
+      Exit;
+    end;
+
+    nbytes := ssh_channel_read(channel, @buffer, sizeof(buffer), 0);
+    while nbytes > 0 do begin
+      fwrite(@buffer, 1, nbytes, stdout);
+      nbytes := ssh_channel_read(channel, @buffer, sizeof(buffer), 0);
+    end;
+
+    ssh_channel_send_eof(channel);
+    ssh_channel_close(channel);
+    ssh_channel_free(channel);
+    ssh_disconnect(session);
+    ssh_free(session);
   end;
 
 begin
