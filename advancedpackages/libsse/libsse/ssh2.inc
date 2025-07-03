@@ -1,13 +1,4 @@
-unit ssh2;
-
-interface
-
-uses
-  ctypes;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -84,8 +75,11 @@ const
   // === Konventiert am: 2-7-25 17:32:35 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

@@ -1,13 +1,4 @@
-unit legacy;
-
-interface
-
-uses
-  fp_libssh, libssh_;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -88,8 +79,11 @@ function string_to_char(str: Tssh_string): pchar; cdecl; external libssh; deprec
 // === Konventiert am: 2-7-25 17:32:18 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

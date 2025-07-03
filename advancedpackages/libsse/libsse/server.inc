@@ -1,13 +1,4 @@
-unit server;
-
-interface
-
-uses
-  fp_libssh, libssh_;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 
@@ -108,7 +99,6 @@ function ssh_message_channel_request_x11_screen_number(msg: Tssh_message): longi
 function ssh_message_global_request_address(msg: Tssh_message): pchar; cdecl; external libssh;
 function ssh_message_global_request_port(msg: Tssh_message): longint; cdecl; external libssh;
 function ssh_channel_open_reverse_forward(channel: Tssh_channel; remotehost: pchar; remoteport: longint; sourcehost: pchar; localport: longint): longint; cdecl; external libssh;
-function ssh_channel_open_x11(channel: Tssh_channel; orig_addr: pchar; orig_port: longint): longint; cdecl; external libssh;
 function ssh_channel_request_send_exit_status(channel: Tssh_channel; exit_status: longint): longint; cdecl; external libssh;
 function ssh_channel_request_send_exit_signal(channel: Tssh_channel; signum: pchar; core: longint; errmsg: pchar; lang: pchar): longint; cdecl; external libssh;
 function ssh_send_keepalive(session: Tssh_session): longint; cdecl; external libssh;
@@ -118,8 +108,11 @@ function channel_write_stderr(channel: Tssh_channel; data: pointer; len: Tuint32
 // === Konventiert am: 2-7-25 17:32:29 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

@@ -53,6 +53,10 @@ for file in *-*; do mv "$file" "${file//-/_}"; done
 ## DLL mit make bauen
 `make CROSS_COMPILE=x86_64-w64-mingw32- HOST=x86_64-windows ZLIB=no IDSDIR="" SHARED=yes -j`
 
+## Debugen
+WINEDEBUG=+loaddll wine project1.exe
+
+
 
 
 CMAKE:

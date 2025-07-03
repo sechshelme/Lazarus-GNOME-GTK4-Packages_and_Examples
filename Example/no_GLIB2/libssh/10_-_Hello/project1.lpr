@@ -2,18 +2,7 @@ program project1;
 
 uses
   fp_stdio,
-  fp_libssh,
-
-
-  libssh_,
-  callbacks,
-  legacy,
-  libssh_version,
-  server,
-  sftp,
-  ssh2,
-
-  math;
+  fp_libssh;
 
   procedure main;
   var
@@ -21,6 +10,7 @@ uses
     session: Tssh_session;
     rc, nbytes: longint;
     channel: Tssh_channel;
+    i: integer;
   begin
     session := ssh_new;
     if session = nil then begin
@@ -28,7 +18,7 @@ uses
     end;
     ssh_options_set(session, SSH_OPTIONS_HOST, pchar('localhost'));
     ssh_options_set(session, SSH_OPTIONS_USER, pchar('test'));
-    ssh_options_set(session, SSH_OPTIONS_PORT_STR, PChar('22'));
+    ssh_options_set(session, SSH_OPTIONS_PORT_STR, pchar('22'));
 
     rc := ssh_connect(session);
     if rc <> SSH_OK then begin
@@ -60,7 +50,10 @@ uses
 
     repeat
       nbytes := ssh_channel_read(channel, @buffer, sizeof(buffer), 0);
-      fwrite(@buffer, 1, nbytes, stdout);
+      //      fwrite(@buffer, 1, nbytes, stdout);
+      for i := 0 to nbytes - 1 do begin
+        Write(buffer[i]);
+      end;
     until nbytes <= 0;
 
     ssh_channel_send_eof(channel);

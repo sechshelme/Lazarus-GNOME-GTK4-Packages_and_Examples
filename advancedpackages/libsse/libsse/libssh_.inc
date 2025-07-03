@@ -1,13 +1,4 @@
-unit libssh_;
-
-interface
-
-uses
-  fp_libssh;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -587,7 +578,10 @@ function ssh_session_set_disconnect_message(session: Tssh_session; message: pcha
 // === Konventiert am: 2-7-25 17:32:21 ===
 
 
-implementation
+{$ENDIF read_interface}
 
 
-end.
+{$IFDEF read_implementation}
+
+
+{$ENDIF read_implementation}

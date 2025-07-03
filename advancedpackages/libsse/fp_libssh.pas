@@ -3,6 +3,11 @@ unit fp_libssh;
 
 interface
 
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
+
 const
   {$IFDEF unix}
   libssh = 'libssh';
@@ -27,6 +32,19 @@ type
 
   Pva_list = Pointer;
 
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
+  {$DEFINE read_interface}
+  {$include fp_libsse_includes.inc}
+  {$UNDEF read_interface}
+
+
 implementation
+
+{$DEFINE read_implementation}
+{$include fp_libsse_includes.inc}
+{$UNDEF read_implementation}
 
 end.

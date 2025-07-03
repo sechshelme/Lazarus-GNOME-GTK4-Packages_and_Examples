@@ -1,13 +1,4 @@
-unit libssh_version;
-
-interface
-
-uses
-  ctypes;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 
@@ -19,7 +10,10 @@ const
   // === Konventiert am: 2-7-25 17:32:26 ===
 
 
-implementation
+{$ENDIF read_interface}
 
 
-end.
+{$IFDEF read_implementation}
+
+
+{$ENDIF read_implementation}

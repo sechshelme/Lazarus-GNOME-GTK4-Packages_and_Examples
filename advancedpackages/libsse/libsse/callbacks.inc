@@ -1,13 +1,4 @@
-unit callbacks;
-
-interface
-
-uses
-  fp_libssh, libssh_;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -172,7 +163,10 @@ function ssh_get_log_callback: Tssh_logging_callback; cdecl; external libssh;
 // === Konventiert am: 2-7-25 17:32:15 ===
 
 
-implementation
+{$ENDIF read_interface}
 
 
-end.
+{$IFDEF read_implementation}
+
+
+{$ENDIF read_implementation}
