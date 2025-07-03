@@ -30,16 +30,13 @@ type
   Tmode_t = longint;
 
 type
-  Tssh_counter_struct = record
+  Tssh_counter = record
     in_bytes: Tuint64_t;
     out_bytes: Tuint64_t;
     in_packets: Tuint64_t;
     out_packets: Tuint64_t;
   end;
-  Pssh_counter_struct = ^Tssh_counter_struct;
-
-
-  Tssh_counter = ^Tssh_counter_struct;
+  Pssh_counter = ^Tssh_counter;
 
   Tssh_agent = Pointer; // Pssh_agent_struct;
   Tssh_buffer = Pointer; //  Pssh_buffer_struct;
@@ -240,6 +237,7 @@ type
     comment: pchar;
   end;
   Pssh_knownhosts_entry = ^Tssh_knownhosts_entry;
+  PPssh_knownhosts_entry = ^Pssh_knownhosts_entry;
 
 const
   SSH_OK = 0;
@@ -368,7 +366,7 @@ function ssh_channel_request_x11(channel: Tssh_channel; single_connection: longi
 function ssh_channel_request_auth_agent(channel: Tssh_channel): longint; cdecl; external libssh;
 function ssh_channel_send_eof(channel: Tssh_channel): longint; cdecl; external libssh;
 procedure ssh_channel_set_blocking(channel: Tssh_channel; blocking: longint); cdecl; external libssh;
-procedure ssh_channel_set_counter(channel: Tssh_channel; counter: Tssh_counter); cdecl; external libssh;
+procedure ssh_channel_set_counter(channel: Tssh_channel; counter: Pssh_counter); cdecl; external libssh;
 function ssh_channel_write(channel: Tssh_channel; data: pointer; len: Tuint32_t): longint; cdecl; external libssh;
 function ssh_channel_write_stderr(channel: Tssh_channel; data: pointer; len: Tuint32_t): longint; cdecl; external libssh;
 function ssh_channel_window_size(channel: Tssh_channel): Tuint32_t; cdecl; external libssh;
@@ -407,7 +405,6 @@ const
   SSH_PUBLICKEY_HASH_MD5 = 1;
   SSH_PUBLICKEY_HASH_SHA256 = 2;
 
-
 function ssh_get_publickey_hash(key: Tssh_key; _type: Tssh_publickey_hash_type; hash: PPbyte; hlen: Psize_t): longint; cdecl; external libssh;
 
 { DEPRECATED FUNCTIONS  }
@@ -437,6 +434,7 @@ function ssh_scp_request_get_size(scp: Tssh_scp): Tsize_t; cdecl; external libss
 function ssh_scp_request_get_size64(scp: Tssh_scp): Tuint64_t; cdecl; external libssh; deprecated;
 function ssh_scp_request_get_warning(scp: Tssh_scp): pchar; cdecl; external libssh; deprecated;
 function ssh_scp_write(scp: Tssh_scp; buffer: pointer; len: Tsize_t): longint; cdecl; external libssh; deprecated;
+
 function ssh_get_random(where: pointer; len: longint; strong: longint): longint; cdecl; external libssh;
 function ssh_get_version(session: Tssh_session): longint; cdecl; external libssh;
 function ssh_get_status(session: Tssh_session): longint; cdecl; external libssh;
@@ -444,24 +442,13 @@ function ssh_get_poll_flags(session: Tssh_session): longint; cdecl; external lib
 function ssh_init: longint; cdecl; external libssh;
 function ssh_is_blocking(session: Tssh_session): longint; cdecl; external libssh;
 function ssh_is_connected(session: Tssh_session): longint; cdecl; external libssh;
-{ KNOWN HOSTS  }
 procedure ssh_knownhosts_entry_free(entry: Pssh_knownhosts_entry); cdecl; external libssh;
-{ xxxxxxxxxxxxx }
-{
-extern int ssh_known_hosts_parse_line(const char *host,
-                                          const char *line,
-                                          struct ssh_knownhosts_entry **entry);
-extern enum ssh_known_hosts_e ssh_session_has_known_hosts_entry(ssh_session session);
-
-extern int ssh_session_export_known_hosts_entry(ssh_session session,
-                                                    char **pentry_string);
-extern int ssh_session_update_known_hosts(ssh_session session);
-
-extern enum ssh_known_hosts_e ssh_session_get_known_hosts_entry(ssh_session session,
-        struct ssh_knownhosts_entry **pentry);
-extern enum ssh_known_hosts_e ssh_session_is_known_server(ssh_session session);
-
-/* LOGGING  }
+function ssh_known_hosts_parse_line(host: pchar; line: pchar; entry: PPssh_knownhosts_entry): longint; cdecl; external libssh;
+function ssh_session_has_known_hosts_entry(session: Tssh_session): Tssh_known_hosts_e; cdecl; external libssh;
+function ssh_session_export_known_hosts_entry(session: Tssh_session; pentry_string: PPchar): longint; cdecl; external libssh;
+function ssh_session_update_known_hosts(session: Tssh_session): longint; cdecl; external libssh;
+function ssh_session_get_known_hosts_entry(session: Tssh_session; pentry: PPssh_knownhosts_entry): Tssh_known_hosts_e; cdecl; external libssh;
+function ssh_session_is_known_server(session: Tssh_session): Tssh_known_hosts_e; cdecl; external libssh;
 function ssh_set_log_level(level: longint): longint; cdecl; external libssh;
 function ssh_get_log_level: longint; cdecl; external libssh;
 function ssh_get_log_userdata: pointer; cdecl; external libssh;
@@ -469,9 +456,7 @@ function ssh_set_log_userdata(data: pointer): longint; cdecl; external libssh;
 procedure ssh_vlog(verbosity: longint; _function: pchar; format: pchar; va: Pva_list); cdecl; external libssh;
 procedure _ssh_log(verbosity: longint; _function: pchar; format: pchar; args: array of const); cdecl; external libssh;
 procedure _ssh_log(verbosity: longint; _function: pchar; format: pchar); cdecl; external libssh;
-{ legacy  }
-{SSH_DEPRECATED }(* Const before type ignored *)
-procedure ssh_log(session: Tssh_session; prioriry: longint; format: pchar; args: array of const); cdecl; external libssh;
+procedure ssh_log(session: Tssh_session; prioriry: longint; format: pchar; args: array of const); cdecl; external libssh; deprecated;
 procedure ssh_log(session: Tssh_session; prioriry: longint; format: pchar); cdecl; external libssh;
 function ssh_message_channel_request_open_reply_accept(msg: Tssh_message): Tssh_channel; cdecl; external libssh;
 function ssh_message_channel_request_open_reply_accept_channel(msg: Tssh_message; chan: Tssh_channel): longint; cdecl; external libssh;
@@ -494,7 +479,6 @@ function ssh_pcap_file_new: Tssh_pcap_file; cdecl; external libssh;
 function ssh_pcap_file_open(pcap: Tssh_pcap_file; filename: pchar): longint; cdecl; external libssh;
 
 type
-
   Tssh_auth_callback = function(prompt: pchar; buf: pchar; len: Tsize_t; echo: longint; verify: longint; userdata: pointer): longint; cdecl;
 
 function ssh_key_new: Tssh_key; cdecl; external libssh;
@@ -530,7 +514,7 @@ function ssh_service_request(session: Tssh_session; service: pchar): longint; cd
 function ssh_set_agent_channel(session: Tssh_session; channel: Tssh_channel): longint; cdecl; external libssh;
 function ssh_set_agent_socket(session: Tssh_session; fd: Tsocket_t): longint; cdecl; external libssh;
 procedure ssh_set_blocking(session: Tssh_session; blocking: longint); cdecl; external libssh;
-procedure ssh_set_counters(session: Tssh_session; scounter: Tssh_counter; rcounter: Tssh_counter); cdecl; external libssh;
+procedure ssh_set_counters(session: Tssh_session; scounter: Pssh_counter; rcounter: Pssh_counter); cdecl; external libssh;
 procedure ssh_set_fd_except(session: Tssh_session); cdecl; external libssh;
 procedure ssh_set_fd_toread(session: Tssh_session); cdecl; external libssh;
 procedure ssh_set_fd_towrite(session: Tssh_session); cdecl; external libssh;

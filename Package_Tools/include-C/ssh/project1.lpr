@@ -2,18 +2,18 @@ program project1;
 
 uses
   fp_stdio,
+  fp_libssh,
 
 
-  callbacks,    // inline
+  libssh_,
+  callbacks,
   legacy,
-  libssh_,    // inline
   libssh_version,
   server,
   sftp,
   ssh2,
 
-  math,
-  fp_libssh;
+  math;
 
   procedure main;
   var
@@ -27,7 +27,8 @@ uses
       Exit;
     end;
     ssh_options_set(session, SSH_OPTIONS_HOST, pchar('localhost'));
-    ssh_options_set(session, SSH_OPTIONS_USER, pchar('test')); // <--- Benutzername anpassen
+    ssh_options_set(session, SSH_OPTIONS_USER, pchar('test'));
+    ssh_options_set(session, SSH_OPTIONS_PORT_STR, PChar('22'));
 
     rc := ssh_connect(session);
     if rc <> SSH_OK then begin
@@ -36,7 +37,7 @@ uses
       Exit;
     end;
 
-    rc := ssh_userauth_password(session, nil, 'xxxxxx'); // <--- Passwort anpassen
+    rc := ssh_userauth_password(session, nil, 'xxxxxx');
     if rc <> SSH_AUTH_SUCCESS then begin
       fprintf(stderr, 'Authentifizierung fehlgeschlagen: %s'#10, ssh_get_error(session));
       ssh_disconnect(session);
@@ -52,16 +53,15 @@ uses
     if rc <> SSH_OK then begin
       Exit;
     end;
-    rc := ssh_channel_request_exec(channel, 'ls');
+    rc := ssh_channel_request_exec(channel, 'ls /');
     if rc <> SSH_OK then begin
       Exit;
     end;
 
-    nbytes := ssh_channel_read(channel, @buffer, sizeof(buffer), 0);
-    while nbytes > 0 do begin
-      fwrite(@buffer, 1, nbytes, stdout);
+    repeat
       nbytes := ssh_channel_read(channel, @buffer, sizeof(buffer), 0);
-    end;
+      fwrite(@buffer, 1, nbytes, stdout);
+    until nbytes <= 0;
 
     ssh_channel_send_eof(channel);
     ssh_channel_close(channel);

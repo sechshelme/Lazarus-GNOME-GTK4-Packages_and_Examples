@@ -44,19 +44,17 @@ type
 
   Tssh_bind_incoming_connection_callback = procedure(sshbind: Tssh_bind; userdata: pointer); cdecl;
 
-  Tssh_bind_callbacks_struct = record
+  Tssh_bind_callbacks = record
     size: Tsize_t;
     incoming_connection: Tssh_bind_incoming_connection_callback;
   end;
-  Pssh_bind_callbacks_struct = ^Tssh_bind_callbacks_struct;
-
-  Tssh_bind_callbacks = ^Tssh_bind_callbacks_struct;
+  Pssh_bind_callbacks = ^Tssh_bind_callbacks;
 
 function ssh_bind_new: Tssh_bind; cdecl; external libssh;
 function ssh_bind_options_set(sshbind: Tssh_bind; _type: Tssh_bind_options_e; value: pointer): longint; cdecl; external libssh;
 function ssh_bind_options_parse_config(sshbind: Tssh_bind; filename: pchar): longint; cdecl; external libssh;
 function ssh_bind_listen(ssh_bind_o: Tssh_bind): longint; cdecl; external libssh;
-function ssh_bind_set_callbacks(sshbind: Tssh_bind; callbacks: Tssh_bind_callbacks; userdata: pointer): longint; cdecl; external libssh;
+function ssh_bind_set_callbacks(sshbind: Tssh_bind; callbacks: Pssh_bind_callbacks; userdata: pointer): longint; cdecl; external libssh;
 procedure ssh_bind_set_blocking(ssh_bind_o: Tssh_bind; blocking: longint); cdecl; external libssh;
 function ssh_bind_get_fd(ssh_bind_o: Tssh_bind): Tsocket_t; cdecl; external libssh;
 procedure ssh_bind_set_fd(ssh_bind_o: Tssh_bind; fd: Tsocket_t); cdecl; external libssh;

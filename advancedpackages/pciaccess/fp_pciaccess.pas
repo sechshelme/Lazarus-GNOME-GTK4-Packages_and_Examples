@@ -36,12 +36,14 @@ type
   Tpci_device_iterator = record
   end;
 
-  Tpci_mem_region = record
+  Tpci_mem_region = bitpacked record
     memory: pointer;
     bus_addr: Tpciaddr_t;
     base_addr: Tpciaddr_t;
     size: Tpciaddr_t;
-    flag0: word; // ????????????????'
+    is_IO: 0..1;
+    is_prefetchable: 0..1;
+    is_64: 0..1;
   end;
   Ppci_mem_region = ^Tpci_mem_region;
 
@@ -65,12 +67,18 @@ type
   end;
   Ppci_device = ^Tpci_device;
 
-  Tpci_agp_info = record
+  Tpci_agp_info = bitpacked record
     config_offset: dword;
     major_version: Tuint8_t;
     minor_version: Tuint8_t;
     rates: Tuint8_t;
-    flag0: word; // ????????????
+    fast_writes: 0..1;
+    addr64: 0..1;
+    htrans: 0..1;
+    gart64: 0..1;
+    coherent: 0..1;
+    sideband: 0..1;
+    isochronus: 0..1;
     async_req_size: Tuint8_t;
     calibration_cycle_timing: Tuint8_t;
     max_requests: Tuint8_t;

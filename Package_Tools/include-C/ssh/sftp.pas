@@ -22,40 +22,40 @@ const
   LIBSFTP_VERSION = 3;
 
 type
-  Tsftp_attributes = ^Tsftp_attributes_struct;
-  Tsftp_client_message = Pointer; //   ^Tftp_client_message_struct;
-  Tsftp_dir = Pointer; //  ^Tftp_dir_struct;
-  Tsftp_ext = Pointer; //   ^Tsftp_ext_struct;
-  Tsftp_file = ^Tsftp_file_struct;
-  Tsftp_message = ^Tsftp_message_struct;
-  Tsftp_packet = ^Tsftp_packet_struct;
-  Tsftp_request_queue = ^Tsftp_request_queue_struct;
-  Tsftp_session = ^Tsftp_session_struct;
-  Tsftp_status_message = ^Tsftp_status_message_struct;
-  Tsftp_statvfs_t = ^Tsftp_statvfs_struct;
+  Psftp_attributes = ^Tsftp_attributes;
+  Psftp_client_message = Pointer; //   ^Tftp_client_message_struct;
+  Psftp_dir = Pointer; //  ^Tftp_dir_struct;
+  Psftp_ext = Pointer; //   ^Tsftp_ext_struct;
+  Psftp_file = ^Tsftp_file;
+  Psftp_message = ^Tsftp_message;
+  Psftp_packet = ^Tsftp_packet;
+  Psftp_request_queue = ^Tsftp_request_queue;
+  Psftp_session = ^Tsftp_session;
+  Psftp_status_message = ^Tsftp_status_message;
+  PTsftp_statvfs_t = ^Tsftp_statvfs;
 
-  Tsftp_session_struct = record
+  Tsftp_session = record
     session: Tssh_session;
     channel: Tssh_channel;
     server_version: longint;
     client_version: longint;
     version: longint;
-    queue: Tsftp_request_queue;
+    queue: Psftp_request_queue;
     id_counter: Tuint32_t;
     errnum: longint;
     handles: ^pointer;
-    ext: Tsftp_ext;
-    read_packet: Tsftp_packet;
+    ext: Psftp_ext;
+    read_packet: Psftp_packet;
   end;
 
-  Tsftp_packet_struct = record
-    sftp: Tsftp_session;
+  Tsftp_packet = record
+    sftp: Psftp_session;
     _type: Tuint8_t;
     payload: Tssh_buffer;
   end;
 
-  Tsftp_file_struct = record
-    sftp: Tsftp_session;
+  Tsftp_file = record
+    sftp: Psftp_session;
     name: pchar;
     offset: Tuint64_t;
     handle: Tssh_string;
@@ -64,7 +64,7 @@ type
   end;
 
   Tsftp_dir_struct = record
-    sftp: Tsftp_session;
+    sftp: Psftp_session;
     name: pchar;
     handle: Tssh_string;
     buffer: Tssh_buffer;
@@ -72,20 +72,20 @@ type
     eof: longint;
   end;
 
-  Tsftp_message_struct = record
-    sftp: Tsftp_session;
+  Tsftp_message = record
+    sftp: Psftp_session;
     packet_type: Tuint8_t;
     payload: Tssh_buffer;
     id: Tuint32_t;
   end;
 
-  Tsftp_client_message_struct = record
-    sftp: Tsftp_session;
+  Tsftp_client_message = record
+    sftp: Psftp_session;
     _type: Tuint8_t;
     id: Tuint32_t;
     filename: pchar;
     flags: Tuint32_t;
-    attr: Tsftp_attributes;
+    attr: Psftp_attributes;
     handle: Tssh_string;
     offset: Tuint64_t;
     len: Tuint32_t;
@@ -97,12 +97,12 @@ type
     submessage: pchar;
   end;
 
-  Tsftp_request_queue_struct = record
-    next: Tsftp_request_queue;
-    message: Tsftp_message;
+  Tsftp_request_queue = record
+    next: Psftp_request_queue;
+    message: Psftp_message;
   end;
 
-  Tsftp_status_message_struct = record
+  Tsftp_status_message = record
     id: Tuint32_t;
     status: Tuint32_t;
     error_unused: Tssh_string;
@@ -111,7 +111,7 @@ type
     langmsg: pchar;
   end;
 
-  Tsftp_attributes_struct = record
+  Tsftp_attributes = record
     name: pchar;
     longname: pchar;
     flags: Tuint32_t;
@@ -136,7 +136,7 @@ type
     extended_data: Tssh_string;
   end;
 
-  Tsftp_statvfs_struct = record
+  Tsftp_statvfs = record
     f_bsize: Tuint64_t;
     f_frsize: Tuint64_t;
     f_blocks: Tuint64_t;
@@ -150,76 +150,76 @@ type
     f_namemax: Tuint64_t;
   end;
 
-function sftp_new(session: Tssh_session): Tsftp_session; cdecl; external libssh;
-function sftp_new_channel(session: Tssh_session; channel: Tssh_channel): Tsftp_session; cdecl; external libssh;
-procedure sftp_free(sftp: Tsftp_session); cdecl; external libssh;
-function sftp_init(sftp: Tsftp_session): longint; cdecl; external libssh;
-function sftp_get_error(sftp: Tsftp_session): longint; cdecl; external libssh;
-function sftp_extensions_get_count(sftp: Tsftp_session): dword; cdecl; external libssh;
-function sftp_extensions_get_name(sftp: Tsftp_session; indexn: dword): pchar; cdecl; external libssh;
-function sftp_extensions_get_data(sftp: Tsftp_session; indexn: dword): pchar; cdecl; external libssh;
-function sftp_extension_supported(sftp: Tsftp_session; name: pchar; data: pchar): longint; cdecl; external libssh;
-function sftp_opendir(session: Tsftp_session; path: pchar): Tsftp_dir; cdecl; external libssh;
-function sftp_readdir(session: Tsftp_session; dir: Tsftp_dir): Tsftp_attributes; cdecl; external libssh;
-function sftp_dir_eof(dir: Tsftp_dir): longint; cdecl; external libssh;
-function sftp_stat(session: Tsftp_session; path: pchar): Tsftp_attributes; cdecl; external libssh;
-function sftp_lstat(session: Tsftp_session; path: pchar): Tsftp_attributes; cdecl; external libssh;
-function sftp_fstat(file_: Tsftp_file): Tsftp_attributes; cdecl; external libssh;
-procedure sftp_attributes_free(file_: Tsftp_attributes); cdecl; external libssh;
-function sftp_closedir(dir: Tsftp_dir): longint; cdecl; external libssh;
-function sftp_close(file_: Tsftp_file): longint; cdecl; external libssh;
-function sftp_open(session: Tsftp_session; file_: pchar; accesstype: longint; mode: Tmode_t): Tsftp_file; cdecl; external libssh;
-procedure sftp_file_set_nonblocking(handle: Tsftp_file); cdecl; external libssh;
-procedure sftp_file_set_blocking(handle: Tsftp_file); cdecl; external libssh;
-function sftp_read(file_: Tsftp_file; buf: pointer; count: Tsize_t): Tssize_t; cdecl; external libssh;
-function sftp_async_read_begin(file_: Tsftp_file; len: Tuint32_t): longint; cdecl; external libssh;
-function sftp_async_read(file_: Tsftp_file; data: pointer; len: Tuint32_t; id: Tuint32_t): longint; cdecl; external libssh;
-function sftp_write(file_: Tsftp_file; buf: pointer; count: Tsize_t): Tssize_t; cdecl; external libssh;
-function sftp_seek(file_: Tsftp_file; new_offset: Tuint32_t): longint; cdecl; external libssh;
-function sftp_seek64(file_: Tsftp_file; new_offset: Tuint64_t): longint; cdecl; external libssh;
-function sftp_tell(file_: Tsftp_file): dword; cdecl; external libssh;
-function sftp_tell64(file_: Tsftp_file): Tuint64_t; cdecl; external libssh;
-procedure sftp_rewind(file_: Tsftp_file); cdecl; external libssh;
-function sftp_unlink(sftp: Tsftp_session; file_: pchar): longint; cdecl; external libssh;
-function sftp_rmdir(sftp: Tsftp_session; directory: pchar): longint; cdecl; external libssh;
-function sftp_mkdir(sftp: Tsftp_session; directory: pchar; mode: Tmode_t): longint; cdecl; external libssh;
-function sftp_rename(sftp: Tsftp_session; original: pchar; newname: pchar): longint; cdecl; external libssh;
-function sftp_setstat(sftp: Tsftp_session; file_: pchar; attr: Tsftp_attributes): longint; cdecl; external libssh;
-function sftp_chown(sftp: Tsftp_session; file_: pchar; owner: Tuid_t; group: Tgid_t): longint; cdecl; external libssh;
-function sftp_chmod(sftp: Tsftp_session; file_: pchar; mode: Tmode_t): longint; cdecl; external libssh;
-function sftp_utimes(sftp: Tsftp_session; file_: pchar; times: Ptimeval): longint; cdecl; external libssh;
-function sftp_symlink(sftp: Tsftp_session; target: pchar; dest: pchar): longint; cdecl; external libssh;
-function sftp_readlink(sftp: Tsftp_session; path: pchar): pchar; cdecl; external libssh;
-function sftp_statvfs(sftp: Tsftp_session; path: pchar): Tsftp_statvfs_t; cdecl; external libssh;
-function sftp_fstatvfs(file_: Tsftp_file): Tsftp_statvfs_t; cdecl; external libssh;
-procedure sftp_statvfs_free(statvfs_o: Tsftp_statvfs_t); cdecl; external libssh;
-function sftp_fsync(file_: Tsftp_file): longint; cdecl; external libssh;
-function sftp_canonicalize_path(sftp: Tsftp_session; path: pchar): pchar; cdecl; external libssh;
-function sftp_server_version(sftp: Tsftp_session): longint; cdecl; external libssh;
+function sftp_new(session: Tssh_session): Psftp_session; cdecl; external libssh;
+function sftp_new_channel(session: Tssh_session; channel: Tssh_channel): Psftp_session; cdecl; external libssh;
+procedure sftp_free(sftp: Psftp_session); cdecl; external libssh;
+function sftp_init(sftp: Psftp_session): longint; cdecl; external libssh;
+function sftp_get_error(sftp: Psftp_session): longint; cdecl; external libssh;
+function sftp_extensions_get_count(sftp: Psftp_session): dword; cdecl; external libssh;
+function sftp_extensions_get_name(sftp: Psftp_session; indexn: dword): pchar; cdecl; external libssh;
+function sftp_extensions_get_data(sftp: Psftp_session; indexn: dword): pchar; cdecl; external libssh;
+function sftp_extension_supported(sftp: Psftp_session; name: pchar; data: pchar): longint; cdecl; external libssh;
+function sftp_opendir(session: Psftp_session; path: pchar): Psftp_dir; cdecl; external libssh;
+function sftp_readdir(session: Psftp_session; dir: Psftp_dir): Psftp_attributes; cdecl; external libssh;
+function sftp_dir_eof(dir: Psftp_dir): longint; cdecl; external libssh;
+function sftp_stat(session: Psftp_session; path: pchar): Psftp_attributes; cdecl; external libssh;
+function sftp_lstat(session: Psftp_session; path: pchar): Psftp_attributes; cdecl; external libssh;
+function sftp_fstat(file_: Psftp_file): Psftp_attributes; cdecl; external libssh;
+procedure sftp_attributes_free(file_: Psftp_attributes); cdecl; external libssh;
+function sftp_closedir(dir: Psftp_dir): longint; cdecl; external libssh;
+function sftp_close(file_: Psftp_file): longint; cdecl; external libssh;
+function sftp_open(session: Psftp_session; file_: pchar; accesstype: longint; mode: Tmode_t): Psftp_file; cdecl; external libssh;
+procedure sftp_file_set_nonblocking(handle: Psftp_file); cdecl; external libssh;
+procedure sftp_file_set_blocking(handle: Psftp_file); cdecl; external libssh;
+function sftp_read(file_: Psftp_file; buf: pointer; count: Tsize_t): Tssize_t; cdecl; external libssh;
+function sftp_async_read_begin(file_: Psftp_file; len: Tuint32_t): longint; cdecl; external libssh;
+function sftp_async_read(file_: Psftp_file; data: pointer; len: Tuint32_t; id: Tuint32_t): longint; cdecl; external libssh;
+function sftp_write(file_: Psftp_file; buf: pointer; count: Tsize_t): Tssize_t; cdecl; external libssh;
+function sftp_seek(file_: Psftp_file; new_offset: Tuint32_t): longint; cdecl; external libssh;
+function sftp_seek64(file_: Psftp_file; new_offset: Tuint64_t): longint; cdecl; external libssh;
+function sftp_tell(file_: Psftp_file): dword; cdecl; external libssh;
+function sftp_tell64(file_: Psftp_file): Tuint64_t; cdecl; external libssh;
+procedure sftp_rewind(file_: Psftp_file); cdecl; external libssh;
+function sftp_unlink(sftp: Psftp_session; file_: pchar): longint; cdecl; external libssh;
+function sftp_rmdir(sftp: Psftp_session; directory: pchar): longint; cdecl; external libssh;
+function sftp_mkdir(sftp: Psftp_session; directory: pchar; mode: Tmode_t): longint; cdecl; external libssh;
+function sftp_rename(sftp: Psftp_session; original: pchar; newname: pchar): longint; cdecl; external libssh;
+function sftp_setstat(sftp: Psftp_session; file_: pchar; attr: Psftp_attributes): longint; cdecl; external libssh;
+function sftp_chown(sftp: Psftp_session; file_: pchar; owner: Tuid_t; group: Tgid_t): longint; cdecl; external libssh;
+function sftp_chmod(sftp: Psftp_session; file_: pchar; mode: Tmode_t): longint; cdecl; external libssh;
+function sftp_utimes(sftp: Psftp_session; file_: pchar; times: Ptimeval): longint; cdecl; external libssh;
+function sftp_symlink(sftp: Psftp_session; target: pchar; dest: pchar): longint; cdecl; external libssh;
+function sftp_readlink(sftp: Psftp_session; path: pchar): pchar; cdecl; external libssh;
+function sftp_statvfs(sftp: Psftp_session; path: pchar): PTsftp_statvfs_t; cdecl; external libssh;
+function sftp_fstatvfs(file_: Psftp_file): PTsftp_statvfs_t; cdecl; external libssh;
+procedure sftp_statvfs_free(statvfs_o: PTsftp_statvfs_t); cdecl; external libssh;
+function sftp_fsync(file_: Psftp_file): longint; cdecl; external libssh;
+function sftp_canonicalize_path(sftp: Psftp_session; path: pchar): pchar; cdecl; external libssh;
+function sftp_server_version(sftp: Psftp_session): longint; cdecl; external libssh;
 
-function sftp_server_new(session: Tssh_session; chan: Tssh_channel): Tsftp_session; cdecl; external libssh;
-function sftp_server_init(sftp: Tsftp_session): longint; cdecl; external libssh;
-procedure sftp_server_free(sftp: Tsftp_session); cdecl; external libssh;
+function sftp_server_new(session: Tssh_session; chan: Tssh_channel): Psftp_session; cdecl; external libssh;
+function sftp_server_init(sftp: Psftp_session): longint; cdecl; external libssh;
+procedure sftp_server_free(sftp: Psftp_session); cdecl; external libssh;
 
-function sftp_get_client_message(sftp: Tsftp_session): Tsftp_client_message; cdecl; external libssh;
-procedure sftp_client_message_free(msg: Tsftp_client_message); cdecl; external libssh;
-function sftp_client_message_get_type(msg: Tsftp_client_message): Tuint8_t; cdecl; external libssh;
-function sftp_client_message_get_filename(msg: Tsftp_client_message): pchar; cdecl; external libssh;
-procedure sftp_client_message_set_filename(msg: Tsftp_client_message; newname: pchar); cdecl; external libssh;
-function sftp_client_message_get_data(msg: Tsftp_client_message): pchar; cdecl; external libssh;
-function sftp_client_message_get_flags(msg: Tsftp_client_message): Tuint32_t; cdecl; external libssh;
-function sftp_client_message_get_submessage(msg: Tsftp_client_message): pchar; cdecl; external libssh;
-function sftp_send_client_message(sftp: Tsftp_session; msg: Tsftp_client_message): longint; cdecl; external libssh;
-function sftp_reply_name(msg: Tsftp_client_message; name: pchar; attr: Tsftp_attributes): longint; cdecl; external libssh;
-function sftp_reply_handle(msg: Tsftp_client_message; handle: Tssh_string): longint; cdecl; external libssh;
-function sftp_handle_alloc(sftp: Tsftp_session; info: pointer): Tssh_string; cdecl; external libssh;
-function sftp_reply_attr(msg: Tsftp_client_message; attr: Tsftp_attributes): longint; cdecl; external libssh;
-function sftp_handle(sftp: Tsftp_session; handle: Tssh_string): pointer; cdecl; external libssh;
-function sftp_reply_status(msg: Tsftp_client_message; status: Tuint32_t; message: pchar): longint; cdecl; external libssh;
-function sftp_reply_names_add(msg: Tsftp_client_message; file_: pchar; longname: pchar; attr: Tsftp_attributes): longint; cdecl; external libssh;
-function sftp_reply_names(msg: Tsftp_client_message): longint; cdecl; external libssh;
-function sftp_reply_data(msg: Tsftp_client_message; data: pointer; len: longint): longint; cdecl; external libssh;
-procedure sftp_handle_remove(sftp: Tsftp_session; handle: pointer); cdecl; external libssh;
+function sftp_get_client_message(sftp: Psftp_session): Psftp_client_message; cdecl; external libssh;
+procedure sftp_client_message_free(msg: Psftp_client_message); cdecl; external libssh;
+function sftp_client_message_get_type(msg: Psftp_client_message): Tuint8_t; cdecl; external libssh;
+function sftp_client_message_get_filename(msg: Psftp_client_message): pchar; cdecl; external libssh;
+procedure sftp_client_message_set_filename(msg: Psftp_client_message; newname: pchar); cdecl; external libssh;
+function sftp_client_message_get_data(msg: Psftp_client_message): pchar; cdecl; external libssh;
+function sftp_client_message_get_flags(msg: Psftp_client_message): Tuint32_t; cdecl; external libssh;
+function sftp_client_message_get_submessage(msg: Psftp_client_message): pchar; cdecl; external libssh;
+function sftp_send_client_message(sftp: Psftp_session; msg: Psftp_client_message): longint; cdecl; external libssh;
+function sftp_reply_name(msg: Psftp_client_message; name: pchar; attr: Psftp_attributes): longint; cdecl; external libssh;
+function sftp_reply_handle(msg: Psftp_client_message; handle: Tssh_string): longint; cdecl; external libssh;
+function sftp_handle_alloc(sftp: Psftp_session; info: pointer): Tssh_string; cdecl; external libssh;
+function sftp_reply_attr(msg: Psftp_client_message; attr: Psftp_attributes): longint; cdecl; external libssh;
+function sftp_handle(sftp: Psftp_session; handle: Tssh_string): pointer; cdecl; external libssh;
+function sftp_reply_status(msg: Psftp_client_message; status: Tuint32_t; message: pchar): longint; cdecl; external libssh;
+function sftp_reply_names_add(msg: Psftp_client_message; file_: pchar; longname: pchar; attr: Psftp_attributes): longint; cdecl; external libssh;
+function sftp_reply_names(msg: Psftp_client_message): longint; cdecl; external libssh;
+function sftp_reply_data(msg: Psftp_client_message; data: pointer; len: longint): longint; cdecl; external libssh;
+procedure sftp_handle_remove(sftp: Psftp_session; handle: pointer); cdecl; external libssh;
 
 const
   SSH_FXP_INIT = 1;

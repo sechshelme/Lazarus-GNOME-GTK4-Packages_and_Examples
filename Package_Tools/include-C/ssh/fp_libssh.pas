@@ -23,7 +23,6 @@ type
   Tssize_t = SizeUInt;
 
   Ptimeval = Pointer; // /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h
-
   Pfd_set = Pointer; // /usr/include/x86_64-linux-gnu/sys/select.h
 
   Pva_list = Pointer;

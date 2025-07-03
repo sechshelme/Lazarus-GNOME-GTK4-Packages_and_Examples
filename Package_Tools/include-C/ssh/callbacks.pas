@@ -24,7 +24,7 @@ type
   Tssh_channel_open_request_x11_callback = function(session: Tssh_session; originator_address: pchar; originator_port: longint; userdata: pointer): Tssh_channel; cdecl;
   Tssh_channel_open_request_auth_agent_callback = function(session: Tssh_session; userdata: pointer): Tssh_channel; cdecl;
 
-  Tssh_callbacks_struct = record
+  Tssh_callbacks = record
     size: Tsize_t;
     userdata: pointer;
     auth_function: Tssh_auth_callback;
@@ -34,10 +34,7 @@ type
     channel_open_request_x11_function: Tssh_channel_open_request_x11_callback;
     channel_open_request_auth_agent_function: Tssh_channel_open_request_auth_agent_callback;
   end;
-  Pssh_callbacks_struct = ^Tssh_callbacks_struct;
-
   Pssh_callbacks = ^Tssh_callbacks;
-  Tssh_callbacks = Pssh_callbacks_struct;
 
   Tssh_auth_password_callback = function(session: Tssh_session; user: pchar; password: pchar; userdata: pointer): longint; cdecl;
   Tssh_auth_none_callback = function(session: Tssh_session; user: pchar; userdata: pointer): longint; cdecl;
@@ -49,7 +46,7 @@ type
   Tssh_gssapi_accept_sec_ctx_callback = function(session: Tssh_session; input_token: Tssh_string; output_token: Pssh_string; userdata: pointer): longint; cdecl;
   Tssh_gssapi_verify_mic_callback = function(session: Tssh_session; mic: Tssh_string; mic_buffer: pointer; mic_buffer_size: Tsize_t; userdata: pointer): longint; cdecl;
 
-  Tssh_server_callbacks_struct = record
+  Tssh_server_callbacks = record
     size: Tsize_t;
     userdata: pointer;
     auth_password_function: Tssh_auth_password_callback;
@@ -62,26 +59,19 @@ type
     gssapi_accept_sec_ctx_function: Tssh_gssapi_accept_sec_ctx_callback;
     gssapi_verify_mic_function: Tssh_gssapi_verify_mic_callback;
   end;
-  Pssh_server_callbacks_struct = ^Tssh_server_callbacks_struct;
-
   Pssh_server_callbacks = ^Tssh_server_callbacks;
-  Tssh_server_callbacks = Pssh_server_callbacks_struct;
 
-function ssh_set_server_callbacks(session: Tssh_session; cb: Tssh_server_callbacks): longint; cdecl; external libssh;
+function ssh_set_server_callbacks(session: Tssh_session; cb: Pssh_server_callbacks): longint; cdecl; external libssh;
 
 type
-  Tssh_socket_callbacks_struct = record
+  Tssh_socket_callbacks = record
     userdata: pointer;
     data: Tssh_callback_data;
     controlflow: Tssh_callback_int;
     exception: Tssh_callback_int_int;
     connected: Tssh_callback_int_int;
   end;
-  Pssh_socket_callbacks_struct = ^Tssh_socket_callbacks_struct;
-
-
   Pssh_socket_callbacks = ^Tssh_socket_callbacks;
-  Tssh_socket_callbacks = Pssh_socket_callbacks_struct;
 
 const
   SSH_SOCKET_FLOW_WRITEWILLBLOCK = 1;
@@ -91,50 +81,7 @@ const
   SSH_SOCKET_CONNECTED_OK = 1;
   SSH_SOCKET_CONNECTED_ERROR = 2;
   SSH_SOCKET_CONNECTED_TIMEOUT = 3;
-{
-xxxxxxxxxxxxxxxxxxxxx
-#define ssh_callbacks_init(p) do \
-  (p)->size=sizeof(*(p)); \
- while(0);
- }
-{
-xxxxxxxxxxxxxxxxxxxxx
-#define ssh_callbacks_exists(p,c) (\
-  (p != NULL) && ( (char *)&((p)-> c) < (char *)(p) + (p)->size ) && \
-  ((p)-> c != NULL) \
-  )
- }
-{
-xxxxxxxxxxxxxxxxxxxxx
-#define ssh_callbacks_execute_list(list, cbtype, c, ...)      \
-    do                                                       \
-        struct ssh_iterator *i = ssh_list_get_iterator(list); \
-        cbtype cb;                                            \
-        while (i != NULL)                                    \
-            cb = ssh_iterator_value(cbtype, i);               \
-            if (ssh_callbacks_exists(cb, c))                  \
-                cb-> c (__VA_ARGS__, cb->userdata);           \
-            i = i->next;                                      \
-                                                             \
-     while(0)
- }
-{
-xxxxxxxxxxxxxxxxxxxxx
-#define ssh_callbacks_iterate(_cb_list, _cb_type, _cb_name)           \
-    do                                                               \
-        struct ssh_iterator *_cb_i = ssh_list_get_iterator(_cb_list); \
-        _cb_type _cb;                                                 \
-        for (; _cb_i != NULL; _cb_i = _cb_i->next)                   \
-            _cb = ssh_iterator_value(_cb_type, _cb_i);                \
-            if (ssh_callbacks_exists(_cb, _cb_name))
 
-#define ssh_callbacks_iterate_exec(_cb_name, ...) \
-                _cb->_cb_name(__VA_ARGS__, _cb->userdata)
-
-#define ssh_callbacks_iterate_end() \
-                                   \
-     while(0)
-  }
 type
   Tssh_packet_callback = function(session: Tssh_session; _type: Tuint8_t; packet: Tssh_buffer; user: pointer): longint; cdecl;
   Pssh_packet_callback = ^Tssh_packet_callback;
@@ -142,27 +89,17 @@ type
 const
   SSH_PACKET_USED = 1;
   SSH_PACKET_NOT_USED = 2;
-  {#define SSH_PACKET_CALLBACK(name) \ }
-  {  int name (ssh_session session, uint8_t type, ssh_buffer packet, void *user) }
-  {* Index of the first packet type being handled  }
-  {* Number of packets being handled by this callback struct  }
-  {* A pointer to n_callbacks packet callbacks  }
-{*
-   * User-provided data. User is free to set anything he wants here
-    }
+
 type
-  Tssh_packet_callbacks_struct = record
+  Tssh_packet_callbacks = record
     start: Tuint8_t;
     n_callbacks: Tuint8_t;
     callbacks: Pssh_packet_callback;
     user: pointer;
   end;
-  Pssh_packet_callbacks_struct = ^Tssh_packet_callbacks_struct;
-
   Pssh_packet_callbacks = ^Tssh_packet_callbacks;
-  Tssh_packet_callbacks = Pssh_packet_callbacks_struct;
 
-function ssh_set_callbacks(session: Tssh_session; cb: Tssh_callbacks): longint; cdecl; external libssh;
+function ssh_set_callbacks(session: Tssh_session; cb: Pssh_callbacks): longint; cdecl; external libssh;
 
 type
   Tssh_channel_data_callback = function(session: Tssh_session; channel: Tssh_channel; data: pointer; len: Tuint32_t; is_stderr: longint;
@@ -186,7 +123,7 @@ type
   Tssh_channel_subsystem_request_callback = function(session: Tssh_session; channel: Tssh_channel; subsystem: pchar; userdata: pointer): longint; cdecl;
   Tssh_channel_write_wontblock_callback = function(session: Tssh_session; channel: Tssh_channel; bytes: Tuint32_t; userdata: pointer): longint; cdecl;
 
-  Tssh_channel_callbacks_struct = record
+  Tssh_channel_callbacks = record
     size: Tsize_t;
     userdata: pointer;
     channel_data_function: Tssh_channel_data_callback;
@@ -205,21 +142,17 @@ type
     channel_subsystem_request_function: Tssh_channel_subsystem_request_callback;
     channel_write_wontblock_function: Tssh_channel_write_wontblock_callback;
   end;
-  Pssh_channel_callbacks_struct = ^Tssh_channel_callbacks_struct;
-
   Pssh_channel_callbacks = ^Tssh_channel_callbacks;
-  Tssh_channel_callbacks = Pssh_channel_callbacks_struct;
 
-function ssh_set_channel_callbacks(channel: Tssh_channel; cb: Tssh_channel_callbacks): longint; cdecl; external libssh;
-function ssh_add_channel_callbacks(channel: Tssh_channel; cb: Tssh_channel_callbacks): longint; cdecl; external libssh;
-function ssh_remove_channel_callbacks(channel: Tssh_channel; cb: Tssh_channel_callbacks): longint; cdecl; external libssh;
+function ssh_set_channel_callbacks(channel: Tssh_channel; cb: Pssh_channel_callbacks): longint; cdecl; external libssh;
+function ssh_add_channel_callbacks(channel: Tssh_channel; cb: Pssh_channel_callbacks): longint; cdecl; external libssh;
+function ssh_remove_channel_callbacks(channel: Tssh_channel; cb: Pssh_channel_callbacks): longint; cdecl; external libssh;
 
 type
   Tssh_thread_callback = function(lock: Ppointer): longint; cdecl;
-
   Tssh_thread_id_callback = function(para1: pointer): dword; cdecl;
 
-  Tssh_threads_callbacks_struct = record
+  Tssh_threads_callbacks = record
     _type: pchar;
     mutex_init: Tssh_thread_callback;
     mutex_destroy: Tssh_thread_callback;
@@ -227,12 +160,12 @@ type
     mutex_unlock: Tssh_thread_callback;
     thread_id: Tssh_thread_id_callback;
   end;
-  Pssh_threads_callbacks_struct = ^Tssh_threads_callbacks_struct;
+  Pssh_threads_callbacks = ^Tssh_threads_callbacks;
 
-function ssh_threads_set_callbacks(cb: Pssh_threads_callbacks_struct): longint; cdecl; external libssh;
-function ssh_threads_get_default: Pssh_threads_callbacks_struct; cdecl; external libssh;
-function ssh_threads_get_pthread: Pssh_threads_callbacks_struct; cdecl; external libssh;
-function ssh_threads_get_noop: Pssh_threads_callbacks_struct; cdecl; external libssh;
+function ssh_threads_set_callbacks(cb: Pssh_threads_callbacks): longint; cdecl; external libssh;
+function ssh_threads_get_default: Pssh_threads_callbacks; cdecl; external libssh;
+function ssh_threads_get_pthread: Pssh_threads_callbacks; cdecl; external libssh;
+function ssh_threads_get_noop: Pssh_threads_callbacks; cdecl; external libssh;
 function ssh_set_log_callback(cb: Tssh_logging_callback): longint; cdecl; external libssh;
 function ssh_get_log_callback: Tssh_logging_callback; cdecl; external libssh;
 
@@ -240,7 +173,6 @@ function ssh_get_log_callback: Tssh_logging_callback; cdecl; external libssh;
 
 
 implementation
-
 
 
 end.
