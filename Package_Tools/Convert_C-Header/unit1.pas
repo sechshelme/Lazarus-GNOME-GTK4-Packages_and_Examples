@@ -57,7 +57,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/efl', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/openssl', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -131,13 +131,13 @@ begin
       //slHeader[j] := StringReplace(slHeader[j], 'EINA_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
       //slHeader[j] := StringReplace(slHeader[j], 'EINA_CONST', '', [rfReplaceAll]);
       //slHeader[j] := StringReplace(slHeader[j], 'extern_WEAK', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(1)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(2)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(3)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(4)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(1, 2)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(2, 3)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(1, 2, 3)', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(1)', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(2)', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(3)', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(4)', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(1, 2)', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(2, 3)', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(1, 2, 3)', '', [rfReplaceAll]);
 
 
       //slHeader[j] := StringReplace(slHeader[j], 'EINA_PURE', '', [rfReplaceAll]);
@@ -158,12 +158,20 @@ begin
       //slHeader[j] := StringReplace(slHeader[j], 'extern  extern', 'extern', [rfReplaceAll]);
       //slHeader[j] := StringReplace(slHeader[j], 'extern  extern', 'extern', [rfReplaceAll]);
 
-      slHeader[j] := StringReplace(slHeader[j], 'ECORE_AUDIO_API_WEAK', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'ECORE_AUDIO_API', 'extern', [rfReplaceAll]);
+//      slHeader[j] := StringReplace(slHeader[j], 'ECORE_AUDIO_API_WEAK', '', [rfReplaceAll]);
+//      slHeader[j] := StringReplace(slHeader[j], 'ECORE_AUDIO_API', 'extern', [rfReplaceAll]);
 
 
 
-      slHeader[j] := StringReplace(slHeader[j], 'EINA_INLIST;', 'Eina_Inlist __in_list;', [rfReplaceAll]);
+//      slHeader[j] := StringReplace(slHeader[j], 'EINA_INLIST;', 'Eina_Inlist __in_list;', [rfReplaceAll]);
+
+      // open_ssl
+      slHeader[j] := StringReplace(slHeader[j], '__owur ', ' ', [rfReplaceAll]);
+
+      // # define STACK_OF(type) struct stack_st_##type
+      slHeader[j] := StringReplace(slHeader[j], 'STACK_OF(SSL_CIPHER)', 'stack_st_SSL_CIPHERtype', [rfReplaceAll]);
+
+
 
     end;
     slHeader.SaveToFile(slFile[i]);
