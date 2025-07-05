@@ -188,8 +188,7 @@ const
     (libs: 'libpciaccess'; units: 'ctypes'),
     (libs: 'libpci'; units: 'ctypes'),
 
-    (libs: 'libssh'; units: 'ctypes'),
-    (libs: 'libssl'; units: 'ctypes'),
+    (libs: 'libgnutls'; units: 'ctypes'),
 
 
     (libs: ''; units: ''));
