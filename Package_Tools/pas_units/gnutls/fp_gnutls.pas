@@ -12,16 +12,19 @@ const
   {$ENDIF}
 
 type
-  PPdword=^Pdword;
+  PPdword = ^Pdword;
 
   Tsize_t = SizeUInt;
-  Psize_t=^Tsize_t;
+  Psize_t = ^Tsize_t;
   Tssize_t = SizeInt;
 
-  Poff_t=Pointer;
-  Pmbuffer_st=Pointer;
+  Poff_t = Pointer;
+  Pmbuffer_st = Pointer;
 
-  Ttime_t     =Int64;
+  Ttime_t = int64;
+  Ptime_t = ^Ttime_t;
+
+  Pgiovec_t=Pointer;
 
 
 implementation

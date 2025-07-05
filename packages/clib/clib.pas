@@ -19,9 +19,9 @@ const
 const
   {$IFDEF CPU64}
   __BITS_PER_LONG = 64;
-{$ELSE}
-   __BITS_PER_LONG = 32;
-{$ENDIF}
+  {$ELSE}
+  __BITS_PER_LONG = 32;
+  {$ENDIF}
 
 
 type
@@ -31,10 +31,20 @@ type
   Tssize_t = SizeInt;
   Pssize_t = ^Tssize_t;
 
+  Tsocklen_t = SizeInt;
+
   Tgnuc_va_list = Pointer;
 
+  Pnetent = Pointer;   // netdb.h
+  PPnetent = ^Pnetent;   // netdb.h
+
+  Tsa_family_t = word;      // sys/socket.h
+  Psockaddr = Pointer;    // sys/socket.h
+
+  Psigevent=Pointer; //  <signal.h>
+
 type
-  Toff_t = LongInt;
+  Toff_t = longint;
   Poff_t = ^Toff_t;
 
   Toff64_t = SizeUInt;
@@ -43,7 +53,7 @@ type
   Tfpos64_t = SizeUInt;
   Pfpos64_t = ^Tfpos64_t;
 
-  Tfpos_t = LongInt;
+  Tfpos_t = longint;
   Pfpos_t = ^Tfpos_t;
 
   Twchar_t = widechar;
@@ -57,10 +67,10 @@ type  // unistd.h
   Tpid_t = uint32;
 
   Puid_t = ^Tuid_t;
-  Tuid_t = uInt32;
+  Tuid_t = uint32;
 
   Pgid_t = ^Tgid_t;
-  Tgid_t = uInt32;
+  Tgid_t = uint32;
 
 
 const
@@ -71,49 +81,49 @@ const
 type
 
   // /usr/include/x86_64-linux-gnu/bits/types/siginfo_t.h
-  Tsiginfo_t=record
-      end;
-  Psiginfo_t=^Tsiginfo_t;
+  Tsiginfo_t = record
+  end;
+  Psiginfo_t = ^Tsiginfo_t;
 
   // /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h
-  Tsigset_t=record
+  Tsigset_t = record
   end;
-  Psigset_t=^Tsigset_t;
+  Psigset_t = ^Tsigset_t;
 
   // /usr/include/x86_64-linux-gnu/bits/sigaction.h
-  Tsigaction=record
+  Tsigaction = record
   end;
-  Psigaction=^Tsigaction;
+  Psigaction = ^Tsigaction;
 
   // /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h
-  Ttimespec=record
-      end;
-  Ptimespec=^Ttimespec;
+  Ttimespec = record
+  end;
+  Ptimespec = ^Ttimespec;
 
   // /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h
   TSigVal = record
-    case Integer of
-      0: (sival_int: Integer);
+    case integer of
+      0: (sival_int: integer);
       1: (sival_ptr: Pointer);
   end;
 
   // /usr/include/x86_64-linux-gnu/bits/sigcontext.h
-  Tsigcontext=record
-      end;
-  Psigcontext=^Tsigcontext;
+  Tsigcontext = record
+  end;
+  Psigcontext = ^Tsigcontext;
 
   // /usr/include/x86_64-linux-gnu/bits/types/stack_t.h
-  Tstack_t=record
-      end;
-  Pstack_t=^Tstack_t;
+  Tstack_t = record
+  end;
+  Pstack_t = ^Tstack_t;
 
   // /usr/include/asm-generic/signal-defs.h
-  Tsigrestore_t=record  // ????????
+  Tsigrestore_t = record  // ????????
   end;
-  Psigrestore_t=^Tsigrestore_t;
+  Psigrestore_t = ^Tsigrestore_t;
 
   // /usr/include/asm-generic/posix_types.h
-  Tkernel_size_t=Integer;   // ????????
+  Tkernel_size_t = integer;   // ????????
 
 
 

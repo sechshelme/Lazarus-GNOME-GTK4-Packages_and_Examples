@@ -3,45 +3,66 @@ program project1;
 //  Tgnutls_certificate_print_formats_t = Tgnutls_certificate_print_formats; entfernen '?????`
 
 uses
+  fp_stdio,
+
+  netdb_bits,
+  netdb_rpc,
+  netdb,
+
   gnutls;
 
+//#include <stdio.h>
+//#include <string.h>
+//#include <stdlib.h>
+//#include <unistd.h>
+//#include <netdb.h>
+//#include <arpa/inet.h>
+//#include <gnutls/gnutls.h>
 
-prvoid cleanup(int sock, gnutls_session_t session, gnutls_certificate_credentials_t xcred) {
-    if (session) {
-        gnutls_bye(session, GNUTLS_SHUT_RDWR);
-        gnutls_deinit(session);
-    }
-    if (xcred)
-        gnutls_certificate_free_credentials(xcred);
-    if (sock >= 0)
-        close(sock);
-    gnutls_global_deinit();
-}
+//  <sys/socket.h>. ???
 
-int main() {
-    int ret = 0;
-    gnutls_session_t session = NULL;
-    gnutls_certificate_credentials_t xcred = NULL;
-    int sock = -1;
-    struct hostent *host;
-    struct sockaddr_in addr;
+//
+//prvoid cleanup(int sock, gnutls_session_t session, gnutls_certificate_credentials_t xcred) {
+//    if (session) {
+//        gnutls_bye(session, GNUTLS_SHUT_RDWR);
+//        gnutls_deinit(session);
+//    }
+//    if (xcred)
+//        gnutls_certificate_free_credentials(xcred);
+//    if (sock >= 0)
+//        close(sock);
+//    gnutls_global_deinit();
+//}
+
+procedure main;
+var
+  xcred: Tgnutls_certificate_credentials_t=nil;
+  session: Tgnutls_session_t;
+begin
+    //int ret = 0;
+    //gnutls_session_t session = NULL;
+    //gnutls_certificate_credentials_t xcred = NULL;
+    //int sock = -1;
+    //struct hostent *host;
+    //struct sockaddr_in addr;
 
     gnutls_global_init();
-    if (gnutls_certificate_allocate_credentials(&xcred) < 0) {
-        fprintf(stderr, "gnutls_certificate_allocate_credentials failed\n");
-        cleanup(sock, session, xcred);
-        return 1;
-    }
-    if (gnutls_init(&session, GNUTLS_CLIENT) < 0) {
-        fprintf(stderr, "gnutls_init failed\n");
-        cleanup(sock, session, xcred);
-        return 1;
-    }
+    if gnutls_certificate_allocate_credentials(@xcred) < 0  then begin
+        fprintf(stderr, 'gnutls_certificate_allocate_credentials failed'#10);
+//        cleanup(sock, session, xcred);
+        Exit;
+    end;
+    if gnutls_init(@session, GNUTLS_CLIENT) < 0 then begin
+        fprintf(stderr, 'gnutls_init failed'#10);
+//        cleanup(sock, session, xcred);
+        Exit;
+    end;
+
     gnutls_credentials_set(session, GNUTLS_CRD_CERTIFICATE, xcred);
-    gnutls_server_name_set(session, GNUTLS_NAME_DNS, "www.example.com", strlen("www.example.com"));
+    gnutls_server_name_set(session, GNUTLS_NAME_DNS,PChar( 'www.example.com'), strlen('www.example.com'));
     gnutls_set_default_priority(session);
 
-    sock = socket(AF_INET, SOCK_STREAM, 0);
+    sock := socket(AF_INET, SOCK_STREAM, 0);
     if (sock < 0) {
         perror("socket");
         cleanup(sock, session, xcred);
@@ -81,9 +102,7 @@ int main() {
     }
 
     cleanup(sock, session, xcred);
-    return 0;
-}
-
+end;
 
 
 begin
