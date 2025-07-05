@@ -170,6 +170,14 @@ begin
 
       // # define STACK_OF(type) struct stack_st_##type
       slHeader[j] := StringReplace(slHeader[j], 'STACK_OF(SSL_CIPHER)', 'stack_st_SSL_CIPHERtype', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'STACK_OF(SSL_COMP)', 'stack_st_SSL_COMPtype', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'STACK_OF(X509)', 'stack_st_X509type', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'STACK_OF(X509_NAME)', 'stack_st_X509_NAMEtype', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'STACK_OF(SCT)', 'stack_st_SCTtype', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'STACK_OF(X509_ALGOR)', 'stack_st_X509_ALGORtype', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'STACK_OF(X509_EXTENSION)', 'stack_st_X509_EXTENSIONtype', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'STACK_OF(X509_REVOKED)', 'stack_st_X509_REVOKEDtype', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'STACK_OF(X509_ATTRIBUTE)', 'stack_st_X509_ATTRIBUTEtype', [rfReplaceAll]);
 
 
 

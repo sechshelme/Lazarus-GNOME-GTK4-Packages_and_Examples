@@ -189,6 +189,7 @@ const
     (libs: 'libpci'; units: 'ctypes'),
 
     (libs: 'libssh'; units: 'ctypes'),
+    (libs: 'libssl'; units: 'ctypes'),
 
 
     (libs: ''; units: ''));
