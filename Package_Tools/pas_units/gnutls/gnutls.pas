@@ -627,41 +627,33 @@ const
 type
   Pgnutls_transport_ptr_t = ^Tgnutls_transport_ptr_t;
   Tgnutls_transport_ptr_t = pointer;
-  Pgnutls_session_int = ^Tgnutls_session_int;
+
   Tgnutls_session_int = record
   end;
-
   Pgnutls_session_t = ^Tgnutls_session_t;
-  Tgnutls_session_t = Pgnutls_session_int;
-  Pgnutls_dh_params_int = ^Tgnutls_dh_params_int;
+  Tgnutls_session_t = ^Tgnutls_session_int;
+
   Tgnutls_dh_params_int = record
   end;
-
   Pgnutls_dh_params_t = ^Tgnutls_dh_params_t;
-  Tgnutls_dh_params_t = Pgnutls_dh_params_int;
+  Tgnutls_dh_params_t = ^Tgnutls_dh_params_int;
 
-  Pgnutls_x509_privkey_int = ^Tgnutls_x509_privkey_int;
   Tgnutls_x509_privkey_int = record
   end;
-
-
   Pgnutls_rsa_params_t = ^Tgnutls_rsa_params_t;
-  Tgnutls_rsa_params_t = Pgnutls_x509_privkey_int;
+  Tgnutls_rsa_params_t = ^Tgnutls_x509_privkey_int;
 
-  Pgnutls_priority_st = ^Tgnutls_priority_st;
   Tgnutls_priority_st = record
   end;
-
   Pgnutls_priority_t = ^Tgnutls_priority_t;
-  Tgnutls_priority_t = Pgnutls_priority_st;
-
-  PPgnutls_datum_t = ^Pgnutls_datum_t;
-  Pgnutls_datum_t = ^Tgnutls_datum_t;
+  Tgnutls_priority_t = ^Tgnutls_priority_st;
 
   Tgnutls_datum_t = record
     data: pbyte;
     size: dword;
   end;
+  Pgnutls_datum_t = ^Tgnutls_datum_t;
+  PPgnutls_datum_t = ^Pgnutls_datum_t;
 
   Tgnutls_library_config_st = record
     name: pchar;
@@ -1101,7 +1093,7 @@ type
   Tgnutls_privkey_t = Pgnutls_privkey_st;
 
   Pgnutls_x509_privkey_t = ^Tgnutls_x509_privkey_t;
-  Tgnutls_x509_privkey_t = Pgnutls_x509_privkey_int;
+  Tgnutls_x509_privkey_t = ^Tgnutls_x509_privkey_int;
 
   Pgnutls_x509_crl_int = ^Tgnutls_x509_crl_int;
   Tgnutls_x509_crl_int = record
@@ -1150,13 +1142,12 @@ type
 
   Tgnutls_anon_server_credentials_st = record
   end;
-  Tgnutls_anon_client_credentials_st = record
-  end;
-
   Tgnutls_anon_server_credentials_t = ^Tgnutls_anon_server_credentials_st;
 
-  Pgnutls_anon_client_credentials_t = ^Tgnutls_anon_client_credentials_t;
+  Tgnutls_anon_client_credentials_st = record
+  end;
   Tgnutls_anon_client_credentials_t = ^Tgnutls_anon_client_credentials_st;
+  Pgnutls_anon_client_credentials_t = ^Tgnutls_anon_client_credentials_t;
 
 procedure gnutls_anon_free_server_credentials(sc: Tgnutls_anon_server_credentials_t); cdecl; external libgnutls;
 function gnutls_anon_allocate_server_credentials(sc: Pgnutls_anon_server_credentials_t): longint; cdecl; external libgnutls;
@@ -1274,7 +1265,7 @@ procedure gnutls_memset(data: pointer; c: longint; size: Tsize_t); cdecl; extern
 function gnutls_memcmp(s1: pointer; s2: pointer; n: Tsize_t): longint; cdecl; external libgnutls;
 
 type
-  Tgnutls_log_func = procedure(para1: longint; para2: pchar); cdecl;
+  Tgnutls_log_func = procedure(level: longint; msg: pchar); cdecl;
   Tgnutls_audit_log_func = procedure(para1: Tgnutls_session_t; para2: pchar); cdecl;
 
 procedure gnutls_global_set_log_function(log_func: Tgnutls_log_func); cdecl; external libgnutls;
@@ -1311,7 +1302,6 @@ type
   Tgnutls_errno_func = function(para1: Tgnutls_transport_ptr_t): longint; cdecl;
 
 procedure gnutls_transport_set_int2(session: Tgnutls_session_t; r: longint; s: longint); cdecl; external libgnutls;
-
 procedure gnutls_transport_set_int(s: Tgnutls_session_t; i: longint);
 
 procedure gnutls_transport_get_int2(session: Tgnutls_session_t; r: Plongint; s: Plongint); cdecl; external libgnutls;
@@ -1354,14 +1344,13 @@ function gnutls_idna_reverse_map(input: pchar; ilen: dword; out_: Pgnutls_datum_
 type
   Tgnutls_srp_server_credentials_st = record
   end;
+  Tgnutls_srp_server_credentials_t = ^Tgnutls_srp_server_credentials_st;
+  Pgnutls_srp_server_credentials_t = ^Tgnutls_srp_server_credentials_t;
+
   Tgnutls_srp_client_credentials_st = record
   end;
-
-  Pgnutls_srp_server_credentials_t = ^Tgnutls_srp_server_credentials_t;
-  Tgnutls_srp_server_credentials_t = ^Tgnutls_srp_server_credentials_st;
-
-  Pgnutls_srp_client_credentials_t = ^Tgnutls_srp_client_credentials_t;
   Tgnutls_srp_client_credentials_t = ^Tgnutls_srp_client_credentials_st;
+  Pgnutls_srp_client_credentials_t = ^Tgnutls_srp_client_credentials_t;
 
 procedure gnutls_srp_free_client_credentials(sc: Tgnutls_srp_client_credentials_t); cdecl; external libgnutls;
 function gnutls_srp_allocate_client_credentials(sc: Pgnutls_srp_client_credentials_t): longint; cdecl; external libgnutls;
@@ -1430,14 +1419,13 @@ procedure gnutls_srp_set_server_fake_salt_seed(sc: Tgnutls_srp_server_credential
 type
   Tgnutls_psk_server_credentials_st = record
   end;
+  Tgnutls_psk_server_credentials_t = ^Tgnutls_psk_server_credentials_st;
+  Pgnutls_psk_server_credentials_t = ^Tgnutls_psk_server_credentials_t;
+
   Tgnutls_psk_client_credentials_st = record
   end;
-
-  Pgnutls_psk_server_credentials_t = ^Tgnutls_psk_server_credentials_t;
-  Tgnutls_psk_server_credentials_t = ^Tgnutls_psk_server_credentials_st;
-
-  Pgnutls_psk_client_credentials_t = ^Tgnutls_psk_client_credentials_t;
   Tgnutls_psk_client_credentials_t = ^Tgnutls_psk_client_credentials_st;
+  Pgnutls_psk_client_credentials_t = ^Tgnutls_psk_client_credentials_t;
 
   Pgnutls_psk_key_flags = ^Tgnutls_psk_key_flags;
   Tgnutls_psk_key_flags = longint;
@@ -1503,27 +1491,20 @@ const
   GNUTLS_SAN_OTHERNAME_MSUSERPRINCIPAL = 1002;
 
 type
-  Pgnutls_openpgp_crt_int = ^Tgnutls_openpgp_crt_int;
   Tgnutls_openpgp_crt_int = record
   end;
-
+  Tgnutls_openpgp_crt_t = ^Tgnutls_openpgp_crt_int;
   Pgnutls_openpgp_crt_t = ^Tgnutls_openpgp_crt_t;
-  Tgnutls_openpgp_crt_t = Pgnutls_openpgp_crt_int;
 
-  Pgnutls_openpgp_privkey_int = ^Tgnutls_openpgp_privkey_int;
   Tgnutls_openpgp_privkey_int = record
   end;
-
-
+  Tgnutls_openpgp_privkey_t = ^Tgnutls_openpgp_privkey_int;
   Pgnutls_openpgp_privkey_t = ^Tgnutls_openpgp_privkey_t;
-  Tgnutls_openpgp_privkey_t = Pgnutls_openpgp_privkey_int;
 
-  Pgnutls_pkcs11_privkey_st = ^Tgnutls_pkcs11_privkey_st;
   Tgnutls_pkcs11_privkey_st = record
   end;
-
+  Tgnutls_pkcs11_privkey_t = ^Tgnutls_pkcs11_privkey_st;
   Pgnutls_pkcs11_privkey_t = ^Tgnutls_pkcs11_privkey_t;
-  Tgnutls_pkcs11_privkey_t = Pgnutls_pkcs11_privkey_st;
 
   Pgnutls_privkey_type_t = ^Tgnutls_privkey_type_t;
   Tgnutls_privkey_type_t = longint;
@@ -1612,12 +1593,10 @@ type
 
   Tgnutls_tdb_verify_func = function(db_name: pchar; host: pchar; service: pchar; pubkey: Pgnutls_datum_t): longint; cdecl;
 
-  Pgnutls_tdb_int = ^Tgnutls_tdb_int;
   Tgnutls_tdb_int = record
   end;
-
+  Tgnutls_tdb_t = ^Tgnutls_tdb_int;
   Pgnutls_tdb_t = ^Tgnutls_tdb_t;
-  Tgnutls_tdb_t = Pgnutls_tdb_int;
 
 function gnutls_tdb_init(tdb: Pgnutls_tdb_t): longint; cdecl; external libgnutls;
 procedure gnutls_tdb_set_store_func(tdb: Tgnutls_tdb_t; store: Tgnutls_tdb_store_func); cdecl; external libgnutls;
@@ -1666,9 +1645,8 @@ procedure gnutls_certificate_set_pin_function(para1: Tgnutls_certificate_credent
 type
   Tgnutls_buffer_st = record
   end;
-
-  Pgnutls_buffer_t = ^Tgnutls_buffer_t;
   Tgnutls_buffer_t = ^Tgnutls_buffer_st;
+  Pgnutls_buffer_t = ^Tgnutls_buffer_t;
 
 function gnutls_buffer_append_data(para1: Tgnutls_buffer_t; data: pointer; data_size: Tsize_t): longint; cdecl; external libgnutls;
 
@@ -1748,9 +1726,8 @@ procedure gnutls_supplemental_send(session: Tgnutls_session_t; do_send_supplemen
 type
   Tgnutls_anti_replay_st = record
   end;
-
-  Pgnutls_anti_replay_t = ^Tgnutls_anti_replay_t;
   Tgnutls_anti_replay_t = ^Tgnutls_anti_replay_st;
+  Pgnutls_anti_replay_t = ^Tgnutls_anti_replay_t;
 
 function gnutls_anti_replay_init(anti_replay: Pgnutls_anti_replay_t): longint; cdecl; external libgnutls;
 procedure gnutls_anti_replay_deinit(anti_replay: Tgnutls_anti_replay_t); cdecl; external libgnutls;
@@ -1812,9 +1789,8 @@ procedure GNUTLS_FIPS140_SET_STRICT_MODE;
 type
   Tgnutls_fips140_context_st = record
   end;
-
-  Pgnutls_fips140_context_t = ^Tgnutls_fips140_context_t;
   Tgnutls_fips140_context_t = ^Tgnutls_fips140_context_st;
+  Pgnutls_fips140_context_t = ^Tgnutls_fips140_context_t;
 
 function gnutls_fips140_context_init(context: Pgnutls_fips140_context_t): longint; cdecl; external libgnutls;
 procedure gnutls_fips140_context_deinit(context: Tgnutls_fips140_context_t); cdecl; external libgnutls;

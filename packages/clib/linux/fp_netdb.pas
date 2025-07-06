@@ -1,15 +1,48 @@
-unit netdb;
+unit fp_netdb;
 
 interface
 
 uses
-  fp_signal,
   clib;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
+  // /usr/include/x86_64-linux-gnu/bits/netdb.h
+
+type
+  Tnetent = record
+    n_name: pchar;
+    n_aliases: ^pchar;
+    n_addrtype: longint;
+    n_net: uint32;
+  end;
+  Pnetent = ^Tnetent;
+
+
+  // /usr/include/rpc/netdb.h
+
+type
+  Trpcent = record
+    r_name: pchar;
+    r_aliases: ^pchar;
+    r_number: longint;
+  end;
+  Prpcent = ^Trpcent;
+  PPrpcent = ^Prpcent;
+
+procedure setrpcent(__stayopen: longint); cdecl; external libc;
+procedure endrpcent; cdecl; external libc;
+function getrpcbyname(__name: pchar): Prpcent; cdecl; external libc;
+function getrpcbynumber(__number: longint): Prpcent; cdecl; external libc;
+function getrpcent: Prpcent; cdecl; external libc;
+function getrpcbyname_r(__name: pchar; __result_buf: Prpcent; __buffer: pchar; __buflen: Tsize_t; __result: PPrpcent): longint; cdecl; external libc;
+function getrpcbynumber_r(__number: longint; __result_buf: Prpcent; __buffer: pchar; __buflen: Tsize_t; __result: PPrpcent): longint; cdecl; external libc;
+function getrpcent_r(__result_buf: Prpcent; __buffer: pchar; __buflen: Tsize_t; __result: PPrpcent): longint; cdecl; external libc;
+
+
+//  /usr/include/netdb.h
 
 const
   _PATH_HEQUIV = '/etc/hosts.equiv';

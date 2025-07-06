@@ -72,6 +72,14 @@ type  // unistd.h
   Pgid_t = ^Tgid_t;
   Tgid_t = uint32;
 
+type // /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h
+  PIovec = ^TIovec;
+  TIovec = record
+    iov_base: Pointer;
+    iov_len:  SizeUInt;
+  end;
+
+
 
 const
   STDIN_FILENO = 0;

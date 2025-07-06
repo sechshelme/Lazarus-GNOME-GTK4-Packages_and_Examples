@@ -28,9 +28,16 @@
         <UnitName Value="fp_termios"/>
       </Item>
       <Item>
+        <Filename Value="linux/fp_netdb.pas"/>
+        <UnitName Value="fp_netdb"/>
+      </Item>
+      <Item>
         <Filename Value="linux/fp_unistd.pas"/>
-        <AddToUsesPkgSection Value="False"/>
         <UnitName Value="fp_unistd"/>
+      </Item>
+      <Item>
+        <Filename Value="linux/fp_socket.pas"/>
+        <UnitName Value="fp_socket"/>
       </Item>
     </Files>
     <RequiredPkgs>
