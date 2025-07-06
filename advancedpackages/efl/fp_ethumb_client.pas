@@ -24,8 +24,7 @@ type
 
   TEthumb_Client_Connect_Cb = procedure(data: pointer; client: PEthumb_Client; success: TEina_Bool); cdecl;
   TEthumb_Client_Die_Cb = procedure(data: pointer; client: PEthumb_Client); cdecl;
-  TEthumb_Client_Generate_Cb = procedure(data: pointer; client: PEthumb_Client; id: longint; file_: pchar; key: pchar;
-    thumb_path: pchar; thumb_key: pchar; success: TEina_Bool); cdecl;
+  TEthumb_Client_Generate_Cb = procedure(data: pointer; client: PEthumb_Client; id: longint; file_: pchar; key: pchar; thumb_path: pchar; thumb_key: pchar; success: TEina_Bool); cdecl;
   TEthumb_Client_Thumb_Exists_Cb = procedure(data: pointer; client: PEthumb_Client; thread: PEthumb_Exists; exists: TEina_Bool); cdecl;
   TEthumb_Client_Generate_Cancel_Cb = procedure(data: pointer; success: TEina_Bool); cdecl;
 

@@ -178,7 +178,7 @@ function mp_cnt_lsb(a: Pmp_int): longint; cdecl; external libttommath;
 function mp_rand(a: Pmp_int; digits: longint): Tmp_err; cdecl; external libttommath;
 
 type
-  Trand_source = function(out_: pointer; size: Tsize_t): Tmp_err;
+  Trand_source = function(out_: pointer; size: Tsize_t): Tmp_err; cdecl;
 
 
 procedure mp_rand_source(Source: Trand_source); cdecl; external libttommath;

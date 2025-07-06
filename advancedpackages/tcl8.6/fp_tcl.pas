@@ -18,7 +18,7 @@ libtkstub8_6 = 'libtkstub8.6';
 
 
 type
-  Pstat = procedure;  // /usr/include/x86_64-linux-gnu/sys/stat.h
+  Pstat = procedure; cdecl;  // /usr/include/x86_64-linux-gnu/sys/stat.h
 
   Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;

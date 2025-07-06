@@ -23,7 +23,7 @@ procedure eina_array_step_set(arr: PEina_Array; sizeof_eina_array: dword; step: 
 procedure eina_array_flush(arr: PEina_Array); cdecl; external libeina;
 
 type
-  Tkeep_func = function(data: pointer; gdata: pointer): TEina_Bool;
+  Tkeep_func = function(data: pointer; gdata: pointer): TEina_Bool; cdecl;
 
 function eina_array_remove(arr: PEina_Array; keep: Tkeep_func; gdata: pointer): TEina_Bool; cdecl; external libeina;
 function eina_array_iterator_new(arr: PEina_Array): PEina_Iterator; cdecl; external libeina;

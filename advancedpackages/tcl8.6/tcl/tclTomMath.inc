@@ -82,11 +82,11 @@ const
   PRIVATE_MP_PRIME_TAB_SIZE = 256;
 
 type
-  proc = procedure;
+  proc = procedure; cdecl;
 
 var
-  ltm_rng: function(out_: pbyte; outlen: dword; callback: proc): dword; cvar;external libtcl8_6;
-  ltm_rng_callback: procedure; cvar;external libtcl8_6;
+  ltm_rng: function(out_: pbyte; outlen: dword; callback: proc): dword; cvar; external libtcl8_6;
+  ltm_rng_callback: procedure; cvar; external libtcl8_6;
 
 var
   ltm_prime_tab: array[0..(PRIVATE_MP_PRIME_TAB_SIZE) - 1] of Tmp_digit; cvar;public;

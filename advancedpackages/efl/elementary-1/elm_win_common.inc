@@ -30,8 +30,7 @@ type
     maximized_set: function(data: pointer; o: PEvas_Object; on_: TEina_Bool): TEina_Bool; cdecl;
     modal_set: function(data: pointer; o: PEvas_Object; on_: TEina_Bool): TEina_Bool; cdecl;
     name_class_set: function(data: pointer; o: PEvas_Object; n: pchar; c: pchar): TEina_Bool; cdecl;
-    object_cursor_set: function(data: pointer; o: PEvas_Object; obj: PEvas_Object; layer: longint; hot_x: longint;
-      hot_y: longint): TEina_Bool; cdecl;
+    object_cursor_set: function(data: pointer; o: PEvas_Object; obj: PEvas_Object; layer: longint; hot_x: longint; hot_y: longint): TEina_Bool; cdecl;
     override_set: function(data: pointer; o: PEvas_Object; on_: TEina_Bool): TEina_Bool; cdecl;
     rotation_set: function(data: pointer; o: PEvas_Object; rot: longint): TEina_Bool; cdecl;
     rotation_with_resize_set: function(data: pointer; o: PEvas_Object; rot: longint): TEina_Bool; cdecl;

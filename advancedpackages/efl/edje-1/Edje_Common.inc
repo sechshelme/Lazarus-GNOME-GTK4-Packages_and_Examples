@@ -485,8 +485,8 @@ const
   EDJE_TEXT_EFFECT_SHADOW_DIRECTION_RIGHT = $7 shl 4;
 
 type
-  Tlayout_data_get_func = function(para1: pointer): pointer;
-  Tlayout_data_free_func = procedure(para1: pointer);
+  Tlayout_data_get_func = function(para1: pointer): pointer; cdecl;
+  Tlayout_data_free_func = procedure(para1: pointer); cdecl;
 
 procedure edje_box_layout_register(name: pchar; func: TEvas_Object_Box_Layout; layout_data_get: Tlayout_data_get_func; layout_data_free: Tlayout_data_free_func; free_data: Tlayout_data_free_func; data: pointer); cdecl; external libedje;
 

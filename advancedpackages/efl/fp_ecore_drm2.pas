@@ -83,8 +83,7 @@ type
     version: longint;
     vblank_handler: procedure(fd: longint; sequence: dword; tv_sec: dword; tv_usec: dword; user_data: pointer); cdecl;
     page_flip_handler: procedure(fd: longint; sequence: dword; tv_sec: dword; tv_usec: dword; user_data: pointer); cdecl;
-    page_flip_handler2: procedure(fd: longint; sequence: dword; tv_sec: dword; tv_usec: dword; crtc_id: dword;
-      user_data: pointer); cdecl;
+    page_flip_handler2: procedure(fd: longint; sequence: dword; tv_sec: dword; tv_usec: dword; crtc_id: dword; user_data: pointer); cdecl;
   end;
   PEcore_Drm2_Context = ^TEcore_Drm2_Context;
 

@@ -93,10 +93,8 @@ function elm_drag_cancel(obj: PEvas_Object): TEina_Bool; cdecl; external libelem
 function elm_drag_action_set(obj: PEvas_Object; action: TElm_Xdnd_Action): TEina_Bool; cdecl; external libelementary;
 
 type
-  TElm_Drag_Item_Container_Pos = procedure(data: pointer; cont: PEvas_Object; it: PElm_Object_Item; x: TEvas_Coord; y: TEvas_Coord;
-    xposret: longint; yposret: longint; action: TElm_Xdnd_Action); cdecl;
-  TElm_Drop_Item_Container_Cb = function(data: pointer; obj: PEvas_Object; it: PElm_Object_Item; ev: PElm_Selection_Data; xposret: longint;
-    yposret: longint): TEina_Bool; cdecl;
+  TElm_Drag_Item_Container_Pos = procedure(data: pointer; cont: PEvas_Object; it: PElm_Object_Item; x: TEvas_Coord; y: TEvas_Coord; xposret: longint; yposret: longint; action: TElm_Xdnd_Action); cdecl;
+  TElm_Drop_Item_Container_Cb = function(data: pointer; obj: PEvas_Object; it: PElm_Object_Item; ev: PElm_Selection_Data; xposret: longint; yposret: longint): TEina_Bool; cdecl;
 
   TElm_Drag_User_Info = record
     format: TElm_Sel_Format;

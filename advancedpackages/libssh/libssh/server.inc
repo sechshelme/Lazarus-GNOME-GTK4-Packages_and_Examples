@@ -74,7 +74,7 @@ function ssh_message_service_service(msg: Tssh_message): pchar; cdecl; external 
 function ssh_message_global_request_reply_success(msg: Tssh_message; bound_port: Tuint16_t): longint; cdecl; external libssh;
 
 type
-  Tset_message_callback = function(session: Tssh_session; msg: Tssh_message; data: pointer): longint;
+  Tset_message_callback = function(session: Tssh_session; msg: Tssh_message; data: pointer): longint; cdecl;
 
 procedure ssh_set_message_callback(session: Tssh_session; ssh_bind_message_callback: Tset_message_callback; data: pointer); cdecl; external libssh;
 function ssh_execute_message_callbacks(session: Tssh_session): longint; cdecl; external libssh;

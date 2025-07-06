@@ -93,22 +93,17 @@ type
 function ssh_set_callbacks(session: Tssh_session; cb: Pssh_callbacks): longint; cdecl; external libssh;
 
 type
-  Tssh_channel_data_callback = function(session: Tssh_session; channel: Tssh_channel; data: pointer; len: Tuint32_t; is_stderr: longint;
-    userdata: pointer): longint; cdecl;
+  Tssh_channel_data_callback = function(session: Tssh_session; channel: Tssh_channel; data: pointer; len: Tuint32_t; is_stderr: longint; userdata: pointer): longint; cdecl;
   Tssh_channel_eof_callback = procedure(session: Tssh_session; channel: Tssh_channel; userdata: pointer); cdecl;
   Tssh_channel_close_callback = procedure(session: Tssh_session; channel: Tssh_channel; userdata: pointer); cdecl;
   Tssh_channel_signal_callback = procedure(session: Tssh_session; channel: Tssh_channel; signal: pchar; userdata: pointer); cdecl;
   Tssh_channel_exit_status_callback = procedure(session: Tssh_session; channel: Tssh_channel; exit_status: longint; userdata: pointer); cdecl;
-  Tssh_channel_exit_signal_callback = procedure(session: Tssh_session; channel: Tssh_channel; signal: pchar; core: longint; errmsg: pchar;
-    lang: pchar; userdata: pointer); cdecl;
-  Tssh_channel_pty_request_callback = function(session: Tssh_session; channel: Tssh_channel; term: pchar; width: longint; height: longint;
-    pxwidth: longint; pwheight: longint; userdata: pointer): longint; cdecl;
+  Tssh_channel_exit_signal_callback = procedure(session: Tssh_session; channel: Tssh_channel; signal: pchar; core: longint; errmsg: pchar; lang: pchar; userdata: pointer); cdecl;
+  Tssh_channel_pty_request_callback = function(session: Tssh_session; channel: Tssh_channel; term: pchar; width: longint; height: longint; pxwidth: longint; pwheight: longint; userdata: pointer): longint; cdecl;
   Tssh_channel_shell_request_callback = function(session: Tssh_session; channel: Tssh_channel; userdata: pointer): longint; cdecl;
   Tssh_channel_auth_agent_req_callback = procedure(session: Tssh_session; channel: Tssh_channel; userdata: pointer); cdecl;
-  Tssh_channel_x11_req_callback = procedure(session: Tssh_session; channel: Tssh_channel; single_connection: longint; auth_protocol: pchar; auth_cookie: pchar;
-    screen_number: Tuint32_t; userdata: pointer); cdecl;
-  Tssh_channel_pty_window_change_callback = function(session: Tssh_session; channel: Tssh_channel; width: longint; height: longint; pxwidth: longint;
-    pwheight: longint; userdata: pointer): longint; cdecl;
+  Tssh_channel_x11_req_callback = procedure(session: Tssh_session; channel: Tssh_channel; single_connection: longint; auth_protocol: pchar; auth_cookie: pchar; screen_number: Tuint32_t; userdata: pointer); cdecl;
+  Tssh_channel_pty_window_change_callback = function(session: Tssh_session; channel: Tssh_channel; width: longint; height: longint; pxwidth: longint; pwheight: longint; userdata: pointer): longint; cdecl;
   Tssh_channel_exec_request_callback = function(session: Tssh_session; channel: Tssh_channel; command: pchar; userdata: pointer): longint; cdecl;
   Tssh_channel_env_request_callback = function(session: Tssh_session; channel: Tssh_channel; env_name: pchar; env_value: pchar; userdata: pointer): longint; cdecl;
   Tssh_channel_subsystem_request_callback = function(session: Tssh_session; channel: Tssh_channel; subsystem: pchar; userdata: pointer): longint; cdecl;

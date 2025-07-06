@@ -1362,7 +1362,7 @@ function ecore_x_default_depth_get(disp: PEcore_X_Display; screen: PEcore_X_Scre
 function ecore_x_current_time_get: TEcore_X_Time; cdecl; external libecore_x;
 
 type
-  Tecore_x_error_handler_set_func = procedure(data: pointer);
+  Tecore_x_error_handler_set_func = procedure(data: pointer); cdecl;
 
 procedure ecore_x_error_handler_set(func: Tecore_x_error_handler_set_func; data: pointer); cdecl; external libecore_x;
 procedure ecore_x_io_error_handler_set(func: Tecore_x_error_handler_set_func; data: pointer); cdecl; external libecore_x;
@@ -1388,19 +1388,19 @@ function ecore_x_selection_convert(selection: TEcore_X_Atom; target: TEcore_X_At
   targsize: Plongint): TEina_Bool; cdecl; external libecore_x;
 
 type
-  Tecore_x_selection_converter_add_func = function(target: pchar; data: pointer; size: longint; data_ret: Ppointer; size_ret: Plongint; para6: PEcore_X_Atom; para7: Plongint): TEina_Bool;
+  Tecore_x_selection_converter_add_func = function(target: pchar; data: pointer; size: longint; data_ret: Ppointer; size_ret: Plongint; para6: PEcore_X_Atom; para7: Plongint): TEina_Bool; cdecl;
 
 procedure ecore_x_selection_converter_add(target: pchar; func: Tecore_x_selection_converter_add_func); cdecl; external libecore_x;
 
 type
-  Tecore_x_selection_converter_atom_add_func = function(target: pchar; data: pointer; size: longint; data_ret: Ppointer; size_ret: Plongint; tprop: PEcore_X_Atom; tsize: Plongint): TEina_Bool;
+  Tecore_x_selection_converter_atom_add_func = function(target: pchar; data: pointer; size: longint; data_ret: Ppointer; size_ret: Plongint; tprop: PEcore_X_Atom; tsize: Plongint): TEina_Bool; cdecl;
 
 procedure ecore_x_selection_converter_atom_add(target: TEcore_X_Atom; func: Tecore_x_selection_converter_atom_add_func); cdecl; external libecore_x;
 procedure ecore_x_selection_converter_del(target: pchar); cdecl; external libecore_x;
 procedure ecore_x_selection_converter_atom_del(target: TEcore_X_Atom); cdecl; external libecore_x;
 
 type
-  Tecore_x_selection_parser_add_func = function(target: pchar; data: pointer; size: longint; format: longint): pointer;
+  Tecore_x_selection_parser_add_func = function(target: pchar; data: pointer; size: longint; format: longint): pointer; cdecl;
 
 procedure ecore_x_selection_parser_add(target: pchar; func: Tecore_x_selection_parser_add_func); cdecl; external libecore_x;
 procedure ecore_x_selection_parser_del(target: pchar); cdecl; external libecore_x;
@@ -1424,7 +1424,7 @@ procedure ecore_x_dnd_source_action_set(action: TEcore_X_Atom); cdecl; external 
 function ecore_x_dnd_source_action_get: TEcore_X_Atom; cdecl; external libecore_x;
 
 type
-  Tecore_x_dnd_callback_pos_update_set_func = procedure(para1: pointer; data: PEcore_X_Xdnd_Position);
+  Tecore_x_dnd_callback_pos_update_set_func = procedure(para1: pointer; data: PEcore_X_Xdnd_Position); cdecl;
 
 procedure ecore_x_dnd_callback_pos_update_set(cb: Tecore_x_dnd_callback_pos_update_set_func; data: pointer); cdecl; external libecore_x;
 function ecore_x_dnd_abort(xwin_source: TEcore_X_Window): TEina_Bool; cdecl; external libecore_x;
@@ -1851,7 +1851,7 @@ procedure ecore_x_grab; cdecl; external libecore_x;
 procedure ecore_x_ungrab; cdecl; external libecore_x;
 
 type
-  Tecore_x_passive_grab_replay_func_set_func = function(data: pointer; event_type: longint; event: pointer): TEina_Bool;
+  Tecore_x_passive_grab_replay_func_set_func = function(data: pointer; event_type: longint; event: pointer): TEina_Bool; cdecl; 
 
 procedure ecore_x_passive_grab_replay_func_set(func: Tecore_x_passive_grab_replay_func_set_func; data: pointer); cdecl; external libecore_x;
 procedure ecore_x_window_button_grab(win: TEcore_X_Window; button: longint; event_mask: TEcore_X_Event_Mask; mod_: longint; any_mod: longint); cdecl; external libecore_x;

@@ -223,14 +223,11 @@ type
   TTcl_CloseProc = procedure(Data: TClientData); cdecl;
   TTcl_CmdDeleteProc = procedure(clientData: TClientData); cdecl;
   TTcl_CmdProc = function(clientData: TClientData; interp: PTcl_Interp; argc: longint; argv: PPchar): longint; cdecl;
-  TTcl_CmdTraceProc = procedure(clientData: TClientData; interp: PTcl_Interp; level: longint; command: pchar; proc: TTcl_CmdProc;
-    cmdClientData: TClientData; argc: longint; argv: PPchar); cdecl;
-  TTcl_CmdObjTraceProc = function(clientData: TClientData; interp: PTcl_Interp; level: longint; command: pchar; commandInfo: TTcl_Command;
-    objc: longint; objv: PPTcl_Obj): longint; cdecl;
+  TTcl_CmdTraceProc = procedure(clientData: TClientData; interp: PTcl_Interp; level: longint; command: pchar; proc: TTcl_CmdProc; cmdClientData: TClientData; argc: longint; argv: PPchar); cdecl;
+  TTcl_CmdObjTraceProc = function(clientData: TClientData; interp: PTcl_Interp; level: longint; command: pchar; commandInfo: TTcl_Command; objc: longint; objv: PPTcl_Obj): longint; cdecl;
   TTcl_CmdObjTraceDeleteProc = procedure(clientData: TClientData); cdecl;
   TTcl_DupInternalRepProc = procedure(srcPtr: PTcl_Obj; dupPtr: PTcl_Obj); cdecl;
-  TTcl_EncodingConvertProc = function(clientData: TClientData; src: pchar; srcLen: longint; flags: longint; statePtr: PTcl_EncodingState;
-    dst: pchar; dstLen: longint; srcReadPtr: Plongint; dstWrotePtr: Plongint; dstCharsPtr: Plongint): longint; cdecl;
+  TTcl_EncodingConvertProc = function(clientData: TClientData; src: pchar; srcLen: longint; flags: longint; statePtr: PTcl_EncodingState; dst: pchar; dstLen: longint; srcReadPtr: Plongint; dstWrotePtr: Plongint; dstCharsPtr: Plongint): longint; cdecl;
   TTcl_EncodingFreeProc = procedure(clientData: TClientData); cdecl;
   TTcl_EventProc = function(evPtr: PTcl_Event; flags: longint): longint; cdecl;
   TTcl_EventCheckProc = procedure(clientData: TClientData; flags: longint); cdecl;
@@ -264,7 +261,7 @@ type
   TTcl_AlertNotifierProc = procedure(clientData: TClientData); cdecl;
   TTcl_ServiceModeHookProc = procedure(mode: longint); cdecl;
   TTcl_FinalizeNotifierProc = procedure(clientData: TClientData); cdecl;
-  TTcl_InitNotifierProc = function(): TClientData;
+  TTcl_InitNotifierProc = function(): TClientData; cdecl;
   TTcl_MainLoopProc = procedure(para1: pointer); cdecl;
 
   TTcl_Event = record
@@ -891,7 +888,7 @@ const
   TCL_LOAD_LAZY = 2;
 
 type
-  TTcl_NRPostProc = function(Data: PClientData; interp: PTcl_Interp; Result: integer): integer;
+  TTcl_NRPostProc = function(Data: PClientData; interp: PTcl_Interp; Result: integer): integer; cdecl;
 
 function Tcl_InitStubs(interp: PTcl_Interp; version: pchar; exact: longint): pchar; cdecl; external libtcl8_6;
 function TclTomMathInitializeStubs(interp: PTcl_Interp; version: pchar; epoch: longint; revision: longint): pchar; cdecl; external libtcl8_6;

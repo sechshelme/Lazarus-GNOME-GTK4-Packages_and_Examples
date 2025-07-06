@@ -54,8 +54,8 @@ function elm_scrolled_entry_end_unset(obj: PEvas_Object): PEvas_Object; cdecl; e
 procedure elm_scrolled_entry_end_visible_set(obj: PEvas_Object; setting: TEina_Bool); cdecl; external libelementary; deprecated;
 
 type
-  TEntry_func = function(data: pointer; entry: PEvas_Object; item: pchar): PEvas_Object;
-  TEntry_func2 = procedure(data: pointer; entry: PEvas_Object; text: PPchar);
+  TEntry_func = function(data: pointer; entry: PEvas_Object; item: pchar): PEvas_Object; cdecl;
+  TEntry_func2 = procedure(data: pointer; entry: PEvas_Object; text: PPchar); cdecl;
 
 procedure elm_scrolled_entry_item_provider_append(obj: PEvas_Object; func: TEntry_func; data: pointer); cdecl; external libelementary; deprecated;
 procedure elm_scrolled_entry_item_provider_prepend(obj: PEvas_Object; func: TEntry_func; data: pointer); cdecl; external libelementary; deprecated;

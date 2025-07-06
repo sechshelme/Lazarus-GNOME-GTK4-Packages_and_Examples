@@ -106,7 +106,7 @@ function embryo_program_load(file_: pchar): PEmbryo_Program; cdecl; external lib
 procedure embryo_program_free(ep: PEmbryo_Program); cdecl; external libembryo;
 
 type
-  Tembryo_func = function(ep: PEmbryo_Program; params: PEmbryo_Cell): TEmbryo_Cell;
+  Tembryo_func = function(ep: PEmbryo_Program; params: PEmbryo_Cell): TEmbryo_Cell; cdecl;
 
 procedure embryo_program_native_call_add(ep: PEmbryo_Program; name: pchar; func: Tembryo_func); cdecl; external libembryo;
 procedure embryo_program_vm_reset(ep: PEmbryo_Program); cdecl; external libembryo;

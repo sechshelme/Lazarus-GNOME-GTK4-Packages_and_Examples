@@ -65,12 +65,10 @@ type
   TElm_Web_Dialog_Confirm = function(data: pointer; obj: PEvas_Object; message: pchar; ret: PEina_Bool): PEvas_Object; cdecl;
 
   PElm_Web_Dialog_Prompt = ^TElm_Web_Dialog_Prompt;
-  TElm_Web_Dialog_Prompt = function(data: pointer; obj: PEvas_Object; message: pchar; def_value: pchar; value: PPchar;
-    ret: PEina_Bool): PEvas_Object; cdecl;
+  TElm_Web_Dialog_Prompt = function(data: pointer; obj: PEvas_Object; message: pchar; def_value: pchar; value: PPchar; ret: PEina_Bool): PEvas_Object; cdecl;
 
   PElm_Web_Dialog_File_Selector = ^TElm_Web_Dialog_File_Selector;
-  TElm_Web_Dialog_File_Selector = function(data: pointer; obj: PEvas_Object; allows_multiple: TEina_Bool; accept_types: PEina_List; selected: PPEina_List;
-    ret: PEina_Bool): PEvas_Object; cdecl;
+  TElm_Web_Dialog_File_Selector = function(data: pointer; obj: PEvas_Object; allows_multiple: TEina_Bool; accept_types: PEina_List; selected: PPEina_List; ret: PEina_Bool): PEvas_Object; cdecl;
 
   TElm_Web_Console_Message = procedure(data: pointer; obj: PEvas_Object; message: pchar; line_number: dword; source_id: pchar); cdecl;
 

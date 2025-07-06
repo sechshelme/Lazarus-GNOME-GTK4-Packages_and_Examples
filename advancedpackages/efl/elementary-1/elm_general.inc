@@ -325,7 +325,7 @@ function elm_quicklaunch_prepare(argc: longint; argv: PPchar; cwd: pchar): TEina
 function efl_quicklaunch_prepare(argc: longint; argv: PPchar; cwd: pchar): TEina_Bool; cdecl; external libelementary;
 
 type
-  Tpostfork_func = procedure(data: pointer);
+  Tpostfork_func = procedure(data: pointer); cdecl;
 
 function elm_quicklaunch_fork(argc: longint; argv: PPchar; cwd: pchar; postfork_func: Tpostfork_func; postfork_data: pointer): longint; cdecl; external libelementary;
 procedure elm_quicklaunch_cleanup; cdecl; external libelementary;

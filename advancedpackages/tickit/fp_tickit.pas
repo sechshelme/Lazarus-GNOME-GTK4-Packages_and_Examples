@@ -752,7 +752,7 @@ var
   tickit_debug_enabled: Tbool; cvar;external libtickit;
 
 type
-  Ttickit_debug_set_func = procedure(str: pchar; Data: pointer);
+  Ttickit_debug_set_func = procedure(str: pchar; Data: pointer); cdecl;
 
 procedure tickit_debug_logf(flag: pchar; fmt: pchar); cdecl; varargs; external libtickit;
 procedure tickit_debug_vlogf(flag: pchar; fmt: pchar; args: Tva_list); cdecl; external libtickit;

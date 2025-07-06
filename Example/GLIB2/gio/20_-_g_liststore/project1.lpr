@@ -1,12 +1,8 @@
 program project1;
 
 uses
-  ctypes,
-  SysUtils,
   fp_glib2,
   fp_GLIBTools;
-
-  // https://www.perplexity.ai/search/gib-mir-ein-beispiel-mit-glist-oJ5ZF.WyRtCLhviMO7Cb3w
 
 const
   human_key = 'humanKey';
@@ -65,7 +61,7 @@ type
     g_printf('position: %d  removed: %d  added: %d'#10, position, removed, added);
   end;
 
-  function main(argc: cint; argv: PPChar): cint;
+  function main(argc: Integer; argv: PPChar): Integer;
   var
     store: PGListStore;
   begin

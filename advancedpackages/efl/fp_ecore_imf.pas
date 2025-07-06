@@ -510,7 +510,7 @@ type
   end;
   PEcore_IMF_Preedit_Attr = ^TEcore_IMF_Preedit_Attr;
 
-  Tevent_callback_func = procedure(data: pointer; ctx: PEcore_IMF_Context; value: longint);
+  Tevent_callback_func = procedure(data: pointer; ctx: PEcore_IMF_Context; value: longint); cdecl;
 
   TEcore_IMF_Context_Class = record
     add: procedure(ctx: PEcore_IMF_Context); cdecl;
@@ -566,7 +566,7 @@ type
   end;
   PEcore_IMF_Context_Info = ^TEcore_IMF_Context_Info;
 
-  Tecore_imf_module_func = function: PEcore_IMF_Context;
+  Tecore_imf_module_func = function: PEcore_IMF_Context; cdecl;
 
 function ecore_imf_init: longint; cdecl; external libecore_imf;
 function ecore_imf_shutdown: longint; cdecl; external libecore_imf;
@@ -596,8 +596,8 @@ procedure ecore_imf_context_cursor_location_set(ctx: PEcore_IMF_Context; x: long
 procedure ecore_imf_context_use_preedit_set(ctx: PEcore_IMF_Context; use_preedit: TEina_Bool); cdecl; external libecore_imf;
 
 type
-  Tecore_imf_context_func1 = function(data: pointer; ctx: PEcore_IMF_Context; text: PPchar; cursor_pos: Plongint): TEina_Bool;
-  Tecore_imf_context_func12 = function(data: pointer; ctx: PEcore_IMF_Context; text: PPchar): TEina_Bool;
+  Tecore_imf_context_func1 = function(data: pointer; ctx: PEcore_IMF_Context; text: PPchar; cursor_pos: Plongint): TEina_Bool; cdecl;
+  Tecore_imf_context_func12 = function(data: pointer; ctx: PEcore_IMF_Context; text: PPchar): TEina_Bool; cdecl;
 
 procedure ecore_imf_context_retrieve_surrounding_callback_set(ctx: PEcore_IMF_Context; func: Tecore_imf_context_func1; data: pointer); cdecl; external libecore_imf;
 procedure ecore_imf_context_retrieve_selection_callback_set(ctx: PEcore_IMF_Context; func: Tecore_imf_context_func12; data: pointer); cdecl; external libecore_imf;
@@ -647,7 +647,7 @@ procedure ecore_imf_context_input_panel_geometry_get(ctx: PEcore_IMF_Context; x:
 function ecore_imf_context_input_panel_state_get(ctx: PEcore_IMF_Context): TEcore_IMF_Input_Panel_State; cdecl; external libecore_imf;
 
 type
-  Tecore_imf_context_input_func = procedure(data: pointer; ctx: PEcore_IMF_Context; value: longint);
+  Tecore_imf_context_input_func = procedure(data: pointer; ctx: PEcore_IMF_Context; value: longint); cdecl;
 
 procedure ecore_imf_context_input_panel_event_callback_add(ctx: PEcore_IMF_Context; _type: TEcore_IMF_Input_Panel_Event; func: Tecore_imf_context_input_func; data: pointer); cdecl; external libecore_imf;
 procedure ecore_imf_context_input_panel_event_callback_del(ctx: PEcore_IMF_Context; _type: TEcore_IMF_Input_Panel_Event; func: Tecore_imf_context_input_func); cdecl; external libecore_imf;

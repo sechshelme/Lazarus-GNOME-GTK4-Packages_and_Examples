@@ -664,17 +664,14 @@ const
 type
   TMHD_PanicCallback = procedure(cls: pointer; file_: pchar; line: dword; reason: pchar); cdecl;
   TMHD_AcceptPolicyCallback = function(cls: pointer; addr: Psockaddr; addrlen: Tsocklen_t): TMHD_Result; cdecl;
-  TMHD_AccessHandlerCallback = function(cls: pointer; connection: PMHD_Connection; url: pchar; method: pchar; version: pchar;
-    upload_data: pchar; upload_data_size: Psize_t; req_cls: Ppointer): TMHD_Result; cdecl;
+  TMHD_AccessHandlerCallback = function(cls: pointer; connection: PMHD_Connection; url: pchar; method: pchar; version: pchar; upload_data: pchar; upload_data_size: Psize_t; req_cls: Ppointer): TMHD_Result; cdecl;
   TMHD_RequestCompletedCallback = procedure(cls: pointer; connection: PMHD_Connection; req_cls: Ppointer; toe: TMHD_RequestTerminationCode); cdecl;
   TMHD_NotifyConnectionCallback = procedure(cls: pointer; connection: PMHD_Connection; socket_context: Ppointer; toe: TMHD_ConnectionNotificationCode); cdecl;
   TMHD_KeyValueIterator = function(cls: pointer; kind: TMHD_ValueKind; key: pchar; Value: pchar): TMHD_Result; cdecl;
-  TMHD_KeyValueIteratorN = function(cls: pointer; kind: TMHD_ValueKind; key: pchar; key_size: Tsize_t; Value: pchar;
-    value_size: Tsize_t): TMHD_Result; cdecl;
+  TMHD_KeyValueIteratorN = function(cls: pointer; kind: TMHD_ValueKind; key: pchar; key_size: Tsize_t; Value: pchar; value_size: Tsize_t): TMHD_Result; cdecl;
   TMHD_ContentReaderCallback = function(cls: pointer; pos: Tuint64_t; buf: pchar; max: Tsize_t): Tssize_t; cdecl;
   TMHD_ContentReaderFreeCallback = procedure(cls: pointer); cdecl;
-  TMHD_PostDataIterator = function(cls: pointer; kind: TMHD_ValueKind; key: pchar; filename: pchar; content_type: pchar;
-    transfer_encoding: pchar; Data: pchar; off: Tuint64_t; size: Tsize_t): TMHD_Result; cdecl;
+  TMHD_PostDataIterator = function(cls: pointer; kind: TMHD_ValueKind; key: pchar; filename: pchar; content_type: pchar; transfer_encoding: pchar; Data: pchar; off: Tuint64_t; size: Tsize_t): TMHD_Result; cdecl;
 
 function MHD_start_daemon_va(flags: dword; port: Tuint16_t; apc: TMHD_AcceptPolicyCallback; apc_cls: pointer; dh: TMHD_AccessHandlerCallback;
   dh_cls: pointer; ap: Tva_list): PMHD_Daemon; cdecl; external libmicrohttpd;
@@ -769,8 +766,7 @@ type
 function MHD_upgrade_action(urh: PMHD_UpgradeResponseHandle; action: TMHD_UpgradeAction): TMHD_Result; cdecl; varargs; external libmicrohttpd;
 
 type
-  TMHD_UpgradeHandler = procedure(cls: pointer; connection: PMHD_Connection; req_cls: pointer; extra_in: pchar; extra_in_size: Tsize_t;
-    sock: TMHD_socket; urh: PMHD_UpgradeResponseHandle); cdecl;
+  TMHD_UpgradeHandler = procedure(cls: pointer; connection: PMHD_Connection; req_cls: pointer; extra_in: pchar; extra_in_size: Tsize_t; sock: TMHD_socket; urh: PMHD_UpgradeResponseHandle); cdecl;
 
 function MHD_create_response_for_upgrade(upgrade_handler: TMHD_UpgradeHandler; upgrade_handler_cls: pointer): PMHD_Response; cdecl; external libmicrohttpd;
 procedure MHD_destroy_response(response: PMHD_Response); cdecl; external libmicrohttpd;

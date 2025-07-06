@@ -40,8 +40,7 @@ const
   EINA_LOG_LEVEL_UNKNOWN = (-(2147483647)) - 1;
 
 type
-  TEina_Log_Print_Cb = procedure(d: PEina_Log_Domain; level: TEina_Log_Level; file_: pchar; fnc: pchar; line: longint;
-    fmt: pchar; data: pointer; args: Tva_list); cdecl;
+  TEina_Log_Print_Cb = procedure(d: PEina_Log_Domain; level: TEina_Log_Level; file_: pchar; fnc: pchar; line: longint; fmt: pchar; data: pointer; args: Tva_list); cdecl;
 
 type
   PEina_Log_State = ^TEina_Log_State;

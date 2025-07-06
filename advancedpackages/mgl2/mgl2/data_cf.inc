@@ -72,10 +72,6 @@ function mgl_data_ifs_2d(A: THCDT; n: longint; skip: longint): THMDT; cdecl; ext
 function mgl_data_ifs_3d(A: THCDT; n: longint; skip: longint): THMDT; cdecl; external libmgl;
 function mgl_data_ifs_file(fname: pchar; name: pchar; n: longint; skip: longint): THMDT; cdecl; external libmgl;
 
-type
-  Pxxxxxxxxx = ^Txxxxxxxxx;
-  Txxxxxxxxx = longint;
-
 const
   mglFlame2d_linear = 0;
   mglFlame2d_sinusoidal = 1;
@@ -258,8 +254,8 @@ function mgl_triangulation_3d(x: THCDT; y: THCDT; z: THCDT): THMDT; cdecl; exter
 function mgl_triangulation_2d(x: THCDT; y: THCDT): THMDT; cdecl; external libmgl;
 
 type
-  Troot_func = function(val: Tmreal; par: pointer): Tmreal;
-  Troots_func = procedure(x: Pmreal; f: Pmreal; par: pointer);
+  Troot_func = function(val: Tmreal; par: pointer): Tmreal; cdecl;
+  Troots_func = procedure(x: Pmreal; f: Pmreal; par: pointer); cdecl;
 
 function mgl_find_root(func: Troot_func; ini: Tmreal; par: pointer): Tmreal; cdecl; external libmgl;
 function mgl_find_root_txt(func: pchar; ini: Tmreal; var_id: char): Tmreal; cdecl; external libmgl;

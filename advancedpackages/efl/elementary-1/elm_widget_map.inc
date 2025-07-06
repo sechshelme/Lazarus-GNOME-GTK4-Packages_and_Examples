@@ -118,11 +118,9 @@ type
   PElm_Map_Module_Tile_Url_Func = ^TElm_Map_Module_Tile_Url_Func;
   TElm_Map_Module_Tile_Url_Func = function(para1: PEvas_Object; para2: longint; para3: longint; para4: longint): pchar; cdecl;
 
-  TElm_Map_Module_Tile_Geo_to_Coord_Func = function(para1: PEvas_Object; para2: longint; para3: double; para4: double; para5: longint;
-    para6: Plongint; para7: Plongint): TEina_Bool; cdecl;
+  TElm_Map_Module_Tile_Geo_to_Coord_Func = function(para1: PEvas_Object; para2: longint; para3: double; para4: double; para5: longint; para6: Plongint; para7: Plongint): TEina_Bool; cdecl;
 
-  TElm_Map_Module_Tile_Coord_to_Geo_Func = function(para1: PEvas_Object; para2: longint; para3: longint; para4: longint; para5: longint;
-    para6: Pdouble; para7: Pdouble): TEina_Bool; cdecl;
+  TElm_Map_Module_Tile_Coord_to_Geo_Func = function(para1: PEvas_Object; para2: longint; para3: longint; para4: longint; para5: longint; para6: Pdouble; para7: Pdouble): TEina_Bool; cdecl;
 
   TElm_Map_Module_Tile_Scale_Func = function(para1: PEvas_Object; para2: double; para3: double; para4: longint): double; cdecl;
 
@@ -130,8 +128,7 @@ type
   TElm_Map_Module_Tile_Copyright_Func = function(para1: PEvas_Object): PEvas_Object; cdecl;
 
   PElm_Map_Module_Route_Url_Func = ^TElm_Map_Module_Route_Url_Func;
-  TElm_Map_Module_Route_Url_Func = function(para1: PEvas_Object; para2: pchar; para3: longint; para4: double; para5: double;
-    para6: double; para7: double): pchar; cdecl;
+  TElm_Map_Module_Route_Url_Func = function(para1: PEvas_Object; para2: pchar; para3: longint; para4: double; para5: double; para6: double; para7: double): pchar; cdecl;
 
   TElm_Map_Module_Route_Parse_Func = procedure(para1: PElm_Map_Route); cdecl;
 
@@ -167,7 +164,6 @@ type
   TElm_Map_Name_Cb = procedure(data: pointer; map: PEvas_Object; name: PElm_Map_Name); cdecl;
   TElm_Map_Name_List_Cb = procedure(data: pointer; map: PEvas_Object; name_list: PEina_List); cdecl;
   TElm_Map_Route_Cb = procedure(data: pointer; map: PEvas_Object; route: PElm_Map_Route); cdecl;
-
 
   TSource_Tile = record
     name: PEina_Stringshare;

@@ -458,8 +458,7 @@ type
     version: longint;
     setup: function(win: PEcore_Wl2_Window): pointer; cdecl;
     destroy: procedure(surface: PEcore_Wl2_Surface; priv_data: pointer); cdecl;
-    reconfigure: procedure(surface: PEcore_Wl2_Surface; priv_data: pointer; w: longint; h: longint; flags: uint32;
-      alpha: TEina_Bool); cdecl;
+    reconfigure: procedure(surface: PEcore_Wl2_Surface; priv_data: pointer; w: longint; h: longint; flags: uint32; alpha: TEina_Bool); cdecl;
     data_get: function(surface: PEcore_Wl2_Surface; priv_data: pointer; w: Plongint; h: Plongint): pointer; cdecl;
     assign: function(surface: PEcore_Wl2_Surface; priv_data: pointer): longint; cdecl;
     post: procedure(surface: PEcore_Wl2_Surface; priv_data: pointer; rects: PEina_Rectangle; count: dword); cdecl;
@@ -490,7 +489,7 @@ function ecore_wl2_display_compositor_get(display: PEcore_Wl2_Display): Pwl_comp
 function ecore_wl2_window_new(display: PEcore_Wl2_Display; parent: PEcore_Wl2_Window; x: longint; y: longint; w: longint; h: longint): PEcore_Wl2_Window; cdecl; external libecore_wl2;
 
 type
-  wl2_close_func = procedure(data: pointer; win: PEcore_Wl2_Window);
+  wl2_close_func = procedure(data: pointer; win: PEcore_Wl2_Window); cdecl;
 
 procedure ecore_wl2_window_close_callback_set(window: PEcore_Wl2_Window; cb: wl2_close_func; data: pointer); cdecl; external libecore_wl2;
 function ecore_wl2_window_surface_get(window: PEcore_Wl2_Window): Pwl_surface; cdecl; external libecore_wl2;

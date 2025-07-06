@@ -25,7 +25,7 @@ const
   ECORE_FB_INPUT_DEVICE_CAP_KEYS_OR_BUTTONS = $00000004;
 
 type
-  Tfunc = procedure(data: pointer);
+  Tfunc = procedure(data: pointer); cdecl;
 
 procedure ecore_fb_callback_gain_set(func: Tfunc; data: pointer); cdecl; external libecore_fb;
 procedure ecore_fb_callback_lose_set(func: Tfunc; data: pointer); cdecl; external libecore_fb;

@@ -26,10 +26,9 @@ procedure eina_freeq_reduce(fq: PEina_FreeQ; count: longint); cdecl; external li
 function eina_freeq_ptr_pending(fq: PEina_FreeQ): TEina_Bool; cdecl; external libeina;
 
 type
-  Tfree_func = procedure(ptr: pointer);
+  Tfree_func = procedure(ptr: pointer); cdecl;
 
 procedure eina_freeq_ptr_add(fq: PEina_FreeQ; ptr: pointer; free_func: Tfree_func; size: Tsize_t); cdecl; external libeina;
-
 procedure eina_freeq_ptr_main_add(ptr: Pointer; free_func: Tfree_func; size: cardinal);
 
 

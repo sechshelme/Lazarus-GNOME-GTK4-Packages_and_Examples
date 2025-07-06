@@ -10,7 +10,7 @@ type
   PEina_Matrixsparse_Cell = ^TEina_Matrixsparse_Cell;
   PPEina_Matrixsparse_Cell = ^PEina_Matrixsparse_Cell;
 
-  Tfree_func_proc = procedure(user_data: pointer; cell_data: pointer);
+  Tfree_func_proc = procedure(user_data: pointer; cell_data: pointer); cdecl;
 
 function eina_matrixsparse_new(rows: dword; cols: dword; free_func: Tfree_func_proc; user_data: pointer): PEina_Matrixsparse; cdecl; external libeina;
 procedure eina_matrixsparse_free(m: PEina_Matrixsparse); cdecl; external libeina;

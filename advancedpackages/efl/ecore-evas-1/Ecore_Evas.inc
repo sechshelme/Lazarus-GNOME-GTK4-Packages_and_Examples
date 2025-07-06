@@ -146,7 +146,7 @@ procedure ecore_evas_msg_parent_send(ee: PEcore_Evas; msg_domain: longint; msg_i
 procedure ecore_evas_msg_send(ee: PEcore_Evas; msg_domain: longint; msg_id: longint; data: pointer; size: longint); cdecl; external libecore_eva;
 
 type
-  Tfunc_parent_handle = procedure(ee: PEcore_Evas; msg_domain: longint; msg_id: longint; data: pointer; size: longint);
+  Tfunc_parent_handle = procedure(ee: PEcore_Evas; msg_domain: longint; msg_id: longint; data: pointer; size: longint); cdecl;
 
 procedure ecore_evas_callback_msg_parent_handle_set(ee: PEcore_Evas; func_parent_handle: Tfunc_parent_handle); cdecl; external libecore_eva;
 
@@ -195,7 +195,7 @@ function ecore_evas_gl_x11_direct_resize_get(ee: PEcore_Evas): TEina_Bool; cdecl
 procedure ecore_evas_gl_x11_extra_event_window_add(ee: PEcore_Evas; win: TEcore_X_Window); cdecl; external libecore_eva;
 
 type
-  Tpre_cb = procedure(data: pointer; e: PEvas);
+  Tpre_cb = procedure(data: pointer; e: PEvas); cdecl;
 
 procedure ecore_evas_gl_x11_pre_post_swap_callback_set(ee: PEcore_Evas; data: pointer; pre_cb: Tpre_cb; post_cb: Tpre_cb); cdecl; external libecore_eva;
 function ecore_evas_gl_x11_pixmap_new(disp_name: pchar; parent: TEcore_X_Window; x: longint; y: longint; w: longint; h: longint): PEcore_Evas; cdecl; external libecore_eva;
@@ -233,8 +233,8 @@ function ecore_evas_gl_drm_new(device: pchar; parent: dword; x: longint; y: long
 function ecore_evas_buffer_new(w: longint; h: longint): PEcore_Evas; cdecl; external libecore_eva;
 
 type
-  Talloc_func = function(data: pointer; size: longint): pointer;
-  Tfree_func = procedure(data: pointer; pix: pointer);
+  Talloc_func = function(data: pointer; size: longint): pointer; cdecl;
+  Tfree_func = procedure(data: pointer; pix: pointer); cdecl;
 
 function ecore_evas_buffer_allocfunc_new(w: longint; h: longint; alloc_func: Talloc_func; free_func: Tfree_func; data: pointer): PEcore_Evas; cdecl; external libecore_eva;
 function ecore_evas_buffer_pixels_get(ee: PEcore_Evas): pointer; cdecl; external libecore_eva;
@@ -355,7 +355,7 @@ function ecore_evas_vnc_start(ee: PEcore_Evas; addr: pchar; port: longint; accep
 {$endif}
 
 type
-  Tfunc = function(w: longint; h: longint): PEvas;
+  Tfunc = function(w: longint; h: longint): PEvas; cdecl;
 
 procedure ecore_evas_callback_new_set(func: Tfunc); cdecl; external libecore_eva;
 function ecore_evas_ews_engine_set(engine: pchar; options: pchar): TEina_Bool; cdecl; external libecore_eva;

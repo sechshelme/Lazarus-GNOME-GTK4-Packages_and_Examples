@@ -33,8 +33,7 @@ type
     {$ENDIF}
     {$IFDEF DARWIN}
     tcl_MacOSXOpenBundleResources: function(interp: PTcl_Interp; bundleName: pchar; hasResourceFile: longint; maxPathLen: longint; libraryPath: pchar): longint; cdecl;
-    tcl_MacOSXOpenVersionedBundleResources: function(interp: PTcl_Interp; bundleName: pchar; bundleVersion: pchar; hasResourceFile: longint; maxPathLen: longint;
-      libraryPath: pchar): longint; cdecl;
+    tcl_MacOSXOpenVersionedBundleResources: function(interp: PTcl_Interp; bundleName: pchar; bundleVersion: pchar; hasResourceFile: longint; maxPathLen: longint; libraryPath: pchar): longint; cdecl;
     tclMacOSXNotifierAddRunLoopMode_: procedure(runLoopMode: pointer); cdecl;
     {$ENDIF}
   end;

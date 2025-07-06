@@ -12,15 +12,9 @@ uses
 
 type
   TEcore_Event_Mouse_Move_Cb = procedure(window: pointer; x: longint; y: longint; timestamp: dword); cdecl;
-  TEcore_Event_Multi_Move_Cb = procedure(window: pointer; device: longint; x: longint; y: longint; radius: double;
-    radius_x: double; radius_y: double; pressure: double; angle: double; mx: double;
-    my: double; timestamp: dword); cdecl;
-  TEcore_Event_Multi_Down_Cb = procedure(window: pointer; device: longint; x: longint; y: longint; radius: double;
-    radius_x: double; radius_y: double; pressure: double; angle: double; mx: double;
-    my: double; flags: TEvas_Button_Flags; timestamp: dword); cdecl;
-  TEcore_Event_Multi_Up_Cb = procedure(window: pointer; device: longint; x: longint; y: longint; radius: double;
-    radius_x: double; radius_y: double; pressure: double; angle: double; mx: double;
-    my: double; flags: TEvas_Button_Flags; timestamp: dword); cdecl;
+  TEcore_Event_Multi_Move_Cb = procedure(window: pointer; device: longint; x: longint; y: longint; radius: double; radius_x: double; radius_y: double; pressure: double; angle: double; mx: double; my: double; timestamp: dword); cdecl;
+  TEcore_Event_Multi_Down_Cb = procedure(window: pointer; device: longint; x: longint; y: longint; radius: double; radius_x: double; radius_y: double; pressure: double; angle: double; mx: double; my: double; flags: TEvas_Button_Flags; timestamp: dword); cdecl;
+  TEcore_Event_Multi_Up_Cb = procedure(window: pointer; device: longint; x: longint; y: longint; radius: double; radius_x: double; radius_y: double; pressure: double; angle: double; mx: double; my: double; flags: TEvas_Button_Flags; timestamp: dword); cdecl;
 
 function ecore_event_evas_init: longint; cdecl; external libecore_input_evas;
 function ecore_event_evas_shutdown: longint; cdecl; external libecore_input_evas;

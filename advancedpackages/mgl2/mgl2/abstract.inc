@@ -38,7 +38,7 @@ procedure mgl_data_set_name_w(dat: PmglDataA; name: Pwchar_t); cdecl; external l
 function mgl_data_get_name_w(dat: THCDT): Pwchar_t; cdecl; external libmgl;
 
 type
-  TDataSetFunc = procedure(para1: pointer);
+  TDataSetFunc = procedure(para1: pointer); cdecl;
 
 procedure mgl_data_set_func(dat: PmglDataA; func: TDataSetFunc; par: pointer); cdecl; external libmgl;
 procedure mgl_data_set_id(d: PmglDataA; ids: pchar); cdecl; external libmgl;
