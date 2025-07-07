@@ -50,8 +50,8 @@ procedure mgl_logo(gr: THMGL; w: longint; h: longint; rgba: pbyte; smooth: longi
 procedure mgl_logo_file(gr: THMGL; fname: pchar; smooth: longint; opt: pchar); cdecl; external libmgl;
 
 type
-  Tlamerey_func = function(para1: double; para2: pointer): double;
-  Tbifurcation_finc = function(para1: double; para2: double; para3: pointer): double;
+  Tlamerey_func = function(para1: double; para2: pointer): double; cdecl;
+  Tbifurcation_finc = function(para1: double; para2: double; para3: pointer): double; cdecl;
 
 procedure mgl_lamerey(gr: THMGL; x0: double; f: Tlamerey_func; par: pointer; stl: pchar; opt: pchar); cdecl; external libmgl;
 procedure mgl_lamerey_dat(gr: THMGL; x0: double; f: THCDT; stl: pchar; opt: pchar); cdecl; external libmgl;

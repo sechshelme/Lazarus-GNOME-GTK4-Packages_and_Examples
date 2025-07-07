@@ -13,7 +13,7 @@ procedure mgl_ask_stop(gr: THMGL; stop: longint); cdecl; external libmgl;
 function mgl_need_stop(gr: THMGL): longint; cdecl; external libmgl;
 
 type
-  TEventFunc = procedure(para1: pointer);
+  TEventFunc = procedure(para1: pointer); cdecl;
 
 procedure mgl_set_event_func(gr: THMGL; func: TEventFunc; par: pointer); cdecl; external libmgl;
 function mgl_get_quality(gr: THMGL): longint; cdecl; external libmgl;

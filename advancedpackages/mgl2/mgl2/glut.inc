@@ -5,8 +5,8 @@
 procedure _mgl_key_up(ch: byte; para2: longint; para3: longint); cdecl; external libmglqlut;
 
 type
-  TglutDrawFunc = function(gr: THMGL; p: pointer): longint;
-  TglutLoadFunc = procedure(p: pointer);
+  TglutDrawFunc = function(gr: THMGL; p: pointer): longint; cdecl;
+  TglutLoadFunc = procedure(p: pointer); cdecl;
 
 function mgl_create_graph_glut(draw: TglutDrawFunc; title: pchar; par: pointer; load: TglutLoadFunc): THMGL; cdecl; external libmglqlut;
 procedure mgl_glut_toggle_alpha(gr: THMGL); cdecl; external libmglqlut;

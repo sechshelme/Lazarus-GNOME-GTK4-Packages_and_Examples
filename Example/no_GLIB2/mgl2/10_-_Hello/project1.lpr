@@ -3,7 +3,7 @@ program project1;
 uses
   fp_mgl2;
 
-  function sample(gr: THMGL; p: pointer): longint;
+  function sample(gr: THMGL; p: pointer): longint; cdecl;
   var
     y0, y1, y2, y3: THMDT;
     n: longint = 30;

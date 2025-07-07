@@ -1,9 +1,9 @@
 {$IFDEF read_interface}
 
 type
-  Tgo2dFunc = function(u: Tmreal; x: Tmreal; y: Tmreal; px: Tmreal; py: Tmreal; par: pointer): Tmdual;
-  Tgo3dFunc = function(u: Tmreal; x: Tmreal; y: Tmreal; z: Tmreal; px: Tmreal; py: Tmreal; pz: Tmreal; par: pointer): Tmdual;
-  TodeFunc = procedure(x: Pmreal; dx: Pmreal; par: pointer);
+  Tgo2dFunc = function(u: Tmreal; x: Tmreal; y: Tmreal; px: Tmreal; py: Tmreal; par: pointer): Tmdual; cdecl;
+  Tgo3dFunc = function(u: Tmreal; x: Tmreal; y: Tmreal; z: Tmreal; px: Tmreal; py: Tmreal; pz: Tmreal; par: pointer): Tmdual; cdecl;
+  TodeFunc = procedure(x: Pmreal; dx: Pmreal; par: pointer); cdecl;
 
 function mgl_pde_solve_c(gr: THMGL; ham: pchar; ini_re: THCDT; ini_im: THCDT; dz: Tmreal; k0: Tmreal; opt: pchar): THADT; cdecl; external libmgl;
 function mgl_pde_solve(gr: THMGL; ham: pchar; ini_re: THCDT; ini_im: THCDT; dz: Tmreal; k0: Tmreal; opt: pchar): THMDT; cdecl; external libmgl;

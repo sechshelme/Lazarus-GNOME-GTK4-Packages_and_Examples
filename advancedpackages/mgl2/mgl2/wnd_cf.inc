@@ -2,10 +2,10 @@
 
 
 type
-  TwndClickFunc = procedure(p: pointer);
-  TwndDrawFunc = function(gr: THMGL; p: pointer): longint;
-  TwndReloadFunc = procedure(p: pointer);
-  TwndPropFunc = procedure(id: char; val: pchar; p: pointer);
+  TwndClickFunc = procedure(p: pointer); cdecl;
+  TwndDrawFunc = function(gr: THMGL; p: pointer): longint; cdecl;
+  TwndReloadFunc = procedure(p: pointer); cdecl;
+  TwndPropFunc = procedure(id: char; val: pchar; p: pointer); cdecl;
 
 procedure mgl_set_click_func(gr: THMGL; func: TwndClickFunc); cdecl; external libmglwnd;
 procedure mgl_wnd_set_mutex(gr: THMGL; mutex: Ppthread_mutex_t); cdecl; external libmglwnd;

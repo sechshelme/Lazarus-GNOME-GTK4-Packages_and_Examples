@@ -34,14 +34,14 @@ type
   PPrtlsdr_dev_t = ^Prtlsdr_dev_t;
 
 function rtlsdr_get_device_count: Tuint32_t; cdecl; external librtlsdr;
-function rtlsdr_get_device_name(index: Tuint32_t): pchar; cdecl; external librtlsdr;
-function rtlsdr_get_device_usb_strings(index: Tuint32_t; manufact: pchar; product: pchar; serial: pchar): longint; cdecl; external librtlsdr;
-function rtlsdr_get_index_by_serial(serial: pchar): longint; cdecl; external librtlsdr;
+function rtlsdr_get_device_name(index: Tuint32_t): PAnsiChar; cdecl; external librtlsdr;
+function rtlsdr_get_device_usb_strings(index: Tuint32_t; manufact: PAnsiChar; product: PAnsiChar; serial: PAnsiChar): longint; cdecl; external librtlsdr;
+function rtlsdr_get_index_by_serial(serial: PAnsiChar): longint; cdecl; external librtlsdr;
 function rtlsdr_open(dev: PPrtlsdr_dev_t; index: Tuint32_t): longint; cdecl; external librtlsdr;
 function rtlsdr_close(dev: Prtlsdr_dev_t): longint; cdecl; external librtlsdr;
 function rtlsdr_set_xtal_freq(dev: Prtlsdr_dev_t; rtl_freq: Tuint32_t; tuner_freq: Tuint32_t): longint; cdecl; external librtlsdr;
 function rtlsdr_get_xtal_freq(dev: Prtlsdr_dev_t; rtl_freq: Puint32_t; tuner_freq: Puint32_t): longint; cdecl; external librtlsdr;
-function rtlsdr_get_usb_strings(dev: Prtlsdr_dev_t; manufact: pchar; product: pchar; serial: pchar): longint; cdecl; external librtlsdr;
+function rtlsdr_get_usb_strings(dev: Prtlsdr_dev_t; manufact: PAnsiChar; product: PAnsiChar; serial: PAnsiChar): longint; cdecl; external librtlsdr;
 function rtlsdr_write_eeprom(dev: Prtlsdr_dev_t; data: Puint8_t; offset: Tuint8_t; len: Tuint16_t): longint; cdecl; external librtlsdr;
 function rtlsdr_read_eeprom(dev: Prtlsdr_dev_t; data: Puint8_t; offset: Tuint8_t; len: Tuint16_t): longint; cdecl; external librtlsdr;
 function rtlsdr_set_center_freq(dev: Prtlsdr_dev_t; freq: Tuint32_t): longint; cdecl; external librtlsdr;

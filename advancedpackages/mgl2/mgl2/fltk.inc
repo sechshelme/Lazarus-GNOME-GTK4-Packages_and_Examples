@@ -2,8 +2,8 @@
 
 
 type
-  TfltkDrawFunc = function(gr: THMGL; p: pointer): longint;
-  TfltkLoadFunc = procedure(p: pointer);
+  TfltkDrawFunc = function(gr: THMGL; p: pointer): longint; cdecl;
+  TfltkLoadFunc = procedure(p: pointer); cdecl;
 
 function mgl_create_graph_fltk(draw: TfltkDrawFunc; title: pchar; par: pointer; load: TfltkLoadFunc): THMGL; cdecl; external libmglfltk;
 function mgl_fltk_run: longint; cdecl; external libmglfltk;
