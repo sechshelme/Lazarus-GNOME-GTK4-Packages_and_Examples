@@ -41,11 +41,9 @@ const
 type
   TxlinkNodeDetectFunc = procedure(ctx: pointer; node: PxmlNode); cdecl;
   TxlinkSimpleLinkFunk = procedure(ctx: pointer; node: PxmlNode; href: TxlinkHRef; role: TxlinkRole; title: TxlinkTitle); cdecl;
-  TxlinkExtendedLinkFunk = procedure(ctx: pointer; node: PxmlNode; nbLocators: longint; hrefs: PxlinkHRef; roles: PxlinkRole;
-    nbArcs: longint; from: PxlinkRole; to_: PxlinkRole; Show: PxlinkShow; actuate: PxlinkActuate;
+  TxlinkExtendedLinkFunk = procedure(ctx: pointer; node: PxmlNode; nbLocators: longint; hrefs: PxlinkHRef; roles: PxlinkRole; nbArcs: longint; from: PxlinkRole; to_: PxlinkRole; Show: PxlinkShow;actuate:PxlinkActuate;
     nbTitles: longint; titles: PxlinkTitle; langs: PPxmlChar); cdecl;
-  TxlinkExtendedLinkSetFunk = procedure(ctx: pointer; node: PxmlNode; nbLocators: longint; hrefs: PxlinkHRef; roles: PxlinkRole;
-    nbTitles: longint; titles: PxlinkTitle; langs: PPxmlChar); cdecl;
+  TxlinkExtendedLinkSetFunk = procedure(ctx: pointer; node: PxmlNode; nbLocators: longint; hrefs: PxlinkHRef; roles: PxlinkRole; nbTitles: longint; titles: PxlinkTitle; langs: PPxmlChar); cdecl;
 
   TxlinkHandler = record
     simple: TxlinkSimpleLinkFunk;

@@ -30,12 +30,10 @@ type
   TPangoRendererClass = record
     parent_class: TGObjectClass;
     draw_glyphs: procedure(renderer: PPangoRenderer; font: PPangoFont; glyphs: PPangoGlyphString; x: longint; y: longint); cdecl;
-    draw_rectangle: procedure(renderer: PPangoRenderer; part: TPangoRenderPart; x: longint; y: longint; Width: longint;
-      Height: longint); cdecl;
+    draw_rectangle: procedure(renderer: PPangoRenderer; part: TPangoRenderPart; x: longint; y: longint; Width: longint; Height: longint); cdecl;
     draw_error_underline: procedure(renderer: PPangoRenderer; x: longint; y: longint; Width: longint; Height: longint); cdecl;
     draw_shape: procedure(renderer: PPangoRenderer; attr: PPangoAttrShape; x: longint; y: longint); cdecl;
-    draw_trapezoid: procedure(renderer: PPangoRenderer; part: TPangoRenderPart; y1_: Tdouble; x11: Tdouble; x21: Tdouble;
-      y2: Tdouble; x12: Tdouble; x22: Tdouble); cdecl;
+    draw_trapezoid: procedure(renderer: PPangoRenderer; part: TPangoRenderPart; y1_: Tdouble; x11: Tdouble; x21: Tdouble; y2: Tdouble; x12: Tdouble; x22: Tdouble); cdecl;
     draw_glyph: procedure(renderer: PPangoRenderer; font: PPangoFont; glyph: TPangoGlyph; x: Tdouble; y: Tdouble); cdecl;
     part_changed: procedure(renderer: PPangoRenderer; part: TPangoRenderPart); cdecl;
     begin_: procedure(renderer: PPangoRenderer); cdecl;

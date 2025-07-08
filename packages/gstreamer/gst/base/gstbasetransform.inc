@@ -37,8 +37,7 @@ type
     decide_allocation: function(trans: PGstBaseTransform; query: PGstQuery): Tgboolean; cdecl;
     filter_meta: function(trans: PGstBaseTransform; query: PGstQuery; api: TGType; params: PGstStructure): Tgboolean; cdecl;
     propose_allocation: function(trans: PGstBaseTransform; decide_query: PGstQuery; query: PGstQuery): Tgboolean; cdecl;
-    transform_size: function(trans: PGstBaseTransform; direction: TGstPadDirection; caps: PGstCaps; size: Tgsize; othercaps: PGstCaps;
-      othersize: Pgsize): Tgboolean; cdecl;
+    transform_size: function(trans: PGstBaseTransform; direction: TGstPadDirection; caps: PGstCaps; size: Tgsize; othercaps: PGstCaps; othersize: Pgsize): Tgboolean; cdecl;
     get_unit_size: function(trans: PGstBaseTransform; caps: PGstCaps; size: Pgsize): Tgboolean; cdecl;
     start: function(trans: PGstBaseTransform): Tgboolean; cdecl;
     stop: function(trans: PGstBaseTransform): Tgboolean; cdecl;

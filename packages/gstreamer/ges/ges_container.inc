@@ -36,8 +36,7 @@ type
     remove_child: function(container: PGESContainer; element: PGESTimelineElement): Tgboolean; cdecl;
     ungroup: function(container: PGESContainer; recursive: Tgboolean): PGList; cdecl;
     group: function(containers: PGList): PGESContainer; cdecl;
-    edit: function(container: PGESContainer; layers: PGList; new_layer_priority: Tgint; mode: TGESEditMode; edge: TGESEdge;
-      position: Tguint64): Tgboolean; cdecl;
+    edit: function(container: PGESContainer; layers: PGList; new_layer_priority: Tgint; mode: TGESEditMode; edge: TGESEdge; position: Tguint64): Tgboolean; cdecl;
     grouping_priority: Tguint;
     _ges_reserved: array[0..(GES_PADDING_LARGE) - 1] of Tgpointer;
   end;

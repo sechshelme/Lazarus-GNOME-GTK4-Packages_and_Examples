@@ -38,8 +38,7 @@ type
     get_contents_at: function(self: PGtkAccessibleText; offset: dword; granularity: TGtkAccessibleTextGranularity; start: Pdword; end_: Pdword): PGBytes; cdecl;
     get_caret_position: function(self: PGtkAccessibleText): dword; cdecl;
     get_selection: function(self: PGtkAccessibleText; n_ranges: Pgsize; ranges: PPGtkAccessibleTextRange): Tgboolean; cdecl;
-    get_attributes: function(self: PGtkAccessibleText; offset: dword; n_ranges: Pgsize; ranges: PPGtkAccessibleTextRange; attribute_names: PPPchar;
-      attribute_values: PPPchar): Tgboolean; cdecl;
+    get_attributes: function(self: PGtkAccessibleText; offset: dword; n_ranges: Pgsize; ranges: PPGtkAccessibleTextRange; attribute_names: PPPchar; attribute_values: PPPchar): Tgboolean; cdecl;
     get_default_attributes: procedure(self: PGtkAccessibleText; attribute_names: PPPchar; attribute_values: PPPchar); cdecl;
   end;
   PGtkAccessibleTextInterface = ^TGtkAccessibleTextInterface;

@@ -57,7 +57,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/advancedpackages', '*.pas;*.inc', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME', '*.pas;*.inc', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -70,11 +70,13 @@ begin
       if (pos(' procedure(', slHeader[j]) > 0) or (pos(' function(', slHeader[j]) > 0) or
       (pos(' procedure;', slHeader[j]) > 0) or (pos(' function:', slHeader[j]) > 0) then begin
         if (pos('cdecl;', slHeader[j]) = 0)and(pos('cvar;', slHeader[j]) = 0) then  begin
+          WriteLn();
           WriteLn(slFile[i], '  (', j+1, ')');
         end;
       end;
     end;
     slHeader.Free;
+    Write('.')
   end;
 
   slFile.Free;

@@ -6,8 +6,7 @@ const
   HB_BUFFER_SERIALIZE_FLAGS_DEFAULT = HB_BUFFER_SERIALIZE_FLAG_DEFAULT;
 
 type
-  Thb_font_get_glyph_func_t = function(font: Phb_font_t; font_data: pointer; unicode: Thb_codepoint_t; variation_selector: Thb_codepoint_t; glyph: Phb_codepoint_t;
-    user_data: pointer): Thb_bool_t; cdecl;
+  Thb_font_get_glyph_func_t = function(font: Phb_font_t; font_data: pointer; unicode: Thb_codepoint_t; variation_selector: Thb_codepoint_t; glyph: Phb_codepoint_t; user_data: pointer): Thb_bool_t; cdecl;
 
 procedure hb_font_funcs_set_glyph_func(ffuncs: Phb_font_funcs_t; func: Thb_font_get_glyph_func_t; user_data: pointer; Destroy: Thb_destroy_func_t); cdecl; external libharfbuzz;
 
@@ -37,8 +36,7 @@ procedure hb_font_funcs_set_glyph_v_kerning_func(ffuncs: Phb_font_funcs_t; func:
 function hb_font_get_glyph_v_kerning(font: Phb_font_t; top_glyph: Thb_codepoint_t; bottom_glyph: Thb_codepoint_t): Thb_position_t; cdecl; external libharfbuzz;
 
 type
-  Thb_font_get_glyph_shape_func_t = procedure(font: Phb_font_t; font_data: pointer; glyph: Thb_codepoint_t; draw_funcs: Phb_draw_funcs_t; draw_data: pointer;
-    user_data: pointer); cdecl;
+  Thb_font_get_glyph_shape_func_t = procedure(font: Phb_font_t; font_data: pointer; glyph: Thb_codepoint_t; draw_funcs: Phb_draw_funcs_t; draw_data: pointer; user_data: pointer); cdecl;
 
 procedure hb_font_funcs_set_glyph_shape_func(ffuncs: Phb_font_funcs_t; func: Thb_font_get_glyph_shape_func_t; user_data: pointer; Destroy: Thb_destroy_func_t); cdecl; external libharfbuzz;
 procedure hb_font_get_glyph_shape(font: Phb_font_t; glyph: Thb_codepoint_t; dfuncs: Phb_draw_funcs_t; draw_data: pointer); cdecl; external libharfbuzz;

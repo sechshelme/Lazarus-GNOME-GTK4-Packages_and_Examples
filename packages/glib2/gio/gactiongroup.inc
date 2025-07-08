@@ -21,8 +21,7 @@ type
     action_removed: procedure(action_group: PGActionGroup; action_name: Pgchar); cdecl;
     action_enabled_changed: procedure(action_group: PGActionGroup; action_name: Pgchar; Enabled: Tgboolean); cdecl;
     action_state_changed: procedure(action_group: PGActionGroup; action_name: Pgchar; state: PGVariant); cdecl;
-    query_action: function(action_group: PGActionGroup; action_name: Pgchar; Enabled: Pgboolean; parameter_type: PPGVariantType; state_type: PPGVariantType;
-      state_hint: PPGVariant; state: PPGVariant): Tgboolean; cdecl;
+    query_action: function(action_group: PGActionGroup; action_name: Pgchar; Enabled: Pgboolean; parameter_type: PPGVariantType; state_type: PPGVariantType; state_hint: PPGVariant; state: PPGVariant): Tgboolean; cdecl;
   end;
   PGActionGroupInterface = ^TGActionGroupInterface;
 

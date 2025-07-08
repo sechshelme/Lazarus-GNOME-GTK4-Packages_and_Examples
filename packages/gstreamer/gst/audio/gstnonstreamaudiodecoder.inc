@@ -53,10 +53,8 @@ type
     loads_from_sinkpad: Tgboolean;
     seek: function(Dec: PGstNonstreamAudioDecoder; new_position: PGstClockTime): Tgboolean; cdecl;
     tell: function(Dec: PGstNonstreamAudioDecoder): TGstClockTime; cdecl;
-    load_from_buffer: function(Dec: PGstNonstreamAudioDecoder; source_data: PGstBuffer; initial_subsong: Tguint; initial_subsong_mode: TGstNonstreamAudioSubsongMode; initial_position: PGstClockTime;
-      initial_output_mode: PGstNonstreamAudioOutputMode; initial_num_loops: Pgint): Tgboolean; cdecl;
-    load_from_custom: function(Dec: PGstNonstreamAudioDecoder; initial_subsong: Tguint; initial_subsong_mode: TGstNonstreamAudioSubsongMode; initial_position: PGstClockTime; initial_output_mode: PGstNonstreamAudioOutputMode;
-      initial_num_loops: Pgint): Tgboolean; cdecl;
+    load_from_buffer: function(Dec: PGstNonstreamAudioDecoder; source_data: PGstBuffer; initial_subsong: Tguint; initial_subsong_mode: TGstNonstreamAudioSubsongMode; initial_position: PGstClockTime;      initial_output_mode: PGstNonstreamAudioOutputMode; initial_num_loops: Pgint): Tgboolean; cdecl;
+    load_from_custom: function(Dec: PGstNonstreamAudioDecoder; initial_subsong: Tguint; initial_subsong_mode: TGstNonstreamAudioSubsongMode; initial_position: PGstClockTime; initial_output_mode: PGstNonstreamAudioOutputMode; initial_num_loops: Pgint): Tgboolean; cdecl;
     get_main_tags: function(Dec: PGstNonstreamAudioDecoder): PGstTagList; cdecl;
     set_current_subsong: function(Dec: PGstNonstreamAudioDecoder; subsong: Tguint; initial_position: PGstClockTime): Tgboolean; cdecl;
     get_current_subsong: function(Dec: PGstNonstreamAudioDecoder): Tguint; cdecl;

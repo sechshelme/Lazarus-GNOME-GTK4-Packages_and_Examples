@@ -24,8 +24,7 @@ type
     change_view: procedure(renderer: PGtkSourceGutterRenderer; old_view: PGtkSourceView); cdecl;
     change_buffer: procedure(renderer: PGtkSourceGutterRenderer; old_buffer: PGtkSourceBuffer); cdecl;
     query_activatable: function(renderer: PGtkSourceGutterRenderer; iter: PGtkTextIter; area: PGdkRectangle): Tgboolean; cdecl;
-    activate: procedure(renderer: PGtkSourceGutterRenderer; iter: PGtkTextIter; area: PGdkRectangle; button: Tguint; state: TGdkModifierType;
-      n_presses: Tgint); cdecl;
+    activate: procedure(renderer: PGtkSourceGutterRenderer; iter: PGtkTextIter; area: PGdkRectangle; button: Tguint; state: TGdkModifierType; n_presses: Tgint); cdecl;
     _reserved: array[0..19] of Tgpointer;
   end;
   PGtkSourceGutterRendererClass = ^TGtkSourceGutterRendererClass;

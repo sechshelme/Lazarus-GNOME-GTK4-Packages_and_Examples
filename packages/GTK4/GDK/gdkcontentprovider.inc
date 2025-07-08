@@ -17,8 +17,7 @@ type
     detach_clipboard: procedure(provider: PGdkContentProvider; clipboard: PGdkClipboard); cdecl;
     ref_formats: function(provider: PGdkContentProvider): PGdkContentFormats; cdecl;
     ref_storable_formats: function(provider: PGdkContentProvider): PGdkContentFormats; cdecl;
-    write_mime_type_async: procedure(provider: PGdkContentProvider; mime_type: PChar; stream: PGOutputStream; io_priority: longint; cancellable: PGCancellable;
-      callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
+    write_mime_type_async: procedure(provider: PGdkContentProvider; mime_type: PChar; stream: PGOutputStream; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     write_mime_type_finish: function(provider: PGdkContentProvider; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl;
     get_value: function(provider: PGdkContentProvider; Value: PGValue; error: PPGError): Tgboolean; cdecl;
     padding: array[0..7] of Tgpointer;

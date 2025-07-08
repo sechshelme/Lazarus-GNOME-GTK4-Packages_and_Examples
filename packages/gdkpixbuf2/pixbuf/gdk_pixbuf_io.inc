@@ -44,8 +44,7 @@ procedure gdk_pixbuf_format_free(format: PGdkPixbufFormat); cdecl; external libg
 type
   TGdkPixbufModuleSizeFunc = procedure(Width: Pgint; Height: Pgint; user_data: Tgpointer); cdecl;
   TGdkPixbufModulePreparedFunc = procedure(pixbuf: PGdkPixbuf; anim: PGdkPixbufAnimation; user_data: Tgpointer); cdecl;
-  TGdkPixbufModuleUpdatedFunc = procedure(pixbuf: PGdkPixbuf; x: longint; y: longint; Width: longint; Height: longint;
-    user_data: Tgpointer); cdecl;
+  TGdkPixbufModuleUpdatedFunc = procedure(pixbuf: PGdkPixbuf; x: longint; y: longint; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
 
   TGdkPixbufModuleLoadFunc = function(f: PFILE; error: PPGError): PGdkPixbuf; cdecl;
   PGdkPixbufModuleLoadFunc = ^TGdkPixbufModuleLoadFunc;
@@ -60,8 +59,7 @@ type
   TGdkPixbufModuleStopLoadFunc = function(context: Tgpointer; error: PPGError): Tgboolean; cdecl;
   TGdkPixbufModuleIncrementLoadFunc = function(context: Tgpointer; buf: Pguchar; size: Tguint; error: PPGError): Tgboolean; cdecl;
   TGdkPixbufModuleSaveFunc = function(f: PFILE; pixbuf: PGdkPixbuf; param_keys: PPgchar; param_values: PPgchar; error: PPGError): Tgboolean; cdecl;
-  TGdkPixbufModuleSaveCallbackFunc = function(save_func: TGdkPixbufSaveFunc; user_data: Tgpointer; pixbuf: PGdkPixbuf; option_keys: PPgchar; option_values: PPgchar;
-    error: PPGError): Tgboolean; cdecl;
+  TGdkPixbufModuleSaveCallbackFunc = function(save_func: TGdkPixbufSaveFunc; user_data: Tgpointer; pixbuf: PGdkPixbuf; option_keys: PPgchar; option_values: PPgchar; error: PPGError): Tgboolean; cdecl;
   TGdkPixbufModuleSaveOptionSupportedFunc = function(option_key: Pgchar): Tgboolean; cdecl;
 
   TGdkPixbufModule = record

@@ -21,14 +21,10 @@ type
   end;
   Phb_draw_funcs_t = ^Thb_draw_funcs_t;
 
-  Thb_draw_move_to_func_t = procedure(dfuncs: Phb_draw_funcs_t; draw_data: pointer; st: Phb_draw_state_t; to_x: single; to_y: single;
-    user_data: pointer); cdecl;
-  Thb_draw_line_to_func_t = procedure(dfuncs: Phb_draw_funcs_t; draw_data: pointer; st: Phb_draw_state_t; to_x: single; to_y: single;
-    user_data: pointer); cdecl;
-  Thb_draw_quadratic_to_func_t = procedure(dfuncs: Phb_draw_funcs_t; draw_data: pointer; st: Phb_draw_state_t; control_x: single; control_y: single;
-    to_x: single; to_y: single; user_data: pointer); cdecl;
-  Thb_draw_cubic_to_func_t = procedure(dfuncs: Phb_draw_funcs_t; draw_data: pointer; st: Phb_draw_state_t; control1_x: single; control1_y: single;
-    control2_x: single; control2_y: single; to_x: single; to_y: single; user_data: pointer); cdecl;
+  Thb_draw_move_to_func_t = procedure(dfuncs: Phb_draw_funcs_t; draw_data: pointer; st: Phb_draw_state_t; to_x: single; to_y: single; user_data: pointer); cdecl;
+  Thb_draw_line_to_func_t = procedure(dfuncs: Phb_draw_funcs_t; draw_data: pointer; st: Phb_draw_state_t; to_x: single; to_y: single; user_data: pointer); cdecl;
+  Thb_draw_quadratic_to_func_t = procedure(dfuncs: Phb_draw_funcs_t; draw_data: pointer; st: Phb_draw_state_t; control_x: single; control_y: single; to_x: single; to_y: single; user_data: pointer); cdecl;
+  Thb_draw_cubic_to_func_t = procedure(dfuncs: Phb_draw_funcs_t; draw_data: pointer; st: Phb_draw_state_t; control1_x: single; control1_y: single; control2_x: single; control2_y: single; to_x: single; to_y: single; user_data: pointer); cdecl;
   Thb_draw_close_path_func_t = procedure(dfuncs: Phb_draw_funcs_t; draw_data: pointer; st: Phb_draw_state_t; user_data: pointer); cdecl;
 
 procedure hb_draw_funcs_set_move_to_func(dfuncs: Phb_draw_funcs_t; func: Thb_draw_move_to_func_t; user_data: pointer; Destroy: Thb_destroy_func_t); cdecl; external libharfbuzz;

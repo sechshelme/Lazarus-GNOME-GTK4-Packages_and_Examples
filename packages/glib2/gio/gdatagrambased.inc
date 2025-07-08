@@ -7,10 +7,8 @@ type
 
   TGDatagramBasedInterface = record
     g_iface: TGTypeInterface;
-    receive_messages: function(datagram_based: PGDatagramBased; Messages: PGInputMessage; num_messages: Tguint; flags: Tgint; timeout: Tgint64;
-      cancellable: PGCancellable; error: PPGError): Tgint; cdecl;
-    send_messages: function(datagram_based: PGDatagramBased; Messages: PGOutputMessage; num_messages: Tguint; flags: Tgint; timeout: Tgint64;
-      cancellable: PGCancellable; error: PPGError): Tgint; cdecl;
+    receive_messages: function(datagram_based: PGDatagramBased; Messages: PGInputMessage; num_messages: Tguint; flags: Tgint; timeout: Tgint64; cancellable: PGCancellable; error: PPGError): Tgint; cdecl;
+    send_messages: function(datagram_based: PGDatagramBased; Messages: PGOutputMessage; num_messages: Tguint; flags: Tgint; timeout: Tgint64; cancellable: PGCancellable; error: PPGError): Tgint; cdecl;
     create_source: function(datagram_based: PGDatagramBased; condition: TGIOCondition; cancellable: PGCancellable): PGSource; cdecl;
     condition_check: function(datagram_based: PGDatagramBased; condition: TGIOCondition): TGIOCondition; cdecl;
     condition_wait: function(datagram_based: PGDatagramBased; condition: TGIOCondition; timeout: Tgint64; cancellable: PGCancellable; error: PPGError): Tgboolean; cdecl;

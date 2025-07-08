@@ -18,8 +18,7 @@ const
 type
   TPangoEngineLangClass = record
     parent_class: TPangoEngineClass;
-    script_break: procedure(engine: PPangoEngineLang; Text: pchar; len: longint; analysis: PPangoAnalysis; attrs: PPangoLogAttr;
-      attrs_len: longint); cdecl;
+    script_break: procedure(engine: PPangoEngineLang; Text: pchar; len: longint; analysis: PPangoAnalysis; attrs: PPangoLogAttr; attrs_len: longint); cdecl;
   end;
   PPangoEngineLangClass = ^TPangoEngineLangClass;
 
@@ -32,8 +31,7 @@ const
 type
   TPangoEngineShapeClass = record
     parent_class: TPangoEngineClass;
-    script_shape: procedure(engine: PPangoEngineShape; font: PPangoFont; item_text: pchar; item_length: dword; analysis: PPangoAnalysis;
-      glyphs: PPangoGlyphString; paragraph_text: pchar; paragraph_length: dword); cdecl;
+    script_shape: procedure(engine: PPangoEngineShape; font: PPangoFont; item_text: pchar; item_length: dword; analysis: PPangoAnalysis; glyphs: PPangoGlyphString; paragraph_text: pchar; paragraph_length: dword); cdecl;
     covers: function(engine: PPangoEngineShape; font: PPangoFont; language: PPangoLanguage; wc: Tgunichar): TPangoCoverageLevel; cdecl;
   end;
   PPangoEngineShapeClass = ^TPangoEngineShapeClass;

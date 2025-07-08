@@ -47,12 +47,9 @@ type
     get_preferred_height: procedure(cell: PGtkCellRenderer; widget: PGtkWidget; minimum_size: Plongint; natural_size: Plongint); cdecl;
     get_preferred_width_for_height: procedure(cell: PGtkCellRenderer; widget: PGtkWidget; Height: longint; minimum_width: Plongint; natural_width: Plongint); cdecl;
     get_aligned_area: procedure(cell: PGtkCellRenderer; widget: PGtkWidget; flags: TGtkCellRendererState; cell_area: PGdkRectangle; aligned_area: PGdkRectangle); cdecl;
-    snapshot: procedure(cell: PGtkCellRenderer; snapshot: PGtkSnapshot; widget: PGtkWidget; background_area: PGdkRectangle; cell_area: PGdkRectangle;
-      flags: TGtkCellRendererState); cdecl;
-    activate: function(cell: PGtkCellRenderer; event: PGdkEvent; widget: PGtkWidget; path: PChar; background_area: PGdkRectangle;
-      cell_area: PGdkRectangle; flags: TGtkCellRendererState): Tgboolean; cdecl;
-    start_editing: function(cell: PGtkCellRenderer; event: PGdkEvent; widget: PGtkWidget; path: PChar; background_area: PGdkRectangle;
-      cell_area: PGdkRectangle; flags: TGtkCellRendererState): PGtkCellEditable; cdecl;
+    snapshot: procedure(cell: PGtkCellRenderer; snapshot: PGtkSnapshot; widget: PGtkWidget; background_area: PGdkRectangle; cell_area: PGdkRectangle; flags: TGtkCellRendererState); cdecl;
+    activate: function(cell: PGtkCellRenderer; event: PGdkEvent; widget: PGtkWidget; path: PChar; background_area: PGdkRectangle; cell_area: PGdkRectangle; flags: TGtkCellRendererState): Tgboolean; cdecl;
+    start_editing: function(cell: PGtkCellRenderer; event: PGdkEvent; widget: PGtkWidget; path: PChar; background_area: PGdkRectangle; cell_area: PGdkRectangle; flags: TGtkCellRendererState): PGtkCellEditable; cdecl;
     editing_canceled: procedure(cell: PGtkCellRenderer); cdecl;
     editing_started: procedure(cell: PGtkCellRenderer; editable: PGtkCellEditable; path: PChar); cdecl;
     padding: array[0..7] of Tgpointer;

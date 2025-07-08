@@ -40,10 +40,8 @@ type
   Thb_font_get_font_v_extents_func_t = Thb_font_get_font_extents_func_t;
 
   Thb_font_get_nominal_glyph_func_t = function(font: Phb_font_t; font_data: pointer; unicode: Thb_codepoint_t; glyph: Phb_codepoint_t; user_data: pointer): Thb_bool_t; cdecl;
-  Thb_font_get_variation_glyph_func_t = function(font: Phb_font_t; font_data: pointer; unicode: Thb_codepoint_t; variation_selector: Thb_codepoint_t; glyph: Phb_codepoint_t;
-    user_data: pointer): Thb_bool_t; cdecl;
-  Thb_font_get_nominal_glyphs_func_t = function(font: Phb_font_t; font_data: pointer; Count: dword; first_unicode: Phb_codepoint_t; unicode_stride: dword;
-    first_glyph: Phb_codepoint_t; glyph_stride: dword; user_data: pointer): dword; cdecl;
+  Thb_font_get_variation_glyph_func_t = function(font: Phb_font_t; font_data: pointer; unicode: Thb_codepoint_t; variation_selector: Thb_codepoint_t; glyph: Phb_codepoint_t; user_data: pointer): Thb_bool_t; cdecl;
+  Thb_font_get_nominal_glyphs_func_t = function(font: Phb_font_t; font_data: pointer; Count: dword; first_unicode: Phb_codepoint_t; unicode_stride: dword; first_glyph: Phb_codepoint_t; glyph_stride: dword; user_data: pointer): dword; cdecl;
   Thb_font_get_glyph_advance_func_t = function(font: Phb_font_t; font_data: pointer; glyph: Thb_codepoint_t; user_data: pointer): Thb_position_t; cdecl;
 
   Phb_font_get_glyph_h_advance_func_t = ^Thb_font_get_glyph_h_advance_func_t;
@@ -52,8 +50,7 @@ type
   Phb_font_get_glyph_v_advance_func_t = ^Thb_font_get_glyph_v_advance_func_t;
   Thb_font_get_glyph_v_advance_func_t = Thb_font_get_glyph_advance_func_t;
 
-  Thb_font_get_glyph_advances_func_t = procedure(font: Phb_font_t; font_data: pointer; Count: dword; first_glyph: Phb_codepoint_t; glyph_stride: dword;
-    first_advance: Phb_position_t; advance_stride: dword; user_data: pointer); cdecl;
+  Thb_font_get_glyph_advances_func_t = procedure(font: Phb_font_t; font_data: pointer; Count: dword; first_glyph: Phb_codepoint_t; glyph_stride: dword; first_advance: Phb_position_t; advance_stride: dword; user_data: pointer); cdecl;
 
   Phb_font_get_glyph_h_advances_func_t = ^Thb_font_get_glyph_h_advances_func_t;
   Thb_font_get_glyph_h_advances_func_t = Thb_font_get_glyph_advances_func_t;
@@ -61,8 +58,7 @@ type
   Phb_font_get_glyph_v_advances_func_t = ^Thb_font_get_glyph_v_advances_func_t;
   Thb_font_get_glyph_v_advances_func_t = Thb_font_get_glyph_advances_func_t;
 
-  Thb_font_get_glyph_origin_func_t = function(font: Phb_font_t; font_data: pointer; glyph: Thb_codepoint_t; x: Phb_position_t; y: Phb_position_t;
-    user_data: pointer): Thb_bool_t; cdecl;
+  Thb_font_get_glyph_origin_func_t = function(font: Phb_font_t; font_data: pointer; glyph: Thb_codepoint_t; x: Phb_position_t; y: Phb_position_t; user_data: pointer): Thb_bool_t; cdecl;
 
   Phb_font_get_glyph_h_origin_func_t = ^Thb_font_get_glyph_h_origin_func_t;
   Thb_font_get_glyph_h_origin_func_t = Thb_font_get_glyph_origin_func_t;
@@ -76,16 +72,11 @@ type
   Thb_font_get_glyph_h_kerning_func_t = Thb_font_get_glyph_kerning_func_t;
 
   Thb_font_get_glyph_extents_func_t = function(font: Phb_font_t; font_data: pointer; glyph: Thb_codepoint_t; extents: Phb_glyph_extents_t; user_data: pointer): Thb_bool_t; cdecl;
-  Thb_font_get_glyph_contour_point_func_t = function(font: Phb_font_t; font_data: pointer; glyph: Thb_codepoint_t; point_index: dword; x: Phb_position_t;
-    y: Phb_position_t; user_data: pointer): Thb_bool_t; cdecl;
-  Thb_font_get_glyph_name_func_t = function(font: Phb_font_t; font_data: pointer; glyph: Thb_codepoint_t; Name: pchar; size: dword;
-    user_data: pointer): Thb_bool_t; cdecl;
-  Thb_font_get_glyph_from_name_func_t = function(font: Phb_font_t; font_data: pointer; Name: pchar; len: longint; glyph: Phb_codepoint_t;
-    user_data: pointer): Thb_bool_t; cdecl;
-  Thb_font_draw_glyph_func_t = procedure(font: Phb_font_t; font_data: pointer; glyph: Thb_codepoint_t; draw_funcs: Phb_draw_funcs_t; draw_data: pointer;
-    user_data: pointer); cdecl;
-  Thb_font_paint_glyph_func_t = procedure(font: Phb_font_t; font_data: pointer; glyph: Thb_codepoint_t; paint_funcs: Phb_paint_funcs_t; paint_data: pointer;
-    palette_index: dword; foreground: Thb_color_t; user_data: pointer); cdecl;
+  Thb_font_get_glyph_contour_point_func_t = function(font: Phb_font_t; font_data: pointer; glyph: Thb_codepoint_t; point_index: dword; x: Phb_position_t; y: Phb_position_t; user_data: pointer): Thb_bool_t; cdecl;
+  Thb_font_get_glyph_name_func_t = function(font: Phb_font_t; font_data: pointer; glyph: Thb_codepoint_t; Name: pchar; size: dword; user_data: pointer): Thb_bool_t; cdecl;
+  Thb_font_get_glyph_from_name_func_t = function(font: Phb_font_t; font_data: pointer; Name: pchar; len: longint; glyph: Phb_codepoint_t; user_data: pointer): Thb_bool_t; cdecl;
+  Thb_font_draw_glyph_func_t = procedure(font: Phb_font_t; font_data: pointer; glyph: Thb_codepoint_t; draw_funcs: Phb_draw_funcs_t; draw_data: pointer; user_data: pointer); cdecl;
+  Thb_font_paint_glyph_func_t = procedure(font: Phb_font_t; font_data: pointer; glyph: Thb_codepoint_t; paint_funcs: Phb_paint_funcs_t; paint_data: pointer; palette_index: dword; foreground: Thb_color_t; user_data: pointer); cdecl;
 
 procedure hb_font_funcs_set_font_h_extents_func(ffuncs: Phb_font_funcs_t; func: Thb_font_get_font_h_extents_func_t; user_data: pointer; Destroy: Thb_destroy_func_t); cdecl; external libharfbuzz;
 procedure hb_font_funcs_set_font_v_extents_func(ffuncs: Phb_font_funcs_t; func: Thb_font_get_font_v_extents_func_t; user_data: pointer; Destroy: Thb_destroy_func_t); cdecl; external libharfbuzz;

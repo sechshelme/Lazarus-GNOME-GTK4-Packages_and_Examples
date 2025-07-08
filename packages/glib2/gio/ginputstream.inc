@@ -17,11 +17,9 @@ type
     read_fn: function(stream: PGInputStream; buffer: pointer; Count: Tgsize; cancellable: PGCancellable; error: PPGError): Tgssize; cdecl;
     skip: function(stream: PGInputStream; Count: Tgsize; cancellable: PGCancellable; error: PPGError): Tgssize; cdecl;
     close_fn: function(stream: PGInputStream; cancellable: PGCancellable; error: PPGError): Tgboolean; cdecl;
-    read_async: procedure(stream: PGInputStream; buffer: pointer; Count: Tgsize; io_priority: longint; cancellable: PGCancellable;
-      callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
+    read_async: procedure(stream: PGInputStream; buffer: pointer; Count: Tgsize; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     read_finish: function(stream: PGInputStream; Result: PGAsyncResult; error: PPGError): Tgssize; cdecl;
-    skip_async: procedure(stream: PGInputStream; Count: Tgsize; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-      user_data: Tgpointer); cdecl;
+    skip_async: procedure(stream: PGInputStream; Count: Tgsize; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     skip_finish: function(stream: PGInputStream; Result: PGAsyncResult; error: PPGError): Tgssize; cdecl;
     close_async: procedure(stream: PGInputStream; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     close_finish: function(stream: PGInputStream; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl;

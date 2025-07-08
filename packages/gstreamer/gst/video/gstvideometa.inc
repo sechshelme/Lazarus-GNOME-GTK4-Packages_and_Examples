@@ -18,8 +18,7 @@ type
     n_planes: Tguint;
     offset: array[0..(GST_VIDEO_MAX_PLANES) - 1] of Tgsize;
     stride: array[0..(GST_VIDEO_MAX_PLANES) - 1] of Tgint;
-    map: function(meta: PGstVideoMeta; plane: Tguint; info: PGstMapInfo; Data: Pgpointer; stride: Pgint;
-      flags: TGstMapFlags): Tgboolean; cdecl;
+    map: function(meta: PGstVideoMeta; plane: Tguint; info: PGstMapInfo; Data: Pgpointer; stride: Pgint; flags: TGstMapFlags): Tgboolean; cdecl;
     unmap: function(meta: PGstVideoMeta; plane: Tguint; info: PGstMapInfo): Tgboolean; cdecl;
     alignment: TGstVideoAlignment;
   end;

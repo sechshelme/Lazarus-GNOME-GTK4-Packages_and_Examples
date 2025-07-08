@@ -42,8 +42,7 @@ type
   end;
   PGstAudioBaseSink = ^TGstAudioBaseSink;
 
-  TGstAudioBaseSinkCustomSlavingCallback = procedure(sink: PGstAudioBaseSink; etime: TGstClockTime; itime: TGstClockTime; requested_skew: PGstClockTimeDiff; discont_reason: TGstAudioBaseSinkDiscontReason;
-    user_data: Tgpointer); cdecl;
+  TGstAudioBaseSinkCustomSlavingCallback = procedure(sink: PGstAudioBaseSink; etime: TGstClockTime; itime: TGstClockTime; requested_skew: PGstClockTimeDiff; discont_reason: TGstAudioBaseSinkDiscontReason;    user_data: Tgpointer); cdecl;
 
   TGstAudioBaseSinkClass = record
     parent_class: TGstBaseSinkClass;

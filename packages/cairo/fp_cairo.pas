@@ -674,11 +674,9 @@ function cairo_toy_font_face_get_weight(font_face: Pcairo_font_face_t): Tcairo_f
 function cairo_user_font_face_create: Pcairo_font_face_t; cdecl; external cairo_lib;
 
 type
-
   Tcairo_user_scaled_font_init_func_t = function(scaled_font: Pcairo_scaled_font_t; cr: Pcairo_t; extents: Pcairo_font_extents_t): Tcairo_status_t; cdecl;
   Tcairo_user_scaled_font_render_glyph_func_t = function(scaled_font: Pcairo_scaled_font_t; glyph: dword; cr: Pcairo_t; extents: Pcairo_text_extents_t): Tcairo_status_t; cdecl;
-  Tcairo_user_scaled_font_text_to_glyphs_func_t = function(scaled_font: Pcairo_scaled_font_t; utf8: pchar; utf8_len: longint; glyphs: PPcairo_glyph_t; num_glyphs: Plongint;
-    clusters: PPcairo_text_cluster_t; num_clusters: Plongint; cluster_flags: Pcairo_text_cluster_flags_t): Tcairo_status_t; cdecl;
+  Tcairo_user_scaled_font_text_to_glyphs_func_t = function(scaled_font: Pcairo_scaled_font_t; utf8: pchar; utf8_len: longint; glyphs: PPcairo_glyph_t; num_glyphs: Plongint; clusters: PPcairo_text_cluster_t; num_clusters: Plongint; cluster_flags: Pcairo_text_cluster_flags_t): Tcairo_status_t; cdecl;
   Tcairo_user_scaled_font_unicode_to_glyph_func_t = function(scaled_font: Pcairo_scaled_font_t; unicode: dword; glyph_index: Pdword): Tcairo_status_t; cdecl;
 
 procedure cairo_user_font_face_set_init_func(font_face: Pcairo_font_face_t; init_func: Tcairo_user_scaled_font_init_func_t); cdecl; external cairo_lib;

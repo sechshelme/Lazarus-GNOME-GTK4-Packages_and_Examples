@@ -20,8 +20,7 @@ type
     can_truncate: function(stream: PGFileOutputStream): Tgboolean; cdecl;
     truncate_fn: function(stream: PGFileOutputStream; size: Tgoffset; cancellable: PGCancellable; error: PPGError): Tgboolean; cdecl;
     query_info: function(stream: PGFileOutputStream; attributes: PChar; cancellable: PGCancellable; error: PPGError): PGFileInfo; cdecl;
-    query_info_async: procedure(stream: PGFileOutputStream; attributes: PChar; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-      user_data: Tgpointer); cdecl;
+    query_info_async: procedure(stream: PGFileOutputStream; attributes: PChar; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     query_info_finish: function(stream: PGFileOutputStream; Result: PGAsyncResult; error: PPGError): PGFileInfo; cdecl;
     get_etag: function(stream: PGFileOutputStream): PChar; cdecl;
     _g_reserved1: procedure; cdecl;
@@ -35,8 +34,7 @@ type
 
 function g_file_output_stream_get_type: TGType; cdecl; external libgio2;
 function g_file_output_stream_query_info(stream: PGFileOutputStream; attributes: PChar; cancellable: PGCancellable; error: PPGError): PGFileInfo; cdecl; external libgio2;
-procedure g_file_output_stream_query_info_async(stream: PGFileOutputStream; attributes: PChar; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-  user_data: Tgpointer); cdecl; external libgio2;
+procedure g_file_output_stream_query_info_async(stream: PGFileOutputStream; attributes: PChar; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2;
 function g_file_output_stream_query_info_finish(stream: PGFileOutputStream; Result: PGAsyncResult; error: PPGError): PGFileInfo; cdecl; external libgio2;
 function g_file_output_stream_get_etag(stream: PGFileOutputStream): PChar; cdecl; external libgio2;
 

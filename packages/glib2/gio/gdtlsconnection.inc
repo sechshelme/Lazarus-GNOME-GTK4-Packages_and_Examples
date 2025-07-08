@@ -13,8 +13,7 @@ type
     handshake_async: procedure(conn: PGDtlsConnection; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     handshake_finish: function(conn: PGDtlsConnection; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl;
     shutdown: function(conn: PGDtlsConnection; shutdown_read: Tgboolean; shutdown_write: Tgboolean; cancellable: PGCancellable; error: PPGError): Tgboolean; cdecl;
-    shutdown_async: procedure(conn: PGDtlsConnection; shutdown_read: Tgboolean; shutdown_write: Tgboolean; io_priority: longint; cancellable: PGCancellable;
-      callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
+    shutdown_async: procedure(conn: PGDtlsConnection; shutdown_read: Tgboolean; shutdown_write: Tgboolean; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     shutdown_finish: function(conn: PGDtlsConnection; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl;
     set_advertised_protocols: procedure(conn: PGDtlsConnection; protocols: PPgchar); cdecl;
     get_negotiated_protocol: function(conn: PGDtlsConnection): Pgchar; cdecl;

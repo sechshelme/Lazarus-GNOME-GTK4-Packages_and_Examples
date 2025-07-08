@@ -10,8 +10,7 @@ type
   TGtkSourceHoverProviderInterface = record
     parent_iface: TGTypeInterface;
     populate: function(self: PGtkSourceHoverProvider; context: PGtkSourceHoverContext; display: PGtkSourceHoverDisplay; error: PPGError): Tgboolean; cdecl;
-    populate_async: procedure(self: PGtkSourceHoverProvider; context: PGtkSourceHoverContext; display: PGtkSourceHoverDisplay; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-      user_data: Tgpointer); cdecl;
+    populate_async: procedure(self: PGtkSourceHoverProvider; context: PGtkSourceHoverContext; display: PGtkSourceHoverDisplay; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     populate_finish: function(self: PGtkSourceHoverProvider; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl;
   end;
   PGtkSourceHoverProviderInterface = ^TGtkSourceHoverProviderInterface;

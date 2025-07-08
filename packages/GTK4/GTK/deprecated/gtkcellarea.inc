@@ -18,10 +18,8 @@ type
     add: procedure(area: PGtkCellArea; renderer: PGtkCellRenderer); cdecl;
     remove: procedure(area: PGtkCellArea; renderer: PGtkCellRenderer); cdecl;
     foreach: procedure(area: PGtkCellArea; callback: TGtkCellCallback; callback_data: Tgpointer); cdecl;
-    foreach_alloc: procedure(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; cell_area: PGdkRectangle; background_area: PGdkRectangle;
-      callback: TGtkCellAllocCallback; callback_data: Tgpointer); cdecl;
-    event: function(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; event: PGdkEvent; cell_area: PGdkRectangle;
-      flags: TGtkCellRendererState): longint; cdecl;
+    foreach_alloc: procedure(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; cell_area: PGdkRectangle; background_area: PGdkRectangle; callback: TGtkCellAllocCallback; callback_data: Tgpointer); cdecl;
+    event: function(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; event: PGdkEvent; cell_area: PGdkRectangle; flags: TGtkCellRendererState): longint; cdecl;
     snapshot: procedure(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; snapshot: PGtkSnapshot; background_area: PGdkRectangle;
       cell_area: PGdkRectangle; flags: TGtkCellRendererState; paint_focus: Tgboolean); cdecl;
     apply_attributes: procedure(area: PGtkCellArea; tree_model: PGtkTreeModel; iter: PGtkTreeIter; is_expander: Tgboolean; is_expanded: Tgboolean); cdecl;
@@ -29,17 +27,14 @@ type
     copy_context: function(area: PGtkCellArea; context: PGtkCellAreaContext): PGtkCellAreaContext; cdecl;
     get_request_mode: function(area: PGtkCellArea): TGtkSizeRequestMode; cdecl;
     get_preferred_width: procedure(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; minimum_width: Plongint; natural_width: Plongint); cdecl;
-    get_preferred_height_for_width: procedure(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; Width: longint; minimum_height: Plongint;
-      natural_height: Plongint); cdecl;
+    get_preferred_height_for_width: procedure(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; Width: longint; minimum_height: Plongint; natural_height: Plongint); cdecl;
     get_preferred_height: procedure(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; minimum_height: Plongint; natural_height: Plongint); cdecl;
-    get_preferred_width_for_height: procedure(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; Height: longint; minimum_width: Plongint;
-      natural_width: Plongint); cdecl;
+    get_preferred_width_for_height: procedure(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; Height: longint; minimum_width: Plongint; natural_width: Plongint); cdecl;
     set_cell_property: procedure(area: PGtkCellArea; renderer: PGtkCellRenderer; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
     get_cell_property: procedure(area: PGtkCellArea; renderer: PGtkCellRenderer; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
     focus: function(area: PGtkCellArea; direction: TGtkDirectionType): Tgboolean; cdecl;
     is_activatable: function(area: PGtkCellArea): Tgboolean; cdecl;
-    activate: function(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; cell_area: PGdkRectangle; flags: TGtkCellRendererState;
-      edit_only: Tgboolean): Tgboolean; cdecl;
+    activate: function(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; cell_area: PGdkRectangle; flags: TGtkCellRendererState; edit_only: Tgboolean): Tgboolean; cdecl;
     padding: array[0..7] of Tgpointer;
   end;
 

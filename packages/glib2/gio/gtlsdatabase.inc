@@ -10,28 +10,19 @@ type
 
   TGTlsDatabaseClass = record
     parent_class: TGObjectClass;
-    verify_chain: function(self: PGTlsDatabase; chain: PGTlsCertificate; purpose: Pgchar; identity: PGSocketConnectable; interaction: PGTlsInteraction;
-      flags: TGTlsDatabaseVerifyFlags; cancellable: PGCancellable; error: PPGError): TGTlsCertificateFlags; cdecl;
-    verify_chain_async: procedure(self: PGTlsDatabase; chain: PGTlsCertificate; purpose: Pgchar; identity: PGSocketConnectable; interaction: PGTlsInteraction;
-      flags: TGTlsDatabaseVerifyFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
+    verify_chain: function(self: PGTlsDatabase; chain: PGTlsCertificate; purpose: Pgchar; identity: PGSocketConnectable; interaction: PGTlsInteraction; flags: TGTlsDatabaseVerifyFlags; cancellable: PGCancellable; error: PPGError): TGTlsCertificateFlags; cdecl;
+    verify_chain_async: procedure(self: PGTlsDatabase; chain: PGTlsCertificate; purpose: Pgchar; identity: PGSocketConnectable; interaction: PGTlsInteraction; flags: TGTlsDatabaseVerifyFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     verify_chain_finish: function(self: PGTlsDatabase; Result: PGAsyncResult; error: PPGError): TGTlsCertificateFlags; cdecl;
     create_certificate_handle: function(self: PGTlsDatabase; certificate: PGTlsCertificate): Pgchar; cdecl;
-    lookup_certificate_for_handle: function(self: PGTlsDatabase; handle: Pgchar; interaction: PGTlsInteraction; flags: TGTlsDatabaseLookupFlags; cancellable: PGCancellable;
-      error: PPGError): PGTlsCertificate; cdecl;
-    lookup_certificate_for_handle_async: procedure(self: PGTlsDatabase; handle: Pgchar; interaction: PGTlsInteraction; flags: TGTlsDatabaseLookupFlags; cancellable: PGCancellable;
-      callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
+    lookup_certificate_for_handle: function(self: PGTlsDatabase; handle: Pgchar; interaction: PGTlsInteraction; flags: TGTlsDatabaseLookupFlags; cancellable: PGCancellable; error: PPGError): PGTlsCertificate; cdecl;
+    lookup_certificate_for_handle_async: procedure(self: PGTlsDatabase; handle: Pgchar; interaction: PGTlsInteraction; flags: TGTlsDatabaseLookupFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     lookup_certificate_for_handle_finish: function(self: PGTlsDatabase; Result: PGAsyncResult; error: PPGError): PGTlsCertificate; cdecl;
-    lookup_certificate_issuer: function(self: PGTlsDatabase; certificate: PGTlsCertificate; interaction: PGTlsInteraction; flags: TGTlsDatabaseLookupFlags; cancellable: PGCancellable;
-      error: PPGError): PGTlsCertificate; cdecl;
-    lookup_certificate_issuer_async: procedure(self: PGTlsDatabase; certificate: PGTlsCertificate; interaction: PGTlsInteraction; flags: TGTlsDatabaseLookupFlags; cancellable: PGCancellable;
-      callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
+    lookup_certificate_issuer: function(self: PGTlsDatabase; certificate: PGTlsCertificate; interaction: PGTlsInteraction; flags: TGTlsDatabaseLookupFlags; cancellable: PGCancellable; error: PPGError): PGTlsCertificate; cdecl;
+    lookup_certificate_issuer_async: procedure(self: PGTlsDatabase; certificate: PGTlsCertificate; interaction: PGTlsInteraction; flags: TGTlsDatabaseLookupFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     lookup_certificate_issuer_finish: function(self: PGTlsDatabase; Result: PGAsyncResult; error: PPGError): PGTlsCertificate; cdecl;
-    lookup_certificates_issued_by: function(self: PGTlsDatabase; issuer_raw_dn: PGByteArray; interaction: PGTlsInteraction; flags: TGTlsDatabaseLookupFlags; cancellable: PGCancellable;
-      error: PPGError): PGList; cdecl;
-    lookup_certificates_issued_by_async: procedure(self: PGTlsDatabase; issuer_raw_dn: PGByteArray; interaction: PGTlsInteraction; flags: TGTlsDatabaseLookupFlags; cancellable: PGCancellable;
-      callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
-    lookup_certificates_issued_by_finish: function(self: PGTlsDatabase; Result: PGAsyncResult; error: PPGError): PGList; cdecl;
-    padding: array[0..15] of Tgpointer;
+    lookup_certificates_issued_by: function(self: PGTlsDatabase; issuer_raw_dn: PGByteArray; interaction: PGTlsInteraction; flags: TGTlsDatabaseLookupFlags; cancellable: PGCancellable; error: PPGError): PGList; cdecl;
+    lookup_certificates_issued_by_async: procedure(self: PGTlsDatabase; issuer_raw_dn: PGByteArray; interaction: PGTlsInteraction; flags: TGTlsDatabaseLookupFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
+    lookup_certificates_issued_by_finish: function(self: PGTlsDatabase; Result: PGAsyncResult; error: PPGError): PGList; cdecl; padding: array[0..15] of Tgpointer;
   end;
 
 

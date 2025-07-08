@@ -8,8 +8,7 @@ type
     ask_password_async: procedure(interaction: PGTlsInteraction; password: PGTlsPassword; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     ask_password_finish: function(interaction: PGTlsInteraction; Result: PGAsyncResult; error: PPGError): TGTlsInteractionResult; cdecl;
     request_certificate: function(interaction: PGTlsInteraction; connection: PGTlsConnection; flags: TGTlsCertificateRequestFlags; cancellable: PGCancellable; error: PPGError): TGTlsInteractionResult; cdecl;
-    request_certificate_async: procedure(interaction: PGTlsInteraction; connection: PGTlsConnection; flags: TGTlsCertificateRequestFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-      user_data: Tgpointer); cdecl;
+    request_certificate_async: procedure(interaction: PGTlsInteraction; connection: PGTlsConnection; flags: TGTlsCertificateRequestFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     request_certificate_finish: function(interaction: PGTlsInteraction; Result: PGAsyncResult; error: PPGError): TGTlsInteractionResult; cdecl;
     padding: array[0..20] of Tgpointer;
   end;

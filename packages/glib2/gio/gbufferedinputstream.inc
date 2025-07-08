@@ -15,8 +15,7 @@ type
   TGBufferedInputStreamClass = record
     parent_class: TGFilterInputStreamClass;
     fill: function(stream: PGBufferedInputStream; Count: Tgssize; cancellable: PGCancellable; error: PPGError): Tgssize; cdecl;
-    fill_async: procedure(stream: PGBufferedInputStream; Count: Tgssize; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-      user_data: Tgpointer); cdecl;
+    fill_async: procedure(stream: PGBufferedInputStream; Count: Tgssize; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     fill_finish: function(stream: PGBufferedInputStream; Result: PGAsyncResult; error: PPGError): Tgssize; cdecl;
     _g_reserved1: procedure; cdecl;
     _g_reserved2: procedure; cdecl;

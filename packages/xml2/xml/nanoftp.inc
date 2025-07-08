@@ -7,9 +7,7 @@ const
   INVALID_SOCKET = -1;
 
 type
-  TftpListCallback = procedure(userData: pointer; filename: pchar; attrib: pchar; owner: pchar; group: pchar;
-    size: dword; links: longint; year: longint; month: pchar; day: longint;
-    hour: longint; minute: longint); cdecl;
+  TftpListCallback = procedure(userData: pointer; filename: pchar; attrib: pchar; owner: pchar; group: pchar; size: dword; links: longint; year: longint; month: pchar; day: longint; hour: longint; minute: longint); cdecl;
   TftpDataCallback = procedure(userData: pointer; Data: pchar; len: longint); cdecl;
 
 procedure xmlNanoFTPInit; cdecl; external libxml2;

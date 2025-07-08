@@ -89,8 +89,7 @@ type
   end;
   PGstDebugMessage = ^TGstDebugMessage;
 
-  TGstLogFunction = procedure(category: PGstDebugCategory; level: TGstDebugLevel; file_: Pgchar; _function: Pgchar; line: Tgint;
-    obj: PGObject; message: PGstDebugMessage; user_data: Tgpointer); cdecl;
+  TGstLogFunction = procedure(category: PGstDebugCategory; level: TGstDebugLevel; file_: Pgchar; _function: Pgchar; line: Tgint; obj: PGObject; message: PGstDebugMessage; user_data: Tgpointer); cdecl;
 
 procedure gst_debug_log(category: PGstDebugCategory; level: TGstDebugLevel; file_: Pgchar; _function: Pgchar; line: Tgint;
   obj: PGObject; format: Pgchar); varargs cdecl; external libgstreamer;

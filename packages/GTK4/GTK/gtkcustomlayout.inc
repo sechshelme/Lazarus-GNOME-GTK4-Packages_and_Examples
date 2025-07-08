@@ -3,8 +3,7 @@
 
 type
   TGtkCustomRequestModeFunc = function(widget: PGtkWidget): TGtkSizeRequestMode; cdecl;
-  TGtkCustomMeasureFunc = procedure(widget: PGtkWidget; orientation: TGtkOrientation; for_size: longint; minimum: Plongint; natural: Plongint;
-    minimum_baseline: Plongint; natural_baseline: Plongint); cdecl;
+  TGtkCustomMeasureFunc = procedure(widget: PGtkWidget; orientation: TGtkOrientation; for_size: longint; minimum: Plongint; natural: Plongint; minimum_baseline: Plongint; natural_baseline: Plongint); cdecl;
   TGtkCustomAllocateFunc = procedure(widget: PGtkWidget; Width: longint; Height: longint; baseline: longint); cdecl;
 
   {G_DECLARE_FINAL_TYPE (GtkCustomLayout, gtk_custom_layout, GTK, CUSTOM_LAYOUT, GtkLayoutManager) }

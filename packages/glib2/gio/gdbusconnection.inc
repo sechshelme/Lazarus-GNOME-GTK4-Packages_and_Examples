@@ -6,13 +6,10 @@ function g_dbus_connection_get_type: TGType; cdecl; external libgio2;
 procedure g_bus_get(bus_type: TGBusType; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2;
 function g_bus_get_finish(res: PGAsyncResult; error: PPGError): PGDBusConnection; cdecl; external libgio2;
 function g_bus_get_sync(bus_type: TGBusType; cancellable: PGCancellable; error: PPGError): PGDBusConnection; cdecl; external libgio2;
-procedure g_dbus_connection_new(stream: PGIOStream; guid: Pgchar; flags: TGDBusConnectionFlags; observer: PGDBusAuthObserver; cancellable: PGCancellable;
-  callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2;
+procedure g_dbus_connection_new(stream: PGIOStream; guid: Pgchar; flags: TGDBusConnectionFlags; observer: PGDBusAuthObserver; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2;
 function g_dbus_connection_new_finish(res: PGAsyncResult; error: PPGError): PGDBusConnection; cdecl; external libgio2;
-function g_dbus_connection_new_sync(stream: PGIOStream; guid: Pgchar; flags: TGDBusConnectionFlags; observer: PGDBusAuthObserver; cancellable: PGCancellable;
-  error: PPGError): PGDBusConnection; cdecl; external libgio2;
-procedure g_dbus_connection_new_for_address(address: Pgchar; flags: TGDBusConnectionFlags; observer: PGDBusAuthObserver; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-  user_data: Tgpointer); cdecl; external libgio2;
+function g_dbus_connection_new_sync(stream: PGIOStream; guid: Pgchar; flags: TGDBusConnectionFlags; observer: PGDBusAuthObserver; cancellable: PGCancellable; error: PPGError): PGDBusConnection; cdecl; external libgio2;
+procedure g_dbus_connection_new_for_address(address: Pgchar; flags: TGDBusConnectionFlags; observer: PGDBusAuthObserver; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2;
 function g_dbus_connection_new_for_address_finish(res: PGAsyncResult; error: PPGError): PGDBusConnection; cdecl; external libgio2;
 function g_dbus_connection_new_for_address_sync(address: Pgchar; flags: TGDBusConnectionFlags; observer: PGDBusAuthObserver; cancellable: PGCancellable; error: PPGError): PGDBusConnection; cdecl; external libgio2;
 procedure g_dbus_connection_start_message_processing(connection: PGDBusConnection); cdecl; external libgio2;
@@ -88,8 +85,7 @@ type
   PGDBusSubtreeIntrospectFunc = ^TGDBusSubtreeIntrospectFunc;
   TGDBusSubtreeIntrospectFunc = function(connection: PGDBusConnection; Sender: Pgchar; object_path: Pgchar; node: Pgchar; user_data: Tgpointer): PPGDBusInterfaceInfo; cdecl;
   PGDBusSubtreeDispatchFunc = ^TGDBusSubtreeDispatchFunc;
-  TGDBusSubtreeDispatchFunc = function(connection: PGDBusConnection; Sender: Pgchar; object_path: Pgchar; interface_name: Pgchar; node: Pgchar;
-    out_user_data: Pgpointer; user_data: Tgpointer): PGDBusInterfaceVTable; cdecl;
+  TGDBusSubtreeDispatchFunc = function(connection: PGDBusConnection; Sender: Pgchar; object_path: Pgchar; interface_name: Pgchar; node: Pgchar; out_user_data: Pgpointer; user_data: Tgpointer): PGDBusInterfaceVTable; cdecl;
   PGDBusSubtreeVTable = ^TGDBusSubtreeVTable;
 
   TGDBusSubtreeVTable = record
@@ -105,8 +101,7 @@ function g_dbus_connection_register_subtree(connection: PGDBusConnection; object
 function g_dbus_connection_unregister_subtree(connection: PGDBusConnection; registration_id: Tguint): Tgboolean; cdecl; external libgio2;
 
 type
-  TGDBusSignalCallback = procedure(connection: PGDBusConnection; sender_name: Pgchar; object_path: Pgchar; interface_name: Pgchar; signal_name: Pgchar;
-    parameters: PGVariant; user_data: Tgpointer); cdecl;
+  TGDBusSignalCallback = procedure(connection: PGDBusConnection; sender_name: Pgchar; object_path: Pgchar; interface_name: Pgchar; signal_name: Pgchar; parameters: PGVariant; user_data: Tgpointer); cdecl;
 
 function g_dbus_connection_signal_subscribe(connection: PGDBusConnection; Sender: Pgchar; interface_name: Pgchar; member: Pgchar; object_path: Pgchar;
   arg0: Pgchar; flags: TGDBusSignalFlags; callback: TGDBusSignalCallback; user_data: Tgpointer; user_data_free_func: TGDestroyNotify): Tguint; cdecl; external libgio2;

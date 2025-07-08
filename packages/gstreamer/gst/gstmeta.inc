@@ -47,8 +47,7 @@ type
   TGstMetaFreeFunction = procedure(meta: PGstMeta; buffer: PGstBuffer); cdecl;
 
   TGstMetaTransformFunction = function(transbuf: PGstBuffer; meta: PGstMeta; buffer: PGstBuffer; _type: TGQuark; Data: Tgpointer): Tgboolean; cdecl;
-  TGstCustomMetaTransformFunction = function(transbuf: PGstBuffer; meta: PGstCustomMeta; buffer: PGstBuffer; _type: TGQuark; Data: Tgpointer;
-    user_data: Tgpointer): Tgboolean; cdecl;
+  TGstCustomMetaTransformFunction = function(transbuf: PGstBuffer; meta: PGstCustomMeta; buffer: PGstBuffer; _type: TGQuark; Data: Tgpointer; user_data: Tgpointer): Tgboolean; cdecl;
   TGstMetaSerializeFunction = function(meta: PGstMeta; Data: PGstByteArrayInterface; version: Pguint8): Tgboolean; cdecl;
 
   PGstMetaDeserializeFunction = ^TGstMetaDeserializeFunction;

@@ -11,8 +11,7 @@ type
   PGtkBuildableParseContext = ^TGtkBuildableParseContext;
 
   TGtkBuildableParser = record
-    start_element: procedure(context: PGtkBuildableParseContext; element_name: PChar; attribute_names: PPchar; attribute_values: PPchar; user_data: Tgpointer;
-      error: PPGError); cdecl;
+    start_element: procedure(context: PGtkBuildableParseContext; element_name: PChar; attribute_names: PPchar; attribute_values: PPchar; user_data: Tgpointer; error: PPGError); cdecl;
     end_element: procedure(context: PGtkBuildableParseContext; element_name: PChar; user_data: Tgpointer; error: PPGError); cdecl;
     Text: procedure(context: PGtkBuildableParseContext; Text: PChar; text_len: Tgsize; user_data: Tgpointer; error: PPGError); cdecl;
     error: procedure(context: PGtkBuildableParseContext; error: PGError; user_data: Tgpointer); cdecl;
@@ -27,8 +26,7 @@ type
     add_child: procedure(buildable: PGtkBuildable; builder: PGtkBuilder; child: PGObject; _type: PChar); cdecl;
     set_buildable_property: procedure(buildable: PGtkBuildable; builder: PGtkBuilder; Name: PChar; Value: PGValue); cdecl;
     construct_child: function(buildable: PGtkBuildable; builder: PGtkBuilder; Name: PChar): PGObject; cdecl;
-    custom_tag_start: function(buildable: PGtkBuildable; builder: PGtkBuilder; child: PGObject; tagname: PChar; parser: PGtkBuildableParser;
-      Data: Pgpointer): Tgboolean; cdecl;
+    custom_tag_start: function(buildable: PGtkBuildable; builder: PGtkBuilder; child: PGObject; tagname: PChar; parser: PGtkBuildableParser; Data: Pgpointer): Tgboolean; cdecl;
     custom_tag_end: procedure(buildable: PGtkBuildable; builder: PGtkBuilder; child: PGObject; tagname: PChar; Data: Tgpointer); cdecl;
     custom_finished: procedure(buildable: PGtkBuildable; builder: PGtkBuilder; child: PGObject; tagname: PChar; Data: Tgpointer); cdecl;
     parser_finished: procedure(buildable: PGtkBuildable; builder: PGtkBuilder); cdecl;

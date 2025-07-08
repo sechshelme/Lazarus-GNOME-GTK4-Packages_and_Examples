@@ -98,8 +98,7 @@ type
     stop: function(buf: PGstAudioRingBuffer): Tgboolean; cdecl;
     delay: function(buf: PGstAudioRingBuffer): Tguint; cdecl;
     activate: function(buf: PGstAudioRingBuffer; active: Tgboolean): Tgboolean; cdecl;
-    commit: function(buf: PGstAudioRingBuffer; sample: Pguint64; Data: Pguint8; in_samples: Tgint; out_samples: Tgint;
-      accum: Pgint): Tguint; cdecl;
+    commit: function(buf: PGstAudioRingBuffer; sample: Pguint64; Data: Pguint8; in_samples: Tgint; out_samples: Tgint; accum: Pgint): Tguint; cdecl;
     clear_all: procedure(buf: PGstAudioRingBuffer); cdecl;
     _gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
   end;

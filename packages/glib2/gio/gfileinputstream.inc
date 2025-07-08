@@ -18,8 +18,7 @@ type
     can_seek: function(stream: PGFileInputStream): Tgboolean; cdecl;
     seek: function(stream: PGFileInputStream; offset: Tgoffset; _type: TGSeekType; cancellable: PGCancellable; error: PPGError): Tgboolean; cdecl;
     query_info: function(stream: PGFileInputStream; attributes: PChar; cancellable: PGCancellable; error: PPGError): PGFileInfo; cdecl;
-    query_info_async: procedure(stream: PGFileInputStream; attributes: PChar; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-      user_data: Tgpointer); cdecl;
+    query_info_async: procedure(stream: PGFileInputStream; attributes: PChar; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     query_info_finish: function(stream: PGFileInputStream; Result: PGAsyncResult; error: PPGError): PGFileInfo; cdecl;
     _g_reserved1: procedure; cdecl;
     _g_reserved2: procedure; cdecl;
@@ -32,8 +31,7 @@ type
 
 function g_file_input_stream_get_type: TGType; cdecl; external libgio2;
 function g_file_input_stream_query_info(stream: PGFileInputStream; attributes: PChar; cancellable: PGCancellable; error: PPGError): PGFileInfo; cdecl; external libgio2;
-procedure g_file_input_stream_query_info_async(stream: PGFileInputStream; attributes: PChar; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-  user_data: Tgpointer); cdecl; external libgio2;
+procedure g_file_input_stream_query_info_async(stream: PGFileInputStream; attributes: PChar; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libgio2;
 function g_file_input_stream_query_info_finish(stream: PGFileInputStream; Result: PGAsyncResult; error: PPGError): PGFileInfo; cdecl; external libgio2;
 
 // === Konventiert am: 18-8-24 15:27:09 ===

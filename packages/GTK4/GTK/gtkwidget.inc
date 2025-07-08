@@ -31,8 +31,7 @@ type
     state_flags_changed: procedure(widget: PGtkWidget; previous_state_flags: TGtkStateFlags); cdecl;
     direction_changed: procedure(widget: PGtkWidget; previous_direction: TGtkTextDirection); cdecl;
     get_request_mode: function(widget: PGtkWidget): TGtkSizeRequestMode; cdecl;
-    measure: procedure(widget: PGtkWidget; orientation: TGtkOrientation; for_size: longint; minimum: Plongint; natural: Plongint;
-      minimum_baseline: Plongint; natural_baseline: Plongint); cdecl;
+    measure: procedure(widget: PGtkWidget; orientation: TGtkOrientation; for_size: longint; minimum: Plongint; natural: Plongint; minimum_baseline: Plongint; natural_baseline: Plongint); cdecl;
     mnemonic_activate: function(widget: PGtkWidget; group_cycling: Tgboolean): Tgboolean; cdecl;
     grab_focus: function(widget: PGtkWidget): Tgboolean; cdecl;
     focus: function(widget: PGtkWidget; direction: TGtkDirectionType): Tgboolean; cdecl;

@@ -21,8 +21,7 @@ type
     can_truncate: function(stream: PGFileIOStream): Tgboolean; cdecl;
     truncate_fn: function(stream: PGFileIOStream; size: Tgoffset; cancellable: PGCancellable; error: PPGError): Tgboolean; cdecl;
     query_info: function(stream: PGFileIOStream; attributes: PChar; cancellable: PGCancellable; error: PPGError): PGFileInfo; cdecl;
-    query_info_async: procedure(stream: PGFileIOStream; attributes: PChar; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-      user_data: Tgpointer); cdecl;
+    query_info_async: procedure(stream: PGFileIOStream; attributes: PChar; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     query_info_finish: function(stream: PGFileIOStream; Result: PGAsyncResult; error: PPGError): PGFileInfo; cdecl;
     get_etag: function(stream: PGFileIOStream): PChar; cdecl;
     _g_reserved1: procedure; cdecl;

@@ -15,20 +15,16 @@ procedure hb_paint_funcs_make_immutable(funcs: Phb_paint_funcs_t); cdecl; extern
 function hb_paint_funcs_is_immutable(funcs: Phb_paint_funcs_t): Thb_bool_t; cdecl; external libharfbuzz;
 
 type
-  Thb_paint_push_transform_func_t = procedure(funcs: Phb_paint_funcs_t; paint_data: pointer; xx: single; yx: single; xy: single;
-    yy: single; dx: single; dy: single; user_data: pointer); cdecl;
+  Thb_paint_push_transform_func_t = procedure(funcs: Phb_paint_funcs_t; paint_data: pointer; xx: single; yx: single; xy: single; yy: single; dx: single; dy: single; user_data: pointer); cdecl;
   Thb_paint_pop_transform_func_t = procedure(funcs: Phb_paint_funcs_t; paint_data: pointer; user_data: pointer); cdecl;
   Thb_paint_color_glyph_func_t = function(funcs: Phb_paint_funcs_t; paint_data: pointer; glyph: Thb_codepoint_t; font: Phb_font_t; user_data: pointer): Thb_bool_t; cdecl;
   Thb_paint_push_clip_glyph_func_t = procedure(funcs: Phb_paint_funcs_t; paint_data: pointer; glyph: Thb_codepoint_t; font: Phb_font_t; user_data: pointer); cdecl;
-  Thb_paint_push_clip_rectangle_func_t = procedure(funcs: Phb_paint_funcs_t; paint_data: pointer; xmin: single; ymin: single; xmax: single;
-    ymax: single; user_data: pointer); cdecl;
+  Thb_paint_push_clip_rectangle_func_t = procedure(funcs: Phb_paint_funcs_t; paint_data: pointer; xmin: single; ymin: single; xmax: single; ymax: single; user_data: pointer); cdecl;
   Thb_paint_pop_clip_func_t = procedure(funcs: Phb_paint_funcs_t; paint_data: pointer; user_data: pointer); cdecl;
   Thb_paint_color_func_t = procedure(funcs: Phb_paint_funcs_t; paint_data: pointer; is_foreground: Thb_bool_t; color: Thb_color_t; user_data: pointer); cdecl;
 
 type
-
-  Thb_paint_image_func_t = function(funcs: Phb_paint_funcs_t; paint_data: pointer; image: Phb_blob_t; Width: dword; Height: dword;
-    format: Thb_tag_t; slant: single; extents: Phb_glyph_extents_t; user_data: pointer): Thb_bool_t; cdecl;
+  Thb_paint_image_func_t = function(funcs: Phb_paint_funcs_t; paint_data: pointer; image: Phb_blob_t; Width: dword; Height: dword; format: Thb_tag_t; slant: single; extents: Phb_glyph_extents_t; user_data: pointer): Thb_bool_t; cdecl;
 
   Thb_color_stop_t = record
     offset: single;
@@ -48,8 +44,7 @@ const
 type
   Phb_color_line_t = ^Thb_color_line_t;
 
-  Thb_color_line_get_color_stops_func_t = function(color_line: Phb_color_line_t; color_line_data: pointer; start: dword; Count: Pdword; color_stops: Phb_color_stop_t;
-    user_data: pointer): dword; cdecl;
+  Thb_color_line_get_color_stops_func_t = function(color_line: Phb_color_line_t; color_line_data: pointer; start: dword; Count: Pdword; color_stops: Phb_color_stop_t; user_data: pointer): dword; cdecl;
   Thb_color_line_get_extend_func_t = function(color_line: Phb_color_line_t; color_line_data: pointer; user_data: pointer): Thb_paint_extend_t; cdecl;
 
   Thb_color_line_t = record
@@ -72,12 +67,9 @@ function hb_color_line_get_color_stops(color_line: Phb_color_line_t; start: dwor
 function hb_color_line_get_extend(color_line: Phb_color_line_t): Thb_paint_extend_t; cdecl; external libharfbuzz;
 
 type
-  Thb_paint_linear_gradient_func_t = procedure(funcs: Phb_paint_funcs_t; paint_data: pointer; color_line: Phb_color_line_t; x0: single; y0: single;
-    x1: single; y1: single; x2: single; y2: single; user_data: pointer); cdecl;
-  Thb_paint_radial_gradient_func_t = procedure(funcs: Phb_paint_funcs_t; paint_data: pointer; color_line: Phb_color_line_t; x0: single; y0: single;
-    r0: single; x1: single; y1: single; r1: single; user_data: pointer); cdecl;
-  Thb_paint_sweep_gradient_func_t = procedure(funcs: Phb_paint_funcs_t; paint_data: pointer; color_line: Phb_color_line_t; x0: single; y0: single;
-    start_angle: single; end_angle: single; user_data: pointer); cdecl;
+  Thb_paint_linear_gradient_func_t = procedure(funcs: Phb_paint_funcs_t; paint_data: pointer; color_line: Phb_color_line_t; x0: single; y0: single; x1: single; y1: single; x2: single; y2: single; user_data: pointer); cdecl;
+  Thb_paint_radial_gradient_func_t = procedure(funcs: Phb_paint_funcs_t; paint_data: pointer; color_line: Phb_color_line_t; x0: single; y0: single; r0: single; x1: single; y1: single; r1: single; user_data: pointer); cdecl;
+  Thb_paint_sweep_gradient_func_t = procedure(funcs: Phb_paint_funcs_t; paint_data: pointer; color_line: Phb_color_line_t; x0: single; y0: single; start_angle: single; end_angle: single; user_data: pointer); cdecl;
 
   Phb_paint_composite_mode_t = ^Thb_paint_composite_mode_t;
   Thb_paint_composite_mode_t = longint;

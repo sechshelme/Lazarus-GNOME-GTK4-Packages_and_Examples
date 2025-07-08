@@ -181,8 +181,7 @@ const
 type
   PGstVideoFormatInfo = ^TGstVideoFormatInfo;
   TGstVideoFormatUnpack = procedure(info: PGstVideoFormatInfo; flags: TGstVideoPackFlags; dest: Tgpointer; Data: Tplanes_Pointer_arr; stride: Tplanes_int_arr; x: Tgint; y: Tgint; Width: Tgint); cdecl;
-  TGstVideoFormatPack = procedure(info: PGstVideoFormatInfo; flags: TGstVideoPackFlags; src: Tgpointer; sstride: Tgint; Data: Tplanes_Pointer_arr;
-    stride: Tplanes_int_arr; chroma_site: TGstVideoChromaSite; y: Tgint; Width: Tgint); cdecl;
+  TGstVideoFormatPack = procedure(info: PGstVideoFormatInfo; flags: TGstVideoPackFlags; src: Tgpointer; sstride: Tgint; Data: Tplanes_Pointer_arr; stride: Tplanes_int_arr; chroma_site: TGstVideoChromaSite; y: Tgint; Width: Tgint); cdecl;
 
   TGstVideoFormatInfo = record
     format: TGstVideoFormat;

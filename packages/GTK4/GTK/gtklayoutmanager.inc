@@ -7,8 +7,7 @@ type
   TGtkLayoutManagerClass = record
     parent_class: TGObjectClass;
     get_request_mode: function(manager: PGtkLayoutManager; widget: PGtkWidget): TGtkSizeRequestMode; cdecl;
-    measure: procedure(manager: PGtkLayoutManager; widget: PGtkWidget; orientation: TGtkOrientation; for_size: longint; minimum: Plongint;
-      natural: Plongint; minimum_baseline: Plongint; natural_baseline: Plongint); cdecl;
+    measure: procedure(manager: PGtkLayoutManager; widget: PGtkWidget; orientation: TGtkOrientation; for_size: longint; minimum: Plongint; natural: Plongint; minimum_baseline: Plongint; natural_baseline: Plongint); cdecl;
     allocate: procedure(manager: PGtkLayoutManager; widget: PGtkWidget; Width: longint; Height: longint; baseline: longint); cdecl;
     layout_child_type: TGType;
     create_layout_child: function(manager: PGtkLayoutManager; widget: PGtkWidget; for_child: PGtkWidget): PGtkLayoutChild; cdecl;

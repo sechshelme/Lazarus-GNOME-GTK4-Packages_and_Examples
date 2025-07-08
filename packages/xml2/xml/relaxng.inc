@@ -6,9 +6,9 @@ type
   end;
   PxmlRelaxNG = ^TxmlRelaxNG;
 
-  TxmlRelaxNGValidityErrorFunc = procedure(ctx: Pointer; const msg: pchar; args: array of const);
+  TxmlRelaxNGValidityErrorFunc = procedure(ctx: Pointer; const msg: pchar; args: array of const); cdecl;
   PxmlRelaxNGValidityErrorFunc = ^TxmlRelaxNGValidityErrorFunc;
-  TxmlRelaxNGValidityWarningFunc = procedure(ctx: Pointer; const msg: pchar; args: array of const);
+  TxmlRelaxNGValidityWarningFunc = procedure(ctx: Pointer; const msg: pchar; args: array of const); cdecl;
   PxmlRelaxNGValidityWarningFunc = ^TxmlRelaxNGValidityWarningFunc;
 
   TxmlRelaxNGParserCtxt = record

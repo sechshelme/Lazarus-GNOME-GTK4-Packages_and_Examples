@@ -60,8 +60,7 @@ type
   TGstCollectDataDestroyNotify = procedure(Data: PGstCollectData); cdecl;
   TGstCollectPadsFunction = function(pads: PGstCollectPads; user_data: Tgpointer): TGstFlowReturn; cdecl;
   TGstCollectPadsBufferFunction = function(pads: PGstCollectPads; Data: PGstCollectData; buffer: PGstBuffer; user_data: Tgpointer): TGstFlowReturn; cdecl;
-  TGstCollectPadsCompareFunction = function(pads: PGstCollectPads; data1: PGstCollectData; timestamp1: TGstClockTime; data2: PGstCollectData; timestamp2: TGstClockTime;
-    user_data: Tgpointer): Tgint; cdecl;
+  TGstCollectPadsCompareFunction = function(pads: PGstCollectPads; data1: PGstCollectData; timestamp1: TGstClockTime; data2: PGstCollectData; timestamp2: TGstClockTime; user_data: Tgpointer): Tgint; cdecl;
   TGstCollectPadsEventFunction = function(pads: PGstCollectPads; pad: PGstCollectData; event: PGstEvent; user_data: Tgpointer): Tgboolean; cdecl;
   TGstCollectPadsQueryFunction = function(pads: PGstCollectPads; pad: PGstCollectData; query: PGstQuery; user_data: Tgpointer): Tgboolean; cdecl;
   TGstCollectPadsClipFunction = function(pads: PGstCollectPads; Data: PGstCollectData; inbuffer: PGstBuffer; outbuffer: PPGstBuffer; user_data: Tgpointer): TGstFlowReturn; cdecl;

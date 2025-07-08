@@ -58,7 +58,7 @@ procedure gnuplot_splot_grid(handle: Pgnuplot_ctrl; points: Pdouble; rows: longi
 procedure gnuplot_contour_plot(handle: Pgnuplot_ctrl; x: Pdouble; y: Pdouble; z: Pdouble; nx: longint; ny: longint; title: pchar); cdecl; external libgnuplot_i;
 
 type
-  TgetPointProc = procedure(para1: pointer; para2: Pgnuplot_point; para3: longint; para4: longint);
+  TgetPointProc = procedure(para1: pointer; para2: Pgnuplot_point; para3: longint; para4: longint); cdecl;
 
 procedure gnuplot_splot_obj(handle: Pgnuplot_ctrl; obj: pointer; getPoint: TgetPointProc; n: longint; title: pchar); cdecl; external libgnuplot_i;
 procedure gnuplot_plot_obj_xy(handle: Pgnuplot_ctrl; obj: pointer; getPoint: TgetPointProc; n: longint; title: pchar); cdecl; external libgnuplot_i;

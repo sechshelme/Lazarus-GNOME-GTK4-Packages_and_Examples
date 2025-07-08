@@ -23,8 +23,7 @@ type
     g_iface: TGTypeInterface;
     get_type_from_name: function(self: PGtkBuilderScope; builder: PGtkBuilder; type_name: PChar): TGType; cdecl;
     get_type_from_function: function(self: PGtkBuilderScope; builder: PGtkBuilder; function_name: PChar): TGType; cdecl;
-    create_closure: function(self: PGtkBuilderScope; builder: PGtkBuilder; function_name: PChar; flags: TGtkBuilderClosureFlags; obj: PGObject;
-      error: PPGError): PGClosure; cdecl;
+    create_closure: function(self: PGtkBuilderScope; builder: PGtkBuilder; function_name: PChar; flags: TGtkBuilderClosureFlags; obj: PGObject; error: PPGError): PGClosure; cdecl;
   end;
 
 function gtk_builder_scope_get_type: TGType; cdecl; external libgtk4;
