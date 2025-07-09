@@ -10,10 +10,7 @@ type
   PPEina_Iterator = ^PEina_Iterator;
 
   TEina_Iterator_Next_Callback = function(it: PEina_Iterator; data: Ppointer): TEina_Bool; cdecl;
-
-  PEina_Iterator_Get_Container_Callback = ^TEina_Iterator_Get_Container_Callback;
   TEina_Iterator_Get_Container_Callback = function(it: PEina_Iterator): pointer; cdecl;
-
   TEina_Iterator_Free_Callback = procedure(it: PEina_Iterator); cdecl;
   TEina_Iterator_Lock_Callback = function(it: PEina_Iterator): TEina_Bool; cdecl;
 

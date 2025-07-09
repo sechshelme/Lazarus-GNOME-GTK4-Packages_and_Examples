@@ -12,7 +12,6 @@ type
 
   {$ifdef EFL_BETA_API_SUPPORT}
 type
-  PEflThreadIOCallSync = ^TEflThreadIOCallSync;
   TEflThreadIOCallSync = function(data: pointer; event: PEfl_Event): pointer; cdecl;
   {$endif}
 

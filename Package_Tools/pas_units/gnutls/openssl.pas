@@ -247,62 +247,62 @@ implementation
 
 function OpenSSL_add_ssl_algorithms: longint;
 begin
-  OpenSSL_add_ssl_algorithms := SSL_library_init;
+//  OpenSSL_add_ssl_algorithms := SSL_library_init;
 end;
 
 function SSLeay_add_ssl_algorithms: longint;
 begin
-  SSLeay_add_ssl_algorithms := SSL_library_init;
+//  SSLeay_add_ssl_algorithms := SSL_library_init;
 end;
 
 procedure SSLeay_add_all_algorithms;
 begin
-  OpenSSL_add_all_algorithms;
+//  OpenSSL_add_all_algorithms;
 end;
 
 function SSL_get_cipher_name(ssl: PSSL): pchar;
 begin
-  SSL_get_cipher_name := SSL_CIPHER_get_name(SSL_get_current_cipher(ssl));
+//  SSL_get_cipher_name := SSL_CIPHER_get_name(SSL_get_current_cipher(ssl));
 end;
 
 function SSL_get_cipher(ssl: PSSL): pchar;
 begin
-  SSL_get_cipher := SSL_get_cipher_name(ssl);
+//  SSL_get_cipher := SSL_get_cipher_name(ssl);
 end;
 
 function SSL_get_cipher_bits(ssl: PSSL; bp: PLongint): longint;
 begin
-  SSL_get_cipher_bits := SSL_CIPHER_get_bits(SSL_get_current_cipher(ssl), bp);
+//  SSL_get_cipher_bits := SSL_CIPHER_get_bits(SSL_get_current_cipher(ssl), bp);
 end;
 
 function SSL_get_cipher_version(ssl: PSSL): pchar;
 begin
-  SSL_get_cipher_version := SSL_CIPHER_get_version(SSL_get_current_cipher(ssl));
+//  SSL_get_cipher_version := SSL_CIPHER_get_version(SSL_get_current_cipher(ssl));
 end;
 
 function SSL_want_nothing(s: PSSL): boolean;
 begin
-  SSL_want_nothing := (SSL_want(s)) = SSL_NOTHING;
+//  SSL_want_nothing := (SSL_want(s)) = SSL_NOTHING;
 end;
 
 function SSL_want_read(s: PSSL): boolean;
 begin
-  SSL_want_read := (SSL_want(s)) = SSL_READING;
+//  SSL_want_read := (SSL_want(s)) = SSL_READING;
 end;
 
 function SSL_want_write(s: PSSL): boolean;
 begin
-  SSL_want_write := (SSL_want(s)) = SSL_WRITING;
+//  SSL_want_write := (SSL_want(s)) = SSL_WRITING;
 end;
 
 function SSL_want_x509_lookup(s: PSSL): boolean;
 begin
-  SSL_want_x509_lookup := (SSL_want(s)) = SSL_X509_LOOKUP;
+//  SSL_want_x509_lookup := (SSL_want(s)) = SSL_X509_LOOKUP;
 end;
 
 function RAND_egd(p: pchar): longint;
 begin
-  RAND_egd := RAND_egd_bytes(p, 255);
+//  RAND_egd := RAND_egd_bytes(p, 255);
 end;
 
 

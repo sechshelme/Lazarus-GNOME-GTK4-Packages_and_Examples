@@ -3,28 +3,24 @@ program project1;
 //  Tgnutls_certificate_print_formats_t = Tgnutls_certificate_print_formats; entfernen '?????`
 
 uses
-  gnutls,       // io.
-  x509,         // io,
-  x509_ext,     // io. x509
-  tpm,          // io.
-  socket,       // io.
-
-
-  abstract,       // io. x509, pkcs11, openpgp, tpm
-  crypto,         // io.
-  dane,            // io.
-  dtls,            // io.
-  ocsp,            // io. x509
-  openpgp,         // io.           ( deprecated )
-  openssl,         // io.
+  gnutls,          // io.
+  x509,            // io,
+  x509_ext,        // io. x509
   pkcs7,           // io. x509
   pkcs11,          // io. x509
   pkcs12,          // io.
+  ocsp,            // io. x509
+  tpm,             // io.
+  socket,          // io.
+  crypto,          // io.
+  dane,            // io.
+  dtls,            // io.
+  openpgp,         // io.           ( deprecated )
   self_test,       // io.
-  system_keys,
-  urls,
-
-
+  system_keys,     // io.
+  urls,            // io.
+  abstract,        // io. x509, pkcs11, openpgp, tpm
+  openssl,         // io.  ( Makros ausgeklammert )
 
 
   fp_socket,
@@ -87,7 +83,7 @@ uses
       Exit;
     end;
 
-    sock := socket(res^.ai_family, res^.ai_socktype, res^.ai_protocol);
+    sock :=fp_socket.socket(res^.ai_family, res^.ai_socktype, res^.ai_protocol);
     if sock < 0 then begin
       perror('socket');
       freeaddrinfo(res);

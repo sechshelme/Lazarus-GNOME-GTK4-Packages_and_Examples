@@ -11,16 +11,10 @@ var
 type
   PEfreet_Desktop = ^TEfreet_Desktop;
 
-  PEfreet_Desktop_Command_Cb = ^TEfreet_Desktop_Command_Cb;
   TEfreet_Desktop_Command_Cb = function(data: pointer; desktop: PEfreet_Desktop; command: pchar; remaining: longint): pointer; cdecl;
-
   TEfreet_Desktop_Progress_Cb = function(data: pointer; desktop: PEfreet_Desktop; uri: pchar; total: longint; current: longint): longint; cdecl;
-  PEfreet_Desktop_Type_Parse_Cb = ^TEfreet_Desktop_Type_Parse_Cb;
   TEfreet_Desktop_Type_Parse_Cb = function(desktop: PEfreet_Desktop; ini: PEfreet_Ini): pointer; cdecl;
-
   TEfreet_Desktop_Type_Save_Cb = procedure(desktop: PEfreet_Desktop; ini: PEfreet_Ini); cdecl;
-
-  PEfreet_Desktop_Type_Free_Cb = ^TEfreet_Desktop_Type_Free_Cb;
   TEfreet_Desktop_Type_Free_Cb = function(data: pointer): pointer; cdecl;
 
   TEfreet_Desktop_Action = record

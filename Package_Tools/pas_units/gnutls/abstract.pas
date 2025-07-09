@@ -107,7 +107,7 @@ function gnutls_pubkey_get_key_usage(key: Tgnutls_pubkey_t; usage: Pdword): long
 function gnutls_pubkey_set_key_usage(key: Tgnutls_pubkey_t; usage: dword): longint; cdecl; external libgnutls;
 function gnutls_pubkey_import(key: Tgnutls_pubkey_t; data: Pgnutls_datum_t; format: Tgnutls_x509_crt_fmt_t): longint; cdecl; external libgnutls;
 
-function gnutls_pubkey_import_pkcs11_url(key, url, flags: longint): longint;
+function gnutls_pubkey_import_pkcs11_url(key:Tgnutls_pubkey_t; url:PChar; flags: longint): longint;
 
 function gnutls_pubkey_import_dsa_raw(key: Tgnutls_pubkey_t; p: Pgnutls_datum_t; q: Pgnutls_datum_t; g: Pgnutls_datum_t; y: Pgnutls_datum_t): longint; cdecl; external libgnutls;
 function gnutls_pubkey_import_dh_raw(key: Tgnutls_pubkey_t; params: Tgnutls_dh_params_t; y: Pgnutls_datum_t): longint; cdecl; external libgnutls;
@@ -124,7 +124,7 @@ function gnutls_pubkey_verify_data2(pubkey: Tgnutls_pubkey_t; algo: Tgnutls_sign
 function gnutls_privkey_init(key: Pgnutls_privkey_t): longint; cdecl; external libgnutls;
 procedure gnutls_privkey_deinit(key: Tgnutls_privkey_t); cdecl; external libgnutls;
 
-function GNUTLS_SUBGROUP_TO_BITS(group, subgroup: longint): dword;
+function GNUTLS_SUBGROUP_TO_BITS(group, subgroup: DWord): dword;
 function GNUTLS_BITS_TO_SUBGROUP(bits: DWord): DWord;
 function GNUTLS_BITS_TO_GROUP(bits: DWord): DWord;
 function GNUTLS_BITS_HAVE_SUBGROUP(bits: DWord): DWord;
@@ -176,7 +176,7 @@ function gnutls_privkey_import_tpm_raw(pkey: Tgnutls_privkey_t; fdata: Pgnutls_d
 function gnutls_privkey_import_tpm_url(pkey: Tgnutls_privkey_t; url: pchar; srk_password: pchar; key_password: pchar; flags: dword): longint; cdecl; external libgnutls;
 function gnutls_privkey_import_url(key: Tgnutls_privkey_t; url: pchar; flags: dword): longint; cdecl; external libgnutls;
 
-function gnutls_privkey_import_pkcs11_url(key, url: longint): longint;
+function gnutls_privkey_import_pkcs11_url(key:Tgnutls_privkey_t; url: PChar): longint;
 
 function gnutls_privkey_import_ext(pkey: Tgnutls_privkey_t; pk: Tgnutls_pk_algorithm_t; userdata: pointer; sign_func: Tgnutls_privkey_sign_func; decrypt_func: Tgnutls_privkey_decrypt_func;
   flags: dword): longint; cdecl; external libgnutls;
@@ -197,7 +197,7 @@ function gnutls_privkey_import_gost_raw(key: Tgnutls_privkey_t; curve: Tgnutls_e
 function gnutls_privkey_sign_data(signer: Tgnutls_privkey_t; hash: Tgnutls_digest_algorithm_t; flags: dword; data: Pgnutls_datum_t; signature: Pgnutls_datum_t): longint; cdecl; external libgnutls;
 function gnutls_privkey_sign_data2(signer: Tgnutls_privkey_t; algo: Tgnutls_sign_algorithm_t; flags: dword; data: Pgnutls_datum_t; signature: Pgnutls_datum_t): longint; cdecl; external libgnutls;
 
-function gnutls_privkey_sign_raw_data(key, flags, data, sig: longint): longint;
+function gnutls_privkey_sign_raw_data(key:Tgnutls_privkey_t; flags, data, sig: Pgnutls_datum_t): longint;
 
 function gnutls_privkey_sign_hash(signer: Tgnutls_privkey_t; hash_algo: Tgnutls_digest_algorithm_t; flags: dword; hash_data: Pgnutls_datum_t; signature: Pgnutls_datum_t): longint; cdecl; external libgnutls;
 function gnutls_privkey_sign_hash2(signer: Tgnutls_privkey_t; algo: Tgnutls_sign_algorithm_t; flags: dword; hash_data: Pgnutls_datum_t; signature: Pgnutls_datum_t): longint; cdecl; external libgnutls;
@@ -295,53 +295,40 @@ begin
   GNUTLS_FLAGS_TO_SIGN_ALGO := dword(flags shr 20);
 end;
 
-function gnutls_pubkey_import_pkcs11_url(key, url, flags: longint): longint;
+function gnutls_pubkey_import_pkcs11_url(key: Tgnutls_pubkey_t; url: PChar;
+  flags: longint): longint;
 begin
   gnutls_pubkey_import_pkcs11_url := gnutls_pubkey_import_url(key, url, flags);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GNUTLS_SUBGROUP_TO_BITS(group, subgroup: longint): dword;
+function GNUTLS_SUBGROUP_TO_BITS(group, subgroup: DWord): dword;
 begin
   GNUTLS_SUBGROUP_TO_BITS := dword((subgroup shl 16) or group);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
 function GNUTLS_BITS_TO_SUBGROUP(bits: DWord): DWord;
 begin
   GNUTLS_BITS_TO_SUBGROUP := (bits shr 16) and $FFFF;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
 function GNUTLS_BITS_TO_GROUP(bits: DWord): DWord;
 begin
   GNUTLS_BITS_TO_GROUP := bits and $FFFF;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
 function GNUTLS_BITS_HAVE_SUBGROUP(bits: DWord): DWord;
 begin
   GNUTLS_BITS_HAVE_SUBGROUP := bits and $FFFF0000;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function gnutls_privkey_import_pkcs11_url(key, url: longint): longint;
+function gnutls_privkey_import_pkcs11_url(key: Tgnutls_privkey_t; url: PChar
+  ): longint;
 begin
   gnutls_privkey_import_pkcs11_url := gnutls_privkey_import_url(key, url, 0);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function gnutls_privkey_sign_raw_data(key, flags, data, sig: longint): longint;
+function gnutls_privkey_sign_raw_data(key: Tgnutls_privkey_t; flags, data,
+  sig: Pgnutls_datum_t): longint;
 begin
   gnutls_privkey_sign_raw_data := gnutls_privkey_sign_hash(key, 0, GNUTLS_PRIVKEY_SIGN_FLAG_TLS1_RSA, data, sig);
 end;
