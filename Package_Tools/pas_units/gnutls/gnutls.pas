@@ -1200,6 +1200,7 @@ type
     padding: array[0..31] of byte;
   end;
   Pgnutls_ocsp_data_st = ^Tgnutls_ocsp_data_st;
+  PPgnutls_ocsp_data_st = ^Pgnutls_ocsp_data_st;
 
 function gnutls_certificate_get_ocsp_expiration(sc: Tgnutls_certificate_credentials_t; idx: dword; oidx: longint; flags: dword): Ttime_t; cdecl; external libgnutls;
 function gnutls_ocsp_status_request_enable_client(session: Tgnutls_session_t; responder_id: Pgnutls_datum_t; responder_id_size: Tsize_t; request_extensions: Pgnutls_datum_t): longint; cdecl; external libgnutls;
@@ -1478,6 +1479,7 @@ type
   end;
   Tgnutls_openpgp_crt_t = ^Tgnutls_openpgp_crt_int;
   Pgnutls_openpgp_crt_t = ^Tgnutls_openpgp_crt_t;
+  PPgnutls_openpgp_crt_t = ^Pgnutls_openpgp_crt_t;
 
   Tgnutls_openpgp_privkey_int = record
   end;

@@ -10,19 +10,19 @@ uses
   socket,       // io.
 
 
- abstract,
- crypto,
- dane,
- dtls,
- ocsp,
- openpgp,
- openssl,
- pkcs7,
- pkcs11,          // io. x509
- pkcs12,          // io.
- self_test,       // io.
- system_keys,
- urls,
+  abstract,       // io. x509, pkcs11, openpgp, tpm
+  crypto,         // io.
+  dane,            // io.
+  dtls,            // io.
+  ocsp,            // io. x509
+  openpgp,         // io.           ( deprecated )
+  openssl,         // io.
+  pkcs7,           // io. x509
+  pkcs11,          // io. x509
+  pkcs12,          // io.
+  self_test,       // io.
+  system_keys,
+  urls,
 
 
 

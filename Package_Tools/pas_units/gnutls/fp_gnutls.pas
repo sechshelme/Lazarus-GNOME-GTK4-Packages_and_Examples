@@ -26,6 +26,9 @@ type
 
   Pgiovec_t=Pointer;
 
+  PMD5_CTX=Pointer;  // openssl/md5h.h
+  PRIPEMD160_CTX=Pointer;  // openssl/ripemd.h
+
 
 implementation
 
