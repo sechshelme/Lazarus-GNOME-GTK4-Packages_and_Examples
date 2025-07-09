@@ -336,7 +336,7 @@ int gnutls_x509_name_constraints_get_excluded(gnutls_x509_name_constraints_t nc,
 					      gnutls_datum_t *name);
 int gnutls_x509_cidr_to_rfc5280(const char *cidr, gnutls_datum_t *cidr_rfc5280);
 
-#define GNUTLS_CRL_REASON_SUPERSEEDED GNUTLS_CRL_REASON_SUPERSEDED,
+#define GNUTLS_CRL_REASON_SUPERSEEDED GNUTLS_CRL_REASON_SUPERSEDED
 /**
    * gnutls_x509_crl_reason_flags_t:
    * @GNUTLS_CRL_REASON_PRIVILEGE_WITHDRAWN: The privileges were withdrawn from the owner.
@@ -933,10 +933,10 @@ typedef enum gnutls_certificate_verification_profiles_t {
 #define GNUTLS_VFLAGS_TO_PROFILE(x) ((((unsigned)x) >> 24) & 0xff)
 
 const char *gnutls_certificate_verification_profile_get_name(
-	gnutls_certificate_verification_profiles_t id) __GNUTLS_CONST__;
+	gnutls_certificate_verification_profiles_t id) ;
 gnutls_certificate_verification_profiles_t
 gnutls_certificate_verification_profile_get_id(const char *name)
-	__GNUTLS_CONST__;
+	;
 
 unsigned gnutls_x509_crt_check_issuer(gnutls_x509_crt_t cert,
 				      gnutls_x509_crt_t issuer);
@@ -1424,18 +1424,18 @@ int gnutls_x509_trust_list_get_issuer_by_subject_key_id(
  */
 typedef enum gnutls_trust_list_flags_t {
 	GNUTLS_TL_VERIFY_CRL = 1,
-#define GNUTLS_TL_VERIFY_CRL 1
 	GNUTLS_TL_USE_IN_TLS = (1 << 1),
-#define GNUTLS_TL_USE_IN_TLS (1 << 1)
 	GNUTLS_TL_NO_DUPLICATES = (1 << 2),
-#define GNUTLS_TL_NO_DUPLICATES (1 << 2)
 	GNUTLS_TL_NO_DUPLICATE_KEY = (1 << 3),
-#define GNUTLS_TL_NO_DUPLICATE_KEY (1 << 3)
 	GNUTLS_TL_GET_COPY = (1 << 4),
-#define GNUTLS_TL_GET_COPY (1 << 4)
 	GNUTLS_TL_FAIL_ON_INVALID_CRL = (1 << 5)
-#define GNUTLS_TL_FAIL_ON_INVALID_CRL (1 << 5)
 } gnutls_trust_list_flags_t;
+#define GNUTLS_TL_VERIFY_CRL 1
+#define GNUTLS_TL_USE_IN_TLS (1 << 1)
+#define GNUTLS_TL_NO_DUPLICATES (1 << 2)
+#define GNUTLS_TL_NO_DUPLICATE_KEY (1 << 3)
+#define GNUTLS_TL_GET_COPY (1 << 4)
+#define GNUTLS_TL_FAIL_ON_INVALID_CRL (1 << 5)
 
 int gnutls_x509_trust_list_add_cas(gnutls_x509_trust_list_t list,
 				   const gnutls_x509_crt_t *clist,
@@ -1460,7 +1460,8 @@ int gnutls_x509_trust_list_iter_get_ca(gnutls_x509_trust_list_t list,
 
 void gnutls_x509_trust_list_iter_deinit(gnutls_x509_trust_list_iter_t iter);
 
-typedef int gnutls_verify_output_function(
+// xxxxxxxxxxxxxxxxxxxx
+typedef int (*gnutls_verify_output_function)(
 	gnutls_x509_crt_t cert, gnutls_x509_crt_t issuer,
 	/* The issuer if verification failed
 					   * because of him. might be null.
@@ -1526,7 +1527,8 @@ int gnutls_x509_trust_list_add_system_trust(gnutls_x509_trust_list_t list,
 					    unsigned int tl_flags,
 					    unsigned int tl_vflags);
 
-typedef int gnutls_x509_trust_list_getissuer_function(
+// xxxxxxxxxxxx
+typedef int (*gnutls_x509_trust_list_getissuer_function)(
 	gnutls_x509_trust_list_t list, const gnutls_x509_crt_t cert,
 	gnutls_x509_crt_t **issuers, unsigned int *issuers_size);
 

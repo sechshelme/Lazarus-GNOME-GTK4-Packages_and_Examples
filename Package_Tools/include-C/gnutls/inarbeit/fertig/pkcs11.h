@@ -456,10 +456,7 @@ unsigned gnutls_pkcs11_privkey_status(gnutls_pkcs11_privkey_t key);
 	gnutls_pkcs11_privkey_generate3(url, pk, bits, label, NULL, 0, NULL, \
 					0, flags)
 
-#define gnutls_pkcs11_privkey_generate2(url, pk, bits, label, fmt, pubkey, \
-					flags)                             \
-	gnutls_pkcs11_privkey_generate3(url, pk, bits, label, NULL, fmt,   \
-					pubkey, 0, flags)
+#define gnutls_pkcs11_privkey_generate2(url, pk, bits, label, fmt, pubkey, flags) gnutls_pkcs11_privkey_generate3(url, pk, bits, label, NULL, fmt, 	pubkey, 0, flags)
 
 int gnutls_pkcs11_privkey_generate3(const char *url, gnutls_pk_algorithm_t pk,
 				    unsigned int bits, const char *label,

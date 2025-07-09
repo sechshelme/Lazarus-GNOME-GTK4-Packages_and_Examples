@@ -625,28 +625,28 @@ const
   GNUTLS_CTYPE_PEERS = 3;
 
 type
-  Pgnutls_transport_ptr_t = ^Tgnutls_transport_ptr_t;
   Tgnutls_transport_ptr_t = pointer;
+  Pgnutls_transport_ptr_t = ^Tgnutls_transport_ptr_t;
 
   Tgnutls_session_int = record
   end;
-  Pgnutls_session_t = ^Tgnutls_session_t;
   Tgnutls_session_t = ^Tgnutls_session_int;
+  Pgnutls_session_t = ^Tgnutls_session_t;
 
   Tgnutls_dh_params_int = record
   end;
-  Pgnutls_dh_params_t = ^Tgnutls_dh_params_t;
   Tgnutls_dh_params_t = ^Tgnutls_dh_params_int;
+  Pgnutls_dh_params_t = ^Tgnutls_dh_params_t;
 
   Tgnutls_x509_privkey_int = record
   end;
-  Pgnutls_rsa_params_t = ^Tgnutls_rsa_params_t;
   Tgnutls_rsa_params_t = ^Tgnutls_x509_privkey_int;
+  Pgnutls_rsa_params_t = ^Tgnutls_rsa_params_t;
 
   Tgnutls_priority_st = record
   end;
-  Pgnutls_priority_t = ^Tgnutls_priority_t;
   Tgnutls_priority_t = ^Tgnutls_priority_st;
+  Pgnutls_priority_t = ^Tgnutls_priority_t;
 
   Tgnutls_datum_t = record
     data: pbyte;
@@ -825,8 +825,8 @@ function gnutls_record_send_file(session: Tgnutls_session_t; fd: longint; offset
 function gnutls_record_recv(session: Tgnutls_session_t; data: pointer; data_size: Tsize_t): Tssize_t; cdecl; external libgnutls;
 
 type
-  Pgnutls_packet_t = ^Tgnutls_packet_t;
   Tgnutls_packet_t = Pmbuffer_st;
+  Pgnutls_packet_t = ^Tgnutls_packet_t;
 
 function gnutls_record_recv_packet(session: Tgnutls_session_t; packet: Pgnutls_packet_t): Tssize_t; cdecl; external libgnutls;
 procedure gnutls_packet_get(packet: Tgnutls_packet_t; data: Pgnutls_datum_t; sequence: pbyte); cdecl; external libgnutls;
@@ -1078,71 +1078,53 @@ function gnutls_credentials_get(session: Tgnutls_session_t; _type: Tgnutls_crede
 function gnutls_cred_set(session: Tgnutls_session_t; _type: Tgnutls_credentials_type_t; cred: Pointer): longint; cdecl; external libgnutls name 'gnutls_credentials_set';
 
 type
-  Pgnutls_pubkey_st = ^Tgnutls_pubkey_st;
   Tgnutls_pubkey_st = record
   end;
-
+  Tgnutls_pubkey_t = ^Tgnutls_pubkey_st;
   Pgnutls_pubkey_t = ^Tgnutls_pubkey_t;
-  Tgnutls_pubkey_t = Pgnutls_pubkey_st;
 
-  Pgnutls_privkey_st = ^Tgnutls_privkey_st;
   Tgnutls_privkey_st = record
   end;
-
+  Tgnutls_privkey_t = ^Tgnutls_privkey_st;
   Pgnutls_privkey_t = ^Tgnutls_privkey_t;
-  Tgnutls_privkey_t = Pgnutls_privkey_st;
 
   Pgnutls_x509_privkey_t = ^Tgnutls_x509_privkey_t;
   Tgnutls_x509_privkey_t = ^Tgnutls_x509_privkey_int;
 
-  Pgnutls_x509_crl_int = ^Tgnutls_x509_crl_int;
   Tgnutls_x509_crl_int = record
   end;
-
+  Tgnutls_x509_crl_t = ^Tgnutls_x509_crl_int;
   Pgnutls_x509_crl_t = ^Tgnutls_x509_crl_t;
-  Tgnutls_x509_crl_t = Pgnutls_x509_crl_int;
+  PPgnutls_x509_crl_t = ^Pgnutls_x509_crl_t;
 
-  Pgnutls_x509_crt_int = ^Tgnutls_x509_crt_int;
   Tgnutls_x509_crt_int = record
   end;
-
-  PPgnutls_x509_crt_t = ^Pgnutls_x509_crt_t;
+  Tgnutls_x509_crt_t = ^Tgnutls_x509_crt_int;
   Pgnutls_x509_crt_t = ^Tgnutls_x509_crt_t;
-  Tgnutls_x509_crt_t = Pgnutls_x509_crt_int;
+  PPgnutls_x509_crt_t = ^Pgnutls_x509_crt_t;
 
-  Pgnutls_x509_crq_int = ^Tgnutls_x509_crq_int;
   Tgnutls_x509_crq_int = record
   end;
-
+  Tgnutls_x509_crq_t = ^Tgnutls_x509_crq_int;
   Pgnutls_x509_crq_t = ^Tgnutls_x509_crq_t;
-  Tgnutls_x509_crq_t = Pgnutls_x509_crq_int;
 
-  Pgnutls_openpgp_keyring_int = ^Tgnutls_openpgp_keyring_int;
   Tgnutls_openpgp_keyring_int = record
   end;
-
+  Tgnutls_openpgp_keyring_t = ^Tgnutls_openpgp_keyring_int;
   Pgnutls_openpgp_keyring_t = ^Tgnutls_openpgp_keyring_t;
-  Tgnutls_openpgp_keyring_t = Pgnutls_openpgp_keyring_int;
 
-  Pgnutls_certificate_credentials_st = ^Tgnutls_certificate_credentials_st;
   Tgnutls_certificate_credentials_st = record
   end;
-
-
+  Tgnutls_certificate_credentials_t = ^Tgnutls_certificate_credentials_st;
   Pgnutls_certificate_credentials_t = ^Tgnutls_certificate_credentials_t;
-  Tgnutls_certificate_credentials_t = Pgnutls_certificate_credentials_st;
 
-  Pgnutls_certificate_server_credentials = ^Tgnutls_certificate_server_credentials;
   Tgnutls_certificate_server_credentials = Tgnutls_certificate_credentials_t;
-
-  Pgnutls_certificate_client_credentials = ^Tgnutls_certificate_client_credentials;
   Tgnutls_certificate_client_credentials = Tgnutls_certificate_credentials_t;
-
-  Pgnutls_anon_server_credentials_t = ^Tgnutls_anon_server_credentials_t;
 
   Tgnutls_anon_server_credentials_st = record
   end;
   Tgnutls_anon_server_credentials_t = ^Tgnutls_anon_server_credentials_st;
+  Pgnutls_anon_server_credentials_t = ^Tgnutls_anon_server_credentials_t;
 
   Tgnutls_anon_client_credentials_st = record
   end;
@@ -1427,6 +1409,7 @@ type
   Tgnutls_psk_client_credentials_t = ^Tgnutls_psk_client_credentials_st;
   Pgnutls_psk_client_credentials_t = ^Tgnutls_psk_client_credentials_t;
 
+type
   Pgnutls_psk_key_flags = ^Tgnutls_psk_key_flags;
   Tgnutls_psk_key_flags = longint;
 

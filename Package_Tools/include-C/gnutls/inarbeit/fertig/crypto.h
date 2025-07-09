@@ -72,11 +72,11 @@ int gnutls_cipher_add_auth(gnutls_cipher_hd_t handle, const void *text,
 
 void gnutls_cipher_deinit(gnutls_cipher_hd_t handle);
 unsigned gnutls_cipher_get_block_size(gnutls_cipher_algorithm_t algorithm)
-	__GNUTLS_CONST__;
+	;
 unsigned
-gnutls_cipher_get_iv_size(gnutls_cipher_algorithm_t algorithm) __GNUTLS_CONST__;
+gnutls_cipher_get_iv_size(gnutls_cipher_algorithm_t algorithm) ;
 unsigned gnutls_cipher_get_tag_size(gnutls_cipher_algorithm_t algorithm)
-	__GNUTLS_CONST__;
+	;
 
 /* AEAD API
  */
@@ -128,7 +128,7 @@ typedef struct hash_hd_st *gnutls_hash_hd_t;
 typedef struct hmac_hd_st *gnutls_hmac_hd_t;
 
 size_t
-gnutls_mac_get_nonce_size(gnutls_mac_algorithm_t algorithm) __GNUTLS_CONST__;
+gnutls_mac_get_nonce_size(gnutls_mac_algorithm_t algorithm) ;
 int gnutls_hmac_init(gnutls_hmac_hd_t *dig, gnutls_mac_algorithm_t algorithm,
 		     const void *key, size_t keylen);
 void gnutls_hmac_set_nonce(gnutls_hmac_hd_t handle, const void *nonce,
@@ -136,9 +136,9 @@ void gnutls_hmac_set_nonce(gnutls_hmac_hd_t handle, const void *nonce,
 int gnutls_hmac(gnutls_hmac_hd_t handle, const void *text, size_t textlen);
 void gnutls_hmac_output(gnutls_hmac_hd_t handle, void *digest);
 void gnutls_hmac_deinit(gnutls_hmac_hd_t handle, void *digest);
-unsigned gnutls_hmac_get_len(gnutls_mac_algorithm_t algorithm) __GNUTLS_CONST__;
+unsigned gnutls_hmac_get_len(gnutls_mac_algorithm_t algorithm) ;
 unsigned
-gnutls_hmac_get_key_size(gnutls_mac_algorithm_t algorithm) __GNUTLS_CONST__;
+gnutls_hmac_get_key_size(gnutls_mac_algorithm_t algorithm) ;
 int gnutls_hmac_fast(gnutls_mac_algorithm_t algorithm, const void *key,
 		     size_t keylen, const void *text, size_t textlen,
 		     void *digest);
@@ -150,7 +150,7 @@ int gnutls_hash(gnutls_hash_hd_t handle, const void *text, size_t textlen);
 void gnutls_hash_output(gnutls_hash_hd_t handle, void *digest);
 void gnutls_hash_deinit(gnutls_hash_hd_t handle, void *digest);
 unsigned
-gnutls_hash_get_len(gnutls_digest_algorithm_t algorithm) __GNUTLS_CONST__;
+gnutls_hash_get_len(gnutls_digest_algorithm_t algorithm) ;
 int gnutls_hash_fast(gnutls_digest_algorithm_t algorithm, const void *text,
 		     size_t textlen, void *digest);
 gnutls_hash_hd_t gnutls_hash_copy(gnutls_hash_hd_t handle);
@@ -228,14 +228,14 @@ int gnutls_crypto_register_cipher(
 	gnutls_cipher_init_func init, gnutls_cipher_setkey_func setkey,
 	gnutls_cipher_setiv_func setiv, gnutls_cipher_encrypt_func encrypt,
 	gnutls_cipher_decrypt_func decrypt,
-	gnutls_cipher_deinit_func deinit) _GNUTLS_GCC_ATTR_DEPRECATED;
+	gnutls_cipher_deinit_func deinit) /*_GNUTLS_GCC_ATTR_DEPRECATED*/;
 
 int gnutls_crypto_register_aead_cipher(
 	gnutls_cipher_algorithm_t algorithm, int priority,
 	gnutls_cipher_init_func init, gnutls_cipher_setkey_func setkey,
 	gnutls_cipher_aead_encrypt_func aead_encrypt,
 	gnutls_cipher_aead_decrypt_func aead_decrypt,
-	gnutls_cipher_deinit_func deinit) _GNUTLS_GCC_ATTR_DEPRECATED;
+	gnutls_cipher_deinit_func deinit) /*_GNUTLS_GCC_ATTR_DEPRECATED*/;
 
 typedef int (*gnutls_mac_init_func)(gnutls_mac_algorithm_t, void **ctx);
 typedef int (*gnutls_mac_setkey_func)(void *ctx, const void *key,
@@ -258,7 +258,7 @@ int gnutls_crypto_register_mac(
 	gnutls_mac_setkey_func setkey, gnutls_mac_setnonce_func setnonce,
 	gnutls_mac_hash_func hash, gnutls_mac_output_func output,
 	gnutls_mac_deinit_func deinit,
-	gnutls_mac_fast_func hash_fast) _GNUTLS_GCC_ATTR_DEPRECATED;
+	gnutls_mac_fast_func hash_fast) /*_GNUTLS_GCC_ATTR_DEPRECATED*/;
 
 typedef int (*gnutls_digest_init_func)(gnutls_digest_algorithm_t, void **ctx);
 typedef int (*gnutls_digest_hash_func)(void *ctx, const void *text,
@@ -275,7 +275,7 @@ int gnutls_crypto_register_digest(
 	gnutls_digest_algorithm_t digest, int priority,
 	gnutls_digest_init_func init, gnutls_digest_hash_func hash,
 	gnutls_digest_output_func output, gnutls_digest_deinit_func deinit,
-	gnutls_digest_fast_func hash_fast) _GNUTLS_GCC_ATTR_DEPRECATED;
+	gnutls_digest_fast_func hash_fast) /*_GNUTLS_GCC_ATTR_DEPRECATED*/;
 
 /* RSA-PKCS#1 1.5 helper functions */
 int gnutls_encode_ber_digest_info(gnutls_digest_algorithm_t hash,

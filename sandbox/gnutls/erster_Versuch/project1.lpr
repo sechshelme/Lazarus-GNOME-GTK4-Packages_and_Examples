@@ -3,7 +3,30 @@ program project1;
 //  Tgnutls_certificate_print_formats_t = Tgnutls_certificate_print_formats; entfernen '?????`
 
 uses
-  gnutls,
+  gnutls,       // io.
+  x509,         // io,
+  x509_ext,     // io. x509
+  tpm,          // io.
+  socket,       // io.
+
+
+ abstract,
+ crypto,
+ dane,
+ dtls,
+ ocsp,
+ openpgp,
+ openssl,
+ pkcs7,
+ pkcs11,          // io. x509
+ pkcs12,          // io.
+ self_test,       // io.
+ system_keys,
+ urls,
+
+
+
+
   fp_socket,
 
   fp_unistd,

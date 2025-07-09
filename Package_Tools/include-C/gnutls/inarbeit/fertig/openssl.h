@@ -59,7 +59,7 @@ typedef struct {
 
 #define OPENSSL_VERSION_NUMBER (0x0090604F)
 #define SSLEAY_VERSION_NUMBER OPENSSL_VERSION_NUMBER
-#define OPENSSL_VERSION_TEXT ("GNUTLS " GNUTLS_VERSION " ")
+
 
 #define SSL_ERROR_NONE (0)
 #define SSL_ERROR_SSL (1)
@@ -114,8 +114,8 @@ typedef struct {
 	SSL *ssl;
 	int error;
 	const gnutls_datum_t *cert_list;
-#define current_cert cert_list
 } X509_STORE_CTX;
+#define current_cert cert_list
 
 #define X509_STORE_CTX_get_current_cert(ctx) ((ctx)->current_cert)
 

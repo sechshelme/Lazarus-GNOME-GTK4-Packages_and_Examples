@@ -29,22 +29,9 @@
 extern "C" {
 #endif
 
-#ifdef __GNUC__
 
-#define _GNUTLS_GCC_VERSION \
-	(__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
 
-#if !defined GNUTLS_INTERNAL_BUILD
-#if _GNUTLS_GCC_VERSION >= 30100
-#define _GNUTLS_GCC_ATTR_DEPRECATED __attribute__((__deprecated__))
-#endif
-#endif
 
-#endif /* __GNUC__ */
-
-#ifndef _GNUTLS_GCC_ATTR_DEPRECATED
-#define _GNUTLS_GCC_ATTR_DEPRECATED
-#endif
 
 /* gnutls_connection_end_t was made redundant in 2.99.0 */
 typedef unsigned int gnutls_connection_end_t _GNUTLS_GCC_ATTR_DEPRECATED;

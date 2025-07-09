@@ -634,11 +634,8 @@ int gnutls_pcert_import_rawpk_raw(gnutls_pcert_st *pcert,
 	 * but retrieves a gnutls_pcert_st which requires much less processing
 	 * within the library.
 	 */
-typedef int gnutls_certificate_retrieve_function2(
-	gnutls_session_t, const gnutls_datum_t *req_ca_rdn, int nreqs,
-	const gnutls_pk_algorithm_t *pk_algos, int pk_algos_length,
-	gnutls_pcert_st **, unsigned int *pcert_length,
-	gnutls_privkey_t *privkey);
+//xxxxxxxxxxxxxxxxxxx
+typedef int (*gnutls_certificate_retrieve_function2)(	gnutls_session_t, const gnutls_datum_t *req_ca_rdn, int nreqs,	const gnutls_pk_algorithm_t *pk_algos, int pk_algos_length,	gnutls_pcert_st **, unsigned int*pcert_length,gnutls_privkey_t *privkey);
 
 void gnutls_certificate_set_retrieve_function2(
 	gnutls_certificate_credentials_t cred,
@@ -659,12 +656,8 @@ struct gnutls_cert_retr_st {
 /* When the callback sets this value, gnutls will deinitialize the given
  * values after use */
 #define GNUTLS_CERT_RETR_DEINIT_ALL 1
-
-typedef int gnutls_certificate_retrieve_function3(
-	gnutls_session_t, const struct gnutls_cert_retr_st *info,
-	gnutls_pcert_st **certs, unsigned int *certs_length,
-	gnutls_ocsp_data_st **ocsp, unsigned int *ocsp_length,
-	gnutls_privkey_t *privkey, unsigned int *flags);
+//xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+typedef int (*gnutls_certificate_retrieve_function3)(	gnutls_session_t, const struct gnutls_cert_retr_st *info,	gnutls_pcert_st **certs, unsigned int *certs_length,	gnutls_ocsp_data_st **ocsp, unsigned int*ocsp_length,	gnutls_privkey_t *privkey, unsigned int *flags);
 
 void gnutls_certificate_set_retrieve_function3(
 	gnutls_certificate_credentials_t cred,

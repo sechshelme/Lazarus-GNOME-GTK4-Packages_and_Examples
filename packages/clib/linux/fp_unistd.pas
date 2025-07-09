@@ -211,7 +211,7 @@ function ctermid(__s: pchar): pchar; cdecl; external libc;
 function cuserid(__s: pchar): pchar; cdecl; external libc;
 
 type
-  TProc = procedure; libc;
+  TProc = procedure; cdecl;
 
 function pthread_atfork(__prepare: TProc; __parent: TProc; __child: TProc): longint; cdecl; external libc;
 function getentropy(__buffer: pointer; __length: Tsize_t): longint; cdecl; external libc;

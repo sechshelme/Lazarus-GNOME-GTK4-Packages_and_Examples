@@ -12,6 +12,7 @@
 #include <string.h>
 #include <libssh/libssh.h>
 #include <libssh/sftp.h>
+#include <gnutls/x509.h>
 
 
 
