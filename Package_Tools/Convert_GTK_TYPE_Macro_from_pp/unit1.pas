@@ -189,6 +189,7 @@ const
     (libs: 'libpci'; units: 'ctypes'),
 
     (libs: 'libgnutls'; units: 'ctypes'),
+    (libs: 'libcurl'; units: 'ctypes'),
 
 
     (libs: ''; units: ''));
