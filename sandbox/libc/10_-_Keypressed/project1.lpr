@@ -1,16 +1,14 @@
 program project1;
 
 uses
-  fcntl_,
-  fcntl_bits,
-  fcntl_linux,
+  fp_fcntl,
 
   fp_stdio,
   fp_unistd,
   fp_termios;
 
 
-  function kbhit: integer;
+  function Keypressed: boolean;
   var
     oldt, newt: Ttermios;
     oldf: integer;
@@ -27,16 +25,31 @@ uses
     fcntl(STDIN_FILENO, F_SETFL, oldf);
     if ch <> EOF then begin
       ungetc(ch, stdin);
-      Exit(1);
+      Exit(True);
     end;
-    Exit(0);
+    Exit(False);
   end;
 
   procedure main;
+  var
+    Quit: boolean = False;
+    ch: longint=0;
   begin
-    repeat
+//    printf(#27'[?1000h');   // Mouse click
+    printf(#27'[?1003h');   // Mouse move
 
-    until kbhit <> 0;
+    printf('Taste = Abbruch'#10);
+    repeat
+      if Keypressed then begin
+        ch := getchar;
+        WriteLn(ch);
+      end;
+
+      usleep(10000);
+      printf('.');
+
+//      until ch=27;
+      until False;
   end;
 
 begin

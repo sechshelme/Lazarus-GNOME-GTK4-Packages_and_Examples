@@ -39,6 +39,10 @@
         <Filename Value="linux/fp_socket.pas"/>
         <UnitName Value="fp_socket"/>
       </Item>
+      <Item>
+        <Filename Value="linux/fp_fcntl.pas"/>
+        <UnitName Value="fp_fcntl"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
