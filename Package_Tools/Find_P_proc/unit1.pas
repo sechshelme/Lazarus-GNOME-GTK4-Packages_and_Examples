@@ -17,7 +17,6 @@ type
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
-    function DeleteLines(const s, delStr: string): string;
   public
 
   end;
@@ -29,30 +28,12 @@ implementation
 
 {$R *.lfm}
 
-{ TForm1 }
-
-function TForm1.DeleteLines(const s, delStr: string): string;
-begin
-  if Pos(delStr, s) = 1 then begin
-    Result := '';
-  end else begin
-    Result := s;
-  end;
-end;
-
-const
-  availables: array of string = (
-    'CHAFA_AVAILABLE_IN_1',
-    'GDK_PIXBUF_AVAILABLE_IN_2',
-    'GDK_AVAILABLE_IN_4',
-    'GRAPHENE_AVAILABLE_IN',
-    'PANGO_AVAILABLE_IN_1',
-    'PANGO_DEPRECATED_IN_1');
-
-procedure FindPType(sl: TStringList; proc: string; const datei: string);
+procedure FindPType(sl: TStringList; proc: string; path: string);
 var
   i: integer;
 begin
+  Delete(path, 1, 52);
+
   //  WriteLn('proc  ',proc);
   if Length(proc) > 0 then begin
     if proc[1] = 'T' then begin
@@ -61,18 +42,17 @@ begin
       WriteLn();
       for i := 0 to sl.Count - 1 do begin
         if pos(proc, sl[i]) <> 0 then begin
-          WriteLn(sl[i], '   (', i, ')  ',datei);
+          WriteLn(sl[i], '   (', i, ')  ',path);
         end;
       end;
 
     end else begin
-      //    WriteLn('Fehler  ', proc,'    ',datei);
+      //    WriteLn('Fehler  ', proc,'    ',path);
     end;
 
   end else begin
 //    WriteLn('Länge = 0');
   end;
-
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
@@ -83,7 +63,7 @@ var
   sa: TAnsiStringArray;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME', '*.pas;*.inc', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/advancedpackages', '*.pas;*.inc', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin

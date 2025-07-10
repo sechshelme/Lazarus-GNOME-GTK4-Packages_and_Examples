@@ -2,7 +2,7 @@
   This source is only used to compile and install the package.
  }
 
-unit fp_clib_packages;
+unit fp_libc_packages;
 
 {$warn 5023 off : no warning about unused units}
 interface
@@ -18,5 +18,5 @@ begin
 end;
 
 initialization
-  RegisterPackage('fp_clib_packages', @Register);
+  RegisterPackage('fp_libc_packages', @Register);
 end.

@@ -2,9 +2,6 @@ unit fp_sixel;
 
 interface
 
-uses
-  ctypes;
-
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
@@ -316,16 +313,11 @@ const
   RES_LANCZOS4 = 9;
 
 type
-  Psixel_malloc_t = ^Tsixel_malloc_t;
   Tsixel_malloc_t = function(para1: Tsize_t): pointer; cdecl;
-
-  Psixel_calloc_t = ^Tsixel_calloc_t;
   Tsixel_calloc_t = function(para1: Tsize_t; para2: Tsize_t): pointer; cdecl;
-
-  Psixel_realloc_t = ^Tsixel_realloc_t;
   Tsixel_realloc_t = function(para1: pointer; para2: Tsize_t): pointer; cdecl;
-
   Tsixel_free_t = procedure(para1: pointer); cdecl;
+
   Psixel_allocator = ^Tsixel_allocator;
   Tsixel_allocator = record
   end;
@@ -397,7 +389,6 @@ procedure sixel_dither_set_pixelformat(dither: Psixel_dither_t; pixelformat: lon
 procedure sixel_dither_set_transparent(dither: Psixel_dither_t; transparent: longint); cdecl; external libsixel;
 
 type
-  Psixel_allocator_function = ^Tsixel_allocator_function;
   Tsixel_allocator_function = function(size: Tsize_t): pointer; cdecl;
 
 function sixel_encode(pixels: pbyte; width: longint; height: longint; depth: longint; dither: Psixel_dither_t;

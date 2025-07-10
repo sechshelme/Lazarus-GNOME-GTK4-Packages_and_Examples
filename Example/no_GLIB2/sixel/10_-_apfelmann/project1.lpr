@@ -3,17 +3,18 @@ program project1;
 uses
   fp_sixel;
 
-  procedure main;
-  const
-    breite = 512;
-    hoehe = 512;
-    max_iter = 50;
+const
+  breite = 512;
+  hoehe = 512;
+  max_iter = 50;
+type
+  TPixels = array[0..breite * hoehe * 3 - 1] of byte;
+  PPixels = ^TPixels;
+
+  procedure paint(pixel: PPixels; colOfs: byte);
   var
-    pixel: array[0..breite * hoehe * 3 - 1] of byte;
     y, x, iter: integer;
     r, g, b: byte;
-    status: TSIXELSTATUS;
-    encoder: Psixel_encoder_t;
     cx, cy, zx, zy, zx2, zy2: extended;
 
   begin
@@ -42,24 +43,43 @@ uses
           b := iter * 33;
         end;
 
-        pixel[(y * breite + x) * 3 + 0] := r;
-        pixel[(y * breite + x) * 3 + 1] := g;
-        pixel[(y * breite + x) * 3 + 2] := b;
+        pixel^[(y * breite + x) * 3 + 0] := r + colOfs;
+        pixel^[(y * breite + x) * 3 + 1] := g + colOfs;
+        pixel^[(y * breite + x) * 3 + 2] := b + colOfs;
       end;
     end;
+  end;
 
+  procedure main;
+  var
+    pixel: TPixels;
+    status: TSIXELSTATUS;
+    encoder: Psixel_encoder_t;
+    colOfs: byte = 0;
+
+  begin
     status := sixel_encoder_new(@encoder, nil);
     if status <> SIXEL_OK then begin
       WriteLn('Konnte SIXEL-Encoder nicht erstellen.');
       Exit;
     end;
 
-    status := sixel_encoder_encode_bytes(encoder, pbyte(pixel), breite, hoehe, SIXEL_PIXELFORMAT_RGB888, nil, 0);
-    if status <> SIXEL_OK then begin
-      sixel_encoder_unref(encoder);
-      WriteLn('Fehler bei der Kodierung des SIXEL-Bildes.');
-      Exit;
-    end;
+    Write(#27'[2J'); // Bildschirm löschen
+    Write(#27'[?25l'); // Cursor ausblenden
+    repeat
+      paint(@pixel, colOfs);
+      Write(#27'[H'); // Cursor nach oben links (Home-Position)
+
+      status := sixel_encoder_encode_bytes(encoder, pbyte(pixel), breite, hoehe, SIXEL_PIXELFORMAT_RGB888, nil, 0);
+      if status <> SIXEL_OK then begin
+        sixel_encoder_unref(encoder);
+        WriteLn('Fehler bei der Kodierung des SIXEL-Bildes.');
+        Exit;
+      end;
+      Inc(colOfs);
+      WriteLn('<Ctrl+C)> = Abbruch');
+    until False;
+    Write(#27'[?25h'); // Cursor wieder einblenden
 
     sixel_encoder_unref(encoder);
   end;

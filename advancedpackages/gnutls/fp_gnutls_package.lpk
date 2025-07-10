@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="5">
-    <Name Value="fp_sixel_package"/>
+    <Name Value="fp_gnutls_package"/>
     <Type Value="RunAndDesignTime"/>
     <CompilerOptions>
       <Version Value="11"/>
@@ -11,8 +11,8 @@
     </CompilerOptions>
     <Files>
       <Item>
-        <Filename Value="fp_sixel.pas"/>
-        <UnitName Value="fp_sixel"/>
+        <Filename Value="fp_gnutls.pas"/>
+        <UnitName Value="fp_gnutls"/>
       </Item>
     </Files>
     <RequiredPkgs>

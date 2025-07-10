@@ -44,13 +44,13 @@ type
   Psigevent=Pointer; //  <signal.h>
 
 type
-  Toff_t = longint;
+  Toff_t = SizeInt;
   Poff_t = ^Toff_t;
 
-  Toff64_t = SizeUInt;
+  Toff64_t = SizeInt;
   Poff64_t = ^Toff64_t;
 
-  Tfpos64_t = SizeUInt;
+  Tfpos64_t = SizeInt;
   Pfpos64_t = ^Tfpos64_t;
 
   Tfpos_t = longint;
