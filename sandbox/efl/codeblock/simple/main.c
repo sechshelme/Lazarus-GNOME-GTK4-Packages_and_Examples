@@ -15,6 +15,7 @@
 #include <gnutls/x509.h>
 
 #include <fcntl.h>
+#include <curl/curl.h>
 
 
 
