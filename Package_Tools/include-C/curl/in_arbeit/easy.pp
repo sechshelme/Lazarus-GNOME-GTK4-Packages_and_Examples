@@ -1,6 +1,39 @@
-#ifndef CURLINC_EASY_H
-#define CURLINC_EASY_H
-/***************************************************************************
+
+unit easy;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from easy.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    easy.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+PCURL  = ^CURL;
+Pcurl_blob  = ^curl_blob;
+Psize_t  = ^size_t;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{$ifndef CURLINC_EASY_H}
+{$define CURLINC_EASY_H}
+{**************************************************************************
  *                                  _   _ ____  _
  *  Project                     ___| | | |  _ \| |
  *                             / __| | | | |_) | |
@@ -22,28 +55,32 @@
  *
  * SPDX-License-Identifier: curl
  *
- ***************************************************************************/
-#ifdef  __cplusplus
-extern "C" {
-#endif
+ ************************************************************************** }
+{ C++ extern C conditionnal removed }
+{ Flag bits in the curl_blob struct:  }
+{ tell libcurl to copy the data  }
 
-/* Flag bits in the curl_blob struct: */
-#define CURL_BLOB_COPY   1 /* tell libcurl to copy the data */
-#define CURL_BLOB_NOCOPY 0 /* tell libcurl to NOT copy the data */
+const
+  CURL_BLOB_COPY = 1;  
+{ tell libcurl to NOT copy the data  }
+  CURL_BLOB_NOCOPY = 0;  
+{ bit 0 is defined, the rest are reserved and should be
+                         left zeroes  }
+type
+  Pcurl_blob = ^Tcurl_blob;
+  Tcurl_blob = record
+      data : pointer;
+      len : Tsize_t;
+      flags : dword;
+    end;
 
-struct curl_blob {
-  void *data;
-  size_t len;
-  unsigned int flags; /* bit 0 is defined, the rest are reserved and should be
-                         left zeroes */
-};
 
-CURL_EXTERN CURL *curl_easy_init(void);
-CURL_EXTERN CURLcode curl_easy_setopt(CURL *curl, CURLoption option, ...);
-CURL_EXTERN CURLcode curl_easy_perform(CURL *curl);
-CURL_EXTERN void curl_easy_cleanup(CURL *curl);
-
-/*
+function curl_easy_init:PCURL;cdecl;external;
+function curl_easy_setopt(curl:PCURL; option:TCURLoption; args:array of const):TCURLcode;cdecl;external;
+function curl_easy_setopt(curl:PCURL; option:TCURLoption):TCURLcode;cdecl;external;
+function curl_easy_perform(curl:PCURL):TCURLcode;cdecl;external;
+procedure curl_easy_cleanup(curl:PCURL);cdecl;external;
+{
  * NAME curl_easy_getinfo()
  *
  * DESCRIPTION
@@ -55,11 +92,10 @@ CURL_EXTERN void curl_easy_cleanup(CURL *curl);
  * returns CURLE_OK. This function is intended to get used *AFTER* a performed
  * transfer, all results from this function are undefined until the transfer
  * is completed.
- */
-CURL_EXTERN CURLcode curl_easy_getinfo(CURL *curl, CURLINFO info, ...);
-
-
-/*
+  }
+function curl_easy_getinfo(curl:PCURL; info:TCURLINFO; args:array of const):TCURLcode;cdecl;external;
+function curl_easy_getinfo(curl:PCURL; info:TCURLINFO):TCURLcode;cdecl;external;
+{
  * NAME curl_easy_duphandle()
  *
  * DESCRIPTION
@@ -70,10 +106,9 @@ CURL_EXTERN CURLcode curl_easy_getinfo(CURL *curl, CURLINFO info, ...);
  * be transferred. It is useful in multithreaded applications when you can run
  * curl_easy_duphandle() for each new thread to avoid a series of identical
  * curl_easy_setopt() invokes in every thread.
- */
-CURL_EXTERN CURL *curl_easy_duphandle(CURL *curl);
-
-/*
+  }
+function curl_easy_duphandle(curl:PCURL):PCURL;cdecl;external;
+{
  * NAME curl_easy_reset()
  *
  * DESCRIPTION
@@ -83,43 +118,38 @@ CURL_EXTERN CURL *curl_easy_duphandle(CURL *curl);
  *
  * It does keep: live connections, the Session ID cache, the DNS cache and the
  * cookies.
- */
-CURL_EXTERN void curl_easy_reset(CURL *curl);
-
-/*
+  }
+procedure curl_easy_reset(curl:PCURL);cdecl;external;
+{
  * NAME curl_easy_recv()
  *
  * DESCRIPTION
  *
  * Receives data from the connected socket. Use after successful
  * curl_easy_perform() with CURLOPT_CONNECT_ONLY option.
- */
-CURL_EXTERN CURLcode curl_easy_recv(CURL *curl, void *buffer, size_t buflen,
-                                    size_t *n);
-
-/*
+  }
+function curl_easy_recv(curl:PCURL; buffer:pointer; buflen:Tsize_t; n:Psize_t):TCURLcode;cdecl;external;
+{
  * NAME curl_easy_send()
  *
  * DESCRIPTION
  *
  * Sends data over the connected socket. Use after successful
  * curl_easy_perform() with CURLOPT_CONNECT_ONLY option.
- */
-CURL_EXTERN CURLcode curl_easy_send(CURL *curl, const void *buffer,
-                                    size_t buflen, size_t *n);
-
-
-/*
+  }
+(* Const before type ignored *)
+function curl_easy_send(curl:PCURL; buffer:pointer; buflen:Tsize_t; n:Psize_t):TCURLcode;cdecl;external;
+{
  * NAME curl_easy_upkeep()
  *
  * DESCRIPTION
  *
  * Performs connection upkeep for the given session handle.
- */
-CURL_EXTERN CURLcode curl_easy_upkeep(CURL *curl);
+  }
+function curl_easy_upkeep(curl:PCURL):TCURLcode;cdecl;external;
+{$endif}
 
-#ifdef  __cplusplus
-} /* end of extern "C" */
-#endif
+implementation
 
-#endif
+
+end.

@@ -105,27 +105,27 @@ typedef struct Curl_URL CURLU;
  * curl_url() creates a new CURLU handle and returns a pointer to it.
  * Must be freed with curl_url_cleanup().
  */
-CURL_EXTERN CURLU *curl_url(void);
+extern CURLU *curl_url(void);
 
 /*
  * curl_url_cleanup() frees the CURLU handle and related resources used for
  * the URL parsing. It will not free strings previously returned with the URL
  * API.
  */
-CURL_EXTERN void curl_url_cleanup(CURLU *handle);
+extern void curl_url_cleanup(CURLU *handle);
 
 /*
  * curl_url_dup() duplicates a CURLU handle and returns a new copy. The new
  * handle must also be freed with curl_url_cleanup().
  */
-CURL_EXTERN CURLU *curl_url_dup(const CURLU *in);
+extern CURLU *curl_url_dup(const CURLU *in);
 
 /*
  * curl_url_get() extracts a specific part of the URL from a CURLU
  * handle. Returns error code. The returned pointer MUST be freed with
  * curl_free() afterwards.
  */
-CURL_EXTERN CURLUcode curl_url_get(const CURLU *handle, CURLUPart what,
+extern CURLUcode curl_url_get(const CURLU *handle, CURLUPart what,
                                    char **part, unsigned int flags);
 
 /*
@@ -133,7 +133,7 @@ CURL_EXTERN CURLUcode curl_url_get(const CURLU *handle, CURLUPart what,
  * error code. The passed in string will be copied. Passing a NULL instead of
  * a part string, clears that part.
  */
-CURL_EXTERN CURLUcode curl_url_set(CURLU *handle, CURLUPart what,
+extern CURLUcode curl_url_set(CURLU *handle, CURLUPart what,
                                    const char *part, unsigned int flags);
 
 /*
@@ -141,7 +141,7 @@ CURL_EXTERN CURLUcode curl_url_set(CURLU *handle, CURLUPart what,
  * readable error string.  This is useful for printing meaningful error
  * messages.
  */
-CURL_EXTERN const char *curl_url_strerror(CURLUcode);
+extern const char *curl_url_strerror(CURLUcode);
 
 #ifdef __cplusplus
 } /* end of extern "C" */

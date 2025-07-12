@@ -52,7 +52,7 @@ struct curl_ws_frame {
  * Receives data from the websocket connection. Use after successful
  * curl_easy_perform() with CURLOPT_CONNECT_ONLY option.
  */
-CURL_EXTERN CURLcode curl_ws_recv(CURL *curl, void *buffer, size_t buflen,
+extern CURLcode curl_ws_recv(CURL *curl, void *buffer, size_t buflen,
                                   size_t *recv,
                                   const struct curl_ws_frame **metap);
 
@@ -67,7 +67,7 @@ CURL_EXTERN CURLcode curl_ws_recv(CURL *curl, void *buffer, size_t buflen,
  * Sends data over the websocket connection. Use after successful
  * curl_easy_perform() with CURLOPT_CONNECT_ONLY option.
  */
-CURL_EXTERN CURLcode curl_ws_send(CURL *curl, const void *buffer,
+extern CURLcode curl_ws_send(CURL *curl, const void *buffer,
                                   size_t buflen, size_t *sent,
                                   curl_off_t fragsize,
                                   unsigned int flags);
@@ -75,7 +75,7 @@ CURL_EXTERN CURLcode curl_ws_send(CURL *curl, const void *buffer,
 /* bits for the CURLOPT_WS_OPTIONS bitmask: */
 #define CURLWS_RAW_MODE (1<<0)
 
-CURL_EXTERN const struct curl_ws_frame *curl_ws_meta(CURL *curl);
+extern const struct curl_ws_frame *curl_ws_meta(CURL *curl);
 
 #ifdef  __cplusplus
 }

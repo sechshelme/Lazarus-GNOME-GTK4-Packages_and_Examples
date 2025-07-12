@@ -1,10 +1,26 @@
 program project1;
 uses
-curl, fp_curl;
+curl,
+curlver,
+easy,
+header,     // ????
+mprintf,
+multi,
+options,  // ????
+//stdcheaders,
+//system_,
+urlapi,
+websockets,
+
+
+
+
+
+fp_curl;
 
 procedure main
 begin
-  curl_ := curl_easy_init();
+  curl_ := curl_easy_init;
   if(curl) {
       curl_easy_setopt(curl, CURLOPT_URL, "https://example.com/");
       CURLcode res = curl_easy_perform(curl);

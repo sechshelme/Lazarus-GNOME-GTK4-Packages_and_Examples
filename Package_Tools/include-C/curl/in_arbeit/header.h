@@ -55,14 +55,14 @@ typedef enum {
   CURLHE_NOT_BUILT_IN   /* if API was disabled in the build */
 } CURLHcode;
 
-CURL_EXTERN CURLHcode curl_easy_header(CURL *easy,
+extern CURLHcode curl_easy_header(CURL *easy,
                                        const char *name,
                                        size_t index,
                                        unsigned int origin,
                                        int request,
                                        struct curl_header **hout);
 
-CURL_EXTERN struct curl_header *curl_easy_nextheader(CURL *easy,
+extern struct curl_header *curl_easy_nextheader(CURL *easy,
                                                      unsigned int origin,
                                                      int request,
                                                      struct curl_header *prev);

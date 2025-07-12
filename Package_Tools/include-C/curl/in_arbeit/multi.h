@@ -128,7 +128,7 @@ struct curl_waitfd {
  *
  * Returns: a new CURLM handle to use in all 'curl_multi' functions.
  */
-CURL_EXTERN CURLM *curl_multi_init(void);
+extern CURLM *curl_multi_init(void);
 
 /*
  * Name:    curl_multi_add_handle()
@@ -137,7 +137,7 @@ CURL_EXTERN CURLM *curl_multi_init(void);
  *
  * Returns: CURLMcode type, general multi error code.
  */
-CURL_EXTERN CURLMcode curl_multi_add_handle(CURLM *multi_handle,
+extern CURLMcode curl_multi_add_handle(CURLM *multi_handle,
                                             CURL *curl_handle);
 
  /*
@@ -147,7 +147,7 @@ CURL_EXTERN CURLMcode curl_multi_add_handle(CURLM *multi_handle,
   *
   * Returns: CURLMcode type, general multi error code.
   */
-CURL_EXTERN CURLMcode curl_multi_remove_handle(CURLM *multi_handle,
+extern CURLMcode curl_multi_remove_handle(CURLM *multi_handle,
                                                CURL *curl_handle);
 
  /*
@@ -159,7 +159,7 @@ CURL_EXTERN CURLMcode curl_multi_remove_handle(CURLM *multi_handle,
   *
   * Returns: CURLMcode type, general multi error code.
   */
-CURL_EXTERN CURLMcode curl_multi_fdset(CURLM *multi_handle,
+extern CURLMcode curl_multi_fdset(CURLM *multi_handle,
                                        fd_set *read_fd_set,
                                        fd_set *write_fd_set,
                                        fd_set *exc_fd_set,
@@ -173,7 +173,7 @@ CURL_EXTERN CURLMcode curl_multi_fdset(CURLM *multi_handle,
  *
  * Returns:  CURLMcode type, general multi error code.
  */
-CURL_EXTERN CURLMcode curl_multi_wait(CURLM *multi_handle,
+extern CURLMcode curl_multi_wait(CURLM *multi_handle,
                                       struct curl_waitfd extra_fds[],
                                       unsigned int extra_nfds,
                                       int timeout_ms,
@@ -187,7 +187,7 @@ CURL_EXTERN CURLMcode curl_multi_wait(CURLM *multi_handle,
  *
  * Returns:  CURLMcode type, general multi error code.
  */
-CURL_EXTERN CURLMcode curl_multi_poll(CURLM *multi_handle,
+extern CURLMcode curl_multi_poll(CURLM *multi_handle,
                                       struct curl_waitfd extra_fds[],
                                       unsigned int extra_nfds,
                                       int timeout_ms,
@@ -200,7 +200,7 @@ CURL_EXTERN CURLMcode curl_multi_poll(CURLM *multi_handle,
  *
  * Returns:  CURLMcode type, general multi error code.
  */
-CURL_EXTERN CURLMcode curl_multi_wakeup(CURLM *multi_handle);
+extern CURLMcode curl_multi_wakeup(CURLM *multi_handle);
 
  /*
   * Name:    curl_multi_perform()
@@ -218,7 +218,7 @@ CURL_EXTERN CURLMcode curl_multi_wakeup(CURLM *multi_handle);
   *          still have occurred problems on individual transfers even when
   *          this returns OK.
   */
-CURL_EXTERN CURLMcode curl_multi_perform(CURLM *multi_handle,
+extern CURLMcode curl_multi_perform(CURLM *multi_handle,
                                          int *running_handles);
 
  /*
@@ -231,7 +231,7 @@ CURL_EXTERN CURLMcode curl_multi_perform(CURLM *multi_handle,
   *
   * Returns: CURLMcode type, general multi error code.
   */
-CURL_EXTERN CURLMcode curl_multi_cleanup(CURLM *multi_handle);
+extern CURLMcode curl_multi_cleanup(CURLM *multi_handle);
 
 /*
  * Name:    curl_multi_info_read()
@@ -261,7 +261,7 @@ CURL_EXTERN CURLMcode curl_multi_cleanup(CURLM *multi_handle);
  *          queue (after this read) in the integer the second argument points
  *          to.
  */
-CURL_EXTERN CURLMsg *curl_multi_info_read(CURLM *multi_handle,
+extern CURLMsg *curl_multi_info_read(CURLM *multi_handle,
                                           int *msgs_in_queue);
 
 /*
@@ -273,7 +273,7 @@ CURL_EXTERN CURLMsg *curl_multi_info_read(CURLM *multi_handle,
  *
  * Returns: A pointer to a null-terminated error message.
  */
-CURL_EXTERN const char *curl_multi_strerror(CURLMcode);
+extern const char *curl_multi_strerror(CURLMcode);
 
 /*
  * Name:    curl_multi_socket() and
@@ -318,15 +318,15 @@ typedef int (*curl_multi_timer_callback)(CURLM *multi,    /* multi handle */
                                          void *userp);    /* private callback
                                                              pointer */
 
-CURL_EXTERN CURLMcode CURL_DEPRECATED(7.19.5, "Use curl_multi_socket_action()")
+extern CURLMcode // CURL_DEPRECATED(7.19.5, "Use curl_multi_socket_action()")
 curl_multi_socket(CURLM *multi_handle, curl_socket_t s, int *running_handles);
 
-CURL_EXTERN CURLMcode curl_multi_socket_action(CURLM *multi_handle,
+extern CURLMcode curl_multi_socket_action(CURLM *multi_handle,
                                                curl_socket_t s,
                                                int ev_bitmask,
                                                int *running_handles);
 
-CURL_EXTERN CURLMcode CURL_DEPRECATED(7.19.5, "Use curl_multi_socket_action()")
+extern CURLMcode //CURL_DEPRECATED(7.19.5, "Use curl_multi_socket_action()")
 curl_multi_socket_all(CURLM *multi_handle, int *running_handles);
 
 #ifndef CURL_ALLOW_OLD_MULTI_SOCKET
@@ -345,62 +345,30 @@ curl_multi_socket_all(CURLM *multi_handle, int *running_handles);
  *
  * Returns: CURLM error code.
  */
-CURL_EXTERN CURLMcode curl_multi_timeout(CURLM *multi_handle,
+extern CURLMcode curl_multi_timeout(CURLM *multi_handle,
                                          long *milliseconds);
 
 typedef enum {
-  /* This is the socket callback function pointer */
-  CURLOPT(CURLMOPT_SOCKETFUNCTION, CURLOPTTYPE_FUNCTIONPOINT, 1),
-
-  /* This is the argument passed to the socket callback */
-  CURLOPT(CURLMOPT_SOCKETDATA, CURLOPTTYPE_OBJECTPOINT, 2),
-
-    /* set to 1 to enable pipelining for this multi handle */
-  CURLOPT(CURLMOPT_PIPELINING, CURLOPTTYPE_LONG, 3),
-
-   /* This is the timer callback function pointer */
-  CURLOPT(CURLMOPT_TIMERFUNCTION, CURLOPTTYPE_FUNCTIONPOINT, 4),
-
-  /* This is the argument passed to the timer callback */
-  CURLOPT(CURLMOPT_TIMERDATA, CURLOPTTYPE_OBJECTPOINT, 5),
-
-  /* maximum number of entries in the connection cache */
-  CURLOPT(CURLMOPT_MAXCONNECTS, CURLOPTTYPE_LONG, 6),
-
-  /* maximum number of (pipelining) connections to one host */
-  CURLOPT(CURLMOPT_MAX_HOST_CONNECTIONS, CURLOPTTYPE_LONG, 7),
-
-  /* maximum number of requests in a pipeline */
-  CURLOPT(CURLMOPT_MAX_PIPELINE_LENGTH, CURLOPTTYPE_LONG, 8),
-
-  /* a connection with a content-length longer than this
-     will not be considered for pipelining */
-  CURLOPT(CURLMOPT_CONTENT_LENGTH_PENALTY_SIZE, CURLOPTTYPE_OFF_T, 9),
-
-  /* a connection with a chunk length longer than this
-     will not be considered for pipelining */
-  CURLOPT(CURLMOPT_CHUNK_LENGTH_PENALTY_SIZE, CURLOPTTYPE_OFF_T, 10),
-
-  /* a list of site names(+port) that are blocked from pipelining */
-  CURLOPT(CURLMOPT_PIPELINING_SITE_BL, CURLOPTTYPE_OBJECTPOINT, 11),
-
-  /* a list of server types that are blocked from pipelining */
-  CURLOPT(CURLMOPT_PIPELINING_SERVER_BL, CURLOPTTYPE_OBJECTPOINT, 12),
-
-  /* maximum number of open connections in total */
-  CURLOPT(CURLMOPT_MAX_TOTAL_CONNECTIONS, CURLOPTTYPE_LONG, 13),
-
-   /* This is the server push callback function pointer */
-  CURLOPT(CURLMOPT_PUSHFUNCTION, CURLOPTTYPE_FUNCTIONPOINT, 14),
-
-  /* This is the argument passed to the server push callback */
-  CURLOPT(CURLMOPT_PUSHDATA, CURLOPTTYPE_OBJECTPOINT, 15),
-
-  /* maximum number of concurrent streams to support on a connection */
-  CURLOPT(CURLMOPT_MAX_CONCURRENT_STREAMS, CURLOPTTYPE_LONG, 16),
-
-  CURLMOPT_LASTENTRY /* the last unused */
+  CURLMOPT_SOCKETFUNCTION = CURLOPTTYPE_FUNCTIONPOINT + 1,
+  CURLMOPT_SOCKETDATA = CURLOPTTYPE_OBJECTPOINT + 2,
+  CURLMOPT_PIPELINING = CURLOPTTYPE_LONG + 3,
+  CURLMOPT_TIMERFUNCTION = CURLOPTTYPE_FUNCTIONPOINT + 4,
+  CURLMOPT_TIMERDATA = CURLOPTTYPE_OBJECTPOINT + 5,
+  CURLMOPT_MAXCONNECTS = CURLOPTTYPE_LONG + 6,
+  CURLMOPT_MAX_HOST_CONNECTIONS = CURLOPTTYPE_LONG + 7,
+  CURLMOPT_MAX_PIPELINE_LENGTH = CURLOPTTYPE_LONG + 8,
+  CURLMOPT_CONTENT_LENGTH_PENALTY_SIZE = CURLOPTTYPE_OFF_T + 9,
+  CURLMOPT_CHUNK_LENGTH_PENALTY_SIZE = CURLOPTTYPE_OFF_T + 10,
+  CURLMOPT_PIPELINING_SITE_BL = CURLOPTTYPE_OBJECTPOINT + 11,
+  CURLMOPT_PIPELINING_SERVER_BL = CURLOPTTYPE_OBJECTPOINT + 12,
+  CURLMOPT_MAX_TOTAL_CONNECTIONS = CURLOPTTYPE_LONG + 13,
+  CURLMOPT_PUSHFUNCTION = CURLOPTTYPE_FUNCTIONPOINT + 14,
+  CURLMOPT_PUSHDATA = CURLOPTTYPE_OBJECTPOINT + 15,
+  CURLMOPT_MAX_CONCURRENT_STREAMS = CURLOPTTYPE_LONG + 16,
+  CURLMOPT_LASTENTRY
 } CURLMoption;
+
+
 
 
 /*
@@ -410,7 +378,7 @@ typedef enum {
  *
  * Returns: CURLM error code.
  */
-CURL_EXTERN CURLMcode curl_multi_setopt(CURLM *multi_handle,
+extern CURLMcode curl_multi_setopt(CURLM *multi_handle,
                                         CURLMoption option, ...);
 
 
@@ -423,7 +391,7 @@ CURL_EXTERN CURLMcode curl_multi_setopt(CURLM *multi_handle,
  *
  * Returns: CURLM error code.
  */
-CURL_EXTERN CURLMcode curl_multi_assign(CURLM *multi_handle,
+extern CURLMcode curl_multi_assign(CURLM *multi_handle,
                                         curl_socket_t sockfd, void *sockp);
 
 /*
@@ -436,7 +404,7 @@ CURL_EXTERN CURLMcode curl_multi_assign(CURLM *multi_handle,
  *
  * Returns: NULL on failure, otherwise a CURL **array pointer
  */
-CURL_EXTERN CURL **curl_multi_get_handles(CURLM *multi_handle);
+extern CURL **curl_multi_get_handles(CURLM *multi_handle);
 
 /*
  * Name: curl_push_callback
@@ -453,9 +421,9 @@ CURL_EXTERN CURL **curl_multi_get_handles(CURLM *multi_handle);
 
 struct curl_pushheaders;  /* forward declaration only */
 
-CURL_EXTERN char *curl_pushheader_bynum(struct curl_pushheaders *h,
+extern char *curl_pushheader_bynum(struct curl_pushheaders *h,
                                         size_t num);
-CURL_EXTERN char *curl_pushheader_byname(struct curl_pushheaders *h,
+extern char *curl_pushheader_byname(struct curl_pushheaders *h,
                                          const char *name);
 
 typedef int (*curl_push_callback)(CURL *parent,

@@ -16,6 +16,7 @@
 
 #include <fcntl.h>
 #include <curl/curl.h>
+#include <curl/urlapi.h>
 
 
 
@@ -122,5 +123,5 @@ int kbhit(void) {
 
 
 
-
+Curl_URL
 

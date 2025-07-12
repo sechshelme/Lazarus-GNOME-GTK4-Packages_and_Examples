@@ -18,8 +18,10 @@ const
 
 type
   Tsize_t = SizeUInt;
+  Psize_t = ^Tsize_t;
+
   Ttime_t = uint64;
-  Ptime_t=^Ttime_t;
+  Ptime_t = ^Ttime_t;
 
 type                // curl/system.h
   Tcurl_off_t = longint;
