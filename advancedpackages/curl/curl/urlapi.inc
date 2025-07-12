@@ -1,13 +1,4 @@
-unit urlapi;
-
-interface
-
-uses
-  fp_curl;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -98,8 +89,11 @@ function curl_url_strerror(para1: TCURLUcode): pchar; cdecl; external libcurl;
 // === Konventiert am: 12-7-25 13:50:22 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

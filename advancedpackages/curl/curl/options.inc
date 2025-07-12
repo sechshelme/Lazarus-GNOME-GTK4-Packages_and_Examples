@@ -1,13 +1,4 @@
-unit options;
-
-interface
-
-uses
-  fp_curl, curl;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -41,8 +32,11 @@ function curl_easy_option_next(prev: Pcurl_easyoption): Pcurl_easyoption; cdecl;
 // === Konventiert am: 12-7-25 13:50:12 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

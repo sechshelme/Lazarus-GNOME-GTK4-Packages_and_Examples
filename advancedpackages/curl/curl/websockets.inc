@@ -1,13 +1,4 @@
-unit websockets;
-
-interface
-
-uses
-  fp_curl, curl, system_;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -45,8 +36,11 @@ function curl_ws_meta(curl: PCURL): Pcurl_ws_frame; cdecl; external libcurl;
 // === Konventiert am: 12-7-25 13:50:25 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

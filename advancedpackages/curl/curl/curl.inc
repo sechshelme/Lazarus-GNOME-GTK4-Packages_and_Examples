@@ -1,19 +1,10 @@
-unit curl;
-
-interface
-
-uses
-  fp_socket,
-  fp_curl;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
-  PCURL = ^TCURL;
   TCURL = pointer;
+  PCURL = ^TCURL;
+  PPCURL = ^PCURL;
 
   PCURLSH = ^TCURLSH;
   TCURLSH = pointer;
@@ -219,11 +210,11 @@ type
   Tcurl_sockopt_callback = function(clientp: pointer; curlfd: Tcurl_socket_t; purpose: Tcurlsocktype): longint; cdecl;
 
   Tcurl_sockaddr = record
-    family: longint;
-    socktype: longint;
-    protocol: longint;
-    addrlen: dword;
-    addr: Tsockaddr;
+    //family: longint;
+    //socktype: longint;
+    //protocol: longint;
+    //addrlen: dword;
+    //addr: Tsockaddr;
   end;
   Pcurl_sockaddr = ^Tcurl_sockaddr;
 
@@ -1530,8 +1521,11 @@ const
   // === Konventiert am: 10-7-25 19:56:39 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}
