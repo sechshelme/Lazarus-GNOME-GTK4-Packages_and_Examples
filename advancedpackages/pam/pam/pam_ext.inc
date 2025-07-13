@@ -1,13 +1,4 @@
-unit pam_ext;
-
-interface
-
-uses
-  fp_pam, _pam_types;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 
@@ -24,8 +15,11 @@ function pam_get_authtok_verify(pamh: Ppam_handle_t; authtok: PPchar; prompt: pc
 // === Konventiert am: 13-7-25 15:31:42 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

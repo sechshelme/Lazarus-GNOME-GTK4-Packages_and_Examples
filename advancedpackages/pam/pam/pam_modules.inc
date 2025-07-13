@@ -1,13 +1,4 @@
-unit pam_modules;
-
-interface
-
-uses
-  fp_pam, _pam_types;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -31,8 +22,11 @@ const
   // === Konventiert am: 13-7-25 15:32:02 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

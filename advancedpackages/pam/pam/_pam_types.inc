@@ -1,13 +1,4 @@
-unit _pam_types;
-
-interface
-
-uses
-  fp_pam;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -129,7 +120,10 @@ type
   // === Konventiert am: 13-7-25 15:32:09 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 function PAM_GNUC_PREREQ(maj, min: longint): longint;
@@ -138,4 +132,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

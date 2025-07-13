@@ -1,13 +1,4 @@
-unit pam_misc;
-
-interface
-
-uses
-  fp_pam, _pam_types, pam_client;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 function misc_conv(num_msg: longint; msgm: PPpam_message; response: PPpam_response; appdata_ptr: pointer): longint; cdecl; external libpam_misc;
@@ -28,8 +19,11 @@ function pam_misc_setenv(pamh: Ppam_handle_t; name: pchar; value: pchar; readonl
 // === Konventiert am: 13-7-25 15:31:50 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

@@ -1,15 +1,4 @@
-unit fp_pam;
-
-interface
-
-const
-  libpam = 'libpam';
-  libpam_misc = 'libpam_misc';
-  libpamc = 'libpamc';
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 type
   Ttime_t = uint64;
@@ -30,6 +19,9 @@ type  // /usr/include/shadow.h
   Pspwd = Pointer;
 
 
-implementation
+{$ENDIF read_interface}
 
-end.
+
+{$IFDEF read_implementation}
+
+{$ENDIF read_implementation}

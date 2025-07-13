@@ -1,15 +1,7 @@
 program project1;
 
 uses
-  _pam_types,
-  pam_appl,
-  pam_client,
-  pam_ext,
-  pam_filter,
-  pam_misc,
-  pam_modules,
-  pam_modutil,
-  _pam_compat,
+//  fp_stdlunistd,
   fp_pam;
 
   function malloc(size: SizeInt): Pointer; cdecl; external 'c';
@@ -24,7 +16,6 @@ uses
     response: Ppam_response;
   begin
     response := malloc(num_msg * SizeOf(Tpam_response));
-    WriteLn('num_msg: ', num_msg);
     for i := 0 to num_msg - 1 do begin
       case msg[i]^.msg_style of
         PAM_PROMPT_ECHO_OFF: begin
