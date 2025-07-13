@@ -1,6 +1,9 @@
-/* LibTomMath, multiple-precision integer library -- Tom St Denis */
-/* SPDX-License-Identifier: Unlicense */
+Copyright (c) 2025 sechsehelme
+Pascal binding for LibTomMath
+Released under the MIT License
 
-// Pascal-Bindung für LibTomMath
-// Basierend auf LibTomMath (Public Domain, https://github.com/libtom/libtommath)
-
+This project provides Pascal bindings for LibTomMath.
+LibTomMath itself is released into the public domain under the LibTom license.
+Anyone is free to copy, modify, publish, use, compile, sell, or distribute LibTomMath for any purpose.
+See the original LibTomMath project for details: https://github.com/libtom/libtommath
+For more information, please refer to http://unlicense.org/.

@@ -1,15 +1,8 @@
- * Copyright © 2008 Christian Persch
- *
- * This library is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published
- * by the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public License
- * along with this library.  If not, see <https://www.gnu.org/licenses/>.
+Copyright (c) 2025 sechsehelme
+Pascal binding for VTE 2.91 (GTK4)
+Released under the MIT License
 
+This project provides Pascal bindings for VTE 2.91 (GTK4).
+VTE itself is licensed under the GNU Lesser General Public License (LGPL) version 3.0 or later.
+See the original VTE project for details: https://gitlab.gnome.org/GNOME/vte/
+For licensing details, refer to the COPYING file in the VTE source.

@@ -1,6 +1,8 @@
-The PCI Library
+Copyright (c) 2025 sechsehelme
+Pascal binding for libpci
+Released under the MIT License
 
-Copyright (c) 1997--2023 Martin Mares <mj@ucw.cz>
-
-Can be freely distributed and used under the terms of the GNU GPL.
-
+This project provides Pascal bindings for libpci (from pciutils).
+libpci itself is licensed under the GNU General Public License (GPL) version 2 or later.
+See the original pciutils/libpci project for details: https://mj.ucw.cz/sw/pciutils/
+SPDX-License-Identifier: GPL-2.0-or-later

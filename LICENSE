@@ -1,2 +1,44 @@
-Verwendung auf eigene Gefahr.
-Jede Haftung wird abglehnt.
+# License
+
+Copyright (c) 2025 sechsehelme  
+Released under the MIT License
+
+This project provides Pascal bindings for various open-source libraries.  
+Your use, distribution, and modification of this project are subject to the following terms:
+
+## Main Project License
+
+This Pascal binding project is licensed under the [MIT License](https://opensource.org/licenses/MIT).  
+See the `LICENSE` file for the full license text.
+
+## Third-party Libraries
+
+This project depends on and interfaces with multiple third-party libraries.  
+**Each third-party library is licensed under its own terms.**  
+Common licenses include, but are not limited to:
+
+- GNU Lesser General Public License (LGPL) v2.1 or later (e.g., GTK4, GStreamer, Pango, glib2, gdk-pixbuf2, VTE, gtksourceview, libadwaita)
+- MIT License (e.g., HarfBuzz, graphene, libxml2)
+- FreeType License (FTL) or GNU General Public License (GPL) (e.g., FreeType 2)
+- Mozilla Public License (MPL) (e.g., cairo)
+- Other open-source licenses as specified in the respective library documentation
+
+Please refer to the documentation and license files of each library for specific details.
+
+## Attribution and Compliance
+
+- You **must comply with the license terms** of each third-party library you use, distribute, or link against.
+- This may include:
+  - Including the appropriate license and copyright notices
+  - Providing access to the full license texts (see the COPYING or LICENSE files in each library’s source)
+  - Including attribution notices in your documentation or distribution
+
+## Disclaimer
+
+This notice is intended to provide a general overview.  
+For complete and up-to-date licensing information, always consult the official documentation and license files of each library included or used in this project.
+
+---
+
+*If you have any questions regarding licensing, please consult the license texts or seek legal advice.*
+

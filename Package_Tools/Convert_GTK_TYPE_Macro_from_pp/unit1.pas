@@ -191,6 +191,10 @@ const
     (libs: 'libgnutls'; units: 'ctypes'),
     (libs: 'libcurl'; units: 'ctypes'),
 
+    (libs: 'libpam'; units: 'ctypes'),
+    (libs: 'libpamc'; units: 'ctypes'),
+    (libs: 'libpam_misc'; units: 'ctypes'),
+
 
     (libs: ''; units: ''));
 
