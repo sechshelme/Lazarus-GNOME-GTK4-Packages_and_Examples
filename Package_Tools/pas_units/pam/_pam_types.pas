@@ -72,7 +72,6 @@ const
   PAM_AUTHTOK_TYPE = 13;
 
 function PAM_GNUC_PREREQ(maj, min: longint): longint;
-//function PAM_GNUC_PREREQ(maj,min : longint) : longint;
 
 function pam_set_item(pamh: Ppam_handle_t; item_type: longint; item: pointer): longint; cdecl; external libpam;
 function pam_get_item(pamh: Ppam_handle_t; item_type: longint; item: Ppointer): longint; cdecl; external libpam;
