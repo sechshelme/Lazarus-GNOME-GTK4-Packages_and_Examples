@@ -1,13 +1,10 @@
 program project1;
 
 uses
-//  fp_stdlunistd,
+  fp_stdlib,
+  fp_string,
+  fp_strings,
   fp_pam;
-
-  function malloc(size: SizeInt): Pointer; cdecl; external 'c';
-  function free(ptr: Pointer): integer; cdecl; external 'c';
-  function strdup(s: pchar): pchar; cdecl; external 'c';
-
 
   function pam_conv_func(num_msg: longint; msg: PPpam_message; resp: PPpam_response; appdata_ptr: pointer): longint; cdecl;
   var

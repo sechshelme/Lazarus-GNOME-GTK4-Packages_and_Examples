@@ -43,6 +43,18 @@
         <Filename Value="linux/fp_fcntl.pas"/>
         <UnitName Value="fp_fcntl"/>
       </Item>
+      <Item>
+        <Filename Value="linux/fp_stdlib.pas"/>
+        <UnitName Value="fp_stdlib"/>
+      </Item>
+      <Item>
+        <Filename Value="linux/fp_string.pas"/>
+        <UnitName Value="fp_string"/>
+      </Item>
+      <Item>
+        <Filename Value="linux/fp_strings.pas"/>
+        <UnitName Value="fp_strings"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
