@@ -55,6 +55,14 @@
         <Filename Value="linux/fp_strings.pas"/>
         <UnitName Value="fp_strings"/>
       </Item>
+      <Item>
+        <Filename Value="linux/fp_pwd.pas"/>
+        <UnitName Value="fp_pwd"/>
+      </Item>
+      <Item>
+        <Filename Value="linux/fp_grp.pas"/>
+        <UnitName Value="fp_grp"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

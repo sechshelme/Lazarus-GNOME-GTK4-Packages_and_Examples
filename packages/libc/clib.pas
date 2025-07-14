@@ -31,6 +31,10 @@ type
   Tssize_t = SizeInt;
   Pssize_t = ^Tssize_t;
 
+  Tva_list=Pointer;
+
+  Ttime_t=Int64; // ????????????
+
   Tsocklen_t = SizeInt;
 
   Tgnuc_va_list = Pointer;

@@ -3,7 +3,6 @@ program project1;
 uses
   fp_stdlib,
   fp_string,
-  fp_strings,
   fp_pam;
 
   function pam_conv_func(num_msg: longint; msg: PPpam_message; resp: PPpam_response; appdata_ptr: pointer): longint; cdecl;
@@ -38,32 +37,37 @@ uses
     Result := PAM_SUCCESS;
   end;
 
-  procedure main;
+  function CheckLogin: boolean;
   var
     conv: Tpam_conv = (conv: @pam_conv_func; appdata_ptr: nil);
     retval: longint;
     pamh: Ppam_handle_t = nil;
   begin
-    retval := pam_start('login', nil, @conv, @pamh);
+    retval := pam_start('su', nil, @conv, @pamh);
     if retval <> PAM_SUCCESS then begin
       WriteLn('pam start failed !');
-      Exit;
+      Exit(False);
     end;
 
     retval := pam_authenticate(pamh, 0);
     if retval <> PAM_SUCCESS then begin
       WriteLn('pam authenticate failed !');
       pam_end(pamh, retval);
-      Exit;
+      Exit(False);
     end;
 
-    WriteLn('Login [ok]');
-    WriteLn('Es darf etwas für diesen Benutzer ausgführt werden');
-
     pam_end(pamh, PAM_SUCCESS);
+    Exit(True);
   end;
 
-
+  procedure main;
+  begin
+    if CheckLogin then begin
+      WriteLn('Login io. Funktion darf ausgeführt werden');
+    end else begin
+      WriteLn('Login falsch');
+    end;
+  end;
 
 begin
   main;

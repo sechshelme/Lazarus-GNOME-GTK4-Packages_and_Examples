@@ -2,22 +2,26 @@ unit fp_pam;
 
 interface
 
+uses
+  clib,
+  fp_pwd;
+
 const
   libpam = 'libpam';
   libpam_misc = 'libpam_misc';
   libpamc = 'libpamc';
 
-type
-  Ttime_t = uint64;
-  Tva_list = Pointer;
+//type
+//  Ttime_t = uint64;
+//  Tva_list = Pointer;
 
-type  // /usr/include/unistd.h
-  Tuid_t = uint32;
-  Tgid_t = uint32;
-  Pgid_t = ^Tgid_t;
+//type  // /usr/include/unistd.h
+//  Tuid_t = uint32;
+//  Tgid_t = uint32;
+//  Pgid_t = ^Tgid_t;
 
-type  // /usr/include/pwd.h
-  Ppasswd = Pointer;
+//type  // /usr/include/pwd.h
+//  Ppasswd = Pointer;
 
 type  // /usr/include/grp.h
   Pgroup = Pointer;
