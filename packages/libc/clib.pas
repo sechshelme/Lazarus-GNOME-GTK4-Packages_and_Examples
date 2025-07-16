@@ -31,13 +31,11 @@ type
   Tssize_t = SizeInt;
   Pssize_t = ^Tssize_t;
 
-  Tva_list=Pointer;
+  Tgnuc_va_list=Pointer;// ????????????
 
   Ttime_t=Int64; // ????????????
 
   Tsocklen_t = SizeInt;
-
-  Tgnuc_va_list = Pointer;
 
   Pnetent = Pointer;   // netdb.h
   PPnetent = ^Pnetent;   // netdb.h
@@ -46,6 +44,8 @@ type
   Psockaddr = Pointer;    // sys/socket.h
 
   Psigevent=Pointer; //  <signal.h>
+
+  Psigstack=Pointer;  // /usr/include/x86_64-linux-gnu/bits/types/stack_t.h
 
 type
   Toff_t = SizeInt;

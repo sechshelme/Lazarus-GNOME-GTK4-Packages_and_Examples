@@ -14,7 +14,7 @@ type  // unistd.h
 
 
 
-// ---------- /usr/include/x86_64-linux-gnu/bits/termios.h
+  // ---------- /usr/include/x86_64-linux-gnu/bits/termios.h
 
 type
   Pcc_t = ^Tcc_t;
@@ -239,6 +239,50 @@ type
     c_ospeed: Tspeed_t;
   end;
   Ptermios = ^Ttermios;
+
+  // /usr/include/asm-generic/termios.h
+
+type
+  Twinsize = record
+    ws_row: word;
+    ws_col: word;
+    ws_xpixel: word;
+    ws_ypixel: word;
+  end;
+  Pwinsize = ^Twinsize;
+
+const
+  NCC = 8;
+
+type
+  Ttermio = record
+    c_iflag: word;
+    c_oflag: word;
+    c_cflag: word;
+    c_lflag: word;
+    c_line: byte;
+    c_cc: array[0..(NCC) - 1] of byte;
+  end;
+  Ptermio = ^Ttermio;
+
+  { modem lines  }
+
+const
+  TIOCM_LE = $001;
+  TIOCM_DTR = $002;
+  TIOCM_RTS = $004;
+  TIOCM_ST = $008;
+  TIOCM_SR = $010;
+  TIOCM_CTS = $020;
+  TIOCM_CAR = $040;
+  TIOCM_RNG = $080;
+  TIOCM_DSR = $100;
+  TIOCM_CD = TIOCM_CAR;
+  TIOCM_RI = TIOCM_RNG;
+  TIOCM_OUT1 = $2000;
+  TIOCM_OUT2 = $4000;
+  TIOCM_LOOP = $8000;
+
 
 
   //

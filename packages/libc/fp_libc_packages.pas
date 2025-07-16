@@ -8,8 +8,8 @@ unit fp_libc_packages;
 interface
 
 uses
-  clib, fp_signal, fp_stdio, fp_termios, fp_netdb, fp_unistd, fp_socket, 
-  fp_fcntl, fp_stdlib, fp_string, fp_strings, fp_pwd, fp_grp, 
+  clib, fp_termios, fp_netdb, fp_unistd, fp_socket, fp_fcntl, fp_stdlib, 
+  fp_string, fp_strings, fp_pwd, fp_grp, fp_ioctl, fp_signal, fp_stdio, 
   LazarusPackageIntf;
 
 implementation

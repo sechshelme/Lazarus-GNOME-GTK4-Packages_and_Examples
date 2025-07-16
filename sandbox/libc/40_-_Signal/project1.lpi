@@ -27,9 +27,6 @@
       <Item>
         <PackageName Value="fp_libc_packages"/>
       </Item>
-      <Item>
-        <PackageName Value="fp_pam_package"/>
-      </Item>
     </RequiredPackages>
     <Units>
       <Unit>
@@ -49,6 +46,8 @@
     </SearchPaths>
     <Linking>
       <Debugging>
+        <GenerateDebugInfo Value="False"/>
+        <RunWithoutDebug Value="True"/>
         <DebugInfoType Value="dsDwarf3"/>
       </Debugging>
     </Linking>

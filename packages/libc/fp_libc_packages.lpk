@@ -16,14 +16,6 @@
         <UnitName Value="clib"/>
       </Item>
       <Item>
-        <Filename Value="fp_signal.pas"/>
-        <UnitName Value="fp_signal"/>
-      </Item>
-      <Item>
-        <Filename Value="fp_stdio.pas"/>
-        <UnitName Value="fp_stdio"/>
-      </Item>
-      <Item>
         <Filename Value="linux/fp_termios.pas"/>
         <UnitName Value="fp_termios"/>
       </Item>
@@ -62,6 +54,18 @@
       <Item>
         <Filename Value="linux/fp_grp.pas"/>
         <UnitName Value="fp_grp"/>
+      </Item>
+      <Item>
+        <Filename Value="linux/fp_ioctl.pas"/>
+        <UnitName Value="fp_ioctl"/>
+      </Item>
+      <Item>
+        <Filename Value="linux/fp_signal.pas"/>
+        <UnitName Value="fp_signal"/>
+      </Item>
+      <Item>
+        <Filename Value="linux/fp_stdio.pas"/>
+        <UnitName Value="fp_stdio"/>
       </Item>
     </Files>
     <RequiredPkgs>

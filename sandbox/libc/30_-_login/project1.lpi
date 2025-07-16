@@ -23,13 +23,14 @@
     <RunParams>
       <FormatVersion Value="2"/>
     </RunParams>
+    <RequiredPackages>
+      <Item>
+        <PackageName Value="fp_libc_packages"/>
+      </Item>
+    </RequiredPackages>
     <Units>
       <Unit>
         <Filename Value="project1.lpr"/>
-        <IsPartOfProject Value="True"/>
-      </Unit>
-      <Unit>
-        <Filename Value="../../../Package_Tools/pas_units/clib/clib.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
     </Units>
@@ -41,13 +42,10 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="../../../Package_Tools/pas_units/clib"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>
       <Debugging>
-        <GenerateDebugInfo Value="False"/>
-        <RunWithoutDebug Value="True"/>
         <DebugInfoType Value="dsDwarf3"/>
       </Debugging>
     </Linking>

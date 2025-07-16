@@ -1,6 +1,7 @@
 program project1;
 
 uses
+  fp_stdio,
   fp_stdlib,
   fp_string,
   fp_pam;
@@ -46,12 +47,45 @@ uses
     if envlist <> nil then begin
       ev := envlist;
       while ev^ <> nil do begin
-        WriteLn('  ',ev^);
+        WriteLn('  ', ev^);
         free(ev^);
         Inc(ev);
       end;
       free(envlist);
     end;
+  end;
+
+  procedure PrintItems(pamh: Ppam_handle_t);
+  var
+    item: Pointer;
+  begin
+    printf('Items: ');
+    pam_get_item(pamh, PAM_SERVICE, @item);
+    printf('  PAM_SERVICE: %s'#10, item);
+
+    pam_get_item(pamh, PAM_USER, @item);
+    printf('  PAM_USER: %s'#10, item);
+
+    pam_get_item(pamh, PAM_TTY, @item);
+    printf('  PAM_TTY: %s'#10, item);
+
+    pam_get_item(pamh, PAM_RHOST, @item);
+    printf('  PAM_RHOST: %s'#10, item);
+
+    pam_get_item(pamh, PAM_AUTHTOK, @item);
+    printf('  PAM_AUTHTOK: %s'#10, item);
+
+    pam_get_item(pamh, PAM_RUSER, @item);
+    printf('  PAM_RUSER: %s'#10, item);
+
+    pam_get_item(pamh, PAM_USER_PROMPT, @item);
+    printf('  PAM_USER_PROMPT: %s'#10, item);
+
+    pam_get_item(pamh, PAM_FAIL_DELAY_, @item);
+    printf('  PAM_FAIL_DELAY_: %d'#10, item);
+
+    pam_get_item(pamh, PAM_XDISPLAY, @item);
+    printf('  PAM_XDISPLAY: %s'#10, item);
   end;
 
   function CheckLogin: boolean;
@@ -60,7 +94,7 @@ uses
     retval: longint;
     pamh: Ppam_handle_t = nil;
   begin
-    retval := pam_start('su', nil, @conv, @pamh);
+    retval := pam_start('login', nil, @conv, @pamh);
     if retval <> PAM_SUCCESS then begin
       WriteLn('pam_start() failed !');
       Exit(False);
@@ -87,6 +121,7 @@ uses
       Exit(False);
     end;
 
+    PrintItems(pamh);
     PrintEnv(pamh);
 
     retval := pam_close_session(pamh, 0);
