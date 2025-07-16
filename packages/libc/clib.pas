@@ -67,14 +67,15 @@ type
   PFILE = Pointer;
 
 type  // unistd.h
-  Ppid_t = ^Tpid_t;
   Tpid_t = uint32;
+  Ppid_t = ^Tpid_t;
 
-  Puid_t = ^Tuid_t;
   Tuid_t = uint32;
+  Puid_t = ^Tuid_t;
+  PPuid_t = ^Puid_t;
 
-  Pgid_t = ^Tgid_t;
   Tgid_t = uint32;
+  Pgid_t = ^Tgid_t;
 
 type // /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h
   PIovec = ^TIovec;

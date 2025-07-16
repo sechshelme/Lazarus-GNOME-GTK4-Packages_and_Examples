@@ -132,7 +132,6 @@ const
     (libs: 'libttommath'; units: 'ctypes'),
     (libs: 'libgmp'; units: 'ctypes'),
 
-    (libs: 'libc'; units: 'ctypes'),
 
     (libs: 'libnewt'; units: 'ctypes'),
     (libs: 'libtickit'; units: 'ctypes'),
@@ -195,6 +194,9 @@ const
     (libs: 'libpamc'; units: 'ctypes'),
     (libs: 'libpam_misc'; units: 'ctypes'),
 
+    (libs: 'libc'; units: 'ctypes'),
+
+    (libs: 'libsystemd'; units: 'ctypes'),
 
     (libs: ''; units: ''));
 
