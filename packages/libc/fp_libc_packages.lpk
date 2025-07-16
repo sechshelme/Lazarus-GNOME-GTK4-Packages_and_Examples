@@ -67,6 +67,10 @@
         <Filename Value="linux/fp_stdio.pas"/>
         <UnitName Value="fp_stdio"/>
       </Item>
+      <Item>
+        <Filename Value="linux/fp_shadow.pas"/>
+        <UnitName Value="fp_shadow"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

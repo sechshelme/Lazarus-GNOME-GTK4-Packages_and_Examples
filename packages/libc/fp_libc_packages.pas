@@ -10,7 +10,7 @@ interface
 uses
   clib, fp_termios, fp_netdb, fp_unistd, fp_socket, fp_fcntl, fp_stdlib, 
   fp_string, fp_strings, fp_pwd, fp_grp, fp_ioctl, fp_signal, fp_stdio, 
-  LazarusPackageIntf;
+  fp_shadow, LazarusPackageIntf;
 
 implementation
 

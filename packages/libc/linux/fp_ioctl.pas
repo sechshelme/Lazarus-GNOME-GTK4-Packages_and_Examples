@@ -59,28 +59,50 @@ const
   TIOCSBRK = $5427;
   TIOCCBRK = $5428;
   TIOCGSID = $5429;
+
   {#define TCGETS2    _IOR('T', 0x2A, struct termios2) }
+  TCGETS2      = $802C542A;
   {#define TCSETS2    _IOW('T', 0x2B, struct termios2) }
+  TCSETS2      = $402C542B;
   {#define TCSETSW2  _IOW('T', 0x2C, struct termios2) }
+  TCSETSW2     = $402C542C;
   {#define TCSETSF2  _IOW('T', 0x2D, struct termios2) }
+  TCSETSF2     = $402C542D;
+
   TIOCGRS485 = $542E;
   TIOCSRS485 = $542F;
+
   {#define TIOCGPTN  _IOR('T', 0x30, unsigned int) /* Get Pty Number (of pty-mux device) */ }
+  TIOCGPTN     = $80045430;
   {#define TIOCSPTLCK  _IOW('T', 0x31, int)  /* Lock/unlock Pty */ }
+  TIOCSPTLCK   = $40045431;
   {#define TIOCGDEV  _IOR('T', 0x32, unsigned int) /* Get primary device node of /dev/console */ }
+  TIOCGDEV     = $80045432;
 
   TCGETX = $5432;
   TCSETX = $5433;
   TCSETXF = $5434;
   TCSETXW = $5435;
+
   {#define TIOCSIG    _IOW('T', 0x36, int)  /* pty: generate signal */ }
+  TIOCSIG      = $40045436;
+
   TIOCVHANGUP = $5437;
+
   {#define TIOCGPKT  _IOR('T', 0x38, int) /* Get packet mode state */ }
+  TIOCGPKT     = $80045438;
   {#define TIOCGPTLCK  _IOR('T', 0x39, int) /* Get Pty lock state */ }
+  TIOCGPTLCK   = $80045439;
   {#define TIOCGEXCL  _IOR('T', 0x40, int) /* Get exclusive mode state */ }
+  TIOCGEXCL    = $80045440;
   {#define TIOCGPTPEER  _IO('T', 0x41) /* Safely open the slave */ }
+  TIOCGPTPEER  = $00005441;
+
   {#define TIOCGISO7816  _IOR('T', 0x42, struct serial_iso7816) }
+  TIOCGISO7816 = $80045442;
   {#define TIOCSISO7816  _IOWR('T', 0x43, struct serial_iso7816) }
+  TIOCSISO7816 = $C0045443;
+
   FIONCLEX = $5450;
   FIOCLEX = $5451;
   FIOASYNC = $5452;

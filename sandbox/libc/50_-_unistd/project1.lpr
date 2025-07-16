@@ -5,8 +5,6 @@ uses
   fp_unistd,
   fp_termios;
 
-// write / read / pwrite / pread
-
 const
   MAX_PASSWD_LEN = 100;
 
@@ -45,7 +43,6 @@ const
     get_password(password, SizeOf(password));
 
     WriteLn(password);
-
   end;
 
 begin

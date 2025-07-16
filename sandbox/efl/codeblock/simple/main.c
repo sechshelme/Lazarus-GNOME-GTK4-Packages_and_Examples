@@ -14,6 +14,7 @@
 #include <libssh/sftp.h>
 #include <gnutls/x509.h>
 
+#include <sys/ioctl.h>
 #include <fcntl.h>
 #include <curl/curl.h>
 #include <curl/urlapi.h>
@@ -122,7 +123,7 @@ int kbhit(void) {
     }
     return 0;
 }
-
+TCGETS
 
 
 Curl_URL
