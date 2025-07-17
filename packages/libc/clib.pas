@@ -76,6 +76,7 @@ type  // unistd.h
 
   Tgid_t = uint32;
   Pgid_t = ^Tgid_t;
+  PPgid_t = ^Pgid_t;
 
 type // /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h
   PIovec = ^TIovec;
