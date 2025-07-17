@@ -1,13 +1,4 @@
-unit sd_login;
-
-interface
-
-uses
-  clib, fp_systemd;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 function sd_pid_get_session(pid: Tpid_t; session: PPchar): longint; cdecl; external libsystemd;
@@ -83,8 +74,11 @@ function sd_login_monitor_get_timeout(m: Psd_login_monitor; timeout_usec: Puint6
 // === Konventiert am: 16-7-25 19:04:12 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

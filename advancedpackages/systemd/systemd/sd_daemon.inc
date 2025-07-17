@@ -1,13 +1,4 @@
-unit sd_daemon;
-
-interface
-
-uses
-  clib, fp_systemd;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -46,8 +37,11 @@ function sd_watchdog_enabled(unset_environment: longint; usec: Puint64): longint
 // === Konventiert am: 16-7-25 19:03:53 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

@@ -1,13 +1,4 @@
-unit sd_journal;
-
-interface
-
-uses
-  clib, fp_stdio, fp_systemd, sd_id128;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 
@@ -99,8 +90,11 @@ function sd_journal_has_persistent_files(j: Psd_journal): longint; cdecl; extern
 // === Konventiert am: 16-7-25 19:04:10 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

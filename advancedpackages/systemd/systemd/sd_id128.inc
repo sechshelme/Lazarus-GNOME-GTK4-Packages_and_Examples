@@ -1,26 +1,17 @@
-unit sd_id128;
-
-interface
-
-uses
-  fp_systemd;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
-  Psd_id128 = ^Tsd_id128;
+  Psd_id128_t = ^Tsd_id128_t;
   //Tsd_id128 = record
   //  case longint of
   //    0: (bytes: array[0..15] of Char);
   //    1: (qwords: array[0..1] of uint64);
   //end;
-  Tsd_id128 = array[0..15] of byte;
+  Tsd_id128_t = array[0..15] of byte;
 
-  Psd_id128_t = ^Tsd_id128_t;
-  Tsd_id128_t = Tsd_id128;
+//  Psd_id128_t = ^Tsd_id128_t;
+//  Tsd_id128_t = Tsd_id128;
 
 
 const
@@ -41,8 +32,11 @@ function sd_id128_get_boot_app_specific(app_id: Tsd_id128_t; ret: Psd_id128_t): 
 // === Konventiert am: 16-7-25 19:04:07 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

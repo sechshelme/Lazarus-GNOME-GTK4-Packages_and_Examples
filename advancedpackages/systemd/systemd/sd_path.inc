@@ -1,13 +1,4 @@
-unit sd_path;
-
-interface
-
-uses
-  fp_systemd;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -87,8 +78,11 @@ function sd_path_lookup_strv(_type: uint64; suffix: pchar; paths: PPPchar): long
 // === Konventiert am: 16-7-25 19:04:22 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

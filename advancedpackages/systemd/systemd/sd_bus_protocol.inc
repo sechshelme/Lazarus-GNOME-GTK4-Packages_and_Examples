@@ -1,13 +1,4 @@
-unit sd_bus_protocol;
-
-interface
-
-uses
-  ctypes;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -83,8 +74,11 @@ const
   // === Konventiert am: 16-7-25 19:03:41 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

@@ -1,13 +1,4 @@
-unit sd_hwdb;
-
-interface
-
-uses
-  fp_systemd;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -25,8 +16,11 @@ function sd_hwdb_enumerate(hwdb: Psd_hwdb; key: PPchar; value: PPchar): longint;
 // === Konventiert am: 16-7-25 19:04:04 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

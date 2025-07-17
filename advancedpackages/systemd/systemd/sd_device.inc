@@ -1,13 +1,4 @@
-unit sd_device;
-
-interface
-
-uses
-  fp_systemd, sd_id128, sd_bus;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -127,8 +118,11 @@ function sd_device_monitor_filter_remove(m: Psd_device_monitor): longint; cdecl;
 // === Konventiert am: 16-7-25 19:03:56 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

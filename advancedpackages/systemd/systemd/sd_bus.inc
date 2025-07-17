@@ -1,13 +1,4 @@
-unit sd_bus;
-
-interface
-
-uses
-  clib, fp_stdio, fp_systemd, _sd_common, sd_id128, sd_bus_vtable;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 type
   Psd_event = type Pointer;
@@ -411,8 +402,11 @@ function sd_bus_track_get_destroy_callback(s: Psd_bus_track; ret: Psd_bus_destro
 // === Konventiert am: 16-7-25 19:03:29 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}
