@@ -68,59 +68,18 @@ type
 
   // === Konventiert am: 16-7-25 19:03:45 ===
 
-  function SD_BUS_VTABLE_START(const flags: UInt64): Tsd_bus_vtable;
-
-  function SD_BUS_METHOD_WITH_NAMES_OFFSET(
-     _member, _signature, _in_names, _result, _out_names: PAnsiChar;
-    _handler: Pointer; // Typ Tsd_bus_message_handler
-    _offset: NativeUInt;
-    _flags: UInt64
-  ): Tsd_bus_vtable;
-
-  function SD_BUS_METHOD_WITH_OFFSET(
-    _member, _signature, _result: PAnsiChar;
-    _handler: Pointer;
-    _offset: NativeUInt;
-    _flags: UInt64
-  ): Tsd_bus_vtable;
-
-  function SD_BUS_METHOD_WITH_NAMES(
-    _member, _signature, _in_names, _result, _out_names: PAnsiChar;
-    _handler: Pointer;
-    _flags: UInt64
-  ): Tsd_bus_vtable;
-
-  function SD_BUS_METHOD(
-    _member, _signature, _result: PAnsiChar;
-    _handler: Pointer;
-    _flags: UInt64
-  ): Tsd_bus_vtable;
-
-  function SD_BUS_SIGNAL_WITH_NAMES(
-    _member, _signature, _out_names: PAnsiChar;
-    _flags: UInt64
-  ): Tsd_bus_vtable;
-
-  function SD_BUS_SIGNAL(
-    _member, _signature: PAnsiChar;
-    _flags: UInt64
-  ): Tsd_bus_vtable;
-
-  function SD_BUS_PROPERTY(
-    _member, _signature: PAnsiChar;
-    _get: Pointer; // Tsd_bus_property_get_t
-    _offset: NativeUInt;
-    _flags: UInt64
-  ): Tsd_bus_vtable;
-
-  function SD_BUS_WRITABLE_PROPERTY(
-    _member, _signature: PAnsiChar;
-    _get, _set: Pointer; // Tsd_bus_property_get_t, Tsd_bus_property_set_t
-    _offset: NativeUInt;
-    _flags: UInt64
-  ): Tsd_bus_vtable;
-
-  function SD_BUS_VTABLE_END(): Tsd_bus_vtable;
+ function SD_BUS_VTABLE_START(const flags: UInt64): Tsd_bus_vtable;
+ function SD_BUS_METHOD_WITH_NAMES_OFFSET(_member, _signature: pchar; const _in_names: string;
+    _result: pchar; const _out_names: string; _handler: Pointer; _offset: nativeuint;
+    _flags: uint64): Tsd_bus_vtable;
+ function SD_BUS_METHOD_WITH_OFFSET(_member, _signature, _result: PAnsiChar; _handler: Pointer; _offset: NativeUInt; _flags: UInt64): Tsd_bus_vtable;
+ function SD_BUS_METHOD_WITH_NAMES(_member, _signature, _in_names, _result, _out_names: PAnsiChar; _handler: Pointer; _flags: UInt64): Tsd_bus_vtable;
+ function SD_BUS_METHOD(_member, _signature, _result: PAnsiChar; _handler: Pointer; _flags: UInt64): Tsd_bus_vtable;
+ function SD_BUS_SIGNAL_WITH_NAMES(_member, _signature, _out_names: PAnsiChar; _flags: UInt64): Tsd_bus_vtable;
+ function SD_BUS_SIGNAL(_member, _signature: PAnsiChar;    _flags: UInt64  ): Tsd_bus_vtable;
+ function SD_BUS_PROPERTY(_member, _signature: PAnsiChar; _get: Pointer; _offset: NativeUInt; _flags: UInt64): Tsd_bus_vtable;
+ function SD_BUS_WRITABLE_PROPERTY(_member, _signature: PAnsiChar; _get, _set: Pointer; _offset: NativeUInt; _flags: UInt64): Tsd_bus_vtable;
+ function SD_BUS_VTABLE_END(): Tsd_bus_vtable;
 
 
 {$ENDIF read_interface}
@@ -137,31 +96,20 @@ begin
   Result.start.vtable_format_reference := @sd_bus_object_vtable_format;
 end;
 
-function SD_BUS_METHOD_WITH_NAMES_OFFSET(_member, _signature, _in_names,
-  _result, _out_names: PAnsiChar; _handler: Pointer; _offset: NativeUInt;
-  _flags: UInt64): Tsd_bus_vtable;
+function SD_BUS_METHOD_WITH_NAMES_OFFSET(_member, _signature: pchar; const _in_names: string;
+  _result: pchar; const _out_names: string; _handler: Pointer; _offset: nativeuint;
+  _flags: uint64): Tsd_bus_vtable;
 var
-  i: Integer;
+  i: integer;
 begin
-  Result.type_ := Byte( _SD_BUS_VTABLE_METHOD);
+  Result.type_ := byte(_SD_BUS_VTABLE_METHOD);
   Result.flags := _flags;
   Result.method.member := _member;
   Result.method.signature := _signature;
   Result.method.result_ := _result;
   Result.method.handler := _handler;
   Result.method.offset := _offset;
-  // Verkettung von _in_names und _out_names in einem null-terminierten String (so wie im C-Makro)
-  // Hier einfach direkt konkatenieren ohne Zwischenspeicher:
-  // Das muss sichergestellt sein vom Aufrufer!
-  Result.method.names := PAnsiChar(String(AnsiString(_in_names) + AnsiString(_out_names))+#0);
-  WriteLn('len: Source',  Length(Result.method.names));
-  for i:=0 to Length(Result.method.names )-1  do WriteLn(i:4, '.   '  , byte( Result.method.names[i]), ' - ', Char( Result.method.names[i]), '         ');
-  WriteLn();
-
-//  Result.method.names :=  'string'#0'path'#0'returnstring'#0;
-  WriteLn('len: Const ',  Length(Result.method.names));
-  for i:=0 to Length(Result.method.names )-1  do WriteLn(i:4, '.   '  , byte( Result.method.names[i]), ' - ', Char( Result.method.names[i]), '         ');
-  WriteLn();
+  Result.method.names := pchar(_in_names + _out_names);
 end;
 
 function SD_BUS_METHOD_WITH_OFFSET(_member, _signature, _result: PAnsiChar;

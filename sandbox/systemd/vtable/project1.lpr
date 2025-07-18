@@ -3,14 +3,13 @@ program project1;
 uses
   fp_systemd,
   fp_string,
+  fp_signal,
   fp_stdlib,
   fp_unistd;
 
-const
-  DESTINATION = 'org.freedesktop.systemd1';
-  PATH = '/org/freedesktop/systemd1';
-  INTERFACE_ = 'org.freedesktop.systemd1.Manager';
-  MEMBER = 'GetUnitByPID';
+  // busctl --user call org.freedesktop.systemd.VtableExample /org/freedesktop/systemd/VtableExample org.freedesktop.systemd.VtableExample Method1 s "Hello"
+
+  // https://man.archlinux.org/man/SD_BUS_VTABLE_START.3.en
 
 type
   Tobj = record
@@ -57,8 +56,16 @@ var
   end;
 
 
+var
+  quit: boolean = False;
 
-  procedure main;
+  procedure handler(para1: longint); cdecl;
+  begin
+    quit := True;
+    ;
+  end;
+
+  function main: integer;
   var
     bus: Psd_bus = nil;
     r: longint;
@@ -68,16 +75,21 @@ var
     obj: Tobj;
   begin
     Test;
-    FillChar(vtable, SizeOf(vtable),0);
+    FillChar(vtable, SizeOf(vtable), 0);
+
+    signal(SIGINT, @handler);
 
     vtable[0] := SD_BUS_VTABLE_START(0);
     vtable[1] := SD_BUS_METHOD('Method1', 's', 's', @method, 0);
     vtable[2] := SD_BUS_METHOD_WITH_NAMES_OFFSET('Method2', 'so', 'string'#0'path'#0, 's', 'returnstring'#0, @method, 8, SD_BUS_VTABLE_DEPRECATED);
-    vtable[3] := SD_BUS_SIGNAL('Signal1', 'so', 0);
-    vtable[4] := SD_BUS_SIGNAL_WITH_NAMES('Signal2', 'so', 'string'#0'path'#0, 0);
-    vtable[5] := SD_BUS_WRITABLE_PROPERTY('AutomaticStringProperty', 's', nil, nil, 0, SD_BUS_VTABLE_PROPERTY_EMITS_CHANGE);
-    vtable[6] := SD_BUS_WRITABLE_PROPERTY('AutomaticIntegerProperty', 'u', nil, nil, 8, SD_BUS_VTABLE_PROPERTY_EMITS_INVALIDATION);
-    vtable[7] := SD_BUS_VTABLE_END;
+    vtable[3] := SD_BUS_METHOD_WITH_NAMES_OFFSET('Method3', 'so', 'string'#0'path'#0, 's', 'returnstring'#0, @method, 8, SD_BUS_VTABLE_UNPRIVILEGED);
+    vtable[4] := SD_BUS_METHOD_WITH_NAMES('Method4', '', '', '', '', @method, SD_BUS_VTABLE_UNPRIVILEGED);
+    vtable[5] := SD_BUS_SIGNAL('Signal1', 'so', 0);
+    vtable[6] := SD_BUS_SIGNAL_WITH_NAMES('Signal2', 'so', 'string'#0'path'#0, 0);
+    vtable[7] := SD_BUS_SIGNAL_WITH_NAMES('Signal3', 'so', 'string'#0'path'#0, 0);
+    vtable[8] := SD_BUS_WRITABLE_PROPERTY('AutomaticStringProperty', 's', nil, nil, 0, SD_BUS_VTABLE_PROPERTY_EMITS_CHANGE);
+    vtable[9] := SD_BUS_WRITABLE_PROPERTY('AutomaticIntegerProperty', 'u', nil, nil, 8, SD_BUS_VTABLE_PROPERTY_EMITS_INVALIDATION);
+    vtable[10] := SD_BUS_VTABLE_END;
 
     sd_bus_default(@bus);
 
@@ -87,17 +99,47 @@ var
     r := sd_bus_add_object_vtable(bus, nil, '/org/freedesktop/systemd/VtableExample', 'org.freedesktop.systemd.VtableExample', @vtable, @obj);
     if r < 0 then begin
       WriteLn('sd_bus_add_fallback_vtable() failure ', strerror(-r));
-      Exit;
+      Exit(EXIT_FAILURE);
+    end else begin
+      WriteLn('sd_bus_add_fallback()  [io]');
     end;
 
     r := sd_bus_request_name(bus, 'org.freedesktop.systemd.VtableExample', 0);
     if r < 0 then begin
       WriteLn('sd_bus_request_name() failure ', strerror(-r));
-      Exit;
+      Exit(EXIT_FAILURE);
+    end else begin
+      WriteLn('sd_bus_request_name()  [io]');
     end;
 
+    repeat
+      r := sd_bus_wait(bus, uint64(-1));
+      WriteLn(r);
+      if r < 0 then begin
+        WriteLn('sd_bus_wait() failure ', strerror(-r));
+        Exit(EXIT_FAILURE);
+      end else begin
+        WriteLn('sd_bus_wait()  [io]');
+      end;
 
+      r := sd_bus_process(bus, nil);
+      if r < 0 then begin
+        WriteLn('sd_bus_process() failure ', strerror(-r));
+        Exit(EXIT_FAILURE);
+      end else begin
+        WriteLn('sd_bus_process()  [io]');
+      end;
+    until quit;
 
+    r := sd_bus_release_name(bus, 'org.freedesktop.systemd.VtableExample');
+    if r < 0 then begin
+      WriteLn('sd_bus_release_name() failure ', strerror(-r));
+      Exit(EXIT_FAILURE);
+    end else begin
+      WriteLn('sd_bus_release_name()  [io]');
+    end;
+
+    WriteLn('Program end [io]');
 
     free(obj.name);
   end;

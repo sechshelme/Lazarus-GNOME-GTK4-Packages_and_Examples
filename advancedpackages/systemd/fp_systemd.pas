@@ -1,5 +1,7 @@
 unit fp_systemd;
 
+{$modeswitch typehelpers}
+
 interface
 
 uses
