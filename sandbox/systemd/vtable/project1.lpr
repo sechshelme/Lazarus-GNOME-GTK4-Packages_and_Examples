@@ -9,21 +9,21 @@ uses
 
   // https://man.archlinux.org/man/SD_BUS_VTABLE_START.3.en
 
-  // busctl --user call org.ex /org/ex org.ex Hello ssu Urs Furrer 334
+  // busctl --user call org.ex /org/ex org.ex all ssud "Urs" "Furrer" 3 1.75
+  // busctl --user call org.ex /org/ex org.ex firstnames "Urs"
+  // busctl --user call org.ex /org/ex org.ex lastname s "Furrer"
+  // busctl --user call org.ex /org/ex org.ex age u  3
+  // busctl --user call org.ex /org/ex org.ex size d  1.63
 
-
-  //busctl --user call org.ex /org/ex org.ex all ssu "Urs" "Furrer" 3
-  //busctl --user call org.ex /org/ex org.ex age u  3
-  //busctl --user call org.ex /org/ex org.ex firstnames "Urs"
-  //busctl --user call org.ex /org/ex org.ex lastname s "Furrer"
-
-
+var
+  quit: boolean = False;
 
 type
   THuman = record
     FirstName: pchar;
     LastName: pchar;
     age: uint32;
+    size: double;
   end;
   PHuman = ^THuman;
 
@@ -34,18 +34,22 @@ type
     firstname: pchar;
     lastname: pchar;
     age: uint32;
+    size: double;
     human: PHuman absolute userdata;
   begin
     WriteLn('--- Old Human ---');
     WriteLn('  FirstName: ', human^.FirstName);
     WriteLn('  LastName:  ', human^.LastName);
     WriteLn('  Age:       ', human^.age);
+    WriteLn('  Grösse:    ', human^.size:4:2);
     WriteLn();
 
     case string(sd_bus_message_get_member(m)) of
+      'quit': begin
+        quit := True;
+      end;
       'all': begin
-        WriteLn('all');
-        r := sd_bus_message_read(m, 'ssu', @firstname, @lastname, @age);
+        r := sd_bus_message_read(m, 'ssud', @firstname, @lastname, @age, @size);
         if r < 0 then begin
           WriteLn('sd_bus_message_read() failed: ', strerror(-r));
           Exit(0);
@@ -60,9 +64,9 @@ type
         end;
         human^.LastName := strdup(lastname);
         human^.age := age;
+        human^.size := size;
       end;
       'firstname': begin
-        WriteLn('firstname');
         r := sd_bus_message_read(m, 's', @firstname);
         if r < 0 then begin
           WriteLn('sd_bus_message_read() failed: ', strerror(-r));
@@ -74,7 +78,6 @@ type
         human^.FirstName := strdup(firstname);
       end;
       'lastname': begin
-        WriteLn('lastname');
         r := sd_bus_message_read(m, 's', @lastname);
         if r < 0 then begin
           WriteLn('sd_bus_message_read() failed: ', strerror(-r));
@@ -86,7 +89,6 @@ type
         human^.LastName := strdup(lastname);
       end;
       'age': begin
-        WriteLn('age');
         r := sd_bus_message_read(m, 'u', @age);
         if r < 0 then begin
           WriteLn('sd_bus_message_read() failed: ', strerror(-r));
@@ -94,18 +96,28 @@ type
         end;
         human^.age := age;
       end;
+      'size': begin
+        r := sd_bus_message_read(m, 'd', @size);
+        if r < 0 then begin
+          WriteLn('sd_bus_message_read() failed: ', strerror(-r));
+          Exit(0);
+        end;
+        human^.size := size;
+      end;
     end;
 
     WriteLn('--- New Human ---');
     WriteLn('  FirstName: ', human^.FirstName);
     WriteLn('  LastName:  ', human^.LastName);
     WriteLn('  Age:       ', human^.age);
+    WriteLn('  Grösse:    ', human^.size:4:2);
     WriteLn();
 
     WriteStr(s, 'Daten erfolgreiche empfange.'#10 +
       '  FirsiName:  ', human^.FirstName, #10 +
       '  LastName:   ', human^.LastName, #10 +
-      '  Alter:      ', human^.age);
+      '  Alter:      ', human^.age, #10 +
+      '  Grösse:     ', human^.size:4:2);
 
     r := sd_bus_reply_method_return(m, 's', pchar(s));
     if r < 0 then begin
@@ -115,9 +127,6 @@ type
 
     Exit(1);
   end;
-
-var
-  quit: boolean = False;
 
   procedure handler(para1: longint); cdecl;
   begin
@@ -137,11 +146,13 @@ var
     SetLength(vtable, 11);
 
     vtable[0] := SD_BUS_VTABLE_START(0);
-    vtable[1] := SD_BUS_METHOD('all', 'ssu', 's', @method, 0);
-    vtable[2] := SD_BUS_METHOD('age', 'u', 's', @method, 0);
-    vtable[3] := SD_BUS_METHOD('firstname', 's', 's', @method, 0);
-    vtable[4] := SD_BUS_METHOD('lastname', 's', 's', @method, 0);
-    vtable[5] := SD_BUS_VTABLE_END;
+    vtable[1] := SD_BUS_METHOD('all', 'ssud', 's', @method, 0);
+    vtable[2] := SD_BUS_METHOD('firstname', 's', 's', @method, 0);
+    vtable[3] := SD_BUS_METHOD('lastname', 's', 's', @method, 0);
+    vtable[4] := SD_BUS_METHOD('age', 'u', 's', @method, 0);
+    vtable[5] := SD_BUS_METHOD('size', 'd', 's', @method, 0);
+    vtable[6] := SD_BUS_METHOD('quit', '', 's', @method, 0);
+    vtable[7] := SD_BUS_VTABLE_END;
 
     //    vtable[0] := SD_BUS_VTABLE_START(0);
     //    vtable[1] := SD_BUS_METHOD('Hello', 'ssu', 's', @method, 0);
@@ -152,9 +163,10 @@ var
 
     sd_bus_default(@bus);
 
-    human.age := 34;
     human.FirstName := strdup('firstname');
     human.LastName := strdup('lastname');
+    human.age := 34;
+    human.size := 1.00;
 
     r := sd_bus_add_object_vtable(bus, nil, '/org/ex', 'org.ex', Psd_bus_vtable(vtable), @human);
     if r < 0 then begin
