@@ -7,54 +7,114 @@ uses
   fp_stdlib,
   fp_unistd;
 
-  // busctl --user call org.freedesktop.systemd.VtableExample /org/freedesktop/systemd/VtableExample org.freedesktop.systemd.VtableExample Method1 s "Hello"
-
   // https://man.archlinux.org/man/SD_BUS_VTABLE_START.3.en
 
-type
-  Tobj = record
-    name: pchar;
-    number: uint32;
-  end;
+  // busctl --user call org.ex /org/ex org.ex Hello ssu Urs Furrer 334
 
-var
-  vtable: array[0..7] of Tsd_bus_vtable;
+
+  //busctl --user call org.ex /org/ex org.ex all ssu "Urs" "Furrer" 3
+  //busctl --user call org.ex /org/ex org.ex age u  3
+  //busctl --user call org.ex /org/ex org.ex firstnames "Urs"
+  //busctl --user call org.ex /org/ex org.ex lastname s "Furrer"
+
+
+
+type
+  THuman = record
+    FirstName: pchar;
+    LastName: pchar;
+    age: uint32;
+  end;
+  PHuman = ^THuman;
 
   function method(m: Psd_bus_message; userdata: Pointer; error: Psd_bus_error): integer; cdecl;
   var
+    s: string;
     r: longint;
-    s: pchar;
+    firstname: pchar;
+    lastname: pchar;
+    age: uint32;
+    human: PHuman absolute userdata;
   begin
-    WriteLn('---method---');
-    WriteLn('Got called with userdata=', PtrUInt(userdata));
-    if sd_bus_message_is_method_call(m, 'org.freedesktop.systemd.VtableExample', 'Method4') <> 0 then begin
-      Exit(1);
-    end;
-    r := sd_bus_message_read(m, 's', @s);
-    if r < 0 then begin
-      WriteLn('sd_bus_message_read() failed: ', strerror(-r));
-      Exit(0);
+    WriteLn('--- Old Human ---');
+    WriteLn('  FirstName: ', human^.FirstName);
+    WriteLn('  LastName:  ', human^.LastName);
+    WriteLn('  Age:       ', human^.age);
+    WriteLn();
+
+    case string(sd_bus_message_get_member(m)) of
+      'all': begin
+        WriteLn('all');
+        r := sd_bus_message_read(m, 'ssu', @firstname, @lastname, @age);
+        if r < 0 then begin
+          WriteLn('sd_bus_message_read() failed: ', strerror(-r));
+          Exit(0);
+        end;
+        if human^.FirstName <> nil then begin
+          free(human^.FirstName);
+        end;
+        human^.FirstName := strdup(firstname);
+
+        if human^.LastName <> nil then begin
+          free(human^.LastName);
+        end;
+        human^.LastName := strdup(lastname);
+        human^.age := age;
+      end;
+      'firstname': begin
+        WriteLn('firstname');
+        r := sd_bus_message_read(m, 's', @firstname);
+        if r < 0 then begin
+          WriteLn('sd_bus_message_read() failed: ', strerror(-r));
+          Exit(0);
+        end;
+        if human^.FirstName <> nil then begin
+          free(human^.FirstName);
+        end;
+        human^.FirstName := strdup(firstname);
+      end;
+      'lastname': begin
+        WriteLn('lastname');
+        r := sd_bus_message_read(m, 's', @lastname);
+        if r < 0 then begin
+          WriteLn('sd_bus_message_read() failed: ', strerror(-r));
+          Exit(0);
+        end;
+        if human^.LastName <> nil then begin
+          free(human^.LastName);
+        end;
+        human^.LastName := strdup(lastname);
+      end;
+      'age': begin
+        WriteLn('age');
+        r := sd_bus_message_read(m, 'u', @age);
+        if r < 0 then begin
+          WriteLn('sd_bus_message_read() failed: ', strerror(-r));
+          Exit(0);
+        end;
+        human^.age := age;
+      end;
     end;
 
-    r := sd_bus_reply_method_return(m, 's', s);
+    WriteLn('--- New Human ---');
+    WriteLn('  FirstName: ', human^.FirstName);
+    WriteLn('  LastName:  ', human^.LastName);
+    WriteLn('  Age:       ', human^.age);
+    WriteLn();
+
+    WriteStr(s, 'Daten erfolgreiche empfange.'#10 +
+      '  FirsiName:  ', human^.FirstName, #10 +
+      '  LastName:   ', human^.LastName, #10 +
+      '  Alter:      ', human^.age);
+
+    r := sd_bus_reply_method_return(m, 's', pchar(s));
     if r < 0 then begin
       WriteLn('sd_bus_reply_method_return() failed: ', strerror(-r));
       Exit(0);
     end;
+
     Exit(1);
   end;
-
-  procedure Test;
-  var
-    vt: Tsd_bus_vtable;
-    ofs1, ofs2: PtrUInt;
-  begin
-    ofs1 := PtrUInt(@vt);
-    ofs2 := PtrUInt(@vt.start);
-    WriteLn('diff: ', ofs2 - ofs1);
-    WriteLn('tablesize: ', SizeOf(Tsd_bus_vtable));
-  end;
-
 
 var
   quit: boolean = False;
@@ -62,41 +122,41 @@ var
   procedure handler(para1: longint); cdecl;
   begin
     quit := True;
-    ;
   end;
 
   function main: integer;
   var
     bus: Psd_bus = nil;
     r: longint;
-    err: Tsd_bus_error;
-    replay: Psd_bus_message = nil;
-    unit_path: pchar;
-    obj: Tobj;
-  begin
-    Test;
-    FillChar(vtable, SizeOf(vtable), 0);
+    human: THuman;
+    vtable: array of Tsd_bus_vtable = nil;
 
+  begin
     signal(SIGINT, @handler);
 
+    SetLength(vtable, 11);
+
     vtable[0] := SD_BUS_VTABLE_START(0);
-    vtable[1] := SD_BUS_METHOD('Method1', 's', 's', @method, 0);
-    vtable[2] := SD_BUS_METHOD_WITH_NAMES_OFFSET('Method2', 'so', 'string'#0'path'#0, 's', 'returnstring'#0, @method, 8, SD_BUS_VTABLE_DEPRECATED);
-    vtable[3] := SD_BUS_METHOD_WITH_NAMES_OFFSET('Method3', 'so', 'string'#0'path'#0, 's', 'returnstring'#0, @method, 8, SD_BUS_VTABLE_UNPRIVILEGED);
-    vtable[4] := SD_BUS_METHOD_WITH_NAMES('Method4', '', '', '', '', @method, SD_BUS_VTABLE_UNPRIVILEGED);
-    vtable[5] := SD_BUS_SIGNAL('Signal1', 'so', 0);
-    vtable[6] := SD_BUS_SIGNAL_WITH_NAMES('Signal2', 'so', 'string'#0'path'#0, 0);
-    vtable[7] := SD_BUS_SIGNAL_WITH_NAMES('Signal3', 'so', 'string'#0'path'#0, 0);
-    vtable[8] := SD_BUS_WRITABLE_PROPERTY('AutomaticStringProperty', 's', nil, nil, 0, SD_BUS_VTABLE_PROPERTY_EMITS_CHANGE);
-    vtable[9] := SD_BUS_WRITABLE_PROPERTY('AutomaticIntegerProperty', 'u', nil, nil, 8, SD_BUS_VTABLE_PROPERTY_EMITS_INVALIDATION);
-    vtable[10] := SD_BUS_VTABLE_END;
+    vtable[1] := SD_BUS_METHOD('all', 'ssu', 's', @method, 0);
+    vtable[2] := SD_BUS_METHOD('age', 'u', 's', @method, 0);
+    vtable[3] := SD_BUS_METHOD('firstname', 's', 's', @method, 0);
+    vtable[4] := SD_BUS_METHOD('lastname', 's', 's', @method, 0);
+    vtable[5] := SD_BUS_VTABLE_END;
+
+    //    vtable[0] := SD_BUS_VTABLE_START(0);
+    //    vtable[1] := SD_BUS_METHOD('Hello', 'ssu', 's', @method, 0);
+
+    //    vtable[2] := SD_BUS_SIGNAL_WITH_NAMES('Message', 's', 'text'#0, 0);
+    //    vtable[3] := SD_BUS_WRITABLE_PROPERTY('Name', 's', nil, nil, 0, SD_BUS_VTABLE_PROPERTY_EMITS_CHANGE);
+    //    vtable[2] := SD_BUS_VTABLE_END;
 
     sd_bus_default(@bus);
 
-    obj.number := 666;
-    obj.name := strdup('name');
+    human.age := 34;
+    human.FirstName := strdup('firstname');
+    human.LastName := strdup('lastname');
 
-    r := sd_bus_add_object_vtable(bus, nil, '/org/freedesktop/systemd/VtableExample', 'org.freedesktop.systemd.VtableExample', @vtable, @obj);
+    r := sd_bus_add_object_vtable(bus, nil, '/org/ex', 'org.ex', Psd_bus_vtable(vtable), @human);
     if r < 0 then begin
       WriteLn('sd_bus_add_fallback_vtable() failure ', strerror(-r));
       Exit(EXIT_FAILURE);
@@ -104,7 +164,7 @@ var
       WriteLn('sd_bus_add_fallback()  [io]');
     end;
 
-    r := sd_bus_request_name(bus, 'org.freedesktop.systemd.VtableExample', 0);
+    r := sd_bus_request_name(bus, 'org.ex', 0);
     if r < 0 then begin
       WriteLn('sd_bus_request_name() failure ', strerror(-r));
       Exit(EXIT_FAILURE);
@@ -141,7 +201,8 @@ var
 
     WriteLn('Program end [io]');
 
-    free(obj.name);
+    free(human.FirstName);
+    free(human.LastName);
   end;
 
 begin
