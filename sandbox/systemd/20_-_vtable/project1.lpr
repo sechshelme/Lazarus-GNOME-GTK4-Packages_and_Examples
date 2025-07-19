@@ -5,7 +5,8 @@ uses
   fp_string,
   fp_signal,
   fp_stdlib,
-  fp_unistd, fp_stdio;
+  fp_unistd,
+  fp_stdio;
 
   // https://man.archlinux.org/man/SD_BUS_VTABLE_START.3.en
 
@@ -40,7 +41,6 @@ type
     size: double;
     siblings: PPChar = nil;
     human: PHuman absolute userdata;
-    val: Tva_list=nil;
   begin
     WriteLn('--- Old Human ---');
     WriteLn('  FirstName: ', human^.FirstName);

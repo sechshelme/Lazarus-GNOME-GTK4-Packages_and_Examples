@@ -8,7 +8,7 @@ h2pas -p -T -d -c -e xxx.h
 gcc main.c -E
 ```
 
-# neusten meson installieren
+# Neusten meson installieren
 ```
 git clone https://github.com/mesonbuild/meson.git
 cd meson/
@@ -22,7 +22,6 @@ https://stackoverflow.com/questions/57436089/meson-can-not-find-windows-resource
 https://sourceforge.net/p/meson/wiki/Cross%20compilation/
 
 # Speicher Leeks mit C-Funktionen
-
 `valgrind --leak-check=full ./project1`
 
 # Binär Datei in Byte Array Komstante
@@ -41,6 +40,10 @@ https://sourceforge.net/p/meson/wiki/Cross%20compilation/
 ```
 for file in *-*; do mv "$file" "${file//-/_}"; done
 ```
+
+# Programm Zeilen auswerten.
+sudo apt install cloc
+
 
 
 # wine

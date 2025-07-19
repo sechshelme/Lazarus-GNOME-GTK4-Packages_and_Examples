@@ -93,6 +93,42 @@ type
   Tsd_bus_destroy_t = Tsd_destroy_t;
   Psd_bus_destroy_t = Psd_destroy_t;
 
+type
+  Psd_bus_vtable = ^Tsd_bus_vtable;
+  Tsd_bus_vtable = bitpacked record
+      type_: AnsiChar;
+      flags: 0..1 shl (64 - 8) - 1;
+      case Integer of
+        0: (start: record
+              element_size: Tsize_t;
+              features: UInt64;
+              vtable_format_reference: ^UInt32;
+            end);
+        1: ( _end: record
+               _reserved: Tsize_t;
+             end);
+        2: (method: record
+              member: PAnsiChar;
+              signature: PAnsiChar;
+              result_: PAnsiChar;
+              handler: Tsd_bus_message_handler_t;
+              offset: Tsize_t;
+              names: PAnsiChar;
+            end);
+        3: (signal: record
+              member: PAnsiChar;
+              signature: PAnsiChar;
+              names: PAnsiChar;
+            end);
+        4: (property_: record
+              member: PAnsiChar;
+              signature: PAnsiChar;
+              get_: Tsd_bus_property_get_t;
+              set_: Tsd_bus_property_set_t;
+              offset: Tsize_t;
+            end);
+    end;
+
 function sd_bus_interface_name_is_valid(p: pchar): longint; cdecl; external libsystemd;
 function sd_bus_service_name_is_valid(p: pchar): longint; cdecl; external libsystemd;
 function sd_bus_member_name_is_valid(p: pchar): longint; cdecl; external libsystemd;
@@ -303,8 +339,7 @@ function sd_bus_reply_method_errno(call: Psd_bus_message; error: longint; e: Psd
 function sd_bus_reply_method_errnofv(call: Psd_bus_message; error: longint; format: pchar; ap: Tva_list): longint; cdecl; external libsystemd;
 function sd_bus_reply_method_errnof(call: Psd_bus_message; error: longint; format: pchar): longint; cdecl; varargs; external libsystemd;
 function sd_bus_emit_signalv(bus: Psd_bus; path: pchar; iface: pchar; member: pchar; types: pchar; ap: Tva_list): longint; cdecl; external libsystemd;
-function sd_bus_emit_signal(bus: Psd_bus; path: pchar; iface: pchar; member: pchar; types: pchar; args: array of const): longint; cdecl; external libsystemd;
-function sd_bus_emit_signal(bus: Psd_bus; path: pchar; iface: pchar; member: pchar; types: pchar): longint; cdecl; external libsystemd;
+function sd_bus_emit_signal(bus: Psd_bus; path: pchar; iface: pchar; member: pchar; types: pchar): longint; cdecl; varargs; external libsystemd;
 function sd_bus_emit_signal_tov(bus: Psd_bus; destination: pchar; path: pchar; iface: pchar; member: pchar; types: pchar; ap: Tva_list): longint; cdecl; external libsystemd;
 function sd_bus_emit_signal_to(bus: Psd_bus; destination: pchar; path: pchar; iface: pchar; member: pchar; types: pchar): longint; cdecl; varargs; external libsystemd;
 function sd_bus_emit_properties_changed_strv(bus: Psd_bus; path: pchar; iface: pchar; names: PPchar): longint; cdecl; external libsystemd;

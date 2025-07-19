@@ -28,7 +28,11 @@ distrobox enter fedora42
 
 ## 3. MinGW GTK4 für Windows im Container installieren
 
+#### Nur GTK4 DLL
 sudo dnf install mingw32-gtk4 mingw64-gtk4
+
+### Alle möglichnen DLL  
+sudo dnf install mingw*
 
 ---
 
@@ -37,25 +41,21 @@ sudo dnf install mingw32-gtk4 mingw64-gtk4
 ### 64-Bit Windows
 
 cd /usr/x86_64-w64-mingw32/sys-root/mingw/bin/
-cp . /home/tux/win64_dll/ -r
+cp . ~/win64_dll/ -r
 
 ### 32-Bit Windows
 
 cd /usr/i686-w64-mingw32/sys-root/mingw/bin/
-cp . /home/tux/win32_dll/ -r
+cp . ~/win32_dll/ -r
 
 ---
 
 ## 5. GTK4-Demo unter Wine auf dem Host starten (64 Bit)
 
-cd /home/tux/win64_dll
+cd ~/win64_dll
 wine gtk4-demo
 
 ---
 
-**Hinweis:**  
-Passe ggf. die Pfade und den Benutzernamen (`tux`) an dein System an.
-
----
 
 Viel Erfolg beim Bauen und Testen!
