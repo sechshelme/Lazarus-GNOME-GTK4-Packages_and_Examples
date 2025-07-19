@@ -5,7 +5,7 @@ uses
   fp_string,
   fp_signal,
   fp_stdlib,
-  fp_unistd;
+  fp_unistd, fp_stdio;
 
   // https://man.archlinux.org/man/SD_BUS_VTABLE_START.3.en
 
@@ -14,6 +14,9 @@ uses
   // busctl --user call org.ex /org/ex org.ex lastname s "Furrer"
   // busctl --user call org.ex /org/ex org.ex age u  3
   // busctl --user call org.ex /org/ex org.ex size d  1.63
+
+  // busctl --user call org.ex /org/ex org.ex siblings as 3 "Peter" "Werner" "Bruno"
+
 
 var
   quit: boolean = False;
@@ -35,13 +38,15 @@ type
     lastname: pchar;
     age: uint32;
     size: double;
+    siblings: PPChar = nil;
     human: PHuman absolute userdata;
+    val: Tva_list=nil;
   begin
     WriteLn('--- Old Human ---');
     WriteLn('  FirstName: ', human^.FirstName);
     WriteLn('  LastName:  ', human^.LastName);
     WriteLn('  Age:       ', human^.age);
-    WriteLn('  Grösse:    ', human^.size:4:2);
+    WriteLn('  Grösse:    ', human^.size: 4: 2);
     WriteLn();
 
     case string(sd_bus_message_get_member(m)) of
@@ -104,20 +109,36 @@ type
         end;
         human^.size := size;
       end;
+      'siblings': begin
+        r := sd_bus_message_read_strv(m, @siblings);
+        if r < 0 then begin
+          WriteLn('sd_bus_message_read() failed: ', strerror(-r));
+          Exit(0);
+        end else begin
+          WriteLn('siblings: ', r);
+          if siblings <> nil then begin
+            while siblings^ <> nil do begin
+              WriteLn('  ', siblings^);
+              Inc(siblings);
+            end;
+            WriteLn();
+          end;
+        end;
+      end;
     end;
 
     WriteLn('--- New Human ---');
     WriteLn('  FirstName: ', human^.FirstName);
     WriteLn('  LastName:  ', human^.LastName);
     WriteLn('  Age:       ', human^.age);
-    WriteLn('  Grösse:    ', human^.size:4:2);
+    WriteLn('  Grösse:    ', human^.size: 4: 2);
     WriteLn();
 
     WriteStr(s, 'Daten erfolgreiche empfange.'#10 +
       '  FirsiName:  ', human^.FirstName, #10 +
       '  LastName:   ', human^.LastName, #10 +
       '  Alter:      ', human^.age, #10 +
-      '  Grösse:     ', human^.size:4:2);
+      '  Grösse:     ', human^.size: 4: 2);
 
     r := sd_bus_reply_method_return(m, 's', pchar(s));
     if r < 0 then begin
@@ -151,8 +172,9 @@ type
     vtable[3] := SD_BUS_METHOD('lastname', 's', 's', @method, 0);
     vtable[4] := SD_BUS_METHOD('age', 'u', 's', @method, 0);
     vtable[5] := SD_BUS_METHOD('size', 'd', 's', @method, 0);
-    vtable[6] := SD_BUS_METHOD('quit', '', 's', @method, 0);
-    vtable[7] := SD_BUS_VTABLE_END;
+    vtable[6] := SD_BUS_METHOD('siblings', 'as', 's', @method, 0);
+    vtable[7] := SD_BUS_METHOD('quit', '', 's', @method, 0);
+    vtable[8] := SD_BUS_VTABLE_END;
 
     //    vtable[0] := SD_BUS_VTABLE_START(0);
     //    vtable[1] := SD_BUS_METHOD('Hello', 'ssu', 's', @method, 0);
