@@ -10,7 +10,7 @@ uses
 
 
   // busctl --user introspect org.ex /org/ex org.ex
-  // busctl --user call org.ex /org/ex org.ex add ii 22 33
+  // busctl --user call org.ex /org/ex org.ex add dd 22 33
 
   // busctl --user monitor org.ex
 
@@ -18,88 +18,104 @@ uses
 var
   quit: boolean = False;
 
-  function method(m: Psd_bus_message; userdata: Pointer; error: Psd_bus_error): integer; cdecl;
-  var
-    s: string;
-    r: longint;
-    sum1, sum2: int32;
-    bus: Psd_bus;
+  procedure handler(para1: longint); cdecl;
   begin
-
-    case string(sd_bus_message_get_member(m)) of
-      'quit': begin
+    case para1 of
+      SIGINT: begin
         quit := True;
       end;
-      'add': begin
-        r := sd_bus_message_read(m, 'ii', @sum1, @sum2);
+    end;
+  end;
+
+  function method(m: Psd_bus_message; userdata: Pointer; error: Psd_bus_error): integer; cdecl;
+  var
+    s: string = '';
+    arithmetic:PChar=nil;
+    msg: string;
+    r: longint;
+    operand1, operand2, res: double;
+
+    bus: Psd_bus;
+  begin
+    msg := string(sd_bus_message_get_member(m));
+
+    case msg of
+      'quit': begin
+        quit := True;
+        sd_bus_reply_method_return(m, 's', 'Programm beendet');
+      end;
+      'add', 'sub', 'mul', 'div': begin
+        r := sd_bus_message_read(m, 'dd', @operand1, @operand2);
         if r < 0 then begin
           WriteLn('sd_bus_message_read() failed: ', strerror(-r));
           Exit(0);
         end;
+        case msg of
+          'add': begin
+            res := operand1 + operand2;
+            WriteStr(s, 'Die Rechung: ', operand1: 4: 2, ' + ', operand2: 4: 2, ' = ', res: 4: 2);
+            arithmetic:='Addition';
+          end;
+          'sub': begin
+            res := operand1 - operand2;
+            WriteStr(s, 'Die Rechung: ', operand1: 4: 2, ' - ', operand2: 4: 2, ' = ', res: 4: 2);
+            arithmetic:='Subtraction';
+          end;
+          'mul': begin
+            res := operand1 * operand2;
+            WriteStr(s, 'Die Rechung: ', operand1: 4: 2, ' * ', operand2: 4: 2, ' = ', res: 4: 2);
+            arithmetic:='Multiplikation';
+          end;
+          'div': begin
+            if operand2 = 0.0 then begin
+              res := 0.0;
+              s := 'Division by Zero';
+            end else begin
+              res := operand1 / operand2;
+              WriteStr(s, 'Die Rechung: ', operand1: 4: 2, ' / ', operand2: 4: 2, ' = ', res: 4: 2);
+              arithmetic:='Division';
+            end;
+          end;
+        end;
 
-        bus:=sd_bus_message_get_bus(m);
-        r := sd_bus_emit_signal(bus, '/org/ex', 'org.ex', 'sum', 'siii', 'Rechnung ', sum1, sum2, sum1 + sum2);
+        bus := sd_bus_message_get_bus(m);
+        r := sd_bus_emit_signal(bus, '/org/ex', 'org.ex', 'sum', 'sddd', arithmetic, operand1, operand2, res);
         if r < 0 then begin
           WriteLn('sd_bus_emit_signal() failure ', strerror(-r));
-          Exit(EXIT_FAILURE);
+          Exit(0);
         end else begin
           WriteLn('sd_bus_emit_signal()  [io]');
+        end;
+
+        r := sd_bus_reply_method_return(m, 's', pchar(s));
+        if r < 0 then begin
+          WriteLn('sd_bus_reply_method_return() failed: ', strerror(-r));
+          Exit(0);
         end;
       end;
     end;
 
-    WriteStr(s, 'Die Rechung: ', sum1, ' + ', sum2, ' = ', sum1 + sum2);
-
-    r := sd_bus_reply_method_return(m, 's', pchar(s));
-    if r < 0 then begin
-      WriteLn('sd_bus_reply_method_return() failed: ', strerror(-r));
-      Exit(0);
-    end;
-
     Exit(1);
-  end;
-
-type
-  Tvtables = array of Tsd_bus_vtable;
-
-
-  procedure handler(para1: longint); cdecl;
-  begin
-    quit := True;
-  end;
-
-  procedure AddVtable(Tables: Tvtables; t: Tsd_bus_vtable);
-  var
-    len: SizeInt;
-  begin
-    len := Length(Tables);
-    SetLength(Tables, len + 1);
-    Tables[len] := t;
   end;
 
   function main: integer;
   var
     bus: Psd_bus = nil;
     r: longint;
-    vtable: Tvtables = nil;
-
+    vtable: Tsd_bus_vtables = nil;
   begin
     signal(SIGINT, @handler);
 
-    SetLength(vtable, 21);
+    Add_bus_vtable(vtable, SD_BUS_VTABLE_START(0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('quit', '', 's', @method, 0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('add', 'dd', 's', @method, 0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('sub', 'dd', 's', @method, 0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('mul', 'dd', 's', @method, 0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('div', 'dd', 's', @method, 0));
+    Add_bus_vtable(vtable, SD_BUS_SIGNAL_WITH_NAMES('calc', 'sddd', 'calc'#0'operand1'#0'operand2'#0'result'#0, 0));
+    Add_bus_vtable(vtable, SD_BUS_VTABLE_END);
 
-    vtable[0] := SD_BUS_VTABLE_START(0);
-    vtable[1] := SD_BUS_METHOD('quit', '', 's', @method, 0);
-    vtable[2] := SD_BUS_METHOD('add', 'ii', 's', @method, 0);
-    vtable[3] := SD_BUS_SIGNAL_WITH_NAMES('sum', 's', 'text'#0, 0);
-    vtable[4] := SD_BUS_VTABLE_END;
-
-    //    vtable[0] := SD_BUS_VTABLE_START(0);
-    //    vtable[1] := SD_BUS_METHOD('Hello', 'ssu', 's', @method, 0);
-
-    //    vtable[2] := SD_BUS_SIGNAL_WITH_NAMES('Message', 's', 'text'#0, 0);
     //    vtable[3] := SD_BUS_WRITABLE_PROPERTY('Name', 's', nil, nil, 0, SD_BUS_VTABLE_PROPERTY_EMITS_CHANGE);
-    //    vtable[2] := SD_BUS_VTABLE_END;
 
     sd_bus_default(@bus);
 

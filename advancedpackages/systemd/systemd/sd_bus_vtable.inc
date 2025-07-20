@@ -33,7 +33,7 @@ var
   // === Konventiert am: 16-7-25 19:03:45 ===
 
  function SD_BUS_VTABLE_START(flags: UInt64): Tsd_bus_vtable;
- function SD_BUS_METHOD_WITH_NAMES_OFFSET(_member, _signature: pchar; const _in_names: string; _result: pchar; const _out_names: string; _handler: Tsd_bus_message_handler_t; _offset: nativeuint; _flags: uint64): Tsd_bus_vtable;
+ function SD_BUS_METHOD_WITH_NAMES_OFFSET(_member, _signature, _in_names, _result, _out_names: PChar; _handler: Tsd_bus_message_handler_t; _offset: nativeuint; _flags: uint64): Tsd_bus_vtable;
  function SD_BUS_METHOD_WITH_OFFSET(_member, _signature, _result: PAnsiChar; _handler: Tsd_bus_message_handler_t; _offset: NativeUInt; _flags: UInt64): Tsd_bus_vtable;
  function SD_BUS_METHOD_WITH_NAMES(_member, _signature, _in_names, _result, _out_names: PAnsiChar; _handler: Tsd_bus_message_handler_t; _flags: UInt64): Tsd_bus_vtable;
  function SD_BUS_METHOD(_member, _signature, _result: PAnsiChar; _handler: Tsd_bus_message_handler_t; _flags: UInt64): Tsd_bus_vtable;
@@ -43,11 +43,34 @@ var
  function SD_BUS_WRITABLE_PROPERTY(_member, _signature: PAnsiChar; _get:Tsd_bus_property_get_t; _set: Tsd_bus_property_set_t; _offset: NativeUInt; _flags: UInt64): Tsd_bus_vtable;
  function SD_BUS_VTABLE_END(): Tsd_bus_vtable;
 
+ // === Eigenes ===
+
+ type
+   Tsd_bus_vtables = array of Tsd_bus_vtable;
+
+ procedure Add_bus_vtable(var Tables: Tsd_bus_vtables; t: Tsd_bus_vtable);
+
 
 {$ENDIF read_interface}
 
 
 {$IFDEF read_implementation}
+
+// === Eigenes ===
+
+procedure Add_bus_vtable(var Tables: Tsd_bus_vtables; t: Tsd_bus_vtable);
+var
+  len: SizeInt;
+begin
+  len := Length(Tables);
+  SetLength(Tables, len + 1);
+  Tables[len] := t;
+end;
+
+// ================
+
+
+
 
 function SD_BUS_VTABLE_START(flags: UInt64): Tsd_bus_vtable;
 begin
@@ -58,7 +81,7 @@ begin
   Result.start.vtable_format_reference := @sd_bus_object_vtable_format;
 end;
 
-function SD_BUS_METHOD_WITH_NAMES_OFFSET(_member, _signature: pchar; const _in_names: string; _result: pchar; const _out_names: string; _handler: Tsd_bus_message_handler_t; _offset: nativeuint; _flags: uint64): Tsd_bus_vtable;
+function SD_BUS_METHOD_WITH_NAMES_OFFSET(_member, _signature, _in_names, _result, _out_names: PChar; _handler: Tsd_bus_message_handler_t; _offset: nativeuint; _flags: uint64): Tsd_bus_vtable;
 begin
   Result.type_ := _SD_BUS_VTABLE_METHOD;
   Result.flags := _flags;
@@ -67,7 +90,7 @@ begin
   Result.method.result_ := _result;
   Result.method.handler := _handler;
   Result.method.offset := _offset;
-  Result.method.names := pchar(_in_names + _out_names);
+  Result.method.names :=pchar(String( _in_names) + String( _out_names));
 end;
 
 function SD_BUS_METHOD_WITH_OFFSET(_member, _signature, _result: PAnsiChar; _handler: Tsd_bus_message_handler_t; _offset: NativeUInt; _flags: UInt64): Tsd_bus_vtable;

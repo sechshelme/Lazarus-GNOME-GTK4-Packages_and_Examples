@@ -5,7 +5,7 @@ unit fp_systemd;
 interface
 
 uses
-  clib, fp_stdio;
+  clib, fp_stdio, fp_string;
 
 const
   libsystemd = 'libsystemd';

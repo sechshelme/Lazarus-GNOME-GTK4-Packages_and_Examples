@@ -159,22 +159,20 @@ type
     bus: Psd_bus = nil;
     r: longint;
     human: THuman;
-    vtable: array of Tsd_bus_vtable = nil;
+    vtable: Tsd_bus_vtables = nil;
 
   begin
     signal(SIGINT, @handler);
 
-    SetLength(vtable, 11);
-
-    vtable[0] := SD_BUS_VTABLE_START(0);
-    vtable[1] := SD_BUS_METHOD('all', 'ssud', 's', @method, 0);
-    vtable[2] := SD_BUS_METHOD('firstname', 's', 's', @method, 0);
-    vtable[3] := SD_BUS_METHOD('lastname', 's', 's', @method, 0);
-    vtable[4] := SD_BUS_METHOD('age', 'u', 's', @method, 0);
-    vtable[5] := SD_BUS_METHOD('size', 'd', 's', @method, 0);
-    vtable[6] := SD_BUS_METHOD('siblings', 'as', 's', @method, 0);
-    vtable[7] := SD_BUS_METHOD('quit', '', 's', @method, 0);
-    vtable[8] := SD_BUS_VTABLE_END;
+    Add_bus_vtable(vtable, SD_BUS_VTABLE_START(0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('all', 'ssud', 's', @method, 0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('firstname', 's', 's', @method, 0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('lastname', 's', 's', @method, 0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('age', 'u', 's', @method, 0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('size', 'd', 's', @method, 0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('siblings', 'as', 's', @method, 0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('quit', '', 's', @method, 0));
+    Add_bus_vtable(vtable, SD_BUS_VTABLE_END);
 
     //    vtable[0] := SD_BUS_VTABLE_START(0);
     //    vtable[1] := SD_BUS_METHOD('Hello', 'ssu', 's', @method, 0);
