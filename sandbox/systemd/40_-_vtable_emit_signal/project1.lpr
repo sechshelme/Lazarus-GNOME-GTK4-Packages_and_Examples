@@ -30,7 +30,10 @@ var
   function method(m: Psd_bus_message; userdata: Pointer; error: Psd_bus_error): integer; cdecl;
   var
     s: string = '';
-    arithmetic:PChar=nil;
+    arithmetic:record
+      text: PChar;
+      symbol:Char;
+    end=(text:nil; symbol:#0);
     msg: string;
     r: longint;
     operand1, operand2, res: double;
@@ -54,32 +57,37 @@ var
           'add': begin
             res := operand1 + operand2;
             WriteStr(s, 'Die Rechung: ', operand1: 4: 2, ' + ', operand2: 4: 2, ' = ', res: 4: 2);
-            arithmetic:='Addition';
+            arithmetic.text:='Addition';
+            arithmetic.symbol:='+';
           end;
           'sub': begin
             res := operand1 - operand2;
             WriteStr(s, 'Die Rechung: ', operand1: 4: 2, ' - ', operand2: 4: 2, ' = ', res: 4: 2);
-            arithmetic:='Subtraction';
+            arithmetic.text:='Subtraction';
+            arithmetic.symbol:='-';
           end;
           'mul': begin
             res := operand1 * operand2;
             WriteStr(s, 'Die Rechung: ', operand1: 4: 2, ' * ', operand2: 4: 2, ' = ', res: 4: 2);
-            arithmetic:='Multiplikation';
+            arithmetic.text:='Multiplikation';
+            arithmetic.symbol:='*';
           end;
           'div': begin
+            arithmetic.symbol:='/';
             if operand2 = 0.0 then begin
               res := 0.0;
-              s := 'Division by Zero';
+              arithmetic.text:= 'Division by Zero';
             end else begin
               res := operand1 / operand2;
               WriteStr(s, 'Die Rechung: ', operand1: 4: 2, ' / ', operand2: 4: 2, ' = ', res: 4: 2);
-              arithmetic:='Division';
+              arithmetic.text:='Division';
             end;
           end;
         end;
 
         bus := sd_bus_message_get_bus(m);
-        r := sd_bus_emit_signal(bus, '/org/ex', 'org.ex', 'sum', 'sddd', arithmetic, operand1, operand2, res);
+        WriteStr(s, operand1:4:2,' ',arithmetic.symbol,' ',operand2:4:2,' = ', res:4:2 );
+        r := sd_bus_emit_signal(bus, '/org/ex', 'org.ex', 'calc', 'ss', arithmetic.text, PChar(s));
         if r < 0 then begin
           WriteLn('sd_bus_emit_signal() failure ', strerror(-r));
           Exit(0);
@@ -87,7 +95,7 @@ var
           WriteLn('sd_bus_emit_signal()  [io]');
         end;
 
-        r := sd_bus_reply_method_return(m, 's', pchar(s));
+        r := sd_bus_reply_method_return(m, 'd', res);
         if r < 0 then begin
           WriteLn('sd_bus_reply_method_return() failed: ', strerror(-r));
           Exit(0);
@@ -108,11 +116,11 @@ var
 
     Add_bus_vtable(vtable, SD_BUS_VTABLE_START(0));
     Add_bus_vtable(vtable, SD_BUS_METHOD('quit', '', 's', @method, 0));
-    Add_bus_vtable(vtable, SD_BUS_METHOD('add', 'dd', 's', @method, 0));
-    Add_bus_vtable(vtable, SD_BUS_METHOD('sub', 'dd', 's', @method, 0));
-    Add_bus_vtable(vtable, SD_BUS_METHOD('mul', 'dd', 's', @method, 0));
-    Add_bus_vtable(vtable, SD_BUS_METHOD('div', 'dd', 's', @method, 0));
-    Add_bus_vtable(vtable, SD_BUS_SIGNAL_WITH_NAMES('calc', 'sddd', 'calc'#0'operand1'#0'operand2'#0'result'#0, 0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('add', 'dd', 'd', @method, 0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('sub', 'dd', 'd', @method, 0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('mul', 'dd', 'd', @method, 0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('div', 'dd', 'd', @method, 0));
+    Add_bus_vtable(vtable, SD_BUS_SIGNAL_WITH_NAMES('calc', 'ss', 'calc'#0'result'#0, 0));
     Add_bus_vtable(vtable, SD_BUS_VTABLE_END);
 
     //    vtable[3] := SD_BUS_WRITABLE_PROPERTY('Name', 's', nil, nil, 0, SD_BUS_VTABLE_PROPERTY_EMITS_CHANGE);
