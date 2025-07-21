@@ -58,6 +58,8 @@ var
     end;
 
     WriteLn('Program end [io]');
+
+    sd_bus_unref(bus);
   end;
 
 begin

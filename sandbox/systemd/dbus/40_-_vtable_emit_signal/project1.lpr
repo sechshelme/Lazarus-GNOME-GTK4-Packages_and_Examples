@@ -1,11 +1,11 @@
 program project1;
 
 uses
-  fp_systemd,
-  fp_signal,
-  fp_stdlib,
-  fp_unistd,
-  fp_stdio;
+  crt,
+
+  fp_systemd;
+
+  // busctl --user
 
 
   // busctl --user introspect org.ex /org/ex org.ex
@@ -30,22 +30,13 @@ var
   last_result: double;
   formOpti: Tformat = (fw: 4; dp: 2);
 
-  procedure handler(para1: longint); cdecl;
-  begin
-    case para1 of
-      SIGINT: begin
-        quit := True;
-      end;
-    end;
-  end;
-
   function CommandTest(r: integer; text: pchar): integer;
   begin
     Result := r;
     if r < 0 then begin
       WriteLn(text, '(...) failure: ', r);
     end else begin
-      WriteLn(text, '(...)   [io]');
+      //      WriteLn(text, '(...)   [io]');
     end;
   end;
 
@@ -58,7 +49,6 @@ var
       end
     = (text: nil; symbol: #0);
     msg: string;
-    r: longint;
     operand1, operand2, res: double;
 
     bus: Psd_bus;
@@ -131,7 +121,7 @@ var
     Result := sd_bus_message_append(reply, '(ii)', formOpti.fw, formOpti.dp);
     if Result < 0 then begin
       WriteLn('sd_bus_message_append() failure ', Result);
-      Exit(EXIT_FAILURE);
+      Exit(1);
     end;
   end;
 
@@ -142,7 +132,7 @@ var
     Result := sd_bus_message_read(value, '(ii)', @f.fw, @f.dp);
     if Result < 0 then begin
       WriteLn('sd_bus_message_read() failure ', Result);
-      Exit(EXIT_FAILURE);
+      Exit(1);
     end else begin
       formOpti := f;
     end;
@@ -154,11 +144,9 @@ var
   function main: integer;
   var
     bus: Psd_bus = nil;
-    r: longint;
     vtable: Tsd_bus_vtables = nil;
+    ch: ansichar;
   begin
-    signal(SIGINT, @handler);
-
     Add_bus_vtable(vtable, SD_BUS_VTABLE_START(0));
     Add_bus_vtable(vtable, SD_BUS_METHOD('quit', '', 's', @method, 0));
     Add_bus_vtable(vtable, SD_BUS_METHOD('add', 'dd', 'd', @method, 0));
@@ -180,11 +168,22 @@ var
     end;
 
     repeat
-      if CommandTest(sd_bus_wait(bus, uint64(-1)), 'sd_bus_wait') < 0 then begin
+      if CommandTest(sd_bus_wait(bus, 100), 'sd_bus_wait') < 0 then begin
         Exit;
       end;
       if CommandTest(sd_bus_process(bus, nil), 'sd_bus_process') < 0 then begin
         Exit;
+      end;
+      if KeyPressed then begin
+        ch := ReadKey;
+        case ch of
+          #27: begin
+            quit := True;
+          end;
+          #32: begin
+            CommandTest(sd_bus_emit_signal(bus, '/org/ex', 'org.ex', 'calc', 's', 'Es wurde Space gedrückt'), 'sd_bus_emit_signal');
+          end
+        end;
       end;
     until quit;
 

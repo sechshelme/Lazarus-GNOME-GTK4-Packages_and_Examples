@@ -174,13 +174,6 @@ type
     Add_bus_vtable(vtable, SD_BUS_METHOD('quit', '', 's', @method, 0));
     Add_bus_vtable(vtable, SD_BUS_VTABLE_END);
 
-    //    vtable[0] := SD_BUS_VTABLE_START(0);
-    //    vtable[1] := SD_BUS_METHOD('Hello', 'ssu', 's', @method, 0);
-
-    //    vtable[2] := SD_BUS_SIGNAL_WITH_NAMES('Message', 's', 'text'#0, 0);
-    //    vtable[3] := SD_BUS_WRITABLE_PROPERTY('Name', 's', nil, nil, 0, SD_BUS_VTABLE_PROPERTY_EMITS_CHANGE);
-    //    vtable[2] := SD_BUS_VTABLE_END;
-
     sd_bus_default(@bus);
 
     human.FirstName := strdup('firstname');
