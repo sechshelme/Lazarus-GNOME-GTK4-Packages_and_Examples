@@ -30,7 +30,6 @@ uses
 
     while True do begin
       len := read(fd, @buffer, sizeof(buffer));
-//      WriteLn('len: ', len);
       //        if (len < 0) and (errno <> EAGAIN) then begin
       if (len < 0) then begin
         perror('read');

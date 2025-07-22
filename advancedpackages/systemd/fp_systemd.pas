@@ -1,6 +1,7 @@
 unit fp_systemd;
 
 {$modeswitch typehelpers}
+{$J-}
 
 interface
 

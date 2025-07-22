@@ -21,10 +21,10 @@ uses
   procedure SetFormatOptions(bus: Psd_bus; fw, dp: longint);
   var
     r: longint;
-    error: Tsd_bus_error;
+    err: Tsd_bus_error;
     msg: Psd_bus_message;
   begin
-    FillChar(error, SizeOf(error), 0);
+    err := SD_BUS_ERROR_NULL;
 
     // Aufruf: Set(string iface, string prop, variant value)
     r := sd_bus_call_method(bus,
@@ -32,7 +32,7 @@ uses
       '/org/ex',
       'org.freedesktop.DBus.Properties',   // Standard-Interface für Properties
       'Set',
-      @error, @msg,
+      @err, @msg,
       'ssv',
       'org.ex',
       'formatoptions',
@@ -40,7 +40,7 @@ uses
       );
 
     if r < 0 then begin
-      WriteLn('Fehler beim Setzen von formatoptions: ', r, ' ', error.message);
+      WriteLn('Fehler beim Setzen von formatoptions: ', r, ' ', err.message);
       Exit;
     end;
 
@@ -50,24 +50,24 @@ uses
   procedure GetFormatOptions(bus: Psd_bus);
   var
     r: longint;
-    error: Tsd_bus_error;
+    err: Tsd_bus_error;
     msg: Psd_bus_message;
     fw, dp: integer;
   begin
-    FillChar(error, SizeOf(error), 0);
+    err := SD_BUS_ERROR_NULL;
 
     r := sd_bus_call_method(bus,
       'org.ex',
       '/org/ex',
       'org.freedesktop.DBus.Properties',   // Standard-Interface für Properties
       'Get',
-      @error, @msg,
+      @err, @msg,
       'ss',
       'org.ex',
       'formatoptions');
 
     if r < 0 then begin
-      WriteLn('Fehler beim Lesen von formatoptions: ', r, ' ', error.message);
+      WriteLn('Fehler beim Lesen von formatoptions: ', r, ' ', err.message);
       Exit;
     end;
 
@@ -89,60 +89,62 @@ uses
     sd_bus_message_unref(msg);
   end;
 
-procedure Callculate(bus: Psd_bus; arithmetic: pchar; d1, d2: double);
-var
-  res: double;
-  r: longint;
-  err: Tsd_bus_error;
-  m: Psd_bus_message;
-begin
-  FillChar(err, SizeOf(err), 0);
-  r := sd_bus_call_method(bus, 'org.ex', '/org/ex', 'org.ex', arithmetic, @err, @m, 'dd', d1, d2);
-  if r < 0 then begin
-    WriteLn('sd_bus_call_method() failure ', r);
-    Halt(1);
-  end;
+  procedure Callculate(bus: Psd_bus; arithmetic: pchar; d1, d2: double);
+  var
+    res: double;
+    r: longint;
+    err: Tsd_bus_error;
+    m: Psd_bus_message;
+  begin
+    err := SD_BUS_ERROR_NULL;
 
-  r := sd_bus_message_read(m, 'd', @res);
-  if r < 0 then begin
-    WriteLn('sd_bus_message_read() failure ', r);
-    Halt(1);
-  end;
-  sd_bus_message_unref(m);
-
-  WriteLn('Ergebnis: ', res: 4: 2);
-end;
-
-procedure Callculate_All(bus: Psd_bus; d1, d2: double);
-var
-  res: record
-  add_, sub_, mul_, div_: double;
+    r := sd_bus_call_method(bus, 'org.ex', '/org/ex', 'org.ex', arithmetic, @err, @m, 'dd', d1, d2);
+    if r < 0 then begin
+      WriteLn('sd_bus_call_method() failure ', r);
+      Halt(1);
     end;
-  r: longint;
-  err: Tsd_bus_error;
-  m: Psd_bus_message;
-begin
-  FillChar(err, SizeOf(err), 0);
-  r := sd_bus_call_method(bus, 'org.ex', '/org/ex', 'org.ex', 'all', @err, @m, 'dd', d1, d2);
-  if r < 0 then begin
-    WriteLn('sd_bus_call_method() failure ', r);
-    Halt(1);
+
+    r := sd_bus_message_read(m, 'd', @res);
+    if r < 0 then begin
+      WriteLn('sd_bus_message_read() failure ', r);
+      Halt(1);
+    end;
+    sd_bus_message_unref(m);
+
+    WriteLn('Ergebnis: ', res: 4: 2);
   end;
 
-  r := sd_bus_message_read(m, 'dddd', @res.add_, @res.sub_, @res.mul_, @res.div_);
-  if r < 0 then begin
-    WriteLn('sd_bus_message_read() failure ', r);
-    Halt(1);
-  end;
-  sd_bus_message_unref(m);
+  procedure Callculate_All(bus: Psd_bus; d1, d2: double);
+  var
+    res: record
+    add_, sub_, mul_, div_: double;
+      end;
+    r: longint;
+    err: Tsd_bus_error;
+    m: Psd_bus_message;
+  begin
+    err := SD_BUS_ERROR_NULL;
 
-  WriteLn('Ergebnis calc_all: ');
-  WriteLn('  ',d1: 4: 2,' + ',d2: 4: 2,' = ' ,res.add_: 4: 2);
-  WriteLn('  ',d1: 4: 2,' - ',d2: 4: 2,' = ' ,res.sub_: 4: 2);
-  WriteLn('  ',d1: 4: 2,' * ',d2: 4: 2,' = ' ,res.mul_: 4: 2);
-  WriteLn('  ',d1: 4: 2,' / ',d2: 4: 2,' = ' ,res.div_: 4: 2);
-  WriteLn();
-end;
+    r := sd_bus_call_method(bus, 'org.ex', '/org/ex', 'org.ex', 'all', @err, @m, 'dd', d1, d2);
+    if r < 0 then begin
+      WriteLn('sd_bus_call_method() failure ', r);
+      Halt(1);
+    end;
+
+    r := sd_bus_message_read(m, 'dddd', @res.add_, @res.sub_, @res.mul_, @res.div_);
+    if r < 0 then begin
+      WriteLn('sd_bus_message_read() failure ', r);
+      Halt(1);
+    end;
+    sd_bus_message_unref(m);
+
+    WriteLn('Ergebnis calc_all: ');
+    WriteLn('  ', d1: 4: 2, ' + ', d2: 4: 2, ' = ', res.add_: 4: 2);
+    WriteLn('  ', d1: 4: 2, ' - ', d2: 4: 2, ' = ', res.sub_: 4: 2);
+    WriteLn('  ', d1: 4: 2, ' * ', d2: 4: 2, ' = ', res.mul_: 4: 2);
+    WriteLn('  ', d1: 4: 2, ' / ', d2: 4: 2, ' = ', res.div_: 4: 2);
+    WriteLn();
+  end;
 
   procedure introspect(bus: Psd_bus);
   var
@@ -151,7 +153,8 @@ end;
     err: Tsd_bus_error;
     xml: pchar;
   begin
-    FillChar(err, SizeOf(err), 0);
+    err := SD_BUS_ERROR_NULL;
+
     r := sd_bus_call_method(bus, 'org.ex', '/org/ex', 'org.freedesktop.DBus.Introspectable',
       'Introspect', @err, @m, '', nil);
     if r < 0 then begin
@@ -185,7 +188,7 @@ end;
     GetFormatOptions(bus);
     Callculate(bus, 'mul', 11, 33);
 
-    Callculate_All(bus, 55,66);
+    Callculate_All(bus, 55, 66);
 
     sd_bus_unref(bus);
   end;

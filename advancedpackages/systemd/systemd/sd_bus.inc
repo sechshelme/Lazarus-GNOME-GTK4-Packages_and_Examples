@@ -394,6 +394,9 @@ function sd_bus_creds_get_unique_name(c: Psd_bus_creds; name: PPchar): longint; 
 function sd_bus_creds_get_well_known_names(c: Psd_bus_creds; names: PPPchar): longint; cdecl; external libsystemd;
 function sd_bus_creds_get_description(c: Psd_bus_creds; name: PPchar): longint; cdecl; external libsystemd;
 
+const
+  SD_BUS_ERROR_NULL:Tsd_bus_error =(name: nil;   message: nil;_need_free:0);
+
 procedure sd_bus_error_free(e: Psd_bus_error); cdecl; external libsystemd;
 function sd_bus_error_set(e: Psd_bus_error; name: pchar; message: pchar): longint; cdecl; external libsystemd;
 function sd_bus_error_setf(e: Psd_bus_error; name: pchar; format: pchar): longint; cdecl; varargs; external libsystemd;
