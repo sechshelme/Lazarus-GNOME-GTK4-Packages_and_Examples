@@ -75,6 +75,14 @@
         <Filename Value="linux/fp_inotify.pas"/>
         <UnitName Value="fp_inotify"/>
       </Item>
+      <Item>
+        <Filename Value="linux/fp_errno.pas"/>
+        <UnitName Value="fp_errno"/>
+      </Item>
+      <Item>
+        <Filename Value="linux/fp_error.pas"/>
+        <UnitName Value="fp_error"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

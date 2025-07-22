@@ -16,7 +16,7 @@ uses
     len: Tssize_t;
     event: Pinotify_event;
   begin
-    fd := inotify_init(); // oder inotify_init1(IN_NONBLOCK)
+    fd := inotify_init;
     if fd < 0 then begin
       perror('inotify_init');
       Halt(1);
