@@ -71,6 +71,10 @@
         <Filename Value="linux/fp_shadow.pas"/>
         <UnitName Value="fp_shadow"/>
       </Item>
+      <Item>
+        <Filename Value="linux/fp_inotify.pas"/>
+        <UnitName Value="fp_inotify"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

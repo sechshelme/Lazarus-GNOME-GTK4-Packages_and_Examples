@@ -24,6 +24,14 @@ const
   {$ENDIF}
 
 
+  // fcntl.h
+  IN_CLOEXEC = 02000000; /////
+  IN_NONBLOCK = 00004000;     //////
+  O_CLOEXEC=0; // ?????????'
+  O_NONBLOCK=0;  // ??????
+
+
+
 type
   Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;
