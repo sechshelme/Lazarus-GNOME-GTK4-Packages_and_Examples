@@ -10,6 +10,7 @@ uses
 
   // busctl --user introspect org.ex /org/ex org.ex
   // busctl --user call org.ex /org/ex org.ex add dd 22 33
+  // busctl --user call org.ex /org/ex org.ex all dd 22 33
 
   // busctl --user monitor org.ex
 
@@ -111,6 +112,49 @@ var
     Exit(1);
   end;
 
+  function method_calc_all(m: Psd_bus_message; userdata: pointer; ret_error: Psd_bus_error): longint; cdecl;
+  var
+    s: string = '';
+    arithmetic: record
+    text: pchar;
+    symbol: char;
+      end
+    = (text: nil; symbol: #0);
+    operand1, operand2: double;
+    res: record
+    add_, sub_, mul_, div_: double;
+      end;
+
+    bus: Psd_bus;
+  begin
+    if CommandTest(sd_bus_message_read(m, 'dd', @operand1, @operand2), 'sd_bus_message_read') < 0 then  begin
+      Exit(0);
+    end;
+    res.add_ := operand1 + operand2;
+    res.sub_ := operand1 - operand2;
+    res.mul_ := operand1 * operand2;
+    res.div_ := operand1 / operand2;
+
+    bus := sd_bus_message_get_bus(m);
+    with formOpti do begin
+      WriteStr(s, #10,
+        operand1: fw: dp, ' + ', operand2: fw: dp, ' = ', res.add_: fw: dp, #10,
+        operand1: fw: dp, ' - ', operand2: fw: dp, ' = ', res.sub_: fw: dp, #10,
+        operand1: fw: dp, ' * ', operand2: fw: dp, ' = ', res.mul_: fw: dp, #10,
+        operand1: fw: dp, ' / ', operand2: fw: dp, ' = ', res.div_: fw: dp);
+    end;
+
+    if CommandTest(sd_bus_emit_signal(bus, '/org/ex', 'org.ex', 'calc_all', 'ss', arithmetic.text, pchar(s)), 'sd_bus_emit_signal') < 0 then begin
+      Exit(0);
+    end;
+
+    if CommandTest(sd_bus_reply_method_return(m, 'dddd', res.add_, res.sub_, res.mul_, res.div_), 'sd_bus_reply_method_return') < 0 then begin
+      Exit(0);
+    end;
+    Exit(1);
+  end;
+
+
   function prop_get_last_result(bus: Psd_bus; path: pchar; iface: pchar; _property: pchar; reply: Psd_bus_message; userdata: pointer; ret_error: Psd_bus_error): longint; cdecl;
   begin
     Result := sd_bus_message_append(reply, 'd', last_result);
@@ -153,7 +197,9 @@ var
     Add_bus_vtable(vtable, SD_BUS_METHOD('sub', 'dd', 'd', @method, 0));
     Add_bus_vtable(vtable, SD_BUS_METHOD('mul', 'dd', 'd', @method, 0));
     Add_bus_vtable(vtable, SD_BUS_METHOD('div', 'dd', 'd', @method, 0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('all', 'dd', 'dddd', @method_calc_all, 0));
     Add_bus_vtable(vtable, SD_BUS_SIGNAL_WITH_NAMES('calc', 'ss', 'calc'#0'result'#0, 0));
+    Add_bus_vtable(vtable, SD_BUS_SIGNAL_WITH_NAMES('calc_all', 'ss', 'calc_all'#0'result'#0, 0));
     Add_bus_vtable(vtable, SD_BUS_PROPERTY('lastresult', 'd', @prop_get_last_result, 0, 0));
     Add_bus_vtable(vtable, SD_BUS_WRITABLE_PROPERTY('formatoptions', '(ii)', @prop_get_format_options, @prop_set_format_options, 0, SD_BUS_VTABLE_PROPERTY_EMITS_CHANGE));
     Add_bus_vtable(vtable, SD_BUS_VTABLE_END);
@@ -167,6 +213,9 @@ var
       Exit;
     end;
 
+    WriteLn('dbus gestartet.');
+    WriteLn('<ESC> Abbruch');
+
     repeat
       if CommandTest(sd_bus_wait(bus, 100), 'sd_bus_wait') < 0 then begin
         Exit;
@@ -174,6 +223,7 @@ var
       if CommandTest(sd_bus_process(bus, nil), 'sd_bus_process') < 0 then begin
         Exit;
       end;
+
       if KeyPressed then begin
         ch := ReadKey;
         case ch of
