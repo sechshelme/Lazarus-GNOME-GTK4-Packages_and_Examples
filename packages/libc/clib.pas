@@ -86,19 +86,16 @@ type  // unistd.h
   Pgid_t = ^Tgid_t;
   PPgid_t = ^Pgid_t;
 
+type // /usr/include/x86_64-linux-gnu/sys/types.h
+  Tdev_t = uint64;
+  Pdev_t = ^Tdev_t;
+
 type // /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h
   PIovec = ^TIovec;
   TIovec = record
     iov_base: Pointer;
     iov_len:  SizeUInt;
   end;
-
-
-
-const
-  STDIN_FILENO = 0;
-  STDOUT_FILENO = 1;
-  STDERR_FILENO = 2;
 
 type
 
@@ -146,7 +143,6 @@ type
 
   // /usr/include/asm-generic/posix_types.h
   Tkernel_size_t = integer;   // ????????
-
 
 
 type

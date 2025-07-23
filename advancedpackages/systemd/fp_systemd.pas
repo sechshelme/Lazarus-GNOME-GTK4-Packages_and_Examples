@@ -6,7 +6,7 @@ unit fp_systemd;
 interface
 
 uses
-  clib, fp_stdio, fp_string;
+  clib, fp_stdio, fp_signal, fp_inotify;
 
 const
   libsystemd = 'libsystemd';
@@ -16,16 +16,6 @@ type // /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h
 
 type // /usr/include/linux/signalfd.h
   Psignalfd_siginfo = Pointer;
-
-type // /usr/include/x86_64-linux-gnu/bits/types/siginfo_t.h
-  Psiginfo_t = Pointer;
-
-type // /usr/include/linux/inotify.h
-  Pinotify_event = Pointer;
-
-type // /usr/include/x86_64-linux-gnu/sys/types.h
-  Tdev_t = uint64;
-  Pdev_t = ^Tdev_t;
 
 type // /usr/include/x86_64-linux-gnu/bits/struct_stat.h
   Pstat = Pointer;
