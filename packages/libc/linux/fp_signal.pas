@@ -9,10 +9,52 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
-  // /usr/include/signal.h
-
 type
   Tsighandler_t = procedure(para1: longint); cdecl;
+
+  // /usr/include/x86_64-linux-gnu/bits/sigaction.h
+
+type
+  Psigaction = ^Tsigaction;
+  Tsigaction = record
+    case longint of
+      0: (
+        sa_handler: Tsighandler_t;
+        sa_mask: Tsigset_t;
+        sa_flags: longint;
+        sa_restorer: procedure; cdecl;
+      );
+      1: (
+        sa_sigaction: procedure(signum: longint; info: Psiginfo_t; context: Pointer); cdecl;
+//        sa_mask2: Tsigset_t;
+//        sa_flags2: longint;
+//        sa_restorer2: procedure; cdecl;
+      );
+  end;
+
+const
+  SA_NOCLDSTOP = 1;
+  SA_NOCLDWAIT = 2;
+  SA_SIGINFO = 4;
+
+const
+  SA_ONSTACK = $08000000;
+  SA_RESTART = $10000000;
+  SA_NODEFER = $40000000;
+  SA_RESETHAND = $80000000;
+  SA_INTERRUPT = $20000000;
+
+  SA_NOMASK = SA_NODEFER;
+  SA_ONESHOT = SA_RESETHAND;
+  SA_STACK = SA_ONSTACK;
+
+const
+  SIG_BLOCK = 0;
+  SIG_UNBLOCK = 1;
+  SIG_SETMASK = 2;
+
+  // /usr/include/signal.h
+
 
 function sysv_signal(__sig: longint; __handler: Tsighandler_t): Tsighandler_t; cdecl; external libc;
 function signal(__sig: longint; __handler: Tsighandler_t): Tsighandler_t; cdecl; external libc;
@@ -61,6 +103,7 @@ function __libc_current_sigrtmax: longint; cdecl; external libc;
 
 function SIGRTMIN: longint;
 function SIGRTMAX: longint;
+
 
 // /usr/include/x86_64-linux-gnu/bits/signal_ext.h
 

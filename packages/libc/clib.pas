@@ -98,7 +98,6 @@ type // /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h
   end;
 
 type
-
   // /usr/include/x86_64-linux-gnu/bits/types/siginfo_t.h
   Tsiginfo_t = record
   end;
@@ -106,13 +105,9 @@ type
 
   // /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h
   Tsigset_t = record
+    a:array[0..127]of Char;
   end;
   Psigset_t = ^Tsigset_t;
-
-  // /usr/include/x86_64-linux-gnu/bits/sigaction.h
-  Tsigaction = record
-  end;
-  Psigaction = ^Tsigaction;
 
   // /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h
   Ttimespec = record
