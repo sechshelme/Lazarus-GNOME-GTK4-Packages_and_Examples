@@ -69,8 +69,9 @@ typedef struct _IBusProxy IBusProxy;
 typedef struct _IBusProxyClass IBusProxyClass;
 
 #define IBUS_PROXY_FLAGS(obj)             (IBUS_PROXY (obj)->flags)
-#define IBUS_PROXY_SET_FLAGS(obj,flag)    G_STMT_START{ (IBUS_PROXY_FLAGS (obj) |= (flag)); }G_STMT_END
-#define IBUS_PROXY_UNSET_FLAGS(obj,flag)  G_STMT_START{ (IBUS_PROXY_FLAGS (obj) &= ~(flag)); }G_STMT_END
+// xxxxxxxxxx
+//#define IBUS_PROXY_SET_FLAGS(obj,flag)    ((IBUS_PROXY_FLAGS (obj) |= (flag)))
+//#define IBUS_PROXY_UNSET_FLAGS(obj,flag)  ((IBUS_PROXY_FLAGS (obj) &= ~(flag)))
 #define IBUS_PROXY_DESTROYED(obj)         (IBUS_PROXY_FLAGS (obj) & IBUS_DESTROYED)
 
 /**

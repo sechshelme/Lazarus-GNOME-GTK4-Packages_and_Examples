@@ -60,7 +60,7 @@ typedef struct {
 
 #define XMLNode IBusXML
 
-GType    ibus_xml_get_type      (void) G_GNUC_CONST;
+GType    ibus_xml_get_type      (void) ;
 
 /**
  * ibus_xml_copy:

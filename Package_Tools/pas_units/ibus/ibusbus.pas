@@ -3,7 +3,7 @@ unit ibusbus;
 interface
 
 uses
-  fp_glib2, ibus, ibusobject, ibusinputcontext;
+  fp_glib2, ibus, ibusobject, ibusinputcontext, ibuscomponent, ibusenginedesc, ibusconfig, ibusxevent;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
