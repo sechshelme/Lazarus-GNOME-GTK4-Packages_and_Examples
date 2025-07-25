@@ -4,6 +4,8 @@ uses
   ctypes,
 
   ibus,                   // io.
+  ibuskeysyms,            // io.
+  ibuskeysyms_compat,     // io.
   ibusshare,              // io.
   ibusxml,                // io.
   ibusobject,             // io.
@@ -19,6 +21,14 @@ uses
   ibusinputcontext,       // io. -> ibusproxy, ibusenginedesc, ibustext
   ibusbus,                // io. -> ibusobject, ibusinputcontext, ibuscomponent, ibusenginedesc, ibusconfig, ibusxevent
 
+
+  ibusengine,
+  ibuslookuptable,
+  ibusservice,
+  ibusproperty,
+  ibusproplist,
+  ibuspanelservice,
+  ibustypes,
 
 
   fp_glib2;

@@ -18,6 +18,7 @@ type
     attrs: PIBusAttrList;
   end;
   PIBusText = ^TIBusText;
+  PPIBusText = ^PIBusText;
 
   TIBusTextClass = record
     parent: TIBusSerializableClass;
