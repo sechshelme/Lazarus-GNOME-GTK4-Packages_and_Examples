@@ -2,6 +2,10 @@ unit clib;
 
 interface
 
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
 const
   {$IFDEF unix}
   libc = 'c';

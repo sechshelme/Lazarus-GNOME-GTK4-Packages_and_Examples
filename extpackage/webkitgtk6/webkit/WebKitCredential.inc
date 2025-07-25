@@ -28,6 +28,7 @@ function webkit_credential_get_persistence(credential: PWebKitCredential): TWebK
 
 // === Konventiert am: 3-1-25 15:54:00 ===
 
+function WEBKIT_TYPE_CREDENTIAL: TGType;
 
 {$ENDIF read_interface}
 

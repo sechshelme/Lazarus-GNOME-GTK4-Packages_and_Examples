@@ -34,7 +34,7 @@ function webkit_web_extension_match_pattern_matches_pattern(matchPattern: PWebKi
 
 // === Konventiert am: 1-4-25 19:33:20 ===
 
-
+function WEBKIT_TYPE_WEB_EXTENSION_MATCH_PATTERN : TGType;
 
 {$ENDIF read_interface}
 

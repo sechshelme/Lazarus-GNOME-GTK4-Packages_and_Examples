@@ -23,6 +23,7 @@ procedure webkit_permission_state_query_finish(query: PWebKitPermissionStateQuer
 
 // === Konventiert am: 3-1-25 16:47:47 ===
 
+function WEBKIT_TYPE_PERMISSION_STATE_QUERY: TGType;
 
 {$ENDIF read_interface}
 

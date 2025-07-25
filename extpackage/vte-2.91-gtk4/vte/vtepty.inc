@@ -39,6 +39,14 @@ function VTE_PTY_ERROR: TGQuark;
 // === Konventiert am: 3-5-25 17:06:29 ===
 
 
+function VTE_TYPE_PTY: TGType;
+function VTE_PTY(obj: Pointer): PVtePty;
+function VTE_PTY_CLASS(klass: Pointer): PVtePtyClass;
+function VTE_IS_PTY(obj: Pointer): Tgboolean;
+function VTE_IS_PTY_CLASS(klass: Pointer): Tgboolean;
+function VTE_PTY_GET_CLASS(obj: Pointer): PVtePtyClass;
+
+
 {$ENDIF read_interface}
 
 
@@ -73,6 +81,8 @@ function VTE_PTY_GET_CLASS(obj: Pointer): PVtePtyClass;
 begin
   Result := PVtePtyClass(PGTypeInstance(obj)^.g_class);
 end;
+
+// =================
 
 
 function VTE_PTY_ERROR: TGQuark;

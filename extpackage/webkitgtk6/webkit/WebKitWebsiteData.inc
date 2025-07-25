@@ -33,6 +33,7 @@ function webkit_website_data_get_size(website_data: PWebKitWebsiteData; types: T
 
 // === Konventiert am: 3-1-25 17:40:08 ===
 
+function WEBKIT_TYPE_WEBSITE_DATA: TGType;
 
 {$ENDIF read_interface}
 

@@ -193,10 +193,13 @@ const
     (libs: 'libpam'; units: 'ctypes'),
     (libs: 'libpamc'; units: 'ctypes'),
     (libs: 'libpam_misc'; units: 'ctypes'),
+    (libs: 'libsystemd'; units: 'ctypes'),
+
 
     (libs: 'libc'; units: 'ctypes'),
 
-    (libs: 'libsystemd'; units: 'ctypes'),
+    (libs: 'libibus'; units: 'fp_glib2, ibus'),
+
 
     (libs: ''; units: ''));
 
@@ -436,12 +439,20 @@ begin
     Inc(p);
   until pos('implementation', sl[p]) = 1;
 
+
   sl.Insert(p + 2, slMacro.Text);
   sl.Insert(p - 1, '');
   sl.Insert(p - 1, '// === Konventiert am: ' + DateTimeToStr(now) + ' ===');
   sl.Insert(p - 1, '');
 
-  for i := 0 to G_DECLARE_define_Count - 1 do begin
+  // Nicht getestet, geändert wegen eines Fehlers ????
+  //  for i := 0 to G_DECLARE_define_Count - 1 do begin
+  if G_DECLARE <> is_G_DECLARE_none then begin
+    maxCount := G_DECLARE_define_Count;
+  end;
+  // ????
+
+  for i := 0 to maxCount - 1 do begin
     sl.Insert(p + i + 2, slMacro[i * 5]);
   end;
 

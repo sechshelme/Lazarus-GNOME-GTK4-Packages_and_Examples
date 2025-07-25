@@ -27,6 +27,7 @@ procedure webkit_script_dialog_close(dialog: PWebKitScriptDialog); cdecl; extern
 
 // === Konventiert am: 3-1-25 13:20:12 ===
 
+function WEBKIT_TYPE_SCRIPT_DIALOG: TGType;
 
 {$ENDIF read_interface}
 

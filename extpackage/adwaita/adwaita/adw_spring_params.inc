@@ -19,7 +19,6 @@ function adw_spring_params_get_stiffness(self: PAdwSpringParams): Tdouble; cdecl
 
 // === Konventiert am: 9-1-25 19:23:34 ===
 
-
 {$ENDIF read_interface}
 
 

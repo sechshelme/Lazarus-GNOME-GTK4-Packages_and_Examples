@@ -22,6 +22,7 @@ procedure webkit_network_proxy_settings_add_proxy_for_scheme(proxy_settings: PWe
 
 // === Konventiert am: 3-1-25 19:21:27 ===
 
+function WEBKIT_TYPE_NETWORK_NETWORK_PROXY_SETTINGS: TGType;
 
 {$ENDIF read_interface}
 

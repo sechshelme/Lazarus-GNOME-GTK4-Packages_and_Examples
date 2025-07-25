@@ -22,6 +22,7 @@ function webkit_memory_pressure_settings_get_poll_interval(settings: PWebKitMemo
 
 // === Konventiert am: 3-1-25 19:23:33 ===
 
+function WEBKIT_TYPE_MEMORY_PRESSURE_SETTINGS: TGType;
 
 {$ENDIF read_interface}
 

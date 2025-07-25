@@ -16,6 +16,7 @@ procedure webkit_application_info_get_version(info: PWebKitApplicationInfo; majo
 
 // === Konventiert am: 3-1-25 16:58:59 ===
 
+function WEBKIT_TYPE_APPLICATION_INFO: TGType;
 
 {$ENDIF read_interface}
 

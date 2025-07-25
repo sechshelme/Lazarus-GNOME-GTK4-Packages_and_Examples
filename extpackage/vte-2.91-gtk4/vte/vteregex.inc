@@ -28,6 +28,7 @@ function VTE_REGEX_ERROR: TGQuark;
 
 // === Konventiert am: 3-5-25 17:06:47 ===
 
+function VTE_TYPE_REGEX: TGType;
 
 {$ENDIF read_interface}
 

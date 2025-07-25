@@ -13,6 +13,7 @@ function webkit_web_view_session_state_serialize(state: PWebKitWebViewSessionSta
 
 // === Konventiert am: 3-1-25 20:07:42 ===
 
+function WEBKIT_TYPE_WEB_VIEW_SESSION_STATE: TGType;
 
 {$ENDIF read_interface}
 

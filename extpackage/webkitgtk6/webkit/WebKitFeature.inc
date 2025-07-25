@@ -40,6 +40,7 @@ procedure webkit_feature_list_unref(feature_list: PWebKitFeatureList); cdecl; ex
 function webkit_feature_list_get_length(feature_list: PWebKitFeatureList): Tgsize; cdecl; external libwebkit;
 function webkit_feature_list_get(feature_list: PWebKitFeatureList; index: Tgsize): PWebKitFeature; cdecl; external libwebkit;
 
+function WEBKIT_TYPE_FEATURE: TGType;
 function WEBKIT_TYPE_FEATURE_LIST: TGType;
 
 // === Konventiert am: 3-1-25 19:47:00 ===

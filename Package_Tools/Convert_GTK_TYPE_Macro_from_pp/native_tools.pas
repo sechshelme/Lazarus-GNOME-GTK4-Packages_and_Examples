@@ -115,7 +115,7 @@ begin
     sl[p] := '  Result := ' + gtkWidgetClass + '(PGTypeInstance(obj)^.g_class);';
   end;
 
-  // GTK_WINDOW_GET_CLASS
+  // GTK_WINDOW_GET_IFACE
   if Form1.CheckBox7.Checked then begin
     gtkWidgetInterface := FindGTKWidgetInterface(sl[p + 2]);
     WriteLn('gtkWidgetInterface: ', gtkWidgetInterface);

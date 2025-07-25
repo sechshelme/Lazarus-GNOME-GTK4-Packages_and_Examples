@@ -31,6 +31,7 @@ function webkit_navigation_action_get_frame_name(navigation: PWebKitNavigationAc
 
 // === Konventiert am: 2-1-25 19:23:30 ===
 
+function WEBKIT_TYPE_NAVIGATION_ACTION: TGType;
 
 {$ENDIF read_interface}
 

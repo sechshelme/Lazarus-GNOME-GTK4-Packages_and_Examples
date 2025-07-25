@@ -57,7 +57,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/openssl', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/ibus-1.0', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -77,107 +77,13 @@ begin
       //  WriteLn();
       //end;
 
-      //slHeader[j] := StringReplace(slHeader[j], 'GRAPHENE_BEGIN_DECLS', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'GRAPHENE_END_DECLS', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'HB_BEGIN_DECLS', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'HB_END_DECLS', '', [rfReplaceAll]);
-      //
-      //slHeader[j] := StringReplace(slHeader[j], 'G_BEGIN_DECLS', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'G_END_DECLS', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_PURE', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_CONST', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NULL_TERMINATED', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_BEGIN_IGNORE_DEPRECATIONS', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_END_IGNORE_DEPRECATIONS', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
-
-      //for a := 0 to Length(availables) - 1 do begin
-      //  for v := 98 downto 2 do begin
-      //    s := availables[a] + '_' + IntToStr(v);
-      //    slHeader[j] := StringReplace(slHeader[j], s, 'extern', [rfReplaceAll]);
-      //  end;
-      //  s := availables[a] + '_VAR';
-      //end;
-
-      //slHeader[j] := StringReplace(slHeader[j], 'WEBKIT_API', 'extern', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'JSC_API', 'extern', [rfReplaceAll]);
-      //
-      //slHeader[j] := StringReplace(slHeader[j], 'ADW_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'ADW_AVAILABLE_IN_1_4', 'extern', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'ADW_AVAILABLE_IN_1_5', 'extern', [rfReplaceAll]);
-      //
-      //slHeader[j] := StringReplace(slHeader[j], 'GTK_SOURCE_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'GTK_SOURCE_AVAILABLE_IN_5_4', 'extern', [rfReplaceAll]);
-      //
-      //
-      //slHeader[j] := StringReplace(slHeader[j], 'PANGO_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'PANGO_DEPRECATED', 'extern', [rfReplaceAll]);
-      //
-      //slHeader[j] := StringReplace(slHeader[j], 'GES_API', 'extern', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'HB_EXTERN', 'extern', [rfReplaceAll]);
-      //
-      //slHeader[j] := StringReplace(slHeader[j], 'CHAFA_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], '_VTE_PUBLIC', 'extern', [rfReplaceAll]);
-      //
-      //
-      //// libxml
-      //slHeader[j] := StringReplace(slHeader[j], 'XMLPUBFUN', 'extern', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'XMLPUBVAR', 'extern', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'XMLCALL', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'XMLCDECL', '', [rfReplaceAll]);
-
-      //      slHeader[j] := StringReplace(slHeader[j], 'EAPI', 'extern', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'EVAS_API', 'extern', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'EINA_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'EINA_CONST', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'extern_WEAK', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(1)', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(2)', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(3)', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(4)', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(1, 2)', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(2, 3)', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'EINA_ARG_NONNULL(1, 2, 3)', '', [rfReplaceAll]);
-
-
-      //slHeader[j] := StringReplace(slHeader[j], 'EINA_PURE', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'EINA_CONST', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'EINA_MALLOC', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'EINA_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'EINA_API', 'extern', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'EO_API_WEAK', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'EO_API', 'extern', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'EAPI_WEAK', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'EAPI', 'extern', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'EWAPI', 'extern', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'extern_WEAK', '', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'EFL_TRANSFER_OWNERSHIP', '', [rfReplaceAll]);
-      //
-      //slHeader[j] := StringReplace(slHeader[j], 'ECORE_CON_API', 'extern', [rfReplaceAll]);
-      //
-      //slHeader[j] := StringReplace(slHeader[j], 'extern  extern', 'extern', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'extern  extern', 'extern', [rfReplaceAll]);
-
-//      slHeader[j] := StringReplace(slHeader[j], 'ECORE_AUDIO_API_WEAK', '', [rfReplaceAll]);
-//      slHeader[j] := StringReplace(slHeader[j], 'ECORE_AUDIO_API', 'extern', [rfReplaceAll]);
 
 
 
-//      slHeader[j] := StringReplace(slHeader[j], 'EINA_INLIST;', 'Eina_Inlist __in_list;', [rfReplaceAll]);
-
-      // open_ssl
-      slHeader[j] := StringReplace(slHeader[j], '__owur ', ' ', [rfReplaceAll]);
-
-      // # define STACK_OF(type) struct stack_st_##type
-      slHeader[j] := StringReplace(slHeader[j], 'STACK_OF(SSL_CIPHER)', 'stack_st_SSL_CIPHERtype', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'STACK_OF(SSL_COMP)', 'stack_st_SSL_COMPtype', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'STACK_OF(X509)', 'stack_st_X509type', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'STACK_OF(X509_NAME)', 'stack_st_X509_NAMEtype', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'STACK_OF(SCT)', 'stack_st_SCTtype', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'STACK_OF(X509_ALGOR)', 'stack_st_X509_ALGORtype', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'STACK_OF(X509_EXTENSION)', 'stack_st_X509_EXTENSIONtype', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'STACK_OF(X509_REVOKED)', 'stack_st_X509_REVOKEDtype', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'STACK_OF(X509_ATTRIBUTE)', 'stack_st_X509_ATTRIBUTEtype', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'G_BEGIN_DECLS', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'G_END_DECLS', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_DEPRECATED', '/*G_GNUC_DEPRECATED*/', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'IBUS_DEPRECATED', '/*IBUS_DEPRECATED*/', [rfReplaceAll]);
 
 
 

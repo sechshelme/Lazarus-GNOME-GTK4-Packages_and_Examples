@@ -18,6 +18,12 @@ function webkit_web_form_manager_input_element_is_auto_filled(element: PJSCValue
 
 // === Konventiert am: 4-1-25 14:06:26 ===
 
+function WEBKIT_TYPE_WEB_FORM_MANAGER: TGType;
+function WEBKIT_WEB_FORM_MANAGER(obj: Pointer): PWebKitWebFormManager;
+function WEBKIT_WEB_FORM_MANAGER_CLASS(klass: Pointer): PWebKitWebFormManagerClass;
+function WEBKIT_IS_WEB_FORM_MANAGER(obj: Pointer): Tgboolean;
+function WEBKIT_IS_WEB_FORM_MANAGER_CLASS(klass: Pointer): Tgboolean;
+function WEBKIT_WEB_FORM_MANAGER_GET_CLASS(obj: Pointer): PWebKitWebFormManagerClass;
 
 {$ENDIF read_interface}
 

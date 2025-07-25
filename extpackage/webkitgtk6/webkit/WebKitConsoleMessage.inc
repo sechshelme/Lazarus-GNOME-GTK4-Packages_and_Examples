@@ -38,6 +38,7 @@ function webkit_console_message_get_source_id(console_message: PWebKitConsoleMes
 
 // === Konventiert am: 4-1-25 15:31:37 ===
 
+function WEBKIT_TYPE_CONSOLE_MESSAGE: TGType;
 
 {$ENDIF read_interface}
 

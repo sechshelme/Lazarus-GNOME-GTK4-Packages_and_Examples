@@ -17,6 +17,7 @@ function webkit_security_origin_to_string(origin: PWebKitSecurityOrigin): Pgchar
 
 // === Konventiert am: 3-1-25 15:56:13 ===
 
+function WEBKIT_TYPE_SECURITY_ORIGIN: TGType;
 
 {$ENDIF read_interface}
 

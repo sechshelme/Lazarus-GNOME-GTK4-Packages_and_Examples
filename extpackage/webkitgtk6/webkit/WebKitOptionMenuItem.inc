@@ -17,6 +17,7 @@ function webkit_option_menu_item_is_selected(item: PWebKitOptionMenuItem): Tgboo
 
 // === Konventiert am: 3-1-25 16:41:23 ===
 
+function WEBKIT_TYPE_OPTION_MENU_ITEM: TGType;
 
 {$ENDIF read_interface}
 
