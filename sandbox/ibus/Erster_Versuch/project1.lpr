@@ -2,37 +2,9 @@ program project1;
 
 uses
   ctypes,
-
-  ibus,                   // io.
-  ibuskeysyms,            // io.
-  ibuskeysyms_compat,     // io.
-  ibusshare,              // io.
-  ibusxml,                // io.
-  ibusobject,             // io.
-  ibusproxy,              // io. -> ibusobject
-  ibusconfig,             // io. -> ibusproxy
-  ibusserializable,       // io. -> ibusobject
-  ibusxevent,             // io. -> ibusserializable
-  ibusattribute,          // io. -> ibusserializable
-  ibusattrlist,           // io. -> ibusserializable, ibusattribute
-  ibustext,               // io. -> ibusserializable, ibusattrlist
-  ibusenginedesc,         // io. -> ibusserializable, ibusxml
-  ibuscomponent,          // io. -> ibusserializable, ibusxml, ibusenginedesc
-  ibusinputcontext,       // io. -> ibusproxy, ibusenginedesc, ibustext
-  ibusbus,                // io. -> ibusobject, ibusinputcontext, ibuscomponent, ibusenginedesc, ibusconfig, ibusxevent
-
-
-  ibusengine,
-  ibuslookuptable,
-  ibusservice,
-  ibusproperty,
-  ibusproplist,
-  ibuspanelservice,
-  ibustypes,
-
-
   fp_glib_unix,
-  fp_glib2;
+  fp_glib2,
+  fp_ibus;
 
   function signal_cp(user_data: Tgpointer): Tgboolean; cdecl;
   var
@@ -63,7 +35,6 @@ uses
     loop: PGMainLoop = nil;
   begin
     ibus_init;
-
     bus := ibus_bus_new();
 
     if not ibus_bus_is_connected(bus) then begin
