@@ -103,7 +103,7 @@ const
 const
   {$IFDEF Linux}
   libgdk_pixbuf2 = 'libgdk_pixbuf-2.0';
-  libgdk_pixbuf_xlib2='libgdk_pixbuf_xlib-2.0';  // Nur Linux
+  libgdk_pixbuf_xlib2 = 'libgdk_pixbuf_xlib-2.0';  // Nur Linux
   {$ENDIF}
 
   {$IFDEF Windows}
@@ -134,12 +134,12 @@ const
 const
   {$IFDEF Linux}
   libwebkit = 'webkitgtk-6.0';
-  libjavascriptcoregtk ='javascriptcoregtk-6.0 ';
+  libjavascriptcoregtk = 'javascriptcoregtk-6.0 ';
   {$ENDIF}
 
   {$IFDEF Windows}
   libwebkit = 'webkitgtk-6.0.0.dll'; // ????????
-  libjavascriptcoregtk ='javascriptcoregtk-6.0.0.dll';  // ????????
+  libjavascriptcoregtk = 'javascriptcoregtk-6.0.0.dll';  // ????????
   {$ENDIF}
 
   // ==== GTKSourceView 5
@@ -262,10 +262,10 @@ type
 
   Tptrdiff_t = PtrInt;
 
-  Tuint8_t=UInt8;
-  Tuint16_t=UInt16;
-  Tuint32_t=UInt32;
-  Tuint64_t=UInt64;
+  Tuint8_t = uint8;
+  Tuint16_t = uint16;
+  Tuint32_t = uint32;
+  Tuint64_t = uint64;
 
   Tsize_t = SizeUInt;
   Ttime_t = clong; // types.h
@@ -339,7 +339,31 @@ type
   end;
   Ppasswd = ^Tpasswd;
 
+  // Signal Handler für g_unix_signal
+const
+  SIGHUP = 1;    // Hangup: Terminal/Session geschlossen
+  SIGINT = 2;    // Interrupt: z.B. Ctrl+C
+  SIGQUIT = 3;   // Quit: z.B. Ctrl+\
+  SIGILL = 4;    // Illegal Instruction
+  SIGABRT = 6;   // Abort: z.B. durch abort()
+  SIGFPE = 8;    // Floating Point Exception, z.B. Division durch 0
+  SIGKILL = 9;   // Kill: Beenden, nicht abfangbar!
+  SIGSEGV = 11;  // Segmentation Fault
+  SIGPIPE = 13;  // Broken Pipe
+  SIGALRM = 14;  // Alarm Clock: Zeitgeber, Timer
+  SIGTERM = 15;  // Termination: Standard-Abbruchsignal
+  SIGUSR1 = 10;  // User-defined Signal 1
+  SIGUSR2 = 12;  // User-defined Signal 2
+  SIGCHLD = 17;  // Child stopped or terminated
+  SIGCONT = 18;  // Continue
+  SIGSTOP = 19;  // Stop: Prozess anhalten, nicht abfangbar
+  SIGTSTP = 20;  // Terminal Stop: z.B. Ctrl+Z
+  SIGTTIN = 21;  // Hintergrundprozess will von Terminal lesen
+  SIGTTOU = 22;  // Hintergrundprozess will auf Terminal schreiben
+
+
   // ==== Xft
+type
   {$ifdef linux}
   TXftDraw = record
   end;

@@ -31,15 +31,37 @@ uses
   ibustypes,
 
 
+  fp_glib_unix,
   fp_glib2;
 
+  function signal_cp(user_data: Tgpointer): Tgboolean; cdecl;
+  var
+    loop: PGMainLoop absolute user_data;
+  begin
+    if loop <> nil then begin
+      g_print('Programm wird jetzt sauber beendet (SIGINT)'#10);
+      g_main_loop_quit(loop);
+    end;
+    Exit(G_SOURCE_REMOVE_);
+  end;
+
+  procedure on_bus_connected(bus: PIBusBus; user_data: Tgpointer);
+  begin
+    g_print('IBus-Bus wurde verbunden.'#10);
+  end;
+
+  procedure on_bus_disconnected(bus: PIBusBus; user_data: Tgpointer);
+  var
+    loop: PGMainLoop absolute user_data;
+  begin
+    g_print('IBus-Bus wurde getrennt.'#10);
+  end;
 
   function main(argc: cint; argv: PPChar): cint;
   var
     bus: PIBusBus;
-    loop: PGMainLoop;
+    loop: PGMainLoop = nil;
   begin
-
     ibus_init;
 
     bus := ibus_bus_new();
@@ -50,11 +72,17 @@ uses
       g_printerr('Starte ggf. ''ibus-daemon -drx'' in einem Terminal.'#10);
       g_object_unref(bus);
       Exit(1);
-    end else begin
-      g_print('IBus Daemon ist verbunden.'#10);
     end;
 
+    g_print('IBus Daemon ist verbunden.'#10);
+
     loop := g_main_loop_new(nil, False);
+
+    g_signal_connect(bus, 'connected', G_CALLBACK(@on_bus_connected), loop);
+    g_signal_connect(bus, 'disconnected', G_CALLBACK(@on_bus_disconnected), loop);
+
+    g_unix_signal_add(SIGINT, @signal_cp, loop);
+
     g_main_loop_run(loop);
 
     g_object_unref(bus);
@@ -63,4 +91,6 @@ uses
 
 begin
   main(argc, argv);
+
+  ReadLn;
 end.
