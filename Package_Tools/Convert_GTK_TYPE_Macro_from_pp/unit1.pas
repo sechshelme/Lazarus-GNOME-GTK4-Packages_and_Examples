@@ -200,6 +200,10 @@ const
 
     (libs: 'libibus'; units: 'fp_glib2, ibus'),
 
+    (libs: 'libgraphite2'; units: 'ctypes'),
+
+
+
 
     (libs: ''; units: ''));
 

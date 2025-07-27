@@ -102,6 +102,39 @@ libges = 'libges-1.0-0.dll';
   {$PACKRECORDS C}
   {$ENDIF}
 
+  // ==== cuda
+type
+  TCUresult = longint; // enum
+
+  TCUcontext = Pointer;
+  PCUcontext = ^TCUcontext;
+
+  TCUdevice = Pointer;
+  PCUdevice = ^TCUdevice;
+
+  TCUgraphicsResource = Pointer;
+  PCUgraphicsResource = ^TCUgraphicsResource;
+
+  TCUstream = Pointer;
+  PCUstream = ^TCUstream;
+
+  TCUfilter_mode = Pointer;
+  PCUfilter_mode = ^TCUfilter_mode;
+
+  TCUtexObject = Pointer;
+  PCUtexObject = ^TCUtexObject;
+
+  TCUdeviceptr = Pointer;
+  PCUdeviceptr = ^TCUdeviceptr;
+
+  TCUmemAllocationProp = Pointer;
+  PCUmemAllocationProp = ^TCUmemAllocationProp;
+
+  TCUgraphicsRegisterFlags = longint;
+  TCUgraphicsMapResourceFlags = longint;
+  TCUmemAllocationGranularity_flags = longint;
+
+
   {$include ../gnome_lib_const.inc}
 
   // === GST
