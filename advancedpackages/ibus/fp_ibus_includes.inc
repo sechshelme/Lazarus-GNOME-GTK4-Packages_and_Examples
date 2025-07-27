@@ -1,6 +1,7 @@
 
 
 
+{$include ibus/ibusversion.inc}            // io.
 {$include ibus/ibustypes.inc}              // io.
 {$include ibus/ibusenumtypes.inc}          // io.
 {$include ibus/ibuskeysyms.inc}            // io.
@@ -38,6 +39,5 @@
 {$include ibus/ibuserror.inc}              // io.
 {$include ibus/ibuskeys.inc}               // io.
 {$include ibus/ibusutil.inc}               // io.
-{$include ibus/ibusversion.inc}            // io.
 
 

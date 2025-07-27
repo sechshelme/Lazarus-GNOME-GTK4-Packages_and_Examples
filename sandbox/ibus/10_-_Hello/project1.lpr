@@ -35,7 +35,9 @@ uses
     loop: PGMainLoop = nil;
   begin
     ibus_init;
-    bus := ibus_bus_new();
+    bus := ibus_bus_new;
+
+    g_print(#10#10);
 
     if not ibus_bus_is_connected(bus) then begin
       g_printerr('IBus Daemon läuft nicht oder ist nicht erreichbar.'#10);
@@ -46,11 +48,20 @@ uses
     end;
 
     g_print('IBus Daemon ist verbunden.'#10);
-
-    loop := g_main_loop_new(nil, False);
+    g_print(#10);
+    g_print('Um disconnected und connected zu testen, in einem Terminal folgendes eingeben:'#10);
+    g_print(#10);
+    g_print('"ibus restart"'#10);
+    g_print('oder'#10);
+    g_print('"ibus-daemon -drx"'#10);
+    g_print(#10);
+    g_print('Hinweis: in xterm stürtzt da Programm ab, in GNOME-Terminal geht es.'#10);
+    g_print(#10);
 
     g_signal_connect(bus, 'connected', G_CALLBACK(@on_bus_connected), loop);
     g_signal_connect(bus, 'disconnected', G_CALLBACK(@on_bus_disconnected), loop);
+
+    loop := g_main_loop_new(nil, False);
 
     g_unix_signal_add(SIGINT, @signal_cp, loop);
 
@@ -58,10 +69,10 @@ uses
 
     g_object_unref(bus);
     g_main_loop_unref(loop);
+
+    Exit(0);
   end;
 
 begin
   main(argc, argv);
-
-  ReadLn;
 end.
