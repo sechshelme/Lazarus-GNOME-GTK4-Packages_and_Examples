@@ -11,7 +11,7 @@ uses
   procedure main(argc: cint; argv: PPChar);
   var
     pipeline, src, sink: PGstElement;
-    pattern: Tgint = 0;  // GstVideoTestSrcPattern
+    pattern: Tgint = 0;
     ch: ansichar;
     quit: boolean = False;
     fgCol, bgCol: Tguint;

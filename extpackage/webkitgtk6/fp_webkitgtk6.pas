@@ -5,6 +5,16 @@ interface
 uses
   ctypes, fp_gdk4, fp_gtk4, fp_glib2, fp_JSC;
 
+const
+  {$IFDEF Linux}
+  libwebkit = 'webkitgtk-6.0';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libwebkit = 'webkitgtk-6.0.0.dll'; // ????????
+  {$ENDIF}
+
+  // ==== System
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
@@ -21,4 +31,3 @@ implementation
 {$UNDEF read_implementation}
 
 end.
-

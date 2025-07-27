@@ -27,9 +27,6 @@
       <Item>
         <PackageName Value="fp_libssh_package"/>
       </Item>
-      <Item>
-        <PackageName Value="fp_clib_packages"/>
-      </Item>
     </RequiredPackages>
     <Units>
       <Unit>

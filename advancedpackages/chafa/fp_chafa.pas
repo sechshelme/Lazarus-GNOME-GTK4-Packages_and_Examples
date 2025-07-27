@@ -5,6 +5,16 @@ interface
 uses
   fp_glib2;
 
+const
+  {$IFDEF Linux}
+  libchafa = 'libchafa';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libchafa = 'libchafa.dll'; // ????
+  {$ENDIF}
+
+
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
@@ -21,4 +31,3 @@ implementation
 {$UNDEF read_implementation}
 
 end.
-

@@ -5,6 +5,8 @@ interface
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
+
+
 const
   {$IFDEF unix}
   libcurl = 'libcurl';
@@ -13,7 +15,6 @@ const
   {$IFDEF mswindows}
   libcurl = 'libcurl.dll'; // ????
   {$ENDIF}
-
 
 
 type
@@ -26,7 +27,7 @@ type
   PFILE = Pointer;
   Tva_list = Pointer;
 
-type                // curl/system.h
+type  // curl/system.h
   Tcurl_off_t = longint;
 
 type // /usr/include/x86_64-linux-gnu/sys/select.h

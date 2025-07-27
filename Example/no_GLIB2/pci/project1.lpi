@@ -25,6 +25,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="fp_libc_packages"/>
+      </Item>
+      <Item>
         <PackageName Value="fp_pci_package"/>
       </Item>
     </RequiredPackages>

@@ -24,12 +24,12 @@ type
   Pcairo_pdf_version_t = ^Tcairo_pdf_version_t;
   PPcairo_pdf_version_t = ^Pcairo_pdf_version_t;
 
-function cairo_pdf_surface_create(filename: PChar; width_in_points: Tdouble; height_in_points: Tdouble): Pcairo_surface_t; cdecl; external cairo_lib;
-function cairo_pdf_surface_create_for_stream(write_func: Tcairo_write_func_t; closure: pointer; width_in_points: Tdouble; height_in_points: Tdouble): Pcairo_surface_t; cdecl; external cairo_lib;
+function cairo_pdf_surface_create(filename: PChar; width_in_points: double; height_in_points: double): Pcairo_surface_t; cdecl; external cairo_lib;
+function cairo_pdf_surface_create_for_stream(write_func: Tcairo_write_func_t; closure: pointer; width_in_points: double; height_in_points: double): Pcairo_surface_t; cdecl; external cairo_lib;
 procedure cairo_pdf_surface_restrict_to_version(surface: Pcairo_surface_t; version: Tcairo_pdf_version_t); cdecl; external cairo_lib;
 procedure cairo_pdf_get_versions(versions: PPcairo_pdf_version_t; num_versions: Plongint); cdecl; external cairo_lib;
 function cairo_pdf_version_to_string(version: Tcairo_pdf_version_t): PChar; cdecl; external cairo_lib;
-procedure cairo_pdf_surface_set_size(surface: Pcairo_surface_t; width_in_points: Tdouble; height_in_points: Tdouble); cdecl; external cairo_lib;
+procedure cairo_pdf_surface_set_size(surface: Pcairo_surface_t; width_in_points: double; height_in_points: double); cdecl; external cairo_lib;
 
 type
   Pcairo_pdf_outline_flags = ^Tcairo_pdf_outline_flags;

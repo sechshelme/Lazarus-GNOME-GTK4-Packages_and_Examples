@@ -7,23 +7,9 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   OpenGLContext, gl,
-  FreeType2,
-  ctypes,
+  fp_FreeType2,
   LazUTF8;
-
-const
-  {$IFDEF Linux}
-  libc = 'c';
-  {$ENDIF}
-
-  {$IFDEF Windows}
-  libc = 'msvcrt.dll';
-  {$ENDIF}
-
 type
-
-  { TForm1 }
-
   TForm1 = class(TForm)
     OpenGLControl1: TOpenGLControl;
     Timer1: TTimer;

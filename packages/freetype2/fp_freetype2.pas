@@ -8,11 +8,19 @@ uses
   {$endif}
   ctypes;
 
+const
+  {$IFDEF Linux}
+  freetype_lib = 'libfreetype';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  freetype_lib = 'libfreetype-6.dll';
+  {$ENDIF}
+
+
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
-
-  {$include ../gnome_lib_const.inc}
 
   // ==== integer-types.h
 
@@ -1647,7 +1655,7 @@ type
     n_contours: smallint;
     n_points: smallint;
     points: PFT_Vector;
-    tags: PChar;
+    tags: pchar;
     contours: Psmallint;
     flags: longint;
   end;
@@ -2013,7 +2021,7 @@ type
 
   TFT_Module_Constructor = function(module: TFT_Module): TFT_Error; cdecl;
   TFT_Module_Destructor = procedure(module: TFT_Module); cdecl;
-  TFT_Module_Requester = function(module: TFT_Module; Name: PChar): TFT_Module_Interface; cdecl;
+  TFT_Module_Requester = function(module: TFT_Module; Name: pchar): TFT_Module_Interface; cdecl;
 
   TFT_Module_Class = record
     module_flags: TFT_ULong;
@@ -2125,7 +2133,7 @@ type
     _type: TBDF_PropertyType;
     u: record
       case longint of
-        0: (atom: PChar);
+        0: (atom: pchar);
         1: (integer: TFT_Int32);
         2: (cardinal: TFT_UInt32);
       end;
@@ -2684,13 +2692,13 @@ type
 
   // =============== External Functions ==========================
 
-  // ======== freetype.h
+// ======== freetype.h
 function FT_Init_FreeType(alibrary: PFT_Library): TFT_Error; cdecl; external freetype_lib;
 function FT_Done_FreeType(library_: TFT_Library): TFT_Error; cdecl; external freetype_lib;
-function FT_New_Face(library_: TFT_Library; filepathname: PChar; face_index: TFT_Long; aface: PFT_Face): TFT_Error; cdecl; external freetype_lib;
+function FT_New_Face(library_: TFT_Library; filepathname: pchar; face_index: TFT_Long; aface: PFT_Face): TFT_Error; cdecl; external freetype_lib;
 function FT_New_Memory_Face(library_: TFT_Library; file_base: PFT_Byte; file_size: TFT_Long; face_index: TFT_Long; aface: PFT_Face): TFT_Error; cdecl; external freetype_lib;
 function FT_Open_Face(library_: TFT_Library; args: PFT_Open_Args; face_index: TFT_Long; aface: PFT_Face): TFT_Error; cdecl; external freetype_lib;
-function FT_Attach_File(face: TFT_Face; filepathname: PChar): TFT_Error; cdecl; external freetype_lib;
+function FT_Attach_File(face: TFT_Face; filepathname: pchar): TFT_Error; cdecl; external freetype_lib;
 function FT_Attach_Stream(face: TFT_Face; parameters: PFT_Open_Args): TFT_Error; cdecl; external freetype_lib;
 function FT_Reference_Face(face: TFT_Face): TFT_Error; cdecl; external freetype_lib;
 function FT_Done_Face(face: TFT_Face): TFT_Error; cdecl; external freetype_lib;
@@ -2714,7 +2722,7 @@ function FT_Get_Next_Char(face: TFT_Face; char_code: TFT_ULong; agindex: PFT_UIn
 function FT_Face_Properties(face: TFT_Face; num_properties: TFT_UInt; properties: PFT_Parameter): TFT_Error; cdecl; external freetype_lib;
 function FT_Get_Name_Index(face: TFT_Face; glyph_name: PFT_String): TFT_UInt; cdecl; external freetype_lib;
 function FT_Get_Glyph_Name(face: TFT_Face; glyph_index: TFT_UInt; buffer: TFT_Pointer; buffer_max: TFT_UInt): TFT_Error; cdecl; external freetype_lib;
-function FT_Get_Postscript_Name(face: TFT_Face): PChar; cdecl; external freetype_lib;
+function FT_Get_Postscript_Name(face: TFT_Face): pchar; cdecl; external freetype_lib;
 function FT_Get_FSType_Flags(face: TFT_Face): TFT_UShort; cdecl; external freetype_lib;
 function FT_Face_GetCharVariantIndex(face: TFT_Face; charcode: TFT_ULong; variantSelector: TFT_ULong): TFT_UInt; cdecl; external freetype_lib;
 function FT_Face_GetCharVariantIsDefault(face: TFT_Face; charcode: TFT_ULong; variantSelector: TFT_ULong): TFT_Int; cdecl; external freetype_lib;
@@ -2807,7 +2815,7 @@ function FT_Set_Renderer(library_: TFT_Library; renderer: TFT_Renderer; num_para
 
 // ====  ftmodapi.h
 function FT_Add_Module(library_: TFT_Library; clazz: PFT_Module_Class): TFT_Error; cdecl; external freetype_lib;
-function FT_Get_Module(library_: TFT_Library; module_name: PChar): TFT_Module; cdecl; external freetype_lib;
+function FT_Get_Module(library_: TFT_Library; module_name: pchar): TFT_Module; cdecl; external freetype_lib;
 function FT_Remove_Module(library_: TFT_Library; module: TFT_Module): TFT_Error; cdecl; external freetype_lib;
 function FT_Property_Set(library_: TFT_Library; module_name: PFT_String; property_name: PFT_String; Value: pointer): TFT_Error; cdecl; external freetype_lib;
 function FT_Property_Get(library_: TFT_Library; module_name: PFT_String; property_name: PFT_String; Value: pointer): TFT_Error; cdecl; external freetype_lib;
@@ -2843,7 +2851,7 @@ function FT_Library_SetLcdGeometry(library_: TFT_Library; sub: Tsub02): TFT_Erro
 
 // ====  ftbdf.h
 function FT_Get_BDF_Charset_ID(face: TFT_Face; acharset_encoding: PPchar; acharset_registry: PPchar): TFT_Error; cdecl; external freetype_lib;
-function FT_Get_BDF_Property(face: TFT_Face; prop_name: PChar; aproperty: PBDF_PropertyRec): TFT_Error; cdecl; external freetype_lib;
+function FT_Get_BDF_Property(face: TFT_Face; prop_name: pchar; aproperty: PBDF_PropertyRec): TFT_Error; cdecl; external freetype_lib;
 
 
 // ====  ftlzw.h
@@ -2930,12 +2938,12 @@ function FT_Outline_Get_Orientation(outline: PFT_Outline): TFT_Orientation; cdec
 
 // ====  ftmac.h
 {$IFDEF DARWIN}
-function FT_New_Face_From_FOND(library_:TFT_Library; fond:THandle; face_index:TFT_Long; aface:PFT_Face):TFT_Error;cdecl; external freetype_lib;
-function FT_GetFile_From_Mac_Name(fontName:Pchar; pathSpec:PFSSpec; face_index:PFT_Long):TFT_Error;cdecl; external freetype_lib;
-function FT_GetFile_From_Mac_ATS_Name(fontName:Pchar; pathSpec:PFSSpec; face_index:PFT_Long):TFT_Error;cdecl; external freetype_lib;
-function FT_GetFilePath_From_Mac_ATS_Name(fontName:Pchar; path:PUInt8; maxPathSize:TUInt32; face_index:PFT_Long):TFT_Error;cdecl; external freetype_lib;
-function FT_New_Face_From_FSSpec(library_:TFT_Library; spec:PFSSpec; face_index:TFT_Long; aface:PFT_Face):TFT_Error;cdecl; external freetype_lib;
-function FT_New_Face_From_FSRef(library_:TFT_Library; ref:PFSRef; face_index:TFT_Long; aface:PFT_Face):TFT_Error;cdecl; external freetype_lib;
+function FT_New_Face_From_FOND(library_: TFT_Library; fond: THandle; face_index: TFT_Long; aface: PFT_Face): TFT_Error; cdecl; external freetype_lib;
+function FT_GetFile_From_Mac_Name(fontName: pchar; pathSpec: PFSSpec; face_index: PFT_Long): TFT_Error; cdecl; external freetype_lib;
+function FT_GetFile_From_Mac_ATS_Name(fontName: pchar; pathSpec: PFSSpec; face_index: PFT_Long): TFT_Error; cdecl; external freetype_lib;
+function FT_GetFilePath_From_Mac_ATS_Name(fontName: pchar; path: PUInt8; maxPathSize: TUInt32; face_index: PFT_Long): TFT_Error; cdecl; external freetype_lib;
+function FT_New_Face_From_FSSpec(library_: TFT_Library; spec: PFSSpec; face_index: TFT_Long; aface: PFT_Face): TFT_Error; cdecl; external freetype_lib;
+function FT_New_Face_From_FSRef(library_: TFT_Library; ref: PFSRef; face_index: TFT_Long; aface: PFT_Face): TFT_Error; cdecl; external freetype_lib;
 {$ENDIF}
 
 
@@ -2972,8 +2980,8 @@ function FT_Get_Gasp(face: TFT_Face; ppem: TFT_UInt): TFT_Int; cdecl; external f
 
 
 // ====  ftfntfmt.h
-function FT_Get_Font_Format(face: TFT_Face): PChar; cdecl; external freetype_lib;
-function FT_Get_X11_Font_Format(face: TFT_Face): PChar; cdecl; external freetype_lib;
+function FT_Get_Font_Format(face: TFT_Face): pchar; cdecl; external freetype_lib;
+function FT_Get_X11_Font_Format(face: TFT_Face): pchar; cdecl; external freetype_lib;
 
 
 // ====  ftwinfnt.h
@@ -3026,15 +3034,15 @@ function FT_Matrix_Invert(matrix: PFT_Matrix): TFT_Error; cdecl; external freety
 
 
 // ====  fterrors.h
-function FT_Error_String(error_code: TFT_Error): PChar;
+function FT_Error_String(error_code: TFT_Error): pchar;
 
 //function FT_Error_String(error_code: TFT_Error): PChar; cdecl; external freetype_lib;
 
 implementation
 
-function FT_Error_String(error_code: TFT_Error): PChar;
+function FT_Error_String(error_code: TFT_Error): pchar;
 const
-  ErrorCode: array of PChar = (
+  ErrorCode: array of pchar = (
     'no error',
     'cannot open resource',
     'unknown file format',

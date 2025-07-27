@@ -5,6 +5,15 @@ interface
 uses
   fp_glib2;
 
+const
+  {$IFDEF Linux}
+  libjavascriptcoregtk = 'javascriptcoregtk-6.0 ';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libjavascriptcoregtk = 'javascriptcoregtk-6.0.0.dll';  // ????????
+  {$ENDIF}
+
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}

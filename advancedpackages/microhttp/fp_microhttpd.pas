@@ -2,10 +2,6 @@ unit fp_microhttpd;
 
 interface
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
-
 const
   {$IFDEF Linux}
   libmicrohttpd = 'microhttpd';
@@ -13,6 +9,10 @@ const
 
   {$IFDEF mswindows}
   libmicrohttpd = 'microhttpd.dll';  // ?????
+  {$ENDIF}
+
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
   {$ENDIF}
 
 

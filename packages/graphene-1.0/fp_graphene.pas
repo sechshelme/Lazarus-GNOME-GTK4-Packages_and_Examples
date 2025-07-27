@@ -5,6 +5,15 @@ interface
 uses
   fp_glib2;
 
+const
+  {$IFDEF Linux}
+  libgraphene = 'libgraphene-1.0';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libgraphene = 'libgraphene-1.0-0.dll';
+  {$ENDIF}
+
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
@@ -21,4 +30,3 @@ implementation
 {$UNDEF read_implementation}
 
 end.
-

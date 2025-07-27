@@ -5,6 +5,7 @@ uses
   fp_glib2,
   fp_pango,
   fp_GTK4,
+  fp_JSC,
   fp_webkitgtk6;
 
 const

@@ -2,10 +2,6 @@ unit fp_sixel;
 
 interface
 
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
-
 const
   {$IFDEF Linux}
   libsixel = 'libsixel';
@@ -15,10 +11,12 @@ const
   libsixel = 'libsixel-1.dll'; // ???
   {$ENDIF}
 
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 type
   Tsize_t = SizeInt;
-
 
   // ================
 
@@ -318,12 +316,7 @@ type
   Tsixel_realloc_t = function(para1: pointer; para2: Tsize_t): pointer; cdecl;
   Tsixel_free_t = procedure(para1: pointer); cdecl;
 
-  Psixel_allocator = ^Tsixel_allocator;
-  Tsixel_allocator = record
-  end;
-
-  Tsixel_allocator_t = Tsixel_allocator;
-  Psixel_allocator_t = ^Tsixel_allocator_t;
+  Psixel_allocator_t = type Pointer;
   PPsixel_allocator_t = ^Psixel_allocator_t;
 
 function sixel_allocator_new(ppallocator: PPsixel_allocator_t; fn_malloc: Tsixel_malloc_t; fn_calloc: Tsixel_calloc_t; fn_realloc: Tsixel_realloc_t; fn_free: Tsixel_free_t): TSIXELSTATUS; cdecl; external libsixel;
@@ -335,12 +328,7 @@ function sixel_allocator_realloc(allocator: Psixel_allocator_t; p: pointer; n: T
 procedure sixel_allocator_free(allocator: Psixel_allocator_t; p: pointer); cdecl; external libsixel;
 
 type
-  Psixel_output = ^Tsixel_output;
-  Tsixel_output = record
-  end;
-
-  Tsixel_output_t = Tsixel_output;
-  Psixel_output_t = ^Tsixel_output_t;
+  Psixel_output_t = type Pointer;
   PPsixel_output_t = ^Psixel_output_t;
 
   Tsixel_write_function = function(data: pchar; size: longint; priv: pointer): longint; cdecl;
@@ -360,12 +348,7 @@ procedure sixel_output_set_ormode(output: Psixel_output_t; ormode: longint); cde
 procedure sixel_output_set_encode_policy(output: Psixel_output_t; encode_policy: longint); cdecl; external libsixel;
 
 type
-  Psixel_dither = ^Tsixel_dither;
-  Tsixel_dither = record
-  end;
-
-  Tsixel_dither_t = Tsixel_dither;
-  Psixel_dither_t = ^Tsixel_dither_t;
+  Psixel_dither_t = type Pointer;
   PPsixel_dither_t = ^Psixel_dither_t;
 
 function sixel_dither_new(ppdither: PPsixel_dither_t; ncolors: longint; allocator: Psixel_allocator_t): TSIXELSTATUS; cdecl; external libsixel;
@@ -432,12 +415,7 @@ const
   LOOP_DISABLE = 2;
 
 type
-  Psixel_frame = ^Tsixel_frame;
-  Tsixel_frame = record
-  end;
-
-  Tsixel_frame_t = Tsixel_frame;
-  Psixel_frame_t = ^Tsixel_frame_t;
+  Psixel_frame_t = type Pointer;
   PPsixel_frame_t = ^Psixel_frame_t;
 
 function sixel_frame_new(ppframe: PPsixel_frame_t; allocator: Psixel_allocator_t): TSIXELSTATUS; cdecl; external libsixel;
@@ -471,12 +449,7 @@ function sixel_helper_write_image_file(data: pbyte; width: longint; height: long
   filename: pchar; imageformat: longint; allocator: Psixel_allocator_t): TSIXELSTATUS; cdecl; external libsixel;
 
 type
-  Psixel_encoder = ^Tsixel_encoder;
-  Tsixel_encoder = record
-  end;
-
-  Tsixel_encoder_t = Tsixel_encoder;
-  Psixel_encoder_t = ^Tsixel_encoder_t;
+  Psixel_encoder_t = type Pointer;
   PPsixel_encoder_t = ^Psixel_encoder_t;
 
 function sixel_encoder_new(ppencoder: PPsixel_encoder_t; allocator: Psixel_allocator_t): TSIXELSTATUS; cdecl; external libsixel;
@@ -490,12 +463,7 @@ function sixel_encoder_encode_bytes(encoder: Psixel_encoder_t; bytes: pbyte; wid
   palette: pbyte; ncolors: longint): TSIXELSTATUS; cdecl; external libsixel;
 
 type
-  Psixel_decoder = ^Tsixel_decoder;
-  Tsixel_decoder = record
-  end;
-
-  Tsixel_decoder_t = Tsixel_decoder;
-  Psixel_decoder_t = ^Tsixel_decoder_t;
+  Psixel_decoder_t = type Pointer;
   PPsixel_decoder_t = ^Psixel_decoder_t;
 
 function sixel_decoder_new(ppdecoder: PPsixel_decoder_t; allocator: Psixel_allocator_t): TSIXELSTATUS; cdecl; external libsixel;

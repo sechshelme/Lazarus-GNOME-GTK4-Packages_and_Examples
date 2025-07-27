@@ -17,7 +17,7 @@ type
   Tcsi_destroy_func_t = procedure(closure: pointer; ptr: pointer); cdecl;
 
   Pcsi_surface_create_func_t = ^Tcsi_surface_create_func_t;
-  Tcsi_surface_create_func_t = function(closure: pointer; content: Tcairo_content_t; Width: Tdouble; Height: Tdouble; uid: longint): Pcairo_surface_t; cdecl;
+  Tcsi_surface_create_func_t = function(closure: pointer; content: Tcairo_content_t; Width: double; Height: double; uid: longint): Pcairo_surface_t; cdecl;
 
   Pcsi_context_create_func_t = ^Tcsi_context_create_func_t;
   Tcsi_context_create_func_t = function(closure: pointer; surface: Pcairo_surface_t): Pcairo_t; cdecl;

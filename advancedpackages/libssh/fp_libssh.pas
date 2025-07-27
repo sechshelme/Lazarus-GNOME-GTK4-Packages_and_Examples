@@ -3,11 +3,6 @@ unit fp_libssh;
 
 interface
 
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
-
-
 const
   {$IFDEF unix}
   libssh = 'libssh';
@@ -19,6 +14,10 @@ const
 
   {$IFDEF darwin}
   libssh = 'libssh.dynlib'; // ??????
+  {$ENDIF}
+
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
   {$ENDIF}
 
 type

@@ -10,6 +10,21 @@ uses
   {$ENDIF}
   ctypes, fp_FreeType2, fp_glib2, fp_harfbuzz, fp_cairo;
 
+const
+  {$IFDEF Linux}
+  libpango = 'libpango-1.0';
+  libpangocairo = 'libpangocairo-1.0';
+  libpangoft2 = 'libpangoft2-1.0';
+  libpangoxft = 'libpangoxft-1.0';  // Nur Linux
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libpango = 'libpango-1.0-0.dll';
+  libpangocairo = 'libpangocairo-1.0-0.dll';
+  libpangoft2 = 'libpangoft2-1.0-0.dll';
+  {$ENDIF}
+
+
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
@@ -26,4 +41,3 @@ implementation
 {$UNDEF read_implementation}
 
 end.
-

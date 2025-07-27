@@ -14,6 +14,10 @@ const
   libgnuplot_i = 'libgnutls-30.dll';
   {$ENDIF}
 
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
 type
   PPdword = ^Pdword;
 
@@ -31,10 +35,6 @@ type
 
   PMD5_CTX = Pointer;  // openssl/md5h.h
   PRIPEMD160_CTX = Pointer;  // openssl/ripemd.h
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
 
   {$DEFINE read_interface}
   {$include fp_gnutls_includes.inc}

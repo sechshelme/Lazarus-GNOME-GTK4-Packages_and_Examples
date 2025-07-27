@@ -32,9 +32,7 @@ type
   Ppciaddr_t = ^Tpciaddr_t;
   Tpciaddr_t = Tuint64_t;
 
-  Ppci_device_iterator = ^Tpci_device_iterator;
-  Tpci_device_iterator = record
-  end;
+  Ppci_device_iterator = type Pointer;
 
   Tpci_mem_region = bitpacked record
     memory: pointer;
@@ -210,10 +208,7 @@ function pci_device_vgaarb_unlock: longint; cdecl; external libpciaccess;
 function pci_device_vgaarb_get_info(dev: Ppci_device; vga_count: Plongint; rsrc_decodes: Plongint): longint; cdecl; external libpciaccess;
 
 type
-  Ppci_io_handle = ^Tpci_io_handle;
-  Tpci_io_handle = record
-  end;
-
+  Ppci_io_handle = type Pointer;
 
 function pci_device_open_io(dev: Ppci_device; base: Tpciaddr_t; size: Tpciaddr_t): Ppci_io_handle; cdecl; external libpciaccess;
 function pci_legacy_open_io(dev: Ppci_device; base: Tpciaddr_t; size: Tpciaddr_t): Ppci_io_handle; cdecl; external libpciaccess;

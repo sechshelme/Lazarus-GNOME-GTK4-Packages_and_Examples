@@ -25,7 +25,7 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="FreeType2_Package"/>
+        <PackageName Value="fp_FreeType2_Package"/>
       </Item>
     </RequiredPackages>
     <Units>

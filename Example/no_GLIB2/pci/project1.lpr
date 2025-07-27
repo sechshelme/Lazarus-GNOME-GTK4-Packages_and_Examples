@@ -1,20 +1,8 @@
 program project1;
 
 uses
+  fp_stdio,
   fp_pci;
-
-const
-  {$ifdef linux}
-  libc = 'c';
-  {$endif}
-
-  {$ifdef windows}
-  libc = 'msvcrt.dll';
-  {$endif}
-
-
-
-  function printf(f: pchar): longint; cdecl; varargs; external libc;
 
   procedure main;
   var

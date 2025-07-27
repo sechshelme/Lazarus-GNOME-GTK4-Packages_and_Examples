@@ -7,7 +7,7 @@ program project1;
 uses
   ctypes,
   sysutils,
-  FreeType2;
+  fp_FreeType2;
 
   procedure main;
   const

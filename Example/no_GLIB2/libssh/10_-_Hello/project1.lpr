@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  fp_stdio,
   fp_libssh;
 
   procedure main;
@@ -22,14 +21,14 @@ uses
 
     rc := ssh_connect(session);
     if rc <> SSH_OK then begin
-      fprintf(stderr, 'Fehler beim Verbinden: %s'#10, ssh_get_error(session));
+      WriteLn('Fehler beim Verbinden: ', ssh_get_error(session));
       ssh_free(session);
       Exit;
     end;
 
     rc := ssh_userauth_password(session, nil, 'xxxxxx');
     if rc <> SSH_AUTH_SUCCESS then begin
-      fprintf(stderr, 'Authentifizierung fehlgeschlagen: %s'#10, ssh_get_error(session));
+      WriteLn(stderr, 'Authentifizierung fehlgeschlagen: ', ssh_get_error(session));
       ssh_disconnect(session);
       ssh_free(session);
       Exit;

@@ -5,10 +5,9 @@ const
   PCI_LIB_VERSION = $030a00;
 
 type
-  Ppci_methods = ^Tpci_methods;
-  Tpci_methods = record
-  end;
+  Ppci_methods = type Pointer;
 
+type
   Tpci_access_type = longint;
 
 const
@@ -233,7 +232,6 @@ const
 
 function PCI_ADDR_IO_MASK: UInt64;
 function PCI_ADDR_MEM_MASK: UInt64;
-
 
 
 // === Konventiert am: 28-6-25 19:49:16 ===
