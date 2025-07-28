@@ -1,16 +1,6 @@
 program project1;
-
-
-// gcc -o main main.c `pkg-config --cflags --libs graphite2`
-
 uses
-  Types,
-  Log,
-  Segment,
-  Font,
-
   fp_graphite2;
-
 const
 //  FontPath = 'small.ttf';
 //  FontPath = '/home/tux/Schreibtisch/von_Git/graphite2/graphite/site/assets/fonts/Simple-Graphite-Font.ttf';
@@ -57,7 +47,6 @@ const
     s := gr_seg_first_slot(seg);
     while s <> nil do begin
       WriteLn(gr_slot_gid(s): 6, ' ( ', gr_slot_origin_X(s): 6: 2, ', ', gr_slot_origin_Y(s): 6: 2, ' )');
-
       s := gr_slot_next_in_segment(s);
     end;
 

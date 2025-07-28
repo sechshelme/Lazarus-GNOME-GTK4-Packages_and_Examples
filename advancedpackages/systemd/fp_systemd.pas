@@ -9,7 +9,9 @@ uses
   clib, fp_stdio, fp_signal, fp_inotify;
 
 const
+  {$IFDEF Linux}
   libsystemd = 'libsystemd';
+  {$ENDIF}
 
 type // /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h
   Piovec = Pointer;

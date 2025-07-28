@@ -2,11 +2,9 @@ program project1;
 
 uses
   crt,
-
   fp_systemd;
 
   // busctl --user
-
 
   // busctl --user introspect org.ex /org/ex org.ex
   // busctl --user call org.ex /org/ex org.ex add dd 22 33
@@ -18,6 +16,12 @@ uses
 
   // busctl --user set-property org.ex /org/ex org.ex formatoptions '(ii)' 6 3
   // busctl --user get-property org.ex /org/ex org.ex formatoptions
+
+
+const
+  WhiteText = #27'[1;37m';
+  YellowText = #27'[33m';
+  ResetText = #27'[0m';
 
 
 type
@@ -191,6 +195,26 @@ var
     vtable: Tsd_bus_vtables = nil;
     ch: ansichar;
   begin
+    ClrScr;
+    Writeln();
+    WriteLn(YellowText, 'Mit folgenden Kommandos, in einem 2. Termin,'#10'kann das Programm gesteuert werden:', ResetText);
+    WriteLn();
+    WriteLn(WhiteText, 'Listet alle Austausche auf. (im seperaten Terminal)', ResetText);
+    Writeln('  busctl --user monitor org.ex');
+    Writeln('');
+    WriteLn(WhiteText, 'Infos auslesesen:', ResetText);
+    Writeln('  busctl --user introspect org.ex /org/ex org.ex');
+    Writeln('');
+    WriteLn(WhiteText, 'Mit dem Prgramm rechnen:', ResetText);
+    Writeln('  busctl --user call org.ex /org/ex org.ex add dd 22 33');
+    Writeln('  busctl --user call org.ex /org/ex org.ex all dd 22 33');
+    Writeln('');
+    WriteLn(WhiteText, 'Property einlesen und schreiben:', ResetText);
+    Writeln('  busctl --user get-property org.ex /org/ex org.ex lastresult');
+    Writeln('  busctl --user set-property org.ex /org/ex org.ex formatoptions ''(ii)'' 6 3');
+    Writeln('  busctl --user get-property org.ex /org/ex org.ex formatoptions');
+    Writeln('');
+
     Add_bus_vtable(vtable, SD_BUS_VTABLE_START(0));
     Add_bus_vtable(vtable, SD_BUS_METHOD('quit', '', 's', @method, 0));
     Add_bus_vtable(vtable, SD_BUS_METHOD('add', 'dd', 'd', @method, 0));
@@ -213,8 +237,10 @@ var
       Exit;
     end;
 
+    WriteLn();
     WriteLn('dbus gestartet.');
-    WriteLn('<ESC> Abbruch');
+    WriteLn();
+    WriteLn('    <ESC> = Abbruch');
 
     repeat
       if CommandTest(sd_bus_wait(bus, 100), 'sd_bus_wait') < 0 then begin
@@ -241,6 +267,8 @@ var
       Exit;
     end;
     WriteLn('Program end [io]');
+
+    Result := 0;
   end;
 
 begin
