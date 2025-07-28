@@ -59,9 +59,9 @@ const
     bus := ibus_bus_new;
 
     if not ibus_bus_is_connected(bus) then begin
-      g_printerr('IBus Daemon läuft nicht oder ist nicht erreichbar.'#10);
-      g_printerr('Stelle sicher, dass du das Programm in einer grafischen Session startest und IBus läuft.'#10);
-      g_printerr('Starte ggf. ''ibus-daemon -drx'' in einem Terminal.'#10);
+      g_printf('IBus Daemon läuft nicht oder ist nicht erreichbar.'#10);
+      g_printf('Stelle sicher, dass du das Programm in einer grafischen Session startest und IBus läuft.'#10);
+      g_printf('Starte ggf. ''ibus-daemon -drx'' in einem Terminal.'#10);
       g_object_unref(bus);
       //      Exit(1);
     end else begin
@@ -69,6 +69,12 @@ const
     end;
 
     context := ibus_bus_create_input_context(bus, 'example');
+    if context=nil then begin
+      g_printf('Input Context konnte nicht erstellt werden.'#10);
+//      g_object_unref(bus);
+//      return 1;
+    end;
+
     g_signal_connect(context, 'commit-text', G_CALLBACK(@on_commit), nil);
     ibus_input_context_focus_in(context);
 

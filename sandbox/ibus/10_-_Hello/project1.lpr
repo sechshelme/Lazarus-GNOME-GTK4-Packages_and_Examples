@@ -29,10 +29,18 @@ uses
     g_print('IBus-Bus wurde getrennt.'#10);
   end;
 
+  procedure on_commit(contex: PIBusInputContext; text: pchar; user_data: Tgpointer);
+  var
+    loop: PGMainLoop absolute user_data;
+  begin
+    g_print('Committed text: %s'#10, text);
+  end;
+
   function main(argc: cint; argv: PPChar): cint;
   var
     bus: PIBusBus;
     loop: PGMainLoop = nil;
+    context: PIBusInputContext;
   begin
     ibus_init;
     bus := ibus_bus_new;
@@ -58,13 +66,18 @@ uses
     g_print('Hinweis: in xterm stürtzt da Programm ab, in GNOME-Terminal geht es.'#10);
     g_print(#10);
 
-    g_signal_connect(bus, 'connected', G_CALLBACK(@on_bus_connected), loop);
-    g_signal_connect(bus, 'disconnected', G_CALLBACK(@on_bus_disconnected), loop);
+    g_signal_connect(bus, 'connected', G_CALLBACK(@on_bus_connected), nil);
+    g_signal_connect(bus, 'disconnected', G_CALLBACK(@on_bus_disconnected), nil);
+
+    context := ibus_bus_create_input_context(bus, 'example');
+    if context = nil then begin
+      g_printf('Input Context konnte nicht erstellt werden.'#10);
+    end;
+    g_signal_connect(context, 'commit-text', G_CALLBACK(@on_commit), nil);
+    ibus_input_context_focus_in(context);
 
     loop := g_main_loop_new(nil, False);
-
     g_unix_signal_add(SIGINT, @signal_cp, loop);
-
     g_main_loop_run(loop);
 
     g_object_unref(bus);
