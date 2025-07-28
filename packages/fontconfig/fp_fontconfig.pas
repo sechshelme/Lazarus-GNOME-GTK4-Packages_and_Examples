@@ -610,18 +610,18 @@ end;
 
 function FcIsUpper(c: char): boolean;
 begin
-  Result := (Ord(c) >= 65) and (Ord(c) <= 90);
+  Result := (c >= #65) and (c <= #90);
 end;
 
 function FcIsLower(c: char): boolean;
 begin
-  Result := (Ord(c) >= 97) and (Ord(c) <= 122);
+  Result := (c >= #97) and (c <= #122);
 end;
 
 function FcToLower(c: char): char;
 begin
   if FcIsUpper(c) then begin
-    Result := Chr(Ord(c) - 65 + 97);
+    Result := Char(Byte(c) - 65 + 97);
   end else begin
     Result := c;
   end;

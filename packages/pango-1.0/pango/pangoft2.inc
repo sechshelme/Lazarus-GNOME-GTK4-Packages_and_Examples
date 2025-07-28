@@ -12,8 +12,7 @@ type
   PPangoFT2FontMap = ^TPangoFT2FontMap;
 
 procedure pango_ft2_render(bitmap: PFT_Bitmap; font: PPangoFont; glyphs: PPangoGlyphString; x: Tgint; y: Tgint); cdecl; external libpangoft2;
-procedure pango_ft2_render_transformed(bitmap: PFT_Bitmap; matrix: PPangoMatrix; font: PPangoFont; glyphs: PPangoGlyphString; x: longint;
-  y: longint); cdecl; external libpangoft2;
+procedure pango_ft2_render_transformed(bitmap: PFT_Bitmap; matrix: PPangoMatrix; font: PPangoFont; glyphs: PPangoGlyphString; x: longint; y: longint); cdecl; external libpangoft2;
 procedure pango_ft2_render_layout_line(bitmap: PFT_Bitmap; line: PPangoLayoutLine; x: longint; y: longint); cdecl; external libpangoft2;
 procedure pango_ft2_render_layout_line_subpixel(bitmap: PFT_Bitmap; line: PPangoLayoutLine; x: longint; y: longint); cdecl; external libpangoft2;
 procedure pango_ft2_render_layout(bitmap: PFT_Bitmap; layout: PPangoLayout; x: longint; y: longint); cdecl; external libpangoft2;

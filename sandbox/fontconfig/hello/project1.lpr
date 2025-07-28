@@ -1,50 +1,49 @@
 program project1;
 
 uses
-  fp_fontconfig,
-  fcfreetype;
+  fp_fontconfig;
 
   procedure main;
+  var
+    pattern, font: PFcPattern;
+    os: PFcObjectSet;
+    fontset: PFcFontSet;
+    i: integer;
+    family, style, file_: pchar;
   begin
+    WriteLn('Version: ', FC_MAJOR, '.', FC_MINOR, '.', FC_REVISION);
 
     if not FcInit then begin
-        wrifprintf(stderr, "Fontconfig konnte nicht initialisiert werden\n");
-        return 1;
-    }
+      WriteLn('Fontconfig konnte nicht initialisiert werden');
+      Halt(1);
+    end;
 
-    // Alle auf dem System verfügbaren Fonts abrufen
-    FcPattern *pattern = FcPatternCreate();
-    FcObjectSet *os = FcObjectSetBuild(FC_FAMILY, FC_STYLE, FC_FILE, NULL);
-    FcFontSet *fontset = FcFontList(NULL, pattern, os);
+    pattern := FcPatternCreate;
+    os := FcObjectSetBuild(FC_FAMILY, FC_STYLE, FC_FILE, nil);
+    fontset := FcFontList(nil, pattern, os);
 
-    if (!fontset) {
-        fprintf(stderr, "Keine Fonts gefunden\n");
-        FcObjectSetDestroy(os);
-        FcPatternDestroy(pattern);
-        FcFini();
-        return 1;
-    }
+    if fontset = nil then begin
+      WriteLn('Keine Fonts gefunden');
+      FcObjectSetDestroy(os);
+      FcPatternDestroy(pattern);
+      FcFini;
+      Halt(1);
+    end;
 
-    // Fonts durchlaufen und Informationen ausgeben
-    for (int i = 0; i < fontset->nfont; i++) {
-        FcPattern *font = fontset->fonts[i];
-        FcChar8 *family, *style, *file;
+    for  i := 0 to fontset^.nfont - 1 do begin
+      font := fontset^.fonts[i];
+      if (FcPatternGetString(font, FC_FAMILY, 0, @family) = FcResultMatch) and
+        (FcPatternGetString(font, FC_STYLE, 0, @style) = FcResultMatch) and
+        (FcPatternGetString(font, FC_FILE, 0, @file_) = FcResultMatch) then begin
+        WriteLn('Font: ', family, ' Style: ', style, ' Datei: ', file_);
+      end;
+    end;
+    WriteLn('Total Fonts: ', fontset^.nfont);
 
-        if (FcPatternGetString(font, FC_FAMILY, 0, &family) == FcResultMatch &&
-            FcPatternGetString(font, FC_STYLE, 0, &style) == FcResultMatch &&
-            FcPatternGetString(font, FC_FILE, 0, &file) == FcResultMatch) {
-            printf("Font: %s, Style: %s, Datei: %s\n", family, style, file);
-        }
-    }
-
-    // Ressourcen freigeben
     FcFontSetDestroy(fontset);
     FcObjectSetDestroy(os);
     FcPatternDestroy(pattern);
-    FcFini();
-
-    return 0;
-
+    FcFini;
   end;
 
 begin
