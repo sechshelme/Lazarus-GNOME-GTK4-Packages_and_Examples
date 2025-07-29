@@ -7,6 +7,10 @@ const
   libgraphite2 = 'libgraphite2';
   {$ENDIF}
 
+  {$IFDEF windows}
+  libgraphite2 = 'libgraphite2.dll';
+  {$ENDIF}
+
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
@@ -276,6 +280,7 @@ type
   Pgr_char_info = type Pointer;
   Pgr_segment = type Pointer;
   Pgr_slot = type Pointer;
+  PPgr_slot = ^Pgr_slot;
 
 function gr_cinfo_unicode_char(p: Pgr_char_info): dword; cdecl; external libgraphite2;
 function gr_cinfo_break_weight(p: Pgr_char_info): longint; cdecl; external libgraphite2;
