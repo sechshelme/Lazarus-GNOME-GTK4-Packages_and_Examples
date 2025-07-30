@@ -173,7 +173,7 @@ var
   end;
 
   function method_numarrout(m: Psd_bus_message; userdata: pointer; ret_error: Psd_bus_error): longint; cdecl;
-  var
+  const
     ia: array of int32 = (11, 22, 33, 44, 55, 66, 77, 88);
     da: array of double = (11.11, 22.22, 33.33, 44.44);
   var
@@ -201,7 +201,7 @@ var
 
   function method_strarrout(m: Psd_bus_message; userdata: pointer; ret_error: Psd_bus_error): longint; cdecl;
   const
-    sa: array of pchar = ('aaa', 'bbb', 'ccc');
+    sa: array of pchar = ('Fritz', 'Max', 'Franz', 'Bruno', 'Joel');
   var
     reply: Psd_bus_message = nil;
     i: integer;
@@ -288,10 +288,9 @@ var
     Writeln('  busctl --user get-property org.ex /org/ex org.ex formatoptions');
     Writeln('');
     WriteLn(WhiteText, 'Sonstiges:', ResetText);
-    Writeln('  busctl --user call org.ex /org/ex org.ex intarrout');
+    Writeln('  busctl --user call org.ex /org/ex org.ex numarrout');
     Writeln('  busctl --user call org.ex /org/ex org.ex strarrout');
     Writeln('');
-
 
     Add_bus_vtable(vtable, SD_BUS_VTABLE_START(0));
     Add_bus_vtable(vtable, SD_BUS_METHOD('quit', '', 's', @method, 0));

@@ -29,7 +29,9 @@ distrobox enter fedora42
 ## 3. MinGW GTK4 für Windows im Container installieren
 
 #### Nur GTK4 DLL
-sudo dnf install mingw32-gtk4 mingw64-gtk4
+// sudo dnf install mingw32-gtk4 mingw64-gtk4
+sudo dnf install mingw64-gtk4
+// sudo dnf install mingw64*
 
 ### Alle möglichnen DLL  
 sudo dnf install mingw*

@@ -12,11 +12,21 @@ program project1;
 // busctl --user set-property org.ex /org/ex org.ex formatoptions '(ii)' 6 3
 // busctl --user get-property org.ex /org/ex org.ex formatoptions
 
-
-
 uses
   crt,
-  fp_systemd;
+  fp_systemd,
+  clib;
+
+const
+  {$IFDEF unix}
+  libc = 'c';
+  {$ENDIF}
+
+  {$IFDEF mswindows}
+  libc = 'msvcrt';
+  {$ENDIF}
+
+  procedure free(__ptr: pointer); cdecl; external libc;
 
   procedure SetFormatOptions(bus: Psd_bus; fw, dp: longint);
   var
@@ -95,8 +105,12 @@ uses
     r: longint;
     err: Tsd_bus_error;
     m: Psd_bus_message;
+    sig: pchar;
   begin
     err := SD_BUS_ERROR_NULL;
+
+    sig := sd_bus_message_get_signature(m, 0);
+    WriteLn('Signature: ', sig);
 
     r := sd_bus_call_method(bus, 'org.ex', '/org/ex', 'org.ex', arithmetic, @err, @m, 'dd', d1, d2);
     if r < 0 then begin
@@ -122,6 +136,7 @@ uses
     r: longint;
     err: Tsd_bus_error;
     m: Psd_bus_message;
+    sig: pchar;
   begin
     err := SD_BUS_ERROR_NULL;
 
@@ -130,6 +145,9 @@ uses
       WriteLn('sd_bus_call_method() failure ', r);
       Halt(1);
     end;
+
+    sig := sd_bus_message_get_signature(m, 0);
+    WriteLn('Signature: ', sig);
 
     r := sd_bus_message_read(m, 'dddd', @res.add_, @res.sub_, @res.mul_, @res.div_);
     if r < 0 then begin
@@ -144,6 +162,116 @@ uses
     WriteLn('  ', d1: 4: 2, ' * ', d2: 4: 2, ' = ', res.mul_: 4: 2);
     WriteLn('  ', d1: 4: 2, ' / ', d2: 4: 2, ' = ', res.div_: 4: 2);
     WriteLn();
+  end;
+
+  procedure ReadStringArray(bus: Psd_bus);
+  var
+    r: longint;
+    err: Tsd_bus_error;
+    m: Psd_bus_message;
+    sa, p: PPChar;
+    sig: pchar;
+  begin
+    err := SD_BUS_ERROR_NULL;
+
+    r := sd_bus_call_method(bus, 'org.ex', '/org/ex', 'org.ex', 'strarrout', @err, @m, '');
+    if r < 0 then begin
+      WriteLn('sd_bus_call_method() failure ', r);
+      Halt(1);
+    end;
+
+    sig := sd_bus_message_get_signature(m, 0);
+    WriteLn('Signature: ', sig);
+
+    r := sd_bus_message_read_strv(m, @sa);
+    if r < 0 then begin
+      WriteLn('sd_bus_message_read() failure ', r);
+      Halt(1);
+    end;
+    sd_bus_message_unref(m);
+
+    if sa <> nil then begin
+      p := sa;
+      while p^ <> nil do begin
+        WriteLn(p^);
+        free(p^);
+        Inc(p);
+      end;
+      free(sa);
+    end;
+  end;
+
+  procedure ReadNumbeArray(bus: Psd_bus);
+  var
+    r: longint;
+    err: Tsd_bus_error;
+    m: Psd_bus_message;
+    ia: PInt32;
+    da: PDouble;
+    ia_len: Tsize_t=0;
+    da_len: Tsize_t=0;
+    i: integer;
+    sig: pchar;
+  begin
+    err := SD_BUS_ERROR_NULL;
+
+
+    r := sd_bus_call_method(bus, 'org.ex', '/org/ex', 'org.ex', 'numarrout', @err, @m, '');
+    if r < 0 then begin
+      WriteLn('sd_bus_call_method() failure ', r);
+      Halt(1);
+    end;
+
+    sig := sd_bus_message_get_signature(m, 0);
+    WriteLn('Signature: ', sig);
+
+    r := sd_bus_message_enter_container(m, SD_BUS_TYPE_ARRAY, 'i');
+    if r < 0 then begin
+      WriteLn('sd_bus_message_enter_container() failure ', r);
+      Halt(1);
+    end;
+
+    r := sd_bus_message_read_array(m, SD_BUS_TYPE_INT32, @ia, @ia_len);
+    if r < 0 then begin
+      WriteLn('sd_bus_message_read_array() failure ', r);
+      Halt(1);
+    end;
+
+    WriteLn('len: ', ia_len);
+    for i := 0 to ia_len - 1 do begin
+      Write(ia[i], ' ');
+    end;
+    WriteLn();
+
+    r := sd_bus_message_exit_container(m);
+    if r < 0 then begin
+      WriteLn('sd_bus_message_exit_container() failure ', r);
+      Halt(1);
+    end;
+
+    // ---
+
+    r := sd_bus_message_enter_container(m, SD_BUS_TYPE_ARRAY, 'd');
+    if r < 0 then begin
+      WriteLn('sd_bus_message_enter_container() failure ', r);
+      Halt(1);
+    end;
+
+    r := sd_bus_message_read_array(m, SD_BUS_TYPE_DOUBLE, @da, @da_len);
+    if r < 0 then begin
+      WriteLn('sd_bus_message_read_array() failure ', r);
+      Halt(1);
+    end;
+
+    r := sd_bus_message_exit_container(m);
+    if r < 0 then begin
+      WriteLn('sd_bus_message_exit_container() failure ', r);
+      Halt(1);
+    end;
+
+
+    sd_bus_message_unref(m);
+    sd_bus_unref(bus);
   end;
 
   procedure introspect(bus: Psd_bus);
@@ -180,7 +308,6 @@ uses
     sd_bus_default(@bus);
 
     introspect(bus);
-
     SetFormatOptions(bus, 2, 1);
     GetFormatOptions(bus);
     Callculate(bus, 'add', 22, 33);
@@ -189,6 +316,9 @@ uses
     Callculate(bus, 'mul', 11, 33);
 
     Callculate_All(bus, 55, 66);
+
+    ReadStringArray(bus);
+//    ReadNumbeArray(bus);
 
     sd_bus_unref(bus);
   end;
