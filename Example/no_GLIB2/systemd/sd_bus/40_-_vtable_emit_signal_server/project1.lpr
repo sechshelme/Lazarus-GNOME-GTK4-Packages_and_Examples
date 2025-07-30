@@ -12,6 +12,9 @@ uses
 
   // busctl --user monitor org.ex
 
+  // busctl --user call org.ex /org/ex org.ex intarrout
+  // busctl --user call org.ex /org/ex org.ex strarrout
+
   // busctl --user get-property org.ex /org/ex org.ex lastresult
 
   // busctl --user set-property org.ex /org/ex org.ex formatoptions '(ii)' 6 3
@@ -158,6 +161,76 @@ var
     Exit(1);
   end;
 
+  function method_multiout(m: Psd_bus_message; userdata: pointer; ret_error: Psd_bus_error): longint; cdecl;
+  const
+    d1: double = 11.11;
+    d2: double = 22.22;
+  begin
+    if CommandTest(sd_bus_reply_method_return(m, 'dsdi', d1, 'Hello World', d2, 123), 'sd_bus_reply_method_return') < 0 then begin
+      Exit(0);
+    end;
+    Exit(1);
+  end;
+
+  function method_numarrout(m: Psd_bus_message; userdata: pointer; ret_error: Psd_bus_error): longint; cdecl;
+  var
+    ia: array of int32 = (11, 22, 33, 44, 55, 66, 77, 88);
+    da: array of double = (11.11, 22.22, 33.33, 44.44);
+  var
+    reply: Psd_bus_message = nil;
+  begin
+    if CommandTest(sd_bus_message_new_method_return(m, @reply), 'sd_bus_message_new_method_return()') < 0 then begin
+      Exit(0);
+    end;
+
+    if CommandTest(sd_bus_message_append_array(reply, 'i', PInt32(ia), Length(ia) * SizeOf(int32)), 'sd_bus_message_append_array()') < 0 then begin
+      Exit(0);
+    end;
+
+    if CommandTest(sd_bus_message_append_array(reply, 'd', PDouble(da), Length(da) * SizeOf(double)), 'sd_bus_message_append_array()') < 0 then begin
+      Exit(0);
+    end;
+
+    if CommandTest(sd_bus_send(nil, reply, nil), 'sd_bus_send()') < 0 then begin
+      Exit(0);
+    end;
+
+    sd_bus_message_unref(reply);
+    Exit(1);
+  end;
+
+  function method_strarrout(m: Psd_bus_message; userdata: pointer; ret_error: Psd_bus_error): longint; cdecl;
+  const
+    sa: array of pchar = ('aaa', 'bbb', 'ccc');
+  var
+    reply: Psd_bus_message = nil;
+    i: integer;
+  begin
+    if CommandTest(sd_bus_message_new_method_return(m, @reply), 'sd_bus_message_new_method_return()') < 0 then begin
+      Exit(0);
+    end;
+
+    if CommandTest(sd_bus_message_open_container(reply, 'a', 's' + ''), 'sd_bus_message_open_container()') < 0 then begin
+      Exit(0);
+    end;
+
+    for i := 0 to Length(sa) - 1 do begin
+      if CommandTest(sd_bus_message_append(reply, 's', pchar(sa[i])), 'sd_bus_message_append()') < 0 then begin
+        Exit(0);
+      end;
+    end;
+
+    if CommandTest(sd_bus_message_close_container(reply), 'sd_bus_message_close_container()') < 0 then begin
+      Exit(0);
+    end;
+
+    if CommandTest(sd_bus_send(nil, reply, nil), 'sd_bus_send()') < 0 then begin
+      Exit(0);
+    end;
+
+    sd_bus_message_unref(reply);
+    Exit(1);
+  end;
 
   function prop_get_last_result(bus: Psd_bus; path: pchar; iface: pchar; _property: pchar; reply: Psd_bus_message; userdata: pointer; ret_error: Psd_bus_error): longint; cdecl;
   begin
@@ -214,6 +287,11 @@ var
     Writeln('  busctl --user set-property org.ex /org/ex org.ex formatoptions ''(ii)'' 6 3');
     Writeln('  busctl --user get-property org.ex /org/ex org.ex formatoptions');
     Writeln('');
+    WriteLn(WhiteText, 'Sonstiges:', ResetText);
+    Writeln('  busctl --user call org.ex /org/ex org.ex intarrout');
+    Writeln('  busctl --user call org.ex /org/ex org.ex strarrout');
+    Writeln('');
+
 
     Add_bus_vtable(vtable, SD_BUS_VTABLE_START(0));
     Add_bus_vtable(vtable, SD_BUS_METHOD('quit', '', 's', @method, 0));
@@ -222,6 +300,9 @@ var
     Add_bus_vtable(vtable, SD_BUS_METHOD('mul', 'dd', 'd', @method, 0));
     Add_bus_vtable(vtable, SD_BUS_METHOD('div', 'dd', 'd', @method, 0));
     Add_bus_vtable(vtable, SD_BUS_METHOD('all', 'dd', 'dddd', @method_calc_all, 0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('multiout', '', 'dsdi', @method_multiout, 0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('numarrout', '', 'aiad', @method_numarrout, 0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('strarrout', '', 'as', @method_strarrout, 0));
     Add_bus_vtable(vtable, SD_BUS_SIGNAL_WITH_NAMES('calc', 'ss', 'calc'#0'result'#0, 0));
     Add_bus_vtable(vtable, SD_BUS_SIGNAL_WITH_NAMES('calc_all', 'ss', 'calc_all'#0'result'#0, 0));
     Add_bus_vtable(vtable, SD_BUS_PROPERTY('lastresult', 'd', @prop_get_last_result, 0, 0));
