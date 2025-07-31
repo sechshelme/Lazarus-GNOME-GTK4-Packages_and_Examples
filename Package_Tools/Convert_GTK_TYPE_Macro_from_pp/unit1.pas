@@ -203,6 +203,7 @@ const
     (libs: 'libgraphite2'; units: 'ctypes'),
     (libs: 'libfontconfig'; units: 'ctypes'),
     (libs: 'libdbus_1 '; units: 'ctypes'),
+    (libs: 'libraw '; units: 'ctypes'),
 
 
 

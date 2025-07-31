@@ -26,6 +26,10 @@ type // /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h
   Tclockid_t = int32;
   Pclockid_t = ^Tclockid_t;
 
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
 
   //type                            // ???????????
   //// Ein Typ, der die 128-Bit (16 Bytes) ID repräsentiert
