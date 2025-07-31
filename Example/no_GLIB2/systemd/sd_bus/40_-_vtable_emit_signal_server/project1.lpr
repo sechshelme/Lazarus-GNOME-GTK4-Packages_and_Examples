@@ -173,12 +173,25 @@ var
   end;
 
   function method_numarrout(m: Psd_bus_message; userdata: pointer; ret_error: Psd_bus_error): longint; cdecl;
-  const
-    ia: array of int32 = (11, 22, 33, 44, 55, 66, 77, 88);
-    da: array of double = (11.11, 22.22, 33.33, 44.44);
   var
+    ia: array of int32;
+    da: array of double;
     reply: Psd_bus_message = nil;
+    len: int64;
+    i: integer;
   begin
+    len := random(20) + 8;
+    SetLength(ia, len);
+    for i := 0 to len - 1 do begin
+      ia[i] := random(100);
+    end;
+
+    len := random(20) + 8;
+    SetLength(da, len);
+    for i := 0 to len - 1 do begin
+      da[i] := random * 10;
+    end;
+
     if CommandTest(sd_bus_message_new_method_return(m, @reply), 'sd_bus_message_new_method_return()') < 0 then begin
       Exit(0);
     end;
@@ -257,8 +270,6 @@ var
     end else begin
       formOpti := f;
     end;
-    WriteLn('Neues Format: ', f.fw, ' : ', f.dp);
-
     CommandTest(sd_bus_emit_properties_changed(bus, path, iface, 'formatoptions', nil), 'sd_bus_emit_properties_changed');
   end;
 
@@ -268,6 +279,7 @@ var
     vtable: Tsd_bus_vtables = nil;
     ch: ansichar;
   begin
+    Randomize;
     ClrScr;
     Writeln();
     WriteLn(YellowText, 'Mit folgenden Kommandos, in einem 2. Termin,'#10'kann das Programm gesteuert werden:', ResetText);

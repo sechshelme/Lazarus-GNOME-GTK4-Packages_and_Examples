@@ -125,7 +125,7 @@ const
     end;
     sd_bus_message_unref(m);
 
-    WriteLn('Ergebnis: ', res: 4: 2);
+    WriteLn('Ergebnis: ', res: 4: 2, #10);
   end;
 
   procedure Callculate_All(bus: Psd_bus; d1, d2: double);
@@ -138,6 +138,7 @@ const
     m: Psd_bus_message;
     sig: pchar;
   begin
+    WriteLn('Calc All wird ausgefühert');
     err := SD_BUS_ERROR_NULL;
 
     r := sd_bus_call_method(bus, 'org.ex', '/org/ex', 'org.ex', 'all', @err, @m, 'dd', d1, d2);
@@ -156,11 +157,11 @@ const
     end;
     sd_bus_message_unref(m);
 
-    WriteLn('Ergebnis calc_all: ');
-    WriteLn('  ', d1: 4: 2, ' + ', d2: 4: 2, ' = ', res.add_: 4: 2);
-    WriteLn('  ', d1: 4: 2, ' - ', d2: 4: 2, ' = ', res.sub_: 4: 2);
-    WriteLn('  ', d1: 4: 2, ' * ', d2: 4: 2, ' = ', res.mul_: 4: 2);
-    WriteLn('  ', d1: 4: 2, ' / ', d2: 4: 2, ' = ', res.div_: 4: 2);
+    WriteLn('  Ergebnis calc_all: ');
+    WriteLn('    ', d1: 4: 2, ' + ', d2: 4: 2, ' = ', res.add_: 4: 2);
+    WriteLn('    ', d1: 4: 2, ' - ', d2: 4: 2, ' = ', res.sub_: 4: 2);
+    WriteLn('    ', d1: 4: 2, ' * ', d2: 4: 2, ' = ', res.mul_: 4: 2);
+    WriteLn('    ', d1: 4: 2, ' / ', d2: 4: 2, ' = ', res.div_: 4: 2);
     WriteLn();
   end;
 
@@ -172,6 +173,7 @@ const
     sa, p: PPChar;
     sig: pchar;
   begin
+    WriteLn('String Array wird ausgelesen');
     err := SD_BUS_ERROR_NULL;
 
     r := sd_bus_call_method(bus, 'org.ex', '/org/ex', 'org.ex', 'strarrout', @err, @m, '');
@@ -181,7 +183,7 @@ const
     end;
 
     sig := sd_bus_message_get_signature(m, 0);
-    WriteLn('Signature: ', sig);
+    WriteLn('  Signature: ', sig);
 
     r := sd_bus_message_read_strv(m, @sa);
     if r < 0 then begin
@@ -192,13 +194,15 @@ const
 
     if sa <> nil then begin
       p := sa;
+      Write('  ');
       while p^ <> nil do begin
-        WriteLn(p^);
+        Write('"', p^, '" ');
         free(p^);
         Inc(p);
       end;
       free(sa);
     end;
+    WriteLn(#10);
   end;
 
   procedure ReadNumbeArray(bus: Psd_bus);
@@ -208,13 +212,13 @@ const
     m: Psd_bus_message;
     ia: PInt32;
     da: PDouble;
-    ia_len: Tsize_t=0;
-    da_len: Tsize_t=0;
+    ia_len: Tsize_t = 0;
+    da_len: Tsize_t = 0;
     i: integer;
     sig: pchar;
   begin
+    WriteLn('Nummern Array wird ausgelesen');
     err := SD_BUS_ERROR_NULL;
-
 
     r := sd_bus_call_method(bus, 'org.ex', '/org/ex', 'org.ex', 'numarrout', @err, @m, '');
     if r < 0 then begin
@@ -225,53 +229,36 @@ const
     sig := sd_bus_message_get_signature(m, 0);
     WriteLn('Signature: ', sig);
 
-    r := sd_bus_message_enter_container(m, SD_BUS_TYPE_ARRAY, 'i');
-    if r < 0 then begin
-      WriteLn('sd_bus_message_enter_container() failure ', r);
-      Halt(1);
-    end;
-
-    r := sd_bus_message_read_array(m, SD_BUS_TYPE_INT32, @ia, @ia_len);
+    r := sd_bus_message_read_array(m, 'i', @ia, @ia_len);
     if r < 0 then begin
       WriteLn('sd_bus_message_read_array() failure ', r);
       Halt(1);
     end;
 
-    WriteLn('len: ', ia_len);
+    ia_len := ia_len div SizeOf(int32);
+    Write('len: ', ia_len: 3, '    ');
     for i := 0 to ia_len - 1 do begin
       Write(ia[i], ' ');
     end;
     WriteLn();
 
-    r := sd_bus_message_exit_container(m);
-    if r < 0 then begin
-      WriteLn('sd_bus_message_exit_container() failure ', r);
-      Halt(1);
-    end;
-
-    // ---
-
-    r := sd_bus_message_enter_container(m, SD_BUS_TYPE_ARRAY, 'd');
-    if r < 0 then begin
-      WriteLn('sd_bus_message_enter_container() failure ', r);
-      Halt(1);
-    end;
-
-    r := sd_bus_message_read_array(m, SD_BUS_TYPE_DOUBLE, @da, @da_len);
+    r := sd_bus_message_read_array(m, 'd', @da, @da_len);
     if r < 0 then begin
       WriteLn('sd_bus_message_read_array() failure ', r);
       Halt(1);
     end;
 
-    r := sd_bus_message_exit_container(m);
-    if r < 0 then begin
-      WriteLn('sd_bus_message_exit_container() failure ', r);
-      Halt(1);
+    da_len := da_len div SizeOf(double);
+    Write('len: ', da_len: 3, '    ');
+    for i := 0 to da_len - 1 do begin
+      Write(da[i]: 4: 2, ' ');
     end;
-
+    WriteLn();
 
     sd_bus_message_unref(m);
     sd_bus_unref(bus);
+
+    WriteLn();
   end;
 
   procedure introspect(bus: Psd_bus);
@@ -318,7 +305,7 @@ const
     Callculate_All(bus, 55, 66);
 
     ReadStringArray(bus);
-//    ReadNumbeArray(bus);
+    ReadNumbeArray(bus);
 
     sd_bus_unref(bus);
   end;
