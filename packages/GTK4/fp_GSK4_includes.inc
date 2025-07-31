@@ -4,7 +4,7 @@
 {$include GSK/gskenums.inc }                   // io.
 {$include GSK/gskenumtypes.inc }               // io.
 {$include GSK/gsktransform.inc }               // io.
-{$include GSK/gskroundedrect.inc }             // Macro nicht aufgelöst
+{$include GSK/gskroundedrect.inc }             // io.
 {$include GSK/gskstroke.inc }                  // io.
 {$include GSK/gskpathpoint.inc }               // io.
 {$include GSK/gskpath.inc }                    // io. -> gskpathpoint, gskstroke
@@ -17,9 +17,6 @@
 
 
 {$IFDEF Linux}
-
-// ==== GSK broadway
-{$include GSK/broadway/gskbroadwayrenderer.inc }   // io.
 
 // ==== GSK gl
 {$include GSK/gl/gskglrenderer.inc }              // io.

@@ -26,16 +26,6 @@ const
   libgmodule = 'libgmodule-2.0-0.dll';
   {$ENDIF}
 
-  // ==== GTK4
-const
-  {$IFDEF Linux}
-  libgtk4 = 'libgtk-4';
-  {$ENDIF}
-
-  {$IFDEF Windows}
-  libgtk4 = 'libgtk-4-1.dll';
-  {$ENDIF}
-
 type
   Tfloat = cfloat;
   Tdouble = cdouble;

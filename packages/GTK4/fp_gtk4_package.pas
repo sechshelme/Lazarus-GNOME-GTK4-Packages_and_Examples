@@ -8,8 +8,7 @@ unit fp_GTK4_package;
 interface
 
 uses
-  fp_GDK4, fp_GDK4_broadway, fp_GSK4, fp_GSK4_broadway, fp_GTK4, 
-  fp_GTK4_unix_print, LazarusPackageIntf;
+  fp_GTK4, LazarusPackageIntf;
 
 implementation
 

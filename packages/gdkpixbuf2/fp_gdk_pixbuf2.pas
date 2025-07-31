@@ -23,10 +23,10 @@ const
   {$DEFINE read_interface}
   {$include pixbuf/gdk_pixbuf_core.inc}
   {$include pixbuf/gdk_pixbuf_features.inc}
-  {$include pixbuf/gdk_pixbuf_macros.inc}// gdk_pixbuf_features
+  {$include pixbuf/gdk_pixbuf_macros.inc}
   {$include pixbuf/gdk_pixbuf_animation.inc}
-  {$include pixbuf/gdk_pixbuf_io.inc}// gdk_pixbuf_animation
-  {$include pixbuf/gdk_pixbuf_loader.inc}// gdk_pixbuf_animation, gdk_pixbuf_io
+  {$include pixbuf/gdk_pixbuf_io.inc}
+  {$include pixbuf/gdk_pixbuf_loader.inc}
   {$include pixbuf/gdk_pixbuf_enum_types.inc}
   {$include pixbuf/gdk_pixbuf_marshal.inc}
   {$include pixbuf/gdk_pixbuf_simple_anim.inc}
@@ -39,10 +39,10 @@ implementation
 {$DEFINE read_implementation}
 {$include pixbuf/gdk_pixbuf_core.inc}
 {$include pixbuf/gdk_pixbuf_features.inc}
-{$include pixbuf/gdk_pixbuf_macros.inc}// gdk_pixbuf_features
+{$include pixbuf/gdk_pixbuf_macros.inc}
 {$include pixbuf/gdk_pixbuf_animation.inc}
-{$include pixbuf/gdk_pixbuf_io.inc}// gdk_pixbuf_animation
-{$include pixbuf/gdk_pixbuf_loader.inc}// gdk_pixbuf_animation, gdk_pixbuf_io
+{$include pixbuf/gdk_pixbuf_io.inc}
+{$include pixbuf/gdk_pixbuf_loader.inc}
 {$include pixbuf/gdk_pixbuf_enum_types.inc}
 {$include pixbuf/gdk_pixbuf_marshal.inc}
 {$include pixbuf/gdk_pixbuf_simple_anim.inc}

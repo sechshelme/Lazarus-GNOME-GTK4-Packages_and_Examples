@@ -60,11 +60,7 @@ procedure gtk_snapshot_append_repeating_radial_gradient(snapshot: PGtkSnapshot; 
 procedure gtk_snapshot_append_conic_gradient(snapshot: PGtkSnapshot; bounds: Pgraphene_rect_t; center: Pgraphene_point_t; rotation: single; stops: PGskColorStop;
   n_stops: Tgsize); cdecl; external libgtk4;
 
-type
-  TVector4f = array[0..3] of single;
-  Tborder_colors = array[0..3] of TGdkRGBA;
-
-procedure gtk_snapshot_append_border(snapshot: PGtkSnapshot; outline: PGskRoundedRect; border_width: TVector4f; border_color: Tborder_colors); cdecl; external libgtk4;
+procedure gtk_snapshot_append_border(snapshot: PGtkSnapshot; outline: PGskRoundedRect; border_width: PSingle; border_color: PGdkRGBA); cdecl; external libgtk4;
 procedure gtk_snapshot_append_inset_shadow(snapshot: PGtkSnapshot; outline: PGskRoundedRect; color: PGdkRGBA; dx: single; dy: single;
   spread: single; blur_radius: single); cdecl; external libgtk4;
 procedure gtk_snapshot_append_outset_shadow(snapshot: PGtkSnapshot; outline: PGskRoundedRect; color: PGdkRGBA; dx: single; dy: single;

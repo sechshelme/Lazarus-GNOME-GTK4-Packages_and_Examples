@@ -11,28 +11,8 @@
     </CompilerOptions>
     <Files>
       <Item>
-        <Filename Value="fp_gdk4.pas"/>
-        <UnitName Value="fp_GDK4"/>
-      </Item>
-      <Item>
-        <Filename Value="fp_gdk4_broadway.pas"/>
-        <UnitName Value="fp_GDK4_broadway"/>
-      </Item>
-      <Item>
-        <Filename Value="fp_gsk4.pas"/>
-        <UnitName Value="fp_GSK4"/>
-      </Item>
-      <Item>
-        <Filename Value="fp_gsk4_broadway.pas"/>
-        <UnitName Value="fp_GSK4_broadway"/>
-      </Item>
-      <Item>
         <Filename Value="fp_gtk4.pas"/>
         <UnitName Value="fp_GTK4"/>
-      </Item>
-      <Item>
-        <Filename Value="fp_gtk4_unix_print.pas"/>
-        <UnitName Value="fp_GTK4_unix_print"/>
       </Item>
     </Files>
     <RequiredPkgs>
