@@ -83,6 +83,10 @@
         <Filename Value="linux/fp_error.pas"/>
         <UnitName Value="fp_error"/>
       </Item>
+      <Item>
+        <Filename Value="linux/fp_pidfd.pas"/>
+        <UnitName Value="fp_pidfd"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

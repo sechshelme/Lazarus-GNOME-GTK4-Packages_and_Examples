@@ -1,8 +1,7 @@
 program project1;
 
 uses
-  fp_systemd,
-  fp_unistd;
+  fp_systemd;
 
   procedure main;
   var

@@ -79,8 +79,6 @@ uses
     WriteLn(getpid);
   end;
 
-var
-  i: integer;
 begin
   main;
 end.
