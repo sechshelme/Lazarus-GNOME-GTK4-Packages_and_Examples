@@ -4,7 +4,7 @@
 const
   WEBKIT_MAJOR_VERSION = 2;
   WEBKIT_MINOR_VERSION = 48;
-  WEBKIT_MICRO_VERSION = 0;
+  WEBKIT_MICRO_VERSION = 3;
 
 function WEBKIT_CHECK_VERSION(major, minor, micro: longint): Tgboolean;
 

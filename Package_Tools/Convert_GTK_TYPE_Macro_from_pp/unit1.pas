@@ -204,6 +204,7 @@ const
     (libs: 'libfontconfig'; units: 'ctypes'),
     (libs: 'libdbus_1 '; units: 'ctypes'),
     (libs: 'libraw '; units: 'ctypes'),
+    (libs: 'libudev '; units: 'ctypes'),
 
 
 
