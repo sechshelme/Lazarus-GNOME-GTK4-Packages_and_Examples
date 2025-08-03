@@ -87,6 +87,10 @@
         <Filename Value="linux/fp_pidfd.pas"/>
         <UnitName Value="fp_pidfd"/>
       </Item>
+      <Item>
+        <Filename Value="linux/fp_getopt.pas"/>
+        <UnitName Value="fp_getopt"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
