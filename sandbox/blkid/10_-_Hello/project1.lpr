@@ -55,6 +55,10 @@ uses
       Exit;
     end;
 
+    blkid_probe_all(cache);
+
+
+
     iter := blkid_dev_iterate_begin(cache);
     if iter = nil then begin
       WriteLn('blkid_dev_iterate_begin() ');
