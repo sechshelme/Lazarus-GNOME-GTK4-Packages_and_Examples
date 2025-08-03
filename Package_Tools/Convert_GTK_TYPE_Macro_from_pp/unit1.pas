@@ -205,6 +205,7 @@ const
     (libs: 'libdbus_1 '; units: 'ctypes'),
     (libs: 'libraw '; units: 'ctypes'),
     (libs: 'libudev '; units: 'ctypes'),
+    (libs: 'libblkid '; units: 'ctypes'),
 
 
 

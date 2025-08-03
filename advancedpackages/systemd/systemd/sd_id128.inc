@@ -1,18 +1,13 @@
-{$IFDEF read_interface}
+  {$IFDEF read_interface}
 
 
 type
   Psd_id128_t = ^Tsd_id128_t;
-  //Tsd_id128 = record
-  //  case longint of
-  //    0: (bytes: array[0..15] of Char);
-  //    1: (qwords: array[0..1] of uint64);
-  //end;
-  Tsd_id128_t = array[0..15] of byte;
-
-//  Psd_id128_t = ^Tsd_id128_t;
-//  Tsd_id128_t = Tsd_id128;
-
+  Tsd_id128_t = record
+    case longint of
+      0: (bytes: array[0..15] of Byte);
+      1: (qwords: array[0..1] of uint64);
+  end;
 
 const
   SD_ID128_STRING_MAX = 33;

@@ -17,9 +17,7 @@ const
 
 type
   PFILE = type Pointer;
-
   Ttime_t = int64;
-
   Tsize_t = SizeUInt;
 
 

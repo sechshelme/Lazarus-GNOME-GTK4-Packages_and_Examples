@@ -6,7 +6,6 @@ program project1;
 //
 
 
-
 uses
   fp_stdlib,
   fp_unistd,
