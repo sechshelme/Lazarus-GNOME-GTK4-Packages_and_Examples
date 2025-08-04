@@ -31,12 +31,12 @@ const
   // fcntl.h
   IN_CLOEXEC = 02000000; /////
   IN_NONBLOCK = 00004000;     //////
-  O_CLOEXEC=0; // ?????????'
-  O_NONBLOCK=0;  // ??????
+  O_CLOEXEC = 0; // ?????????'
+  O_NONBLOCK = 0;  // ??????
 
 
 
-//  E2BIG=7;
+  //  E2BIG=7;
 
 
 
@@ -47,9 +47,7 @@ type
   Tssize_t = SizeInt;
   Pssize_t = ^Tssize_t;
 
-  Tgnuc_va_list=Pointer;// ????????????
-
-  Ttime_t=Int64; // ????????????
+  Tgnuc_va_list = Pointer;// ????????????
 
   Tsocklen_t = SizeInt;
 
@@ -59,9 +57,9 @@ type
   Tsa_family_t = word;      // sys/socket.h
   Psockaddr = Pointer;    // sys/socket.h
 
-  Psigevent=Pointer; //  <signal.h>
+  Psigevent = Pointer; //  <signal.h>
 
-  Psigstack=Pointer;  // /usr/include/x86_64-linux-gnu/bits/types/stack_t.h
+  Psigstack = Pointer;  // /usr/include/x86_64-linux-gnu/bits/types/stack_t.h
 
 type
   Toff_t = SizeInt;
@@ -100,9 +98,10 @@ type // /usr/include/x86_64-linux-gnu/sys/types.h
 
 type // /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h
   PIovec = ^TIovec;
+
   TIovec = record
     iov_base: Pointer;
-    iov_len:  SizeUInt;
+    iov_len: SizeUInt;
   end;
 
 type
@@ -113,14 +112,9 @@ type
 
   // /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h
   Tsigset_t = record
-    a:array[0..127]of Char;
+    a: array[0..127] of char;
   end;
   Psigset_t = ^Tsigset_t;
-
-  // /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h
-  Ttimespec = record
-  end;
-  Ptimespec = ^Ttimespec;
 
   // /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h
   TSigVal = record
@@ -146,6 +140,59 @@ type
 
   // /usr/include/asm-generic/posix_types.h
   Tkernel_size_t = integer;   // ????????
+
+
+  // /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h
+  Ttm = record
+    tm_sec: longint;
+    tm_min: longint;
+    tm_hour: longint;
+    tm_mday: longint;
+    tm_mon: longint;
+    tm_year: longint;
+    tm_wday: longint;
+    tm_yday: longint;
+    tm_isdst: longint;
+    tm_gmtoff: longint;
+    tm_zone: pchar;
+  end;
+  Ptm = ^Ttm;
+
+  // /usr/include/x86_64-linux-gnu/bits/types/locale_t.h
+  Plocale_t = type Pointer;
+
+  // /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h
+  Tclockid_t = int32;
+  Pclockid_t = ^Tclockid_t;
+
+  // /usr/include/x86_64-linux-gnu/bits/types/timer_t.h
+  Ttimer_t = Pointer;
+  Ptimer_t = ^Ttimer_t;
+
+  // /usr/include/x86_64-linux-gnu/bits/types/time_t.h
+  Ttime_t = longint;
+  Ptime_t = ^Ttime_t;
+
+  // /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h
+  Ttimespec = record
+    tv_sec: Ttime_t;
+    tv_nsec: longint;
+  end;
+  Ptimespec = ^Ttimespec;
+
+  ///usr/include/x86_64-linux-gnu/bits/types/clock_t.h
+  Tclock_t = longint;
+  Pclock_t = ^Tclock_t;
+
+  // /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h
+  Titimerspec = record
+    it_interval: Ttimespec;
+    it_value: Ttimespec;
+  end;
+  Pitimerspec = ^Titimerspec;
+
+  // /usr/include/x86_64-linux-gnu/bits/timex.h
+  Ptimex = type Pointer;
 
 
 type
