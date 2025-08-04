@@ -36,6 +36,10 @@ const
 
 
 
+//  E2BIG=7;
+
+
+
 type
   Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;

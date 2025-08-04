@@ -91,6 +91,10 @@
         <Filename Value="linux/fp_getopt.pas"/>
         <UnitName Value="fp_getopt"/>
       </Item>
+      <Item>
+        <Filename Value="linux/fp_argp.pas"/>
+        <UnitName Value="fp_argp"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
