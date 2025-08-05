@@ -111,6 +111,10 @@
         <Filename Value="linux/fp_setjmp.pas"/>
         <UnitName Value="fp_setjmp"/>
       </Item>
+      <Item>
+        <Filename Value="linux/fp_fenv.pas"/>
+        <UnitName Value="fp_fenv"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

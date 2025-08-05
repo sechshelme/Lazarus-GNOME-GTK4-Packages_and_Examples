@@ -1,9 +1,53 @@
 program project1;
+
 uses
+  fp_stdio,
   fp_fenv;
 
-  procedure main;
+var
+  f1, f2: single;
+
+  procedure OutRound;
   begin
+    WriteLn('Round Test');
+    WriteLn(Round(1.5));
+    WriteLn(Round(2.5));
+    WriteLn(Round(3.5));
+    WriteLn(Round(4.5));
+    WriteLn();
+
+  end;
+
+  procedure main;
+  var
+    env: Tfenv_t;
+  begin
+    OutRound;
+
+    fegetenv(@env);
+
+    fesetround(FE_TOWARDZERO);
+
+    OutRound;
+
+    //    feraiseexcept(FE_DIVBYZERO);
+    ReadLn(f1);
+    ReadLn(f2);
+    WriteLn(f1 / f2);
+
+
+    if fetestexcept(FE_DIVBYZERO) <> 0 then begin
+      printf('Division durch Null Ausnahme wurde ausgelöst.'#10);
+    end;
+
+    fesetenv(@env);
+
+    if fetestexcept(FE_DIVBYZERO) = 0 then begin
+      printf('Ursprüngliche Umgebung wiederhergestellt, Ausnahme gelöscht.'#10);
+    end;
+    if fegetround <> FE_TOWARDZERO then begin
+      printf('Rundungsmodus wieder zurückgesetzt.'#10);
+    end;
   end;
 
 begin

@@ -9,19 +9,22 @@ interface
 const
   {$IFDEF unix}
   libc = 'c';
+  libm = 'm';
   {$ENDIF}
 
   {$IFDEF mswindows}
-  libc = 'msvcrt';
+  libc = 'msvcrt.dll';
+  libm = 'msvcrt.dll';
   {$ENDIF}
 
   {$IFDEF darwin}
   libc = 'libc.dylib';
+  libm = 'libc.dylib';
   {$ENDIF}
 
-  type
-    PPuint16=^PUInt16;
-    PPint32=^PInt32;
+type
+  PPuint16 = ^PUInt16;
+  PPint32 = ^PInt32;
 
 
   // /usr/include/asm-generic/bitsperlong.h
@@ -117,8 +120,8 @@ type
 
   // /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h
   Tsigset_t = record
-    val:array[0..16 - 1] of UInt64
-//    a: array[0..127] of char;
+    val: array[0..16 - 1] of uint64
+    //    a: array[0..127] of char;
   end;
   Psigset_t = ^Tsigset_t;
 
@@ -220,4 +223,21 @@ type
 
 implementation
 
+// wegen "division_by_zero" in den clibs
+{$IF defined(CPUX86) or defined(CPUX64)}
+procedure SetMXCSR;
+var
+  w2: word = 8064;
+begin
+  asm
+           Ldmxcsr w2
+  end;
+end;
+{$ENDIF}
+
+begin
+  //  SetExceptionMask([exInvalidOp, exDenormalized, exZeroDivide, exOverflow, exUnderflow, exPrecision]);
+  {$IF defined(CPUX86) or defined(CPUX64)}
+  SetMXCSR;
+  {$ENDIF}
 end.
