@@ -19,6 +19,11 @@ const
   libc = 'libc.dylib';
   {$ENDIF}
 
+  type
+    PPuint16=^PUInt16;
+    PPint32=^PInt32;
+
+
   // /usr/include/asm-generic/bitsperlong.h
 const
   {$IFDEF CPU64}
@@ -159,7 +164,7 @@ type
   Ptm = ^Ttm;
 
   // /usr/include/x86_64-linux-gnu/bits/types/locale_t.h
-  Plocale_t = type Pointer;
+  Tlocale_t = Pointer;
 
   // /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h
   Tclockid_t = int32;

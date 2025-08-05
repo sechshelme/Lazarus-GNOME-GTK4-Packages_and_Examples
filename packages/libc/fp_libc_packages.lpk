@@ -95,6 +95,18 @@
         <Filename Value="linux/fp_argp.pas"/>
         <UnitName Value="fp_argp"/>
       </Item>
+      <Item>
+        <Filename Value="linux/fp_time.pas"/>
+        <UnitName Value="fp_time"/>
+      </Item>
+      <Item>
+        <Filename Value="linux/fp_ctype.pas"/>
+        <UnitName Value="fp_ctype"/>
+      </Item>
+      <Item>
+        <Filename Value="linux/fp_locale.pas"/>
+        <UnitName Value="fp_locale"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

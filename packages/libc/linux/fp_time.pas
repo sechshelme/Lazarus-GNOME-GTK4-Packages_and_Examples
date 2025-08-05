@@ -25,8 +25,8 @@ function difftime(__time1: Ttime_t; __time0: Ttime_t): double; cdecl; external l
 function mktime(__tp: Ptm): Ttime_t; cdecl; external libc;
 function strftime(__s: pchar; __maxsize: Tsize_t; __format: pchar; __tp: Ptm): Tsize_t; cdecl; external libc;
 function strptime(__s: pchar; __fmt: pchar; __tp: Ptm): pchar; cdecl; external libc;
-function strftime_l(__s: pchar; __maxsize: Tsize_t; __format: pchar; __tp: Ptm; __loc: Plocale_t): Tsize_t; cdecl; external libc;
-function strptime_l(__s: pchar; __fmt: pchar; __tp: Ptm; __loc: Plocale_t): pchar; cdecl; external libc;
+function strftime_l(__s: pchar; __maxsize: Tsize_t; __format: pchar; __tp: Ptm; __loc: Tlocale_t): Tsize_t; cdecl; external libc;
+function strptime_l(__s: pchar; __fmt: pchar; __tp: Ptm; __loc: Tlocale_t): pchar; cdecl; external libc;
 function gmtime(__timer: Ptime_t): Ptm; cdecl; external libc;
 function localtime(__timer: Ptime_t): Ptm; cdecl; external libc;
 function gmtime_r(__timer: Ptime_t; __tp: Ptm): Ptm; cdecl; external libc;

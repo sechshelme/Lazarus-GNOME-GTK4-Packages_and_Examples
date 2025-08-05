@@ -5,6 +5,7 @@
 #include <signal.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
+#include <complex.h>
 
 // https://www.perplexity.ai/search/wen-ich-beim-linux-kernel-make-PuLHDhVhS6aXEz.IpP2Rwg
 
