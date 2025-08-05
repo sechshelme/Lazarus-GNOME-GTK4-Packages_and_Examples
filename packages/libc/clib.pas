@@ -117,7 +117,8 @@ type
 
   // /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h
   Tsigset_t = record
-    a: array[0..127] of char;
+    val:array[0..16 - 1] of UInt64
+//    a: array[0..127] of char;
   end;
   Psigset_t = ^Tsigset_t;
 

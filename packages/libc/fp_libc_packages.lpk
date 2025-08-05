@@ -107,6 +107,10 @@
         <Filename Value="linux/fp_locale.pas"/>
         <UnitName Value="fp_locale"/>
       </Item>
+      <Item>
+        <Filename Value="linux/fp_setjmp.pas"/>
+        <UnitName Value="fp_setjmp"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
