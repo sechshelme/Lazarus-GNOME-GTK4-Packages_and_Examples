@@ -5,11 +5,6 @@ interface
 uses
   clib;
 
-type
-  TLongDouble = extended;
-
-  Tlocale_t = Pointer;
-
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}

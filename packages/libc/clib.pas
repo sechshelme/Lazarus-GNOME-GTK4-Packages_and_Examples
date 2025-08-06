@@ -49,6 +49,10 @@ const
 
 
 type
+  TLongDouble = extended;
+
+//  Tlocale_t = Pointer;
+
   Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;
 

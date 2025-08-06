@@ -6,6 +6,7 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <complex.h>
+#include <math.h>
 
 // https://www.perplexity.ai/search/wen-ich-beim-linux-kernel-make-PuLHDhVhS6aXEz.IpP2Rwg
 
@@ -88,6 +89,9 @@ int main() {
     destroyCDKScroll(scroll);
     destroyCDKScreen(cdkScreen);
     endCDK();
+
+    float f=cos(123);
+    f=add(1.0 ,2.0);
 
 
     return 0;

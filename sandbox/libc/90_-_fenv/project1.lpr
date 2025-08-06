@@ -1,7 +1,9 @@
 program project1;
 
 uses
+  clib,
   fp_stdio,
+  fp_math,
   fp_fenv;
 
 var
@@ -18,10 +20,29 @@ var
 
   end;
 
+//function c_cos(d: Double): Double; cdecl; external libm name 'cos';
+//function c_sin(d: Double): Double; cdecl; external libm name 'sin';
+//function c_sinf(d: Single): Single; cdecl; external libm name 'sinf';
+
   procedure main;
   var
     env: Tfenv_t;
   begin
+    WriteLn(system.cos(pi):4:2);
+    WriteLn(system.sin(pi):4:2);
+    WriteLn();
+
+    WriteLn(cos(pi):4:2);
+    WriteLn(sin(pi):4:2);
+    WriteLn();
+
+//    WriteLn(c_cos(pi):4:2);
+//    WriteLn(c_sin(pi):4:2);
+    WriteLn();
+
+
+//    WriteLn(c_sinf(pi):4:2);
+
     OutRound;
 
     fegetenv(@env);
