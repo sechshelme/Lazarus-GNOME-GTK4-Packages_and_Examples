@@ -50,6 +50,7 @@ const
 
 type
   TLongDouble = extended;
+  PLongDouble=^TLongDouble;
 
 //  Tlocale_t = Pointer;
 

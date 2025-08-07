@@ -4,7 +4,8 @@ uses
   clib,
   fp_stdio,
   fp_math,
-  fp_fenv;
+  fp_fenv,
+  fp_complex;
 
 var
   f1, f2: single;
@@ -20,28 +21,43 @@ var
 
   end;
 
-//function c_cos(d: Double): Double; cdecl; external libm name 'cos';
-//function c_sin(d: Double): Double; cdecl; external libm name 'sin';
-//function c_sinf(d: Single): Single; cdecl; external libm name 'sinf';
+  procedure printCos;
+  var
+    x: double = 0.0;
+    y: double = 0.0;
+  begin
+    WriteLn(system.cos(pi): 4: 2);
+    WriteLn(system.sin(pi): 4: 2);
+    WriteLn();
+
+    WriteLn(cos(pi): 4: 2);
+    WriteLn(sin(pi): 4: 2);
+    WriteLn();
+
+    sincos(pi, @x, @y);
+    WriteLn('x: ', x: 4: 2, '  y: ', y: 4: 2);
+    sincos(pi / 2, @x, @y);
+    WriteLn('x: ', x: 4: 2, '  y: ', y: 4: 2);
+  end;
+
+  procedure printComplex;
+  var
+    res, z: TComplexDouble;
+  begin
+    z := CMPLX(3, 2);
+    res := cacos(z);
+
+    printf('cacos(%f + %fi) = %f + %fi'#10, creal(z), cimag(z), creal(res), cimag(res));
+
+  end;
 
   procedure main;
   var
     env: Tfenv_t;
   begin
-    WriteLn(system.cos(pi):4:2);
-    WriteLn(system.sin(pi):4:2);
+    printComplex;
+    printCos;
     WriteLn();
-
-    WriteLn(cos(pi):4:2);
-    WriteLn(sin(pi):4:2);
-    WriteLn();
-
-//    WriteLn(c_cos(pi):4:2);
-//    WriteLn(c_sin(pi):4:2);
-    WriteLn();
-
-
-//    WriteLn(c_sinf(pi):4:2);
 
     OutRound;
 

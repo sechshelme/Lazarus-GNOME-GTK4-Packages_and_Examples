@@ -110,6 +110,8 @@ __MATHCALL_VEC (exp2,, (_Mdouble_ __x));
 __MATHCALL_VEC (log2,, (_Mdouble_ __x));
 #endif
 
+//////////////////////////////////
+
 
 /* Power functions.  */
 
@@ -168,6 +170,9 @@ __MATHCALL (drem,, (_Mdouble_ __x, _Mdouble_ __y));
 __MATHCALL (significand,, (_Mdouble_ __x));
 # endif
 
+
+//////////////////////////////
+
 #endif /* Use misc.  */
 
 #ifdef __USE_ISOC99
@@ -191,6 +196,8 @@ __MATHDECL_ALIAS (int,isnan,, (_Mdouble_ __value), isnan)
   __attribute__ ((__const__));
 # endif
 #endif
+
+///////////////////////////////
 
 #if defined __USE_MISC || (defined __USE_XOPEN && __MATH_DECLARING_DOUBLE)
 /* Bessel functions.  */
@@ -228,6 +235,8 @@ __MATHCALL (gamma,, (_Mdouble_));
    the value through it.  */
 __MATHCALL (lgamma,_r, (_Mdouble_, int *__signgamp));
 #endif
+
+// ///////////////////
 
 
 #if defined __USE_XOPEN_EXTENDED || defined __USE_ISOC99
@@ -286,6 +295,8 @@ __MATHCALLX (trunc,, (_Mdouble_ __x), (__const__));
    quotient x/y, with n >= 3.  */
 __MATHCALL (remquo,, (_Mdouble_ __x, _Mdouble_ __y, int *__quo));
 
+
+///////////////////
 
 /* Conversion functions.  */
 
