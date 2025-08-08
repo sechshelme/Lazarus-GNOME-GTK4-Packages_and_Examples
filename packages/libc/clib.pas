@@ -208,6 +208,12 @@ type
   // /usr/include/x86_64-linux-gnu/bits/timex.h
   Ptimex = type Pointer;
 
+  // /usr/include/x86_64-linux-gnu/sys/procfs.h
+  Tpsaddr_t=Pointer;
+
+  // /usr/include/x86_64-linux-gnu/sys/procfs.h
+  Tlwpid_t=Tpid_t;
+
 
 type
   Tcookie_read_function_t = function(cookie: Pointer; buf: Pointer; size: SizeInt): SizeInt; cdecl;

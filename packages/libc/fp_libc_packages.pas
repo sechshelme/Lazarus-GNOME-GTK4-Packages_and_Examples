@@ -11,7 +11,8 @@ uses
   clib, fp_termios, fp_netdb, fp_unistd, fp_socket, fp_fcntl, fp_stdlib, 
   fp_string, fp_strings, fp_pwd, fp_grp, fp_ioctl, fp_signal, fp_stdio, 
   fp_shadow, fp_inotify, fp_errno, fp_error, fp_pidfd, fp_getopt, fp_argp, 
-  fp_time, fp_ctype, fp_locale, fp_setjmp, fp_fenv, LazarusPackageIntf;
+  fp_time, fp_ctype, fp_locale, fp_setjmp, fp_fenv, fp_complex, fp_math, 
+  LazarusPackageIntf;
 
 implementation
 

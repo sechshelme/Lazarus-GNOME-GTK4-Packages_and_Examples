@@ -115,6 +115,14 @@
         <Filename Value="linux/fp_fenv.pas"/>
         <UnitName Value="fp_fenv"/>
       </Item>
+      <Item>
+        <Filename Value="linux/fp_complex.pas"/>
+        <UnitName Value="fp_complex"/>
+      </Item>
+      <Item>
+        <Filename Value="linux/fp_math.pas"/>
+        <UnitName Value="fp_math"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
