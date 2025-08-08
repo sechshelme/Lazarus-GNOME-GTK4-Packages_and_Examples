@@ -3,7 +3,7 @@ unit sigthread;
 interface
 
 uses
- clib, pthreadtypes;
+  clib, pthreadtypes;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

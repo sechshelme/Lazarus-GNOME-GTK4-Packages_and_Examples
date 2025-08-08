@@ -3,13 +3,13 @@ unit pthreadtypes;
 interface
 
 uses
-  pthreadtypes_arch, struct_mutex;
+  pthreadtypes_arch, struct_mutex, thread_shared_types, struct_rwlock;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
-// /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
+  // /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
 
 type
   Ppthread_t = ^Tpthread_t;

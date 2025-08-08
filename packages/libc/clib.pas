@@ -50,9 +50,9 @@ const
 
 type
   TLongDouble = extended;
-  PLongDouble=^TLongDouble;
+  PLongDouble = ^TLongDouble;
 
-//  Tlocale_t = Pointer;
+  //  Tlocale_t = Pointer;
 
   Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;
@@ -209,10 +209,34 @@ type
   Ptimex = type Pointer;
 
   // /usr/include/x86_64-linux-gnu/sys/procfs.h
-  Tpsaddr_t=Pointer;
+  Tpsaddr_t = Pointer;
 
   // /usr/include/x86_64-linux-gnu/sys/procfs.h
-  Tlwpid_t=Tpid_t;
+  Tlwpid_t = Tpid_t;
+
+  // /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h
+  Ttimeval = record
+    tv_sec: int64;
+    tv_usec: int64;
+  end;
+
+  // /usr/include/x86_64-linux-gnu/bits/procfs-prregset.h
+  Telf_gregset_t = Pointer;
+
+  // /usr/include/x86_64-linux-gnu/bits/procfs-id.h
+  Tpr_uid_t = uint32;
+  Tpr_gid_t = uint32;
+
+  // /usr/include/x86_64-linux-gnu/bits/types/struct_sched_param.h
+  Tsched_param = record
+    sched_priority: integer;
+  end;
+  Psched_param = ^Tsched_param;
+
+  // /usr/include/x86_64-linux-gnu/bits/cpu-set.h
+  Pcpu_set_t = type Pointer;
+
+
 
 
 type

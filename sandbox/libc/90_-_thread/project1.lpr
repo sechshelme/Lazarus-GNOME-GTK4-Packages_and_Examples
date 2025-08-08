@@ -1,9 +1,13 @@
 program project1;
 
 uses
+  procfs,
+  struct_rwlock,
+  atomic_wide_counter_,
+  thread_shared_types,
   struct_mutex,
   pthreadtypes_arch,
-  pthread_stack_min,
+  pthread_stack_min_,
   pthreadtypes,
   thread_db,
   fp_pthread,

@@ -1,4 +1,4 @@
-unit pthread_stack_min;
+unit pthread_stack_min_;
 
 interface
 

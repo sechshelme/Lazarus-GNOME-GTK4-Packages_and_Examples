@@ -3,7 +3,7 @@ unit struct_mutex;
 interface
 
 uses
-  ctypes;
+  thread_shared_types;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -20,7 +20,7 @@ type
     __kind: longint;
     __spins: smallint;
     __elision: smallint;
-    __list: Tpthread_list_t;
+    __list: T_pthread_list_t;
   end;
   P_pthread_mutex_s = ^T_pthread_mutex_s;
 
