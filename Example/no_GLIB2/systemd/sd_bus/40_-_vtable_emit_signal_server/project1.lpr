@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  crt,
   fp_systemd;
 
   // busctl --user
@@ -9,6 +8,9 @@ uses
   // busctl --user introspect org.ex /org/ex org.ex
   // busctl --user call org.ex /org/ex org.ex add dd 22 33
   // busctl --user call org.ex /org/ex org.ex all dd 22 33
+
+  // busctl --user call org.ex /org/ex org.ex quit
+  // busctl --user call org.ex /org/ex org.ex hello
 
   // busctl --user monitor org.ex
 
@@ -26,6 +28,7 @@ const
   YellowText = #27'[33m';
   ResetText = #27'[0m';
 
+const   CLOCK_MONOTONIC = 1;
 
 type
   Tformat = record
@@ -34,7 +37,6 @@ type
   end;
 
 var
-  quit: boolean = False;
   last_result: double;
   formOpti: Tformat = (fw: 4; dp: 2);
 
@@ -60,13 +62,18 @@ var
     operand1, operand2, res: double;
 
     bus: Psd_bus;
+    event:Psd_event absolute userdata;
   begin
     msg := string(sd_bus_message_get_member(m));
 
     case msg of
       'quit': begin
-        quit := True;
+         sd_event_exit(event, 0);
         sd_bus_reply_method_return(m, 's', 'Programm beendet');
+      end;
+      'hello': begin
+        WriteLn('Hello World');
+        sd_bus_reply_method_return(m, 's', 'Hello World');
       end;
       'add', 'sub', 'mul', 'div': begin
         if CommandTest(sd_bus_message_read(m, 'dd', @operand1, @operand2), 'sd_bus_message_read') < 0 then  begin
@@ -273,14 +280,27 @@ var
     CommandTest(sd_bus_emit_properties_changed(bus, path, iface, 'formatoptions', nil), 'sd_bus_emit_properties_changed');
   end;
 
+  function timer_cp(s: Psd_event_source; usec: uint64; userdata: pointer    ): longint; cdecl;
+  const
+    font:array [0..3]of char ='\-/|';
+    p:Integer=0;
+  begin
+    Write(    '  (',font[p mod 4],')');
+    Inc(p);
+    Write(#27'[1G');
+    sd_event_source_set_time(s, usec+10000);
+    sd_event_source_set_enabled(s, SD_EVENT_ON);
+
+    Result:=0;
+  end;
+
   function main: integer;
   var
     bus: Psd_bus = nil;
     vtable: Tsd_bus_vtables = nil;
-    ch: ansichar;
+    event: Psd_event;
   begin
     Randomize;
-    ClrScr;
     Writeln();
     WriteLn(YellowText, 'Mit folgenden Kommandos, in einem 2. Termin,'#10'kann das Programm gesteuert werden:', ResetText);
     WriteLn();
@@ -290,9 +310,13 @@ var
     WriteLn(WhiteText, 'Infos auslesesen:', ResetText);
     Writeln('  busctl --user introspect org.ex /org/ex org.ex');
     Writeln('');
-    WriteLn(WhiteText, 'Mit dem Prgramm rechnen:', ResetText);
+    WriteLn(WhiteText, 'Mit dem Programm rechnen:', ResetText);
     Writeln('  busctl --user call org.ex /org/ex org.ex add dd 22 33');
     Writeln('  busctl --user call org.ex /org/ex org.ex all dd 22 33');
+    Writeln('');
+    WriteLn(WhiteText, 'Beenden oder Hello World Ausgabe:', ResetText);
+    Writeln('  busctl --user call org.ex /org/ex org.ex quit');
+    Writeln('  busctl --user call org.ex /org/ex org.ex hello');
     Writeln('');
     WriteLn(WhiteText, 'Property einlesen und schreiben:', ResetText);
     Writeln('  busctl --user get-property org.ex /org/ex org.ex lastresult');
@@ -304,8 +328,25 @@ var
     Writeln('  busctl --user call org.ex /org/ex org.ex strarrout');
     Writeln('');
 
+    if CommandTest(sd_bus_default(@bus), 'sd_bus_default') < 0 then begin
+  Exit;
+  end;
+
+    if CommandTest(sd_event_default(@event), 'sd_event_default') < 0 then begin
+  Exit;
+  end;
+
+    if CommandTest(sd_bus_attach_event(bus, event, 0), 'sd_bus_attach_event') < 0 then begin
+  Exit;
+  end;
+
+    if CommandTest(sd_event_add_time_relative( event, nil, CLOCK_MONOTONIC, 10000, 0,@timer_cp,nil), 'sd_event_add_time_relative') < 0 then begin
+  Exit;
+  end;
+
     Add_bus_vtable(vtable, SD_BUS_VTABLE_START(0));
     Add_bus_vtable(vtable, SD_BUS_METHOD('quit', '', 's', @method, 0));
+    Add_bus_vtable(vtable, SD_BUS_METHOD('hello', '', 's', @method, 0));
     Add_bus_vtable(vtable, SD_BUS_METHOD('add', 'dd', 'd', @method, 0));
     Add_bus_vtable(vtable, SD_BUS_METHOD('sub', 'dd', 'd', @method, 0));
     Add_bus_vtable(vtable, SD_BUS_METHOD('mul', 'dd', 'd', @method, 0));
@@ -320,9 +361,7 @@ var
     Add_bus_vtable(vtable, SD_BUS_WRITABLE_PROPERTY('formatoptions', '(ii)', @prop_get_format_options, @prop_set_format_options, 0, SD_BUS_VTABLE_PROPERTY_EMITS_CHANGE));
     Add_bus_vtable(vtable, SD_BUS_VTABLE_END);
 
-    sd_bus_default(@bus);
-
-    if CommandTest(sd_bus_add_object_vtable(bus, nil, '/org/ex', 'org.ex', Psd_bus_vtable(vtable), nil), 'sd_bus_add_object_vtable') < 0 then begin
+    if CommandTest(sd_bus_add_object_vtable(bus, nil, '/org/ex', 'org.ex', Psd_bus_vtable(vtable), event), 'sd_bus_add_object_vtable') < 0 then begin
       Exit;
     end;
     if CommandTest(sd_bus_request_name(bus, 'org.ex', 0), 'sd_bus_request_name') < 0 then begin
@@ -332,32 +371,41 @@ var
     WriteLn();
     WriteLn('dbus gestartet.');
     WriteLn();
-    WriteLn('    <ESC> = Abbruch');
+    WriteLn('    <CTRL+C> = Abbruch');
+    WriteLn();
 
-    repeat
-      if CommandTest(sd_bus_wait(bus, 100), 'sd_bus_wait') < 0 then begin
-        Exit;
-      end;
-      if CommandTest(sd_bus_process(bus, nil), 'sd_bus_process') < 0 then begin
-        Exit;
-      end;
+    if CommandTest(sd_event_loop(event), 'sd_event_loop()') < 0 then begin
+  Exit;
+  end;
 
-      if KeyPressed then begin
-        ch := ReadKey;
-        case ch of
-          #27: begin
-            quit := True;
-          end;
-          #32: begin
-            CommandTest(sd_bus_emit_signal(bus, '/org/ex', 'org.ex', 'calc', 's', 'Es wurde Space gedrückt'), 'sd_bus_emit_signal');
-          end
-        end;
-      end;
-    until quit;
+    sd_bus_unref(bus);
+    sd_event_unref(event);
 
-    if CommandTest(sd_bus_release_name(bus, 'org.ex'), 'sd_bus_release_name') < 0 then begin
-      Exit;
-    end;
+
+    //repeat
+    //  if CommandTest(sd_bus_wait(bus, 100), 'sd_bus_wait') < 0 then begin
+    //    Exit;
+    //  end;
+    //  if CommandTest(sd_bus_process(bus, nil), 'sd_bus_process') < 0 then begin
+    //    Exit;
+    //  end;
+    //
+    //  if KeyPressed then begin
+    //    ch := ReadKey;
+    //    case ch of
+    //      #27: begin
+    //        quit := True;
+    //      end;
+    //      #32: begin
+    //        CommandTest(sd_bus_emit_signal(bus, '/org/ex', 'org.ex', 'calc', 's', 'Es wurde Space gedrückt'), 'sd_bus_emit_signal');
+    //      end
+    //    end;
+    //  end;
+    //until quit;
+
+    //if CommandTest(sd_bus_release_name(bus, 'org.ex'), 'sd_bus_release_name') < 0 then begin
+    //  Exit;
+    //end;
     WriteLn('Program end [io]');
 
     Result := 0;

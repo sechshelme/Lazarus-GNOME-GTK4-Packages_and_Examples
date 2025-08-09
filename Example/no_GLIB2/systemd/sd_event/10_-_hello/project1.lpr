@@ -6,6 +6,40 @@ uses
   clib,
   fp_systemd;
 
+const
+  StartCountdown = 20;
+  TimerCount = 7;
+
+  procedure TextColor(color: byte);
+  begin
+    if color < 8 then begin
+      Write(#27'[', 30 + color, 'm');
+    end else begin
+      Write(#27'[', 90 + (color - 8), 'm');
+    end;
+  end;
+
+  procedure GotoXY(x, y: integer);
+  begin
+    Write(#27'[', y, ';', x, 'H');
+  end;
+
+  procedure ClrScr;
+  begin
+    Write(#27'[2J', #27'[H');
+  end;
+
+  procedure CursorHiden;
+  begin
+    Write(#27'[?25l');
+  end;
+
+  procedure CursorShow;
+  begin
+    Write(#27'[?25h');
+  end;
+
+
 type
   TTimerData = record
     Number, Countdown, Time: SizeInt;
@@ -13,17 +47,16 @@ type
   end;
   PTimerDate = ^TTimerData;
 
-  procedure TextColor(color: byte);
-  begin
-    Write(#27'[9' + char(48 + color) + 'm');
-  end;
-
   function timer_handle(s: Psd_event_source; usec: uint64; userdata: pointer): longint; cdecl;
   var
     TimerData: PTimerDate absolute userdata;
+    x, y: integer;
   begin
-    TextColor(1 + TimerData^.Number);
-    WriteLn('Number: ', TimerData^.Number, '  Counter: ', TimerData^.Countdown);
+    x := TimerData^.Number;
+    y := TimerData^.Countdown;
+    GotoXY(x * 18, StartCountdown - y - 1);
+    TextColor(1 + x + 8);
+    WriteLn('Num: ', x: 2, '  Cnt: ', y: 2);
     if TimerData^.Countdown <= 0 then  begin
       sd_event_source_set_enabled(s, SD_EVENT_OFF);
       Dec(TimerData^.TimerCount^);
@@ -42,11 +75,10 @@ type
   begin
     WriteLn('Programm mit <Ctrl+C> abgewürgt !');
     sd_event_exit(sd_event_source_get_event(s), 0);
+    Result := 0;
   end;
 
   procedure main;
-  const
-    TimerCount = 7;
   var
     TimerDatas: array [0..TimerCount - 1] of TTimerData;
     TimerCounter: SizeInt = TimerCount;
@@ -56,10 +88,13 @@ type
     mask: Tsigset_t;
     i: integer;
   begin
+    ClrScr;
+    CursorHiden;
+
     for i := 0 to TimerCount - 1 do begin
       TimerDatas[i].Number := i;
-      TimerDatas[i].Countdown := 5;
-      TimerDatas[i].Time := 1000000 + i * 300000;
+      TimerDatas[i].Countdown := 15;
+      TimerDatas[i].Time := 500000 + i * 150000;
       TimerDatas[i].TimerCount := @TimerCounter;
     end;
     r := sd_event_new(@event);
@@ -93,6 +128,7 @@ type
     end;
 
     sd_event_unref(event);
+    CursorShow;
   end;
 
 begin
