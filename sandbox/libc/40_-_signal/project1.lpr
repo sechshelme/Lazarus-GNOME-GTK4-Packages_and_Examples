@@ -7,6 +7,7 @@ uses
   fp_ioctl,
   fp_termios,
   fp_signal,
+  fp_stdlib,
   fp_stdio;
 
 
@@ -56,11 +57,17 @@ uses
 var
   p: PInteger;
 
+procedure Exit_cp; cdecl;
 begin
+  WriteLn('Programm beebdet');
+end;
+
+begin
+  atexit(@Exit_cp);
 
   main;
   readln;
-  p^ := 123;
+//  p^ := 123;
   readln;
 
 end.
