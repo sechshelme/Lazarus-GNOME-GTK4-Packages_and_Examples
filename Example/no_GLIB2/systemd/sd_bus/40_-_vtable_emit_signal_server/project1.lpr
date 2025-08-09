@@ -437,6 +437,7 @@ var
     if CommandTest(sd_bus_add_object_vtable(bus, nil, '/org/ex', 'org.ex', Psd_bus_vtable(vtable), event), 'sd_bus_add_object_vtable') < 0 then begin
       Exit;
     end;
+
     if CommandTest(sd_bus_request_name(bus, 'org.ex', 0), 'sd_bus_request_name') < 0 then begin
       Exit;
     end;
@@ -455,32 +456,6 @@ var
     sd_event_unref(event);
 
     disable_raw_mode;
-
-
-    //repeat
-    //  if CommandTest(sd_bus_wait(bus, 100), 'sd_bus_wait') < 0 then begin
-    //    Exit;
-    //  end;
-    //  if CommandTest(sd_bus_process(bus, nil), 'sd_bus_process') < 0 then begin
-    //    Exit;
-    //  end;
-    //
-    //  if KeyPressed then begin
-    //    ch := ReadKey;
-    //    case ch of
-    //      #27: begin
-    //        quit := True;
-    //      end;
-    //      #32: begin
-    //        CommandTest(sd_bus_emit_signal(bus, '/org/ex', 'org.ex', 'calc', 's', 'Es wurde Space gedrückt'), 'sd_bus_emit_signal');
-    //      end
-    //    end;
-    //  end;
-    //until quit;
-
-    //if CommandTest(sd_bus_release_name(bus, 'org.ex'), 'sd_bus_release_name') < 0 then begin
-    //  Exit;
-    //end;
     WriteLn('Program end [io]');
 
     Result := 0;
