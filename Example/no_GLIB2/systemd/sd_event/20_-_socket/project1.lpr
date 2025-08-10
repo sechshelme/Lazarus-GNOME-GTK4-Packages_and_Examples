@@ -5,8 +5,10 @@ uses
   fp_time,
   clib,
   fp_unistd,
+  fp_stdlib,
   fp_stdio,
   fp_socket,
+  fp_ioctl,
   fp_systemd;
 
   // echo test | socat - UDP:127.0.0.1:7777
@@ -26,17 +28,35 @@ uses
     Result := 0;
   end;
 
-  function io_cp(s: Psd_event_source; fd: longint; revents: uint32; userdata: pointer): longint; cdecl;
+  function get_bytes_available(fd: longint): integer;
   var
-    buffer: array[0..255] of char;
+    size: integer = 0;
+  begin
+    if ioctl(fd, FIONREAD, @size) < 0 then begin
+      WriteLn('ioctl() error');
+    end;
+    Result := size;
+  end;
+
+  function io_cp(s: Psd_event_source; fd: longint; revents: uint32; userdata: pointer): longint; cdecl;
+  const
+    bufsize: integer = 0;
+  var
+    buffer: pchar;
     len: Tssize_t;
   begin
-    len := read(fd, @buffer, SizeOf(buffer));
+    ioctl(fd, FIONREAD, @bufsize);
+    buffer := malloc(bufsize + 1);
+
+    len := read(fd, buffer, bufsize);
     if len > 0 then begin
       buffer[len] := #0;
       printf('Buffer: %s'#10, buffer);
     end;
     Result := 0;
+    WriteLn(bufsize, ' Bytes gelesen');
+
+    free(buffer);
   end;
 
   function Create_Socket_fd: longint;
@@ -44,8 +64,6 @@ uses
     sa: Tsockaddr_in;
     fd: longint;
   begin
-    WriteLn('sa',SizeOf(sa));
-
     fd := socket(AF_INET, SOCK_DGRAM or SOCK_CLOEXEC or SOCK_NONBLOCK, 0);
     if fd < 0 then begin
       WriteLn('socket() error');
@@ -67,13 +85,17 @@ uses
     event: Psd_event = nil;
     r, fd: longint;
   begin
-    fd := Create_Socket_fd;
+    WriteLn('Daten an das Programm mit externne Terminal senden.');
+    WriteLn(' echo "Hello World" | socat - UDP:127.0.0.1:7777');
+    WriteLn(' socat - UDP:127.0.0.1:7777 < project1.pas'#10);
 
     r := sd_event_new(@event);
     if r < 0 then begin
       WriteLn('sd_event_new()  fehler');
       Exit;
     end;
+
+    fd := Create_Socket_fd;
 
     r := sd_event_add_io(event, nil, fd, EPOLLIN, @io_cp, nil);
     if r < 0 then begin
