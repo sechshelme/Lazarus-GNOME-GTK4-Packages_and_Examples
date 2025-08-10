@@ -52,7 +52,24 @@ type
   TLongDouble = extended;
   PLongDouble = ^TLongDouble;
 
-  Tuint32_t   =UInt32;
+type
+  Tuint8_t  = UInt8;
+  Puint8_t  = ^Tuint8_t;
+  Tuint16_t = UInt16;
+  Puint16_t = ^Tuint16_t;
+  Tuint32_t = UInt32;
+  Puint32_t = ^Tuint32_t;
+  Tuint64_t = UInt64;
+  Puint64_t = ^Tuint64_t;
+
+  Tint8_t   = Int8;
+  Pint8_t   = ^Tint8_t;
+  Tint16_t  = Int16;
+  Pint16_t  = ^Tint16_t;
+  Tint32_t  = Int32;
+  Pint32_t  = ^Tint32_t;
+  Tint64_t  = Int64;
+  Pint64_t  = ^Tint64_t;
 
   Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;

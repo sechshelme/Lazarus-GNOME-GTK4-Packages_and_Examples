@@ -3,79 +3,21 @@ unit in_;
 interface
 
 uses
-  ctypes;
+  clib, fp_socket;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
 
 
-{ Copyright (C) 1991-2024 Free Software Foundation, Inc.
-   This file is part of the GNU C Library.
-
-   The GNU C Library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Lesser General Public
-   License as published by the Free Software Foundation; either
-   version 2.1 of the License, or (at your option) any later version.
-
-   The GNU C Library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Lesser General Public License for more details.
-
-   You should have received a copy of the GNU Lesser General Public
-   License along with the GNU C Library; if not, see
-   <https://www.gnu.org/licenses/>.   }
-{$ifndef	_NETINET_IN_H}
-
-const
-  _NETINET_IN_H = 1;  
-{$include <features.h>}
-{$include <bits/stdint-uintn.h>}
-{$include <sys/socket.h>}
-{$include <bits/types.h>}
-{ Internet address.   }
 type
-  Pin_addr_t = ^Tin_addr_t;
   Tin_addr_t = Tuint32_t;
-  Pin_addr = ^Tin_addr;
+
   Tin_addr = record
       s_addr : Tin_addr_t;
     end;
+  Pin_addr = ^Tin_addr;
 
-{ Get system-specific definitions.   }
-{$include <bits/in.h>}
-{ Standard well-defined IP protocols.   }
-{ Dummy protocol for TCP.   }
-{ Internet Control Message Protocol.   }
-{ Internet Group Management Protocol.  }
-{ IPIP tunnels (older KA9Q tunnels use 94).   }
-{ Transmission Control Protocol.   }
-{ Exterior Gateway Protocol.   }
-{ PUP protocol.   }
-{ User Datagram Protocol.   }
-{ XNS IDP protocol.   }
-{ SO Transport Protocol Class 4.   }
-{ Datagram Congestion Control Protocol.   }
-{ IPv6 header.   }
-{ Reservation Protocol.   }
-{ General Routing Encapsulation.   }
-{ encapsulating security payload.   }
-{ authentication header.   }
-{ Multicast Transport Protocol.   }
-{ IP option pseudo header for BEET.   }
-{ Encapsulation Header.   }
-{ Protocol Independent Multicast.   }
-{ Compression Header Protocol.   }
-{ Layer 2 Tunnelling Protocol.   }
-{ Stream Control Transmission Protocol.   }
-{ UDP-Lite protocol.   }
-{ MPLS in IP.   }
-{ Ethernet-within-IPv6 Encapsulation.   }
-{ Raw IP packets.   }
-{ Multipath TCP connection.   }
-type
-  Txxxxxxxxxxx =  Longint;
   Const
     IPPROTO_IP = 0;
     IPPROTO_ICMP = 1;
@@ -106,20 +48,6 @@ type
     IPPROTO_RAW = 255;
     IPPROTO_MPTCP = 262;
     IPPROTO_MAX = 263;
-
-{ If __USE_KERNEL_IPV6_DEFS is 1 then the user has included the kernel
-   network headers first and we should use those ABI-identical definitions
-   instead of our own, otherwise 0.   }
-{$if !__USE_KERNEL_IPV6_DEFS}
-{ IPv6 Hop-by-Hop options.   }
-{ IPv6 routing header.   }
-{ IPv6 fragmentation header.   }
-{ ICMPv6.   }
-{ IPv6 no next header.   }
-{ IPv6 destination options.   }
-{ IPv6 mobility header.   }
-type
-  Txxxxxxxxx =  Longint;
   Const
     IPPROTO_HOPOPTS = 0;
     IPPROTO_ROUTING = 43;
@@ -129,33 +57,9 @@ type
     IPPROTO_DSTOPTS = 60;
     IPPROTO_MH = 135;
 
-{$endif}
-{ !__USE_KERNEL_IPV6_DEFS  }
-{ Type to represent a port.   }
 type
   Pin_port_t = ^Tin_port_t;
   Tin_port_t = Tuint16_t;
-{ Standard well-known ports.   }
-{ Echo service.   }
-{ Discard transmissions service.   }
-{ System status service.   }
-{ Time of day service.   }
-{ Network status service.   }
-{ File Transfer Protocol.   }
-{ Telnet protocol.   }
-{ Simple Mail Transfer Protocol.   }
-{ Timeserver service.   }
-{ Domain Name Service.   }
-{ Internet Whois service.   }
-{ Trivial File Transfer Protocol.   }
-{ Finger service.   }
-{ SUPDUP protocol.   }
-{ execd service.   }
-{ rlogind service.   }
-{ UDP ports.   }
-{ Ports less than this value are reserved for privileged processes.   }
-{ Ports greater this value are reserved for (non-privileged) servers.   }
-  Txxxxxx =  Longint;
   Const
     IPPORT_ECHO = 7;
     IPPORT_DISCARD = 9;
@@ -184,14 +88,6 @@ type
     IPPORT_RESERVED = 1024;
     IPPORT_USERRESERVED = 5000;
 
-{ Definitions of the bits in an Internet address integer.
-
-   On subnets, host and network parts are found according to
-   the subnet mask, not these masks.   }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-
 function IN_CLASSA(a : longint) : longint;
 
 const
@@ -199,20 +95,14 @@ const
   IN_CLASSA_NSHIFT = 24;  
   IN_CLASSA_HOST = $ffffffff and ( not (IN_CLASSA_NET));  
   IN_CLASSA_MAX = 128;  
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
 
-function IN_CLASSB(a : longint) : longint;
+  function IN_CLASSB(a : longint) : longint;
 
 const
   IN_CLASSB_NET = $ffff0000;  
   IN_CLASSB_NSHIFT = 16;  
   IN_CLASSB_HOST = $ffffffff and ( not (IN_CLASSB_NET));  
   IN_CLASSB_MAX = 65536;  
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
 
 function IN_CLASSC(a : longint) : longint;
 
@@ -220,81 +110,26 @@ const
   IN_CLASSC_NET = $ffffff00;  
   IN_CLASSC_NSHIFT = 8;  
   IN_CLASSC_HOST = $ffffffff and ( not (IN_CLASSC_NET));  
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
 
 function IN_CLASSD(a : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
 function IN_MULTICAST(a : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
 function IN_EXPERIMENTAL(a : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
 function IN_BADCLASS(a : longint) : longint;
+function INADDR_ANY : Tin_addr_t;
+function INADDR_BROADCAST : Tin_addr_t;
+function INADDR_NONE : Tin_addr_t;
+function INADDR_DUMMY : Tin_addr_t;
 
-{ Address to accept any incoming messages.   }
-{ was #define dname def_expr }
-function INADDR_ANY : Tin_addr_t;  
-
-{ Address to send to all hosts.   }
-{ was #define dname def_expr }
-function INADDR_BROADCAST : Tin_addr_t;  
-
-{ Address indicating an error return.   }
-{ was #define dname def_expr }
-function INADDR_NONE : Tin_addr_t;  
-
-{ Dummy address for source of ICMPv6 errors converted to IPv4 (RFC
-   7600).   }
-{ was #define dname def_expr }
-function INADDR_DUMMY : Tin_addr_t;  
-
-{ Network number for local host loopback.   }
 const
   IN_LOOPBACKNET = 127;  
-{ Address to loopback in software to local host.   }
-{$ifndef INADDR_LOOPBACK}
-{ Inet 127.0.0.1.   }
+function INADDR_LOOPBACK : Tin_addr_t;
+function INADDR_UNSPEC_GROUP : Tin_addr_t;
+function INADDR_ALLHOSTS_GROUP : Tin_addr_t;
+function INADDR_ALLRTRS_GROUP : Tin_addr_t;
+function INADDR_ALLSNOOPERS_GROUP : Tin_addr_t;
+function INADDR_MAX_LOCAL_GROUP : Tin_addr_t;
 
-{ was #define dname def_expr }
-function INADDR_LOOPBACK : Tin_addr_t;  
-
-{$endif}
-{ Defines for Multicast INADDR.   }
-{ 224.0.0.0  }
-
-{ was #define dname def_expr }
-function INADDR_UNSPEC_GROUP : Tin_addr_t;  
-
-{ 224.0.0.1  }
-{ was #define dname def_expr }
-function INADDR_ALLHOSTS_GROUP : Tin_addr_t;  
-
-{ 224.0.0.2  }
-{ was #define dname def_expr }
-function INADDR_ALLRTRS_GROUP : Tin_addr_t;  
-
-{ 224.0.0.106  }
-{ was #define dname def_expr }
-function INADDR_ALLSNOOPERS_GROUP : Tin_addr_t;  
-
-{ 224.0.0.255  }
-{ was #define dname def_expr }
-function INADDR_MAX_LOCAL_GROUP : Tin_addr_t;  
-
-{$if !__USE_KERNEL_IPV6_DEFS}
-{ IPv6 address  }
 type
-  Pin6_addr = ^Tin6_addr;
   Tin6_addr = record
       __in6_u : record
           case longint of
@@ -303,120 +138,77 @@ type
             2 : ( __u6_addr32 : array[0..3] of Tuint32_t );
           end;
     end;
+  Pin6_addr = ^Tin6_addr;
 
-{$endif}
-{ !__USE_KERNEL_IPV6_DEFS  }
   var
     in6addr_any : Tin6_addr;cvar;external libc;
-{ ::  }
     in6addr_loopback : Tin6_addr;cvar;external libc;
-{ ::1  }
-{#define IN6ADDR_ANY_INIT    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0    }
-{#define IN6ADDR_LOOPBACK_INIT    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1    }
+
+  const
+    IN6ADDR_ANY_INIT: Tin6_addr = (        __in6_u: (        __u6_addr8: (          0, 0, 0, 0, 0, 0, 0, 0,          0, 0, 0, 0, 0, 0, 0, 0        )      )    );
+    IN6ADDR_LOOPBACK_INIT: Tin6_addr = (      __in6_u: (        __u6_addr8: (          0, 0, 0, 0, 0, 0, 0, 0,          0, 0, 0, 0, 0, 0, 0, 1        )      )    );
 
 const
   INET_ADDRSTRLEN = 16;  
-  INET6_ADDRSTRLEN = 46;  
-{ Structure describing an Internet socket address.   }
-{ xxxxxxxxxxxx
-struct sockaddr_in
-  
-    __SOCKADDR_COMMON (sin_);
-    in_port_t sin_port;			
-    struct in_addr sin_addr;	
+  INET6_ADDRSTRLEN = 46;
+  type
+    Tsockaddr_in = packed record
+      sin_family: Word;
+      sin_port: Tin_port_t;
+      sin_addr: Tin_addr;
+      sin_zero: array[0..7] of Byte;
+    end;
+    Psockaddr_in = ^Tsockaddr_in;
 
-    unsigned char sin_zero[sizeof (struct sockaddr)
-			   - __SOCKADDR_COMMON_SIZE
-			   - sizeof (in_port_t)
-			   - sizeof (struct in_addr)];
-  ;
- }
-{ xxxxxxxxxxxxxxxxx
-struct sockaddr_in6
-  
-    __SOCKADDR_COMMON (sin6_);
-    in_port_t sin6_port;	
-    uint32_t sin6_flowinfo;	
-    struct in6_addr sin6_addr;	
-    uint32_t sin6_scope_id;
-  ;
- }
-{$endif}
-{ !__USE_KERNEL_IPV6_DEFS  }
-{$ifdef __USE_MISC}
-{ IPv4 multicast request.   }
-{ IP multicast address of group.   }
-{ Local IP address of interface.   }
-type
-  Pip_mreq = ^Tip_mreq;
+    Tsockaddr_in6 = packed record
+      sin6_family: Word;
+      sin6_port: Tin_port_t;
+      sin6_flowinfo: Tuint32_t;
+      sin6_addr: Tin6_addr;
+      sin6_scope_id: Tuint32_t;
+    end;
+    Psockaddr_in6 = ^Tsockaddr_in6;type
   Tip_mreq = record
       imr_multiaddr : Tin_addr;
       imr_interface : Tin_addr;
     end;
+  Pip_mreq = ^Tip_mreq;
 
-{ IPv4 multicast request with interface index.   }
-{ IP multicast address of group.   }
-{ Local IP address of interface.   }
-{ Interface index.   }
-  Pip_mreqn = ^Tip_mreqn;
   Tip_mreqn = record
       imr_multiaddr : Tin_addr;
       imr_address : Tin_addr;
       imr_ifindex : longint;
     end;
+  Pip_mreqn = ^Tip_mreqn;
 
-{ IP multicast address of group.   }
-{ IP address of interface.   }
-{ IP address of source.   }
-  Pip_mreq_source = ^Tip_mreq_source;
   Tip_mreq_source = record
       imr_multiaddr : Tin_addr;
       imr_interface : Tin_addr;
       imr_sourceaddr : Tin_addr;
     end;
+  Pip_mreq_source = ^Tip_mreq_source;
 
-{$endif}
-{$if !__USE_KERNEL_IPV6_DEFS}
-{ Likewise, for IPv6.   }
-{ IPv6 multicast address of group  }
-{ local interface  }
 type
-  Pipv6_mreq = ^Tipv6_mreq;
   Tipv6_mreq = record
       ipv6mr_multiaddr : Tin6_addr;
       ipv6mr_interface : dword;
     end;
+  Pipv6_mreq = ^Tipv6_mreq;
 
-{$endif}
-{ !__USE_KERNEL_IPV6_DEFS  }
-{$ifdef __USE_MISC}
-{ Multicast group request.   }
-{ Interface index.   }
-{ Group address.   }
 type
-  Pgroup_req = ^Tgroup_req;
   Tgroup_req = record
       gr_interface : Tuint32_t;
       gr_group : Tsockaddr_storage;
     end;
+  Pgroup_req = ^Tgroup_req;
 
-{ Interface index.   }
-{ Group address.   }
-{ Source address.   }
-  Pgroup_source_req = ^Tgroup_source_req;
   Tgroup_source_req = record
       gsr_interface : Tuint32_t;
       gsr_group : Tsockaddr_storage;
       gsr_source : Tsockaddr_storage;
     end;
+  Pgroup_source_req = ^Tgroup_source_req;
 
-{ Full-state filter operations.   }
-{ IP multicast address of group.   }
-{ Local IP address of interface.   }
-{ Filter mode.   }
-{ Number of source addresses.   }
-{ Source addresses.   }
-  Pip_msfilter = ^Tip_msfilter;
   Tip_msfilter = record
       imsf_multiaddr : Tin_addr;
       imsf_interface : Tin_addr;
@@ -424,21 +216,17 @@ type
       imsf_numsrc : Tuint32_t;
       imsf_slist : array[0..0] of Tin_addr;
     end;
+  Pip_msfilter = ^Tip_msfilter;
 
-{  xxxxxxxxxxxxxx #define IP_MSFILTER_SIZE(numsrc) (sizeof (struct ip_msfilter) 				  - sizeof (struct in_addr)		      				  + (numsrc) * sizeof (struct in_addr)) }
-{ Interface index.   }
-{ Group address.   }
-{ Filter mode.   }
-{ Number of source addresses.   }
-{ Source addresses.   }
-  Pgroup_filter = ^Tgroup_filter;
-  Tgroup_filter = record
+  function IP_MSFILTER_SIZE(numsrc: Integer): Integer;
+type  Tgroup_filter = record
       gf_interface : Tuint32_t;
       gf_group : Tsockaddr_storage;
       gf_fmode : Tuint32_t;
       gf_numsrc : Tuint32_t;
       gf_slist : array[0..0] of Tsockaddr_storage;
     end;
+  Pgroup_filter = ^Tgroup_filter;
 
 { xxxxxxxxxxxx #define GROUP_FILTER_SIZE(numsrc) (sizeof (struct group_filter) 				   - sizeof (struct sockaddr_storage)  ((numsrc)				      				      * sizeof (struct sockaddr_storage))) }
 {$endif}
@@ -705,6 +493,11 @@ function setsourcefilter(__s:longint; __interface_addr:Tuint32_t; __group:Psocka
 { netinet/in.h  }
 
 // === Konventiert am: 10-8-25 17:28:12 ===
+
+function IP_MSFILTER_SIZE(numsrc: Integer): Integer;
+begin
+  Result := SizeOf(TIPMsfilter) - SizeOf(Tin_addr) + numsrc * SizeOf(Tin_addr);
+end;
 
 
 implementation
