@@ -237,6 +237,27 @@ type
   Pcpu_set_t = type Pointer;
 
 
+  // /usr/include/netinet/in.h
+const
+  INADDR_ANY = UInt32(0);
+
+  type
+  Tin_addr = record
+    s_addr: UInt32;
+  end;
+
+  Tsockaddr_in = packed record
+    sin_family: Word;
+    sin_port: Word;
+    sin_addr: Tin_addr;
+    sin_zero: array[0..7] of Byte;
+  end;
+
+  function htons(hostshort: Word): Word; cdecl; external libc;
+
+  const  // /usr/include/x86_64-linux-gnu/sys/epoll.h
+    EPOLLIN = 1;
+
 
 
 type

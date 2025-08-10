@@ -47,7 +47,7 @@ type
   end;
   PTimerDate = ^TTimerData;
 
-  function timer_handle(s: Psd_event_source; usec: uint64; userdata: pointer): longint; cdecl;
+  function timer_cp(s: Psd_event_source; usec: uint64; userdata: pointer): longint; cdecl;
   var
     TimerData: PTimerDate absolute userdata;
     x, y: integer;
@@ -97,6 +97,7 @@ type
       TimerDatas[i].Time := 500000 + i * 150000;
       TimerDatas[i].TimerCount := @TimerCounter;
     end;
+
     r := sd_event_new(@event);
     if r < 0 then begin
       WriteLn('sd_event_new()  fehler');
@@ -114,7 +115,7 @@ type
     end;
 
     for i := 0 to TimerCount - 1 do begin
-      r := sd_event_add_time_relative(event, nil, CLOCK_MONOTONIC, TimerDatas[i].Time, 0, @timer_handle, @TimerDatas[i]);
+      r := sd_event_add_time_relative(event, nil, CLOCK_MONOTONIC, TimerDatas[i].Time, 0, @timer_cp, @TimerDatas[i]);
       if r < 0 then begin
         WriteLn('sd_event_add_time_relative()  fehler');
         Exit;

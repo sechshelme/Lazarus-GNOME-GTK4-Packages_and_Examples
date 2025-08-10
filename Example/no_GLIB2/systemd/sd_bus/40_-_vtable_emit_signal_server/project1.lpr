@@ -34,8 +34,6 @@ const
   ResetText = #27'[0m';
 
 const
-  //  CLOCK_MONOTONIC = 1;
-  //  STDIN_FILENO = 0;
   EPOLLIN = 1;
 
 type
@@ -353,8 +351,10 @@ var
       end;
     end else begin
       s1 := '';
-      for i := 0 to Length(ch) - 1 do begin
+      i:=0;
+      while ch[i]<>#0 do begin
         WriteStr(s1, s1, byte(ch[i]), ' ');
+        inc(i);
       end;
       CommandTest(sd_bus_emit_signal(bus, '/org/ex', 'org.ex', 'calc', 's', pchar(s1)), 'sd_bus_emit_signal');
     end;
