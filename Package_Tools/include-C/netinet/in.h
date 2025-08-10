@@ -24,7 +24,6 @@
 #include <bits/types.h>
 
 
-__BEGIN_DECLS
 
 /* Internet address.  */
 typedef uint32_t in_addr_t;
@@ -37,64 +36,36 @@ struct in_addr
 #include <bits/in.h>
 
 /* Standard well-defined IP protocols.  */
-enum
+enum xxxxxxxxxxx
   {
     IPPROTO_IP = 0,	   /* Dummy protocol for TCP.  */
-#define IPPROTO_IP		IPPROTO_IP
     IPPROTO_ICMP = 1,	   /* Internet Control Message Protocol.  */
-#define IPPROTO_ICMP		IPPROTO_ICMP
     IPPROTO_IGMP = 2,	   /* Internet Group Management Protocol. */
-#define IPPROTO_IGMP		IPPROTO_IGMP
     IPPROTO_IPIP = 4,	   /* IPIP tunnels (older KA9Q tunnels use 94).  */
-#define IPPROTO_IPIP		IPPROTO_IPIP
     IPPROTO_TCP = 6,	   /* Transmission Control Protocol.  */
-#define IPPROTO_TCP		IPPROTO_TCP
     IPPROTO_EGP = 8,	   /* Exterior Gateway Protocol.  */
-#define IPPROTO_EGP		IPPROTO_EGP
     IPPROTO_PUP = 12,	   /* PUP protocol.  */
-#define IPPROTO_PUP		IPPROTO_PUP
     IPPROTO_UDP = 17,	   /* User Datagram Protocol.  */
-#define IPPROTO_UDP		IPPROTO_UDP
     IPPROTO_IDP = 22,	   /* XNS IDP protocol.  */
-#define IPPROTO_IDP		IPPROTO_IDP
     IPPROTO_TP = 29,	   /* SO Transport Protocol Class 4.  */
-#define IPPROTO_TP		IPPROTO_TP
     IPPROTO_DCCP = 33,	   /* Datagram Congestion Control Protocol.  */
-#define IPPROTO_DCCP		IPPROTO_DCCP
     IPPROTO_IPV6 = 41,     /* IPv6 header.  */
-#define IPPROTO_IPV6		IPPROTO_IPV6
     IPPROTO_RSVP = 46,	   /* Reservation Protocol.  */
-#define IPPROTO_RSVP		IPPROTO_RSVP
     IPPROTO_GRE = 47,	   /* General Routing Encapsulation.  */
-#define IPPROTO_GRE		IPPROTO_GRE
     IPPROTO_ESP = 50,      /* encapsulating security payload.  */
-#define IPPROTO_ESP		IPPROTO_ESP
     IPPROTO_AH = 51,       /* authentication header.  */
-#define IPPROTO_AH		IPPROTO_AH
     IPPROTO_MTP = 92,	   /* Multicast Transport Protocol.  */
-#define IPPROTO_MTP		IPPROTO_MTP
     IPPROTO_BEETPH = 94,   /* IP option pseudo header for BEET.  */
-#define IPPROTO_BEETPH		IPPROTO_BEETPH
     IPPROTO_ENCAP = 98,	   /* Encapsulation Header.  */
-#define IPPROTO_ENCAP		IPPROTO_ENCAP
     IPPROTO_PIM = 103,	   /* Protocol Independent Multicast.  */
-#define IPPROTO_PIM		IPPROTO_PIM
     IPPROTO_COMP = 108,	   /* Compression Header Protocol.  */
-#define IPPROTO_COMP		IPPROTO_COMP
     IPPROTO_L2TP = 115,	   /* Layer 2 Tunnelling Protocol.  */
-#define IPPROTO_L2TP		IPPROTO_L2TP
     IPPROTO_SCTP = 132,	   /* Stream Control Transmission Protocol.  */
-#define IPPROTO_SCTP		IPPROTO_SCTP
     IPPROTO_UDPLITE = 136, /* UDP-Lite protocol.  */
-#define IPPROTO_UDPLITE		IPPROTO_UDPLITE
     IPPROTO_MPLS = 137,    /* MPLS in IP.  */
-#define IPPROTO_MPLS		IPPROTO_MPLS
     IPPROTO_ETHERNET = 143, /* Ethernet-within-IPv6 Encapsulation.  */
-#define IPPROTO_ETHERNET	IPPROTO_ETHERNET
     IPPROTO_RAW = 255,	   /* Raw IP packets.  */
-#define IPPROTO_RAW		IPPROTO_RAW
     IPPROTO_MPTCP = 262,   /* Multipath TCP connection.  */
-#define IPPROTO_MPTCP		IPPROTO_MPTCP
     IPPROTO_MAX
   };
 
@@ -102,22 +73,15 @@ enum
    network headers first and we should use those ABI-identical definitions
    instead of our own, otherwise 0.  */
 #if !__USE_KERNEL_IPV6_DEFS
-enum
+enum xxxxxxxxx
   {
     IPPROTO_HOPOPTS = 0,   /* IPv6 Hop-by-Hop options.  */
-#define IPPROTO_HOPOPTS		IPPROTO_HOPOPTS
     IPPROTO_ROUTING = 43,  /* IPv6 routing header.  */
-#define IPPROTO_ROUTING		IPPROTO_ROUTING
     IPPROTO_FRAGMENT = 44, /* IPv6 fragmentation header.  */
-#define IPPROTO_FRAGMENT	IPPROTO_FRAGMENT
     IPPROTO_ICMPV6 = 58,   /* ICMPv6.  */
-#define IPPROTO_ICMPV6		IPPROTO_ICMPV6
     IPPROTO_NONE = 59,     /* IPv6 no next header.  */
-#define IPPROTO_NONE		IPPROTO_NONE
     IPPROTO_DSTOPTS = 60,  /* IPv6 destination options.  */
-#define IPPROTO_DSTOPTS		IPPROTO_DSTOPTS
     IPPROTO_MH = 135       /* IPv6 mobility header.  */
-#define IPPROTO_MH		IPPROTO_MH
   };
 #endif /* !__USE_KERNEL_IPV6_DEFS */
 
@@ -125,7 +89,7 @@ enum
 typedef uint16_t in_port_t;
 
 /* Standard well-known ports.  */
-enum
+enum xxxxxx
   {
     IPPORT_ECHO = 7,		/* Echo service.  */
     IPPORT_DISCARD = 9,		/* Discard transmissions service.  */
@@ -226,47 +190,45 @@ struct in6_addr
 	uint16_t __u6_addr16[8];
 	uint32_t __u6_addr32[4];
       } __in6_u;
-#define s6_addr			__in6_u.__u6_addr8
-#ifdef __USE_MISC
-# define s6_addr16		__in6_u.__u6_addr16
-# define s6_addr32		__in6_u.__u6_addr32
-#endif
   };
+
+
 #endif /* !__USE_KERNEL_IPV6_DEFS */
 
 extern const struct in6_addr in6addr_any;        /* :: */
 extern const struct in6_addr in6addr_loopback;   /* ::1 */
-#define IN6ADDR_ANY_INIT { { { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 } } }
-#define IN6ADDR_LOOPBACK_INIT { { { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1 } } }
+//#define IN6ADDR_ANY_INIT { { { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 } } }
+//#define IN6ADDR_LOOPBACK_INIT { { { 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1 } } }
 
 #define INET_ADDRSTRLEN 16
 #define INET6_ADDRSTRLEN 46
 
 
 /* Structure describing an Internet socket address.  */
+/* xxxxxxxxxxxx
 struct sockaddr_in
   {
     __SOCKADDR_COMMON (sin_);
-    in_port_t sin_port;			/* Port number.  */
-    struct in_addr sin_addr;		/* Internet address.  */
+    in_port_t sin_port;			
+    struct in_addr sin_addr;	
 
-    /* Pad to size of `struct sockaddr'.  */
     unsigned char sin_zero[sizeof (struct sockaddr)
 			   - __SOCKADDR_COMMON_SIZE
 			   - sizeof (in_port_t)
 			   - sizeof (struct in_addr)];
   };
+*/
 
-#if !__USE_KERNEL_IPV6_DEFS
-/* Ditto, for IPv6.  */
+/* xxxxxxxxxxxxxxxxx
 struct sockaddr_in6
   {
     __SOCKADDR_COMMON (sin6_);
-    in_port_t sin6_port;	/* Transport layer port # */
-    uint32_t sin6_flowinfo;	/* IPv6 flow information */
-    struct in6_addr sin6_addr;	/* IPv6 address */
-    uint32_t sin6_scope_id;	/* IPv6 scope-id */
+    in_port_t sin6_port;	
+    uint32_t sin6_flowinfo;	
+    struct in6_addr sin6_addr;	
+    uint32_t sin6_scope_id;
   };
+*/
 #endif /* !__USE_KERNEL_IPV6_DEFS */
 
 #ifdef __USE_MISC
@@ -360,9 +322,7 @@ struct ip_msfilter
     struct in_addr imsf_slist[1];
   };
 
-#define IP_MSFILTER_SIZE(numsrc) (sizeof (struct ip_msfilter) \
-				  - sizeof (struct in_addr)		      \
-				  + (numsrc) * sizeof (struct in_addr))
+//  xxxxxxxxxxxxxx #define IP_MSFILTER_SIZE(numsrc) (sizeof (struct ip_msfilter) 				  - sizeof (struct in_addr)		      				  + (numsrc) * sizeof (struct in_addr))
 
 struct group_filter
   {
@@ -381,10 +341,7 @@ struct group_filter
     struct sockaddr_storage gf_slist[1];
 };
 
-#define GROUP_FILTER_SIZE(numsrc) (sizeof (struct group_filter) \
-				   - sizeof (struct sockaddr_storage)	      \
-				   + ((numsrc)				      \
-				      * sizeof (struct sockaddr_storage)))
+// xxxxxxxxxxxx #define GROUP_FILTER_SIZE(numsrc) (sizeof (struct group_filter) 				   - sizeof (struct sockaddr_storage)  ((numsrc)				      				      * sizeof (struct sockaddr_storage)))
 #endif
 
 /* Functions to convert between host and network byte order.
@@ -394,13 +351,13 @@ struct group_filter
    this was a short-sighted decision since on different systems the types
    may have different representations but the values are always the same.  */
 
-extern uint32_t ntohl (uint32_t __netlong) __THROW __attribute__ ((__const__));
+extern uint32_t ntohl (uint32_t __netlong)  ;
 extern uint16_t ntohs (uint16_t __netshort)
-     __THROW __attribute__ ((__const__));
+      ;
 extern uint32_t htonl (uint32_t __hostlong)
-     __THROW __attribute__ ((__const__));
+      ;
 extern uint16_t htons (uint16_t __hostshort)
-     __THROW __attribute__ ((__const__));
+      ;
 
 #include <endian.h>
 
@@ -428,7 +385,7 @@ extern uint16_t htons (uint16_t __hostshort)
 #  endif
 # endif
 #endif
-
+/*
 #ifdef __GNUC__
 # define IN6_IS_ADDR_UNSPECIFIED(a) \
   (__extension__							      \
@@ -517,19 +474,20 @@ extern uint16_t htons (uint16_t __hostshort)
 	 && (((const uint32_t *) (a))[2] == ((const uint32_t *) (b))[2])      \
 	 && (((const uint32_t *) (a))[3] == ((const uint32_t *) (b))[3]))
 #endif
+*/
 
-#define IN6_IS_ADDR_MULTICAST(a) (((const uint8_t *) (a))[0] == 0xff)
+// #define IN6_IS_ADDR_MULTICAST(a) (((const uint8_t *) (a))[0] == 0xff)
 
 #ifdef __USE_MISC
 /* Bind socket to a privileged IP port.  */
-extern int bindresvport (int __sockfd, struct sockaddr_in *__sock_in) __THROW;
+extern int bindresvport (int __sockfd, struct sockaddr_in *__sock_in) ;
 
 /* The IPv6 version of this function.  */
 extern int bindresvport6 (int __sockfd, struct sockaddr_in6 *__sock_in)
-     __THROW;
+     ;
 #endif
 
-
+/* xxxxxxxxxxxx
 #define IN6_IS_ADDR_MC_NODELOCAL(a) \
 	(IN6_IS_ADDR_MULTICAST(a)					      \
 	 && ((((const uint8_t *) (a))[1] & 0xf) == 0x1))
@@ -549,6 +507,7 @@ extern int bindresvport6 (int __sockfd, struct sockaddr_in6 *__sock_in)
 #define IN6_IS_ADDR_MC_GLOBAL(a) \
 	(IN6_IS_ADDR_MULTICAST(a)					      \
 	 && ((((const uint8_t *) (a))[1] & 0xf) == 0xe))
+*/
 
 
 #ifdef __USE_GNU
@@ -572,51 +531,51 @@ struct ip6_mtuinfo
 
 /* Obsolete hop-by-hop and Destination Options Processing (RFC 2292).  */
 extern int inet6_option_space (int __nbytes)
-     __THROW __attribute_deprecated__;
+      /*__attribute_deprecated__*/;
 extern int inet6_option_init (void *__bp, struct cmsghdr **__cmsgp,
-			      int __type) __THROW __attribute_deprecated__;
+			      int __type)  /*__attribute_deprecated__*/;
 extern int inet6_option_append (struct cmsghdr *__cmsg,
 				const uint8_t *__typep, int __multx,
-				int __plusy) __THROW __attribute_deprecated__;
+				int __plusy)  /*__attribute_deprecated__*/;
 extern uint8_t *inet6_option_alloc (struct cmsghdr *__cmsg, int __datalen,
 				    int __multx, int __plusy)
-     __THROW __attribute_deprecated__;
+      /*__attribute_deprecated__*/;
 extern int inet6_option_next (const struct cmsghdr *__cmsg,
 			      uint8_t **__tptrp)
-     __THROW __attribute_deprecated__;
+      /*__attribute_deprecated__*/;
 extern int inet6_option_find (const struct cmsghdr *__cmsg,
 			      uint8_t **__tptrp, int __type)
-     __THROW __attribute_deprecated__;
+      /*__attribute_deprecated__*/;
 
 
 /* Hop-by-Hop and Destination Options Processing (RFC 3542).  */
-extern int inet6_opt_init (void *__extbuf, socklen_t __extlen) __THROW;
+extern int inet6_opt_init (void *__extbuf, socklen_t __extlen) ;
 extern int inet6_opt_append (void *__extbuf, socklen_t __extlen, int __offset,
 			     uint8_t __type, socklen_t __len, uint8_t __align,
-			     void **__databufp) __THROW;
+			     void **__databufp) ;
 extern int inet6_opt_finish (void *__extbuf, socklen_t __extlen, int __offset)
-     __THROW;
+     ;
 extern int inet6_opt_set_val (void *__databuf, int __offset, void *__val,
-			      socklen_t __vallen) __THROW;
+			      socklen_t __vallen) ;
 extern int inet6_opt_next (void *__extbuf, socklen_t __extlen, int __offset,
 			   uint8_t *__typep, socklen_t *__lenp,
-			   void **__databufp) __THROW;
+			   void **__databufp) ;
 extern int inet6_opt_find (void *__extbuf, socklen_t __extlen, int __offset,
 			   uint8_t __type, socklen_t *__lenp,
-			   void **__databufp) __THROW;
+			   void **__databufp) ;
 extern int inet6_opt_get_val (void *__databuf, int __offset, void *__val,
-			      socklen_t __vallen) __THROW;
+			      socklen_t __vallen) ;
 
 
 /* Routing Header Option (RFC 3542).  */
-extern socklen_t inet6_rth_space (int __type, int __segments) __THROW;
+extern socklen_t inet6_rth_space (int __type, int __segments) ;
 extern void *inet6_rth_init (void *__bp, socklen_t __bp_len, int __type,
-			     int __segments) __THROW;
-extern int inet6_rth_add (void *__bp, const struct in6_addr *__addr) __THROW;
-extern int inet6_rth_reverse (const void *__in, void *__out) __THROW;
-extern int inet6_rth_segments (const void *__bp) __THROW;
+			     int __segments) ;
+extern int inet6_rth_add (void *__bp, const struct in6_addr *__addr) ;
+extern int inet6_rth_reverse (const void *__in, void *__out) ;
+extern int inet6_rth_segments (const void *__bp) ;
 extern struct in6_addr *inet6_rth_getaddr (const void *__bp, int __index)
-     __THROW;
+     ;
 
 
 /* Multicast source filter support.  */
@@ -625,14 +584,14 @@ extern struct in6_addr *inet6_rth_getaddr (const void *__bp, int __index)
 extern int getipv4sourcefilter (int __s, struct in_addr __interface_addr,
 				struct in_addr __group, uint32_t *__fmode,
 				uint32_t *__numsrc, struct in_addr *__slist)
-     __THROW;
+     ;
 
 /* Set IPv4 source filter.  */
 extern int setipv4sourcefilter (int __s, struct in_addr __interface_addr,
 				struct in_addr __group, uint32_t __fmode,
 				uint32_t __numsrc,
 				const struct in_addr *__slist)
-     __THROW;
+     ;
 
 
 /* Get source filter.  */
@@ -640,16 +599,15 @@ extern int getsourcefilter (int __s, uint32_t __interface_addr,
 			    const struct sockaddr *__group,
 			    socklen_t __grouplen, uint32_t *__fmode,
 			    uint32_t *__numsrc,
-			    struct sockaddr_storage *__slist) __THROW;
+			    struct sockaddr_storage *__slist) ;
 
 /* Set source filter.  */
 extern int setsourcefilter (int __s, uint32_t __interface_addr,
 			    const struct sockaddr *__group,
 			    socklen_t __grouplen, uint32_t __fmode,
 			    uint32_t __numsrc,
-			    const struct sockaddr_storage *__slist) __THROW;
+			    const struct sockaddr_storage *__slist) ;
 #endif	/* use GNU */
 
-__END_DECLS
 
 #endif	/* netinet/in.h */

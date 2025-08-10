@@ -95,34 +95,23 @@ typedef	uint32_t tcp_seq;
  * TCP header.
  * Per RFC 793, September, 1981.
  */
+/* xxxxxxxxxxxxxx
 struct tcphdr
   {
-    __extension__ union
+     union
     {
       struct
       {
-	uint16_t th_sport;	/* source port */
-	uint16_t th_dport;	/* destination port */
-	tcp_seq th_seq;		/* sequence number */
-	tcp_seq th_ack;		/* acknowledgement number */
-# if __BYTE_ORDER == __LITTLE_ENDIAN
-	uint8_t th_x2:4;	/* (unused) */
-	uint8_t th_off:4;	/* data offset */
-# endif
-# if __BYTE_ORDER == __BIG_ENDIAN
-	uint8_t th_off:4;	/* data offset */
-	uint8_t th_x2:4;	/* (unused) */
-# endif
+	uint16_t th_sport;	
+	uint16_t th_dport;	
+	tcp_seq th_seq;		
+	tcp_seq th_ack;		
+	uint8_t th_x2:4;	
+	uint8_t th_off:4;	
 	uint8_t th_flags;
-# define TH_FIN	0x01
-# define TH_SYN	0x02
-# define TH_RST	0x04
-# define TH_PUSH	0x08
-# define TH_ACK	0x10
-# define TH_URG	0x20
-	uint16_t th_win;	/* window */
-	uint16_t th_sum;	/* checksum */
-	uint16_t th_urp;	/* urgent pointer */
+	uint16_t th_win;	
+	uint16_t th_sum;	
+	uint16_t th_urp;	
       };
       struct
       {
@@ -130,7 +119,6 @@ struct tcphdr
 	uint16_t dest;
 	uint32_t seq;
 	uint32_t ack_seq;
-# if __BYTE_ORDER == __LITTLE_ENDIAN
 	uint16_t res1:4;
 	uint16_t doff:4;
 	uint16_t fin:1;
@@ -140,27 +128,23 @@ struct tcphdr
 	uint16_t ack:1;
 	uint16_t urg:1;
 	uint16_t res2:2;
-# elif __BYTE_ORDER == __BIG_ENDIAN
-	uint16_t doff:4;
-	uint16_t res1:4;
-	uint16_t res2:2;
-	uint16_t urg:1;
-	uint16_t ack:1;
-	uint16_t psh:1;
-	uint16_t rst:1;
-	uint16_t syn:1;
-	uint16_t fin:1;
-# else
-#  error "Adjust your <bits/endian.h> defines"
-# endif
 	uint16_t window;
 	uint16_t check;
 	uint16_t urg_ptr;
       };
     };
 };
+*/
 
-enum
+# define TH_FIN	0x01
+# define TH_SYN	0x02
+# define TH_RST	0x04
+# define TH_PUSH	0x08
+# define TH_ACK	0x10
+# define TH_URG	0x20
+
+
+enum xxxxxxxxx
 {
   TCP_ESTABLISHED = 1,
   TCP_SYN_SENT,
@@ -292,7 +276,7 @@ struct tcp_repair_opt
 };
 
 /* Queue to repair, for TCP_REPAIR_QUEUE.  */
-enum
+enum xxxxxxxx
 {
   TCP_NO_QUEUE,
   TCP_RECV_QUEUE,

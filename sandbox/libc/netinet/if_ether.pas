@@ -1,4 +1,16 @@
-/* Copyright (C) 1991-2024 Free Software Foundation, Inc.
+unit if_ether;
+
+interface
+
+uses
+  ctypes;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ Copyright (C) 1996-2024 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
    The GNU C Library is free software; you can redistribute it and/or
@@ -13,11 +25,19 @@
 
    You should have received a copy of the GNU Lesser General Public
    License along with the GNU C Library; if not, see
-   <https://www.gnu.org/licenses/>.  */
+   <https://www.gnu.org/licenses/>.   }
+{$ifndef __NETINET_IF_ETHER_H}
 
-/*
- * Copyright (C) 1982, 1986 Regents of the University of California.
- * All rights reserved.
+const
+  __NETINET_IF_ETHER_H = 1;  
+{$include <features.h>}
+{$include <sys/types.h>}
+{ Get definitions from kernel header file.   }
+{$include <linux/if_ether.h>}
+{$ifdef __USE_MISC}
+{
+ * Copyright (c) 1982, 1986, 1993
+ *	The Regents of the University of California.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -42,56 +62,69 @@
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
- */
-
-#ifndef __NETINET_UDP_H
-#define __NETINET_UDP_H    1
-
-#include <sys/types.h>
-#include <stdint.h>
-
-/* xxxxxxxxxxxx
-
-struct udphdr
+ *
+ *	@(#)if_ether.h	8.3 (Berkeley) 5/2/95
+ *	$FreeBSD$
+  }
+{$include <net/ethernet.h>}
+{$include <net/if_arp.h>}
 {
-   union
-  {
-    struct
-    {
-      uint16_t uh_sport;	
-      uint16_t uh_dport;	
-      uint16_t uh_ulen;		
-      uint16_t uh_sum;		
-    };
-    struct
-    {
-      uint16_t source;
-      uint16_t dest;
-      uint16_t len;
-      uint16_t check;
-    };
-  };
-};
-*/
+ * Ethernet Address Resolution Protocol.
+ *
+ * See RFC 826 for protocol description.  Structure below is adapted
+ * to resolving internet addresses.  Field names used correspond to
+ * RFC 826.
+  }
+{ fixed-size header  }
+{ sender hardware address  }
+{ sender protocol address  }
+{ target hardware address  }
+{ target protocol address  }
+type
+  Pether_arp = ^Tether_arp;
+  Tether_arp = record
+      ea_hdr : Tarphdr;
+      arp_sha : array[0..(ETH_ALEN)-1] of Tuint8_t;
+      arp_spa : array[0..3] of Tuint8_t;
+      arp_tha : array[0..(ETH_ALEN)-1] of Tuint8_t;
+      arp_tpa : array[0..3] of Tuint8_t;
+    end;
 
-/* UDP socket options */
-#define UDP_CORK	1	/* Never send partially complete segments.  */
-#define UDP_ENCAP	100	/* Set the socket to accept
-				   encapsulated packets.  */
-#define UDP_NO_CHECK6_TX 101	/* Disable sending checksum for UDP
-				   over IPv6.  */
-#define UDP_NO_CHECK6_RX 102	/* Disable accepting checksum for UDP
-				   over IPv6.  */
-#define UDP_SEGMENT	103	/* Set GSO segmentation size.  */
-#define UDP_GRO		104	/* This socket can receive UDP GRO packets.  */
 
-/* UDP encapsulation types */
-#define UDP_ENCAP_ESPINUDP_NON_IKE 1	/* draft-ietf-ipsec-nat-t-ike-00/01 */
-#define UDP_ENCAP_ESPINUDP	2	/* draft-ietf-ipsec-udp-encaps-06 */
-#define UDP_ENCAP_L2TPINUDP	3	/* rfc2661 */
-#define UDP_ENCAP_GTP0		4	/* GSM TS 09.60 */
-#define UDP_ENCAP_GTP1U		5	/* 3GPP TS 29.060 */
+const
+  arp_hrd = ea_hdr.ar_hrd;  
+  arp_pro = ea_hdr.ar_pro;  
+  arp_hln = ea_hdr.ar_hln;  
+  arp_pln = ea_hdr.ar_pln;  
+  arp_op = ea_hdr.ar_op;  
+{
+ * Macro to map an IP multicast address to an Ethernet multicast address.
+ * The high-order 25 bits of the Ethernet address are statically assigned,
+ * and the low-order 23 bits are taken from the low end of the IP address.
+  }
+{ xxxxxxxxxxx
+#define ETHER_MAP_IP_MULTICAST(ipaddr, enaddr) \
 
-#define SOL_UDP            17      /* sockopt level for UDP */
 
-#endif /* netinet/udp.h */
+ \
+	(enaddr)[0] = 0x01; \
+	(enaddr)[1] = 0x00; \
+	(enaddr)[2] = 0x5e; \
+	(enaddr)[3] = ((uint8_t *)ipaddr)[1] & 0x7f; \
+	(enaddr)[4] = ((uint8_t *)ipaddr)[2]; \
+	(enaddr)[5] = ((uint8_t *)ipaddr)[3]; \
+
+ }
+{$endif}
+{ __USE_MISC  }
+{$endif}
+{ netinet/if_ether.h  }
+
+// === Konventiert am: 10-8-25 17:28:02 ===
+
+
+implementation
+
+
+
+end.

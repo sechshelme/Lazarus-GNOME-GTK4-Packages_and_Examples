@@ -60,7 +60,6 @@
 #include <net/ethernet.h>
 #include <net/if_arp.h>
 
-__BEGIN_DECLS
 /*
  * Ethernet Address Resolution Protocol.
  *
@@ -86,9 +85,10 @@ struct	ether_arp {
  * The high-order 25 bits of the Ethernet address are statically assigned,
  * and the low-order 23 bits are taken from the low end of the IP address.
  */
+/* xxxxxxxxxxx
 #define ETHER_MAP_IP_MULTICAST(ipaddr, enaddr) \
-	/* struct in_addr *ipaddr; */ \
-	/* uint8_t enaddr[ETH_ALEN]; */ \
+
+
 { \
 	(enaddr)[0] = 0x01; \
 	(enaddr)[1] = 0x00; \
@@ -97,8 +97,8 @@ struct	ether_arp {
 	(enaddr)[4] = ((uint8_t *)ipaddr)[2]; \
 	(enaddr)[5] = ((uint8_t *)ipaddr)[3]; \
 }
+*/
 
-__END_DECLS
 #endif /* __USE_MISC */
 
 #endif /* netinet/if_ether.h */

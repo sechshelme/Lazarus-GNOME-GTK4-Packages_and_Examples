@@ -92,6 +92,7 @@ struct icmp6_hdr
 #define ICMP6_FILTER_WILLBLOCK(type, filterp) \
 	((((filterp)->icmp6_filt[(type) >> 5]) & (1U << ((type) & 31))) != 0)
 
+/* xxxxxxxxxxxxxxxxxxxxxxxx
 #define ICMP6_FILTER_SETPASS(type, filterp) \
 	((((filterp)->icmp6_filt[(type) >> 5]) &= ~(1U << ((type) & 31))))
 
@@ -103,6 +104,8 @@ struct icmp6_hdr
 
 #define ICMP6_FILTER_SETBLOCKALL(filterp) \
 	memset (filterp, 0xFF, sizeof (struct icmp6_filter));
+*/
+
 
 #define ND_ROUTER_SOLICIT           133
 #define ND_ROUTER_ADVERT            134

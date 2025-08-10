@@ -24,7 +24,8 @@
 /* IEEE 802.5 Token-Ring magic constants.  The frame sizes omit the preamble
    and FCS/CRC (frame check sequence). */
 #define TR_ALEN		6		/* Octets in one token-ring addr */
-#define TR_HLEN 	(sizeof (struct trh_hdr) + sizeof (struct trllc))
+// xxxxxxxxxxx
+//#define TR_HLEN 	(sizeof (struct trh_hdr) + sizeof (struct trllc))
 #define AC		0x10
 #define LLC_FRAME 	0x40
 

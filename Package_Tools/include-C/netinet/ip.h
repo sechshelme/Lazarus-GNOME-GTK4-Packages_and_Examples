@@ -23,35 +23,20 @@
 
 #include <netinet/in.h>
 
-__BEGIN_DECLS
 
 struct timestamp
   {
     uint8_t len;
     uint8_t ptr;
-#if __BYTE_ORDER == __LITTLE_ENDIAN
     unsigned int flags:4;
     unsigned int overflow:4;
-#elif __BYTE_ORDER == __BIG_ENDIAN
-    unsigned int overflow:4;
-    unsigned int flags:4;
-#else
-# error	"Please fix <bits/endian.h>"
-#endif
     uint32_t data[9];
   };
 
 struct iphdr
   {
-#if __BYTE_ORDER == __LITTLE_ENDIAN
     unsigned int ihl:4;
     unsigned int version:4;
-#elif __BYTE_ORDER == __BIG_ENDIAN
-    unsigned int version:4;
-    unsigned int ihl:4;
-#else
-# error	"Please fix <bits/endian.h>"
-#endif
     uint8_t tos;
     uint16_t tot_len;
     uint16_t id;
@@ -61,7 +46,6 @@ struct iphdr
     uint16_t check;
     uint32_t saddr;
     uint32_t daddr;
-    /*The options start here. */
   };
 
 #ifdef __USE_MISC
@@ -106,27 +90,23 @@ struct iphdr
  */
 struct ip
   {
-#if __BYTE_ORDER == __LITTLE_ENDIAN
     unsigned int ip_hl:4;		/* header length */
     unsigned int ip_v:4;		/* version */
-#endif
-#if __BYTE_ORDER == __BIG_ENDIAN
     unsigned int ip_v:4;		/* version */
     unsigned int ip_hl:4;		/* header length */
-#endif
     uint8_t ip_tos;			/* type of service */
     unsigned short ip_len;		/* total length */
     unsigned short ip_id;		/* identification */
     unsigned short ip_off;		/* fragment offset field */
-#define	IP_RF 0x8000			/* reserved fragment flag */
-#define	IP_DF 0x4000			/* dont fragment flag */
-#define	IP_MF 0x2000			/* more fragments flag */
-#define	IP_OFFMASK 0x1fff		/* mask for fragmenting bits */
     uint8_t ip_ttl;			/* time to live */
     uint8_t ip_p;			/* protocol */
     unsigned short ip_sum;		/* checksum */
     struct in_addr ip_src, ip_dst;	/* source and dest address */
   };
+#define	IP_RF 0x8000			/* reserved fragment flag */
+#define	IP_DF 0x4000			/* dont fragment flag */
+#define	IP_MF 0x2000			/* more fragments flag */
+#define	IP_OFFMASK 0x1fff		/* mask for fragmenting bits */
 
 /*
  * Time stamp option structure.
@@ -136,14 +116,8 @@ struct ip_timestamp
     uint8_t ipt_code;			/* IPOPT_TS */
     uint8_t ipt_len;			/* size of structure (variable) */
     uint8_t ipt_ptr;			/* index of current entry */
-#if __BYTE_ORDER == __LITTLE_ENDIAN
     unsigned int ipt_flg:4;		/* flags, see below */
     unsigned int ipt_oflw:4;		/* overflow counter */
-#endif
-#if __BYTE_ORDER == __BIG_ENDIAN
-    unsigned int ipt_oflw:4;		/* overflow counter */
-    unsigned int ipt_flg:4;		/* flags, see below */
-#endif
     uint32_t data[9];
   };
 #endif /* __USE_MISC */
@@ -307,6 +281,5 @@ struct ip_timestamp
 
 #define	IP_MSS		576		/* default maximum segment size */
 
-__END_DECLS
 
 #endif /* netinet/ip.h */

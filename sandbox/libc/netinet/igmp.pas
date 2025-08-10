@@ -1,4 +1,16 @@
-/* Copyright (C) 1997-2024 Free Software Foundation, Inc.
+unit igmp;
+
+interface
+
+uses
+  ctypes;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ Copyright (C) 1997-2024 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
 
    The GNU C Library is free software; you can redistribute it and/or
@@ -13,20 +25,16 @@
 
    You should have received a copy of the GNU Lesser General Public
    License along with the GNU C Library; if not, see
-   <https://www.gnu.org/licenses/>.  */
+   <https://www.gnu.org/licenses/>.   }
+{$ifndef _NETINET_IGMP_H}
 
-#ifndef _NETINET_IGMP_H
-#define	_NETINET_IGMP_H 1
-
-#include <sys/cdefs.h>
-#include <sys/types.h>
-
-#ifdef __USE_MISC
-
-#include <netinet/in.h>
-
-
-/*
+const
+  _NETINET_IGMP_H = 1;  
+{$include <sys/cdefs.h>}
+{$include <sys/types.h>}
+{$ifdef __USE_MISC}
+{$include <netinet/in.h>}
+{
  * Copyright (c) 1988 Stephen Deering.
  * Copyright (c) 1992, 1993
  *	The Regents of the University of California.  All rights reserved.
@@ -60,65 +68,83 @@
  *
  *	@(#)igmp.h	8.1 (Berkeley) 6/10/93
  *	$FreeBSD$
- */
+  }
+{ IGMP type  }
+{ routing code  }
+{ checksum  }
+{ group address  }
+type
+  Pigmp = ^Tigmp;
+  Tigmp = record
+      igmp_type : Tuint8_t;
+      igmp_code : Tuint8_t;
+      igmp_cksum : Tuint16_t;
+      igmp_group : Tin_addr;
+    end;
 
-struct igmp {
-  uint8_t igmp_type;             /* IGMP type */
-  uint8_t igmp_code;             /* routing code */
-  uint16_t igmp_cksum;           /* checksum */
-  struct in_addr igmp_group;     /* group address */
-};
 
-#define IGMP_MINLEN			8
-
-/*
+const
+  IGMP_MINLEN = 8;  
+{
  * Message types, including version number.
- */
-#define IGMP_MEMBERSHIP_QUERY   	0x11	/* membership query         */
-#define IGMP_V1_MEMBERSHIP_REPORT	0x12	/* Ver. 1 membership report */
-#define IGMP_V2_MEMBERSHIP_REPORT	0x16	/* Ver. 2 membership report */
-#define IGMP_V2_LEAVE_GROUP		0x17	/* Leave-group message	    */
-
-#define IGMP_DVMRP			0x13	/* DVMRP routing message    */
-#define IGMP_PIM			0x14	/* PIM routing message      */
-#define IGMP_TRACE			0x15
-
-#define IGMP_MTRACE_RESP		0x1e	/* traceroute resp.(to sender)*/
-#define IGMP_MTRACE			0x1f	/* mcast traceroute messages  */
-#define IGMP_MRDISC_ADV			0x30	/* From RFC4286.  */
-
-#define IGMP_MAX_HOST_REPORT_DELAY	10	/* max delay for response to     */
-						/*  query (in seconds) according */
-						/*  to RFC1112                   */
-#define IGMP_TIMER_SCALE		10	/* denotes that the igmp code field */
-						/* specifies time in 10th of seconds*/
-
-/*
+  }
+{ membership query          }
+  IGMP_MEMBERSHIP_QUERY = $11;  
+{ Ver. 1 membership report  }
+  IGMP_V1_MEMBERSHIP_REPORT = $12;  
+{ Ver. 2 membership report  }
+  IGMP_V2_MEMBERSHIP_REPORT = $16;  
+{ Leave-group message	     }
+  IGMP_V2_LEAVE_GROUP = $17;  
+{ DVMRP routing message     }
+  IGMP_DVMRP = $13;  
+{ PIM routing message       }
+  IGMP_PIM = $14;  
+  IGMP_TRACE = $15;  
+{ traceroute resp.(to sender) }
+  IGMP_MTRACE_RESP = $1e;  
+{ mcast traceroute messages   }
+  IGMP_MTRACE = $1f;  
+{ From RFC4286.   }
+  IGMP_MRDISC_ADV = $30;  
+{ max delay for response to      }
+  IGMP_MAX_HOST_REPORT_DELAY = 10;  
+{  query (in seconds) according  }
+{  to RFC1112                    }
+{ denotes that the igmp code field  }
+  IGMP_TIMER_SCALE = 10;  
+{ specifies time in 10th of seconds }
+{
  * States for the IGMP v2 state table.
- */
-#define IGMP_DELAYING_MEMBER	1
-#define IGMP_IDLE_MEMBER	2
-#define IGMP_LAZY_MEMBER	3
-#define IGMP_SLEEPING_MEMBER	4
-#define IGMP_AWAKENING_MEMBER	5
-
-/*
+  }
+  IGMP_DELAYING_MEMBER = 1;  
+  IGMP_IDLE_MEMBER = 2;  
+  IGMP_LAZY_MEMBER = 3;  
+  IGMP_SLEEPING_MEMBER = 4;  
+  IGMP_AWAKENING_MEMBER = 5;  
+{
  * States for IGMP router version cache.
- */
-#define IGMP_v1_ROUTER		1
-#define IGMP_v2_ROUTER		2
-
-/*
+  }
+  IGMP_v1_ROUTER = 1;  
+  IGMP_v2_ROUTER = 2;  
+{
  * The following four definitions are for backwards compatibility.
  * They should be removed as soon as all applications are updated to
  * use the new constant names.
- */
-#define IGMP_HOST_MEMBERSHIP_QUERY	IGMP_MEMBERSHIP_QUERY
-#define IGMP_HOST_MEMBERSHIP_REPORT	IGMP_V1_MEMBERSHIP_REPORT
-#define IGMP_HOST_NEW_MEMBERSHIP_REPORT	IGMP_V2_MEMBERSHIP_REPORT
-#define IGMP_HOST_LEAVE_MESSAGE		IGMP_V2_LEAVE_GROUP
+  }
+  IGMP_HOST_MEMBERSHIP_QUERY = IGMP_MEMBERSHIP_QUERY;  
+  IGMP_HOST_MEMBERSHIP_REPORT = IGMP_V1_MEMBERSHIP_REPORT;  
+  IGMP_HOST_NEW_MEMBERSHIP_REPORT = IGMP_V2_MEMBERSHIP_REPORT;  
+  IGMP_HOST_LEAVE_MESSAGE = IGMP_V2_LEAVE_GROUP;  
+{$endif}
+{$endif}
+{ netinet/igmp.h  }
+
+// === Konventiert am: 10-8-25 17:28:09 ===
 
 
-#endif
+implementation
 
-#endif	/* netinet/igmp.h */
+
+
+end.

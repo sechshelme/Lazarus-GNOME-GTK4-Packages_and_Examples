@@ -52,7 +52,7 @@ type
   TLongDouble = extended;
   PLongDouble = ^TLongDouble;
 
-  //  Tlocale_t = Pointer;
+  Tuint32_t   =UInt32;
 
   Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;
