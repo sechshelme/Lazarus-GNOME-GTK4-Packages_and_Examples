@@ -3,7 +3,7 @@ unit ip_icmp;
 interface
 
 uses
-  clib, ip, in_systm;
+  clib, ip, in_, in_systm;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

@@ -263,23 +263,29 @@ type
   Pcpu_set_t = type Pointer;
 
 
-  // /usr/include/netinet/in.h
-const
-  INADDR_ANY = uint32(0);
+//  // /usr/include/netinet/in.h
+//const
+//  INADDR_ANY = uint32(0);
+//
+//type
+//  Tin_addr = record
+//    s_addr: uint32;
+//  end;
+//
+//  Tsockaddr_in = packed record
+//    sin_family: word;
+//    sin_port: word;
+//    sin_addr: Tin_addr;
+//    sin_zero: array[0..7] of byte;
+//  end;
 
-type
-  Tin_addr = record
-    s_addr: uint32;
-  end;
+  function htons(hostshort: word): word; cdecl; external libc;
 
-  Tsockaddr_in = packed record
-    sin_family: word;
-    sin_port: word;
-    sin_addr: Tin_addr;
-    sin_zero: array[0..7] of byte;
-  end;
+  // /usr/include/arpa/inet.h
 
-function htons(hostshort: word): word; cdecl; external libc;
+  function inet_addr(cp:PChar): UInt32 cdecl; external libc; // uint32 ???
+
+//extern in_addr_t inet_addr (const char *__cp) __THROW;
 
 const  // /usr/include/x86_64-linux-gnu/sys/epoll.h
   EPOLLIN = 1;

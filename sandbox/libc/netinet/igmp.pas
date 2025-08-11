@@ -3,7 +3,7 @@ unit igmp;
 interface
 
 uses
-  clib;
+  clib, in_;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
