@@ -3,7 +3,7 @@ unit ip;
 interface
 
 uses
-  clib, ctypes;
+  clib;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

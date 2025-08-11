@@ -5,682 +5,447 @@ interface
 uses
   clib, fp_socket;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
 type
   Tin_addr_t = Tuint32_t;
 
   Tin_addr = record
-      s_addr : Tin_addr_t;
-    end;
+    s_addr: Tin_addr_t;
+  end;
   Pin_addr = ^Tin_addr;
 
-  Const
-    IPPROTO_IP = 0;
-    IPPROTO_ICMP = 1;
-    IPPROTO_IGMP = 2;
-    IPPROTO_IPIP = 4;
-    IPPROTO_TCP = 6;
-    IPPROTO_EGP = 8;
-    IPPROTO_PUP = 12;
-    IPPROTO_UDP = 17;
-    IPPROTO_IDP = 22;
-    IPPROTO_TP = 29;
-    IPPROTO_DCCP = 33;
-    IPPROTO_IPV6 = 41;
-    IPPROTO_RSVP = 46;
-    IPPROTO_GRE = 47;
-    IPPROTO_ESP = 50;
-    IPPROTO_AH = 51;
-    IPPROTO_MTP = 92;
-    IPPROTO_BEETPH = 94;
-    IPPROTO_ENCAP = 98;
-    IPPROTO_PIM = 103;
-    IPPROTO_COMP = 108;
-    IPPROTO_L2TP = 115;
-    IPPROTO_SCTP = 132;
-    IPPROTO_UDPLITE = 136;
-    IPPROTO_MPLS = 137;
-    IPPROTO_ETHERNET = 143;
-    IPPROTO_RAW = 255;
-    IPPROTO_MPTCP = 262;
-    IPPROTO_MAX = 263;
-  Const
-    IPPROTO_HOPOPTS = 0;
-    IPPROTO_ROUTING = 43;
-    IPPROTO_FRAGMENT = 44;
-    IPPROTO_ICMPV6 = 58;
-    IPPROTO_NONE = 59;
-    IPPROTO_DSTOPTS = 60;
-    IPPROTO_MH = 135;
+const
+  IPPROTO_IP = 0;
+  IPPROTO_ICMP = 1;
+  IPPROTO_IGMP = 2;
+  IPPROTO_IPIP = 4;
+  IPPROTO_TCP = 6;
+  IPPROTO_EGP = 8;
+  IPPROTO_PUP = 12;
+  IPPROTO_UDP = 17;
+  IPPROTO_IDP = 22;
+  IPPROTO_TP = 29;
+  IPPROTO_DCCP = 33;
+  IPPROTO_IPV6 = 41;
+  IPPROTO_RSVP = 46;
+  IPPROTO_GRE = 47;
+  IPPROTO_ESP = 50;
+  IPPROTO_AH = 51;
+  IPPROTO_MTP = 92;
+  IPPROTO_BEETPH = 94;
+  IPPROTO_ENCAP = 98;
+  IPPROTO_PIM = 103;
+  IPPROTO_COMP = 108;
+  IPPROTO_L2TP = 115;
+  IPPROTO_SCTP = 132;
+  IPPROTO_UDPLITE = 136;
+  IPPROTO_MPLS = 137;
+  IPPROTO_ETHERNET = 143;
+  IPPROTO_RAW = 255;
+  IPPROTO_MPTCP = 262;
+  IPPROTO_MAX = 263;
+
+const
+  IPPROTO_HOPOPTS = 0;
+  IPPROTO_ROUTING = 43;
+  IPPROTO_FRAGMENT = 44;
+  IPPROTO_ICMPV6 = 58;
+  IPPROTO_NONE = 59;
+  IPPROTO_DSTOPTS = 60;
+  IPPROTO_MH = 135;
 
 type
   Pin_port_t = ^Tin_port_t;
   Tin_port_t = Tuint16_t;
-  Const
-    IPPORT_ECHO = 7;
-    IPPORT_DISCARD = 9;
-    IPPORT_SYSTAT = 11;
-    IPPORT_DAYTIME = 13;
-    IPPORT_NETSTAT = 15;
-    IPPORT_FTP = 21;
-    IPPORT_TELNET = 23;
-    IPPORT_SMTP = 25;
-    IPPORT_TIMESERVER = 37;
-    IPPORT_NAMESERVER = 42;
-    IPPORT_WHOIS = 43;
-    IPPORT_MTP = 57;
-    IPPORT_TFTP = 69;
-    IPPORT_RJE = 77;
-    IPPORT_FINGER = 79;
-    IPPORT_TTYLINK = 87;
-    IPPORT_SUPDUP = 95;
-    IPPORT_EXECSERVER = 512;
-    IPPORT_LOGINSERVER = 513;
-    IPPORT_CMDSERVER = 514;
-    IPPORT_EFSSERVER = 520;
-    IPPORT_BIFFUDP = 512;
-    IPPORT_WHOSERVER = 513;
-    IPPORT_ROUTESERVER = 520;
-    IPPORT_RESERVED = 1024;
-    IPPORT_USERRESERVED = 5000;
-
-function IN_CLASSA(a : longint) : longint;
 
 const
-  IN_CLASSA_NET = $ff000000;  
-  IN_CLASSA_NSHIFT = 24;  
-  IN_CLASSA_HOST = $ffffffff and ( not (IN_CLASSA_NET));  
-  IN_CLASSA_MAX = 128;  
+  IPPORT_ECHO = 7;
+  IPPORT_DISCARD = 9;
+  IPPORT_SYSTAT = 11;
+  IPPORT_DAYTIME = 13;
+  IPPORT_NETSTAT = 15;
+  IPPORT_FTP = 21;
+  IPPORT_TELNET = 23;
+  IPPORT_SMTP = 25;
+  IPPORT_TIMESERVER = 37;
+  IPPORT_NAMESERVER = 42;
+  IPPORT_WHOIS = 43;
+  IPPORT_MTP = 57;
+  IPPORT_TFTP = 69;
+  IPPORT_RJE = 77;
+  IPPORT_FINGER = 79;
+  IPPORT_TTYLINK = 87;
+  IPPORT_SUPDUP = 95;
+  IPPORT_EXECSERVER = 512;
+  IPPORT_LOGINSERVER = 513;
+  IPPORT_CMDSERVER = 514;
+  IPPORT_EFSSERVER = 520;
+  IPPORT_BIFFUDP = 512;
+  IPPORT_WHOSERVER = 513;
+  IPPORT_ROUTESERVER = 520;
+  IPPORT_RESERVED = 1024;
+  IPPORT_USERRESERVED = 5000;
 
-  function IN_CLASSB(a : longint) : longint;
+function IN_CLASSA(a: DWord): boolean;
 
 const
-  IN_CLASSB_NET = $ffff0000;  
-  IN_CLASSB_NSHIFT = 16;  
-  IN_CLASSB_HOST = $ffffffff and ( not (IN_CLASSB_NET));  
-  IN_CLASSB_MAX = 65536;  
+  IN_CLASSA_NET = $ff000000;
+  IN_CLASSA_NSHIFT = 24;
+  IN_CLASSA_HOST = $ffffffff and (not (IN_CLASSA_NET));
+  IN_CLASSA_MAX = 128;
 
-function IN_CLASSC(a : longint) : longint;
-
-const
-  IN_CLASSC_NET = $ffffff00;  
-  IN_CLASSC_NSHIFT = 8;  
-  IN_CLASSC_HOST = $ffffffff and ( not (IN_CLASSC_NET));  
-
-function IN_CLASSD(a : longint) : longint;
-function IN_MULTICAST(a : longint) : longint;
-function IN_EXPERIMENTAL(a : longint) : longint;
-function IN_BADCLASS(a : longint) : longint;
-function INADDR_ANY : Tin_addr_t;
-function INADDR_BROADCAST : Tin_addr_t;
-function INADDR_NONE : Tin_addr_t;
-function INADDR_DUMMY : Tin_addr_t;
+function IN_CLASSB(a: DWord): boolean;
 
 const
-  IN_LOOPBACKNET = 127;  
-function INADDR_LOOPBACK : Tin_addr_t;
-function INADDR_UNSPEC_GROUP : Tin_addr_t;
-function INADDR_ALLHOSTS_GROUP : Tin_addr_t;
-function INADDR_ALLRTRS_GROUP : Tin_addr_t;
-function INADDR_ALLSNOOPERS_GROUP : Tin_addr_t;
-function INADDR_MAX_LOCAL_GROUP : Tin_addr_t;
+  IN_CLASSB_NET = $ffff0000;
+  IN_CLASSB_NSHIFT = 16;
+  IN_CLASSB_HOST = $ffffffff and (not (IN_CLASSB_NET));
+  IN_CLASSB_MAX = 65536;
+
+function IN_CLASSC(a: DWord): boolean;
+
+const
+  IN_CLASSC_NET = $ffffff00;
+  IN_CLASSC_NSHIFT = 8;
+  IN_CLASSC_HOST = $ffffffff and (not (IN_CLASSC_NET));
+
+function IN_CLASSD(a: DWord): boolean;
+function IN_MULTICAST(a: DWord): boolean;
+function IN_EXPERIMENTAL(a: DWord): boolean;
+function IN_BADCLASS(a: DWord): boolean;
+
+
+const
+  INADDR_ANY = Tin_addr_t($00000000);
+  INADDR_BROADCAST = Tin_addr_t($ffffffff);
+  INADDR_NONE = Tin_addr_t($ffffffff);
+  INADDR_DUMMY = Tin_addr_t($c0000008);
+
+const
+  IN_LOOPBACKNET = 127;
+
+const
+  INADDR_LOOPBACK = Tin_addr_t($7f000001);
+  INADDR_UNSPEC_GROUP = Tin_addr_t($e0000000);
+  INADDR_ALLHOSTS_GROUP = Tin_addr_t($e0000001);
+  INADDR_ALLRTRS_GROUP = Tin_addr_t($e0000002);
+  INADDR_ALLSNOOPERS_GROUP = Tin_addr_t($e000006a);
+  INADDR_MAX_LOCAL_GROUP = Tin_addr_t($e00000ff);
 
 type
   Tin6_addr = record
-      __in6_u : record
-          case longint of
-            0 : ( __u6_addr8 : array[0..15] of Tuint8_t );
-            1 : ( __u6_addr16 : array[0..7] of Tuint16_t );
-            2 : ( __u6_addr32 : array[0..3] of Tuint32_t );
-          end;
-    end;
+    __in6_u: record
+      case longint of
+        0: (__u6_addr8: array[0..15] of Tuint8_t);
+        1: (__u6_addr16: array[0..7] of Tuint16_t);
+        2: (__u6_addr32: array[0..3] of Tuint32_t);
+      end;
+  end;
   Pin6_addr = ^Tin6_addr;
 
-  var
-    in6addr_any : Tin6_addr;cvar;external libc;
-    in6addr_loopback : Tin6_addr;cvar;external libc;
-
-  const
-    IN6ADDR_ANY_INIT: Tin6_addr = (        __in6_u: (        __u6_addr8: (          0, 0, 0, 0, 0, 0, 0, 0,          0, 0, 0, 0, 0, 0, 0, 0        )      )    );
-    IN6ADDR_LOOPBACK_INIT: Tin6_addr = (      __in6_u: (        __u6_addr8: (          0, 0, 0, 0, 0, 0, 0, 0,          0, 0, 0, 0, 0, 0, 0, 1        )      )    );
+var
+  in6addr_any: Tin6_addr; cvar;external libc;
+  in6addr_loopback: Tin6_addr; cvar;external libc;
 
 const
-  INET_ADDRSTRLEN = 16;  
-  INET6_ADDRSTRLEN = 46;
-  type
-    Tsockaddr_in = packed record
-      sin_family: Word;
-      sin_port: Tin_port_t;
-      sin_addr: Tin_addr;
-      sin_zero: array[0..7] of Byte;
-    end;
-    Psockaddr_in = ^Tsockaddr_in;
+  IN6ADDR_ANY_INIT: Tin6_addr = (__in6_u: (__u6_addr8: (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)));
+  IN6ADDR_LOOPBACK_INIT: Tin6_addr = (__in6_u: (__u6_addr8: (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1)));
 
-    Tsockaddr_in6 = packed record
-      sin6_family: Word;
-      sin6_port: Tin_port_t;
-      sin6_flowinfo: Tuint32_t;
-      sin6_addr: Tin6_addr;
-      sin6_scope_id: Tuint32_t;
-    end;
-    Psockaddr_in6 = ^Tsockaddr_in6;type
+const
+  INET_ADDRSTRLEN = 16;
+  INET6_ADDRSTRLEN = 46;
+
+type
+  Tsockaddr_in = packed record
+    sin_family: word;
+    sin_port: Tin_port_t;
+    sin_addr: Tin_addr;
+    sin_zero: array[0..7] of byte;
+  end;
+  Psockaddr_in = ^Tsockaddr_in;
+
+  Tsockaddr_in6 = packed record
+    sin6_family: word;
+    sin6_port: Tin_port_t;
+    sin6_flowinfo: Tuint32_t;
+    sin6_addr: Tin6_addr;
+    sin6_scope_id: Tuint32_t;
+  end;
+  Psockaddr_in6 = ^Tsockaddr_in6;
+
+type
   Tip_mreq = record
-      imr_multiaddr : Tin_addr;
-      imr_interface : Tin_addr;
-    end;
+    imr_multiaddr: Tin_addr;
+    imr_interface: Tin_addr;
+  end;
   Pip_mreq = ^Tip_mreq;
 
   Tip_mreqn = record
-      imr_multiaddr : Tin_addr;
-      imr_address : Tin_addr;
-      imr_ifindex : longint;
-    end;
+    imr_multiaddr: Tin_addr;
+    imr_address: Tin_addr;
+    imr_ifindex: longint;
+  end;
   Pip_mreqn = ^Tip_mreqn;
 
   Tip_mreq_source = record
-      imr_multiaddr : Tin_addr;
-      imr_interface : Tin_addr;
-      imr_sourceaddr : Tin_addr;
-    end;
+    imr_multiaddr: Tin_addr;
+    imr_interface: Tin_addr;
+    imr_sourceaddr: Tin_addr;
+  end;
   Pip_mreq_source = ^Tip_mreq_source;
 
 type
   Tipv6_mreq = record
-      ipv6mr_multiaddr : Tin6_addr;
-      ipv6mr_interface : dword;
-    end;
+    ipv6mr_multiaddr: Tin6_addr;
+    ipv6mr_interface: dword;
+  end;
   Pipv6_mreq = ^Tipv6_mreq;
 
 type
   Tgroup_req = record
-      gr_interface : Tuint32_t;
-      gr_group : Tsockaddr_storage;
-    end;
+    gr_interface: Tuint32_t;
+    gr_group: Tsockaddr_storage;
+  end;
   Pgroup_req = ^Tgroup_req;
 
   Tgroup_source_req = record
-      gsr_interface : Tuint32_t;
-      gsr_group : Tsockaddr_storage;
-      gsr_source : Tsockaddr_storage;
-    end;
+    gsr_interface: Tuint32_t;
+    gsr_group: Tsockaddr_storage;
+    gsr_source: Tsockaddr_storage;
+  end;
   Pgroup_source_req = ^Tgroup_source_req;
 
   Tip_msfilter = record
-      imsf_multiaddr : Tin_addr;
-      imsf_interface : Tin_addr;
-      imsf_fmode : Tuint32_t;
-      imsf_numsrc : Tuint32_t;
-      imsf_slist : array[0..0] of Tin_addr;
-    end;
+    imsf_multiaddr: Tin_addr;
+    imsf_interface: Tin_addr;
+    imsf_fmode: Tuint32_t;
+    imsf_numsrc: Tuint32_t;
+    imsf_slist: array[0..0] of Tin_addr;
+  end;
   Pip_msfilter = ^Tip_msfilter;
 
-  function IP_MSFILTER_SIZE(numsrc: Integer): Integer;
-type  Tgroup_filter = record
-      gf_interface : Tuint32_t;
-      gf_group : Tsockaddr_storage;
-      gf_fmode : Tuint32_t;
-      gf_numsrc : Tuint32_t;
-      gf_slist : array[0..0] of Tsockaddr_storage;
-    end;
+function IP_MSFILTER_SIZE(numsrc: integer): integer;
+
+type
+  Tgroup_filter = record
+    gf_interface: Tuint32_t;
+    gf_group: Tsockaddr_storage;
+    gf_fmode: Tuint32_t;
+    gf_numsrc: Tuint32_t;
+    gf_slist: array[0..0] of Tsockaddr_storage;
+  end;
   Pgroup_filter = ^Tgroup_filter;
 
-{ xxxxxxxxxxxx #define GROUP_FILTER_SIZE(numsrc) (sizeof (struct group_filter) 				   - sizeof (struct sockaddr_storage)  ((numsrc)				      				      * sizeof (struct sockaddr_storage))) }
-{$endif}
-{ Functions to convert between host and network byte order.
+function GROUP_FILTER_SIZE(numsrc: integer): integer;
 
-   Please note that these functions normally take `unsigned long int' or
-   `unsigned short int' values as arguments and also return them.  But
-   this was a short-sighted decision since on different systems the types
-   may have different representations but the values are always the same.   }
+function ntohl(__netlong: Tuint32_t): Tuint32_t; cdecl; external libc;
+function ntohs(__netshort: Tuint16_t): Tuint16_t; cdecl; external libc;
+function htonl(__hostlong: Tuint32_t): Tuint32_t; cdecl; external libc;
+function htons(__hostshort: Tuint16_t): Tuint16_t; cdecl; external libc;
 
-function ntohl(__netlong:Tuint32_t):Tuint32_t;cdecl;external libc;
-function ntohs(__netshort:Tuint16_t):Tuint16_t;cdecl;external libc;
-function htonl(__hostlong:Tuint32_t):Tuint32_t;cdecl;external libc;
-function htons(__hostshort:Tuint16_t):Tuint16_t;cdecl;external libc;
-{$include <endian.h>}
-{ Get machine dependent optimized versions of byte swapping functions.   }
-{$include <bits/byteswap.h>}
-{$include <bits/uintn-identity.h>}
-{$ifdef __OPTIMIZE__}
-{ We can optimize calls to the conversion functions.  Either nothing has
-   to be done or we are using directly the byte-swapping functions which
-   often can be inlined.   }
-{$if __BYTE_ORDER == __BIG_ENDIAN}
-{ The host byte order is the same as network byte order,
-   so these functions are all just identity.   }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
+function IN6_IS_ADDR_UNSPECIFIED(a: Pointer): boolean; inline;
+function IN6_IS_ADDR_LOOPBACK(a: Pointer): boolean; inline;
+function IN6_IS_ADDR_LINKLOCAL(a: Pointer): boolean; inline;
+function IN6_IS_ADDR_SITELOCAL(a: Pointer): boolean; inline;
+function IN6_IS_ADDR_V4MAPPED(a: Pointer): boolean; inline;
+function IN6_IS_ADDR_V4COMPAT(a: Pointer): boolean; inline;
+function IN6_ARE_ADDR_EQUAL(a, b: Pointer): boolean; inline;
 
-function ntohl(x : longint) : longint;
+function IN6_IS_ADDR_MULTICAST(a: Pointer): boolean; inline;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ntohs(x : longint) : longint;
+function bindresvport(__sockfd: longint; __sock_in: Psockaddr_in): longint; cdecl; external libc;
+function bindresvport6(__sockfd: longint; __sock_in: Psockaddr_in6): longint; cdecl; external libc;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function htonl(x : longint) : longint;
+function IN6_IS_ADDR_MC_NODELOCAL(a: Pointer): boolean; inline;
+function IN6_IS_ADDR_MC_LINKLOCAL(a: Pointer): boolean; inline;
+function IN6_IS_ADDR_MC_SITELOCAL(a: Pointer): boolean; inline;
+function IN6_IS_ADDR_MC_ORGLOCAL(a: Pointer): boolean; inline;
+function IN6_IS_ADDR_MC_GLOBAL(a: Pointer): boolean; inline;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function htons(x : longint) : longint;
-
-{$else}
-{$if __BYTE_ORDER == __LITTLE_ENDIAN}
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-
-function ntohl(x : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ntohs(x : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function htonl(x : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function htons(x : longint) : longint;
-
-{$endif}
-{$endif}
-{$endif}
-{
-#ifdef __GNUC__
-# define IN6_IS_ADDR_UNSPECIFIED(a) \
-  (__extension__							      \
-   ( const struct in6_addr *__a = (const struct in6_addr *) (a);	      \
-      __a->__in6_u.__u6_addr32[0] == 0					      \
-      && __a->__in6_u.__u6_addr32[1] == 0				      \
-      && __a->__in6_u.__u6_addr32[2] == 0				      \
-      && __a->__in6_u.__u6_addr32[3] == 0; ))
-
-# define IN6_IS_ADDR_LOOPBACK(a) \
-  (__extension__							      \
-   ( const struct in6_addr *__a = (const struct in6_addr *) (a);	      \
-      __a->__in6_u.__u6_addr32[0] == 0					      \
-      && __a->__in6_u.__u6_addr32[1] == 0				      \
-      && __a->__in6_u.__u6_addr32[2] == 0				      \
-      && __a->__in6_u.__u6_addr32[3] == htonl (1); ))
-
-# define IN6_IS_ADDR_LINKLOCAL(a) \
-  (__extension__							      \
-   ( const struct in6_addr *__a = (const struct in6_addr *) (a);	      \
-      (__a->__in6_u.__u6_addr32[0] & htonl (0xffc00000)) == htonl (0xfe800000); ))
-
-# define IN6_IS_ADDR_SITELOCAL(a) \
-  (__extension__							      \
-   ( const struct in6_addr *__a = (const struct in6_addr *) (a);	      \
-      (__a->__in6_u.__u6_addr32[0] & htonl (0xffc00000)) == htonl (0xfec00000); ))
-
-# define IN6_IS_ADDR_V4MAPPED(a) \
-  (__extension__							      \
-   ( const struct in6_addr *__a = (const struct in6_addr *) (a);	      \
-      __a->__in6_u.__u6_addr32[0] == 0					      \
-      && __a->__in6_u.__u6_addr32[1] == 0				      \
-      && __a->__in6_u.__u6_addr32[2] == htonl (0xffff); ))
-
-# define IN6_IS_ADDR_V4COMPAT(a) \
-  (__extension__							      \
-   ( const struct in6_addr *__a = (const struct in6_addr *) (a);	      \
-      __a->__in6_u.__u6_addr32[0] == 0					      \
-      && __a->__in6_u.__u6_addr32[1] == 0				      \
-      && __a->__in6_u.__u6_addr32[2] == 0				      \
-      && ntohl (__a->__in6_u.__u6_addr32[3]) > 1; ))
-
-# define IN6_ARE_ADDR_EQUAL(a,b) \
-  (__extension__							      \
-   ( const struct in6_addr *__a = (const struct in6_addr *) (a);	      \
-      const struct in6_addr *__b = (const struct in6_addr *) (b);	      \
-      __a->__in6_u.__u6_addr32[0] == __b->__in6_u.__u6_addr32[0]	      \
-      && __a->__in6_u.__u6_addr32[1] == __b->__in6_u.__u6_addr32[1]	      \
-      && __a->__in6_u.__u6_addr32[2] == __b->__in6_u.__u6_addr32[2]	      \
-      && __a->__in6_u.__u6_addr32[3] == __b->__in6_u.__u6_addr32[3]; ))
-#else
-# define IN6_IS_ADDR_UNSPECIFIED(a) \
-	(((const uint32_t *) (a))[0] == 0				      \
-	 && ((const uint32_t *) (a))[1] == 0				      \
-	 && ((const uint32_t *) (a))[2] == 0				      \
-	 && ((const uint32_t *) (a))[3] == 0)
-
-# define IN6_IS_ADDR_LOOPBACK(a) \
-	(((const uint32_t *) (a))[0] == 0				      \
-	 && ((const uint32_t *) (a))[1] == 0				      \
-	 && ((const uint32_t *) (a))[2] == 0				      \
-	 && ((const uint32_t *) (a))[3] == htonl (1))
-
-# define IN6_IS_ADDR_LINKLOCAL(a) \
-	((((const uint32_t *) (a))[0] & htonl (0xffc00000))		      \
-	 == htonl (0xfe800000))
-
-# define IN6_IS_ADDR_SITELOCAL(a) \
-	((((const uint32_t *) (a))[0] & htonl (0xffc00000))		      \
-	 == htonl (0xfec00000))
-
-# define IN6_IS_ADDR_V4MAPPED(a) \
-	((((const uint32_t *) (a))[0] == 0)				      \
-	 && (((const uint32_t *) (a))[1] == 0)				      \
-	 && (((const uint32_t *) (a))[2] == htonl (0xffff)))
-
-# define IN6_IS_ADDR_V4COMPAT(a) \
-	((((const uint32_t *) (a))[0] == 0)				      \
-	 && (((const uint32_t *) (a))[1] == 0)				      \
-	 && (((const uint32_t *) (a))[2] == 0)				      \
-	 && (ntohl (((const uint32_t *) (a))[3]) > 1))
-
-# define IN6_ARE_ADDR_EQUAL(a,b) \
-	((((const uint32_t *) (a))[0] == ((const uint32_t *) (b))[0])	      \
-	 && (((const uint32_t *) (a))[1] == ((const uint32_t *) (b))[1])      \
-	 && (((const uint32_t *) (a))[2] == ((const uint32_t *) (b))[2])      \
-	 && (((const uint32_t *) (a))[3] == ((const uint32_t *) (b))[3]))
-#endif
- }
-{ #define IN6_IS_ADDR_MULTICAST(a) (((const uint8_t *) (a))[0] == 0xff) }
-{$ifdef __USE_MISC}
-{ Bind socket to a privileged IP port.   }
-
-function bindresvport(__sockfd:longint; __sock_in:Psockaddr_in):longint;cdecl;external libc;
-{ The IPv6 version of this function.   }
-function bindresvport6(__sockfd:longint; __sock_in:Psockaddr_in6):longint;cdecl;external libc;
-{$endif}
-{ xxxxxxxxxxxx
-#define IN6_IS_ADDR_MC_NODELOCAL(a) \
-	(IN6_IS_ADDR_MULTICAST(a)					      \
-	 && ((((const uint8_t *) (a))[1] & 0xf) == 0x1))
-
-#define IN6_IS_ADDR_MC_LINKLOCAL(a) \
-	(IN6_IS_ADDR_MULTICAST(a)					      \
-	 && ((((const uint8_t *) (a))[1] & 0xf) == 0x2))
-
-#define IN6_IS_ADDR_MC_SITELOCAL(a) \
-	(IN6_IS_ADDR_MULTICAST(a)					      \
-	 && ((((const uint8_t *) (a))[1] & 0xf) == 0x5))
-
-#define IN6_IS_ADDR_MC_ORGLOCAL(a) \
-	(IN6_IS_ADDR_MULTICAST(a)					      \
-	 && ((((const uint8_t *) (a))[1] & 0xf) == 0x8))
-
-#define IN6_IS_ADDR_MC_GLOBAL(a) \
-	(IN6_IS_ADDR_MULTICAST(a)					      \
-	 && ((((const uint8_t *) (a))[1] & 0xf) == 0xe))
- }
-{$ifdef __USE_GNU}
 type
-  Pcmsghdr = ^Tcmsghdr;
-  Tcmsghdr = record
-      {undefined structure}
-    end;
+  Pcmsghdr = type Pointer;
+  PPcmsghdr = ^Pcmsghdr;
 
-{ Forward declaration.   }
-{$if !__USE_KERNEL_IPV6_DEFS}
-{ IPv6 packet information.   }
-{ src/dst IPv6 address  }
-{ send/recv interface index  }
 type
-  Pin6_pktinfo = ^Tin6_pktinfo;
   Tin6_pktinfo = record
-      ipi6_addr : Tin6_addr;
-      ipi6_ifindex : dword;
-    end;
+    ipi6_addr: Tin6_addr;
+    ipi6_ifindex: dword;
+  end;
+  Pin6_pktinfo = ^Tin6_pktinfo;
 
-{ IPv6 MTU information.   }
-{ dst address including zone ID  }
-{ path MTU in host byte order  }
-  Pip6_mtuinfo = ^Tip6_mtuinfo;
   Tip6_mtuinfo = record
-      ip6m_addr : Tsockaddr_in6;
-      ip6m_mtu : Tuint32_t;
-    end;
+    ip6m_addr: Tsockaddr_in6;
+    ip6m_mtu: Tuint32_t;
+  end;
+  Pip6_mtuinfo = ^Tip6_mtuinfo;
 
-{$endif}
-{ !__USE_KERNEL_IPV6_DEFS  }
-{ Obsolete hop-by-hop and Destination Options Processing (RFC 2292).   }
-{__attribute_deprecated__ }
-function inet6_option_space(__nbytes:longint):longint;cdecl;external libc;
-{__attribute_deprecated__ }function inet6_option_init(__bp:pointer; __cmsgp:PPcmsghdr; __type:longint):longint;cdecl;external libc;
-{__attribute_deprecated__ }function inet6_option_append(__cmsg:Pcmsghdr; __typep:Puint8_t; __multx:longint; __plusy:longint):longint;cdecl;external libc;
-{__attribute_deprecated__ }function inet6_option_alloc(__cmsg:Pcmsghdr; __datalen:longint; __multx:longint; __plusy:longint):Puint8_t;cdecl;external libc;
-{__attribute_deprecated__ }function inet6_option_next(__cmsg:Pcmsghdr; __tptrp:PPuint8_t):longint;cdecl;external libc;
-{__attribute_deprecated__ }function inet6_option_find(__cmsg:Pcmsghdr; __tptrp:PPuint8_t; __type:longint):longint;cdecl;external libc;
-{ Hop-by-Hop and Destination Options Processing (RFC 3542).   }
-function inet6_opt_init(__extbuf:pointer; __extlen:Tsocklen_t):longint;cdecl;external libc;
-function inet6_opt_append(__extbuf:pointer; __extlen:Tsocklen_t; __offset:longint; __type:Tuint8_t; __len:Tsocklen_t; 
-           __align:Tuint8_t; __databufp:Ppointer):longint;cdecl;external libc;
-function inet6_opt_finish(__extbuf:pointer; __extlen:Tsocklen_t; __offset:longint):longint;cdecl;external libc;
-function inet6_opt_set_val(__databuf:pointer; __offset:longint; __val:pointer; __vallen:Tsocklen_t):longint;cdecl;external libc;
-function inet6_opt_next(__extbuf:pointer; __extlen:Tsocklen_t; __offset:longint; __typep:Puint8_t; __lenp:Psocklen_t; 
-           __databufp:Ppointer):longint;cdecl;external libc;
-function inet6_opt_find(__extbuf:pointer; __extlen:Tsocklen_t; __offset:longint; __type:Tuint8_t; __lenp:Psocklen_t; 
-           __databufp:Ppointer):longint;cdecl;external libc;
-function inet6_opt_get_val(__databuf:pointer; __offset:longint; __val:pointer; __vallen:Tsocklen_t):longint;cdecl;external libc;
-{ Routing Header Option (RFC 3542).   }
-function inet6_rth_space(__type:longint; __segments:longint):Tsocklen_t;cdecl;external libc;
-function inet6_rth_init(__bp:pointer; __bp_len:Tsocklen_t; __type:longint; __segments:longint):pointer;cdecl;external libc;
-function inet6_rth_add(__bp:pointer; __addr:Pin6_addr):longint;cdecl;external libc;
-function inet6_rth_reverse(__in:pointer; __out:pointer):longint;cdecl;external libc;
-function inet6_rth_segments(__bp:pointer):longint;cdecl;external libc;
-function inet6_rth_getaddr(__bp:pointer; __index:longint):Pin6_addr;cdecl;external libc;
-{ Multicast source filter support.   }
-{ Get IPv4 source filter.   }
-function getipv4sourcefilter(__s:longint; __interface_addr:Tin_addr; __group:Tin_addr; __fmode:Puint32_t; __numsrc:Puint32_t; 
-           __slist:Pin_addr):longint;cdecl;external libc;
-{ Set IPv4 source filter.   }
-function setipv4sourcefilter(__s:longint; __interface_addr:Tin_addr; __group:Tin_addr; __fmode:Tuint32_t; __numsrc:Tuint32_t; 
-           __slist:Pin_addr):longint;cdecl;external libc;
-{ Get source filter.   }
-function getsourcefilter(__s:longint; __interface_addr:Tuint32_t; __group:Psockaddr; __grouplen:Tsocklen_t; __fmode:Puint32_t; 
-           __numsrc:Puint32_t; __slist:Psockaddr_storage):longint;cdecl;external libc;
-{ Set source filter.   }
-function setsourcefilter(__s:longint; __interface_addr:Tuint32_t; __group:Psockaddr; __grouplen:Tsocklen_t; __fmode:Tuint32_t; 
-           __numsrc:Tuint32_t; __slist:Psockaddr_storage):longint;cdecl;external libc;
-{$endif}
-{ use GNU  }
-{$endif}
-{ netinet/in.h  }
+function inet6_option_space(__nbytes: longint): longint; cdecl; external libc; deprecated;
+function inet6_option_init(__bp: pointer; __cmsgp: PPcmsghdr; __type: longint): longint; cdecl; external libc; deprecated;
+function inet6_option_append(__cmsg: Pcmsghdr; __typep: Puint8_t; __multx: longint; __plusy: longint): longint; cdecl; external libc; deprecated;
+function inet6_option_alloc(__cmsg: Pcmsghdr; __datalen: longint; __multx: longint; __plusy: longint): Puint8_t; cdecl; external libc; deprecated;
+function inet6_option_next(__cmsg: Pcmsghdr; __tptrp: PPuint8_t): longint; cdecl; external libc; deprecated;
+function inet6_option_find(__cmsg: Pcmsghdr; __tptrp: PPuint8_t; __type: longint): longint; cdecl; external libc; deprecated;
+
+function inet6_opt_init(__extbuf: pointer; __extlen: Tsocklen_t): longint; cdecl; external libc;
+function inet6_opt_append(__extbuf: pointer; __extlen: Tsocklen_t; __offset: longint; __type: Tuint8_t; __len: Tsocklen_t; __align: Tuint8_t; __databufp: Ppointer): longint; cdecl; external libc;
+function inet6_opt_finish(__extbuf: pointer; __extlen: Tsocklen_t; __offset: longint): longint; cdecl; external libc;
+function inet6_opt_set_val(__databuf: pointer; __offset: longint; __val: pointer; __vallen: Tsocklen_t): longint; cdecl; external libc;
+function inet6_opt_next(__extbuf: pointer; __extlen: Tsocklen_t; __offset: longint; __typep: Puint8_t; __lenp: Psocklen_t; __databufp: Ppointer): longint; cdecl; external libc;
+function inet6_opt_find(__extbuf: pointer; __extlen: Tsocklen_t; __offset: longint; __type: Tuint8_t; __lenp: Psocklen_t; __databufp: Ppointer): longint; cdecl; external libc;
+function inet6_opt_get_val(__databuf: pointer; __offset: longint; __val: pointer; __vallen: Tsocklen_t): longint; cdecl; external libc;
+function inet6_rth_space(__type: longint; __segments: longint): Tsocklen_t; cdecl; external libc;
+function inet6_rth_init(__bp: pointer; __bp_len: Tsocklen_t; __type: longint; __segments: longint): pointer; cdecl; external libc;
+function inet6_rth_add(__bp: pointer; __addr: Pin6_addr): longint; cdecl; external libc;
+function inet6_rth_reverse(__in: pointer; __out: pointer): longint; cdecl; external libc;
+function inet6_rth_segments(__bp: pointer): longint; cdecl; external libc;
+function inet6_rth_getaddr(__bp: pointer; __index: longint): Pin6_addr; cdecl; external libc;
+function getipv4sourcefilter(__s: longint; __interface_addr: Tin_addr; __group: Tin_addr; __fmode: Puint32_t; __numsrc: Puint32_t; __slist: Pin_addr): longint; cdecl; external libc;
+function setipv4sourcefilter(__s: longint; __interface_addr: Tin_addr; __group: Tin_addr; __fmode: Tuint32_t; __numsrc: Tuint32_t; __slist: Pin_addr): longint; cdecl; external libc;
+function getsourcefilter(__s: longint; __interface_addr: Tuint32_t; __group: Psockaddr; __grouplen: Tsocklen_t; __fmode: Puint32_t; __numsrc: Puint32_t; __slist: Psockaddr_storage): longint; cdecl; external libc;
+function setsourcefilter(__s: longint; __interface_addr: Tuint32_t; __group: Psockaddr; __grouplen: Tsocklen_t; __fmode: Tuint32_t; __numsrc: Tuint32_t; __slist: Psockaddr_storage): longint; cdecl; external libc;
 
 // === Konventiert am: 10-8-25 17:28:12 ===
 
-function IP_MSFILTER_SIZE(numsrc: Integer): Integer;
-begin
-  Result := SizeOf(TIPMsfilter) - SizeOf(Tin_addr) + numsrc * SizeOf(Tin_addr);
-end;
-
-
 implementation
 
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function IN_CLASSA(a : longint) : longint;
+function IP_MSFILTER_SIZE(numsrc: integer): integer;
 begin
-  IN_CLASSA:=((Tin_addr_t(a)) and $80000000)=0;
+  Result := SizeOf(Tip_msfilter) - SizeOf(Tin_addr) + numsrc * SizeOf(Tin_addr);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function IN_CLASSB(a : longint) : longint;
+function GROUP_FILTER_SIZE(numsrc: integer): integer;
 begin
-  IN_CLASSB:=((Tin_addr_t(a)) and $c0000000)=$80000000;
+  Result := SizeOf(Tgroup_filter) - SizeOf(Tsockaddr_storage) + numsrc * SizeOf(Tsockaddr_storage);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function IN_CLASSC(a : longint) : longint;
+
+function IN6_IS_ADDR_UNSPECIFIED(a: Pointer): boolean; inline;
+var
+  p: PUInt32;
 begin
-  IN_CLASSC:=((Tin_addr_t(a)) and $e0000000)=$c0000000;
+  p := PUInt32(a);
+  Result := (p[0] = 0) and (p[1] = 0) and (p[2] = 0) and (p[3] = 0);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function IN_CLASSD(a : longint) : longint;
+function IN6_IS_ADDR_LOOPBACK(a: Pointer): boolean; inline;
+var
+  p: PUInt32;
 begin
-  IN_CLASSD:=((Tin_addr_t(a)) and $f0000000)=$e0000000;
+  p := PUInt32(a);
+  Result := (p[0] = 0) and (p[1] = 0) and (p[2] = 0) and (p[3] = htonl(1));
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function IN_MULTICAST(a : longint) : longint;
+
+function IN6_IS_ADDR_LINKLOCAL(a: Pointer): boolean; inline;
+var
+  p: PUInt32;
 begin
-  IN_MULTICAST:=IN_CLASSD(a);
+  p := PUInt32(a);
+  Result := (p[0] and htonl($FFC00000)) = htonl($FE800000);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function IN_EXPERIMENTAL(a : longint) : longint;
+function IN6_IS_ADDR_SITELOCAL(a: Pointer): boolean; inline;
+var
+  p: PUInt32;
 begin
-  IN_EXPERIMENTAL:=((Tin_addr_t(a)) and $e0000000)=$e0000000;
+  p := PUInt32(a);
+  Result := (p[0] and htonl($FFC00000)) = htonl($FEC00000);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function IN_BADCLASS(a : longint) : longint;
+function IN6_IS_ADDR_V4MAPPED(a: Pointer): boolean; inline;
+var
+  p: PUInt32;
 begin
-  IN_BADCLASS:=((Tin_addr_t(a)) and $f0000000)=$f0000000;
+  p := PUInt32(a);
+  Result := (p[0] = 0) and (p[1] = 0) and (p[2] = htonl($0000FFFF));
 end;
 
-{ was #define dname def_expr }
-function INADDR_ANY : Tin_addr_t;
-  begin
-    INADDR_ANY:=Tin_addr_t($00000000);
-  end;
-
-{ was #define dname def_expr }
-function INADDR_BROADCAST : Tin_addr_t;
-  begin
-    INADDR_BROADCAST:=Tin_addr_t($ffffffff);
-  end;
-
-{ was #define dname def_expr }
-function INADDR_NONE : Tin_addr_t;
-  begin
-    INADDR_NONE:=Tin_addr_t($ffffffff);
-  end;
-
-{ was #define dname def_expr }
-function INADDR_DUMMY : Tin_addr_t;
-  begin
-    INADDR_DUMMY:=Tin_addr_t($c0000008);
-  end;
-
-{ was #define dname def_expr }
-function INADDR_LOOPBACK : Tin_addr_t;
-  begin
-    INADDR_LOOPBACK:=Tin_addr_t($7f000001);
-  end;
-
-{ was #define dname def_expr }
-function INADDR_UNSPEC_GROUP : Tin_addr_t;
-  begin
-    INADDR_UNSPEC_GROUP:=Tin_addr_t($e0000000);
-  end;
-
-{ was #define dname def_expr }
-function INADDR_ALLHOSTS_GROUP : Tin_addr_t;
-  begin
-    INADDR_ALLHOSTS_GROUP:=Tin_addr_t($e0000001);
-  end;
-
-{ was #define dname def_expr }
-function INADDR_ALLRTRS_GROUP : Tin_addr_t;
-  begin
-    INADDR_ALLRTRS_GROUP:=Tin_addr_t($e0000002);
-  end;
-
-{ was #define dname def_expr }
-function INADDR_ALLSNOOPERS_GROUP : Tin_addr_t;
-  begin
-    INADDR_ALLSNOOPERS_GROUP:=Tin_addr_t($e000006a);
-  end;
-
-{ was #define dname def_expr }
-function INADDR_MAX_LOCAL_GROUP : Tin_addr_t;
-  begin
-    INADDR_MAX_LOCAL_GROUP:=Tin_addr_t($e00000ff);
-  end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ntohl(x : longint) : longint;
+function IN6_IS_ADDR_V4COMPAT(a: Pointer): boolean; inline;
+var
+  p: PUInt32;
 begin
-  ntohl:=__uint32_identity(x);
+  p := PUInt32(a);
+  Result := (p[0] = 0) and (p[1] = 0) and (p[2] = 0) and (ntohl(p[3]) > 1);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ntohs(x : longint) : longint;
+function IN6_ARE_ADDR_EQUAL(a, b: Pointer): boolean; inline;
+var
+  pa, pb: PUInt32;
 begin
-  ntohs:=__uint16_identity(x);
+  pa := PUInt32(a);
+  pb := PUInt32(b);
+  Result := (pa[0] = pb[0]) and (pa[1] = pb[1]) and (pa[2] = pb[2]) and (pa[3] = pb[3]);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function htonl(x : longint) : longint;
+function IN6_IS_ADDR_MULTICAST(a: Pointer): boolean; inline;
 begin
-  htonl:=__uint32_identity(x);
+  Result := PUInt8(a)[0] = $FF;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function htons(x : longint) : longint;
+function IN6_IS_ADDR_MC_NODELOCAL(a: Pointer): boolean; inline;
 begin
-  htons:=__uint16_identity(x);
+  Result := IN6_IS_ADDR_MULTICAST(a) and ((PUInt8(a)[1] and $0F) = $01);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ntohl(x : longint) : longint;
+function IN6_IS_ADDR_MC_LINKLOCAL(a: Pointer): boolean; inline;
 begin
-  ntohl:=__bswap_32(x);
+  Result := IN6_IS_ADDR_MULTICAST(a) and ((PUInt8(a)[1] and $0F) = $02);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ntohs(x : longint) : longint;
+function IN6_IS_ADDR_MC_SITELOCAL(a: Pointer): boolean; inline;
 begin
-  ntohs:=__bswap_16(x);
+  Result := IN6_IS_ADDR_MULTICAST(a) and ((PUInt8(a)[1] and $0F) = $05);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function htonl(x : longint) : longint;
+function IN6_IS_ADDR_MC_ORGLOCAL(a: Pointer): boolean; inline;
 begin
-  htonl:=__bswap_32(x);
+  Result := IN6_IS_ADDR_MULTICAST(a) and ((PUInt8(a)[1] and $0F) = $08);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function htons(x : longint) : longint;
+function IN6_IS_ADDR_MC_GLOBAL(a: Pointer): boolean; inline;
 begin
-  htons:=__bswap_16(x);
+  Result := IN6_IS_ADDR_MULTICAST(a) and ((PUInt8(a)[1] and $0F) = $0E);
+end;
+
+
+
+function IN_CLASSA(a: DWord): boolean;
+begin
+  IN_CLASSA := ((Tin_addr_t(a)) and $80000000) = 0;
+end;
+
+function IN_CLASSB(a: DWord): boolean;
+begin
+  IN_CLASSB := ((Tin_addr_t(a)) and $c0000000) = $80000000;
+end;
+
+function IN_CLASSC(a: DWord): boolean;
+begin
+  IN_CLASSC := ((Tin_addr_t(a)) and $e0000000) = $c0000000;
+end;
+
+function IN_CLASSD(a: DWord): boolean;
+begin
+  IN_CLASSD := ((Tin_addr_t(a)) and $f0000000) = $e0000000;
+end;
+
+function IN_MULTICAST(a: DWord): boolean;
+begin
+  IN_MULTICAST := IN_CLASSD(a);
+end;
+
+function IN_EXPERIMENTAL(a: DWord): boolean;
+begin
+  IN_EXPERIMENTAL := ((Tin_addr_t(a)) and $e0000000) = $e0000000;
+end;
+
+function IN_BADCLASS(a: DWord): boolean;
+begin
+  IN_BADCLASS := ((Tin_addr_t(a)) and $f0000000) = $f0000000;
 end;
 
 

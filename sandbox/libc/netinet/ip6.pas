@@ -61,7 +61,7 @@ type
     ip6r0_segleft: Tuint8_t;
     ip6r0_reserved: Tuint8_t;
     ip6r0_slmap: array[0..2] of Tuint8_t;
-    ip6r0_addr: array[0.. -1] of Tin6_addr;
+    ip6r0_addr: Pin6_addr;
   end;
   Pip6_rthdr0 = ^Tip6_rthdr0;
 
@@ -72,11 +72,6 @@ type
     ip6f_ident: Tuint32_t;
   end;
   Pip6_frag = ^Tip6_frag;
-
-const
-  IP6F_OFF_MASK = $fff8;
-  IP6F_RESERVED_MASK = $0006;
-  IP6F_MORE_FRAG = $0001;
 
 const
   IP6F_OFF_MASK = $f8ff;

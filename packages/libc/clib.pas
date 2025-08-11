@@ -53,23 +53,32 @@ type
   PLongDouble = ^TLongDouble;
 
 type
-  Tuint8_t  = UInt8;
-  Puint8_t  = ^Tuint8_t;
-  Tuint16_t = UInt16;
+  Tuint8_t = uint8;
+  Puint8_t = ^Tuint8_t;
+  PPuint8_t = ^Puint8_t;
+  Tuint16_t = uint16;
   Puint16_t = ^Tuint16_t;
-  Tuint32_t = UInt32;
+  PPuint16_t = ^Puint16_t;
+  Tuint32_t = uint32;
   Puint32_t = ^Tuint32_t;
-  Tuint64_t = UInt64;
+  PPuint32_t = ^Puint32_t;
+  Tuint64_t = uint64;
   Puint64_t = ^Tuint64_t;
+  PPuint64_t = ^Puint64_t;
 
-  Tint8_t   = Int8;
-  Pint8_t   = ^Tint8_t;
-  Tint16_t  = Int16;
-  Pint16_t  = ^Tint16_t;
-  Tint32_t  = Int32;
-  Pint32_t  = ^Tint32_t;
-  Tint64_t  = Int64;
-  Pint64_t  = ^Tint64_t;
+  Tint8_t = int8;
+  Pint8_t = ^Tint8_t;
+  PPint8_t = ^Pint8_t;
+  Tint16_t = int16;
+  Pint16_t = ^Tint16_t;
+  PPint16_t = ^Pint16_t;
+  Tint32_t = int32;
+  Pint32_t = ^Tint32_t;
+  PPint32_t = ^Pint32_t;
+  Tint64_t = int64;
+  Pint64_t = ^Tint64_t;
+  PPint64_t = ^Pint64_t;
+
 
   Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;
@@ -256,25 +265,46 @@ type
 
   // /usr/include/netinet/in.h
 const
-  INADDR_ANY = UInt32(0);
+  INADDR_ANY = uint32(0);
 
-  type
+type
   Tin_addr = record
-    s_addr: UInt32;
+    s_addr: uint32;
   end;
 
   Tsockaddr_in = packed record
-    sin_family: Word;
-    sin_port: Word;
+    sin_family: word;
+    sin_port: word;
     sin_addr: Tin_addr;
-    sin_zero: array[0..7] of Byte;
+    sin_zero: array[0..7] of byte;
   end;
 
-  function htons(hostshort: Word): Word; cdecl; external libc;
+function htons(hostshort: word): word; cdecl; external libc;
 
-  const  // /usr/include/x86_64-linux-gnu/sys/epoll.h
-    EPOLLIN = 1;
+const  // /usr/include/x86_64-linux-gnu/sys/epoll.h
+  EPOLLIN = 1;
 
+const // /usr/include/linux/if_ether.h
+  ETH_ALEN = 6;
+
+const // /usr/include/linux/if_fddi.h
+  FDDI_K_ALEN = 6;
+
+type // /usr/include/linux/if_arp.h
+  Tarphdr = packed record
+    ar_hrd: word;
+    ar_pro: word;
+    ar_hln: Tuint8_t;
+    ar_pln: Tuint8_t;
+    ar_op: word;
+  end;
+  Parphdr = ^Tarphdr;
+
+type // /usr/include/net/ethernet.h
+  Tether_addr = packed record
+    ether_addr_octet: array[0..ETH_ALEN - 1] of Tuint8_t;
+  end;
+  Pether_addr = ^Tether_addr;
 
 
 type

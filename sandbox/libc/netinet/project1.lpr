@@ -1,20 +1,20 @@
 program project1;
 
 uses
-  ether,
-  icmp6,
-  if_ether,
-  if_fddi,
-  if_tr,
-  igmp,
-  in_,
-  in_systm,
-  ip,
-  ip6,
-  ip_icmp,
-  tcp,
-  udp,
-
+  // fp_socket
+  ether,               // io.
+  if_fddi,             // io.
+  if_tr,               // io.
+  igmp,                // io.
+  ip,                  // io.
+  tcp,                 // io.
+  udp,                 // io.
+  in_,                 // io.
+  in_systm,            // io.
+  ip6,                 // io. -> in_
+  icmp6,               // io. -> in_
+  if_ether,            // io. -> in_
+  ip_icmp,             // io. -> ip, in_systm
 
   fp_stdio,
   clib,
