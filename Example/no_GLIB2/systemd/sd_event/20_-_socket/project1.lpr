@@ -9,10 +9,14 @@ uses
   fp_stdio,
   fp_socket,
   fp_ioctl,
+  fp_netinet,
   fp_systemd;
 
   // echo test | socat - UDP:127.0.0.1:7777
   // socat - UDP:127.0.0.1:7777 < main.c
+
+  // echo "Test 1" | nc -u localhost 7777 -w0
+
 
 
   function timer_cp(s: Psd_event_source; usec: uint64; userdata: pointer): longint; cdecl;
@@ -86,8 +90,12 @@ uses
     r, fd: longint;
   begin
     WriteLn('Daten an das Programm mit externne Terminal senden.');
-    WriteLn(' echo "Hello World" | socat - UDP:127.0.0.1:7777');
-    WriteLn(' socat - UDP:127.0.0.1:7777 < project1.pas'#10);
+    WriteLn('  echo "Hello World" | socat - UDP:127.0.0.1:7777');
+    WriteLn('  socat - UDP:127.0.0.1:7777 < project1.pas');
+    WriteLn();
+    WriteLn('  echo "Hello World" | nc -u localhost 7777 -w0');
+    WriteLn('  nc -u localhost 7777 -w0 < project1.pas');
+    WriteLn();
 
     r := sd_event_new(@event);
     if r < 0 then begin

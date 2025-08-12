@@ -123,6 +123,10 @@
         <Filename Value="linux/fp_math.pas"/>
         <UnitName Value="fp_math"/>
       </Item>
+      <Item>
+        <Filename Value="linux/fp_netinet.pas"/>
+        <UnitName Value="fp_netinet"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

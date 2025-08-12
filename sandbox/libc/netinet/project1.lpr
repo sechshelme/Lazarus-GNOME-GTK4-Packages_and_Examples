@@ -4,26 +4,13 @@ uses
   clib,
 
 
-  // fp_socket
-  ether,               // io.
-  if_fddi,             // io.
-  if_tr,               // io.
-  tcp,                 // io.
-  udp,                 // io.
-  in_,                 // io.
-  in_systm,            // io.
-  igmp,                // io. -> in_
-  ip6,                 // io. -> in_
-  icmp6,               // io. -> in_
-  if_ether,            // io. -> in_
-  ip,                  // io. -> in_
-  ip_icmp,             // io. -> in_, ip, in_systm
 
   fp_socket,
   fp_stdio,
   fp_string,
   fp_stdlib,
-  fp_time;
+  fp_time,
+  fp_netinet;
 
 
 

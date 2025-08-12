@@ -278,14 +278,14 @@ type
 //    sin_addr: Tin_addr;
 //    sin_zero: array[0..7] of byte;
 //  end;
-
-  function htons(hostshort: word): word; cdecl; external libc;
+//
+//  function htons(hostshort: word): word; cdecl; external libc;
 
   // /usr/include/arpa/inet.h
 
+  //extern in_addr_t inet_addr (const char *__cp) __THROW;
   function inet_addr(cp:PChar): UInt32 cdecl; external libc; // uint32 ???
 
-//extern in_addr_t inet_addr (const char *__cp) __THROW;
 
 const  // /usr/include/x86_64-linux-gnu/sys/epoll.h
   EPOLLIN = 1;
