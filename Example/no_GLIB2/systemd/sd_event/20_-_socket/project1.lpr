@@ -8,6 +8,7 @@ uses
   fp_stdlib,
   fp_stdio,
   fp_socket,
+  fp_string,
   fp_ioctl,
   fp_netinet,
   fp_termios,
@@ -18,6 +19,32 @@ uses
 
   // echo "Test 1" | nc -u localhost 7777 -w0
 
+(*
+Variante 1: UDP verwenden
+text
+# Server:
+nc -kul 7777
+# Client:
+echo test | socat - UDP:127.0.0.1:7777
+socat - UDP:127.0.0.1:7777 < main.c
+
+Variante 2: TCP verwenden
+text
+# Server:
+nc -l 7777
+# Client:
+echo test | socat - TCP:127.0.0.1:7777
+socat - TCP:127.0.0.1:7777 < main.c
+
+
+Senden
+echo "Test 1" | nc -u localhost 7777 -w0
+echo test | socat - UDP:localhost:7777
+*)
+
+
+var
+  ReadPort, WritePort: word;
 
 
   // === Terminal Konfiguration
@@ -87,6 +114,32 @@ var
     free(buffer);
   end;
 
+  procedure SendBuffer(message: pchar);
+  var
+    sockfd: longint;
+    sa: Tsockaddr_in;
+  begin
+    sockfd := socket(AF_INET, SOCK_DGRAM, 0);
+    if sockfd < 0 then begin
+      WriteLn('Socket-Erstellung fehlgeschlagen');
+      Exit;
+    end;
+
+    // Serveradresse konfigurieren
+    memset(@sa, 0, sizeof(sa));
+    sa.sin_family := AF_INET;
+    sa.sin_port := htons(WritePort);
+    sa.sin_addr.s_addr := inet_addr('127.0.0.1');
+
+    if sendto(sockfd, message, strlen(message), 0, @sa, sizeof(sa)) < 0 then begin
+      WriteLn('Senden fehlgeschlagen');
+    end else begin
+      WriteLn('Nachricht gesendet: ', message);
+    end;
+
+    close(sockfd);
+  end;
+
   function io_keyboard_cp(s: Psd_event_source; fd: longint; revents: uint32; userdata: pointer): longint; cdecl;
   var
     bufsize: integer = 0;
@@ -109,6 +162,7 @@ var
           sd_event_exit(sd_event_source_get_event(s), 0);
         end;
         #32: begin
+          SendBuffer('Hello World !'#10);
         end;
       end;
     end;
@@ -120,8 +174,8 @@ var
       WriteStr(s1, s1, byte(buffer[i]), ' ');
     end;
     WriteLn(s1);
-    free(buffer);
 
+    free(buffer);
     Exit(0);
   end;
 
@@ -137,7 +191,7 @@ var
     end;
 
     sa.sin_family := AF_INET;
-    sa.sin_port := htons(7777);
+    sa.sin_port := htons(ReadPort);
     sa.sin_addr.s_addr := INADDR_ANY;
 
     if bind(fd, @sa, SizeOf(sa)) < 0 then begin
@@ -158,6 +212,9 @@ var
     WriteLn('  echo "Hello World" | nc -u localhost 7777 -w0');
     WriteLn('  nc -u localhost 7777 -w0 < project1.pas');
     WriteLn();
+
+    ReadPort := 7778;
+    WritePort := 7777;
 
     enable_raw_mode;
 
