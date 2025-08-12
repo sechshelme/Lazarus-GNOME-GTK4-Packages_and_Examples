@@ -26,28 +26,6 @@ type
   PPuint16 = ^PUInt16;
   PPint32 = ^PInt32;
 
-
-  // /usr/include/asm-generic/bitsperlong.h
-const
-  {$IFDEF CPU64}
-  __BITS_PER_LONG = 64;
-  {$ELSE}
-  __BITS_PER_LONG = 32;
-  {$ENDIF}
-
-
-  // fcntl.h
-  IN_CLOEXEC = 02000000; /////
-  IN_NONBLOCK = 00004000;     //////
-  O_CLOEXEC = 0; // ?????????'
-  O_NONBLOCK = 0;  // ??????
-
-
-
-  //  E2BIG=7;
-
-
-
 type
   TLongDouble = extended;
   PLongDouble = ^TLongDouble;
@@ -90,8 +68,8 @@ type
 
   Tsocklen_t = SizeInt;
 
-  Pnetent = Pointer;   // netdb.h
-  PPnetent = ^Pnetent;   // netdb.h
+  Pnetent = Pointer;   // /usr/include/x86_64-linux-gnu/bits/netdb.h
+  PPnetent = ^Pnetent;
 
   Tsa_family_t = word;      // sys/socket.h
   Psockaddr = Pointer;    // sys/socket.h
@@ -118,6 +96,24 @@ type
   PPwchar_t = ^Pwchar_t;
 
   PFILE = Pointer;
+
+  // /usr/include/asm-generic/bitsperlong.h
+const
+  {$IFDEF CPU64}
+  __BITS_PER_LONG = 64;
+  {$ELSE}
+  __BITS_PER_LONG = 32;
+  {$ENDIF}
+
+
+  // /usr/include/x86_64-linux-gnu/bits/inotify.h
+  IN_CLOEXEC = &02000000;
+  IN_NONBLOCK = &00004000;
+
+  // /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h
+  O_CLOEXEC = &02000000;
+  O_NONBLOCK = &04000;
+
 
 type  // unistd.h
   Tpid_t = uint32;

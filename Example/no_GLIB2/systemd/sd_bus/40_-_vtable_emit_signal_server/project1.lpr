@@ -368,7 +368,7 @@ var
     event: Psd_event;
   begin
     Randomize;
-    enable_raw_mode;
+    enable_raw_mode; // Keyboard
 
     Writeln();
     WriteLn(YellowText, 'Mit folgenden Kommandos, in einem 2. Termin,'#10'kann das Programm gesteuert werden:', ResetText);
@@ -455,7 +455,7 @@ var
     sd_bus_unref(bus);
     sd_event_unref(event);
 
-    disable_raw_mode;
+    disable_raw_mode;  // Keyboard
     WriteLn('Program end [io]');
 
     Result := 0;
