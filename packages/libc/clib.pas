@@ -259,28 +259,28 @@ type
   Pcpu_set_t = type Pointer;
 
 
-//  // /usr/include/netinet/in.h
-//const
-//  INADDR_ANY = uint32(0);
-//
-//type
-//  Tin_addr = record
-//    s_addr: uint32;
-//  end;
-//
-//  Tsockaddr_in = packed record
-//    sin_family: word;
-//    sin_port: word;
-//    sin_addr: Tin_addr;
-//    sin_zero: array[0..7] of byte;
-//  end;
-//
-//  function htons(hostshort: word): word; cdecl; external libc;
+  //  // /usr/include/netinet/in.h
+  //const
+  //  INADDR_ANY = uint32(0);
+  //
+  //type
+  //  Tin_addr = record
+  //    s_addr: uint32;
+  //  end;
+  //
+  //  Tsockaddr_in = packed record
+  //    sin_family: word;
+  //    sin_port: word;
+  //    sin_addr: Tin_addr;
+  //    sin_zero: array[0..7] of byte;
+  //  end;
+  //
+  //  function htons(hostshort: word): word; cdecl; external libc;
 
   // /usr/include/arpa/inet.h
 
-  //extern in_addr_t inet_addr (const char *__cp) __THROW;
-  function inet_addr(cp:PChar): UInt32 cdecl; external libc; // uint32 ???
+//extern in_addr_t inet_addr (const char *__cp) __THROW;
+function inet_addr(cp: pchar): uint32 cdecl; external libc; // uint32 ???
 
 
 const  // /usr/include/x86_64-linux-gnu/sys/epoll.h
@@ -288,6 +288,12 @@ const  // /usr/include/x86_64-linux-gnu/sys/epoll.h
 
 const // /usr/include/linux/if_ether.h
   ETH_ALEN = 6;
+  ETH_TLEN = 2;
+  ETH_HLEN = 14;
+  ETH_ZLEN = 60;
+  ETH_DATA_LEN = 1500;
+  ETH_FRAME_LEN = 1514;
+  ETH_FCS_LEN = 4;
 
 const // /usr/include/linux/if_fddi.h
   FDDI_K_ALEN = 6;
@@ -307,6 +313,82 @@ type // /usr/include/net/ethernet.h
     ether_addr_octet: array[0..ETH_ALEN - 1] of Tuint8_t;
   end;
   Pether_addr = ^Tether_addr;
+
+
+const  // /usr/include/linux/netlink.h
+  NLMSG_OVERRUN = $4;
+
+const // /usr/include/asm-generic/param.h
+  HZ = 100;
+
+type // /usr/include/linux/ppp_defs.h
+  TNPmode = longint;
+
+const
+  NPMODE_PASS = 0;
+  NPMODE_DROP = 1;
+  NPMODE_ERROR = 2;
+  NPMODE_QUEUE = 3;
+
+type // /usr/include/x86_64-linux-gnu/bits/types.h
+  Tcaddr_t = pchar;
+
+type // Unbekannt
+  Piface = Pointer;
+
+type     // /usr/include/linux/ppp_defs.h
+  Tpppstat = record
+    ppp_discards: uint32;
+
+    ppp_ibytes: uint32;
+    ppp_ioctects: uint32;
+    ppp_ipackets: uint32;
+    ppp_ierrors: uint32;
+    ppp_ilqrs: uint32;
+
+    ppp_obytes: uint32;
+    ppp_ooctects: uint32;
+    ppp_opackets: uint32;
+    ppp_oerrors: uint32;
+    ppp_olqrs: uint32;
+  end;
+
+  Tvjstat = record
+    vjs_packets: uint32;
+    vjs_compressed: uint32;
+    vjs_searches: uint32;
+    vjs_misses: uint32;
+    vjs_uncompressedin: uint32;
+    vjs_compressedin: uint32;
+    vjs_errorin: uint32;
+    vjs_tossed: uint32;
+  end;
+
+  Tcompstat = record
+    unc_bytes: uint32;
+    unc_packets: uint32;
+    comp_bytes: uint32;
+    comp_packets: uint32;
+    inc_bytes: uint32;
+    inc_packets: uint32;
+
+    in_count: uint32;
+    bytes_out: uint32;
+
+    ratio: double;
+  end;
+
+  Tppp_stats = record
+    p: Tpppstat;
+    vj: Tvjstat;
+  end;
+
+  Tppp_comp_stats = record
+    c: Tcompstat;
+    d: Tcompstat;
+  end;
+  // ------------
+
 
 
 type
