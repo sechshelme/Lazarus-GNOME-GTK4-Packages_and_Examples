@@ -135,6 +135,10 @@
         <Filename Value="linux/fp_net.pas"/>
         <UnitName Value="fp_net"/>
       </Item>
+      <Item>
+        <Filename Value="linux/fp_ifaddrs.pas"/>
+        <UnitName Value="fp_ifaddrs"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
