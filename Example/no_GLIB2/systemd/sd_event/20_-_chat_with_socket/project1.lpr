@@ -1,6 +1,7 @@
 program project1;
 
 uses
+  fp_libc_tools,
   fp_signal,
   fp_time,
   clib,
@@ -16,7 +17,6 @@ uses
 
   // echo test | socat - UDP:127.0.0.1:7777
   // socat - UDP:127.0.0.1:7777 < main.c
-
   // echo "Test 1" | nc -u localhost 7777 -w0
 
 (*
@@ -42,32 +42,23 @@ echo "Test 1" | nc -u localhost 7777 -w0
 echo test | socat - UDP:localhost:7777
 *)
 
-
-var
-  ReadPort, WritePort: word;
-
-
-  // === Terminal Konfiguration
-
-var
-  oldterm: Ttermios;
-
-  procedure enable_raw_mode;
-  var
-    newterm: Ttermios;
-  begin
-    tcgetattr(STDIN_FILENO, @oldterm);
-    newterm := oldterm;
-    newterm.c_lflag := newterm.c_lflag and not (ICANON or ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, @newterm);
+type
+  TPortConfig = record
+    ReadPort, WritePort: word;
+    ip: pchar;
   end;
 
-  procedure disable_raw_mode;
-  begin
-    tcsetattr(STDIN_FILENO, TCSANOW, @oldterm);
-  end;
+var
+  PortConfig: TPortConfig;
 
-  // =====================
+  procedure PrintChat(s: pchar);
+  begin
+    printf(#27'[3;10r');
+    printf(#27'[10;1H');
+    printf(s);
+    printf(#10);
+    printf(#27'[r');
+  end;
 
 
 
@@ -106,10 +97,11 @@ var
     len := read(fd, buffer, bufsize);
     if len > 0 then begin
       buffer[len] := #0;
-      printf('Buffer: %s'#10, buffer);
+      //      printf('Buffer: %s'#10, buffer);
+      PrintChat(buffer);
     end;
     Result := 0;
-    WriteLn(bufsize, ' Bytes gelesen');
+    //    WriteLn(bufsize, ' Bytes gelesen');
 
     free(buffer);
   end;
@@ -128,13 +120,13 @@ var
     // Serveradresse konfigurieren
     memset(@sa, 0, sizeof(sa));
     sa.sin_family := AF_INET;
-    sa.sin_port := htons(WritePort);
-    sa.sin_addr.s_addr := inet_addr('127.0.0.1');
+    sa.sin_port := htons(PortConfig.WritePort);
+    sa.sin_addr.s_addr := inet_addr(PortConfig.ip);
 
     if sendto(sockfd, message, strlen(message), 0, @sa, sizeof(sa)) < 0 then begin
       WriteLn('Senden fehlgeschlagen');
     end else begin
-      WriteLn('Nachricht gesendet: ', message);
+      //      WriteLn('Nachricht gesendet: ', message);
     end;
 
     close(sockfd);
@@ -147,6 +139,8 @@ var
     len: Tssize_t;
     s1: string;
     i: integer;
+  const
+    SendStr: string = '';
   begin
     ioctl(fd, FIONREAD, @bufsize);
     buffer := malloc(bufsize + 1);
@@ -162,11 +156,20 @@ var
           sd_event_exit(sd_event_source_get_event(s), 0);
         end;
         #32: begin
-          SendBuffer('Hello World !'#10);
+          //          SendBuffer('Hello World !'#10);
+        end;
+        #10: begin
+          SendBuffer(pchar(SendStr));
+          PrintChat(pchar(SendStr));
+          SendStr := '';
         end;
       end;
+      SendStr := SendStr + buffer[0];
+      GotoXY(1, 23);
+      system.write('Send: ', SendStr);
     end;
 
+    GotoXY(1, 24);
     system.Write('Keys (', bufsize, ') : ');
 
     s1 := '';
@@ -191,7 +194,7 @@ var
     end;
 
     sa.sin_family := AF_INET;
-    sa.sin_port := htons(ReadPort);
+    sa.sin_port := htons(PortConfig.ReadPort);
     sa.sin_addr.s_addr := INADDR_ANY;
 
     if bind(fd, @sa, SizeOf(sa)) < 0 then begin
@@ -212,11 +215,26 @@ var
     WriteLn('  echo "Hello World" | nc -u localhost 7777 -w0');
     WriteLn('  nc -u localhost 7777 -w0 < project1.pas');
     WriteLn();
+    WriteLn('  nc -kul 7777');
+    WriteLn('  nc -u localhost 7777 -w0 < project1.pas');
 
-    ReadPort := 7778;
-    WritePort := 7777;
 
-    enable_raw_mode;
+    ClrScr;
+
+    WriteLn('ParamCount: ', ParamCount);
+
+    if ParamCount >= 1 then begin
+      WriteLn('Alternativ');
+      PortConfig.ip := '127.0.0.1';
+      PortConfig.ReadPort := 7778;
+      PortConfig.WritePort := 7777;
+    end else begin
+      PortConfig.ip := '127.0.0.1';
+      PortConfig.ReadPort := 7777;
+      PortConfig.WritePort := 7778;
+    end;
+
+    EnableKeyRawMode;
 
     r := sd_event_new(@event);
     if r < 0 then begin
@@ -253,7 +271,7 @@ var
     sd_event_unref(event);
     close(fd);
 
-    disable_raw_mode;  // Keyboard
+    DisableKeyRawMode;  // Keyboard
   end;
 
 begin

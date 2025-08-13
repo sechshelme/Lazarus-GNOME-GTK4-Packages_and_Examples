@@ -127,6 +127,10 @@
         <Filename Value="linux/fp_netinet.pas"/>
         <UnitName Value="fp_netinet"/>
       </Item>
+      <Item>
+        <Filename Value="fp_libc_tools.pas"/>
+        <UnitName Value="fp_libc_tools"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

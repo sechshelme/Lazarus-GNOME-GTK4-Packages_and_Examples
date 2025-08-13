@@ -1,4 +1,4 @@
-{$IFDEF read_interface}
+  {$IFDEF read_interface}
 
 
 const
@@ -10,10 +10,12 @@ type
   Tgraphene_simd4f_t = record
     x, y, z, w: single;
   end;
+  Pgraphene_simd4f_t = ^Tgraphene_simd4f_t;
 
   Tgraphene_simd4x4f_t = record
     x, y, z, w: Tgraphene_simd4f_t;
   end;
+  Pgraphene_simd4x4f_t = ^Tgraphene_simd4x4f_t;
 
 type
   Tgraphene_vec2_t = record
@@ -57,10 +59,10 @@ type
   Pgraphene_quaternion_t = ^Tgraphene_quaternion_t;
 
 
-{$ENDIF read_interface}
+  {$ENDIF read_interface}
 
 
-{$IFDEF read_implementation}
+  {$IFDEF read_implementation}
 
 
-{$ENDIF read_implementation}
+  {$ENDIF read_implementation}
