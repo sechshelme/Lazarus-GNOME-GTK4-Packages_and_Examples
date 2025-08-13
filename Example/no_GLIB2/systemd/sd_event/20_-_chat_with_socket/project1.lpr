@@ -51,23 +51,25 @@ type
 var
   PortConfig: TPortConfig;
 
-  procedure PrintChat(s: pchar);
+  procedure PrintChat(s: pchar; col:Byte);
+  Const
+    Row=21;
   begin
-    printf(#27'[3;10r');
-    printf(#27'[10;1H');
+    TextColor(col);
+    printf(#27'[3;%dr', Row);
+    printf(#27'[%d;1H', Row);
     printf(s);
-    printf(#10);
     printf(#27'[r');
   end;
-
-
 
   function timer_cp(s: Psd_event_source; usec: uint64; userdata: pointer): longint; cdecl;
   const
     font: array [0..3] of char = '\-/|';
     p: integer = 0;
   begin
-    //  system.Write('  (', font[p mod 4], ')');
+    GotoXY(1,1);
+    printf(#27'[1G');
+    printf('(%c)',font[p mod 4]);
     Inc(p);
     //    system.Write(#27'[1G');
     sd_event_source_set_time_relative(s, 10000);
@@ -97,8 +99,7 @@ var
     len := read(fd, buffer, bufsize);
     if len > 0 then begin
       buffer[len] := #0;
-      //      printf('Buffer: %s'#10, buffer);
-      PrintChat(buffer);
+      PrintChat(buffer, 13);
     end;
     Result := 0;
     //    WriteLn(bufsize, ' Bytes gelesen');
@@ -135,7 +136,7 @@ var
   function io_keyboard_cp(s: Psd_event_source; fd: longint; revents: uint32; userdata: pointer): longint; cdecl;
   var
     bufsize: integer = 0;
-    buffer: pchar;
+    KeyBuffer: pchar;
     len: Tssize_t;
     s1: string;
     i: integer;
@@ -143,15 +144,15 @@ var
     SendStr: string = '';
   begin
     ioctl(fd, FIONREAD, @bufsize);
-    buffer := malloc(bufsize + 1);
+    KeyBuffer := malloc(bufsize + 1);
 
-    len := read(fd, buffer, bufsize);
+    len := read(fd, KeyBuffer, bufsize);
     if len <= 0 then begin
-      free(buffer);
+      free(KeyBuffer);
       Exit(0);
     end;
     if len = 1 then begin
-      case buffer[0] of
+      case KeyBuffer[0] of
         #27: begin
           sd_event_exit(sd_event_source_get_event(s), 0);
         end;
@@ -160,25 +161,27 @@ var
         end;
         #10: begin
           SendBuffer(pchar(SendStr));
-          PrintChat(pchar(SendStr));
+          PrintChat(pchar(SendStr), 7);
           SendStr := '';
         end;
       end;
-      SendStr := SendStr + buffer[0];
-      GotoXY(1, 23);
-      system.write('Send: ', SendStr);
+      SendStr := SendStr + KeyBuffer[0];
     end;
-
-    GotoXY(1, 24);
-    system.Write('Keys (', bufsize, ') : ');
+    GotoXY(1, 23);
+    printf('Keys (%d) : ',bufsize);
 
     s1 := '';
     for i := 0 to bufsize - 1 do begin
-      WriteStr(s1, s1, byte(buffer[i]), ' ');
+      WriteStr(s1, s1, byte(KeyBuffer[i]), ' ');
     end;
-    WriteLn(s1);
+    printf(PChar( s1));
 
-    free(buffer);
+    GotoXY(1, 24);
+    printf('Send: %s',PChar( SendStr));
+    fflush(stdout);
+
+
+    free(KeyBuffer);
     Exit(0);
   end;
 
@@ -218,20 +221,22 @@ var
     WriteLn('  nc -kul 7777');
     WriteLn('  nc -u localhost 7777 -w0 < project1.pas');
 
-
     ClrScr;
 
-    WriteLn('ParamCount: ', ParamCount);
+//    WriteLn('ParamCount: ', ParamCount);
 
     if ParamCount >= 1 then begin
       WriteLn('Alternativ');
-      PortConfig.ip := '127.0.0.1';
-      PortConfig.ReadPort := 7778;
+
+//      PortConfig.ip := '127.0.0.1';
+      PortConfig.ip := '192.168.0.185';
+      PortConfig.ReadPort := 7777;
       PortConfig.WritePort := 7777;
     end else begin
-      PortConfig.ip := '127.0.0.1';
+//        PortConfig.ip := '127.0.0.1';
+        PortConfig.ip := '192.168.0.88';
       PortConfig.ReadPort := 7777;
-      PortConfig.WritePort := 7778;
+      PortConfig.WritePort := 7777;
     end;
 
     EnableKeyRawMode;
@@ -271,7 +276,7 @@ var
     sd_event_unref(event);
     close(fd);
 
-    DisableKeyRawMode;  // Keyboard
+    DisableKeyRawMode;
   end;
 
 begin

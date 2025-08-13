@@ -9,8 +9,7 @@ uses
   fp_stdio,
   fp_string,
   fp_stdlib,
-  fp_time,
-  fp_netinet;
+  fp_time;
 
 
 

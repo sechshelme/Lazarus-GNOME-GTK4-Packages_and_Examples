@@ -131,6 +131,10 @@
         <Filename Value="fp_libc_tools.pas"/>
         <UnitName Value="fp_libc_tools"/>
       </Item>
+      <Item>
+        <Filename Value="linux/fp_net.pas"/>
+        <UnitName Value="fp_net"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
