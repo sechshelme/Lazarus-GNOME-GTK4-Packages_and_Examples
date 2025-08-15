@@ -7,7 +7,7 @@ uses
   inet,
   nameser,
   nameser_compat,
-  telnet,
+  telnet,                  // makros
   tftp,
 
   fp_ifaddrs,
@@ -45,6 +45,7 @@ uses
     familiy: Tsa_family_t;
     addr: array[0..INET6_ADDRSTRLEN - 1] of char;
     sa: Psockaddr_in;
+    sa6: Psockaddr_in6;
   begin
     if getifaddrs(@ifaddr) = -1 then begin
       WriteLn('getifaddrs()   errror');
@@ -52,66 +53,34 @@ uses
     end;
 
     ifa := ifaddr;
+    printf('Liste der Netzwerk-Interfaces und IP-Adressen:'#10);
     while ifa <> nil do begin
       familiy := ifa^.ifa_addr^.sa_family;
 
       case familiy of
-        AF_INET: begin
-          sa:=Psockaddr_in( ifa^.ifa_addr);
-          inet_n
-          printf('AF_INET'#10);
-        end;
+      AF_INET: begin
+        sa:=Psockaddr_in( ifa^.ifa_addr);
+        inet_ntop(AF_INET, @sa^.sin_addr, addr, SizeOf(addr));
+        printf('%s IPv4: %s'#10, ifa^.ifa_name, addr);
+      end;
+      AF_INET6: begin
+        sa6:=Psockaddr_in6( ifa^.ifa_addr);
+        inet_ntop(AF_INET6, @sa6^.sin6_addr, addr, SizeOf(addr));
+        printf('%s IPv6: %s'#10, ifa^.ifa_name, addr);
+      end;
       end;
 
       ifa := ifa^.ifa_next;
     end;
-
-
     printf(#10);
   end;
 
 begin
+  WriteLn(telcmds[1]);
+  WriteLn();
+
   PrintAdapterInfo;
   PrintPortInfo;
 end.
 
-
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ifaddrs.h>
-#include <arpa/inet.h>
-#include <netinet/in.h>
-
-int main() {
-    struct ifaddrs *ifaddr, *ifa;
-    char addr[INET6_ADDRSTRLEN];
-
-    if (getifaddrs(&ifaddr) == -1) {
-        perror("getifaddrs");
-        exit(EXIT_FAILURE);
-    }
-
-    printf("Liste der Netzwerk-Interfaces und IP-Adressen:\n");
-    for (ifa = ifaddr; ifa != NULL; ifa = ifa->ifa_next) {
-        if (ifa->ifa_addr == NULL)
-            continue;
-
-        int family = ifa->ifa_addr->sa_family;
-
-        if (family == AF_INET) {  // IPv4
-            struct sockaddr_in *sa = (struct sockaddr_in *)ifa->ifa_addr;
-            inet_ntop(AF_INET, &(sa->sin_addr), addr, sizeof(addr));
-            printf("%s IPv4: %s\n", ifa->ifa_name, addr);
-        } else if (family == AF_INET6) {  // IPv6
-            struct sockaddr_in6 *sa6 = (struct sockaddr_in6 *)ifa->ifa_addr;
-            inet_ntop(AF_INET6, &(sa6->sin6_addr), addr, sizeof(addr));
-            printf("%s IPv6: %s\n", ifa->ifa_name, addr);
-        }
-    }
-
-    freeifaddrs(ifaddr);
-    return 0;
-}
 

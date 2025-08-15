@@ -66,9 +66,9 @@ char *telcmds[] = {
 	"EL", "GA", "SB", "WILL", "WONT", "DO", "DONT", "IAC", 0,
 };
 #else
+*/
 extern char *telcmds[];
 #endif
-*/
 
 #define	TELCMD_FIRST	xEOF
 #define	TELCMD_LAST	IAC
@@ -212,10 +212,10 @@ char *slc_names[] = {
 	SLC_NAMELIST
 };
 #else
+*/
 extern char *slc_names[];
 #define	SLC_NAMES SLC_NAMELIST
 #endif
-*/
 
 #define	SLC_NAME_OK(x)	((unsigned int)(x) <= NSLC)
 #define SLC_NAME(x)	slc_names[x]
@@ -273,10 +273,10 @@ extern char *slc_names[];
 char *authtype_names[] = {
 	"NULL", "KERBEROS_V4", "KERBEROS_V5", "SPX", "MINK", 0,
 };
+*/
 #else
 extern char *authtype_names[];
 #endif
-*/
 
 #define	AUTHTYPE_NAME_OK(x)	((unsigned int)(x) < AUTHTYPE_CNT)
 #define	AUTHTYPE_NAME(x)	authtype_names[x]
@@ -311,10 +311,10 @@ char *enctype_names[] = {
 	"ANY", "DES_CFB64",  "DES_OFB64",  0,
 };
 #else
+*/
 extern char *encrypt_names[];
 extern char *enctype_names[];
 #endif
-*/
 
 
 #define	ENCRYPT_NAME_OK(x)	((unsigned int)(x) < ENCRYPT_CNT)

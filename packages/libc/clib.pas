@@ -335,6 +335,7 @@ type // /usr/include/x86_64-linux-gnu/bits/types.h
 
 type // Unbekannt
   Piface = Pointer;
+  Pdst_key=Pointer;
 
 type     // /usr/include/linux/ppp_defs.h
   Tpppstat = record
