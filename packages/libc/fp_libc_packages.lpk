@@ -139,6 +139,10 @@
         <Filename Value="linux/fp_ifaddrs.pas"/>
         <UnitName Value="fp_ifaddrs"/>
       </Item>
+      <Item>
+        <Filename Value="fp_arpa.pas"/>
+        <UnitName Value="fp_arpa"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

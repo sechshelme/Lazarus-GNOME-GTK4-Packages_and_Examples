@@ -3,12 +3,7 @@ program project1;
 uses
   clib,
 
-  ftp,
-  inet,
-  nameser,
-  nameser_compat,
-  telnet,                  // makros
-  tftp,
+  fp_arpa,
 
   fp_ifaddrs,
   fp_net,

@@ -205,7 +205,8 @@ const
     (libs: 'libdbus_1 '; units: 'ctypes'),
     (libs: 'libraw '; units: 'ctypes'),
     (libs: 'libudev '; units: 'ctypes'),
-    (libs: 'libblkid '; units: 'ctypes'),
+
+    (libs: 'poppler-glib'; units: 'fp_glib2, fp_cairo'),
 
 
 
