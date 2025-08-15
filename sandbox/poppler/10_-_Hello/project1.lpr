@@ -1,45 +1,89 @@
 program project1;
 
 uses
+  poppler,
+  poppler_action,
+  poppler_annot,
+  poppler_attachment,
+  poppler_date,
+  poppler_document,
+  poppler_enums,
+  poppler_features,
+  poppler_form_field,
+  poppler_layer,
+  poppler_media,
+  poppler_movie,
+  poppler_page,
+  poppler_structure_element,
+
+
+
+
+  Math,
   ctypes,
+  fp_cairo,
   fp_glib2,
   fp_GLIBTools,
   fp_GTK4;
 
-const
-  LabelText = 'Ich bin ein wirklich übergrosses endloses Label, das nicht hören will !';
+var
+  document: PPopplerDocument = nil;
+  page: PPopplerPage = nil;
 
-  // ========================
 
-  function CreateEntryBox: PGtkWidget;
+
+  procedure quit_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
-    entry: PGtkWidget;
-    buffer: PGtkEntryBuffer;
+    window: PGtkWindow absolute user_data;
   begin
-    Result := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-
-    buffer := gtk_entry_buffer_new(LabelText, -1);
-
-    entry := gtk_entry_new;
-    gtk_entry_set_buffer(GTK_ENTRY(entry), buffer);
-    gtk_widget_set_hexpand(entry, True);
-
-    gtk_box_append(GTK_BOX(Result), entry);
+    gtk_window_destroy(window);
   end;
 
-  procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
+  procedure draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
   var
-    window, box: PGtkWidget;
+    pdf_width, pdf_height, scale_x, scale_y, scale: double;
   begin
+    cairo_set_source_rgb(cr, 1, 1, 1);
+    cairo_paint(cr);
+
+    poppler_page_get_size(page, @pdf_width, @pdf_height);
+
+    scale_x := width / pdf_width;
+    scale_y := height / pdf_height;
+    if scale_x < scale_y then begin
+      scale := scale_x;
+    end else begin
+      scale := scale_y;
+    end;
+
+    cairo_scale(cr, scale, scale);
+
+    poppler_page_render(page, cr);
+  end;
+
+  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  var
+    window, box, button, drawing_area: PGtkWidget;
+  begin
+    g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
+
     window := gtk_application_window_new(app);
-    gtk_window_set_title(GTK_WINDOW(window), 'GTK4 Label');
-    gtk_window_set_default_size(GTK_WINDOW(window), 320, 200);
+    gtk_window_set_title(GTK_WINDOW(window), 'Belt Drive');
+    gtk_window_set_default_size(GTK_WINDOW(window), 640, 400);
 
-    box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+    box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+
+    drawing_area := gtk_drawing_area_new;
+    gtk_widget_set_vexpand(drawing_area, True);
+    gtk_widget_set_hexpand(drawing_area, True);
+    gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(drawing_area), @draw_func, nil, nil);
+    gtk_box_append(GTK_BOX(box), drawing_area);
+
+    button := gtk_button_new_with_label('Quit');
+    g_signal_connect(button, 'clicked', G_CALLBACK(@quit_cp), window);
+    gtk_box_append(GTK_BOX(box), button);
+
     gtk_window_set_child(GTK_WINDOW(window), box);
-
-    gtk_box_append(GTK_BOX(box), CreateEntryBox);
-
     gtk_window_present(GTK_WINDOW(window));
   end;
 
@@ -48,10 +92,36 @@ const
   var
     app: PGtkApplication;
     status: longint;
+    path_uri: Pgchar;
+    err: PGError = nil;
   begin
-    app := gtk_application_new('org.webkitgtk.example', G_APPLICATION_DEFAULT_FLAGS);
+    path_uri := g_filename_to_uri('/home/tux/Downloads/1553760606.pdf', nil, @err);
+    if path_uri = nil then begin
+      g_printerr('g_filename_to_uri()   %s'#10, err^.message);
+      g_error_free(err);
+    end;
+
+    document := poppler_document_new_from_file(path_uri, nil, @err);
+    g_free(path_uri);
+    if document = nil then begin
+      g_printerr('poppler_document_new_from_file()   %s'#10, err^.message);
+      g_error_free(err);
+    end;
+
+    page := poppler_document_get_page(document, 0);
+    if page = nil then begin
+      g_printerr('poppler_document_get_page()'#10);
+      g_object_unref(document);
+      g_error_free(err);
+    end;
+
+
+    app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
     status := g_application_run(G_APPLICATION(app), argc, argv);
+
+    g_object_unref(page);
+    g_object_unref(document);
     g_object_unref(app);
 
     Exit(status);
@@ -60,99 +130,4 @@ const
 begin
   main(argc, argv);
 end.
-
-(*
-
-// gcc main.c -o main `pkg-config --cflags --libs gtk4 poppler-glib`
-
-#include <gtk/gtk.h>
-#include <poppler.h>
-
-static PopplerDocument *document = NULL;
-static PopplerPage *page = NULL;
-
-// Draw-Callback für die DrawingArea
-static void draw_event(GtkDrawingArea *area, cairo_t *cr, int width, int height, gpointer user_data) {
-    if (!page)
-        return;
-
-    // Weißer Hintergrund
-    cairo_set_source_rgb(cr, 1, 1, 1);
-    cairo_paint(cr);
-
-    // Natürliche Seitengröße der PDF-Seite
-    double pdf_width, pdf_height;
-    poppler_page_get_size(page, &pdf_width, &pdf_height);
-
-    // Maßstab berechnen, um Seite an DrawingArea anzupassen (proportional skalieren)
-    double scale_x = (double)width / pdf_width;
-    double scale_y = (double)height / pdf_height;
-    double scale = (scale_x < scale_y) ? scale_x : scale_y;
-
-    // Skalierung anwenden
-    cairo_scale(cr, scale, scale);
-
-    // PDF-Seite rendern
-    poppler_page_render(page, cr);
-}
-
-static void activate(GtkApplication *app, gpointer user_data) {
-    GtkWidget *window = gtk_application_window_new(app);
-    gtk_window_set_title(GTK_WINDOW(window), "Poppler + GTK4 PDF Viewer");
-    gtk_window_set_default_size(GTK_WINDOW(window), 600, 800);
-
-    GtkWidget *drawing_area = gtk_drawing_area_new();
-    gtk_window_set_child(GTK_WINDOW(window), drawing_area);
-
-    // Callback zum Zeichnen verbinden
-    gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(drawing_area), (GtkDrawingAreaDrawFunc) draw_event, NULL, NULL);
-
-gtk_window_present(GTK_WINDOW(window));
-}
-
-int main(int argc, char **argv) {
-//    if (argc < 2) {
-//        g_printerr("Usage: %s /path/to/file.pdf\n", argv[0]);
-//        return 1;
-//    }
-
-    GError *error = NULL;
-    gchar *path_uri = g_filename_to_uri("/home/tux/Downloads/1553760606.pdf", NULL, &error);
-    if (!path_uri) {
-        g_printerr("Error creating URI from path: %s\n", error->message);
-        g_error_free(error);
-        return 1;
-    }
-
-    // PDF-Dokument laden
-    document = poppler_document_new_from_file(path_uri, NULL, &error);
-    g_free(path_uri);
-
-    if (!document) {
-        g_printerr("Error loading PDF document: %s\n", error->message);
-        g_error_free(error);
-        return 1;
-    }
-
-    // Erste Seite laden
-    page = poppler_document_get_page(document, 2);
-    if (!page) {
-        g_printerr("Error loading first page\n");
-        g_object_unref(document);
-        return 1;
-    }
-
-    GtkApplication *app = gtk_application_new("org.example.popplergtk", G_APPLICATION_DEFAULT_FLAGS);
-    g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
-
-    int status = g_application_run(G_APPLICATION(app), argc, argv);
-
-    g_object_unref(page);
-    g_object_unref(document);
-    g_object_unref(app);
-
-    return status;
-}
-
-*)
 

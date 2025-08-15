@@ -206,7 +206,7 @@ const
     (libs: 'libraw '; units: 'ctypes'),
     (libs: 'libudev '; units: 'ctypes'),
 
-    (libs: 'poppler-glib'; units: 'fp_glib2, fp_cairo'),
+    (libs: 'poppler_glib'; units: 'fp_glib2, fp_cairo'),
 
 
 
