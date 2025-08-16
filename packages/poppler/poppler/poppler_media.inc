@@ -4,20 +4,20 @@
 type
   TPopplerMediaSaveFunc = function(buf: Pgchar; count: Tgsize; data: Tgpointer; error: PPGError): Tgboolean; cdecl;
 
-function poppler_media_get_type: TGType; cdecl; external poppler_glib;
-function poppler_media_is_embedded(poppler_media: PPopplerMedia): Tgboolean; cdecl; external poppler_glib;
-function poppler_media_get_filename(poppler_media: PPopplerMedia): Pgchar; cdecl; external poppler_glib;
-function poppler_media_get_mime_type(poppler_media: PPopplerMedia): Pgchar; cdecl; external poppler_glib;
-function poppler_media_get_auto_play(poppler_media: PPopplerMedia): Tgboolean; cdecl; external poppler_glib;
-function poppler_media_get_show_controls(poppler_media: PPopplerMedia): Tgboolean; cdecl; external poppler_glib;
-function poppler_media_get_repeat_count(poppler_media: PPopplerMedia): Tgfloat; cdecl; external poppler_glib;
-function poppler_media_save(poppler_media: PPopplerMedia; filename: pchar; error: PPGError): Tgboolean; cdecl; external poppler_glib;
+function poppler_media_get_type: TGType; cdecl; external libpoppler_glib;
+function poppler_media_is_embedded(poppler_media: PPopplerMedia): Tgboolean; cdecl; external libpoppler_glib;
+function poppler_media_get_filename(poppler_media: PPopplerMedia): Pgchar; cdecl; external libpoppler_glib;
+function poppler_media_get_mime_type(poppler_media: PPopplerMedia): Pgchar; cdecl; external libpoppler_glib;
+function poppler_media_get_auto_play(poppler_media: PPopplerMedia): Tgboolean; cdecl; external libpoppler_glib;
+function poppler_media_get_show_controls(poppler_media: PPopplerMedia): Tgboolean; cdecl; external libpoppler_glib;
+function poppler_media_get_repeat_count(poppler_media: PPopplerMedia): Tgfloat; cdecl; external libpoppler_glib;
+function poppler_media_save(poppler_media: PPopplerMedia; filename: pchar; error: PPGError): Tgboolean; cdecl; external libpoppler_glib;
 
 {$ifndef windows}
-function poppler_media_save_to_fd(poppler_media: PPopplerMedia; fd: longint; error: PPGError): Tgboolean; cdecl; external poppler_glib;
+function poppler_media_save_to_fd(poppler_media: PPopplerMedia; fd: longint; error: PPGError): Tgboolean; cdecl; external libpoppler_glib;
 {$endif}
 
-function poppler_media_save_to_callback(poppler_media: PPopplerMedia; save_func: TPopplerMediaSaveFunc; user_data: Tgpointer; error: PPGError): Tgboolean; cdecl; external poppler_glib;
+function poppler_media_save_to_callback(poppler_media: PPopplerMedia; save_func: TPopplerMediaSaveFunc; user_data: Tgpointer; error: PPGError): Tgboolean; cdecl; external libpoppler_glib;
 
 // === Konventiert am: 15-8-25 16:55:14 ===
 

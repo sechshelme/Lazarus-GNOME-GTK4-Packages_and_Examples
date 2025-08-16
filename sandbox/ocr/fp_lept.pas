@@ -1,9 +1,9 @@
-unit fp_poppler_glib;
+unit fp_lept;
 
 interface
 
 uses
-  fp_glib2, fp_cairo;
+  ctypes;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -11,22 +11,22 @@ uses
 
 const
   {$IFDEF Linux}
-  libpoppler_glib = 'poppler-glib';
+  libleptb = 'libleptb';
   {$ENDIF}
 
   {$IFDEF msWindows}
-  libpoppler_glib = 'libpoppler-glib-8.dll';
+  libleptb = 'libleptonica-6.dll';
   {$ENDIF}
 
   {$DEFINE read_interface}
-  {$include fp_poppler_glib_includes.inc}
+//  {$include fp_poppler_glib_includes.inc}
   {$UNDEF read_interface}
 
 
 implementation
 
 {$DEFINE read_implementation}
-{$include fp_poppler_glib_includes.inc}
+//{$include fp_poppler_glib_includes.inc}
 {$UNDEF read_implementation}
 
 end.

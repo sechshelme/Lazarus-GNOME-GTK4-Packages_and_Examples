@@ -1,13 +1,13 @@
 {$IFDEF read_interface}
 
 
-function poppler_layer_get_type: TGType; cdecl; external poppler_glib;
-function poppler_layer_get_title(layer: PPopplerLayer): Pgchar; cdecl; external poppler_glib;
-function poppler_layer_is_visible(layer: PPopplerLayer): Tgboolean; cdecl; external poppler_glib;
-procedure poppler_layer_show(layer: PPopplerLayer); cdecl; external poppler_glib;
-procedure poppler_layer_hide(layer: PPopplerLayer); cdecl; external poppler_glib;
-function poppler_layer_is_parent(layer: PPopplerLayer): Tgboolean; cdecl; external poppler_glib;
-function poppler_layer_get_radio_button_group_id(layer: PPopplerLayer): Tgint; cdecl; external poppler_glib;
+function poppler_layer_get_type: TGType; cdecl; external libpoppler_glib;
+function poppler_layer_get_title(layer: PPopplerLayer): Pgchar; cdecl; external libpoppler_glib;
+function poppler_layer_is_visible(layer: PPopplerLayer): Tgboolean; cdecl; external libpoppler_glib;
+procedure poppler_layer_show(layer: PPopplerLayer); cdecl; external libpoppler_glib;
+procedure poppler_layer_hide(layer: PPopplerLayer); cdecl; external libpoppler_glib;
+function poppler_layer_is_parent(layer: PPopplerLayer): Tgboolean; cdecl; external libpoppler_glib;
+function poppler_layer_get_radio_button_group_id(layer: PPopplerLayer): Tgint; cdecl; external libpoppler_glib;
 
 // === Konventiert am: 15-8-25 16:55:07 ===
 

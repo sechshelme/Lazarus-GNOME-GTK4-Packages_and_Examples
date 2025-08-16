@@ -2,7 +2,7 @@
 
 
 
-function poppler_error_quark: TGQuark; cdecl; external poppler_glib;
+function poppler_error_quark: TGQuark; cdecl; external libpoppler_glib;
 function POPPLER_ERROR: TGQuark;
 
 type
@@ -124,8 +124,8 @@ const
   POPPLER_BACKEND_SPLASH = 1;
   POPPLER_BACKEND_CAIRO = 2;
 
-function poppler_get_backend: TPopplerBackend; cdecl; external poppler_glib;
-function poppler_get_version: pchar; cdecl; external poppler_glib;
+function poppler_get_backend: TPopplerBackend; cdecl; external libpoppler_glib;
+function poppler_get_version: pchar; cdecl; external libpoppler_glib;
 
 // === Konventiert am: 15-8-25 16:52:42 ===
 

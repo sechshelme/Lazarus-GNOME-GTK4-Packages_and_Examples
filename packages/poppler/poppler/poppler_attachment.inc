@@ -20,20 +20,20 @@ type
   end;
   PPopplerAttachmentClass = ^TPopplerAttachmentClass;
 
-function poppler_attachment_get_type: TGType; cdecl; external poppler_glib;
-function poppler_attachment_get_checksum(attachment: PPopplerAttachment): PGString; cdecl; external poppler_glib;
-function poppler_attachment_get_ctime(attachment: PPopplerAttachment): PGDateTime; cdecl; external poppler_glib;
-function poppler_attachment_get_description(attachment: PPopplerAttachment): Pgchar; cdecl; external poppler_glib;
-function poppler_attachment_get_mtime(attachment: PPopplerAttachment): PGDateTime; cdecl; external poppler_glib;
-function poppler_attachment_get_name(attachment: PPopplerAttachment): Pgchar; cdecl; external poppler_glib;
-function poppler_attachment_get_size(attachment: PPopplerAttachment): Tgsize; cdecl; external poppler_glib;
-function poppler_attachment_save(attachment: PPopplerAttachment; filename: pchar; error: PPGError): Tgboolean; cdecl; external poppler_glib;
+function poppler_attachment_get_type: TGType; cdecl; external libpoppler_glib;
+function poppler_attachment_get_checksum(attachment: PPopplerAttachment): PGString; cdecl; external libpoppler_glib;
+function poppler_attachment_get_ctime(attachment: PPopplerAttachment): PGDateTime; cdecl; external libpoppler_glib;
+function poppler_attachment_get_description(attachment: PPopplerAttachment): Pgchar; cdecl; external libpoppler_glib;
+function poppler_attachment_get_mtime(attachment: PPopplerAttachment): PGDateTime; cdecl; external libpoppler_glib;
+function poppler_attachment_get_name(attachment: PPopplerAttachment): Pgchar; cdecl; external libpoppler_glib;
+function poppler_attachment_get_size(attachment: PPopplerAttachment): Tgsize; cdecl; external libpoppler_glib;
+function poppler_attachment_save(attachment: PPopplerAttachment; filename: pchar; error: PPGError): Tgboolean; cdecl; external libpoppler_glib;
 
 {$ifndef windows}
-function poppler_attachment_save_to_fd(attachment: PPopplerAttachment; fd: longint; error: PPGError): Tgboolean; cdecl; external poppler_glib;
+function poppler_attachment_save_to_fd(attachment: PPopplerAttachment; fd: longint; error: PPGError): Tgboolean; cdecl; external libpoppler_glib;
 {$endif}
 
-function poppler_attachment_save_to_callback(attachment: PPopplerAttachment; save_func: TPopplerAttachmentSaveFunc; user_data: Tgpointer; error: PPGError): Tgboolean; cdecl; external poppler_glib;
+function poppler_attachment_save_to_callback(attachment: PPopplerAttachment; save_func: TPopplerAttachmentSaveFunc; user_data: Tgpointer; error: PPGError): Tgboolean; cdecl; external libpoppler_glib;
 
 // === Konventiert am: 15-8-25 16:53:57 ===
 

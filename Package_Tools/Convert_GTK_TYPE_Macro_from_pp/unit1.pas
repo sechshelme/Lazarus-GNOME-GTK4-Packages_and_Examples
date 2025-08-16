@@ -206,7 +206,10 @@ const
     (libs: 'libraw '; units: 'ctypes'),
     (libs: 'libudev '; units: 'ctypes'),
 
-    (libs: 'poppler_glib'; units: 'fp_glib2, fp_cairo'),
+    (libs: 'libpoppler_glib'; units: 'fp_glib2, fp_cairo'),
+
+    (libs: 'libtesseract'; units: 'ctypes'),
+    (libs: 'libleptb'; units: 'fp_lept'),
 
 
 

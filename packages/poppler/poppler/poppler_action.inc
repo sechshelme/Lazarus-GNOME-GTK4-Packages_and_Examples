@@ -180,17 +180,17 @@ type
 function POPPLER_TYPE_ACTION: TGType;
 function POPPLER_ACTION(obj: Pointer): PPopplerAction;
 
-function poppler_action_get_type: TGType; cdecl; external poppler_glib;
-procedure poppler_action_free(action: PPopplerAction); cdecl; external poppler_glib;
-function poppler_action_copy(action: PPopplerAction): PPopplerAction; cdecl; external poppler_glib;
+function poppler_action_get_type: TGType; cdecl; external libpoppler_glib;
+procedure poppler_action_free(action: PPopplerAction); cdecl; external libpoppler_glib;
+function poppler_action_copy(action: PPopplerAction): PPopplerAction; cdecl; external libpoppler_glib;
 
 function POPPLER_TYPE_DEST: TGType;
 
-function poppler_dest_get_type: TGType; cdecl; external poppler_glib;
-procedure poppler_dest_free(dest: PPopplerDest); cdecl; external poppler_glib;
-function poppler_dest_copy(dest: PPopplerDest): PPopplerDest; cdecl; external poppler_glib;
-function poppler_named_dest_from_bytestring(data: Pguint8; length: Tgsize): pchar; cdecl; external poppler_glib;
-function poppler_named_dest_to_bytestring(name: pchar; length: Pgsize): Pguint8; cdecl; external poppler_glib;
+function poppler_dest_get_type: TGType; cdecl; external libpoppler_glib;
+procedure poppler_dest_free(dest: PPopplerDest); cdecl; external libpoppler_glib;
+function poppler_dest_copy(dest: PPopplerDest): PPopplerDest; cdecl; external libpoppler_glib;
+function poppler_named_dest_from_bytestring(data: Pguint8; length: Tgsize): pchar; cdecl; external libpoppler_glib;
+function poppler_named_dest_to_bytestring(name: pchar; length: Pgsize): Pguint8; cdecl; external libpoppler_glib;
 
 // === Konventiert am: 15-8-25 16:58:19 ===
 

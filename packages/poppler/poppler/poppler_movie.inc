@@ -11,18 +11,18 @@ const
   POPPLER_MOVIE_PLAY_MODE_REPEAT = 2;
   POPPLER_MOVIE_PLAY_MODE_PALINDROME = 3;
 
-function poppler_movie_get_type: TGType; cdecl; external poppler_glib;
-function poppler_movie_get_filename(poppler_movie: PPopplerMovie): Pgchar; cdecl; external poppler_glib;
-function poppler_movie_need_poster(poppler_movie: PPopplerMovie): Tgboolean; cdecl; external poppler_glib;
-function poppler_movie_show_controls(poppler_movie: PPopplerMovie): Tgboolean; cdecl; external poppler_glib;
-function poppler_movie_get_play_mode(poppler_movie: PPopplerMovie): TPopplerMoviePlayMode; cdecl; external poppler_glib;
-function poppler_movie_is_synchronous(poppler_movie: PPopplerMovie): Tgboolean; cdecl; external poppler_glib;
-function poppler_movie_get_volume(poppler_movie: PPopplerMovie): Tgdouble; cdecl; external poppler_glib;
-function poppler_movie_get_rate(poppler_movie: PPopplerMovie): Tgdouble; cdecl; external poppler_glib;
-function poppler_movie_get_rotation_angle(poppler_movie: PPopplerMovie): Tgushort; cdecl; external poppler_glib;
-function poppler_movie_get_start(poppler_movie: PPopplerMovie): Tguint64; cdecl; external poppler_glib;
-function poppler_movie_get_duration(poppler_movie: PPopplerMovie): Tguint64; cdecl; external poppler_glib;
-procedure poppler_movie_get_aspect(poppler_movie: PPopplerMovie; width: Pgint; height: Pgint); cdecl; external poppler_glib;
+function poppler_movie_get_type: TGType; cdecl; external libpoppler_glib;
+function poppler_movie_get_filename(poppler_movie: PPopplerMovie): Pgchar; cdecl; external libpoppler_glib;
+function poppler_movie_need_poster(poppler_movie: PPopplerMovie): Tgboolean; cdecl; external libpoppler_glib;
+function poppler_movie_show_controls(poppler_movie: PPopplerMovie): Tgboolean; cdecl; external libpoppler_glib;
+function poppler_movie_get_play_mode(poppler_movie: PPopplerMovie): TPopplerMoviePlayMode; cdecl; external libpoppler_glib;
+function poppler_movie_is_synchronous(poppler_movie: PPopplerMovie): Tgboolean; cdecl; external libpoppler_glib;
+function poppler_movie_get_volume(poppler_movie: PPopplerMovie): Tgdouble; cdecl; external libpoppler_glib;
+function poppler_movie_get_rate(poppler_movie: PPopplerMovie): Tgdouble; cdecl; external libpoppler_glib;
+function poppler_movie_get_rotation_angle(poppler_movie: PPopplerMovie): Tgushort; cdecl; external libpoppler_glib;
+function poppler_movie_get_start(poppler_movie: PPopplerMovie): Tguint64; cdecl; external libpoppler_glib;
+function poppler_movie_get_duration(poppler_movie: PPopplerMovie): Tguint64; cdecl; external libpoppler_glib;
+procedure poppler_movie_get_aspect(poppler_movie: PPopplerMovie; width: Pgint; height: Pgint); cdecl; external libpoppler_glib;
 
 // === Konventiert am: 15-8-25 16:55:20 ===
 

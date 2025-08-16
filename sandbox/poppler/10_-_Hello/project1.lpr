@@ -79,14 +79,40 @@ var
     Count: longint;
     page: PPopplerPage;
     w, h: double;
-    i: integer;
+    i, j: integer;
+    text: pchar;
+    rectangles: PPopplerRectangle;
+    n_rectangles: Tguint;
+    has_text: Tgboolean;
+    r: TPopplerRectangle;
   begin
     Count := poppler_document_get_n_pages(doc);
     g_printf('Pages Count: %d'#10, Count);
     for i := 0 to Count - 1 do begin
       page := poppler_document_get_page(PDFData.Document, i);
       poppler_page_get_size(page, @w, @h);
-      g_printf('%3d.  %.1f x %.1f '#10, i, w, h);
+      g_printf('  %3d.  %.1f x %.1f '#10, i, w, h);
+
+      text := poppler_page_get_text(page);
+      if text <> nil then begin
+//        g_printf('%s'#10, text);
+        g_free(text);
+      end;
+
+      has_text := poppler_page_get_text_layout(page, @rectangles, @n_rectangles);
+      WriteLn(has_text);
+
+      if has_text then begin
+        g_printf('Gefundene Textrechtecke: %u'#10, n_rectangles);
+
+        for j := 0 to n_rectangles - 1 do begin
+          r := rectangles[j];
+//          g_printf('Rechteck %d: x1=%.2f, y1=%.2f, x2=%.2f, y2=%.2f'#10, j, r.x1, r.y1, r.x2, r.y2);
+        end;
+        g_free(rectangles);
+      end;
+
+
       g_object_unref(page);
     end;
   end;
@@ -99,6 +125,7 @@ var
     err: PGError = nil;
   begin
     path_uri := g_filename_to_uri('/home/tux/Downloads/1553760606.pdf', nil, @err);
+//    path_uri := g_filename_to_uri('/home/tux/Downloads/Telegram Desktop/Das_Buch_Henoch.pdf', nil, @err);
     if path_uri = nil then begin
       g_printerr('g_filename_to_uri()   %s'#10, err^.message);
       g_error_free(err);
