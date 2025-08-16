@@ -327,7 +327,7 @@ enum xxxxxxxxxx {
 
 #define   PIX_SRC      (0xc)                      /*!< use source pixels      */
 #define   PIX_DST      (0xa)                      /*!< use destination pixels */
-#define   PIX_NOT(op)  ((op) ^ 0x0f)              /*!< invert operation %op   */
+// xxxxxxxxxxxxx #define   PIX_NOT(op)  ((op) ^ 0x0f)         
 #define   PIX_CLR      (0x0)                      /*!< clear pixels           */
 #define   PIX_SET      (0xf)                      /*!< set pixels             */
 
@@ -335,7 +335,7 @@ enum xxxxxxxxxx {
 #define   PIX_MASK     (PIX_SRC & PIX_DST)        /*!< mask = src & dst       */
 #define   PIX_SUBTRACT (PIX_DST & PIX_NOT(PIX_SRC)) /*!< subtract =           */
                                                     /*!<    src & !dst        */
-#define   PIX_XOR      (PIX_SRC ^ PIX_DST)        /*!< xor = src ^ dst        */
+// xxxxxxxxxxxxxx #define   PIX_XOR      (PIX_SRC ^ PIX_DST)        /*!< xor = src ^ dst        */
 
 
 /*-------------------------------------------------------------------------*

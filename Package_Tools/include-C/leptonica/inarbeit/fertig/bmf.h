@@ -35,7 +35,7 @@
 
     /*! Constants for deciding when text block is divided into paragraphs */
 /*! Split Text */
-enum {
+enum  xxxxx{
     SPLIT_ON_LEADING_WHITE = 1,    /*!< tab or space at beginning of line   */
     SPLIT_ON_BLANK_LINE    = 2,    /*!< newline with optional white space   */
     SPLIT_ON_BOTH          = 3     /*!< leading white space or newline      */

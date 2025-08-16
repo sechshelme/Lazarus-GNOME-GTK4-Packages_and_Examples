@@ -65,21 +65,6 @@ typedef unsigned int uintptr_t;
 
 #endif /* _MSC_VER */
 
-#ifndef 
-  /* Windows specifics */
-  #ifdef _WIN32
-    /* DLL EXPORTS and IMPORTS */
-    #if defined(LIBLEPT_EXPORTS)
-      #define  __declspec(dllexport)
-    #elif defined(LIBLEPT_IMPORTS)
-      #define  __declspec(dllimport)
-    #else
-      #define 
-    #endif
-  #else  /* non-Windows specifics */
-    #define 
-  #endif  /* _WIN32 */
-#endif  /*  */
 
 #ifndef _WIN32  /* non-Windows specifics */
   #include <stdint.h>
@@ -137,7 +122,7 @@ typedef uintptr_t l_uintptr_t;
    * (HAVE_LIBJP2K == 1) that is >= 2.0, set the path to the openjpeg.h    *
    * header in angle brackets here.                                        *
    *-----------------------------------------------------------------------*/
-  #define  LIBJP2K_HEADER   <openjpeg-2.3/openjpeg.h>
+//  #define  LIBJP2K_HEADER   <openjpeg-2.3/openjpeg.h>
 
 #endif  /* ! HAVE_CONFIG_H etc. */
 
@@ -171,10 +156,6 @@ typedef uintptr_t l_uintptr_t;
  * To use these functions in linux, you must define HAVE_FMEMOPEN to 1.
  * To use them on MacOS, which does not support these functions, set it to 0.
  *-------------------------------------------------------------------------*/
-#if !defined(HAVE_CONFIG_H) && !defined(ANDROID_BUILD) && !defined(OS_IOS) && \
-    !defined(_WIN32)
-#define  HAVE_FMEMOPEN    1
-#endif  /* ! HAVE_CONFIG_H etc. */
 
 /*-------------------------------------------------------------------------*
  * fstatat() is defined by POSIX, but some systems do not support it.      *
@@ -292,7 +273,7 @@ typedef unsigned long long      l_uint64;   /*!< unsigned 64-bit value */
  *                    Simple search state variables                       *
  *------------------------------------------------------------------------*/
 /*! Search State */
-enum {
+enum xxxxxxxxxx {
     L_NOT_FOUND = 0,
     L_FOUND = 1
 };
@@ -302,7 +283,7 @@ enum {
  *                     Path separator conversion                          *
  *------------------------------------------------------------------------*/
 /*! Path Separators */
-enum {
+enum xxxxxxxxxx {
     UNIX_PATH_SEPCHAR = 0,
     WIN_PATH_SEPCHAR = 1
 };
@@ -402,7 +383,7 @@ typedef struct L_WallTimer  L_WALLTIMER;
 
     /*! Control printing of error, warning and info messages */
 /*! Message Control */
-enum {
+enum xxxxxxxxxx {
     L_SEVERITY_EXTERNAL = 0,   /* Get the severity from the environment   */
     L_SEVERITY_ALL      = 1,   /* Lowest severity: print all messages     */
     L_SEVERITY_DEBUG    = 2,   /* Print debugging and higher messages     */
@@ -518,69 +499,11 @@ enum {
  * </pre>
  */
 
-#ifdef  NO_CONSOLE_IO
-
-  #define PROCNAME(name)
-  #define ERROR_INT(a, b, c)            ((l_int32)(c))
-  #define ERROR_FLOAT(a, b, c)          ((l_float32)(c))
-  #define ERROR_PTR(a, b, c)            ((void *)(c))
-  #define L_ERROR(a, ...)
-  #define L_WARNING(a, ...)
-  #define L_INFO(a, ...)
-
-#else
-
-  #define PROCNAME(name)              static const char procName[] = name
-  #define IF_SEV(l, t, f) \
-      ((l) >= MINIMUM_SEVERITY && (l) >= LeptMsgSeverity ? (t) : (f))
-
-  #define ERROR_INT(a, b, c) \
-      IF_SEV(L_SEVERITY_ERROR, returnErrorInt((a), (b), (c)), (l_int32)(c))
-  #define ERROR_FLOAT(a, b, c) \
-      IF_SEV(L_SEVERITY_ERROR, returnErrorFloat((a), (b), (c)), (l_float32)(c))
-  #define ERROR_PTR(a, b, c) \
-      IF_SEV(L_SEVERITY_ERROR, returnErrorPtr((a), (b), (c)), (void *)(c))
-
-  #define L_ERROR(a, ...) \
-      IF_SEV(L_SEVERITY_ERROR, \
-             (void)lept_stderr("Error in %s: " a, __VA_ARGS__), \
-             (void)0)
-  #define L_WARNING(a, ...) \
-      IF_SEV(L_SEVERITY_WARNING, \
-             (void)lept_stderr("Warning in %s: " a, __VA_ARGS__), \
-             (void)0)
-  #define L_INFO(a, ...) \
-      IF_SEV(L_SEVERITY_INFO, \
-             (void)lept_stderr("Info in %s: " a, __VA_ARGS__), \
-             (void)0)
-
-#if 0  /* Alternative method for controlling L_* message output */
-  #define L_ERROR(a, ...) \
-    { if (L_SEVERITY_ERROR >= MINIMUM_SEVERITY && \
-          L_SEVERITY_ERROR >= LeptMsgSeverity) \
-          lept_stderr("Error in %s: " a, __VA_ARGS__) \
-    }
-  #define L_WARNING(a, ...) \
-    { if (L_SEVERITY_WARNING >= MINIMUM_SEVERITY && \
-          L_SEVERITY_WARNING >= LeptMsgSeverity) \
-          lept_stderr("Warning in %s: " a, __VA_ARGS__) \
-    }
-  #define L_INFO(a, ...) \
-    { if (L_SEVERITY_INFO >= MINIMUM_SEVERITY && \
-          L_SEVERITY_INFO >= LeptMsgSeverity) \
-          lept_stderr("Info in %s: " a, __VA_ARGS__) \
-    }
-#endif
-
-#endif  /* NO_CONSOLE_IO */
 
 
 /*------------------------------------------------------------------------*
  *              snprintf() renamed in MSVC (pre-VS2015)                   *
  *------------------------------------------------------------------------*/
-#if defined _MSC_VER && _MSC_VER < 1900
-#define snprintf(buf, size, ...)  _snprintf_s(buf, size, _TRUNCATE, __VA_ARGS__)
-#endif
 
 
 #endif /* LEPTONICA_ENVIRON_H */

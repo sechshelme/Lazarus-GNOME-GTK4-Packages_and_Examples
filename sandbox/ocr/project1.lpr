@@ -1,12 +1,20 @@
 program project1;
 
 uses
+   environ,
+   pix,
+   array_,
+   bbuffer,
+   morph,
+   bmf,
+   ccbord,
    allheaders,
 
 
    fp_lept;
 
 begin
+p:=  leptonica_malloc;
 
 end.
 
@@ -37,9 +45,7 @@ end.
 
 #include <stdio.h>
 #include <stdlib.h>
-//#include <allheaders.h>      // für Leptonica (Pix)
 #include <leptonica/allheaders.h>  // anstelle von <allheaders.h>
-
 #include <tesseract/capi.h>  // für Tesseract C-API
 
 int main() {

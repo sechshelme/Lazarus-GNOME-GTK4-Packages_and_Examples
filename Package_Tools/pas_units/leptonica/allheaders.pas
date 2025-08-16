@@ -3,7 +3,7 @@ unit allheaders;
 interface
 
 uses
-  fp_lept;
+  fp_lept, environ, pix, array_, bbuffer, morph, bmf, pix_, ccbord;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
@@ -158,7 +158,7 @@ function pixSauvolaBinarize(pixs:PPIX; whsize:Tl_int32; factor:Tl_float32; addbo
            ppixsd:PPPIX; ppixth:PPPIX; ppixd:PPPIX):Tl_ok;cdecl;external libleptb;
 function pixSauvolaOnContrastNorm(pixs:PPIX; mindiff:Tl_int32; ppixn:PPPIX; ppixth:PPPIX):PPIX;cdecl;external libleptb;
 function pixThreshOnDoubleNorm(pixs:PPIX; mindiff:Tl_int32):PPIX;cdecl;external libleptb;
-function pixThresholdByConnComp(pixs:PPIX; pixm:PPIX; start:Tl_int32; end:Tl_int32; incr:Tl_int32; 
+function pixThresholdByConnComp(pixs:PPIX; pixm:PPIX; start:Tl_int32; end_:Tl_int32; incr:Tl_int32; 
            thresh48:Tl_float32; threshdiff:Tl_float32; pglobthresh:Pl_int32; ppixd:PPPIX; debugflag:Tl_int32):Tl_ok;cdecl;external libleptb;
 function pixThresholdByHisto(pixs:PPIX; factor:Tl_int32; halfw:Tl_int32; delta:Tl_float32; pthresh:Pl_int32; 
            ppixd:PPPIX; ppixhisto:PPPIX):Tl_ok;cdecl;external libleptb;
@@ -3185,12 +3185,6 @@ procedure changeFormatForMissingLib(pformat:Pl_int32);cdecl;external libleptb;
 function pixDisplayWrite(pixs:PPIX; reduction:Tl_int32):Tl_ok;cdecl;external libleptb;
 function zlibCompress(datain:Pl_uint8; nin:Tsize_t; pnout:Psize_t):Pl_uint8;cdecl;external libleptb;
 function zlibUncompress(datain:Pl_uint8; nin:Tsize_t; pnout:Psize_t):Pl_uint8;cdecl;external libleptb;
-{ C++ end of extern C conditionnal removed }
-{ __cplusplus  }
-{$endif}
-{ NO_PROTOS  }
-{$endif}
-{ LEPTONICA_ALLHEADERS_H  }
 
 // === Konventiert am: 16-8-25 17:38:22 ===
 

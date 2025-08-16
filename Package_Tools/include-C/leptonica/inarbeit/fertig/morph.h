@@ -104,7 +104,7 @@ typedef struct L_Kernel  L_KERNEL;
  *  See notes in morph.c for usage.                                        *
  *-------------------------------------------------------------------------*/
 /*! Morph Boundary */
-enum {
+enum xxxxxxxxxx {
     SYMMETRIC_MORPH_BC = 0,
     ASYMMETRIC_MORPH_BC = 1
 };
@@ -113,7 +113,7 @@ enum {
  *                        Structuring element vals                         *
  *-------------------------------------------------------------------------*/
 /*! SEL Vals */
-enum {
+enum xxxxxxxxxx {
     SEL_DONT_CARE  = 0,
     SEL_HIT        = 1,
     SEL_MISS       = 2
@@ -123,7 +123,7 @@ enum {
  *                  Runlength flags for granulometry                       *
  *-------------------------------------------------------------------------*/
 /*! Runlength Polarity */
-enum {
+enum xxxxxxxxxx {
     L_RUN_OFF = 0,
     L_RUN_ON  = 1
 };
@@ -133,7 +133,7 @@ enum {
  *                 composable Sels, convolution, etc.                      *
  *-------------------------------------------------------------------------*/
 /*! Direction Flags */
-enum {
+enum xxxxxxxxxx {
     L_HORIZ            = 1,
     L_VERT             = 2,
     L_BOTH_DIRECTIONS  = 3
@@ -143,7 +143,7 @@ enum {
  *                   Morphological operation flags                         *
  *-------------------------------------------------------------------------*/
 /*! Morph Operator */
-enum {
+enum xxxxxxxxxx {
     L_MORPH_DILATE    = 1,
     L_MORPH_ERODE     = 2,
     L_MORPH_OPEN      = 3,
@@ -155,7 +155,7 @@ enum {
  *                    Grayscale intensity scaling flags                    *
  *-------------------------------------------------------------------------*/
 /*! Pixel Value Scaling */
-enum {
+enum xxxxxxxxxx {
     L_LINEAR_SCALE  = 1,
     L_LOG_SCALE     = 2
 };
@@ -164,7 +164,7 @@ enum {
  *                      Morphological tophat flags                         *
  *-------------------------------------------------------------------------*/
 /*! Morph Tophat */
-enum {
+enum xxxxxxxxxx {
     L_TOPHAT_WHITE = 0,
     L_TOPHAT_BLACK = 1
 };
@@ -174,7 +174,7 @@ enum {
  *                 (use on grayscale images and Numas)                     *
  *-------------------------------------------------------------------------*/
 /*! ArithLogical Ops */
-enum {
+enum xxxxxxxxxx {
     L_ARITH_ADD       = 1,
     L_ARITH_SUBTRACT  = 2,
     L_ARITH_MULTIPLY  = 3,   /* on numas only */
@@ -189,7 +189,7 @@ enum {
  *                        Min/max selection flags                          *
  *-------------------------------------------------------------------------*/
 /*! MinMax Selection */
-enum {
+enum xxxxxxxxxx {
     L_CHOOSE_MIN = 1,         /* useful in a downscaling "erosion"       */
     L_CHOOSE_MAX = 2,         /* useful in a downscaling "dilation"      */
     L_CHOOSE_MAXDIFF = 3,     /* useful in a downscaling contrast        */
@@ -201,7 +201,7 @@ enum {
  *            Exterior value b.c. for distance function flags              *
  *-------------------------------------------------------------------------*/
 /*! Exterior Value */
-enum {
+enum xxxxxxxxxx {
     L_BOUNDARY_BG = 1,  /* assume bg outside image */
     L_BOUNDARY_FG = 2   /* assume fg outside image */
 };
@@ -210,7 +210,7 @@ enum {
  *                         Image comparison flags                          *
  *-------------------------------------------------------------------------*/
 /*! Image Comparison */
-enum {
+enum xxxxxxxxxx {
     L_COMPARE_XOR = 1,
     L_COMPARE_SUBTRACT = 2,
     L_COMPARE_ABS_DIFF = 3
@@ -219,7 +219,7 @@ enum {
 /*-------------------------------------------------------------------------*
  *    Standard size of border added around images for special processing   *
  *-------------------------------------------------------------------------*/
-static const l_int32  ADDED_BORDER = 32;   /*!< pixels, not bits */
+// xxxxxxxxxxxxxxxxxxxx static const l_int32  ADDED_BORDER = 32;   /*!< pixels, not bits */
 
 
 #endif  /* LEPTONICA_MORPH_H */
