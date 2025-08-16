@@ -1,35 +1,22 @@
 program project1;
 
 uses
-  poppler,
-  poppler_action,
-  poppler_annot,
-  poppler_attachment,
-  poppler_date,
-  poppler_document,
-  poppler_enums,
-  poppler_features,
-  poppler_form_field,
-  poppler_layer,
-  poppler_media,
-  poppler_movie,
-  poppler_page,
-  poppler_structure_element,
-
-
-
-
-  Math,
   ctypes,
+  fp_poppler_glib,
   fp_cairo,
   fp_glib2,
   fp_GLIBTools,
   fp_GTK4;
 
-var
-  document: PPopplerDocument = nil;
-  page: PPopplerPage = nil;
+type
+  TPDFData = record
+    Document: PPopplerDocument;
+    Page: PPopplerPage;
+    Count: integer;
+  end;
 
+var
+  PDFData: TPDFData;
 
 
   procedure quit_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
@@ -46,7 +33,7 @@ var
     cairo_set_source_rgb(cr, 1, 1, 1);
     cairo_paint(cr);
 
-    poppler_page_get_size(page, @pdf_width, @pdf_height);
+    poppler_page_get_size(PDFData.Page, @pdf_width, @pdf_height);
 
     scale_x := width / pdf_width;
     scale_y := height / pdf_height;
@@ -58,7 +45,7 @@ var
 
     cairo_scale(cr, scale, scale);
 
-    poppler_page_render(page, cr);
+    poppler_page_render(PDFData.Page, cr);
   end;
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer);
@@ -68,7 +55,7 @@ var
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 
     window := gtk_application_window_new(app);
-    gtk_window_set_title(GTK_WINDOW(window), 'Belt Drive');
+    gtk_window_set_title(GTK_WINDOW(window), 'PDF with Poppler');
     gtk_window_set_default_size(GTK_WINDOW(window), 640, 400);
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
@@ -87,6 +74,22 @@ var
     gtk_window_present(GTK_WINDOW(window));
   end;
 
+  procedure printPDFInfo(doc: PPopplerDocument);
+  var
+    Count: longint;
+    page: PPopplerPage;
+    w, h: double;
+    i: integer;
+  begin
+    Count := poppler_document_get_n_pages(doc);
+    g_printf('Pages Count: %d'#10, Count);
+    for i := 0 to Count - 1 do begin
+      page := poppler_document_get_page(PDFData.Document, i);
+      poppler_page_get_size(page, @w, @h);
+      g_printf('%3d.  %.1f x %.1f '#10, i, w, h);
+      g_object_unref(page);
+    end;
+  end;
 
   function main(argc: cint; argv: PPChar): cint;
   var
@@ -101,27 +104,30 @@ var
       g_error_free(err);
     end;
 
-    document := poppler_document_new_from_file(path_uri, nil, @err);
+    PDFData.Document := poppler_document_new_from_file(path_uri, nil, @err);
     g_free(path_uri);
-    if document = nil then begin
+    if PDFData.Document = nil then begin
       g_printerr('poppler_document_new_from_file()   %s'#10, err^.message);
       g_error_free(err);
     end;
+    printPDFInfo(PDFData.Document);
 
-    page := poppler_document_get_page(document, 0);
-    if page = nil then begin
+    PDFData.Page := poppler_document_get_page(PDFData.Document, 0);
+    if PDFData.Page = nil then begin
       g_printerr('poppler_document_get_page()'#10);
-      g_object_unref(document);
+      g_object_unref(PDFData.Document);
       g_error_free(err);
     end;
+
+    PDFData.Count := poppler_document_get_n_pages(PDFData.Document);
 
 
     app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
     status := g_application_run(G_APPLICATION(app), argc, argv);
 
-    g_object_unref(page);
-    g_object_unref(document);
+    g_object_unref(PDFData.Page);
+    g_object_unref(PDFData.Document);
     g_object_unref(app);
 
     Exit(status);
@@ -130,4 +136,3 @@ var
 begin
   main(argc, argv);
 end.
-

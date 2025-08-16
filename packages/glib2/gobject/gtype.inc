@@ -313,8 +313,7 @@ end;
 //  G_TYPE_CHECK_INSTANCE_CAST := g_type_check_instance_cast(instance, g_type);
 //end;
 
-function G_TYPE_CHECK_INSTANCE_TYPE(instance: Pointer; g_type: TGType
-  ): Tgboolean;
+function G_TYPE_CHECK_INSTANCE_TYPE(instance: Pointer; g_type: TGType): Tgboolean;
 begin
   Result := g_type_check_instance_is_a(instance, g_type);
 end;
@@ -328,8 +327,7 @@ begin
   Result := g_type_check_class_cast(Result, g_type);
 end;
 
-function G_TYPE_INSTANCE_GET_INTERFACE(instance: Pointer; g_type: TGType
-  ): Pointer;
+function G_TYPE_INSTANCE_GET_INTERFACE(instance: Pointer; g_type: TGType): Pointer;
 begin
   G_TYPE_INSTANCE_GET_INTERFACE := g_type_interface_peek((PGTypeInstance(instance))^.g_class, g_type);
 end;
@@ -370,8 +368,7 @@ begin
 end;
 
 
-function G_TYPE_CHECK_INSTANCE_FUNDAMENTAL_TYPE(instance: PGTypeInstance;
-  g_type: TGType): Tgboolean;
+function G_TYPE_CHECK_INSTANCE_FUNDAMENTAL_TYPE(instance: PGTypeInstance; g_type: TGType): Tgboolean;
 begin
   G_TYPE_CHECK_INSTANCE_FUNDAMENTAL_TYPE := g_type_check_instance_is_fundamentally_a(instance, g_type);
 end;

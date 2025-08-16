@@ -1,13 +1,4 @@
-unit poppler_annot;
-
-interface
-
-uses
-  fp_glib2, fp_cairo, fp_poppler_glib, poppler;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 type
   PPopplerAnnotType = ^TPopplerAnnotType;
@@ -266,7 +257,10 @@ function POPPLER_ANNOT_STAMP(obj: Pointer): PPopplerAnnotStamp;
 function POPPLER_IS_ANNOT_STAMP(obj: Pointer): Tgboolean;
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function POPPLER_TYPE_ANNOT: TGType;
 begin
@@ -478,4 +472,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}
