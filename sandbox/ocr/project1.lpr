@@ -1,91 +1,63 @@
 program project1;
 
 uses
-   environ,
-   pix_,
-   array_,
-   bbuffer,
-   morph,
-   bmf,
-   ccbord,
-   jbclass,
-   colorfill,
-   stack,
-   dewarp,
-   rbtree,
-   hashmap,
-   gplot,
-   heap,
-   list,
-   ptra,
-   imageio,
-   queue,
-   recog,
-   regutils,
-   stringcode,
-   sudoku,
-   watershed,
-   allheaders,
-   arrayaccess,
-   bilateral,
-   bmfdata,
-   bmp,
-   leptwin,
-   readbarcode,
+   fp_lept,
+   fp_tesseract;
 
-
-   fp_lept;
 
 procedure main;
+var
+  handle: PTessBaseAPI;
+  image: PPix;
+  text: PChar;
 begin
   // Tesseract Handle erstellen
   handle := TessBaseAPICreate;
 
   // Initialisieren (NULL für tessdata path, "eng" für Sprache Englisch)
-  if (TessBaseAPIInit3(handle, NULL, "deu") != 0) {
-      fprintf(stderr, "Fehler beim Initialisieren von Tesseract.\n");
-      return 1;
-  }
+  if TessBaseAPIInit3(handle, nil, 'deu') <> 0 then begin
+      WriteLn('Fehler beim Initialisieren von Tesseract.');
+      Exit;
+  end;
+
 
   // Bilddatei laden (hier PNG), Leptonica Pix wird verwendet
-  PIX *image = pixRead("/home/tux/Bilder/Bildschirmfoto vom 2025-01-02 15-56-49.png");
-  if (!image) {
-      fprintf(stderr, "Fehler beim Laden des Bildes.\n");
+  image := pixRead('/home/tux/Bilder/Bildschirmfoto vom 2025-01-02 15-56-49.png');
+  if image =nil then begin
+      WriteLn('Fehler beim Laden des Bildes.');
       TessBaseAPIDelete(handle);
-      return 1;
-  }
+      Exit;
+  end;
 
   // Bild für OCR setzen
   TessBaseAPISetImage2(handle, image);
 
   // OCR ausführen
-  if (TessBaseAPIRecognize(handle, NULL) != 0) {
-      fprintf(stderr, "Fehler bei der Texterkennung.\n");
-      pixDestroy(&image);
+  if TessBaseAPIRecognize(handle, nil) <> 0  then begin
+      WriteLn('Fehler bei der Texterkennung.');
+      pixDestroy(@image);
       TessBaseAPIDelete(handle);
-      return 1;
-  }
+      Exit;;
+  end;
 
   // Text auslesen (UTF-8)
-  char *text = TessBaseAPIGetUTF8Text(handle);
-  if (text) {
-      printf("Erkannter Text:\n%s\n", text);
+  text := TessBaseAPIGetUTF8Text(handle);
+  if text<>nil then begin
+      WriteLn('Erkannter Text:');
+      WriteLn(text);
       TessDeleteText(text);
-  }
+  end;
 
   // Aufräumen
-  pixDestroy(&image);
+  pixDestroy(@image);
   TessBaseAPIEnd(handle);
   TessBaseAPIDelete(handle);
-
-
-
 end;
 
 var
   p: Pointer;
 begin
-p:=  leptonica_malloc(123);
+//p:=  leptonica_malloc(123);
 
 
 main;
@@ -117,57 +89,5 @@ end.
 // sudo apt install tesseract-ocr-deu
 
 
-
-
-
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <leptonica/allheaders.h>  // anstelle von <allheaders.h>
-#include <tesseract/capi.h>  // für Tesseract C-API
-
-int main() {
-    // Tesseract Handle erstellen
-    TessBaseAPI *handle = TessBaseAPICreate();
-
-    // Initialisieren (NULL für tessdata path, "eng" für Sprache Englisch)
-    if (TessBaseAPIInit3(handle, NULL, "deu") != 0) {
-        fprintf(stderr, "Fehler beim Initialisieren von Tesseract.\n");
-        return 1;
-    }
-
-    // Bilddatei laden (hier PNG), Leptonica Pix wird verwendet
-    PIX *image = pixRead("/home/tux/Bilder/Bildschirmfoto vom 2025-01-02 15-56-49.png");
-    if (!image) {
-        fprintf(stderr, "Fehler beim Laden des Bildes.\n");
-        TessBaseAPIDelete(handle);
-        return 1;
-    }
-
-    // Bild für OCR setzen
-    TessBaseAPISetImage2(handle, image);
-
-    // OCR ausführen
-    if (TessBaseAPIRecognize(handle, NULL) != 0) {
-        fprintf(stderr, "Fehler bei der Texterkennung.\n");
-        pixDestroy(&image);
-        TessBaseAPIDelete(handle);
-        return 1;
-    }
-
-    // Text auslesen (UTF-8)
-    char *text = TessBaseAPIGetUTF8Text(handle);
-    if (text) {
-        printf("Erkannter Text:\n%s\n", text);
-        TessDeleteText(text);
-    }
-
-    // Aufräumen
-    pixDestroy(&image);
-    TessBaseAPIEnd(handle);
-    TessBaseAPIDelete(handle);
-
-    return 0;
-}
 
 
