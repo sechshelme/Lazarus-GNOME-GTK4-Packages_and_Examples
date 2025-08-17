@@ -110,6 +110,7 @@ type
     stop_usec: Tl_int32;
   end;
   PL_WallTimer = ^TL_WallTimer;
+  PPL_WallTimer = ^PL_WallTimer;
 
 function leptonica_malloc(blocksize: Tsize_t): pointer; cdecl; external libleptb;
 function leptonica_calloc(numelem: Tsize_t; elemsize: Tsize_t): pointer; cdecl; external libleptb;

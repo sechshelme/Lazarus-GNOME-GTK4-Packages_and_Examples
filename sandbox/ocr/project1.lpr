@@ -17,15 +17,78 @@ uses
    gplot,
    heap,
    list,
-
-
+   ptra,
+   imageio,
+   queue,
+   recog,
+   regutils,
+   stringcode,
+   sudoku,
+   watershed,
    allheaders,
+   arrayaccess,
+   bilateral,
+   bmfdata,
+   bmp,
+   leptwin,
+   readbarcode,
 
 
    fp_lept;
 
+procedure main;
 begin
-p:=  leptonica_malloc;
+  // Tesseract Handle erstellen
+  handle := TessBaseAPICreate;
+
+  // Initialisieren (NULL für tessdata path, "eng" für Sprache Englisch)
+  if (TessBaseAPIInit3(handle, NULL, "deu") != 0) {
+      fprintf(stderr, "Fehler beim Initialisieren von Tesseract.\n");
+      return 1;
+  }
+
+  // Bilddatei laden (hier PNG), Leptonica Pix wird verwendet
+  PIX *image = pixRead("/home/tux/Bilder/Bildschirmfoto vom 2025-01-02 15-56-49.png");
+  if (!image) {
+      fprintf(stderr, "Fehler beim Laden des Bildes.\n");
+      TessBaseAPIDelete(handle);
+      return 1;
+  }
+
+  // Bild für OCR setzen
+  TessBaseAPISetImage2(handle, image);
+
+  // OCR ausführen
+  if (TessBaseAPIRecognize(handle, NULL) != 0) {
+      fprintf(stderr, "Fehler bei der Texterkennung.\n");
+      pixDestroy(&image);
+      TessBaseAPIDelete(handle);
+      return 1;
+  }
+
+  // Text auslesen (UTF-8)
+  char *text = TessBaseAPIGetUTF8Text(handle);
+  if (text) {
+      printf("Erkannter Text:\n%s\n", text);
+      TessDeleteText(text);
+  }
+
+  // Aufräumen
+  pixDestroy(&image);
+  TessBaseAPIEnd(handle);
+  TessBaseAPIDelete(handle);
+
+
+
+end;
+
+var
+  p: Pointer;
+begin
+p:=  leptonica_malloc(123);
+
+
+main;
 
 //gplotstylenames : PPchar;cvar;external libleptb;
 //gplotfileoutputs : PPchar;cvar;external libleptb;

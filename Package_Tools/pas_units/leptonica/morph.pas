@@ -23,6 +23,7 @@ type
     name: pchar;
   end;
   PSel = ^TSel;
+  PPSel = ^PSel;
 
   TSela = record
     n: Tl_int32;
@@ -30,6 +31,7 @@ type
     sel: ^PSel;
   end;
   PSela = ^TSela;
+  PPSela = ^PSela;
 
 const
   KERNEL_VERSION_NUMBER = 2;

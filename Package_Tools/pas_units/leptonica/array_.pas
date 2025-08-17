@@ -75,6 +75,7 @@ type
     arr: ^pchar;
   end;
   PSarray = ^TSarray;
+  PPSarray = ^PSarray;
 
   TL_Bytea = record
     nalloc: Tsize_t;

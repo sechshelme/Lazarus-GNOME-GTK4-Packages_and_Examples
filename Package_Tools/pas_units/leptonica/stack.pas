@@ -11,6 +11,7 @@ uses
 
 
 type
+  PPL_Stack = ^PL_Stack;
   PL_Stack = ^TL_Stack;
   TL_Stack = record
     nalloc: Tl_int32;

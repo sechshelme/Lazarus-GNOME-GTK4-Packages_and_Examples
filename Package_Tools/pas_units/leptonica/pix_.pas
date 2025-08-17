@@ -126,6 +126,7 @@ type
     boxa: PBoxa;
   end;
   PPixaa = ^TPixaa;
+  PPPixaa = ^PPixaa;
 
   TBox = record
     x: Tl_int32;
@@ -165,6 +166,7 @@ type
     pta: ^PPta;
   end;
   PPtaa = ^TPtaa;
+  PPPtaa = ^PPtaa;
 
   TPixacc = record
     w: Tl_int32;
@@ -173,6 +175,7 @@ type
     pix: PPix;
   end;
   PPixacc = ^TPixacc;
+  PPPixacc = ^PPixacc;
 
   TPixTiling = record
     pix: PPix;
@@ -185,6 +188,7 @@ type
     strip: Tl_int32;
   end;
   PPixTiling = ^TPixTiling;
+  PPPixTiling = ^PPixTiling;
 
 const
   FPIX_VERSION_NUMBER = 2;
@@ -243,6 +247,8 @@ type
   end;
 
   TPIXC = TPixComp;
+  PPIXC = ^TPIXC;
+  PPPIXC = ^PPIXC;
 
 const
   PIXACOMP_VERSION_NUMBER = 2;
@@ -257,7 +263,8 @@ type
   end;
   PPixaComp = ^TPixaComp;
   TPIXAC = TPixaComp;
-  PPIXAC=^TPIXAC;
+  PPIXAC = ^TPIXAC;
+  PPPIXAC = ^PPIXAC;
 
 const
   L_NOCOPY = 0;

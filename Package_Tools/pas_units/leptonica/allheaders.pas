@@ -3,7 +3,9 @@ unit allheaders;
 interface
 
 uses
-  fp_lept, environ, pix_, array_, bbuffer, morph, bmf, ccbord, jbclass, colorfill, stack, dewarp, rbtree, hashmap, gplot, heap, list;
+  fp_lept, environ, pix_, array_, bbuffer, morph, bmf, ccbord, jbclass, colorfill, stack, dewarp, rbtree,
+  hashmap, gplot, heap, list, ptra, imageio, queue, recog, regutils, stringcode, sudoku, watershed;
+
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
@@ -1458,7 +1460,7 @@ function numaaAddNuma(naa:PNUMAA; na:PNUMA; copyflag:Tl_int32):Tl_ok;cdecl;exter
 function numaaGetCount(naa:PNUMAA):Tl_int32;cdecl;external libleptb;
 function numaaGetNumaCount(naa:PNUMAA; index:Tl_int32):Tl_int32;cdecl;external libleptb;
 function numaaGetNumberCount(naa:PNUMAA):Tl_int32;cdecl;external libleptb;
-function numaaGetPtrArray(naa:PNUMAA):^PNUMA;cdecl;external libleptb;
+function numaaGetPtrArray(naa:PNUMAA):PPNUMA;cdecl;external libleptb;
 function numaaGetNuma(naa:PNUMAA; index:Tl_int32; accessflag:Tl_int32):PNUMA;cdecl;external libleptb;
 function numaaReplaceNuma(naa:PNUMAA; index:Tl_int32; na:PNUMA):Tl_ok;cdecl;external libleptb;
 function numaaGetValue(naa:PNUMAA; i:Tl_int32; j:Tl_int32; pfval:Pl_float32; pival:Pl_int32):Tl_ok;cdecl;external libleptb;
@@ -1753,7 +1755,7 @@ function pixGetData(pix:PPIX):Pl_uint32;cdecl;external libleptb;
 function pixSetData(pix:PPIX; data:Pl_uint32):Tl_int32;cdecl;external libleptb;
 function pixExtractData(pixs:PPIX):Pl_uint32;cdecl;external libleptb;
 function pixFreeData(pix:PPIX):Tl_int32;cdecl;external libleptb;
-function pixGetLinePtrs(pix:PPIX; psize:Pl_int32):^pointer;cdecl;external libleptb;
+function pixGetLinePtrs(pix:PPIX; psize:Pl_int32):PPointer;cdecl;external libleptb;
 function pixSizesEqual(pix1:PPIX; pix2:PPIX):Tl_int32;cdecl;external libleptb;
 function pixMaxAspectRatio(pixs:PPIX; pratio:Pl_float32):Tl_ok;cdecl;external libleptb;
 function pixPrintStreamInfo(fp:PFILE; pix:PPIX; text:Pchar):Tl_ok;cdecl;external libleptb;
@@ -1824,7 +1826,7 @@ function pixEndianTwoByteSwap(pixs:PPIX):Tl_ok;cdecl;external libleptb;
 function pixGetRasterData(pixs:PPIX; pdata:PPl_uint8; pnbytes:Psize_t):Tl_ok;cdecl;external libleptb;
 function pixInferResolution(pix:PPIX; longside:Tl_float32; pres:Pl_int32):Tl_ok;cdecl;external libleptb;
 function pixAlphaIsOpaque(pix:PPIX; popaque:Pl_int32):Tl_ok;cdecl;external libleptb;
-function pixSetupByteProcessing(pix:PPIX; pw:Pl_int32; ph:Pl_int32):^Pl_uint8;cdecl;external libleptb;
+function pixSetupByteProcessing(pix:PPIX; pw:Pl_int32; ph:Pl_int32):PPl_uint8;cdecl;external libleptb;
 function pixCleanupByteProcessing(pix:PPIX; lineptrs:PPl_uint8):Tl_ok;cdecl;external libleptb;
 procedure l_setAlphaMaskBorder(val1:Tl_float32; val2:Tl_float32);cdecl;external libleptb;
 function pixSetMasked(pixd:PPIX; pixm:PPIX; val:Tl_uint32):Tl_ok;cdecl;external libleptb;
@@ -2005,13 +2007,13 @@ function pixaGetBox(pixa:PPIXA; index:Tl_int32; accesstype:Tl_int32):PBOX;cdecl;
 function pixaGetBoxGeometry(pixa:PPIXA; index:Tl_int32; px:Pl_int32; py:Pl_int32; pw:Pl_int32; 
            ph:Pl_int32):Tl_ok;cdecl;external libleptb;
 function pixaSetBoxa(pixa:PPIXA; boxa:PBOXA; accesstype:Tl_int32):Tl_ok;cdecl;external libleptb;
-function pixaGetPixArray(pixa:PPIXA):^PPIX;cdecl;external libleptb;
+function pixaGetPixArray(pixa:PPIXA):PPPIX;cdecl;external libleptb;
 function pixaVerifyDepth(pixa:PPIXA; psame:Pl_int32; pmaxd:Pl_int32):Tl_ok;cdecl;external libleptb;
 function pixaVerifyDimensions(pixa:PPIXA; psame:Pl_int32; pmaxw:Pl_int32; pmaxh:Pl_int32):Tl_ok;cdecl;external libleptb;
 function pixaIsFull(pixa:PPIXA; pfullpa:Pl_int32; pfullba:Pl_int32):Tl_ok;cdecl;external libleptb;
 function pixaCountText(pixa:PPIXA; pntext:Pl_int32):Tl_ok;cdecl;external libleptb;
 function pixaSetText(pixa:PPIXA; text:Pchar; sa:PSARRAY):Tl_ok;cdecl;external libleptb;
-function pixaGetLinePtrs(pixa:PPIXA; psize:Pl_int32):^^pointer;cdecl;external libleptb;
+function pixaGetLinePtrs(pixa:PPIXA; psize:Pl_int32):PPPointer;cdecl;external libleptb;
 function pixaWriteStreamInfo(fp:PFILE; pixa:PPIXA):Tl_ok;cdecl;external libleptb;
 function pixaReplacePix(pixa:PPIXA; index:Tl_int32; pix:PPIX; box:PBOX):Tl_ok;cdecl;external libleptb;
 function pixaInsertPix(pixa:PPIXA; index:Tl_int32; pixs:PPIX; box:PBOX):Tl_ok;cdecl;external libleptb;
@@ -2729,7 +2731,7 @@ function pixFindVerticalRuns(pix:PPIX; x:Tl_int32; ystart:Pl_int32; yend:Pl_int3
 function pixFindMaxRuns(pix:PPIX; direction:Tl_int32; pnastart:PPNUMA):PNUMA;cdecl;external libleptb;
 function pixFindMaxHorizontalRunOnLine(pix:PPIX; y:Tl_int32; pxstart:Pl_int32; psize:Pl_int32):Tl_ok;cdecl;external libleptb;
 function pixFindMaxVerticalRunOnLine(pix:PPIX; x:Tl_int32; pystart:Pl_int32; psize:Pl_int32):Tl_ok;cdecl;external libleptb;
-function runlengthMembershipOnLine(buffer:Pl_int32; size:Tl_int32; depth:Tl_int32; start:Pl_int32; end:Pl_int32; 
+function runlengthMembershipOnLine(buffer:Pl_int32; size:Tl_int32; depth:Tl_int32; start:Pl_int32; end_:Pl_int32; 
            n:Tl_int32):Tl_ok;cdecl;external libleptb;
 function makeMSBitLocTab(bitval:Tl_int32):Pl_int32;cdecl;external libleptb;
 function sarrayCreate(n:Tl_int32):PSARRAY;cdecl;external libleptb;
@@ -2744,7 +2746,7 @@ function sarrayRemoveString(sa:PSARRAY; index:Tl_int32):Pchar;cdecl;external lib
 function sarrayReplaceString(sa:PSARRAY; index:Tl_int32; newstr:Pchar; copyflag:Tl_int32):Tl_ok;cdecl;external libleptb;
 function sarrayClear(sa:PSARRAY):Tl_ok;cdecl;external libleptb;
 function sarrayGetCount(sa:PSARRAY):Tl_int32;cdecl;external libleptb;
-function sarrayGetArray(sa:PSARRAY; pnalloc:Pl_int32; pn:Pl_int32):^Pchar;cdecl;external libleptb;
+function sarrayGetArray(sa:PSARRAY; pnalloc:Pl_int32; pn:Pl_int32):PPchar;cdecl;external libleptb;
 function sarrayGetString(sa:PSARRAY; index:Tl_int32; copyflag:Tl_int32):Pchar;cdecl;external libleptb;
 function sarrayGetRefcount(sa:PSARRAY):Tl_int32;cdecl;external libleptb;
 function sarrayChangeRefcount(sa:PSARRAY; delta:Tl_int32):Tl_ok;cdecl;external libleptb;
@@ -2752,7 +2754,7 @@ function sarrayToString(sa:PSARRAY; addnlflag:Tl_int32):Pchar;cdecl;external lib
 function sarrayToStringRange(sa:PSARRAY; first:Tl_int32; nstrings:Tl_int32; addnlflag:Tl_int32):Pchar;cdecl;external libleptb;
 function sarrayConcatUniformly(sa:PSARRAY; n:Tl_int32; addnlflag:Tl_int32):PSARRAY;cdecl;external libleptb;
 function sarrayJoin(sa1:PSARRAY; sa2:PSARRAY):Tl_ok;cdecl;external libleptb;
-function sarrayAppendRange(sa1:PSARRAY; sa2:PSARRAY; start:Tl_int32; end:Tl_int32):Tl_ok;cdecl;external libleptb;
+function sarrayAppendRange(sa1:PSARRAY; sa2:PSARRAY; start:Tl_int32; _end:Tl_int32):Tl_ok;cdecl;external libleptb;
 function sarrayPadToSameSize(sa1:PSARRAY; sa2:PSARRAY; padstring:Pchar):Tl_ok;cdecl;external libleptb;
 function sarrayConvertWordsToLines(sa:PSARRAY; linesize:Tl_int32):PSARRAY;cdecl;external libleptb;
 function sarraySplitString(sa:PSARRAY; str:Pchar; separators:Pchar):Tl_int32;cdecl;external libleptb;
@@ -2859,7 +2861,7 @@ procedure selDestroy(psel:PPSEL);cdecl;external libleptb;
 function selCopy(sel:PSEL):PSEL;cdecl;external libleptb;
 function selCreateBrick(h:Tl_int32; w:Tl_int32; cy:Tl_int32; cx:Tl_int32; _type:Tl_int32):PSEL;cdecl;external libleptb;
 function selCreateComb(factor1:Tl_int32; factor2:Tl_int32; direction:Tl_int32):PSEL;cdecl;external libleptb;
-function create2dIntArray(sy:Tl_int32; sx:Tl_int32):^Pl_int32;cdecl;external libleptb;
+function create2dIntArray(sy:Tl_int32; sx:Tl_int32):PPl_int32;cdecl;external libleptb;
 function selaAddSel(sela:PSELA; sel:PSEL; selname:Pchar; copyflag:Tl_int32):Tl_ok;cdecl;external libleptb;
 function selaGetCount(sela:PSELA):Tl_int32;cdecl;external libleptb;
 function selaGetSel(sela:PSELA; i:Tl_int32):PSEL;cdecl;external libleptb;
@@ -2977,11 +2979,11 @@ function pixaSetStrokeWidth(pixas:PPIXA; width:Tl_int32; thinfirst:Tl_int32; con
 function pixSetStrokeWidth(pixs:PPIX; width:Tl_int32; thinfirst:Tl_int32; connectivity:Tl_int32):PPIX;cdecl;external libleptb;
 function sudokuReadFile(filename:Pchar):Pl_int32;cdecl;external libleptb;
 function sudokuReadString(str:Pchar):Pl_int32;cdecl;external libleptb;
-function sudokuCreate(array:Pl_int32):PL_SUDOKU;cdecl;external libleptb;
+function sudokuCreate(arr:Pl_int32):PL_SUDOKU;cdecl;external libleptb;
 procedure sudokuDestroy(psud:PPL_SUDOKU);cdecl;external libleptb;
 function sudokuSolve(sud:PL_SUDOKU):Tl_int32;cdecl;external libleptb;
-function sudokuTestUniqueness(array:Pl_int32; punique:Pl_int32):Tl_ok;cdecl;external libleptb;
-function sudokuGenerate(array:Pl_int32; seed:Tl_int32; minelems:Tl_int32; maxtries:Tl_int32):PL_SUDOKU;cdecl;external libleptb;
+function sudokuTestUniqueness(arr:Pl_int32; punique:Pl_int32):Tl_ok;cdecl;external libleptb;
+function sudokuGenerate(arr:Pl_int32; seed:Tl_int32; minelems:Tl_int32; maxtries:Tl_int32):PL_SUDOKU;cdecl;external libleptb;
 function sudokuOutput(sud:PL_SUDOKU; arraytype:Tl_int32):Tl_int32;cdecl;external libleptb;
 function pixAddSingleTextblock(pixs:PPIX; bmf:PL_BMF; textstr:Pchar; val:Tl_uint32; location:Tl_int32; 
            poverflow:Pl_int32):PPIX;cdecl;external libleptb;
@@ -3033,9 +3035,11 @@ function setMsgSeverity(newsev:Tl_int32):Tl_int32;cdecl;external libleptb;
 function returnErrorInt(msg:Pchar; procname:Pchar; ival:Tl_int32):Tl_int32;cdecl;external libleptb;
 function returnErrorFloat(msg:Pchar; procname:Pchar; fval:Tl_float32):Tl_float32;cdecl;external libleptb;
 function returnErrorPtr(msg:Pchar; procname:Pchar; pval:pointer):pointer;cdecl;external libleptb;
-procedure leptSetStderrHandler(handler:procedure (para1:Pchar));cdecl;external libleptb;
-procedure lept_stderr(fmt:Pchar; args:array of const);cdecl;external libleptb;
-procedure lept_stderr(fmt:Pchar);cdecl;external libleptb;
+type
+    TerrHandleProc=                    procedure (para1:Pchar);
+
+procedure leptSetStderrHandler(handler:TerrHandleProc);cdecl;external libleptb;
+procedure lept_stderr(fmt:Pchar);cdecl;varargs;external libleptb;
 function filesAreIdentical(fname1:Pchar; fname2:Pchar; psame:Pl_int32):Tl_ok;cdecl;external libleptb;
 function convertOnLittleEnd16(shortin:Tl_uint16):Tl_uint16;cdecl;external libleptb;
 function convertOnBigEnd16(shortin:Tl_uint16):Tl_uint16;cdecl;external libleptb;
@@ -3045,7 +3049,7 @@ function fileCorruptByDeletion(filein:Pchar; loc:Tl_float32; size:Tl_float32; fi
 function fileCorruptByMutation(filein:Pchar; loc:Tl_float32; size:Tl_float32; fileout:Pchar):Tl_ok;cdecl;external libleptb;
 function fileReplaceBytes(filein:Pchar; start:Tl_int32; nbytes:Tl_int32; newdata:Pl_uint8; newsize:Tsize_t; 
            fileout:Pchar):Tl_ok;cdecl;external libleptb;
-function genRandomIntOnInterval(start:Tl_int32; end:Tl_int32; seed:Tl_int32; pval:Pl_int32):Tl_ok;cdecl;external libleptb;
+function genRandomIntOnInterval(start:Tl_int32; end_:Tl_int32; seed:Tl_int32; pval:Pl_int32):Tl_ok;cdecl;external libleptb;
 function lept_roundftoi(fval:Tl_float32):Tl_int32;cdecl;external libleptb;
 function l_hashStringToUint64(str:Pchar; phash:Pl_uint64):Tl_ok;cdecl;external libleptb;
 function l_hashStringToUint64Fast(str:Pchar; phash:Pl_uint64):Tl_ok;cdecl;external libleptb;
