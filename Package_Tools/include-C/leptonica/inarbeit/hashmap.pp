@@ -1,4 +1,37 @@
-/*====================================================================*
+
+unit hashmap;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from hashmap.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    hashmap.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+PL_Hashitem  = ^L_Hashitem;
+PL_Hashmap  = ^L_Hashmap;
+Pxxxxxxxxxxx  = ^xxxxxxxxxxx;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{====================================================================*
  -  Copyright (C) 2001 Leptonica.  All rights reserved.
  -
  -  Redistribution and use in source and binary forms, with or without
@@ -22,12 +55,10 @@
  -  OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  -  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  -  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *====================================================================*/
-
-#ifndef  LEPTONICA_HASHMAP_H
-#define  LEPTONICA_HASHMAP_H
-
-/*
+ *==================================================================== }
+{$ifndef  LEPTONICA_HASHMAP_H}
+{$define LEPTONICA_HASHMAP_H}
+{
  * \file hashmap.h
  *
  * <pre>
@@ -91,44 +122,59 @@
  *      size is approximately doubled and the existing items are re-hashed
  *      into it, mod the new (prime number) table size.
  * </pre>
- */
-
-/*------------------------------------------------------------------------*
+  }
+{------------------------------------------------------------------------*
  *                           Hash map structs                             *
- *------------------------------------------------------------------------*/
-/*! General hash map */
-struct L_Hashmap
-{
-    l_int32              nitems;    /*!< number of stored items              */
-    l_int32              ntogo;     /*!< number of items to be stored        */
-                                    /*!< before resizing the hashmap         */
-    l_int32              maxocc;    /*!< max average occupancy allowed       */
-    struct L_Hashitem  **hashtab;   /*!< array of hash item ptrs             */
-    l_int32              tabsize;   /*!< size of array of hash item ptrs     */
-};
-typedef struct L_Hashmap  L_HASHMAP;
+ *------------------------------------------------------------------------ }
+{! General hash map  }
+{!< number of stored items               }
+{!< number of items to be stored         }
+{!< before resizing the hashmap          }
+{!< max average occupancy allowed        }
+{!< array of hash item ptrs              }
+{!< size of array of hash item ptrs      }
+type
+  PL_Hashmap = ^TL_Hashmap;
+  TL_Hashmap = record
+      nitems : Tl_int32;
+      ntogo : Tl_int32;
+      maxocc : Tl_int32;
+      hashtab : ^PL_Hashitem;
+      tabsize : Tl_int32;
+    end;
 
-/*! Hash item, containing storage for the key, value and count.  The key
+{! Hash item, containing storage for the key, value and count.  The key
     is a l_uint64, which is hashed by the mod function to find the index
-    into the hashtab. */
-struct L_Hashitem
-{
-    l_uint64            key;    /*!< key is hashed into index into hashtab   */
-    l_uint64            val;    /*!< number stored associated with the key   */
-    l_int32             count;  /*!< number of elements seen with this key   */
-    struct L_Hashitem  *next;   /*!< ptr to the next in the list             */
-};
-typedef struct L_Hashitem  L_HASHITEM;
+    into the hashtab.  }
+{!< key is hashed into index into hashtab    }
+{!< number stored associated with the key    }
+{!< number of elements seen with this key    }
+{!< ptr to the next in the list              }
+  PL_Hashitem = ^TL_Hashitem;
+  TL_Hashitem = record
+      key : Tl_uint64;
+      val : Tl_uint64;
+      count : Tl_int32;
+      next : PL_Hashitem;
+    end;
 
-
-/*------------------------------------------------------------------------*
+{------------------------------------------------------------------------*
  *                            Hashmap flags                               *
- *------------------------------------------------------------------------*/
-/*! Hashmap Lookup */
-enum {
-    L_UNDEFINED = 0,         /*!< invalid operation                         */
-    L_HMAP_CHECK = 1,        /*!< check if this key/val has been stored     */
-    L_HMAP_CREATE = 2        /*!< create and store a hashitem if not found  */
-};
+ *------------------------------------------------------------------------ }
+{! Hashmap Lookup  }
+{!< invalid operation                          }
+{!< check if this key/val has been stored      }
+{!< create and store a hashitem if not found   }
+  Txxxxxxxxxxx =  Longint;
+  Const
+    L_UNDEFINED = 0;
+    L_HMAP_CHECK = 1;
+    L_HMAP_CREATE = 2;
 
-#endif  /* LEPTONICA_HASHMAP_H */
+{$endif}
+{ LEPTONICA_HASHMAP_H  }
+
+implementation
+
+
+end.

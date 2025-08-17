@@ -11,14 +11,16 @@ uses
 
 
 type
-  PPixColormap = ^TPixColormap;
-
   TPixColormap = record
     arr: pointer;
     depth: Tl_int32;
     nalloc: Tl_int32;
     n: Tl_int32;
   end;
+  PPixColormap = ^TPixColormap;
+  TPIXCMAP = TPixColormap;
+  PPIXCMAP = ^TPIXCMAP;
+  PPPIXCMAP = ^PPIXCMAP;
 
   TPix = record
     w: Tl_uint32;
@@ -38,7 +40,6 @@ type
   PPix = ^TPix;
   PPPix = ^PPix;
 
-  TPIXCMAP = TPixColormap;
 
   TRGBA_Quad = record
     blue: Tl_uint8;
@@ -116,8 +117,7 @@ type
     boxa: PBoxa;
   end;
   PPixa = ^TPixa;
-
-  PPixaa = ^TPixaa;
+  PPPixa = ^PPixa;
 
   TPixaa = record
     n: Tl_int32;
@@ -125,6 +125,7 @@ type
     pixa: ^PPixa;
     boxa: PBoxa;
   end;
+  PPixaa = ^TPixaa;
 
   TBox = record
     x: Tl_int32;
@@ -199,6 +200,7 @@ type
     data: Pl_float32;
   end;
   PFPix = ^TFPix;
+  PPFPix = ^PFPix;
 
   TFPixa = record
     n: Tl_int32;
@@ -207,6 +209,7 @@ type
     fpix: ^PFPix;
   end;
   PFPixa = ^TFPixa;
+  PPFPixa = ^PFPixa;
 
 const
   DPIX_VERSION_NUMBER = 2;
@@ -222,6 +225,7 @@ type
     data: Pl_float64;
   end;
   PDPix = ^TDPix;
+  PPDPix = ^PDPix;
 
   PPixComp = ^TPixComp;
 
@@ -252,8 +256,8 @@ type
     boxa: PBoxa;
   end;
   PPixaComp = ^TPixaComp;
-
   TPIXAC = TPixaComp;
+  PPIXAC=^TPIXAC;
 
 const
   L_NOCOPY = 0;

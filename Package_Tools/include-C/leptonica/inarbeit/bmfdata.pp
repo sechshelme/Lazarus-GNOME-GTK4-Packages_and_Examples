@@ -1,4 +1,33 @@
-/*====================================================================*
+
+unit bmfdata;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from bmfdata.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    bmfdata.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{====================================================================*
  -  Copyright (C) 2001 Leptonica.  All rights reserved.
  -
  -  Redistribution and use in source and binary forms, with or without
@@ -22,9 +51,8 @@
  -  OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  -  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  -  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *====================================================================*/
-
-/*!
+ *==================================================================== }
+{!
  * \file bmfdata.h
  *
  * <pre>
@@ -41,27 +69,28 @@
  *  string in this file, call
  *      bmfCreate(NULL, fontsize);
  * </pre>
- */
+  }
+{$ifndef  LEPTONICA_BMFDATA_H}
+{$define LEPTONICA_BMFDATA_H}
 
-#ifndef  LEPTONICA_BMFDATA_H
-#define  LEPTONICA_BMFDATA_H
-
-#define  NUM_FONTS  9
-static const char  *inputfonts[] = {"chars-4.tif", "chars-6.tif",
+const
+  NUM_FONTS = 9;  
+{ xxxxxxxxxxxxxxxxx
+static const char  *inputfonts[] = "chars-4.tif", "chars-6.tif",
                                     "chars-8.tif", "chars-10.tif",
                                     "chars-12.tif", "chars-14.tif",
                                     "chars-16.tif", "chars-18.tif",
-                                    "chars-20.tif"};
-static const char  *outputfonts[] = {"chars-4.pa", "chars-6.pa",
+                                    "chars-20.tif";
+static const char  *outputfonts[] = "chars-4.pa", "chars-6.pa",
                                      "chars-8.pa", "chars-10.pa",
                                      "chars-12.pa", "chars-14.pa",
                                      "chars-16.pa", "chars-18.pa",
-                                     "chars-20.pa"};
-static const l_int32  baselines[NUM_FONTS][3] = {{11, 12, 12}, {18, 18, 18},
-                                                 {24, 24, 24}, {30, 30, 30},
-                                                 {36, 36, 36}, {42, 42, 42},
-                                                 {48, 48, 48}, {54, 54, 54},
-                                                 {60, 60, 60}};
+                                     "chars-20.pa";
+static const l_int32  baselines[NUM_FONTS][3] = 11, 12, 12, 18, 18, 18,
+                                                 24, 24, 24, 30, 30, 30,
+                                                 36, 36, 36, 42, 42, 42,
+                                                 48, 48, 48, 54, 54, 54,
+                                                 60, 60, 60;
 
 static const char  fontdata_4[] =
     "SUkqACYFAAAmoHICP///////////////////////kFcchgc45Bgc45AgcgxBY5DY5DY5Agcg"
@@ -630,7 +659,11 @@ static const char  fontdata_20[] =
     "AQAAAAMBAwABAAAABAAAAAYBAwABAAAAAQAAABEBBAABAAAACAAAABIBAwABAAAAAQAAABUB"
     "AwABAAAAAQAAABYBAwABAAAAcwIAABcBBAABAAAABxMAABoBBQABAAAAvhMAABsBBQABAAAA"
     "xhMAABwBAwABAAAAAQAAACgBAwABAAAAAgAAAAAAAAAAAMASAAAEAAAAwBIAAAQA";
+ }
+{$endif}
+{ LEPTONICA_BMFDATA_H  }
 
-#endif  /* LEPTONICA_BMFDATA_H */
+implementation
 
 
+end.

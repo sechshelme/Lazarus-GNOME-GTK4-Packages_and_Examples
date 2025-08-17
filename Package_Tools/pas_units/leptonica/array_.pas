@@ -54,6 +54,7 @@ type
     dna: ^PL_Dna;
   end;
   PL_Dnaa = ^TL_Dnaa;
+  PPL_Dnaa = ^PL_Dnaa;
 
   TL_DnaHash = record
     nbuckets: Tl_int32;
@@ -61,6 +62,7 @@ type
     dna: ^PL_Dna;
   end;
   PL_DnaHash = ^TL_DnaHash;
+  PPL_DnaHash = ^PL_DnaHash;
 
 const
   SARRAY_VERSION_NUMBER = 1;

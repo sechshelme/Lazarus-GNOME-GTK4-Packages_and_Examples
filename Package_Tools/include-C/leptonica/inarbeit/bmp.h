@@ -115,7 +115,7 @@ typedef struct BMP_InfoHeader  BMP_IH;
 /*! BMP_IH is misaligned, causing crashes on some big-endians.
  *  A packed struct forces alignment. */
 #if defined(__GNUC__)
-typedef struct __attribute__((__packed__)) {
+typedef struct  {
   BMP_FH bmpfh;
   BMP_IH bmpih;
 } BMP_HEADER;

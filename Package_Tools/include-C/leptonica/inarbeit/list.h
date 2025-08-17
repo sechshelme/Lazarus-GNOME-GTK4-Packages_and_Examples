@@ -68,23 +68,26 @@ typedef struct DoubleLinkedList    DLLIST;
 
 
     /*!  Simple list traverse macro - forward */
+/* xxxxxxxxxxxxxxxxxxxxx
 #define L_BEGIN_LIST_FORWARD(head, element) \
         { \
         DLLIST   *_leptvar_nextelem_; \
         for ((element) = (head); (element); (element) = _leptvar_nextelem_) { \
             _leptvar_nextelem_ = (element)->next;
 
-
+*/
     /*!  Simple list traverse macro - reverse */
+/* xxxxxxxxxxxxxxxxxxxxx
 #define L_BEGIN_LIST_REVERSE(tail, element) \
         { \
         DLLIST   *_leptvar_prevelem_; \
         for ((element) = (tail); (element); (element) = _leptvar_prevelem_) { \
             _leptvar_prevelem_ = (element)->prev;
+*/
 
 
     /*!  Simple list traverse macro - end of a list traverse */
-#define L_END_LIST    }}
+// #define L_END_LIST    }}
 
 
 #endif  /* LEPTONICA_LIST_H */

@@ -2,12 +2,23 @@ program project1;
 
 uses
    environ,
-   pix,
+   pix_,
    array_,
    bbuffer,
    morph,
    bmf,
    ccbord,
+   jbclass,
+   colorfill,
+   stack,
+   dewarp,
+   rbtree,
+   hashmap,
+   gplot,
+   heap,
+   list,
+
+
    allheaders,
 
 
@@ -15,6 +26,10 @@ uses
 
 begin
 p:=  leptonica_malloc;
+
+//gplotstylenames : PPchar;cvar;external libleptb;
+//gplotfileoutputs : PPchar;cvar;external libleptb;
+
 
 end.
 

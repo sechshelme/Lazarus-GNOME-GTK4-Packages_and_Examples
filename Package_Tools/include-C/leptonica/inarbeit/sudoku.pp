@@ -1,4 +1,37 @@
-/*====================================================================*
+
+unit sudoku;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from sudoku.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    sudoku.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pl_int32  = ^l_int32;
+PL_Sudoku  = ^L_Sudoku;
+Pxxxxxxxxxx  = ^xxxxxxxxxx;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{====================================================================*
  -  Copyright (C) 2001 Leptonica.  All rights reserved.
  -
  -  Redistribution and use in source and binary forms, with or without
@@ -22,12 +55,10 @@
  -  OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  -  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  -  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *====================================================================*/
-
-#ifndef SUDOKU_H_INCLUDED
-#define SUDOKU_H_INCLUDED
-
-/*!
+ *==================================================================== }
+{$ifndef SUDOKU_H_INCLUDED}
+{$define SUDOKU_H_INCLUDED}
+{!
  * \file sudoku.h
  *
  * <pre>
@@ -47,31 +78,41 @@
  *    It is of size 81, and is initialized by setting the unknowns to 0
  *    and the knowns to their input values.
  * </pre>
- */
+  }
+{!< number of unknowns                      }
+{!< location of unknowns                    }
+{!< index into %locs of current location    }
+{!< initial state, with 0 representing      }
+{!< the unknowns                            }
+{!< present state, including inits and      }
+{!< guesses of unknowns up to %current      }
+{!< shows current number of guesses         }
+{!< set to 1 when solved                    }
+{!< set to 1 if no solution is possible     }
+type
+  PL_Sudoku = ^TL_Sudoku;
+  TL_Sudoku = record
+      num : Tl_int32;
+      locs : Pl_int32;
+      current : Tl_int32;
+      init : Pl_int32;
+      state : Pl_int32;
+      nguess : Tl_int32;
+      finished : Tl_int32;
+      failure : Tl_int32;
+    end;
 
-struct L_Sudoku
-{
-    l_int32        num;       /*!< number of unknowns                     */
-    l_int32       *locs;      /*!< location of unknowns                   */
-    l_int32        current;   /*!< index into %locs of current location   */
-    l_int32       *init;      /*!< initial state, with 0 representing     */
-                              /*!< the unknowns                           */
-    l_int32       *state;     /*!< present state, including inits and     */
-                              /*!< guesses of unknowns up to %current     */
-    l_int32        nguess;    /*!< shows current number of guesses        */
-    l_int32        finished;  /*!< set to 1 when solved                   */
-    l_int32        failure;   /*!< set to 1 if no solution is possible    */
-};
-typedef struct L_Sudoku  L_SUDOKU;
+{! For printing out array data  }
+{! Sudoku Output  }
+  Txxxxxxxxxx =  Longint;
+  Const
+    L_SUDOKU_INIT = 0;
+    L_SUDOKU_STATE = 1;
+
+{$endif}
+{ SUDOKU_H_INCLUDED  }
+
+implementation
 
 
-    /*! For printing out array data */
-/*! Sudoku Output */
-enum {
-    L_SUDOKU_INIT = 0,
-    L_SUDOKU_STATE = 1
-};
-
-#endif /* SUDOKU_H_INCLUDED */
-
-
+end.

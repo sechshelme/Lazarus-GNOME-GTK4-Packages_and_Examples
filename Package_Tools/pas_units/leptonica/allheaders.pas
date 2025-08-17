@@ -3,7 +3,7 @@ unit allheaders;
 interface
 
 uses
-  fp_lept, environ, pix, array_, bbuffer, morph, bmf, pix_, ccbord;
+  fp_lept, environ, pix_, array_, bbuffer, morph, bmf, ccbord, jbclass, colorfill, stack, dewarp, rbtree, hashmap, gplot, heap, list;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
@@ -1294,7 +1294,7 @@ function kernelGetSum(kel:PL_KERNEL; psum:Pl_float32):Tl_ok;cdecl;external lible
 function kernelGetMinMax(kel:PL_KERNEL; pmin:Pl_float32; pmax:Pl_float32):Tl_ok;cdecl;external libleptb;
 function kernelNormalize(kels:PL_KERNEL; normsum:Tl_float32):PL_KERNEL;cdecl;external libleptb;
 function kernelInvert(kels:PL_KERNEL):PL_KERNEL;cdecl;external libleptb;
-function create2dFloatArray(sy:Tl_int32; sx:Tl_int32):^Pl_float32;cdecl;external libleptb;
+function create2dFloatArray(sy:Tl_int32; sx:Tl_int32):PPl_float32;cdecl;external libleptb;
 function kernelRead(fname:Pchar):PL_KERNEL;cdecl;external libleptb;
 function kernelReadStream(fp:PFILE):PL_KERNEL;cdecl;external libleptb;
 function kernelWrite(fname:Pchar; kel:PL_KERNEL):Tl_ok;cdecl;external libleptb;

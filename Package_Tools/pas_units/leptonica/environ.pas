@@ -62,9 +62,11 @@ type
   Pl_uint16 = ^Tl_uint16;
   Tl_uint16 = uint16;
 
+  PPl_int32 = ^Pl_int32;
   Pl_int32 = ^Tl_int32;
   Tl_int32 = int32;
 
+  PPl_uint32 = ^Pl_uint32;
   Pl_uint32 = ^Tl_uint32;
   Tl_uint32 = uint32;
 

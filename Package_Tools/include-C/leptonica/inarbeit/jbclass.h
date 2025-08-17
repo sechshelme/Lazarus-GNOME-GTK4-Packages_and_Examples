@@ -120,14 +120,14 @@ typedef struct JbData  JBDATA;
 
 
 /*! JB Classifier */
-enum {
+enum xxxxxxxxxx {
     JB_RANKHAUS = 0,
     JB_CORRELATION = 1
 };
 
     /*! For jbGetComponents(): type of component to extract from images */
 /*! JB Component */
-enum {
+enum xxxxxxxxxx {
     JB_CONN_COMPS = 0,
     JB_CHARACTERS = 1,
     JB_WORDS = 2

@@ -45,7 +45,7 @@
 
     /*! The three valid key types for red-black trees, maps and sets. */
 /*! RBTree Key Type */
-enum {
+enum xxxxxxxxxx {
     L_INT_TYPE = 1,
     L_UINT_TYPE = 2,
     L_FLOAT_TYPE = 3

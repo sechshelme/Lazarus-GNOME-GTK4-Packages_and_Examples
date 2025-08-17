@@ -3,7 +3,7 @@ unit bmf;
 interface
 
 uses
-  fp_lept, environ, pix;
+  fp_lept, environ, pix_;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

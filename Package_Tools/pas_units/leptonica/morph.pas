@@ -43,6 +43,7 @@ type
     data: ^Pl_float32;
   end;
   PL_Kernel = ^TL_Kernel;
+  PPL_Kernel = ^PL_Kernel;
 
 const
   SYMMETRIC_MORPH_BC = 0;
