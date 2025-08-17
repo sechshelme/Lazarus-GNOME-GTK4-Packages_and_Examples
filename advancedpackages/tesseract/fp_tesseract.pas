@@ -24,6 +24,8 @@ type
   TBOOL = Boolean32;
   PBOOL = ^TBOOL;
 
+  // === Pointer auf C++ Classen
+
   PETEXT_DESC = type Pointer;
   PTessResultRenderer = type Pointer;
   PTessBaseAPI = type Pointer;
@@ -213,8 +215,7 @@ function TessBaseAPIGetPageSegMode(handle: PTessBaseAPI): TTessPageSegMode; cdec
 function TessBaseAPIRect(handle: PTessBaseAPI; imagedata: pbyte; bytes_per_pixel: longint; bytes_per_line: longint; left: longint;
   top: longint; width: longint; height: longint): pchar; cdecl; external libtesseract;
 procedure TessBaseAPIClearAdaptiveClassifier(handle: PTessBaseAPI); cdecl; external libtesseract;
-procedure TessBaseAPISetImage(handle: PTessBaseAPI; imagedata: pbyte; width: longint; height: longint; bytes_per_pixel: longint;
-  bytes_per_line: longint); cdecl; external libtesseract;
+procedure TessBaseAPISetImage(handle: PTessBaseAPI; imagedata: pbyte; width: longint; height: longint; bytes_per_pixel: longint; bytes_per_line: longint); cdecl; external libtesseract;
 procedure TessBaseAPISetImage2(handle: PTessBaseAPI; pix: PPix); cdecl; external libtesseract;
 procedure TessBaseAPISetSourceResolution(handle: PTessBaseAPI; ppi: longint); cdecl; external libtesseract;
 procedure TessBaseAPISetRectangle(handle: PTessBaseAPI; left: longint; top: longint; width: longint; height: longint); cdecl; external libtesseract;

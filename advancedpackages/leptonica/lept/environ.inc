@@ -103,10 +103,14 @@ type
   PL_WallTimer = ^TL_WallTimer;
   PPL_WallTimer = ^PL_WallTimer;
 
+(*
+Per Standard nicht verfügbar
+
 function leptonica_malloc(blocksize: Tsize_t): pointer; cdecl; external libleptb;
 function leptonica_calloc(numelem: Tsize_t; elemsize: Tsize_t): pointer; cdecl; external libleptb;
 function leptonica_realloc(ptr: pointer; blocksize: Tsize_t): pointer; cdecl; external libleptb;
 procedure leptonica_free(ptr: pointer); cdecl; external libleptb;
+*)
 
 const
   L_SEVERITY_EXTERNAL = 0;
