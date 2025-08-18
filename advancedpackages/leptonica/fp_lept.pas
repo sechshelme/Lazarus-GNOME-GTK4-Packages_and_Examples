@@ -16,7 +16,7 @@ const
   libleptb = 'liblept';
   {$ENDIF}
 
-  {$IFDEF msWindows}
+  {$IFDEF Windows}
   libleptb = 'libleptonica-6.dll';
   {$ENDIF}
 

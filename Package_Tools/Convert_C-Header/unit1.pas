@@ -57,7 +57,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/leptonica', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/gsl', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -86,9 +86,9 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_DEPRECATED', '/*G_GNUC_DEPRECATED*/', [rfReplaceAll]);
 
 
-      slHeader[j] := StringReplace(slHeader[j], 'LEPT_DLL', '', [rfReplaceAll]);
-
-
+      slHeader[j] := StringReplace(slHeader[j], '__BEGIN_DECLS', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], '__END_DECLS', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'INLINE_DECL', '', [rfReplaceAll]);
 
     end;
     slHeader.SaveToFile(slFile[i]);

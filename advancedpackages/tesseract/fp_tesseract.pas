@@ -14,7 +14,7 @@ const
   libtesseract = 'libtesseract';
   {$ENDIF}
 
-  {$IFDEF msWindows}
+  {$IFDEF Windows}
   libtesseract = 'libtesseract-55.dll';
   {$ENDIF}
 

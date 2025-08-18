@@ -7,28 +7,42 @@ uses
   procedure PrintLanguage(h: PTessBaseAPI);
   var
     list, p: PPChar;
-    ch: PChar;
-    i:Integer;
+    ch: pchar;
   begin
-    ch:=   TessBaseAPIGetInitLanguagesAsString(h);
-    WriteLn('ch: ',ch);
-
+    ch := TessBaseAPIGetInitLanguagesAsString(h);
+    Write('Language: ');
+    if ch = '' then begin
+      WriteLn('(none)');
+    end else begin
+      WriteLn(ch);
+    end;
 
     list := TessBaseAPIGetAvailableLanguagesAsVector(h);
-    WriteLn('Languages: ');
     if list <> nil then begin
+      Write('Vefügbar Languages: ');
       p := list;
-      if p^ = nil then begin
-        WriteLn('p = nil');
-      end;
       while p^ <> nil do begin
-        WriteLn('  ', p^);
+        Write(' ', p^);
         Inc(p);
       end;
     end else begin
-      WriteLn('  none');
+      Write('(none)');
     end;
-    WriteLn();
+  end;
+
+  function InitLanguage(h: PTessBaseAPI; lan: pchar): boolean;
+  begin
+    Result := True;
+    if TessBaseAPIInit3(h, '', lan) <> 0 then begin
+      WriteLn('Fehler beim Initialisieren von Tesseract.');
+      WriteLn();
+      WriteLn('Sprachpaket prüfen');
+      WriteLn('  tesseract --list-langs');
+      WriteLn('  sudo apt install tesseract-ocr-deu');
+      Result := False;
+    end;
+    PrintLanguage(h);
+    WriteLn(#10);
   end;
 
   procedure main;
@@ -40,7 +54,6 @@ uses
     WriteLn('TessVersion:      ', TessVersion);
     WriteLn('LeptonicaVersion: ', getLeptonicaVersion);
     WriteLn();
-
 
     // Bilddatei laden (hier PNG), Leptonica Pix wird verwendet
     image := pixRead('/home/tux/Bilder/Bildschirmfoto vom 2025-01-02 15-56-49.png');
@@ -54,24 +67,10 @@ uses
     // Tesseract Handle erstellen
     handle := TessBaseAPICreate;
 
-    PrintLanguage(handle);
-
-
-
-    // Initialisieren (NULL für tessdata path, "eng" für Sprache Englisch)
-//    if TessBaseAPIInit3(handle, nil, 'deu') <> 0 then begin
-      if TessBaseAPIInit3(handle, '', 'f') <> 0 then begin
-      WriteLn('Fehler beim Initialisieren von Tesseract.');
-      WriteLn();
-      WriteLn('Sprachpaket prüfen');
-      WriteLn('  tesseract --list-langs');
-      WriteLn('  sudo apt install tesseract-ocr-deu');
+    if not InitLanguage(handle, 'eng') then  begin
       pixDestroy(@image);
-//      Exit;
+      Exit;
     end;
-
-    PrintLanguage(handle);
-
 
     // Bild für OCR setzen
     TessBaseAPISetImage2(handle, image);

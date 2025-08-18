@@ -8,6 +8,10 @@
 #include <complex.h>
 #include <math.h>
 
+#include <gsl/gsl_matrix.h>
+#include <gsl/gsl_blas.h>
+
+
 // https://www.perplexity.ai/search/wen-ich-beim-linux-kernel-make-PuLHDhVhS6aXEz.IpP2Rwg
 
 void handle_winch(int sig) {

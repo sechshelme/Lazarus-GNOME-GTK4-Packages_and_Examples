@@ -211,6 +211,9 @@ const
     (libs: 'libtesseract'; units: 'ctypes'),
     (libs: 'libleptb'; units: 'fp_lept'),
 
+    (libs: 'libgslcblas'; units: 'fp_gsl'),
+    (libs: 'libgsl'; units: 'fp_gsl'),
+
 
 
 
