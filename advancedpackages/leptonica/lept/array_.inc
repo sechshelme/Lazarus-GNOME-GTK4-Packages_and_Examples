@@ -13,16 +13,16 @@ type
     delx: Tl_float32;
     arr: Pl_float32;
   end;
-  PNuma = ^TNuma;
-  PPNuma = ^PNuma;
+  PNUMA = ^TNuma;
+  PPNUMA = ^PNUMA;
 
   TNumaa = record
     nalloc: Tl_int32;
     n: Tl_int32;
     numa: ^PNuma;
   end;
-  PNumaa = ^TNumaa;
-  PPNumaa = ^PNumaa;
+  PNUMAA = ^TNumaa;
+  PPNUMAA = ^PNUMAA;
 
 const
   DNA_VERSION_NUMBER = 1;
@@ -36,24 +36,24 @@ type
     delx: Tl_float64;
     arr: Pl_float64;
   end;
-  PL_Dna = ^TL_Dna;
-  PPL_Dna = ^PL_Dna;
+  PL_DNA = ^TL_Dna;
+  PPL_DNA = ^PL_DNA;
 
   TL_Dnaa = record
     nalloc: Tl_int32;
     n: Tl_int32;
     dna: ^PL_Dna;
   end;
-  PL_Dnaa = ^TL_Dnaa;
-  PPL_Dnaa = ^PL_Dnaa;
+  PL_DNAA = ^TL_Dnaa;
+  PPL_DNAA = ^PL_DNAA;
 
   TL_DnaHash = record
     nbuckets: Tl_int32;
     initsize: Tl_int32;
     dna: ^PL_Dna;
   end;
-  PL_DnaHash = ^TL_DnaHash;
-  PPL_DnaHash = ^PL_DnaHash;
+  PL_DNAHASH = ^TL_DnaHash;
+  PPL_DNAHASH = ^PL_DNAHASH;
 
 const
   SARRAY_VERSION_NUMBER = 1;
@@ -65,8 +65,8 @@ type
     refcount: Tl_int32;
     arr: ^pchar;
   end;
-  PSarray = ^TSarray;
-  PPSarray = ^PSarray;
+  PSARRAY = ^TSarray;
+  PPSARRAY = ^PSARRAY;
 
   TL_Bytea = record
     nalloc: Tsize_t;
@@ -74,8 +74,8 @@ type
     refcount: Tl_int32;
     data: Pl_uint8;
   end;
-  PL_Bytea = ^TL_Bytea;
-  PPL_Bytea = ^PL_Bytea;
+  PL_BYTEA = ^TL_Bytea;
+  PPL_BYTEA = ^PL_BYTEA;
 
 const
   L_LINEAR_INTERP = 1;

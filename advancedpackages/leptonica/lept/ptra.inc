@@ -11,15 +11,15 @@ type
     nactual: Tl_int32;
     arr: ^pointer;
   end;
-  PL_Ptra = ^TL_Ptra;
-  PPL_Ptra = ^PL_Ptra;
+  PL_PTRA = ^TL_Ptra;
+  PPL_PTRA = ^PL_PTRA;
 
   TL_Ptraa = record
     nalloc: Tl_int32;
     ptra: ^PL_Ptra;
   end;
-  PL_Ptraa = ^TL_Ptraa;
-  PPL_Ptraa = ^PL_Ptraa;
+  PL_PTRAA = ^TL_Ptraa;
+  PPL_PTRAA = ^PL_PTRAA;
 
 const
   L_NO_COMPACTION = 1;

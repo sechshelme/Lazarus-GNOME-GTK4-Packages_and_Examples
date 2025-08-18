@@ -8,7 +8,6 @@ type
     nalloc: Tl_int32;
     n: Tl_int32;
   end;
-  PPixColormap = ^TPixColormap;
   TPIXCMAP = TPixColormap;
   PPIXCMAP = ^TPIXCMAP;
   PPPIXCMAP = ^PPIXCMAP;
@@ -25,11 +24,11 @@ type
     informat: Tl_int32;
     special: Tl_int32;
     text: pchar;
-    colormap: PPixColormap;
+    colormap: ^TPixColormap;
     data: Pl_uint32;
   end;
-  PPix = ^TPix;
-  PPPix = ^PPix;
+  PPIX = ^TPix;
+  PPPIX = ^PPIX;
 
 
   TRGBA_Quad = record
@@ -38,7 +37,7 @@ type
     red: Tl_uint8;
     alpha: Tl_uint8;
   end;
-  PRGBA_Quad = ^TRGBA_Quad;
+  PRGBA_QUAD = ^TRGBA_Quad;
 
 const
   COLOR_RED = 0;
@@ -97,8 +96,8 @@ type
     refcount: Tl_uint32;
     box: ^PBox;
   end;
-  PBoxa = ^TBoxa;
-  PPBoxa = ^PBoxa;
+  PBOXA = ^TBoxa;
+  PPBOXA = ^PBOXA;
 
   TPixa = record
     n: Tl_int32;
@@ -107,8 +106,8 @@ type
     pix: ^PPix;
     boxa: PBoxa;
   end;
-  PPixa = ^TPixa;
-  PPPixa = ^PPixa;
+  PPIXA = ^TPixa;
+  PPPIXA = ^PPIXA;
 
   TPixaa = record
     n: Tl_int32;
@@ -116,8 +115,8 @@ type
     pixa: ^PPixa;
     boxa: PBoxa;
   end;
-  PPixaa = ^TPixaa;
-  PPPixaa = ^PPixaa;
+  PPIXAA = ^TPixaa;
+  PPPIXAA = ^PPIXAA;
 
   TBox = record
     x: Tl_int32;
@@ -126,16 +125,16 @@ type
     h: Tl_int32;
     refcount: Tl_uint32;
   end;
-  PBox = ^TBox;
-  PPBox = ^PBox;
+  PBOX = ^TBox;
+  PPBOX = ^PBOX;
 
   TBoxaa = record
     n: Tl_int32;
     nalloc: Tl_int32;
     boxa: ^PBoxa;
   end;
-  PBoxaa = ^TBoxaa;
-  PPBoxaa = ^PBoxaa;
+  PBOXAA = ^TBoxaa;
+  PPBOXAA = ^PBOXAA;
 
 const
   PTA_VERSION_NUMBER = 1;
@@ -148,16 +147,16 @@ type
     x: Pl_float32;
     y: Pl_float32;
   end;
-  PPta = ^TPta;
-  PPPta = ^PPta;
+  PPTA = ^TPta;
+  PPPTA = ^PPTA;
 
   TPtaa = record
     n: Tl_int32;
     nalloc: Tl_int32;
     pta: ^PPta;
   end;
-  PPtaa = ^TPtaa;
-  PPPtaa = ^PPtaa;
+  PPTAA = ^TPtaa;
+  PPPTAA = ^PPTAA;
 
   TPixacc = record
     w: Tl_int32;
@@ -165,8 +164,8 @@ type
     offset: Tl_int32;
     pix: PPix;
   end;
-  PPixacc = ^TPixacc;
-  PPPixacc = ^PPixacc;
+  PPIXACC = ^TPixacc;
+  PPPIXACC = ^PPIXACC;
 
   TPixTiling = record
     pix: PPix;
@@ -178,8 +177,8 @@ type
     yoverlap: Tl_int32;
     strip: Tl_int32;
   end;
-  PPixTiling = ^TPixTiling;
-  PPPixTiling = ^PPixTiling;
+  PPIXTILING = ^TPixTiling;
+  PPPIXTILING = ^PPIXTILING;
 
 const
   FPIX_VERSION_NUMBER = 2;
@@ -194,8 +193,8 @@ type
     yres: Tl_int32;
     data: Pl_float32;
   end;
-  PFPix = ^TFPix;
-  PPFPix = ^PFPix;
+  PFPIX = ^TFPix;
+  PPFPIX = ^PFPIX;
 
   TFPixa = record
     n: Tl_int32;
@@ -203,8 +202,8 @@ type
     refcount: Tl_uint32;
     fpix: ^PFPix;
   end;
-  PFPixa = ^TFPixa;
-  PPFPixa = ^PFPixa;
+  PFPIXA = ^TFPixa;
+  PPFPIXA = ^PFPIXA;
 
 const
   DPIX_VERSION_NUMBER = 2;
@@ -219,10 +218,8 @@ type
     yres: Tl_int32;
     data: Pl_float64;
   end;
-  PDPix = ^TDPix;
+  PDPIX = ^TDPix;
   PPDPix = ^PDPix;
-
-  PPixComp = ^TPixComp;
 
   TPixComp = record
     w: Tl_int32;
@@ -236,7 +233,7 @@ type
     data: Pl_uint8;
     size: Tsize_t;
   end;
-
+  PPixComp = ^TPixComp;
   TPIXC = TPixComp;
   PPIXC = ^TPIXC;
   PPPIXC = ^PPIXC;
@@ -587,7 +584,6 @@ const
   L_REMOVE_TRAIL_SLASH = 2;
 
 type
-  Palloc_fn = ^Talloc_fn;
   Talloc_fn = function(para1: Tsize_t): pointer; cdecl;
   Tdealloc_fn = procedure(para1: pointer); cdecl;
 

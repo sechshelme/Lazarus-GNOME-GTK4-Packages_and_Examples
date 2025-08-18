@@ -22,8 +22,8 @@ type
     baselinetab: Pl_int32;
     widthtab: Pl_int32;
   end;
-  PL_Bmf = ^TL_Bmf;
-  PPL_Bmf = ^PL_Bmf;
+  PL_BMF = ^TL_Bmf;
+  PPL_BMF = ^PL_BMF;
 
   // === Konventiert am: 16-8-25 19:57:11 ===
 

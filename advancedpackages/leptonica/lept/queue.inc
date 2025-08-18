@@ -9,8 +9,8 @@ type
     arr: ^pointer;
     stack: PL_Stack;
   end;
-  PL_Queue = ^TL_Queue;
-  PPL_Queue = ^PL_Queue;
+  PL_QUEUE = ^TL_Queue;
+  PPL_QUEUE = ^PL_QUEUE;
 
   // === Konventiert am: 17-8-25 13:40:26 ===
 

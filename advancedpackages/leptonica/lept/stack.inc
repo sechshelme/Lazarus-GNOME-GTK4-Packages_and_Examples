@@ -2,8 +2,8 @@
 
 
 type
-  PPL_Stack = ^PL_Stack;
-  PL_Stack = ^TL_Stack;
+  PPL_STACK = ^PL_STACK;
+  PL_STACK = ^TL_Stack;
   TL_Stack = record
     nalloc: Tl_int32;
     n: Tl_int32;

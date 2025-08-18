@@ -17,8 +17,8 @@ type
     dnaa: PL_Dnaa;
     pixadb: PPixa;
   end;
-  PL_Colorfill = ^TL_Colorfill;
-  PPL_Colorfill = ^PL_Colorfill;
+  PL_COLORFILL = ^TL_Colorfill;
+  PPL_COLORFILL = ^PL_COLORFILL;
 
 
   // === Konventiert am: 17-8-25 13:39:58 ===

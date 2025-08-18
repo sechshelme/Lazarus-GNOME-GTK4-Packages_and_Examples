@@ -19,7 +19,7 @@ type
     pixac: PPixa;
     lineset: ^PPl_uint32;
   end;
-  PL_Bilateral = ^TL_Bilateral;
+  PL_BILATERAL = ^TL_Bilateral;
 
 
   // === Konventiert am: 17-8-25 13:39:47 ===

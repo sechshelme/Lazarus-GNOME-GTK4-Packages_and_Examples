@@ -1,4 +1,4 @@
-{$IFDEF read_interface}
+  {$IFDEF read_interface}
 
 
 type
@@ -12,6 +12,7 @@ type
   PBMP_FileHeader = ^TBMP_FileHeader;
 
   TBMP_FH = TBMP_FileHeader;
+  PBMP_FH = ^TBMP_FH;
 
 const
   BMP_FHBYTES = sizeof(TBMP_FH);
@@ -33,23 +34,24 @@ type
   PBMP_InfoHeader = ^TBMP_InfoHeader;
 
   TBMP_IH = TBMP_InfoHeader;
+  PBMP_IH = ^TBMP_IH;
 
 const
   BMP_IHBYTES = sizeof(TBMP_IH);
 
 type
-  TBMP_HEADER = record
+  TBmp_Header = record
     bmpfh: TBMP_FH;
     bmpih: TBMP_IH;
   end;
-  PBMP_HEADER = ^TBMP_HEADER;
+  PBMP_HEADER = ^TBmp_Header;
 
   // === Konventiert am: 17-8-25 13:39:55 ===
 
 
-{$ENDIF read_interface}
+  {$ENDIF read_interface}
 
 
-{$IFDEF read_implementation}
+  {$IFDEF read_implementation}
 
-{$ENDIF read_implementation}
+  {$ENDIF read_implementation}

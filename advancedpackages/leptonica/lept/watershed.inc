@@ -25,8 +25,8 @@ type
     arraysize: Tl_int32;
     debug: Tl_int32;
   end;
-  PL_WShed = ^TL_WShed;
-  PPL_WShed = ^PL_WShed;
+  PL_WSHED = ^TL_WShed;
+  PPL_WSHED = ^PL_WSHED;
 
 
   // === Konventiert am: 17-8-25 13:40:45 ===

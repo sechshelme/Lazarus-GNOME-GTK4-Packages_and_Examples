@@ -1,13 +1,13 @@
 program project1;
 
 uses
-  fp_tesseract,
-  fp_lept;
+  fp_lept,
+  fp_tesseract;
 
   procedure main;
   var
     handle: PTessBaseAPI;
-    image: PPix;
+    image: PPIX;
     text: pchar;
   begin
     WriteLn('TessVersion:      ', TessVersion);
@@ -21,7 +21,7 @@ uses
       WriteLn('Fehler beim Laden des Bildes.');
       Exit;
     end;
-    WriteLn('Size: ', pixGetWidth(image),' x ',pixGetHeight(image));
+    WriteLn('Size: ', pixGetWidth(image), ' x ', pixGetHeight(image));
     WriteLn();
 
     // Tesseract Handle erstellen

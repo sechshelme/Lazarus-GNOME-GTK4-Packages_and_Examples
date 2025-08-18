@@ -8,7 +8,6 @@ type
     nwritten: Tl_int32;
     arr: Pl_uint8;
   end;
-  PL_ByteBuffer = ^TL_ByteBuffer;
 
   TL_BBUFFER = TL_ByteBuffer;
   PL_BBUFFER = ^TL_BBUFFER;

@@ -98,8 +98,8 @@ type
     objloc: PL_Dna;
     xrefloc: Tl_int32;
   end;
-  PL_Pdf_Data = ^TL_Pdf_Data;
-  PPL_Pdf_Data = ^PL_Pdf_Data;
+  PL_PDF_DATA = ^TL_Pdf_Data;
+  PPL_PDF_DATA = ^PL_PDF_DATA;
 
   // === Konventiert am: 17-8-25 13:40:12 ===
 
@@ -111,14 +111,9 @@ type
 
 function L_FORMAT_IS_TIFF(f: integer): boolean; inline;
 begin
-  Result := (f = IFF_TIFF) or
-    (f = IFF_TIFF_PACKBITS) or
-    (f = IFF_TIFF_RLE) or
-    (f = IFF_TIFF_G3) or
-    (f = IFF_TIFF_G4) or
-    (f = IFF_TIFF_LZW) or
-    (f = IFF_TIFF_ZIP) or
-    (f = IFF_TIFF_JPEG);
+  Result :=
+    (f = IFF_TIFF) or (f = IFF_TIFF_PACKBITS) or (f = IFF_TIFF_RLE) or (f = IFF_TIFF_G3) or
+    (f = IFF_TIFF_G4) or (f = IFF_TIFF_LZW) or (f = IFF_TIFF_ZIP) or (f = IFF_TIFF_JPEG);
 end;
 
 

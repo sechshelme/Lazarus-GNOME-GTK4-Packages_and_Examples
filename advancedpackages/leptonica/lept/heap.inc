@@ -8,8 +8,8 @@ type
     arr: ^pointer;
     direction: Tl_int32;
   end;
-  PL_Heap = ^TL_Heap;
-  PPL_Heap = ^PL_Heap;
+  PL_HEAP = ^TL_Heap;
+  PPL_HEAP = ^PL_HEAP;
 
   // === Konventiert am: 17-8-25 13:40:10 ===
 

@@ -2,7 +2,7 @@
 
 
 type
-  PL_Hashitem = ^TL_Hashitem;
+  PL_HASHITEM = ^TL_Hashitem;
 
   TL_Hashitem = record
     key: Tl_uint64;
@@ -18,8 +18,8 @@ type
     hashtab: ^PL_Hashitem;
     tabsize: Tl_int32;
   end;
-  PL_Hashmap = ^TL_Hashmap;
-  PPL_Hashmap = ^PL_Hashmap;
+  PL_HASHMAP = ^TL_Hashmap;
+  PPL_HASHMAP = ^PL_HASHMAP;
 
 const
   L_UNDEFINED = 0;

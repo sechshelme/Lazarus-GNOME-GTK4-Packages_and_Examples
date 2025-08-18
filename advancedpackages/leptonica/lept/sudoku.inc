@@ -12,8 +12,8 @@ type
     finished: Tl_int32;
     failure: Tl_int32;
   end;
-  PL_Sudoku = ^TL_Sudoku;
-  PPL_Sudoku = ^PL_Sudoku;
+  PL_SUDOKU = ^TL_Sudoku;
+  PPL_SUDOKU = ^PL_SUDOKU;
 
 const
   L_SUDOKU_INIT = 0;

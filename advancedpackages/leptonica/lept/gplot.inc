@@ -59,8 +59,8 @@ type
     xlabel: pchar;
     ylabel: pchar;
   end;
-  PGPlot = ^TGPlot;
-  PPGPlot = ^PGPlot;
+  PGPLOT = ^TGPlot;
+  PPGPLOT = ^PGPLOT;
 
   // === Konventiert am: 17-8-25 13:40:05 ===
 

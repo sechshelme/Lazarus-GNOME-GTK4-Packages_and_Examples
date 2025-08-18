@@ -32,7 +32,7 @@ type
     nawidth_r: PNuma;
     nascore_r: PNuma;
   end;
-  PL_Rdid = ^TL_Rdid;
+  PL_RDID = ^TL_Rdid;
 
   TL_Rch = record
     index: Tl_int32;
@@ -43,8 +43,8 @@ type
     yloc: Tl_int32;
     width: Tl_int32;
   end;
-  PL_Rch = ^TL_Rch;
-  PPL_Rch = ^PL_Rch;
+  PL_RCH = ^TL_Rch;
+  PPL_RCH = ^PL_RCH;
 
   TL_Rcha = record
     naindex: PNuma;
@@ -55,8 +55,8 @@ type
     nayloc: PNuma;
     nawidth: PNuma;
   end;
-  PL_Rcha = ^TL_Rcha;
-  PPL_Rcha = ^PL_Rcha;
+  PL_RCHA = ^TL_Rcha;
+  PPL_RCHA = ^PL_RCHA;
 
   TL_Recog = record
     scalew: Tl_int32;
@@ -112,8 +112,8 @@ type
     rch: PL_Rch;
     rcha: PL_Rcha;
   end;
-  PL_Recog = ^TL_Recog;
-  PPL_Recog = ^PL_Recog;
+  PL_RECOG = ^TL_Recog;
+  PPL_RECOG = ^PL_RECOG;
 
 const
   L_UNKNOWN = 0;

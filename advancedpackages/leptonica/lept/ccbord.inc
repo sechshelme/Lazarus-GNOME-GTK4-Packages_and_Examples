@@ -21,8 +21,8 @@ type
     splocal: PPta;
     spglobal: PPta;
   end;
-  PCCBord = ^TCCBord;
-  PPCCBord = ^PCCBord;
+  PCCBORD = ^TCCBord;
+  PPCCBORD = ^PCCBORD;
 
   TCCBorda = record
     pix: PPix;
@@ -32,8 +32,8 @@ type
     nalloc: Tl_int32;
     ccb: ^PCCBord;
   end;
-  PCCBorda = ^TCCBorda;
-  PPCCBorda = ^PCCBorda;
+  PCCBORDA = ^TCCBorda;
+  PPCCBORDA = ^PCCBORDA;
 
 
   // === Konventiert am: 16-8-25 20:03:42 ===

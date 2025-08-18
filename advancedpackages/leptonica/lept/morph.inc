@@ -13,16 +13,16 @@ type
     data: ^Pl_int32;
     name: pchar;
   end;
-  PSel = ^TSel;
-  PPSel = ^PSel;
+  PSEL = ^TSel;
+  PPSEL = ^PSEL;
 
   TSela = record
     n: Tl_int32;
     nalloc: Tl_int32;
     sel: ^PSel;
   end;
-  PSela = ^TSela;
-  PPSela = ^PSela;
+  PSELA = ^TSela;
+  PPSELA = ^PSELA;
 
 const
   KERNEL_VERSION_NUMBER = 2;
@@ -35,8 +35,8 @@ type
     cx: Tl_int32;
     data: ^Pl_float32;
   end;
-  PL_Kernel = ^TL_Kernel;
-  PPL_Kernel = ^PL_Kernel;
+  PL_KERNEL = ^TL_Kernel;
+  PPL_KERNEL = ^PL_KERNEL;
 
 const
   SYMMETRIC_MORPH_BC = 0;

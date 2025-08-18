@@ -10,8 +10,8 @@ type
     descr: PSARRAY;
     n: Tl_int32;
   end;
-  PL_StrCode = ^TL_StrCode;
-  PPL_StrCode = ^PL_StrCode;
+  PL_STRCODE = ^TL_StrCode;
+  PPL_STRCODE = ^PL_STRCODE;
 
 const
   L_STR_TYPE = 0;

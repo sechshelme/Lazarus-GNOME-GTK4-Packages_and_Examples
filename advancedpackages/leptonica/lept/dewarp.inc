@@ -26,8 +26,8 @@ type
     check_columns: Tl_int32;
     modelsready: Tl_int32;
   end;
-  PL_Dewarpa = ^TL_Dewarpa;
-  PPL_Dewarpa = ^PL_Dewarpa;
+  PL_DEWARPA = ^TL_Dewarpa;
+  PPL_DEWARPA = ^PL_DEWARPA;
 
   TL_Dewarp = record
     dewa: PL_Dewarpa;
@@ -65,8 +65,8 @@ type
     skip_horiz: Tl_int32;
     debug: Tl_int32;
   end;
-  PL_Dewarp = ^TL_Dewarp;
-  PPL_Dewarp = ^PL_Dewarp;
+  PL_DEWARP = ^TL_Dewarp;
+  PPL_DEWARP = ^PL_DEWARP;
 
 
   // === Konventiert am: 17-8-25 13:40:00 ===

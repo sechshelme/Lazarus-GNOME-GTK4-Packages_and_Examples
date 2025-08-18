@@ -7,14 +7,14 @@ const
   L_FLOAT_TYPE = 3;
 
 type
-  TRB_TYPE = record
+  Trb_type = record
     case longint of
       0: (itype: Tl_int64);
       1: (utype: Tl_uint64);
       2: (ftype: Tl_float64);
       3: (ptype: pointer);
   end;
-  PRB_TYPE = ^TRB_TYPE;
+  PRB_TYPE = ^Trb_type;
 
   PL_Rbtree_Node = ^TL_Rbtree_Node;
 

@@ -12,8 +12,8 @@ type
     display: Tl_int32;
     tstart: TL_TIMER;
   end;
-  PL_RegParams = ^TL_RegParams;
-  PPL_RegParams = ^PL_RegParams;
+  PL_REGPARAMS = ^TL_RegParams;
+  PPL_REGPARAMS = ^PL_REGPARAMS;
 
 const
   L_REG_GENERATE = 0;

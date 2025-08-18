@@ -2,8 +2,10 @@ unit fp_lept;
 
 interface
 
+{$IFDEF msWindows}
 uses
-  ctypes;
+  windows;
+{$ENDIF}
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
