@@ -74,12 +74,12 @@ uses
   gsl_statistics_float,
   gsl_statistics_long_double,
 
-  gsl_bst_types,            // extern testen
-  gsl_bst,            // extern testen
-  gsl_bst_avl,            // extern testen
-  gsl_bst_rb,            // extern testen
+  gsl_bst_types,
+  gsl_bst_avl_,
+  gsl_bst_rb_,
+  gsl_bst,
 
-  gsl_spmatrix,
+  gsl_spmatrix,       // makro
   gsl_spmatrix_char,
   gsl_spmatrix_short,
   gsl_spmatrix_int,
@@ -153,7 +153,7 @@ uses
 
 begin
   main;
-  gsl_spmatrix_complex_long_double_add_to_dense(
-  gsl_complex_rect(0,0);
+//  gsl_spmatrix_complex_long_double_add_to_dense(nil,nil);
+//  gsl_complex_rect(0,0);
 end.
 

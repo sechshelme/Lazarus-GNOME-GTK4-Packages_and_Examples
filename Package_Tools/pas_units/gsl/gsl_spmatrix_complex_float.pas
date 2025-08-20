@@ -3,7 +3,7 @@ unit gsl_spmatrix_complex_float;
 interface
 
 uses
-  fp_gsl, gsl_bst;
+  fp_gsl, gsl_bst, gsl_spmatrix, gsl_complex, gsl_vector_complex_float, gsl_matrix_complex_float;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

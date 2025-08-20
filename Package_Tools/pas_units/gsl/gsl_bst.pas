@@ -3,7 +3,7 @@ unit gsl_bst;
 interface
 
 uses
-  fp_gsl, gsl_bst_types;
+  fp_gsl, gsl_bst_types, gsl_bst_avl_, gsl_bst_rb_;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -14,7 +14,7 @@ type
   Tgsl_bst_type = record
     name: pchar;
     node_size: Tsize_t;
-    init: function(allocator: Pgsl_bst_allocator; compare: Pgsl_bst_cmp_function; params: pointer; vtable: pointer): longint; cdecl;
+    init: function(allocator: Pgsl_bst_allocator; compare: Tgsl_bst_cmp_function; params: pointer; vtable: pointer): longint; cdecl;
     nodes: function(vtable: pointer): Tsize_t; cdecl;
     insert: function(item: pointer; vtable: pointer): pointer; cdecl;
     find: function(item: pointer; vtable: pointer): pointer; cdecl;
