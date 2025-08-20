@@ -3,11 +3,9 @@ unit gsl_blas;
 interface
 
 uses
-  fp_gsl, gsl_blas_types, gsl_vector_double, gsl_vector_float, gsl_vector_complex_float, gsl_complex, gsl_vector_complex_double,
-
-  gsl_matrix_complex_double,
-  gsl_matrix_complex_float,
-  gsl_matrix_float, gsl_matrix_double;
+  fp_gsl, gsl_blas_types,
+  gsl_vector_double, gsl_vector_float, gsl_vector_complex_float, gsl_complex, gsl_vector_complex_double,
+  gsl_matrix_complex_double, gsl_matrix_complex_float, gsl_matrix_float, gsl_matrix_double;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

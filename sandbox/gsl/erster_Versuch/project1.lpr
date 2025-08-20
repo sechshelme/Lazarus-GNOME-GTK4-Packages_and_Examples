@@ -14,15 +14,13 @@ uses
   gsl_complex,
 
   gsl_block_char,
+  gsl_block_short,
   gsl_block_int,
   gsl_block_long,
-  gsl_block_short,
   gsl_block_uchar,
+  gsl_block_ushort,
   gsl_block_uint,
   gsl_block_ulong,
-  gsl_block_ushort,
-
-
   gsl_block_double,
   gsl_block_float,
   gsl_block_long_double,
@@ -31,6 +29,14 @@ uses
   gsl_block_complex_float,
   gsl_block_complex_long_double,
 
+  gsl_vector_char,
+  gsl_vector_short,
+  gsl_vector_int,
+  gsl_vector_long,
+  gsl_vector_uchar,
+  gsl_vector_ushort,
+  gsl_vector_uint,
+  gsl_vector_ulong,
   gsl_vector_double,
   gsl_vector_float,
   gsl_vector_long_double,
@@ -40,6 +46,14 @@ uses
   gsl_vector_complex_float,
   gsl_vector_complex_long_double,
 
+  gsl_matrix_char,
+  gsl_matrix_short,
+  gsl_matrix_int,
+  gsl_matrix_long,
+  gsl_matrix_uchar,
+  gsl_matrix_ushort,
+  gsl_matrix_uint,
+  gsl_matrix_ulong,
   gsl_matrix_double,
   gsl_matrix_float,
   gsl_matrix_long_double,
@@ -48,9 +62,43 @@ uses
   gsl_matrix_complex_float,
   gsl_matrix_complex_long_double,
 
+  gsl_statistics_char,
+  gsl_statistics_short,
+  gsl_statistics_int,
+  gsl_statistics_long,
+  gsl_statistics_uchar,
+  gsl_statistics_ushort,
+  gsl_statistics_uint,
+  gsl_statistics_ulong,
+  gsl_statistics_double,
+  gsl_statistics_float,
+  gsl_statistics_long_double,
+
+  gsl_bst_types,            // extern testen
+  gsl_bst,            // extern testen
+  gsl_bst_avl,            // extern testen
+  gsl_bst_rb,            // extern testen
+
+  gsl_spmatrix,
+  gsl_spmatrix_char,
+  gsl_spmatrix_short,
+  gsl_spmatrix_int,
+  gsl_spmatrix_long,
+  gsl_spmatrix_uchar,
+  gsl_spmatrix_ushort,
+  gsl_spmatrix_uint,
+  gsl_spmatrix_ulong,
+  gsl_spmatrix_double,
+  gsl_spmatrix_float,
+  gsl_spmatrix_long_double,
+  gsl_spmatrix_complex_double,
+  gsl_spmatrix_complex_float,
+  gsl_spmatrix_complex_long_double,
+
+
+
+
   gsl_complex_math,
-
-
   gsl_blas,
 
 
@@ -105,52 +153,7 @@ uses
 
 begin
   main;
+  gsl_spmatrix_complex_long_double_add_to_dense(
   gsl_complex_rect(0,0);
 end.
-(*
-// gcc -o main main.c -lgsl -lgslcblas
 
-/* Zum Kompilieren: gcc test.c -lgsl -lgslcblas -o test */
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <gsl/gsl_matrix.h>
-#include <gsl/gsl_blas.h>
-
-/* Funktion zum Ausgeben einer gsl_matrix */
-void print_gslmat(const gsl_matrix *m) {
-    for (size_t i = 0; i < m->size1; ++i) {
-        for (size_t j = 0; j < m->size2; ++j)
-            printf("%g ", gsl_matrix_get(m, i, j));
-        printf("\n");
-    }
-}
-
-int main() {
-    // Erzeuge eine 3x4 Matrix
-    gsl_matrix *mat = gsl_matrix_alloc(3, 4);
-
-    // Fülle die Matrix mit Zufallswerten zwischen 0 und 1
-    for (size_t i = 0; i < mat->size1; ++i) {
-        for (size_t j = 0; j < mat->size2; ++j) {
-            gsl_matrix_set(mat, i, j, (double)rand() / RAND_MAX);
-        }
-    }
-
-    printf("Original matrix\n");
-    print_gslmat(mat);
-
-    // Normalisiere jede Spalte der Matrix
-    for (size_t j = 0; j < mat->size2; ++j) {
-        gsl_vector_view col = gsl_matrix_column(mat, j);
-        double norm = gsl_blas_dasum(&col.vector); // L1-Norm (Summe)
-        gsl_blas_dscal(1 / norm, &col.vector);     // Skaliere Spalte
-    }
-
-    printf("Normalized matrix\n");
-    print_gslmat(mat);
-
-    gsl_matrix_free(mat);
-    return 0;
-}
-*)
