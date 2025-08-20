@@ -22,15 +22,6 @@
 #include <gsl/gsl_inline.h>
 #include <gsl/gsl_complex.h>
 
-#undef 
-#undef 
-#ifdef __cplusplus
-#define  extern "C" {
-#define  }
-#else
-#define            /* empty */
-#define              /* empty */
-#endif
 
 
 
@@ -40,15 +31,6 @@ gsl_complex gsl_complex_polar (double r, double theta); /* r= r e^(i theta) */
 
  gsl_complex gsl_complex_rect (double x, double y);  /* r= real+i*imag */
 
-#ifdef HAVE_INLINE
-INLINE_FUN gsl_complex
-gsl_complex_rect (double x, double y)
-{                               /* return z = x + i y */
-  gsl_complex z;
-  GSL_SET_COMPLEX (&z, x, y);
-  return z;
-}
-#endif
 
 #define GSL_COMPLEX_ONE (gsl_complex_rect(1.0,0.0))
 #define GSL_COMPLEX_ZERO (gsl_complex_rect(0.0,0.0))

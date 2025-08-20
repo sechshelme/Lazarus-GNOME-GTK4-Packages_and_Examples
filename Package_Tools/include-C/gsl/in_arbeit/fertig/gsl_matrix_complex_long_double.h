@@ -28,15 +28,6 @@
 #include <gsl/gsl_vector_complex_long_double.h>
 #include <gsl/gsl_blas_types.h>
 
-#undef 
-#undef 
-#ifdef __cplusplus
-# define  extern "C" {
-# define  }
-#else
-# define  /* empty */
-# define  /* empty */
-#endif
 
 
 
@@ -45,7 +36,7 @@ typedef struct
   size_t size1;
   size_t size2;
   size_t tda;
-  long double * data;
+  long_double * data;
   gsl_block_complex_long_double * block;
   int owner;
 } gsl_matrix_complex_long_double ;
@@ -126,12 +117,12 @@ gsl_matrix_complex_long_double_subcolumn (gsl_matrix_complex_long_double * m,
                                     const size_t n);
 
 _gsl_matrix_complex_long_double_view
-gsl_matrix_complex_long_double_view_array (long double * base,
+gsl_matrix_complex_long_double_view_array (long_double * base,
                              const size_t n1, 
                              const size_t n2);
 
 _gsl_matrix_complex_long_double_view
-gsl_matrix_complex_long_double_view_array_with_tda (long double * base, 
+gsl_matrix_complex_long_double_view_array_with_tda (long_double * base, 
                                       const size_t n1, 
                                       const size_t n2,
                                       const size_t tda);
@@ -183,12 +174,12 @@ gsl_matrix_complex_long_double_const_subcolumn (const gsl_matrix_complex_long_do
                                           const size_t n);
 
 _gsl_matrix_complex_long_double_const_view
-gsl_matrix_complex_long_double_const_view_array (const long double * base,
+gsl_matrix_complex_long_double_const_view_array (const long_double * base,
                                    const size_t n1, 
                                    const size_t n2);
 
 _gsl_matrix_complex_long_double_const_view
-gsl_matrix_complex_long_double_const_view_array_with_tda (const long double * base, 
+gsl_matrix_complex_long_double_const_view_array_with_tda (const long_double * base, 
                                             const size_t n1, 
                                             const size_t n2,
                                             const size_t tda);
@@ -263,95 +254,6 @@ int gsl_matrix_complex_long_double_set_col(gsl_matrix_complex_long_double * m, c
  gsl_complex_long_double * gsl_matrix_complex_long_double_ptr(gsl_matrix_complex_long_double * m, const size_t i, const size_t j);
  const gsl_complex_long_double * gsl_matrix_complex_long_double_const_ptr(const gsl_matrix_complex_long_double * m, const size_t i, const size_t j);
 
-#ifdef HAVE_INLINE
-
-INLINE_FUN 
-gsl_complex_long_double
-gsl_matrix_complex_long_double_get(const gsl_matrix_complex_long_double * m, 
-                     const size_t i, const size_t j)
-{
-#if GSL_RANGE_CHECK
-  if (GSL_RANGE_COND(1)) 
-    {
-      gsl_complex_long_double zero = {{0,0}};
-
-      if (i >= m->size1)
-        {
-          GSL_ERROR_VAL("first index out of range", GSL_EINVAL, zero) ;
-        }
-      else if (j >= m->size2)
-        {
-          GSL_ERROR_VAL("second index out of range", GSL_EINVAL, zero) ;
-        }
-    }
-#endif
-  return *(gsl_complex_long_double *)(m->data + 2*(i * m->tda + j)) ;
-} 
-
-INLINE_FUN 
-void
-gsl_matrix_complex_long_double_set(gsl_matrix_complex_long_double * m, 
-                     const size_t i, const size_t j, const gsl_complex_long_double x)
-{
-#if GSL_RANGE_CHECK
-  if (GSL_RANGE_COND(1)) 
-    {
-      if (i >= m->size1)
-        {
-          GSL_ERROR_VOID("first index out of range", GSL_EINVAL) ;
-        }
-      else if (j >= m->size2)
-        {
-          GSL_ERROR_VOID("second index out of range", GSL_EINVAL) ;
-        }
-    }
-#endif
-  *(gsl_complex_long_double *)(m->data + 2*(i * m->tda + j)) = x ;
-}
-
-INLINE_FUN 
-gsl_complex_long_double *
-gsl_matrix_complex_long_double_ptr(gsl_matrix_complex_long_double * m, 
-                             const size_t i, const size_t j)
-{
-#if GSL_RANGE_CHECK
-  if (GSL_RANGE_COND(1)) 
-    {
-      if (i >= m->size1)
-        {
-          GSL_ERROR_NULL("first index out of range", GSL_EINVAL) ;
-        }
-      else if (j >= m->size2)
-        {
-          GSL_ERROR_NULL("second index out of range", GSL_EINVAL) ;
-        }
-    }
-#endif
-  return (gsl_complex_long_double *)(m->data + 2*(i * m->tda + j)) ;
-} 
-
-INLINE_FUN 
-const gsl_complex_long_double *
-gsl_matrix_complex_long_double_const_ptr(const gsl_matrix_complex_long_double * m, 
-                                   const size_t i, const size_t j)
-{
-#if GSL_RANGE_CHECK
-  if (GSL_RANGE_COND(1)) 
-    {
-      if (i >= m->size1)
-        {
-          GSL_ERROR_NULL("first index out of range", GSL_EINVAL) ;
-        }
-      else if (j >= m->size2)
-        {
-          GSL_ERROR_NULL("second index out of range", GSL_EINVAL) ;
-        }
-    }
-#endif
-  return (const gsl_complex_long_double *)(m->data + 2*(i * m->tda + j)) ;
-} 
-
-#endif /* HAVE_INLINE */
 
 
 

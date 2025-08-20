@@ -29,23 +29,13 @@
 #include <gsl/gsl_vector_complex.h>
 #include <gsl/gsl_block_complex_long_double.h>
 
-#undef 
-#undef 
-#ifdef __cplusplus
-# define  extern "C" {
-# define  }
-#else
-# define  /* empty */
-# define  /* empty */
-#endif
-
 
 
 typedef struct 
 {
   size_t size;
   size_t stride;
-  long double *data;
+  long_double *data;
   gsl_block_complex_long_double *block;
   int owner;
 } gsl_vector_complex_long_double;
@@ -86,20 +76,20 @@ void gsl_vector_complex_long_double_free (gsl_vector_complex_long_double * v);
 /* Views */
 
 _gsl_vector_complex_long_double_view
-gsl_vector_complex_long_double_view_array (long double *base,
+gsl_vector_complex_long_double_view_array (long_double *base,
                                      size_t n);
 
 _gsl_vector_complex_long_double_view
-gsl_vector_complex_long_double_view_array_with_stride (long double *base,
+gsl_vector_complex_long_double_view_array_with_stride (long_double *base,
                                                  size_t stride,
                                                  size_t n);
 
 _gsl_vector_complex_long_double_const_view
-gsl_vector_complex_long_double_const_view_array (const long double *base,
+gsl_vector_complex_long_double_const_view_array (const long_double *base,
                                            size_t n);
 
 _gsl_vector_complex_long_double_const_view
-gsl_vector_complex_long_double_const_view_array_with_stride (const long double *base,
+gsl_vector_complex_long_double_const_view_array_with_stride (const long_double *base,
                                                        size_t stride,
                                                        size_t n);
 
@@ -187,65 +177,6 @@ int gsl_vector_complex_long_double_axpby (const gsl_complex_long_double alpha, c
 
 #ifdef HAVE_INLINE
 
-INLINE_FUN
-gsl_complex_long_double
-gsl_vector_complex_long_double_get (const gsl_vector_complex_long_double * v,
-                              const size_t i)
-{
-#if GSL_RANGE_CHECK
-  if (GSL_RANGE_COND(i >= v->size))
-    {
-      gsl_complex_long_double zero = {{0, 0}};
-      GSL_ERROR_VAL ("index out of range", GSL_EINVAL, zero);
-    }
-#endif
-  return *GSL_COMPLEX_LONG_DOUBLE_AT (v, i);
-}
-
-INLINE_FUN
-void
-gsl_vector_complex_long_double_set (gsl_vector_complex_long_double * v,
-                              const size_t i, gsl_complex_long_double z)
-{
-#if GSL_RANGE_CHECK
-  if (GSL_RANGE_COND(i >= v->size))
-    {
-      GSL_ERROR_VOID ("index out of range", GSL_EINVAL);
-    }
-#endif
-  *GSL_COMPLEX_LONG_DOUBLE_AT (v, i) = z;
-}
-
-INLINE_FUN
-gsl_complex_long_double *
-gsl_vector_complex_long_double_ptr (gsl_vector_complex_long_double * v,
-                              const size_t i)
-{
-#if GSL_RANGE_CHECK
-  if (GSL_RANGE_COND(i >= v->size))
-    {
-      GSL_ERROR_NULL ("index out of range", GSL_EINVAL);
-    }
-#endif
-  return GSL_COMPLEX_LONG_DOUBLE_AT (v, i);
-}
-
-INLINE_FUN
-const gsl_complex_long_double *
-gsl_vector_complex_long_double_const_ptr (const gsl_vector_complex_long_double * v,
-                                    const size_t i)
-{
-#if GSL_RANGE_CHECK
-  if (GSL_RANGE_COND(i >= v->size))
-    {
-      GSL_ERROR_NULL ("index out of range", GSL_EINVAL);
-    }
-#endif
-  return GSL_COMPLEX_LONG_DOUBLE_AT (v, i);
-}
-
-
-#endif /* HAVE_INLINE */
 
 
 

@@ -23,15 +23,6 @@
 #include <stdlib.h>
 #include <gsl/gsl_errno.h>
 
-#undef 
-#undef 
-#ifdef __cplusplus
-# define  extern "C" {
-# define  }
-#else
-# define  /* empty */
-# define  /* empty */
-#endif
 
 
 

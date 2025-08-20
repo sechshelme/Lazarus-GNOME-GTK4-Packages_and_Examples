@@ -1,0 +1,40 @@
+unit gsl_const_num;
+
+interface
+
+uses
+  fp_gsl;
+
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
+
+const
+  GSL_CONST_NUM_FINE_STRUCTURE = 7.297352533e-3;
+  GSL_CONST_NUM_AVOGADRO = 6.02214199e23;
+  GSL_CONST_NUM_YOTTA = 1e24;
+  GSL_CONST_NUM_ZETTA = 1e21;
+  GSL_CONST_NUM_EXA = 1e18;
+  GSL_CONST_NUM_PETA = 1e15;
+  GSL_CONST_NUM_TERA = 1e12;
+  GSL_CONST_NUM_GIGA = 1e9;
+  GSL_CONST_NUM_MEGA = 1e6;
+  GSL_CONST_NUM_KILO = 1e3;
+  GSL_CONST_NUM_MILLI = 1e-3;
+  GSL_CONST_NUM_MICRO = 1e-6;
+  GSL_CONST_NUM_NANO = 1e-9;
+  GSL_CONST_NUM_PICO = 1e-12;
+  GSL_CONST_NUM_FEMTO = 1e-15;
+  GSL_CONST_NUM_ATTO = 1e-18;
+  GSL_CONST_NUM_ZEPTO = 1e-21;
+  GSL_CONST_NUM_YOCTO = 1e-24;
+
+  // === Konventiert am: 20-8-25 15:41:41 ===
+
+
+implementation
+
+
+
+end.

@@ -1,28 +1,54 @@
 program project1;
 
 uses
+  gsl_version_,       // underline
+
+  gsl_const_cgs,
+  gsl_const_cgsm,
+  gsl_const_mks,
+  gsl_const_mksa,
+  gsl_const_num,
+
   gsl_cblas,
   gsl_blas_types,
   gsl_complex,
 
+  gsl_block_char,
+  gsl_block_int,
+  gsl_block_long,
+  gsl_block_short,
+  gsl_block_uchar,
+  gsl_block_uint,
+  gsl_block_ulong,
+  gsl_block_ushort,
+
+
   gsl_block_double,
   gsl_block_float,
   gsl_block_long_double,
+
   gsl_block_complex_double,
   gsl_block_complex_float,
+  gsl_block_complex_long_double,
 
   gsl_vector_double,
   gsl_vector_float,
   gsl_vector_long_double,
 
+  gsl_vector_complex,
   gsl_vector_complex_double,
   gsl_vector_complex_float,
-  gsl_vector_complex,
+  gsl_vector_complex_long_double,
 
   gsl_matrix_double,
   gsl_matrix_float,
+  gsl_matrix_long_double,
+
   gsl_matrix_complex_double,
   gsl_matrix_complex_float,
+  gsl_matrix_complex_long_double,
+
+  gsl_complex_math,
 
 
   gsl_blas,
@@ -49,6 +75,9 @@ uses
     col: Tgsl_vector_view;
     norm: double;
   begin
+    WriteLn('Version: ', gsl_version);
+    WriteLn();
+
     mat := gsl_matrix_alloc(3, 4);
 
     for i := 0 to mat^.size1 - 1 do begin
@@ -76,6 +105,7 @@ uses
 
 begin
   main;
+  gsl_complex_rect(0,0);
 end.
 (*
 // gcc -o main main.c -lgsl -lgslcblas
