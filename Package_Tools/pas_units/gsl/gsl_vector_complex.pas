@@ -3,37 +3,30 @@ unit gsl_vector_complex;
 interface
 
 uses
-  fp_gsl;
+  fp_gsl, gsl_vector_double, gsl_vector_float, gsl_vector_long_double, gsl_complex;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-//{ was #define dname(params) para_def_expr }
-//{ argument types are unknown }
-//{ return type might be wrong }   
-//
-//function GSL_VECTOR_REAL(z,i : longint) : longint;
-//
-//{ was #define dname(params) para_def_expr }
-//{ argument types are unknown }
-//{ return type might be wrong }   
-//function GSL_VECTOR_IMAG(z,i : longint) : longint;
-//
-//{ xxxxxxxxxxxx #define GSL_VECTOR_COMPLEX(zv, i) (*GSL_COMPLEX_AT((zv),(i))) }
-//{ was #define dname(params) para_def_expr }
-//{ argument types are unknown }
-//function GSL_COMPLEX_AT(zv,i : longint) : Pgsl_complex;
-//
-//{ was #define dname(params) para_def_expr }
-//{ argument types are unknown }
-//function GSL_COMPLEX_FLOAT_AT(zv,i : longint) : Pgsl_complex_float;
-//
-//{ was #define dname(params) para_def_expr }
-//{ argument types are unknown }
-//function GSL_COMPLEX_LONG_DOUBLE_AT(zv,i : longint) : Pgsl_complex_long_double;
+{ ===== Double-Version ===== }
+function GSL_VECTOR_REAL(zv: Pgsl_vector; i: SizeInt): double; inline;
+function GSL_VECTOR_IMAG(zv: Pgsl_vector; i: SizeInt): double; inline;
+function GSL_VECTOR_COMPLEX(zv: PGSL_Vector; i: SizeInt): Tgsl_complex; inline;
+function GSL_COMPLEX_AT(zv: Pgsl_vector; i: SizeInt): Pgsl_complex; inline;
 
+{ ===== Single-Version ===== }
+function GSL_VECTOR_REAL_F(zv: Pgsl_vector_float; i: SizeInt): single; inline;
+function GSL_VECTOR_IMAG_F(zv: Pgsl_vector_float; i: SizeInt): single; inline;
+function GSL_VECTOR_COMPLEX_F(zv: Pgsl_vector_float; i: SizeInt): Tgsl_complex_float; inline;
+function GSL_COMPLEX_FLOAT_AT(zv: Pgsl_vector_float; i: SizeInt): Pgsl_complex_float; inline;
+
+{ ===== LongDouble-Version ===== }
+function GSL_VECTOR_REAL_LD(zv: Pgsl_vector_long_double; i: SizeInt): extended; inline;
+function GSL_VECTOR_IMAG_LD(zv: Pgsl_vector_long_double; i: SizeInt): extended; inline;
+function GSL_VECTOR_COMPLEX_LD(zv: Pgsl_vector_long_double; i: SizeInt): Tgsl_complex_long_double; inline;
+function GSL_COMPLEX_LONG_DOUBLE_AT(zv: Pgsl_vector_long_double; i: SizeInt): Pgsl_complex_long_double; inline;
 
 // === Konventiert am: 18-8-25 16:38:38 ===
 
@@ -41,42 +34,67 @@ uses
 implementation
 
 
-//{ was #define dname(params) para_def_expr }
-//{ argument types are unknown }
-//{ return type might be wrong }   
-//function GSL_VECTOR_REAL(z,i : longint) : longint;
-//begin
-//  GSL_VECTOR_REAL:=z^.(data[(2*i)*(z^.stride)]);
-//end;
-//
-//{ was #define dname(params) para_def_expr }
-//{ argument types are unknown }
-//{ return type might be wrong }   
-//function GSL_VECTOR_IMAG(z,i : longint) : longint;
-//begin
-//  GSL_VECTOR_IMAG:=z^.(data[((2*i)*(z^.stride))+1]);
-//end;
-//
-//{ was #define dname(params) para_def_expr }
-//{ argument types are unknown }
-//function GSL_COMPLEX_AT(zv,i : longint) : Pgsl_complex;
-//begin
-//  GSL_COMPLEX_AT:=Pgsl_complex(@(zv^.(data[(2*i)*(zv^.stride)])));
-//end;
-//
-//{ was #define dname(params) para_def_expr }
-//{ argument types are unknown }
-//function GSL_COMPLEX_FLOAT_AT(zv,i : longint) : Pgsl_complex_float;
-//begin
-//  GSL_COMPLEX_FLOAT_AT:=Pgsl_complex_float(@(zv^.(data[(2*i)*(zv^.stride)])));
-//end;
-//
-//{ was #define dname(params) para_def_expr }
-//{ argument types are unknown }
-//function GSL_COMPLEX_LONG_DOUBLE_AT(zv,i : longint) : Pgsl_complex_long_double;
-//begin
-//  GSL_COMPLEX_LONG_DOUBLE_AT:=Pgsl_complex_long_double(@(zv^.(data[(2*i)*(zv^.stride)])));
-//end;
+{ ==== Double ==== }
+function GSL_VECTOR_REAL(zv: Pgsl_vector; i: SizeInt): double;
+begin
+  Result := zv^.data[2 * i * zv^.stride];
+end;
 
+function GSL_VECTOR_IMAG(zv: Pgsl_vector; i: SizeInt): double;
+begin
+  Result := zv^.data[2 * i * zv^.stride + 1];
+end;
+
+function GSL_VECTOR_COMPLEX(zv: PGSL_Vector; i: SizeInt): Tgsl_complex;
+begin
+  Result := Pgsl_complex(@zv^.data[2 * i * zv^.stride])^;
+end;
+
+function GSL_COMPLEX_AT(zv: Pgsl_vector; i: SizeInt): Pgsl_complex;
+begin
+  Result := Pgsl_complex(@zv^.data[2 * i * zv^.stride]);
+end;
+
+{ ==== Single ==== }
+function GSL_VECTOR_REAL_F(zv: Pgsl_vector_float; i: SizeInt): single;
+begin
+  Result := zv^.data[2 * i * zv^.stride];
+end;
+
+function GSL_VECTOR_IMAG_F(zv: Pgsl_vector_float; i: SizeInt): single;
+begin
+  Result := zv^.data[2 * i * zv^.stride + 1];
+end;
+
+function GSL_VECTOR_COMPLEX_F(zv: Pgsl_vector_float; i: SizeInt): Tgsl_complex_float;
+begin
+  Result := Pgsl_complex_float(@zv^.data[2 * i * zv^.stride])^;
+end;
+
+function GSL_COMPLEX_FLOAT_AT(zv: Pgsl_vector_float; i: SizeInt): Pgsl_complex_float;
+begin
+  Result := Pgsl_complex_float(@zv^.data[2 * i * zv^.stride]);
+end;
+
+{ ==== LongDouble ==== }
+function GSL_VECTOR_REAL_LD(zv: Pgsl_vector_long_double; i: SizeInt): extended;
+begin
+  Result := zv^.data[2 * i * zv^.stride];
+end;
+
+function GSL_VECTOR_IMAG_LD(zv: Pgsl_vector_long_double; i: SizeInt): extended;
+begin
+  Result := zv^.data[2 * i * zv^.stride + 1];
+end;
+
+function GSL_VECTOR_COMPLEX_LD(zv: Pgsl_vector_long_double; i: SizeInt): Tgsl_complex_long_double;
+begin
+  Result := Pgsl_complex_long_double(@zv^.data[2 * i * zv^.stride])^;
+end;
+
+function GSL_COMPLEX_LONG_DOUBLE_AT(zv: Pgsl_vector_long_double; i: SizeInt): Pgsl_complex_long_double;
+begin
+  Result := Pgsl_complex_long_double(@zv^.data[2 * i * zv^.stride]);
+end;
 
 end.

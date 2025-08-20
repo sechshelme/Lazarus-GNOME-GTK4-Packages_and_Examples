@@ -23,22 +23,13 @@
 #include <stdlib.h>
 #include <gsl/gsl_errno.h>
 
-#undef 
-#undef 
-#ifdef __cplusplus
-# define  extern "C" {
-# define  }
-#else
-# define  /* empty */
-# define  /* empty */
-#endif
 
 
 
 struct gsl_block_long_double_struct
 {
   size_t size;
-  long double *data;
+  long_double *data;
 };
 
 typedef struct gsl_block_long_double_struct gsl_block_long_double;
@@ -52,13 +43,13 @@ int gsl_block_long_double_fwrite (FILE * stream, const gsl_block_long_double * b
 int gsl_block_long_double_fscanf (FILE * stream, gsl_block_long_double * b);
 int gsl_block_long_double_fprintf (FILE * stream, const gsl_block_long_double * b, const char *format);
 
-int gsl_block_long_double_raw_fread (FILE * stream, long double * b, const size_t n, const size_t stride);
-int gsl_block_long_double_raw_fwrite (FILE * stream, const long double * b, const size_t n, const size_t stride);
-int gsl_block_long_double_raw_fscanf (FILE * stream, long double * b, const size_t n, const size_t stride);
-int gsl_block_long_double_raw_fprintf (FILE * stream, const long double * b, const size_t n, const size_t stride, const char *format);
+int gsl_block_long_double_raw_fread (FILE * stream, long_double * b, const size_t n, const size_t stride);
+int gsl_block_long_double_raw_fwrite (FILE * stream, const long_double * b, const size_t n, const size_t stride);
+int gsl_block_long_double_raw_fscanf (FILE * stream, long_double * b, const size_t n, const size_t stride);
+int gsl_block_long_double_raw_fprintf (FILE * stream, const long_double * b, const size_t n, const size_t stride, const char *format);
 
 size_t gsl_block_long_double_size (const gsl_block_long_double * b);
-long double * gsl_block_long_double_data (const gsl_block_long_double * b);
+long_double * gsl_block_long_double_data (const gsl_block_long_double * b);
 
 
 

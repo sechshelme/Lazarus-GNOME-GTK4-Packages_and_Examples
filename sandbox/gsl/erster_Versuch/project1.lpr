@@ -3,20 +3,21 @@ program project1;
 uses
   gsl_cblas,
   gsl_blas_types,
-
-  gsl_complex,         // makros
+  gsl_complex,
 
   gsl_block_double,
   gsl_block_float,
+  gsl_block_long_double,
   gsl_block_complex_double,
   gsl_block_complex_float,
 
   gsl_vector_double,
   gsl_vector_float,
+  gsl_vector_long_double,
 
-  gsl_vector_complex,   // makros
   gsl_vector_complex_double,
   gsl_vector_complex_float,
+  gsl_vector_complex,
 
   gsl_matrix_double,
   gsl_matrix_float,

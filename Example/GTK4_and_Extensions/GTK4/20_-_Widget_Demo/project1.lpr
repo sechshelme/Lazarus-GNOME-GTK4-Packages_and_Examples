@@ -10,12 +10,8 @@ uses
   SysUtils,
   fp_glib2,
 
-  fp_GDK4,
-  fp_GSK4,
   fp_GTK4,
-  fp_GTK4_unix_print,
-  //  GDK4_broadway,
-  //  GSK4_broadway,
+//  fp_GTK4_unix_print,
 
   // --- Eigenes
   ScrollBox,
