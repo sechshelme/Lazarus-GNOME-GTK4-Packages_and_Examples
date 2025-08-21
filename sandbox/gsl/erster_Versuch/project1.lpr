@@ -95,6 +95,31 @@ uses
   gsl_spmatrix_complex_float,
   gsl_spmatrix_complex_long_double,
 
+  gsl_permutation,
+
+  gsl_sort_char,
+  gsl_sort_short,
+  gsl_sort_int,
+  gsl_sort_long,
+  gsl_sort_uchar,
+  gsl_sort_ushort,
+  gsl_sort_uint,
+  gsl_sort_ulong,
+  gsl_sort_double,
+  gsl_sort_float,
+  gsl_sort_long_double,
+  gsl_sort_vector_char,
+  gsl_sort_vector_short,
+  gsl_sort_vector_int,
+  gsl_sort_vector_long,
+  gsl_sort_vector_uchar,
+  gsl_sort_vector_ushort,
+  gsl_sort_vector_uint,
+  gsl_sort_vector_ulong,
+  gsl_sort_vector_double,
+  gsl_sort_vector_float,
+  gsl_sort_vector_long_double,
+
 
 
 
@@ -153,7 +178,4 @@ uses
 
 begin
   main;
-//  gsl_spmatrix_complex_long_double_add_to_dense(nil,nil);
-//  gsl_complex_rect(0,0);
 end.
-
