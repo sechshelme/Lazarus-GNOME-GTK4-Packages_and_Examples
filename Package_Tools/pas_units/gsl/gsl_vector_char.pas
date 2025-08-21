@@ -14,7 +14,7 @@ type
   Tgsl_vector_char = record
     size: Tsize_t;
     stride: Tsize_t;
-    data: pchar;
+    data: pint8;
     block: Pgsl_block_char;
     owner: longint;
   end;
@@ -37,10 +37,10 @@ function gsl_vector_char_alloc_from_block(b: Pgsl_block_char; offset: Tsize_t; n
 function gsl_vector_char_alloc_from_vector(v: Pgsl_vector_char; offset: Tsize_t; n: Tsize_t; stride: Tsize_t): Pgsl_vector_char; cdecl; external libgsl;
 procedure gsl_vector_char_free(v: Pgsl_vector_char); cdecl; external libgsl;
 
-function gsl_vector_char_view_array(v: pchar; n: Tsize_t): Tgsl_vector_char_view; cdecl; external libgsl;
-function gsl_vector_char_view_array_with_stride(base: pchar; stride: Tsize_t; n: Tsize_t): Tgsl_vector_char_view; cdecl; external libgsl;
-function gsl_vector_char_const_view_array(v: pchar; n: Tsize_t): Tgsl_vector_char_const_view; cdecl; external libgsl;
-function gsl_vector_char_const_view_array_with_stride(base: pchar; stride: Tsize_t; n: Tsize_t): Tgsl_vector_char_const_view; cdecl; external libgsl;
+function gsl_vector_char_view_array(v: pint8; n: Tsize_t): Tgsl_vector_char_view; cdecl; external libgsl;
+function gsl_vector_char_view_array_with_stride(base: pint8; stride: Tsize_t; n: Tsize_t): Tgsl_vector_char_view; cdecl; external libgsl;
+function gsl_vector_char_const_view_array(v: pint8; n: Tsize_t): Tgsl_vector_char_const_view; cdecl; external libgsl;
+function gsl_vector_char_const_view_array_with_stride(base: pint8; stride: Tsize_t; n: Tsize_t): Tgsl_vector_char_const_view; cdecl; external libgsl;
 function gsl_vector_char_subvector(v: Pgsl_vector_char; i: Tsize_t; n: Tsize_t): Tgsl_vector_char_view; cdecl; external libgsl;
 function gsl_vector_char_subvector_with_stride(v: Pgsl_vector_char; i: Tsize_t; stride: Tsize_t; n: Tsize_t): Tgsl_vector_char_view; cdecl; external libgsl;
 function gsl_vector_char_const_subvector(v: Pgsl_vector_char; i: Tsize_t; n: Tsize_t): Tgsl_vector_char_const_view; cdecl; external libgsl;
@@ -59,7 +59,7 @@ function gsl_vector_char_swap(v: Pgsl_vector_char; w: Pgsl_vector_char): longint
 function gsl_vector_char_swap_elements(v: Pgsl_vector_char; i: Tsize_t; j: Tsize_t): longint; cdecl; external libgsl;
 function gsl_vector_char_max(v: Pgsl_vector_char): char; cdecl; external libgsl;
 function gsl_vector_char_min(v: Pgsl_vector_char): char; cdecl; external libgsl;
-procedure gsl_vector_char_minmax(v: Pgsl_vector_char; min_out: pchar; max_out: pchar); cdecl; external libgsl;
+procedure gsl_vector_char_minmax(v: Pgsl_vector_char; min_out: pint8; max_out: pint8); cdecl; external libgsl;
 function gsl_vector_char_max_index(v: Pgsl_vector_char): Tsize_t; cdecl; external libgsl;
 function gsl_vector_char_min_index(v: Pgsl_vector_char): Tsize_t; cdecl; external libgsl;
 procedure gsl_vector_char_minmax_index(v: Pgsl_vector_char; imin: Psize_t; imax: Psize_t); cdecl; external libgsl;
@@ -78,8 +78,8 @@ function gsl_vector_char_isneg(v: Pgsl_vector_char): longint; cdecl; external li
 function gsl_vector_char_isnonneg(v: Pgsl_vector_char): longint; cdecl; external libgsl;
 function gsl_vector_char_get(v: Pgsl_vector_char; i: Tsize_t): char; cdecl; external libgsl;
 procedure gsl_vector_char_set(v: Pgsl_vector_char; i: Tsize_t; x: char); cdecl; external libgsl;
-function gsl_vector_char_ptr(v: Pgsl_vector_char; i: Tsize_t): pchar; cdecl; external libgsl;
-function gsl_vector_char_const_ptr(v: Pgsl_vector_char; i: Tsize_t): pchar; cdecl; external libgsl;
+function gsl_vector_char_ptr(v: Pgsl_vector_char; i: Tsize_t): pint8; cdecl; external libgsl;
+function gsl_vector_char_const_ptr(v: Pgsl_vector_char; i: Tsize_t): pint8; cdecl; external libgsl;
 
 // === Konventiert am: 20-8-25 16:48:01 ===
 

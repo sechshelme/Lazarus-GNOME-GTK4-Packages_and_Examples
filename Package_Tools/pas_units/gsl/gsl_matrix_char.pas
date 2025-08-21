@@ -15,7 +15,7 @@ type
     size1: Tsize_t;
     size2: Tsize_t;
     tda: Tsize_t;
-    data: pchar;
+    data: pint8;
     block: Pgsl_block_char;
     owner: longint;
   end;
@@ -48,8 +48,8 @@ function gsl_matrix_char_subdiagonal(m: Pgsl_matrix_char; k: Tsize_t): Tgsl_vect
 function gsl_matrix_char_superdiagonal(m: Pgsl_matrix_char; k: Tsize_t): Tgsl_vector_char_view; cdecl; external libgsl;
 function gsl_matrix_char_subrow(m: Pgsl_matrix_char; i: Tsize_t; offset: Tsize_t; n: Tsize_t): Tgsl_vector_char_view; cdecl; external libgsl;
 function gsl_matrix_char_subcolumn(m: Pgsl_matrix_char; j: Tsize_t; offset: Tsize_t; n: Tsize_t): Tgsl_vector_char_view; cdecl; external libgsl;
-function gsl_matrix_char_view_array(base: pchar; n1: Tsize_t; n2: Tsize_t): Tgsl_matrix_char_view; cdecl; external libgsl;
-function gsl_matrix_char_view_array_with_tda(base: pchar; n1: Tsize_t; n2: Tsize_t; tda: Tsize_t): Tgsl_matrix_char_view; cdecl; external libgsl;
+function gsl_matrix_char_view_array(base: pint8; n1: Tsize_t; n2: Tsize_t): Tgsl_matrix_char_view; cdecl; external libgsl;
+function gsl_matrix_char_view_array_with_tda(base: pint8; n1: Tsize_t; n2: Tsize_t; tda: Tsize_t): Tgsl_matrix_char_view; cdecl; external libgsl;
 function gsl_matrix_char_view_vector(v: Pgsl_vector_char; n1: Tsize_t; n2: Tsize_t): Tgsl_matrix_char_view; cdecl; external libgsl;
 function gsl_matrix_char_view_vector_with_tda(v: Pgsl_vector_char; n1: Tsize_t; n2: Tsize_t; tda: Tsize_t): Tgsl_matrix_char_view; cdecl; external libgsl;
 function gsl_matrix_char_const_submatrix(m: Pgsl_matrix_char; i: Tsize_t; j: Tsize_t; n1: Tsize_t; n2: Tsize_t): Tgsl_matrix_char_const_view; cdecl; external libgsl;
@@ -60,8 +60,8 @@ function gsl_matrix_char_const_subdiagonal(m: Pgsl_matrix_char; k: Tsize_t): Tgs
 function gsl_matrix_char_const_superdiagonal(m: Pgsl_matrix_char; k: Tsize_t): Tgsl_vector_char_const_view; cdecl; external libgsl;
 function gsl_matrix_char_const_subrow(m: Pgsl_matrix_char; i: Tsize_t; offset: Tsize_t; n: Tsize_t): Tgsl_vector_char_const_view; cdecl; external libgsl;
 function gsl_matrix_char_const_subcolumn(m: Pgsl_matrix_char; j: Tsize_t; offset: Tsize_t; n: Tsize_t): Tgsl_vector_char_const_view; cdecl; external libgsl;
-function gsl_matrix_char_const_view_array(base: pchar; n1: Tsize_t; n2: Tsize_t): Tgsl_matrix_char_const_view; cdecl; external libgsl;
-function gsl_matrix_char_const_view_array_with_tda(base: pchar; n1: Tsize_t; n2: Tsize_t; tda: Tsize_t): Tgsl_matrix_char_const_view; cdecl; external libgsl;
+function gsl_matrix_char_const_view_array(base: pint8; n1: Tsize_t; n2: Tsize_t): Tgsl_matrix_char_const_view; cdecl; external libgsl;
+function gsl_matrix_char_const_view_array_with_tda(base: pint8; n1: Tsize_t; n2: Tsize_t; tda: Tsize_t): Tgsl_matrix_char_const_view; cdecl; external libgsl;
 function gsl_matrix_char_const_view_vector(v: Pgsl_vector_char; n1: Tsize_t; n2: Tsize_t): Tgsl_matrix_char_const_view; cdecl; external libgsl;
 function gsl_matrix_char_const_view_vector_with_tda(v: Pgsl_vector_char; n1: Tsize_t; n2: Tsize_t; tda: Tsize_t): Tgsl_matrix_char_const_view; cdecl; external libgsl;
 
@@ -83,7 +83,7 @@ function gsl_matrix_char_transpose_memcpy(dest: Pgsl_matrix_char; src: Pgsl_matr
 function gsl_matrix_char_transpose_tricpy(Uplo_src: TCBLAS_UPLO_t; Diag: TCBLAS_DIAG_t; dest: Pgsl_matrix_char; src: Pgsl_matrix_char): longint; cdecl; external libgsl;
 function gsl_matrix_char_max(m: Pgsl_matrix_char): char; cdecl; external libgsl;
 function gsl_matrix_char_min(m: Pgsl_matrix_char): char; cdecl; external libgsl;
-procedure gsl_matrix_char_minmax(m: Pgsl_matrix_char; min_out: pchar; max_out: pchar); cdecl; external libgsl;
+procedure gsl_matrix_char_minmax(m: Pgsl_matrix_char; min_out: pint8; max_out: pint8); cdecl; external libgsl;
 procedure gsl_matrix_char_max_index(m: Pgsl_matrix_char; imax: Psize_t; jmax: Psize_t); cdecl; external libgsl;
 procedure gsl_matrix_char_min_index(m: Pgsl_matrix_char; imin: Psize_t; jmin: Psize_t); cdecl; external libgsl;
 procedure gsl_matrix_char_minmax_index(m: Pgsl_matrix_char; imin: Psize_t; jmin: Psize_t; imax: Psize_t; jmax: Psize_t); cdecl; external libgsl;
@@ -110,8 +110,8 @@ function gsl_matrix_char_set_col(m: Pgsl_matrix_char; j: Tsize_t; v: Pgsl_vector
 
 function gsl_matrix_char_get(m: Pgsl_matrix_char; i: Tsize_t; j: Tsize_t): char; cdecl; external libgsl;
 procedure gsl_matrix_char_set(m: Pgsl_matrix_char; i: Tsize_t; j: Tsize_t; x: char); cdecl; external libgsl;
-function gsl_matrix_char_ptr(m: Pgsl_matrix_char; i: Tsize_t; j: Tsize_t): pchar; cdecl; external libgsl;
-function gsl_matrix_char_const_ptr(m: Pgsl_matrix_char; i: Tsize_t; j: Tsize_t): pchar; cdecl; external libgsl;
+function gsl_matrix_char_ptr(m: Pgsl_matrix_char; i: Tsize_t; j: Tsize_t): pint8; cdecl; external libgsl;
+function gsl_matrix_char_const_ptr(m: Pgsl_matrix_char; i: Tsize_t; j: Tsize_t): pint8; cdecl; external libgsl;
 
 // === Konventiert am: 20-8-25 17:01:49 ===
 

@@ -15,7 +15,7 @@ type
     size1: Tsize_t;
     size2: Tsize_t;
     i: Plongint;
-    data: pchar;
+    data: pint8;
     p: Plongint;
     nzmax: Tsize_t;
     nz: Tsize_t;
@@ -26,7 +26,7 @@ type
       case longint of
         0: (work_void: pointer);
         1: (work_int: Plongint);
-        2: (work_atomic: pchar);
+        2: (work_atomic: pint8);
       end;
     sptype: longint;
     spflags: Tsize_t;
@@ -58,9 +58,9 @@ function gsl_spmatrix_char_fread(stream: PFILE; m: Pgsl_spmatrix_char): longint;
 
 function gsl_spmatrix_char_get(m: Pgsl_spmatrix_char; i: Tsize_t; j: Tsize_t): char; cdecl; external libgsl;
 function gsl_spmatrix_char_set(m: Pgsl_spmatrix_char; i: Tsize_t; j: Tsize_t; x: char): longint; cdecl; external libgsl;
-function gsl_spmatrix_char_ptr(m: Pgsl_spmatrix_char; i: Tsize_t; j: Tsize_t): pchar; cdecl; external libgsl;
+function gsl_spmatrix_char_ptr(m: Pgsl_spmatrix_char; i: Tsize_t; j: Tsize_t): pint8; cdecl; external libgsl;
 
-function gsl_spmatrix_char_minmax(m: Pgsl_spmatrix_char; min_out: pchar; max_out: pchar): longint; cdecl; external libgsl;
+function gsl_spmatrix_char_minmax(m: Pgsl_spmatrix_char; min_out: pint8; max_out: pint8): longint; cdecl; external libgsl;
 function gsl_spmatrix_char_min_index(m: Pgsl_spmatrix_char; imin_out: Psize_t; jmin_out: Psize_t): longint; cdecl; external libgsl;
 
 function gsl_spmatrix_char_scale(m: Pgsl_spmatrix_char; x: char): longint; cdecl; external libgsl;

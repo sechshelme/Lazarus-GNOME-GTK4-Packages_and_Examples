@@ -96,6 +96,48 @@ uses
   gsl_spmatrix_complex_long_double,
 
   gsl_permutation,
+  gsl_permute_char,
+  gsl_permute_short,
+  gsl_permute_int,
+  gsl_permute_long,
+  gsl_permute_uchar,
+  gsl_permute_ushort,
+  gsl_permute_uint,
+  gsl_permute_ulong,
+  gsl_permute_double,
+  gsl_permute_float,
+  gsl_permute_long_double,
+  gsl_permute_complex_double,
+  gsl_permute_complex_float,
+  gsl_permute_complex_long_double,
+  gsl_permute_vector_char,
+  gsl_permute_vector_short,
+  gsl_permute_vector_int,
+  gsl_permute_vector_long,
+  gsl_permute_vector_uchar,
+  gsl_permute_vector_ushort,
+  gsl_permute_vector_uint,
+  gsl_permute_vector_ulong,
+  gsl_permute_vector_double,
+  gsl_permute_vector_float,
+  gsl_permute_vector_long_double,
+  gsl_permute_vector_complex_double,
+  gsl_permute_vector_complex_float,
+  gsl_permute_vector_complex_long_double,
+  gsl_permute_matrix_char,
+  gsl_permute_matrix_short,
+  gsl_permute_matrix_int,
+  gsl_permute_matrix_long,
+  gsl_permute_matrix_uchar,
+  gsl_permute_matrix_ushort,
+  gsl_permute_matrix_uint,
+  gsl_permute_matrix_ulong,
+  gsl_permute_matrix_double,
+  gsl_permute_matrix_float,
+  gsl_permute_matrix_long_double,
+  gsl_permute_matrix_complex_double,
+  gsl_permute_matrix_complex_float,
+  gsl_permute_matrix_complex_long_double,
 
   gsl_sort_char,
   gsl_sort_short,
@@ -120,13 +162,35 @@ uses
   gsl_sort_vector_float,
   gsl_sort_vector_long_double,
 
+  gsl_fft,
+  gsl_fft_real,
+  gsl_fft_real_float,
+  gsl_fft_complex,
+  gsl_fft_complex_float,
+  gsl_fft_halfcomplex,
+  gsl_fft_halfcomplex_float,
 
-
-
+  gsl_math,
   gsl_complex_math,
+  gsl_mode,
+
+  gsl_bspline,
+  gsl_cdf,
+  gsl_chebyshev,
+  gsl_check_range_,
+  gsl_combination,
+  gsl_deriv,
+  gsl_dft_complex,
+  gsl_dft_complex_float,
+  gsl_dht,
+  gsl_diff,
+  gsl_eigen,
+  gsl_errno,
+
+
+
+
   gsl_blas,
-
-
   fp_gsl;
 
   procedure PrintGslMat(m: Pgsl_matrix);
@@ -162,7 +226,6 @@ uses
     WriteLn('Original matrix');
     PrintGslMat(mat);
 
-    // Normalisiere jede Spalte der Matrix
     for j := 0 to mat^.size2 - 1 do begin
       col := gsl_matrix_column(mat, j);
       norm := gsl_blas_dasum(@col.vector); // L1-Norm (Summe)
