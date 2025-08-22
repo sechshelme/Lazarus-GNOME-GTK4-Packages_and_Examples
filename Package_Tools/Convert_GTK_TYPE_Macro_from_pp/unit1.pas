@@ -214,6 +214,8 @@ const
     (libs: 'libgslcblas'; units: 'fp_gsl'),
     (libs: 'libgsl'; units: 'fp_gsl'),
 
+    (libs: 'libhidapi_hidraw'; units: 'ctypes'),
+    (libs: 'libhidapi_libusb'; units: 'ctypes'),
 
 
 
