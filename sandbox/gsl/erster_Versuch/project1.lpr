@@ -1,18 +1,15 @@
 program project1;
 
 uses
-  gsl_version_,       // underline
-
+  gsl_version_,
   gsl_const_cgs,
   gsl_const_cgsm,
   gsl_const_mks,
   gsl_const_mksa,
   gsl_const_num,
-
   gsl_cblas,
   gsl_blas_types,
   gsl_complex,
-
   gsl_block_char,
   gsl_block_short,
   gsl_block_int,
@@ -24,11 +21,9 @@ uses
   gsl_block_double,
   gsl_block_float,
   gsl_block_long_double,
-
   gsl_block_complex_double,
   gsl_block_complex_float,
   gsl_block_complex_long_double,
-
   gsl_vector_char,
   gsl_vector_short,
   gsl_vector_int,
@@ -40,12 +35,10 @@ uses
   gsl_vector_double,
   gsl_vector_float,
   gsl_vector_long_double,
-
   gsl_vector_complex,
   gsl_vector_complex_double,
   gsl_vector_complex_float,
   gsl_vector_complex_long_double,
-
   gsl_matrix_char,
   gsl_matrix_short,
   gsl_matrix_int,
@@ -57,11 +50,9 @@ uses
   gsl_matrix_double,
   gsl_matrix_float,
   gsl_matrix_long_double,
-
   gsl_matrix_complex_double,
   gsl_matrix_complex_float,
   gsl_matrix_complex_long_double,
-
   gsl_statistics_char,
   gsl_statistics_short,
   gsl_statistics_int,
@@ -73,13 +64,11 @@ uses
   gsl_statistics_double,
   gsl_statistics_float,
   gsl_statistics_long_double,
-
   gsl_bst_types,
   gsl_bst_avl_,
   gsl_bst_rb_,
   gsl_bst,
-
-  gsl_spmatrix,       // makro
+  gsl_spmatrix,
   gsl_spmatrix_char,
   gsl_spmatrix_short,
   gsl_spmatrix_int,
@@ -94,7 +83,6 @@ uses
   gsl_spmatrix_complex_double,
   gsl_spmatrix_complex_float,
   gsl_spmatrix_complex_long_double,
-
   gsl_permutation,
   gsl_permute_char,
   gsl_permute_short,
@@ -138,7 +126,6 @@ uses
   gsl_permute_matrix_complex_double,
   gsl_permute_matrix_complex_float,
   gsl_permute_matrix_complex_long_double,
-
   gsl_sort_char,
   gsl_sort_short,
   gsl_sort_int,
@@ -161,7 +148,6 @@ uses
   gsl_sort_vector_double,
   gsl_sort_vector_float,
   gsl_sort_vector_long_double,
-
   gsl_fft,
   gsl_fft_real,
   gsl_fft_real_float,
@@ -169,12 +155,10 @@ uses
   gsl_fft_complex_float,
   gsl_fft_halfcomplex,
   gsl_fft_halfcomplex_float,
-
   gsl_math,
   gsl_complex_math,
   gsl_mode,
   gsl_rng,
-
   gsl_movstat,
   gsl_filter,
   gsl_bspline,
@@ -214,6 +198,62 @@ uses
   gsl_multimin,
   gsl_multiroots,
   gsl_multiset,
+  gsl_nan,
+  gsl_ntuple,
+  gsl_odeiv,
+  gsl_odeiv2,
+  gsl_poly,
+  gsl_pow_int,
+  gsl_precision,
+  gsl_qrng,
+  gsl_randist,
+  gsl_roots,
+  gsl_rstat,
+  gsl_siman,
+  gsl_spblas,
+  gsl_splinalg,
+  gsl_spline,
+  gsl_spline2d,
+  gsl_sum,
+  gsl_sys,
+  gsl_test,
+  gsl_wavelet,
+  gsl_wavelet2d,
+
+gsl_sf_gegenbauer,
+gsl_sf_hermite,
+gsl_sf_hyperg,
+gsl_sf_laguerre,
+gsl_sf_lambert,
+gsl_sf_legendre,
+gsl_sf_log,
+gsl_sf_mathieu,
+gsl_sf_pow_int,
+gsl_sf_psi,
+gsl_sf_result,
+gsl_sf_sincos_pi,
+gsl_sf_synchrotron,
+gsl_sf_transport,
+gsl_sf_trig,
+gsl_sf_zeta,
+gsl_sf_airy,
+gsl_sf_bessel,
+gsl_sf_clausen,
+gsl_sf_coulomb,
+gsl_sf_coupling,
+gsl_sf_dawson,
+gsl_sf_debye,
+gsl_sf_dilog,
+gsl_sf_elementary,
+gsl_sf_ellint,
+gsl_sf_elljac,
+gsl_sf_erf,
+gsl_sf_exp,
+gsl_sf_expint,
+gsl_sf_fermi_dirac,
+gsl_sf_gamma,
+
+
 
 
 

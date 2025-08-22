@@ -1,0 +1,71 @@
+unit gsl_sf_result;
+
+interface
+
+uses
+  fp_gsl;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ specfunc/gsl_sf_result.h
+ * 
+ * Copyright (C) 1996, 1997, 1998, 1999, 2000 Gerard Jungman
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or (at
+ * your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+  }
+{ Author:  G. Jungman  }
+{$ifndef __GSL_SF_RESULT_H__}
+{$define __GSL_SF_RESULT_H__}
+type
+  Pgsl_sf_result_struct = ^Tgsl_sf_result_struct;
+  Tgsl_sf_result_struct = record
+      val : Tdouble;
+      err : Tdouble;
+    end;
+
+  Tgsl_sf_result_struct = Tgsl_sf_result;
+(* error 
+#define GSL_SF_RESULT_SET(r,v,e) do { (r)->val=(v); (r)->err=(e); } while(0)
+in declaration at line 35 *)
+(* error 
+#define GSL_SF_RESULT_SET(r,v,e) do { (r)->val=(v); (r)->err=(e); } while(0)
+in declaration at line 35 *)
+(* error 
+#define GSL_SF_RESULT_SET(r,v,e) do { (r)->val=(v); (r)->err=(e); } while(0)
+in declaration at line 39 *)
+      var
+        err : Tdouble;cvar;public;
+        e10 : longint;cvar;public;
+(* error 
+};
+in declaration at line 42 *)
+    type
+      Tgsl_sf_result_e10_struct = Tgsl_sf_result_e10;
+
+function gsl_sf_result_smash_e(re:Pgsl_sf_result_e10; r:Pgsl_sf_result):longint;cdecl;external libgsl;
+{$endif}
+    { __GSL_SF_RESULT_H__  }
+
+// === Konventiert am: 22-8-25 13:58:51 ===
+
+
+implementation
+
+
+
+end.
