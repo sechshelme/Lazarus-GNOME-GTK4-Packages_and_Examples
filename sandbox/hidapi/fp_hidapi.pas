@@ -25,11 +25,12 @@ type
   Tintptr_t = PtrUInt;
 
   {$IFDEF Linux}
-  Pwchar_t = PUInt32;
+  Twchar_t = DWord;
+  Pwchar_t = ^Twchar_t;
   {$ENDIF}
 
   {$IFDEF Windows}
-  Pwchar_t = PWideChar;
+  Pwchar_t = pwidechar;
   {$ENDIF}
 
 

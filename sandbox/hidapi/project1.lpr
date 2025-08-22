@@ -5,55 +5,48 @@ uses
   fp_hidapi_libusb;
 
 
-#include <stdio.h>
-#include <wchar.h>
-#include <hidapi.h>
+  function wprintf(format: Pwchar_t): integer; cdecl; varargs; external 'c';
 
-int main() {
-    // Beispiel Werte aus lsusb: Logitech RX 250 Mouse
-    unsigned short vendor_id = 0x046d;
-    unsigned short product_id = 0xc050;
+  procedure main;
+  const
+    ls: array[0..19] of char = ('%', #0, #0, #0, 'l', #0, #0, #0, 's', #0, #0, #0, #10, #0, #0, #0, #0, #0, #0, #0);
+  var
+    vendor_id: word = $046d;
+    product_id: word = $c050;
+    handle: Phid_device;
+    res: longint;
+    wstr: array [0..11255] of Twchar_t;
+  begin
+    if hid_init <> 0 then begin
+      WriteLn('HIDAPI init fehlgeschlagen');
+      exit;
+    end;
 
-    hid_device *handle;
-    wchar_t wstr[256];
-    int res;
+    handle := hid_open(vendor_id, product_id, nil);
+    if handle = nil then begin
+      WriteLn('Gerät nicht gefunden oder kann nicht geöffnet werden');
+      hid_exit;
+      exit;
+    end;
 
-    // HIDAPI initialisieren
-    if (hid_init() != 0) {
-        printf("HIDAPI init fehlgeschlagen\n");
-        return 1;
-    }
+    res := hid_get_manufacturer_string(handle, wstr, Length(wstr));
+    if res = 0 then begin
+      Write('Hersteller: ');
+      wprintf(@ls[0], @wstr);
+    end;
 
-    // Gerät öffnen mit VID und PID
-    handle = hid_open(vendor_id, product_id, NULL);
-    if (!handle) {
-        printf("Gerät nicht gefunden oder kann nicht geöffnet werden\n");
-        hid_exit();
-        return 1;
-    }
+    res := hid_get_product_string(handle, wstr, Length(wstr));
+    if res = 0 then begin
+      Write('Product: ');
+      wprintf(@ls[0], @wstr);
+    end;
 
-    // Herstellerstring lesen
-    res = hid_get_manufacturer_string(handle, wstr, sizeof(wstr)/sizeof(wchar_t));
-    if (res == 0) {
-        wprintf(L"Hersteller: %ls\n", wstr);
-    }
-
-    // Produktstring lesen
-    res = hid_get_product_string(handle, wstr, sizeof(wstr)/sizeof(wchar_t));
-    if (res == 0) {
-        wprintf(L"Produkt: %ls\n", wstr);
-    }
-
-    // Gerät schließen
     hid_close(handle);
     hid_exit();
+  end;
 
-    return 0;
-}
 
 
 begin
-  WriteLn(SizeOf(WideChar));
-
+  main;
 end.
-
