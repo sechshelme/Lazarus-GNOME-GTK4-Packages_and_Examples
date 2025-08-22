@@ -13,19 +13,20 @@ interface
     gsl_sf_result.h
 }
 
-    { Pointers to basic pascal types, inserted by h2pas conversion program.}
-    Type
-      PLongint  = ^Longint;
-      PSmallInt = ^SmallInt;
-      PByte     = ^Byte;
-      PWord     = ^Word;
-      PDWord    = ^DWord;
-      PDouble   = ^Double;
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
 
-    Type
-    Pgsl_sf_result  = ^gsl_sf_result;
-    Pgsl_sf_result_e10  = ^gsl_sf_result_e10;
-    Pgsl_sf_result_struct  = ^gsl_sf_result_struct;
+Type
+Pgsl_sf_result  = ^gsl_sf_result;
+Pgsl_sf_result_e10  = ^gsl_sf_result_e10;
+Pgsl_sf_result_e10_struct  = ^gsl_sf_result_e10_struct;
+Pgsl_sf_result_struct  = ^gsl_sf_result_struct;
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
@@ -60,28 +61,19 @@ type
     end;
 
   Tgsl_sf_result_struct = Tgsl_sf_result;
-(* error 
-#define GSL_SF_RESULT_SET(r,v,e) do { (r)->val=(v); (r)->err=(e); } while(0)
-in declaration at line 35 *)
-(* error 
-#define GSL_SF_RESULT_SET(r,v,e) do { (r)->val=(v); (r)->err=(e); } while(0)
-in declaration at line 35 *)
-(* error 
-#define GSL_SF_RESULT_SET(r,v,e) do { (r)->val=(v); (r)->err=(e); } while(0)
-in declaration at line 39 *)
-      var
-        err : Tdouble;cvar;public;
-        e10 : longint;cvar;public;
-(* error 
-};
-in declaration at line 42 *)
-    type
-      Tgsl_sf_result_e10_struct = Tgsl_sf_result_e10;
+  Pgsl_sf_result_e10_struct = ^Tgsl_sf_result_e10_struct;
+  Tgsl_sf_result_e10_struct = record
+      val : Tdouble;
+      err : Tdouble;
+      e10 : longint;
+    end;
+
+  Tgsl_sf_result_e10_struct = Tgsl_sf_result_e10;
 (* Const before type ignored *)
 
 function gsl_sf_result_smash_e(re:Pgsl_sf_result_e10; r:Pgsl_sf_result):longint;cdecl;external;
 {$endif}
-    { __GSL_SF_RESULT_H__  }
+{ __GSL_SF_RESULT_H__  }
 
 implementation
 

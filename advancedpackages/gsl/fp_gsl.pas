@@ -5,10 +5,6 @@ interface
 uses
   ctypes;
 
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
-
 const
   {$IFDEF Linux}
   libgsl = 'libgsl';
@@ -18,6 +14,10 @@ const
   {$IFDEF Windows}
   libgsl = 'libgsl-0.dll';
   libgslcblas = 'libgslcblas-0.dll';
+  {$ENDIF}
+
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
   {$ENDIF}
 
 type
@@ -31,6 +31,14 @@ type
 
   PFILE = type Pointer;
 
+  {$DEFINE read_interface}
+  {$include fp_gsl_includes.inc}
+  {$UNDEF read_interface}
+
 implementation
+
+{$DEFINE read_implementation}
+{$include fp_gsl_includes.inc}
+{$UNDEF read_interface}
 
 end.

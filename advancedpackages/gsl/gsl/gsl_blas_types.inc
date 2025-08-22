@@ -1,0 +1,33 @@
+{$IFDEF read_interface}
+
+
+type
+  PCBLAS_INDEX_t = ^TCBLAS_INDEX_t;
+  TCBLAS_INDEX_t = TCBLAS_INDEX;
+
+  PCBLAS_ORDER_t = ^TCBLAS_ORDER_t;
+  TCBLAS_ORDER_t = TCBLAS_ORDER;
+
+  PCBLAS_TRANSPOSE_t = ^TCBLAS_TRANSPOSE_t;
+  TCBLAS_TRANSPOSE_t = TCBLAS_TRANSPOSE;
+
+  PCBLAS_UPLO_t = ^TCBLAS_UPLO_t;
+  TCBLAS_UPLO_t = TCBLAS_UPLO;
+
+  PCBLAS_DIAG_t = ^TCBLAS_DIAG_t;
+  TCBLAS_DIAG_t = TCBLAS_DIAG;
+
+  PCBLAS_SIDE_t = ^TCBLAS_SIDE_t;
+  TCBLAS_SIDE_t = TCBLAS_SIDE;
+
+  // === Konventiert am: 18-8-25 16:09:19 ===
+
+
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
+
+
+
+{$ENDIF read_implementation}

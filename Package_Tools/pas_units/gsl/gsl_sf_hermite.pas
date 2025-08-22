@@ -3,92 +3,63 @@ unit gsl_sf_hermite;
 interface
 
 uses
-  fp_gsl;
+  fp_gsl, gsl_sf_result;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ gsl_sf_hermite.h
- * 
- * Copyright (C) 2011-2014 Konrad Griessinger
- * 
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or (at
- * your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
-  }
-{----------------------------------------------------------------------*
- * (konradg(at)gmx.net)                                                 *
- *---------------------------------------------------------------------- }
-{$ifndef __GSL_SF_HERMITE_H__}
-{$define __GSL_SF_HERMITE_H__}
-{$include <gsl/gsl_sf_result.h>}
 
-function gsl_sf_hermite_prob_e(n:longint; x:Tdouble; result:Pgsl_sf_result):longint;cdecl;external libgsl;
-function gsl_sf_hermite_prob(n:longint; x:Tdouble):Tdouble;cdecl;external libgsl;
-function gsl_sf_hermite_prob_deriv_e(m:longint; n:longint; x:Tdouble; result:Pgsl_sf_result):longint;cdecl;external libgsl;
-function gsl_sf_hermite_prob_deriv(m:longint; n:longint; x:Tdouble):Tdouble;cdecl;external libgsl;
-function gsl_sf_hermite_e(n:longint; x:Tdouble; result:Pgsl_sf_result):longint;cdecl;external libgsl;
-function gsl_sf_hermite(n:longint; x:Tdouble):Tdouble;cdecl;external libgsl;
-function gsl_sf_hermite_deriv_e(m:longint; n:longint; x:Tdouble; result:Pgsl_sf_result):longint;cdecl;external libgsl;
-function gsl_sf_hermite_deriv(m:longint; n:longint; x:Tdouble):Tdouble;cdecl;external libgsl;
-function gsl_sf_hermite_func_e(n:longint; x:Tdouble; result:Pgsl_sf_result):longint;cdecl;external libgsl;
-function gsl_sf_hermite_func(n:longint; x:Tdouble):Tdouble;cdecl;external libgsl;
-function gsl_sf_hermite_func_fast_e(n:longint; x:Tdouble; result:Pgsl_sf_result):longint;cdecl;external libgsl;
-function gsl_sf_hermite_func_fast(n:longint; x:Tdouble):Tdouble;cdecl;external libgsl;
-function gsl_sf_hermite_prob_array(nmax:longint; x:Tdouble; result_array:Pdouble):longint;cdecl;external libgsl;
-function gsl_sf_hermite_prob_array_deriv(m:longint; nmax:longint; x:Tdouble; result_array:Pdouble):longint;cdecl;external libgsl;
-function gsl_sf_hermite_prob_deriv_array(mmax:longint; n:longint; x:Tdouble; result_array:Pdouble):longint;cdecl;external libgsl;
-function gsl_sf_hermite_prob_series_e(n:longint; x:Tdouble; a:Pdouble; result:Pgsl_sf_result):longint;cdecl;external libgsl;
-function gsl_sf_hermite_prob_series(n:longint; x:Tdouble; a:Pdouble):Tdouble;cdecl;external libgsl;
-function gsl_sf_hermite_array(nmax:longint; x:Tdouble; result_array:Pdouble):longint;cdecl;external libgsl;
-function gsl_sf_hermite_array_deriv(m:longint; nmax:longint; x:Tdouble; result_array:Pdouble):longint;cdecl;external libgsl;
-function gsl_sf_hermite_deriv_array(mmax:longint; n:longint; x:Tdouble; result_array:Pdouble):longint;cdecl;external libgsl;
-function gsl_sf_hermite_series_e(n:longint; x:Tdouble; a:Pdouble; result:Pgsl_sf_result):longint;cdecl;external libgsl;
-function gsl_sf_hermite_series(n:longint; x:Tdouble; a:Pdouble):Tdouble;cdecl;external libgsl;
-function gsl_sf_hermite_func_array(nmax:longint; x:Tdouble; result_array:Pdouble):longint;cdecl;external libgsl;
-function gsl_sf_hermite_func_series_e(n:longint; x:Tdouble; a:Pdouble; result:Pgsl_sf_result):longint;cdecl;external libgsl;
-function gsl_sf_hermite_func_series(n:longint; x:Tdouble; a:Pdouble):Tdouble;cdecl;external libgsl;
-function gsl_sf_hermite_func_der_e(m:longint; n:longint; x:Tdouble; result:Pgsl_sf_result):longint;cdecl;external libgsl;
-function gsl_sf_hermite_func_der(m:longint; n:longint; x:Tdouble):Tdouble;cdecl;external libgsl;
-function gsl_sf_hermite_prob_zero_e(n:longint; s:longint; result:Pgsl_sf_result):longint;cdecl;external libgsl;
-function gsl_sf_hermite_prob_zero(n:longint; s:longint):Tdouble;cdecl;external libgsl;
-function gsl_sf_hermite_zero_e(n:longint; s:longint; result:Pgsl_sf_result):longint;cdecl;external libgsl;
-function gsl_sf_hermite_zero(n:longint; s:longint):Tdouble;cdecl;external libgsl;
-function gsl_sf_hermite_func_zero_e(n:longint; s:longint; result:Pgsl_sf_result):longint;cdecl;external libgsl;
-function gsl_sf_hermite_func_zero(n:longint; s:longint):Tdouble;cdecl;external libgsl;
-{$ifndef GSL_DISABLE_DEPRECATED}
+function gsl_sf_hermite_prob_e(n: longint; x: Tdouble; result: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_hermite_prob(n: longint; x: Tdouble): Tdouble; cdecl; external libgsl;
+function gsl_sf_hermite_prob_deriv_e(m: longint; n: longint; x: Tdouble; result: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_hermite_prob_deriv(m: longint; n: longint; x: Tdouble): Tdouble; cdecl; external libgsl;
+function gsl_sf_hermite_e(n: longint; x: Tdouble; result: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_hermite(n: longint; x: Tdouble): Tdouble; cdecl; external libgsl;
+function gsl_sf_hermite_deriv_e(m: longint; n: longint; x: Tdouble; result: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_hermite_deriv(m: longint; n: longint; x: Tdouble): Tdouble; cdecl; external libgsl;
+function gsl_sf_hermite_func_e(n: longint; x: Tdouble; result: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_hermite_func(n: longint; x: Tdouble): Tdouble; cdecl; external libgsl;
+function gsl_sf_hermite_func_fast_e(n: longint; x: Tdouble; result: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_hermite_func_fast(n: longint; x: Tdouble): Tdouble; cdecl; external libgsl;
+function gsl_sf_hermite_prob_array(nmax: longint; x: Tdouble; result_array: Pdouble): longint; cdecl; external libgsl;
+function gsl_sf_hermite_prob_array_deriv(m: longint; nmax: longint; x: Tdouble; result_array: Pdouble): longint; cdecl; external libgsl;
+function gsl_sf_hermite_prob_deriv_array(mmax: longint; n: longint; x: Tdouble; result_array: Pdouble): longint; cdecl; external libgsl;
+function gsl_sf_hermite_prob_series_e(n: longint; x: Tdouble; a: Pdouble; result: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_hermite_prob_series(n: longint; x: Tdouble; a: Pdouble): Tdouble; cdecl; external libgsl;
+function gsl_sf_hermite_array(nmax: longint; x: Tdouble; result_array: Pdouble): longint; cdecl; external libgsl;
+function gsl_sf_hermite_array_deriv(m: longint; nmax: longint; x: Tdouble; result_array: Pdouble): longint; cdecl; external libgsl;
+function gsl_sf_hermite_deriv_array(mmax: longint; n: longint; x: Tdouble; result_array: Pdouble): longint; cdecl; external libgsl;
+function gsl_sf_hermite_series_e(n: longint; x: Tdouble; a: Pdouble; result: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_hermite_series(n: longint; x: Tdouble; a: Pdouble): Tdouble; cdecl; external libgsl;
+function gsl_sf_hermite_func_array(nmax: longint; x: Tdouble; result_array: Pdouble): longint; cdecl; external libgsl;
+function gsl_sf_hermite_func_series_e(n: longint; x: Tdouble; a: Pdouble; result: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_hermite_func_series(n: longint; x: Tdouble; a: Pdouble): Tdouble; cdecl; external libgsl;
+function gsl_sf_hermite_func_der_e(m: longint; n: longint; x: Tdouble; result: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_hermite_func_der(m: longint; n: longint; x: Tdouble): Tdouble; cdecl; external libgsl;
+function gsl_sf_hermite_prob_zero_e(n: longint; s: longint; result: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_hermite_prob_zero(n: longint; s: longint): Tdouble; cdecl; external libgsl;
+function gsl_sf_hermite_zero_e(n: longint; s: longint; result: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_hermite_zero(n: longint; s: longint): Tdouble; cdecl; external libgsl;
+function gsl_sf_hermite_func_zero_e(n: longint; s: longint; result: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_hermite_func_zero(n: longint; s: longint): Tdouble; cdecl; external libgsl;
 
-function gsl_sf_hermite_phys_e(n:longint; x:Tdouble; result:Pgsl_sf_result):longint;cdecl;external libgsl;
-function gsl_sf_hermite_phys(n:longint; x:Tdouble):Tdouble;cdecl;external libgsl;
-function gsl_sf_hermite_phys_der_e(m:longint; n:longint; x:Tdouble; result:Pgsl_sf_result):longint;cdecl;external libgsl;
-function gsl_sf_hermite_phys_der(m:longint; n:longint; x:Tdouble):Tdouble;cdecl;external libgsl;
-function gsl_sf_hermite_phys_array(nmax:longint; x:Tdouble; result_array:Pdouble):longint;cdecl;external libgsl;
-function gsl_sf_hermite_phys_series_e(n:longint; x:Tdouble; a:Pdouble; result:Pgsl_sf_result):longint;cdecl;external libgsl;
-function gsl_sf_hermite_phys_series(n:longint; x:Tdouble; a:Pdouble):Tdouble;cdecl;external libgsl;
-function gsl_sf_hermite_phys_array_der(m:longint; nmax:longint; x:Tdouble; result_array:Pdouble):longint;cdecl;external libgsl;
-function gsl_sf_hermite_phys_der_array(mmax:longint; n:longint; x:Tdouble; result_array:Pdouble):longint;cdecl;external libgsl;
-function gsl_sf_hermite_phys_zero_e(n:longint; s:longint; result:Pgsl_sf_result):longint;cdecl;external libgsl;
-function gsl_sf_hermite_phys_zero(n:longint; s:longint):Tdouble;cdecl;external libgsl;
-function gsl_sf_hermite_prob_array_der(m:longint; nmax:longint; x:Tdouble; result_array:Pdouble):longint;cdecl;external libgsl;
-function gsl_sf_hermite_prob_der_array(mmax:longint; n:longint; x:Tdouble; result_array:Pdouble):longint;cdecl;external libgsl;
-function gsl_sf_hermite_prob_der_e(m:longint; n:longint; x:Tdouble; result:Pgsl_sf_result):longint;cdecl;external libgsl;
-function gsl_sf_hermite_prob_der(m:longint; n:longint; x:Tdouble):Tdouble;cdecl;external libgsl;
-{$endif}
-{ !GSL_DISABLE_DEPRECATED  }
-{$endif}
-{ __GSL_SF_HERMITE_H__  }
+function gsl_sf_hermite_phys_e(n: longint; x: Tdouble; result: Pgsl_sf_result): longint; cdecl; external libgsl; deprecated;
+function gsl_sf_hermite_phys(n: longint; x: Tdouble): Tdouble; cdecl; external libgsl; deprecated;
+function gsl_sf_hermite_phys_der_e(m: longint; n: longint; x: Tdouble; result: Pgsl_sf_result): longint; cdecl; external libgsl; deprecated;
+function gsl_sf_hermite_phys_der(m: longint; n: longint; x: Tdouble): Tdouble; cdecl; external libgsl; deprecated;
+function gsl_sf_hermite_phys_array(nmax: longint; x: Tdouble; result_array: Pdouble): longint; cdecl; external libgsl; deprecated;
+function gsl_sf_hermite_phys_series_e(n: longint; x: Tdouble; a: Pdouble; result: Pgsl_sf_result): longint; cdecl; external libgsl; deprecated;
+function gsl_sf_hermite_phys_series(n: longint; x: Tdouble; a: Pdouble): Tdouble; cdecl; external libgsl; deprecated;
+function gsl_sf_hermite_phys_array_der(m: longint; nmax: longint; x: Tdouble; result_array: Pdouble): longint; cdecl; external libgsl; deprecated;
+function gsl_sf_hermite_phys_der_array(mmax: longint; n: longint; x: Tdouble; result_array: Pdouble): longint; cdecl; external libgsl; deprecated;
+function gsl_sf_hermite_phys_zero_e(n: longint; s: longint; result: Pgsl_sf_result): longint; cdecl; external libgsl; deprecated;
+function gsl_sf_hermite_phys_zero(n: longint; s: longint): Tdouble; cdecl; external libgsl; deprecated;
+function gsl_sf_hermite_prob_array_der(m: longint; nmax: longint; x: Tdouble; result_array: Pdouble): longint; cdecl; external libgsl; deprecated;
+function gsl_sf_hermite_prob_der_array(mmax: longint; n: longint; x: Tdouble; result_array: Pdouble): longint; cdecl; external libgsl; deprecated;
+function gsl_sf_hermite_prob_der_e(m: longint; n: longint; x: Tdouble; result: Pgsl_sf_result): longint; cdecl; external libgsl; deprecated;
+function gsl_sf_hermite_prob_der(m: longint; n: longint; x: Tdouble): Tdouble; cdecl; external libgsl; deprecated;
 
 // === Konventiert am: 22-8-25 13:58:29 ===
 

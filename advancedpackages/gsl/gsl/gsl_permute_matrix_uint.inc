@@ -1,0 +1,17 @@
+{$IFDEF read_interface}
+
+
+
+function gsl_permute_matrix_uint(p: Pgsl_permutation; A: Pgsl_matrix_uint): longint; cdecl; external libgsl;
+
+// === Konventiert am: 21-8-25 16:07:04 ===
+
+
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
+
+
+
+{$ENDIF read_implementation}

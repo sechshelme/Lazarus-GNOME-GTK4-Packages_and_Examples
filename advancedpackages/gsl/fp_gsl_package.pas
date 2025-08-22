@@ -2,13 +2,13 @@
   This source is only used to compile and install the package.
  }
 
-unit fp_gnutls_package;
+unit fp_gsl_package;
 
 {$warn 5023 off : no warning about unused units}
 interface
 
 uses
-  fp_gnutls, LazarusPackageIntf;
+  fp_gsl, LazarusPackageIntf;
 
 implementation
 
@@ -17,5 +17,5 @@ begin
 end;
 
 initialization
-  RegisterPackage('fp_gnutls_package', @Register);
+  RegisterPackage('fp_gsl_package', @Register);
 end.

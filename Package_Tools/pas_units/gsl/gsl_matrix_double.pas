@@ -5,6 +5,12 @@ interface
 uses
   fp_gsl, gsl_blas_types, gsl_block_double, gsl_vector_double;
 
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
+
+
 type
   Tgsl_matrix = record
     size1: Tsize_t;
