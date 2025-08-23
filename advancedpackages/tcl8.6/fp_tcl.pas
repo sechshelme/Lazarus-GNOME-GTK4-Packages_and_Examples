@@ -23,7 +23,13 @@ type
   Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;
 
-  Twchar_t = widechar;
+  {$IFDEF Linux}
+  Twchar_t = uint32;
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  Twchar_t = uint16;
+  {$ENDIF}
   Pwchar_t = ^Twchar_t;
   PPwchar_t = ^Pwchar_t;
 

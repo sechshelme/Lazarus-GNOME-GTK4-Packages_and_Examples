@@ -7,12 +7,12 @@ interface
 {$ENDIF}
 
 const
-  {$IFDEF unix}
+  {$IFDEF linux}
   libc = 'c';
   libm = 'm';
   {$ENDIF}
 
-  {$IFDEF mswindows}
+  {$IFDEF windows}
   libc = 'msvcrt.dll';
   libm = 'msvcrt.dll';
   {$ENDIF}
@@ -27,8 +27,17 @@ type
   PPint32 = ^PInt32;
 
 type
-  TLongDouble = extended;
-  PLongDouble = ^TLongDouble;
+  Tlong_double = extended;
+  Plong_double = ^Tlong_double;
+
+  TFloat16=Pointer; // ????
+  TFloat32=Pointer; // ????
+  TFloat64=Pointer; // ????
+  TFloat128=Pointer; // ????
+  TFloat16x=Pointer; // ????
+  TFloat32x=Pointer; // ????
+  TFloat64x=Pointer; // ????
+  TFloat128x=Pointer; // ????
 
 type
   Tuint8_t = uint8;
@@ -257,6 +266,9 @@ type
 
   // /usr/include/x86_64-linux-gnu/bits/cpu-set.h
   Pcpu_set_t = type Pointer;
+
+  // /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h
+  Pmbstate_t=type Pointer;
 
 
   //  // /usr/include/netinet/in.h

@@ -22,8 +22,8 @@ type
 
   TComplexLongDouble = record
     private
-    Re: TLongDouble;
-    Im: TLongDouble;
+    Re: Tlong_double;
+    Im: Tlong_double;
   end;
 
   {$IFDEF FPC}
@@ -118,12 +118,12 @@ function clogl(z: TComplexLongDouble): TComplexLongDouble; cdecl; external libm;
 function clog10l(z: TComplexLongDouble): TComplexLongDouble; cdecl; external libm;
 function cpowl(x, y: TComplexLongDouble): TComplexLongDouble; cdecl; external libm;
 function csqrtl(z: TComplexLongDouble): TComplexLongDouble; cdecl; external libm;
-function cabsl(z: TComplexLongDouble): TLongDouble; cdecl; external libm;
-function cargl(z: TComplexLongDouble): TLongDouble; cdecl; external libm;
+function cabsl(z: TComplexLongDouble): Tlong_double; cdecl; external libm;
+function cargl(z: TComplexLongDouble): Tlong_double; cdecl; external libm;
 function conjl(z: TComplexLongDouble): TComplexLongDouble; cdecl; external libm;
 function cprojl(z: TComplexLongDouble): TComplexLongDouble; cdecl; external libm;
-function cimagl(z: TComplexLongDouble): TLongDouble; cdecl; external libm;
-function creall(z: TComplexLongDouble): TLongDouble; cdecl; external libm;
+function cimagl(z: TComplexLongDouble): Tlong_double; cdecl; external libm;
+function creall(z: TComplexLongDouble): Tlong_double; cdecl; external libm;
 
 function CMPLX(re, im: double): TComplexDouble;
 
@@ -221,7 +221,7 @@ end;
 
 operator /(const c0, c1: TComplexLongDouble): TComplexLongDouble; inline;
 var
-  denom: TLongDouble;
+  denom: Tlong_double;
 begin
   denom := c1.Re * c1.Re + c1.Im * c1.Im;
   Result.Re := (c0.Re * c1.Re + c0.Im * c1.Im) / denom;

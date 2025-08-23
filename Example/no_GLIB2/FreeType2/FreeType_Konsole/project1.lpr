@@ -1,6 +1,6 @@
 program project1;
 
-// https://freetype.org/freetype2/docs/tutorial/step1.html
+// https://freetype.org/freetype2$/docs/tutorial/step1.html
 // https://chromium.googlesource.com/chromium/src/third_party/freetype2/+/VER-2-BETA2/include/fterrors.h
 
 // https://freetype.org/freetype2/docs/tutorial/example2.cpp

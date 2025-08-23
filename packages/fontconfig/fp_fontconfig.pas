@@ -2,9 +2,6 @@ unit fp_fontconfig;
 
 interface
 
-uses
-  ctypes;
-
 const
   {$IFDEF Linux}
   libfontconfig = 'libfontconfig';

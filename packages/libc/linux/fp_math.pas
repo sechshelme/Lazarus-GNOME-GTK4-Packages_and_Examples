@@ -101,22 +101,22 @@ function coshf(x: single): single; cdecl; external libm;
 function sinhf(x: single): single; cdecl; external libm;
 function tanhf(x: single): single; cdecl; external libm;
 
-function acosl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function asinl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function atanl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function atan2l(y, x: TLongDouble): TLongDouble; cdecl; external libm;
-function cosl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function sinl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function tanl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function coshl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function sinhl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function tanhl(x: TLongDouble): TLongDouble; cdecl; external libm;
+function acosl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function asinl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function atanl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function atan2l(y, x: Tlong_double): Tlong_double; cdecl; external libm;
+function cosl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function sinl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function tanl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function coshl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function sinhl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function tanhl(x: Tlong_double): Tlong_double; cdecl; external libm;
 
 // -------------------
 
 procedure sincos(x: double; sinx, cosx: PDouble); cdecl; external libm;
 procedure sincosf(x: single; sinx, cosx: PSingle); cdecl; external libm;
-procedure sincosl(x: TLongDouble; sinx, cosx: PLongDouble); cdecl; external libm;
+procedure sincosl(x: Tlong_double; sinx, cosx: Plong_double); cdecl; external libm;
 
 // -------------------
 
@@ -128,9 +128,9 @@ function acoshf(x: single): single; cdecl; external libm;
 function asinhf(x: single): single; cdecl; external libm;
 function atanhf(x: single): single; cdecl; external libm;
 
-function acoshl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function asinhl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function atanhl(x: TLongDouble): TLongDouble; cdecl; external libm;
+function acoshl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function asinhl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function atanhl(x: Tlong_double): Tlong_double; cdecl; external libm;
 
 // -------------------
 
@@ -160,18 +160,18 @@ function logbf(x: single): single; cdecl; external libm;
 function exp2f(x: single): single; cdecl; external libm;
 function log2f(x: single): single; cdecl; external libm;
 
-function expl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function frexpl(x: TLongDouble; exponent: PInteger): TLongDouble; cdecl; external libm;
-function ldexpl(x: TLongDouble; exponent: integer): TLongDouble; cdecl; external libm;
-function logl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function log10l(x: TLongDouble): TLongDouble; cdecl; external libm;
-function modfl(x: TLongDouble; iptr: PLongDouble): TLongDouble; cdecl; external libm;
-function exp10l(x: TLongDouble): TLongDouble; cdecl; external libm;
-function expm1l(x: TLongDouble): TLongDouble; cdecl; external libm;
-function log1pl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function logbl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function exp2l(x: TLongDouble): TLongDouble; cdecl; external libm;
-function log2l(x: TLongDouble): TLongDouble; cdecl; external libm;
+function expl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function frexpl(x: Tlong_double; exponent: PInteger): Tlong_double; cdecl; external libm;
+function ldexpl(x: Tlong_double; exponent: integer): Tlong_double; cdecl; external libm;
+function logl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function log10l(x: Tlong_double): Tlong_double; cdecl; external libm;
+function modfl(x: Tlong_double; iptr: Plong_double): Tlong_double; cdecl; external libm;
+function exp10l(x: Tlong_double): Tlong_double; cdecl; external libm;
+function expm1l(x: Tlong_double): Tlong_double; cdecl; external libm;
+function log1pl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function logbl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function exp2l(x: Tlong_double): Tlong_double; cdecl; external libm;
+function log2l(x: Tlong_double): Tlong_double; cdecl; external libm;
 
 // -------------------
 
@@ -185,10 +185,10 @@ function sqrtf(x: single): single; cdecl; external libm;
 function hypotf(x: single; y: single): single; cdecl; external libm;
 function cbrtf(x: single): single; cdecl; external libm;
 
-function powl(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function sqrtl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function hypotl(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function cbrtl(x: TLongDouble): TLongDouble; cdecl; external libm;
+function powl(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function sqrtl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function hypotl(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function cbrtl(x: Tlong_double): Tlong_double; cdecl; external libm;
 
 // -------------------
 
@@ -210,14 +210,14 @@ function finitef(value: single): integer; cdecl; external libm;
 function dremf(x: single; y: single): single; cdecl; external libm;
 function significandf(x: single): single; cdecl; external libm;
 
-function ceill(x: TLongDouble): TLongDouble; cdecl; external libm;
-function fabsl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function floorl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function fmodl(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function isinfl(value: TLongDouble): integer; cdecl; external libm;
-function finitel(value: TLongDouble): integer; cdecl; external libm;
-function dreml(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function significandl(x: TLongDouble): TLongDouble; cdecl; external libm;
+function ceill(x: Tlong_double): Tlong_double; cdecl; external libm;
+function fabsl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function floorl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function fmodl(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function isinfl(value: Tlong_double): integer; cdecl; external libm;
+function finitel(value: Tlong_double): integer; cdecl; external libm;
+function dreml(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function significandl(x: Tlong_double): Tlong_double; cdecl; external libm;
 
 // -------------------
 
@@ -229,9 +229,9 @@ function copysignf(x: single; y: single): single; cdecl; external libm;
 function nanf(tagp: pansichar): single; cdecl; external libm;
 function isnanf(value: single): integer; cdecl; external libm;
 
-function copysignl(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function nanl(tagp: pansichar): TLongDouble; cdecl; external libm;
-function isnanl(value: TLongDouble): integer; cdecl; external libm;
+function copysignl(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function nanl(tagp: pansichar): Tlong_double; cdecl; external libm;
+function isnanl(value: Tlong_double): integer; cdecl; external libm;
 
 function j0(x: double): double; cdecl; external libm;
 function j1(x: double): double; cdecl; external libm;
@@ -247,12 +247,12 @@ function y0f(x: single): single; cdecl; external libm;
 function y1f(x: single): single; cdecl; external libm;
 function ynf(n: integer; x: single): single; cdecl; external libm;
 
-function j0l(x: TLongDouble): TLongDouble; cdecl; external libm;
-function j1l(x: TLongDouble): TLongDouble; cdecl; external libm;
-function jnl(n: integer; x: TLongDouble): TLongDouble; cdecl; external libm;
-function y0l(x: TLongDouble): TLongDouble; cdecl; external libm;
-function y1l(x: TLongDouble): TLongDouble; cdecl; external libm;
-function ynl(n: integer; x: TLongDouble): TLongDouble; cdecl; external libm;
+function j0l(x: Tlong_double): Tlong_double; cdecl; external libm;
+function j1l(x: Tlong_double): Tlong_double; cdecl; external libm;
+function jnl(n: integer; x: Tlong_double): Tlong_double; cdecl; external libm;
+function y0l(x: Tlong_double): Tlong_double; cdecl; external libm;
+function y1l(x: Tlong_double): Tlong_double; cdecl; external libm;
+function ynl(n: integer; x: Tlong_double): Tlong_double; cdecl; external libm;
 
 function erf(x: double): double; cdecl; external libm;
 function erfc(x: double): double; cdecl; external libm;
@@ -268,16 +268,16 @@ function tgammaf(x: single): single; cdecl; external libm;
 function gammaf(x: single): single; cdecl; external libm;
 function lgammaf_r(x: single; signgamp: PInteger): single; cdecl; external libm;
 
-function erfl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function erfcl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function lgammal(x: TLongDouble): TLongDouble; cdecl; external libm;
-function tgammal(x: TLongDouble): TLongDouble; cdecl; external libm;
-function gammal(x: TLongDouble): TLongDouble; cdecl; external libm;
-function lgamma_r_l(x: TLongDouble; signgamp: PInteger): TLongDouble; cdecl; external libm;
+function erfl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function erfcl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function lgammal(x: Tlong_double): Tlong_double; cdecl; external libm;
+function tgammal(x: Tlong_double): Tlong_double; cdecl; external libm;
+function gammal(x: Tlong_double): Tlong_double; cdecl; external libm;
+function lgamma_r_l(x: Tlong_double; signgamp: PInteger): Tlong_double; cdecl; external libm;
 
 function rint(x: double): double; cdecl; external libm;
 function nextafter(x: double; y: double): double; cdecl; external libm;
-function nexttoward(x: double; y: TLongDouble): double; cdecl; external libm;
+function nexttoward(x: double; y: Tlong_double): double; cdecl; external libm;
 function nextdown(x: double): double; cdecl; external libm;
 function nextup(x: double): double; cdecl; external libm;
 function remainder(x: double; y: double): double; cdecl; external libm;
@@ -304,20 +304,20 @@ function roundf(x: single): single; cdecl; external libm;
 function truncf(x: single): single; cdecl; external libm;
 function remquof(x: single; y: single; quo: PInteger): single; cdecl; external libm;
 
-function rintl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function nextafterl(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function nexttowardl(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function nextdownl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function nextupl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function remainderl(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function scalbnl(x: TLongDouble; n: integer): TLongDouble; cdecl; external libm;
-function ilogbl(x: TLongDouble): integer; cdecl; external libm;
-function llogbl(x: TLongDouble): int64; cdecl; external libm;
-function scalblnl(x: TLongDouble; n: int64): TLongDouble; cdecl; external libm;
-function nearbyintl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function roundl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function truncl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function remquol(x: TLongDouble; y: TLongDouble; quo: PInteger): TLongDouble; cdecl; external libm;
+function rintl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function nextafterl(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function nexttowardl(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function nextdownl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function nextupl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function remainderl(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function scalbnl(x: Tlong_double; n: integer): Tlong_double; cdecl; external libm;
+function ilogbl(x: Tlong_double): integer; cdecl; external libm;
+function llogbl(x: Tlong_double): int64; cdecl; external libm;
+function scalblnl(x: Tlong_double; n: int64): Tlong_double; cdecl; external libm;
+function nearbyintl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function roundl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function truncl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function remquol(x: Tlong_double; y: Tlong_double; quo: PInteger): Tlong_double; cdecl; external libm;
 
 // -------------------
 
@@ -383,36 +383,36 @@ function setpayloadf(x: PSingle; payload: single): integer; cdecl; external libm
 function setpayloadsigf(x: PSingle; payload: single): integer; cdecl; external libm;
 function scalbf(x: single; n: single): single; cdecl; external libm;
 
-function lrintl(x: TLongDouble): int64; cdecl; external libm;
-function llrintl(x: TLongDouble): int64; cdecl; external libm;
-function lroundl(x: TLongDouble): int64; cdecl; external libm;
-function llroundl(x: TLongDouble): int64; cdecl; external libm;
-function fdiml(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function fmaxl(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function fminl(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function fmal(x: TLongDouble; y: TLongDouble; z: TLongDouble): TLongDouble; cdecl; external libm;
-function roundevenl(x: TLongDouble): TLongDouble; cdecl; external libm;
-function fromfpl(x: TLongDouble; round: integer; width: cardinal): int64; cdecl; external libm;
-function ufromfpl(x: TLongDouble; round: integer; width: cardinal): uint64; cdecl; external libm;
-function fromfpxl(x: TLongDouble; round: integer; width: cardinal): int64; cdecl; external libm;
-function ufromfpxl(x: TLongDouble; round: integer; width: cardinal): uint64; cdecl; external libm;
-function canonicalizel(cx: PLongDouble; x: PLongDouble): integer; cdecl; external libm;
-function fmaxmagl(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function fminmagl(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function fmaximuml(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function fminimuml(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function fmaximum_numl(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function fminimum_numl(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function fmaximum_magl(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function fminimum_magl(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function fmaximum_mag_numl(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function fminimum_mag_numl(x: TLongDouble; y: TLongDouble): TLongDouble; cdecl; external libm;
-function totalorderl(x, y: PLongDouble): integer; cdecl; external libm;
-function totalordermagl(x, y: PLongDouble): integer; cdecl; external libm;
-function getpayloadl(x: PLongDouble): TLongDouble; cdecl; external libm;
-function setpayloadl(x: PLongDouble; payload: TLongDouble): integer; cdecl; external libm;
-function setpayloadsigl(x: PLongDouble; payload: TLongDouble): integer; cdecl; external libm;
-function scalbl(x: TLongDouble; n: TLongDouble): TLongDouble; cdecl; external libm;
+function lrintl(x: Tlong_double): int64; cdecl; external libm;
+function llrintl(x: Tlong_double): int64; cdecl; external libm;
+function lroundl(x: Tlong_double): int64; cdecl; external libm;
+function llroundl(x: Tlong_double): int64; cdecl; external libm;
+function fdiml(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function fmaxl(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function fminl(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function fmal(x: Tlong_double; y: Tlong_double; z: Tlong_double): Tlong_double; cdecl; external libm;
+function roundevenl(x: Tlong_double): Tlong_double; cdecl; external libm;
+function fromfpl(x: Tlong_double; round: integer; width: cardinal): int64; cdecl; external libm;
+function ufromfpl(x: Tlong_double; round: integer; width: cardinal): uint64; cdecl; external libm;
+function fromfpxl(x: Tlong_double; round: integer; width: cardinal): int64; cdecl; external libm;
+function ufromfpxl(x: Tlong_double; round: integer; width: cardinal): uint64; cdecl; external libm;
+function canonicalizel(cx: Plong_double; x: Plong_double): integer; cdecl; external libm;
+function fmaxmagl(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function fminmagl(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function fmaximuml(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function fminimuml(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function fmaximum_numl(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function fminimum_numl(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function fmaximum_magl(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function fminimum_magl(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function fmaximum_mag_numl(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function fminimum_mag_numl(x: Tlong_double; y: Tlong_double): Tlong_double; cdecl; external libm;
+function totalorderl(x, y: Plong_double): integer; cdecl; external libm;
+function totalordermagl(x, y: Plong_double): integer; cdecl; external libm;
+function getpayloadl(x: Plong_double): Tlong_double; cdecl; external libm;
+function setpayloadl(x: Plong_double; payload: Tlong_double): integer; cdecl; external libm;
+function setpayloadsigl(x: Plong_double; payload: Tlong_double): integer; cdecl; external libm;
+function scalbl(x: Tlong_double; n: Tlong_double): Tlong_double; cdecl; external libm;
 
 
 // === Konventiert am: 6-8-25 19:41:07 ===

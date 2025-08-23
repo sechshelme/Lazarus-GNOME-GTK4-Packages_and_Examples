@@ -25,16 +25,12 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="mgl2_package"/>
+        <PackageName Value="fp_mgl2_package"/>
       </Item>
     </RequiredPackages>
     <Units>
       <Unit>
         <Filename Value="project1.lpr"/>
-        <IsPartOfProject Value="True"/>
-      </Unit>
-      <Unit>
-        <Filename Value="mgl_command.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
     </Units>

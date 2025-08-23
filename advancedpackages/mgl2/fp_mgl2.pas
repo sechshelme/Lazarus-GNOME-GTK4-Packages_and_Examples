@@ -30,13 +30,19 @@ interface
 
 
   type
+    {$IFDEF Linux}
+    Twchar_t = uint32;
+    {$ENDIF}
+
+    {$IFDEF Windows}
+    Twchar_t = uint16;
+    {$ENDIF}
+    Pwchar_t = ^Twchar_t;
+
     Tuintptr_t = PtrUInt;
     Puintptr_t = ^Tuintptr_t;
 
     Tsize_t = SizeUInt;
-
-    Twchar_t = widechar;
-    Pwchar_t = ^Twchar_t;
 
     Ppthread_mutex_t = Pointer;
 
@@ -74,7 +80,6 @@ begin
            Ldmxcsr w2
   end;
 end;
-//{$ENDIF}
 {$ENDIF}
 
 begin

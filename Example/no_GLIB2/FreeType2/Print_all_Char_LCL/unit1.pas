@@ -9,6 +9,7 @@ uses
   OpenGLContext, gl,
   fp_FreeType2,
   LazUTF8;
+
 type
   TForm1 = class(TForm)
     OpenGLControl1: TOpenGLControl;
@@ -43,9 +44,9 @@ procedure TForm1.FormCreate(Sender: TObject);
 const
   //  fileName = '/usr/share/fonts/truetype/freefont/FreeMono.ttf';
   //  fileName = '/usr/share/fonts/truetype/noto/NotoSansMono-Bold.ttf';
-//  fileName = '/usr/share/fonts/truetype/ubuntu/Ubuntu-MI.ttf';
+  //  fileName = '/usr/share/fonts/truetype/ubuntu/Ubuntu-MI.ttf';
   fileName = '/usr/share/fonts/truetype/droid/DroidSansFallbackFull.ttf';
-//  fileName = '/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf';
+  //  fileName = '/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf';
 var
   error: TFT_Error;
 begin
@@ -70,14 +71,14 @@ begin
     WriteLn('Fehler: ', error);
   end;
 
-//  error := FT_Set_Char_Size(face, 300, 00, 0, 350);
+  //  error := FT_Set_Char_Size(face, 300, 00, 0, 350);
   error := FT_Set_Char_Size(face, 300, 00, 0, 350);
   if error <> 0 then begin
-    WriteLn('Fehler: Set_Char_Size   ', FT_Error_String( error));
+    WriteLn('Fehler: Set_Char_Size   ', FT_Error_String(error));
   end;
 
   num_chars := face^.num_glyphs;
-   WriteLn('num_chars: ', num_chars);
+  WriteLn('num_chars: ', num_chars);
   Timer1.Enabled := True;
 end;
 
@@ -128,7 +129,7 @@ begin
 
       if (i >= 0) and (j >= 0) and (i < imageWidht) and (j < imageHeight) then begin
         ofs := j * imageWidht + i;
-        image[ofs] := image[ofs] or bit.buffer[(bit.rows-q-1) * bit.Width + p];
+        image[ofs] := image[ofs] or bit.buffer[(bit.rows - q - 1) * bit.Width + p];
       end;
 
       Inc(j);
@@ -153,29 +154,29 @@ begin
 
   matrix.xx := 0000;
   matrix.xy := -10000;
-  matrix.yx :=  10000;
-  matrix.yy :=  10000;
+  matrix.yx := 10000;
+  matrix.yy := 10000;
 
   pen.x := 40000;
   pen.y := -10000;
 
   for n := 0 to num_chars - 1 do begin
-//    FT_Set_Transform(face, @matrix, @pen);
+    //    FT_Set_Transform(face, @matrix, @pen);
 
 
 
-           error:=FT_Load_Glyph(face, n, FT_LOAD_RENDER);
+    error := FT_Load_Glyph(face, n, FT_LOAD_RENDER);
     if error <> 0 then begin
       WriteLn('Fehler: Load_Char   ', error);
     end;
 
-    error:=FT_Render_Glyph(slot, FT_RENDER_MODE_NORMAL);
+    error := FT_Render_Glyph(slot, FT_RENDER_MODE_NORMAL);
     if error <> 0 then begin
       WriteLn('Fehler: FT_Render_Glyph   ', error);
     end;
-    draw_bitmap(slot^.bitmap, (n mod 64) * 20 + 30, OpenGLControl1.Height - (n div 64)*20 - 100);
-//    draw_bitmap(slot^.bitmap,  200, OpenGLControl1.Height - 200);
-//    draw_bitmap(slot^.bitmap, slot^.bitmap_left, OpenGLControl1.Height - slot^.bitmap_top);
+    draw_bitmap(slot^.bitmap, (n mod 64) * 20 + 30, OpenGLControl1.Height - (n div 64) * 20 - 100);
+    //    draw_bitmap(slot^.bitmap,  200, OpenGLControl1.Height - 200);
+    //    draw_bitmap(slot^.bitmap, slot^.bitmap_left, OpenGLControl1.Height - slot^.bitmap_top);
 
     pen.x += slot^.advance.x;
     pen.y += slot^.advance.y;

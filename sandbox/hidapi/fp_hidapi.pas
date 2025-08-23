@@ -29,7 +29,7 @@ type
   {$ENDIF}
 
   {$IFDEF Windows}
-  Pwchar_t = UInt16;
+  Twchar_t = UInt16;
   {$ENDIF}
   Pwchar_t = ^Twchar_t;
 
