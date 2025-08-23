@@ -1,18 +1,27 @@
 program project1;
 
 uses
-  fp_stdio,
+  fp_wchar,
+  wint_t,
+  wctype,
+
+  wctype_wchar,
+
   fp_hidapi,
   fp_hidapi_libusb;
 
 
+  function wprintf(format: Pwchar_t): integer; cdecl; varargs; external 'c';
+
   procedure main;
+  const
+    ls: array[0..19] of char = ('%', #0, #0, #0, 'l', #0, #0, #0, 's', #0, #0, #0, #10, #0, #0, #0, #0, #0, #0, #0);
   var
     vendor_id: word = $046d;
     product_id: word = $c050;
     handle: Phid_device;
     res: longint;
-    wstr: array [0..255] of Twchar_t;
+    wstr: array [0..11255] of Twchar_t;
   begin
     if hid_init <> 0 then begin
       WriteLn('HIDAPI init fehlgeschlagen');
@@ -28,12 +37,14 @@ uses
 
     res := hid_get_manufacturer_string(handle, wstr, Length(wstr));
     if res = 0 then begin
-      printf('Hersteller: %ls'#10, @wstr);
+      Write('Hersteller: ');
+      wprintf(@ls[0], @wstr);
     end;
 
     res := hid_get_product_string(handle, wstr, Length(wstr));
     if res = 0 then begin
-      printf('Produkt:    %ls'#10, @wstr);
+      Write('Product: ');
+      wprintf(@ls[0], @wstr);
     end;
 
     hid_close(handle);

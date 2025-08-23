@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <complex.h>
 #include <math.h>
+#include <wchar.h>
 
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_blas.h>
@@ -100,4 +101,5 @@ int main() {
 
     return 0;
 }
-
+win_t
+wctype_t
