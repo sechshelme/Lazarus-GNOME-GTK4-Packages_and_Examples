@@ -18,10 +18,6 @@ const
   libibus = 'libibus-1.0-1.dll'; // ???
   {$ENDIF}
 
-  {$IFDEF darwin}
-  libibus = 'libibus-1.0.synlib'; // ????
-  {$ENDIF}
-
   {$DEFINE read_interface}
   {$include fp_ibus_includes.inc}
   {$UNDEF read_interface}

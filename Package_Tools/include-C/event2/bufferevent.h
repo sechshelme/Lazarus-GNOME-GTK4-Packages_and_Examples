@@ -186,7 +186,7 @@ enum bufferevent_options {
 	  error occurred
   @see bufferevent_free()
   */
-EVENT2_EXPORT_SYMBOL
+extern
 struct bufferevent *bufferevent_socket_new(struct event_base *base, evutil_socket_t fd, int options);
 
 /**
@@ -208,7 +208,7 @@ struct bufferevent *bufferevent_socket_new(struct event_base *base, evutil_socke
    @param socklen The length of the address
    @return 0 on success, -1 on failure.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_socket_connect(struct bufferevent *, const struct sockaddr *, int);
 
 struct evdns_base;
@@ -238,7 +238,7 @@ struct evdns_base;
    may block while it waits for a DNS response.	 This is probably not
    what you want.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_socket_connect_hostname(struct bufferevent *,
     struct evdns_base *, int, const char *, int);
 
@@ -250,7 +250,7 @@ int bufferevent_socket_connect_hostname(struct bufferevent *,
    @return DNS error code.
    @see evutil_gai_strerror()
 */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_socket_get_dns_error(struct bufferevent *bev);
 
 /**
@@ -264,13 +264,13 @@ int bufferevent_socket_get_dns_error(struct bufferevent *bev);
   @return 0 if successful, or -1 if an error occurred
   @see bufferevent_new()
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_base_set(struct event_base *base, struct bufferevent *bufev);
 
 /**
    Return the event_base used by a bufferevent
 */
-EVENT2_EXPORT_SYMBOL
+extern
 struct event_base *bufferevent_get_base(struct bufferevent *bev);
 
 /**
@@ -282,7 +282,7 @@ struct event_base *bufferevent_get_base(struct bufferevent *bev);
   @param pri the priority to be assigned
   @return 0 if successful, or -1 if an error occurred
   */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_priority_set(struct bufferevent *bufev, int pri);
 
 /**
@@ -290,7 +290,7 @@ int bufferevent_priority_set(struct bufferevent *bufev, int pri);
 
    Only supported for socket bufferevents
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_get_priority(const struct bufferevent *bufev);
 
 /**
@@ -301,7 +301,7 @@ int bufferevent_get_priority(const struct bufferevent *bufev);
 
   @param bufev the bufferevent structure to be freed.
   */
-EVENT2_EXPORT_SYMBOL
+extern
 void bufferevent_free(struct bufferevent *bufev);
 
 
@@ -319,7 +319,7 @@ void bufferevent_free(struct bufferevent *bufev);
 	 (readcb, writecb, and errorcb)
   @see bufferevent_new()
   */
-EVENT2_EXPORT_SYMBOL
+extern
 void bufferevent_setcb(struct bufferevent *bufev,
     bufferevent_data_cb readcb, bufferevent_data_cb writecb,
     bufferevent_event_cb eventcb, void *cbarg);
@@ -338,7 +338,7 @@ void bufferevent_setcb(struct bufferevent *bufev,
     callback argument for the bufferevent.
  @see buffervent_setcb()
 */
-EVENT2_EXPORT_SYMBOL
+extern
 void bufferevent_getcb(struct bufferevent *bufev,
     bufferevent_data_cb *readcb_ptr,
     bufferevent_data_cb *writecb_ptr,
@@ -352,21 +352,21 @@ void bufferevent_getcb(struct bufferevent *bufev,
   @param bufev the bufferevent object for which to change the file descriptor
   @param fd the file descriptor to operate on
 */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_setfd(struct bufferevent *bufev, evutil_socket_t fd);
 
 /**
    Returns the file descriptor associated with a bufferevent, or -1 if
    no file descriptor is associated with the bufferevent.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 evutil_socket_t bufferevent_getfd(struct bufferevent *bufev);
 
 /**
    Returns the underlying bufferevent associated with a bufferevent (if
    the bufferevent is a wrapper), or NULL if there is no underlying bufferevent.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 struct bufferevent *bufferevent_get_underlying(struct bufferevent *bufev);
 
 /**
@@ -382,7 +382,7 @@ struct bufferevent *bufferevent_get_underlying(struct bufferevent *bufev);
   @return 0 if successful, or -1 if an error occurred
   @see bufferevent_write_buffer()
   */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_write(struct bufferevent *bufev,
     const void *data, size_t size);
 
@@ -396,7 +396,7 @@ int bufferevent_write(struct bufferevent *bufev,
   @return 0 if successful, or -1 if an error occurred
   @see bufferevent_write()
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_write_buffer(struct bufferevent *bufev, struct evbuffer *buf);
 
 
@@ -410,7 +410,7 @@ int bufferevent_write_buffer(struct bufferevent *bufev, struct evbuffer *buf);
   @param size the size of the data buffer, in bytes
   @return the amount of data read, in bytes.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 size_t bufferevent_read(struct bufferevent *bufev, void *data, size_t size);
 
 /**
@@ -421,7 +421,7 @@ size_t bufferevent_read(struct bufferevent *bufev, void *data, size_t size);
   @param buf the evbuffer to which to add data
   @return 0 if successful, or -1 if an error occurred.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_read_buffer(struct bufferevent *bufev, struct evbuffer *buf);
 
 /**
@@ -433,7 +433,7 @@ int bufferevent_read_buffer(struct bufferevent *bufev, struct evbuffer *buf);
    @return the evbuffer object for the input buffer
  */
 
-EVENT2_EXPORT_SYMBOL
+extern
 struct evbuffer *bufferevent_get_input(struct bufferevent *bufev);
 
 /**
@@ -448,7 +448,7 @@ struct evbuffer *bufferevent_get_input(struct bufferevent *bufev);
    @return the evbuffer object for the output buffer
  */
 
-EVENT2_EXPORT_SYMBOL
+extern
 struct evbuffer *bufferevent_get_output(struct bufferevent *bufev);
 
 /**
@@ -459,7 +459,7 @@ struct evbuffer *bufferevent_get_output(struct bufferevent *bufev);
   @return 0 if successful, or -1 if an error occurred
   @see bufferevent_disable()
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_enable(struct bufferevent *bufev, short event);
 
 /**
@@ -470,7 +470,7 @@ int bufferevent_enable(struct bufferevent *bufev, short event);
   @return 0 if successful, or -1 if an error occurred
   @see bufferevent_enable()
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_disable(struct bufferevent *bufev, short event);
 
 /**
@@ -479,7 +479,7 @@ int bufferevent_disable(struct bufferevent *bufev, short event);
    @param bufev the bufferevent to inspect
    @return A combination of EV_READ | EV_WRITE
  */
-EVENT2_EXPORT_SYMBOL
+extern
 short bufferevent_get_enabled(struct bufferevent *bufev);
 
 /**
@@ -508,7 +508,7 @@ short bufferevent_get_enabled(struct bufferevent *bufev);
   @param timeout_read the read timeout, or NULL
   @param timeout_write the write timeout, or NULL
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_set_timeouts(struct bufferevent *bufev,
     const struct timeval *timeout_read, const struct timeval *timeout_write);
 
@@ -533,7 +533,7 @@ int bufferevent_set_timeouts(struct bufferevent *bufev,
   @param highmark the high watermark to set
 */
 
-EVENT2_EXPORT_SYMBOL
+extern
 void bufferevent_setwatermark(struct bufferevent *bufev, short events,
     size_t lowmark, size_t highmark);
 
@@ -547,7 +547,7 @@ void bufferevent_setwatermark(struct bufferevent *bufev, short events,
   @param lowmark receives the lower watermark if not NULL
   @param highmark receives the high watermark if not NULL
 */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_getwatermark(struct bufferevent *bufev, short events,
     size_t *lowmark, size_t *highmark);
 
@@ -555,14 +555,14 @@ int bufferevent_getwatermark(struct bufferevent *bufev, short events,
    Acquire the lock on a bufferevent.  Has no effect if locking was not
    enabled with BEV_OPT_THREADSAFE.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 void bufferevent_lock(struct bufferevent *bufev);
 
 /**
    Release the lock on a bufferevent.  Has no effect if locking was not
    enabled with BEV_OPT_THREADSAFE.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 void bufferevent_unlock(struct bufferevent *bufev);
 
 
@@ -574,7 +574,7 @@ void bufferevent_unlock(struct bufferevent *bufev);
  * @param bufev the bufferevent to increase the refcount on
  *
  */
-EVENT2_EXPORT_SYMBOL
+extern
 void bufferevent_incref(struct bufferevent *bufev);
 
 /**
@@ -588,7 +588,7 @@ void bufferevent_incref(struct bufferevent *bufev);
  *
  * @return 1 if the bufferevent was freed, otherwise 0 (still referenced)
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_decref(struct bufferevent *bufev);
 
 /**
@@ -614,7 +614,7 @@ enum bufferevent_flush_mode {
    @param mode either BEV_NORMAL or BEV_FLUSH or BEV_FINISHED
    @return -1 on failure, 0 if no data was produces, 1 if data was produced
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_flush(struct bufferevent *bufev,
     short iotype,
     enum bufferevent_flush_mode mode);
@@ -645,7 +645,7 @@ enum bufferevent_trigger_options {
    @param iotype either EV_READ or EV_WRITE or both.
    @param options
  */
-EVENT2_EXPORT_SYMBOL
+extern
 void bufferevent_trigger(struct bufferevent *bufev, short iotype,
     int options);
 
@@ -658,7 +658,7 @@ void bufferevent_trigger(struct bufferevent *bufev, short iotype,
    @param what the flags to pass onto the event callback
    @param options
  */
-EVENT2_EXPORT_SYMBOL
+extern
 void bufferevent_trigger_event(struct bufferevent *bufev, short what,
     int options);
 
@@ -717,7 +717,7 @@ typedef enum bufferevent_filter_result (*bufferevent_filter_cb)(
      this bufferevent is freed.
    @param ctx A context pointer to pass to the filter functions.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 struct bufferevent *
 bufferevent_filter_new(struct bufferevent *underlying,
 		       bufferevent_filter_cb input_filter,
@@ -737,7 +737,7 @@ bufferevent_filter_new(struct bufferevent *underlying,
    @param pair A pointer to an array to hold the two new bufferevent objects.
    @return 0 on success, -1 on failure.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_pair_new(struct event_base *base, int options,
     struct bufferevent *pair[2]);
 
@@ -745,7 +745,7 @@ int bufferevent_pair_new(struct event_base *base, int options,
    Given one bufferevent returned by bufferevent_pair_new(), returns the
    other one if it still exists.  Otherwise returns NULL.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 struct bufferevent *bufferevent_pair_get_partner(struct bufferevent *bev);
 
 /**
@@ -779,7 +779,7 @@ struct bufferevent_rate_limit_group;
    Note that all rate-limits hare are currently best-effort: future versions
    of Libevent may implement them more tightly.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 struct ev_token_bucket_cfg *ev_token_bucket_cfg_new(
 	size_t read_rate, size_t read_burst,
 	size_t write_rate, size_t write_burst,
@@ -790,7 +790,7 @@ struct ev_token_bucket_cfg *ev_token_bucket_cfg_new(
     Note: 'cfg' is not currently reference-counted; it is not safe to free it
     until no bufferevent is using it.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 void ev_token_bucket_cfg_free(struct ev_token_bucket_cfg *cfg);
 
 /**
@@ -804,7 +804,7 @@ void ev_token_bucket_cfg_free(struct ev_token_bucket_cfg *cfg);
 
    Return 0 on success, -1 on failure.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_set_rate_limit(struct bufferevent *bev,
     struct ev_token_bucket_cfg *cfg);
 
@@ -825,7 +825,7 @@ int bufferevent_set_rate_limit(struct bufferevent *bev,
    They are: socket-based bufferevents (normal and IOCP-based), and SSL-based
    bufferevents.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 struct bufferevent_rate_limit_group *bufferevent_rate_limit_group_new(
 	struct event_base *base,
 	const struct ev_token_bucket_cfg *cfg);
@@ -834,7 +834,7 @@ struct bufferevent_rate_limit_group *bufferevent_rate_limit_group_new(
 
    Return 0 on success, -1 on failure.
 */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_rate_limit_group_set_cfg(
 	struct bufferevent_rate_limit_group *,
 	const struct ev_token_bucket_cfg *);
@@ -855,7 +855,7 @@ int bufferevent_rate_limit_group_set_cfg(
 
    Returns 0 on success, -1 on failure.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_rate_limit_group_set_min_share(
 	struct bufferevent_rate_limit_group *, size_t);
 
@@ -863,7 +863,7 @@ int bufferevent_rate_limit_group_set_min_share(
    Free a rate-limiting group.  The group must have no members when
    this function is called.
 */
-EVENT2_EXPORT_SYMBOL
+extern
 void bufferevent_rate_limit_group_free(struct bufferevent_rate_limit_group *);
 
 /**
@@ -876,12 +876,12 @@ void bufferevent_rate_limit_group_free(struct bufferevent_rate_limit_group *);
 
    Return 0 on success and -1 on failure.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_add_to_rate_limit_group(struct bufferevent *bev,
     struct bufferevent_rate_limit_group *g);
 
 /** Remove 'bev' from its current rate-limit group (if any). */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_remove_from_rate_limit_group(struct bufferevent *bev);
 
 /**
@@ -891,7 +891,7 @@ int bufferevent_remove_from_rate_limit_group(struct bufferevent *bev);
 
    Return 0 on success and -1 on failure.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_set_max_single_read(struct bufferevent *bev, size_t size);
 
 /**
@@ -901,15 +901,15 @@ int bufferevent_set_max_single_read(struct bufferevent *bev, size_t size);
 
    Return 0 on success and -1 on failure.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_set_max_single_write(struct bufferevent *bev, size_t size);
 
 /** Get the current size limit for single read operation. */
-EVENT2_EXPORT_SYMBOL
+extern
 ev_ssize_t bufferevent_get_max_single_read(struct bufferevent *bev);
 
 /** Get the current size limit for single write operation. */
-EVENT2_EXPORT_SYMBOL
+extern
 ev_ssize_t bufferevent_get_max_single_write(struct bufferevent *bev);
 
 /**
@@ -923,18 +923,18 @@ ev_ssize_t bufferevent_get_max_single_write(struct bufferevent *bev);
 
    @{
  */
-EVENT2_EXPORT_SYMBOL
+extern
 ev_ssize_t bufferevent_get_read_limit(struct bufferevent *bev);
-EVENT2_EXPORT_SYMBOL
+extern
 ev_ssize_t bufferevent_get_write_limit(struct bufferevent *bev);
 /*@}*/
 
-EVENT2_EXPORT_SYMBOL
+extern
 ev_ssize_t bufferevent_get_max_to_read(struct bufferevent *bev);
-EVENT2_EXPORT_SYMBOL
+extern
 ev_ssize_t bufferevent_get_max_to_write(struct bufferevent *bev);
 
-EVENT2_EXPORT_SYMBOL
+extern
 const struct ev_token_bucket_cfg *bufferevent_get_token_bucket_cfg(const struct bufferevent * bev);
 
 /**
@@ -946,10 +946,10 @@ const struct ev_token_bucket_cfg *bufferevent_get_token_bucket_cfg(const struct 
 
    @{
  */
-EVENT2_EXPORT_SYMBOL
+extern
 ev_ssize_t bufferevent_rate_limit_group_get_read_limit(
 	struct bufferevent_rate_limit_group *);
-EVENT2_EXPORT_SYMBOL
+extern
 ev_ssize_t bufferevent_rate_limit_group_get_write_limit(
 	struct bufferevent_rate_limit_group *);
 /*@}*/
@@ -968,9 +968,9 @@ ev_ssize_t bufferevent_rate_limit_group_get_write_limit(
 
    @{
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_decrement_read_limit(struct bufferevent *bev, ev_ssize_t decr);
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_decrement_write_limit(struct bufferevent *bev, ev_ssize_t decr);
 /*@}*/
 
@@ -987,10 +987,10 @@ int bufferevent_decrement_write_limit(struct bufferevent *bev, ev_ssize_t decr);
 
    @{
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_rate_limit_group_decrement_read(
 	struct bufferevent_rate_limit_group *, ev_ssize_t);
-EVENT2_EXPORT_SYMBOL
+extern
 int bufferevent_rate_limit_group_decrement_write(
 	struct bufferevent_rate_limit_group *, ev_ssize_t);
 /*@}*/
@@ -1002,7 +1002,7 @@ int bufferevent_rate_limit_group_decrement_write(
  * Set the variable pointed to by total_read_out to the total number of bytes
  * ever read on grp, and the variable pointed to by total_written_out to the
  * total number of bytes ever written on grp. */
-EVENT2_EXPORT_SYMBOL
+extern
 void bufferevent_rate_limit_group_get_totals(
     struct bufferevent_rate_limit_group *grp,
     ev_uint64_t *total_read_out, ev_uint64_t *total_written_out);
@@ -1012,7 +1012,7 @@ void bufferevent_rate_limit_group_get_totals(
  *
  * Reset the number of bytes read or written on grp as given by
  * bufferevent_rate_limit_group_reset_totals(). */
-EVENT2_EXPORT_SYMBOL
+extern
 void
 bufferevent_rate_limit_group_reset_totals(
 	struct bufferevent_rate_limit_group *grp);

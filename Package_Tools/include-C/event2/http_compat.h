@@ -59,7 +59,7 @@ extern "C" {
  * @return a pointer to a newly initialized evhttp server structure
  *   or NULL on error
  */
-EVENT2_EXPORT_SYMBOL
+extern
 struct evhttp *evhttp_start(const char *address, ev_uint16_t port);
 
 /**
@@ -69,7 +69,7 @@ struct evhttp *evhttp_start(const char *address, ev_uint16_t port);
  *
  * @deprecated It does not allow an event base to be specified
  */
-EVENT2_EXPORT_SYMBOL
+extern
 struct evhttp_connection *evhttp_connection_new(
 	const char *address, ev_uint16_t port);
 
@@ -79,7 +79,7 @@ struct evhttp_connection *evhttp_connection_new(
  *
  * @deprecated XXXX Why?
  */
-EVENT2_EXPORT_SYMBOL
+extern
 void evhttp_connection_set_base(struct evhttp_connection *evcon,
     struct event_base *base);
 

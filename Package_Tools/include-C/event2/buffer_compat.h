@@ -47,7 +47,7 @@
    @return pointer to a single line, or NULL if an error occurred
 
 */
-EVENT2_EXPORT_SYMBOL
+extern
 char *evbuffer_readline(struct evbuffer *buffer);
 
 /** Type definition for a callback that is invoked whenever data is added or
@@ -92,7 +92,7 @@ typedef void (*evbuffer_cb)(struct evbuffer *buffer, size_t old_len, size_t new_
   @param cbarg an argument to be provided to the callback function
   @return 0 if successful, or -1 on error
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evbuffer_setcb(struct evbuffer *buffer, evbuffer_cb cb, void *cbarg);
 
 
@@ -104,7 +104,7 @@ int evbuffer_setcb(struct evbuffer *buffer, evbuffer_cb cb, void *cbarg);
   @param len the length of the search string
   @return a pointer to the beginning of the search string, or NULL if the search failed.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 unsigned char *evbuffer_find(struct evbuffer *buffer, const unsigned char *what, size_t len);
 
 /** deprecated in favor of calling the functions directly */

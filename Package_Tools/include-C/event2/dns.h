@@ -254,7 +254,7 @@ struct event_base;
   @return evdns_base object if successful, or NULL if an error occurred.
   @see evdns_base_free()
  */
-EVENT2_EXPORT_SYMBOL
+extern
 struct evdns_base * evdns_base_new(struct event_base *event_base, int initialize_nameservers);
 
 
@@ -270,7 +270,7 @@ struct evdns_base * evdns_base_new(struct event_base *event_base, int initialize
 		active requests will return DNS_ERR_SHUTDOWN.
   @see evdns_base_new()
  */
-EVENT2_EXPORT_SYMBOL
+extern
 void evdns_base_free(struct evdns_base *base, int fail_requests);
 
 /**
@@ -279,7 +279,7 @@ void evdns_base_free(struct evdns_base *base, int fail_requests);
 
    @param evdns_base the evdns base to remove outdated host addresses from
  */
-EVENT2_EXPORT_SYMBOL
+extern
 void evdns_base_clear_host_addresses(struct evdns_base *base);
 
 /**
@@ -288,7 +288,7 @@ void evdns_base_clear_host_addresses(struct evdns_base *base);
   @param err the DNS error code
   @return a string containing an explanation of the error code
 */
-EVENT2_EXPORT_SYMBOL
+extern
 const char *evdns_err_to_string(int err);
 
 
@@ -303,7 +303,7 @@ const char *evdns_err_to_string(int err);
   @return 0 if successful, or -1 if an error occurred
   @see evdns_base_nameserver_ip_add()
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evdns_base_nameserver_add(struct evdns_base *base,
     unsigned long int address);
 
@@ -319,7 +319,7 @@ int evdns_base_nameserver_add(struct evdns_base *base,
   @return the number of configured nameservers
   @see evdns_base_nameserver_add()
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evdns_base_count_nameservers(struct evdns_base *base);
 
 /**
@@ -331,7 +331,7 @@ int evdns_base_count_nameservers(struct evdns_base *base);
   @return 0 if successful, or -1 if an error occurred
   @see evdns_base_resume()
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evdns_base_clear_nameservers_and_suspend(struct evdns_base *base);
 
 
@@ -345,7 +345,7 @@ int evdns_base_clear_nameservers_and_suspend(struct evdns_base *base);
   @return 0 if successful, or -1 if an error occurred
   @see evdns_base_clear_nameservers_and_suspend()
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evdns_base_resume(struct evdns_base *base);
 
 /**
@@ -365,14 +365,14 @@ int evdns_base_resume(struct evdns_base *base);
   @return 0 if successful, or -1 if an error occurred
   @see evdns_base_nameserver_add()
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evdns_base_nameserver_ip_add(struct evdns_base *base,
     const char *ip_as_string);
 
 /**
    Add a nameserver by sockaddr.
  **/
-EVENT2_EXPORT_SYMBOL
+extern
 int
 evdns_base_nameserver_sockaddr_add(struct evdns_base *base,
     const struct sockaddr *sa, ev_socklen_t len, unsigned flags);
@@ -390,7 +390,7 @@ struct evdns_request;
   @return an evdns_request object if successful, or NULL if an error occurred.
   @see evdns_resolve_ipv6(), evdns_resolve_reverse(), evdns_resolve_reverse_ipv6(), evdns_cancel_request()
  */
-EVENT2_EXPORT_SYMBOL
+extern
 struct evdns_request *evdns_base_resolve_ipv4(struct evdns_base *base, const char *name, int flags, evdns_callback_type callback, void *ptr);
 
 /**
@@ -404,7 +404,7 @@ struct evdns_request *evdns_base_resolve_ipv4(struct evdns_base *base, const cha
   @return an evdns_request object if successful, or NULL if an error occurred.
   @see evdns_resolve_ipv4(), evdns_resolve_reverse(), evdns_resolve_reverse_ipv6(), evdns_cancel_request()
  */
-EVENT2_EXPORT_SYMBOL
+extern
 struct evdns_request *evdns_base_resolve_ipv6(struct evdns_base *base, const char *name, int flags, evdns_callback_type callback, void *ptr);
 
 struct in_addr;
@@ -421,7 +421,7 @@ struct in6_addr;
   @return an evdns_request object if successful, or NULL if an error occurred.
   @see evdns_resolve_reverse_ipv6(), evdns_cancel_request()
  */
-EVENT2_EXPORT_SYMBOL
+extern
 struct evdns_request *evdns_base_resolve_reverse(struct evdns_base *base, const struct in_addr *in, int flags, evdns_callback_type callback, void *ptr);
 
 
@@ -436,7 +436,7 @@ struct evdns_request *evdns_base_resolve_reverse(struct evdns_base *base, const 
   @return an evdns_request object if successful, or NULL if an error occurred.
   @see evdns_resolve_reverse_ipv6(), evdns_cancel_request()
  */
-EVENT2_EXPORT_SYMBOL
+extern
 struct evdns_request *evdns_base_resolve_reverse_ipv6(struct evdns_base *base, const struct in6_addr *in, int flags, evdns_callback_type callback, void *ptr);
 
 /**
@@ -446,7 +446,7 @@ struct evdns_request *evdns_base_resolve_reverse_ipv6(struct evdns_base *base, c
   @param req the evdns_request that was returned by calling a resolve function
   @see evdns_base_resolve_ipv4(), evdns_base_resolve_ipv6, evdns_base_resolve_reverse
 */
-EVENT2_EXPORT_SYMBOL
+extern
 void evdns_cancel_request(struct evdns_base *base, struct evdns_request *req);
 
 /**
@@ -466,7 +466,7 @@ void evdns_cancel_request(struct evdns_base *base, struct evdns_request *req);
   @param val the value to be set
   @return 0 if successful, or -1 if an error occurred
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evdns_base_set_option(struct evdns_base *base, const char *option, const char *val);
 
 
@@ -492,7 +492,7 @@ int evdns_base_set_option(struct evdns_base *base, const char *option, const cha
     occurred (see above)
   @see resolv.conf(3), evdns_config_windows_nameservers()
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evdns_base_resolv_conf_parse(struct evdns_base *base, int flags, const char *const filename);
 
 /**
@@ -508,7 +508,7 @@ int evdns_base_resolv_conf_parse(struct evdns_base *base, int flags, const char 
 
    Return 0 on success, negative on failure.
 */
-EVENT2_EXPORT_SYMBOL
+extern
 int evdns_base_load_hosts(struct evdns_base *base, const char *hosts_fname);
 
 #if defined(EVENT_IN_DOXYGEN_) || defined(_WIN32)
@@ -522,7 +522,7 @@ int evdns_base_load_hosts(struct evdns_base *base, const char *hosts_fname);
   @return 0 if successful, or -1 if an error occurred
   @see evdns_resolv_conf_parse()
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evdns_base_config_windows_nameservers(struct evdns_base *);
 #define EVDNS_BASE_CONFIG_WINDOWS_NAMESERVERS_IMPLEMENTED
 #endif
@@ -531,7 +531,7 @@ int evdns_base_config_windows_nameservers(struct evdns_base *);
 /**
   Clear the list of search domains.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 void evdns_base_search_clear(struct evdns_base *base);
 
 
@@ -540,7 +540,7 @@ void evdns_base_search_clear(struct evdns_base *base);
 
   @param domain the domain to be added to the search list
  */
-EVENT2_EXPORT_SYMBOL
+extern
 void evdns_base_search_add(struct evdns_base *base, const char *domain);
 
 
@@ -552,7 +552,7 @@ void evdns_base_search_add(struct evdns_base *base, const char *domain);
 
   @param ndots the new ndots parameter
  */
-EVENT2_EXPORT_SYMBOL
+extern
 void evdns_base_search_ndots_set(struct evdns_base *base, const int ndots);
 
 /**
@@ -571,7 +571,7 @@ typedef void (*evdns_debug_log_fn_type)(int is_warning, const char *msg);
 
   @param fn the callback to be invoked when a log message is generated
  */
-EVENT2_EXPORT_SYMBOL
+extern
 void evdns_set_log_fn(evdns_debug_log_fn_type fn);
 
 /**
@@ -584,7 +584,7 @@ void evdns_set_log_fn(evdns_debug_log_fn_type fn);
    NOTE: This function has no effect in Libevent 2.0.4-alpha and later,
    since Libevent now provides its own secure RNG.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 void evdns_set_transaction_id_fn(ev_uint16_t (*fn)(void));
 
 /**
@@ -596,7 +596,7 @@ void evdns_set_transaction_id_fn(ev_uint16_t (*fn)(void));
    NOTE: This function has no effect in Libevent 2.0.4-alpha and later,
    since Libevent now provides its own secure RNG.
 */
-EVENT2_EXPORT_SYMBOL
+extern
 void evdns_set_random_bytes_fn(void (*fn)(char *, size_t));
 
 /*
@@ -651,46 +651,46 @@ typedef void (*evdns_request_callback_fn_type)(struct evdns_server_request *, vo
     @return an evdns_server_port structure for this server port or NULL if
       an error occurred.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 struct evdns_server_port *evdns_add_server_port_with_base(struct event_base *base, evutil_socket_t socket, int flags, evdns_request_callback_fn_type callback, void *user_data);
 /** Close down a DNS server port, and free associated structures. */
-EVENT2_EXPORT_SYMBOL
+extern
 void evdns_close_server_port(struct evdns_server_port *port);
 
 /** Sets some flags in a reply we're building.
     Allows setting of the AA or RD flags
  */
-EVENT2_EXPORT_SYMBOL
+extern
 void evdns_server_request_set_flags(struct evdns_server_request *req, int flags);
 
 /* Functions to add an answer to an in-progress DNS reply.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evdns_server_request_add_reply(struct evdns_server_request *req, int section, const char *name, int type, int dns_class, int ttl, int datalen, int is_name, const char *data);
-EVENT2_EXPORT_SYMBOL
+extern
 int evdns_server_request_add_a_reply(struct evdns_server_request *req, const char *name, int n, const void *addrs, int ttl);
-EVENT2_EXPORT_SYMBOL
+extern
 int evdns_server_request_add_aaaa_reply(struct evdns_server_request *req, const char *name, int n, const void *addrs, int ttl);
-EVENT2_EXPORT_SYMBOL
+extern
 int evdns_server_request_add_ptr_reply(struct evdns_server_request *req, struct in_addr *in, const char *inaddr_name, const char *hostname, int ttl);
-EVENT2_EXPORT_SYMBOL
+extern
 int evdns_server_request_add_cname_reply(struct evdns_server_request *req, const char *name, const char *cname, int ttl);
 
 /**
    Send back a response to a DNS request, and free the request structure.
 */
-EVENT2_EXPORT_SYMBOL
+extern
 int evdns_server_request_respond(struct evdns_server_request *req, int err);
 /**
    Free a DNS request without sending back a reply.
 */
-EVENT2_EXPORT_SYMBOL
+extern
 int evdns_server_request_drop(struct evdns_server_request *req);
 struct sockaddr;
 /**
     Get the address that made a DNS request.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evdns_server_request_get_requesting_addr(struct evdns_server_request *req, struct sockaddr *sa, int addr_len);
 
 /** Callback for evdns_getaddrinfo. */
@@ -715,7 +715,7 @@ struct evdns_getaddrinfo_request;
  * - For ai_socktype, we only handle SOCKTYPE_STREAM, SOCKTYPE_UDP, and 0.
  * - For ai_protocol, we only handle IPPROTO_TCP, IPPROTO_UDP, and 0.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 struct evdns_getaddrinfo_request *evdns_getaddrinfo(
     struct evdns_base *dns_base,
     const char *nodename, const char *servname,
@@ -725,7 +725,7 @@ struct evdns_getaddrinfo_request *evdns_getaddrinfo(
 /* Cancel an in-progress evdns_getaddrinfo.  This MUST NOT be called after the
  * getaddrinfo's callback has been invoked.  The resolves will be canceled,
  * and the callback will be invoked with the error EVUTIL_EAI_CANCEL. */
-EVENT2_EXPORT_SYMBOL
+extern
 void evdns_getaddrinfo_cancel(struct evdns_getaddrinfo_request *req);
 
 /**
@@ -740,7 +740,7 @@ void evdns_getaddrinfo_cancel(struct evdns_getaddrinfo_request *req);
      -1 if idx is greater than the number of configured nameservers, or a
      value greater than 'len' if len was not high enough.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evdns_base_get_nameserver_addr(struct evdns_base *base, int idx,
     struct sockaddr *sa, ev_socklen_t len);
 

@@ -337,7 +337,7 @@ struct evutil_monotonic_timer
  * One should check if the return value is smaller than `datelen` to check if
  * the result is truncated or not.
  */
-EVENT2_EXPORT_SYMBOL int
+extern int
 evutil_date_rfc1123(char *date, const size_t datelen, const struct tm *tm);
 
 /** Allocate a new struct evutil_monotonic_timer for use with the
@@ -345,19 +345,19 @@ evutil_date_rfc1123(char *date, const size_t datelen, const struct tm *tm);
  * functions.  You must configure the timer with
  * evutil_configure_monotonic_time() before using it.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 struct evutil_monotonic_timer * evutil_monotonic_timer_new(void);
 
 /** Free a struct evutil_monotonic_timer that was allocated using
  * evutil_monotonic_timer_new().
  */
-EVENT2_EXPORT_SYMBOL
+extern
 void evutil_monotonic_timer_free(struct evutil_monotonic_timer *timer);
 
 /** Set up a struct evutil_monotonic_timer; flags can include
  * EV_MONOT_PRECISE and EV_MONOT_FALLBACK.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_configure_monotonic_time(struct evutil_monotonic_timer *timer,
                                     int flags);
 
@@ -371,7 +371,7 @@ int evutil_configure_monotonic_time(struct evutil_monotonic_timer *timer,
  * It is not safe to use this funtion on the same timer from multiple
  * threads.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_gettime_monotonic(struct evutil_monotonic_timer *timer,
                              struct timeval *tp);
 
@@ -386,14 +386,14 @@ int evutil_gettime_monotonic(struct evutil_monotonic_timer *timer,
 
     Parameters and return values are as for socketpair()
 */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_socketpair(int d, int type, int protocol, evutil_socket_t sv[2]);
 /** Do platform-specific operations as needed to make a socket nonblocking.
 
     @param sock The socket to make nonblocking
     @return 0 on success, -1 on failure
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_make_socket_nonblocking(evutil_socket_t sock);
 
 /** Do platform-specific operations to make a listener socket reusable.
@@ -407,7 +407,7 @@ int evutil_make_socket_nonblocking(evutil_socket_t sock);
     @param sock The socket to make reusable
     @return 0 on success, -1 on failure
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_make_listen_socket_reuseable(evutil_socket_t sock);
 
 /** Do platform-specific operations to make a listener port reusable.
@@ -420,7 +420,7 @@ int evutil_make_listen_socket_reuseable(evutil_socket_t sock);
     @param sock The socket to make reusable
     @return 0 on success, -1 on failure
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_make_listen_socket_reuseable_port(evutil_socket_t sock);
 
 /** Set ipv6 only bind socket option to make listener work only in ipv6 sockets.
@@ -432,7 +432,7 @@ int evutil_make_listen_socket_reuseable_port(evutil_socket_t sock);
     @param sock The socket to make in ipv6only working mode
     @return 0 on success, -1 on failure
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_make_listen_socket_ipv6only(evutil_socket_t sock);
 
 /** Do platform-specific operations as needed to close a socket upon a
@@ -441,7 +441,7 @@ int evutil_make_listen_socket_ipv6only(evutil_socket_t sock);
     @param sock The socket to be closed
     @return 0 on success, -1 on failure
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_make_socket_closeonexec(evutil_socket_t sock);
 
 /** Do the platform-specific call needed to close a socket returned from
@@ -451,7 +451,7 @@ int evutil_make_socket_closeonexec(evutil_socket_t sock);
     @return 0 on success (whether the operation is supported or not),
             -1 on failure
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_closesocket(evutil_socket_t sock);
 #define EVUTIL_CLOSESOCKET(s) evutil_closesocket(s)
 
@@ -466,7 +466,7 @@ int evutil_closesocket(evutil_socket_t sock);
  *  @return 0 on success (whether the operation is supported or not),
  *       -1 on failure
 */ 
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_make_tcp_listen_socket_deferred(evutil_socket_t sock);
 
 #ifdef _WIN32
@@ -476,10 +476,10 @@ int evutil_make_tcp_listen_socket_deferred(evutil_socket_t sock);
 #define EVUTIL_SET_SOCKET_ERROR(errcode)		\
 	do { WSASetLastError(errcode); } while (0)
 /** Return the most recent socket error to occur on sock. */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_socket_geterror(evutil_socket_t sock);
 /** Convert a socket error to a string. */
-EVENT2_EXPORT_SYMBOL
+extern
 const char *evutil_socket_error_to_string(int errcode);
 #define EVUTIL_INVALID_SOCKET INVALID_SOCKET
 #elif defined(EVENT_IN_DOXYGEN_)
@@ -578,7 +578,7 @@ const char *evutil_socket_error_to_string(int errcode);
 
 /* big-int related functions */
 /** Parse a 64-bit value from a string.  Arguments are as for strtol. */
-EVENT2_EXPORT_SYMBOL
+extern
 ev_int64_t evutil_strtoll(const char *s, char **endptr, int base);
 
 /** Replacement for gettimeofday on platforms that lack it. */
@@ -586,14 +586,14 @@ ev_int64_t evutil_strtoll(const char *s, char **endptr, int base);
 #define evutil_gettimeofday(tv, tz) gettimeofday((tv), (tz))
 #else
 struct timezone;
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_gettimeofday(struct timeval *tv, struct timezone *tz);
 #endif
 
 /** Replacement for snprintf to get consistent behavior on platforms for
     which the return value of snprintf does not conform to C99.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_snprintf(char *buf, size_t buflen, const char *format, ...)
 #ifdef __GNUC__
 	__attribute__((format(printf, 3, 4)))
@@ -602,7 +602,7 @@ int evutil_snprintf(char *buf, size_t buflen, const char *format, ...)
 /** Replacement for vsnprintf to get consistent behavior on platforms for
     which the return value of snprintf does not conform to C99.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_vsnprintf(char *buf, size_t buflen, const char *format, va_list ap)
 #ifdef __GNUC__
 	__attribute__((format(printf, 3, 0)))
@@ -610,16 +610,16 @@ int evutil_vsnprintf(char *buf, size_t buflen, const char *format, va_list ap)
 ;
 
 /** Replacement for inet_ntop for platforms which lack it. */
-EVENT2_EXPORT_SYMBOL
+extern
 const char *evutil_inet_ntop(int af, const void *src, char *dst, size_t len);
 /** Variation of inet_pton that also parses IPv6 scopes. Public for
     unit tests. No reason to call this directly.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_inet_pton_scope(int af, const char *src, void *dst,
 	unsigned *indexp);
 /** Replacement for inet_pton for platforms which lack it. */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_inet_pton(int af, const char *src, void *dst);
 struct sockaddr;
 
@@ -643,7 +643,7 @@ struct sockaddr;
        or if out is not large enough to hold the result.  Otherwise returns
        0 on success.
 */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_parse_sockaddr_port(const char *str, struct sockaddr *out, int *outlen);
 
 /** Compare two sockaddrs; return 0 if they are equal, or less than 0 if sa1
@@ -651,19 +651,19 @@ int evutil_parse_sockaddr_port(const char *str, struct sockaddr *out, int *outle
  * true, consider the port as well as the address.  Only implemented for
  * AF_INET and AF_INET6 addresses. The ordering is not guaranteed to remain
  * the same between Libevent versions. */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_sockaddr_cmp(const struct sockaddr *sa1, const struct sockaddr *sa2,
     int include_port);
 
 /** As strcasecmp, but always compares the characters in locale-independent
     ASCII.  That's useful if you're handling data in ASCII-based protocols.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_ascii_strcasecmp(const char *str1, const char *str2);
 /** As strncasecmp, but always compares the characters in locale-independent
     ASCII.  That's useful if you're handling data in ASCII-based protocols.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_ascii_strncasecmp(const char *str1, const char *str2, size_t n);
 
 /* Here we define evutil_addrinfo to the native addrinfo type, or redefine it
@@ -804,15 +804,15 @@ struct evutil_addrinfo;
  *
  * For a nonblocking variant, see evdns_getaddrinfo.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_getaddrinfo(const char *nodename, const char *servname,
     const struct evutil_addrinfo *hints_in, struct evutil_addrinfo **res);
 
 /** Release storage allocated by evutil_getaddrinfo or evdns_getaddrinfo. */
-EVENT2_EXPORT_SYMBOL
+extern
 void evutil_freeaddrinfo(struct evutil_addrinfo *ai);
 
-EVENT2_EXPORT_SYMBOL
+extern
 const char *evutil_gai_strerror(int err);
 
 /** Generate n bytes of secure pseudorandom data, and store them in buf.
@@ -824,7 +824,7 @@ const char *evutil_gai_strerror(int err);
  * provides only rudimentary prediction- and backtracking-resistance.  Don't
  * use this for serious cryptographic applications.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 void evutil_secure_rng_get_bytes(void *buf, size_t n);
 
 /**
@@ -843,7 +843,7 @@ void evutil_secure_rng_get_bytes(void *buf, size_t n);
  * whatever), and you want to make sure that seeding happens before your
  * program loses the ability to do it.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_secure_rng_init(void);
 
 /**
@@ -859,7 +859,7 @@ int evutil_secure_rng_init(void);
  *
  * This API is unstable, and might change in a future libevent version.
  */
-EVENT2_EXPORT_SYMBOL
+extern
 int evutil_secure_rng_set_urandom_device_file(char *fname);
 
 /** Seed the random number generator with extra random bytes.
@@ -876,7 +876,7 @@ int evutil_secure_rng_set_urandom_device_file(char *fname);
     @param dat a buffer full of a strong source of random numbers
     @param datlen the number of bytes to read from datlen
  */
-EVENT2_EXPORT_SYMBOL
+extern
 void evutil_secure_rng_add_bytes(const char *dat, size_t datlen);
 
 #ifdef __cplusplus

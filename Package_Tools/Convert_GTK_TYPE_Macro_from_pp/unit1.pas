@@ -217,6 +217,8 @@ const
     (libs: 'libhidapi_hidraw'; units: 'ctypes'),
     (libs: 'libhidapi_libusb'; units: 'ctypes'),
 
+    (libs: 'libevent'; units: 'fp_event'),
+
 
 
     (libs: ''; units: ''));
