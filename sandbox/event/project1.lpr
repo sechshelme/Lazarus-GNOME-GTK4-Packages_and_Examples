@@ -1,6 +1,8 @@
 program project1;
 
 uses
+  event_config,
+  util,
   event,
 
   fp_event;

@@ -123,8 +123,6 @@ extern "C" {
 #define ev_uint64_t unsigned long
 #define ev_int64_t long
 #elif defined(EVENT_IN_DOXYGEN_)
-#define ev_uint64_t ...
-#define ev_int64_t ...
 #else
 #error "No way to define ev_uint64_t"
 #endif
@@ -142,8 +140,6 @@ extern "C" {
 #define ev_uint32_t unsigned int
 #define ev_int32_t signed int
 #elif defined(EVENT_IN_DOXYGEN_)
-#define ev_uint32_t ...
-#define ev_int32_t ...
 #else
 #error "No way to define ev_uint32_t"
 #endif
@@ -161,8 +157,6 @@ extern "C" {
 #define ev_uint16_t unsigned short
 #define ev_int16_t  signed short
 #elif defined(EVENT_IN_DOXYGEN_)
-#define ev_uint16_t ...
-#define ev_int16_t ...
 #else
 #error "No way to define ev_uint16_t"
 #endif
@@ -171,8 +165,6 @@ extern "C" {
 #define ev_uint8_t uint8_t
 #define ev_int8_t int8_t
 #elif defined(EVENT_IN_DOXYGEN_)
-#define ev_uint8_t ...
-#define ev_int8_t ...
 #else
 #define ev_uint8_t unsigned char
 #define ev_int8_t signed char
@@ -188,8 +180,6 @@ extern "C" {
 #define ev_uintptr_t ev_uint64_t
 #define ev_intptr_t ev_int64_t
 #elif defined(EVENT_IN_DOXYGEN_)
-#define ev_uintptr_t ...
-#define ev_intptr_t ...
 #else
 #error "No way to define ev_uintptr_t"
 #endif
@@ -214,7 +204,6 @@ extern "C" {
 #elif EVENT__SIZEOF_OFF_T == 4
 #define ev_off_t ev_int32_t
 #elif defined(EVENT_IN_DOXYGEN_)
-#define ev_off_t ...
 #else
 #define ev_off_t off_t
 #endif
@@ -277,8 +266,6 @@ extern "C" {
 #define EV_SIZE_MAX EV_UINT32_MAX
 #define EV_SSIZE_MAX EV_INT32_MAX
 #elif defined(EVENT_IN_DOXYGEN_)
-#define EV_SIZE_MAX ...
-#define EV_SSIZE_MAX ...
 #else
 #error "No way to define SIZE_MAX"
 #endif
@@ -294,12 +281,7 @@ extern "C" {
 #define ev_socklen_t socklen_t
 #endif
 
-#ifdef EVENT__HAVE_STRUCT_SOCKADDR_STORAGE___SS_FAMILY
-#if !defined(EVENT__HAVE_STRUCT_SOCKADDR_STORAGE_SS_FAMILY) \
- && !defined(ss_family)
-#define ss_family __ss_family
-#endif
-#endif
+
 
 /**
  * A type wide enough to hold the output of "socket()" or "accept()".  On
@@ -323,9 +305,6 @@ extern "C" {
  * evutil_configure_monotonic_time(), evutil_gettime_monotonic()
  */
 struct evutil_monotonic_timer
-#ifdef EVENT_IN_DOXYGEN_
-{/*Empty body so that doxygen will generate documentation here.*/}
-#endif
 ;
 
 #define EV_MONOT_PRECISE  1
@@ -471,18 +450,11 @@ int evutil_make_tcp_listen_socket_deferred(evutil_socket_t sock);
 
 #ifdef _WIN32
 /** Return the most recent socket error.  Not idempotent on all platforms. */
-#define EVUTIL_SOCKET_ERROR() WSAGetLastError()
-/** Replace the most recent socket error with errcode */
-#define EVUTIL_SET_SOCKET_ERROR(errcode)		\
-	do { WSASetLastError(errcode); } while (0)
-/** Return the most recent socket error to occur on sock. */
 extern
 int evutil_socket_geterror(evutil_socket_t sock);
 /** Convert a socket error to a string. */
 extern
 const char *evutil_socket_error_to_string(int errcode);
-#define EVUTIL_INVALID_SOCKET INVALID_SOCKET
-#elif defined(EVENT_IN_DOXYGEN_)
 /**
    @name Socket error functions
 
@@ -497,24 +469,6 @@ const char *evutil_socket_error_to_string(int errcode);
 
    @{
 */
-/** Return the most recent socket error.  Not idempotent on all platforms. */
-#define EVUTIL_SOCKET_ERROR() ...
-/** Replace the most recent socket error with errcode */
-#define EVUTIL_SET_SOCKET_ERROR(errcode) ...
-/** Return the most recent socket error to occur on sock. */
-#define evutil_socket_geterror(sock) ...
-/** Convert a socket error to a string. */
-#define evutil_socket_error_to_string(errcode) ...
-#define EVUTIL_INVALID_SOCKET -1
-/**@}*/
-#else /** !EVENT_IN_DOXYGEN_ && !_WIN32 */
-#define EVUTIL_SOCKET_ERROR() (errno)
-#define EVUTIL_SET_SOCKET_ERROR(errcode)		\
-		do { errno = (errcode); } while (0)
-#define evutil_socket_geterror(sock) (errno)
-#define evutil_socket_error_to_string(errcode) (strerror(errcode))
-#define EVUTIL_INVALID_SOCKET -1
-#endif /** !_WIN32 */
 
 
 /**
@@ -525,56 +479,7 @@ const char *evutil_socket_error_to_string(int errcode);
  *
  * @{
  */
-#ifdef EVENT__HAVE_TIMERADD
-#define evutil_timeradd(tvp, uvp, vvp) timeradd((tvp), (uvp), (vvp))
-#define evutil_timersub(tvp, uvp, vvp) timersub((tvp), (uvp), (vvp))
-#else
-#define evutil_timeradd(tvp, uvp, vvp)					\
-	do {								\
-		(vvp)->tv_sec = (tvp)->tv_sec + (uvp)->tv_sec;		\
-		(vvp)->tv_usec = (tvp)->tv_usec + (uvp)->tv_usec;       \
-		if ((vvp)->tv_usec >= 1000000) {			\
-			(vvp)->tv_sec++;				\
-			(vvp)->tv_usec -= 1000000;			\
-		}							\
-	} while (0)
-#define	evutil_timersub(tvp, uvp, vvp)					\
-	do {								\
-		(vvp)->tv_sec = (tvp)->tv_sec - (uvp)->tv_sec;		\
-		(vvp)->tv_usec = (tvp)->tv_usec - (uvp)->tv_usec;	\
-		if ((vvp)->tv_usec < 0) {				\
-			(vvp)->tv_sec--;				\
-			(vvp)->tv_usec += 1000000;			\
-		}							\
-	} while (0)
-#endif /* !EVENT__HAVE_TIMERADD */
 
-#ifdef EVENT__HAVE_TIMERCLEAR
-#define evutil_timerclear(tvp) timerclear(tvp)
-#else
-#define	evutil_timerclear(tvp)	(tvp)->tv_sec = (tvp)->tv_usec = 0
-#endif
-/**@}*/
-
-/** Return true iff the tvp is related to uvp according to the relational
- * operator cmp.  Recognized values for cmp are ==, <=, <, >=, and >. */
-#define	evutil_timercmp(tvp, uvp, cmp)					\
-	(((tvp)->tv_sec == (uvp)->tv_sec) ?				\
-	 ((tvp)->tv_usec cmp (uvp)->tv_usec) :				\
-	 ((tvp)->tv_sec cmp (uvp)->tv_sec))
-
-#ifdef EVENT__HAVE_TIMERISSET
-#define evutil_timerisset(tvp) timerisset(tvp)
-#else
-#define	evutil_timerisset(tvp)	((tvp)->tv_sec || (tvp)->tv_usec)
-#endif
-
-/** Replacement for offsetof on platforms that don't define it. */
-#ifdef offsetof
-#define evutil_offsetof(type, field) offsetof(type, field)
-#else
-#define evutil_offsetof(type, field) ((off_t)(&((type *)0)->field))
-#endif
 
 /* big-int related functions */
 /** Parse a 64-bit value from a string.  Arguments are as for strtol. */
@@ -595,18 +500,12 @@ int evutil_gettimeofday(struct timeval *tv, struct timezone *tz);
  */
 extern
 int evutil_snprintf(char *buf, size_t buflen, const char *format, ...)
-#ifdef __GNUC__
-	__attribute__((format(printf, 3, 4)))
-#endif
 ;
 /** Replacement for vsnprintf to get consistent behavior on platforms for
     which the return value of snprintf does not conform to C99.
  */
 extern
 int evutil_vsnprintf(char *buf, size_t buflen, const char *format, va_list ap)
-#ifdef __GNUC__
-	__attribute__((format(printf, 3, 0)))
-#endif
 ;
 
 /** Replacement for inet_ntop for platforms which lack it. */
