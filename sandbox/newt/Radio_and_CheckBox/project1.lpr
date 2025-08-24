@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  stdio,
   fp_newt;
 
 const

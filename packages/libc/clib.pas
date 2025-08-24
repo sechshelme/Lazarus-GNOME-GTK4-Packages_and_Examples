@@ -141,12 +141,11 @@ type // /usr/include/x86_64-linux-gnu/sys/types.h
   Pdev_t = ^Tdev_t;
 
 type // /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h
-  PIovec = ^TIovec;
-
   TIovec = record
     iov_base: Pointer;
     iov_len: SizeUInt;
   end;
+  PIovec = ^TIovec;
 
 type
   // /usr/include/x86_64-linux-gnu/bits/types/siginfo_t.h
@@ -271,30 +270,6 @@ type
   Pmbstate_t=type Pointer;
 
 
-  //  // /usr/include/netinet/in.h
-  //const
-  //  INADDR_ANY = uint32(0);
-  //
-  //type
-  //  Tin_addr = record
-  //    s_addr: uint32;
-  //  end;
-  //
-  //  Tsockaddr_in = packed record
-  //    sin_family: word;
-  //    sin_port: word;
-  //    sin_addr: Tin_addr;
-  //    sin_zero: array[0..7] of byte;
-  //  end;
-  //
-  //  function htons(hostshort: word): word; cdecl; external libc;
-
-  // /usr/include/arpa/inet.h
-
-//extern in_addr_t inet_addr (const char *__cp) __THROW;
-function inet_addr(cp: pchar): uint32 cdecl; external libc; // uint32 ???
-
-
 const  // /usr/include/x86_64-linux-gnu/sys/epoll.h
   EPOLLIN = 1;
 
@@ -320,11 +295,11 @@ type // /usr/include/linux/if_arp.h
   end;
   Parphdr = ^Tarphdr;
 
-type // /usr/include/net/ethernet.h
-  Tether_addr = packed record
-    ether_addr_octet: array[0..ETH_ALEN - 1] of Tuint8_t;
-  end;
-  Pether_addr = ^Tether_addr;
+//type // /usr/include/net/ethernet.h
+//  Tether_addr = packed record
+//    ether_addr_octet: array[0..ETH_ALEN - 1] of Tuint8_t;
+//  end;
+//  Pether_addr = ^Tether_addr;
 
 
 const  // /usr/include/linux/netlink.h

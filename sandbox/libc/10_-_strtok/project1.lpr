@@ -1,13 +1,10 @@
 program project1;
 
 uses
-  ctypes;
+  fp_stdio,
+  fp_stdlib,
+  fp_string;
 
-  function strtok(s: pchar; delim: pchar): pchar; cdecl; external 'c';
-  function strtok_r(s: pchar; delim: pchar; save_ptr: PPChar): pchar; cdecl; external 'c';
-  function printf(format: pchar): integer; cdecl; varargs; external 'c';
-  function strdup(s: pchar): pchar; cdecl; external 'c';
-  procedure Free(ptr: Pointer); cdecl; external 'c';
 
 const
   key: pchar = 'blabla/blublu/abc/def/xyz';
@@ -25,7 +22,7 @@ const
       token := strtok(nil, '/');
     end;
 
-    Free(k);
+    free(k);
   end;
 
   procedure tok_with_r;
@@ -41,10 +38,10 @@ const
       token := strtok_r(nil, '/', @save_ptr);
     end;
 
-    Free(k);
+    free(k);
   end;
 
-  function main(argc: cint; argv: PPChar): cint;
+  function main(argc: Integer; argv: PPChar): Integer;
   begin
     tok_without_r;
     printf('------------'#10);

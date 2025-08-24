@@ -24,13 +24,10 @@ uses
     y, x: integer;
   begin
     // Pixman-Image im Format a8r8g8b8 erstellen
-    image := pixman_image_create_bits(
-      PIXMAN_a8r8g8b8, width, height, pixels, width * 4);
-
+    image := pixman_image_create_bits(PIXMAN_a8r8g8b8, width, height, pixels, width * 4);
 
     // Ganzes Bild mit der Farbe füllen
-    pixman_image_fill_rectangles(
-      PIXMAN_OP_SRC, image, @color, 1, @rect);
+    pixman_image_fill_rectangles(PIXMAN_OP_SRC, image, @color, 1, @rect);
 
     // Pixeldaten ausgeben
     WriteLn('Pixeldaten (ARGB):');

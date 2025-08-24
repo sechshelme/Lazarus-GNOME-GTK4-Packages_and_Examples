@@ -9,10 +9,12 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+type
+  Pether_addr = type Pointer; // Wegen Kreuzverbindung
 
   // /usr/include/netinet/in.h
 
-  type
+type
   Tin_addr_t = Tuint32_t;
 
   Tin_addr = record
@@ -323,9 +325,9 @@ type
   Pn_time = ^Tn_time;
   Tn_time = Tuint32_t;
 
- // /usr/include/netinet/ether.h
+  // /usr/include/netinet/ether.h
 
- function ether_ntoa(__addr: Pether_addr): pchar; cdecl; external libc;
+function ether_ntoa(__addr: Pether_addr): pchar; cdecl; external libc;
 function ether_ntoa_r(__addr: Pether_addr; __buf: pchar): pchar; cdecl; external libc;
 function ether_aton(__asc: pchar): Pether_addr; cdecl; external libc;
 function ether_aton_r(__asc: pchar; __addr: Pether_addr): Pether_addr; cdecl; external libc;
@@ -349,20 +351,20 @@ type
 procedure ETHER_MAP_IP_MULTICAST(ipaddr: Pin_addr; enaddr: Puint8_t);  // ??????????
 
 
- // /usr/include/netinet/if_fddi.h
+// /usr/include/netinet/if_fddi.h
 
- type
-   Tfddi_header = record
-     fddi_fc: Tuint8_t;
-     fddi_dhost: array[0..(FDDI_K_ALEN) - 1] of Tuint8_t;
-     fddi_shost: array[0..(FDDI_K_ALEN) - 1] of Tuint8_t;
-   end;
-   Pfddi_header = ^Tfddi_header;
+type
+  Tfddi_header = record
+    fddi_fc: Tuint8_t;
+    fddi_dhost: array[0..(FDDI_K_ALEN) - 1] of Tuint8_t;
+    fddi_shost: array[0..(FDDI_K_ALEN) - 1] of Tuint8_t;
+  end;
+  Pfddi_header = ^Tfddi_header;
 
 
-// /usr/include/netinet/if_tr.h
+  // /usr/include/netinet/if_tr.h
 
-                   const
+const
   TR_ALEN = 6;
   AC = $10;
   LLC_FRAME = $40;
@@ -440,7 +442,7 @@ type
   Ptrn_hdr = ^Ttrn_hdr;
 
 
-// /usr/include/netinet/tcp.h
+  // /usr/include/netinet/tcp.h
 
 const
   TCP_NODELAY = 1;
@@ -686,7 +688,7 @@ type
 
   // /usr/include/netinet/udp.h
 
-  type
+type
   Tudphdr = packed record
     case integer of
       0: (
@@ -720,7 +722,7 @@ const
 
   // /usr/include/netinet/igmp.h
 
-  type
+type
   Tigmp = record
     igmp_type: Tuint8_t;
     igmp_code: Tuint8_t;
@@ -759,7 +761,7 @@ const
 
   // /usr/include/netinet/ip6.h
 
-  type
+type
   Tip6_hdr = record
     ip6_ctlun: record
       case longint of
@@ -889,7 +891,7 @@ const
   IP6_ALERT_AN = $0200;
 
 
-// /usr/include/netinet/icmp6.h
+  // /usr/include/netinet/icmp6.h
 
 const
   ICMP6_FILTER = 1;
@@ -1143,7 +1145,7 @@ type
   Pnd_opt_home_agent_info = ^Tnd_opt_home_agent_info;
 
 
-// /usr/include/netinet/ip.h
+  // /usr/include/netinet/ip.h
 
 type
   Ttimestamp = bitpacked record
@@ -1327,7 +1329,7 @@ const
   IP_MSS = 576;
 
 
-// /usr/include/netinet/ip_icmp.h
+  // /usr/include/netinet/ip_icmp.h
 
 type
   Ticmphdr = record
@@ -1721,4 +1723,3 @@ end;
 
 
 end.
-

@@ -4,7 +4,8 @@ uses
   clib,
 
 
-
+  fp_arpa,
+  fp_netinet,
   fp_socket,
   fp_stdio,
   fp_string,

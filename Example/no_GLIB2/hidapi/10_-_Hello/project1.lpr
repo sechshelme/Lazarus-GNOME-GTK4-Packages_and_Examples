@@ -7,7 +7,7 @@ uses
   fp_hidapi_libusb;
 
 
-  procedure main;
+  procedure main1;
   var
     vendor_id: word = $046d;
     product_id: word = $c050;
@@ -21,23 +21,22 @@ uses
     end;
 
     handle := hid_open(vendor_id, product_id, nil);
-    if handle = nil then begin
+    if handle = nil then begin  // Geht nur als root
       WriteLn('Gerät nicht gefunden oder kann nicht geöffnet werden');
-      hid_exit;
-      exit;
-    end;
+      WriteLn('Versche es nochmals als "root"');
+    end else begin
+      res := hid_get_manufacturer_string(handle, wstr, Length(wstr));
+      if res = 0 then begin
+        printf('Hersteller: %ls'#10, @wstr);
+      end;
 
-    res := hid_get_manufacturer_string(handle, wstr, Length(wstr));
-    if res = 0 then begin
-      printf('Hersteller: %ls'#10, @wstr);
-    end;
+      res := hid_get_product_string(handle, wstr, Length(wstr));
+      if res = 0 then begin
+        printf('Produkt:    %ls'#10, @wstr);
+      end;
 
-    res := hid_get_product_string(handle, wstr, Length(wstr));
-    if res = 0 then begin
-      printf('Produkt:    %ls'#10, @wstr);
+      hid_close(handle);
     end;
-
-    hid_close(handle);
     hid_exit();
   end;
 
@@ -55,6 +54,9 @@ uses
       exit;
     end;
 
+    printf('Version: %s'#10#10, hid_version_str);
+
+    printf('Suche Geräte...'#10);
     devs := hid_enumerate($0, $0);
     cur_dev := devs;
     while cur_dev <> nil do begin
@@ -105,6 +107,6 @@ uses
 
 
 begin
-  main;
+  main1;
   main2;
 end.
