@@ -95,9 +95,6 @@ extern "C" {
    @see event2/event.h for more information
 */
 struct evbuffer
-#ifdef EVENT_IN_DOXYGEN_
-{}
-#endif
 ;
 
 /**
@@ -660,9 +657,6 @@ int evbuffer_add_file_segment(struct evbuffer *buf,
  */
 extern
 int evbuffer_add_printf(struct evbuffer *buf, const char *fmt, ...)
-#ifdef __GNUC__
-  __attribute__((format(printf, 2, 3)))
-#endif
 ;
 
 /**
@@ -675,9 +669,6 @@ int evbuffer_add_printf(struct evbuffer *buf, const char *fmt, ...)
  */
 extern
 int evbuffer_add_vprintf(struct evbuffer *buf, const char *fmt, va_list ap)
-#ifdef __GNUC__
-	__attribute__((format(printf, 2, 0)))
-#endif
 ;
 
 

@@ -30,14 +30,14 @@ type
   Tlong_double = extended;
   Plong_double = ^Tlong_double;
 
-  TFloat16=Pointer; // ????
-  TFloat32=Pointer; // ????
-  TFloat64=Pointer; // ????
-  TFloat128=Pointer; // ????
-  TFloat16x=Pointer; // ????
-  TFloat32x=Pointer; // ????
-  TFloat64x=Pointer; // ????
-  TFloat128x=Pointer; // ????
+  TFloat16 = Pointer; // ????
+  TFloat32 = Pointer; // ????
+  TFloat64 = Pointer; // ????
+  TFloat128 = Pointer; // ????
+  TFloat16x = Pointer; // ????
+  TFloat32x = Pointer; // ????
+  TFloat64x = Pointer; // ????
+  TFloat128x = Pointer; // ????
 
 type
   Tuint8_t = uint8;
@@ -73,7 +73,8 @@ type
   Tssize_t = SizeInt;
   Pssize_t = ^Tssize_t;
 
-  Tgnuc_va_list = Pointer;// ????????????
+  Tgnuc_va_list = Pointer; // ????????????
+  Tva_list = Pointer;      // ????????????
 
   Tsocklen_t = SizeInt;
 
@@ -267,7 +268,7 @@ type
   Pcpu_set_t = type Pointer;
 
   // /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h
-  Pmbstate_t=type Pointer;
+  Pmbstate_t = type Pointer;
 
 
 const  // /usr/include/x86_64-linux-gnu/sys/epoll.h
@@ -295,11 +296,11 @@ type // /usr/include/linux/if_arp.h
   end;
   Parphdr = ^Tarphdr;
 
-//type // /usr/include/net/ethernet.h
-//  Tether_addr = packed record
-//    ether_addr_octet: array[0..ETH_ALEN - 1] of Tuint8_t;
-//  end;
-//  Pether_addr = ^Tether_addr;
+  //type // /usr/include/net/ethernet.h
+  //  Tether_addr = packed record
+  //    ether_addr_octet: array[0..ETH_ALEN - 1] of Tuint8_t;
+  //  end;
+  //  Pether_addr = ^Tether_addr;
 
 
 const  // /usr/include/linux/netlink.h
@@ -322,7 +323,7 @@ type // /usr/include/x86_64-linux-gnu/bits/types.h
 
 type // Unbekannt
   Piface = Pointer;
-  Pdst_key=Pointer;
+  Pdst_key = Pointer;
 
 type     // /usr/include/linux/ppp_defs.h
   Tpppstat = record

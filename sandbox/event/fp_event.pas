@@ -15,13 +15,6 @@ const
   libibus = 'event.dll'; // ???
   {$ENDIF}
 
-  type
-    Tsize_t=SizeUInt;
-    Tva_list=Pointer;
-    PFILE=Pointer;
-
-    Ptimeval=Pointer; //????
-    Ptm=Pointer; // ?????
 
   //{$DEFINE read_interface}
   //{$include fp_event_includes.inc}

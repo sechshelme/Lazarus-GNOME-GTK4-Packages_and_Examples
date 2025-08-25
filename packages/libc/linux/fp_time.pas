@@ -9,6 +9,33 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+  // /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h
+
+type
+  Ttimeval = record
+    tv_sec: int64;
+    tv_usec: int64;
+  end;
+  Ptimeval = ^Ttimeval;
+
+
+  // /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h
+
+type
+  Ttm = record
+    tm_sec: integer;
+    tm_min: integer;
+    tm_hour: integer;
+    tm_mday: integer;
+    tm_mon: integer;
+    tm_year: integer;
+    tm_wday: integer;
+    tm_yday: integer;
+    tm_isdst: integer;
+    tm_gmtoff: longint;
+    tm_zone: pansichar;
+  end;
+  Ptm = ^Ttm;
 
 
   // /usr/include/time.h

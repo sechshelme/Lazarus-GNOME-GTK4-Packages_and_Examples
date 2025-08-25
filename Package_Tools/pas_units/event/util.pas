@@ -3,6 +3,8 @@ unit util;
 interface
 
 uses
+  clib,
+  fp_time,
   fp_event;
 
   {$IFDEF FPC}

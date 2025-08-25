@@ -3,7 +3,7 @@ unit event;
 interface
 
 uses
-  fp_event, event_config, util;
+  clib, fp_time, fp_event, event_config, util;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -181,27 +181,27 @@ function event_base_update_cache_time(base: Pevent_base): longint; cdecl; extern
 procedure libevent_global_shutdown; cdecl; external libevent;
 
 
-function evtimer_assign(ev:Pevent; b:Pevent_base; cb:Tevent_callback_fn;arg: Pointer): longint;
-function evtimer_new(b, cb, arg: longint): longint;
-function evtimer_add(ev, tv: longint): longint;
-function evtimer_del(ev: longint): longint;
-function evtimer_pending(ev, tv: longint): longint;
-function evtimer_initialized(ev: longint): longint;
+function evtimer_assign(ev: Pevent; b: Pevent_base; cb: Tevent_callback_fn; arg: Pointer): longint;
+function evtimer_new(b: Pevent_base; cb: Tevent_callback_fn; arg: Pointer): Pevent;
+function evtimer_add(ev: Pevent; tv: Ptimeval): longint;
+function evtimer_del(ev: Pevent): longint;
+function evtimer_pending(ev: Pevent; tv: Ptimeval): longint;
+function evtimer_initialized(ev: Pevent): longint;
 
-function evsignal_add(ev, tv: longint): longint;
-function evsignal_assign(ev, b, x, cb, arg: longint): longint;
-function evsignal_new(b, x, cb, arg: longint): longint;
-function evsignal_del(ev: longint): longint;
-function evsignal_pending(ev, tv: longint): longint;
-function evsignal_initialized(ev: longint): longint;
+function evsignal_add(ev: Pevent; tv: Ptimeval): longint;
+function evsignal_assign(ev: Pevent_base; b: Pevent_base; x: Tevutil_socket_t; cb: Tevent_callback_fn; arg: Pointer): longint;
+function evsignal_new(b: Pevent_base; x: Tevutil_socket_t; cb: Tevent_callback_fn; arg: Pointer): Pevent;
+function evsignal_del(ev: Pevent): longint;
+function evsignal_pending(ev: Pevent; tv: Ptimeval): longint;
+function evsignal_initialized(ev: Pevent): longint;
 
-function evuser_new(b, cb, arg: longint): longint;
-function evuser_del(ev: longint): longint;
-function evuser_pending(ev, tv: longint): longint;
-function evuser_initialized(ev: longint): longint;
-function evuser_trigger(ev: longint): longint;
+function evuser_new(b: Pevent_base; cb: Tevent_callback_fn; arg: Pointer): Pevent;
+function evuser_del(ev: Pevent): longint;
+function evuser_pending(ev: Pevent; tv: Ptimeval): longint;
+function evuser_initialized(ev: Pevent): longint;
+procedure evuser_trigger(ev: Pevent);
 
-function event_get_signal(ev: longint): longint;
+function event_get_signal(ev: Pevent): longint;
 
 
 
@@ -211,143 +211,92 @@ function event_get_signal(ev: longint): longint;
 implementation
 
 
-function evtimer_assign(ev: Pevent; b: Pevent_base; cb: Tevent_callback_fn;
-  arg: Pointer): longint;
+function evtimer_assign(ev: Pevent; b: Pevent_base; cb: Tevent_callback_fn; arg: Pointer): longint;
 begin
   evtimer_assign := event_assign(ev, b, -(1), 0, cb, arg);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function evtimer_new(b, cb, arg: longint): longint;
+function evtimer_new(b: Pevent_base; cb: Tevent_callback_fn; arg: Pointer): Pevent;
 begin
   evtimer_new := event_new(b, -(1), 0, cb, arg);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function evtimer_add(ev, tv: longint): longint;
+function evtimer_add(ev: Pevent; tv: Ptimeval): longint;
 begin
   evtimer_add := event_add(ev, tv);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function evtimer_del(ev: longint): longint;
+function evtimer_del(ev: Pevent): longint;
 begin
   evtimer_del := event_del(ev);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function evtimer_pending(ev, tv: longint): longint;
+function evtimer_pending(ev: Pevent; tv: Ptimeval): longint;
 begin
   evtimer_pending := event_pending(ev, EV_TIMEOUT, tv);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function evtimer_initialized(ev: longint): longint;
+function evtimer_initialized(ev: Pevent): longint;
 begin
   evtimer_initialized := event_initialized(ev);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function evsignal_add(ev, tv: longint): longint;
+function evsignal_add(ev: Pevent; tv: Ptimeval): longint;
 begin
   evsignal_add := event_add(ev, tv);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function evsignal_assign(ev, b, x, cb, arg: longint): longint;
+function evsignal_assign(ev: Pevent_base; b: Pevent_base; x: Tevutil_socket_t; cb: Tevent_callback_fn; arg: Pointer): longint;
 begin
   evsignal_assign := event_assign(ev, b, x, EV_SIGNAL or EV_PERSIST, cb, arg);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function evsignal_new(b, x, cb, arg: longint): longint;
+function evsignal_new(b: Pevent_base; x: Tevutil_socket_t; cb: Tevent_callback_fn; arg: Pointer): Pevent;
 begin
   evsignal_new := event_new(b, x, EV_SIGNAL or EV_PERSIST, cb, arg);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function evsignal_del(ev: longint): longint;
+function evsignal_del(ev: Pevent): longint;
 begin
   evsignal_del := event_del(ev);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function evsignal_pending(ev, tv: longint): longint;
+function evsignal_pending(ev: Pevent; tv: Ptimeval): longint;
 begin
   evsignal_pending := event_pending(ev, EV_SIGNAL, tv);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function evsignal_initialized(ev: longint): longint;
+function evsignal_initialized(ev: Pevent): longint;
 begin
   evsignal_initialized := event_initialized(ev);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function evuser_new(b, cb, arg: longint): longint;
+function evuser_new(b: Pevent_base; cb: Tevent_callback_fn; arg: Pointer): Pevent;
 begin
   evuser_new := event_new(b, -(1), 0, cb, arg);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function evuser_del(ev: longint): longint;
+function evuser_del(ev: Pevent): longint;
 begin
   evuser_del := event_del(ev);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function evuser_pending(ev, tv: longint): longint;
+function evuser_pending(ev: Pevent; tv: Ptimeval): longint;
 begin
   evuser_pending := event_pending(ev, 0, tv);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function evuser_initialized(ev: longint): longint;
+function evuser_initialized(ev: Pevent): longint;
 begin
   evuser_initialized := event_initialized(ev);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }
-function evuser_trigger(ev: longint): longint;
+procedure evuser_trigger(ev: Pevent);
 begin
-  evuser_trigger := event_active(ev, 0, 0);
+  event_active(ev, 0, 0);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function event_get_signal(ev: longint): longint;
+function event_get_signal(ev: Pevent): longint;
 begin
   event_get_signal := longint(event_get_fd(ev));
 end;
