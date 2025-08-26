@@ -1,4 +1,16 @@
-/*
+unit keyvalq_struct;
+
+interface
+
+uses
+  fp_event;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
  * Copyright (c) 2000-2007 Niels Provos <provos@citi.umich.edu>
  * Copyright (c) 2007-2012 Niels Provos and Nick Mathewson
  *
@@ -23,58 +35,72 @@
  * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-#ifndef EVENT2_KEYVALQ_STRUCT_H_INCLUDED_
-#define EVENT2_KEYVALQ_STRUCT_H_INCLUDED_
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/* Fix so that people don't have to run with <sys/queue.h> */
-/* XXXX This code is duplicated with event_struct.h */
-#ifndef TAILQ_ENTRY
-#define EVENT_DEFINED_TQENTRY_
-#define TAILQ_ENTRY(type)						\
+  }
+{ C++ extern C conditionnal removed }
+{ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx }
+{ Fix so that people don't have to run with <sys/queue.h>  }
+{ XXXX This code is duplicated with event_struct.h  }
+(* error
 struct {								\
+in declaration at line 42 *)
+    { next element  }(* error 
 	struct type *tqe_next;	/* next element */			\
+(* error 
 	struct type **tqe_prev;	/* address of previous next element */	\
+in declaration at line 43 *)
+    { address of previous next element  }(* error 
+	struct type **tqe_prev;	/* address of previous next element */	\
+(* error 
 }
-#endif /* !TAILQ_ENTRY */
-
-#ifndef TAILQ_HEAD
-#define EVENT_DEFINED_TQHEAD_
-#define TAILQ_HEAD(name, type)			\
+{$endif}
+    { !TAILQ_ENTRY  }
+{$ifndef TAILQ_HEAD}
+in define line 48 *)
+(* error 
 struct name {					\
+in declaration at line 51 *)
+(* error 
 	struct type *tqh_first;			\
+(* error 
 	struct type **tqh_last;			\
+in declaration at line 52 *)
+(* error 
+	struct type **tqh_last;			\
+(* error 
 }
-#endif
-
-/*
- * Key-Value pairs.  Can be used for HTTP headers but also for
- * query argument parsing.
- */
-struct evkeyval {
-	TAILQ_ENTRY(evkeyval) next;
-
-	char *key;
-	char *value;
+{$endif}
+    {
+     * Key-Value pairs.  Can be used for HTTP headers but also for
+     * query argument parsing.
+      }
+in declaration at line 61 *)
+      var
+        key : Pchar;cvar;public;
+        value : Pchar;cvar;public;
+(* error 
 };
-
+in declaration at line 65 *)
+(* error 
 TAILQ_HEAD (evkeyvalq, evkeyval);
+(* error 
+TAILQ_HEAD (evkeyvalq, evkeyval);
+ in declarator_list *)
+ in declarator_list *)
+    { XXXX This code is duplicated with event_struct.h  }
+{$ifdef EVENT_DEFINED_TQENTRY_}
+{$undef TAILQ_ENTRY}
+{$endif}
+{$ifdef EVENT_DEFINED_TQHEAD_}
+{$undef TAILQ_HEAD}
+{$endif}
+{ C++ end of extern C conditionnal removed }
+{$endif}
 
-/* XXXX This code is duplicated with event_struct.h */
-#ifdef EVENT_DEFINED_TQENTRY_
-#undef TAILQ_ENTRY
-#endif
+// === Konventiert am: 26-8-25 19:37:53 ===
 
-#ifdef EVENT_DEFINED_TQHEAD_
-#undef TAILQ_HEAD
-#endif
 
-#ifdef __cplusplus
-}
-#endif
+implementation
 
-#endif
+
+
+end.

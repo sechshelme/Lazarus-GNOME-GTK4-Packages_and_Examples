@@ -4,17 +4,28 @@ uses
   event_config,
   util,
   event,
-
-  buffer,
-
-  buffer_compat,
-  bufferevent,
-  bufferevent_compat,
-  bufferevent_ssl,
-  bufferevent_struct,
   dns,
   dns_compat,
   dns_struct,
+  buffer,
+  bufferevent,
+  buffer_compat,
+  bufferevent_compat,
+  bufferevent_ssl,
+  bufferevent_struct,
+  thread,
+  tag,
+  tag_compat,
+  listener,
+
+  event_compat,
+  event_struct,
+  http,
+  http_compat,
+  http_struct,
+//  keyvalq_struct,             // makros verseucht
+//  rpc,                  // makros verseucht
+  rpc_struct,           // makros verseucht
 
 
 

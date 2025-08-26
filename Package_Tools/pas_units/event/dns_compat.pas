@@ -3,7 +3,7 @@ unit dns_compat;
 interface
 
 uses
-  fp_event, dns;
+  fp_event, dns, util;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

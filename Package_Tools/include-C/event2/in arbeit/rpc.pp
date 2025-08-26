@@ -1,4 +1,50 @@
-/*
+
+unit rpc;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from rpc.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    rpc.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pchar  = ^char;
+Pevbuffer  = ^evbuffer;
+Pevent_base  = ^event_base;
+Pevhttp  = ^evhttp;
+Pevhttp_connection  = ^evhttp_connection;
+Pevhttp_request  = ^evhttp_request;
+Pevrpc  = ^evrpc;
+Pevrpc_base  = ^evrpc_base;
+Pevrpc_hook_meta  = ^evrpc_hook_meta;
+PEVRPC_HOOK_RESULT  = ^EVRPC_HOOK_RESULT;
+PEVRPC_HOOK_TYPE  = ^EVRPC_HOOK_TYPE;
+Pevrpc_pool  = ^evrpc_pool;
+Pevrpc_req_generic  = ^evrpc_req_generic;
+Pevrpc_request_wrapper  = ^evrpc_request_wrapper;
+Pevrpc_status  = ^evrpc_status;
+Psize_t  = ^size_t;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
  * Copyright (c) 2006-2007 Niels Provos <provos@citi.umich.edu>
  * Copyright (c) 2007-2012 Niels Provos and Nick Mathewson
  *
@@ -23,19 +69,14 @@
  * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-#ifndef EVENT2_RPC_H_INCLUDED_
-#define EVENT2_RPC_H_INCLUDED_
-
-/* For int types. */
-#include <event2/util.h>
-#include <event2/visibility.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/** @file rpc.h
+  }
+{$ifndef EVENT2_RPC_H_INCLUDED_}
+{$define EVENT2_RPC_H_INCLUDED_}
+{ For int types.  }
+{$include <event2/util.h>}
+{$include <event2/visibility.h>}
+{ C++ extern C conditionnal removed }
+{* @file rpc.h
  *
  * This header files provides basic support for an RPC server and client.
  *
@@ -68,50 +109,39 @@ extern "C" {
  * To send the reply, call EVRPC_REQUEST_DONE(rpc);
  *
  * See the regression test for an example.
- */
-
-/**
+  }
+{*
    Determines if the member has been set in the message
 
    @param msg the message to inspect
    @param member the member variable to test for presences
    @return 1 if it's present or 0 otherwise.
-*/
-#define EVTAG_HAS(msg, member) \
-	((msg)->member##_set == 1)
-
-#ifndef EVENT2_RPC_COMPAT_H_INCLUDED_
-
-/**
+ }
+{$ifndef EVENT2_RPC_COMPAT_H_INCLUDED_}
+{*
    Assigns a value to the member in the message.
 
    @param msg the message to which to assign a value
    @param member the name of the member variable
    @param value the value to assign
-*/
-#define EVTAG_ASSIGN(msg, member, value) \
-	(*(msg)->base->member##_assign)((msg), (value))
-/**
+ }
+{*
    Assigns a value to the member in the message.
 
    @param msg the message to which to assign a value
    @param member the name of the member variable
    @param value the value to assign
    @param len the length of the value
-*/
-#define EVTAG_ASSIGN_WITH_LEN(msg, member, value, len)	\
-	(*(msg)->base->member##_assign)((msg), (value), (len))
-/**
+ }
+{*
    Returns the value for a member.
 
    @param msg the message from which to get the value
    @param member the name of the member variable
    @param pvalue a pointer to the variable to hold the value
    @return 0 on success, -1 otherwise.
-*/
-#define EVTAG_GET(msg, member, pvalue) \
-	(*(msg)->base->member##_get)((msg), (pvalue))
-/**
+ }
+{*
    Returns the value for a member.
 
    @param msg the message from which to get the value
@@ -119,50 +149,58 @@ extern "C" {
    @param pvalue a pointer to the variable to hold the value
    @param plen a pointer to the length of the value
    @return 0 on success, -1 otherwise.
-*/
-#define EVTAG_GET_WITH_LEN(msg, member, pvalue, plen)	\
-	(*(msg)->base->member##_get)((msg), (pvalue), (plen))
-
-#endif  /* EVENT2_RPC_COMPAT_H_INCLUDED_ */
-
-/**
+ }
+{$endif}
+{ EVENT2_RPC_COMPAT_H_INCLUDED_  }
+{*
    Adds a value to an array.
-*/
-#define EVTAG_ARRAY_ADD_VALUE(msg, member, value) \
-	(*(msg)->base->member##_add)((msg), (value))
-/**
-   Allocates a new entry in the array and returns it.
-*/
-#define EVTAG_ARRAY_ADD(msg, member) \
-	(*(msg)->base->member##_add)(msg)
-/**
-   Gets a variable at the specified offset from the array.
-*/
-#define EVTAG_ARRAY_GET(msg, member, offset, pvalue)	\
-	(*(msg)->base->member##_get)((msg), (offset), (pvalue))
-/**
-   Returns the number of entries in the array.
-*/
-#define EVTAG_ARRAY_LEN(msg, member) ((msg)->member##_length)
+ }
+type
+  Pevbuffer = ^Tevbuffer;
+  Tevbuffer = record
+      {undefined structure}
+    end;
 
+  Pevent_base = ^Tevent_base;
+  Tevent_base = record
+      {undefined structure}
+    end;
 
-struct evbuffer;
-struct event_base;
-struct evrpc_req_generic;
-struct evrpc_request_wrapper;
-struct evrpc;
+  Pevrpc_req_generic = ^Tevrpc_req_generic;
+  Tevrpc_req_generic = record
+      {undefined structure}
+    end;
 
-/** The type of a specific RPC Message
+  Pevrpc_request_wrapper = ^Tevrpc_request_wrapper;
+  Tevrpc_request_wrapper = record
+      {undefined structure}
+    end;
+
+  Pevrpc = ^Tevrpc;
+  Tevrpc = record
+      {undefined structure}
+    end;
+
+{* The type of a specific RPC Message
  *
  * @param rpcname the name of the RPC message
- */
-#define EVRPC_STRUCT(rpcname) struct evrpc_req__##rpcname
+  }
+  Pevhttp_request = ^Tevhttp_request;
+  Tevhttp_request = record
+      {undefined structure}
+    end;
 
-struct evhttp_request;
-struct evrpc_status;
-struct evrpc_hook_meta;
+  Pevrpc_status = ^Tevrpc_status;
+  Tevrpc_status = record
+      {undefined structure}
+    end;
 
-/** Creates the definitions and prototypes for an RPC
+  Pevrpc_hook_meta = ^Tevrpc_hook_meta;
+  Tevrpc_hook_meta = record
+      {undefined structure}
+    end;
+
+{* Creates the definitions and prototypes for an RPC
  *
  * You need to use EVRPC_HEADER to create structures and function prototypes
  * needed by the server and client implementation.  The structures have to be
@@ -172,16 +210,17 @@ struct evrpc_hook_meta;
  * @param reqstruct the name of the RPC request structure
  * @param replystruct the name of the RPC reply structure
  * @see EVRPC_GENERATE()
- */
+  }
+{ xxxxxxxxxxxxxxxxxxxxxx
 #define EVRPC_HEADER(rpcname, reqstruct, rplystruct) \
-EVRPC_STRUCT(rpcname) {	\
+EVRPC_STRUCT(rpcname) 	\
 	struct evrpc_hook_meta *hook_meta; \
 	struct reqstruct* request; \
 	struct rplystruct* reply; \
 	struct evrpc* rpc; \
 	struct evhttp_request* http_req; \
 	struct evbuffer* rpc_data; \
-};								     \
+;								     \
 extern \
 int evrpc_send_request_##rpcname(struct evrpc_pool *, \
     struct reqstruct *, struct rplystruct *, \
@@ -189,20 +228,18 @@ int evrpc_send_request_##rpcname(struct evrpc_pool *, \
 	struct reqstruct *, struct rplystruct *, void *cbarg),	\
     void *);
 
-struct evrpc_pool;
+ }
+  Pevrpc_pool = ^Tevrpc_pool;
+  Tevrpc_pool = record
+      {undefined structure}
+    end;
 
-/** use EVRPC_GENERATE instead */
-extern
-struct evrpc_request_wrapper *evrpc_make_request_ctx(
-	struct evrpc_pool *pool, void *request, void *reply,
-	const char *rpcname,
-	void (*req_marshal)(struct evbuffer*, void *),
-	void (*rpl_clear)(void *),
-	int (*rpl_unmarshal)(void *, struct evbuffer *),
-	void (*cb)(struct evrpc_status *, void *, void *, void *),
-	void *cbarg);
+{* use EVRPC_GENERATE instead  }
+(* Const before type ignored *)
 
-/** Creates a context structure that contains rpc specific information.
+function evrpc_make_request_ctx(pool:Pevrpc_pool; request:pointer; reply:pointer; rpcname:Pchar; req_marshal:procedure (para1:Pevbuffer; para2:pointer); 
+           rpl_clear:procedure (para1:pointer); rpl_unmarshal:function (para1:pointer; para2:Pevbuffer):longint; cb:procedure (para1:Pevrpc_status; para2:pointer; para3:pointer; para4:pointer); cbarg:pointer):Pevrpc_request_wrapper;cdecl;external;
+{* Creates a context structure that contains rpc specific information.
  *
  * EVRPC_MAKE_CTX is used to populate a RPC specific context that
  * contains information about marshaling the RPC data types.
@@ -215,43 +252,8 @@ struct evrpc_request_wrapper *evrpc_make_request_ctx(
  * @param reply a pointer to the RPC reply structure object
  * @param cb the callback function to call when the RPC has completed
  * @param cbarg the argument to supply to the callback
- */
-#define EVRPC_MAKE_CTX(rpcname, reqstruct, rplystruct, \
-    pool, request, reply, cb, cbarg)					\
-	evrpc_make_request_ctx(pool, request, reply,			\
-	    #rpcname,							\
-	    (void (*)(struct evbuffer *, void *))reqstruct##_marshal,	\
-	    (void (*)(void *))rplystruct##_clear,			\
-	    (int (*)(void *, struct evbuffer *))rplystruct##_unmarshal, \
-	    (void (*)(struct evrpc_status *, void *, void *, void *))cb, \
-	    cbarg)
-
-/** Generates the code for receiving and sending an RPC message
- *
- * EVRPC_GENERATE is used to create the code corresponding to sending
- * and receiving a particular RPC message
- *
- * @param rpcname the name of the RPC
- * @param reqstruct the name of the RPC request structure
- * @param replystruct the name of the RPC reply structure
- * @see EVRPC_HEADER()
- */
-#define EVRPC_GENERATE(rpcname, reqstruct, rplystruct)			\
-	int evrpc_send_request_##rpcname(struct evrpc_pool *pool,	\
-	    struct reqstruct *request, struct rplystruct *reply,	\
-	    void (*cb)(struct evrpc_status *,				\
-		struct reqstruct *, struct rplystruct *, void *cbarg),	\
-	    void *cbarg) {						\
-	return evrpc_send_request_generic(pool, request, reply,	\
-	    (void (*)(struct evrpc_status *, void *, void *, void *))cb, \
-	    cbarg,							\
-	    #rpcname,							\
-	    (void (*)(struct evbuffer *, void *))reqstruct##_marshal,	\
-	    (void (*)(void *))rplystruct##_clear,			\
-	    (int (*)(void *, struct evbuffer *))rplystruct##_unmarshal); \
-}
-
-/** Provides access to the HTTP request object underlying an RPC
+  }
+{* Provides access to the HTTP request object underlying an RPC
  *
  * Access to the underlying http object; can be used to look at headers or
  * for getting the remote ip address
@@ -259,59 +261,50 @@ struct evrpc_request_wrapper *evrpc_make_request_ctx(
  * @param rpc_req the rpc request structure provided to the server callback
  * @return an struct evhttp_request object that can be inspected for
  * HTTP headers or sender information.
- */
-#define EVRPC_REQUEST_HTTP(rpc_req) (rpc_req)->http_req
-
-/** completes the server response to an rpc request */
-extern
-void evrpc_request_done(struct evrpc_req_generic *req);
-
-/** accessors for request and reply */
-extern
-void *evrpc_get_request(struct evrpc_req_generic *req);
-extern
-void *evrpc_get_reply(struct evrpc_req_generic *req);
-
-/** Creates the reply to an RPC request
+  }
+{* completes the server response to an rpc request  }
+procedure evrpc_request_done(req:Pevrpc_req_generic);cdecl;external;
+{* accessors for request and reply  }
+function evrpc_get_request(req:Pevrpc_req_generic):pointer;cdecl;external;
+function evrpc_get_reply(req:Pevrpc_req_generic):pointer;cdecl;external;
+{* Creates the reply to an RPC request
  *
  * EVRPC_REQUEST_DONE is used to answer a request; the reply is expected
  * to have been filled in.  The request and reply pointers become invalid
  * after this call has finished.
  *
  * @param rpc_req the rpc request structure provided to the server callback
- */
-#define EVRPC_REQUEST_DONE(rpc_req) do { \
-  struct evrpc_req_generic *req_ = (struct evrpc_req_generic *)(rpc_req); \
-  evrpc_request_done(req_);					\
-} while (0)
+  }
+type
+  Pevrpc_base = ^Tevrpc_base;
+  Tevrpc_base = record
+      {undefined structure}
+    end;
 
+  Pevhttp = ^Tevhttp;
+  Tevhttp = record
+      {undefined structure}
+    end;
 
-struct evrpc_base;
-struct evhttp;
-
-/* functions to start up the rpc system */
-
-/** Creates a new rpc base from which RPC requests can be received
+{ functions to start up the rpc system  }
+{* Creates a new rpc base from which RPC requests can be received
  *
  * @param server a pointer to an existing HTTP server
  * @return a newly allocated evrpc_base struct or NULL if an error occurred
  * @see evrpc_free()
- */
-extern
-struct evrpc_base *evrpc_init(struct evhttp *server);
+  }
 
-/**
+function evrpc_init(server:Pevhttp):Pevrpc_base;cdecl;external;
+{*
  * Frees the evrpc base
  *
  * For now, you are responsible for making sure that no rpcs are ongoing.
  *
  * @param base the evrpc_base object to be freed
  * @see evrpc_init
- */
-extern
-void evrpc_free(struct evrpc_base *base);
-
-/** register RPCs with the HTTP Server
+  }
+procedure evrpc_free(base:Pevrpc_base);cdecl;external;
+{* register RPCs with the HTTP Server
  *
  * registers a new RPC with the HTTP server, each RPC needs to have
  * a unique name under which it can be identified.
@@ -326,50 +319,40 @@ void evrpc_free(struct evrpc_base *base);
  *   void (*callback)(EVRPC_STRUCT(Message)* rpc, void *arg)
  * @param cbarg an additional parameter that can be passed to the callback.
  *   The parameter can be used to carry around state.
- */
-#define EVRPC_REGISTER(base, name, request, reply, callback, cbarg)	\
-	evrpc_register_generic(base, #name,				\
-	    (void (*)(struct evrpc_req_generic *, void *))callback, cbarg, \
-	    (void *(*)(void *))request##_new_with_arg, NULL,		\
-	    (void (*)(void *))request##_free,				\
-	    (int (*)(void *, struct evbuffer *))request##_unmarshal,	\
-	    (void *(*)(void *))reply##_new_with_arg, NULL,		\
-	    (void (*)(void *))reply##_free, \
-	    (int (*)(void *))reply##_complete, \
-	    (void (*)(struct evbuffer *, void *))reply##_marshal)
-
-/**
+  }
+{*
    Low level function for registering an RPC with a server.
 
    Use EVRPC_REGISTER() instead.
 
    @see EVRPC_REGISTER()
-*/
-extern
-int evrpc_register_rpc(struct evrpc_base *, struct evrpc *,
-    void (*)(struct evrpc_req_generic*, void *), void *);
-
-/**
+ }
+function evrpc_register_rpc(para1:Pevrpc_base; para2:Pevrpc; para3:procedure (para1:Pevrpc_req_generic; para2:pointer); para4:pointer):longint;cdecl;external;
+{*
  * Unregisters an already registered RPC
  *
  * @param base the evrpc_base object from which to unregister an RPC
  * @param name the name of the rpc to unregister
  * @return -1 on error or 0 when successful.
  * @see EVRPC_REGISTER()
- */
-#define EVRPC_UNREGISTER(base, name) evrpc_unregister_rpc((base), #name)
-
-extern
-int evrpc_unregister_rpc(struct evrpc_base *base, const char *name);
-
-/*
+  }
+(* Const before type ignored *)
+function evrpc_unregister_rpc(base:Pevrpc_base; name:Pchar):longint;cdecl;external;
+{
  * Client-side RPC support
- */
+  }
+type
+  Pevhttp_connection = ^Tevhttp_connection;
+  Tevhttp_connection = record
+      {undefined structure}
+    end;
 
-struct evhttp_connection;
-struct evrpc_status;
+  Pevrpc_status = ^Tevrpc_status;
+  Tevrpc_status = record
+      {undefined structure}
+    end;
 
-/** launches an RPC and sends it to the server
+{* launches an RPC and sends it to the server
  *
  * EVRPC_MAKE_REQUEST() is used by the client to send an RPC to the server.
  *
@@ -383,11 +366,8 @@ struct evrpc_status;
  * @param cb the callback to invoke when the RPC request has been answered
  * @param cbarg an additional argument to be passed to the client
  * @return 0 on success, -1 on failure
- */
-#define EVRPC_MAKE_REQUEST(name, pool, request, reply, cb, cbarg)	\
-	evrpc_send_request_##name((pool), (request), (reply), (cb), (cbarg))
-
-/**
+  }
+{*
    Makes an RPC request based on the provided context.
 
    This is a low-level function and should not be used directly
@@ -397,11 +377,10 @@ struct evrpc_status;
    @param ctx a context from EVRPC_MAKE_CTX()
    @returns 0 on success, -1 otherwise.
    @see EVRPC_MAKE_REQUEST(), EVRPC_MAKE_CTX()
-*/
-extern
-int evrpc_make_request(struct evrpc_request_wrapper *ctx);
+ }
 
-/** creates an rpc connection pool
+function evrpc_make_request(ctx:Pevrpc_request_wrapper):longint;cdecl;external;
+{* creates an rpc connection pool
  *
  * a pool has a number of connections associated with it.
  * rpc requests are always made via a pool.
@@ -411,42 +390,33 @@ int evrpc_make_request(struct evrpc_request_wrapper *ctx);
  * @return a newly allocated struct evrpc_pool object or NULL if an error
  *   occurred
  * @see evrpc_pool_free()
- */
-extern
-struct evrpc_pool *evrpc_pool_new(struct event_base *base);
-/** frees an rpc connection pool
+  }
+function evrpc_pool_new(base:Pevent_base):Pevrpc_pool;cdecl;external;
+{* frees an rpc connection pool
  *
  * @param pool a pointer to an evrpc_pool allocated via evrpc_pool_new()
  * @see evrpc_pool_new()
- */
-extern
-void evrpc_pool_free(struct evrpc_pool *pool);
-
-/**
+  }
+procedure evrpc_pool_free(pool:Pevrpc_pool);cdecl;external;
+{*
  * Adds a connection over which rpc can be dispatched to the pool.
  *
  * The connection object must have been newly created.
  *
  * @param pool the pool to which to add the connection
  * @param evcon the connection to add to the pool.
- */
-extern
-void evrpc_pool_add_connection(struct evrpc_pool *pool,
-    struct evhttp_connection *evcon);
-
-/**
+  }
+procedure evrpc_pool_add_connection(pool:Pevrpc_pool; evcon:Pevhttp_connection);cdecl;external;
+{*
  * Removes a connection from the pool.
  *
  * The connection object must have been newly created.
  *
  * @param pool the pool from which to remove the connection
  * @param evcon the connection to remove from the pool.
- */
-extern
-void evrpc_pool_remove_connection(struct evrpc_pool *pool,
-    struct evhttp_connection *evcon);
-
-/**
+  }
+procedure evrpc_pool_remove_connection(pool:Pevrpc_pool; evcon:Pevhttp_connection);cdecl;external;
+{*
  * Sets the timeout in secs after which a request has to complete.  The
  * RPC is completely aborted if it does not complete by then.  Setting
  * the timeout to 0 means that it never timeouts and can be used to
@@ -460,40 +430,44 @@ void evrpc_pool_remove_connection(struct evrpc_pool *pool,
  * @param pool a pointer to a struct evrpc_pool object
  * @param timeout_in_secs the number of seconds after which a request should
  *   timeout and a failure be returned to the callback.
- */
-extern
-void evrpc_pool_set_timeout(struct evrpc_pool *pool, int timeout_in_secs);
-
-/**
+  }
+procedure evrpc_pool_set_timeout(pool:Pevrpc_pool; timeout_in_secs:longint);cdecl;external;
+{*
  * Hooks for changing the input and output of RPCs; this can be used to
  * implement compression, authentication, encryption, ...
- */
+  }
+{*< apply the function to an input hook  }
+{*< apply the function to an output hook  }
+type
+  TEVRPC_HOOK_TYPE =  Longint;
+  Const
+    EVRPC_INPUT = 0;
+    EVRPC_OUTPUT = 1;
 
-enum EVRPC_HOOK_TYPE {
-	EVRPC_INPUT,		/**< apply the function to an input hook */
-	EVRPC_OUTPUT		/**< apply the function to an output hook */
-};
+{$ifndef _WIN32}
+{* Deprecated alias for EVRPC_INPUT.  Not available on windows, where it
+ * conflicts with platform headers.  }
 
-#ifndef _WIN32
-/** Deprecated alias for EVRPC_INPUT.  Not available on windows, where it
- * conflicts with platform headers. */
-#define INPUT EVRPC_INPUT
-/** Deprecated alias for EVRPC_OUTPUT.  Not available on windows, where it
- * conflicts with platform headers. */
-#define OUTPUT EVRPC_OUTPUT
-#endif
-
-/**
+const
+  INPUT = EVRPC_INPUT;  
+{* Deprecated alias for EVRPC_OUTPUT.  Not available on windows, where it
+ * conflicts with platform headers.  }
+  OUTPUT = EVRPC_OUTPUT;  
+{$endif}
+{*
  * Return value from hook processing functions
- */
+  }
+{*< indicates the rpc should be terminated  }
+{*< continue processing the rpc  }
+{*< pause processing request until resumed  }
+type
+  TEVRPC_HOOK_RESULT =  Longint;
+  Const
+    EVRPC_TERMINATE = -(1);
+    EVRPC_CONTINUE = 0;
+    EVRPC_PAUSE = 1;
 
-enum EVRPC_HOOK_RESULT {
-	EVRPC_TERMINATE = -1,	/**< indicates the rpc should be terminated */
-	EVRPC_CONTINUE = 0,	/**< continue processing the rpc */
-	EVRPC_PAUSE = 1		/**< pause processing request until resumed */
-};
-
-/** adds a processing hook to either an rpc base or rpc pool
+{* adds a processing hook to either an rpc base or rpc pool
  *
  * If a hook returns TERMINATE, the processing is aborted. On CONTINUE,
  * the request is immediately processed after the hook returns.  If the
@@ -508,35 +482,25 @@ enum EVRPC_HOOK_RESULT {
  * @param cb_arg an additional argument for the callback
  * @return a handle to the hook so it can be removed later
  * @see evrpc_remove_hook()
- */
-extern
-void *evrpc_add_hook(void *vbase,
-    enum EVRPC_HOOK_TYPE hook_type,
-    int (*cb)(void *, struct evhttp_request *, struct evbuffer *, void *),
-    void *cb_arg);
+  }
 
-/** removes a previously added hook
+function evrpc_add_hook(vbase:pointer; hook_type:TEVRPC_HOOK_TYPE; cb:function (para1:pointer; para2:Pevhttp_request; para3:Pevbuffer; para4:pointer):longint; cb_arg:pointer):pointer;cdecl;external;
+{* removes a previously added hook
  *
  * @param vbase a pointer to either struct evrpc_base or struct evrpc_pool
  * @param hook_type either INPUT or OUTPUT
  * @param handle a handle returned by evrpc_add_hook()
  * @return 1 on success or 0 on failure
  * @see evrpc_add_hook()
- */
-extern
-int evrpc_remove_hook(void *vbase,
-    enum EVRPC_HOOK_TYPE hook_type,
-    void *handle);
-
-/** resume a paused request
+  }
+function evrpc_remove_hook(vbase:pointer; hook_type:TEVRPC_HOOK_TYPE; handle:pointer):longint;cdecl;external;
+{* resume a paused request
  *
  * @param vbase a pointer to either struct evrpc_base or struct evrpc_pool
  * @param ctx the context pointer provided to the original hook call
- */
-extern
-int evrpc_resume_request(void *vbase, void *ctx, enum EVRPC_HOOK_RESULT res);
-
-/** adds meta data to request
+  }
+function evrpc_resume_request(vbase:pointer; ctx:pointer; res:TEVRPC_HOOK_RESULT):longint;cdecl;external;
+{* adds meta data to request
  *
  * evrpc_hook_add_meta() allows hooks to add meta data to a request. for
  * a client request, the meta data can be inserted by an outgoing request hook
@@ -546,12 +510,11 @@ int evrpc_resume_request(void *vbase, void *ctx, enum EVRPC_HOOK_RESULT res);
  * @param key a NUL-terminated c-string
  * @param data the data to be associated with the key
  * @param data_size the size of the data
- */
-extern
-void evrpc_hook_add_meta(void *ctx, const char *key,
-    const void *data, size_t data_size);
-
-/** retrieves meta data previously associated
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure evrpc_hook_add_meta(ctx:pointer; key:Pchar; data:pointer; data_size:Tsize_t);cdecl;external;
+{* retrieves meta data previously associated
  *
  * evrpc_hook_find_meta() can be used to retrieve meta data associated to a
  * request by a previous hook.
@@ -560,67 +523,47 @@ void evrpc_hook_add_meta(void *ctx, const char *key,
  * @param data pointer to a data pointer that will contain the retrieved data
  * @param data_size pointer to the size of the data
  * @return 0 on success or -1 on failure
- */
-extern
-int evrpc_hook_find_meta(void *ctx, const char *key,
-    void **data, size_t *data_size);
-
-/**
+  }
+(* Const before type ignored *)
+function evrpc_hook_find_meta(ctx:pointer; key:Pchar; data:Ppointer; data_size:Psize_t):longint;cdecl;external;
+{*
  * returns the connection object associated with the request
  *
  * @param ctx the context provided to the hook call
  * @return a pointer to the evhttp_connection object or NULL if an error
  *   occurred
- */
-extern
-struct evhttp_connection *evrpc_hook_get_connection(void *ctx);
-
-/**
+  }
+function evrpc_hook_get_connection(ctx:pointer):Pevhttp_connection;cdecl;external;
+{*
    Function for sending a generic RPC request.
 
    Do not call this function directly, use EVRPC_MAKE_REQUEST() instead.
 
    @see EVRPC_MAKE_REQUEST()
- */
-extern
-int evrpc_send_request_generic(struct evrpc_pool *pool,
-    void *request, void *reply,
-    void (*cb)(struct evrpc_status *, void *, void *, void *),
-    void *cb_arg,
-    const char *rpcname,
-    void (*req_marshal)(struct evbuffer *, void *),
-    void (*rpl_clear)(void *),
-    int (*rpl_unmarshal)(void *, struct evbuffer *));
-
-/**
+  }
+(* Const before type ignored *)
+function evrpc_send_request_generic(pool:Pevrpc_pool; request:pointer; reply:pointer; cb:procedure (para1:Pevrpc_status; para2:pointer; para3:pointer; para4:pointer); cb_arg:pointer; 
+           rpcname:Pchar; req_marshal:procedure (para1:Pevbuffer; para2:pointer); rpl_clear:procedure (para1:pointer); rpl_unmarshal:function (para1:pointer; para2:Pevbuffer):longint):longint;cdecl;external;
+{*
    Function for registering a generic RPC with the RPC base.
 
    Do not call this function directly, use EVRPC_REGISTER() instead.
 
    @see EVRPC_REGISTER()
- */
-extern
-int evrpc_register_generic(struct evrpc_base *base, const char *name,
-    void (*callback)(struct evrpc_req_generic *, void *), void *cbarg,
-    void *(*req_new)(void *), void *req_new_arg, void (*req_free)(void *),
-    int (*req_unmarshal)(void *, struct evbuffer *),
-    void *(*rpl_new)(void *), void *rpl_new_arg, void (*rpl_free)(void *),
-    int (*rpl_complete)(void *),
-    void (*rpl_marshal)(struct evbuffer *, void *));
+  }
+(* Const before type ignored *)
+function evrpc_register_generic(base:Pevrpc_base; name:Pchar; callback:procedure (para1:Pevrpc_req_generic; para2:pointer); cbarg:pointer; req_new:function (para1:pointer):pointer; 
+           req_new_arg:pointer; req_free:procedure (para1:pointer); req_unmarshal:function (para1:pointer; para2:Pevbuffer):longint; rpl_new:function (para1:pointer):pointer; rpl_new_arg:pointer; 
+           rpl_free:procedure (para1:pointer); rpl_complete:function (para1:pointer):longint; rpl_marshal:procedure (para1:Pevbuffer; para2:pointer)):longint;cdecl;external;
+{* accessors for obscure and undocumented functionality  }
+function evrpc_request_get_pool(ctx:Pevrpc_request_wrapper):Pevrpc_pool;cdecl;external;
+procedure evrpc_request_set_pool(ctx:Pevrpc_request_wrapper; pool:Pevrpc_pool);cdecl;external;
+procedure evrpc_request_set_cb(ctx:Pevrpc_request_wrapper; cb:procedure (para1:Pevrpc_status; request:pointer; reply:pointer; arg:pointer); cb_arg:pointer);cdecl;external;
+{ C++ end of extern C conditionnal removed }
+{$endif}
+{ EVENT2_RPC_H_INCLUDED_  }
 
-/** accessors for obscure and undocumented functionality */
-extern
-struct evrpc_pool* evrpc_request_get_pool(struct evrpc_request_wrapper *ctx);
-extern
-void evrpc_request_set_pool(struct evrpc_request_wrapper *ctx,
-    struct evrpc_pool *pool);
-extern
-void evrpc_request_set_cb(struct evrpc_request_wrapper *ctx,
-    void (*cb)(struct evrpc_status*, void *request, void *reply, void *arg),
-    void *cb_arg);
+implementation
 
-#ifdef __cplusplus
-}
-#endif
 
-#endif /* EVENT2_RPC_H_INCLUDED_ */
+end.

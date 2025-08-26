@@ -54,20 +54,6 @@ extern "C" {
  * WARNING: expect this structure to change.  I will try to provide
  * reasonable accessors.
  */
-struct evhttp_request {
-#if defined(TAILQ_ENTRY)
-	TAILQ_ENTRY(evhttp_request) next;
-#else
-struct {
-	struct evhttp_request *tqe_next;
-	struct evhttp_request **tqe_prev;
-}       next;
-#endif
-
-	/* the connection object that this request belongs to */
-	struct evhttp_connection *evcon;
-	int flags;
-/** The request obj owns the evhttp connection and needs to free it */
 #define EVHTTP_REQ_OWN_CONNECTION	0x0001
 /** Request was made via a proxy */
 #define EVHTTP_PROXY_REQUEST		0x0002
@@ -77,6 +63,16 @@ struct {
 #define EVHTTP_REQ_DEFER_FREE		0x0008
 /** The request should be freed upstack */
 #define EVHTTP_REQ_NEEDS_FREE		0x0010
+struct evhttp_request {
+struct {
+	struct evhttp_request *tqe_next;
+	struct evhttp_request **tqe_prev;
+}       next;
+
+	/* the connection object that this request belongs to */
+	struct evhttp_connection *evcon;
+	int flags;
+/** The request obj owns the evhttp connection and needs to free it */
 
 	struct evkeyvalq *input_headers;
 	struct evkeyvalq *output_headers;

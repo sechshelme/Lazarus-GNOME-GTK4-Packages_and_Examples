@@ -158,9 +158,9 @@ struct evhttp_bound_socket *evhttp_bind_listener(struct evhttp *http, struct evc
  * Return the listener used to implement a bound socket.
  */
 extern
-struct evconnlistener *evhttp_bound_socket_get_listener(struct evhttp_bound_socket *bound);
+ evconnlistener *evhttp_bound_socket_get_listener( evhttp_bound_socket *bound);
 
-typedef void evhttp_bound_socket_foreach_fn(struct evhttp_bound_socket *, void *);
+typedef void (*evhttp_bound_socket_foreach_fn)(evhttp_bound_socket *, void *);
 /**
  * Applies the function specified in the first argument to all
  * evhttp_bound_sockets associated with "http". The user must not

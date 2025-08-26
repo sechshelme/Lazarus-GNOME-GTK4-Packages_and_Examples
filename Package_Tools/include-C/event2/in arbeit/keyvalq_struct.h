@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2006-2007 Niels Provos <provos@citi.umich.edu>
+ * Copyright (c) 2000-2007 Niels Provos <provos@citi.umich.edu>
  * Copyright (c) 2007-2012 Niels Provos and Nick Mathewson
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,21 +24,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef EVENT2_RPC_STRUCT_H_INCLUDED_
-#define EVENT2_RPC_STRUCT_H_INCLUDED_
+#ifndef EVENT2_KEYVALQ_STRUCT_H_INCLUDED_
+#define EVENT2_KEYVALQ_STRUCT_H_INCLUDED_
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/** @file event2/rpc_struct.h
-
-  Structures used by rpc.h.  Using these structures directly may harm
-  forward compatibility: be careful!
-
- */
+// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 /* Fix so that people don't have to run with <sys/queue.h> */
+/* XXXX This code is duplicated with event_struct.h */
 #ifndef TAILQ_ENTRY
 #define EVENT_DEFINED_TQENTRY_
 #define TAILQ_ENTRY(type)						\
@@ -48,67 +44,39 @@ struct {								\
 }
 #endif /* !TAILQ_ENTRY */
 
-/**
- * provides information about the completed RPC request.
+#ifndef TAILQ_HEAD
+#define EVENT_DEFINED_TQHEAD_
+#define TAILQ_HEAD(name, type)			\
+struct name {					\
+	struct type *tqh_first;			\
+	struct type **tqh_last;			\
+}
+#endif
+
+/*
+ * Key-Value pairs.  Can be used for HTTP headers but also for
+ * query argument parsing.
  */
-struct evrpc_status {
-#define EVRPC_STATUS_ERR_NONE		0
-#define EVRPC_STATUS_ERR_TIMEOUT	1
-#define EVRPC_STATUS_ERR_BADPAYLOAD	2
-#define EVRPC_STATUS_ERR_UNSTARTED	3
-#define EVRPC_STATUS_ERR_HOOKABORTED	4
-	int error;
+struct evkeyval {
+	TAILQ_ENTRY(evkeyval) next;
 
-	/* for looking at headers or other information */
-	struct evhttp_request *http_req;
+	char *key;
+	char *value;
 };
 
-/* the structure below needs to be synchronized with evrpc_req_generic */
+TAILQ_HEAD (evkeyvalq, evkeyval);
 
-/* Encapsulates a request */
-struct evrpc {
-	TAILQ_ENTRY(evrpc) next;
-
-	/* the URI at which the request handler lives */
-	const char* uri;
-
-	/* creates a new request structure */
-	void *(*request_new)(void *);
-	void *request_new_arg;
-
-	/* frees the request structure */
-	void (*request_free)(void *);
-
-	/* unmarshals the buffer into the proper request structure */
-	int (*request_unmarshal)(void *, struct evbuffer *);
-
-	/* creates a new reply structure */
-	void *(*reply_new)(void *);
-	void *reply_new_arg;
-
-	/* frees the reply structure */
-	void (*reply_free)(void *);
-
-	/* verifies that the reply is valid */
-	int (*reply_complete)(void *);
-
-	/* marshals the reply into a buffer */
-	void (*reply_marshal)(struct evbuffer*, void *);
-
-	/* the callback invoked for each received rpc */
-	void (*cb)(struct evrpc_req_generic *, void *);
-	void *cb_arg;
-
-	/* reference for further configuration */
-	struct evrpc_base *base;
-};
-
+/* XXXX This code is duplicated with event_struct.h */
 #ifdef EVENT_DEFINED_TQENTRY_
 #undef TAILQ_ENTRY
+#endif
+
+#ifdef EVENT_DEFINED_TQHEAD_
+#undef TAILQ_HEAD
 #endif
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* EVENT2_RPC_STRUCT_H_INCLUDED_ */
+#endif
