@@ -7,6 +7,18 @@ uses
 
   buffer,
 
+  buffer_compat,
+  bufferevent,
+  bufferevent_compat,
+  bufferevent_ssl,
+  bufferevent_struct,
+  dns,
+  dns_compat,
+  dns_struct,
+
+
+
+
   fp_time,
   fp_stdio,
   fp_event;

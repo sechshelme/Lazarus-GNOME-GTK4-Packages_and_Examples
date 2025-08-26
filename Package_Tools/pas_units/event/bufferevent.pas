@@ -1,4 +1,16 @@
-/*
+unit bufferevent;
+
+interface
+
+uses
+  fp_event;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
  * Copyright (c) 2000-2007 Niels Provos <provos@citi.umich.edu>
  * Copyright (c) 2007-2012 Niels Provos and Nick Mathewson
  *
@@ -23,11 +35,10 @@
  * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-#ifndef EVENT2_BUFFEREVENT_H_INCLUDED_
-#define EVENT2_BUFFEREVENT_H_INCLUDED_
-
-/**
+  }
+{$ifndef EVENT2_BUFFEREVENT_H_INCLUDED_}
+{$define EVENT2_BUFFEREVENT_H_INCLUDED_}
+{*
    @file event2/bufferevent.h
 
   Functions for buffering data for network sending or receiving.  Bufferevents
@@ -72,54 +83,66 @@
 	  bufferevent_openssl_socket_new() or
 	  bufferevent_openssl_filter_new().</dd>
   </dl>
- */
-
-#include <event2/visibility.h>
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include <event2/event-config.h>
-#ifdef EVENT__HAVE_SYS_TYPES_H
-#include <sys/types.h>
-#endif
-#ifdef EVENT__HAVE_SYS_TIME_H
-#include <sys/time.h>
-#endif
-
-/* For int types. */
-#include <event2/util.h>
-
-/** @name Bufferevent event codes
+  }
+{$include <event2/visibility.h>}
+{ C++ extern C conditionnal removed }
+{$include <event2/event-config.h>}
+{$ifdef EVENT__HAVE_SYS_TYPES_H}
+{$include <sys/types.h>}
+{$endif}
+{$ifdef EVENT__HAVE_SYS_TIME_H}
+{$include <sys/time.h>}
+{$endif}
+{ For int types.  }
+{$include <event2/util.h>}
+{* @name Bufferevent event codes
 
     These flags are passed as arguments to a bufferevent's event callback.
 
-    @{
-*/
-#define BEV_EVENT_READING	0x01	/**< error encountered while reading */
-#define BEV_EVENT_WRITING	0x02	/**< error encountered while writing */
-#define BEV_EVENT_EOF		0x10	/**< eof file reached */
-#define BEV_EVENT_ERROR		0x20	/**< unrecoverable error encountered */
-#define BEV_EVENT_TIMEOUT	0x40	/**< user-specified timeout reached */
-#define BEV_EVENT_CONNECTED	0x80	/**< connect operation finished. */
-/**@}*/
+    @
+ }
+{*< error encountered while reading  }
 
-/**
+const
+  BEV_EVENT_READING = $01;  
+{*< error encountered while writing  }
+  BEV_EVENT_WRITING = $02;  
+{*< eof file reached  }
+  BEV_EVENT_EOF = $10;  
+{*< unrecoverable error encountered  }
+  BEV_EVENT_ERROR = $20;  
+{*< user-specified timeout reached  }
+  BEV_EVENT_TIMEOUT = $40;  
+{*< connect operation finished.  }
+  BEV_EVENT_CONNECTED = $80;  
+{*@ }
+{*
    An opaque type for handling buffered IO
 
    @see event2/bufferevent.h
- */
-struct bufferevent
-#ifdef EVENT_IN_DOXYGEN_
-{}
-#endif
-;
-struct event_base;
-struct evbuffer;
-struct sockaddr;
+  }
+type
+  Pbufferevent = ^Tbufferevent;
+  Tbufferevent = record
+      {undefined structure}
+    end;
 
-/**
+  Pevent_base = ^Tevent_base;
+  Tevent_base = record
+      {undefined structure}
+    end;
+
+  Pevbuffer = ^Tevbuffer;
+  Tevbuffer = record
+      {undefined structure}
+    end;
+
+  Psockaddr = ^Tsockaddr;
+  Tsockaddr = record
+      {undefined structure}
+    end;
+
+{*
    A read or write callback for a bufferevent.
 
    The read callback is triggered when new data arrives in the input
@@ -131,10 +154,10 @@ struct sockaddr;
 
    @param bev the bufferevent that triggered the callback
    @param ctx the user-specified context for this bufferevent
- */
-typedef void (*bufferevent_data_cb)(struct bufferevent *bev, void *ctx);
+  }
 
-/**
+  Tbufferevent_data_cb = procedure (bev:Pbufferevent; ctx:pointer);cdecl;
+{*
    An event/error callback for a bufferevent.
 
    The event callback is triggered if either an EOF condition or another
@@ -150,30 +173,27 @@ typedef void (*bufferevent_data_cb)(struct bufferevent *bev, void *ctx);
 	  BEV_EVENT_TIMEOUT, BEV_EVENT_CONNECTED.
 
    @param ctx the user-specified context for this bufferevent
-*/
-typedef void (*bufferevent_event_cb)(struct bufferevent *bev, short what, void *ctx);
+ }
 
-/** Options that can be specified when creating a bufferevent */
-enum bufferevent_options {
-	/** If set, we close the underlying file
-	 * descriptor/bufferevent/whatever when this bufferevent is freed. */
-	BEV_OPT_CLOSE_ON_FREE = (1<<0),
-
-	/** If set, and threading is enabled, operations on this bufferevent
-	 * are protected by a lock */
-	BEV_OPT_THREADSAFE = (1<<1),
-
-	/** If set, callbacks are run deferred in the event loop. */
-	BEV_OPT_DEFER_CALLBACKS = (1<<2),
-
-	/** If set, callbacks are executed without locks being held on the
+  Tbufferevent_event_cb = procedure (bev:Pbufferevent; what:smallint; ctx:pointer);cdecl;
+{* Options that can be specified when creating a bufferevent  }
+{* If set, we close the underlying file
+	 * descriptor/bufferevent/whatever when this bufferevent is freed.  }
+{* If set, and threading is enabled, operations on this bufferevent
+	 * are protected by a lock  }
+{* If set, callbacks are run deferred in the event loop.  }
+{* If set, callbacks are executed without locks being held on the
 	* bufferevent.  This option currently requires that
 	* BEV_OPT_DEFER_CALLBACKS also be set; a future version of Libevent
-	* might remove the requirement.*/
-	BEV_OPT_UNLOCK_CALLBACKS = (1<<3)
-};
+	* might remove the requirement. }
+  Tbufferevent_options =  Longint;
+  Const
+    BEV_OPT_CLOSE_ON_FREE = 1 shl 0;
+    BEV_OPT_THREADSAFE = 1 shl 1;
+    BEV_OPT_DEFER_CALLBACKS = 1 shl 2;
+    BEV_OPT_UNLOCK_CALLBACKS = 1 shl 3;
 
-/**
+{*
   Create a new socket bufferevent over an existing socket.
 
   @param base the event base to associate with the new bufferevent.
@@ -185,11 +205,10 @@ enum bufferevent_options {
   @return a pointer to a newly allocated bufferevent struct, or NULL if an
 	  error occurred
   @see bufferevent_free()
-  */
-extern
-struct bufferevent *bufferevent_socket_new(struct event_base *base, evutil_socket_t fd, int options);
+   }
 
-/**
+function bufferevent_socket_new(base:Pevent_base; fd:Tevutil_socket_t; options:longint):Pbufferevent;cdecl;external libevent;
+{*
    Launch a connect() attempt with a socket-based bufferevent.
 
    When the connect succeeds, the eventcb will be invoked with
@@ -207,12 +226,15 @@ struct bufferevent *bufferevent_socket_new(struct event_base *base, evutil_socke
    @param addr the address we should connect to
    @param socklen The length of the address
    @return 0 on success, -1 on failure.
- */
-extern
-int bufferevent_socket_connect(struct bufferevent *, const struct sockaddr *, int);
+  }
+function bufferevent_socket_connect(para1:Pbufferevent; para2:Psockaddr; para3:longint):longint;cdecl;external libevent;
+type
+  Pevdns_base = ^Tevdns_base;
+  Tevdns_base = record
+      {undefined structure}
+    end;
 
-struct evdns_base;
-/**
+{*
    Resolve the hostname 'hostname' and connect to it as with
    bufferevent_socket_connect().
 
@@ -237,23 +259,19 @@ struct evdns_base;
    Performance note: If you do not provide an evdns_base, this function
    may block while it waits for a DNS response.	 This is probably not
    what you want.
- */
-extern
-int bufferevent_socket_connect_hostname(struct bufferevent *,
-    struct evdns_base *, int, const char *, int);
+  }
 
-/**
+function bufferevent_socket_connect_hostname(para1:Pbufferevent; para2:Pevdns_base; para3:longint; para4:Pchar; para5:longint):longint;cdecl;external libevent;
+{*
    Return the error code for the last failed DNS lookup attempt made by
    bufferevent_socket_connect_hostname().
 
    @param bev The bufferevent object.
    @return DNS error code.
    @see evutil_gai_strerror()
-*/
-extern
-int bufferevent_socket_get_dns_error(struct bufferevent *bev);
-
-/**
+ }
+function bufferevent_socket_get_dns_error(bev:Pbufferevent):longint;cdecl;external libevent;
+{*
   Assign a bufferevent to a specific event_base.
 
   NOTE that only socket bufferevents support this function.
@@ -263,17 +281,13 @@ int bufferevent_socket_get_dns_error(struct bufferevent *bev);
      or bufferevent_socket_new()
   @return 0 if successful, or -1 if an error occurred
   @see bufferevent_new()
- */
-extern
-int bufferevent_base_set(struct event_base *base, struct bufferevent *bufev);
-
-/**
+  }
+function bufferevent_base_set(base:Pevent_base; bufev:Pbufferevent):longint;cdecl;external libevent;
+{*
    Return the event_base used by a bufferevent
-*/
-extern
-struct event_base *bufferevent_get_base(struct bufferevent *bev);
-
-/**
+ }
+function bufferevent_get_base(bev:Pbufferevent):Pevent_base;cdecl;external libevent;
+{*
   Assign a priority to a bufferevent.
 
   Only supported for socket bufferevents.
@@ -281,31 +295,24 @@ struct event_base *bufferevent_get_base(struct bufferevent *bev);
   @param bufev a bufferevent struct
   @param pri the priority to be assigned
   @return 0 if successful, or -1 if an error occurred
-  */
-extern
-int bufferevent_priority_set(struct bufferevent *bufev, int pri);
-
-/**
+   }
+function bufferevent_priority_set(bufev:Pbufferevent; pri:longint):longint;cdecl;external libevent;
+{*
    Return the priority of a bufferevent.
 
    Only supported for socket bufferevents
- */
-extern
-int bufferevent_get_priority(const struct bufferevent *bufev);
-
-/**
+  }
+function bufferevent_get_priority(bufev:Pbufferevent):longint;cdecl;external libevent;
+{*
   Deallocate the storage associated with a bufferevent structure.
 
   If there is pending data to write on the bufferevent, it probably won't be
   flushed before the bufferevent is freed.
 
   @param bufev the bufferevent structure to be freed.
-  */
-extern
-void bufferevent_free(struct bufferevent *bufev);
-
-
-/**
+   }
+procedure bufferevent_free(bufev:Pbufferevent);cdecl;external libevent;
+{*
   Changes the callbacks for a bufferevent.
 
   @param bufev the bufferevent object for which to change callbacks
@@ -318,13 +325,9 @@ void bufferevent_free(struct bufferevent *bufev);
   @param cbarg an argument that will be supplied to each of the callbacks
 	 (readcb, writecb, and errorcb)
   @see bufferevent_new()
-  */
-extern
-void bufferevent_setcb(struct bufferevent *bufev,
-    bufferevent_data_cb readcb, bufferevent_data_cb writecb,
-    bufferevent_event_cb eventcb, void *cbarg);
-
-/**
+   }
+procedure bufferevent_setcb(bufev:Pbufferevent; readcb:Tbufferevent_data_cb; writecb:Tbufferevent_data_cb; eventcb:Tbufferevent_event_cb; cbarg:pointer);cdecl;external libevent;
+{*
  Retrieves the callbacks for a bufferevent.
 
  @param bufev the bufferevent to examine.
@@ -337,39 +340,27 @@ void bufferevent_setcb(struct bufferevent *bufev,
  @param cbarg_ptr if cbarg_ptr is nonnull, *cbarg_ptr is set to the current
     callback argument for the bufferevent.
  @see buffervent_setcb()
-*/
-extern
-void bufferevent_getcb(struct bufferevent *bufev,
-    bufferevent_data_cb *readcb_ptr,
-    bufferevent_data_cb *writecb_ptr,
-    bufferevent_event_cb *eventcb_ptr,
-    void **cbarg_ptr);
-
-/**
+ }
+procedure bufferevent_getcb(bufev:Pbufferevent; readcb_ptr:Pbufferevent_data_cb; writecb_ptr:Pbufferevent_data_cb; eventcb_ptr:Pbufferevent_event_cb; cbarg_ptr:Ppointer);cdecl;external libevent;
+{*
   Changes the file descriptor on which the bufferevent operates.
   Not supported for all bufferevent types.
 
   @param bufev the bufferevent object for which to change the file descriptor
   @param fd the file descriptor to operate on
-*/
-extern
-int bufferevent_setfd(struct bufferevent *bufev, evutil_socket_t fd);
-
-/**
+ }
+function bufferevent_setfd(bufev:Pbufferevent; fd:Tevutil_socket_t):longint;cdecl;external libevent;
+{*
    Returns the file descriptor associated with a bufferevent, or -1 if
    no file descriptor is associated with the bufferevent.
- */
-extern
-evutil_socket_t bufferevent_getfd(struct bufferevent *bufev);
-
-/**
+  }
+function bufferevent_getfd(bufev:Pbufferevent):Tevutil_socket_t;cdecl;external libevent;
+{*
    Returns the underlying bufferevent associated with a bufferevent (if
    the bufferevent is a wrapper), or NULL if there is no underlying bufferevent.
- */
-extern
-struct bufferevent *bufferevent_get_underlying(struct bufferevent *bufev);
-
-/**
+  }
+function bufferevent_get_underlying(bufev:Pbufferevent):Pbufferevent;cdecl;external libevent;
+{*
   Write data to a bufferevent buffer.
 
   The bufferevent_write() function can be used to write data to the file
@@ -381,13 +372,9 @@ struct bufferevent *bufferevent_get_underlying(struct bufferevent *bufev);
   @param size the length of the data, in bytes
   @return 0 if successful, or -1 if an error occurred
   @see bufferevent_write_buffer()
-  */
-extern
-int bufferevent_write(struct bufferevent *bufev,
-    const void *data, size_t size);
-
-
-/**
+   }
+function bufferevent_write(bufev:Pbufferevent; data:pointer; size:Tsize_t):longint;cdecl;external libevent;
+{*
   Write data from an evbuffer to a bufferevent buffer.	The evbuffer is
   being drained as a result.
 
@@ -395,12 +382,9 @@ int bufferevent_write(struct bufferevent *bufev,
   @param buf the evbuffer to be written
   @return 0 if successful, or -1 if an error occurred
   @see bufferevent_write()
- */
-extern
-int bufferevent_write_buffer(struct bufferevent *bufev, struct evbuffer *buf);
-
-
-/**
+  }
+function bufferevent_write_buffer(bufev:Pbufferevent; buf:Pevbuffer):longint;cdecl;external libevent;
+{*
   Read data from a bufferevent buffer.
 
   The bufferevent_read() function is used to read data from the input buffer.
@@ -409,34 +393,27 @@ int bufferevent_write_buffer(struct bufferevent *bufev, struct evbuffer *buf);
   @param data pointer to a buffer that will store the data
   @param size the size of the data buffer, in bytes
   @return the amount of data read, in bytes.
- */
-extern
-size_t bufferevent_read(struct bufferevent *bufev, void *data, size_t size);
-
-/**
+  }
+function bufferevent_read(bufev:Pbufferevent; data:pointer; size:Tsize_t):Tsize_t;cdecl;external libevent;
+{*
   Read data from a bufferevent buffer into an evbuffer.	 This avoids
   memory copies.
 
   @param bufev the bufferevent to be read from
   @param buf the evbuffer to which to add data
   @return 0 if successful, or -1 if an error occurred.
- */
-extern
-int bufferevent_read_buffer(struct bufferevent *bufev, struct evbuffer *buf);
-
-/**
+  }
+function bufferevent_read_buffer(bufev:Pbufferevent; buf:Pevbuffer):longint;cdecl;external libevent;
+{*
    Returns the input buffer.
 
    The user MUST NOT set the callback on this buffer.
 
    @param bufev the bufferevent from which to get the evbuffer
    @return the evbuffer object for the input buffer
- */
-
-extern
-struct evbuffer *bufferevent_get_input(struct bufferevent *bufev);
-
-/**
+  }
+function bufferevent_get_input(bufev:Pbufferevent):Pevbuffer;cdecl;external libevent;
+{*
    Returns the output buffer.
 
    The user MUST NOT set the callback on this buffer.
@@ -446,43 +423,34 @@ struct evbuffer *bufferevent_get_input(struct bufferevent *bufev);
 
    @param bufev the bufferevent from which to get the evbuffer
    @return the evbuffer object for the output buffer
- */
-
-extern
-struct evbuffer *bufferevent_get_output(struct bufferevent *bufev);
-
-/**
+  }
+function bufferevent_get_output(bufev:Pbufferevent):Pevbuffer;cdecl;external libevent;
+{*
   Enable a bufferevent.
 
   @param bufev the bufferevent to be enabled
   @param event any combination of EV_READ | EV_WRITE.
   @return 0 if successful, or -1 if an error occurred
   @see bufferevent_disable()
- */
-extern
-int bufferevent_enable(struct bufferevent *bufev, short event);
-
-/**
+  }
+function bufferevent_enable(bufev:Pbufferevent; event:smallint):longint;cdecl;external libevent;
+{*
   Disable a bufferevent.
 
   @param bufev the bufferevent to be disabled
   @param event any combination of EV_READ | EV_WRITE.
   @return 0 if successful, or -1 if an error occurred
   @see bufferevent_enable()
- */
-extern
-int bufferevent_disable(struct bufferevent *bufev, short event);
-
-/**
+  }
+function bufferevent_disable(bufev:Pbufferevent; event:smallint):longint;cdecl;external libevent;
+{*
    Return the events that are enabled on a given bufferevent.
 
    @param bufev the bufferevent to inspect
    @return A combination of EV_READ | EV_WRITE
- */
-extern
-short bufferevent_get_enabled(struct bufferevent *bufev);
-
-/**
+  }
+function bufferevent_get_enabled(bufev:Pbufferevent):smallint;cdecl;external libevent;
+{*
   Set the read and write timeout for a bufferevent.
 
   A bufferevent's timeout will fire the first time that the indicated
@@ -507,12 +475,9 @@ short bufferevent_get_enabled(struct bufferevent *bufev);
   @param bufev the bufferevent to be modified
   @param timeout_read the read timeout, or NULL
   @param timeout_write the write timeout, or NULL
- */
-extern
-int bufferevent_set_timeouts(struct bufferevent *bufev,
-    const struct timeval *timeout_read, const struct timeval *timeout_write);
-
-/**
+  }
+function bufferevent_set_timeouts(bufev:Pbufferevent; timeout_read:Ptimeval; timeout_write:Ptimeval):longint;cdecl;external libevent;
+{*
   Sets the watermarks for read and write events.
 
   On input, a bufferevent does not invoke the user read callback unless
@@ -531,13 +496,9 @@ int bufferevent_set_timeouts(struct bufferevent *bufev,
   @param events EV_READ, EV_WRITE or both
   @param lowmark the lower watermark to set
   @param highmark the high watermark to set
-*/
-
-extern
-void bufferevent_setwatermark(struct bufferevent *bufev, short events,
-    size_t lowmark, size_t highmark);
-
-/**
+ }
+procedure bufferevent_setwatermark(bufev:Pbufferevent; events:smallint; lowmark:Tsize_t; highmark:Tsize_t);cdecl;external libevent;
+{*
   Retrieves the watermarks for read or write events.
   Returns non-zero if events contains not only EV_READ or EV_WRITE.
   Returns zero if events equal EV_READ or EV_WRITE
@@ -546,38 +507,28 @@ void bufferevent_setwatermark(struct bufferevent *bufev, short events,
   @param events EV_READ or EV_WRITE
   @param lowmark receives the lower watermark if not NULL
   @param highmark receives the high watermark if not NULL
-*/
-extern
-int bufferevent_getwatermark(struct bufferevent *bufev, short events,
-    size_t *lowmark, size_t *highmark);
-
-/**
+ }
+function bufferevent_getwatermark(bufev:Pbufferevent; events:smallint; lowmark:Psize_t; highmark:Psize_t):longint;cdecl;external libevent;
+{*
    Acquire the lock on a bufferevent.  Has no effect if locking was not
    enabled with BEV_OPT_THREADSAFE.
- */
-extern
-void bufferevent_lock(struct bufferevent *bufev);
-
-/**
+  }
+procedure bufferevent_lock(bufev:Pbufferevent);cdecl;external libevent;
+{*
    Release the lock on a bufferevent.  Has no effect if locking was not
    enabled with BEV_OPT_THREADSAFE.
- */
-extern
-void bufferevent_unlock(struct bufferevent *bufev);
-
-
-/**
+  }
+procedure bufferevent_unlock(bufev:Pbufferevent);cdecl;external libevent;
+{*
  * Public interface to manually increase the reference count of a bufferevent
  * this is useful in situations where a user may reference the bufferevent
  * somewhere else (unknown to libevent)
  *
  * @param bufev the bufferevent to increase the refcount on
  *
- */
-extern
-void bufferevent_incref(struct bufferevent *bufev);
-
-/**
+  }
+procedure bufferevent_incref(bufev:Pbufferevent);cdecl;external libevent;
+{*
  * Public interface to manually decrement the reference count of a bufferevent
  *
  * Warning: make sure you know what you're doing. This is mainly used in
@@ -587,54 +538,47 @@ void bufferevent_incref(struct bufferevent *bufev);
  * @param bufev the bufferevent to decrement the refcount on
  *
  * @return 1 if the bufferevent was freed, otherwise 0 (still referenced)
- */
-extern
-int bufferevent_decref(struct bufferevent *bufev);
-
-/**
+  }
+function bufferevent_decref(bufev:Pbufferevent):longint;cdecl;external libevent;
+{*
    Flags that can be passed into filters to let them know how to
    deal with the incoming data.
-*/
-enum bufferevent_flush_mode {
-	/** usually set when processing data */
-	BEV_NORMAL = 0,
+ }
+{* usually set when processing data  }
+{* want to checkpoint all data sent.  }
+{* encountered EOF on read or done sending data  }
+type
+  Tbufferevent_flush_mode =  Longint;
+  Const
+    BEV_NORMAL = 0;
+    BEV_FLUSH = 1;
+    BEV_FINISHED = 2;
 
-	/** want to checkpoint all data sent. */
-	BEV_FLUSH = 1,
-
-	/** encountered EOF on read or done sending data */
-	BEV_FINISHED = 2
-};
-
-/**
+{*
    Triggers the bufferevent to produce more data if possible.
 
    @param bufev the bufferevent object
    @param iotype either EV_READ or EV_WRITE or both.
    @param mode either BEV_NORMAL or BEV_FLUSH or BEV_FINISHED
    @return -1 on failure, 0 if no data was produces, 1 if data was produced
- */
-extern
-int bufferevent_flush(struct bufferevent *bufev,
-    short iotype,
-    enum bufferevent_flush_mode mode);
+  }
 
-/**
+function bufferevent_flush(bufev:Pbufferevent; iotype:smallint; mode:Tbufferevent_flush_mode):longint;cdecl;external libevent;
+{*
    Flags for bufferevent_trigger(_event) that modify when and how to trigger
    the callback.
-*/
-enum bufferevent_trigger_options {
-	/** trigger the callback regardless of the watermarks */
-	BEV_TRIG_IGNORE_WATERMARKS = (1<<16),
+ }
+{* trigger the callback regardless of the watermarks  }
+{* defer even if the callbacks are not  }
+{ (Note: for internal reasons, these need to be disjoint from
+	 * bufferevent_options, except when they mean the same thing.  }
+type
+  Tbufferevent_trigger_options =  Longint;
+  Const
+    BEV_TRIG_IGNORE_WATERMARKS = 1 shl 16;
+    BEV_TRIG_DEFER_CALLBACKS = BEV_OPT_DEFER_CALLBACKS;
 
-	/** defer even if the callbacks are not */
-	BEV_TRIG_DEFER_CALLBACKS = BEV_OPT_DEFER_CALLBACKS
-
-	/* (Note: for internal reasons, these need to be disjoint from
-	 * bufferevent_options, except when they mean the same thing. */
-};
-
-/**
+{*
    Triggers bufferevent data callbacks.
 
    The function will honor watermarks unless options contain
@@ -644,12 +588,10 @@ enum bufferevent_trigger_options {
    @param bufev the bufferevent object
    @param iotype either EV_READ or EV_WRITE or both.
    @param options
- */
-extern
-void bufferevent_trigger(struct bufferevent *bufev, short iotype,
-    int options);
+  }
 
-/**
+procedure bufferevent_trigger(bufev:Pbufferevent; iotype:smallint; options:longint);cdecl;external libevent;
+{*
    Triggers the bufferevent event callback.
 
    If the options contain BEV_OPT_DEFER_CALLBACKS, the callbacks are deferred.
@@ -657,32 +599,28 @@ void bufferevent_trigger(struct bufferevent *bufev, short iotype,
    @param bufev the bufferevent object
    @param what the flags to pass onto the event callback
    @param options
- */
-extern
-void bufferevent_trigger_event(struct bufferevent *bufev, short what,
-    int options);
-
-/**
+  }
+procedure bufferevent_trigger_event(bufev:Pbufferevent; what:smallint; options:longint);cdecl;external libevent;
+{*
    @name Filtering support
 
-   @{
-*/
-/**
+   @
+ }
+{*
    Values that filters can return.
- */
-enum bufferevent_filter_result {
-	/** everything is okay */
-	BEV_OK = 0,
+  }
+{* everything is okay  }
+{* the filter needs to read more data before output  }
+{* the filter encountered a critical error, no further data
+	    can be processed.  }
+type
+  Tbufferevent_filter_result =  Longint;
+  Const
+    BEV_OK = 0;
+    BEV_NEED_MORE = 1;
+    BEV_ERROR = 2;
 
-	/** the filter needs to read more data before output */
-	BEV_NEED_MORE = 1,
-
-	/** the filter encountered a critical error, no further data
-	    can be processed. */
-	BEV_ERROR = 2
-};
-
-/** A callback function to implement a filter for a bufferevent.
+{* A callback function to implement a filter for a bufferevent.
 
     @param src An evbuffer to drain data from.
     @param dst An evbuffer to add data to.
@@ -699,12 +637,11 @@ enum bufferevent_filter_result {
     @return BEV_OK if we wrote some data; BEV_NEED_MORE if we can't
        produce any more output until we get some input; and BEV_ERROR
        on an error.
- */
-typedef enum bufferevent_filter_result (*bufferevent_filter_cb)(
-    struct evbuffer *src, struct evbuffer *dst, ev_ssize_t dst_limit,
-    enum bufferevent_flush_mode mode, void *ctx);
+  }
+type
 
-/**
+  Tbufferevent_filter_cb = function (src:Pevbuffer; dst:Pevbuffer; dst_limit:Tev_ssize_t; mode:Tbufferevent_flush_mode; ctx:pointer):Tbufferevent_filter_result;cdecl;
+{*
    Allocate a new filtering bufferevent on top of an existing bufferevent.
 
    @param underlying the underlying bufferevent.
@@ -716,18 +653,12 @@ typedef enum bufferevent_filter_result (*bufferevent_filter_cb)(
    @param free_context A function to use to free the filter context when
      this bufferevent is freed.
    @param ctx A context pointer to pass to the filter functions.
- */
-extern
-struct bufferevent *
-bufferevent_filter_new(struct bufferevent *underlying,
-		       bufferevent_filter_cb input_filter,
-		       bufferevent_filter_cb output_filter,
-		       int options,
-		       void (*free_context)(void *),
-		       void *ctx);
-/**@}*/
+  }
 
-/**
+function bufferevent_filter_new(underlying:Pbufferevent; input_filter:Tbufferevent_filter_cb; output_filter:Tbufferevent_filter_cb; options:longint; free_context:procedure (para1:pointer); 
+           ctx:pointer):Pbufferevent;cdecl;external libevent;
+{*@ }
+{*
    Allocate a pair of linked bufferevents.  The bufferevents behave as would
    two bufferevent_sock instances connected to opposite ends of a
    socketpair(), except that no internal socketpair is allocated.
@@ -736,34 +667,37 @@ bufferevent_filter_new(struct bufferevent *underlying,
    @param options A set of options for this bufferevent
    @param pair A pointer to an array to hold the two new bufferevent objects.
    @return 0 on success, -1 on failure.
- */
-extern
-int bufferevent_pair_new(struct event_base *base, int options,
-    struct bufferevent *pair[2]);
-
-/**
+  }
+function bufferevent_pair_new(base:Pevent_base; options:longint; pair:array[0..1] of Pbufferevent):longint;cdecl;external libevent;
+{*
    Given one bufferevent returned by bufferevent_pair_new(), returns the
    other one if it still exists.  Otherwise returns NULL.
- */
-extern
-struct bufferevent *bufferevent_pair_get_partner(struct bufferevent *bev);
-
-/**
+  }
+function bufferevent_pair_get_partner(bev:Pbufferevent):Pbufferevent;cdecl;external libevent;
+{*
    Abstract type used to configure rate-limiting on a bufferevent or a group
    of bufferevents.
- */
-struct ev_token_bucket_cfg;
+  }
+type
+  Pev_token_bucket_cfg = ^Tev_token_bucket_cfg;
+  Tev_token_bucket_cfg = record
+      {undefined structure}
+    end;
 
-/**
+{*
    A group of bufferevents which are configured to respect the same rate
    limit.
-*/
-struct bufferevent_rate_limit_group;
+ }
+  Pbufferevent_rate_limit_group = ^Tbufferevent_rate_limit_group;
+  Tbufferevent_rate_limit_group = record
+      {undefined structure}
+    end;
 
-/** Maximum configurable rate- or burst-limit. */
-#define EV_RATE_LIMIT_MAX EV_SSIZE_MAX
+{* Maximum configurable rate- or burst-limit.  }
 
-/**
+const
+  EV_RATE_LIMIT_MAX = EV_SSIZE_MAX;  
+{*
    Initialize and return a new object to configure the rate-limiting behavior
    of bufferevents.
 
@@ -778,22 +712,16 @@ struct bufferevent_rate_limit_group;
 
    Note that all rate-limits hare are currently best-effort: future versions
    of Libevent may implement them more tightly.
- */
-extern
-struct ev_token_bucket_cfg *ev_token_bucket_cfg_new(
-	size_t read_rate, size_t read_burst,
-	size_t write_rate, size_t write_burst,
-	const struct timeval *tick_len);
+  }
 
-/** Free all storage held in 'cfg'.
+function ev_token_bucket_cfg_new(read_rate:Tsize_t; read_burst:Tsize_t; write_rate:Tsize_t; write_burst:Tsize_t; tick_len:Ptimeval):Pev_token_bucket_cfg;cdecl;external libevent;
+{* Free all storage held in 'cfg'.
 
     Note: 'cfg' is not currently reference-counted; it is not safe to free it
     until no bufferevent is using it.
- */
-extern
-void ev_token_bucket_cfg_free(struct ev_token_bucket_cfg *cfg);
-
-/**
+  }
+procedure ev_token_bucket_cfg_free(cfg:Pev_token_bucket_cfg);cdecl;external libevent;
+{*
    Set the rate-limit of a the bufferevent 'bev' to the one specified in
    'cfg'.  If 'cfg' is NULL, disable any per-bufferevent rate-limiting on
    'bev'.
@@ -803,12 +731,9 @@ void ev_token_bucket_cfg_free(struct ev_token_bucket_cfg *cfg);
    bufferevents.
 
    Return 0 on success, -1 on failure.
- */
-extern
-int bufferevent_set_rate_limit(struct bufferevent *bev,
-    struct ev_token_bucket_cfg *cfg);
-
-/**
+  }
+function bufferevent_set_rate_limit(bev:Pbufferevent; cfg:Pev_token_bucket_cfg):longint;cdecl;external libevent;
+{*
    Create a new rate-limit group for bufferevents.  A rate-limit group
    constrains the maximum number of bytes sent and received, in toto,
    by all of its bufferevents.
@@ -824,22 +749,15 @@ int bufferevent_set_rate_limit(struct bufferevent *bev,
    Note also that only some bufferevent types currently respect rate-limiting.
    They are: socket-based bufferevents (normal and IOCP-based), and SSL-based
    bufferevents.
- */
-extern
-struct bufferevent_rate_limit_group *bufferevent_rate_limit_group_new(
-	struct event_base *base,
-	const struct ev_token_bucket_cfg *cfg);
-/**
+  }
+function bufferevent_rate_limit_group_new(base:Pevent_base; cfg:Pev_token_bucket_cfg):Pbufferevent_rate_limit_group;cdecl;external libevent;
+{*
    Change the rate-limiting settings for a given rate-limiting group.
 
    Return 0 on success, -1 on failure.
-*/
-extern
-int bufferevent_rate_limit_group_set_cfg(
-	struct bufferevent_rate_limit_group *,
-	const struct ev_token_bucket_cfg *);
-
-/**
+ }
+function bufferevent_rate_limit_group_set_cfg(para1:Pbufferevent_rate_limit_group; para2:Pev_token_bucket_cfg):longint;cdecl;external libevent;
+{*
    Change the smallest quantum we're willing to allocate to any single
    bufferevent in a group for reading or writing at a time.
 
@@ -854,19 +772,14 @@ int bufferevent_rate_limit_group_set_cfg(
    The default min-share is currently 64 bytes.
 
    Returns 0 on success, -1 on failure.
- */
-extern
-int bufferevent_rate_limit_group_set_min_share(
-	struct bufferevent_rate_limit_group *, size_t);
-
-/**
+  }
+function bufferevent_rate_limit_group_set_min_share(para1:Pbufferevent_rate_limit_group; para2:Tsize_t):longint;cdecl;external libevent;
+{*
    Free a rate-limiting group.  The group must have no members when
    this function is called.
-*/
-extern
-void bufferevent_rate_limit_group_free(struct bufferevent_rate_limit_group *);
-
-/**
+ }
+procedure bufferevent_rate_limit_group_free(para1:Pbufferevent_rate_limit_group);cdecl;external libevent;
+{*
    Add 'bev' to the list of bufferevents whose aggregate reading and writing
    is restricted by 'g'.  If 'g' is NULL, remove 'bev' from its current group.
 
@@ -875,44 +788,31 @@ void bufferevent_rate_limit_group_free(struct bufferevent_rate_limit_group *);
    group before being added to 'g'.
 
    Return 0 on success and -1 on failure.
- */
-extern
-int bufferevent_add_to_rate_limit_group(struct bufferevent *bev,
-    struct bufferevent_rate_limit_group *g);
-
-/** Remove 'bev' from its current rate-limit group (if any). */
-extern
-int bufferevent_remove_from_rate_limit_group(struct bufferevent *bev);
-
-/**
+  }
+function bufferevent_add_to_rate_limit_group(bev:Pbufferevent; g:Pbufferevent_rate_limit_group):longint;cdecl;external libevent;
+{* Remove 'bev' from its current rate-limit group (if any).  }
+function bufferevent_remove_from_rate_limit_group(bev:Pbufferevent):longint;cdecl;external libevent;
+{*
    Set the size limit for single read operation.
 
    Set to 0 for a reasonable default.
 
    Return 0 on success and -1 on failure.
- */
-extern
-int bufferevent_set_max_single_read(struct bufferevent *bev, size_t size);
-
-/**
+  }
+function bufferevent_set_max_single_read(bev:Pbufferevent; size:Tsize_t):longint;cdecl;external libevent;
+{*
    Set the size limit for single write operation.
 
    Set to 0 for a reasonable default.
 
    Return 0 on success and -1 on failure.
- */
-extern
-int bufferevent_set_max_single_write(struct bufferevent *bev, size_t size);
-
-/** Get the current size limit for single read operation. */
-extern
-ev_ssize_t bufferevent_get_max_single_read(struct bufferevent *bev);
-
-/** Get the current size limit for single write operation. */
-extern
-ev_ssize_t bufferevent_get_max_single_write(struct bufferevent *bev);
-
-/**
+  }
+function bufferevent_set_max_single_write(bev:Pbufferevent; size:Tsize_t):longint;cdecl;external libevent;
+{* Get the current size limit for single read operation.  }
+function bufferevent_get_max_single_read(bev:Pbufferevent):Tev_ssize_t;cdecl;external libevent;
+{* Get the current size limit for single write operation.  }
+function bufferevent_get_max_single_write(bev:Pbufferevent):Tev_ssize_t;cdecl;external libevent;
+{*
    @name Rate limit inspection
 
    Return the current read or write bucket size for a bufferevent.
@@ -921,40 +821,27 @@ ev_ssize_t bufferevent_get_max_single_write(struct bufferevent *bev);
    Note that it can return a negative value if the bufferevent has been
    made to read or write more than its limit.
 
-   @{
- */
-extern
-ev_ssize_t bufferevent_get_read_limit(struct bufferevent *bev);
-extern
-ev_ssize_t bufferevent_get_write_limit(struct bufferevent *bev);
-/*@}*/
-
-extern
-ev_ssize_t bufferevent_get_max_to_read(struct bufferevent *bev);
-extern
-ev_ssize_t bufferevent_get_max_to_write(struct bufferevent *bev);
-
-extern
-const struct ev_token_bucket_cfg *bufferevent_get_token_bucket_cfg(const struct bufferevent * bev);
-
-/**
+   @
+  }
+function bufferevent_get_read_limit(bev:Pbufferevent):Tev_ssize_t;cdecl;external libevent;
+function bufferevent_get_write_limit(bev:Pbufferevent):Tev_ssize_t;cdecl;external libevent;
+{@ }
+function bufferevent_get_max_to_read(bev:Pbufferevent):Tev_ssize_t;cdecl;external libevent;
+function bufferevent_get_max_to_write(bev:Pbufferevent):Tev_ssize_t;cdecl;external libevent;
+function bufferevent_get_token_bucket_cfg(bev:Pbufferevent):Pev_token_bucket_cfg;cdecl;external libevent;
+{*
    @name Group Rate limit inspection
 
    Return the read or write bucket size for a bufferevent rate limit
    group.  Note that it can return a negative value if bufferevents in
    the group have been made to read or write more than their limits.
 
-   @{
- */
-extern
-ev_ssize_t bufferevent_rate_limit_group_get_read_limit(
-	struct bufferevent_rate_limit_group *);
-extern
-ev_ssize_t bufferevent_rate_limit_group_get_write_limit(
-	struct bufferevent_rate_limit_group *);
-/*@}*/
-
-/**
+   @
+  }
+function bufferevent_rate_limit_group_get_read_limit(para1:Pbufferevent_rate_limit_group):Tev_ssize_t;cdecl;external libevent;
+function bufferevent_rate_limit_group_get_write_limit(para1:Pbufferevent_rate_limit_group):Tev_ssize_t;cdecl;external libevent;
+{@ }
+{*
    @name Rate limit manipulation
 
    Subtract a number of bytes from a bufferevent's read or write bucket.
@@ -966,15 +853,12 @@ ev_ssize_t bufferevent_rate_limit_group_get_write_limit(
 
    Returns 0 on success, -1 on internal error.
 
-   @{
- */
-extern
-int bufferevent_decrement_read_limit(struct bufferevent *bev, ev_ssize_t decr);
-extern
-int bufferevent_decrement_write_limit(struct bufferevent *bev, ev_ssize_t decr);
-/*@}*/
-
-/**
+   @
+  }
+function bufferevent_decrement_read_limit(bev:Pbufferevent; decr:Tev_ssize_t):longint;cdecl;external libevent;
+function bufferevent_decrement_write_limit(bev:Pbufferevent; decr:Tev_ssize_t):longint;cdecl;external libevent;
+{@ }
+{*
    @name Group rate limit manipulation
 
    Subtract a number of bytes from a bufferevent rate-limiting group's
@@ -985,40 +869,33 @@ int bufferevent_decrement_write_limit(struct bufferevent *bev, ev_ssize_t decr);
 
    Returns 0 on success, -1 on internal error.
 
-   @{
- */
-extern
-int bufferevent_rate_limit_group_decrement_read(
-	struct bufferevent_rate_limit_group *, ev_ssize_t);
-extern
-int bufferevent_rate_limit_group_decrement_write(
-	struct bufferevent_rate_limit_group *, ev_ssize_t);
-/*@}*/
-
-
-/**
+   @
+  }
+function bufferevent_rate_limit_group_decrement_read(para1:Pbufferevent_rate_limit_group; para2:Tev_ssize_t):longint;cdecl;external libevent;
+function bufferevent_rate_limit_group_decrement_write(para1:Pbufferevent_rate_limit_group; para2:Tev_ssize_t):longint;cdecl;external libevent;
+{@ }
+{*
  * Inspect the total bytes read/written on a group.
  *
  * Set the variable pointed to by total_read_out to the total number of bytes
  * ever read on grp, and the variable pointed to by total_written_out to the
- * total number of bytes ever written on grp. */
-extern
-void bufferevent_rate_limit_group_get_totals(
-    struct bufferevent_rate_limit_group *grp,
-    ev_uint64_t *total_read_out, ev_uint64_t *total_written_out);
-
-/**
+ * total number of bytes ever written on grp.  }
+procedure bufferevent_rate_limit_group_get_totals(grp:Pbufferevent_rate_limit_group; total_read_out:Pev_uint64_t; total_written_out:Pev_uint64_t);cdecl;external libevent;
+{*
  * Reset the total bytes read/written on a group.
  *
  * Reset the number of bytes read or written on grp as given by
- * bufferevent_rate_limit_group_reset_totals(). */
-extern
-void
-bufferevent_rate_limit_group_reset_totals(
-	struct bufferevent_rate_limit_group *grp);
+ * bufferevent_rate_limit_group_reset_totals().  }
+procedure bufferevent_rate_limit_group_reset_totals(grp:Pbufferevent_rate_limit_group);cdecl;external libevent;
+{ C++ end of extern C conditionnal removed }
+{$endif}
+{ EVENT2_BUFFEREVENT_H_INCLUDED_  }
 
-#ifdef __cplusplus
-}
-#endif
+// === Konventiert am: 26-8-25 17:43:37 ===
 
-#endif /* EVENT2_BUFFEREVENT_H_INCLUDED_ */
+
+implementation
+
+
+
+end.

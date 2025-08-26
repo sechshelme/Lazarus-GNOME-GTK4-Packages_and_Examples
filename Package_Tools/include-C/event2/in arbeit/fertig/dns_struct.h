@@ -60,15 +60,10 @@ struct evdns_server_request {
 };
 struct evdns_server_question {
 	int type;
-#ifdef __cplusplus
-	int dns_question_class;
-#else
 	/* You should refer to this field as "dns_question_class".  The
 	 * name "class" works in C for backward compatibility, and will be
 	 * removed in a future version. (1.5 or later). */
 	int class;
-#define dns_question_class class
-#endif
 	char name[1];
 };
 
