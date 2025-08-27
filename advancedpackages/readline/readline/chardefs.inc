@@ -1,141 +1,36 @@
-
-unit chardefs;
-interface
-
-{
-  Automatically converted by H2Pas 1.0.0 from chardefs.h
-  The following command line parameters were used:
-    -p
-    -T
-    -d
-    -c
-    -e
-    chardefs.h
-}
-
-{ Pointers to basic pascal types, inserted by h2pas conversion program.}
-Type
-  PLongint  = ^Longint;
-  PSmallInt = ^SmallInt;
-  PByte     = ^Byte;
-  PWord     = ^Word;
-  PDWord    = ^DWord;
-  PDouble   = ^Double;
-
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+{$IFDEF read_interface}
 
 
-{ chardefs.h -- Character definitions for readline.  }
-{ Copyright (C) 1994-2021 Free Software Foundation, Inc.
 
-   This file is part of the GNU Readline Library (Readline), a library
-   for reading lines of text with interactive input and history editing.
-
-   Readline is free software: you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation, either version 3 of the License, or
-   (at your option) any later version.
-
-   Readline is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with Readline.  If not, see <http://www.gnu.org/licenses/>.
- }
-{$ifndef _CHARDEFS_H_}
-{$define _CHARDEFS_H_}
-{$include <ctype.h>}
-{$include <string.h>}
-{$ifndef whitespace}
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-
-function whitespace(c : longint) : longint;
-
-{$endif}
-{ Some character stuff.  }
-{ Smaller than this is control.  }
+function whitespace(klass : longint) : longint;
 
 const
   control_character_threshold = $020;  
-{ 0x20 - 1  }
-  control_character_mask = $1f;  
-{ Larger than this is Meta.  }
-  meta_character_threshold = $07f;  
-{ 0x000000, must be off.  }
-  control_character_bit = $40;  
-{ x0000000, must be on.  }
-  meta_character_bit = $080;  
-{ Largest character value.  }
-  largest_char = 255;  
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
+  control_character_mask = $1f;
+  meta_character_threshold = $07f;
+  control_character_bit = $40;
+  meta_character_bit = $080;
+  largest_char = 255;
 
-function CTRL_CHAR(c : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function META_CHAR(c : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function CTRL(c : longint) : Tc;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function META(c : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function UNMETA(c : longint) : Tc;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function UNCTRL(c : longint) : longint;
-
-{$ifndef UCHAR_MAX}
+function CTRL_CHAR(klass : longint) : longint;
+function META_CHAR(klass : longint) : longint;
+function CTRL(klass : longint) : Tc;
+function META(klass : longint) : longint;
+function UNMETA(klass : longint) : Tc;
+function UNCTRL(klass : longint) : longint;
 
 const
   UCHAR_MAX = 255;  
-{$endif}
-{$ifndef CHAR_MAX}
+  CHAR_MAX = 127;
 
-const
-  CHAR_MAX = 127;  
-{$endif}
-{ use this as a proxy for C89  }
-{$if defined (HAVE_STDLIB_H) && defined (HAVE_STRING_H)}
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-
-function IN_CTYPE_DOMAIN(c : longint) : longint;
+function IN_CTYPE_DOMAIN(klass : longint) : longint;
+function NON_NEGATIVE(klass : longint) : longint;
+function IN_CTYPE_DOMAIN(klass : longint) : longint;
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function NON_NEGATIVE(c : longint) : longint;
-
-{$else}
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-
-function IN_CTYPE_DOMAIN(c : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function NON_NEGATIVE(c : longint) : longint;
+function NON_NEGATIVE(klass : longint) : longint;
 
 {$endif}
 {$if !defined (isxdigit) && !defined (HAVE_ISXDIGIT) && !defined (__cplusplus)}
@@ -143,7 +38,7 @@ function NON_NEGATIVE(c : longint) : longint;
 { argument types are unknown }
 { return type might be wrong }   
 
-function isxdigit(c : longint) : longint;
+function isxdigit(klass : longint) : longint;
 
 {$endif}
 { Some systems define these; we want our definitions.  }
@@ -153,74 +48,74 @@ function isxdigit(c : longint) : longint;
 { argument types are unknown }
 { return type might be wrong }   
 
-function ISALNUM(c : longint) : longint;
+function ISALNUM(klass : longint) : longint;
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function ISALPHA(c : longint) : longint;
+function ISALPHA(klass : longint) : longint;
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function ISDIGIT(c : longint) : longint;
+function ISDIGIT(klass : longint) : longint;
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function ISLOWER(c : longint) : longint;
+function ISLOWER(klass : longint) : longint;
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function ISPRINT(c : longint) : longint;
+function ISPRINT(klass : longint) : longint;
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function ISUPPER(c : longint) : longint;
+function ISUPPER(klass : longint) : longint;
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function ISXDIGIT(c : longint) : longint;
+function ISXDIGIT(klass : longint) : longint;
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function _rl_lowercase_p(c : longint) : longint;
+function _rl_lowercase_p(klass : longint) : longint;
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function _rl_uppercase_p(c : longint) : longint;
+function _rl_uppercase_p(klass : longint) : longint;
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function _rl_digit_p(c : longint) : longint;
+function _rl_digit_p(klass : longint) : longint;
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function _rl_alphabetic_p(c : longint) : longint;
+function _rl_alphabetic_p(klass : longint) : longint;
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function _rl_pure_alphabetic(c : longint) : longint;
+function _rl_pure_alphabetic(klass : longint) : longint;
 
 {$ifndef _rl_to_upper}
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
 
-function _rl_to_upper(c : longint) : longint;
+function _rl_to_upper(klass : longint) : longint;
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function _rl_to_lower(c : longint) : longint;
+function _rl_to_lower(klass : longint) : longint;
 
 {$endif}
 {$ifndef _rl_digit_value}
@@ -235,7 +130,7 @@ function _rl_digit_value(x : longint) : Tx;
 { argument types are unknown }
 { return type might be wrong }   
 
-function _rl_isident(c : longint) : longint;
+function _rl_isident(klass : longint) : longint;
 
 {$endif}
 {$ifndef ISOCTAL}
@@ -243,18 +138,18 @@ function _rl_isident(c : longint) : longint;
 { argument types are unknown }
 { return type might be wrong }   
 
-function ISOCTAL(c : longint) : longint;
+function ISOCTAL(klass : longint) : longint;
 
 {$endif}
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 
-function OCTVALUE(c : longint) : Tc;
+function OCTVALUE(klass : longint) : Tc;
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function HEXVALUE(c : longint) : longint;
+function HEXVALUE(klass : longint) : longint;
 
 {$ifndef NEWLINE}
 
@@ -308,12 +203,19 @@ function ESC : longint; { return type might be wrong }
 {$endif}
 { _CHARDEFS_H_  }
 
-implementation
+// === Konventiert am: 27-8-25 16:55:12 ===
+
+
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
+
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function whitespace(c : longint) : longint;
+function whitespace(klass : longint) : longint;
 begin
   whitespace:=(c=' ') or (c='\t');
 end;
@@ -321,7 +223,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function CTRL_CHAR(c : longint) : longint;
+function CTRL_CHAR(klass : longint) : longint;
 begin
   CTRL_CHAR:=c<(control_character_threshold and (@((Tc(@($80)))=0)));
 end;
@@ -329,14 +231,14 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function META_CHAR(c : longint) : longint;
+function META_CHAR(klass : longint) : longint;
 begin
   META_CHAR:=(c>(meta_character_threshold and (@(c))))<=largest_char;
 end;
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
-function CTRL(c : longint) : Tc;
+function CTRL(klass : longint) : Tc;
 begin
   CTRL:=Tc(@(control_character_mask));
 end;
@@ -344,14 +246,14 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function META(c : longint) : longint;
+function META(klass : longint) : longint;
 begin
   META:=c or meta_character_bit;
 end;
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
-function UNMETA(c : longint) : Tc;
+function UNMETA(klass : longint) : Tc;
 begin
   UNMETA:=Tc(@( not (meta_character_bit)));
 end;
@@ -359,7 +261,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function UNCTRL(c : longint) : longint;
+function UNCTRL(klass : longint) : longint;
 begin
   UNCTRL:=_rl_to_upper(c or control_character_bit);
 end;
@@ -367,7 +269,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function IN_CTYPE_DOMAIN(c : longint) : longint;
+function IN_CTYPE_DOMAIN(klass : longint) : longint;
 begin
   IN_CTYPE_DOMAIN:=1;
 end;
@@ -375,7 +277,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function NON_NEGATIVE(c : longint) : longint;
+function NON_NEGATIVE(klass : longint) : longint;
 begin
   NON_NEGATIVE:=1;
 end;
@@ -383,7 +285,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function IN_CTYPE_DOMAIN(c : longint) : longint;
+function IN_CTYPE_DOMAIN(klass : longint) : longint;
 begin
   IN_CTYPE_DOMAIN:=(c>=(0 and (@(c))))<=CHAR_MAX;
 end;
@@ -391,7 +293,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function NON_NEGATIVE(c : longint) : longint;
+function NON_NEGATIVE(klass : longint) : longint;
 begin
   NON_NEGATIVE:=(byte(c))=c;
 end;
@@ -399,7 +301,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function isxdigit(c : longint) : longint;
+function isxdigit(klass : longint) : longint;
 begin
   isxdigit:=((isdigit(byte(c))) or ((c>=('a' and (@(c))))<='f')) or ((c>=('A' and (@(c))))<='F');
 end;
@@ -407,7 +309,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function ISALNUM(c : longint) : longint;
+function ISALNUM(klass : longint) : longint;
 begin
   ISALNUM:=(IN_CTYPE_DOMAIN(c)) and (@(isalnum(byte(c))));
 end;
@@ -415,7 +317,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function ISALPHA(c : longint) : longint;
+function ISALPHA(klass : longint) : longint;
 begin
   ISALPHA:=(IN_CTYPE_DOMAIN(c)) and (@(isalpha(byte(c))));
 end;
@@ -423,7 +325,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function ISDIGIT(c : longint) : longint;
+function ISDIGIT(klass : longint) : longint;
 begin
   ISDIGIT:=(IN_CTYPE_DOMAIN(c)) and (@(isdigit(byte(c))));
 end;
@@ -431,7 +333,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function ISLOWER(c : longint) : longint;
+function ISLOWER(klass : longint) : longint;
 begin
   ISLOWER:=(IN_CTYPE_DOMAIN(c)) and (@(islower(byte(c))));
 end;
@@ -439,7 +341,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function ISPRINT(c : longint) : longint;
+function ISPRINT(klass : longint) : longint;
 begin
   ISPRINT:=(IN_CTYPE_DOMAIN(c)) and (@(isprint(byte(c))));
 end;
@@ -447,7 +349,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function ISUPPER(c : longint) : longint;
+function ISUPPER(klass : longint) : longint;
 begin
   ISUPPER:=(IN_CTYPE_DOMAIN(c)) and (@(isupper(byte(c))));
 end;
@@ -455,7 +357,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function ISXDIGIT(c : longint) : longint;
+function ISXDIGIT(klass : longint) : longint;
 begin
   ISXDIGIT:=(IN_CTYPE_DOMAIN(c)) and (@(isxdigit(byte(c))));
 end;
@@ -463,7 +365,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function _rl_lowercase_p(c : longint) : longint;
+function _rl_lowercase_p(klass : longint) : longint;
 begin
   _rl_lowercase_p:=(NON_NEGATIVE(c)) and (@(ISLOWER(c)));
 end;
@@ -471,7 +373,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function _rl_uppercase_p(c : longint) : longint;
+function _rl_uppercase_p(klass : longint) : longint;
 begin
   _rl_uppercase_p:=(NON_NEGATIVE(c)) and (@(ISUPPER(c)));
 end;
@@ -479,7 +381,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function _rl_digit_p(c : longint) : longint;
+function _rl_digit_p(klass : longint) : longint;
 begin
   _rl_digit_p:=(c>=('0' and (@(c))))<='9';
 end;
@@ -487,7 +389,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function _rl_alphabetic_p(c : longint) : longint;
+function _rl_alphabetic_p(klass : longint) : longint;
 begin
   _rl_alphabetic_p:=(NON_NEGATIVE(c)) and (@(ISALNUM(c)));
 end;
@@ -495,7 +397,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function _rl_pure_alphabetic(c : longint) : longint;
+function _rl_pure_alphabetic(klass : longint) : longint;
 begin
   _rl_pure_alphabetic:=(NON_NEGATIVE(c)) and (@(ISALPHA(c)));
 end;
@@ -503,7 +405,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function _rl_to_upper(c : longint) : longint;
+function _rl_to_upper(klass : longint) : longint;
 var
    if_local1 : longint;
 (* result types are not known *)
@@ -518,7 +420,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function _rl_to_lower(c : longint) : longint;
+function _rl_to_lower(klass : longint) : longint;
 var
    if_local1 : longint;
 (* result types are not known *)
@@ -540,7 +442,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function _rl_isident(c : longint) : longint;
+function _rl_isident(klass : longint) : longint;
 begin
   _rl_isident:=((ISALNUM(c)) or c)='_';
 end;
@@ -548,14 +450,14 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function ISOCTAL(c : longint) : longint;
+function ISOCTAL(klass : longint) : longint;
 begin
   ISOCTAL:=(c>=('0' and (@(c))))<='7';
 end;
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
-function OCTVALUE(c : longint) : Tc;
+function OCTVALUE(klass : longint) : Tc;
 begin
   OCTVALUE:=Tc(-('0'));
 end;
@@ -563,7 +465,7 @@ end;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
-function HEXVALUE(c : longint) : longint;
+function HEXVALUE(klass : longint) : longint;
 var
    if_local1, if_local2 : longint;
 (* result types are not known *)
@@ -604,4 +506,4 @@ function ESC : longint; { return type might be wrong }
   end;
 
 
-end.
+{$ENDIF read_implementation}

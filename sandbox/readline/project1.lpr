@@ -1,21 +1,62 @@
 program project1;
 
 uses
-  tilde,
-  rlconf,
-  rltypedefs,
-  keymaps,
-  readline,
-
-  chardefs,
-  history,
+  fp_stdlib,
+  fp_string,
 
   fp_readline;
 
+  procedure PrintHistoryList;
+  var
+    entries: PPHIST_ENTRY;
+    i: integer = 0;
+  begin
+    entries := history_list();
+    if entries <> nil then begin
+      WriteLn('Geladene History-Einträge:');
+
+      while entries[i] <> nil do begin
+        WriteLn(i: 5, '. ', entries[i]^.line);
+        Inc(i);
+      end;
+    end;
+  end;
+
+  procedure main;
+  var
+    input_: pchar;
+  begin
+    using_history;
+    rl_message('Hello %s'#10, 'World');
+
+    WriteLn('History-Länge vor Laden: ', history_length);
+    if read_history('history.txt') <> 0 then begin
+      WriteLn('Warnung: Konnte "history.txt" nicht laden');
+    end;
+
+    PrintHistoryList;
+
+    WriteLn('History-Länge nach Laden: ', history_length);
+
+    repeat
+      input_ := readline('Eingabe > ');
+      if input_^ <> #0
+      then begin
+        add_history(input_);
+      end;
+      if strcmp(input_, 'quit') = 0 then begin
+        free(input_);
+        break;
+      end;
+    until input_ = nil;
+
+    if write_history('history.txt') <> 0 then begin
+      WriteLn('Fehler: Konnte "history.txt" nicht speichern');
+    end;
+  end;
+
 begin
-  rl_message('Hello %s'#10, 'World');
+  main;
   writeln(rl_library_version);
 
-
 end.
-//// gcc -o main main.c -lreadline////#include <stdio.h>//#include <stdlib.h>//#include <string.h>//#include <readline/readline.h>//#include <readline/history.h>////int main() {//    char *input;////    using_history(); // History initialisieren////    printf("History-Länge vor Laden: %d\n", history_length);//    if (read_history("meine_history.txt") != 0) {//        // Fehlermeldung nur beim ersten Lauf ohne Datei ist normal//        fprintf(stderr, "Warnung: Konnte meine_history.txt nicht laden\n");//    }//    printf("History-Länge nach Laden: %d\n", history_length);////    while ((input = readline("Eingabe > ")) != NULL) {//        if (*input) {//            add_history(input); // Eingabe zur History hinzufügen//        }//        if (strcmp(input, "quit") == 0) {//            free(input);//            break;//        }//        free(input);//    }////    if (write_history("meine_history.txt") != 0) {//        fprintf(stderr, "Fehler: Konnte meine_history.txt nicht speichern\n");//    }////    return 0;//}

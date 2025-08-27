@@ -1,13 +1,4 @@
-unit history;
-
-interface
-
-uses
-  fp_readline, rltypedefs;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -104,7 +95,10 @@ var
   // === Konventiert am: 27-8-25 16:55:15 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 function HISTENT_BYTES(hs: PHIST_ENTRY): SizeInt;
@@ -113,4 +107,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

@@ -1,13 +1,4 @@
-unit rltypedefs;
-
-interface
-
-uses
-  fp_readline;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -47,8 +38,11 @@ type
   // === Konventiert am: 27-8-25 16:55:26 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

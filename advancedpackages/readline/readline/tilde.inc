@@ -1,13 +1,4 @@
-unit tilde;
-
-interface
-
-uses
-  fp_readline;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -26,8 +17,11 @@ function tilde_find_word(para1: pchar; para2: longint; para3: Plongint): pchar; 
 // === Konventiert am: 27-8-25 16:55:29 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

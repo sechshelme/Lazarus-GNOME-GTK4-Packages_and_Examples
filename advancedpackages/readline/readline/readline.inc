@@ -1,13 +1,4 @@
-unit readline;
-
-interface
-
-uses
-  fp_readline, keymaps, rltypedefs;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -96,7 +87,6 @@ function rl_exchange_point_and_mark(para1: longint; para2: longint): longint; cd
 function rl_vi_editing_mode(para1: longint; para2: longint): longint; cdecl; external libreadline;
 function rl_emacs_editing_mode(para1: longint; para2: longint): longint; cdecl; external libreadline;
 function rl_overwrite_mode(para1: longint; para2: longint): longint; cdecl; external libreadline;
-{ Bindable commands for managing key bindings.  }
 function rl_re_read_init_file(para1: longint; para2: longint): longint; cdecl; external libreadline;
 function rl_dump_functions(para1: longint; para2: longint): longint; cdecl; external libreadline;
 function rl_dump_macros(para1: longint; para2: longint): longint; cdecl; external libreadline;
@@ -468,8 +458,6 @@ function RL_UNSETSTATE(x: DWord): DWord;
 function RL_ISSTATE(x: DWord): DWord;
 
 type
-  Preadline_state = ^Treadline_state;
-
   Treadline_state = record
     point: longint;
     end_: longint;
@@ -499,7 +487,7 @@ type
     wordbreakchars: pchar;
     reserved: array[0..63] of char;
   end;
-
+  Preadline_state = ^Treadline_state;
 
 function rl_save_state(para1: Preadline_state): longint; cdecl; external libreadline;
 function rl_restore_state(para1: Preadline_state): longint; cdecl; external libreadline;
@@ -507,14 +495,16 @@ function rl_restore_state(para1: Preadline_state): longint; cdecl; external libr
 // === Konventiert am: 27-8-25 16:55:20 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 function rl_clear_timeout: longint;
 begin
   rl_clear_timeout := rl_set_timeout(0, 0);
 end;
-
 
 function RL_SETSTATE(x: DWord): DWord;
 begin
@@ -532,4 +522,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}
