@@ -219,6 +219,10 @@ const
 
     (libs: 'libevent'; units: 'fp_event'),
 
+    (libs: 'libreadline'; units: 'fp_readline'),
+
+
+
 
 
     (libs: ''; units: ''));
