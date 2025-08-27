@@ -19,7 +19,7 @@ type
   Pevdns_server_port=Pointer; // Herkunft unbekannt
   Pbufferevent_ops=Pointer;   // Herkunft unbekannt
 
-  Tevent=Integer; // ???????????
+//  Tevent=Integer; // ???????????
 
 
   //{$DEFINE read_interface}

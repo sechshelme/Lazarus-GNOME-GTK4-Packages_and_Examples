@@ -3,102 +3,98 @@ unit event_struct;
 interface
 
 uses
-  fp_event;
+  fp_time, fp_event, util, event;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{
- * Copyright (c) 2000-2007 Niels Provos <provos@citi.umich.edu>
- * Copyright (c) 2007-2012 Niels Provos and Nick Mathewson
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- * 3. The name of the author may not be used to endorse or promote products
- *    derived from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
- * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
- * IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
- * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
- * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
- * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
- * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
- * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-  }
-{$ifndef EVENT2_EVENT_STRUCT_H_INCLUDED_}
-{$define EVENT2_EVENT_STRUCT_H_INCLUDED_}
-{* @file event2/event_struct.h
-
-  Structures used by event.h.  Using these structures directly WILL harm
-  forward compatibility: be careful.
-
-  No field declared in this file should be used directly in user code.  Except
-  for historical reasons, these fields would not be exposed at all.
-  }
-{ C++ extern C conditionnal removed }
-{$include <event2/event-config.h>}
-{$ifdef EVENT__HAVE_SYS_TYPES_H}
-{$include <sys/types.h>}
-{$endif}
-{$ifdef EVENT__HAVE_SYS_TIME_H}
-{$include <sys/time.h>}
-{$endif}
-{ For int types.  }
-{$include <event2/util.h>}
-{ For evkeyvalq  }
-{$include <event2/keyvalq_struct.h>}
 
 const
-  EVLIST_TIMEOUT = $01;  
-  EVLIST_INSERTED = $02;  
-  EVLIST_SIGNAL = $04;  
-  EVLIST_ACTIVE = $08;  
-  EVLIST_INTERNAL = $10;  
-  EVLIST_ACTIVE_LATER = $20;  
-  EVLIST_FINALIZING = $40;  
-  EVLIST_INIT = $80;  
-  EVLIST_ALL = $ff;  
-{ xxxxxxxxxxxxxxxxxxxxxxxx }
+  EVLIST_TIMEOUT = $01;
+  EVLIST_INSERTED = $02;
+  EVLIST_SIGNAL = $04;
+  EVLIST_ACTIVE = $08;
+  EVLIST_INTERNAL = $10;
+  EVLIST_ACTIVE_LATER = $20;
+  EVLIST_FINALIZING = $40;
+  EVLIST_INIT = $80;
+  EVLIST_ALL = $ff;
+
 type
   Pevent = ^Tevent;
+  Pevent_callback = ^Tevent_callback;
+
+  Tevent_callback = record
+    evcb_active_next: record
+      tqe_next: Pevent_callback;
+      tqe_prev: ^Pevent_callback;
+      end;
+    evcb_flags: smallint;
+    evcb_pri: Tev_uint8_t;
+    evcb_closure: Tev_uint8_t;
+    evcb_cb_union: record
+      case longint of
+        0: (evcb_callback: procedure(para1: Tevutil_socket_t; para2: smallint; para3: pointer));
+        1: (evcb_selfcb: procedure(para1: Pevent_callback; para2: pointer));
+        2: (evcb_evfinalize: procedure(para1: Pevent; para2: pointer));
+        3: (evcb_cbfinalize: procedure(para1: Pevent_callback; para2: pointer));
+      end;
+    evcb_arg: pointer;
+  end;
+
+  Pevent_base = type Pointer;
+
   Tevent = record
-      {undefined structure}
-    end;
+    ev_evcallback: Tevent_callback;
+    ev_timeout_pos: record
+      case longint of
+        0: (ev_next_with_common_timeout: record
+            tqe_next: Pevent;
+            tqe_prev: ^Pevent;
+            end);
+        1: (min_heap_idx: longint);
+      end;
+    ev_fd: Tevutil_socket_t;
+    ev_base: Pevent_base;
+    ev_: record
+      case longint of
+        0: (ev_io: record
+            ev_io_next: record
+              le_next: Pevent;
+              le_prev: ^Pevent;
+              end;
+            ev_timeout: Ttimeval;
+            end);
+        1: (ev_signal: record
+            ev_signal_next: record
+              le_next: Pevent;
+              le_prev: ^Pevent;
+              end;
+            ev_ncalls: smallint;
+            ev_pncalls: Psmallint;
+            end);
+      end;
+    ev_events: smallint;
+    ev_res: smallint;
+    ev_timeout: Ttimeval;
+  end;
 
-{$ifdef EVENT_DEFINED_TQENTRY_}
-{$undef TAILQ_ENTRY}
-{$endif}
-{$ifdef EVENT_DEFINED_TQHEAD_}
-{$undef TAILQ_HEAD}
-{$endif}
-(* error 
-LIST_HEAD (event_dlist, event); 
-(* error 
-LIST_HEAD (event_dlist, event); 
- in declarator_list *)
- in declarator_list *)
-{$ifdef EVENT_DEFINED_LISTENTRY_}
-{$undef LIST_ENTRY}
-{$endif}
-{$ifdef EVENT_DEFINED_LISTHEAD_}
-{$undef LIST_HEAD}
-{$endif}
-{ C++ end of extern C conditionnal removed }
-{$endif}
-{ EVENT2_EVENT_STRUCT_H_INCLUDED_  }
+  Tevent_list = record
+    tqh_first: Pevent;
+    tqh_last: ^Pevent;
+  end;
+  Pevent_list = ^Tevent_list;
 
-// === Konventiert am: 26-8-25 19:40:28 ===
+  Tevent_dlist = record
+    lh_first: Pevent;
+  end;
+  Pevent_dlist = ^Tevent_dlist;
+
+
+
+  // === Konventiert am: 26-8-25 19:40:28 ===
 
 
 implementation

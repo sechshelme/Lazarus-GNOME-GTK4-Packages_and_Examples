@@ -3,7 +3,7 @@ unit bufferevent_struct;
 interface
 
 uses
-  clib, fp_event, event, buffer, bufferevent;
+  clib, fp_event, event, event_struct, buffer, bufferevent;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

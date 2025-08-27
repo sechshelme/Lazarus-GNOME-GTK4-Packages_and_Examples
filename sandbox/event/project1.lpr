@@ -7,27 +7,24 @@ uses
   dns,
   dns_compat,
   dns_struct,
+  thread,
+  tag,
+  tag_compat,
+  listener,
+  http,
+  http_compat,
+  http_struct,
+  event_compat,
+  event_struct,
+  keyvalq_struct,
+  rpc,
+  rpc_struct,
   buffer,
   bufferevent,
   buffer_compat,
   bufferevent_compat,
   bufferevent_ssl,
   bufferevent_struct,
-  thread,
-  tag,
-  tag_compat,
-  listener,
-
-  event_compat,
-  event_struct,
-  http,
-  http_compat,
-  http_struct,
-//  keyvalq_struct,             // makros verseucht
-//  rpc,                  // makros verseucht
-  rpc_struct,           // makros verseucht
-
-
 
 
   fp_time,

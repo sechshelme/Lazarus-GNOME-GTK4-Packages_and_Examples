@@ -3,7 +3,7 @@ unit http_struct;
 interface
 
 uses
-  fp_event, http;
+  clib, fp_event, util, http;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
