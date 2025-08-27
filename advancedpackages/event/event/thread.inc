@@ -1,13 +1,4 @@
-unit thread;
-
-interface
-
-uses
-  fp_event;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -37,8 +28,6 @@ const
   EVTHREAD_CONDITION_API_VERSION = 1;
 
 type
-  Ptimeval = type Pointer;
-
   Tevthread_condition_callbacks = record
     condition_api_version: longint;
     alloc_condition: function(condtype: dword): pointer; cdecl;
@@ -51,9 +40,9 @@ type
 function evthread_set_condition_callbacks(para1: Pevthread_condition_callbacks): longint; cdecl; external libevent;
 
 type
-  TFunc = function: DWord;
+  TFunc2 = function: DWord;
 
-procedure evthread_set_id_callback(id_fn: TFunc); cdecl; external libevent;
+procedure evthread_set_id_callback(id_fn: TFunc2); cdecl; external libevent;
 
 {$ifdef windows}
 function evthread_use_windows_threads: longint; cdecl; external libevent;
@@ -70,16 +59,16 @@ const
 procedure evthread_enable_lock_debugging; cdecl; external libevent;
 procedure evthread_enable_lock_debuging; cdecl; external libevent;
 
-type
-  Pevent_base = type Pointer;
-
 function evthread_make_base_notifiable(base: Pevent_base): longint; cdecl; external libevent;
 
 // === Konventiert am: 26-8-25 19:38:08 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

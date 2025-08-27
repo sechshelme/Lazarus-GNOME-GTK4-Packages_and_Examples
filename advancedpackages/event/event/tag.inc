@@ -1,13 +1,4 @@
-unit tag;
-
-interface
-
-uses
-  clib, fp_time, fp_event, util;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -37,8 +28,11 @@ function evtag_unmarshal_timeval(evbuf: Pevbuffer; need_tag: Tev_uint32_t; ptv: 
 // === Konventiert am: 26-8-25 19:38:03 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

@@ -1,13 +1,4 @@
-unit buffer_compat;
-
-interface
-
-uses
-  clib, fp_event, buffer;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 function evbuffer_readline(buffer: Pevbuffer): pchar; cdecl; external libevent;
@@ -24,7 +15,10 @@ function EVBUFFER_DATA(x: Pevbuffer): PByte;
 // === Konventiert am: 26-8-25 17:43:34 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 function EVBUFFER_LENGTH(x: Pevbuffer): Tsize_t;
@@ -38,4 +32,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

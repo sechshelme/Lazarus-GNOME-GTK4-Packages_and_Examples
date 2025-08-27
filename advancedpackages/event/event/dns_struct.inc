@@ -1,13 +1,4 @@
-unit dns_struct;
-
-interface
-
-uses
-  fp_event;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -28,8 +19,11 @@ type
   // === Konventiert am: 26-8-25 17:43:52 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

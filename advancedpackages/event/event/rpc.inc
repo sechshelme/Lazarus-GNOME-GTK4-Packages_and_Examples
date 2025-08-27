@@ -1,25 +1,9 @@
-unit rpc;
-
-interface
-
-uses
-  clib, fp_event;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
-  Pevbuffer = type Pointer;
-  Pevent_base = type Pointer;
-  Pevrpc_req_generic = type Pointer;
   Pevrpc_request_wrapper = type Pointer;
-  Pevrpc = type Pointer;
-  Pevhttp_request = type Pointer;
-  Pevrpc_status = type Pointer;
   Pevrpc_hook_meta = type Pointer;
-
   Pevrpc_pool = type Pointer;
 
 type
@@ -33,11 +17,6 @@ function evrpc_make_request_ctx(pool: Pevrpc_pool; request: pointer; reply: poin
 procedure evrpc_request_done(req: Pevrpc_req_generic); cdecl; external libevent;
 function evrpc_get_request(req: Pevrpc_req_generic): pointer; cdecl; external libevent;
 function evrpc_get_reply(req: Pevrpc_req_generic): pointer; cdecl; external libevent;
-
-type
-  Pevrpc_base = type Pointer;
-  Pevhttp = type Pointer;
-
 function evrpc_init(server: Pevhttp): Pevrpc_base; cdecl; external libevent;
 procedure evrpc_free(base: Pevrpc_base); cdecl; external libevent;
 
@@ -46,10 +25,6 @@ type
 
 function evrpc_register_rpc(para1: Pevrpc_base; para2: Pevrpc; para3: Tregister_rpc_proc; para4: pointer): longint; cdecl; external libevent;
 function evrpc_unregister_rpc(base: Pevrpc_base; name: pchar): longint; cdecl; external libevent;
-
-type
-  Pevhttp_connection = type Pointer;
-
 function evrpc_make_request(ctx: Pevrpc_request_wrapper): longint; cdecl; external libevent;
 function evrpc_pool_new(base: Pevent_base): Pevrpc_pool; cdecl; external libevent;
 procedure evrpc_pool_free(pool: Pevrpc_pool); cdecl; external libevent;
@@ -119,8 +94,11 @@ procedure evrpc_request_set_cb(ctx: Pevrpc_request_wrapper; cb: TEvrpcRequestCal
 // === Konventiert am: 26-8-25 19:37:58 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

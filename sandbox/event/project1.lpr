@@ -1,32 +1,6 @@
 program project1;
 
 uses
-  event_config,
-  util,
-  event,
-  dns,
-  dns_compat,
-  dns_struct,
-  thread,
-  tag,
-  tag_compat,
-  listener,
-  http,
-  http_compat,
-  http_struct,
-  event_compat,
-  event_struct,
-  keyvalq_struct,
-  rpc,
-  rpc_struct,
-  buffer,
-  bufferevent,
-  buffer_compat,
-  bufferevent_compat,
-  bufferevent_ssl,
-  bufferevent_struct,
-
-
   fp_time,
   fp_stdio,
   fp_event;

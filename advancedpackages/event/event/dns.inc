@@ -1,13 +1,4 @@
-unit dns;
-
-interface
-
-uses
-  clib, fp_socket, fp_event, util;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 
@@ -39,7 +30,6 @@ const
 type
   Tevdns_callback_type = procedure(result: longint; _type: char; count: longint; ttl: longint; addresses: pointer; arg: pointer); cdecl;
   Pevdns_base = type Pointer;
-  Pevent_base = type Pointer;
 
 const
   EVDNS_BASE_INITIALIZE_NAMESERVERS = 1;
@@ -95,9 +85,6 @@ procedure evdns_set_transaction_id_fn(fn: TFunc); cdecl; external libevent;
 procedure evdns_set_random_bytes_fn(fn: TRandom_func); cdecl; external libevent;
 
 type
-  Pevdns_server_request = type Pointer;
-  Pevdns_server_question = type Pointer;
-
   Tevdns_request_callback_fn_type = procedure(para1: Pevdns_server_request; para2: pointer); cdecl;
 
 const
@@ -130,9 +117,6 @@ function evdns_server_request_add_cname_reply(req: Pevdns_server_request; name: 
 function evdns_server_request_respond(req: Pevdns_server_request; err: longint): longint; cdecl; external libevent;
 function evdns_server_request_drop(req: Pevdns_server_request): longint; cdecl; external libevent;
 
-type
-  Psockaddr = type Pointer;
-
 function evdns_server_request_get_requesting_addr(req: Pevdns_server_request; sa: Psockaddr; addr_len: longint): longint; cdecl; external libevent;
 
 type
@@ -147,8 +131,11 @@ function evdns_base_get_nameserver_addr(base: Pevdns_base; idx: longint; sa: Pso
 // === Konventiert am: 26-8-25 17:43:47 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

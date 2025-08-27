@@ -1,13 +1,8 @@
-unit rpc_struct;
+{$IFDEF read_interface}
 
-interface
-
-uses
-  fp_event, http, rpc;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+type
+  Pevrpc_req_generic = type Pointer;
+  Pevrpc_base = type Pointer;
 
 const
   EVRPC_STATUS_ERR_NONE = 0;
@@ -51,8 +46,11 @@ type
   // === Konventiert am: 26-8-25 19:38:00 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

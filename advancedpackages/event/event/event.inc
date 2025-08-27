@@ -1,19 +1,7 @@
-unit event;
-
-interface
-
-uses
-  clib, fp_time, fp_event, event_config, util;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
-  Pevent_base = type Pointer;
-  PPevent_base = ^Pevent_base;
-  Pevent = type Pointer;
   Pevent_config = type Pointer;
 
 procedure event_enable_debug_mode; cdecl; external libevent;
@@ -208,7 +196,10 @@ function event_get_signal(ev: Pevent): longint;
 // === Konventiert am: 24-8-25 17:11:59 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 function evtimer_assign(ev: Pevent; b: Pevent_base; cb: Tevent_callback_fn; arg: Pointer): longint;
@@ -302,4 +293,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

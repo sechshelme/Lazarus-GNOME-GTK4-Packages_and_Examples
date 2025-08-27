@@ -1,13 +1,4 @@
-unit tag_compat;
-
-interface
-
-uses
-  fp_event, util, tag;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 procedure encode_int(evbuf:Pevbuffer; number: Tev_uint32_t);
@@ -17,7 +8,10 @@ procedure encode_int64(evbuf:Pevbuffer; number: Tev_uint32_t);
 // === Konventiert am: 26-8-25 19:38:05 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 procedure encode_int(evbuf: Pevbuffer; number: Tev_uint32_t);
@@ -31,4 +25,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

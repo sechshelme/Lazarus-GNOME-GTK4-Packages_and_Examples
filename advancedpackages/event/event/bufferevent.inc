@@ -1,13 +1,4 @@
-unit bufferevent;
-
-interface
-
-uses
-  clib, fp_time, fp_event, util;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -17,18 +8,6 @@ const
   BEV_EVENT_ERROR = $20;
   BEV_EVENT_TIMEOUT = $40;
   BEV_EVENT_CONNECTED = $80;
-
-type
-  Pbufferevent = type Pointer;
-  PPbufferevent = ^Pbufferevent;
-  Pevent_base = type Pointer;
-  Pevbuffer = type Pointer;
-  Psockaddr = type Pointer;
-
-  Tbufferevent_data_cb = procedure(bev: Pbufferevent; ctx: pointer); cdecl;
-  Pbufferevent_data_cb = ^Tbufferevent_data_cb;
-  Tbufferevent_event_cb = procedure(bev: Pbufferevent; what: smallint; ctx: pointer); cdecl;
-  Pbufferevent_event_cb = ^Tbufferevent_event_cb;
 
 type
   Tbufferevent_options = longint;
@@ -41,10 +20,6 @@ const
 
 function bufferevent_socket_new(base: Pevent_base; fd: Tevutil_socket_t; options: longint): Pbufferevent; cdecl; external libevent;
 function bufferevent_socket_connect(para1: Pbufferevent; para2: Psockaddr; para3: longint): longint; cdecl; external libevent;
-
-type
-  Pevdns_base = type Pointer;
-
 function bufferevent_socket_connect_hostname(para1: Pbufferevent; para2: Pevdns_base; para3: longint; para4: pchar; para5: longint): longint; cdecl; external libevent;
 function bufferevent_socket_get_dns_error(bev: Pbufferevent): longint; cdecl; external libevent;
 function bufferevent_base_set(base: Pevent_base; bufev: Pbufferevent): longint; cdecl; external libevent;
@@ -150,8 +125,11 @@ procedure bufferevent_rate_limit_group_reset_totals(grp: Pbufferevent_rate_limit
 // === Konventiert am: 26-8-25 17:43:37 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

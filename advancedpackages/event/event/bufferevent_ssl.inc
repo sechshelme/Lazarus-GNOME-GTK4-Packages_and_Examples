@@ -1,13 +1,4 @@
-unit bufferevent_ssl;
-
-interface
-
-uses
-  fp_event, util, event, bufferevent;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -32,8 +23,11 @@ function bufferevent_get_openssl_error(bev: Pbufferevent): dword; cdecl; externa
 // === Konventiert am: 26-8-25 17:43:41 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

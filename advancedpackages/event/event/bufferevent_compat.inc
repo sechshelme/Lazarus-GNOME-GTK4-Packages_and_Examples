@@ -1,13 +1,4 @@
-unit bufferevent_compat;
-
-interface
-
-uses
-  fp_event, util, buffer, bufferevent;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -18,8 +9,8 @@ function bufferevent_new(fd: Tevutil_socket_t; readcb: Tevbuffercb; writecb: Tev
 procedure bufferevent_settimeout(bufev: Pbufferevent; timeout_read: longint; timeout_write: longint); cdecl; external libevent;
 
 const
-  EVBUFFER_READ = BEV_EVENT_READING;
-  EVBUFFER_WRITE = BEV_EVENT_WRITING;
+  EVBUFFER_READ_ = BEV_EVENT_READING;
+  EVBUFFER_WRITE_ = BEV_EVENT_WRITING;
   EVBUFFER_EOF = BEV_EVENT_EOF;
   EVBUFFER_ERROR = BEV_EVENT_ERROR;
   EVBUFFER_TIMEOUT = BEV_EVENT_TIMEOUT;
@@ -31,7 +22,10 @@ function EVBUFFER_OUTPUT(x: Pbufferevent): Pevbuffer;
 // === Konventiert am: 26-8-25 17:43:39 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 function EVBUFFER_INPUT(x: Pbufferevent): Pevbuffer;
@@ -45,4 +39,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

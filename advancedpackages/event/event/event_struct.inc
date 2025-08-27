@@ -1,13 +1,4 @@
-unit event_struct;
-
-interface
-
-uses
-  fp_time, fp_event, util, event;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 
@@ -45,6 +36,7 @@ type
   end;
 
   Pevent_base = type Pointer;
+  PPevent_base = ^Pevent_base;
 
   Tevent = record
     ev_evcallback: Tevent_callback;
@@ -97,8 +89,11 @@ type
   // === Konventiert am: 26-8-25 19:40:28 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

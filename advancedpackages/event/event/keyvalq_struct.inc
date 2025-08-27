@@ -1,13 +1,4 @@
-unit keyvalq_struct;
-
-interface
-
-uses
-  fp_event;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -33,8 +24,11 @@ type
   // === Konventiert am: 26-8-25 19:37:53 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

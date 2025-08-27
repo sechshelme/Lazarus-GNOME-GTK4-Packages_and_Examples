@@ -1,18 +1,7 @@
-unit buffer;
-
-interface
-
-uses
-  clib, fp_event, util;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
-  Pevbuffer = type Pointer;
-
   Tevbuffer_ptr = record
     pos: Tev_ssize_t;
     internal_: record
@@ -132,18 +121,17 @@ function evbuffer_prepend(buf: Pevbuffer; data: pointer; size: Tsize_t): longint
 function evbuffer_prepend_buffer(dst: Pevbuffer; src: Pevbuffer): longint; cdecl; external libevent;
 function evbuffer_freeze(buf: Pevbuffer; at_front: longint): longint; cdecl; external libevent;
 function evbuffer_unfreeze(buf: Pevbuffer; at_front: longint): longint; cdecl; external libevent;
-
-type
-  Pevent_base = type Pointer;
-
 function evbuffer_defer_callbacks(buffer: Pevbuffer; base: Pevent_base): longint; cdecl; external libevent;
 function evbuffer_add_iovec(buffer: Pevbuffer; vec: Pevbuffer_iovec; n_vec: longint): Tsize_t; cdecl; external libevent;
 
 // === Konventiert am: 25-8-25 19:48:18 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

@@ -1,13 +1,4 @@
-unit bufferevent_struct;
-
-interface
-
-uses
-  clib, fp_event, event, event_struct, buffer, bufferevent;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -16,6 +7,14 @@ type
     high: Tsize_t;
   end;
   Pevent_watermark = ^Tevent_watermark;
+
+  Pbufferevent = ^Tbufferevent;
+  PPbufferevent = ^Pbufferevent;
+
+  Tbufferevent_data_cb = procedure(bev: Pbufferevent; ctx: pointer); cdecl;
+  Pbufferevent_data_cb = ^Tbufferevent_data_cb;
+  Tbufferevent_event_cb = procedure(bev: Pbufferevent; what: smallint; ctx: pointer); cdecl;
+  Pbufferevent_event_cb = ^Tbufferevent_event_cb;
 
   Tbufferevent = record
     ev_base: Pevent_base;
@@ -34,14 +33,16 @@ type
     timeout_write: Ttimeval;
     enabled: smallint;
   end;
-  Pbufferevent = ^Tbufferevent;
 
 
   // === Konventiert am: 26-8-25 17:43:44 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

@@ -1,14 +1,45 @@
-unit http_struct;
+{$IFDEF read_interface}
 
-interface
 
-uses
-  clib, fp_event, util, http;
+type
+  Tevhttp_request_kind = longint;
 
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+const
+  EVHTTP_REQUEST = 0;
+  EVHTTP_RESPONSE = 1;
 
+type
+  Pevhttp_uri = type Pointer;
+  Pevhttp = type Pointer;
+  Pevhttp_bound_socket = type Pointer;
+  Pevhttp_connection = type Pointer;
+
+type
+  Tevhttp_cmd_type = longint;
+
+const
+  EVHTTP_REQ_GET = 1 shl 0;
+  EVHTTP_REQ_POST = 1 shl 1;
+  EVHTTP_REQ_HEAD = 1 shl 2;
+  EVHTTP_REQ_PUT = 1 shl 3;
+  EVHTTP_REQ_DELETE = 1 shl 4;
+  EVHTTP_REQ_OPTIONS = 1 shl 5;
+  EVHTTP_REQ_TRACE = 1 shl 6;
+  EVHTTP_REQ_CONNECT = 1 shl 7;
+  EVHTTP_REQ_PATCH = 1 shl 8;
+
+type
+  Tevhttp_request_error = longint;
+
+const
+  EVREQ_HTTP_TIMEOUT = 0;
+  EVREQ_HTTP_EOF = 1;
+  EVREQ_HTTP_INVALID_HEADER = 2;
+  EVREQ_HTTP_BUFFER_ERROR = 3;
+  EVREQ_HTTP_REQUEST_CANCEL = 4;
+  EVREQ_HTTP_DATA_TOO_LONG = 5;
+
+// =========
 
 const
   EVHTTP_REQ_OWN_CONNECTION = $0001;
@@ -60,7 +91,10 @@ type
   // === Konventiert am: 26-8-25 19:37:50 ===
 
 
-implementation
+{$ENDIF read_interface}
 
 
-end.
+{$IFDEF read_implementation}
+
+
+{$ENDIF read_implementation}

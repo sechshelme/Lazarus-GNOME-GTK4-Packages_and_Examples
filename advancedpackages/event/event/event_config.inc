@@ -1,13 +1,4 @@
-unit event_config;
-
-interface
-
-uses
-  fp_event;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -145,8 +136,11 @@ const
   // === Konventiert am: 24-8-25 19:44:26 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

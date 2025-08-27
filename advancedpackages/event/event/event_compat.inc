@@ -1,13 +1,4 @@
-unit event_compat;
-
-interface
-
-uses
-  fp_time, fp_event, util, event, event_struct;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 function event_init: Pevent_base; cdecl; external libevent;
@@ -45,7 +36,10 @@ function EVENT_SIGNAL(ev: Pevent): longint;
 // === Konventiert am: 26-8-25 19:37:42 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 procedure evtimer_set(ev: Pevent; cb: TEventCallback; arg: pointer);
@@ -60,7 +54,7 @@ end;
 
 function timeout_add(ev: Pevent; tv: Ptimeval): longint;
 begin
-  timeout_add := event_add(ev, tv);
+   timeout_add := event_add(ev, tv);
 end;
 
 procedure timeout_set(ev: Pevent; cb: TEventCallback; arg: pointer);
@@ -119,4 +113,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

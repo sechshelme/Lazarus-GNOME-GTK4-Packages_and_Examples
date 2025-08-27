@@ -1,17 +1,7 @@
-unit listener;
-
-interface
-
-uses
-  fp_event, util, event;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
-  Psockaddr = type Pointer;
   Pevconnlistener = type Pointer;
   Tevconnlistener_cb = procedure(para1: Pevconnlistener; para2: Tevutil_socket_t; para3: Psockaddr; socklen: longint; para5: pointer); cdecl;
   Tevconnlistener_errorcb = procedure(para1: Pevconnlistener; para2: pointer); cdecl;
@@ -42,8 +32,11 @@ procedure evconnlistener_set_error_cb(lev: Pevconnlistener; errorcb: Tevconnlist
 // === Konventiert am: 26-8-25 19:37:55 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

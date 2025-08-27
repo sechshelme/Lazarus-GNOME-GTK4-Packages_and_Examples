@@ -1,15 +1,4 @@
-unit util;
-
-interface
-
-uses
-  clib,
-  fp_time,
-  fp_event;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -169,9 +158,12 @@ function evutil_secure_rng_set_urandom_device_file(fname: pchar): longint; cdecl
 procedure evutil_secure_rng_add_bytes(dat: pchar; datlen: Tsize_t); cdecl; external libevent;
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
 
-end.
+{$ENDIF read_implementation}

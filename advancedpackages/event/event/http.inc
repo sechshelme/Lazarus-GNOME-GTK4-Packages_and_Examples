@@ -1,20 +1,5 @@
-unit http;
+{$IFDEF read_interface}
 
-interface
-
-uses
-  clib, fp_time, fp_event, util;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
-
-
-type
-  Pevbuffer = type Pointer;
-  Pevent_base = type Pointer;
-  Pbufferevent = type Pointer;
-  Pevhttp_connection = type Pointer;
 
 const
   HTTP_OK = 200;
@@ -30,14 +15,6 @@ const
   HTTP_INTERNAL = 500;
   HTTP_NOTIMPLEMENTED = 501;
   HTTP_SERVUNAVAIL = 503;
-
-type
-  Pevhttp = type Pointer;
-  Pevhttp_request = type Pointer;
-  Pevkeyvalq = type Pointer;
-  Pevhttp_bound_socket = type Pointer;
-  Pevconnlistener = type Pointer;
-  Pevdns_base = type Pointer;
 
 function evhttp_new(base: Pevent_base): Pevhttp; cdecl; external libevent;
 function evhttp_bind_socket(http: Pevhttp; address: pchar; port: Tev_uint16_t): longint; cdecl; external libevent;
@@ -93,27 +70,6 @@ type
 procedure evhttp_send_reply_chunk_with_cb(para1: PEvhttp_request; para2: PEvbuffer; cb: TEvHttpReplyChunkCallback; arg: pointer); cdecl; external libevent;
 procedure evhttp_send_reply_end(req: Pevhttp_request); cdecl; external libevent;
 
-type
-  Tevhttp_cmd_type = longint;
-
-const
-  EVHTTP_REQ_GET = 1 shl 0;
-  EVHTTP_REQ_POST = 1 shl 1;
-  EVHTTP_REQ_HEAD = 1 shl 2;
-  EVHTTP_REQ_PUT = 1 shl 3;
-  EVHTTP_REQ_DELETE = 1 shl 4;
-  EVHTTP_REQ_OPTIONS = 1 shl 5;
-  EVHTTP_REQ_TRACE = 1 shl 6;
-  EVHTTP_REQ_CONNECT = 1 shl 7;
-  EVHTTP_REQ_PATCH = 1 shl 8;
-
-type
-  Tevhttp_request_kind = longint;
-
-const
-  EVHTTP_REQUEST = 0;
-  EVHTTP_RESPONSE = 1;
-
 function evhttp_connection_base_bufferevent_new(base: Pevent_base; dnsbase: Pevdns_base; bev: Pbufferevent; address: pchar; port: Tev_uint16_t): Pevhttp_connection; cdecl; external libevent;
 function evhttp_connection_get_bufferevent(evcon: Pevhttp_connection): Pbufferevent; cdecl; external libevent;
 function evhttp_connection_get_server(evcon: Pevhttp_connection): Pevhttp; cdecl; external libevent;
@@ -125,17 +81,6 @@ type
 function evhttp_request_new(cb: TEvHttpRequestCallback; arg: pointer): PEvhttp_request; cdecl; external libevent;
 procedure evhttp_request_set_chunked_cb(para1: PEvhttp_request; cb: TEvHttpRequestCallback); cdecl; external libevent;
 procedure evhttp_request_set_header_cb(para1: PEvhttp_request; cb: TEvHttpRequestHeaderCallback); cdecl; external libevent;
-
-type
-  Tevhttp_request_error = longint;
-
-const
-  EVREQ_HTTP_TIMEOUT = 0;
-  EVREQ_HTTP_EOF = 1;
-  EVREQ_HTTP_INVALID_HEADER = 2;
-  EVREQ_HTTP_BUFFER_ERROR = 3;
-  EVREQ_HTTP_REQUEST_CANCEL = 4;
-  EVREQ_HTTP_DATA_TOO_LONG = 5;
 
 type
   TEvHttpRequestErrorCallback = procedure(para1: Tevhttp_request_error; para2: pointer);
@@ -177,9 +122,6 @@ procedure evhttp_connection_get_peer(evcon: Pevhttp_connection; address: PPchar;
 function evhttp_connection_get_addr(evcon: Pevhttp_connection): Psockaddr; cdecl; external libevent;
 function evhttp_make_request(evcon: Pevhttp_connection; req: Pevhttp_request; _type: Tevhttp_cmd_type; uri: pchar): longint; cdecl; external libevent;
 procedure evhttp_cancel_request(req: Pevhttp_request); cdecl; external libevent;
-
-type
-  Pevhttp_uri = type Pointer;
 
 function evhttp_request_get_uri(req: Pevhttp_request): pchar; cdecl; external libevent;
 function evhttp_request_get_evhttp_uri(req: Pevhttp_request): Pevhttp_uri; cdecl; external libevent;
@@ -230,8 +172,11 @@ function evhttp_uri_join(uri: Pevhttp_uri; buf: pchar; limit: Tsize_t): pchar; c
 // === Konventiert am: 26-8-25 19:37:45 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

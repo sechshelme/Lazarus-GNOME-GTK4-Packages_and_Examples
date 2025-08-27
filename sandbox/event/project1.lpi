@@ -25,16 +25,15 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="fp_event_package"/>
+      </Item>
+      <Item>
         <PackageName Value="fp_libc_packages"/>
       </Item>
     </RequiredPackages>
     <Units>
       <Unit>
         <Filename Value="project1.lpr"/>
-        <IsPartOfProject Value="True"/>
-      </Unit>
-      <Unit>
-        <Filename Value="fp_event.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
     </Units>
