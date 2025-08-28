@@ -21,6 +21,7 @@ type
     s_addr: Tin_addr_t;
   end;
   Pin_addr = ^Tin_addr;
+  PPin_addr = ^Pin_addr;
 
 const
   IPPROTO_IP = 0;

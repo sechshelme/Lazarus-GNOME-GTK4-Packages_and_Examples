@@ -12,38 +12,17 @@ uses
 
   // /usr/include/x86_64-linux-gnu/bits/netdb.h
 
-type
-  Tnetent = record
-    n_name: pchar;
-    n_aliases: ^pchar;
-    n_addrtype: longint;
-    n_net: uint32;
-  end;
-  Pnetent = ^Tnetent;
+  type
+    Tnetent = record
+      n_name: pchar;
+      n_aliases: ^pchar;
+      n_addrtype: longint;
+      n_net: Tuint32_t;
+    end;
+    Pnetent = ^Tnetent;
 
 
-  // /usr/include/rpc/netdb.h
-
-type
-  Trpcent = record
-    r_name: pchar;
-    r_aliases: ^pchar;
-    r_number: longint;
-  end;
-  Prpcent = ^Trpcent;
-  PPrpcent = ^Prpcent;
-
-procedure setrpcent(__stayopen: longint); cdecl; external libc;
-procedure endrpcent; cdecl; external libc;
-function getrpcbyname(__name: pchar): Prpcent; cdecl; external libc;
-function getrpcbynumber(__number: longint): Prpcent; cdecl; external libc;
-function getrpcent: Prpcent; cdecl; external libc;
-function getrpcbyname_r(__name: pchar; __result_buf: Prpcent; __buffer: pchar; __buflen: Tsize_t; __result: PPrpcent): longint; cdecl; external libc;
-function getrpcbynumber_r(__number: longint; __result_buf: Prpcent; __buffer: pchar; __buflen: Tsize_t; __result: PPrpcent): longint; cdecl; external libc;
-function getrpcent_r(__result_buf: Prpcent; __buffer: pchar; __buflen: Tsize_t; __result: PPrpcent): longint; cdecl; external libc;
-
-
-//  /usr/include/netdb.h
+  // /usr/include/netdb.h
 
 const
   _PATH_HEQUIV = '/etc/hosts.equiv';
@@ -102,10 +81,10 @@ function gethostbyname2_r(__name: pchar; __af: longint; __result_buf: Phostent; 
 procedure setnetent(__stay_open: longint); cdecl; external libc;
 procedure endnetent; cdecl; external libc;
 function getnetent: Pnetent; cdecl; external libc;
-function getnetbyaddr(__net: uint32; __type: longint): Pnetent; cdecl; external libc;
+function getnetbyaddr(__net: Tuint32_t; __type: longint): Pnetent; cdecl; external libc;
 function getnetbyname(__name: pchar): Pnetent; cdecl; external libc;
 function getnetent_r(__result_buf: Pnetent; __buf: pchar; __buflen: Tsize_t; __result: PPnetent; __h_errnop: Plongint): longint; cdecl; external libc;
-function getnetbyaddr_r(__net: uint32; __type: longint; __result_buf: Pnetent; __buf: pchar; __buflen: Tsize_t;
+function getnetbyaddr_r(__net: Tuint32_t; __type: longint; __result_buf: Pnetent; __buf: pchar; __buflen: Tsize_t;
   __result: PPnetent; __h_errnop: Plongint): longint; cdecl; external libc;
 function getnetbyname_r(__name: pchar; __result_buf: Pnetent; __buf: pchar; __buflen: Tsize_t; __result: PPnetent;
   __h_errnop: Plongint): longint; cdecl; external libc;
@@ -163,7 +142,7 @@ function rexec_af(__ahost: PPchar; __rport: longint; __name: pchar; __pass: pcha
   __fd2p: Plongint; __af: Tsa_family_t): longint; cdecl; external libc;
 function ruserok(__rhost: pchar; __suser: longint; __remuser: pchar; __locuser: pchar): longint; cdecl; external libc;
 function ruserok_af(__rhost: pchar; __suser: longint; __remuser: pchar; __locuser: pchar; __af: Tsa_family_t): longint; cdecl; external libc;
-function iruserok(__raddr: uint32; __suser: longint; __remuser: pchar; __locuser: pchar): longint; cdecl; external libc;
+function iruserok(__raddr: Tuint32_t; __suser: longint; __remuser: pchar; __locuser: pchar): longint; cdecl; external libc;
 function iruserok_af(__raddr: pointer; __suser: longint; __remuser: pchar; __locuser: pchar; __af: Tsa_family_t): longint; cdecl; external libc;
 function rresvport(__alport: Plongint): longint; cdecl; external libc;
 function rresvport_af(__alport: Plongint; __af: Tsa_family_t): longint; cdecl; external libc;
@@ -206,12 +185,8 @@ const
   AI_V4MAPPED = $0008;
   AI_ALL = $0010;
   AI_ADDRCONFIG = $0020;
-
-const
   AI_IDN = $0040;
   AI_CANONIDN = $0080;
-
-const
   AI_NUMERICSERV = $0400;
   EAI_BADFLAGS = -(1);
   EAI_NONAME = -(2);
@@ -223,8 +198,6 @@ const
   EAI_MEMORY = -(10);
   EAI_SYSTEM = -(11);
   EAI_OVERFLOW = -(12);
-
-const
   EAI_NODATA = -(5);
   EAI_ADDRFAMILY = -(9);
   EAI_INPROGRESS = -(100);
@@ -237,15 +210,11 @@ const
 const
   NI_MAXHOST = 1025;
   NI_MAXSERV = 32;
-
-const
   NI_NUMERICHOST = 1;
   NI_NUMERICSERV = 2;
   NI_NOFQDN = 4;
   NI_NAMEREQD = 8;
   NI_DGRAM = 16;
-
-const
   NI_IDN = 32;
 
 function getaddrinfo(__name: pchar; __service: pchar; __req: Paddrinfo; __pai: PPaddrinfo): longint; cdecl; external libc;
@@ -258,7 +227,7 @@ function gai_suspend(__list: PPgaicb; __ent: longint; __timeout: Ptimespec): lon
 function gai_error(__req: Pgaicb): longint; cdecl; external libc;
 function gai_cancel(__gaicbp: Pgaicb): longint; cdecl; external libc;
 
-// === Konventiert am: 5-7-25 19:53:34 ===
+// === Konventiert am: 28-8-25 19:40:49 ===
 
 
 implementation
