@@ -218,8 +218,9 @@ const
     (libs: 'libhidapi_libusb'; units: 'ctypes'),
 
     (libs: 'libevent'; units: 'fp_event'),
-
     (libs: 'libreadline'; units: 'fp_readline'),
+
+    (libs: 'libportal'; units: 'fp_glib2, fp_portal'),
 
 
 

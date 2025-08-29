@@ -57,7 +57,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/event2', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/libportal', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -86,7 +86,7 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_DEPRECATED', '/*G_GNUC_DEPRECATED*/', [rfReplaceAll]);
 
 
-      slHeader[j] := StringReplace(slHeader[j], 'EVENT2_EXPORT_SYMBOL', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'XDP_PUBLIC', 'extern', [rfReplaceAll]);
 
 
 

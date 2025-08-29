@@ -25,12 +25,6 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_xml2_package"/>
-      </Item>
-      <Item>
-        <PackageName Value="fp_gstreamer_package"/>
-      </Item>
-      <Item>
         <PackageName Value="fp_GTK4_package"/>
       </Item>
     </RequiredPackages>
@@ -40,34 +34,8 @@
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="loadtitle.pas"/>
+        <Filename Value="fp_portal.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="LoadTitle"/>
-      </Unit>
-      <Unit>
-        <Filename Value="menubar.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="MenuBar"/>
-      </Unit>
-      <Unit>
-        <Filename Value="xml_tools.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="XML_Tools"/>
-      </Unit>
-      <Unit>
-        <Filename Value="common.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="Common"/>
-      </Unit>
-      <Unit>
-        <Filename Value="loadsavesongs.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="LoadSaveSongs"/>
-      </Unit>
-      <Unit>
-        <Filename Value="action.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="Action"/>
       </Unit>
     </Units>
   </ProjectOptions>
@@ -78,24 +46,14 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="../../Package_Tools/pas_units/portal"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
-    <CodeGeneration>
-      <TargetOS Value="win64"/>
-      <Optimizations>
-        <OptimizationLevel Value="3"/>
-      </Optimizations>
-    </CodeGeneration>
     <Linking>
       <Debugging>
-        <GenerateDebugInfo Value="False"/>
-        <RunWithoutDebug Value="True"/>
         <DebugInfoType Value="dsDwarf3"/>
       </Debugging>
     </Linking>
-    <Other>
-      <CustomOptions Value="-XX"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions>
