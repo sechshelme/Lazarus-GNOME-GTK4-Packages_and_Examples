@@ -12,7 +12,6 @@ uses
     portal := xdp_portal_new;
     status := xdp_portal_is_camera_present(portal);
     g_printf('Kamera vorhanden: %b'#10, status);
-
     g_object_unref(portal);
   end;
 
