@@ -25,16 +25,15 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="fp_portal_package"/>
+      </Item>
+      <Item>
         <PackageName Value="fp_GTK4_package"/>
       </Item>
     </RequiredPackages>
     <Units>
       <Unit>
         <Filename Value="project1.lpr"/>
-        <IsPartOfProject Value="True"/>
-      </Unit>
-      <Unit>
-        <Filename Value="fp_portal.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
     </Units>
@@ -46,7 +45,6 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="../../Package_Tools/pas_units/portal"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

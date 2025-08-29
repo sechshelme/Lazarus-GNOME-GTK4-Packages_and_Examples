@@ -3,7 +3,7 @@ unit fp_portal;
 interface
 
 uses
-  glib2;
+  fp_glib2;
 
 const
   {$IFDEF linux}
@@ -19,13 +19,13 @@ const
 
 
   {$DEFINE read_interface}
-//  {$include fp_portal_includes.inc}
+  {$include fp_portal_includes.inc}
   {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-//{$include fp_portal_includes.inc}
+{$include fp_portal_includes.inc}
 {$UNDEF read_implementation}
 
 end.

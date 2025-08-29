@@ -12,6 +12,11 @@ uses
   Human_Child,
   Human_Child_Inc;
 
+procedure PrintVariant(variant: PGVariant) ;
+begin
+  g_print('Variant Ergebnis: %s'#10, g_variant_print(variant, TRUE));
+end;
+
 const
   paths: array of Pgchar =('/blu/blu/1','/blu/blu2','/blu/blu/2', nil);
 
@@ -76,6 +81,7 @@ const
     // ==== g_variant ====
 
     variant:=g_variant_new_boolean(True);
+    PrintVariant(variant);
     Value := G_VALUE_INIT_;
     g_value_init(@Value, G_TYPE_VARIANT);
     g_value_set_variant(@Value, variant);
@@ -83,6 +89,7 @@ const
     g_value_unset(@Value);
 
     variant:=g_variant_new_byte(123);
+    PrintVariant(variant);
     Value := G_VALUE_INIT_;
     g_value_init(@Value, G_TYPE_VARIANT);
     g_value_set_variant(@Value, variant);
@@ -90,6 +97,7 @@ const
     g_value_unset(@Value);
 
     variant:=g_variant_new_int32(12345);
+    PrintVariant(variant);
     Value := G_VALUE_INIT_;
     g_value_init(@Value, G_TYPE_VARIANT);
     g_value_set_variant(@Value, variant);
@@ -97,6 +105,7 @@ const
     g_value_unset(@Value);
 
     variant:=g_variant_new_double(123.4567);
+    PrintVariant(variant);
     Value := G_VALUE_INIT_;
     g_value_init(@Value, G_TYPE_VARIANT);
     g_value_set_variant(@Value, variant);
@@ -104,6 +113,7 @@ const
     g_value_unset(@Value);
 
     variant:=g_variant_new_string('Ich bin ein GVariant Sting');
+    PrintVariant(variant);
     Value := G_VALUE_INIT_;
     g_value_init(@Value, G_TYPE_VARIANT);
     g_value_set_variant(@Value, variant);
@@ -111,6 +121,7 @@ const
     g_value_unset(@Value);
 
     variant:=g_variant_new_objv(PPgchar(paths), -1);
+    PrintVariant(variant);
     Value := G_VALUE_INIT_;
     g_value_init(@Value, G_TYPE_VARIANT);
     g_value_set_variant(@Value, variant);
@@ -118,6 +129,7 @@ const
     g_value_unset(@Value);
 
     variant:=g_variant_new('(is)', 123, 'Hello');
+    PrintVariant(variant);
     Value := G_VALUE_INIT_;
     g_value_init(@Value, G_TYPE_VARIANT);
     g_value_set_variant(@Value, variant);
