@@ -3,8 +3,27 @@ program project1;
 // export http_proxy="http://proxy.example.com:8080"
 
 uses
-  fp_glib2,
-  fp_proxy;
+  pcap_inttypes,
+  vlan,
+  usb,
+  socket_,
+  sll,
+
+
+  bluetooth,
+  can_socketcan,
+  dlt,
+  ipnet,
+  namedb,
+  nflog,
+
+  bpf,
+  pcap,
+
+
+
+
+  fp_pcap;
 
   procedure ShowProxy;
   var
@@ -37,12 +56,7 @@ uses
 begin
   main;
 end.
-
-
-
-// gcc main.c -o main -lpcap
-
-(*
+// gcc main.c -o main -lpcap(*
 #include <pcap.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -56,8 +70,7 @@ void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char
 
 
     struct ethhdr *eth = (struct ethhdr *)packet;
-
-    if (ntohs(eth->h_proto) == ETH_P_IP) {
+if (ntohs(eth - > h_proto) = = ETH_P_IP) {
         struct iphdr *ip = (struct iphdr *)(packet + sizeof(struct ethhdr));
 
         char src_ip[INET_ADDRSTRLEN];
@@ -67,11 +80,9 @@ void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char
         inet_ntop(AF_INET, &(ip->daddr), dst_ip, INET_ADDRSTRLEN);
 
         printf("IP Packet: %s -> %s, length: %d bytes\n", src_ip, dst_ip, header->len);
-    } else {
+    }else {
         printf("Nicht-IP Paket, EtherType: 0x%x\n", ntohs(eth->h_proto));
-    }
-}
-
+    }}
 int main() {
     pcap_if_t *alldevs, *d;
     pcap_t *handle;
@@ -120,6 +131,4 @@ int main() {
     pcap_close(handle);
     pcap_freealldevs(alldevs);
     return 0;
-}
-*)
-
+} * )

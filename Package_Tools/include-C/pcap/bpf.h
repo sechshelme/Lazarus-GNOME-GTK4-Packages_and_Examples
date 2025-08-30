@@ -258,26 +258,15 @@ struct bpf_insn {
  * since it first sprung from the brows of Van Jacobson and Steve
  * McCanne, that kernel should be fixed.
  */
-#ifdef BPF_STMT
-#undef BPF_STMT
-#endif
-#define BPF_STMT(code, k) { (u_short)(code), 0, 0, k }
-#ifdef BPF_JUMP
-#undef BPF_JUMP
-#endif
-#define BPF_JUMP(code, k, jt, jf) { (u_short)(code), jt, jf, k }
 
-PCAP_AVAILABLE_0_4
-PCAP_API u_int	bpf_filter(const struct bpf_insn *, const u_char *, u_int, u_int);
 
-PCAP_AVAILABLE_0_6
-PCAP_API int	bpf_validate(const struct bpf_insn *f, int len);
+extern u_int	bpf_filter(const struct bpf_insn *, const u_char *, u_int, u_int);
 
-PCAP_AVAILABLE_0_4
-PCAP_API char	*bpf_image(const struct bpf_insn *, int);
+extern int	bpf_validate(const struct bpf_insn *f, int len);
 
-PCAP_AVAILABLE_0_6
-PCAP_API void	bpf_dump(const struct bpf_program *, int);
+extern char	*bpf_image(const struct bpf_insn *, int);
+
+extern void	bpf_dump(const struct bpf_program *, int);
 
 /*
  * Number of scratch memory words (for BPF_LD|BPF_MEM and BPF_ST).
