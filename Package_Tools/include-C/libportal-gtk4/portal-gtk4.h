@@ -26,9 +26,8 @@
 #error "To use libportal with GTK3, include portal-gtk3.h"
 #endif
 
-G_BEGIN_DECLS
 
-XDP_PUBLIC
+extern
 XdpParent *xdp_parent_new_gtk (GtkWindow *window);
 
-G_END_DECLS
+

@@ -219,8 +219,9 @@ const
 
     (libs: 'libevent'; units: 'fp_event'),
     (libs: 'libreadline'; units: 'fp_readline'),
-
     (libs: 'libportal'; units: 'fp_glib2, fp_portal'),
+
+    (libs: 'libproxy'; units: 'fp_glib2'),
 
 
 

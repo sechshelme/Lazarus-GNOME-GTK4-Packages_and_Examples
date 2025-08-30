@@ -8,7 +8,7 @@ unit fp_portal_package;
 interface
 
 uses
-  fp_portal, LazarusPackageIntf;
+  fp_portal, fp_portal_gtk4, LazarusPackageIntf;
 
 implementation
 

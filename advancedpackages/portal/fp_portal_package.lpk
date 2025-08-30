@@ -14,8 +14,15 @@
         <Filename Value="fp_portal.pas"/>
         <UnitName Value="fp_portal"/>
       </Item>
+      <Item>
+        <Filename Value="fp_portal_gtk4.pas"/>
+        <UnitName Value="fp_portal_gtk4"/>
+      </Item>
     </Files>
     <RequiredPkgs>
+      <Item>
+        <PackageName Value="fp_GTK4_package"/>
+      </Item>
       <Item>
         <PackageName Value="fp_GLIB2_package"/>
       </Item>
