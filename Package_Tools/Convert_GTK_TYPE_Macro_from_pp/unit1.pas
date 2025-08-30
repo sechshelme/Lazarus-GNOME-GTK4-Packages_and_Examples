@@ -222,6 +222,7 @@ const
     (libs: 'libportal'; units: 'fp_glib2, fp_portal'),
 
     (libs: 'libproxy'; units: 'fp_glib2'),
+    (libs: 'libpcap'; units: 'ctypes'),
 
 
 
