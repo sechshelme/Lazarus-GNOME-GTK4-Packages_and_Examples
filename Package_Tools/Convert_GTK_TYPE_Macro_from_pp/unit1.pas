@@ -223,6 +223,7 @@ const
 
     (libs: 'libproxy'; units: 'fp_glib2'),
     (libs: 'libpcap'; units: 'ctypes'),
+    (libs: 'libfuse3'; units: 'fp_fuse'),
 
 
 
