@@ -8,69 +8,33 @@ uses
   usb,
   socket_,
   sll,
-
-
   bluetooth,
   can_socketcan,
   dlt,
   ipnet,
+  bpf,
   namedb,
   nflog,
-
-  bpf,
   pcap,
 
 
 
+  fp_stdio,
 
+  fp_arpa,
+  fp_netinet,
   fp_pcap;
 
-  procedure ShowProxy;
+  procedure packet_handler(args: Pu_char; header: Ppcap_pkthdr; packet: Pu_char    ); cdecl;
   var
-    pf: PpxProxyFactory;
-    proxies: PPChar;
-    i: integer = 0;
+      eth: Pethhdr *eth = (struct ethhdr *)packet;
+
   begin
-    pf := px_proxy_factory_new;
-    if pf <> nil then begin
-      proxies := px_proxy_factory_get_proxies(pf, 'http://www.example.com');
-
-      if proxies <> nil then begin
-        while proxies[i] <> nil do begin
-          g_printf('Proxy: %s'#10, proxies[i]);
-          Inc(i);
-        end;
-        px_proxy_factory_free_proxies(proxies);
-      end;
-      px_proxy_factory_free(pf);
-    end;
-  end;
-
-  procedure main;
-  begin
-    ShowProxy;
-    g_setenv('http_proxy', 'http://proxy.example.com:8080', gTRUE);
-    ShowProxy;
-  end;
-
-begin
-  main;
-end.
-// gcc main.c -o main -lpcap(*
-#include <pcap.h>
-#include <stdio.h>
-#include <stdlib.h>
-
-#include <arpa/inet.h>
-#include <netinet/ip.h>
-#include <netinet/if_ether.h>
-
-void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char *packet) {
-//    printf("Packet captured: length %d\n", header->len);
-
+//    WriteLn('Packet captured: length ', header^.len);
 
     struct ethhdr *eth = (struct ethhdr *)packet;
-if (ntohs(eth - > h_proto) = = ETH_P_IP) {
+
+    if (ntohs(eth->h_proto) == ETH_P_IP) {
         struct iphdr *ip = (struct iphdr *)(packet + sizeof(struct ethhdr));
 
         char src_ip[INET_ADDRSTRLEN];
@@ -80,55 +44,67 @@ if (ntohs(eth - > h_proto) = = ETH_P_IP) {
         inet_ntop(AF_INET, &(ip->daddr), dst_ip, INET_ADDRSTRLEN);
 
         printf("IP Packet: %s -> %s, length: %d bytes\n", src_ip, dst_ip, header->len);
-    }else {
+    } else {
         printf("Nicht-IP Paket, EtherType: 0x%x\n", ntohs(eth->h_proto));
-    }}
-int main() {
-    pcap_if_t *alldevs, *d;
-    pcap_t *handle;
-    char errbuf[PCAP_ERRBUF_SIZE];
-    int i = 0;
-    int dev_num;
-
-    if (pcap_findalldevs(&alldevs, errbuf) == -1) {
-        fprintf(stderr, "Error finding devices: %s\n", errbuf);
-        return 1;
     }
+  end;
 
-    printf("Available devices:\n");
-    for (d = alldevs; d != NULL; d = d->next) {
-        printf("%d. %s", ++i, d->name);
-        if (d->description)
-            printf(" - %s", d->description);
-        printf("\n");
-    }
+  procedure main;
+  var
+    alldevs, d: Ppcap_if_t;
+    i: integer = 0;
+    j: integer = 1;
+    dev_num: integer;
+    errbuf: array  [0..PCAP_ERRBUF_SIZE - 1] of char;
+    handle: Ppcap_t;
+  begin
+    if pcap_findalldevs(@alldevs, errbuf) = -1 then begin
+      WriteLn('Error finding devices: ', errbuf);
+      Exit;
+    end;
 
-    printf("Select device number: ");
-    scanf("%d", &dev_num);
+    WriteLn('Available devices:');
+    d := alldevs;
+    while d <> nil do begin
+      inc(i);
+      Write(i: 3, '. ', d^.name);
 
-    // Find the selected device
-    d = alldevs;
-    for (int j = 1; j < dev_num && d != NULL; j++) {
-        d = d->next;
-    }
-    if (d == NULL) {
-        fprintf(stderr, "Invalid device number.\n");
-        pcap_freealldevs(alldevs);
-        return 1;
-    }
+      if d^.description <> nil then begin
+        Write(' - ', d^.description);
+      end;
+      WriteLn();
 
-    // Open the selected device for live capture
-    handle = pcap_open_live(d->name, BUFSIZ, 1, 1000, errbuf);
-    if (handle == NULL) {
-        fprintf(stderr, "Could not open device %s: %s\n", d->name, errbuf);
-        pcap_freealldevs(alldevs);
-        return 1;
-    }
+      d := d^.next;
+    end;
 
-    printf("Listening on %s...\n", d->name);
-    pcap_loop(handle, -1, packet_handler, NULL);
+    WriteLn('Select device number: ');
+    ReadLn(dev_num);
+
+    d := alldevs;
+    while (j < dev_num) and (d <> nil) do begin
+      d := d^.next;
+    end;
+
+    if d = nil then begin
+      WriteLn('Invalid device number.');
+      pcap_freealldevs(alldevs);
+      Exit;
+    end;
+
+    handle := pcap_open_live(d^.name, BUFSIZ, 1, 1000, errbuf);
+    if handle = nil then begin
+      WriteLn('Could not open device ', d^.name, ': ', errbuf);
+      pcap_freealldevs(alldevs);
+      Exit;
+    end;
+
+    WriteLn('Listening on ', d^.name, '...');
+    pcap_loop(handle, 10, @packet_handler, nil);
 
     pcap_close(handle);
     pcap_freealldevs(alldevs);
-    return 0;
-} * )
+  end;
+
+begin
+  main;
+end.

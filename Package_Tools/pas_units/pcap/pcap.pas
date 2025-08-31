@@ -23,8 +23,6 @@ type
 type
    Ppcap_t=type Pointer;
   Ppcap_dumper_t=type Pointer;
-  Ppcap_if_t=type Pointer;
-  PPpcap_if_t=^Ppcap_if_t;
   Ppcap_addr_t=type Pointer;
 
   Tpcap_file_header = record
@@ -88,6 +86,9 @@ type
       addresses : Ppcap_addr;
       flags : Tbpf_u_int32;
     end;
+  Ppcap_if_t=^Tpcap_if;
+  PPpcap_if_t=^Ppcap_if_t;
+
 
 const
   PCAP_IF_LOOPBACK = $00000001;  
@@ -100,7 +101,7 @@ const
   PCAP_IF_CONNECTION_STATUS_DISCONNECTED = $00000020;
   PCAP_IF_CONNECTION_STATUS_NOT_APPLICABLE = $00000030;
 type
-  Tpcap_handler = procedure (para1:Pu_char; para2:Ppcap_pkthdr; para3:Pu_char);cdecl;
+  Tpcap_handler = procedure (args:Pu_char; header:Ppcap_pkthdr; packet:Pu_char);cdecl;
 const
   PCAP_ERROR = -(1);  
   PCAP_ERROR_BREAK = -(2);

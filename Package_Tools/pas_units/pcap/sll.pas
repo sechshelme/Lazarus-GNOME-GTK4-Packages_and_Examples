@@ -3,7 +3,7 @@ unit sll;
 interface
 
 uses
-  fp_pcap;
+  pcap_inttypes;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

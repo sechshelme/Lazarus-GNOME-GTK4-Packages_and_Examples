@@ -3,7 +3,7 @@ unit usb;
 interface
 
 uses
-  fp_pcap;
+  pcap_inttypes;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
