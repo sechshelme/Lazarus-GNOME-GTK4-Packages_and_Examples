@@ -22,11 +22,9 @@ type
 
   Tmode_t = Pointer;
 
-  Tstat = record // ??????????????????
-  end;
-  Pstat = ^Tstat;
 
-  Pflock=Pointer;
+  Pflock = Pointer;
+  Pstatvfs = Pointer;
 
 
   {$DEFINE read_interface}

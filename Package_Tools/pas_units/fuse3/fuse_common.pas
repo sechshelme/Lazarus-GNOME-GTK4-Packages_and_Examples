@@ -137,6 +137,7 @@ type
     buf: array[0..0] of Tfuse_buf;
   end;
   Pfuse_bufvec = ^Tfuse_bufvec;
+  PPfuse_bufvec = ^Pfuse_bufvec;
 
 function fuse_buf_size(bufv: Pfuse_bufvec): Tsize_t; cdecl; external libfuse3;
 function fuse_buf_copy(dst: Pfuse_bufvec; src: Pfuse_bufvec; flags: Tfuse_buf_copy_flags): Tssize_t; cdecl; external libfuse3;

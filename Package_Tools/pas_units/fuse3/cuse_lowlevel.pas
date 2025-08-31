@@ -3,7 +3,7 @@ unit cuse_lowlevel;
 interface
 
 uses
-  fp_fuse, fuse_common;
+  clib, fp_fuse, fuse_opt, fuse_common, fuse_lowlevel;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
