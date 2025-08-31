@@ -1,13 +1,4 @@
-unit bluetooth;
-
-interface
-
-uses
-  pcap_inttypes;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -25,8 +16,11 @@ type
   // === Konventiert am: 30-8-25 19:12:09 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

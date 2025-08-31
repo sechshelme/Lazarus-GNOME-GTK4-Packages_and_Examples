@@ -1,13 +1,4 @@
-unit sll;
-
-interface
-
-uses
-  pcap_inttypes;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -54,8 +45,11 @@ const
   // === Konventiert am: 30-8-25 19:14:17 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

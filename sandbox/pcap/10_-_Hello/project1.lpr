@@ -1,52 +1,32 @@
 program project1;
 
-// export http_proxy="http://proxy.example.com:8080"
-
 uses
-  pcap_inttypes,
-  vlan,
-  usb,
-  socket_,
-  sll,
-  bluetooth,
-  can_socketcan,
-  dlt,
-  ipnet,
-  bpf,
-  namedb,
-  nflog,
-  pcap,
-
-
-
   fp_stdio,
-
+  fp_socket,
   fp_arpa,
   fp_netinet,
   fp_pcap;
 
-  procedure packet_handler(args: Pu_char; header: Ppcap_pkthdr; packet: Pu_char    ); cdecl;
+  procedure packet_handler(args: Pu_char; header: Ppcap_pkthdr; packet: Pu_char); cdecl;
   var
-      eth: Pethhdr *eth = (struct ethhdr *)packet;
+    eth: Pethhdr absolute packet;
+    ip: Piphdr;
+    src_ip: array[0..INET_ADDRSTRLEN - 1] of char;
+    dst_ip: array[0..INET_ADDRSTRLEN - 1] of char;
 
   begin
-//    WriteLn('Packet captured: length ', header^.len);
+    WriteLn('length: ', header^.len);
 
-    struct ethhdr *eth = (struct ethhdr *)packet;
+    if ntohs(eth^.h_proto) = ETH_P_IP then begin
+      ip := Piphdr(packet + SizeOf(Tethhdr));
 
-    if (ntohs(eth->h_proto) == ETH_P_IP) {
-        struct iphdr *ip = (struct iphdr *)(packet + sizeof(struct ethhdr));
+      inet_ntop(AF_INET, @ip^.saddr, src_ip, INET_ADDRSTRLEN);
+      inet_ntop(AF_INET, @ip^.daddr, dst_ip, INET_ADDRSTRLEN);
 
-        char src_ip[INET_ADDRSTRLEN];
-        char dst_ip[INET_ADDRSTRLEN];
-
-        inet_ntop(AF_INET, &(ip->saddr), src_ip, INET_ADDRSTRLEN);
-        inet_ntop(AF_INET, &(ip->daddr), dst_ip, INET_ADDRSTRLEN);
-
-        printf("IP Packet: %s -> %s, length: %d bytes\n", src_ip, dst_ip, header->len);
-    } else {
-        printf("Nicht-IP Paket, EtherType: 0x%x\n", ntohs(eth->h_proto));
-    }
+      printf('IP Packet: %s -> %s, length: %d bytes'#10, src_ip, dst_ip, header^.len);
+    end else begin
+      printf('Nicht-IP Paket, EtherType: 0x%x'#10, ntohs(eth^.h_proto));
+    end;
   end;
 
   procedure main;
@@ -83,6 +63,7 @@ uses
     d := alldevs;
     while (j < dev_num) and (d <> nil) do begin
       d := d^.next;
+      Inc(j);
     end;
 
     if d = nil then begin

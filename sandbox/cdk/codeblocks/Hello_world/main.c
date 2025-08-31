@@ -1,105 +1,81 @@
-// gcc main.c -o main -lcdk -lncurses
 
-#include <cdk/cdk.h>
+// gcc main.c -o main -lpcap
+
+#include <pcap.h>
 #include <stdio.h>
-#include <signal.h>
-#include <sys/ioctl.h>
-#include <unistd.h>
-#include <complex.h>
-#include <math.h>
-#include <wchar.h>
+#include <stdlib.h>
 
-#include <gsl/gsl_matrix.h>
-#include <gsl/gsl_blas.h>
+#include <arpa/inet.h>
+#include <netinet/ip.h>
+#include <netinet/if_ether.h>
+
+void packet_handler(u_char *args, const struct pcap_pkthdr *header, const u_char *packet) {
+//    printf("Packet captured: length %d\n", header->len);
 
 
-// https://www.perplexity.ai/search/wen-ich-beim-linux-kernel-make-PuLHDhVhS6aXEz.IpP2Rwg
+    struct ethhdr *eth = (struct ethhdr *)packet;
 
-void handle_winch(int sig) {
-    struct winsize ws;
-    ioctl(STDIN_FILENO, TIOCGWINSZ, &ws);
-    printf("Neue Terminalgröße: %d Zeilen, %d Spalten\n", ws.ws_row, ws.ws_col);
+    if (ntohs(eth->h_proto) == ETH_P_IP) {
+        struct iphdr *ip = (struct iphdr *)(packet + sizeof(struct ethhdr));
+
+        char src_ip[INET_ADDRSTRLEN];
+        char dst_ip[INET_ADDRSTRLEN];
+
+        inet_ntop(AF_INET, &(ip->saddr), src_ip, INET_ADDRSTRLEN);
+        inet_ntop(AF_INET, &(ip->daddr), dst_ip, INET_ADDRSTRLEN);
+
+        printf("IP Packet: %s -> %s, length: %d bytes\n", src_ip, dst_ip, header->len);
+    } else {
+        printf("Nicht-IP Paket, EtherType: 0x%x\n", ntohs(eth->h_proto));
+    }
 }
-
 
 int main() {
+    pcap_if_t *alldevs, *d;
+    pcap_t *handle;
+    char errbuf[PCAP_ERRBUF_SIZE];
+    int i = 0;
+    int dev_num;
 
- signal(SIGWINCH, handle_winch);
-
-
-    CDKSCREEN *cdkScreen;
-    CDKSCROLL *scroll;
-    WINDOW *cursesWin;
-    char *items[] = {
-        "Option 1",
-        "Option 2",
-        "Option 3",
-        "Beenden"
-    };
-    int n_items = sizeof(items) / sizeof(items[0]);
-    int choice;
-
-    // ncurses und CDK initialisieren
-    cursesWin = initscr();
-    cdkScreen = initCDKScreen(cursesWin);
-    initCDKColor();
-
-    // Scroll-Menü erzeugen
-    scroll = newCDKScroll(
-        cdkScreen,
-        CENTER, CENTER,        // Position
-        NONE,                  // Border
-        n_items + 4, 40,       // Höhe, Breite
-        "Menü:",               // Titel
-        items, n_items,        // Einträge und Anzahl
-        FALSE,                 // Zahlen anzeigen
-        A_REVERSE,             // Attribut für Auswahl
-        TRUE,                  // Box
-        TRUE                  // Shadow
-    );
-
-    // Menü anzeigen und Auswahl abfragen
-    choice = activateCDKScroll(scroll, 0);
-
-    // Ergebnis anzeigen
-    if (choice != -1) {
-        char msg[64];
-        snprintf(msg, sizeof(msg), "Du hast '%s' gewählt.", items[choice]);
-        char *msgarr[3];
-        msgarr[0] = "*******************";
-        msgarr[1] = msg;
-        msgarr[2] = "*******************";
-        popupLabel(cdkScreen, msgarr, 3);
+    if (pcap_findalldevs(&alldevs, errbuf) == -1) {
+        fprintf(stderr, "Error finding devices: %s\n", errbuf);
+        return 1;
     }
 
-    // Aufräumen
-    //printf("struct %ld\n", scroll);
-    //printf("obj    %ld\n", &scroll->obj);
-    //return 0;
+    printf("Available devices:\n");
+    for (d = alldevs; d != NULL; d = d->next) {
+        printf("%d. %s", ++i, d->name);
+        if (d->description)
+            printf(" - %s", d->description);
+        printf("\n");
+    }
 
+    printf("Select device number: ");
+    scanf("%d", &dev_num);
 
+    // Find the selected device
+    d = alldevs;
+    for (int j = 1; j < dev_num && d != NULL; j++) {
+        d = d->next;
+    }
+    if (d == NULL) {
+        fprintf(stderr, "Invalid device number.\n");
+        pcap_freealldevs(alldevs);
+        return 1;
+    }
 
-   CDKBUTTON *     button1 = newCDKButton(
-      cdkScreen,
-      20, 10,              // Position (x, y)
-      "Ok",
-      0, TRUE, FALSE);
+    // Open the selected device for live capture
+    handle = pcap_open_live(d->name, BUFSIZ, 1, 1000, errbuf);
+    if (handle == NULL) {
+        fprintf(stderr, "Could not open device %s: %s\n", d->name, errbuf);
+        pcap_freealldevs(alldevs);
+        return 1;
+    }
 
-      setCDKButtonBoxAttribute(button1, A_BLINK);
+    printf("Listening on %s...\n", d->name);
+    pcap_loop(handle, -1, packet_handler, NULL);
 
-      setCDKButtonBackgroundColor(button1, "red");
-      activateCDKButton(button1, 0);
-
-
-    destroyCDKScroll(scroll);
-    destroyCDKScreen(cdkScreen);
-    endCDK();
-
-    float f=cos(123);
-    f=add(1.0 ,2.0);
-
-
+    pcap_close(handle);
+    pcap_freealldevs(alldevs);
     return 0;
 }
-win_t
-wctype_t

@@ -67,6 +67,11 @@ type
   PPint64_t = ^Pint64_t;
 
 
+  Tu8=uint8;
+  Pu8=^Tu8;
+  Tbe16=int16;
+
+
   Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;
 

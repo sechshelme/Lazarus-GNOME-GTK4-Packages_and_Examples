@@ -1,13 +1,4 @@
-unit dlt;
-
-interface
-
-uses
-  ctypes;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -235,7 +226,10 @@ function DLT_IS_NETBSD_RAWAF(x: DWord): boolean;
 // === Konventiert am: 30-8-25 19:14:02 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 function DLT_CLASS(x: DWord): DWord;
@@ -259,4 +253,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

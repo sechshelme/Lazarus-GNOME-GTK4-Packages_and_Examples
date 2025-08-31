@@ -12,6 +12,219 @@ uses
 type
   Pether_addr = type Pointer; // Wegen Kreuzverbindung
 
+  // /usr/include/linux/if_ether.h
+
+const
+  ETH_ALEN = 6;
+  ETH_TLEN = 2;
+  ETH_HLEN = 14;
+  ETH_ZLEN = 60;
+  ETH_DATA_LEN = 1500;
+  ETH_FRAME_LEN = 1514;
+  ETH_FCS_LEN = 4;
+  ETH_MIN_MTU = 68;
+  ETH_MAX_MTU = $FFFF;
+  ETH_P_LOOP = $0060;
+  ETH_P_PUP = $0200;
+  ETH_P_PUPAT = $0201;
+  ETH_P_TSN = $22F0;
+  ETH_P_ERSPAN2 = $22EB;
+  ETH_P_IP = $0800;
+  ETH_P_X25 = $0805;
+  ETH_P_ARP = $0806;
+  ETH_P_BPQ = $08FF;
+  ETH_P_IEEEPUP = $0a00;
+  ETH_P_IEEEPUPAT = $0a01;
+  ETH_P_BATMAN = $4305;
+  ETH_P_DEC = $6000;
+  ETH_P_DNA_DL = $6001;
+  ETH_P_DNA_RC = $6002;
+  ETH_P_DNA_RT = $6003;
+  ETH_P_LAT = $6004;
+  ETH_P_DIAG = $6005;
+  ETH_P_CUST = $6006;
+  ETH_P_SCA = $6007;
+  ETH_P_TEB = $6558;
+  ETH_P_RARP = $8035;
+  ETH_P_ATALK = $809B;
+  ETH_P_AARP = $80F3;
+  ETH_P_8021Q = $8100;
+  ETH_P_ERSPAN = $88BE;
+  ETH_P_IPX = $8137;
+  ETH_P_IPV6 = $86DD;
+  ETH_P_PAUSE = $8808;
+  ETH_P_SLOW = $8809;
+  ETH_P_WCCP = $883E;
+  ETH_P_MPLS_UC = $8847;
+  ETH_P_MPLS_MC = $8848;
+  ETH_P_ATMMPOA = $884c;
+  ETH_P_PPP_DISC = $8863;
+  ETH_P_PPP_SES = $8864;
+  ETH_P_LINK_CTL = $886c;
+  ETH_P_ATMFATE = $8884;
+  ETH_P_PAE = $888E;
+  ETH_P_PROFINET = $8892;
+  ETH_P_REALTEK = $8899;
+  ETH_P_AOE = $88A2;
+  ETH_P_ETHERCAT = $88A4;
+  ETH_P_8021AD = $88A8;
+  ETH_P_802_EX1 = $88B5;
+  ETH_P_PREAUTH = $88C7;
+  ETH_P_TIPC = $88CA;
+  ETH_P_LLDP = $88CC;
+  ETH_P_MRP = $88E3;
+  ETH_P_MACSEC = $88E5;
+  ETH_P_8021AH = $88E7;
+  ETH_P_MVRP = $88F5;
+  ETH_P_1588 = $88F7;
+  ETH_P_NCSI = $88F8;
+  ETH_P_PRP = $88FB;
+  ETH_P_CFM = $8902;
+  ETH_P_FCOE = $8906;
+  ETH_P_IBOE = $8915;
+  ETH_P_TDLS = $890D;
+  ETH_P_FIP = $8914;
+  ETH_P_80221 = $8917;
+  ETH_P_HSR = $892F;
+  ETH_P_NSH = $894F;
+  ETH_P_LOOPBACK = $9000;
+  ETH_P_QINQ1 = $9100;
+  ETH_P_QINQ2 = $9200;
+  ETH_P_QINQ3 = $9300;
+  ETH_P_EDSA = $DADA;
+  ETH_P_DSA_8021Q = $DADB;
+  ETH_P_DSA_A5PSW = $E001;
+  ETH_P_IFE = $ED3E;
+  ETH_P_AF_IUCV = $FBFB;
+  ETH_P_802_3_MIN = $0600;
+  ETH_P_802_3 = $0001;
+  ETH_P_AX25 = $0002;
+  ETH_P_ALL = $0003;
+  ETH_P_802_2 = $0004;
+  ETH_P_SNAP = $0005;
+  ETH_P_DDCMP = $0006;
+  ETH_P_WAN_PPP = $0007;
+  ETH_P_PPP_MP = $0008;
+  ETH_P_LOCALTALK = $0009;
+  ETH_P_CAN = $000C;
+  ETH_P_CANFD = $000D;
+  ETH_P_CANXL = $000E;
+  ETH_P_PPPTALK = $0010;
+  ETH_P_TR_802_2 = $0011;
+  ETH_P_MOBITEX = $0015;
+  ETH_P_CONTROL = $0016;
+  ETH_P_IRDA = $0017;
+  ETH_P_ECONET = $0018;
+  ETH_P_HDLC = $0019;
+  ETH_P_ARCNET = $001A;
+  ETH_P_DSA = $001B;
+  ETH_P_TRAILER = $001C;
+  ETH_P_PHONET = $00F5;
+  ETH_P_IEEE802154 = $00F6;
+  ETH_P_CAIF = $00F7;
+  ETH_P_XDSA = $00F8;
+  ETH_P_MAP = $00F9;
+  ETH_P_MCTP = $00FA;
+
+type
+  Tethhdr = record
+    h_dest: array[0..(ETH_ALEN) - 1] of byte;
+    h_source: array[0..(ETH_ALEN) - 1] of byte;
+    h_proto: Tbe16;
+  end;
+  Pethhdr = ^Tethhdr;
+
+
+  // /usr/include/linux/if_arcnet.h
+
+const
+  ARC_P_IP = 212;
+  ARC_P_IPV6 = 196;
+  ARC_P_ARP = 213;
+  ARC_P_RARP = 214;
+  ARC_P_IPX = 250;
+  ARC_P_NOVELL_EC = 236;
+  ARC_P_IP_RFC1051 = 240;
+  ARC_P_ARP_RFC1051 = 241;
+  ARC_P_ETHER = 232;
+  ARC_P_DATAPOINT_BOOT = 0;
+  ARC_P_DATAPOINT_MOUNT = 1;
+  ARC_P_POWERLAN_BEACON = 8;
+  ARC_P_POWERLAN_BEACON2 = 243;
+  ARC_P_LANSOFT = 251;
+  ARC_P_ATALK = $DD;
+  ARCNET_ALEN = 1;
+
+type
+  Tarc_rfc1201 = record
+    proto: Tu8;
+    split_flag: Tu8;
+    sequence: Tbe16;
+    payload: Pu8;
+  end;
+  Parc_rfc1201 = ^Tarc_rfc1201;
+
+const
+  RFC1201_HDR_SIZE = 4;
+
+type
+  Tarc_rfc1051 = record
+    proto: Tu8;
+    payload: Pu8;
+  end;
+  Parc_rfc1051 = ^Tarc_rfc1051;
+
+const
+  RFC1051_HDR_SIZE = 1;
+
+type
+  Tarc_eth_encap = record
+    proto: Tu8;
+    eth: Tethhdr;
+    payload: Pu8;
+  end;
+  Parc_eth_encap = ^Tarc_eth_encap;
+
+const
+  ETH_ENCAP_HDR_SIZE = 14;
+
+type
+  Tarc_cap = record
+    proto: Tu8;
+    cookie: array[0..(sizeof(longint)) - 1] of Tu8;
+    mes: record
+      case longint of
+        0: (ack: Tu8);
+        1: (raw: Pu8);
+      end;
+  end;
+  Parc_cap = ^Tarc_cap;
+
+  Tarc_hardware = record
+    source: Tu8;
+    dest: Tu8;
+    offset: array[0..1] of Tu8;
+  end;
+  Parc_hardware = ^Tarc_hardware;
+
+const
+  ARC_HDR_SIZE = 4;
+
+type
+  Tarchdr = record
+    hard: Tarc_hardware;
+    soft: record
+      case longint of
+        0: (rfc1201: Tarc_rfc1201);
+        1: (rfc1051: Tarc_rfc1051);
+        2: (eth_encap: Tarc_eth_encap);
+        3: (cap: Tarc_cap);
+        4: (raw: Pu8);
+      end;
+  end;
+  Parchdr = ^Tarchdr;
+
+
   // /usr/include/netinet/in.h
 
 type

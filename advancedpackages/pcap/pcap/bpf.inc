@@ -1,13 +1,4 @@
-unit bpf;
-
-interface
-
-uses
-  fp_pcap;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -119,7 +110,10 @@ const
   // === Konventiert am: 30-8-25 19:13:56 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
@@ -165,4 +159,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}
