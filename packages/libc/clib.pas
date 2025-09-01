@@ -383,6 +383,7 @@ type     // /usr/include/linux/ppp_defs.h
   end;
 
 // /usr/include/x86_64-linux-gnu/bits/struct_stat.h
+
 type
   __dev_t = UInt64;
   __ino_t = UInt64;
@@ -411,7 +412,7 @@ type
     st_gid: __gid_t;                  // 4 Bytes
     __pad0: Int32;                    // 4 Bytes Padding
     st_rdev: __dev_t;                 // 8 Bytes
-    __pad2: array[0..3] of Byte;      // Padding, 4 Bytes
+//    __pad2: array[0..3] of Byte;      // Padding, 4 Bytes
     st_size: __off_t;                 // 8 Bytes
     st_blksize: __blksize_t;          // 8 Bytes
     st_blocks: __blkcnt_t;            // 8 Bytes
