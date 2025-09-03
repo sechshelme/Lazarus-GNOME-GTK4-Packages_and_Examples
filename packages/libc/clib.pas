@@ -121,8 +121,6 @@ type // /usr/include/x86_64-linux-gnu/bits/types.h
   Tsyscall_slong_t=Int64;
 
 
-
-
   // /usr/include/asm-generic/bitsperlong.h
 const
   {$IFDEF CPU64}
@@ -231,7 +229,7 @@ type
   Ptimer_t = ^Ttimer_t;
 
   // /usr/include/x86_64-linux-gnu/bits/types/time_t.h
-  Ttime_t = longint;
+  Ttime_t = UInt64;
   Ptime_t = ^Ttime_t;
 
   // /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h

@@ -15,20 +15,24 @@ uses
   fp_fcntl,
   fp_string,
   fp_errno,
+  fp_stat,
+
   fp_fuse;
 
 const
   datei_pfad: pchar = '/hello'#0;
-  datei_inhalt: pchar = 'Hallo von FUSE!'#10#9;
+  datei_inhalt: pchar = 'Hallo von FUSE!'#10'Hello World !'#10#0;
 
   function mein_getattr(pfad: pchar; stbuf: Pstat; fi: Pfuse_file_info): longint; cdecl;
   begin
     memset(stbuf, 0, SizeOf(Tstat));
     if strcmp(pfad, '/') = 0 then begin
       stbuf^.st_mode := S_IFDIR or &755;
+//      stbuf^.st_mode := 16877;
       stbuf^.st_nlink := 2;
     end else if strcmp(pfad, datei_pfad) = 0 then begin
       stbuf^.st_mode := S_IFREG or &444;
+//      stbuf^.st_mode := 33060;
       stbuf^.st_nlink := 1;
       stbuf^.st_size := strlen(datei_inhalt);
     end else begin
@@ -82,12 +86,14 @@ const
   var
     mein_oper: Tfuse_operations;
   begin
+    FillChar(mein_oper,SizeOf(Tfuse_operations), 0 );
     with mein_oper do begin
       getattr := @mein_getattr;
       readdir := @mein_readdir;
       open := @mein_open;
       read := @mein_read;
     end;
+    WriteLn(SizeOf(Tfuse_operations));
     fuse_main_real(argc, argv, @mein_oper, SizeOf(Tfuse_operations), nil);
   end;
 
@@ -95,10 +101,12 @@ const
   var
     st: Tstat;
   begin
+    WriteLn('Toff_t: ',SizeOf(Toff_t));
+
     printf('S_IFDIR:   %d'#10, S_IFDIR);
     printf('S_IFREG:   %d'#10, S_IFREG);
-    printf('S_IFDIR:   %d'#10, S_IFDIR or &755);
-    printf('S_IFREG:   %d'#10, S_IFREG or &444);
+    printf('S_IFDIR or &755  %d'#10, S_IFDIR or &755);
+    printf('S_IFREG or &444  %d'#10, S_IFREG or &444);
 
 
     printf('size: %ld'#10#10, sizeof(st));

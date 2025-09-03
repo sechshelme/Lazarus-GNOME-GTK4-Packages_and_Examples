@@ -3,7 +3,7 @@ unit fuse;
 interface
 
 uses
-  clib, fp_fuse, fuse_opt, fuse_common;
+  clib, fp_stat, fp_fuse, fuse_opt, fuse_common;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
