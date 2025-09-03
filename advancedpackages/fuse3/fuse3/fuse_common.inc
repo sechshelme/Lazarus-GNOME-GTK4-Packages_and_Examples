@@ -1,13 +1,4 @@
-unit fuse_common;
-
-interface
-
-uses
-  clib, fp_fuse, fuse_opt;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -153,7 +144,10 @@ procedure fuse_loop_cfg_convert(config: Pfuse_loop_config; v1_conf: Pfuse_loop_c
 // === Konventiert am: 31-8-25 17:01:35 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 function FUSE_MAKE_VERSION(maj, min: longint): longint;
@@ -167,4 +161,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

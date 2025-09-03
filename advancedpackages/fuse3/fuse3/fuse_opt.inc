@@ -1,13 +1,4 @@
-unit fuse_opt;
-
-interface
-
-uses
-  fp_fuse;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -45,8 +36,11 @@ function fuse_opt_match(opts: Pfuse_opt; opt: pchar): longint; cdecl; external l
 // === Konventiert am: 31-8-25 17:01:43 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

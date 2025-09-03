@@ -205,6 +205,9 @@ function g_test_rand_bit: Tgboolean;
 procedure g_assert_not_reached;
 procedure g_assert(expr: Tgboolean);
 
+procedure g_test_add(testpath: pchar; FixtureSize: SizeUInt; tdata: Pointer; fsetup: TGTestFixtureFunc; ftest: TGTestFixtureFunc; fteardown: TGTestFixtureFunc);
+
+
 // === Konventiert am: 12-11-24 17:12:11 ===
 
 
@@ -212,6 +215,11 @@ procedure g_assert(expr: Tgboolean);
 
 
 {$IFDEF read_implementation}
+
+procedure g_test_add(testpath: pchar; FixtureSize: SizeUInt; tdata: Pointer; fsetup: TGTestFixtureFunc; ftest: TGTestFixtureFunc; fteardown: TGTestFixtureFunc);
+begin
+  g_test_add_vtable(testpath, FixtureSize, tdata, fsetup, ftest, fteardown);
+end;
 
 
 function g_test_initialized: Tgboolean;

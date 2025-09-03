@@ -225,6 +225,7 @@ const
     (libs: 'libpcap'; units: 'ctypes'),
     (libs: 'libfuse3'; units: 'fp_fuse'),
 
+    (libs: 'libpeas2'; units: 'fp_glib2, fp_peas2'),
 
 
 

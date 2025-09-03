@@ -1,13 +1,4 @@
-unit fuse;
-
-interface
-
-uses
-  clib, fp_stat, fp_fuse, fuse_opt, fuse_common;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -117,12 +108,11 @@ type
   end;
   Pfuse_context = ^Tfuse_context;
 
-  { xxxxxxxxx #define fuse_main(argc, argv, op, private_data)          fuse_main_real(argc, argv, op, sizeof(*(op)), private_data) }
+
+function fuse_main(argc: longint; argv: PPchar; op: Pfuse_operations; private_data: pointer): longint;
 
 procedure fuse_lib_help(args: Pfuse_args); cdecl; external libfuse3;
 function fuse_new_30(args: Pfuse_args; op: Pfuse_operations; op_size: Tsize_t; private_data: pointer): Pfuse; cdecl; external libfuse3;
-
-// function fuse_new(args,op,size,data : longint) : longint;
 
 function fuse_new(args: Pfuse_args; op: Pfuse_operations; op_size: Tsize_t; private_data: pointer): Pfuse; cdecl; external libfuse3;
 function fuse_new_31(args: Pfuse_args; op: Pfuse_operations; op_size: Tsize_t; user_data: pointer): Pfuse; cdecl; external libfuse3;
@@ -215,7 +205,16 @@ function fuse_open_channel(mountpoint: pchar; options: pchar): longint; cdecl; e
 // === Konventiert am: 31-8-25 17:01:33 ===
 
 
-implementation
+{$ENDIF read_interface}
 
 
-end.
+{$IFDEF read_implementation}
+
+function fuse_main(argc: longint; argv: PPchar; op: Pfuse_operations;
+  private_data: pointer): longint;
+begin
+  Result := fuse_main_real(argc, argv, op, SizeOf(op^), private_data);
+end;
+
+
+{$ENDIF read_implementation}

@@ -1,23 +1,13 @@
 program project1;
 
 uses
-  fuse_opt,
-  fuse_common,
-
-  cuse_lowlevel,
-  fuse,       // fuse_main    makro
-  fuse_log,
-  fuse_lowlevel,
-
-
   clib,
   fp_stdio,
   fp_fcntl,
   fp_string,
   fp_errno,
   fp_stat,
-
-  fp_fuse;
+  fp_fuse3;
 
 const
   datei_pfad: pchar = '/hello'#0;
@@ -25,14 +15,13 @@ const
 
   function mein_getattr(pfad: pchar; stbuf: Pstat; fi: Pfuse_file_info): longint; cdecl;
   begin
+    fuse_log(FUSE_LOG_INFO, 'Hello');
     memset(stbuf, 0, SizeOf(Tstat));
     if strcmp(pfad, '/') = 0 then begin
       stbuf^.st_mode := S_IFDIR or &755;
-//      stbuf^.st_mode := 16877;
       stbuf^.st_nlink := 2;
     end else if strcmp(pfad, datei_pfad) = 0 then begin
       stbuf^.st_mode := S_IFREG or &444;
-//      stbuf^.st_mode := 33060;
       stbuf^.st_nlink := 1;
       stbuf^.st_size := strlen(datei_inhalt);
     end else begin
@@ -82,6 +71,11 @@ const
     Exit(size);
   end;
 
+
+const
+  arg:array[0..1] of pchar=('abc', '/home/tux/test');
+//  arg:array[0..1] of pchar=('abc', '~/test');
+
   procedure main;
   var
     mein_oper: Tfuse_operations;
@@ -94,15 +88,14 @@ const
       read := @mein_read;
     end;
     WriteLn(SizeOf(Tfuse_operations));
-    fuse_main_real(argc, argv, @mein_oper, SizeOf(Tfuse_operations), nil);
+//fuse_main(argc, argv, @mein_oper, nil);
+fuse_main(Length(arg), arg, @mein_oper, nil);
   end;
 
   procedure test;
   var
     st: Tstat;
   begin
-    WriteLn('Toff_t: ',SizeOf(Toff_t));
-
     printf('S_IFDIR:   %d'#10, S_IFDIR);
     printf('S_IFREG:   %d'#10, S_IFREG);
     printf('S_IFDIR or &755  %d'#10, S_IFDIR or &755);

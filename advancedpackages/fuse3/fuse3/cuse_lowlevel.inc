@@ -1,13 +1,4 @@
-unit cuse_lowlevel;
-
-interface
-
-uses
-  clib, fp_fuse, fuse_opt, fuse_common, fuse_lowlevel;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -17,8 +8,6 @@ const
   CUSE_UNRESTRICTED_IOCTL = 1 shl 0;
 
 type
-  Pfuse_session = type Pointer;
-
   Tcuse_info = record
     dev_major: dword;
     dev_minor: dword;
@@ -27,8 +16,6 @@ type
     flags: dword;
   end;
   Pcuse_info = ^Tcuse_info;
-
-  Pcuse_lowlevel_ops = ^Tcuse_lowlevel_ops;
 
   Tcuse_lowlevel_ops = record
     init: procedure(userdata: pointer; conn: Pfuse_conn_info); cdecl;
@@ -44,7 +31,7 @@ type
       in_buf: pointer; in_bufsz: Tsize_t; out_bufsz: Tsize_t); cdecl;
     poll: procedure(req: Tfuse_req_t; fi: Pfuse_file_info; ph: Pfuse_pollhandle); cdecl;
   end;
-
+  Pcuse_lowlevel_ops = ^Tcuse_lowlevel_ops;
 
 function cuse_lowlevel_new(args: Pfuse_args; ci: Pcuse_info; clop: Pcuse_lowlevel_ops; userdata: pointer): Pfuse_session; cdecl; external libfuse3;
 function cuse_lowlevel_setup(argc: longint; argv: PPchar; ci: Pcuse_info; clop: Pcuse_lowlevel_ops; multithreaded: Plongint;
@@ -55,8 +42,11 @@ function cuse_lowlevel_main(argc: longint; argv: PPchar; ci: Pcuse_info; clop: P
 // === Konventiert am: 31-8-25 17:01:30 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

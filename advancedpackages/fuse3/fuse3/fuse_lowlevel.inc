@@ -1,13 +1,4 @@
-unit fuse_lowlevel;
-
-interface
-
-uses
-  clib, fp_stdlib, fp_stat, fp_fuse, fuse_opt, fuse_common;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -18,8 +9,6 @@ type
   Tfuse_ino_t = Tuint64_t;
 
   Tfuse_req_t = type Pointer;
-
-  Pfuse_session = type Pointer;
 
   Tfuse_entry_param = record
     ino: Tfuse_ino_t;
@@ -219,7 +208,10 @@ function fuse_session_receive_buf(se: Pfuse_session; buf: Pfuse_buf): longint; c
 // === Konventiert am: 31-8-25 17:01:40 ===
 
 
-implementation
+{$ENDIF read_interface}
 
 
-end.
+{$IFDEF read_implementation}
+
+
+{$ENDIF read_implementation}
