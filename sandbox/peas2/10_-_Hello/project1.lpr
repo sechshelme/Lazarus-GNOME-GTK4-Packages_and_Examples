@@ -39,9 +39,8 @@ type
   function main(argc: cint; argv: PPChar): cint;
   var
     engine: PPeasEngine;
-    plugin_list: PPeasEngine;
-    n_plugins, n: Tguint;
-    info: Tgpointer;
+    n: Tguint;
+    info: PPeasPluginInfo;
     i: integer;
   begin
     engine := peas_engine_get_default;
@@ -52,7 +51,6 @@ type
       g_printf('Fehler beim Laden der Standard Peas Engine.'#10);
     end;
 
-
     peas_engine_add_search_path(engine, '/usr/lib/x86_64-linux-gnu/gedit/plugins', nil);
     peas_engine_rescan_plugins(engine);
 
@@ -61,9 +59,32 @@ type
 
     for i := 0 to n - 1 do begin
       info := g_list_model_get_item(G_LIST_MODEL(engine), i);
-      g_printf(' - %s\n'#10, peas_plugin_info_get_name(info));
+      g_printf(' - %s'#10, peas_plugin_info_get_name(info));
+
+
+//      g_print("Gefundenes Plugin: %s\n", peas_plugin_info_get_name(plugin_instance));
+//
+//  g_print("Name: %s\n", peas_plugin_info_get_name(plugin_instance));
+//  g_print("Beschreibung: %s\n", peas_plugin_info_get_description(plugin_instance));
+//  g_print("Version: %s\n", peas_plugin_info_get_version(plugin_instance));
+//
+//const char *const *authors = peas_plugin_info_get_authors(plugin_instance);
+//
+//if (authors != NULL) {
+//  for (int j = 0; authors[j] != NULL; j++) {
+//      g_print("  Autor: %s\n", authors[j]);
+//  }
+//}
+      g_printf(#10);
+      g_printf(#10);
+
+
+
       g_object_unref(info);
     end;
+
+    g_object_unref(engine);
+
 
 
     //g_test_add('/plugin-info/verify-full-info', SizeOf(TTestFixture),
