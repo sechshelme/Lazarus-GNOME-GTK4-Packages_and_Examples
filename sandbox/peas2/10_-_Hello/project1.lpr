@@ -13,35 +13,13 @@ uses
   ctypes,
   fp_peas2;
 
-type
-  TTestFixture = record
-    engine: PPeasEngine;
-  end;
-  PTestFixture = ^TTestFixture;
-
-  procedure test_setup(fixture: Tgpointer; user_data: Tgconstpointer); cdecl;
-  var
-    fix: PTestFixture absolute fixture;
-  begin
-    //    fix^.engine := testing_engine_new ;
-  end;
-
-  procedure test_runner(fixture: Tgpointer; user_data: Tgconstpointer); cdecl;
-  begin
-
-  end;
-
-  procedure test_teardown(fixture: Tgpointer; user_data: Tgconstpointer); cdecl;
-  begin
-
-  end;
-
   function main(argc: cint; argv: PPChar): cint;
   var
     engine: PPeasEngine;
     n: Tguint;
     info: PPeasPluginInfo;
-    i: integer;
+    i, j: integer;
+    authors: PPChar;
   begin
     engine := peas_engine_get_default;
 
@@ -59,57 +37,26 @@ type
 
     for i := 0 to n - 1 do begin
       info := g_list_model_get_item(G_LIST_MODEL(engine), i);
-      g_printf(' - %s'#10, peas_plugin_info_get_name(info));
+      g_print('Gefundenes Plugin: %s'#10, peas_plugin_info_get_name(info));
+      g_print('Name: %s'#10, peas_plugin_info_get_name(info));
+      g_print('Beschreibung: %s'#10, peas_plugin_info_get_description(info));
+      g_print('Version: %s'#10, peas_plugin_info_get_version(info));
 
-
-//      g_print("Gefundenes Plugin: %s\n", peas_plugin_info_get_name(plugin_instance));
-//
-//  g_print("Name: %s\n", peas_plugin_info_get_name(plugin_instance));
-//  g_print("Beschreibung: %s\n", peas_plugin_info_get_description(plugin_instance));
-//  g_print("Version: %s\n", peas_plugin_info_get_version(plugin_instance));
-//
-//const char *const *authors = peas_plugin_info_get_authors(plugin_instance);
-//
-//if (authors != NULL) {
-//  for (int j = 0; authors[j] != NULL; j++) {
-//      g_print("  Autor: %s\n", authors[j]);
-//  }
-//}
-      g_printf(#10);
-      g_printf(#10);
-
-
-
+      authors := peas_plugin_info_get_authors(info);
+      if authors <> nil then begin
+        g_print('Autor:'#10);
+        j := 0;
+        while authors[j] <> nil do begin
+          g_print('%3d. %s'#10, j, authors[j]);
+          inc(j);
+        end;
+        g_printf(#10);
+        g_printf(#10);
+      end;
       g_object_unref(info);
     end;
 
     g_object_unref(engine);
-
-
-
-    //g_test_add('/plugin-info/verify-full-info', SizeOf(TTestFixture),
-    //  @test_plugin_info_verify_full_info,
-    //  @test_setup, @test_runner, @test_teardown);
-
-    //g_test_add('/plugin-info/verify-min-info', SizeOf(TTestFixture),
-    //  @test_plugin_info_verify_min_info,
-    //  @test_setup, @test_runner, @test_teardown);
-    //
-    //g_test_add('/plugin-info/has-dep', SizeOf(TTestFixture),
-    //  @test_plugin_info_has_dep,
-    //  @test_setup, @test_runner, @test_teardown);
-    //
-    //g_test_add('/plugin-info/missing-module', SizeOf(TTestFixture),
-    //  @test_plugin_info_missing_module,
-    //  @test_setup, @test_runner, @test_teardown);
-    //
-    //g_test_add('/plugin-info/missing-name', SizeOf(TTestFixture),
-    //  @test_plugin_info_missing_name,
-    //  @test_setup, @test_runner, @test_teardown);
-    //
-    //g_test_add('/plugin-info/os-dependant-help', SizeOf(TTestFixture),
-    //  @test_plugin_info_os_dependant_help,
-    //  @test_setup, @test_runner, @test_teardown);
   end;
 
 begin
