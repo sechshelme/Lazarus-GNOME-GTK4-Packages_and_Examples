@@ -1,17 +1,9 @@
 program project1;
 
 uses
-  peas_plugin_info,
-  peas_engine,
-  peas_extension_base,
-  peas_extension_set,
-  peas_object_module,
-  peas_version,
-
-
   fp_glib2,
-  ctypes,
-  fp_peas2;
+  fp_peas2,
+  ctypes;
 
   function main(argc: cint; argv: PPChar): cint;
   var
