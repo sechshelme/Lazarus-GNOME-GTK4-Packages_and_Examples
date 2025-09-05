@@ -29,10 +29,15 @@ uses
 
     for i := 0 to n - 1 do begin
       info := g_list_model_get_item(G_LIST_MODEL(engine), i);
+
       g_print('Gefundenes Plugin: %s'#10, peas_plugin_info_get_name(info));
       g_print('Name: %s'#10, peas_plugin_info_get_name(info));
       g_print('Beschreibung: %s'#10, peas_plugin_info_get_description(info));
       g_print('Version: %s'#10, peas_plugin_info_get_version(info));
+      g_print('Daten Pfad: %s'#10, peas_plugin_info_get_data_dir(info));
+      g_print('URI: %s'#10, peas_plugin_info_get_help_uri(info));
+      g_print('Icon Name: %s'#10, peas_plugin_info_get_icon_name(info));
+      g_print('Webseite: %s'#10, peas_plugin_info_get_website(info));
 
       authors := peas_plugin_info_get_authors(info);
       if authors <> nil then begin
