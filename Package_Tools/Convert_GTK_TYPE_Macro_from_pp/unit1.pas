@@ -228,6 +228,9 @@ const
     (libs: 'libpeas2'; units: 'fp_glib2, fp_peas2'),
 
 
+    (libs: 'libtcod'; units: 'fp_tcod'),
+
+
 
 
     (libs: ''; units: ''));
