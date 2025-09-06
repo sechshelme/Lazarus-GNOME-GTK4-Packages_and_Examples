@@ -50,8 +50,9 @@
 extern "C" {
 #endif
 
-#define TCOD_BKGND_ALPHA(alpha) ((TCOD_bkgnd_flag_t)(TCOD_BKGND_ALPH | (((uint8_t)(alpha * 255)) << 8)))
-#define TCOD_BKGND_ADDALPHA(alpha) ((TCOD_bkgnd_flag_t)(TCOD_BKGND_ADDA | (((uint8_t)(alpha * 255)) << 8)))
+// xxxxxxxxxxxx
+//#define TCOD_BKGND_ALPHA(alpha) ((TCOD_bkgnd_flag_t)(TCOD_BKGND_ALPH | (((uint8_t)(alpha * 255)) << 8)))
+//#define TCOD_BKGND_ADDALPHA(alpha) ((TCOD_bkgnd_flag_t)(TCOD_BKGND_ADDA | (((uint8_t)(alpha * 255)) << 8)))
 
  TCOD_Error
 TCOD_console_set_custom_font(const char* fontFile, int flags, int nb_char_horiz, int nb_char_vertic);
@@ -62,7 +63,7 @@ TCOD_console_set_custom_font(const char* fontFile, int flags, int nb_char_horiz,
  void TCOD_console_map_string_to_font_utf(const wchar_t* s, int fontCharX, int fontCharY);
 #endif
 
-TCOD_DEPRECATED("This function does nothing.")
+//TCOD_DEPRECATED("This function does nothing.")
  void TCOD_console_set_dirty(int x, int y, int w, int h);
 /**
     Render and present a console with optional viewport options.
@@ -89,7 +90,7 @@ extern TCOD_Error TCOD_console_flush(void);
         You should instead use SDL_GetKeyboardState to check if keys are held.
     \endrst
  */
-TCOD_DEPRECATED("Use SDL to check the keyboard state.")
+//TCOD_DEPRECATED("Use SDL to check the keyboard state.")
  bool TCOD_console_is_key_pressed(TCOD_keycode_t key);
 
 /* ASCII paint file support */
@@ -107,7 +108,7 @@ TCOD_DEPRECATED("Use SDL to check the keyboard state.")
     \return A TCOD_key_t struct with a recently pressed key.
             If no event exists then the `vk` attribute will be `TCODK_NONE`
  */
-TCOD_DEPRECATED("This API is deprecated, use SDL_PollEvent instead.")
+//TCOD_DEPRECATED("This API is deprecated, use SDL_PollEvent instead.")
  TCOD_key_t TCOD_console_check_for_keypress(int flags);
 /**
     Wait for a key press event, then return it.
@@ -118,16 +119,16 @@ TCOD_DEPRECATED("This API is deprecated, use SDL_PollEvent instead.")
 
     Do not solve input lag issues by arbitrarily dropping events!
  */
-TCOD_DEPRECATED("This API is deprecated, use SDL_WaitEvent instead.")
+//TCOD_DEPRECATED("This API is deprecated, use SDL_WaitEvent instead.")
  TCOD_key_t TCOD_console_wait_for_keypress(bool flush);
 
  void TCOD_console_credits(void);
  void TCOD_console_credits_reset(void);
  bool TCOD_console_credits_render(int x, int y, bool alpha);
 
-TCOD_DEPRECATED("This function is a stub and will do nothing.")
+//TCOD_DEPRECATED("This function is a stub and will do nothing.")
  void TCOD_console_set_keyboard_repeat(int initial_delay, int interval);
-TCOD_DEPRECATED("This function is a stub and will do nothing.")
+//TCOD_DEPRECATED("This function is a stub and will do nothing.")
  void TCOD_console_disable_keyboard_repeat(void);
 #endif  // NO_SDL
 #ifdef __cplusplus

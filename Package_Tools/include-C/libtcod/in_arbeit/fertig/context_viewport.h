@@ -93,7 +93,7 @@ extern "C" {
     .. versionadded:: 1.16
     \endrst
  */
-extern extern TCOD_ViewportOptions* TCOD_viewport_new(void);
+ extern TCOD_ViewportOptions* TCOD_viewport_new(void);
 /**
     Delete a viewport.
     \rst
