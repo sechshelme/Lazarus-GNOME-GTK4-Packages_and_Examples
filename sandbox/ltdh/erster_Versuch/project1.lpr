@@ -1,46 +1,42 @@
 program project1;
 
 uses
-  fp_ltdl,
-  lt_dlloader,
-  lt_error,
-  lt_system;
+  fp_ltdl;
+
+var
+  my_printf: function(f: pchar): double; varargs; cdecl;
 
   procedure main;
+  var
+    handle: Tlt_dlhandle;
+    err: pchar;
   begin
-    lt_dlhandle handle;
-    double (*cosine)(double);
-    const char *error;
+    if lt_dlinit <> 0 then begin
+      WriteLn('Fehler bei lt_dlinit: ', lt_dlerror);
+      Exit;
+    end;
 
-    // libltdl initialisieren
-    if (lt_dlinit() != 0) {
-        fprintf(stderr, "Fehler bei lt_dlinit: %s\n", lt_dlerror());
-        return 1;
-    }
+    handle := lt_dlopen('libc.so.6');
+    if handle = nil then begin
+      WriteLn('Fehler beim Laden der Bibliothek: ', lt_dlerror);
+      lt_dlexit;
+      Exit;
+    end;
 
-    // Bibliothek (hier libm.so.6) laden
-    handle = lt_dlopen("libm.so.6");
-    if (!handle) {
-        fprintf(stderr, "Fehler beim Laden der Bibliothek: %s\n", lt_dlerror());
-        lt_dlexit();
-        return 1;
-    }
+    Pointer(my_printf) := lt_dlsym(handle, 'printf');
+    err := lt_dlerror;
+    if err <> nil then  begin
+      WriteLn('Fehler beim Finden der Funktion printf: ', err);
+      lt_dlclose(handle);
+      lt_dlexit;
+      Exit;
+    end;
 
-    // Funktion "cos" aus der Bibliothek holen
-    cosine = (double (*)(double))lt_dlsym(handle, "cos");
-    if ((error = lt_dlerror()) != NULL) {
-        fprintf(stderr, "Fehler beim Finden der Funktion cos: %s\n", error);
-        lt_dlclose(handle);
-        lt_dlexit();
-        return 1;
-    }
+    my_printf('Double: %f,  Integer: %d'#10, 12.45, 123);
 
-    // Funktion aufrufen
-    printf("cos(2.0) = %f\n", (*cosine)(2.0));
-
-    // Bibliothek schließen und libltdl beenden
     lt_dlclose(handle);
-    lt_dlexit();  end;
+    lt_dlexit;
+  end;
 
 begin
   main;
