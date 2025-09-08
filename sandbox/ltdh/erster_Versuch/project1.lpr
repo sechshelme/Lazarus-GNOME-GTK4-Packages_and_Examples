@@ -6,6 +6,17 @@ uses
 var
   my_printf: function(f: pchar): double; varargs; cdecl;
 
+  function File_cp(filename: pchar; data: Pointer): longint; cdecl;
+  begin
+     WriteLn('Gefundenes Modul: ',filename);
+     Result:=0;
+  end;
+
+  procedure FindModules;
+  begin
+     lt_dlforeachfile('/usr/lib', @File_cp, nil);
+  end;
+
   procedure main;
   var
     handle: Tlt_dlhandle;
@@ -15,6 +26,9 @@ var
       WriteLn('Fehler bei lt_dlinit: ', lt_dlerror);
       Exit;
     end;
+
+    FindModules;
+    WriteLn();
 
     handle := lt_dlopen('libc.so.6');
     if handle = nil then begin
@@ -32,7 +46,7 @@ var
       Exit;
     end;
 
-    my_printf('Double: %f,  Integer: %d'#10, 12.45, 123);
+    my_printf('Integer: %d,  String: "%s"'#10, 123, 'Hello World');
 
     lt_dlclose(handle);
     lt_dlexit;
