@@ -1,63 +1,15 @@
-
 unit gelf;
+
 interface
 
-{
-  Automatically converted by H2Pas 1.0.0 from gelf.h
-  The following command line parameters were used:
-    -p
-    -T
-    -d
-    -c
-    -e
-    gelf.h
-}
+uses
+  fp_tcod;
 
-{ Pointers to basic pascal types, inserted by h2pas conversion program.}
-Type
-  PLongint  = ^Longint;
-  PSmallInt = ^SmallInt;
-  PByte     = ^Byte;
-  PWord     = ^Word;
-  PDWord    = ^DWord;
-  PDouble   = ^Double;
-
-Type
-PElf  = ^Elf;
-PElf32_Word  = ^Elf32_Word;
-PElf_Data  = ^Elf_Data;
-PElf_Scn  = ^Elf_Scn;
-PGElf_Addr  = ^GElf_Addr;
-PGElf_auxv_t  = ^GElf_auxv_t;
-PGElf_Chdr  = ^GElf_Chdr;
-PGElf_Dyn  = ^GElf_Dyn;
-PGElf_Ehdr  = ^GElf_Ehdr;
-PGElf_Half  = ^GElf_Half;
-PGElf_Lib  = ^GElf_Lib;
-PGElf_Move  = ^GElf_Move;
-PGElf_Nhdr  = ^GElf_Nhdr;
-PGElf_Off  = ^GElf_Off;
-PGElf_Phdr  = ^GElf_Phdr;
-PGElf_Rel  = ^GElf_Rel;
-PGElf_Rela  = ^GElf_Rela;
-PGElf_Relr  = ^GElf_Relr;
-PGElf_Section  = ^GElf_Section;
-PGElf_Shdr  = ^GElf_Shdr;
-PGElf_Sword  = ^GElf_Sword;
-PGElf_Sxword  = ^GElf_Sxword;
-PGElf_Sym  = ^GElf_Sym;
-PGElf_Syminfo  = ^GElf_Syminfo;
-PGElf_Verdaux  = ^GElf_Verdaux;
-PGElf_Verdef  = ^GElf_Verdef;
-PGElf_Vernaux  = ^GElf_Vernaux;
-PGElf_Verneed  = ^GElf_Verneed;
-PGElf_Versym  = ^GElf_Versym;
-PGElf_Word  = ^GElf_Word;
-PGElf_Xword  = ^GElf_Xword;
-Psize_t  = ^size_t;
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
+
+// /usr/include/gelf.h
 
 
 { This file defines generic ELF types, structures, and macros.
@@ -261,116 +213,118 @@ function GELF_M_SIZE(info : longint) : longint;
 function GELF_M_INFO(sym,size : longint) : longint;
 
 { Get class of the file associated with ELF.   }
-function gelf_getclass(__elf:PElf):longint;cdecl;external;
+function gelf_getclass(__elf:PElf):longint;cdecl;external libtcod;
 { Return size of array of COUNT elements of the type denoted by TYPE
    in the external representation.  The binary class is taken from ELF.
    The result is based on version VERSION of the ELF standard.   }
-function gelf_fsize(__elf:PElf; __type:TElf_Type; __count:Tsize_t; __version:dword):Tsize_t;cdecl;external;
+function gelf_fsize(__elf:PElf; __type:TElf_Type; __count:Tsize_t; __version:dword):Tsize_t;cdecl;external libtcod;
 { Retrieve object file header.   }
-function gelf_getehdr(__elf:PElf; __dest:PGElf_Ehdr):PGElf_Ehdr;cdecl;external;
+function gelf_getehdr(__elf:PElf; __dest:PGElf_Ehdr):PGElf_Ehdr;cdecl;external libtcod;
 { Update the ELF header.   }
-function gelf_update_ehdr(__elf:PElf; __src:PGElf_Ehdr):longint;cdecl;external;
+function gelf_update_ehdr(__elf:PElf; __src:PGElf_Ehdr):longint;cdecl;external libtcod;
 { Create new ELF header if none exists.  Creates an Elf32_Ehdr if CLASS
    is ELFCLASS32 or an Elf64_Ehdr if CLASS is ELFCLASS64.  Returns NULL
    on error.   }
-function gelf_newehdr(__elf:PElf; __class:longint):pointer;cdecl;external;
+function gelf_newehdr(__elf:PElf; __class:longint):pointer;cdecl;external libtcod;
 { Get section at OFFSET.   }
-function gelf_offscn(__elf:PElf; __offset:TGElf_Off):PElf_Scn;cdecl;external;
+function gelf_offscn(__elf:PElf; __offset:TGElf_Off):PElf_Scn;cdecl;external libtcod;
 { Retrieve section header.   }
-function gelf_getshdr(__scn:PElf_Scn; __dst:PGElf_Shdr):PGElf_Shdr;cdecl;external;
+function gelf_getshdr(__scn:PElf_Scn; __dst:PGElf_Shdr):PGElf_Shdr;cdecl;external libtcod;
 { Update section header.   }
-function gelf_update_shdr(__scn:PElf_Scn; __src:PGElf_Shdr):longint;cdecl;external;
+function gelf_update_shdr(__scn:PElf_Scn; __src:PGElf_Shdr):longint;cdecl;external libtcod;
 { Retrieve program header table entry.   }
-function gelf_getphdr(__elf:PElf; __ndx:longint; __dst:PGElf_Phdr):PGElf_Phdr;cdecl;external;
+function gelf_getphdr(__elf:PElf; __ndx:longint; __dst:PGElf_Phdr):PGElf_Phdr;cdecl;external libtcod;
 { Update the program header.   }
-function gelf_update_phdr(__elf:PElf; __ndx:longint; __src:PGElf_Phdr):longint;cdecl;external;
+function gelf_update_phdr(__elf:PElf; __ndx:longint; __src:PGElf_Phdr):longint;cdecl;external libtcod;
 { Create new program header with PHNUM entries.  Creates either an
    Elf32_Phdr or an Elf64_Phdr depending on whether the given ELF is
    ELFCLASS32 or ELFCLASS64.  Returns NULL on error.   }
-function gelf_newphdr(__elf:PElf; __phnum:Tsize_t):pointer;cdecl;external;
+function gelf_newphdr(__elf:PElf; __phnum:Tsize_t):pointer;cdecl;external libtcod;
 { Get compression header of section if any.  Returns NULL and sets
    elf_errno if the section isn't compressed or an error occurred.   }
-function gelf_getchdr(__scn:PElf_Scn; __dst:PGElf_Chdr):PGElf_Chdr;cdecl;external;
+function gelf_getchdr(__scn:PElf_Scn; __dst:PGElf_Chdr):PGElf_Chdr;cdecl;external libtcod;
 { Convert data structure from the representation in the file represented
    by ELF to their memory representation.   }
-(* Const before type ignored *)
-function gelf_xlatetom(__elf:PElf; __dest:PElf_Data; __src:PElf_Data; __encode:dword):PElf_Data;cdecl;external;
+function gelf_xlatetom(__elf:PElf; __dest:PElf_Data; __src:PElf_Data; __encode:dword):PElf_Data;cdecl;external libtcod;
 { Convert data structure from to the representation in memory
    represented by ELF file representation.   }
-(* Const before type ignored *)
-function gelf_xlatetof(__elf:PElf; __dest:PElf_Data; __src:PElf_Data; __encode:dword):PElf_Data;cdecl;external;
+function gelf_xlatetof(__elf:PElf; __dest:PElf_Data; __src:PElf_Data; __encode:dword):PElf_Data;cdecl;external libtcod;
 { Retrieve REL relocation info at the given index.   }
-function gelf_getrel(__data:PElf_Data; __ndx:longint; __dst:PGElf_Rel):PGElf_Rel;cdecl;external;
+function gelf_getrel(__data:PElf_Data; __ndx:longint; __dst:PGElf_Rel):PGElf_Rel;cdecl;external libtcod;
 { Retrieve RELA relocation info at the given index.   }
-function gelf_getrela(__data:PElf_Data; __ndx:longint; __dst:PGElf_Rela):PGElf_Rela;cdecl;external;
+function gelf_getrela(__data:PElf_Data; __ndx:longint; __dst:PGElf_Rela):PGElf_Rela;cdecl;external libtcod;
 { Update REL relocation information at given index.   }
-function gelf_update_rel(__dst:PElf_Data; __ndx:longint; __src:PGElf_Rel):longint;cdecl;external;
+function gelf_update_rel(__dst:PElf_Data; __ndx:longint; __src:PGElf_Rel):longint;cdecl;external libtcod;
 { Update RELA relocation information at given index.   }
-function gelf_update_rela(__dst:PElf_Data; __ndx:longint; __src:PGElf_Rela):longint;cdecl;external;
+function gelf_update_rela(__dst:PElf_Data; __ndx:longint; __src:PGElf_Rela):longint;cdecl;external libtcod;
 { Retrieve symbol information from the symbol table at the given index.   }
-function gelf_getsym(__data:PElf_Data; __ndx:longint; __dst:PGElf_Sym):PGElf_Sym;cdecl;external;
+function gelf_getsym(__data:PElf_Data; __ndx:longint; __dst:PGElf_Sym):PGElf_Sym;cdecl;external libtcod;
 { Update symbol information in the symbol table at the given index.   }
-function gelf_update_sym(__data:PElf_Data; __ndx:longint; __src:PGElf_Sym):longint;cdecl;external;
+function gelf_update_sym(__data:PElf_Data; __ndx:longint; __src:PGElf_Sym):longint;cdecl;external libtcod;
 { Retrieve symbol information and separate section index from the
    symbol table at the given index.   }
-function gelf_getsymshndx(__symdata:PElf_Data; __shndxdata:PElf_Data; __ndx:longint; __sym:PGElf_Sym; __xshndx:PElf32_Word):PGElf_Sym;cdecl;external;
+function gelf_getsymshndx(__symdata:PElf_Data; __shndxdata:PElf_Data; __ndx:longint; __sym:PGElf_Sym; __xshndx:PElf32_Word):PGElf_Sym;cdecl;external libtcod;
 { Update symbol information and separate section index in the symbol
    table at the given index.   }
-function gelf_update_symshndx(__symdata:PElf_Data; __shndxdata:PElf_Data; __ndx:longint; __sym:PGElf_Sym; __xshndx:TElf32_Word):longint;cdecl;external;
+function gelf_update_symshndx(__symdata:PElf_Data; __shndxdata:PElf_Data; __ndx:longint; __sym:PGElf_Sym; __xshndx:TElf32_Word):longint;cdecl;external libtcod;
 { Retrieve additional symbol information from the symbol table at the
    given index.   }
-function gelf_getsyminfo(__data:PElf_Data; __ndx:longint; __dst:PGElf_Syminfo):PGElf_Syminfo;cdecl;external;
+function gelf_getsyminfo(__data:PElf_Data; __ndx:longint; __dst:PGElf_Syminfo):PGElf_Syminfo;cdecl;external libtcod;
 { Update additional symbol information in the symbol table at the
    given index.   }
-function gelf_update_syminfo(__data:PElf_Data; __ndx:longint; __src:PGElf_Syminfo):longint;cdecl;external;
+function gelf_update_syminfo(__data:PElf_Data; __ndx:longint; __src:PGElf_Syminfo):longint;cdecl;external libtcod;
 { Get information from dynamic table at the given index.   }
-function gelf_getdyn(__data:PElf_Data; __ndx:longint; __dst:PGElf_Dyn):PGElf_Dyn;cdecl;external;
+function gelf_getdyn(__data:PElf_Data; __ndx:longint; __dst:PGElf_Dyn):PGElf_Dyn;cdecl;external libtcod;
 { Update information in dynamic table at the given index.   }
-function gelf_update_dyn(__dst:PElf_Data; __ndx:longint; __src:PGElf_Dyn):longint;cdecl;external;
+function gelf_update_dyn(__dst:PElf_Data; __ndx:longint; __src:PGElf_Dyn):longint;cdecl;external libtcod;
 { Get move structure at the given index.   }
-function gelf_getmove(__data:PElf_Data; __ndx:longint; __dst:PGElf_Move):PGElf_Move;cdecl;external;
+function gelf_getmove(__data:PElf_Data; __ndx:longint; __dst:PGElf_Move):PGElf_Move;cdecl;external libtcod;
 { Update move structure at the given index.   }
-function gelf_update_move(__data:PElf_Data; __ndx:longint; __src:PGElf_Move):longint;cdecl;external;
+function gelf_update_move(__data:PElf_Data; __ndx:longint; __src:PGElf_Move):longint;cdecl;external libtcod;
 { Get library from table at the given index.   }
-function gelf_getlib(__data:PElf_Data; __ndx:longint; __dst:PGElf_Lib):PGElf_Lib;cdecl;external;
+function gelf_getlib(__data:PElf_Data; __ndx:longint; __dst:PGElf_Lib):PGElf_Lib;cdecl;external libtcod;
 { Update library in table at the given index.   }
-function gelf_update_lib(__data:PElf_Data; __ndx:longint; __src:PGElf_Lib):longint;cdecl;external;
+function gelf_update_lib(__data:PElf_Data; __ndx:longint; __src:PGElf_Lib):longint;cdecl;external libtcod;
 { Retrieve symbol version information at given index.   }
-function gelf_getversym(__data:PElf_Data; __ndx:longint; __dst:PGElf_Versym):PGElf_Versym;cdecl;external;
+function gelf_getversym(__data:PElf_Data; __ndx:longint; __dst:PGElf_Versym):PGElf_Versym;cdecl;external libtcod;
 { Update symbol version information.   }
-function gelf_update_versym(__data:PElf_Data; __ndx:longint; __src:PGElf_Versym):longint;cdecl;external;
+function gelf_update_versym(__data:PElf_Data; __ndx:longint; __src:PGElf_Versym):longint;cdecl;external libtcod;
 { Retrieve required symbol version information at given offset.   }
-function gelf_getverneed(__data:PElf_Data; __offset:longint; __dst:PGElf_Verneed):PGElf_Verneed;cdecl;external;
+function gelf_getverneed(__data:PElf_Data; __offset:longint; __dst:PGElf_Verneed):PGElf_Verneed;cdecl;external libtcod;
 { Update required symbol version information.   }
-function gelf_update_verneed(__data:PElf_Data; __offset:longint; __src:PGElf_Verneed):longint;cdecl;external;
+function gelf_update_verneed(__data:PElf_Data; __offset:longint; __src:PGElf_Verneed):longint;cdecl;external libtcod;
 { Retrieve additional required symbol version information at given offset.   }
-function gelf_getvernaux(__data:PElf_Data; __offset:longint; __dst:PGElf_Vernaux):PGElf_Vernaux;cdecl;external;
+function gelf_getvernaux(__data:PElf_Data; __offset:longint; __dst:PGElf_Vernaux):PGElf_Vernaux;cdecl;external libtcod;
 { Update additional required symbol version information.   }
-function gelf_update_vernaux(__data:PElf_Data; __offset:longint; __src:PGElf_Vernaux):longint;cdecl;external;
+function gelf_update_vernaux(__data:PElf_Data; __offset:longint; __src:PGElf_Vernaux):longint;cdecl;external libtcod;
 { Retrieve symbol version definition information at given offset.   }
-function gelf_getverdef(__data:PElf_Data; __offset:longint; __dst:PGElf_Verdef):PGElf_Verdef;cdecl;external;
+function gelf_getverdef(__data:PElf_Data; __offset:longint; __dst:PGElf_Verdef):PGElf_Verdef;cdecl;external libtcod;
 { Update symbol version definition information.   }
-function gelf_update_verdef(__data:PElf_Data; __offset:longint; __src:PGElf_Verdef):longint;cdecl;external;
+function gelf_update_verdef(__data:PElf_Data; __offset:longint; __src:PGElf_Verdef):longint;cdecl;external libtcod;
 { Retrieve additional symbol version definition information at given
    offset.   }
-function gelf_getverdaux(__data:PElf_Data; __offset:longint; __dst:PGElf_Verdaux):PGElf_Verdaux;cdecl;external;
+function gelf_getverdaux(__data:PElf_Data; __offset:longint; __dst:PGElf_Verdaux):PGElf_Verdaux;cdecl;external libtcod;
 { Update additional symbol version definition information.   }
-function gelf_update_verdaux(__data:PElf_Data; __offset:longint; __src:PGElf_Verdaux):longint;cdecl;external;
+function gelf_update_verdaux(__data:PElf_Data; __offset:longint; __src:PGElf_Verdaux):longint;cdecl;external libtcod;
 { Get auxv entry at the given index.   }
-function gelf_getauxv(__data:PElf_Data; __ndx:longint; __dst:PGElf_auxv_t):PGElf_auxv_t;cdecl;external;
+function gelf_getauxv(__data:PElf_Data; __ndx:longint; __dst:PGElf_auxv_t):PGElf_auxv_t;cdecl;external libtcod;
 { Update auxv entry at the given index.   }
-function gelf_update_auxv(__data:PElf_Data; __ndx:longint; __src:PGElf_auxv_t):longint;cdecl;external;
+function gelf_update_auxv(__data:PElf_Data; __ndx:longint; __src:PGElf_auxv_t):longint;cdecl;external libtcod;
 { Get note header at the given offset into the data, and the offsets of
    the note's name and descriptor data.  Returns the offset of the next
    note header, or 0 for an invalid offset or corrupt note header.   }
-function gelf_getnote(__data:PElf_Data; __offset:Tsize_t; __result:PGElf_Nhdr; __name_offset:Psize_t; __desc_offset:Psize_t):Tsize_t;cdecl;external;
+function gelf_getnote(__data:PElf_Data; __offset:Tsize_t; __result:PGElf_Nhdr; __name_offset:Psize_t; __desc_offset:Psize_t):Tsize_t;cdecl;external libtcod;
 { Compute simple checksum from permanent parts of the ELF file.   }
-function gelf_checksum(__elf:PElf):longint;cdecl;external;
+function gelf_checksum(__elf:PElf):longint;cdecl;external libtcod;
 { C++ end of extern C conditionnal removed }
 {$endif}
 { gelf.h  }
 
+// === Konventiert am: 8-9-25 19:14:53 ===
+
+
 implementation
+
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }

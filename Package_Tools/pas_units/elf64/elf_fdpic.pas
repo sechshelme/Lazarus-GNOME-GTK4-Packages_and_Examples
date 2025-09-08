@@ -1,35 +1,15 @@
-
 unit elf_fdpic;
+
 interface
 
-{
-  Automatically converted by H2Pas 1.0.0 from elf_fdpic.h
-  The following command line parameters were used:
-    -p
-    -T
-    -d
-    -c
-    -e
-    elf_fdpic.h
-}
+uses
+  fp_tcod;
 
-{ Pointers to basic pascal types, inserted by h2pas conversion program.}
-Type
-  PLongint  = ^Longint;
-  PSmallInt = ^SmallInt;
-  PByte     = ^Byte;
-  PWord     = ^Word;
-  PDWord    = ^DWord;
-  PDouble   = ^Double;
-
-Type
-Pelf32_fdpic_loadmap  = ^elf32_fdpic_loadmap;
-Pelf32_fdpic_loadseg  = ^elf32_fdpic_loadseg;
-Pelf64_fdpic_loadmap  = ^elf64_fdpic_loadmap;
-Pelf64_fdpic_loadseg  = ^elf64_fdpic_loadseg;
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
+
+// /usr/include/linux/elf-fdpic.h
 
 
 { SPDX-License-Identifier: GPL-2.0+ WITH Linux-syscall-note  }
@@ -100,7 +80,11 @@ const
 {$endif}
 { _LINUX_ELF_FDPIC_H  }
 
+// === Konventiert am: 8-9-25 19:15:15 ===
+
+
 implementation
+
 
 
 end.

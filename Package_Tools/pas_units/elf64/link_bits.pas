@@ -1,72 +1,17 @@
+unit link_bits;
 
-unit link;
 interface
 
-{
-  Automatically converted by H2Pas 1.0.0 from link.h
-  The following command line parameters were used:
-    -p
-    -T
-    -d
-    -c
-    -e
-    link.h
-}
+uses
+  fp_elf64, elf;
 
-{ Pointers to basic pascal types, inserted by h2pas conversion program.}
-Type
-  PLongint  = ^Longint;
-  PSmallInt = ^SmallInt;
-  PByte     = ^Byte;
-  PWord     = ^Word;
-  PDWord    = ^DWord;
-  PDouble   = ^Double;
-
-Type
-Pchar  = ^char;
-Pdword  = ^dword;
-PElf32_Sym  = ^Elf32_Sym;
-PElf64_Sym  = ^Elf64_Sym;
-PLa_i86_regs  = ^La_i86_regs;
-PLa_i86_retval  = ^La_i86_retval;
-PLa_x32_regs  = ^La_x32_regs;
-PLa_x32_retval  = ^La_x32_retval;
-PLa_x86_64_regs  = ^La_x86_64_regs;
-PLa_x86_64_retval  = ^La_x86_64_retval;
-PLa_x86_64_vector  = ^La_x86_64_vector;
-PLa_x86_64_xmm  = ^La_x86_64_xmm;
-PLa_x86_64_ymm  = ^La_x86_64_ymm;
-PLa_x86_64_zmm  = ^La_x86_64_zmm;
-Plongint  = ^longint;
-Puintptr_t  = ^uintptr_t;
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
 
+// /usr/include/x86_64-linux-gnu/bits/link.h
 
-{ Copyright (C) 2004-2024 Free Software Foundation, Inc.
-   This file is part of the GNU C Library.
-
-   The GNU C Library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Lesser General Public
-   License as published by the Free Software Foundation; either
-   version 2.1 of the License, or (at your option) any later version.
-
-   The GNU C Library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Lesser General Public License for more details.
-
-   You should have received a copy of the GNU Lesser General Public
-   License along with the GNU C Library; if not, see
-   <https://www.gnu.org/licenses/>.   }
-{$ifndef	_LINK_H}
-{$error "Never include <bits/link.h> directly; use <link.h> instead."}
-{$endif}
-{$ifndef __x86_64__}
-{ Registers for entry into PLT on IA-32.   }
 type
-  PLa_i86_regs = ^TLa_i86_regs;
   TLa_i86_regs = record
       lr_edx : Tuint32_t;
       lr_ecx : Tuint32_t;
@@ -74,9 +19,8 @@ type
       lr_ebp : Tuint32_t;
       lr_esp : Tuint32_t;
     end;
-{ Return values for calls from PLT on IA-32.   }
+  PLa_i86_regs = ^TLa_i86_regs;
 
-  PLa_i86_retval = ^TLa_i86_retval;
   TLa_i86_retval = record
       lrv_eax : Tuint32_t;
       lrv_edx : Tuint32_t;
@@ -85,14 +29,12 @@ type
       __glibc_unused1 : Tuint64_t;
       __glibc_unused2 : Tuint64_t;
     end;
-(* Const before type ignored *)
+  PLa_i86_retval = ^TLa_i86_retval;
 
 function la_i86_gnu_pltenter(__sym:PElf32_Sym; __ndx:dword; __refcook:Puintptr_t; __defcook:Puintptr_t; __regs:PLa_i86_regs; 
-           __flags:Pdword; __symname:Pchar; __framesizep:Plongint):TElf32_Addr;cdecl;external;
-(* Const before type ignored *)
-(* Const before type ignored *)
+           __flags:Pdword; __symname:Pchar; __framesizep:Plongint):TElf32_Addr;cdecl;external libtcod;
 function la_i86_gnu_pltexit(__sym:PElf32_Sym; __ndx:dword; __refcook:Puintptr_t; __defcook:Puintptr_t; __inregs:PLa_i86_regs; 
-           __outregs:PLa_i86_retval; symname:Pchar):dword;cdecl;external;
+           __outregs:PLa_i86_retval; symname:Pchar):dword;cdecl;external libtcod;
 {$else}
 { Registers for entry into PLT on x86-64.   }
 type
@@ -103,7 +45,7 @@ type
   TLa_x86_64_ymm = single;
 
   PLa_x86_64_zmm = ^TLa_x86_64_zmm;
-  TLa_x86_64_zmm = Tdouble;
+  TLa_x86_64_zmm = double;
 {$if __GNUC_PREREQ (4,0)}
 {$endif}
 type
@@ -152,24 +94,22 @@ type
 const
   La_x32_regs = La_x86_64_regs;  
   La_x32_retval = La_x86_64_retval;  
-(* Const before type ignored *)
 
 function la_x86_64_gnu_pltenter(__sym:PElf64_Sym; __ndx:dword; __refcook:Puintptr_t; __defcook:Puintptr_t; __regs:PLa_x86_64_regs; 
-           __flags:Pdword; __symname:Pchar; __framesizep:Plongint):TElf64_Addr;cdecl;external;
-(* Const before type ignored *)
-(* Const before type ignored *)
+           __flags:Pdword; __symname:Pchar; __framesizep:Plongint):TElf64_Addr;cdecl;external libtcod;
 function la_x86_64_gnu_pltexit(__sym:PElf64_Sym; __ndx:dword; __refcook:Puintptr_t; __defcook:Puintptr_t; __inregs:PLa_x86_64_regs; 
-           __outregs:PLa_x86_64_retval; __symname:Pchar):dword;cdecl;external;
-(* Const before type ignored *)
+           __outregs:PLa_x86_64_retval; __symname:Pchar):dword;cdecl;external libtcod;
 function la_x32_gnu_pltenter(__sym:PElf32_Sym; __ndx:dword; __refcook:Puintptr_t; __defcook:Puintptr_t; __regs:PLa_x32_regs; 
-           __flags:Pdword; __symname:Pchar; __framesizep:Plongint):TElf32_Addr;cdecl;external;
-(* Const before type ignored *)
-(* Const before type ignored *)
+           __flags:Pdword; __symname:Pchar; __framesizep:Plongint):TElf32_Addr;cdecl;external libtcod;
 function la_x32_gnu_pltexit(__sym:PElf32_Sym; __ndx:dword; __refcook:Puintptr_t; __defcook:Puintptr_t; __inregs:PLa_x32_regs; 
-           __outregs:PLa_x32_retval; __symname:Pchar):dword;cdecl;external;
+           __outregs:PLa_x32_retval; __symname:Pchar):dword;cdecl;external libtcod;
 {$endif}
 
+// === Konventiert am: 8-9-25 19:15:29 ===
+
+
 implementation
+
 
 
 end.

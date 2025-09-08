@@ -1,64 +1,15 @@
+unit elf_linux;
 
-unit elf;
 interface
 
-{
-  Automatically converted by H2Pas 1.0.0 from elf.h
-  The following command line parameters were used:
-    -p
-    -T
-    -d
-    -c
-    -e
-    elf.h
-}
+uses
+  fp_tcod;
 
-{ Pointers to basic pascal types, inserted by h2pas conversion program.}
-Type
-  PLongint  = ^Longint;
-  PSmallInt = ^SmallInt;
-  PByte     = ^Byte;
-  PWord     = ^Word;
-  PDWord    = ^DWord;
-  PDouble   = ^Double;
-
-Type
-PElf32_Addr  = ^Elf32_Addr;
-PElf32_Dyn  = ^Elf32_Dyn;
-PElf32_Ehdr  = ^Elf32_Ehdr;
-PElf32_Half  = ^Elf32_Half;
-Pelf32_hdr  = ^elf32_hdr;
-PElf32_Nhdr  = ^Elf32_Nhdr;
-Pelf32_note  = ^elf32_note;
-PElf32_Off  = ^Elf32_Off;
-Pelf32_phdr  = ^elf32_phdr;
-Pelf32_rel  = ^elf32_rel;
-Pelf32_rela  = ^elf32_rela;
-Pelf32_shdr  = ^elf32_shdr;
-PElf32_Sword  = ^Elf32_Sword;
-Pelf32_sym  = ^elf32_sym;
-PElf32_Word  = ^Elf32_Word;
-PElf64_Addr  = ^Elf64_Addr;
-PElf64_Dyn  = ^Elf64_Dyn;
-PElf64_Ehdr  = ^Elf64_Ehdr;
-PElf64_Half  = ^Elf64_Half;
-Pelf64_hdr  = ^elf64_hdr;
-PElf64_Nhdr  = ^Elf64_Nhdr;
-Pelf64_note  = ^elf64_note;
-PElf64_Off  = ^Elf64_Off;
-Pelf64_phdr  = ^elf64_phdr;
-Pelf64_rel  = ^elf64_rel;
-Pelf64_rela  = ^elf64_rela;
-PElf64_SHalf  = ^Elf64_SHalf;
-Pelf64_shdr  = ^elf64_shdr;
-PElf64_Sword  = ^Elf64_Sword;
-PElf64_Sxword  = ^Elf64_Sxword;
-Pelf64_sym  = ^elf64_sym;
-PElf64_Word  = ^Elf64_Word;
-PElf64_Xword  = ^Elf64_Xword;
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
+
+// /usr/include/linux/elf.h
 
 
 { SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note  }
@@ -733,7 +684,11 @@ const
 {$endif}
 { _LINUX_ELF_H  }
 
+// === Konventiert am: 8-9-25 19:15:12 ===
+
+
 implementation
+
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }

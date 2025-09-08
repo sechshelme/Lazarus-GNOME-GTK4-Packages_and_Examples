@@ -1,53 +1,15 @@
-
 unit libelf;
+
 interface
 
-{
-  Automatically converted by H2Pas 1.0.0 from libelf.h
-  The following command line parameters were used:
-    -p
-    -T
-    -d
-    -c
-    -e
-    libelf.h
-}
+uses
+  fp_tcod;
 
-{ Pointers to basic pascal types, inserted by h2pas conversion program.}
-Type
-  PLongint  = ^Longint;
-  PSmallInt = ^SmallInt;
-  PByte     = ^Byte;
-  PWord     = ^Word;
-  PDWord    = ^DWord;
-  PDouble   = ^Double;
-
-Type
-Pchar  = ^char;
-PElf  = ^Elf;
-PElf32_Chdr  = ^Elf32_Chdr;
-PElf32_Ehdr  = ^Elf32_Ehdr;
-PElf32_Phdr  = ^Elf32_Phdr;
-PElf32_Relr  = ^Elf32_Relr;
-PElf32_Shdr  = ^Elf32_Shdr;
-PElf64_Chdr  = ^Elf64_Chdr;
-PElf64_Ehdr  = ^Elf64_Ehdr;
-PElf64_Phdr  = ^Elf64_Phdr;
-PElf64_Relr  = ^Elf64_Relr;
-PElf64_Shdr  = ^Elf64_Shdr;
-PElf_Arhdr  = ^Elf_Arhdr;
-PElf_Arsym  = ^Elf_Arsym;
-PElf_Cmd  = ^Elf_Cmd;
-PElf_Data  = ^Elf_Data;
-PElf_Kind  = ^Elf_Kind;
-PElf_Scn  = ^Elf_Scn;
-PElf_Type  = ^Elf_Type;
-Psize_t  = ^size_t;
-Pxxxxxxxxxx  = ^xxxxxxxxxx;
-Pxxxxxxxxxxxxxxxx  = ^xxxxxxxxxxxxxxxx;
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
+
+// /usr/include/libelf.h
 
 
 { Interface for libelf.
@@ -341,88 +303,88 @@ type
 { C++ extern C conditionnal removed }
 { Return descriptor for ELF file to work according to CMD.   }
 
-function elf_begin(__fildes:longint; __cmd:TElf_Cmd; __ref:PElf):PElf;cdecl;external;
+function elf_begin(__fildes:longint; __cmd:TElf_Cmd; __ref:PElf):PElf;cdecl;external libtcod;
 { Create a clone of an existing ELF descriptor.   }
-function elf_clone(__elf:PElf; __cmd:TElf_Cmd):PElf;cdecl;external;
+function elf_clone(__elf:PElf; __cmd:TElf_Cmd):PElf;cdecl;external libtcod;
 { Create descriptor for memory region.   }
-function elf_memory(__image:Pchar; __size:Tsize_t):PElf;cdecl;external;
+function elf_memory(__image:Pchar; __size:Tsize_t):PElf;cdecl;external libtcod;
 { Advance archive descriptor to next element.   }
-function elf_next(__elf:PElf):TElf_Cmd;cdecl;external;
+function elf_next(__elf:PElf):TElf_Cmd;cdecl;external libtcod;
 { Free resources allocated for ELF.   }
-function elf_end(__elf:PElf):longint;cdecl;external;
+function elf_end(__elf:PElf):longint;cdecl;external libtcod;
 { Update ELF descriptor and write file to disk.   }
-function elf_update(__elf:PElf; __cmd:TElf_Cmd):Tint64_t;cdecl;external;
+function elf_update(__elf:PElf; __cmd:TElf_Cmd):Tint64_t;cdecl;external libtcod;
 { Determine what kind of file is associated with ELF.   }
-function elf_kind(__elf:PElf):TElf_Kind;cdecl;external;
+function elf_kind(__elf:PElf):TElf_Kind;cdecl;external libtcod;
 { Get the base offset for an object file.   }
-function elf_getbase(__elf:PElf):Tint64_t;cdecl;external;
+function elf_getbase(__elf:PElf):Tint64_t;cdecl;external libtcod;
 { Retrieve file identification data.   }
-function elf_getident(__elf:PElf; __nbytes:Psize_t):Pchar;cdecl;external;
+function elf_getident(__elf:PElf; __nbytes:Psize_t):Pchar;cdecl;external libtcod;
 { Retrieve class-dependent object file header.   }
-function elf32_getehdr(__elf:PElf):PElf32_Ehdr;cdecl;external;
+function elf32_getehdr(__elf:PElf):PElf32_Ehdr;cdecl;external libtcod;
 { Similar but this time the binary calls is ELFCLASS64.   }
-function elf64_getehdr(__elf:PElf):PElf64_Ehdr;cdecl;external;
+function elf64_getehdr(__elf:PElf):PElf64_Ehdr;cdecl;external libtcod;
 { Create ELF header if none exists.   }
-function elf32_newehdr(__elf:PElf):PElf32_Ehdr;cdecl;external;
+function elf32_newehdr(__elf:PElf):PElf32_Ehdr;cdecl;external libtcod;
 { Similar but this time the binary calls is ELFCLASS64.   }
-function elf64_newehdr(__elf:PElf):PElf64_Ehdr;cdecl;external;
+function elf64_newehdr(__elf:PElf):PElf64_Ehdr;cdecl;external libtcod;
 { Get the number of program headers in the ELF file.  If the file uses
    more headers than can be represented in the e_phnum field of the ELF
    header the information from the sh_info field in the zeroth section
    header is used.   }
-function elf_getphdrnum(__elf:PElf; __dst:Psize_t):longint;cdecl;external;
+function elf_getphdrnum(__elf:PElf; __dst:Psize_t):longint;cdecl;external libtcod;
 { Retrieve class-dependent program header table.   }
-function elf32_getphdr(__elf:PElf):PElf32_Phdr;cdecl;external;
+function elf32_getphdr(__elf:PElf):PElf32_Phdr;cdecl;external libtcod;
 { Similar but this time the binary calls is ELFCLASS64.   }
-function elf64_getphdr(__elf:PElf):PElf64_Phdr;cdecl;external;
+function elf64_getphdr(__elf:PElf):PElf64_Phdr;cdecl;external libtcod;
 { Create ELF program header.   }
-function elf32_newphdr(__elf:PElf; __cnt:Tsize_t):PElf32_Phdr;cdecl;external;
+function elf32_newphdr(__elf:PElf; __cnt:Tsize_t):PElf32_Phdr;cdecl;external libtcod;
 { Similar but this time the binary calls is ELFCLASS64.   }
-function elf64_newphdr(__elf:PElf; __cnt:Tsize_t):PElf64_Phdr;cdecl;external;
+function elf64_newphdr(__elf:PElf; __cnt:Tsize_t):PElf64_Phdr;cdecl;external libtcod;
 { Get section at INDEX.   }
-function elf_getscn(__elf:PElf; __index:Tsize_t):PElf_Scn;cdecl;external;
+function elf_getscn(__elf:PElf; __index:Tsize_t):PElf_Scn;cdecl;external libtcod;
 { Get section at OFFSET.   }
-function elf32_offscn(__elf:PElf; __offset:TElf32_Off):PElf_Scn;cdecl;external;
+function elf32_offscn(__elf:PElf; __offset:TElf32_Off):PElf_Scn;cdecl;external libtcod;
 { Similar but this time the binary calls is ELFCLASS64.   }
-function elf64_offscn(__elf:PElf; __offset:TElf64_Off):PElf_Scn;cdecl;external;
+function elf64_offscn(__elf:PElf; __offset:TElf64_Off):PElf_Scn;cdecl;external libtcod;
 { Get index of section.   }
-function elf_ndxscn(__scn:PElf_Scn):Tsize_t;cdecl;external;
+function elf_ndxscn(__scn:PElf_Scn):Tsize_t;cdecl;external libtcod;
 { Get section with next section index.   }
-function elf_nextscn(__elf:PElf; __scn:PElf_Scn):PElf_Scn;cdecl;external;
+function elf_nextscn(__elf:PElf; __scn:PElf_Scn):PElf_Scn;cdecl;external libtcod;
 { Create a new section and append it at the end of the table.   }
-function elf_newscn(__elf:PElf):PElf_Scn;cdecl;external;
+function elf_newscn(__elf:PElf):PElf_Scn;cdecl;external libtcod;
 { Get the section index of the extended section index table for the
    given symbol table.   }
-function elf_scnshndx(__scn:PElf_Scn):longint;cdecl;external;
+function elf_scnshndx(__scn:PElf_Scn):longint;cdecl;external libtcod;
 { Get the number of sections in the ELF file.  If the file uses more
    sections than can be represented in the e_shnum field of the ELF
    header the information from the sh_size field in the zeroth section
    header is used.   }
-function elf_getshdrnum(__elf:PElf; __dst:Psize_t):longint;cdecl;external;
+function elf_getshdrnum(__elf:PElf; __dst:Psize_t):longint;cdecl;external libtcod;
 { Sun messed up the implementation of 'elf_getshnum' in their implementation.
    It was agreed to make the same functionality available under a different
    name and obsolete the old name.   }
-function elf_getshnum(__elf:PElf; __dst:Psize_t):longint;cdecl;external;
+function elf_getshnum(__elf:PElf; __dst:Psize_t):longint;cdecl;external libtcod;
 { xxxxxxxxxxxxxxxx  __deprecated_attribute__; }
 { Get the section index of the section header string table in the ELF
    file.  If the index cannot be represented in the e_shstrndx field of
    the ELF header the information from the sh_link field in the zeroth
    section header is used.   }
-function elf_getshdrstrndx(__elf:PElf; __dst:Psize_t):longint;cdecl;external;
+function elf_getshdrstrndx(__elf:PElf; __dst:Psize_t):longint;cdecl;external libtcod;
 { Sun messed up the implementation of 'elf_getshstrndx' in their
    implementation.  It was agreed to make the same functionality available
    under a different name and obsolete the old name.   }
-function elf_getshstrndx(__elf:PElf; __dst:Psize_t):longint;cdecl;external;
+function elf_getshstrndx(__elf:PElf; __dst:Psize_t):longint;cdecl;external libtcod;
 { xxxxxxxxxxxxxxxx       __deprecated_attribute__; }
 { Retrieve section header of ELFCLASS32 binary.   }
-function elf32_getshdr(__scn:PElf_Scn):PElf32_Shdr;cdecl;external;
+function elf32_getshdr(__scn:PElf_Scn):PElf32_Shdr;cdecl;external libtcod;
 { Similar for ELFCLASS64.   }
-function elf64_getshdr(__scn:PElf_Scn):PElf64_Shdr;cdecl;external;
+function elf64_getshdr(__scn:PElf_Scn):PElf64_Shdr;cdecl;external libtcod;
 { Returns compression header for a section if section data is
    compressed.  Returns NULL and sets elf_errno if the section isn't
    compressed or an error occurred.   }
-function elf32_getchdr(__scn:PElf_Scn):PElf32_Chdr;cdecl;external;
-function elf64_getchdr(__scn:PElf_Scn):PElf64_Chdr;cdecl;external;
+function elf32_getchdr(__scn:PElf_Scn):PElf32_Chdr;cdecl;external libtcod;
+function elf64_getchdr(__scn:PElf_Scn):PElf64_Chdr;cdecl;external libtcod;
 { Compress or decompress the data of a section and adjust the section
    header.
 
@@ -476,96 +438,93 @@ function elf64_getchdr(__scn:PElf_Scn):PElf64_Chdr;cdecl;external;
    Note that although this changes the header and data returned it
    doesn't mark the section as dirty.  To keep the changes when
    calling elf_update the section has to be flagged ELF_F_DIRTY.   }
-function elf_compress(scn:PElf_Scn; _type:longint; flags:dword):longint;cdecl;external;
-function elf_compress_gnu(scn:PElf_Scn; compress:longint; flags:dword):longint;cdecl;external;
+function elf_compress(scn:PElf_Scn; _type:longint; flags:dword):longint;cdecl;external libtcod;
+function elf_compress_gnu(scn:PElf_Scn; compress:longint; flags:dword):longint;cdecl;external libtcod;
 { Set or clear flags for ELF file.   }
-function elf_flagelf(__elf:PElf; __cmd:TElf_Cmd; __flags:dword):dword;cdecl;external;
+function elf_flagelf(__elf:PElf; __cmd:TElf_Cmd; __flags:dword):dword;cdecl;external libtcod;
 { Similarly for the ELF header.   }
-function elf_flagehdr(__elf:PElf; __cmd:TElf_Cmd; __flags:dword):dword;cdecl;external;
+function elf_flagehdr(__elf:PElf; __cmd:TElf_Cmd; __flags:dword):dword;cdecl;external libtcod;
 { Similarly for the ELF program header.   }
-function elf_flagphdr(__elf:PElf; __cmd:TElf_Cmd; __flags:dword):dword;cdecl;external;
+function elf_flagphdr(__elf:PElf; __cmd:TElf_Cmd; __flags:dword):dword;cdecl;external libtcod;
 { Similarly for the given ELF section.   }
-function elf_flagscn(__scn:PElf_Scn; __cmd:TElf_Cmd; __flags:dword):dword;cdecl;external;
+function elf_flagscn(__scn:PElf_Scn; __cmd:TElf_Cmd; __flags:dword):dword;cdecl;external libtcod;
 { Similarly for the given ELF data.   }
-function elf_flagdata(__data:PElf_Data; __cmd:TElf_Cmd; __flags:dword):dword;cdecl;external;
+function elf_flagdata(__data:PElf_Data; __cmd:TElf_Cmd; __flags:dword):dword;cdecl;external libtcod;
 { Similarly for the given ELF section header.   }
-function elf_flagshdr(__scn:PElf_Scn; __cmd:TElf_Cmd; __flags:dword):dword;cdecl;external;
+function elf_flagshdr(__scn:PElf_Scn; __cmd:TElf_Cmd; __flags:dword):dword;cdecl;external libtcod;
 { Get data from section while translating from file representation to
    memory representation.  The Elf_Data d_type is set based on the
    section type if known.  Otherwise d_type is set to ELF_T_BYTE.  If
    the section contains compressed data then d_type is always set to
    ELF_T_CHDR.   }
-function elf_getdata(__scn:PElf_Scn; __data:PElf_Data):PElf_Data;cdecl;external;
+function elf_getdata(__scn:PElf_Scn; __data:PElf_Data):PElf_Data;cdecl;external libtcod;
 { Get uninterpreted section content.   }
-function elf_rawdata(__scn:PElf_Scn; __data:PElf_Data):PElf_Data;cdecl;external;
+function elf_rawdata(__scn:PElf_Scn; __data:PElf_Data):PElf_Data;cdecl;external libtcod;
 { Create new data descriptor for section SCN.   }
-function elf_newdata(__scn:PElf_Scn):PElf_Data;cdecl;external;
+function elf_newdata(__scn:PElf_Scn):PElf_Data;cdecl;external libtcod;
 { Get data translated from a chunk of the file contents as section data
    would be for TYPE.  The resulting Elf_Data pointer is valid until
    elf_end (ELF) is called.   }
-function elf_getdata_rawchunk(__elf:PElf; __offset:Tint64_t; __size:Tsize_t; __type:TElf_Type):PElf_Data;cdecl;external;
+function elf_getdata_rawchunk(__elf:PElf; __offset:Tint64_t; __size:Tsize_t; __type:TElf_Type):PElf_Data;cdecl;external libtcod;
 { Return pointer to string at OFFSET in section INDEX.   }
-function elf_strptr(__elf:PElf; __index:Tsize_t; __offset:Tsize_t):Pchar;cdecl;external;
+function elf_strptr(__elf:PElf; __index:Tsize_t; __offset:Tsize_t):Pchar;cdecl;external libtcod;
 { Return header of archive.   }
-function elf_getarhdr(__elf:PElf):PElf_Arhdr;cdecl;external;
+function elf_getarhdr(__elf:PElf):PElf_Arhdr;cdecl;external libtcod;
 { Return offset in archive for current file ELF.   }
-function elf_getaroff(__elf:PElf):Tint64_t;cdecl;external;
+function elf_getaroff(__elf:PElf):Tint64_t;cdecl;external libtcod;
 { Select archive element at OFFSET.   }
-function elf_rand(__elf:PElf; __offset:Tsize_t):Tsize_t;cdecl;external;
+function elf_rand(__elf:PElf; __offset:Tsize_t):Tsize_t;cdecl;external libtcod;
 { Get symbol table of archive.   }
-function elf_getarsym(__elf:PElf; __narsyms:Psize_t):PElf_Arsym;cdecl;external;
+function elf_getarsym(__elf:PElf; __narsyms:Psize_t):PElf_Arsym;cdecl;external libtcod;
 { Control ELF descriptor.   }
-function elf_cntl(__elf:PElf; __cmd:TElf_Cmd):longint;cdecl;external;
+function elf_cntl(__elf:PElf; __cmd:TElf_Cmd):longint;cdecl;external libtcod;
 { Retrieve uninterpreted file contents.   }
-function elf_rawfile(__elf:PElf; __nbytes:Psize_t):Pchar;cdecl;external;
+function elf_rawfile(__elf:PElf; __nbytes:Psize_t):Pchar;cdecl;external libtcod;
 { Return size of array of COUNT elements of the type denoted by TYPE
    in the external representation.  The binary class is taken from ELF.
    The result is based on version VERSION of the ELF standard.   }
-function elf32_fsize(__type:TElf_Type; __count:Tsize_t; __version:dword):Tsize_t;cdecl;external;
+function elf32_fsize(__type:TElf_Type; __count:Tsize_t; __version:dword):Tsize_t;cdecl;external libtcod;
 { Similar but this time the binary calls is ELFCLASS64.   }
-function elf64_fsize(__type:TElf_Type; __count:Tsize_t; __version:dword):Tsize_t;cdecl;external;
+function elf64_fsize(__type:TElf_Type; __count:Tsize_t; __version:dword):Tsize_t;cdecl;external libtcod;
 { Convert data structure from the representation in the file represented
    by ELF to their memory representation.   }
-(* Const before type ignored *)
-function elf32_xlatetom(__dest:PElf_Data; __src:PElf_Data; __encode:dword):PElf_Data;cdecl;external;
+function elf32_xlatetom(__dest:PElf_Data; __src:PElf_Data; __encode:dword):PElf_Data;cdecl;external libtcod;
 { Same for 64 bit class.   }
-(* Const before type ignored *)
-function elf64_xlatetom(__dest:PElf_Data; __src:PElf_Data; __encode:dword):PElf_Data;cdecl;external;
+function elf64_xlatetom(__dest:PElf_Data; __src:PElf_Data; __encode:dword):PElf_Data;cdecl;external libtcod;
 { Convert data structure from to the representation in memory
    represented by ELF file representation.   }
-(* Const before type ignored *)
-function elf32_xlatetof(__dest:PElf_Data; __src:PElf_Data; __encode:dword):PElf_Data;cdecl;external;
+function elf32_xlatetof(__dest:PElf_Data; __src:PElf_Data; __encode:dword):PElf_Data;cdecl;external libtcod;
 { Same for 64 bit class.   }
-(* Const before type ignored *)
-function elf64_xlatetof(__dest:PElf_Data; __src:PElf_Data; __encode:dword):PElf_Data;cdecl;external;
+function elf64_xlatetof(__dest:PElf_Data; __src:PElf_Data; __encode:dword):PElf_Data;cdecl;external libtcod;
 { Return error code of last failing function call.  This value is kept
    separately for each thread.   }
-function elf_errno:longint;cdecl;external;
+function elf_errno:longint;cdecl;external libtcod;
 { Return error string for ERROR.  If ERROR is zero, return error string
    for most recent error or NULL is none occurred.  If ERROR is -1 the
    behaviour is similar to the last case except that not NULL but a legal
    string is returned.   }
-(* Const before type ignored *)
-function elf_errmsg(__error:longint):Pchar;cdecl;external;
+function elf_errmsg(__error:longint):Pchar;cdecl;external libtcod;
 { Coordinate ELF library and application versions.   }
-function elf_version(__version:dword):dword;cdecl;external;
+function elf_version(__version:dword):dword;cdecl;external libtcod;
 { Set fill bytes used to fill holes in data structures.   }
-procedure elf_fill(__fill:longint);cdecl;external;
+procedure elf_fill(__fill:longint);cdecl;external libtcod;
 { Compute hash value.   }
-(* Const before type ignored *)
-function elf_hash(__string:Pchar):dword;cdecl;external;
+function elf_hash(__string:Pchar):dword;cdecl;external libtcod;
 { Compute hash value using the GNU-specific hash function.   }
-(* Const before type ignored *)
-function elf_gnu_hash(__string:Pchar):dword;cdecl;external;
+function elf_gnu_hash(__string:Pchar):dword;cdecl;external libtcod;
 { Compute simple checksum from permanent parts of the ELF file.   }
-function elf32_checksum(__elf:PElf):longint;cdecl;external;
+function elf32_checksum(__elf:PElf):longint;cdecl;external libtcod;
 { Similar but this time the binary calls is ELFCLASS64.   }
-function elf64_checksum(__elf:PElf):longint;cdecl;external;
+function elf64_checksum(__elf:PElf):longint;cdecl;external libtcod;
 { C++ end of extern C conditionnal removed }
 {$endif}
 { libelf.h  }
 
+// === Konventiert am: 8-9-25 19:14:56 ===
+
+
 implementation
+
 
 
 end.

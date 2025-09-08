@@ -1,43 +1,15 @@
-
 unit link;
+
 interface
 
-{
-  Automatically converted by H2Pas 1.0.0 from link.h
-  The following command line parameters were used:
-    -p
-    -T
-    -d
-    -c
-    -e
-    link.h
-}
+uses
+  fp_tcod;
 
-{ Pointers to basic pascal types, inserted by h2pas conversion program.}
-Type
-  PLongint  = ^Longint;
-  PSmallInt = ^SmallInt;
-  PByte     = ^Byte;
-  PWord     = ^Word;
-  PDWord    = ^DWord;
-  PDouble   = ^Double;
-
-Type
-Pchar  = ^char;
-Pdl_phdr_info  = ^dl_phdr_info;
-Pdword  = ^dword;
-PElf32_Sym  = ^Elf32_Sym;
-PElf64_Sym  = ^Elf64_Sym;
-Plink_map  = ^link_map;
-Pr_debug_extended  = ^r_debug_extended;
-Puintptr_t  = ^uintptr_t;
-Pxxxxxxxxx  = ^xxxxxxxxx;
-Pxxxxxxxxxx  = ^xxxxxxxxxx;
-Pxxxxxxxxxxxxxxxxx  = ^xxxxxxxxxxxxxxxxx;
-Pxxxxxxxxxxxxxxxxxxxxx  = ^xxxxxxxxxxxxxxxxxxxxx;
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
+
+// /usr/include/link.h
 
 
 { Data structure for communication from the run-time dynamic linker for
@@ -95,7 +67,7 @@ struct r_debug
  }
 { This is the symbol of that structure provided by the dynamic linker.   }
   var
-    _r_debug : Tr_debug;cvar;external;
+    _r_debug : Tr_debug;cvar;external libtcod;
 { The extended rendezvous structure used by the run-time dynamic linker
    to communicate details of shared object loading to the debugger.  If
    the executable's dynamic section has a DT_DEBUG element, the run-time
@@ -120,7 +92,7 @@ type
 	 r_debug_extended = (struct r_debug_extended *) dyn->d_un.d_ptr;
   }
   var
-    Dyn : TElfW;cvar;external;
+    Dyn : TElfW;cvar;external libtcod;
 { Structure describing a loaded shared object.  The `l_next' and `l_prev'
    members form a chain of all the shared objects loaded at startup.
 
@@ -212,28 +184,29 @@ struct dl_phdr_info
 
  }
 
-function dl_iterate_phdr(__callback:function (para1:Pdl_phdr_info; para2:Tsize_t; para3:pointer):longint; __data:pointer):longint;cdecl;external;
+function dl_iterate_phdr(__callback:function (para1:Pdl_phdr_info; para2:Tsize_t; para3:pointer):longint; __data:pointer):longint;cdecl;external libtcod;
 { Prototypes for the ld.so auditing interfaces.  These are not
    defined anywhere in ld.so but instead have to be provided by the
    auditing DSO.   }
-function la_version(__version:dword):dword;cdecl;external;
-procedure la_activity(__cookie:Puintptr_t; __flag:dword);cdecl;external;
-(* Const before type ignored *)
-function la_objsearch(__name:Pchar; __cookie:Puintptr_t; __flag:dword):Pchar;cdecl;external;
-function la_objopen(__map:Plink_map; __lmid:TLmid_t; __cookie:Puintptr_t):dword;cdecl;external;
-procedure la_preinit(__cookie:Puintptr_t);cdecl;external;
-(* Const before type ignored *)
+function la_version(__version:dword):dword;cdecl;external libtcod;
+procedure la_activity(__cookie:Puintptr_t; __flag:dword);cdecl;external libtcod;
+function la_objsearch(__name:Pchar; __cookie:Puintptr_t; __flag:dword):Pchar;cdecl;external libtcod;
+function la_objopen(__map:Plink_map; __lmid:TLmid_t; __cookie:Puintptr_t):dword;cdecl;external libtcod;
+procedure la_preinit(__cookie:Puintptr_t);cdecl;external libtcod;
 function la_symbind32(__sym:PElf32_Sym; __ndx:dword; __refcook:Puintptr_t; __defcook:Puintptr_t; __flags:Pdword; 
-           __symname:Pchar):Tuintptr_t;cdecl;external;
-(* Const before type ignored *)
+           __symname:Pchar):Tuintptr_t;cdecl;external libtcod;
 function la_symbind64(__sym:PElf64_Sym; __ndx:dword; __refcook:Puintptr_t; __defcook:Puintptr_t; __flags:Pdword; 
-           __symname:Pchar):Tuintptr_t;cdecl;external;
-function la_objclose(__cookie:Puintptr_t):dword;cdecl;external;
+           __symname:Pchar):Tuintptr_t;cdecl;external libtcod;
+function la_objclose(__cookie:Puintptr_t):dword;cdecl;external libtcod;
 {$endif}
 {$endif}
 { link.h  }
 
+// === Konventiert am: 8-9-25 19:14:59 ===
+
+
 implementation
+
 
 
 end.

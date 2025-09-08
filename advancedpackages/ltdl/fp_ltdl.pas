@@ -2,10 +2,6 @@ unit fp_ltdl;
 
 interface
 
-uses
-  lt_dlloader;
-
-
 const
   {$IFDEF linux}
   libltdl = 'libltdl';
