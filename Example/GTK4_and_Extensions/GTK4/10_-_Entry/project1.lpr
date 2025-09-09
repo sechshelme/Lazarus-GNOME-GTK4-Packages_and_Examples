@@ -74,7 +74,7 @@ end;
 
   procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
-    window, webView, box, toolbar_box, button, lab: PGtkWidget;
+    window, box: PGtkWidget;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'GTK4 Label');
