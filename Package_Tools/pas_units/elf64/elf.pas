@@ -3,14 +3,14 @@ unit elf;
 interface
 
 uses
-  fp_elf64;
+  clib, fp_elf64;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-// /usr/include/elf.h
+  // /usr/include/elf.h
 
 
 type
@@ -69,46 +69,47 @@ type
   TElf64_Versym = TElf64_Half;
 
 const
-  EI_NIDENT = 16;  
+  EI_NIDENT = 16;
+
 type
   TElf32_Ehdr = record
-      e_ident : array[0..(EI_NIDENT)-1] of byte;
-      e_type : TElf32_Half;
-      e_machine : TElf32_Half;
-      e_version : TElf32_Word;
-      e_entry : TElf32_Addr;
-      e_phoff : TElf32_Off;
-      e_shoff : TElf32_Off;
-      e_flags : TElf32_Word;
-      e_ehsize : TElf32_Half;
-      e_phentsize : TElf32_Half;
-      e_phnum : TElf32_Half;
-      e_shentsize : TElf32_Half;
-      e_shnum : TElf32_Half;
-      e_shstrndx : TElf32_Half;
-    end;
+    e_ident: array[0..(EI_NIDENT) - 1] of byte;
+    e_type: TElf32_Half;
+    e_machine: TElf32_Half;
+    e_version: TElf32_Word;
+    e_entry: TElf32_Addr;
+    e_phoff: TElf32_Off;
+    e_shoff: TElf32_Off;
+    e_flags: TElf32_Word;
+    e_ehsize: TElf32_Half;
+    e_phentsize: TElf32_Half;
+    e_phnum: TElf32_Half;
+    e_shentsize: TElf32_Half;
+    e_shnum: TElf32_Half;
+    e_shstrndx: TElf32_Half;
+  end;
   PElf32_Ehdr = ^TElf32_Ehdr;
 
   TElf64_Ehdr = record
-      e_ident : array[0..(EI_NIDENT)-1] of byte;
-      e_type : TElf64_Half;
-      e_machine : TElf64_Half;
-      e_version : TElf64_Word;
-      e_entry : TElf64_Addr;
-      e_phoff : TElf64_Off;
-      e_shoff : TElf64_Off;
-      e_flags : TElf64_Word;
-      e_ehsize : TElf64_Half;
-      e_phentsize : TElf64_Half;
-      e_phnum : TElf64_Half;
-      e_shentsize : TElf64_Half;
-      e_shnum : TElf64_Half;
-      e_shstrndx : TElf64_Half;
-    end;
+    e_ident: array[0..(EI_NIDENT) - 1] of byte;
+    e_type: TElf64_Half;
+    e_machine: TElf64_Half;
+    e_version: TElf64_Word;
+    e_entry: TElf64_Addr;
+    e_phoff: TElf64_Off;
+    e_shoff: TElf64_Off;
+    e_flags: TElf64_Word;
+    e_ehsize: TElf64_Half;
+    e_phentsize: TElf64_Half;
+    e_phnum: TElf64_Half;
+    e_shentsize: TElf64_Half;
+    e_shnum: TElf64_Half;
+    e_shstrndx: TElf64_Half;
+  end;
   PElf64_Ehdr = ^TElf64_Ehdr;
 
 const
-  EI_MAG0 = 0;  
+  EI_MAG0 = 0;
   ELFMAG0 = $7f;
   EI_MAG1 = 1;
   ELFMAG1 = 'E';
@@ -117,17 +118,17 @@ const
   EI_MAG3 = 3;
   ELFMAG3 = 'F';
   ELFMAG = '\177ELF';
-  SELFMAG = 4;  
+  SELFMAG = 4;
   EI_CLASS = 4;
   ELFCLASSNONE = 0;
   ELFCLASS32 = 1;
   ELFCLASS64 = 2;
-  ELFCLASSNUM = 3;  
+  ELFCLASSNUM = 3;
   EI_DATA = 5;
   ELFDATANONE = 0;
   ELFDATA2LSB = 1;
   ELFDATA2MSB = 2;
-  ELFDATANUM = 3;  
+  ELFDATANUM = 3;
   EI_VERSION = 6;
   EI_OSABI = 7;
   ELFOSABI_NONE = 0;
@@ -339,43 +340,44 @@ const
   EM_BPF = 247;
   EM_CSKY = 252;
   EM_LOONGARCH = 258;
-  EM_NUM = 259;  
+  EM_NUM = 259;
   EM_ARC_A5 = EM_ARC_COMPACT;
   EM_ALPHA = $9026;
   EV_NONE = 0;
   EV_CURRENT = 1;
-  EV_NUM = 2;  
+  EV_NUM = 2;
+
 type
   TElf32_Shdr = record
-      sh_name : TElf32_Word;
-      sh_type : TElf32_Word;
-      sh_flags : TElf32_Word;
-      sh_addr : TElf32_Addr;
-      sh_offset : TElf32_Off;
-      sh_size : TElf32_Word;
-      sh_link : TElf32_Word;
-      sh_info : TElf32_Word;
-      sh_addralign : TElf32_Word;
-      sh_entsize : TElf32_Word;
-    end;
+    sh_name: TElf32_Word;
+    sh_type: TElf32_Word;
+    sh_flags: TElf32_Word;
+    sh_addr: TElf32_Addr;
+    sh_offset: TElf32_Off;
+    sh_size: TElf32_Word;
+    sh_link: TElf32_Word;
+    sh_info: TElf32_Word;
+    sh_addralign: TElf32_Word;
+    sh_entsize: TElf32_Word;
+  end;
   PElf32_Shdr = ^TElf32_Shdr;
 
   TElf64_Shdr = record
-      sh_name : TElf64_Word;
-      sh_type : TElf64_Word;
-      sh_flags : TElf64_Xword;
-      sh_addr : TElf64_Addr;
-      sh_offset : TElf64_Off;
-      sh_size : TElf64_Xword;
-      sh_link : TElf64_Word;
-      sh_info : TElf64_Word;
-      sh_addralign : TElf64_Xword;
-      sh_entsize : TElf64_Xword;
-    end;
+    sh_name: TElf64_Word;
+    sh_type: TElf64_Word;
+    sh_flags: TElf64_Xword;
+    sh_addr: TElf64_Addr;
+    sh_offset: TElf64_Off;
+    sh_size: TElf64_Xword;
+    sh_link: TElf64_Word;
+    sh_info: TElf64_Word;
+    sh_addralign: TElf64_Xword;
+    sh_entsize: TElf64_Xword;
+  end;
   PElf64_Shdr = ^TElf64_Shdr;
 
 const
-  SHN_UNDEF = 0;  
+  SHN_UNDEF = 0;
   SHN_LORESERVE = $ff00;
   SHN_LOPROC = $ff00;
   SHN_BEFORE = $ff00;
@@ -412,9 +414,9 @@ const
   SHT_GNU_LIBLIST = $6ffffff7;
   SHT_CHECKSUM = $6ffffff8;
   SHT_LOSUNW = $6ffffffa;
-  SHT_SUNW_move = $6ffffffa;  
-  SHT_SUNW_COMDAT = $6ffffffb;  
-  SHT_SUNW_syminfo = $6ffffffc;  
+  SHT_SUNW_move = $6ffffffa;
+  SHT_SUNW_COMDAT = $6ffffffb;
+  SHT_SUNW_syminfo = $6ffffffc;
   SHT_GNU_verdef = $6ffffffd;
   SHT_GNU_verneed = $6ffffffe;
   SHT_GNU_versym = $6fffffff;
@@ -440,65 +442,67 @@ const
   SHF_GNU_RETAIN = 1 shl 21;
   SHF_ORDERED = 1 shl 30;
   SHF_EXCLUDE = 1 shl 31;
+
 type
   TElf32_Chdr = record
-      ch_type : TElf32_Word;
-      ch_size : TElf32_Word;
-      ch_addralign : TElf32_Word;
-    end;
+    ch_type: TElf32_Word;
+    ch_size: TElf32_Word;
+    ch_addralign: TElf32_Word;
+  end;
   PElf32_Chdr = ^TElf32_Chdr;
 
   TElf64_Chdr = record
-      ch_type : TElf64_Word;
-      ch_reserved : TElf64_Word;
-      ch_size : TElf64_Xword;
-      ch_addralign : TElf64_Xword;
-    end;
+    ch_type: TElf64_Word;
+    ch_reserved: TElf64_Word;
+    ch_size: TElf64_Xword;
+    ch_addralign: TElf64_Xword;
+  end;
   PElf64_Chdr = ^TElf64_Chdr;
 
 const
-  ELFCOMPRESS_ZLIB = 1;  
+  ELFCOMPRESS_ZLIB = 1;
   ELFCOMPRESS_ZSTD = 2;
   ELFCOMPRESS_LOOS = $60000000;
   ELFCOMPRESS_HIOS = $6fffffff;
   ELFCOMPRESS_LOPROC = $70000000;
   ELFCOMPRESS_HIPROC = $7fffffff;
   GRP_COMDAT = $1;
+
 type
   TElf32_Sym = record
-      st_name : TElf32_Word;
-      st_value : TElf32_Addr;
-      st_size : TElf32_Word;
-      st_info : byte;
-      st_other : byte;
-      st_shndx : TElf32_Section;
-    end;
+    st_name: TElf32_Word;
+    st_value: TElf32_Addr;
+    st_size: TElf32_Word;
+    st_info: byte;
+    st_other: byte;
+    st_shndx: TElf32_Section;
+  end;
   PElf32_Sym = ^TElf32_Sym;
 
   TElf64_Sym = record
-      st_name : TElf64_Word;
-      st_info : byte;
-      st_other : byte;
-      st_shndx : TElf64_Section;
-      st_value : TElf64_Addr;
-      st_size : TElf64_Xword;
-    end;
+    st_name: TElf64_Word;
+    st_info: byte;
+    st_other: byte;
+    st_shndx: TElf64_Section;
+    st_value: TElf64_Addr;
+    st_size: TElf64_Xword;
+  end;
   PElf64_Sym = ^TElf64_Sym;
 
   TElf32_Syminfo = record
-      si_boundto : TElf32_Half;
-      si_flags : TElf32_Half;
-    end;
+    si_boundto: TElf32_Half;
+    si_flags: TElf32_Half;
+  end;
   PElf32_Syminfo = ^TElf32_Syminfo;
 
   TElf64_Syminfo = record
-      si_boundto : TElf64_Half;
-      si_flags : TElf64_Half;
-    end;
+    si_boundto: TElf64_Half;
+    si_flags: TElf64_Half;
+  end;
   PElf64_Syminfo = ^TElf64_Syminfo;
 
 const
-  SYMINFO_BT_SELF = $ffff;  
+  SYMINFO_BT_SELF = $ffff;
   SYMINFO_BT_PARENT = $fffe;
   SYMINFO_BT_LOWRESERVE = $ff00;
   SYMINFO_FLG_DIRECT = $0001;
@@ -506,19 +510,19 @@ const
   SYMINFO_FLG_COPY = $0004;
   SYMINFO_FLG_LAZYLOAD = $0008;
   SYMINFO_NONE = 0;
-  SYMINFO_CURRENT = 1;  
-  SYMINFO_NUM = 2;  
+  SYMINFO_CURRENT = 1;
+  SYMINFO_NUM = 2;
 
 
-function ELF32_ST_BIND(val : longint) : longint;
-function ELF32_ST_TYPE(val : longint) : Tval;
-function ELF32_ST_INFO(bind,_type : longint) : longint;
-function ELF64_ST_BIND(val : longint) : longint;
-function ELF64_ST_TYPE(val : longint) : longint;
-function ELF64_ST_INFO(bind,_type : longint) : longint;
+  //function ELF32_ST_BIND(val : longint) : longint;
+  //function ELF32_ST_TYPE(val : longint) : Tval;
+  //function ELF32_ST_INFO(bind,_type : longint) : longint;
+  //function ELF64_ST_BIND(val : longint) : longint;
+  //function ELF64_ST_TYPE(val : longint) : longint;
+  //function ELF64_ST_INFO(bind,_type : longint) : longint;
 
 const
-  STB_LOCAL = 0;  
+  STB_LOCAL = 0;
   STB_GLOBAL = 1;
   STB_WEAK = 2;
   STB_NUM = 3;
@@ -542,38 +546,39 @@ const
   STT_HIPROC = 15;
   STN_UNDEF = 0;
 
-function ELF32_ST_VISIBILITY(obj : longint) : To;
-function ELF64_ST_VISIBILITY(obj : longint) : longint;
+  //function ELF32_ST_VISIBILITY(obj : longint) : To;
+  //function ELF64_ST_VISIBILITY(obj : longint) : longint;
 const
-  STV_DEFAULT = 0;  
+  STV_DEFAULT = 0;
   STV_INTERNAL = 1;
   STV_HIDDEN = 2;
   STV_PROTECTED = 3;
+
 type
   TElf32_Rel = record
-      r_offset : TElf32_Addr;
-      r_info : TElf32_Word;
-    end;
+    r_offset: TElf32_Addr;
+    r_info: TElf32_Word;
+  end;
   PElf32_Rel = ^TElf32_Rel;
 
   TElf64_Rel = record
-      r_offset : TElf64_Addr;
-      r_info : TElf64_Xword;
-    end;
+    r_offset: TElf64_Addr;
+    r_info: TElf64_Xword;
+  end;
   PElf64_Rel = ^TElf64_Rel;
 
   TElf32_Rela = record
-      r_offset : TElf32_Addr;
-      r_info : TElf32_Word;
-      r_addend : TElf32_Sword;
-    end;
+    r_offset: TElf32_Addr;
+    r_info: TElf32_Word;
+    r_addend: TElf32_Sword;
+  end;
   PElf32_Rela = ^TElf32_Rela;
 
   TElf64_Rela = record
-      r_offset : TElf64_Addr;
-      r_info : TElf64_Xword;
-      r_addend : TElf64_Sxword;
-    end;
+    r_offset: TElf64_Addr;
+    r_info: TElf64_Xword;
+    r_addend: TElf64_Sxword;
+  end;
   PElf64_Rela = ^TElf64_Rela;
 
   PElf32_Relr = ^TElf32_Relr;
@@ -582,38 +587,39 @@ type
   PElf64_Relr = ^TElf64_Relr;
   TElf64_Relr = TElf64_Xword;
 
-function ELF32_R_SYM(val : longint) : longint;
-function ELF32_R_TYPE(val : longint) : Tval;
-function ELF32_R_INFO(sym,_type : longint) : longint;
-function ELF64_R_SYM(i : longint) : longint;
-function ELF64_R_TYPE(i : longint) : Ti;
-function ELF64_R_INFO(sym,_type : longint) : longint;
+  //function ELF32_R_SYM(val : longint) : longint;
+  //function ELF32_R_TYPE(val : longint) : Tval;
+  //function ELF32_R_INFO(sym,_type : longint) : longint;
+  //function ELF64_R_SYM(i : longint) : longint;
+  //function ELF64_R_TYPE(i : longint) : Ti;
+  //function ELF64_R_INFO(sym,_type : longint) : longint;
 type
   TElf32_Phdr = record
-      p_type : TElf32_Word;
-      p_offset : TElf32_Off;
-      p_vaddr : TElf32_Addr;
-      p_paddr : TElf32_Addr;
-      p_filesz : TElf32_Word;
-      p_memsz : TElf32_Word;
-      p_flags : TElf32_Word;
-      p_align : TElf32_Word;
-    end;
+    p_type: TElf32_Word;
+    p_offset: TElf32_Off;
+    p_vaddr: TElf32_Addr;
+    p_paddr: TElf32_Addr;
+    p_filesz: TElf32_Word;
+    p_memsz: TElf32_Word;
+    p_flags: TElf32_Word;
+    p_align: TElf32_Word;
+  end;
   PElf32_Phdr = ^TElf32_Phdr;
 
   TElf64_Phdr = record
-      p_type : TElf64_Word;
-      p_flags : TElf64_Word;
-      p_offset : TElf64_Off;
-      p_vaddr : TElf64_Addr;
-      p_paddr : TElf64_Addr;
-      p_filesz : TElf64_Xword;
-      p_memsz : TElf64_Xword;
-      p_align : TElf64_Xword;
-    end;
+    p_type: TElf64_Word;
+    p_flags: TElf64_Word;
+    p_offset: TElf64_Off;
+    p_vaddr: TElf64_Addr;
+    p_paddr: TElf64_Addr;
+    p_filesz: TElf64_Xword;
+    p_memsz: TElf64_Xword;
+    p_align: TElf64_Xword;
+  end;
   PElf64_Phdr = ^TElf64_Phdr;
+
 const
-  PN_XNUM = $ffff;  
+  PN_XNUM = $ffff;
   PT_NULL = 0;
   PT_LOAD = 1;
   PT_DYNAMIC = 2;
@@ -629,10 +635,10 @@ const
   PT_GNU_RELRO = $6474e552;
   PT_GNU_PROPERTY = $6474e553;
   PT_GNU_SFRAME = $6474e554;
-  PT_LOSUNW = $6ffffffa;  
+  PT_LOSUNW = $6ffffffa;
   PT_SUNWBSS = $6ffffffa;
   PT_SUNWSTACK = $6ffffffb;
-  PT_HISUNW = $6fffffff;  
+  PT_HISUNW = $6fffffff;
   PT_HIOS = $6fffffff;
   PT_LOPROC = $70000000;
   PT_HIPROC = $7fffffff;
@@ -724,29 +730,30 @@ const
   NT_LOONGARCH_HW_BREAK = $a05;
   NT_LOONGARCH_HW_WATCH = $a06;
   NT_VERSION = 1;
+
 type
   TElf32_Dyn = record
-      d_tag : TElf32_Sword;
-      d_un : record
-          case longint of
-            0 : ( d_val : TElf32_Word );
-            1 : ( d_ptr : TElf32_Addr );
-          end;
-    end;
+    d_tag: TElf32_Sword;
+    d_un: record
+      case longint of
+        0: (d_val: TElf32_Word);
+        1: (d_ptr: TElf32_Addr);
+      end;
+  end;
   PElf32_Dyn = ^TElf32_Dyn;
 
   TElf64_Dyn = record
-      d_tag : TElf64_Sxword;
-      d_un : record
-          case longint of
-            0 : ( d_val : TElf64_Xword );
-            1 : ( d_ptr : TElf64_Addr );
-          end;
-    end;
+    d_tag: TElf64_Sxword;
+    d_un: record
+      case longint of
+        0: (d_val: TElf64_Xword);
+        1: (d_ptr: TElf64_Addr);
+      end;
+  end;
   PElf64_Dyn = ^TElf64_Dyn;
 
 const
-  DT_NULL = 0;  
+  DT_NULL = 0;
   DT_NEEDED = 1;
   DT_PLTRELSZ = 2;
   DT_PLTGOT = 3;
@@ -789,29 +796,30 @@ const
   DT_HIOS = $6ffff000;
   DT_LOPROC = $70000000;
   DT_HIPROC = $7fffffff;
+  DT_MIPS_NUM = $37;
   DT_PROCNUM = DT_MIPS_NUM;
   DT_VALRNGLO = $6ffffd00;
   DT_GNU_PRELINKED = $6ffffdf5;
   DT_GNU_CONFLICTSZ = $6ffffdf6;
   DT_GNU_LIBLISTSZ = $6ffffdf7;
-  DT_CHECKSUM = $6ffffdf8;  
-  DT_PLTPADSZ = $6ffffdf9;  
-  DT_MOVEENT = $6ffffdfa;  
-  DT_MOVESZ = $6ffffdfb;  
+  DT_CHECKSUM = $6ffffdf8;
+  DT_PLTPADSZ = $6ffffdf9;
+  DT_MOVEENT = $6ffffdfa;
+  DT_MOVESZ = $6ffffdfb;
   DT_FEATURE_1 = $6ffffdfc;
   DT_POSFLAG_1 = $6ffffdfd;
   DT_SYMINSZ = $6ffffdfe;
   DT_SYMINENT = $6ffffdff;
-  DT_VALRNGHI = $6ffffdff;  
+  DT_VALRNGHI = $6ffffdff;
 
-function DT_VALTAGIDX(tag : longint) : longint;
+  //function DT_VALTAGIDX(tag : longint) : longint;
 
 const
-  DT_VALNUM = 12;  
+  DT_VALNUM = 12;
   DT_ADDRRNGLO = $6ffffe00;
   DT_GNU_HASH = $6ffffef5;
-  DT_TLSDESC_PLT = $6ffffef6;  
-  DT_TLSDESC_GOT = $6ffffef7;  
+  DT_TLSDESC_PLT = $6ffffef6;
+  DT_TLSDESC_GOT = $6ffffef7;
   DT_GNU_CONFLICT = $6ffffef8;
   DT_GNU_LIBLIST = $6ffffef9;
   DT_CONFIG = $6ffffefa;
@@ -820,32 +828,32 @@ const
   DT_PLTPAD = $6ffffefd;
   DT_MOVETAB = $6ffffefe;
   DT_SYMINFO = $6ffffeff;
-  DT_ADDRRNGHI = $6ffffeff;  
+  DT_ADDRRNGHI = $6ffffeff;
 
-function DT_ADDRTAGIDX(tag : longint) : longint;
+  //function DT_ADDRTAGIDX(tag : longint) : longint;
 
 const
-  DT_ADDRNUM = 11;  
+  DT_ADDRNUM = 11;
   DT_VERSYM = $6ffffff0;
-  DT_RELACOUNT = $6ffffff9;  
-  DT_RELCOUNT = $6ffffffa;  
+  DT_RELACOUNT = $6ffffff9;
+  DT_RELCOUNT = $6ffffffa;
   DT_FLAGS_1 = $6ffffffb;
   DT_VERDEF = $6ffffffc;
   DT_VERDEFNUM = $6ffffffd;
   DT_VERNEED = $6ffffffe;
   DT_VERNEEDNUM = $6fffffff;
 
-function DT_VERSIONTAGIDX(tag : longint) : longint;
+  //function DT_VERSIONTAGIDX(tag : longint) : longint;
 
 const
-  DT_VERSIONTAGNUM = 16;  
+  DT_VERSIONTAGNUM = 16;
   DT_AUXILIARY = $7ffffffd;
   DT_FILTER = $7fffffff;
 
-function DT_EXTRATAGIDX(tag : longint) : longint;
+  //function DT_EXTRATAGIDX(tag : longint) : longint;
 
 const
-  DT_EXTRANUM = 3;  
+  DT_EXTRANUM = 3;
   DF_ORIGIN = $00000001;
   DF_SYMBOLIC = $00000002;
   DF_TEXTREL = $00000004;
@@ -860,7 +868,7 @@ const
   DF_1_NOOPEN = $00000040;
   DF_1_ORIGIN = $00000080;
   DF_1_DIRECT = $00000100;
-  DF_1_TRANS = $00000200;  
+  DF_1_TRANS = $00000200;
   DF_1_INTERPOSE = $00000400;
   DF_1_NODEFLIB = $00000800;
   DF_1_NODUMP = $00001000;
@@ -869,48 +877,49 @@ const
   DF_1_DISPRELDNE = $00008000;
   DF_1_DISPRELPND = $00010000;
   DF_1_NODIRECT = $00020000;
-  DF_1_IGNMULDEF = $00040000;  
-  DF_1_NOKSYMS = $00080000;  
-  DF_1_NOHDR = $00100000;  
+  DF_1_IGNMULDEF = $00040000;
+  DF_1_NOKSYMS = $00080000;
+  DF_1_NOHDR = $00100000;
   DF_1_EDITED = $00200000;
-  DF_1_NORELOC = $00400000;  
+  DF_1_NORELOC = $00400000;
   DF_1_SYMINTPOSE = $00800000;
   DF_1_GLOBAUDIT = $01000000;
   DF_1_SINGLETON = $02000000;
-  DF_1_STUB = $04000000;  
-  DF_1_PIE = $08000000;  
-  DF_1_KMOD = $10000000;  
-  DF_1_WEAKFILTER = $20000000;  
-  DF_1_NOCOMMON = $40000000;  
+  DF_1_STUB = $04000000;
+  DF_1_PIE = $08000000;
+  DF_1_KMOD = $10000000;
+  DF_1_WEAKFILTER = $20000000;
+  DF_1_NOCOMMON = $40000000;
   DTF_1_PARINIT = $00000001;
-  DTF_1_CONFEXP = $00000002;  
+  DTF_1_CONFEXP = $00000002;
   DF_P1_LAZYLOAD = $00000001;
   DF_P1_GROUPPERM = $00000002;
+
 type
   TElf32_Verdef = record
-      vd_version : TElf32_Half;
-      vd_flags : TElf32_Half;
-      vd_ndx : TElf32_Half;
-      vd_cnt : TElf32_Half;
-      vd_hash : TElf32_Word;
-      vd_aux : TElf32_Word;
-      vd_next : TElf32_Word;
-    end;
+    vd_version: TElf32_Half;
+    vd_flags: TElf32_Half;
+    vd_ndx: TElf32_Half;
+    vd_cnt: TElf32_Half;
+    vd_hash: TElf32_Word;
+    vd_aux: TElf32_Word;
+    vd_next: TElf32_Word;
+  end;
   PElf32_Verdef = ^TElf32_Verdef;
 
   TElf64_Verdef = record
-      vd_version : TElf64_Half;
-      vd_flags : TElf64_Half;
-      vd_ndx : TElf64_Half;
-      vd_cnt : TElf64_Half;
-      vd_hash : TElf64_Word;
-      vd_aux : TElf64_Word;
-      vd_next : TElf64_Word;
-    end;
+    vd_version: TElf64_Half;
+    vd_flags: TElf64_Half;
+    vd_ndx: TElf64_Half;
+    vd_cnt: TElf64_Half;
+    vd_hash: TElf64_Word;
+    vd_aux: TElf64_Word;
+    vd_next: TElf64_Word;
+  end;
   PElf64_Verdef = ^TElf64_Verdef;
 
 const
-  VER_DEF_NONE = 0;  
+  VER_DEF_NONE = 0;
   VER_DEF_CURRENT = 1;
   VER_DEF_NUM = 2;
   VER_FLG_BASE = $1;
@@ -919,80 +928,82 @@ const
   VER_NDX_GLOBAL = 1;
   VER_NDX_LORESERVE = $ff00;
   VER_NDX_ELIMINATE = $ff01;
+
 type
   TElf32_Verdaux = record
-      vda_name : TElf32_Word;
-      vda_next : TElf32_Word;
-    end;
+    vda_name: TElf32_Word;
+    vda_next: TElf32_Word;
+  end;
   PElf32_Verdaux = ^TElf32_Verdaux;
 
   TElf64_Verdaux = record
-      vda_name : TElf64_Word;
-      vda_next : TElf64_Word;
-    end;
+    vda_name: TElf64_Word;
+    vda_next: TElf64_Word;
+  end;
   PElf64_Verdaux = ^TElf64_Verdaux;
 
   TElf32_Verneed = record
-      vn_version : TElf32_Half;
-      vn_cnt : TElf32_Half;
-      vn_file : TElf32_Word;
-      vn_aux : TElf32_Word;
-      vn_next : TElf32_Word;
-    end;
+    vn_version: TElf32_Half;
+    vn_cnt: TElf32_Half;
+    vn_file: TElf32_Word;
+    vn_aux: TElf32_Word;
+    vn_next: TElf32_Word;
+  end;
   PElf32_Verneed = ^TElf32_Verneed;
 
   TElf64_Verneed = record
-      vn_version : TElf64_Half;
-      vn_cnt : TElf64_Half;
-      vn_file : TElf64_Word;
-      vn_aux : TElf64_Word;
-      vn_next : TElf64_Word;
-    end;
+    vn_version: TElf64_Half;
+    vn_cnt: TElf64_Half;
+    vn_file: TElf64_Word;
+    vn_aux: TElf64_Word;
+    vn_next: TElf64_Word;
+  end;
   PElf64_Verneed = ^TElf64_Verneed;
 
 const
-  VER_NEED_NONE = 0;  
+  VER_NEED_NONE = 0;
   VER_NEED_CURRENT = 1;
   VER_NEED_NUM = 2;
+
 type
   TElf32_Vernaux = record
-      vna_hash : TElf32_Word;
-      vna_flags : TElf32_Half;
-      vna_other : TElf32_Half;
-      vna_name : TElf32_Word;
-      vna_next : TElf32_Word;
-    end;
+    vna_hash: TElf32_Word;
+    vna_flags: TElf32_Half;
+    vna_other: TElf32_Half;
+    vna_name: TElf32_Word;
+    vna_next: TElf32_Word;
+  end;
   PElf32_Vernaux = ^TElf32_Vernaux;
 
   TElf64_Vernaux = record
-      vna_hash : TElf64_Word;
-      vna_flags : TElf64_Half;
-      vna_other : TElf64_Half;
-      vna_name : TElf64_Word;
-      vna_next : TElf64_Word;
-    end;
+    vna_hash: TElf64_Word;
+    vna_flags: TElf64_Half;
+    vna_other: TElf64_Half;
+    vna_name: TElf64_Word;
+    vna_next: TElf64_Word;
+  end;
   PElf64_Vernaux = ^TElf64_Vernaux;
 
   TElf32_auxv_t = record
-      a_type : Tuint32_t;
-      a_un : record
-          case longint of
-            0 : ( a_val : Tuint32_t );
-          end;
-    end;
+    a_type: Tuint32_t;
+    a_un: record
+      case longint of
+        0: (a_val: Tuint32_t);
+      end;
+  end;
   PElf32_auxv_t = ^TElf32_auxv_t;
 
   TElf64_auxv_t = record
-      a_type : Tuint64_t;
-      a_un : record
-          case longint of
-            0 : ( a_val : Tuint64_t );
-          end;
-    end;
+    a_type: Tuint64_t;
+    a_un: record
+      case longint of
+        0: (a_val: Tuint64_t);
+      end;
+  end;
   PElf64_auxv_t = ^TElf64_auxv_t;
 
 const
-  AT_NULL = 0;  
+  AT_NULL = 0;
   AT_IGNORE = 1;
   AT_EXECFD = 2;
   AT_PHDR = 3;
@@ -1025,46 +1036,47 @@ const
   AT_HWCAP4 = 30;
   AT_EXECFN = 31;
   AT_SYSINFO = 32;
-  AT_SYSINFO_EHDR = 33;  
+  AT_SYSINFO_EHDR = 33;
   AT_L1I_CACHESHAPE = 34;
-  AT_L1D_CACHESHAPE = 35;  
-  AT_L2_CACHESHAPE = 36;  
-  AT_L3_CACHESHAPE = 37;  
+  AT_L1D_CACHESHAPE = 35;
+  AT_L2_CACHESHAPE = 36;
+  AT_L3_CACHESHAPE = 37;
   AT_L1I_CACHESIZE = 40;
-  AT_L1I_CACHEGEOMETRY = 41;  
-  AT_L1D_CACHESIZE = 42;  
-  AT_L1D_CACHEGEOMETRY = 43;  
-  AT_L2_CACHESIZE = 44;  
-  AT_L2_CACHEGEOMETRY = 45;  
-  AT_L3_CACHESIZE = 46;  
-  AT_L3_CACHEGEOMETRY = 47;  
+  AT_L1I_CACHEGEOMETRY = 41;
+  AT_L1D_CACHESIZE = 42;
+  AT_L1D_CACHEGEOMETRY = 43;
+  AT_L2_CACHESIZE = 44;
+  AT_L2_CACHEGEOMETRY = 45;
+  AT_L3_CACHESIZE = 46;
+  AT_L3_CACHEGEOMETRY = 47;
   AT_MINSIGSTKSZ = 51;
+
 type
   TElf32_Nhdr = record
-      n_namesz : TElf32_Word;
-      n_descsz : TElf32_Word;
-      n_type : TElf32_Word;
-    end;
+    n_namesz: TElf32_Word;
+    n_descsz: TElf32_Word;
+    n_type: TElf32_Word;
+  end;
   PElf32_Nhdr = ^TElf32_Nhdr;
 
   TElf64_Nhdr = record
-      n_namesz : TElf64_Word;
-      n_descsz : TElf64_Word;
-      n_type : TElf64_Word;
-    end;
+    n_namesz: TElf64_Word;
+    n_descsz: TElf64_Word;
+    n_type: TElf64_Word;
+  end;
   PElf64_Nhdr = ^TElf64_Nhdr;
 
 const
-  ELF_NOTE_SOLARIS = 'SUNW Solaris';  
+  ELF_NOTE_SOLARIS = 'SUNW Solaris';
   ELF_NOTE_GNU = 'GNU';
   ELF_NOTE_FDO = 'FDO';
   ELF_NOTE_PAGESIZE_HINT = 1;
   NT_GNU_ABI_TAG = 1;
   ELF_NOTE_ABI = NT_GNU_ABI_TAG;
   ELF_NOTE_OS_LINUX = 0;
-  ELF_NOTE_OS_GNU = 1;  
-  ELF_NOTE_OS_SOLARIS2 = 2;  
-  ELF_NOTE_OS_FREEBSD = 3;  
+  ELF_NOTE_OS_GNU = 1;
+  ELF_NOTE_OS_SOLARIS2 = 2;
+  ELF_NOTE_OS_FREEBSD = 3;
   NT_GNU_HWCAP = 2;
   NT_GNU_BUILD_ID = 3;
   NT_GNU_GOLD_VERSION = 4;
@@ -1074,9 +1086,9 @@ const
   GNU_PROPERTY_STACK_SIZE = 1;
   GNU_PROPERTY_NO_COPY_ON_PROTECTED = 2;
   GNU_PROPERTY_UINT32_AND_LO = $b0000000;
-  GNU_PROPERTY_UINT32_AND_HI = $b0007fff;  
+  GNU_PROPERTY_UINT32_AND_HI = $b0007fff;
   GNU_PROPERTY_UINT32_OR_LO = $b0008000;
-  GNU_PROPERTY_UINT32_OR_HI = $b000ffff;  
+  GNU_PROPERTY_UINT32_OR_HI = $b000ffff;
   GNU_PROPERTY_1_NEEDED = GNU_PROPERTY_UINT32_OR_LO;
   GNU_PROPERTY_1_NEEDED_INDIRECT_EXTERN_ACCESS = 1 shl 0;
   GNU_PROPERTY_LOPROC = $c0000000;
@@ -1084,8 +1096,8 @@ const
   GNU_PROPERTY_LOUSER = $e0000000;
   GNU_PROPERTY_HIUSER = $ffffffff;
   GNU_PROPERTY_AARCH64_FEATURE_1_AND = $c0000000;
-  GNU_PROPERTY_AARCH64_FEATURE_1_BTI = 1 shl 0;  
-  GNU_PROPERTY_AARCH64_FEATURE_1_PAC = 1 shl 1;  
+  GNU_PROPERTY_AARCH64_FEATURE_1_BTI = 1 shl 0;
+  GNU_PROPERTY_AARCH64_FEATURE_1_PAC = 1 shl 1;
   GNU_PROPERTY_X86_ISA_1_USED = $c0010002;
   GNU_PROPERTY_X86_ISA_1_NEEDED = $c0008002;
   GNU_PROPERTY_X86_FEATURE_1_AND = $c0000002;
@@ -1095,34 +1107,35 @@ const
   GNU_PROPERTY_X86_ISA_1_V4 = 1 shl 3;
   GNU_PROPERTY_X86_FEATURE_1_IBT = 1 shl 0;
   GNU_PROPERTY_X86_FEATURE_1_SHSTK = 1 shl 1;
+
 type
   TElf32_Move = record
-      m_value : TElf32_Xword;
-      m_info : TElf32_Word;
-      m_poffset : TElf32_Word;
-      m_repeat : TElf32_Half;
-      m_stride : TElf32_Half;
-    end;
+    m_value: TElf32_Xword;
+    m_info: TElf32_Word;
+    m_poffset: TElf32_Word;
+    m_repeat: TElf32_Half;
+    m_stride: TElf32_Half;
+  end;
   PElf32_Move = ^TElf32_Move;
 
   TElf64_Move = record
-      m_value : TElf64_Xword;
-      m_info : TElf64_Xword;
-      m_poffset : TElf64_Xword;
-      m_repeat : TElf64_Half;
-      m_stride : TElf64_Half;
-    end;
+    m_value: TElf64_Xword;
+    m_info: TElf64_Xword;
+    m_poffset: TElf64_Xword;
+    m_repeat: TElf64_Half;
+    m_stride: TElf64_Half;
+  end;
   PElf64_Move = ^TElf64_Move;
 
-  function ELF32_M_SYM(info : longint) : longint;
-function ELF32_M_SIZE(info : longint) : byte;
-function ELF32_M_INFO(sym,size : longint) : longint;
-function ELF64_M_SYM(info : longint) : longint;
-function ELF64_M_SIZE(info : longint) : longint;
-function ELF64_M_INFO(sym,size : longint) : longint;
+  //function ELF32_M_SYM(info : longint) : longint;
+  //function ELF32_M_SIZE(info : longint) : byte;
+  //function ELF32_M_INFO(sym,size : longint) : longint;
+  //function ELF64_M_SYM(info : longint) : longint;
+  //function ELF64_M_SIZE(info : longint) : longint;
+  //function ELF64_M_INFO(sym,size : longint) : longint;
 
 const
-  EF_CPU32 = $00810000;  
+  EF_CPU32 = $00810000;
   R_68K_NONE = 0;
   R_68K_32 = 1;
   R_68K_16 = 2;
@@ -1176,17 +1189,17 @@ const
   R_386_RELATIVE = 8;
   R_386_GOTOFF = 9;
   R_386_GOTPC = 10;
-  R_386_32PLT = 11;  
+  R_386_32PLT = 11;
   R_386_TLS_TPOFF = 14;
   R_386_TLS_IE = 15;
   R_386_TLS_GOTIE = 16;
   R_386_TLS_LE = 17;
   R_386_TLS_GD = 18;
   R_386_TLS_LDM = 19;
-  R_386_16 = 20;  
-  R_386_PC16 = 21;  
-  R_386_8 = 22;  
-  R_386_PC8 = 23;  
+  R_386_16 = 20;
+  R_386_PC16 = 21;
+  R_386_8 = 22;
+  R_386_PC8 = 23;
   R_386_TLS_GD_32 = 24;
   R_386_TLS_GD_PUSH = 25;
   R_386_TLS_GD_CALL = 26;
@@ -1210,11 +1223,11 @@ const
   R_386_NUM = 44;
   STT_SPARC_REGISTER = 13;
   EF_SPARCV9_MM = 3;
-  EF_SPARCV9_TSO = 0;  
-  EF_SPARCV9_PSO = 1;  
-  EF_SPARCV9_RMO = 2;  
+  EF_SPARCV9_TSO = 0;
+  EF_SPARCV9_PSO = 1;
+  EF_SPARCV9_RMO = 2;
   EF_SPARC_LEDATA = $800000;
-  EF_SPARC_EXT_MASK = $FFFF00;  
+  EF_SPARC_EXT_MASK = $FFFF00;
   EF_SPARC_32PLUS = $000100;
   EF_SPARC_SUN_US1 = $000200;
   EF_SPARC_HAL_R1 = $000400;
@@ -1275,54 +1288,54 @@ const
   R_SPARC_REGISTER = 53;
   R_SPARC_UA64 = 54;
   R_SPARC_UA16 = 55;
-  R_SPARC_TLS_GD_HI22 = 56;  
-  R_SPARC_TLS_GD_LO10 = 57;  
-  R_SPARC_TLS_GD_ADD = 58;  
-  R_SPARC_TLS_GD_CALL = 59;  
-  R_SPARC_TLS_LDM_HI22 = 60;  
-  R_SPARC_TLS_LDM_LO10 = 61;  
-  R_SPARC_TLS_LDM_ADD = 62;  
-  R_SPARC_TLS_LDM_CALL = 63;  
-  R_SPARC_TLS_LDO_HIX22 = 64;  
-  R_SPARC_TLS_LDO_LOX10 = 65;  
-  R_SPARC_TLS_LDO_ADD = 66;  
-  R_SPARC_TLS_IE_HI22 = 67;  
-  R_SPARC_TLS_IE_LO10 = 68;  
-  R_SPARC_TLS_IE_LD = 69;  
-  R_SPARC_TLS_IE_LDX = 70;  
-  R_SPARC_TLS_IE_ADD = 71;  
-  R_SPARC_TLS_LE_HIX22 = 72;  
-  R_SPARC_TLS_LE_LOX10 = 73;  
-  R_SPARC_TLS_DTPMOD32 = 74;  
-  R_SPARC_TLS_DTPMOD64 = 75;  
-  R_SPARC_TLS_DTPOFF32 = 76;  
-  R_SPARC_TLS_DTPOFF64 = 77;  
-  R_SPARC_TLS_TPOFF32 = 78;  
-  R_SPARC_TLS_TPOFF64 = 79;  
-  R_SPARC_GOTDATA_HIX22 = 80;  
-  R_SPARC_GOTDATA_LOX10 = 81;  
-  R_SPARC_GOTDATA_OP_HIX22 = 82;  
-  R_SPARC_GOTDATA_OP_LOX10 = 83;  
-  R_SPARC_GOTDATA_OP = 84;  
-  R_SPARC_H34 = 85;  
-  R_SPARC_SIZE32 = 86;  
-  R_SPARC_SIZE64 = 87;  
-  R_SPARC_WDISP10 = 88;  
-  R_SPARC_JMP_IREL = 248;  
-  R_SPARC_IRELATIVE = 249;  
-  R_SPARC_GNU_VTINHERIT = 250;  
-  R_SPARC_GNU_VTENTRY = 251;  
-  R_SPARC_REV32 = 252;  
+  R_SPARC_TLS_GD_HI22 = 56;
+  R_SPARC_TLS_GD_LO10 = 57;
+  R_SPARC_TLS_GD_ADD = 58;
+  R_SPARC_TLS_GD_CALL = 59;
+  R_SPARC_TLS_LDM_HI22 = 60;
+  R_SPARC_TLS_LDM_LO10 = 61;
+  R_SPARC_TLS_LDM_ADD = 62;
+  R_SPARC_TLS_LDM_CALL = 63;
+  R_SPARC_TLS_LDO_HIX22 = 64;
+  R_SPARC_TLS_LDO_LOX10 = 65;
+  R_SPARC_TLS_LDO_ADD = 66;
+  R_SPARC_TLS_IE_HI22 = 67;
+  R_SPARC_TLS_IE_LO10 = 68;
+  R_SPARC_TLS_IE_LD = 69;
+  R_SPARC_TLS_IE_LDX = 70;
+  R_SPARC_TLS_IE_ADD = 71;
+  R_SPARC_TLS_LE_HIX22 = 72;
+  R_SPARC_TLS_LE_LOX10 = 73;
+  R_SPARC_TLS_DTPMOD32 = 74;
+  R_SPARC_TLS_DTPMOD64 = 75;
+  R_SPARC_TLS_DTPOFF32 = 76;
+  R_SPARC_TLS_DTPOFF64 = 77;
+  R_SPARC_TLS_TPOFF32 = 78;
+  R_SPARC_TLS_TPOFF64 = 79;
+  R_SPARC_GOTDATA_HIX22 = 80;
+  R_SPARC_GOTDATA_LOX10 = 81;
+  R_SPARC_GOTDATA_OP_HIX22 = 82;
+  R_SPARC_GOTDATA_OP_LOX10 = 83;
+  R_SPARC_GOTDATA_OP = 84;
+  R_SPARC_H34 = 85;
+  R_SPARC_SIZE32 = 86;
+  R_SPARC_SIZE64 = 87;
+  R_SPARC_WDISP10 = 88;
+  R_SPARC_JMP_IREL = 248;
+  R_SPARC_IRELATIVE = 249;
+  R_SPARC_GNU_VTINHERIT = 250;
+  R_SPARC_GNU_VTENTRY = 251;
+  R_SPARC_REV32 = 252;
   R_SPARC_NUM = 253;
   DT_SPARC_REGISTER = $70000001;
-  DT_SPARC_NUM = 2;  
+  DT_SPARC_NUM = 2;
   EF_MIPS_NOREORDER = 1;
   EF_MIPS_PIC = 2;
   EF_MIPS_CPIC = 4;
-  EF_MIPS_XGOT = 8;  
-  EF_MIPS_UCODE = 16;  
-  EF_MIPS_ABI2 = 32;  
-  EF_MIPS_ABI_ON32 = 64;  
+  EF_MIPS_XGOT = 8;
+  EF_MIPS_UCODE = 16;
+  EF_MIPS_ABI2 = 32;
+  EF_MIPS_ABI_ON32 = 64;
   EF_MIPS_OPTIONS_FIRST = $00000080;
   EF_MIPS_32BITMODE = $00000100;
   EF_MIPS_FP64 = 512;
@@ -1348,128 +1361,129 @@ const
   EF_MIPS_ABI_O64 = $00002000;
   EF_MIPS_ABI_EABI32 = $00003000;
   EF_MIPS_ABI_EABI64 = $00004000;
-  EF_MIPS_MACH = $00FF0000;  
-  EF_MIPS_MACH_3900 = $00810000;  
-  EF_MIPS_MACH_4010 = $00820000;  
-  EF_MIPS_MACH_4100 = $00830000;  
-  EF_MIPS_MACH_ALLEGREX = $00840000;  
-  EF_MIPS_MACH_4650 = $00850000;  
-  EF_MIPS_MACH_4120 = $00870000;  
-  EF_MIPS_MACH_4111 = $00880000;  
-  EF_MIPS_MACH_SB1 = $008a0000;  
-  EF_MIPS_MACH_OCTEON = $008b0000;  
-  EF_MIPS_MACH_XLR = $008c0000;  
-  EF_MIPS_MACH_OCTEON2 = $008d0000;  
-  EF_MIPS_MACH_OCTEON3 = $008e0000;  
-  EF_MIPS_MACH_5400 = $00910000;  
-  EF_MIPS_MACH_5900 = $00920000;  
-  EF_MIPS_MACH_IAMR2 = $00930000;  
-  EF_MIPS_MACH_5500 = $00980000;  
-  EF_MIPS_MACH_9000 = $00990000;  
-  EF_MIPS_MACH_LS2E = $00A00000;  
-  EF_MIPS_MACH_LS2F = $00A10000;  
-  EF_MIPS_MACH_GS464 = $00A20000;  
-  EF_MIPS_MACH_GS464E = $00A30000;  
-  EF_MIPS_MACH_GS264E = $00A40000;  
+  EF_MIPS_MACH = $00FF0000;
+  EF_MIPS_MACH_3900 = $00810000;
+  EF_MIPS_MACH_4010 = $00820000;
+  EF_MIPS_MACH_4100 = $00830000;
+  EF_MIPS_MACH_ALLEGREX = $00840000;
+  EF_MIPS_MACH_4650 = $00850000;
+  EF_MIPS_MACH_4120 = $00870000;
+  EF_MIPS_MACH_4111 = $00880000;
+  EF_MIPS_MACH_SB1 = $008a0000;
+  EF_MIPS_MACH_OCTEON = $008b0000;
+  EF_MIPS_MACH_XLR = $008c0000;
+  EF_MIPS_MACH_OCTEON2 = $008d0000;
+  EF_MIPS_MACH_OCTEON3 = $008e0000;
+  EF_MIPS_MACH_5400 = $00910000;
+  EF_MIPS_MACH_5900 = $00920000;
+  EF_MIPS_MACH_IAMR2 = $00930000;
+  EF_MIPS_MACH_5500 = $00980000;
+  EF_MIPS_MACH_9000 = $00990000;
+  EF_MIPS_MACH_LS2E = $00A00000;
+  EF_MIPS_MACH_LS2F = $00A10000;
+  EF_MIPS_MACH_GS464 = $00A20000;
+  EF_MIPS_MACH_GS464E = $00A30000;
+  EF_MIPS_MACH_GS264E = $00A40000;
   E_MIPS_ARCH_1 = EF_MIPS_ARCH_1;
-  E_MIPS_ARCH_2 = EF_MIPS_ARCH_2;  
-  E_MIPS_ARCH_3 = EF_MIPS_ARCH_3;  
-  E_MIPS_ARCH_4 = EF_MIPS_ARCH_4;  
-  E_MIPS_ARCH_5 = EF_MIPS_ARCH_5;  
-  E_MIPS_ARCH_32 = EF_MIPS_ARCH_32;  
-  E_MIPS_ARCH_64 = EF_MIPS_ARCH_64;  
+  E_MIPS_ARCH_2 = EF_MIPS_ARCH_2;
+  E_MIPS_ARCH_3 = EF_MIPS_ARCH_3;
+  E_MIPS_ARCH_4 = EF_MIPS_ARCH_4;
+  E_MIPS_ARCH_5 = EF_MIPS_ARCH_5;
+  E_MIPS_ARCH_32 = EF_MIPS_ARCH_32;
+  E_MIPS_ARCH_64 = EF_MIPS_ARCH_64;
   SHN_MIPS_ACOMMON = $ff00;
   SHN_MIPS_TEXT = $ff01;
   SHN_MIPS_DATA = $ff02;
   SHN_MIPS_SCOMMON = $ff03;
   SHN_MIPS_SUNDEFINED = $ff04;
   SHT_MIPS_LIBLIST = $70000000;
-  SHT_MIPS_MSYM = $70000001;  
+  SHT_MIPS_MSYM = $70000001;
   SHT_MIPS_CONFLICT = $70000002;
   SHT_MIPS_GPTAB = $70000003;
   SHT_MIPS_UCODE = $70000004;
   SHT_MIPS_DEBUG = $70000005;
   SHT_MIPS_REGINFO = $70000006;
-  SHT_MIPS_PACKAGE = $70000007;  
-  SHT_MIPS_PACKSYM = $70000008;  
-  SHT_MIPS_RELD = $70000009;  
-  SHT_MIPS_IFACE = $7000000b;  
-  SHT_MIPS_CONTENT = $7000000c;  
+  SHT_MIPS_PACKAGE = $70000007;
+  SHT_MIPS_PACKSYM = $70000008;
+  SHT_MIPS_RELD = $70000009;
+  SHT_MIPS_IFACE = $7000000b;
+  SHT_MIPS_CONTENT = $7000000c;
   SHT_MIPS_OPTIONS = $7000000d;
-  SHT_MIPS_SHDR = $70000010;  
-  SHT_MIPS_FDESC = $70000011;  
-  SHT_MIPS_EXTSYM = $70000012;  
-  SHT_MIPS_DENSE = $70000013;  
-  SHT_MIPS_PDESC = $70000014;  
-  SHT_MIPS_LOCSYM = $70000015;  
-  SHT_MIPS_AUXSYM = $70000016;  
-  SHT_MIPS_OPTSYM = $70000017;  
-  SHT_MIPS_LOCSTR = $70000018;  
-  SHT_MIPS_LINE = $70000019;  
-  SHT_MIPS_RFDESC = $7000001a;  
-  SHT_MIPS_DELTASYM = $7000001b;  
-  SHT_MIPS_DELTAINST = $7000001c;  
-  SHT_MIPS_DELTACLASS = $7000001d;  
+  SHT_MIPS_SHDR = $70000010;
+  SHT_MIPS_FDESC = $70000011;
+  SHT_MIPS_EXTSYM = $70000012;
+  SHT_MIPS_DENSE = $70000013;
+  SHT_MIPS_PDESC = $70000014;
+  SHT_MIPS_LOCSYM = $70000015;
+  SHT_MIPS_AUXSYM = $70000016;
+  SHT_MIPS_OPTSYM = $70000017;
+  SHT_MIPS_LOCSTR = $70000018;
+  SHT_MIPS_LINE = $70000019;
+  SHT_MIPS_RFDESC = $7000001a;
+  SHT_MIPS_DELTASYM = $7000001b;
+  SHT_MIPS_DELTAINST = $7000001c;
+  SHT_MIPS_DELTACLASS = $7000001d;
   SHT_MIPS_DWARF = $7000001e;
-  SHT_MIPS_DELTADECL = $7000001f;  
-  SHT_MIPS_SYMBOL_LIB = $70000020;  
+  SHT_MIPS_DELTADECL = $7000001f;
+  SHT_MIPS_SYMBOL_LIB = $70000020;
   SHT_MIPS_EVENTS = $70000021;
-  SHT_MIPS_TRANSLATE = $70000022;  
-  SHT_MIPS_PIXIE = $70000023;  
-  SHT_MIPS_XLATE = $70000024;  
-  SHT_MIPS_XLATE_DEBUG = $70000025;  
-  SHT_MIPS_WHIRL = $70000026;  
-  SHT_MIPS_EH_REGION = $70000027;  
-  SHT_MIPS_XLATE_OLD = $70000028;  
-  SHT_MIPS_PDR_EXCEPTION = $70000029;  
-  SHT_MIPS_ABIFLAGS = $7000002a;  
-  SHT_MIPS_XHASH = $7000002b;  
+  SHT_MIPS_TRANSLATE = $70000022;
+  SHT_MIPS_PIXIE = $70000023;
+  SHT_MIPS_XLATE = $70000024;
+  SHT_MIPS_XLATE_DEBUG = $70000025;
+  SHT_MIPS_WHIRL = $70000026;
+  SHT_MIPS_EH_REGION = $70000027;
+  SHT_MIPS_XLATE_OLD = $70000028;
+  SHT_MIPS_PDR_EXCEPTION = $70000029;
+  SHT_MIPS_ABIFLAGS = $7000002a;
+  SHT_MIPS_XHASH = $7000002b;
   SHF_MIPS_GPREL = $10000000;
-  SHF_MIPS_MERGE = $20000000;  
-  SHF_MIPS_ADDR = $40000000;  
-  SHF_MIPS_STRINGS = $80000000;  
-  SHF_MIPS_NOSTRIP = $08000000;  
-  SHF_MIPS_LOCAL = $04000000;  
-  SHF_MIPS_NAMES = $02000000;  
-  SHF_MIPS_NODUPE = $01000000;  
+  SHF_MIPS_MERGE = $20000000;
+  SHF_MIPS_ADDR = $40000000;
+  SHF_MIPS_STRINGS = $80000000;
+  SHF_MIPS_NOSTRIP = $08000000;
+  SHF_MIPS_LOCAL = $04000000;
+  SHF_MIPS_NAMES = $02000000;
+  SHF_MIPS_NODUPE = $01000000;
   STO_MIPS_DEFAULT = $0;
-  STO_MIPS_INTERNAL = $1;  
-  STO_MIPS_HIDDEN = $2;  
-  STO_MIPS_PROTECTED = $3;  
-  STO_MIPS_PLT = $8;  
-  STO_MIPS_SC_ALIGN_UNUSED = $ff;  
+  STO_MIPS_INTERNAL = $1;
+  STO_MIPS_HIDDEN = $2;
+  STO_MIPS_PROTECTED = $3;
+  STO_MIPS_PLT = $8;
+  STO_MIPS_SC_ALIGN_UNUSED = $ff;
   STB_MIPS_SPLIT_COMMON = 13;
+
 type
   TElf32_gptab = record
-      case longint of
-        0 : ( gt_header : record
-            gt_current_g_value : TElf32_Word;
-            gt_unused : TElf32_Word;
-          end );
-        1 : ( gt_entry : record
-            gt_g_value : TElf32_Word;
-            gt_bytes : TElf32_Word;
-          end );
-      end;
+    case longint of
+      0: (gt_header: record
+          gt_current_g_value: TElf32_Word;
+          gt_unused: TElf32_Word;
+          end);
+      1: (gt_entry: record
+          gt_g_value: TElf32_Word;
+          gt_bytes: TElf32_Word;
+          end);
+  end;
   PElf32_gptab = ^TElf32_gptab;
 
   TElf32_RegInfo = record
-      ri_gprmask : TElf32_Word;
-      ri_cprmask : array[0..3] of TElf32_Word;
-      ri_gp_value : TElf32_Sword;
-    end;
+    ri_gprmask: TElf32_Word;
+    ri_cprmask: array[0..3] of TElf32_Word;
+    ri_gp_value: TElf32_Sword;
+  end;
   PElf32_RegInfo = ^TElf32_RegInfo;
 
   TElf_Options = record
-      kind : byte;
-      size : byte;
-      section : TElf32_Section;
-      info : TElf32_Word;
-    end;
+    kind: byte;
+    size: byte;
+    section: TElf32_Section;
+    info: TElf32_Word;
+  end;
   PElf_Options = ^TElf_Options;
 
 const
-  ODK_NULL = 0;  
+  ODK_NULL = 0;
   ODK_REGINFO = 1;
   ODK_EXCEPTIONS = 2;
   ODK_PAD = 3;
@@ -1483,30 +1497,31 @@ const
   OEX_PAGE0 = $10000;
   OEX_SMM = $20000;
   OEX_FPDBUG = $40000;
-  OEX_PRECISEFP = OEX_FPDBUG;  
+  OEX_PRECISEFP = OEX_FPDBUG;
   OEX_DISMISS = $80000;
-  OEX_FPU_INVAL = $10;  
-  OEX_FPU_DIV0 = $08;  
-  OEX_FPU_OFLO = $04;  
-  OEX_FPU_UFLO = $02;  
-  OEX_FPU_INEX = $01;  
+  OEX_FPU_INVAL = $10;
+  OEX_FPU_DIV0 = $08;
+  OEX_FPU_OFLO = $04;
+  OEX_FPU_UFLO = $02;
+  OEX_FPU_INEX = $01;
   OHW_R4KEOP = $1;
   OHW_R8KPFETCH = $2;
   OHW_R5KEOP = $4;
   OHW_R5KCVTL = $8;
-  OPAD_PREFIX = $1;  
-  OPAD_POSTFIX = $2;  
-  OPAD_SYMBOL = $4;  
+  OPAD_PREFIX = $1;
+  OPAD_POSTFIX = $2;
+  OPAD_SYMBOL = $4;
+
 type
   TElf_Options_Hw = record
-      hwp_flags1 : TElf32_Word;
-      hwp_flags2 : TElf32_Word;
-    end;
+    hwp_flags1: TElf32_Word;
+    hwp_flags2: TElf32_Word;
+  end;
   PElf_Options_Hw = ^TElf_Options_Hw;
 
 const
-  OHWA0_R4KEOP_CHECKED = $00000001;  
-  OHWA1_R4KEOP_CLEAN = $00000002;  
+  OHWA0_R4KEOP_CHECKED = $00000001;
+  OHWA1_R4KEOP_CLEAN = $00000002;
   R_MIPS_NONE = 0;
   R_MIPS_16 = 1;
   R_MIPS_32 = 2;
@@ -1520,28 +1535,28 @@ const
   R_MIPS_PC16 = 10;
   R_MIPS_CALL16 = 11;
   R_MIPS_GPREL32 = 12;
-  R_MIPS_SHIFT5 = 16;  
-  R_MIPS_SHIFT6 = 17;  
-  R_MIPS_64 = 18;  
-  R_MIPS_GOT_DISP = 19;  
-  R_MIPS_GOT_PAGE = 20;  
-  R_MIPS_GOT_OFST = 21;  
-  R_MIPS_GOT_HI16 = 22;  
-  R_MIPS_GOT_LO16 = 23;  
-  R_MIPS_SUB = 24;  
-  R_MIPS_INSERT_A = 25;  
-  R_MIPS_INSERT_B = 26;  
-  R_MIPS_DELETE = 27;  
-  R_MIPS_HIGHER = 28;  
-  R_MIPS_HIGHEST = 29;  
-  R_MIPS_CALL_HI16 = 30;  
-  R_MIPS_CALL_LO16 = 31;  
-  R_MIPS_SCN_DISP = 32;  
-  R_MIPS_REL16 = 33;  
-  R_MIPS_ADD_IMMEDIATE = 34;  
-  R_MIPS_PJUMP = 35;  
-  R_MIPS_RELGOT = 36;  
-  R_MIPS_JALR = 37;  
+  R_MIPS_SHIFT5 = 16;
+  R_MIPS_SHIFT6 = 17;
+  R_MIPS_64 = 18;
+  R_MIPS_GOT_DISP = 19;
+  R_MIPS_GOT_PAGE = 20;
+  R_MIPS_GOT_OFST = 21;
+  R_MIPS_GOT_HI16 = 22;
+  R_MIPS_GOT_LO16 = 23;
+  R_MIPS_SUB = 24;
+  R_MIPS_INSERT_A = 25;
+  R_MIPS_INSERT_B = 26;
+  R_MIPS_DELETE = 27;
+  R_MIPS_HIGHER = 28;
+  R_MIPS_HIGHEST = 29;
+  R_MIPS_CALL_HI16 = 30;
+  R_MIPS_CALL_LO16 = 31;
+  R_MIPS_SCN_DISP = 32;
+  R_MIPS_REL16 = 33;
+  R_MIPS_ADD_IMMEDIATE = 34;
+  R_MIPS_PJUMP = 35;
+  R_MIPS_RELGOT = 36;
+  R_MIPS_JALR = 37;
   R_MIPS_TLS_DTPMOD32 = 38;
   R_MIPS_TLS_DTPREL32 = 39;
   R_MIPS_TLS_DTPMOD64 = 40;
@@ -1555,71 +1570,71 @@ const
   R_MIPS_TLS_TPREL64 = 48;
   R_MIPS_TLS_TPREL_HI16 = 49;
   R_MIPS_TLS_TPREL_LO16 = 50;
-  R_MIPS_GLOB_DAT = 51;  
-  R_MIPS_PC21_S2 = 60;  
-  R_MIPS_PC26_S2 = 61;  
-  R_MIPS_PC18_S3 = 62;  
-  R_MIPS_PC19_S2 = 63;  
-  R_MIPS_PCHI16 = 64;  
-  R_MIPS_PCLO16 = 65;  
-  R_MIPS16_26 = 100;  
-  R_MIPS16_GPREL = 101;  
-  R_MIPS16_GOT16 = 102;  
-  R_MIPS16_CALL16 = 103;  
-  R_MIPS16_HI16 = 104;  
-  R_MIPS16_LO16 = 105;  
-  R_MIPS16_TLS_GD = 106;  
-  R_MIPS16_TLS_LDM = 107;  
-  R_MIPS16_TLS_DTPREL_HI16 = 108;  
-  R_MIPS16_TLS_DTPREL_LO16 = 109;  
-  R_MIPS16_TLS_GOTTPREL = 110;  
-  R_MIPS16_TLS_TPREL_HI16 = 111;  
-  R_MIPS16_TLS_TPREL_LO16 = 112;  
-  R_MIPS16_PC16_S1 = 113;  
-  R_MIPS_COPY = 126;  
-  R_MIPS_JUMP_SLOT = 127;  
-  R_MIPS_RELATIVE = 128;  
-  R_MICROMIPS_26_S1 = 133;  
-  R_MICROMIPS_HI16 = 134;  
-  R_MICROMIPS_LO16 = 135;  
-  R_MICROMIPS_GPREL16 = 136;  
-  R_MICROMIPS_LITERAL = 137;  
-  R_MICROMIPS_GOT16 = 138;  
-  R_MICROMIPS_PC7_S1 = 139;  
-  R_MICROMIPS_PC10_S1 = 140;  
-  R_MICROMIPS_PC16_S1 = 141;  
-  R_MICROMIPS_CALL16 = 142;  
-  R_MICROMIPS_GOT_DISP = 145;  
-  R_MICROMIPS_GOT_PAGE = 146;  
-  R_MICROMIPS_GOT_OFST = 147;  
-  R_MICROMIPS_GOT_HI16 = 148;  
-  R_MICROMIPS_GOT_LO16 = 149;  
-  R_MICROMIPS_SUB = 150;  
-  R_MICROMIPS_HIGHER = 151;  
-  R_MICROMIPS_HIGHEST = 152;  
-  R_MICROMIPS_CALL_HI16 = 153;  
-  R_MICROMIPS_CALL_LO16 = 154;  
-  R_MICROMIPS_SCN_DISP = 155;  
-  R_MICROMIPS_JALR = 156;  
-  R_MICROMIPS_HI0_LO16 = 157;  
-  R_MICROMIPS_TLS_GD = 162;  
-  R_MICROMIPS_TLS_LDM = 163;  
-  R_MICROMIPS_TLS_DTPREL_HI16 = 164;  
-  R_MICROMIPS_TLS_DTPREL_LO16 = 165;  
-  R_MICROMIPS_TLS_GOTTPREL = 166;  
-  R_MICROMIPS_TLS_TPREL_HI16 = 169;  
-  R_MICROMIPS_TLS_TPREL_LO16 = 170;  
-  R_MICROMIPS_GPREL7_S2 = 172;  
-  R_MICROMIPS_PC23_S2 = 173;  
-  R_MIPS_PC32 = 248;  
-  R_MIPS_EH = 249;  
-  R_MIPS_GNU_REL16_S2 = 250;  
-  R_MIPS_GNU_VTINHERIT = 253;  
-  R_MIPS_GNU_VTENTRY = 254;  
+  R_MIPS_GLOB_DAT = 51;
+  R_MIPS_PC21_S2 = 60;
+  R_MIPS_PC26_S2 = 61;
+  R_MIPS_PC18_S3 = 62;
+  R_MIPS_PC19_S2 = 63;
+  R_MIPS_PCHI16 = 64;
+  R_MIPS_PCLO16 = 65;
+  R_MIPS16_26 = 100;
+  R_MIPS16_GPREL = 101;
+  R_MIPS16_GOT16 = 102;
+  R_MIPS16_CALL16 = 103;
+  R_MIPS16_HI16 = 104;
+  R_MIPS16_LO16 = 105;
+  R_MIPS16_TLS_GD = 106;
+  R_MIPS16_TLS_LDM = 107;
+  R_MIPS16_TLS_DTPREL_HI16 = 108;
+  R_MIPS16_TLS_DTPREL_LO16 = 109;
+  R_MIPS16_TLS_GOTTPREL = 110;
+  R_MIPS16_TLS_TPREL_HI16 = 111;
+  R_MIPS16_TLS_TPREL_LO16 = 112;
+  R_MIPS16_PC16_S1 = 113;
+  R_MIPS_COPY = 126;
+  R_MIPS_JUMP_SLOT = 127;
+  R_MIPS_RELATIVE = 128;
+  R_MICROMIPS_26_S1 = 133;
+  R_MICROMIPS_HI16 = 134;
+  R_MICROMIPS_LO16 = 135;
+  R_MICROMIPS_GPREL16 = 136;
+  R_MICROMIPS_LITERAL = 137;
+  R_MICROMIPS_GOT16 = 138;
+  R_MICROMIPS_PC7_S1 = 139;
+  R_MICROMIPS_PC10_S1 = 140;
+  R_MICROMIPS_PC16_S1 = 141;
+  R_MICROMIPS_CALL16 = 142;
+  R_MICROMIPS_GOT_DISP = 145;
+  R_MICROMIPS_GOT_PAGE = 146;
+  R_MICROMIPS_GOT_OFST = 147;
+  R_MICROMIPS_GOT_HI16 = 148;
+  R_MICROMIPS_GOT_LO16 = 149;
+  R_MICROMIPS_SUB = 150;
+  R_MICROMIPS_HIGHER = 151;
+  R_MICROMIPS_HIGHEST = 152;
+  R_MICROMIPS_CALL_HI16 = 153;
+  R_MICROMIPS_CALL_LO16 = 154;
+  R_MICROMIPS_SCN_DISP = 155;
+  R_MICROMIPS_JALR = 156;
+  R_MICROMIPS_HI0_LO16 = 157;
+  R_MICROMIPS_TLS_GD = 162;
+  R_MICROMIPS_TLS_LDM = 163;
+  R_MICROMIPS_TLS_DTPREL_HI16 = 164;
+  R_MICROMIPS_TLS_DTPREL_LO16 = 165;
+  R_MICROMIPS_TLS_GOTTPREL = 166;
+  R_MICROMIPS_TLS_TPREL_HI16 = 169;
+  R_MICROMIPS_TLS_TPREL_LO16 = 170;
+  R_MICROMIPS_GPREL7_S2 = 172;
+  R_MICROMIPS_PC23_S2 = 173;
+  R_MIPS_PC32 = 248;
+  R_MIPS_EH = 249;
+  R_MIPS_GNU_REL16_S2 = 250;
+  R_MIPS_GNU_VTINHERIT = 253;
+  R_MIPS_GNU_VTENTRY = 254;
   R_MIPS_NUM = 255;
   PT_MIPS_REGINFO = $70000000;
   PT_MIPS_RTPROC = $70000001;
-  PT_MIPS_OPTIONS = $70000002;  
+  PT_MIPS_OPTIONS = $70000002;
   PT_MIPS_ABIFLAGS = $70000003;
   PF_MIPS_LOCAL = $10000000;
   DT_MIPS_RLD_VERSION = $70000001;
@@ -1628,7 +1643,7 @@ const
   DT_MIPS_IVERSION = $70000004;
   DT_MIPS_FLAGS = $70000005;
   DT_MIPS_BASE_ADDRESS = $70000006;
-  DT_MIPS_MSYM = $70000007;  
+  DT_MIPS_MSYM = $70000007;
   DT_MIPS_CONFLICT = $70000008;
   DT_MIPS_LIBLIST = $70000009;
   DT_MIPS_LOCAL_GOTNO = $7000000a;
@@ -1650,15 +1665,15 @@ const
   DT_MIPS_DELTA_CLASSSYM = $70000020;
   DT_MIPS_DELTA_CLASSSYM_NO = $70000021;
   DT_MIPS_CXX_FLAGS = $70000022;
-  DT_MIPS_PIXIE_INIT = $70000023;  
-  DT_MIPS_SYMBOL_LIB = $70000024;  
-  DT_MIPS_LOCALPAGE_GOTIDX = $70000025;  
-  DT_MIPS_LOCAL_GOTIDX = $70000026;  
-  DT_MIPS_HIDDEN_GOTIDX = $70000027;  
-  DT_MIPS_PROTECTED_GOTIDX = $70000028;  
+  DT_MIPS_PIXIE_INIT = $70000023;
+  DT_MIPS_SYMBOL_LIB = $70000024;
+  DT_MIPS_LOCALPAGE_GOTIDX = $70000025;
+  DT_MIPS_LOCAL_GOTIDX = $70000026;
+  DT_MIPS_HIDDEN_GOTIDX = $70000027;
+  DT_MIPS_PROTECTED_GOTIDX = $70000028;
   DT_MIPS_OPTIONS = $70000029;
   DT_MIPS_INTERFACE = $7000002a;
-  DT_MIPS_DYNSTR_ALIGN = $7000002b;  
+  DT_MIPS_DYNSTR_ALIGN = $7000002b;
   DT_MIPS_INTERFACE_SIZE = $7000002c;
   DT_MIPS_RLD_TEXT_RESOLVE_ADDR = $7000002d;
   DT_MIPS_PERF_SUFFIX = $7000002e;
@@ -1669,71 +1684,71 @@ const
   DT_MIPS_RWPLT = $70000034;
   DT_MIPS_RLD_MAP_REL = $70000035;
   DT_MIPS_XHASH = $70000036;
-  DT_MIPS_NUM = $37;  
   RHF_NONE = 0;
   RHF_QUICKSTART = 1 shl 0;
   RHF_NOTPOT = 1 shl 1;
   RHF_NO_LIBRARY_REPLACEMENT = 1 shl 2;
-  RHF_NO_MOVE = 1 shl 3;  
-  RHF_SGI_ONLY = 1 shl 4;  
-  RHF_GUARANTEE_INIT = 1 shl 5;  
-  RHF_DELTA_C_PLUS_PLUS = 1 shl 6;  
-  RHF_GUARANTEE_START_INIT = 1 shl 7;  
-  RHF_PIXIE = 1 shl 8;  
-  RHF_DEFAULT_DELAY_LOAD = 1 shl 9;  
-  RHF_REQUICKSTART = 1 shl 10;  
-  RHF_REQUICKSTARTED = 1 shl 11;  
-  RHF_CORD = 1 shl 12;  
-  RHF_NO_UNRES_UNDEF = 1 shl 13;  
-  RHF_RLD_ORDER_SAFE = 1 shl 14;  
+  RHF_NO_MOVE = 1 shl 3;
+  RHF_SGI_ONLY = 1 shl 4;
+  RHF_GUARANTEE_INIT = 1 shl 5;
+  RHF_DELTA_C_PLUS_PLUS = 1 shl 6;
+  RHF_GUARANTEE_START_INIT = 1 shl 7;
+  RHF_PIXIE = 1 shl 8;
+  RHF_DEFAULT_DELAY_LOAD = 1 shl 9;
+  RHF_REQUICKSTART = 1 shl 10;
+  RHF_REQUICKSTARTED = 1 shl 11;
+  RHF_CORD = 1 shl 12;
+  RHF_NO_UNRES_UNDEF = 1 shl 13;
+  RHF_RLD_ORDER_SAFE = 1 shl 14;
+
 type
   TElf32_Lib = record
-      l_name : TElf32_Word;
-      l_time_stamp : TElf32_Word;
-      l_checksum : TElf32_Word;
-      l_version : TElf32_Word;
-      l_flags : TElf32_Word;
-    end;
+    l_name: TElf32_Word;
+    l_time_stamp: TElf32_Word;
+    l_checksum: TElf32_Word;
+    l_version: TElf32_Word;
+    l_flags: TElf32_Word;
+  end;
   PElf32_Lib = ^TElf32_Lib;
 
   TElf64_Lib = record
-      l_name : TElf64_Word;
-      l_time_stamp : TElf64_Word;
-      l_checksum : TElf64_Word;
-      l_version : TElf64_Word;
-      l_flags : TElf64_Word;
-    end;
+    l_name: TElf64_Word;
+    l_time_stamp: TElf64_Word;
+    l_checksum: TElf64_Word;
+    l_version: TElf64_Word;
+    l_flags: TElf64_Word;
+  end;
   PElf64_Lib = ^TElf64_Lib;
 
 const
-  LL_NONE = 0;  
+  LL_NONE = 0;
   LL_EXACT_MATCH = 1 shl 0;
   LL_IGNORE_INT_VER = 1 shl 1;
-  LL_REQUIRE_MINOR = 1 shl 2;  
-  LL_EXPORTS = 1 shl 3;  
-  LL_DELAY_LOAD = 1 shl 4;  
-  LL_DELTA = 1 shl 5;  
+  LL_REQUIRE_MINOR = 1 shl 2;
+  LL_EXPORTS = 1 shl 3;
+  LL_DELAY_LOAD = 1 shl 4;
+  LL_DELTA = 1 shl 5;
+
 type
   PElf32_Conflict = ^TElf32_Conflict;
   TElf32_Conflict = TElf32_Addr;
 
   TElf_MIPS_ABIFlags_v0 = record
-      version : TElf32_Half;
-      isa_level : byte;
-      isa_rev : byte;
-      gpr_size : byte;
-      cpr1_size : byte;
-      cpr2_size : byte;
-      fp_abi : byte;
-      isa_ext : TElf32_Word;
-      ases : TElf32_Word;
-      flags1 : TElf32_Word;
-      flags2 : TElf32_Word;
-    end;
-  PElf64_Lib = ^TElf64_Lib;
+    version: TElf32_Half;
+    isa_level: byte;
+    isa_rev: byte;
+    gpr_size: byte;
+    cpr1_size: byte;
+    cpr2_size: byte;
+    fp_abi: byte;
+    isa_ext: TElf32_Word;
+    ases: TElf32_Word;
+    flags1: TElf32_Word;
+    flags2: TElf32_Word;
+  end;
 
 const
-  MIPS_AFL_REG_NONE = $00;  
+  MIPS_AFL_REG_NONE = $00;
   MIPS_AFL_REG_32 = $01;
   MIPS_AFL_REG_64 = $02;
   MIPS_AFL_REG_128 = $03;
@@ -1770,16 +1785,18 @@ const
   MIPS_AFL_EXT_LOONGSON_2E = 17;
   MIPS_AFL_EXT_LOONGSON_2F = 18;
   MIPS_AFL_FLAGS1_ODDSPREG = 1;
-  Const
-    Val_GNU_MIPS_ABI_FP_ANY = 0;
-    Val_GNU_MIPS_ABI_FP_DOUBLE = 1;
-    Val_GNU_MIPS_ABI_FP_SINGLE = 2;
-    Val_GNU_MIPS_ABI_FP_SOFT = 3;
-    Val_GNU_MIPS_ABI_FP_OLD_64 = 4;
-    Val_GNU_MIPS_ABI_FP_XX = 5;
-    Val_GNU_MIPS_ABI_FP_64 = 6;
-    Val_GNU_MIPS_ABI_FP_64A = 7;
-    Val_GNU_MIPS_ABI_FP_MAX = 7;
+
+const
+  Val_GNU_MIPS_ABI_FP_ANY = 0;
+  Val_GNU_MIPS_ABI_FP_DOUBLE = 1;
+  Val_GNU_MIPS_ABI_FP_SINGLE = 2;
+  Val_GNU_MIPS_ABI_FP_SOFT = 3;
+  Val_GNU_MIPS_ABI_FP_OLD_64 = 4;
+  Val_GNU_MIPS_ABI_FP_XX = 5;
+  Val_GNU_MIPS_ABI_FP_64 = 6;
+  Val_GNU_MIPS_ABI_FP_64A = 7;
+  Val_GNU_MIPS_ABI_FP_MAX = 7;
+
 const
   EF_PARISC_TRAPNIL = $00010000;
   EF_PARISC_EXT = $00020000;
@@ -1800,8 +1817,8 @@ const
   SHF_PARISC_HUGE = $40000000;
   SHF_PARISC_SBP = $80000000;
   STT_PARISC_MILLICODE = 13;
-  STT_HP_OPAQUE = STT_LOOS+$1;  
-  STT_HP_STUB = STT_LOOS+$2;  
+  STT_HP_OPAQUE = STT_LOOS + $1;
+  STT_HP_STUB = STT_LOOS + $2;
   R_PARISC_NONE = 0;
   R_PARISC_DIR32 = 1;
   R_PARISC_DIR21L = 2;
@@ -1869,7 +1886,7 @@ const
   R_PARISC_LTOFF_FPTR16F = 125;
   R_PARISC_LTOFF_FPTR16WF = 126;
   R_PARISC_LTOFF_FPTR16DF = 127;
-  R_PARISC_LORESERVE = 128;  
+  R_PARISC_LORESERVE = 128;
   R_PARISC_COPY = 128;
   R_PARISC_IPLT = 129;
   R_PARISC_EPLT = 130;
@@ -1891,8 +1908,8 @@ const
   R_PARISC_LTOFF_TP16F = 229;
   R_PARISC_LTOFF_TP16WF = 230;
   R_PARISC_LTOFF_TP16DF = 231;
-  R_PARISC_GNU_VTENTRY = 232;  
-  R_PARISC_GNU_VTINHERIT = 233;  
+  R_PARISC_GNU_VTENTRY = 232;
+  R_PARISC_GNU_VTINHERIT = 233;
   R_PARISC_TLS_GD21L = 234;
   R_PARISC_TLS_GD14R = 235;
   R_PARISC_TLS_GDCALL = 236;
@@ -1905,42 +1922,42 @@ const
   R_PARISC_TLS_DTPMOD64 = 243;
   R_PARISC_TLS_DTPOFF32 = 244;
   R_PARISC_TLS_DTPOFF64 = 245;
-  R_PARISC_TLS_LE21L = R_PARISC_TPREL21L;  
-  R_PARISC_TLS_LE14R = R_PARISC_TPREL14R;  
-  R_PARISC_TLS_IE21L = R_PARISC_LTOFF_TP21L;  
-  R_PARISC_TLS_IE14R = R_PARISC_LTOFF_TP14R;  
-  R_PARISC_TLS_TPREL32 = R_PARISC_TPREL32;  
-  R_PARISC_TLS_TPREL64 = R_PARISC_TPREL64;  
-  R_PARISC_HIRESERVE = 255;  
-  PT_HP_TLS = PT_LOOS+$0;
-  PT_HP_CORE_NONE = PT_LOOS+$1;  
-  PT_HP_CORE_VERSION = PT_LOOS+$2;  
-  PT_HP_CORE_KERNEL = PT_LOOS+$3;  
-  PT_HP_CORE_COMM = PT_LOOS+$4;  
-  PT_HP_CORE_PROC = PT_LOOS+$5;  
-  PT_HP_CORE_LOADABLE = PT_LOOS+$6;  
-  PT_HP_CORE_STACK = PT_LOOS+$7;  
-  PT_HP_CORE_SHM = PT_LOOS+$8;  
-  PT_HP_CORE_MMF = PT_LOOS+$9;  
-  PT_HP_PARALLEL = PT_LOOS+$10;  
-  PT_HP_FASTBIND = PT_LOOS+$11;  
-  PT_HP_OPT_ANNOT = PT_LOOS+$12;  
-  PT_HP_HSL_ANNOT = PT_LOOS+$13;  
-  PT_HP_STACK = PT_LOOS+$14;  
-  PT_PARISC_ARCHEXT = $70000000;  
-  PT_PARISC_UNWIND = $70000001;  
+  R_PARISC_TLS_LE21L = R_PARISC_TPREL21L;
+  R_PARISC_TLS_LE14R = R_PARISC_TPREL14R;
+  R_PARISC_TLS_IE21L = R_PARISC_LTOFF_TP21L;
+  R_PARISC_TLS_IE14R = R_PARISC_LTOFF_TP14R;
+  R_PARISC_TLS_TPREL32 = R_PARISC_TPREL32;
+  R_PARISC_TLS_TPREL64 = R_PARISC_TPREL64;
+  R_PARISC_HIRESERVE = 255;
+  PT_HP_TLS = PT_LOOS + $0;
+  PT_HP_CORE_NONE = PT_LOOS + $1;
+  PT_HP_CORE_VERSION = PT_LOOS + $2;
+  PT_HP_CORE_KERNEL = PT_LOOS + $3;
+  PT_HP_CORE_COMM = PT_LOOS + $4;
+  PT_HP_CORE_PROC = PT_LOOS + $5;
+  PT_HP_CORE_LOADABLE = PT_LOOS + $6;
+  PT_HP_CORE_STACK = PT_LOOS + $7;
+  PT_HP_CORE_SHM = PT_LOOS + $8;
+  PT_HP_CORE_MMF = PT_LOOS + $9;
+  PT_HP_PARALLEL = PT_LOOS + $10;
+  PT_HP_FASTBIND = PT_LOOS + $11;
+  PT_HP_OPT_ANNOT = PT_LOOS + $12;
+  PT_HP_HSL_ANNOT = PT_LOOS + $13;
+  PT_HP_STACK = PT_LOOS + $14;
+  PT_PARISC_ARCHEXT = $70000000;
+  PT_PARISC_UNWIND = $70000001;
   PF_PARISC_SBP = $08000000;
-  PF_HP_PAGE_SIZE = $00100000;  
-  PF_HP_FAR_SHARED = $00200000;  
-  PF_HP_NEAR_SHARED = $00400000;  
-  PF_HP_CODE = $01000000;  
-  PF_HP_MODIFY = $02000000;  
-  PF_HP_LAZYSWAP = $04000000;  
-  PF_HP_SBP = $08000000;  
+  PF_HP_PAGE_SIZE = $00100000;
+  PF_HP_FAR_SHARED = $00200000;
+  PF_HP_NEAR_SHARED = $00400000;
+  PF_HP_CODE = $01000000;
+  PF_HP_MODIFY = $02000000;
+  PF_HP_LAZYSWAP = $04000000;
+  PF_HP_SBP = $08000000;
   EF_ALPHA_32BIT = 1;
   EF_ALPHA_CANRELAX = 2;
   SHT_ALPHA_DEBUG = $70000001;
-  SHT_ALPHA_REGINFO = $70000002;  
+  SHT_ALPHA_REGINFO = $70000002;
   SHF_ALPHA_GPREL = $10000000;
   STO_ALPHA_NOPV = $80;
   STO_ALPHA_STD_GPLOAD = $88;
@@ -1963,29 +1980,29 @@ const
   R_ALPHA_GLOB_DAT = 25;
   R_ALPHA_JMP_SLOT = 26;
   R_ALPHA_RELATIVE = 27;
-  R_ALPHA_TLS_GD_HI = 28;  
-  R_ALPHA_TLSGD = 29;  
-  R_ALPHA_TLS_LDM = 30;  
-  R_ALPHA_DTPMOD64 = 31;  
-  R_ALPHA_GOTDTPREL = 32;  
-  R_ALPHA_DTPREL64 = 33;  
-  R_ALPHA_DTPRELHI = 34;  
-  R_ALPHA_DTPRELLO = 35;  
-  R_ALPHA_DTPREL16 = 36;  
-  R_ALPHA_GOTTPREL = 37;  
-  R_ALPHA_TPREL64 = 38;  
-  R_ALPHA_TPRELHI = 39;  
-  R_ALPHA_TPRELLO = 40;  
-  R_ALPHA_TPREL16 = 41;  
+  R_ALPHA_TLS_GD_HI = 28;
+  R_ALPHA_TLSGD = 29;
+  R_ALPHA_TLS_LDM = 30;
+  R_ALPHA_DTPMOD64 = 31;
+  R_ALPHA_GOTDTPREL = 32;
+  R_ALPHA_DTPREL64 = 33;
+  R_ALPHA_DTPRELHI = 34;
+  R_ALPHA_DTPRELLO = 35;
+  R_ALPHA_DTPREL16 = 36;
+  R_ALPHA_GOTTPREL = 37;
+  R_ALPHA_TPREL64 = 38;
+  R_ALPHA_TPRELHI = 39;
+  R_ALPHA_TPRELLO = 40;
+  R_ALPHA_TPREL16 = 41;
   R_ALPHA_NUM = 46;
   LITUSE_ALPHA_ADDR = 0;
-  LITUSE_ALPHA_BASE = 1;  
-  LITUSE_ALPHA_BYTOFF = 2;  
-  LITUSE_ALPHA_JSR = 3;  
-  LITUSE_ALPHA_TLS_GD = 4;  
-  LITUSE_ALPHA_TLS_LDM = 5;  
-  DT_ALPHA_PLTRO = DT_LOPROC+0;
-  DT_ALPHA_NUM = 1;  
+  LITUSE_ALPHA_BASE = 1;
+  LITUSE_ALPHA_BYTOFF = 2;
+  LITUSE_ALPHA_JSR = 3;
+  LITUSE_ALPHA_TLS_GD = 4;
+  LITUSE_ALPHA_TLS_LDM = 5;
+  DT_ALPHA_PLTRO = DT_LOPROC + 0;
+  DT_ALPHA_NUM = 1;
   EF_PPC_EMB = $80000000;
   EF_PPC_RELOCATABLE = $00010000;
   EF_PPC_RELOCATABLE_LIB = $00008000;
@@ -1997,35 +2014,35 @@ const
   R_PPC_ADDR16_HI = 5;
   R_PPC_ADDR16_HA = 6;
   R_PPC_ADDR14 = 7;
-  R_PPC_ADDR14_BRTAKEN = 8;  
-  R_PPC_ADDR14_BRNTAKEN = 9;  
+  R_PPC_ADDR14_BRTAKEN = 8;
+  R_PPC_ADDR14_BRNTAKEN = 9;
   R_PPC_REL24 = 10;
   R_PPC_REL14 = 11;
-  R_PPC_REL14_BRTAKEN = 12;  
-  R_PPC_REL14_BRNTAKEN = 13;  
-  R_PPC_GOT16 = 14;  
-  R_PPC_GOT16_LO = 15;  
-  R_PPC_GOT16_HI = 16;  
-  R_PPC_GOT16_HA = 17;  
-  R_PPC_PLTREL24 = 18;  
-  R_PPC_COPY = 19;  
-  R_PPC_GLOB_DAT = 20;  
-  R_PPC_JMP_SLOT = 21;  
-  R_PPC_RELATIVE = 22;  
-  R_PPC_LOCAL24PC = 23;  
-  R_PPC_UADDR32 = 24;  
-  R_PPC_UADDR16 = 25;  
-  R_PPC_REL32 = 26;  
-  R_PPC_PLT32 = 27;  
-  R_PPC_PLTREL32 = 28;  
-  R_PPC_PLT16_LO = 29;  
-  R_PPC_PLT16_HI = 30;  
-  R_PPC_PLT16_HA = 31;  
-  R_PPC_SDAREL16 = 32;  
-  R_PPC_SECTOFF = 33;  
-  R_PPC_SECTOFF_LO = 34;  
-  R_PPC_SECTOFF_HI = 35;  
-  R_PPC_SECTOFF_HA = 36;  
+  R_PPC_REL14_BRTAKEN = 12;
+  R_PPC_REL14_BRNTAKEN = 13;
+  R_PPC_GOT16 = 14;
+  R_PPC_GOT16_LO = 15;
+  R_PPC_GOT16_HI = 16;
+  R_PPC_GOT16_HA = 17;
+  R_PPC_PLTREL24 = 18;
+  R_PPC_COPY = 19;
+  R_PPC_GLOB_DAT = 20;
+  R_PPC_JMP_SLOT = 21;
+  R_PPC_RELATIVE = 22;
+  R_PPC_LOCAL24PC = 23;
+  R_PPC_UADDR32 = 24;
+  R_PPC_UADDR16 = 25;
+  R_PPC_REL32 = 26;
+  R_PPC_PLT32 = 27;
+  R_PPC_PLTREL32 = 28;
+  R_PPC_PLT16_LO = 29;
+  R_PPC_PLT16_HI = 30;
+  R_PPC_PLT16_HA = 31;
+  R_PPC_SDAREL16 = 32;
+  R_PPC_SECTOFF = 33;
+  R_PPC_SECTOFF_LO = 34;
+  R_PPC_SECTOFF_HI = 35;
+  R_PPC_SECTOFF_HA = 36;
   R_PPC_TLS = 67;
   R_PPC_DTPMOD32 = 68;
   R_PPC_TPREL16 = 69;
@@ -2057,20 +2074,20 @@ const
   R_PPC_TLSGD = 95;
   R_PPC_TLSLD = 96;
   R_PPC_EMB_NADDR32 = 101;
-  R_PPC_EMB_NADDR16 = 102;  
-  R_PPC_EMB_NADDR16_LO = 103;  
-  R_PPC_EMB_NADDR16_HI = 104;  
-  R_PPC_EMB_NADDR16_HA = 105;  
-  R_PPC_EMB_SDAI16 = 106;  
-  R_PPC_EMB_SDA2I16 = 107;  
-  R_PPC_EMB_SDA2REL = 108;  
+  R_PPC_EMB_NADDR16 = 102;
+  R_PPC_EMB_NADDR16_LO = 103;
+  R_PPC_EMB_NADDR16_HI = 104;
+  R_PPC_EMB_NADDR16_HA = 105;
+  R_PPC_EMB_SDAI16 = 106;
+  R_PPC_EMB_SDA2I16 = 107;
+  R_PPC_EMB_SDA2REL = 108;
   R_PPC_EMB_SDA21 = 109;
-  R_PPC_EMB_MRKREF = 110;  
-  R_PPC_EMB_RELSEC16 = 111;  
-  R_PPC_EMB_RELST_LO = 112;  
-  R_PPC_EMB_RELST_HI = 113;  
-  R_PPC_EMB_RELST_HA = 114;  
-  R_PPC_EMB_BIT_FLD = 115;  
+  R_PPC_EMB_MRKREF = 110;
+  R_PPC_EMB_RELSEC16 = 111;
+  R_PPC_EMB_RELST_LO = 112;
+  R_PPC_EMB_RELST_HI = 113;
+  R_PPC_EMB_RELST_HA = 114;
+  R_PPC_EMB_BIT_FLD = 115;
   R_PPC_EMB_RELSDA = 116;
   R_PPC_DIAB_SDA21_LO = 180;
   R_PPC_DIAB_SDA21_HI = 181;
@@ -2084,9 +2101,9 @@ const
   R_PPC_REL16_HI = 251;
   R_PPC_REL16_HA = 252;
   R_PPC_TOC16 = 255;
-  DT_PPC_GOT = DT_LOPROC+0;
-  DT_PPC_OPT = DT_LOPROC+1;  
-  DT_PPC_NUM = 2;  
+  DT_PPC_GOT = DT_LOPROC + 0;
+  DT_PPC_OPT = DT_LOPROC + 1;
+  DT_PPC_NUM = 2;
   PPC_OPT_TLS = 1;
   R_PPC64_NONE = R_PPC_NONE;
   R_PPC64_ADDR32 = R_PPC_ADDR32;
@@ -2096,32 +2113,32 @@ const
   R_PPC64_ADDR16_HI = R_PPC_ADDR16_HI;
   R_PPC64_ADDR16_HA = R_PPC_ADDR16_HA;
   R_PPC64_ADDR14 = R_PPC_ADDR14;
-  R_PPC64_ADDR14_BRTAKEN = R_PPC_ADDR14_BRTAKEN;  
-  R_PPC64_ADDR14_BRNTAKEN = R_PPC_ADDR14_BRNTAKEN;  
+  R_PPC64_ADDR14_BRTAKEN = R_PPC_ADDR14_BRTAKEN;
+  R_PPC64_ADDR14_BRNTAKEN = R_PPC_ADDR14_BRNTAKEN;
   R_PPC64_REL24 = R_PPC_REL24;
   R_PPC64_REL14 = R_PPC_REL14;
-  R_PPC64_REL14_BRTAKEN = R_PPC_REL14_BRTAKEN;  
-  R_PPC64_REL14_BRNTAKEN = R_PPC_REL14_BRNTAKEN;  
-  R_PPC64_GOT16 = R_PPC_GOT16;  
-  R_PPC64_GOT16_LO = R_PPC_GOT16_LO;  
-  R_PPC64_GOT16_HI = R_PPC_GOT16_HI;  
-  R_PPC64_GOT16_HA = R_PPC_GOT16_HA;  
-  R_PPC64_COPY = R_PPC_COPY;  
-  R_PPC64_GLOB_DAT = R_PPC_GLOB_DAT;  
-  R_PPC64_JMP_SLOT = R_PPC_JMP_SLOT;  
-  R_PPC64_RELATIVE = R_PPC_RELATIVE;  
-  R_PPC64_UADDR32 = R_PPC_UADDR32;  
-  R_PPC64_UADDR16 = R_PPC_UADDR16;  
-  R_PPC64_REL32 = R_PPC_REL32;  
-  R_PPC64_PLT32 = R_PPC_PLT32;  
-  R_PPC64_PLTREL32 = R_PPC_PLTREL32;  
-  R_PPC64_PLT16_LO = R_PPC_PLT16_LO;  
-  R_PPC64_PLT16_HI = R_PPC_PLT16_HI;  
-  R_PPC64_PLT16_HA = R_PPC_PLT16_HA;  
-  R_PPC64_SECTOFF = R_PPC_SECTOFF;  
-  R_PPC64_SECTOFF_LO = R_PPC_SECTOFF_LO;  
-  R_PPC64_SECTOFF_HI = R_PPC_SECTOFF_HI;  
-  R_PPC64_SECTOFF_HA = R_PPC_SECTOFF_HA;  
+  R_PPC64_REL14_BRTAKEN = R_PPC_REL14_BRTAKEN;
+  R_PPC64_REL14_BRNTAKEN = R_PPC_REL14_BRNTAKEN;
+  R_PPC64_GOT16 = R_PPC_GOT16;
+  R_PPC64_GOT16_LO = R_PPC_GOT16_LO;
+  R_PPC64_GOT16_HI = R_PPC_GOT16_HI;
+  R_PPC64_GOT16_HA = R_PPC_GOT16_HA;
+  R_PPC64_COPY = R_PPC_COPY;
+  R_PPC64_GLOB_DAT = R_PPC_GLOB_DAT;
+  R_PPC64_JMP_SLOT = R_PPC_JMP_SLOT;
+  R_PPC64_RELATIVE = R_PPC_RELATIVE;
+  R_PPC64_UADDR32 = R_PPC_UADDR32;
+  R_PPC64_UADDR16 = R_PPC_UADDR16;
+  R_PPC64_REL32 = R_PPC_REL32;
+  R_PPC64_PLT32 = R_PPC_PLT32;
+  R_PPC64_PLTREL32 = R_PPC_PLTREL32;
+  R_PPC64_PLT16_LO = R_PPC_PLT16_LO;
+  R_PPC64_PLT16_HI = R_PPC_PLT16_HI;
+  R_PPC64_PLT16_HA = R_PPC_PLT16_HA;
+  R_PPC64_SECTOFF = R_PPC_SECTOFF;
+  R_PPC64_SECTOFF_LO = R_PPC_SECTOFF_LO;
+  R_PPC64_SECTOFF_HI = R_PPC_SECTOFF_HI;
+  R_PPC64_SECTOFF_HA = R_PPC_SECTOFF_HA;
   R_PPC64_ADDR30 = 37;
   R_PPC64_ADDR64 = 38;
   R_PPC64_ADDR16_HIGHER = 39;
@@ -2196,62 +2213,62 @@ const
   R_PPC64_TLSLD = 108;
   R_PPC64_TOCSAVE = 109;
   R_PPC64_ADDR16_HIGH = 110;
-  R_PPC64_ADDR16_HIGHA = 111;  
-  R_PPC64_TPREL16_HIGH = 112;  
-  R_PPC64_TPREL16_HIGHA = 113;  
-  R_PPC64_DTPREL16_HIGH = 114;  
-  R_PPC64_DTPREL16_HIGHA = 115;  
+  R_PPC64_ADDR16_HIGHA = 111;
+  R_PPC64_TPREL16_HIGH = 112;
+  R_PPC64_TPREL16_HIGHA = 113;
+  R_PPC64_DTPREL16_HIGH = 114;
+  R_PPC64_DTPREL16_HIGHA = 115;
   R_PPC64_JMP_IREL = 247;
-  R_PPC64_IRELATIVE = 248;  
+  R_PPC64_IRELATIVE = 248;
   R_PPC64_REL16 = 249;
   R_PPC64_REL16_LO = 250;
   R_PPC64_REL16_HI = 251;
   R_PPC64_REL16_HA = 252;
   EF_PPC64_ABI = 3;
-  DT_PPC64_GLINK = DT_LOPROC+0;
-  DT_PPC64_OPD = DT_LOPROC+1;  
-  DT_PPC64_OPDSZ = DT_LOPROC+2;  
-  DT_PPC64_OPT = DT_LOPROC+3;  
-  DT_PPC64_NUM = 4;  
+  DT_PPC64_GLINK = DT_LOPROC + 0;
+  DT_PPC64_OPD = DT_LOPROC + 1;
+  DT_PPC64_OPDSZ = DT_LOPROC + 2;
+  DT_PPC64_OPT = DT_LOPROC + 3;
+  DT_PPC64_NUM = 4;
   PPC64_OPT_TLS = 1;
-  PPC64_OPT_MULTI_TOC = 2;  
-  PPC64_OPT_LOCALENTRY = 4;  
+  PPC64_OPT_MULTI_TOC = 2;
+  PPC64_OPT_LOCALENTRY = 4;
   STO_PPC64_LOCAL_BIT = 5;
-  STO_PPC64_LOCAL_MASK = 7 shl STO_PPC64_LOCAL_BIT;  
+  STO_PPC64_LOCAL_MASK = 7 shl STO_PPC64_LOCAL_BIT;
 
-function PPC64_LOCAL_ENTRY_OFFSET(other : longint) : longint;
+  //function PPC64_LOCAL_ENTRY_OFFSET(other : longint) : longint;
 
 const
-  EF_ARM_RELEXEC = $01;  
-  EF_ARM_HASENTRY = $02;  
-  EF_ARM_INTERWORK = $04;  
-  EF_ARM_APCS_26 = $08;  
-  EF_ARM_APCS_FLOAT = $10;  
-  EF_ARM_PIC = $20;  
+  EF_ARM_RELEXEC = $01;
+  EF_ARM_HASENTRY = $02;
+  EF_ARM_INTERWORK = $04;
+  EF_ARM_APCS_26 = $08;
+  EF_ARM_APCS_FLOAT = $10;
+  EF_ARM_PIC = $20;
   EF_ARM_ALIGN8 = $40;
-  EF_ARM_NEW_ABI = $80;  
-  EF_ARM_OLD_ABI = $100;  
-  EF_ARM_SOFT_FLOAT = $200;  
-  EF_ARM_VFP_FLOAT = $400;  
-  EF_ARM_MAVERICK_FLOAT = $800;  
+  EF_ARM_NEW_ABI = $80;
+  EF_ARM_OLD_ABI = $100;
+  EF_ARM_SOFT_FLOAT = $200;
+  EF_ARM_VFP_FLOAT = $400;
+  EF_ARM_MAVERICK_FLOAT = $800;
   EF_ARM_ABI_FLOAT_SOFT = $200;
   EF_ARM_ABI_FLOAT_HARD = $400;
   EF_ARM_SYMSARESORTED = $04;
-  EF_ARM_DYNSYMSUSESEGIDX = $08;  
-  EF_ARM_MAPSYMSFIRST = $10;  
-EF_ARM_EABIMASK	=	$FF000000 ;
+  EF_ARM_DYNSYMSUSESEGIDX = $08;
+  EF_ARM_MAPSYMSFIRST = $10;
+  EF_ARM_EABIMASK = $FF000000;
   EF_ARM_BE8 = $00800000;
-  EF_ARM_LE8 = $00400000;  
+  EF_ARM_LE8 = $00400000;
 
-function EF_ARM_EABI_VERSION(flags : longint) : Tflags;
+  //function EF_ARM_EABI_VERSION(flags : longint) : Tflags;
 
 const
-  EF_ARM_EABI_UNKNOWN = $00000000;  
-  EF_ARM_EABI_VER1 = $01000000;  
-  EF_ARM_EABI_VER2 = $02000000;  
-  EF_ARM_EABI_VER3 = $03000000;  
-  EF_ARM_EABI_VER4 = $04000000;  
-  EF_ARM_EABI_VER5 = $05000000;  
+  EF_ARM_EABI_UNKNOWN = $00000000;
+  EF_ARM_EABI_VER1 = $01000000;
+  EF_ARM_EABI_VER2 = $02000000;
+  EF_ARM_EABI_VER3 = $03000000;
+  EF_ARM_EABI_VER4 = $04000000;
+  EF_ARM_EABI_VER5 = $05000000;
   STT_ARM_TFUNC = STT_LOPROC;
   STT_ARM_16BIT = STT_HIPROC;
   SHF_ARM_ENTRYSECT = $10000000;
@@ -2259,10 +2276,10 @@ const
   PF_ARM_SB = $10000000;
   PF_ARM_PI = $20000000;
   PF_ARM_ABS = $40000000;
-  PT_ARM_EXIDX = PT_LOPROC+1;
-  SHT_ARM_EXIDX = SHT_LOPROC+1;
-  SHT_ARM_PREEMPTMAP = SHT_LOPROC+2;
-  SHT_ARM_ATTRIBUTES = SHT_LOPROC+3;
+  PT_ARM_EXIDX = PT_LOPROC + 1;
+  SHT_ARM_EXIDX = SHT_LOPROC + 1;
+  SHT_ARM_PREEMPTMAP = SHT_LOPROC + 2;
+  SHT_ARM_ATTRIBUTES = SHT_LOPROC + 3;
   R_AARCH64_NONE = 0;
   R_AARCH64_P32_ABS32 = 1;
   R_AARCH64_P32_COPY = 180;
@@ -2396,25 +2413,25 @@ const
   R_AARCH64_TLS_TPREL = 1030;
   R_AARCH64_TLSDESC = 1031;
   R_AARCH64_IRELATIVE = 1032;
-  PT_AARCH64_MEMTAG_MTE = PT_LOPROC+2;
-  DT_AARCH64_BTI_PLT = DT_LOPROC+1;
-  DT_AARCH64_PAC_PLT = DT_LOPROC+3;  
-  DT_AARCH64_VARIANT_PCS = DT_LOPROC+5;  
-  DT_AARCH64_NUM = 6;  
+  PT_AARCH64_MEMTAG_MTE = PT_LOPROC + 2;
+  DT_AARCH64_BTI_PLT = DT_LOPROC + 1;
+  DT_AARCH64_PAC_PLT = DT_LOPROC + 3;
+  DT_AARCH64_VARIANT_PCS = DT_LOPROC + 5;
+  DT_AARCH64_NUM = 6;
   STO_AARCH64_VARIANT_PCS = $80;
   R_ARM_NONE = 0;
   R_ARM_PC24 = 1;
   R_ARM_ABS32 = 2;
   R_ARM_REL32 = 3;
-  R_ARM_PC13 = 4;  
+  R_ARM_PC13 = 4;
   R_ARM_ABS16 = 5;
   R_ARM_ABS12 = 6;
   R_ARM_THM_ABS5 = 7;
   R_ARM_ABS8 = 8;
-  R_ARM_SBREL32 = 9;  
+  R_ARM_SBREL32 = 9;
   R_ARM_THM_PC22 = 10;
   R_ARM_THM_PC8 = 11;
-  R_ARM_AMP_VCALL9 = 12;  
+  R_ARM_AMP_VCALL9 = 12;
   R_ARM_SWI24 = 13;
   R_ARM_TLS_DESC = 13;
   R_ARM_THM_SWI8 = 14;
@@ -2441,10 +2458,10 @@ const
   R_ARM_LDR_SBREL_11_0 = 35;
   R_ARM_ALU_SBREL_19_12 = 36;
   R_ARM_ALU_SBREL_27_20 = 37;
-  R_ARM_TARGET1 = 38;  
+  R_ARM_TARGET1 = 38;
   R_ARM_SBREL31 = 39;
-  R_ARM_V4BX = 40;  
-  R_ARM_TARGET2 = 41;  
+  R_ARM_V4BX = 40;
+  R_ARM_TARGET2 = 41;
   R_ARM_PREL31 = 42;
   R_ARM_MOVW_ABS_NC = 43;
   R_ARM_MOVT_ABS = 44;
@@ -2493,18 +2510,18 @@ const
   R_ARM_THM_MOVW_BREL_NC = 87;
   R_ARM_THM_MOVT_BREL = 88;
   R_ARM_THM_MOVW_BREL = 89;
-  R_ARM_TLS_GOTDESC = 90;  
-  R_ARM_TLS_CALL = 91;  
+  R_ARM_TLS_GOTDESC = 90;
+  R_ARM_TLS_CALL = 91;
   R_ARM_TLS_DESCSEQ = 92;
-  R_ARM_THM_TLS_CALL = 93;  
-  R_ARM_PLT32_ABS = 94;  
+  R_ARM_THM_TLS_CALL = 93;
+  R_ARM_PLT32_ABS = 94;
   R_ARM_GOT_ABS = 95;
   R_ARM_GOT_PREL = 96;
   R_ARM_GOT_BREL12 = 97;
   R_ARM_GOTOFF12 = 98;
-  R_ARM_GOTRELAX = 99;  
-  R_ARM_GNU_VTENTRY = 100;  
-  R_ARM_GNU_VTINHERIT = 101;  
+  R_ARM_GOTRELAX = 99;
+  R_ARM_GNU_VTENTRY = 100;
+  R_ARM_GNU_VTINHERIT = 101;
   R_ARM_THM_PC11 = 102;
   R_ARM_THM_PC9 = 103;
   R_ARM_TLS_GD32 = 104;
@@ -2516,18 +2533,18 @@ const
   R_ARM_TLS_LE12 = 110;
   R_ARM_TLS_IE12GP = 111;
   R_ARM_ME_TOO = 128;
-  R_ARM_THM_TLS_DESCSEQ = 129;  
-  R_ARM_THM_TLS_DESCSEQ16 = 129;  
-  R_ARM_THM_TLS_DESCSEQ32 = 130;  
+  R_ARM_THM_TLS_DESCSEQ = 129;
+  R_ARM_THM_TLS_DESCSEQ16 = 129;
+  R_ARM_THM_TLS_DESCSEQ32 = 130;
   R_ARM_THM_GOT_BREL12 = 131;
-  R_ARM_IRELATIVE = 160;  
-  R_ARM_RXPC25 = 249;  
-  R_ARM_RSBREL32 = 250;  
-  R_ARM_THM_RPC22 = 251;  
-  R_ARM_RREL32 = 252;  
-  R_ARM_RABS22 = 253;  
-  R_ARM_RPC24 = 254;  
-  R_ARM_RBASE = 255;  
+  R_ARM_IRELATIVE = 160;
+  R_ARM_RXPC25 = 249;
+  R_ARM_RSBREL32 = 250;
+  R_ARM_THM_RPC22 = 251;
+  R_ARM_RREL32 = 252;
+  R_ARM_RABS22 = 253;
+  R_ARM_RPC24 = 254;
+  R_ARM_RBASE = 255;
   R_ARM_NUM = 256;
   R_CKCORE_NONE = 0;
   R_CKCORE_ADDR32 = 1;
@@ -2577,34 +2594,34 @@ const
   R_CKCORE_PLT_IMM18BY4 = 49;
   R_CKCORE_PCREL_IMM7BY4 = 50;
   R_CKCORE_TLS_LE32 = 51;
-  R_CKCORE_TLS_IE32 = 52;  
-  R_CKCORE_TLS_GD32 = 53;  
-  R_CKCORE_TLS_LDM32 = 54;  
-  R_CKCORE_TLS_LDO32 = 55;  
-  R_CKCORE_TLS_DTPMOD32 = 56;  
-  R_CKCORE_TLS_DTPOFF32 = 57;  
-  R_CKCORE_TLS_TPOFF32 = 58;  
-EF_CSKY_ABIMASK		    =$F0000000;
-EF_CSKY_OTHER		    =$0FFF0000;
-EF_CSKY_PROCESSOR	    =$0000FFFF;
-EF_CSKY_ABIV1		    =$10000000;
-EF_CSKY_ABIV2		    =$20000000;
-  SHT_CSKY_ATTRIBUTES = SHT_LOPROC+1;
+  R_CKCORE_TLS_IE32 = 52;
+  R_CKCORE_TLS_GD32 = 53;
+  R_CKCORE_TLS_LDM32 = 54;
+  R_CKCORE_TLS_LDO32 = 55;
+  R_CKCORE_TLS_DTPMOD32 = 56;
+  R_CKCORE_TLS_DTPOFF32 = 57;
+  R_CKCORE_TLS_TPOFF32 = 58;
+  EF_CSKY_ABIMASK = $F0000000;
+  EF_CSKY_OTHER = $0FFF0000;
+  EF_CSKY_PROCESSOR = $0000FFFF;
+  EF_CSKY_ABIV1 = $10000000;
+  EF_CSKY_ABIV2 = $20000000;
+  SHT_CSKY_ATTRIBUTES = SHT_LOPROC + 1;
   EF_IA_64_MASKOS = $0000000f;
   EF_IA_64_ABI64 = $00000010;
   EF_IA_64_ARCH = $ff000000;
-  PT_IA_64_ARCHEXT = PT_LOPROC+0;
-  PT_IA_64_UNWIND = PT_LOPROC+1;
-  PT_IA_64_HP_OPT_ANOT = PT_LOOS+$12;  
-  PT_IA_64_HP_HSL_ANOT = PT_LOOS+$13;  
-  PT_IA_64_HP_STACK = PT_LOOS+$14;  
+  PT_IA_64_ARCHEXT = PT_LOPROC + 0;
+  PT_IA_64_UNWIND = PT_LOPROC + 1;
+  PT_IA_64_HP_OPT_ANOT = PT_LOOS + $12;
+  PT_IA_64_HP_HSL_ANOT = PT_LOOS + $13;
+  PT_IA_64_HP_STACK = PT_LOOS + $14;
   PF_IA_64_NORECOV = $80000000;
-  SHT_IA_64_EXT = SHT_LOPROC+0;
-  SHT_IA_64_UNWIND = SHT_LOPROC+1;
+  SHT_IA_64_EXT = SHT_LOPROC + 0;
+  SHT_IA_64_UNWIND = SHT_LOPROC + 1;
   SHF_IA_64_SHORT = $10000000;
   SHF_IA_64_NORECOV = $20000000;
-  DT_IA_64_PLT_RESERVE = DT_LOPROC+0;
-  DT_IA_64_NUM = 1;  
+  DT_IA_64_PLT_RESERVE = DT_LOPROC + 0;
+  DT_IA_64_NUM = 1;
   R_IA64_NONE = $00;
   R_IA64_IMM14 = $21;
   R_IA64_IMM22 = $22;
@@ -2687,64 +2704,64 @@ EF_CSKY_ABIV2		    =$20000000;
   R_IA64_DTPREL64LSB = $b7;
   R_IA64_LTOFF_DTPREL22 = $ba;
   EF_SH_MACH_MASK = $1f;
-  EF_SH_UNKNOWN = $0;  
-  EF_SH1 = $1;  
-  EF_SH2 = $2;  
-  EF_SH3 = $3;  
-  EF_SH_DSP = $4;  
-  EF_SH3_DSP = $5;  
-  EF_SH4AL_DSP = $6;  
-  EF_SH3E = $8;  
-  EF_SH4 = $9;  
-  EF_SH2E = $b;  
-  EF_SH4A = $c;  
-  EF_SH2A = $d;  
-  EF_SH4_NOFPU = $10;  
-  EF_SH4A_NOFPU = $11;  
-  EF_SH4_NOMMU_NOFPU = $12;  
-  EF_SH2A_NOFPU = $13;  
-  EF_SH3_NOMMU = $14;  
-  EF_SH2A_SH4_NOFPU = $15;  
-  EF_SH2A_SH3_NOFPU = $16;  
-  EF_SH2A_SH4 = $17;  
-  EF_SH2A_SH3E = $18;  
+  EF_SH_UNKNOWN = $0;
+  EF_SH1 = $1;
+  EF_SH2 = $2;
+  EF_SH3 = $3;
+  EF_SH_DSP = $4;
+  EF_SH3_DSP = $5;
+  EF_SH4AL_DSP = $6;
+  EF_SH3E = $8;
+  EF_SH4 = $9;
+  EF_SH2E = $b;
+  EF_SH4A = $c;
+  EF_SH2A = $d;
+  EF_SH4_NOFPU = $10;
+  EF_SH4A_NOFPU = $11;
+  EF_SH4_NOMMU_NOFPU = $12;
+  EF_SH2A_NOFPU = $13;
+  EF_SH3_NOMMU = $14;
+  EF_SH2A_SH4_NOFPU = $15;
+  EF_SH2A_SH3_NOFPU = $16;
+  EF_SH2A_SH4 = $17;
+  EF_SH2A_SH3E = $18;
   R_SH_NONE = 0;
-  R_SH_DIR32 = 1;  
-  R_SH_REL32 = 2;  
-  R_SH_DIR8WPN = 3;  
-  R_SH_IND12W = 4;  
-  R_SH_DIR8WPL = 5;  
-  R_SH_DIR8WPZ = 6;  
-  R_SH_DIR8BP = 7;  
-  R_SH_DIR8W = 8;  
-  R_SH_DIR8L = 9;  
-  R_SH_SWITCH16 = 25;  
-  R_SH_SWITCH32 = 26;  
-  R_SH_USES = 27;  
-  R_SH_COUNT = 28;  
-  R_SH_ALIGN = 29;  
-  R_SH_CODE = 30;  
-  R_SH_DATA = 31;  
-  R_SH_LABEL = 32;  
-  R_SH_SWITCH8 = 33;  
-  R_SH_GNU_VTINHERIT = 34;  
-  R_SH_GNU_VTENTRY = 35;  
-  R_SH_TLS_GD_32 = 144;  
-  R_SH_TLS_LD_32 = 145;  
-  R_SH_TLS_LDO_32 = 146;  
-  R_SH_TLS_IE_32 = 147;  
-  R_SH_TLS_LE_32 = 148;  
-  R_SH_TLS_DTPMOD32 = 149;  
-  R_SH_TLS_DTPOFF32 = 150;  
-  R_SH_TLS_TPOFF32 = 151;  
-  R_SH_GOT32 = 160;  
-  R_SH_PLT32 = 161;  
-  R_SH_COPY = 162;  
-  R_SH_GLOB_DAT = 163;  
-  R_SH_JMP_SLOT = 164;  
-  R_SH_RELATIVE = 165;  
-  R_SH_GOTOFF = 166;  
-  R_SH_GOTPC = 167;  
+  R_SH_DIR32 = 1;
+  R_SH_REL32 = 2;
+  R_SH_DIR8WPN = 3;
+  R_SH_IND12W = 4;
+  R_SH_DIR8WPL = 5;
+  R_SH_DIR8WPZ = 6;
+  R_SH_DIR8BP = 7;
+  R_SH_DIR8W = 8;
+  R_SH_DIR8L = 9;
+  R_SH_SWITCH16 = 25;
+  R_SH_SWITCH32 = 26;
+  R_SH_USES = 27;
+  R_SH_COUNT = 28;
+  R_SH_ALIGN = 29;
+  R_SH_CODE = 30;
+  R_SH_DATA = 31;
+  R_SH_LABEL = 32;
+  R_SH_SWITCH8 = 33;
+  R_SH_GNU_VTINHERIT = 34;
+  R_SH_GNU_VTENTRY = 35;
+  R_SH_TLS_GD_32 = 144;
+  R_SH_TLS_LD_32 = 145;
+  R_SH_TLS_LDO_32 = 146;
+  R_SH_TLS_IE_32 = 147;
+  R_SH_TLS_LE_32 = 148;
+  R_SH_TLS_DTPMOD32 = 149;
+  R_SH_TLS_DTPOFF32 = 150;
+  R_SH_TLS_TPOFF32 = 151;
+  R_SH_GOT32 = 160;
+  R_SH_PLT32 = 161;
+  R_SH_COPY = 162;
+  R_SH_GLOB_DAT = 163;
+  R_SH_JMP_SLOT = 164;
+  R_SH_RELATIVE = 165;
+  R_SH_GOTOFF = 166;
+  R_SH_GOTPC = 167;
   R_SH_NUM = 256;
   EF_S390_HIGH_GPRS = $00000001;
   R_390_NONE = 0;
@@ -2811,26 +2828,26 @@ EF_CSKY_ABIV2		    =$20000000;
   R_390_IRELATIVE = 61;
   R_390_NUM = 62;
   R_CRIS_NONE = 0;
-  R_CRIS_8 = 1;  
-  R_CRIS_16 = 2;  
-  R_CRIS_32 = 3;  
-  R_CRIS_8_PCREL = 4;  
-  R_CRIS_16_PCREL = 5;  
-  R_CRIS_32_PCREL = 6;  
-  R_CRIS_GNU_VTINHERIT = 7;  
-  R_CRIS_GNU_VTENTRY = 8;  
-  R_CRIS_COPY = 9;  
-  R_CRIS_GLOB_DAT = 10;  
-  R_CRIS_JUMP_SLOT = 11;  
-  R_CRIS_RELATIVE = 12;  
-  R_CRIS_16_GOT = 13;  
-  R_CRIS_32_GOT = 14;  
-  R_CRIS_16_GOTPLT = 15;  
-  R_CRIS_32_GOTPLT = 16;  
-  R_CRIS_32_GOTREL = 17;  
-  R_CRIS_32_PLT_GOTREL = 18;  
-  R_CRIS_32_PLT_PCREL = 19;  
-  R_CRIS_NUM = 20;  
+  R_CRIS_8 = 1;
+  R_CRIS_16 = 2;
+  R_CRIS_32 = 3;
+  R_CRIS_8_PCREL = 4;
+  R_CRIS_16_PCREL = 5;
+  R_CRIS_32_PCREL = 6;
+  R_CRIS_GNU_VTINHERIT = 7;
+  R_CRIS_GNU_VTENTRY = 8;
+  R_CRIS_COPY = 9;
+  R_CRIS_GLOB_DAT = 10;
+  R_CRIS_JUMP_SLOT = 11;
+  R_CRIS_RELATIVE = 12;
+  R_CRIS_16_GOT = 13;
+  R_CRIS_32_GOT = 14;
+  R_CRIS_16_GOTPLT = 15;
+  R_CRIS_32_GOTPLT = 16;
+  R_CRIS_32_GOTREL = 17;
+  R_CRIS_32_PLT_GOTREL = 18;
+  R_CRIS_32_PLT_PCREL = 19;
+  R_CRIS_NUM = 20;
   R_X86_64_NONE = 0;
   R_X86_64_64 = 1;
   R_X86_64_PC32 = 2;
@@ -2872,12 +2889,12 @@ EF_CSKY_ABIV2		    =$20000000;
   R_X86_64_RELATIVE64 = 38;
   R_X86_64_GOTPCRELX = 41;
   R_X86_64_REX_GOTPCRELX = 42;
-  R_X86_64_NUM = 43;  
+  R_X86_64_NUM = 43;
   SHT_X86_64_UNWIND = $70000001;
-  DT_X86_64_PLT = DT_LOPROC+0;
-  DT_X86_64_PLTSZ = DT_LOPROC+1;  
-  DT_X86_64_PLTENT = DT_LOPROC+3;  
-  DT_X86_64_NUM = 4;  
+  DT_X86_64_PLT = DT_LOPROC + 0;
+  DT_X86_64_PLTSZ = DT_LOPROC + 1;
+  DT_X86_64_PLTENT = DT_LOPROC + 3;
+  DT_X86_64_NUM = 4;
   R_MN10300_NONE = 0;
   R_MN10300_32 = 1;
   R_MN10300_16 = 2;
@@ -2913,7 +2930,7 @@ EF_CSKY_ABIV2		    =$20000000;
   R_MN10300_TLS_TPOFF = 32;
   R_MN10300_SYM_DIFF = 33;
   R_MN10300_ALIGN = 34;
-  R_MN10300_NUM = 35;  
+  R_MN10300_NUM = 35;
   R_M32R_NONE = 0;
   R_M32R_16 = 1;
   R_M32R_32 = 2;
@@ -2925,8 +2942,8 @@ EF_CSKY_ABIV2		    =$20000000;
   R_M32R_HI16_SLO = 8;
   R_M32R_LO16 = 9;
   R_M32R_SDA16 = 10;
-  R_M32R_GNU_VTINHERIT = 11;  
-  R_M32R_GNU_VTENTRY = 12;  
+  R_M32R_GNU_VTINHERIT = 11;
+  R_M32R_GNU_VTENTRY = 12;
   R_M32R_16_RELA = 33;
   R_M32R_32_RELA = 34;
   R_M32R_24_RELA = 35;
@@ -2937,8 +2954,8 @@ EF_CSKY_ABIV2		    =$20000000;
   R_M32R_HI16_SLO_RELA = 40;
   R_M32R_LO16_RELA = 41;
   R_M32R_SDA16_RELA = 42;
-  R_M32R_RELA_GNU_VTINHERIT = 43;  
-  R_M32R_RELA_GNU_VTENTRY = 44;  
+  R_M32R_RELA_GNU_VTINHERIT = 43;
+  R_M32R_RELA_GNU_VTENTRY = 44;
   R_M32R_REL32 = 45;
   R_M32R_GOT24 = 48;
   R_M32R_26_PLTREL = 49;
@@ -3126,7 +3143,7 @@ EF_CSKY_ABIV2		    =$20000000;
   R_TILEPRO_IMM16_X1_TLS_LE_HA = 92;
   R_TILEPRO_GNU_VTINHERIT = 128;
   R_TILEPRO_GNU_VTENTRY = 129;
-  R_TILEPRO_NUM = 130;  
+  R_TILEPRO_NUM = 130;
   R_TILEGX_NONE = 0;
   R_TILEGX_64 = 1;
   R_TILEGX_32 = 2;
@@ -3247,561 +3264,489 @@ EF_CSKY_ABIV2		    =$20000000;
   R_TILEGX_IMM8_Y1_TLS_ADD = 121;
   R_TILEGX_GNU_VTINHERIT = 128;
   R_TILEGX_GNU_VTENTRY = 129;
-  R_TILEGX_NUM = 130;  
+  R_TILEGX_NUM = 130;
   EF_RISCV_RVC = $0001;
-  EF_RISCV_FLOAT_ABI = $0006;  
-  EF_RISCV_FLOAT_ABI_SOFT = $0000;  
-  EF_RISCV_FLOAT_ABI_SINGLE = $0002;  
-  EF_RISCV_FLOAT_ABI_DOUBLE = $0004;  
-  EF_RISCV_FLOAT_ABI_QUAD = $0006;  
-  EF_RISCV_RVE = $0008;  
-  EF_RISCV_TSO = $0010;  
+  EF_RISCV_FLOAT_ABI = $0006;
+  EF_RISCV_FLOAT_ABI_SOFT = $0000;
+  EF_RISCV_FLOAT_ABI_SINGLE = $0002;
+  EF_RISCV_FLOAT_ABI_DOUBLE = $0004;
+  EF_RISCV_FLOAT_ABI_QUAD = $0006;
+  EF_RISCV_RVE = $0008;
+  EF_RISCV_TSO = $0010;
   R_RISCV_NONE = 0;
-  R_RISCV_32 = 1;  
-  R_RISCV_64 = 2;  
-  R_RISCV_RELATIVE = 3;  
-  R_RISCV_COPY = 4;  
-  R_RISCV_JUMP_SLOT = 5;  
-  R_RISCV_TLS_DTPMOD32 = 6;  
-  R_RISCV_TLS_DTPMOD64 = 7;  
-  R_RISCV_TLS_DTPREL32 = 8;  
-  R_RISCV_TLS_DTPREL64 = 9;  
-  R_RISCV_TLS_TPREL32 = 10;  
-  R_RISCV_TLS_TPREL64 = 11;  
-  R_RISCV_BRANCH = 16;  
-  R_RISCV_JAL = 17;  
-  R_RISCV_CALL = 18;  
-  R_RISCV_CALL_PLT = 19;  
-  R_RISCV_GOT_HI20 = 20;  
-  R_RISCV_TLS_GOT_HI20 = 21;  
-  R_RISCV_TLS_GD_HI20 = 22;  
-  R_RISCV_PCREL_HI20 = 23;  
-  R_RISCV_PCREL_LO12_I = 24;  
-  R_RISCV_PCREL_LO12_S = 25;  
-  R_RISCV_HI20 = 26;  
-  R_RISCV_LO12_I = 27;  
-  R_RISCV_LO12_S = 28;  
-  R_RISCV_TPREL_HI20 = 29;  
-  R_RISCV_TPREL_LO12_I = 30;  
-  R_RISCV_TPREL_LO12_S = 31;  
-  R_RISCV_TPREL_ADD = 32;  
-  R_RISCV_ADD8 = 33;  
-  R_RISCV_ADD16 = 34;  
-  R_RISCV_ADD32 = 35;  
-  R_RISCV_ADD64 = 36;  
-  R_RISCV_SUB8 = 37;  
-  R_RISCV_SUB16 = 38;  
-  R_RISCV_SUB32 = 39;  
-  R_RISCV_SUB64 = 40;  
-  R_RISCV_GNU_VTINHERIT = 41;  
-  R_RISCV_GNU_VTENTRY = 42;  
-  R_RISCV_ALIGN = 43;  
-  R_RISCV_RVC_BRANCH = 44;  
-  R_RISCV_RVC_JUMP = 45;  
-  R_RISCV_RVC_LUI = 46;  
-  R_RISCV_GPREL_I = 47;  
-  R_RISCV_GPREL_S = 48;  
-  R_RISCV_TPREL_I = 49;  
-  R_RISCV_TPREL_S = 50;  
-  R_RISCV_RELAX = 51;  
-  R_RISCV_SUB6 = 52;  
-  R_RISCV_SET6 = 53;  
-  R_RISCV_SET8 = 54;  
-  R_RISCV_SET16 = 55;  
-  R_RISCV_SET32 = 56;  
-  R_RISCV_32_PCREL = 57;  
-  R_RISCV_IRELATIVE = 58;  
-  R_RISCV_PLT32 = 59;  
-  R_RISCV_SET_ULEB128 = 60;  
-  R_RISCV_SUB_ULEB128 = 61;  
-  R_RISCV_NUM = 62;  
+  R_RISCV_32 = 1;
+  R_RISCV_64 = 2;
+  R_RISCV_RELATIVE = 3;
+  R_RISCV_COPY = 4;
+  R_RISCV_JUMP_SLOT = 5;
+  R_RISCV_TLS_DTPMOD32 = 6;
+  R_RISCV_TLS_DTPMOD64 = 7;
+  R_RISCV_TLS_DTPREL32 = 8;
+  R_RISCV_TLS_DTPREL64 = 9;
+  R_RISCV_TLS_TPREL32 = 10;
+  R_RISCV_TLS_TPREL64 = 11;
+  R_RISCV_BRANCH = 16;
+  R_RISCV_JAL = 17;
+  R_RISCV_CALL = 18;
+  R_RISCV_CALL_PLT = 19;
+  R_RISCV_GOT_HI20 = 20;
+  R_RISCV_TLS_GOT_HI20 = 21;
+  R_RISCV_TLS_GD_HI20 = 22;
+  R_RISCV_PCREL_HI20 = 23;
+  R_RISCV_PCREL_LO12_I = 24;
+  R_RISCV_PCREL_LO12_S = 25;
+  R_RISCV_HI20 = 26;
+  R_RISCV_LO12_I = 27;
+  R_RISCV_LO12_S = 28;
+  R_RISCV_TPREL_HI20 = 29;
+  R_RISCV_TPREL_LO12_I = 30;
+  R_RISCV_TPREL_LO12_S = 31;
+  R_RISCV_TPREL_ADD = 32;
+  R_RISCV_ADD8 = 33;
+  R_RISCV_ADD16 = 34;
+  R_RISCV_ADD32 = 35;
+  R_RISCV_ADD64 = 36;
+  R_RISCV_SUB8 = 37;
+  R_RISCV_SUB16 = 38;
+  R_RISCV_SUB32 = 39;
+  R_RISCV_SUB64 = 40;
+  R_RISCV_GNU_VTINHERIT = 41;
+  R_RISCV_GNU_VTENTRY = 42;
+  R_RISCV_ALIGN = 43;
+  R_RISCV_RVC_BRANCH = 44;
+  R_RISCV_RVC_JUMP = 45;
+  R_RISCV_RVC_LUI = 46;
+  R_RISCV_GPREL_I = 47;
+  R_RISCV_GPREL_S = 48;
+  R_RISCV_TPREL_I = 49;
+  R_RISCV_TPREL_S = 50;
+  R_RISCV_RELAX = 51;
+  R_RISCV_SUB6 = 52;
+  R_RISCV_SET6 = 53;
+  R_RISCV_SET8 = 54;
+  R_RISCV_SET16 = 55;
+  R_RISCV_SET32 = 56;
+  R_RISCV_32_PCREL = 57;
+  R_RISCV_IRELATIVE = 58;
+  R_RISCV_PLT32 = 59;
+  R_RISCV_SET_ULEB128 = 60;
+  R_RISCV_SUB_ULEB128 = 61;
+  R_RISCV_NUM = 62;
   STO_RISCV_VARIANT_CC = $80;
-  SHT_RISCV_ATTRIBUTES = SHT_LOPROC+3;
-  PT_RISCV_ATTRIBUTES = PT_LOPROC+3;
-  DT_RISCV_VARIANT_CC = DT_LOPROC+1;
+  SHT_RISCV_ATTRIBUTES = SHT_LOPROC + 3;
+  PT_RISCV_ATTRIBUTES = PT_LOPROC + 3;
+  DT_RISCV_VARIANT_CC = DT_LOPROC + 1;
   R_BPF_NONE = 0;
-  R_BPF_64_64 = 1;  
-  R_BPF_64_32 = 10;  
+  R_BPF_64_64 = 1;
+  R_BPF_64_32 = 10;
   R_METAG_HIADDR16 = 0;
-  R_METAG_LOADDR16 = 1;  
+  R_METAG_LOADDR16 = 1;
   R_METAG_ADDR32 = 2;
   R_METAG_NONE = 3;
-  R_METAG_RELBRANCH = 4;  
-  R_METAG_GETSETOFF = 5;  
+  R_METAG_RELBRANCH = 4;
+  R_METAG_GETSETOFF = 5;
   R_METAG_REG32OP1 = 6;
-  R_METAG_REG32OP2 = 7;  
-  R_METAG_REG32OP3 = 8;  
-  R_METAG_REG16OP1 = 9;  
-  R_METAG_REG16OP2 = 10;  
-  R_METAG_REG16OP3 = 11;  
-  R_METAG_REG32OP4 = 12;  
-  R_METAG_HIOG = 13;  
-  R_METAG_LOOG = 14;  
-  R_METAG_REL8 = 15;  
-  R_METAG_REL16 = 16;  
+  R_METAG_REG32OP2 = 7;
+  R_METAG_REG32OP3 = 8;
+  R_METAG_REG16OP1 = 9;
+  R_METAG_REG16OP2 = 10;
+  R_METAG_REG16OP3 = 11;
+  R_METAG_REG32OP4 = 12;
+  R_METAG_HIOG = 13;
+  R_METAG_LOOG = 14;
+  R_METAG_REL8 = 15;
+  R_METAG_REL16 = 16;
   R_METAG_GNU_VTINHERIT = 30;
-  R_METAG_GNU_VTENTRY = 31;  
+  R_METAG_GNU_VTENTRY = 31;
   R_METAG_HI16_GOTOFF = 32;
-  R_METAG_LO16_GOTOFF = 33;  
-  R_METAG_GETSET_GOTOFF = 34;  
-  R_METAG_GETSET_GOT = 35;  
-  R_METAG_HI16_GOTPC = 36;  
-  R_METAG_LO16_GOTPC = 37;  
-  R_METAG_HI16_PLT = 38;  
-  R_METAG_LO16_PLT = 39;  
-  R_METAG_RELBRANCH_PLT = 40;  
-  R_METAG_GOTOFF = 41;  
-  R_METAG_PLT = 42;  
-  R_METAG_COPY = 43;  
-  R_METAG_JMP_SLOT = 44;  
-  R_METAG_RELATIVE = 45;  
-  R_METAG_GLOB_DAT = 46;  
+  R_METAG_LO16_GOTOFF = 33;
+  R_METAG_GETSET_GOTOFF = 34;
+  R_METAG_GETSET_GOT = 35;
+  R_METAG_HI16_GOTPC = 36;
+  R_METAG_LO16_GOTPC = 37;
+  R_METAG_HI16_PLT = 38;
+  R_METAG_LO16_PLT = 39;
+  R_METAG_RELBRANCH_PLT = 40;
+  R_METAG_GOTOFF = 41;
+  R_METAG_PLT = 42;
+  R_METAG_COPY = 43;
+  R_METAG_JMP_SLOT = 44;
+  R_METAG_RELATIVE = 45;
+  R_METAG_GLOB_DAT = 46;
   R_METAG_TLS_GD = 47;
-  R_METAG_TLS_LDM = 48;  
-  R_METAG_TLS_LDO_HI16 = 49;  
-  R_METAG_TLS_LDO_LO16 = 50;  
-  R_METAG_TLS_LDO = 51;  
-  R_METAG_TLS_IE = 52;  
-  R_METAG_TLS_IENONPIC = 53;  
-  R_METAG_TLS_IENONPIC_HI16 = 54;  
-  R_METAG_TLS_IENONPIC_LO16 = 55;  
-  R_METAG_TLS_TPOFF = 56;  
-  R_METAG_TLS_DTPMOD = 57;  
-  R_METAG_TLS_DTPOFF = 58;  
-  R_METAG_TLS_LE = 59;  
-  R_METAG_TLS_LE_HI16 = 60;  
-  R_METAG_TLS_LE_LO16 = 61;  
+  R_METAG_TLS_LDM = 48;
+  R_METAG_TLS_LDO_HI16 = 49;
+  R_METAG_TLS_LDO_LO16 = 50;
+  R_METAG_TLS_LDO = 51;
+  R_METAG_TLS_IE = 52;
+  R_METAG_TLS_IENONPIC = 53;
+  R_METAG_TLS_IENONPIC_HI16 = 54;
+  R_METAG_TLS_IENONPIC_LO16 = 55;
+  R_METAG_TLS_TPOFF = 56;
+  R_METAG_TLS_DTPMOD = 57;
+  R_METAG_TLS_DTPOFF = 58;
+  R_METAG_TLS_LE = 59;
+  R_METAG_TLS_LE_HI16 = 60;
+  R_METAG_TLS_LE_LO16 = 61;
   R_NDS32_NONE = 0;
-  R_NDS32_32_RELA = 20;  
-  R_NDS32_COPY = 39;  
-  R_NDS32_GLOB_DAT = 40;  
-  R_NDS32_JMP_SLOT = 41;  
-  R_NDS32_RELATIVE = 42;  
-  R_NDS32_TLS_TPOFF = 102;  
-  R_NDS32_TLS_DESC = 119;  
+  R_NDS32_32_RELA = 20;
+  R_NDS32_COPY = 39;
+  R_NDS32_GLOB_DAT = 40;
+  R_NDS32_JMP_SLOT = 41;
+  R_NDS32_RELATIVE = 42;
+  R_NDS32_TLS_TPOFF = 102;
+  R_NDS32_TLS_DESC = 119;
   EF_LARCH_ABI_MODIFIER_MASK = $07;
-  EF_LARCH_ABI_SOFT_FLOAT = $01;  
-  EF_LARCH_ABI_SINGLE_FLOAT = $02;  
-  EF_LARCH_ABI_DOUBLE_FLOAT = $03;  
-  EF_LARCH_OBJABI_V1 = $40;  
+  EF_LARCH_ABI_SOFT_FLOAT = $01;
+  EF_LARCH_ABI_SINGLE_FLOAT = $02;
+  EF_LARCH_ABI_DOUBLE_FLOAT = $03;
+  EF_LARCH_OBJABI_V1 = $40;
   R_LARCH_NONE = 0;
-  R_LARCH_32 = 1;  
-  R_LARCH_64 = 2;  
-  R_LARCH_RELATIVE = 3;  
-  R_LARCH_COPY = 4;  
-  R_LARCH_JUMP_SLOT = 5;  
-  R_LARCH_TLS_DTPMOD32 = 6;  
-  R_LARCH_TLS_DTPMOD64 = 7;  
-  R_LARCH_TLS_DTPREL32 = 8;  
-  R_LARCH_TLS_DTPREL64 = 9;  
-  R_LARCH_TLS_TPREL32 = 10;  
-  R_LARCH_TLS_TPREL64 = 11;  
-  R_LARCH_IRELATIVE = 12;  
+  R_LARCH_32 = 1;
+  R_LARCH_64 = 2;
+  R_LARCH_RELATIVE = 3;
+  R_LARCH_COPY = 4;
+  R_LARCH_JUMP_SLOT = 5;
+  R_LARCH_TLS_DTPMOD32 = 6;
+  R_LARCH_TLS_DTPMOD64 = 7;
+  R_LARCH_TLS_DTPREL32 = 8;
+  R_LARCH_TLS_DTPREL64 = 9;
+  R_LARCH_TLS_TPREL32 = 10;
+  R_LARCH_TLS_TPREL64 = 11;
+  R_LARCH_IRELATIVE = 12;
   R_LARCH_MARK_LA = 20;
-  R_LARCH_MARK_PCREL = 21;  
-  R_LARCH_SOP_PUSH_PCREL = 22;  
-  R_LARCH_SOP_PUSH_ABSOLUTE = 23;  
-  R_LARCH_SOP_PUSH_DUP = 24;  
-  R_LARCH_SOP_PUSH_GPREL = 25;  
-  R_LARCH_SOP_PUSH_TLS_TPREL = 26;  
-  R_LARCH_SOP_PUSH_TLS_GOT = 27;  
-  R_LARCH_SOP_PUSH_TLS_GD = 28;  
-  R_LARCH_SOP_PUSH_PLT_PCREL = 29;  
-  R_LARCH_SOP_ASSERT = 30;  
-  R_LARCH_SOP_NOT = 31;  
-  R_LARCH_SOP_SUB = 32;  
-  R_LARCH_SOP_SL = 33;  
-  R_LARCH_SOP_SR = 34;  
-  R_LARCH_SOP_ADD = 35;  
-  R_LARCH_SOP_AND = 36;  
-  R_LARCH_SOP_IF_ELSE = 37;  
-  R_LARCH_SOP_POP_32_S_10_5 = 38;  
-  R_LARCH_SOP_POP_32_U_10_12 = 39;  
-  R_LARCH_SOP_POP_32_S_10_12 = 40;  
-  R_LARCH_SOP_POP_32_S_10_16 = 41;  
-  R_LARCH_SOP_POP_32_S_10_16_S2 = 42;  
-  R_LARCH_SOP_POP_32_S_5_20 = 43;  
-  R_LARCH_SOP_POP_32_S_0_5_10_16_S2 = 44;  
-  R_LARCH_SOP_POP_32_S_0_10_10_16_S2 = 45;  
-  R_LARCH_SOP_POP_32_U = 46;  
+  R_LARCH_MARK_PCREL = 21;
+  R_LARCH_SOP_PUSH_PCREL = 22;
+  R_LARCH_SOP_PUSH_ABSOLUTE = 23;
+  R_LARCH_SOP_PUSH_DUP = 24;
+  R_LARCH_SOP_PUSH_GPREL = 25;
+  R_LARCH_SOP_PUSH_TLS_TPREL = 26;
+  R_LARCH_SOP_PUSH_TLS_GOT = 27;
+  R_LARCH_SOP_PUSH_TLS_GD = 28;
+  R_LARCH_SOP_PUSH_PLT_PCREL = 29;
+  R_LARCH_SOP_ASSERT = 30;
+  R_LARCH_SOP_NOT = 31;
+  R_LARCH_SOP_SUB = 32;
+  R_LARCH_SOP_SL = 33;
+  R_LARCH_SOP_SR = 34;
+  R_LARCH_SOP_ADD = 35;
+  R_LARCH_SOP_AND = 36;
+  R_LARCH_SOP_IF_ELSE = 37;
+  R_LARCH_SOP_POP_32_S_10_5 = 38;
+  R_LARCH_SOP_POP_32_U_10_12 = 39;
+  R_LARCH_SOP_POP_32_S_10_12 = 40;
+  R_LARCH_SOP_POP_32_S_10_16 = 41;
+  R_LARCH_SOP_POP_32_S_10_16_S2 = 42;
+  R_LARCH_SOP_POP_32_S_5_20 = 43;
+  R_LARCH_SOP_POP_32_S_0_5_10_16_S2 = 44;
+  R_LARCH_SOP_POP_32_S_0_10_10_16_S2 = 45;
+  R_LARCH_SOP_POP_32_U = 46;
   R_LARCH_ADD8 = 47;
-  R_LARCH_ADD16 = 48;  
-  R_LARCH_ADD24 = 49;  
-  R_LARCH_ADD32 = 50;  
-  R_LARCH_ADD64 = 51;  
-  R_LARCH_SUB8 = 52;  
-  R_LARCH_SUB16 = 53;  
-  R_LARCH_SUB24 = 54;  
-  R_LARCH_SUB32 = 55;  
-  R_LARCH_SUB64 = 56;  
-  R_LARCH_GNU_VTINHERIT = 57;  
-  R_LARCH_GNU_VTENTRY = 58;  
+  R_LARCH_ADD16 = 48;
+  R_LARCH_ADD24 = 49;
+  R_LARCH_ADD32 = 50;
+  R_LARCH_ADD64 = 51;
+  R_LARCH_SUB8 = 52;
+  R_LARCH_SUB16 = 53;
+  R_LARCH_SUB24 = 54;
+  R_LARCH_SUB32 = 55;
+  R_LARCH_SUB64 = 56;
+  R_LARCH_GNU_VTINHERIT = 57;
+  R_LARCH_GNU_VTENTRY = 58;
   R_LARCH_B16 = 64;
-  R_LARCH_B21 = 65;  
-  R_LARCH_B26 = 66;  
-  R_LARCH_ABS_HI20 = 67;  
-  R_LARCH_ABS_LO12 = 68;  
-  R_LARCH_ABS64_LO20 = 69;  
-  R_LARCH_ABS64_HI12 = 70;  
-  R_LARCH_PCALA_HI20 = 71;  
-  R_LARCH_PCALA_LO12 = 72;  
-  R_LARCH_PCALA64_LO20 = 73;  
-  R_LARCH_PCALA64_HI12 = 74;  
-  R_LARCH_GOT_PC_HI20 = 75;  
-  R_LARCH_GOT_PC_LO12 = 76;  
-  R_LARCH_GOT64_PC_LO20 = 77;  
-  R_LARCH_GOT64_PC_HI12 = 78;  
-  R_LARCH_GOT_HI20 = 79;  
-  R_LARCH_GOT_LO12 = 80;  
-  R_LARCH_GOT64_LO20 = 81;  
-  R_LARCH_GOT64_HI12 = 82;  
-  R_LARCH_TLS_LE_HI20 = 83;  
-  R_LARCH_TLS_LE_LO12 = 84;  
-  R_LARCH_TLS_LE64_LO20 = 85;  
-  R_LARCH_TLS_LE64_HI12 = 86;  
-  R_LARCH_TLS_IE_PC_HI20 = 87;  
-  R_LARCH_TLS_IE_PC_LO12 = 88;  
-  R_LARCH_TLS_IE64_PC_LO20 = 89;  
-  R_LARCH_TLS_IE64_PC_HI12 = 90;  
-  R_LARCH_TLS_IE_HI20 = 91;  
-  R_LARCH_TLS_IE_LO12 = 92;  
-  R_LARCH_TLS_IE64_LO20 = 93;  
-  R_LARCH_TLS_IE64_HI12 = 94;  
-  R_LARCH_TLS_LD_PC_HI20 = 95;  
-  R_LARCH_TLS_LD_HI20 = 96;  
-  R_LARCH_TLS_GD_PC_HI20 = 97;  
-  R_LARCH_TLS_GD_HI20 = 98;  
-  R_LARCH_32_PCREL = 99;  
-  R_LARCH_RELAX = 100;  
-  R_LARCH_DELETE = 101;  
-  R_LARCH_ALIGN = 102;  
-  R_LARCH_PCREL20_S2 = 103;  
-  R_LARCH_CFA = 104;  
-  R_LARCH_ADD6 = 105;  
-  R_LARCH_SUB6 = 106;  
-  R_LARCH_ADD_ULEB128 = 107;  
-  R_LARCH_SUB_ULEB128 = 108;  
-  R_LARCH_64_PCREL = 109;  
+  R_LARCH_B21 = 65;
+  R_LARCH_B26 = 66;
+  R_LARCH_ABS_HI20 = 67;
+  R_LARCH_ABS_LO12 = 68;
+  R_LARCH_ABS64_LO20 = 69;
+  R_LARCH_ABS64_HI12 = 70;
+  R_LARCH_PCALA_HI20 = 71;
+  R_LARCH_PCALA_LO12 = 72;
+  R_LARCH_PCALA64_LO20 = 73;
+  R_LARCH_PCALA64_HI12 = 74;
+  R_LARCH_GOT_PC_HI20 = 75;
+  R_LARCH_GOT_PC_LO12 = 76;
+  R_LARCH_GOT64_PC_LO20 = 77;
+  R_LARCH_GOT64_PC_HI12 = 78;
+  R_LARCH_GOT_HI20 = 79;
+  R_LARCH_GOT_LO12 = 80;
+  R_LARCH_GOT64_LO20 = 81;
+  R_LARCH_GOT64_HI12 = 82;
+  R_LARCH_TLS_LE_HI20 = 83;
+  R_LARCH_TLS_LE_LO12 = 84;
+  R_LARCH_TLS_LE64_LO20 = 85;
+  R_LARCH_TLS_LE64_HI12 = 86;
+  R_LARCH_TLS_IE_PC_HI20 = 87;
+  R_LARCH_TLS_IE_PC_LO12 = 88;
+  R_LARCH_TLS_IE64_PC_LO20 = 89;
+  R_LARCH_TLS_IE64_PC_HI12 = 90;
+  R_LARCH_TLS_IE_HI20 = 91;
+  R_LARCH_TLS_IE_LO12 = 92;
+  R_LARCH_TLS_IE64_LO20 = 93;
+  R_LARCH_TLS_IE64_HI12 = 94;
+  R_LARCH_TLS_LD_PC_HI20 = 95;
+  R_LARCH_TLS_LD_HI20 = 96;
+  R_LARCH_TLS_GD_PC_HI20 = 97;
+  R_LARCH_TLS_GD_HI20 = 98;
+  R_LARCH_32_PCREL = 99;
+  R_LARCH_RELAX = 100;
+  R_LARCH_DELETE = 101;
+  R_LARCH_ALIGN = 102;
+  R_LARCH_PCREL20_S2 = 103;
+  R_LARCH_CFA = 104;
+  R_LARCH_ADD6 = 105;
+  R_LARCH_SUB6 = 106;
+  R_LARCH_ADD_ULEB128 = 107;
+  R_LARCH_SUB_ULEB128 = 108;
+  R_LARCH_64_PCREL = 109;
   EF_ARC_MACH_MSK = $000000ff;
-  EF_ARC_OSABI_MSK = $00000f00;  
-  EF_ARC_ALL_MSK = EF_ARC_MACH_MSK or EF_ARC_OSABI_MSK;  
-  SHT_ARC_ATTRIBUTES = SHT_LOPROC+1;
+  EF_ARC_OSABI_MSK = $00000f00;
+  EF_ARC_ALL_MSK = EF_ARC_MACH_MSK or EF_ARC_OSABI_MSK;
+  SHT_ARC_ATTRIBUTES = SHT_LOPROC + 1;
   R_ARC_NONE = $0;
-  R_ARC_8 = $1;  
-  R_ARC_16 = $2;  
-  R_ARC_24 = $3;  
-  R_ARC_32 = $4;  
-  R_ARC_B22_PCREL = $6;  
-  R_ARC_H30 = $7;  
-  R_ARC_N8 = $8;  
-  R_ARC_N16 = $9;  
-  R_ARC_N24 = $A;  
-  R_ARC_N32 = $B;  
-  R_ARC_SDA = $C;  
-  R_ARC_SECTOFF = $D;  
-  R_ARC_S21H_PCREL = $E;  
-  R_ARC_S21W_PCREL = $F;  
-  R_ARC_S25H_PCREL = $10;  
-  R_ARC_S25W_PCREL = $11;  
-  R_ARC_SDA32 = $12;  
-  R_ARC_SDA_LDST = $13;  
-  R_ARC_SDA_LDST1 = $14;  
-  R_ARC_SDA_LDST2 = $15;  
-  R_ARC_SDA16_LD = $16;  
-  R_ARC_SDA16_LD1 = $17;  
-  R_ARC_SDA16_LD2 = $18;  
-  R_ARC_S13_PCREL = $19;  
-  R_ARC_W = $1A;  
-  R_ARC_32_ME = $1B;  
-  R_ARC_N32_ME = $1C;  
-  R_ARC_SECTOFF_ME = $1D;  
-  R_ARC_SDA32_ME = $1E;  
-  R_ARC_W_ME = $1F;  
-  R_ARC_H30_ME = $20;  
-  R_ARC_SECTOFF_U8 = $21;  
-  R_ARC_SECTOFF_S9 = $22;  
-  R_AC_SECTOFF_U8 = $23;  
-  R_AC_SECTOFF_U8_1 = $24;  
-  R_AC_SECTOFF_U8_2 = $25;  
-  R_AC_SECTOFF_S9 = $26;  
-  R_AC_SECTOFF_S9_1 = $27;  
-  R_AC_SECTOFF_S9_2 = $28;  
-  R_ARC_SECTOFF_ME_1 = $29;  
-  R_ARC_SECTOFF_ME_2 = $2A;  
-  R_ARC_SECTOFF_1 = $2B;  
-  R_ARC_SECTOFF_2 = $2C;  
-  R_ARC_SDA_12 = $2D;  
-  R_ARC_SDA16_ST2 = $30;  
-  R_ARC_32_PCREL = $31;  
-  R_ARC_PC32 = $32;  
-  R_ARC_GOTPC32 = $33;  
-  R_ARC_PLT32 = $34;  
-  R_ARC_COPY = $35;  
-  R_ARC_GLOB_DAT = $36;  
-  R_ARC_JMP_SLOT = $37;  
-  R_ARC_RELATIVE = $38;  
-  R_ARC_GOTOFF = $39;  
-  R_ARC_GOTPC = $3A;  
-  R_ARC_GOT32 = $3B;  
-  R_ARC_S21W_PCREL_PLT = $3C;  
-  R_ARC_S25H_PCREL_PLT = $3D;  
-  R_ARC_JLI_SECTOFF = $3F;  
-  R_ARC_TLS_DTPMOD = $42;  
-  R_ARC_TLS_DTPOFF = $43;  
-  R_ARC_TLS_TPOFF = $44;  
-  R_ARC_TLS_GD_GOT = $45;  
-  R_ARC_TLS_GD_LD = $46;  
-  R_ARC_TLS_GD_CALL = $47;  
-  R_ARC_TLS_IE_GOT = $48;  
-  R_ARC_TLS_DTPOFF_S9 = $49;  
-  R_ARC_TLS_LE_S9 = $4A;  
-  R_ARC_TLS_LE_32 = $4B;  
-  R_ARC_S25W_PCREL_PLT = $4C;  
-  R_ARC_S21H_PCREL_PLT = $4D;  
-  R_ARC_NPS_CMEM16 = $4E;  
+  R_ARC_8 = $1;
+  R_ARC_16 = $2;
+  R_ARC_24 = $3;
+  R_ARC_32 = $4;
+  R_ARC_B22_PCREL = $6;
+  R_ARC_H30 = $7;
+  R_ARC_N8 = $8;
+  R_ARC_N16 = $9;
+  R_ARC_N24 = $A;
+  R_ARC_N32 = $B;
+  R_ARC_SDA = $C;
+  R_ARC_SECTOFF = $D;
+  R_ARC_S21H_PCREL = $E;
+  R_ARC_S21W_PCREL = $F;
+  R_ARC_S25H_PCREL = $10;
+  R_ARC_S25W_PCREL = $11;
+  R_ARC_SDA32 = $12;
+  R_ARC_SDA_LDST = $13;
+  R_ARC_SDA_LDST1 = $14;
+  R_ARC_SDA_LDST2 = $15;
+  R_ARC_SDA16_LD = $16;
+  R_ARC_SDA16_LD1 = $17;
+  R_ARC_SDA16_LD2 = $18;
+  R_ARC_S13_PCREL = $19;
+  R_ARC_W = $1A;
+  R_ARC_32_ME = $1B;
+  R_ARC_N32_ME = $1C;
+  R_ARC_SECTOFF_ME = $1D;
+  R_ARC_SDA32_ME = $1E;
+  R_ARC_W_ME = $1F;
+  R_ARC_H30_ME = $20;
+  R_ARC_SECTOFF_U8 = $21;
+  R_ARC_SECTOFF_S9 = $22;
+  R_AC_SECTOFF_U8 = $23;
+  R_AC_SECTOFF_U8_1 = $24;
+  R_AC_SECTOFF_U8_2 = $25;
+  R_AC_SECTOFF_S9 = $26;
+  R_AC_SECTOFF_S9_1 = $27;
+  R_AC_SECTOFF_S9_2 = $28;
+  R_ARC_SECTOFF_ME_1 = $29;
+  R_ARC_SECTOFF_ME_2 = $2A;
+  R_ARC_SECTOFF_1 = $2B;
+  R_ARC_SECTOFF_2 = $2C;
+  R_ARC_SDA_12 = $2D;
+  R_ARC_SDA16_ST2 = $30;
+  R_ARC_32_PCREL = $31;
+  R_ARC_PC32 = $32;
+  R_ARC_GOTPC32 = $33;
+  R_ARC_PLT32 = $34;
+  R_ARC_COPY = $35;
+  R_ARC_GLOB_DAT = $36;
+  R_ARC_JMP_SLOT = $37;
+  R_ARC_RELATIVE = $38;
+  R_ARC_GOTOFF = $39;
+  R_ARC_GOTPC = $3A;
+  R_ARC_GOT32 = $3B;
+  R_ARC_S21W_PCREL_PLT = $3C;
+  R_ARC_S25H_PCREL_PLT = $3D;
+  R_ARC_JLI_SECTOFF = $3F;
+  R_ARC_TLS_DTPMOD = $42;
+  R_ARC_TLS_DTPOFF = $43;
+  R_ARC_TLS_TPOFF = $44;
+  R_ARC_TLS_GD_GOT = $45;
+  R_ARC_TLS_GD_LD = $46;
+  R_ARC_TLS_GD_CALL = $47;
+  R_ARC_TLS_IE_GOT = $48;
+  R_ARC_TLS_DTPOFF_S9 = $49;
+  R_ARC_TLS_LE_S9 = $4A;
+  R_ARC_TLS_LE_32 = $4B;
+  R_ARC_S25W_PCREL_PLT = $4C;
+  R_ARC_S21H_PCREL_PLT = $4D;
+  R_ARC_NPS_CMEM16 = $4E;
   R_OR1K_NONE = 0;
-  R_OR1K_32 = 1;  
-  R_OR1K_16 = 2;  
-  R_OR1K_8 = 3;  
-  R_OR1K_LO_16_IN_INSN = 4;  
-  R_OR1K_HI_16_IN_INSN = 5;  
-  R_OR1K_INSN_REL_26 = 6;  
-  R_OR1K_GNU_VTENTRY = 7;  
-  R_OR1K_GNU_VTINHERIT = 8;  
-  R_OR1K_32_PCREL = 9;  
-  R_OR1K_16_PCREL = 10;  
-  R_OR1K_8_PCREL = 11;  
-  R_OR1K_GOTPC_HI16 = 12;  
-  R_OR1K_GOTPC_LO16 = 13;  
-  R_OR1K_GOT16 = 14;  
-  R_OR1K_PLT26 = 15;  
-  R_OR1K_GOTOFF_HI16 = 16;  
-  R_OR1K_GOTOFF_LO16 = 17;  
-  R_OR1K_COPY = 18;  
-  R_OR1K_GLOB_DAT = 19;  
-  R_OR1K_JMP_SLOT = 20;  
-  R_OR1K_RELATIVE = 21;  
-  R_OR1K_TLS_GD_HI16 = 22;  
-  R_OR1K_TLS_GD_LO16 = 23;  
-  R_OR1K_TLS_LDM_HI16 = 24;  
-  R_OR1K_TLS_LDM_LO16 = 25;  
-  R_OR1K_TLS_LDO_HI16 = 26;  
-  R_OR1K_TLS_LDO_LO16 = 27;  
-  R_OR1K_TLS_IE_HI16 = 28;  
-  R_OR1K_TLS_IE_LO16 = 29;  
-  R_OR1K_TLS_LE_HI16 = 30;  
-  R_OR1K_TLS_LE_LO16 = 31;  
-  R_OR1K_TLS_TPOFF = 32;  
-  R_OR1K_TLS_DTPOFF = 33;  
-  R_OR1K_TLS_DTPMOD = 34;  
+  R_OR1K_32 = 1;
+  R_OR1K_16 = 2;
+  R_OR1K_8 = 3;
+  R_OR1K_LO_16_IN_INSN = 4;
+  R_OR1K_HI_16_IN_INSN = 5;
+  R_OR1K_INSN_REL_26 = 6;
+  R_OR1K_GNU_VTENTRY = 7;
+  R_OR1K_GNU_VTINHERIT = 8;
+  R_OR1K_32_PCREL = 9;
+  R_OR1K_16_PCREL = 10;
+  R_OR1K_8_PCREL = 11;
+  R_OR1K_GOTPC_HI16 = 12;
+  R_OR1K_GOTPC_LO16 = 13;
+  R_OR1K_GOT16 = 14;
+  R_OR1K_PLT26 = 15;
+  R_OR1K_GOTOFF_HI16 = 16;
+  R_OR1K_GOTOFF_LO16 = 17;
+  R_OR1K_COPY = 18;
+  R_OR1K_GLOB_DAT = 19;
+  R_OR1K_JMP_SLOT = 20;
+  R_OR1K_RELATIVE = 21;
+  R_OR1K_TLS_GD_HI16 = 22;
+  R_OR1K_TLS_GD_LO16 = 23;
+  R_OR1K_TLS_LDM_HI16 = 24;
+  R_OR1K_TLS_LDM_LO16 = 25;
+  R_OR1K_TLS_LDO_HI16 = 26;
+  R_OR1K_TLS_LDO_LO16 = 27;
+  R_OR1K_TLS_IE_HI16 = 28;
+  R_OR1K_TLS_IE_LO16 = 29;
+  R_OR1K_TLS_LE_HI16 = 30;
+  R_OR1K_TLS_LE_LO16 = 31;
+  R_OR1K_TLS_TPOFF = 32;
+  R_OR1K_TLS_DTPOFF = 33;
+  R_OR1K_TLS_DTPMOD = 34;
 
-// === Konventiert am: 8-9-25 19:14:50 ===
+  // === Konventiert am: 8-9-25 19:14:50 ===
 
 
 implementation
 
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ELF32_ST_BIND(val : longint) : longint;
-begin
-  ELF32_ST_BIND:=(byte(val)) shr 4;
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function ELF32_ST_TYPE(val : longint) : Tval;
-begin
-  ELF32_ST_TYPE:=Tval(@($f));
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ELF32_ST_INFO(bind,_type : longint) : longint;
-begin
-  ELF32_ST_INFO:=(bind shl 4)+(Ttype(@($f)));
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ELF64_ST_BIND(val : longint) : longint;
-begin
-  ELF64_ST_BIND:=ELF32_ST_BIND(val);
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ELF64_ST_TYPE(val : longint) : longint;
-begin
-  ELF64_ST_TYPE:=ELF32_ST_TYPE(val);
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ELF64_ST_INFO(bind,_type : longint) : longint;
-begin
-  ELF64_ST_INFO:=ELF32_ST_INFO(bind,_type);
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function ELF32_ST_VISIBILITY(obj : longint) : To;
-begin
-  ELF32_ST_VISIBILITY:=To(@($03));
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ELF64_ST_VISIBILITY(obj : longint) : longint;
-begin
-  ELF64_ST_VISIBILITY:=ELF32_ST_VISIBILITY(o);
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ELF32_R_SYM(val : longint) : longint;
-begin
-  ELF32_R_SYM:=val shr 8;
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function ELF32_R_TYPE(val : longint) : Tval;
-begin
-  ELF32_R_TYPE:=Tval(@($ff));
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ELF32_R_INFO(sym,_type : longint) : longint;
-begin
-  ELF32_R_INFO:=(sym shl 8)+(Ttype(@($ff)));
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ELF64_R_SYM(i : longint) : longint;
-begin
-  ELF64_R_SYM:=i shr 32;
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function ELF64_R_TYPE(i : longint) : Ti;
-begin
-  ELF64_R_TYPE:=Ti(@($ffffffff));
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ELF64_R_INFO(sym,_type : longint) : longint;
-begin
-  ELF64_R_INFO:=((TElf64_Xword(sym)) shl 32)+_type;
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function DT_VALTAGIDX(tag : longint) : longint;
-begin
-  DT_VALTAGIDX:=DT_VALRNGHI-tag;
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function DT_ADDRTAGIDX(tag : longint) : longint;
-begin
-  DT_ADDRTAGIDX:=DT_ADDRRNGHI-tag;
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function DT_VERSIONTAGIDX(tag : longint) : longint;
-begin
-  DT_VERSIONTAGIDX:=DT_VERNEEDNUM-tag;
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function DT_EXTRATAGIDX(tag : longint) : longint;
-begin
-  DT_EXTRATAGIDX:=(TElf32_Word(-(((TElf32_Sword(tag)) shl 1) shr 1)))-1;
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ELF32_M_SYM(info : longint) : longint;
-begin
-  ELF32_M_SYM:=info shr 8;
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function ELF32_M_SIZE(info : longint) : byte;
-begin
-  ELF32_M_SIZE:=byte(info);
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ELF32_M_INFO(sym,size : longint) : longint;
-begin
-  ELF32_M_INFO:=(sym shl 8)+(byte(size));
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ELF64_M_SYM(info : longint) : longint;
-begin
-  ELF64_M_SYM:=ELF32_M_SYM(info);
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ELF64_M_SIZE(info : longint) : longint;
-begin
-  ELF64_M_SIZE:=ELF32_M_SIZE(info);
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ELF64_M_INFO(sym,size : longint) : longint;
-begin
-  ELF64_M_INFO:=ELF32_M_INFO(sym,size);
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function PPC64_LOCAL_ENTRY_OFFSET(other : longint) : longint;
-begin
-  PPC64_LOCAL_ENTRY_OFFSET:=((1 shl ((Tother(@(STO_PPC64_LOCAL_MASK))) shr STO_PPC64_LOCAL_BIT)) shr 2) shl 2;
-end;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function EF_ARM_EABI_VERSION(flags : longint) : Tflags;
-begin
-  EF_ARM_EABI_VERSION:=Tflags(@(EF_ARM_EABIMASK));
-end;
+//function ELF32_ST_BIND(val : longint) : longint;
+//begin
+//  ELF32_ST_BIND:=(byte(val)) shr 4;
+//end;
+//
+//function ELF32_ST_TYPE(val : longint) : Tval;
+//begin
+//  ELF32_ST_TYPE:=Tval(@($f));
+//end;
+//
+//function ELF32_ST_INFO(bind,_type : longint) : longint;
+//begin
+//  ELF32_ST_INFO:=(bind shl 4)+(Ttype(@($f)));
+//end;
+//
+//function ELF64_ST_BIND(val : longint) : longint;
+//begin
+//  ELF64_ST_BIND:=ELF32_ST_BIND(val);
+//end;
+//
+//function ELF64_ST_TYPE(val : longint) : longint;
+//begin
+//  ELF64_ST_TYPE:=ELF32_ST_TYPE(val);
+//end;
+//
+//function ELF64_ST_INFO(bind,_type : longint) : longint;
+//begin
+//  ELF64_ST_INFO:=ELF32_ST_INFO(bind,_type);
+//end;
+//
+//function ELF32_ST_VISIBILITY(obj : longint) : To;
+//begin
+//  ELF32_ST_VISIBILITY:=To(@($03));
+//end;
+//
+//function ELF64_ST_VISIBILITY(obj : longint) : longint;
+//begin
+//  ELF64_ST_VISIBILITY:=ELF32_ST_VISIBILITY(o);
+//end;
+//
+//function ELF32_R_SYM(val : longint) : longint;
+//begin
+//  ELF32_R_SYM:=val shr 8;
+//end;
+//
+//function ELF32_R_TYPE(val : longint) : Tval;
+//begin
+//  ELF32_R_TYPE:=Tval(@($ff));
+//end;
+//
+//function ELF32_R_INFO(sym,_type : longint) : longint;
+//begin
+//  ELF32_R_INFO:=(sym shl 8)+(Ttype(@($ff)));
+//end;
+//
+//function ELF64_R_SYM(i : longint) : longint;
+//begin
+//  ELF64_R_SYM:=i shr 32;
+//end;
+//
+//function ELF64_R_TYPE(i : longint) : Ti;
+//begin
+//  ELF64_R_TYPE:=Ti(@($ffffffff));
+//end;
+//
+//function ELF64_R_INFO(sym,_type : longint) : longint;
+//begin
+//  ELF64_R_INFO:=((TElf64_Xword(sym)) shl 32)+_type;
+//end;
+//
+//function DT_VALTAGIDX(tag : longint) : longint;
+//begin
+//  DT_VALTAGIDX:=DT_VALRNGHI-tag;
+//end;
+//
+//function DT_ADDRTAGIDX(tag : longint) : longint;
+//begin
+//  DT_ADDRTAGIDX:=DT_ADDRRNGHI-tag;
+//end;
+//
+//function DT_VERSIONTAGIDX(tag : longint) : longint;
+//begin
+//  DT_VERSIONTAGIDX:=DT_VERNEEDNUM-tag;
+//end;
+//
+//function DT_EXTRATAGIDX(tag : longint) : longint;
+//begin
+//  DT_EXTRATAGIDX:=(TElf32_Word(-(((TElf32_Sword(tag)) shl 1) shr 1)))-1;
+//end;
+//
+//function ELF32_M_SYM(info : longint) : longint;
+//begin
+//  ELF32_M_SYM:=info shr 8;
+//end;
+//
+//function ELF32_M_SIZE(info : longint) : byte;
+//begin
+//  ELF32_M_SIZE:=byte(info);
+//end;
+//
+//function ELF32_M_INFO(sym,size : longint) : longint;
+//begin
+//  ELF32_M_INFO:=(sym shl 8)+(byte(size));
+//end;
+//
+//function ELF64_M_SYM(info : longint) : longint;
+//begin
+//  ELF64_M_SYM:=ELF32_M_SYM(info);
+//end;
+//
+//function ELF64_M_SIZE(info : longint) : longint;
+//begin
+//  ELF64_M_SIZE:=ELF32_M_SIZE(info);
+//end;
+//
+//function ELF64_M_INFO(sym,size : longint) : longint;
+//begin
+//  ELF64_M_INFO:=ELF32_M_INFO(sym,size);
+//end;
+//
+//function PPC64_LOCAL_ENTRY_OFFSET(other : longint) : longint;
+//begin
+//  PPC64_LOCAL_ENTRY_OFFSET:=((1 shl ((Tother(@(STO_PPC64_LOCAL_MASK))) shr STO_PPC64_LOCAL_BIT)) shr 2) shl 2;
+//end;
+//
+//function EF_ARM_EABI_VERSION(flags : longint) : Tflags;
+//begin
+//  EF_ARM_EABI_VERSION:=Tflags(@(EF_ARM_EABIMASK));
+//end;
 
 
 end.
