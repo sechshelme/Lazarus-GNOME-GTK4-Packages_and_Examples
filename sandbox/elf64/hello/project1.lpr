@@ -1,83 +1,96 @@
 program project1;
 
 uses
-  elf,
+  fp_stdio,
+  fp_fcntl,
+  fp_unistd,
+  clib,
+
+  elf,                // makro
+  elf_linux,          // makro
   elf_fdpic,
-  elf_linux,
-  gelf,
   libelf,
-  link,
+  gelf,
+  link,               // makro
   link_bits,
 
   fp_elf64;
 
+const
+  path = '/lib/i386-linux-gnu/libgmodule-2.0.so.0';
+
   procedure main;
+  var
+    fd: longint;
+    elf: PElf;
+    shstrndx: Tsize_t;
+    scn: PElf_Scn = nil;
+    shdr: TGElf_Shdr;
+    data: PElf_Data;
+    count: TElf64_Xword;
+    sym: TGElf_Sym;
+    name: pchar;
+    i: integer;
   begin
-    if (argc != 2) {
-        fprintf(stderr, "Usage: %s <elf-file>\n", argv[0]);
-        return 1;
-    }
+    if elf_version(EV_CURRENT) = EV_NONE then begin
+      WriteLn('ELF library initialization failed.');
+      Exit;
+    end;
 
-    if (elf_version(EV_CURRENT) == EV_NONE) {
-        fprintf(stderr, "ELF library initialization failed.\n");
-        return 1;
-    }
+    fd := open(path, O_RDONLY);
+    if fd < 0 then begin
+      WriteLn('Failed to open ELF file');
+      Exit;
+    end;
 
-    int fd = open(argv[1], O_RDONLY);
-    if (fd < 0) {
-        perror("Failed to open ELF file");
-        return 1;
-    }
+    elf := elf_begin(fd, ELF_C_READ, nil);
+    if elf = nil then begin
+      WriteLn('elf_begin() failed: ', elf_errmsg(-1));
+      close(fd);
+      Exit;
+    end;
 
-    Elf *elf = elf_begin(fd, ELF_C_READ, NULL);
-    if (!elf) {
-        fprintf(stderr, "elf_begin() failed: %s\n", elf_errmsg(-1));
-        close(fd);
-        return 1;
-    }
+    //    size_t shstrndx;
+    if elf_getshdrstrndx(elf, @shstrndx) <> 0 then begin
+      WriteLn('elf_getshdrstrndx() failed: ', elf_errmsg(-1));
+      elf_end(elf);
+      close(fd);
+      Exit;
+    end;
 
-    size_t shstrndx;
-    if (elf_getshdrstrndx(elf, &shstrndx) != 0) {
-        fprintf(stderr, "elf_getshdrstrndx() failed: %s\n", elf_errmsg(-1));
-        elf_end(elf);
-        close(fd);
-        return 1;
-    }
+    repeat
+      scn := elf_nextscn(elf, scn);
+      if scn <> nil then begin
+        if gelf_getshdr(scn, @shdr) <> @shdr then begin
+          WriteLn('gelf_getshdr() failed: ', elf_errmsg(-1));
+          elf_end(elf);
+          close(fd);
+          Exit;
+        end;
 
-    Elf_Scn *scn = NULL;
-    while ((scn = elf_nextscn(elf, scn)) != NULL) {
-        GElf_Shdr shdr;
-        if (gelf_getshdr(scn, &shdr) != &shdr) {
-            fprintf(stderr, "gelf_getshdr() failed: %s\n", elf_errmsg(-1));
-            elf_end(elf);
-            close(fd);
-            return 1;
-        }
+        if (shdr.sh_type = SHT_SYMTAB) or (shdr.sh_type = SHT_DYNSYM) then begin
+          data := elf_getdata(scn, nil);
+          count := shdr.sh_size div shdr.sh_entsize;
+          WriteLn('Symbol table: ', count, ' entries');
 
-        if (shdr.sh_type == SHT_SYMTAB || shdr.sh_type == SHT_DYNSYM) {
-            Elf_Data *data = elf_getdata(scn, NULL);
-            int count = shdr.sh_size / shdr.sh_entsize;
-            printf("Symbol table: %d entries\n", count);
-
-            for (int i = 0; i < count; i++) {
-                GElf_Sym sym;
-                if (gelf_getsym(data, i, &sym) != &sym) {
-                    fprintf(stderr, "gelf_getsym() failed: %s\n", elf_errmsg(-1));
-                    continue;
-                }
-                const char *name = elf_strptr(elf, shdr.sh_link, sym.st_name);
-                if (name && name[0] != '\0') {
-                    printf("%s: 0x%08jx\n", name, (uintmax_t)sym.st_value);
-                }
-            }
-        }
-    }
+          for  i := 0 to count - 1 do begin
+            if gelf_getsym(data, i, @sym) <> @sym then begin
+              WriteLn('gelf_getsym() failed: ', elf_errmsg(-1));
+              continue;
+            end;
+            if sym.st_value <> 0 then begin
+              name := elf_strptr(elf, shdr.sh_link, sym.st_name);
+              if (name <> nil) and (name[0] <> #0) then begin
+                printf('  %s: 0x%08jx'#10, name, sym.st_value);
+              end;
+            end;
+          end;
+        end;
+      end;
+    until scn = nil;
 
     elf_end(elf);
     close(fd);
-
-    return 0;
-
   end;
 
 
