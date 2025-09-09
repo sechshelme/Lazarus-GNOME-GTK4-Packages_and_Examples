@@ -2221,8 +2221,6 @@ const
 
 function PPC64_LOCAL_ENTRY_OFFSET(other : longint) : longint;
 
-{ ARM specific declarations  }
-{ Processor specific flags for the ELF header e_flags field.   }
 const
   EF_ARM_RELEXEC = $01;  
   EF_ARM_HASENTRY = $02;  
@@ -2230,28 +2228,20 @@ const
   EF_ARM_APCS_26 = $08;  
   EF_ARM_APCS_FLOAT = $10;  
   EF_ARM_PIC = $20;  
-{ 8-bit structure alignment is in use  }
-  EF_ARM_ALIGN8 = $40;  
+  EF_ARM_ALIGN8 = $40;
   EF_ARM_NEW_ABI = $80;  
   EF_ARM_OLD_ABI = $100;  
   EF_ARM_SOFT_FLOAT = $200;  
   EF_ARM_VFP_FLOAT = $400;  
   EF_ARM_MAVERICK_FLOAT = $800;  
-{ NB conflicts with EF_ARM_SOFT_FLOAT  }
-  EF_ARM_ABI_FLOAT_SOFT = $200;  
-{ NB conflicts with EF_ARM_VFP_FLOAT  }
-  EF_ARM_ABI_FLOAT_HARD = $400;  
-{ Other constants defined in the ARM ELF spec. version B-01.   }
-{ NB. These conflict with values defined above.   }
-  EF_ARM_SYMSARESORTED = $04;  
+  EF_ARM_ABI_FLOAT_SOFT = $200;
+  EF_ARM_ABI_FLOAT_HARD = $400;
+  EF_ARM_SYMSARESORTED = $04;
   EF_ARM_DYNSYMSUSESEGIDX = $08;  
   EF_ARM_MAPSYMSFIRST = $10;  
-{ xxxxxxxxxxxxxxxxxxx #define EF_ARM_EABIMASK		0XFF000000 }
-{ Constants defined in AAELF.   }
-  EF_ARM_BE8 = $00800000;  
+EF_ARM_EABIMASK	=	$FF000000 ;
+  EF_ARM_BE8 = $00800000;
   EF_ARM_LE8 = $00400000;  
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
 
 function EF_ARM_EABI_VERSION(flags : longint) : Tflags;
 
@@ -2262,571 +2252,274 @@ const
   EF_ARM_EABI_VER3 = $03000000;  
   EF_ARM_EABI_VER4 = $04000000;  
   EF_ARM_EABI_VER5 = $05000000;  
-{ Additional symbol types for Thumb.   }
-{ A Thumb function.   }
-  STT_ARM_TFUNC = STT_LOPROC;  
-{ A Thumb label.   }
-  STT_ARM_16BIT = STT_HIPROC;  
-{ ARM-specific values for sh_flags  }
-{ Section contains an entry point  }
-  SHF_ARM_ENTRYSECT = $10000000;  
-{ Section may be multiply defined
-					      in the input to a link step.   }
-  SHF_ARM_COMDEF = $80000000;  
-{ ARM-specific program header flags  }
-{ Segment contains the location
-					      addressed by the static base.  }
-  PF_ARM_SB = $10000000;  
-{ Position-independent segment.   }
-  PF_ARM_PI = $20000000;  
-{ Absolute segment.   }
-  PF_ARM_ABS = $40000000;  
-{ Processor specific values for the Phdr p_type field.   }
-{ ARM unwind segment.   }
-  PT_ARM_EXIDX = PT_LOPROC+1;  
-{ Processor specific values for the Shdr sh_type field.   }
-{ ARM unwind section.   }
-  SHT_ARM_EXIDX = SHT_LOPROC+1;  
-{ Preemption details.   }
-  SHT_ARM_PREEMPTMAP = SHT_LOPROC+2;  
-{ ARM attributes section.   }
-  SHT_ARM_ATTRIBUTES = SHT_LOPROC+3;  
-{ AArch64 relocs.   }
-{ No relocation.   }
-  R_AARCH64_NONE = 0;  
-{ ILP32 AArch64 relocs.   }
-{ Direct 32 bit.   }
-  R_AARCH64_P32_ABS32 = 1;  
-{ Copy symbol at runtime.   }
-  R_AARCH64_P32_COPY = 180;  
-{ Create GOT entry.   }
-  R_AARCH64_P32_GLOB_DAT = 181;  
-{ Create PLT entry.   }
-  R_AARCH64_P32_JUMP_SLOT = 182;  
-{ Adjust by program base.   }
-  R_AARCH64_P32_RELATIVE = 183;  
-{ Module number, 32 bit.   }
-  R_AARCH64_P32_TLS_DTPMOD = 184;  
-{ Module-relative offset, 32 bit.   }
-  R_AARCH64_P32_TLS_DTPREL = 185;  
-{ TP-relative offset, 32 bit.   }
-  R_AARCH64_P32_TLS_TPREL = 186;  
-{ TLS Descriptor.   }
-  R_AARCH64_P32_TLSDESC = 187;  
-{ STT_GNU_IFUNC relocation.  }
-  R_AARCH64_P32_IRELATIVE = 188;  
-{ LP64 AArch64 relocs.   }
-{ Direct 64 bit.  }
-  R_AARCH64_ABS64 = 257;  
-{ Direct 32 bit.   }
-  R_AARCH64_ABS32 = 258;  
-{ Direct 16-bit.   }
-  R_AARCH64_ABS16 = 259;  
-{ PC-relative 64-bit.	 }
-  R_AARCH64_PREL64 = 260;  
-{ PC-relative 32-bit.	 }
-  R_AARCH64_PREL32 = 261;  
-{ PC-relative 16-bit.	 }
-  R_AARCH64_PREL16 = 262;  
-{ Dir. MOVZ imm. from bits 15:0.   }
-  R_AARCH64_MOVW_UABS_G0 = 263;  
-{ Likewise for MOVK; no check.   }
-  R_AARCH64_MOVW_UABS_G0_NC = 264;  
-{ Dir. MOVZ imm. from bits 31:16.   }
-  R_AARCH64_MOVW_UABS_G1 = 265;  
-{ Likewise for MOVK; no check.   }
-  R_AARCH64_MOVW_UABS_G1_NC = 266;  
-{ Dir. MOVZ imm. from bits 47:32.   }
-  R_AARCH64_MOVW_UABS_G2 = 267;  
-{ Likewise for MOVK; no check.   }
-  R_AARCH64_MOVW_UABS_G2_NC = 268;  
-{ Dir. MOVK,Z imm. from 63:48.   }
-  R_AARCH64_MOVW_UABS_G3 = 269;  
-{ Dir. MOVN,Z imm. from 15:0.   }
-  R_AARCH64_MOVW_SABS_G0 = 270;  
-{ Dir. MOVN,Z imm. from 31:16.   }
-  R_AARCH64_MOVW_SABS_G1 = 271;  
-{ Dir. MOVN,Z imm. from 47:32.   }
-  R_AARCH64_MOVW_SABS_G2 = 272;  
-{ PC-rel. LD imm. from bits 20:2.   }
-  R_AARCH64_LD_PREL_LO19 = 273;  
-{ PC-rel. ADR imm. from bits 20:0.   }
-  R_AARCH64_ADR_PREL_LO21 = 274;  
-{ Page-rel. ADRP imm. from 32:12.   }
-  R_AARCH64_ADR_PREL_PG_HI21 = 275;  
-{ Likewise; no overflow check.   }
-  R_AARCH64_ADR_PREL_PG_HI21_NC = 276;  
-{ Dir. ADD imm. from bits 11:0.   }
-  R_AARCH64_ADD_ABS_LO12_NC = 277;  
-{ Likewise for LD/ST; no check.  }
-  R_AARCH64_LDST8_ABS_LO12_NC = 278;  
-{ PC-rel. TBZ/TBNZ imm. from 15:2.   }
-  R_AARCH64_TSTBR14 = 279;  
-{ PC-rel. cond. br. imm. from 20:2.  }
-  R_AARCH64_CONDBR19 = 280;  
-{ PC-rel. B imm. from bits 27:2.   }
-  R_AARCH64_JUMP26 = 282;  
-{ Likewise for CALL.   }
-  R_AARCH64_CALL26 = 283;  
-{ Dir. ADD imm. from bits 11:1.   }
-  R_AARCH64_LDST16_ABS_LO12_NC = 284;  
-{ Likewise for bits 11:2.   }
-  R_AARCH64_LDST32_ABS_LO12_NC = 285;  
-{ Likewise for bits 11:3.   }
-  R_AARCH64_LDST64_ABS_LO12_NC = 286;  
-{ PC-rel. MOVN,Z imm. from 15:0.   }
-  R_AARCH64_MOVW_PREL_G0 = 287;  
-{ Likewise for MOVK; no check.   }
-  R_AARCH64_MOVW_PREL_G0_NC = 288;  
-{ PC-rel. MOVN,Z imm. from 31:16.  }
-  R_AARCH64_MOVW_PREL_G1 = 289;  
-{ Likewise for MOVK; no check.   }
-  R_AARCH64_MOVW_PREL_G1_NC = 290;  
-{ PC-rel. MOVN,Z imm. from 47:32.  }
-  R_AARCH64_MOVW_PREL_G2 = 291;  
-{ Likewise for MOVK; no check.   }
-  R_AARCH64_MOVW_PREL_G2_NC = 292;  
-{ PC-rel. MOVN,Z imm. from 63:48.  }
-  R_AARCH64_MOVW_PREL_G3 = 293;  
-{ Dir. ADD imm. from bits 11:4.   }
-  R_AARCH64_LDST128_ABS_LO12_NC = 299;  
-{ GOT-rel. off. MOVN,Z imm. 15:0.  }
-  R_AARCH64_MOVW_GOTOFF_G0 = 300;  
-{ Likewise for MOVK; no check.   }
-  R_AARCH64_MOVW_GOTOFF_G0_NC = 301;  
-{ GOT-rel. o. MOVN,Z imm. 31:16.   }
-  R_AARCH64_MOVW_GOTOFF_G1 = 302;  
-{ Likewise for MOVK; no check.   }
-  R_AARCH64_MOVW_GOTOFF_G1_NC = 303;  
-{ GOT-rel. o. MOVN,Z imm. 47:32.   }
-  R_AARCH64_MOVW_GOTOFF_G2 = 304;  
-{ Likewise for MOVK; no check.   }
-  R_AARCH64_MOVW_GOTOFF_G2_NC = 305;  
-{ GOT-rel. o. MOVN,Z imm. 63:48.   }
-  R_AARCH64_MOVW_GOTOFF_G3 = 306;  
-{ GOT-relative 64-bit.   }
-  R_AARCH64_GOTREL64 = 307;  
-{ GOT-relative 32-bit.   }
-  R_AARCH64_GOTREL32 = 308;  
-{ PC-rel. GOT off. load imm. 20:2.   }
-  R_AARCH64_GOT_LD_PREL19 = 309;  
-{ GOT-rel. off. LD/ST imm. 14:3.   }
-  R_AARCH64_LD64_GOTOFF_LO15 = 310;  
-{ P-page-rel. GOT off. ADRP 32:12.   }
-  R_AARCH64_ADR_GOT_PAGE = 311;  
-{ Dir. GOT off. LD/ST imm. 11:3.   }
-  R_AARCH64_LD64_GOT_LO12_NC = 312;  
-{ GOT-page-rel. GOT off. LD/ST 14:3  }
-  R_AARCH64_LD64_GOTPAGE_LO15 = 313;  
-{ PC-relative ADR imm. 20:0.   }
-  R_AARCH64_TLSGD_ADR_PREL21 = 512;  
-{ page-rel. ADRP imm. 32:12.   }
-  R_AARCH64_TLSGD_ADR_PAGE21 = 513;  
-{ direct ADD imm. from 11:0.   }
-  R_AARCH64_TLSGD_ADD_LO12_NC = 514;  
-{ GOT-rel. MOVN,Z 31:16.   }
-  R_AARCH64_TLSGD_MOVW_G1 = 515;  
-{ GOT-rel. MOVK imm. 15:0.   }
-  R_AARCH64_TLSGD_MOVW_G0_NC = 516;  
-{ Like 512; local dynamic model.   }
-  R_AARCH64_TLSLD_ADR_PREL21 = 517;  
-{ Like 513; local dynamic model.   }
-  R_AARCH64_TLSLD_ADR_PAGE21 = 518;  
-{ Like 514; local dynamic model.   }
-  R_AARCH64_TLSLD_ADD_LO12_NC = 519;  
-{ Like 515; local dynamic model.   }
-  R_AARCH64_TLSLD_MOVW_G1 = 520;  
-{ Like 516; local dynamic model.   }
-  R_AARCH64_TLSLD_MOVW_G0_NC = 521;  
-{ TLS PC-rel. load imm. 20:2.   }
-  R_AARCH64_TLSLD_LD_PREL19 = 522;  
-{ TLS DTP-rel. MOVN,Z 47:32.   }
-  R_AARCH64_TLSLD_MOVW_DTPREL_G2 = 523;  
-{ TLS DTP-rel. MOVN,Z 31:16.   }
-  R_AARCH64_TLSLD_MOVW_DTPREL_G1 = 524;  
-{ Likewise; MOVK; no check.   }
-  R_AARCH64_TLSLD_MOVW_DTPREL_G1_NC = 525;  
-{ TLS DTP-rel. MOVN,Z 15:0.   }
-  R_AARCH64_TLSLD_MOVW_DTPREL_G0 = 526;  
-{ Likewise; MOVK; no check.   }
-  R_AARCH64_TLSLD_MOVW_DTPREL_G0_NC = 527;  
-{ DTP-rel. ADD imm. from 23:12.  }
-  R_AARCH64_TLSLD_ADD_DTPREL_HI12 = 528;  
-{ DTP-rel. ADD imm. from 11:0.   }
-  R_AARCH64_TLSLD_ADD_DTPREL_LO12 = 529;  
-{ Likewise; no ovfl. check.   }
-  R_AARCH64_TLSLD_ADD_DTPREL_LO12_NC = 530;  
-{ DTP-rel. LD/ST imm. 11:0.   }
-  R_AARCH64_TLSLD_LDST8_DTPREL_LO12 = 531;  
-{ Likewise; no check.   }
-  R_AARCH64_TLSLD_LDST8_DTPREL_LO12_NC = 532;  
-{ DTP-rel. LD/ST imm. 11:1.   }
-  R_AARCH64_TLSLD_LDST16_DTPREL_LO12 = 533;  
-{ Likewise; no check.   }
-  R_AARCH64_TLSLD_LDST16_DTPREL_LO12_NC = 534;  
-{ DTP-rel. LD/ST imm. 11:2.   }
-  R_AARCH64_TLSLD_LDST32_DTPREL_LO12 = 535;  
-{ Likewise; no check.   }
-  R_AARCH64_TLSLD_LDST32_DTPREL_LO12_NC = 536;  
-{ DTP-rel. LD/ST imm. 11:3.   }
-  R_AARCH64_TLSLD_LDST64_DTPREL_LO12 = 537;  
-{ Likewise; no check.   }
-  R_AARCH64_TLSLD_LDST64_DTPREL_LO12_NC = 538;  
-{ GOT-rel. MOVN,Z 31:16.   }
-  R_AARCH64_TLSIE_MOVW_GOTTPREL_G1 = 539;  
-{ GOT-rel. MOVK 15:0.   }
-  R_AARCH64_TLSIE_MOVW_GOTTPREL_G0_NC = 540;  
-{ Page-rel. ADRP 32:12.   }
-  R_AARCH64_TLSIE_ADR_GOTTPREL_PAGE21 = 541;  
-{ Direct LD off. 11:3.   }
-  R_AARCH64_TLSIE_LD64_GOTTPREL_LO12_NC = 542;  
-{ PC-rel. load imm. 20:2.   }
-  R_AARCH64_TLSIE_LD_GOTTPREL_PREL19 = 543;  
-{ TLS TP-rel. MOVN,Z 47:32.   }
-  R_AARCH64_TLSLE_MOVW_TPREL_G2 = 544;  
-{ TLS TP-rel. MOVN,Z 31:16.   }
-  R_AARCH64_TLSLE_MOVW_TPREL_G1 = 545;  
-{ Likewise; MOVK; no check.   }
-  R_AARCH64_TLSLE_MOVW_TPREL_G1_NC = 546;  
-{ TLS TP-rel. MOVN,Z 15:0.   }
-  R_AARCH64_TLSLE_MOVW_TPREL_G0 = 547;  
-{ Likewise; MOVK; no check.   }
-  R_AARCH64_TLSLE_MOVW_TPREL_G0_NC = 548;  
-{ TP-rel. ADD imm. 23:12.   }
-  R_AARCH64_TLSLE_ADD_TPREL_HI12 = 549;  
-{ TP-rel. ADD imm. 11:0.   }
-  R_AARCH64_TLSLE_ADD_TPREL_LO12 = 550;  
-{ Likewise; no ovfl. check.   }
-  R_AARCH64_TLSLE_ADD_TPREL_LO12_NC = 551;  
-{ TP-rel. LD/ST off. 11:0.   }
-  R_AARCH64_TLSLE_LDST8_TPREL_LO12 = 552;  
-{ Likewise; no ovfl. check.  }
-  R_AARCH64_TLSLE_LDST8_TPREL_LO12_NC = 553;  
-{ TP-rel. LD/ST off. 11:1.   }
-  R_AARCH64_TLSLE_LDST16_TPREL_LO12 = 554;  
-{ Likewise; no check.   }
-  R_AARCH64_TLSLE_LDST16_TPREL_LO12_NC = 555;  
-{ TP-rel. LD/ST off. 11:2.   }
-  R_AARCH64_TLSLE_LDST32_TPREL_LO12 = 556;  
-{ Likewise; no check.   }
-  R_AARCH64_TLSLE_LDST32_TPREL_LO12_NC = 557;  
-{ TP-rel. LD/ST off. 11:3.   }
-  R_AARCH64_TLSLE_LDST64_TPREL_LO12 = 558;  
-{ Likewise; no check.   }
-  R_AARCH64_TLSLE_LDST64_TPREL_LO12_NC = 559;  
-{ PC-rel. load immediate 20:2.   }
-  R_AARCH64_TLSDESC_LD_PREL19 = 560;  
-{ PC-rel. ADR immediate 20:0.   }
-  R_AARCH64_TLSDESC_ADR_PREL21 = 561;  
-{ Page-rel. ADRP imm. 32:12.   }
-  R_AARCH64_TLSDESC_ADR_PAGE21 = 562;  
-{ Direct LD off. from 11:3.   }
-  R_AARCH64_TLSDESC_LD64_LO12 = 563;  
-{ Direct ADD imm. from 11:0.   }
-  R_AARCH64_TLSDESC_ADD_LO12 = 564;  
-{ GOT-rel. MOVN,Z imm. 31:16.   }
-  R_AARCH64_TLSDESC_OFF_G1 = 565;  
-{ GOT-rel. MOVK imm. 15:0; no ck.   }
-  R_AARCH64_TLSDESC_OFF_G0_NC = 566;  
-{ Relax LDR.   }
-  R_AARCH64_TLSDESC_LDR = 567;  
-{ Relax ADD.   }
-  R_AARCH64_TLSDESC_ADD = 568;  
-{ Relax BLR.   }
-  R_AARCH64_TLSDESC_CALL = 569;  
-{ TP-rel. LD/ST off. 11:4.   }
-  R_AARCH64_TLSLE_LDST128_TPREL_LO12 = 570;  
-{ Likewise; no check.   }
-  R_AARCH64_TLSLE_LDST128_TPREL_LO12_NC = 571;  
-{ DTP-rel. LD/ST imm. 11:4.  }
-  R_AARCH64_TLSLD_LDST128_DTPREL_LO12 = 572;  
-{ Likewise; no check.   }
-  R_AARCH64_TLSLD_LDST128_DTPREL_LO12_NC = 573;  
-{ Copy symbol at runtime.   }
-  R_AARCH64_COPY = 1024;  
-{ Create GOT entry.   }
-  R_AARCH64_GLOB_DAT = 1025;  
-{ Create PLT entry.   }
-  R_AARCH64_JUMP_SLOT = 1026;  
-{ Adjust by program base.   }
-  R_AARCH64_RELATIVE = 1027;  
-{ Module number, 64 bit.   }
-  R_AARCH64_TLS_DTPMOD = 1028;  
-{ Module-relative offset, 64 bit.   }
-  R_AARCH64_TLS_DTPREL = 1029;  
-{ TP-relative offset, 64 bit.   }
-  R_AARCH64_TLS_TPREL = 1030;  
-{ TLS Descriptor.   }
-  R_AARCH64_TLSDESC = 1031;  
-{ STT_GNU_IFUNC relocation.   }
-  R_AARCH64_IRELATIVE = 1032;  
-{ MTE memory tag segment type.   }
-  PT_AARCH64_MEMTAG_MTE = PT_LOPROC+2;  
-{ AArch64 specific values for the Dyn d_tag field.   }
-  DT_AARCH64_BTI_PLT = DT_LOPROC+1;  
+  STT_ARM_TFUNC = STT_LOPROC;
+  STT_ARM_16BIT = STT_HIPROC;
+  SHF_ARM_ENTRYSECT = $10000000;
+  SHF_ARM_COMDEF = $80000000;
+  PF_ARM_SB = $10000000;
+  PF_ARM_PI = $20000000;
+  PF_ARM_ABS = $40000000;
+  PT_ARM_EXIDX = PT_LOPROC+1;
+  SHT_ARM_EXIDX = SHT_LOPROC+1;
+  SHT_ARM_PREEMPTMAP = SHT_LOPROC+2;
+  SHT_ARM_ATTRIBUTES = SHT_LOPROC+3;
+  R_AARCH64_NONE = 0;
+  R_AARCH64_P32_ABS32 = 1;
+  R_AARCH64_P32_COPY = 180;
+  R_AARCH64_P32_GLOB_DAT = 181;
+  R_AARCH64_P32_JUMP_SLOT = 182;
+  R_AARCH64_P32_RELATIVE = 183;
+  R_AARCH64_P32_TLS_DTPMOD = 184;
+  R_AARCH64_P32_TLS_DTPREL = 185;
+  R_AARCH64_P32_TLS_TPREL = 186;
+  R_AARCH64_P32_TLSDESC = 187;
+  R_AARCH64_P32_IRELATIVE = 188;
+  R_AARCH64_ABS64 = 257;
+  R_AARCH64_ABS32 = 258;
+  R_AARCH64_ABS16 = 259;
+  R_AARCH64_PREL64 = 260;
+  R_AARCH64_PREL32 = 261;
+  R_AARCH64_PREL16 = 262;
+  R_AARCH64_MOVW_UABS_G0 = 263;
+  R_AARCH64_MOVW_UABS_G0_NC = 264;
+  R_AARCH64_MOVW_UABS_G1 = 265;
+  R_AARCH64_MOVW_UABS_G1_NC = 266;
+  R_AARCH64_MOVW_UABS_G2 = 267;
+  R_AARCH64_MOVW_UABS_G2_NC = 268;
+  R_AARCH64_MOVW_UABS_G3 = 269;
+  R_AARCH64_MOVW_SABS_G0 = 270;
+  R_AARCH64_MOVW_SABS_G1 = 271;
+  R_AARCH64_MOVW_SABS_G2 = 272;
+  R_AARCH64_LD_PREL_LO19 = 273;
+  R_AARCH64_ADR_PREL_LO21 = 274;
+  R_AARCH64_ADR_PREL_PG_HI21 = 275;
+  R_AARCH64_ADR_PREL_PG_HI21_NC = 276;
+  R_AARCH64_ADD_ABS_LO12_NC = 277;
+  R_AARCH64_LDST8_ABS_LO12_NC = 278;
+  R_AARCH64_TSTBR14 = 279;
+  R_AARCH64_CONDBR19 = 280;
+  R_AARCH64_JUMP26 = 282;
+  R_AARCH64_CALL26 = 283;
+  R_AARCH64_LDST16_ABS_LO12_NC = 284;
+  R_AARCH64_LDST32_ABS_LO12_NC = 285;
+  R_AARCH64_LDST64_ABS_LO12_NC = 286;
+  R_AARCH64_MOVW_PREL_G0 = 287;
+  R_AARCH64_MOVW_PREL_G0_NC = 288;
+  R_AARCH64_MOVW_PREL_G1 = 289;
+  R_AARCH64_MOVW_PREL_G1_NC = 290;
+  R_AARCH64_MOVW_PREL_G2 = 291;
+  R_AARCH64_MOVW_PREL_G2_NC = 292;
+  R_AARCH64_MOVW_PREL_G3 = 293;
+  R_AARCH64_LDST128_ABS_LO12_NC = 299;
+  R_AARCH64_MOVW_GOTOFF_G0 = 300;
+  R_AARCH64_MOVW_GOTOFF_G0_NC = 301;
+  R_AARCH64_MOVW_GOTOFF_G1 = 302;
+  R_AARCH64_MOVW_GOTOFF_G1_NC = 303;
+  R_AARCH64_MOVW_GOTOFF_G2 = 304;
+  R_AARCH64_MOVW_GOTOFF_G2_NC = 305;
+  R_AARCH64_MOVW_GOTOFF_G3 = 306;
+  R_AARCH64_GOTREL64 = 307;
+  R_AARCH64_GOTREL32 = 308;
+  R_AARCH64_GOT_LD_PREL19 = 309;
+  R_AARCH64_LD64_GOTOFF_LO15 = 310;
+  R_AARCH64_ADR_GOT_PAGE = 311;
+  R_AARCH64_LD64_GOT_LO12_NC = 312;
+  R_AARCH64_LD64_GOTPAGE_LO15 = 313;
+  R_AARCH64_TLSGD_ADR_PREL21 = 512;
+  R_AARCH64_TLSGD_ADR_PAGE21 = 513;
+  R_AARCH64_TLSGD_ADD_LO12_NC = 514;
+  R_AARCH64_TLSGD_MOVW_G1 = 515;
+  R_AARCH64_TLSGD_MOVW_G0_NC = 516;
+  R_AARCH64_TLSLD_ADR_PREL21 = 517;
+  R_AARCH64_TLSLD_ADR_PAGE21 = 518;
+  R_AARCH64_TLSLD_ADD_LO12_NC = 519;
+  R_AARCH64_TLSLD_MOVW_G1 = 520;
+  R_AARCH64_TLSLD_MOVW_G0_NC = 521;
+  R_AARCH64_TLSLD_LD_PREL19 = 522;
+  R_AARCH64_TLSLD_MOVW_DTPREL_G2 = 523;
+  R_AARCH64_TLSLD_MOVW_DTPREL_G1 = 524;
+  R_AARCH64_TLSLD_MOVW_DTPREL_G1_NC = 525;
+  R_AARCH64_TLSLD_MOVW_DTPREL_G0 = 526;
+  R_AARCH64_TLSLD_MOVW_DTPREL_G0_NC = 527;
+  R_AARCH64_TLSLD_ADD_DTPREL_HI12 = 528;
+  R_AARCH64_TLSLD_ADD_DTPREL_LO12 = 529;
+  R_AARCH64_TLSLD_ADD_DTPREL_LO12_NC = 530;
+  R_AARCH64_TLSLD_LDST8_DTPREL_LO12 = 531;
+  R_AARCH64_TLSLD_LDST8_DTPREL_LO12_NC = 532;
+  R_AARCH64_TLSLD_LDST16_DTPREL_LO12 = 533;
+  R_AARCH64_TLSLD_LDST16_DTPREL_LO12_NC = 534;
+  R_AARCH64_TLSLD_LDST32_DTPREL_LO12 = 535;
+  R_AARCH64_TLSLD_LDST32_DTPREL_LO12_NC = 536;
+  R_AARCH64_TLSLD_LDST64_DTPREL_LO12 = 537;
+  R_AARCH64_TLSLD_LDST64_DTPREL_LO12_NC = 538;
+  R_AARCH64_TLSIE_MOVW_GOTTPREL_G1 = 539;
+  R_AARCH64_TLSIE_MOVW_GOTTPREL_G0_NC = 540;
+  R_AARCH64_TLSIE_ADR_GOTTPREL_PAGE21 = 541;
+  R_AARCH64_TLSIE_LD64_GOTTPREL_LO12_NC = 542;
+  R_AARCH64_TLSIE_LD_GOTTPREL_PREL19 = 543;
+  R_AARCH64_TLSLE_MOVW_TPREL_G2 = 544;
+  R_AARCH64_TLSLE_MOVW_TPREL_G1 = 545;
+  R_AARCH64_TLSLE_MOVW_TPREL_G1_NC = 546;
+  R_AARCH64_TLSLE_MOVW_TPREL_G0 = 547;
+  R_AARCH64_TLSLE_MOVW_TPREL_G0_NC = 548;
+  R_AARCH64_TLSLE_ADD_TPREL_HI12 = 549;
+  R_AARCH64_TLSLE_ADD_TPREL_LO12 = 550;
+  R_AARCH64_TLSLE_ADD_TPREL_LO12_NC = 551;
+  R_AARCH64_TLSLE_LDST8_TPREL_LO12 = 552;
+  R_AARCH64_TLSLE_LDST8_TPREL_LO12_NC = 553;
+  R_AARCH64_TLSLE_LDST16_TPREL_LO12 = 554;
+  R_AARCH64_TLSLE_LDST16_TPREL_LO12_NC = 555;
+  R_AARCH64_TLSLE_LDST32_TPREL_LO12 = 556;
+  R_AARCH64_TLSLE_LDST32_TPREL_LO12_NC = 557;
+  R_AARCH64_TLSLE_LDST64_TPREL_LO12 = 558;
+  R_AARCH64_TLSLE_LDST64_TPREL_LO12_NC = 559;
+  R_AARCH64_TLSDESC_LD_PREL19 = 560;
+  R_AARCH64_TLSDESC_ADR_PREL21 = 561;
+  R_AARCH64_TLSDESC_ADR_PAGE21 = 562;
+  R_AARCH64_TLSDESC_LD64_LO12 = 563;
+  R_AARCH64_TLSDESC_ADD_LO12 = 564;
+  R_AARCH64_TLSDESC_OFF_G1 = 565;
+  R_AARCH64_TLSDESC_OFF_G0_NC = 566;
+  R_AARCH64_TLSDESC_LDR = 567;
+  R_AARCH64_TLSDESC_ADD = 568;
+  R_AARCH64_TLSDESC_CALL = 569;
+  R_AARCH64_TLSLE_LDST128_TPREL_LO12 = 570;
+  R_AARCH64_TLSLE_LDST128_TPREL_LO12_NC = 571;
+  R_AARCH64_TLSLD_LDST128_DTPREL_LO12 = 572;
+  R_AARCH64_TLSLD_LDST128_DTPREL_LO12_NC = 573;
+  R_AARCH64_COPY = 1024;
+  R_AARCH64_GLOB_DAT = 1025;
+  R_AARCH64_JUMP_SLOT = 1026;
+  R_AARCH64_RELATIVE = 1027;
+  R_AARCH64_TLS_DTPMOD = 1028;
+  R_AARCH64_TLS_DTPREL = 1029;
+  R_AARCH64_TLS_TPREL = 1030;
+  R_AARCH64_TLSDESC = 1031;
+  R_AARCH64_IRELATIVE = 1032;
+  PT_AARCH64_MEMTAG_MTE = PT_LOPROC+2;
+  DT_AARCH64_BTI_PLT = DT_LOPROC+1;
   DT_AARCH64_PAC_PLT = DT_LOPROC+3;  
   DT_AARCH64_VARIANT_PCS = DT_LOPROC+5;  
   DT_AARCH64_NUM = 6;  
-{ AArch64 specific values for the st_other field.   }
-  STO_AARCH64_VARIANT_PCS = $80;  
-{ ARM relocs.   }
-{ No reloc  }
-  R_ARM_NONE = 0;  
-{ Deprecated PC relative 26
-					   bit branch.   }
-  R_ARM_PC24 = 1;  
-{ Direct 32 bit   }
-  R_ARM_ABS32 = 2;  
-{ PC relative 32 bit  }
-  R_ARM_REL32 = 3;  
+  STO_AARCH64_VARIANT_PCS = $80;
+  R_ARM_NONE = 0;
+  R_ARM_PC24 = 1;
+  R_ARM_ABS32 = 2;
+  R_ARM_REL32 = 3;
   R_ARM_PC13 = 4;  
-{ Direct 16 bit  }
-  R_ARM_ABS16 = 5;  
-{ Direct 12 bit  }
-  R_ARM_ABS12 = 6;  
-{ Direct & 0x7C (LDR, STR).   }
-  R_ARM_THM_ABS5 = 7;  
-{ Direct 8 bit  }
-  R_ARM_ABS8 = 8;  
+  R_ARM_ABS16 = 5;
+  R_ARM_ABS12 = 6;
+  R_ARM_THM_ABS5 = 7;
+  R_ARM_ABS8 = 8;
   R_ARM_SBREL32 = 9;  
-{ PC relative 24 bit (Thumb32 BL).   }
-  R_ARM_THM_PC22 = 10;  
-{ PC relative & 0x3FC
-					   (Thumb16 LDR, ADD, ADR).   }
-  R_ARM_THM_PC8 = 11;  
+  R_ARM_THM_PC22 = 10;
+  R_ARM_THM_PC8 = 11;
   R_ARM_AMP_VCALL9 = 12;  
-{ Obsolete static relocation.   }
-  R_ARM_SWI24 = 13;  
-{ Dynamic relocation.   }
-  R_ARM_TLS_DESC = 13;  
-{ Reserved.   }
-  R_ARM_THM_SWI8 = 14;  
-{ Reserved.   }
-  R_ARM_XPC25 = 15;  
-{ Reserved.   }
-  R_ARM_THM_XPC22 = 16;  
-{ ID of module containing symbol  }
-  R_ARM_TLS_DTPMOD32 = 17;  
-{ Offset in TLS block  }
-  R_ARM_TLS_DTPOFF32 = 18;  
-{ Offset in static TLS block  }
-  R_ARM_TLS_TPOFF32 = 19;  
-{ Copy symbol at runtime  }
-  R_ARM_COPY = 20;  
-{ Create GOT entry  }
-  R_ARM_GLOB_DAT = 21;  
-{ Create PLT entry  }
-  R_ARM_JUMP_SLOT = 22;  
-{ Adjust by program base  }
-  R_ARM_RELATIVE = 23;  
-{ 32 bit offset to GOT  }
-  R_ARM_GOTOFF = 24;  
-{ 32 bit PC relative offset to GOT  }
-  R_ARM_GOTPC = 25;  
-{ 32 bit GOT entry  }
-  R_ARM_GOT32 = 26;  
-{ Deprecated, 32 bit PLT address.   }
-  R_ARM_PLT32 = 27;  
-{ PC relative 24 bit (BL, BLX).   }
-  R_ARM_CALL = 28;  
-{ PC relative 24 bit
-					   (B, BL<cond>).   }
-  R_ARM_JUMP24 = 29;  
-{ PC relative 24 bit (Thumb32 B.W).   }
-  R_ARM_THM_JUMP24 = 30;  
-{ Adjust by program base.   }
-  R_ARM_BASE_ABS = 31;  
-{ Obsolete.   }
-  R_ARM_ALU_PCREL_7_0 = 32;  
-{ Obsolete.   }
-  R_ARM_ALU_PCREL_15_8 = 33;  
-{ Obsolete.   }
-  R_ARM_ALU_PCREL_23_15 = 34;  
-{ Deprecated, prog. base relative.   }
-  R_ARM_LDR_SBREL_11_0 = 35;  
-{ Deprecated, prog. base relative.   }
-  R_ARM_ALU_SBREL_19_12 = 36;  
-{ Deprecated, prog. base relative.   }
-  R_ARM_ALU_SBREL_27_20 = 37;  
+  R_ARM_SWI24 = 13;
+  R_ARM_TLS_DESC = 13;
+  R_ARM_THM_SWI8 = 14;
+  R_ARM_XPC25 = 15;
+  R_ARM_THM_XPC22 = 16;
+  R_ARM_TLS_DTPMOD32 = 17;
+  R_ARM_TLS_DTPOFF32 = 18;
+  R_ARM_TLS_TPOFF32 = 19;
+  R_ARM_COPY = 20;
+  R_ARM_GLOB_DAT = 21;
+  R_ARM_JUMP_SLOT = 22;
+  R_ARM_RELATIVE = 23;
+  R_ARM_GOTOFF = 24;
+  R_ARM_GOTPC = 25;
+  R_ARM_GOT32 = 26;
+  R_ARM_PLT32 = 27;
+  R_ARM_CALL = 28;
+  R_ARM_JUMP24 = 29;
+  R_ARM_THM_JUMP24 = 30;
+  R_ARM_BASE_ABS = 31;
+  R_ARM_ALU_PCREL_7_0 = 32;
+  R_ARM_ALU_PCREL_15_8 = 33;
+  R_ARM_ALU_PCREL_23_15 = 34;
+  R_ARM_LDR_SBREL_11_0 = 35;
+  R_ARM_ALU_SBREL_19_12 = 36;
+  R_ARM_ALU_SBREL_27_20 = 37;
   R_ARM_TARGET1 = 38;  
-{ Program base relative.   }
-  R_ARM_SBREL31 = 39;  
+  R_ARM_SBREL31 = 39;
   R_ARM_V4BX = 40;  
   R_ARM_TARGET2 = 41;  
-{ 32 bit PC relative.   }
-  R_ARM_PREL31 = 42;  
-{ Direct 16-bit (MOVW).   }
-  R_ARM_MOVW_ABS_NC = 43;  
-{ Direct high 16-bit (MOVT).   }
-  R_ARM_MOVT_ABS = 44;  
-{ PC relative 16-bit (MOVW).   }
-  R_ARM_MOVW_PREL_NC = 45;  
-{ PC relative (MOVT).   }
-  R_ARM_MOVT_PREL = 46;  
-{ Direct 16 bit (Thumb32 MOVW).   }
-  R_ARM_THM_MOVW_ABS_NC = 47;  
-{ Direct high 16 bit
-					   (Thumb32 MOVT).   }
-  R_ARM_THM_MOVT_ABS = 48;  
-{ PC relative 16 bit
-					   (Thumb32 MOVW).   }
-  R_ARM_THM_MOVW_PREL_NC = 49;  
-{ PC relative high 16 bit
-					   (Thumb32 MOVT).   }
-  R_ARM_THM_MOVT_PREL = 50;  
-{ PC relative 20 bit
-					   (Thumb32 B<cond>.W).   }
-  R_ARM_THM_JUMP19 = 51;  
-{ PC relative X & 0x7E
-					   (Thumb16 CBZ, CBNZ).   }
-  R_ARM_THM_JUMP6 = 52;  
-{ PC relative 12 bit
-					   (Thumb32 ADR.W).   }
-  R_ARM_THM_ALU_PREL_11_0 = 53;  
-{ PC relative 12 bit
-					   (Thumb32 LDRD,SB,H,SH).   }
-  R_ARM_THM_PC12 = 54;  
-{ Direct 32-bit.   }
-  R_ARM_ABS32_NOI = 55;  
-{ PC relative 32-bit.   }
-  R_ARM_REL32_NOI = 56;  
-{ PC relative (ADD, SUB).   }
-  R_ARM_ALU_PC_G0_NC = 57;  
-{ PC relative (ADD, SUB).   }
-  R_ARM_ALU_PC_G0 = 58;  
-{ PC relative (ADD, SUB).   }
-  R_ARM_ALU_PC_G1_NC = 59;  
-{ PC relative (ADD, SUB).   }
-  R_ARM_ALU_PC_G1 = 60;  
-{ PC relative (ADD, SUB).   }
-  R_ARM_ALU_PC_G2 = 61;  
-{ PC relative (LDR,STR,LDRB,STRB).   }
-  R_ARM_LDR_PC_G1 = 62;  
-{ PC relative (LDR,STR,LDRB,STRB).   }
-  R_ARM_LDR_PC_G2 = 63;  
-{ PC relative (STRD,H,
-					   LDRD,SB,H,SH).   }
-  R_ARM_LDRS_PC_G0 = 64;  
-{ PC relative (STRD,H,
-					   LDRD,SB,H,SH).   }
-  R_ARM_LDRS_PC_G1 = 65;  
-{ PC relative (STRD,H,
-					   LDRD,SB,H,SH).   }
-  R_ARM_LDRS_PC_G2 = 66;  
-{ PC relative (LDC, STC).   }
-  R_ARM_LDC_PC_G0 = 67;  
-{ PC relative (LDC, STC).   }
-  R_ARM_LDC_PC_G1 = 68;  
-{ PC relative (LDC, STC).   }
-  R_ARM_LDC_PC_G2 = 69;  
-{ Program base relative (ADD,SUB).   }
-  R_ARM_ALU_SB_G0_NC = 70;  
-{ Program base relative (ADD,SUB).   }
-  R_ARM_ALU_SB_G0 = 71;  
-{ Program base relative (ADD,SUB).   }
-  R_ARM_ALU_SB_G1_NC = 72;  
-{ Program base relative (ADD,SUB).   }
-  R_ARM_ALU_SB_G1 = 73;  
-{ Program base relative (ADD,SUB).   }
-  R_ARM_ALU_SB_G2 = 74;  
-{ Program base relative (LDR,
-					   STR, LDRB, STRB).   }
-  R_ARM_LDR_SB_G0 = 75;  
-{ Program base relative
-					   (LDR, STR, LDRB, STRB).   }
-  R_ARM_LDR_SB_G1 = 76;  
-{ Program base relative
-					   (LDR, STR, LDRB, STRB).   }
-  R_ARM_LDR_SB_G2 = 77;  
-{ Program base relative
-					   (LDR, STR, LDRB, STRB).   }
-  R_ARM_LDRS_SB_G0 = 78;  
-{ Program base relative
-					   (LDR, STR, LDRB, STRB).   }
-  R_ARM_LDRS_SB_G1 = 79;  
-{ Program base relative
-					   (LDR, STR, LDRB, STRB).   }
-  R_ARM_LDRS_SB_G2 = 80;  
-{ Program base relative (LDC,STC).   }
-  R_ARM_LDC_SB_G0 = 81;  
-{ Program base relative (LDC,STC).   }
-  R_ARM_LDC_SB_G1 = 82;  
-{ Program base relative (LDC,STC).   }
-  R_ARM_LDC_SB_G2 = 83;  
-{ Program base relative 16
-					   bit (MOVW).   }
-  R_ARM_MOVW_BREL_NC = 84;  
-{ Program base relative high
-					   16 bit (MOVT).   }
-  R_ARM_MOVT_BREL = 85;  
-{ Program base relative 16
-					   bit (MOVW).   }
-  R_ARM_MOVW_BREL = 86;  
-{ Program base relative 16
-					   bit (Thumb32 MOVW).   }
-  R_ARM_THM_MOVW_BREL_NC = 87;  
-{ Program base relative high
-					   16 bit (Thumb32 MOVT).   }
-  R_ARM_THM_MOVT_BREL = 88;  
-{ Program base relative 16
-					   bit (Thumb32 MOVW).   }
-  R_ARM_THM_MOVW_BREL = 89;  
+  R_ARM_PREL31 = 42;
+  R_ARM_MOVW_ABS_NC = 43;
+  R_ARM_MOVT_ABS = 44;
+  R_ARM_MOVW_PREL_NC = 45;
+  R_ARM_MOVT_PREL = 46;
+  R_ARM_THM_MOVW_ABS_NC = 47;
+  R_ARM_THM_MOVT_ABS = 48;
+  R_ARM_THM_MOVW_PREL_NC = 49;
+  R_ARM_THM_MOVT_PREL = 50;
+  R_ARM_THM_JUMP19 = 51;
+  R_ARM_THM_JUMP6 = 52;
+  R_ARM_THM_ALU_PREL_11_0 = 53;
+  R_ARM_THM_PC12 = 54;
+  R_ARM_ABS32_NOI = 55;
+  R_ARM_REL32_NOI = 56;
+  R_ARM_ALU_PC_G0_NC = 57;
+  R_ARM_ALU_PC_G0 = 58;
+  R_ARM_ALU_PC_G1_NC = 59;
+  R_ARM_ALU_PC_G1 = 60;
+  R_ARM_ALU_PC_G2 = 61;
+  R_ARM_LDR_PC_G1 = 62;
+  R_ARM_LDR_PC_G2 = 63;
+  R_ARM_LDRS_PC_G0 = 64;
+  R_ARM_LDRS_PC_G1 = 65;
+  R_ARM_LDRS_PC_G2 = 66;
+  R_ARM_LDC_PC_G0 = 67;
+  R_ARM_LDC_PC_G1 = 68;
+  R_ARM_LDC_PC_G2 = 69;
+  R_ARM_ALU_SB_G0_NC = 70;
+  R_ARM_ALU_SB_G0 = 71;
+  R_ARM_ALU_SB_G1_NC = 72;
+  R_ARM_ALU_SB_G1 = 73;
+  R_ARM_ALU_SB_G2 = 74;
+  R_ARM_LDR_SB_G0 = 75;
+  R_ARM_LDR_SB_G1 = 76;
+  R_ARM_LDR_SB_G2 = 77;
+  R_ARM_LDRS_SB_G0 = 78;
+  R_ARM_LDRS_SB_G1 = 79;
+  R_ARM_LDRS_SB_G2 = 80;
+  R_ARM_LDC_SB_G0 = 81;
+  R_ARM_LDC_SB_G1 = 82;
+  R_ARM_LDC_SB_G2 = 83;
+  R_ARM_MOVW_BREL_NC = 84;
+  R_ARM_MOVT_BREL = 85;
+  R_ARM_MOVW_BREL = 86;
+  R_ARM_THM_MOVW_BREL_NC = 87;
+  R_ARM_THM_MOVT_BREL = 88;
+  R_ARM_THM_MOVW_BREL = 89;
   R_ARM_TLS_GOTDESC = 90;  
   R_ARM_TLS_CALL = 91;  
-{ TLS relaxation.   }
-  R_ARM_TLS_DESCSEQ = 92;  
+  R_ARM_TLS_DESCSEQ = 92;
   R_ARM_THM_TLS_CALL = 93;  
   R_ARM_PLT32_ABS = 94;  
-{ GOT entry.   }
-  R_ARM_GOT_ABS = 95;  
-{ PC relative GOT entry.   }
-  R_ARM_GOT_PREL = 96;  
-{ GOT entry relative to GOT
-					   origin (LDR).   }
-  R_ARM_GOT_BREL12 = 97;  
-{ 12 bit, GOT entry relative
-					   to GOT origin (LDR, STR).   }
-  R_ARM_GOTOFF12 = 98;  
+  R_ARM_GOT_ABS = 95;
+  R_ARM_GOT_PREL = 96;
+  R_ARM_GOT_BREL12 = 97;
+  R_ARM_GOTOFF12 = 98;
   R_ARM_GOTRELAX = 99;  
   R_ARM_GNU_VTENTRY = 100;  
   R_ARM_GNU_VTINHERIT = 101;  
-{ PC relative & 0xFFE (Thumb16 B).   }
-  R_ARM_THM_PC11 = 102;  
-{ PC relative & 0x1FE
-					   (Thumb16 B/B<cond>).   }
-  R_ARM_THM_PC9 = 103;  
-{ PC-rel 32 bit for global dynamic
-					   thread local data  }
-  R_ARM_TLS_GD32 = 104;  
-{ PC-rel 32 bit for local dynamic
-					   thread local data  }
-  R_ARM_TLS_LDM32 = 105;  
-{ 32 bit offset relative to TLS
-					   block  }
-  R_ARM_TLS_LDO32 = 106;  
-{ PC-rel 32 bit for GOT entry of
-					   static TLS block offset  }
-  R_ARM_TLS_IE32 = 107;  
-{ 32 bit offset relative to static
-					   TLS block  }
-  R_ARM_TLS_LE32 = 108;  
-{ 12 bit relative to TLS
-					   block (LDR, STR).   }
-  R_ARM_TLS_LDO12 = 109;  
-{ 12 bit relative to static
-					   TLS block (LDR, STR).   }
-  R_ARM_TLS_LE12 = 110;  
-{ 12 bit GOT entry relative
-					   to GOT origin (LDR).   }
-  R_ARM_TLS_IE12GP = 111;  
-{ Obsolete.   }
-  R_ARM_ME_TOO = 128;  
+  R_ARM_THM_PC11 = 102;
+  R_ARM_THM_PC9 = 103;
+  R_ARM_TLS_GD32 = 104;
+  R_ARM_TLS_LDM32 = 105;
+  R_ARM_TLS_LDO32 = 106;
+  R_ARM_TLS_IE32 = 107;
+  R_ARM_TLS_LE32 = 108;
+  R_ARM_TLS_LDO12 = 109;
+  R_ARM_TLS_LE12 = 110;
+  R_ARM_TLS_IE12GP = 111;
+  R_ARM_ME_TOO = 128;
   R_ARM_THM_TLS_DESCSEQ = 129;  
   R_ARM_THM_TLS_DESCSEQ16 = 129;  
   R_ARM_THM_TLS_DESCSEQ32 = 130;  
-{ GOT entry relative to GOT
-					   origin, 12 bit (Thumb32 LDR).   }
-  R_ARM_THM_GOT_BREL12 = 131;  
+  R_ARM_THM_GOT_BREL12 = 131;
   R_ARM_IRELATIVE = 160;  
   R_ARM_RXPC25 = 249;  
   R_ARM_RSBREL32 = 250;  
@@ -2835,112 +2528,55 @@ const
   R_ARM_RABS22 = 253;  
   R_ARM_RPC24 = 254;  
   R_ARM_RBASE = 255;  
-{ Keep this the last entry.   }
-  R_ARM_NUM = 256;  
-{ C-SKY  }
-{ no reloc  }
-  R_CKCORE_NONE = 0;  
-{ direct 32 bit (S + A)  }
-  R_CKCORE_ADDR32 = 1;  
-{ disp ((S + A - P) >> 2) & 0xff    }
-  R_CKCORE_PCRELIMM8BY4 = 2;  
-{ disp ((S + A - P) >> 1) & 0x7ff   }
-  R_CKCORE_PCRELIMM11BY2 = 3;  
-{ 32-bit rel (S + A - P)            }
-  R_CKCORE_PCREL32 = 5;  
-{ disp ((S + A - P) >>1) & 0x7ff    }
-  R_CKCORE_PCRELJSR_IMM11BY2 = 6;  
-{ 32 bit adjust program base(B + A) }
-  R_CKCORE_RELATIVE = 9;  
-{ 32 bit adjust by program base     }
-  R_CKCORE_COPY = 10;  
-{ off between got and sym (S)       }
-  R_CKCORE_GLOB_DAT = 11;  
-{ PLT entry (S)  }
-  R_CKCORE_JUMP_SLOT = 12;  
-{ offset to GOT (S + A - GOT)       }
-  R_CKCORE_GOTOFF = 13;  
-{ PC offset to GOT (GOT + A - P)    }
-  R_CKCORE_GOTPC = 14;  
-{ 32 bit GOT entry (G)  }
-  R_CKCORE_GOT32 = 15;  
-{ 32 bit PLT entry (G)  }
-  R_CKCORE_PLT32 = 16;  
-{ GOT entry in GLOB_DAT (GOT + G)   }
-  R_CKCORE_ADDRGOT = 17;  
-{ PLT entry in GLOB_DAT (GOT + G)   }
-  R_CKCORE_ADDRPLT = 18;  
-{ ((S + A - P) >> 1) & 0x3ffffff    }
-  R_CKCORE_PCREL_IMM26BY2 = 19;  
-{ disp ((S + A - P) >> 1) & 0xffff  }
-  R_CKCORE_PCREL_IMM16BY2 = 20;  
-{ disp ((S + A - P) >> 2) & 0xffff  }
-  R_CKCORE_PCREL_IMM16BY4 = 21;  
-{ disp ((S + A - P) >> 1) & 0x3ff   }
-  R_CKCORE_PCREL_IMM10BY2 = 22;  
-{ disp ((S + A - P) >> 2) & 0x3ff   }
-  R_CKCORE_PCREL_IMM10BY4 = 23;  
-{ high & low 16 bit ADDR  }
-  R_CKCORE_ADDR_HI16 = 24;  
-{ ((S + A) >> 16) & 0xffff  }
-{ (S + A) & 0xffff  }
-  R_CKCORE_ADDR_LO16 = 25;  
-{ high & low 16 bit GOTPC  }
-  R_CKCORE_GOTPC_HI16 = 26;  
-{ ((GOT + A - P) >> 16) & 0xffff  }
-{ (GOT + A - P) & 0xffff  }
-  R_CKCORE_GOTPC_LO16 = 27;  
-{ high & low 16 bit GOTOFF  }
-  R_CKCORE_GOTOFF_HI16 = 28;  
-{ ((S + A - GOT) >> 16) & 0xffff  }
-{ (S + A - GOT) & 0xffff  }
-  R_CKCORE_GOTOFF_LO16 = 29;  
-{ 12 bit disp GOT entry (G)  }
-  R_CKCORE_GOT12 = 30;  
-{ high & low 16 bit GOT  }
-  R_CKCORE_GOT_HI16 = 31;  
-{ (G >> 16) & 0xffff  }
-{ (G & 0xffff)  }
-  R_CKCORE_GOT_LO16 = 32;  
-{ 12 bit disp PLT entry (G)  }
-  R_CKCORE_PLT12 = 33;  
-{ high & low 16 bit PLT  }
-  R_CKCORE_PLT_HI16 = 34;  
-{ (G >> 16) & 0xffff  }
-{ G & 0xffff  }
-  R_CKCORE_PLT_LO16 = 35;  
-{ high & low 16 bit ADDRGOT  }
-  R_CKCORE_ADDRGOT_HI16 = 36;  
-{ (GOT + G * 4) & 0xffff  }
-{ (GOT + G * 4) & 0xffff  }
-  R_CKCORE_ADDRGOT_LO16 = 37;  
-{ high & low 16 bit ADDRPLT  }
-  R_CKCORE_ADDRPLT_HI16 = 38;  
-{ ((GOT + G * 4) >> 16) & 0xFFFF  }
-{ (GOT+G*4) & 0xffff  }
-  R_CKCORE_ADDRPLT_LO16 = 39;  
-{ disp ((S+A-P) >>1) & x3ffffff  }
-  R_CKCORE_PCREL_JSR_IMM26BY2 = 40;  
-{ (S+A-BTEXT) & 0xffff  }
-  R_CKCORE_TOFFSET_LO16 = 41;  
-{ (S+A-BTEXT) & 0xffff  }
-  R_CKCORE_DOFFSET_LO16 = 42;  
-{ disp ((S+A-P) >>1) & 0x3ffff  }
-  R_CKCORE_PCREL_IMM18BY2 = 43;  
-{ disp (S+A-BDATA) & 0x3ffff  }
-  R_CKCORE_DOFFSET_IMM18 = 44;  
-{ disp ((S+A-BDATA)>>1) & 0x3ffff  }
-  R_CKCORE_DOFFSET_IMM18BY2 = 45;  
-{ disp ((S+A-BDATA)>>2) & 0x3ffff  }
-  R_CKCORE_DOFFSET_IMM18BY4 = 46;  
-{ disp (G >> 2)  }
-  R_CKCORE_GOT_IMM18BY4 = 48;  
-{ disp (G >> 2)  }
-  R_CKCORE_PLT_IMM18BY4 = 49;  
-{ disp ((S+A-P) >>2) & 0x7f  }
-  R_CKCORE_PCREL_IMM7BY4 = 50;  
-{ 32 bit offset to TLS block  }
-  R_CKCORE_TLS_LE32 = 51;  
+  R_ARM_NUM = 256;
+  R_CKCORE_NONE = 0;
+  R_CKCORE_ADDR32 = 1;
+  R_CKCORE_PCRELIMM8BY4 = 2;
+  R_CKCORE_PCRELIMM11BY2 = 3;
+  R_CKCORE_PCREL32 = 5;
+  R_CKCORE_PCRELJSR_IMM11BY2 = 6;
+  R_CKCORE_RELATIVE = 9;
+  R_CKCORE_COPY = 10;
+  R_CKCORE_GLOB_DAT = 11;
+  R_CKCORE_JUMP_SLOT = 12;
+  R_CKCORE_GOTOFF = 13;
+  R_CKCORE_GOTPC = 14;
+  R_CKCORE_GOT32 = 15;
+  R_CKCORE_PLT32 = 16;
+  R_CKCORE_ADDRGOT = 17;
+  R_CKCORE_ADDRPLT = 18;
+  R_CKCORE_PCREL_IMM26BY2 = 19;
+  R_CKCORE_PCREL_IMM16BY2 = 20;
+  R_CKCORE_PCREL_IMM16BY4 = 21;
+  R_CKCORE_PCREL_IMM10BY2 = 22;
+  R_CKCORE_PCREL_IMM10BY4 = 23;
+  R_CKCORE_ADDR_HI16 = 24;
+  R_CKCORE_ADDR_LO16 = 25;
+  R_CKCORE_GOTPC_HI16 = 26;
+  R_CKCORE_GOTPC_LO16 = 27;
+  R_CKCORE_GOTOFF_HI16 = 28;
+  R_CKCORE_GOTOFF_LO16 = 29;
+  R_CKCORE_GOT12 = 30;
+  R_CKCORE_GOT_HI16 = 31;
+  R_CKCORE_GOT_LO16 = 32;
+  R_CKCORE_PLT12 = 33;
+  R_CKCORE_PLT_HI16 = 34;
+  R_CKCORE_PLT_LO16 = 35;
+  R_CKCORE_ADDRGOT_HI16 = 36;
+  R_CKCORE_ADDRGOT_LO16 = 37;
+  R_CKCORE_ADDRPLT_HI16 = 38;
+  R_CKCORE_ADDRPLT_LO16 = 39;
+  R_CKCORE_PCREL_JSR_IMM26BY2 = 40;
+  R_CKCORE_TOFFSET_LO16 = 41;
+  R_CKCORE_DOFFSET_LO16 = 42;
+  R_CKCORE_PCREL_IMM18BY2 = 43;
+  R_CKCORE_DOFFSET_IMM18 = 44;
+  R_CKCORE_DOFFSET_IMM18BY2 = 45;
+  R_CKCORE_DOFFSET_IMM18BY4 = 46;
+  R_CKCORE_GOT_IMM18BY4 = 48;
+  R_CKCORE_PLT_IMM18BY4 = 49;
+  R_CKCORE_PCREL_IMM7BY4 = 50;
+  R_CKCORE_TLS_LE32 = 51;
   R_CKCORE_TLS_IE32 = 52;  
   R_CKCORE_TLS_GD32 = 53;  
   R_CKCORE_TLS_LDM32 = 54;  
@@ -2948,215 +2584,109 @@ const
   R_CKCORE_TLS_DTPMOD32 = 56;  
   R_CKCORE_TLS_DTPOFF32 = 57;  
   R_CKCORE_TLS_TPOFF32 = 58;  
-{ C-SKY elf header definition.   }
-{ xxxxxxxxxxxxxxxxxxxxxxxxx
-#define EF_CSKY_ABIMASK		    0XF0000000
-#define EF_CSKY_OTHER		    0X0FFF0000
-#define EF_CSKY_PROCESSOR	    0X0000FFFF
-
-#define EF_CSKY_ABIV1		    0X10000000
-#define EF_CSKY_ABIV2		    0X20000000
- }
-{ C-SKY attributes section.   }
-  SHT_CSKY_ATTRIBUTES = SHT_LOPROC+1;  
-{ IA-64 specific declarations.   }
-{ Processor specific flags for the Ehdr e_flags field.   }
-{ os-specific flags  }
-  EF_IA_64_MASKOS = $0000000f;  
-{ 64-bit ABI  }
-  EF_IA_64_ABI64 = $00000010;  
-{ arch. version mask  }
-  EF_IA_64_ARCH = $ff000000;  
-{ Processor specific values for the Phdr p_type field.   }
-{ arch extension bits  }
-  PT_IA_64_ARCHEXT = PT_LOPROC+0;  
-{ ia64 unwind bits  }
-  PT_IA_64_UNWIND = PT_LOPROC+1;  
+EF_CSKY_ABIMASK		    =$F0000000;
+EF_CSKY_OTHER		    =$0FFF0000;
+EF_CSKY_PROCESSOR	    =$0000FFFF;
+EF_CSKY_ABIV1		    =$10000000;
+EF_CSKY_ABIV2		    =$20000000;
+  SHT_CSKY_ATTRIBUTES = SHT_LOPROC+1;
+  EF_IA_64_MASKOS = $0000000f;
+  EF_IA_64_ABI64 = $00000010;
+  EF_IA_64_ARCH = $ff000000;
+  PT_IA_64_ARCHEXT = PT_LOPROC+0;
+  PT_IA_64_UNWIND = PT_LOPROC+1;
   PT_IA_64_HP_OPT_ANOT = PT_LOOS+$12;  
   PT_IA_64_HP_HSL_ANOT = PT_LOOS+$13;  
   PT_IA_64_HP_STACK = PT_LOOS+$14;  
-{ Processor specific flags for the Phdr p_flags field.   }
-{ spec insns w/o recovery  }
-  PF_IA_64_NORECOV = $80000000;  
-{ Processor specific values for the Shdr sh_type field.   }
-{ extension bits  }
-  SHT_IA_64_EXT = SHT_LOPROC+0;  
-{ unwind bits  }
-  SHT_IA_64_UNWIND = SHT_LOPROC+1;  
-{ Processor specific flags for the Shdr sh_flags field.   }
-{ section near gp  }
-  SHF_IA_64_SHORT = $10000000;  
-{ spec insns w/o recovery  }
-  SHF_IA_64_NORECOV = $20000000;  
-{ Processor specific values for the Dyn d_tag field.   }
-  DT_IA_64_PLT_RESERVE = DT_LOPROC+0;  
+  PF_IA_64_NORECOV = $80000000;
+  SHT_IA_64_EXT = SHT_LOPROC+0;
+  SHT_IA_64_UNWIND = SHT_LOPROC+1;
+  SHF_IA_64_SHORT = $10000000;
+  SHF_IA_64_NORECOV = $20000000;
+  DT_IA_64_PLT_RESERVE = DT_LOPROC+0;
   DT_IA_64_NUM = 1;  
-{ IA-64 relocations.   }
-{ none  }
-  R_IA64_NONE = $00;  
-{ symbol + addend, add imm14  }
-  R_IA64_IMM14 = $21;  
-{ symbol + addend, add imm22  }
-  R_IA64_IMM22 = $22;  
-{ symbol + addend, mov imm64  }
-  R_IA64_IMM64 = $23;  
-{ symbol + addend, data4 MSB  }
-  R_IA64_DIR32MSB = $24;  
-{ symbol + addend, data4 LSB  }
-  R_IA64_DIR32LSB = $25;  
-{ symbol + addend, data8 MSB  }
-  R_IA64_DIR64MSB = $26;  
-{ symbol + addend, data8 LSB  }
-  R_IA64_DIR64LSB = $27;  
-{ @gprel(sym + add), add imm22  }
-  R_IA64_GPREL22 = $2a;  
-{ @gprel(sym + add), mov imm64  }
-  R_IA64_GPREL64I = $2b;  
-{ @gprel(sym + add), data4 MSB  }
-  R_IA64_GPREL32MSB = $2c;  
-{ @gprel(sym + add), data4 LSB  }
-  R_IA64_GPREL32LSB = $2d;  
-{ @gprel(sym + add), data8 MSB  }
-  R_IA64_GPREL64MSB = $2e;  
-{ @gprel(sym + add), data8 LSB  }
-  R_IA64_GPREL64LSB = $2f;  
-{ @ltoff(sym + add), add imm22  }
-  R_IA64_LTOFF22 = $32;  
-{ @ltoff(sym + add), mov imm64  }
-  R_IA64_LTOFF64I = $33;  
-{ @pltoff(sym + add), add imm22  }
-  R_IA64_PLTOFF22 = $3a;  
-{ @pltoff(sym + add), mov imm64  }
-  R_IA64_PLTOFF64I = $3b;  
-{ @pltoff(sym + add), data8 MSB  }
-  R_IA64_PLTOFF64MSB = $3e;  
-{ @pltoff(sym + add), data8 LSB  }
-  R_IA64_PLTOFF64LSB = $3f;  
-{ @fptr(sym + add), mov imm64  }
-  R_IA64_FPTR64I = $43;  
-{ @fptr(sym + add), data4 MSB  }
-  R_IA64_FPTR32MSB = $44;  
-{ @fptr(sym + add), data4 LSB  }
-  R_IA64_FPTR32LSB = $45;  
-{ @fptr(sym + add), data8 MSB  }
-  R_IA64_FPTR64MSB = $46;  
-{ @fptr(sym + add), data8 LSB  }
-  R_IA64_FPTR64LSB = $47;  
-{ @pcrel(sym + add), brl  }
-  R_IA64_PCREL60B = $48;  
-{ @pcrel(sym + add), ptb, call  }
-  R_IA64_PCREL21B = $49;  
-{ @pcrel(sym + add), chk.s  }
-  R_IA64_PCREL21M = $4a;  
-{ @pcrel(sym + add), fchkf  }
-  R_IA64_PCREL21F = $4b;  
-{ @pcrel(sym + add), data4 MSB  }
-  R_IA64_PCREL32MSB = $4c;  
-{ @pcrel(sym + add), data4 LSB  }
-  R_IA64_PCREL32LSB = $4d;  
-{ @pcrel(sym + add), data8 MSB  }
-  R_IA64_PCREL64MSB = $4e;  
-{ @pcrel(sym + add), data8 LSB  }
-  R_IA64_PCREL64LSB = $4f;  
-{ @ltoff(@fptr(s+a)), imm22  }
-  R_IA64_LTOFF_FPTR22 = $52;  
-{ @ltoff(@fptr(s+a)), imm64  }
-  R_IA64_LTOFF_FPTR64I = $53;  
-{ @ltoff(@fptr(s+a)), data4 MSB  }
-  R_IA64_LTOFF_FPTR32MSB = $54;  
-{ @ltoff(@fptr(s+a)), data4 LSB  }
-  R_IA64_LTOFF_FPTR32LSB = $55;  
-{ @ltoff(@fptr(s+a)), data8 MSB  }
-  R_IA64_LTOFF_FPTR64MSB = $56;  
-{ @ltoff(@fptr(s+a)), data8 LSB  }
-  R_IA64_LTOFF_FPTR64LSB = $57;  
-{ @segrel(sym + add), data4 MSB  }
-  R_IA64_SEGREL32MSB = $5c;  
-{ @segrel(sym + add), data4 LSB  }
-  R_IA64_SEGREL32LSB = $5d;  
-{ @segrel(sym + add), data8 MSB  }
-  R_IA64_SEGREL64MSB = $5e;  
-{ @segrel(sym + add), data8 LSB  }
-  R_IA64_SEGREL64LSB = $5f;  
-{ @secrel(sym + add), data4 MSB  }
-  R_IA64_SECREL32MSB = $64;  
-{ @secrel(sym + add), data4 LSB  }
-  R_IA64_SECREL32LSB = $65;  
-{ @secrel(sym + add), data8 MSB  }
-  R_IA64_SECREL64MSB = $66;  
-{ @secrel(sym + add), data8 LSB  }
-  R_IA64_SECREL64LSB = $67;  
-{ data 4 + REL  }
-  R_IA64_REL32MSB = $6c;  
-{ data 4 + REL  }
-  R_IA64_REL32LSB = $6d;  
-{ data 8 + REL  }
-  R_IA64_REL64MSB = $6e;  
-{ data 8 + REL  }
-  R_IA64_REL64LSB = $6f;  
-{ symbol + addend, data4 MSB  }
-  R_IA64_LTV32MSB = $74;  
-{ symbol + addend, data4 LSB  }
-  R_IA64_LTV32LSB = $75;  
-{ symbol + addend, data8 MSB  }
-  R_IA64_LTV64MSB = $76;  
-{ symbol + addend, data8 LSB  }
-  R_IA64_LTV64LSB = $77;  
-{ @pcrel(sym + add), 21bit inst  }
-  R_IA64_PCREL21BI = $79;  
-{ @pcrel(sym + add), 22bit inst  }
-  R_IA64_PCREL22 = $7a;  
-{ @pcrel(sym + add), 64bit inst  }
-  R_IA64_PCREL64I = $7b;  
-{ dynamic reloc, imported PLT, MSB  }
-  R_IA64_IPLTMSB = $80;  
-{ dynamic reloc, imported PLT, LSB  }
-  R_IA64_IPLTLSB = $81;  
-{ copy relocation  }
-  R_IA64_COPY = $84;  
-{ Addend and symbol difference  }
-  R_IA64_SUB = $85;  
-{ LTOFF22, relaxable.   }
-  R_IA64_LTOFF22X = $86;  
-{ Use of LTOFF22X.   }
-  R_IA64_LDXMOV = $87;  
-{ @tprel(sym + add), imm14  }
-  R_IA64_TPREL14 = $91;  
-{ @tprel(sym + add), imm22  }
-  R_IA64_TPREL22 = $92;  
-{ @tprel(sym + add), imm64  }
-  R_IA64_TPREL64I = $93;  
-{ @tprel(sym + add), data8 MSB  }
-  R_IA64_TPREL64MSB = $96;  
-{ @tprel(sym + add), data8 LSB  }
-  R_IA64_TPREL64LSB = $97;  
-{ @ltoff(@tprel(s+a)), imm2  }
-  R_IA64_LTOFF_TPREL22 = $9a;  
-{ @dtpmod(sym + add), data8 MSB  }
-  R_IA64_DTPMOD64MSB = $a6;  
-{ @dtpmod(sym + add), data8 LSB  }
-  R_IA64_DTPMOD64LSB = $a7;  
-{ @ltoff(@dtpmod(sym + add)), imm22  }
-  R_IA64_LTOFF_DTPMOD22 = $aa;  
-{ @dtprel(sym + add), imm14  }
-  R_IA64_DTPREL14 = $b1;  
-{ @dtprel(sym + add), imm22  }
-  R_IA64_DTPREL22 = $b2;  
-{ @dtprel(sym + add), imm64  }
-  R_IA64_DTPREL64I = $b3;  
-{ @dtprel(sym + add), data4 MSB  }
-  R_IA64_DTPREL32MSB = $b4;  
-{ @dtprel(sym + add), data4 LSB  }
-  R_IA64_DTPREL32LSB = $b5;  
-{ @dtprel(sym + add), data8 MSB  }
-  R_IA64_DTPREL64MSB = $b6;  
-{ @dtprel(sym + add), data8 LSB  }
-  R_IA64_DTPREL64LSB = $b7;  
-{ @ltoff(@dtprel(s+a)), imm22  }
-  R_IA64_LTOFF_DTPREL22 = $ba;  
-{ SH specific declarations  }
-{ Processor specific flags for the ELF header e_flags field.   }
-  EF_SH_MACH_MASK = $1f;  
+  R_IA64_NONE = $00;
+  R_IA64_IMM14 = $21;
+  R_IA64_IMM22 = $22;
+  R_IA64_IMM64 = $23;
+  R_IA64_DIR32MSB = $24;
+  R_IA64_DIR32LSB = $25;
+  R_IA64_DIR64MSB = $26;
+  R_IA64_DIR64LSB = $27;
+  R_IA64_GPREL22 = $2a;
+  R_IA64_GPREL64I = $2b;
+  R_IA64_GPREL32MSB = $2c;
+  R_IA64_GPREL32LSB = $2d;
+  R_IA64_GPREL64MSB = $2e;
+  R_IA64_GPREL64LSB = $2f;
+  R_IA64_LTOFF22 = $32;
+  R_IA64_LTOFF64I = $33;
+  R_IA64_PLTOFF22 = $3a;
+  R_IA64_PLTOFF64I = $3b;
+  R_IA64_PLTOFF64MSB = $3e;
+  R_IA64_PLTOFF64LSB = $3f;
+  R_IA64_FPTR64I = $43;
+  R_IA64_FPTR32MSB = $44;
+  R_IA64_FPTR32LSB = $45;
+  R_IA64_FPTR64MSB = $46;
+  R_IA64_FPTR64LSB = $47;
+  R_IA64_PCREL60B = $48;
+  R_IA64_PCREL21B = $49;
+  R_IA64_PCREL21M = $4a;
+  R_IA64_PCREL21F = $4b;
+  R_IA64_PCREL32MSB = $4c;
+  R_IA64_PCREL32LSB = $4d;
+  R_IA64_PCREL64MSB = $4e;
+  R_IA64_PCREL64LSB = $4f;
+  R_IA64_LTOFF_FPTR22 = $52;
+  R_IA64_LTOFF_FPTR64I = $53;
+  R_IA64_LTOFF_FPTR32MSB = $54;
+  R_IA64_LTOFF_FPTR32LSB = $55;
+  R_IA64_LTOFF_FPTR64MSB = $56;
+  R_IA64_LTOFF_FPTR64LSB = $57;
+  R_IA64_SEGREL32MSB = $5c;
+  R_IA64_SEGREL32LSB = $5d;
+  R_IA64_SEGREL64MSB = $5e;
+  R_IA64_SEGREL64LSB = $5f;
+  R_IA64_SECREL32MSB = $64;
+  R_IA64_SECREL32LSB = $65;
+  R_IA64_SECREL64MSB = $66;
+  R_IA64_SECREL64LSB = $67;
+  R_IA64_REL32MSB = $6c;
+  R_IA64_REL32LSB = $6d;
+  R_IA64_REL64MSB = $6e;
+  R_IA64_REL64LSB = $6f;
+  R_IA64_LTV32MSB = $74;
+  R_IA64_LTV32LSB = $75;
+  R_IA64_LTV64MSB = $76;
+  R_IA64_LTV64LSB = $77;
+  R_IA64_PCREL21BI = $79;
+  R_IA64_PCREL22 = $7a;
+  R_IA64_PCREL64I = $7b;
+  R_IA64_IPLTMSB = $80;
+  R_IA64_IPLTLSB = $81;
+  R_IA64_COPY = $84;
+  R_IA64_SUB = $85;
+  R_IA64_LTOFF22X = $86;
+  R_IA64_LDXMOV = $87;
+  R_IA64_TPREL14 = $91;
+  R_IA64_TPREL22 = $92;
+  R_IA64_TPREL64I = $93;
+  R_IA64_TPREL64MSB = $96;
+  R_IA64_TPREL64LSB = $97;
+  R_IA64_LTOFF_TPREL22 = $9a;
+  R_IA64_DTPMOD64MSB = $a6;
+  R_IA64_DTPMOD64LSB = $a7;
+  R_IA64_LTOFF_DTPMOD22 = $aa;
+  R_IA64_DTPREL14 = $b1;
+  R_IA64_DTPREL22 = $b2;
+  R_IA64_DTPREL64I = $b3;
+  R_IA64_DTPREL32MSB = $b4;
+  R_IA64_DTPREL32LSB = $b5;
+  R_IA64_DTPREL64MSB = $b6;
+  R_IA64_DTPREL64LSB = $b7;
+  R_IA64_LTOFF_DTPREL22 = $ba;
+  EF_SH_MACH_MASK = $1f;
   EF_SH_UNKNOWN = $0;  
   EF_SH1 = $1;  
   EF_SH2 = $2;  
@@ -3178,8 +2708,7 @@ const
   EF_SH2A_SH3_NOFPU = $16;  
   EF_SH2A_SH4 = $17;  
   EF_SH2A_SH3E = $18;  
-{ SH relocs.   }
-  R_SH_NONE = 0;  
+  R_SH_NONE = 0;
   R_SH_DIR32 = 1;  
   R_SH_REL32 = 2;  
   R_SH_DIR8WPN = 3;  
@@ -3216,159 +2745,72 @@ const
   R_SH_RELATIVE = 165;  
   R_SH_GOTOFF = 166;  
   R_SH_GOTPC = 167;  
-{ Keep this the last entry.   }
-  R_SH_NUM = 256;  
-{ S/390 specific definitions.   }
-{ Valid values for the e_flags field.   }
-{ High GPRs kernel facility needed.   }
-  EF_S390_HIGH_GPRS = $00000001;  
-{ Additional s390 relocs  }
-{ No reloc.   }
-  R_390_NONE = 0;  
-{ Direct 8 bit.   }
-  R_390_8 = 1;  
-{ Direct 12 bit.   }
-  R_390_12 = 2;  
-{ Direct 16 bit.   }
-  R_390_16 = 3;  
-{ Direct 32 bit.   }
-  R_390_32 = 4;  
-{ PC relative 32 bit.	 }
-  R_390_PC32 = 5;  
-{ 12 bit GOT offset.   }
-  R_390_GOT12 = 6;  
-{ 32 bit GOT offset.   }
-  R_390_GOT32 = 7;  
-{ 32 bit PC relative PLT address.   }
-  R_390_PLT32 = 8;  
-{ Copy symbol at runtime.   }
-  R_390_COPY = 9;  
-{ Create GOT entry.   }
-  R_390_GLOB_DAT = 10;  
-{ Create PLT entry.   }
-  R_390_JMP_SLOT = 11;  
-{ Adjust by program base.   }
-  R_390_RELATIVE = 12;  
-{ 32 bit offset to GOT.	  }
-  R_390_GOTOFF32 = 13;  
-{ 32 bit PC relative offset to GOT.   }
-  R_390_GOTPC = 14;  
-{ 16 bit GOT offset.   }
-  R_390_GOT16 = 15;  
-{ PC relative 16 bit.	 }
-  R_390_PC16 = 16;  
-{ PC relative 16 bit shifted by 1.   }
-  R_390_PC16DBL = 17;  
-{ 16 bit PC rel. PLT shifted by 1.   }
-  R_390_PLT16DBL = 18;  
-{ PC relative 32 bit shifted by 1.   }
-  R_390_PC32DBL = 19;  
-{ 32 bit PC rel. PLT shifted by 1.   }
-  R_390_PLT32DBL = 20;  
-{ 32 bit PC rel. GOT shifted by 1.   }
-  R_390_GOTPCDBL = 21;  
-{ Direct 64 bit.   }
-  R_390_64 = 22;  
-{ PC relative 64 bit.	 }
-  R_390_PC64 = 23;  
-{ 64 bit GOT offset.   }
-  R_390_GOT64 = 24;  
-{ 64 bit PC relative PLT address.   }
-  R_390_PLT64 = 25;  
-{ 32 bit PC rel. to GOT entry >> 1.  }
-  R_390_GOTENT = 26;  
-{ 16 bit offset to GOT.  }
-  R_390_GOTOFF16 = 27;  
-{ 64 bit offset to GOT.  }
-  R_390_GOTOFF64 = 28;  
-{ 12 bit offset to jump slot.	 }
-  R_390_GOTPLT12 = 29;  
-{ 16 bit offset to jump slot.	 }
-  R_390_GOTPLT16 = 30;  
-{ 32 bit offset to jump slot.	 }
-  R_390_GOTPLT32 = 31;  
-{ 64 bit offset to jump slot.	 }
-  R_390_GOTPLT64 = 32;  
-{ 32 bit rel. offset to jump slot.   }
-  R_390_GOTPLTENT = 33;  
-{ 16 bit offset from GOT to PLT.  }
-  R_390_PLTOFF16 = 34;  
-{ 32 bit offset from GOT to PLT.  }
-  R_390_PLTOFF32 = 35;  
-{ 16 bit offset from GOT to PLT.  }
-  R_390_PLTOFF64 = 36;  
-{ Tag for load insn in TLS code.   }
-  R_390_TLS_LOAD = 37;  
-{ Tag for function call in general
-					   dynamic TLS code.  }
-  R_390_TLS_GDCALL = 38;  
-{ Tag for function call in local
-					   dynamic TLS code.  }
-  R_390_TLS_LDCALL = 39;  
-{ Direct 32 bit for general dynamic
-					   thread local data.   }
-  R_390_TLS_GD32 = 40;  
-{ Direct 64 bit for general dynamic
-					  thread local data.   }
-  R_390_TLS_GD64 = 41;  
-{ 12 bit GOT offset for static TLS
-					   block offset.   }
-  R_390_TLS_GOTIE12 = 42;  
-{ 32 bit GOT offset for static TLS
-					   block offset.   }
-  R_390_TLS_GOTIE32 = 43;  
-{ 64 bit GOT offset for static TLS
-					   block offset.  }
-  R_390_TLS_GOTIE64 = 44;  
-{ Direct 32 bit for local dynamic
-					   thread local data in LE code.   }
-  R_390_TLS_LDM32 = 45;  
-{ Direct 64 bit for local dynamic
-					   thread local data in LE code.   }
-  R_390_TLS_LDM64 = 46;  
-{ 32 bit address of GOT entry for
-					   negated static TLS block offset.   }
-  R_390_TLS_IE32 = 47;  
-{ 64 bit address of GOT entry for
-					   negated static TLS block offset.   }
-  R_390_TLS_IE64 = 48;  
-{ 32 bit rel. offset to GOT entry for
-					   negated static TLS block offset.   }
-  R_390_TLS_IEENT = 49;  
-{ 32 bit negated offset relative to
-					   static TLS block.   }
-  R_390_TLS_LE32 = 50;  
-{ 64 bit negated offset relative to
-					   static TLS block.   }
-  R_390_TLS_LE64 = 51;  
-{ 32 bit offset relative to TLS
-					   block.   }
-  R_390_TLS_LDO32 = 52;  
-{ 64 bit offset relative to TLS
-					   block.   }
-  R_390_TLS_LDO64 = 53;  
-{ ID of module containing symbol.   }
-  R_390_TLS_DTPMOD = 54;  
-{ Offset in TLS block.	  }
-  R_390_TLS_DTPOFF = 55;  
-{ Negated offset in static TLS
-					   block.   }
-  R_390_TLS_TPOFF = 56;  
-{ Direct 20 bit.   }
-  R_390_20 = 57;  
-{ 20 bit GOT offset.   }
-  R_390_GOT20 = 58;  
-{ 20 bit offset to jump slot.   }
-  R_390_GOTPLT20 = 59;  
-{ 20 bit GOT offset for static TLS
-					   block offset.   }
-  R_390_TLS_GOTIE20 = 60;  
-{ STT_GNU_IFUNC relocation.   }
-  R_390_IRELATIVE = 61;  
-{ Keep this the last entry.   }
-  R_390_NUM = 62;  
-{ CRIS relocations.   }
-  R_CRIS_NONE = 0;  
+  R_SH_NUM = 256;
+  EF_S390_HIGH_GPRS = $00000001;
+  R_390_NONE = 0;
+  R_390_8 = 1;
+  R_390_12 = 2;
+  R_390_16 = 3;
+  R_390_32 = 4;
+  R_390_PC32 = 5;
+  R_390_GOT12 = 6;
+  R_390_GOT32 = 7;
+  R_390_PLT32 = 8;
+  R_390_COPY = 9;
+  R_390_GLOB_DAT = 10;
+  R_390_JMP_SLOT = 11;
+  R_390_RELATIVE = 12;
+  R_390_GOTOFF32 = 13;
+  R_390_GOTPC = 14;
+  R_390_GOT16 = 15;
+  R_390_PC16 = 16;
+  R_390_PC16DBL = 17;
+  R_390_PLT16DBL = 18;
+  R_390_PC32DBL = 19;
+  R_390_PLT32DBL = 20;
+  R_390_GOTPCDBL = 21;
+  R_390_64 = 22;
+  R_390_PC64 = 23;
+  R_390_GOT64 = 24;
+  R_390_PLT64 = 25;
+  R_390_GOTENT = 26;
+  R_390_GOTOFF16 = 27;
+  R_390_GOTOFF64 = 28;
+  R_390_GOTPLT12 = 29;
+  R_390_GOTPLT16 = 30;
+  R_390_GOTPLT32 = 31;
+  R_390_GOTPLT64 = 32;
+  R_390_GOTPLTENT = 33;
+  R_390_PLTOFF16 = 34;
+  R_390_PLTOFF32 = 35;
+  R_390_PLTOFF64 = 36;
+  R_390_TLS_LOAD = 37;
+  R_390_TLS_GDCALL = 38;
+  R_390_TLS_LDCALL = 39;
+  R_390_TLS_GD32 = 40;
+  R_390_TLS_GD64 = 41;
+  R_390_TLS_GOTIE12 = 42;
+  R_390_TLS_GOTIE32 = 43;
+  R_390_TLS_GOTIE64 = 44;
+  R_390_TLS_LDM32 = 45;
+  R_390_TLS_LDM64 = 46;
+  R_390_TLS_IE32 = 47;
+  R_390_TLS_IE64 = 48;
+  R_390_TLS_IEENT = 49;
+  R_390_TLS_LE32 = 50;
+  R_390_TLS_LE64 = 51;
+  R_390_TLS_LDO32 = 52;
+  R_390_TLS_LDO64 = 53;
+  R_390_TLS_DTPMOD = 54;
+  R_390_TLS_DTPOFF = 55;
+  R_390_TLS_TPOFF = 56;
+  R_390_20 = 57;
+  R_390_GOT20 = 58;
+  R_390_GOTPLT20 = 59;
+  R_390_TLS_GOTIE20 = 60;
+  R_390_IRELATIVE = 61;
+  R_390_NUM = 62;
+  R_CRIS_NONE = 0;
   R_CRIS_8 = 1;  
   R_CRIS_16 = 2;  
   R_CRIS_32 = 3;  
@@ -3389,871 +2831,424 @@ const
   R_CRIS_32_PLT_GOTREL = 18;  
   R_CRIS_32_PLT_PCREL = 19;  
   R_CRIS_NUM = 20;  
-{ AMD x86-64 relocations.   }
-{ No reloc  }
-  R_X86_64_NONE = 0;  
-{ Direct 64 bit   }
-  R_X86_64_64 = 1;  
-{ PC relative 32 bit signed  }
-  R_X86_64_PC32 = 2;  
-{ 32 bit GOT entry  }
-  R_X86_64_GOT32 = 3;  
-{ 32 bit PLT address  }
-  R_X86_64_PLT32 = 4;  
-{ Copy symbol at runtime  }
-  R_X86_64_COPY = 5;  
-{ Create GOT entry  }
-  R_X86_64_GLOB_DAT = 6;  
-{ Create PLT entry  }
-  R_X86_64_JUMP_SLOT = 7;  
-{ Adjust by program base  }
-  R_X86_64_RELATIVE = 8;  
-{ 32 bit signed PC relative
-					   offset to GOT  }
-  R_X86_64_GOTPCREL = 9;  
-{ Direct 32 bit zero extended  }
-  R_X86_64_32 = 10;  
-{ Direct 32 bit sign extended  }
-  R_X86_64_32S = 11;  
-{ Direct 16 bit zero extended  }
-  R_X86_64_16 = 12;  
-{ 16 bit sign extended pc relative  }
-  R_X86_64_PC16 = 13;  
-{ Direct 8 bit sign extended   }
-  R_X86_64_8 = 14;  
-{ 8 bit sign extended pc relative  }
-  R_X86_64_PC8 = 15;  
-{ ID of module containing symbol  }
-  R_X86_64_DTPMOD64 = 16;  
-{ Offset in module's TLS block  }
-  R_X86_64_DTPOFF64 = 17;  
-{ Offset in initial TLS block  }
-  R_X86_64_TPOFF64 = 18;  
-{ 32 bit signed PC relative offset
-					   to two GOT entries for GD symbol  }
-  R_X86_64_TLSGD = 19;  
-{ 32 bit signed PC relative offset
-					   to two GOT entries for LD symbol  }
-  R_X86_64_TLSLD = 20;  
-{ Offset in TLS block  }
-  R_X86_64_DTPOFF32 = 21;  
-{ 32 bit signed PC relative offset
-					   to GOT entry for IE symbol  }
-  R_X86_64_GOTTPOFF = 22;  
-{ Offset in initial TLS block  }
-  R_X86_64_TPOFF32 = 23;  
-{ PC relative 64 bit  }
-  R_X86_64_PC64 = 24;  
-{ 64 bit offset to GOT  }
-  R_X86_64_GOTOFF64 = 25;  
-{ 32 bit signed pc relative
-					   offset to GOT  }
-  R_X86_64_GOTPC32 = 26;  
-{ 64-bit GOT entry offset  }
-  R_X86_64_GOT64 = 27;  
-{ 64-bit PC relative offset
-					   to GOT entry  }
-  R_X86_64_GOTPCREL64 = 28;  
-{ 64-bit PC relative offset to GOT  }
-  R_X86_64_GOTPC64 = 29;  
-{ like GOT64, says PLT entry needed  }
-  R_X86_64_GOTPLT64 = 30;  
-{ 64-bit GOT relative offset
-					   to PLT entry  }
-  R_X86_64_PLTOFF64 = 31;  
-{ Size of symbol plus 32-bit addend  }
-  R_X86_64_SIZE32 = 32;  
-{ Size of symbol plus 64-bit addend  }
-  R_X86_64_SIZE64 = 33;  
-{ GOT offset for TLS descriptor.   }
-  R_X86_64_GOTPC32_TLSDESC = 34;  
-{ Marker for call through TLS
-					   descriptor.   }
-  R_X86_64_TLSDESC_CALL = 35;  
-{ TLS descriptor.   }
-  R_X86_64_TLSDESC = 36;  
-{ Adjust indirectly by program base  }
-  R_X86_64_IRELATIVE = 37;  
-{ 64-bit adjust by program base  }
-  R_X86_64_RELATIVE64 = 38;  
-{ 39 Reserved was R_X86_64_PC32_BND  }
-{ 40 Reserved was R_X86_64_PLT32_BND  }
-{ Load from 32 bit signed pc relative
-					   offset to GOT entry without REX
-					   prefix, relaxable.   }
-  R_X86_64_GOTPCRELX = 41;  
-{ Load from 32 bit signed pc relative
-					   offset to GOT entry with REX prefix,
-					   relaxable.   }
-  R_X86_64_REX_GOTPCRELX = 42;  
+  R_X86_64_NONE = 0;
+  R_X86_64_64 = 1;
+  R_X86_64_PC32 = 2;
+  R_X86_64_GOT32 = 3;
+  R_X86_64_PLT32 = 4;
+  R_X86_64_COPY = 5;
+  R_X86_64_GLOB_DAT = 6;
+  R_X86_64_JUMP_SLOT = 7;
+  R_X86_64_RELATIVE = 8;
+  R_X86_64_GOTPCREL = 9;
+  R_X86_64_32 = 10;
+  R_X86_64_32S = 11;
+  R_X86_64_16 = 12;
+  R_X86_64_PC16 = 13;
+  R_X86_64_8 = 14;
+  R_X86_64_PC8 = 15;
+  R_X86_64_DTPMOD64 = 16;
+  R_X86_64_DTPOFF64 = 17;
+  R_X86_64_TPOFF64 = 18;
+  R_X86_64_TLSGD = 19;
+  R_X86_64_TLSLD = 20;
+  R_X86_64_DTPOFF32 = 21;
+  R_X86_64_GOTTPOFF = 22;
+  R_X86_64_TPOFF32 = 23;
+  R_X86_64_PC64 = 24;
+  R_X86_64_GOTOFF64 = 25;
+  R_X86_64_GOTPC32 = 26;
+  R_X86_64_GOT64 = 27;
+  R_X86_64_GOTPCREL64 = 28;
+  R_X86_64_GOTPC64 = 29;
+  R_X86_64_GOTPLT64 = 30;
+  R_X86_64_PLTOFF64 = 31;
+  R_X86_64_SIZE32 = 32;
+  R_X86_64_SIZE64 = 33;
+  R_X86_64_GOTPC32_TLSDESC = 34;
+  R_X86_64_TLSDESC_CALL = 35;
+  R_X86_64_TLSDESC = 36;
+  R_X86_64_IRELATIVE = 37;
+  R_X86_64_RELATIVE64 = 38;
+  R_X86_64_GOTPCRELX = 41;
+  R_X86_64_REX_GOTPCRELX = 42;
   R_X86_64_NUM = 43;  
-{ x86-64 sh_type values.   }
-{ Unwind information.   }
-  SHT_X86_64_UNWIND = $70000001;  
-{ x86-64 d_tag values.   }
-  DT_X86_64_PLT = DT_LOPROC+0;  
+  SHT_X86_64_UNWIND = $70000001;
+  DT_X86_64_PLT = DT_LOPROC+0;
   DT_X86_64_PLTSZ = DT_LOPROC+1;  
   DT_X86_64_PLTENT = DT_LOPROC+3;  
   DT_X86_64_NUM = 4;  
-{ AM33 relocations.   }
-{ No reloc.   }
-  R_MN10300_NONE = 0;  
-{ Direct 32 bit.   }
-  R_MN10300_32 = 1;  
-{ Direct 16 bit.   }
-  R_MN10300_16 = 2;  
-{ Direct 8 bit.   }
-  R_MN10300_8 = 3;  
-{ PC-relative 32-bit.   }
-  R_MN10300_PCREL32 = 4;  
-{ PC-relative 16-bit signed.   }
-  R_MN10300_PCREL16 = 5;  
-{ PC-relative 8-bit signed.   }
-  R_MN10300_PCREL8 = 6;  
-{ Ancient C++ vtable garbage...  }
-  R_MN10300_GNU_VTINHERIT = 7;  
-{ ... collection annotation.   }
-  R_MN10300_GNU_VTENTRY = 8;  
-{ Direct 24 bit.   }
-  R_MN10300_24 = 9;  
-{ 32-bit PCrel offset to GOT.   }
-  R_MN10300_GOTPC32 = 10;  
-{ 16-bit PCrel offset to GOT.   }
-  R_MN10300_GOTPC16 = 11;  
-{ 32-bit offset from GOT.   }
-  R_MN10300_GOTOFF32 = 12;  
-{ 24-bit offset from GOT.   }
-  R_MN10300_GOTOFF24 = 13;  
-{ 16-bit offset from GOT.   }
-  R_MN10300_GOTOFF16 = 14;  
-{ 32-bit PCrel to PLT entry.   }
-  R_MN10300_PLT32 = 15;  
-{ 16-bit PCrel to PLT entry.   }
-  R_MN10300_PLT16 = 16;  
-{ 32-bit offset to GOT entry.   }
-  R_MN10300_GOT32 = 17;  
-{ 24-bit offset to GOT entry.   }
-  R_MN10300_GOT24 = 18;  
-{ 16-bit offset to GOT entry.   }
-  R_MN10300_GOT16 = 19;  
-{ Copy symbol at runtime.   }
-  R_MN10300_COPY = 20;  
-{ Create GOT entry.   }
-  R_MN10300_GLOB_DAT = 21;  
-{ Create PLT entry.   }
-  R_MN10300_JMP_SLOT = 22;  
-{ Adjust by program base.   }
-  R_MN10300_RELATIVE = 23;  
-{ 32-bit offset for global dynamic.   }
-  R_MN10300_TLS_GD = 24;  
-{ 32-bit offset for local dynamic.   }
-  R_MN10300_TLS_LD = 25;  
-{ Module-relative offset.   }
-  R_MN10300_TLS_LDO = 26;  
-{ GOT offset for static TLS block
-					   offset.   }
-  R_MN10300_TLS_GOTIE = 27;  
-{ GOT address for static TLS block
-					   offset.   }
-  R_MN10300_TLS_IE = 28;  
-{ Offset relative to static TLS
-					   block.   }
-  R_MN10300_TLS_LE = 29;  
-{ ID of module containing symbol.   }
-  R_MN10300_TLS_DTPMOD = 30;  
-{ Offset in module TLS block.   }
-  R_MN10300_TLS_DTPOFF = 31;  
-{ Offset in static TLS block.   }
-  R_MN10300_TLS_TPOFF = 32;  
-{ Adjustment for next reloc as needed
-					   by linker relaxation.   }
-  R_MN10300_SYM_DIFF = 33;  
-{ Alignment requirement for linker
-					   relaxation.   }
-  R_MN10300_ALIGN = 34;  
+  R_MN10300_NONE = 0;
+  R_MN10300_32 = 1;
+  R_MN10300_16 = 2;
+  R_MN10300_8 = 3;
+  R_MN10300_PCREL32 = 4;
+  R_MN10300_PCREL16 = 5;
+  R_MN10300_PCREL8 = 6;
+  R_MN10300_GNU_VTINHERIT = 7;
+  R_MN10300_GNU_VTENTRY = 8;
+  R_MN10300_24 = 9;
+  R_MN10300_GOTPC32 = 10;
+  R_MN10300_GOTPC16 = 11;
+  R_MN10300_GOTOFF32 = 12;
+  R_MN10300_GOTOFF24 = 13;
+  R_MN10300_GOTOFF16 = 14;
+  R_MN10300_PLT32 = 15;
+  R_MN10300_PLT16 = 16;
+  R_MN10300_GOT32 = 17;
+  R_MN10300_GOT24 = 18;
+  R_MN10300_GOT16 = 19;
+  R_MN10300_COPY = 20;
+  R_MN10300_GLOB_DAT = 21;
+  R_MN10300_JMP_SLOT = 22;
+  R_MN10300_RELATIVE = 23;
+  R_MN10300_TLS_GD = 24;
+  R_MN10300_TLS_LD = 25;
+  R_MN10300_TLS_LDO = 26;
+  R_MN10300_TLS_GOTIE = 27;
+  R_MN10300_TLS_IE = 28;
+  R_MN10300_TLS_LE = 29;
+  R_MN10300_TLS_DTPMOD = 30;
+  R_MN10300_TLS_DTPOFF = 31;
+  R_MN10300_TLS_TPOFF = 32;
+  R_MN10300_SYM_DIFF = 33;
+  R_MN10300_ALIGN = 34;
   R_MN10300_NUM = 35;  
-{ M32R relocs.   }
-{ No reloc.  }
-  R_M32R_NONE = 0;  
-{ Direct 16 bit.  }
-  R_M32R_16 = 1;  
-{ Direct 32 bit.  }
-  R_M32R_32 = 2;  
-{ Direct 24 bit.  }
-  R_M32R_24 = 3;  
-{ PC relative 10 bit shifted.  }
-  R_M32R_10_PCREL = 4;  
-{ PC relative 18 bit shifted.  }
-  R_M32R_18_PCREL = 5;  
-{ PC relative 26 bit shifted.  }
-  R_M32R_26_PCREL = 6;  
-{ High 16 bit with unsigned low.  }
-  R_M32R_HI16_ULO = 7;  
-{ High 16 bit with signed low.  }
-  R_M32R_HI16_SLO = 8;  
-{ Low 16 bit.  }
-  R_M32R_LO16 = 9;  
-{ 16 bit offset in SDA.  }
-  R_M32R_SDA16 = 10;  
+  R_M32R_NONE = 0;
+  R_M32R_16 = 1;
+  R_M32R_32 = 2;
+  R_M32R_24 = 3;
+  R_M32R_10_PCREL = 4;
+  R_M32R_18_PCREL = 5;
+  R_M32R_26_PCREL = 6;
+  R_M32R_HI16_ULO = 7;
+  R_M32R_HI16_SLO = 8;
+  R_M32R_LO16 = 9;
+  R_M32R_SDA16 = 10;
   R_M32R_GNU_VTINHERIT = 11;  
   R_M32R_GNU_VTENTRY = 12;  
-{ M32R relocs use SHT_RELA.   }
-{ Direct 16 bit.  }
-  R_M32R_16_RELA = 33;  
-{ Direct 32 bit.  }
-  R_M32R_32_RELA = 34;  
-{ Direct 24 bit.  }
-  R_M32R_24_RELA = 35;  
-{ PC relative 10 bit shifted.  }
-  R_M32R_10_PCREL_RELA = 36;  
-{ PC relative 18 bit shifted.  }
-  R_M32R_18_PCREL_RELA = 37;  
-{ PC relative 26 bit shifted.  }
-  R_M32R_26_PCREL_RELA = 38;  
-{ High 16 bit with unsigned low  }
-  R_M32R_HI16_ULO_RELA = 39;  
-{ High 16 bit with signed low  }
-  R_M32R_HI16_SLO_RELA = 40;  
-{ Low 16 bit  }
-  R_M32R_LO16_RELA = 41;  
-{ 16 bit offset in SDA  }
-  R_M32R_SDA16_RELA = 42;  
+  R_M32R_16_RELA = 33;
+  R_M32R_32_RELA = 34;
+  R_M32R_24_RELA = 35;
+  R_M32R_10_PCREL_RELA = 36;
+  R_M32R_18_PCREL_RELA = 37;
+  R_M32R_26_PCREL_RELA = 38;
+  R_M32R_HI16_ULO_RELA = 39;
+  R_M32R_HI16_SLO_RELA = 40;
+  R_M32R_LO16_RELA = 41;
+  R_M32R_SDA16_RELA = 42;
   R_M32R_RELA_GNU_VTINHERIT = 43;  
   R_M32R_RELA_GNU_VTENTRY = 44;  
-{ PC relative 32 bit.   }
-  R_M32R_REL32 = 45;  
-{ 24 bit GOT entry  }
-  R_M32R_GOT24 = 48;  
-{ 26 bit PC relative to PLT shifted  }
-  R_M32R_26_PLTREL = 49;  
-{ Copy symbol at runtime  }
-  R_M32R_COPY = 50;  
-{ Create GOT entry  }
-  R_M32R_GLOB_DAT = 51;  
-{ Create PLT entry  }
-  R_M32R_JMP_SLOT = 52;  
-{ Adjust by program base  }
-  R_M32R_RELATIVE = 53;  
-{ 24 bit offset to GOT  }
-  R_M32R_GOTOFF = 54;  
-{ 24 bit PC relative offset to GOT  }
-  R_M32R_GOTPC24 = 55;  
-{ High 16 bit GOT entry with unsigned
-					   low  }
-  R_M32R_GOT16_HI_ULO = 56;  
-{ High 16 bit GOT entry with signed
-					   low  }
-  R_M32R_GOT16_HI_SLO = 57;  
-{ Low 16 bit GOT entry  }
-  R_M32R_GOT16_LO = 58;  
-{ High 16 bit PC relative offset to
-					   GOT with unsigned low  }
-  R_M32R_GOTPC_HI_ULO = 59;  
-{ High 16 bit PC relative offset to
-					   GOT with signed low  }
-  R_M32R_GOTPC_HI_SLO = 60;  
-{ Low 16 bit PC relative offset to
-					   GOT  }
-  R_M32R_GOTPC_LO = 61;  
-{ High 16 bit offset to GOT
-					   with unsigned low  }
-  R_M32R_GOTOFF_HI_ULO = 62;  
-{ High 16 bit offset to GOT
-					   with signed low  }
-  R_M32R_GOTOFF_HI_SLO = 63;  
-{ Low 16 bit offset to GOT  }
-  R_M32R_GOTOFF_LO = 64;  
-{ Keep this the last entry.  }
-  R_M32R_NUM = 256;  
-{ MicroBlaze relocations  }
-{ No reloc.  }
-  R_MICROBLAZE_NONE = 0;  
-{ Direct 32 bit.  }
-  R_MICROBLAZE_32 = 1;  
-{ PC relative 32 bit.  }
-  R_MICROBLAZE_32_PCREL = 2;  
-{ PC relative 64 bit.  }
-  R_MICROBLAZE_64_PCREL = 3;  
-{ Low 16 bits of PCREL32.  }
-  R_MICROBLAZE_32_PCREL_LO = 4;  
-{ Direct 64 bit.  }
-  R_MICROBLAZE_64 = 5;  
-{ Low 16 bit.  }
-  R_MICROBLAZE_32_LO = 6;  
-{ Read-only small data area.  }
-  R_MICROBLAZE_SRO32 = 7;  
-{ Read-write small data area.  }
-  R_MICROBLAZE_SRW32 = 8;  
-{ No reloc.  }
-  R_MICROBLAZE_64_NONE = 9;  
-{ Symbol Op Symbol relocation.  }
-  R_MICROBLAZE_32_SYM_OP_SYM = 10;  
-{ GNU C++ vtable hierarchy.  }
-  R_MICROBLAZE_GNU_VTINHERIT = 11;  
-{ GNU C++ vtable member usage.  }
-  R_MICROBLAZE_GNU_VTENTRY = 12;  
-{ PC-relative GOT offset.   }
-  R_MICROBLAZE_GOTPC_64 = 13;  
-{ GOT entry offset.   }
-  R_MICROBLAZE_GOT_64 = 14;  
-{ PLT offset (PC-relative).   }
-  R_MICROBLAZE_PLT_64 = 15;  
-{ Adjust by program base.   }
-  R_MICROBLAZE_REL = 16;  
-{ Create PLT entry.   }
-  R_MICROBLAZE_JUMP_SLOT = 17;  
-{ Create GOT entry.   }
-  R_MICROBLAZE_GLOB_DAT = 18;  
-{ 64 bit offset to GOT.  }
-  R_MICROBLAZE_GOTOFF_64 = 19;  
-{ 32 bit offset to GOT.  }
-  R_MICROBLAZE_GOTOFF_32 = 20;  
-{ Runtime copy.   }
-  R_MICROBLAZE_COPY = 21;  
-{ TLS Reloc.  }
-  R_MICROBLAZE_TLS = 22;  
-{ TLS General Dynamic.  }
-  R_MICROBLAZE_TLSGD = 23;  
-{ TLS Local Dynamic.  }
-  R_MICROBLAZE_TLSLD = 24;  
-{ TLS Module ID.  }
-  R_MICROBLAZE_TLSDTPMOD32 = 25;  
-{ TLS Offset Within TLS Block.  }
-  R_MICROBLAZE_TLSDTPREL32 = 26;  
-{ TLS Offset Within TLS Block.  }
-  R_MICROBLAZE_TLSDTPREL64 = 27;  
-{ TLS Offset From Thread Pointer.  }
-  R_MICROBLAZE_TLSGOTTPREL32 = 28;  
-{ TLS Offset From Thread Pointer.  }
-  R_MICROBLAZE_TLSTPREL32 = 29;  
-{ Legal values for d_tag (dynamic entry type).   }
-{ Address of _gp.   }
-  DT_NIOS2_GP = $70000002;  
-{ Nios II relocations.   }
-{ No reloc.   }
-  R_NIOS2_NONE = 0;  
-{ Direct signed 16 bit.   }
-  R_NIOS2_S16 = 1;  
-{ Direct unsigned 16 bit.   }
-  R_NIOS2_U16 = 2;  
-{ PC relative 16 bit.   }
-  R_NIOS2_PCREL16 = 3;  
-{ Direct call.   }
-  R_NIOS2_CALL26 = 4;  
-{ 5 bit constant expression.   }
-  R_NIOS2_IMM5 = 5;  
-{ 5 bit expression, shift 22.   }
-  R_NIOS2_CACHE_OPX = 6;  
-{ 6 bit constant expression.   }
-  R_NIOS2_IMM6 = 7;  
-{ 8 bit constant expression.   }
-  R_NIOS2_IMM8 = 8;  
-{ High 16 bit.   }
-  R_NIOS2_HI16 = 9;  
-{ Low 16 bit.   }
-  R_NIOS2_LO16 = 10;  
-{ High 16 bit, adjusted.   }
-  R_NIOS2_HIADJ16 = 11;  
-{ 32 bit symbol value + addend.   }
-  R_NIOS2_BFD_RELOC_32 = 12;  
-{ 16 bit symbol value + addend.   }
-  R_NIOS2_BFD_RELOC_16 = 13;  
-{ 8 bit symbol value + addend.   }
-  R_NIOS2_BFD_RELOC_8 = 14;  
-{ 16 bit GP pointer offset.   }
-  R_NIOS2_GPREL = 15;  
-{ GNU C++ vtable hierarchy.   }
-  R_NIOS2_GNU_VTINHERIT = 16;  
-{ GNU C++ vtable member usage.   }
-  R_NIOS2_GNU_VTENTRY = 17;  
-{ Unconditional branch.   }
-  R_NIOS2_UJMP = 18;  
-{ Conditional branch.   }
-  R_NIOS2_CJMP = 19;  
-{ Indirect call through register.   }
-  R_NIOS2_CALLR = 20;  
-{ Alignment requirement for
-					   linker relaxation.   }
-  R_NIOS2_ALIGN = 21;  
-{ 16 bit GOT entry.   }
-  R_NIOS2_GOT16 = 22;  
-{ 16 bit GOT entry for function.   }
-  R_NIOS2_CALL16 = 23;  
-{ %lo of offset to GOT pointer.   }
-  R_NIOS2_GOTOFF_LO = 24;  
-{ %hiadj of offset to GOT pointer.   }
-  R_NIOS2_GOTOFF_HA = 25;  
-{ %lo of PC relative offset.   }
-  R_NIOS2_PCREL_LO = 26;  
-{ %hiadj of PC relative offset.   }
-  R_NIOS2_PCREL_HA = 27;  
-{ 16 bit GOT offset for TLS GD.   }
-  R_NIOS2_TLS_GD16 = 28;  
-{ 16 bit GOT offset for TLS LDM.   }
-  R_NIOS2_TLS_LDM16 = 29;  
-{ 16 bit module relative offset.   }
-  R_NIOS2_TLS_LDO16 = 30;  
-{ 16 bit GOT offset for TLS IE.   }
-  R_NIOS2_TLS_IE16 = 31;  
-{ 16 bit LE TP-relative offset.   }
-  R_NIOS2_TLS_LE16 = 32;  
-{ Module number.   }
-  R_NIOS2_TLS_DTPMOD = 33;  
-{ Module-relative offset.   }
-  R_NIOS2_TLS_DTPREL = 34;  
-{ TP-relative offset.   }
-  R_NIOS2_TLS_TPREL = 35;  
-{ Copy symbol at runtime.   }
-  R_NIOS2_COPY = 36;  
-{ Create GOT entry.   }
-  R_NIOS2_GLOB_DAT = 37;  
-{ Create PLT entry.   }
-  R_NIOS2_JUMP_SLOT = 38;  
-{ Adjust by program base.   }
-  R_NIOS2_RELATIVE = 39;  
-{ 16 bit offset to GOT pointer.   }
-  R_NIOS2_GOTOFF = 40;  
-{ Direct call in .noat section.   }
-  R_NIOS2_CALL26_NOAT = 41;  
-{ %lo() of GOT entry.   }
-  R_NIOS2_GOT_LO = 42;  
-{ %hiadj() of GOT entry.   }
-  R_NIOS2_GOT_HA = 43;  
-{ %lo() of function GOT entry.   }
-  R_NIOS2_CALL_LO = 44;  
-{ %hiadj() of function GOT entry.   }
-  R_NIOS2_CALL_HA = 45;  
-{ TILEPro relocations.   }
-{ No reloc  }
-  R_TILEPRO_NONE = 0;  
-{ Direct 32 bit  }
-  R_TILEPRO_32 = 1;  
-{ Direct 16 bit  }
-  R_TILEPRO_16 = 2;  
-{ Direct 8 bit  }
-  R_TILEPRO_8 = 3;  
-{ PC relative 32 bit  }
-  R_TILEPRO_32_PCREL = 4;  
-{ PC relative 16 bit  }
-  R_TILEPRO_16_PCREL = 5;  
-{ PC relative 8 bit  }
-  R_TILEPRO_8_PCREL = 6;  
-{ Low 16 bit  }
-  R_TILEPRO_LO16 = 7;  
-{ High 16 bit  }
-  R_TILEPRO_HI16 = 8;  
-{ High 16 bit, adjusted  }
-  R_TILEPRO_HA16 = 9;  
-{ Copy relocation  }
-  R_TILEPRO_COPY = 10;  
-{ Create GOT entry  }
-  R_TILEPRO_GLOB_DAT = 11;  
-{ Create PLT entry  }
-  R_TILEPRO_JMP_SLOT = 12;  
-{ Adjust by program base  }
-  R_TILEPRO_RELATIVE = 13;  
-{ X1 pipe branch offset  }
-  R_TILEPRO_BROFF_X1 = 14;  
-{ X1 pipe jump offset  }
-  R_TILEPRO_JOFFLONG_X1 = 15;  
-{ X1 pipe jump offset to PLT  }
-  R_TILEPRO_JOFFLONG_X1_PLT = 16;  
-{ X0 pipe 8-bit  }
-  R_TILEPRO_IMM8_X0 = 17;  
-{ Y0 pipe 8-bit  }
-  R_TILEPRO_IMM8_Y0 = 18;  
-{ X1 pipe 8-bit  }
-  R_TILEPRO_IMM8_X1 = 19;  
-{ Y1 pipe 8-bit  }
-  R_TILEPRO_IMM8_Y1 = 20;  
-{ X1 pipe mtspr  }
-  R_TILEPRO_MT_IMM15_X1 = 21;  
-{ X1 pipe mfspr  }
-  R_TILEPRO_MF_IMM15_X1 = 22;  
-{ X0 pipe 16-bit  }
-  R_TILEPRO_IMM16_X0 = 23;  
-{ X1 pipe 16-bit  }
-  R_TILEPRO_IMM16_X1 = 24;  
-{ X0 pipe low 16-bit  }
-  R_TILEPRO_IMM16_X0_LO = 25;  
-{ X1 pipe low 16-bit  }
-  R_TILEPRO_IMM16_X1_LO = 26;  
-{ X0 pipe high 16-bit  }
-  R_TILEPRO_IMM16_X0_HI = 27;  
-{ X1 pipe high 16-bit  }
-  R_TILEPRO_IMM16_X1_HI = 28;  
-{ X0 pipe high 16-bit, adjusted  }
-  R_TILEPRO_IMM16_X0_HA = 29;  
-{ X1 pipe high 16-bit, adjusted  }
-  R_TILEPRO_IMM16_X1_HA = 30;  
-{ X0 pipe PC relative 16 bit  }
-  R_TILEPRO_IMM16_X0_PCREL = 31;  
-{ X1 pipe PC relative 16 bit  }
-  R_TILEPRO_IMM16_X1_PCREL = 32;  
-{ X0 pipe PC relative low 16 bit  }
-  R_TILEPRO_IMM16_X0_LO_PCREL = 33;  
-{ X1 pipe PC relative low 16 bit  }
-  R_TILEPRO_IMM16_X1_LO_PCREL = 34;  
-{ X0 pipe PC relative high 16 bit  }
-  R_TILEPRO_IMM16_X0_HI_PCREL = 35;  
-{ X1 pipe PC relative high 16 bit  }
-  R_TILEPRO_IMM16_X1_HI_PCREL = 36;  
-{ X0 pipe PC relative ha() 16 bit  }
-  R_TILEPRO_IMM16_X0_HA_PCREL = 37;  
-{ X1 pipe PC relative ha() 16 bit  }
-  R_TILEPRO_IMM16_X1_HA_PCREL = 38;  
-{ X0 pipe 16-bit GOT offset  }
-  R_TILEPRO_IMM16_X0_GOT = 39;  
-{ X1 pipe 16-bit GOT offset  }
-  R_TILEPRO_IMM16_X1_GOT = 40;  
-{ X0 pipe low 16-bit GOT offset  }
-  R_TILEPRO_IMM16_X0_GOT_LO = 41;  
-{ X1 pipe low 16-bit GOT offset  }
-  R_TILEPRO_IMM16_X1_GOT_LO = 42;  
-{ X0 pipe high 16-bit GOT offset  }
-  R_TILEPRO_IMM16_X0_GOT_HI = 43;  
-{ X1 pipe high 16-bit GOT offset  }
-  R_TILEPRO_IMM16_X1_GOT_HI = 44;  
-{ X0 pipe ha() 16-bit GOT offset  }
-  R_TILEPRO_IMM16_X0_GOT_HA = 45;  
-{ X1 pipe ha() 16-bit GOT offset  }
-  R_TILEPRO_IMM16_X1_GOT_HA = 46;  
-{ X0 pipe mm "start"  }
-  R_TILEPRO_MMSTART_X0 = 47;  
-{ X0 pipe mm "end"  }
-  R_TILEPRO_MMEND_X0 = 48;  
-{ X1 pipe mm "start"  }
-  R_TILEPRO_MMSTART_X1 = 49;  
-{ X1 pipe mm "end"  }
-  R_TILEPRO_MMEND_X1 = 50;  
-{ X0 pipe shift amount  }
-  R_TILEPRO_SHAMT_X0 = 51;  
-{ X1 pipe shift amount  }
-  R_TILEPRO_SHAMT_X1 = 52;  
-{ Y0 pipe shift amount  }
-  R_TILEPRO_SHAMT_Y0 = 53;  
-{ Y1 pipe shift amount  }
-  R_TILEPRO_SHAMT_Y1 = 54;  
-{ X1 pipe destination 8-bit  }
-  R_TILEPRO_DEST_IMM8_X1 = 55;  
-{ Relocs 56-59 are currently not defined.   }
-{ "jal" for TLS GD  }
-  R_TILEPRO_TLS_GD_CALL = 60;  
-{ X0 pipe "addi" for TLS GD  }
-  R_TILEPRO_IMM8_X0_TLS_GD_ADD = 61;  
-{ X1 pipe "addi" for TLS GD  }
-  R_TILEPRO_IMM8_X1_TLS_GD_ADD = 62;  
-{ Y0 pipe "addi" for TLS GD  }
-  R_TILEPRO_IMM8_Y0_TLS_GD_ADD = 63;  
-{ Y1 pipe "addi" for TLS GD  }
-  R_TILEPRO_IMM8_Y1_TLS_GD_ADD = 64;  
-{ "lw_tls" for TLS IE  }
-  R_TILEPRO_TLS_IE_LOAD = 65;  
-{ X0 pipe 16-bit TLS GD offset  }
-  R_TILEPRO_IMM16_X0_TLS_GD = 66;  
-{ X1 pipe 16-bit TLS GD offset  }
-  R_TILEPRO_IMM16_X1_TLS_GD = 67;  
-{ X0 pipe low 16-bit TLS GD offset  }
-  R_TILEPRO_IMM16_X0_TLS_GD_LO = 68;  
-{ X1 pipe low 16-bit TLS GD offset  }
-  R_TILEPRO_IMM16_X1_TLS_GD_LO = 69;  
-{ X0 pipe high 16-bit TLS GD offset  }
-  R_TILEPRO_IMM16_X0_TLS_GD_HI = 70;  
-{ X1 pipe high 16-bit TLS GD offset  }
-  R_TILEPRO_IMM16_X1_TLS_GD_HI = 71;  
-{ X0 pipe ha() 16-bit TLS GD offset  }
-  R_TILEPRO_IMM16_X0_TLS_GD_HA = 72;  
-{ X1 pipe ha() 16-bit TLS GD offset  }
-  R_TILEPRO_IMM16_X1_TLS_GD_HA = 73;  
-{ X0 pipe 16-bit TLS IE offset  }
-  R_TILEPRO_IMM16_X0_TLS_IE = 74;  
-{ X1 pipe 16-bit TLS IE offset  }
-  R_TILEPRO_IMM16_X1_TLS_IE = 75;  
-{ X0 pipe low 16-bit TLS IE offset  }
-  R_TILEPRO_IMM16_X0_TLS_IE_LO = 76;  
-{ X1 pipe low 16-bit TLS IE offset  }
-  R_TILEPRO_IMM16_X1_TLS_IE_LO = 77;  
-{ X0 pipe high 16-bit TLS IE offset  }
-  R_TILEPRO_IMM16_X0_TLS_IE_HI = 78;  
-{ X1 pipe high 16-bit TLS IE offset  }
-  R_TILEPRO_IMM16_X1_TLS_IE_HI = 79;  
-{ X0 pipe ha() 16-bit TLS IE offset  }
-  R_TILEPRO_IMM16_X0_TLS_IE_HA = 80;  
-{ X1 pipe ha() 16-bit TLS IE offset  }
-  R_TILEPRO_IMM16_X1_TLS_IE_HA = 81;  
-{ ID of module containing symbol  }
-  R_TILEPRO_TLS_DTPMOD32 = 82;  
-{ Offset in TLS block  }
-  R_TILEPRO_TLS_DTPOFF32 = 83;  
-{ Offset in static TLS block  }
-  R_TILEPRO_TLS_TPOFF32 = 84;  
-{ X0 pipe 16-bit TLS LE offset  }
-  R_TILEPRO_IMM16_X0_TLS_LE = 85;  
-{ X1 pipe 16-bit TLS LE offset  }
-  R_TILEPRO_IMM16_X1_TLS_LE = 86;  
-{ X0 pipe low 16-bit TLS LE offset  }
-  R_TILEPRO_IMM16_X0_TLS_LE_LO = 87;  
-{ X1 pipe low 16-bit TLS LE offset  }
-  R_TILEPRO_IMM16_X1_TLS_LE_LO = 88;  
-{ X0 pipe high 16-bit TLS LE offset  }
-  R_TILEPRO_IMM16_X0_TLS_LE_HI = 89;  
-{ X1 pipe high 16-bit TLS LE offset  }
-  R_TILEPRO_IMM16_X1_TLS_LE_HI = 90;  
-{ X0 pipe ha() 16-bit TLS LE offset  }
-  R_TILEPRO_IMM16_X0_TLS_LE_HA = 91;  
-{ X1 pipe ha() 16-bit TLS LE offset  }
-  R_TILEPRO_IMM16_X1_TLS_LE_HA = 92;  
-{ GNU C++ vtable hierarchy  }
-  R_TILEPRO_GNU_VTINHERIT = 128;  
-{ GNU C++ vtable member usage  }
-  R_TILEPRO_GNU_VTENTRY = 129;  
+  R_M32R_REL32 = 45;
+  R_M32R_GOT24 = 48;
+  R_M32R_26_PLTREL = 49;
+  R_M32R_COPY = 50;
+  R_M32R_GLOB_DAT = 51;
+  R_M32R_JMP_SLOT = 52;
+  R_M32R_RELATIVE = 53;
+  R_M32R_GOTOFF = 54;
+  R_M32R_GOTPC24 = 55;
+  R_M32R_GOT16_HI_ULO = 56;
+  R_M32R_GOT16_HI_SLO = 57;
+  R_M32R_GOT16_LO = 58;
+  R_M32R_GOTPC_HI_ULO = 59;
+  R_M32R_GOTPC_HI_SLO = 60;
+  R_M32R_GOTPC_LO = 61;
+  R_M32R_GOTOFF_HI_ULO = 62;
+  R_M32R_GOTOFF_HI_SLO = 63;
+  R_M32R_GOTOFF_LO = 64;
+  R_M32R_NUM = 256;
+  R_MICROBLAZE_NONE = 0;
+  R_MICROBLAZE_32 = 1;
+  R_MICROBLAZE_32_PCREL = 2;
+  R_MICROBLAZE_64_PCREL = 3;
+  R_MICROBLAZE_32_PCREL_LO = 4;
+  R_MICROBLAZE_64 = 5;
+  R_MICROBLAZE_32_LO = 6;
+  R_MICROBLAZE_SRO32 = 7;
+  R_MICROBLAZE_SRW32 = 8;
+  R_MICROBLAZE_64_NONE = 9;
+  R_MICROBLAZE_32_SYM_OP_SYM = 10;
+  R_MICROBLAZE_GNU_VTINHERIT = 11;
+  R_MICROBLAZE_GNU_VTENTRY = 12;
+  R_MICROBLAZE_GOTPC_64 = 13;
+  R_MICROBLAZE_GOT_64 = 14;
+  R_MICROBLAZE_PLT_64 = 15;
+  R_MICROBLAZE_REL = 16;
+  R_MICROBLAZE_JUMP_SLOT = 17;
+  R_MICROBLAZE_GLOB_DAT = 18;
+  R_MICROBLAZE_GOTOFF_64 = 19;
+  R_MICROBLAZE_GOTOFF_32 = 20;
+  R_MICROBLAZE_COPY = 21;
+  R_MICROBLAZE_TLS = 22;
+  R_MICROBLAZE_TLSGD = 23;
+  R_MICROBLAZE_TLSLD = 24;
+  R_MICROBLAZE_TLSDTPMOD32 = 25;
+  R_MICROBLAZE_TLSDTPREL32 = 26;
+  R_MICROBLAZE_TLSDTPREL64 = 27;
+  R_MICROBLAZE_TLSGOTTPREL32 = 28;
+  R_MICROBLAZE_TLSTPREL32 = 29;
+  DT_NIOS2_GP = $70000002;
+  R_NIOS2_NONE = 0;
+  R_NIOS2_S16 = 1;
+  R_NIOS2_U16 = 2;
+  R_NIOS2_PCREL16 = 3;
+  R_NIOS2_CALL26 = 4;
+  R_NIOS2_IMM5 = 5;
+  R_NIOS2_CACHE_OPX = 6;
+  R_NIOS2_IMM6 = 7;
+  R_NIOS2_IMM8 = 8;
+  R_NIOS2_HI16 = 9;
+  R_NIOS2_LO16 = 10;
+  R_NIOS2_HIADJ16 = 11;
+  R_NIOS2_BFD_RELOC_32 = 12;
+  R_NIOS2_BFD_RELOC_16 = 13;
+  R_NIOS2_BFD_RELOC_8 = 14;
+  R_NIOS2_GPREL = 15;
+  R_NIOS2_GNU_VTINHERIT = 16;
+  R_NIOS2_GNU_VTENTRY = 17;
+  R_NIOS2_UJMP = 18;
+  R_NIOS2_CJMP = 19;
+  R_NIOS2_CALLR = 20;
+  R_NIOS2_ALIGN = 21;
+  R_NIOS2_GOT16 = 22;
+  R_NIOS2_CALL16 = 23;
+  R_NIOS2_GOTOFF_LO = 24;
+  R_NIOS2_GOTOFF_HA = 25;
+  R_NIOS2_PCREL_LO = 26;
+  R_NIOS2_PCREL_HA = 27;
+  R_NIOS2_TLS_GD16 = 28;
+  R_NIOS2_TLS_LDM16 = 29;
+  R_NIOS2_TLS_LDO16 = 30;
+  R_NIOS2_TLS_IE16 = 31;
+  R_NIOS2_TLS_LE16 = 32;
+  R_NIOS2_TLS_DTPMOD = 33;
+  R_NIOS2_TLS_DTPREL = 34;
+  R_NIOS2_TLS_TPREL = 35;
+  R_NIOS2_COPY = 36;
+  R_NIOS2_GLOB_DAT = 37;
+  R_NIOS2_JUMP_SLOT = 38;
+  R_NIOS2_RELATIVE = 39;
+  R_NIOS2_GOTOFF = 40;
+  R_NIOS2_CALL26_NOAT = 41;
+  R_NIOS2_GOT_LO = 42;
+  R_NIOS2_GOT_HA = 43;
+  R_NIOS2_CALL_LO = 44;
+  R_NIOS2_CALL_HA = 45;
+  R_TILEPRO_NONE = 0;
+  R_TILEPRO_32 = 1;
+  R_TILEPRO_16 = 2;
+  R_TILEPRO_8 = 3;
+  R_TILEPRO_32_PCREL = 4;
+  R_TILEPRO_16_PCREL = 5;
+  R_TILEPRO_8_PCREL = 6;
+  R_TILEPRO_LO16 = 7;
+  R_TILEPRO_HI16 = 8;
+  R_TILEPRO_HA16 = 9;
+  R_TILEPRO_COPY = 10;
+  R_TILEPRO_GLOB_DAT = 11;
+  R_TILEPRO_JMP_SLOT = 12;
+  R_TILEPRO_RELATIVE = 13;
+  R_TILEPRO_BROFF_X1 = 14;
+  R_TILEPRO_JOFFLONG_X1 = 15;
+  R_TILEPRO_JOFFLONG_X1_PLT = 16;
+  R_TILEPRO_IMM8_X0 = 17;
+  R_TILEPRO_IMM8_Y0 = 18;
+  R_TILEPRO_IMM8_X1 = 19;
+  R_TILEPRO_IMM8_Y1 = 20;
+  R_TILEPRO_MT_IMM15_X1 = 21;
+  R_TILEPRO_MF_IMM15_X1 = 22;
+  R_TILEPRO_IMM16_X0 = 23;
+  R_TILEPRO_IMM16_X1 = 24;
+  R_TILEPRO_IMM16_X0_LO = 25;
+  R_TILEPRO_IMM16_X1_LO = 26;
+  R_TILEPRO_IMM16_X0_HI = 27;
+  R_TILEPRO_IMM16_X1_HI = 28;
+  R_TILEPRO_IMM16_X0_HA = 29;
+  R_TILEPRO_IMM16_X1_HA = 30;
+  R_TILEPRO_IMM16_X0_PCREL = 31;
+  R_TILEPRO_IMM16_X1_PCREL = 32;
+  R_TILEPRO_IMM16_X0_LO_PCREL = 33;
+  R_TILEPRO_IMM16_X1_LO_PCREL = 34;
+  R_TILEPRO_IMM16_X0_HI_PCREL = 35;
+  R_TILEPRO_IMM16_X1_HI_PCREL = 36;
+  R_TILEPRO_IMM16_X0_HA_PCREL = 37;
+  R_TILEPRO_IMM16_X1_HA_PCREL = 38;
+  R_TILEPRO_IMM16_X0_GOT = 39;
+  R_TILEPRO_IMM16_X1_GOT = 40;
+  R_TILEPRO_IMM16_X0_GOT_LO = 41;
+  R_TILEPRO_IMM16_X1_GOT_LO = 42;
+  R_TILEPRO_IMM16_X0_GOT_HI = 43;
+  R_TILEPRO_IMM16_X1_GOT_HI = 44;
+  R_TILEPRO_IMM16_X0_GOT_HA = 45;
+  R_TILEPRO_IMM16_X1_GOT_HA = 46;
+  R_TILEPRO_MMSTART_X0 = 47;
+  R_TILEPRO_MMEND_X0 = 48;
+  R_TILEPRO_MMSTART_X1 = 49;
+  R_TILEPRO_MMEND_X1 = 50;
+  R_TILEPRO_SHAMT_X0 = 51;
+  R_TILEPRO_SHAMT_X1 = 52;
+  R_TILEPRO_SHAMT_Y0 = 53;
+  R_TILEPRO_SHAMT_Y1 = 54;
+  R_TILEPRO_DEST_IMM8_X1 = 55;
+  R_TILEPRO_TLS_GD_CALL = 60;
+  R_TILEPRO_IMM8_X0_TLS_GD_ADD = 61;
+  R_TILEPRO_IMM8_X1_TLS_GD_ADD = 62;
+  R_TILEPRO_IMM8_Y0_TLS_GD_ADD = 63;
+  R_TILEPRO_IMM8_Y1_TLS_GD_ADD = 64;
+  R_TILEPRO_TLS_IE_LOAD = 65;
+  R_TILEPRO_IMM16_X0_TLS_GD = 66;
+  R_TILEPRO_IMM16_X1_TLS_GD = 67;
+  R_TILEPRO_IMM16_X0_TLS_GD_LO = 68;
+  R_TILEPRO_IMM16_X1_TLS_GD_LO = 69;
+  R_TILEPRO_IMM16_X0_TLS_GD_HI = 70;
+  R_TILEPRO_IMM16_X1_TLS_GD_HI = 71;
+  R_TILEPRO_IMM16_X0_TLS_GD_HA = 72;
+  R_TILEPRO_IMM16_X1_TLS_GD_HA = 73;
+  R_TILEPRO_IMM16_X0_TLS_IE = 74;
+  R_TILEPRO_IMM16_X1_TLS_IE = 75;
+  R_TILEPRO_IMM16_X0_TLS_IE_LO = 76;
+  R_TILEPRO_IMM16_X1_TLS_IE_LO = 77;
+  R_TILEPRO_IMM16_X0_TLS_IE_HI = 78;
+  R_TILEPRO_IMM16_X1_TLS_IE_HI = 79;
+  R_TILEPRO_IMM16_X0_TLS_IE_HA = 80;
+  R_TILEPRO_IMM16_X1_TLS_IE_HA = 81;
+  R_TILEPRO_TLS_DTPMOD32 = 82;
+  R_TILEPRO_TLS_DTPOFF32 = 83;
+  R_TILEPRO_TLS_TPOFF32 = 84;
+  R_TILEPRO_IMM16_X0_TLS_LE = 85;
+  R_TILEPRO_IMM16_X1_TLS_LE = 86;
+  R_TILEPRO_IMM16_X0_TLS_LE_LO = 87;
+  R_TILEPRO_IMM16_X1_TLS_LE_LO = 88;
+  R_TILEPRO_IMM16_X0_TLS_LE_HI = 89;
+  R_TILEPRO_IMM16_X1_TLS_LE_HI = 90;
+  R_TILEPRO_IMM16_X0_TLS_LE_HA = 91;
+  R_TILEPRO_IMM16_X1_TLS_LE_HA = 92;
+  R_TILEPRO_GNU_VTINHERIT = 128;
+  R_TILEPRO_GNU_VTENTRY = 129;
   R_TILEPRO_NUM = 130;  
-{ TILE-Gx relocations.   }
-{ No reloc  }
-  R_TILEGX_NONE = 0;  
-{ Direct 64 bit  }
-  R_TILEGX_64 = 1;  
-{ Direct 32 bit  }
-  R_TILEGX_32 = 2;  
-{ Direct 16 bit  }
-  R_TILEGX_16 = 3;  
-{ Direct 8 bit  }
-  R_TILEGX_8 = 4;  
-{ PC relative 64 bit  }
-  R_TILEGX_64_PCREL = 5;  
-{ PC relative 32 bit  }
-  R_TILEGX_32_PCREL = 6;  
-{ PC relative 16 bit  }
-  R_TILEGX_16_PCREL = 7;  
-{ PC relative 8 bit  }
-  R_TILEGX_8_PCREL = 8;  
-{ hword 0 16-bit  }
-  R_TILEGX_HW0 = 9;  
-{ hword 1 16-bit  }
-  R_TILEGX_HW1 = 10;  
-{ hword 2 16-bit  }
-  R_TILEGX_HW2 = 11;  
-{ hword 3 16-bit  }
-  R_TILEGX_HW3 = 12;  
-{ last hword 0 16-bit  }
-  R_TILEGX_HW0_LAST = 13;  
-{ last hword 1 16-bit  }
-  R_TILEGX_HW1_LAST = 14;  
-{ last hword 2 16-bit  }
-  R_TILEGX_HW2_LAST = 15;  
-{ Copy relocation  }
-  R_TILEGX_COPY = 16;  
-{ Create GOT entry  }
-  R_TILEGX_GLOB_DAT = 17;  
-{ Create PLT entry  }
-  R_TILEGX_JMP_SLOT = 18;  
-{ Adjust by program base  }
-  R_TILEGX_RELATIVE = 19;  
-{ X1 pipe branch offset  }
-  R_TILEGX_BROFF_X1 = 20;  
-{ X1 pipe jump offset  }
-  R_TILEGX_JUMPOFF_X1 = 21;  
-{ X1 pipe jump offset to PLT  }
-  R_TILEGX_JUMPOFF_X1_PLT = 22;  
-{ X0 pipe 8-bit  }
-  R_TILEGX_IMM8_X0 = 23;  
-{ Y0 pipe 8-bit  }
-  R_TILEGX_IMM8_Y0 = 24;  
-{ X1 pipe 8-bit  }
-  R_TILEGX_IMM8_X1 = 25;  
-{ Y1 pipe 8-bit  }
-  R_TILEGX_IMM8_Y1 = 26;  
-{ X1 pipe destination 8-bit  }
-  R_TILEGX_DEST_IMM8_X1 = 27;  
-{ X1 pipe mtspr  }
-  R_TILEGX_MT_IMM14_X1 = 28;  
-{ X1 pipe mfspr  }
-  R_TILEGX_MF_IMM14_X1 = 29;  
-{ X0 pipe mm "start"  }
-  R_TILEGX_MMSTART_X0 = 30;  
-{ X0 pipe mm "end"  }
-  R_TILEGX_MMEND_X0 = 31;  
-{ X0 pipe shift amount  }
-  R_TILEGX_SHAMT_X0 = 32;  
-{ X1 pipe shift amount  }
-  R_TILEGX_SHAMT_X1 = 33;  
-{ Y0 pipe shift amount  }
-  R_TILEGX_SHAMT_Y0 = 34;  
-{ Y1 pipe shift amount  }
-  R_TILEGX_SHAMT_Y1 = 35;  
-{ X0 pipe hword 0  }
-  R_TILEGX_IMM16_X0_HW0 = 36;  
-{ X1 pipe hword 0  }
-  R_TILEGX_IMM16_X1_HW0 = 37;  
-{ X0 pipe hword 1  }
-  R_TILEGX_IMM16_X0_HW1 = 38;  
-{ X1 pipe hword 1  }
-  R_TILEGX_IMM16_X1_HW1 = 39;  
-{ X0 pipe hword 2  }
-  R_TILEGX_IMM16_X0_HW2 = 40;  
-{ X1 pipe hword 2  }
-  R_TILEGX_IMM16_X1_HW2 = 41;  
-{ X0 pipe hword 3  }
-  R_TILEGX_IMM16_X0_HW3 = 42;  
-{ X1 pipe hword 3  }
-  R_TILEGX_IMM16_X1_HW3 = 43;  
-{ X0 pipe last hword 0  }
-  R_TILEGX_IMM16_X0_HW0_LAST = 44;  
-{ X1 pipe last hword 0  }
-  R_TILEGX_IMM16_X1_HW0_LAST = 45;  
-{ X0 pipe last hword 1  }
-  R_TILEGX_IMM16_X0_HW1_LAST = 46;  
-{ X1 pipe last hword 1  }
-  R_TILEGX_IMM16_X1_HW1_LAST = 47;  
-{ X0 pipe last hword 2  }
-  R_TILEGX_IMM16_X0_HW2_LAST = 48;  
-{ X1 pipe last hword 2  }
-  R_TILEGX_IMM16_X1_HW2_LAST = 49;  
-{ X0 pipe PC relative hword 0  }
-  R_TILEGX_IMM16_X0_HW0_PCREL = 50;  
-{ X1 pipe PC relative hword 0  }
-  R_TILEGX_IMM16_X1_HW0_PCREL = 51;  
-{ X0 pipe PC relative hword 1  }
-  R_TILEGX_IMM16_X0_HW1_PCREL = 52;  
-{ X1 pipe PC relative hword 1  }
-  R_TILEGX_IMM16_X1_HW1_PCREL = 53;  
-{ X0 pipe PC relative hword 2  }
-  R_TILEGX_IMM16_X0_HW2_PCREL = 54;  
-{ X1 pipe PC relative hword 2  }
-  R_TILEGX_IMM16_X1_HW2_PCREL = 55;  
-{ X0 pipe PC relative hword 3  }
-  R_TILEGX_IMM16_X0_HW3_PCREL = 56;  
-{ X1 pipe PC relative hword 3  }
-  R_TILEGX_IMM16_X1_HW3_PCREL = 57;  
-{ X0 pipe PC-rel last hword 0  }
-  R_TILEGX_IMM16_X0_HW0_LAST_PCREL = 58;  
-{ X1 pipe PC-rel last hword 0  }
-  R_TILEGX_IMM16_X1_HW0_LAST_PCREL = 59;  
-{ X0 pipe PC-rel last hword 1  }
-  R_TILEGX_IMM16_X0_HW1_LAST_PCREL = 60;  
-{ X1 pipe PC-rel last hword 1  }
-  R_TILEGX_IMM16_X1_HW1_LAST_PCREL = 61;  
-{ X0 pipe PC-rel last hword 2  }
-  R_TILEGX_IMM16_X0_HW2_LAST_PCREL = 62;  
-{ X1 pipe PC-rel last hword 2  }
-  R_TILEGX_IMM16_X1_HW2_LAST_PCREL = 63;  
-{ X0 pipe hword 0 GOT offset  }
-  R_TILEGX_IMM16_X0_HW0_GOT = 64;  
-{ X1 pipe hword 0 GOT offset  }
-  R_TILEGX_IMM16_X1_HW0_GOT = 65;  
-{ X0 pipe PC-rel PLT hword 0  }
-  R_TILEGX_IMM16_X0_HW0_PLT_PCREL = 66;  
-{ X1 pipe PC-rel PLT hword 0  }
-  R_TILEGX_IMM16_X1_HW0_PLT_PCREL = 67;  
-{ X0 pipe PC-rel PLT hword 1  }
-  R_TILEGX_IMM16_X0_HW1_PLT_PCREL = 68;  
-{ X1 pipe PC-rel PLT hword 1  }
-  R_TILEGX_IMM16_X1_HW1_PLT_PCREL = 69;  
-{ X0 pipe PC-rel PLT hword 2  }
-  R_TILEGX_IMM16_X0_HW2_PLT_PCREL = 70;  
-{ X1 pipe PC-rel PLT hword 2  }
-  R_TILEGX_IMM16_X1_HW2_PLT_PCREL = 71;  
-{ X0 pipe last hword 0 GOT offset  }
-  R_TILEGX_IMM16_X0_HW0_LAST_GOT = 72;  
-{ X1 pipe last hword 0 GOT offset  }
-  R_TILEGX_IMM16_X1_HW0_LAST_GOT = 73;  
-{ X0 pipe last hword 1 GOT offset  }
-  R_TILEGX_IMM16_X0_HW1_LAST_GOT = 74;  
-{ X1 pipe last hword 1 GOT offset  }
-  R_TILEGX_IMM16_X1_HW1_LAST_GOT = 75;  
-{ X0 pipe PC-rel PLT hword 3  }
-  R_TILEGX_IMM16_X0_HW3_PLT_PCREL = 76;  
-{ X1 pipe PC-rel PLT hword 3  }
-  R_TILEGX_IMM16_X1_HW3_PLT_PCREL = 77;  
-{ X0 pipe hword 0 TLS GD offset  }
-  R_TILEGX_IMM16_X0_HW0_TLS_GD = 78;  
-{ X1 pipe hword 0 TLS GD offset  }
-  R_TILEGX_IMM16_X1_HW0_TLS_GD = 79;  
-{ X0 pipe hword 0 TLS LE offset  }
-  R_TILEGX_IMM16_X0_HW0_TLS_LE = 80;  
-{ X1 pipe hword 0 TLS LE offset  }
-  R_TILEGX_IMM16_X1_HW0_TLS_LE = 81;  
-{ X0 pipe last hword 0 LE off  }
-  R_TILEGX_IMM16_X0_HW0_LAST_TLS_LE = 82;  
-{ X1 pipe last hword 0 LE off  }
-  R_TILEGX_IMM16_X1_HW0_LAST_TLS_LE = 83;  
-{ X0 pipe last hword 1 LE off  }
-  R_TILEGX_IMM16_X0_HW1_LAST_TLS_LE = 84;  
-{ X1 pipe last hword 1 LE off  }
-  R_TILEGX_IMM16_X1_HW1_LAST_TLS_LE = 85;  
-{ X0 pipe last hword 0 GD off  }
-  R_TILEGX_IMM16_X0_HW0_LAST_TLS_GD = 86;  
-{ X1 pipe last hword 0 GD off  }
-  R_TILEGX_IMM16_X1_HW0_LAST_TLS_GD = 87;  
-{ X0 pipe last hword 1 GD off  }
-  R_TILEGX_IMM16_X0_HW1_LAST_TLS_GD = 88;  
-{ X1 pipe last hword 1 GD off  }
-  R_TILEGX_IMM16_X1_HW1_LAST_TLS_GD = 89;  
-{ Relocs 90-91 are currently not defined.   }
-{ X0 pipe hword 0 TLS IE offset  }
-  R_TILEGX_IMM16_X0_HW0_TLS_IE = 92;  
-{ X1 pipe hword 0 TLS IE offset  }
-  R_TILEGX_IMM16_X1_HW0_TLS_IE = 93;  
-{ X0 pipe PC-rel PLT last hword 0  }
-  R_TILEGX_IMM16_X0_HW0_LAST_PLT_PCREL = 94;  
-{ X1 pipe PC-rel PLT last hword 0  }
-  R_TILEGX_IMM16_X1_HW0_LAST_PLT_PCREL = 95;  
-{ X0 pipe PC-rel PLT last hword 1  }
-  R_TILEGX_IMM16_X0_HW1_LAST_PLT_PCREL = 96;  
-{ X1 pipe PC-rel PLT last hword 1  }
-  R_TILEGX_IMM16_X1_HW1_LAST_PLT_PCREL = 97;  
-{ X0 pipe PC-rel PLT last hword 2  }
-  R_TILEGX_IMM16_X0_HW2_LAST_PLT_PCREL = 98;  
-{ X1 pipe PC-rel PLT last hword 2  }
-  R_TILEGX_IMM16_X1_HW2_LAST_PLT_PCREL = 99;  
-{ X0 pipe last hword 0 IE off  }
-  R_TILEGX_IMM16_X0_HW0_LAST_TLS_IE = 100;  
-{ X1 pipe last hword 0 IE off  }
-  R_TILEGX_IMM16_X1_HW0_LAST_TLS_IE = 101;  
-{ X0 pipe last hword 1 IE off  }
-  R_TILEGX_IMM16_X0_HW1_LAST_TLS_IE = 102;  
-{ X1 pipe last hword 1 IE off  }
-  R_TILEGX_IMM16_X1_HW1_LAST_TLS_IE = 103;  
-{ Relocs 104-105 are currently not defined.   }
-{ 64-bit ID of symbol's module  }
-  R_TILEGX_TLS_DTPMOD64 = 106;  
-{ 64-bit offset in TLS block  }
-  R_TILEGX_TLS_DTPOFF64 = 107;  
-{ 64-bit offset in static TLS block  }
-  R_TILEGX_TLS_TPOFF64 = 108;  
-{ 32-bit ID of symbol's module  }
-  R_TILEGX_TLS_DTPMOD32 = 109;  
-{ 32-bit offset in TLS block  }
-  R_TILEGX_TLS_DTPOFF32 = 110;  
-{ 32-bit offset in static TLS block  }
-  R_TILEGX_TLS_TPOFF32 = 111;  
-{ "jal" for TLS GD  }
-  R_TILEGX_TLS_GD_CALL = 112;  
-{ X0 pipe "addi" for TLS GD  }
-  R_TILEGX_IMM8_X0_TLS_GD_ADD = 113;  
-{ X1 pipe "addi" for TLS GD  }
-  R_TILEGX_IMM8_X1_TLS_GD_ADD = 114;  
-{ Y0 pipe "addi" for TLS GD  }
-  R_TILEGX_IMM8_Y0_TLS_GD_ADD = 115;  
-{ Y1 pipe "addi" for TLS GD  }
-  R_TILEGX_IMM8_Y1_TLS_GD_ADD = 116;  
-{ "ld_tls" for TLS IE  }
-  R_TILEGX_TLS_IE_LOAD = 117;  
-{ X0 pipe "addi" for TLS GD/IE  }
-  R_TILEGX_IMM8_X0_TLS_ADD = 118;  
-{ X1 pipe "addi" for TLS GD/IE  }
-  R_TILEGX_IMM8_X1_TLS_ADD = 119;  
-{ Y0 pipe "addi" for TLS GD/IE  }
-  R_TILEGX_IMM8_Y0_TLS_ADD = 120;  
-{ Y1 pipe "addi" for TLS GD/IE  }
-  R_TILEGX_IMM8_Y1_TLS_ADD = 121;  
-{ GNU C++ vtable hierarchy  }
-  R_TILEGX_GNU_VTINHERIT = 128;  
-{ GNU C++ vtable member usage  }
-  R_TILEGX_GNU_VTENTRY = 129;  
+  R_TILEGX_NONE = 0;
+  R_TILEGX_64 = 1;
+  R_TILEGX_32 = 2;
+  R_TILEGX_16 = 3;
+  R_TILEGX_8 = 4;
+  R_TILEGX_64_PCREL = 5;
+  R_TILEGX_32_PCREL = 6;
+  R_TILEGX_16_PCREL = 7;
+  R_TILEGX_8_PCREL = 8;
+  R_TILEGX_HW0 = 9;
+  R_TILEGX_HW1 = 10;
+  R_TILEGX_HW2 = 11;
+  R_TILEGX_HW3 = 12;
+  R_TILEGX_HW0_LAST = 13;
+  R_TILEGX_HW1_LAST = 14;
+  R_TILEGX_HW2_LAST = 15;
+  R_TILEGX_COPY = 16;
+  R_TILEGX_GLOB_DAT = 17;
+  R_TILEGX_JMP_SLOT = 18;
+  R_TILEGX_RELATIVE = 19;
+  R_TILEGX_BROFF_X1 = 20;
+  R_TILEGX_JUMPOFF_X1 = 21;
+  R_TILEGX_JUMPOFF_X1_PLT = 22;
+  R_TILEGX_IMM8_X0 = 23;
+  R_TILEGX_IMM8_Y0 = 24;
+  R_TILEGX_IMM8_X1 = 25;
+  R_TILEGX_IMM8_Y1 = 26;
+  R_TILEGX_DEST_IMM8_X1 = 27;
+  R_TILEGX_MT_IMM14_X1 = 28;
+  R_TILEGX_MF_IMM14_X1 = 29;
+  R_TILEGX_MMSTART_X0 = 30;
+  R_TILEGX_MMEND_X0 = 31;
+  R_TILEGX_SHAMT_X0 = 32;
+  R_TILEGX_SHAMT_X1 = 33;
+  R_TILEGX_SHAMT_Y0 = 34;
+  R_TILEGX_SHAMT_Y1 = 35;
+  R_TILEGX_IMM16_X0_HW0 = 36;
+  R_TILEGX_IMM16_X1_HW0 = 37;
+  R_TILEGX_IMM16_X0_HW1 = 38;
+  R_TILEGX_IMM16_X1_HW1 = 39;
+  R_TILEGX_IMM16_X0_HW2 = 40;
+  R_TILEGX_IMM16_X1_HW2 = 41;
+  R_TILEGX_IMM16_X0_HW3 = 42;
+  R_TILEGX_IMM16_X1_HW3 = 43;
+  R_TILEGX_IMM16_X0_HW0_LAST = 44;
+  R_TILEGX_IMM16_X1_HW0_LAST = 45;
+  R_TILEGX_IMM16_X0_HW1_LAST = 46;
+  R_TILEGX_IMM16_X1_HW1_LAST = 47;
+  R_TILEGX_IMM16_X0_HW2_LAST = 48;
+  R_TILEGX_IMM16_X1_HW2_LAST = 49;
+  R_TILEGX_IMM16_X0_HW0_PCREL = 50;
+  R_TILEGX_IMM16_X1_HW0_PCREL = 51;
+  R_TILEGX_IMM16_X0_HW1_PCREL = 52;
+  R_TILEGX_IMM16_X1_HW1_PCREL = 53;
+  R_TILEGX_IMM16_X0_HW2_PCREL = 54;
+  R_TILEGX_IMM16_X1_HW2_PCREL = 55;
+  R_TILEGX_IMM16_X0_HW3_PCREL = 56;
+  R_TILEGX_IMM16_X1_HW3_PCREL = 57;
+  R_TILEGX_IMM16_X0_HW0_LAST_PCREL = 58;
+  R_TILEGX_IMM16_X1_HW0_LAST_PCREL = 59;
+  R_TILEGX_IMM16_X0_HW1_LAST_PCREL = 60;
+  R_TILEGX_IMM16_X1_HW1_LAST_PCREL = 61;
+  R_TILEGX_IMM16_X0_HW2_LAST_PCREL = 62;
+  R_TILEGX_IMM16_X1_HW2_LAST_PCREL = 63;
+  R_TILEGX_IMM16_X0_HW0_GOT = 64;
+  R_TILEGX_IMM16_X1_HW0_GOT = 65;
+  R_TILEGX_IMM16_X0_HW0_PLT_PCREL = 66;
+  R_TILEGX_IMM16_X1_HW0_PLT_PCREL = 67;
+  R_TILEGX_IMM16_X0_HW1_PLT_PCREL = 68;
+  R_TILEGX_IMM16_X1_HW1_PLT_PCREL = 69;
+  R_TILEGX_IMM16_X0_HW2_PLT_PCREL = 70;
+  R_TILEGX_IMM16_X1_HW2_PLT_PCREL = 71;
+  R_TILEGX_IMM16_X0_HW0_LAST_GOT = 72;
+  R_TILEGX_IMM16_X1_HW0_LAST_GOT = 73;
+  R_TILEGX_IMM16_X0_HW1_LAST_GOT = 74;
+  R_TILEGX_IMM16_X1_HW1_LAST_GOT = 75;
+  R_TILEGX_IMM16_X0_HW3_PLT_PCREL = 76;
+  R_TILEGX_IMM16_X1_HW3_PLT_PCREL = 77;
+  R_TILEGX_IMM16_X0_HW0_TLS_GD = 78;
+  R_TILEGX_IMM16_X1_HW0_TLS_GD = 79;
+  R_TILEGX_IMM16_X0_HW0_TLS_LE = 80;
+  R_TILEGX_IMM16_X1_HW0_TLS_LE = 81;
+  R_TILEGX_IMM16_X0_HW0_LAST_TLS_LE = 82;
+  R_TILEGX_IMM16_X1_HW0_LAST_TLS_LE = 83;
+  R_TILEGX_IMM16_X0_HW1_LAST_TLS_LE = 84;
+  R_TILEGX_IMM16_X1_HW1_LAST_TLS_LE = 85;
+  R_TILEGX_IMM16_X0_HW0_LAST_TLS_GD = 86;
+  R_TILEGX_IMM16_X1_HW0_LAST_TLS_GD = 87;
+  R_TILEGX_IMM16_X0_HW1_LAST_TLS_GD = 88;
+  R_TILEGX_IMM16_X1_HW1_LAST_TLS_GD = 89;
+  R_TILEGX_IMM16_X0_HW0_TLS_IE = 92;
+  R_TILEGX_IMM16_X1_HW0_TLS_IE = 93;
+  R_TILEGX_IMM16_X0_HW0_LAST_PLT_PCREL = 94;
+  R_TILEGX_IMM16_X1_HW0_LAST_PLT_PCREL = 95;
+  R_TILEGX_IMM16_X0_HW1_LAST_PLT_PCREL = 96;
+  R_TILEGX_IMM16_X1_HW1_LAST_PLT_PCREL = 97;
+  R_TILEGX_IMM16_X0_HW2_LAST_PLT_PCREL = 98;
+  R_TILEGX_IMM16_X1_HW2_LAST_PLT_PCREL = 99;
+  R_TILEGX_IMM16_X0_HW0_LAST_TLS_IE = 100;
+  R_TILEGX_IMM16_X1_HW0_LAST_TLS_IE = 101;
+  R_TILEGX_IMM16_X0_HW1_LAST_TLS_IE = 102;
+  R_TILEGX_IMM16_X1_HW1_LAST_TLS_IE = 103;
+  R_TILEGX_TLS_DTPMOD64 = 106;
+  R_TILEGX_TLS_DTPOFF64 = 107;
+  R_TILEGX_TLS_TPOFF64 = 108;
+  R_TILEGX_TLS_DTPMOD32 = 109;
+  R_TILEGX_TLS_DTPOFF32 = 110;
+  R_TILEGX_TLS_TPOFF32 = 111;
+  R_TILEGX_TLS_GD_CALL = 112;
+  R_TILEGX_IMM8_X0_TLS_GD_ADD = 113;
+  R_TILEGX_IMM8_X1_TLS_GD_ADD = 114;
+  R_TILEGX_IMM8_Y0_TLS_GD_ADD = 115;
+  R_TILEGX_IMM8_Y1_TLS_GD_ADD = 116;
+  R_TILEGX_TLS_IE_LOAD = 117;
+  R_TILEGX_IMM8_X0_TLS_ADD = 118;
+  R_TILEGX_IMM8_X1_TLS_ADD = 119;
+  R_TILEGX_IMM8_Y0_TLS_ADD = 120;
+  R_TILEGX_IMM8_Y1_TLS_ADD = 121;
+  R_TILEGX_GNU_VTINHERIT = 128;
+  R_TILEGX_GNU_VTENTRY = 129;
   R_TILEGX_NUM = 130;  
-{ RISC-V ELF Flags  }
-  EF_RISCV_RVC = $0001;  
+  EF_RISCV_RVC = $0001;
   EF_RISCV_FLOAT_ABI = $0006;  
   EF_RISCV_FLOAT_ABI_SOFT = $0000;  
   EF_RISCV_FLOAT_ABI_SINGLE = $0002;  
@@ -4261,8 +3256,7 @@ const
   EF_RISCV_FLOAT_ABI_QUAD = $0006;  
   EF_RISCV_RVE = $0008;  
   EF_RISCV_TSO = $0010;  
-{ RISC-V relocations.   }
-  R_RISCV_NONE = 0;  
+  R_RISCV_NONE = 0;
   R_RISCV_32 = 1;  
   R_RISCV_64 = 2;  
   R_RISCV_RELATIVE = 3;  
@@ -4321,32 +3315,20 @@ const
   R_RISCV_SET_ULEB128 = 60;  
   R_RISCV_SUB_ULEB128 = 61;  
   R_RISCV_NUM = 62;  
-{ RISC-V specific values for the st_other field.   }
-{ Function uses variant calling
-					   convention  }
-  STO_RISCV_VARIANT_CC = $80;  
-{ RISC-V specific values for the sh_type field.   }
-  SHT_RISCV_ATTRIBUTES = SHT_LOPROC+3;  
-{ RISC-V specific values for the p_type field.   }
-  PT_RISCV_ATTRIBUTES = PT_LOPROC+3;  
-{ RISC-V specific values for the d_tag field.   }
-  DT_RISCV_VARIANT_CC = DT_LOPROC+1;  
-{ BPF specific declarations.   }
-{ No reloc  }
-  R_BPF_NONE = 0;  
+  STO_RISCV_VARIANT_CC = $80;
+  SHT_RISCV_ATTRIBUTES = SHT_LOPROC+3;
+  PT_RISCV_ATTRIBUTES = PT_LOPROC+3;
+  DT_RISCV_VARIANT_CC = DT_LOPROC+1;
+  R_BPF_NONE = 0;
   R_BPF_64_64 = 1;  
   R_BPF_64_32 = 10;  
-{ Imagination Meta specific relocations.  }
-  R_METAG_HIADDR16 = 0;  
+  R_METAG_HIADDR16 = 0;
   R_METAG_LOADDR16 = 1;  
-{ 32bit absolute address  }
-  R_METAG_ADDR32 = 2;  
-{ No reloc  }
-  R_METAG_NONE = 3;  
+  R_METAG_ADDR32 = 2;
+  R_METAG_NONE = 3;
   R_METAG_RELBRANCH = 4;  
   R_METAG_GETSETOFF = 5;  
-{ Backward compatibility  }
-  R_METAG_REG32OP1 = 6;  
+  R_METAG_REG32OP1 = 6;
   R_METAG_REG32OP2 = 7;  
   R_METAG_REG32OP3 = 8;  
   R_METAG_REG16OP1 = 9;  
@@ -4357,11 +3339,9 @@ const
   R_METAG_LOOG = 14;  
   R_METAG_REL8 = 15;  
   R_METAG_REL16 = 16;  
-{ GNU  }
-  R_METAG_GNU_VTINHERIT = 30;  
+  R_METAG_GNU_VTINHERIT = 30;
   R_METAG_GNU_VTENTRY = 31;  
-{ PIC relocations  }
-  R_METAG_HI16_GOTOFF = 32;  
+  R_METAG_HI16_GOTOFF = 32;
   R_METAG_LO16_GOTOFF = 33;  
   R_METAG_GETSET_GOTOFF = 34;  
   R_METAG_GETSET_GOT = 35;  
@@ -4376,8 +3356,7 @@ const
   R_METAG_JMP_SLOT = 44;  
   R_METAG_RELATIVE = 45;  
   R_METAG_GLOB_DAT = 46;  
-{ TLS relocations  }
-  R_METAG_TLS_GD = 47;  
+  R_METAG_TLS_GD = 47;
   R_METAG_TLS_LDM = 48;  
   R_METAG_TLS_LDO_HI16 = 49;  
   R_METAG_TLS_LDO_LO16 = 50;  
@@ -4392,8 +3371,7 @@ const
   R_METAG_TLS_LE = 59;  
   R_METAG_TLS_LE_HI16 = 60;  
   R_METAG_TLS_LE_LO16 = 61;  
-{ NDS32 relocations.   }
-  R_NDS32_NONE = 0;  
+  R_NDS32_NONE = 0;
   R_NDS32_32_RELA = 20;  
   R_NDS32_COPY = 39;  
   R_NDS32_GLOB_DAT = 40;  
@@ -4401,14 +3379,12 @@ const
   R_NDS32_RELATIVE = 42;  
   R_NDS32_TLS_TPOFF = 102;  
   R_NDS32_TLS_DESC = 119;  
-{ LoongArch ELF Flags  }
-  EF_LARCH_ABI_MODIFIER_MASK = $07;  
+  EF_LARCH_ABI_MODIFIER_MASK = $07;
   EF_LARCH_ABI_SOFT_FLOAT = $01;  
   EF_LARCH_ABI_SINGLE_FLOAT = $02;  
   EF_LARCH_ABI_DOUBLE_FLOAT = $03;  
   EF_LARCH_OBJABI_V1 = $40;  
-{ LoongArch specific dynamic relocations  }
-  R_LARCH_NONE = 0;  
+  R_LARCH_NONE = 0;
   R_LARCH_32 = 1;  
   R_LARCH_64 = 2;  
   R_LARCH_RELATIVE = 3;  
@@ -4421,9 +3397,7 @@ const
   R_LARCH_TLS_TPREL32 = 10;  
   R_LARCH_TLS_TPREL64 = 11;  
   R_LARCH_IRELATIVE = 12;  
-{ Reserved for future relocs that the dynamic linker must understand.   }
-{ used by the static linker for relocating .text.   }
-  R_LARCH_MARK_LA = 20;  
+  R_LARCH_MARK_LA = 20;
   R_LARCH_MARK_PCREL = 21;  
   R_LARCH_SOP_PUSH_PCREL = 22;  
   R_LARCH_SOP_PUSH_ABSOLUTE = 23;  
@@ -4450,8 +3424,7 @@ const
   R_LARCH_SOP_POP_32_S_0_5_10_16_S2 = 44;  
   R_LARCH_SOP_POP_32_S_0_10_10_16_S2 = 45;  
   R_LARCH_SOP_POP_32_U = 46;  
-{ used by the static linker for relocating non .text.   }
-  R_LARCH_ADD8 = 47;  
+  R_LARCH_ADD8 = 47;
   R_LARCH_ADD16 = 48;  
   R_LARCH_ADD24 = 49;  
   R_LARCH_ADD32 = 50;  
@@ -4463,8 +3436,7 @@ const
   R_LARCH_SUB64 = 56;  
   R_LARCH_GNU_VTINHERIT = 57;  
   R_LARCH_GNU_VTENTRY = 58;  
-{ reserved 59-63  }
-  R_LARCH_B16 = 64;  
+  R_LARCH_B16 = 64;
   R_LARCH_B21 = 65;  
   R_LARCH_B26 = 66;  
   R_LARCH_ABS_HI20 = 67;  
@@ -4510,16 +3482,11 @@ const
   R_LARCH_ADD_ULEB128 = 107;  
   R_LARCH_SUB_ULEB128 = 108;  
   R_LARCH_64_PCREL = 109;  
-{ ARC specific declarations.   }
-{ Processor specific flags for the Ehdr e_flags field.   }
-  EF_ARC_MACH_MSK = $000000ff;  
+  EF_ARC_MACH_MSK = $000000ff;
   EF_ARC_OSABI_MSK = $00000f00;  
   EF_ARC_ALL_MSK = EF_ARC_MACH_MSK or EF_ARC_OSABI_MSK;  
-{ Processor specific values for the Shdr sh_type field.   }
-{ ARC attributes section.   }
-  SHT_ARC_ATTRIBUTES = SHT_LOPROC+1;  
-{ ARCompact/ARCv2 specific relocs.   }
-  R_ARC_NONE = $0;  
+  SHT_ARC_ATTRIBUTES = SHT_LOPROC+1;
+  R_ARC_NONE = $0;
   R_ARC_8 = $1;  
   R_ARC_16 = $2;  
   R_ARC_24 = $3;  
@@ -4592,8 +3559,7 @@ const
   R_ARC_S25W_PCREL_PLT = $4C;  
   R_ARC_S21H_PCREL_PLT = $4D;  
   R_ARC_NPS_CMEM16 = $4E;  
-{ OpenRISC 1000 specific relocs.   }
-  R_OR1K_NONE = 0;  
+  R_OR1K_NONE = 0;
   R_OR1K_32 = 1;  
   R_OR1K_16 = 2;  
   R_OR1K_8 = 3;  
@@ -4628,8 +3594,6 @@ const
   R_OR1K_TLS_TPOFF = 32;  
   R_OR1K_TLS_DTPOFF = 33;  
   R_OR1K_TLS_DTPMOD = 34;  
-{$endif}
-{ elf.h  }
 
 // === Konventiert am: 8-9-25 19:14:50 ===
 

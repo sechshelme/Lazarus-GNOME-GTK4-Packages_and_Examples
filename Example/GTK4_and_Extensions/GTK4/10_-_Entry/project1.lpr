@@ -84,7 +84,6 @@ end;
     gtk_window_set_child(GTK_WINDOW(window), box);
 
     gtk_box_append(GTK_BOX(box), CreateLabelBox);
-
     gtk_box_append(GTK_BOX(box), CreateEntryBox);
 
     gtk_window_present(GTK_WINDOW(window));

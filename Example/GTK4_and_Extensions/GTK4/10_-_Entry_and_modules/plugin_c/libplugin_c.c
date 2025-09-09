@@ -1,4 +1,4 @@
-// gcc -Wall -fPIC -shared -o plugin_c.so plugin_c.c `pkg-config --cflags --libs gtk4`
+// gcc -Wall -fPIC -shared -o libplugin_c.so libplugin_c.c `pkg-config --cflags --libs gtk4`
 
 
 #include <gtk/gtk.h>

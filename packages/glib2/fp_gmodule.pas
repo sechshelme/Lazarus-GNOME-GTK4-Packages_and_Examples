@@ -9,6 +9,8 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+// /usr/include/glib-2.0/gmodule.h
+
 type
   PGModuleFlags = ^TGModuleFlags;
   TGModuleFlags = longint;
@@ -19,11 +21,8 @@ const
   G_MODULE_BIND_MASK = $03;
 
 type
-  TGModule = record
-  end;
-  PGModule = ^TGModule;
+  PGModule = type Pointer;
 
-  PGModuleCheckInit = ^TGModuleCheckInit;
   TGModuleCheckInit = function(module: PGModule): Pgchar; cdecl;
   TGModuleUnload = procedure(module: PGModule); cdecl;
 

@@ -20,7 +20,7 @@ var
 
 var
   module_C: PGModule = nil;
-
+  module_PAS: PGModule = nil;
 
   procedure on_close_clicked(widget: PGtkWidget; Data: Tgpointer); cdecl;
   var
@@ -30,23 +30,19 @@ var
     gtk_window_destroy(window);
   end;
 
-
-var
-  MyPrintf: function(f: pchar): integer; varargs; cdecl;
-  Plugin_init: procedure(w: PMyWidgets); cdecl;
-
-
-  procedure on_add_plugin_clicked(widget: PGtkWidget; Data: Tgpointer); cdecl;
+  procedure on_add_C_plugin_clicked(widget: PGtkWidget; Data: Tgpointer); cdecl;
+  var
+    Plugin_init: procedure(w: PMyWidgets); cdecl;
   begin
     if module_C <> nil then begin
       Exit;
     end;
-    ;
+
     if not g_module_supported then begin
       g_printf('Dynamic modules are not supported on this platform'#10);
       Exit;
     end;
-    module_C := g_module_open('plugin_c/plugin_c.so', G_MODULE_BIND_LAZY);
+    module_C := g_module_open('plugin_c/libplugin_c', G_MODULE_BIND_LAZY);
     if module_C = nil then begin
       g_printf('Error loading library: %s'#10, g_module_error);
       Exit;
@@ -58,13 +54,44 @@ var
       Exit;
     end;
 
+    g_printf('Module; %s geladen'#10, g_module_name(module_C));
+    Plugin_init(@MyWidgets);
+  end;
+
+
+  procedure on_add_PAS_plugin_clicked(widget: PGtkWidget; Data: Tgpointer); cdecl;
+  var
+    Plugin_init: procedure(w: PMyWidgets); cdecl;
+  begin
+    if module_PAS <> nil then begin
+      Exit;
+    end;
+
+    if not g_module_supported then begin
+      g_printf('Dynamic modules are not supported on this platform'#10);
+      Exit;
+    end;
+    module_PAS := g_module_open('plugin_pas/libplugin_pas', G_MODULE_BIND_LAZY);
+    if module_PAS = nil then begin
+      g_printf('Error loading library: %s'#10, g_module_error);
+      Exit;
+    end;
+
+    if not g_module_symbol(module_PAS, 'Plugin_init_PAS', @Plugin_init) then begin
+      g_printf('Error loading symbol "Plugin_init_pas": %s'#10, g_module_error);
+      g_module_close(module_PAS);
+      Exit;
+    end;
+
+    g_printf('Module; %s geladen'#10, g_module_name(module_PAS));
     Plugin_init(@MyWidgets);
   end;
 
 
   procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
-    window, vbox, btn_add, btn_close, scrolled_window: PGtkWidget;
+    window, vbox, btn_add_c, btn_close, scrolled_window,
+    btn_add_pas: PGtkWidget;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'GTK4 Entry with Modules');
@@ -76,11 +103,17 @@ var
     MyWidgets.toolbar := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 2);
     gtk_box_append(GTK_BOX(vbox), MyWidgets.toolbar);
 
-    btn_add := gtk_button_new_with_label('Add');
-    gtk_box_append(GTK_BOX(MyWidgets.toolbar), btn_add);
+    btn_add_c := gtk_button_new_with_label('Add C');
+    gtk_box_append(GTK_BOX(MyWidgets.toolbar), btn_add_c);
+    g_signal_connect(btn_add_c, 'clicked', G_CALLBACK(@on_add_C_plugin_clicked), MyWidgets.text_view);
+
+    btn_add_pas := gtk_button_new_with_label('Add PAS');
+    gtk_box_append(GTK_BOX(MyWidgets.toolbar), btn_add_pas);
+    g_signal_connect(btn_add_pas, 'clicked', G_CALLBACK(@on_add_PAS_plugin_clicked), MyWidgets.text_view);
 
     btn_close := gtk_button_new_with_label('Close');
     gtk_box_append(GTK_BOX(MyWidgets.toolbar), btn_close);
+    g_signal_connect(btn_close, 'clicked', G_CALLBACK(@on_close_clicked), window);
 
     scrolled_window := gtk_scrolled_window_new();
     gtk_widget_set_hexpand(scrolled_window, True);
@@ -91,10 +124,7 @@ var
     gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(MyWidgets.text_view), GTK_WRAP_WORD_CHAR);
     gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), MyWidgets.text_view);
 
-    g_signal_connect(btn_close, 'clicked', G_CALLBACK(@on_close_clicked), window);
-    g_signal_connect(btn_add, 'clicked', G_CALLBACK(@on_add_plugin_clicked), MyWidgets.text_view);
-
-    gtk_widget_show(window);
+    gtk_window_present(GTK_WINDOW(window));
   end;
 
   procedure shutdown(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
@@ -103,6 +133,11 @@ var
       g_module_close(module_C);
       module_C := nil;
     end;
+    if module_PAS <> nil then  begin
+      g_module_close(module_PAS);
+      module_PAS := nil;
+    end;
+    g_printf('Alles frei gegeben'#10);
   end;
 
   function main(argc: cint; argv: PPChar): cint;
