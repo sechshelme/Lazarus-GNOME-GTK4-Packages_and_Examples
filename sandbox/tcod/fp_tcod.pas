@@ -51,8 +51,17 @@ type
   PPint64_t = ^Pint64_t;
 
   Tsize_t=SizeUInt;
+  Psize_t=^Tsize_t;
 
   Pwchar_t=Pointer; // ??????????????
+
+  type
+  PSDL_Event = ^TSDL_Event;
+  TSDL_Event = record
+      {undefined structure}
+    end;
+
+
 
 
 

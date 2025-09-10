@@ -41,7 +41,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="../../Package_Tools/pas_units/tcod"/>
+      <OtherUnitFiles Value="../../Package_Tools/pas_units/tcod;../../Package_Tools/pas_units/tcod/sdl2"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

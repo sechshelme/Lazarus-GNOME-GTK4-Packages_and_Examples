@@ -4,7 +4,7 @@ interface
 
 const
   {$IFDEF Linux}
-  libtcod = 'libelf';
+  libelf64 = 'libelf';
   {$ENDIF}
 
   {$IFDEF Wwindows}

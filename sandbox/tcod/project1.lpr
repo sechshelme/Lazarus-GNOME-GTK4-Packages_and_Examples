@@ -28,6 +28,30 @@ uses
   heightmap,
   image,
   lex,
+  mersenne,
+  mouse_types,
+  mouse,
+  namegen,
+  parser,
+  path,
+  pathfinder,
+  pathfinder_frontier,
+  portability,
+  random,
+  renderer_gl,
+  renderer_gl1,          // SDL2 Zeugs
+  renderer_gl2,           // SDL2 Zeugs
+  renderer_sdl2,          // SDL2 Zeugs
+  sys,                    // SDL2 Zeugs
+  tileset_bdf,
+  tileset_fallback,
+  tileset_render,        // SDL2 Zeugs
+  tileset_truetype,
+  txtfield,
+  version,
+  wrappers,
+  zip,
+  sdl2_event,    // ./sdl2
 
 
 

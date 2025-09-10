@@ -101,17 +101,17 @@ type
 type
   Titerate_phdr = function(para1: Pdl_phdr_info; para2: Tsize_t; para3: pointer): longint;
 
-function dl_iterate_phdr(__callback: Titerate_phdr; __data: pointer): longint; cdecl; external libtcod;
-function la_version(__version: dword): dword; cdecl; external libtcod;
-procedure la_activity(__cookie: Puintptr_t; __flag: dword); cdecl; external libtcod;
-function la_objsearch(__name: pchar; __cookie: Puintptr_t; __flag: dword): pchar; cdecl; external libtcod;
-function la_objopen(__map: Plink_map; __lmid: TLmid_t; __cookie: Puintptr_t): dword; cdecl; external libtcod;
-procedure la_preinit(__cookie: Puintptr_t); cdecl; external libtcod;
+function dl_iterate_phdr(__callback: Titerate_phdr; __data: pointer): longint; cdecl; external libelf64;
+function la_version(__version: dword): dword; cdecl; external libelf64;
+procedure la_activity(__cookie: Puintptr_t; __flag: dword); cdecl; external libelf64;
+function la_objsearch(__name: pchar; __cookie: Puintptr_t; __flag: dword): pchar; cdecl; external libelf64;
+function la_objopen(__map: Plink_map; __lmid: TLmid_t; __cookie: Puintptr_t): dword; cdecl; external libelf64;
+procedure la_preinit(__cookie: Puintptr_t); cdecl; external libelf64;
 function la_symbind32(__sym: PElf32_Sym; __ndx: dword; __refcook: Puintptr_t; __defcook: Puintptr_t; __flags: Pdword;
-  __symname: pchar): Tuintptr_t; cdecl; external libtcod;
+  __symname: pchar): Tuintptr_t; cdecl; external libelf64;
 function la_symbind64(__sym: PElf64_Sym; __ndx: dword; __refcook: Puintptr_t; __defcook: Puintptr_t; __flags: Pdword;
-  __symname: pchar): Tuintptr_t; cdecl; external libtcod;
-function la_objclose(__cookie: Puintptr_t): dword; cdecl; external libtcod;
+  __symname: pchar): Tuintptr_t; cdecl; external libelf64;
+function la_objclose(__cookie: Puintptr_t): dword; cdecl; external libelf64;
 
 // === Konventiert am: 8-9-25 19:14:59 ===
 

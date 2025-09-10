@@ -32,9 +32,9 @@ type
   PLa_i86_retval = ^TLa_i86_retval;
 
 function la_i86_gnu_pltenter(__sym: PElf32_Sym; __ndx: dword; __refcook: Puintptr_t; __defcook: Puintptr_t; __regs: PLa_i86_regs;
-  __flags: Pdword; __symname: pchar; __framesizep: Plongint): TElf32_Addr; cdecl; external libtcod;
+  __flags: Pdword; __symname: pchar; __framesizep: Plongint): TElf32_Addr; cdecl; external libelf64;
 function la_i86_gnu_pltexit(__sym: PElf32_Sym; __ndx: dword; __refcook: Puintptr_t; __defcook: Puintptr_t; __inregs: PLa_i86_regs;
-  __outregs: PLa_i86_retval; symname: pchar): dword; cdecl; external libtcod;
+  __outregs: PLa_i86_retval; symname: pchar): dword; cdecl; external libelf64;
 
 type
   PLa_x86_64_xmm = ^TLa_x86_64_xmm;
@@ -93,13 +93,13 @@ type
   PLa_x32_retval = ^TLa_x32_retval;
 
 function la_x86_64_gnu_pltenter(__sym: PElf64_Sym; __ndx: dword; __refcook: Puintptr_t; __defcook: Puintptr_t; __regs: PLa_x86_64_regs;
-  __flags: Pdword; __symname: pchar; __framesizep: Plongint): TElf64_Addr; cdecl; external libtcod;
+  __flags: Pdword; __symname: pchar; __framesizep: Plongint): TElf64_Addr; cdecl; external libelf64;
 function la_x86_64_gnu_pltexit(__sym: PElf64_Sym; __ndx: dword; __refcook: Puintptr_t; __defcook: Puintptr_t; __inregs: PLa_x86_64_regs;
-  __outregs: PLa_x86_64_retval; __symname: pchar): dword; cdecl; external libtcod;
+  __outregs: PLa_x86_64_retval; __symname: pchar): dword; cdecl; external libelf64;
 function la_x32_gnu_pltenter(__sym: PElf32_Sym; __ndx: dword; __refcook: Puintptr_t; __defcook: Puintptr_t; __regs: PLa_x32_regs;
-  __flags: Pdword; __symname: pchar; __framesizep: Plongint): TElf32_Addr; cdecl; external libtcod;
+  __flags: Pdword; __symname: pchar; __framesizep: Plongint): TElf32_Addr; cdecl; external libelf64;
 function la_x32_gnu_pltexit(__sym: PElf32_Sym; __ndx: dword; __refcook: Puintptr_t; __defcook: Puintptr_t; __inregs: PLa_x32_regs;
-  __outregs: PLa_x32_retval; __symname: pchar): dword; cdecl; external libtcod;
+  __outregs: PLa_x32_retval; __symname: pchar): dword; cdecl; external libelf64;
 
 // === Konventiert am: 8-9-25 19:15:29 ===
 
