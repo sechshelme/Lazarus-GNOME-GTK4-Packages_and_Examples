@@ -1,72 +1,22 @@
 program project1;
 
 uses
-  error,
-  color,
-  context_viewport,
-  tileset,
-  list,
-  console_types,
-  console,
-  console_init,      // SDL2 Zeugs
-  console_printing,
-  console_etc,
-  console_drawing,
-  console_rexpaint,
-  mersenne_types,
-  noise_defaults,
-  noise,
-  tree,
-  bresenham,
-  bsp,
-  context,                     // SDL2 Zeugs
-  context_init,
-  fov_types,
-  fov,
-  globals,
-  heapq,
-  heightmap,
-  image,
-  lex,
-  mersenne,
-  mouse_types,
-  mouse,
-  namegen,
-  parser,
-  path,
-  pathfinder,
-  pathfinder_frontier,
-  portability,
-  random,
-  renderer_gl,
-  renderer_gl1,          // SDL2 Zeugs
-  renderer_gl2,           // SDL2 Zeugs
-  renderer_sdl2,          // SDL2 Zeugs
-  sys,                    // SDL2 Zeugs
-  tileset_bdf,
-  tileset_fallback,
-  tileset_render,        // SDL2 Zeugs
-  tileset_truetype,
-  txtfield,
-  version,
-  wrappers,
-  zip,
-  sdl2_event,    // ./sdl2
-
-
-
-
   fp_tcod;
 
   procedure main;
   var
     key: TTCOD_key_t;
+    counter:Integer=0;
   begin
-    TCOD_console_init_root(80, 50, 'libtcod C Beispiel', False, TCOD_RENDERER_SDL2);
+    TCOD_console_init_root(80, 50, 'libtcod C Beispiel', False, TCOD_RENDERER_SDL);
+    TCOD_console_set_default_foreground(nil, TCOD_yellow);
+//    TCOD_console_set_custom_font();
+
 
     while not TCOD_console_is_window_closed do begin
+      Inc(counter);
       TCOD_console_clear(nil);
-      TCOD_console_printf(nil, 1, 1, 'Druecke ESC oder Q zum Beenden.');
+      TCOD_console_printf(nil, 1, 1, 'Druecke ESC oder Q zum Beenden. (%d)', counter);
       TCOD_console_flush;
 
       key := TCOD_console_check_for_keypress(TCOD_KEY_PRESSED);
