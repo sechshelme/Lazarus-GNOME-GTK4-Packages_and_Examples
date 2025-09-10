@@ -5,11 +5,31 @@ uses
   color,
   context_viewport,
   tileset,
+  list,
   console_types,
   console,
   console_init,      // SDL2 Zeugs
   console_printing,
   console_etc,
+  console_drawing,
+  console_rexpaint,
+  mersenne_types,
+  noise_defaults,
+  noise,
+  tree,
+  bresenham,
+  bsp,
+  context,                     // SDL2 Zeugs
+  context_init,
+  fov_types,
+  fov,
+  globals,
+  heapq,
+  heightmap,
+  image,
+  lex,
+
+
 
 
   fp_tcod;

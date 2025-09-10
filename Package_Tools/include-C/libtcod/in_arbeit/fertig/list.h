@@ -29,29 +29,46 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef LIBTCOD_GLOBALS_H_
-#define LIBTCOD_GLOBALS_H_
+#ifndef _TCOD_LIST_H
+#define _TCOD_LIST_H
 
-#include "config.h"
-#include "tileset.h"
-/**
-    Return the default tileset, may be NULL.
+#include "portability.h"
 
-    A non-NULL return value is a new reference to the global tileset.
-    When you are done you will need to call `TCOD_tileset_delete` on this
-    pointer.
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-    This function is provisional, the API may change in the future.
- */
-TCODLIB_CAPI TCOD_Tileset* TCOD_get_default_tileset(void);
-/**
-    Set the default tileset and update the default display to use it.
+struct TCOD_List;
 
-    This will keep alive a reference to the given tileset.  If you no longer
-    need the pointer then you should call `TCOD_tileset_delete` on it after
-    this function.
+typedef struct TCOD_List* TCOD_list_t;
 
-    This function is provisional, the API may change in the future.
- */
-TCODLIB_CAPI void TCOD_set_default_tileset(TCOD_Tileset* tileset);
-#endif  // LIBTCOD_GLOBALS_H_
+
+//TCOD_DEPRECATED("TCOD_List is not a suitable container.  Use a custom array or a C++ container instead.")
+TCOD_list_t TCOD_list_new(void);
+
+ TCOD_list_t TCOD_list_allocate(int nb_elements);
+ TCOD_list_t TCOD_list_duplicate(TCOD_list_t l);
+ void TCOD_list_delete(TCOD_list_t l);
+ void TCOD_list_push(TCOD_list_t l, const void* elt);
+ void* TCOD_list_pop(TCOD_list_t l);
+ void* TCOD_list_peek(TCOD_list_t l);
+ void TCOD_list_add_all(TCOD_list_t l, TCOD_list_t l2);
+ void* TCOD_list_get(TCOD_list_t l, int idx);
+ void TCOD_list_set(TCOD_list_t l, const void* elt, int idx);
+ void** TCOD_list_begin(TCOD_list_t l);
+ void** TCOD_list_end(TCOD_list_t l);
+ void TCOD_list_reverse(TCOD_list_t l);
+ void** TCOD_list_remove_iterator(TCOD_list_t l, void** elt);
+ void TCOD_list_remove(TCOD_list_t l, const void* elt);
+ void** TCOD_list_remove_iterator_fast(TCOD_list_t l, void** elt);
+ void TCOD_list_remove_fast(TCOD_list_t l, const void* elt);
+ bool TCOD_list_contains(TCOD_list_t l, const void* elt);
+ void TCOD_list_clear(TCOD_list_t l);
+ void TCOD_list_clear_and_delete(TCOD_list_t l);
+ int TCOD_list_size(TCOD_list_t l);
+ void** TCOD_list_insert_before(TCOD_list_t l, const void* elt, int before);
+ bool TCOD_list_is_empty(TCOD_list_t l);
+#ifdef __cplusplus
+}
+#endif
+#endif

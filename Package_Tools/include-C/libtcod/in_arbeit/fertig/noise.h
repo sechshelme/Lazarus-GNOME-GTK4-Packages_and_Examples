@@ -63,24 +63,17 @@ typedef TCOD_Noise* TCOD_noise_t;
 extern "C" {
 #endif
 /* create a new noise object */
-extern
 extern TCOD_Noise* TCOD_noise_new(int dimensions, float hurst, float lacunarity, TCOD_random_t random);
 
 /* simplified API */
 extern void TCOD_noise_set_type(TCOD_Noise*  noise, TCOD_noise_type_t type);
-extern
 extern float TCOD_noise_get_ex(TCOD_Noise*  noise, const float*  f, TCOD_noise_type_t type);
-extern
 extern float TCOD_noise_get_fbm_ex(
     TCOD_Noise*  noise, const float*  f, float octaves, TCOD_noise_type_t type);
-extern
 extern float TCOD_noise_get_turbulence_ex(
     TCOD_Noise*  noise, const float*  f, float octaves, TCOD_noise_type_t type);
-extern
 extern float TCOD_noise_get(TCOD_Noise*  noise, const float*  f);
-extern
 extern float TCOD_noise_get_fbm(TCOD_Noise*  noise, const float*  f, float octaves);
-extern
 extern float TCOD_noise_get_turbulence(TCOD_Noise*  noise, const float*  f, float octaves);
 /* delete the noise object */
 extern void TCOD_noise_delete(TCOD_Noise*  noise);

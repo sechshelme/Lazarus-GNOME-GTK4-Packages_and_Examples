@@ -47,6 +47,7 @@ type
   end;
   PTCOD_ConsoleTile = ^TTCOD_ConsoleTile;
 
+  PPTCOD_Console = ^PTCOD_Console;
   PTCOD_Console = ^TTCOD_Console;
   TTCOD_Console = record
     w: longint;

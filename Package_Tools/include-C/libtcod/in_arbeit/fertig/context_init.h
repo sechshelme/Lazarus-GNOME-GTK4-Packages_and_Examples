@@ -137,7 +137,7 @@ extern "C" {
     .. versionadded:: 1.16
     \endrst
  */
-extern extern TCOD_Error TCOD_context_new(const TCOD_ContextParams* params, TCOD_Context** out);
+extern TCOD_Error TCOD_context_new(const TCOD_ContextParams* params, TCOD_Context** out);
 #ifdef __cplusplus
 }  // extern "C"
 namespace tcod {

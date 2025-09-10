@@ -107,8 +107,8 @@ typedef struct {
     float octaves,
     float delta,
     float scale);
-TCOD_DEPRECATED("This function does nothing and will be removed.")
- void TCOD_heightmap_islandify(TCOD_heightmap_t* hm, float seaLevel, TCOD_random_t rnd);
+
+ void TCOD_heightmap_islandify(TCOD_heightmap_t* hm, float seaLevel, TCOD_random_t rnd);// xxxxxx TCOD_DEPRECATED("This function does nothing and will be removed.")
 #ifdef __cplusplus
 }
 #endif

@@ -57,12 +57,12 @@ extern "C" {
  */
 typedef bool (*TCOD_line_listener_t)(int x, int y);
 
- TCOD_DEPRECATED("This function is not reentrant. Use TCOD_line_init_mt instead.") void TCOD_line_init(
-    int xFrom, int yFrom, int xTo, int yTo);
+void TCOD_line_init(
+    int xFrom, int yFrom, int xTo, int yTo); //xxxxxxxxxxxx  TCOD_DEPRECATED("This function is not reentrant. Use TCOD_line_init_mt instead.") 
 
 /** advance one step. returns true if we reach destination */
- TCOD_DEPRECATED("This function is not reentrant.") bool TCOD_line_step(
-    int*  xCur, int*  yCur);
+bool TCOD_line_step(
+    int*  xCur, int*  yCur); // xxxxxxxxxxxxxx  TCOD_DEPRECATED("This function is not reentrant.") 
 
 /* atomic callback function. Stops when the callback returns false */
  bool TCOD_line(int xFrom, int yFrom, int xTo, int yTo, TCOD_line_listener_t listener);
@@ -84,9 +84,9 @@ typedef struct {
  void TCOD_line_init_mt(int xFrom, int yFrom, int xTo, int yTo, TCOD_bresenham_data_t* data);
  bool TCOD_line_step_mt(int*  xCur, int*  yCur, TCOD_bresenham_data_t*  data);
 
-TCOD_DEPRECATED("Use TCOD_line instead.")
+
  bool TCOD_line_mt(
-    int xFrom, int yFrom, int xTo, int yTo, TCOD_line_listener_t listener, TCOD_bresenham_data_t* data);
+    int xFrom, int yFrom, int xTo, int yTo, TCOD_line_listener_t listener, TCOD_bresenham_data_t* data);// xxxxxxxxxx TCOD_DEPRECATED("Use TCOD_line instead.")
 
 #ifdef __cplusplus
 }  // extern "C"

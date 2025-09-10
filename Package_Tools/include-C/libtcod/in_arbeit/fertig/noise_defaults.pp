@@ -1,4 +1,33 @@
-/* BSD 3-Clause License
+
+unit noise_defaults;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from noise_defaults.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    noise_defaults.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ BSD 3-Clause License
  *
  * Copyright © 2008-2021, Jice and the libtcod contributors.
  * All rights reserved.
@@ -28,47 +57,19 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- */
-#ifndef _TCOD_LIST_H
-#define _TCOD_LIST_H
+  }
+{$ifndef _TCOD_NOISE_DEFAULTS}
+{$define _TCOD_NOISE_DEFAULTS}
 
-#include "portability.h"
+const
+  TCOD_NOISE_MAX_OCTAVES = 128;  
+  TCOD_NOISE_MAX_DIMENSIONS = 4;  
+  TCOD_NOISE_DEFAULT_HURST = 0.5;  
+  TCOD_NOISE_DEFAULT_LACUNARITY = 2.0;  
+{$endif}
+{ _TCOD_NOISE_DEFAULTS  }
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-struct TCOD_List;
-
-typedef struct TCOD_List* TCOD_list_t;
+implementation
 
 
-TCOD_DEPRECATED("TCOD_List is not a suitable container.  Use a custom array or a C++ container instead.")
-TCOD_list_t TCOD_list_new(void);
-
- TCOD_list_t TCOD_list_allocate(int nb_elements);
- TCOD_list_t TCOD_list_duplicate(TCOD_list_t l);
- void TCOD_list_delete(TCOD_list_t l);
- void TCOD_list_push(TCOD_list_t l, const void* elt);
- void* TCOD_list_pop(TCOD_list_t l);
- void* TCOD_list_peek(TCOD_list_t l);
- void TCOD_list_add_all(TCOD_list_t l, TCOD_list_t l2);
- void* TCOD_list_get(TCOD_list_t l, int idx);
- void TCOD_list_set(TCOD_list_t l, const void* elt, int idx);
- void** TCOD_list_begin(TCOD_list_t l);
- void** TCOD_list_end(TCOD_list_t l);
- void TCOD_list_reverse(TCOD_list_t l);
- void** TCOD_list_remove_iterator(TCOD_list_t l, void** elt);
- void TCOD_list_remove(TCOD_list_t l, const void* elt);
- void** TCOD_list_remove_iterator_fast(TCOD_list_t l, void** elt);
- void TCOD_list_remove_fast(TCOD_list_t l, const void* elt);
- bool TCOD_list_contains(TCOD_list_t l, const void* elt);
- void TCOD_list_clear(TCOD_list_t l);
- void TCOD_list_clear_and_delete(TCOD_list_t l);
- int TCOD_list_size(TCOD_list_t l);
- void** TCOD_list_insert_before(TCOD_list_t l, const void* elt, int before);
- bool TCOD_list_is_empty(TCOD_list_t l);
-#ifdef __cplusplus
-}
-#endif
-#endif
+end.
