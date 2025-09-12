@@ -3,13 +3,17 @@ program project1;
 uses
   fp_tcod;
 
+const
+//  FontPath='/home/tux/Schreibtisch/fonts/png/drdos8x6.psfu_9x16.png';
+  FontPath='t.fnt_9x16.png';
+
   procedure main;
   var
     key: TTCOD_key_t;
     counter: integer = 0;
     i, x, y: integer;
   begin
-    TCOD_console_set_custom_font('t.fnt_9x16.png', TCOD_FONT_LAYOUT_ASCII_INROW, 256, 1);
+    TCOD_console_set_custom_font(FontPath, TCOD_FONT_LAYOUT_ASCII_INROW, 256, 1);
     WriteLn(TCOD_get_error);
     TCOD_console_init_root(80, 25, 'libtcod C Beispiel', False, TCOD_RENDERER_OPENGL2);
 
