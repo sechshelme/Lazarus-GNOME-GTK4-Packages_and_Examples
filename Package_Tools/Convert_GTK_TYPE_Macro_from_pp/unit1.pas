@@ -231,6 +231,7 @@ const
     (libs: 'libltdl'; units: 'fp_ltdl'),
     (libs: 'libelf'; units: 'fp_elf'),
     (libs: 'libtcod'; units: 'fp_tcod'),
+    (libs: 'libinput'; units: 'fp_libudev'),
 
 
 
