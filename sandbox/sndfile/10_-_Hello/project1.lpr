@@ -34,7 +34,6 @@ const
       Exit;
     end;
 
-    // Buffer für Samples (hier für mono, float samples)
     repeat
       num_read := sf_read_float(infile, buffer, BUFFSIZE);
       Write('.');
