@@ -196,7 +196,6 @@ const
     (libs: 'libsystemd'; units: 'ctypes'),
 
 
-    (libs: 'libc'; units: 'ctypes'),
 
     (libs: 'libibus'; units: 'fp_glib2, ibus'),
 
@@ -233,7 +232,9 @@ const
     (libs: 'libtcod'; units: 'fp_tcod'),
     (libs: 'libinput'; units: 'fp_libudev'),
 
+    (libs: 'libc'; units: 'ctypes'),
 
+    (libs: 'libsndfile'; units: 'ctypes'),
 
 
 
