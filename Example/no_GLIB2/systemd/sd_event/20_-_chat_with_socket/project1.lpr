@@ -5,6 +5,8 @@ uses
   fp_signal,
   fp_time,
   clib,
+  fp_arpa,
+  fp_poll,
   fp_unistd,
   fp_stdlib,
   fp_stdio,

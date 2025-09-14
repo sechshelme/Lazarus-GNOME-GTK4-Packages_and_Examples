@@ -151,6 +151,10 @@
         <Filename Value="linux/fp_stat.pas"/>
         <UnitName Value="fp_stat"/>
       </Item>
+      <Item>
+        <Filename Value="linux/fp_poll.pas"/>
+        <UnitName Value="fp_poll"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

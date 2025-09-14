@@ -12,6 +12,7 @@ const
 
   {$IFDEF windows}
   {$ENDIF}
+
 type
   Tuint8_t = uint8;
   Puint8_t = ^Tuint8_t;

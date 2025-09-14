@@ -5,6 +5,7 @@ uses
   fp_time,
   fp_unistd,
   fp_stdlib,
+  fp_poll,
   clib,
   fp_systemd;
 
@@ -32,9 +33,6 @@ const
   WhiteText = #27'[1;37m';
   YellowText = #27'[33m';
   ResetText = #27'[0m';
-
-const
-  EPOLLIN = 1;
 
 type
   Tformat = record

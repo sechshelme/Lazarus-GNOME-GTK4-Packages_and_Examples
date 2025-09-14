@@ -285,9 +285,6 @@ type
   Pmbstate_t = type Pointer;
 
 
-const  // /usr/include/x86_64-linux-gnu/sys/epoll.h
-  EPOLLIN = 1;
-
 const // /usr/include/linux/if_ether.h
   ETH_ALEN = 6;
   ETH_TLEN = 2;
