@@ -236,6 +236,8 @@ const
 
     (libs: 'libsndfile'; units: 'ctypes'),
 
+    (libs: 'libjsonglib'; units: 'fp_json_glib'),
+
 
     (libs: ''; units: ''));
 
