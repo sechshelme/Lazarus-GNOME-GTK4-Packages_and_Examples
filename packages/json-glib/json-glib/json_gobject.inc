@@ -1,13 +1,4 @@
-unit json_gobject;
-
-interface
-
-uses
-  fp_glib2, fp_json_glib, json_types;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -58,7 +49,10 @@ function JSON_SERIALIZABLE(obj: Pointer): PJsonSerializable;
 function JSON_IS_SERIALIZABLE(obj: Pointer): Tgboolean;
 function JSON_SERIALIZABLE_GET_IFACE(obj: Pointer): PJsonSerializableIface;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function JSON_TYPE_SERIALIZABLE: TGType;
 begin
@@ -82,4 +76,4 @@ end;
 
 
 
-end.
+{$ENDIF read_implementation}

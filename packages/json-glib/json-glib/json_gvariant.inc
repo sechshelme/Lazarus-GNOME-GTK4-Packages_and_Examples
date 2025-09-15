@@ -1,13 +1,4 @@
-unit json_gvariant;
-
-interface
-
-uses
-  fp_glib2, fp_json_glib, json_types;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 function json_gvariant_serialize(variant: PGVariant): PJsonNode; cdecl; external libjsonglib;
@@ -18,8 +9,11 @@ function json_gvariant_deserialize_data(json: Pgchar; length: Tgssize; signature
 // === Konventiert am: 15-9-25 13:26:39 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

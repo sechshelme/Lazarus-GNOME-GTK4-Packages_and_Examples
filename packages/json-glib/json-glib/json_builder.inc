@@ -1,13 +1,4 @@
-unit json_builder;
-
-interface
-
-uses
-  fp_glib2, fp_json_glib, json_types;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -52,7 +43,10 @@ function JSON_IS_BUILDER(obj: Pointer): Tgboolean;
 function JSON_IS_BUILDER_CLASS(klass: Pointer): Tgboolean;
 function JSON_BUILDER_GET_CLASS(obj: Pointer): PJsonBuilderClass;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function JSON_TYPE_BUILDER: TGType;
 begin
@@ -86,4 +80,4 @@ end;
 
 
 
-end.
+{$ENDIF read_implementation}

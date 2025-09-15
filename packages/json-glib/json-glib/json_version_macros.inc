@@ -1,13 +1,4 @@
-unit json_version_macros;
-
-interface
-
-uses
-  fp_glib2, fp_json_glib;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 function JSON_VERSION_1_0: longint;
@@ -19,7 +10,10 @@ function JSON_VERSION_1_8: longint;
   // === Konventiert am: 15-9-25 13:27:56 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 function JSON_VERSION_1_0: longint;
@@ -48,4 +42,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

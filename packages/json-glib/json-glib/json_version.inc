@@ -1,13 +1,4 @@
-unit json_version;
-
-interface
-
-uses
-  fp_json_glib;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 
@@ -24,7 +15,10 @@ function JSON_CHECK_VERSION(major, minor, micro: integer): boolean; inline;
 // === Konventiert am: 15-9-25 13:27:52 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function JSON_CHECK_VERSION(major, minor, micro: integer): boolean; inline;
 begin
@@ -46,4 +40,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

@@ -1,13 +1,4 @@
-unit json_reader;
-
-interface
-
-uses
-  fp_glib2, fp_json_glib, json_types;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 
@@ -79,7 +70,10 @@ function JSON_IS_READER(obj: Pointer): Tgboolean;
 function JSON_IS_READER_CLASS(klass: Pointer): Tgboolean;
 function JSON_READER_GET_CLASS(obj: Pointer): PJsonReaderClass;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function JSON_TYPE_READER: TGType;
 begin
@@ -118,4 +112,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

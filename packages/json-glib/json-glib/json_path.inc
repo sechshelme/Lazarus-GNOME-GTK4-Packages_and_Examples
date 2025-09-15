@@ -1,13 +1,4 @@
-unit json_path;
-
-interface
-
-uses
-  fp_glib2, fp_json_glib, json_types;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 
@@ -36,7 +27,10 @@ function JSON_TYPE_PATH: TGType;
 function JSON_PATH(obj: Pointer): PJsonPath;
 function JSON_IS_PATH(obj: Pointer): Tgboolean;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function JSON_TYPE_PATH: TGType;
 begin
@@ -60,4 +54,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

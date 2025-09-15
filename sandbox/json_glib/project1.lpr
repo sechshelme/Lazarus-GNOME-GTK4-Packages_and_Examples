@@ -3,22 +3,6 @@ program project1;
 uses
   ctypes,
   fp_glib2,
-
-  json_types,
-  json_builder,
-  json_enum_types,
-  json_generator,
-  json_gobject,
-  json_gvariant,
-  json_parser,
-  json_path,
-  json_reader,
-  json_utils,
-  json_version,
-  json_version_macros,
-
-
-
   fp_json_glib;
 
 const
@@ -98,6 +82,7 @@ const
   begin
     save_json(path);
     load_json(path);
+    Result := 0;
   end;
 
 begin

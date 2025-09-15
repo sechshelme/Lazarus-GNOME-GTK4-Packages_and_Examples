@@ -1,13 +1,4 @@
-unit json_generator;
-
-interface
-
-uses
-  fp_glib2, fp_json_glib, json_types;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -52,7 +43,10 @@ function JSON_IS_GENERATOR(obj: Pointer): Tgboolean;
 function JSON_IS_GENERATOR_CLASS(klass: Pointer): Tgboolean;
 function JSON_GENERATOR_GET_CLASS(obj: Pointer): PJsonGeneratorClass;
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function JSON_TYPE_GENERATOR: TGType;
 begin
@@ -86,4 +80,4 @@ end;
 
 
 
-end.
+{$ENDIF read_implementation}

@@ -15,13 +15,13 @@ const
   {$ENDIF}
 
   {$DEFINE read_interface}
-//  {$include fp_json_glib_includes.inc}
+  {$include fp_json_glib_includes.inc}
   {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-// {$include fp_json_glib_includes.inc}
+{$include fp_json_glib_includes.inc}
 {$UNDEF read_implementation}
 
 end.
