@@ -18,8 +18,10 @@ const
     builder := json_builder_new;
 
     json_builder_begin_object(builder);
-    json_builder_set_member_name(builder, 'name');
+    json_builder_set_member_name(builder, 'firstname');
     json_builder_add_string_value(builder, 'Peter');
+    json_builder_set_member_name(builder, 'lastname');
+    json_builder_add_string_value(builder, 'Weber');
     json_builder_set_member_name(builder, 'age');
     json_builder_add_int_value(builder, 37);
     json_builder_end_object(builder);
@@ -65,13 +67,17 @@ const
     root := json_parser_get_root(parser);
     if JSON_NODE_HOLDS_OBJECT(root) then begin
       obj := json_node_get_object(root);
-      if json_object_has_member(obj, 'name') then begin
-        name := json_object_get_string_member(obj, 'name');
-        g_print('Name: %s'#10, name);
+      if json_object_has_member(obj, 'firstname') then begin
+        name := json_object_get_string_member(obj, 'firstname');
+        g_print('Vorname:  %s'#10, name);
+      end;
+      if json_object_has_member(obj, 'lastname') then begin
+        name := json_object_get_string_member(obj, 'lastname');
+        g_print('Nachname: %s'#10, name);
       end;
       if json_object_has_member(obj, 'age') then begin
         age := json_object_get_int_member(obj, 'age');
-        g_print('Age: %d'#10, age);
+        g_print('Alter:    %d'#10, age);
       end;
     end;
 
