@@ -1,37 +1,10 @@
+unit gmime_param;
 
-unit gmime_param_xxxxx;
 interface
 
-{
-  Automatically converted by H2Pas 1.0.0 from gmime_param_xxxxx.h
-  The following command line parameters were used:
-    -p
-    -T
-    -d
-    -c
-    -e
-    gmime_param_xxxxx.h
-}
+uses
+  fp_glib2, fp_gmime3;
 
-{ Pointers to basic pascal types, inserted by h2pas conversion program.}
-Type
-  PLongint  = ^Longint;
-  PSmallInt = ^SmallInt;
-  PByte     = ^Byte;
-  PWord     = ^Word;
-  PDWord    = ^DWord;
-  PDouble   = ^Double;
-
-Type
-Pchar  = ^char;
-PGMimeFormatOptions  = ^GMimeFormatOptions;
-PGMimeParam  = ^GMimeParam;
-PGMimeParamClass  = ^GMimeParamClass;
-PGMimeParamList  = ^GMimeParamList;
-PGMimeParamListClass  = ^GMimeParamListClass;
-PGMimeParserOptions  = ^GMimeParserOptions;
-PGPtrArray  = ^GPtrArray;
-PGString  = ^GString;
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
@@ -120,23 +93,16 @@ type
     end;
 
 
-function g_mime_param_get_type:TGType;cdecl;external;
-(* Const before type ignored *)
-function g_mime_param_get_name(param:PGMimeParam):Pchar;cdecl;external;
-(* Const before type ignored *)
-function g_mime_param_get_value(param:PGMimeParam):Pchar;cdecl;external;
-(* Const before type ignored *)
-procedure g_mime_param_set_value(param:PGMimeParam; value:Pchar);cdecl;external;
-(* Const before type ignored *)
-function g_mime_param_get_charset(param:PGMimeParam):Pchar;cdecl;external;
-(* Const before type ignored *)
-procedure g_mime_param_set_charset(param:PGMimeParam; charset:Pchar);cdecl;external;
-(* Const before type ignored *)
-function g_mime_param_get_lang(param:PGMimeParam):Pchar;cdecl;external;
-(* Const before type ignored *)
-procedure g_mime_param_set_lang(param:PGMimeParam; lang:Pchar);cdecl;external;
-function g_mime_param_get_encoding_method(param:PGMimeParam):TGMimeParamEncodingMethod;cdecl;external;
-procedure g_mime_param_set_encoding_method(param:PGMimeParam; method:TGMimeParamEncodingMethod);cdecl;external;
+function g_mime_param_get_type:TGType;cdecl;external libgmime3;
+function g_mime_param_get_name(param:PGMimeParam):Pchar;cdecl;external libgmime3;
+function g_mime_param_get_value(param:PGMimeParam):Pchar;cdecl;external libgmime3;
+procedure g_mime_param_set_value(param:PGMimeParam; value:Pchar);cdecl;external libgmime3;
+function g_mime_param_get_charset(param:PGMimeParam):Pchar;cdecl;external libgmime3;
+procedure g_mime_param_set_charset(param:PGMimeParam; charset:Pchar);cdecl;external libgmime3;
+function g_mime_param_get_lang(param:PGMimeParam):Pchar;cdecl;external libgmime3;
+procedure g_mime_param_set_lang(param:PGMimeParam; lang:Pchar);cdecl;external libgmime3;
+function g_mime_param_get_encoding_method(param:PGMimeParam):TGMimeParamEncodingMethod;cdecl;external libgmime3;
+procedure g_mime_param_set_encoding_method(param:PGMimeParam; method:TGMimeParamEncodingMethod);cdecl;external libgmime3;
 {*
  * GMimeParamList:
  *
@@ -157,26 +123,61 @@ type
     end;
 
 
-function g_mime_param_list_get_type:TGType;cdecl;external;
-function g_mime_param_list_new:PGMimeParamList;cdecl;external;
-(* Const before type ignored *)
-function g_mime_param_list_parse(options:PGMimeParserOptions; str:Pchar):PGMimeParamList;cdecl;external;
-function g_mime_param_list_length(list:PGMimeParamList):longint;cdecl;external;
-procedure g_mime_param_list_clear(list:PGMimeParamList);cdecl;external;
-(* Const before type ignored *)
-(* Const before type ignored *)
-procedure g_mime_param_list_set_parameter(list:PGMimeParamList; name:Pchar; value:Pchar);cdecl;external;
-(* Const before type ignored *)
-function g_mime_param_list_get_parameter(list:PGMimeParamList; name:Pchar):PGMimeParam;cdecl;external;
-function g_mime_param_list_get_parameter_at(list:PGMimeParamList; index:longint):PGMimeParam;cdecl;external;
-(* Const before type ignored *)
-function g_mime_param_list_remove(list:PGMimeParamList; name:Pchar):Tgboolean;cdecl;external;
-function g_mime_param_list_remove_at(list:PGMimeParamList; index:longint):Tgboolean;cdecl;external;
-procedure g_mime_param_list_encode(list:PGMimeParamList; options:PGMimeFormatOptions; fold:Tgboolean; str:PGString);cdecl;external;
+function g_mime_param_list_get_type:TGType;cdecl;external libgmime3;
+function g_mime_param_list_new:PGMimeParamList;cdecl;external libgmime3;
+function g_mime_param_list_parse(options:PGMimeParserOptions; str:Pchar):PGMimeParamList;cdecl;external libgmime3;
+function g_mime_param_list_length(list:PGMimeParamList):longint;cdecl;external libgmime3;
+procedure g_mime_param_list_clear(list:PGMimeParamList);cdecl;external libgmime3;
+procedure g_mime_param_list_set_parameter(list:PGMimeParamList; name:Pchar; value:Pchar);cdecl;external libgmime3;
+function g_mime_param_list_get_parameter(list:PGMimeParamList; name:Pchar):PGMimeParam;cdecl;external libgmime3;
+function g_mime_param_list_get_parameter_at(list:PGMimeParamList; index:longint):PGMimeParam;cdecl;external libgmime3;
+function g_mime_param_list_remove(list:PGMimeParamList; name:Pchar):Tgboolean;cdecl;external libgmime3;
+function g_mime_param_list_remove_at(list:PGMimeParamList; index:longint):Tgboolean;cdecl;external libgmime3;
+procedure g_mime_param_list_encode(list:PGMimeParamList; options:PGMimeFormatOptions; fold:Tgboolean; str:PGString);cdecl;external libgmime3;
 {$endif}
 { __GMIME_PARAM_H__  }
 
+// === Konventiert am: 18-9-25 15:31:20 ===
+
+function GMIME_TYPE_PARAM : TGType;
+function GMIME_PARAM(obj : Pointer) : PGMimeParam;
+function GMIME_PARAM_CLASS(klass : Pointer) : PGMimeParamClass;
+function GMIME_IS_PARAM(obj : Pointer) : Tgboolean;
+function GMIME_IS_PARAM_CLASS(klass : Pointer) : Tgboolean;
+function GMIME_PARAM_GET_CLASS(obj : Pointer) : PGMimeParamClass;
+
 implementation
+
+function GMIME_TYPE_PARAM : TGType;
+  begin
+    GMIME_TYPE_PARAM:=g_mime_param_get_type;
+  end;
+
+function GMIME_PARAM(obj : Pointer) : PGMimeParam;
+begin
+  Result := PGMimeParam(g_type_check_instance_cast(obj, GMIME_TYPE_PARAM));
+end;
+
+function GMIME_PARAM_CLASS(klass : Pointer) : PGMimeParamClass;
+begin
+  Result := PGMimeParamClass(g_type_check_class_cast(klass, GMIME_TYPE_PARAM));
+end;
+
+function GMIME_IS_PARAM(obj : Pointer) : Tgboolean;
+begin
+  Result := g_type_check_instance_is_a(obj,  GMIME_TYPE_PARAM);
+end;
+
+function GMIME_IS_PARAM_CLASS(klass : Pointer) : Tgboolean;
+begin
+  Result := g_type_check_class_is_a(klass,  GMIME_TYPE_PARAM);
+end;
+
+function GMIME_PARAM_GET_CLASS(obj : Pointer) : PGMimeParamClass;
+begin
+  Result := PGMimeParamClass(PGTypeInstance(obj)^.g_class);
+end;
+
 
 { was #define dname def_expr }
 function GMIME_TYPE_PARAM_LIST : longint; { return type might be wrong }
