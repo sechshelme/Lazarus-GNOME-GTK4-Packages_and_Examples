@@ -140,44 +140,9 @@ function g_mime_header_list_to_string(headers:PGMimeHeaderList; options:PGMimeFo
 
 // === Konventiert am: 18-9-25 15:29:03 ===
 
-function GMIME_TYPE_HEADER_LIST : TGType;
-function GMIME_HEADER_LIST(obj : Pointer) : PGMimeHeaderList;
-function GMIME_HEADER_LIST_CLASS(klass : Pointer) : PGMimeHeaderListClass;
-function GMIME_IS_HEADER_LIST(obj : Pointer) : Tgboolean;
-function GMIME_IS_HEADER_LIST_CLASS(klass : Pointer) : Tgboolean;
-function GMIME_HEADER_LIST_GET_CLASS(obj : Pointer) : PGMimeHeaderListClass;
 
 implementation
 
-function GMIME_TYPE_HEADER_LIST : TGType;
-  begin
-    GMIME_TYPE_HEADER_LIST:=g_mime_header_list_get_type;
-  end;
-
-function GMIME_HEADER_LIST(obj : Pointer) : PGMimeHeaderList;
-begin
-  Result := PGMimeHeaderList(g_type_check_instance_cast(obj, GMIME_TYPE_HEADER_LIST));
-end;
-
-function GMIME_HEADER_LIST_CLASS(klass : Pointer) : PGMimeHeaderListClass;
-begin
-  Result := PGMimeHeaderListClass(g_type_check_class_cast(klass, GMIME_TYPE_HEADER_LIST));
-end;
-
-function GMIME_IS_HEADER_LIST(obj : Pointer) : Tgboolean;
-begin
-  Result := g_type_check_instance_is_a(obj,  GMIME_TYPE_HEADER_LIST);
-end;
-
-function GMIME_IS_HEADER_LIST_CLASS(klass : Pointer) : Tgboolean;
-begin
-  Result := g_type_check_class_is_a(klass,  GMIME_TYPE_HEADER_LIST);
-end;
-
-function GMIME_HEADER_LIST_GET_CLASS(obj : Pointer) : PGMimeHeaderListClass;
-begin
-  Result := PGMimeHeaderListClass(PGTypeInstance(obj)^.g_class);
-end;
 
 
 

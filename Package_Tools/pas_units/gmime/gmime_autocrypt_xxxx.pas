@@ -131,44 +131,9 @@ procedure g_mime_autocrypt_header_list_remove_incomplete(list:PGMimeAutocryptHea
 
 // === Konventiert am: 18-9-25 15:25:39 ===
 
-function GMIME_TYPE_AUTOCRYPT_HEADER_LIST : TGType;
-function GMIME_AUTOCRYPT_HEADER_LIST(obj : Pointer) : PGMimeAutocryptHeaderList;
-function GMIME_AUTOCRYPT_HEADER_LIST_CLASS(klass : Pointer) : PGMimeAutocryptHeaderListClass;
-function GMIME_IS_AUTOCRYPT_HEADER_LIST(obj : Pointer) : Tgboolean;
-function GMIME_IS_AUTOCRYPT_HEADER_LIST_CLASS(klass : Pointer) : Tgboolean;
-function GMIME_AUTOCRYPT_HEADER_LIST_GET_CLASS(obj : Pointer) : PGMimeAutocryptHeaderListClass;
 
 implementation
 
-function GMIME_TYPE_AUTOCRYPT_HEADER_LIST : TGType;
-  begin
-    GMIME_TYPE_AUTOCRYPT_HEADER_LIST:=g_mime_autocrypt_header_list_get_type;
-  end;
-
-function GMIME_AUTOCRYPT_HEADER_LIST(obj : Pointer) : PGMimeAutocryptHeaderList;
-begin
-  Result := PGMimeAutocryptHeaderList(g_type_check_instance_cast(obj, GMIME_TYPE_AUTOCRYPT_HEADER_LIST));
-end;
-
-function GMIME_AUTOCRYPT_HEADER_LIST_CLASS(klass : Pointer) : PGMimeAutocryptHeaderListClass;
-begin
-  Result := PGMimeAutocryptHeaderListClass(g_type_check_class_cast(klass, GMIME_TYPE_AUTOCRYPT_HEADER_LIST));
-end;
-
-function GMIME_IS_AUTOCRYPT_HEADER_LIST(obj : Pointer) : Tgboolean;
-begin
-  Result := g_type_check_instance_is_a(obj,  GMIME_TYPE_AUTOCRYPT_HEADER_LIST);
-end;
-
-function GMIME_IS_AUTOCRYPT_HEADER_LIST_CLASS(klass : Pointer) : Tgboolean;
-begin
-  Result := g_type_check_class_is_a(klass,  GMIME_TYPE_AUTOCRYPT_HEADER_LIST);
-end;
-
-function GMIME_AUTOCRYPT_HEADER_LIST_GET_CLASS(obj : Pointer) : PGMimeAutocryptHeaderListClass;
-begin
-  Result := PGMimeAutocryptHeaderListClass(PGTypeInstance(obj)^.g_class);
-end;
 
 
 

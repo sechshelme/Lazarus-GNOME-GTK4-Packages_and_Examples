@@ -59,16 +59,16 @@ uses
   gmime_crypto_context,
   gmime_crypto_context_xxxxx,
   gmime_pkcs7_context,
-  gmime_gpg_context,
+  gmime_gpg_context,             // gmime_crypto_context
 
 
 
-  gmime_autocrypt,
-  gmime_autocrypt_xxxx,
+  gmime_autocrypt,               // internet_address
+//  gmime_autocrypt_xxxx,
   gmime_certificate,
-  gmime_certificate_xxxxx,
-  gmime_header,
-  gmime_header_xxxxx,
+//  gmime_certificate_xxxxx,
+  gmime_header,                  // gmime_parser_options, gmime_stream
+//  gmime_header_xxxxx,
   gmime_signature,               // gmime_certificate
 //  gmime_signature_xxxx,
 //  internet_address_xxxxx1,
