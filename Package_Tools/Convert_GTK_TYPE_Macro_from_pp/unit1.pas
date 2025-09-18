@@ -238,6 +238,7 @@ const
 
     (libs: 'libjsonglib'; units: 'fp_json_glib'),
     (libs: 'libgsound'; units: 'fp_glib2'),
+    (libs: 'libgmime3'; units: 'fp_glib2, fp_gmime3'),   // /usr/lib/x86_64-linux-gnu/libgmime-3.0.so
 
 
     (libs: ''; units: ''));
