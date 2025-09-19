@@ -270,35 +270,6 @@ function GMIME_DECRYPT_RESULT_GET_CLASS(obj : Pointer) : PGMimeDecryptResultClas
 
 implementation
 
-function GMIME_TYPE_DECRYPT_RESULT : TGType;
-  begin
-    GMIME_TYPE_DECRYPT_RESULT:=g_mime_decrypt_result_get_type;
-  end;
-
-function GMIME_DECRYPT_RESULT(obj : Pointer) : PGMimeDecryptResult;
-begin
-  Result := PGMimeDecryptResult(g_type_check_instance_cast(obj, GMIME_TYPE_DECRYPT_RESULT));
-end;
-
-function GMIME_DECRYPT_RESULT_CLASS(klass : Pointer) : PGMimeDecryptResultClass;
-begin
-  Result := PGMimeDecryptResultClass(g_type_check_class_cast(klass, GMIME_TYPE_DECRYPT_RESULT));
-end;
-
-function GMIME_IS_DECRYPT_RESULT(obj : Pointer) : Tgboolean;
-begin
-  Result := g_type_check_instance_is_a(obj,  GMIME_TYPE_DECRYPT_RESULT);
-end;
-
-function GMIME_IS_DECRYPT_RESULT_CLASS(klass : Pointer) : Tgboolean;
-begin
-  Result := g_type_check_class_is_a(klass,  GMIME_TYPE_DECRYPT_RESULT);
-end;
-
-function GMIME_DECRYPT_RESULT_GET_CLASS(obj : Pointer) : PGMimeDecryptResultClass;
-begin
-  Result := PGMimeDecryptResultClass(PGTypeInstance(obj)^.g_class);
-end;
 
 
 

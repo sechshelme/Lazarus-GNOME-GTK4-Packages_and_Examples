@@ -42,7 +42,7 @@ uses
   gmime_stream_pipe,
   gmime_filter,
   gmime_filter_basic,
-  gmime_filter_best,
+  gmime_filter_best,              // gmime_charset, gmime_encodings
   gmime_filter_charset,
   gmime_filter_checksum,
   gmime_filter_dos2unix,
@@ -53,27 +53,17 @@ uses
   gmime_filter_openpgp,
   gmime_filter_smtp_data,
   gmime_filter_strip,
-  gmime_filter_unix2dos,
-  gmime_filter_windows,
-  gmime_filter_yenc,
-  gmime_crypto_context,
-  gmime_crypto_context_xxxxx,
-  gmime_pkcs7_context,
-  gmime_gpg_context,             // gmime_crypto_context
+  gmime_filter_unix2dos,         // gmime_filter
+  gmime_filter_windows,          // gmime_filter
+  gmime_filter_yenc,             // gmime_filter
 
-
-
-  gmime_autocrypt,               // internet_address
-//  gmime_autocrypt_xxxx,
   gmime_certificate,
-//  gmime_certificate_xxxxx,
-  gmime_header,                  // gmime_parser_options, gmime_stream
-//  gmime_header_xxxxx,
   gmime_signature,               // gmime_certificate
-//  gmime_signature_xxxx,
-//  internet_address_xxxxx1,
-//  internet_address_xxxxx2,
-//  internet_address_xxxxx3,
+  gmime_crypto_context,          // gmime_stream, gmime_certificate, gmime_signature
+  gmime_pkcs7_context,           // gmime_crypto_context
+  gmime_gpg_context,             // gmime_crypto_context
+  gmime_autocrypt,               // internet_address
+  gmime_header,                  // gmime_parser_options, gmime_stream
 
 
 
@@ -82,6 +72,58 @@ uses
 
   procedure main;
   begin
+    GMimeMessage *message;
+        GMimeTextPart *body;
+        GMimeDataWrapper *wrapper;
+        const char *text = "Hallo Alice, wie geht's?\n";
+        GMimeStream *stream;
+
+        /* GMime initialisieren */
+        g_mime_init();
+
+        /* Neue Nachricht erzeugen */
+        message = g_mime_message_new(TRUE);
+
+        /* Absender und Empfänger setzen */
+        g_mime_message_add_mailbox(message, GMIME_ADDRESS_TYPE_FROM, "Joey", "joey@friends.com");
+        g_mime_message_add_mailbox(message, GMIME_ADDRESS_TYPE_TO, "Alice", "alice@wonderland.com");
+
+        /* Betreff setzen */
+        g_mime_message_set_subject(message, "How you doin?", NULL);
+
+        /* Textpart mit Subtyp "plain" erzeugen */
+        body = g_mime_text_part_new_with_subtype("plain");
+
+        /* Memory-Stream mit Inhalt anlegen */
+        stream = g_mime_stream_mem_new_with_buffer((guchar *)text, strlen(text));
+        wrapper = g_mime_data_wrapper_new_with_stream(stream, GMIME_CONTENT_ENCODING_DEFAULT);
+        g_object_unref(stream);
+
+        /* Daten-Wrapper als Inhalt am Textpart setzen */
+        g_mime_part_set_content((GMimePart *)body, wrapper);
+
+        /* Textpart als Mime-Part der Nachricht setzen */
+        g_mime_message_set_mime_part(message, (GMimeObject *)body);
+
+        /* Nachricht auf stdout serialisieren */
+        GMimeStream *outstream = g_mime_stream_file_new(stdout);
+        g_mime_object_write_to_stream((GMimeObject *)message, NULL, outstream);
+    g_mime_stream_printf(outstream, "Hallo Welt!\n");
+
+    g_printf("Text: %s\n", outstream);
+        g_mime_stream_flush(outstream);
+
+    g_printf("Text: %s\n", outstream);
+
+
+        /* Aufräumen */
+        g_object_unref(wrapper);
+        g_object_unref(body);
+        g_object_unref(message);
+        g_object_unref(outstream);
+
+        /* GMime beenden */
+        g_mime_shutdown();
   end;
 
 begin

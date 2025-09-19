@@ -9,6 +9,9 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+type
+  PGMimeGpgContext = type Pointer;
+  PGMimeGpgContextClass = type Pointer;
 
 function g_mime_gpg_context_get_type: TGType; cdecl; external libgmime3;
 function g_mime_gpg_context_new: PGMimeCryptoContext; cdecl; external libgmime3;
