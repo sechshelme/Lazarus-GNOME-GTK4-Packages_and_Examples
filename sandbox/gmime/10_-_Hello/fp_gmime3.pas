@@ -19,19 +19,21 @@ const
   {$ENDIF}
 
 type
-  Tsize_t=SizeUInt;
-  Psize_t=^Tsize_t;
+  Tsize_t = SizeUInt;
+  Psize_t = ^Tsize_t;
 
-  Tssize_t=SizeInt;
+  Tssize_t = SizeInt;
 
 const  // libc
   SEEK_SET = 0;
   SEEK_CUR = 1;
   SEEK_END = 2;
 
+type // Herkunft unbekannte
+  Pcat_node = type Pointer;
 
   {$DEFINE read_interface}
-//  {$include fp_gmime3_includes.inc}
+  //  {$include fp_gmime3_includes.inc}
   {$UNDEF read_interface}
 
 

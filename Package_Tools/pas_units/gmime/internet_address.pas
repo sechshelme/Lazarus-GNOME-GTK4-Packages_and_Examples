@@ -3,7 +3,7 @@ unit internet_address;
 interface
 
 uses
-  fp_glib2, fp_gmime3, gmime_format_options;
+  fp_glib2, fp_gmime3, gmime_format_options, gmime_parser_options;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -53,6 +53,19 @@ function internet_address_mailbox_get_addr(mailbox: PInternetAddressMailbox): pc
 function internet_address_mailbox_get_idn_addr(mailbox: PInternetAddressMailbox): pchar; cdecl; external libgmime3;
 
 type
+  TInternetAddressList = record
+    parent_object: TGObject;
+    arr: PGPtrArray;
+    changed: Tgpointer;
+  end;
+  PInternetAddressList = ^TInternetAddressList;
+
+  TInternetAddressListClass = record
+    parent_class: TGObjectClass;
+  end;
+  PInternetAddressListClass = ^TInternetAddressListClass;
+
+type
   TInternetAddressGroup = record
     parent_object: TInternetAddress;
     members: PInternetAddressList;
@@ -69,19 +82,6 @@ function internet_address_group_new(name: pchar): PInternetAddress; cdecl; exter
 procedure internet_address_group_set_members(group: PInternetAddressGroup; members: PInternetAddressList); cdecl; external libgmime3;
 function internet_address_group_get_members(group: PInternetAddressGroup): PInternetAddressList; cdecl; external libgmime3;
 function internet_address_group_add_member(group: PInternetAddressGroup; member: PInternetAddress): longint; cdecl; external libgmime3;
-
-type
-  TInternetAddressList = record
-    parent_object: TGObject;
-    arr: PGPtrArray;
-    changed: Tgpointer;
-  end;
-  PInternetAddressList = ^TInternetAddressList;
-
-  TInternetAddressListClass = record
-    parent_class: TGObjectClass;
-  end;
-  PInternetAddressListClass = ^TInternetAddressListClass;
 
 function internet_address_list_get_type: TGType; cdecl; external libgmime3;
 function internet_address_list_new: PInternetAddressList; cdecl; external libgmime3;

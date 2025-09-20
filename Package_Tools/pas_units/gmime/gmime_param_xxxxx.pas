@@ -111,44 +111,9 @@ procedure g_mime_param_list_encode(list:PGMimeParamList; options:PGMimeFormatOpt
 
 // === Konventiert am: 18-9-25 15:32:31 ===
 
-function GMIME_TYPE_PARAM_LIST : TGType;
-function GMIME_PARAM_LIST(obj : Pointer) : PGMimeParamList;
-function GMIME_PARAM_LIST_CLASS(klass : Pointer) : PGMimeParamListClass;
-function GMIME_IS_PARAM_LIST(obj : Pointer) : Tgboolean;
-function GMIME_IS_PARAM_LIST_CLASS(klass : Pointer) : Tgboolean;
-function GMIME_PARAM_LIST_GET_CLASS(obj : Pointer) : PGMimeParamListClass;
 
 implementation
 
-function GMIME_TYPE_PARAM_LIST : TGType;
-  begin
-    GMIME_TYPE_PARAM_LIST:=g_mime_param_list_get_type;
-  end;
-
-function GMIME_PARAM_LIST(obj : Pointer) : PGMimeParamList;
-begin
-  Result := PGMimeParamList(g_type_check_instance_cast(obj, GMIME_TYPE_PARAM_LIST));
-end;
-
-function GMIME_PARAM_LIST_CLASS(klass : Pointer) : PGMimeParamListClass;
-begin
-  Result := PGMimeParamListClass(g_type_check_class_cast(klass, GMIME_TYPE_PARAM_LIST));
-end;
-
-function GMIME_IS_PARAM_LIST(obj : Pointer) : Tgboolean;
-begin
-  Result := g_type_check_instance_is_a(obj,  GMIME_TYPE_PARAM_LIST);
-end;
-
-function GMIME_IS_PARAM_LIST_CLASS(klass : Pointer) : Tgboolean;
-begin
-  Result := g_type_check_class_is_a(klass,  GMIME_TYPE_PARAM_LIST);
-end;
-
-function GMIME_PARAM_LIST_GET_CLASS(obj : Pointer) : PGMimeParamListClass;
-begin
-  Result := PGMimeParamListClass(PGTypeInstance(obj)^.g_class);
-end;
 
 
 

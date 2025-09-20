@@ -38,6 +38,7 @@ uses
       session_key: pchar;
     end;
     PGMimeDecryptResult = ^TGMimeDecryptResult;
+    PPGMimeDecryptResult = ^PGMimeDecryptResult;
 
     TGMimeDecryptResultClass = record
       parent_class: TGObjectClass;

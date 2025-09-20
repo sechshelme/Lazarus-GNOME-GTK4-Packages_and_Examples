@@ -3,7 +3,7 @@ unit gmime_format_options;
 interface
 
 uses
-  fp_glib2, fp_gmime3;
+  fp_glib2, fp_gmime3, gmime_filter;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -54,7 +54,7 @@ implementation
 
 function GMIME_TYPE_FORMAT_OPTIONS: TGType;
 begin
-  GMIME_TYPE_FORMAT_OPTIONS := gmime_format_options_get_type;
+  GMIME_TYPE_FORMAT_OPTIONS := g_mime_format_options_get_type;
 end;
 
 
