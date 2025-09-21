@@ -1,0 +1,8 @@
+From: Joey <joey@friends.com>
+Subject: How you doin?
+To: Alice <alice@wonderland.com>
+MIME-Version: 1.0
+Content-Type: text/plain
+
+Hallo Alice, wie geht's?
+Hallo Welt!
