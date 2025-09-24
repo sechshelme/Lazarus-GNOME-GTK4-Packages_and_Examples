@@ -3,7 +3,7 @@ unit WindowBase;
 interface
 
 uses
-  fp_sfml, VideoMode, Config, Window_Types, WindowHandle, Event;
+  fp_sfml, Config, VideoMode, Window_Types, WindowHandle, Event, Vector2, Vulkan;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

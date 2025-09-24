@@ -23,9 +23,10 @@ const
   {$PACKRECORDS C}
   {$ENDIF}
 
-  type
-  Tsize_t=SizeUInt;
-  Psize_t=^Tsize_t;
+type
+  Tsize_t = SizeUInt;
+  Psize_t = ^Tsize_t;
+  Pwchar_t = type Pointer;
 
   {$DEFINE read_interface}
   //  {$include fp_sfml_includes.inc}

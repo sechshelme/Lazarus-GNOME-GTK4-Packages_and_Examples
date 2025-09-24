@@ -3,7 +3,7 @@ unit Event;
 interface
 
 uses
-  fp_sfml, Config, Keyboard;
+  fp_sfml, Config, Keyboard, Mouse, Joystick, Sensor;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

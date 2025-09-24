@@ -3,7 +3,7 @@ unit Window;
 interface
 
 uses
-  fp_sfml, Config, Window_Types, WindowHandle, VideoMode, Event;
+  fp_sfml, Config, Window_Types, WindowHandle, VideoMode, Event, Vector2;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

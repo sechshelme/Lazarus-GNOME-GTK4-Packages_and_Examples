@@ -19,6 +19,8 @@ type
   TVkSurfaceKHR = type Pointer;
 
 type
+  PVkAllocationCallbacks = type Pointer;
+
   TsfVulkanFunctionPointer = procedure(para1: pointer); cdecl;
 
 function sfVulkan_isAvailable(requireGraphics: TsfBool): TsfBool; cdecl; external libsfml_window;
