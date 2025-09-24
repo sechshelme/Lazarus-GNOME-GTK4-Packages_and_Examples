@@ -1,0 +1,99 @@
+
+unit Vector2;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from Vector2.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    Vector2.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+PsfVector2f  = ^sfVector2f;
+PsfVector2i  = ^sfVector2i;
+PsfVector2u  = ^sfVector2u;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{////////////////////////////////////////////////////////// }
+{ }
+{ SFML - Simple and Fast Multimedia Library }
+{ Copyright (C) 2007-2023 Laurent Gomila (laurent@sfml-dev.org) }
+{ }
+{ This software is provided 'as-is', without any express or implied warranty. }
+{ In no event will the authors be held liable for any damages arising from the use of this software. }
+{ }
+{ Permission is granted to anyone to use this software for any purpose, }
+{ including commercial applications, and to alter it and redistribute it freely, }
+{ subject to the following restrictions: }
+{ }
+{ 1. The origin of this software must not be misrepresented; }
+{    you must not claim that you wrote the original software. }
+{    If you use this software in a product, an acknowledgment }
+{    in the product documentation would be appreciated but is not required. }
+{ }
+{ 2. Altered source versions must be plainly marked as such, }
+{    and must not be misrepresented as being the original software. }
+{ }
+{ 3. This notice may not be removed or altered from any source distribution. }
+{ }
+{////////////////////////////////////////////////////////// }
+{$ifndef SFML_VECTOR2_H}
+{$define SFML_VECTOR2_H}
+{////////////////////////////////////////////////////////// }
+{ Headers }
+{////////////////////////////////////////////////////////// }
+{$include <SFML/System/Export.h>}
+{////////////////////////////////////////////////////////// }
+{/ \brief 2-component vector of integers }
+{/ }
+{////////////////////////////////////////////////////////// }
+type
+  PsfVector2i = ^TsfVector2i;
+  TsfVector2i = record
+      x : longint;
+      y : longint;
+    end;
+{////////////////////////////////////////////////////////// }
+{/ \brief 2-component vector of unsigned integers }
+{/ }
+{////////////////////////////////////////////////////////// }
+
+  PsfVector2u = ^TsfVector2u;
+  TsfVector2u = record
+      x : dword;
+      y : dword;
+    end;
+{////////////////////////////////////////////////////////// }
+{/ \brief 2-component vector of floats }
+{/ }
+{////////////////////////////////////////////////////////// }
+
+  PsfVector2f = ^TsfVector2f;
+  TsfVector2f = record
+      x : single;
+      y : single;
+    end;
+{$endif}
+{ SFML_VECTOR2_H }
+
+implementation
+
+
+end.
