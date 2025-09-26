@@ -14,55 +14,6 @@ uses
   Vector2,
   Vector3,
 
-  Audio_Types,
-  Listener,
-  Music,
-  Sound,
-  SoundBuffer,
-  SoundBufferRecorder,
-  SoundRecorder,
-  SoundStatus,
-  SoundStream,
-
-  Graphics_Types,
-  PrimitiveType,
-  Color,
-  Rect,
-  BlendMode,
-  CircleShape,
-  ConvexShape,
-  Font,
-  FontInfo,
-  Glsl,
-  Glyph,
-  Image,
-  RectangleShape,
-  RenderStates,
-  RenderTexture,
-  RenderWindow,
-  Shader,
-  Shape,
-  Sprite,
-  Text,
-  Texture,
-  Transform,
-  Transformable,
-  Vertex,
-  VertexArray,
-  VertexBuffer,
-  View,
-
-  Network_Types,
-  SocketStatus,
-  IpAddress,
-  Ftp,                               // IpAddress
-  Http,
-  Packet,
-  SocketSelector,
-  TcpListener,                       // IpAddress, SocketStatus
-  TcpSocket,                         // SocketStatus, IpAddress
-  UdpSocket,                         // IpAddress, SocketStatus
-
   Window_Types,
   WindowHandle,
   Vulkan,
@@ -79,6 +30,55 @@ uses
   Window,                            // Window_Types, WindowHandle, VideoMode, Event, Vector2
   Context,                           // Window_Types, Window
   WindowBase,                        // VideoMode, WindowHandle, Event, Vector2, Vulkan
+
+  Audio_Types,
+  Listener,
+  Music,
+  Sound,
+  SoundBuffer,
+  SoundBufferRecorder,
+  SoundRecorder,
+  SoundStatus,
+  SoundStream,
+
+  Network_Types,
+  SocketStatus,
+  IpAddress,
+  Ftp,                               // IpAddress
+  Http,
+  Packet,
+  SocketSelector,
+  TcpListener,                       // IpAddress, SocketStatus
+  TcpSocket,                         // SocketStatus, IpAddress
+  UdpSocket,                         // IpAddress, SocketStatus
+
+  Graphics_Types,
+  PrimitiveType,
+  Color,
+  Rect,
+  Transform,
+  Transformable,
+  BlendMode,
+  CircleShape,
+  ConvexShape,
+  Font,
+  FontInfo,
+  Glsl,
+  Glyph,
+  Image,
+  RectangleShape,
+  Shader,
+  Shape,
+  Sprite,
+  Texture,
+  Text,
+  Vertex,
+  VertexArray,
+  VertexBuffer,
+  View,
+  RenderStates,
+  RenderTexture,
+  RenderWindow,
 
   fp_sfml;
 
