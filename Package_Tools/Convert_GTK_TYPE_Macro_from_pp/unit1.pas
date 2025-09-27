@@ -249,6 +249,7 @@ const
     (libs:     'libsfml_window';units:'fp_sfml'),
 
     (libs:     'libcanberra';units:'fp_canberra'),
+    (libs:     'libgbm';units:'ctypes'),
 
     (libs: ''; units: ''));
 
