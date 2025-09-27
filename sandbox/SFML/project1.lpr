@@ -1,87 +1,59 @@
 program project1;
 
 uses
-  Config,
+  fp_csfml;
 
-  System_Types,
-  Buffer,
-  InputStream,
-  Mutex,
-  Thread,
-  Time,
-  Clock,
-  Sleep,
-  Vector2,
-  Vector3,
+  procedure main;
+  var
+    window: PsfRenderWindow;
+    mode: TsfVideoMode = (width: 640; height: 480; bitsPerPixel: 32);
+    ev: TsfEvent;
+    texture: PsfTexture;
+    sprite: PsfSprite;
+    spritePosition: TsfVector2f = (x: 200; y: 200);
+    font: PsfFont;
+    text: PsfText;
+    music: PsfMusic;
+  begin
+    window := sfRenderWindow_create(mode, 'SFML window', sfResize or sfClose, nil);
+    texture := sfTexture_createFromFile('sfml_logo.png', nil);
 
-  Window_Types,
-  WindowHandle,
-  Vulkan,
-  Keyboard,
-  Mouse,                             // Vector2, Window_Types
-  JoystickIdentification,
-  Joystick,                          // JoystickIdentification
-  Sensor,                            // Vector3
-  Event,                             // Keyboard, Mouse, Joystick, Sensor
-  VideoMode,
-  Clipboard,
-  Cursor,                            // Vector2, Window_Types
-  Touch,                             // System_Types, Vector2, Window_Types
-  Window,                            // Window_Types, WindowHandle, VideoMode, Event, Vector2
-  Context,                           // Window_Types, Window
-  WindowBase,                        // VideoMode, WindowHandle, Event, Vector2, Vulkan
+    sprite := sfSprite_create;
+    sfSprite_setTexture(sprite, texture, sfTrue);
+    sfSprite_setPosition(sprite, spritePosition);
 
-  Audio_Types,
-  Listener,
-  Music,
-  Sound,
-  SoundBuffer,
-  SoundBufferRecorder,
-  SoundRecorder,
-  SoundStatus,
-  SoundStream,
+    font := sfFont_createFromFile('tuffy.ttf');
 
-  Network_Types,
-  SocketStatus,
-  IpAddress,
-  Ftp,                               // IpAddress
-  Http,
-  Packet,
-  SocketSelector,
-  TcpListener,                       // IpAddress, SocketStatus
-  TcpSocket,                         // SocketStatus, IpAddress
-  UdpSocket,                         // IpAddress, SocketStatus
+    text := sfText_create;
+    sfText_setString(text, 'Hello, SFML!');
+    sfText_setFont(text, font);
+    sfText_setCharacterSize(text, 50);
 
-  Graphics_Types,
-  PrimitiveType,
-  Rect,
-  Glyph,
-  Color,
-  Transform,
-  Transformable,
-  BlendMode,
-  CircleShape,
-  ConvexShape,
-  FontInfo,
-  Font,
-  Glsl,
-  Image,
-  RectangleShape,
-  Shader,
-  Shape,
-  Sprite,
-  Texture,
-  Text,
-  Vertex,
-  VertexArray,
-  VertexBuffer,
-  View,
-  RenderStates,
-  RenderTexture,
-  RenderWindow,
+    music := sfMusic_createFromFile('doodle_pop.ogg');
 
-  fp_sfml;
+    sfMusic_play(music);
+
+    while sfRenderWindow_isOpen(window) do begin
+      while sfRenderWindow_pollEvent(window, @ev) do begin
+        if ev._type = sfEvtClosed then begin
+          sfRenderWindow_close(window);
+        end;
+      end;
+
+      sfRenderWindow_clear(window, sfBlack);
+      sfRenderWindow_drawSprite(window, sprite, nil);
+      sfRenderWindow_drawText(window, text, nil);
+      sfRenderWindow_display(window);
+    end;
+
+    sfMusic_destroy(music);
+    sfText_destroy(text);
+    sfFont_destroy(font);
+    sfSprite_destroy(sprite);
+    sfTexture_destroy(texture);
+    sfRenderWindow_destroy(window);
+  end;
 
 begin
-
+  main;
 end.
