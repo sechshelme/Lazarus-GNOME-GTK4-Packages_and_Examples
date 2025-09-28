@@ -1,24 +1,32 @@
 program project1;
 
-uses
-  fp_graphene;
+  //uses
+  //  fp_graphene;
 
+const
+  {$IFDEF Linux}
+  libgraphene = 'libgraphene-1.0';
+  {$ENDIF}
 
 
 type
-  Tgraphene_simd4f_t=array [0..15]of Single;
-  Pgraphene_simd4f_t=^Tgraphene_simd4f_t;
+  //  Tgraphene_simd4f_t=array [0..3]of Single;
+  //  Pgraphene_simd4f_t=^Tgraphene_simd4f_t;
+  Tgraphene_simd4f_t =  record
+    pad:array[0..15] of byte;
+//    x, y, z, w: single;
+  end ;
 var
 
-  res: Pgraphene_simd4f_t;
+  res: Tgraphene_simd4f_t;
   x, y, z, w: single;
 
-  function graphene_simd4f_init(x: single; y: single; z: single; w: single): Pgraphene_simd4f_t; cdecl; external libgraphene;
-  function graphene_simd4f_get_x(s: Pgraphene_simd4f_t): single; cdecl; external libgraphene;
-  function graphene_simd4f_get_y(s: Pgraphene_simd4f_t): single; cdecl; external libgraphene;
-  function graphene_simd4f_get_z(s: Pgraphene_simd4f_t): single; cdecl; external libgraphene;
-  function graphene_simd4f_get_w(s: Pgraphene_simd4f_t): single; cdecl; external libgraphene;
-  function graphene_simd4f_get(s: Pgraphene_simd4f_t; i: dword): single; cdecl; external libgraphene;
+  function graphene_simd4f_init(x: single; y: single; z: single; w: single): Tgraphene_simd4f_t; cdecl; external libgraphene;
+  function graphene_simd4f_get_x(s: Tgraphene_simd4f_t): single; cdecl; external libgraphene;
+  function graphene_simd4f_get_y(s: Tgraphene_simd4f_t): single; cdecl; external libgraphene;
+  function graphene_simd4f_get_z(s: Tgraphene_simd4f_t): single; cdecl; external libgraphene;
+  function graphene_simd4f_get_w(s: Tgraphene_simd4f_t): single; cdecl; external libgraphene;
+  function graphene_simd4f_get(s: Tgraphene_simd4f_t; i: dword): single; cdecl; external libgraphene;
 
 
 
