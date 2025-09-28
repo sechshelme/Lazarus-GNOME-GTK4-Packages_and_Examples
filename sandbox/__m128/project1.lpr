@@ -1,67 +1,44 @@
 program project1;
+
 uses
- fp_stdio;
+  fp_stdio;
 
-// /usr/lib/gcc/x86_64-linux-gnu/13/include/xmmintrin.h
-
-
-//extern __inline void __attribute__((__gnu_inline__, __always_inline__, __artificial__)) _mm_storeu_ps (float *__P, __m128 __A)
-//{
-//  *(__m128_u *)__P = __A;
-//}
-//
-//extern __inline __m128 __attribute__((__gnu_inline__, __always_inline__, __artificial__))_mm_set_ps1 (float __F)
-//{
-//  return _mm_set1_ps (__F);
-//}
+  {$asmmode intel}
 
 
 type
-  Tvec3=array[0..2]of single;
+  TVector4f = array[0..3] of single;
+  PVector4f = ^TVector4f;
 
-   procedure glm_vec3_normalize(v:Tvec3) ;
-   var
-   norm:Single;;
+  procedure PrintTXM128(v: TVector4f);
+  begin
+    WriteLn('[', v[0]: 4: 2, ', ', v[1]: 4: 2, ', ', v[2]: 4: 2, ', ', v[3]: 4: 2, ']');
+  end;
 
-  norm = glm_vec3_norm(v);
+  procedure AddXMM(const A, B: TVector4f; C: PVector4f); assembler;
+  asm
+           Movdqu  Xmm0, [Rdi]
+           Movdqu  Xmm1, [Rsi]
+           Addps   Xmm0, Xmm1
+           Movdqu  [Rdx], Xmm0
+  end;
 
-  if (norm == 0.0f) {
-    v[0] = v[1] = v[2] = 0.0f;
-    return;
-  }
+  procedure SubXMM(const A, B: TVector4f; C: PVector4f); assembler;
+  asm
+           Movdqu  Xmm0, [Rdi]
+           Movdqu  Xmm1, [Rsi]
+           Subps   Xmm0, Xmm1
+           Movdqu  [Rdx], Xmm0
+  end;
 
-  glm_vec3_scale(v, 1.0f / norm, v);
-}
-
-procedure main;
 var
-  v:Tvec3_v=(1,2,4);
-begin
-  printf('Original Vektor: %f %f %f'#10, v[0], v[1], v[2]);
-
-  glm_vec3_normalize(v);
-
-  printf("Normalisierter Vektor: %f %f %f\n", v[0], v[1], v[2]);
-
-  // Matrizen erstellen und multiplizieren
-  mat4 matA, matB, result;
-  glm_mat4_identity(matA);
-  glm_mat4_identity(matB);
-
-  // Beispiel-Transformation: matB eine Verschiebung zuweisen
-  glm_translate(matB, (vec3){1.0f, 2.0f, 3.0f});
-
-  // Matrixmultiplikation: result = matA * matB
-  glm_mat4_mul(matA, matB, result);
-
-  printf("Resultierende Matrix:\n");
-  for (int i = 0; i < 4; i++) {
-      printf("%f %f %f %f\n", result[i][0], result[i][1], result[i][2], result[i][3]);
-  }end;
-
-
+  v1: TVector4f = (5.5, 6.6, 7.7, 8.8);
+  v2: TVector4f = (1.1, 2.2, 3.3, 4.4);
+  vo: TVector4f;
 
 begin
-   main;
+  AddXMM(v1, v2, @vo);
+  PrintTXM128(vo);
+  SubXMM(v1, v2, @vo);
+  PrintTXM128(vo);
 end.
-
