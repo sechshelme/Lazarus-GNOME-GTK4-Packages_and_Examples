@@ -250,6 +250,7 @@ const
 
     (libs:     'libcanberra';units:'fp_canberra'),
     (libs:     'libgbm';units:'ctypes'),
+    (libs:     'libsoup';units:'fp_glib2, fp_soup'),
 
     (libs: ''; units: ''));
 

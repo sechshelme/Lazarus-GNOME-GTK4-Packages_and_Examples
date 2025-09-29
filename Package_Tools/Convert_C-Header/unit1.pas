@@ -57,7 +57,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/gmime-3.0/gmime', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/libsoup-3.0/libsoup', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -86,8 +86,8 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_DEPRECATED', '/*G_GNUC_DEPRECATED*/', [rfReplaceAll]);
 
 
-      slHeader[j] := StringReplace(slHeader[j], 'JSON_AVAILABLE_IN_1_0', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'JSON_AVAILABLE_IN_1_2', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'SOUP_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NULL_TERMINATED', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'JSON_AVAILABLE_IN_1_4', 'extern', [rfReplaceAll]);
 
     end;

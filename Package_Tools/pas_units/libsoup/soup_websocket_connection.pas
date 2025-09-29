@@ -1,0 +1,94 @@
+unit soup_websocket_connection;
+
+interface
+
+uses
+  fp_glib2, fp_soup;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-  }
+{
+ * soup-websocket-connection.h: This file was originally part of Cockpit.
+ *
+ * Copyright 2013, 2014 Red Hat, Inc.
+ *
+ * Cockpit is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * Cockpit is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; If not, see <http://www.gnu.org/licenses/>.
+  }
+(** unsupported pragma#pragma once*)
+{$include "soup-types.h"}
+{$include "soup-websocket.h"}
+
+{G_DECLARE_FINAL_TYPE (SoupWebsocketConnection, soup_websocket_connection, SOUP, WEBSOCKET_CONNECTION, GObject) }
+function soup_websocket_connection_new(stream:PGIOStream; uri:PGUri; _type:TSoupWebsocketConnectionType; origin:Pchar; protocol:Pchar; 
+           extensions:PGList):PSoupWebsocketConnection;cdecl;external libsoup;
+function soup_websocket_connection_get_io_stream(self:PSoupWebsocketConnection):PGIOStream;cdecl;external libsoup;
+function soup_websocket_connection_get_connection_type(self:PSoupWebsocketConnection):TSoupWebsocketConnectionType;cdecl;external libsoup;
+function soup_websocket_connection_get_uri(self:PSoupWebsocketConnection):PGUri;cdecl;external libsoup;
+function soup_websocket_connection_get_origin(self:PSoupWebsocketConnection):Pchar;cdecl;external libsoup;
+function soup_websocket_connection_get_protocol(self:PSoupWebsocketConnection):Pchar;cdecl;external libsoup;
+function soup_websocket_connection_get_extensions(self:PSoupWebsocketConnection):PGList;cdecl;external libsoup;
+function soup_websocket_connection_get_state(self:PSoupWebsocketConnection):TSoupWebsocketState;cdecl;external libsoup;
+function soup_websocket_connection_get_close_code(self:PSoupWebsocketConnection):Tgushort;cdecl;external libsoup;
+function soup_websocket_connection_get_close_data(self:PSoupWebsocketConnection):Pchar;cdecl;external libsoup;
+procedure soup_websocket_connection_send_text(self:PSoupWebsocketConnection; text:Pchar);cdecl;external libsoup;
+procedure soup_websocket_connection_send_binary(self:PSoupWebsocketConnection; data:Tgconstpointer; length:Tgsize);cdecl;external libsoup;
+procedure soup_websocket_connection_send_message(self:PSoupWebsocketConnection; _type:TSoupWebsocketDataType; message:PGBytes);cdecl;external libsoup;
+procedure soup_websocket_connection_close(self:PSoupWebsocketConnection; code:Tgushort; data:Pchar);cdecl;external libsoup;
+function soup_websocket_connection_get_max_incoming_payload_size(self:PSoupWebsocketConnection):Tguint64;cdecl;external libsoup;
+procedure soup_websocket_connection_set_max_incoming_payload_size(self:PSoupWebsocketConnection; max_incoming_payload_size:Tguint64);cdecl;external libsoup;
+function soup_websocket_connection_get_keepalive_interval(self:PSoupWebsocketConnection):Tguint;cdecl;external libsoup;
+procedure soup_websocket_connection_set_keepalive_interval(self:PSoupWebsocketConnection; interval:Tguint);cdecl;external libsoup;
+
+// === Konventiert am: 29-9-25 19:43:35 ===
+
+function SOUP_TYPE_WEBSOCKET_CONNECTION: TGType;
+function SOUP_WEBSOCKET_CONNECTION(obj: Pointer): PSoupWebsocketConnection;
+function SOUP_IS_WEBSOCKET_CONNECTION(obj: Pointer): Tgboolean;
+
+implementation
+
+function SOUP_TYPE_WEBSOCKET_CONNECTION: TGType;
+begin
+  Result := soup_websocket_connection_get_type;
+end;
+
+function SOUP_WEBSOCKET_CONNECTION(obj: Pointer): PSoupWebsocketConnection;
+begin
+  Result := PSoupWebsocketConnection(g_type_check_instance_cast(obj, SOUP_TYPE_WEBSOCKET_CONNECTION));
+end;
+
+function SOUP_IS_WEBSOCKET_CONNECTION(obj: Pointer): Tgboolean;
+begin
+  Result := g_type_check_instance_is_a(obj, SOUP_TYPE_WEBSOCKET_CONNECTION);
+end;
+
+type 
+  TSoupWebsocketConnection = record
+  end;
+  PSoupWebsocketConnection = ^TSoupWebsocketConnection;
+
+  TSoupWebsocketConnectionClass = record
+    parent_class: TGObjectClass;
+  end;
+  PSoupWebsocketConnectionClass = ^TSoupWebsocketConnectionClass;
+
+function soup_websocket_connection_get_type: TGType; cdecl; external libgxxxxxxx;
+
+
+
+end.
