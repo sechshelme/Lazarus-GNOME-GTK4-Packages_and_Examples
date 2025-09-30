@@ -193,7 +193,7 @@ type
   TVASurfaceID = TVAGenericID;
 
   // /usr/include/libsoup-3.0/libsoup/soup-message-headers.h
-  TSoupMessageHeaders = record
+  TSoupMessageHeaders = record  // wird in webkit gebraucht
   end;
   PSoupMessageHeaders = ^TSoupMessageHeaders;
 

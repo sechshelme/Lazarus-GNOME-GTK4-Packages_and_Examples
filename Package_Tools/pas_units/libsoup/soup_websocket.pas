@@ -3,7 +3,7 @@ unit soup_websocket;
 interface
 
 uses
-  fp_glib2, fp_soup;
+  fp_glib2, fp_soup, soup_message, soup_server_message;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

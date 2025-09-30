@@ -1,6 +1,8 @@
 program project1;
 
 uses
+  soup_types,                           // --- makro
+  soup_version,
   soup_auth,
   soup_auth_domain,
   soup_auth_domain_basic,
@@ -21,24 +23,22 @@ uses
   soup_hsts_enforcer_db,
   soup_hsts_policy,
   soup_logger,
-  soup_message,
-  soup_message_body,
-  soup_message_headers,
-  soup_message_metrics,
   soup_method,
-  soup_multipart,
-  soup_multipart_input_stream,
   soup_server,
   soup_server_message,
   soup_session,
   soup_session_feature,
   soup_status,
+  soup_message_body,
+  soup_message_headers,
+  soup_message_metrics,
+  soup_multipart,                        // soup_message_headers
+  soup_message,                          // soup_multipart, soup_status
+  soup_multipart_input_stream,           // soup_message
   soup_tld,
-  soup_types,
   soup_uri_utils,
-  soup_version,
-  soup_websocket,
-  soup_websocket_connection,
+  soup_websocket,                        // soup_message, soup_server_message
+  soup_websocket_connection,             // soup_websocket
   soup_websocket_extension,              // soup_websocket
   soup_websocket_extension_deflate,      // soup_websocket_extension
   soup_websocket_extension_manager,
