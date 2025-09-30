@@ -80,7 +80,7 @@ function soup_websocket_server_process_handshake(msg: PSoupServerMessage; expect
 implementation
 
 
-function SOUP_WEBSOCKET_ERROR: longint;
+function SOUP_WEBSOCKET_ERROR: TGQuark;
 begin
   SOUP_WEBSOCKET_ERROR := soup_websocket_error_quark;
 end;

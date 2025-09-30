@@ -3,23 +3,25 @@ unit soup_hsts_enforcer_db;
 interface
 
 uses
-  fp_glib2, fp_soup;
+  fp_glib2, fp_soup, soup_hsts_enforcer;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-  }
-{
- * Copyright (C) 2016, 2017, 2018 Igalia S.L.
- * Copyright (C) 2017, 2018 Metrological Group B.V.
-  }
-(** unsupported pragma#pragma once*)
-{$include "soup-hsts-enforcer.h"}
+type
+  TSoupHSTSEnforcerDB = record
+  end;
+  PSoupHSTSEnforcerDB = ^TSoupHSTSEnforcerDB;
 
-{G_DECLARE_FINAL_TYPE (SoupHSTSEnforcerDB, soup_hsts_enforcer_db, SOUP, HSTS_ENFORCER_DB, SoupHSTSEnforcer) }
-function soup_hsts_enforcer_db_new(filename:Pchar):PSoupHSTSEnforcer;cdecl;external libsoup;
+  TSoupHSTSEnforcerDBClass = record
+    parent_class: TSoupHSTSEnforcerClass;
+  end;
+  PSoupHSTSEnforcerDBClass = ^TSoupHSTSEnforcerDBClass;
+
+function soup_hsts_enforcer_db_get_type: TGType; cdecl; external libsoup;
+function soup_hsts_enforcer_db_new(filename: pchar): PSoupHSTSEnforcer; cdecl; external libsoup;
 
 // === Konventiert am: 29-9-25 19:44:44 ===
 
@@ -43,18 +45,6 @@ function SOUP_IS_HSTS_ENFORCER_DB(obj: Pointer): Tgboolean;
 begin
   Result := g_type_check_instance_is_a(obj, SOUP_TYPE_HSTS_ENFORCER_DB);
 end;
-
-type 
-  TSoupHSTSEnforcerDB = record
-  end;
-  PSoupHSTSEnforcerDB = ^TSoupHSTSEnforcerDB;
-
-  TSoupHSTSEnforcerDBClass = record
-    parent_class: TSoupHSTSEnforcerClass;
-  end;
-  PSoupHSTSEnforcerDBClass = ^TSoupHSTSEnforcerDBClass;
-
-function soup_hsts_enforcer_db_get_type: TGType; cdecl; external libgxxxxxxx;
 
 
 

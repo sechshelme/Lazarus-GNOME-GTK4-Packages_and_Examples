@@ -3,22 +3,25 @@ unit soup_cookie_jar_db;
 interface
 
 uses
-  fp_glib2, fp_soup;
+  fp_glib2, fp_soup, soup_cookie_jar;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-  }
-{
- * Copyright (C) 2008 Diego Escalante Urrelo
-  }
-(** unsupported pragma#pragma once*)
-{$include "soup-cookie-jar.h"}
+type
+  TSoupCookieJarDB = record
+  end;
+  PSoupCookieJarDB = ^TSoupCookieJarDB;
 
-{G_DECLARE_FINAL_TYPE (SoupCookieJarDB, soup_cookie_jar_db, SOUP, COOKIE_JAR_DB, SoupCookieJar) }
-function soup_cookie_jar_db_new(filename:Pchar; read_only:Tgboolean):PSoupCookieJar;cdecl;external libsoup;
+  TSoupCookieJarDBClass = record
+    parent_class: TSoupCookieJarClass;
+  end;
+  PSoupCookieJarDBClass = ^TSoupCookieJarDBClass;
+
+function soup_cookie_jar_db_get_type: TGType; cdecl; external libsoup;
+function soup_cookie_jar_db_new(filename: pchar; read_only: Tgboolean): PSoupCookieJar; cdecl; external libsoup;
 
 // === Konventiert am: 29-9-25 19:45:05 ===
 
@@ -42,18 +45,6 @@ function SOUP_IS_COOKIE_JAR_DB(obj: Pointer): Tgboolean;
 begin
   Result := g_type_check_instance_is_a(obj, SOUP_TYPE_COOKIE_JAR_DB);
 end;
-
-type 
-  TSoupCookieJarDB = record
-  end;
-  PSoupCookieJarDB = ^TSoupCookieJarDB;
-
-  TSoupCookieJarDBClass = record
-    parent_class: TSoupCookieJarClass;
-  end;
-  PSoupCookieJarDBClass = ^TSoupCookieJarDBClass;
-
-function soup_cookie_jar_db_get_type: TGType; cdecl; external libgxxxxxxx;
 
 
 

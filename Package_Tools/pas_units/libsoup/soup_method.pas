@@ -10,36 +10,10 @@ uses
 {$ENDIF}
 
 
-{ -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-  }
-{
- * Copyright (C) 2008 Red Hat, Inc.
-  }
-(** unsupported pragma#pragma once*)
-{$include "soup-types.h"}
-{*
- * SECTION:soup-method
- * @section_id: SoupMethod
- * @short_description: HTTP method definitions
- *
- * soup-method.h contains a number of defines for standard HTTP and
- * WebDAV headers. You do not need to use these defines; you can pass
- * arbitrary strings to soup_message_new() if you prefer.
- * 
- * The thing that these defines <emphasis>are</emphasis> useful for is
- * performing quick comparisons against soup_message_get_method();
- * because #SoupMessage always contains an interned string, and these
- * macros return interned strings, you can compare methods directly
- * against these macros rather than needing to use strcmp(). This is
- * most useful in #SoupServer handlers. Eg:
- * 
- * <informalexample><programlisting>
- * 	if (soup_message_get_method (msg) != SOUP_METHOD_GET &amp;&amp; soup_message_get_method (msg) != SOUP_METHOD_HEAD) 
- * 		soup_message_set_status (msg, SOUP_METHOD_NOT_IMPLEMENTED);
- * 		return;
- * 	
- * </programlisting></informalexample>
- * }
 { xxxxxxxxxxxxxxxxxxxx
+#define _SOUP_ATOMIC_INTERN_STRING(variable, value) ((const char *)(g_atomic_pointer_get (&(variable)) ? (variable) : (g_atomic_pointer_set (&(variable), (gpointer)g_intern_static_string (value)), (variable))))
+
+
 #define _SOUP_INTERN_METHOD(method) (_SOUP_ATOMIC_INTERN_STRING (_SOUP_METHOD_##method, #method))
 
 #define SOUP_METHOD_OPTIONS   _SOUP_INTERN_METHOD (OPTIONS)
@@ -76,7 +50,42 @@ extern gpointer _SOUP_METHOD_MOVE;
 extern gpointer _SOUP_METHOD_LOCK;
 extern gpointer _SOUP_METHOD_UNLOCK;
  }
-(* error 
+
+ var
+  _SOUP_METHOD_OPTIONS  : Tgpointer; cvar; external;
+  _SOUP_METHOD_GET      : Tgpointer; cvar; external;
+  _SOUP_METHOD_HEAD     : Tgpointer; cvar; external;
+  _SOUP_METHOD_POST     : Tgpointer; cvar; external;
+  _SOUP_METHOD_PUT      : Tgpointer; cvar; external;
+  _SOUP_METHOD_DELETE   : Tgpointer; cvar; external;
+  _SOUP_METHOD_TRACE    : Tgpointer; cvar; external;
+  _SOUP_METHOD_CONNECT  : Tgpointer; cvar; external;
+
+  _SOUP_METHOD_PROPFIND : Tgpointer; cvar; external;
+  _SOUP_METHOD_PROPPATCH: Tgpointer; cvar; external;
+  _SOUP_METHOD_MKCOL    : Tgpointer; cvar; external;
+  _SOUP_METHOD_COPY     : Tgpointer; cvar; external;
+  _SOUP_METHOD_MOVE     : Tgpointer; cvar; external;
+  _SOUP_METHOD_LOCK     : Tgpointer; cvar; external;
+  _SOUP_METHOD_UNLOCK   : Tgpointer; cvar; external;
+
+var
+  SOUP_METHOD_OPTIONS   : PChar absolute _SOUP_METHOD_OPTIONS;
+  SOUP_METHOD_GET       : PChar absolute _SOUP_METHOD_GET;
+  SOUP_METHOD_HEAD      : PChar absolute _SOUP_METHOD_HEAD;
+  SOUP_METHOD_POST      : PChar absolute _SOUP_METHOD_POST;
+  SOUP_METHOD_PUT       : PChar absolute _SOUP_METHOD_PUT;
+  SOUP_METHOD_DELETE    : PChar absolute _SOUP_METHOD_DELETE;
+  SOUP_METHOD_TRACE     : PChar absolute _SOUP_METHOD_TRACE;
+  SOUP_METHOD_CONNECT   : PChar absolute _SOUP_METHOD_CONNECT;
+
+  SOUP_METHOD_PROPFIND  : PChar absolute _SOUP_METHOD_PROPFIND;
+  SOUP_METHOD_PROPPATCH : PChar absolute _SOUP_METHOD_PROPPATCH;
+  SOUP_METHOD_MKCOL     : PChar absolute _SOUP_METHOD_MKCOL;
+  SOUP_METHOD_COPY      : PChar absolute _SOUP_METHOD_COPY;
+  SOUP_METHOD_MOVE      : PChar absolute _SOUP_METHOD_MOVE;
+  SOUP_METHOD_LOCK      : PChar absolute _SOUP_METHOD_LOCK;
+  SOUP_METHOD_UNLOCK    : PChar absolute _SOUP_METHOD_UNLOCK;
 
 
 // === Konventiert am: 29-9-25 19:44:21 ===

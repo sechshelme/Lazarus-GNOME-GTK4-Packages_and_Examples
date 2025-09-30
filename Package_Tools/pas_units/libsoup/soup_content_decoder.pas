@@ -5,20 +5,22 @@ interface
 uses
   fp_glib2, fp_soup;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
+type
+  TSoupContentDecoder = record
+  end;
+  PSoupContentDecoder = ^TSoupContentDecoder;
 
-{ -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-  }
-{
- * Copyright (C) 2009 Red Hat, Inc.
-  }
-(** unsupported pragma#pragma once*)
-{$include "soup-types.h"}
-{$include "soup-message-body.h"}
+  TSoupContentDecoderClass = record
+    parent_class: TGObjectClass;
+  end;
+  PSoupContentDecoderClass = ^TSoupContentDecoderClass;
 
-{G_DECLARE_FINAL_TYPE (SoupContentDecoder, soup_content_decoder, SOUP, CONTENT_DECODER, GObject) }
+function soup_content_decoder_get_type: TGType; cdecl; external libsoup;
+
 
 // === Konventiert am: 29-9-25 19:45:18 ===
 
@@ -42,18 +44,6 @@ function SOUP_IS_CONTENT_DECODER(obj: Pointer): Tgboolean;
 begin
   Result := g_type_check_instance_is_a(obj, SOUP_TYPE_CONTENT_DECODER);
 end;
-
-type 
-  TSoupContentDecoder = record
-  end;
-  PSoupContentDecoder = ^TSoupContentDecoder;
-
-  TSoupContentDecoderClass = record
-    parent_class: TGObjectClass;
-  end;
-  PSoupContentDecoderClass = ^TSoupContentDecoderClass;
-
-function soup_content_decoder_get_type: TGType; cdecl; external libgxxxxxxx;
 
 
 

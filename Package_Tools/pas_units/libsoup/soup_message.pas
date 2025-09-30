@@ -3,7 +3,7 @@ unit soup_message;
 interface
 
 uses
-  fp_glib2, fp_soup, soup_multipart, soup_status;
+  fp_glib2, fp_soup, soup_multipart, soup_status, soup_types;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

@@ -3,24 +3,26 @@ unit soup_content_sniffer;
 interface
 
 uses
-  fp_glib2, fp_soup;
+  fp_glib2, fp_soup, soup_message;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-  }
-{
- * Copyright (C) 2009 Gustavo Noronha Silva.
-  }
-(** unsupported pragma#pragma once*)
-{$include "soup-types.h"}
-{$include "soup-message-body.h"}
+type
+  TSoupContentSniffer = record
+  end;
+  PSoupContentSniffer = ^TSoupContentSniffer;
 
-{G_DECLARE_FINAL_TYPE (SoupContentSniffer, soup_content_sniffer, SOUP, CONTENT_SNIFFER, GObject) }
-function soup_content_sniffer_new:PSoupContentSniffer;cdecl;external libsoup;
-function soup_content_sniffer_sniff(sniffer:PSoupContentSniffer; msg:PSoupMessage; buffer:PGBytes; params:PPGHashTable):Pchar;cdecl;external libsoup;
+  TSoupContentSnifferClass = record
+    parent_class: TGObjectClass;
+  end;
+  PSoupContentSnifferClass = ^TSoupContentSnifferClass;
+
+function soup_content_sniffer_get_type: TGType; cdecl; external libsoup;
+function soup_content_sniffer_new: PSoupContentSniffer; cdecl; external libsoup;
+function soup_content_sniffer_sniff(sniffer: PSoupContentSniffer; msg: PSoupMessage; buffer: PGBytes; params: PPGHashTable): pchar; cdecl; external libsoup;
 
 // === Konventiert am: 29-9-25 19:45:15 ===
 
@@ -44,18 +46,6 @@ function SOUP_IS_CONTENT_SNIFFER(obj: Pointer): Tgboolean;
 begin
   Result := g_type_check_instance_is_a(obj, SOUP_TYPE_CONTENT_SNIFFER);
 end;
-
-type 
-  TSoupContentSniffer = record
-  end;
-  PSoupContentSniffer = ^TSoupContentSniffer;
-
-  TSoupContentSnifferClass = record
-    parent_class: TGObjectClass;
-  end;
-  PSoupContentSnifferClass = ^TSoupContentSnifferClass;
-
-function soup_content_sniffer_get_type: TGType; cdecl; external libgxxxxxxx;
 
 
 

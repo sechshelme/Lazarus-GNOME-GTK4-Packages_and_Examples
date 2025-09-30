@@ -5,22 +5,24 @@ interface
 uses
   fp_glib2, fp_soup;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ -*- Mode: C; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 8 -*-  }
-{
- * Copyright (C) 2008 Red Hat, Inc.
-  }
-(** unsupported pragma#pragma once*)
-{$include "soup-types.h"}
 
-{G_DECLARE_INTERFACE (SoupSessionFeature, soup_session_feature, SOUP, SESSION_FEATURE, GObject) }
+type
+  TSoupSessionFeature = record
+  end;
+  PSoupSessionFeature = ^TSoupSessionFeature;
 
-// === Konventiert am: 29-9-25 19:44:02 ===
+  TSoupSessionFeatureInterface = record
+  end;
+  PSoupSessionFeatureInterface = ^TSoupSessionFeatureInterface;
 
+  // === Konventiert am: 29-9-25 19:44:02 ===
+
+function soup_session_feature_get_type: TGType; cdecl; external libsoup;
 function SOUP_TYPE_SESSION_FEATURE: TGType;
 function SOUP_SESSION_FEATURE(obj: Pointer): PSoupSessionFeature;
 function SOUP_IS_SESSION_FEATURE(obj: Pointer): Tgboolean;
@@ -47,17 +49,6 @@ function SOUP_SESSION_FEATURE_GET_IFACE(obj: Pointer): PSoupSessionFeatureInterf
 begin
   Result := g_type_interface_peek(obj, SOUP_TYPE_SESSION_FEATURE);
 end;
-
-type 
-  TSoupSessionFeature = record
-  end;
-  PSoupSessionFeature = ^TSoupSessionFeature;
-
-  TSoupSessionFeatureInterface = record
-  end;
-  PSoupSessionFeatureInterface = ^TSoupSessionFeatureInterface;
-
-function soup_session_feature_get_type: TGType; cdecl; external libgxxxxxxx;
 
 
 
