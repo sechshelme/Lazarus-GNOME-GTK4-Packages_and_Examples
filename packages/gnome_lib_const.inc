@@ -193,13 +193,13 @@ type
   TVASurfaceID = TVAGenericID;
 
   // /usr/include/libsoup-3.0/libsoup/soup-message-headers.h
-  TSoupMessageHeaders = record  // wird in webkit gebraucht
-  end;
-  PSoupMessageHeaders = ^TSoupMessageHeaders;
+//  TSoupMessageHeaders = record  // wird in webkit gebraucht
+//  end;
+//  PSoupMessageHeaders = ^TSoupMessageHeaders;
 
-  TSoupCookie = record
-  end;
-  PSoupCookie = ^TSoupCookie;
+//  TSoupCookie = record
+//  end;
+//  PSoupCookie = ^TSoupCookie;
 
   // ==== OpenGL
 type

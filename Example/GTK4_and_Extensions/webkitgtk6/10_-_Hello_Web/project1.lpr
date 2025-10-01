@@ -17,7 +17,6 @@ const
 var
   URI_Label: PGtkWidget;
 
-
   procedure on_button_clicked(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
     webView: PWebKitWebView absolute user_data;
@@ -87,13 +86,11 @@ var
     gtk_box_append(GTK_BOX(toolbar_box), button);
     g_signal_connect(button, 'clicked', G_CALLBACK(@on_button_clicked), webView);
 
-    // https://stackoverflow.com/questions/36073941/webkitgtk-signal-to-detect-redirect-event-to-a-url-that-is-invalid
     URI_Label := gtk_label_new('http');
     gtk_widget_set_hexpand(URI_Label, True);
     gtk_label_set_xalign(GTK_LABEL(URI_Label), 0.0);
     gtk_label_set_ellipsize(GTK_LABEL(URI_Label), PANGO_ELLIPSIZE_END);
     gtk_box_append(GTK_BOX(toolbar_box), URI_Label);
-
 
     gtk_window_present(GTK_WINDOW(window));
   end;

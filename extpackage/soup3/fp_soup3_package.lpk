@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <Package Version="5">
-    <Name Value="fp_webkitgtk6_package"/>
+    <Name Value="fp_soup3_package"/>
     <Type Value="RunAndDesignTime"/>
     <CompilerOptions>
       <Version Value="11"/>
@@ -11,19 +11,16 @@
     </CompilerOptions>
     <Files>
       <Item>
-        <Filename Value="fp_webkitgtk6.pas"/>
-        <UnitName Value="fp_webkitgtk6"/>
+        <Filename Value="fp_soup3.pas"/>
+        <UnitName Value="fp_soup3"/>
       </Item>
     </Files>
     <RequiredPkgs>
       <Item>
-        <PackageName Value="fp_soup3_package"/>
-      </Item>
-      <Item>
-        <PackageName Value="fp_GTK4_Package"/>
-      </Item>
-      <Item>
         <PackageName Value="fp_GLIB2_package"/>
+      </Item>
+      <Item>
+        <PackageName Value="FCL"/>
       </Item>
     </RequiredPkgs>
     <UsageOptions>
