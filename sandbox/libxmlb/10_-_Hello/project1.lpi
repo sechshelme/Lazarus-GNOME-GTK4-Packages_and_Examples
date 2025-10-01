@@ -25,12 +25,16 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_tcod_package"/>
+        <PackageName Value="fp_GLIB2_package"/>
       </Item>
     </RequiredPackages>
     <Units>
       <Unit>
         <Filename Value="project1.lpr"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="fp_xmlb.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
     </Units>
@@ -42,6 +46,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="../../../Package_Tools/pas_units/libxmlb"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

@@ -26,6 +26,19 @@ const
       TCOD_console_put_char(nil, x, y2, 196, TCOD_BKGND_SET);
     end;
     TCOD_console_put_char(nil, x2, y2, 217, TCOD_BKGND_SET);
+
+    // Schatten
+    TCOD_console_set_default_foreground(nil, TCOD_gray);
+    TCOD_console_set_default_background(nil, TCOD_black);
+
+    for x := x1 + 1 to x2 + 1 do begin
+      TCOD_console_put_char(nil, x, y2 + 1, 178, TCOD_BKGND_SET);
+    end;
+
+    for y := y1 + 1 to y2 do begin
+      TCOD_console_put_char(nil, x2 + 1, y, 178, TCOD_BKGND_SET);
+    end;
+
   end;
 
   procedure WriteASCII(x, y: integer);
@@ -33,13 +46,14 @@ const
     i: integer;
   begin
     TCOD_console_set_default_foreground(nil, TCOD_yellow);
-    TCOD_console_set_default_background(nil, TCOD_black);
-
-    DrawRect(x, y, x + 17, y + 17);
+    TCOD_console_set_default_background(nil, TCOD_darker_cyan);
 
     for i := 0 to 255 do begin
       TCOD_console_put_char(nil, i mod 16 + (x + 1), i div 16 + (y + 1), i, TCOD_BKGND_SET);
     end;
+
+    TCOD_console_set_default_foreground(nil, TCOD_white);
+    DrawRect(x, y, x + 17, y + 17);
   end;
 
   procedure WriteMenu(x, y: integer; items: array of string; index: integer);
@@ -120,12 +134,12 @@ const
       TCOD_console_printf(nil, 0, 0, ' TCOD-Demo                                                                      ');
       TCOD_console_printf(nil, 0, 24, 'Druecke ESC oder Q zum Beenden. (%8d)                                          ', counter);
 
-      WriteASCII(50, 5);
+      WriteASCII(50, 3);
       WriteMenu(5, 3, MenuIimes, Index);
 
       TCOD_console_flush;
 
-      if counter mod 20 = 0 then  begin
+      if counter mod 2000 = 0 then  begin
         Inc(Index);
         if Index >= Length(MenuIimes) then begin
           Index := 0;
