@@ -4,8 +4,7 @@ uses
   fp_tcod;
 
 const
-//  FontPath='/home/tux/Schreibtisch/fonts/png/drdos8x6.psfu_9x16.png';
-  FontPath='t.fnt_9x16.png';
+  FontPath = '../font/t.fnt_9x16.png';
 
   procedure main;
   var

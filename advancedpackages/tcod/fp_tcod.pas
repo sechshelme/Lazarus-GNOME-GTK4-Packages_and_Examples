@@ -4,16 +4,13 @@ unit fp_tcod;
 
 interface
 
-uses
-  ctypes;
-
 const
   {$IFDEF linux}
   libtcod = 'libtcod';
   {$ENDIF}
 
   {$IFDEF windows}
-  libtcod = 'libtcod.dd';  // ???????
+  libtcod = 'libtcod.dll';
   {$ENDIF}
 
   {$IFDEF FPC}
