@@ -3,42 +3,37 @@ unit xb_builder_fixup;
 interface
 
 uses
-  fp_glib2, fp_xmlb;
+  fp_glib2, fp_xmlb, xb_builder_node;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{
- * Copyright (C) 2018 Richard Hughes <richard@hughsie.com>
- *
- * SPDX-License-Identifier: LGPL-2.1+
-  }
-(** unsupported pragma#pragma once*)
-{$include "xb-builder-node.h"}
-
-{G_DECLARE_DERIVABLE_TYPE(XbBuilderFixup, xb_builder_fixup, XB, BUILDER_FIXUP, GObject) }
-{< private > }
 type
-  PXbBuilderFixupClass = ^TXbBuilderFixupClass;
+  TXbBuilderFixup = record
+    parent_instance: TGObject;
+  end;
+  PXbBuilderFixup = ^TXbBuilderFixup;
+
   TXbBuilderFixupClass = record
-      parent_class : TGObjectClass;
-      _xb_reserved1 : procedure ;cdecl;
-      _xb_reserved2 : procedure ;cdecl;
-      _xb_reserved3 : procedure ;cdecl;
-      _xb_reserved4 : procedure ;cdecl;
-      _xb_reserved5 : procedure ;cdecl;
-      _xb_reserved6 : procedure ;cdecl;
-      _xb_reserved7 : procedure ;cdecl;
-    end;
+    parent_class: TGObjectClass;
+    _xb_reserved1: procedure; cdecl;
+    _xb_reserved2: procedure; cdecl;
+    _xb_reserved3: procedure; cdecl;
+    _xb_reserved4: procedure; cdecl;
+    _xb_reserved5: procedure; cdecl;
+    _xb_reserved6: procedure; cdecl;
+    _xb_reserved7: procedure; cdecl;
+  end;
+  PXbBuilderFixupClass = ^TXbBuilderFixupClass;
 
+  TXbBuilderFixupFunc = function(self: PXbBuilderFixup; bn: PXbBuilderNode; user_data: Tgpointer; error: PPGError): Tgboolean; cdecl;
 
-  TXbBuilderFixupFunc = function (self:PXbBuilderFixup; bn:PXbBuilderNode; user_data:Tgpointer; error:PPGError):Tgboolean;cdecl;
-
-function xb_builder_fixup_new(id:Pgchar; func:TXbBuilderFixupFunc; user_data:Tgpointer; user_data_free:TGDestroyNotify):PXbBuilderFixup;cdecl;external libxmlb;
-function xb_builder_fixup_get_max_depth(self:PXbBuilderFixup):Tgint;cdecl;external libxmlb;
-procedure xb_builder_fixup_set_max_depth(self:PXbBuilderFixup; max_depth:Tgint);cdecl;external libxmlb;
+function xb_builder_fixup_get_type: TGType; cdecl; external libxmlb;
+function xb_builder_fixup_new(id: Pgchar; func: TXbBuilderFixupFunc; user_data: Tgpointer; user_data_free: TGDestroyNotify): PXbBuilderFixup; cdecl; external libxmlb;
+function xb_builder_fixup_get_max_depth(self: PXbBuilderFixup): Tgint; cdecl; external libxmlb;
+procedure xb_builder_fixup_set_max_depth(self: PXbBuilderFixup; max_depth: Tgint); cdecl; external libxmlb;
 
 // === Konventiert am: 1-10-25 19:42:07 ===
 
@@ -80,19 +75,6 @@ function XB_BUILDER_FIXUP_GET_CLASS(obj: Pointer): PXbBuilderFixupClass;
 begin
   Result := PXbBuilderFixupClass(PGTypeInstance(obj)^.g_class);
 end;
-
-type 
-  TXbBuilderFixup = record
-    parent_instance: TGObject;
-  end;
-  PXbBuilderFixup = ^TXbBuilderFixup;
-
-  TXbBuilderFixupClass = record
-  end;
-  PXbBuilderFixupClass = ^TXbBuilderFixupClass;
-
-function xb_builder_fixup_get_type: TGType; cdecl; external libgxxxxxxx;
-
 
 
 end.

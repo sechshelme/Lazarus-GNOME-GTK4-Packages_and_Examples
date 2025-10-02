@@ -11,11 +11,6 @@ uses
 
 
 type
-  TXbSilo = record
-    parent_instance: TGObject;
-  end;
-  PXbSilo = ^TXbSilo;
-
   TXbSiloClass = record
     parent_class: TGObjectClass;
     _xb_reserved1: procedure; cdecl;

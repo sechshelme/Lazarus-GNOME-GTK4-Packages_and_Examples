@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bookstore>
+    <book>
+        <title>Der Zauberberg</title>
+        <author>Thomas Mann</author>
+        <year>1924</year>
+    </book>
+    <book>
+        <title>Die Verwandlung</title>
+        <author>Franz Kafka</author>
+        <year>1915</year>
+    </book>
+</bookstore>
+

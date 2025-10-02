@@ -23,6 +23,12 @@ const
 //  {$include fp_xmlb_includes.inc}
   {$UNDEF read_interface}
 
+  type
+  TXbSilo = record
+    parent_instance: TGObject;
+  end;
+  PXbSilo = ^TXbSilo;
+
 implementation
 
 {$DEFINE read_implementation}

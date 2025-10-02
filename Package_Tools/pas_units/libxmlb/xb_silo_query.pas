@@ -3,7 +3,7 @@ unit xb_silo_query;
 interface
 
 uses
-  fp_glib2, fp_xmlb, xb_silo;
+  fp_glib2, fp_xmlb, xb_query, xb_query_context, xb_node;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
