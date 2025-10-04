@@ -11,75 +11,15 @@ const
   BtnSize = 30;
 
   RectFontCount = 12;
-  // Einfache Linien (single)
-  single_line: array[0..3, 0..RectFontCount - 1] of char = ((
-    #218, // obere linke Ecke ┌
-    #194, // horizontal und unten ┬
-    #191, // obere rechte Ecke ┐
-    #195, // vertikale und rechts ├
-    #197, // Kreuzung ┼
-    #180, // vertikale und links ┤
-    #192, // untere linke Ecke └
-    #193, // horizontal und oben ┴
-    #217, // untere rechte Ecke ┘
-    #196, // horizontale Linie ─
-    #179, // vertikale Linie │
-    #32   // Blank
-    ),
 
-    // Doppelte Linien (double)
-    (
-    #201, // obere linke Ecke ╔
-    #203, // horizontal und unten ╦
-    #187, // obere rechte Ecke ╗
-    #204, // vertikale und rechts ╠
-    #206, // Kreuzung ╬
-    #185, // vertikale und links ╣
-    #200, // untere linke Ecke ╚
-    #202, // horizontal und oben ╩
-    #188, // untere rechte Ecke ╝
-    #205, // horizontale Linie ═
-    #186, // vertikale Linie ║
-    #32   // Blank
-    ),
-
-    // Gemischte Linien 1 (Beispiel: einfach oben, doppelt unten)
-    (
-    #213, // ╒ obere linke Ecke
-    #209, // ┴ horizontal und oben (einfach)
-    #184, // ╕ obere rechte Ecke
-    #199, // ╞ vertikale und rechts gemischt
-    #197, // ┼ Kreuzung (einfach)
-    #182, // ╢ vertikale und links gemischt
-    #212, // ╘ untere linke Ecke
-    #207, // ┬ horizontal und unten (einfach)
-    #190, // ╛ untere rechte Ecke
-    #205, // ═ horizontale Linie (doppelt)
-    #179, // │ vertikale Linie (einfach)
-    #32   // Blank
-    ),
-
-    // Gemischte Linien 2 (Beispiel: doppelt oben, einfach unten)
-    (
-    #214, // ╓ obere linke Ecke
-    #210, // ╨ horizontal und oben (doppelt)
-    #183, // ╖ obere rechte Ecke
-    #199, // ╟ vertikale und rechts gemischt
-    #215, // ╫ Kreuzung (doppelt)
-    #182, // ╡ vertikale und links gemischt
-    #211, // ╙ untere linke Ecke
-    #208, // ╧ horizontal und unten (doppelt)
-    #189, // ╜ untere rechte Ecke
-    #196, // ─ horizontale Linie (einfach)
-    #186, // ║ vertikale Linie (doppelt)
-    #32   // Blank
-    ));
-
+  single_line: array[0..3, 0..RectFontCount - 1] of char = (
+    (#218, #194, #191, #195, #197, #180, #192, #193, #217, #196, #179, #32),
+    (#201, #203, #187, #204, #206, #185, #200, #202, #188, #205, #186, #32),
+    (#213, #209, #184, #198, #216, #181, #212, #207, #190, #205, #179, #32),
+    (#214, #210, #183, #199, #215, #182, #211, #208, #189, #196, #186, #32));
 
 type
   TLineRectButtons = array[0..RectFontCount - 1] of TBitBtn;
-
-  { TForm1 }
 
   TForm1 = class(TForm)
     procedure FormCreate(Sender: TObject);
@@ -109,8 +49,8 @@ var
   r: TRect;
   ch: byte;
 begin
-  ClientWidth:=800;
-  ClientHeight:=400;
+  ClientWidth := 800;
+  ClientHeight := 400;
 
   FontBitmap := TPicture.Create;
   FontBitmap.LoadFromFile('VGA.png');
@@ -123,8 +63,8 @@ begin
       ButtonsGroup[i][b] := TBitBtn.Create(Self);
       with ButtonsGroup[i][b] do begin
         Parent := Self;
-        Width := BtnSize;
-        Height := BtnSize;
+        Width := BtnSize+5;
+        Height := BtnSize+5;
         Left := i * 150 + (b mod 3) * (BtnSize + 2);
         Top := (b div 3) * (BtnSize + 2);
 
