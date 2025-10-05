@@ -5,7 +5,6 @@ uses
   fp_cairo,
   fp_glib2,
   fp_GTK4,
-  fp_GDK4,
   fp_gdk_pixbuf2,
 
   fp_GLIBTools, CairoWindow, TexturWindow, ImageWindow;

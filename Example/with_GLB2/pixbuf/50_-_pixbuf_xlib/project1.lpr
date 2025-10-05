@@ -36,12 +36,7 @@ uses
     XFlush(display);
     g_usleep(1000000);
 
-    gdk_pixbuf_xlib_render_to_drawable(pixbuf, win,
-      DefaultGC(display, screen),
-      0, 0, 0, 0,
-      gdk_pixbuf_get_width(pixbuf),
-      gdk_pixbuf_get_height(pixbuf),
-      XLIB_RGB_DITHER_NORMAL, 0, 0);
+    gdk_pixbuf_xlib_render_to_drawable(pixbuf, win, DefaultGC(display, screen), 0, 0, 0, 0, gdk_pixbuf_get_width(pixbuf), gdk_pixbuf_get_height(pixbuf), XLIB_RGB_DITHER_NORMAL, 0, 0);
 
     XFlush(display);
 
