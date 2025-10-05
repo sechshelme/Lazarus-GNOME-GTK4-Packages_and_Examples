@@ -39,11 +39,8 @@ var
       WriteLn('No sample');
       Exit(GST_FLOW_ERROR);
     end;
-
     g_print('Neues Preroll-Sample empfangen'#10);
-
     gst_sample_unref(sample);
-
     Exit(GST_FLOW_OK);
   end;
 

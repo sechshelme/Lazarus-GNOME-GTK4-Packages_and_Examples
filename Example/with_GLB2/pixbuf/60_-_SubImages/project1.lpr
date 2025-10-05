@@ -10,58 +10,23 @@ uses
 
   procedure on_activate(app: PGtkApplication; user_data: Tgpointer);
   const
-    BUF_SIZE = 128;
+    BUF_SIZE = 256;
   var
-    pixdata: array of uint32 = nil;
     byteData: array of byte = nil;
-    window, picture1, box, picture2, picture3: PGtkWidget;
-    x, y: integer;
-    pixbuf1, pixbuf2, pixbuf3: PGdkPixbuf;
-    buf3: Pguchar;
+    window, box, picture, picture_sub1,
+    picture_sub2: PGtkWidget;
+    x: integer;
+    pixbuf2, pixbuf_sub1, pixbuf_sub2: PGdkPixbuf;
 
   begin
-    WriteLn('GLIB:');
-    WriteLn('Version: ', glib_major_version, '.', glib_minor_version, '.', glib_micro_version);
-    WriteLn('GDK_PIXPUF:');
-    WriteLn('Version: ', gdk_pixbuf_major_version, '.', gdk_pixbuf_minor_version, '.', gdk_pixbuf_micro_version);
-    WriteLn('Versio String: ', gdk_pixbuf_version);
 
-    // === pixbuf 1
-
-    SetLength(pixdata, BUF_SIZE * BUF_SIZE);
-    for x := 0 to BUF_SIZE - 1 do begin
-      for y := 0 to BUF_SIZE - 1 do begin
-        pixdata[x + y * BUF_SIZE] := $FF00FF00;
-      end;
-    end;
-
-    pixbuf1 := g_object_new(GDK_TYPE_PIXBUF,
-      'colorspace', GDK_COLORSPACE_RGB,
-      'n-channels', 3,
-      'bits-per-sample', 8,
-      'has-alpha', gTrue,
-      'width', BUF_SIZE,
-      'height', BUF_SIZE,
-      'rowstride', BUF_SIZE * 4,
-      'pixels', PUInt32(pixdata),
-      nil);
-    if pixbuf1 = nil then begin
-      g_print('pixbuf1 error');
-      exit;
-    end;
-
-    picture1 := gtk_picture_new_for_pixbuf(pixbuf1);
-    gtk_widget_set_hexpand(picture1, True);
-    gtk_widget_set_vexpand(picture1, True);
-
-    // === pixbuf 2
-
+    // === pixbuf
     SetLength(byteData, BUF_SIZE * BUF_SIZE * 4);
     for x := 0 to BUF_SIZE * BUF_SIZE do begin
-      byteData[x * 4 + 0] := $00;
-      byteData[x * 4 + 1] := $00;
-      byteData[x * 4 + 2] := x;
-      byteData[x * 4 + 3] := x shl 4;
+      byteData[x * 4 + 0] := $80;
+      byteData[x * 4 + 1] := x mod BUF_SIZE;
+      byteData[x * 4 + 2] := x div BUF_SIZE;
+      byteData[x * 4 + 3] := $FF;
     end;
     pixbuf2 := gdk_pixbuf_new_from_data(Pguchar(byteData), GDK_COLORSPACE_RGB, True, 8, BUF_SIZE, BUF_SIZE, BUF_SIZE * 4, nil, nil);
     if pixbuf2 = nil then begin
@@ -69,60 +34,44 @@ uses
       exit;
     end;
 
-    picture2 := gtk_picture_new_for_pixbuf(pixbuf2);
-    gtk_widget_set_hexpand(picture2, True);
-    gtk_widget_set_vexpand(picture2, True);
+    picture := gtk_picture_new_for_pixbuf(pixbuf2);
+    gtk_widget_set_hexpand(picture, True);
+    gtk_widget_set_vexpand(picture, True);
 
-    // === pixbuf 3
+    // === Sub 1
+    pixbuf_sub1 := gdk_pixbuf_new_subpixbuf(pixbuf2, 32,32, 64, 64);
 
-    buf3 := gdk_pixbuf_get_pixels(pixbuf2);
+    picture_sub1 := gtk_picture_new_for_pixbuf(pixbuf_sub1);
+    gtk_widget_set_hexpand(picture_sub1, True);
+    gtk_widget_set_vexpand(picture_sub1, True);
 
-    pixbuf3 := gdk_pixbuf_new_from_data(buf3, GDK_COLORSPACE_RGB, True, 8, BUF_SIZE, BUF_SIZE, BUF_SIZE * 4, nil, nil);
-    if pixbuf3 = nil then begin
-      g_print('pixbuf3 error');
-      exit;
-    end;
 
-    picture3 := gtk_picture_new_for_pixbuf(pixbuf3);
-    gtk_widget_set_hexpand(picture3, True);
-    gtk_widget_set_vexpand(picture3, True);
+    // === Sub 2
+    pixbuf_sub2 := gdk_pixbuf_new_subpixbuf(pixbuf2, 160, 160, 64, 64);
+
+    picture_sub2 := gtk_picture_new_for_pixbuf(pixbuf_sub2);
+    gtk_widget_set_hexpand(picture_sub2, True);
+    gtk_widget_set_vexpand(picture_sub2, True);
+
 
     // === Widget
+    window := gtk_application_window_new(app);
+    gtk_window_set_title(GTK_WINDOW(window), 'Window');
+    gtk_window_set_default_size(GTK_WINDOW(window), 640, 480);
 
-    window := g_object_new(GTK_TYPE_WINDOW,
-      'application', app,
-      'title', 'Pixbuf Demo',
-      'width-request', 150,
-      'height-request', 150,
-      'default-width', 320,
-      'default-height', 200,
-      'maximized', gFalse,
-      nil);
+    box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+    gtk_widget_set_hexpand(box, True);
+    gtk_widget_set_vexpand(box, True);
 
-    box := g_object_new(GTK_TYPE_BOX,
-      'orientation', GTK_ORIENTATION_VERTICAL,
-      'hexpand', gTrue,
-      'vexpand', gTrue,
-      'margin-start', 10,
-      'margin-end', 10,
-      'margin-top', 10,
-      'margin-bottom', 10,
-      'spacing', 10,
-      nil);
-
-    GObjectShowProperty(box);
-
-    g_object_unref(pixbuf1);
+    g_object_unref(pixbuf_sub1);
+    g_object_unref(pixbuf_sub2);
     g_object_unref(pixbuf2);
-    g_object_unref(pixbuf3);
 
-    gtk_box_append(GTK_BOX(box), picture1);
-    gtk_box_append(GTK_BOX(box), picture2);
-    gtk_box_append(GTK_BOX(box), picture3);
+    gtk_box_append(GTK_BOX(box), picture);
+    gtk_box_append(GTK_BOX(box), picture_sub1);
+    gtk_box_append(GTK_BOX(box), picture_sub2);
 
     gtk_window_set_child(GTK_WINDOW(window), box);
-
-    //    gtk_widget_show(window);
     gtk_window_present(GTK_WINDOW(window));
   end;
 
