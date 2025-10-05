@@ -3,7 +3,6 @@ program project1;
 
 uses
   Crt,
-  ctypes,
   fp_glib2,
   fp_gst;
 
