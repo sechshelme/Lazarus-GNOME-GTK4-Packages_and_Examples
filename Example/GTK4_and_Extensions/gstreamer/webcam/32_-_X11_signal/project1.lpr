@@ -15,18 +15,15 @@ uses
 const
   EventMask = KeyPressMask or ExposureMask or PointerMotionMask or ButtonPressMask;
 
-  Width = 640;
-  Height = 480;
-
 type
-  TWinData=record
+  TWinData = record
     dis: PDisplay;
     win: TWindow;
     gc: TGC;
     visual: PVisual;
     image: PXImage;
   end;
-  PWinData=^TWinData;
+  PWinData = ^TWinData;
 
   // https://stackoverflow.com/questions/69747987/gstreamer-rtsp-tee-appsink-cant-emit-signal-new-sample
 
@@ -53,7 +50,7 @@ type
     end;
 
     with windata^ do begin
-      image := XCreateImage(dis, visual, 24, ZPixmap, 0, nil, Width, Height, 32, 0);
+      image := XCreateImage(dis, visual, 24, ZPixmap, 0, nil, w, h, 32, 0);
     end;
 
     gst_sample_unref(sample);
@@ -66,6 +63,7 @@ type
     sample: PGstSample;
     buffer: PGstBuffer;
     map: TGstMapInfo;
+    attr: TXWindowAttributes;
   begin
     sample := gst_app_sink_pull_sample(appsink);
     if sample = nil then begin
@@ -78,7 +76,8 @@ type
 
     with winData^ do begin
       image^.Data := pansichar(map.Data);
-      XPutImage(dis, win, gc, image, 0, 0, 0, 0, Width, Height);
+      XGetWindowAttributes(dis, win, @attr);
+      XPutImage(dis, win, gc, image, 0, 0, 0, 0, attr.width, attr.height);
     end;
 
     gst_buffer_unmap(buffer, @map);
@@ -90,15 +89,14 @@ type
 
   procedure main;
   var
-    windata:TWinData;
-      Event: TXEvent;
-      rootWin: TWindow;
-      scr: cint;
-  var
+    windata: TWinData;
+    Event: TXEvent;
+    scr: cint;
     pipeline, appsink: PGstElement;
 
   begin
-    FillChar(windata, SizeOf(windata),0);
+    windata := Default(TWinData);
+    FillChar(windata, SizeOf(windata), 0);
 
     // X11
 
@@ -110,8 +108,7 @@ type
       end;
       scr := DefaultScreen(dis);
       gc := DefaultGC(dis, scr);
-      rootWin := RootWindow(dis, scr);
-      win := XCreateSimpleWindow(dis, rootWin, 10, 10, Width, Height, 1, BlackPixel(dis, scr), WhitePixel(dis, scr));
+      win := XCreateSimpleWindow(dis, RootWindow(dis, scr), 10, 10, 640, 480, 1, 0, $444444);
       visual := DefaultVisual(dis, scr);
       gc := XCreateGC(dis, win, 0, nil);
       XStoreName(dis, win, 'Webcam-Fenster');
@@ -123,7 +120,6 @@ type
 
     gst_init(@argc, @argv);
 
-    //    pipeline := gst_parse_launch('v4l2src ! videoconvert ! video/x-raw,format=BGRA,width=640,height=480 ! appsink name=sink emit-signals=true sync=false', nil);
     pipeline := gst_parse_launch('v4l2src ! videoconvert ! video/x-raw,format=BGRA ! appsink name=sink emit-signals=true sync=false', nil);
     if pipeline = nil then begin
       WriteLn('pipeline error');
@@ -161,7 +157,7 @@ type
       gst_object_unref(appsink);
       gst_object_unref(pipeline);
 
-      XDestroyWindow(dis,win);
+      XDestroyWindow(dis, win);
       XCloseDisplay(dis);
     end;
   end;
