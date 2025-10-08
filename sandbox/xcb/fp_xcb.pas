@@ -10,7 +10,6 @@ interface
 /usr/lib/x86_64-linux-gnu/libxcb-imdkit.so
 /usr/lib/x86_64-linux-gnu/libxcb-xfixes.so
 /usr/lib/x86_64-linux-gnu/libxcb-render.so
-/usr/lib/x86_64-linux-gnu/libxcb.so
 /usr/lib/x86_64-linux-gnu/libxcb-screensaver.so
 /usr/lib/x86_64-linux-gnu/libxcb-sync.so
 /usr/lib/x86_64-linux-gnu/libxcb-randr.so
@@ -25,7 +24,6 @@ interface
 /usr/lib/x86_64-linux-gnu/libxcb-icccm.so
 /usr/lib/x86_64-linux-gnu/libxcb-cursor.so
 /usr/lib/x86_64-linux-gnu/libxcb-xrm.so
-/usr/lib/x86_64-linux-gnu/libxcb-keysyms.so
 /usr/lib/x86_64-linux-gnu/libxcb-dri3.so
 /usr/lib/x86_64-linux-gnu/libxcb-dri2.so
 /usr/lib/x86_64-linux-gnu/libxcb-dpms.so
@@ -37,17 +35,12 @@ interface
 /usr/lib/x86_64-linux-gnu/libxcb-xkb.so
 /usr/lib/x86_64-linux-gnu/libxcb-ewmh.so
 /usr/lib/x86_64-linux-gnu/libxcb-image.so
-/usr/lib/x86_64-linux-gnu/vlc/plugins/access/libxcb_screen_plugin.so
-/usr/lib/x86_64-linux-gnu/vlc/plugins/control/libxcb_hotkeys_plugin.so
-/usr/lib/x86_64-linux-gnu/vlc/plugins/services_discovery/libxcb_apps_plugin.so
-/usr/lib/x86_64-linux-gnu/vlc/plugins/video_output/libxcb_xv_plugin.so
-/usr/lib/x86_64-linux-gnu/vlc/plugins/video_output/libxcb_x11_plugin.so
-/usr/lib/x86_64-linux-gnu/vlc/plugins/video_output/libxcb_window_plugin.so
 *)
 
 const
   {$IFDEF Linux}
   libxcb = 'libxcb';
+  libxcb_keysyms = 'libxcb-keysyms';
   {$ENDIF}
 
   {$IFDEF Windows}
