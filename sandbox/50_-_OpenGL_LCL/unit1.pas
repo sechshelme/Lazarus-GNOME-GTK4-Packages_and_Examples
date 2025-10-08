@@ -40,7 +40,6 @@ begin
   OpenGLControl1 := TGST_OpenGL.Create(Self);
   OpenGLControl1.Parent := Self;
   OpenGLControl1.Align := alClient;
-//  OpenGLControl1.MakeCurrent;
 
   Timer1.Enabled := True;
 end;

@@ -253,6 +253,8 @@ const
     (libs:     'libsoup';units:'fp_glib2, fp_soup'),
     (libs:     'libxmlb';units:'fp_glib2, fp_xmlb'),
 
+    (libs:     'libxcbxxx';units:'fp_xcb'),
+
     (libs: ''; units: ''));
 
 

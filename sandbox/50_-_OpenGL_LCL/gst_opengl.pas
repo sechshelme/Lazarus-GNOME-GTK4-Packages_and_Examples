@@ -12,13 +12,13 @@ type
 
   { TGST_OpenGL }
 
-  TGST_OpenGL = class(TOpenGLControl)
+  TGST_OpenGL = class(TPanel)
   public
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
-
     procedure Repaint; override;
   private
+    ogc:TOpenGLControl;
     textureID0: GLuint;
     Ready: boolean;
   end;
@@ -29,10 +29,15 @@ implementation
 
 constructor TGST_OpenGL.Create(TheOwner: TComponent);
 begin
+  self.BorderWidth:=0;
   textureID0 := 0;
   Ready := False;
   inherited Create(TheOwner);
-  AutoResizeViewport := True;
+  ogc:=TOpenGLControl.Create(self);
+  ogc.Parent := Self;
+  ogc.Align := alClient;
+  ogc.AutoResizeViewport := True;
+//  ogc.MakeCurrent;
 end;
 
 procedure TGST_OpenGL.Repaint;
@@ -74,7 +79,7 @@ begin
   glVertex3f(size, -size, 0);
   glEnd();
 
-  SwapBuffers;
+ ogc.SwapBuffers;
 end;
 
 destructor TGST_OpenGL.Destroy;
