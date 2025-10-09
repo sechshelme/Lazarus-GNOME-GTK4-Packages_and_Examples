@@ -8,7 +8,6 @@ interface
 /usr/lib/x86_64-linux-gnu/libxcb-res.so
 /usr/lib/x86_64-linux-gnu/libxcb-record.so
 /usr/lib/x86_64-linux-gnu/libxcb-imdkit.so
-/usr/lib/x86_64-linux-gnu/libxcb-xfixes.so
 /usr/lib/x86_64-linux-gnu/libxcb-render.so
 /usr/lib/x86_64-linux-gnu/libxcb-screensaver.so
 /usr/lib/x86_64-linux-gnu/libxcb-sync.so
@@ -18,7 +17,6 @@ interface
 /usr/lib/x86_64-linux-gnu/libxcb-xvmc.so
 /usr/lib/x86_64-linux-gnu/libxcb-xv.so
 /usr/lib/x86_64-linux-gnu/libxcb-xtest.so
-/usr/lib/x86_64-linux-gnu/libxcb-xinput.so
 /usr/lib/x86_64-linux-gnu/libxcb-xf86dri.so
 /usr/lib/x86_64-linux-gnu/libxcb-present.so
 /usr/lib/x86_64-linux-gnu/libxcb-icccm.so
@@ -41,6 +39,8 @@ const
   {$IFDEF Linux}
   libxcb = 'libxcb';
   libxcb_keysyms = 'libxcb-keysyms';
+  libxcb_xfixes='libxcb-xfixes';
+  libxcb_xinput='libxcb-xinput';
   {$ENDIF}
 
   {$IFDEF Windows}
@@ -72,6 +72,11 @@ type
   Tint64_t = int64;
   Pint64_t = ^Tint64_t;
   PPint64_t = ^Pint64_t;
+
+  Tsize_t=SizeUInt;
+
+type // /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h
+      Piovec=Pointer;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

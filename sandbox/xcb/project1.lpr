@@ -3,9 +3,17 @@ program project1;
 uses
   keysym,
   xlib,
+
   xproto,
   xcb,
+  xcbext,
+
   xcb_keysyms,
+
+  xcb_atom,
+  xfixes,
+  xinput,
+
   fp_xcb;
 
   procedure paint(conn: Pxcb_connection_t; window: Txcb_window_t; gc: Txcb_gcontext_t);
@@ -118,5 +126,8 @@ uses
   end;
 
 begin
+  xcb_input_feedback_state_data(
+  xcb_atom_name_by_screen(
+//  xcb_send_request(nil,9,nil,nil);
   main;
 end.
