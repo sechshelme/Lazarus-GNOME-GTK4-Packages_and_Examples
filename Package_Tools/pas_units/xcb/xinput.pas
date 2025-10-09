@@ -3,7 +3,7 @@ unit xinput;
 interface
 
 uses
-  fp_xcb, xproto, xcbext, xcb_atom;
+  fp_xcb, xproto, xcbext, xcb_atom, xfixes;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
