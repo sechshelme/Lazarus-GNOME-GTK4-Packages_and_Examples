@@ -3001,14 +3001,8 @@ type
   Const
     XCB_INPUT_CHANGE_DEVICE_NEW_POINTER = 0;
     XCB_INPUT_CHANGE_DEVICE_NEW_KEYBOARD = 1;
-;
-{* Opcode for xcb_input_change_device_notify.  }
-  XCB_INPUT_CHANGE_DEVICE_NOTIFY = 12;  
-{*
- * @brief xcb_input_change_device_notify_event_t
- * }
+const  XCB_INPUT_CHANGE_DEVICE_NOTIFY = 12;
 type
-  Pxcb_input_change_device_notify_event_t = ^Txcb_input_change_device_notify_event_t;
   Txcb_input_change_device_notify_event_t = record
       response_type : Tuint8_t;
       device_id : Tuint8_t;
@@ -3017,37 +3011,30 @@ type
       request : Tuint8_t;
       pad0 : array[0..22] of Tuint8_t;
     end;
-{* Opcode for xcb_input_device_key_state_notify.  }
+  Pxcb_input_change_device_notify_event_t = ^Txcb_input_change_device_notify_event_t;
 
 const
   XCB_INPUT_DEVICE_KEY_STATE_NOTIFY = 13;  
-{*
- * @brief xcb_input_device_key_state_notify_event_t
- * }
 type
-  Pxcb_input_device_key_state_notify_event_t = ^Txcb_input_device_key_state_notify_event_t;
   Txcb_input_device_key_state_notify_event_t = record
       response_type : Tuint8_t;
       device_id : Tuint8_t;
       sequence : Tuint16_t;
       keys : array[0..27] of Tuint8_t;
     end;
-{* Opcode for xcb_input_device_button_state_notify.  }
+  Pxcb_input_device_key_state_notify_event_t = ^Txcb_input_device_key_state_notify_event_t;
 
 const
   XCB_INPUT_DEVICE_BUTTON_STATE_NOTIFY = 14;  
-{*
- * @brief xcb_input_device_button_state_notify_event_t
- * }
 type
-  Pxcb_input_device_button_state_notify_event_t = ^Txcb_input_device_button_state_notify_event_t;
   Txcb_input_device_button_state_notify_event_t = record
       response_type : Tuint8_t;
       device_id : Tuint8_t;
       sequence : Tuint16_t;
       buttons : array[0..27] of Tuint8_t;
     end;
-
+  Pxcb_input_device_button_state_notify_event_t = ^Txcb_input_device_button_state_notify_event_t;
+type
   Pxcb_input_device_change_t = ^Txcb_input_device_change_t;
   Txcb_input_device_change_t =  Longint;
   Const
@@ -3057,14 +3044,8 @@ type
     XCB_INPUT_DEVICE_CHANGE_DISABLED = 3;
     XCB_INPUT_DEVICE_CHANGE_UNRECOVERABLE = 4;
     XCB_INPUT_DEVICE_CHANGE_CONTROL_CHANGED = 5;
-;
-{* Opcode for xcb_input_device_presence_notify.  }
-  XCB_INPUT_DEVICE_PRESENCE_NOTIFY = 15;  
-{*
- * @brief xcb_input_device_presence_notify_event_t
- * }
+const  XCB_INPUT_DEVICE_PRESENCE_NOTIFY = 15;
 type
-  Pxcb_input_device_presence_notify_event_t = ^Txcb_input_device_presence_notify_event_t;
   Txcb_input_device_presence_notify_event_t = record
       response_type : Tuint8_t;
       pad0 : Tuint8_t;
@@ -3075,15 +3056,11 @@ type
       control : Tuint16_t;
       pad1 : array[0..19] of Tuint8_t;
     end;
-{* Opcode for xcb_input_device_property_notify.  }
+  Pxcb_input_device_presence_notify_event_t = ^Txcb_input_device_presence_notify_event_t;
 
 const
   XCB_INPUT_DEVICE_PROPERTY_NOTIFY = 16;  
-{*
- * @brief xcb_input_device_property_notify_event_t
- * }
 type
-  Pxcb_input_device_property_notify_event_t = ^Txcb_input_device_property_notify_event_t;
   Txcb_input_device_property_notify_event_t = record
       response_type : Tuint8_t;
       state : Tuint8_t;
@@ -3093,20 +3070,15 @@ type
       pad0 : array[0..18] of Tuint8_t;
       device_id : Tuint8_t;
     end;
-
+  Pxcb_input_device_property_notify_event_t = ^Txcb_input_device_property_notify_event_t;
+type
   Pxcb_input_change_reason_t = ^Txcb_input_change_reason_t;
   Txcb_input_change_reason_t =  Longint;
   Const
     XCB_INPUT_CHANGE_REASON_SLAVE_SWITCH = 1;
     XCB_INPUT_CHANGE_REASON_DEVICE_CHANGE = 2;
-;
-{* Opcode for xcb_input_device_changed.  }
-  XCB_INPUT_DEVICE_CHANGED = 1;  
-{*
- * @brief xcb_input_device_changed_event_t
- * }
+const  XCB_INPUT_DEVICE_CHANGED = 1;
 type
-  Pxcb_input_device_changed_event_t = ^Txcb_input_device_changed_event_t;
   Txcb_input_device_changed_event_t = record
       response_type : Tuint8_t;
       extension : Tuint8_t;
@@ -3121,19 +3093,14 @@ type
       pad0 : array[0..10] of Tuint8_t;
       full_sequence : Tuint32_t;
     end;
-
+  Pxcb_input_device_changed_event_t = ^Txcb_input_device_changed_event_t;
+type
   Pxcb_input_key_event_flags_t = ^Txcb_input_key_event_flags_t;
   Txcb_input_key_event_flags_t =  Longint;
   Const
     XCB_INPUT_KEY_EVENT_FLAGS_KEY_REPEAT = 65536;
-;
-{* Opcode for xcb_input_key_press.  }
-  XCB_INPUT_KEY_PRESS = 2;  
-{*
- * @brief xcb_input_key_press_event_t
- * }
+const  XCB_INPUT_KEY_PRESS = 2;
 type
-  Pxcb_input_key_press_event_t = ^Txcb_input_key_press_event_t;
   Txcb_input_key_press_event_t = record
       response_type : Tuint8_t;
       extension : Tuint8_t;
@@ -3159,26 +3126,20 @@ type
       mods : Txcb_input_modifier_info_t;
       group : Txcb_input_group_info_t;
     end;
-{* Opcode for xcb_input_key_release.  }
+  Pxcb_input_key_press_event_t = ^Txcb_input_key_press_event_t;
 
 const
   XCB_INPUT_KEY_RELEASE = 3;  
 type
   Pxcb_input_key_release_event_t = ^Txcb_input_key_release_event_t;
   Txcb_input_key_release_event_t = Txcb_input_key_press_event_t;
-
+type
   Pxcb_input_pointer_event_flags_t = ^Txcb_input_pointer_event_flags_t;
   Txcb_input_pointer_event_flags_t =  Longint;
   Const
     XCB_INPUT_POINTER_EVENT_FLAGS_POINTER_EMULATED = 65536;
-;
-{* Opcode for xcb_input_button_press.  }
-  XCB_INPUT_BUTTON_PRESS = 4;  
-{*
- * @brief xcb_input_button_press_event_t
- * }
+const  XCB_INPUT_BUTTON_PRESS = 4;
 type
-  Pxcb_input_button_press_event_t = ^Txcb_input_button_press_event_t;
   Txcb_input_button_press_event_t = record
       response_type : Tuint8_t;
       extension : Tuint8_t;
@@ -3204,21 +3165,20 @@ type
       mods : Txcb_input_modifier_info_t;
       group : Txcb_input_group_info_t;
     end;
-{* Opcode for xcb_input_button_release.  }
+  Pxcb_input_button_press_event_t = ^Txcb_input_button_press_event_t;
 
 const
   XCB_INPUT_BUTTON_RELEASE = 5;  
 type
   Pxcb_input_button_release_event_t = ^Txcb_input_button_release_event_t;
   Txcb_input_button_release_event_t = Txcb_input_button_press_event_t;
-{* Opcode for xcb_input_motion.  }
 
 const
   XCB_INPUT_MOTION = 6;  
 type
   Pxcb_input_motion_event_t = ^Txcb_input_motion_event_t;
   Txcb_input_motion_event_t = Txcb_input_button_press_event_t;
-
+type
   Pxcb_input_notify_mode_t = ^Txcb_input_notify_mode_t;
   Txcb_input_notify_mode_t =  Longint;
   Const
@@ -3228,7 +3188,7 @@ type
     XCB_INPUT_NOTIFY_MODE_WHILE_GRABBED = 3;
     XCB_INPUT_NOTIFY_MODE_PASSIVE_GRAB = 4;
     XCB_INPUT_NOTIFY_MODE_PASSIVE_UNGRAB = 5;
-;
+
 type
   Pxcb_input_notify_detail_t = ^Txcb_input_notify_detail_t;
   Txcb_input_notify_detail_t =  Longint;
@@ -3241,14 +3201,8 @@ type
     XCB_INPUT_NOTIFY_DETAIL_POINTER = 5;
     XCB_INPUT_NOTIFY_DETAIL_POINTER_ROOT = 6;
     XCB_INPUT_NOTIFY_DETAIL_NONE = 7;
-;
-{* Opcode for xcb_input_enter.  }
-  XCB_INPUT_ENTER = 7;  
-{*
- * @brief xcb_input_enter_event_t
- * }
+const  XCB_INPUT_ENTER = 7;
 type
-  Pxcb_input_enter_event_t = ^Txcb_input_enter_event_t;
   Txcb_input_enter_event_t = record
       response_type : Tuint8_t;
       extension : Tuint8_t;
@@ -3274,28 +3228,26 @@ type
       mods : Txcb_input_modifier_info_t;
       group : Txcb_input_group_info_t;
     end;
-{* Opcode for xcb_input_leave.  }
+  Pxcb_input_enter_event_t = ^Txcb_input_enter_event_t;
 
 const
   XCB_INPUT_LEAVE = 8;  
 type
   Pxcb_input_leave_event_t = ^Txcb_input_leave_event_t;
   Txcb_input_leave_event_t = Txcb_input_enter_event_t;
-{* Opcode for xcb_input_focus_in.  }
 
 const
   XCB_INPUT_FOCUS_IN = 9;  
 type
   Pxcb_input_focus_in_event_t = ^Txcb_input_focus_in_event_t;
   Txcb_input_focus_in_event_t = Txcb_input_enter_event_t;
-{* Opcode for xcb_input_focus_out.  }
 
 const
   XCB_INPUT_FOCUS_OUT = 10;  
 type
   Pxcb_input_focus_out_event_t = ^Txcb_input_focus_out_event_t;
   Txcb_input_focus_out_event_t = Txcb_input_enter_event_t;
-
+type
   Pxcb_input_hierarchy_mask_t = ^Txcb_input_hierarchy_mask_t;
   Txcb_input_hierarchy_mask_t =  Longint;
   Const

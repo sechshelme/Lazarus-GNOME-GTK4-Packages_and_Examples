@@ -11,6 +11,8 @@ uses
   xcb_keysyms,
 
   xcb_atom,
+  shape,
+  render,
   xfixes,
   xinput,
 

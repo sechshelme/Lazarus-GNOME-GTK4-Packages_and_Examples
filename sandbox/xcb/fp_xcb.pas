@@ -8,7 +8,6 @@ interface
 /usr/lib/x86_64-linux-gnu/libxcb-res.so
 /usr/lib/x86_64-linux-gnu/libxcb-record.so
 /usr/lib/x86_64-linux-gnu/libxcb-imdkit.so
-/usr/lib/x86_64-linux-gnu/libxcb-render.so
 /usr/lib/x86_64-linux-gnu/libxcb-screensaver.so
 /usr/lib/x86_64-linux-gnu/libxcb-sync.so
 /usr/lib/x86_64-linux-gnu/libxcb-randr.so
@@ -27,7 +26,6 @@ interface
 /usr/lib/x86_64-linux-gnu/libxcb-dpms.so
 /usr/lib/x86_64-linux-gnu/libxcb-damage.so
 /usr/lib/x86_64-linux-gnu/libxcb-composite.so
-/usr/lib/x86_64-linux-gnu/libxcb-shape.so
 /usr/lib/x86_64-linux-gnu/libxcb-shm.so
 /usr/lib/x86_64-linux-gnu/libxcb-render-util.so
 /usr/lib/x86_64-linux-gnu/libxcb-xkb.so
@@ -39,6 +37,8 @@ const
   {$IFDEF Linux}
   libxcb = 'libxcb';
   libxcb_keysyms = 'libxcb-keysyms';
+  libxcb_shape='libxcb-shape';
+  libxcb_render='libxcb-render';
   libxcb_xfixes='libxcb-xfixes';
   libxcb_xinput='libxcb-xinput';
   {$ENDIF}
