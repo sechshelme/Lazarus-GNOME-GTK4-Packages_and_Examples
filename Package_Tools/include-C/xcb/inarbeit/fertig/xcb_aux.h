@@ -34,8 +34,6 @@ void           xcb_aux_sync              (xcb_connection_t *c);
 /* internal helper macro for XCB_AUX_ADD_PARAM
 It gives the offset of the field 'param' in the structure pointed to by
 'paramsp' in multiples of an uint32_t's size. */
-#define XCB_AUX_INTERNAL_OFFSETOF(paramsp, param) \
-    ((uint32_t const*)(&((paramsp)->param))-(uint32_t const*)(paramsp))
 
 /* add an optional parameter to an xcb_params_* structure
 parameters:
@@ -44,9 +42,6 @@ parameters:
     param: parameter to set
     value: value to set the parameter to
 */
-#define XCB_AUX_ADD_PARAM(maskp, paramsp, param, value) \
-    ((*(maskp)|=1<<XCB_AUX_INTERNAL_OFFSETOF((paramsp),param)), \
-     ((paramsp)->param=(value)))
 
 typedef struct {
     uint32_t back_pixmap;

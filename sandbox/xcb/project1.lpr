@@ -4,17 +4,22 @@ uses
   keysym,
   xlib,
 
-  xproto,
   xcb,
+  xproto,
   xcbext,
 
   xcb_keysyms,
-
+  xcb_aux,
+  xcb_event,
   xcb_atom,
+
+
   shape,
   render,
-  xfixes,
-  xinput,
+  xfixes,     // render, shape
+  xinput,     // xcb_atom, xfixes
+
+  glx,
 
   fp_xcb;
 
@@ -32,7 +37,7 @@ uses
       (x: 30; y: 300; width: 180; height: 120; angle1: 0; angle2: 90 shl 6),
       (x: 270; y: 300; width: 165; height: 120; angle1: 0; angle2: 270 shl 6));
 
-    values: array[0..1] of cardinal = ($FF0000, 3);
+    values: array[0..1] of cardinal = ($FF0000, 16);
 
   begin
     xcb_change_gc(conn, gc, XCB_GC_FOREGROUND or XCB_GC_LINE_WIDTH, @values);
@@ -128,8 +133,10 @@ uses
   end;
 
 begin
-  xcb_input_feedback_state_data(
-  xcb_atom_name_by_screen(
+//  xcb_input_feedback_state_data(nil);
+//  xcb_atom_name_by_screen(nil,0);
+//  xcb_event_get_label(0);
+//  xcb_aux_get_depth(nil,nil);
 //  xcb_send_request(nil,9,nil,nil);
   main;
 end.

@@ -12,7 +12,6 @@ interface
 /usr/lib/x86_64-linux-gnu/libxcb-sync.so
 /usr/lib/x86_64-linux-gnu/libxcb-randr.so
 /usr/lib/x86_64-linux-gnu/libxcb-util.so
-/usr/lib/x86_64-linux-gnu/libxcb-glx.so
 /usr/lib/x86_64-linux-gnu/libxcb-xvmc.so
 /usr/lib/x86_64-linux-gnu/libxcb-xv.so
 /usr/lib/x86_64-linux-gnu/libxcb-xtest.so
@@ -41,6 +40,9 @@ const
   libxcb_render='libxcb-render';
   libxcb_xfixes='libxcb-xfixes';
   libxcb_xinput='libxcb-xinput';
+  libxcb_util='libxcb-util';
+  libxcb_glx='libxcb-glx';
+
   {$ENDIF}
 
   {$IFDEF Windows}
