@@ -16,10 +16,13 @@ uses
 
   shape,
   render,
+  randr,      // render
+
   xfixes,     // render, shape
   xinput,     // xcb_atom, xfixes
-
   xkb,
+
+
   glx,
 
   fp_xcb;

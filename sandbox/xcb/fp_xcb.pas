@@ -10,7 +10,6 @@ interface
 /usr/lib/x86_64-linux-gnu/libxcb-imdkit.so
 /usr/lib/x86_64-linux-gnu/libxcb-screensaver.so
 /usr/lib/x86_64-linux-gnu/libxcb-sync.so
-/usr/lib/x86_64-linux-gnu/libxcb-randr.so
 /usr/lib/x86_64-linux-gnu/libxcb-util.so
 /usr/lib/x86_64-linux-gnu/libxcb-xvmc.so
 /usr/lib/x86_64-linux-gnu/libxcb-xv.so
@@ -36,8 +35,10 @@ const
   {$IFDEF Linux}
   libxcb = 'libxcb';
   libxcb_keysyms = 'libxcb-keysyms';
+
   libxcb_shape='libxcb-shape';
   libxcb_render='libxcb-render';
+  libxcb_randr='libxcb-randr';
   libxcb_xfixes='libxcb-xfixes';
   libxcb_xinput='libxcb-xinput';
   libxcb_xkb='libxcb-xkb';
