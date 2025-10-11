@@ -13,6 +13,8 @@ uses
   xcb_event,
   xcb_atom,
 
+  xcb_ewmh,  // inline !!!!!!!!!!!!!!!!!!!!!!!¨
+
 
   shape,
   render,

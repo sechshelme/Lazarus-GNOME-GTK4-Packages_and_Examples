@@ -455,12 +455,14 @@ uint8_t xcb_ewmh_init_atoms_replies(xcb_ewmh_connection_t *ewmh,
                                     xcb_intern_atom_cookie_t *ewmh_cookies,
                                     xcb_generic_error_t **e);
 
+/*
 static inline void
 xcb_ewmh_connection_wipe(xcb_ewmh_connection_t *ewmh)
 {
   free(ewmh->screens);
   free(ewmh->_NET_WM_CM_Sn);
 }
+*/
 
 /**
  * @brief Send a SendEvent request containing a ClientMessage event
@@ -669,6 +671,7 @@ xcb_get_property_cookie_t xcb_ewmh_get_supported(xcb_ewmh_connection_t *ewmh,
  * @param supported The list of atoms contained in the reply
  * @param r GetProperty _NET_SUPPORTED reply
  */
+/*
 static inline uint8_t
 xcb_ewmh_get_supported_from_reply(xcb_ewmh_get_atoms_reply_t *supported,
                                   xcb_get_property_reply_t *r)
@@ -676,19 +679,6 @@ xcb_ewmh_get_supported_from_reply(xcb_ewmh_get_atoms_reply_t *supported,
   return xcb_ewmh_get_atoms_from_reply(supported, r);
 }
 
-/**
- * @brief Get reply from the GetProperty _NET_SUPPORTED cookie
- *
- * The  parameter  e  supplied  to  this  function  must  be  NULL  if
- * xcb_get_window_supported_unchecked() is used.  Otherwise, it stores
- * the error if any.
- *
- * @param ewmh The information relative to EWMH
- * @param cookie The _NET_SUPPORTED GetProperty request cookie
- * @param supported The reply to be filled
- * @param The xcb_generic_error_t supplied
- * @return Return 1 on success, 0 otherwise
- */
 static inline uint8_t
 xcb_ewmh_get_supported_reply(xcb_ewmh_connection_t *ewmh,
                              xcb_get_property_cookie_t cookie,
@@ -697,6 +687,7 @@ xcb_ewmh_get_supported_reply(xcb_ewmh_connection_t *ewmh,
 {
   return xcb_ewmh_get_atoms_reply(ewmh, cookie, supported, e);
 }
+*/
 
 /**
  * @brief Send a ChangeProperty request for _NET_CLIENT_LIST
@@ -755,6 +746,7 @@ xcb_get_property_cookie_t xcb_ewmh_get_client_list(xcb_ewmh_connection_t *ewmh,
  * @param clients The list of clients contained in the reply
  * @param r GetProperty _NET_CLIENT_LIST reply
  */
+/*
 static inline uint8_t
 xcb_ewmh_get_client_list_from_reply(xcb_ewmh_get_windows_reply_t *clients,
                                     xcb_get_property_reply_t *r)
@@ -762,19 +754,6 @@ xcb_ewmh_get_client_list_from_reply(xcb_ewmh_get_windows_reply_t *clients,
   return xcb_ewmh_get_windows_from_reply(clients, r);
 }
 
-/**
- * @brief Get reply from the GetProperty _NET_CLIENT_LIST cookie
- *
- * The  parameter  e  supplied  to  this  function  must  be  NULL  if
- * xcb_get_window_client_list_unchecked()  is   used.   Otherwise,  it
- * stores the error if any.
- *
- * @param ewmh The information relative to EWMH
- * @param cookie The _NET_CLIENT_LIST GetProperty request cookie
- * @param clients The list of clients to be filled
- * @param The xcb_generic_error_t supplied
- * @return Return 1 on success, 0 otherwise
- */
 static inline uint8_t
 xcb_ewmh_get_client_list_reply(xcb_ewmh_connection_t *ewmh,
                                xcb_get_property_cookie_t cookie,
@@ -783,6 +762,7 @@ xcb_ewmh_get_client_list_reply(xcb_ewmh_connection_t *ewmh,
 {
   return xcb_ewmh_get_windows_reply(ewmh, cookie, clients, e);
 }
+*/
 
 /**
  * @brief Send a ChangeProperty request for _NET_CLIENT_LIST_STACKING
@@ -836,6 +816,7 @@ xcb_get_property_cookie_t xcb_ewmh_get_client_list_stacking(xcb_ewmh_connection_
  * @param clients The list of clients contained in the reply
  * @param r GetProperty _NET_CLIENT_LIST_STACKING reply
  */
+/*
 static inline uint8_t
 xcb_ewmh_get_client_list_stacking_from_reply(xcb_ewmh_get_windows_reply_t *clients,
                                              xcb_get_property_reply_t *r)
@@ -843,20 +824,6 @@ xcb_ewmh_get_client_list_stacking_from_reply(xcb_ewmh_get_windows_reply_t *clien
   return xcb_ewmh_get_windows_from_reply(clients, r);
 }
 
-/**
- * @brief  Get reply  from  the GetProperty  _NET_CLIENT_LIST_STACKING
- * cookie
- *
- * The  parameter  e  supplied  to  this  function  must  be  NULL  if
- * xcb_get_window_client_list_stacking_unchecked()       is      used.
- * Otherwise, it stores the error if any.
- *
- * @param ewmh The information relative to EWMH
- * @param cookie The _NET_CLIENT_LIST_STACKING GetProperty request cookie
- * @param clients The list of clients to be filled
- * @param The xcb_generic_error_t supplied
- * @return Return 1 on success, 0 otherwise
- */
 static inline uint8_t
 xcb_ewmh_get_client_list_stacking_reply(xcb_ewmh_connection_t *ewmh,
                                         xcb_get_property_cookie_t cookie,
@@ -865,6 +832,7 @@ xcb_ewmh_get_client_list_stacking_reply(xcb_ewmh_connection_t *ewmh,
 {
   return xcb_ewmh_get_windows_reply(ewmh, cookie, clients, e);
 }
+*/
 
 /**
  * @brief Send a ChangeProperty request for _NET_NUMBER_OF_DESKTOPS
@@ -912,6 +880,7 @@ xcb_get_property_cookie_t xcb_ewmh_get_number_of_desktops(xcb_ewmh_connection_t 
  * @param r GetProperty _NET_NUMBER_OF_DESKTOPS reply
  * @return Return 1 on success, 0 otherwise
  */
+/*
 static inline uint8_t
 xcb_ewmh_get_number_of_desktops_from_reply(uint32_t *number_of_desktops,
                                            xcb_get_property_reply_t *r)
@@ -919,19 +888,6 @@ xcb_ewmh_get_number_of_desktops_from_reply(uint32_t *number_of_desktops,
   return xcb_ewmh_get_cardinal_from_reply(number_of_desktops, r);
 }
 
-/**
- * @brief Get reply from the GetProperty _NET_NUMBER_OF_DESKTOPS cookie
- *
- * The  parameter  e  supplied  to  this  function  must  be  NULL  if
- * xcb_get_window_number_of_desktops_unchecked()  is used.  Otherwise,
- * it stores the error if any.
- *
- * @param ewmh The information relative to EWMH
- * @param cookie The _NET_NUMBER_OF_DESKTOPS GetProperty request cookie
- * @param supported The reply to be filled
- * @param The xcb_generic_error_t supplied
- * @return Return 1 on success, 0 otherwise
- */
 static inline uint8_t
 xcb_ewmh_get_number_of_desktops_reply(xcb_ewmh_connection_t *ewmh,
                                       xcb_get_property_cookie_t cookie,
@@ -952,6 +908,7 @@ xcb_ewmh_request_change_number_of_desktops(xcb_ewmh_connection_t *ewmh,
                                       sizeof(new_number_of_desktops),
                                       &new_number_of_desktops);
 }
+*/
 
 /**
  * @brief Send a ChangeProperty request for _NET_DESKTOP_GEOMETRY
@@ -1194,6 +1151,7 @@ xcb_void_cookie_t xcb_ewmh_request_change_current_desktop(xcb_ewmh_connection_t 
  * @param r GetProperty _NET_CURRENT_DESKTOP reply
  * @return Return 1 on success, 0 otherwise
  */
+/*
 static inline uint8_t
 xcb_ewmh_get_current_desktop_from_reply(uint32_t *current_desktop,
                                         xcb_get_property_reply_t *r)
@@ -1201,19 +1159,6 @@ xcb_ewmh_get_current_desktop_from_reply(uint32_t *current_desktop,
   return xcb_ewmh_get_cardinal_from_reply(current_desktop, r);
 }
 
-/**
- * @brief Get reply from the GetProperty _NET_CURRENT_DESKTOP cookie
- *
- * The  parameter  e  supplied  to  this  function  must  be  NULL  if
- * xcb_get_current_desktop_unchecked() is  used.  Otherwise, it stores
- * the error if any.
- *
- * @param ewmh The information relative to EWMH
- * @param cookie The _NET_CURRENT_DESKTOP GetProperty request cookie
- * @param vp The current desktop
- * @param The xcb_generic_error_t supplied
- * @return Return 1 on success, 0 otherwise
- */
 static inline uint8_t
 xcb_ewmh_get_current_desktop_reply(xcb_ewmh_connection_t *ewmh,
                                    xcb_get_property_cookie_t cookie,
@@ -1222,6 +1167,7 @@ xcb_ewmh_get_current_desktop_reply(xcb_ewmh_connection_t *ewmh,
 {
   return xcb_ewmh_get_cardinal_reply(ewmh, cookie, current_desktop, e);
 }
+*/
 
 /**
  * @brief Send a ChangeProperty request for _NET_DESKTOP_NAMES
@@ -1272,6 +1218,7 @@ xcb_get_property_cookie_t xcb_ewmh_get_desktop_names(xcb_ewmh_connection_t *ewmh
  * @param r GetProperty _NET_DESKTOP_NAMES reply
  * @return Return 1 on success, 0 otherwise
  */
+/*
 static inline uint8_t
 xcb_ewmh_get_desktop_names_from_reply(xcb_ewmh_connection_t *ewmh,
                                       xcb_ewmh_get_utf8_strings_reply_t *names,
@@ -1280,19 +1227,6 @@ xcb_ewmh_get_desktop_names_from_reply(xcb_ewmh_connection_t *ewmh,
   return xcb_ewmh_get_utf8_strings_from_reply(ewmh, names, r);
 }
 
-/**
- * @brief Get reply from the GetProperty _NET_DESKTOP_NAMES cookie
- *
- * The  parameter  e  supplied  to  this  function  must  be  NULL  if
- * xcb_get_desktop_names_unchecked()  is used.   Otherwise,  it stores
- * the error if any.
- *
- * @param ewmh The information relative to EWMH
- * @param cookie The _NET_DESKTOP_NAMES GetProperty request cookie
- * @param names The desktop names
- * @param The xcb_generic_error_t supplied
- * @return Return 1 on success, 0 otherwise
- */
 static inline uint8_t
 xcb_ewmh_get_desktop_names_reply(xcb_ewmh_connection_t *ewmh,
                                  xcb_get_property_cookie_t cookie,
@@ -1301,6 +1235,7 @@ xcb_ewmh_get_desktop_names_reply(xcb_ewmh_connection_t *ewmh,
 {
   return xcb_ewmh_get_utf8_strings_reply(ewmh, cookie, names, e);
 }
+*/
 
 /**
  * @brief Send a ChangeProperty request for _NET_ACTIVE_WINDOW
@@ -1390,6 +1325,7 @@ xcb_get_property_cookie_t xcb_ewmh_get_active_window(xcb_ewmh_connection_t *ewmh
  * @param r GetProperty _NET_ACTIVE_WINDOW_OF_DESKTOPS reply
  * @return Return 1 on success, 0 otherwise
  */
+/*
 static inline uint8_t
 xcb_ewmh_get_active_window_from_reply(xcb_window_t *active_window,
                                       xcb_get_property_reply_t *r)
@@ -1397,19 +1333,6 @@ xcb_ewmh_get_active_window_from_reply(xcb_window_t *active_window,
   return xcb_ewmh_get_window_from_reply(active_window, r);
 }
 
-/**
- * @brief Get reply from the GetProperty _NET_ACTIVE_WINDOW cookie
- *
- * The  parameter  e  supplied  to  this  function  must  be  NULL  if
- * xcb_get_active_window_unchecked()  is used.   Otherwise,  it stores
- * the error if any.
- *
- * @param ewmh The information relative to EWMH.
- * @param cookie The _NET_ACTIVE_WINDOW GetProperty request cookie.
- * @param active_window The reply to be filled.
- * @param The xcb_generic_error_t supplied.
- * @return Return 1 on success, 0 otherwise.
- */
 static inline uint8_t
 xcb_ewmh_get_active_window_reply(xcb_ewmh_connection_t *ewmh,
                                  xcb_get_property_cookie_t cookie,
@@ -1418,6 +1341,7 @@ xcb_ewmh_get_active_window_reply(xcb_ewmh_connection_t *ewmh,
 {
   return xcb_ewmh_get_window_reply(ewmh, cookie, active_window, e);
 }
+*/
 
 /**
  * @brief Send a ChangeProperty request for _NET_WORKAREA
@@ -1546,6 +1470,7 @@ xcb_get_property_cookie_t xcb_ewmh_get_supporting_wm_check(xcb_ewmh_connection_t
  * @param r GetProperty _NET_SUPPORTING_WM_CHECK reply
  * @return Return 1 on success, 0 otherwise
  */
+/*
 static inline uint8_t
 xcb_ewmh_get_supporting_wm_check_from_reply(xcb_window_t *window,
                                             xcb_get_property_reply_t *r)
@@ -1553,20 +1478,6 @@ xcb_ewmh_get_supporting_wm_check_from_reply(xcb_window_t *window,
   return xcb_ewmh_get_window_from_reply(window, r);
 }
 
-/**
- * @brief  Get  reply  from the  GetProperty  _NET_SUPPORTING_WM_CHECK
- * cookie
- *
- * The  parameter  e  supplied  to  this  function  must  be  NULL  if
- * xcb_get_supporting_wm_check_unchecked()  is  used.   Otherwise,  it
- * stores the error if any.
- *
- * @param ewmh The information relative to EWMH
- * @param cookie The _NET_SUPPORTING_WM_CHECK GetProperty request cookie
- * @param window The reply to be filled
- * @param The xcb_generic_error_t supplied
- * @return Return 1 on success, 0 otherwise
- */
 static inline uint8_t
 xcb_ewmh_get_supporting_wm_check_reply(xcb_ewmh_connection_t *ewmh,
                                        xcb_get_property_cookie_t cookie,
@@ -1575,6 +1486,7 @@ xcb_ewmh_get_supporting_wm_check_reply(xcb_ewmh_connection_t *ewmh,
 {
   return xcb_ewmh_get_window_reply(ewmh, cookie, window, e);
 }
+*/
 
 /**
  * @brief Send a ChangeProperty request for _NET_VIRTUAL_ROOTS
@@ -1625,6 +1537,7 @@ xcb_get_property_cookie_t xcb_ewmh_get_virtual_roots(xcb_ewmh_connection_t *ewmh
  * @param r GetProperty _NET_VIRTUAL_ROOTS reply
  * @return Return 1 on success, 0 otherwise
  */
+/*
 static inline uint8_t
 xcb_ewmh_get_virtual_roots_from_reply(xcb_ewmh_get_windows_reply_t *virtual_roots,
                                       xcb_get_property_reply_t *r)
@@ -1632,19 +1545,6 @@ xcb_ewmh_get_virtual_roots_from_reply(xcb_ewmh_get_windows_reply_t *virtual_root
   return xcb_ewmh_get_windows_from_reply(virtual_roots, r);
 }
 
-/**
- * @brief Get reply from the GetProperty _NET_VIRTUAL_ROOTS cookie
- *
- * The  parameter  e  supplied  to  this  function  must  be  NULL  if
- * xcb_get_virtual_roots_unchecked()  is used.   Otherwise,  it stores
- * the error if any.
- *
- * @param ewmh The information relative to EWMH
- * @param cookie The _NET_VIRTUAL_ROOTS GetProperty request cookie
- * @param virtual_roots The current virtual root windows
- * @param The xcb_generic_error_t supplied
- * @return Return 1 on success, 0 otherwise
- */
 static inline uint8_t
 xcb_ewmh_get_virtual_roots_reply(xcb_ewmh_connection_t *ewmh,
                                  xcb_get_property_cookie_t cookie,
@@ -1653,6 +1553,7 @@ xcb_ewmh_get_virtual_roots_reply(xcb_ewmh_connection_t *ewmh,
 {
   return xcb_ewmh_get_windows_reply(ewmh, cookie, virtual_roots, e);
 }
+*/
 
 xcb_void_cookie_t xcb_ewmh_set_desktop_layout(xcb_ewmh_connection_t *ewmh,
                                               int screen_nbr,
@@ -1705,6 +1606,7 @@ xcb_get_property_cookie_t xcb_ewmh_get_showing_desktop_unchecked(xcb_ewmh_connec
 xcb_get_property_cookie_t xcb_ewmh_get_showing_desktop(xcb_ewmh_connection_t *ewmh,
                                                        int screen_nbr);
 
+/*
 static inline uint8_t
 xcb_ewmh_get_showing_desktop_from_reply(uint32_t *desktop,
                                         xcb_get_property_reply_t *r)
@@ -1731,6 +1633,7 @@ xcb_ewmh_request_change_showing_desktop(xcb_ewmh_connection_t *ewmh,
                                       ewmh->_NET_SHOWING_DESKTOP,
                                       sizeof(enter), &enter);
 }
+*/
 
 xcb_void_cookie_t xcb_ewmh_request_close_window(xcb_ewmh_connection_t *ewmh,
                                                 int screen_nbr,
@@ -1761,6 +1664,7 @@ xcb_void_cookie_t xcb_ewmh_request_restack_window(xcb_ewmh_connection_t *ewmh,
                                                   xcb_window_t sibling_window,
                                                   xcb_stack_mode_t detail);
 
+/*
 static inline xcb_void_cookie_t
 xcb_ewmh_request_frame_extents(xcb_ewmh_connection_t *ewmh,
                                int screen_nbr,
@@ -1770,6 +1674,7 @@ xcb_ewmh_request_frame_extents(xcb_ewmh_connection_t *ewmh,
                                       ewmh->screens[screen_nbr]->root,
                                       ewmh->_NET_REQUEST_FRAME_EXTENTS, 0, NULL);
 }
+*/
 
 xcb_void_cookie_t xcb_ewmh_set_wm_name(xcb_ewmh_connection_t *ewmh,
                                        xcb_window_t window,
@@ -1787,6 +1692,7 @@ xcb_get_property_cookie_t xcb_ewmh_get_wm_name_unchecked(xcb_ewmh_connection_t *
 xcb_get_property_cookie_t xcb_ewmh_get_wm_name(xcb_ewmh_connection_t *ewmh,
                                                xcb_window_t window);
 
+/*
 static inline uint8_t
 xcb_ewmh_get_wm_name_from_reply(xcb_ewmh_connection_t *ewmh,
                                 xcb_ewmh_get_utf8_strings_reply_t *data,
@@ -1803,6 +1709,7 @@ xcb_ewmh_get_wm_name_reply(xcb_ewmh_connection_t *ewmh,
 {
   return xcb_ewmh_get_utf8_strings_reply(ewmh, cookie, data, e);
 }
+*/
 
 xcb_void_cookie_t xcb_ewmh_set_wm_visible_name(xcb_ewmh_connection_t *ewmh,
                                                xcb_window_t window,
@@ -1820,6 +1727,7 @@ xcb_get_property_cookie_t xcb_ewmh_get_wm_visible_name_unchecked(xcb_ewmh_connec
 xcb_get_property_cookie_t xcb_ewmh_get_wm_visible_name(xcb_ewmh_connection_t *ewmh,
                                                        xcb_window_t window);
 
+/*
 static inline uint8_t
 xcb_ewmh_get_wm_visible_name_from_reply(xcb_ewmh_connection_t *ewmh,
                                         xcb_ewmh_get_utf8_strings_reply_t *data,
@@ -1836,6 +1744,7 @@ xcb_ewmh_get_wm_visible_name_reply(xcb_ewmh_connection_t *ewmh,
 {
   return xcb_ewmh_get_utf8_strings_reply(ewmh, cookie, data, e);
 }
+*/
 
 xcb_void_cookie_t xcb_ewmh_set_wm_icon_name(xcb_ewmh_connection_t *ewmh,
                                             xcb_window_t window,
@@ -1853,6 +1762,7 @@ xcb_get_property_cookie_t xcb_ewmh_get_wm_icon_name_unchecked(xcb_ewmh_connectio
 xcb_get_property_cookie_t xcb_ewmh_get_wm_icon_name(xcb_ewmh_connection_t *ewmh,
                                                     xcb_window_t window);
 
+/*
 static inline uint8_t
 xcb_ewmh_get_wm_icon_name_from_reply(xcb_ewmh_connection_t *ewmh,
                                      xcb_ewmh_get_utf8_strings_reply_t *data,
@@ -1869,6 +1779,7 @@ xcb_ewmh_get_wm_icon_name_reply(xcb_ewmh_connection_t *ewmh,
 {
   return xcb_ewmh_get_utf8_strings_reply(ewmh, cookie, data, e);
 }
+*/
 
 xcb_void_cookie_t xcb_ewmh_set_wm_visible_icon_name(xcb_ewmh_connection_t *ewmh,
                                                     xcb_window_t window,
@@ -1886,6 +1797,7 @@ xcb_get_property_cookie_t xcb_ewmh_get_wm_visible_icon_name_unchecked(xcb_ewmh_c
 xcb_get_property_cookie_t xcb_ewmh_get_wm_visible_icon_name(xcb_ewmh_connection_t *ewmh,
                                                             xcb_window_t window);
 
+/*
 static inline uint8_t
 xcb_ewmh_get_wm_visible_icon_name_from_reply(xcb_ewmh_connection_t *ewmh,
                                              xcb_ewmh_get_utf8_strings_reply_t *data,
@@ -1902,6 +1814,7 @@ xcb_ewmh_get_wm_visible_icon_name_reply(xcb_ewmh_connection_t *ewmh,
 {
   return xcb_ewmh_get_utf8_strings_reply(ewmh, cookie, data, e);
 }
+*/
 
 xcb_void_cookie_t xcb_ewmh_set_wm_desktop(xcb_ewmh_connection_t *ewmh,
                                           xcb_window_t window,
@@ -1918,6 +1831,7 @@ xcb_get_property_cookie_t xcb_ewmh_get_wm_desktop_unchecked(xcb_ewmh_connection_
 xcb_get_property_cookie_t xcb_ewmh_get_wm_desktop(xcb_ewmh_connection_t *ewmh,
                                                   xcb_window_t window);
 
+/*
 static inline uint8_t
 xcb_ewmh_get_wm_desktop_from_reply(uint32_t *desktop,
                                    xcb_get_property_reply_t *r)
@@ -1933,6 +1847,7 @@ xcb_ewmh_get_wm_desktop_reply(xcb_ewmh_connection_t *ewmh,
 {
   return xcb_ewmh_get_cardinal_reply(ewmh, cookie, desktop, e);
 }
+*/
 
 xcb_void_cookie_t xcb_ewmh_request_change_wm_desktop(xcb_ewmh_connection_t *ewmh,
                                                      int screen_nbr,
@@ -2108,6 +2023,7 @@ uint8_t xcb_ewmh_get_wm_icon_geometry_reply(xcb_ewmh_connection_t *ewmh,
  * @param data_len Length of the data
  * @param data The data
  */
+/*
 static inline xcb_void_cookie_t
 xcb_ewmh_set_wm_icon_checked(xcb_ewmh_connection_t *ewmh,
                              uint8_t mode,
@@ -2119,9 +2035,6 @@ xcb_ewmh_set_wm_icon_checked(xcb_ewmh_connection_t *ewmh,
                                      XCB_ATOM_CARDINAL, 32, data_len, data);
 }
 
-/**
- * @see xcb_ewmh_set_wm_icon_checked
- */
 static inline xcb_void_cookie_t
 xcb_ewmh_set_wm_icon(xcb_ewmh_connection_t *ewmh,
                      uint8_t mode,
@@ -2132,6 +2045,7 @@ xcb_ewmh_set_wm_icon(xcb_ewmh_connection_t *ewmh,
                              ewmh->_NET_WM_ICON, XCB_ATOM_CARDINAL, 32,
                              data_len, data);
 }
+*/
 
 xcb_void_cookie_t xcb_ewmh_append_wm_icon_checked(xcb_ewmh_connection_t *ewmh,
                                                   xcb_window_t window,
@@ -2179,6 +2093,7 @@ xcb_get_property_cookie_t xcb_ewmh_get_wm_pid_unchecked(xcb_ewmh_connection_t *e
 xcb_get_property_cookie_t xcb_ewmh_get_wm_pid(xcb_ewmh_connection_t *ewmh,
                                               xcb_window_t window);
 
+/*
 static inline uint8_t
 xcb_ewmh_get_wm_pid_from_reply(uint32_t *pid,
                                xcb_get_property_reply_t *r)
@@ -2194,6 +2109,7 @@ xcb_ewmh_get_wm_pid_reply(xcb_ewmh_connection_t *ewmh,
 {
   return xcb_ewmh_get_cardinal_reply(ewmh, cookie, pid, e);
 }
+*/
 
 xcb_void_cookie_t xcb_ewmh_set_wm_handled_icons(xcb_ewmh_connection_t *ewmh,
                                                 xcb_window_t window,
@@ -2209,6 +2125,7 @@ xcb_get_property_cookie_t xcb_ewmh_get_wm_handled_icons_unchecked(xcb_ewmh_conne
 xcb_get_property_cookie_t xcb_ewmh_get_wm_handled_icons(xcb_ewmh_connection_t *ewmh,
                                                         xcb_window_t window);
 
+/*
 static inline uint8_t
 xcb_ewmh_get_wm_handled_icons_from_reply(uint32_t *handled_icons,
                                          xcb_get_property_reply_t *r)
@@ -2224,6 +2141,7 @@ xcb_ewmh_get_wm_handled_icons_reply(xcb_ewmh_connection_t *ewmh,
 {
   return xcb_ewmh_get_cardinal_reply(ewmh, cookie, handled_icons, e);
 }
+*/
 
 xcb_void_cookie_t xcb_ewmh_set_wm_user_time(xcb_ewmh_connection_t *ewmh,
                                             xcb_window_t window,
@@ -2239,6 +2157,7 @@ xcb_get_property_cookie_t xcb_ewmh_get_wm_user_time_unchecked(xcb_ewmh_connectio
 xcb_get_property_cookie_t xcb_ewmh_get_wm_user_time(xcb_ewmh_connection_t *ewmh,
                                                     xcb_window_t window);
 
+/*
 static inline uint8_t
 xcb_ewmh_get_wm_user_time_from_reply(uint32_t *xtime,
                                      xcb_get_property_reply_t *r)
@@ -2254,6 +2173,7 @@ xcb_ewmh_get_wm_user_time_reply(xcb_ewmh_connection_t *ewmh,
 {
   return xcb_ewmh_get_cardinal_reply(ewmh, cookie, xtime, e);
 }
+*/
 
 xcb_void_cookie_t xcb_ewmh_set_wm_user_time_window(xcb_ewmh_connection_t *ewmh,
                                                    xcb_window_t window,
@@ -2269,6 +2189,7 @@ xcb_get_property_cookie_t xcb_ewmh_get_wm_user_time_window_unchecked(xcb_ewmh_co
 xcb_get_property_cookie_t xcb_ewmh_get_wm_user_time_window(xcb_ewmh_connection_t *ewmh,
                                                            xcb_window_t window);
 
+/*
 static inline uint8_t
 xcb_ewmh_get_wm_user_time_window_from_reply(uint32_t *xtime,
                                             xcb_get_property_reply_t *r)
@@ -2284,6 +2205,7 @@ xcb_ewmh_get_wm_user_time_window_reply(xcb_ewmh_connection_t *ewmh,
 {
   return xcb_ewmh_get_cardinal_reply(ewmh, cookie, xtime, e);
 }
+*/
 
 xcb_void_cookie_t xcb_ewmh_set_frame_extents(xcb_ewmh_connection_t *ewmh,
                                              xcb_window_t window,

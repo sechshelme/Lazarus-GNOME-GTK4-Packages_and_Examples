@@ -39,6 +39,10 @@ const
   libxcb_shape='libxcb-shape';
   libxcb_render='libxcb-render';
   libxcb_randr='libxcb-randr';
+
+  libxcb_ewmh = 'libxcb-ewmh';
+
+
   libxcb_xfixes='libxcb-xfixes';
   libxcb_xinput='libxcb-xinput';
   libxcb_xkb='libxcb-xkb';
@@ -80,6 +84,9 @@ type
   PPint64_t = ^Pint64_t;
 
   Tsize_t=SizeUInt;
+
+procedure free(__ptr: pointer); cdecl; external 'c';
+
 
 type // /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h
       Piovec=Pointer;
