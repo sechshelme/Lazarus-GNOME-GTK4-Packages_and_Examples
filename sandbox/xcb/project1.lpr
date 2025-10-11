@@ -19,6 +19,7 @@ uses
   xfixes,     // render, shape
   xinput,     // xcb_atom, xfixes
 
+  xkb,
   glx,
 
   fp_xcb;

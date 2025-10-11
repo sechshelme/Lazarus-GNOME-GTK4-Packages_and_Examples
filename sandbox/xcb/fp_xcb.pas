@@ -40,7 +40,10 @@ const
   libxcb_render='libxcb-render';
   libxcb_xfixes='libxcb-xfixes';
   libxcb_xinput='libxcb-xinput';
-  libxcb_util='libxcb-util';
+  libxcb_xkb='libxcb-xkb';
+
+
+    libxcb_util='libxcb-util';
   libxcb_glx='libxcb-glx';
 
   {$ENDIF}
