@@ -9,10 +9,8 @@ interface
 /usr/lib/x86_64-linux-gnu/libxcb-record.so
 /usr/lib/x86_64-linux-gnu/libxcb-imdkit.so
 /usr/lib/x86_64-linux-gnu/libxcb-screensaver.so
-/usr/lib/x86_64-linux-gnu/libxcb-sync.so
 /usr/lib/x86_64-linux-gnu/libxcb-util.so
 /usr/lib/x86_64-linux-gnu/libxcb-xvmc.so
-/usr/lib/x86_64-linux-gnu/libxcb-xv.so
 /usr/lib/x86_64-linux-gnu/libxcb-xtest.so
 /usr/lib/x86_64-linux-gnu/libxcb-xf86dri.so
 /usr/lib/x86_64-linux-gnu/libxcb-present.so
@@ -48,8 +46,14 @@ const
   libxcb_xinput='libxcb-xinput';
   libxcb_xkb='libxcb-xkb';
 
-
     libxcb_util='libxcb-util';
+
+    libxcb_xv='libxcb-xv';
+    libxcb_sync    ='libxcb-sync';
+
+
+
+
   libxcb_glx='libxcb-glx';
 
   {$ENDIF}

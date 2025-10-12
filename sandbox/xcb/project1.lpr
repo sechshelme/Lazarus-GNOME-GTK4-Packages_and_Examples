@@ -28,6 +28,9 @@ uses
   xinput,     // xcb_atom, xfixes
   xkb,
 
+  xv,         // shm
+  sync,
+
 
   glx,
 
