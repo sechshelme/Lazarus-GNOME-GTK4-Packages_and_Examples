@@ -22,8 +22,8 @@ type
 function ges_audio_test_source_get_type: TGType; cdecl; external libges;
 procedure ges_audio_test_source_set_freq(self: PGESAudioTestSource; freq: Tgdouble); cdecl; external libges;
 procedure ges_audio_test_source_set_volume(self: PGESAudioTestSource; volume: Tgdouble); cdecl; external libges;
-function ges_audio_test_source_get_freq(self: PGESAudioTestSource): Tdouble; cdecl; external libges;
-function ges_audio_test_source_get_volume(self: PGESAudioTestSource): Tdouble; cdecl; external libges;
+function ges_audio_test_source_get_freq(self: PGESAudioTestSource): double; cdecl; external libges;
+function ges_audio_test_source_get_volume(self: PGESAudioTestSource): double; cdecl; external libges;
 
 // === Konventiert am: 13-12-24 16:03:42 ===
 

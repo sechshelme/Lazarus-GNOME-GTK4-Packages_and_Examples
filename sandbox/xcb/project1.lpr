@@ -20,6 +20,8 @@ uses
   xcb_bitops,
   xcb_pixel,  // xcb_image, xcb_bitops
 
+  xcb_icccm,
+
   shape,
   render,
   randr,      // render

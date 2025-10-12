@@ -37,7 +37,7 @@ procedure _tcase_add_test(tc: PTCase; tf: TTFun; fname: pchar; _signal: longint;
 
 procedure tcase_add_unchecked_fixture(tc: PTCase; setup: TSFun; teardown: TSFun); cdecl; external libgstcheck;
 procedure tcase_add_checked_fixture(tc: PTCase; setup: TSFun; teardown: TSFun); cdecl; external libgstcheck;
-procedure tcase_set_timeout(tc: PTCase; timeout: Tdouble); cdecl; external libgstcheck;
+procedure tcase_set_timeout(tc: PTCase; timeout: double); cdecl; external libgstcheck;
 procedure tcase_fn_start(fname: pchar; file_: pchar; line: longint); cdecl; external libgstcheck;
 
 procedure _ck_assert_failed(file_: pchar; line: longint; expr: pchar); varargs; cdecl; external libgstcheck;

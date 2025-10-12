@@ -28,8 +28,8 @@ function gtk_print_job_get_page_set(job: PGtkPrintJob): TGtkPageSet; cdecl; exte
 procedure gtk_print_job_set_page_set(job: PGtkPrintJob; page_set: TGtkPageSet); cdecl; external libgtk4;
 function gtk_print_job_get_num_copies(job: PGtkPrintJob): longint; cdecl; external libgtk4;
 procedure gtk_print_job_set_num_copies(job: PGtkPrintJob; num_copies: longint); cdecl; external libgtk4;
-function gtk_print_job_get_scale(job: PGtkPrintJob): Tdouble; cdecl; external libgtk4;
-procedure gtk_print_job_set_scale(job: PGtkPrintJob; scale: Tdouble); cdecl; external libgtk4;
+function gtk_print_job_get_scale(job: PGtkPrintJob): double; cdecl; external libgtk4;
+procedure gtk_print_job_set_scale(job: PGtkPrintJob; scale: double); cdecl; external libgtk4;
 function gtk_print_job_get_n_up(job: PGtkPrintJob): Tguint; cdecl; external libgtk4;
 procedure gtk_print_job_set_n_up(job: PGtkPrintJob; n_up: Tguint); cdecl; external libgtk4;
 function gtk_print_job_get_n_up_layout(job: PGtkPrintJob): TGtkNumberUpLayout; cdecl; external libgtk4;

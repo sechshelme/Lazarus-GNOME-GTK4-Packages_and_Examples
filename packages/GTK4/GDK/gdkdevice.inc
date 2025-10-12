@@ -23,7 +23,7 @@ type
   TGdkTimeCoord = record
     time: Tguint32;
     flags: TGdkAxisFlags;
-    axes: array[0..(GDK_AXIS_LAST) - 1] of Tdouble;
+    axes: array[0..(GDK_AXIS_LAST) - 1] of double;
   end;
   PGdkTimeCoord = ^TGdkTimeCoord;
   PPGdkTimeCoord = ^PGdkTimeCoord;

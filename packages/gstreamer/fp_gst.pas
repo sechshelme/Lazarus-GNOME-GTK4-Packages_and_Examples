@@ -135,8 +135,6 @@ type
   TCUmemAllocationGranularity_flags = longint;
 
 
-  {$include ../gnome_lib_const.inc}
-
   // === GST
 const
   GST_PADDING = 4;

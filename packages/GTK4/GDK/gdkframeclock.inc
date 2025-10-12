@@ -34,7 +34,7 @@ function gdk_frame_clock_get_history_start(frame_clock: PGdkFrameClock): Tgint64
 function gdk_frame_clock_get_timings(frame_clock: PGdkFrameClock; frame_counter: Tgint64): PGdkFrameTimings; cdecl; external libgtk4;
 function gdk_frame_clock_get_current_timings(frame_clock: PGdkFrameClock): PGdkFrameTimings; cdecl; external libgtk4;
 procedure gdk_frame_clock_get_refresh_info(frame_clock: PGdkFrameClock; base_time: Tgint64; refresh_interval_return: Pgint64; presentation_time_return: Pgint64); cdecl; external libgtk4;
-function gdk_frame_clock_get_fps(frame_clock: PGdkFrameClock): Tdouble; cdecl; external libgtk4;
+function gdk_frame_clock_get_fps(frame_clock: PGdkFrameClock): double; cdecl; external libgtk4;
 
 // === Konventiert am: 31-7-24 19:15:15 ===
 

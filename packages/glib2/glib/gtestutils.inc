@@ -16,8 +16,8 @@ type
   TGTestFixtureFunc = procedure(fixture: Tgpointer; user_data: Tgconstpointer); cdecl;
 
 function g_strcmp0(str1: pchar; str2: pchar): longint; cdecl; external libglib2;
-procedure g_test_minimized_result(minimized_quantity: Tdouble; format: pchar); varargs; cdecl; external libglib2;
-procedure g_test_maximized_result(maximized_quantity: Tdouble; format: pchar); varargs; cdecl; external libglib2;
+procedure g_test_minimized_result(minimized_quantity: double; format: pchar); varargs; cdecl; external libglib2;
+procedure g_test_maximized_result(maximized_quantity: double; format: pchar); varargs; cdecl; external libglib2;
 procedure g_test_init(argc: Plongint; argv: PPPchar); varargs; cdecl; external libglib2;
 
 const
@@ -43,8 +43,8 @@ procedure g_test_bug_base(uri_pattern: pchar); cdecl; external libglib2;
 procedure g_test_bug(bug_uri_snippet: pchar); cdecl; external libglib2;
 procedure g_test_summary(summary: pchar); cdecl; external libglib2;
 procedure g_test_timer_start; cdecl; external libglib2;
-function g_test_timer_elapsed: Tdouble; cdecl; external libglib2;
-function g_test_timer_last: Tdouble; cdecl; external libglib2;
+function g_test_timer_elapsed: double; cdecl; external libglib2;
+function g_test_timer_last: double; cdecl; external libglib2;
 procedure g_test_queue_free(gfree_pointer: Tgpointer); cdecl; external libglib2;
 procedure g_test_queue_destroy(destroy_func: TGDestroyNotify; destroy_data: Tgpointer); cdecl; external libglib2;
 
@@ -79,8 +79,8 @@ function g_test_trap_reached_timeout: Tgboolean; cdecl; external libglib2;
 
 function g_test_rand_int: Tgint32; cdecl; external libglib2;
 function g_test_rand_int_range(begin_: Tgint32; end_: Tgint32): Tgint32; cdecl; external libglib2;
-function g_test_rand_double: Tdouble; cdecl; external libglib2;
-function g_test_rand_double_range(range_start: Tdouble; range_end: Tdouble): Tdouble; cdecl; external libglib2;
+function g_test_rand_double: double; cdecl; external libglib2;
+function g_test_rand_double_range(range_start: double; range_end: double): double; cdecl; external libglib2;
 function g_test_create_case(test_name: pchar; data_size: Tgsize; test_data: Tgconstpointer; data_setup: TGTestFixtureFunc; data_test: TGTestFixtureFunc;
   data_teardown: TGTestFixtureFunc): PGTestCase; cdecl; external libglib2;
 function g_test_create_suite(suite_name: pchar): PGTestSuite; cdecl; external libglib2;

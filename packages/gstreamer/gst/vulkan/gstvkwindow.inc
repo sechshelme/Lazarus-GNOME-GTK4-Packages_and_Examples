@@ -35,7 +35,7 @@ procedure gst_vulkan_window_get_surface_dimensions(window: PGstVulkanWindow; Wid
 procedure gst_vulkan_window_set_window_handle(window: PGstVulkanWindow; handle: Tguintptr); cdecl; external libgstvulkan;
 procedure gst_vulkan_window_handle_events(window: PGstVulkanWindow; handle_events: Tgboolean); cdecl; external libgstvulkan;
 procedure gst_vulkan_window_send_key_event(window: PGstVulkanWindow; event_type: pansichar; key_str: pansichar); cdecl; external libgstvulkan;
-procedure gst_vulkan_window_send_mouse_event(window: PGstVulkanWindow; event_type: pansichar; button: longint; posx: Tdouble; posy: Tdouble); cdecl; external libgstvulkan;
+procedure gst_vulkan_window_send_mouse_event(window: PGstVulkanWindow; event_type: pansichar; button: longint; posx: double; posy: double); cdecl; external libgstvulkan;
 function gst_vulkan_window_open(window: PGstVulkanWindow; error: PPGError): Tgboolean; cdecl; external libgstvulkan;
 procedure gst_vulkan_window_close(window: PGstVulkanWindow); cdecl; external libgstvulkan;
 procedure gst_vulkan_window_resize(window: PGstVulkanWindow; Width: Tgint; Height: Tgint); cdecl; external libgstvulkan;

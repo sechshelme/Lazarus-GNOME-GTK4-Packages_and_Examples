@@ -27,7 +27,7 @@ function gdk_monitor_get_manufacturer(monitor: PGdkMonitor): PChar; cdecl; exter
 function gdk_monitor_get_model(monitor: PGdkMonitor): PChar; cdecl; external libgtk4;
 function gdk_monitor_get_connector(monitor: PGdkMonitor): PChar; cdecl; external libgtk4;
 function gdk_monitor_get_scale_factor(monitor: PGdkMonitor): longint; cdecl; external libgtk4;
-function gdk_monitor_get_scale(monitor: PGdkMonitor): Tdouble; cdecl; external libgtk4;
+function gdk_monitor_get_scale(monitor: PGdkMonitor): double; cdecl; external libgtk4;
 function gdk_monitor_get_refresh_rate(monitor: PGdkMonitor): longint; cdecl; external libgtk4;
 function gdk_monitor_get_subpixel_layout(monitor: PGdkMonitor): TGdkSubpixelLayout; cdecl; external libgtk4;
 function gdk_monitor_is_valid(monitor: PGdkMonitor): Tgboolean; cdecl; external libgtk4;

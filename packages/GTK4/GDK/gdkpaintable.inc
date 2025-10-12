@@ -17,23 +17,23 @@ type
 
   TGdkPaintableInterface = record
     g_iface: TGTypeInterface;
-    snapshot: procedure(paintable: PGdkPaintable; snapshot: PGdkSnapshot; Width: Tdouble; Height: Tdouble); cdecl;
+    snapshot: procedure(paintable: PGdkPaintable; snapshot: PGdkSnapshot; Width: double; Height: double); cdecl;
     get_current_image: function(paintable: PGdkPaintable): PGdkPaintable; cdecl;
     get_flags: function(paintable: PGdkPaintable): TGdkPaintableFlags; cdecl;
     get_intrinsic_width: function(paintable: PGdkPaintable): longint; cdecl;
     get_intrinsic_height: function(paintable: PGdkPaintable): longint; cdecl;
-    get_intrinsic_aspect_ratio: function(paintable: PGdkPaintable): Tdouble; cdecl;
+    get_intrinsic_aspect_ratio: function(paintable: PGdkPaintable): double; cdecl;
   end;
   PGdkPaintableInterface = ^TGdkPaintableInterface;
 
 function gdk_paintable_get_type: TGType; cdecl; external libgtk4;
-procedure gdk_paintable_snapshot(paintable: PGdkPaintable; snapshot: PGdkSnapshot; Width: Tdouble; Height: Tdouble); cdecl; external libgtk4;
+procedure gdk_paintable_snapshot(paintable: PGdkPaintable; snapshot: PGdkSnapshot; Width: double; Height: double); cdecl; external libgtk4;
 function gdk_paintable_get_current_image(paintable: PGdkPaintable): PGdkPaintable; cdecl; external libgtk4;
 function gdk_paintable_get_flags(paintable: PGdkPaintable): TGdkPaintableFlags; cdecl; external libgtk4;
 function gdk_paintable_get_intrinsic_width(paintable: PGdkPaintable): longint; cdecl; external libgtk4;
 function gdk_paintable_get_intrinsic_height(paintable: PGdkPaintable): longint; cdecl; external libgtk4;
-function gdk_paintable_get_intrinsic_aspect_ratio(paintable: PGdkPaintable): Tdouble; cdecl; external libgtk4;
-procedure gdk_paintable_compute_concrete_size(paintable: PGdkPaintable; specified_width: Tdouble; specified_height: Tdouble; default_width: Tdouble; default_height: Tdouble;
+function gdk_paintable_get_intrinsic_aspect_ratio(paintable: PGdkPaintable): double; cdecl; external libgtk4;
+procedure gdk_paintable_compute_concrete_size(paintable: PGdkPaintable; specified_width: double; specified_height: double; default_width: double; default_height: double;
   concrete_width: Pdouble; concrete_height: Pdouble); cdecl; external libgtk4;
 procedure gdk_paintable_invalidate_contents(paintable: PGdkPaintable); cdecl; external libgtk4;
 procedure gdk_paintable_invalidate_size(paintable: PGdkPaintable); cdecl; external libgtk4;

@@ -22,13 +22,13 @@ const
   GDK_PIXBUF_ROTATE_CLOCKWISE = 270;
 
 procedure gdk_pixbuf_scale(src: PGdkPixbuf; dest: PGdkPixbuf; dest_x: longint; dest_y: longint; dest_width: longint;
-  dest_height: longint; offset_x: Tdouble; offset_y: Tdouble; scale_x: Tdouble; scale_y: Tdouble;
+  dest_height: longint; offset_x: double; offset_y: double; scale_x: double; scale_y: double;
   interp_type: TGdkInterpType); cdecl; external libgdk_pixbuf2;
 procedure gdk_pixbuf_composite(src: PGdkPixbuf; dest: PGdkPixbuf; dest_x: longint; dest_y: longint; dest_width: longint;
-  dest_height: longint; offset_x: Tdouble; offset_y: Tdouble; scale_x: Tdouble; scale_y: Tdouble;
+  dest_height: longint; offset_x: double; offset_y: double; scale_x: double; scale_y: double;
   interp_type: TGdkInterpType; overall_alpha: longint); cdecl; external libgdk_pixbuf2;
 procedure gdk_pixbuf_composite_color(src: PGdkPixbuf; dest: PGdkPixbuf; dest_x: longint; dest_y: longint; dest_width: longint;
-  dest_height: longint; offset_x: Tdouble; offset_y: Tdouble; scale_x: Tdouble; scale_y: Tdouble;
+  dest_height: longint; offset_x: double; offset_y: double; scale_x: double; scale_y: double;
   interp_type: TGdkInterpType; overall_alpha: longint; check_x: longint; check_y: longint; check_size: longint;
   color1: Tguint32; color2: Tguint32); cdecl; external libgdk_pixbuf2;
 function gdk_pixbuf_scale_simple(src: PGdkPixbuf; dest_width: longint; dest_height: longint; interp_type: TGdkInterpType): PGdkPixbuf; cdecl; external libgdk_pixbuf2;

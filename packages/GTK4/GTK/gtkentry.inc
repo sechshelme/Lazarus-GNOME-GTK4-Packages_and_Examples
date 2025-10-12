@@ -46,10 +46,10 @@ procedure gtk_entry_set_alignment(entry: PGtkEntry; xalign: single); cdecl; exte
 function gtk_entry_get_alignment(entry: PGtkEntry): single; cdecl; external libgtk4;
 procedure gtk_entry_set_completion(entry: PGtkEntry; completion: PGtkEntryCompletion); cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_10';
 function gtk_entry_get_completion(entry: PGtkEntry): PGtkEntryCompletion; cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_10';
-procedure gtk_entry_set_progress_fraction(entry: PGtkEntry; fraction: Tdouble); cdecl; external libgtk4;
-function gtk_entry_get_progress_fraction(entry: PGtkEntry): Tdouble; cdecl; external libgtk4;
-procedure gtk_entry_set_progress_pulse_step(entry: PGtkEntry; fraction: Tdouble); cdecl; external libgtk4;
-function gtk_entry_get_progress_pulse_step(entry: PGtkEntry): Tdouble; cdecl; external libgtk4;
+procedure gtk_entry_set_progress_fraction(entry: PGtkEntry; fraction: double); cdecl; external libgtk4;
+function gtk_entry_get_progress_fraction(entry: PGtkEntry): double; cdecl; external libgtk4;
+procedure gtk_entry_set_progress_pulse_step(entry: PGtkEntry; fraction: double); cdecl; external libgtk4;
+function gtk_entry_get_progress_pulse_step(entry: PGtkEntry): double; cdecl; external libgtk4;
 procedure gtk_entry_progress_pulse(entry: PGtkEntry); cdecl; external libgtk4;
 function gtk_entry_get_placeholder_text(entry: PGtkEntry): PChar; cdecl; external libgtk4;
 procedure gtk_entry_set_placeholder_text(entry: PGtkEntry; Text: PChar); cdecl; external libgtk4;

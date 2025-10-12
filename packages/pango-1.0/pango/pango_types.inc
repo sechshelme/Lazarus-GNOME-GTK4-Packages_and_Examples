@@ -92,8 +92,8 @@ type
 const
   PANGO_SCALE = 1024;
 
-function pango_units_from_double(d: Tdouble): longint; cdecl; external libpango;
-function pango_units_to_double(i: longint): Tdouble; cdecl; external libpango;
+function pango_units_from_double(d: double): longint; cdecl; external libpango;
+function pango_units_to_double(i: longint): double; cdecl; external libpango;
 
 type
   TPangoRectangle = record

@@ -9,17 +9,17 @@ type
 
   TGtkScaleButtonClass = record
     parent_class: TGtkWidgetClass;
-    value_changed: procedure(button: PGtkScaleButton; Value: Tdouble); cdecl;
+    value_changed: procedure(button: PGtkScaleButton; Value: double); cdecl;
     padding: array[0..7] of Tgpointer;
   end;
   PGtkScaleButtonClass = ^TGtkScaleButtonClass;
 
 
 function gtk_scale_button_get_type: TGType; cdecl; external libgtk4;
-function gtk_scale_button_new(min: Tdouble; max: Tdouble; step: Tdouble; icons: PPchar): PGtkWidget; cdecl; external libgtk4;
+function gtk_scale_button_new(min: double; max: double; step: double; icons: PPchar): PGtkWidget; cdecl; external libgtk4;
 procedure gtk_scale_button_set_icons(button: PGtkScaleButton; icons: PPchar); cdecl; external libgtk4;
-function gtk_scale_button_get_value(button: PGtkScaleButton): Tdouble; cdecl; external libgtk4;
-procedure gtk_scale_button_set_value(button: PGtkScaleButton; Value: Tdouble); cdecl; external libgtk4;
+function gtk_scale_button_get_value(button: PGtkScaleButton): double; cdecl; external libgtk4;
+procedure gtk_scale_button_set_value(button: PGtkScaleButton; Value: double); cdecl; external libgtk4;
 function gtk_scale_button_get_adjustment(button: PGtkScaleButton): PGtkAdjustment; cdecl; external libgtk4;
 procedure gtk_scale_button_set_adjustment(button: PGtkScaleButton; adjustment: PGtkAdjustment); cdecl; external libgtk4;
 function gtk_scale_button_get_plus_button(button: PGtkScaleButton): PGtkWidget; cdecl; external libgtk4;

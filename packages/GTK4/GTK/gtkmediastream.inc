@@ -13,7 +13,7 @@ type
     play: function(self: PGtkMediaStream): Tgboolean; cdecl;
     pause: procedure(self: PGtkMediaStream); cdecl;
     seek: procedure(self: PGtkMediaStream; timestamp: Tgint64); cdecl;
-    update_audio: procedure(self: PGtkMediaStream; muted: Tgboolean; volume: Tdouble); cdecl;
+    update_audio: procedure(self: PGtkMediaStream; muted: Tgboolean; volume: double); cdecl;
     realize: procedure(self: PGtkMediaStream; surface: PGdkSurface); cdecl;
     unrealize: procedure(self: PGtkMediaStream; surface: PGdkSurface); cdecl;
     _gtk_reserved1: procedure; cdecl;
@@ -47,8 +47,8 @@ function gtk_media_stream_get_loop(self: PGtkMediaStream): Tgboolean; cdecl; ext
 procedure gtk_media_stream_set_loop(self: PGtkMediaStream; loop: Tgboolean); cdecl; external libgtk4;
 function gtk_media_stream_get_muted(self: PGtkMediaStream): Tgboolean; cdecl; external libgtk4;
 procedure gtk_media_stream_set_muted(self: PGtkMediaStream; muted: Tgboolean); cdecl; external libgtk4;
-function gtk_media_stream_get_volume(self: PGtkMediaStream): Tdouble; cdecl; external libgtk4;
-procedure gtk_media_stream_set_volume(self: PGtkMediaStream; volume: Tdouble); cdecl; external libgtk4;
+function gtk_media_stream_get_volume(self: PGtkMediaStream): double; cdecl; external libgtk4;
+procedure gtk_media_stream_set_volume(self: PGtkMediaStream; volume: double); cdecl; external libgtk4;
 procedure gtk_media_stream_realize(self: PGtkMediaStream; surface: PGdkSurface); cdecl; external libgtk4;
 procedure gtk_media_stream_unrealize(self: PGtkMediaStream; surface: PGdkSurface); cdecl; external libgtk4;
 procedure gtk_media_stream_prepared(self: PGtkMediaStream; has_audio: Tgboolean; has_video: Tgboolean; seekable: Tgboolean; duration: Tgint64); cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_4_FOR(gtk_media_stream_stream_prepared)';

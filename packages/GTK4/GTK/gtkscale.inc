@@ -15,12 +15,12 @@ type
   PGtkScaleClass = ^TGtkScaleClass;
 
 
-  TGtkScaleFormatValueFunc = function(scale: PGtkScale; Value: Tdouble; user_data: Tgpointer): PChar; cdecl;
+  TGtkScaleFormatValueFunc = function(scale: PGtkScale; Value: double; user_data: Tgpointer): PChar; cdecl;
   PGtkScaleFormatValueFunc = ^TGtkScaleFormatValueFunc;
 
 function gtk_scale_get_type: TGType; cdecl; external libgtk4;
 function gtk_scale_new(orientation: TGtkOrientation; adjustment: PGtkAdjustment): PGtkWidget; cdecl; external libgtk4;
-function gtk_scale_new_with_range(orientation: TGtkOrientation; min: Tdouble; max: Tdouble; step: Tdouble): PGtkWidget; cdecl; external libgtk4;
+function gtk_scale_new_with_range(orientation: TGtkOrientation; min: double; max: double; step: double): PGtkWidget; cdecl; external libgtk4;
 procedure gtk_scale_set_digits(scale: PGtkScale; digits: longint); cdecl; external libgtk4;
 function gtk_scale_get_digits(scale: PGtkScale): longint; cdecl; external libgtk4;
 procedure gtk_scale_set_draw_value(scale: PGtkScale; draw_value: Tgboolean); cdecl; external libgtk4;
@@ -31,7 +31,7 @@ procedure gtk_scale_set_value_pos(scale: PGtkScale; pos: TGtkPositionType); cdec
 function gtk_scale_get_value_pos(scale: PGtkScale): TGtkPositionType; cdecl; external libgtk4;
 function gtk_scale_get_layout(scale: PGtkScale): PPangoLayout; cdecl; external libgtk4;
 procedure gtk_scale_get_layout_offsets(scale: PGtkScale; x: Plongint; y: Plongint); cdecl; external libgtk4;
-procedure gtk_scale_add_mark(scale: PGtkScale; Value: Tdouble; position: TGtkPositionType; markup: PChar); cdecl; external libgtk4;
+procedure gtk_scale_add_mark(scale: PGtkScale; Value: double; position: TGtkPositionType; markup: PChar); cdecl; external libgtk4;
 procedure gtk_scale_clear_marks(scale: PGtkScale); cdecl; external libgtk4;
 procedure gtk_scale_set_format_value_func(scale: PGtkScale; func: TGtkScaleFormatValueFunc; user_data: Tgpointer; destroy_notify: TGDestroyNotify); cdecl; external libgtk4;
 

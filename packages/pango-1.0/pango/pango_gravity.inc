@@ -21,7 +21,7 @@ const
   PANGO_GRAVITY_HINT_STRONG = 1;
   PANGO_GRAVITY_HINT_LINE = 2;
 
-function pango_gravity_to_rotation(gravity: TPangoGravity): Tdouble; cdecl; external libpango;
+function pango_gravity_to_rotation(gravity: TPangoGravity): double; cdecl; external libpango;
 function pango_gravity_get_for_matrix(matrix: PPangoMatrix): TPangoGravity; cdecl; external libpango;
 function pango_gravity_get_for_script(script: TPangoScript; base_gravity: TPangoGravity; hint: TPangoGravityHint): TPangoGravity; cdecl; external libpango;
 function pango_gravity_get_for_script_and_width(script: TPangoScript; wide: Tgboolean; base_gravity: TPangoGravity; hint: TPangoGravityHint): TPangoGravity; cdecl; external libpango;

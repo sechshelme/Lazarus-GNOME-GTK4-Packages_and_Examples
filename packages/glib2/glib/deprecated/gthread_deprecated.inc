@@ -59,6 +59,18 @@ function g_thread_create_full(func: TGThreadFunc; Data: Tgpointer; stack_size: T
 procedure g_thread_set_priority(thread: PGThread; priority: TGThreadPriority); cdecl; external libglib2;
 procedure g_thread_foreach(thread_func: TGFunc; user_data: Tgpointer); cdecl; external libglib2;
 
+// /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h
+type
+  Ppthread_mutex_t = ^Tpthread_mutex_t;
+  Tpthread_mutex_t = record
+    case longint of
+      //        0 : ( __data : T_pthread_mutex_s );
+      1: (__size: array[0..40 - 1] of char);
+      2: (__align: culong);
+  end;
+  Tpthread_t = culong;
+
+
 type
   TGStaticMutex = record
     mutex: PGMutex;

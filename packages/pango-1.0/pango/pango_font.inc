@@ -91,7 +91,7 @@ procedure pango_font_description_set_stretch(desc: PPangoFontDescription; stretc
 function pango_font_description_get_stretch(desc: PPangoFontDescription): TPangoStretch; cdecl; external libpango;
 procedure pango_font_description_set_size(desc: PPangoFontDescription; size: Tgint); cdecl; external libpango;
 function pango_font_description_get_size(desc: PPangoFontDescription): Tgint; cdecl; external libpango;
-procedure pango_font_description_set_absolute_size(desc: PPangoFontDescription; size: Tdouble); cdecl; external libpango;
+procedure pango_font_description_set_absolute_size(desc: PPangoFontDescription; size: double); cdecl; external libpango;
 function pango_font_description_get_size_is_absolute(desc: PPangoFontDescription): Tgboolean; cdecl; external libpango;
 procedure pango_font_description_set_gravity(desc: PPangoFontDescription; gravity: TPangoGravity); cdecl; external libpango;
 function pango_font_description_get_gravity(desc: PPangoFontDescription): TPangoGravity; cdecl; external libpango;
@@ -195,13 +195,13 @@ const
   PANGO_UNKNOWN_GLYPH_WIDTH = 10;
   PANGO_UNKNOWN_GLYPH_HEIGHT = 14;
 
-  PANGO_SCALE_XX_SMALL = Tdouble(0.5787037037037);
-  PANGO_SCALE_X_SMALL = Tdouble(0.6944444444444);
-  PANGO_SCALE_SMALL = Tdouble(0.8333333333333);
-  PANGO_SCALE_MEDIUM = Tdouble(1.0);
-  PANGO_SCALE_LARGE = Tdouble(1.2);
-  PANGO_SCALE_X_LARGE = Tdouble(1.44);
-  PANGO_SCALE_XX_LARGE = Tdouble(1.728);
+  PANGO_SCALE_XX_SMALL = double(0.5787037037037);
+  PANGO_SCALE_X_SMALL = double(0.6944444444444);
+  PANGO_SCALE_SMALL = double(0.8333333333333);
+  PANGO_SCALE_MEDIUM = double(1.0);
+  PANGO_SCALE_LARGE = double(1.2);
+  PANGO_SCALE_X_LARGE = double(1.44);
+  PANGO_SCALE_XX_LARGE = double(1.728);
 
 
 function PANGO_TYPE_FONT_DESCRIPTION: TGType;

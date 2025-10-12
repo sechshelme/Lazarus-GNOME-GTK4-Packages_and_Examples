@@ -23,7 +23,7 @@ procedure pango_font_map_list_families(fontmap: PPangoFontMap; families: PPPPang
 function pango_font_map_get_serial(fontmap: PPangoFontMap): Tguint; cdecl; external libpango;
 procedure pango_font_map_changed(fontmap: PPangoFontMap); cdecl; external libpango;
 function pango_font_map_get_family(fontmap: PPangoFontMap; Name: pchar): PPangoFontFamily; cdecl; external libpango;
-function pango_font_map_reload_font(fontmap: PPangoFontMap; font: PPangoFont; scale: Tdouble; context: PPangoContext; variations: pchar): PPangoFont; cdecl; external libpango;
+function pango_font_map_reload_font(fontmap: PPangoFontMap; font: PPangoFont; scale: double; context: PPangoContext; variations: pchar): PPangoFont; cdecl; external libpango;
 
 // === Konventiert am: 23-11-24 19:08:02 ===
 

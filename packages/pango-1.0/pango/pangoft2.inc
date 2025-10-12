@@ -19,11 +19,11 @@ procedure pango_ft2_render_layout(bitmap: PFT_Bitmap; layout: PPangoLayout; x: l
 procedure pango_ft2_render_layout_subpixel(bitmap: PFT_Bitmap; layout: PPangoLayout; x: longint; y: longint); cdecl; external libpangoft2;
 function pango_ft2_font_map_get_type: TGType; cdecl; external libpangoft2;
 function pango_ft2_font_map_new: PPangoFontMap; cdecl; external libpangoft2;
-procedure pango_ft2_font_map_set_resolution(fontmap: PPangoFT2FontMap; dpi_x: Tdouble; dpi_y: Tdouble); cdecl; external libpangoft2;
+procedure pango_ft2_font_map_set_resolution(fontmap: PPangoFT2FontMap; dpi_x: double; dpi_y: double); cdecl; external libpangoft2;
 procedure pango_ft2_font_map_set_default_substitute(fontmap: PPangoFT2FontMap; func: TPangoFT2SubstituteFunc; Data: Tgpointer; notify: TGDestroyNotify); cdecl; external libpangoft2; deprecated 'PANGO_DEPRECATED_IN_1_48_FOR(pango_fc_font_map_set_default_substitute)';
 procedure pango_ft2_font_map_substitute_changed(fontmap: PPangoFT2FontMap); cdecl; external libpangoft2; deprecated 'PANGO_DEPRECATED_IN_1_48_FOR(pango_fc_font_map_substitute_changed)';
 function pango_ft2_font_map_create_context(fontmap: PPangoFT2FontMap): PPangoContext; cdecl; external libpangoft2; deprecated 'PANGO_DEPRECATED_IN_1_22_FOR(pango_font_map_create_context)';
-function pango_ft2_get_context(dpi_x: Tdouble; dpi_y: Tdouble): PPangoContext; cdecl; external libpangoft2; deprecated 'PANGO_DEPRECATED_FOR(pango_font_map_create_context)';
+function pango_ft2_get_context(dpi_x: double; dpi_y: double): PPangoContext; cdecl; external libpangoft2; deprecated 'PANGO_DEPRECATED_FOR(pango_font_map_create_context)';
 function pango_ft2_font_map_for_display: PPangoFontMap; cdecl; external libpangoft2; deprecated 'PANGO_DEPRECATED_FOR(pango_ft2_font_map_new)';
 procedure pango_ft2_shutdown_display; cdecl; external libpangoft2; deprecated 'PANGO_DEPRECATED';
 function pango_ft2_get_unknown_glyph(font: PPangoFont): TPangoGlyph; cdecl; external libpangoft2; deprecated 'PANGO_DEPRECATED_FOR(PANGO_GET_UNKNOWN_GLYPH)';

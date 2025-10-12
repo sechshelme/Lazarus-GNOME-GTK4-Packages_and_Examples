@@ -5,6 +5,18 @@ uses
   fp_glib2,
   fp_glib_unix;
 
+type
+  Tpasswd = record
+    pw_name: pchar;
+    pw_passwd: pchar;
+    pw_uid: cuint;
+    pw_gid: cuint;
+    pw_gecos: pchar;
+    pw_dir: pchar;
+    pw_shell: pchar;
+  end;
+  Ppasswd = ^Tpasswd;
+
   procedure main;
   const
     username = 'tux';

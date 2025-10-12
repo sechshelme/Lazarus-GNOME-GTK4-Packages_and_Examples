@@ -141,8 +141,8 @@ procedure gst_gl_window_send_message(window: PGstGLWindow; callback: TGstGLWindo
 procedure gst_gl_window_send_message_async(window: PGstGLWindow; callback: TGstGLWindowCB; Data: Tgpointer; Destroy: TGDestroyNotify); cdecl; external libgstgl;
 procedure gst_gl_window_handle_events(window: PGstGLWindow; handle_events: Tgboolean); cdecl; external libgstgl;
 procedure gst_gl_window_send_key_event(window: PGstGLWindow; event_type: pchar; key_str: pchar); cdecl; external libgstgl;
-procedure gst_gl_window_send_mouse_event(window: PGstGLWindow; event_type: pchar; button: longint; posx: Tdouble; posy: Tdouble); cdecl; external libgstgl;
-procedure gst_gl_window_send_scroll_event(window: PGstGLWindow; posx: Tdouble; posy: Tdouble; delta_x: Tdouble; delta_y: Tdouble); cdecl; external libgstgl;
+procedure gst_gl_window_send_mouse_event(window: PGstGLWindow; event_type: pchar; button: longint; posx: double; posy: double); cdecl; external libgstgl;
+procedure gst_gl_window_send_scroll_event(window: PGstGLWindow; posx: double; posy: double; delta_x: double; delta_y: double); cdecl; external libgstgl;
 procedure gst_gl_window_queue_resize(window: PGstGLWindow); cdecl; external libgstgl;
 procedure gst_gl_window_draw(window: PGstGLWindow); cdecl; external libgstgl;
 procedure gst_gl_window_show(window: PGstGLWindow); cdecl; external libgstgl;

@@ -23,7 +23,7 @@ function gdk_surface_get_width(surface: PGdkSurface): longint; cdecl; external l
 function gdk_surface_get_height(surface: PGdkSurface): longint; cdecl; external libgtk4;
 function gdk_surface_translate_coordinates(from: PGdkSurface; to_: PGdkSurface; x: Pdouble; y: Pdouble): Tgboolean; cdecl; external libgtk4;
 function gdk_surface_get_scale_factor(surface: PGdkSurface): longint; cdecl; external libgtk4;
-function gdk_surface_get_scale(surface: PGdkSurface): Tdouble; cdecl; external libgtk4;
+function gdk_surface_get_scale(surface: PGdkSurface): double; cdecl; external libgtk4;
 function gdk_surface_get_device_position(surface: PGdkSurface; device: PGdkDevice; x: Pdouble; y: Pdouble; mask: PGdkModifierType): Tgboolean; cdecl; external libgtk4;
 function gdk_surface_create_similar_surface(surface: PGdkSurface; content: Tcairo_content_t; Width: longint; Height: longint): Pcairo_surface_t; cdecl; external libgtk4; deprecated 'GDK_DEPRECATED_IN_4_12';
 procedure gdk_surface_beep(surface: PGdkSurface); cdecl; external libgtk4;

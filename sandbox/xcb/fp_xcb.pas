@@ -37,6 +37,8 @@ const
   libxcb_randr='libxcb-randr';
 
   libxcb_ewmh = 'libxcb-ewmh';
+  libxcb_icccm ='libxcb-icccm';
+
 
   libxcb_shm='libxcb-shm';
   libxcb_image='libxcb-image';

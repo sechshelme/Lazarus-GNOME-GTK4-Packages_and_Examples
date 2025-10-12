@@ -18,8 +18,8 @@ function gtk_snapshot_free_to_paintable(snapshot: PGtkSnapshot; size: Pgraphene_
 function gtk_snapshot_to_node(snapshot: PGtkSnapshot): PGskRenderNode; cdecl; external libgtk4;
 function gtk_snapshot_to_paintable(snapshot: PGtkSnapshot; size: Pgraphene_size_t): PGdkPaintable; cdecl; external libgtk4;
 procedure gtk_snapshot_push_debug(snapshot: PGtkSnapshot; message: PChar); varargs cdecl; external libgtk4;
-procedure gtk_snapshot_push_opacity(snapshot: PGtkSnapshot; opacity: Tdouble); cdecl; external libgtk4;
-procedure gtk_snapshot_push_blur(snapshot: PGtkSnapshot; radius: Tdouble); cdecl; external libgtk4;
+procedure gtk_snapshot_push_opacity(snapshot: PGtkSnapshot; opacity: double); cdecl; external libgtk4;
+procedure gtk_snapshot_push_blur(snapshot: PGtkSnapshot; radius: double); cdecl; external libgtk4;
 procedure gtk_snapshot_push_color_matrix(snapshot: PGtkSnapshot; color_matrix: Pgraphene_matrix_t; color_offset: Pgraphene_vec4_t); cdecl; external libgtk4;
 procedure gtk_snapshot_push_repeat(snapshot: PGtkSnapshot; bounds: Pgraphene_rect_t; child_bounds: Pgraphene_rect_t); cdecl; external libgtk4;
 procedure gtk_snapshot_push_clip(snapshot: PGtkSnapshot; bounds: Pgraphene_rect_t); cdecl; external libgtk4;
@@ -29,7 +29,7 @@ procedure gtk_snapshot_push_stroke(snapshot: PGtkSnapshot; path: PGskPath; strok
 procedure gtk_snapshot_push_shadow(snapshot: PGtkSnapshot; shadow: PGskShadow; n_shadows: Tgsize); cdecl; external libgtk4;
 procedure gtk_snapshot_push_blend(snapshot: PGtkSnapshot; blend_mode: TGskBlendMode); cdecl; external libgtk4;
 procedure gtk_snapshot_push_mask(snapshot: PGtkSnapshot; mask_mode: TGskMaskMode); cdecl; external libgtk4;
-procedure gtk_snapshot_push_cross_fade(snapshot: PGtkSnapshot; progress: Tdouble); cdecl; external libgtk4;
+procedure gtk_snapshot_push_cross_fade(snapshot: PGtkSnapshot; progress: double); cdecl; external libgtk4;
 procedure gtk_snapshot_push_gl_shader(snapshot: PGtkSnapshot; shader: PGskGLShader; bounds: Pgraphene_rect_t; take_args: PGBytes); cdecl; external libgtk4;
 procedure gtk_snapshot_gl_shader_pop_texture(snapshot: PGtkSnapshot); cdecl; external libgtk4;
 procedure gtk_snapshot_pop(snapshot: PGtkSnapshot); cdecl; external libgtk4;

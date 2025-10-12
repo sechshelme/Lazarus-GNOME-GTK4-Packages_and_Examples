@@ -12,8 +12,8 @@ type
 
 function gtk_gesture_long_press_get_type: TGType; cdecl; external libgtk4;
 function gtk_gesture_long_press_new: PGtkGesture; cdecl; external libgtk4;
-procedure gtk_gesture_long_press_set_delay_factor(gesture: PGtkGestureLongPress; delay_factor: Tdouble); cdecl; external libgtk4;
-function gtk_gesture_long_press_get_delay_factor(gesture: PGtkGestureLongPress): Tdouble; cdecl; external libgtk4;
+procedure gtk_gesture_long_press_set_delay_factor(gesture: PGtkGestureLongPress; delay_factor: double); cdecl; external libgtk4;
+function gtk_gesture_long_press_get_delay_factor(gesture: PGtkGestureLongPress): double; cdecl; external libgtk4;
 
 // === Konventiert am: 27-7-24 15:44:16 ===
 

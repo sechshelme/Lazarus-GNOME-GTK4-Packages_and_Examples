@@ -10,10 +10,10 @@ type
   TGtkRangeClass = record
     parent_class: TGtkWidgetClass;
     value_changed: procedure(range: PGtkRange); cdecl;
-    adjust_bounds: procedure(range: PGtkRange; new_value: Tdouble); cdecl;
+    adjust_bounds: procedure(range: PGtkRange; new_value: double); cdecl;
     move_slider: procedure(range: PGtkRange; scroll: TGtkScrollType); cdecl;
     get_range_border: procedure(range: PGtkRange; border_: PGtkBorder); cdecl;
-    change_value: function(range: PGtkRange; scroll: TGtkScrollType; new_value: Tdouble): Tgboolean; cdecl;
+    change_value: function(range: PGtkRange; scroll: TGtkScrollType; new_value: double): Tgboolean; cdecl;
     padding: array[0..7] of Tgpointer;
   end;
   PGtkRangeClass = ^TGtkRangeClass;
@@ -30,16 +30,16 @@ procedure gtk_range_set_slider_size_fixed(range: PGtkRange; size_fixed: Tgboolea
 function gtk_range_get_slider_size_fixed(range: PGtkRange): Tgboolean; cdecl; external libgtk4;
 procedure gtk_range_get_range_rect(range: PGtkRange; range_rect: PGdkRectangle); cdecl; external libgtk4;
 procedure gtk_range_get_slider_range(range: PGtkRange; slider_start: Plongint; slider_end: Plongint); cdecl; external libgtk4;
-procedure gtk_range_set_increments(range: PGtkRange; step: Tdouble; page: Tdouble); cdecl; external libgtk4;
-procedure gtk_range_set_range(range: PGtkRange; min: Tdouble; max: Tdouble); cdecl; external libgtk4;
-procedure gtk_range_set_value(range: PGtkRange; Value: Tdouble); cdecl; external libgtk4;
-function gtk_range_get_value(range: PGtkRange): Tdouble; cdecl; external libgtk4;
+procedure gtk_range_set_increments(range: PGtkRange; step: double; page: double); cdecl; external libgtk4;
+procedure gtk_range_set_range(range: PGtkRange; min: double; max: double); cdecl; external libgtk4;
+procedure gtk_range_set_value(range: PGtkRange; Value: double); cdecl; external libgtk4;
+function gtk_range_get_value(range: PGtkRange): double; cdecl; external libgtk4;
 procedure gtk_range_set_show_fill_level(range: PGtkRange; show_fill_level: Tgboolean); cdecl; external libgtk4;
 function gtk_range_get_show_fill_level(range: PGtkRange): Tgboolean; cdecl; external libgtk4;
 procedure gtk_range_set_restrict_to_fill_level(range: PGtkRange; restrict_to_fill_level: Tgboolean); cdecl; external libgtk4;
 function gtk_range_get_restrict_to_fill_level(range: PGtkRange): Tgboolean; cdecl; external libgtk4;
-procedure gtk_range_set_fill_level(range: PGtkRange; fill_level: Tdouble); cdecl; external libgtk4;
-function gtk_range_get_fill_level(range: PGtkRange): Tdouble; cdecl; external libgtk4;
+procedure gtk_range_set_fill_level(range: PGtkRange; fill_level: double); cdecl; external libgtk4;
+function gtk_range_get_fill_level(range: PGtkRange): double; cdecl; external libgtk4;
 procedure gtk_range_set_round_digits(range: PGtkRange; round_digits: longint); cdecl; external libgtk4;
 function gtk_range_get_round_digits(range: PGtkRange): longint; cdecl; external libgtk4;
 

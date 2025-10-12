@@ -83,9 +83,9 @@ procedure gdk_toplevel_set_deletable(toplevel: PGdkToplevel; deletable: Tgboolea
 function gdk_toplevel_supports_edge_constraints(toplevel: PGdkToplevel): Tgboolean; cdecl; external libgtk4;
 procedure gdk_toplevel_inhibit_system_shortcuts(toplevel: PGdkToplevel; event: PGdkEvent); cdecl; external libgtk4;
 procedure gdk_toplevel_restore_system_shortcuts(toplevel: PGdkToplevel); cdecl; external libgtk4;
-procedure gdk_toplevel_begin_resize(toplevel: PGdkToplevel; edge: TGdkSurfaceEdge; device: PGdkDevice; button: longint; x: Tdouble;
-  y: Tdouble; timestamp: Tguint32); cdecl; external libgtk4;
-procedure gdk_toplevel_begin_move(toplevel: PGdkToplevel; device: PGdkDevice; button: longint; x: Tdouble; y: Tdouble;
+procedure gdk_toplevel_begin_resize(toplevel: PGdkToplevel; edge: TGdkSurfaceEdge; device: PGdkDevice; button: longint; x: double;
+  y: double; timestamp: Tguint32); cdecl; external libgtk4;
+procedure gdk_toplevel_begin_move(toplevel: PGdkToplevel; device: PGdkDevice; button: longint; x: double; y: double;
   timestamp: Tguint32); cdecl; external libgtk4;
 function gdk_toplevel_titlebar_gesture(toplevel: PGdkToplevel; gesture: TGdkTitlebarGesture): Tgboolean; cdecl; external libgtk4;
 

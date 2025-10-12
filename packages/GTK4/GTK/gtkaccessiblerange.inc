@@ -9,7 +9,7 @@ type
 
   TGtkAccessibleRangeInterface = record
     g_iface: TGTypeInterface;
-    set_current_value: function(self: PGtkAccessibleRange; Value: Tdouble): Tgboolean; cdecl;
+    set_current_value: function(self: PGtkAccessibleRange; Value: double): Tgboolean; cdecl;
   end;
   PGtkAccessibleRangeInterface = ^TGtkAccessibleRangeInterface;
 

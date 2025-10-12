@@ -154,8 +154,8 @@ function gst_navigation_event_get_coordinates(event: PGstEvent; x: Pgdouble; y: 
 function gst_navigation_event_set_coordinates(event: PGstEvent; x: Tgdouble; y: Tgdouble): Tgboolean; cdecl; external libgstvideo;
 procedure gst_navigation_send_event(navigation: PGstNavigation; structure: PGstStructure); cdecl; external libgstvideo; deprecated 'GST_VIDEO_DEPRECATED_FOR(gst_navigation_send_event_simple)';
 procedure gst_navigation_send_key_event(navigation: PGstNavigation; event: pchar; key: pchar); cdecl; external libgstvideo; deprecated 'GST_VIDEO_DEPRECATED_FOR(gst_navigation_send_event_simple)';
-procedure gst_navigation_send_mouse_event(navigation: PGstNavigation; event: pchar; button: longint; x: Tdouble; y: Tdouble); cdecl; external libgstvideo; deprecated 'GST_VIDEO_DEPRECATED_FOR(gst_navigation_send_event_simple)';
-procedure gst_navigation_send_mouse_scroll_event(navigation: PGstNavigation; x: Tdouble; y: Tdouble; delta_x: Tdouble; delta_y: Tdouble); cdecl; external libgstvideo; deprecated 'GST_VIDEO_DEPRECATED_FOR(gst_navigation_send_event_simple)';
+procedure gst_navigation_send_mouse_event(navigation: PGstNavigation; event: pchar; button: longint; x: double; y: double); cdecl; external libgstvideo; deprecated 'GST_VIDEO_DEPRECATED_FOR(gst_navigation_send_event_simple)';
+procedure gst_navigation_send_mouse_scroll_event(navigation: PGstNavigation; x: double; y: double; delta_x: double; delta_y: double); cdecl; external libgstvideo; deprecated 'GST_VIDEO_DEPRECATED_FOR(gst_navigation_send_event_simple)';
 procedure gst_navigation_send_command(navigation: PGstNavigation; command: TGstNavigationCommand); cdecl; external libgstvideo; deprecated 'GST_VIDEO_DEPRECATED_FOR(gst_navigation_send_event_simple)';
 procedure gst_navigation_send_event_simple(navigation: PGstNavigation; event: PGstEvent); cdecl; external libgstvideo;
 function gst_navigation_event_parse_modifier_state(event: PGstEvent; state: PGstNavigationModifierType): Tgboolean; cdecl; external libgstvideo;

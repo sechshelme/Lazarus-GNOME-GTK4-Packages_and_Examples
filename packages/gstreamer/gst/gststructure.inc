@@ -93,7 +93,7 @@ function gst_structure_serialize(structure: PGstStructure; flags: TGstSerializeF
 function gst_structure_serialize_full(structure: PGstStructure; flags: TGstSerializeFlags): Pgchar; cdecl; external libgstreamer;
 function gst_structure_from_string(_string: Pgchar; end_: PPgchar): PGstStructure; cdecl; external libgstreamer;
 function gst_structure_fixate_field_nearest_int(structure: PGstStructure; field_name: PChar; target: longint): Tgboolean; cdecl; external libgstreamer;
-function gst_structure_fixate_field_nearest_double(structure: PGstStructure; field_name: PChar; target: Tdouble): Tgboolean; cdecl; external libgstreamer;
+function gst_structure_fixate_field_nearest_double(structure: PGstStructure; field_name: PChar; target: double): Tgboolean; cdecl; external libgstreamer;
 function gst_structure_fixate_field_boolean(structure: PGstStructure; field_name: PChar; target: Tgboolean): Tgboolean; cdecl; external libgstreamer;
 function gst_structure_fixate_field_string(structure: PGstStructure; field_name: PChar; target: Pgchar): Tgboolean; cdecl; external libgstreamer;
 function gst_structure_fixate_field_nearest_fraction(structure: PGstStructure; field_name: PChar; target_numerator: Tgint; target_denominator: Tgint): Tgboolean; cdecl; external libgstreamer;

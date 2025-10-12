@@ -12,7 +12,7 @@ type
 
 function gtk_gesture_zoom_get_type: TGType; cdecl; external libgtk4;
 function gtk_gesture_zoom_new: PGtkGesture; cdecl; external libgtk4;
-function gtk_gesture_zoom_get_scale_delta(gesture: PGtkGestureZoom): Tdouble; cdecl; external libgtk4;
+function gtk_gesture_zoom_get_scale_delta(gesture: PGtkGestureZoom): double; cdecl; external libgtk4;
 
 // === Konventiert am: 27-7-24 15:43:30 ===
 

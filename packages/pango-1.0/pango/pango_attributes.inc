@@ -146,7 +146,7 @@ type
 
   TPangoAttrFloat = record
     attr: TPangoAttribute;
-    Value: Tdouble;
+    Value: double;
   end;
   PPangoAttrFloat = ^TPangoAttrFloat;
 
@@ -217,7 +217,7 @@ function pango_attr_strikethrough_color_new(red: Tguint16; green: Tguint16; blue
 function pango_attr_rise_new(rise: longint): PPangoAttribute; cdecl; external libpango;
 function pango_attr_baseline_shift_new(shift: longint): PPangoAttribute; cdecl; external libpango;
 function pango_attr_font_scale_new(scale: TPangoFontScale): PPangoAttribute; cdecl; external libpango;
-function pango_attr_scale_new(scale_factor: Tdouble): PPangoAttribute; cdecl; external libpango;
+function pango_attr_scale_new(scale_factor: double): PPangoAttribute; cdecl; external libpango;
 function pango_attr_fallback_new(enable_fallback: Tgboolean): PPangoAttribute; cdecl; external libpango;
 function pango_attr_letter_spacing_new(letter_spacing: longint): PPangoAttribute; cdecl; external libpango;
 function pango_attr_shape_new(ink_rect: PPangoRectangle; logical_rect: PPangoRectangle): PPangoAttribute; cdecl; external libpango;
@@ -234,7 +234,7 @@ function pango_attr_insert_hyphens_new(insert_hyphens: Tgboolean): PPangoAttribu
 function pango_attr_overline_new(overline: TPangoOverline): PPangoAttribute; cdecl; external libpango;
 function pango_attr_overline_color_new(red: Tguint16; green: Tguint16; blue: Tguint16): PPangoAttribute; cdecl; external libpango;
 function pango_attr_show_new(flags: TPangoShowFlags): PPangoAttribute; cdecl; external libpango;
-function pango_attr_line_height_new(factor: Tdouble): PPangoAttribute; cdecl; external libpango;
+function pango_attr_line_height_new(factor: double): PPangoAttribute; cdecl; external libpango;
 function pango_attr_line_height_new_absolute(Height: longint): PPangoAttribute; cdecl; external libpango;
 function pango_attr_text_transform_new(transform: TPangoTextTransform): PPangoAttribute; cdecl; external libpango;
 function pango_attribute_as_string(attr: PPangoAttribute): PPangoAttrString; cdecl; external libpango;

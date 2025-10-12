@@ -12,7 +12,7 @@ type
 
 function gtk_gesture_rotate_get_type: TGType; cdecl; external libgtk4;
 function gtk_gesture_rotate_new: PGtkGesture; cdecl; external libgtk4;
-function gtk_gesture_rotate_get_angle_delta(gesture: PGtkGestureRotate): Tdouble; cdecl; external libgtk4;
+function gtk_gesture_rotate_get_angle_delta(gesture: PGtkGestureRotate): double; cdecl; external libgtk4;
 
 // === Konventiert am: 27-7-24 15:44:29 ===
 
