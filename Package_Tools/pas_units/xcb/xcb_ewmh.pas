@@ -495,289 +495,273 @@ function xcb_ewmh_get_wm_cm_owner_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Tx
 
 // === Konventiert am: 11-10-25 19:41:57 ===
 
+procedure xcb_ewmh_connection_wipe(ewmh: Pxcb_ewmh_connection_t); inline;
+function xcb_ewmh_get_supported_from_reply(supported: Pxcb_ewmh_get_atoms_reply_t; r: Pxcb_get_property_reply_t): byte; inline;
+function xcb_ewmh_get_supported_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; supported: Pxcb_ewmh_get_atoms_reply_t; e: PPxcb_generic_error_t): byte; inline;
+function xcb_ewmh_get_client_list_from_reply(clients: Pxcb_ewmh_get_windows_reply_t; r: Pxcb_get_property_reply_t): byte; inline;
+function xcb_ewmh_get_client_list_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; clients: Pxcb_ewmh_get_windows_reply_t; e: PPxcb_generic_error_t): byte; inline;
+function xcb_ewmh_get_client_list_stacking_from_reply(clients: Pxcb_ewmh_get_windows_reply_t; r: Pxcb_get_property_reply_t): byte; inline;
+function xcb_ewmh_get_client_list_stacking_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; clients: Pxcb_ewmh_get_windows_reply_t; e: PPxcb_generic_error_t): byte; inline;
+function xcb_ewmh_get_number_of_desktops_from_reply(number_of_desktops: PCardinal; r: Pxcb_get_property_reply_t): byte; inline;
+function xcb_ewmh_get_number_of_desktops_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; number_of_desktops: PCardinal; e: PPxcb_generic_error_t): byte; inline;
+function xcb_ewmh_request_change_number_of_desktops(ewmh: Pxcb_ewmh_connection_t; screen_nbr: integer; new_number_of_desktops: cardinal): Txcb_void_cookie_t; inline;
+function xcb_ewmh_get_current_desktop_from_reply(current_desktop: PCardinal; r: Pxcb_get_property_reply_t): byte; inline;
+function xcb_ewmh_get_current_desktop_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; current_desktop: PCardinal; e: PPxcb_generic_error_t): byte; inline;
+function xcb_ewmh_get_desktop_names_from_reply(ewmh: Pxcb_ewmh_connection_t; names: Pxcb_ewmh_get_utf8_strings_reply_t; r: Pxcb_get_property_reply_t): byte; inline;
+function xcb_ewmh_get_desktop_names_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; names: Pxcb_ewmh_get_utf8_strings_reply_t; e: PPxcb_generic_error_t): byte; inline;
+function xcb_ewmh_get_active_window_from_reply(active_window: Pxcb_window_t; r: Pxcb_get_property_reply_t): byte; inline;
+function xcb_ewmh_get_active_window_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; active_window: Pxcb_window_t; e: PPxcb_generic_error_t): byte; inline;
+function xcb_ewmh_get_supporting_wm_check_from_reply(window: Pxcb_window_t; r: Pxcb_get_property_reply_t): byte; inline;
+function xcb_ewmh_get_supporting_wm_check_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; window: Pxcb_window_t; e: PPxcb_generic_error_t): byte; inline;
+function xcb_ewmh_get_virtual_roots_from_reply(virtual_roots: Pxcb_ewmh_get_windows_reply_t; r: Pxcb_get_property_reply_t): byte; inline;
+function xcb_ewmh_get_virtual_roots_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; virtual_roots: Pxcb_ewmh_get_windows_reply_t; e: PPxcb_generic_error_t): byte; inline;
+function xcb_ewmh_get_showing_desktop_from_reply(desktop: PCardinal; r: Pxcb_get_property_reply_t): byte; inline;
+function xcb_ewmh_get_showing_desktop_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; desktop: PCardinal; e: PPxcb_generic_error_t): byte; inline;
+function xcb_ewmh_request_change_showing_desktop(ewmh: Pxcb_ewmh_connection_t; screen_nbr: integer; enter: cardinal): Txcb_void_cookie_t; inline;
+function xcb_ewmh_request_frame_extents(ewmh: Pxcb_ewmh_connection_t; screen_nbr: integer; client_window: Txcb_window_t): Txcb_void_cookie_t; inline;
+function xcb_ewmh_get_wm_name_from_reply(ewmh: Pxcb_ewmh_connection_t; data: Pxcb_ewmh_get_utf8_strings_reply_t; r: Pxcb_get_property_reply_t): byte; inline;
+function xcb_ewmh_get_wm_name_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; data: Pxcb_ewmh_get_utf8_strings_reply_t; e: PPxcb_generic_error_t): byte; inline;
+function xcb_ewmh_get_wm_visible_name_from_reply(ewmh: Pxcb_ewmh_connection_t; data: Pxcb_ewmh_get_utf8_strings_reply_t; r: Pxcb_get_property_reply_t): byte; inline;
+function xcb_ewmh_get_wm_visible_name_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; data: Pxcb_ewmh_get_utf8_strings_reply_t; e: PPxcb_generic_error_t): byte; inline;
+function xcb_ewmh_get_wm_icon_name_from_reply(ewmh: Pxcb_ewmh_connection_t; data: Pxcb_ewmh_get_utf8_strings_reply_t; r: Pxcb_get_property_reply_t): byte; inline;
+function xcb_ewmh_get_wm_icon_name_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; data: Pxcb_ewmh_get_utf8_strings_reply_t; e: PPxcb_generic_error_t): byte; inline;
+function xcb_ewmh_get_wm_visible_icon_name_from_reply(ewmh: Pxcb_ewmh_connection_t; data: Pxcb_ewmh_get_utf8_strings_reply_t; r: Pxcb_get_property_reply_t): byte; inline;
+function xcb_ewmh_get_wm_visible_icon_name_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; data: Pxcb_ewmh_get_utf8_strings_reply_t; e: PPxcb_generic_error_t): byte; inline;
+function xcb_ewmh_get_wm_desktop_from_reply(desktop: PCardinal; r: Pxcb_get_property_reply_t): byte; inline;
+function xcb_ewmh_get_wm_desktop_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; desktop: PCardinal; e: PPxcb_generic_error_t): byte; inline;
+function xcb_ewmh_set_wm_icon_checked(ewmh: Pxcb_ewmh_connection_t; mode: byte; window: Txcb_window_t; data_len: cardinal; data: PCardinal): Txcb_void_cookie_t; inline;
+function xcb_ewmh_set_wm_icon(ewmh: Pxcb_ewmh_connection_t; mode: byte; window: Txcb_window_t; data_len: cardinal; data: PCardinal): Txcb_void_cookie_t; inline;
+function xcb_ewmh_get_wm_pid_from_reply(pid: PCardinal; r: Pxcb_get_property_reply_t): byte; inline;
+function xcb_ewmh_get_wm_pid_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; pid: PCardinal; e: PPxcb_generic_error_t): byte; inline;
+function xcb_ewmh_get_wm_handled_icons_from_reply(handled_icons: PCardinal; r: Pxcb_get_property_reply_t): byte; inline;
+function xcb_ewmh_get_wm_handled_icons_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; handled_icons: PCardinal; e: PPxcb_generic_error_t): byte; inline;
+function xcb_ewmh_get_wm_user_time_from_reply(xtime: PCardinal; r: Pxcb_get_property_reply_t): byte; inline;
+function xcb_ewmh_get_wm_user_time_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; xtime: PCardinal; e: PPxcb_generic_error_t): byte; inline;
+function xcb_ewmh_get_wm_user_time_window_from_reply(xtime: PCardinal; r: Pxcb_get_property_reply_t): byte; inline;
+function xcb_ewmh_get_wm_user_time_window_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; xtime: PCardinal; e: PPxcb_generic_error_t): byte; inline;
+
 
 implementation
 
-// xcb_ewmh_connection_wipe
 procedure xcb_ewmh_connection_wipe(ewmh: Pxcb_ewmh_connection_t); inline;
 begin
   free(ewmh^.screens);
   free(ewmh^._NET_WM_CM_Sn);
 end;
 
-// xcb_ewmh_get_supported_from_reply
 function xcb_ewmh_get_supported_from_reply(supported: Pxcb_ewmh_get_atoms_reply_t; r: Pxcb_get_property_reply_t): byte; inline;
 begin
   Result := xcb_ewmh_get_atoms_from_reply(supported, r);
 end;
 
-// xcb_ewmh_get_supported_reply
 function xcb_ewmh_get_supported_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; supported: Pxcb_ewmh_get_atoms_reply_t; e: PPxcb_generic_error_t): byte; inline;
 begin
   Result := xcb_ewmh_get_atoms_reply(ewmh, cookie, supported, e);
 end;
 
-// xcb_ewmh_get_client_list_from_reply
 function xcb_ewmh_get_client_list_from_reply(clients: Pxcb_ewmh_get_windows_reply_t; r: Pxcb_get_property_reply_t): byte; inline;
 begin
   Result := xcb_ewmh_get_windows_from_reply(clients, r);
 end;
 
-// xcb_ewmh_get_client_list_reply
 function xcb_ewmh_get_client_list_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; clients: Pxcb_ewmh_get_windows_reply_t; e: PPxcb_generic_error_t): byte; inline;
 begin
   Result := xcb_ewmh_get_windows_reply(ewmh, cookie, clients, e);
 end;
 
-// xcb_ewmh_get_client_list_stacking_from_reply
 function xcb_ewmh_get_client_list_stacking_from_reply(clients: Pxcb_ewmh_get_windows_reply_t; r: Pxcb_get_property_reply_t): byte; inline;
 begin
   Result := xcb_ewmh_get_windows_from_reply(clients, r);
 end;
 
-// xcb_ewmh_get_client_list_stacking_reply
 function xcb_ewmh_get_client_list_stacking_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; clients: Pxcb_ewmh_get_windows_reply_t; e: PPxcb_generic_error_t): byte; inline;
 begin
   Result := xcb_ewmh_get_windows_reply(ewmh, cookie, clients, e);
 end;
 
-// xcb_ewmh_get_number_of_desktops_from_reply
 function xcb_ewmh_get_number_of_desktops_from_reply(number_of_desktops: PCardinal; r: Pxcb_get_property_reply_t): byte; inline;
 begin
   Result := xcb_ewmh_get_cardinal_from_reply(number_of_desktops, r);
 end;
 
-// xcb_ewmh_get_number_of_desktops_reply
 function xcb_ewmh_get_number_of_desktops_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; number_of_desktops: PCardinal; e: PPxcb_generic_error_t): byte; inline;
 begin
   Result := xcb_ewmh_get_cardinal_reply(ewmh, cookie, number_of_desktops, e);
 end;
 
-// xcb_ewmh_request_change_number_of_desktops
 function xcb_ewmh_request_change_number_of_desktops(ewmh: Pxcb_ewmh_connection_t; screen_nbr: integer; new_number_of_desktops: cardinal): Txcb_void_cookie_t; inline;
 begin
-  Result := xcb_ewmh_send_client_message(ewmh^.Connection, XCB_NONE,
-    ewmh^.screens[screen_nbr]^.root, // Pointer-Arithmetik
-    ewmh^._NET_NUMBER_OF_DESKTOPS,
-    SizeOf(new_number_of_desktops),
-    @new_number_of_desktops);
+  Result := xcb_ewmh_send_client_message(ewmh^.Connection, XCB_NONE, ewmh^.screens[screen_nbr]^.root, ewmh^._NET_NUMBER_OF_DESKTOPS, SizeOf(new_number_of_desktops), @new_number_of_desktops);
 end;
 
-// xcb_ewmh_get_current_desktop_from_reply
 function xcb_ewmh_get_current_desktop_from_reply(current_desktop: PCardinal; r: Pxcb_get_property_reply_t): byte; inline;
 begin
   Result := xcb_ewmh_get_cardinal_from_reply(current_desktop, r);
 end;
 
-// xcb_ewmh_get_current_desktop_reply
 function xcb_ewmh_get_current_desktop_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; current_desktop: PCardinal; e: PPxcb_generic_error_t): byte; inline;
 begin
   Result := xcb_ewmh_get_cardinal_reply(ewmh, cookie, current_desktop, e);
 end;
 
-// xcb_ewmh_get_desktop_names_from_reply
 function xcb_ewmh_get_desktop_names_from_reply(ewmh: Pxcb_ewmh_connection_t; names: Pxcb_ewmh_get_utf8_strings_reply_t; r: Pxcb_get_property_reply_t): byte; inline;
 begin
   Result := xcb_ewmh_get_utf8_strings_from_reply(ewmh, names, r);
 end;
 
-// xcb_ewmh_get_desktop_names_reply
 function xcb_ewmh_get_desktop_names_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; names: Pxcb_ewmh_get_utf8_strings_reply_t; e: PPxcb_generic_error_t): byte; inline;
 begin
   Result := xcb_ewmh_get_utf8_strings_reply(ewmh, cookie, names, e);
 end;
 
-// xcb_ewmh_get_active_window_from_reply
 function xcb_ewmh_get_active_window_from_reply(active_window: Pxcb_window_t; r: Pxcb_get_property_reply_t): byte; inline;
 begin
   Result := xcb_ewmh_get_window_from_reply(active_window, r);
 end;
 
-// xcb_ewmh_get_active_window_reply
 function xcb_ewmh_get_active_window_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; active_window: Pxcb_window_t; e: PPxcb_generic_error_t): byte; inline;
 begin
   Result := xcb_ewmh_get_window_reply(ewmh, cookie, active_window, e);
 end;
 
-// xcb_ewmh_get_supporting_wm_check_from_reply
 function xcb_ewmh_get_supporting_wm_check_from_reply(window: Pxcb_window_t; r: Pxcb_get_property_reply_t): byte; inline;
 begin
   Result := xcb_ewmh_get_window_from_reply(window, r);
 end;
 
-// xcb_ewmh_get_supporting_wm_check_reply
 function xcb_ewmh_get_supporting_wm_check_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; window: Pxcb_window_t; e: PPxcb_generic_error_t): byte; inline;
 begin
   Result := xcb_ewmh_get_window_reply(ewmh, cookie, window, e);
 end;
 
-// xcb_ewmh_get_virtual_roots_from_reply
 function xcb_ewmh_get_virtual_roots_from_reply(virtual_roots: Pxcb_ewmh_get_windows_reply_t; r: Pxcb_get_property_reply_t): byte; inline;
 begin
   Result := xcb_ewmh_get_windows_from_reply(virtual_roots, r);
 end;
 
-// xcb_ewmh_get_virtual_roots_reply
 function xcb_ewmh_get_virtual_roots_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; virtual_roots: Pxcb_ewmh_get_windows_reply_t; e: PPxcb_generic_error_t): byte; inline;
 begin
   Result := xcb_ewmh_get_windows_reply(ewmh, cookie, virtual_roots, e);
 end;
 
-// xcb_ewmh_get_showing_desktop_from_reply
 function xcb_ewmh_get_showing_desktop_from_reply(desktop: PCardinal; r: Pxcb_get_property_reply_t): byte; inline;
 begin
   Result := xcb_ewmh_get_cardinal_from_reply(desktop, r);
 end;
 
-// xcb_ewmh_get_showing_desktop_reply
 function xcb_ewmh_get_showing_desktop_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; desktop: PCardinal; e: PPxcb_generic_error_t): byte; inline;
 begin
   Result := xcb_ewmh_get_cardinal_reply(ewmh, cookie, desktop, e);
 end;
 
-// xcb_ewmh_request_change_showing_desktop
 function xcb_ewmh_request_change_showing_desktop(ewmh: Pxcb_ewmh_connection_t; screen_nbr: integer; enter: cardinal): Txcb_void_cookie_t; inline;
 begin
-  Result := xcb_ewmh_send_client_message(ewmh^.Connection, XCB_NONE,
-    ewmh^.screens[screen_nbr]^.root,
-    ewmh^._NET_SHOWING_DESKTOP,
-    SizeOf(enter),
-    @enter);
+  Result := xcb_ewmh_send_client_message(ewmh^.Connection, XCB_NONE, ewmh^.screens[screen_nbr]^.root, ewmh^._NET_SHOWING_DESKTOP, SizeOf(enter), @enter);
 end;
 
-// xcb_ewmh_request_frame_extents
 function xcb_ewmh_request_frame_extents(ewmh: Pxcb_ewmh_connection_t; screen_nbr: integer; client_window: Txcb_window_t): Txcb_void_cookie_t; inline;
 begin
-  Result := xcb_ewmh_send_client_message(ewmh^.Connection, client_window,
-    ewmh^.screens[screen_nbr]^.root,
-    ewmh^._NET_REQUEST_FRAME_EXTENTS,
-    0,
-    nil);
+  Result := xcb_ewmh_send_client_message(ewmh^.Connection, client_window, ewmh^.screens[screen_nbr]^.root, ewmh^._NET_REQUEST_FRAME_EXTENTS, 0, nil);
 end;
 
-// xcb_ewmh_get_wm_name_from_reply
 function xcb_ewmh_get_wm_name_from_reply(ewmh: Pxcb_ewmh_connection_t; data: Pxcb_ewmh_get_utf8_strings_reply_t; r: Pxcb_get_property_reply_t): byte; inline;
 begin
   Result := xcb_ewmh_get_utf8_strings_from_reply(ewmh, data, r);
 end;
 
-// xcb_ewmh_get_wm_name_reply
 function xcb_ewmh_get_wm_name_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; data: Pxcb_ewmh_get_utf8_strings_reply_t; e: PPxcb_generic_error_t): byte; inline;
 begin
   Result := xcb_ewmh_get_utf8_strings_reply(ewmh, cookie, data, e);
 end;
 
-// xcb_ewmh_get_wm_visible_name_from_reply
 function xcb_ewmh_get_wm_visible_name_from_reply(ewmh: Pxcb_ewmh_connection_t; data: Pxcb_ewmh_get_utf8_strings_reply_t; r: Pxcb_get_property_reply_t): byte; inline;
 begin
   Result := xcb_ewmh_get_utf8_strings_from_reply(ewmh, data, r);
 end;
 
-// xcb_ewmh_get_wm_visible_name_reply
 function xcb_ewmh_get_wm_visible_name_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; data: Pxcb_ewmh_get_utf8_strings_reply_t; e: PPxcb_generic_error_t): byte; inline;
 begin
   Result := xcb_ewmh_get_utf8_strings_reply(ewmh, cookie, data, e);
 end;
 
-// xcb_ewmh_get_wm_icon_name_from_reply
 function xcb_ewmh_get_wm_icon_name_from_reply(ewmh: Pxcb_ewmh_connection_t; data: Pxcb_ewmh_get_utf8_strings_reply_t; r: Pxcb_get_property_reply_t): byte; inline;
 begin
   Result := xcb_ewmh_get_utf8_strings_from_reply(ewmh, data, r);
 end;
 
-// xcb_ewmh_get_wm_icon_name_reply
 function xcb_ewmh_get_wm_icon_name_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; data: Pxcb_ewmh_get_utf8_strings_reply_t; e: PPxcb_generic_error_t): byte; inline;
 begin
   Result := xcb_ewmh_get_utf8_strings_reply(ewmh, cookie, data, e);
 end;
 
-// xcb_ewmh_get_wm_visible_icon_name_from_reply
 function xcb_ewmh_get_wm_visible_icon_name_from_reply(ewmh: Pxcb_ewmh_connection_t; data: Pxcb_ewmh_get_utf8_strings_reply_t; r: Pxcb_get_property_reply_t): byte; inline;
 begin
   Result := xcb_ewmh_get_utf8_strings_from_reply(ewmh, data, r);
 end;
 
-// xcb_ewmh_get_wm_visible_icon_name_reply
 function xcb_ewmh_get_wm_visible_icon_name_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; data: Pxcb_ewmh_get_utf8_strings_reply_t; e: PPxcb_generic_error_t): byte; inline;
 begin
   Result := xcb_ewmh_get_utf8_strings_reply(ewmh, cookie, data, e);
 end;
 
-// xcb_ewmh_get_wm_desktop_from_reply
 function xcb_ewmh_get_wm_desktop_from_reply(desktop: PCardinal; r: Pxcb_get_property_reply_t): byte; inline;
 begin
   Result := xcb_ewmh_get_cardinal_from_reply(desktop, r);
 end;
 
-// xcb_ewmh_get_wm_desktop_reply
 function xcb_ewmh_get_wm_desktop_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; desktop: PCardinal; e: PPxcb_generic_error_t): byte; inline;
 begin
   Result := xcb_ewmh_get_cardinal_reply(ewmh, cookie, desktop, e);
 end;
 
-// xcb_ewmh_set_wm_icon_checked
 function xcb_ewmh_set_wm_icon_checked(ewmh: Pxcb_ewmh_connection_t; mode: byte; window: Txcb_window_t; data_len: cardinal; data: PCardinal): Txcb_void_cookie_t; inline;
 begin
-  Result := xcb_change_property_checked(ewmh^.Connection, mode,
-    window, ewmh^._NET_WM_ICON,
-    XCB_ATOM_CARDINAL, 32, data_len, data);
+  Result := xcb_change_property_checked(ewmh^.Connection, mode, window, ewmh^._NET_WM_ICON, XCB_ATOM_CARDINAL, 32, data_len, data);
 end;
 
-// xcb_ewmh_set_wm_icon
 function xcb_ewmh_set_wm_icon(ewmh: Pxcb_ewmh_connection_t; mode: byte; window: Txcb_window_t; data_len: cardinal; data: PCardinal): Txcb_void_cookie_t; inline;
 begin
-  Result := xcb_change_property(ewmh^.Connection, mode, window,
-    ewmh^._NET_WM_ICON, XCB_ATOM_CARDINAL, 32,
-    data_len, data);
+  Result := xcb_change_property(ewmh^.Connection, mode, window, ewmh^._NET_WM_ICON, XCB_ATOM_CARDINAL, 32, data_len, data);
 end;
 
-// xcb_ewmh_get_wm_pid_from_reply
 function xcb_ewmh_get_wm_pid_from_reply(pid: PCardinal; r: Pxcb_get_property_reply_t): byte; inline;
 begin
   Result := xcb_ewmh_get_cardinal_from_reply(pid, r);
 end;
 
-// xcb_ewmh_get_wm_pid_reply
 function xcb_ewmh_get_wm_pid_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; pid: PCardinal; e: PPxcb_generic_error_t): byte; inline;
 begin
   Result := xcb_ewmh_get_cardinal_reply(ewmh, cookie, pid, e);
 end;
 
-// xcb_ewmh_get_wm_handled_icons_from_reply
 function xcb_ewmh_get_wm_handled_icons_from_reply(handled_icons: PCardinal; r: Pxcb_get_property_reply_t): byte; inline;
 begin
   Result := xcb_ewmh_get_cardinal_from_reply(handled_icons, r);
 end;
 
-// xcb_ewmh_get_wm_handled_icons_reply
 function xcb_ewmh_get_wm_handled_icons_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; handled_icons: PCardinal; e: PPxcb_generic_error_t): byte; inline;
 begin
   Result := xcb_ewmh_get_cardinal_reply(ewmh, cookie, handled_icons, e);
 end;
 
-// xcb_ewmh_get_wm_user_time_from_reply
 function xcb_ewmh_get_wm_user_time_from_reply(xtime: PCardinal; r: Pxcb_get_property_reply_t): byte; inline;
 begin
   Result := xcb_ewmh_get_cardinal_from_reply(xtime, r);
 end;
 
-// xcb_ewmh_get_wm_user_time_reply
 function xcb_ewmh_get_wm_user_time_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; xtime: PCardinal; e: PPxcb_generic_error_t): byte; inline;
 begin
   Result := xcb_ewmh_get_cardinal_reply(ewmh, cookie, xtime, e);
 end;
 
-// xcb_ewmh_get_wm_user_time_window_from_reply
 function xcb_ewmh_get_wm_user_time_window_from_reply(xtime: PCardinal; r: Pxcb_get_property_reply_t): byte; inline;
 begin
   Result := xcb_ewmh_get_cardinal_from_reply(xtime, r);
 end;
 
-// xcb_ewmh_get_wm_user_time_window_reply
 function xcb_ewmh_get_wm_user_time_window_reply(ewmh: Pxcb_ewmh_connection_t; cookie: Txcb_get_property_cookie_t; xtime: PCardinal; e: PPxcb_generic_error_t): byte; inline;
 begin
   Result := xcb_ewmh_get_cardinal_reply(ewmh, cookie, xtime, e);
 end;
-
 
 end.

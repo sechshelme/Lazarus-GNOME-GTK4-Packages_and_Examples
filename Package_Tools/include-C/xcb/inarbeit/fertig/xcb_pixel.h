@@ -1,55 +1,3 @@
-#ifndef __XCB_PIXEL_H__
-#define __XCB_PIXEL_H__
-
-/* Copyright (C) 2007 Bart Massey
- *
- * Permission is hereby granted, free of charge, to any person obtaining a
- * copy of this software and associated documentation files (the "Software"),
- * to deal in the Software without restriction, including without limitation
- * the rights to use, copy, modify, merge, publish, distribute, sublicense,
- * and/or sell copies of the Software, and to permit persons to whom the
- * Software is furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
- * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- * 
- * Except as contained in this notice, the names of the authors or their
- * institutions shall not be used in advertising or otherwise to promote the
- * sale, use or other dealings in this Software without prior written
- * authorization from the authors.
- */
-
-#include <inttypes.h>
-#include <X11/Xfuncproto.h>
-#ifndef BUILD
-#include <xcb/xcb_bitops.h>
-#include <xcb/xcb_image.h>
-#endif
-
-/**
- * XCB Image fast pixel ops.
- *
- * Fast inline versions of xcb_image_get_pixel() and
- * xcb_image_put_pixel() for various common cases.
- * The naming convention is xcb_image_put_pixel_FUB()
- * where F is the format and is either XY for bitmaps
- * or Z for pixmaps, U is the bitmap unit size or pixmap
- * bits-per-pixel, and B is the endianness (if needed)
- * and is either M for most-significant-first or L for
- * least-significant-first.  Note that no checking
- * is done on the arguments to these routines---caller beware.
- * Also note that the pixel type is chosen to be appropriate
- * to the unit; bitmaps use int and pixmaps use the appropriate
- * size of unsigned.
- * @ingroup xcb__image_t
- */
 
 _X_INLINE static void
 xcb_image_put_pixel_XY32M (xcb_image_t *image,
@@ -168,4 +116,3 @@ xcb_image_get_pixel_Z32L (xcb_image_t *image,
   return pixel | row[(x << 2) + 3] << 24;
 }
 
-#endif /* __XCB_PIXEL_H__ */

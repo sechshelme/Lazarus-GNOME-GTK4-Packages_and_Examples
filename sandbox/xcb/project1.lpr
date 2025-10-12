@@ -13,8 +13,12 @@ uses
   xcb_event,
   xcb_atom,
 
-  xcb_ewmh,  // inline !!!!!!!!!!!!!!!!!!!!!!!¨
+  xcb_ewmh,
 
+  shm,
+  xcb_image,  // shm
+  xcb_bitops,
+  xcb_pixel,  // xcb_image, xcb_bitops
 
   shape,
   render,

@@ -3,7 +3,7 @@ unit randr;
 interface
 
 uses
-  fp_xcb, xproto, xcb, render, xcbext;
+  fp_xcb, xproto, xcb, xcbext, render;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

@@ -24,11 +24,9 @@ interface
 /usr/lib/x86_64-linux-gnu/libxcb-dpms.so
 /usr/lib/x86_64-linux-gnu/libxcb-damage.so
 /usr/lib/x86_64-linux-gnu/libxcb-composite.so
-/usr/lib/x86_64-linux-gnu/libxcb-shm.so
 /usr/lib/x86_64-linux-gnu/libxcb-render-util.so
 /usr/lib/x86_64-linux-gnu/libxcb-xkb.so
 /usr/lib/x86_64-linux-gnu/libxcb-ewmh.so
-/usr/lib/x86_64-linux-gnu/libxcb-image.so
 *)
 
 const
@@ -41,6 +39,9 @@ const
   libxcb_randr='libxcb-randr';
 
   libxcb_ewmh = 'libxcb-ewmh';
+
+  libxcb_shm='libxcb-shm';
+  libxcb_image='libxcb-image';
 
 
   libxcb_xfixes='libxcb-xfixes';
