@@ -32,6 +32,9 @@ uses
 
   xv,         // shm
   sync,
+  dri2,
+  dri3,
+  xf86dri,
 
 
   glx,
