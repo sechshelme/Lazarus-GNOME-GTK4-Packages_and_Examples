@@ -1,0 +1,203 @@
+
+unit libvlc_media_discoverer;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from libvlc_media_discoverer.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    libvlc_media_discoverer.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pchar  = ^char;
+Plibvlc_instance_t  = ^libvlc_instance_t;
+Plibvlc_media_discoverer_category_t  = ^libvlc_media_discoverer_category_t;
+Plibvlc_media_discoverer_description_t  = ^libvlc_media_discoverer_description_t;
+Plibvlc_media_discoverer_t  = ^libvlc_media_discoverer_t;
+Plibvlc_media_list_t  = ^libvlc_media_list_t;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{****************************************************************************
+ * libvlc_media_discoverer.h:  libvlc external API
+ *****************************************************************************
+ * Copyright (C) 1998-2009 VLC authors and VideoLAN
+ * $Id: 96c0515ffec98f439867814d68525288b2702b0f $
+ *
+ * Authors: Clément Stenac <zorglub@videolan.org>
+ *          Jean-Paul Saman <jpsaman@videolan.org>
+ *          Pierre d'Herbemont <pdherbemont@videolan.org>
+ *
+ * This program is free software; you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation; either version 2.1 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program; if not, write to the Free Software Foundation,
+ * Inc., 51 Franklin Street, Fifth Floor, Boston MA 02110-1301, USA.
+ **************************************************************************** }
+{$ifndef VLC_LIBVLC_MEDIA_DISCOVERER_H}
+
+const
+  VLC_LIBVLC_MEDIA_DISCOVERER_H = 1;  
+{*
+ * Category of a media discoverer
+ * \see libvlc_media_discoverer_list_get()
+  }
+{* devices, like portable music player  }
+{* LAN/WAN services, like Upnp, SMB, or SAP  }
+{* Podcasts  }
+{* Local directories, like Video, Music or Pictures directories  }
+type
+  Plibvlc_media_discoverer_category_t = ^Tlibvlc_media_discoverer_category_t;
+  Tlibvlc_media_discoverer_category_t =  Longint;
+  Const
+    libvlc_media_discoverer_devices = 0;
+    libvlc_media_discoverer_lan = 1;
+    libvlc_media_discoverer_podcasts = 2;
+    libvlc_media_discoverer_localdirs = 3;
+;
+{*
+ * Media discoverer description
+ * \see libvlc_media_discoverer_list_get()
+  }
+type
+  Plibvlc_media_discoverer_description_t = ^Tlibvlc_media_discoverer_description_t;
+  Tlibvlc_media_discoverer_description_t = record
+      psz_name : Pchar;
+      psz_longname : Pchar;
+      i_cat : Tlibvlc_media_discoverer_category_t;
+    end;
+{* \defgroup libvlc_media_discoverer LibVLC media discovery
+ * \ingroup libvlc
+ * LibVLC media discovery finds available media via various means.
+ * This corresponds to the service discovery functionality in VLC media player.
+ * Different plugins find potential medias locally (e.g. user media directory),
+ * from peripherals (e.g. video capture device), on the local network
+ * (e.g. SAP) or on the Internet (e.g. Internet radios).
+ * @
+ * \file
+ * LibVLC media discovery external API
+  }
+{*
+ * Create a media discoverer object by name.
+ *
+ * After this object is created, you should attach to media_list events in
+ * order to be notified of new items discovered.
+ *
+ * You need to call libvlc_media_discoverer_start() in order to start the
+ * discovery.
+ *
+ * \see libvlc_media_discoverer_media_list
+ * \see libvlc_media_discoverer_event_manager
+ * \see libvlc_media_discoverer_start
+ *
+ * \param p_inst libvlc instance
+ * \param psz_name service name; use libvlc_media_discoverer_list_get() to get
+ * a list of the discoverer names available in this libVLC instance
+ * \return media discover object or NULL in case of error
+ * \version LibVLC 3.0.0 or later
+  }
+(* Const before type ignored *)
+
+function libvlc_media_discoverer_new(p_inst:Plibvlc_instance_t; psz_name:Pchar):Plibvlc_media_discoverer_t;cdecl;external;
+{*
+ * Start media discovery.
+ *
+ * To stop it, call libvlc_media_discoverer_stop() or
+ * libvlc_media_discoverer_list_release() directly.
+ *
+ * \see libvlc_media_discoverer_stop
+ *
+ * \param p_mdis media discover object
+ * \return -1 in case of error, 0 otherwise
+ * \version LibVLC 3.0.0 or later
+  }
+function libvlc_media_discoverer_start(p_mdis:Plibvlc_media_discoverer_t):longint;cdecl;external;
+{*
+ * Stop media discovery.
+ *
+ * \see libvlc_media_discoverer_start
+ *
+ * \param p_mdis media discover object
+ * \version LibVLC 3.0.0 or later
+  }
+procedure libvlc_media_discoverer_stop(p_mdis:Plibvlc_media_discoverer_t);cdecl;external;
+{*
+ * Release media discover object. If the reference count reaches 0, then
+ * the object will be released.
+ *
+ * \param p_mdis media service discover object
+  }
+procedure libvlc_media_discoverer_release(p_mdis:Plibvlc_media_discoverer_t);cdecl;external;
+{*
+ * Get media service discover media list.
+ *
+ * \param p_mdis media service discover object
+ * \return list of media items
+  }
+function libvlc_media_discoverer_media_list(p_mdis:Plibvlc_media_discoverer_t):Plibvlc_media_list_t;cdecl;external;
+{*
+ * Query if media service discover object is running.
+ *
+ * \param p_mdis media service discover object
+ * \return true if running, false if not
+ *
+ * \libvlc_return_bool
+  }
+function libvlc_media_discoverer_is_running(p_mdis:Plibvlc_media_discoverer_t):longint;cdecl;external;
+{*
+ * Get media discoverer services by category
+ *
+ * \version LibVLC 3.0.0 and later.
+ *
+ * \param p_inst libvlc instance
+ * \param i_cat category of services to fetch
+ * \param ppp_services address to store an allocated array of media discoverer
+ * services (must be freed with libvlc_media_discoverer_list_release() by
+ * the caller) [OUT]
+ *
+ * \return the number of media discoverer services (0 on error)
+  }
+function libvlc_media_discoverer_list_get(p_inst:Plibvlc_instance_t; i_cat:Tlibvlc_media_discoverer_category_t; ppp_services:PPPlibvlc_media_discoverer_description_t):Tsize_t;cdecl;external;
+{*
+ * Release an array of media discoverer services
+ *
+ * \version LibVLC 3.0.0 and later.
+ *
+ * \see libvlc_media_discoverer_list_get()
+ *
+ * \param pp_services array to release
+ * \param i_count number of elements in the array
+  }
+procedure libvlc_media_discoverer_list_release(pp_services:PPlibvlc_media_discoverer_description_t; i_count:Tsize_t);cdecl;external;
+{*@  }
+{$endif}
+{ <vlc/libvlc.h>  }
+
+implementation
+
+
+end.
