@@ -33,19 +33,18 @@ uses
   record_,
 
   composite,  // xfixes
-damage,
-//dpms,
-//present,
-//res,
-//screensaver,
-//xcb_cursor,
-//xcb_renderutil,
-//xcb_xrm,
-//xc_misc,
-//xinerama,
-//xtest,
-//xvmc,
-
+  damage,
+  dpms,
+  present,    // xfixes, randr, sync
+  res,
+  screensaver,
+  xcb_cursor,
+  xcb_renderutil,
+  //xcb_xrm,
+  //xc_misc,
+  //xinerama,
+  //xtest,
+  //xvmc,
 
 
 
@@ -145,8 +144,8 @@ damage,
               XK_space: begin
                 geom_cookie := xcb_get_geometry(conn, window);
                 geom_reply := xcb_get_geometry_reply(conn, geom_cookie, nil);
-                w:=geom_reply^.width;
-                h:=geom_reply^.height;
+                w := geom_reply^.width;
+                h := geom_reply^.height;
 
                 color := random($FFFFFF);
                 xcb_change_window_attributes(conn, window, XCB_CW_BACK_PIXEL, @color);
@@ -164,15 +163,17 @@ damage,
   end;
 
 begin
-//  xcb_send_request(nil,0,nil,nil);
+  xcb_render_util_find_visual_format(nil,0);
 
-//  xcb_big_requests_enable(nil);
+  //  xcb_send_request(nil,0,nil,nil);
+
+  //  xcb_big_requests_enable(nil);
 
 
-//  xcb_input_feedback_state_data(nil);
-//  xcb_atom_name_by_screen(nil,0);
-//  xcb_event_get_label(0);
-//  xcb_aux_get_depth(nil,nil);
-//  xcb_send_request(nil,9,nil,nil);
+  //  xcb_input_feedback_state_data(nil);
+  //  xcb_atom_name_by_screen(nil,0);
+  //  xcb_event_get_label(0);
+  //  xcb_aux_get_depth(nil,nil);
+  //  xcb_send_request(nil,9,nil,nil);
   main;
 end.

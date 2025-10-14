@@ -45,6 +45,18 @@ const
   libxcb_composite='libxcb-composite';
   libxcb_damage ='libxcb-damage';
 
+libxcb_xinerama       =          'libxcb-xinerama';
+libxcb_res            =          'libxcb-res';
+libxcb_imdkit         =          'libxcb-imdkit';
+libxcb_screensaver    =          'libxcb-screensaver';
+libxcb_xvmc           =          'libxcb-xvmc';
+libxcb_xtest          =          'libxcb-xtest';
+libxcb_present        =          'libxcb-present';
+libxcb_cursor         =          'libxcb-cursor';
+libxcb_xrm            =          'libxcb-xrm';
+libxcb_dpms           =          'libxcb-dpms';
+libxcb_render_util='libxcb-render-util';
+
 
 
   libxcb_glx = 'libxcb-glx';
