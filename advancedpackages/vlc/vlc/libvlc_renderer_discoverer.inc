@@ -32,7 +32,7 @@ function libvlc_renderer_discoverer_new(p_inst: Plibvlc_instance_t; psz_name: pc
 procedure libvlc_renderer_discoverer_release(p_rd: Plibvlc_renderer_discoverer_t); cdecl; external libvlc;
 function libvlc_renderer_discoverer_start(p_rd: Plibvlc_renderer_discoverer_t): longint; cdecl; external libvlc;
 procedure libvlc_renderer_discoverer_stop(p_rd: Plibvlc_renderer_discoverer_t); cdecl; external libvlc;
-function libvlc_renderer_discoverer_event_manager(p_rd: Plibvlc_renderer_discoverer_t): Pointer; cdecl; external libvlc;
+function libvlc_renderer_discoverer_event_manager(p_rd: Plibvlc_renderer_discoverer_t): Plibvlc_event_manager_t; cdecl; external libvlc;
 function libvlc_renderer_discoverer_list_get(p_inst: Plibvlc_instance_t; ppp_services: PPPlibvlc_rd_description_t): Tsize_t; cdecl; external libvlc;
 procedure libvlc_renderer_discoverer_list_release(pp_services: PPlibvlc_rd_description_t; i_count: Tsize_t); cdecl; external libvlc;
 

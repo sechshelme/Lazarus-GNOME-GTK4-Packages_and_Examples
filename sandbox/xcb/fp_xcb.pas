@@ -6,7 +6,6 @@ interface
 (*
 /usr/lib/x86_64-linux-gnu/libxcb-xinerama.so
 /usr/lib/x86_64-linux-gnu/libxcb-res.so
-/usr/lib/x86_64-linux-gnu/libxcb-record.so
 /usr/lib/x86_64-linux-gnu/libxcb-imdkit.so
 /usr/lib/x86_64-linux-gnu/libxcb-screensaver.so
 /usr/lib/x86_64-linux-gnu/libxcb-util.so
@@ -17,8 +16,6 @@ interface
 /usr/lib/x86_64-linux-gnu/libxcb-cursor.so
 /usr/lib/x86_64-linux-gnu/libxcb-xrm.so
 /usr/lib/x86_64-linux-gnu/libxcb-dpms.so
-/usr/lib/x86_64-linux-gnu/libxcb-damage.so
-/usr/lib/x86_64-linux-gnu/libxcb-composite.so
 /usr/lib/x86_64-linux-gnu/libxcb-render-util.so
 /usr/lib/x86_64-linux-gnu/libxcb-xkb.so
 /usr/lib/x86_64-linux-gnu/libxcb-ewmh.so
@@ -44,6 +41,10 @@ const
   libxcb_dri2 = 'libxcb-dri2';
   libxcb_dri3 = 'libxcb-dri3';
   libxcb_xf86dri = 'libxcb-xf86dri';
+  libxcb_record ='libxcb-record';
+  libxcb_composite='libxcb-composite';
+  libxcb_damage ='libxcb-damage';
+
 
 
   libxcb_glx = 'libxcb-glx';

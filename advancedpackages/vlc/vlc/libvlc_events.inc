@@ -176,20 +176,6 @@ type
   end;
   Plibvlc_event_t = ^Tlibvlc_event_t;
 
-type
-  Plibvlc_event_manager_t = type Pointer;
-
-  Plibvlc_event_type_t = ^Tlibvlc_event_type_t;
-  Tlibvlc_event_type_t = longint;
-
-  Tlibvlc_callback_t = procedure(p_event: Plibvlc_event_t; p_data: pointer); cdecl;
-
-function libvlc_event_attach(p_event_manager: Plibvlc_event_manager_t; i_event_type: Tlibvlc_event_type_t; f_callback: Tlibvlc_callback_t; user_data: pointer): longint; cdecl; external libvlc;
-procedure libvlc_event_detach(p_event_manager: Plibvlc_event_manager_t; i_event_type: Tlibvlc_event_type_t; f_callback: Tlibvlc_callback_t; p_user_data: pointer); cdecl; external libvlc;
-function libvlc_event_type_name(event_type: Tlibvlc_event_type_t): pchar; cdecl; external libvlc;
-
-
-
   // === Konventiert am: 13-10-25 19:24:33 ===
 
 

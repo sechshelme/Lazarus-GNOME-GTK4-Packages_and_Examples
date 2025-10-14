@@ -7,34 +7,47 @@ uses
   xcb,
   xproto,
   xcbext,
+  bigreq,
 
   xcb_keysyms,
   xcb_aux,
   xcb_event,
   xcb_atom,
-
   xcb_ewmh,
-
   shm,
   xcb_image,  // shm
   xcb_bitops,
   xcb_pixel,  // xcb_image, xcb_bitops
-
   xcb_icccm,
-
   shape,
   render,
   randr,      // render
-
   xfixes,     // render, shape
   xinput,     // xcb_atom, xfixes
   xkb,
-
   xv,         // shm
   sync,
   dri2,
   dri3,
   xf86dri,
+  record_,
+
+  composite,  // xfixes
+damage,
+//dpms,
+//present,
+//res,
+//screensaver,
+//xcb_cursor,
+//xcb_renderutil,
+//xcb_xrm,
+//xc_misc,
+//xinerama,
+//xtest,
+//xvmc,
+
+
+
 
 
   glx,
@@ -151,6 +164,11 @@ uses
   end;
 
 begin
+//  xcb_send_request(nil,0,nil,nil);
+
+//  xcb_big_requests_enable(nil);
+
+
 //  xcb_input_feedback_state_data(nil);
 //  xcb_atom_name_by_screen(nil,0);
 //  xcb_event_get_label(0);
