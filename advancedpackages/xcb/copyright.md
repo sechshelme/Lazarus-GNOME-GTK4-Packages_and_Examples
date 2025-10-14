@@ -1,13 +1,11 @@
-
  Copyright (c) 2025 sechsehelme
 
- Pascal binding for libVLC
- Released under the MIT License
+ Pascal binding für libxcb und seine Erweiterungen
+ Veröffentlicht unter der MIT-Lizenz
 
- This project provides Pascal bindings for libVLC.
- libVLC itself is licensed under the LGPL-2.1-or-later.
+ Dieses Projekt stellt Pascal-Bindings für libxcb bereit.
+ libxcb selbst ist unter der MIT-Lizenz lizenziert.
 
- See the original libVLC project for details:
- https://www.videolan.org/vlc/libvlc.html
-
+ Weitere Details zum Originalprojekt libxcb findest du unter:
+ [https://xcb.freedesktop.org/](https://xcb.freedesktop.org/)
 
