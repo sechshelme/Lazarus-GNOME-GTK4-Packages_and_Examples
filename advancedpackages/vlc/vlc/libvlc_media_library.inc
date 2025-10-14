@@ -1,13 +1,4 @@
-unit libvlc_media_library;
-
-interface
-
-uses
-  fp_vlc, libvlc_, libvlc_media;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 type
   Plibvlc_media_library_t = type Pointer;
@@ -21,8 +12,11 @@ function libvlc_media_library_media_list(p_mlib: Plibvlc_media_library_t): Plibv
 // === Konventiert am: 13-10-25 19:24:40 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

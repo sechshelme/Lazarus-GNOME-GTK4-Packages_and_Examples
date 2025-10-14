@@ -1,13 +1,4 @@
-unit libvlc_media_list_player;
-
-interface
-
-uses
-  fp_vlc, libvlc_, libvlc_media, libvlc_media_player;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -44,8 +35,11 @@ procedure libvlc_media_list_player_set_playback_mode(p_mlp: Plibvlc_media_list_p
 // === Konventiert am: 13-10-25 19:24:45 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

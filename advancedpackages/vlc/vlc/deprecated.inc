@@ -1,13 +1,4 @@
-unit deprecated;
-
-interface
-
-uses
-  fp_vlc, libvlc_, libvlc_media, libvlc_media_player, libvlc_media_discoverer;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 function libvlc_media_player_get_fps(p_mi: Plibvlc_media_player_t): single; cdecl; external libvlc;
@@ -62,8 +53,11 @@ procedure libvlc_playlist_play(p_instance: Plibvlc_instance_t; i_id: longint; i_
 // === Konventiert am: 13-10-25 19:24:25 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

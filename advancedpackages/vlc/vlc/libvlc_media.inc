@@ -1,13 +1,4 @@
-unit libvlc_media;
-
-interface
-
-uses
-  fp_vlc, libvlc_;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -268,7 +259,7 @@ function libvlc_media_save_meta(p_md: Plibvlc_media_t): longint; cdecl; external
 function libvlc_media_get_state(p_md: Plibvlc_media_t): Tlibvlc_state_t; cdecl; external libvlc;
 function libvlc_media_get_stats(p_md: Plibvlc_media_t; p_stats: Plibvlc_media_stats_t): longint; cdecl; external libvlc;
 function libvlc_media_subitems(p_md: Plibvlc_media_t): Plibvlc_media_list_t; cdecl; external libvlc;
-function libvlc_media_event_manager(p_md: Plibvlc_media_t): Plibvlc_event_manager_t; cdecl; external libvlc;
+function libvlc_media_event_manager(p_md: Plibvlc_media_t): Pointer; cdecl; external libvlc;
 function libvlc_media_get_duration(p_md: Plibvlc_media_t): Tlibvlc_time_t; cdecl; external libvlc;
 function libvlc_media_parse_with_options(p_md: Plibvlc_media_t; parse_flag: Tlibvlc_media_parse_flag_t; timeout: longint): longint; cdecl; external libvlc;
 procedure libvlc_media_parse_stop(p_md: Plibvlc_media_t); cdecl; external libvlc;
@@ -287,8 +278,11 @@ procedure libvlc_media_slaves_release(pp_slaves: PPlibvlc_media_slave_t; i_count
 // === Konventiert am: 13-10-25 19:24:36 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

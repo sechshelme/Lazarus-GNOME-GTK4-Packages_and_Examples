@@ -1,13 +1,4 @@
-unit libvlc_dialog;
-
-interface
-
-uses
-  fp_vlc, libvlc_;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 type
   Plibvlc_dialog_id = type Pointer;
@@ -42,8 +33,11 @@ function libvlc_dialog_dismiss(p_id: Plibvlc_dialog_id): longint; cdecl; externa
 // === Konventiert am: 13-10-25 19:24:31 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

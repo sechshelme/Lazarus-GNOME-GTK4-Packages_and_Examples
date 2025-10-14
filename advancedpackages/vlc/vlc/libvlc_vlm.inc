@@ -1,13 +1,4 @@
-unit libvlc_vlm;
-
-interface
-
-uses
-  fp_vlc, libvlc_;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 procedure libvlc_vlm_release(p_instance: Plibvlc_instance_t); cdecl; external libvlc;
@@ -38,8 +29,11 @@ function libvlc_vlm_get_event_manager(p_instance: Plibvlc_instance_t): Plibvlc_e
 // === Konventiert am: 13-10-25 19:24:57 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

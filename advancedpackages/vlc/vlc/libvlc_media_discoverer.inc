@@ -1,13 +1,4 @@
-unit libvlc_media_discoverer;
-
-interface
-
-uses
-  fp_vlc, libvlc_, libvlc_media;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -44,8 +35,11 @@ procedure libvlc_media_discoverer_list_release(pp_services: PPlibvlc_media_disco
 // === Konventiert am: 13-10-25 19:24:38 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

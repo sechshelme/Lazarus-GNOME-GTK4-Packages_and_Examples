@@ -46,19 +46,20 @@ type
   Puintptr_t=^Tuintptr_t;
 
   Tsize_t=SizeUInt;
+  Tssize_t=SizeInt;
 
   PFILE=type Pointer;
   Tva_list=Pointer; // ?????????
 
 
   {$DEFINE read_interface}
-  //{$include fp_vlc_includes.inc}
+  {$include fp_vlc_includes.inc}
   {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-//{$include fp_vlc_includes.inc}
+{$include fp_vlc_includes.inc}
 {$UNDEF read_implementation}
 
 end.

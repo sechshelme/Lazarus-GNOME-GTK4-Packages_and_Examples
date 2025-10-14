@@ -1,13 +1,4 @@
-unit libvlc_media_player;
-
-interface
-
-uses
-  fp_vlc, libvlc_, libvlc_media, libvlc_events;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -356,8 +347,11 @@ function libvlc_media_player_set_role(p_mi: Plibvlc_media_player_t; role: dword)
 // === Konventiert am: 13-10-25 19:24:48 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

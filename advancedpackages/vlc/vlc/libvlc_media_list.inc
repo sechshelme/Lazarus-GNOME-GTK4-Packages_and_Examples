@@ -1,13 +1,4 @@
-unit libvlc_media_list;
-
-interface
-
-uses
-  fp_vlc, libvlc_, libvlc_media;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 function libvlc_media_list_new(p_instance: Plibvlc_instance_t): Plibvlc_media_list_t; cdecl; external libvlc;
@@ -29,8 +20,11 @@ function libvlc_media_list_event_manager(p_ml: Plibvlc_media_list_t): Plibvlc_ev
 // === Konventiert am: 13-10-25 19:24:43 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}
