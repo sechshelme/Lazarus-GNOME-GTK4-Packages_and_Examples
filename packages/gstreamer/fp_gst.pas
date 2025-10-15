@@ -9,96 +9,224 @@ uses
   fp_glib2,
   ctypes;
 
-// ==== gstreamer
+  // ==== gstreamer
 const
-{$ifdef Linux}
-libgstreamer = 'libgstreamer-1.0';
-libgstpbutils = 'libgstpbutils-1.0';
-libgstaudio = 'libgstaudio-1.0';
-libgstbadaudio = 'libgstbadaudio-1.0';
-libgstvideo = 'libgstvideo-1.0';
-libgstbase = 'libgstbase-1.0';
-libgstallocators = 'libgstallocators-1.0';
-libgstanalytics = 'libgstanalytics-1.0';
-libgstcheck = 'libgstcheck-1.0';
-libgstphotography = 'libgstphotography-1.0';
-libgstmse = 'libgstmse-1.0';
-libgstinsertbin = 'libgstinsertbin-1.0';
-libgstwebrtc = 'libgstwebrtc-1.0';
-libgstwebrtcnice = 'libgstwebrtcnice-1.0';
-libgstsdp = 'libgstsdp-1.0';
-libgstmpegts = 'libgstmpegts-1.0';
-libgsttag = 'libgsttag-1.0';
-libgstfft = 'libgstfft-1.0';
-libgstcodecparsers = 'libgstcodecparsers-1.0';
-libgstcontroller = 'libgstcontroller-1.0';
-libgstrtp = 'libgstrtp-1.0';
-libgstrtsp = 'libgstrtsp-1.0';
-libgstwayland = 'libgstwayland-1.0';
-libgstva = 'libgstva-1.0';
-libgstplayer = 'libgstplayer-1.0';
-libgstgl = 'libgstgl-1.0';
-libgstvulkan = 'libgstvulkan-1.0';
-libgstnet = 'libgstnet-1.0';
-libgstcuda = 'libgstcuda-1.0';
-libgstplay = 'libgstplay-1.0';
-libgstapp = 'libgstapp-1.0';
-libgstriff = 'libgstriff-1.0';
-libgstbasecamerabinsrc = 'libgstbasecamerabinsrc-1.0';
-libgsttranscoder = 'libgsttranscoder-1.0';
-libgsturidownloader = 'libgsturidownloader-1.0';
-libgstsctp = 'libgstsctp-1.0';
-libgstopencv = 'libgstopencv-1.0';
-libgstisoff = 'libgstisoff-1.0';
+  {$ifdef Linux}
+  libgstreamer = 'libgstreamer-1.0';
+  libgstpbutils = 'libgstpbutils-1.0';
+  libgstaudio = 'libgstaudio-1.0';
+  libgstbadaudio = 'libgstbadaudio-1.0';
+  libgstvideo = 'libgstvideo-1.0';
+  libgstbase = 'libgstbase-1.0';
+  libgstallocators = 'libgstallocators-1.0';
+  libgstanalytics = 'libgstanalytics-1.0';
+  libgstcheck = 'libgstcheck-1.0';
+  libgstphotography = 'libgstphotography-1.0';
+  libgstmse = 'libgstmse-1.0';
+  libgstinsertbin = 'libgstinsertbin-1.0';
+  libgstwebrtc = 'libgstwebrtc-1.0';
+  libgstwebrtcnice = 'libgstwebrtcnice-1.0';
+  libgstsdp = 'libgstsdp-1.0';
+  libgstmpegts = 'libgstmpegts-1.0';
+  libgsttag = 'libgsttag-1.0';
+  libgstfft = 'libgstfft-1.0';
+  libgstcodecparsers = 'libgstcodecparsers-1.0';
+  libgstcontroller = 'libgstcontroller-1.0';
+  libgstrtp = 'libgstrtp-1.0';
+  libgstrtsp = 'libgstrtsp-1.0';
+  libgstwayland = 'libgstwayland-1.0';
+  libgstva = 'libgstva-1.0';
+  libgstplayer = 'libgstplayer-1.0';
+  libgstgl = 'libgstgl-1.0';
+  libgstvulkan = 'libgstvulkan-1.0';
+  libgstnet = 'libgstnet-1.0';
+  libgstcuda = 'libgstcuda-1.0';
+  libgstplay = 'libgstplay-1.0';
+  libgstapp = 'libgstapp-1.0';
+  libgstriff = 'libgstriff-1.0';
+  libgstbasecamerabinsrc = 'libgstbasecamerabinsrc-1.0';
+  libgsttranscoder = 'libgsttranscoder-1.0';
+  libgsturidownloader = 'libgsturidownloader-1.0';
+  libgstsctp = 'libgstsctp-1.0';
+  libgstopencv = 'libgstopencv-1.0';
+  libgstisoff = 'libgstisoff-1.0';
 
-libges = 'libges-1.0';
-{$endif}
+  libges = 'libges-1.0';
+  {$endif}
 
-{$ifdef Windows}
-libgstreamer = 'libgstreamer-1.0-0.dll';
-libgstpbutils = 'libgstpbutils-1.0-0.dll';
-libgstaudio = 'libgstaudio-1.0-0.dll';
-libgstbadaudio = 'libgstbadaudio-1.0-0.dll';
-libgstvideo = 'libgstvideo-1.0-0.dll';
-libgstbase = 'libgstbase-1.0-0.dll';
-libgstallocators = 'libgstallocators-1.0-0.dll';
-libgstanalytics = 'libgstanalytics-1.0-0.dll';
-libgstcheck = 'libgstcheck-1.0-0.dll';
-libgstphotography = 'libgstphotography-1.0-0.dll';
-libgstmse = 'libgstmse-1.0-0.dll';
-libgstinsertbin = 'libgstinsertbin-1.0-0.dll';
-libgstwebrtc = 'libgstwebrtc-1.0-0.dll';
-libgstwebrtcnice = 'libgstwebrtcnice-1.0-0.dll';
-libgstsdp = 'libgstsdp-1.0-o.dll';
-libgstmpegts = 'libgstmpegts-1.0-0.dll';
-libgsttag = 'libgsttag-1.0-0.dll';
-libgstfft = 'libgstfft-1.0-0.dll';
-libgstcodecparsers = 'libgstcodecparsers-1.0-0.dll';
-libgstcontroller = 'libgstcontroller-1.0-0.dll';
-libgstrtp = 'libgstrtp-1.0-0.dll';
-libgstrtsp = 'libgstrtsp-1.0-0.dll';
-libgstwayland = 'liblstwayland-1.0-0.dll';
-libgstva = 'libgstva-1.0-0.dll';
-libgstplayer = 'libgstplayer-1.0-0.dll';
-libgstgl = 'libgstgl-1.0-.dll';
-libgstvulkan = 'libgstvulkan-1.0-0.dll';
-libgstnet = 'libgstnet-1.0-0.dll';
-libgstcuda = 'libgstcuda-1.0-0.dll';
-libgstplay = 'libgstplay-1.0-0.dll';
-libgstapp = 'libgstapp-1.0-0.dll';
-libgstriff = 'libgstriff-1.0-0.dll';
-libgstbasecamerabinsrc = 'libgstbasecamerabinsrc-1.0-0.dll';
-libgsttranscoder = 'libgsttranscoder-1.0-0.dll';
-libgsturidownloader = 'libgsturidownloader-1.0-0.dll';
-libgstsctp = 'libgstsctp-1.0-0.dll';
-libgstopencv = 'libgstopencv-1.0-0.gll';
-libgstisoff = 'libgstisoff-1.0-0.dll';
+  {$ifdef Windows}
+  libgstreamer = 'libgstreamer-1.0-0.dll';
+  libgstpbutils = 'libgstpbutils-1.0-0.dll';
+  libgstaudio = 'libgstaudio-1.0-0.dll';
+  libgstbadaudio = 'libgstbadaudio-1.0-0.dll';
+  libgstvideo = 'libgstvideo-1.0-0.dll';
+  libgstbase = 'libgstbase-1.0-0.dll';
+  libgstallocators = 'libgstallocators-1.0-0.dll';
+  libgstanalytics = 'libgstanalytics-1.0-0.dll';
+  libgstcheck = 'libgstcheck-1.0-0.dll';
+  libgstphotography = 'libgstphotography-1.0-0.dll';
+  libgstmse = 'libgstmse-1.0-0.dll';
+  libgstinsertbin = 'libgstinsertbin-1.0-0.dll';
+  libgstwebrtc = 'libgstwebrtc-1.0-0.dll';
+  libgstwebrtcnice = 'libgstwebrtcnice-1.0-0.dll';
+  libgstsdp = 'libgstsdp-1.0-o.dll';
+  libgstmpegts = 'libgstmpegts-1.0-0.dll';
+  libgsttag = 'libgsttag-1.0-0.dll';
+  libgstfft = 'libgstfft-1.0-0.dll';
+  libgstcodecparsers = 'libgstcodecparsers-1.0-0.dll';
+  libgstcontroller = 'libgstcontroller-1.0-0.dll';
+  libgstrtp = 'libgstrtp-1.0-0.dll';
+  libgstrtsp = 'libgstrtsp-1.0-0.dll';
+  libgstwayland = 'liblstwayland-1.0-0.dll';
+  libgstva = 'libgstva-1.0-0.dll';
+  libgstplayer = 'libgstplayer-1.0-0.dll';
+  libgstgl = 'libgstgl-1.0-.dll';
+  libgstvulkan = 'libgstvulkan-1.0-0.dll';
+  libgstnet = 'libgstnet-1.0-0.dll';
+  libgstcuda = 'libgstcuda-1.0-0.dll';
+  libgstplay = 'libgstplay-1.0-0.dll';
+  libgstapp = 'libgstapp-1.0-0.dll';
+  libgstriff = 'libgstriff-1.0-0.dll';
+  libgstbasecamerabinsrc = 'libgstbasecamerabinsrc-1.0-0.dll';
+  libgsttranscoder = 'libgsttranscoder-1.0-0.dll';
+  libgsturidownloader = 'libgsturidownloader-1.0-0.dll';
+  libgstsctp = 'libgstsctp-1.0-0.dll';
+  libgstopencv = 'libgstopencv-1.0-0.gll';
+  libgstisoff = 'libgstisoff-1.0-0.dll';
 
-libges = 'libges-1.0-0.dll';
-{$endif}
+  libges = 'libges-1.0-0.dll';
+  {$endif}
+
+  {$ifdef Linux}
+  // ==== xcb.h
+type
+  Pxcb_connection_t = type Pointer;
+  Txcb_window_t = TWindow;
+  Pxcb_screen_t = PScreen;
+  {$endif}
+
+  // ==== va
+type
+  // /usr/include/va/va.h
+  TVAGenericID = cuint;
+  PVASurfaceID = ^TVASurfaceID;
+  TVASurfaceID = TVAGenericID;
+
+  // ==== OpenGL
+type
+  TGLeglImageOES = pointer;
+  PGLeglImageOES = ^TGLeglImageOES;
+
+  TGLchar = byte;
+  PGLchar = ^TGLchar;
+
+  TGLsizeiptr = Tptrdiff_t;
+  PGLsizeiptr = ^TGLsizeiptr;
+
+  TGLintptr = Tptrdiff_t;
+  PGLintptr = ^TGLintptr;
+
+  TGLsync = pointer;
+  PGLsync = ^TGLsync;
+
+  TGLuint64 = uint64;
+  PGLuint64 = ^TGLuint64;
+
+  TGLint64 = int64;
+  PGLint64 = ^TGLint64;
+
+  // /usr/include/KHR/khrplatform.h
+  Tkhronos_int32_t = int32;
+  // /usr/include/EGL/eglplatform.h
+  TEGLint = Tkhronos_int32_t;
+
+  // ==== Vulkan
+  TVkDevice = Pointer; // ?????
+  TVkQueue = Pointer;
+  TVkInstance = Pointer;
+  TVkPhysicalDeviceProperties = Pointer;
+  TVkPhysicalDeviceFeatures = Pointer;
+  TVkPhysicalDeviceMemoryProperties = Pointer;
+  TVkFence = Pointer;
+  TVkSemaphore = Pointer;
+  TVkCommandPool = Pointer;
+  TVkCommandBuffer = Pointer;
+  TVkCommandBufferLevel = Pointer;
+  TVkImageLayout = Pointer;
+  TVkImageSubresourceRange = Pointer;
+  TVkImage = Pointer;
+  TVkDeviceMemory = Pointer;
+  TVkMemoryAllocateInfo = Pointer;
+  TVkMemoryPropertyFlags = Pointer;
+  TVkImageFormatProperties = Pointer;
+  TVkImageView = Pointer;
+  TVkFormat = Pointer;
+  TVkImageTiling = Pointer;
+  TVkVideoPictureResourceInfoKHR = Pointer;
+  TVkVideoReferenceSlotInfoKHR = Pointer;
+  TVkVideoDecodeInfoKHR = Pointer;
+  TVkVideoProfileInfoKHR = Pointer;
+  TVkVideoDecodeUsageInfoKHR = Pointer;
+  TVkBaseInStructure = Pointer;
+  TVkVideoDecodeH264ProfileInfoKHR = Pointer;
+  TVkVideoDecodeH265ProfileInfoKHR = Pointer;
+  TVkVideoCapabilitiesKHR = Pointer;
+  TVkVideoDecodeH264CapabilitiesKHR = Pointer;
+  TVkVideoDecodeH265CapabilitiesKHR = Pointer;
+  TVkVideoDecodeH264SessionParametersCreateInfoKHR = Pointer;
+  TVkVideoDecodeH265SessionParametersCreateInfoKHR = Pointer;
+  TVkSamplerYcbcrRange = Pointer;
+  TVkChromaLocation = Pointer;
+  TVkDeviceSize = Pointer;
+  TVkBuffer = Pointer;
+  TVkBufferUsageFlags = Pointer;
+  TVkResult = Pointer;
+  TVkSurfaceKHR = Pointer;
+  TVkDescriptorPool = Pointer;
+  TVkDescriptorSet = Pointer;
+  TVkBlendOp = Pointer;
+  TVkBlendFactor = Pointer;
+  TVkPhysicalDeviceType = Pointer;
+  TVkMemoryHeapFlags = Pointer;
+  TVkQueueFlags = Pointer;
+  TVkSampleCountFlags = Pointer;
+  TVkPresentModeKHR = Pointer;
+  TVkQueryType = Pointer;
+  TVkImageAspectFlags = Pointer;
+
+  TVkQueueFlagBits = longint; // enum
+
+  TVkPhysicalDevice = Pointer;
+  PVkPhysicalDevice = ^TVkPhysicalDevice;
+
+  TVkQueueFamilyProperties = Pointer;
+  PVkQueueFamilyProperties = ^TVkQueueFamilyProperties;
+
+  TGstVulkanQueueFamilyOps = Pointer;
+  PGstVulkanQueueFamilyOps = ^TGstVulkanQueueFamilyOps;
+
+  TVkMemoryRequirements = Pointer;
+  PVkMemoryRequirements = ^TVkMemoryRequirements;
+
+  TVkImageCreateInfo = Pointer;
+  PVkImageCreateInfo = ^TVkImageCreateInfo;
+
+  TVkImageViewCreateInfo = Pointer;
+  PVkImageViewCreateInfo = ^TVkImageViewCreateInfo;
+
+  TVkVideoFormatPropertiesKHR = Pointer;
+  PVkVideoFormatPropertiesKHR = ^TVkVideoFormatPropertiesKHR;
+
+  TVkBufferCreateInfo = Pointer;
+  PVkBufferCreateInfo = ^TVkBufferCreateInfo;
+
+  TVkImageUsageFlags = Pointer;
+  PVkImageUsageFlags = ^TVkImageUsageFlags;
 
 
-{$IFDEF FPC}
+
+
+  {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 

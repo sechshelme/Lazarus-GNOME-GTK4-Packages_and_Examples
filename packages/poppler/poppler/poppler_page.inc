@@ -41,7 +41,7 @@ procedure poppler_page_render_selection(page: PPopplerPage; cairo: Pcairo_t; sel
 procedure poppler_page_get_size(page: PPopplerPage; width: Pdouble; height: Pdouble); cdecl; external libpoppler_glib;
 function poppler_page_get_index(page: PPopplerPage): longint; cdecl; external libpoppler_glib;
 function poppler_page_get_label(page: PPopplerPage): Pgchar; cdecl; external libpoppler_glib;
-function poppler_page_get_duration(page: PPopplerPage): Tdouble; cdecl; external libpoppler_glib;
+function poppler_page_get_duration(page: PPopplerPage): double; cdecl; external libpoppler_glib;
 function poppler_page_get_transition(page: PPopplerPage): PPopplerPageTransition; cdecl; external libpoppler_glib;
 function poppler_page_get_thumbnail_size(page: PPopplerPage; width: Plongint; height: Plongint): Tgboolean; cdecl; external libpoppler_glib;
 function poppler_page_find_text_with_options(page: PPopplerPage; text: pchar; options: TPopplerFindFlags): PGList; cdecl; external libpoppler_glib;

@@ -58,11 +58,11 @@ type
   TPopplerDest = bitpacked record
     _type: TPopplerDestType;
     page_num: longint;
-    left: Tdouble;
-    bottom: Tdouble;
-    right: Tdouble;
-    top: Tdouble;
-    zoom: Tdouble;
+    left: double;
+    bottom: double;
+    right: double;
+    top: double;
+    zoom: double;
     named_dest: Pgchar;
     change_left: 0..1;
     change_top: 0..1;

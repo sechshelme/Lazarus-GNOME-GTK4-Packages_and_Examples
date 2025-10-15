@@ -24,6 +24,28 @@ const
   libpangoft2 = 'libpangoft2-1.0-0.dll';
   {$ENDIF}
 
+  {$ifdef linux}
+  // ==== Xft
+type
+  PXftDraw = type Pointer;
+  PXftFont = type Pointer;
+  PXTrapezoid = type Pointer;
+  PXftGlyphSpec = type Pointer;
+  PXftColor = type Pointer;
+
+  TPicture = TXID;
+  PPicture = ^TPicture;
+  {$endif}
+
+  // ==== fontconfig
+  // /usr/include/fontconfig/fontconfig.h
+type
+  PFcPattern = type Pointer;
+  PFcConfig = type Pointer;
+  PFcCharSet = type Pointer;
+
+
+
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

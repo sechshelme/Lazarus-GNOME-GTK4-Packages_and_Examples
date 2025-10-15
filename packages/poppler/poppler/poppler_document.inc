@@ -270,7 +270,7 @@ function poppler_ps_file_new(document: PPopplerDocument; filename: pchar; first_
 function poppler_ps_file_new_fd(document: PPopplerDocument; fd: longint; first_page: longint; n_pages: longint): PPopplerPSFile; cdecl; external libpoppler_glib;
 {$endif}
 
-procedure poppler_ps_file_set_paper_size(ps_file: PPopplerPSFile; width: Tdouble; height: Tdouble); cdecl; external libpoppler_glib;
+procedure poppler_ps_file_set_paper_size(ps_file: PPopplerPSFile; width: double; height: double); cdecl; external libpoppler_glib;
 procedure poppler_ps_file_set_duplex(ps_file: PPopplerPSFile; duplex: Tgboolean); cdecl; external libpoppler_glib;
 procedure poppler_ps_file_free(ps_file: PPopplerPSFile); cdecl; external libpoppler_glib;
 procedure poppler_document_sign(document: PPopplerDocument; signing_data: PPopplerSigningData; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl; external libpoppler_glib;

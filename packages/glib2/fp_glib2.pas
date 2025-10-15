@@ -8,7 +8,7 @@ uses
   {$endif}
   ctypes;
 
-  const
+const
   {$IFDEF Linux}
   libglib2 = 'libglib-2.0';
   libgobject2_0 = 'libgobject-2.0';
@@ -67,270 +67,33 @@ type
 type
   Ppasswd = type Pointer;
 
-
-  // ==== Xft
-type
-  {$ifdef linux}
-  TXftDraw = record
-  end;
-  PXftDraw = ^TXftDraw;
-
-  TXftFont = record
-  end;
-  PXftFont = ^TXftFont;
-
-  TXTrapezoid = record
-  end;
-  PXTrapezoid = ^TXTrapezoid;
-
-  TXftGlyphSpec = record
-  end;
-  PXftGlyphSpec = ^TXftGlyphSpec;
-
-  TXftColor = record
-  end;
-  PXftColor = ^TXftColor;
-
-  TPicture = TXID;
-  PPicture = ^TPicture;
-  {$endif}
-
-  {$ifdef Linux}
-  // ==== xcb.h
-  Txcb_connection_t = record
-  end;
-  Pxcb_connection_t = ^Txcb_connection_t;
-
-  Txcb_window_t = TWindow;
-  Pxcb_screen_t = PScreen;
-  {$endif}
-
-  // ==== fontconfig
-  // /usr/include/fontconfig/fontconfig.h
-  TFcPattern = record
-  end;
-  PFcPattern = ^TFcPattern;
-
-  TFcConfig = record
-  end;
-  PFcConfig = ^TFcConfig;
-
-  TFcCharSet = record
-  end;
-  PFcCharSet = ^TFcCharSet;
-
-  // ==== va
-type
-  // /usr/include/va/va.h
-  TVAGenericID = cuint;
-  PVASurfaceID = ^TVASurfaceID;
-  TVASurfaceID = TVAGenericID;
-
-  // ==== OpenGL
-type
-  TGLeglImageOES = pointer;
-  PGLeglImageOES = ^TGLeglImageOES;
-
-  TGLchar = byte;
-  PGLchar = ^TGLchar;
-
-  TGLsizeiptr = Tptrdiff_t;
-  PGLsizeiptr = ^TGLsizeiptr;
-
-  TGLintptr = Tptrdiff_t;
-  PGLintptr = ^TGLintptr;
-
-  TGLsync = pointer;
-  PGLsync = ^TGLsync;
-
-  TGLuint64 = uint64;
-  PGLuint64 = ^TGLuint64;
-
-  TGLint64 = int64;
-  PGLint64 = ^TGLint64;
-
-  // /usr/include/KHR/khrplatform.h
-  Tkhronos_int32_t = int32;
-  // /usr/include/EGL/eglplatform.h
-  TEGLint = Tkhronos_int32_t;
-
-  // ==== Vulkan
-  TVkDevice = Pointer; // ?????
-  TVkQueue = Pointer;
-  TVkInstance = Pointer;
-  TVkPhysicalDeviceProperties = Pointer;
-  TVkPhysicalDeviceFeatures = Pointer;
-  TVkPhysicalDeviceMemoryProperties = Pointer;
-  TVkFence = Pointer;
-  TVkSemaphore = Pointer;
-  TVkCommandPool = Pointer;
-  TVkCommandBuffer = Pointer;
-  TVkCommandBufferLevel = Pointer;
-  TVkImageLayout = Pointer;
-  TVkImageSubresourceRange = Pointer;
-  TVkImage = Pointer;
-  TVkDeviceMemory = Pointer;
-  TVkMemoryAllocateInfo = Pointer;
-  TVkMemoryPropertyFlags = Pointer;
-  TVkImageFormatProperties = Pointer;
-  TVkImageView = Pointer;
-  TVkFormat = Pointer;
-  TVkImageTiling = Pointer;
-  TVkVideoPictureResourceInfoKHR = Pointer;
-  TVkVideoReferenceSlotInfoKHR = Pointer;
-  TVkVideoDecodeInfoKHR = Pointer;
-  TVkVideoProfileInfoKHR = Pointer;
-  TVkVideoDecodeUsageInfoKHR = Pointer;
-  TVkBaseInStructure = Pointer;
-  TVkVideoDecodeH264ProfileInfoKHR = Pointer;
-  TVkVideoDecodeH265ProfileInfoKHR = Pointer;
-  TVkVideoCapabilitiesKHR = Pointer;
-  TVkVideoDecodeH264CapabilitiesKHR = Pointer;
-  TVkVideoDecodeH265CapabilitiesKHR = Pointer;
-  TVkVideoDecodeH264SessionParametersCreateInfoKHR = Pointer;
-  TVkVideoDecodeH265SessionParametersCreateInfoKHR = Pointer;
-  TVkSamplerYcbcrRange = Pointer;
-  TVkChromaLocation = Pointer;
-  TVkDeviceSize = Pointer;
-  TVkBuffer = Pointer;
-  TVkBufferUsageFlags = Pointer;
-  TVkResult = Pointer;
-  TVkSurfaceKHR = Pointer;
-  TVkDescriptorPool = Pointer;
-  TVkDescriptorSet = Pointer;
-  TVkBlendOp = Pointer;
-  TVkBlendFactor = Pointer;
-  TVkPhysicalDeviceType = Pointer;
-  TVkMemoryHeapFlags = Pointer;
-  TVkQueueFlags = Pointer;
-  TVkSampleCountFlags = Pointer;
-  TVkPresentModeKHR = Pointer;
-  TVkQueryType = Pointer;
-  TVkImageAspectFlags = Pointer;
-
-  TVkQueueFlagBits = longint; // enum
-
-  TVkPhysicalDevice = Pointer;
-  PVkPhysicalDevice = ^TVkPhysicalDevice;
-
-  TVkQueueFamilyProperties = Pointer;
-  PVkQueueFamilyProperties = ^TVkQueueFamilyProperties;
-
-  TGstVulkanQueueFamilyOps = Pointer;
-  PGstVulkanQueueFamilyOps = ^TGstVulkanQueueFamilyOps;
-
-  TVkMemoryRequirements = Pointer;
-  PVkMemoryRequirements = ^TVkMemoryRequirements;
-
-  TVkImageCreateInfo = Pointer;
-  PVkImageCreateInfo = ^TVkImageCreateInfo;
-
-  TVkImageViewCreateInfo = Pointer;
-  PVkImageViewCreateInfo = ^TVkImageViewCreateInfo;
-
-  TVkVideoFormatPropertiesKHR = Pointer;
-  PVkVideoFormatPropertiesKHR = ^TVkVideoFormatPropertiesKHR;
-
-  TVkBufferCreateInfo = Pointer;
-  PVkBufferCreateInfo = ^TVkBufferCreateInfo;
-
-  TVkImageUsageFlags = Pointer;
-  PVkImageUsageFlags = ^TVkImageUsageFlags;
-
   // ==== Wayland;
 type
-  Twl_surface = record
-  end;
-  Pwl_surface = ^Twl_surface;
-
-  Twl_seat = record
-  end;
-  Pwl_seat = ^Twl_seat;
-
-  Twl_output = record
-  end;
-  Pwl_output = ^Twl_output;
-
-  Twl_display = record
-  end;
-  Pwl_display = ^Twl_display;
-
-  Twl_compositor = record
-  end;
-  Pwl_compositor = ^Twl_compositor;
-
-  Twl_pointer = record
-  end;
-  Pwl_pointer = ^Twl_pointer;
-
-  Twl_keyboard = record
-  end;
-  Pwl_keyboard = ^Twl_keyboard;
-
-  Txkb_keymap = record
-  end;
-  Pxkb_keymap = ^Txkb_keymap;
-
-  Twl_shm_format = record
-  end;
-  Pwl_shm_format = ^Twl_shm_format;
-
-  Twl_callback_listener = record
-  end;
-  Pwl_callback_listener = ^Twl_callback_listener;
-
-  Twl_callback = record
-  end;
-  Pwl_callback = ^Twl_callback;
+  Pwl_surface = type Pointer;
+  Pwl_seat = type Pointer;
+  Pwl_output = type Pointer;
+  Pwl_display = type Pointer;
+  Pwl_compositor = type Pointer;
+  Pwl_pointer = type Pointer;
+  Pwl_keyboard = type Pointer;
+  Pxkb_keymap = type Pointer;
+  Pwl_callback_listener = type Pointer;
+  Pwl_callback = type Pointer;
   PPwl_callback = ^Pwl_callback;
-
-  Twl_event_queue = record
-  end;
-  Pwl_event_queue = ^Twl_event_queue;
-
-  Twl_subcompositor = record
-  end;
-  Pwl_subcompositor = ^Twl_subcompositor;
-
-  Twl_shm = record
-  end;
-  Pwl_shm = ^Twl_shm;
-
-  Twl_subsurface = record
-  end;
-  Pwl_subsurface = ^Twl_subsurface;
-
-  Twl_buffer = record
-  end;
-  Pwl_buffer = ^Twl_buffer;
-
-  Txdg_wm_base = record
-  end;
-  Pxdg_wm_base = ^Txdg_wm_base;
-
-  Tzwp_fullscreen_shell_v1 = record
-  end;
-  Pzwp_fullscreen_shell_v1 = ^Tzwp_fullscreen_shell_v1;
-
-  Twp_viewporter = record
-  end;
-  Pwp_viewporter = ^Twp_viewporter;
-
-  Tzwp_linux_dmabuf_v1 = record
-  end;
-  Pzwp_linux_dmabuf_v1 = ^Tzwp_linux_dmabuf_v1;
-
-  Twp_single_pixel_buffer_manager_v1 = record
-  end;
-  Pwp_single_pixel_buffer_manager_v1 = ^Twp_single_pixel_buffer_manager_v1;
-
-  Twl_registry = record
-  end;
-  Pwl_registry = ^Twl_registry;
-
-  Twl_shell = record
-  end;
-  Pwl_shell = ^Twl_shell;
+  Pwl_event_queue = type Pointer;
+  Pwl_subcompositor = type Pointer;
+  Pwl_shm = type Pointer;
+  Pwl_subsurface = type Pointer;
+  Pwl_buffer = type Pointer;
+  Pxdg_wm_base = type Pointer;
+  Pzwp_fullscreen_shell_v1 = type Pointer;
+  Pwp_viewporter = type Pointer;
+  Pzwp_linux_dmabuf_v1 = type Pointer;
+  Pwp_single_pixel_buffer_manager_v1 = type Pointer;
+  Pwl_registry = type Pointer;
+  Pwl_shell = type Pointer;
+  Twl_shm_format = longint;
+  Pwl_shm_format = ^Twl_shm_format;
 
   // ==== unicode
 type
@@ -365,7 +128,7 @@ type
   PID3D11Resource = Pointer;
   {$endif}
 
-//  {$include ../gnome_lib_const.inc}
+  //  {$include ../gnome_lib_const.inc}
 
   {$DEFINE read_interface}
   {$include glibconfig.inc}
@@ -392,13 +155,13 @@ var
   w2: word = 8064;
 begin
   asm
-               Ldmxcsr w2
+           Ldmxcsr w2
   end;
 end;
 {$ENDIF}
 
 begin
-{$IF defined(CPUX86) or defined(CPUX64)}
-    SetMXCSR;
-{$ENDIF}
+  {$IF defined(CPUX86) or defined(CPUX64)}
+  SetMXCSR;
+  {$ENDIF}
 end.

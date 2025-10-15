@@ -5,7 +5,6 @@ uses
   xlib,
 
   fp_xcb,
-  fp_xcb_util,
   fp_xcb_keysyms;
 
   procedure paint(conn: Pxcb_connection_t; window: Txcb_window_t; gc: Txcb_gcontext_t);
