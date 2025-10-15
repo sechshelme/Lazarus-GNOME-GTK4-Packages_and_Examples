@@ -2,25 +2,6 @@ unit fp_xcb;
 
 interface
 
-
-(*
-/usr/lib/x86_64-linux-gnu/libxcb-xinerama.so
-/usr/lib/x86_64-linux-gnu/libxcb-res.so
-/usr/lib/x86_64-linux-gnu/libxcb-imdkit.so
-/usr/lib/x86_64-linux-gnu/libxcb-screensaver.so
-/usr/lib/x86_64-linux-gnu/libxcb-util.so
-/usr/lib/x86_64-linux-gnu/libxcb-xvmc.so
-/usr/lib/x86_64-linux-gnu/libxcb-xtest.so
-/usr/lib/x86_64-linux-gnu/libxcb-present.so
-/usr/lib/x86_64-linux-gnu/libxcb-icccm.so
-/usr/lib/x86_64-linux-gnu/libxcb-cursor.so
-/usr/lib/x86_64-linux-gnu/libxcb-xrm.so
-/usr/lib/x86_64-linux-gnu/libxcb-dpms.so
-/usr/lib/x86_64-linux-gnu/libxcb-render-util.so
-/usr/lib/x86_64-linux-gnu/libxcb-xkb.so
-/usr/lib/x86_64-linux-gnu/libxcb-ewmh.so
-*)
-
 const
   {$IFDEF Linux}
   libxcb = 'libxcb';
@@ -41,26 +22,21 @@ const
   libxcb_dri2 = 'libxcb-dri2';
   libxcb_dri3 = 'libxcb-dri3';
   libxcb_xf86dri = 'libxcb-xf86dri';
-  libxcb_record ='libxcb-record';
-  libxcb_composite='libxcb-composite';
-  libxcb_damage ='libxcb-damage';
-
-libxcb_xinerama       =          'libxcb-xinerama';
-libxcb_res            =          'libxcb-res';
-libxcb_imdkit         =          'libxcb-imdkit';
-libxcb_screensaver    =          'libxcb-screensaver';
-libxcb_xvmc           =          'libxcb-xvmc';
-libxcb_xtest          =          'libxcb-xtest';
-libxcb_present        =          'libxcb-present';
-libxcb_cursor         =          'libxcb-cursor';
-libxcb_xrm            =          'libxcb-xrm';
-libxcb_dpms           =          'libxcb-dpms';
-libxcb_render_util='libxcb-render-util';
-
-
-
+  libxcb_record = 'libxcb-record';
+  libxcb_composite = 'libxcb-composite';
+  libxcb_damage = 'libxcb-damage';
+  libxcb_xinerama = 'libxcb-xinerama';
+  libxcb_res = 'libxcb-res';
+  libxcb_imdkit = 'libxcb-imdkit';
+  libxcb_screensaver = 'libxcb-screensaver';
+  libxcb_xvmc = 'libxcb-xvmc';
+  libxcb_xtest = 'libxcb-xtest';
+  libxcb_present = 'libxcb-present';
+  libxcb_cursor = 'libxcb-cursor';
+  libxcb_xrm = 'libxcb-xrm';
+  libxcb_dpms = 'libxcb-dpms';
+  libxcb_render_util = 'libxcb-render-util';
   libxcb_glx = 'libxcb-glx';
-
   {$ENDIF}
 
   {$IFDEF Windows}
@@ -99,7 +75,7 @@ procedure free(__ptr: pointer); cdecl; external 'c';
 
 
 type // /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h
-  Piovec = Pointer;
+  Piovec = type Pointer;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
