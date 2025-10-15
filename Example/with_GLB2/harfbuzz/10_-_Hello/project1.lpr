@@ -3,7 +3,6 @@ program project1;
 uses
   ctypes,
   SysUtils,
-  fp_FreeType2,
   fp_glib2,
   fp_harfbuzz,
   fp_cairo,

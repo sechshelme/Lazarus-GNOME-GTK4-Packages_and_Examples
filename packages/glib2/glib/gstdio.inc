@@ -2,8 +2,7 @@
 {$IFDEF read_interface}
 
 type
-  TGStatBuf=Tstat;
-  PGStatBuf=^TGStatBuf;
+  PGStatBuf = type Pointer;
 
 function g_access(filename:Pgchar; mode:longint):longint;cdecl;external libglib2;
 function g_chdir(path:Pgchar):longint;cdecl;external libglib2;
@@ -22,9 +21,7 @@ function g_fopen(filename:Pgchar; mode:Pgchar):PFILE;cdecl;external libglib2;
 function g_freopen(filename:Pgchar; mode:Pgchar; stream:PFILE):PFILE;cdecl;external libglib2;
 function g_fsync(fd:Tgint):Tgint;cdecl;external libglib2;
 type
-  Tutimbuf = record
-  end;
-  Putimbuf = ^Tutimbuf;
+  Putimbuf = type Pointer;
 
 function g_utime(filename:Pgchar; utb:Putimbuf):longint;cdecl;external libglib2;
 function g_close(fd:Tgint; error:PPGError):Tgboolean;cdecl;external libglib2;

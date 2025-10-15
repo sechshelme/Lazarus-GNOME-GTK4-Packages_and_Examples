@@ -1,13 +1,13 @@
 program project1;
 
 uses
-  Math,
   ctypes,
   fp_glib2,
   fp_cairo,
-  //  fp_GLIBTools,
   fp_GTK4,
   fp_gst,
+  //  fp_GLIBTools,
+
   Common,
   Streamer,
   culumn_view,
@@ -220,17 +220,6 @@ uses
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 
-
-//    g_object_set (gtk_settings_get_default (),
-//                  'gtk-enable-animations', FALSE,
-//                  'gtk-font-name', 'Adwaita Sans 33',
-//                  'gtk-icon-theme-name', 'Adwaita',
-//                  'gtk-decoration-layout', ':close',
-//                  'gtk-hint-font-metrics', TRUE,
-////                  'gtk-font-rendering', GTK_FONT_RENDERING_MANUAL,
-//                  nil);
-
-
     gtk_application_set_menubar(GTK_APPLICATION(app), G_MENU_MODEL(CreateMenu));
 
     action := g_simple_action_new('quit', nil);
@@ -244,9 +233,6 @@ uses
     app: PGtkApplication;
   begin
     app := gtk_application_new('org.gtk.mediaplayer', G_APPLICATION_DEFAULT_FLAGS);
-    //    g_setenv('GTK_THEME', 'Adwaita:dark', TRUE);
-    //    g_setenv('GTK_USE_PORTAL', '0', TRUE);
-    //    g_setenv('ADW_DISABLE_PORTAL', '1', TRUE);
 
     g_signal_connect(app, 'startup', G_CALLBACK(@app_startup), nil);
     g_signal_connect(app, 'activate', G_CALLBACK(@app_activate), nil);

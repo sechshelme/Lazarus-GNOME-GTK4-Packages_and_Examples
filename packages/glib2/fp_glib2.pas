@@ -29,29 +29,19 @@ const
 
   // ==== glib2
 type
-  Tuintptr_t = PtrUInt;
-  Tptrdiff_t = PtrInt;
-
   Tsize_t = SizeUInt;
-  Ttime_t = clong; // types.h
+  Ttime_t = int64; // types.h
   Ptime_t = ^Ttime_t;
 
   Tva_list = Pointer;
   Pva_list = ^Tva_list;
 
-  // /usr/include/x86_64-linux-gnu/bits/struct_stat.h
-  Tstat = record
-  end;
-  PTstat = ^Tstat;
-
   // /usr/include/x86_64-linux-gnu/bits/types.h
-  Tpid_t = cint;
-  Tuid_t = cuint;
+  Tpid_t = int32;
+  Tuid_t = uint32;
 
   //  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h
-  TFILE = record
-  end;
-  PFILE = ^TFILE;
+  PFILE = type Pointer;
 
   //  /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h
   Ptm = type Pointer;
@@ -67,7 +57,7 @@ type
 type
   Ppasswd = type Pointer;
 
-  // ==== Wayland;
+  // ==== Wayland  ( GDK4 & GST )
 type
   Pwl_surface = type Pointer;
   Pwl_seat = type Pointer;
@@ -94,41 +84,6 @@ type
   Pwl_shell = type Pointer;
   Twl_shm_format = longint;
   Pwl_shm_format = ^Twl_shm_format;
-
-  // ==== unicode
-type
-  // /usr/include/unicode/uscript.h
-  TUScriptCode = longint;
-
-  // ==== graphite2
-  // /usr/include/graphite2/Font.h
-  Tgr_face = record
-  end;
-  Pgr_face = ^Tgr_face;
-
-  Tgr_font = record
-  end;
-  Pgr_font = ^Tgr_font;
-
-  // /usr/include/unicode/ucnv_err.h
-type
-  TUConverter = record
-  end;
-  PUConverter = ^TUConverter;
-
-  // /usr/include/iconv.h
-  Ticonv_t = Pointer;
-  Piconv_t = ^Ticonv_t;
-
-
-
-  // ==== Windows
-  {$ifdef windows}
-type
-  PID3D11Resource = Pointer;
-  {$endif}
-
-  //  {$include ../gnome_lib_const.inc}
 
   {$DEFINE read_interface}
   {$include glibconfig.inc}

@@ -17,9 +17,6 @@
     </Files>
     <RequiredPkgs>
       <Item>
-        <PackageName Value="fp_harfbuzz_package"/>
-      </Item>
-      <Item>
         <PackageName Value="fp_GLIB2_package"/>
       </Item>
       <Item>

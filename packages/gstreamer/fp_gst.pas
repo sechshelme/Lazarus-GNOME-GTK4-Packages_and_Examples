@@ -97,6 +97,10 @@ const
   libges = 'libges-1.0-0.dll';
   {$endif}
 
+type
+  Tuintptr_t = PtrUInt;
+  Tptrdiff_t = PtrInt;
+
   {$ifdef Linux}
   // ==== xcb.h
 type
@@ -223,6 +227,11 @@ type
   TVkImageUsageFlags = Pointer;
   PVkImageUsageFlags = ^TVkImageUsageFlags;
 
+  // ==== Windows
+  {$ifdef windows}
+type
+  PID3D11Resource = Pointer;
+  {$endif}
 
 
 
@@ -291,8 +300,6 @@ type
   end;
   PGstControlBindingPrivate = ^TGstControlBindingPrivate;
 
-  PGstControlBinding = ^TGstControlBinding;
-
   TGstControlBinding = record
     parent: TGstObject;
     Name: Pgchar;
@@ -308,6 +315,7 @@ type
         1: (_gst_reserved: array[0..(GST_PADDING) - 1] of Tgpointer);
       end;
   end;
+  PGstControlBinding = ^TGstControlBinding;
 
   TGstBufferPoolPrivate = record
   end;

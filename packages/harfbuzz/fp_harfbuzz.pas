@@ -3,7 +3,7 @@ unit fp_harfbuzz;
 interface
 
 uses
-  ctypes, fp_FreeType2, fp_cairo, fp_glib2;
+  ctypes, fp_cairo, fp_glib2;
 
 const
   {$IFDEF Linux}
@@ -25,6 +25,21 @@ const
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
+
+  // ==== graphite2
+type
+  // /usr/include/graphite2/Font.h
+  Pgr_face = type Pointer;
+  Pgr_font = type Pointer;
+
+  // ==== unicode
+type
+  // /usr/include/unicode/uscript.h
+  TUScriptCode = longint;
+
+  // ==== FreeType2
+type
+  TFT_Face = type Pointer;
 
   {$DEFINE read_interface}
   {$include fp_harfbuzz_includes.inc}

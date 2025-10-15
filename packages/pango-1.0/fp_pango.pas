@@ -8,7 +8,7 @@ uses
   {$IFDEF Linux}
   x, xlib,
   {$ENDIF}
-  ctypes, fp_FreeType2, fp_glib2, fp_harfbuzz, fp_cairo;
+  ctypes, fp_glib2, fp_cairo;
 
 const
   {$IFDEF Linux}
@@ -37,14 +37,23 @@ type
   PPicture = ^TPicture;
   {$endif}
 
+  // ==== Harfbuzz
+type
+  Phb_feature_t = type Pointer;
+  Phb_font_t = type Pointer;
+  Phb_face_t = type Pointer;
+
+  // ==== FreeType2
+type
+  PFT_Bitmap = type Pointer;
+  TFT_Face = type Pointer;
+
   // ==== fontconfig
   // /usr/include/fontconfig/fontconfig.h
 type
   PFcPattern = type Pointer;
   PFcConfig = type Pointer;
   PFcCharSet = type Pointer;
-
-
 
 
   {$IFDEF FPC}
