@@ -1,6 +1,19 @@
 
 {$IFDEF read_interface}
 
+type
+  TGstVulkanQueueFamilyOps = record
+    video: Tguint32;
+    query: Tgboolean;
+  end;
+  PGstVulkanQueueFamilyOps = ^TGstVulkanQueueFamilyOps;
+
+  TGstVulkanPhysicalDeviceClass = record
+    parent_class: TGstObjectClass;
+    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
+  end;
+  PGstVulkanPhysicalDeviceClass = ^TGstVulkanPhysicalDeviceClass;
+
 function gst_vulkan_device_get_type: TGType; cdecl; external libgstvulkan;
 
 const

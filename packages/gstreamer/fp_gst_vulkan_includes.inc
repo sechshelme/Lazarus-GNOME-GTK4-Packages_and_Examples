@@ -4,6 +4,7 @@
 {$include gst/vulkan/vulkan_enumtypes.inc}              // io.
 {$include gst/vulkan/gstvkbarrier.inc}                  // io.
 {$include gst/vulkan/gstvkdevice.inc}                   // io. -> gstvkbarrier
+{$include gst/vulkan/gstvkphysicaldevice.inc}           // io. -> gstvkdevice
 {$include gst/vulkan/gstvkhandlepool.inc}               // io. -> gstvkdevice
 {$include gst/vulkan/gstvkfence.inc}                    // io. -> gstvkdevice, gstvkhandlepool
 {$include gst/vulkan/gstvkmemory.inc}                   // io. -> gstvkdevice
@@ -11,7 +12,6 @@
 {$include gst/vulkan/gstvkvideoutils.inc}               // io.
 {$include gst/vulkan/gstvkimageview.inc}                // io. -> gstvkdevice
 {$include gst/vulkan/gstvkdecoder.inc}                  // io. -> gstvkdevice, gstvkvideoutils
-{$include gst/vulkan/gstvkphysicaldevice.inc}           // io. -> gstvkdevice
 {$include gst/vulkan/gstvkinstance.inc}                 // io. -> gstvkdevice
 {$include gst/vulkan/gstvkcommandpool.inc}              // io. -> gstvkdevice
 {$include gst/vulkan/gstvkcommandbuffer.inc}            // io. -> gstvkcommandpool, gstvkdevice

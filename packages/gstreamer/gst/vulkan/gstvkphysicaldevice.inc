@@ -3,19 +3,6 @@
 
 function gst_vulkan_physical_device_get_type: TGType; cdecl; external libgstvulkan;
 
-type
-  TGstVulkanQueueFamilyOps = record
-    video: Tguint32;
-    query: Tgboolean;
-  end;
-  PGstVulkanQueueFamilyOps = ^TGstVulkanQueueFamilyOps;
-
-  TGstVulkanPhysicalDeviceClass = record
-    parent_class: TGstObjectClass;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanPhysicalDeviceClass = ^TGstVulkanPhysicalDeviceClass;
-
 function gst_vulkan_physical_device_new(instance: PGstVulkanInstance; device_index: Tguint): PGstVulkanPhysicalDevice; cdecl; external libgstvulkan;
 function gst_vulkan_physical_device_get_instance(device: PGstVulkanPhysicalDevice): PGstVulkanInstance; cdecl; external libgstvulkan;
 function gst_vulkan_physical_device_get_handle(device: PGstVulkanPhysicalDevice): TVkPhysicalDevice; cdecl; external libgstvulkan;

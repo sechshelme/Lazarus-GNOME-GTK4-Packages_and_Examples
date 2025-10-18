@@ -5,12 +5,8 @@ interface
 uses
   fp_glib2,
   fp_gst,
-  fp_gst_base,
-  fp_gst_video,
-  fp_gst_vulkan,
-  fp_gst_gl,
-  Strings,
-  ctypes;
+  fp_gst_vulkan;
+
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

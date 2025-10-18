@@ -145,87 +145,81 @@ type
   TEGLint = Tkhronos_int32_t;
 
   // ==== Vulkan
-  TVkDevice = Pointer; // ?????
-  TVkQueue = Pointer;
-  TVkInstance = Pointer;
-  TVkPhysicalDeviceProperties = Pointer;
-  TVkPhysicalDeviceFeatures = Pointer;
-  TVkPhysicalDeviceMemoryProperties = Pointer;
-  TVkFence = Pointer;
-  TVkSemaphore = Pointer;
-  TVkCommandPool = Pointer;
-  TVkCommandBuffer = Pointer;
-  TVkCommandBufferLevel = Pointer;
-  TVkImageLayout = Pointer;
-  TVkImageSubresourceRange = Pointer;
-  TVkImage = Pointer;
-  TVkDeviceMemory = Pointer;
-  TVkMemoryAllocateInfo = Pointer;
-  TVkMemoryPropertyFlags = Pointer;
-  TVkImageFormatProperties = Pointer;
-  TVkImageView = Pointer;
-  TVkFormat = Pointer;
-  TVkImageTiling = Pointer;
-  TVkVideoPictureResourceInfoKHR = Pointer;
-  TVkVideoReferenceSlotInfoKHR = Pointer;
-  TVkVideoDecodeInfoKHR = Pointer;
-  TVkVideoProfileInfoKHR = Pointer;
-  TVkVideoDecodeUsageInfoKHR = Pointer;
-  TVkBaseInStructure = Pointer;
-  TVkVideoDecodeH264ProfileInfoKHR = Pointer;
-  TVkVideoDecodeH265ProfileInfoKHR = Pointer;
-  TVkVideoCapabilitiesKHR = Pointer;
-  TVkVideoDecodeH264CapabilitiesKHR = Pointer;
-  TVkVideoDecodeH265CapabilitiesKHR = Pointer;
-  TVkVideoDecodeH264SessionParametersCreateInfoKHR = Pointer;
-  TVkVideoDecodeH265SessionParametersCreateInfoKHR = Pointer;
-  TVkSamplerYcbcrRange = Pointer;
-  TVkChromaLocation = Pointer;
-  TVkDeviceSize = Pointer;
-  TVkBuffer = Pointer;
-  TVkBufferUsageFlags = Pointer;
-  TVkResult = Pointer;
-  TVkSurfaceKHR = Pointer;
-  TVkDescriptorPool = Pointer;
-  TVkDescriptorSet = Pointer;
-  TVkBlendOp = Pointer;
-  TVkBlendFactor = Pointer;
-  TVkPhysicalDeviceType = Pointer;
-  TVkMemoryHeapFlags = Pointer;
-  TVkQueueFlags = Pointer;
-  TVkSampleCountFlags = Pointer;
-  TVkPresentModeKHR = Pointer;
-  TVkQueryType = Pointer;
-  TVkImageAspectFlags = Pointer;
+  // /usr/include/vulkan/vulkan_core.h
+  TVkDeviceSize = uint64;
 
-  TVkQueueFlagBits = longint; // enum
+  TVkFlags = uint32;
+  TVkMemoryPropertyFlags = TVkFlags;
+  TVkBufferUsageFlags = TVkFlags;
+  TVkMemoryHeapFlags = TVkFlags;
+  TVkQueueFlags = TVkFlags;
+  TVkSampleCountFlags = TVkFlags;
+  TVkImageAspectFlags = TVkFlags;
+  TVkImageUsageFlags = TVkFlags;
+  PVkImageUsageFlags = ^TVkImageUsageFlags;
 
-  TVkPhysicalDevice = Pointer;
+  TVkCommandBufferLevel = longint;           // enum
+  TVkImageLayout = longint;                  // enum
+  TVkFormat = longint;                       // enum
+  TVkImageTiling = longint;                  // enum
+  TVkSamplerYcbcrRange = longint;            // enum
+  TVkChromaLocation = longint;               // enum
+  TVkResult = longint;                       // enum
+  TVkBlendOp = longint;                      // enum
+  TVkBlendFactor = longint;                  // enum
+  TVkPhysicalDeviceType = longint;           // enum
+  TVkPresentModeKHR = longint;               // enum
+  TVkQueryType = longint;                    // enum
+  TVkQueueFlagBits = LongInt;                // enum
+
+  // mit Vorsicht verwenden !
+  TVkDevice = Pointer;                       // ????
+  TVkQueue = Pointer;                        // ????
+  TVkInstance = Pointer;                     // ????
+  TVkFence = Pointer;                        // ????
+  TVkSemaphore = Pointer;                    // ????
+  TVkCommandPool = Pointer;                  // ????
+  TVkCommandBuffer = Pointer;                // ????
+  TVkImage = Pointer;                        // ????
+  TVkDeviceMemory = Pointer;                 // ????
+  TVkImageView = Pointer;                    // ????
+  TVkBuffer = Pointer;                       // ????
+  TVkSurfaceKHR = Pointer;                   // ????
+  TVkDescriptorPool = Pointer;               // ????
+  TVkDescriptorSet = Pointer;                // ????
+  TVkPhysicalDevice = Pointer;               // ????
   PVkPhysicalDevice = ^TVkPhysicalDevice;
 
-  TVkQueueFamilyProperties = Pointer;
-  PVkQueueFamilyProperties = ^TVkQueueFamilyProperties;
-
-  TGstVulkanQueueFamilyOps = Pointer;
-  PGstVulkanQueueFamilyOps = ^TGstVulkanQueueFamilyOps;
-
-  TVkMemoryRequirements = Pointer;
+  PVkQueueFamilyProperties = type Pointer;
+  TVkPhysicalDeviceProperties = Pointer;                        // struct
+  TVkPhysicalDeviceFeatures = Pointer;                          // struct
+  TVkPhysicalDeviceMemoryProperties = Pointer;                  // struct
+  TVkImageSubresourceRange = Pointer;                           // struct
+  TVkMemoryAllocateInfo = Pointer;                              // struct
+  TVkImageFormatProperties = Pointer;                           // struct
+  TVkVideoPictureResourceInfoKHR = Pointer;                     // struct
+  TVkVideoReferenceSlotInfoKHR = Pointer;                       // struct
+  TVkVideoDecodeInfoKHR = Pointer;                              // struct
+  TVkVideoProfileInfoKHR = Pointer;                             // struct
+  TVkVideoDecodeUsageInfoKHR = Pointer;                         // struct
+  TVkBaseInStructure = Pointer;                                 // struct
+  TVkVideoDecodeH264ProfileInfoKHR = Pointer;                   // struct
+  TVkVideoDecodeH265ProfileInfoKHR = Pointer;                   // struct
+  TVkVideoCapabilitiesKHR = Pointer;                            // struct
+  TVkVideoDecodeH264CapabilitiesKHR = Pointer;                  // struct
+  TVkVideoDecodeH265CapabilitiesKHR = Pointer;                  // struct
+  TVkVideoDecodeH264SessionParametersCreateInfoKHR = Pointer;   // struct
+  TVkVideoDecodeH265SessionParametersCreateInfoKHR = Pointer;   // struct
+  TVkMemoryRequirements = Pointer;                              // struct
   PVkMemoryRequirements = ^TVkMemoryRequirements;
-
-  TVkImageCreateInfo = Pointer;
+  TVkImageCreateInfo = Pointer;                                 // struct
   PVkImageCreateInfo = ^TVkImageCreateInfo;
-
-  TVkImageViewCreateInfo = Pointer;
+  TVkImageViewCreateInfo = Pointer;                             // struct
   PVkImageViewCreateInfo = ^TVkImageViewCreateInfo;
-
-  TVkVideoFormatPropertiesKHR = Pointer;
+  TVkVideoFormatPropertiesKHR = Pointer;                        // struct
   PVkVideoFormatPropertiesKHR = ^TVkVideoFormatPropertiesKHR;
-
-  TVkBufferCreateInfo = Pointer;
+  TVkBufferCreateInfo = Pointer;                                // struct
   PVkBufferCreateInfo = ^TVkBufferCreateInfo;
-
-  TVkImageUsageFlags = Pointer;
-  PVkImageUsageFlags = ^TVkImageUsageFlags;
 
   // ==== Windows
   {$ifdef windows}
@@ -296,9 +290,7 @@ type
   end;
   PPGstObject = ^PGstObject;
 
-  TGstControlBindingPrivate = record
-  end;
-  PGstControlBindingPrivate = ^TGstControlBindingPrivate;
+  PGstControlBindingPrivate = type Pointer;
 
   TGstControlBinding = record
     parent: TGstObject;
@@ -317,9 +309,7 @@ type
   end;
   PGstControlBinding = ^TGstControlBinding;
 
-  TGstBufferPoolPrivate = record
-  end;
-  PGstBufferPoolPrivate = ^TGstBufferPoolPrivate;
+  PGstBufferPoolPrivate = type Pointer;
 
   TGstBufferPool = record
     obj: TGstObject;
@@ -375,9 +365,7 @@ const
   GST_PAD_SINK = 2;
 
 type
-  TGstStreamPrivate = record
-  end;
-  PGstStreamPrivate = ^TGstStreamPrivate;
+  PGstStreamPrivate = type Pointer;
 
   TGstStream = record
     obj: TGstObject;
@@ -399,29 +387,6 @@ const
 type
   PGstQueryType = ^TGstQueryType;
   TGstQueryType = longint;
-
-  //typedef enum {
-  //  GST_QUERY_UNKNOWN      = GST_QUERY_MAKE_TYPE (0, 0),
-  //  GST_QUERY_POSITION     = GST_QUERY_MAKE_TYPE (10, _FLAG(BOTH)),
-  //  GST_QUERY_DURATION     = GST_QUERY_MAKE_TYPE (20, _FLAG(BOTH)),
-  //  GST_QUERY_LATENCY      = GST_QUERY_MAKE_TYPE (30, _FLAG(BOTH)),
-  //  GST_QUERY_JITTER       = GST_QUERY_MAKE_TYPE (40, _FLAG(BOTH)),
-  //  GST_QUERY_RATE         = GST_QUERY_MAKE_TYPE (50, _FLAG(BOTH)),
-  //  GST_QUERY_SEEKING      = GST_QUERY_MAKE_TYPE (60, _FLAG(BOTH)),
-  //  GST_QUERY_SEGMENT      = GST_QUERY_MAKE_TYPE (70, _FLAG(BOTH)),
-  //  GST_QUERY_CONVERT      = GST_QUERY_MAKE_TYPE (80, _FLAG(BOTH)),
-  //  GST_QUERY_FORMATS      = GST_QUERY_MAKE_TYPE (90, _FLAG(BOTH)),
-  //  GST_QUERY_BUFFERING    = GST_QUERY_MAKE_TYPE (110, _FLAG(BOTH)),
-  //  GST_QUERY_CUSTOM       = GST_QUERY_MAKE_TYPE (120, _FLAG(BOTH)),
-  //  GST_QUERY_URI          = GST_QUERY_MAKE_TYPE (130, _FLAG(BOTH)),
-  //  GST_QUERY_ALLOCATION   = GST_QUERY_MAKE_TYPE (140, _FLAG(DOWNSTREAM) | _FLAG(SERIALIZED)),
-  //  GST_QUERY_SCHEDULING   = GST_QUERY_MAKE_TYPE (150, _FLAG(UPSTREAM)),
-  //  GST_QUERY_ACCEPT_CAPS  = GST_QUERY_MAKE_TYPE (160, _FLAG(BOTH)),
-  //  GST_QUERY_CAPS         = GST_QUERY_MAKE_TYPE (170, _FLAG(BOTH)),
-  //  GST_QUERY_DRAIN        = GST_QUERY_MAKE_TYPE (180, _FLAG(DOWNSTREAM) | _FLAG(SERIALIZED)),
-  //  GST_QUERY_CONTEXT      = GST_QUERY_MAKE_TYPE (190, _FLAG(BOTH)),
-  //  GST_QUERY_BITRATE      = GST_QUERY_MAKE_TYPE (200, _FLAG(DOWNSTREAM)),
-  //  GST_QUERY_SELECTABLE   = GST_QUERY_MAKE_TYPE (210, _FLAG(BOTH)),
 
 const
   GST_QUERY_UNKNOWN = 0 shl (GST_QUERY_NUM_SHIFT or 0);
@@ -455,13 +420,8 @@ type
   PPGstQuery = ^PGstQuery;
 
 type
-  TGstElementFactory = record
-  end;
-  PGstElementFactory = ^TGstElementFactory;
-
-  TGstDeviceProviderFactory = record
-  end;
-  PGstDeviceProviderFactory = ^TGstDeviceProviderFactory;
+  PGstElementFactory = type Pointer;
+  PGstDeviceProviderFactory = type Pointer;
 
   // video/video_chroma
 type
