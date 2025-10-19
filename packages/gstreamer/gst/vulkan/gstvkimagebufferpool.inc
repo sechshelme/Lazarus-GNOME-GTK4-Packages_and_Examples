@@ -2,21 +2,6 @@
 {$IFDEF read_interface}
 
 function gst_vulkan_image_buffer_pool_get_type:TGType;cdecl;external libgstvulkan;
-
-type
-  TGstVulkanImageBufferPool = record
-      bufferpool : TGstBufferPool;
-      device : PGstVulkanDevice;
-      _reserved : array[0..(GST_PADDING)-1] of Tgpointer;
-    end;
-  PGstVulkanImageBufferPool = ^TGstVulkanImageBufferPool;
-
-  TGstVulkanImageBufferPoolClass = record
-      parent_class : TGstBufferPoolClass;
-      _reserved : array[0..(GST_PADDING)-1] of Tgpointer;
-    end;
-  PGstVulkanImageBufferPoolClass = ^TGstVulkanImageBufferPoolClass;
-
 function gst_vulkan_image_buffer_pool_new(device:PGstVulkanDevice):PGstBufferPool;cdecl;external libgstvulkan;
 procedure gst_vulkan_image_buffer_pool_config_set_allocation_params(config:PGstStructure; usage:TVkImageUsageFlags; mem_properties:TVkMemoryPropertyFlags; initial_layout:TVkImageLayout; initial_access:Tguint64);cdecl;external libgstvulkan;
 procedure gst_vulkan_image_buffer_pool_config_set_decode_caps(config:PGstStructure; caps:PGstCaps);cdecl;external libgstvulkan;

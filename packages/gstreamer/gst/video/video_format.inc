@@ -180,8 +180,8 @@ const
 
 type
   PGstVideoFormatInfo = ^TGstVideoFormatInfo;
-  TGstVideoFormatUnpack = procedure(info: PGstVideoFormatInfo; flags: TGstVideoPackFlags; dest: Tgpointer; Data: Tplanes_Pointer_arr; stride: Tplanes_int_arr; x: Tgint; y: Tgint; Width: Tgint); cdecl;
-  TGstVideoFormatPack = procedure(info: PGstVideoFormatInfo; flags: TGstVideoPackFlags; src: Tgpointer; sstride: Tgint; Data: Tplanes_Pointer_arr; stride: Tplanes_int_arr; chroma_site: TGstVideoChromaSite; y: Tgint; Width: Tgint); cdecl;
+  TGstVideoFormatUnpack = procedure(info: PGstVideoFormatInfo; flags: TGstVideoPackFlags; dest: Tgpointer; Data: Pgpointer; stride: Pgint; x: Tgint; y: Tgint; Width: Tgint); cdecl;
+  TGstVideoFormatPack = procedure(info: PGstVideoFormatInfo; flags: TGstVideoPackFlags; src: Tgpointer; sstride: Tgint; Data: Pgpointer; stride: Pgint; chroma_site: TGstVideoChromaSite; y: Tgint; Width: Tgint); cdecl;
 
   TGstVideoFormatInfo = record
     format: TGstVideoFormat;
@@ -207,7 +207,7 @@ type
   end;
 
 
-procedure gst_video_format_info_component(info: PGstVideoFormatInfo; plane: Tguint; Components: Tcomp_int_arr); cdecl; external libgstvideo;
+procedure gst_video_format_info_component(info: PGstVideoFormatInfo; plane: Tguint; Components: Pgint); cdecl; external libgstvideo;
 function gst_video_format_info_extrapolate_stride(finfo: PGstVideoFormatInfo; plane: Tgint; stride: Tgint): Tgint; cdecl; external libgstvideo;
 function gst_video_format_from_masks(depth: Tgint; bpp: Tgint; endianness: Tgint; red_mask: Tguint; green_mask: Tguint;
   blue_mask: Tguint; alpha_mask: Tguint): TGstVideoFormat; cdecl; external libgstvideo;

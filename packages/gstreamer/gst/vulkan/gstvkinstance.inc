@@ -6,13 +6,6 @@ function gst_vulkan_instance_get_type: TGType; cdecl; external libgstvulkan;
 const
   GST_VULKAN_INSTANCE_CONTEXT_TYPE_STR = 'gst.vulkan.instance';
 
-type
-  TGstVulkanInstanceClass = record
-    parent_class: TGstObjectClass;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanInstanceClass = ^TGstVulkanInstanceClass;
-
 function gst_vulkan_instance_new: PGstVulkanInstance; cdecl; external libgstvulkan;
 function gst_vulkan_instance_fill_info(instance: PGstVulkanInstance; error: PPGError): Tgboolean; cdecl; external libgstvulkan;
 function gst_vulkan_instance_open(instance: PGstVulkanInstance; error: PPGError): Tgboolean; cdecl; external libgstvulkan;

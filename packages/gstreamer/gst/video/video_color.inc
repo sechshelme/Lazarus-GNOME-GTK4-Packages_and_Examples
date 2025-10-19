@@ -115,7 +115,7 @@ function gst_video_colorimetry_from_string(cinfo: PGstVideoColorimetry; color: P
 function gst_video_colorimetry_to_string(cinfo: PGstVideoColorimetry): Pgchar; cdecl; external libgstvideo;
 function gst_video_colorimetry_is_equal(cinfo: PGstVideoColorimetry; other: PGstVideoColorimetry): Tgboolean; cdecl; external libgstvideo;
 function gst_video_colorimetry_is_equivalent(cinfo: PGstVideoColorimetry; bitdepth: Tguint; other: PGstVideoColorimetry; other_bitdepth: Tguint): Tgboolean; cdecl; external libgstvideo;
-procedure gst_video_color_range_offsets(range: TGstVideoColorRange; info: PGstVideoFormatInfo; offset: Tcomp_int_arr; scale: Tcomp_int_arr); cdecl; external libgstvideo;
+procedure gst_video_color_range_offsets(range: TGstVideoColorRange; info: PGstVideoFormatInfo; offset: Pgint; scale: Pgint); cdecl; external libgstvideo;
 function gst_video_color_matrix_to_iso(matrix: TGstVideoColorMatrix): Tguint; cdecl; external libgstvideo;
 function gst_video_transfer_function_to_iso(func: TGstVideoTransferFunction): Tguint; cdecl; external libgstvideo;
 function gst_video_color_primaries_to_iso(primaries: TGstVideoColorPrimaries): Tguint; cdecl; external libgstvideo;

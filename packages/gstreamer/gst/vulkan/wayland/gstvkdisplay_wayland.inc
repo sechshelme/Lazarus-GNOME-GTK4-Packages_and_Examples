@@ -4,22 +4,8 @@
 function gst_vulkan_display_wayland_get_type:TGType;cdecl;external libgstvulkan;
 
 type
-  TGstVulkanDisplayWayland = record
-    parent: TGstVulkanDisplay;
-    display: Pwl_display;
-    registry: Pwl_registry;
-    compositor: Pwl_compositor;
-    subcompositor: Pwl_subcompositor;
-    shell: Pwl_shell;
-    foreign_display: Tgboolean;
-  end;
-  PGstVulkanDisplayWayland = ^TGstVulkanDisplayWayland;
-
-  TGstVulkanDisplayWaylandClass = record
-    object_class: TGstVulkanDisplayClass;
-  end;
-  PGstVulkanDisplayWaylandClass = ^TGstVulkanDisplayWaylandClass;
-
+  PGstVulkanDisplayWayland = type Pointer;
+  PGstVulkanDisplayWaylandClass = type Pointer;
 
 function gst_vulkan_display_wayland_new(name:Pgchar):PGstVulkanDisplayWayland;cdecl;external libgstvulkan;
 function gst_vulkan_display_wayland_new_with_display(display:Pwl_display):PGstVulkanDisplayWayland;cdecl;external libgstvulkan;
@@ -74,7 +60,7 @@ end;
 
 function GST_VULKAN_DISPLAY_WAYLAND_DISPLAY(display_: Pointer): Pwl_display;
 begin
-  GST_VULKAN_DISPLAY_WAYLAND_DISPLAY:=(GST_VULKAN_DISPLAY_WAYLAND(display_))^.display;
+//  GST_VULKAN_DISPLAY_WAYLAND_DISPLAY:=(GST_VULKAN_DISPLAY_WAYLAND(display_))^.display;
 end;
 
 

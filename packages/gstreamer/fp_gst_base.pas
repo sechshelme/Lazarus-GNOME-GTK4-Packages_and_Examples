@@ -4,9 +4,7 @@ interface
 
 uses
   fp_glib2,
-  fp_gst,
-  Strings,
-  ctypes;
+  fp_gst;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -16,26 +14,6 @@ uses
 const
   GST_VIDEO_MAX_PLANES = 4;
   GST_VIDEO_MAX_COMPONENTS = 4;
-
-type
-  Tgintarr18 = array[0..17] of Tgint;
-  Tguintarr4 = array[0..3] of Tguint;
-  Tguintarr16 = array[0..15] of Tguint;
-  Tguint8arr16 = array[0..15] of Tguint8;
-  Tguint8arr64 = array[0..63] of Tguint8;
-  Tgfloatarr16 = array[0..15] of Tgfloat;
-
-  Tplanes_Pointer_arr = array[0..(GST_VIDEO_MAX_PLANES) - 1] of Tgpointer;
-  Tplanes_int_arr = array[0..(GST_VIDEO_MAX_PLANES) - 1] of Tgint;
-  Tplanes_uint_arr = array[0..(GST_VIDEO_MAX_PLANES) - 1] of Tguint;
-  Tcomp_int_arr = array[0..(GST_VIDEO_MAX_COMPONENTS) - 1] of Tgint;
-  Tplanes_size_arr = array[0..(GST_VIDEO_MAX_PLANES) - 1] of Tgsize;
-
-  Tplanes_GstMemory_arr = array[0..(GST_VIDEO_MAX_PLANES) - 1] of PGstMemory;
-  Tplanes_Tuintptr_t_arr = array[0..(GST_VIDEO_MAX_PLANES) - 1] of Tuintptr_t;
-
-  Tplanes_TVKFormat_arr = array[0..(GST_VIDEO_MAX_PLANES) - 1] of TVkFormat;
-
 
   {$DEFINE read_interface}
   {$include gst/base/gstaggregator.inc}// io.

@@ -25,7 +25,7 @@ type
 
 function gst_video_sei_user_data_unregistered_meta_api_get_type: TGType; cdecl; external libgstvideo;
 function gst_video_sei_user_data_unregistered_meta_get_info: PGstMetaInfo; cdecl; external libgstvideo;
-function gst_buffer_add_video_sei_user_data_unregistered_meta(buffer: PGstBuffer; uuid: Tguintarr16; Data: Pguint8; size: Tgsize): PGstVideoSEIUserDataUnregisteredMeta; cdecl; external libgstvideo;
+function gst_buffer_add_video_sei_user_data_unregistered_meta(buffer: PGstBuffer; uuid: Pguint; Data: Pguint8; size: Tgsize): PGstVideoSEIUserDataUnregisteredMeta; cdecl; external libgstvideo;
 function gst_video_sei_user_data_unregistered_parse_precision_time_stamp(user_data: PGstVideoSEIUserDataUnregisteredMeta; status: Pguint8; precision_time_stamp: Pguint64): Tgboolean; cdecl; external libgstvideo;
 
 function GST_VIDEO_SEI_USER_DATA_UNREGISTERED_META_API_TYPE: TGType;

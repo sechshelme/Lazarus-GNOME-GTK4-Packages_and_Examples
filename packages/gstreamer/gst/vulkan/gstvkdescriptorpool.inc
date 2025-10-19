@@ -2,15 +2,7 @@
 {$IFDEF read_interface}
 
 function gst_vulkan_descriptor_pool_get_type: TGType; cdecl; external libgstvulkan;
-
-type
-  TGstVulkanDescriptorPoolClass = record
-    parent_class: TGstObjectClass;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanDescriptorPoolClass = ^TGstVulkanDescriptorPoolClass;
-
-function gst_vulkan_descriptor_pool_new_wrapped(device: PGstVulkanDevice; pool: TVkDescriptorPool; max_sets: Tgsize): PGstVulkanDescriptorPool; cdecl; external libgstvulkan;
+function gst_vulkan_descriptor_pool_new_wrapped(device: PGstVulkanDevice; pool: PVkDescriptorPool; max_sets: Tgsize): PGstVulkanDescriptorPool; cdecl; external libgstvulkan;
 function gst_vulkan_descriptor_pool_get_device(pool: PGstVulkanDescriptorPool): PGstVulkanDevice; cdecl; external libgstvulkan;
 function gst_vulkan_descriptor_pool_create(pool: PGstVulkanDescriptorPool; n_layouts: Tguint; layouts: PPGstVulkanHandle; error: PPGError): PGstVulkanDescriptorSet; cdecl; external libgstvulkan;
 function gst_vulkan_descriptor_pool_get_max_sets(pool: PGstVulkanDescriptorPool): Tgsize; cdecl; external libgstvulkan;

@@ -135,7 +135,7 @@ function gst_video_info_to_caps(info: PGstVideoInfo): PGstCaps; cdecl; external 
 function gst_video_info_convert(info: PGstVideoInfo; src_format: TGstFormat; src_value: Tgint64; dest_format: TGstFormat; dest_value: Pgint64): Tgboolean; cdecl; external libgstvideo;
 function gst_video_info_is_equal(info: PGstVideoInfo; other: PGstVideoInfo): Tgboolean; cdecl; external libgstvideo;
 function gst_video_info_align(info: PGstVideoInfo; align: PGstVideoAlignment): Tgboolean; cdecl; external libgstvideo;
-function gst_video_info_align_full(info: PGstVideoInfo; align: PGstVideoAlignment; plane_size: Tplanes_size_arr): Tgboolean; cdecl; external libgstvideo;
+function gst_video_info_align_full(info: PGstVideoInfo; align: PGstVideoAlignment; plane_size: Pgsize): Tgboolean; cdecl; external libgstvideo;
 
 function GST_TYPE_VIDEO_INFO: longint;
 function GST_VIDEO_INFO_FORMAT(i: PGstVideoInfo): TGstVideoFormat;

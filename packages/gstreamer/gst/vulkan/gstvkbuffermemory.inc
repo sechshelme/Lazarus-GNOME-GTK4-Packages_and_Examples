@@ -7,17 +7,11 @@ const
   GST_VULKAN_BUFFER_MEMORY_ALLOCATOR_NAME = 'VulkanBuffer';
   GST_CAPS_FEATURE_MEMORY_VULKAN_BUFFER = 'memory:VulkanBuffer';
 
-type
-  PGstVulkanBarrierBufferInfo = type Pointer;
-  PGstVulkanBufferMemory = type Pointer;
-  PGstVulkanBufferMemoryAllocator = type Pointer;
-  PGstVulkanBufferMemoryAllocatorClass = type Pointer;
-
 procedure gst_vulkan_buffer_memory_init_once; cdecl; external libgstvulkan;
 function gst_is_vulkan_buffer_memory(mem: PGstMemory): Tgboolean; cdecl; external libgstvulkan;
 function gst_vulkan_buffer_memory_alloc(device: PGstVulkanDevice; size: Tgsize; usage: TVkBufferUsageFlags; mem_prop_flags: TVkMemoryPropertyFlags): PGstMemory; cdecl; external libgstvulkan;
 function gst_vulkan_buffer_memory_alloc_with_buffer_info(device: PGstVulkanDevice; buffer_info: PVkBufferCreateInfo; mem_prop_flags: TVkMemoryPropertyFlags): PGstMemory; cdecl; external libgstvulkan;
-function gst_vulkan_buffer_memory_wrapped(device: PGstVulkanDevice; buffer: TVkBuffer; usage: TVkBufferUsageFlags; user_data: Tgpointer; notify: TGDestroyNotify): PGstMemory; cdecl; external libgstvulkan;
+function gst_vulkan_buffer_memory_wrapped(device: PGstVulkanDevice; buffer: PVkBuffer; usage: TVkBufferUsageFlags; user_data: Tgpointer; notify: TGDestroyNotify): PGstMemory; cdecl; external libgstvulkan;
 
 function GST_VULKAN_BUFFER_MEMORY_ALLOCATOR_CAST(obj: Pointer): PGstVulkanBufferMemoryAllocator;
 

@@ -99,6 +99,7 @@ const
 
 type
   Tuintptr_t = PtrUInt;
+  Puintptr_t = ^Tuintptr_t;
   Tptrdiff_t = PtrInt;
 
   {$ifdef Linux}
@@ -143,83 +144,6 @@ type
   Tkhronos_int32_t = int32;
   // /usr/include/EGL/eglplatform.h
   TEGLint = Tkhronos_int32_t;
-
-  // ==== Vulkan
-  // /usr/include/vulkan/vulkan_core.h
-  TVkDeviceSize = uint64;
-
-  TVkFlags = uint32;
-  TVkMemoryPropertyFlags = TVkFlags;
-  TVkBufferUsageFlags = TVkFlags;
-  TVkMemoryHeapFlags = TVkFlags;
-  TVkQueueFlags = TVkFlags;
-  TVkSampleCountFlags = TVkFlags;
-  TVkImageAspectFlags = TVkFlags;
-  TVkImageUsageFlags = TVkFlags;
-  PVkImageUsageFlags = ^TVkImageUsageFlags;
-
-  TVkCommandBufferLevel = longint;           // enum
-  TVkImageLayout = longint;                  // enum
-  TVkFormat = longint;                       // enum
-  TVkImageTiling = longint;                  // enum
-  TVkSamplerYcbcrRange = longint;            // enum
-  TVkChromaLocation = longint;               // enum
-  TVkResult = longint;                       // enum
-  TVkBlendOp = longint;                      // enum
-  TVkBlendFactor = longint;                  // enum
-  TVkPhysicalDeviceType = longint;           // enum
-  TVkPresentModeKHR = longint;               // enum
-  TVkQueryType = longint;                    // enum
-  TVkQueueFlagBits = LongInt;                // enum
-
-  // mit Vorsicht verwenden !
-  TVkDevice = Pointer;                       // ????
-  TVkQueue = Pointer;                        // ????
-  TVkInstance = Pointer;                     // ????
-  TVkFence = Pointer;                        // ????
-  TVkSemaphore = Pointer;                    // ????
-  TVkCommandPool = Pointer;                  // ????
-  TVkCommandBuffer = Pointer;                // ????
-  TVkImage = Pointer;                        // ????
-  TVkDeviceMemory = Pointer;                 // ????
-  TVkImageView = Pointer;                    // ????
-  TVkBuffer = Pointer;                       // ????
-  TVkSurfaceKHR = Pointer;                   // ????
-  TVkDescriptorPool = Pointer;               // ????
-  TVkDescriptorSet = Pointer;                // ????
-  TVkPhysicalDevice = Pointer;               // ????
-  PVkPhysicalDevice = ^TVkPhysicalDevice;
-
-  PVkQueueFamilyProperties = type Pointer;
-  TVkPhysicalDeviceProperties = Pointer;                        // struct
-  TVkPhysicalDeviceFeatures = Pointer;                          // struct
-  TVkPhysicalDeviceMemoryProperties = Pointer;                  // struct
-  TVkImageSubresourceRange = Pointer;                           // struct
-  TVkMemoryAllocateInfo = Pointer;                              // struct
-  TVkImageFormatProperties = Pointer;                           // struct
-  TVkVideoPictureResourceInfoKHR = Pointer;                     // struct
-  TVkVideoReferenceSlotInfoKHR = Pointer;                       // struct
-  TVkVideoDecodeInfoKHR = Pointer;                              // struct
-  TVkVideoProfileInfoKHR = Pointer;                             // struct
-  TVkVideoDecodeUsageInfoKHR = Pointer;                         // struct
-  TVkBaseInStructure = Pointer;                                 // struct
-  TVkVideoDecodeH264ProfileInfoKHR = Pointer;                   // struct
-  TVkVideoDecodeH265ProfileInfoKHR = Pointer;                   // struct
-  TVkVideoCapabilitiesKHR = Pointer;                            // struct
-  TVkVideoDecodeH264CapabilitiesKHR = Pointer;                  // struct
-  TVkVideoDecodeH265CapabilitiesKHR = Pointer;                  // struct
-  TVkVideoDecodeH264SessionParametersCreateInfoKHR = Pointer;   // struct
-  TVkVideoDecodeH265SessionParametersCreateInfoKHR = Pointer;   // struct
-  TVkMemoryRequirements = Pointer;                              // struct
-  PVkMemoryRequirements = ^TVkMemoryRequirements;
-  TVkImageCreateInfo = Pointer;                                 // struct
-  PVkImageCreateInfo = ^TVkImageCreateInfo;
-  TVkImageViewCreateInfo = Pointer;                             // struct
-  PVkImageViewCreateInfo = ^TVkImageViewCreateInfo;
-  TVkVideoFormatPropertiesKHR = Pointer;                        // struct
-  PVkVideoFormatPropertiesKHR = ^TVkVideoFormatPropertiesKHR;
-  TVkBufferCreateInfo = Pointer;                                // struct
-  PVkBufferCreateInfo = ^TVkBufferCreateInfo;
 
   // ==== Windows
   {$ifdef windows}

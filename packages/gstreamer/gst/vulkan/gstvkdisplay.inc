@@ -7,15 +7,6 @@ function gst_vulkan_display_get_type: TGType; cdecl; external libgstvulkan;
 const
   GST_VULKAN_DISPLAY_CONTEXT_TYPE_STR = 'gst.vulkan.display';
 
-type
-  TGstVulkanDisplayClass = record
-    object_class: TGstObjectClass;
-    get_handle: function(display: PGstVulkanDisplay): Tgpointer; cdecl;
-    create_window: function(display: PGstVulkanDisplay): PGstVulkanWindow; cdecl;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanDisplayClass = ^TGstVulkanDisplayClass;
-
 function gst_vulkan_display_new(instance: PGstVulkanInstance): PGstVulkanDisplay; cdecl; external libgstvulkan;
 function gst_vulkan_display_new_with_type(instance: PGstVulkanInstance; _type: TGstVulkanDisplayType): PGstVulkanDisplay; cdecl; external libgstvulkan;
 function gst_vulkan_display_choose_type(instance: PGstVulkanInstance): TGstVulkanDisplayType; cdecl; external libgstvulkan;

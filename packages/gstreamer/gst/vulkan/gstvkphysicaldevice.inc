@@ -5,7 +5,7 @@ function gst_vulkan_physical_device_get_type: TGType; cdecl; external libgstvulk
 
 function gst_vulkan_physical_device_new(instance: PGstVulkanInstance; device_index: Tguint): PGstVulkanPhysicalDevice; cdecl; external libgstvulkan;
 function gst_vulkan_physical_device_get_instance(device: PGstVulkanPhysicalDevice): PGstVulkanInstance; cdecl; external libgstvulkan;
-function gst_vulkan_physical_device_get_handle(device: PGstVulkanPhysicalDevice): TVkPhysicalDevice; cdecl; external libgstvulkan;
+function gst_vulkan_physical_device_get_handle(device: PGstVulkanPhysicalDevice): PVkPhysicalDevice; cdecl; external libgstvulkan;
 function gst_vulkan_physical_device_get_extension_info(device: PGstVulkanPhysicalDevice; Name: Pgchar; spec_version: Pguint32): Tgboolean; cdecl; external libgstvulkan;
 function gst_vulkan_physical_device_get_layer_info(device: PGstVulkanPhysicalDevice; Name: Pgchar; description: PPgchar; spec_version: Pguint32; implementation_version: Pguint32): Tgboolean; cdecl; external libgstvulkan;
 

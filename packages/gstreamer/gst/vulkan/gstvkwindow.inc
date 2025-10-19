@@ -13,23 +13,9 @@ const
   GST_VULKAN_WINDOW_ERROR_OLD_LIBS = 1;
   GST_VULKAN_WINDOW_ERROR_RESOURCE_UNAVAILABLE = 2;
 
-type
-  TGstVulkanWindowClass = record
-    parent_class: TGstObjectClass;
-    Open: function(window: PGstVulkanWindow; error: PPGError): Tgboolean; cdecl;
-    Close: procedure(window: PGstVulkanWindow); cdecl;
-    get_surface: function(window: PGstVulkanWindow; error: PPGError): TVkSurfaceKHR; cdecl;
-    get_presentation_support: function(window: PGstVulkanWindow; device: PGstVulkanDevice; queue_family_idx: Tguint32): Tgboolean; cdecl;
-    set_window_handle: procedure(window: PGstVulkanWindow; handle: Tguintptr); cdecl;
-    get_surface_dimensions: procedure(window: PGstVulkanWindow; Width: Pguint; Height: Pguint); cdecl;
-    handle_events: procedure(window: PGstVulkanWindow; handle_events: Tgboolean); cdecl;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanWindowClass = ^TGstVulkanWindowClass;
-
 function gst_vulkan_window_new(display: PGstVulkanDisplay): PGstVulkanWindow; cdecl; external libgstvulkan;
 function gst_vulkan_window_get_display(window: PGstVulkanWindow): PGstVulkanDisplay; cdecl; external libgstvulkan;
-function gst_vulkan_window_get_surface(window: PGstVulkanWindow; error: PPGError): TVkSurfaceKHR; cdecl; external libgstvulkan;
+function gst_vulkan_window_get_surface(window: PGstVulkanWindow; error: PPGError): PVkSurfaceKHR; cdecl; external libgstvulkan;
 function gst_vulkan_window_get_presentation_support(window: PGstVulkanWindow; device: PGstVulkanDevice; queue_family_idx: Tguint32): Tgboolean; cdecl; external libgstvulkan;
 procedure gst_vulkan_window_get_surface_dimensions(window: PGstVulkanWindow; Width: Pguint; Height: Pguint); cdecl; external libgstvulkan;
 procedure gst_vulkan_window_set_window_handle(window: PGstVulkanWindow; handle: Tguintptr); cdecl; external libgstvulkan;

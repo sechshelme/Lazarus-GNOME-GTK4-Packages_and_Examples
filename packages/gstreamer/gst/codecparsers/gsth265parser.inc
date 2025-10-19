@@ -834,27 +834,27 @@ function gst_h265_slice_hdr_copy(dst_slice: PGstH265SliceHdr; src_slice: PGstH26
 procedure gst_h265_slice_hdr_free(slice_hdr: PGstH265SliceHdr); cdecl; external libgstcodecparsers;
 function gst_h265_sei_copy(dest_sei: PGstH265SEIMessage; src_sei: PGstH265SEIMessage): Tgboolean; cdecl; external libgstcodecparsers;
 procedure gst_h265_sei_free(sei: PGstH265SEIMessage); cdecl; external libgstcodecparsers;
-procedure gst_h265_quant_matrix_4x4_get_zigzag_from_raster(out_quant: Tguint8arr16; quant: Tguint8arr16); cdecl; external libgstcodecparsers;
-procedure gst_h265_quant_matrix_4x4_get_raster_from_zigzag(out_quant: Tguint8arr16; quant: Tguint8arr16); cdecl; external libgstcodecparsers;
-procedure gst_h265_quant_matrix_8x8_get_zigzag_from_raster(out_quant: Tguint8arr64; quant: Tguint8arr64); cdecl; external libgstcodecparsers;
-procedure gst_h265_quant_matrix_8x8_get_raster_from_zigzag(out_quant: Tguint8arr64; quant: Tguint8arr64); cdecl; external libgstcodecparsers;
+procedure gst_h265_quant_matrix_4x4_get_zigzag_from_raster(out_quant: Pguint8; quant: Pguint8); cdecl; external libgstcodecparsers;
+procedure gst_h265_quant_matrix_4x4_get_raster_from_zigzag(out_quant: Pguint8; quant: Pguint8); cdecl; external libgstcodecparsers;
+procedure gst_h265_quant_matrix_8x8_get_zigzag_from_raster(out_quant: Pguint8; quant: Pguint8); cdecl; external libgstcodecparsers;
+procedure gst_h265_quant_matrix_8x8_get_raster_from_zigzag(out_quant: Pguint8; quant: Pguint8); cdecl; external libgstcodecparsers;
 
-procedure gst_h265_quant_matrix_16x16_get_zigzag_from_raster(out_quant: Tguint8arr64; quant: Tguint8arr64); cdecl; external libgstcodecparsers name 'gst_h265_quant_matrix_8x8_get_zigzag_from_raster';
-procedure gst_h265_quant_matrix_16x16_get_raster_from_zigzag(out_quant: Tguint8arr64; quant: Tguint8arr64); cdecl; external libgstcodecparsers name 'gst_h265_quant_matrix_8x8_get_raster_from_zigzag';
+procedure gst_h265_quant_matrix_16x16_get_zigzag_from_raster(out_quant: Pguint8; quant: Pguint8); cdecl; external libgstcodecparsers name 'gst_h265_quant_matrix_8x8_get_zigzag_from_raster';
+procedure gst_h265_quant_matrix_16x16_get_raster_from_zigzag(out_quant: Pguint8; quant: Pguint8); cdecl; external libgstcodecparsers name 'gst_h265_quant_matrix_8x8_get_raster_from_zigzag';
 
-procedure gst_h265_quant_matrix_32x32_get_zigzag_from_raster(out_quant: Tguint8arr64; quant: Tguint8arr64); cdecl; external libgstcodecparsers name 'gst_h265_quant_matrix_8x8_get_zigzag_from_raster';
-procedure gst_h265_quant_matrix_32x32_get_raster_from_zigzag(out_quant: Tguint8arr64; quant: Tguint8arr64); cdecl; external libgstcodecparsers name 'gst_h265_quant_matrix_8x8_get_raster_from_zigzag';
+procedure gst_h265_quant_matrix_32x32_get_zigzag_from_raster(out_quant: Pguint8; quant: Pguint8); cdecl; external libgstcodecparsers name 'gst_h265_quant_matrix_8x8_get_zigzag_from_raster';
+procedure gst_h265_quant_matrix_32x32_get_raster_from_zigzag(out_quant: Pguint8; quant: Pguint8); cdecl; external libgstcodecparsers name 'gst_h265_quant_matrix_8x8_get_raster_from_zigzag';
 
-procedure gst_h265_quant_matrix_4x4_get_uprightdiagonal_from_raster(out_quant: Tguint8arr16; quant: Tguint8arr16); cdecl; external libgstcodecparsers;
-procedure gst_h265_quant_matrix_4x4_get_raster_from_uprightdiagonal(out_quant: Tguint8arr16; quant: Tguint8arr16); cdecl; external libgstcodecparsers;
-procedure gst_h265_quant_matrix_8x8_get_uprightdiagonal_from_raster(out_quant: Tguint8arr64); cdecl; external libgstcodecparsers;
-procedure gst_h265_quant_matrix_8x8_get_raster_from_uprightdiagonal(out_quant: Tguint8arr64); cdecl; external libgstcodecparsers;
+procedure gst_h265_quant_matrix_4x4_get_uprightdiagonal_from_raster(out_quant: Pguint8; quant: Pguint8); cdecl; external libgstcodecparsers;
+procedure gst_h265_quant_matrix_4x4_get_raster_from_uprightdiagonal(out_quant: Pguint8; quant: Pguint8); cdecl; external libgstcodecparsers;
+procedure gst_h265_quant_matrix_8x8_get_uprightdiagonal_from_raster(out_quant: Pguint8); cdecl; external libgstcodecparsers;
+procedure gst_h265_quant_matrix_8x8_get_raster_from_uprightdiagonal(out_quant: Pguint8); cdecl; external libgstcodecparsers;
 
-procedure gst_h265_quant_matrix_16x16_get_uprightdiagonal_from_raster(out_quant: Tguint8arr64); cdecl; external libgstcodecparsers name 'gst_h265_quant_matrix_8x8_get_uprightdiagonal_from_raster';
-procedure gst_h265_quant_matrix_16x16_get_raster_from_uprightdiagonal(out_quant: Tguint8arr64); cdecl; external libgstcodecparsers name 'gst_h265_quant_matrix_8x8_get_raster_from_uprightdiagonal';
+procedure gst_h265_quant_matrix_16x16_get_uprightdiagonal_from_raster(out_quant: Pguint8); cdecl; external libgstcodecparsers name 'gst_h265_quant_matrix_8x8_get_uprightdiagonal_from_raster';
+procedure gst_h265_quant_matrix_16x16_get_raster_from_uprightdiagonal(out_quant: Pguint8); cdecl; external libgstcodecparsers name 'gst_h265_quant_matrix_8x8_get_raster_from_uprightdiagonal';
 
-procedure gst_h265_quant_matrix_32x32_get_uprightdiagonal_from_raster(out_quant: Tguint8arr64); cdecl; external libgstcodecparsers name 'gst_h265_quant_matrix_8x8_get_uprightdiagonal_from_raster';
-procedure gst_h265_quant_matrix_32x32_get_raster_from_uprightdiagonal(out_quant: Tguint8arr64); cdecl; external libgstcodecparsers name 'gst_h265_quant_matrix_8x8_get_raster_from_uprightdiagonal';
+procedure gst_h265_quant_matrix_32x32_get_uprightdiagonal_from_raster(out_quant: Pguint8); cdecl; external libgstcodecparsers name 'gst_h265_quant_matrix_8x8_get_uprightdiagonal_from_raster';
+procedure gst_h265_quant_matrix_32x32_get_raster_from_uprightdiagonal(out_quant: Pguint8); cdecl; external libgstcodecparsers name 'gst_h265_quant_matrix_8x8_get_raster_from_uprightdiagonal';
 
 function gst_h265_profile_tier_level_get_profile(ptl: PGstH265ProfileTierLevel): TGstH265Profile; cdecl; external libgstcodecparsers;
 function gst_h265_profile_to_string(profile: TGstH265Profile): Pgchar; cdecl; external libgstcodecparsers;

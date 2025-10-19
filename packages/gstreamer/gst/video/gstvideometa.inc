@@ -29,13 +29,13 @@ function gst_buffer_get_video_meta(buffer: PGstBuffer): PGstVideoMeta; cdecl; ex
 function gst_buffer_get_video_meta_id(buffer: PGstBuffer; id: Tgint): PGstVideoMeta; cdecl; external libgstvideo;
 function gst_buffer_add_video_meta(buffer: PGstBuffer; flags: TGstVideoFrameFlags; format: TGstVideoFormat; Width: Tguint; Height: Tguint): PGstVideoMeta; cdecl; external libgstvideo;
 function gst_buffer_add_video_meta_full(buffer: PGstBuffer; flags: TGstVideoFrameFlags; format: TGstVideoFormat; Width: Tguint; Height: Tguint;
-  n_planes: Tguint; offset: Tplanes_size_arr; stride: Tplanes_int_arr): PGstVideoMeta; cdecl; external libgstvideo;
+  n_planes: Tguint; offset: Pgsize; stride: Pgint): PGstVideoMeta; cdecl; external libgstvideo;
 function gst_video_meta_map(meta: PGstVideoMeta; plane: Tguint; info: PGstMapInfo; Data: Pgpointer; stride: Pgint;
   flags: TGstMapFlags): Tgboolean; cdecl; external libgstvideo;
 function gst_video_meta_unmap(meta: PGstVideoMeta; plane: Tguint; info: PGstMapInfo): Tgboolean; cdecl; external libgstvideo;
 function gst_video_meta_set_alignment(meta: PGstVideoMeta; alignment: TGstVideoAlignment): Tgboolean; cdecl; external libgstvideo;
-function gst_video_meta_get_plane_size(meta: PGstVideoMeta; plane_size: Tplanes_size_arr): Tgboolean; cdecl; external libgstvideo;
-function gst_video_meta_get_plane_height(meta: PGstVideoMeta; plane_height: Tplanes_uint_arr): Tgboolean; cdecl; external libgstvideo;
+function gst_video_meta_get_plane_size(meta: PGstVideoMeta; plane_size: Pgsize): Tgboolean; cdecl; external libgstvideo;
+function gst_video_meta_get_plane_height(meta: PGstVideoMeta; plane_height: Pguint): Tgboolean; cdecl; external libgstvideo;
 
 type
   PGstVideoCropMeta = ^TGstVideoCropMeta;
@@ -88,7 +88,7 @@ const
 
 type
   PGstVideoGLTextureUploadMeta = ^TGstVideoGLTextureUploadMeta;
-  TGstVideoGLTextureUpload = function(meta: PGstVideoGLTextureUploadMeta; texture_id: Tguintarr4): Tgboolean; cdecl;
+  TGstVideoGLTextureUpload = function(meta: PGstVideoGLTextureUploadMeta; texture_id: Pguint): Tgboolean; cdecl;
 
   TGstVideoGLTextureUploadMeta = record
     meta: TGstMeta;
@@ -112,7 +112,7 @@ type
 
 function gst_buffer_add_video_gl_texture_upload_meta(buffer: PGstBuffer; texture_orientation: TGstVideoGLTextureOrientation; n_textures: Tguint; texture_type: Ttexture_type; upload: TGstVideoGLTextureUpload;
   user_data: Tgpointer; user_data_copy: TGBoxedCopyFunc; user_data_free: TGBoxedFreeFunc): PGstVideoGLTextureUploadMeta; cdecl; external libgstvideo;
-function gst_video_gl_texture_upload_meta_upload(meta: PGstVideoGLTextureUploadMeta; texture_id: Tguintarr4): Tgboolean; cdecl; external libgstvideo;
+function gst_video_gl_texture_upload_meta_upload(meta: PGstVideoGLTextureUploadMeta; texture_id: Pguint): Tgboolean; cdecl; external libgstvideo;
 
 type
   PGstVideoRegionOfInterestMeta = ^TGstVideoRegionOfInterestMeta;

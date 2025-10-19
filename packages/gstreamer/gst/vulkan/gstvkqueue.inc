@@ -6,13 +6,6 @@ function gst_vulkan_queue_get_type: TGType; cdecl; external libgstvulkan;
 const
   GST_VULKAN_QUEUE_CONTEXT_TYPE_STR = 'gst.vulkan.queue';
 
-type
-  TGstVulkanQueueClass = record
-    parent_class: TGstObjectClass;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanQueueClass = ^TGstVulkanQueueClass;
-
 function gst_vulkan_queue_get_device(queue: PGstVulkanQueue): PGstVulkanDevice; cdecl; external libgstvulkan;
 function gst_vulkan_queue_create_command_pool(queue: PGstVulkanQueue; error: PPGError): PGstVulkanCommandPool; cdecl; external libgstvulkan;
 function gst_vulkan_queue_create_decoder(queue: PGstVulkanQueue; codec: Tguint): PGstVulkanDecoder; cdecl; external libgstvulkan;

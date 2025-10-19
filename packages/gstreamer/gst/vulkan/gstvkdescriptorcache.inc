@@ -2,14 +2,6 @@
 {$IFDEF read_interface}
 
 function gst_vulkan_descriptor_cache_get_type: TGType; cdecl; external libgstvulkan;
-
-type
-  TGstVulkanDescriptorCacheClass = record
-    parent_class: TGstVulkanHandlePoolClass;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanDescriptorCacheClass = ^TGstVulkanDescriptorCacheClass;
-
 function gst_vulkan_descriptor_cache_new(pool: PGstVulkanDescriptorPool; n_layouts: Tguint; layouts: PPGstVulkanHandle): PGstVulkanDescriptorCache; cdecl; external libgstvulkan;
 function gst_vulkan_descriptor_cache_acquire(cache: PGstVulkanDescriptorCache; error: PPGError): PGstVulkanDescriptorSet; cdecl; external libgstvulkan;
 

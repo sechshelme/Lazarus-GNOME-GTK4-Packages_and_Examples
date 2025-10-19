@@ -12,7 +12,7 @@ const
   GST_ISOFF_PARSER_UNEXPECTED = 2;
   GST_ISOFF_PARSER_ERROR = 3;
 
-function gst_isoff_parse_box_header(reader: PGstByteReader; _type: Pguint32; extended_type: Tguint8arr16; header_size: Pguint; size: Pguint64): Tgboolean; cdecl; external libgstisoff;
+function gst_isoff_parse_box_header(reader: PGstByteReader; _type: Pguint32; extended_type: Pguint8; header_size: Pguint; size: Pguint64): Tgboolean; cdecl; external libgstisoff;
 
 const
   GST_ISOFF_FOURCC_UUID = (Ord('u') or (Ord('u') shl 8) or (Ord('i') shl 16) or (Ord('d') shl 24));
@@ -48,14 +48,13 @@ type
   end;
   PGstTfrfBoxEntry = ^TGstTfrfBoxEntry;
 
-  PGstTfrfBox = ^TGstTfrfBox;
-
   TGstTfrfBox = record
     version: Tguint8;
     flags: Tguint32;
     entries_count: Tgint;
     entries: PGArray;
   end;
+  PGstTfrfBox = ^TGstTfrfBox;
 
   TGstMfhdBox = record
     sequence_number: Tguint32;

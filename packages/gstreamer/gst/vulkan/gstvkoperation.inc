@@ -2,21 +2,6 @@
 {$IFDEF read_interface}
 
 function gst_vulkan_operation_get_type: TGType; cdecl; external libgstvulkan;
-
-type
-  TGstVulkanOperation = record
-    parent: TGstObject;
-    cmd_buf: PGstVulkanCommandBuffer;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanOperation = ^TGstVulkanOperation;
-
-  TGstVulkanOperationClass = record
-    parent_class: TGstObjectClass;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanOperationClass = ^TGstVulkanOperationClass;
-
 function gst_vulkan_operation_new(cmd_pool: PGstVulkanCommandPool): PGstVulkanOperation; cdecl; external libgstvulkan;
 function gst_vulkan_operation_begin(self: PGstVulkanOperation; error: PPGError): Tgboolean; cdecl; external libgstvulkan;
 function gst_vulkan_operation_wait(self: PGstVulkanOperation): Tgboolean; cdecl; external libgstvulkan;

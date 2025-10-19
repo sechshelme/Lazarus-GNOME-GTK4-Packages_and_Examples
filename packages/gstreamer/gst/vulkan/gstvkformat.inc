@@ -52,7 +52,7 @@ function gst_vulkan_format_get_info(format: TVkFormat): PGstVulkanFormatInfo; cd
 function gst_vulkan_format_get_aspect(format: TVkFormat): Tguint; cdecl; external libgstvulkan;
 function gst_vulkan_format_from_video_info(v_info: PGstVideoInfo; plane: Tguint): TVkFormat; cdecl; external libgstvulkan;
 function gst_vulkan_format_from_video_info_2(physical_device: PGstVulkanPhysicalDevice; info: PGstVideoInfo; tiling: TVkImageTiling; no_multiplane: Tgboolean; requested_usage: TVkImageUsageFlags;
-  fmts: Tplanes_TVKFormat_arr; n_imgs: Plongint; usage: PVkImageUsageFlags): Tgboolean; cdecl; external libgstvulkan;
+  fmts: PVkFormat; n_imgs: Plongint; usage: PVkImageUsageFlags): Tgboolean; cdecl; external libgstvulkan;
 function gst_vulkan_format_to_video_format(vk_format: TVkFormat): TGstVideoFormat; cdecl; external libgstvulkan;
 
 // === Konventiert am: 10-10-24 17:10:14 ===

@@ -10,18 +10,6 @@ const
 type
   TGstVulkanImageMemoryFindViewFunc = function(view: PGstVulkanImageView; user_data: Tgpointer): Tgboolean; cdecl;
 
-  TGstVulkanImageMemoryAllocator = record
-    parent: TGstAllocator;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanImageMemoryAllocator = ^TGstVulkanImageMemoryAllocator;
-
-  TGstVulkanImageMemoryAllocatorClass = record
-    parent_class: TGstAllocatorClass;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanImageMemoryAllocatorClass = ^TGstVulkanImageMemoryAllocatorClass;
-
 procedure gst_vulkan_image_memory_init_once; cdecl; external libgstvulkan;
 function gst_is_vulkan_image_memory(mem: PGstMemory): Tgboolean; cdecl; external libgstvulkan;
 function gst_vulkan_image_memory_init(mem: PGstVulkanImageMemory; allocator: PGstAllocator; parent: PGstMemory; device: PGstVulkanDevice; format: TVkFormat;
@@ -30,7 +18,7 @@ function gst_vulkan_image_memory_init(mem: PGstVulkanImageMemory; allocator: PGs
 function gst_vulkan_image_memory_alloc_with_image_info(device: PGstVulkanDevice; image_info: PVkImageCreateInfo; mem_prop_flags: TVkMemoryPropertyFlags): PGstMemory; cdecl; external libgstvulkan;
 function gst_vulkan_image_memory_alloc(device: PGstVulkanDevice; format: TVkFormat; Width: Tgsize; Height: Tgsize; tiling: TVkImageTiling;
   usage: TVkImageUsageFlags; mem_prop_flags: TVkMemoryPropertyFlags): PGstMemory; cdecl; external libgstvulkan;
-function gst_vulkan_image_memory_wrapped(device: PGstVulkanDevice; image: TVkImage; format: TVkFormat; Width: Tgsize; Height: Tgsize;
+function gst_vulkan_image_memory_wrapped(device: PGstVulkanDevice; image: PVkImage; format: TVkFormat; Width: Tgsize; Height: Tgsize;
   tiling: TVkImageTiling; usage: TVkImageUsageFlags; user_data: Tgpointer; notify: TGDestroyNotify): PGstMemory; cdecl; external libgstvulkan;
 function gst_vulkan_image_memory_get_width(image: PGstVulkanImageMemory): Tguint32; cdecl; external libgstvulkan;
 function gst_vulkan_image_memory_get_height(image: PGstVulkanImageMemory): Tguint32; cdecl; external libgstvulkan;

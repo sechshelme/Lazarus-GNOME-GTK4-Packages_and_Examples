@@ -2,50 +2,6 @@
 {$IFDEF read_interface}
 
 function gst_vulkan_decoder_get_type: TGType; cdecl; external libgstvulkan;
-
-type
-  PGstVulkanDecoderPicture = ^TGstVulkanDecoderPicture;
-
-  TGstVulkanDecoderPicture = record
-    _out: PGstBuffer;
-    dpb: PGstBuffer;
-    img_view_ref: PGstVulkanImageView;
-    img_view_out: PGstVulkanImageView;
-    slice_offs: PGArray;
-    refs: array[0..35] of PGstVulkanDecoderPicture;
-    pics_res: array[0..35] of TVkVideoPictureResourceInfoKHR;
-    slots: array[0..35] of TVkVideoReferenceSlotInfoKHR;
-    pic_res: TVkVideoPictureResourceInfoKHR;
-    slot: TVkVideoReferenceSlotInfoKHR;
-    decode_info: TVkVideoDecodeInfoKHR;
-  end;
-
-  TGstVulkanDecoder = record
-    parent: TGstObject;
-    queue: PGstVulkanQueue;
-    codec: Tguint;
-    profile: TGstVulkanVideoProfile;
-    input_buffer: PGstBuffer;
-    layered_buffer: PGstBuffer;
-    dedicated_dpb: Tgboolean;
-    layered_dpb: Tgboolean;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanDecoder = ^TGstVulkanDecoder;
-
-  TGstVulkanDecoderClass = record
-    parent: TGstObjectClass;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanDecoderClass = ^TGstVulkanDecoderClass;
-
-  TGstVulkanDecoderParameters = record
-    case longint of
-      0: (h264: TVkVideoDecodeH264SessionParametersCreateInfoKHR);
-      1: (h265: TVkVideoDecodeH265SessionParametersCreateInfoKHR);
-  end;
-  PGstVulkanDecoderParameters = ^TGstVulkanDecoderParameters;
-
 function gst_vulkan_decoder_start(self: PGstVulkanDecoder; profile: PGstVulkanVideoProfile; error: PPGError): Tgboolean; cdecl; external libgstvulkan;
 function gst_vulkan_decoder_stop(self: PGstVulkanDecoder): Tgboolean; cdecl; external libgstvulkan;
 function gst_vulkan_decoder_update_video_session_parameters(self: PGstVulkanDecoder; params: PGstVulkanDecoderParameters; error: PPGError): Tgboolean; cdecl; external libgstvulkan;

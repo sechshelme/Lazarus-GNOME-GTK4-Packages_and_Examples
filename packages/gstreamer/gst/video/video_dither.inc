@@ -26,7 +26,7 @@ type
   end;
   PGstVideoDither = ^TGstVideoDither;
 
-function gst_video_dither_new(method: TGstVideoDitherMethod; flags: TGstVideoDitherFlags; format: TGstVideoFormat; quantizer: Tcomp_int_arr; Width: Tguint): PGstVideoDither; cdecl; external libgstvideo;
+function gst_video_dither_new(method: TGstVideoDitherMethod; flags: TGstVideoDitherFlags; format: TGstVideoFormat; quantizer: Pgint; Width: Tguint): PGstVideoDither; cdecl; external libgstvideo;
 procedure gst_video_dither_free(dither: PGstVideoDither); cdecl; external libgstvideo;
 procedure gst_video_dither_line(dither: PGstVideoDither; line: Tgpointer; x: Tguint; y: Tguint; Width: Tguint); cdecl; external libgstvideo;
 

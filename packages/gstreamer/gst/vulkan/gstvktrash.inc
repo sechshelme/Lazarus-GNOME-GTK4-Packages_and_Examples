@@ -2,29 +2,12 @@
 {$IFDEF read_interface}
 
 type
-  TGstVulkanTrashList = record
-    parent: TGstVulkanHandlePool;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanTrashList = ^TGstVulkanTrashList;
-
-
   TGstVulkanTrashNotify = procedure(device: PGstVulkanDevice; user_data: Tgpointer); cdecl;
-
-  TGstVulkanTrash = record
-    parent: TGstMiniObject;
-    cache: PGstVulkanTrashList;
-    fence: PGstVulkanFence;
-    notify: TGstVulkanTrashNotify;
-    user_data: Tgpointer;
-    _padding: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanTrash = ^TGstVulkanTrash;
 
 function gst_vulkan_trash_new(fence: PGstVulkanFence; notify: TGstVulkanTrashNotify; user_data: Tgpointer): PGstVulkanTrash; cdecl; external libgstvulkan;
 procedure gst_vulkan_trash_mini_object_unref(device: PGstVulkanDevice; user_data: Tgpointer); cdecl; external libgstvulkan;
 procedure gst_vulkan_trash_object_unref(device: PGstVulkanDevice; user_data: Tgpointer); cdecl; external libgstvulkan;
-function gst_vulkan_trash_new_free_semaphore(fence: PGstVulkanFence; semaphore: TVkSemaphore): PGstVulkanTrash; cdecl; external libgstvulkan;
+function gst_vulkan_trash_new_free_semaphore(fence: PGstVulkanFence; semaphore: PVkSemaphore): PGstVulkanTrash; cdecl; external libgstvulkan;
 function gst_vulkan_trash_list_get_type: TGType; cdecl; external libgstvulkan;
 
 function gst_vulkan_trash_get_type: TGType; cdecl; external libgstvulkan;
@@ -34,30 +17,17 @@ type
   TGstVulkanTrashListAdd = function(trash_list: PGstVulkanTrashList; trash: PGstVulkanTrash): Tgboolean; cdecl;
   TGstVulkanTrashListWait = function(trash_list: PGstVulkanTrashList; timeout: Tguint64): Tgboolean; cdecl;
 
-  TGstVulkanTrashListClass = record
-    parent_class: TGstVulkanHandlePoolClass;
-    add_func: TGstVulkanTrashListAdd;
-    gc_func: TGstVulkanTrashListGC;
-    wait_func: TGstVulkanTrashListWait;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanTrashListClass = ^TGstVulkanTrashListClass;
-
-
 procedure gst_vulkan_trash_list_gc(trash_list: PGstVulkanTrashList); cdecl; external libgstvulkan;
 function gst_vulkan_trash_list_wait(trash_list: PGstVulkanTrashList; timeout: Tguint64): Tgboolean; cdecl; external libgstvulkan;
 function gst_vulkan_trash_list_add(trash_list: PGstVulkanTrashList; trash: PGstVulkanTrash): Tgboolean; cdecl; external libgstvulkan;
 function gst_vulkan_trash_list_acquire(trash_list: PGstVulkanTrashList; fence: PGstVulkanFence; notify: TGstVulkanTrashNotify; user_data: Tgpointer): PGstVulkanTrash; cdecl; external libgstvulkan;
-{G_DECLARE_FINAL_TYPE (GstVulkanTrashFenceList, gst_vulkan_trash_fence_list, GST, VULKAN_TRASH_FENCE_LIST, GstVulkanTrashList); }
+
 type
   TGstVulkanTrashFenceList = record
   end;
   PGstVulkanTrashFenceList = ^TGstVulkanTrashFenceList;
 
-  TGstVulkanTrashFenceListClass = record
-    parent_class: TGstVulkanTrashListClass;
-  end;
-  PGstVulkanTrashFenceListClass = ^TGstVulkanTrashFenceListClass;
+  PGstVulkanTrashFenceListClass = type Pointer;
 
 function gst_vulkan_trash_fence_list_get_type: TGType; cdecl; external libgstvulkan;
 function gst_vulkan_trash_fence_list_new: PGstVulkanTrashList; cdecl; external libgstvulkan;

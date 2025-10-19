@@ -6,20 +6,6 @@ function gst_vulkan_memory_allocator_get_type: TGType; cdecl; external libgstvul
 const
   GST_VULKAN_MEMORY_ALLOCATOR_NAME = 'Vulkan';
 
-type
-  TGstVulkanMemoryAllocator = record
-    parent: TGstAllocator;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanMemoryAllocator = ^TGstVulkanMemoryAllocator;
-
-  TGstVulkanMemoryAllocatorClass = record
-    parent_class: TGstAllocatorClass;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanMemoryAllocatorClass = ^TGstVulkanMemoryAllocatorClass;
-
-
 procedure gst_vulkan_memory_init_once; cdecl; external libgstvulkan;
 function gst_is_vulkan_memory(mem: PGstMemory): Tgboolean; cdecl; external libgstvulkan;
 function gst_vulkan_memory_alloc(device: PGstVulkanDevice; memory_type_index: Tguint32; params: PGstAllocationParams; size: Tgsize; mem_prop_flags: TVkMemoryPropertyFlags): PGstMemory; cdecl; external libgstvulkan;

@@ -5,23 +5,8 @@
 function gst_vulkan_display_xcb_get_type:TGType;cdecl;external libgstvulkan;
 
 type
-  TGstVulkanDisplayXCB = record
-    parent: TGstVulkanDisplay;
-    connection: Pxcb_connection_t;
-    root_window: Txcb_window_t;
-    screen: Pxcb_screen_t;
-    foreign_display: Tgboolean;
-    event_source: PGSource;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanDisplayXCB = ^TGstVulkanDisplayXCB;
-
-  TGstVulkanDisplayXCBClass = record
-    object_class: TGstVulkanDisplayClass;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanDisplayXCBClass = ^TGstVulkanDisplayXCBClass;
-
+  PGstVulkanDisplayXCB = type Pointer;
+  PGstVulkanDisplayXCBClass = type Pointer;
 
 function gst_vulkan_display_xcb_new(name:Pgchar):PGstVulkanDisplayXCB;cdecl;external libgstvulkan;
 function gst_vulkan_display_xcb_new_with_connection(connection:Pxcb_connection_t; screen_no:longint):PGstVulkanDisplayXCB;cdecl;external libgstvulkan;
@@ -78,17 +63,17 @@ end;
 
 function GST_VULKAN_DISPLAY_XCB_CONNECTION(d: Pointer): Pxcb_connection_t;
 begin
-  GST_VULKAN_DISPLAY_XCB_CONNECTION:=GST_VULKAN_DISPLAY_XCB(d)^.connection;
+//  GST_VULKAN_DISPLAY_XCB_CONNECTION:=GST_VULKAN_DISPLAY_XCB(d)^.connection;
 end;
 
 function GST_VULKAN_DISPLAY_XCB_ROOT_WINDOW(d: Pointer): Txcb_window_t;
 begin
-  GST_VULKAN_DISPLAY_XCB_ROOT_WINDOW:=(GST_VULKAN_DISPLAY_XCB(d))^.root_window;
+//  GST_VULKAN_DISPLAY_XCB_ROOT_WINDOW:=(GST_VULKAN_DISPLAY_XCB(d))^.root_window;
 end;
 
 function GST_VULKAN_DISPLAY_XCB_SCREEN(d: Pointer): Pxcb_screen_t;
 begin
-  GST_VULKAN_DISPLAY_XCB_SCREEN:=(GST_VULKAN_DISPLAY_XCB(d))^.screen;
+//  GST_VULKAN_DISPLAY_XCB_SCREEN:=(GST_VULKAN_DISPLAY_XCB(d))^.screen;
 end;
 
 

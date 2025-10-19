@@ -3,7 +3,7 @@
 
 function gst_vulkan_command_buffer_get_type: TGType; cdecl; external libgstvulkan;
 
-function gst_vulkan_command_buffer_new_wrapped(cmd: TVkCommandBuffer; level: TVkCommandBufferLevel): PGstVulkanCommandBuffer; cdecl; external libgstvulkan;
+function gst_vulkan_command_buffer_new_wrapped(cmd: PVkCommandBuffer; level: TVkCommandBufferLevel): PGstVulkanCommandBuffer; cdecl; external libgstvulkan;
 
 procedure gst_vulkan_command_buffer_lock(cmd: PGstVulkanCommandBuffer);
 procedure gst_vulkan_command_buffer_unlock(cmd: PGstVulkanCommandBuffer);
@@ -24,12 +24,12 @@ end;
 
 procedure gst_vulkan_command_buffer_lock(cmd: PGstVulkanCommandBuffer);
 begin
-  gst_vulkan_command_pool_lock(cmd^.pool);
+//  gst_vulkan_command_pool_lock(cmd^.pool);
 end;
 
 procedure gst_vulkan_command_buffer_unlock(cmd: PGstVulkanCommandBuffer);
 begin
-  gst_vulkan_command_pool_unlock(cmd^.pool);
+//  gst_vulkan_command_pool_unlock(cmd^.pool);
 end;
 
 

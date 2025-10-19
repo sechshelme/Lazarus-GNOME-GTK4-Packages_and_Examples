@@ -245,8 +245,8 @@ function gst_mpeg_video_packet_parse_gop(packet: PGstMpegVideoPacket; gop: PGstM
 function gst_mpeg_video_packet_parse_slice_header(packet: PGstMpegVideoPacket; slice_hdr: PGstMpegVideoSliceHdr; seq_hdr: PGstMpegVideoSequenceHdr; seqscaleext: PGstMpegVideoSequenceScalableExt): Tgboolean; cdecl; external libgstcodecparsers;
 function gst_mpeg_video_packet_parse_quant_matrix_extension(packet: PGstMpegVideoPacket; quant: PGstMpegVideoQuantMatrixExt): Tgboolean; cdecl; external libgstcodecparsers;
 function gst_mpeg_video_finalise_mpeg2_sequence_header(hdr: PGstMpegVideoSequenceHdr; seqext: PGstMpegVideoSequenceExt; displayext: PGstMpegVideoSequenceDisplayExt): Tgboolean; cdecl; external libgstcodecparsers;
-procedure gst_mpeg_video_quant_matrix_get_raster_from_zigzag(out_quant: Tguint8arr64; quant: Tguint8arr64); cdecl; external libgstcodecparsers;
-procedure gst_mpeg_video_quant_matrix_get_zigzag_from_raster(out_quant: Tguint8arr64; quant: Tguint8arr64); cdecl; external libgstcodecparsers;
+procedure gst_mpeg_video_quant_matrix_get_raster_from_zigzag(out_quant: Pguint8; quant: Pguint8); cdecl; external libgstcodecparsers;
+procedure gst_mpeg_video_quant_matrix_get_zigzag_from_raster(out_quant: Pguint8; quant: Pguint8); cdecl; external libgstcodecparsers;
 
 function GST_MPEG_VIDEO_PACKET_IS_SLICE(typecode: longint): Tgboolean;
 

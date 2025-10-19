@@ -25,7 +25,7 @@ function gst_va_dmabuf_allocator_prepare_buffer(allocator: PGstAllocator; buffer
 procedure gst_va_dmabuf_allocator_flush(allocator: PGstAllocator); cdecl; external libgstva;
 function gst_va_dmabuf_allocator_set_format(allocator: PGstAllocator; info: PGstVideoInfoDmaDrm; usage_hint: Tguint): Tgboolean; cdecl; external libgstva;
 function gst_va_dmabuf_allocator_get_format(allocator: PGstAllocator; info: PGstVideoInfoDmaDrm; usage_hint: Pguint): Tgboolean; cdecl; external libgstva;
-function gst_va_dmabuf_memories_setup(display: PGstVaDisplay; drm_info: PGstVideoInfoDmaDrm; mem: Tplanes_GstMemory_arr; fds: Tplanes_Tuintptr_t_arr; offset: Tplanes_size_arr; usage_hint: Tguint): Tgboolean; cdecl; external libgstva;
+function gst_va_dmabuf_memories_setup(display: PGstVaDisplay; drm_info: PGstVideoInfoDmaDrm; mem: PPGstMemory; fds: Puintptr_t; offset: PPGstMemory; usage_hint: Tguint): Tgboolean; cdecl; external libgstva;
 function gst_va_dmabuf_get_modifier_for_format(display: PGstVaDisplay; format: TGstVideoFormat; usage_hint: Tguint): Tguint64; cdecl; external libgstva;
 
 const

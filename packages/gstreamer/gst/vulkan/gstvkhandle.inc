@@ -23,19 +23,7 @@ type
   TGstVulkanHandleTypedef = record
   end; // ??????????
 
-  PGstVulkanHandle = ^TGstVulkanHandle;
-  PPGstVulkanHandle = ^PGstVulkanHandle;
   TGstVulkanHandleDestroyNotify = procedure(handle: PGstVulkanHandle; user_data: Tgpointer); cdecl;
-
-  TGstVulkanHandle = record
-    parent: TGstMiniObject;
-    device: PGstVulkanDevice;
-    _type: TGstVulkanHandleType;
-    handle: TGstVulkanHandleTypedef;
-    notify: TGstVulkanHandleDestroyNotify;
-    user_data: Tgpointer;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
 
 function gst_vulkan_handle_new_wrapped(device: PGstVulkanDevice; _type: TGstVulkanHandleType; handle: TGstVulkanHandleTypedef; notify: TGstVulkanHandleDestroyNotify; user_data: Tgpointer): PGstVulkanHandle; cdecl; external libgstvulkan;
 procedure gst_vulkan_handle_free_descriptor_set_layout(handle: PGstVulkanHandle; user_data: Tgpointer); cdecl; external libgstvulkan;

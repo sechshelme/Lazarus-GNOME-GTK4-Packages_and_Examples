@@ -2,34 +2,6 @@
 {$IFDEF read_interface}
 
 function gst_vulkan_full_screen_quad_get_type: TGType; cdecl; external libgstvulkan;
-
-type
-  TGstVulkanFullScreenQuad = record
-    parent: TGstObject;
-    out_info: TGstVideoInfo;
-    in_info: TGstVideoInfo;
-    queue: PGstVulkanQueue;
-    render_pass: PGstVulkanHandle;
-    pipeline_layout: PGstVulkanHandle;
-    graphics_pipeline: PGstVulkanHandle;
-    descriptor_set_layout: PGstVulkanHandle;
-    descriptor_cache: PGstVulkanDescriptorCache;
-    descriptor_set: PGstVulkanDescriptorSet;
-    framebuffer: PGstVulkanHandle;
-    sampler: PGstVulkanHandle;
-    cmd_pool: PGstVulkanCommandPool;
-    trash_list: PGstVulkanTrashList;
-    last_fence: PGstVulkanFence;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanFullScreenQuad = ^TGstVulkanFullScreenQuad;
-
-  TGstVulkanFullScreenQuadClass = record
-    parent_class: TGstObjectClass;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanFullScreenQuadClass = ^TGstVulkanFullScreenQuadClass;
-
 function gst_vulkan_full_screen_quad_new(queue: PGstVulkanQueue): PGstVulkanFullScreenQuad; cdecl; external libgstvulkan;
 function gst_vulkan_full_screen_quad_set_info(self: PGstVulkanFullScreenQuad; in_info: PGstVideoInfo; out_info: PGstVideoInfo): Tgboolean; cdecl; external libgstvulkan;
 function gst_vulkan_full_screen_quad_set_shaders(self: PGstVulkanFullScreenQuad; vert: PGstVulkanHandle; frag: PGstVulkanHandle): Tgboolean; cdecl; external libgstvulkan;

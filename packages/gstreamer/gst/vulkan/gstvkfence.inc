@@ -9,18 +9,10 @@ procedure gst_vulkan_fence_reset(fence: PGstVulkanFence); cdecl; external libgst
 function gst_vulkan_fence_new_always_signalled(device: PGstVulkanDevice): PGstVulkanFence; cdecl; external libgstvulkan;
 function gst_vulkan_fence_is_signaled(fence: PGstVulkanFence): Tgboolean; cdecl; external libgstvulkan;
 
-type
-  TGstVulkanFenceCacheClass = record
-    parent_class: TGstVulkanHandlePoolClass;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanFenceCacheClass = ^TGstVulkanFenceCacheClass;
-
 function gst_vulkan_fence_cache_new(device: PGstVulkanDevice): PGstVulkanFenceCache; cdecl; external libgstvulkan;
 
 function GST_TYPE_VULKAN_FENCE: TGType;
 function GST_VULKAN_FENCE_CAST(f: Pointer): PGstVulkanFence;
-function GST_VULKAN_FENCE_FENCE(f: Pointer): TVkFence;
 
 // === Konventiert am: 10-10-24 15:00:46 ===
 
@@ -77,11 +69,5 @@ function GST_VULKAN_FENCE_CAST(f: Pointer): PGstVulkanFence;
 begin
   GST_VULKAN_FENCE_CAST := PGstVulkanFence(f);
 end;
-
-function GST_VULKAN_FENCE_FENCE(f: Pointer): TVkFence;
-begin
-  GST_VULKAN_FENCE_FENCE := (GST_VULKAN_FENCE_CAST(f))^.fence;
-end;
-
 
 {$ENDIF read_implementation}

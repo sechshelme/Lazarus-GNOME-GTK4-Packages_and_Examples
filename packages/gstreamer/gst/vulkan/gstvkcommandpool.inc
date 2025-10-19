@@ -3,14 +3,6 @@
 
 function gst_vulkan_command_pool_get_type: TGType; cdecl; external libgstvulkan;
 
-type
-  TGstVulkanCommandPoolClass = record
-    parent_class: TGstObjectClass;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanCommandPoolClass = ^TGstVulkanCommandPoolClass;
-
-
 function gst_vulkan_command_pool_get_queue(pool: PGstVulkanCommandPool): PGstVulkanQueue; cdecl; external libgstvulkan;
 function gst_vulkan_command_pool_create(pool: PGstVulkanCommandPool; error: PPGError): PGstVulkanCommandBuffer; cdecl; external libgstvulkan;
 procedure gst_vulkan_command_pool_lock(pool: PGstVulkanCommandPool); cdecl; external libgstvulkan;

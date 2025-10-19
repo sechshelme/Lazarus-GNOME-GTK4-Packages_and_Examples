@@ -19,7 +19,7 @@ function gst_video_affine_transformation_meta_api_get_type: TGType; cdecl; exter
 function gst_video_affine_transformation_meta_get_info: PGstMetaInfo; cdecl; external libgstvideo;
 
 function gst_buffer_add_video_affine_transformation_meta(buffer: PGstBuffer): PGstVideoAffineTransformationMeta; cdecl; external libgstvideo;
-procedure gst_video_affine_transformation_meta_apply_matrix(meta: PGstVideoAffineTransformationMeta; matrix: Tgfloatarr16); cdecl; external libgstvideo;
+procedure gst_video_affine_transformation_meta_apply_matrix(meta: PGstVideoAffineTransformationMeta; matrix: Pgfloat); cdecl; external libgstvideo;
 
 function GST_VIDEO_AFFINE_TRANSFORMATION_META_INFO: PGstMetaInfo;
 

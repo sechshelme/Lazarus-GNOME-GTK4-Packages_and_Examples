@@ -3,17 +3,6 @@
 
 function gst_vulkan_handle_pool_get_type: TGType; cdecl; external libgstvulkan;
 
-type
-  TGstVulkanHandlePoolClass = record
-    parent: TGstObjectClass;
-    alloc: function(pool: PGstVulkanHandlePool; error: PPGError): Tgpointer; cdecl;
-    acquire: function(pool: PGstVulkanHandlePool; error: PPGError): Tgpointer; cdecl;
-    Release: procedure(pool: PGstVulkanHandlePool; handle: Tgpointer); cdecl;
-    Free: procedure(pool: PGstVulkanHandlePool; handle: Tgpointer); cdecl;
-    _padding: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanHandlePoolClass = ^TGstVulkanHandlePoolClass;
-
 function gst_vulkan_handle_pool_alloc(pool: PGstVulkanHandlePool; error: PPGError): Tgpointer; cdecl; external libgstvulkan;
 function gst_vulkan_handle_pool_acquire(pool: PGstVulkanHandlePool; error: PPGError): Tgpointer; cdecl; external libgstvulkan;
 procedure gst_vulkan_handle_pool_release(pool: PGstVulkanHandlePool; handle: Tgpointer); cdecl; external libgstvulkan;
