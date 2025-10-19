@@ -43,7 +43,7 @@ type
   PGstVulkanPhysicalDevice = ^TGstVulkanPhysicalDevice;
   PGstVulkanHandlePool = ^TGstVulkanHandlePool;
   PPGstVulkanHandlePool = ^PGstVulkanHandlePool;
-  PGstVulkanImageMemory = ^TGstVulkanImageMemory;
+  PGstVulkanImageMemory = type Pointer;
 
   TGstVulkanDeviceForEachQueueFunc = function(device: PGstVulkanDevice; queue: PGstVulkanQueue; user_data: Tgpointer): Tgboolean; cdecl;
 
@@ -158,46 +158,9 @@ type
     _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
   end;
 
-  TGstVulkanBarrierMemoryInfo = record
-    _type: TGstVulkanBarrierType;
-    flags: TGstVulkanBarrierFlags;
-    queue: PGstVulkanQueue;
-    pipeline_stages: Tguint64;
-    access_flags: Tguint64;
-    semaphore: TVkSemaphore;
-    semaphore_value: Tguint64;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-
-  PGstVulkanBarrierMemoryInfo = ^TGstVulkanBarrierMemoryInfo;
-
-  TGstVulkanBarrierImageInfo = record
-    parent: TGstVulkanBarrierMemoryInfo;
-    image_layout: TVkImageLayout;
-    subresource_range: TVkImageSubresourceRange;
-  end;
-  PGstVulkanBarrierImageInfo = ^TGstVulkanBarrierImageInfo;
+  PGstVulkanBarrierImageInfo = type Pointer;
 
   PGstVulkanMemory = ^TGstVulkanMemory;
-
-  TGstVulkanImageMemory = record
-    parent: TGstMemory;
-    device: PGstVulkanDevice;
-    image: TVkImage;
-    vk_mem: PGstVulkanMemory;
-    create_info: TVkImageCreateInfo;
-    requirements: TVkMemoryRequirements;
-    format_properties: TVkImageFormatProperties;
-    usage: TVkImageUsageFlags;
-    barrier: TGstVulkanBarrierImageInfo;
-    lock: TGMutex;
-    wrapped: Tgboolean;
-    notify: TGDestroyNotify;
-    user_data: Tgpointer;
-    views: PGPtrArray;
-    outstanding_views: PGPtrArray;
-    _padding: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
 
   TGstVulkanDisplay = record
     _object: TGstObject;

@@ -18,6 +18,9 @@ type
 const
   GST_VULKAN_BARRIER_FLAG_NONE = 0;
 
+type
+  PGstVulkanBarrierMemoryInfo = type Pointer;
+
   // === Konventiert am: 10-10-24 15:27:53 ===
 
 

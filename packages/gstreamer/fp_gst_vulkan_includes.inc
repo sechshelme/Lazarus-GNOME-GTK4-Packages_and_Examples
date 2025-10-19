@@ -1,9 +1,10 @@
 
 
 
+{$include gst/vulkan/vulkan_fwd.inc}
 {$include gst/vulkan/vulkan_enumtypes.inc}              // io.
-{$include gst/vulkan/gstvkbarrier.inc}                  // io.
 {$include gst/vulkan/gstvkdevice.inc}                   // io. -> gstvkbarrier
+{$include gst/vulkan/gstvkbarrier.inc}                  // io.
 {$include gst/vulkan/gstvkphysicaldevice.inc}           // io. -> gstvkdevice
 {$include gst/vulkan/gstvkhandlepool.inc}               // io. -> gstvkdevice
 {$include gst/vulkan/gstvkfence.inc}                    // io. -> gstvkdevice, gstvkhandlepool

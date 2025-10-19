@@ -8,39 +8,10 @@ const
   GST_CAPS_FEATURE_MEMORY_VULKAN_BUFFER = 'memory:VulkanBuffer';
 
 type
-  TGstVulkanBarrierBufferInfo = record
-    parent: TGstVulkanBarrierMemoryInfo;
-    offset: TVkDeviceSize;
-    size: TVkDeviceSize;
-  end;
-  PGstVulkanBarrierBufferInfo = ^TGstVulkanBarrierBufferInfo;
-
-  TGstVulkanBufferMemory = record
-    parent: TGstMemory;
-    device: PGstVulkanDevice;
-    buffer: TVkBuffer;
-    vk_mem: PGstVulkanMemory;
-    requirements: TVkMemoryRequirements;
-    usage: TVkBufferUsageFlags;
-    barrier: TGstVulkanBarrierBufferInfo;
-    lock: TGMutex;
-    wrapped: Tgboolean;
-    notify: TGDestroyNotify;
-    user_data: Tgpointer;
-  end;
-  PGstVulkanBufferMemory = ^TGstVulkanBufferMemory;
-
-  TGstVulkanBufferMemoryAllocator = record
-    parent: TGstAllocator;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanBufferMemoryAllocator = ^TGstVulkanBufferMemoryAllocator;
-
-  TGstVulkanBufferMemoryAllocatorClass = record
-    parent_class: TGstAllocatorClass;
-    _reserved: array[0..(GST_PADDING) - 1] of Tgpointer;
-  end;
-  PGstVulkanBufferMemoryAllocatorClass = ^TGstVulkanBufferMemoryAllocatorClass;
+  PGstVulkanBarrierBufferInfo = type Pointer;
+  PGstVulkanBufferMemory = type Pointer;
+  PGstVulkanBufferMemoryAllocator = type Pointer;
+  PGstVulkanBufferMemoryAllocatorClass = type Pointer;
 
 procedure gst_vulkan_buffer_memory_init_once; cdecl; external libgstvulkan;
 function gst_is_vulkan_buffer_memory(mem: PGstMemory): Tgboolean; cdecl; external libgstvulkan;
