@@ -17,6 +17,38 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
+  // ==== cuda
+type
+  TCUresult = longint;
+
+  TCUcontext = type Pointer;
+  PCUcontext = ^TCUcontext;
+
+  TCUdevice = uint32;
+  PCUdevice = ^TCUdevice;
+
+  TCUgraphicsResource = type Pointer;
+  PCUgraphicsResource = ^TCUgraphicsResource;
+
+  TCUstream = type Pointer;
+  PCUstream = ^TCUstream;
+
+  TCUfilter_mode = LongInt;
+  PCUfilter_mode = ^TCUfilter_mode;
+
+  TCUtexObject = UInt64;
+  PCUtexObject = ^TCUtexObject;
+
+  TCUdeviceptr = UInt64;
+  PCUdeviceptr = ^TCUdeviceptr;
+
+  PCUmemAllocationProp = type Pointer;
+
+  TCUgraphicsRegisterFlags = longint;
+  TCUgraphicsMapResourceFlags = longint;
+  TCUmemAllocationGranularity_flags = longint;
+
+
 {$DEFINE read_interface}
 {$include gst/cuda/gstcudanvrtc.inc}        // io.
 {$include gst/cuda/gstcudaloader.inc}       // io.

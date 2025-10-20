@@ -189,7 +189,7 @@ var
   dialog: PGtkFileDialog;
   file_: PGFile;
   filename: pchar;
-  sa, p: PPChar;
+  sa: PPChar;
 begin
   dialog := GTK_FILE_DIALOG(source_object);
   file_ := gtk_file_dialog_open_finish(dialog, res, nil);
@@ -222,8 +222,5 @@ begin
 
   g_object_unref(dialog);
 end;
-
-// ====
-
 
 end.

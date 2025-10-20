@@ -25,12 +25,17 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_xcb_package"/>
+        <PackageName Value="fp_GLIB2_package"/>
       </Item>
     </RequiredPackages>
     <Units>
       <Unit>
         <Filename Value="project1.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Project1"/>
+      </Unit>
+      <Unit>
+        <Filename Value="fp_girepository.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
     </Units>
@@ -42,6 +47,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/pas_units/girepository/"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

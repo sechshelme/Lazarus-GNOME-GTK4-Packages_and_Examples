@@ -254,9 +254,9 @@ const
     (libs:     'libxmlb';units:'fp_glib2, fp_xmlb'),
 
     (libs:     'libvlc';units:'fp_vlc'),
-
-
     (libs:     'libxcbxxx';units:'fp_xcb'),
+
+    (libs:     'libgirepository';units:'fp_girepository'),
 
     (libs: ''; units: ''));
 
