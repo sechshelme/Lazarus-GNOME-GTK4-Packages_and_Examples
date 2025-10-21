@@ -41,10 +41,10 @@ type
   Psize_t = ^Tsize_t;
 
   // /usr/include/x86_64-linux-gnu/ffi.h
-  //type
-  //  Pffi_cif = type Pointer;
-  //  Pffi_type=type Pointer;
-  //  Pffi_closure=type Pointer;
+type
+  Pffi_cif = type Pointer;
+  Pffi_type = type Pointer;
+  Pffi_closure = type Pointer;
 
 const
   {$IFDEF Linux}

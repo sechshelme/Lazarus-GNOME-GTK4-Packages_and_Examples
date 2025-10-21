@@ -11,6 +11,7 @@ uses
 
 type
   PGIBaseInfo = type Pointer;
+  PPGIBaseInfo = ^PGIBaseInfo;
   PGIBaseInfoClass = type Pointer;
 
   TGIAttributeIter = record

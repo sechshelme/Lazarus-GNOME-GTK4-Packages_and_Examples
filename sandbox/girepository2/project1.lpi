@@ -34,10 +34,6 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="Project1"/>
       </Unit>
-      <Unit>
-        <Filename Value="fp_girepository.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

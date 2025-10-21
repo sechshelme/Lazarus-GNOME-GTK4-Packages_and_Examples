@@ -31,7 +31,7 @@ giflagsinfo,
 giunresolvedinfo,
 givalueinfo,
 
-fp_girepository;
+fp_girepository2;
 
 procedure main;
 var

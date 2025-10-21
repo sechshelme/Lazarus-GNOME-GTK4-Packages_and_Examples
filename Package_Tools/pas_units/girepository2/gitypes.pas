@@ -31,6 +31,8 @@ type
   PGIFlagsInfo = type Pointer;
   PGIObjectInfo = type Pointer;
   PGIInterfaceInfo = type Pointer;
+  PPGIInterfaceInfo = ^PGIInterfaceInfo;
+  PPPGIInterfaceInfo = ^PPGIInterfaceInfo;
   PGIConstantInfo = type Pointer;
   PGIValueInfo = type Pointer;
   PGISignalInfo = type Pointer;
