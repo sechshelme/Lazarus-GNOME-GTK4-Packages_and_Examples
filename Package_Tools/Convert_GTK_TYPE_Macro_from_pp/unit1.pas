@@ -256,7 +256,7 @@ const
     (libs:     'libvlc';units:'fp_vlc'),
     (libs:     'libxcbxxx';units:'fp_xcb'),
 
-    (libs:     'libgirepository';units:'fp_girepository'),
+    (libs:     'libgirepository2';units:'fp_glib2, fp_girepository, gitypes, gibaseinfo'),
 
     (libs: ''; units: ''));
 
@@ -386,6 +386,9 @@ begin
 
   sl.Text := StringReplace(sl.Text, '(task : longint)', '(obj : longint)', [rfReplaceAll]);
   sl.Text := StringReplace(sl.Text, '(tclass : longint)', '(klass : longint)', [rfReplaceAll]);
+
+  sl.Text := StringReplace(sl.Text, '(info : longint)', '(obj : longint)', [rfReplaceAll]);
+  sl.Text := StringReplace(sl.Text, '(info : longint)', '(klass : longint)', [rfReplaceAll]);
 
 
   sl.Delete(0);
