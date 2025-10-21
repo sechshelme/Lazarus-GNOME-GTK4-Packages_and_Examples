@@ -258,6 +258,9 @@ const
 
     (libs:     'libgirepository2';units:'fp_glib2, fp_girepository, gitypes, gibaseinfo'),
 
+    (libs:     'libffi';units:'ctypes'),
+
+
     (libs: ''; units: ''));
 
 

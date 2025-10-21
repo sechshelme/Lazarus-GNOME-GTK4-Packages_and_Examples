@@ -9,7 +9,7 @@ interface
 
 uses
   fp_glib2, fp_GLIBTools, fp_glib_unix, fp_gmodule, fp_gio_unix_2, 
-  LazarusPackageIntf;
+  fp_girepository_2, LazarusPackageIntf;
 
 implementation
 

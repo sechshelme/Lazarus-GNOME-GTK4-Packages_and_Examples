@@ -31,6 +31,10 @@
         <Filename Value="fp_gio_unix_2.pas"/>
         <UnitName Value="fp_gio_unix_2"/>
       </Item>
+      <Item>
+        <Filename Value="fp_girepository_2.pas"/>
+        <UnitName Value="fp_girepository_2"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

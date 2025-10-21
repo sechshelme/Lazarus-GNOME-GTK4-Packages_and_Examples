@@ -23,16 +23,10 @@
     <RunParams>
       <FormatVersion Value="2"/>
     </RunParams>
-    <RequiredPackages>
-      <Item>
-        <PackageName Value="fp_GLIB2_package"/>
-      </Item>
-    </RequiredPackages>
     <Units>
       <Unit>
         <Filename Value="project1.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Project1"/>
       </Unit>
     </Units>
   </ProjectOptions>

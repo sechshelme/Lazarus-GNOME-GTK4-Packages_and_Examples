@@ -42,6 +42,7 @@ uses
       end;
       g_base_info_unref(info);
     end;
+    g_object_unref(repo);
   end;
 
 begin

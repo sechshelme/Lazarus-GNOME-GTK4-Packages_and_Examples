@@ -1,72 +1,50 @@
 program Project1;
 
 uses
-fp_glib2,
+  fp_glib2,
+  fp_girepository_2;
 
-gitypes,
-gitypelib,
-gibaseinfo,
+  procedure main;
+  var
+    repo: PGIRepository;
+    err: PGError = nil;
+    n_infos, n_methods: Tgint;
+    i, m: integer;
+    info: PGIBaseInfo;
+    name: Pgchar;
+    obj_info: PGIObjectInfo;
+    method: PGIFunctionInfo;
+  begin
+    repo := gi_repository_new;
 
-giarginfo,
-gicallableinfo,
-giconstantinfo,
-gienuminfo,
-gifieldinfo,
-gifunctioninfo,
-giinterfaceinfo,
-giobjectinfo,
-gipropertyinfo,
-giregisteredtypeinfo,
-girepository,
-girffi,
-gisignalinfo,
-gistructinfo,
-gitypeinfo,
-giunioninfo,
-giversion,
-givfuncinfo,
+    if gi_repository_require(repo, 'Gtk', '4.0', 0, @err) = nil then begin
+      g_printf('Fehler beim Laden von Gtk-4.0: %s'#10, err^.message);
+      g_error_free(err);
+      Exit;;
+    end;
 
-gicallbackinfo,
-giflagsinfo,
-giunresolvedinfo,
-givalueinfo,
+    n_infos := gi_repository_get_n_infos(repo, 'Gtk');
+    for i := 0 to n_infos - 1 do begin
+      info := gi_repository_get_info(repo, 'Gtk', i);
+      if GI_IS_OBJECT_INFO(info) then begin
+        name := gi_base_info_get_name(info);
+        g_printf('Klasse: %s'#10, name);
 
-fp_girepository2;
+        obj_info := PGIObjectInfo(info);
+        n_methods := gi_object_info_get_n_methods(obj_info);
+        g_printf('  Anzahl Methoden: %d'#10, n_methods);
 
-procedure main;
-var
-  repo: PGIRepository;
-begin
-//    GError *error = NULL;
-    repo := g_irepository_get_default;
+        for  m := 0 to n_methods - 1 do begin
+          method := gi_object_info_get_method(obj_info, m);
+          g_printf('    Methode: %s'#10, gi_base_info_get_name(PGIBaseInfo(method)));
 
-    if (!g_irepository_require(repo, "Gtk", "4.0", 0, &error)) {
-        fprintf(stderr, "Fehler beim Laden von Gtk-4.0: %s\n", error->message);
-        g_error_free(error);
-        return 1;
-    }
-
-    guint n_infos = g_irepository_get_n_infos(repo, "Gtk");
-    for (guint i = 0; i < n_infos; i++) {
-        GIBaseInfo *info = g_irepository_get_info(repo, "Gtk", i);
-        if (g_base_info_get_type(info) == GI_INFO_TYPE_OBJECT) {
-            const char *name = g_base_info_get_name(info);
-            printf("Klasse: %s\n", name);
-
-            GIObjectInfo *obj_info = (GIObjectInfo *)info;
-            int n_methods = g_object_info_get_n_methods(obj_info);
-            printf("  Anzahl Methoden: %d\n", n_methods);
-
-            for (int m = 0; m < n_methods; m++) {
-                GIFunctionInfo *method = g_object_info_get_method(obj_info, m);
-                printf("    Methode: %s\n", g_base_info_get_name((GIBaseInfo *)method));
-            }
-        }
-        g_base_info_unref(info);
-    }
-end;
+        end;
+      end;
+      gi_base_info_unref(info);
+    end;
+    g_object_unref(repo);
+  end;
 
 begin
-    main;
+  main;
 end.
-
