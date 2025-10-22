@@ -21,8 +21,8 @@ sudo apt install distrobox
 
 ## 2. Fedora-Container mit Distrobox erstellen und starten
 
-distrobox create --name fedora42 --image fedora:42
-distrobox enter fedora42
+distrobox create --name fedora44 --image fedora:44
+distrobox enter fedora44
 
 ---
 
@@ -59,5 +59,18 @@ wine gtk4-demo
 
 ---
 
+## Updaten:
 
-Viel Erfolg beim Bauen und Testen!
+### Einfaches update
+
+sudo dnf upgrade --refresh
+
+### Neueste Version Upgraden:
+
+sudo dnf install dnf-plugin-system-upgrade
+sudo dnf system-upgrade download --refresh --releasever=44
+sudo dnf system-upgrade reboot
+
+---
+
+
