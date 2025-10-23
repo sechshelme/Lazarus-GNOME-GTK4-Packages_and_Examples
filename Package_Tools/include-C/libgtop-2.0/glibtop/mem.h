@@ -25,7 +25,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_MEM_TOTAL	0
 #define GLIBTOP_MEM_USED	1
@@ -72,6 +72,6 @@ void glibtop_get_mem_s (glibtop *server, glibtop_mem *buf);
 #endif
 
 
-G_END_DECLS
+
 
 #endif

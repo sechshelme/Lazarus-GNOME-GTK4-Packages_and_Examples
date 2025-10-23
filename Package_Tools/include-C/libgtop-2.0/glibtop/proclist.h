@@ -25,7 +25,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_PROCLIST_NUMBER	0
 #define GLIBTOP_PROCLIST_TOTAL	1
@@ -194,6 +194,6 @@ glibtop_get_proclist_s (glibtop *server, glibtop_proclist *buf,
 #endif
 
 
-G_END_DECLS
+
 
 #endif

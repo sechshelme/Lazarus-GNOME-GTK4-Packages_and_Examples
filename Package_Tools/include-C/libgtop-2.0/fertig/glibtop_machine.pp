@@ -1,4 +1,35 @@
-/* Copyright (C) 1998-99 Martin Baulig
+
+unit glibtop_machine;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from glibtop_machine.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    glibtop_machine.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pglibtop_machine  = ^glibtop_machine;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ Copyright (C) 1998-99 Martin Baulig
    This file is part of LibGTop 1.0.
 
    Contributed by Martin Baulig <martin@home-of-linux.org>, April 1998.
@@ -17,23 +48,22 @@
    along with LibGTop; see the file COPYING. If not, write to the
    Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
    Boston, MA 02110-1301, USA.
-*/
+ }
+{$ifndef __GLIBTOP_MACHINE_H__}
+{$define __GLIBTOP_MACHINE_H__}
+{$include <glib.h>}
+type
+  Pglibtop_machine = ^Tglibtop_machine;
+  Tglibtop_machine = record
+      uid : Tuid_t;
+      euid : Tuid_t;
+      gid : Tgid_t;
+      egid : Tgid_t;
+    end;
 
-#ifndef __GLIBTOP_MACHINE_H__
-#define __GLIBTOP_MACHINE_H__
+{$endif}
 
-#include <glib.h>
+implementation
 
-G_BEGIN_DECLS
 
-struct _glibtop_machine
-{
-  uid_t uid;
-  uid_t euid;
-  gid_t gid;
-  gid_t egid;
-};
-
-G_END_DECLS
-
-#endif
+end.

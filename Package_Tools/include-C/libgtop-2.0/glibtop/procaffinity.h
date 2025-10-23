@@ -23,7 +23,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _glibtop_proc_affinity	glibtop_proc_affinity;
 
@@ -57,6 +57,6 @@ guint16 * glibtop_get_proc_affinity_s(glibtop *server, glibtop_proc_affinity *bu
 
 #endif
 
-G_END_DECLS
+
 
 #endif

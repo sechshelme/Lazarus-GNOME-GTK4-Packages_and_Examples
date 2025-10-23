@@ -25,7 +25,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_PROC_MEM_SIZE		0
 #define GLIBTOP_PROC_MEM_VSIZE		1
@@ -78,6 +78,6 @@ void glibtop_get_proc_mem_s (glibtop *server, glibtop_proc_mem *buf, pid_t pid);
 #endif
 
 
-G_END_DECLS
+
 
 #endif

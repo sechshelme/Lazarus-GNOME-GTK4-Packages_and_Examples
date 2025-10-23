@@ -25,7 +25,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_SWAP_TOTAL	0
 #define GLIBTOP_SWAP_USED	1
@@ -67,6 +67,6 @@ void glibtop_get_swap_s (glibtop *server, glibtop_swap *buf);
 #endif
 
 
-G_END_DECLS
+
 
 #endif

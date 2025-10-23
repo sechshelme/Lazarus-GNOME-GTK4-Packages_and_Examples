@@ -24,7 +24,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_FSUSAGE_BLOCKS		0
 #define GLIBTOP_FSUSAGE_BFREE		1
@@ -59,6 +59,6 @@ void glibtop_get_fsusage_l (glibtop *server, glibtop_fsusage *buf, const char *m
 void glibtop_get_fsusage_s (glibtop *server, glibtop_fsusage *buf, const char *mount_dir);
 
 
-G_END_DECLS
+
 
 #endif

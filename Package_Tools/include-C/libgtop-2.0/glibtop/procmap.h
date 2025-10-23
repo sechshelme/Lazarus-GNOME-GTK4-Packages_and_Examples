@@ -25,7 +25,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_PROC_MAP_NUMBER		0
 #define GLIBTOP_PROC_MAP_TOTAL		1
@@ -153,9 +153,9 @@ glibtop_map_entry *
 glibtop_get_proc_map_s (glibtop *server, glibtop_proc_map *buf, pid_t pid);
 #endif
 
-GType     glibtop_map_entry_get_type (void) G_GNUC_CONST;
-GType     glibtop_proc_map_get_type (void) G_GNUC_CONST;
+GType     glibtop_map_entry_get_type (void) ;
+GType     glibtop_proc_map_get_type (void) ;
 
-G_END_DECLS
+
 
 #endif

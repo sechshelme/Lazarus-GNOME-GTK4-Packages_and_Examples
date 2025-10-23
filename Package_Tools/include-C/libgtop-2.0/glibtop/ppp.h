@@ -25,7 +25,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_PPP_STATE	0
 #define GLIBTOP_PPP_BYTES_IN	1
@@ -68,6 +68,6 @@ void glibtop_get_ppp_s (glibtop *server, glibtop_ppp *buf, unsigned short device
 #endif
 
 
-G_END_DECLS
+
 
 #endif

@@ -25,7 +25,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_PROC_SEGMENT_TEXT_RSS		0
 #define GLIBTOP_PROC_SEGMENT_SHLIB_RSS		1
@@ -75,6 +75,6 @@ void glibtop_get_proc_segment_s (glibtop *server, glibtop_proc_segment *buf, pid
 #endif
 
 
-G_END_DECLS
+
 
 #endif

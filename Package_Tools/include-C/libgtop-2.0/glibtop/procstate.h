@@ -25,7 +25,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_PROC_STATE_CMD		0
 #define GLIBTOP_PROC_STATE_STATE	1
@@ -90,6 +90,6 @@ void glibtop_get_proc_state_s (glibtop *server, glibtop_proc_state *buf, pid_t p
 #endif
 
 
-G_END_DECLS
+
 
 #endif

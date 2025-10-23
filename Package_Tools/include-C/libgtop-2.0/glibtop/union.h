@@ -54,7 +54,7 @@
 #include <glibtop/netlist.h>
 #include <glibtop/ppp.h>
 
-G_BEGIN_DECLS
+
 
 typedef union _glibtop_union	glibtop_union;
 
@@ -90,6 +90,6 @@ union _glibtop_union
 	glibtop_proc_io	proc_io;
 };
 
-G_END_DECLS
+
 
 #endif

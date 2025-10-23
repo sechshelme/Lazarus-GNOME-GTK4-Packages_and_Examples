@@ -26,7 +26,7 @@
 #include <glibtop/cpu.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_PROC_TIME_START_TIME	0
 #define GLIBTOP_PROC_TIME_RTIME		1
@@ -112,6 +112,6 @@ void glibtop_get_proc_time_s (glibtop *server, glibtop_proc_time *buf, pid_t pid
 #endif
 
 
-G_END_DECLS
+
 
 #endif

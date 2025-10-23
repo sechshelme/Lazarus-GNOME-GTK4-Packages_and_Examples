@@ -25,7 +25,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_XDISK_SECTORS_READ	0
 #define GLIBTOP_XDISK_TIME_READ		1
@@ -81,6 +81,6 @@ void glibtop_get_disk_s (glibtop *server, glibtop_disk *buf);
 #endif
 
 
-G_END_DECLS
+
 
 #endif

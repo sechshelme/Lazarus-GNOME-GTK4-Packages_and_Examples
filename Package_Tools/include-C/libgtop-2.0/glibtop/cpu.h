@@ -25,7 +25,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_CPU_TOTAL	0
 #define GLIBTOP_CPU_USER	1
@@ -100,6 +100,6 @@ void glibtop_get_cpu_s (glibtop *server, glibtop_cpu *buf);
 #endif
 
 
-G_END_DECLS
+
 
 #endif

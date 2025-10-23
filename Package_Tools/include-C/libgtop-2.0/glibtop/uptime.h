@@ -25,7 +25,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_UPTIME_UPTIME		0
 #define GLIBTOP_UPTIME_IDLETIME		1
@@ -62,6 +62,6 @@ void glibtop_get_uptime_s (glibtop *server, glibtop_uptime *buf);
 #endif
 
 
-G_END_DECLS
+
 
 #endif

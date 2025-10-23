@@ -25,7 +25,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_PROC_KERNEL_K_FLAGS	0
 #define GLIBTOP_PROC_KERNEL_MIN_FLT	1
@@ -81,6 +81,6 @@ void glibtop_get_proc_kernel_s (glibtop *server, glibtop_proc_kernel *buf, pid_t
 #endif
 
 
-G_END_DECLS
+
 
 #endif

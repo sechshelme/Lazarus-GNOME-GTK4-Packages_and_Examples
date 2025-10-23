@@ -62,13 +62,13 @@
 
 #ifdef _IN_LIBGTOP
 
-G_BEGIN_DECLS
+
 
 #ifndef HAVE_STRERROR
 char *strerror (int errno);
 #endif
 
-G_END_DECLS
+
 
 #endif /* _IN_LIBGTOP */
 

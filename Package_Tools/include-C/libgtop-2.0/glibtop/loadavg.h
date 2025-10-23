@@ -25,7 +25,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_LOADAVG_LOADAVG		0
 #define GLIBTOP_LOADAVG_NR_RUNNING	1
@@ -64,6 +64,6 @@ void glibtop_get_loadavg_s (glibtop *server, glibtop_loadavg *buf);
 #endif
 
 
-G_END_DECLS
+
 
 #endif

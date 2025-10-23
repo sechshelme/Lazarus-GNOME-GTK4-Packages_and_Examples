@@ -25,7 +25,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_NETLOAD_IF_FLAGS	0
 #define GLIBTOP_NETLOAD_MTU		1
@@ -125,6 +125,6 @@ void glibtop_get_netload_s (glibtop *server, glibtop_netload *buf, const char *i
 #endif
 
 
-G_END_DECLS
+
 
 #endif

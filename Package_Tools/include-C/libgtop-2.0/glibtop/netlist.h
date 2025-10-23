@@ -23,7 +23,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_NETLIST_NUMBER		0
 
@@ -93,6 +93,6 @@ char** glibtop_get_netlist_s (glibtop *server, glibtop_netlist *buf);
 #endif
 
 
-G_END_DECLS
+
 
 #endif

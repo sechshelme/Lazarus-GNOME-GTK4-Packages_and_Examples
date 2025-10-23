@@ -24,7 +24,7 @@
 
 #include <glibtop.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_SYSDEPS_FEATURES	0
 #define GLIBTOP_SYSDEPS_CPU		1
@@ -59,7 +59,7 @@ G_BEGIN_DECLS
 #define GLIBTOP_MAX_SYSDEPS		29
 
 /* The 'features' args to glibtop_init_* is an unsigned long */
-G_STATIC_ASSERT((1UL << (GLIBTOP_MAX_SYSDEPS - 1)) <= ULONG_MAX);
+//G_STATIC_ASSERT((1UL << (GLIBTOP_MAX_SYSDEPS - 1)) <= ULONG_MAX);
 
 #define GLIBTOP_SYSDEPS_ALL		((1 << GLIBTOP_MAX_SYSDEPS) - 1)
 
@@ -110,6 +110,6 @@ void glibtop_get_sysdeps (glibtop_sysdeps *buf);
 void glibtop_get_sysdeps_r (glibtop *server, glibtop_sysdeps *buf);
 
 
-G_END_DECLS
+
 
 #endif

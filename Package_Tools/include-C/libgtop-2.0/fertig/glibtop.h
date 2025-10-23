@@ -29,7 +29,7 @@
 #include <glib.h>
 #include <glib-object.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _glibtop		glibtop;
 typedef struct _glibtop_machine	glibtop_machine;
@@ -49,11 +49,13 @@ typedef struct _glibtop_machine	glibtop_machine;
 
 #include <libgtopconfig.h>
 
+/* xxxxxxxxxxxxx
 #define LIBGTOP_CHECK_VERSION(major, minor, micro)    \
 (LIBGTOP_MAJOR_VERSION > (major) || \
 (LIBGTOP_MAJOR_VERSION == (major) && LIBGTOP_MINOR_VERSION > (minor)) || \
 (LIBGTOP_MAJOR_VERSION == (major) && LIBGTOP_MINOR_VERSION == (minor) && \
 LIBGTOP_MICRO_VERSION >= (micro)))
+*/
 
 
 #include <glibtop/global.h>
@@ -143,8 +145,8 @@ glibtop_init_s (glibtop **server_ptr,
 		unsigned long features,
 		unsigned flags);
 
-GType     glibtop_get_type (void) G_GNUC_CONST;
+GType     glibtop_get_type (void) ;
 
-G_END_DECLS
+
 
 #endif

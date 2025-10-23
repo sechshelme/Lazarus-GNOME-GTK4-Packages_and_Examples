@@ -19,44 +19,20 @@
    Boston, MA 02110-1301, USA.
 */
 
-#ifndef __GLIBTOP_SYSINFO_H__
-#define __GLIBTOP_SYSINFO_H__
-
-#include <glibtop.h>
-#include <glibtop/cpu.h>
-#include <glibtop/global.h>
+#ifndef __GLIBTOP_MACHINE_H__
+#define __GLIBTOP_MACHINE_H__
 
 #include <glib.h>
 
 
 
-#define GLIBTOP_SYSINFO_NCPU		0
-#define GLIBTOP_SYSINFO_CPUINFO		1
-
-#define GLIBTOP_MAX_SYSINFO		2
-
-typedef struct _glibtop_sysinfo	glibtop_sysinfo;
-
-typedef struct _glibtop_entry	glibtop_entry;
-
-struct _glibtop_entry
+struct _glibtop_machine
 {
-	GPtrArray	*labels;
-	GHashTable	*values; /* key -> description */
-	GHashTable	*descriptions; /* unused */
+  uid_t uid;
+  uid_t euid;
+  gid_t gid;
+  gid_t egid;
 };
-
-struct _glibtop_sysinfo
-{
-	guint64	flags;
-	guint64 ncpu;
-	glibtop_entry cpuinfo [GLIBTOP_NCPU];
-};
-
-#define glibtop_get_sysinfo_r	glibtop_get_sysinfo_s
-
-const glibtop_sysinfo *glibtop_get_sysinfo_s (glibtop *server);
-const glibtop_sysinfo *glibtop_get_sysinfo (void);
 
 
 

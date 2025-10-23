@@ -19,10 +19,11 @@
 #ifndef __GLIBTOP_SUID_H__
 #define __GLIBTOP_SUID_H__
 
-G_BEGIN_DECLS
+
 
 #include <glibtop_machine.h>
 
+/********** xxxxxxxxxxxxxxx
 static inline void glibtop_suid_enter (glibtop *server) {
 	glibtop_debug ("uid=%d euid=%d gid=%d egid=%d", getuid(), geteuid(), getgid(), getegid());
 	setreuid (server->machine->uid, server->machine->euid);
@@ -35,6 +36,7 @@ static inline void glibtop_suid_leave (glibtop *server) {
 		_exit (1);
 	glibtop_debug ("uid=%d euid=%d gid=%d egid=%d", getuid(), geteuid(), getgid(), getegid());
 };
+*/
 
 void
 glibtop_init_p (glibtop *server, const unsigned long features,
@@ -44,6 +46,6 @@ glibtop_open_p (glibtop *server, const char *program_name,
 		const unsigned long features,
 		const unsigned flags);
 
-G_END_DECLS
+
 
 #endif

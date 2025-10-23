@@ -25,7 +25,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_MOUNTLIST_NUMBER	0
 #define GLIBTOP_MOUNTLIST_TOTAL		1
@@ -96,9 +96,9 @@ glibtop_get_mountlist_l (glibtop *server, glibtop_mountlist *buf, int all_fs);
 glibtop_mountentry *
 glibtop_get_mountlist_s (glibtop *server, glibtop_mountlist *buf, int all_fs);
 
-GType     glibtop_mountlist_get_type (void) G_GNUC_CONST;
-GType     glibtop_mountentry_get_type (void) G_GNUC_CONST;
+GType     glibtop_mountlist_get_type (void) ;
+GType     glibtop_mountentry_get_type (void) ;
 
-G_END_DECLS
+
 
 #endif

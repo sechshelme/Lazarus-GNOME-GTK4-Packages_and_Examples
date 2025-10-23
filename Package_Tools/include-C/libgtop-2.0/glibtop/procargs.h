@@ -25,7 +25,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_PROC_ARGS_SIZE		0
 
@@ -92,6 +92,6 @@ char **
 glibtop_get_proc_argv (glibtop_proc_args *buf, pid_t pid, unsigned max_len);
 
 
-G_END_DECLS
+
 
 #endif

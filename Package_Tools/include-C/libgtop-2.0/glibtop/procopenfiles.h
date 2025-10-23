@@ -29,7 +29,7 @@
 #include <glibtop/global.h>
 
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_PROC_OPEN_FILES_NUMBER		0
 #define GLIBTOP_PROC_OPEN_FILES_TOTAL		1
@@ -146,9 +146,9 @@ glibtop_open_files_entry *
 glibtop_get_proc_open_files_s (glibtop *server, glibtop_proc_open_files *buf, pid_t pid);
 #endif
 
-GType     glibtop_open_files_entry_get_type (void) G_GNUC_CONST;
-GType     glibtop_proc_open_files_get_type (void) G_GNUC_CONST;
+GType     glibtop_open_files_entry_get_type (void) ;
+GType     glibtop_proc_open_files_get_type (void) ;
 
-G_END_DECLS
+
 
 #endif

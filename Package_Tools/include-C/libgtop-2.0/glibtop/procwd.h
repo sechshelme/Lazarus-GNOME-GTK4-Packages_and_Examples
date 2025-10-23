@@ -23,7 +23,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 typedef struct _glibtop_proc_wd	glibtop_proc_wd;
 
@@ -71,6 +71,6 @@ char ** glibtop_get_proc_wd_s(glibtop *server, glibtop_proc_wd *buf, pid_t pid);
 
 
 
-G_END_DECLS
+
 
 #endif

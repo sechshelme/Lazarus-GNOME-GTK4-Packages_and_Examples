@@ -25,7 +25,7 @@
 #include <glibtop.h>
 #include <glibtop/global.h>
 
-G_BEGIN_DECLS
+
 
 #define GLIBTOP_IPC_MSGPOOL	0
 #define GLIBTOP_IPC_MSGMAP	1
@@ -70,7 +70,7 @@ void glibtop_get_msg_limits_s (glibtop *server, glibtop_msg_limits *buf);
 #endif
 
 
-G_END_DECLS
+
 
 #endif
 
