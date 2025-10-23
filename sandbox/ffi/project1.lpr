@@ -1,8 +1,7 @@
 program project1;
 
 uses
-  fp_ffi,
-  ffitarget;
+  fp_ffi;
 
 const
   {$IFDEF Linux}
@@ -244,7 +243,7 @@ end;
 
 procedure main_ansistring;
 type
-  argcount = 0..1;
+  argcount = 0..0;
 const
   s: AnsiString='12345678901234567890';
 var
@@ -252,15 +251,11 @@ var
   arg_val: array[argcount] of Pointer;
   cif: Tffi_cif;
   res: Tffi_arg;
-  l: SizeInt;
 begin
   args_types[0] := @ffi_type_pointer;
-  args_types[1] := @ffi_type_uint8;
 
-  if ffi_prep_cif(@cif, FFI_DEFAULT_ABI, 2, @ffi_type_void, @args_types) = FFI_OK then begin
+  if ffi_prep_cif(@cif, FFI_DEFAULT_ABI, 1, @ffi_type_void, @args_types) = FFI_OK then begin
     arg_val[0] := @s;
-    l := Length(s) - 1;
-    arg_val[1] := @l;
     ffi_call(@cif, @print_string, @res, arg_val);
   end;
 end;
