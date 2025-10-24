@@ -3,7 +3,7 @@ unit glibtop;
 interface
 
 uses
-  fp_glib2, fp_libgtop2, glibtop_machine, sysdeps;
+  fp_glib2, fp_libgtop2, glibtop_machine, libgtopconfig;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
