@@ -35,7 +35,7 @@
 
 typedef struct _glibtop_ppp	glibtop_ppp;
 
-enum {
+enum xxxx{
 	GLIBTOP_PPP_STATE_UNKNOWN = 0,
 	GLIBTOP_PPP_STATE_HANGUP,
 	GLIBTOP_PPP_STATE_ONLINE

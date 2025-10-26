@@ -3,11 +3,12 @@ unit fp_libgtop2;
 interface
 
 uses
-fp_glib2;
+  fp_glib2;
 
 const
   {$IFDEF unix}
   libgtop2 = 'libgtop-2.0';
+  libc = 'c';
   {$ENDIF}
 
   {$IFDEF mswindows}
@@ -18,7 +19,10 @@ const
   {$PACKRECORDS C}
   {$ENDIF}
 type
-  Tgid_t=UInt32;
+  Tgid_t = uint32;
+
+  Tpid_t = int32;
+  Ppid_t = ^Tpid_t;
 
 type
   Tglibtop_sysdeps = record
@@ -65,7 +69,7 @@ type
 
 
   {$DEFINE read_interface}
-//  {$include fp_libgtop2_includes.inc}
+  //  {$include fp_libgtop2_includes.inc}
   {$UNDEF read_interface}
 
 implementation
@@ -75,4 +79,3 @@ implementation
 {$UNDEF read_interface}
 
 end.
-

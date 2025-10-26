@@ -50,7 +50,7 @@
 
 typedef struct _glibtop_netload	glibtop_netload;
 
-enum {
+enum xxxxxx{
 	GLIBTOP_IF_FLAGS_UP = 1,
 	GLIBTOP_IF_FLAGS_BROADCAST,
 	GLIBTOP_IF_FLAGS_DEBUG,

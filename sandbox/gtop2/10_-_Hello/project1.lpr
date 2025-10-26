@@ -9,6 +9,47 @@ uses
 
   sysdeps,
 
+close,
+cpu,
+disk,
+fsusage,
+loadavg,
+mem,
+mountlist,
+msg_limits,
+netlist,
+netload,
+ppp,
+procaffinity,
+procargs,
+procio,
+prockernel,
+proclist,
+procmap,
+procmem,
+procopenfiles,
+procsegment,
+procsignal,
+procstate,
+proctime,           // cpu
+procuid,
+procwd,
+sem_limits,
+shm_limits,
+swap,
+uptime,
+
+  union,              // cpu, disk, ...
+  command,            // union
+
+  global,
+  //gnuserv,
+//open,
+//parameter,
+  //signal,
+  //sysdeps,
+  //sysinfo,
+
   fp_glib2,
   fp_libgtop2;
 
@@ -18,28 +59,25 @@ begin
 end;
 
 procedure main;
+var
+  mem: Tglibtop_mem;
+  swap: Tglibtop_swap;
 begin
-//glibtop_mem mem;
- //   glibtop_swap swap;
-
-    // libgtop initialisieren
     glibtop_init;
 
-    // RAM- und Swap-Werte abrufen
-    glibtop_get_mem(&mem);
-    glibtop_get_swap(&swap);
+    glibtop_get_mem(@mem);
+    glibtop_get_swap(@swap);
 
-    printf("Speicherauslastung (MB):\n");
-    printf("  Gesamt: %lu\n", mb(mem.total));
-    printf("  Verwendet: %lu\n", mb(mem.used));
-    printf("  Frei: %lu\n", mb(mem.free));
-    printf("  Pufferspeicher: %lu\n", mb(mem.buffer));
-    printf("  Cache: %lu\n", mb(mem.cached));
-
-    printf("\nSwap-Auslastung (MB):\n");
-    printf("  Gesamt: %lu\n", mb(swap.total));
-    printf("  Verwendet: %lu\n", mb(swap.used));
-    printf("  Frei: %lu\n", mb(swap.free));
+    g_printf('Speicherauslastung (MB):'#10);
+    g_printf('  Gesamt: %lu'#10, mb(mem.total));
+    g_printf('  Verwendet: %lu'#10, mb(mem.used));
+    g_printf('  Frei: %lu'#10, mb(mem.free));
+    g_printf('  Pufferspeicher: %lu'#10, mb(mem.buffer));
+    g_printf('  Cache: %lu'#10, mb(mem.cached));
+    g_printf(#10'Swap-Auslastung (MB):'#10);
+    g_printf('  Gesamt: %lu'#10, mb(swap.total));
+    g_printf('  Verwendet: %lu'#10, mb(swap.used));
+    g_printf('  Frei: %lu'#10, mb(swap.free));
 
     glibtop_close();
 end;
