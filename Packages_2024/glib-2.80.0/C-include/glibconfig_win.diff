@@ -1,0 +1,72 @@
+77c77
+< #define GLIB_SIZEOF_VOID_P 4
+---
+> #define GLIB_SIZEOF_VOID_P 8
+79,80c79,80
+< #define GLIB_SIZEOF_SIZE_T 4
+< #define GLIB_SIZEOF_SSIZE_T 4
+---
+> #define GLIB_SIZEOF_SIZE_T 8
+> #define GLIB_SIZEOF_SSIZE_T 8
+82,91c82,91
+< typedef signed int gssize;
+< typedef unsigned int gsize;
+< #define G_GSIZE_MODIFIER ""
+< #define G_GSSIZE_MODIFIER ""
+< #define G_GSIZE_FORMAT "u"
+< #define G_GSSIZE_FORMAT "i"
+< 
+< #define G_MAXSIZE	G_MAXUINT
+< #define G_MINSSIZE	G_MININT
+< #define G_MAXSSIZE	G_MAXINT
+---
+> typedef signed long long gssize;
+> typedef unsigned long long gsize;
+> #define G_GSIZE_MODIFIER "ll"
+> #define G_GSSIZE_MODIFIER "ll"
+> #define G_GSIZE_FORMAT "llu"
+> #define G_GSSIZE_FORMAT "lli"
+> 
+> #define G_MAXSIZE	G_MAXUINT64
+> #define G_MINSSIZE	G_MININT64
+> #define G_MAXSSIZE	G_MAXINT64
+101c101
+< #define G_POLLFD_FORMAT "%#x"
+---
+> #define G_POLLFD_FORMAT "%#llx"
+103,104c103,104
+< #define GPOINTER_TO_INT(p)	((gint)  (gint) (p))
+< #define GPOINTER_TO_UINT(p)	((guint) (guint) (p))
+---
+> #define GPOINTER_TO_INT(p)	((gint)  (gint64) (p))
+> #define GPOINTER_TO_UINT(p)	((guint) (guint64) (p))
+106,107c106,107
+< #define GINT_TO_POINTER(i)	((gpointer) (gint) (i))
+< #define GUINT_TO_POINTER(u)	((gpointer) (guint) (u))
+---
+> #define GINT_TO_POINTER(i)	((gpointer) (gint64) (i))
+> #define GUINT_TO_POINTER(u)	((gpointer) (guint64) (u))
+109,110c109,110
+< typedef signed int gintptr;
+< typedef unsigned int guintptr;
+---
+> typedef signed long long gintptr;
+> typedef unsigned long long guintptr;
+112,114c112,114
+< #define G_GINTPTR_MODIFIER      ""
+< #define G_GINTPTR_FORMAT        "i"
+< #define G_GUINTPTR_FORMAT       "u"
+---
+> #define G_GINTPTR_MODIFIER      "ll"
+> #define G_GINTPTR_FORMAT        "lli"
+> #define G_GUINTPTR_FORMAT       "llu"
+180,183c180,183
+< #define GSIZE_TO_LE(val)	((gsize) GUINT32_TO_LE (val))
+< #define GSSIZE_TO_LE(val)	((gssize) GINT32_TO_LE (val))
+< #define GSIZE_TO_BE(val)	((gsize) GUINT32_TO_BE (val))
+< #define GSSIZE_TO_BE(val)	((gssize) GINT32_TO_BE (val))
+---
+> #define GSIZE_TO_LE(val)	((gsize) GUINT64_TO_LE (val))
+> #define GSSIZE_TO_LE(val)	((gssize) GINT64_TO_LE (val))
+> #define GSIZE_TO_BE(val)	((gsize) GUINT64_TO_BE (val))
+> #define GSSIZE_TO_BE(val)	((gssize) GINT64_TO_BE (val))
