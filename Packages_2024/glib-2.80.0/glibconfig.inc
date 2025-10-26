@@ -8,43 +8,48 @@ const
   G_PDP_ENDIAN = 3412;
 
 type
-  Tgchar = char;
+  Tgchar = AnsiChar;
   Pgchar = ^Tgchar;
   PPgchar = ^Pgchar;
   PPPgchar = ^PPgchar;
 
-  Tgshort = cshort;
+  Tgshort = int16;
   Pgshort = ^Tgshort;
 
-  Tglong = clong;
+  Tglong = int64;
   Pglong = ^Tglong;
 
-  Tgint = cint;
+  Tgint = int32;
   Pgint = ^Tgint;
   PPgint = ^Pgint;
 
   Tgboolean = Boolean32;
   Pgboolean = ^Tgboolean;
 
-  Tguchar = cuchar;
+  Tguchar = uint8;
   Pguchar = ^Tguchar;
   PPguchar = ^Pguchar;
 
-  Tgushort = cushort;
+  Tgushort = uint16;
   Pgushort = ^Tgushort;
 
-  Tgulong = culong;
+  {$IFDEF Linux}
+  Tgulong = int64;
+  {$ENDIF}
+  {$IFDEF Windows}
+  Tgulong = int32;
+  {$ENDIF}
   Pgulong = ^Tgulong;
 
-  Tguint = cuint;
+  Tguint = uint32;
   Pguint = ^Tguint;
   PPguint = ^Pguint;
 
-  Tgfloat = cfloat;
+  Tgfloat = single;
   Pgfloat = ^Tgfloat;
   PPgfloat = ^Pgfloat;
 
-  Tgdouble = cdouble;
+  Tgdouble = double;
   Pgdouble = ^Tgdouble;
 
 const
@@ -135,6 +140,7 @@ type
   Pguint64 = ^Tguint64;
 
 const
+  {$IFDEF Linux}
   G_GINT64_MODIFIER = 'l';
   G_GINT64_FORMAT = 'li';
   G_GUINT64_FORMAT = 'lu';
@@ -143,26 +149,24 @@ const
   GLIB_SIZEOF_LONG = 8;
   GLIB_SIZEOF_SIZE_T = 8;
   GLIB_SIZEOF_SSIZE_T = 8;
+  {$ENDIF}
+  {$IFDEF Windows}
+  G_GINT64_MODIFIER = 'll';
+  G_GINT64_FORMAT = 'lli';
+  G_GUINT64_FORMAT = 'llu';
+
+  GLIB_SIZEOF_VOID_P = 8;
+  GLIB_SIZEOF_LONG = 4;
+  GLIB_SIZEOF_SIZE_T = 8;
+  GLIB_SIZEOF_SSIZE_T = 8;
+  {$ENDIF}
 
 type
-  Tgssize = cslong;
+  Tgssize = SizeInt;
   Pgssize = ^Tgssize;
 
-  Tgsize = culong;
+  Tgsize = SizeUInt;
   Pgsize = ^Tgsize;
-
-const
-  G_GSIZE_MODIFIER = 'l';
-  G_GSSIZE_MODIFIER = 'l';
-  G_GSIZE_FORMAT = 'lu';
-  G_GSSIZE_FORMAT = 'li';
-  G_MAXSIZE = G_MAXULONG;
-  G_MINSSIZE = G_MINLONG;
-  G_MAXSSIZE = G_MAXLONG;
-
-type
-  Tgoffset = Tgint64;
-  Pgoffset = ^Tgoffset;
 
   // ==== von gtypes.h
 
@@ -186,31 +190,63 @@ const
 // ====
 
 const
+  {$IFDEF Linux}
+  G_GSIZE_MODIFIER = 'l';
+  G_GSSIZE_MODIFIER = 'l';
+  G_GSIZE_FORMAT = 'lu';
+  G_GSSIZE_FORMAT = 'li';
+  G_MAXSIZE = G_MAXULONG;
+  G_MINSSIZE = G_MINLONG;
+  G_MAXSSIZE = G_MAXLONG;
+  {$ENDIF}
+  {$IFDEF Windows}
+  G_GSIZE_MODIFIER = 'll';
+  G_GSSIZE_MODIFIER = 'll';
+  G_GSIZE_FORMAT = 'llu';
+  G_GSSIZE_FORMAT = 'lli';
+  G_MAXSIZE = G_MAXUINT64;
+  G_MINSSIZE = G_MININT64;
+  G_MAXSSIZE = G_MAXINT64;
+  {$ENDIF}
+
+type
+  Tgoffset = Tgint64;
+  Pgoffset = ^Tgoffset;
+
+const
   G_MINOFFSET = G_MININT64;
   G_MAXOFFSET = G_MAXINT64;
+
   G_GOFFSET_MODIFIER = G_GINT64_MODIFIER;
   G_GOFFSET_FORMAT = G_GINT64_FORMAT;
 
+  G_POLLFD_FORMAT = '%d';
+
 type
-  Tgintptr = cslong;
+  Tgintptr = PtrInt;
   Pgintptr = ^Tgintptr;
 
-  Tguintptr = culong;
+  Tguintptr = PtrUInt;
   Pguintptr = ^Tguintptr;
 
 const
+  {$IFDEF Linux}
   G_GINTPTR_MODIFIER = 'l';
   G_GINTPTR_FORMAT = 'li';
   G_GUINTPTR_FORMAT = 'lu';
+  {$ENDIF}
+  {$IFDEF Windows}
+  G_GINTPTR_MODIFIER = 'll';
+  G_GINTPTR_FORMAT = 'lli';
+  G_GUINTPTR_FORMAT = 'llu';
+  {$ENDIF}
+
   GLIB_MAJOR_VERSION_ = 2;
   GLIB_MINOR_VERSION_ = 80;
   GLIB_MICRO_VERSION_ = 0;
 //  G_VA_COPY = va_copy;
   G_VA_COPY_AS_ARRAY = 1;
   G_HAVE_ISO_VARARGS = 1;
-
-const
-  G_POLLFD_FORMAT = '%d';
 
 const
   G_HAVE_GROWING_STACK = 0;
@@ -224,14 +260,28 @@ const
   G_BYTE_ORDER = G_BIG_ENDIAN;
   {$endif}
 
+  const
+  GLIB_SYSDEF_POLLIN =1;
+  GLIB_SYSDEF_POLLOUT =4;
+  GLIB_SYSDEF_POLLPRI =2;
+  GLIB_SYSDEF_POLLHUP =16;
+  GLIB_SYSDEF_POLLERR =8;
+  GLIB_SYSDEF_POLLNVAL =32;
+
 const
+  {$IFDEF Linux}
   G_MODULE_SUFFIX = 'so';
+  {$ENDIF}
+  {$IFDEF Windows}
+  G_MODULE_SUFFIX = 'dll';
+  {$ENDIF}
 
 type
-  TGPid = cint;
+  TGPid = Int32;
   PGPid = ^TGPid;
 
 const
+  {$IFDEF Linux}
   G_PID_FORMAT = 'i';
   GLIB_SYSDEF_AF_UNIX = 1;
   GLIB_SYSDEF_AF_INET = 2;
@@ -239,55 +289,64 @@ const
   GLIB_SYSDEF_MSG_OOB = 1;
   GLIB_SYSDEF_MSG_PEEK = 2;
   GLIB_SYSDEF_MSG_DONTROUTE = 4;
-  {$IFDEF Linux}
   G_DIR_SEPARATOR = '/';
-  {$ENDIF}
-  {$IFDEF Windows}
-  G_DIR_SEPARATOR = '';
-  {$ENDIF}
   G_DIR_SEPARATOR_S = '/';
   G_SEARCHPATH_SEPARATOR = ':';
   G_SEARCHPATH_SEPARATOR_S = ':';
+  {$ENDIF}
+  {$IFDEF Windows}
+  G_PID_FORMAT = 'p';
+  GLIB_SYSDEF_AF_UNIX = 1;
+  GLIB_SYSDEF_AF_INET = 2;
+  GLIB_SYSDEF_AF_INET6 = 23;
+  GLIB_SYSDEF_MSG_OOB = 1;
+  GLIB_SYSDEF_MSG_PEEK = 2;
+  GLIB_SYSDEF_MSG_DONTROUTE = 4;
+  G_DIR_SEPARATOR = '\\';
+  G_DIR_SEPARATOR_S = '\\';
+  G_SEARCHPATH_SEPARATOR = ';';
+  G_SEARCHPATH_SEPARATOR_S = ';';
+  {$ENDIF}
 
 
-  function G_GINT64_CONSTANT(val:Tgint64):Tgint64;
-  function G_GUINT64_CONSTANT(val:Tguint64):Tguint64;
-  function G_GOFFSET_CONSTANT(val : Tgint64) : Tgint64;
+  function G_GINT64_CONSTANT(val: Tgint64): Tgint64;
+  function G_GUINT64_CONSTANT(val: Tguint64): Tguint64;
+  function G_GOFFSET_CONSTANT(val: Tgint64): Tgint64;
 
-  function GPOINTER_TO_INT(p : Tgpointer) : Tgint;
-  function GPOINTER_TO_UINT(p : Tgpointer) : Tguint;
-  function GINT_TO_POINTER(i : Tgint) : Tgpointer;
-  function GUINT_TO_POINTER(u : Tguint) : Tgpointer;
+  function GPOINTER_TO_INT(p: Tgpointer): Tgint64;
+  function GPOINTER_TO_UINT(p: Tgpointer): Tguint64;
+  function GINT_TO_POINTER(i: Tgint64): Tgpointer;
+  function GUINT_TO_POINTER(u: Tguint64): Tgpointer;
 
-  function GINT16_TO_LE(val : Tgint16) : Tgint16;
-  function GUINT16_TO_LE(val : Tguint16) : Tguint16;
-  function GINT16_TO_BE(val : Tgint16) : Tgint16;
-  function GUINT16_TO_BE(val : Tguint16) : Tguint16;
+  function GINT16_TO_LE(val: Tgint16): Tgint16;
+  function GUINT16_TO_LE(val: Tguint16): Tguint16;
+  function GINT16_TO_BE(val: Tgint16): Tgint16;
+  function GUINT16_TO_BE(val: Tguint16): Tguint16;
 
-  function GINT32_TO_LE(val : Tgint32) : Tgint32;
-  function GUINT32_TO_LE(val : Tguint32) : Tguint32;
-  function GINT32_TO_BE(val : Tgint32) : Tgint32;
-  function GUINT32_TO_BE(val : Tguint32) : Tguint32;
+  function GINT32_TO_LE(val: Tgint32): Tgint32;
+  function GUINT32_TO_LE(val: Tguint32): Tguint32;
+  function GINT32_TO_BE(val: Tgint32): Tgint32;
+  function GUINT32_TO_BE(val: Tguint32): Tguint32;
 
-  function GINT64_TO_LE(val : Tgint64) : Tgint64;
-  function GUINT64_TO_LE(val : Tguint64) : Tguint64;
-  function GINT64_TO_BE(val : Tgint64) : Tgint64;
-  function GUINT64_TO_BE(val : Tguint64) : Tguint64;
+  function GINT64_TO_LE(val: Tgint64): Tgint64;
+  function GUINT64_TO_LE(val: Tguint64): Tguint64;
+  function GINT64_TO_BE(val: Tgint64): Tgint64;
+  function GUINT64_TO_BE(val: Tguint64): Tguint64;
 
-  function GLONG_TO_LE(val : Tglong) : Tglong;
-  function GULONG_TO_LE(val : Tgulong) : Tgulong;
-  function GLONG_TO_BE(val : Tglong) : Tglong;
-  function GULONG_TO_BE(val : Tgulong) : Tgulong;
+  function GLONG_TO_LE(val: Tglong): Tglong;
+  function GULONG_TO_LE(val: Tgulong): Tgulong;
+  function GLONG_TO_BE(val: Tglong): Tglong;
+  function GULONG_TO_BE(val: Tgulong): Tgulong;
 
-  function GINT_TO_LE(val : Tgint) : Tgint;
-  function GUINT_TO_LE(val : Tguint) : Tguint;
-  function GINT_TO_BE(val : Tgint) : Tgint;
-  function GUINT_TO_BE(val : Tguint) : Tguint;
+  function GINT_TO_LE(val: Tgint): Tgint;
+  function GUINT_TO_LE(val: Tguint): Tguint;
+  function GINT_TO_BE(val: Tgint): Tgint;
+  function GUINT_TO_BE(val: Tguint): Tguint;
 
-  function GSIZE_TO_LE(val : Tgsize) : Tgsize;
-  function GSSIZE_TO_LE(val : Tgsize) : Tgssize;
-  function GSIZE_TO_BE(val : Tgsize) : Tgsize;
-  function GSSIZE_TO_BE(val : Tgsize) : Tgssize;
+  function GSIZE_TO_LE(val: Tgsize): Tgsize;
+  function GSSIZE_TO_LE(val: Tgsize): Tgssize;
+  function GSIZE_TO_BE(val: Tgsize): Tgsize;
+  function GSSIZE_TO_BE(val: Tgsize): Tgssize;
 
 {$ENDIF read_interface}
 
@@ -309,24 +368,24 @@ begin
   G_GOFFSET_CONSTANT := G_GINT64_CONSTANT(val);
 end;
 
-function GPOINTER_TO_INT(p: Tgpointer): Tgint;
+function GPOINTER_TO_INT(p: Tgpointer): Tgint64;
 begin
-  GPOINTER_TO_INT := Tgint(Tglong(p));
+  GPOINTER_TO_INT := Tgint64(p);
 end;
 
-function GPOINTER_TO_UINT(p: Tgpointer): Tguint;
+function GPOINTER_TO_UINT(p: Tgpointer): Tguint64;
 begin
-  GPOINTER_TO_UINT := Tguint(Tgulong(p));
+  GPOINTER_TO_UINT := Tguint64(p);
 end;
 
-function GINT_TO_POINTER(i: Tgint): Tgpointer;
+function GINT_TO_POINTER(i: Tgint64): Tgpointer;
 begin
-  GINT_TO_POINTER := Tgpointer(Tglong(i));
+  GINT_TO_POINTER := Tgpointer(i);
 end;
 
-function GUINT_TO_POINTER(u: Tguint): Tgpointer;
+function GUINT_TO_POINTER(u: Tguint64): Tgpointer;
 begin
-  GUINT_TO_POINTER := Tgpointer(Tgulong(u));
+  GUINT_TO_POINTER := Tgpointer(u);
 end;
 
 function GINT16_TO_LE(val: Tgint16): Tgint16;

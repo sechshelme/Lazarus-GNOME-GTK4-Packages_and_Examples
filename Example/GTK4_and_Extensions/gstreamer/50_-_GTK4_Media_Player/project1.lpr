@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  ctypes,
   fp_glib2,
   fp_cairo,
   fp_GTK4,
@@ -228,7 +227,7 @@ uses
     g_object_unref(action);
   end;
 
-  procedure main(argc: cint; argv: PPChar);
+  procedure main(argc: Integer; argv: PPChar);
   var
     app: PGtkApplication;
   begin

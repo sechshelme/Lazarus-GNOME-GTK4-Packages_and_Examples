@@ -101,7 +101,7 @@ procedure g_assertion_message_cmpstrv(domain: pchar; file_: pchar; line: longint
 procedure g_assertion_message_cmpint(domain: pchar; file_: pchar; line: longint; func: pchar; expr: pchar;
   arg1: Tguint64; cmp: pchar; arg2: Tguint64; numtype: char); cdecl; external libglib2;
 procedure g_assertion_message_cmpnum(domain: pchar; file_: pchar; line: longint; func: pchar; expr: pchar;
-  arg1: clongdouble; cmp: pchar; arg2: clongdouble; numtype: char); cdecl; external libglib2;
+  arg1: TLongDouble; cmp: pchar; arg2: TLongDouble; numtype: char); cdecl; external libglib2;
 procedure g_assertion_message_error(domain: pchar; file_: pchar; line: longint; func: pchar; expr: pchar;
   error: PGError; error_domain: TGQuark; error_code: longint); cdecl; external libglib2;
 procedure g_test_add_vtable(testpath: pchar; data_size: Tgsize; test_data: Tgconstpointer; data_setup: TGTestFixtureFunc; data_test: TGTestFixtureFunc;
@@ -155,7 +155,7 @@ type
     n_strings: Tguint;
     strings: ^Pgchar;
     n_nums: Tguint;
-    nums: Pclongdouble;
+    nums: PLongDouble;
   end;
   PGTestLogMsg = ^TGTestLogMsg;
 

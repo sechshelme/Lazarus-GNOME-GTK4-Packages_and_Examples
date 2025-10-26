@@ -197,7 +197,7 @@ function g_idle_remove_by_data(Data: Tgpointer): Tgboolean; cdecl; external libg
 procedure g_main_context_invoke_full(context: PGMainContext; priority: Tgint; _function: TGSourceFunc; Data: Tgpointer; notify: TGDestroyNotify); cdecl; external libglib2;
 procedure g_main_context_invoke(context: PGMainContext; _function: TGSourceFunc; Data: Tgpointer); cdecl; external libglib2;
 
-function g_steal_fd(fd_ptr: pcint): cint;
+function g_steal_fd(fd_ptr: PInteger): Integer;
 
 
 var
@@ -227,9 +227,9 @@ var
 
 {$IFDEF read_implementation}
 
-function g_steal_fd(fd_ptr: pcint): cint;
+function g_steal_fd(fd_ptr: PInteger): Integer;
 var
-  fd: cint;
+  fd: Integer;
 begin
   fd := fd_ptr^;
   fd_ptr^ := -1;

@@ -66,9 +66,9 @@ type
     case longint of
       //        0 : ( __data : T_pthread_mutex_s );
       1: (__size: array[0..40 - 1] of char);
-      2: (__align: culong);
+      2: (__align: UInt64);
   end;
-  Tpthread_t = culong;
+  Tpthread_t = UInt64;
 
 
 type

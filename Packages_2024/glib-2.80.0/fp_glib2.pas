@@ -2,11 +2,10 @@ unit fp_glib2;
 
 interface
 
+{$ifdef linux}
 uses
-  {$ifdef linux}
-  x, xlib,
+  x, xlib;
   {$endif}
-  ctypes;
 
 const
   {$IFDEF Linux}
@@ -29,6 +28,14 @@ const
 
   // ==== glib2
 type
+  {$IFDEF Linux}
+  TLongDouble = extended;
+  {$ENDIF}
+  {$IFDEF Windows}
+  TLongDouble = double;
+  {$ENDIF}
+  PLongDouble = ^TLongDouble;
+
   Tsize_t = SizeUInt;
   Ttime_t = int64; // types.h
   Ptime_t = ^Ttime_t;
