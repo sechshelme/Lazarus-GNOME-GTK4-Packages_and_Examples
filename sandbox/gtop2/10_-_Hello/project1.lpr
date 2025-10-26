@@ -1,68 +1,19 @@
 program project1;
 
 uses
-  libgtopconfig,
-  glibtop_machine,
-  glibtop_server,
-  glibtop,
-  glibtop_suid,
+  fp_gtop2,
+  fp_glib2;
 
-  sysdeps,
+  function mb(n: Tguint64): Tguint64;
+  begin
+    Result := n shr 20;;
+  end;
 
-close,
-cpu,
-disk,
-fsusage,
-loadavg,
-mem,
-mountlist,
-msg_limits,
-netlist,
-netload,
-ppp,
-procaffinity,
-procargs,
-procio,
-prockernel,
-proclist,
-procmap,
-procmem,
-procopenfiles,
-procsegment,
-procsignal,
-procstate,
-proctime,           // cpu
-procuid,
-procwd,
-sem_limits,
-shm_limits,
-swap,
-uptime,
-
-  union,              // cpu, disk, ...
-  command,            // union
-
-  global,
-  //gnuserv,
-//open,
-//parameter,
-  //signal,
-  //sysdeps,
-  //sysinfo,
-
-  fp_glib2,
-  fp_libgtop2;
-
-function mb(n:Tguint64):Tguint64;
-begin
-    Result:=n shr 20;;
-end;
-
-procedure main;
-var
-  mem: Tglibtop_mem;
-  swap: Tglibtop_swap;
-begin
+  procedure main;
+  var
+    mem: Tglibtop_mem;
+    swap: Tglibtop_swap;
+  begin
     glibtop_init;
 
     glibtop_get_mem(@mem);
@@ -80,7 +31,8 @@ begin
     g_printf('  Frei: %lu'#10, mb(swap.free));
 
     glibtop_close();
-end;
+  end;
+
 begin
-    main;
+  main;
 end.
