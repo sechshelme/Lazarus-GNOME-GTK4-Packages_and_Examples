@@ -29,8 +29,7 @@ type
   PTickitMockTermLogEntry = ^TTickitMockTermLogEntry;
 
 type
-  PTickitMockTerm = ^TTickitMockTerm;
-  TTickitMockTerm = TTickitTerm;
+  PTickitMockTerm = PTickitTerm;
 
 function tickit_mockterm_new(Lines: longint; cols: longint): PTickitMockTerm; cdecl; external libtickit;
 procedure tickit_mockterm_destroy(mt: PTickitMockTerm); cdecl; external libtickit;

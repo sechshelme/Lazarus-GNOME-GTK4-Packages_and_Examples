@@ -94,13 +94,13 @@ const
 
 type
   Tcurl_socket_callback = function(easy: PCURL; s: Tcurl_socket_t; what: longint; userp: pointer; socketp: pointer): longint; cdecl;
-  Tcurl_multi_timer_callback = function(multi: PCURLM; timeout_ms: longint; userp: pointer): longint; cdecl;
+  Tcurl_multi_timer_callback = function(multi: PCURLM; timeout_ms: Tclong; userp: pointer): longint; cdecl;
 
 function curl_multi_socket(multi_handle: PCURLM; s: Tcurl_socket_t; running_handles: Plongint): TCURLMcode; cdecl; external libcurl;
 function curl_multi_socket_action(multi_handle: PCURLM; s: Tcurl_socket_t; ev_bitmask: longint; running_handles: Plongint): TCURLMcode; cdecl; external libcurl;
 function curl_multi_socket_all(multi_handle: PCURLM; running_handles: Plongint): TCURLMcode; cdecl; external libcurl; deprecated;
 
-function curl_multi_timeout(multi_handle: PCURLM; milliseconds: Plongint): TCURLMcode; cdecl; external libcurl;
+function curl_multi_timeout(multi_handle: PCURLM; milliseconds: Pclong): TCURLMcode; cdecl; external libcurl;
 
 type
   PCURLMoption = ^TCURLMoption;

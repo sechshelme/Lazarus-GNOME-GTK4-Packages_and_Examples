@@ -170,16 +170,6 @@
 ./gmp_6.3.0/C-include/gmp.h:__GMP_DECLSPEC unsigned long gmp_urandomm_ui (gmp_randstate_ptr, unsigned long);
 
 
-./tickit-0.4.3/C-include/tickit.h:void tickit_term_await_started_msec(TickitTerm *tt, long msec);
-./tickit-0.4.3/C-include/tickit.h:void tickit_term_input_wait_msec(TickitTerm *tt, long msec);
-
-
-./systemd_255.4/C-include/systemd/sd-daemon.h:                   (unsigned long) getpid());
-
-./systemd_255.4/C-include/libudev/C-include/libudev.h:unsigned long long int udev_device_get_seqnum(struct udev_device *udev_device);
-./systemd_255.4/C-include/libudev/C-include/libudev.h:unsigned long long int udev_device_get_usec_since_initialized(struct udev_device *udev_device);
-
-
 ./xml2.9.14/C-include/xmlreader.h:XMLPUBFUN long XMLCALL
 ./xml2.9.14/C-include/xmlschemastypes.h:						 unsigned long actualLen,
 ./xml2.9.14/C-include/xmlschemastypes.h:						 unsigned long *expectedLen);
@@ -212,10 +202,4 @@
 ./xml2.9.14/C-include/tree.h:XMLPUBFUN unsigned long XMLCALL
 
 
-./curl_8.5.0/C-include/curl.h:  long namelength;                  /* length of name length */
-./curl_8.5.0/C-include/curl.h:  long contentslength;              /* length of contents field, see also
-
-
-./curl_8.5.0/C-include/multi.h:                                         long timeout_ms, /* see above */
-./curl_8.5.0/C-include/multi.h:                                         long *milliseconds);
 

@@ -10,9 +10,7 @@ uses
   {$ENDIF}
 
 type
-  TTickitWatch = record
-  end;
-  PTickitWatch = ^TTickitWatch;
+  PTickitWatch = type Pointer;
 
   TTickitEventHooks = record
     init: function(t: PTickit; initdata: pointer): pointer; cdecl;

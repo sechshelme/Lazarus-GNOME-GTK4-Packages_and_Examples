@@ -1,27 +1,6 @@
-microhttpd-1.0.0/C-include/microhttpd.h:     License along with this library; if not, write to the Free Software
-microhttpd-1.0.0/C-include/microhttpd.h: * Not all architectures and `printf()`'s support the `long long` type.
-microhttpd-1.0.0/C-include/microhttpd.h: * This gives the ability to replace `long long` with just a `long`,
-microhttpd-1.0.0/C-include/microhttpd.h:#define MHD_LONG_LONG long long
-microhttpd-1.0.0/C-include/microhttpd.h:#define MHD_UNSIGNED_LONG_LONG unsigned long long
-microhttpd-1.0.0/C-include/microhttpd.h:   * parsing will no longer contain the options, which maybe inconvenient for
-microhttpd-1.0.0/C-include/microhttpd.h:   * note that if you return non-NULL, you can no longer
-microhttpd-1.0.0/C-include/microhttpd.h:   * resources for the SYN packet along with its DATA.  This option should be
-microhttpd-1.0.0/C-include/microhttpd.h:   * No longer supported (will return NULL).
-microhttpd-1.0.0/C-include/microhttpd.h:   * No longer supported (will return NULL).
-microhttpd-1.0.0/C-include/microhttpd.h:   * Waiting on epoll FD must not block longer than value
-microhttpd-1.0.0/C-include/microhttpd.h: * this call and must no longer be used directly by the application
-microhttpd-1.0.0/C-include/microhttpd.h: *                 comes earlier) or longer (if data processing requires more
-microhttpd-1.0.0/C-include/microhttpd.h: * information and then be used any number of times (as long as the
-microhttpd-1.0.0/C-include/microhttpd.h: * database to save the "userhash" alongside with the username (preferably) or
-microhttpd-1.0.0/C-include/microhttpd.h: * username (this will cause delays at the start with the long lists).
-microhttpd-1.0.0/C-include/microhttpd.h: *                     at least #MHD_digest_get_hash_size(algo3) bytes long
-microhttpd-1.0.0/C-include/microhttpd.h: * database to save the "userhash" alongside with the username (preferably) or
-microhttpd-1.0.0/C-include/microhttpd.h: * username (this will cause delays at the start with the long lists).
-microhttpd-1.0.0/C-include/microhttpd.h: *                          #MHD_digest_get_hash_size(algo3)*2 chars long
-microhttpd-1.0.0/C-include/microhttpd.h: *                     at least #MHD_digest_get_hash_size(algo3)*2+1 chars long
-microhttpd-1.0.0/C-include/microhttpd.h:   * long.
-microhttpd-1.0.0/C-include/microhttpd.h:   * characters long.
-microhttpd-1.0.0/C-include/microhttpd.h:   * long.
-microhttpd-1.0.0/C-include/microhttpd.h: *                     at least #MHD_digest_get_hash_size(algo3) bytes long
-microhttpd-1.0.0/C-include/microhttpd.h:   * Size of the key, no longer supported.
-microhttpd-1.0.0/C-include/microhttpd.h:   * Size of the mac key, no longer supported.
+tickit-0.4.3/C-include/tickit.h:void tickit_term_await_started_msec(TickitTerm *tt, long msec);
+tickit-0.4.3/C-include/tickit.h:void tickit_term_input_wait_msec(TickitTerm *tt, long msec);
+tickit-0.4.3/C-include/tickit.h:int tickit_utf8_seqlen(long codepoint);
+tickit-0.4.3/C-include/tickit.h:size_t tickit_utf8_put(char *str, size_t len, long codepoint);
+tickit-0.4.3/C-include/tickit.h:void tickit_renderbuffer_char_at(TickitRenderBuffer *rb, int line, int col, long codepoint);
+tickit-0.4.3/C-include/tickit.h:void tickit_renderbuffer_char(TickitRenderBuffer *rb, long codepoint);

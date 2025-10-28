@@ -64,15 +64,15 @@ type
   Tcurl_httppost = record
     next: Pcurl_httppost;
     name: pchar;
-    namelength: longint;
+    namelength: Tclong;
     contents: pchar;
-    contentslength: longint;
+    contentslength: Tclong;
     buffer: pchar;
-    bufferlength: longint;
+    bufferlength: Tclong;
     contenttype: pchar;
     contentheader: Pcurl_slist;
     more: Pcurl_httppost;
-    flags: longint;
+    flags: Tclong;
     showfilename: pchar;
     userp: pointer;
     contentlen: Tcurl_off_t;
@@ -137,7 +137,7 @@ type
     uid: longint;
     gid: longint;
     size: Tcurl_off_t;
-    hardlinks: longint;
+    hardlinks: Tclong;
     strings: record
       time: pchar;
       perm: pchar;
@@ -158,14 +158,14 @@ const
   CURL_CHUNK_BGN_FUNC_SKIP = 2;
 
 type
-  Tcurl_chunk_bgn_callback = function(transfer_info: pointer; ptr: pointer; remains: longint): longint; cdecl;
+  Tcurl_chunk_bgn_callback = function(transfer_info: pointer; ptr: pointer; remains: longint): Tclong; cdecl;
 
 const
   CURL_CHUNK_END_FUNC_OK = 0;
   CURL_CHUNK_END_FUNC_FAIL = 1;
 
 type
-  Tcurl_chunk_end_callback = function(ptr: pointer): longint; cdecl;
+  Tcurl_chunk_end_callback = function(ptr: pointer): Tclong; cdecl;
 
 const
   CURL_FNMATCHFUNC_MATCH = 0;
@@ -437,18 +437,18 @@ const
   CURLPROXY_SOCKS5_HOSTNAME = 7;
 
 const
-  CURLAUTH_NONE = dword(0);
-  CURLAUTH_BASIC = dword(1) shl 0;
-  CURLAUTH_DIGEST = dword(1) shl 1;
-  CURLAUTH_NEGOTIATE = dword(1) shl 2;
-  CURLAUTH_NTLM = dword(1) shl 3;
-  CURLAUTH_DIGEST_IE = dword(1) shl 4;
-  CURLAUTH_NTLM_WB = dword(1) shl 5;
-  CURLAUTH_BEARER = dword(1) shl 6;
-  CURLAUTH_AWS_SIGV4 = dword(1) shl 7;
-  CURLAUTH_ONLY = dword(1) shl 31;
+  CURLAUTH_NONE = Tculong(0);
+  CURLAUTH_BASIC = Tculong(1) shl 0;
+  CURLAUTH_DIGEST = Tculong(1) shl 1;
+  CURLAUTH_NEGOTIATE = Tculong(1) shl 2;
   CURLAUTH_GSSNEGOTIATE = CURLAUTH_NEGOTIATE;
   CURLAUTH_GSSAPI = CURLAUTH_NEGOTIATE;
+  CURLAUTH_NTLM = Tculong(1) shl 3;
+  CURLAUTH_DIGEST_IE = Tculong(1) shl 4;
+  CURLAUTH_NTLM_WB = Tculong(1) shl 5;
+  CURLAUTH_BEARER = Tculong(1) shl 6;
+  CURLAUTH_AWS_SIGV4 = Tculong(1) shl 7;
+  CURLAUTH_ONLY = Tculong(1) shl 31;
 
   CURLAUTH_ANY = not (CURLAUTH_DIGEST_IE);
   CURLAUTH_ANYSAFE = not (CURLAUTH_BASIC or CURLAUTH_DIGEST_IE);
@@ -612,8 +612,8 @@ type
   Tcurl_hstswrite_callback = function(easy: PCURL; e: Pcurl_hstsentry; i: Pcurl_index; userp: pointer): TCURLSTScode; cdecl;
 
 const
-  CURLHSTS_ENABLE = longint(1 shl 0);
-  CURLHSTS_READONLYFILE = longint(1 shl 1);
+  CURLHSTS_ENABLE = Tclong(1 shl 0);
+  CURLHSTS_READONLYFILE = Tclong(1 shl 1);
 
 const
   CURLPROTO_HTTP = 1 shl 0;
@@ -1204,8 +1204,8 @@ function curl_escape(_string: pchar; length: longint): pchar; cdecl; external li
 function curl_easy_unescape(handle: PCURL; _string: pchar; length: longint; outlength: Plongint): pchar; cdecl; external libcurl;
 function curl_unescape(_string: pchar; length: longint): pchar; cdecl; external libcurl;
 procedure curl_free(p: pointer); cdecl; external libcurl;
-function curl_global_init(flags: longint): TCURLcode; cdecl; external libcurl;
-function curl_global_init_mem(flags: longint; m: Tcurl_malloc_callback; f: Tcurl_free_callback; r: Tcurl_realloc_callback; s: Tcurl_strdup_callback;
+function curl_global_init(flags: Tclong): TCURLcode; cdecl; external libcurl;
+function curl_global_init_mem(flags: Tclong; m: Tcurl_malloc_callback; f: Tcurl_free_callback; r: Tcurl_realloc_callback; s: Tcurl_strdup_callback;
   c: Tcurl_calloc_callback): TCURLcode; cdecl; external libcurl;
 procedure curl_global_cleanup; cdecl; external libcurl;
 function curl_global_trace(config: pchar): TCURLcode; cdecl; external libcurl;
@@ -1449,7 +1449,7 @@ type
     host: pchar;
     features: longint;
     ssl_version: pchar;
-    ssl_version_num: longint;
+    ssl_version_num: Tclong;
     libz_version: pchar;
     protocols: ^pchar;
     ares: pchar;

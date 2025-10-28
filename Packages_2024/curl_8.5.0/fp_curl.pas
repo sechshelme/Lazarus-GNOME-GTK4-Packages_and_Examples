@@ -2,11 +2,6 @@ unit fp_curl;
 
 interface
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
-
-
 const
   {$IFDEF unix}
   libcurl = 'libcurl';
@@ -15,6 +10,23 @@ const
   {$IFDEF mswindows}
   libcurl = 'libcurl.dll'; // ????
   {$ENDIF}
+
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
+type
+  {$IFDEF unix}
+  Tclong = int64;
+  Tculong = uint64;
+  {$ENDIF}
+
+  {$IFDEF mswindows}
+  Tclong = int32;
+  Tculong = uint32;
+  {$ENDIF}
+  Pclong = ^Tclong;
+  Pculong = ^Tculong;
 
 
 type

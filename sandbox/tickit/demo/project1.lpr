@@ -11,8 +11,6 @@ uses
   procedure free(ptr: Pointer); cdecl; external 'c';
   function strdup(s: pchar): pchar; cdecl; external 'c';
 
-
-
 var
   lastkey: TTickitKeyEventInfo;
   lastmouse: TTickitMouseEventInfo;

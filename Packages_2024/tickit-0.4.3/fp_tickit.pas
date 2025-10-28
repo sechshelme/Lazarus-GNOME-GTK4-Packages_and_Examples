@@ -2,10 +2,6 @@ unit fp_tickit;
 
 interface
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
-
 const
   {$IFDEF Linux}
   libtickit = 'libtickit';
@@ -14,6 +10,20 @@ const
   {$IFDEF mswindows}
   libtickit = 'tickit.dll'; // ???
   {$ENDIF}
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+type
+  {$IFDEF Linux}
+  Tclong=Int64;
+  {$ENDIF}
+
+  {$IFDEF mswindows}
+  Tclong=Int32;
+  {$ENDIF}
+
 
 type
   Tpid_t = integer;
@@ -45,42 +55,16 @@ function tickit_version_minor: longint; cdecl; external libtickit;
 function tickit_version_patch: longint; cdecl; external libtickit;
 
 type
-  PTickitPen = ^TTickitPen;
-  TTickitPen = record
-  end;
-
-  PTickitRectSet = ^TTickitRectSet;
-  TTickitRectSet = record
-  end;
-
-  PTickitRenderBuffer = ^TTickitRenderBuffer;
-  TTickitRenderBuffer = record
-  end;
-
-  PTickitString = ^TTickitString;
-  TTickitString = record
-  end;
-
-  PTickitTerm = ^TTickitTerm;
-  TTickitTerm = record
-  end;
-
+  PTickitPen = type Pointer;
+  PTickitRectSet = type Pointer;
+  PTickitRenderBuffer = type Pointer;
+  PTickitString = type Pointer;
+  PTickitTerm = type Pointer;
+  PTickitWindow = type Pointer;
   PPTickitWindow = ^PTickitWindow;
-  PTickitWindow = ^TTickitWindow;
-  TTickitWindow = record
-  end;
-
-  PTickit = ^TTickit;
-  TTickit = record
-  end;
-
-  PTickitTermDriver = ^TTickitTermDriver;
-  TTickitTermDriver = record
-  end;
-
-  PTickitEventHooks = ^TTickitEventHooks;
-  TTickitEventHooks = record
-  end;
+  PTickit = type Pointer;
+  PTickitTermDriver = type Pointer;
+  PTickitEventHooks = type Pointer;
 
 type
   TTickitRect = record
@@ -128,12 +112,11 @@ const
   TICKIT_IO_INVAL = 1 shl 4;
 
 type
-  PTickitIOWatchInfo = ^TTickitIOWatchInfo;
-
   TTickitIOWatchInfo = record
     fd: longint;
     cond: TTickitIOCondition;
   end;
+  PTickitIOWatchInfo = ^TTickitIOWatchInfo;
 
   PTickitLineCaps = ^TTickitLineCaps;
   TTickitLineCaps = longint;
@@ -362,6 +345,7 @@ type
   end;
   PTickitExposeEventInfo = ^TTickitExposeEventInfo;
 
+type
   PTickitFocusEventType = ^TTickitFocusEventType;
   TTickitFocusEventType = longint;
 
@@ -414,6 +398,7 @@ procedure tickit_pen_copy(dst: PTickitPen; src: PTickitPen; overwrite: Tbool); c
 type
   TTickitPenEventFn = function(tt: PTickitPen; flags: TTickitEventFlags; info: pointer; user: pointer): longint; cdecl;
 
+type
   PTickitPenEvent = ^TTickitPenEvent;
   TTickitPenEvent = longint;
 
@@ -502,7 +487,7 @@ procedure tickit_term_set_output_fd(tt: PTickitTerm; fd: longint); cdecl; extern
 function tickit_term_get_output_fd(tt: PTickitTerm): longint; cdecl; external libtickit;
 procedure tickit_term_set_output_func(tt: PTickitTerm; fn: TTickitTermOutputFunc; user: pointer); cdecl; external libtickit;
 procedure tickit_term_set_output_buffer(tt: PTickitTerm; len: Tsize_t); cdecl; external libtickit;
-procedure tickit_term_await_started_msec(tt: PTickitTerm; msec: longint); cdecl; external libtickit;
+procedure tickit_term_await_started_msec(tt: PTickitTerm; msec: Tclong); cdecl; external libtickit;
 procedure tickit_term_await_started_tv(tt: PTickitTerm; timeout: Ptimeval); cdecl; external libtickit;
 procedure tickit_term_flush(tt: PTickitTerm); cdecl; external libtickit;
 procedure tickit_term_pause(tt: PTickitTerm); cdecl; external libtickit;
@@ -514,7 +499,7 @@ procedure tickit_term_set_utf8(tt: PTickitTerm; utf8: Tbool); cdecl; external li
 procedure tickit_term_input_push_bytes(tt: PTickitTerm; bytes: pchar; len: Tsize_t); cdecl; external libtickit;
 procedure tickit_term_input_readable(tt: PTickitTerm); cdecl; external libtickit;
 function tickit_term_input_check_timeout_msec(tt: PTickitTerm): longint; cdecl; external libtickit;
-procedure tickit_term_input_wait_msec(tt: PTickitTerm; msec: longint); cdecl; external libtickit;
+procedure tickit_term_input_wait_msec(tt: PTickitTerm; msec: Tclong); cdecl; external libtickit;
 procedure tickit_term_input_wait_tv(tt: PTickitTerm; timeout: Ptimeval); cdecl; external libtickit;
 procedure tickit_term_get_size(tt: PTickitTerm; Lines: Plongint; cols: Plongint); cdecl; external libtickit;
 procedure tickit_term_set_size(tt: PTickitTerm; Lines: longint; cols: longint); cdecl; external libtickit;
@@ -524,6 +509,7 @@ procedure tickit_term_observe_sigwinch(tt: PTickitTerm; observe: Tbool); cdecl; 
 type
   TTickitTermEventFn = function(tt: PTickitTerm; flags: TTickitEventFlags; info: pointer; user: pointer): longint; cdecl;
 
+type
   PTickitTermEvent = ^TTickitTermEvent;
   TTickitTermEvent = longint;
 
@@ -557,7 +543,7 @@ function tickit_termctl_type(ctl: TTickitTermCtl): TTickitType; cdecl; external 
 function tickit_term_ctlname(ctl: TTickitTermCtl): pchar; cdecl; external libtickit; deprecated;
 function tickit_term_lookup_ctl(Name: pchar): TTickitTermCtl; cdecl; external libtickit; deprecated;
 function tickit_term_ctltype(ctl: TTickitTermCtl): TTickitType; cdecl; external libtickit; deprecated;
-function tickit_utf8_seqlen(codepoint: longint): longint; cdecl; external libtickit;
+function tickit_utf8_seqlen(codepoint: Tclong): longint; cdecl; external libtickit;
 function tickit_utf8_put(str: pchar; len: Tsize_t; codepoint: longint): Tsize_t; cdecl; external libtickit;
 function tickit_utf8_count(str: pchar; pos: PTickitStringPos; limit: PTickitStringPos): Tsize_t; cdecl; external libtickit;
 function tickit_utf8_countmore(str: pchar; pos: PTickitStringPos; limit: PTickitStringPos): Tsize_t; cdecl; external libtickit;
@@ -600,8 +586,8 @@ procedure tickit_renderbuffer_erase(rb: PTickitRenderBuffer; cols: longint); cde
 procedure tickit_renderbuffer_erase_to(rb: PTickitRenderBuffer; col: longint); cdecl; external libtickit;
 procedure tickit_renderbuffer_eraserect(rb: PTickitRenderBuffer; rect: PTickitRect); cdecl; external libtickit;
 procedure tickit_renderbuffer_clear(rb: PTickitRenderBuffer); cdecl; external libtickit;
-procedure tickit_renderbuffer_char_at(rb: PTickitRenderBuffer; line: longint; col: longint; codepoint: longint); cdecl; external libtickit;
-procedure tickit_renderbuffer_char(rb: PTickitRenderBuffer; codepoint: longint); cdecl; external libtickit;
+procedure tickit_renderbuffer_char_at(rb: PTickitRenderBuffer; line: longint; col: longint; codepoint: Tclong); cdecl; external libtickit;
+procedure tickit_renderbuffer_char(rb: PTickitRenderBuffer; codepoint: Tclong); cdecl; external libtickit;
 procedure tickit_renderbuffer_hline_at(rb: PTickitRenderBuffer; line: longint; startcol: longint; endcol: longint; style: TTickitLineStyle;
   caps: TTickitLineCaps); cdecl; external libtickit;
 procedure tickit_renderbuffer_vline_at(rb: PTickitRenderBuffer; startline: longint; endline: longint; col: longint; style: TTickitLineStyle;
@@ -652,6 +638,7 @@ procedure tickit_window_unref(win: PTickitWindow); cdecl; external libtickit;
 type
   TTickitWindowEventFn = function(win: PTickitWindow; flags: TTickitEventFlags; info: pointer; user: pointer): longint; cdecl;
 
+type
   PTickitWindowEvent = ^TTickitWindowEvent;
   TTickitWindowEvent = longint;
 
