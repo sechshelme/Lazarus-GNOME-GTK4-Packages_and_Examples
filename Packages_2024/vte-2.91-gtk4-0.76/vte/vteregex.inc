@@ -15,10 +15,10 @@ const
 function vte_regex_ref(regex: PVteRegex): PVteRegex; cdecl; external libvte_2_91_gtk4;
 function vte_regex_unref(regex: PVteRegex): PVteRegex; cdecl; external libvte_2_91_gtk4;
 function vte_regex_new_for_match(pattern: pchar; pattern_length: Tgssize; flags: Tguint32; error: PPGError): PVteRegex; cdecl; external libvte_2_91_gtk4;
-function vte_regex_new_for_match_full(pattern: pchar; pattern_length: Tgssize; flags: Tuint32_t; extra_flags: Tuint32_t; error_offset: Pgsize;
+function vte_regex_new_for_match_full(pattern: pchar; pattern_length: Tgssize; flags: Tguint32; extra_flags: Tguint32; error_offset: Pgsize;
   error: PPGError): PVteRegex; cdecl; external libvte_2_91_gtk4;
 function vte_regex_new_for_search(pattern: pchar; pattern_length: Tgssize; flags: Tguint32; error: PPGError): PVteRegex; cdecl; external libvte_2_91_gtk4;
-function vte_regex_new_for_search_full(pattern: pchar; pattern_length: Tgssize; flags: Tuint32_t; extra_flags: Tuint32_t; error_offset: Pgsize;
+function vte_regex_new_for_search_full(pattern: pchar; pattern_length: Tgssize; flags: Tguint32; extra_flags: Tguint32; error_offset: Pgsize;
   error: PPGError): PVteRegex; cdecl; external libvte_2_91_gtk4;
 function vte_regex_jit(regex: PVteRegex; flags: Tguint32; error: PPGError): Tgboolean; cdecl; external libvte_2_91_gtk4;
 function vte_regex_substitute(regex: PVteRegex; subject: pchar; replacement: pchar; flags: Tguint32; error: PPGError): pchar; cdecl; external libvte_2_91_gtk4;

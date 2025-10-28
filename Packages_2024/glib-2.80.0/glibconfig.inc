@@ -16,9 +16,6 @@ type
   Tgshort = int16;
   Pgshort = ^Tgshort;
 
-  Tglong = int64;
-  Pglong = ^Tglong;
-
   Tgint = int32;
   Pgint = ^Tgint;
   PPgint = ^Pgint;
@@ -34,11 +31,14 @@ type
   Pgushort = ^Tgushort;
 
   {$IFDEF Linux}
+  Tglong = int64;
   Tgulong = int64;
   {$ENDIF}
   {$IFDEF Windows}
+  Tglong = int32;
   Tgulong = int32;
   {$ENDIF}
+  Pglong = ^Tglong;
   Pgulong = ^Tgulong;
 
   Tguint = uint32;

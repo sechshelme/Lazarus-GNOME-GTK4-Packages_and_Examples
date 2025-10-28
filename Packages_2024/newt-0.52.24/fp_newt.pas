@@ -299,7 +299,7 @@ procedure newtEntrySetColors(co: PnewtComponent; normal: longint; disabled: long
 function newtEntryGetCursorPosition(co: PnewtComponent): longint; cdecl; external libnewt;
 procedure newtEntrySetCursorPosition(co: PnewtComponent; position: longint); cdecl; external libnewt;
 function newtScale(left: longint; top: longint; Width: longint; fullValue: int64): PnewtComponent; cdecl; external libnewt;
-procedure newtScaleSet(co: PnewtComponent; amount: qword); cdecl; external libnewt;
+procedure newtScaleSet(co: PnewtComponent; amount: uint64); cdecl; external libnewt;
 procedure newtScaleSetColors(co: PnewtComponent; empty: longint; full: longint); cdecl; external libnewt;
 procedure newtComponentAddCallback(co: PnewtComponent; f: TnewtCallback; Data: pointer); cdecl; external libnewt;
 procedure newtComponentTakesFocus(co: PnewtComponent; val: longint); cdecl; external libnewt;

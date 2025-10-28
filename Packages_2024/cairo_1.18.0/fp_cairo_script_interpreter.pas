@@ -10,26 +10,16 @@ uses
   {$ENDIF}
 
 type
-  Tcairo_script_interpreter_t = Pointer;
+  Tcairo_script_interpreter_t = type Pointer;
   Pcairo_script_interpreter_t = ^Tcairo_script_interpreter_t;
   Tcairo_script_interpreter = Tcairo_script_interpreter_t;
 
   Tcsi_destroy_func_t = procedure(closure: pointer; ptr: pointer); cdecl;
-
-  Pcsi_surface_create_func_t = ^Tcsi_surface_create_func_t;
-  Tcsi_surface_create_func_t = function(closure: pointer; content: Tcairo_content_t; Width: double; Height: double; uid: longint): Pcairo_surface_t; cdecl;
-
-  Pcsi_context_create_func_t = ^Tcsi_context_create_func_t;
+  Tcsi_surface_create_func_t = function(closure: pointer; content: Tcairo_content_t; Width: double; Height: double; uid: Tlong): Pcairo_surface_t; cdecl;
   Tcsi_context_create_func_t = function(closure: pointer; surface: Pcairo_surface_t): Pcairo_t; cdecl;
-
   Tcsi_show_page_func_t = procedure(closure: pointer; cr: Pcairo_t); cdecl;
-
   Tcsi_copy_page_func_t = procedure(closure: pointer; cr: Pcairo_t); cdecl;
-
-  Pcsi_create_source_image_t = ^Tcsi_create_source_image_t;
-  Tcsi_create_source_image_t = function(closure: pointer; format: Tcairo_format_t; Width: longint; Height: longint; uid: longint): Pcairo_surface_t; cdecl;
-
-  Pcairo_script_interpreter_hooks = ^Tcairo_script_interpreter_hooks;
+  Tcsi_create_source_image_t = function(closure: pointer; format: Tcairo_format_t; Width: longint; Height: longint; uid: Tlong): Pcairo_surface_t; cdecl;
 
   Tcairo_script_interpreter_hooks = record
     closure: pointer;
@@ -41,6 +31,8 @@ type
     copy_page: Tcsi_copy_page_func_t;
     create_source_image: Tcsi_create_source_image_t;
   end;
+  Pcairo_script_interpreter_hooks = ^Tcairo_script_interpreter_hooks;
+
   Tcairo_script_interpreter_hooks_t = Tcairo_script_interpreter_hooks;
   Pcairo_script_interpreter_hooks_t = ^Tcairo_script_interpreter_hooks_t;
 

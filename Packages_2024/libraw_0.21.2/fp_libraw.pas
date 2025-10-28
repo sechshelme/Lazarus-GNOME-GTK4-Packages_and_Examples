@@ -14,6 +14,16 @@ const
   libraw = 'libraw-23.dll';
   {$ENDIF}
 
+type
+  {$IFDEF Linux}
+  Tclong = int64;
+  {$ENDIF}
+
+  {$IFDEF mswindows}
+  Tclong = int32;
+  {$ENDIF}
+
+
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
@@ -849,10 +859,10 @@ type
 
 type
   PINT64 = ^TINT64;
-  TINT64 = int64;
+  TINT64 = Int64;
 
   PUINT64 = ^TUINT64;
-  TUINT64 = qword;
+  TUINT64 = UInt64;
 
 type
   Puchar = ^Tuchar;
@@ -1370,7 +1380,7 @@ type
     black: dword;
     data_maximum: dword;
     maximum: dword;
-    linear_max: array[0..3] of longint;
+    linear_max: array[0..3] of Tclong;
     fmaximum: single;
     fnorm: single;
     white: array[0..7] of array[0..7] of Tushort;

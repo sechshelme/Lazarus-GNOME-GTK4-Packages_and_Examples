@@ -1,7 +1,6 @@
 program project1;
 
 uses
- // stdio,
   fp_newt;
 
   // https://github.com/netkiller/example/blob/master/C/newt/example.c

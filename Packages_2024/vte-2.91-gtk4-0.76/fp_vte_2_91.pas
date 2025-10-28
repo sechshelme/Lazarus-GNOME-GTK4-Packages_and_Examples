@@ -3,7 +3,7 @@ unit fp_vte_2_91;
 interface
 
 uses
-  fp_glib2, fp_GTK4, fp_GDK4, fp_pango, fp_cairo;
+  fp_glib2, fp_GTK4, fp_pango, fp_cairo;
 
 const
   {$IFDEF Linux}

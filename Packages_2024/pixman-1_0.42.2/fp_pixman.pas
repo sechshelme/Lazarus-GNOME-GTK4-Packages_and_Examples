@@ -18,6 +18,15 @@ const
   libpixman = 'libpixman-1-0.dll';
   {$ENDIF}
 
+type
+  {$IFDEF Linux}
+  Tclong = int64;
+  {$ENDIF}
+
+  {$IFDEF mswindows}
+  Tclong = int32;
+  {$ENDIF}
+
   // ==== pixman_version.h
 
 const
@@ -109,8 +118,8 @@ type
 
 type
   Tpixman_region16_data = record
-    size: longint;
-    numRects: longint;
+    size: Tclong;
+    numRects: Tclong;
   end;
   Ppixman_region16_data = ^Tpixman_region16_data;
 
@@ -314,8 +323,8 @@ procedure pixman_region_clear(region: Ppixman_region16); cdecl; external libpixm
 
 type
   Tpixman_region32_data = record
-    size: longint;
-    numRects: longint;
+    size: Tclong;
+    numRects: Tclong;
   end;
   Ppixman_region32_data = ^Tpixman_region32_data;
 
@@ -378,7 +387,6 @@ function pixman_version_string: pchar; cdecl; external libpixman;
 type
   Tpixman_read_memory_func = function(src: pointer; size: longint): uint32; cdecl;
   Tpixman_write_memory_func = procedure(dst: pointer; value: uint32; size: longint); cdecl;
-
   Tpixman_image_destroy_func = procedure(image: Ppixman_image; data: pointer); cdecl;
 
   Tpixman_gradient_stop = record
