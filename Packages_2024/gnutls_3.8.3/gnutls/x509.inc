@@ -337,7 +337,7 @@ type
   Tgnutls_x509_ava_st = record
     oid: Tgnutls_datum_t;
     value: Tgnutls_datum_t;
-    value_tag: dword;
+    value_tag: Tculong;
   end;
   Pgnutls_x509_ava_st = ^Tgnutls_x509_ava_st;
 

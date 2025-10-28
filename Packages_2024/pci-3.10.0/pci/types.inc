@@ -1,4 +1,4 @@
-{$IFDEF read_interface}
+  {$IFDEF read_interface}
 
 
 type
@@ -18,14 +18,26 @@ type
   Ppciaddr_t = ^Tpciaddr_t;
   Tpciaddr_t = Tu64;
 
+const
+  {$ifdef linux}
+  PCI_U64_FMT_X = 'lx';
+  PCI_U64_FMT_U = 'lu';
+  {$endif}
+
+  {$ifdef windows}
+  PCI_U64_FMT_X = 'llx';
+  PCI_U64_FMT_U = 'llu';
+  {$endif}
+
+
   // === Konventiert am: 28-6-25 19:49:19 ===
 
 
-{$ENDIF read_interface}
+  {$ENDIF read_interface}
 
 
-{$IFDEF read_implementation}
+  {$IFDEF read_implementation}
 
 
 
-{$ENDIF read_implementation}
+  {$ENDIF read_implementation}

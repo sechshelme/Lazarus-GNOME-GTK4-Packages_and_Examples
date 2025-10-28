@@ -109,7 +109,7 @@ const
   GNUTLS_PKCS11_OBJ_LIBRARY_DESCRIPTION = 9;
   GNUTLS_PKCS11_OBJ_LIBRARY_MANUFACTURER = 10;
 
-function gnutls_pkcs11_obj_get_ptr(obj: Tgnutls_pkcs11_obj_t; ptr: Ppointer; session: Ppointer; ohandle: Ppointer; slot_id: Pdword;
+function gnutls_pkcs11_obj_get_ptr(obj: Tgnutls_pkcs11_obj_t; ptr: Ppointer; session: Ppointer; ohandle: Ppointer; slot_id: Pculong;
   flags: dword): longint; cdecl; external libgnutls;
 function gnutls_pkcs11_obj_get_info(obj: Tgnutls_pkcs11_obj_t; itype: Tgnutls_pkcs11_obj_info_t; output: pointer; output_size: Psize_t): longint; cdecl; external libgnutls;
 function gnutls_pkcs11_obj_set_info(obj: Tgnutls_pkcs11_obj_t; itype: Tgnutls_pkcs11_obj_info_t; data: pointer; data_size: Tsize_t; flags: dword): longint; cdecl; external libgnutls;
@@ -149,9 +149,9 @@ const
   GNUTLS_PKCS11_OBJ_X509_CRT_EXTENSION = 6;
 
 function gnutls_pkcs11_token_init(token_url: pchar; so_pin: pchar; _label: pchar): longint; cdecl; external libgnutls;
-function gnutls_pkcs11_token_get_ptr(url: pchar; ptr: Ppointer; slot_id: Pdword; flags: dword): longint; cdecl; external libgnutls;
-function gnutls_pkcs11_token_get_mechanism(url: pchar; idx: dword; mechanism: Pdword): longint; cdecl; external libgnutls;
-function gnutls_pkcs11_token_check_mechanism(url: pchar; mechanism: dword; ptr: pointer; psize: dword; flags: dword): dword; cdecl; external libgnutls;
+function gnutls_pkcs11_token_get_ptr(url: pchar; ptr: Ppointer; slot_id: Pculong; flags: dword): longint; cdecl; external libgnutls;
+function gnutls_pkcs11_token_get_mechanism(url: pchar; idx: dword; mechanism: Pculong): longint; cdecl; external libgnutls;
+function gnutls_pkcs11_token_check_mechanism(url: pchar; mechanism: Tculong; ptr: pointer; psize: dword; flags: dword): dword; cdecl; external libgnutls;
 function gnutls_pkcs11_token_set_pin(token_url: pchar; oldpin: pchar; newpin: pchar; flags: dword): longint; cdecl; external libgnutls;
 function gnutls_pkcs11_token_get_url(seq: dword; detailed: Tgnutls_pkcs11_url_type_t; url: PPchar): longint; cdecl; external libgnutls;
 function gnutls_pkcs11_token_get_info(url: pchar; ttype: Tgnutls_pkcs11_token_info_t; output: pointer; output_size: Psize_t): longint; cdecl; external libgnutls;

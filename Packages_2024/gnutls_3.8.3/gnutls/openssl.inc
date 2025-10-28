@@ -87,7 +87,7 @@ type
     certfile_type: longint;
     keyfile: pchar;
     keyfile_type: longint;
-    options: dword;
+    options: Tclong;
     verify_callback: function(para1: longint; para2: PX509_STORE_CTX): longint; cdecl;
     verify_mode: longint;
   end;
@@ -101,7 +101,7 @@ type
     last_error: longint;
     shutdown: longint;
     state: longint;
-    options: dword;
+    options: Tclong;
     verify_callback: function(para1: longint; para2: PX509_STORE_CTX): longint; cdecl;
     verify_mode: longint;
     rfd: Tgnutls_transport_ptr_t;
@@ -109,16 +109,13 @@ type
   end;
 
 type
-  PMD_CTX = ^TMD_CTX;
-
   TMD_CTX = record
     handle: pointer;
   end;
-  Prsa_st = ^Trsa_st;
-  Trsa_st = record
-  end;
+  PMD_CTX = ^TMD_CTX;
 
-  TRSA = Trsa_st;
+  Prsa_st = type Pointer;
+  PRSA = Prsa_st;
 
 type
   TMD5_CTX = TMD_CTX;
@@ -144,19 +141,21 @@ type
   TSSLVerifyCallback = function(preverify_ok: integer; ctx: PX509_STORE_CTX): integer; cdecl;
 
 procedure SSL_CTX_set_verify(ctx: PSSL_CTX; verify_mode: longint; verify_callback: TSSLVerifyCallback); cdecl; external libgnutls;
-function SSL_CTX_set_options(ctx: PSSL_CTX; options: dword): dword; cdecl; external libgnutls;
-function SSL_CTX_set_mode(ctx: PSSL_CTX; mode: longint): longint; cdecl; external libgnutls;
+function SSL_CTX_set_options(ctx: PSSL_CTX; options: Tculong): Tculong; cdecl; external libgnutls;
+function SSL_CTX_set_mode(ctx: PSSL_CTX; mode: Tclong): Tclong; cdecl; external libgnutls;
 function SSL_CTX_set_cipher_list(ctx: PSSL_CTX; list: pchar): longint; cdecl; external libgnutls;
-function SSL_CTX_sess_number(ctx: PSSL_CTX): longint; cdecl; external libgnutls;
-function SSL_CTX_sess_connect(ctx: PSSL_CTX): longint; cdecl; external libgnutls;
-function SSL_CTX_sess_connect_good(ctx: PSSL_CTX): longint; cdecl; external libgnutls;
-function SSL_CTX_sess_connect_renegotiate(ctx: PSSL_CTX): longint; cdecl; external libgnutls;
-function SSL_CTX_sess_accept(ctx: PSSL_CTX): longint; cdecl; external libgnutls;
-function SSL_CTX_sess_accept_good(ctx: PSSL_CTX): longint; cdecl; external libgnutls;
-function SSL_CTX_sess_accept_renegotiate(ctx: PSSL_CTX): longint; cdecl; external libgnutls;
-function SSL_CTX_sess_hits(ctx: PSSL_CTX): longint; cdecl; external libgnutls;
-function SSL_CTX_sess_misses(ctx: PSSL_CTX): longint; cdecl; external libgnutls;
-function SSL_CTX_sess_timeouts(ctx: PSSL_CTX): longint; cdecl; external libgnutls;
+
+function SSL_CTX_sess_number(ctx: PSSL_CTX): Tclong; cdecl; external libgnutls;
+function SSL_CTX_sess_connect(ctx: PSSL_CTX): Tclong; cdecl; external libgnutls;
+function SSL_CTX_sess_connect_good(ctx: PSSL_CTX): Tclong; cdecl; external libgnutls;
+function SSL_CTX_sess_connect_renegotiate(ctx: PSSL_CTX): Tclong; cdecl; external libgnutls;
+function SSL_CTX_sess_accept(ctx: PSSL_CTX): Tclong; cdecl; external libgnutls;
+function SSL_CTX_sess_accept_good(ctx: PSSL_CTX): Tclong; cdecl; external libgnutls;
+function SSL_CTX_sess_accept_renegotiate(ctx: PSSL_CTX): Tclong; cdecl; external libgnutls;
+function SSL_CTX_sess_hits(ctx: PSSL_CTX): Tclong; cdecl; external libgnutls;
+function SSL_CTX_sess_misses(ctx: PSSL_CTX): Tclong; cdecl; external libgnutls;
+function SSL_CTX_sess_timeouts(ctx: PSSL_CTX): Tclong; cdecl; external libgnutls;
+
 function SSL_new(ctx: PSSL_CTX): PSSL; cdecl; external libgnutls;
 procedure SSL_free(ssl: PSSL); cdecl; external libgnutls;
 procedure SSL_load_error_strings; cdecl; external libgnutls;
@@ -194,26 +193,32 @@ function SSLv3_client_method: PSSL_METHOD; cdecl; external libgnutls;
 function SSLv3_server_method: PSSL_METHOD; cdecl; external libgnutls;
 function TLSv1_client_method: PSSL_METHOD; cdecl; external libgnutls;
 function TLSv1_server_method: PSSL_METHOD; cdecl; external libgnutls;
+
 function SSL_get_current_cipher(ssl: PSSL): PSSL_CIPHER; cdecl; external libgnutls;
 function SSL_CIPHER_get_name(cipher: PSSL_CIPHER): pchar; cdecl; external libgnutls;
 function SSL_CIPHER_get_bits(cipher: PSSL_CIPHER; bits: Plongint): longint; cdecl; external libgnutls;
 function SSL_CIPHER_get_version(cipher: PSSL_CIPHER): pchar; cdecl; external libgnutls;
 function SSL_CIPHER_description(cipher: PSSL_CIPHER; buf: pchar; size: longint): pchar; cdecl; external libgnutls;
+
 function X509_get_subject_name(cert: PX509): PX509_NAME; cdecl; external libgnutls;
 function X509_get_issuer_name(cert: PX509): PX509_NAME; cdecl; external libgnutls;
 function X509_NAME_oneline(name: Pgnutls_x509_dn; buf: pchar; len: longint): pchar; cdecl; external libgnutls;
 procedure X509_free(cert: PX509); cdecl; external libgnutls;
+
 procedure BIO_get_fd(gnutls_state: Tgnutls_session_t; fd: Plongint); cdecl; external libgnutls;
 function BIO_new_socket(sock: longint; close_flag: longint): PBIO; cdecl; external libgnutls;
-function ERR_get_error: dword; cdecl; external libgnutls;
-function ERR_error_string(e: dword; buf: pchar): pchar; cdecl; external libgnutls;
+
+function ERR_get_error: Tculong; cdecl; external libgnutls;
+function ERR_error_string(e: Tculong; buf: pchar): pchar; cdecl; external libgnutls;
+
 function RAND_status: longint; cdecl; external libgnutls;
 procedure RAND_seed(buf: pointer; num: longint); cdecl; external libgnutls;
 function RAND_bytes(buf: pbyte; num: longint): longint; cdecl; external libgnutls;
 function RAND_pseudo_bytes(buf: pbyte; num: longint): longint; cdecl; external libgnutls;
 function RAND_file_name(buf: pchar; len: Tsize_t): pchar; cdecl; external libgnutls;
-function RAND_load_file(name: pchar; maxbytes: longint): longint; cdecl; external libgnutls;
+function RAND_load_file(name: pchar; maxbytes: Tclong): longint; cdecl; external libgnutls;
 function RAND_write_file(name: pchar): longint; cdecl; external libgnutls;
+
 function RAND_egd_bytes(path: pchar; bytes: longint): longint; cdecl; external libgnutls;
 
 function RAND_egd(p: pchar): longint;
@@ -224,11 +229,12 @@ const
 procedure MD5_Init(ctx: PMD5_CTX); cdecl; external libgnutls;
 procedure MD5_Update(ctx: PMD5_CTX; buf: pointer; len: longint); cdecl; external libgnutls;
 procedure MD5_Final(md: pbyte; ctx: PMD5_CTX); cdecl; external libgnutls;
-function MD5(buf: pbyte; len: dword; md: pbyte): pbyte; cdecl; external libgnutls;
+function MD5(buf: pbyte; len: Tculong; md: pbyte): pbyte; cdecl; external libgnutls;
+
 procedure RIPEMD160_Init(ctx: PRIPEMD160_CTX); cdecl; external libgnutls;
 procedure RIPEMD160_Update(ctx: PRIPEMD160_CTX; buf: pointer; len: longint); cdecl; external libgnutls;
 procedure RIPEMD160_Final(md: pbyte; ctx: PRIPEMD160_CTX); cdecl; external libgnutls;
-function RIPEMD160(buf: pbyte; len: dword; md: pbyte): pbyte; cdecl; external libgnutls;
+function RIPEMD160(buf: pbyte; len: Tculong; md: pbyte): pbyte; cdecl; external libgnutls;
 
 // === Konventiert am: 9-7-25 13:39:42 ===
 

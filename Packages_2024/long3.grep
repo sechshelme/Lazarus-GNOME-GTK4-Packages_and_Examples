@@ -212,30 +212,6 @@
 ./xml2.9.14/C-include/tree.h:XMLPUBFUN unsigned long XMLCALL
 
 
-./pci-3.10.0/C-include/types.h:typedef unsigned long u64;
-./pci-3.10.0/C-include/types.h:typedef unsigned long long u64;
-
-
-./libsoup-3.4.4/C-include/soup-hsts-policy.h:							 unsigned long	 max_age,
-./libsoup-3.4.4/C-include/soup-hsts-policy.h:							 unsigned long	 max_age,
-
-
-./gnutls_3.8.3/C-include/x509.h:	unsigned long value_tag;
-
-./gnutls_3.8.3/C-include/openssl.h:	unsigned long options;
-./gnutls_3.8.3/C-include/openssl.h:	unsigned long options;
-
-./gnutls_3.8.3/C-include/pkcs11.h:			      unsigned long *slot_id, unsigned int flags);
-./gnutls_3.8.3/C-include/pkcs11.h:				unsigned long *slot_id, unsigned int flags);
-
-
-./microhttpd-1.0.0/C-include/microhttpd.h:#define MHD_LONG_LONG long long
-./microhttpd-1.0.0/C-include/microhttpd.h:#define MHD_UNSIGNED_LONG_LONG unsigned long long
-./microhttpd-1.0.0/C-include/microhttpd.h:   * long.
-./microhttpd-1.0.0/C-include/microhttpd.h:   * characters long.
-./microhttpd-1.0.0/C-include/microhttpd.h:   * long.
-
-
 ./curl_8.5.0/C-include/curl.h:  long namelength;                  /* length of name length */
 ./curl_8.5.0/C-include/curl.h:  long contentslength;              /* length of contents field, see also
 

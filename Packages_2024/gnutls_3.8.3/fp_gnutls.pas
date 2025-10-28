@@ -19,6 +19,18 @@ const
   {$ENDIF}
 
 type
+  {$IFDEF unix}
+  Tclong = int64;
+  Tculong = uint64;
+  {$ENDIF}
+
+  {$IFDEF mswindows}
+  Tclong = int32;
+  Tculong = uint32;
+  {$ENDIF}
+  Pclong = ^Tclong;
+  Pculong = ^Tculong;
+
   PPdword = ^Pdword;
 
   Tsize_t = SizeUInt;

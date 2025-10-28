@@ -8,8 +8,8 @@ function SOUP_TYPE_HSTS_POLICY: TGType;
 const
   SOUP_HSTS_POLICY_MAX_AGE_PAST = 0;
 
-function soup_hsts_policy_new(domain: pchar; max_age: dword; include_subdomains: Tgboolean): PSoupHSTSPolicy; cdecl; external libsoup;
-function soup_hsts_policy_new_full(domain: pchar; max_age: dword; expires: PGDateTime; include_subdomains: Tgboolean): PSoupHSTSPolicy; cdecl; external libsoup;
+function soup_hsts_policy_new(domain: pchar; max_age: Tgulong; include_subdomains: Tgboolean): PSoupHSTSPolicy; cdecl; external libsoup;
+function soup_hsts_policy_new_full(domain: pchar; max_age: Tgulong; expires: PGDateTime; include_subdomains: Tgboolean): PSoupHSTSPolicy; cdecl; external libsoup;
 function soup_hsts_policy_new_session_policy(domain: pchar; include_subdomains: Tgboolean): PSoupHSTSPolicy; cdecl; external libsoup;
 function soup_hsts_policy_new_from_response(msg: PSoupMessage): PSoupHSTSPolicy; cdecl; external libsoup;
 function soup_hsts_policy_copy(policy: PSoupHSTSPolicy): PSoupHSTSPolicy; cdecl; external libsoup;

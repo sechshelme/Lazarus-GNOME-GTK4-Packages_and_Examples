@@ -75,8 +75,8 @@ type
   TMHD_socket = longint;
 
 type
-  TMHD_LONG_LONG = int64;
-  TMHD_UNSIGNED_LONG_LONG = qword;
+  TMHD_LONG_LONG = Int64;
+  TMHD_UNSIGNED_LONG_LONG = UInt64;
   PMHD_UNSIGNED_LONG_LONG = ^TMHD_UNSIGNED_LONG_LONG;
 
 const
