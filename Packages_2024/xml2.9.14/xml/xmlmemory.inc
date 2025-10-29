@@ -25,7 +25,7 @@ procedure xmlCleanupMemory; cdecl; external libxml2;
 function xmlMemUsed: longint; cdecl; external libxml2;
 function xmlMemBlocks: longint; cdecl; external libxml2;
 procedure xmlMemDisplay(fp: PFILE); cdecl; external libxml2;
-procedure xmlMemDisplayLast(fp: PFILE; nbBytes: longint); cdecl; external libxml2;
+procedure xmlMemDisplayLast(fp: PFILE; nbBytes: Tclong); cdecl; external libxml2;
 procedure xmlMemShow(fp: PFILE; nr: longint); cdecl; external libxml2;
 procedure xmlMemoryDump; cdecl; external libxml2;
 function xmlMemMalloc(size: Tsize_t): pointer; cdecl; external libxml2;

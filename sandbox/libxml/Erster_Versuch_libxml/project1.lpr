@@ -3,13 +3,12 @@ program project1;
 uses
   SysUtils,
   Strings,
-  fp_glib2,
   fp_xml2;
 
 
   {$IFDEF Linux}
-  function strtok(str: pchar; delim: pchar): pchar; external libc;
-  function strtok_r(s: pchar; delim: pchar; saveptr: PPChar): pchar; cdecl; external libc;
+  function strtok(str: pchar; delim: pchar): pchar; external 'c';
+  function strtok_r(s: pchar; delim: pchar; saveptr: PPChar): pchar; cdecl; external 'c';
   {$ENDIF}
 
   {$IFDEF Windows}

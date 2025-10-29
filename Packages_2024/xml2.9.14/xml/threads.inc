@@ -24,7 +24,7 @@ function xmlGetThreadId: longint; cdecl; external libxml2;
 function xmlIsMainThread: longint; cdecl; external libxml2;
 procedure xmlCleanupThreads; cdecl; external libxml2;
 function xmlGetGlobalState: PxmlGlobalState; cdecl; external libxml2;
-function xmlDllMain(hinstDLL: pointer; fdwReason: dword; lpvReserved: pointer): longint; cdecl; external libxml2;
+function xmlDllMain(hinstDLL: pointer; fdwReason: Tculong; lpvReserved: pointer): longint; cdecl; external libxml2;
 
 // === Konventiert am: 4-3-25 13:49:48 ===
 

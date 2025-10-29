@@ -53,7 +53,7 @@ type
   end;
   PxmlSchemaValidCtxt = ^TxmlSchemaValidCtxt;
 
-  TxmlSchemaValidityLocatorFunc = function(ctx: pointer; file_: PPchar; line: Pdword): longint; cdecl;
+  TxmlSchemaValidityLocatorFunc = function(ctx: pointer; file_: PPchar; line: Pculong): longint; cdecl;
 
 function xmlSchemaNewParserCtxt(URL: pchar): PxmlSchemaParserCtxt; cdecl; external libxml2;
 function xmlSchemaNewMemParserCtxt(buffer: pchar; size: longint): PxmlSchemaParserCtxt; cdecl; external libxml2;

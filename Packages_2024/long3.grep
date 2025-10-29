@@ -64,55 +64,5 @@
 ./gsl_2.7.1/C-include/gsl_odeiv2.h:  unsigned long int failed_steps;
 
 
-./freetype-2.13.2/C-include/freetype/freetype.h:    long              control_len;
-./freetype-2.13.2/C-include/freetype/fttypes.h:  typedef signed long  FT_Long;
-./freetype-2.13.2/C-include/freetype/fttypes.h:   *   A typedef for unsigned long.
-./freetype-2.13.2/C-include/freetype/fttypes.h:  typedef unsigned long  FT_ULong;
-./freetype-2.13.2/C-include/freetype/fttypes.h:  typedef signed long  FT_F26Dot6;
-./freetype-2.13.2/C-include/freetype/fttypes.h:  typedef signed long  FT_Fixed;
-
-./freetype-2.13.2/C-include/freetype/ftsystem.h:                    long       size );
-./freetype-2.13.2/C-include/freetype/ftsystem.h:                      long       cur_size,
-
-./freetype-2.13.2/C-include/freetype/config/ftstdlib.h:#define ft_longjmp     longjmp
-
-./freetype-2.13.2/C-include/freetype/config/integer-types.h:  /* The size of a `long` type.  A five-byte `long` (as used e.g. on the */
-./freetype-2.13.2/C-include/freetype/config/integer-types.h:#error "Unsupported size of `long' type!"
-
-./freetype-2.13.2/C-include/freetype/ftimage.h:  typedef signed long  FT_Pos;
-./freetype-2.13.2/C-include/freetype/ftimage.h:          value = ( ( FT_STATIC_BYTE_CAST( unsigned long, _x1 ) << 24 ) | \
-
-
-./xml2.9.14/C-include/xmlreader.h:XMLPUBFUN long XMLCALL
-./xml2.9.14/C-include/xmlschemastypes.h:						 unsigned long actualLen,
-./xml2.9.14/C-include/xmlschemastypes.h:						 unsigned long *expectedLen);
-
-./xml2.9.14/C-include/chvalid.h:    const xmlChLRange	*longRange;
-
-./xml2.9.14/C-include/xmlmemory.h:	xmlMemDisplayLast(FILE *fp, long nbBytes);
-
-./xml2.9.14/C-include/nanoftp.h:				 unsigned long size, int links, int year,
-
-./xml2.9.14/C-include/parser.h:    unsigned long consumed;           /* How many xmlChars already consumed */
-./xml2.9.14/C-include/parser.h:  unsigned long begin_pos;
-
-./xml2.9.14/C-include/xmlIO.h:    unsigned long rawconsumed;/* amount consumed from raw */
-
-./xml2.9.14/C-include/xmlsave.h:XMLPUBFUN long XMLCALL
-./xml2.9.14/C-include/xmlsave.h:XMLPUBFUN long XMLCALL
-
-./xml2.9.14/C-include/xpath.h:    unsigned long opLimit;
-./xml2.9.14/C-include/xpath.h:    unsigned long opCount;
-
-./xml2.9.14/C-include/xpath.h:XMLPUBFUN long XMLCALL
-
-./xml2.9.14/C-include/threads.h:xmlDllMain(void *hinstDLL, unsigned long fdwReason,
-
-./xml2.9.14/C-include/xmlschemas.h:                           const char **file, unsigned long *line);
-
-./xml2.9.14/C-include/tree.h:XMLPUBFUN long XMLCALL
-
-./xml2.9.14/C-include/tree.h:XMLPUBFUN unsigned long XMLCALL
-
 
 

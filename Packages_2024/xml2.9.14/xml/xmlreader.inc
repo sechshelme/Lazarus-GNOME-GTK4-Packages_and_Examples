@@ -131,7 +131,7 @@ function xmlTextReaderSetSchema(reader: PxmlTextReader; schema: PxmlSchema): lon
 
 function xmlTextReaderConstXmlVersion(reader: PxmlTextReader): PxmlChar; cdecl; external libxml2;
 function xmlTextReaderStandalone(reader: PxmlTextReader): longint; cdecl; external libxml2;
-function xmlTextReaderByteConsumed(reader: PxmlTextReader): longint; cdecl; external libxml2;
+function xmlTextReaderByteConsumed(reader: PxmlTextReader): Tclong; cdecl; external libxml2;
 function xmlReaderWalker(doc: PxmlDoc): PxmlTextReader; cdecl; external libxml2;
 function xmlReaderForDoc(cur: PxmlChar; URL: pchar; encoding: pchar; options: longint): PxmlTextReader; cdecl; external libxml2;
 function xmlReaderForFile(filename: pchar; encoding: pchar; options: longint): PxmlTextReader; cdecl; external libxml2;

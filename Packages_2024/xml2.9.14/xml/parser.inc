@@ -9,7 +9,6 @@ const
 
 type
   TxmlParserInputDeallocate = procedure(str: PxmlChar); cdecl;
-  PxmlParserInput = ^TxmlParserInput;
 
   TxmlParserInput = record
     buf: PxmlParserInputBuffer;
@@ -21,26 +20,27 @@ type
     length: longint;
     line: longint;
     col: longint;
-    consumed: dword;
+    consumed: Tculong;
     Free: TxmlParserInputDeallocate;
     encoding: PxmlChar;
     version: PxmlChar;
     standalone: longint;
     id: longint;
   end;
+  PxmlParserInput = ^TxmlParserInput;
 
   TxmlParserNodeInfo = record
     node: PxmlNode;
-    begin_pos: dword;
-    begin_line: dword;
-    end_pos: dword;
-    end_line: dword;
+    begin_pos: Tculong;
+    begin_line: Tculong;
+    end_pos: Tculong;
+    end_line: Tculong;
   end;
   PxmlParserNodeInfo = ^TxmlParserNodeInfo;
 
   TxmlParserNodeInfoSeq = record
-    maximum: dword;
-    length: dword;
+    maximum: Tculong;
+    length: Tculong;
     buffer: PxmlParserNodeInfo;
   end;
   PxmlParserNodeInfoSeq = ^TxmlParserNodeInfoSeq;
@@ -127,8 +127,8 @@ type
     nameNr: longint;
     nameMax: longint;
     nameTab: ^PxmlChar;
-    nbChars: longint;
-    checkIndex: longint;
+    nbChars: Tclong;
+    checkIndex: Tclong;
     keepBlanks: longint;
     disableSAX: longint;
     inSubset: longint;
@@ -175,14 +175,14 @@ type
     freeAttrs: PxmlAttr;
     lastError: TxmlError;
     parseMode: TxmlParserMode;
-    nbentities: dword;
-    sizeentities: dword;
+    nbentities: Tculong;
+    sizeentities: Tculong;
     nodeInfo: PxmlParserNodeInfo;
     nodeInfoNr: longint;
     nodeInfoMax: longint;
     nodeInfoTab: PxmlParserNodeInfo;
     input_id: longint;
-    sizeentcopy: dword;
+    sizeentcopy: Tculong;
   end;
   PxmlParserCtxt = ^TxmlParserCtxt;
 
@@ -361,12 +361,12 @@ function xmlNewIOInputStream(ctxt: PxmlParserCtxt; input: PxmlParserInputBuffer;
 function xmlParserFindNodeInfo(ctxt: PxmlParserCtxt; node: PxmlNode): PxmlParserNodeInfo; cdecl; external libxml2;
 procedure xmlInitNodeInfoSeq(seq: PxmlParserNodeInfoSeq); cdecl; external libxml2;
 procedure xmlClearNodeInfoSeq(seq: PxmlParserNodeInfoSeq); cdecl; external libxml2;
-function xmlParserFindNodeInfoIndex(seq: PxmlParserNodeInfoSeq; node: PxmlNode): dword; cdecl; external libxml2;
+function xmlParserFindNodeInfoIndex(seq: PxmlParserNodeInfoSeq; node: PxmlNode): Tculong; cdecl; external libxml2;
 procedure xmlParserAddNodeInfo(ctxt: PxmlParserCtxt; info: PxmlParserNodeInfo); cdecl; external libxml2;
 procedure xmlSetExternalEntityLoader(f: TxmlExternalEntityLoader); cdecl; external libxml2;
 function xmlGetExternalEntityLoader: TxmlExternalEntityLoader; cdecl; external libxml2;
 function xmlLoadExternalEntity(URL: pchar; ID: pchar; ctxt: PxmlParserCtxt): PxmlParserInput; cdecl; external libxml2;
-function xmlByteConsumed(ctxt: PxmlParserCtxt): longint; cdecl; external libxml2;
+function xmlByteConsumed(ctxt: PxmlParserCtxt): Tclong; cdecl; external libxml2;
 
 type
   PxmlParserOption = ^TxmlParserOption;

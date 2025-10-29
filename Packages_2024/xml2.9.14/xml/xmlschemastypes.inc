@@ -24,14 +24,14 @@ function xmlSchemaCheckFacet(facet: PxmlSchemaFacet; typeDecl: PxmlSchemaType; c
 procedure xmlSchemaFreeFacet(facet: PxmlSchemaFacet); cdecl; external libxml2;
 function xmlSchemaCompareValues(x: PxmlSchemaVal; y: PxmlSchemaVal): longint; cdecl; external libxml2;
 function xmlSchemaGetBuiltInListSimpleTypeItemType(_type: PxmlSchemaType): PxmlSchemaType; cdecl; external libxml2;
-function xmlSchemaValidateListSimpleTypeFacet(facet: PxmlSchemaFacet; Value: PxmlChar; actualLen: dword; expectedLen: Pdword): longint; cdecl; external libxml2;
+function xmlSchemaValidateListSimpleTypeFacet(facet: PxmlSchemaFacet; Value: PxmlChar; actualLen: Tculong; expectedLen: Pculong): longint; cdecl; external libxml2;
 function xmlSchemaGetBuiltInType(_type: TxmlSchemaValType): PxmlSchemaType; cdecl; external libxml2;
 function xmlSchemaIsBuiltInTypeFacet(_type: PxmlSchemaType; facetType: longint): longint; cdecl; external libxml2;
 function xmlSchemaCollapseString(Value: PxmlChar): PxmlChar; cdecl; external libxml2;
 function xmlSchemaWhiteSpaceReplace(Value: PxmlChar): PxmlChar; cdecl; external libxml2;
-function xmlSchemaGetFacetValueAsULong(facet: PxmlSchemaFacet): dword; cdecl; external libxml2;
-function xmlSchemaValidateLengthFacet(_type: PxmlSchemaType; facet: PxmlSchemaFacet; Value: PxmlChar; val: PxmlSchemaVal; length: Pdword): longint; cdecl; external libxml2;
-function xmlSchemaValidateLengthFacetWhtsp(facet: PxmlSchemaFacet; valType: TxmlSchemaValType; Value: PxmlChar; val: PxmlSchemaVal; length: Pdword;
+function xmlSchemaGetFacetValueAsULong(facet: PxmlSchemaFacet): Tculong; cdecl; external libxml2;
+function xmlSchemaValidateLengthFacet(_type: PxmlSchemaType; facet: PxmlSchemaFacet; Value: PxmlChar; val: PxmlSchemaVal; length: Pculong): longint; cdecl; external libxml2;
+function xmlSchemaValidateLengthFacetWhtsp(facet: PxmlSchemaFacet; valType: TxmlSchemaValType; Value: PxmlChar; val: PxmlSchemaVal; length: Pculong;
   ws: TxmlSchemaWhitespaceValueType): longint; cdecl; external libxml2;
 function xmlSchemaValPredefTypeNodeNoNorm(_type: PxmlSchemaType; Value: PxmlChar; val: PPxmlSchemaVal; node: PxmlNode): longint; cdecl; external libxml2;
 function xmlSchemaGetCanonValue(val: PxmlSchemaVal; retValue: PPxmlChar): longint; cdecl; external libxml2;

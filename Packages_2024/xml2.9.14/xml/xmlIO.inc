@@ -26,7 +26,7 @@ type
     raw: PxmlBuf;
     compressed: longint;
     error: longint;
-    rawconsumed: dword;
+    rawconsumed: Tclong;
   end;
   PxmlParserInputBuffer = ^TxmlParserInputBuffer;
 

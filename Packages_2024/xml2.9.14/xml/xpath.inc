@@ -150,8 +150,8 @@ type
     dict: PxmlDict;
     flags: longint;
     cache: pointer;
-    opLimit: dword;
-    opCount: dword;
+    opLimit: Tculong;
+    opCount: Tculong;
     depth: longint;
   end;
   PxmlXPathContext = ^TxmlXPathContext;
@@ -206,7 +206,7 @@ function xmlXPathConvertString(val: PxmlXPathObject): PxmlXPathObject; cdecl; ex
 function xmlXPathNewContext(doc: PxmlDoc): PxmlXPathContext; cdecl; external libxml2;
 procedure xmlXPathFreeContext(ctxt: PxmlXPathContext); cdecl; external libxml2;
 function xmlXPathContextSetCache(ctxt: PxmlXPathContext; active: longint; Value: longint; options: longint): longint; cdecl; external libxml2;
-function xmlXPathOrderDocElems(doc: PxmlDoc): longint; cdecl; external libxml2;
+function xmlXPathOrderDocElems(doc: PxmlDoc): Tclong; cdecl; external libxml2;
 function xmlXPathSetContextNode(node: PxmlNode; ctx: PxmlXPathContext): longint; cdecl; external libxml2;
 function xmlXPathNodeEval(node: PxmlNode; str: PxmlChar; ctx: PxmlXPathContext): PxmlXPathObject; cdecl; external libxml2;
 function xmlXPathEval(str: PxmlChar; ctx: PxmlXPathContext): PxmlXPathObject; cdecl; external libxml2;

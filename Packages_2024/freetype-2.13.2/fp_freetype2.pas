@@ -2,12 +2,6 @@ unit fp_FreeType2;
 
 interface
 
-uses
-  {$ifdef linux}
-  x, xlib,
-  {$endif}
-  ctypes;
-
 const
   {$IFDEF Linux}
   freetype_lib = 'libfreetype';
@@ -22,15 +16,28 @@ const
   {$PACKRECORDS C}
   {$ENDIF}
 
+type
+  {$IFDEF Linux}
+  Tculong = uint64;
+  Tclong = int64;
+  {$ENDIF}
+  {$IFDEF windows}
+  Tculong = uint32;
+  Tclong = int64;
+  {$ENDIF}
+  Pculong = ^Tculong;
+  Pclong = ^Tclong;
+
+
   // ==== integer-types.h
 
 const
   SHRT_MAX = 32767;   // limits.h
 
   FT_CHAR_BIT = 8;
-  FT_SIZEOF_INT = Sizeof(cint);
-  FT_SIZEOF_LONG = Sizeof(clong);
-  FT_SIZEOF_LONG_LONG = Sizeof(clonglong);
+  FT_SIZEOF_INT = Sizeof(Integer);
+  FT_SIZEOF_LONG = Sizeof(Tclong);
+  FT_SIZEOF_LONG_LONG = Sizeof(Int64);
 
 
   // === freetype.h
@@ -1418,10 +1425,10 @@ type
   TFT_UInt64 = uint64;
 
   PFT_Fast = ^TFT_Fast;
-  TFT_Fast = longint;
+  TFT_Fast = Tclong;
 
   PFT_UFast = ^TFT_UFast;
-  TFT_UFast = dword;
+  TFT_UFast = Tculong;
 
 
   // ======== fttypes.h
@@ -1429,17 +1436,17 @@ type
   TFT_Bool = Boolean8;
 
   PFT_FWord = ^TFT_FWord;
-  TFT_FWord = csshort;
+  TFT_FWord = int16;
 
   PFT_UFWord = ^TFT_UFWord;
-  TFT_UFWord = cushort;
+  TFT_UFWord = UInt16;
 
   PFT_Char = ^TFT_Char;
-  TFT_Char = cschar;
+  TFT_Char = AnsiChar;
 
   PPFT_Byte = ^PFT_Byte;
   PFT_Byte = ^TFT_Byte;
-  TFT_Byte = cuchar;
+  TFT_Byte = Byte;
 
   PFT_Bytes = ^TFT_Bytes;
   TFT_Bytes = PFT_Byte;
@@ -1451,40 +1458,40 @@ type
   TFT_String = char;
 
   PFT_Short = ^TFT_Short;
-  TFT_Short = csshort;
+  TFT_Short = Int16;
 
   PFT_UShort = ^TFT_UShort;
-  TFT_UShort = cushort;
+  TFT_UShort = UInt16;
 
   PFT_Int = ^TFT_Int;
-  TFT_Int = csint;
+  TFT_Int = Int32;
 
   PFT_UInt = ^TFT_UInt;
-  TFT_UInt = cuint;
+  TFT_UInt = UInt32;
 
   PFT_Long = ^TFT_Long;
-  TFT_Long = cslong;
+  TFT_Long = Tclong;
 
   PFT_ULong = ^TFT_ULong;
-  TFT_ULong = culong;
+  TFT_ULong = Tculong;
 
   PFT_F2Dot14 = ^TFT_F2Dot14;
-  TFT_F2Dot14 = csshort;
+  TFT_F2Dot14 = Int16;
 
   PFT_F26Dot6 = ^TFT_F26Dot6;
-  TFT_F26Dot6 = cslong;
+  TFT_F26Dot6 = Tclong;
 
   PFT_Fixed = ^TFT_Fixed;
-  TFT_Fixed = cslong;
+  TFT_Fixed = Tclong;
 
   PFT_Error = ^TFT_Error;
-  TFT_Error = cint;
+  TFT_Error = Int16;
 
   PFT_Pointer = ^TFT_Pointer;
   TFT_Pointer = Pointer;
 
   PFT_Offset = ^TFT_Offset;
-  TFT_Offset = csize_t;
+  TFT_Offset = SizeInt;
 
   PFT_PtrDist = ^TFT_PtrDist;
   TFT_PtrDist = SizeUInt;
@@ -1583,9 +1590,9 @@ type
   TFT_Memory = ^TFT_MemoryRec;
   PFT_Memory = ^TFT_Memory;
 
-  TFT_Alloc_Func = function(memory: TFT_Memory; size: longint): pointer; cdecl;
+  TFT_Alloc_Func = function(memory: TFT_Memory; size: Tclong): pointer; cdecl;
   TFT_Free_Func = procedure(memory: TFT_Memory; block: pointer); cdecl;
-  TFT_Realloc_Func = function(memory: TFT_Memory; cur_size: clong; new_size: clong; block: pointer): pointer; cdecl;
+  TFT_Realloc_Func = function(memory: TFT_Memory; cur_size: Tclong; new_size: Tclong; block: pointer): pointer; cdecl;
 
   TFT_MemoryRec = record
     user: pointer;
@@ -1597,19 +1604,19 @@ type
 
   TFT_StreamDesc = record
     case longint of
-      0: (Value: clong);
+      0: (Value: Tclong);
       1: (pointer_: pointer);
   end;
   PFT_StreamDesc = ^TFT_StreamDesc;
   PFT_Stream = ^TFT_Stream;
   TFT_Stream = ^TFT_StreamRec;
   TFT_Stream_CloseFunc = procedure(stream: TFT_Stream); cdecl;
-  TFT_Stream_IoFunc = function(stream: TFT_Stream; offset: culong; buffer: pbyte; Count: culong): culong; cdecl;
+  TFT_Stream_IoFunc = function(stream: TFT_Stream; offset: Tclong; buffer: pbyte; Count: Tclong): Tclong; cdecl;
 
   TFT_StreamRec = record
     base: pbyte;
-    size: culong;
-    pos: culong;
+    size: Tclong;
+    pos: Tclong;
     descriptor: TFT_StreamDesc;
     pathname: TFT_StreamDesc;
     Read: TFT_Stream_IoFunc;
@@ -1622,7 +1629,7 @@ type
 
   // ==== ftimage.h
 
-  TFT_Pos = cslong;
+  TFT_Pos = Tclong;
   PFT_Pos = ^TFT_Pos;
 
   TFT_Vector = record
@@ -1714,10 +1721,10 @@ type
   TFT_Raster_DoneFunc = procedure(raster: TFT_Raster); cdecl;
   FT_Raster_Done_Func = TFT_Raster_DoneFunc;
 
-  TFT_Raster_ResetFunc = procedure(raster: TFT_Raster; pool_base: pbyte; pool_size: culong); cdecl;
+  TFT_Raster_ResetFunc = procedure(raster: TFT_Raster; pool_base: pbyte; pool_size: Tculong); cdecl;
   FT_Raster_Reset_Func = TFT_Raster_ResetFunc;
 
-  TFT_Raster_SetModeFunc = function(raster: TFT_Raster; mode: culong; args: pointer): longint; cdecl;
+  TFT_Raster_SetModeFunc = function(raster: TFT_Raster; mode: Tculong; args: pointer): longint; cdecl;
   FT_Raster_Set_Mode_Func = TFT_Raster_SetModeFunc;
 
   TFT_Raster_RenderFunc = function(raster: TFT_Raster; params: PFT_Raster_Params): longint; cdecl;
@@ -1791,7 +1798,7 @@ type
     num_subglyphs: TFT_UInt;
     subglyphs: TFT_SubGlyph;
     control_data: pointer;
-    control_len: longint;
+    control_len: Tclong;
     lsb_delta: TFT_Pos;
     rsb_delta: TFT_Pos;
     other: pointer;

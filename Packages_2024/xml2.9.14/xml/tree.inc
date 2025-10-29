@@ -405,7 +405,7 @@ function xmlNewTextChild(parent: PxmlNode; ns: PxmlNs; Name: PxmlChar; content: 
 function xmlNewDocRawNode(doc: PxmlDoc; ns: PxmlNs; Name: PxmlChar; content: PxmlChar): PxmlNode; cdecl; external libxml2;
 function xmlNewDocFragment(doc: PxmlDoc): PxmlNode; cdecl; external libxml2;
 
-function xmlGetLineNo(node: PxmlNode): longint; cdecl; external libxml2;
+function xmlGetLineNo(node: PxmlNode): Tclong; cdecl; external libxml2;
 function xmlGetNodePath(node: PxmlNode): PxmlChar; cdecl; external libxml2;
 function xmlDocGetRootElement(doc: PxmlDoc): PxmlNode; cdecl; external libxml2;
 function xmlGetLastChild(parent: PxmlNode): PxmlNode; cdecl; external libxml2;
@@ -475,6 +475,7 @@ function xmlSaveFile(filename: pchar; cur: PxmlDoc): longint; cdecl; external li
 function xmlSaveFormatFile(filename: pchar; cur: PxmlDoc; format: longint): longint; cdecl; external libxml2;
 function xmlBufNodeDump(buf: PxmlBuf; doc: PxmlDoc; cur: PxmlNode; level: longint; format: longint): Tsize_t; cdecl; external libxml2;
 function xmlNodeDump(buf: PxmlBuffer; doc: PxmlDoc; cur: PxmlNode; level: longint; format: longint): longint; cdecl; external libxml2;
+// Wegen circular
 //function xmlSaveFileTo(buf: PxmlOutputBuffer; cur: PxmlDoc; encoding: pchar): longint; cdecl; external libxml2;
 //function xmlSaveFormatFileTo(buf: PxmlOutputBuffer; cur: PxmlDoc; encoding: pchar; format: longint): longint; cdecl; external libxml2;
 //procedure xmlNodeDumpOutput(buf: PxmlOutputBuffer; doc: PxmlDoc; cur: PxmlNode; level: longint; format: longint; encoding: pchar); cdecl; external libxml2;
@@ -496,7 +497,7 @@ function xmlDOMWrapAdoptNode(ctxt: PxmlDOMWrapCtxt; sourceDoc: PxmlDoc; node: Px
 function xmlDOMWrapRemoveNode(ctxt: PxmlDOMWrapCtxt; doc: PxmlDoc; node: PxmlNode; options: longint): longint; cdecl; external libxml2;
 function xmlDOMWrapCloneNode(ctxt: PxmlDOMWrapCtxt; sourceDoc: PxmlDoc; node: PxmlNode; clonedNode: PPxmlNode; destDoc: PxmlDoc;
   destParent: PxmlNode; deep: longint; options: longint): longint; cdecl; external libxml2;
-function xmlChildElementCount(parent: PxmlNode): dword; cdecl; external libxml2;
+function xmlChildElementCount(parent: PxmlNode): Tculong; cdecl; external libxml2;
 function xmlNextElementSibling(node: PxmlNode): PxmlNode; cdecl; external libxml2;
 function xmlFirstElementChild(parent: PxmlNode): PxmlNode; cdecl; external libxml2;
 function xmlLastElementChild(parent: PxmlNode): PxmlNode; cdecl; external libxml2;
