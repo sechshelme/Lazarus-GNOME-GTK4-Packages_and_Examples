@@ -25,6 +25,8 @@ gsl_2.7.1/C-include/gsl_matrix_ulong.h:unsigned long *
 gsl_2.7.1/C-include/gsl_matrix_ulong.h:  return (unsigned long *) (m->data + (i * m->tda + j)) ;
 gsl_2.7.1/C-include/gsl_matrix_ulong.h:const unsigned long *
 gsl_2.7.1/C-include/gsl_matrix_ulong.h:  return (const unsigned long *) (m->data + (i * m->tda + j)) ;
+
+
 gsl_2.7.1/C-include/gsl_vector_ulong.h:  unsigned long *data;
 gsl_2.7.1/C-include/gsl_vector_ulong.h:gsl_vector_ulong_view_array (unsigned long *v, size_t n);
 gsl_2.7.1/C-include/gsl_vector_ulong.h:gsl_vector_ulong_view_array_with_stride (unsigned long *base,
