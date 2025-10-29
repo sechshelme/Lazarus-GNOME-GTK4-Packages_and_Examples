@@ -4,17 +4,39 @@ interface
 
 uses
   {$IFDEF Linux}
-  x, xlib,
+  x, xlib;
   {$ENDIF}
-  ctypes;
 
 const
-{$IFDEF Linux}
-libtcl8_6 = 'libtcl8.6';
-libtk8_6 = 'libtk8.6';
-libtclstub8_6 = 'libtclstub8.6';
-libtkstub8_6 = 'libtkstub8.6';
-{$ENDIF}
+  {$IFDEF Linux}
+  libtcl8_6 = 'libtcl8.6';
+  libtk8_6 = 'libtk8.6';
+  libtclstub8_6 = 'libtclstub8.6';
+  libtkstub8_6 = 'libtkstub8.6';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libtcl8_6 = 'libtcl8.6';                      // ????????
+  libtk8_6 = 'libtk8.6';                        // ????????
+  libtclstub8_6 = 'libtclstub8.6';              // ????????
+  libtkstub8_6 = 'libtkstub8.6';                // ????????
+  {$ENDIF}
+
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
+type
+  {$IFDEF Linux}
+  Tculong = uint64;
+  Tclong = int64;
+  {$ENDIF}
+  {$IFDEF windows}
+  Tculong = uint32;
+  Tclong = int64;
+  {$ENDIF}
+  Pculong = ^Tculong;
+  Pclong = ^Tclong;
 
 
 type
@@ -41,10 +63,6 @@ type
   Tva_list = Pointer;
 
   PTkOption = Pointer; //????????
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
 
   {$DEFINE read_interface}
   {$include fp_tcl_includes.inc}

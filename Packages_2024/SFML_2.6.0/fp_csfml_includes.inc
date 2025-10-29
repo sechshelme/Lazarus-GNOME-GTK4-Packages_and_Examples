@@ -2,7 +2,7 @@
 
 
 {$include csfml/Config.inc}
-//{$include csfml/xxxxxxxxxxxxxxxxxx.inc}
+
 {$include csfml/System/System_Types.inc}
 {$include csfml/System/Buffer.inc}
 {$include csfml/System/InputStream.inc}
@@ -13,7 +13,7 @@
 {$include csfml/System/Sleep.inc}
 {$include csfml/System/Vector2.inc}
 {$include csfml/System/Vector3.inc}
-//{$include csfml/xxxxxxxxxxxxxxxxxx.inc}
+
 {$include csfml/Window/Window_Types.inc}
 {$include csfml/Window/WindowHandle.inc}
 {$include csfml/Window/Vulkan.inc}
@@ -30,7 +30,7 @@
 {$include csfml/Window/Window.inc}                            // Window_Types, WindowHandle, VideoMode, Event, Vector2
 {$include csfml/Window/Context.inc}                           // Window_Types, Window
 {$include csfml/Window/WindowBase.inc}                        // VideoMode, WindowHandle, Event, Vector2, Vulkan
-//{$include csfml/xxxxxxxxxxxxxxxxxx.inc}
+
 {$include csfml/Audio/Audio_Types.inc}
 {$include csfml/Audio/SoundStatus.inc}
 {$include csfml/Audio/Listener.inc}
@@ -40,7 +40,7 @@
 {$include csfml/Audio/SoundBufferRecorder.inc}
 {$include csfml/Audio/SoundRecorder.inc}
 {$include csfml/Audio/SoundStream.inc}
-//{$include csfml/xxxxxxxxxxxxxxxxxx.inc}
+
 {$include csfml/Network/Network_Types.inc}
 {$include csfml/Network/SocketStatus.inc}
 {$include csfml/Network/IpAddress.inc}
@@ -51,7 +51,7 @@
 {$include csfml/Network/TcpListener.inc}                       // IpAddress, SocketStatus
 {$include csfml/Network/TcpSocket.inc}                         // SocketStatus, IpAddress
 {$include csfml/Network/UdpSocket.inc}                         // IpAddress, SocketStatus
-//{$include csfml/xxxxxxxxxxxxxxxxxx.inc}
+
 {$include csfml/Graphics/Graphics_Types.inc}
 {$include csfml/Graphics/PrimitiveType.inc}
 {$include csfml/Graphics/Rect.inc}

@@ -2,26 +2,32 @@ unit fp_gmp;
 
 interface
 
-uses
-  ctypes;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
-
 const
   {$IFDEF Linux}
   libgmp = 'libgmp';
   {$ENDIF}
 
-  {$IFDEF mswindows}
+  {$IFDEF windows}
   libgmp = 'libgmp-10.dll';
   {$ENDIF}
 
-  {$ifdef darwin}
-  libgmp = 'gmp.dylib';
-  {$endif}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
+
+type
+  {$IFDEF Linux}
+  Tculong = uint64;
+  Tclong = int64;
+  {$ENDIF}
+
+  {$IFDEF windows}
+  Tculong = uint32;
+  Tclong = int64;
+  {$ENDIF}
+  Pculong=^Tculong;
+  Pclong=^Tclong;
 
   // Version 6.3.0
 
@@ -74,8 +80,8 @@ type
   Pmpq = ^Tmpq;
 
   Tmpf = record
-    _mp_prec: longint;
-    _mp_size: longint;
+    _mp_prec: Tclong;
+    _mp_size: Tclong;
     _mp_exp: Tmp_exp_t;
     _mp_d: Pmp_limb_t;
   end;
@@ -110,15 +116,16 @@ var
 {*************** Random number routines.  *************** }
 procedure gmp_randinit(para1: Pgmp_randstate; para2: Tgmp_randalg_t); varargs; cdecl; external libgmp name '__gmp_randinit';
 procedure gmp_randinit_default(para1: Pgmp_randstate); cdecl; external libgmp name '__gmp_randinit_default';
-procedure gmp_randinit_lc_2exp(para1: Pgmp_randstate; para2: Pmpz; para3: dword; para4: Tmp_bitcnt_t); cdecl; external libgmp name '__gmp_randinit_lc_2exp';
+procedure gmp_randinit_lc_2exp(para1: Pgmp_randstate; para2: Pmpz; para3: Tculong; para4: Tmp_bitcnt_t); cdecl; external libgmp name '__gmp_randinit_lc_2exp';
 function gmp_randinit_lc_2exp_size(para1: Pgmp_randstate; para2: Tmp_bitcnt_t): longint; cdecl; external libgmp name '__gmp_randinit_lc_2exp_size';
 procedure gmp_randinit_mt(para1: Pgmp_randstate); cdecl; external libgmp name '__gmp_randinit_mt';
 procedure gmp_randinit_set(para1: Pgmp_randstate; para2: Pgmp_randstate); cdecl; external libgmp name '__gmp_randinit_set';
 procedure gmp_randseed(para1: Pgmp_randstate; para2: Pmpz); cdecl; external libgmp name '__gmp_randseed';
-procedure gmp_randseed_ui(para1: Pgmp_randstate; para2: dword); cdecl; external libgmp name '__gmp_randseed_ui';
+procedure gmp_randseed_ui(para1: Pgmp_randstate; para2: Tculong); cdecl; external libgmp name '__gmp_randseed_ui';
 procedure gmp_randclear(para1: Pgmp_randstate); cdecl; external libgmp name '__gmp_randclear';
-function gmp_urandomb_ui(para1: Pgmp_randstate; para2: dword): dword; cdecl; external libgmp name '__gmp_urandomb_ui';
-function gmp_urandomm_ui(para1: Pgmp_randstate; para2: dword): dword; cdecl; external libgmp name '__gmp_urandomm_ui';
+function gmp_urandomb_ui(para1: Pgmp_randstate; para2: Tculong): Tculong; cdecl; external libgmp name '__gmp_urandomb_ui';
+function gmp_urandomm_ui(para1: Pgmp_randstate; para2: Tculong): Tculong; cdecl; external libgmp name '__gmp_urandomm_ui';
+
 {*************** Formatted output routines.  *************** }
 function gmp_asprintf(para1: PPchar; para2: pchar): longint; varargs; cdecl; external libgmp name '__gmp_asprintf';
 function gmp_fprintf(para1: PFILE; para2: pchar): longint; varargs; cdecl; external libgmp name '__gmp_fprintf';
@@ -132,6 +139,7 @@ function gmp_vfprintf(para1: PFILE; para2: pchar; para3: Tva_list): longint; cde
 function gmp_vprintf(para1: pchar; para2: Tva_list): longint; cdecl; external libgmp name '__gmp_vprintf';
 function gmp_vsnprintf(para1: pchar; para2: Tsize_t; para3: pchar; para4: Tva_list): longint; cdecl; external libgmp name '__gmp_vsnprintf';
 function gmp_vsprintf(para1: pchar; para2: pchar; para3: Tva_list): longint; cdecl; external libgmp name '__gmp_vsprintf';
+
 {*************** Formatted input routines.  *************** }
 function gmp_fscanf(para1: PFILE; para2: pchar): longint; varargs; cdecl; external libgmp name '__gmp_fscanf';
 function gmp_scanf(para1: pchar): longint; varargs; cdecl; external libgmp name '__gmp_scanf';
@@ -139,63 +147,64 @@ function gmp_sscanf(para1: pchar; para2: pchar): longint; varargs; cdecl; extern
 function gmp_vfscanf(para1: PFILE; para2: pchar; para3: Tva_list): longint; cdecl; external libgmp name '__gmp_vfscanf';
 function gmp_vscanf(para1: pchar; para2: Tva_list): longint; cdecl; external libgmp name '__gmp_vscanf';
 function gmp_vsscanf(para1: pchar; para2: pchar; para3: Tva_list): longint; cdecl; external libgmp name '__gmp_vsscanf';
+
 {*************** Integer (i.e. Z) routines.  *************** }
 function _mpz_realloc(para1: Pmpz; para2: Tmp_size_t): pointer; cdecl; external libgmp name '__g_mpz_realloc';
 procedure mpz_abs(para1: Pmpz; para2: Pmpz); cdecl; external libgmp name '__gmpz_abs';
 procedure mpz_add(para1: Pmpz; para2: Pmpz; para3: Pmpz); cdecl; external libgmp name '__gmpz_add';
-procedure mpz_add_ui(para1: Pmpz; para2: Pmpz; para3: dword); cdecl; external libgmp name '__gmpz_add_ui';
+procedure mpz_add_ui(para1: Pmpz; para2: Pmpz; para3: Tculong); cdecl; external libgmp name '__gmpz_add_ui';
 procedure mpz_addmul(para1: Pmpz; para2: Pmpz; para3: Pmpz); cdecl; external libgmp name '__gmpz_addmul';
-procedure mpz_addmul_ui(para1: Pmpz; para2: Pmpz; para3: dword); cdecl; external libgmp name '__gmpz_addmul_ui';
+procedure mpz_addmul_ui(para1: Pmpz; para2: Pmpz; para3: Tculong); cdecl; external libgmp name '__gmpz_addmul_ui';
 procedure mpz_and(para1: Pmpz; para2: Pmpz; para3: Pmpz); cdecl; external libgmp name '__gmpz_and';
 procedure mpz_array_init(para1: Pmpz; para2: Tmp_size_t; para3: Tmp_size_t); cdecl; external libgmp name '__gmpz_array_init';
-procedure mpz_bin_ui(para1: Pmpz; para2: Pmpz; para3: dword); cdecl; external libgmp name '__gmpz_bin_ui';
-procedure mpz_bin_uiui(para1: Pmpz; para2: dword; para3: dword); cdecl; external libgmp name '__gmpz_bin_uiui';
+procedure mpz_bin_ui(para1: Pmpz; para2: Pmpz; para3: Tculong); cdecl; external libgmp name '__gmpz_bin_ui';
+procedure mpz_bin_uiui(para1: Pmpz; para2: Tculong; para3: Tculong); cdecl; external libgmp name '__gmpz_bin_uiui';
 procedure mpz_cdiv_q(para1: Pmpz; para2: Pmpz; para3: Pmpz); cdecl; external libgmp name '__gmpz_cdiv_q';
 procedure mpz_cdiv_q_2exp(para1: Pmpz; para2: Pmpz; para3: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpz_cdiv_q_2exp';
-function mpz_cdiv_q_ui(para1: Pmpz; para2: Pmpz; para3: dword): dword; cdecl; external libgmp name '__gmpz_cdiv_q_ui';
+function mpz_cdiv_q_ui(para1: Pmpz; para2: Pmpz; para3: Tculong): Tculong; cdecl; external libgmp name '__gmpz_cdiv_q_ui';
 procedure mpz_cdiv_qr(para1: Pmpz; para2: Pmpz; para3: Pmpz; para4: Pmpz); cdecl; external libgmp name '__gmpz_cdiv_qr';
-function mpz_cdiv_qr_ui(para1: Pmpz; para2: Pmpz; para3: Pmpz; para4: dword): dword; cdecl; external libgmp name '__gmpz_cdiv_qr_ui';
+function mpz_cdiv_qr_ui(para1: Pmpz; para2: Pmpz; para3: Pmpz; para4: Tculong): Tculong; cdecl; external libgmp name '__gmpz_cdiv_qr_ui';
 procedure mpz_cdiv_r(para1: Pmpz; para2: Pmpz; para3: Pmpz); cdecl; external libgmp name '__gmpz_cdiv_r';
 procedure mpz_cdiv_r_2exp(para1: Pmpz; para2: Pmpz; para3: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpz_cdiv_r_2exp';
-function mpz_cdiv_r_ui(para1: Pmpz; para2: Pmpz; para3: dword): dword; cdecl; external libgmp name '__gmpz_cdiv_r_ui';
-function mpz_cdiv_ui(para1: Pmpz; para2: dword): dword; cdecl; external libgmp name '__gmpz_cdiv_ui';
+function mpz_cdiv_r_ui(para1: Pmpz; para2: Pmpz; para3: Tculong): Tculong; cdecl; external libgmp name '__gmpz_cdiv_r_ui';
+function mpz_cdiv_ui(para1: Pmpz; para2: Tculong): Tculong; cdecl; external libgmp name '__gmpz_cdiv_ui';
 procedure mpz_clear(para1: Pmpz); cdecl; external libgmp name '__gmpz_clear';
 procedure mpz_clears(para1: Pmpz); varargs; cdecl; external libgmp name '__gmpz_clears';
 procedure mpz_clrbit(para1: Pmpz; para2: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpz_clrbit';
 function mpz_cmp(para1: Pmpz; para2: Pmpz): longint; cdecl; external libgmp name '__gmpz_cmp';
 function mpz_cmp_d(para1: Pmpz; para2: double): longint; cdecl; external libgmp name '__gmpz_cmp_d';
-function _mpz_cmp_si(para1: Pmpz; para2: longint): longint; cdecl; external libgmp name '__gmpz_cmp_si';
-function _mpz_cmp_ui(para1: Pmpz; para2: dword): longint; cdecl; external libgmp name '__gmpz_cmp_ui';
+function _mpz_cmp_si(para1: Pmpz; para2: Tclong): longint; cdecl; external libgmp name '__gmpz_cmp_si';
+function _mpz_cmp_ui(para1: Pmpz; para2: Tculong): longint; cdecl; external libgmp name '__gmpz_cmp_ui';
 function mpz_cmpabs(para1: Pmpz; para2: Pmpz): longint; cdecl; external libgmp name '__gmpz_cmpabs';
 function mpz_cmpabs_d(para1: Pmpz; para2: double): longint; cdecl; external libgmp name '__gmpz_cmpabs_d';
-function mpz_cmpabs_ui(para1: Pmpz; para2: dword): longint; cdecl; external libgmp name '__gmpz_cmpabs_ui';
+function mpz_cmpabs_ui(para1: Pmpz; para2: Tculong): longint; cdecl; external libgmp name '__gmpz_cmpabs_ui';
 procedure mpz_com(para1: Pmpz; para2: Pmpz); cdecl; external libgmp name '__gmpz_com';
 procedure mpz_combit(para1: Pmpz; para2: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpz_combit';
 function mpz_congruent_p(para1: Pmpz; para2: Pmpz; para3: Pmpz): longint; cdecl; external libgmp name '__gmpz_congruent_p';
 function mpz_congruent_2exp_p(para1: Pmpz; para2: Pmpz; para3: Tmp_bitcnt_t): longint; cdecl; external libgmp name '__gmpz_congruent_2exp_p';
-function mpz_congruent_ui_p(para1: Pmpz; para2: dword; para3: dword): longint; cdecl; external libgmp name '__gmpz_congruent_ui_p';
+function mpz_congruent_ui_p(para1: Pmpz; para2: Tculong; para3: Tculong): longint; cdecl; external libgmp name '__gmpz_congruent_ui_p';
 procedure mpz_divexact(para1: Pmpz; para2: Pmpz; para3: Pmpz); cdecl; external libgmp name '__gmpz_divexact';
-procedure mpz_divexact_ui(para1: Pmpz; para2: Pmpz; para3: dword); cdecl; external libgmp name '__gmpz_divexact_ui';
+procedure mpz_divexact_ui(para1: Pmpz; para2: Pmpz; para3: Tculong); cdecl; external libgmp name '__gmpz_divexact_ui';
 function mpz_divisible_p(para1: Pmpz; para2: Pmpz): longint; cdecl; external libgmp name '__gmpz_divisible_p';
-function mpz_divisible_ui_p(para1: Pmpz; para2: dword): longint; cdecl; external libgmp name '__gmpz_divisible_ui_p';
+function mpz_divisible_ui_p(para1: Pmpz; para2: dword): Tculong; cdecl; external libgmp name '__gmpz_divisible_ui_p';
 function mpz_divisible_2exp_p(para1: Pmpz; para2: Tmp_bitcnt_t): longint; cdecl; external libgmp name '__gmpz_divisible_2exp_p';
 procedure mpz_dump(para1: Pmpz); cdecl; external libgmp name '__gmpz_dump';
 function mpz_export(para1: pointer; para2: Psize_t; para3: longint; para4: Tsize_t; para5: longint; para6: Tsize_t; para7: Pmpz): pointer; cdecl; external libgmp name '__gmpz_export';
-procedure mpz_fac_ui(para1: Pmpz; para2: dword); cdecl; external libgmp name '__gmpz_fac_ui';
-procedure mpz_2fac_ui(para1: Pmpz; para2: dword); cdecl; external libgmp name '__gmpz_2fac_ui';
-procedure mpz_mfac_uiui(para1: Pmpz; para2: dword; para3: dword); cdecl; external libgmp name '__gmpz_mfac_uiui';
-procedure mpz_primorial_ui(para1: Pmpz; para2: dword); cdecl; external libgmp name '__gmpz_primorial_ui';
+procedure mpz_fac_ui(para1: Pmpz; para2: Tculong); cdecl; external libgmp name '__gmpz_fac_ui';
+procedure mpz_2fac_ui(para1: Pmpz; para2: Tculong); cdecl; external libgmp name '__gmpz_2fac_ui';
+procedure mpz_mfac_uiui(para1: Pmpz; para2: Tculong; para3: Tculong); cdecl; external libgmp name '__gmpz_mfac_uiui';
+procedure mpz_primorial_ui(para1: Pmpz; para2: Tculong); cdecl; external libgmp name '__gmpz_primorial_ui';
 procedure mpz_fdiv_q(para1: Pmpz; para2: Pmpz; para3: Pmpz); cdecl; external libgmp name '__gmpz_fdiv_q';
 procedure mpz_fdiv_q_2exp(para1: Pmpz; para2: Pmpz; para3: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpz_fdiv_q_2exp';
-function mpz_fdiv_q_ui(para1: Pmpz; para2: Pmpz; para3: dword): dword; cdecl; external libgmp name '__gmpz_fdiv_q_ui';
+function mpz_fdiv_q_ui(para1: Pmpz; para2: Pmpz; para3: Tculong): Tculong; cdecl; external libgmp name '__gmpz_fdiv_q_ui';
 procedure mpz_fdiv_qr(para1: Pmpz; para2: Pmpz; para3: Pmpz; para4: Pmpz); cdecl; external libgmp name '__gmpz_fdiv_qr';
-function mpz_fdiv_qr_ui(para1: Pmpz; para2: Pmpz; para3: Pmpz; para4: dword): dword; cdecl; external libgmp name '__gmpz_fdiv_qr_ui';
+function mpz_fdiv_qr_ui(para1: Pmpz; para2: Pmpz; para3: Pmpz; para4: Tculong): Tculong; cdecl; external libgmp name '__gmpz_fdiv_qr_ui';
 procedure mpz_fdiv_r(para1: Pmpz; para2: Pmpz; para3: Pmpz); cdecl; external libgmp name '__gmpz_fdiv_r';
 procedure mpz_fdiv_r_2exp(para1: Pmpz; para2: Pmpz; para3: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpz_fdiv_r_2exp';
-function mpz_fdiv_r_ui(para1: Pmpz; para2: Pmpz; para3: dword): dword; cdecl; external libgmp name '__gmpz_fdiv_r_ui';
-function mpz_fdiv_ui(para1: Pmpz; para2: dword): dword; cdecl; external libgmp name '__gmpz_fdiv_ui';
-procedure mpz_fib_ui(para1: Pmpz; para2: dword); cdecl; external libgmp name '__gmpz_fib_ui';
-procedure mpz_fib2_ui(para1: Pmpz; para2: Pmpz; para3: dword); cdecl; external libgmp name '__gmpz_fib2_ui';
+function mpz_fdiv_r_ui(para1: Pmpz; para2: Pmpz; para3: Tculong): Tculong; cdecl; external libgmp name '__gmpz_fdiv_r_ui';
+function mpz_fdiv_ui(para1: Pmpz; para2: Tculong): Tculong; cdecl; external libgmp name '__gmpz_fdiv_ui';
+procedure mpz_fib_ui(para1: Pmpz; para2: Tculong); cdecl; external libgmp name '__gmpz_fib_ui';
+procedure mpz_fib2_ui(para1: Pmpz; para2: Pmpz; Tculong: dword); cdecl; external libgmp name '__gmpz_fib2_ui';
 function mpz_fits_sint_p(para1: Pmpz): longint; cdecl; external libgmp name '__gmpz_fits_sint_p';
 function mpz_fits_slong_p(para1: Pmpz): longint; cdecl; external libgmp name '__gmpz_fits_slong_p';
 function mpz_fits_sshort_p(para1: Pmpz): longint; cdecl; external libgmp name '__gmpz_fits_sshort_p';
@@ -203,13 +212,13 @@ function mpz_fits_uint_p(para1: Pmpz): longint; cdecl; external libgmp name '__g
 function mpz_fits_ulong_p(para1: Pmpz): longint; cdecl; external libgmp name '__gmpz_fits_ulong_p';
 function mpz_fits_ushort_p(para1: Pmpz): longint; cdecl; external libgmp name '__gmpz_fits_ushort_p';
 procedure mpz_gcd(para1: Pmpz; para2: Pmpz; para3: Pmpz); cdecl; external libgmp name '__gmpz_gcd';
-function mpz_gcd_ui(para1: Pmpz; para2: Pmpz; para3: dword): dword; cdecl; external libgmp name '__gmpz_gcd_ui';
+function mpz_gcd_ui(para1: Pmpz; para2: Pmpz; para3: Tculong): Tculong; cdecl; external libgmp name '__gmpz_gcd_ui';
 procedure mpz_gcdext(para1: Pmpz; para2: Pmpz; para3: Pmpz; para4: Pmpz; para5: Pmpz); cdecl; external libgmp name '__gmpz_gcdext';
 function mpz_get_d(para1: Pmpz): double; cdecl; external libgmp name '__gmpz_get_d';
-function mpz_get_d_2exp(para1: Plongint; para2: Pmpz): double; cdecl; external libgmp name '__gmpz_get_d_2exp';
-function mpz_get_si(para1: Pmpz): longint; cdecl; external libgmp name '__gmpz_get_si';
+function mpz_get_d_2exp(para1: Pculong; para2: Pmpz): double; cdecl; external libgmp name '__gmpz_get_d_2exp';
+function mpz_get_si(para1: Pmpz): Tclong; cdecl; external libgmp name '__gmpz_get_si';
 function mpz_get_str(para1: pchar; para2: longint; para3: Pmpz): pchar; cdecl; external libgmp name '__gmpz_get_str';
-function mpz_get_ui(para1: Pmpz): dword; cdecl; external libgmp name '__gmpz_get_ui';
+function mpz_get_ui(para1: Pmpz): Tculong; cdecl; external libgmp name '__gmpz_get_ui';
 function mpz_getlimbn(para1: Pmpz; para2: Tmp_size_t): Tmp_limb_t; cdecl; external libgmp name '__gmpz_getlimbn';
 function mpz_hamdist(para1: Pmpz; para2: Pmpz): Tmp_bitcnt_t; cdecl; external libgmp name '__gmpz_hamdist';
 procedure mpz_import(para1: Pmpz; para2: Tsize_t; para3: longint; para4: Tsize_t; para5: longint; para6: Tsize_t; para7: pointer); cdecl; external libgmp name '__gmpz_import';
@@ -218,28 +227,28 @@ procedure mpz_init2(para1: Pmpz; para2: Tmp_bitcnt_t); cdecl; external libgmp na
 procedure mpz_inits(para1: Pmpz); varargs; cdecl; external libgmp name '__gmpz_inits';
 procedure mpz_init_set(para1: Pmpz; para2: Pmpz); cdecl; external libgmp name '__gmpz_init_set';
 procedure mpz_init_set_d(para1: Pmpz; para2: double); cdecl; external libgmp name '__gmpz_init_set_d';
-procedure mpz_init_set_si(para1: Pmpz; para2: longint); cdecl; external libgmp name '__gmpz_init_set_si';
+procedure mpz_init_set_si(para1: Pmpz; para2: Tclong); cdecl; external libgmp name '__gmpz_init_set_si';
 function mpz_init_set_str(para1: Pmpz; para2: pchar; para3: longint): longint; cdecl; external libgmp name '__gmpz_init_set_str';
-procedure mpz_init_set_ui(para1: Pmpz; para2: dword); cdecl; external libgmp name '__gmpz_init_set_ui';
+procedure mpz_init_set_ui(para1: Pmpz; para2: Tculong); cdecl; external libgmp name '__gmpz_init_set_ui';
 function mpz_inp_raw(para1: Pmpz; para2: PFILE): Tsize_t; cdecl; external libgmp name '__gmpz_inp_raw';
 function mpz_inp_str(para1: Pmpz; para2: PFILE; para3: longint): Tsize_t; cdecl; external libgmp name '__gmpz_inp_str';
 function mpz_invert(para1: Pmpz; para2: Pmpz; para3: Pmpz): longint; cdecl; external libgmp name '__gmpz_invert';
 procedure mpz_ior(para1: Pmpz; para2: Pmpz; para3: Pmpz); cdecl; external libgmp name '__gmpz_ior';
 function mpz_jacobi(para1: Pmpz; para2: Pmpz): longint; cdecl; external libgmp name '__gmpz_jacobi';
-function mpz_kronecker_si(para1: Pmpz; para2: longint): longint; cdecl; external libgmp name '__gmpz_kronecker_si';
-function mpz_kronecker_ui(para1: Pmpz; para2: dword): longint; cdecl; external libgmp name '__gmpz_kronecker_ui';
-function mpz_si_kronecker(para1: longint; para2: Pmpz): longint; cdecl; external libgmp name '__gmpz_si_kronecker';
-function mpz_ui_kronecker(para1: dword; para2: Pmpz): longint; cdecl; external libgmp name '__gmpz_ui_kronecker';
+function mpz_kronecker_si(para1: Pmpz; para2: Tclong): longint; cdecl; external libgmp name '__gmpz_kronecker_si';
+function mpz_kronecker_ui(para1: Pmpz; para2: Tculong): longint; cdecl; external libgmp name '__gmpz_kronecker_ui';
+function mpz_si_kronecker(para1: Tclong; para2: Pmpz): longint; cdecl; external libgmp name '__gmpz_si_kronecker';
+function mpz_ui_kronecker(para1: Tculong; para2: Pmpz): longint; cdecl; external libgmp name '__gmpz_ui_kronecker';
 procedure mpz_lcm(para1: Pmpz; para2: Pmpz; para3: Pmpz); cdecl; external libgmp name '__gmpz_lcm';
-procedure mpz_lcm_ui(para1: Pmpz; para2: Pmpz; para3: dword); cdecl; external libgmp name '__gmpz_lcm_ui';
-procedure mpz_lucnum_ui(para1: Pmpz; para2: dword); cdecl; external libgmp name '__gmpz_lucnum_ui';
-procedure mpz_lucnum2_ui(para1: Pmpz; para2: Pmpz; para3: dword); cdecl; external libgmp name '__gmpz_lucnum2_ui';
+procedure mpz_lcm_ui(para1: Pmpz; para2: Pmpz; para3: Tculong); cdecl; external libgmp name '__gmpz_lcm_ui';
+procedure mpz_lucnum_ui(para1: Pmpz; para2: Tculong); cdecl; external libgmp name '__gmpz_lucnum_ui';
+procedure mpz_lucnum2_ui(para1: Pmpz; para2: Pmpz; para3: Tculong); cdecl; external libgmp name '__gmpz_lucnum2_ui';
 function mpz_millerrabin(para1: Pmpz; para2: longint): longint; cdecl; external libgmp name '__gmpz_millerrabin';
 procedure mpz_mod(para1: Pmpz; para2: Pmpz; para3: Pmpz); cdecl; external libgmp name '__gmpz_mod';
 procedure mpz_mul(para1: Pmpz; para2: Pmpz; para3: Pmpz); cdecl; external libgmp name '__gmpz_mul';
 procedure mpz_mul_2exp(para1: Pmpz; para2: Pmpz; para3: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpz_mul_2exp';
-procedure mpz_mul_si(para1: Pmpz; para2: Pmpz; para3: longint); cdecl; external libgmp name '__gmpz_mul_si';
-procedure mpz_mul_ui(para1: Pmpz; para2: Pmpz; para3: dword); cdecl; external libgmp name '__gmpz_mul_ui';
+procedure mpz_mul_si(para1: Pmpz; para2: Pmpz; para3: Tclong); cdecl; external libgmp name '__gmpz_mul_si';
+procedure mpz_mul_ui(para1: Pmpz; para2: Pmpz; para3: Tculong); cdecl; external libgmp name '__gmpz_mul_ui';
 procedure mpz_neg(para1: Pmpz; para2: Pmpz); cdecl; external libgmp name '__gmpz_neg';
 procedure mpz_nextprime(para1: Pmpz; para2: Pmpz); cdecl; external libgmp name '__gmpz_nextprime';
 function mpz_prevprime(para1: Pmpz; para2: Pmpz): longint; cdecl; external libgmp name '__gmpz_prevprime';
@@ -248,17 +257,17 @@ function mpz_out_str(para1: PFILE; para2: longint; para3: Pmpz): Tsize_t; cdecl;
 function mpz_perfect_power_p(para1: Pmpz): longint; cdecl; external libgmp name '__gmpz_perfect_power_p';
 function mpz_perfect_square_p(para1: Pmpz): longint; cdecl; external libgmp name '__gmpz_perfect_square_p';
 function mpz_popcount(para1: Pmpz): Tmp_bitcnt_t; cdecl; external libgmp name '__gmpz_popcount';
-procedure mpz_pow_ui(para1: Pmpz; para2: Pmpz; para3: dword); cdecl; external libgmp name '__gmpz_pow_ui';
+procedure mpz_pow_ui(para1: Pmpz; para2: Pmpz; para3: Tculong); cdecl; external libgmp name '__gmpz_pow_ui';
 procedure mpz_powm(para1: Pmpz; para2: Pmpz; para3: Pmpz; para4: Pmpz); cdecl; external libgmp name '__gmpz_powm';
 procedure mpz_powm_sec(para1: Pmpz; para2: Pmpz; para3: Pmpz; para4: Pmpz); cdecl; external libgmp name '__gmpz_powm_sec';
-procedure mpz_powm_ui(para1: Pmpz; para2: Pmpz; para3: dword; para4: Pmpz); cdecl; external libgmp name '__gmpz_powm_ui';
+procedure mpz_powm_ui(para1: Pmpz; para2: Pmpz; para3: Tculong; para4: Pmpz); cdecl; external libgmp name '__gmpz_powm_ui';
 function mpz_probab_prime_p(para1: Pmpz; para2: longint): longint; cdecl; external libgmp name '__gmpz_probab_prime_p';
 procedure mpz_random(para1: Pmpz; para2: Tmp_size_t); cdecl; external libgmp name '__gmpz_random';
 procedure mpz_random2(para1: Pmpz; para2: Tmp_size_t); cdecl; external libgmp name '__gmpz_random2';
 procedure mpz_realloc2(para1: Pmpz; para2: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpz_realloc2';
 function mpz_remove(para1: Pmpz; para2: Pmpz; para3: Pmpz): Tmp_bitcnt_t; cdecl; external libgmp name '__gmpz_remove';
-function mpz_root(para1: Pmpz; para2: Pmpz; para3: dword): longint; cdecl; external libgmp name '__gmpz_root';
-procedure mpz_rootrem(para1: Pmpz; para2: Pmpz; para3: Pmpz; para4: dword); cdecl; external libgmp name '__gmpz_rootrem';
+function mpz_root(para1: Pmpz; para2: Pmpz; para3: Tculong): longint; cdecl; external libgmp name '__gmpz_root';
+procedure mpz_rootrem(para1: Pmpz; para2: Pmpz; para3: Pmpz; para4: Tculong); cdecl; external libgmp name '__gmpz_rootrem';
 procedure mpz_rrandomb(para1: Pmpz; para2: Pgmp_randstate; para3: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpz_rrandomb';
 function mpz_scan0(para1: Pmpz; para2: Tmp_bitcnt_t): Tmp_bitcnt_t; cdecl; external libgmp name '__gmpz_scan0';
 function mpz_scan1(para1: Pmpz; para2: Tmp_bitcnt_t): Tmp_bitcnt_t; cdecl; external libgmp name '__gmpz_scan1';
@@ -266,31 +275,31 @@ procedure mpz_set(para1: Pmpz; para2: Pmpz); cdecl; external libgmp name '__gmpz
 procedure mpz_set_d(para1: Pmpz; para2: double); cdecl; external libgmp name '__gmpz_set_d';
 procedure mpz_set_f(para1: Pmpz; para2: Pmpf); cdecl; external libgmp name '__gmpz_set_f';
 procedure mpz_set_q(para1: Pmpz; para2: Pmpq); cdecl; external libgmp name '__gmpz_set_q';
-procedure mpz_set_si(para1: Pmpz; para2: longint); cdecl; external libgmp name '__gmpz_set_si';
+procedure mpz_set_si(para1: Pmpz; para2: Tclong); cdecl; external libgmp name '__gmpz_set_si';
 function mpz_set_str(para1: Pmpz; para2: pchar; para3: longint): longint; cdecl; external libgmp name '__gmpz_set_str';
-procedure mpz_set_ui(para1: Pmpz; para2: dword); cdecl; external libgmp name '__gmpz_set_ui';
+procedure mpz_set_ui(para1: Pmpz; para2: Tculong); cdecl; external libgmp name '__gmpz_set_ui';
 procedure mpz_setbit(para1: Pmpz; para2: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpz_setbit';
 function mpz_size(para1: Pmpz): Tsize_t; cdecl; external libgmp name '__gmpz_size';
 function mpz_sizeinbase(para1: Pmpz; para2: longint): Tsize_t; cdecl; external libgmp name '__gmpz_sizeinbase';
 procedure mpz_sqrt(para1: Pmpz; para2: Pmpz); cdecl; external libgmp name '__gmpz_sqrt';
 procedure mpz_sqrtrem(para1: Pmpz; para2: Pmpz; para3: Pmpz); cdecl; external libgmp name '__gmpz_sqrtrem';
 procedure mpz_sub(para1: Pmpz; para2: Pmpz; para3: Pmpz); cdecl; external libgmp name '__gmpz_sub';
-procedure mpz_sub_ui(para1: Pmpz; para2: Pmpz; para3: dword); cdecl; external libgmp name '__gmpz_sub_ui';
-procedure mpz_ui_sub(para1: Pmpz; para2: dword; para3: Pmpz); cdecl; external libgmp name '__gmpz_ui_sub';
+procedure mpz_sub_ui(para1: Pmpz; para2: Pmpz; para3: Tculong); cdecl; external libgmp name '__gmpz_sub_ui';
+procedure mpz_ui_sub(para1: Pmpz; para2: Tculong; para3: Pmpz); cdecl; external libgmp name '__gmpz_ui_sub';
 procedure mpz_submul(para1: Pmpz; para2: Pmpz; para3: Pmpz); cdecl; external libgmp name '__gmpz_submul';
-procedure mpz_submul_ui(para1: Pmpz; para2: Pmpz; para3: dword); cdecl; external libgmp name '__gmpz_submul_ui';
+procedure mpz_submul_ui(para1: Pmpz; para2: Pmpz; para3: Tculong); cdecl; external libgmp name '__gmpz_submul_ui';
 procedure mpz_swap(para1: Pmpz; para2: Pmpz); cdecl; external libgmp name '__gmpz_swap';
-function mpz_tdiv_ui(para1: Pmpz; para2: dword): dword; cdecl; external libgmp name '__gmpz_tdiv_ui';
+function mpz_tdiv_ui(para1: Pmpz; para2: Tculong): Tculong; cdecl; external libgmp name '__gmpz_tdiv_ui';
 procedure mpz_tdiv_q(para1: Pmpz; para2: Pmpz; para3: Pmpz); cdecl; external libgmp name '__gmpz_tdiv_q';
 procedure mpz_tdiv_q_2exp(para1: Pmpz; para2: Pmpz; para3: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpz_tdiv_q_2exp';
-function mpz_tdiv_q_ui(para1: Pmpz; para2: Pmpz; para3: dword): dword; cdecl; external libgmp name '__gmpz_tdiv_q_ui';
+function mpz_tdiv_q_ui(para1: Pmpz; para2: Pmpz; para3: Tculong): Tculong; cdecl; external libgmp name '__gmpz_tdiv_q_ui';
 procedure mpz_tdiv_qr(para1: Pmpz; para2: Pmpz; para3: Pmpz; para4: Pmpz); cdecl; external libgmp name '__gmpz_tdiv_qr';
-function mpz_tdiv_qr_ui(para1: Pmpz; para2: Pmpz; para3: Pmpz; para4: dword): dword; cdecl; external libgmp name '__gmpz_tdiv_qr_ui';
+function mpz_tdiv_qr_ui(para1: Pmpz; para2: Pmpz; para3: Pmpz; para4: Tculong): Tculong; cdecl; external libgmp name '__gmpz_tdiv_qr_ui';
 procedure mpz_tdiv_r(para1: Pmpz; para2: Pmpz; para3: Pmpz); cdecl; external libgmp name '__gmpz_tdiv_r';
 procedure mpz_tdiv_r_2exp(para1: Pmpz; para2: Pmpz; para3: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpz_tdiv_r_2exp';
-function mpz_tdiv_r_ui(para1: Pmpz; para2: Pmpz; para3: dword): dword; cdecl; external libgmp name '__gmpz_tdiv_r_ui';
+function mpz_tdiv_r_ui(para1: Pmpz; para2: Pmpz; para3: Tculong): Tculong; cdecl; external libgmp name '__gmpz_tdiv_r_ui';
 function mpz_tstbit(para1: Pmpz; para2: Tmp_bitcnt_t): longint; cdecl; external libgmp name '__gmpz_tstbit';
-procedure mpz_ui_pow_ui(para1: Pmpz; para2: dword; para3: dword); cdecl; external libgmp name '__gmpz_ui_pow_ui';
+procedure mpz_ui_pow_ui(para1: Pmpz; para2: Tculong; para3: Tculong); cdecl; external libgmp name '__gmpz_ui_pow_ui';
 procedure mpz_urandomb(para1: Pmpz; para2: Pgmp_randstate; para3: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpz_urandomb';
 procedure mpz_urandomm(para1: Pmpz; para2: Pgmp_randstate; para3: Pmpz); cdecl; external libgmp name '__gmpz_urandomm';
 procedure mpz_xor(para1: Pmpz; para2: Pmpz; para3: Pmpz); cdecl; external libgmp name '__gmpz_xor';
@@ -299,6 +308,7 @@ function mpz_limbs_write(para1: Pmpz; para2: Tmp_size_t): Pmp_limb_t; cdecl; ext
 function mpz_limbs_modify(para1: Pmpz; para2: Tmp_size_t): Pmp_limb_t; cdecl; external libgmp name '__gmpz_limbs_modify';
 procedure mpz_limbs_finish(para1: Pmpz; para2: Tmp_size_t); cdecl; external libgmp name '__gmpz_limbs_finish';
 function mpz_roinit_n(para1: Pmpz; para2: Pmp_limb_t; para3: Tmp_size_t): Pmpz; cdecl; external libgmp name '__gmpz_roinit_n';
+
 {*************** Rational (i.e. Q) routines.  *************** }
 procedure mpq_abs(para1: Pmpq; para2: Pmpq); cdecl; external libgmp name '__gmpq_abs';
 procedure mpq_add(para1: Pmpq; para2: Pmpq; para3: Pmpq); cdecl; external libgmp name '__gmpq_add';
@@ -306,8 +316,8 @@ procedure mpq_canonicalize(para1: Pmpq); cdecl; external libgmp name '__gmpq_can
 procedure mpq_clear(para1: Pmpq); cdecl; external libgmp name '__gmpq_clear';
 procedure mpq_clears(para1: Pmpq); varargs; cdecl; external libgmp name '__gmpq_clears';
 function mpq_cmp(para1: Pmpq; para2: Pmpq): longint; cdecl; external libgmp name '__gmpq_cmp';
-function _mpq_cmp_si(para1: Pmpq; para2: longint; para3: dword): longint; cdecl; external libgmp name '__gmpq_cmp_si';
-function _mpq_cmp_ui(para1: Pmpq; para2: dword; para3: dword): longint; cdecl; external libgmp name '__gmpq_cmp_ui';
+function _mpq_cmp_si(para1: Pmpq; para2: Tclong; para3: Tculong): longint; cdecl; external libgmp name '__gmpq_cmp_si';
+function _mpq_cmp_ui(para1: Pmpq; para2: Tculong; para3: Tculong): longint; cdecl; external libgmp name '__gmpq_cmp_ui';
 function mpq_cmp_z(para1: Pmpq; para2: Pmpz): longint; cdecl; external libgmp name '__gmpq_cmp_z';
 procedure mpq_div(para1: Pmpq; para2: Pmpq; para3: Pmpq); cdecl; external libgmp name '__gmpq_div';
 procedure mpq_div_2exp(para1: Pmpq; para2: Pmpq; para3: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpq_div_2exp';
@@ -329,27 +339,28 @@ procedure mpq_set_d(para1: Pmpq; para2: double); cdecl; external libgmp name '__
 procedure mpq_set_den(para1: Pmpq; para2: Pmpz); cdecl; external libgmp name '__gmpq_set_den';
 procedure mpq_set_f(para1: Pmpq; para2: Pmpf); cdecl; external libgmp name '__gmpq_set_f';
 procedure mpq_set_num(para1: Pmpq; para2: Pmpz); cdecl; external libgmp name '__gmpq_set_num';
-procedure mpq_set_si(para1: Pmpq; para2: longint; para3: dword); cdecl; external libgmp name '__gmpq_set_si';
+procedure mpq_set_si(para1: Pmpq; para2: Tclong; para3: Tculong); cdecl; external libgmp name '__gmpq_set_si';
 function mpq_set_str(para1: Pmpq; para2: pchar; para3: longint): longint; cdecl; external libgmp name '__gmpq_set_str';
-procedure mpq_set_ui(para1: Pmpq; para2: dword; para3: dword); cdecl; external libgmp name '__gmpq_set_ui';
+procedure mpq_set_ui(para1: Pmpq; para2: Tculong; para3: Tculong); cdecl; external libgmp name '__gmpq_set_ui';
 procedure mpq_set_z(para1: Pmpq; para2: Pmpz); cdecl; external libgmp name '__gmpq_set_z';
 procedure mpq_sub(para1: Pmpq; para2: Pmpq; para3: Pmpq); cdecl; external libgmp name '__gmpq_sub';
 procedure mpq_swap(para1: Pmpq; para2: Pmpq); cdecl; external libgmp name '__gmpq_swap';
+
 {*************** Float (i.e. F) routines.  *************** }
 procedure mpf_abs(para1: Pmpf; para2: Pmpf); cdecl; external libgmp name '__gmpf_abs';
 procedure mpf_add(para1: Pmpf; para2: Pmpf; para3: Pmpf); cdecl; external libgmp name '__gmpf_add';
-procedure mpf_add_ui(para1: Pmpf; para2: Pmpf; para3: dword); cdecl; external libgmp name '__gmpf_add_ui';
+procedure mpf_add_ui(para1: Pmpf; para2: Pmpf; para3: Tculong); cdecl; external libgmp name '__gmpf_add_ui';
 procedure mpf_ceil(para1: Pmpf; para2: Pmpf); cdecl; external libgmp name '__gmpf_ceil';
 procedure mpf_clear(para1: Pmpf); cdecl; external libgmp name '__gmpf_clear';
 procedure mpf_clears(para1: Pmpf); varargs; cdecl; external libgmp name '__gmpf_clears';
 function mpf_cmp(para1: Pmpf; para2: Pmpf): longint; cdecl; external libgmp name '__gmpf_cmp';
 function mpf_cmp_z(para1: Pmpf; para2: Pmpz): longint; cdecl; external libgmp name '__gmpf_cmp_z';
 function mpf_cmp_d(para1: Pmpf; para2: double): longint; cdecl; external libgmp name '__gmpf_cmp_d';
-function mpf_cmp_si(para1: Pmpf; para2: longint): longint; cdecl; external libgmp name '__gmpf_cmp_si';
-function mpf_cmp_ui(para1: Pmpf; para2: dword): longint; cdecl; external libgmp name '__gmpf_cmp_ui';
+function mpf_cmp_si(para1: Pmpf; para2: Tclong): longint; cdecl; external libgmp name '__gmpf_cmp_si';
+function mpf_cmp_ui(para1: Pmpf; para2: Tculong): longint; cdecl; external libgmp name '__gmpf_cmp_ui';
 procedure mpf_div(para1: Pmpf; para2: Pmpf; para3: Pmpf); cdecl; external libgmp name '__gmpf_div';
 procedure mpf_div_2exp(para1: Pmpf; para2: Pmpf; para3: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpf_div_2exp';
-procedure mpf_div_ui(para1: Pmpf; para2: Pmpf; para3: dword); cdecl; external libgmp name '__gmpf_div_ui';
+procedure mpf_div_ui(para1: Pmpf; para2: Pmpf; para3: Tculong); cdecl; external libgmp name '__gmpf_div_ui';
 procedure mpf_dump(para1: Pmpf); cdecl; external libgmp name '__gmpf_dump';
 function mpf_eq(para1: Pmpf; para2: Pmpf; para3: Tmp_bitcnt_t): longint; cdecl; external libgmp name '__gmpf_eq';
 function mpf_fits_sint_p(para1: Pmpf): longint; cdecl; external libgmp name '__gmpf_fits_sint_p';
@@ -360,28 +371,28 @@ function mpf_fits_ulong_p(para1: Pmpf): longint; cdecl; external libgmp name '__
 function mpf_fits_ushort_p(para1: Pmpf): longint; cdecl; external libgmp name '__gmpf_fits_ushort_p';
 procedure mpf_floor(para1: Pmpf; para2: Pmpf); cdecl; external libgmp name '__gmpf_floor';
 function mpf_get_d(para1: Pmpf): double; cdecl; external libgmp name '__gmpf_get_d';
-function mpf_get_d_2exp(para1: Plongint; para2: Pmpf): double; cdecl; external libgmp name '__gmpf_get_d_2exp';
+function mpf_get_d_2exp(para1: Pclong; para2: Pmpf): double; cdecl; external libgmp name '__gmpf_get_d_2exp';
 function mpf_get_default_prec: Tmp_bitcnt_t; cdecl; external libgmp name '__g';
 function mpf_get_prec(para1: Pmpf): Tmp_bitcnt_t; cdecl; external libgmp name '__gmpf_get_prec';
-function mpf_get_si(para1: Pmpf): longint; cdecl; external libgmp name '__gmpf_get_si';
+function mpf_get_si(para1: Pmpf): Tclong; cdecl; external libgmp name '__gmpf_get_si';
 function mpf_get_str(para1: pchar; para2: Pmp_exp_t; para3: longint; para4: Tsize_t; para5: Pmpf): pchar; cdecl; external libgmp name '__gmpf_get_str';
-function mpf_get_ui(para1: Pmpf): dword; cdecl; external libgmp name '__gmpf_get_ui';
+function mpf_get_ui(para1: Pmpf): Tculong; cdecl; external libgmp name '__gmpf_get_ui';
 procedure mpf_init(para1: Pmpf); cdecl; external libgmp name '__gmpf_init';
 procedure mpf_init2(para1: Pmpf; para2: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpf_init2';
 procedure mpf_inits(para1: Pmpf); varargs; cdecl; external libgmp name '__gmpf_inits';
 procedure mpf_init_set(para1: Pmpf; para2: Pmpf); cdecl; external libgmp name '__gmpf_init_set';
 procedure mpf_init_set_d(para1: Pmpf; para2: double); cdecl; external libgmp name '__gmpf_init_set_d';
-procedure mpf_init_set_si(para1: Pmpf; para2: longint); cdecl; external libgmp name '__gmpf_init_set_si';
+procedure mpf_init_set_si(para1: Pmpf; para2: Tclong); cdecl; external libgmp name '__gmpf_init_set_si';
 function mpf_init_set_str(para1: Pmpf; para2: pchar; para3: longint): longint; cdecl; external libgmp name '__gmpf_init_set_str';
-procedure mpf_init_set_ui(para1: Pmpf; para2: dword); cdecl; external libgmp name '__gmpf_init_set_ui';
+procedure mpf_init_set_ui(para1: Pmpf; para2: Tculong); cdecl; external libgmp name '__gmpf_init_set_ui';
 function mpf_inp_str(para1: Pmpf; para2: PFILE; para3: longint): Tsize_t; cdecl; external libgmp name '__gmpf_inp_str';
 function mpf_integer_p(para1: Pmpf): longint; cdecl; external libgmp name '__gmpf_integer_p';
 procedure mpf_mul(para1: Pmpf; para2: Pmpf; para3: Pmpf); cdecl; external libgmp name '__gmpf_mul';
 procedure mpf_mul_2exp(para1: Pmpf; para2: Pmpf; para3: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpf_mul_2exp';
-procedure mpf_mul_ui(para1: Pmpf; para2: Pmpf; para3: dword); cdecl; external libgmp name '__gmpf_mul_ui';
+procedure mpf_mul_ui(para1: Pmpf; para2: Pmpf; para3: Tculong); cdecl; external libgmp name '__gmpf_mul_ui';
 procedure mpf_neg(para1: Pmpf; para2: Pmpf); cdecl; external libgmp name '__gmpf_neg';
 function mpf_out_str(para1: PFILE; para2: longint; para3: Tsize_t; para4: Pmpf): Tsize_t; cdecl; external libgmp name '__gmpf_out_str';
-procedure mpf_pow_ui(para1: Pmpf; para2: Pmpf; para3: dword); cdecl; external libgmp name '__gmpf_pow_ui';
+procedure mpf_pow_ui(para1: Pmpf; para2: Pmpf; para3: Tculong); cdecl; external libgmp name '__gmpf_pow_ui';
 procedure mpf_random2(para1: Pmpf; para2: Tmp_size_t; para3: Tmp_exp_t); cdecl; external libgmp name '__gmpf_random2';
 procedure mpf_reldiff(para1: Pmpf; para2: Pmpf; para3: Pmpf); cdecl; external libgmp name '__gmpf_reldiff';
 procedure mpf_set(para1: Pmpf; para2: Pmpf); cdecl; external libgmp name '__gmpf_set';
@@ -390,20 +401,21 @@ procedure mpf_set_default_prec(para1: Tmp_bitcnt_t); cdecl; external libgmp name
 procedure mpf_set_prec(para1: Pmpf; para2: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpf_set_prec';
 procedure mpf_set_prec_raw(para1: Pmpf; para2: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpf_set_prec_raw';
 procedure mpf_set_q(para1: Pmpf; para2: Pmpq); cdecl; external libgmp name '__gmpf_set_q';
-procedure mpf_set_si(para1: Pmpf; para2: longint); cdecl; external libgmp name '__gmpf_set_si';
+procedure mpf_set_si(para1: Pmpf; para2: Tclong); cdecl; external libgmp name '__gmpf_set_si';
 function mpf_set_str(para1: Pmpf; para2: pchar; para3: longint): longint; cdecl; external libgmp name '__gmpf_set_str';
-procedure mpf_set_ui(para1: Pmpf; para2: dword); cdecl; external libgmp name '__gmpf_set_ui';
+procedure mpf_set_ui(para1: Pmpf; para2: Tculong); cdecl; external libgmp name '__gmpf_set_ui';
 procedure mpf_set_z(para1: Pmpf; para2: Pmpz); cdecl; external libgmp name '__gmpf_set_z';
 function mpf_size(para1: Pmpf): Tsize_t; cdecl; external libgmp name '__gmpf_size';
 procedure mpf_sqrt(para1: Pmpf; para2: Pmpf); cdecl; external libgmp name '__gmpf_sqrt';
-procedure mpf_sqrt_ui(para1: Pmpf; para2: dword); cdecl; external libgmp name '__gmpf_sqrt_ui';
+procedure mpf_sqrt_ui(para1: Pmpf; para2: Tculong); cdecl; external libgmp name '__gmpf_sqrt_ui';
 procedure mpf_sub(para1: Pmpf; para2: Pmpf; para3: Pmpf); cdecl; external libgmp name '__gmpf_sub';
-procedure mpf_sub_ui(para1: Pmpf; para2: Pmpf; para3: dword); cdecl; external libgmp name '__gmpf_sub_ui';
+procedure mpf_sub_ui(para1: Pmpf; para2: Pmpf; para3: Tculong); cdecl; external libgmp name '__gmpf_sub_ui';
 procedure mpf_swap(para1: Pmpf; para2: Pmpf); cdecl; external libgmp name '__gmpf_swap';
 procedure mpf_trunc(para1: Pmpf; para2: Pmpf); cdecl; external libgmp name '__gmpf_trunc';
-procedure mpf_ui_div(para1: Pmpf; para2: dword; para3: Pmpf); cdecl; external libgmp name '__gmpf_ui_div';
-procedure mpf_ui_sub(para1: Pmpf; para2: dword; para3: Pmpf); cdecl; external libgmp name '__gmpf_ui_sub';
+procedure mpf_ui_div(para1: Pmpf; para2: Tculong; para3: Pmpf); cdecl; external libgmp name '__gmpf_ui_div';
+procedure mpf_ui_sub(para1: Pmpf; para2: Tculong; para3: Pmpf); cdecl; external libgmp name '__gmpf_ui_sub';
 procedure mpf_urandomb(para1: Pmpf; para2: Pgmp_randstate; para3: Tmp_bitcnt_t); cdecl; external libgmp name '__gmpf_urandomb';
+
 {*********** Low level positive-integer (i.e. N) routines.  *********** }
 function mpn_add(para1: Pmp_limb_t; para2: Pmp_limb_t; para3: Tmp_size_t; para4: Pmp_limb_t; para5: Tmp_size_t): Tmp_limb_t; cdecl; external libgmp name '__gmpn_add';
 function mpn_add_1(para1: Pmp_limb_t; para2: Pmp_limb_t; para3: Tmp_size_t; para4: Tmp_limb_t): Tmp_limb_t; cdecl; external libgmp name '__gmpn_add_1';

@@ -2,12 +2,7 @@ unit fp_tommath_1_3_0;
 
 interface
 
-uses
-  ctypes;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+// =========== Version: 1.3.0
 
 const
   {$IFDEF Linux}
@@ -18,7 +13,21 @@ const
   libttommath = 'libtommath.dll';
   {$ENDIF}
 
-  // Version: 1.3.0
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
+type
+  {$IFDEF Linux}
+  Tculong = uint64;
+  Tclong = int64;
+  {$ENDIF}
+  {$IFDEF windows}
+  Tculong = uint32;
+  Tclong = int64;
+  {$ENDIF}
+  Pculong = ^Tculong;
+  Pclong = ^Tclong;
 
 
 
@@ -149,13 +158,13 @@ procedure mp_set_u64(a: Pmp_int; b: Tuint64_t); cdecl; external libttommath;
 function mp_init_u64(a: Pmp_int; b: Tuint64_t): Tmp_err; cdecl; external libttommath;
 function mp_get_mag_u32(a: Pmp_int): Tuint32_t; cdecl; external libttommath;
 function mp_get_mag_u64(a: Pmp_int): Tuint64_t; cdecl; external libttommath;
-function mp_get_mag_ul(a: Pmp_int): dword; cdecl; external libttommath;
-function mp_get_l(a: Pmp_int): longint; cdecl; external libttommath;
-procedure mp_set_l(a: Pmp_int; b: longint); cdecl; external libttommath;
-function mp_init_l(a: Pmp_int; b: longint): Tmp_err; cdecl; external libttommath;
+function mp_get_mag_ul(a: Pmp_int): Tculong; cdecl; external libttommath;
+function mp_get_l(a: Pmp_int): Tclong; cdecl; external libttommath;
+procedure mp_set_l(a: Pmp_int; b: Tculong); cdecl; external libttommath;
+function mp_init_l(a: Pmp_int; b: Tculong): Tmp_err; cdecl; external libttommath;
 
-procedure mp_set_ul(a: Pmp_int; b: dword); cdecl; external libttommath;
-function mp_init_ul(a: Pmp_int; b: dword): Tmp_err; cdecl; external libttommath;
+procedure mp_set_ul(a: Pmp_int; b: Tculong); cdecl; external libttommath;
+function mp_init_ul(a: Pmp_int; b: Tculong): Tmp_err; cdecl; external libttommath;
 procedure mp_set(a: Pmp_int; b: Tmp_digit); cdecl; external libttommath;
 function mp_init_set(a: Pmp_int; b: Tmp_digit): Tmp_err; cdecl; external libttommath;
 function mp_copy(a: Pmp_int; b: Pmp_int): Tmp_err; cdecl; external libttommath;
@@ -179,7 +188,6 @@ function mp_rand(a: Pmp_int; digits: longint): Tmp_err; cdecl; external libttomm
 
 type
   Trand_source = function(out_: pointer; size: Tsize_t): Tmp_err; cdecl;
-
 
 procedure mp_rand_source(Source: Trand_source); cdecl; external libttommath;
 function mp_xor(a: Pmp_int; b: Pmp_int; c: Pmp_int): Tmp_err; cdecl; external libttommath;

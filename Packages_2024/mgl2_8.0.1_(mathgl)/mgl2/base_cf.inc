@@ -18,11 +18,11 @@ type
 procedure mgl_set_event_func(gr: THMGL; func: TEventFunc; par: pointer); cdecl; external libmgl;
 function mgl_get_quality(gr: THMGL): longint; cdecl; external libmgl;
 procedure mgl_set_quality(gr: THMGL; qual: longint); cdecl; external libmgl;
-procedure mgl_set_draw_reg(gr: THMGL; nx: longint; ny: longint; m: longint); cdecl; external libmgl;
+procedure mgl_set_draw_reg(gr: THMGL; nx: Tclong; ny: Tclong; m: Tclong); cdecl; external libmgl;
 function mgl_is_frames(gr: THMGL): longint; cdecl; external libmgl;
-function mgl_get_flag(gr: THMGL; flag: uint32): longint; cdecl; external libmgl;
-procedure mgl_set_flag(gr: THMGL; val: longint; flag: uint32); cdecl; external libmgl;
-function mgl_use_graph(gr: THMGL; inc: longint): longint; cdecl; external libmgl;
+function mgl_get_flag(gr: THMGL; flag: Tculong): longint; cdecl; external libmgl;
+procedure mgl_set_flag(gr: THMGL; val: longint; flag: Tculong); cdecl; external libmgl;
+function mgl_use_graph(gr: THMGL; inc: longint): Tclong; cdecl; external libmgl;
 procedure mgl_set_rdc_acc(gr: THMGL; reduce: longint); cdecl; external libmgl;
 procedure mgl_start_group(gr: THMGL; name: pchar); cdecl; external libmgl;
 procedure mgl_end_group(gr: THMGL); cdecl; external libmgl;

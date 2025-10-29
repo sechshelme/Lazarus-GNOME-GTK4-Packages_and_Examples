@@ -8,7 +8,7 @@
 {$include tcl/tclTomMath.inc}      // -> tcl
 {$include tcl/tclTomMathDecls.inc} // -> tcl, tclTomMath
 {$include tcl/tk.inc}              // -> tcl
-{$include tcl/tkDecls.inc}         // -> tcl, tk
 {$include tcl/tkPlatDecls.inc}     // -> tcl, tk
+{$include tcl/tkDecls.inc}         // -> tcl, tk
 
 

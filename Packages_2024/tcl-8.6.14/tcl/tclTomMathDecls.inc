@@ -50,7 +50,7 @@ function TclBN_mp_sqrt(a: Pmp_int; b: Pmp_int): Tmp_err; cdecl; external libtcls
 function TclBN_mp_sub(a: Pmp_int; b: Pmp_int; c: Pmp_int): Tmp_err; cdecl; external libtclstub8_6;
 function TclBN_mp_sub_d(a: Pmp_int; b: Tmp_digit; c: Pmp_int): Tmp_err; cdecl; external libtclstub8_6;
 function TclBN_mp_to_unsigned_bin(a: Pmp_int; b: pbyte): Tmp_err; cdecl; external libtclstub8_6;
-function TclBN_mp_to_unsigned_bin_n(a: Pmp_int; b: pbyte; outlen: Pdword): Tmp_err; cdecl; external libtclstub8_6;
+function TclBN_mp_to_unsigned_bin_n(a: Pmp_int; b: pbyte; outlen: Pculong): Tmp_err; cdecl; external libtclstub8_6;
 function TclBN_mp_toradix_n(a: Pmp_int; str: pchar; radix: longint; maxlen: longint): Tmp_err; cdecl; external libtclstub8_6;
 function TclBN_mp_unsigned_bin_size(a: Pmp_int): Tsize_t; cdecl; external libtclstub8_6;
 function TclBN_mp_xor(a: Pmp_int; b: Pmp_int; c: Pmp_int): Tmp_err; cdecl; external libtclstub8_6;
@@ -66,10 +66,10 @@ function TclBN_s_mp_add(a: Pmp_int; b: Pmp_int; c: Pmp_int): Tmp_err; cdecl; ext
 function TclBN_s_mp_mul_digs(a: Pmp_int; b: Pmp_int; c: Pmp_int; digs: longint): Tmp_err; cdecl; external libtclstub8_6;
 function TclBN_s_mp_sqr(a: Pmp_int; b: Pmp_int): Tmp_err; cdecl; external libtclstub8_6;
 function TclBN_s_mp_sub(a: Pmp_int; b: Pmp_int; c: Pmp_int): Tmp_err; cdecl; external libtclstub8_6;
-function TclBN_mp_init_set_int(a: Pmp_int; i: dword): Tmp_err; cdecl; external libtclstub8_6;
-function TclBN_mp_set_int(a: Pmp_int; i: dword): Tmp_err; cdecl; external libtclstub8_6;
+function TclBN_mp_init_set_int(a: Pmp_int; i: Tculong): Tmp_err; cdecl; external libtclstub8_6;
+function TclBN_mp_set_int(a: Pmp_int; i: Tculong): Tmp_err; cdecl; external libtclstub8_6;
 function TclBN_mp_cnt_lsb(a: Pmp_int): longint; cdecl; external libtclstub8_6;
-function TclBNInitBignumFromLong(bignum: Pmp_int; initVal: longint): longint; cdecl; external libtclstub8_6;
+function TclBNInitBignumFromLong(bignum: Pmp_int; initVal: Tclong): longint; cdecl; external libtclstub8_6;
 function TclBNInitBignumFromWideInt(bignum: Pmp_int; initVal: TTcl_WideInt): longint; cdecl; external libtclstub8_6;
 function TclBNInitBignumFromWideUInt(bignum: Pmp_int; initVal: TTcl_WideUInt): longint; cdecl; external libtclstub8_6;
 function TclBN_mp_expt_d_ex(a: Pmp_int; b: Tmp_digit; c: Pmp_int; fast: longint): Tmp_err; cdecl; external libtclstub8_6;

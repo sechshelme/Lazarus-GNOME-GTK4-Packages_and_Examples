@@ -344,7 +344,7 @@ const
 type
   TXVirtualEvent = record
     _type: longint;
-    serial: dword;
+    serial: Tculong;
     send_event: TBool;
     display: PDisplay;
     event: TWindow;
@@ -364,7 +364,7 @@ type
 
   TXActivateDeactivateEvent = record
     _type: longint;
-    serial: dword;
+    serial: Tculong;
     send_event: TBool;
     display: PDisplay;
     window: TWindow;
@@ -396,7 +396,7 @@ type
     changes: TXWindowChanges;
     dummy6: dword;
     atts: TXSetWindowAttributes;
-    dummy7: dword;
+    dummy7: Tculong;
     flags: dword;
     dummy8: pchar;
     dummy9: TXIC;

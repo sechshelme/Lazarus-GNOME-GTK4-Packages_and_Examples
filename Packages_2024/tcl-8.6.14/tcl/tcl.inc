@@ -45,13 +45,13 @@ type
     st_rdev: dword;
     st_size: int64;
     st_atim: record
-      tv_sec: longint;
+      tv_sec: Tclong;
       end;
     st_mtim: record
-      tv_sec: longint;
+      tv_sec: Tclong;
       end;
     st_ctim: record
-      tv_sec: longint;
+      tv_sec: Tclong;
       end;
   end;
   PTcl_StatBuf = ^TTcl_StatBuf;
@@ -159,16 +159,16 @@ const
 
 type
   TTcl_RegExpIndices = record
-    start: longint;
-    end_: longint;
+    start: Tclong;
+    end_: Tclong;
   end;
   PTcl_RegExpIndices = ^TTcl_RegExpIndices;
 
   TTcl_RegExpInfo = record
     nsubs: longint;
     matches: PTcl_RegExpIndices;
-    extendStart: longint;
-    reserved: longint;
+    extendStart: Tclong;
+    reserved: Tclong;
   end;
   PTcl_RegExpInfo = ^TTcl_RegExpInfo;
 
@@ -205,7 +205,7 @@ const
 type
   TTcl_Value = record
     _type: TTcl_ValueType;
-    intValue: longint;
+    intValue: Tclong;
     doubleValue: double;
     wideValue: TTcl_WideInt;
   end;
@@ -285,7 +285,7 @@ type
     typePtr: PTcl_ObjType;
     internalRep: record
       case longint of
-        0: (longValue: clong);
+        0: (longValue: Tclong);
         1: (doubleValue: double);
         2: (otherValuePtr: pointer);
         3: (wideValue: TTcl_WideInt);
@@ -295,7 +295,7 @@ type
             end);
         5: (ptrAndLongRep: record
             ptr: pointer;
-            Value: culong;
+            Value: Tculong;
             end);
       end;
   end;
@@ -534,8 +534,8 @@ type
   PTcl_Time = ^TTcl_Time;
 
   TTcl_Time = record
-    sec: clong;
-    usec: clong;
+    sec: Tclong;
+    usec: Tclong;
   end;
 
   TTcl_SetTimerProc = procedure(timePtr: PTcl_Time); cdecl;
@@ -567,7 +567,7 @@ type
   TTcl_DriverClose2Proc = function(instanceData: TClientData; interp: PTcl_Interp; flags: longint): longint; cdecl;
   TTcl_DriverInputProc = function(instanceData: TClientData; buf: pchar; toRead: longint; errorCodePtr: Plongint): longint; cdecl;
   TTcl_DriverOutputProc = function(instanceData: TClientData; buf: pchar; toWrite: longint; errorCodePtr: Plongint): longint; cdecl;
-  TTcl_DriverSeekProc = function(instanceData: TClientData; offset: longint; mode: longint; errorCodePtr: Plongint): longint; cdecl;
+  TTcl_DriverSeekProc = function(instanceData: TClientData; offset: Tclong; mode: longint; errorCodePtr: Plongint): longint; cdecl;
   TTcl_DriverSetOptionProc = function(instanceData: TClientData; interp: PTcl_Interp; optionName: pchar; Value: pchar): longint; cdecl;
   TTcl_DriverGetOptionProc = function(instanceData: TClientData; interp: PTcl_Interp; optionName: pchar; dsPtr: PTcl_DString): longint; cdecl;
   TTcl_DriverWatchProc = procedure(instanceData: TClientData; mask: longint); cdecl;

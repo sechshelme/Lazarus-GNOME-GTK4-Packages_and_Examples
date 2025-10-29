@@ -1,25 +1,4 @@
-./mgl2_8.0.1_(mathgl)/C-include/canvas_cf.h: *   License along with this program; if not, write to the                 *
-./mgl2_8.0.1_(mathgl)/C-include/canvas_cf.h:long MGL_EXPORT_PURE mgl_is_active(HMGL gr, int xs, int ys, int d);
 
-./mgl2_8.0.1_(mathgl)/C-include/base_cf.h: *   License along with this program; if not, write to the                 *
-./mgl2_8.0.1_(mathgl)/C-include/base_cf.h:void MGL_EXPORT mgl_set_draw_reg(HMGL gr, long nx, long ny, long m);
-
-./mgl2_8.0.1_(mathgl)/C-include/define.h:long MGL_EXPORT_PURE mgl_have_color(const char *stl);
-
-./mgl2_8.0.1_(mathgl)/C-include/data_cf.h: *   License along with this program; if not, write to the                 *
-./mgl2_8.0.1_(mathgl)/C-include/data_cf.h:HMDT MGL_EXPORT mgl_create_data_size(long nx, long ny, long nz);
-
-./mgl2_8.0.1_(mathgl)/C-include/abstract.h:void MGL_EXPORT mgl_srnd(long seed);
-./mgl2_8.0.1_(mathgl)/C-include/abstract.h:void MGL_EXPORT mgl_data_save(HCDT dat, const char *fname,long ns);
-
-./mgl2_8.0.1_(mathgl)/C-include/datac_cf.h:HADT MGL_EXPORT mgl_create_datac_size(long nx, long ny, long nz);
-./mgl2_8.0.1_(mathgl)/C-include/datac_cf.h:void MGL_EXPORT mgl_datac_rearrange(HADT dat, long mx,long my,long mz);
-
-./mgl2_8.0.1_(mathgl)/C-include/addon.h:void MGL_EXPORT mgl_fft_freq(double *freq,long nn);
-./mgl2_8.0.1_(mathgl)/C-include/addon.h:long MGL_EXPORT_PURE mgl_strpos(const char *str,char *fnd);
-
-
-./SFML_2.6.0/C-include/Window/WindowHandle.h:    typedef unsigned long sfWindowHandle;
 
 
 ./gsl_2.7.1/C-include/gsl_odeiv.h:  unsigned long int count;
@@ -85,13 +64,6 @@
 ./gsl_2.7.1/C-include/gsl_odeiv2.h:  unsigned long int failed_steps;
 
 
-./tommath/C-include/1.2.1_mint/tommath.h:typedef unsigned long        private_mp_word __attribute__((mode(TI)));
-./tommath/C-include/1.2.1_mint/tommath.h:unsigned long mp_get_mag_ul(const mp_int *a) MP_WUR;
-
-./tommath/C-include/1.3.0_with_git/tommath.h:unsigned long mp_get_mag_ul(const mp_int *a) MP_WUR;
-./tommath/C-include/1.3.0_with_git/tommath.h:/* get integer, set integer (long) */
-
-
 ./freetype-2.13.2/C-include/freetype/freetype.h:    long              control_len;
 ./freetype-2.13.2/C-include/freetype/fttypes.h:  typedef signed long  FT_Long;
 ./freetype-2.13.2/C-include/freetype/fttypes.h:   *   A typedef for unsigned long.
@@ -109,31 +81,6 @@
 
 ./freetype-2.13.2/C-include/freetype/ftimage.h:  typedef signed long  FT_Pos;
 ./freetype-2.13.2/C-include/freetype/ftimage.h:          value = ( ( FT_STATIC_BYTE_CAST( unsigned long, _x1 ) << 24 ) | \
-
-
-./tcl-8.6.14/C-include/tcl.h:typedef long LONG;
-./tcl-8.6.14/C-include/tcl.h:#	define TCL_WIDE_INT_TYPE long long
-
-./tcl-8.6.14/C-include/tclTomMathDecls.h:				unsigned char *b, unsigned long *outlen);
-./tcl-8.6.14/C-include/tclTomMathDecls.h:EXTERN mp_err		TclBN_mp_init_set_int(mp_int *a, unsigned long i);
-
-./tcl-8.6.14/C-include/tk.h:				 * double, a long, or a pointer; right now it
-./tcl-8.6.14/C-include/tk.h:    unsigned long serial;	/* # of last request processed by server. */
-
-./tcl-8.6.14/C-include/tclTomMath.h:typedef unsigned long long   mp_digit;
-./tcl-8.6.14/C-include/tclTomMath.h:typedef unsigned long        private_mp_word __attribute__((mode(TI)));
-
-./tcl-8.6.14/C-include/tkDecls.h:				unsigned long valueMask,
-./tcl-8.6.14/C-include/tkDecls.h:EXTERN unsigned long	Tk_CreateBinding(Tcl_Interp *interp,
-
-./tcl-8.6.14/C-include/tclDecls.h:EXTERN Tcl_Obj *	Tcl_DbNewLongObj(long longValue, const char *file,
-./tcl-8.6.14/C-include/tclDecls.h:				Tcl_Obj *objPtr, long *longPtr);
-
-
-./gmp_6.3.0/C-include/gmp.h:typedef unsigned long long int	mp_limb_t;
-./gmp_6.3.0/C-include/gmp.h:typedef long long int		mp_limb_signed_t;
-./gmp_6.3.0/C-include/gmp.h:__GMP_DECLSPEC unsigned long gmp_urandomb_ui (gmp_randstate_ptr, unsigned long);
-./gmp_6.3.0/C-include/gmp.h:__GMP_DECLSPEC unsigned long gmp_urandomm_ui (gmp_randstate_ptr, unsigned long);
 
 
 ./xml2.9.14/C-include/xmlreader.h:XMLPUBFUN long XMLCALL

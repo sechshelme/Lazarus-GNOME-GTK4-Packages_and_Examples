@@ -20,8 +20,6 @@ function Tcl_MacOSXOpenVersionedBundleResources(interp: PTcl_Interp; bundleName:
 procedure TclMacOSXNotifierAddRunLoopMode_(runLoopMode: pointer); cdecl; external libtclstub8_6;
 {$ENDIF}
 type
-  PTclPlatStubs = ^TTclPlatStubs;
-
   TTclPlatStubs = record
     magic: longint;
     hooks: pointer;
@@ -37,6 +35,7 @@ type
     tclMacOSXNotifierAddRunLoopMode_: procedure(runLoopMode: pointer); cdecl;
     {$ENDIF}
   end;
+  PTclPlatStubs = ^TTclPlatStubs;
 
 var
   tclPlatStubsPtr: PTclPlatStubs; cvar;external libtclstub8_6;

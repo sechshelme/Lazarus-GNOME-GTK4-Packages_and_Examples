@@ -46,7 +46,7 @@ procedure mgl_label_y(graph: THMGL; y: THCDT; text: pchar; fnt: pchar; opt: pcha
 procedure mgl_labelw_y(graph: THMGL; y: THCDT; text: Pwchar_t; fnt: pchar; opt: pchar); cdecl; external libmgl;
 procedure mgl_table(gr: THMGL; x: double; y: double; val: THCDT; text: pchar; fnt: pchar; opt: pchar); cdecl; external libmgl;
 procedure mgl_tablew(gr: THMGL; x: double; y: double; val: THCDT; text: Pwchar_t; fnt: pchar; opt: pchar); cdecl; external libmgl;
-procedure mgl_logo(gr: THMGL; w: longint; h: longint; rgba: pbyte; smooth: longint; opt: pchar); cdecl; external libmgl;
+procedure mgl_logo(gr: THMGL; w: Tclong; h: Tclong; rgba: pbyte; smooth: longint; opt: pchar); cdecl; external libmgl;
 procedure mgl_logo_file(gr: THMGL; fname: pchar; smooth: longint; opt: pchar); cdecl; external libmgl;
 
 type

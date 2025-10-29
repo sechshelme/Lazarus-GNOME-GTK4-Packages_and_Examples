@@ -2,24 +2,34 @@ unit fp_tommath_1_2_1;
 
 interface
 
-uses
-  ctypes;
+// =============== Version: 1.2.1-2build1
+
+
+const
+  {$IFDEF Linux}
+  libttommath = 'libtommath';
+  {$ENDIF}
+
+  {$IFDEF mswindows}
+  libttommath = 'libtommath.dll';
+  {$ENDIF}
+
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
-  // Version: 1.2.1-2build1
-
-
-  const
-    {$IFDEF Linux}
-    libttommath = 'libtommath';
-    {$ENDIF}
-
-    {$IFDEF mswindows}
-    libttommath = 'libtommath.dll';
-    {$ENDIF}
+type
+  {$IFDEF Linux}
+  Tculong = uint64;
+  Tclong = int64;
+  {$ENDIF}
+  {$IFDEF windows}
+  Tculong = uint32;
+  Tclong = int64;
+  {$ENDIF}
+  Pculong = ^Tculong;
+  Pclong = ^Tclong;
 
 
   // ======================
@@ -44,9 +54,6 @@ type
 type
   Pmp_digit = ^Tmp_digit;
   Tmp_digit = Tuint32_t;
-
-  Pprivate_mp_word = ^Tprivate_mp_word;
-  Tprivate_mp_word = Tuint64_t;
 
 const
   MP_DIGIT_BIT = 28;
@@ -162,14 +169,14 @@ procedure mp_set_u64(a: Pmp_int; b: Tuint64_t); cdecl; external libttommath;
 function mp_init_u64(a: Pmp_int; b: Tuint64_t): Tmp_err; cdecl; external libttommath;
 function mp_get_mag_u32(a: Pmp_int): Tuint32_t; cdecl; external libttommath;
 function mp_get_mag_u64(a: Pmp_int): Tuint64_t; cdecl; external libttommath;
-function mp_get_mag_ul(a: Pmp_int): dword; cdecl; external libttommath;
+function mp_get_mag_ul(a: Pmp_int): Tclong; cdecl; external libttommath;
 function mp_get_mag_ull(a: Pmp_int): qword; cdecl; external libttommath;
-function mp_get_l(a: Pmp_int): longint; cdecl; external libttommath;
-procedure mp_set_l(a: Pmp_int; b: longint); cdecl; external libttommath;
-function mp_init_l(a: Pmp_int; b: longint): Tmp_err; cdecl; external libttommath;
+function mp_get_l(a: Pmp_int): Tclong; cdecl; external libttommath;
+procedure mp_set_l(a: Pmp_int; b: Tclong); cdecl; external libttommath;
+function mp_init_l(a: Pmp_int; b: Tclong): Tmp_err; cdecl; external libttommath;
 
-procedure mp_set_ul(a: Pmp_int; b: dword); cdecl; external libttommath;
-function mp_init_ul(a: Pmp_int; b: dword): Tmp_err; cdecl; external libttommath;
+procedure mp_set_ul(a: Pmp_int; b: Tculong); cdecl; external libttommath;
+function mp_init_ul(a: Pmp_int; b: Tculong): Tmp_err; cdecl; external libttommath;
 function mp_get_ll(a: Pmp_int): int64; cdecl; external libttommath;
 procedure mp_set_ll(a: Pmp_int; b: int64); cdecl; external libttommath;
 function mp_init_ll(a: Pmp_int; b: int64): Tmp_err; cdecl; external libttommath;
@@ -179,13 +186,13 @@ function mp_init_ull(a: Pmp_int; b: qword): Tmp_err; cdecl; external libttommath
 procedure mp_set(a: Pmp_int; b: Tmp_digit); cdecl; external libttommath;
 function mp_init_set(a: Pmp_int; b: Tmp_digit): Tmp_err; cdecl; external libttommath;
 
-function mp_get_int(a: Pmp_int): dword; cdecl; external libttommath; deprecated;
-function mp_get_long(a: Pmp_int): dword; cdecl; external libttommath; deprecated;
+function mp_get_int(a: Pmp_int): Tculong; cdecl; external libttommath; deprecated;
+function mp_get_long(a: Pmp_int): Tculong; cdecl; external libttommath; deprecated;
 function mp_get_long_long(a: Pmp_int): qword; cdecl; external libttommath; deprecated;
-function mp_set_int(a: Pmp_int; b: dword): Tmp_err; cdecl; external libttommath; deprecated;
-function mp_set_long(a: Pmp_int; b: dword): Tmp_err; cdecl; external libttommath; deprecated;
+function mp_set_int(a: Pmp_int; b: Tculong): Tmp_err; cdecl; external libttommath; deprecated;
+function mp_set_long(a: Pmp_int; b: Tculong): Tmp_err; cdecl; external libttommath; deprecated;
 function mp_set_long_long(a: Pmp_int; b: qword): Tmp_err; cdecl; external libttommath; deprecated;
-function mp_init_set_int(a: Pmp_int; b: dword): Tmp_err; cdecl; external libttommath; deprecated;
+function mp_init_set_int(a: Pmp_int; b: Tculong): Tmp_err; cdecl; external libttommath; deprecated;
 
 function mp_copy(a: Pmp_int; b: Pmp_int): Tmp_err; cdecl; external libttommath;
 function mp_init_copy(a: Pmp_int; b: Pmp_int): Tmp_err; cdecl; external libttommath;
@@ -219,7 +226,7 @@ type
 procedure mp_rand_source(Source: Trand_source); cdecl; external libttommath;
 
 var
-  ltm_rng: function(out_: pbyte; outlen: dword; callback: TProcedure): dword; cvar;external libttommath;
+  ltm_rng: function(out_: pbyte; outlen: Tculong; callback: TProcedure): Tculong; cvar;external libttommath;
   ltm_rng_callback: procedure; cvar;external libttommath;
 
 function mp_get_bit(a: Pmp_int; b: longint): longint; cdecl; external libttommath; deprecated;
@@ -309,11 +316,11 @@ function mp_count_bits(a: Pmp_int): longint; cdecl; external libttommath;
 function mp_unsigned_bin_size(a: Pmp_int): longint; cdecl; external libttommath; deprecated;
 function mp_read_unsigned_bin(a: Pmp_int; b: pbyte; c: longint): Tmp_err; cdecl; external libttommath; deprecated;
 function mp_to_unsigned_bin(a: Pmp_int; b: pbyte): Tmp_err; cdecl; external libttommath; deprecated;
-function mp_to_unsigned_bin_n(a: Pmp_int; b: pbyte; outlen: Pdword): Tmp_err; cdecl; external libttommath; deprecated;
+function mp_to_unsigned_bin_n(a: Pmp_int; b: pbyte; outlen: Pculong): Tmp_err; cdecl; external libttommath; deprecated;
 function mp_signed_bin_size(a: Pmp_int): longint; cdecl; external libttommath; deprecated;
 function mp_read_signed_bin(a: Pmp_int; b: pbyte; c: longint): Tmp_err; cdecl; external libttommath; deprecated;
 function mp_to_signed_bin(a: Pmp_int; b: pbyte): Tmp_err; cdecl; external libttommath; deprecated;
-function mp_to_signed_bin_n(a: Pmp_int; b: pbyte; outlen: Pdword): Tmp_err; cdecl; external libttommath; deprecated;
+function mp_to_signed_bin_n(a: Pmp_int; b: pbyte; outlen: Pculong): Tmp_err; cdecl; external libttommath; deprecated;
 
 function mp_ubin_size(a: Pmp_int): Tsize_t; cdecl; external libttommath;
 function mp_from_ubin(a: Pmp_int; buf: pbyte; size: Tsize_t): Tmp_err; cdecl; external libttommath;

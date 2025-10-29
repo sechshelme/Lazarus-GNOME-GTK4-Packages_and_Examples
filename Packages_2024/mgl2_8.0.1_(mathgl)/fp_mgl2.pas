@@ -31,12 +31,17 @@ interface
 
   type
     {$IFDEF Linux}
+    Tculong = uint64;
+    Tclong = int64;
     Twchar_t = uint32;
     {$ENDIF}
-
-    {$IFDEF Windows}
+    {$IFDEF windows}
+    Tculong = uint32;
+    Tclong = int64;
     Twchar_t = uint16;
     {$ENDIF}
+    Pculong = ^Tculong;
+    Pclong = ^Tclong;
     Pwchar_t = ^Twchar_t;
 
     Tuintptr_t = PtrUInt;

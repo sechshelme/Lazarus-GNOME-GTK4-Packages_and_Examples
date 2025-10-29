@@ -140,7 +140,7 @@ function mgl_hypot(x: double; y: double): double; cdecl; external libmgl;
 function mgl_wcslen(str: Pwchar_t): Tsize_t; cdecl; external libmgl;
 procedure mgl_chrrgb(id: char; rgb: Trgb); cdecl; external libmgl;
 function mgl_get_num_color(s: pchar; smooth: longint): Tsize_t; cdecl; external libmgl;
-function mgl_have_color(stl: pchar): longint; cdecl; external libmgl;
+function mgl_have_color(stl: pchar): Tclong; cdecl; external libmgl;
 function mglchr(str: pchar; ch: char): pchar; cdecl; external libmgl;
 function mglchrs(str: pchar; chr: pchar): pchar; cdecl; external libmgl;
 procedure mgl_set_num_thr(n: longint); cdecl; external libmgl;

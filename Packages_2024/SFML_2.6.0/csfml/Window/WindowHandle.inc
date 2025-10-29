@@ -1,25 +1,20 @@
 {$IFDEF read_interface}
 
 
-  {$ifdef windows}
 type
+  {$ifdef windows}
   PHWND__ = type Pointer;
-
-  PsfWindowHandle = ^TsfWindowHandle;
   TsfWindowHandle = PHWND__;
   {$endif}
 
   {$ifdef linux}
-type
-  PsfWindowHandle = ^TsfWindowHandle;
-  TsfWindowHandle = dword;
+  TsfWindowHandle = UInt64;
   {$endif}
 
   {$ifdef darwin}
-type
-  PsfWindowHandle = ^TsfWindowHandle;
   TsfWindowHandle = pointer;
   {$endif}
+  PsfWindowHandle = ^TsfWindowHandle;
 
   // === Konventiert am: 24-9-25 16:58:38 ===
 

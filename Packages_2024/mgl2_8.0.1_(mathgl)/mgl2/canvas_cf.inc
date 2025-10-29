@@ -83,7 +83,7 @@ function mgl_get_width(gr: THMGL): longint; cdecl; external libmgl;
 function mgl_get_height(gr: THMGL): longint; cdecl; external libmgl;
 procedure mgl_calc_xyz(gr: THMGL; xs: longint; ys: longint; x: Pmreal; y: Pmreal; z: Pmreal); cdecl; external libmgl;
 procedure mgl_calc_scr(gr: THMGL; x: double; y: double; z: double; xs: Plongint; ys: Plongint); cdecl; external libmgl;
-function mgl_is_active(gr: THMGL; xs: longint; ys: longint; d: longint): longint; cdecl; external libmgl;
+function mgl_is_active(gr: THMGL; xs: longint; ys: longint; d: longint): Tclong; cdecl; external libmgl;
 function mgl_new_frame(gr: THMGL): longint; cdecl; external libmgl;
 procedure mgl_end_frame(gr: THMGL); cdecl; external libmgl;
 function mgl_get_num_frame(gr: THMGL): longint; cdecl; external libmgl;
@@ -138,7 +138,7 @@ procedure mgl_zoom(gr: THMGL; x1: double; y1: double; x2: double; y2: double); c
 
 function mgl_create_parser: THMPR; cdecl; external libmgl;
 function mgl_create_parser_: Tuintptr_t; cdecl; external libmgl;
-function mgl_use_parser(p: THMPR; inc: longint): longint; cdecl; external libmgl;
+function mgl_use_parser(p: THMPR; inc: longint): Tclong; cdecl; external libmgl;
 procedure mgl_delete_parser(p: THMPR); cdecl; external libmgl;
 procedure mgl_parser_add_param(p: THMPR; id: longint; str: pchar); cdecl; external libmgl;
 procedure mgl_parser_add_paramw(p: THMPR; id: longint; str: Pwchar_t); cdecl; external libmgl;
@@ -146,10 +146,10 @@ function mgl_parser_add_var(p: THMPR; name: pchar): PmglDataA; cdecl; external l
 function mgl_parser_add_varw(p: THMPR; name: Pwchar_t): PmglDataA; cdecl; external libmgl;
 function mgl_parser_find_var(p: THMPR; name: pchar): PmglDataA; cdecl; external libmgl;
 function mgl_parser_find_varw(p: THMPR; name: Pwchar_t): PmglDataA; cdecl; external libmgl;
-function mgl_parser_get_var(p: THMPR; id: dword): PmglDataA; cdecl; external libmgl;
-function mgl_parser_num_var(p: THMPR): longint; cdecl; external libmgl;
-function mgl_parser_get_const(p: THMPR; id: dword): PmglNum; cdecl; external libmgl;
-function mgl_parser_num_const(p: THMPR): longint; cdecl; external libmgl;
+function mgl_parser_get_var(p: THMPR; id: Tculong): PmglDataA; cdecl; external libmgl;
+function mgl_parser_num_var(p: THMPR): Tclong; cdecl; external libmgl;
+function mgl_parser_get_const(p: THMPR; id: Tculong): PmglNum; cdecl; external libmgl;
+function mgl_parser_num_const(p: THMPR): Tclong; cdecl; external libmgl;
 procedure mgl_parser_del_var(p: THMPR; name: pchar); cdecl; external libmgl;
 procedure mgl_parser_del_varw(p: THMPR; name: Pwchar_t); cdecl; external libmgl;
 procedure mgl_parser_del_all(p: THMPR); cdecl; external libmgl;
@@ -172,8 +172,9 @@ procedure mgl_parser_start_id(p: THMPR; id: longint); cdecl; external libmgl;
 function mgl_parser_cmd_type(pr: THMPR; name: pchar): longint; cdecl; external libmgl;
 function mgl_parser_cmd_desc(pr: THMPR; name: pchar): pchar; cdecl; external libmgl;
 function mgl_parser_cmd_frmt(pr: THMPR; name: pchar): pchar; cdecl; external libmgl;
-function mgl_parser_cmd_name(pr: THMPR; id: longint): pchar; cdecl; external libmgl;
-function mgl_parser_cmd_num(pr: THMPR): longint; cdecl; external libmgl;
+function mgl_parser_cmd_name(pr: THMPR; id: Tclong): pchar; cdecl; external libmgl;
+function mgl_parser_cmd_num(pr: THMPR): Tclong; cdecl; external libmgl;
+
 function mgl_parser_calc(pr: THMPR; formula: pchar): THMDT; cdecl; external libmgl;
 function mgl_parser_calcw(pr: THMPR; formula: Pwchar_t): THMDT; cdecl; external libmgl;
 function mgl_parser_calc_complex(pr: THMPR; formula: pchar): THADT; cdecl; external libmgl;
