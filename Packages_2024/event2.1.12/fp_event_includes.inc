@@ -3,7 +3,7 @@
 {$include event/event_config.inc}
 {$include event/util.inc}
 {$include event/event_struct.inc}
-{$include event/event.inc}  // makrod
+{$include event/event.inc         }  // makro
 {$include event/event_compat.inc}    // makro
 {$include event/dns_struct.inc}
 {$include event/dns.inc}

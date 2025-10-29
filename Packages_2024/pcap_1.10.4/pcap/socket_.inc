@@ -3,7 +3,7 @@
 
 type
   Psuseconds_t = ^Tsuseconds_t;
-  Tsuseconds_t = longint;
+  Tsuseconds_t = Tclong;
 
 type
   TSOCKET = longint;

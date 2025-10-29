@@ -111,21 +111,6 @@
 ./freetype-2.13.2/C-include/freetype/ftimage.h:          value = ( ( FT_STATIC_BYTE_CAST( unsigned long, _x1 ) << 24 ) | \
 
 
-./dbus-1.14.10/C-include/dbus-bus.h:unsigned long   dbus_bus_get_unix_user    (DBusConnection *connection,
-
-./dbus-1.14.10/C-include/dbus-connection.h:                                                    unsigned long   uid,
-./dbus-1.14.10/C-include/dbus-connection.h:                                                                 unsigned long              *uid);
-
-
-./event2.1.12/C-include/thread.h:    unsigned long (*id_fn)(void));
-
-./event2.1.12/C-include/dns.h:    unsigned long int address);
-
-./event2.1.12/C-include/dns_compat.h:int evdns_nameserver_add(unsigned long int address);
-
-./event2.1.12/C-include/bufferevent_ssl.h:unsigned long bufferevent_get_openssl_error(struct bufferevent *bev);
-
-
 ./tcl-8.6.14/C-include/tcl.h:typedef long LONG;
 ./tcl-8.6.14/C-include/tcl.h:#	define TCL_WIDE_INT_TYPE long long
 
@@ -143,25 +128,6 @@
 
 ./tcl-8.6.14/C-include/tclDecls.h:EXTERN Tcl_Obj *	Tcl_DbNewLongObj(long longValue, const char *file,
 ./tcl-8.6.14/C-include/tclDecls.h:				Tcl_Obj *objPtr, long *longPtr);
-
-
-./pcap_1.10.4/C-include/pcap.h:PCAP_API long	pcap_dump_ftell(pcap_dumper_t *);
-./pcap_1.10.4/C-include/pcap.h:  PCAP_API u_long pcap_mac_packets (void);
-
-./pcap_1.10.4/C-include/bpf.h:typedef long          bpf_int32;
-./pcap_1.10.4/C-include/bpf.h:typedef unsigned long bpf_u_int32;
-./pcap_1.10.4/C-include/bpf.h:#define BPF_ALIGNMENT sizeof(long)
-
-./ffi-3.4.6/C-include/ffitarget.h:typedef unsigned long long     ffi_arg;
-./ffi-3.4.6/C-include/ffitarget.h:typedef long long              ffi_sarg;
-./ffi-3.4.6/C-include/ffi.h:# define ffi_type_ulong        ffi_type_uint32
-./ffi-3.4.6/C-include/ffi.h:# define ffi_type_slong        ffi_type_sint32
-./ffi-3.4.6/C-include/ffi.h:# define ffi_type_ulong        ffi_type_uint64
-./ffi-3.4.6/C-include/ffi.h:# define ffi_type_slong        ffi_type_sint64
-
-
-./blkid_2.39.3/C-include/blkid.h:extern unsigned long blkid_topology_get_alignment_offset(blkid_topology tp)
-./blkid_2.39.3/C-include/blkid.h:extern unsigned long blkid_topology_get_minimum_io_size(blkid_topology tp)
 
 
 ./gmp_6.3.0/C-include/gmp.h:typedef unsigned long long int	mp_limb_t;

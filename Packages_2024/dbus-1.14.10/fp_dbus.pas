@@ -2,26 +2,33 @@ unit fp_dbus;
 
 interface
 
-uses
-  ctypes;
-
 const
   {$IFDEF Linux}
   libdbus_1 = 'libdbus-1';
   {$ENDIF}
 
   {$IFDEF windows}
-  libdbus_1 = 'libdbus-1.3.dll';
+  libdbus_1 = 'libdbus-1.3.dll';   // ????
   {$ENDIF}
-
-type
-  Tsize_t = SizeInt;
-
-  Tva_list = Pointer;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
+
+type
+  {$IFDEF Linux}
+  Tculong = uint64;
+  Tclong = int64;
+  {$ENDIF}
+  {$IFDEF windows}
+  Tculong = uint32;
+  Tclong = int64;
+  {$ENDIF}
+  Pculong = ^Tculong;
+  Pclong = ^Tclong;
+
+  Tsize_t = SizeInt;
+  Tva_list = Pointer;
 
 
   {$DEFINE read_interface}

@@ -4,7 +4,7 @@
 function evdns_init: longint; cdecl; external libevent;
 function evdns_get_global_base: Pevdns_base; cdecl; external libevent;
 procedure evdns_shutdown(fail_requests: longint); cdecl; external libevent;
-function evdns_nameserver_add(address: dword): longint; cdecl; external libevent;
+function evdns_nameserver_add(address: Tculong): longint; cdecl; external libevent;
 function evdns_count_nameservers: longint; cdecl; external libevent;
 function evdns_clear_nameservers_and_suspend: longint; cdecl; external libevent;
 function evdns_resume: longint; cdecl; external libevent;

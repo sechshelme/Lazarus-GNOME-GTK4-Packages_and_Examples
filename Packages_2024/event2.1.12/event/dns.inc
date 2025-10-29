@@ -40,7 +40,7 @@ function evdns_base_new(event_base: Pevent_base; initialize_nameservers: longint
 procedure evdns_base_free(base: Pevdns_base; fail_requests: longint); cdecl; external libevent;
 procedure evdns_base_clear_host_addresses(base: Pevdns_base); cdecl; external libevent;
 function evdns_err_to_string(err: longint): pchar; cdecl; external libevent;
-function evdns_base_nameserver_add(base: Pevdns_base; address: dword): longint; cdecl; external libevent;
+function evdns_base_nameserver_add(base: Pevdns_base; address: Tculong): longint; cdecl; external libevent;
 function evdns_base_count_nameservers(base: Pevdns_base): longint; cdecl; external libevent;
 function evdns_base_clear_nameservers_and_suspend(base: Pevdns_base): longint; cdecl; external libevent;
 function evdns_base_resume(base: Pevdns_base): longint; cdecl; external libevent;

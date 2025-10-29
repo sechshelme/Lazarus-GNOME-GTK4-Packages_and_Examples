@@ -220,7 +220,7 @@ function pcap_dump_fopen(para1: Ppcap_t; fp: PFILE): Ppcap_dumper_t; cdecl; exte
 
 function pcap_dump_open_append(para1: Ppcap_t; para2: pchar): Ppcap_dumper_t; cdecl; external libpcap;
 function pcap_dump_file(para1: Ppcap_dumper_t): PFILE; cdecl; external libpcap;
-function pcap_dump_ftell(para1: Ppcap_dumper_t): longint; cdecl; external libpcap;
+function pcap_dump_ftell(para1: Ppcap_dumper_t): Tclong; cdecl; external libpcap;
 function pcap_dump_ftell64(para1: Ppcap_dumper_t): Tint64_t; cdecl; external libpcap;
 function pcap_dump_flush(para1: Ppcap_dumper_t): longint; cdecl; external libpcap;
 procedure pcap_dump_close(para1: Ppcap_dumper_t); cdecl; external libpcap;

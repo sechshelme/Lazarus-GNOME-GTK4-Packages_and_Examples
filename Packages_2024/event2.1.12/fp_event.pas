@@ -5,10 +5,6 @@ interface
 uses
   clib, fp_time;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
-
 const
   {$IFDEF linux}
   libevent = 'libevent';
@@ -18,9 +14,29 @@ const
   libibus = 'event.dll'; // ???
   {$ENDIF}
 
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
 type
-  Pevdns_server_port=Pointer; // Herkunft unbekannt
-  Pbufferevent_ops=Pointer;   // Herkunft unbekannt
+  {$IFDEF Linux}
+  Tculong = uint64;
+  Tclong = int64;
+  {$ENDIF}
+  {$IFDEF windows}
+  Tculong = uint32;
+  Tclong = int64;
+  {$ENDIF}
+
+  Tsize_t = SizeUInt;
+  Psize_t = ^Tsize_t;
+
+type
+  PFILE = type Pointer;
+  Tva_list = Pointer; // ???????
+
+  Pevdns_server_port = Pointer; // Herkunft unbekannt
+  Pbufferevent_ops = Pointer;   // Herkunft unbekannt
 
 
   {$DEFINE read_interface}
@@ -34,4 +50,3 @@ implementation
 {$UNDEF read_implementation}
 
 end.
-

@@ -18,7 +18,7 @@ function bufferevent_openssl_get_allow_dirty_shutdown(bev: Pbufferevent): longin
 procedure bufferevent_openssl_set_allow_dirty_shutdown(bev: Pbufferevent; allow_dirty_shutdown: longint); cdecl; external libevent;
 function bufferevent_openssl_get_ssl(bufev: Pbufferevent): Pssl_st; cdecl; external libevent;
 function bufferevent_ssl_renegotiate(bev: Pbufferevent): longint; cdecl; external libevent;
-function bufferevent_get_openssl_error(bev: Pbufferevent): dword; cdecl; external libevent;
+function bufferevent_get_openssl_error(bev: Pbufferevent): Tculong; cdecl; external libevent;
 
 // === Konventiert am: 26-8-25 17:43:41 ===
 

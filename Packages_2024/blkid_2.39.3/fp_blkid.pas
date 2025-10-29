@@ -2,13 +2,15 @@ unit fp_blkid;
 
 interface
 
-uses
-  ctypes;
-
 const
   {$IFDEF Linux}
   libblkid = 'libblkid';
   {$ENDIF}
+
+  {$IFDEF windows}
+// not supported
+  {$ENDIF}
+
 
 type
   Tsize_t = SizeUInt;
@@ -21,6 +23,9 @@ type
   {$PACKRECORDS C}
   {$ENDIF}
 
+type
+  Tculong = uint64;
+  Tclong = int64;
 
 const
   BLKID_VERSION = '2.39.3';
@@ -163,12 +168,12 @@ const
 function blkid_probe_filter_superblocks_usage(pr: Pblkid_probe; flag: longint; usage: longint): longint; cdecl; external libblkid;
 function blkid_probe_enable_topology(pr: Pblkid_probe; enable: longint): longint; cdecl; external libblkid;
 function blkid_probe_get_topology(pr: Pblkid_probe): Pblkid_topology; cdecl; external libblkid;
-function blkid_topology_get_alignment_offset(tp: Pblkid_topology): dword; cdecl; external libblkid;
-function blkid_topology_get_minimum_io_size(tp: Pblkid_topology): dword; cdecl; external libblkid;
-function blkid_topology_get_optimal_io_size(tp: Pblkid_topology): dword; cdecl; external libblkid;
-function blkid_topology_get_logical_sector_size(tp: Pblkid_topology): dword; cdecl; external libblkid;
-function blkid_topology_get_physical_sector_size(tp: Pblkid_topology): dword; cdecl; external libblkid;
-function blkid_topology_get_dax(tp: Pblkid_topology): dword; cdecl; external libblkid;
+function blkid_topology_get_alignment_offset(tp: Pblkid_topology): Tculong; cdecl; external libblkid;
+function blkid_topology_get_minimum_io_size(tp: Pblkid_topology): Tculong; cdecl; external libblkid;
+function blkid_topology_get_optimal_io_size(tp: Pblkid_topology): Tculong; cdecl; external libblkid;
+function blkid_topology_get_logical_sector_size(tp: Pblkid_topology): Tculong; cdecl; external libblkid;
+function blkid_topology_get_physical_sector_size(tp: Pblkid_topology): Tculong; cdecl; external libblkid;
+function blkid_topology_get_dax(tp: Pblkid_topology): Tculong; cdecl; external libblkid;
 function blkid_topology_get_diskseq(tp: Pblkid_topology): uint64; cdecl; external libblkid;
 function blkid_known_pttype(pttype: pchar): longint; cdecl; external libblkid;
 function blkid_partitions_get_name(idx: Tsize_t; name: PPchar): longint; cdecl; external libblkid;
@@ -197,7 +202,7 @@ function blkid_partition_get_start(par: Pblkid_partition): Tblkid_loff_t; cdecl;
 function blkid_partition_get_size(par: Pblkid_partition): Tblkid_loff_t; cdecl; external libblkid;
 function blkid_partition_get_type(par: Pblkid_partition): longint; cdecl; external libblkid;
 function blkid_partition_get_type_string(par: Pblkid_partition): pchar; cdecl; external libblkid;
-function blkid_partition_get_flags(par: Pblkid_partition): qword; cdecl; external libblkid;
+function blkid_partition_get_flags(par: Pblkid_partition): UInt64; cdecl; external libblkid;
 function blkid_partition_is_logical(par: Pblkid_partition): longint; cdecl; external libblkid;
 function blkid_partition_is_extended(par: Pblkid_partition): longint; cdecl; external libblkid;
 function blkid_partition_is_primary(par: Pblkid_partition): longint; cdecl; external libblkid;

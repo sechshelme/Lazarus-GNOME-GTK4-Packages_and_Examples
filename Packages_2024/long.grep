@@ -1,6 +1,17 @@
-tickit-0.4.3/C-include/tickit.h:void tickit_term_await_started_msec(TickitTerm *tt, long msec);
-tickit-0.4.3/C-include/tickit.h:void tickit_term_input_wait_msec(TickitTerm *tt, long msec);
-tickit-0.4.3/C-include/tickit.h:int tickit_utf8_seqlen(long codepoint);
-tickit-0.4.3/C-include/tickit.h:size_t tickit_utf8_put(char *str, size_t len, long codepoint);
-tickit-0.4.3/C-include/tickit.h:void tickit_renderbuffer_char_at(TickitRenderBuffer *rb, int line, int col, long codepoint);
-tickit-0.4.3/C-include/tickit.h:void tickit_renderbuffer_char(TickitRenderBuffer *rb, long codepoint);
+ffi-3.4.6/C-include/ffitarget.h:typedef unsigned long long     ffi_arg;
+ffi-3.4.6/C-include/ffitarget.h:typedef long long              ffi_sarg;
+ffi-3.4.6/C-include/ffitarget.h:typedef unsigned long long     ffi_arg;
+ffi-3.4.6/C-include/ffitarget.h:typedef long long              ffi_sarg;
+ffi-3.4.6/C-include/ffitarget.h:typedef unsigned long          ffi_arg;
+ffi-3.4.6/C-include/ffitarget.h:typedef signed long            ffi_sarg;
+ffi-3.4.6/C-include/ffitarget.h:  FFI_WIN64,            /* sizeof(long double) == 8  - microsoft compilers */
+ffi-3.4.6/C-include/ffitarget.h:  FFI_GNUW64,           /* sizeof(long double) == 16 - GNU compilers */
+ffi-3.4.6/C-include/ffi.h: #error "long size not supported"
+ffi-3.4.6/C-include/ffi.h:# define ffi_type_ulong        ffi_type_uint32
+ffi-3.4.6/C-include/ffi.h:# define ffi_type_slong        ffi_type_sint32
+ffi-3.4.6/C-include/ffi.h:# define ffi_type_ulong        ffi_type_uint64
+ffi-3.4.6/C-include/ffi.h:# define ffi_type_slong        ffi_type_sint64
+ffi-3.4.6/C-include/ffi.h: #error "long size not supported"
+ffi-3.4.6/C-include/ffi.h:FFI_EXTERN ffi_type ffi_type_longdouble;
+ffi-3.4.6/C-include/ffi.h:FFI_EXTERN ffi_type ffi_type_complex_longdouble;
+ffi-3.4.6/C-include/ffi.h:   packing, even on 64-bit machines.  I.e. on 64-bit machines longs

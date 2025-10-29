@@ -19,6 +19,16 @@ const
   {$ENDIF}
 
 type
+  {$IFDEF Linux}
+  Tculong = uint64;
+  Tclong = int64;
+  {$ENDIF}
+  {$IFDEF windows}
+  Tculong = uint32;
+  Tclong = int64;
+  {$ENDIF}
+
+type
   Tu_char = uint8;
   Pu_char = ^Tu_char;
   PPu_char = ^Pu_char;
