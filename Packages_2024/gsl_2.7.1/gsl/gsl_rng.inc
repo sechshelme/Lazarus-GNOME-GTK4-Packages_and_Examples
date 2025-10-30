@@ -4,11 +4,11 @@
 type
   Tgsl_rng_type = record
     name: pchar;
-    max: dword;
-    min: dword;
+    max: Tculong;
+    min: Tculong;
     size: Tsize_t;
-    set_: procedure(state: pointer; seed: dword); cdecl;
-    get: function(state: pointer): dword; cdecl;
+    set_: procedure(state: pointer; seed: Tculong); cdecl;
+    get: function(state: pointer): Tculong; cdecl;
     get_double: function(state: pointer): Tdouble; cdecl;
   end;
   Pgsl_rng_type = ^Tgsl_rng_type;
@@ -88,15 +88,15 @@ function gsl_rng_types_setup: PPgsl_rng_type; cdecl; external libgsl;
 
 var
   gsl_rng_default: Pgsl_rng_type; cvar;external libgsl;
-  gsl_rng_default_seed: dword; cvar;external libgsl;
+  gsl_rng_default_seed: Tculong; cvar;external libgsl;
 
 function gsl_rng_alloc(T: Pgsl_rng_type): Pgsl_rng; cdecl; external libgsl;
 function gsl_rng_memcpy(dest: Pgsl_rng; src: Pgsl_rng): longint; cdecl; external libgsl;
 function gsl_rng_clone(r: Pgsl_rng): Pgsl_rng; cdecl; external libgsl;
 procedure gsl_rng_free(r: Pgsl_rng); cdecl; external libgsl;
-procedure gsl_rng_set(r: Pgsl_rng; seed: dword); cdecl; external libgsl;
-function gsl_rng_max(r: Pgsl_rng): dword; cdecl; external libgsl;
-function gsl_rng_min(r: Pgsl_rng): dword; cdecl; external libgsl;
+procedure gsl_rng_set(r: Pgsl_rng; seed: Tculong); cdecl; external libgsl;
+function gsl_rng_max(r: Pgsl_rng): Tculong; cdecl; external libgsl;
+function gsl_rng_min(r: Pgsl_rng): Tculong; cdecl; external libgsl;
 function gsl_rng_name(r: Pgsl_rng): pchar; cdecl; external libgsl;
 function gsl_rng_fread(stream: PFILE; r: Pgsl_rng): longint; cdecl; external libgsl;
 function gsl_rng_fwrite(stream: PFILE; r: Pgsl_rng): longint; cdecl; external libgsl;
@@ -104,10 +104,10 @@ function gsl_rng_size(r: Pgsl_rng): Tsize_t; cdecl; external libgsl;
 function gsl_rng_state(r: Pgsl_rng): pointer; cdecl; external libgsl;
 procedure gsl_rng_print_state(r: Pgsl_rng); cdecl; external libgsl;
 function gsl_rng_env_setup: Pgsl_rng_type; cdecl; external libgsl;
-function gsl_rng_get(r: Pgsl_rng): dword; cdecl; external libgsl;
+function gsl_rng_get(r: Pgsl_rng): Tculong; cdecl; external libgsl;
 function gsl_rng_uniform(r: Pgsl_rng): Tdouble; cdecl; external libgsl;
 function gsl_rng_uniform_pos(r: Pgsl_rng): Tdouble; cdecl; external libgsl;
-function gsl_rng_uniform_int(r: Pgsl_rng; n: dword): dword; cdecl; external libgsl;
+function gsl_rng_uniform_int(r: Pgsl_rng; n: Tculong): Tculong; cdecl; external libgsl;
 
 // === Konventiert am: 21-8-25 20:00:57 ===
 

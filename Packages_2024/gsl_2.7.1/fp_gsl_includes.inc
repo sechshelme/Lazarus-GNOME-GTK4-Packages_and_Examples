@@ -7,6 +7,7 @@
 {$include gsl/gsl_cblas.inc}
 {$include gsl/gsl_blas_types.inc}
 {$include gsl/gsl_complex.inc}
+
 {$include gsl/gsl_block_char.inc}
 {$include gsl/gsl_block_short.inc}
 {$include gsl/gsl_block_int.inc}
@@ -21,6 +22,7 @@
 {$include gsl/gsl_block_complex_double.inc}
 {$include gsl/gsl_block_complex_float.inc}
 {$include gsl/gsl_block_complex_long_double.inc}
+
 {$include gsl/gsl_vector_char.inc}
 {$include gsl/gsl_vector_short.inc}
 {$include gsl/gsl_vector_int.inc}
@@ -36,6 +38,7 @@
 {$include gsl/gsl_vector_complex_double.inc}
 {$include gsl/gsl_vector_complex_float.inc}
 {$include gsl/gsl_vector_complex_long_double.inc}
+
 {$include gsl/gsl_matrix_char.inc}
 {$include gsl/gsl_matrix_short.inc}
 {$include gsl/gsl_matrix_int.inc}
@@ -50,6 +53,7 @@
 {$include gsl/gsl_matrix_complex_double.inc}
 {$include gsl/gsl_matrix_complex_float.inc}
 {$include gsl/gsl_matrix_complex_long_double.inc}
+
 {$include gsl/gsl_statistics_char.inc}
 {$include gsl/gsl_statistics_short.inc}
 {$include gsl/gsl_statistics_int.inc}
@@ -61,10 +65,12 @@
 {$include gsl/gsl_statistics_double.inc}
 {$include gsl/gsl_statistics_float.inc}
 {$include gsl/gsl_statistics_long_double.inc}
+
 {$include gsl/gsl_bst_types.inc}
 {$include gsl/gsl_bst_avl_.inc}
 {$include gsl/gsl_bst_rb_.inc}
 {$include gsl/gsl_bst.inc}
+
 {$include gsl/gsl_spmatrix.inc}
 {$include gsl/gsl_spmatrix_char.inc}
 {$include gsl/gsl_spmatrix_short.inc}
@@ -80,7 +86,9 @@
 {$include gsl/gsl_spmatrix_complex_double.inc}
 {$include gsl/gsl_spmatrix_complex_float.inc}
 {$include gsl/gsl_spmatrix_complex_long_double.inc}
+
 {$include gsl/gsl_permutation.inc}
+
 {$include gsl/gsl_permute_char.inc}
 {$include gsl/gsl_permute_short.inc}
 {$include gsl/gsl_permute_int.inc}
@@ -123,6 +131,7 @@
 {$include gsl/gsl_permute_matrix_complex_double.inc}
 {$include gsl/gsl_permute_matrix_complex_float.inc}
 {$include gsl/gsl_permute_matrix_complex_long_double.inc}
+
 {$include gsl/gsl_sort_char.inc}
 {$include gsl/gsl_sort_short.inc}
 {$include gsl/gsl_sort_int.inc}
@@ -145,6 +154,7 @@
 {$include gsl/gsl_sort_vector_double.inc}
 {$include gsl/gsl_sort_vector_float.inc}
 {$include gsl/gsl_sort_vector_long_double.inc}
+
 {$include gsl/gsl_fft.inc}
 {$include gsl/gsl_fft_real.inc}
 {$include gsl/gsl_fft_real_float.inc}
@@ -152,6 +162,7 @@
 {$include gsl/gsl_fft_complex_float.inc}
 {$include gsl/gsl_fft_halfcomplex.inc}
 {$include gsl/gsl_fft_halfcomplex_float.inc}
+
 {$include gsl/gsl_math.inc}
 {$include gsl/gsl_complex_math.inc}
 {$include gsl/gsl_mode.inc}

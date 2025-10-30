@@ -6,7 +6,7 @@ type
     size1: Tsize_t;
     size2: Tsize_t;
     i: Plongint;
-    data: Pdword;
+    data: Pculong;
     p: Plongint;
     nzmax: Tsize_t;
     nz: Tsize_t;
@@ -17,7 +17,7 @@ type
       case longint of
         0: (work_void: pointer);
         1: (work_int: Plongint);
-        2: (work_atomic: Pdword);
+        2: (work_atomic: Pculong);
       end;
     sptype: longint;
     spflags: Tsize_t;
@@ -47,14 +47,14 @@ function gsl_spmatrix_ulong_fscanf(stream: PFILE): Pgsl_spmatrix_ulong; cdecl; e
 function gsl_spmatrix_ulong_fwrite(stream: PFILE; m: Pgsl_spmatrix_ulong): longint; cdecl; external libgsl;
 function gsl_spmatrix_ulong_fread(stream: PFILE; m: Pgsl_spmatrix_ulong): longint; cdecl; external libgsl;
 
-function gsl_spmatrix_ulong_get(m: Pgsl_spmatrix_ulong; i: Tsize_t; j: Tsize_t): dword; cdecl; external libgsl;
-function gsl_spmatrix_ulong_set(m: Pgsl_spmatrix_ulong; i: Tsize_t; j: Tsize_t; x: dword): longint; cdecl; external libgsl;
-function gsl_spmatrix_ulong_ptr(m: Pgsl_spmatrix_ulong; i: Tsize_t; j: Tsize_t): Pdword; cdecl; external libgsl;
+function gsl_spmatrix_ulong_get(m: Pgsl_spmatrix_ulong; i: Tsize_t; j: Tsize_t): Tculong; cdecl; external libgsl;
+function gsl_spmatrix_ulong_set(m: Pgsl_spmatrix_ulong; i: Tsize_t; j: Tsize_t; x: Tculong): longint; cdecl; external libgsl;
+function gsl_spmatrix_ulong_ptr(m: Pgsl_spmatrix_ulong; i: Tsize_t; j: Tsize_t): Pculong; cdecl; external libgsl;
 
-function gsl_spmatrix_ulong_minmax(m: Pgsl_spmatrix_ulong; min_out: Pdword; max_out: Pdword): longint; cdecl; external libgsl;
+function gsl_spmatrix_ulong_minmax(m: Pgsl_spmatrix_ulong; min_out: Pculong; max_out: Pculong): longint; cdecl; external libgsl;
 function gsl_spmatrix_ulong_min_index(m: Pgsl_spmatrix_ulong; imin_out: Psize_t; jmin_out: Psize_t): longint; cdecl; external libgsl;
 
-function gsl_spmatrix_ulong_scale(m: Pgsl_spmatrix_ulong; x: dword): longint; cdecl; external libgsl;
+function gsl_spmatrix_ulong_scale(m: Pgsl_spmatrix_ulong; x: Tculong): longint; cdecl; external libgsl;
 function gsl_spmatrix_ulong_scale_columns(m: Pgsl_spmatrix_ulong; x: Pgsl_vector_ulong): longint; cdecl; external libgsl;
 function gsl_spmatrix_ulong_scale_rows(m: Pgsl_spmatrix_ulong; x: Pgsl_vector_ulong): longint; cdecl; external libgsl;
 function gsl_spmatrix_ulong_add(c: Pgsl_spmatrix_ulong; a: Pgsl_spmatrix_ulong; b: Pgsl_spmatrix_ulong): longint; cdecl; external libgsl;
@@ -66,7 +66,7 @@ function gsl_spmatrix_ulong_sp2d(A: Pgsl_matrix_ulong; S: Pgsl_spmatrix_ulong): 
 function gsl_spmatrix_ulong_add_to_dense(a: Pgsl_matrix_ulong; b: Pgsl_spmatrix_ulong): longint; cdecl; external libgsl; deprecated;
 
 function gsl_spmatrix_ulong_equal(a: Pgsl_spmatrix_ulong; b: Pgsl_spmatrix_ulong): longint; cdecl; external libgsl;
-function gsl_spmatrix_ulong_norm1(a: Pgsl_spmatrix_ulong): dword; cdecl; external libgsl;
+function gsl_spmatrix_ulong_norm1(a: Pgsl_spmatrix_ulong): Tculong; cdecl; external libgsl;
 
 function gsl_spmatrix_ulong_transpose(m: Pgsl_spmatrix_ulong): longint; cdecl; external libgsl;
 function gsl_spmatrix_ulong_transpose2(m: Pgsl_spmatrix_ulong): longint; cdecl; external libgsl;

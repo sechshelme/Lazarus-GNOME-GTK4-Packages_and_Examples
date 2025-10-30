@@ -15,8 +15,8 @@ type
     h: Tdouble;
     hmin: Tdouble;
     hmax: Tdouble;
-    n: dword;
-    nmax: dword;
+    n: Tculong;
+    nmax: Tculong;
   end;
   Tgsl_odeiv2_driver = Tgsl_odeiv2_driver_struct;
   Pgsl_odeiv2_driver = ^Tgsl_odeiv2_driver;
@@ -75,8 +75,8 @@ type
     dydt_in: Pdouble;
     dydt_out: Pdouble;
     last_step: Tdouble;
-    count: dword;
-    failed_steps: dword;
+    count: Tculong;
+    failed_steps: Tculong;
     driver: Pgsl_odeiv2_driver;
   end;
   Tgsl_odeiv2_evolve = Tgsl_odeiv2_evolve_struct;
@@ -135,9 +135,9 @@ function gsl_odeiv2_driver_alloc_standard_new(sys: Pgsl_odeiv2_system; T: Pgsl_o
   a_y: Tdouble; a_dydt: Tdouble): Pgsl_odeiv2_driver; cdecl; external libgsl;
 function gsl_odeiv2_driver_set_hmin(d: Pgsl_odeiv2_driver; hmin: Tdouble): longint; cdecl; external libgsl;
 function gsl_odeiv2_driver_set_hmax(d: Pgsl_odeiv2_driver; hmax: Tdouble): longint; cdecl; external libgsl;
-function gsl_odeiv2_driver_set_nmax(d: Pgsl_odeiv2_driver; nmax: dword): longint; cdecl; external libgsl;
+function gsl_odeiv2_driver_set_nmax(d: Pgsl_odeiv2_driver; nmax: Tculong): longint; cdecl; external libgsl;
 function gsl_odeiv2_driver_apply(d: Pgsl_odeiv2_driver; t: Pdouble; t1: Tdouble; y: Pdouble): longint; cdecl; external libgsl;
-function gsl_odeiv2_driver_apply_fixed_step(d: Pgsl_odeiv2_driver; t: Pdouble; h: Tdouble; n: dword; y: Pdouble): longint; cdecl; external libgsl;
+function gsl_odeiv2_driver_apply_fixed_step(d: Pgsl_odeiv2_driver; t: Pdouble; h: Tdouble; n: Tculong; y: Pdouble): longint; cdecl; external libgsl;
 function gsl_odeiv2_driver_reset(d: Pgsl_odeiv2_driver): longint; cdecl; external libgsl;
 function gsl_odeiv2_driver_reset_hstart(d: Pgsl_odeiv2_driver; hstart: Tdouble): longint; cdecl; external libgsl;
 procedure gsl_odeiv2_driver_free(state: Pgsl_odeiv2_driver); cdecl; external libgsl;

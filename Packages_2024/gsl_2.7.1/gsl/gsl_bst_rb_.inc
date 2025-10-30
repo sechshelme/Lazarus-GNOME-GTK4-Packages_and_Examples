@@ -19,7 +19,7 @@ type
     rb_param: pointer;
     rb_alloc: Pgsl_bst_allocator;
     rb_count: Tsize_t;
-    rb_generation: dword;
+    rb_generation: Tculong;
   end;
   Pgsl_bst_rb_table = ^Tgsl_bst_rb_table;
 
@@ -28,7 +28,7 @@ type
     rb_node: Pgsl_bst_rb_node;
     rb_stack: array[0..(GSL_BST_RB_MAX_HEIGHT) - 1] of Pgsl_bst_rb_node;
     rb_height: Tsize_t;
-    rb_generation: dword;
+    rb_generation: Tculong;
   end;
   Pgsl_bst_rb_traverser = ^Tgsl_bst_rb_traverser;
 

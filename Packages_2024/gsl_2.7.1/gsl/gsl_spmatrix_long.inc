@@ -6,7 +6,7 @@ type
     size1: Tsize_t;
     size2: Tsize_t;
     i: Plongint;
-    data: Plongint;
+    data: Pclong;
     p: Plongint;
     nzmax: Tsize_t;
     nz: Tsize_t;
@@ -17,7 +17,7 @@ type
       case longint of
         0: (work_void: pointer);
         1: (work_int: Plongint);
-        2: (work_atomic: Plongint);
+        2: (work_atomic: Pclong);
       end;
     sptype: longint;
     spflags: Tsize_t;
@@ -47,14 +47,14 @@ function gsl_spmatrix_long_fscanf(stream: PFILE): Pgsl_spmatrix_long; cdecl; ext
 function gsl_spmatrix_long_fwrite(stream: PFILE; m: Pgsl_spmatrix_long): longint; cdecl; external libgsl;
 function gsl_spmatrix_long_fread(stream: PFILE; m: Pgsl_spmatrix_long): longint; cdecl; external libgsl;
 
-function gsl_spmatrix_long_get(m: Pgsl_spmatrix_long; i: Tsize_t; j: Tsize_t): longint; cdecl; external libgsl;
-function gsl_spmatrix_long_set(m: Pgsl_spmatrix_long; i: Tsize_t; j: Tsize_t; x: longint): longint; cdecl; external libgsl;
-function gsl_spmatrix_long_ptr(m: Pgsl_spmatrix_long; i: Tsize_t; j: Tsize_t): Plongint; cdecl; external libgsl;
+function gsl_spmatrix_long_get(m: Pgsl_spmatrix_long; i: Tsize_t; j: Tsize_t): Tculong; cdecl; external libgsl;
+function gsl_spmatrix_long_set(m: Pgsl_spmatrix_long; i: Tsize_t; j: Tsize_t; x: Tculong): longint; cdecl; external libgsl;
+function gsl_spmatrix_long_ptr(m: Pgsl_spmatrix_long; i: Tsize_t; j: Tsize_t): Pculong; cdecl; external libgsl;
 
-function gsl_spmatrix_long_minmax(m: Pgsl_spmatrix_long; min_out: Plongint; max_out: Plongint): longint; cdecl; external libgsl;
+function gsl_spmatrix_long_minmax(m: Pgsl_spmatrix_long; min_out: Pclong; max_out: Plongint): longint; cdecl; external libgsl;
 function gsl_spmatrix_long_min_index(m: Pgsl_spmatrix_long; imin_out: Psize_t; jmin_out: Psize_t): longint; cdecl; external libgsl;
 
-function gsl_spmatrix_long_scale(m: Pgsl_spmatrix_long; x: longint): longint; cdecl; external libgsl;
+function gsl_spmatrix_long_scale(m: Pgsl_spmatrix_long; x: Tculong): longint; cdecl; external libgsl;
 function gsl_spmatrix_long_scale_columns(m: Pgsl_spmatrix_long; x: Pgsl_vector_long): longint; cdecl; external libgsl;
 function gsl_spmatrix_long_scale_rows(m: Pgsl_spmatrix_long; x: Pgsl_vector_long): longint; cdecl; external libgsl;
 function gsl_spmatrix_long_add(c: Pgsl_spmatrix_long; a: Pgsl_spmatrix_long; b: Pgsl_spmatrix_long): longint; cdecl; external libgsl;
@@ -66,7 +66,7 @@ function gsl_spmatrix_long_sp2d(A: Pgsl_matrix_long; S: Pgsl_spmatrix_long): lon
 function gsl_spmatrix_long_add_to_dense(a: Pgsl_matrix_long; b: Pgsl_spmatrix_long): longint; cdecl; external libgsl; deprecated;
 
 function gsl_spmatrix_long_equal(a: Pgsl_spmatrix_long; b: Pgsl_spmatrix_long): longint; cdecl; external libgsl;
-function gsl_spmatrix_long_norm1(a: Pgsl_spmatrix_long): longint; cdecl; external libgsl;
+function gsl_spmatrix_long_norm1(a: Pgsl_spmatrix_long): Tculong; cdecl; external libgsl;
 
 function gsl_spmatrix_long_transpose(m: Pgsl_spmatrix_long): longint; cdecl; external libgsl;
 function gsl_spmatrix_long_transpose2(m: Pgsl_spmatrix_long): longint; cdecl; external libgsl;

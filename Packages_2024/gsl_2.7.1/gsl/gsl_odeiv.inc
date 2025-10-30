@@ -93,8 +93,8 @@ type
     dydt_in: Pdouble;
     dydt_out: Pdouble;
     last_step: Tdouble;
-    count: dword;
-    failed_steps: dword;
+    count: Tculong;
+    failed_steps: Tculong;
   end;
   Pgsl_odeiv_evolve = ^Tgsl_odeiv_evolve;
 

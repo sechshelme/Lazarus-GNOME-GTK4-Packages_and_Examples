@@ -20,7 +20,7 @@ type
     avl_param: pointer;
     avl_alloc: Pgsl_bst_allocator;
     avl_count: Tsize_t;
-    avl_generation: dword;
+    avl_generation: Tculong;
   end;
   Pgsl_bst_avl_table = ^Tgsl_bst_avl_table;
 
@@ -29,7 +29,7 @@ type
     avl_node: Pgsl_bst_avl_node;
     avl_stack: array[0..(GSL_BST_AVL_MAX_HEIGHT) - 1] of Pgsl_bst_avl_node;
     avl_height: Tsize_t;
-    avl_generation: dword;
+    avl_generation: Tculong;
   end;
   Pgsl_bst_avl_traverser = ^Tgsl_bst_avl_traverser;
 
