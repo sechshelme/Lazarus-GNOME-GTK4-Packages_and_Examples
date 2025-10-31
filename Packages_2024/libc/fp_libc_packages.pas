@@ -13,7 +13,7 @@ uses
   fp_shadow, fp_inotify, fp_errno, fp_error, fp_pidfd, fp_getopt, fp_argp, 
   fp_time, fp_ctype, fp_locale, fp_setjmp, fp_fenv, fp_complex, fp_math, 
   fp_netinet, fp_libc_tools, fp_net, fp_ifaddrs, fp_arpa, fp_wchar, fp_stat, 
-  fp_poll, LazarusPackageIntf;
+  fp_poll, fp_regex, LazarusPackageIntf;
 
 implementation
 

@@ -155,6 +155,10 @@
         <Filename Value="linux/fp_poll.pas"/>
         <UnitName Value="fp_poll"/>
       </Item>
+      <Item>
+        <Filename Value="linux/fp_regex.pas"/>
+        <UnitName Value="fp_regex"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
