@@ -93,6 +93,8 @@ type
 
   Psigstack = Pointer;  // /usr/include/x86_64-linux-gnu/bits/types/stack_t.h
 
+  Pre_dfa_t = Pointer; // ?????????????
+
 type
   Toff_t = SizeInt;
   Poff_t = ^Toff_t;
