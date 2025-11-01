@@ -262,6 +262,10 @@ const
 
     (libs: 'libgtop2'; units: 'fp_glib2, fp_libgtop2'),
 
+    (libs: 'libcolord_gtk'; units: 'fp_glib2, fp_GTK4, fp_colord'),
+    (libs: 'libcolord'; units: 'fp_glib2, fp_colord'),
+
+
     (libs: ''; units: ''));
 
 

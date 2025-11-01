@@ -57,7 +57,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/libgtop-2.0', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/colord-1/colord', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -88,7 +88,7 @@ begin
 
       slHeader[j] := StringReplace(slHeader[j], 'G_DECLARE_DERIVABLE_TYPE', '//G_DECLARE_DERIVABLE_TYPE', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NON_NULL(1, 2)', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NON_NULL(1)', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
 
     end;
     slHeader.SaveToFile(slFile[i]);

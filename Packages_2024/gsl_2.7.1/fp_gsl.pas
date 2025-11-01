@@ -2,9 +2,6 @@ unit fp_gsl;
 
 interface
 
-uses
-  ctypes;
-
 const
   {$IFDEF Linux}
   libgsl = 'libgsl';

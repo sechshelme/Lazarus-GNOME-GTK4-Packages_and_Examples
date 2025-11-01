@@ -3,9 +3,10 @@
 h2pas -p -T -d -c -e xxx.h
 ```
 
-# Makro entschlüsseln
+# Makro entschlüsseln / Kommentare entfernen
 ```
-gcc main.c -E
+gcc main.c -o main_new.c -E
+
 ```
 
 # Neusten meson installieren

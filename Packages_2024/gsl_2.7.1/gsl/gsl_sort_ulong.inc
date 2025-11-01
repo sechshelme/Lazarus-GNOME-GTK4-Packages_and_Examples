@@ -8,7 +8,7 @@ procedure gsl_sort_ulong_index(p: Psize_t; data: Pculong; stride: Tsize_t; n: Ts
 function gsl_sort_ulong_smallest(dest: Pculong; k: Tsize_t; src: Pculong; stride: Tsize_t; n: Tsize_t): longint; cdecl; external libgsl;
 function gsl_sort_ulong_smallest_index(p: Psize_t; k: Tsize_t; src: Pculong; stride: Tsize_t; n: Tsize_t): longint; cdecl; external libgsl;
 function gsl_sort_ulong_largest(dest: Pculong; k: Tsize_t; src: Pculong; stride: Tsize_t; n: Tsize_t): longint; cdecl; external libgsl;
-function gsl_sort_ulong_largest_index(p: Psize_t; k: Tsize_t; src: p; stride: Tsize_t; n: Tsize_t): longint; cdecl; external libgsl;
+function gsl_sort_ulong_largest_index(p: Psize_t; k: Tsize_t; src: Pculong; stride: Tsize_t; n: Tsize_t): longint; cdecl; external libgsl;
 
 // === Konventiert am: 21-8-25 14:44:43 ===
 
