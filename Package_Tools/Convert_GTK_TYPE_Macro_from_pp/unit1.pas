@@ -242,28 +242,31 @@ const
     (libs: 'libgsound'; units: 'fp_glib2'),
     (libs: 'libgmime3'; units: 'fp_glib2, fp_gmime3'),
 
-    (libs:     'libsfml_audio';units:'fp_sfml'),
-    (libs:     'libsfml_graphics';units:'fp_sfml'),
-    (libs:     'libsfml_network';units:'fp_sfml'),
-    (libs:     'libsfml_system';units:'fp_sfml'),
-    (libs:     'libsfml_window';units:'fp_sfml'),
+    (libs: 'libsfml_audio'; units: 'fp_sfml'),
+    (libs: 'libsfml_graphics'; units: 'fp_sfml'),
+    (libs: 'libsfml_network'; units: 'fp_sfml'),
+    (libs: 'libsfml_system'; units: 'fp_sfml'),
+    (libs: 'libsfml_window'; units: 'fp_sfml'),
 
-    (libs:     'libcanberra';units:'fp_canberra'),
-    (libs:     'libgbm';units:'ctypes'),
-    (libs:     'libsoup';units:'fp_glib2, fp_soup'),
-    (libs:     'libxmlb';units:'fp_glib2, fp_xmlb'),
+    (libs: 'libcanberra'; units: 'fp_canberra'),
+    (libs: 'libgbm'; units: 'ctypes'),
+    (libs: 'libsoup'; units: 'fp_glib2, fp_soup'),
+    (libs: 'libxmlb'; units: 'fp_glib2, fp_xmlb'),
 
-    (libs:     'libvlc';units:'fp_vlc'),
-    (libs:     'libxcbxxx';units:'fp_xcb'),
+    (libs: 'libvlc'; units: 'fp_vlc'),
+    (libs: 'libxcbxxx'; units: 'fp_xcb'),
 
-    (libs:     'libgirepository2';units:'fp_glib2, fp_girepository, gitypes, gibaseinfo'),
+    (libs: 'libgirepository2'; units: 'fp_glib2, fp_girepository, gitypes, gibaseinfo'),
 
-    (libs:     'libffi';units:'ctypes'),
+    (libs: 'libffi'; units: 'ctypes'),
 
     (libs: 'libgtop2'; units: 'fp_glib2, fp_libgtop2'),
 
     (libs: 'libcolord_gtk'; units: 'fp_glib2, fp_GTK4, fp_colord'),
     (libs: 'libcolord'; units: 'fp_glib2, fp_colord'),
+
+    (libs: 'libexpat'; units: 'fp_libexpat'),
+
 
 
     (libs: ''; units: ''));
