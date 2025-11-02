@@ -6,7 +6,7 @@ uses
   fp_glib2,
   fp_GTK4;
 
-  procedure print_hello(widget: PGtkWidget; Data: Tgpointer);
+  procedure print_hello(widget: PGtkWidget; Data: Tgpointer); cdecl;
   const
     counter: cint = 0;
   begin
@@ -17,7 +17,7 @@ uses
   end;
 
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, box, button: PGtkWidget;
   begin

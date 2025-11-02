@@ -14,7 +14,7 @@ type
 function adw_animation_target_get_type: TGType; cdecl; external libadwaita;
 
 type
-  TAdwAnimationTargetFunc = procedure(Value: Tdouble; user_data: Tgpointer); cdecl;
+  TAdwAnimationTargetFunc = procedure(Value: double; user_data: Tgpointer); cdecl;
 
   {GDK_DECLARE_INTERNAL_TYPE (AdwCallbackAnimationTarget, adw_callback_animation_target, ADW, CALLBACK_ANIMATION_TARGET, AdwAnimationTarget) }
 type

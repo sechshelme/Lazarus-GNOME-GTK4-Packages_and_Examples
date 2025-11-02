@@ -44,7 +44,7 @@ function adw_flap_get_reveal_flap(self: PAdwFlap): Tgboolean; cdecl; external li
 procedure adw_flap_set_reveal_flap(self: PAdwFlap; reveal_flap: Tgboolean); cdecl; external libadwaita; deprecated 'ADW_DEPRECATED_IN_1_4';
 function adw_flap_get_reveal_params(self: PAdwFlap): PAdwSpringParams; cdecl; external libadwaita; deprecated 'ADW_DEPRECATED_IN_1_4';
 procedure adw_flap_set_reveal_params(self: PAdwFlap; params: PAdwSpringParams); cdecl; external libadwaita; deprecated 'ADW_DEPRECATED_IN_1_4';
-function adw_flap_get_reveal_progress(self: PAdwFlap): Tdouble; cdecl; external libadwaita; deprecated 'ADW_DEPRECATED_IN_1_4';
+function adw_flap_get_reveal_progress(self: PAdwFlap): double; cdecl; external libadwaita; deprecated 'ADW_DEPRECATED_IN_1_4';
 function adw_flap_get_fold_policy(self: PAdwFlap): TAdwFlapFoldPolicy; cdecl; external libadwaita; deprecated 'ADW_DEPRECATED_IN_1_4';
 procedure adw_flap_set_fold_policy(self: PAdwFlap; policy: TAdwFlapFoldPolicy); cdecl; external libadwaita; deprecated 'ADW_DEPRECATED_IN_1_4';
 function adw_flap_get_fold_threshold_policy(self: PAdwFlap): TAdwFoldThresholdPolicy; cdecl; external libadwaita; deprecated 'ADW_DEPRECATED_IN_1_4';

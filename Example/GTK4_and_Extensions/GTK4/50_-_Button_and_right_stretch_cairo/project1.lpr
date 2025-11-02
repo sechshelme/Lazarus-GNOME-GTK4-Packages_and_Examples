@@ -6,7 +6,6 @@ uses
   fp_glib2,
   fp_GLIBTools,
   fp_cairo,
-  fp_GDK4,
   fp_GTK4;
 
 
@@ -39,7 +38,7 @@ var
     Result := G_SOURCE_CONTINUE;
   end;
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, button, vbox, hbox, label1, button_box,
     drawing_area: PGtkWidget;

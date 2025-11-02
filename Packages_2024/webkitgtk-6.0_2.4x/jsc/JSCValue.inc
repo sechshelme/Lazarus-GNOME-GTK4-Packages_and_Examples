@@ -42,9 +42,9 @@ function jsc_value_new_undefined(context: PJSCContext): PJSCValue; cdecl; extern
 function jsc_value_is_undefined(Value: PJSCValue): Tgboolean; cdecl; external libjavascriptcoregtk;
 function jsc_value_new_null(context: PJSCContext): PJSCValue; cdecl; external libjavascriptcoregtk;
 function jsc_value_is_null(Value: PJSCValue): Tgboolean; cdecl; external libjavascriptcoregtk;
-function jsc_value_new_number(context: PJSCContext; number: Tdouble): PJSCValue; cdecl; external libjavascriptcoregtk;
+function jsc_value_new_number(context: PJSCContext; number: double): PJSCValue; cdecl; external libjavascriptcoregtk;
 function jsc_value_is_number(Value: PJSCValue): Tgboolean; cdecl; external libjavascriptcoregtk;
-function jsc_value_to_double(Value: PJSCValue): Tdouble; cdecl; external libjavascriptcoregtk;
+function jsc_value_to_double(Value: PJSCValue): double; cdecl; external libjavascriptcoregtk;
 function jsc_value_to_int32(Value: PJSCValue): Tgint32; cdecl; external libjavascriptcoregtk;
 function jsc_value_new_boolean(context: PJSCContext; Value: Tgboolean): PJSCValue; cdecl; external libjavascriptcoregtk;
 function jsc_value_is_boolean(Value: PJSCValue): Tgboolean; cdecl; external libjavascriptcoregtk;

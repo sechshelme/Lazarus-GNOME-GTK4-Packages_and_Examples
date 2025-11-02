@@ -5,7 +5,6 @@ uses
   SysUtils,
   fp_glib2,
   fp_GLIBTools,
-  fp_GDK4,
   fp_GTK4;
 
 
@@ -34,7 +33,7 @@ uses
     end;
   end;
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, button, vbox, hbox1, hbox2, label1: PGtkWidget;
   begin

@@ -79,7 +79,7 @@ uses
     g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
   end;
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, toolbar_view, header_bar, label_, box, button,
     menu_button: PGtkWidget;

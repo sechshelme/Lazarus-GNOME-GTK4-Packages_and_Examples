@@ -5,7 +5,6 @@ uses
   SysUtils,
   fp_cairo,
   fp_glib2,
-  fp_GDK4,
   fp_GTK4;
 
   //  https://docs.gtk.org/gtk4/getting_started.html#drawing-in-response-to-input
@@ -38,7 +37,7 @@ var
     end;
   end;
 
-  procedure close_window;
+  procedure close_window_cp; cdecl;
   begin
     if surface <> nil then begin
       cairo_surface_destroy(surface);
@@ -51,7 +50,7 @@ var
     cairo_paint(cr);
   end;
 
-  procedure draw_brush(widget: PGtkWidget; x, y: double);
+  procedure draw_brush(widget: PGtkWidget; x, y: double); cdecl;
   var
     cr: Pcairo_t;
   begin
@@ -68,23 +67,23 @@ var
 var
   startx, starty: double;
 
-  procedure drag_begin(gesture: PGtkGestureDrag; x, y: double; area: PGtkWidget);
+  procedure drag_begin(gesture: PGtkGestureDrag; x, y: double; area: PGtkWidget); cdecl;
   begin
     startx := x;
     starty := y;
   end;
 
-  procedure drag_update(gesture: PGtkGestureDrag; x, y: double; area: PGtkWidget);
+  procedure drag_update(gesture: PGtkGestureDrag; x, y: double; area: PGtkWidget); cdecl;
   begin
     draw_brush(area, startx + x, starty + y);
   end;
 
-  procedure drag_end(gesture: PGtkGestureDrag; x, y: double; area: PGtkWidget);
+  procedure drag_end(gesture: PGtkGestureDrag; x, y: double; area: PGtkWidget); cdecl;
   begin
     draw_brush(area, startx + x, starty + y);
   end;
 
-  procedure pressed(gesture: PGtkGestureDrag; n_press: cint; x, y: double; area: PGtkWidget);
+  procedure pressed(gesture: PGtkGestureDrag; n_press: cint; x, y: double; area: PGtkWidget); cdecl;
   begin
     clear_surface;
     gtk_widget_queue_draw(area);
@@ -98,7 +97,7 @@ var
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'Drawing Area');
 
-    g_signal_connect(window, 'destroy', G_CALLBACK(@close_window), nil);
+    g_signal_connect(window, 'destroy', G_CALLBACK(@close_window_cp), nil);
 
     frame := gtk_frame_new(nil);
     gtk_window_set_child(GTK_WINDOW(window), frame);

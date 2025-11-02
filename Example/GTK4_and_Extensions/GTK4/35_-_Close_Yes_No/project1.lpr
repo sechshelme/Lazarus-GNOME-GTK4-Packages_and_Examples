@@ -60,7 +60,7 @@ uses
     WriteLn(11111);
   end;
 
-  procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
     window, box, button, lab: PGtkWidget;
   begin

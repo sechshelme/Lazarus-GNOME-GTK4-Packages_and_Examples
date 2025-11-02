@@ -3,7 +3,7 @@ unit fp_adwaita;
 interface
 
 uses
-  fp_glib2, fp_pango, fp_GDK4, fp_GTK4;
+  fp_glib2, fp_pango, fp_GTK4;
 
 const
   {$IFDEF Linux}

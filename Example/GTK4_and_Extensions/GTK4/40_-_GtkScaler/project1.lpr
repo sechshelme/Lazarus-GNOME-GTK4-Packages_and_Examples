@@ -10,7 +10,7 @@ uses
 
   procedure on_scale_changed_cp(range: PGtkRange; user_data: Tgpointer); cdecl;
   var
-    Value: Tdouble;
+    Value: double;
   begin
     Value := gtk_range_get_value(range);
     g_printf('Value: %.2f'#10, Value);
@@ -27,7 +27,7 @@ uses
     g_signal_handler_unblock(scale, id);
   end;
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, box, button, scale: PGtkWidget;
     changed_handler_id: Tgulong;

@@ -325,5 +325,4 @@ end;
 // ==== Inizialisierung
 
 begin
-  gst_init(@argc, @argv);
 end.

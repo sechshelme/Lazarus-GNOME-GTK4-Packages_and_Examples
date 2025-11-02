@@ -12,11 +12,11 @@ type
   PAdwTimedAnimationClass = ^TAdwTimedAnimationClass;
 
 function adw_timed_animation_get_type: TGType; cdecl; external libadwaita;
-function adw_timed_animation_new(widget: PGtkWidget; from: Tdouble; to_: Tdouble; duration: Tguint; target: PAdwAnimationTarget): PAdwAnimation; cdecl; external libadwaita;
-function adw_timed_animation_get_value_from(self: PAdwTimedAnimation): Tdouble; cdecl; external libadwaita;
-procedure adw_timed_animation_set_value_from(self: PAdwTimedAnimation; Value: Tdouble); cdecl; external libadwaita;
-function adw_timed_animation_get_value_to(self: PAdwTimedAnimation): Tdouble; cdecl; external libadwaita;
-procedure adw_timed_animation_set_value_to(self: PAdwTimedAnimation; Value: Tdouble); cdecl; external libadwaita;
+function adw_timed_animation_new(widget: PGtkWidget; from: double; to_: double; duration: Tguint; target: PAdwAnimationTarget): PAdwAnimation; cdecl; external libadwaita;
+function adw_timed_animation_get_value_from(self: PAdwTimedAnimation): double; cdecl; external libadwaita;
+procedure adw_timed_animation_set_value_from(self: PAdwTimedAnimation; Value: double); cdecl; external libadwaita;
+function adw_timed_animation_get_value_to(self: PAdwTimedAnimation): double; cdecl; external libadwaita;
+procedure adw_timed_animation_set_value_to(self: PAdwTimedAnimation; Value: double); cdecl; external libadwaita;
 function adw_timed_animation_get_duration(self: PAdwTimedAnimation): Tguint; cdecl; external libadwaita;
 procedure adw_timed_animation_set_duration(self: PAdwTimedAnimation; duration: Tguint); cdecl; external libadwaita;
 function adw_timed_animation_get_easing(self: PAdwTimedAnimation): TAdwEasing; cdecl; external libadwaita;

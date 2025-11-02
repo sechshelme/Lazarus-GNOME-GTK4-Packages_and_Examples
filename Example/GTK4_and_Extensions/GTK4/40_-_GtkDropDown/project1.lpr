@@ -16,7 +16,7 @@ uses
 
   // === DropDown 1
 
-  procedure on_dropdown_selection_changed(dropdown: PGObject; pspec: PGParamSpec; user_data: Tgpointer);
+  procedure on_dropdown_selection_changed(dropdown: PGObject; pspec: PGParamSpec; user_data: Tgpointer); cdecl;
   var
     outputLabel: PGtkLabel absolute user_data;
     selected_index: Tguint;
@@ -128,7 +128,7 @@ uses
   // ================
 
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, main_box, button, dd: PGtkWidget;
   begin

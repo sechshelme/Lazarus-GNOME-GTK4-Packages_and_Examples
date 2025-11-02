@@ -231,6 +231,7 @@ uses
   var
     app: PGtkApplication;
   begin
+    gst_init(@argc, @argv);
     app := gtk_application_new('org.gtk.mediaplayer', G_APPLICATION_DEFAULT_FLAGS);
 
     g_signal_connect(app, 'startup', G_CALLBACK(@app_startup), nil);

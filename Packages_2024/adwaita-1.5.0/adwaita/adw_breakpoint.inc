@@ -24,7 +24,7 @@ type
   PAdwBreakpointCondition = ^TAdwBreakpointCondition;
 
 function adw_breakpoint_condition_get_type: TGType; cdecl; external libadwaita;
-function adw_breakpoint_condition_new_length(_type: TAdwBreakpointConditionLengthType; Value: Tdouble; unit_: TAdwLengthUnit): PAdwBreakpointCondition; cdecl; external libadwaita;
+function adw_breakpoint_condition_new_length(_type: TAdwBreakpointConditionLengthType; Value: double; unit_: TAdwLengthUnit): PAdwBreakpointCondition; cdecl; external libadwaita;
 function adw_breakpoint_condition_new_ratio(_type: TAdwBreakpointConditionRatioType; Width: longint; Height: longint): PAdwBreakpointCondition; cdecl; external libadwaita;
 function adw_breakpoint_condition_new_and(condition_1: PAdwBreakpointCondition; condition_2: PAdwBreakpointCondition): PAdwBreakpointCondition; cdecl; external libadwaita;
 function adw_breakpoint_condition_new_or(condition_1: PAdwBreakpointCondition; condition_2: PAdwBreakpointCondition): PAdwBreakpointCondition; cdecl; external libadwaita;

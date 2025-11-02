@@ -37,7 +37,7 @@ const
   ADW_EASE_OUT_BOUNCE = 29;
   ADW_EASE_IN_OUT_BOUNCE = 30;
 
-function adw_easing_ease(self: TAdwEasing; Value: Tdouble): Tdouble; cdecl; external libadwaita;
+function adw_easing_ease(self: TAdwEasing; Value: double): double; cdecl; external libadwaita;
 
 // === Konventiert am: 10-1-25 13:47:22 ===
 

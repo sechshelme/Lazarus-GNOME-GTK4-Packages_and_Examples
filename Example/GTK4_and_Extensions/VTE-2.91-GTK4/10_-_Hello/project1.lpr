@@ -6,7 +6,7 @@ uses
   fp_GTK4,
   fp_vte_2_91;
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, main_box, sw, terminal: PGtkWidget;
     version: Pgchar;

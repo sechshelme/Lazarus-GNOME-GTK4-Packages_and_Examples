@@ -6,10 +6,11 @@ uses
   fp_glib2,
   fp_cairo,
   fp_GTK4,
-  fp_GSK4,
-  fp_GDK4,
   fp_GLIBTools,
   fp_graphene;
+
+type
+  TVector4f = array[0..3] of single;
 
 const
   spriteDataKey = 'SpriteData';
@@ -22,7 +23,7 @@ type
   end;
   PSpriteData = ^TSpriteData;
 
-  procedure button_quit_cb({%H-}widget: PGtkWidget; {%H-}Data: Tgpointer);
+  procedure button_quit_cb({%H-}widget: PGtkWidget; {%H-}Data: Tgpointer); cdecl;
   var
     app: PGApplication;
     windowList: PGList;

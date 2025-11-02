@@ -3,7 +3,7 @@ unit fp_gtksourceview;
 interface
 
 uses
-  fp_glib2, fp_GDK4, fp_gdk_pixbuf2, fp_GTK4, fp_pango;
+  fp_glib2, fp_gdk_pixbuf2, fp_GTK4, fp_pango;
 
 const
   {$IFDEF Linux}

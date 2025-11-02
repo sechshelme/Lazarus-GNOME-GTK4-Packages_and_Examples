@@ -26,7 +26,7 @@ function adw_animation_get_type: TGType; cdecl; external libadwaita;
 function adw_animation_get_widget(self: PAdwAnimation): PGtkWidget; cdecl; external libadwaita;
 function adw_animation_get_target(self: PAdwAnimation): PAdwAnimationTarget; cdecl; external libadwaita;
 procedure adw_animation_set_target(self: PAdwAnimation; target: PAdwAnimationTarget); cdecl; external libadwaita;
-function adw_animation_get_value(self: PAdwAnimation): Tdouble; cdecl; external libadwaita;
+function adw_animation_get_value(self: PAdwAnimation): double; cdecl; external libadwaita;
 function adw_animation_get_state(self: PAdwAnimation): TAdwAnimationState; cdecl; external libadwaita;
 procedure adw_animation_play(self: PAdwAnimation); cdecl; external libadwaita;
 procedure adw_animation_pause(self: PAdwAnimation); cdecl; external libadwaita;

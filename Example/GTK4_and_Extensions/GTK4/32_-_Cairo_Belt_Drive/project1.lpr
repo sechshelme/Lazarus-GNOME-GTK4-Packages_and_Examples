@@ -6,7 +6,6 @@ uses
   SysUtils,
   fp_glib2,
   fp_cairo,
-  fp_GDK4,
   fp_GTK4;
 
 type
@@ -97,7 +96,7 @@ const
     g_free(anyData);
   end;
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, box, button, drawing_area: PGtkWidget;
     anyData: PAniData;

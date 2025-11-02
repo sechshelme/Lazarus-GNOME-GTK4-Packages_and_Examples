@@ -11,7 +11,7 @@ uses
   fp_colord_gtk4,
   fp_colord;
 
-  procedure print_hello(widget: PGtkWidget; Data: Tgpointer);
+  procedure print_hello(widget: PGtkWidget; Data: Tgpointer); cdecl;
   const
     counter: cint = 0;
   begin

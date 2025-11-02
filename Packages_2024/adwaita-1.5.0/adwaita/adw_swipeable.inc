@@ -8,20 +8,20 @@ type
 
   TAdwSwipeableInterface = record
     parent: TGTypeInterface;
-    get_distance: function(self: PAdwSwipeable): Tdouble; cdecl;
+    get_distance: function(self: PAdwSwipeable): double; cdecl;
     get_snap_points: function(self: PAdwSwipeable; n_snap_points: Plongint): Pdouble; cdecl;
-    get_progress: function(self: PAdwSwipeable): Tdouble; cdecl;
-    get_cancel_progress: function(self: PAdwSwipeable): Tdouble; cdecl;
+    get_progress: function(self: PAdwSwipeable): double; cdecl;
+    get_cancel_progress: function(self: PAdwSwipeable): double; cdecl;
     get_swipe_area: procedure(self: PAdwSwipeable; navigation_direction: TAdwNavigationDirection; is_drag: Tgboolean; rect: PGdkRectangle); cdecl;
     padding: array[0..3] of Tgpointer;
   end;
   PAdwSwipeableInterface = ^TAdwSwipeableInterface;
 
 function adw_swipeable_get_type: TGType; cdecl; external libadwaita;
-function adw_swipeable_get_distance(self: PAdwSwipeable): Tdouble; cdecl; external libadwaita;
+function adw_swipeable_get_distance(self: PAdwSwipeable): double; cdecl; external libadwaita;
 function adw_swipeable_get_snap_points(self: PAdwSwipeable; n_snap_points: Plongint): Pdouble; cdecl; external libadwaita;
-function adw_swipeable_get_progress(self: PAdwSwipeable): Tdouble; cdecl; external libadwaita;
-function adw_swipeable_get_cancel_progress(self: PAdwSwipeable): Tdouble; cdecl; external libadwaita;
+function adw_swipeable_get_progress(self: PAdwSwipeable): double; cdecl; external libadwaita;
+function adw_swipeable_get_cancel_progress(self: PAdwSwipeable): double; cdecl; external libadwaita;
 procedure adw_swipeable_get_swipe_area(self: PAdwSwipeable; navigation_direction: TAdwNavigationDirection; is_drag: Tgboolean; rect: PGdkRectangle); cdecl; external libadwaita;
 
 // === Konventiert am: 10-1-25 13:09:33 ===

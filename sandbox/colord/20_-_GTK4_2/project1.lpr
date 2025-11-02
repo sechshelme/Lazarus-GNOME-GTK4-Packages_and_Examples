@@ -71,7 +71,7 @@ uses
     g_object_unref(profile);
   end;
 
-  procedure print_hello(widget: PGtkWidget; Data: Tgpointer);
+  procedure print_hello(widget: PGtkWidget; Data: Tgpointer); cdecl;
   var
     window: PCdWindow absolute Data;
     cdwindow: PCdWindow;

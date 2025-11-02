@@ -11,7 +11,7 @@ const
   LabelText = 'Ich bin ein wirklich übergrosses endloses Label, das nicht hören will !';
 
 
-  function CreateLabelBox: PGtkWidget;
+  function CreateLabelBox: PGtkWidget; cdecl;
   var
     lab: PGtkWidget;
   begin
@@ -24,7 +24,7 @@ const
     gtk_box_append(GTK_BOX(Result), lab);
   end;
 
-procedure entry_text_changed(edit: PGtkEditable; user_data: Tgpointer);
+procedure entry_text_changed(edit: PGtkEditable; user_data: Tgpointer); cdecl;
 var
   p: longint;
   len: Tguint;
@@ -40,7 +40,7 @@ begin
   WriteLn('pos: ', p, '  len: ', len, '  size: ', size);
 end;
 
-procedure entry_text_notify(entry: PGtkEntry;pspec:PGParamSpec; user_data: Tgpointer);
+procedure entry_text_notify(entry: PGtkEntry;pspec:PGParamSpec; user_data: Tgpointer); cdecl;
 var
   cp:Tgint;
 begin

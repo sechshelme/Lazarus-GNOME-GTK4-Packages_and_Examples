@@ -12,23 +12,23 @@ type
   PAdwSpringAnimationClass = ^TAdwSpringAnimationClass;
 
 function adw_spring_animation_get_type: TGType; cdecl; external libadwaita;
-function adw_spring_animation_new(widget: PGtkWidget; from: Tdouble; to_: Tdouble; spring_params: PAdwSpringParams; target: PAdwAnimationTarget): PAdwAnimation; cdecl; external libadwaita;
-function adw_spring_animation_get_value_from(self: PAdwSpringAnimation): Tdouble; cdecl; external libadwaita;
-procedure adw_spring_animation_set_value_from(self: PAdwSpringAnimation; Value: Tdouble); cdecl; external libadwaita;
-function adw_spring_animation_get_value_to(self: PAdwSpringAnimation): Tdouble; cdecl; external libadwaita;
-procedure adw_spring_animation_set_value_to(self: PAdwSpringAnimation; Value: Tdouble); cdecl; external libadwaita;
+function adw_spring_animation_new(widget: PGtkWidget; from: double; to_: double; spring_params: PAdwSpringParams; target: PAdwAnimationTarget): PAdwAnimation; cdecl; external libadwaita;
+function adw_spring_animation_get_value_from(self: PAdwSpringAnimation): double; cdecl; external libadwaita;
+procedure adw_spring_animation_set_value_from(self: PAdwSpringAnimation; Value: double); cdecl; external libadwaita;
+function adw_spring_animation_get_value_to(self: PAdwSpringAnimation): double; cdecl; external libadwaita;
+procedure adw_spring_animation_set_value_to(self: PAdwSpringAnimation; Value: double); cdecl; external libadwaita;
 function adw_spring_animation_get_spring_params(self: PAdwSpringAnimation): PAdwSpringParams; cdecl; external libadwaita;
 procedure adw_spring_animation_set_spring_params(self: PAdwSpringAnimation; spring_params: PAdwSpringParams); cdecl; external libadwaita;
-function adw_spring_animation_get_initial_velocity(self: PAdwSpringAnimation): Tdouble; cdecl; external libadwaita;
-procedure adw_spring_animation_set_initial_velocity(self: PAdwSpringAnimation; velocity: Tdouble); cdecl; external libadwaita;
-function adw_spring_animation_get_epsilon(self: PAdwSpringAnimation): Tdouble; cdecl; external libadwaita;
-procedure adw_spring_animation_set_epsilon(self: PAdwSpringAnimation; epsilon: Tdouble); cdecl; external libadwaita;
+function adw_spring_animation_get_initial_velocity(self: PAdwSpringAnimation): double; cdecl; external libadwaita;
+procedure adw_spring_animation_set_initial_velocity(self: PAdwSpringAnimation; velocity: double); cdecl; external libadwaita;
+function adw_spring_animation_get_epsilon(self: PAdwSpringAnimation): double; cdecl; external libadwaita;
+procedure adw_spring_animation_set_epsilon(self: PAdwSpringAnimation; epsilon: double); cdecl; external libadwaita;
 function adw_spring_animation_get_clamp(self: PAdwSpringAnimation): Tgboolean; cdecl; external libadwaita;
 procedure adw_spring_animation_set_clamp(self: PAdwSpringAnimation; clamp: Tgboolean); cdecl; external libadwaita;
 function adw_spring_animation_get_estimated_duration(self: PAdwSpringAnimation): Tguint; cdecl; external libadwaita;
-function adw_spring_animation_get_velocity(self: PAdwSpringAnimation): Tdouble; cdecl; external libadwaita;
-function adw_spring_animation_calculate_value(self: PAdwSpringAnimation; time: Tguint): Tdouble; cdecl; external libadwaita;
-function adw_spring_animation_calculate_velocity(self: PAdwSpringAnimation; time: Tguint): Tdouble; cdecl; external libadwaita;
+function adw_spring_animation_get_velocity(self: PAdwSpringAnimation): double; cdecl; external libadwaita;
+function adw_spring_animation_calculate_value(self: PAdwSpringAnimation; time: Tguint): double; cdecl; external libadwaita;
+function adw_spring_animation_calculate_velocity(self: PAdwSpringAnimation; time: Tguint): double; cdecl; external libadwaita;
 
 // === Konventiert am: 10-1-25 13:04:14 ===
 

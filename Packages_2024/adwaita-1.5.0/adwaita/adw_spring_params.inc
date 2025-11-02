@@ -8,14 +8,14 @@ type
   PAdwSpringParams = ^TAdwSpringParams;
 
 function adw_spring_params_get_type: TGType; cdecl; external libadwaita;
-function adw_spring_params_new(damping_ratio: Tdouble; mass: Tdouble; stiffness: Tdouble): PAdwSpringParams; cdecl; external libadwaita;
-function adw_spring_params_new_full(damping: Tdouble; mass: Tdouble; stiffness: Tdouble): PAdwSpringParams; cdecl; external libadwaita;
+function adw_spring_params_new(damping_ratio: double; mass: double; stiffness: double): PAdwSpringParams; cdecl; external libadwaita;
+function adw_spring_params_new_full(damping: double; mass: double; stiffness: double): PAdwSpringParams; cdecl; external libadwaita;
 function adw_spring_params_ref(self: PAdwSpringParams): PAdwSpringParams; cdecl; external libadwaita;
 procedure adw_spring_params_unref(self: PAdwSpringParams); cdecl; external libadwaita;
-function adw_spring_params_get_damping(self: PAdwSpringParams): Tdouble; cdecl; external libadwaita;
-function adw_spring_params_get_damping_ratio(self: PAdwSpringParams): Tdouble; cdecl; external libadwaita;
-function adw_spring_params_get_mass(self: PAdwSpringParams): Tdouble; cdecl; external libadwaita;
-function adw_spring_params_get_stiffness(self: PAdwSpringParams): Tdouble; cdecl; external libadwaita;
+function adw_spring_params_get_damping(self: PAdwSpringParams): double; cdecl; external libadwaita;
+function adw_spring_params_get_damping_ratio(self: PAdwSpringParams): double; cdecl; external libadwaita;
+function adw_spring_params_get_mass(self: PAdwSpringParams): double; cdecl; external libadwaita;
+function adw_spring_params_get_stiffness(self: PAdwSpringParams): double; cdecl; external libadwaita;
 
 // === Konventiert am: 9-1-25 19:23:34 ===
 

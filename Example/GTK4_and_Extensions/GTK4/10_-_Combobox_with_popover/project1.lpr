@@ -22,7 +22,7 @@ const
     end;
   end;
 
-  procedure adjust_popover_size(popover: PGtkPopover; list_box: PGtkListBox);
+  procedure adjust_popover_size(popover: PGtkPopover; list_box: PGtkListBox); cdecl;
   var
     child: PGtkWidget;
     num_rows: Tgint = 0;

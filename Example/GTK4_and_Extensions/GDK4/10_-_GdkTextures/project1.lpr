@@ -5,12 +5,10 @@ uses
   SysUtils,
   fp_glib2,
   fp_cairo,
-     fp_GLIBTools,
-  fp_GTK4,
-  fp_GSK4,
-  fp_GDK4;
+  fp_GLIBTools,
+  fp_GTK4;
 
-  procedure button_quit_cb({%H-}widget: PGtkWidget; {%H-}Data: Tgpointer);
+  procedure button_quit_cb({%H-}widget: PGtkWidget; {%H-}Data: Tgpointer); cdecl;
   var
     app: PGApplication;
     windowList: PGList;
@@ -25,7 +23,7 @@ const
     255, 0, 0, 255, 0, 255, 0, 255,
     0, 0, 255, 255, 255, 255, 255, 255);
 
-  procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
     window, main_box, button, picture, button_box: PGtkWidget;
     bytes: PGBytes;
@@ -50,10 +48,10 @@ const
 
 
 
-////    GObjectShowProperty(texture);
-//GSignalShow(GDK_TYPE_MEMORY_TEXTURE);
-//WriteLn('-------------------');
-//GSignalShow(GDK_TYPE_TEXTURE);
+    ////    GObjectShowProperty(texture);
+    //GSignalShow(GDK_TYPE_MEMORY_TEXTURE);
+    //WriteLn('-------------------');
+    //GSignalShow(GDK_TYPE_TEXTURE);
 
     g_bytes_unref(bytes);
 
@@ -74,7 +72,7 @@ const
     gtk_box_append(GTK_BOX(button_box), button);
     g_signal_connect(button, 'clicked', G_CALLBACK(@button_quit_cb), nil);
 
-//    GObjectShowProperty(button);
+    //    GObjectShowProperty(button);
 
     gtk_window_present(GTK_WINDOW(window));
   end;

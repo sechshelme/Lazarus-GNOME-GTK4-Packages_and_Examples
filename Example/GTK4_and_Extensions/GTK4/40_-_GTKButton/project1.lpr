@@ -6,11 +6,9 @@ uses
   fp_glib2,
   fp_cairo,
   fp_GTK4,
-  fp_GSK4,
-  fp_GDK4,
   fp_graphene;
 
-  procedure button_quit_cb(widget: PGtkWidget; Data: Tgpointer);
+  procedure button_quit_cb(widget: PGtkWidget; Data: Tgpointer); cdecl;
   var
     app: PGApplication;
     windowList: PGList;
@@ -33,7 +31,7 @@ uses
     cairo_fill(cr);
   end;
 
-  procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
     window, box, button, drawing_area, button_box: PGtkWidget;
   begin

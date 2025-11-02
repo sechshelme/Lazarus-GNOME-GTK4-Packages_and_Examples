@@ -6,7 +6,6 @@ uses
   fp_glib2,
   fp_GLIBTools,
   fp_cairo,
-  fp_GDK4,
   fp_GTK4;
 
 

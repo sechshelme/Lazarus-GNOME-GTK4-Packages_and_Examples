@@ -6,11 +6,12 @@ uses
   fp_glib2,
   fp_cairo,
   fp_GTK4,
-  fp_GSK4,
-  fp_GDK4,
   fp_graphene;
 
-  procedure button_quit_cb({%H-}widget: PGtkWidget; {%H-}Data: Tgpointer);
+type
+  TVector4f = array[0..3] of single;
+
+  procedure button_quit_cb({%H-}widget: PGtkWidget; {%H-}Data: Tgpointer); cdecl;
   var
     app: PGApplication;
     windowList: PGList;
@@ -58,7 +59,7 @@ uses
     g_object_unref(snapshot);
   end;
 
-  procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
     window, box, button, drawing_area, button_box: PGtkWidget;
   begin

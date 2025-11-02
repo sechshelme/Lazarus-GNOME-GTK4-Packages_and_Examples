@@ -7,10 +7,9 @@ uses
   fp_cairo,
   fp_pango,
   fp_GTK4,
-  fp_GDK4,
   fp_graphene;
 
-  procedure click_cb(widget: PGtkWidget; Data: Tgpointer);
+  procedure click_cb(widget: PGtkWidget; Data: Tgpointer); cdecl;
   var
     text_view: PGtkWidget absolute Data;
     strong, weak: TGdkRectangle;
@@ -30,7 +29,7 @@ uses
     WriteLn(buf);
   end;
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, box, button, text_view, sw: PGtkWidget;
   begin

@@ -18,11 +18,8 @@ uses
     f: PGFile;
     err: PGError = nil;
     ret: Tgboolean;
-    locale: Pgchar;
   begin
     //  setlocale (LC_ALL, "");
-
-    //  g_type_init ();
 
     icc := cd_icc_new;
     f := g_file_new_for_path(path);
@@ -38,10 +35,9 @@ uses
       g_print('License:%s'#10, cd_icc_get_metadata_item(icc, 'License'));
       g_print('LCMS hProfile:%p'#10, cd_icc_get_handle(icc));
 
-      locale := g_getenv('LANG');
-      g_print('Description:%s'#10, cd_icc_get_description(icc, locale, nil));
-      g_print('Model:%s'#10, cd_icc_get_model(icc, locale, nil));
-      g_print('Copyright:%s'#10, cd_icc_get_copyright(icc, locale, nil));
+      g_print('Description:%s'#10, cd_icc_get_description(icc, nil, nil));
+      g_print('Model:%s'#10, cd_icc_get_model(icc, nil, nil));
+      g_print('Copyright:%s'#10, cd_icc_get_copyright(icc, nil, nil));
     end;
     if f <> nil then  begin
       g_object_unref(f);

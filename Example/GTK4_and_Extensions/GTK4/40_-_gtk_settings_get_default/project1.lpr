@@ -25,7 +25,7 @@ type
 var
   FontScale: Tgint = 10;
 
-  procedure button_click_cb({%H-}widget: PGtkWidget; Data: Tgpointer);
+  procedure button_click_cb({%H-}widget: PGtkWidget; Data: Tgpointer); cdecl;
   var
     cmd: Tcmd absolute Data;
     app: PGApplication;
@@ -72,7 +72,7 @@ var
   end;
 
 
-  procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
     window, box, drawing_area, button_box: PGtkWidget;
   begin

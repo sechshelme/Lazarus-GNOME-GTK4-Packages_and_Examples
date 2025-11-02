@@ -84,7 +84,7 @@ uses
     WriteLn('w: ', Width, '  h; ', Height);
   end;
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, box, button, drawing_area: PGtkWidget;
   begin

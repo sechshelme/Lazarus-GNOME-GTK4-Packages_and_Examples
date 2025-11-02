@@ -22,7 +22,7 @@ procedure adw_carousel_remove(self: PAdwCarousel; child: PGtkWidget); cdecl; ext
 procedure adw_carousel_scroll_to(self: PAdwCarousel; widget: PGtkWidget; animate: Tgboolean); cdecl; external libadwaita;
 function adw_carousel_get_nth_page(self: PAdwCarousel; n: Tguint): PGtkWidget; cdecl; external libadwaita;
 function adw_carousel_get_n_pages(self: PAdwCarousel): Tguint; cdecl; external libadwaita;
-function adw_carousel_get_position(self: PAdwCarousel): Tdouble; cdecl; external libadwaita;
+function adw_carousel_get_position(self: PAdwCarousel): double; cdecl; external libadwaita;
 function adw_carousel_get_interactive(self: PAdwCarousel): Tgboolean; cdecl; external libadwaita;
 procedure adw_carousel_set_interactive(self: PAdwCarousel; interactive: Tgboolean); cdecl; external libadwaita;
 function adw_carousel_get_spacing(self: PAdwCarousel): Tguint; cdecl; external libadwaita;

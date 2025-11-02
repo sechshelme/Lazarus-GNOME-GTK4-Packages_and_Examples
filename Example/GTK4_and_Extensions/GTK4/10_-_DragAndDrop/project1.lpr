@@ -7,7 +7,7 @@ uses
   fp_GDK4,
   fp_GTK4;
 
-  function on_drop(drop_target: PGtkDropTarget; Value: PGValue; x, y: double; user_data: Pointer): Tgboolean;
+  function on_drop(drop_target: PGtkDropTarget; Value: PGValue; x, y: double; user_data: Pointer): Tgboolean; cdecl;
   var
     buffer: PGtkTextBuffer absolute user_data;
     uri_list: Pgchar;
@@ -22,27 +22,27 @@ uses
     end;
   end;
 
-  function on_accept(drop_target: PGtkDropTarget; drop: PGdkDrop; user_data: Pointer): Tgboolean;
+  function on_accept(drop_target: PGtkDropTarget; drop: PGdkDrop; user_data: Pointer): Tgboolean; cdecl;
   begin
     g_print('Drag-and-Drop "accept"'#10);
     Result := True;
   end;
 
 
-  procedure on_enter(drop_target: PGtkDropTarget; drop: PGdkDrop; x, y: double; user_data: Pointer);
+  procedure on_enter(drop_target: PGtkDropTarget; drop: PGdkDrop; x, y: double; user_data: Pointer); cdecl;
   begin
     g_print('Drag-and-Drop "enter"'#10);
   end;
 
 
-  procedure on_leave(drop_target: PGtkDropTarget; user_data: Pointer);
+  procedure on_leave(drop_target: PGtkDropTarget; user_data: Pointer); cdecl;
   begin
     gtk_drop_target_reject(drop_target);
     g_print('Drag-and-Drop "leave"'#10);
   end;
 
 
-  procedure on_motion(drop_target: PGtkDropTarget; drop: PGdkDrop; x, y: double; user_data: Pointer);
+  procedure on_motion(drop_target: PGtkDropTarget; drop: PGdkDrop; x, y: double; user_data: Pointer); cdecl;
   begin
     g_print('Drag-and-Drop "motion"'#10);
   end;

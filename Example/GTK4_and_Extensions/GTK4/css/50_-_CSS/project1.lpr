@@ -4,10 +4,9 @@ uses
   ctypes,
   SysUtils,
   fp_glib2,
-  fp_GDK4,
   fp_GTK4;
 
-  procedure click_cp(widget: PGtkWidget; Data: Tgpointer);
+  procedure click_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
   var
     frame: PGtkWidget absolute Data;
   const
@@ -26,7 +25,7 @@ uses
   end;
 
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, frame, button, box: PGtkWidget;
     provider: PGtkCssProvider;

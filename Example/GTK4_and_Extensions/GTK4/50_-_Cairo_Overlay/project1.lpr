@@ -64,7 +64,7 @@ var
     Result := G_SOURCE_CONTINUE;
   end;
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, button, button_box, drawing_area, overlay: PGtkWidget;
   begin

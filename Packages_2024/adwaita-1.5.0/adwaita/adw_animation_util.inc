@@ -1,7 +1,7 @@
 {$IFDEF read_interface}
 
 
-function adw_lerp(a: Tdouble; b: Tdouble; t: Tdouble): Tdouble; cdecl; external libadwaita;
+function adw_lerp(a: double; b: double; t: double): double; cdecl; external libadwaita;
 function adw_get_enable_animations(widget: PGtkWidget): Tgboolean; cdecl; external libadwaita;
 
 // === Konventiert am: 10-1-25 15:07:00 ===

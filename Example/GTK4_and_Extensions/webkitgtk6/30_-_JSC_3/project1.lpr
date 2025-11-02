@@ -14,7 +14,7 @@ uses
   procedure print_value(Value: PJSCValue);
   var
     s: pchar;
-    num: Tdouble;
+    num: double;
     b: Tgboolean;
   begin
     if Value = nil then  begin

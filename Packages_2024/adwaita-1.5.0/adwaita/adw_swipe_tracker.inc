@@ -29,7 +29,7 @@ function adw_swipe_tracker_get_upper_overshoot(self: PAdwSwipeTracker): Tgboolea
 procedure adw_swipe_tracker_set_upper_overshoot(self: PAdwSwipeTracker; overshoot: Tgboolean); cdecl; external libadwaita;
 function adw_swipe_tracker_get_allow_window_handle(self: PAdwSwipeTracker): Tgboolean; cdecl; external libadwaita;
 procedure adw_swipe_tracker_set_allow_window_handle(self: PAdwSwipeTracker; allow_window_handle: Tgboolean); cdecl; external libadwaita;
-procedure adw_swipe_tracker_shift_position(self: PAdwSwipeTracker; delta: Tdouble); cdecl; external libadwaita;
+procedure adw_swipe_tracker_shift_position(self: PAdwSwipeTracker; delta: double); cdecl; external libadwaita;
 
 // === Konventiert am: 10-1-25 13:04:17 ===
 

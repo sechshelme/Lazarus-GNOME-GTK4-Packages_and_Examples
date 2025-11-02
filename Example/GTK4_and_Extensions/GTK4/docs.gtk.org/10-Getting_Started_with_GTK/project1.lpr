@@ -5,7 +5,7 @@ uses
   fp_glib2,
   fp_GTK4;
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window: PGtkWidget;
   begin
@@ -16,7 +16,7 @@ uses
   end;
 
 
-  function main(argc: cint; argv: PPChar): cint;
+  function main(argc: cint; argv: PPChar): cint; cdecl;
   var
     app: PGtkApplication;
     status: longint;

@@ -30,12 +30,12 @@ function adw_overlay_split_view_get_enable_show_gesture(self: PAdwOverlaySplitVi
 procedure adw_overlay_split_view_set_enable_show_gesture(self: PAdwOverlaySplitView; enable_show_gesture: Tgboolean); cdecl; external libadwaita;
 function adw_overlay_split_view_get_enable_hide_gesture(self: PAdwOverlaySplitView): Tgboolean; cdecl; external libadwaita;
 procedure adw_overlay_split_view_set_enable_hide_gesture(self: PAdwOverlaySplitView; enable_hide_gesture: Tgboolean); cdecl; external libadwaita;
-function adw_overlay_split_view_get_min_sidebar_width(self: PAdwOverlaySplitView): Tdouble; cdecl; external libadwaita;
-procedure adw_overlay_split_view_set_min_sidebar_width(self: PAdwOverlaySplitView; Width: Tdouble); cdecl; external libadwaita;
-function adw_overlay_split_view_get_max_sidebar_width(self: PAdwOverlaySplitView): Tdouble; cdecl; external libadwaita;
-procedure adw_overlay_split_view_set_max_sidebar_width(self: PAdwOverlaySplitView; Width: Tdouble); cdecl; external libadwaita;
-function adw_overlay_split_view_get_sidebar_width_fraction(self: PAdwOverlaySplitView): Tdouble; cdecl; external libadwaita;
-procedure adw_overlay_split_view_set_sidebar_width_fraction(self: PAdwOverlaySplitView; fraction: Tdouble); cdecl; external libadwaita;
+function adw_overlay_split_view_get_min_sidebar_width(self: PAdwOverlaySplitView): double; cdecl; external libadwaita;
+procedure adw_overlay_split_view_set_min_sidebar_width(self: PAdwOverlaySplitView; Width: double); cdecl; external libadwaita;
+function adw_overlay_split_view_get_max_sidebar_width(self: PAdwOverlaySplitView): double; cdecl; external libadwaita;
+procedure adw_overlay_split_view_set_max_sidebar_width(self: PAdwOverlaySplitView; Width: double); cdecl; external libadwaita;
+function adw_overlay_split_view_get_sidebar_width_fraction(self: PAdwOverlaySplitView): double; cdecl; external libadwaita;
+procedure adw_overlay_split_view_set_sidebar_width_fraction(self: PAdwOverlaySplitView; fraction: double); cdecl; external libadwaita;
 function adw_overlay_split_view_get_sidebar_width_unit(self: PAdwOverlaySplitView): TAdwLengthUnit; cdecl; external libadwaita;
 procedure adw_overlay_split_view_set_sidebar_width_unit(self: PAdwOverlaySplitView; unit_: TAdwLengthUnit); cdecl; external libadwaita;
 

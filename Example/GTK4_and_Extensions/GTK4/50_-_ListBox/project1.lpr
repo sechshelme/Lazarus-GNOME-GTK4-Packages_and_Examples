@@ -5,7 +5,6 @@ uses
   SysUtils,
   fp_glib2,
   fp_GLIBTools,
-  fp_GDK4,
   fp_GTK4,
   ListBox;
 

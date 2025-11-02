@@ -4,7 +4,6 @@ uses
   ctypes,
   fp_glib2,
   fp_cairo,
-  fp_GDK4,
   fp_GTK4,
   fp_pango,
   fp_gtksourceview;

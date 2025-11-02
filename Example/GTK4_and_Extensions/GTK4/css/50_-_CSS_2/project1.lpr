@@ -4,7 +4,6 @@ uses
   ctypes,
   SysUtils,
   fp_glib2,
-  fp_GDK4,
   fp_GTK4;
 
   procedure SetColor(w: PGtkWidget; const col: string);
@@ -28,7 +27,7 @@ uses
     g_object_unref(provider);
   end;
 
-  procedure click_cb(widget: PGtkWidget; Data: Tgpointer);
+  procedure click_cb(widget: PGtkWidget; Data: Tgpointer); cdecl;
   var
     frame: PGtkWidget absolute Data;
     Name: pchar;
@@ -38,7 +37,7 @@ uses
   end;
 
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, frame, button, vbox, hbox: PGtkWidget;
   begin
