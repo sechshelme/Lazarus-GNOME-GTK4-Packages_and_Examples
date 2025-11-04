@@ -255,6 +255,11 @@
 #define CHOLMOD_VERSION CHOLMOD_VER_CODE(5,2)
 #define CHOLMOD_HAS_VERSION_FUNCTION
 
+////xxxxxxxxx        #define CHOLMOD_CUBLAS_HANDLE void *
+//        #define CHOLMOD_CUDASTREAM    void *
+//        #define CHOLMOD_CUDAEVENT     void *
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -307,11 +312,6 @@ int cholmod_l_version (int version [3]) ;
 
 #include "SuiteSparse_config.h"
 
-#define CHOLMOD__VERSION SUITESPARSE__VERCODE(5,2,0)
-#if !defined (SUITESPARSE__VERSION) || \
-    (SUITESPARSE__VERSION < SUITESPARSE__VERCODE(7,6,0))
-#error "CHOLMOD 5.2.0 requires SuiteSparse_config 7.6.0 or later"
-#endif
 
 //------------------------------------------------------------------------------
 // CHOLMOD configuration
@@ -404,6 +404,32 @@ int cholmod_l_version (int version [3]) ;
 extern "C" {
 #endif
 
+
+        #define CHOLMOD_SIMPLICIAL 0 /* always use simplicial method         */
+        #define CHOLMOD_AUTO       1 /* auto select simplicial vs supernodal */
+        #define CHOLMOD_SUPERNODAL 2 /* always use supernoda method          */
+
+            #define CHOLMOD_NATURAL     0 /* no preordering                   */
+            #define CHOLMOD_GIVEN       1 /* user-provided permutation        */
+            #define CHOLMOD_AMD         2 /* AMD: approximate minimum degree  */
+            #define CHOLMOD_METIS       3 /* METIS: mested dissection         */
+            #define CHOLMOD_NESDIS      4 /* CHOLMOD's nested dissection      */
+            #define CHOLMOD_COLAMD      5 /* AMD for A, COLAMD for AA' or A'A */
+            #define CHOLMOD_POSTORDERED 6 /* natural then postordered         */
+
+    #define CHOLMOD_MAXMETHODS 9    /* max # of methods in Common->method */
+
+        #define CHOLMOD_OK            (0)
+        #define CHOLMOD_NOT_INSTALLED (-1) /* module not installed          */
+        #define CHOLMOD_OUT_OF_MEMORY (-2) /* malloc/calloc/realloc failed  */
+        #define CHOLMOD_TOO_LARGE     (-3) /* integer overflow              */
+        #define CHOLMOD_INVALID       (-4) /* input invalid                 */
+        #define CHOLMOD_GPU_PROBLEM   (-5) /* CUDA error                    */
+        #define CHOLMOD_NOT_POSDEF    (1)  /* matrix not positive definite  */
+        #define CHOLMOD_DSMALL        (2)  /* diagonal entry very small     */
+
+
+
 typedef struct cholmod_common_struct
 {
 
@@ -438,9 +464,6 @@ typedef struct cholmod_common_struct
         // always done.  If CHOLMOD_AUTO, then a simplicial factorization is
         // down if flops/nnz(L) < Common->supernodal_switch.
 
-        #define CHOLMOD_SIMPLICIAL 0 /* always use simplicial method         */
-        #define CHOLMOD_AUTO       1 /* auto select simplicial vs supernodal */
-        #define CHOLMOD_SUPERNODAL 2 /* always use supernoda method          */
 
     int final_asis ;    // if true, other final_* parameters are ignored,
         // except for final_pack and the factors are left as-is when done.
@@ -645,18 +668,11 @@ typedef struct cholmod_common_struct
 
         int ordering ;  // ordering method to use:
 
-            #define CHOLMOD_NATURAL     0 /* no preordering                   */
-            #define CHOLMOD_GIVEN       1 /* user-provided permutation        */
-            #define CHOLMOD_AMD         2 /* AMD: approximate minimum degree  */
-            #define CHOLMOD_METIS       3 /* METIS: mested dissection         */
-            #define CHOLMOD_NESDIS      4 /* CHOLMOD's nested dissection      */
-            #define CHOLMOD_COLAMD      5 /* AMD for A, COLAMD for AA' or A'A */
-            #define CHOLMOD_POSTORDERED 6 /* natural then postordered         */
 
         size_t other_3 [4] ;    // unused, for future expansion
 
     }
-    #define CHOLMOD_MAXMETHODS 9    /* max # of methods in Common->method */
+
     method [CHOLMOD_MAXMETHODS + 1] ;
 
     int postorder ; // if true, CHOLMOD performs a weighted postordering
@@ -736,14 +752,6 @@ typedef struct cholmod_common_struct
 
         // Common->status for error handling: 0 is ok, negative is a fatal
         // error, and positive is a warning
-        #define CHOLMOD_OK            (0)
-        #define CHOLMOD_NOT_INSTALLED (-1) /* module not installed          */
-        #define CHOLMOD_OUT_OF_MEMORY (-2) /* malloc/calloc/realloc failed  */
-        #define CHOLMOD_TOO_LARGE     (-3) /* integer overflow              */
-        #define CHOLMOD_INVALID       (-4) /* input invalid                 */
-        #define CHOLMOD_GPU_PROBLEM   (-5) /* CUDA error                    */
-        #define CHOLMOD_NOT_POSDEF    (1)  /* matrix not positive definite  */
-        #define CHOLMOD_DSMALL        (2)  /* diagonal entry very small     */
 
     double fl ;     // flop count from last analysis
     double lnz ;    // nnz(L) from last analysis
@@ -838,17 +846,7 @@ typedef struct cholmod_common_struct
     int64_t gpuFlops ;          // Number of flops performed by the GPU
     int gpuNumKernelLaunches ;  // Number of GPU kernel launches
 
-    #ifdef CHOLMOD_HAS_CUDA
-        // these three types are pointers defined by CUDA:
-        #define CHOLMOD_CUBLAS_HANDLE cublasHandle_t
-        #define CHOLMOD_CUDASTREAM    cudaStream_t
-        #define CHOLMOD_CUDAEVENT     cudaEvent_t
-    #else
         // they are (void *) if CUDA is not in use:
-        #define CHOLMOD_CUBLAS_HANDLE void *
-        #define CHOLMOD_CUDASTREAM    void *
-        #define CHOLMOD_CUDAEVENT     void *
-    #endif
 
     CHOLMOD_CUBLAS_HANDLE cublasHandle ;
 
@@ -903,6 +901,10 @@ typedef struct cholmod_common_struct
     #endif
 
 } cholmod_common ;
+
+
+
+
 
 // size_t BLAS statistcs in Common:
 #define CHOLMOD_CPU_GEMM_CALLS      cholmod_cpu_gemm_calls
@@ -1006,16 +1008,6 @@ int cholmod_l_free_work (cholmod_common *) ;
 // cholmod_clear_flag:  clear Flag workspace in Common
 //------------------------------------------------------------------------------
 
-// This macro is deprecated; do not use it:
-#define CHOLMOD_CLEAR_FLAG(Common)                      \
-{                                                       \
-    Common->mark++ ;                                    \
-    if (Common->mark <= 0 || Common->mark >= INT32_MAX) \
-    {                                                   \
-        Common->mark = EMPTY ;                          \
-        CHOLMOD (clear_flag) (Common) ;                 \
-    }                                                   \
-}
 
 int64_t cholmod_clear_flag (cholmod_common *Common) ;
 int64_t cholmod_l_clear_flag (cholmod_common *) ;
@@ -2118,11 +2110,11 @@ int cholmod_l_realloc_multiple (size_t, int, int, void **, void **, void **,
 // They are no longer needed but are kept for backward compatibility.
 
 #define CHOLMOD_IS_NAN(x)       isnan (x)
-#define CHOLMOD_IS_ZERO(x)      ((x) == 0.)
-#define CHOLMOD_IS_NONZERO(x)   ((x) != 0.)
-#define CHOLMOD_IS_LT_ZERO(x)   ((x) < 0.)
-#define CHOLMOD_IS_GT_ZERO(x)   ((x) > 0.)
-#define CHOLMOD_IS_LE_ZERO(x)   ((x) <= 0.)
+#define CHOLMOD_IS_ZERO(x)      ((x) == 0.0)
+#define CHOLMOD_IS_NONZERO(x)   ((x) != 0.0)
+#define CHOLMOD_IS_LT_ZERO(x)   ((x) < 0.0)
+#define CHOLMOD_IS_GT_ZERO(x)   ((x) > 0.0)
+#define CHOLMOD_IS_LE_ZERO(x)   ((x) <= 0.0)
 
 #endif
 
@@ -4023,7 +4015,7 @@ int cholmod_l_score_comp (struct cholmod_descendant_score_t *i,
 
 // CHOLMOD_GPU_PRINTF: for printing GPU debug error messages
 // #define CHOLMOD_GPU_PRINTF(args) printf args
-#define CHOLMOD_GPU_PRINTF(args)
+//#define CHOLMOD_GPU_PRINTF(args)
 
 // define supernode requirements for processing on GPU
 #define CHOLMOD_ND_ROW_LIMIT 256  /* required descendant rows */
@@ -4033,7 +4025,7 @@ int cholmod_l_score_comp (struct cholmod_descendant_score_t *i,
 // # of host supernodes to perform before checking for free pinned buffers
 #define CHOLMOD_GPU_SKIP     3
 
-#define CHOLMOD_HANDLE_CUDA_ERROR(e,s) {if (e) {ERROR(CHOLMOD_GPU_PROBLEM,s);}}
+//#define CHOLMOD_HANDLE_CUDA_ERROR(e,s) {if (e) {ERROR(CHOLMOD_GPU_PROBLEM,s);}}
 
 #ifdef __cplusplus
 extern "C" {

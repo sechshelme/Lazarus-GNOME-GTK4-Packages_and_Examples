@@ -44,11 +44,6 @@
 #define CCOLAMD_VERSION_CODE(main,sub) SUITESPARSE_VER_CODE(main,sub)
 #define CCOLAMD_VERSION CCOLAMD_VERSION_CODE(3,3)
 
-#define CCOLAMD__VERSION SUITESPARSE__VERCODE(3,3,2)
-#if !defined (SUITESPARSE__VERSION) || \
-    (SUITESPARSE__VERSION < SUITESPARSE__VERCODE(7,6,0))
-#error "CCOLAMD 3.3.2 requires SuiteSparse_config 7.6.0 or later"
-#endif
 
 /* ========================================================================== */
 /* === Knob and statistics definitions ====================================== */

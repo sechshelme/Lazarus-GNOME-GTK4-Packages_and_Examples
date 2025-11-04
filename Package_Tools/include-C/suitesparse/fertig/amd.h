@@ -390,10 +390,5 @@ void amd_version (int version [3]) ;
 #define AMD_VERSION_CODE(main,sub) SUITESPARSE_VER_CODE(main,sub)
 #define AMD_VERSION AMD_VERSION_CODE(3,3)
 
-#define AMD__VERSION SUITESPARSE__VERCODE(3,3,1)
-#if !defined (SUITESPARSE__VERSION) || \
-    (SUITESPARSE__VERSION < SUITESPARSE__VERCODE(7,5,0))
-#error "AMD 3.3.1 requires SuiteSparse_config 7.5.0 or later"
-#endif
 
 #endif

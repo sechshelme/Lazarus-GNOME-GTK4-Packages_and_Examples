@@ -272,10 +272,5 @@ void btf_version (int version [3]) ;
 #define BTF_VERSION_CODE(main,sub) SUITESPARSE_VER_CODE(main,sub)
 #define BTF_VERSION BTF_VERSION_CODE(2,3)
 
-#define BTF__VERSION SUITESPARSE__VERCODE(2,3,1)
-#if !defined (SUITESPARSE__VERSION) || \
-    (SUITESPARSE__VERSION < SUITESPARSE__VERCODE(7,5,0))
-#error "BTF 2.3.1 requires SuiteSparse_config 7.5.0 or later"
-#endif
 
 #endif

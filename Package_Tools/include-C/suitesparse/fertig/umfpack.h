@@ -39,20 +39,8 @@
 /* Version, copyright, and license */
 /* -------------------------------------------------------------------------- */
 
-#define UMFPACK_COPYRIGHT \
-"UMFPACK:  Copyright (c) 2005-2024 by Timothy A. Davis.  All Rights Reserved.\n"
 
-#define UMFPACK_LICENSE_PART1 \
-"\nUMFPACK License: SPDX-License-Identifier: GPL-2.0+\n" \
-"   UMFPACK is available under alternate licenses,\n" \
-"   contact T. Davis for details.\n" 
 
-#define UMFPACK_LICENSE_PART2 "\n"
-
-#define UMFPACK_LICENSE_PART3 \
-"\n" \
-"Availability: http://www.suitesparse.com" \
-"\n"
 
 /* UMFPACK Version 4.5 and later will include the following definitions.
  * As an example, to test if the version you are using is 4.5 or later:
@@ -82,26 +70,10 @@
 #define UMFPACK_VER_CODE(main,sub) SUITESPARSE_VER_CODE(main,sub)
 #define UMFPACK_VER UMFPACK_VER_CODE(6,3)
 
-#define UMFPACK__VERSION SUITESPARSE__VERCODE(6,3,2)
-#if !defined (SUITESPARSE__VERSION) || \
-    (SUITESPARSE__VERSION < SUITESPARSE__VERCODE(7,6,0))
-#error "UMFPACK 6.3.2 requires SuiteSparse_config 7.6.0 or later"
-#endif
-
-#if !defined (AMD__VERSION) || \
-    (AMD__VERSION < SUITESPARSE__VERCODE(3,3,1))
-#error "UMFPACK 6.3.2 requires AMD 3.1.1 or later"
-#endif
 
 // user code should not directly use GB_STR or GB_XSTR
 // GB_STR: convert the content of x into a string "x"
-#define GB_XSTR(x) GB_STR(x)
-#define GB_STR(x) #x
 
-#define UMFPACK_VERSION "UMFPACK V"                                 \
-    GB_XSTR(UMFPACK_MAIN_VERSION) "."                               \
-    GB_XSTR(UMFPACK_SUB_VERSION) "."                                \
-    GB_XSTR(UMFPACK_SUBSUB_VERSION) " (" UMFPACK_DATE ")"
 
 /* -------------------------------------------------------------------------- */
 /* contents of Info */

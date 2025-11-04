@@ -14,33 +14,7 @@
 
 #ifdef LDL_LONG
 #define LDL_int int64_t
-#define LDL_ID  "%" PRId64
 
-#define LDL_symbolic ldl_l_symbolic
-#define LDL_numeric ldl_l_numeric
-#define LDL_lsolve ldl_l_lsolve
-#define LDL_dsolve ldl_l_dsolve
-#define LDL_ltsolve ldl_l_ltsolve
-#define LDL_perm ldl_l_perm
-#define LDL_permt ldl_l_permt
-#define LDL_valid_perm ldl_l_valid_perm
-#define LDL_valid_matrix ldl_l_valid_matrix
-
-#else
-#define LDL_int int32_t
-#define LDL_ID "%d"
-
-#define LDL_symbolic ldl_symbolic
-#define LDL_numeric ldl_numeric
-#define LDL_lsolve ldl_lsolve
-#define LDL_dsolve ldl_dsolve
-#define LDL_ltsolve ldl_ltsolve
-#define LDL_perm ldl_perm
-#define LDL_permt ldl_permt
-#define LDL_valid_perm ldl_valid_perm
-#define LDL_valid_matrix ldl_valid_matrix
-
-#endif
 
 /* make it easy for C++ programs to include LDL */
 #ifdef __cplusplus
@@ -120,10 +94,5 @@ int64_t ldl_l_valid_matrix ( int64_t n, int64_t Ap [ ], int64_t Ai [ ]) ;
 #define LDL_VERSION_CODE(main,sub) SUITESPARSE_VER_CODE(main,sub)
 #define LDL_VERSION LDL_VERSION_CODE(3,3)
 
-#define LDL__VERSION SUITESPARSE__VERCODE(3,3,1)
-#if !defined (SUITESPARSE__VERSION) || \
-    (SUITESPARSE__VERSION < SUITESPARSE__VERCODE(7,5,0))
-#error "LDL 3.3.1 requires SuiteSparse_config 7.5.0 or later"
-#endif
 
 #endif

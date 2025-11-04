@@ -83,11 +83,6 @@
 #define RBIO_VER_CODE(main,sub) SUITESPARSE_VER_CODE(main,sub)
 #define RBIO_VERSION RBIO_VER_CODE(4,3)
 
-#define RBIO__VERSION SUITESPARSE__VERCODE(4,3,1)
-#if !defined (SUITESPARSE__VERSION) || \
-    (SUITESPARSE__VERSION < SUITESPARSE__VERCODE(7,5,0))
-#error "RBio 4.3.1 requires SuiteSparse_config 7.5.0 or later"
-#endif
 
 /* -------------------------------------------------------------------------- */
 /* user-callable functions */

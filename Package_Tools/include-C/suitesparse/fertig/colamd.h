@@ -73,11 +73,6 @@
 #define COLAMD_VERSION_CODE(main,sub) SUITESPARSE_VER_CODE(main,sub)
 #define COLAMD_VERSION COLAMD_VERSION_CODE(3,3)
 
-#define COLAMD__VERSION SUITESPARSE__VERCODE(3,3,2)
-#if !defined (SUITESPARSE__VERSION) || \
-    (SUITESPARSE__VERSION < SUITESPARSE__VERCODE(7,6,0))
-#error "COLAMD 3.3.2 requires SuiteSparse_config 7.6.0 or later"
-#endif
 
 /* ========================================================================== */
 /* === Knob and statistics definitions ====================================== */

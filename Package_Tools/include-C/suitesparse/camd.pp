@@ -1,14 +1,44 @@
-//------------------------------------------------------------------------------
-// CAMD/Include/camd.h:  constrained approximate minimum degree ordering
-//------------------------------------------------------------------------------
 
-// CAMD, Copyright (c) 1996-2024, Timothy A. Davis, Yanqing Chen,
-// Patrick R. Amestoy, and Iain S. Duff.  All Rights Reserved.
-// SPDX-License-Identifier: BSD-3-clause
+unit camd;
+interface
 
-//------------------------------------------------------------------------------
+{
+  Automatically converted by H2Pas 1.0.0 from camd.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    camd.h
+}
 
-/* CAMD finds a symmetric ordering P of a matrix A so that the Cholesky
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pdouble  = ^double;
+Pint32_t  = ^int32_t;
+Pint64_t  = ^int64_t;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{------------------------------------------------------------------------------ }
+{ CAMD/Include/camd.h:  constrained approximate minimum degree ordering }
+{------------------------------------------------------------------------------ }
+{ CAMD, Copyright (c) 1996-2024, Timothy A. Davis, Yanqing Chen, }
+{ Patrick R. Amestoy, and Iain S. Duff.  All Rights Reserved. }
+{ SPDX-License-Identifier: BSD-3-clause }
+{------------------------------------------------------------------------------ }
+{ CAMD finds a symmetric ordering P of a matrix A so that the Cholesky
  * factorization of P*A*P' has fewer nonzeros and takes less work than the
  * Cholesky factorization of A.  If A is not symmetric, then it performs its
  * ordering on the matrix A+A'.  Two sets of user-callable routines are
@@ -18,42 +48,34 @@
  * in Amestoy, Davis, and Duff, "An approximate degree ordering algorithm",
  * SIAM Journal of Matrix Analysis and Applications, vol. 17, no. 4, pp.
  * 886-905, 1996.
- */
+  }
+{$ifndef CAMD_H}
+{$define CAMD_H}
+{$include "SuiteSparse_config.h"}
+{ make it easy for C++ programs to include CAMD  }
+{ C++ extern C conditionnal removed }
+{ returns CAMD_OK, CAMD_OK_BUT_JUMBLED,
+                             * CAMD_INVALID, or CAMD_OUT_OF_MEMORY  }
+{ A is n-by-n.  n must be >= 0.  }
+(* Const before type ignored *)
+{ column pointers for A, of size n+1  }
+(* Const before type ignored *)
+{ row indices of A, of size nz = Ap [n]  }
+{ output permutation, of size n  }
+{ input Control settings, of size CAMD_CONTROL  }
+{ output Info statistics, of size CAMD_INFO  }
+(* Const before type ignored *)
+{ Constraint set of A, of size n; can be NULL  }
 
-#ifndef CAMD_H
-#define CAMD_H
-
-#include "SuiteSparse_config.h"
-
-/* make it easy for C++ programs to include CAMD */
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-int camd_order /* returns CAMD_OK, CAMD_OK_BUT_JUMBLED,
-                             * CAMD_INVALID, or CAMD_OUT_OF_MEMORY */
-(
-    int32_t n,                  /* A is n-by-n.  n must be >= 0. */
-    const int32_t Ap [ ],       /* column pointers for A, of size n+1 */
-    const int32_t Ai [ ],       /* row indices of A, of size nz = Ap [n] */
-    int32_t P [ ],              /* output permutation, of size n */
-    double Control [ ],     /* input Control settings, of size CAMD_CONTROL */
-    double Info [ ],        /* output Info statistics, of size CAMD_INFO */
-    const int32_t C [ ]         /* Constraint set of A, of size n; can be NULL */
-) ;
-
-int camd_l_order   /* see above for description */
-(
-    int64_t n,
-    const int64_t Ap [ ],
-    const int64_t Ai [ ],
-    int64_t P [ ],
-    double Control [ ],
-    double Info [ ],
-    const int64_t C [ ]
-) ;
-
-/* Input arguments (not modified):
+function camd_order(n:Tint32_t; Ap:Pint32_t; Ai:Pint32_t; P:Pint32_t; Control:Pdouble; 
+           Info:Pdouble; C:Pint32_t):longint;cdecl;external;
+{ see above for description  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function camd_l_order(n:Tint64_t; Ap:Pint64_t; Ai:Pint64_t; P:Pint64_t; Control:Pdouble; 
+           Info:Pdouble; C:Pint64_t):longint;cdecl;external;
+{ Input arguments (not modified):
  *
  *      n: the matrix A is n-by-n.
  *      Ap: an int32_t/int64_t array of size n+1, containing column
@@ -207,178 +229,132 @@ int camd_l_order   /* see above for description */
  *
  *      Info [14..19] are not used in the current version, but may be used in
  *          future versions.
- */    
-
-/* ------------------------------------------------------------------------- */
-/* direct interface to CAMD */
-/* ------------------------------------------------------------------------- */
-
-/* camd_2 is the primary CAMD ordering routine.  It is not meant to be
+  }{ -------------------------------------------------------------------------  }
+{ direct interface to CAMD  }
+{ -------------------------------------------------------------------------  }
+{ camd_2 is the primary CAMD ordering routine.  It is not meant to be
  * user-callable because of its restrictive inputs and because it destroys
  * the user's input matrix.  It does not check its inputs for errors, either.
  * However, if you can work with these restrictions it can be faster than
  * camd_order and use less memory (assuming that you can create your own copy
  * of the matrix for CAMD to destroy).  Refer to CAMD/Source/camd_2.c for a
- * description of each parameter. */
-
-void camd_2
-(
-    int32_t n,
-    int32_t Pe [ ],
-    int32_t Iw [ ],
-    int32_t Len [ ],
-    int32_t iwlen,
-    int32_t pfree,
-    int32_t Nv [ ],
-    int32_t Next [ ], 
-    int32_t Last [ ],
-    int32_t Head [ ],
-    int32_t Elen [ ],
-    int32_t Degree [ ],
-    int32_t W [ ],
-    double Control [ ],
-    double Info [ ],
-    const int32_t C [ ],
-    int32_t BucketSet [ ] 
-) ;
-
-void camd_l2
-(
-    int64_t n,
-    int64_t Pe [ ],
-    int64_t Iw [ ],
-    int64_t Len [ ],
-    int64_t iwlen,
-    int64_t pfree,
-    int64_t Nv [ ],
-    int64_t Next [ ], 
-    int64_t Last [ ],
-    int64_t Head [ ],
-    int64_t Elen [ ],
-    int64_t Degree [ ],
-    int64_t W [ ],
-    double Control [ ],
-    double Info [ ],
-    const int64_t C [ ],
-    int64_t BucketSet [ ]
-    
-) ;
-
-/* ------------------------------------------------------------------------- */
-/* camd_valid */
-/* ------------------------------------------------------------------------- */
-
-/* Returns CAMD_OK or CAMD_OK_BUT_JUMBLED if the matrix is valid as input to
+ * description of each parameter.  }
+(* Const before type ignored *)
+procedure camd_2(n:Tint32_t; Pe:Pint32_t; Iw:Pint32_t; Len:Pint32_t; iwlen:Tint32_t; 
+            pfree:Tint32_t; Nv:Pint32_t; Next:Pint32_t; Last:Pint32_t; Head:Pint32_t; 
+            Elen:Pint32_t; Degree:Pint32_t; W:Pint32_t; Control:Pdouble; Info:Pdouble; 
+            C:Pint32_t; BucketSet:Pint32_t);cdecl;external;
+(* Const before type ignored *)
+procedure camd_l2(n:Tint64_t; Pe:Pint64_t; Iw:Pint64_t; Len:Pint64_t; iwlen:Tint64_t; 
+            pfree:Tint64_t; Nv:Pint64_t; Next:Pint64_t; Last:Pint64_t; Head:Pint64_t; 
+            Elen:Pint64_t; Degree:Pint64_t; W:Pint64_t; Control:Pdouble; Info:Pdouble; 
+            C:Pint64_t; BucketSet:Pint64_t);cdecl;external;
+{ -------------------------------------------------------------------------  }
+{ camd_valid  }
+{ -------------------------------------------------------------------------  }
+{ Returns CAMD_OK or CAMD_OK_BUT_JUMBLED if the matrix is valid as input to
  * camd_order; the latter is returned if the matrix has unsorted and/or
  * duplicate row indices in one or more columns.  Returns CAMD_INVALID if the
  * matrix cannot be passed to camd_order.  For camd_order, the matrix must also
  * be square.  The first two arguments are the number of rows and the number
  * of columns of the matrix.  For its use in CAMD, these must both equal n.
- */
-
-int camd_valid
-(
-    int32_t n_row,              /* # of rows */
-    int32_t n_col,              /* # of columns */
-    const int32_t Ap [ ],       /* column pointers, of size n_col+1 */
-    const int32_t Ai [ ]        /* row indices, of size Ap [n_col] */
-) ;
-
-int camd_l_valid
-(
-    int64_t n_row,
-    int64_t n_col,
-    const int64_t Ap [ ],
-    const int64_t Ai [ ]
-) ;
-
-/* ------------------------------------------------------------------------- */
-/* camd_cvalid */
-/* ------------------------------------------------------------------------- */
-
-/* Returns TRUE if the constraint set is valid as input to camd_order,
- * FALSE otherwise. */
-
-int camd_cvalid
-(
-   int32_t n,
-   const int32_t C [ ]
-) ;
-
-int camd_l_cvalid
-(
-   int64_t n,
-   const int64_t C [ ]
-) ;
-
-/* ------------------------------------------------------------------------- */
-/* CAMD Control and Info arrays */
-/* ------------------------------------------------------------------------- */
-
-/* camd_defaults:  sets the default control settings */
-void camd_defaults   (double Control [ ]) ;
-void camd_l_defaults (double Control [ ]) ;
-
-/* camd_control: prints the control settings */
-void camd_control    (double Control [ ]) ;
-void camd_l_control  (double Control [ ]) ;
-
-/* camd_info: prints the statistics */
-void camd_info       (double Info [ ]) ;
-void camd_l_info     (double Info [ ]) ;
-
-// camd_version: return CAMD version.  The version array is returned with
-// version [0..2] = {CAMD_MAIN_VERSION, CAMD_SUB_VERSION, CAMD_SUBSUB_VERSION}
-void camd_version (int version [3]) ;
-
-#ifdef __cplusplus
-}
-#endif
-
-#define CAMD_CONTROL 5      /* size of Control array */
-#define CAMD_INFO 20        /* size of Info array */
-
-/* contents of Control */
-#define CAMD_DENSE 0        /* "dense" if degree > Control [0] * sqrt (n) */
-#define CAMD_AGGRESSIVE 1    /* do aggressive absorption if Control [1] != 0 */
-
-/* default Control settings */
-#define CAMD_DEFAULT_DENSE 10.0     /* default "dense" degree 10*sqrt(n) */
-#define CAMD_DEFAULT_AGGRESSIVE 1    /* do aggressive absorption by default */
-
-/* contents of Info */
-#define CAMD_STATUS 0       /* return value of camd_order and camd_l_order */
-#define CAMD_N 1                    /* A is n-by-n */
-#define CAMD_NZ 2           /* number of nonzeros in A */ 
-#define CAMD_SYMMETRY 3     /* symmetry of pattern (1 is sym., 0 is unsym.) */
-#define CAMD_NZDIAG 4       /* # of entries on diagonal */
-#define CAMD_NZ_A_PLUS_AT 5  /* nz in A+A' */
-#define CAMD_NDENSE 6       /* number of "dense" rows/columns in A */
-#define CAMD_MEMORY 7       /* amount of memory used by CAMD */
-#define CAMD_NCMPA 8        /* number of garbage collections in CAMD */
-#define CAMD_LNZ 9          /* approx. nz in L, excluding the diagonal */
-#define CAMD_NDIV 10        /* number of fl. point divides for LU and LDL' */
-#define CAMD_NMULTSUBS_LDL 11 /* number of fl. point (*,-) pairs for LDL' */
-#define CAMD_NMULTSUBS_LU 12  /* number of fl. point (*,-) pairs for LU */
-#define CAMD_DMAX 13         /* max nz. in any column of L, incl. diagonal */
-
-/* ------------------------------------------------------------------------- */
-/* return values of CAMD */
-/* ------------------------------------------------------------------------- */
-
-#define CAMD_OK 0               /* success */
-#define CAMD_OUT_OF_MEMORY -1   /* malloc failed, or problem too large */
-#define CAMD_INVALID -2         /* input arguments are not valid */
-#define CAMD_OK_BUT_JUMBLED 1   /* input matrix is OK for camd_order, but
+  }
+{ # of rows  }
+{ # of columns  }
+(* Const before type ignored *)
+{ column pointers, of size n_col+1  }
+(* Const before type ignored *)
+{ row indices, of size Ap [n_col]  }
+function camd_valid(n_row:Tint32_t; n_col:Tint32_t; Ap:Pint32_t; Ai:Pint32_t):longint;cdecl;external;
+(* Const before type ignored *)
+(* Const before type ignored *)
+function camd_l_valid(n_row:Tint64_t; n_col:Tint64_t; Ap:Pint64_t; Ai:Pint64_t):longint;cdecl;external;
+{ -------------------------------------------------------------------------  }
+{ camd_cvalid  }
+{ -------------------------------------------------------------------------  }
+{ Returns TRUE if the constraint set is valid as input to camd_order,
+ * FALSE otherwise.  }
+(* Const before type ignored *)
+function camd_cvalid(n:Tint32_t; C:Pint32_t):longint;cdecl;external;
+(* Const before type ignored *)
+function camd_l_cvalid(n:Tint64_t; C:Pint64_t):longint;cdecl;external;
+{ -------------------------------------------------------------------------  }
+{ CAMD Control and Info arrays  }
+{ -------------------------------------------------------------------------  }
+{ camd_defaults:  sets the default control settings  }
+procedure camd_defaults(Control:Pdouble);cdecl;external;
+procedure camd_l_defaults(Control:Pdouble);cdecl;external;
+{ camd_control: prints the control settings  }
+procedure camd_control(Control:Pdouble);cdecl;external;
+procedure camd_l_control(Control:Pdouble);cdecl;external;
+{ camd_info: prints the statistics  }
+procedure camd_info(Info:Pdouble);cdecl;external;
+procedure camd_l_info(Info:Pdouble);cdecl;external;
+{ camd_version: return CAMD version.  The version array is returned with }
+{ version [0..2] = CAMD_MAIN_VERSION, CAMD_SUB_VERSION, CAMD_SUBSUB_VERSION }
+procedure camd_version(version:array[0..2] of longint);cdecl;external;
+{ C++ end of extern C conditionnal removed }
+{ size of Control array  }
+const
+  CAMD_CONTROL = 5;  
+{ size of Info array  }
+  CAMD_INFO = 20;  
+{ contents of Control  }
+{ "dense" if degree > Control [0] * sqrt (n)  }
+  CAMD_DENSE = 0;  
+{ do aggressive absorption if Control [1] != 0  }
+  CAMD_AGGRESSIVE = 1;  
+{ default Control settings  }
+{ default "dense" degree 10*sqrt(n)  }
+  CAMD_DEFAULT_DENSE = 10.0;  
+{ do aggressive absorption by default  }
+  CAMD_DEFAULT_AGGRESSIVE = 1;  
+{ contents of Info  }
+{ return value of camd_order and camd_l_order  }
+  CAMD_STATUS = 0;  
+{ A is n-by-n  }
+  CAMD_N = 1;  
+{ number of nonzeros in A  }  CAMD_NZ = 2;  
+{ symmetry of pattern (1 is sym., 0 is unsym.)  }
+  CAMD_SYMMETRY = 3;  
+{ # of entries on diagonal  }
+  CAMD_NZDIAG = 4;  
+{ nz in A+A'  }
+  CAMD_NZ_A_PLUS_AT = 5;  
+{ number of "dense" rows/columns in A  }
+  CAMD_NDENSE = 6;  
+{ amount of memory used by CAMD  }
+  CAMD_MEMORY = 7;  
+{ number of garbage collections in CAMD  }
+  CAMD_NCMPA = 8;  
+{ approx. nz in L, excluding the diagonal  }
+  CAMD_LNZ = 9;  
+{ number of fl. point divides for LU and LDL'  }
+  CAMD_NDIV = 10;  
+{ number of fl. point (*,-) pairs for LDL'  }
+  CAMD_NMULTSUBS_LDL = 11;  
+{ number of fl. point (*,-) pairs for LU  }
+  CAMD_NMULTSUBS_LU = 12;  
+{ max nz. in any column of L, incl. diagonal  }
+  CAMD_DMAX = 13;  
+{ -------------------------------------------------------------------------  }
+{ return values of CAMD  }
+{ -------------------------------------------------------------------------  }
+{ success  }
+  CAMD_OK = 0;  
+{ malloc failed, or problem too large  }
+  CAMD_OUT_OF_MEMORY = -(1);  
+{ input arguments are not valid  }
+  CAMD_INVALID = -(2);  
+{ input matrix is OK for camd_order, but
     * columns were not sorted, and/or duplicate entries were present.  CAMD had
     * to do extra work before ordering the matrix.  This is a warning, not an
-    * error.  */
-
-/* ========================================================================== */
-/* === CAMD version ========================================================= */
-/* ========================================================================== */
-
-/*
+    * error.   }
+  CAMD_OK_BUT_JUMBLED = 1;  
+{ ==========================================================================  }
+{ === CAMD version =========================================================  }
+{ ==========================================================================  }
+{
  * As an example, to test if the version you are using is 1.2 or later:
  *
  *      if (CAMD_VERSION >= CAMD_VERSION_CODE (1,2)) ...
@@ -390,20 +366,37 @@ void camd_version (int version [3]) ;
  *      #else
  *          printf ("This is an early version\n") ;
  *      #endif
- */
+  }
+  CAMD_DATE = 'Jan 10, 2024';  
+  CAMD_MAIN_VERSION = 3;  
+  CAMD_SUB_VERSION = 3;  
+  CAMD_SUBSUB_VERSION = 1;  
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
 
-#define CAMD_DATE "Jan 10, 2024"
-#define CAMD_MAIN_VERSION   3
-#define CAMD_SUB_VERSION    3
-#define CAMD_SUBSUB_VERSION 1
+function CAMD_VERSION_CODE(main,sub : longint) : longint;
 
-#define CAMD_VERSION_CODE(main,sub) SUITESPARSE_VER_CODE(main,sub)
-#define CAMD_VERSION CAMD_VERSION_CODE(3,3)
+{ was #define dname def_expr }
+function CAMD_VERSION : longint; { return type might be wrong }
 
-#define CAMD__VERSION SUITESPARSE__VERCODE(3,3,1)
-#if !defined (SUITESPARSE__VERSION) || \
-    (SUITESPARSE__VERSION < SUITESPARSE__VERCODE(7,5,0))
-#error "CAMD 3.3.1 requires SuiteSparse_config 7.5.0 or later"
-#endif
+{$endif}
 
-#endif
+implementation
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function CAMD_VERSION_CODE(main,sub : longint) : longint;
+begin
+  CAMD_VERSION_CODE:=SUITESPARSE_VER_CODE(main,sub);
+end;
+
+{ was #define dname def_expr }
+function CAMD_VERSION : longint; { return type might be wrong }
+  begin
+    CAMD_VERSION:=CAMD_VERSION_CODE(3,3);
+  end;
+
+
+end.

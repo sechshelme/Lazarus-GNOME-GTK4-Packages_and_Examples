@@ -26,14 +26,7 @@
 #ifndef _CXS_H
 #define _CXS_H
 
-#if 1
-#  ifdef __cplusplus
-#    include <complex>
-#  else
-#    include <complex.h>
-#  endif
-#  define cs_complex_t double _Complex
-#endif
+#  define cs_complex_t double_Complex
 
 #define CS_VER 4  /* CXSparse Version */
 #define CS_SUBVER 3
@@ -44,14 +37,8 @@
 
 #include "SuiteSparse_config.h"
 
-#define CXSPARSE__VERSION SUITESPARSE__VERCODE(4,3,1)
-#if !defined (SUITESPARSE__VERSION) || \
-    (SUITESPARSE__VERSION < SUITESPARSE__VERCODE(7,5,0))
-#error "CXSparse 4.3.1 requires SuiteSparse_config 7.5.0 or later"
-#endif
 
 #define cs_long_t       int64_t
-#define cs_long_t_id    "%" PRId64
 #define cs_long_t_max   INT64_MAX
 
 #ifdef __cplusplus
@@ -639,11 +626,9 @@ cs_cld *cs_cl_ddone (cs_cld *D, cs_cl *C, void *w, int64_t ok) ;
 #define CS_ID cs_long_t_id
 #ifdef CS_COMPLEX
 #define CS_ENTRY cs_complex_t
-#define CS_NAME(nm) cs_cl ## nm
 #define cs cs_cl
 #else
 #define CS_ENTRY double
-#define CS_NAME(nm) cs_dl ## nm
 #define cs cs_dl
 #endif
 #else
@@ -652,11 +637,9 @@ cs_cld *cs_cl_ddone (cs_cld *D, cs_cl *C, void *w, int64_t ok) ;
 #define CS_ID "%d"
 #ifdef CS_COMPLEX
 #define CS_ENTRY cs_complex_t
-#define CS_NAME(nm) cs_ci ## nm
 #define cs cs_ci
 #else
 #define CS_ENTRY double
-#define CS_NAME(nm) cs_di ## nm
 #define cs cs_di
 #endif
 #endif
@@ -666,21 +649,7 @@ cs_cld *cs_cl_ddone (cs_cld *D, cs_cl *C, void *w, int64_t ok) ;
 #define CS_IMAG(x) cimag(x)
 #define CS_CONJ(x) conj(x)
 #define CS_ABS(x) cabs(x)
-#else
-#define CS_REAL(x) (x)
-#define CS_IMAG(x) (0.)
-#define CS_CONJ(x) (x)
-#define CS_ABS(x) fabs(x)
-#endif
 
-#define CS_MAX(a,b) (((a) > (b)) ? (a) : (b))
-#define CS_MIN(a,b) (((a) < (b)) ? (a) : (b))
-#define CS_FLIP(i) (-(i)-2)
-#define CS_UNFLIP(i) (((i) < 0) ? CS_FLIP(i) : (i))
-#define CS_MARKED(w,j) (w [j] < 0)
-#define CS_MARK(w,j) { w [j] = CS_FLIP (w [j]) ; }
-#define CS_CSC(A) (A && (A->nz == -1))
-#define CS_TRIPLET(A) (A && (A->nz >= 0))
 
 /* --- primary CSparse routines and data structures ------------------------- */
 

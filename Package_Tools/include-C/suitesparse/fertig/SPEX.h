@@ -265,16 +265,7 @@
 #define SPEX_VERSION_MINOR 3
 #define SPEX_VERSION_SUB   2
 
-#define SPEX__VERSION SUITESPARSE__VERCODE(2,3,2)
-#if !defined (SUITESPARSE__VERSION) || \
-    (SUITESPARSE__VERSION < SUITESPARSE__VERCODE(7,6,0))
-#error "SPEX 2.3.2 requires SuiteSparse_config 7.6.0 or later"
-#endif
 
-#if defined ( __cplusplus )
-extern "C"
-{
-#endif
 
 //------------------------------------------------------------------------------
 // version
@@ -453,7 +444,7 @@ typedef struct
         mpz_t *mpz ;            // A->x.mpz
         mpq_t *mpq ;            // A->x.mpq
         mpfr_t *mpfr ;          // A->x.mpfr
-        int64_t *int64 ;        // A->x.int64
+        int64_t *int64xxxxxx ;        // A->x.int64
         double *fp64 ;          // A->x.fp64
     } x ;
     bool x_shallow ;    // if true, A->x.type is shallow.
@@ -614,11 +605,6 @@ void SPEX_free
 ) ;
 
 // Free a pointer and set it to NULL.
-#define SPEX_FREE(p)                        \
-{                                           \
-    SPEX_free (p) ;                         \
-    (p) = NULL ;                            \
-}
 
 // SPEX_realloc is a wrapper for realloc.  If p is non-NULL on input, it points
 // to a previously allocated object of size old_size * size_of_item.  The
@@ -953,8 +939,3 @@ SPEX_info SPEX_Left_LU_solve         // solves the linear system LD^(-1)U x = b
     const SPEX_options* option
 ) ;
 
-#if defined ( __cplusplus )
-}
-#endif
-
-#endif

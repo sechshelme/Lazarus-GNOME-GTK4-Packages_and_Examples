@@ -72,15 +72,5 @@
 #define SPQR_VER_CODE(main,sub) SUITESPARSE_VER_CODE(main,sub)
 #define SPQR_VERSION SPQR_VER_CODE(4,3)
 
-#define SPQR__VERSION SUITESPARSE__VERCODE(4,3,2)
-#if !defined (SUITESPARSE__VERSION) || \
-    (SUITESPARSE__VERSION < SUITESPARSE__VERCODE(7,6,0))
-#error "SPQR 4.3.2 requires SuiteSparse_config 7,6.0 or later"
-#endif
-
-#if !defined (CHOLMOD__VERSION) || \
-    (CHOLMOD__VERSION < SUITESPARSE__VERCODE(5,2,0))
-#error "SPQR 4.3.2 requires CHOLMOD 5.2.0 or later"
-#endif
 
 #endif
