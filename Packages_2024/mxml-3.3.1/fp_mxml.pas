@@ -4,15 +4,20 @@ interface
 
 const
   {$IFDEF Linux}
+  libc = 'c';
   libmxml = 'libmxml';
   {$ENDIF}
 
   {$IFDEF Windows}
+  libc = 'msvcrt.dll';
   libmxml = 'libmxml.dll';   // ???????????
   {$ENDIF}
 
-type
+  type
   PFILE = type Pointer;
+
+  function fopen(__filename: pchar; __modes: pchar): PFILE; cdecl; external libc;
+  function fclose(__stream: PFILE): longint; cdecl; external libc;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -36,13 +41,13 @@ type
   Tmxml_type = longint;
 
 const
-  MXML_IGNORE = -(1);
-  MXML_ELEMENT = (-(1)) + 1;
-  MXML_INTEGER = (-(1)) + 2;
-  MXML_OPAQUE = (-(1)) + 3;
-  MXML_REAL = (-(1)) + 4;
-  MXML_TEXT = (-(1)) + 5;
-  MXML_CUSTOM = (-(1)) + 6;
+  MXML_IGNORE = -1;
+  MXML_ELEMENT = 0;
+  MXML_INTEGER = 1;
+  MXML_OPAQUE = 2;
+  MXML_REAL = 3;
+  MXML_TEXT = 4;
+  MXML_CUSTOM = 5;
 
 type
   Pmxml_node = type Pointer;
@@ -61,7 +66,7 @@ const
   MXML_MAJOR_VERSION = 3;
   MXML_MINOR_VERSION = 2;
   MXML_TAB = 8;
-  MXML_NO_CALLBACK = 0;
+  MXML_NO_CALLBACK = nil;
   MXML_TEXT_CALLBACK = 0;
   MXML_NO_PARENT = 0;
   MXML_DESCEND = 1;
