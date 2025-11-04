@@ -268,6 +268,18 @@ const
     (libs: 'libexpat'; units: 'fp_libexpat'),
     (libs: 'libmxml'; units: 'ctypes'),
 
+    (libs: 'libamd'; units: 'fp_suitesparse'),
+    (libs: 'libbtf'; units: 'fp_suitesparse'),
+    (libs: 'libcamd'; units: 'fp_suitesparse'),
+    (libs: 'libccolamd'; units: 'fp_suitesparse'),
+    (libs: 'libcholmod'; units: 'fp_suitesparse'),
+    (libs: 'libcolamd'; units: 'fp_suitesparse'),
+    (libs: 'libklu'; units: 'fp_suitesparse'),
+    (libs: 'libklu_cholmod'; units: 'fp_suitesparse'),
+    (libs: 'libldl'; units: 'fp_suitesparse'),
+    (libs: 'libumfpack'; units: 'fp_suitesparse'),
+
+    (libs: 'libxxxxx'; units: 'fp_suitesparse'),
 
 
     (libs: ''; units: ''));

@@ -353,7 +353,7 @@ const
   XML_PARAM_ENTITY_PARSING_ALWAYS = 2;
 
 function XML_SetParamEntityParsing(parser: TXML_Parser; parsing: TXML_ParamEntityParsing): longint; cdecl; external libexpat;
-function XML_SetHashSalt(parser: TXML_Parser; hash_salt: dword): longint; cdecl; external libexpat;
+function XML_SetHashSalt(parser: TXML_Parser; hash_salt: Tculong): longint; cdecl; external libexpat;
 function XML_GetErrorCode(parser: TXML_Parser): TXML_Error; cdecl; external libexpat;
 function XML_GetCurrentLineNumber(parser: TXML_Parser): TXML_Size; cdecl; external libexpat;
 function XML_GetCurrentColumnNumber(parser: TXML_Parser): TXML_Size; cdecl; external libexpat;
@@ -406,14 +406,14 @@ type
   TXML_Feature = record
     feature: TXML_FeatureEnum;
     name: PXML_LChar;
-    value: longint;
+    value: Tclong;
   end;
   PXML_Feature = ^TXML_Feature;
 
 function XML_GetFeatureList: PXML_Feature; cdecl; external libexpat;
 
 function XML_SetBillionLaughsAttackProtectionMaximumAmplification(parser: TXML_Parser; maximumAmplificationFactor: single): TXML_Bool; cdecl; external libexpat;
-function XML_SetBillionLaughsAttackProtectionActivationThreshold(parser: TXML_Parser; activationThresholdBytes: qword): TXML_Bool; cdecl; external libexpat;
+function XML_SetBillionLaughsAttackProtectionActivationThreshold(parser: TXML_Parser; activationThresholdBytes: Tculong): TXML_Bool; cdecl; external libexpat;
 
 function XML_SetReparseDeferralEnabled(parser: TXML_Parser; enabled: TXML_Bool): TXML_Bool; cdecl; external libexpat;
 

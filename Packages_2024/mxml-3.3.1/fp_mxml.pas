@@ -13,15 +13,15 @@ const
   libmxml = 'libmxml.dll';   // ???????????
   {$ENDIF}
 
-  type
+type
   PFILE = type Pointer;
 
-  function fopen(__filename: pchar; __modes: pchar): PFILE; cdecl; external libc;
-  function fclose(__stream: PFILE): longint; cdecl; external libc;
+function fopen(__filename: pchar; __modes: pchar): PFILE; cdecl; external libc;
+function fclose(__stream: PFILE): longint; cdecl; external libc;
 
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
 
 
 type
