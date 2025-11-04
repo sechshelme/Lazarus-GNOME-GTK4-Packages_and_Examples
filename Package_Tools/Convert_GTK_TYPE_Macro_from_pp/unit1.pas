@@ -266,6 +266,7 @@ const
     (libs: 'libcolord'; units: 'fp_glib2, fp_colord'),
 
     (libs: 'libexpat'; units: 'fp_libexpat'),
+    (libs: 'libmxml'; units: 'ctypes'),
 
 
 
