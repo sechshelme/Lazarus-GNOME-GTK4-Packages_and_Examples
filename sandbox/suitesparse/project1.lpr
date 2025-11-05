@@ -1,11 +1,13 @@
 program project1;
 
 uses
-  //amd,
-  //btf,
+  SuiteSparse_config,       // Viele Makros entfernt
+  amd,
+  umfpack,                           // amd
+  cholmod,
+  btf,
   //camd,
   //ccolamd,
-  cholmod,
   //colamd,
   //cs,
   //klu,
@@ -15,10 +17,8 @@ uses
   //ParU_definitions,
   //RBio,
   //SPEX,
-  SuiteSparse_config,       // Viele Makros entfernt
   //SuiteSparseQR_C,
   //SuiteSparseQR_definitions,
-  //umfpack,
 
   fp_suitesparse;
 
@@ -33,7 +33,7 @@ uses
     nzmax: integer = 4; // nur Diagonaleinträge
 
     Ap: array of integer = (0, 1, 2, 3, 4);   // Spaltenzeiger
-    Ai: array of integer = (0, 1, 2, 3);     // Zeilenindizes
+    Ai: array of integer = (0, 1, 2, 3);      // Zeilenindizes
     Ax: array of double = (1.1, 2.2, 3.3, 4.4);  // Werte auf der Diagonale
   var
     L: Pcholmod_factor;
