@@ -4,19 +4,19 @@ interface
 
 const
   {$IFDEF Linux}
-  libamd =                  'amd';
-  libbtf =                  'btf';
-  libcamd =                 'camd';
-  libccolamd =              'ccolamd';
-  libcholmod =              'cholmod';
-  libcolamd =               'colamd';
-  libcs =                   'cs'; // ????
-  libklu =                  'klu';
-  libklu_cholmod =          'klu_cholmod';
-  libldl =                  'ldl';
-  libumfpack =              'umfpack';
+  libamd = 'amd';
+  libbtf = 'btf';
+  libcamd = 'camd';
+  libccolamd = 'ccolamd';
+  libcholmod = 'cholmod';
+  libcolamd = 'colamd';
+  libcs = 'cs'; // ????
+  libklu = 'klu';
+  libklu_cholmod = 'klu_cholmod';
+  libldl = 'ldl';
+  libumfpack = 'umfpack';
 
-  libxxxxx='libsuitesparseconfig';
+  libsuitesparseconfig = 'libsuitesparseconfig';
   {$ENDIF}
 
   {$IFDEF Windows}
@@ -50,19 +50,18 @@ type
   Pint64_t = ^Tint64_t;
   PPint64_t = ^Pint64_t;
 
-Tsize_t=SizeUInt;
-Psize_t=^Tsize_t;
+  Tsize_t = SizeUInt;
+  Psize_t = ^Tsize_t;
 
   PFILE = type Pointer;
 
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
 
 implementation
 
 end.
-
