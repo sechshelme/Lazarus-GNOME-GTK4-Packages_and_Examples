@@ -15,7 +15,7 @@ uses
   //ParU_definitions,
   //RBio,
   //SPEX,
-  //SuiteSparse_config,       // Viele Makros entfernt
+  SuiteSparse_config,       // Viele Makros entfernt
   //SuiteSparseQR_C,
   //SuiteSparseQR_definitions,
   //umfpack,

@@ -3,7 +3,7 @@ unit cholmod;
 interface
 
 uses
-  fp_suitesparse;
+  fp_suitesparse, SuiteSparse_config;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
@@ -514,7 +514,6 @@ function cholmod_realloc_multiple(nnew:Tsize_t; nint:longint; xdtype:longint; I_
 function cholmod_l_realloc_multiple(para1:Tsize_t; para2:longint; para3:longint; para4:Ppointer; para5:Ppointer; 
            para6:Ppointer; para7:Ppointer; para8:Psize_t; para9:Pcholmod_common):longint;cdecl;external libcholmod;
 
-function CHOLMOD_IS_NAN(x : longint) : Boolean;
 function CHOLMOD_IS_ZERO(x : longint) : Boolean;
 function CHOLMOD_IS_NONZERO(x : longint) : Boolean;
 function CHOLMOD_IS_LT_ZERO(x : longint) : Boolean;
@@ -919,15 +918,10 @@ begin
   CHOLMOD_VER_CODE:=SUITESPARSE_VER_CODE(main,sub);
 end;
 
-function CHOLMOD_VERSION : longint; { return type might be wrong }
+function CHOLMOD_VERSION : longint;
   begin
     CHOLMOD_VERSION:=CHOLMOD_VER_CODE(5,2);
   end;
-
-function CHOLMOD_IS_NAN(x: longint): Boolean;
-begin
-  CHOLMOD_IS_NAN:=isnan(x);
-end;
 
 function CHOLMOD_IS_ZERO(x: longint): Boolean;
 begin

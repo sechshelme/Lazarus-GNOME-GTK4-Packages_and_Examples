@@ -15,6 +15,8 @@ const
   libklu_cholmod =          'klu_cholmod';
   libldl =                  'ldl';
   libumfpack =              'umfpack';
+
+  libxxxxx='libsuitesparseconfig';
   {$ENDIF}
 
   {$IFDEF Windows}
