@@ -9,16 +9,16 @@ uses
   umfpack,                           // amd
   cholmod,
   btf,
-  //cs,
+//  cs,
   klu,
   klu_cholmod,
   ldl,
   ParU_definitions,
   ParU_C,
-  //RBio,
-  //SPEX,
-  //SuiteSparseQR_C,
-  //SuiteSparseQR_definitions,
+  RBio,
+  SPEX,
+  SuiteSparseQR_definitions,
+  SuiteSparseQR_C,         // cholmod
 
   fp_suitesparse;
 
@@ -131,7 +131,8 @@ uses
 
 begin
 //  ldl_version(nil);
-  ParU_C_Version(nil,nil);
+  SuiteSparseQR_C_backslash_default(nil, nil,nil);
+  RBkind_i(0,0,nil,nil,nil,nil,0,nil,nil,nil,nil,nil,nil);
 
   WriteLn(#10);
   main;

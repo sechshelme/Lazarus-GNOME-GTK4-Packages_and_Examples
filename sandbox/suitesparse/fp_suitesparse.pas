@@ -10,12 +10,16 @@ const
   libccolamd = 'ccolamd';
   libcholmod = 'cholmod';
   libcolamd = 'colamd';
-  libcs = 'cs'; // ????
+  libcs = 'ibcxsparse'; // ????
   libklu = 'klu';
   libklu_cholmod = 'klu_cholmod';
   libldl = 'ldl';
   libumfpack = 'umfpack';
-  libparu='paru';
+  libparu = 'paru';
+  librbio = 'rbio';
+  libspex = 'spex';
+  libsuitesparse='spqr';
+  ibcxsparse='ibcxsparse';
 
   libsuitesparseconfig = 'libsuitesparseconfig';
   {$ENDIF}
@@ -56,6 +60,21 @@ type
 
   PFILE = type Pointer;
 
+type // /usr/include/mpfr.h
+  Tmpfr_rnd_t = longint;
+  Pmpfr_t = type Pointer;
+  Tmpq_t = Pointer;  // ???????
+  Tmpfr_t= Pointer;  // ???????
+
+type // /usr/include/x86_64-linux-gnu/gmp.h
+  Pmpz_t = type Pointer;
+  Pmpq_t = type Pointer;
+  Tmpz_t=Pointer;  // ???????
+
+type
+  Tdouble_Complex=record
+    a,b:Double;
+  end;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
