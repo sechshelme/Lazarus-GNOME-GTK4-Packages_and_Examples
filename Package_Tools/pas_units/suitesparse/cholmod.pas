@@ -68,7 +68,7 @@ const
   CHOLMOD_DSMALL = 2;
 
 type
-  Tcholmod_common_struct = record
+  Tcholmod_common = record
     dbound: double;
     grow0: double;
     grow1: double;
@@ -199,11 +199,7 @@ type
     nthreads_max: longint;
     blas_dump: PFILE;
   end;
-  Pcholmod_common_struct = ^Tcholmod_common_struct;
-
-  Tcholmod_common = Tcholmod_common_struct;
   Pcholmod_common = ^Tcholmod_common;
-
 
 function cholmod_start(Common: Pcholmod_common): longint; cdecl; external libcholmod;
 function cholmod_l_start(para1: Pcholmod_common): longint; cdecl; external libcholmod;
@@ -246,7 +242,7 @@ function cholmod_l_divcomplex(para1: double; para2: double; para3: double; para4
   para6: Pdouble): longint; cdecl; external libcholmod;
 
 type
-  Tcholmod_sparse_struct = record
+  Tcholmod_sparse = record
     nrow: Tsize_t;
     ncol: Tsize_t;
     nzmax: Tsize_t;
@@ -262,9 +258,6 @@ type
     sorted: longint;
     packed_: longint;
   end;
-  Pcholmod_sparse_struct = ^Tcholmod_sparse_struct;
-
-  Tcholmod_sparse = Tcholmod_sparse_struct;
   Pcholmod_sparse = ^Tcholmod_sparse;
   PPcholmod_sparse = ^Pcholmod_sparse;
 
@@ -334,7 +327,7 @@ function cholmod_sparse_xtype(to_xdtype: longint; A: Pcholmod_sparse; Common: Pc
 function cholmod_l_sparse_xtype(para1: longint; para2: Pcholmod_sparse; para3: Pcholmod_common): longint; cdecl; external libcholmod;
 
 type
-  Tcholmod_factor_struct = record
+  Tcholmod_factor = record
     n: Tsize_t;
     minor: Tsize_t;
     Perm: pointer;
@@ -366,9 +359,6 @@ type
     dtype: longint;
     useGPU: longint;
   end;
-  Pcholmod_factor_struct = ^Tcholmod_factor_struct;
-
-  Tcholmod_factor = Tcholmod_factor_struct;
   Pcholmod_factor = ^Tcholmod_factor;
   PPcholmod_factor = ^Pcholmod_factor;
 
@@ -405,7 +395,7 @@ function cholmod_factor_xtype(to_xdtype: longint; L: Pcholmod_factor; Common: Pc
 function cholmod_l_factor_xtype(para1: longint; para2: Pcholmod_factor; para3: Pcholmod_common): longint; cdecl; external libcholmod;
 
 type
-  Tcholmod_dense_struct = record
+  Tcholmod_dense = record
     nrow: Tsize_t;
     ncol: Tsize_t;
     nzmax: Tsize_t;
@@ -415,9 +405,6 @@ type
     xtype: longint;
     dtype: longint;
   end;
-  Pcholmod_dense_struct = ^Tcholmod_dense_struct;
-
-  Tcholmod_dense = Tcholmod_dense_struct;
   Pcholmod_dense = ^Tcholmod_dense;
   PPcholmod_dense = ^Pcholmod_dense;
 
@@ -460,7 +447,7 @@ function cholmod_dense_xtype(to_xdtype: longint; X: Pcholmod_dense; Common: Pcho
 function cholmod_l_dense_xtype(para1: longint; para2: Pcholmod_dense; para3: Pcholmod_common): longint; cdecl; external libcholmod;
 
 type
-  Tcholmod_triplet_struct = record
+  Tcholmod_triplet = record
     nrow: Tsize_t;
     ncol: Tsize_t;
     nzmax: Tsize_t;
@@ -474,9 +461,6 @@ type
     xtype: longint;
     dtype: longint;
   end;
-  Pcholmod_triplet_struct = ^Tcholmod_triplet_struct;
-
-  Tcholmod_triplet = Tcholmod_triplet_struct;
   Pcholmod_triplet = ^Tcholmod_triplet;
   PPcholmod_triplet = ^Pcholmod_triplet;
 

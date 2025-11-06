@@ -2,19 +2,19 @@ program project1;
 
 uses
   SuiteSparse_config,       // Viele Makros entfernt
+  camd,
+  ccolamd,
+  colamd,
   amd,
   umfpack,                           // amd
   cholmod,
   btf,
-  //camd,
-  //ccolamd,
-  //colamd,
   //cs,
-  //klu,
-  //klu_cholmod,
-  //ldl,
-  //ParU_C,
-  //ParU_definitions,
+  klu,
+  klu_cholmod,
+  ldl,
+  ParU_definitions,
+  ParU_C,
   //RBio,
   //SPEX,
   //SuiteSparseQR_C,
@@ -130,6 +130,9 @@ uses
   end;
 
 begin
+//  ldl_version(nil);
+  ParU_C_Version(nil,nil);
+
   WriteLn(#10);
   main;
   WriteLn(#10);

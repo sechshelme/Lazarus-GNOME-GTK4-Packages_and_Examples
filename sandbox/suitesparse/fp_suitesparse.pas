@@ -15,6 +15,7 @@ const
   libklu_cholmod = 'klu_cholmod';
   libldl = 'ldl';
   libumfpack = 'umfpack';
+  libparu='paru';
 
   libsuitesparseconfig = 'libsuitesparseconfig';
   {$ENDIF}
