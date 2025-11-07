@@ -9,7 +9,7 @@ uses
   umfpack,                           // amd
   cholmod,
   btf,
-//  cs,
+  cs,
   klu,
   klu_cholmod,
   ldl,
@@ -24,8 +24,6 @@ uses
 
 
   function memcpy(__dest: pointer; __src: pointer; __n: Tsize_t): pointer; cdecl; external 'c';
-
-
 
   procedure main;
   const
@@ -91,7 +89,7 @@ uses
     // Dichte Matrix anlegen und Daten kopieren
     A_dense := cholmod_allocate_dense(n, n, n, CHOLMOD_REAL, @c);
     //    move(Ax[0], A_dense^.x, SizeOf(double) * Length(Ax));
-    memcpy(A_dense^.x, PDouble(Ax), sizeof(double) * 16);
+    memcpy(A_dense^.x, PDouble(Ax), sizeof(double) * Length(Ax));
 
     // Dicht -> Sparse
     A_sparse := cholmod_dense_to_sparse(A_dense, 1, @c);
@@ -130,9 +128,9 @@ uses
   end;
 
 begin
-//  ldl_version(nil);
-  SuiteSparseQR_C_backslash_default(nil, nil,nil);
-  RBkind_i(0,0,nil,nil,nil,nil,0,nil,nil,nil,nil,nil,nil);
+  //  ldl_version(nil);
+  SuiteSparseQR_C_backslash_default(nil, nil, nil);
+  RBkind_i(0, 0, nil, nil, nil, nil, 0, nil, nil, nil, nil, nil, nil);
 
   WriteLn(#10);
   main;

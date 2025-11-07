@@ -10,7 +10,7 @@ const
   libccolamd = 'ccolamd';
   libcholmod = 'cholmod';
   libcolamd = 'colamd';
-  libcs = 'ibcxsparse'; // ????
+  libcxsparse = 'cxsparse';
   libklu = 'klu';
   libklu_cholmod = 'klu_cholmod';
   libldl = 'ldl';
@@ -19,7 +19,6 @@ const
   librbio = 'rbio';
   libspex = 'spex';
   libsuitesparse='spqr';
-  ibcxsparse='ibcxsparse';
 
   libsuitesparseconfig = 'libsuitesparseconfig';
   {$ENDIF}

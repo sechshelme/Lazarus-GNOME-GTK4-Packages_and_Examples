@@ -50,50 +50,50 @@ typedef enum
 	ESPEAKNG_ENCODING_ISO_10646_UCS_2,
 } espeak_ng_ENCODING;
 
-ESPEAK_NG_API espeak_ng_ENCODING
+extern espeak_ng_ENCODING
 espeak_ng_EncodingFromName(const char *encoding);
 
 typedef struct espeak_ng_TEXT_DECODER_ espeak_ng_TEXT_DECODER;
 
-ESPEAK_NG_API espeak_ng_TEXT_DECODER *
+extern espeak_ng_TEXT_DECODER *
 create_text_decoder(void);
 
-ESPEAK_NG_API void
+extern void
 destroy_text_decoder(espeak_ng_TEXT_DECODER *decoder);
 
-ESPEAK_NG_API espeak_ng_STATUS
+extern espeak_ng_STATUS
 text_decoder_decode_string(espeak_ng_TEXT_DECODER *decoder,
                            const char *string,
                            int length,
                            espeak_ng_ENCODING encoding);
 
-ESPEAK_NG_API espeak_ng_STATUS
+extern espeak_ng_STATUS
 text_decoder_decode_string_auto(espeak_ng_TEXT_DECODER *decoder,
                                 const char *string,
                                 int length,
                                 espeak_ng_ENCODING encoding);
 
-ESPEAK_NG_API espeak_ng_STATUS
+extern espeak_ng_STATUS
 text_decoder_decode_wstring(espeak_ng_TEXT_DECODER *decoder,
                             const wchar_t *string,
                             int length);
 
-ESPEAK_NG_API espeak_ng_STATUS
+extern espeak_ng_STATUS
 text_decoder_decode_string_multibyte(espeak_ng_TEXT_DECODER *decoder,
                                      const void *input,
                                      espeak_ng_ENCODING encoding,
                                      int flags);
 
-ESPEAK_NG_API int
+extern int
 text_decoder_eof(espeak_ng_TEXT_DECODER *decoder);
 
-ESPEAK_NG_API uint32_t
+extern uint32_t
 text_decoder_getc(espeak_ng_TEXT_DECODER *decoder);
 
-ESPEAK_NG_API uint32_t
+extern uint32_t
 text_decoder_peekc(espeak_ng_TEXT_DECODER *decoder);
 
-ESPEAK_NG_API const void *
+extern const void *
 text_decoder_get_buffer(espeak_ng_TEXT_DECODER *decoder);
 
 #ifdef __cplusplus
