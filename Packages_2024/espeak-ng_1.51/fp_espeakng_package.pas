@@ -8,7 +8,7 @@ unit fp_espeakng_package;
 interface
 
 uses
-  LazarusPackageIntf;
+  fp_espeak_ng, LazarusPackageIntf;
 
 implementation
 

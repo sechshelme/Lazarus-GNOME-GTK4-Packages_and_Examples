@@ -18,7 +18,7 @@ const
   libparu = 'paru';
   librbio = 'rbio';
   libspex = 'spex';
-  libsuitesparse='spqr';
+  libsuitesparse = 'spqr';
 
   libsuitesparseconfig = 'libsuitesparseconfig';
   {$ENDIF}
@@ -63,16 +63,16 @@ type // /usr/include/mpfr.h
   Tmpfr_rnd_t = longint;
   Pmpfr_t = type Pointer;
   Tmpq_t = Pointer;  // ???????
-  Tmpfr_t= Pointer;  // ???????
+  Tmpfr_t = Pointer;  // ???????
 
 type // /usr/include/x86_64-linux-gnu/gmp.h
   Pmpz_t = type Pointer;
   Pmpq_t = type Pointer;
-  Tmpz_t=Pointer;  // ???????
+  Tmpz_t = Pointer;  // ???????
 
 type
-  Tdouble_Complex=record
-    a,b:Double;
+  Tdouble_Complex = record
+    a, b: double;
   end;
 
   {$IFDEF FPC}

@@ -280,6 +280,7 @@ const
     (libs: 'libumfpack'; units: 'fp_suitesparse'),
 
     (libs: 'libespeak_ng'; units: 'ctypes'),
+    (libs: 'liblapacke'; units: 'ctypes'),
 
 
     (libs: ''; units: ''));

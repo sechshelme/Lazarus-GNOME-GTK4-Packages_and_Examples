@@ -2,9 +2,6 @@ unit fp_espeak_ng;
 
 interface
 
-uses
-  ctypes;
-
 const
   {$IFDEF Linux}
   libespeak_ng = 'espeak-ng';
@@ -118,7 +115,7 @@ const
 function espeak_Initialize(output: Tespeak_AUDIO_OUTPUT; buflength: longint; path: pchar; options: longint): longint; cdecl; external libespeak_ng;
 
 type
-  Tespeak_callback = function(wd: PInt16; i: longint; ev: Pespeak_EVENT): cint; cdecl;
+  Tespeak_callback = function(wav: PInt16; numsamples: longint; event: Pespeak_EVENT): integer; cdecl;
 
 procedure espeak_SetSynthCallback(SynthCallback: Tespeak_callback); cdecl; external libespeak_ng;
 
