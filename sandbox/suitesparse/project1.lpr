@@ -1,25 +1,6 @@
 program project1;
 
 uses
-  SuiteSparse_config,       // Viele Makros entfernt
-  camd,
-  ccolamd,
-  colamd,
-  amd,
-  umfpack,                           // amd
-  cholmod,
-  btf,
-  cs,
-  klu,
-  klu_cholmod,
-  ldl,
-  ParU_definitions,
-  ParU_C,
-  RBio,
-  SPEX,
-  SuiteSparseQR_definitions,
-  SuiteSparseQR_C,         // cholmod
-
   fp_suitesparse;
 
 
@@ -79,7 +60,7 @@ uses
       1.4, 2.4, 3.4, 4.4);
   var
     c: Tcholmod_common;
-    A_dense, A_dense_scaled: Pcholmod_dense;
+    A_dense_src, A_dense_des: Pcholmod_dense;
     A_sparse: Pcholmod_sparse;
     vals, dense_vals: PDouble;
     i, col, row: integer;
@@ -87,12 +68,14 @@ uses
     cholmod_start(@c);
 
     // Dichte Matrix anlegen und Daten kopieren
-    A_dense := cholmod_allocate_dense(n, n, n, CHOLMOD_REAL, @c);
-    //    move(Ax[0], A_dense^.x, SizeOf(double) * Length(Ax));
-    memcpy(A_dense^.x, PDouble(Ax), sizeof(double) * Length(Ax));
+    A_dense_src := cholmod_allocate_dense(n, n, n, CHOLMOD_REAL, @c);
+    //    move(Ax[0], A_dense_src^.x, SizeOf(double) * Length(Ax));
+    memcpy(A_dense_src^.x, PDouble(Ax), sizeof(double) * Length(Ax));
 
     // Dicht -> Sparse
-    A_sparse := cholmod_dense_to_sparse(A_dense, 1, @c);
+    A_sparse := cholmod_dense_to_sparse(A_dense_src, 1, @c);
+    cholmod_free_dense(@A_dense_src, @c);
+
 
     WriteLn('Urspruengliche Sparse Matrix (CSC):');
     cholmod_print_sparse(A_sparse, 'A_sparse', @c);
@@ -108,10 +91,11 @@ uses
     cholmod_print_sparse(A_sparse, 'A_sparse_scaled', @c);
 
     // Sparse -> Dicht
-    A_dense_scaled := cholmod_sparse_to_dense(A_sparse, @c);
+    A_dense_des := cholmod_sparse_to_dense(A_sparse, @c);
+    cholmod_free_sparse(@A_sparse, @c);
 
     WriteLn('Skalierte dichte Matrix:');
-    dense_vals := Pdouble(A_dense_scaled^.x);
+    dense_vals := Pdouble(A_dense_des^.x);
     for col := 0 to n - 1 do begin
       Write('[ ');
       for row := 0 to n - 1 do begin
@@ -119,11 +103,9 @@ uses
       end;
       WriteLn(' ]');
     end;
+    cholmod_free_dense(@A_dense_des, @c);
 
     // Aufräumen
-    cholmod_free_dense(@A_dense, @c);
-    cholmod_free_sparse(@A_sparse, @c);
-    cholmod_free_dense(@A_dense_scaled, @c);
     cholmod_finish(@c);
   end;
 

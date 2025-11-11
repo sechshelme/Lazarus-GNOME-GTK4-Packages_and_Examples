@@ -6,40 +6,75 @@ uses
 const
   FontPath = '../font/t.fnt_9x16.png';
 
-  procedure DrawRect(x1, y1, x2, y2: integer);
-  var
-    x, y: integer;
-  begin
-    TCOD_console_put_char(nil, x1, y1, 218, TCOD_BKGND_SET);
-    for x := x1 + 1 to x2 - 1 do begin
-      TCOD_console_put_char(nil, x, y1, 196, TCOD_BKGND_SET);
-    end;
-    TCOD_console_put_char(nil, x2, y1, 191, TCOD_BKGND_SET);
-
-    for y := y1 + 1 to y2 - 1 do begin
-      TCOD_console_put_char(nil, x1, y, 179, TCOD_BKGND_SET);
-      TCOD_console_put_char(nil, x2, y, 179, TCOD_BKGND_SET);
-    end;
-
-    TCOD_console_put_char(nil, x1, y2, 192, TCOD_BKGND_SET);
-    for x := x1 + 1 to x2 - 1 do begin
-      TCOD_console_put_char(nil, x, y2, 196, TCOD_BKGND_SET);
-    end;
-    TCOD_console_put_char(nil, x2, y2, 217, TCOD_BKGND_SET);
-
-    // Schatten
-    TCOD_console_set_default_foreground(nil, TCOD_gray);
-    TCOD_console_set_default_background(nil, TCOD_black);
-
-    for x := x1 + 1 to x2 + 1 do begin
-      TCOD_console_put_char(nil, x, y2 + 1, 178, TCOD_BKGND_SET);
-    end;
-
-    for y := y1 + 1 to y2 do begin
-      TCOD_console_put_char(nil, x2 + 1, y, 178, TCOD_BKGND_SET);
-    end;
-
+procedure DrawRect1(x1, y1, x2, y2: integer);
+var
+  x, y: integer;
+begin
+  TCOD_console_put_char(nil, x1, y1, 218, TCOD_BKGND_SET);
+  for x := x1 + 1 to x2 - 1 do begin
+    TCOD_console_put_char(nil, x, y1, 196, TCOD_BKGND_SET);
   end;
+  TCOD_console_put_char(nil, x2, y1, 191, TCOD_BKGND_SET);
+
+  for y := y1 + 1 to y2 - 1 do begin
+    TCOD_console_put_char(nil, x1, y, 179, TCOD_BKGND_SET);
+    TCOD_console_put_char(nil, x2, y, 179, TCOD_BKGND_SET);
+  end;
+
+  TCOD_console_put_char(nil, x1, y2, 192, TCOD_BKGND_SET);
+  for x := x1 + 1 to x2 - 1 do begin
+    TCOD_console_put_char(nil, x, y2, 196, TCOD_BKGND_SET);
+  end;
+  TCOD_console_put_char(nil, x2, y2, 217, TCOD_BKGND_SET);
+
+  // Schatten
+  TCOD_console_set_default_foreground(nil, TCOD_gray);
+  TCOD_console_set_default_background(nil, TCOD_black);
+
+  for x := x1 + 1 to x2 + 1 do begin
+    TCOD_console_put_char(nil, x, y2 + 1, 178, TCOD_BKGND_SET);
+  end;
+
+  for y := y1 + 1 to y2 do begin
+    TCOD_console_put_char(nil, x2 + 1, y, 178, TCOD_BKGND_SET);
+  end;
+
+end;
+
+procedure DrawRect2(x1, y1, x2, y2: integer);
+var
+  x, y: integer;
+begin
+  TCOD_console_put_char(nil, x1, y1, 201, TCOD_BKGND_SET);
+  for x := x1 + 1 to x2 - 1 do begin
+    TCOD_console_put_char(nil, x, y1, 205, TCOD_BKGND_SET);
+  end;
+  TCOD_console_put_char(nil, x2, y1, 187, TCOD_BKGND_SET);
+
+  for y := y1 + 1 to y2 - 1 do begin
+    TCOD_console_put_char(nil, x1, y, 186, TCOD_BKGND_SET);
+    TCOD_console_put_char(nil, x2, y, 186, TCOD_BKGND_SET);
+  end;
+
+  TCOD_console_put_char(nil, x1, y2, 200, TCOD_BKGND_SET);
+  for x := x1 + 1 to x2 - 1 do begin
+    TCOD_console_put_char(nil, x, y2, 205, TCOD_BKGND_SET);
+  end;
+  TCOD_console_put_char(nil, x2, y2, 188, TCOD_BKGND_SET);
+
+  // Schatten
+  TCOD_console_set_default_foreground(nil, TCOD_gray);
+  TCOD_console_set_default_background(nil, TCOD_black);
+
+  for x := x1 + 1 to x2 + 1 do begin
+    TCOD_console_put_char(nil, x, y2 + 1, 178, TCOD_BKGND_SET);
+  end;
+
+  for y := y1 + 1 to y2 do begin
+    TCOD_console_put_char(nil, x2 + 1, y, 178, TCOD_BKGND_SET);
+  end;
+
+end;
 
   procedure WriteASCII(x, y: integer);
   var
@@ -53,7 +88,7 @@ const
     end;
 
     TCOD_console_set_default_foreground(nil, TCOD_white);
-    DrawRect(x, y, x + 17, y + 17);
+    DrawRect1(x, y, x + 17, y + 17);
   end;
 
   procedure WriteMenu(x, y: integer; items: array of string; index: integer);
@@ -83,7 +118,7 @@ const
       end;
     end;
 
-    DrawRect(x, y, x + maxlen + 1, cnt + 4);
+    DrawRect2(x, y, x + maxlen + 1, cnt + 4);
 
     for i := 0 to cnt - 1 do begin
       if i = index then begin

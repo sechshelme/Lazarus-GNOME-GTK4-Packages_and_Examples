@@ -282,6 +282,10 @@ const
     (libs: 'libespeak_ng'; units: 'ctypes'),
     (libs: 'liblapacke'; units: 'ctypes'),
 
+    (libs: 'libopenblas'; units: 'ctypes'),
+    (libs: 'libusb'; units: 'ctypes'),
+
+
 
     (libs: ''; units: ''));
 

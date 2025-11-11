@@ -5,7 +5,7 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Buttons;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, Buttons, StdCtrls;
 
 const
   BtnSize = 30;
@@ -21,6 +21,8 @@ const
 type
   TLineRectButtons = array[0..RectFontCount - 1] of TBitBtn;
 
+  { TForm1 }
+
   TForm1 = class(TForm)
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -28,6 +30,8 @@ type
   private
     FontBitmap: TPicture;
     ButtonsGroup: array[0..3] of TLineRectButtons;
+    OutEdit: TEdit;
+    procedure ButtonsGroupClick(Sender: TObject);
   public
 
   end;
@@ -63,12 +67,13 @@ begin
       ButtonsGroup[i][b] := TBitBtn.Create(Self);
       with ButtonsGroup[i][b] do begin
         Parent := Self;
-        Width := BtnSize+5;
-        Height := BtnSize+5;
-        Left := i * 150 + (b mod 3) * (BtnSize + 2);
-        Top := (b div 3) * (BtnSize + 2);
+        Width := BtnSize + 5;
+        Height := BtnSize + 5;
+        Left := i * 150 + (b mod 3) * (BtnSize + 2) + 10;
+        Top := (b div 3) * (BtnSize + 2) + 10;
 
         ch := byte(single_line[i, b]);
+        Tag := ch;
         ofs := ch * 8;
         r := Rect(ofs, 0, ofs + 8, 16);
 
@@ -76,9 +81,16 @@ begin
 
 
         Glyph := bit;
+        OnClick := @ButtonsGroupClick;
       end;
     end;
   end;
+
+  OutEdit := TEdit.Create(Self);
+  OutEdit.Parent := Self;
+  OutEdit.ReadOnly := True;
+  OutEdit.Left := 10;
+  OutEdit.Top := 200;
 
   bit.Free;
 end;
@@ -91,6 +103,12 @@ end;
 procedure TForm1.FormPaint(Sender: TObject);
 begin
   Canvas.Draw(10, 150, FontBitmap.Bitmap);
+end;
+
+procedure TForm1.ButtonsGroupClick(Sender: TObject);
+begin
+  OutEdit.Text := '#' + IntToStr(TBitBtn(Sender).Tag);
+  WriteLn(TBitBtn(Sender).Tag);
 end;
 
 end.
