@@ -14,6 +14,7 @@ type
 
   TForm1 = class(TForm)
     Button1: TButton;
+    Button2: TButton;
     CheckBox7: TCheckBox;
     Convert: TButton;
     CheckBox1: TCheckBox;
@@ -30,6 +31,7 @@ type
     ListBox1: TListBox;
     Memo1: TMemo;
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
     procedure ConvertClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure RadioButton1Change(Sender: TObject);
@@ -568,6 +570,75 @@ begin
   Memo1.Lines := slMacro;
 
   slMacro.Free;
+  sl.Free;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+// GTK_COLUMN_VIEW_COLUMN
+var
+  i: integer;
+  s, sUp, sLow, sMix: string;
+  saUpCase, saLowCase, saMixCase: TAnsiStringArray;
+  sl: TStringList;
+begin
+  Edit1.Text := 'GTK_COLUMN_VIEW_COLUMN';  // Als test
+
+  sl := TStringList.Create;
+
+  s := Edit1.Text;
+  saUpCase := s.Split('_');
+  if Length(saUpCase) < 2 then begin
+    exit;
+  end;
+
+  // UpCase
+  sUp := '';
+  for i := 1 to Length(saUpCase) - 1 do begin
+    sUp += saUpCase[i] + '_';
+  end;
+  Delete(sUp, Length(sUp), 1);
+
+  // LowCase
+  SetLength(saLowCase, Length(saUpCase));
+  for i := 0 to Length(saLowCase) - 1 do begin
+    saLowCase[i] := LowerCase(saUpCase[i]);
+  end;
+
+  sLow := '';
+  for i := 1 to Length(saLowCase) - 1 do begin
+    sLow += saLowCase[i] + '_';
+  end;
+  Delete(sUp, Length(sLow), 1);
+
+  // MixCase
+  SetLength(saMixCase, Length(saUpCase));
+  for i := 0 to Length(saMixCase) - 1 do begin
+    saMixCase[i] := LowerCase(saUpCase[i]);
+//    saMixCase[i][1]:=UpCase(saMixCase[i][1]);
+  end;
+
+  sMix := '';
+  for i := 1 to Length(saLowCase) - 1 do begin
+    s:=saLowCase[i];
+    s[1]:=UpCase(s[1]);
+    sMix += s;
+  end;
+  Delete(sUp, Length(sLow), 1);
+
+
+
+  sl.Add('function ' + saUpCase[0] + '_TYPE_' + sUp + ': TGType;');
+  sl.Add('begin');
+  sl.Add('  Result :=  ' + saLowCase[0] + '_' + sLow + '_get_type;');
+  sl.Add('end;');
+  sl.Add('');
+
+  sl.Add('function ' + saUpCase[0] + '_' + sUp + '(obj: Pointer): P'+sMix+';');
+
+
+
+
+  Memo1.Lines := sl;
   sl.Free;
 end;
 

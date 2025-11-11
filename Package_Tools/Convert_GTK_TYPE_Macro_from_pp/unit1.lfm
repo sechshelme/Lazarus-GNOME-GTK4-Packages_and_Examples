@@ -1,17 +1,17 @@
 object Form1: TForm1
-  Left = 1322
-  Height = 808
-  Top = 69
-  Width = 483
+  Left = 1329
+  Height = 889
+  Top = 89
+  Width = 623
   Caption = 'Form1'
-  ClientHeight = 808
-  ClientWidth = 483
+  ClientHeight = 889
+  ClientWidth = 623
   LCLVersion = '4.99.0.0'
   OnCreate = FormCreate
   object Convert: TButton
-    Left = 395
+    Left = 535
     Height = 25
-    Top = 768
+    Top = 849
     Width = 75
     Anchors = [akRight, akBottom]
     Caption = 'Convert'
@@ -19,9 +19,9 @@ object Form1: TForm1
     OnClick = ConvertClick
   end
   object CheckGroup1: TCheckGroup
-    Left = 223
+    Left = 363
     Height = 200
-    Top = 560
+    Top = 641
     Width = 248
     Anchors = [akRight, akBottom]
     AutoFill = True
@@ -108,9 +108,9 @@ object Form1: TForm1
   end
   object Memo1: TMemo
     Left = 8
-    Height = 753
+    Height = 834
     Top = 40
-    Width = 212
+    Width = 352
     Anchors = [akTop, akLeft, akRight, akBottom]
     Font.Height = -13
     Font.Name = 'Ubuntu Mono'
@@ -122,13 +122,13 @@ object Form1: TForm1
     TabOrder = 2
   end
   object GroupBox1: TGroupBox
-    Left = 231
-    Height = 105
+    Left = 371
+    Height = 120
     Top = 16
     Width = 239
     Anchors = [akTop, akRight]
-    Caption = 'G_DECLARE Nativ'
-    ClientHeight = 80
+    Caption = 'Nativ'
+    ClientHeight = 95
     ClientWidth = 233
     TabOrder = 3
     object Button1: TButton
@@ -137,7 +137,7 @@ object Form1: TForm1
       Top = 56
       Width = 75
       Anchors = [akTop, akRight]
-      Caption = 'Convert'
+      Caption = 'G_Declare'
       TabOrder = 0
       OnClick = Button1Click
     end
@@ -149,6 +149,15 @@ object Form1: TForm1
       Anchors = [akTop, akRight]
       TabOrder = 1
     end
+    object Button2: TButton
+      Left = 56
+      Height = 25
+      Top = 56
+      Width = 75
+      Caption = 'TYPE'
+      TabOrder = 2
+      OnClick = Button2Click
+    end
   end
   object Label1: TLabel
     Left = 8
@@ -158,18 +167,18 @@ object Form1: TForm1
     Caption = 'Label1'
   end
   object GroupBox2: TGroupBox
-    Left = 223
-    Height = 378
+    Left = 363
+    Height = 459
     Top = 160
     Width = 248
     Anchors = [akTop, akRight, akBottom]
     Caption = 'external'
-    ClientHeight = 353
+    ClientHeight = 434
     ClientWidth = 242
     TabOrder = 4
     object ListBox1: TListBox
       Left = 0
-      Height = 353
+      Height = 434
       Top = 0
       Width = 242
       Align = alClient
