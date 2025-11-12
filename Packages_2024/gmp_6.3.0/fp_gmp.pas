@@ -29,8 +29,6 @@ type
   Pculong=^Tculong;
   Pclong=^Tclong;
 
-  // Version 6.3.0
-
 type
   PFILE = Pointer;
   Pobstack = Pointer;
@@ -39,7 +37,7 @@ type
   Tsize_t = SizeInt;
   Psize_t = ^Tsize_t;
 
-  // ptr und struc in den Bezeichnern wurde entfernt und durch PAscla taugliches T und P ersetzt.
+  // ptr und struc in den Bezeichnern wurde entfernt und durch Pascal taugliches T und P ersetzt.
 
   // =====================
 

@@ -2,9 +2,6 @@ unit fp_portmidi;
 
 interface
 
-uses
-  ctypes;
-
 const
   {$IFDEF Linux}
   libportmidi = 'portmidi';

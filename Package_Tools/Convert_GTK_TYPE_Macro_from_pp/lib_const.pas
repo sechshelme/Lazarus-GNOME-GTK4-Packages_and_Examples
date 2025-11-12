@@ -240,6 +240,8 @@ const
 
     (libs: 'libportmidi'; units: 'ctypes'),
 
+    (libs: 'libmpfr'; units: 'ctypes'),
+
 
     (libs: ''; units: ''));
 

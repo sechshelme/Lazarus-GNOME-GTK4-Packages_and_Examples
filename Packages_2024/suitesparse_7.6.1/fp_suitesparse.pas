@@ -2,6 +2,9 @@ unit fp_suitesparse;
 
 interface
 
+uses
+  gmp;
+
 const
   {$IFDEF Linux}
   libamd = 'amd';
@@ -66,9 +69,21 @@ type // /usr/include/mpfr.h
   Tmpfr_t = Pointer;  // ???????
 
 type // /usr/include/x86_64-linux-gnu/gmp.h
-  Pmpz_t = type Pointer;
-  Pmpq_t = type Pointer;
-  Tmpz_t = Pointer;  // ???????
+  Pmp_limb = PUInt64;
+
+  Tmpz = record
+    _mp_alloc: longint;
+    _mp_size: longint;
+    _mp_d: Pmp_limb;
+  end;
+  Pmpz = ^Tmpz;
+
+  Tmpq = record
+    _mp_num: Tmpz;
+    _mp_den: Tmpz;
+  end;
+  Pmpq = ^Tmpq;
+
 
 type
   Tdouble_Complex = record
