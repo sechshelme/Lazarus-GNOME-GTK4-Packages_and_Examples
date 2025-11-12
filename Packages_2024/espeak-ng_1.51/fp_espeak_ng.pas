@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libespeak_ng = 'espeak-ng.dll';  // ????????'
+  libespeak_ng = 'libespeak-ng.dll';
   {$ENDIF}
 
 type

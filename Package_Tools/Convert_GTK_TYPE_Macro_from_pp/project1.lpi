@@ -61,6 +61,15 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="Native_Tools"/>
       </Unit>
+      <Unit>
+        <Filename Value="type_native_tools.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="TYPE_Native_Tools"/>
+      </Unit>
+      <Unit>
+        <Filename Value="lib_const.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
