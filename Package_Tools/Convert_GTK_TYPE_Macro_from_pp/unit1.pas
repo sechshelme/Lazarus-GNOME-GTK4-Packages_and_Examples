@@ -608,7 +608,7 @@ begin
   for i := 1 to Length(saLowCase) - 1 do begin
     sLow += saLowCase[i] + '_';
   end;
-  Delete(sUp, Length(sLow), 1);
+  Delete(sLow, Length(sLow), 1);
 
   // MixCase
   SetLength(saMixCase, Length(saUpCase));
@@ -616,6 +616,7 @@ begin
     saMixCase[i] := LowerCase(saUpCase[i]);
 //    saMixCase[i][1]:=UpCase(saMixCase[i][1]);
   end;
+  saMixCase[0][1]:=UpCase(saMixCase[0][1]);
 
   sMix := '';
   for i := 1 to Length(saLowCase) - 1 do begin
@@ -623,23 +624,79 @@ begin
     s[1]:=UpCase(s[1]);
     sMix += s;
   end;
-  Delete(sUp, Length(sLow), 1);
+//  Delete(sMix, Length(sMix), 1);
 
 
 
   sl.Add('function ' + saUpCase[0] + '_TYPE_' + sUp + ': TGType;');
   sl.Add('begin');
-  sl.Add('  Result :=  ' + saLowCase[0] + '_' + sLow + '_get_type;');
+  sl.Add('  Result := ' + saLowCase[0] + '_' + sLow + '_get_type;');
   sl.Add('end;');
   sl.Add('');
 
-  sl.Add('function ' + saUpCase[0] + '_' + sUp + '(obj: Pointer): P'+sMix+';');
+  sl.Add('function ' + saUpCase[0] + '_' + sUp + '(obj: Pointer): P'+saMixCase[0] + sMix+';');
+  sl.Add('begin');
+  sl.Add('  Result := P' + saMixCase[0] + sMix + '(g_type_check_instance_cast(obj, '+saUpCase[0] + '_TYPE_' + sUp+'));');
+  sl.Add('end;');
+  sl.Add('');
 
+  sl.Add('function ' + saUpCase[0] + '_' + sUp + '_CLASS(klass: Pointer): P'+saMixCase[0]+ sMix+'Class;');
+  sl.Add('begin');
+  sl.Add('  Result := P' + saMixCase[0] + sMix + 'Class(g_type_check_class_cast(klass, '+saUpCase[0] + '_TYPE_' + sUp+'));');
+  sl.Add('end;');
+  sl.Add('');
 
+  sl.Add('function ' + saUpCase[0] + '_IS_' + sUp + '(obj: Pointer): Tgboolean;');
+  sl.Add('begin');
+  sl.Add('  Result := g_type_check_instance_is_a(obj, '+saUpCase[0] + '_TYPE_' + sUp+');');
+  sl.Add('end;');
+  sl.Add('');
 
+  sl.Add('function ' + saUpCase[0] + '_IS_' + sUp + '_CLASS(klass: Pointer): Tgboolean;');
+  sl.Add('begin');
+  sl.Add('  Result := g_type_check_class_is_a(klass, '+saUpCase[0] + '_TYPE_' + sUp+');');
+  sl.Add('end;');
+  sl.Add('');
+
+  sl.Add('function ' + saUpCase[0] + '_' + sUp + '_GET_CLASS(obj: Pointer): P'+saMixCase[0] +sMix+'Class;');
+  sl.Add('begin');
+  sl.Add('  Result := P' + saMixCase[0] + sMix + 'Class(PGTypeInstance(obj)^.g_class);');
+  sl.Add('end;');
+  sl.Add('');
 
   Memo1.Lines := sl;
   sl.Free;
 end;
+
+//function GTK_TYPE_COLUMN_VIEW_COLUMN: TGType;
+//begin
+//  GTK_TYPE_COLUMN_VIEW_COLUMN := gtk_column_view_column_get_type;
+//end;
+//
+//function GTK_COLUMN_VIEW_COLUMN(obj: Pointer): PGtkColumnViewColumn;
+//begin
+//  Result := PGtkColumnViewColumn(g_type_check_instance_cast(obj, GTK_TYPE_COLUMN_VIEW_COLUMN));
+//end;
+//
+//function GTK_COLUMN_VIEW_COLUMN_CLASS(klass: Pointer): PGtkColumnViewColumnClass;
+//begin
+//  Result := PGtkColumnViewColumnClass(g_type_check_class_cast(klass, GTK_TYPE_COLUMN_VIEW_COLUMN));
+//end;
+//
+//function GTK_IS_COLUMN_VIEW_COLUMN(obj: Pointer): Tgboolean;
+//begin
+//  Result := g_type_check_instance_is_a(obj, GTK_TYPE_COLUMN_VIEW_COLUMN);
+//end;
+//
+//function GTK_IS_COLUMN_VIEW_COLUMN_CLASS(klass: Pointer): Tgboolean;
+//begin
+//  Result := g_type_check_class_is_a(klass, GTK_TYPE_COLUMN_VIEW_COLUMN);
+//end;
+//
+//function GTK_COLUMN_VIEW_COLUMN_GET_CLASS(obj: Pointer): PGtkColumnViewColumnClass;
+//begin
+//  Result := PGtkColumnViewColumnClass(PGTypeInstance(obj)^.g_class);
+//end;
+
 
 end.
