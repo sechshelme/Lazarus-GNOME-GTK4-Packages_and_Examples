@@ -15,6 +15,26 @@ const
 type
   Tsize_t=SizeUInt;
 
+    {$IFDEF Linux}
+    Tlong_double=Extended;
+    {$ENDIF}
+
+    {$IFDEF Windows}
+    Tlong_double=Double;
+    {$ENDIF}
+
+    TDecimal64=packed record
+      b0, b1, b2, b3, b4, b5, b6, b7: Byte;
+    end;
+    TDecimal128=packed record
+      b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15  : Byte;
+    end;
+
+
+type // /usr/include/x86_64-linux-gnu/gmp.h
+  Tmp_limb_t=UInt32;
+  Pmp_limb_t=^Tmp_limb_t;
+
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
@@ -77,22 +97,10 @@ const  GMP_RNDN = MPFR_RNDN;
 
 type
   Pmpfr_prec_t = ^Tmpfr_prec_t;
-  Tmpfr_prec_t = smallint;
+  Tmpfr_prec_t = Int32;
 
   Pmpfr_uprec_t = ^Tmpfr_uprec_t;
-  Tmpfr_uprec_t = word;
-type
-  Pmpfr_prec_t = ^Tmpfr_prec_t;
-  Tmpfr_prec_t = longint;
-
-  Pmpfr_uprec_t = ^Tmpfr_uprec_t;
-  Tmpfr_uprec_t = dword;
-type
-  Pmpfr_prec_t = ^Tmpfr_prec_t;
-  Tmpfr_prec_t = longint;
-
-  Pmpfr_uprec_t = ^Tmpfr_uprec_t;
-  Tmpfr_uprec_t = dword;
+  Tmpfr_uprec_t = UInt32;
 
 const
   MPFR_PREC_MIN = 1;  
@@ -104,54 +112,31 @@ type
   Tmpfr_sign_t = longint;
 type
   Pmpfr_exp_t = ^Tmpfr_exp_t;
-  Tmpfr_exp_t = smallint;
+  Tmpfr_exp_t = Int32;
 
   Pmpfr_uexp_t = ^Tmpfr_uexp_t;
-  Tmpfr_uexp_t = word;
-type
-  Pmpfr_exp_t = ^Tmpfr_exp_t;
-  Tmpfr_exp_t = longint;
+  Tmpfr_uexp_t = UInt32;
 
-  Pmpfr_uexp_t = ^Tmpfr_uexp_t;
-  Tmpfr_uexp_t = dword;
-type
-  Pmpfr_exp_t = ^Tmpfr_exp_t;
-  Tmpfr_exp_t = longint;
+const      MPFR_EMAX_DEFAULT=Tmpfr_exp_t(((Tmpfr_ulong(1)) shl 30)-1);
+  MPFR_EMIN_DEFAULT = -(MPFR_EMAX_DEFAULT);
 
-  Pmpfr_uexp_t = ^Tmpfr_uexp_t;
-  Tmpfr_uexp_t = dword;
-type
-  Pmpfr_exp_t = ^Tmpfr_exp_t;
-  Tmpfr_exp_t = Tintmax_t;
-
-  Pmpfr_uexp_t = ^Tmpfr_uexp_t;
-  Tmpfr_uexp_t = Tuintmax_t;
-
-  function MPFR_EMAX_DEFAULT : Tmpfr_exp_t;
-
-const
-  MPFR_EMIN_DEFAULT = -(MPFR_EMAX_DEFAULT);  
-
-function __MPFR_EXP_MAX : Tmpfr_exp_t;
-
+      __MPFR_EXP_MAX=Tmpfr_exp_t((Tmpfr_uexp_t(-(1))) shr 1);
 const
   __MPFR_EXP_NAN = 1-__MPFR_EXP_MAX;  
   __MPFR_EXP_ZERO = 0-__MPFR_EXP_MAX;  
   __MPFR_EXP_INF = 2-__MPFR_EXP_MAX;  
 type
-  T_mpfr_struct = record
+  Tmpfr_struct = record
       _mpfr_prec : Tmpfr_prec_t;
       _mpfr_sign : Tmpfr_sign_t;
       _mpfr_exp : Tmpfr_exp_t;
       _mpfr_d : Pmp_limb_t;
     end;
-  P_mpfr_struct = ^T_mpfr_struct;
+  Pmpfr_struct = ^Tmpfr_struct;
 
-const
-  mp_rnd_t = mpfr_rnd_t;  
-
-const
-  mp_prec_t = mpfr_prec_t;  
+type
+  Tmp_rnd_t = Tmpfr_rnd_t;  
+  Tmp_prec_t = Tmpfr_prec_t;
 type
   Pmpfr_t = ^Tmpfr_t;
   Tmpfr_t = array[0..0] of Tmpfr_struct;
@@ -242,15 +227,10 @@ procedure mpfr_set_prec(para1:Tmpfr_ptr; para2:Tmpfr_prec_t);cdecl;external libm
 procedure mpfr_set_prec_raw(para1:Tmpfr_ptr; para2:Tmpfr_prec_t);cdecl;external libmpfr;
 procedure mpfr_set_default_prec(para1:Tmpfr_prec_t);cdecl;external libmpfr;
 function mpfr_get_default_prec:Tmpfr_prec_t;cdecl;external libmpfr;
-function mpfr_set_d(para1:Tmpfr_ptr; para2:Tdouble; para3:Tmpfr_rnd_t):longint;cdecl;external libmpfr;
+function mpfr_set_d(para1:Tmpfr_ptr; para2:double; para3:Tmpfr_rnd_t):longint;cdecl;external libmpfr;
 function mpfr_set_flt(para1:Tmpfr_ptr; para2:single; para3:Tmpfr_rnd_t):longint;cdecl;external libmpfr;
-{$ifdef MPFR_WANT_DECIMAL_FLOATS}
-{ _Decimal64 is not defined in C++,
-   cf https://gcc.gnu.org/bugzilla/show_bug.cgi?id=51364  }
 function mpfr_set_decimal64(para1:Tmpfr_ptr; para2:TDecimal64; para3:Tmpfr_rnd_t):longint;cdecl;external libmpfr;
 function mpfr_set_decimal128(para1:Tmpfr_ptr; para2:TDecimal128; para3:Tmpfr_rnd_t):longint;cdecl;external libmpfr;
-{$endif}
-
 function mpfr_set_ld(para1:Tmpfr_ptr; para2:Tlong_double; para3:Tmpfr_rnd_t):longint;cdecl;external libmpfr;
 {$ifdef MPFR_WANT_FLOAT128}
 function mpfr_set_float128(para1:Tmpfr_ptr; para2:TFloat128; para3:Tmpfr_rnd_t):longint;cdecl;external libmpfr;
@@ -592,18 +572,6 @@ function MPFR_VERSION : longint; { return type might be wrong }
 function MPFR_PREC_MAX : Tmpfr_prec_t;
   begin
     MPFR_PREC_MAX:=Tmpfr_prec_t(((Tmpfr_uprec_t(-(1))) shr 1)-256);
-  end;
-
-{ was #define dname def_expr }
-function MPFR_EMAX_DEFAULT : Tmpfr_exp_t;
-  begin
-    MPFR_EMAX_DEFAULT:=Tmpfr_exp_t(((Tmpfr_ulong(1)) shl 30)-1);
-  end;
-
-{ was #define dname def_expr }
-function __MPFR_EXP_MAX : Tmpfr_exp_t;
-  begin
-    __MPFR_EXP_MAX:=Tmpfr_exp_t((Tmpfr_uexp_t(-(1))) shr 1);
   end;
 
 { was #define dname(params) para_def_expr }
