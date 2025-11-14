@@ -1,5 +1,7 @@
 program project1;
 uses
+fp_gmp,
+fp_mpfr,
 fp_mpc;
 
 const
@@ -15,43 +17,23 @@ var
 
 procedure main;
 var
-  a, b, result: Tmpfi;
+  a: Tmpc;
 begin
-//  mpfi_t a, b, result;
-     mpfi_init(@a);
-     mpfi_init(@b);
-     mpfi_init(@result);
+  // Komplexe Zahl anlegen (Standardpräzision: 128 bit)
+//  mpc_t a;
+  mpc_init2(@a, 128);
 
-     // Setze Intervall a auf [1.0, 2.0]
-     mpfi_set_d(@a, 1.0);
-     mpfi_set_ui(@b, 2);
-     mpfi_intersect(@a, @a, @b);
+  // Wert setzen: z = 1.5 + 2.3i
+  mpc_set_d_d(@a, 1.5, 2.3, MPC_RNDNN);
 
-     // Setze Intervall b auf [2.0, 3.0]
-     mpfi_set_d(@b, 2.0);
-     mpfi_set_d(@result, 3.0);
-     mpfi_intersect(@b, @b, @result);
+  // z zum Quadrat berechnen: a = a^2
+  mpc_pow_ui(@a, @a, 2, MPC_RNDNN);
 
-     // Ergebnis berechnen: c = a + b
-     mpfi_add(@result, @a, @b);
+  // Ausgabe
+  mpc_out_str(stdout, 10, 0, @a, MPC_RNDNN);
+  putchar(10);
 
-     // Ausgabe des Ergebnisses
-     WriteLn('Intervall a: ');
-     mpfi_out_str(stdout, 10, 0, @a);
-     putchar(10);
-
-     WriteLn('Intervall b: ');
-     mpfi_out_str(stdout, 10, 0, @b);
-     putchar(10);
-
-     WriteLn('Summe a + b: ');
-     mpfi_out_str(stdout, 10, 0, @result);
-     putchar(10);
-
-     // Speicher freigeben
-     mpfi_clear(@a);
-     mpfi_clear(@b);
-     mpfi_clear(@result);
+  mpc_clear(@a);
 end;
 
 begin
