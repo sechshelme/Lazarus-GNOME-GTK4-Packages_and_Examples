@@ -2,13 +2,16 @@ unit fp_mpfr;
 
 interface
 
+uses
+  fp_gmp;
+
 const
   {$IFDEF Linux}
   libmpfr = 'mpfr';
   {$ENDIF}
 
   {$IFDEF Windows}
-  libmpfr = 'libmpfr'; // ?????????????
+  libmpfr = 'libmpfr.dll'; // ?????????????
   {$ENDIF}
 
 
@@ -23,23 +26,6 @@ type
   Tintmax_t = SizeInt;
   Tuintmax_t = SizeUInt;
 
-  {$IFDEF Linux}
-  Tculong = uint64;
-  Tclong = int64;
-  Tlong_double = extended;
-  {$ENDIF}
-
-  {$IFDEF Windows}
-  Tculong = uint32;
-  Tclong = int64;
-  Tlong_double = double;
-  {$ENDIF}
-  Pculong = ^Tculong;
-  Pclong = ^Tclong;
-
-  PFILE = type Pointer;
-  Tva_list = Pointer; // ????
-
   TDecimal64 = packed record  // ?????
     b0, b1, b2, b3, b4, b5, b6, b7: byte;
   end;
@@ -52,46 +38,6 @@ type
     b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15: byte;
   end;
 
-
-type // /usr/include/x86_64-linux-gnu/gmp.h
-  Tgmp_randalg_t = longint;
-  Tmp_exp_t = SizeInt;
-
-  Tmp_limb_t = uint32;
-  Pmp_limb_t = ^Tmp_limb_t;
-
-  Tmpz = record
-    _mp_alloc: longint;
-    _mp_size: longint;
-    _mp_d: Pmp_limb_t;
-  end;
-  Pmpz = ^Tmpz;
-
-  Tmpq = record
-    _mp_num: Tmpz;
-    _mp_den: Tmpz;
-  end;
-  Pmpq = ^Tmpq;
-
-  Tmpf = record
-    _mp_prec: Tclong;
-    _mp_size: Tclong;
-    _mp_exp: Tmp_exp_t;
-    _mp_d: Pmp_limb_t;
-  end;
-  Pmpf = ^Tmpf;
-
-  Tgmp_randstate = record
-    _mp_seed: Tmpz;
-    _mp_alg: Tgmp_randalg_t;
-    _mp_algdata: record
-      case longint of
-        0: (_mp_lc: pointer);
-      end;
-  end;
-  Pgmp_randstate = ^Tgmp_randstate;
-
-  // =================0
 
 const
   MPFR_VERSION_MAJOR = 4;

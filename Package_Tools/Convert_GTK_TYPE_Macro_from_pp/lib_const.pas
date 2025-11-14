@@ -241,6 +241,8 @@ const
     (libs: 'libportmidi'; units: 'ctypes'),
 
     (libs: 'libmpfr'; units: 'ctypes'),
+    (libs: 'libmpfi'; units: 'ctypes'),
+    (libs: 'libmpc'; units: 'ctypes'),
 
 
     (libs: ''; units: ''));

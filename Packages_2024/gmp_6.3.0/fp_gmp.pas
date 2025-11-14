@@ -15,24 +15,25 @@ const
   {$PACKRECORDS C}
   {$ENDIF}
 
-
 type
   {$IFDEF Linux}
   Tculong = uint64;
   Tclong = int64;
+  Tlong_double = extended;
   {$ENDIF}
 
-  {$IFDEF windows}
+  {$IFDEF Windows}
   Tculong = uint32;
   Tclong = int64;
+  Tlong_double = double;
   {$ENDIF}
-  Pculong=^Tculong;
-  Pclong=^Tclong;
+  Pculong = ^Tculong;
+  Pclong = ^Tclong;
 
 type
   PFILE = Pointer;
   Pobstack = Pointer;
-  Tva_list = Pointer;
+  Tva_list = Pointer; // ????
 
   Tsize_t = SizeInt;
   Psize_t = ^Tsize_t;

@@ -25,7 +25,13 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_usb_package"/>
+        <PackageName Value="fp_mpfr_package"/>
+      </Item>
+      <Item>
+        <PackageName Value="fp_mpfi_package"/>
+      </Item>
+      <Item>
+        <PackageName Value="fp_gmp_package"/>
       </Item>
     </RequiredPackages>
     <Units>
