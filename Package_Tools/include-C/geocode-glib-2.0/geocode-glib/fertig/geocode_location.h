@@ -26,14 +26,14 @@
 
 #include <glib-object.h>
 
-G_BEGIN_DECLS
 
-GType geocode_location_get_type (void) G_GNUC_CONST;
+
+GType geocode_location_get_type (void) ;
 
 #define GEOCODE_TYPE_LOCATION                  (geocode_location_get_type ())
 #define GEOCODE_LOCATION(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), GEOCODE_TYPE_LOCATION, GeocodeLocation))
-#define GEOCODE_IS_LOCATION(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GEOCODE_TYPE_LOCATION))
 #define GEOCODE_LOCATION_CLASS(klass)          (G_TYPE_CHECK_CLASS_CAST ((klass), GEOCODE_TYPE_LOCATION, GeocodeLocationClass))
+#define GEOCODE_IS_LOCATION(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GEOCODE_TYPE_LOCATION))
 #define GEOCODE_IS_LOCATION_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE ((klass), GEOCODE_TYPE_LOCATION))
 #define GEOCODE_LOCATION_GET_CLASS(obj)        (G_TYPE_INSTANCE_GET_CLASS ((obj), GEOCODE_TYPE_LOCATION, GeocodeLocationClass))
 
@@ -62,7 +62,6 @@ struct _GeocodeLocationClass {
         GObjectClass parent_class;
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GeocodeLocation, g_object_unref)
 
 /**
  * GeocodeLocationURIScheme:
@@ -169,6 +168,6 @@ GeocodeLocationCRS  geocode_location_get_crs           (GeocodeLocation *loc);
 gdouble geocode_location_get_accuracy                  (GeocodeLocation *loc);
 guint64 geocode_location_get_timestamp                 (GeocodeLocation *loc);
 
-G_END_DECLS
+
 
 #endif /* GEOCODE_LOCATION_H */

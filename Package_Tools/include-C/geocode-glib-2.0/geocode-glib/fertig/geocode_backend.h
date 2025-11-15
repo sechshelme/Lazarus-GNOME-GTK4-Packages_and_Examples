@@ -29,7 +29,7 @@
 
 #include "geocode-place.h"
 
-G_BEGIN_DECLS
+
 
 /**
  * GeocodeBackend:
@@ -40,7 +40,7 @@ G_BEGIN_DECLS
  * Since: 3.23.1
  */
 #define GEOCODE_TYPE_BACKEND (geocode_backend_get_type ())
-G_DECLARE_INTERFACE (GeocodeBackend, geocode_backend, GEOCODE, BACKEND, GObject)
+//G_DECLARE_INTERFACE (GeocodeBackend, geocode_backend, GEOCODE, BACKEND, GObject)
 
 /**
  * GEOCODE_TYPE_BACKEND:
@@ -130,6 +130,6 @@ GList        *geocode_backend_reverse_resolve        (GeocodeBackend       *back
                                                       GCancellable         *cancellable,
                                                       GError              **error);
 
-G_END_DECLS
+
 
 #endif /* GEOCODE_BACKEND_H */

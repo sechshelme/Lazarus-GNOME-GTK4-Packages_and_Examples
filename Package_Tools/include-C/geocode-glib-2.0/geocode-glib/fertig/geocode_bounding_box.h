@@ -25,14 +25,14 @@
 
 #include <glib-object.h>
 
-G_BEGIN_DECLS
 
-GType geocode_bounding_box_get_type (void) G_GNUC_CONST;
+
+GType geocode_bounding_box_get_type (void) ;
 
 #define GEOCODE_TYPE_BOUNDING_BOX (geocode_bounding_box_get_type ())
 #define GEOCODE_BOUNDING_BOX(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), GEOCODE_TYPE_BOUNDING_BOX, GeocodeBoundingBox))
-#define GEOCODE_IS_BOUNDING_BOX(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GEOCODE_TYPE_BOUNDING_BOX))
 #define GEOCODE_BOUNDING_BOX_CLASS(klass)          (G_TYPE_CHECK_CLASS_CAST ((klass), GEOCODE_TYPE_BOUNDING_BOX, GeocodeBoundingBoxClass))
+#define GEOCODE_IS_BOUNDING_BOX(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GEOCODE_TYPE_BOUNDING_BOX))
 #define GEOCODE_IS_BOUNDING_BOX_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE ((klass), GEOCODE_TYPE_BOUNDING_BOX))
 #define GEOCODE_BOUNDING_BOX_GET_CLASS(obj)        (G_TYPE_INSTANCE_GET_CLASS ((obj), GEOCODE_TYPE_BOUNDING_BOX, GeocodeBoundingBoxClass))
 
@@ -64,7 +64,6 @@ struct _GeocodeBoundingBoxClass {
         GObjectClass parent_class;
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GeocodeBoundingBox, g_object_unref)
 
 GeocodeBoundingBox *geocode_bounding_box_new  (gdouble top,
                                                gdouble bottom,
@@ -79,6 +78,6 @@ gdouble geocode_bounding_box_get_bottom (GeocodeBoundingBox *bbox);
 gdouble geocode_bounding_box_get_left   (GeocodeBoundingBox *bbox);
 gdouble geocode_bounding_box_get_right  (GeocodeBoundingBox *bbox);
 
-G_END_DECLS
+
 
 #endif /* GEOCODE_BOUNDING_BOX_H */

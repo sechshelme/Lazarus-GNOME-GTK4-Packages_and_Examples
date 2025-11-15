@@ -1,4 +1,16 @@
-/*
+unit geocode_error;
+
+interface
+
+uses
+  fp_glib2;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
    Copyright 2011 Bastien Nocera
 
    The Gnome Library is free software; you can redistribute it and/or
@@ -18,25 +30,22 @@
 
    Authors: Bastien Nocera <hadess@hadess.net>
 
- */
-
-#ifndef GEOCODE_ERROR_H
-#define GEOCODE_ERROR_H
-
-#include <glib.h>
-
-G_BEGIN_DECLS
-
-/**
+  }
+{$ifndef GEOCODE_ERROR_H}
+{$define GEOCODE_ERROR_H}
+{$include <glib.h>}
+{*
  * GEOCODE_ERROR:
  *
  * Error domain for geocode-glib. Errors from this domain will be from
  * the #GeocodeError enumeration.
  * See #GError for more information on error domains.
- **/
-#define GEOCODE_ERROR (geocode_error_quark ())
+ * }
 
-/**
+{ was #define dname def_expr }
+function GEOCODE_ERROR : longint; { return type might be wrong }
+
+{*
  * GeocodeError:
  * @GEOCODE_ERROR_PARSE: An error occured parsing the response from the web service.
  * @GEOCODE_ERROR_NOT_SUPPORTED: The request made was not supported.
@@ -45,17 +54,33 @@ G_BEGIN_DECLS
  * @GEOCODE_ERROR_INTERNAL_SERVER: The server encountered an (possibly unrecoverable) internal error.
  *
  * Error codes returned by geocode-glib functions.
- **/
-typedef enum {
-	GEOCODE_ERROR_PARSE,
-	GEOCODE_ERROR_NOT_SUPPORTED,
-	GEOCODE_ERROR_NO_MATCHES,
-	GEOCODE_ERROR_INVALID_ARGUMENTS,
-	GEOCODE_ERROR_INTERNAL_SERVER
-} GeocodeError;
+ * }
+type
+  PGeocodeError = ^TGeocodeError;
+  TGeocodeError =  Longint;
+  Const
+    GEOCODE_ERROR_PARSE = 0;
+    GEOCODE_ERROR_NOT_SUPPORTED = 1;
+    GEOCODE_ERROR_NO_MATCHES = 2;
+    GEOCODE_ERROR_INVALID_ARGUMENTS = 3;
+    GEOCODE_ERROR_INTERNAL_SERVER = 4;
+;
 
-GQuark geocode_error_quark (void);
+function geocode_error_quark:TGQuark;cdecl;external geocode_glib;
+{$endif}
+{ GEOCODE_ERROR_H  }
 
-G_END_DECLS
+// === Konventiert am: 15-11-25 16:51:28 ===
 
-#endif /* GEOCODE_ERROR_H */
+
+implementation
+
+
+{ was #define dname def_expr }
+function GEOCODE_ERROR : longint; { return type might be wrong }
+  begin
+    GEOCODE_ERROR:=geocode_error_quark;
+  end;
+
+
+end.

@@ -29,7 +29,7 @@
 #include <gio/gio.h>
 #include "geocode-place.h"
 
-G_BEGIN_DECLS
+
 
 /**
  * GeocodeNominatim:
@@ -40,7 +40,7 @@ G_BEGIN_DECLS
  * Since: 3.23.1
  */
 #define GEOCODE_TYPE_NOMINATIM (geocode_nominatim_get_type ())
-G_DECLARE_DERIVABLE_TYPE (GeocodeNominatim, geocode_nominatim, GEOCODE, NOMINATIM, GObject)
+//G_DECLARE_DERIVABLE_TYPE (GeocodeNominatim, geocode_nominatim, GEOCODE, NOMINATIM, GObject)
 
 /**
  * GEOCODE_TYPE_NOMINATIM:
@@ -91,6 +91,6 @@ GeocodeNominatim *geocode_nominatim_new (const gchar *base_url,
 
 GeocodeNominatim *geocode_nominatim_get_gnome (void);
 
-G_END_DECLS
+
 
 #endif /* GEOCODE_NOMINATIM_H */

@@ -376,12 +376,42 @@ libexpat1-dev   ( xml lesen )
  libmm-glib0    
 
 libmkl-full-dev  
-libopenblas
-liblapacke-dev 
-liblapack-dev
+libopenblas             // io.
+liblapacke              // io.
+liblapack               // io.
 
-libmpfr-dev   
-libmpfi-dev  
+libmpfr-dev             // io.
+libmpfi-dev             // io.
+
+libheif-dev  
+
+libportmidi0  
+
+libdfp-dev
+
+libminiaudio-dev       
+ libgupnp-dlna-2.0-4 
+
+libxmlsec1-nss1  
+libxmlsec1-1 
+
+libgsm1   
+   libtevent0t64 
+liburcu8t64  
+
+ libglycin-2-0  
+libglycin-gtk4
+
+# =========================0
+
+libheif-dev 
+
+sudo apt install libglycin-gtk4-2-0                           // Brandneu, gibt es in LTS noch nicht
+sudo apt install libglycin-gtk4-2-dev  # für Entwicklung
+https://gitlab.gnome.org/GNOME/glycin/
+
+
+
 
 
 #include <getopt.h>

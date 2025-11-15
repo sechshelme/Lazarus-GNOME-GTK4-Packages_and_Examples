@@ -244,6 +244,7 @@ const
     (libs: 'libmpfi'; units: 'ctypes'),
     (libs: 'libmpc'; units: 'ctypes'),
 
+    (libs: 'geocode_glib'; units: 'fp_glib2'),
 
     (libs: ''; units: ''));
 

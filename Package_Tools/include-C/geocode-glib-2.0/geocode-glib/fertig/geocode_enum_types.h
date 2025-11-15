@@ -6,7 +6,7 @@
 
 #include <glib-object.h>
 
-G_BEGIN_DECLS
+
 
 /* enumerations from "geocode-error.h" */
 GType geocode_error_get_type (void);
@@ -23,7 +23,7 @@ GType geocode_place_type_get_type (void);
 #define GEOCODE_TYPE_PLACE_TYPE (geocode_place_type_get_type ())
 GType geocode_place_osm_type_get_type (void);
 #define GEOCODE_TYPE_PLACE_OSM_TYPE (geocode_place_osm_type_get_type ())
-G_END_DECLS
+
 
 #endif /* __GEOCODE_ENUM_TYPES_H__ */
 

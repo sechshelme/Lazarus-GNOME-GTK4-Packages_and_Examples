@@ -29,14 +29,14 @@
 #include <geocode-glib/geocode-location.h>
 #include <geocode-glib/geocode-bounding-box.h>
 
-G_BEGIN_DECLS
 
-GType geocode_place_get_type (void) G_GNUC_CONST;
+
+GType geocode_place_get_type (void) ;
 
 #define GEOCODE_TYPE_PLACE                  (geocode_place_get_type ())
 #define GEOCODE_PLACE(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), GEOCODE_TYPE_PLACE, GeocodePlace))
-#define GEOCODE_IS_PLACE(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GEOCODE_TYPE_PLACE))
 #define GEOCODE_PLACE_CLASS(klass)          (G_TYPE_CHECK_CLASS_CAST ((klass), GEOCODE_TYPE_PLACE, GeocodePlaceClass))
+#define GEOCODE_IS_PLACE(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GEOCODE_TYPE_PLACE))
 #define GEOCODE_IS_PLACE_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE ((klass), GEOCODE_TYPE_PLACE))
 #define GEOCODE_PLACE_GET_CLASS(obj)        (G_TYPE_INSTANCE_GET_CLASS ((obj), GEOCODE_TYPE_PLACE, GeocodePlaceClass))
 
@@ -65,7 +65,6 @@ struct _GeocodePlaceClass {
         GObjectClass parent_class;
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GeocodePlace, g_object_unref)
 
 /**
  * GeocodePlaceType:
@@ -241,6 +240,6 @@ GIcon *geocode_place_get_icon                      (GeocodePlace *place);
 const char *geocode_place_get_osm_id               (GeocodePlace *place);
 GeocodePlaceOsmType geocode_place_get_osm_type     (GeocodePlace *place);
 
-G_END_DECLS
+
 
 #endif /* GEOCODE_PLACE_H */

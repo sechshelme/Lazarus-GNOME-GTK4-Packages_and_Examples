@@ -1,4 +1,40 @@
-/*
+
+unit geocode_mock_backend;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from geocode_mock_backend.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    geocode_mock_backend.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+PGeocodeMockBackend  = ^GeocodeMockBackend;
+PGeocodeMockBackendQuery  = ^GeocodeMockBackendQuery;
+PGError  = ^GError;
+PGHashTable  = ^GHashTable;
+PGList  = ^GList;
+PGPtrArray  = ^GPtrArray;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
  * Copyright 2016 Collabora Ltd.
  *
  * The geocode-glib library is free software; you can redistribute it and/or
@@ -17,50 +53,38 @@
  * Boston, MA 02110-1301  USA.
  *
  * Authors: Philip Withnall <philip.withnall@collabora.co.uk>
- */
-
-#ifndef GEOCODE_MOCK_BACKEND_H
-#define GEOCODE_MOCK_BACKEND_H
-
-#include <glib.h>
-#include <glib-object.h>
-
-G_BEGIN_DECLS
-
-/**
+  }
+{$ifndef GEOCODE_MOCK_BACKEND_H}
+{$define GEOCODE_MOCK_BACKEND_H}
+{$include <glib.h>}
+{$include <glib-object.h>}
+{*
  * GeocodeMockBackend:
  *
  * All the fields in the #GeocodeMockBackend structure are private and should
  * never be accessed directly.
  *
  * Since: 3.23.1
- */
-#define GEOCODE_TYPE_MOCK_BACKEND (geocode_mock_backend_get_type ())
-G_DECLARE_FINAL_TYPE (GeocodeMockBackend, geocode_mock_backend,
-                      GEOCODE, MOCK_BACKEND, GObject)
+  }
 
-/**
+{ was #define dname def_expr }
+function GEOCODE_TYPE_MOCK_BACKEND : longint; { return type might be wrong }
+
+{G_DECLARE_FINAL_TYPE (GeocodeMockBackend, geocode_mock_backend, GEOCODE, MOCK_BACKEND, GObject) }
+{*
  * GEOCODE_TYPE_MOCK_BACKEND:
  *
  * See #GeocodeMockBackend.
  *
  * Since: 3.23.1
- */
-
-GeocodeMockBackend *geocode_mock_backend_new (void);
-
-void geocode_mock_backend_add_forward_result (GeocodeMockBackend *self,
-                                              GHashTable         *params,
-                                              GList              *results,
-                                              const GError       *error);
-void geocode_mock_backend_add_reverse_result (GeocodeMockBackend *self,
-                                              GHashTable         *params,
-                                              GList              *results,
-                                              const GError       *error);
-
-void geocode_mock_backend_clear              (GeocodeMockBackend *self);
-
-/**
+  }
+function geocode_mock_backend_new:PGeocodeMockBackend;cdecl;external;
+(* Const before type ignored *)
+procedure geocode_mock_backend_add_forward_result(self:PGeocodeMockBackend; params:PGHashTable; results:PGList; error:PGError);cdecl;external;
+(* Const before type ignored *)
+procedure geocode_mock_backend_add_reverse_result(self:PGeocodeMockBackend; params:PGHashTable; results:PGList; error:PGError);cdecl;external;
+procedure geocode_mock_backend_clear(self:PGeocodeMockBackend);cdecl;external;
+{*
  * GeocodeMockBackendQuery:
  * @params: query parameters, in the format accepted by geocode_forward_search()
  *     (if @is_forward is %TRUE) or geocode_reverse_resolve() (otherwise)
@@ -80,19 +104,29 @@ void geocode_mock_backend_clear              (GeocodeMockBackend *self);
  * queries), rather than an empty @results list.
  *
  * Since: 3.23.1
- */
-typedef struct {
-	/* Request */
-	GHashTable *params;
-	gboolean is_forward;
+  }
+{ Request  }
+{ Response  }
+type
+  PGeocodeMockBackendQuery = ^TGeocodeMockBackendQuery;
+  TGeocodeMockBackendQuery = record
+      params : PGHashTable;
+      is_forward : Tgboolean;
+      results : PGList;
+      error : PGError;
+    end;
 
-	/* Response */
-	GList *results;
-	GError *error;
-} GeocodeMockBackendQuery;
+function geocode_mock_backend_get_query_log(self:PGeocodeMockBackend):PGPtrArray;cdecl;external;
+{$endif}
+{ GEOCODE_MOCK_BACKEND_H  }
 
-GPtrArray *geocode_mock_backend_get_query_log (GeocodeMockBackend *self);
+implementation
 
-G_END_DECLS
+{ was #define dname def_expr }
+function GEOCODE_TYPE_MOCK_BACKEND : longint; { return type might be wrong }
+  begin
+    GEOCODE_TYPE_MOCK_BACKEND:=geocode_mock_backend_get_type;
+  end;
 
-#endif /* GEOCODE_MOCK_BACKEND_H */
+
+end.

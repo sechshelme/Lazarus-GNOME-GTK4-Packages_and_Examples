@@ -28,14 +28,14 @@
 #include "geocode-place.h"
 #include "geocode-backend.h"
 
-G_BEGIN_DECLS
 
-GType geocode_reverse_get_type (void) G_GNUC_CONST;
+
+GType geocode_reverse_get_type (void) ;
 
 #define GEOCODE_TYPE_REVERSE                 (geocode_reverse_get_type ())
 #define GEOCODE_REVERSE(obj)                 (G_TYPE_CHECK_INSTANCE_CAST ((obj), GEOCODE_TYPE_REVERSE, GeocodeReverse))
-#define GEOCODE_IS_REVERSE(obj)              (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GEOCODE_TYPE_REVERSE))
 #define GEOCODE_REVERSE_CLASS(klass)         (G_TYPE_CHECK_CLASS_CAST ((klass), GEOCODE_TYPE_REVERSE, GeocodeReverseClass))
+#define GEOCODE_IS_REVERSE(obj)              (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GEOCODE_TYPE_REVERSE))
 #define GEOCODE_IS_REVERSE_CLASS(klass)      (G_TYPE_CHECK_CLASS_TYPE ((klass), GEOCODE_TYPE_REVERSE))
 #define GEOCODE_REVERSE_GET_CLASS(obj)       (G_TYPE_INSTANCE_GET_CLASS ((obj), GEOCODE_TYPE_REVERSE, GeocodeReverseClass))
 
@@ -64,7 +64,6 @@ struct _GeocodeReverseClass {
 	GObjectClass parent_class;
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GeocodeReverse, g_object_unref)
 
 GeocodeReverse *geocode_reverse_new_for_location (GeocodeLocation *location);
 
@@ -83,6 +82,6 @@ GeocodePlace *geocode_reverse_resolve_finish (GeocodeReverse  *object,
 GeocodePlace *geocode_reverse_resolve (GeocodeReverse *object,
                                        GError        **error);
 
-G_END_DECLS
+
 
 #endif /* GEOCODE_REVERSE_H */

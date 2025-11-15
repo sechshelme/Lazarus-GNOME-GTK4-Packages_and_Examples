@@ -29,14 +29,14 @@
 #include <geocode-glib/geocode-backend.h>
 #include <geocode-glib/geocode-bounding-box.h>
 
-G_BEGIN_DECLS
 
-GType geocode_forward_get_type (void) G_GNUC_CONST;
+
+GType geocode_forward_get_type (void) ;
 
 #define GEOCODE_TYPE_FORWARD                  (geocode_forward_get_type ())
 #define GEOCODE_FORWARD(obj)                  (G_TYPE_CHECK_INSTANCE_CAST ((obj), GEOCODE_TYPE_FORWARD, GeocodeForward))
-#define GEOCODE_IS_FORWARD(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GEOCODE_TYPE_FORWARD))
 #define GEOCODE_FORWARD_CLASS(klass)          (G_TYPE_CHECK_CLASS_CAST ((klass), GEOCODE_TYPE_FORWARD, GeocodeForwardClass))
+#define GEOCODE_IS_FORWARD(obj)               (G_TYPE_CHECK_INSTANCE_TYPE ((obj), GEOCODE_TYPE_FORWARD))
 #define GEOCODE_IS_FORWARD_CLASS(klass)       (G_TYPE_CHECK_CLASS_TYPE ((klass), GEOCODE_TYPE_FORWARD))
 #define GEOCODE_FORWARD_GET_CLASS(obj)        (G_TYPE_INSTANCE_GET_CLASS ((obj), GEOCODE_TYPE_FORWARD, GeocodeForwardClass))
 
@@ -65,7 +65,6 @@ struct _GeocodeForwardClass {
 	GObjectClass parent_class;
 };
 
-G_DEFINE_AUTOPTR_CLEANUP_FUNC (GeocodeForward, g_object_unref)
 
 GeocodeForward *geocode_forward_new_for_string       (const char *str);
 GeocodeForward *geocode_forward_new_for_params       (GHashTable *params);
@@ -94,6 +93,6 @@ GList *geocode_forward_search (GeocodeForward  *forward,
 void geocode_forward_set_backend (GeocodeForward *forward,
                                   GeocodeBackend *backend);
 
-G_END_DECLS
+
 
 #endif /* GEOCODE_FORWARD_H */
