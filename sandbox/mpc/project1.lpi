@@ -25,6 +25,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="fp_mpc_package"/>
+      </Item>
+      <Item>
         <PackageName Value="fp_mpfr_package"/>
       </Item>
       <Item>
