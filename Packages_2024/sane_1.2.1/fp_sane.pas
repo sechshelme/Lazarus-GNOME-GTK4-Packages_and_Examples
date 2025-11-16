@@ -291,8 +291,8 @@ const
   SANE_CURRENT_MINOR = 0;
 
 const
-  SANE_FALSE = 0;
-  SANE_TRUE = 1;
+  SANE_FALSE = False;
+  SANE_TRUE = True;
 
 type
   PSANE_Byte = ^TSANE_Byte;
@@ -503,5 +503,21 @@ begin
   SANE_OPTION_IS_SETTABLE := cap and SANE_CAP_SOFT_SELECT <> 0;
 end;
 
+// wegen "division_by_zero" in den clibs
+{$IF defined(CPUX86) or defined(CPUX64)}
+{$asmmode intel}
+procedure SetMXCSR;
+var
+  w2: word = 8064;
+begin
+  asm
+           Ldmxcsr w2
+  end;
+end;
+{$ENDIF}
 
+begin
+  {$IF defined(CPUX86) or defined(CPUX64)}
+  SetMXCSR;
+  {$ENDIF}
 end.

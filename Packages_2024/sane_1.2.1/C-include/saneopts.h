@@ -218,11 +218,13 @@
 #define SANE_TITLE_WARMUP		SANE_I18N("Warmup lamp")
 #define SANE_TITLE_CAL_EXPOS_TIME	SANE_I18N("Cal. exposure-time")
 #define SANE_TITLE_CAL_EXPOS_TIME_R	SANE_I18N("Cal. exposure-time for red")
-#define SANE_TITLE_CAL_EXPOS_TIME_G	SANE_I18N("Cal. exposure-time for green")
+#define SANE_TITLE_CAL_EXPOS_TIME_G	SANE_I18N("Cal. exposure-time for " \
+"green")
 #define SANE_TITLE_CAL_EXPOS_TIME_B	SANE_I18N("Cal. exposure-time for blue")
 #define SANE_TITLE_SCAN_EXPOS_TIME	SANE_I18N("Scan exposure-time")
 #define SANE_TITLE_SCAN_EXPOS_TIME_R	SANE_I18N("Scan exposure-time for red")
-#define SANE_TITLE_SCAN_EXPOS_TIME_G	SANE_I18N("Scan exposure-time for green")
+#define SANE_TITLE_SCAN_EXPOS_TIME_G	SANE_I18N("Scan exposure-time for " \
+"green")
 #define SANE_TITLE_SCAN_EXPOS_TIME_B	SANE_I18N("Scan exposure-time for blue")
 #define SANE_TITLE_SELECT_EXPOSURE_TIME	SANE_I18N("Set exposure-time")
 #define SANE_TITLE_CAL_LAMP_DEN		SANE_I18N("Cal. lamp density")
@@ -244,7 +246,8 @@
 
 /* Descriptive/help strings for above options: */
 #define SANE_DESC_NUM_OPTIONS \
-SANE_I18N("Read-only option that specifies how many options a specific device supports.")
+SANE_I18N("Read-only option that specifies how many options a specific " \
+"device supports.")
 
 #define SANE_DESC_STANDARD    SANE_I18N("Source, mode and resolution options")
 #define SANE_DESC_GEOMETRY    SANE_I18N("Scan area and media size options")
@@ -256,10 +259,14 @@ SANE_I18N("Read-only option that specifies how many options a specific device su
 SANE_I18N("Request a preview-quality scan.")
 
 #define SANE_DESC_GRAY_PREVIEW \
-SANE_I18N("Request that all previews are done in monochrome mode.  On a three-pass scanner this cuts down the number of passes to one and on a one-pass scanner, it reduces the memory requirements and scan-time of the preview.")
+SANE_I18N("Request that all previews are done in monochrome mode.  On a " \
+"three-pass scanner this cuts down the number of passes to one and on a " \
+"one-pass scanner, it reduces the memory requirements and scan-time of the " \
+"preview.")
 
 #define SANE_DESC_BIT_DEPTH \
-SANE_I18N("Number of bits per sample, typical values are 1 for \\\line-art\\\ and 8 for multibit scans.")
+SANE_I18N("Number of bits per sample, typical values are 1 for \"line-art\" " \
+"and 8 for multibit scans.")
 
 #define SANE_DESC_SCAN_MODE \
 SANE_I18N("Selects the scan mode (e.g., lineart, monochrome, or color).")
@@ -295,16 +302,20 @@ SANE_I18N("Sets the horizontal resolution of the scanned image.")
 SANE_I18N("Sets the vertical resolution of the scanned image.")
 
 #define SANE_DESC_PAGE_WIDTH \
-SANE_I18N("Specifies the width of the media.  Required for automatic centering of sheet-fed scans.")
+SANE_I18N("Specifies the width of the media.  Required for automatic " \
+"centering of sheet-fed scans.")
 
 #define SANE_DESC_PAGE_HEIGHT \
 SANE_I18N("Specifies the height of the media.")
 
 #define SANE_DESC_CUSTOM_GAMMA \
-SANE_I18N("Determines whether a builtin or a custom gamma-table should be used.")
+SANE_I18N("Determines whether a builtin or a custom gamma-table should be " \
+"used.")
 
 #define SANE_DESC_GAMMA_VECTOR \
-SANE_I18N("Gamma-correction table.  In color mode this option equally affects the red, green, and blue channels simultaneously (i.e., it is an intensity gamma table).")
+SANE_I18N("Gamma-correction table.  In color mode this option equally " \
+"affects the red, green, and blue channels simultaneously (i.e., it is an " \
+"intensity gamma table).")
 
 #define SANE_DESC_GAMMA_VECTOR_R \
 SANE_I18N("Gamma-correction table for the red band.")
@@ -322,58 +333,65 @@ SANE_I18N("Controls the brightness of the acquired image.")
 SANE_I18N("Controls the contrast of the acquired image.")
 
 #define SANE_DESC_GRAIN_SIZE \
-SANE_I18N("Selects the \\\graininess\\\ of the acquired image. Smaller values result in sharper images.")
+SANE_I18N("Selects the \"graininess\" of the acquired image.  Smaller values " \
+"result in sharper images.")
 
 #define SANE_DESC_HALFTONE \
 SANE_I18N("Selects whether the acquired image should be halftoned (dithered).")
 
 #define SANE_DESC_BLACK_LEVEL \
-SANE_I18N("Selects what radiance level should be considered \\\black\\\.")
+SANE_I18N("Selects what radiance level should be considered \"black\".")
 
 #define SANE_DESC_WHITE_LEVEL \
-SANE_I18N("Selects what radiance level should be considered \\\white\\\.")
+SANE_I18N("Selects what radiance level should be considered \"white\".")
 
 #define SANE_DESC_WHITE_LEVEL_R \
-SANE_I18N("Selects what red radiance level should be considered \\\white\\\.")
+SANE_I18N("Selects what red radiance level should be considered \"white\".")
 
 #define SANE_DESC_WHITE_LEVEL_G \
-SANE_I18N("Selects what green radiance level should be considered \\\white\\\.")
+SANE_I18N("Selects what green radiance level should be considered \"white\".")
 
 #define SANE_DESC_WHITE_LEVEL_B \
-SANE_I18N("Selects what blue radiance level should be considered \\\white\\\.")
+SANE_I18N("Selects what blue radiance level should be considered \"white\".")
 
 #define SANE_DESC_SHADOW \
-SANE_I18N("Selects what radiance level should be considered \\\black\\\.")
+SANE_I18N("Selects what radiance level should be considered \"black\".")
 #define SANE_DESC_SHADOW_R \
-SANE_I18N("Selects what red radiance level should be considered \\\black\\\.")
+SANE_I18N("Selects what red radiance level should be considered \"black\".")
 #define SANE_DESC_SHADOW_G \
-SANE_I18N("Selects what green radiance level should be considered \\\black\\\.")
+SANE_I18N("Selects what green radiance level should be considered \"black\".")
 #define SANE_DESC_SHADOW_B \
-SANE_I18N("Selects what blue radiance level should be considered \\\black\\\.")
+SANE_I18N("Selects what blue radiance level should be considered \"black\".")
 
 #define SANE_DESC_HIGHLIGHT \
-SANE_I18N("Selects what radiance level should be considered \\\white\\\.")
+SANE_I18N("Selects what radiance level should be considered \"white\".")
 #define SANE_DESC_HIGHLIGHT_R \
-SANE_I18N("Selects what red radiance level should be considered \\\full red\\\.")
+SANE_I18N("Selects what red radiance level should be considered \"full red\".")
 #define SANE_DESC_HIGHLIGHT_G \
-SANE_I18N("Selects what green radiance level should be considered \\\full green\\\.")
+SANE_I18N("Selects what green radiance level should be considered \"full " \
+"green\".")
 #define SANE_DESC_HIGHLIGHT_B \
-SANE_I18N("Selects what blue radiance level should be considered \\\full blue\\\.")
+SANE_I18N("Selects what blue radiance level should be considered \"full " \
+"blue\".")
 
 #define SANE_DESC_HUE \
-SANE_I18N("Controls the \\\hue\\\ (blue-level) of the acquired image.")
+SANE_I18N("Controls the \"hue\" (blue-level) of the acquired image.")
 
 #define SANE_DESC_SATURATION \
-SANE_I18N("The saturation level controls the amount of \\\blooming\\\ that occurs when acquiring an image with a camera. Larger values cause more blooming.")
+SANE_I18N("The saturation level controls the amount of \"blooming\" that " \
+"occurs when acquiring an image with a camera. Larger values cause more " \
+"blooming.")
 
 #define SANE_DESC_FILE \
 SANE_I18N("The filename of the image to be loaded.")
 
 #define SANE_DESC_HALFTONE_DIMENSION \
-SANE_I18N("Sets the size of the halftoning (dithering) pattern used when scanning halftoned images.")
+SANE_I18N("Sets the size of the halftoning (dithering) pattern used when " \
+"scanning halftoned images.")
 
 #define SANE_DESC_HALFTONE_PATTERN \
-SANE_I18N("Defines the halftoning (dithering) pattern for scanning halftoned images.")
+SANE_I18N("Defines the halftoning (dithering) pattern for scanning " \
+"halftoned images.")
 
 #define SANE_DESC_RESOLUTION_BIND \
 SANE_I18N("Use same values for X and Y resolution")
