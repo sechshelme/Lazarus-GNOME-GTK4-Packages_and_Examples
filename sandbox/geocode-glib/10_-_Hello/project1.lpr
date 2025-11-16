@@ -1,60 +1,49 @@
 program project1;
 
-//#include <glib.h>
-//#include <gio/gio.h>
-//#include <geocode-glib/geocode-location.h>
-//#include <geocode-glib/geocode-place.h>
-//#include <geocode-glib/geocode-forward.h>
-//#include <geocode-glib/geocode-reverse.h>
-//#include <geocode-glib/geocode-bounding-box.h>
-//#include <geocode-glib/geocode-error.h>
-//#include <geocode-glib/geocode-enum-types.h>
-//#include <geocode-glib/geocode-backend.h>
-//#include <geocode-glib/geocode-nominatim.h>
-//#include <geocode-glib/geocode-mock-backend.h>
-
 uses
-geocode_backend,
-geocode_bounding_box,
 geocode_enum_types,
-geocode_error,
-geocode_forward,
 geocode_location,
-geocode_mock_backend,
+geocode_bounding_box,
+geocode_backend,
+geocode_place,           // geocode_location, geocode_bounding_box
+geocode_forward,         // geocode_bounding_box, geocode_backend
+geocode_reverse,         // geocode_backend, geocode_location, geocode_place
+geocode_error,
 geocode_nominatim,
-geocode_place,
-geocode_reverse,
+geocode_mock_backend,
 
-
-
-  fp_glib2;
+  fp_glib2,
+fp_geocode;
 
 procedure main;
+var
+  nominatim: PGeocodeNominatim;
+  forward: PGeocodeForward;
+  locations: PGList;
+  err: PGError=nil;
 begin
-  GError *error = NULL;
+//  GError *error = NULL;
 
   // Nominatim backend mit URL und User-Agent erzeugen
-  GeocodeNominatim *nominatim = geocode_nominatim_new(
-      "https://nominatim.openstreetmap.org/",
-      "MyGeocodeApp/1.0"
-  );
+  nominatim := geocode_nominatim_new(      'https://nominatim.openstreetmap.org/',      'MyGeocodeApp/1.0'  );
 
   // Forward-Objekt mit Suchstring erzeugen
-  GeocodeForward *forward = geocode_forward_new_for_string("steg");
+  forward := geocode_forward_new_for_string('steg');
 
   // Backend manuell setzen
   geocode_forward_set_backend(forward, GEOCODE_BACKEND(nominatim));
 
   // Suche ausführen
-  GList *locations = geocode_forward_search(forward, &error);
+  locations := geocode_forward_search(forward, @err);
 
-  if (error) {
-      g_printerr("Fehler während Suche: %s\n", error->message);
-      g_error_free(error);
-  } else if (locations == NULL) {
-      g_print("Keine Ergebnisse gefunden (leere Liste).\n");
-  } else {
-      g_print("Ergebnisse gefunden:\n");
+  if error<>nil then begin
+      g_printerr('Fehler während Suche: %s'#10, err^.message);
+      g_error_free(err);
+
+  end  else if locations = nil then
+      g_print('Keine Ergebnisse gefunden (leere Liste).'#10);
+   else
+      g_print('Ergebnisse gefunden:'#10);
 
 for (GList *l = locations; l != NULL; l = l->next) {
   if (GEOCODE_IS_PLACE(l->data)) {

@@ -3,72 +3,27 @@ unit geocode_error;
 interface
 
 uses
-  fp_glib2;
+  fp_glib2, fp_geocode;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{
-   Copyright 2011 Bastien Nocera
+function GEOCODE_ERROR: TGQuark;
 
-   The Gnome Library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Library General Public License as
-   published by the Free Software Foundation; either version 2 of the
-   License, or (at your option) any later version.
-
-   The Gnome Library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Library General Public License for more details.
-
-   You should have received a copy of the GNU Library General Public
-   License along with the Gnome Library; see the file COPYING.LIB.  If not,
-   write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301  USA.
-
-   Authors: Bastien Nocera <hadess@hadess.net>
-
-  }
-{$ifndef GEOCODE_ERROR_H}
-{$define GEOCODE_ERROR_H}
-{$include <glib.h>}
-{*
- * GEOCODE_ERROR:
- *
- * Error domain for geocode-glib. Errors from this domain will be from
- * the #GeocodeError enumeration.
- * See #GError for more information on error domains.
- * }
-
-{ was #define dname def_expr }
-function GEOCODE_ERROR : longint; { return type might be wrong }
-
-{*
- * GeocodeError:
- * @GEOCODE_ERROR_PARSE: An error occured parsing the response from the web service.
- * @GEOCODE_ERROR_NOT_SUPPORTED: The request made was not supported.
- * @GEOCODE_ERROR_NO_MATCHES: The requests made didn't have any matches.
- * @GEOCODE_ERROR_INVALID_ARGUMENTS: The request made contained invalid arguments.
- * @GEOCODE_ERROR_INTERNAL_SERVER: The server encountered an (possibly unrecoverable) internal error.
- *
- * Error codes returned by geocode-glib functions.
- * }
 type
   PGeocodeError = ^TGeocodeError;
-  TGeocodeError =  Longint;
-  Const
-    GEOCODE_ERROR_PARSE = 0;
-    GEOCODE_ERROR_NOT_SUPPORTED = 1;
-    GEOCODE_ERROR_NO_MATCHES = 2;
-    GEOCODE_ERROR_INVALID_ARGUMENTS = 3;
-    GEOCODE_ERROR_INTERNAL_SERVER = 4;
-;
+  TGeocodeError = longint;
 
-function geocode_error_quark:TGQuark;cdecl;external geocode_glib;
-{$endif}
-{ GEOCODE_ERROR_H  }
+const
+  GEOCODE_ERROR_PARSE = 0;
+  GEOCODE_ERROR_NOT_SUPPORTED = 1;
+  GEOCODE_ERROR_NO_MATCHES = 2;
+  GEOCODE_ERROR_INVALID_ARGUMENTS = 3;
+  GEOCODE_ERROR_INTERNAL_SERVER = 4;
+
+function geocode_error_quark: TGQuark; cdecl; external geocode_glib;
 
 // === Konventiert am: 15-11-25 16:51:28 ===
 
@@ -76,11 +31,10 @@ function geocode_error_quark:TGQuark;cdecl;external geocode_glib;
 implementation
 
 
-{ was #define dname def_expr }
-function GEOCODE_ERROR : longint; { return type might be wrong }
-  begin
-    GEOCODE_ERROR:=geocode_error_quark;
-  end;
+function GEOCODE_ERROR: TGQuark;
+begin
+  GEOCODE_ERROR := geocode_error_quark;
+end;
 
 
 end.
