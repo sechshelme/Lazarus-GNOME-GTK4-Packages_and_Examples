@@ -1,75 +1,55 @@
 program project1;
 
 uses
-geocode_enum_types,
-geocode_location,
-geocode_bounding_box,
-geocode_backend,
-geocode_place,           // geocode_location, geocode_bounding_box
-geocode_forward,         // geocode_bounding_box, geocode_backend
-geocode_reverse,         // geocode_backend, geocode_location, geocode_place
-geocode_error,
-geocode_nominatim,
-geocode_mock_backend,
-
   fp_glib2,
-fp_geocode;
+  fp_geocode;
 
-procedure main;
-var
-  nominatim: PGeocodeNominatim;
-  forward: PGeocodeForward;
-  locations: PGList;
-  err: PGError=nil;
-begin
-//  GError *error = NULL;
+  procedure main;
+  var
+    nominatim: PGeocodeNominatim;
+    forward: PGeocodeForward;
+    locations, l: PGList;
+    err: PGError = nil;
+    place: PGeocodePlace;
+    loc: PGeocodeLocation;
+  begin
+    g_printf('Ich bin ein Umlaut: öäü ÜÄÖ'#10);
 
-  // Nominatim backend mit URL und User-Agent erzeugen
-  nominatim := geocode_nominatim_new(      'https://nominatim.openstreetmap.org/',      'MyGeocodeApp/1.0'  );
+    nominatim := geocode_nominatim_new('https://nominatim.openstreetmap.org/', 'MyGeocodeApp/1.0');
+    forward := geocode_forward_new_for_string('Zürich');
+    geocode_forward_set_backend(forward, GEOCODE_BACKEND(nominatim));
 
-  // Forward-Objekt mit Suchstring erzeugen
-  forward := geocode_forward_new_for_string('steg');
-
-  // Backend manuell setzen
-  geocode_forward_set_backend(forward, GEOCODE_BACKEND(nominatim));
-
-  // Suche ausführen
-  locations := geocode_forward_search(forward, @err);
-
-  if error<>nil then begin
+    locations := geocode_forward_search(forward, @err);
+    if err <> nil then begin
       g_printerr('Fehler während Suche: %s'#10, err^.message);
       g_error_free(err);
-
-  end  else if locations = nil then
-      g_print('Keine Ergebnisse gefunden (leere Liste).'#10);
-   else
+    end else begin
       g_print('Ergebnisse gefunden:'#10);
 
-for (GList *l = locations; l != NULL; l = l->next) {
-  if (GEOCODE_IS_PLACE(l->data)) {
-      GeocodePlace *place = GEOCODE_PLACE(l->data);
-      GeocodeLocation *loc = geocode_place_get_location(place);
-      if (loc != NULL) {
-          g_print("Ort: %s\n", geocode_place_get_name(place));
-          g_print("Lat: %f, Lon: %f\n",
-              geocode_location_get_latitude(loc),
-              geocode_location_get_longitude(loc));
-      } else {
-          g_print("Place hat keine zugeordnete Location.\n");
-      }
-  } else {
-      g_print("Gefundenes Objekt ist kein gültiger Platz oder Standort.\n");
-  }
-}
+      l := locations;
+      while l <> nil do begin
+        if GEOCODE_IS_PLACE(l^.data) then begin
+          place := GEOCODE_PLACE(l^.data);
+          loc := geocode_place_get_location(place);
+          if loc <> nil then begin
+            g_print('Ort: %s'#10, geocode_place_get_name(place));
+            g_print('Lat: %f, Lon: %f'#10#10, geocode_location_get_latitude(loc), geocode_location_get_longitude(loc));
+          end else begin
+            g_print('Place hat keine zugeordnete Location.'#10);
+          end;
+        end else begin
+          g_print('Gefundenes Objekt ist kein gültiger Platz oder Standort.'#10);
+        end;
+        l := l^.Next;;
+      end;
 
-      g_list_free_full(locations, g_object_unref);
-  }
+      g_list_free_full(locations, @g_object_unref);
 
-  g_object_unref(forward);
-  g_object_unref(nominatim);
-end;
+      g_object_unref(forward);
+      g_object_unref(nominatim);
+    end;
+  end;
 
 begin
   main;
 end.
-

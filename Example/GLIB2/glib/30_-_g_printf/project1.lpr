@@ -55,6 +55,8 @@ const
     i: integer;
 
   begin
+    g_printf('Ich bin ein Umlaut: öäü ÜÄÖ');
+
     for i := 0 to Length(src) - 1 do begin
       l := g_utf8_strlen(src[i], -1);
       p := 30 - l;
