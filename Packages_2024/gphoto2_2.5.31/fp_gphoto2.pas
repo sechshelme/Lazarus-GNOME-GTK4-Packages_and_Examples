@@ -12,6 +12,21 @@ const
   {$ENDIF}
 
 type
+  {$IFDEF Linux}
+  Tculong = uint64;
+  Tclong = int64;
+  Tlong_double = extended;
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  Tculong = uint32;
+  Tclong = int64;
+  Tlong_double = double;
+  {$ENDIF}
+  Pculong = ^Tculong;
+  Pclong = ^Tclong;
+
+type
   Tuint32_t = uint32;
 
   Tuint64_t = uint64;

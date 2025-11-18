@@ -76,13 +76,13 @@ function gp_file_get_mtime(file_: PCameraFile; mtime: Ptime_t): longint; cdecl; 
 function gp_file_detect_mime_type(file_: PCameraFile): longint; cdecl; external libgphoto2;
 function gp_file_adjust_name_for_mime_type(file_: PCameraFile): longint; cdecl; external libgphoto2;
 function gp_file_get_name_by_type(file_: PCameraFile; basename: pchar; _type: TCameraFileType; newname: PPchar): longint; cdecl; external libgphoto2;
-function gp_file_set_data_and_size(para1: PCameraFile; data: pchar; size: dword): longint; cdecl; external libgphoto2;
-function gp_file_get_data_and_size(para1: PCameraFile; data: PPchar; size: Pdword): longint; cdecl; external libgphoto2;
+function gp_file_set_data_and_size(para1: PCameraFile; data: pchar; size: Tculong): longint; cdecl; external libgphoto2;
+function gp_file_get_data_and_size(para1: PCameraFile; data: PPchar; size: Pculong): longint; cdecl; external libgphoto2;
 function gp_file_open(file_: PCameraFile; filename: pchar): longint; cdecl; external libgphoto2;
 function gp_file_save(file_: PCameraFile; filename: pchar): longint; cdecl; external libgphoto2;
 function gp_file_clean(file_: PCameraFile): longint; cdecl; external libgphoto2;
 function gp_file_copy(destination: PCameraFile; source: PCameraFile): longint; cdecl; external libgphoto2;
-function gp_file_append(para1: PCameraFile; data: pchar; size: dword): longint; cdecl; external libgphoto2;
+function gp_file_append(para1: PCameraFile; data: pchar; size: Tculong): longint; cdecl; external libgphoto2;
 function gp_file_slurp(para1: PCameraFile; data: pchar; size: Tsize_t; readlen: Psize_t): longint; cdecl; external libgphoto2;
 
 // === Konventiert am: 17-11-25 15:46:49 ===
