@@ -249,6 +249,7 @@ const
 
     (libs: 'libgphoto2'; units: 'fp_glib2, fp_libgphoto2'),
 
+    (libs: 'libsoundio'; units: 'ctypes'),
 
     (libs: ''; units: ''));
 

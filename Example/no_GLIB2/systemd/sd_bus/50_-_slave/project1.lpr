@@ -104,7 +104,7 @@ const
     res: double;
     r: longint;
     err: Tsd_bus_error;
-    m: Psd_bus_message;
+    m: Psd_bus_message = nil;
     sig: pchar;
   begin
     err := SD_BUS_ERROR_NULL;

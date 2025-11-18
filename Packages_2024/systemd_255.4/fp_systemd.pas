@@ -1,6 +1,5 @@
 unit fp_systemd;
 
-{$modeswitch typehelpers}
 {$J-}
 
 interface
@@ -11,6 +10,10 @@ uses
 const
   {$IFDEF Linux}
   libsystemd = 'libsystemd';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libsystemd = 'libsystemd.dll';  // ??????????
   {$ENDIF}
 
 type // /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h
