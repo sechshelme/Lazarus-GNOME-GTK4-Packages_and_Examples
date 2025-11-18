@@ -9,7 +9,7 @@ type
   end;
   PSoundData = ^TSoundData;
 
-  procedure write_callback(outstream: PSoundIoOutStream; frame_count_min: longint; frame_count_max: longint); cdecl;
+  procedure write_callback(stream: PSoundIoOutStream; frame_count_min: longint; frame_count_max: longint); cdecl;
   var
     data: PSoundData;
     layout: PSoundIoChannelLayout;
@@ -19,13 +19,13 @@ type
     ptr: PSingle;
     frame, channel: integer;
   begin
-    data := outstream^.userdata;
-    layout := @outstream^.layout;
+    data := stream^.userdata;
+    layout := @stream^.layout;
     frames_left := frame_count_max;
 
     while frames_left > 0 do begin
       frame_count := frames_left;
-      err := soundio_outstream_begin_write(outstream, @areas, @frame_count);
+      err := soundio_outstream_begin_write(stream, @areas, @frame_count);
       if err <> 0 then begin
         WriteLn('Begin write error: ', soundio_strerror(err));
         Halt(1);
@@ -47,7 +47,7 @@ type
         end;
       end;
 
-      err := soundio_outstream_end_write(outstream);
+      err := soundio_outstream_end_write(stream);
       if err <> 0 then begin
         WriteLn('End write error: ', soundio_strerror(err));
         Halt(1);
