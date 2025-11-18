@@ -57,7 +57,7 @@ function crypt_gensalt(prefix: pchar; count: Tculong; rbytes: pchar; nrbytes: lo
 function crypt_gensalt_rn(prefix: pchar; count: Tculong; rbytes: pchar; nrbytes: longint; output: pchar; output_size: longint): pchar; cdecl; external libcrypt;
 function crypt_gensalt_r(prefix: pchar; count: Tculong; rbytes: pchar; nrbytes: longint; output: pchar; output_size: longint): pchar; cdecl; external libcrypt name 'crypt_gensalt_rn';
 
-function crypt_gensalt_ra(prefix: pchar; count: dword; rbytes: pchar; nrbytes: longint): pchar; cdecl; external libcrypt;
+function crypt_gensalt_ra(prefix: pchar; count: Tculong; rbytes: pchar; nrbytes: longint): pchar; cdecl; external libcrypt;
 function crypt_checksalt(setting: pchar): longint; cdecl; external libcrypt;
 
 const

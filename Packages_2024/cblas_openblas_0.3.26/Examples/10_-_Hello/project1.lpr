@@ -1,4 +1,5 @@
 program project1;
+
 uses
   fp_openblas64;
 
@@ -19,7 +20,7 @@ uses
       0, 0, 0,
       0, 0, 0);
 
-    var
+  var
     i, j: integer;
   begin
     cblas_sgemm(CblasColMajor, CblasNoTrans, CblasNoTrans, 3, 3, 3, 1.0, A, 3, B, 3, 0.0, C, 3);
