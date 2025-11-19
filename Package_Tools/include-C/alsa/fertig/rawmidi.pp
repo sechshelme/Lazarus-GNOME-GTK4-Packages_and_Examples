@@ -1,0 +1,304 @@
+
+unit rawmidi;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from rawmidi.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    rawmidi.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pchar  = ^char;
+Ppollfd  = ^pollfd;
+Psnd_config_t  = ^snd_config_t;
+Psnd_htimestamp_t  = ^snd_htimestamp_t;
+Psnd_rawmidi_clock  = ^snd_rawmidi_clock;
+Psnd_rawmidi_clock_t  = ^snd_rawmidi_clock_t;
+Psnd_rawmidi_info_t  = ^snd_rawmidi_info_t;
+Psnd_rawmidi_params_t  = ^snd_rawmidi_params_t;
+Psnd_rawmidi_read_mode  = ^snd_rawmidi_read_mode;
+Psnd_rawmidi_read_mode_t  = ^snd_rawmidi_read_mode_t;
+Psnd_rawmidi_status_t  = ^snd_rawmidi_status_t;
+Psnd_rawmidi_stream  = ^snd_rawmidi_stream;
+Psnd_rawmidi_stream_t  = ^snd_rawmidi_stream_t;
+Psnd_rawmidi_t  = ^snd_rawmidi_t;
+Psnd_rawmidi_type  = ^snd_rawmidi_type;
+Psnd_rawmidi_type_t  = ^snd_rawmidi_type_t;
+Ptimespec  = ^timespec;
+Pword  = ^word;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{*
+ * \file include/rawmidi.h
+ * \brief Application interface library for the ALSA driver
+ * \author Jaroslav Kysela <perex@perex.cz>
+ * \author Abramo Bagnara <abramo@alsa-project.org>
+ * \author Takashi Iwai <tiwai@suse.de>
+ * \date 1998-2001
+ *
+ * Application interface library for the ALSA driver
+  }
+{
+ *   This library is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as
+ *   published by the Free Software Foundation; either version 2.1 of
+ *   the License, or (at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU Lesser General Public License for more details.
+ *
+ *   You should have received a copy of the GNU Lesser General Public
+ *   License along with this library; if not, write to the Free Software
+ *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+  }
+{$ifndef __ALSA_RAWMIDI_H}
+{$define __ALSA_RAWMIDI_H}
+{ C++ extern C conditionnal removed }
+{*
+ *  \defgroup RawMidi RawMidi Interface
+ *  The RawMidi Interface. See \ref rawmidi page for more details.
+ *  \
+  }
+{* dlsym version for interface entry callback  }
+
+const
+  SND_RAWMIDI_DLSYM_VERSION = _dlsym_rawmidi_001;  
+{* RawMidi information container  }
+type
+  Tsnd_rawmidi_info = Tsnd_rawmidi_info_t;
+{* RawMidi settings container  }
+  Tsnd_rawmidi_params = Tsnd_rawmidi_params_t;
+{* RawMidi status container  }
+  Tsnd_rawmidi_status = Tsnd_rawmidi_status_t;
+{* RawMidi stream (direction)  }
+{* Output stream  }
+{* Input stream  }
+
+  Psnd_rawmidi_stream = ^Tsnd_rawmidi_stream;
+  Tsnd_rawmidi_stream =  Longint;
+  Const
+    SND_RAWMIDI_STREAM_OUTPUT = 0;
+    SND_RAWMIDI_STREAM_INPUT = 1;
+    SND_RAWMIDI_STREAM_LAST = SND_RAWMIDI_STREAM_INPUT;
+;
+  Tsnd_rawmidi_stream_t = Tsnd_rawmidi_stream;
+  Psnd_rawmidi_stream_t = ^Tsnd_rawmidi_stream_t;
+{* Append (flag to open mode) \hideinitializer  }
+  SND_RAWMIDI_APPEND = $0001;  
+{* Non blocking mode (flag to open mode) \hideinitializer  }
+  SND_RAWMIDI_NONBLOCK = $0002;  
+{* Write sync mode (Flag to open mode) \hideinitializer  }
+  SND_RAWMIDI_SYNC = $0004;  
+{* RawMidi handle  }
+type
+  Tsnd_rawmidi = Tsnd_rawmidi_t;
+{* RawMidi type  }
+{* Kernel level RawMidi  }
+{* Shared memory client RawMidi (not yet implemented)  }
+{* INET client RawMidi (not yet implemented)  }
+{* Virtual (sequencer) RawMidi  }
+
+  Psnd_rawmidi_type = ^Tsnd_rawmidi_type;
+  Tsnd_rawmidi_type =  Longint;
+  Const
+    SND_RAWMIDI_TYPE_HW = 0;
+    SND_RAWMIDI_TYPE_SHM = 1;
+    SND_RAWMIDI_TYPE_INET = 2;
+    SND_RAWMIDI_TYPE_VIRTUAL = 3;
+;
+  Tsnd_rawmidi_type_t = Tsnd_rawmidi_type;
+  Psnd_rawmidi_type_t = ^Tsnd_rawmidi_type_t;
+{* Type of clock used with rawmidi timestamp  }
+type
+  Psnd_rawmidi_clock = ^Tsnd_rawmidi_clock;
+  Tsnd_rawmidi_clock =  Longint;
+  Const
+    SND_RAWMIDI_CLOCK_NONE = 0;
+    SND_RAWMIDI_CLOCK_REALTIME = 1;
+    SND_RAWMIDI_CLOCK_MONOTONIC = 2;
+    SND_RAWMIDI_CLOCK_MONOTONIC_RAW = 3;
+;
+  Tsnd_rawmidi_clock_t = Tsnd_rawmidi_clock;
+  Psnd_rawmidi_clock_t = ^Tsnd_rawmidi_clock_t;
+{* Select the read mode (standard or with timestamps)  }
+type
+  Psnd_rawmidi_read_mode = ^Tsnd_rawmidi_read_mode;
+  Tsnd_rawmidi_read_mode =  Longint;
+  Const
+    SND_RAWMIDI_READ_STANDARD = 0;
+    SND_RAWMIDI_READ_TSTAMP = 1;
+;
+  Tsnd_rawmidi_read_mode_t = Tsnd_rawmidi_read_mode;
+  Psnd_rawmidi_read_mode_t = ^Tsnd_rawmidi_read_mode_t;
+{* rawmidi info bit flags  }
+{ rawmidi is UMP  }
+  SND_RAWMIDI_INFO_UMP = $00000008;  
+(* Const before type ignored *)
+
+function snd_rawmidi_open(in_rmidi:PPsnd_rawmidi_t; out_rmidi:PPsnd_rawmidi_t; name:Pchar; mode:longint):longint;cdecl;external;
+(* Const before type ignored *)
+function snd_rawmidi_open_lconf(in_rmidi:PPsnd_rawmidi_t; out_rmidi:PPsnd_rawmidi_t; name:Pchar; mode:longint; lconf:Psnd_config_t):longint;cdecl;external;
+function snd_rawmidi_close(rmidi:Psnd_rawmidi_t):longint;cdecl;external;
+function snd_rawmidi_poll_descriptors_count(rmidi:Psnd_rawmidi_t):longint;cdecl;external;
+function snd_rawmidi_poll_descriptors(rmidi:Psnd_rawmidi_t; pfds:Ppollfd; space:dword):longint;cdecl;external;
+function snd_rawmidi_poll_descriptors_revents(rawmidi:Psnd_rawmidi_t; pfds:Ppollfd; nfds:dword; revent:Pword):longint;cdecl;external;
+function snd_rawmidi_nonblock(rmidi:Psnd_rawmidi_t; nonblock:longint):longint;cdecl;external;
+function snd_rawmidi_info_sizeof:Tsize_t;cdecl;external;
+{* \hideinitializer
+ * \brief allocate an invalid #snd_rawmidi_info_t using standard alloca
+ * \param ptr returned pointer
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function snd_rawmidi_info_alloca(ptr : longint) : longint;
+
+function snd_rawmidi_info_malloc(ptr:PPsnd_rawmidi_info_t):longint;cdecl;external;
+procedure snd_rawmidi_info_free(obj:Psnd_rawmidi_info_t);cdecl;external;
+(* Const before type ignored *)
+procedure snd_rawmidi_info_copy(dst:Psnd_rawmidi_info_t; src:Psnd_rawmidi_info_t);cdecl;external;
+(* Const before type ignored *)
+function snd_rawmidi_info_get_device(obj:Psnd_rawmidi_info_t):dword;cdecl;external;
+(* Const before type ignored *)
+function snd_rawmidi_info_get_subdevice(obj:Psnd_rawmidi_info_t):dword;cdecl;external;
+(* Const before type ignored *)
+function snd_rawmidi_info_get_stream(obj:Psnd_rawmidi_info_t):Tsnd_rawmidi_stream_t;cdecl;external;
+(* Const before type ignored *)
+function snd_rawmidi_info_get_card(obj:Psnd_rawmidi_info_t):longint;cdecl;external;
+(* Const before type ignored *)
+function snd_rawmidi_info_get_flags(obj:Psnd_rawmidi_info_t):dword;cdecl;external;
+(* Const before type ignored *)
+(* Const before type ignored *)
+function snd_rawmidi_info_get_id(obj:Psnd_rawmidi_info_t):Pchar;cdecl;external;
+(* Const before type ignored *)
+(* Const before type ignored *)
+function snd_rawmidi_info_get_name(obj:Psnd_rawmidi_info_t):Pchar;cdecl;external;
+(* Const before type ignored *)
+(* Const before type ignored *)
+function snd_rawmidi_info_get_subdevice_name(obj:Psnd_rawmidi_info_t):Pchar;cdecl;external;
+(* Const before type ignored *)
+function snd_rawmidi_info_get_subdevices_count(obj:Psnd_rawmidi_info_t):dword;cdecl;external;
+(* Const before type ignored *)
+function snd_rawmidi_info_get_subdevices_avail(obj:Psnd_rawmidi_info_t):dword;cdecl;external;
+procedure snd_rawmidi_info_set_device(obj:Psnd_rawmidi_info_t; val:dword);cdecl;external;
+procedure snd_rawmidi_info_set_subdevice(obj:Psnd_rawmidi_info_t; val:dword);cdecl;external;
+procedure snd_rawmidi_info_set_stream(obj:Psnd_rawmidi_info_t; val:Tsnd_rawmidi_stream_t);cdecl;external;
+function snd_rawmidi_info(rmidi:Psnd_rawmidi_t; info:Psnd_rawmidi_info_t):longint;cdecl;external;
+function snd_rawmidi_params_sizeof:Tsize_t;cdecl;external;
+{* \hideinitializer
+ * \brief allocate an invalid #snd_rawmidi_params_t using standard alloca
+ * \param ptr returned pointer
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function snd_rawmidi_params_alloca(ptr : longint) : longint;
+
+function snd_rawmidi_params_malloc(ptr:PPsnd_rawmidi_params_t):longint;cdecl;external;
+procedure snd_rawmidi_params_free(obj:Psnd_rawmidi_params_t);cdecl;external;
+(* Const before type ignored *)
+procedure snd_rawmidi_params_copy(dst:Psnd_rawmidi_params_t; src:Psnd_rawmidi_params_t);cdecl;external;
+function snd_rawmidi_params_set_buffer_size(rmidi:Psnd_rawmidi_t; params:Psnd_rawmidi_params_t; val:Tsize_t):longint;cdecl;external;
+(* Const before type ignored *)
+function snd_rawmidi_params_get_buffer_size(params:Psnd_rawmidi_params_t):Tsize_t;cdecl;external;
+function snd_rawmidi_params_set_avail_min(rmidi:Psnd_rawmidi_t; params:Psnd_rawmidi_params_t; val:Tsize_t):longint;cdecl;external;
+(* Const before type ignored *)
+function snd_rawmidi_params_get_avail_min(params:Psnd_rawmidi_params_t):Tsize_t;cdecl;external;
+function snd_rawmidi_params_set_no_active_sensing(rmidi:Psnd_rawmidi_t; params:Psnd_rawmidi_params_t; val:longint):longint;cdecl;external;
+(* Const before type ignored *)
+function snd_rawmidi_params_get_no_active_sensing(params:Psnd_rawmidi_params_t):longint;cdecl;external;
+(* Const before type ignored *)
+function snd_rawmidi_params_set_read_mode(rawmidi:Psnd_rawmidi_t; params:Psnd_rawmidi_params_t; val:Tsnd_rawmidi_read_mode_t):longint;cdecl;external;
+(* Const before type ignored *)
+function snd_rawmidi_params_get_read_mode(params:Psnd_rawmidi_params_t):Tsnd_rawmidi_read_mode_t;cdecl;external;
+(* Const before type ignored *)
+function snd_rawmidi_params_set_clock_type(rawmidi:Psnd_rawmidi_t; params:Psnd_rawmidi_params_t; val:Tsnd_rawmidi_clock_t):longint;cdecl;external;
+(* Const before type ignored *)
+function snd_rawmidi_params_get_clock_type(params:Psnd_rawmidi_params_t):Tsnd_rawmidi_clock_t;cdecl;external;
+function snd_rawmidi_params(rmidi:Psnd_rawmidi_t; params:Psnd_rawmidi_params_t):longint;cdecl;external;
+function snd_rawmidi_params_current(rmidi:Psnd_rawmidi_t; params:Psnd_rawmidi_params_t):longint;cdecl;external;
+function snd_rawmidi_status_sizeof:Tsize_t;cdecl;external;
+{* \hideinitializer
+ * \brief allocate an invalid #snd_rawmidi_status_t using standard alloca
+ * \param ptr returned pointer
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function snd_rawmidi_status_alloca(ptr : longint) : longint;
+
+function snd_rawmidi_status_malloc(ptr:PPsnd_rawmidi_status_t):longint;cdecl;external;
+procedure snd_rawmidi_status_free(obj:Psnd_rawmidi_status_t);cdecl;external;
+(* Const before type ignored *)
+procedure snd_rawmidi_status_copy(dst:Psnd_rawmidi_status_t; src:Psnd_rawmidi_status_t);cdecl;external;
+(* Const before type ignored *)
+procedure snd_rawmidi_status_get_tstamp(obj:Psnd_rawmidi_status_t; ptr:Psnd_htimestamp_t);cdecl;external;
+(* Const before type ignored *)
+function snd_rawmidi_status_get_avail(obj:Psnd_rawmidi_status_t):Tsize_t;cdecl;external;
+(* Const before type ignored *)
+function snd_rawmidi_status_get_xruns(obj:Psnd_rawmidi_status_t):Tsize_t;cdecl;external;
+function snd_rawmidi_status(rmidi:Psnd_rawmidi_t; status:Psnd_rawmidi_status_t):longint;cdecl;external;
+function snd_rawmidi_drain(rmidi:Psnd_rawmidi_t):longint;cdecl;external;
+function snd_rawmidi_drop(rmidi:Psnd_rawmidi_t):longint;cdecl;external;
+(* Const before type ignored *)
+function snd_rawmidi_write(rmidi:Psnd_rawmidi_t; buffer:pointer; size:Tsize_t):Tssize_t;cdecl;external;
+function snd_rawmidi_read(rmidi:Psnd_rawmidi_t; buffer:pointer; size:Tsize_t):Tssize_t;cdecl;external;
+function snd_rawmidi_tread(rmidi:Psnd_rawmidi_t; tstamp:Ptimespec; buffer:pointer; size:Tsize_t):Tssize_t;cdecl;external;
+(* Const before type ignored *)
+function snd_rawmidi_name(rmidi:Psnd_rawmidi_t):Pchar;cdecl;external;
+function snd_rawmidi_type(rmidi:Psnd_rawmidi_t):Tsnd_rawmidi_type_t;cdecl;external;
+function snd_rawmidi_stream(rawmidi:Psnd_rawmidi_t):Tsnd_rawmidi_stream_t;cdecl;external;
+{* \  }
+{ C++ end of extern C conditionnal removed }
+{$endif}
+{ __RAWMIDI_H  }
+
+implementation
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function snd_rawmidi_info_alloca(ptr : longint) : longint;
+begin
+  snd_rawmidi_info_alloca:=__snd_alloca(ptr,snd_rawmidi_info);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function snd_rawmidi_params_alloca(ptr : longint) : longint;
+begin
+  snd_rawmidi_params_alloca:=__snd_alloca(ptr,snd_rawmidi_params);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function snd_rawmidi_status_alloca(ptr : longint) : longint;
+begin
+  snd_rawmidi_status_alloca:=__snd_alloca(ptr,snd_rawmidi_status);
+end;
+
+
+end.

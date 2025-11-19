@@ -132,7 +132,7 @@ sudo apt-get install libgnome-games-support-1-dev
 sudo apt-get install libgirepository1.0-dev
 sudo apt install libadwaita-1-dev 
 
-sudo apt install libxmlb-dev 
+libxmlb-dev      // io.
 
 
 
@@ -160,11 +160,7 @@ export WINEPATH="$WINEPATH;C:\users\tux\mingw64\bin;C:\gstreamer\1.0\msvc_x86_64
 https://github.com/wadester/wh_test_glib/blob/master/glib_test1.c
 https://www.perplexity.ai/search/gib-mir-ein-besipie-mit-g-sign-o.RYtsJDRY6LPTdT6u4ViQ
 
-# GNOME ChatGPT Lizenz
-https://www.perplexity.ai/search/ich-habe-eine-pascal-anbind-fu-xYAjM7aLQhmF4w1h7MlvGA
-
 # gstreamer
-
 meson ../gstreamer-1.24.8 -Dtests=disabled
 ninja -j20
 ninja install
@@ -241,6 +237,9 @@ https://www.linuxfromscratch.org/blfs/view/git/general/graphlib.html
 
 =============
 
+Ogre3D oder IrrLicht:  // Games Engines
+libraylib-dev          // Games Engines
+
 libcurl                            // io.
 libraw                             // io.
 libsoup2.2    // glib
@@ -301,6 +300,16 @@ libhidapi                            // io.
 
 libquadmath0                      /usr/lib/gcc/x86_64-linux-gnu/13/include/quadmath.h
 libpipewire-0.3-dev     
+
+ibsoundtouch-ocaml-dev
+
+
+libgomp1                         // Nur it GCC verwendbar
+libhwasan0                       // Nur it GCC verwendbar     
+libitm1                          // Nur it GCC verwendbar         
+
+libcrypt1
+libgcrypt1
 
 
 /usr/include/libmount
@@ -385,7 +394,7 @@ libmpfi-dev             // io.
 
 libheif-dev  
 
-libportmidi0  
+libportmidi0            // io.
 
 libdfp-dev
 
@@ -397,18 +406,31 @@ libxmlsec1-1
 
 libgsm1   
    libtevent0t64 
-liburcu8t64  
+liburcu8t64
+
+libgeocoding               // io.    
+
+libasound2-dev 
+
+libsoundio                 // io.
+
+libsane                    // io.
+
+libmagickcore-dev
+
+
+# =========================
 
  libglycin-2-0  
 libglycin-gtk4
-
-# =========================0
 
 libheif-dev 
 
 sudo apt install libglycin-gtk4-2-0                           // Brandneu, gibt es in LTS noch nicht
 sudo apt install libglycin-gtk4-2-dev  # für Entwicklung
 https://gitlab.gnome.org/GNOME/glycin/
+
+# =========================
 
 
 

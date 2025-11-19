@@ -252,6 +252,8 @@ const
     (libs: 'libsoundio'; units: 'ctypes'),
     (libs: 'libcrypt'; units: 'ctypes'),
 
+    (libs: 'libasound'; units: 'fp_asound'),
+
     (libs: ''; units: ''));
 
 implementation
