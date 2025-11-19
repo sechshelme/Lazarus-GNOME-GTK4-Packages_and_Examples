@@ -41,10 +41,17 @@ type
   Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;
 
+  Tssize_t=SizeInt;
+
   PFILE = type Pointer;
 
   Ttime_t = int64; // types.h
   Ptime_t = ^Ttime_t;
+
+  Tva_list=type Pointer; // ??????
+
+  type // /usr/include/asm-generic/poll.h
+  Ppollfd=type Pointer;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

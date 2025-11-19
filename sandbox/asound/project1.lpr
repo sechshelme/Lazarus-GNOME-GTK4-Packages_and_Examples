@@ -1,5 +1,6 @@
 program project1;
 
+//  long durchsuchen ????????????
 
 //#include <alsa/asoundef.h>
 //#include <alsa/version.h>
@@ -24,17 +25,19 @@ uses
   asoundef,
   version,
   global,
-  //conf,
+  input,
+  output,
+  error,
+  conf,                    // input, output
+  pcm,                     // conf, global
+
+
   //control,
   //control_external,
   //control_plugin,
-  //error,
   //hwdep,
-  //input,
   //mixer,
   //mixer_abst,
-  //output,
-  //pcm,
   //pcm_external,
   //pcm_extplug,
   //pcm_ioplug,

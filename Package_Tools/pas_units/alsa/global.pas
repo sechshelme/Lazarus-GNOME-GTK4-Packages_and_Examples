@@ -14,6 +14,7 @@ function snd_asoundlib_version: pchar; cdecl; external libasound;
 
 type
   Psnd_dlsym_link = ^Tsnd_dlsym_link;
+
   Tsnd_dlsym_link = record
     next: Psnd_dlsym_link;
     dlsym_name: pchar;
@@ -59,7 +60,10 @@ type
 
 type
   Tsnd_timestamp_t = Ttimeval;
+  Psnd_timestamp_t = ^Tsnd_timestamp_t;
+
   Tsnd_htimestamp_t = Ttimespec;
+  Psnd_htimestamp_t = ^Tsnd_htimestamp_t;
 
   // === Konventiert am: 19-11-25 16:12:26 ===
 
