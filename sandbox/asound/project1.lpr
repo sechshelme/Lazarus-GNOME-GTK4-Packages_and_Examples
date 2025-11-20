@@ -29,7 +29,7 @@ uses
   output,
   error,
   conf,                    // input, output
-  pcm,                     // conf, global
+  pcm,                     // conf, global, output
 
 
   //control,
@@ -55,6 +55,17 @@ uses
 
   fp_asound;
 
-begin
+function snd_pcm_sw_params_set_xfer_align(pcm:Pointer; params:Pointer; val:Integer):longint;cdecl;external libasound;
 
+
+
+procedure main;
+begin
+     snd_pcm_sw_params_set_xfer_align(nil,nil,0);
+//     snd_pcm_sw_params_set_tstamp_mode(nil,nil,0);
+//  snd_pcm_hw_params_get_access(nil,nil);
+end;
+
+begin
+     main;
 end.
