@@ -30,12 +30,15 @@ uses
   error,
   conf,                    // input, output
   pcm,                     // conf, global, output
+  rawmidi,                 // conf, global
+  ump,                     // global, rawmidi
+  timer,                   // global, conf
+  hwdep,
+  control,                 // conf, global, hwdep, pcm, rawmidi, ump
 
 
-  //control,
   //control_external,
   //control_plugin,
-  //hwdep,
   //mixer,
   //mixer_abst,
   //pcm_external,
@@ -43,29 +46,28 @@ uses
   //pcm_ioplug,
   //pcm_plugin,
   //pcm_rate,
-  //rawmidi,
   //seq,
   //seq_event,
   //seqmid,
   //seq_midi_event,
-  //timer,
-  //ump,
   //ump_msg,
   //use_case,
 
   fp_asound;
 
-function snd_pcm_sw_params_set_xfer_align(pcm:Pointer; params:Pointer; val:Integer):longint;cdecl;external libasound;
+  function snd_pcm_sw_params_set_xfer_align(pcm: Pointer; params: Pointer; val: integer): longint; cdecl; external libasound;
 
 
 
-procedure main;
+  procedure main;
+  begin
+    snd_ctl_ump_next_device(nil,nil);
+    snd_ctl_hwdep_next_device(nil,nil);
+    snd_pcm_sw_params_set_xfer_align(nil, nil, 0);
+    //     snd_pcm_sw_params_set_tstamp_mode(nil,nil,0);
+    //  snd_pcm_hw_params_get_access(nil,nil);
+  end;
+
 begin
-     snd_pcm_sw_params_set_xfer_align(nil,nil,0);
-//     snd_pcm_sw_params_set_tstamp_mode(nil,nil,0);
-//  snd_pcm_hw_params_get_access(nil,nil);
-end;
-
-begin
-     main;
+  main;
 end.

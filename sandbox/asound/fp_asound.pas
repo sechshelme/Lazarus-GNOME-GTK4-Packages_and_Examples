@@ -12,6 +12,8 @@ const
   {$ENDIF}
 
 type
+PPdword=^PDWord;
+
   Tuint8_t = uint8;
   Puint8_t = ^Tuint8_t;
   PPuint8_t = ^Puint8_t;
@@ -48,6 +50,8 @@ type
   Ttime_t = int64; // types.h
   Ptime_t = ^Ttime_t;
 
+  Tpid_t=Int32;
+
   Tva_list=type Pointer; // ??????
 
   type // /usr/include/asm-generic/poll.h
@@ -60,6 +64,14 @@ type
 type // Herkunft unbekannt
   Psnd_shm_area = type Pointer;
   PPsnd_shm_area = ^Psnd_shm_area;
+
+const // /usr/include/asm-generic/fcntl.h
+  O_RDONLY = &00;
+  O_WRONLY = &01;
+  O_RDWR = &02;
+  O_NONBLOCK = &04000;
+
+
 
   {$DEFINE read_interface}
   //  {$include fp_suitesparse_includes.inc}
