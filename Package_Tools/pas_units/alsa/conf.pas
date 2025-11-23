@@ -14,8 +14,8 @@ uses
   //  SND_CONFIG_DLSYM_VERSION_EVALUATE = _dlsym_config_evaluate_001;
   //  SND_CONFIG_DLSYM_VERSION_HOOK = _dlsym_config_hook_001;
 type
-  Psnd_config_type = ^Tsnd_config_type;
-  Tsnd_config_type = longint;
+  Psnd_config_type_t = ^Tsnd_config_type_t;
+  Tsnd_config_type_t = longint;
 
 const
   SND_CONFIG_TYPE_INTEGER = 0;
@@ -24,10 +24,6 @@ const
   SND_CONFIG_TYPE_STRING = 3;
   SND_CONFIG_TYPE_POINTER = 4;
   SND_CONFIG_TYPE_COMPOUND = 1024;
-
-type
-  Tsnd_config_type_t = Tsnd_config_type;
-  Psnd_config_type_t = ^Tsnd_config_type_t;
 
 type
   Psnd_config_t = type Pointer;

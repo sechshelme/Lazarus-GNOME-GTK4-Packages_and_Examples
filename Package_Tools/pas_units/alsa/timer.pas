@@ -72,12 +72,11 @@ const
   SND_TIMER_EVENT_MRESUME = SND_TIMER_EVENT_RESUME + 10;
 
 type
-  Psnd_timer_read_t = ^Tsnd_timer_read_t;
-
   Tsnd_timer_read_t = record
     resolution: dword;
     ticks: dword;
   end;
+  Psnd_timer_read_t = ^Tsnd_timer_read_t;
 
   Tsnd_timer_tread_t = record
     event: Tsnd_timer_event_t;

@@ -35,23 +35,27 @@ uses
   timer,                   // global, conf
   hwdep,
   control,                 // conf, global, hwdep, pcm, rawmidi, ump
+  mixer,                   // control, pcm
+  seq_event,
+  seq,                     // conf, timer, seq_event
+  seqmid,                  // seq, seq_event
+  seq_midi_event,          // seq_event
 
 
-  //control_external,
+
+  control_external,
   //control_plugin,
-  //mixer,
   //mixer_abst,
   //pcm_external,
   //pcm_extplug,
   //pcm_ioplug,
   //pcm_plugin,
   //pcm_rate,
-  //seq,
-  //seq_event,
-  //seqmid,
   //seq_midi_event,
   //ump_msg,
   //use_case,
+
+  // _dlsym_seq_001;   ???????????''
 
   fp_asound;
 

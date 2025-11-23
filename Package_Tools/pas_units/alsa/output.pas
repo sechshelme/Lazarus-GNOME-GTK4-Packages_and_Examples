@@ -15,16 +15,12 @@ type
   PPsnd_output_t = ^Psnd_output_t;
 
 type
-  Psnd_output_type = ^Tsnd_output_type;
-  Tsnd_output_type = longint;
+  Psnd_output_type_t = ^Tsnd_output_type_t;
+  Tsnd_output_type_t = longint;
 
 const
   SND_OUTPUT_STDIO = 0;
   SND_OUTPUT_BUFFER = 1;
-
-type
-  Tsnd_output_type_t = Tsnd_output_type;
-  Psnd_output_type_t = ^Tsnd_output_type_t;
 
 function snd_output_stdio_open(outputp: PPsnd_output_t; file_: pchar; mode: pchar): longint; cdecl; external libasound;
 function snd_output_stdio_attach(outputp: PPsnd_output_t; fp: PFILE; _close: longint): longint; cdecl; external libasound;
