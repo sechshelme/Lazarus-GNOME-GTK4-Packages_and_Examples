@@ -44,16 +44,15 @@ uses
 
 
   control_external,
-  //control_plugin,
-  //mixer_abst,
-  //pcm_external,
-  //pcm_extplug,
-  //pcm_ioplug,
-  //pcm_plugin,
-  //pcm_rate,
-  //seq_midi_event,
-  //ump_msg,
-  //use_case,
+  control_plugin,
+  mixer_abst,
+  pcm_external,
+  pcm_extplug,
+  pcm_ioplug,
+  pcm_plugin,
+  pcm_rate,
+  ump_msg,
+  use_case,
 
   // _dlsym_seq_001;   ???????????''
 

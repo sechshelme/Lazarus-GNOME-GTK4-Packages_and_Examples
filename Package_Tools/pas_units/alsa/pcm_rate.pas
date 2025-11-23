@@ -3,194 +3,91 @@ unit pcm_rate;
 interface
 
 uses
-  fp_asound;
+  fp_asound, pcm, output, conf;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
-
-{*
- * \file include/pcm_rate.h
- * \brief External Rate-Converter-Plugin SDK
- * \author Takashi Iwai <tiwai@suse.de>
- * \date 2006
- *
- * External Rate-Converter-Plugin SDK
-  }
-{
- * ALSA external PCM rate-converter plugin SDK (draft version)
- *
- * Copyright (c) 2006 Takashi Iwai <tiwai@suse.de>
- *
- *   This library is free software; you can redistribute it and/or modify
- *   it under the terms of the GNU Lesser General Public License as
- *   published by the Free Software Foundation; either version 2.1 of
- *   the License, or (at your option) any later version.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU Lesser General Public License for more details.
- *
- *   You should have received a copy of the GNU Lesser General Public
- *   License along with this library; if not, write to the Free Software
- *   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
- *
-  }
-{$ifndef __ALSA_PCM_RATE_H}
-{$define __ALSA_PCM_RATE_H}
-{ C++ extern C conditionnal removed }
-{*
- * Protocol version
-  }
 
 const
-  SND_PCM_RATE_PLUGIN_VERSION = $010003;  
-{* hw_params information for a single side  }
+  SND_PCM_RATE_PLUGIN_VERSION = $010003;
+
 type
-  Psnd_pcm_rate_side_info = ^Tsnd_pcm_rate_side_info;
-  Tsnd_pcm_rate_side_info = record
-      format : Tsnd_pcm_format_t;
-      rate : dword;
-      buffer_size : Tsnd_pcm_uframes_t;
-      period_size : Tsnd_pcm_uframes_t;
-    end;
-  Tsnd_pcm_rate_side_info_t = Tsnd_pcm_rate_side_info;
+  Tsnd_pcm_rate_side_info_t = record
+    format: Tsnd_pcm_format_t;
+    rate: dword;
+    buffer_size: Tsnd_pcm_uframes_t;
+    period_size: Tsnd_pcm_uframes_t;
+  end;
   Psnd_pcm_rate_side_info_t = ^Tsnd_pcm_rate_side_info_t;
-{* hw_params information  }
 
-  Psnd_pcm_rate_info = ^Tsnd_pcm_rate_info;
-  Tsnd_pcm_rate_info = record
-      in : Tsnd_pcm_rate_side_info;
-      out : Tsnd_pcm_rate_side_info;
-      channels : dword;
-    end;
-  Tsnd_pcm_rate_info_t = Tsnd_pcm_rate_info;
+  Tsnd_pcm_rate_info_t = record
+    in_: Tsnd_pcm_rate_side_info_t;
+    out_: Tsnd_pcm_rate_side_info_t;
+    channels: dword;
+  end;
   Psnd_pcm_rate_info_t = ^Tsnd_pcm_rate_info_t;
-{* only interleaved format  }
-{* both input and output formats have to be identical  }
-  Txxxxxxxxx =  Longint;
-  Const
-    SND_PCM_RATE_FLAG_INTERLEAVED = 1 shl 0;
-    SND_PCM_RATE_FLAG_SYNC_FORMATS = 1 shl 1;
 
-{* Callback table of rate-converter  }
-{*
-	 * close the converter; optional
-	  }
-{*
-	 * initialize the converter, called at hw_params
-	  }
-{*
-	 * free the converter; optional
-	  }
-{*
-	 * reset the converter, called at prepare; optional
-	  }
-{*
-	 * adjust the pitch, called at sw_params; optional
-	  }
-{*
-	 * convert the data
-	  }
-{*
-	 * convert an s16 interleaved-data array; exclusive with convert
-	  }
-{*
-	 * compute the frame size for input
-	  }
-{*
-	 * compute the frame size for output
-	  }
-{*
-	 * the protocol version the plugin supports;
-	 * new field since version 0x010002
-	  }
-{*
-	 * return the supported min / max sample rates;
-	 * new ops since version 0x010002
-	  }
-{*
-	 * show some status messages for verbose mode;
-	 * new ops since version 0x010002
-	  }
-{*
-	 * get the supported input and output formats (optional);
-	 * new ops since version 0x010003
-	  }
+const
+  SND_PCM_RATE_FLAG_INTERLEAVED = 1 shl 0;
+  SND_PCM_RATE_FLAG_SYNC_FORMATS = 1 shl 1;
+
 type
-  Psnd_pcm_rate_ops = ^Tsnd_pcm_rate_ops;
-  Tsnd_pcm_rate_ops = record
-      close : procedure (obj:pointer);cdecl;
-      init : function (obj:pointer; info:Psnd_pcm_rate_info_t):longint;cdecl;
-      free : procedure (obj:pointer);cdecl;
-      reset : procedure (obj:pointer);cdecl;
-      adjust_pitch : function (obj:pointer; info:Psnd_pcm_rate_info_t):longint;cdecl;
-      convert : procedure (obj:pointer; dst_areas:Psnd_pcm_channel_area_t; dst_offset:Tsnd_pcm_uframes_t; dst_frames:dword; src_areas:Psnd_pcm_channel_area_t; 
-                    src_offset:Tsnd_pcm_uframes_t; src_frames:dword);cdecl;
-      convert_s16 : procedure (obj:pointer; dst:Pint16_t; dst_frames:dword; src:Pint16_t; src_frames:dword);cdecl;
-      input_frames : function (obj:pointer; frames:Tsnd_pcm_uframes_t):Tsnd_pcm_uframes_t;cdecl;
-      output_frames : function (obj:pointer; frames:Tsnd_pcm_uframes_t):Tsnd_pcm_uframes_t;cdecl;
-      version : dword;
-      get_supported_rates : function (obj:pointer; rate_min:Pdword; rate_max:Pdword):longint;cdecl;
-      dump : procedure (obj:pointer; out:Psnd_output_t);cdecl;
-      get_supported_formats : function (obj:pointer; in_formats:Puint64_t; out_formats:Puint64_t; flags:Pdword):longint;cdecl;
-    end;
-  Tsnd_pcm_rate_ops_t = Tsnd_pcm_rate_ops;
+  Tsnd_pcm_rate_ops_t = record
+    close: procedure(obj: pointer); cdecl;
+    init: function(obj: pointer; info: Psnd_pcm_rate_info_t): longint; cdecl;
+    free: procedure(obj: pointer); cdecl;
+    reset: procedure(obj: pointer); cdecl;
+    adjust_pitch: function(obj: pointer; info: Psnd_pcm_rate_info_t): longint; cdecl;
+    convert: procedure(obj: pointer; dst_areas: Psnd_pcm_channel_area_t; dst_offset: Tsnd_pcm_uframes_t; dst_frames: dword; src_areas: Psnd_pcm_channel_area_t;
+      src_offset: Tsnd_pcm_uframes_t; src_frames: dword); cdecl;
+    convert_s16: procedure(obj: pointer; dst: Pint16_t; dst_frames: dword; src: Pint16_t; src_frames: dword); cdecl;
+    input_frames: function(obj: pointer; frames: Tsnd_pcm_uframes_t): Tsnd_pcm_uframes_t; cdecl;
+    output_frames: function(obj: pointer; frames: Tsnd_pcm_uframes_t): Tsnd_pcm_uframes_t; cdecl;
+    version: dword;
+    get_supported_rates: function(obj: pointer; rate_min: Pdword; rate_max: Pdword): longint; cdecl;
+    dump: procedure(obj: pointer; out_: Psnd_output_t); cdecl;
+    get_supported_formats: function(obj: pointer; in_formats: Puint64_t; out_formats: Puint64_t; flags: Pdword): longint; cdecl;
+  end;
   Psnd_pcm_rate_ops_t = ^Tsnd_pcm_rate_ops_t;
-{* open function type  }
 
-  Tsnd_pcm_rate_open_func_t = function (version:dword; objp:Ppointer; opsp:Psnd_pcm_rate_ops_t):longint;cdecl;
+  Tsnd_pcm_rate_open_func_t = function(version: dword; objp: Ppointer; opsp: Psnd_pcm_rate_ops_t): longint; cdecl;
+  Tsnd_pcm_rate_open_conf_func_t = function(version: dword; objp: Ppointer; opsp: Psnd_pcm_rate_ops_t; conf: Psnd_config_t): longint; cdecl;
 
-  Tsnd_pcm_rate_open_conf_func_t = function (version:dword; objp:Ppointer; opsp:Psnd_pcm_rate_ops_t; conf:Psnd_config_t):longint;cdecl;
-{*
- * Define the object entry for external PCM rate-converter plugins
-  }
-{$ifndef DOC_HIDDEN}
-{ old rate_ops for protocol version 0x010001  }
 type
-  Psnd_pcm_rate_old_ops = ^Tsnd_pcm_rate_old_ops;
-  Tsnd_pcm_rate_old_ops = record
-      close : procedure (obj:pointer);cdecl;
-      init : function (obj:pointer; info:Psnd_pcm_rate_info_t):longint;cdecl;
-      free : procedure (obj:pointer);cdecl;
-      reset : procedure (obj:pointer);cdecl;
-      adjust_pitch : function (obj:pointer; info:Psnd_pcm_rate_info_t):longint;cdecl;
-      convert : procedure (obj:pointer; dst_areas:Psnd_pcm_channel_area_t; dst_offset:Tsnd_pcm_uframes_t; dst_frames:dword; src_areas:Psnd_pcm_channel_area_t; 
-                    src_offset:Tsnd_pcm_uframes_t; src_frames:dword);cdecl;
-      convert_s16 : procedure (obj:pointer; dst:Pint16_t; dst_frames:dword; src:Pint16_t; src_frames:dword);cdecl;
-      input_frames : function (obj:pointer; frames:Tsnd_pcm_uframes_t):Tsnd_pcm_uframes_t;cdecl;
-      output_frames : function (obj:pointer; frames:Tsnd_pcm_uframes_t):Tsnd_pcm_uframes_t;cdecl;
-    end;
-  Tsnd_pcm_rate_old_ops_t = Tsnd_pcm_rate_old_ops;
+  Tsnd_pcm_rate_old_ops_t = record
+    close: procedure(obj: pointer); cdecl;
+    init: function(obj: pointer; info: Psnd_pcm_rate_info_t): longint; cdecl;
+    free: procedure(obj: pointer); cdecl;
+    reset: procedure(obj: pointer); cdecl;
+    adjust_pitch: function(obj: pointer; info: Psnd_pcm_rate_info_t): longint; cdecl;
+    convert: procedure(obj: pointer; dst_areas: Psnd_pcm_channel_area_t; dst_offset: Tsnd_pcm_uframes_t; dst_frames: dword; src_areas: Psnd_pcm_channel_area_t;
+      src_offset: Tsnd_pcm_uframes_t; src_frames: dword); cdecl;
+    convert_s16: procedure(obj: pointer; dst: Pint16_t; dst_frames: dword; src: Pint16_t; src_frames: dword); cdecl;
+    input_frames: function(obj: pointer; frames: Tsnd_pcm_uframes_t): Tsnd_pcm_uframes_t; cdecl;
+    output_frames: function(obj: pointer; frames: Tsnd_pcm_uframes_t): Tsnd_pcm_uframes_t; cdecl;
+  end;
   Psnd_pcm_rate_old_ops_t = ^Tsnd_pcm_rate_old_ops_t;
-{ old rate_ops for protocol version 0x010002  }
 
-  Psnd_pcm_rate_v2_ops = ^Tsnd_pcm_rate_v2_ops;
-  Tsnd_pcm_rate_v2_ops = record
-      close : procedure (obj:pointer);cdecl;
-      init : function (obj:pointer; info:Psnd_pcm_rate_info_t):longint;cdecl;
-      free : procedure (obj:pointer);cdecl;
-      reset : procedure (obj:pointer);cdecl;
-      adjust_pitch : function (obj:pointer; info:Psnd_pcm_rate_info_t):longint;cdecl;
-      convert : procedure (obj:pointer; dst_areas:Psnd_pcm_channel_area_t; dst_offset:Tsnd_pcm_uframes_t; dst_frames:dword; src_areas:Psnd_pcm_channel_area_t; 
-                    src_offset:Tsnd_pcm_uframes_t; src_frames:dword);cdecl;
-      convert_s16 : procedure (obj:pointer; dst:Pint16_t; dst_frames:dword; src:Pint16_t; src_frames:dword);cdecl;
-      input_frames : function (obj:pointer; frames:Tsnd_pcm_uframes_t):Tsnd_pcm_uframes_t;cdecl;
-      output_frames : function (obj:pointer; frames:Tsnd_pcm_uframes_t):Tsnd_pcm_uframes_t;cdecl;
-      version : dword;
-      get_supported_rates : function (obj:pointer; rate_min:Pdword; rate_max:Pdword):longint;cdecl;
-      dump : procedure (obj:pointer; out:Psnd_output_t);cdecl;
-    end;
-  Tsnd_pcm_rate_v2_ops_t = Tsnd_pcm_rate_v2_ops;
+  Tsnd_pcm_rate_v2_ops_t = record
+    close: procedure(obj: pointer); cdecl;
+    init: function(obj: pointer; info: Psnd_pcm_rate_info_t): longint; cdecl;
+    free: procedure(obj: pointer); cdecl;
+    reset: procedure(obj: pointer); cdecl;
+    adjust_pitch: function(obj: pointer; info: Psnd_pcm_rate_info_t): longint; cdecl;
+    convert: procedure(obj: pointer; dst_areas: Psnd_pcm_channel_area_t; dst_offset: Tsnd_pcm_uframes_t; dst_frames: dword; src_areas: Psnd_pcm_channel_area_t;
+      src_offset: Tsnd_pcm_uframes_t; src_frames: dword); cdecl;
+    convert_s16: procedure(obj: pointer; dst: Pint16_t; dst_frames: dword; src: Pint16_t; src_frames: dword); cdecl;
+    input_frames: function(obj: pointer; frames: Tsnd_pcm_uframes_t): Tsnd_pcm_uframes_t; cdecl;
+    output_frames: function(obj: pointer; frames: Tsnd_pcm_uframes_t): Tsnd_pcm_uframes_t; cdecl;
+    version: dword;
+    get_supported_rates: function(obj: pointer; rate_min: Pdword; rate_max: Pdword): longint; cdecl;
+    dump: procedure(obj: pointer; out_: Psnd_output_t); cdecl;
+  end;
   Psnd_pcm_rate_v2_ops_t = ^Tsnd_pcm_rate_v2_ops_t;
-{$endif}
-{ C++ end of extern C conditionnal removed }
-{$endif}
-{ __ALSA_PCM_RATE_H  }
 
-// === Konventiert am: 19-11-25 16:11:52 ===
+  // === Konventiert am: 19-11-25 16:11:52 ===
 
 
 implementation

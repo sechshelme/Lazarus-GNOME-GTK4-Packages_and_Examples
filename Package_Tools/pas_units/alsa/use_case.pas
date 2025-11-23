@@ -3,7 +3,7 @@ unit use_case;
 interface
 
 uses
-  fp_asound;
+  fp_asound, control, mixer;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -44,7 +44,7 @@ const
   SND_USE_CASE_TQ_TONES = 'Tones';
 
 type
-  Psnd_use_case_mgr_t = type PointerArray;
+  Psnd_use_case_mgr_t = type Pointer;
   PPsnd_use_case_mgr_t = ^Psnd_use_case_mgr_t;
 
 function snd_use_case_identifier(fmt: pchar): pchar; cdecl; varargs; external libasound;
@@ -58,8 +58,8 @@ function snd_use_case_mgr_reload(uc_mgr: Psnd_use_case_mgr_t): longint; cdecl; e
 function snd_use_case_mgr_close(uc_mgr: Psnd_use_case_mgr_t): longint; cdecl; external libasound;
 function snd_use_case_mgr_reset(uc_mgr: Psnd_use_case_mgr_t): longint; cdecl; external libasound;
 
-function snd_use_case_card_list(list: PPAnsiChar): Integer; inline;
-function snd_use_case_verb_list(uc_mgr: Pointer; list: PPAnsiChar): Integer; inline;
+function snd_use_case_card_list(list: PPPAnsiChar): integer; inline;
+function snd_use_case_verb_list(uc_mgr: Psnd_use_case_mgr_t; list: PPPAnsiChar): integer; inline;
 
 function snd_use_case_parse_ctl_elem_id(dst: Psnd_ctl_elem_id_t; ucm_id: pchar; value: pchar): longint; cdecl; external libasound;
 function snd_use_case_parse_selem_id(dst: Psnd_mixer_selem_id_t; ucm_id: pchar; value: pchar): longint; cdecl; external libasound;
@@ -69,12 +69,12 @@ function snd_use_case_parse_selem_id(dst: Psnd_mixer_selem_id_t; ucm_id: pchar; 
 
 implementation
 
-function snd_use_case_card_list(list: PPAnsiChar): Integer;
+function snd_use_case_card_list(list: PPPAnsiChar): integer;
 begin
   Result := snd_use_case_get_list(nil, nil, list);
 end;
 
-function snd_use_case_verb_list(uc_mgr: Pointer; list: PPAnsiChar): Integer;
+function snd_use_case_verb_list(uc_mgr: Psnd_use_case_mgr_t; list: PPPAnsiChar): integer;
 begin
   Result := snd_use_case_get_list(uc_mgr, '_verbs', list);
 end;
