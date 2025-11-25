@@ -2,9 +2,6 @@ unit fp_serd;
 
 interface
 
-uses
-  ctypes;
-
 const
   {$IFDEF Linux}
   libserd0 = 'serd-0';
