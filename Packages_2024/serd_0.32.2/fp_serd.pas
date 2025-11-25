@@ -80,7 +80,7 @@ type
   PSerdChunk = ^TSerdChunk;
 
   TSerdChunk = record
-    buf: Puint8_t;
+    buf: pansichar;
     len: Tsize_t;
   end;
 
@@ -154,7 +154,7 @@ const
 
 type
   TSerdNode = record
-    buf: Puint8_t;
+    buf: pansichar;
     n_bytes: Tsize_t;
     n_chars: Tsize_t;
     flags: TSerdNodeFlags;
@@ -163,12 +163,7 @@ type
   PSerdNode = ^TSerdNode;
 
 const
-  SERD_NODE_NULL: TSerdNode = (
-    buf: nil;
-    n_bytes: 0;
-    n_chars: 0;
-    flags: 0;
-    _type: SERD_NOTHING);
+  SERD_NODE_NULL: TSerdNode = (buf: nil; n_bytes: 0; n_chars: 0; flags: 0; _type: SERD_NOTHING);
 
 function serd_node_from_string(_type: TSerdType; str: Puint8_t): TSerdNode; cdecl; external libserd0;
 function serd_node_from_substring(_type: TSerdType; str: Puint8_t; len: Tsize_t): TSerdNode; cdecl; external libserd0;
@@ -215,8 +210,7 @@ type
   TSerdErrorSink = function(handle: pointer; error: PSerdError): TSerdStatus; cdecl;
   TSerdBaseSink = function(handle: pointer; uri: PSerdNode): TSerdStatus; cdecl;
   TSerdPrefixSink = function(handle: pointer; name: PSerdNode; uri: PSerdNode): TSerdStatus; cdecl;
-  TSerdStatementSink = function(handle: pointer; flags: TSerdStatementFlags; graph: PSerdNode; subject: PSerdNode; predicate: PSerdNode;
-    obj: PSerdNode; object_datatype: PSerdNode; object_lang: PSerdNode): TSerdStatus; cdecl;
+  TSerdStatementSink = function(handle: pointer; flags: TSerdStatementFlags; graph, subject, predicate, obj, object_datatype, object_lang: PSerdNode): TSerdStatus; cdecl;
   TSerdEndSink = function(handle: pointer; node: PSerdNode): TSerdStatus; cdecl;
 
   PSerdEnv = type Pointer;
@@ -253,7 +247,7 @@ function serd_reader_end_stream(reader: PSerdReader): TSerdStatus; cdecl; extern
 function serd_reader_read_file_handle(reader: PSerdReader; file_: PFILE; name: Puint8_t): TSerdStatus; cdecl; external libserd0;
 function serd_reader_read_source(reader: PSerdReader; source: TSerdSource; error: TSerdStreamErrorFunc; stream: pointer; name: Puint8_t;
   page_size: Tsize_t): TSerdStatus; cdecl; external libserd0;
-function serd_reader_read_string(reader: PSerdReader; utf8: Puint8_t): TSerdStatus; cdecl; external libserd0;
+function serd_reader_read_string(reader: PSerdReader; utf8: pansichar): TSerdStatus; cdecl; external libserd0;
 function serd_reader_skip_until_byte(reader: PSerdReader; byte: Tuint8_t): TSerdStatus; cdecl; external libserd0;
 procedure serd_reader_free(reader: PSerdReader); cdecl; external libserd0;
 

@@ -44,8 +44,8 @@ function colamd_l(n_row: Tint64_t; n_col: Tint64_t; Alen: Tint64_t; A: Pint64_t;
   knobs: Pdouble; stats: Pint64_t): longint; cdecl; external libcolamd;
 
 type
-  Tsymamd_func = function(para1: Tsize_t; para2: Tsize_t): pointer;
-  Tsymamd_func2 = procedure(para1: pointer);
+  Tsymamd_func = function(para1: Tsize_t; para2: Tsize_t): pointer; cdecl;
+  Tsymamd_func2 = procedure(para1: pointer); cdecl;
 
 function symamd(n: Tint32_t; A: Pint32_t; p: Pint32_t; perm: Pint32_t; knobs: Pdouble;
   stats: Pint32_t; allocate: Tsymamd_func; release: Tsymamd_func2): longint; cdecl; external libcolamd;

@@ -16,10 +16,6 @@ type
     Memo1: TMemo;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-  private
-    function DeleteLines(const s, delStr: string): string;
-  public
-
   end;
 
 var
@@ -31,30 +27,10 @@ implementation
 
 { TForm1 }
 
-function TForm1.DeleteLines(const s, delStr: string): string;
-begin
-  if Pos(delStr, s) = 1 then begin
-    Result := '';
-  end else begin
-    Result := s;
-  end;
-end;
-
-const
-  availables: array of string = (
-    'CHAFA_AVAILABLE_IN_1',
-    'GDK_PIXBUF_AVAILABLE_IN_2',
-    'GDK_AVAILABLE_IN_4',
-    'GRAPHENE_AVAILABLE_IN',
-    'PANGO_AVAILABLE_IN_1',
-    'PANGO_DEPRECATED_IN_1');
-
-
 procedure TForm1.Button1Click(Sender: TObject);
 var
   slFile, slHeader: TStringList;
-  i, j, v, a: integer;
-  s: string;
+  i, j: integer;
 begin
   Memo1.Clear;
   slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024', '*.pas;*.inc', True);

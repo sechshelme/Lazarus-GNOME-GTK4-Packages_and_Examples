@@ -52,7 +52,7 @@ function snd_mixer_elem_get_type(obj: Psnd_mixer_elem_t): Tsnd_mixer_elem_type_t
 function snd_mixer_class_register(class_: Psnd_mixer_class_t; mixer: Psnd_mixer_t): longint; cdecl; external libasound;
 
 type
-  Tmixer_elem_new_proc = procedure(elem: Psnd_mixer_elem_t);
+  Tmixer_elem_new_proc = procedure(elem: Psnd_mixer_elem_t); cdecl;
 
 function snd_mixer_elem_new(elem: PPsnd_mixer_elem_t; _type: Tsnd_mixer_elem_type_t; compare_weight: longint; private_data: pointer; private_free: Tmixer_elem_new_proc): longint; cdecl; external libasound;
 function snd_mixer_elem_add(elem: Psnd_mixer_elem_t; class_: Psnd_mixer_class_t): longint; cdecl; external libasound;
@@ -77,7 +77,7 @@ function snd_mixer_class_set_event(class_: Psnd_mixer_class_t; event: Tsnd_mixer
 function snd_mixer_class_set_private(class_: Psnd_mixer_class_t; private_data: pointer): longint; cdecl; external libasound;
 
 type
-  Tmixer_mixer_class_proc = procedure(para1: Psnd_mixer_class_t);
+  Tmixer_mixer_class_proc = procedure(para1: Psnd_mixer_class_t); cdecl;
 
 function snd_mixer_class_set_private_free(class_: Psnd_mixer_class_t; private_free: Tmixer_mixer_class_proc): longint; cdecl; external libasound;
 function snd_mixer_class_set_compare(class_: Psnd_mixer_class_t; compare: Tsnd_mixer_compare_t): longint; cdecl; external libasound;

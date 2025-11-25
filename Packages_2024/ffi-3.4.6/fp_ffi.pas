@@ -93,8 +93,6 @@ const
   FFI_TYPE_COMPLEX_ = 15;
   FFI_TYPE_LAST_ = FFI_TYPE_COMPLEX_;
 
-
-
 const
   FFI_64_BIT_MAX = 9223372036854775807;
 
@@ -202,14 +200,12 @@ function ffi_closure_alloc(size: Tsize_t; code: Ppointer): pointer; cdecl; exter
 procedure ffi_closure_free(para1: pointer); cdecl; external libffi;
 
 type
-  Tprep_proc = procedure(para1: Pffi_cif; para2: pointer; para3: Ppointer; para4: pointer);
+  Tprep_proc = procedure(para1: Pffi_cif; para2: pointer; para3: Ppointer; para4: pointer); cdecl;
 
 function ffi_prep_closure(para1: Pffi_closure; para2: Pffi_cif; fun: Tprep_proc; user_data: pointer): Tffi_status; cdecl; external libffi; deprecated;
 function ffi_prep_closure_loc(para1: Pffi_closure; para2: Pffi_cif; fun: Tprep_proc; user_data: pointer; codeloc: pointer): Tffi_status; cdecl; external libffi;
 
 type
-  Pffi_raw_closure = ^Tffi_raw_closure;
-
   Tffi_raw_closure = record
     tramp: array[0..FFI_TRAMPOLINE_SIZE - 1] of char;
     cif: Pffi_cif;
@@ -218,10 +214,9 @@ type
     fun: procedure(para1: Pffi_cif; para2: pointer; para3: Pffi_raw; para4: pointer); cdecl;
     user_data: pointer;
   end;
+  Pffi_raw_closure = ^Tffi_raw_closure;
 
 type
-  Pffi_java_raw_closure = ^Tffi_java_raw_closure;
-
   Tffi_java_raw_closure = record
     tramp: array[0..(FFI_TRAMPOLINE_SIZE) - 1] of char;
     cif: Pffi_cif;
@@ -230,9 +225,10 @@ type
     fun: procedure(para1: Pffi_cif; para2: pointer; para3: Pffi_java_raw; para4: pointer); cdecl;
     user_data: pointer;
   end;
+  Pffi_java_raw_closure = ^Tffi_java_raw_closure;
 
 type
-  TPrep_proc_raw_proc = procedure(para1: Pffi_cif; para2: pointer; para3: Pffi_raw; para4: pointer);
+  TPrep_proc_raw_proc = procedure(para1: Pffi_cif; para2: pointer; para3: Pffi_raw; para4: pointer); cdecl;
 
 function ffi_prep_raw_closure(para1: Pffi_raw_closure; cif: Pffi_cif; fun: TPrep_proc_raw_proc; user_data: pointer): Tffi_status; cdecl; external libffi;
 function ffi_prep_raw_closure_loc(para1: Pffi_raw_closure; cif: Pffi_cif; fun: TPrep_proc_raw_proc; user_data: pointer; codeloc: pointer): Tffi_status; cdecl; external libffi;
@@ -241,16 +237,15 @@ function ffi_prep_java_raw_closure(para1: Pffi_java_raw_closure; cif: Pffi_cif; 
 function ffi_prep_java_raw_closure_loc(para1: Pffi_java_raw_closure; cif: Pffi_cif; fun: TPrep_proc_raw_proc; user_data: pointer; codeloc: pointer): Tffi_status; cdecl; external libffi; deprecated;
 
 type
-  Pffi_go_closure = ^Tffi_go_closure;
-
   Tffi_go_closure = record
     tramp: pointer;
     cif: Pffi_cif;
     fun: procedure(para1: Pffi_cif; para2: pointer; para3: Ppointer; para4: pointer); cdecl;
   end;
+  Pffi_go_closure = ^Tffi_go_closure;
 
 type
-  Tprep_go_proc = procedure(para1: Pffi_cif; para2: pointer; para3: Ppointer; para4: pointer);
+  Tprep_go_proc = procedure(para1: Pffi_cif; para2: pointer; para3: Ppointer; para4: pointer); cdecl;
 
 function ffi_prep_go_closure(para1: Pffi_go_closure; para2: Pffi_cif; fun: Tprep_go_proc): Tffi_status; cdecl; external libffi;
 procedure ffi_call_go(cif: Pffi_cif; fn: Pointer; rvalue: pointer; avalue: Ppointer; closure: pointer); cdecl; external libffi;

@@ -119,7 +119,7 @@ function mxmlIndexNew(node: Pmxml_node; element: pchar; attr: pchar): Pmxml_inde
 function mxmlIndexReset(ind: Pmxml_index): Pmxml_node; cdecl; external libmxml;
 
 type
-  TLoad_cp = function(para1: Pmxml_node): Tmxml_type;
+  TLoad_cp = function(para1: Pmxml_node): Tmxml_type; cdecl;
 
 function mxmlLoadFd(top: Pmxml_node; fd: longint; cb: TLoad_cp): Pmxml_node; cdecl; external libmxml;
 function mxmlLoadFile(top: Pmxml_node; fp: PFILE; cb: TLoad_cp): Pmxml_node; cdecl; external libmxml;

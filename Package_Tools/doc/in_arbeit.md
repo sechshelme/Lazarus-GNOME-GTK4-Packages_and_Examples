@@ -311,6 +311,8 @@ libitm1                          // Nur it GCC verwendbar
 libcrypt1
 libgcrypt1
 
+libcupsfilters
+
 
 /usr/include/libmount
 /usr/include/libltdl
@@ -328,7 +330,16 @@ libgtksheet-4.0-dev
 libpeas-2-dev                  // io.
 libpeasd-3-dev 
  glib-networking   
-libglibmm-2.4-dev   
+libglibmm-2.4-dev
+
+# === RDF 
+libserd-dev       
+libsord-dev       
+liblilv
+librdf
+libsratom
+# ====
+   
 
 apt install blueprint-compiler
 
@@ -377,7 +388,7 @@ libgoa-1.0-common
 
 libexpat1-dev   ( xml lesen )   
 
- libgphoto2-6t64     
+libgphoto2              // io.
 
   libsuitesparseconfig7 ( matrix mathe )  libsuitesparse-dev
 
@@ -417,6 +428,10 @@ libsoundio                 // io.
 libsane                    // io.
 
 libmagickcore-dev
+libogg0
+
+ libatk1.0-dev       // Barrierenfreiheit
+
 
 
 # =========================

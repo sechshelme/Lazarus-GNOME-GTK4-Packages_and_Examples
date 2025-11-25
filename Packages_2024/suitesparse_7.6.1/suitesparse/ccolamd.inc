@@ -44,14 +44,12 @@ function ccolamd_recommended(nnz: longint; n_row: longint; n_col: longint): Tsiz
 function ccolamd_l_recommended(nnz: Tint64_t; n_row: Tint64_t; n_col: Tint64_t): Tsize_t; cdecl; external libccolamd;
 procedure ccolamd_set_defaults(knobs: Pdouble); cdecl; external libccolamd;
 procedure ccolamd_l_set_defaults(knobs: Pdouble); cdecl; external libccolamd;
-function ccolamd(n_row: longint; n_col: longint; Alen: longint; A: Plongint; p: Plongint;
-  knobs: Pdouble; stats: Plongint; cmember: Plongint): longint; cdecl; external libccolamd;
-function ccolamd_l(n_row: Tint64_t; n_col: Tint64_t; Alen: Tint64_t; A: Pint64_t; p: Pint64_t;
-  knobs: Pdouble; stats: Pint64_t; cmember: Pint64_t): longint; cdecl; external libccolamd;
+function ccolamd(n_row: longint; n_col: longint; Alen: longint; A: Plongint; p: Plongint; knobs: Pdouble; stats: Plongint; cmember: Plongint): longint; cdecl; external libccolamd;
+function ccolamd_l(n_row: Tint64_t; n_col: Tint64_t; Alen: Tint64_t; A: Pint64_t; p: Pint64_t; knobs: Pdouble; stats: Pint64_t; cmember: Pint64_t): longint; cdecl; external libccolamd;
 
 type
-  Tcsymamd_func = function(para1: Tsize_t; para2: Tsize_t): pointer;
-  Tcsymamd_func2 = procedure(para1: pointer);
+  Tcsymamd_func = function(para1: Tsize_t; para2: Tsize_t): pointer; cdecl;
+  Tcsymamd_func2 = procedure(para1: pointer); cdecl;
 
 function csymamd(n: longint; A: Plongint; p: Plongint; perm: Plongint; knobs: Pdouble;
   stats: Plongint; allocate: Tcsymamd_func; release: Tcsymamd_func2; cmember: Plongint; stype: longint): longint; cdecl; external libccolamd;

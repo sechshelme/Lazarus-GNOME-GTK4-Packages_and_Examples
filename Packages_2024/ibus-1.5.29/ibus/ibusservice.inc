@@ -12,12 +12,9 @@ type
 
   TIBusServiceClass = record
     parent: TIBusObjectClass;
-    service_method_call: procedure(service: PIBusService; connection: PGDBusConnection; sender: Pgchar; object_path: Pgchar; interface_name: Pgchar;
-      method_name: Pgchar; parameters: PGVariant; invocation: PGDBusMethodInvocation); cdecl;
-    service_get_property: function(service: PIBusService; connection: PGDBusConnection; sender: Pgchar; object_path: Pgchar; interface_name: Pgchar;
-      property_name: Pgchar; error: PPGError): PGVariant; cdecl;
-    service_set_property: function(service: PIBusService; connection: PGDBusConnection; sender: Pgchar; object_path: Pgchar; interface_name: Pgchar;
-      property_name: Pgchar; value: PGVariant; error: PPGError): Tgboolean; cdecl;
+    service_method_call: procedure(service: PIBusService; connection: PGDBusConnection; sender: Pgchar; object_path: Pgchar; interface_name: Pgchar; method_name: Pgchar; parameters: PGVariant; invocation: PGDBusMethodInvocation); cdecl;
+    service_get_property: function(service: PIBusService; connection: PGDBusConnection; sender: Pgchar; object_path: Pgchar; interface_name: Pgchar; property_name: Pgchar; error: PPGError): PGVariant; cdecl;
+    service_set_property: function(service: PIBusService; connection: PGDBusConnection; sender: Pgchar; object_path: Pgchar; interface_name: Pgchar; property_name: Pgchar; value: PGVariant; error: PPGError): Tgboolean; cdecl;
     interfaces: PGArray;
     pdummy: array[0..3] of Tgpointer;
   end;

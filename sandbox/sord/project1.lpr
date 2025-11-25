@@ -1,6 +1,6 @@
 program project1;
 uses
-  fp_serd;
+fp_sord;
 begin
 
 end.

@@ -240,8 +240,7 @@ function gnutls_pcert_import_rawpk(pcert: Pgnutls_pcert_st; key: Tgnutls_pubkey_
 function gnutls_pcert_import_rawpk_raw(pcert: Pgnutls_pcert_st; rawpubkey: Pgnutls_datum_t; format: Tgnutls_x509_crt_fmt_t; key_usage: dword; flags: dword): longint; cdecl; external libgnutls;
 
 type
-  Tgnutls_certificate_retrieve_function2 = function(para1: Tgnutls_session_t; req_ca_rdn: Pgnutls_datum_t; nreqs: longint; pk_algos: Pgnutls_pk_algorithm_t; pk_algos_length: longint;
-    para6: PPgnutls_pcert_st; pcert_length: Pdword; privkey: Pgnutls_privkey_t): longint; cdecl;
+  Tgnutls_certificate_retrieve_function2 = function(para1: Tgnutls_session_t; req_ca_rdn: Pgnutls_datum_t; nreqs: longint; pk_algos: Pgnutls_pk_algorithm_t; pk_algos_length: longint; para6: PPgnutls_pcert_st; pcert_length: Pdword; privkey: Pgnutls_privkey_t): longint; cdecl;
 
 procedure gnutls_certificate_set_retrieve_function2(cred: Tgnutls_certificate_credentials_t; func: Tgnutls_certificate_retrieve_function2); cdecl; external libgnutls;
 
@@ -262,8 +261,7 @@ const
   GNUTLS_CERT_RETR_DEINIT_ALL = 1;
 
 type
-  Tgnutls_certificate_retrieve_function3 = function(para1: Tgnutls_session_t; info: Pgnutls_cert_retr_st; certs: PPgnutls_pcert_st; certs_length: Pdword; ocsp: PPgnutls_ocsp_data_st;
-    ocsp_length: Pdword; privkey: Pgnutls_privkey_t; flags: Pdword): longint; cdecl;
+  Tgnutls_certificate_retrieve_function3 = function(para1: Tgnutls_session_t; info: Pgnutls_cert_retr_st; certs: PPgnutls_pcert_st; certs_length: Pdword; ocsp: PPgnutls_ocsp_data_st; ocsp_length: Pdword; privkey: Pgnutls_privkey_t; flags: Pdword): longint; cdecl;
 
 procedure gnutls_certificate_set_retrieve_function3(cred: Tgnutls_certificate_credentials_t; func: Tgnutls_certificate_retrieve_function3); cdecl; external libgnutls;
 function gnutls_certificate_set_key(res: Tgnutls_certificate_credentials_t; names: PPchar; names_size: longint; pcert_list: Pgnutls_pcert_st; pcert_list_size: longint;

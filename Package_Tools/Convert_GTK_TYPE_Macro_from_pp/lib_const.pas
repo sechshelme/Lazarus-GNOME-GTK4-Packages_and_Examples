@@ -254,6 +254,7 @@ const
 
     (libs: 'libasound'; units: 'fp_asound'),
     (libs: 'libserd0'; units: 'ctypes'),
+    (libs: 'libsord0'; units: 'ctypes'),
 
     (libs: ''; units: ''));
 

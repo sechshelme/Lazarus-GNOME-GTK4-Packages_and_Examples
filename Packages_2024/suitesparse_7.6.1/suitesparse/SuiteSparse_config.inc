@@ -20,14 +20,14 @@ const
   SUITESPARSE_STDC_VERSION = 199001;
 
 type
-  TMalloc_func = function(para1: Tsize_t): pointer;
-  TCalloc_func = function(para1: Tsize_t; para2: Tsize_t): pointer;
-  TRealloc_func = function(para1: Pointer; para2: Tsize_t): pointer;
-  TFree_func = procedure(para1: pointer);
-  TPrintf_func = function(para1: pchar): longint;
-  THypot_func = function(para1: double; para2: double): double;
-  TDivcomplex_func = function(para1: double; para2: double; para3: double; para4: double; para5: Pdouble; para6: Pdouble): longint;
-  TReasCalloc_func = function(para1: Tsize_t; para2: Tsize_t): pointer;
+  TMalloc_func = function(para1: Tsize_t): pointer; cdecl;
+  TCalloc_func = function(para1: Tsize_t; para2: Tsize_t): pointer; cdecl;
+  TRealloc_func = function(para1: Pointer; para2: Tsize_t): pointer; cdecl;
+  TFree_func = procedure(para1: pointer); cdecl;
+  TPrintf_func = function(para1: pchar): longint; cdecl;
+  THypot_func = function(para1: double; para2: double): double; cdecl;
+  TDivcomplex_func = function(para1: double; para2: double; para3: double; para4: double; para5: Pdouble; para6: Pdouble): longint; cdecl;
+  TReasCalloc_func = function(para1: Tsize_t; para2: Tsize_t): pointer; cdecl;
 
 function SuiteSparse_config_malloc_func_get: TMalloc_func; cdecl; external libsuitesparseconfig;
 function SuiteSparse_config_calloc_func_get: TCalloc_func; cdecl; external libsuitesparseconfig;

@@ -85,14 +85,10 @@ type
     get_signature_protocol: function(ctx: PGMimeCryptoContext): pchar; cdecl;
     get_encryption_protocol: function(ctx: PGMimeCryptoContext): pchar; cdecl;
     get_key_exchange_protocol: function(ctx: PGMimeCryptoContext): pchar; cdecl;
-    sign: function(ctx: PGMimeCryptoContext; detach: Tgboolean; userid: pchar; istream: PGMimeStream; ostream: PGMimeStream;
-      err: PPGError): longint; cdecl;
-    verify: function(ctx: PGMimeCryptoContext; flags: TGMimeVerifyFlags; istream: PGMimeStream; sigstream: PGMimeStream; ostream: PGMimeStream;
-      err: PPGError): PGMimeSignatureList; cdecl;
-    encrypt: function(ctx: PGMimeCryptoContext; sign: Tgboolean; userid: pchar; flags: TGMimeEncryptFlags; recipients: PGPtrArray;
-      istream: PGMimeStream; ostream: PGMimeStream; err: PPGError): longint; cdecl;
-    decrypt: function(ctx: PGMimeCryptoContext; flags: TGMimeDecryptFlags; session_key: pchar; istream: PGMimeStream; ostream: PGMimeStream;
-      err: PPGError): PGMimeDecryptResult; cdecl;
+    sign: function(ctx: PGMimeCryptoContext; detach: Tgboolean; userid: pchar; istream: PGMimeStream; ostream: PGMimeStream; err: PPGError): longint; cdecl;
+    verify: function(ctx: PGMimeCryptoContext; flags: TGMimeVerifyFlags; istream: PGMimeStream; sigstream: PGMimeStream; ostream: PGMimeStream; err: PPGError): PGMimeSignatureList; cdecl;
+    encrypt: function(ctx: PGMimeCryptoContext; sign: Tgboolean; userid: pchar; flags: TGMimeEncryptFlags; recipients: PGPtrArray; istream: PGMimeStream; ostream: PGMimeStream; err: PPGError): longint; cdecl;
+    decrypt: function(ctx: PGMimeCryptoContext; flags: TGMimeDecryptFlags; session_key: pchar; istream: PGMimeStream; ostream: PGMimeStream; err: PPGError): PGMimeDecryptResult; cdecl;
     import_keys: function(ctx: PGMimeCryptoContext; istream: PGMimeStream; err: PPGError): longint; cdecl;
     export_keys: function(ctx: PGMimeCryptoContext; keys: PPchar; ostream: PGMimeStream; err: PPGError): longint; cdecl;
     compress: function(ctx: PGMimeCryptoContext; istream: PGMimeStream; ostream: PGMimeStream; err: PPGError): longint; cdecl;

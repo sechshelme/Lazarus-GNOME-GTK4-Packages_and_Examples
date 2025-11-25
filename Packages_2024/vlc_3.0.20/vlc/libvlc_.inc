@@ -17,7 +17,7 @@ procedure libvlc_retain(p_instance: Plibvlc_instance_t); cdecl; external libvlc;
 function libvlc_add_intf(p_instance: Plibvlc_instance_t; name: pchar): longint; cdecl; external libvlc;
 
 type
-  TExit_Hanler_proc = procedure(para1: pointer);
+  TExit_Hanler_proc = procedure(para1: pointer); cdecl;
 
 procedure libvlc_set_exit_handler(p_instance: Plibvlc_instance_t; cb: TExit_Hanler_proc; opaque: pointer); cdecl; external libvlc;
 procedure libvlc_set_user_agent(p_instance: Plibvlc_instance_t; name: pchar; http: pchar); cdecl; external libvlc;

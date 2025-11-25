@@ -65,7 +65,7 @@ function snd_mixer_sbasic_get_private(mixer_class: Psnd_mixer_class_t): pointer;
 procedure snd_mixer_sbasic_set_private(mixer_class: Psnd_mixer_class_t; private_data: pointer); cdecl; external libasound;
 
 type
-  TprivateMixelFreeProc = procedure(mixer_class: Psnd_mixer_class_t);
+  TprivateMixelFreeProc = procedure(mixer_class: Psnd_mixer_class_t); cdecl;
 
 procedure snd_mixer_sbasic_set_private_free(mixer_class: Psnd_mixer_class_t; private_free: TprivateMixelFreeProc); cdecl; external libasound;
 

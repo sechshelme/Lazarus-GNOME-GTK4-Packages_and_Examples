@@ -1613,8 +1613,7 @@ const
   GNUTLS_PKCS11_PIN_WRONG = GNUTLS_PIN_WRONG;
 
 type
-  Tgnutls_pin_callback_t = function(userdata: pointer; attempt: longint; token_url: pchar; token_label: pchar; flags: dword;
-    pin: pchar; pin_max: Tsize_t): longint; cdecl;
+  Tgnutls_pin_callback_t = function(userdata: pointer; attempt: longint; token_url: pchar; token_label: pchar; flags: dword; pin: pchar; pin_max: Tsize_t): longint; cdecl;
 
 procedure gnutls_certificate_set_pin_function(para1: Tgnutls_certificate_credentials_t; fn: Tgnutls_pin_callback_t; userdata: pointer); cdecl; external libgnutls;
 

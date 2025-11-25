@@ -132,9 +132,9 @@ function SPEX_realloc(nitems_new: Tint64_t; nitems_old: Tint64_t; size_of_item: 
 function SPEX_initialize: TSPEX_info; cdecl; external libspex;
 
 type
-  TSPEX_initialize_func1 = function(para1: Tsize_t): pointer;
-  TSPEX_initialize_func2 = function(para1: Tsize_t; para2: Tsize_t): pointer;
-  TSPEX_initialize_func3 = procedure(para1: pointer);
+  TSPEX_initialize_func1 = function(para1: Tsize_t): pointer; cdecl;
+  TSPEX_initialize_func2 = function(para1: Tsize_t; para2: Tsize_t): pointer; cdecl;
+  TSPEX_initialize_func3 = procedure(para1: pointer); cdecl;
 
 function SPEX_initialize_expert(MyMalloc: TSPEX_initialize_func1; MyCalloc: TSPEX_initialize_func2; MyRealloc: TSPEX_initialize_func2; MyFree: TSPEX_initialize_func3): TSPEX_info; cdecl; external libspex;
 function SPEX_finalize: TSPEX_info; cdecl; external libspex;

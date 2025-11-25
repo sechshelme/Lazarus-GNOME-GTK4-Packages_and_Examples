@@ -31,8 +31,7 @@ type
     free: procedure(obj: pointer); cdecl;
     reset: procedure(obj: pointer); cdecl;
     adjust_pitch: function(obj: pointer; info: Psnd_pcm_rate_info_t): longint; cdecl;
-    convert: procedure(obj: pointer; dst_areas: Psnd_pcm_channel_area_t; dst_offset: Tsnd_pcm_uframes_t; dst_frames: dword; src_areas: Psnd_pcm_channel_area_t;
-      src_offset: Tsnd_pcm_uframes_t; src_frames: dword); cdecl;
+    convert: procedure(obj: pointer; dst_areas: Psnd_pcm_channel_area_t; dst_offset: Tsnd_pcm_uframes_t; dst_frames: dword; src_areas: Psnd_pcm_channel_area_t; src_offset: Tsnd_pcm_uframes_t; src_frames: dword); cdecl;
     convert_s16: procedure(obj: pointer; dst: Pint16_t; dst_frames: dword; src: Pint16_t; src_frames: dword); cdecl;
     input_frames: function(obj: pointer; frames: Tsnd_pcm_uframes_t): Tsnd_pcm_uframes_t; cdecl;
     output_frames: function(obj: pointer; frames: Tsnd_pcm_uframes_t): Tsnd_pcm_uframes_t; cdecl;
@@ -53,8 +52,7 @@ type
     free: procedure(obj: pointer); cdecl;
     reset: procedure(obj: pointer); cdecl;
     adjust_pitch: function(obj: pointer; info: Psnd_pcm_rate_info_t): longint; cdecl;
-    convert: procedure(obj: pointer; dst_areas: Psnd_pcm_channel_area_t; dst_offset: Tsnd_pcm_uframes_t; dst_frames: dword; src_areas: Psnd_pcm_channel_area_t;
-      src_offset: Tsnd_pcm_uframes_t; src_frames: dword); cdecl;
+    convert: procedure(obj: pointer; dst_areas: Psnd_pcm_channel_area_t; dst_offset: Tsnd_pcm_uframes_t; dst_frames: dword; src_areas: Psnd_pcm_channel_area_t; src_offset: Tsnd_pcm_uframes_t; src_frames: dword); cdecl;
     convert_s16: procedure(obj: pointer; dst: Pint16_t; dst_frames: dword; src: Pint16_t; src_frames: dword); cdecl;
     input_frames: function(obj: pointer; frames: Tsnd_pcm_uframes_t): Tsnd_pcm_uframes_t; cdecl;
     output_frames: function(obj: pointer; frames: Tsnd_pcm_uframes_t): Tsnd_pcm_uframes_t; cdecl;
@@ -67,8 +65,7 @@ type
     free: procedure(obj: pointer); cdecl;
     reset: procedure(obj: pointer); cdecl;
     adjust_pitch: function(obj: pointer; info: Psnd_pcm_rate_info_t): longint; cdecl;
-    convert: procedure(obj: pointer; dst_areas: Psnd_pcm_channel_area_t; dst_offset: Tsnd_pcm_uframes_t; dst_frames: dword; src_areas: Psnd_pcm_channel_area_t;
-      src_offset: Tsnd_pcm_uframes_t; src_frames: dword); cdecl;
+    convert: procedure(obj: pointer; dst_areas: Psnd_pcm_channel_area_t; dst_offset: Tsnd_pcm_uframes_t; dst_frames: dword; src_areas: Psnd_pcm_channel_area_t; src_offset: Tsnd_pcm_uframes_t; src_frames: dword); cdecl;
     convert_s16: procedure(obj: pointer; dst: Pint16_t; dst_frames: dword; src: Pint16_t; src_frames: dword); cdecl;
     input_frames: function(obj: pointer; frames: Tsnd_pcm_uframes_t): Tsnd_pcm_uframes_t; cdecl;
     output_frames: function(obj: pointer; frames: Tsnd_pcm_uframes_t): Tsnd_pcm_uframes_t; cdecl;

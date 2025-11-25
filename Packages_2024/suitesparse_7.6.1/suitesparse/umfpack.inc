@@ -238,7 +238,7 @@ function umfpack_zl_qsymbolic(n_row: Tint64_t; n_col: Tint64_t; Ap: Pint64_t; Ai
   Az: Pdouble; Qinit: Pint64_t; Symbolic: Ppointer; Control: Pdouble; Info: Pdouble): longint; cdecl; external libumfpack;
 
 type
-  Tfssymbolic_func = function(para1: Tint32_t; para2: Tint32_t; para3: Tint32_t; para4: Pint32_t; para5: Pint32_t; para6: Pint32_t; para7: pointer; para8: Pdouble): longint;
+  Tfssymbolic_func = function(para1: Tint32_t; para2: Tint32_t; para3: Tint32_t; para4: Pint32_t; para5: Pint32_t; para6: Pint32_t; para7: pointer; para8: Pdouble): longint; cdecl;
 
 function umfpack_di_fsymbolic(n_row: Tint32_t; n_col: Tint32_t; Ap: Pint32_t; Ai: Pint32_t; Ax: Pdouble;
   user_ordering: Tfssymbolic_func; user_params: pointer; Symbolic: Ppointer; Control: Pdouble; Info: Pdouble): longint; cdecl; external libumfpack;

@@ -23,10 +23,8 @@ type
   TGMimeFilterClass = record
     parent_class: TGObjectClass;
     copy: function(filter: PGMimeFilter): PGMimeFilter; cdecl;
-    filter: procedure(filter: PGMimeFilter; inbuf: pchar; inlen: Tsize_t; prespace: Tsize_t; outbuf: PPchar;
-      outlen: Psize_t; outprespace: Psize_t); cdecl;
-    complete: procedure(filter: PGMimeFilter; inbuf: pchar; inlen: Tsize_t; prespace: Tsize_t; outbuf: PPchar;
-      outlen: Psize_t; outprespace: Psize_t); cdecl;
+    filter: procedure(filter: PGMimeFilter; inbuf: pchar; inlen: Tsize_t; prespace: Tsize_t; outbuf: PPchar; outlen: Psize_t; outprespace: Psize_t); cdecl;
+    complete: procedure(filter: PGMimeFilter; inbuf: pchar; inlen: Tsize_t; prespace: Tsize_t; outbuf: PPchar; outlen: Psize_t; outprespace: Psize_t); cdecl;
     reset: procedure(filter: PGMimeFilter); cdecl;
   end;
 

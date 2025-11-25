@@ -49,7 +49,7 @@ function TCOD_sys_read_file(filename: pchar; buf: PPbyte; size: Psize_t): Tbool;
 function TCOD_sys_write_file(filename: pchar; buf: pbyte; size: Tuint32_t): Tbool; cdecl; external libtcod; deprecated;
 
 type
-  Tthread_new_func = function(para1: pointer): longint;
+  Tthread_new_func = function(para1: pointer): longint; cdecl;
 
 function TCOD_thread_new(func: Tthread_new_func; data: pointer): TTCOD_thread_t; cdecl; external libtcod; deprecated;
 procedure TCOD_thread_delete(th: TTCOD_thread_t); cdecl; external libtcod; deprecated;

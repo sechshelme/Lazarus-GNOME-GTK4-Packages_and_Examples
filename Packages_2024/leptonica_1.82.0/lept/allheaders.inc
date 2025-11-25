@@ -3026,7 +3026,7 @@ function returnErrorFloat(msg: pchar; procname: pchar; fval: Tl_float32): Tl_flo
 function returnErrorPtr(msg: pchar; procname: pchar; pval: pointer): pointer; cdecl; external libleptb;
 
 type
-  TerrHandleProc = procedure(para1: pchar);
+  TerrHandleProc = procedure(para1: pchar); cdecl;
 
 procedure leptSetStderrHandler(handler: TerrHandleProc); cdecl; external libleptb;
 procedure lept_stderr(fmt: pchar); cdecl; varargs; external libleptb;

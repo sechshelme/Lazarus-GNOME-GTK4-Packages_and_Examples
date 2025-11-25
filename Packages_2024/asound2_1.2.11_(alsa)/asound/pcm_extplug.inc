@@ -35,8 +35,7 @@ type
   Psnd_pcm_extplug = ^Tsnd_pcm_extplug;
 
   Tsnd_pcm_extplug_callback = record
-    transfer: function(ext: Psnd_pcm_extplug_t; dst_areas: Psnd_pcm_channel_area_t; dst_offset: Tsnd_pcm_uframes_t; src_areas: Psnd_pcm_channel_area_t; src_offset: Tsnd_pcm_uframes_t;
-      size: Tsnd_pcm_uframes_t): Tsnd_pcm_sframes_t; cdecl;
+    transfer: function(ext: Psnd_pcm_extplug_t; dst_areas: Psnd_pcm_channel_area_t; dst_offset: Tsnd_pcm_uframes_t; src_areas: Psnd_pcm_channel_area_t; src_offset: Tsnd_pcm_uframes_t; size: Tsnd_pcm_uframes_t): Tsnd_pcm_sframes_t; cdecl;
     close: function(ext: Psnd_pcm_extplug_t): longint; cdecl;
     hw_params: function(ext: Psnd_pcm_extplug_t; params: Psnd_pcm_hw_params_t): longint; cdecl;
     hw_free: function(ext: Psnd_pcm_extplug_t): longint; cdecl;

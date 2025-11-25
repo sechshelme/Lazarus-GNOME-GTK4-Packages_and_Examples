@@ -28,7 +28,7 @@ function xcb_send_request_with_fds64(c: Pxcb_connection_t; flags: longint; vecto
 procedure xcb_send_fd(c: Pxcb_connection_t; fd: longint); cdecl; external libxcb;
 
 type
-  Treturn_socket_proc = procedure(closure: pointer);
+  Treturn_socket_proc = procedure(closure: pointer); cdecl;
 
 function xcb_take_socket(c: Pxcb_connection_t; return_socket: Treturn_socket_proc; closure: pointer; flags: longint; sent: Puint64_t): longint; cdecl; external libxcb;
 function xcb_writev(c: Pxcb_connection_t; vector: Piovec; count: longint; requests: Tuint64_t): longint; cdecl; external libxcb;
