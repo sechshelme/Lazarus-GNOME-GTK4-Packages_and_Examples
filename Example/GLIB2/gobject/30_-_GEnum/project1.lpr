@@ -1,9 +1,5 @@
 program project1;
 
-// https://www.perplexity.ai/search/gib-mir-ein-c-beispiel-mit-gva-S6LCnojdTAGMcpDG7p2hnQ
-// https://www.perplexity.ai/search/ich-habe-mit-g-value-type-v-er-Bu9RAwNVQ5Wn4QYqLQttMg
-// https://www.perplexity.ai/search/gib-mir-ein-c-beispiel-mit-gen-.cUon06lQ9evSF5g2V2Kyg
-
 uses
   ctypes,
   fp_glib2;

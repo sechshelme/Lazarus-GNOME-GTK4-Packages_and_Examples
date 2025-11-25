@@ -4,8 +4,6 @@ uses
   ctypes,
   fp_glib2;
 
-  // https://www.perplexity.ai/search/was-ist-g-slice-6F25hzekRAqwIExAlQCDXA
-
 type
   THuman = record
     Name: Pgchar;

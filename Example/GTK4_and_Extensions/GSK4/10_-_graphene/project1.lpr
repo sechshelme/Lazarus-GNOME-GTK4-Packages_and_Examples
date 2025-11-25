@@ -7,8 +7,6 @@ uses
   fp_GLIBTools,
   fp_graphene,
   fp_cairo,
-  fp_GDK4,
-  fp_GSK4,
   fp_GTK4;
 
 

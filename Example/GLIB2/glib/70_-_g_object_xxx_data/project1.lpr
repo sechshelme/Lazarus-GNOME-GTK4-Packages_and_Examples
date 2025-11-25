@@ -42,10 +42,7 @@ const
     human := g_object_get_data(obj, key);
 
     g_printf('Name: %s   Age: %d   Size: %3.2f'#10, human^.Name, human^.age, human^.size);
-
   end;
-
-// https://www.perplexity.ai/search/ich-schreibe-mit-g-object-set-eqCCBIGeTPm4QUXNJLN7qw
 
   function main(argc: cint; argv: PPChar): cint;
   var

@@ -7,8 +7,6 @@ uses
   fp_GLIBTools;
 
 
-  // https://www.perplexity.ai/search/ich-habe-ein-g-menu-erstellt-w-ISC6_tydSmOh2RjQB0x37Q
-
   procedure print_Menu(menu: PGMenuModel; space: integer = 0);
   var
     n_items: Tgint;

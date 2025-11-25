@@ -69,8 +69,6 @@ type
     g_object_unref(snapshot);
   end;
 
-  // https://www.perplexity.ai/search/gib-mir-ein-beispiel-mit-gtksn-RK5kw09KRSSW_M7erbNCYg
-
   procedure draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
   var
     sprite: PGskRenderNode absolute user_data;

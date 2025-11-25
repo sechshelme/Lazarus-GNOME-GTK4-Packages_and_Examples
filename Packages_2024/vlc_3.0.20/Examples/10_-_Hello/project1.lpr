@@ -10,14 +10,11 @@ uses
     mp: Plibvlc_media_player_t;
   begin
     inst := libvlc_new(0, nil);
-    //    m = libvlc_media_new_location(inst, "v4l2:///dev/video0"); // Linux
-    //    m = libvlc_media_new_location(inst, "file:///home/tux/Schreibtisch/sound/test.mp3"); // Linux
-    m := libvlc_media_new_location(inst, 'file:///home/tux/Schreibtisch/sound/CANYON.mid');
+    m := libvlc_media_new_location(inst, 'https://gstreamer.freedesktop.org/data/media/sintel_trailer-480p.webm');
 
     mp := libvlc_media_player_new_from_media(m);
 
     libvlc_media_release(m);
-
     libvlc_media_player_play(mp);
 
     WriteLn('Drücke ENTER zum Beenden ...');

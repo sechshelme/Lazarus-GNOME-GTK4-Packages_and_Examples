@@ -1,15 +1,8 @@
 program project1;
 
 uses
-  ctypes,
   fp_glib2,
   fp_JSC;
-
-
-  // https://www.perplexity.ai/search/was-ist-jsc-welchec-bei-webkit-w5K_F7JCQYixjpJh3a5keA
-  // https://www.perplexity.ai/search/gib-mir-ein-beispiel-mit-jsc-j-ARF1Y9AFQV6kRFIksS0VNQ
-  // https://www.perplexity.ai/search/gib-mir-ein-beispiel-mit-jsc-v-TXYuwmmLTsSLI7M10Ej7OQ
-  // https://www.perplexity.ai/search/gib-mir-ein-beispiel-mit-jsc-c-z85crXFFSRGoORU8.EYtwA
 
   procedure print_value(Value: PJSCValue);
   var
@@ -51,7 +44,7 @@ uses
   end;
 
 
-  function main(argc: cint; argv: PPChar): cint;
+  procedure main;
   const
     script: pchar =
       'function add(a, b) { return a + b; }' +
@@ -94,5 +87,5 @@ uses
   end;
 
 begin
-  main(argc, argv);
+  main;
 end.

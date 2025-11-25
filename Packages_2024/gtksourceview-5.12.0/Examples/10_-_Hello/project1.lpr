@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  ctypes,
   fp_glib2,
   fp_cairo,
   fp_GTK4,
@@ -29,7 +28,7 @@ const
     '    return 0;'#10 +
     '}';
 
-  procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, mainBox, scrolled_window, source_view: PGtkWidget;
     language_manager: PGtkSourceLanguageManager;
@@ -81,19 +80,16 @@ const
   end;
 
 
-  function main(argc: cint; argv: PPChar): cint;
+  procedure main;
   var
     app: PGtkApplication;
-    status: longint;
   begin
     app := gtk_application_new('org.sourceview.example', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
-    status := g_application_run(G_APPLICATION(app), argc, argv);
+    g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
-
-    Exit(status);
   end;
 
 begin
-  main(argc, argv);
+  main;
 end.

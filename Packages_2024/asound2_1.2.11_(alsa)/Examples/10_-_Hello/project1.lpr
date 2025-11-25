@@ -9,30 +9,28 @@ const
   procedure main;
   const
     sample_rate: uint32 = 44100;
-    frames: Tsnd_pcm_uframes_t = 1024 * 4;
-    freq = 440 / 2;
-    duration_seconds = 20;
+    frames: Tsnd_pcm_uframes_t = 1024;
+    freq = 100;
+    duration = 3;
   var
     rc, dir: longint;
     handle: Psnd_pcm_t;
     params: Psnd_pcm_hw_params_t;
-    buffer: array of int16;
     frame_index: integer = 0;
     total_frames, i: integer;
     frames_to_write: Tsnd_pcm_uframes_t;
     sample: int16;
-
+    buffer: array of int16=nil;
 
   begin
-    total_frames := sample_rate * duration_seconds;
+    total_frames := sample_rate * duration;
     rc := snd_pcm_open(@handle, 'default', SND_PCM_STREAM_PLAYBACK, 0);
     if rc < 0 then begin
       WriteLn('Fehler beim Öffnen des PCM-Geräts: ', snd_strerror(rc));
       Exit;
     end;
 
-    rc := snd_pcm_hw_params_malloc(@params);
-
+    snd_pcm_hw_params_malloc(@params);
     snd_pcm_hw_params_any(handle, params);
     snd_pcm_hw_params_set_access(handle, params, SND_PCM_ACCESS_RW_INTERLEAVED);
     snd_pcm_hw_params_set_format(handle, params, SND_PCM_FORMAT_S16_LE);
@@ -74,12 +72,12 @@ const
         WriteLn('Schrieb nur ', rc, ' Frames (erwartet ', frames_to_write, ')');
       end;
 
-      frame_index += frames_to_write;
+     Inc(frame_index, frames_to_write);
     end;
 
+    snd_pcm_drain(handle);
     snd_pcm_hw_params_free(params);
     SetLength(buffer, 0);
-    snd_pcm_drain(handle);
     snd_pcm_close(handle);
 
     WriteLn('Abspielen beendet');

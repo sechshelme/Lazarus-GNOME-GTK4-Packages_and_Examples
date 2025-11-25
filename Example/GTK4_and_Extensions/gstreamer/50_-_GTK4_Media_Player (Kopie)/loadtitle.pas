@@ -137,7 +137,6 @@ end;
 
 // ========
 
-// https://www.perplexity.ai/search/7cd9037c-44ad-4395-befa-9d21f853ea40?0=d&1=d
 var
   listBoxPath, listBoxFiles: PGtkWidget;
 

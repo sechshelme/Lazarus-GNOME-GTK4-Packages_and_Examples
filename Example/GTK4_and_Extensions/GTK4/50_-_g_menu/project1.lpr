@@ -7,9 +7,6 @@ uses
   fp_GLIBTools,
   fp_GTK4;
 
-  // https://www.perplexity.ai/search/kann-man-in-gtk4-win-typisches-Uh1opi2XT_m29krYlBBn7g
-
-
   procedure action_cp(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer); cdecl;
   var
     action_name: Pgchar;

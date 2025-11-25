@@ -60,7 +60,6 @@ implementation
 const
   pipelineKey = 'pipelineKey';
 
-// https://www.perplexity.ai/search/wie-kann-ich-mit-gstreamer-dir-2Te_Qn3oTXC4WrpJqiImYQ
 function get_duration(audioFile: Pgchar): TGstClockTime;
 var
   pipeline_str: Pgchar;

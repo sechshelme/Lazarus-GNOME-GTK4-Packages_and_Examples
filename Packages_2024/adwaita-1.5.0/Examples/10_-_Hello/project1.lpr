@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  ctypes,
   fp_glib2,
   fp_GTK4,
   fp_adwaita;
@@ -32,8 +31,6 @@ uses
     end;
   end;
 
-  // https://www.perplexity.ai/search/gib-mir-ein-gtk4-adwaita-beisp-KCumFnzCRZyupZ7rYh2hBA
-
   function CreateMenu: PGtkWidget;
   var
     menu, about_menu: PGMenu;
@@ -58,9 +55,7 @@ uses
     gtk_menu_button_set_menu_model(GTK_MENU_BUTTON(Result), G_MENU_MODEL(menu));
 
     item:=g_menu_item_new('Beenden', 'app.quit');
-//    g_menu_item_set_attribute(item, G_MENU_ATTRIBUTE_sLABEL, 'uses-markup');
     g_menu_append_item(menu, item);
-
 
     action := g_simple_action_new('help', nil);
     g_signal_connect(action, 'activate', G_CALLBACK(@menu_clicked_cp), nil);
@@ -112,20 +107,17 @@ uses
   end;
 
 
-  function main(argc: cint; argv: PPChar): cint;
+  procedure main;
   var
-    status: longint;
     app: PAdwApplication;
   begin
     app := adw_application_new('org.example.Hello', G_APPLICATION_DEFAULT_FLAGS);
 
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
-    status := g_application_run(G_APPLICATION(app), argc, argv);
+    g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
-
-    Exit(status);
   end;
 
 begin
-  main(argc, argv);
+  main;
 end.

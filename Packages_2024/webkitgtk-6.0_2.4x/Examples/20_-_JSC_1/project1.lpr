@@ -1,19 +1,14 @@
 program project1;
 
 uses
-  ctypes,
   fp_glib2,
   fp_JSC;
 
-
-  // https://www.perplexity.ai/search/was-ist-jsc-welchec-bei-webkit-w5K_F7JCQYixjpJh3a5keA
-
-  function main(argc: cint; argv: PPChar): cint;
+  procedure main;
   var
     ctx: PJSCContext;
     res: PJSCValue;
     Value: Tgint32;
-    s: pchar;
   begin
     ctx := jsc_context_new;
     res := jsc_context_evaluate(ctx, 'var x = 2; var y = 3; x + y;', -1);
@@ -26,5 +21,5 @@ uses
   end;
 
 begin
-  main(argc, argv);
+  main;
 end.
