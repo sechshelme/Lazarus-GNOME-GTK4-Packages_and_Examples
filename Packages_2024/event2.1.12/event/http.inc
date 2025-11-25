@@ -37,14 +37,14 @@ procedure evhttp_set_default_content_type(http: Pevhttp; content_type: pchar); c
 procedure evhttp_set_allowed_methods(http: Pevhttp; methods: Tev_uint16_t); cdecl; external libevent;
 
 type
-  TEvHttpCallback = procedure(para1: PEvhttp_request; para2: pointer);
+  TEvHttpCallback = procedure(para1: PEvhttp_request; para2: pointer); cdecl;
 
 function evhttp_set_cb(http: PEvhttp; path: pchar; cb: TEvHttpCallback; cb_arg: pointer): longint; cdecl; external libevent;
 function evhttp_del_cb(para1: Pevhttp; para2: pchar): longint; cdecl; external libevent;
 
 type
-  TEvHttpGenCallback = procedure(para1: PEvhttp_request; para2: pointer);
-  TEvHttpBevCallback = function(para1: Pevent_base; para2: pointer): Pbufferevent;
+  TEvHttpGenCallback = procedure(para1: PEvhttp_request; para2: pointer); cdecl;
+  TEvHttpBevCallback = function(para1: Pevent_base; para2: pointer): Pbufferevent; cdecl;
 
 procedure evhttp_set_gencb(http: PEvhttp; cb: TEvHttpGenCallback; arg: pointer); cdecl; external libevent;
 procedure evhttp_set_bevcb(http: PEvhttp; cb: TEvHttpBevCallback; arg: pointer); cdecl; external libevent;
@@ -65,7 +65,7 @@ procedure evhttp_send_reply_start(req: Pevhttp_request; code: longint; reason: p
 procedure evhttp_send_reply_chunk(req: Pevhttp_request; databuf: Pevbuffer); cdecl; external libevent;
 
 type
-  TEvHttpReplyChunkCallback = procedure(para1: PEvhttp_connection; para2: pointer);
+  TEvHttpReplyChunkCallback = procedure(para1: PEvhttp_connection; para2: pointer); cdecl;
 
 procedure evhttp_send_reply_chunk_with_cb(para1: PEvhttp_request; para2: PEvbuffer; cb: TEvHttpReplyChunkCallback; arg: pointer); cdecl; external libevent;
 procedure evhttp_send_reply_end(req: Pevhttp_request); cdecl; external libevent;
@@ -75,16 +75,16 @@ function evhttp_connection_get_bufferevent(evcon: Pevhttp_connection): Pbufferev
 function evhttp_connection_get_server(evcon: Pevhttp_connection): Pevhttp; cdecl; external libevent;
 
 type
-  TEvHttpRequestCallback = procedure(para1: PEvhttp_request; para2: pointer);
-  TEvHttpRequestHeaderCallback = function(para1: PEvhttp_request; para2: pointer): longint;
+  TEvHttpRequestCallback = procedure(para1: PEvhttp_request; para2: pointer); cdecl;
+  TEvHttpRequestHeaderCallback = function(para1: PEvhttp_request; para2: pointer): longint; cdecl;
 
 function evhttp_request_new(cb: TEvHttpRequestCallback; arg: pointer): PEvhttp_request; cdecl; external libevent;
 procedure evhttp_request_set_chunked_cb(para1: PEvhttp_request; cb: TEvHttpRequestCallback); cdecl; external libevent;
 procedure evhttp_request_set_header_cb(para1: PEvhttp_request; cb: TEvHttpRequestHeaderCallback); cdecl; external libevent;
 
 type
-  TEvHttpRequestErrorCallback = procedure(para1: Tevhttp_request_error; para2: pointer);
-  TEvHttpRequestCompleteCallback = procedure(para1: PEvhttp_request; para2: pointer);
+  TEvHttpRequestErrorCallback = procedure(para1: Tevhttp_request_error; para2: pointer); cdecl;
+  TEvHttpRequestCompleteCallback = procedure(para1: PEvhttp_request; para2: pointer); cdecl;
 
 procedure evhttp_request_set_error_cb(para1: PEvhttp_request; para2: TEvHttpRequestErrorCallback); cdecl; external libevent;
 procedure evhttp_request_set_on_complete_cb(req: PEvhttp_request; cb: TEvHttpRequestCompleteCallback; cb_arg: pointer); cdecl; external libevent;
@@ -115,7 +115,7 @@ procedure evhttp_connection_set_initial_retry_tv(evcon: Pevhttp_connection; tv: 
 procedure evhttp_connection_set_retries(evcon: Pevhttp_connection; retry_max: longint); cdecl; external libevent;
 
 type
-  TEvHttpConnectionCloseCallback = procedure(para1: PEvhttp_connection; para2: pointer);
+  TEvHttpConnectionCloseCallback = procedure(para1: PEvhttp_connection; para2: pointer); cdecl;
 
 procedure evhttp_connection_set_closecb(evcon: PEvhttp_connection; para2: TEvHttpConnectionCloseCallback; para3: pointer); cdecl; external libevent;
 procedure evhttp_connection_get_peer(evcon: Pevhttp_connection; address: PPchar; port: Pev_uint16_t); cdecl; external libevent;

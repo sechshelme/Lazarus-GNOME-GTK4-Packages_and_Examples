@@ -253,6 +253,7 @@ const
     (libs: 'libcrypt'; units: 'ctypes'),
 
     (libs: 'libasound'; units: 'fp_asound'),
+    (libs: 'libserd0'; units: 'ctypes'),
 
     (libs: ''; units: ''));
 

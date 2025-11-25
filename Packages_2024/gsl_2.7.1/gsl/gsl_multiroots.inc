@@ -62,10 +62,8 @@ type
     name: pchar;
     size: Tsize_t;
     alloc: function(state: pointer; n: Tsize_t): longint; cdecl;
-    set_: function(state: pointer; fdf: Pgsl_multiroot_function_fdf; x: Pgsl_vector; f: Pgsl_vector; J: Pgsl_matrix;
-      dx: Pgsl_vector): longint; cdecl;
-    iterate: function(state: pointer; fdf: Pgsl_multiroot_function_fdf; x: Pgsl_vector; f: Pgsl_vector; J: Pgsl_matrix;
-      dx: Pgsl_vector): longint; cdecl;
+    set_: function(state: pointer; fdf: Pgsl_multiroot_function_fdf; x: Pgsl_vector; f: Pgsl_vector; J: Pgsl_matrix; dx: Pgsl_vector): longint; cdecl;
+    iterate: function(state: pointer; fdf: Pgsl_multiroot_function_fdf; x: Pgsl_vector; f: Pgsl_vector; J: Pgsl_matrix; dx: Pgsl_vector): longint; cdecl;
     free: procedure(state: pointer); cdecl;
   end;
   Pgsl_multiroot_fdfsolver_type = ^Tgsl_multiroot_fdfsolver_type;

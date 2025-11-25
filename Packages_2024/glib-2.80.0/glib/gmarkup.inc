@@ -33,8 +33,7 @@ type
   PGMarkupParseContext = ^TGMarkupParseContext;
 
   TGMarkupParser = record
-    start_element: procedure(context: PGMarkupParseContext; element_name: Pgchar; attribute_names: PPgchar; attribute_values: PPgchar; user_data: Tgpointer;
-      error: PPGError); cdecl;
+    start_element: procedure(context: PGMarkupParseContext; element_name: Pgchar; attribute_names: PPgchar; attribute_values: PPgchar; user_data: Tgpointer; error: PPGError); cdecl;
     end_element: procedure(context: PGMarkupParseContext; element_name: Pgchar; user_data: Tgpointer; error: PPGError); cdecl;
     Text: procedure(context: PGMarkupParseContext; Text: Pgchar; text_len: Tgsize; user_data: Tgpointer; error: PPGError); cdecl;
     passthrough: procedure(context: PGMarkupParseContext; passthrough_text: Pgchar; text_len: Tgsize; user_data: Tgpointer; error: PPGError); cdecl;

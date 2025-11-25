@@ -81,7 +81,7 @@ type
   Tbufferevent_filter_cb = function(src: Pevbuffer; dst: Pevbuffer; dst_limit: Tev_ssize_t; mode: Tbufferevent_flush_mode; ctx: pointer): Tbufferevent_filter_result; cdecl;
 
 type
-  TFree_Proc = procedure(para1: pointer);
+  TFree_Proc = procedure(para1: pointer); cdecl;
 
 function bufferevent_filter_new(underlying: Pbufferevent; input_filter: Tbufferevent_filter_cb; output_filter: Tbufferevent_filter_cb; options: longint; free_context: TFree_Proc;
   ctx: pointer): Pbufferevent; cdecl; external libevent;

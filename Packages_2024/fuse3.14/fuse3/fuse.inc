@@ -74,8 +74,7 @@ type
     listxattr: function(para1: pchar; para2: pchar; para3: Tsize_t): longint; cdecl;
     removexattr: function(para1: pchar; para2: pchar): longint; cdecl;
     opendir: function(para1: pchar; para2: Pfuse_file_info): longint; cdecl;
-    readdir: function(para1: pchar; para2: pointer; para3: Tfuse_fill_dir_t; para4: Toff_t; para5: Pfuse_file_info;
-      para6: Tfuse_readdir_flags): longint; cdecl;
+    readdir: function(para1: pchar; para2: pointer; para3: Tfuse_fill_dir_t; para4: Toff_t; para5: Pfuse_file_info; para6: Tfuse_readdir_flags): longint; cdecl;
     releasedir: function(para1: pchar; para2: Pfuse_file_info): longint; cdecl;
     fsyncdir: function(para1: pchar; para2: longint; para3: Pfuse_file_info): longint; cdecl;
     init: function(conn: Pfuse_conn_info; cfg: Pfuse_config): pointer; cdecl;
@@ -85,15 +84,13 @@ type
     lock: function(para1: pchar; para2: Pfuse_file_info; cmd: longint; para4: Pflock): longint; cdecl;
     utimens: function(para1: pchar; tv: Ptimespec; fi: Pfuse_file_info): longint; cdecl;
     bmap: function(para1: pchar; blocksize: Tsize_t; idx: Puint64_t): longint; cdecl;
-    ioctl: function(para1: pchar; cmd: dword; arg: pointer; para4: Pfuse_file_info; flags: dword;
-      data: pointer): longint; cdecl;
+    ioctl: function(para1: pchar; cmd: dword; arg: pointer; para4: Pfuse_file_info; flags: dword; data: pointer): longint; cdecl;
     poll: function(para1: pchar; para2: Pfuse_file_info; ph: Pfuse_pollhandle; reventsp: Pdword): longint; cdecl;
     write_buf: function(para1: pchar; buf: Pfuse_bufvec; off: Toff_t; para4: Pfuse_file_info): longint; cdecl;
     read_buf: function(para1: pchar; bufp: PPfuse_bufvec; size: Tsize_t; off: Toff_t; para5: Pfuse_file_info): longint; cdecl;
     flock: function(para1: pchar; para2: Pfuse_file_info; op: longint): longint; cdecl;
     fallocate: function(para1: pchar; para2: longint; para3: Toff_t; para4: Toff_t; para5: Pfuse_file_info): longint; cdecl;
-    copy_file_range: function(path_in: pchar; fi_in: Pfuse_file_info; offset_in: Toff_t; path_out: pchar; fi_out: Pfuse_file_info;
-      offset_out: Toff_t; size: Tsize_t; flags: longint): Tssize_t; cdecl;
+    copy_file_range: function(path_in: pchar; fi_in: Pfuse_file_info; offset_in: Toff_t; path_out: pchar; fi_out: Pfuse_file_info; offset_out: Toff_t; size: Tsize_t; flags: longint): Tssize_t; cdecl;
     lseek: function(para1: pchar; off: Toff_t; whence: longint; para4: Pfuse_file_info): Toff_t; cdecl;
   end;
   Pfuse_operations = ^Tfuse_operations;
@@ -107,7 +104,6 @@ type
     umask: Tmode_t;
   end;
   Pfuse_context = ^Tfuse_context;
-
 
 function fuse_main(argc: longint; argv: PPchar; op: Pfuse_operations; private_data: pointer): longint;
 
@@ -124,10 +120,7 @@ function fuse_loop(f: Pfuse): longint; cdecl; external libfuse3;
 procedure fuse_exit(f: Pfuse); cdecl; external libfuse3;
 
 function fuse_loop_mt_31(f: Pfuse; clone_fd: longint): longint; cdecl; external libfuse3;
-
-
 function fuse_loop_mt_32(f: Pfuse; config: Pfuse_loop_config): longint; cdecl; external libfuse3;
-
 function fuse_loop_mt(f: Pfuse; config: Pfuse_loop_config): longint; cdecl; external libfuse3;
 
 function fuse_get_context: Pfuse_context; cdecl; external libfuse3;

@@ -62,8 +62,7 @@ type
   TGstAudioAggregatorClass = record
     parent_class: TGstAggregatorClass;
     create_output_buffer: function(aagg: PGstAudioAggregator; num_frames: Tguint): PGstBuffer; cdecl;
-    aggregate_one_buffer: function(aagg: PGstAudioAggregator; pad: PGstAudioAggregatorPad; inbuf: PGstBuffer; in_offset: Tguint; outbuf: PGstBuffer;
-      out_offset: Tguint; num_frames: Tguint): Tgboolean; cdecl;
+    aggregate_one_buffer: function(aagg: PGstAudioAggregator; pad: PGstAudioAggregatorPad; inbuf: PGstBuffer; in_offset: Tguint; outbuf: PGstBuffer; out_offset: Tguint; num_frames: Tguint): Tgboolean; cdecl;
     _gst_reserved: array[0..(GST_PADDING_LARGE) - 1] of Tgpointer;
   end;
   PGstAudioAggregatorClass = ^TGstAudioAggregatorClass;

@@ -61,8 +61,7 @@ function gsl_integration_qawo_table_set_length(t: Pgsl_integration_qawo_table; L
 procedure gsl_integration_qawo_table_free(t: Pgsl_integration_qawo_table); cdecl; external libgsl;
 
 type
-  Tgsl_integration_rule = procedure(f: Pgsl_function; a: Tdouble; b: Tdouble; result: Pdouble; abserr: Pdouble;
-    defabs: Pdouble; resabs: Pdouble); cdecl;
+  Tgsl_integration_rule = procedure(f: Pgsl_function; a: Tdouble; b: Tdouble; result: Pdouble; abserr: Pdouble; defabs: Pdouble; resabs: Pdouble); cdecl;
 
 procedure gsl_integration_qk15(f: Pgsl_function; a: Tdouble; b: Tdouble; result: Pdouble; abserr: Pdouble;
   resabs: Pdouble; resasc: Pdouble); cdecl; external libgsl;

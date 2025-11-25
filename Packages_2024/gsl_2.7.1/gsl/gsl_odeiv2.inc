@@ -33,8 +33,7 @@ type
     can_use_dydt_in: longint;
     gives_exact_dydt_out: longint;
     alloc: function(dim: Tsize_t): pointer; cdecl;
-    apply: function(state: pointer; dim: Tsize_t; t: Tdouble; h: Tdouble; y: Pdouble;
-      yerr: Pdouble; dydt_in: Pdouble; dydt_out: Pdouble; dydt: Pgsl_odeiv2_system): longint; cdecl;
+    apply: function(state: pointer; dim: Tsize_t; t: Tdouble; h: Tdouble; y: Pdouble; yerr: Pdouble; dydt_in: Pdouble; dydt_out: Pdouble; dydt: Pgsl_odeiv2_system): longint; cdecl;
     set_driver: function(state: pointer; d: Pgsl_odeiv2_driver): longint; cdecl;
     reset: function(state: pointer; dim: Tsize_t): longint; cdecl;
     order: function(state: pointer): dword; cdecl;
@@ -53,10 +52,8 @@ type
     name: pchar;
     alloc: function: pointer; cdecl;
     init: function(state: pointer; eps_abs: Tdouble; eps_rel: Tdouble; a_y: Tdouble; a_dydt: Tdouble): longint; cdecl;
-    hadjust: function(state: pointer; dim: Tsize_t; ord: dword; y: Pdouble; yerr: Pdouble;
-      yp: Pdouble; h: Pdouble): longint; cdecl;
-    errlevel: function(state: pointer; y: Tdouble; dydt: Tdouble; h: Tdouble; ind: Tsize_t;
-      errlev: Pdouble): longint; cdecl;
+    hadjust: function(state: pointer; dim: Tsize_t; ord: dword; y: Pdouble; yerr: Pdouble; yp: Pdouble; h: Pdouble): longint; cdecl;
+    errlevel: function(state: pointer; y: Tdouble; dydt: Tdouble; h: Tdouble; ind: Tsize_t; errlev: Pdouble): longint; cdecl;
     set_driver: function(state: pointer; d: Pgsl_odeiv2_driver): longint; cdecl;
     free: procedure(state: pointer); cdecl;
   end;

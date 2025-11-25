@@ -3,7 +3,7 @@
 
 type
   Tgsl_odeiv_system = record
-    _function: function(t: Tdouble; y: Pdouble; dydt: Pdouble; params: pointer): longint; cdecl;
+    func: function(t: Tdouble; y: Pdouble; dydt: Pdouble; params: pointer): longint; cdecl;
     jacobian: function(t: Tdouble; y: Pdouble; dfdy: Pdouble; dfdt: Pdouble; params: pointer): longint; cdecl;
     dimension: Tsize_t;
     params: pointer;
@@ -15,8 +15,7 @@ type
     can_use_dydt_in: longint;
     gives_exact_dydt_out: longint;
     alloc: function(dim: Tsize_t): pointer; cdecl;
-    apply: function(state: pointer; dim: Tsize_t; t: Tdouble; h: Tdouble; y: Pdouble;
-      yerr: Pdouble; dydt_in: Pdouble; dydt_out: Pdouble; dydt: Pgsl_odeiv_system): longint; cdecl;
+    apply: function(state: pointer; dim: Tsize_t; t: Tdouble; h: Tdouble; y: Pdouble; yerr: Pdouble; dydt_in: Pdouble; dydt_out: Pdouble; dydt: Pgsl_odeiv_system): longint; cdecl;
     reset: function(state: pointer; dim: Tsize_t): longint; cdecl;
     order: function(state: pointer): dword; cdecl;
     free: procedure(state: pointer); cdecl;
@@ -56,8 +55,7 @@ type
     name: pchar;
     alloc: function: pointer; cdecl;
     init: function(state: pointer; eps_abs: Tdouble; eps_rel: Tdouble; a_y: Tdouble; a_dydt: Tdouble): longint; cdecl;
-    hadjust: function(state: pointer; dim: Tsize_t; ord: dword; y: Pdouble; yerr: Pdouble;
-      yp: Pdouble; h: Pdouble): longint; cdecl;
+    hadjust: function(state: pointer; dim: Tsize_t; ord: dword; y: Pdouble; yerr: Pdouble; yp: Pdouble; h: Pdouble): longint; cdecl;
     free: procedure(state: pointer); cdecl;
   end;
   Pgsl_odeiv_control_type = ^Tgsl_odeiv_control_type;

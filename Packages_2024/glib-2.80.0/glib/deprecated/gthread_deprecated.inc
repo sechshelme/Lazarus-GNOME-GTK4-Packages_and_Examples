@@ -38,8 +38,7 @@ type
     private_new: function(_destructor: TGDestroyNotify): PGPrivate; cdecl;
     private_get: function(private_key: PGPrivate): Tgpointer; cdecl;
     private_set: procedure(private_key: PGPrivate; Data: Tgpointer); cdecl;
-    thread_create: procedure(func: TGThreadFunc; Data: Tgpointer; stack_size: Tgulong; joinable: Tgboolean; bound: Tgboolean;
-      priority: TGThreadPriority; thread: Tgpointer; error: PPGError); cdecl;
+    thread_create: procedure(func: TGThreadFunc; Data: Tgpointer; stack_size: Tgulong; joinable: Tgboolean; bound: Tgboolean; priority: TGThreadPriority; thread: Tgpointer; error: PPGError); cdecl;
     thread_yield: procedure; cdecl;
     thread_join: procedure(thread: Tgpointer); cdecl;
     thread_exit: procedure; cdecl;

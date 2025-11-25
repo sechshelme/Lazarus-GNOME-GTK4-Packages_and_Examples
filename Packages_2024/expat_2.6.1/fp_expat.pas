@@ -213,8 +213,7 @@ type
 procedure XML_SetElementDeclHandler(parser: TXML_Parser; eldecl: TXML_ElementDeclHandler); cdecl; external libexpat;
 
 type
-  TXML_AttlistDeclHandler = procedure(userData: pointer; elname: PXML_Char; attname: PXML_Char; att_type: PXML_Char; dflt: PXML_Char;
-    isrequired: longint); cdecl;
+  TXML_AttlistDeclHandler = procedure(userData: pointer; elname: PXML_Char; attname: PXML_Char; att_type: PXML_Char; dflt: PXML_Char; isrequired: longint); cdecl;
 
 procedure XML_SetAttlistDeclHandler(parser: TXML_Parser; attdecl: TXML_AttlistDeclHandler); cdecl; external libexpat;
 
@@ -248,14 +247,12 @@ type
   TXML_DefaultHandler = procedure(userData: pointer; s: PXML_Char; len: longint); cdecl;
   TXML_StartDoctypeDeclHandler = procedure(userData: pointer; doctypeName: PXML_Char; sysid: PXML_Char; pubid: PXML_Char; has_internal_subset: longint); cdecl;
   TXML_EndDoctypeDeclHandler = procedure(userData: pointer); cdecl;
-  TXML_EntityDeclHandler = procedure(userData: pointer; entityName: PXML_Char; is_parameter_entity: longint; value: PXML_Char; value_length: longint;
-    base: PXML_Char; systemId: PXML_Char; publicId: PXML_Char; notationName: PXML_Char); cdecl;
+  TXML_EntityDeclHandler = procedure(userData: pointer; entityName: PXML_Char; is_parameter_entity: longint; value: PXML_Char; value_length: longint; base: PXML_Char; systemId: PXML_Char; publicId: PXML_Char; notationName: PXML_Char); cdecl;
 
 procedure XML_SetEntityDeclHandler(parser: TXML_Parser; handler: TXML_EntityDeclHandler); cdecl; external libexpat;
 
 type
-  TXML_UnparsedEntityDeclHandler = procedure(userData: pointer; entityName: PXML_Char; base: PXML_Char; systemId: PXML_Char; publicId: PXML_Char;
-    notationName: PXML_Char); cdecl;
+  TXML_UnparsedEntityDeclHandler = procedure(userData: pointer; entityName: PXML_Char; base: PXML_Char; systemId: PXML_Char; publicId: PXML_Char; notationName: PXML_Char); cdecl;
   TXML_NotationDeclHandler = procedure(userData: pointer; notationName: PXML_Char; base: PXML_Char; systemId: PXML_Char; publicId: PXML_Char); cdecl;
   TXML_StartNamespaceDeclHandler = procedure(userData: pointer; prefix: PXML_Char; uri: PXML_Char); cdecl;
   TXML_EndNamespaceDeclHandler = procedure(userData: pointer; prefix: PXML_Char); cdecl;

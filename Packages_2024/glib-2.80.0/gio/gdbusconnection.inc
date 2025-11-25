@@ -55,14 +55,11 @@ function g_dbus_connection_call_with_unix_fd_list_sync(connection: PGDBusConnect
 {$endif}
 type
 
-  TGDBusInterfaceMethodCallFunc = procedure(connection: PGDBusConnection; Sender: Pgchar; object_path: Pgchar; interface_name: Pgchar; method_name: Pgchar;
-    parameters: PGVariant; invocation: PGDBusMethodInvocation; user_data: Tgpointer); cdecl;
+  TGDBusInterfaceMethodCallFunc = procedure(connection: PGDBusConnection; Sender: Pgchar; object_path: Pgchar; interface_name: Pgchar; method_name: Pgchar; parameters: PGVariant; invocation: PGDBusMethodInvocation; user_data: Tgpointer); cdecl;
 
   PGDBusInterfaceGetPropertyFunc = ^TGDBusInterfaceGetPropertyFunc;
-  TGDBusInterfaceGetPropertyFunc = function(connection: PGDBusConnection; Sender: Pgchar; object_path: Pgchar; interface_name: Pgchar; property_name: Pgchar;
-    error: PPGError; user_data: Tgpointer): PGVariant; cdecl;
-  TGDBusInterfaceSetPropertyFunc = function(connection: PGDBusConnection; Sender: Pgchar; object_path: Pgchar; interface_name: Pgchar; property_name: Pgchar;
-    Value: PGVariant; error: PPGError; user_data: Tgpointer): Tgboolean; cdecl;
+  TGDBusInterfaceGetPropertyFunc = function(connection: PGDBusConnection; Sender: Pgchar; object_path: Pgchar; interface_name: Pgchar; property_name: Pgchar; error: PPGError; user_data: Tgpointer): PGVariant; cdecl;
+  TGDBusInterfaceSetPropertyFunc = function(connection: PGDBusConnection; Sender: Pgchar; object_path: Pgchar; interface_name: Pgchar; property_name: Pgchar; Value: PGVariant; error: PPGError; user_data: Tgpointer): Tgboolean; cdecl;
   PGDBusInterfaceVTable = ^TGDBusInterfaceVTable;
 
   TGDBusInterfaceVTable = record
@@ -71,7 +68,6 @@ type
     set_property: TGDBusInterfaceSetPropertyFunc;
     padding: array[0..7] of Tgpointer;
   end;
-
 
 function g_dbus_connection_register_object(connection: PGDBusConnection; object_path: Pgchar; interface_info: PGDBusInterfaceInfo; vtable: PGDBusInterfaceVTable; user_data: Tgpointer;
   user_data_free_func: TGDestroyNotify; error: PPGError): Tguint; cdecl; external libgio2;

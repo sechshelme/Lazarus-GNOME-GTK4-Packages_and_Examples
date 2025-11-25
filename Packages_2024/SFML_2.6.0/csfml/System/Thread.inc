@@ -2,7 +2,7 @@
 
 
 type
-  TThread_Create_Proc = procedure(para1: pointer);
+  TThread_Create_Proc = procedure(para1: pointer); cdecl;
 
 function sfThread_create(_function: TThread_Create_Proc; userData: pointer): PsfThread; cdecl; external libcsfml_system;
 procedure sfThread_destroy(thread: PsfThread); cdecl; external libcsfml_system;

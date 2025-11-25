@@ -25,8 +25,7 @@ type
     get_mount: function(volume: PGVolume): PGMount; cdecl;
     can_mount: function(volume: PGVolume): Tgboolean; cdecl;
     can_eject: function(volume: PGVolume): Tgboolean; cdecl;
-    mount_fn: procedure(volume: PGVolume; flags: TGMountMountFlags; mount_operation: PGMountOperation; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-      user_data: Tgpointer); cdecl;
+    mount_fn: procedure(volume: PGVolume; flags: TGMountMountFlags; mount_operation: PGMountOperation; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     mount_finish: function(volume: PGVolume; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl;
     eject: procedure(volume: PGVolume; flags: TGMountUnmountFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     eject_finish: function(volume: PGVolume; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl;
@@ -34,8 +33,7 @@ type
     enumerate_identifiers: function(volume: PGVolume): PPchar; cdecl;
     should_automount: function(volume: PGVolume): Tgboolean; cdecl;
     get_activation_root: function(volume: PGVolume): PGFile; cdecl;
-    eject_with_operation: procedure(volume: PGVolume; flags: TGMountUnmountFlags; mount_operation: PGMountOperation; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-      user_data: Tgpointer); cdecl;
+    eject_with_operation: procedure(volume: PGVolume; flags: TGMountUnmountFlags; mount_operation: PGMountOperation; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     eject_with_operation_finish: function(volume: PGVolume; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl;
     get_sort_key: function(volume: PGVolume): Pgchar; cdecl;
     get_symbolic_icon: function(volume: PGVolume): PGIcon; cdecl;

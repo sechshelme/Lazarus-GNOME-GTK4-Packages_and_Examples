@@ -36,10 +36,8 @@ type
   Tfuse_custom_io = record
     writev: function(fd: longint; iov: Piovec; count: longint; userdata: pointer): Tssize_t; cdecl;
     read: function(fd: longint; buf: pointer; buf_len: Tsize_t; userdata: pointer): Tssize_t; cdecl;
-    splice_receive: function(fdin: longint; offin: Poff_t; fdout: longint; offout: Poff_t; len: Tsize_t;
-      flags: dword; userdata: pointer): Tssize_t; cdecl;
-    splice_send: function(fdin: longint; offin: Poff_t; fdout: longint; offout: Poff_t; len: Tsize_t;
-      flags: dword; userdata: pointer): Tssize_t; cdecl;
+    splice_receive: function(fdin: longint; offin: Poff_t; fdout: longint; offout: Poff_t; len: Tsize_t; flags: dword; userdata: pointer): Tssize_t; cdecl;
+    splice_send: function(fdin: longint; offin: Poff_t; fdout: longint; offout: Poff_t; len: Tsize_t; flags: dword; userdata: pointer): Tssize_t; cdecl;
   end;
   Pfuse_custom_io = ^Tfuse_custom_io;
 
@@ -83,13 +81,11 @@ type
     unlink: procedure(req: Tfuse_req_t; parent: Tfuse_ino_t; name: pchar); cdecl;
     rmdir: procedure(req: Tfuse_req_t; parent: Tfuse_ino_t; name: pchar); cdecl;
     symlink: procedure(req: Tfuse_req_t; link: pchar; parent: Tfuse_ino_t; name: pchar); cdecl;
-    rename: procedure(req: Tfuse_req_t; parent: Tfuse_ino_t; name: pchar; newparent: Tfuse_ino_t; newname: pchar;
-      flags: dword); cdecl;
+    rename: procedure(req: Tfuse_req_t; parent: Tfuse_ino_t; name: pchar; newparent: Tfuse_ino_t; newname: pchar; flags: dword); cdecl;
     link: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; newparent: Tfuse_ino_t; newname: pchar); cdecl;
     open: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; fi: Pfuse_file_info); cdecl;
     read: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; size: Tsize_t; off: Toff_t; fi: Pfuse_file_info); cdecl;
-    write: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; buf: pchar; size: Tsize_t; off: Toff_t;
-      fi: Pfuse_file_info); cdecl;
+    write: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; buf: pchar; size: Tsize_t; off: Toff_t; fi: Pfuse_file_info); cdecl;
     flush: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; fi: Pfuse_file_info); cdecl;
     release: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; fi: Pfuse_file_info); cdecl;
     fsync: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; datasync: longint; fi: Pfuse_file_info); cdecl;
@@ -98,8 +94,7 @@ type
     releasedir: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; fi: Pfuse_file_info); cdecl;
     fsyncdir: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; datasync: longint; fi: Pfuse_file_info); cdecl;
     statfs: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t); cdecl;
-    setxattr: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; name: pchar; value: pchar; size: Tsize_t;
-      flags: longint); cdecl;
+    setxattr: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; name: pchar; value: pchar; size: Tsize_t; flags: longint); cdecl;
     getxattr: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; name: pchar; size: Tsize_t); cdecl;
     listxattr: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; size: Tsize_t); cdecl;
     removexattr: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; name: pchar); cdecl;
@@ -108,18 +103,15 @@ type
     getlk: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; fi: Pfuse_file_info; lock: Pflock); cdecl;
     setlk: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; fi: Pfuse_file_info; lock: Pflock; sleep: longint); cdecl;
     bmap: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; blocksize: Tsize_t; idx: Tuint64_t); cdecl;
-    ioctl: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; cmd: dword; arg: pointer; fi: Pfuse_file_info;
-      flags: dword; in_buf: pointer; in_bufsz: Tsize_t; out_bufsz: Tsize_t); cdecl;
+    ioctl: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; cmd: dword; arg: pointer; fi: Pfuse_file_info; flags: dword; in_buf: pointer; in_bufsz: Tsize_t; out_bufsz: Tsize_t); cdecl;
     poll: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; fi: Pfuse_file_info; ph: Pfuse_pollhandle); cdecl;
     write_buf: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; bufv: Pfuse_bufvec; off: Toff_t; fi: Pfuse_file_info); cdecl;
     retrieve_reply: procedure(req: Tfuse_req_t; cookie: pointer; ino: Tfuse_ino_t; offset: Toff_t; bufv: Pfuse_bufvec); cdecl;
     forget_multi: procedure(req: Tfuse_req_t; count: Tsize_t; forgets: Pfuse_forget_data); cdecl;
     flock: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; fi: Pfuse_file_info; op: longint); cdecl;
-    fallocate: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; mode: longint; offset: Toff_t; length: Toff_t;
-      fi: Pfuse_file_info); cdecl;
+    fallocate: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; mode: longint; offset: Toff_t; length: Toff_t; fi: Pfuse_file_info); cdecl;
     readdirplus: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; size: Tsize_t; off: Toff_t; fi: Pfuse_file_info); cdecl;
-    copy_file_range: procedure(req: Tfuse_req_t; ino_in: Tfuse_ino_t; off_in: Toff_t; fi_in: Pfuse_file_info; ino_out: Tfuse_ino_t;
-      off_out: Toff_t; fi_out: Pfuse_file_info; len: Tsize_t; flags: longint); cdecl;
+    copy_file_range: procedure(req: Tfuse_req_t; ino_in: Tfuse_ino_t; off_in: Toff_t; fi_in: Pfuse_file_info; ino_out: Tfuse_ino_t; off_out: Toff_t; fi_out: Pfuse_file_info; len: Tsize_t; flags: longint); cdecl;
     lseek: procedure(req: Tfuse_req_t; ino: Tfuse_ino_t; off: Toff_t; whence: longint; fi: Pfuse_file_info); cdecl;
   end;
 

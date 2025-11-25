@@ -54,8 +54,7 @@ type
     get_display_name: function(appinfo: PGAppInfo): PChar; cdecl;
     set_as_last_used_for_type: function(appinfo: PGAppInfo; content_type: PChar; error: PPGError): Tgboolean; cdecl;
     get_supported_types: function(appinfo: PGAppInfo): PPchar; cdecl;
-    launch_uris_async: procedure(appinfo: PGAppInfo; uris: PGList; context: PGAppLaunchContext; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-      user_data: Tgpointer); cdecl;
+    launch_uris_async: procedure(appinfo: PGAppInfo; uris: PGList; context: PGAppLaunchContext; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     launch_uris_finish: function(appinfo: PGAppInfo; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl;
   end;
   PGAppInfoIface = ^TGAppInfoIface;

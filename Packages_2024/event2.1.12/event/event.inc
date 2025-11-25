@@ -151,9 +151,9 @@ function event_priority_set(para1: Pevent; para2: longint): longint; cdecl; exte
 function event_base_init_common_timeout(base: Pevent_base; duration: Ptimeval): Ptimeval; cdecl; external libevent;
 
 type
-  TmallocFunc = function(sz: Tsize_t): pointer;
-  TreallicFunc = function(ptr: pointer; sz: Tsize_t): pointer;
-  TfreeFunc = procedure(ptr: pointer);
+  TmallocFunc = function(sz: Tsize_t): pointer; cdecl;
+  TreallicFunc = function(ptr: pointer; sz: Tsize_t): pointer; cdecl;
+  TfreeFunc = procedure(ptr: pointer); cdecl;
 
 procedure event_set_mem_functions(malloc_fn: TmallocFunc; realloc_fn: TreallicFunc; free_fn: TfreeFunc); cdecl; external libevent;
 procedure event_base_dump_events(para1: Pevent_base; para2: PFILE); cdecl; external libevent;

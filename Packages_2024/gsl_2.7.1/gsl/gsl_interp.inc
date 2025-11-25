@@ -14,14 +14,10 @@ type
     min_size: dword;
     alloc: function(size: Tsize_t): pointer; cdecl;
     init: function(para1: pointer; xa: Pdouble; ya: Pdouble; size: Tsize_t): longint; cdecl;
-    eval: function(para1: pointer; xa: Pdouble; ya: Pdouble; size: Tsize_t; x: Tdouble;
-      para6: Pgsl_interp_accel; y: Pdouble): longint; cdecl;
-    eval_deriv: function(para1: pointer; xa: Pdouble; ya: Pdouble; size: Tsize_t; x: Tdouble;
-      para6: Pgsl_interp_accel; y_p: Pdouble): longint; cdecl;
-    eval_deriv2: function(para1: pointer; xa: Pdouble; ya: Pdouble; size: Tsize_t; x: Tdouble;
-      para6: Pgsl_interp_accel; y_pp: Pdouble): longint; cdecl;
-    eval_integ: function(para1: pointer; xa: Pdouble; ya: Pdouble; size: Tsize_t; para5: Pgsl_interp_accel;
-      a: Tdouble; b: Tdouble; result: Pdouble): longint; cdecl;
+    eval: function(para1: pointer; xa: Pdouble; ya: Pdouble; size: Tsize_t; x: Tdouble; para6: Pgsl_interp_accel; y: Pdouble): longint; cdecl;
+    eval_deriv: function(para1: pointer; xa: Pdouble; ya: Pdouble; size: Tsize_t; x: Tdouble; para6: Pgsl_interp_accel; y_p: Pdouble): longint; cdecl;
+    eval_deriv2: function(para1: pointer; xa: Pdouble; ya: Pdouble; size: Tsize_t; x: Tdouble; para6: Pgsl_interp_accel; y_pp: Pdouble): longint; cdecl;
+    eval_integ: function(para1: pointer; xa: Pdouble; ya: Pdouble; size: Tsize_t; para5: Pgsl_interp_accel; a: Tdouble; b: Tdouble; result: Pdouble): longint; cdecl;
     free: procedure(para1: pointer); cdecl;
   end;
   Pgsl_interp_type = ^Tgsl_interp_type;

@@ -18,11 +18,9 @@ type
     get_file_for_uri: function(vfs: PGVfs; uri: PChar): PGFile; cdecl;
     get_supported_uri_schemes: function(vfs: PGVfs): PPgchar; cdecl;
     parse_name: function(vfs: PGVfs; parse_name: PChar): PGFile; cdecl;
-    local_file_add_info: procedure(vfs: PGVfs; filename: PChar; device: Tguint64; attribute_matcher: PGFileAttributeMatcher; info: PGFileInfo;
-      cancellable: PGCancellable; extra_data: Pgpointer; free_extra_data: PGDestroyNotify); cdecl;
+    local_file_add_info: procedure(vfs: PGVfs; filename: PChar; device: Tguint64; attribute_matcher: PGFileAttributeMatcher; info: PGFileInfo; cancellable: PGCancellable; extra_data: Pgpointer; free_extra_data: PGDestroyNotify); cdecl;
     add_writable_namespaces: procedure(vfs: PGVfs; list: PGFileAttributeInfoList); cdecl;
-    local_file_set_attributes: function(vfs: PGVfs; filename: PChar; info: PGFileInfo; flags: TGFileQueryInfoFlags; cancellable: PGCancellable;
-      error: PPGError): Tgboolean; cdecl;
+    local_file_set_attributes: function(vfs: PGVfs; filename: PChar; info: PGFileInfo; flags: TGFileQueryInfoFlags; cancellable: PGCancellable; error: PPGError): Tgboolean; cdecl;
     local_file_removed: procedure(vfs: PGVfs; filename: PChar); cdecl;
     local_file_moved: procedure(vfs: PGVfs; Source: PChar; dest: PChar); cdecl;
     deserialize_icon: function(vfs: PGVfs; Value: PGVariant): PGIcon; cdecl;

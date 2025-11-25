@@ -40,7 +40,7 @@ type
 function evthread_set_condition_callbacks(para1: Pevthread_condition_callbacks): longint; cdecl; external libevent;
 
 type
-  TFunc2 = function: Tculong;
+  TFunc2 = function: Tculong; cdecl;
 
 procedure evthread_set_id_callback(id_fn: TFunc2); cdecl; external libevent;
 

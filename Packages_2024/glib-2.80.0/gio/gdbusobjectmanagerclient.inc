@@ -4,8 +4,7 @@
 type
   TGDBusObjectManagerClientClass = record
     parent_class: TGObjectClass;
-    interface_proxy_signal: procedure(manager: PGDBusObjectManagerClient; object_proxy: PGDBusObjectProxy; interface_proxy: PGDBusProxy; sender_name: Pgchar; signal_name: Pgchar;
-      parameters: PGVariant); cdecl;
+    interface_proxy_signal: procedure(manager: PGDBusObjectManagerClient; object_proxy: PGDBusObjectProxy; interface_proxy: PGDBusProxy; sender_name: Pgchar; signal_name: Pgchar; parameters: PGVariant); cdecl;
     interface_proxy_properties_changed: procedure(manager: PGDBusObjectManagerClient; object_proxy: PGDBusObjectProxy; interface_proxy: PGDBusProxy; changed_properties: PGVariant; invalidated_properties: PPgchar); cdecl;
     padding: array[0..7] of Tgpointer;
   end;

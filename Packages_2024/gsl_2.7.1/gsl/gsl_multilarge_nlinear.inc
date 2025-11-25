@@ -12,8 +12,7 @@ const
 type
   Tgsl_multilarge_nlinear_fdf = record
     f: function(x: Pgsl_vector; params: pointer; f: Pgsl_vector): longint; cdecl;
-    df: function(TransJ: TCBLAS_TRANSPOSE_t; x: Pgsl_vector; u: Pgsl_vector; params: pointer; v: Pgsl_vector;
-      JTJ: Pgsl_matrix): longint; cdecl;
+    df: function(TransJ: TCBLAS_TRANSPOSE_t; x: Pgsl_vector; u: Pgsl_vector; params: pointer; v: Pgsl_vector; JTJ: Pgsl_matrix): longint; cdecl;
     fvv: function(x: Pgsl_vector; v: Pgsl_vector; params: pointer; fvv: Pgsl_vector): longint; cdecl;
     n: Tsize_t;
     p: Tsize_t;
@@ -73,10 +72,8 @@ type
   Tgsl_multilarge_nlinear_type = record
     name: pchar;
     alloc: function(params: Pgsl_multilarge_nlinear_parameters; n: Tsize_t; p: Tsize_t): pointer; cdecl;
-    init: function(state: pointer; wts: Pgsl_vector; fdf: Pgsl_multilarge_nlinear_fdf; x: Pgsl_vector; f: Pgsl_vector;
-      g: Pgsl_vector; JTJ: Pgsl_matrix): longint; cdecl;
-    iterate: function(state: pointer; wts: Pgsl_vector; fdf: Pgsl_multilarge_nlinear_fdf; x: Pgsl_vector; f: Pgsl_vector;
-      g: Pgsl_vector; JTJ: Pgsl_matrix; dx: Pgsl_vector): longint; cdecl;
+    init: function(state: pointer; wts: Pgsl_vector; fdf: Pgsl_multilarge_nlinear_fdf; x: Pgsl_vector; f: Pgsl_vector; g: Pgsl_vector; JTJ: Pgsl_matrix): longint; cdecl;
+    iterate: function(state: pointer; wts: Pgsl_vector; fdf: Pgsl_multilarge_nlinear_fdf; x: Pgsl_vector; f: Pgsl_vector; g: Pgsl_vector; JTJ: Pgsl_matrix; dx: Pgsl_vector): longint; cdecl;
     rcond: function(rcond: Pdouble; JTJ: Pgsl_matrix; state: pointer): longint; cdecl;
     covar: function(JTJ: Pgsl_matrix; covar: Pgsl_matrix; state: pointer): longint; cdecl;
     avratio: function(state: pointer): Tdouble; cdecl;
@@ -128,7 +125,7 @@ function gsl_multilarge_nlinear_rcond(rcond: Pdouble; w: Pgsl_multilarge_nlinear
 function gsl_multilarge_nlinear_covar(covar: Pgsl_matrix; w: Pgsl_multilarge_nlinear_workspace): longint; cdecl; external libgsl;
 
 type
-  Tliner_cp = procedure(iter: Tsize_t; params: pointer; w: Pgsl_multilarge_nlinear_workspace);
+  Tliner_cp = procedure(iter: Tsize_t; params: pointer; w: Pgsl_multilarge_nlinear_workspace); cdecl;
 
 function gsl_multilarge_nlinear_driver(maxiter: Tsize_t; xtol: Tdouble; gtol: Tdouble; ftol: Tdouble; callback: Tliner_cp;
   callback_params: pointer; info: Plongint; w: Pgsl_multilarge_nlinear_workspace): longint; cdecl; external libgsl;

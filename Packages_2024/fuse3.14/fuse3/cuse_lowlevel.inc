@@ -27,8 +27,7 @@ type
     flush: procedure(req: Tfuse_req_t; fi: Pfuse_file_info); cdecl;
     release: procedure(req: Tfuse_req_t; fi: Pfuse_file_info); cdecl;
     fsync: procedure(req: Tfuse_req_t; datasync: longint; fi: Pfuse_file_info); cdecl;
-    ioctl: procedure(req: Tfuse_req_t; cmd: longint; arg: pointer; fi: Pfuse_file_info; flags: dword;
-      in_buf: pointer; in_bufsz: Tsize_t; out_bufsz: Tsize_t); cdecl;
+    ioctl: procedure(req: Tfuse_req_t; cmd: longint; arg: pointer; fi: Pfuse_file_info; flags: dword; in_buf: pointer; in_bufsz: Tsize_t; out_bufsz: Tsize_t); cdecl;
     poll: procedure(req: Tfuse_req_t; fi: Pfuse_file_info; ph: Pfuse_pollhandle); cdecl;
   end;
   Pcuse_lowlevel_ops = ^Tcuse_lowlevel_ops;

@@ -12,8 +12,7 @@ const
 type
   Tgsl_wavelet_type = record
     name: pchar;
-    init: function(h1: PPdouble; g1: PPdouble; h2: PPdouble; g2: PPdouble; nc: Psize_t;
-      offset: Psize_t; member: Tsize_t): longint; cdecl;
+    init: function(h1: PPdouble; g1: PPdouble; h2: PPdouble; g2: PPdouble; nc: Psize_t; offset: Psize_t; member: Tsize_t): longint; cdecl;
   end;
   Pgsl_wavelet_type = ^Tgsl_wavelet_type;
 

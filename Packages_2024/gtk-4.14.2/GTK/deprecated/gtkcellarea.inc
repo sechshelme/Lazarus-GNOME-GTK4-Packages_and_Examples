@@ -20,8 +20,7 @@ type
     foreach: procedure(area: PGtkCellArea; callback: TGtkCellCallback; callback_data: Tgpointer); cdecl;
     foreach_alloc: procedure(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; cell_area: PGdkRectangle; background_area: PGdkRectangle; callback: TGtkCellAllocCallback; callback_data: Tgpointer); cdecl;
     event: function(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; event: PGdkEvent; cell_area: PGdkRectangle; flags: TGtkCellRendererState): longint; cdecl;
-    snapshot: procedure(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; snapshot: PGtkSnapshot; background_area: PGdkRectangle;
-      cell_area: PGdkRectangle; flags: TGtkCellRendererState; paint_focus: Tgboolean); cdecl;
+    snapshot: procedure(area: PGtkCellArea; context: PGtkCellAreaContext; widget: PGtkWidget; snapshot: PGtkSnapshot; background_area: PGdkRectangle; cell_area: PGdkRectangle; flags: TGtkCellRendererState; paint_focus: Tgboolean); cdecl;
     apply_attributes: procedure(area: PGtkCellArea; tree_model: PGtkTreeModel; iter: PGtkTreeIter; is_expander: Tgboolean; is_expanded: Tgboolean); cdecl;
     create_context: function(area: PGtkCellArea): PGtkCellAreaContext; cdecl;
     copy_context: function(area: PGtkCellArea; context: PGtkCellAreaContext): PGtkCellAreaContext; cdecl;

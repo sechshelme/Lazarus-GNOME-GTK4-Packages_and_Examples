@@ -48,17 +48,14 @@ struct _GClosure
     in_marshal: 0..1;
     is_invalid: 0..1;
 
-    marshal: procedure(closure: PGClosure; return_value: PGValue; n_param_values: Tguint; param_values: PGValue; invocation_hint: Tgpointer;
-      marshal_data: Tgpointer); cdecl;
+    marshal: procedure(closure: PGClosure; return_value: PGValue; n_param_values: Tguint; param_values: PGValue; invocation_hint: Tgpointer; marshal_data: Tgpointer); cdecl;
     Data: Tgpointer;
     notifiers: PGClosureNotifyData;
   end;
 
   TGCallback = procedure(para1: pointer); cdecl;
-  TGClosureMarshal = procedure(closure: PGClosure; return_value: PGValue; n_param_values: Tguint; param_values: PGValue; invocation_hint: Tgpointer;
-    marshal_data: Tgpointer); cdecl;
-  TGVaClosureMarshal = procedure(closure: PGClosure; return_value: PGValue; instance: Tgpointer; args: Tva_list; marshal_data: Tgpointer;
-    n_params: longint; param_types: PGType); cdecl;
+  TGClosureMarshal = procedure(closure: PGClosure; return_value: PGValue; n_param_values: Tguint; param_values: PGValue; invocation_hint: Tgpointer; marshal_data: Tgpointer); cdecl;
+  TGVaClosureMarshal = procedure(closure: PGClosure; return_value: PGValue; instance: Tgpointer; args: Tva_list; marshal_data: Tgpointer; n_params: longint; param_types: PGType); cdecl;
 
 type
   TGCClosure = record

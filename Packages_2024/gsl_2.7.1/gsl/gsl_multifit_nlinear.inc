@@ -68,10 +68,8 @@ type
   Tgsl_multifit_nlinear_type = record
     name: pchar;
     alloc: function(params: Pgsl_multifit_nlinear_parameters; n: Tsize_t; p: Tsize_t): pointer; cdecl;
-    init: function(state: pointer; wts: Pgsl_vector; fdf: Pgsl_multifit_nlinear_fdf; x: Pgsl_vector; f: Pgsl_vector;
-      J: Pgsl_matrix; g: Pgsl_vector): longint; cdecl;
-    iterate: function(state: pointer; wts: Pgsl_vector; fdf: Pgsl_multifit_nlinear_fdf; x: Pgsl_vector; f: Pgsl_vector;
-      J: Pgsl_matrix; g: Pgsl_vector; dx: Pgsl_vector): longint; cdecl;
+    init: function(state: pointer; wts: Pgsl_vector; fdf: Pgsl_multifit_nlinear_fdf; x: Pgsl_vector; f: Pgsl_vector; J: Pgsl_matrix; g: Pgsl_vector): longint; cdecl;
+    iterate: function(state: pointer; wts: Pgsl_vector; fdf: Pgsl_multifit_nlinear_fdf; x: Pgsl_vector; f: Pgsl_vector; J: Pgsl_matrix; g: Pgsl_vector; dx: Pgsl_vector): longint; cdecl;
     rcond: function(rcond: Pdouble; state: pointer): longint; cdecl;
     avratio: function(state: pointer): Tdouble; cdecl;
     free: procedure(state: pointer); cdecl;
@@ -118,7 +116,7 @@ function gsl_multifit_nlinear_iterate(w: Pgsl_multifit_nlinear_workspace): longi
 function gsl_multifit_nlinear_avratio(w: Pgsl_multifit_nlinear_workspace): Tdouble; cdecl; external libgsl;
 
 type
-  tnliner_func = procedure(iter: Tsize_t; params: pointer; w: Pgsl_multifit_nlinear_workspace);
+  tnliner_func = procedure(iter: Tsize_t; params: pointer; w: Pgsl_multifit_nlinear_workspace); cdecl;
 
 function gsl_multifit_nlinear_driver(maxiter: Tsize_t; xtol: Tdouble; gtol: Tdouble; ftol: Tdouble; callback: tnliner_func;
   callback_params: pointer; info: Plongint; w: Pgsl_multifit_nlinear_workspace): longint; cdecl; external libgsl;

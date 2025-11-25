@@ -5,10 +5,8 @@ type
   Tgsl_min_fminimizer_type = record
     name: pchar;
     size: Tsize_t;
-    set_: function(state: pointer; f: Pgsl_function; x_minimum: Tdouble; f_minimum: Tdouble; x_lower: Tdouble;
-      f_lower: Tdouble; x_upper: Tdouble; f_upper: Tdouble): longint; cdecl;
-    iterate: function(state: pointer; f: Pgsl_function; x_minimum: Pdouble; f_minimum: Pdouble; x_lower: Pdouble;
-      f_lower: Pdouble; x_upper: Pdouble; f_upper: Pdouble): longint; cdecl;
+    set_: function(state: pointer; f: Pgsl_function; x_minimum: Tdouble; f_minimum: Tdouble; x_lower: Tdouble; f_lower: Tdouble; x_upper: Tdouble; f_upper: Tdouble): longint; cdecl;
+    iterate: function(state: pointer; f: Pgsl_function; x_minimum: Pdouble; f_minimum: Pdouble; x_lower: Pdouble; f_lower: Pdouble; x_upper: Pdouble; f_upper: Pdouble): longint; cdecl;
   end;
   Pgsl_min_fminimizer_type = ^Tgsl_min_fminimizer_type;
 
@@ -47,8 +45,7 @@ var
   gsl_min_fminimizer_quad_golden: Pgsl_min_fminimizer_type; cvar;external libgsl;
 
 type
-  Tgsl_min_bracketing_function = function(f: Pgsl_function; x_minimum: Pdouble; f_minimum: Pdouble; x_lower: Pdouble; f_lower: Pdouble;
-    x_upper: Pdouble; f_upper: Pdouble; eval_max: Tsize_t): longint; cdecl;
+  Tgsl_min_bracketing_function = function(f: Pgsl_function; x_minimum: Pdouble; f_minimum: Pdouble; x_lower: Pdouble; f_lower: Pdouble; x_upper: Pdouble; f_upper: Pdouble; eval_max: Tsize_t): longint; cdecl;
 
 function gsl_min_find_bracket(f: Pgsl_function; x_minimum: Pdouble; f_minimum: Pdouble; x_lower: Pdouble; f_lower: Pdouble;
   x_upper: Pdouble; f_upper: Pdouble; eval_max: Tsize_t): longint; cdecl; external libgsl;

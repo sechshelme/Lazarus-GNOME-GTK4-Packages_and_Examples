@@ -66,10 +66,8 @@ type
     name: pchar;
     size: Tsize_t;
     alloc: function(state: pointer; n: Tsize_t): longint; cdecl;
-    set_: function(state: pointer; fdf: Pgsl_multimin_function_fdf; x: Pgsl_vector; f: Pdouble; gradient: Pgsl_vector;
-      step_size: Tdouble; tol: Tdouble): longint; cdecl;
-    iterate: function(state: pointer; fdf: Pgsl_multimin_function_fdf; x: Pgsl_vector; f: Pdouble; gradient: Pgsl_vector;
-      dx: Pgsl_vector): longint; cdecl;
+    set_: function(state: pointer; fdf: Pgsl_multimin_function_fdf; x: Pgsl_vector; f: Pdouble; gradient: Pgsl_vector; step_size: Tdouble; tol: Tdouble): longint; cdecl;
+    iterate: function(state: pointer; fdf: Pgsl_multimin_function_fdf; x: Pgsl_vector; f: Pdouble; gradient: Pgsl_vector; dx: Pgsl_vector): longint; cdecl;
     restart: function(state: pointer): longint; cdecl;
     free: procedure(state: pointer); cdecl;
   end;

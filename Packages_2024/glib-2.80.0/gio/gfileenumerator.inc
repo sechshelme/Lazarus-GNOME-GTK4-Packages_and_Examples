@@ -17,8 +17,7 @@ type
     parent_class: TGObjectClass;
     next_file: function(enumerator: PGFileEnumerator; cancellable: PGCancellable; error: PPGError): PGFileInfo; cdecl;
     close_fn: function(enumerator: PGFileEnumerator; cancellable: PGCancellable; error: PPGError): Tgboolean; cdecl;
-    next_files_async: procedure(enumerator: PGFileEnumerator; num_files: longint; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-      user_data: Tgpointer); cdecl;
+    next_files_async: procedure(enumerator: PGFileEnumerator; num_files: longint; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     next_files_finish: function(enumerator: PGFileEnumerator; Result: PGAsyncResult; error: PPGError): PGList; cdecl;
     close_async: procedure(enumerator: PGFileEnumerator; io_priority: longint; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     close_finish: function(enumerator: PGFileEnumerator; Result: PGAsyncResult; error: PPGError): Tgboolean; cdecl;

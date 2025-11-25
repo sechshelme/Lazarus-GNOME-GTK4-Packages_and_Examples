@@ -36,11 +36,9 @@ type
     lookup_service_async: procedure(resolver: PGResolver; rrname: Pgchar; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     lookup_service_finish: function(resolver: PGResolver; Result: PGAsyncResult; error: PPGError): PGList; cdecl;
     lookup_records: function(resolver: PGResolver; rrname: Pgchar; record_type: TGResolverRecordType; cancellable: PGCancellable; error: PPGError): PGList; cdecl;
-    lookup_records_async: procedure(resolver: PGResolver; rrname: Pgchar; record_type: TGResolverRecordType; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-      user_data: Tgpointer); cdecl;
+    lookup_records_async: procedure(resolver: PGResolver; rrname: Pgchar; record_type: TGResolverRecordType; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     lookup_records_finish: function(resolver: PGResolver; Result: PGAsyncResult; error: PPGError): PGList; cdecl;
-    lookup_by_name_with_flags_async: procedure(resolver: PGResolver; hostname: Pgchar; flags: TGResolverNameLookupFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-      user_data: Tgpointer); cdecl;
+    lookup_by_name_with_flags_async: procedure(resolver: PGResolver; hostname: Pgchar; flags: TGResolverNameLookupFlags; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     lookup_by_name_with_flags_finish: function(resolver: PGResolver; Result: PGAsyncResult; error: PPGError): PGList; cdecl;
     lookup_by_name_with_flags: function(resolver: PGResolver; hostname: Pgchar; flags: TGResolverNameLookupFlags; cancellable: PGCancellable; error: PPGError): PGList; cdecl;
   end;

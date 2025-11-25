@@ -7,10 +7,10 @@ type
   Pevrpc_pool = type Pointer;
 
 type
-  Treq_marshal_proc = procedure(para1: Pevbuffer; para2: pointer);
-  Trpl_clear_proc = procedure(para1: pointer);
-  Trpl_unmarshal_func = function(para1: pointer; para2: Pevbuffer): longint;
-  tcp_proc = procedure(para1: Pevrpc_status; para2: pointer; para3: pointer; para4: pointer);
+  Treq_marshal_proc = procedure(para1: Pevbuffer; para2: pointer); cdecl;
+  Trpl_clear_proc = procedure(para1: pointer); cdecl;
+  Trpl_unmarshal_func = function(para1: pointer; para2: Pevbuffer): longint; cdecl;
+  tcp_proc = procedure(para1: Pevrpc_status; para2: pointer; para3: pointer; para4: pointer); cdecl;
 
 function evrpc_make_request_ctx(pool: Pevrpc_pool; request: pointer; reply: pointer; rpcname: pchar; req_marshal: Treq_marshal_proc;
   rpl_clear: Trpl_clear_proc; rpl_unmarshal: Trpl_unmarshal_func; cb: tcp_proc; cbarg: pointer): Pevrpc_request_wrapper; cdecl; external libevent;
@@ -21,7 +21,7 @@ function evrpc_init(server: Pevhttp): Pevrpc_base; cdecl; external libevent;
 procedure evrpc_free(base: Pevrpc_base); cdecl; external libevent;
 
 type
-  Tregister_rpc_proc = procedure(para1: Pevrpc_req_generic; para2: pointer);
+  Tregister_rpc_proc = procedure(para1: Pevrpc_req_generic; para2: pointer); cdecl;
 
 function evrpc_register_rpc(para1: Pevrpc_base; para2: Pevrpc; para3: Tregister_rpc_proc; para4: pointer): longint; cdecl; external libevent;
 function evrpc_unregister_rpc(base: Pevrpc_base; name: pchar): longint; cdecl; external libevent;
@@ -52,7 +52,7 @@ const
   EVRPC_PAUSE = 1;
 
 type
-  TEvrpcHookCallback = function(para1: pointer; para2: PEvhttp_request; para3: PEvbuffer; para4: pointer): longint; cdecl;
+  TEvrpcHookCallback = function(para1: pointer; para2: PEvhttp_request; para3: PEvbuffer; para4: pointer): longint; cdecl; cdecl;
 
 function evrpc_add_hook(vbase: pointer; hook_type: TEVRPC_HOOK_TYPE; cb: TEvrpcHookCallback; cb_arg: pointer): pointer; cdecl; external libevent;
 function evrpc_remove_hook(vbase: pointer; hook_type: TEVRPC_HOOK_TYPE; handle: pointer): longint; cdecl; external libevent;
@@ -87,7 +87,7 @@ function evrpc_request_get_pool(ctx: Pevrpc_request_wrapper): Pevrpc_pool; cdecl
 procedure evrpc_request_set_pool(ctx: Pevrpc_request_wrapper; pool: Pevrpc_pool); cdecl; external libevent;
 
 type
-  TEvrpcRequestCallback = procedure(para1: Pevrpc_status; request: pointer; reply: pointer; arg: pointer); cdecl;
+  TEvrpcRequestCallback = procedure(para1: Pevrpc_status; request: pointer; reply: pointer; arg: pointer); cdecl; cdecl;
 
 procedure evrpc_request_set_cb(ctx: Pevrpc_request_wrapper; cb: TEvrpcRequestCallback; cb_arg: pointer); cdecl; external libevent;
 

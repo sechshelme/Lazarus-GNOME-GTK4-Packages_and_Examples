@@ -78,8 +78,8 @@ type
 procedure evdns_set_log_fn(fn: Tevdns_debug_log_fn_type); cdecl; external libevent;
 
 type
-  TFunc = function: Tev_uint16_t;
-  TRandom_func = procedure(para1: pchar; para2: Tsize_t);
+  TFunc = function: Tev_uint16_t; cdecl;
+  TRandom_func = procedure(para1: pchar; para2: Tsize_t); cdecl;
 
 procedure evdns_set_transaction_id_fn(fn: TFunc); cdecl; external libevent;
 procedure evdns_set_random_bytes_fn(fn: TRandom_func); cdecl; external libevent;

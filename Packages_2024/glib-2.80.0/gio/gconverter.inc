@@ -8,8 +8,7 @@ type
 
   TGConverterIface = record
     g_iface: TGTypeInterface;
-    convert: function(converter: PGConverter; inbuf: pointer; inbuf_size: Tgsize; outbuf: pointer; outbuf_size: Tgsize;
-      flags: TGConverterFlags; bytes_read: Pgsize; bytes_written: Pgsize; error: PPGError): TGConverterResult; cdecl;
+    convert: function(converter: PGConverter; inbuf: pointer; inbuf_size: Tgsize; outbuf: pointer; outbuf_size: Tgsize; flags: TGConverterFlags; bytes_read: Pgsize; bytes_written: Pgsize; error: PPGError): TGConverterResult; cdecl;
     reset: procedure(converter: PGConverter); cdecl;
   end;
   PGConverterIface = ^TGConverterIface;

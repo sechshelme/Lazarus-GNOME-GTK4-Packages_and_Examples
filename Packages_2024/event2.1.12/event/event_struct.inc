@@ -27,10 +27,10 @@ type
     evcb_closure: Tev_uint8_t;
     evcb_cb_union: record
       case longint of
-        0: (evcb_callback: procedure(para1: Tevutil_socket_t; para2: smallint; para3: pointer));
-        1: (evcb_selfcb: procedure(para1: Pevent_callback; para2: pointer));
-        2: (evcb_evfinalize: procedure(para1: Pevent; para2: pointer));
-        3: (evcb_cbfinalize: procedure(para1: Pevent_callback; para2: pointer));
+        0: (evcb_callback: procedure(para1: Tevutil_socket_t; para2: smallint; para3: pointer); cdecl);
+        1: (evcb_selfcb: procedure(para1: Pevent_callback; para2: pointer); cdecl);
+        2: (evcb_evfinalize: procedure(para1: Pevent; para2: pointer); cdecl);
+        3: (evcb_cbfinalize: procedure(para1: Pevent_callback; para2: pointer); cdecl);
       end;
     evcb_arg: pointer;
   end;

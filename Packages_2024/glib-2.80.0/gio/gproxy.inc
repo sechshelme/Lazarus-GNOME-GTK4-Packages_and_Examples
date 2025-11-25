@@ -13,8 +13,7 @@ type
   TGProxyInterface = record
     g_iface: TGTypeInterface;
     connect: function(proxy: PGProxy; connection: PGIOStream; proxy_address: PGProxyAddress; cancellable: PGCancellable; error: PPGError): PGIOStream; cdecl;
-    connect_async: procedure(proxy: PGProxy; connection: PGIOStream; proxy_address: PGProxyAddress; cancellable: PGCancellable; callback: TGAsyncReadyCallback;
-      user_data: Tgpointer); cdecl;
+    connect_async: procedure(proxy: PGProxy; connection: PGIOStream; proxy_address: PGProxyAddress; cancellable: PGCancellable; callback: TGAsyncReadyCallback; user_data: Tgpointer); cdecl;
     connect_finish: function(proxy: PGProxy; Result: PGAsyncResult; error: PPGError): PGIOStream; cdecl;
     supports_hostname: function(proxy: PGProxy): Tgboolean; cdecl;
   end;

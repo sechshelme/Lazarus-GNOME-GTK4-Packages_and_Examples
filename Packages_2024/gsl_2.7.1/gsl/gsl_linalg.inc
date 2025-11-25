@@ -271,7 +271,7 @@ function gsl_linalg_tri_upper_rcond(A: Pgsl_matrix; rcond: Pdouble; work: Pgsl_v
 function gsl_linalg_tri_lower_rcond(A: Pgsl_matrix; rcond: Pdouble; work: Pgsl_vector): longint; cdecl; external libgsl;
 
 type
-  Tinvnorm1_func = function(TransA: TCBLAS_TRANSPOSE_t; x: Pgsl_vector; params: pointer): longint;
+  Tinvnorm1_func = function(TransA: TCBLAS_TRANSPOSE_t; x: Pgsl_vector; params: pointer): longint; cdecl;
 
 function gsl_linalg_invnorm1(N: Tsize_t; Ainvx: Tinvnorm1_func; params: pointer; Ainvnorm: Pdouble; work: Pgsl_vector): longint; cdecl; external libgsl;
 

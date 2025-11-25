@@ -120,8 +120,8 @@ type
 procedure espeak_SetSynthCallback(SynthCallback: Tespeak_callback); cdecl; external libespeak_ng;
 
 type
-  TespeakUri_call = function(para1: longint; para2: pchar; para3: pchar): longint;
-  TespaePhone_call = function(para1: pchar): longint;
+  TespeakUri_call = function(para1: longint; para2: pchar; para3: pchar): longint; cdecl;
+  TespaePhone_call = function(para1: pchar): longint; cdecl;
 
 procedure espeak_SetUriCallback(UriCallback: TespeakUri_call); cdecl; external libespeak_ng;
 procedure espeak_SetPhonemeCallback(PhonemeCallback: TespaePhone_call); cdecl; external libespeak_ng;
