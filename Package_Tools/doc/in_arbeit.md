@@ -335,10 +335,12 @@ libglibmm-2.4-dev
 # === RDF 
 libserd              // io. 
 libsord              // io.
-liblilv
+liblilv              // io.
 librdf
 libsratom
 # ====
+ libzix-dev 
+
    
 
 apt install blueprint-compiler
