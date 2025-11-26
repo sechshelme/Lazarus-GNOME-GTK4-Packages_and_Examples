@@ -333,8 +333,8 @@ libpeasd-3-dev
 libglibmm-2.4-dev
 
 # === RDF 
-libserd-dev       
-libsord-dev       
+libserd              // io. 
+libsord              // io.
 liblilv
 librdf
 libsratom
@@ -420,11 +420,8 @@ libgsm1
 liburcu8t64
 
 libgeocoding               // io.    
-
-libasound2-dev 
-
+libasound2                 // io.
 libsoundio                 // io.
-
 libsane                    // io.
 
 libmagickcore-dev

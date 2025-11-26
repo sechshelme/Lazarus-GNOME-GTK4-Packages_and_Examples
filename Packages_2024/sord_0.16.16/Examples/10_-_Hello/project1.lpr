@@ -16,7 +16,7 @@ uses
     iter: PSordIter;
     s_str, p_str, o_str: pansichar;
   begin
-    world := sord_world_new();
+    world := sord_world_new;
 
     model := sord_new(world, SORD_SPO, False);
     alice := sord_new_uri(world, uri_alice);
