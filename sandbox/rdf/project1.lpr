@@ -1,6 +1,29 @@
 program project1;
 uses
-fp_librdf;
+
+rdf,
+rdf_concepts,
+rdf_digest,
+rdf_hash,
+rdf_init,
+rdf_iterator,
+rdf_list,
+rdf_log,
+rdf_model,
+rdf_node,
+rdf_parser,
+rdf_query,
+rdf_raptor,
+rdf_serializer,
+rdf_statement,
+rdf_storage,
+rdf_storage_module,
+rdf_stream,
+rdf_uri,
+rdf_utf8,
+
+
+fp_rdf;
 
 procedure main;
 begin

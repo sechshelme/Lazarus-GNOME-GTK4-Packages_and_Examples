@@ -339,6 +339,7 @@ liblilv              // io.
 librdf
 libsratom
 # ====
+ libraptor2
  libzix-dev 
 
    
