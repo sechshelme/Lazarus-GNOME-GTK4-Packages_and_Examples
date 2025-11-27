@@ -1,26 +1,47 @@
 program project1;
 uses
 
+//{$include <Redland/rdf_log.h>}
+//{$include <Redland/rdf_digest.h>}
+//{$include <Redland/rdf_hash.h>}
+//{$include <Redland/rdf_init.h>}
+//{$include <Redland/rdf_iterator.h>}
+//{$include <Redland/rdf_uri.h>}
+//{$include <Redland/rdf_node.h>}
+//{$include <Redland/rdf_concepts.h>}
+//{$include <Redland/rdf_statement.h>}
+//{$include <Redland/rdf_model.h>}
+//{$include <Redland/rdf_storage.h>}
+//{$include <Redland/rdf_parser.h>}
+//{$include <Redland/rdf_raptor.h>}
+//{$include <Redland/rdf_serializer.h>}
+//{$include <Redland/rdf_stream.h>}
+//{$include <Redland/rdf_query.h>}
+//{$include <Redland/rdf_utf8.h>}
+
+
+
 rdf,
-rdf_concepts,
+rdf_log,
 rdf_digest,
 rdf_hash,
 rdf_init,
 rdf_iterator,
-rdf_list,
-rdf_log,
-rdf_model,
-rdf_node,
-rdf_parser,
-rdf_query,
-rdf_raptor,
-rdf_serializer,
-rdf_statement,
-rdf_storage,
-rdf_storage_module,
-rdf_stream,
 rdf_uri,
-rdf_utf8,
+rdf_node,
+rdf_concepts,
+rdf_statement,
+rdf_model,
+rdf_storage_module,
+rdf_storage,            // rdf_storage_module
+rdf_parser,
+
+//rdf_list,
+//rdf_query,
+//rdf_raptor,
+//rdf_serializer,
+//rdf_stream,
+//rdf_utf8,
 
 
 fp_rdf;
@@ -91,6 +112,8 @@ cleanup:
 end;
 
 begin
+  librdf_basename(nil);
+
   main;
 
 

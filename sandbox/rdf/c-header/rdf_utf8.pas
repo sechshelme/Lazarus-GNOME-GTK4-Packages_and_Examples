@@ -10,7 +10,6 @@ uses
   {$ENDIF}
 
 
-  //{$include <raptor2.h>}
 type
   Plibrdf_unichar = ^Tlibrdf_unichar;
   Tlibrdf_unichar = Traptor_unichar;
