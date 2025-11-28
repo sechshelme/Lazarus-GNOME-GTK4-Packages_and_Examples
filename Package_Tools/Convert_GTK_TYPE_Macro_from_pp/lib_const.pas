@@ -257,6 +257,7 @@ const
     (libs: 'libsord0'; units: 'ctypes'),
     (libs: 'liblilv0'; units: 'ctypes'),
     (libs: 'librdf'; units: 'ctypes'),
+    (libs: 'libraptor2'; units: 'ctypes'),
 
     (libs: ''; units: ''));
 
