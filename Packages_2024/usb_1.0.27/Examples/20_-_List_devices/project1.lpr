@@ -3,17 +3,6 @@ program project1;
 uses
   fp_libusb;
 
-  procedure PrintVersion;
-  var
-    version: Plibusb_version;
-  begin
-    version := libusb_get_version;
-    with version^ do begin
-      WriteLn('Version: ', major, '.', minor, '.', micro, '.', nano, #10);
-    end;
-  end;
-
-
   procedure ListDevices;
   var
     ctx: Plibusb_context = nil;
@@ -87,7 +76,6 @@ uses
 
   procedure main;
   begin
-    PrintVersion;
     ListDevices;
   end;
 

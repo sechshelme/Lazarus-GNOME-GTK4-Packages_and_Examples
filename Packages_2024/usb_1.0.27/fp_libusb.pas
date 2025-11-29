@@ -48,7 +48,12 @@ type
 
   Tintptr_t = PtrUInt;
 
-  Ptimeval = type Pointer;
+type
+  Ttimeval = record
+    tv_sec: int64;
+    tv_usec: int64;
+  end;
+  Ptimeval = ^Ttimeval;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -698,7 +703,7 @@ const
 
 const
   LIBUSB_HOTPLUG_NO_FLAGS = 0;
-  LIBUSB_HOTPLUG_MATCH_ANY = -(1);
+  LIBUSB_HOTPLUG_MATCH_ANY = -1;
 
 type
   Tlibusb_hotplug_callback_fn = function(ctx: Plibusb_context; device: Plibusb_device; event: Tlibusb_hotplug_event; user_data: pointer): longint; cdecl;

@@ -36,7 +36,7 @@ type
 type
   TTimeVal = record  // sys/time.h>
     tv_sec: int64;
-    tv_usec: longint;
+    tv_usec: int64;
   end;
   PTimeVal = ^TTimeVal;
   Tva_list = Pointer;
