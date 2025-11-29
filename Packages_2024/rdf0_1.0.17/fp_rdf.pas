@@ -2,6 +2,9 @@ unit fp_rdf;
 
 interface
 
+uses
+  fp_raptor2;
+
 const
   {$IFDEF Linux}
   librdf = 'rdf';
@@ -30,24 +33,6 @@ type
   PFILE = type Pointer;
 
   Tva_list = Pointer; // ????
-
-  // /usr/include/raptor2/raptor2.h
-type
-  Traptor_unichar = Tulong;
-
-  Praptor_locator = type Pointer;
-  Praptor_world = type Pointer;
-  Praptor_term = type Pointer;
-  Praptor_statement = type Pointer;
-  Praptor_iostream = type Pointer;
-  Praptor_syntax_description = type Pointer;
-
-const // enum
-  RAPTOR_TERM_TYPE_UNKNOWN = 0;
-  RAPTOR_TERM_TYPE_URI = 1;
-  RAPTOR_TERM_TYPE_LITERAL = 2;
-  RAPTOR_TERM_TYPE_BLANK = 4;
-
 
 
   // /usr/include/rasqal/rasqal.h
