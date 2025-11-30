@@ -6,9 +6,9 @@ uses
 
 var
   AusgabeStr: procedure(s: pchar); cdecl;
-  AusgabeInt: procedure(i: Integer); cdecl;
+  AusgabeInt: procedure(i: integer); cdecl;
 
-procedure main;
+  procedure main;
   var
     module: PGModule;
   begin

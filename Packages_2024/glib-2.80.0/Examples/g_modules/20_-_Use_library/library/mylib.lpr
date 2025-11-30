@@ -2,12 +2,12 @@ library mylib;
 
   procedure AusgabeStr(s: pchar); cdecl;
   begin
-    WriteLn('String: '#27'[93m', s, #27'[0m');
+    WriteLn('Str: '#27'[93m', s, #27'[0m');
   end;
 
   procedure AusgabeInt(i: integer); cdecl;
   begin
-    WriteLn('Integer: '#27'[93m', i, #27'[0m');
+    WriteLn('Int: '#27'[93m', i, #27'[0m');
   end;
 
 exports AusgabeStr;
