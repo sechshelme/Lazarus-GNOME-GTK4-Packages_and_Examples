@@ -9,7 +9,7 @@
         <MainUnitHasScaledStatement Value="False"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
-      <Title Value="mylib"/>
+      <Title Value="fpcgain"/>
       <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
     </General>
@@ -25,7 +25,7 @@
     </RunParams>
     <Units>
       <Unit>
-        <Filename Value="mylib.lpr"/>
+        <Filename Value="fpcgain.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
@@ -37,7 +37,7 @@
   <CompilerOptions>
     <Version Value="11"/>
     <Target>
-      <Filename Value="mylib"/>
+      <Filename Value="fpcgain"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>

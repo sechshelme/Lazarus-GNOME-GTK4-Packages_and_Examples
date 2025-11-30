@@ -4,7 +4,7 @@ uses
   fp_lilv;
 
 const
-  plugin_uri_str = 'http://example.org/plugins/gain';
+  plugin_uri_str = 'http://example.org/plugins/fpcgain';
 
   procedure main;
   const
