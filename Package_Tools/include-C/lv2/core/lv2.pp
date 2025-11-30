@@ -1,34 +1,66 @@
-// Copyright 2006-2020 David Robillard <d@drobilla.net>
-// Copyright 2006-2012 Steve Harris <steve@plugin.org.uk>
-// Copyright 2000-2002 Richard W.E. Furse, Paul Barton-Davis, Stefan Westerfeld.
-// SPDX-License-Identifier: ISC
 
-#ifndef LV2_H_INCLUDED
-#define LV2_H_INCLUDED
+unit lv2;
+interface
 
-/**
+{
+  Automatically converted by H2Pas 1.0.0 from lv2.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    lv2.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pchar  = ^char;
+PLV2_Descriptor  = ^LV2_Descriptor;
+PLV2_Descriptor_Function  = ^LV2_Descriptor_Function;
+PLV2_Feature  = ^LV2_Feature;
+PLV2_Handle  = ^LV2_Handle;
+PLV2_Lib_Descriptor  = ^LV2_Lib_Descriptor;
+PLV2_Lib_Descriptor_Function  = ^LV2_Lib_Descriptor_Function;
+PLV2_Lib_Handle  = ^LV2_Lib_Handle;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ Copyright 2006-2020 David Robillard <d@drobilla.net> }
+{ Copyright 2006-2012 Steve Harris <steve@plugin.org.uk> }
+{ Copyright 2000-2002 Richard W.E. Furse, Paul Barton-Davis, Stefan Westerfeld. }
+{ SPDX-License-Identifier: ISC }
+{$ifndef LV2_H_INCLUDED}
+{$define LV2_H_INCLUDED}
+{*
    @defgroup lv2 LV2
 
    The LV2 specification.
 
-   @{
-*/
-
-/**
+   @
+ }
+{*
    @defgroup lv2core LV2 Core
 
    Core LV2 specification.
 
    See <http://lv2plug.in/ns/lv2core> for details.
 
-   @{
-*/
-
-#include <stdint.h>
-
-// clang-format off
-
-/*xxxxxxxxxxx
+   @
+ }
+{$include <stdint.h>}
+{ clang-format off }
+{xxxxxxxxxxx
 #define LV2_CORE_URI    "http://lv2plug.in/ns/lv2core"  ///< http://lv2plug.in/ns/lv2core
 #define LV2_CORE_PREFIX LV2_CORE_URI "#"                ///< http://lv2plug.in/ns/lv2core#
 
@@ -118,64 +150,60 @@
 #define LV2_CORE__symbol             LV2_CORE_PREFIX "symbol"              ///< http://lv2plug.in/ns/lv2core#symbol
 #define LV2_CORE__toggled            LV2_CORE_PREFIX "toggled"             ///< http://lv2plug.in/ns/lv2core#toggled
 
-*/
-// clang-format on
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/**
+ }
+{ clang-format on }
+{ C++ extern C conditionnal removed }
+{*
    Plugin Instance Handle.
 
    This is a handle for one particular instance of a plugin.  It is valid to
    compare to NULL (or 0 for C++) but otherwise the host MUST NOT attempt to
    interpret it.
-*/
-typedef void* LV2_Handle;
-
-/**
+ }
+type
+  PLV2_Handle = ^TLV2_Handle;
+  TLV2_Handle = pointer;
+{*
    Feature.
 
    Features allow hosts to make additional functionality available to plugins
    without requiring modification to the LV2 API.  Extensions may define new
    features and specify the `URI` and `data` to be used if necessary.
    Some features, such as lv2:isLive, do not require the host to pass data.
-*/
-typedef struct {
-  /**
+ }
+{*
      A globally unique, case-sensitive identifier (URI) for this feature.
 
      This MUST be a valid URI string as defined by RFC 3986.
-  */
-  const char* URI;
-
-  /**
+   }
+(* Const before type ignored *)
+{*
      Pointer to arbitrary data.
 
      The format of this data is defined by the extension which describes the
      feature with the given `URI`.
-  */
-  void* data;
-} LV2_Feature;
+   }
 
-/**
+  PLV2_Feature = ^TLV2_Feature;
+  TLV2_Feature = record
+      URI : Pchar;
+      data : pointer;
+    end;
+{*
    Plugin Descriptor.
 
    This structure provides the core functions necessary to instantiate and use
    a plugin.
-*/
-typedef struct LV2_Descriptor {
-  /**
+ }
+{*
      A globally unique, case-sensitive identifier for this plugin.
 
      This MUST be a valid URI string as defined by RFC 3986.  All plugins with
      the same URI MUST be compatible to some degree, see
      http://lv2plug.in/ns/lv2core for details.
-  */
-  const char* URI;
-
-  /**
+   }
+(* Const before type ignored *)
+{*
      Instantiate the plugin.
 
      Note that instance initialisation should generally occur in activate()
@@ -201,13 +229,12 @@ typedef struct LV2_Descriptor {
 
      @return A handle for the new plugin instance, or NULL if instantiation
      has failed.
-  */
-  LV2_Handle (*instantiate)(const struct LV2_Descriptor* descriptor,
-                            double                       sample_rate,
-                            const char*                  bundle_path,
-                            const LV2_Feature* const*    features);
-
-  /**
+   }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before declarator ignored *)
+{*
      Connect a port on a plugin instance to a memory location.
 
      Plugin writers should be aware that the host may elect to use the same
@@ -240,10 +267,8 @@ typedef struct LV2_Descriptor {
      lv2:AudioPort). This pointer must be stored by the plugin instance and
      used to read/write data when run() is called. Data present at the time
      of the connect_port() call MUST NOT be considered meaningful.
-  */
-  void (*connect_port)(LV2_Handle instance, uint32_t port, void* data_location);
-
-  /**
+   }
+{*
      Initialise a plugin instance and activate it for use.
 
      This is separated from instantiate() to aid real-time support and so
@@ -263,10 +288,8 @@ typedef struct LV2_Descriptor {
      called first. If a host calls activate(), it MUST call deactivate() at
      some point in the future. Note that connect_port() may be called before
      or after activate().
-  */
-  void (*activate)(LV2_Handle instance);
-
-  /**
+   }
+{*
      Run a plugin instance for a block.
 
      Note that if an activate() function exists then it must be called before
@@ -288,10 +311,8 @@ typedef struct LV2_Descriptor {
 
      @param sample_count The block size (in samples) for which the plugin
      instance must run.
-  */
-  void (*run)(LV2_Handle instance, uint32_t sample_count);
-
-  /**
+   }
+{*
      Deactivate a plugin instance (counterpart to activate()).
 
      Hosts MUST deactivate all activated instances after they have been run()
@@ -308,10 +329,8 @@ typedef struct LV2_Descriptor {
      Hosts MUST NOT call deactivate() unless activate() was previously
      called. Note that connect_port() may be called before or after
      deactivate().
-  */
-  void (*deactivate)(LV2_Handle instance);
-
-  /**
+   }
+{*
      Clean up a plugin instance (counterpart to instantiate()).
 
      Once an instance of a plugin has been finished with it must be deleted
@@ -321,10 +340,8 @@ typedef struct LV2_Descriptor {
      If activate() was called for a plugin instance then a corresponding call
      to deactivate() MUST be made before cleanup() is called. Hosts MUST NOT
      call cleanup() unless instantiate() was previously called.
-  */
-  void (*cleanup)(LV2_Handle instance);
-
-  /**
+   }
+{*
      Return additional plugin data defined by some extension.
 
      A typical use of this facility is to return a struct containing function
@@ -336,12 +353,22 @@ typedef struct LV2_Descriptor {
      field may be NULL.
 
      The host is never responsible for freeing the returned value.
-  */
-  const void* (*extension_data)(const char* uri);
-} LV2_Descriptor;
+   }
+(* Const before type ignored *)
+(* Const before type ignored *)
 
-
-/**
+  PLV2_Descriptor = ^TLV2_Descriptor;
+  TLV2_Descriptor = record
+      URI : Pchar;
+      instantiate : function (descriptor:PLV2_Descriptor; sample_rate:Tdouble; bundle_path:Pchar; features:PPLV2_Feature):TLV2_Handle;cdecl;
+      connect_port : procedure (instance:TLV2_Handle; port:Tuint32_t; data_location:pointer);cdecl;
+      activate : procedure (instance:TLV2_Handle);cdecl;
+      run : procedure (instance:TLV2_Handle; sample_count:Tuint32_t);cdecl;
+      deactivate : procedure (instance:TLV2_Handle);cdecl;
+      cleanup : procedure (instance:TLV2_Handle);cdecl;
+      extension_data : function (uri:Pchar):pointer;cdecl;
+    end;
+{*
    Prototype for plugin accessor function.
 
    Plugins are discovered by hosts using RDF data (not by loading libraries).
@@ -363,58 +390,59 @@ typedef struct LV2_Descriptor {
 
    Note that `index` has no meaning, hosts MUST NOT depend on it remaining
    consistent between loads of the plugin library.
-*/
-extern
-const LV2_Descriptor*
-lv2_descriptor(uint32_t index);
+ }
+(* Const before type ignored *)
 
-/**
+function lv2_descriptor(index:Tuint32_t):PLV2_Descriptor;cdecl;external;
+{*
    Type of the lv2_descriptor() function in a library (old discovery API).
-*/
-typedef const LV2_Descriptor* (*LV2_Descriptor_Function)(uint32_t index);
-
-/**
+ }
+(* Const before type ignored *)
+type
+  PLV2_Descriptor_Function = ^TLV2_Descriptor_Function;
+  TLV2_Descriptor_Function = function (index:Tuint32_t):PLV2_Descriptor;cdecl;
+{*
    Handle for a library descriptor.
-*/
-typedef void* LV2_Lib_Handle;
+ }
 
-/**
+  PLV2_Lib_Handle = ^TLV2_Lib_Handle;
+  TLV2_Lib_Handle = pointer;
+{*
    Descriptor for a plugin library.
 
    To access a plugin library, the host creates an LV2_Lib_Descriptor via the
    lv2_lib_descriptor() function in the shared object.
-*/
-typedef struct {
-  /**
+ }
+{*
      Opaque library data which must be passed as the first parameter to all
      the methods of this struct.
-  */
-  LV2_Lib_Handle handle;
-
-  /**
+   }
+{*
      The total size of this struct.  This allows for this struct to be
      expanded in the future if necessary.  This MUST be set by the library to
      sizeof(LV2_Lib_Descriptor).  The host MUST NOT access any fields of this
      struct beyond get_plugin() unless this field indicates they are present.
-  */
-  uint32_t size;
-
-  /**
+   }
+{*
      Destroy this library descriptor and free all related resources.
-  */
-  void (*cleanup)(LV2_Lib_Handle handle);
-
-  /**
+   }
+{*
      Plugin accessor.
 
      Plugins are accessed by index using values from 0 upwards.  Out of range
      indices MUST result in this function returning NULL, so the host can
      enumerate plugins by increasing `index` until NULL is returned.
-  */
-  const LV2_Descriptor* (*get_plugin)(LV2_Lib_Handle handle, uint32_t index);
-} LV2_Lib_Descriptor;
+   }
+(* Const before type ignored *)
 
-/**
+  PLV2_Lib_Descriptor = ^TLV2_Lib_Descriptor;
+  TLV2_Lib_Descriptor = record
+      handle : TLV2_Lib_Handle;
+      size : Tuint32_t;
+      cleanup : procedure (handle:TLV2_Lib_Handle);cdecl;
+      get_plugin : function (handle:TLV2_Lib_Handle; index:Tuint32_t):PLV2_Descriptor;cdecl;
+    end;
+{*
    Prototype for library accessor function.
 
    This is the more advanced discovery API, which allows plugin libraries to
@@ -429,25 +457,31 @@ typedef struct {
    be used to access all the contained plugins.  The returned object must not
    be destroyed (using LV2_Lib_Descriptor::cleanup()) until all plugins loaded
    from that library have been destroyed.
-*/
-extern
-const LV2_Lib_Descriptor*
-lv2_lib_descriptor(const char* bundle_path, const LV2_Feature* const* features);
+ }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before declarator ignored *)
 
-/**
+function lv2_lib_descriptor(bundle_path:Pchar; features:PPLV2_Feature):PLV2_Lib_Descriptor;cdecl;external;
+{*
    Type of the lv2_lib_descriptor() function in an LV2 library.
-*/
-typedef const LV2_Lib_Descriptor* (*LV2_Lib_Descriptor_Function)(
-  const char*               bundle_path,
-  const LV2_Feature* const* features);
+ }
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before declarator ignored *)
+type
+  PLV2_Lib_Descriptor_Function = ^TLV2_Lib_Descriptor_Function;
+  TLV2_Lib_Descriptor_Function = function (bundle_path:Pchar; features:PPLV2_Feature):PLV2_Lib_Descriptor;cdecl;
+{*
+   @
+   @
+ }
+{$endif}
+{ LV2_H_INCLUDED  }
 
-#ifdef __cplusplus
-} /* extern "C" */
-#endif
+implementation
 
-/**
-   @}
-   @}
-*/
 
-#endif /* LV2_H_INCLUDED */
+end.
