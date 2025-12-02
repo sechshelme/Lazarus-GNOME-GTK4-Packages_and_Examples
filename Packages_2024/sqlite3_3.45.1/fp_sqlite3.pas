@@ -11,9 +11,19 @@ const
   libsqlite = 'libsqlite3-0.dll';
   {$ENDIF}
 
-  //  Tset_auxdata_func         umbenennen ????
-
 type
+  {$IFDEF Linux}
+  Tlong = int64;
+  Tulong = uint64;
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  Tlong = int32;
+  Tulong = uint32;
+  {$ENDIF}
+  Pulong = ^Tulong;
+  Plong = ^Tlong;
+
   Tproc = procedure;
 
   Tva_list = Pointer; // ????
@@ -714,12 +724,12 @@ function sqlite3_context_db_handle(para1: Psqlite3_context): Psqlite3; cdecl; ex
 function sqlite3_get_auxdata(para1: Psqlite3_context; N: longint): pointer; cdecl; external libsqlite;
 
 type
-  Tset_auxdata_func = procedure(para1: pointer); cdecl;
+  TPointer_func = procedure(para1: pointer); cdecl;
 
-procedure sqlite3_set_auxdata(para1: Psqlite3_context; N: longint; para3: pointer; para4: Tset_auxdata_func); cdecl; external libsqlite;
+procedure sqlite3_set_auxdata(para1: Psqlite3_context; N: longint; para3: pointer; para4: TPointer_func); cdecl; external libsqlite;
 
 function sqlite3_get_clientdata(para1: Psqlite3; para2: pchar): pointer; cdecl; external libsqlite;
-function sqlite3_set_clientdata(para1: Psqlite3; para2: pchar; para3: pointer; para4: Tset_auxdata_func): longint; cdecl; external libsqlite;
+function sqlite3_set_clientdata(para1: Psqlite3; para2: pchar; para3: pointer; para4: TPointer_func): longint; cdecl; external libsqlite;
 
 type
   Tsqlite3_destructor_type = procedure(para1: pointer); cdecl;
@@ -727,8 +737,8 @@ type
 function SQLITE_STATIC: Tsqlite3_destructor_type;
 function SQLITE_TRANSIENT: Tsqlite3_destructor_type;
 
-procedure sqlite3_result_blob(para1: Psqlite3_context; para2: pointer; para3: longint; para4: Tset_auxdata_func); cdecl; external libsqlite;
-procedure sqlite3_result_blob64(para1: Psqlite3_context; para2: pointer; para3: Tsqlite3_uint64; para4: Tset_auxdata_func); cdecl; external libsqlite;
+procedure sqlite3_result_blob(para1: Psqlite3_context; para2: pointer; para3: longint; para4: TPointer_func); cdecl; external libsqlite;
+procedure sqlite3_result_blob64(para1: Psqlite3_context; para2: pointer; para3: Tsqlite3_uint64; para4: TPointer_func); cdecl; external libsqlite;
 procedure sqlite3_result_double(para1: Psqlite3_context; para2: double); cdecl; external libsqlite;
 procedure sqlite3_result_error(para1: Psqlite3_context; para2: pchar; para3: longint); cdecl; external libsqlite;
 procedure sqlite3_result_error16(para1: Psqlite3_context; para2: pointer; para3: longint); cdecl; external libsqlite;
@@ -738,13 +748,13 @@ procedure sqlite3_result_error_code(para1: Psqlite3_context; para2: longint); cd
 procedure sqlite3_result_int(para1: Psqlite3_context; para2: longint); cdecl; external libsqlite;
 procedure sqlite3_result_int64(para1: Psqlite3_context; para2: Tsqlite3_int64); cdecl; external libsqlite;
 procedure sqlite3_result_null(para1: Psqlite3_context); cdecl; external libsqlite;
-procedure sqlite3_result_text(para1: Psqlite3_context; para2: pchar; para3: longint; para4: Tset_auxdata_func); cdecl; external libsqlite;
-procedure sqlite3_result_text64(para1: Psqlite3_context; para2: pchar; para3: Tsqlite3_uint64; para4: Tset_auxdata_func; encoding: byte); cdecl; external libsqlite;
-procedure sqlite3_result_text16(para1: Psqlite3_context; para2: pointer; para3: longint; para4: Tset_auxdata_func); cdecl; external libsqlite;
-procedure sqlite3_result_text16le(para1: Psqlite3_context; para2: pointer; para3: longint; para4: Tset_auxdata_func); cdecl; external libsqlite;
-procedure sqlite3_result_text16be(para1: Psqlite3_context; para2: pointer; para3: longint; para4: Tset_auxdata_func); cdecl; external libsqlite;
+procedure sqlite3_result_text(para1: Psqlite3_context; para2: pchar; para3: longint; para4: TPointer_func); cdecl; external libsqlite;
+procedure sqlite3_result_text64(para1: Psqlite3_context; para2: pchar; para3: Tsqlite3_uint64; para4: TPointer_func; encoding: byte); cdecl; external libsqlite;
+procedure sqlite3_result_text16(para1: Psqlite3_context; para2: pointer; para3: longint; para4: TPointer_func); cdecl; external libsqlite;
+procedure sqlite3_result_text16le(para1: Psqlite3_context; para2: pointer; para3: longint; para4: TPointer_func); cdecl; external libsqlite;
+procedure sqlite3_result_text16be(para1: Psqlite3_context; para2: pointer; para3: longint; para4: TPointer_func); cdecl; external libsqlite;
 procedure sqlite3_result_value(para1: Psqlite3_context; para2: Psqlite3_value); cdecl; external libsqlite;
-procedure sqlite3_result_pointer(para1: Psqlite3_context; para2: pointer; para3: pchar; para4: Tset_auxdata_func); cdecl; external libsqlite;
+procedure sqlite3_result_pointer(para1: Psqlite3_context; para2: pointer; para3: pchar; para4: TPointer_func); cdecl; external libsqlite;
 procedure sqlite3_result_zeroblob(para1: Psqlite3_context; n: longint); cdecl; external libsqlite;
 function sqlite3_result_zeroblob64(para1: Psqlite3_context; n: Tsqlite3_uint64): longint; cdecl; external libsqlite;
 procedure sqlite3_result_subtype(para1: Psqlite3_context; para2: dword); cdecl; external libsqlite;
@@ -754,7 +764,7 @@ type
 
 function sqlite3_create_collation(para1: Psqlite3; zName: pchar; eTextRep: longint; pArg: pointer; xCompare: Tcreate_collation_func): longint; cdecl; external libsqlite;
 function sqlite3_create_collation_v2(para1: Psqlite3; zName: pchar; eTextRep: longint; pArg: pointer; xCompare: Tcreate_collation_func;
-  xDestroy: Tset_auxdata_func): longint; cdecl; external libsqlite;
+  xDestroy: TPointer_func): longint; cdecl; external libsqlite;
 function sqlite3_create_collation16(para1: Psqlite3; zName: pointer; eTextRep: longint; pArg: pointer; xCompare: Tcreate_collation_func): longint; cdecl; external libsqlite;
 
 type
@@ -772,9 +782,9 @@ var
   sqlite3_temp_directory: pchar; cvar;external libsqlite;
   sqlite3_data_directory: pchar; cvar;external libsqlite;
 
-function sqlite3_win32_set_directory(_type: dword; zValue: pointer): longint; cdecl; external libsqlite;
-function sqlite3_win32_set_directory8(_type: dword; zValue: pchar): longint; cdecl; external libsqlite;
-function sqlite3_win32_set_directory16(_type: dword; zValue: pointer): longint; cdecl; external libsqlite;
+function sqlite3_win32_set_directory(_type: Tulong; zValue: pointer): longint; cdecl; external libsqlite;
+function sqlite3_win32_set_directory8(_type: Tulong; zValue: pchar): longint; cdecl; external libsqlite;
+function sqlite3_win32_set_directory16(_type: Tulong; zValue: pointer): longint; cdecl; external libsqlite;
 
 const
   SQLITE_WIN32_DATA_DIRECTORY_TYPE = 1;
@@ -933,7 +943,7 @@ const
   SQLITE_INDEX_CONSTRAINT_FUNCTION = 150;
 
 function sqlite3_create_module(db: Psqlite3; zName: pchar; p: Psqlite3_module; pClientData: pointer): longint; cdecl; external libsqlite;
-function sqlite3_create_module_v2(db: Psqlite3; zName: pchar; p: Psqlite3_module; pClientData: pointer; xDestroy: Tset_auxdata_func): longint; cdecl; external libsqlite;
+function sqlite3_create_module_v2(db: Psqlite3; zName: pchar; p: Psqlite3_module; pClientData: pointer; xDestroy: TPointer_func): longint; cdecl; external libsqlite;
 function sqlite3_drop_modules(db: Psqlite3; azKeep: PPchar): longint; cdecl; external libsqlite;
 
 function sqlite3_declare_vtab(para1: Psqlite3; zSQL: pchar): longint; cdecl; external libsqlite;
@@ -1301,7 +1311,7 @@ type
   Trtree_query_func = function(para1: Psqlite3_rtree_query_info): longint; cdecl;
 
 function sqlite3_rtree_geometry_callback(db: Psqlite3; zGeom: pchar; xGeom: Trtree_geometry_func; pContext: pointer): longint; cdecl; external libsqlite;
-function sqlite3_rtree_query_callback(db: Psqlite3; zQueryFunc: pchar; xQueryFunc: Trtree_query_func; pContext: pointer; xDestructor: Tset_auxdata_func): longint; cdecl; external libsqlite;
+function sqlite3_rtree_query_callback(db: Psqlite3; zQueryFunc: pchar; xQueryFunc: Trtree_query_func; pContext: pointer; xDestructor: TPointer_func): longint; cdecl; external libsqlite;
 
 const
   NOT_WITHIN = 0;
@@ -1452,7 +1462,7 @@ type
     xColumnText: function(para1: PFts5Context; iCol: longint; pz: PPchar; pn: Plongint): longint; cdecl;
     xColumnSize: function(para1: PFts5Context; iCol: longint; pnToken: Plongint): longint; cdecl;
     xQueryPhrase: function(para1: PFts5Context; iPhrase: longint; pUserData: pointer; para4: TQueryPhrase_func): longint; cdecl;
-    xSetAuxdata: function(para1: PFts5Context; pAux: pointer; xDelete: Tset_auxdata_func): longint; cdecl;
+    xSetAuxdata: function(para1: PFts5Context; pAux: pointer; xDelete: TPointer_func): longint; cdecl;
     xGetAuxdata: function(para1: PFts5Context; bClear: longint): pointer; cdecl;
     xPhraseFirst: function(para1: PFts5Context; iPhrase: longint; para3: PFts5PhraseIter; para4: Plongint; para5: Plongint): longint; cdecl;
     xPhraseNext: procedure(para1: PFts5Context; para2: PFts5PhraseIter; piCol: Plongint; piOff: Plongint); cdecl;
@@ -1489,9 +1499,9 @@ type
 
   Tfts5_api = record
     iVersion: longint;
-    xCreateTokenizer: function(pApi: Pfts5_api; zName: pchar; pUserData: pointer; pTokenizer: Pfts5_tokenizer; xDestroy: Tset_auxdata_func): longint; cdecl;
+    xCreateTokenizer: function(pApi: Pfts5_api; zName: pchar; pUserData: pointer; pTokenizer: Pfts5_tokenizer; xDestroy: TPointer_func): longint; cdecl;
     xFindTokenizer: function(pApi: Pfts5_api; zName: pchar; ppUserData: Ppointer; pTokenizer: Pfts5_tokenizer): longint; cdecl;
-    xCreateFunction: function(pApi: Pfts5_api; zName: pchar; pUserData: pointer; xFunction: Tfts5_extension_function; xDestroy: Tset_auxdata_func): longint; cdecl;
+    xCreateFunction: function(pApi: Pfts5_api; zName: pchar; pUserData: pointer; xFunction: Tfts5_extension_function; xDestroy: TPointer_func): longint; cdecl;
   end;
 
 
