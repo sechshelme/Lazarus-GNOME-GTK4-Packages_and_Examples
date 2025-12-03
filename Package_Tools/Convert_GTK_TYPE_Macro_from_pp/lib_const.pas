@@ -261,7 +261,7 @@ const
     (libs: 'libsratom0'; units: 'ctypes'),
     (libs: 'liblv2'; units: 'fp_lv2'),
     (libs: 'libsqlite'; units: 'ctypes'),
-    (libs: 'libdatrie'; units: 'ctypes'),
+    (libs: 'libxxx'; units: 'ctypes'),
 
     (libs: ''; units: ''));
 
