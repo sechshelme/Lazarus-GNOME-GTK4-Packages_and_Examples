@@ -145,8 +145,7 @@ type
 
 function agseterr(para1: Tagerrlevel_t): Tagerrlevel_t; cdecl; external libcgraph;
 function aglasterr: pchar; cdecl; external libcgraph;
-function agerr(level: Tagerrlevel_t; fmt: pchar; args: array of const): longint; cdecl; external libcgraph;
-function agerr(level: Tagerrlevel_t; fmt: pchar): longint; cdecl; external libcgraph;
+function agerr(level: Tagerrlevel_t; fmt: pchar): longint; cdecl; varargs; external libcgraph;
 procedure agerrorf(fmt: pchar; args: array of const); cdecl; external libcgraph;
 procedure agerrorf(fmt: pchar); cdecl; external libcgraph;
 procedure agwarningf(fmt: pchar; args: array of const); cdecl; external libcgraph;

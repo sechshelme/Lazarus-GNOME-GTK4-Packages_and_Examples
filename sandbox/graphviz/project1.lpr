@@ -8,13 +8,14 @@ uses
   types,             // textspan, gvcext, cgraph       // Viele Makros entfernt, struct auf Pointer
   gvplugin,
   gvc,               // types, gvcext, gvplugin
-  //arith,
-  //cdt,
-  //color,
-  //graphviz_version,
-  //gvcjob,
-  //gvcommon,
-  //gvconfig,
+
+  arith,
+  cdt,
+  color,
+  graphviz_version,
+  gvcjob,             // geom, color, gvcext
+  gvcommon,
+  gvconfig,           // gvcext, gvplugin
   //gvplugin_device,
   //gvplugin_layout,
   //gvplugin_loadimage,
@@ -84,5 +85,6 @@ var
 
 
 begin
+  gvconfig_plugin_install_from_library(nil,nil,nil);
   main;
 end.

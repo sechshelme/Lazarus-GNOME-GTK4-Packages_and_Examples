@@ -40,8 +40,6 @@ const
   bp_textfont_t_flags = 0;
 
 type
-  Ptextspan_t = ^Ttextspan_t;
-
   Ttextspan_t = record
     str: pchar;
     font: Ptextfont_t;
@@ -52,6 +50,7 @@ type
     size: Tpointf;
     just: char;
   end;
+  Ptextspan_t = ^Ttextspan_t;
 
   // === Konventiert am: 3-12-25 15:07:30 ===
 

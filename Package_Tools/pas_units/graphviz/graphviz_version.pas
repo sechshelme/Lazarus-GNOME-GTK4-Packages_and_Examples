@@ -5,23 +5,23 @@ interface
 uses
   ctypes;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
 
 const
-  GVPLUGIN_CONFIG_FILE = 'config6a';  
-  GVPLUGIN_VERSION = 6;  
-  PACKAGE_BUGREPORT = 'http://www.graphviz.org/';  
-  PACKAGE_NAME = 'graphviz';  
-  PACKAGE_STRING = 'graphviz 2.43.0';  
-  PACKAGE_TARNAME = 'graphviz';  
-  PACKAGE_URL = '';  
-  PACKAGE_VERSION = '2.43.0';  
+  GVPLUGIN_CONFIG_FILE = 'config6a';
+  GVPLUGIN_VERSION = 6;
+  PACKAGE_BUGREPORT = 'http://www.graphviz.org/';
+  PACKAGE_NAME = 'graphviz';
+  PACKAGE_STRING = 'graphviz 2.43.0';
+  PACKAGE_TARNAME = 'graphviz';
+  PACKAGE_URL = '';
+  PACKAGE_VERSION = '2.43.0';
 
-// === Konventiert am: 3-12-25 15:08:18 ===
+  // === Konventiert am: 3-12-25 15:08:18 ===
 
 
 implementation

@@ -6,6 +6,7 @@ const
   {$IFDEF Linux}
   libgvc = 'gvc';
   libcgraph = 'cgraph';
+  libcdt = 'cdt';
   {$ENDIF}
 
   {$IFDEF Windows}
