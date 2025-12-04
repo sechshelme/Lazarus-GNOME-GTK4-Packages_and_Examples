@@ -3,48 +3,35 @@ unit adap_preferences_row;
 interface
 
 uses
-  fp_adapta;
+  fp_GTK4, fp_glib2, fp_adapta;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{
- * Copyright (C) 2019 Purism SPC
- *
- * SPDX-License-Identifier: LGPL-2.1-or-later
-  }
-(** unsupported pragma#pragma once*)
-{$if !defined(_ADAPTA_INSIDE) && !defined(ADAPTA_COMPILATION)}
-{$error "Only <adapta.h> can be included directly."}
-{$endif}
-{$include "adap-version.h"}
-{$include <gtk/gtk.h>}
-
-{////////G_DECLARE_DERIVABLE_TYPE (AdapPreferencesRow, adap_preferences_row, ADAP, PREFERENCES_ROW, GtkListBoxRow) }
-{*
- * AdapPreferencesRowClass
- * @parent_class: The parent class
-  }
-{< private > }
 type
-  PAdapPreferencesRowClass = ^TAdapPreferencesRowClass;
   TAdapPreferencesRowClass = record
-      parent_class : TGtkListBoxRowClass;
-      padding : array[0..3] of Tgpointer;
-    end;
+    parent_class: TGtkListBoxRowClass;
+    padding: array[0..3] of Tgpointer;
+  end;
+  PAdapPreferencesRowClass = ^TAdapPreferencesRowClass;
 
+  TAdapPreferencesRow = record
+    parent_instance: TGtkListBoxRow;
+  end;
+  PAdapPreferencesRow = ^TAdapPreferencesRow;
 
-function adap_preferences_row_new:PGtkWidget;cdecl;external libadapta;
-function adap_preferences_row_get_title(self:PAdapPreferencesRow):Pchar;cdecl;external libadapta;
-procedure adap_preferences_row_set_title(self:PAdapPreferencesRow; title:Pchar);cdecl;external libadapta;
-function adap_preferences_row_get_use_underline(self:PAdapPreferencesRow):Tgboolean;cdecl;external libadapta;
-procedure adap_preferences_row_set_use_underline(self:PAdapPreferencesRow; use_underline:Tgboolean);cdecl;external libadapta;
-function adap_preferences_row_get_title_selectable(self:PAdapPreferencesRow):Tgboolean;cdecl;external libadapta;
-procedure adap_preferences_row_set_title_selectable(self:PAdapPreferencesRow; title_selectable:Tgboolean);cdecl;external libadapta;
-function adap_preferences_row_get_use_markup(self:PAdapPreferencesRow):Tgboolean;cdecl;external libadapta;
-procedure adap_preferences_row_set_use_markup(self:PAdapPreferencesRow; use_markup:Tgboolean);cdecl;external libadapta;
+function adap_preferences_row_get_type: TGType; cdecl; external libadapta;
+function adap_preferences_row_new: PGtkWidget; cdecl; external libadapta;
+function adap_preferences_row_get_title(self: PAdapPreferencesRow): pchar; cdecl; external libadapta;
+procedure adap_preferences_row_set_title(self: PAdapPreferencesRow; title: pchar); cdecl; external libadapta;
+function adap_preferences_row_get_use_underline(self: PAdapPreferencesRow): Tgboolean; cdecl; external libadapta;
+procedure adap_preferences_row_set_use_underline(self: PAdapPreferencesRow; use_underline: Tgboolean); cdecl; external libadapta;
+function adap_preferences_row_get_title_selectable(self: PAdapPreferencesRow): Tgboolean; cdecl; external libadapta;
+procedure adap_preferences_row_set_title_selectable(self: PAdapPreferencesRow; title_selectable: Tgboolean); cdecl; external libadapta;
+function adap_preferences_row_get_use_markup(self: PAdapPreferencesRow): Tgboolean; cdecl; external libadapta;
+procedure adap_preferences_row_set_use_markup(self: PAdapPreferencesRow; use_markup: Tgboolean); cdecl; external libadapta;
 
 // === Konventiert am: 4-12-25 17:18:32 ===
 
@@ -86,19 +73,6 @@ function ADAP_PREFERENCES_ROW_GET_CLASS(obj: Pointer): PAdapPreferencesRowClass;
 begin
   Result := PAdapPreferencesRowClass(PGTypeInstance(obj)^.g_class);
 end;
-
-type 
-  TAdapPreferencesRow = record
-    parent_instance: TGtkListBoxRow;
-  end;
-  PAdapPreferencesRow = ^TAdapPreferencesRow;
-
-  TAdapPreferencesRowClass = record
-  end;
-  PAdapPreferencesRowClass = ^TAdapPreferencesRowClass;
-
-function adap_preferences_row_get_type: TGType; cdecl; external libgxxxxxxx;
-
 
 
 end.

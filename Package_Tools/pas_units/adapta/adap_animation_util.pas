@@ -3,7 +3,7 @@ unit adap_animation_util;
 interface
 
 uses
-  fp_adapta;
+  fp_GTK4, fp_glib2, fp_adapta;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}

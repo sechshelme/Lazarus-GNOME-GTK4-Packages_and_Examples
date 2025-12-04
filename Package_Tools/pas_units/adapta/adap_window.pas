@@ -3,44 +3,33 @@ unit adap_window;
 interface
 
 uses
-  fp_adapta;
+  fp_GTK4, fp_glib2, fp_adapta, adap_breakpoint, adap_dialog;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{
- * Copyright (C) 2020 Alice Mikhaylenko <alicem@gnome.org>
- *
- * SPDX-License-Identifier: LGPL-2.1-or-later
-  }
-(** unsupported pragma#pragma once*)
-{$if !defined(_ADAPTA_INSIDE) && !defined(ADAPTA_COMPILATION)}
-{$error "Only <adapta.h> can be included directly."}
-{$endif}
-{$include "adap-version.h"}
-{$include <gtk/gtk.h>}
-{$include "adap-breakpoint.h"}
-{$include "adap-dialog.h"}
-
-{////////G_DECLARE_DERIVABLE_TYPE (AdapWindow, adap_window, ADAP, WINDOW, GtkWindow) }
-{< private > }
 type
-  PAdapWindowClass = ^TAdapWindowClass;
   TAdapWindowClass = record
-      parent_class : TGtkWindowClass;
-      padding : array[0..3] of Tgpointer;
-    end;
+    parent_class: TGtkWindowClass;
+    padding: array[0..3] of Tgpointer;
+  end;
+  PAdapWindowClass = ^TAdapWindowClass;
 
+  TAdapWindow = record
+    parent_instance: TGtkWindow;
+  end;
+  PAdapWindow = ^TAdapWindow;
 
-function adap_window_new:PGtkWidget;cdecl;external libadapta;
-function adap_window_get_content(self:PAdapWindow):PGtkWidget;cdecl;external libadapta;
-procedure adap_window_set_content(self:PAdapWindow; content:PGtkWidget);cdecl;external libadapta;
-procedure adap_window_add_breakpoint(self:PAdapWindow; breakpoint:PAdapBreakpoint);cdecl;external libadapta;
-function adap_window_get_current_breakpoint(self:PAdapWindow):PAdapBreakpoint;cdecl;external libadapta;
-function adap_window_get_dialogs(self:PAdapWindow):PGListModel;cdecl;external libadapta;
-function adap_window_get_visible_dialog(self:PAdapWindow):PAdapDialog;cdecl;external libadapta;
+function adap_window_get_type: TGType; cdecl; external libadapta;
+function adap_window_new: PGtkWidget; cdecl; external libadapta;
+function adap_window_get_content(self: PAdapWindow): PGtkWidget; cdecl; external libadapta;
+procedure adap_window_set_content(self: PAdapWindow; content: PGtkWidget); cdecl; external libadapta;
+procedure adap_window_add_breakpoint(self: PAdapWindow; breakpoint: PAdapBreakpoint); cdecl; external libadapta;
+function adap_window_get_current_breakpoint(self: PAdapWindow): PAdapBreakpoint; cdecl; external libadapta;
+function adap_window_get_dialogs(self: PAdapWindow): PGListModel; cdecl; external libadapta;
+function adap_window_get_visible_dialog(self: PAdapWindow): PAdapDialog; cdecl; external libadapta;
 
 // === Konventiert am: 4-12-25 17:27:20 ===
 
@@ -82,19 +71,6 @@ function ADAP_WINDOW_GET_CLASS(obj: Pointer): PAdapWindowClass;
 begin
   Result := PAdapWindowClass(PGTypeInstance(obj)^.g_class);
 end;
-
-type 
-  TAdapWindow = record
-    parent_instance: TGtkWindow;
-  end;
-  PAdapWindow = ^TAdapWindow;
-
-  TAdapWindowClass = record
-  end;
-  PAdapWindowClass = ^TAdapWindowClass;
-
-function adap_window_get_type: TGType; cdecl; external libgxxxxxxx;
-
 
 
 end.

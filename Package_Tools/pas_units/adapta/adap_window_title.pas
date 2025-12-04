@@ -3,31 +3,29 @@ unit adap_window_title;
 interface
 
 uses
-  fp_adapta;
+  fp_GTK4, fp_glib2, fp_adapta;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{
- * Copyright (C) 2021 Christopher Davis <christopherdavis@gnome.org>
- *
- * SPDX-License-Identifier: LGPL-2.1-or-later
-  }
-(** unsupported pragma#pragma once*)
-{$if !defined(_ADAPTA_INSIDE) && !defined(ADAPTA_COMPILATION)}
-{$error "Only <adapta.h> can be included directly."}
-{$endif}
-{$include "adap-version.h"}
-{$include <gtk/gtk.h>}
+type
+  TAdapWindowTitle = record
+  end;
+  PAdapWindowTitle = ^TAdapWindowTitle;
 
-{G_DECLARE_FINAL_TYPE (AdapWindowTitle, adap_window_title, ADAP, WINDOW_TITLE, GtkWidget) }
-function adap_window_title_new(title:Pchar; subtitle:Pchar):PGtkWidget;cdecl;external libadapta;
-function adap_window_title_get_title(self:PAdapWindowTitle):Pchar;cdecl;external libadapta;
-procedure adap_window_title_set_title(self:PAdapWindowTitle; title:Pchar);cdecl;external libadapta;
-function adap_window_title_get_subtitle(self:PAdapWindowTitle):Pchar;cdecl;external libadapta;
-procedure adap_window_title_set_subtitle(self:PAdapWindowTitle; subtitle:Pchar);cdecl;external libadapta;
+  TAdapWindowTitleClass = record
+    parent_class: TGtkWidgetClass;
+  end;
+  PAdapWindowTitleClass = ^TAdapWindowTitleClass;
+
+function adap_window_title_get_type: TGType; cdecl; external libadapta;
+function adap_window_title_new(title: pchar; subtitle: pchar): PGtkWidget; cdecl; external libadapta;
+function adap_window_title_get_title(self: PAdapWindowTitle): pchar; cdecl; external libadapta;
+procedure adap_window_title_set_title(self: PAdapWindowTitle; title: pchar); cdecl; external libadapta;
+function adap_window_title_get_subtitle(self: PAdapWindowTitle): pchar; cdecl; external libadapta;
+procedure adap_window_title_set_subtitle(self: PAdapWindowTitle; subtitle: pchar); cdecl; external libadapta;
 
 // === Konventiert am: 4-12-25 17:27:16 ===
 
@@ -51,19 +49,6 @@ function ADAP_IS_WINDOW_TITLE(obj: Pointer): Tgboolean;
 begin
   Result := g_type_check_instance_is_a(obj, ADAP_TYPE_WINDOW_TITLE);
 end;
-
-type 
-  TAdapWindowTitle = record
-  end;
-  PAdapWindowTitle = ^TAdapWindowTitle;
-
-  TAdapWindowTitleClass = record
-    parent_class: TGtkWidgetClass;
-  end;
-  PAdapWindowTitleClass = ^TAdapWindowTitleClass;
-
-function adap_window_title_get_type: TGType; cdecl; external libgxxxxxxx;
-
 
 
 end.

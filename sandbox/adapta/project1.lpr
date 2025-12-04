@@ -1,20 +1,28 @@
 program project1;
 
 uses
-  //adap_about_dialog,
-  //adap_about_window,
-  //adap_action_row,
-  //adap_alert_dialog,
-  //adap_animation,
-  //adap_animation_target,
-  //adap_animation_util,
-  adap_application,
+   adap_version,
+   adap_style_manager,
+   adap_application,                    // adap_style_manager
+   adap_length_unit,
+   adap_breakpoint,                     // adap_length_unit
+   adap_breakpoint_bin,                 // adap_breakpoint
+   adap_dialog,                         // adap_breakpoint
+   adap_about_dialog,                   // adap_dialog
+   adap_window,                         // adap_breakpoint, adap_dialog
+   adap_window_title,
+   adap_about_window,                   // adap_window
+   adap_preferences_row,
+   adap_action_row,                     // adap_preferences_row
+   adap_alert_dialog,                   // adap_dialog
+   //adap_animation,
+   //adap_animation_target,
+   //adap_animation_util,
+
   //adap_application_window,
   //adap_avatar,
   //adap_banner,
   //adap_bin,
-  //adap_breakpoint,
-  //adap_breakpoint_bin,
   //adap_button_content,
   //adap_carousel,
   //adap_carousel_indicator_dots,
@@ -23,7 +31,6 @@ uses
   //adap_clamp_layout,
   //adap_clamp_scrollable,
   //adap_combo_row,
-  //adap_dialog,
   //adap_easing,
   //adap_entry_row,
   //adap_enum_list_model,
@@ -33,7 +40,6 @@ uses
   //adap_fold_threshold_policy,
   //adap_header_bar,
   //adap_leaflet,
-  //adap_length_unit,
   //adap_main,
   //adap_message_dialog,
   //adap_navigation_direction,
@@ -44,7 +50,6 @@ uses
   //adap_preferences_dialog,
   //adap_preferences_group,
   //adap_preferences_page,
-  //adap_preferences_row,
   //adap_preferences_window,
   //adap_spin_row,
   //adap_split_button,
@@ -52,7 +57,6 @@ uses
   //adap_spring_params,
   //adap_squeezer,
   //adap_status_page,
-  //adap_style_manager,
   //adap_swipeable,
   //adap_swipe_tracker,
   //adap_switch_row,
@@ -64,13 +68,10 @@ uses
   //adap_toast,
   //adap_toast_overlay,
   //adap_toolbar_view,
-  //adap_version,
   //adap_view_stack,
   //adap_view_switcher,
   //adap_view_switcher_bar,
   //adap_view_switcher_title,
-  //adap_window,
-  //adap_window_title,
 
    fp_adapta,
 
