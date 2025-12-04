@@ -6,8 +6,8 @@ type
   PGtkAllocation = ^TGtkAllocation;
 
   TGtkRequisition = record
-    Width: cint;
-    Height: cint;
+    Width: Integer;
+    Height: Integer;
   end;
   PGtkRequisition = ^TGtkRequisition;
 

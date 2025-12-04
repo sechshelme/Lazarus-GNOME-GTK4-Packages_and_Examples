@@ -27,17 +27,17 @@ type
   TGtkTextIter = record
     dummy1: Tgpointer;
     dummy2: Tgpointer;
-    dummy3: cint;
-    dummy4: cint;
-    dummy5: cint;
-    dummy6: cint;
-    dummy7: cint;
-    dummy8: cint;
+    dummy3: Integer;
+    dummy4: Integer;
+    dummy5: Integer;
+    dummy6: Integer;
+    dummy7: Integer;
+    dummy8: Integer;
     dummy9: Tgpointer;
     dummy10: Tgpointer;
-    dummy11: cint;
-    dummy12: cint;
-    dummy13: cint;
+    dummy11: Integer;
+    dummy12: Integer;
+    dummy13: Integer;
     dummy14: Tgpointer;
   end;
   PGtkTextIter = ^TGtkTextIter;

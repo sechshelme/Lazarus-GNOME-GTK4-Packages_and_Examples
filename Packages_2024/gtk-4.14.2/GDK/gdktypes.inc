@@ -34,8 +34,8 @@ const
 type
   TGdkKeymapKey = record
     keycode: Tguint;
-    group: cint;
-    level: cint;
+    group: Integer;
+    level: Integer;
   end;
   PGdkKeymapKey = ^TGdkKeymapKey;
   PPGdkKeymapKey = ^PGdkKeymapKey;

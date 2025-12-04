@@ -6,13 +6,12 @@ uses
   {$IFDEF Linux}
   x, xlib,
   {$ENDIF}
-  ctypes,
   fp_glib2, fp_graphene, fp_pango, fp_cairo, fp_gdk_pixbuf2;
 
   // ==== GTK4
 const
   {$IFDEF Linux}
-  libgtk4 = 'libgtk-4';
+  libgtk4 = 'gtk-4';
   {$ENDIF}
 
   {$IFDEF Windows}
