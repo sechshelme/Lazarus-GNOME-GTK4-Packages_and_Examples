@@ -15,12 +15,11 @@ uses
    adap_preferences_row,
    adap_action_row,                     // adap_preferences_row
    adap_alert_dialog,                   // adap_dialog
-   //adap_animation,
-   //adap_animation_target,
-   //adap_animation_util,
-
-  //adap_application_window,
-  //adap_avatar,
+   adap_animation_target,
+   adap_animation,                      // adap_animation_target
+   adap_animation_util,
+   adap_application_window,             // adap_breakpoint, adap_dialog
+   adap_avatar,
   //adap_banner,
   //adap_bin,
   //adap_button_content,
