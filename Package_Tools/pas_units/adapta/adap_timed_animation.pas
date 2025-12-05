@@ -3,33 +3,28 @@ unit adap_timed_animation;
 interface
 
 uses
-  fp_GTK4, fp_glib2, fp_adapta;
+  fp_GTK4, fp_glib2, fp_adapta, adap_animation_target, adap_animation, adap_easing;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
 
 
-{
- * Copyright (C) 2021 Manuel Genovés <manuel.genoves@gmail.com>
- *
- * SPDX-License-Identifier: LGPL-2.1-or-later
-  }
-(** unsupported pragma#pragma once*)
-{$if !defined(_ADAPTA_INSIDE) && !defined(ADAPTA_COMPILATION)}
-{$error "Only <adapta.h> can be included directly."}
-{$endif}
-{$include "adap-version.h"}
-{$include <gtk/gtk.h>}
-{$include "adap-animation.h"}
-{$include "adap-easing.h"}
+type
+  TAdapTimedAnimation = record
+  end;
+  PAdapTimedAnimation = ^TAdapTimedAnimation;
 
-{GDK_DECLARE_INTERNAL_TYPE (AdapTimedAnimation, adap_timed_animation, ADAP, TIMED_ANIMATION, AdapAnimation) }
-function adap_timed_animation_new(widget:PGtkWidget; from:Tdouble; to:Tdouble; duration:Tguint; target:PAdapAnimationTarget):PAdapAnimation;cdecl;external libadapta;
-function adap_timed_animation_get_value_from(self:PAdapTimedAnimation):Tdouble;cdecl;external libadapta;
-procedure adap_timed_animation_set_value_from(self:PAdapTimedAnimation; value:Tdouble);cdecl;external libadapta;
-function adap_timed_animation_get_value_to(self:PAdapTimedAnimation):Tdouble;cdecl;external libadapta;
-procedure adap_timed_animation_set_value_to(self:PAdapTimedAnimation; value:Tdouble);cdecl;external libadapta;
+  TAdapTimedAnimationClass = record
+  end;
+  PAdapTimedAnimationClass = ^TAdapTimedAnimationClass;
+
+function adap_timed_animation_get_type: TGType; cdecl; external libadapta;
+function adap_timed_animation_new(widget:PGtkWidget; from:double; to_:double; duration:Tguint; target:PAdapAnimationTarget):PAdapAnimation;cdecl;external libadapta;
+function adap_timed_animation_get_value_from(self:PAdapTimedAnimation):double;cdecl;external libadapta;
+procedure adap_timed_animation_set_value_from(self:PAdapTimedAnimation; value:double);cdecl;external libadapta;
+function adap_timed_animation_get_value_to(self:PAdapTimedAnimation):double;cdecl;external libadapta;
+procedure adap_timed_animation_set_value_to(self:PAdapTimedAnimation; value:double);cdecl;external libadapta;
 function adap_timed_animation_get_duration(self:PAdapTimedAnimation):Tguint;cdecl;external libadapta;
 procedure adap_timed_animation_set_duration(self:PAdapTimedAnimation; duration:Tguint);cdecl;external libadapta;
 function adap_timed_animation_get_easing(self:PAdapTimedAnimation):TAdapEasing;cdecl;external libadapta;
@@ -81,18 +76,6 @@ function ADAP_TIMED_ANIMATION_GET_CLASS(obj: Pointer): PAdapTimedAnimationClass;
 begin
   Result := PAdapTimedAnimationClass(PGTypeInstance(obj)^.g_class);
 end;
-
-type 
-  TAdapTimedAnimation = record
-  end;
-  PAdapTimedAnimation = ^TAdapTimedAnimation;
-
-  TAdapTimedAnimationClass = record
-  end;
-  PAdapTimedAnimationClass = ^TAdapTimedAnimationClass;
-
-function adap_timed_animation_get_type: TGType; cdecl; external libgxxxxxxx;
-
 
 
 end.

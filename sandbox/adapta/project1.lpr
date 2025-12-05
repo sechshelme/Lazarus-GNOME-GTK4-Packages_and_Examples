@@ -1,78 +1,78 @@
 program project1;
 
 uses
-   adap_version,
-   adap_style_manager,
-   adap_application,                    // adap_style_manager
-   adap_length_unit,
-   adap_breakpoint,                     // adap_length_unit
-   adap_breakpoint_bin,                 // adap_breakpoint
-   adap_dialog,                         // adap_breakpoint
-   adap_about_dialog,                   // adap_dialog
-   adap_window,                         // adap_breakpoint, adap_dialog
-   adap_window_title,
-   adap_about_window,                   // adap_window
-   adap_preferences_row,
-   adap_action_row,                     // adap_preferences_row
-   adap_alert_dialog,                   // adap_dialog
-   adap_animation_target,
-   adap_animation,                      // adap_animation_target
-   adap_animation_util,
-   adap_application_window,             // adap_breakpoint, adap_dialog
-   adap_avatar,
-  //adap_banner,
-  //adap_bin,
-  //adap_button_content,
-  //adap_carousel,
-  //adap_carousel_indicator_dots,
-  //adap_carousel_indicator_lines,
-  //adap_clamp,
-  //adap_clamp_layout,
-  //adap_clamp_scrollable,
-  //adap_combo_row,
-  //adap_easing,
-  //adap_entry_row,
-  //adap_enum_list_model,
-  //adap_enums,
-  //adap_expander_row,
-  //adap_flap,
-  //adap_fold_threshold_policy,
-  //adap_header_bar,
-  //adap_leaflet,
-  //adap_main,
-  //adap_message_dialog,
-  //adap_navigation_direction,
-  //adap_navigation_split_view,
-  //adap_navigation_view,
-  //adap_overlay_split_view,
-  //adap_password_entry_row,
-  //adap_preferences_dialog,
-  //adap_preferences_group,
-  //adap_preferences_page,
-  //adap_preferences_window,
-  //adap_spin_row,
-  //adap_split_button,
-  //adap_spring_animation,
-  //adap_spring_params,
-  //adap_squeezer,
-  //adap_status_page,
-  //adap_swipeable,
-  //adap_swipe_tracker,
-  //adap_switch_row,
-  //adap_tab_bar,
-  //adap_tab_button,
-  //adap_tab_overview,
-  //adap_tab_view,
-  //adap_timed_animation,
-  //adap_toast,
-  //adap_toast_overlay,
-  //adap_toolbar_view,
-  //adap_view_stack,
-  //adap_view_switcher,
-  //adap_view_switcher_bar,
-  //adap_view_switcher_title,
+  adap_version,
+  adap_style_manager,
+  adap_application,                    // adap_style_manager
+  adap_length_unit,
+  adap_breakpoint,                     // adap_length_unit
+  adap_breakpoint_bin,                 // adap_breakpoint
+  adap_dialog,                         // adap_breakpoint
+  adap_about_dialog,                   // adap_dialog
+  adap_window,                         // adap_breakpoint, adap_dialog
+  adap_window_title,
+  adap_about_window,                   // adap_window
+  adap_preferences_row,
+  adap_action_row,                     // adap_preferences_row
+  adap_alert_dialog,                   // adap_dialog
+  adap_animation_target,
+  adap_animation,                      // adap_animation_target
+  adap_animation_util,
+  adap_application_window,             // adap_breakpoint, adap_dialog
+  adap_avatar,
+  adap_banner,
+  adap_bin,
+  adap_button_content,
+  adap_spring_params,
+  adap_carousel,                        // adap_spring_params
+  adap_carousel_indicator_dots,         // adap_carousel
+  adap_carousel_indicator_lines,        // adap_carousel
+  adap_clamp,                           // adap_length_unit
+  adap_clamp_layout,                    // adap_length_unit
+  adap_clamp_scrollable,                // adap_length_unit
+  adap_combo_row,                       // adap_action_row
+  adap_easing,
+  adap_entry_row,                       // adap_preferences_row
+  adap_password_entry_row,              // adap_entry_row
+  adap_enum_list_model,
+  adap_enums,
+  adap_expander_row,                    // adap_preferences_row
+  adap_header_bar,
+  adap_navigation_direction,
+  adap_navigation_view,
+  adap_navigation_split_view,          // adap_length_unit, adap_navigation_view
+  adap_main,
+  adap_message_dialog,                 // adap_alert_dialog
+  adap_overlay_split_view,             // adap_length_unit
+  adap_toast,
+  adap_toast_overlay,                  // adap_toast
+  adap_preferences_group,
+  adap_preferences_page,               // adap_preferences_group
+  adap_preferences_dialog,             // adap_dialog, adap_preferences_page, adap_navigation_view, adap_toast
+  adap_preferences_window,             // adap_window, adap_preferences_page, adap_navigation_view, adap_toast
+  adap_spin_row,
+  adap_split_button,
+  adap_spring_animation,               // adap_spring_params, adap_animation_target, adap_animation
+  adap_status_page,
+  adap_swipeable,                      // adap_navigation_direction
+  adap_swipe_tracker,                  // adap_swipeable
+  adap_switch_row,                     // adap_action_row
+  adap_tab_view,
+  adap_tab_bar,                        // adap_tab_view
+  adap_tab_button,                     // adap_tab_view
+  adap_tab_overview,                   // adap_tab_view
+  adap_timed_animation,                // adap_animation_target, adap_animation, adap_easing
+  adap_toolbar_view,
+  adap_view_stack,
+  adap_view_switcher,                  // adap_view_stack
+  adap_view_switcher_bar,              // adap_view_stack
+  adap_view_switcher_title,            // adap_view_stack
+  adap_fold_threshold_policy,
+  adap_leaflet,                        // adap_fold_threshold_policy, adap_spring_params, adap_navigation_direction
+  adap_flap,                           // adap_spring_params, adap_fold_threshold_policy
+  adap_squeezer,                       // adap_fold_threshold_policy
 
-   fp_adapta,
+  fp_adapta,
 
 
   ctypes,
@@ -87,7 +87,7 @@ uses
     g_print('Hello World'#10);
 
     Inc(counter);
-    gtk_button_set_label(GTK_BUTTON(widget), PChar('Ich wurde ' + IntToStr(counter) + ' gelickt'));
+    gtk_button_set_label(GTK_BUTTON(widget), pchar('Ich wurde ' + IntToStr(counter) + ' gelickt'));
   end;
 
 
@@ -116,11 +116,11 @@ uses
 
   function main(argc: cint; argv: PPChar): cint;
   var
-//    app: PGtkApplication;
-app:    PAdapApplication;
+    //    app: PGtkApplication;
+    app: PAdapApplication;
     status: longint;
   begin
-//    app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
+    //    app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
     app := adap_application_new('de.example.libadapta', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
     status := g_application_run(G_APPLICATION(app), argc, argv);
