@@ -47,11 +47,9 @@ uses
   begin
     hints := Default(Taddrinfo);
 
-    // GnuTLS-Debug-Log aktivieren
     gnutls_global_set_log_level(9);
     gnutls_global_set_log_function(@my_log_func);
 
-    // 1. TCP-Verbindung herstellen
     hints.ai_family := AF_UNSPEC;
     hints.ai_socktype := SOCK_STREAM;
     if getaddrinfo(host, port, @hints, @res) <> 0 then begin
@@ -73,7 +71,6 @@ uses
       Exit;
     end;
 
-    // 2. GnuTLS initialisieren
     gnutls_global_init();
     gnutls_certificate_allocate_credentials(@xcred);
     gnutls_init(@session, GNUTLS_CLIENT);
@@ -82,7 +79,6 @@ uses
     gnutls_credentials_set(session, GNUTLS_CRD_CERTIFICATE, xcred);
     gnutls_transport_set_int(session, sock);
 
-    // 3. TLS-Handshake
     ret := gnutls_handshake(session);
     if ret < 0 then begin
       fprintf(stderr, 'Handshake failed: %s'#10, gnutls_strerror(ret));
@@ -92,7 +88,6 @@ uses
       printf('Handshake erfolgreich!'#10);
     end;
 
-    // 4. HTTP-Request senden (mit User-Agent)
     sent := gnutls_record_send(session, req, strlen(req));
     if sent < 0 then begin
       fprintf(stderr, 'Send failed: %s'#10, gnutls_strerror(sent));
@@ -102,7 +97,6 @@ uses
       printf('Request gesendet (%zd Bytes)'#10, sent);
     end;
 
-    // 5. Antwort lesen und ausgeben (robuste Schleife)
     got_data := 0;
     while True do begin
       n := gnutls_record_recv(session, @buf, sizeof(buf) - 1);
@@ -114,7 +108,7 @@ uses
         fprintf(stderr, #10'Verbindung wurde vom Server geschlossen (EOF).'#10);
         break;
       end else if (n = GNUTLS_E_AGAIN) or (n = GNUTLS_E_INTERRUPTED) then begin
-        usleep(10000); // 10ms warten und nochmal probieren
+        usleep(10000);
         continue;
       end else begin
         fprintf(stderr, #10'Fehler beim Empfangen: %s'#10, gnutls_strerror(n));

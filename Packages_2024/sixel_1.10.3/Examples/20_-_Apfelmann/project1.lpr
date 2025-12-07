@@ -64,11 +64,11 @@ type
       Exit;
     end;
 
-    Write(#27'[2J'); // Bildschirm löschen
+    Write(#27'[2J');   // Bildschirm löschen
     Write(#27'[?25l'); // Cursor ausblenden
     repeat
       paint(@pixel, colOfs);
-      Write(#27'[H'); // Cursor nach oben links (Home-Position)
+      Write(#27'[H'); // Cursor Home
 
       status := sixel_encoder_encode_bytes(encoder, pbyte(pixel), breite, hoehe, SIXEL_PIXELFORMAT_RGB888, nil, 0);
       if status <> SIXEL_OK then begin
@@ -79,7 +79,7 @@ type
       Inc(colOfs);
       WriteLn('<Ctrl+C)> = Abbruch');
     until False;
-    Write(#27'[?25h'); // Cursor wieder einblenden
+    Write(#27'[?25h'); // Cursor einblenden
 
     sixel_encoder_unref(encoder);
   end;

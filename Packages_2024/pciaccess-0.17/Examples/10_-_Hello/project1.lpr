@@ -28,14 +28,13 @@ uses
         printf('  Subsystem Vendor: 0x%04x, Subsystem Device: 0x%04x'#10, dev^.subvendor_id, dev^.subdevice_id);
         printf('  IRQ: %d\n', dev^.irq);
 
-        // BARs ausgeben
         for  i := 0 to 5 do begin
           if dev^.regions[i].size > 0 then begin
             printf('  BAR%d: 0x%016llx (size: 0x%llx)'#10, i,
               dev^.regions[i].base_addr, dev^.regions[i].size);
           end;
         end;
-        printf(#10);
+        printf(#10#10);
       end;
     until dev = nil;
     pci_iterator_destroy(iter);

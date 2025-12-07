@@ -49,7 +49,6 @@ uses
 
     repeat
       nbytes := ssh_channel_read(channel, @buffer, sizeof(buffer), 0);
-      //      fwrite(@buffer, 1, nbytes, stdout);
       for i := 0 to nbytes - 1 do begin
         Write(buffer[i]);
       end;

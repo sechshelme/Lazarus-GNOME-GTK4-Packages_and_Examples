@@ -1,23 +1,23 @@
 
 
 
-{$include gnutls/gnutls.inc}          // io.
-{$include gnutls/x509.inc}            // io,
-{$include gnutls/x509_ext.inc}        // io. x509
-{$include gnutls/pkcs7.inc}           // io. x509
-{$include gnutls/pkcs11.inc}          // io. x509
-{$include gnutls/pkcs12.inc}          // io.
-{$include gnutls/ocsp.inc}            // io. x509
-{$include gnutls/tpm.inc}             // io.
-{$include gnutls/socket.inc}          // io.
-{$include gnutls/crypto.inc}          // io.
-{$include gnutls/dane.inc}            // io.
-{$include gnutls/dtls.inc}            // io.
-{$include gnutls/openpgp.inc}         // io.           ( deprecated )
-{$include gnutls/self_test.inc}       // io.
-{$include gnutls/system_keys.inc}     // io.
-{$include gnutls/urls.inc}            // io.
-{$include gnutls/abstract.inc}        // io. x509, pkcs11, openpgp, tpm
-{$include gnutls/openssl.inc}         // io.  ( Makros ausgeklammert )
+{$include gnutls/gnutls.inc}
+{$include gnutls/x509.inc}
+{$include gnutls/x509_ext.inc}
+{$include gnutls/pkcs7.inc}
+{$include gnutls/pkcs11.inc}
+{$include gnutls/pkcs12.inc}
+{$include gnutls/ocsp.inc}
+{$include gnutls/tpm.inc}
+{$include gnutls/socket.inc}
+{$include gnutls/crypto.inc}
+{$include gnutls/dane.inc}
+{$include gnutls/dtls.inc}
+{$include gnutls/openpgp.inc}
+{$include gnutls/self_test.inc}
+{$include gnutls/system_keys.inc}
+{$include gnutls/urls.inc}
+{$include gnutls/abstract.inc}
+{$include gnutls/openssl.inc}
 
 

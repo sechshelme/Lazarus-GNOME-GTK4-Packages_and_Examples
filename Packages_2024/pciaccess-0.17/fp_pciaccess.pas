@@ -2,12 +2,13 @@ unit fp_pciaccess;
 
 interface
 
-uses
-  ctypes;
-
 const
   {$IFDEF Linux}
   libpciaccess = 'libpciaccess';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libpciaccess = 'libpciaccess.dll'; // ????
   {$ENDIF}
 
 type

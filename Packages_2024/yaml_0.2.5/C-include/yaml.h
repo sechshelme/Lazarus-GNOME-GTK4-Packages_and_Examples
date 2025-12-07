@@ -26,6 +26,19 @@ extern "C" {
 
 /** The public API declaration. */
 
+#if defined(__MINGW32__)
+#   define  YAML_DECLARE(type)  type
+#elif defined(_WIN32)
+#   if defined(YAML_DECLARE_STATIC)
+#       define  YAML_DECLARE(type)  type
+#   elif defined(YAML_DECLARE_EXPORT)
+#       define  YAML_DECLARE(type)  __declspec(dllexport) type
+#   else
+#       define  YAML_DECLARE(type)  __declspec(dllimport) type
+#   endif
+#else
+#   define  YAML_DECLARE(type)  type
+#endif
 
 /** @} */
 
@@ -42,7 +55,7 @@ extern "C" {
  * number, and @c Z is the patch version number.
  */
 
-extern const char *
+YAML_DECLARE(const char *)
 yaml_get_version_string(void);
 
 /**
@@ -53,7 +66,7 @@ yaml_get_version_string(void);
  * @param[out]      patch   Patch version number.
  */
 
-extern void
+YAML_DECLARE(void)
 yaml_get_version(int *major, int *minor, int *patch);
 
 /** @} */
@@ -328,7 +341,7 @@ typedef struct yaml_token_s {
  * @param[in,out]   token   A token object.
  */
 
-extern void
+YAML_DECLARE(void)
 yaml_token_delete(yaml_token_t *token);
 
 /** @} */
@@ -473,7 +486,7 @@ typedef struct yaml_event_s {
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_stream_start_event_initialize(yaml_event_t *event,
         yaml_encoding_t encoding);
 
@@ -485,7 +498,7 @@ yaml_stream_start_event_initialize(yaml_event_t *event,
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_stream_end_event_initialize(yaml_event_t *event);
 
 /**
@@ -507,7 +520,7 @@ yaml_stream_end_event_initialize(yaml_event_t *event);
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_document_start_event_initialize(yaml_event_t *event,
         yaml_version_directive_t *version_directive,
         yaml_tag_directive_t *tag_directives_start,
@@ -526,7 +539,7 @@ yaml_document_start_event_initialize(yaml_event_t *event,
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_document_end_event_initialize(yaml_event_t *event, int implicit);
 
 /**
@@ -538,7 +551,7 @@ yaml_document_end_event_initialize(yaml_event_t *event, int implicit);
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_alias_event_initialize(yaml_event_t *event, const yaml_char_t *anchor);
 
 /**
@@ -563,7 +576,7 @@ yaml_alias_event_initialize(yaml_event_t *event, const yaml_char_t *anchor);
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_scalar_event_initialize(yaml_event_t *event,
         const yaml_char_t *anchor, const yaml_char_t *tag,
         const yaml_char_t *value, int length,
@@ -586,7 +599,7 @@ yaml_scalar_event_initialize(yaml_event_t *event,
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_sequence_start_event_initialize(yaml_event_t *event,
         const yaml_char_t *anchor, const yaml_char_t *tag, int implicit,
         yaml_sequence_style_t style);
@@ -599,7 +612,7 @@ yaml_sequence_start_event_initialize(yaml_event_t *event,
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_sequence_end_event_initialize(yaml_event_t *event);
 
 /**
@@ -618,7 +631,7 @@ yaml_sequence_end_event_initialize(yaml_event_t *event);
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_mapping_start_event_initialize(yaml_event_t *event,
         const yaml_char_t *anchor, const yaml_char_t *tag, int implicit,
         yaml_mapping_style_t style);
@@ -631,7 +644,7 @@ yaml_mapping_start_event_initialize(yaml_event_t *event,
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_mapping_end_event_initialize(yaml_event_t *event);
 
 /**
@@ -640,7 +653,7 @@ yaml_mapping_end_event_initialize(yaml_event_t *event);
  * @param[in,out]   event   An event object.
  */
 
-extern void
+YAML_DECLARE(void)
 yaml_event_delete(yaml_event_t *event);
 
 /** @} */
@@ -817,7 +830,7 @@ typedef struct yaml_document_s {
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_document_initialize(yaml_document_t *document,
         yaml_version_directive_t *version_directive,
         yaml_tag_directive_t *tag_directives_start,
@@ -830,7 +843,7 @@ yaml_document_initialize(yaml_document_t *document,
  * @param[in,out]   document        A document object.
  */
 
-extern void
+YAML_DECLARE(void)
 yaml_document_delete(yaml_document_t *document);
 
 /**
@@ -845,7 +858,7 @@ yaml_document_delete(yaml_document_t *document);
  * @returns the node objct or @c NULL if @c node_id is out of range.
  */
 
-extern yaml_node_t *
+YAML_DECLARE(yaml_node_t *)
 yaml_document_get_node(yaml_document_t *document, int index);
 
 /**
@@ -864,7 +877,7 @@ yaml_document_get_node(yaml_document_t *document, int index);
  * @returns the node object or @c NULL if the document is empty.
  */
 
-extern yaml_node_t *
+YAML_DECLARE(yaml_node_t *)
 yaml_document_get_root_node(yaml_document_t *document);
 
 /**
@@ -881,7 +894,7 @@ yaml_document_get_root_node(yaml_document_t *document);
  * @returns the node id or @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_document_add_scalar(yaml_document_t *document,
         const yaml_char_t *tag, const yaml_char_t *value, int length,
         yaml_scalar_style_t style);
@@ -898,7 +911,7 @@ yaml_document_add_scalar(yaml_document_t *document,
  * @returns the node id or @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_document_add_sequence(yaml_document_t *document,
         const yaml_char_t *tag, yaml_sequence_style_t style);
 
@@ -914,7 +927,7 @@ yaml_document_add_sequence(yaml_document_t *document,
  * @returns the node id or @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_document_add_mapping(yaml_document_t *document,
         const yaml_char_t *tag, yaml_mapping_style_t style);
 
@@ -928,7 +941,7 @@ yaml_document_add_mapping(yaml_document_t *document,
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_document_append_sequence_item(yaml_document_t *document,
         int sequence, int item);
 
@@ -943,10 +956,37 @@ yaml_document_append_sequence_item(yaml_document_t *document,
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int yaml_document_append_mapping_pair(yaml_document_t *document, int mapping, int key, int value);
+YAML_DECLARE(int)
+yaml_document_append_mapping_pair(yaml_document_t *document,
+        int mapping, int key, int value);
 
-//xxxxxxxxxxxxxxx
-typedef int (*yaml_read_handler_t)(void *data, unsigned char *buffer, size_t size, size_t *size_read);
+/** @} */
+
+/**
+ * @defgroup parser Parser Definitions
+ * @{
+ */
+
+/**
+ * The prototype of a read handler.
+ *
+ * The read handler is called when the parser needs to read more bytes from the
+ * source.  The handler should write not more than @a size bytes to the @a
+ * buffer.  The number of written bytes should be set to the @a length variable.
+ *
+ * @param[in,out]   data        A pointer to an application data specified by
+ *                              yaml_parser_set_input().
+ * @param[out]      buffer      The buffer to write the data from the source.
+ * @param[in]       size        The size of the buffer.
+ * @param[out]      size_read   The actual number of bytes read from the source.
+ *
+ * @returns On success, the handler should return @c 1.  If the handler failed,
+ * the returned value should be @c 0.  On EOF, the handler should set the
+ * @a size_read to @c 0 and return @c 1.
+ */
+
+typedef int yaml_read_handler_t(void *data, unsigned char *buffer, size_t size,
+        size_t *size_read);
 
 /**
  * This structure holds information about a potential simple key.
@@ -1279,7 +1319,7 @@ typedef struct yaml_parser_s {
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_parser_initialize(yaml_parser_t *parser);
 
 /**
@@ -1288,7 +1328,7 @@ yaml_parser_initialize(yaml_parser_t *parser);
  * @param[in,out]   parser  A parser object.
  */
 
-extern void
+YAML_DECLARE(void)
 yaml_parser_delete(yaml_parser_t *parser);
 
 /**
@@ -1303,7 +1343,7 @@ yaml_parser_delete(yaml_parser_t *parser);
  * @param[in]       size    The length of the source data in bytes.
  */
 
-extern void
+YAML_DECLARE(void)
 yaml_parser_set_input_string(yaml_parser_t *parser,
         const unsigned char *input, size_t size);
 
@@ -1317,7 +1357,7 @@ yaml_parser_set_input_string(yaml_parser_t *parser,
  * @param[in]       file    An open file.
  */
 
-extern void
+YAML_DECLARE(void)
 yaml_parser_set_input_file(yaml_parser_t *parser, FILE *file);
 
 /**
@@ -1329,7 +1369,7 @@ yaml_parser_set_input_file(yaml_parser_t *parser, FILE *file);
  *                          handler.
  */
 
-extern void
+YAML_DECLARE(void)
 yaml_parser_set_input(yaml_parser_t *parser,
         yaml_read_handler_t *handler, void *data);
 
@@ -1340,7 +1380,7 @@ yaml_parser_set_input(yaml_parser_t *parser,
  * @param[in]       encoding    The source encoding.
  */
 
-extern void
+YAML_DECLARE(void)
 yaml_parser_set_encoding(yaml_parser_t *parser, yaml_encoding_t encoding);
 
 /**
@@ -1364,7 +1404,7 @@ yaml_parser_set_encoding(yaml_parser_t *parser, yaml_encoding_t encoding);
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_parser_scan(yaml_parser_t *parser, yaml_token_t *token);
 
 /**
@@ -1388,7 +1428,7 @@ yaml_parser_scan(yaml_parser_t *parser, yaml_token_t *token);
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_parser_parse(yaml_parser_t *parser, yaml_event_t *event);
 
 /**
@@ -1413,7 +1453,7 @@ yaml_parser_parse(yaml_parser_t *parser, yaml_event_t *event);
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_parser_load(yaml_parser_t *parser, yaml_document_t *document);
 
 /** @} */
@@ -1438,8 +1478,8 @@ yaml_parser_load(yaml_parser_t *parser, yaml_document_t *document);
  * @returns On success, the handler should return @c 1.  If the handler failed,
  * the returned value should be @c 0.
  */
-//xxxxxxxxxxxxxxxxx
-typedef int (*yaml_write_handler_t)(void *data, unsigned char *buffer, size_t size);
+
+typedef int yaml_write_handler_t(void *data, unsigned char *buffer, size_t size);
 
 /** The emitter states. */
 typedef enum yaml_emitter_state_e {
@@ -1746,7 +1786,7 @@ typedef struct yaml_emitter_s {
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_emitter_initialize(yaml_emitter_t *emitter);
 
 /**
@@ -1755,7 +1795,7 @@ yaml_emitter_initialize(yaml_emitter_t *emitter);
  * @param[in,out]   emitter     An emitter object.
  */
 
-extern void
+YAML_DECLARE(void)
 yaml_emitter_delete(yaml_emitter_t *emitter);
 
 /**
@@ -1773,7 +1813,7 @@ yaml_emitter_delete(yaml_emitter_t *emitter);
  *                                  bytes.
  */
 
-extern void
+YAML_DECLARE(void)
 yaml_emitter_set_output_string(yaml_emitter_t *emitter,
         unsigned char *output, size_t size, size_t *size_written);
 
@@ -1787,7 +1827,7 @@ yaml_emitter_set_output_string(yaml_emitter_t *emitter,
  * @param[in]       file        An open file.
  */
 
-extern void
+YAML_DECLARE(void)
 yaml_emitter_set_output_file(yaml_emitter_t *emitter, FILE *file);
 
 /**
@@ -1799,7 +1839,7 @@ yaml_emitter_set_output_file(yaml_emitter_t *emitter, FILE *file);
  *                              handler.
  */
 
-extern void
+YAML_DECLARE(void)
 yaml_emitter_set_output(yaml_emitter_t *emitter,
         yaml_write_handler_t *handler, void *data);
 
@@ -1810,7 +1850,7 @@ yaml_emitter_set_output(yaml_emitter_t *emitter,
  * @param[in]       encoding    The output encoding.
  */
 
-extern void
+YAML_DECLARE(void)
 yaml_emitter_set_encoding(yaml_emitter_t *emitter, yaml_encoding_t encoding);
 
 /**
@@ -1821,7 +1861,7 @@ yaml_emitter_set_encoding(yaml_emitter_t *emitter, yaml_encoding_t encoding);
  * @param[in]       canonical   If the output is canonical.
  */
 
-extern void
+YAML_DECLARE(void)
 yaml_emitter_set_canonical(yaml_emitter_t *emitter, int canonical);
 
 /**
@@ -1831,7 +1871,7 @@ yaml_emitter_set_canonical(yaml_emitter_t *emitter, int canonical);
  * @param[in]       indent      The indentation increment (1 < . < 10).
  */
 
-extern void
+YAML_DECLARE(void)
 yaml_emitter_set_indent(yaml_emitter_t *emitter, int indent);
 
 /**
@@ -1841,7 +1881,7 @@ yaml_emitter_set_indent(yaml_emitter_t *emitter, int indent);
  * @param[in]       width       The preferred line width.
  */
 
-extern void
+YAML_DECLARE(void)
 yaml_emitter_set_width(yaml_emitter_t *emitter, int width);
 
 /**
@@ -1851,7 +1891,7 @@ yaml_emitter_set_width(yaml_emitter_t *emitter, int width);
  * @param[in]       unicode     If unescaped Unicode characters are allowed.
  */
 
-extern void
+YAML_DECLARE(void)
 yaml_emitter_set_unicode(yaml_emitter_t *emitter, int unicode);
 
 /**
@@ -1861,7 +1901,7 @@ yaml_emitter_set_unicode(yaml_emitter_t *emitter, int unicode);
  * @param[in]       line_break  The preferred line break.
  */
 
-extern void
+YAML_DECLARE(void)
 yaml_emitter_set_break(yaml_emitter_t *emitter, yaml_break_t line_break);
 
 /**
@@ -1878,7 +1918,7 @@ yaml_emitter_set_break(yaml_emitter_t *emitter, yaml_break_t line_break);
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_emitter_emit(yaml_emitter_t *emitter, yaml_event_t *event);
 
 /**
@@ -1891,7 +1931,7 @@ yaml_emitter_emit(yaml_emitter_t *emitter, yaml_event_t *event);
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_emitter_open(yaml_emitter_t *emitter);
 
 /**
@@ -1904,7 +1944,7 @@ yaml_emitter_open(yaml_emitter_t *emitter);
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_emitter_close(yaml_emitter_t *emitter);
 
 /**
@@ -1921,7 +1961,7 @@ yaml_emitter_close(yaml_emitter_t *emitter);
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_emitter_dump(yaml_emitter_t *emitter, yaml_document_t *document);
 
 /**
@@ -1932,7 +1972,7 @@ yaml_emitter_dump(yaml_emitter_t *emitter, yaml_document_t *document);
  * @returns @c 1 if the function succeeded, @c 0 on error.
  */
 
-extern int
+YAML_DECLARE(int)
 yaml_emitter_flush(yaml_emitter_t *emitter);
 
 /** @} */

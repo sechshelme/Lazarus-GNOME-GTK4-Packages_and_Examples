@@ -5,15 +5,11 @@ interface
 
 const
   {$IFDEF unix}
-  libssh = 'libssh';
+  libssh = 'ssh';
   {$ENDIF}
 
   {$IFDEF mswindows}
-  libssh = 'libssh.dll';  // ??????
-  {$ENDIF}
-
-  {$IFDEF darwin}
-  libssh = 'libssh.dynlib'; // ??????
+  libssh = 'libssh.dll'; // ????
   {$ENDIF}
 
   {$IFDEF FPC}

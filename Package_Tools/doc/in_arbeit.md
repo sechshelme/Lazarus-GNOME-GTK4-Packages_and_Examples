@@ -336,11 +336,27 @@ libglibmm-2.4-dev
 libserd              // io. 
 libsord              // io.
 liblilv              // io.
-librdf
-libsratom
+librdf               // io.
+libsratom            // io.
 # ====
- libraptor2
- libzix-dev 
+libraptor2           // io.
+libzix-dev 
+librasqal3-dev  
+
+libsqlite3-dev 
+librasterlite2-dev  
+
+libdatrie1   
+
+libupower-glib-dev 
+libzstd-dev
+
+libnspr4   // mozilla
+
+libpackagekit-glib2-dev 
+
+
+
 
    
 
@@ -432,6 +448,14 @@ libogg0
 
  libatk1.0-dev       // Barrierenfreiheit
 
+libgegl-dev
+libvala-0.56-dev 
+ libvalacodegen-0.56-0 
+libyaml-dev              // io.
+libappstream-dev
+
+
+
 
 
 # =========================
@@ -446,6 +470,10 @@ sudo apt install libglycin-gtk4-2-dev  # für Entwicklung
 https://gitlab.gnome.org/GNOME/glycin/
 
 # =========================
+
+
+COLUMNS=200 apt search '^lib.*-dev$' > test.txt
+
 
 
 
