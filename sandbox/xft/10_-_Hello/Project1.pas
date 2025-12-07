@@ -2,13 +2,10 @@ program Project1;
 
 uses
   fp_xft,
-
-  unixtype,
   ctypes,
+  x,
   xlib,
-  xutil,
-  keysym,
-  x;
+  keysym;
 
   procedure main;
   const
