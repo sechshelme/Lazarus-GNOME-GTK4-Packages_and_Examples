@@ -22,7 +22,7 @@ type
 
 
 type
-  TFcChar8 = uint8;
+  TFcChar8 = AnsiChar;
   PFcChar8 = ^TFcChar8;
   PPFcChar8 = ^PFcChar8;
 
