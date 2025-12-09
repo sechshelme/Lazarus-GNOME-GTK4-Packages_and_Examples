@@ -3,9 +3,11 @@ program Project1;
 uses
   unixtype,
   ctypes,
-  xlib,
+//  xlib,
   xutil,
   keysym,
+//  x,
+  fp_xlib,
   fp_x;
 
 var

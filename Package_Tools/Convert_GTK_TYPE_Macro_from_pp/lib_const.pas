@@ -263,6 +263,7 @@ const
     (libs: 'libsqlite'; units: 'ctypes'),
     (libs: 'libadapta'; units: 'fp_adapta'),
     (libs: 'libyaml'; units: 'cytypes'),
+    (libs: 'libx'; units: 'cytypes'),
 
     (libs: ''; units: ''));
 
