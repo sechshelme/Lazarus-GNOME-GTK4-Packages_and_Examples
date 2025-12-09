@@ -2,14 +2,8 @@ unit fp_xlib;
 
 interface
 
-const
-  {$IFDEF Linux}
-  libx = 'X';
-  {$ENDIF}
-
-  {$IFDEF windows}
-  // no suported
-  {$ENDIF}
+uses
+  fp_x11, fp_x;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -26,7 +20,7 @@ type
   PXPointer = ^TXPointer;
   TXPointer = Pchar;
 
-  Status = longint;
+  TStatus = longint;
 const
   QueuedAlready = 0;
   QueuedAfterReading = 1;  
@@ -86,6 +80,7 @@ function DoesBackingStore(s : longint) : longint;
 function EventMaskOfScreen(s : longint) : longint;
 
 type
+  PPXExtData = ^PXExtData;
   PXExtData = ^TXExtData;
   TXExtData = record
       number : longint;
@@ -127,7 +122,7 @@ type
       ts_y_origin : longint;
       font : TFont;
       subwindow_mode : longint;
-      graphics_exposures : TBool;
+      graphics_exposures : Boolean;
       clip_x_origin : longint;
       clip_y_origin : longint;
       clip_mask : TPixmap;
@@ -135,34 +130,13 @@ type
       dashes : char;
     end;
   PXGCValues = ^TXGCValues;
-{
- * Graphics context.  The contents of this structure are implementation
- * dependent.  A GC should be treated as opaque by application code.
-  }
-{$ifdef XLIB_ILLEGAL_ACCESS}
-{ hook for extension to hang data  }
-{ protocol ID for graphics context  }
-{ there is more to this structure, but it is private to Xlib  }
-{$endif}
+
 type
-  PXGC = ^TXGC;
-  TXGC = ^record
-      ext_data : PXExtData;
-      gid : TGContext;
-    end;
+  PXGC = type Pointer;
+
   TGC = PXGC;
   PGC = ^TGC;
-{
- * Visual structure; contains information about colormapping possible.
-  }
-{ hook for extension to hang data  }
-{ visual id of this visual  }
-{ class of screen (monochrome, etc.)  }
-{ mask values  }
-{ log base 2 of distinct color values  }
-{ color map entries  }
 
-  PVisual = ^TVisual;
   TVisual = record
       ext_data : PXExtData;
       visualid : TVisualID;
@@ -173,47 +147,17 @@ type
       bits_per_rgb : longint;
       map_entries : longint;
     end;
-{
- * Depth structure; contains information for each possible depth.
-  }
-{ this depth (Z) of the depth  }
-{ number of Visual types at this depth  }
-{ list of visuals possible at this depth  }
+  PVisual = ^TVisual;
 
-  PDepth = ^TDepth;
   TDepth = record
       depth : longint;
       nvisuals : longint;
       visuals : PVisual;
     end;
-{
- * Information about the screen.  The contents of this structure are
- * implementation dependent.  A Screen should be treated as opaque
- * by application code.
-  }
-  PXDisplay = ^TXDisplay;
-  TXDisplay = record
-      {undefined structure}
-    end;
+  PDepth = ^TDepth;
 
-{ Forward declare before use for C++  }
-{ hook for extension to hang data  }
-{ back pointer to display structure  }
-{ Root window id.  }
-{ width and height of screen  }
-{ width and height of  in millimeters  }
-{ number of depths possible  }
-{ list of allowable depths on the screen  }
-{ bits per pixel  }
-{ root visual  }
-{ GC for the root root visual  }
-{ default color map  }
-{ White and Black pixel values  }
-{ max and min color maps  }
-{ Never, WhenMapped, Always  }
-{ initial root input mask  }
+  PXDisplay = type Pointer;
 
-  PScreen = ^TScreen;
   TScreen = record
       ext_data : PXExtData;
       display : PXDisplay;
@@ -233,44 +177,19 @@ type
       max_maps : longint;
       min_maps : longint;
       backing_store : longint;
-      save_unders : TBool;
+      save_unders : Boolean;
       root_input_mask : longint;
     end;
-{
- * Format structure; describes ZFormat data the screen will understand.
-  }
-{ hook for extension to hang data  }
-{ depth of this image format  }
-{ bits/pixel at this depth  }
-{ scanline must padded to this multiple  }
+  PScreen = ^TScreen;
 
-  PScreenFormat = ^TScreenFormat;
   TScreenFormat = record
       ext_data : PXExtData;
       depth : longint;
       bits_per_pixel : longint;
       scanline_pad : longint;
     end;
-{
- * Data structure for setting window attributes.
-  }
-{ background or None or ParentRelative  }
-{ background pixel  }
-{ border of the window  }
-{ border pixel value  }
-{ one of bit gravity values  }
-{ one of the window gravity values  }
-{ NotUseful, WhenMapped, Always  }
-{ planes to be preserved if possible  }
-{ value to use in restoring planes  }
-{ should bits under be saved? (popups)  }
-{ set of events that should be saved  }
-{ set of events that should not propagate  }
-{ boolean value for override-redirect  }
-{ color map to be associated with window  }
-{ cursor to be displayed (or None)  }
+  PScreenFormat = ^TScreenFormat;
 
-  PXSetWindowAttributes = ^TXSetWindowAttributes;
   TXSetWindowAttributes = record
       background_pixmap : TPixmap;
       background_pixel : dword;
@@ -281,36 +200,15 @@ type
       backing_store : longint;
       backing_planes : dword;
       backing_pixel : dword;
-      save_under : TBool;
+      save_under : Boolean;
       event_mask : longint;
       do_not_propagate_mask : longint;
-      override_redirect : TBool;
+      override_redirect :Boolean;
       colormap : TColormap;
       cursor : TCursor;
     end;
-{ location of window  }
-{ width and height of window  }
-{ border width of window  }
-{ depth of window  }
-{ the associated visual structure  }
-{ root of screen containing window  }
-{ InputOutput, InputOnly }
-{ one of bit gravity values  }
-{ one of the window gravity values  }
-{ NotUseful, WhenMapped, Always  }
-{ planes to be preserved if possible  }
-{ value to be used when restoring planes  }
-{ boolean, should bits under be saved?  }
-{ color map to be associated with window  }
-{ boolean, is color map currently installed }
-{ IsUnmapped, IsUnviewable, IsViewable  }
-{ set of events all people have interest in }
-{ my event mask  }
-{ set of events that should not propagate  }
-{ boolean value for override-redirect  }
-{ back pointer to correct screen  }
+  PXSetWindowAttributes = ^TXSetWindowAttributes;
 
-  PXWindowAttributes = ^TXWindowAttributes;
   TXWindowAttributes = record
       x : longint;
       y : longint;
@@ -326,63 +224,33 @@ type
       backing_store : longint;
       backing_planes : dword;
       backing_pixel : dword;
-      save_under : TBool;
+      save_under : Boolean;
       colormap : TColormap;
-      map_installed : TBool;
+      map_installed : Boolean;
       map_state : longint;
       all_event_masks : longint;
       your_event_mask : longint;
       do_not_propagate_mask : longint;
-      override_redirect : TBool;
+      override_redirect : Boolean;
       screen : PScreen;
     end;
-{
- * Data structure for host setting; getting routines.
- *
-  }
-{ for example FamilyInternet  }
-{ length of address, in bytes  }
-{ pointer to where to find the bytes  }
+  PXWindowAttributes = ^TXWindowAttributes;
 
-  PXHostAddress = ^TXHostAddress;
   TXHostAddress = record
       family : longint;
       length : longint;
       address : Pchar;
     end;
-{
- * Data structure for ServerFamilyInterpreted addresses in host routines
-  }
-{ length of type string, in bytes  }
-{ length of value string, in bytes  }
-{ pointer to where to find the type string  }
-{ pointer to where to find the address  }
+  PXHostAddress = ^TXHostAddress;
 
-  PXServerInterpretedAddress = ^TXServerInterpretedAddress;
   TXServerInterpretedAddress = record
       typelength : longint;
       valuelength : longint;
       _type : Pchar;
       value : Pchar;
     end;
-{
- * Data structure for "image" data, used by image manipulation routines.
-  }
-{ size of image  }
-{ number of pixels offset in X direction  }
-{ XYBitmap, XYPixmap, ZPixmap  }
-{ pointer to image data  }
-{ data byte order, LSBFirst, MSBFirst  }
-{ quant. of scanline 8, 16, 32  }
-{ LSBFirst, MSBFirst  }
-{ 8, 16, 32 either XY or ZPixmap  }
-{ depth of image  }
-{ accelerator to next line  }
-{ bits per pixel (ZPixmap)  }
-{ bits in z arrangement  }
-{ hook for the object routines to hang on  }
-{ image manipulation routines  }
-{ display  }{ visual  }{ depth  }{ format  }{ offset  }{ data  }{ width  }{ height  }{ bitmap_pad  }{ bytes_per_line  }
+  PXServerInterpretedAddress = ^TXServerInterpretedAddress;
+
   PXImage = ^TXImage;
   TXImage = record
       width : longint;
@@ -411,11 +279,7 @@ type
           add_pixel : function (para1:PXImage; para2:longint):longint;cdecl;
         end;
     end;
-{
- * Data structure for XReconfigureWindow
-  }
 
-  PXWindowChanges = ^TXWindowChanges;
   TXWindowChanges = record
       x : longint;
       y : longint;
@@ -425,12 +289,8 @@ type
       sibling : TWindow;
       stack_mode : longint;
     end;
-{
- * Data structure used by color operations
-  }
-{ do_red, do_green, do_blue  }
+  PXWindowChanges = ^TXWindowChanges;
 
-  PXColor = ^TXColor;
   TXColor = record
       pixel : dword;
       red : word;
@@ -439,35 +299,30 @@ type
       flags : char;
       pad : char;
     end;
-{
- * Data structures for graphics operations.  On most machines, these are
- * congruent with the wire protocol structures, so reformatting the data
- * can be avoided on these architectures.
-  }
+  PXColor = ^TXColor;
 
-  PXSegment = ^TXSegment;
   TXSegment = record
       x1 : smallint;
       y1 : smallint;
       x2 : smallint;
       y2 : smallint;
     end;
+  PXSegment = ^TXSegment;
 
-  PXPoint = ^TXPoint;
   TXPoint = record
       x : smallint;
       y : smallint;
     end;
+  PXPoint = ^TXPoint;
 
-  PXRectangle = ^TXRectangle;
   TXRectangle = record
       x : smallint;
       y : smallint;
       width : word;
       height : word;
     end;
+  PXRectangle = ^TXRectangle;
 
-  PXArc = ^TXArc;
   TXArc = record
       x : smallint;
       y : smallint;
@@ -476,10 +331,8 @@ type
       angle1 : smallint;
       angle2 : smallint;
     end;
-{ Data structure for XChangeKeyboardControl  }
-{ On, Off, Default  }
+  PXArc = ^TXArc;
 
-  PXKeyboardControl = ^TXKeyboardControl;
   TXKeyboardControl = record
       key_click_percent : longint;
       bell_percent : longint;
@@ -490,9 +343,8 @@ type
       key : longint;
       auto_repeat_mode : longint;
     end;
-{ Data structure for XGetKeyboardControl  }
+  PXKeyboardControl = ^TXKeyboardControl;
 
-  PXKeyboardState = ^TXKeyboardState;
   TXKeyboardState = record
       key_click_percent : longint;
       bell_percent : longint;
@@ -502,150 +354,35 @@ type
       global_auto_repeat : longint;
       auto_repeats : array[0..31] of char;
     end;
-{ Data structure for XGetMotionEvents.   }
+  PXKeyboardState = ^TXKeyboardState;
 
-  PXTimeCoord = ^TXTimeCoord;
   TXTimeCoord = record
       time : TTime;
       x : smallint;
       y : smallint;
     end;
-{ Data structure for XSet,GetModifierMapping  }
-{ The server's max # of keys per modifier  }
-{ An 8 by max_keypermod array of modifiers  }
+  PXTimeCoord = ^TXTimeCoord;
 
-  PXModifierKeymap = ^TXModifierKeymap;
   TXModifierKeymap = record
       max_keypermod : longint;
       modifiermap : PKeyCode;
     end;
-{
- * Display datatype maintaining display specific data.
- * The contents of this structure are implementation dependent.
- * A Display should be treated as opaque by application code.
-  }
-{$ifndef XLIB_ILLEGAL_ACCESS}
-type
-  TXDisplay = TDisplay;
-{$endif}
-type
-  PXPrivate = ^TXPrivate;
-  TXPrivate = record
-      {undefined structure}
-    end;
+  PXModifierKeymap = ^TXModifierKeymap;
 
-{ Forward declare before use for C++  }
-  PXrmHashBucketRec = ^TXrmHashBucketRec;
-  TXrmHashBucketRec = record
-      {undefined structure}
-    end;
-
-{$ifdef XLIB_ILLEGAL_ACCESS}
-{$endif}
-{ hook for extension to hang data  }
-{ Network socket.  }
-{ major version of server's X protocol  }
-{ minor version of servers X protocol  }
-{ vendor of the server hardware  }
-{ allocator function  }
-{ screen byte order, LSBFirst, MSBFirst  }
-{ padding and data requirements  }
-{ padding requirements on bitmaps  }
-{ LeastSignificant or MostSignificant  }
-{ number of pixmap formats in list  }
-{ pixmap format list  }
-{ release of the server  }
-{ Length of input event queue  }
-{ seq number of last event read  }
-{ sequence number of last request.  }
-{ maximum number 32 bit words in request }
-{ "host:display" string used on this connect }
-{ default screen for operations  }
-{ number of screens on this server }
-{ pointer to list of screens  }
-{ size of motion buffer  }
-{ minimum defined keycode  }
-{ maximum defined keycode  }
-{ contents of defaults from server  }
-{ there is more to this structure, but it is private to Xlib  }
-{$ifdef XLIB_ILLEGAL_ACCESS}
-{$endif}
 type
-  PXDisplay = ^TXDisplay;
-  TXDisplay = record
-      ext_data : PXExtData;
-      private1 : PXPrivate;
-      fd : longint;
-      private2 : longint;
-      proto_major_version : longint;
-      proto_minor_version : longint;
-      vendor : Pchar;
-      private3 : TXID;
-      private4 : TXID;
-      private5 : TXID;
-      private6 : longint;
-      resource_alloc : function (para1:PXDisplay):TXID;cdecl;
-      byte_order : longint;
-      bitmap_unit : longint;
-      bitmap_pad : longint;
-      bitmap_bit_order : longint;
-      nformats : longint;
-      pixmap_format : PScreenFormat;
-      private8 : longint;
-      release : longint;
-      private9 : PXPrivate;
-      private10 : PXPrivate;
-      qlen : longint;
-      last_request_read : dword;
-      request : dword;
-      private11 : TXPointer;
-      private12 : TXPointer;
-      private13 : TXPointer;
-      private14 : TXPointer;
-      max_request_size : dword;
-      db : PXrmHashBucketRec;
-      private15 : function (para1:PXDisplay):longint;cdecl;
-      display_name : Pchar;
-      default_screen : longint;
-      nscreens : longint;
-      screens : PScreen;
-      motion_buffer : dword;
-      private16 : dword;
-      min_keycode : longint;
-      max_keycode : longint;
-      private17 : TXPointer;
-      private18 : TXPointer;
-      private19 : longint;
-      xdefaults : Pchar;
-    end;
-  TDisplay = TXDisplay;
-  PDisplay = ^TDisplay;
+  PXPrivate = type Pointer;
+  PXrmHashBucketRec = type Pointer;
+
+type
+  PDisplay = type Pointer;
+
   TXPrivDisplay = PXDisplay;
   PXPrivDisplay = ^TXPrivDisplay;
-{$undef _XEVENT_}
-{$ifndef _XEVENT_}
-{
- * Definitions of specific events.
-  }
-{ of event  }
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
-{ "event" window it is reported relative to  }
-{ root window that the event occurred on  }
-{ child window  }
-{ milliseconds  }
-{ pointer x, y coordinates in event window  }
-{ coordinates relative to root  }
-{ key or button mask  }
-{ detail  }
-{ same screen flag  }
 type
-  PXKeyEvent = ^TXKeyEvent;
   TXKeyEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       window : TWindow;
       root : TWindow;
@@ -657,33 +394,20 @@ type
       y_root : longint;
       state : dword;
       keycode : dword;
-      same_screen : TBool;
+      same_screen : Boolean;
     end;
+  PXKeyEvent = ^TXKeyEvent;
 
   PXKeyPressedEvent = ^TXKeyPressedEvent;
   TXKeyPressedEvent = TXKeyEvent;
 
   PXKeyReleasedEvent = ^TXKeyReleasedEvent;
   TXKeyReleasedEvent = TXKeyEvent;
-{ of event  }
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
-{ "event" window it is reported relative to  }
-{ root window that the event occurred on  }
-{ child window  }
-{ milliseconds  }
-{ pointer x, y coordinates in event window  }
-{ coordinates relative to root  }
-{ key or button mask  }
-{ detail  }
-{ same screen flag  }
 
-  PXButtonEvent = ^TXButtonEvent;
   TXButtonEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       window : TWindow;
       root : TWindow;
@@ -695,33 +419,20 @@ type
       y_root : longint;
       state : dword;
       button : dword;
-      same_screen : TBool;
+      same_screen : Boolean;
     end;
+  PXButtonEvent = ^TXButtonEvent;
 
   PXButtonPressedEvent = ^TXButtonPressedEvent;
   TXButtonPressedEvent = TXButtonEvent;
 
   PXButtonReleasedEvent = ^TXButtonReleasedEvent;
   TXButtonReleasedEvent = TXButtonEvent;
-{ of event  }
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
-{ "event" window reported relative to  }
-{ root window that the event occurred on  }
-{ child window  }
-{ milliseconds  }
-{ pointer x, y coordinates in event window  }
-{ coordinates relative to root  }
-{ key or button mask  }
-{ detail  }
-{ same screen flag  }
 
-  PXMotionEvent = ^TXMotionEvent;
   TXMotionEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       window : TWindow;
       root : TWindow;
@@ -733,35 +444,17 @@ type
       y_root : longint;
       state : dword;
       is_hint : char;
-      same_screen : TBool;
+      same_screen : Boolean;
     end;
+  PXMotionEvent = ^TXMotionEvent;
 
   PXPointerMovedEvent = ^TXPointerMovedEvent;
   TXPointerMovedEvent = TXMotionEvent;
-{ of event  }
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
-{ "event" window reported relative to  }
-{ root window that the event occurred on  }
-{ child window  }
-{ milliseconds  }
-{ pointer x, y coordinates in event window  }
-{ coordinates relative to root  }
-{ NotifyNormal, NotifyGrab, NotifyUngrab  }
-{
-	 * NotifyAncestor, NotifyVirtual, NotifyInferior,
-	 * NotifyNonlinear,NotifyNonlinearVirtual
-	  }
-{ same screen flag  }
-{ boolean focus  }
-{ key or button mask  }
 
-  PXCrossingEvent = ^TXCrossingEvent;
   TXCrossingEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       window : TWindow;
       root : TWindow;
@@ -773,69 +466,49 @@ type
       y_root : longint;
       mode : longint;
       detail : longint;
-      same_screen : TBool;
-      focus : TBool;
+      same_screen : Boolean;
+      focus : Boolean;
       state : dword;
     end;
+  PXCrossingEvent = ^TXCrossingEvent;
 
   PXEnterWindowEvent = ^TXEnterWindowEvent;
   TXEnterWindowEvent = TXCrossingEvent;
 
   PXLeaveWindowEvent = ^TXLeaveWindowEvent;
   TXLeaveWindowEvent = TXCrossingEvent;
-{ FocusIn or FocusOut  }
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
-{ window of event  }
-{ NotifyNormal, NotifyWhileGrabbed,
-				   NotifyGrab, NotifyUngrab  }
-{
-	 * NotifyAncestor, NotifyVirtual, NotifyInferior,
-	 * NotifyNonlinear,NotifyNonlinearVirtual, NotifyPointer,
-	 * NotifyPointerRoot, NotifyDetailNone
-	  }
 
-  PXFocusChangeEvent = ^TXFocusChangeEvent;
   TXFocusChangeEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       window : TWindow;
       mode : longint;
       detail : longint;
     end;
+  PXFocusChangeEvent = ^TXFocusChangeEvent;
 
   PXFocusInEvent = ^TXFocusInEvent;
   TXFocusInEvent = TXFocusChangeEvent;
 
   PXFocusOutEvent = ^TXFocusOutEvent;
   TXFocusOutEvent = TXFocusChangeEvent;
-{ generated on EnterWindow and FocusIn  when KeyMapState selected  }
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
 
-  PXKeymapEvent = ^TXKeymapEvent;
   TXKeymapEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       window : TWindow;
       key_vector : array[0..31] of char;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
-{ if non-zero, at least this many more  }
+  PXKeymapEvent = ^TXKeymapEvent;
 
-  PXExposeEvent = ^TXExposeEvent;
   TXExposeEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       window : TWindow;
       x : longint;
@@ -844,18 +517,12 @@ type
       height : longint;
       count : longint;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
-{ if non-zero, at least this many more  }
-{ core is CopyArea or CopyPlane  }
-{ not defined in the core  }
+  PXExposeEvent = ^TXExposeEvent;
 
-  PXGraphicsExposeEvent = ^TXGraphicsExposeEvent;
   TXGraphicsExposeEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       drawable : TDrawable;
       x : longint;
@@ -866,51 +533,33 @@ type
       major_code : longint;
       minor_code : longint;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
-{ core is CopyArea or CopyPlane  }
-{ not defined in the core  }
+  PXGraphicsExposeEvent = ^TXGraphicsExposeEvent;
 
-  PXNoExposeEvent = ^TXNoExposeEvent;
   TXNoExposeEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       drawable : TDrawable;
       major_code : longint;
       minor_code : longint;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
-{ Visibility state  }
+  PXNoExposeEvent = ^TXNoExposeEvent;
 
-  PXVisibilityEvent = ^TXVisibilityEvent;
   TXVisibilityEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       window : TWindow;
       state : longint;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
-{ parent of the window  }
-{ window id of window created  }
-{ window location  }
-{ size of window  }
-{ border width  }
-{ creation should be overridden  }
+  PXVisibilityEvent = ^TXVisibilityEvent;
 
-  PXCreateWindowEvent = ^TXCreateWindowEvent;
   TXCreateWindowEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       parent : TWindow;
       window : TWindow;
@@ -919,89 +568,70 @@ type
       width : longint;
       height : longint;
       border_width : longint;
-      override_redirect : TBool;
+      override_redirect : Boolean;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
+  PXCreateWindowEvent = ^TXCreateWindowEvent;
 
-  PXDestroyWindowEvent = ^TXDestroyWindowEvent;
   TXDestroyWindowEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       event : TWindow;
       window : TWindow;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
+  PXDestroyWindowEvent = ^TXDestroyWindowEvent;
 
-  PXUnmapEvent = ^TXUnmapEvent;
   TXUnmapEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       event : TWindow;
       window : TWindow;
-      from_configure : TBool;
+      from_configure : Boolean;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
-{ boolean, is override set...  }
+  PXUnmapEvent = ^TXUnmapEvent;
 
-  PXMapEvent = ^TXMapEvent;
   TXMapEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       event : TWindow;
       window : TWindow;
-      override_redirect : TBool;
+      override_redirect : Boolean;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
+  PXMapEvent = ^TXMapEvent;
 
-  PXMapRequestEvent = ^TXMapRequestEvent;
   TXMapRequestEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       parent : TWindow;
       window : TWindow;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
+  PXMapRequestEvent = ^TXMapRequestEvent;
 
-  PXReparentEvent = ^TXReparentEvent;
   TXReparentEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       event : TWindow;
       window : TWindow;
       parent : TWindow;
       x : longint;
       y : longint;
-      override_redirect : TBool;
+      override_redirect : Boolean;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
+  PXReparentEvent = ^TXReparentEvent;
 
-  PXConfigureEvent = ^TXConfigureEvent;
   TXConfigureEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       event : TWindow;
       window : TWindow;
@@ -1011,47 +641,37 @@ type
       height : longint;
       border_width : longint;
       above : TWindow;
-      override_redirect : TBool;
+      override_redirect : Boolean;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
+  PXConfigureEvent = ^TXConfigureEvent;
 
-  PXGravityEvent = ^TXGravityEvent;
   TXGravityEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       event : TWindow;
       window : TWindow;
       x : longint;
       y : longint;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
+  PXGravityEvent = ^TXGravityEvent;
 
-  PXResizeRequestEvent = ^TXResizeRequestEvent;
   TXResizeRequestEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       window : TWindow;
       width : longint;
       height : longint;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
-{ Above, Below, TopIf, BottomIf, Opposite  }
+  PXResizeRequestEvent = ^TXResizeRequestEvent;
 
-  PXConfigureRequestEvent = ^TXConfigureRequestEvent;
   TXConfigureRequestEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       parent : TWindow;
       window : TWindow;
@@ -1064,75 +684,57 @@ type
       detail : longint;
       value_mask : dword;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
-{ PlaceOnTop, PlaceOnBottom  }
+  PXConfigureRequestEvent = ^TXConfigureRequestEvent;
 
-  PXCirculateEvent = ^TXCirculateEvent;
   TXCirculateEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       event : TWindow;
       window : TWindow;
       place : longint;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
-{ PlaceOnTop, PlaceOnBottom  }
+  PXCirculateEvent = ^TXCirculateEvent;
 
-  PXCirculateRequestEvent = ^TXCirculateRequestEvent;
   TXCirculateRequestEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       parent : TWindow;
       window : TWindow;
       place : longint;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
-{ NewValue, Deleted  }
+  PXCirculateRequestEvent = ^TXCirculateRequestEvent;
 
-  PXPropertyEvent = ^TXPropertyEvent;
   TXPropertyEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       window : TWindow;
       atom : TAtom;
       time : TTime;
       state : longint;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
+  PXPropertyEvent = ^TXPropertyEvent;
 
-  PXSelectionClearEvent = ^TXSelectionClearEvent;
   TXSelectionClearEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       window : TWindow;
       selection : TAtom;
       time : TTime;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
+  PXSelectionClearEvent = ^TXSelectionClearEvent;
 
-  PXSelectionRequestEvent = ^TXSelectionRequestEvent;
   TXSelectionRequestEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       owner : TWindow;
       requestor : TWindow;
@@ -1141,16 +743,12 @@ type
       _property : TAtom;
       time : TTime;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
-{ ATOM or None  }
+  PXSelectionRequestEvent = ^TXSelectionRequestEvent;
 
-  PXSelectionEvent = ^TXSelectionEvent;
   TXSelectionEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       requestor : TWindow;
       selection : TAtom;
@@ -1158,32 +756,24 @@ type
       _property : TAtom;
       time : TTime;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
-{ COLORMAP or None  }
-{ ColormapInstalled, ColormapUninstalled  }
+  PXSelectionEvent = ^TXSelectionEvent;
 
-  PXColormapEvent = ^TXColormapEvent;
   TXColormapEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       window : TWindow;
       colormap : TColormap;
-      _new : TBool;
+      _new : Boolean;
       state : longint;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
+  PXColormapEvent = ^TXColormapEvent;
 
-  PXClientMessageEvent = ^TXClientMessageEvent;
   TXClientMessageEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       window : TWindow;
       message_type : TAtom;
@@ -1195,34 +785,20 @@ type
             2 : ( l : array[0..4] of longint );
           end;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
-{ unused  }
-{ one of MappingModifier, MappingKeyboard,
-				   MappingPointer  }
-{ first keycode  }
-{ defines range of change w. first_keycode }
+  PXClientMessageEvent = ^TXClientMessageEvent;
 
-  PXMappingEvent = ^TXMappingEvent;
   TXMappingEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       window : TWindow;
       request : longint;
       first_keycode : longint;
       count : longint;
     end;
-{ Display the event was read from  }
-{ resource id  }
-{ serial number of failed request  }
-{ error code of failed request  }
-{ Major op-code of failed request  }
-{ Minor op-code of failed request  }
+  PXMappingEvent = ^TXMappingEvent;
 
-  PXErrorEvent = ^TXErrorEvent;
   TXErrorEvent = record
       _type : longint;
       display : PDisplay;
@@ -1232,64 +808,39 @@ type
       request_code : byte;
       minor_code : byte;
     end;
-{ # of last request processed by server  }
-{ true if this came from a SendEvent request  }
-{ Display the event was read from  }
-{ window on which event was requested in event mask  }
+  PXErrorEvent = ^TXErrorEvent;
 
-  PXAnyEvent = ^TXAnyEvent;
   TXAnyEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       window : TWindow;
     end;
-{**************************************************************
- *
- * GenericEvent.  This event is the standard event for all newer extensions.
-  }
-{ of event. Always GenericEvent  }
-{ # of last request processed  }
-{ true if from SendEvent request  }
-{ Display the event was read from  }
-{ major opcode of extension that caused the event  }
-{ actual event type.  }
+  PXAnyEvent = ^TXAnyEvent;
 
-  PXGenericEvent = ^TXGenericEvent;
   TXGenericEvent = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       extension : longint;
       evtype : longint;
     end;
-{ of event. Always GenericEvent  }
-{ # of last request processed  }
-{ true if from SendEvent request  }
-{ Display the event was read from  }
-{ major opcode of extension that caused the event  }
-{ actual event type.  }
+  PXGenericEvent = ^TXGenericEvent;
 
-  PXGenericEventCookie = ^TXGenericEventCookie;
   TXGenericEventCookie = record
       _type : longint;
       serial : dword;
-      send_event : TBool;
+      send_event : Boolean;
       display : PDisplay;
       extension : longint;
       evtype : longint;
       cookie : dword;
       data : pointer;
     end;
-{
- * this union is defined so Xlib can always use the same sized
- * event structure internally, to avoid memory fragmentation.
-  }
-{ must not be changed; first element  }
+  PXGenericEventCookie = ^TXGenericEventCookie;
 
-  PXEvent = ^TXEvent;
   TXEvent = record
       case longint of
         0 : ( _type : longint );
@@ -1328,20 +879,10 @@ type
         33 : ( xcookie : TXGenericEventCookie );
         34 : ( pad : array[0..23] of longint );
       end;
-{$endif}
-function XAllocID(dpy : longint) : longint;
+  PXEvent = ^TXEvent;
 
-{
- * per character font metric information.
-  }
-{ origin to left edge of raster  }
-{ origin to right edge of raster  }
-{ advance to next char's origin  }
-{ baseline to top edge of raster  }
-{ baseline to bottom edge of raster  }
-{ per char flags (not predefined)  }
+  function XAllocID(dpy : longint) : longint;
 type
-  PXCharStruct = ^TXCharStruct;
   TXCharStruct = record
       lbearing : smallint;
       rbearing : smallint;
@@ -1350,34 +891,14 @@ type
       descent : smallint;
       attributes : word;
     end;
-{
- * To allow arbitrary information with fonts, there are additional properties
- * returned.
-  }
+  PXCharStruct = ^TXCharStruct;
 
-  PXFontProp = ^TXFontProp;
   TXFontProp = record
       name : TAtom;
       card32 : dword;
     end;
-{ hook for extension to hang data  }
-{ Font id for this font  }
-{ hint about direction the font is painted  }
-{ first character  }
-{ last character  }
-{ first row that exists  }
-{ last row that exists  }
-{ flag if all characters have non-zero size }
-{ char to print for undefined character  }
-{ how many properties there are  }
-{ pointer to array of additional properties }
-{ minimum bounds over all existing char }
-{ maximum bounds over all existing char }
-{ first_char to last_char information  }
-{ log. extent above baseline for spacing  }
-{ log. descent below baseline for spacing  }
+  PXFontProp = ^TXFontProp;
 
-  PXFontStruct = ^TXFontStruct;
   TXFontStruct = record
       ext_data : PXExtData;
       fid : TFont;
@@ -1386,7 +907,7 @@ type
       max_char_or_byte2 : dword;
       min_byte1 : dword;
       max_byte1 : dword;
-      all_chars_exist : TBool;
+      all_chars_exist : Boolean;
       default_char : dword;
       n_properties : longint;
       properties : PXFontProp;
@@ -1396,42 +917,31 @@ type
       ascent : longint;
       descent : longint;
     end;
-{
- * PolyText routines take these as arguments.
-  }
-{ pointer to string  }
-{ number of characters  }
-{ delta between strings  }
-{ font to print it in, None don't change  }
+  PXFontStruct = ^TXFontStruct;
+  PPXFontStruct = ^PXFontStruct;
 
-  PXTextItem = ^TXTextItem;
   TXTextItem = record
       chars : Pchar;
       nchars : longint;
       delta : longint;
       font : TFont;
     end;
-{ normal 16 bit characters are two bytes  }
+  PXTextItem = ^TXTextItem;
 
-  PXChar2b = ^TXChar2b;
   TXChar2b = record
       byte1 : byte;
       byte2 : byte;
     end;
-{ two byte characters  }
-{ number of characters  }
-{ delta between strings  }
-{ font to print it in, None don't change  }
+  PXChar2b = ^TXChar2b;
 
-  PXTextItem16 = ^TXTextItem16;
   TXTextItem16 = record
       chars : PXChar2b;
       nchars : longint;
       delta : longint;
       font : TFont;
     end;
+  PXTextItem16 = ^TXTextItem16;
 
-  PXEDataObject = ^TXEDataObject;
   TXEDataObject = record
       case longint of
         0 : ( display : PDisplay );
@@ -1441,39 +951,35 @@ type
         4 : ( pixmap_format : PScreenFormat );
         5 : ( font : PXFontStruct );
       end;
+  PXEDataObject = ^TXEDataObject;
 
-  PXFontSetExtents = ^TXFontSetExtents;
   TXFontSetExtents = record
       max_ink_extent : TXRectangle;
       max_logical_extent : TXRectangle;
     end;
-{ unused:
-typedef void (*XOMProc)();
-  }
+  PXFontSetExtents = ^TXFontSetExtents;
 
-  PXOM = ^TXOM;
-  TXOM = PXOM;
+  PXOM = type Pointer;
+  PXOC = type Pointer;
 
-  PXOC = ^TXOC;
-  TXOC = PXOC;
   TXFontSet = PXOC;
   PXFontSet = ^TXFontSet;
 
-  PXmbTextItem = ^TXmbTextItem;
   TXmbTextItem = record
       chars : Pchar;
       nchars : longint;
       delta : longint;
       font_set : TXFontSet;
     end;
+  PXmbTextItem = ^TXmbTextItem;
 
-  PXwcTextItem = ^TXwcTextItem;
   TXwcTextItem = record
       chars : Pwchar_t;
       nchars : longint;
       delta : longint;
       font_set : TXFontSet;
     end;
+  PXwcTextItem = ^TXwcTextItem;
 
 const
   XNRequiredCharSet = 'requiredCharSet';  
@@ -1487,12 +993,12 @@ const
   XNContextualDrawing = 'contextualDrawing';  
   XNFontInfo = 'fontInfo';  
 type
-  PXOMCharSetList = ^TXOMCharSetList;
   TXOMCharSetList = record
       charset_count : longint;
       charset_list : ^Pchar;
     end;
-
+  PXOMCharSetList = ^TXOMCharSetList;
+type
   PXOrientation = ^TXOrientation;
   TXOrientation =  Longint;
   Const
@@ -1501,42 +1007,35 @@ type
     XOMOrientation_TTB_LTR = 2;
     XOMOrientation_TTB_RTL = 3;
     XOMOrientation_Context = 4;
-;
-{ Input Text description  }
 type
-  PXOMOrientation = ^TXOMOrientation;
   TXOMOrientation = record
       num_orientation : longint;
       orientation : PXOrientation;
     end;
+  PXOMOrientation = ^TXOMOrientation;
 
-  PXOMFontInfo = ^TXOMFontInfo;
   TXOMFontInfo = record
       num_font : longint;
       font_struct_list : ^PXFontStruct;
       font_name_list : ^Pchar;
     end;
+  PXOMFontInfo = ^TXOMFontInfo;
 
-  PXIM = ^TXIM;
-  TXIM = PXIM;
+  TXIM = type Pointer;
+  TXIC = type Pointer;
 
-  PXIC = ^TXIC;
-  TXIC = PXIC;
-
-  TXIMProc = procedure (para1:TXIM; para2:TXPointer; para3:TXPointer);cdecl;
-
-  TXICProc = function (para1:TXIC; para2:TXPointer; para3:TXPointer):TBool;cdecl;
-
+ TXIMProc = procedure (para1:TXIM; para2:TXPointer; para3:TXPointer);cdecl;
+  TXICProc = function (para1:TXIC; para2:TXPointer; para3:TXPointer):Boolean;cdecl;
   TXIDProc = procedure (para1:PDisplay; para2:TXPointer; para3:TXPointer);cdecl;
 
   PXIMStyle = ^TXIMStyle;
   TXIMStyle = dword;
 
-  PXIMStyles = ^TXIMStyles;
   TXIMStyles = record
       count_styles : word;
       supported_styles : PXIMStyle;
     end;
+  PXIMStyles = ^TXIMStyles;
 
 const
   XIMPreeditArea = $0001;  
@@ -1593,23 +1092,23 @@ const
   XBufferOverflow = -(1);  
   XLookupNone = 1;  
   XLookupChars = 2;  
-  XLookupKeySym = 3;  
+  XLookupKeySym_ = 3;  
   XLookupBoth = 4;  
 type
   PXVaNestedList = ^TXVaNestedList;
   TXVaNestedList = pointer;
 
-  PXIMCallback = ^TXIMCallback;
   TXIMCallback = record
       client_data : TXPointer;
       callback : TXIMProc;
     end;
+  PXIMCallback = ^TXIMCallback;
 
-  PXICCallback = ^TXICCallback;
   TXICCallback = record
       client_data : TXPointer;
       callback : TXICProc;
     end;
+  PXICCallback = ^TXICCallback;
 
   PXIMFeedback = ^TXIMFeedback;
   TXIMFeedback = dword;
@@ -1625,17 +1124,17 @@ const
   XIMVisibleToBackword = 1 shl 9;  
   XIMVisibleToCenter = 1 shl 10;  
 type
-  PXIMText = ^TXIMText;
   TXIMText = record
       length : word;
       feedback : PXIMFeedback;
-      encoding_is_wchar : TBool;
+      encoding_is_wchar : Boolean;
       _string : record
           case longint of
             0 : ( multi_byte : Pchar );
             1 : ( wide_char : Pwchar_t );
           end;
     end;
+  PXIMText = ^TXIMText;
 
   PXIMPreeditState = ^TXIMPreeditState;
   TXIMPreeditState = dword;
@@ -1645,10 +1144,10 @@ const
   XIMPreeditEnable = 1;  
   XIMPreeditDisable = 1 shl 1;  
 type
-  PXIMPreeditStateNotifyCallbackStruct = ^TXIMPreeditStateNotifyCallbackStruct;
   TXIMPreeditStateNotifyCallbackStruct = record
       state : TXIMPreeditState;
     end;
+  PXIMPreeditStateNotifyCallbackStruct = ^TXIMPreeditStateNotifyCallbackStruct;
 
   PXIMResetState = ^TXIMResetState;
   TXIMResetState = dword;
@@ -1668,17 +1167,17 @@ const
   XIMStringConversionConcealed = $00000010;  
   XIMStringConversionWrapped = $00000020;  
 type
-  PXIMStringConversionText = ^TXIMStringConversionText;
   TXIMStringConversionText = record
       length : word;
       feedback : PXIMStringConversionFeedback;
-      encoding_is_wchar : TBool;
+      encoding_is_wchar : Boolean;
       _string : record
           case longint of
             0 : ( mbs : Pchar );
             1 : ( wcs : Pwchar_t );
           end;
     end;
+  PXIMStringConversionText = ^TXIMStringConversionText;
 
   PXIMStringConversionPosition = ^TXIMStringConversionPosition;
   TXIMStringConversionPosition = word;
@@ -1714,9 +1213,8 @@ type
     XIMLineEnd = 9;
     XIMAbsolutePosition = 10;
     XIMDontChange = 11;
-;
+
 type
-  PXIMStringConversionCallbackStruct = ^TXIMStringConversionCallbackStruct;
   TXIMStringConversionCallbackStruct = record
       position : TXIMStringConversionPosition;
       direction : TXIMCaretDirection;
@@ -1724,47 +1222,37 @@ type
       factor : word;
       text : PXIMStringConversionText;
     end;
-{ Cursor offset within pre-edit string  }
-{ Starting change position  }
-{ Length of the change in character count  }
+  PXIMStringConversionCallbackStruct = ^TXIMStringConversionCallbackStruct;
 
-  PXIMPreeditDrawCallbackStruct = ^TXIMPreeditDrawCallbackStruct;
   TXIMPreeditDrawCallbackStruct = record
       caret : longint;
       chg_first : longint;
       chg_length : longint;
       text : PXIMText;
     end;
-{ Disable caret feedback  }
-{ UI defined caret feedback  }
-{ UI defined caret feedback  }
-
+  PXIMPreeditDrawCallbackStruct = ^TXIMPreeditDrawCallbackStruct;
+type
   PXIMCaretStyle = ^TXIMCaretStyle;
   TXIMCaretStyle =  Longint;
   Const
     XIMIsInvisible = 0;
     XIMIsPrimary = 1;
     XIMIsSecondary = 2;
-;
-{ Caret offset within pre-edit string  }
-{ Caret moves direction  }
-{ Feedback of the caret  }
 type
-  PXIMPreeditCaretCallbackStruct = ^TXIMPreeditCaretCallbackStruct;
   TXIMPreeditCaretCallbackStruct = record
       position : longint;
       direction : TXIMCaretDirection;
       style : TXIMCaretStyle;
     end;
-
+  PXIMPreeditCaretCallbackStruct = ^TXIMPreeditCaretCallbackStruct;
+type
   PXIMStatusDataType = ^TXIMStatusDataType;
   TXIMStatusDataType =  Longint;
   Const
     XIMTextType = 0;
     XIMBitmapType = 1;
-;
+
 type
-  PXIMStatusDrawCallbackStruct = ^TXIMStatusDrawCallbackStruct;
   TXIMStatusDrawCallbackStruct = record
       _type : TXIMStatusDataType;
       data : record
@@ -1773,19 +1261,20 @@ type
             1 : ( bitmap : TPixmap );
           end;
     end;
+  PXIMStatusDrawCallbackStruct = ^TXIMStatusDrawCallbackStruct;
 
-  PXIMHotKeyTrigger = ^TXIMHotKeyTrigger;
   TXIMHotKeyTrigger = record
       keysym : TKeySym;
       modifier : longint;
       modifier_mask : longint;
     end;
+  PXIMHotKeyTrigger = ^TXIMHotKeyTrigger;
 
-  PXIMHotKeyTriggers = ^TXIMHotKeyTriggers;
   TXIMHotKeyTriggers = record
       num_hot_key : longint;
       key : PXIMHotKeyTrigger;
     end;
+  PXIMHotKeyTriggers = ^TXIMHotKeyTriggers;
 
   PXIMHotKeyState = ^TXIMHotKeyState;
   TXIMHotKeyState = dword;
@@ -1799,382 +1288,206 @@ type
       count_values : word;
       supported_values : ^Pchar;
     end;
-{ xxxxxxxxxxxx }
   var
     _Xdebug : longint;cvar;external libx;
-{ display  }{ name  }
 
 function XLoadQueryFont(para1:PDisplay; para2:Pchar):PXFontStruct;cdecl;external libx;
-{ display  }{ font_ID  }
 function XQueryFont(para1:PDisplay; para2:TXID):PXFontStruct;cdecl;external libx;
-{ display  }{ w  }{ start  }{ stop  }{ nevents_return  }
 function XGetMotionEvents(para1:PDisplay; para2:TWindow; para3:TTime; para4:TTime; para5:Plongint):PXTimeCoord;cdecl;external libx;
-{ modmap  }{ keycode_entry  }{ modifier  }
 function XDeleteModifiermapEntry(para1:PXModifierKeymap; para2:TKeyCode; para3:longint):PXModifierKeymap;cdecl;external libx;
-{ display  }
 function XGetModifierMapping(para1:PDisplay):PXModifierKeymap;cdecl;external libx;
-{ modmap  }{ keycode_entry  }{ modifier  }
 function XInsertModifiermapEntry(para1:PXModifierKeymap; para2:TKeyCode; para3:longint):PXModifierKeymap;cdecl;external libx;
-{ max_keys_per_mod  }
 function XNewModifiermap(para1:longint):PXModifierKeymap;cdecl;external libx;
-{ display  }{ visual  }{ depth  }{ format  }{ offset  }{ data  }{ width  }{ height  }{ bitmap_pad  }{ bytes_per_line  }
-function XCreateImage(para1:PDisplay; para2:PVisual; para3:dword; para4:longint; para5:longint; 
+function XCreateImage(para1:PDisplay; para2:PVisual; para3:dword; para4:longint; para5:longint;
            para6:Pchar; para7:dword; para8:dword; para9:longint; para10:longint):PXImage;cdecl;external libx;
-{ image  }
 function XInitImage(para1:PXImage):TStatus;cdecl;external libx;
-{ display  }{ d  }{ x  }{ y  }{ width  }{ height  }{ plane_mask  }{ format  }
-function XGetImage(para1:PDisplay; para2:TDrawable; para3:longint; para4:longint; para5:dword; 
+function XGetImage(para1:PDisplay; para2:TDrawable; para3:longint; para4:longint; para5:dword;
            para6:dword; para7:dword; para8:longint):PXImage;cdecl;external libx;
-{ display  }{ d  }{ x  }{ y  }{ width  }{ height  }{ plane_mask  }{ format  }{ dest_image  }{ dest_x  }{ dest_y  }
-function XGetSubImage(para1:PDisplay; para2:TDrawable; para3:longint; para4:longint; para5:dword; 
+function XGetSubImage(para1:PDisplay; para2:TDrawable; para3:longint; para4:longint; para5:dword;
            para6:dword; para7:dword; para8:longint; para9:PXImage; para10:longint; 
            para11:longint):PXImage;cdecl;external libx;
-{
- * X function declarations.
-  }
-{ display_name  }
 function XOpenDisplay(para1:Pchar):PDisplay;cdecl;external libx;
 procedure XrmInitialize;cdecl;external libx;
-{ display  }{ nbytes_return  }
 function XFetchBytes(para1:PDisplay; para2:Plongint):Pchar;cdecl;external libx;
-{ display  }{ nbytes_return  }{ buffer  }
 function XFetchBuffer(para1:PDisplay; para2:Plongint; para3:longint):Pchar;cdecl;external libx;
-{ display  }{ atom  }
 function XGetAtomName(para1:PDisplay; para2:TAtom):Pchar;cdecl;external libx;
-{ dpy  }{ atoms  }{ count  }{ names_return  }
 function XGetAtomNames(para1:PDisplay; para2:PAtom; para3:longint; para4:PPchar):TStatus;cdecl;external libx;
-{ display  }{ program  }{ option  }
 function XGetDefault(para1:PDisplay; para2:Pchar; para3:Pchar):Pchar;cdecl;external libx;
-{ string  }
 function XDisplayName(para1:Pchar):Pchar;cdecl;external libx;
-{ keysym  }
 function XKeysymToString(para1:TKeySym):Pchar;cdecl;external libx;
-{ display  }{ onoff  }
-{ display  }
-function XSynchronize(para1:PDisplay; para2:TBool):function (para1:PDisplay):longint;cdecl;external libx;
-{ display  }{ display  }
-{ procedure  }
-{ display  }
-function XSetAfterFunction(para1:PDisplay; para2:function (para1:PDisplay):longint):function (para1:PDisplay):longint;cdecl;external libx;
-{ display  }{ atom_name  }{ only_if_exists  }
-function XInternAtom(para1:PDisplay; para2:Pchar; para3:TBool):TAtom;cdecl;external libx;
-{ dpy  }{ names  }{ count  }{ onlyIfExists  }{ atoms_return  }
-function XInternAtoms(para1:PDisplay; para2:PPchar; para3:longint; para4:TBool; para5:PAtom):TStatus;cdecl;external libx;
-{ display  }{ colormap  }
+
+type
+    Tfuncdisp    = function(display:PDisplay):Integer;cdecl;
+
+function XSynchronize(para1:PDisplay; para2:Boolean):Tfuncdisp;cdecl;external libx;
+function XSetAfterFunction(para1:PDisplay; para2:Tfuncdisp):Tfuncdisp;cdecl;external libx;
+
+function XInternAtom(para1:PDisplay; para2:Pchar; para3:Boolean):TAtom;cdecl;external libx;
+function XInternAtoms(para1:PDisplay; para2:PPchar; para3:longint; para4:Boolean; para5:PAtom):TStatus;cdecl;external libx;
 function XCopyColormapAndFree(para1:PDisplay; para2:TColormap):TColormap;cdecl;external libx;
-{ display  }{ w  }{ visual  }{ alloc  }
 function XCreateColormap(para1:PDisplay; para2:TWindow; para3:PVisual; para4:longint):TColormap;cdecl;external libx;
-{ display  }{ source  }{ mask  }{ foreground_color  }{ background_color  }{ x  }{ y  }
-function XCreatePixmapCursor(para1:PDisplay; para2:TPixmap; para3:TPixmap; para4:PXColor; para5:PXColor; 
+function XCreatePixmapCursor(para1:PDisplay; para2:TPixmap; para3:TPixmap; para4:PXColor; para5:PXColor;
            para6:dword; para7:dword):TCursor;cdecl;external libx;
-{ display  }{ source_font  }{ mask_font  }{ source_char  }{ mask_char  }{ foreground_color  }{ background_color  }
-function XCreateGlyphCursor(para1:PDisplay; para2:TFont; para3:TFont; para4:dword; para5:dword; 
+function XCreateGlyphCursor(para1:PDisplay; para2:TFont; para3:TFont; para4:dword; para5:dword;
            para6:PXColor; para7:PXColor):TCursor;cdecl;external libx;
-{ display  }{ shape  }
 function XCreateFontCursor(para1:PDisplay; para2:dword):TCursor;cdecl;external libx;
-{ display  }{ name  }
 function XLoadFont(para1:PDisplay; para2:Pchar):TFont;cdecl;external libx;
-{ display  }{ d  }{ valuemask  }{ values  }
 function XCreateGC(para1:PDisplay; para2:TDrawable; para3:dword; para4:PXGCValues):TGC;cdecl;external libx;
-{ gc  }
 function XGContextFromGC(para1:TGC):TGContext;cdecl;external libx;
-{ display  }{ gc  }
 procedure XFlushGC(para1:PDisplay; para2:TGC);cdecl;external libx;
-{ display  }{ d  }{ width  }{ height  }{ depth  }
 function XCreatePixmap(para1:PDisplay; para2:TDrawable; para3:dword; para4:dword; para5:dword):TPixmap;cdecl;external libx;
-{ display  }{ d  }{ data  }{ width  }{ height  }
 function XCreateBitmapFromData(para1:PDisplay; para2:TDrawable; para3:Pchar; para4:dword; para5:dword):TPixmap;cdecl;external libx;
-{ display  }{ d  }{ data  }{ width  }{ height  }{ fg  }{ bg  }{ depth  }
-function XCreatePixmapFromBitmapData(para1:PDisplay; para2:TDrawable; para3:Pchar; para4:dword; para5:dword; 
+function XCreatePixmapFromBitmapData(para1:PDisplay; para2:TDrawable; para3:Pchar; para4:dword; para5:dword;
            para6:dword; para7:dword; para8:dword):TPixmap;cdecl;external libx;
-{ display  }{ parent  }{ x  }{ y  }{ width  }{ height  }{ border_width  }{ border  }{ background  }
-function XCreateSimpleWindow(para1:PDisplay; para2:TWindow; para3:longint; para4:longint; para5:dword; 
+function XCreateSimpleWindow(para1:PDisplay; para2:TWindow; para3:longint; para4:longint; para5:dword;
            para6:dword; para7:dword; para8:dword; para9:dword):TWindow;cdecl;external libx;
-{ display  }{ selection  }
 function XGetSelectionOwner(para1:PDisplay; para2:TAtom):TWindow;cdecl;external libx;
-{ display  }{ parent  }{ x  }{ y  }{ width  }{ height  }{ border_width  }{ depth  }{ class  }{ visual  }{ valuemask  }{ attributes  }
-function XCreateWindow(para1:PDisplay; para2:TWindow; para3:longint; para4:longint; para5:dword; 
+function XCreateWindow(para1:PDisplay; para2:TWindow; para3:longint; para4:longint; para5:dword;
            para6:dword; para7:dword; para8:longint; para9:dword; para10:PVisual; 
            para11:dword; para12:PXSetWindowAttributes):TWindow;cdecl;external libx;
-{ display  }{ w  }{ num_return  }
 function XListInstalledColormaps(para1:PDisplay; para2:TWindow; para3:Plongint):PColormap;cdecl;external libx;
-{ display  }{ pattern  }{ maxnames  }{ actual_count_return  }
-function XListFonts(para1:PDisplay; para2:Pchar; para3:longint; para4:Plongint):^Pchar;cdecl;external libx;
-{ display  }{ pattern  }{ maxnames  }{ count_return  }{ info_return  }
-function XListFontsWithInfo(para1:PDisplay; para2:Pchar; para3:longint; para4:Plongint; para5:PPXFontStruct):^Pchar;cdecl;external libx;
-{ display  }{ npaths_return  }
-function XGetFontPath(para1:PDisplay; para2:Plongint):^Pchar;cdecl;external libx;
-{ display  }{ nextensions_return  }
-function XListExtensions(para1:PDisplay; para2:Plongint):^Pchar;cdecl;external libx;
-{ display  }{ w  }{ num_prop_return  }
+function XListFonts(para1:PDisplay; para2:Pchar; para3:longint; para4:Plongint):PPchar;cdecl;external libx;
+function XListFontsWithInfo(para1:PDisplay; para2:Pchar; para3:longint; para4:Plongint; para5:PPXFontStruct):PPchar;cdecl;external libx;
+function XGetFontPath(para1:PDisplay; para2:Plongint):PPchar;cdecl;external libx;
+function XListExtensions(para1:PDisplay; para2:Plongint):PPchar;cdecl;external libx;
 function XListProperties(para1:PDisplay; para2:TWindow; para3:Plongint):PAtom;cdecl;external libx;
-{ display  }{ nhosts_return  }{ state_return  }
-function XListHosts(para1:PDisplay; para2:Plongint; para3:PBool):PXHostAddress;cdecl;external libx;
-{      _X_DEPRECATED }
-{ display  }{ keycode  }{ index  }
+function XListHosts(para1:PDisplay; para2:Plongint; para3:PBoolean):PXHostAddress;cdecl;external libx;
 function XKeycodeToKeysym(para1:PDisplay; para2:TKeyCode; para3:longint):TKeySym;cdecl;external libx;
-{ key_event  }{ index  }
 function XLookupKeysym(para1:PXKeyEvent; para2:longint):TKeySym;cdecl;external libx;
-{ display  }{ first_keycode  }{ keycode_count  }{ keysyms_per_keycode_return  }
 function XGetKeyboardMapping(para1:PDisplay; para2:TKeyCode; para3:longint; para4:Plongint):PKeySym;cdecl;external libx;
-{ string  }
 function XStringToKeysym(para1:Pchar):TKeySym;cdecl;external libx;
-{ display  }
 function XMaxRequestSize(para1:PDisplay):longint;cdecl;external libx;
-{ display  }
 function XExtendedMaxRequestSize(para1:PDisplay):longint;cdecl;external libx;
-{ display  }
 function XResourceManagerString(para1:PDisplay):Pchar;cdecl;external libx;
-{ screen  }
 function XScreenResourceString(para1:PScreen):Pchar;cdecl;external libx;
-{ display  }
 function XDisplayMotionBufferSize(para1:PDisplay):dword;cdecl;external libx;
-{ visual  }
 function XVisualIDFromVisual(para1:PVisual):TVisualID;cdecl;external libx;
-{ multithread routines  }
 function XInitThreads:TStatus;cdecl;external libx;
 function XFreeThreads:TStatus;cdecl;external libx;
-{ display  }
 procedure XLockDisplay(para1:PDisplay);cdecl;external libx;
-{ display  }
 procedure XUnlockDisplay(para1:PDisplay);cdecl;external libx;
-{ routines for dealing with extensions  }
-{ display  }{ name  }
 function XInitExtension(para1:PDisplay; para2:Pchar):PXExtCodes;cdecl;external libx;
-{ display  }
 function XAddExtension(para1:PDisplay):PXExtCodes;cdecl;external libx;
-{ structure  }{ number  }
 function XFindOnExtensionList(para1:PPXExtData; para2:longint):PXExtData;cdecl;external libx;
-{ object  }
-function XEHeadOfExtensionList(para1:TXEDataObject):^PXExtData;cdecl;external libx;
-{ these are routines for which there are also macros  }
-{ display  }{ screen_number  }
+function XEHeadOfExtensionList(para1:TXEDataObject):PPXExtData;cdecl;external libx;
 function XRootWindow(para1:PDisplay; para2:longint):TWindow;cdecl;external libx;
-{ display  }
 function XDefaultRootWindow(para1:PDisplay):TWindow;cdecl;external libx;
-{ screen  }
 function XRootWindowOfScreen(para1:PScreen):TWindow;cdecl;external libx;
-{ display  }{ screen_number  }
 function XDefaultVisual(para1:PDisplay; para2:longint):PVisual;cdecl;external libx;
-{ screen  }
 function XDefaultVisualOfScreen(para1:PScreen):PVisual;cdecl;external libx;
-{ display  }{ screen_number  }
 function XDefaultGC(para1:PDisplay; para2:longint):TGC;cdecl;external libx;
-{ screen  }
 function XDefaultGCOfScreen(para1:PScreen):TGC;cdecl;external libx;
-{ display  }{ screen_number  }
 function XBlackPixel(para1:PDisplay; para2:longint):dword;cdecl;external libx;
-{ display  }{ screen_number  }
 function XWhitePixel(para1:PDisplay; para2:longint):dword;cdecl;external libx;
 function XAllPlanes:dword;cdecl;external libx;
-{ screen  }
 function XBlackPixelOfScreen(para1:PScreen):dword;cdecl;external libx;
-{ screen  }
 function XWhitePixelOfScreen(para1:PScreen):dword;cdecl;external libx;
-{ display  }
 function XNextRequest(para1:PDisplay):dword;cdecl;external libx;
-{ display  }
 function XLastKnownRequestProcessed(para1:PDisplay):dword;cdecl;external libx;
-{ display  }
 function XServerVendor(para1:PDisplay):Pchar;cdecl;external libx;
-{ display  }
 function XDisplayString(para1:PDisplay):Pchar;cdecl;external libx;
-{ display  }{ screen_number  }
 function XDefaultColormap(para1:PDisplay; para2:longint):TColormap;cdecl;external libx;
-{ screen  }
 function XDefaultColormapOfScreen(para1:PScreen):TColormap;cdecl;external libx;
-{ screen  }
 function XDisplayOfScreen(para1:PScreen):PDisplay;cdecl;external libx;
-{ display  }{ screen_number  }
 function XScreenOfDisplay(para1:PDisplay; para2:longint):PScreen;cdecl;external libx;
-{ display  }
 function XDefaultScreenOfDisplay(para1:PDisplay):PScreen;cdecl;external libx;
-{ screen  }
 function XEventMaskOfScreen(para1:PScreen):longint;cdecl;external libx;
-{ screen  }
 function XScreenNumberOfScreen(para1:PScreen):longint;cdecl;external libx;
-{ WARNING, this type not in Xlib spec  }
-{ display  }{ error_event  }
 type
-
   TXErrorHandler = function (para1:PDisplay; para2:PXErrorEvent):longint;cdecl;
-{ handler  }
 
 function XSetErrorHandler(para1:TXErrorHandler):TXErrorHandler;cdecl;external libx;
-{ WARNING, this type not in Xlib spec  }
-{ display  }
 type
-
   TXIOErrorHandler = function (para1:PDisplay):longint;cdecl;
-{ handler  }
 
 function XSetIOErrorHandler(para1:TXIOErrorHandler):TXIOErrorHandler;cdecl;external libx;
-{ WARNING, this type not in Xlib spec  }
-{ display  }
-{ user_data  }
 type
-
   TXIOErrorExitHandler = procedure (para1:PDisplay; para2:pointer);cdecl;
-{ display  }
-{ handler  }
-{ user_data  }
 
 procedure XSetIOErrorExitHandler(para1:PDisplay; para2:TXIOErrorExitHandler; para3:pointer);cdecl;external libx;
-{ display  }{ count_return  }
 function XListPixmapFormats(para1:PDisplay; para2:Plongint):PXPixmapFormatValues;cdecl;external libx;
-{ display  }{ screen_number  }{ count_return  }
 function XListDepths(para1:PDisplay; para2:longint; para3:Plongint):Plongint;cdecl;external libx;
-{ ICCCM routines for things that don't require special include files;  }
-{ other declarations are given in Xutil.h                              }
-{ display  }{ w  }{ screen_number  }{ mask  }{ changes  }
 function XReconfigureWMWindow(para1:PDisplay; para2:TWindow; para3:longint; para4:dword; para5:PXWindowChanges):TStatus;cdecl;external libx;
-{ display  }{ w  }{ protocols_return  }{ count_return  }
 function XGetWMProtocols(para1:PDisplay; para2:TWindow; para3:PPAtom; para4:Plongint):TStatus;cdecl;external libx;
-{ display  }{ w  }{ protocols  }{ count  }
 function XSetWMProtocols(para1:PDisplay; para2:TWindow; para3:PAtom; para4:longint):TStatus;cdecl;external libx;
-{ display  }{ w  }{ screen_number  }
 function XIconifyWindow(para1:PDisplay; para2:TWindow; para3:longint):TStatus;cdecl;external libx;
-{ display  }{ w  }{ screen_number  }
 function XWithdrawWindow(para1:PDisplay; para2:TWindow; para3:longint):TStatus;cdecl;external libx;
-{ display  }{ w  }{ argv_return  }{ argc_return  }
 function XGetCommand(para1:PDisplay; para2:TWindow; para3:PPPchar; para4:Plongint):TStatus;cdecl;external libx;
-{ display  }{ w  }{ windows_return  }{ count_return  }
 function XGetWMColormapWindows(para1:PDisplay; para2:TWindow; para3:PPWindow; para4:Plongint):TStatus;cdecl;external libx;
-{ display  }{ w  }{ colormap_windows  }{ count  }
 function XSetWMColormapWindows(para1:PDisplay; para2:TWindow; para3:PWindow; para4:longint):TStatus;cdecl;external libx;
-{ list  }
 procedure XFreeStringList(para1:PPchar);cdecl;external libx;
-{ display  }{ w  }{ prop_window  }
 function XSetTransientForHint(para1:PDisplay; para2:TWindow; para3:TWindow):longint;cdecl;external libx;
-{ The following are given in alphabetical order  }
-{ display  }
 function XActivateScreenSaver(para1:PDisplay):longint;cdecl;external libx;
-{ display  }{ host  }
 function XAddHost(para1:PDisplay; para2:PXHostAddress):longint;cdecl;external libx;
-{ display  }{ hosts  }{ num_hosts  }
 function XAddHosts(para1:PDisplay; para2:PXHostAddress; para3:longint):longint;cdecl;external libx;
-{ structure  }{ ext_data  }
 function XAddToExtensionList(para1:PPXExtData; para2:PXExtData):longint;cdecl;external libx;
-{ display  }{ w  }
 function XAddToSaveSet(para1:PDisplay; para2:TWindow):longint;cdecl;external libx;
-{ display  }{ colormap  }{ screen_in_out  }
 function XAllocColor(para1:PDisplay; para2:TColormap; para3:PXColor):TStatus;cdecl;external libx;
-{ display  }{ colormap  }{ contig  }{ plane_masks_return  }{ nplanes  }{ pixels_return  }{ npixels  }
-function XAllocColorCells(para1:PDisplay; para2:TColormap; para3:TBool; para4:Pdword; para5:dword; 
+function XAllocColorCells(para1:PDisplay; para2:TColormap; para3:Boolean; para4:Pdword; para5:dword;
            para6:Pdword; para7:dword):TStatus;cdecl;external libx;
-{ display  }{ colormap  }{ contig  }{ pixels_return  }{ ncolors  }{ nreds  }{ ngreens  }{ nblues  }{ rmask_return  }{ gmask_return  }{ bmask_return  }
-function XAllocColorPlanes(para1:PDisplay; para2:TColormap; para3:TBool; para4:Pdword; para5:longint; 
+function XAllocColorPlanes(para1:PDisplay; para2:TColormap; para3:Boolean; para4:Pdword; para5:longint;
            para6:longint; para7:longint; para8:longint; para9:Pdword; para10:Pdword; 
            para11:Pdword):TStatus;cdecl;external libx;
-{ display  }{ colormap  }{ color_name  }{ screen_def_return  }{ exact_def_return  }
 function XAllocNamedColor(para1:PDisplay; para2:TColormap; para3:Pchar; para4:PXColor; para5:PXColor):TStatus;cdecl;external libx;
-{ display  }{ event_mode  }{ time  }
 function XAllowEvents(para1:PDisplay; para2:longint; para3:TTime):longint;cdecl;external libx;
-{ display  }
 function XAutoRepeatOff(para1:PDisplay):longint;cdecl;external libx;
-{ display  }
 function XAutoRepeatOn(para1:PDisplay):longint;cdecl;external libx;
-{ display  }{ percent  }
 function XBell(para1:PDisplay; para2:longint):longint;cdecl;external libx;
-{ display  }
 function XBitmapBitOrder(para1:PDisplay):longint;cdecl;external libx;
-{ display  }
 function XBitmapPad(para1:PDisplay):longint;cdecl;external libx;
-{ display  }
 function XBitmapUnit(para1:PDisplay):longint;cdecl;external libx;
-{ screen  }
 function XCellsOfScreen(para1:PScreen):longint;cdecl;external libx;
-{ display  }{ event_mask  }{ cursor  }{ time  }
 function XChangeActivePointerGrab(para1:PDisplay; para2:dword; para3:TCursor; para4:TTime):longint;cdecl;external libx;
-{ display  }{ gc  }{ valuemask  }{ values  }
 function XChangeGC(para1:PDisplay; para2:TGC; para3:dword; para4:PXGCValues):longint;cdecl;external libx;
-{ display  }{ value_mask  }{ values  }
 function XChangeKeyboardControl(para1:PDisplay; para2:dword; para3:PXKeyboardControl):longint;cdecl;external libx;
-{ display  }{ first_keycode  }{ keysyms_per_keycode  }{ keysyms  }{ num_codes  }
 function XChangeKeyboardMapping(para1:PDisplay; para2:longint; para3:longint; para4:PKeySym; para5:longint):longint;cdecl;external libx;
-{ display  }{ do_accel  }{ do_threshold  }{ accel_numerator  }{ accel_denominator  }{ threshold  }
-function XChangePointerControl(para1:PDisplay; para2:TBool; para3:TBool; para4:longint; para5:longint; 
+function XChangePointerControl(para1:PDisplay; para2:Boolean; para3:Boolean; para4:longint; para5:longint;
            para6:longint):longint;cdecl;external libx;
-{ display  }{ w  }{ property  }{ type  }{ format  }{ mode  }{ data  }{ nelements  }
-function XChangeProperty(para1:PDisplay; para2:TWindow; para3:TAtom; para4:TAtom; para5:longint; 
+function XChangeProperty(para1:PDisplay; para2:TWindow; para3:TAtom; para4:TAtom; para5:longint;
            para6:longint; para7:Pbyte; para8:longint):longint;cdecl;external libx;
-{ display  }{ w  }{ change_mode  }
 function XChangeSaveSet(para1:PDisplay; para2:TWindow; para3:longint):longint;cdecl;external libx;
-{ display  }{ w  }{ valuemask  }{ attributes  }
 function XChangeWindowAttributes(para1:PDisplay; para2:TWindow; para3:dword; para4:PXSetWindowAttributes):longint;cdecl;external libx;
-{ display  }{ event_return  }{ display  }{ event  }{ arg  }
-{ predicate  }{ arg  }
-function XCheckIfEvent(para1:PDisplay; para2:PXEvent; para3:function (para1:PDisplay; para2:PXEvent; para3:TXPointer):TBool; para4:TXPointer):TBool;cdecl;external libx;
-{ display  }{ event_mask  }{ event_return  }
-function XCheckMaskEvent(para1:PDisplay; para2:longint; para3:PXEvent):TBool;cdecl;external libx;
-{ display  }{ event_type  }{ event_return  }
-function XCheckTypedEvent(para1:PDisplay; para2:longint; para3:PXEvent):TBool;cdecl;external libx;
-{ display  }{ w  }{ event_type  }{ event_return  }
-function XCheckTypedWindowEvent(para1:PDisplay; para2:TWindow; para3:longint; para4:PXEvent):TBool;cdecl;external libx;
-{ display  }{ w  }{ event_mask  }{ event_return  }
-function XCheckWindowEvent(para1:PDisplay; para2:TWindow; para3:longint; para4:PXEvent):TBool;cdecl;external libx;
-{ display  }{ w  }{ direction  }
+type
+  TXEventPredicate = function(dpy: PDisplay; event: PXEvent; arg: Pointer): Boolean; cdecl;
+
+function XCheckIfEvent(  dpy: PDisplay;  event_return: PXEvent;  predicate: TXEventPredicate;  arg: Pointer): Boolean; cdecl; external libx;
+function XCheckMaskEvent(para1:PDisplay; para2:longint; para3:PXEvent):Boolean;cdecl;external libx;
+function XCheckTypedEvent(para1:PDisplay; para2:longint; para3:PXEvent):Boolean;cdecl;external libx;
+function XCheckTypedWindowEvent(para1:PDisplay; para2:TWindow; para3:longint; para4:PXEvent):Boolean;cdecl;external libx;
+function XCheckWindowEvent(para1:PDisplay; para2:TWindow; para3:longint; para4:PXEvent):Boolean;cdecl;external libx;
 function XCirculateSubwindows(para1:PDisplay; para2:TWindow; para3:longint):longint;cdecl;external libx;
-{ display  }{ w  }
 function XCirculateSubwindowsDown(para1:PDisplay; para2:TWindow):longint;cdecl;external libx;
-{ display  }{ w  }
 function XCirculateSubwindowsUp(para1:PDisplay; para2:TWindow):longint;cdecl;external libx;
-{ display  }{ w  }{ x  }{ y  }{ width  }{ height  }{ exposures  }
-function XClearArea(para1:PDisplay; para2:TWindow; para3:longint; para4:longint; para5:dword; 
-           para6:dword; para7:TBool):longint;cdecl;external libx;
-{ display  }{ w  }
+function XClearArea(para1:PDisplay; para2:TWindow; para3:longint; para4:longint; para5:dword;
+           para6:dword; para7:Boolean):longint;cdecl;external libx;
 function XClearWindow(para1:PDisplay; para2:TWindow):longint;cdecl;external libx;
-{ display  }
 function XCloseDisplay(para1:PDisplay):longint;cdecl;external libx;
-{ display  }{ w  }{ value_mask  }{ values  }
 function XConfigureWindow(para1:PDisplay; para2:TWindow; para3:dword; para4:PXWindowChanges):longint;cdecl;external libx;
-{ display  }
 function XConnectionNumber(para1:PDisplay):longint;cdecl;external libx;
-{ display  }{ selection  }{ target  }{ property  }{ requestor  }{ time  }
-function XConvertSelection(para1:PDisplay; para2:TAtom; para3:TAtom; para4:TAtom; para5:TWindow; 
+function XConvertSelection(para1:PDisplay; para2:TAtom; para3:TAtom; para4:TAtom; para5:TWindow;
            para6:TTime):longint;cdecl;external libx;
-{ display  }{ src  }{ dest  }{ gc  }{ src_x  }{ src_y  }{ width  }{ height  }{ dest_x  }{ dest_y  }
-function XCopyArea(para1:PDisplay; para2:TDrawable; para3:TDrawable; para4:TGC; para5:longint; 
+function XCopyArea(para1:PDisplay; para2:TDrawable; para3:TDrawable; para4:TGC; para5:longint;
            para6:longint; para7:dword; para8:dword; para9:longint; para10:longint):longint;cdecl;external libx;
-{ display  }{ src  }{ valuemask  }{ dest  }
 function XCopyGC(para1:PDisplay; para2:TGC; para3:dword; para4:TGC):longint;cdecl;external libx;
-{ display  }{ src  }{ dest  }{ gc  }{ src_x  }{ src_y  }{ width  }{ height  }{ dest_x  }{ dest_y  }{ plane  }
-function XCopyPlane(para1:PDisplay; para2:TDrawable; para3:TDrawable; para4:TGC; para5:longint; 
+function XCopyPlane(para1:PDisplay; para2:TDrawable; para3:TDrawable; para4:TGC; para5:longint;
            para6:longint; para7:dword; para8:dword; para9:longint; para10:longint; 
            para11:dword):longint;cdecl;external libx;
-{ display  }{ screen_number  }
 function XDefaultDepth(para1:PDisplay; para2:longint):longint;cdecl;external libx;
-{ screen  }
 function XDefaultDepthOfScreen(para1:PScreen):longint;cdecl;external libx;
-{ display  }
 function XDefaultScreen(para1:PDisplay):longint;cdecl;external libx;
-{ display  }{ w  }{ cursor  }
 function XDefineCursor(para1:PDisplay; para2:TWindow; para3:TCursor):longint;cdecl;external libx;
-{ display  }{ w  }{ property  }
 function XDeleteProperty(para1:PDisplay; para2:TWindow; para3:TAtom):longint;cdecl;external libx;
-{ display  }{ w  }
 function XDestroyWindow(para1:PDisplay; para2:TWindow):longint;cdecl;external libx;
-{ display  }{ w  }
 function XDestroySubwindows(para1:PDisplay; para2:TWindow):longint;cdecl;external libx;
-{ screen  }
 function XDoesBackingStore(para1:PScreen):longint;cdecl;external libx;
-{ screen  }
-function XDoesSaveUnders(para1:PScreen):TBool;cdecl;external libx;
-{ display  }
+function XDoesSaveUnders(para1:PScreen):Boolean;cdecl;external libx;
 function XDisableAccessControl(para1:PDisplay):longint;cdecl;external libx;
-{ display  }{ screen_number  }
 function XDisplayCells(para1:PDisplay; para2:longint):longint;cdecl;external libx;
-{ display  }{ screen_number  }
 function XDisplayHeight(para1:PDisplay; para2:longint):longint;cdecl;external libx;
-{ display  }{ screen_number  }
 function XDisplayHeightMM(para1:PDisplay; para2:longint):longint;cdecl;external libx;
-{ display  }{ min_keycodes_return  }{ max_keycodes_return  }
 function XDisplayKeycodes(para1:PDisplay; para2:Plongint; para3:Plongint):longint;cdecl;external libx;
-{ display  }{ screen_number  }
 function XDisplayPlanes(para1:PDisplay; para2:longint):longint;cdecl;external libx;
-{ display  }{ screen_number  }
 function XDisplayWidth(para1:PDisplay; para2:longint):longint;cdecl;external libx;
-{ display  }{ screen_number  }
 function XDisplayWidthMM(para1:PDisplay; para2:longint):longint;cdecl;external libx;
 { display  }{ d  }{ gc  }{ x  }{ y  }{ width  }{ height  }{ angle1  }{ angle2  }
 function XDrawArc(para1:PDisplay; para2:TDrawable; para3:TGC; para4:longint; para5:longint; 
@@ -2274,7 +1587,7 @@ function XGetErrorDatabaseText(para1:PDisplay; para2:Pchar; para3:Pchar; para4:P
 { display  }{ code  }{ buffer_return  }{ length  }
 function XGetErrorText(para1:PDisplay; para2:longint; para3:Pchar; para4:longint):longint;cdecl;external libx;
 { font_struct  }{ atom  }{ value_return  }
-function XGetFontProperty(para1:PXFontStruct; para2:TAtom; para3:Pdword):TBool;cdecl;external libx;
+function XGetFontProperty(para1:PXFontStruct; para2:TAtom; para3:Pdword):Boolean;cdecl;external libx;
 { display  }{ gc  }{ valuemask  }{ values_return  }
 function XGetGCValues(para1:PDisplay; para2:TGC; para3:dword; para4:PXGCValues):TStatus;cdecl;external libx;
 { display  }{ d  }{ root_return  }{ x_return  }{ y_return  }{ width_return  }{ height_return  }{ border_width_return  }{ depth_return  }
@@ -2296,21 +1609,21 @@ function XGetScreenSaver(para1:PDisplay; para2:Plongint; para3:Plongint; para4:P
 function XGetTransientForHint(para1:PDisplay; para2:TWindow; para3:PWindow):TStatus;cdecl;external libx;
 { display  }{ w  }{ property  }{ long_offset  }{ long_length  }{ delete  }{ req_type  }{ actual_type_return  }{ actual_format_return  }{ nitems_return  }{ bytes_after_return  }{ prop_return  }
 function XGetWindowProperty(para1:PDisplay; para2:TWindow; para3:TAtom; para4:longint; para5:longint; 
-           para6:TBool; para7:TAtom; para8:PAtom; para9:Plongint; para10:Pdword; 
+           para6:Boolean; para7:TAtom; para8:PAtom; para9:Plongint; para10:Pdword; 
            para11:Pdword; para12:PPbyte):longint;cdecl;external libx;
 { display  }{ w  }{ window_attributes_return  }
 function XGetWindowAttributes(para1:PDisplay; para2:TWindow; para3:PXWindowAttributes):TStatus;cdecl;external libx;
 { display  }{ button  }{ modifiers  }{ grab_window  }{ owner_events  }{ event_mask  }{ pointer_mode  }{ keyboard_mode  }{ confine_to  }{ cursor  }
-function XGrabButton(para1:PDisplay; para2:dword; para3:dword; para4:TWindow; para5:TBool; 
+function XGrabButton(para1:PDisplay; para2:dword; para3:dword; para4:TWindow; para5:Boolean; 
            para6:dword; para7:longint; para8:longint; para9:TWindow; para10:TCursor):longint;cdecl;external libx;
 { display  }{ keycode  }{ modifiers  }{ grab_window  }{ owner_events  }{ pointer_mode  }{ keyboard_mode  }
-function XGrabKey(para1:PDisplay; para2:longint; para3:dword; para4:TWindow; para5:TBool; 
+function XGrabKey(para1:PDisplay; para2:longint; para3:dword; para4:TWindow; para5:Boolean; 
            para6:longint; para7:longint):longint;cdecl;external libx;
 { display  }{ grab_window  }{ owner_events  }{ pointer_mode  }{ keyboard_mode  }{ time  }
-function XGrabKeyboard(para1:PDisplay; para2:TWindow; para3:TBool; para4:longint; para5:longint; 
+function XGrabKeyboard(para1:PDisplay; para2:TWindow; para3:Boolean; para4:longint; para5:longint; 
            para6:TTime):longint;cdecl;external libx;
 { display  }{ grab_window  }{ owner_events  }{ event_mask  }{ pointer_mode  }{ keyboard_mode  }{ confine_to  }{ cursor  }{ time  }
-function XGrabPointer(para1:PDisplay; para2:TWindow; para3:TBool; para4:dword; para5:longint; 
+function XGrabPointer(para1:PDisplay; para2:TWindow; para3:Boolean; para4:dword; para5:longint; 
            para6:longint; para7:TWindow; para8:TCursor; para9:TTime):longint;cdecl;external libx;
 { display  }
 function XGrabServer(para1:PDisplay):longint;cdecl;external libx;
@@ -2320,7 +1633,7 @@ function XHeightMMOfScreen(para1:PScreen):longint;cdecl;external libx;
 function XHeightOfScreen(para1:PScreen):longint;cdecl;external libx;
 { display  }{ event_return  }{ display  }{ event  }{ arg  }
 { predicate  }{ arg  }
-function XIfEvent(para1:PDisplay; para2:PXEvent; para3:function (para1:PDisplay; para2:PXEvent; para3:TXPointer):TBool; para4:TXPointer):longint;cdecl;external libx;
+function XIfEvent(para1:PDisplay; para2:PXEvent; para3:function (para1:PDisplay; para2:PXEvent; para3:TXPointer):Boolean; para4:TXPointer):longint;cdecl;external libx;
 { display  }
 function XImageByteOrder(para1:PDisplay):longint;cdecl;external libx;
 { display  }{ colormap  }
@@ -2362,7 +1675,7 @@ function XParseGeometry(para1:Pchar; para2:Plongint; para3:Plongint; para4:Pdwor
 function XPeekEvent(para1:PDisplay; para2:PXEvent):longint;cdecl;external libx;
 { display  }{ event_return  }{ display  }{ event  }{ arg  }
 { predicate  }{ arg  }
-function XPeekIfEvent(para1:PDisplay; para2:PXEvent; para3:function (para1:PDisplay; para2:PXEvent; para3:TXPointer):TBool; para4:TXPointer):longint;cdecl;external libx;
+function XPeekIfEvent(para1:PDisplay; para2:PXEvent; para3:function (para1:PDisplay; para2:PXEvent; para3:TXPointer):Boolean; para4:TXPointer):longint;cdecl;external libx;
 { display  }
 function XPending(para1:PDisplay):longint;cdecl;external libx;
 { screen  }
@@ -2395,12 +1708,12 @@ function XQueryColor(para1:PDisplay; para2:TColormap; para3:PXColor):longint;cde
 { display  }{ colormap  }{ defs_in_out  }{ ncolors  }
 function XQueryColors(para1:PDisplay; para2:TColormap; para3:PXColor; para4:longint):longint;cdecl;external libx;
 { display  }{ name  }{ major_opcode_return  }{ first_event_return  }{ first_error_return  }
-function XQueryExtension(para1:PDisplay; para2:Pchar; para3:Plongint; para4:Plongint; para5:Plongint):TBool;cdecl;external libx;
+function XQueryExtension(para1:PDisplay; para2:Pchar; para3:Plongint; para4:Plongint; para5:Plongint):Boolean;cdecl;external libx;
 { display  }{ keys_return  }
 function XQueryKeymap(para1:PDisplay; para2:array[0..31] of char):longint;cdecl;external libx;
 { display  }{ w  }{ root_return  }{ child_return  }{ root_x_return  }{ root_y_return  }{ win_x_return  }{ win_y_return  }{ mask_return  }
 function XQueryPointer(para1:PDisplay; para2:TWindow; para3:PWindow; para4:PWindow; para5:Plongint; 
-           para6:Plongint; para7:Plongint; para8:Plongint; para9:Pdword):TBool;cdecl;external libx;
+           para6:Plongint; para7:Plongint; para8:Plongint; para9:Pdword):Boolean;cdecl;external libx;
 { display  }{ font_ID  }{ string  }{ nchars  }{ direction_return  }{ font_ascent_return  }{ font_descent_return  }{ overall_return  }
 function XQueryTextExtents(para1:PDisplay; para2:TXID; para3:Pchar; para4:longint; para5:Plongint; 
            para6:Plongint; para7:Plongint; para8:PXCharStruct):longint;cdecl;external libx;
@@ -2448,7 +1761,7 @@ function XScreenCount(para1:PDisplay):longint;cdecl;external libx;
 { display  }{ w  }{ event_mask  }
 function XSelectInput(para1:PDisplay; para2:TWindow; para3:longint):longint;cdecl;external libx;
 { display  }{ w  }{ propagate  }{ event_mask  }{ event_send  }
-function XSendEvent(para1:PDisplay; para2:TWindow; para3:TBool; para4:longint; para5:PXEvent):TStatus;cdecl;external libx;
+function XSendEvent(para1:PDisplay; para2:TWindow; para3:Boolean; para4:longint; para5:PXEvent):TStatus;cdecl;external libx;
 { display  }{ mode  }
 function XSetAccessControl(para1:PDisplay; para2:longint):longint;cdecl;external libx;
 { display  }{ gc  }{ arc_mode  }
@@ -2481,7 +1794,7 @@ function XSetForeground(para1:PDisplay; para2:TGC; para3:dword):longint;cdecl;ex
 { display  }{ gc  }{ function  }
 function XSetFunction(para1:PDisplay; para2:TGC; para3:longint):longint;cdecl;external libx;
 { display  }{ gc  }{ graphics_exposures  }
-function XSetGraphicsExposures(para1:PDisplay; para2:TGC; para3:TBool):longint;cdecl;external libx;
+function XSetGraphicsExposures(para1:PDisplay; para2:TGC; para3:Boolean):longint;cdecl;external libx;
 { display  }{ w  }{ icon_name  }
 function XSetIconName(para1:PDisplay; para2:TWindow; para3:Pchar):longint;cdecl;external libx;
 { display  }{ focus  }{ revert_to  }{ time  }
@@ -2535,7 +1848,7 @@ function XStoreName(para1:PDisplay; para2:TWindow; para3:Pchar):longint;cdecl;ex
 { display  }{ colormap  }{ color  }{ pixel  }{ flags  }
 function XStoreNamedColor(para1:PDisplay; para2:TColormap; para3:Pchar; para4:dword; para5:longint):longint;cdecl;external libx;
 { display  }{ discard  }
-function XSync(para1:PDisplay; para2:TBool):longint;cdecl;external libx;
+function XSync(para1:PDisplay; para2:Boolean):longint;cdecl;external libx;
 { font_struct  }{ string  }{ nchars  }{ direction_return  }{ font_ascent_return  }{ font_descent_return  }{ overall_return  }
 function XTextExtents(para1:PXFontStruct; para2:Pchar; para3:longint; para4:Plongint; para5:Plongint; 
            para6:Plongint; para7:PXCharStruct):longint;cdecl;external libx;
@@ -2548,7 +1861,7 @@ function XTextWidth(para1:PXFontStruct; para2:Pchar; para3:longint):longint;cdec
 function XTextWidth16(para1:PXFontStruct; para2:PXChar2b; para3:longint):longint;cdecl;external libx;
 { display  }{ src_w  }{ dest_w  }{ src_x  }{ src_y  }{ dest_x_return  }{ dest_y_return  }{ child_return  }
 function XTranslateCoordinates(para1:PDisplay; para2:TWindow; para3:TWindow; para4:longint; para5:longint; 
-           para6:Plongint; para7:Plongint; para8:PWindow):TBool;cdecl;external libx;
+           para6:Plongint; para7:Plongint; para8:PWindow):Boolean;cdecl;external libx;
 { display  }{ w  }
 function XUndefineCursor(para1:PDisplay; para2:TWindow):longint;cdecl;external libx;
 { display  }{ button  }{ modifiers  }{ grab_window  }
@@ -2583,7 +1896,7 @@ function XWindowEvent(para1:PDisplay; para2:TWindow; para3:longint; para4:PXEven
 { display  }{ filename  }{ bitmap  }{ width  }{ height  }{ x_hot  }{ y_hot  }
 function XWriteBitmapFile(para1:PDisplay; para2:Pchar; para3:TPixmap; para4:dword; para5:dword; 
            para6:longint; para7:longint):longint;cdecl;external libx;
-function XSupportsLocale:TBool;cdecl;external libx;
+function XSupportsLocale:Boolean;cdecl;external libx;
 { modifier_list  }
 function XSetLocaleModifiers(para1:Pchar):Pchar;cdecl;external libx;
 { display  }{ rdb  }{ res_name  }{ res_class  }
@@ -2619,11 +1932,11 @@ function XBaseFontNameListOfFontSet(para1:TXFontSet):Pchar;cdecl;external libx;
 { font_set  }
 function XLocaleOfFontSet(para1:TXFontSet):Pchar;cdecl;external libx;
 { font_set  }
-function XContextDependentDrawing(para1:TXFontSet):TBool;cdecl;external libx;
+function XContextDependentDrawing(para1:TXFontSet):Boolean;cdecl;external libx;
 { font_set  }
-function XDirectionalDependentDrawing(para1:TXFontSet):TBool;cdecl;external libx;
+function XDirectionalDependentDrawing(para1:TXFontSet):Boolean;cdecl;external libx;
 { font_set  }
-function XContextualDrawing(para1:TXFontSet):TBool;cdecl;external libx;
+function XContextualDrawing(para1:TXFontSet):Boolean;cdecl;external libx;
 { font_set  }
 function XExtentsOfFontSet(para1:TXFontSet):PXFontSetExtents;cdecl;external libx;
 { font_set  }{ text  }{ bytes_text  }
@@ -2707,7 +2020,7 @@ function XGetICValues(para1:TXIC):Pchar;cdecl;external libx;
 { ic  }
 function XIMOfIC(para1:TXIC):TXIM;cdecl;external libx;
 { event  }{ window  }
-function XFilterEvent(para1:PXEvent; para2:TWindow):TBool;cdecl;external libx;
+function XFilterEvent(para1:PXEvent; para2:TWindow):Boolean;cdecl;external libx;
 { ic  }{ event  }{ buffer_return  }{ bytes_buffer  }{ keysym_return  }{ status_return  }
 function XmbLookupString(para1:TXIC; para2:PXKeyPressedEvent; para3:Pchar; para4:longint; para5:PKeySym; 
            para6:PStatus):longint;cdecl;external libx;
@@ -2722,15 +2035,15 @@ function XVaCreateNestedList(para1:longint):TXVaNestedList;cdecl;external libx;
 { internal connections for IMs  }
 { dpy  }{ rdb  }{ res_name  }{ res_class  }{ callback  }{ client_data  }
 function XRegisterIMInstantiateCallback(para1:PDisplay; para2:PXrmHashBucketRec; para3:Pchar; para4:Pchar; para5:TXIDProc; 
-           para6:TXPointer):TBool;cdecl;external libx;
+           para6:TXPointer):Boolean;cdecl;external libx;
 { dpy  }{ rdb  }{ res_name  }{ res_class  }{ callback  }{ client_data  }
 function XUnregisterIMInstantiateCallback(para1:PDisplay; para2:PXrmHashBucketRec; para3:Pchar; para4:Pchar; para5:TXIDProc; 
-           para6:TXPointer):TBool;cdecl;external libx;
+           para6:TXPointer):Boolean;cdecl;external libx;
 { dpy  }{ client_data  }{ fd  }{ opening  }{ open or close flag  }
 { watch_data  }{ open sets, close uses  }
 type
 
-  TXConnectionWatchProc = procedure (para1:PDisplay; para2:TXPointer; para3:longint; para4:TBool; para5:PXPointer);cdecl;
+  TXConnectionWatchProc = procedure (para1:PDisplay; para2:TXPointer; para3:longint; para4:Boolean; para5:PXPointer);cdecl;
 { dpy  }{ fd_return  }{ count_return  }
 
 function XInternalConnectionNumbers(para1:PDisplay; para2:PPlongint; para3:Plongint):TStatus;cdecl;external libx;
@@ -2747,7 +2060,7 @@ function _Xmbtowc(para1:Pwchar_t; para2:Pchar; para3:longint):longint;cdecl;exte
 { str  }{ wc  }
 function _Xwctomb(para1:Pchar; para2:Twchar_t):longint;cdecl;external libx;
 { dpy  }{ cookie }
-function XGetEventData(para1:PDisplay; para2:PXGenericEventCookie):TBool;cdecl;external libx;
+function XGetEventData(para1:PDisplay; para2:PXGenericEventCookie):Boolean;cdecl;external libx;
 { dpy  }{ cookie }
 procedure XFreeEventData(para1:PDisplay; para2:PXGenericEventCookie);cdecl;external libx;
 {$ifdef __clang__}

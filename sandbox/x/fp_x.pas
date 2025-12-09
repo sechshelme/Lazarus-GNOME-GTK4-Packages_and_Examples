@@ -30,6 +30,7 @@ type
   PMask = ^TMask;
   TMask = Tculong;
 
+  PPAtom = ^PAtom;
   PAtom = ^TAtom;
   TAtom = Tculong;
 
@@ -39,6 +40,7 @@ type
   PTime = ^TTime;
   TTime = Tculong;
 
+  PPWindow = ^PWindow;
   PWindow = ^TWindow;
   TWindow = TXID;
 

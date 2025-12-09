@@ -8,7 +8,7 @@ uses
   keysym,
 //  x,
   fp_xlib,
-  fp_x;
+  fp_x, fp_x11;
 
 var
   dis: PDisplay;
@@ -17,6 +17,7 @@ var
   scr: cint;
 
 begin
+  WriteLn(_Xdebug);
   // Erstellt die Verbindung zum Server
   dis := XOpenDisplay(nil);
   if dis = nil then begin
