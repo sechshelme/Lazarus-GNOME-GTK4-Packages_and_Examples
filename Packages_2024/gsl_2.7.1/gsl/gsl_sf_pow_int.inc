@@ -2,8 +2,8 @@
 
 
 
-function gsl_sf_pow_int_e(x: Tdouble; n: longint; result: Pgsl_sf_result): longint; cdecl; external libgsl;
-function gsl_sf_pow_int(x: Tdouble; n: longint): Tdouble; cdecl; external libgsl;
+function gsl_sf_pow_int_e(x: double; n: longint; result: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_pow_int(x: double; n: longint): double; cdecl; external libgsl;
 
 // === Konventiert am: 22-8-25 13:58:46 ===
 

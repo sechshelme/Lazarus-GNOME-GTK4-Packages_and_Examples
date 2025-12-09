@@ -4,12 +4,12 @@
 function snd_asoundlib_version: pchar; cdecl; external libasound;
 
 type
+  Psnd_dlsym_link = ^Tsnd_dlsym_link;
   Tsnd_dlsym_link = record
     next: Psnd_dlsym_link;
     dlsym_name: pchar;
     dlsym_ptr: pointer;
   end;
-  Psnd_dlsym_link = ^Tsnd_dlsym_link;
 
 var
   snd_dlsym_start: Psnd_dlsym_link; cvar;external libasound;
@@ -38,13 +38,13 @@ function snd_user_file(file_: pchar; result: PPchar): longint; cdecl; external l
 type
   Ttimeval = record
     tv_sec: Ttime_t;
-    tv_usec: Tlong;
+    tv_usec: Tclong;
   end;
   Ptimeval = ^Ttimeval;
 
   Ttimespec = record
     tv_sec: Ttime_t;
-    tv_nsec: Tlong;
+    tv_nsec: Tclong;
   end;
   Ptimespec = ^Ttimespec;
 

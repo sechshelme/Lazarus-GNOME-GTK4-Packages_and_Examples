@@ -3,16 +3,16 @@
 
 type
   Tgsl_sf_result_struct = record
-    val: Tdouble;
-    err: Tdouble;
+    val: double;
+    err: double;
   end;
   Pgsl_sf_result_struct = ^Tgsl_sf_result_struct;
   Tgsl_sf_result = Tgsl_sf_result_struct;
   Pgsl_sf_result = ^Tgsl_sf_result;
 
   Tgsl_sf_result_e10_struct = record
-    val: Tdouble;
-    err: Tdouble;
+    val: double;
+    err: double;
     e10: longint;
   end;
   Pgsl_sf_result_e10_struct = ^Tgsl_sf_result_e10_struct;

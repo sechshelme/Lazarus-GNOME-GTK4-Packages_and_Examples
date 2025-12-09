@@ -2,18 +2,18 @@
 
 
 function gsl_sf_psi_int_e(n: longint; result: Pgsl_sf_result): longint; cdecl; external libgsl;
-function gsl_sf_psi_int(n: longint): Tdouble; cdecl; external libgsl;
-function gsl_sf_psi_e(x: Tdouble; result: Pgsl_sf_result): longint; cdecl; external libgsl;
-function gsl_sf_psi(x: Tdouble): Tdouble; cdecl; external libgsl;
-function gsl_sf_psi_1piy_e(y: Tdouble; result: Pgsl_sf_result): longint; cdecl; external libgsl;
-function gsl_sf_psi_1piy(y: Tdouble): Tdouble; cdecl; external libgsl;
-function gsl_sf_complex_psi_e(x: Tdouble; y: Tdouble; result_re: Pgsl_sf_result; result_im: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_psi_int(n: longint): double; cdecl; external libgsl;
+function gsl_sf_psi_e(x: double; result: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_psi(x: double): double; cdecl; external libgsl;
+function gsl_sf_psi_1piy_e(y: double; result: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_psi_1piy(y: double): double; cdecl; external libgsl;
+function gsl_sf_complex_psi_e(x: double; y: double; result_re: Pgsl_sf_result; result_im: Pgsl_sf_result): longint; cdecl; external libgsl;
 function gsl_sf_psi_1_int_e(n: longint; result: Pgsl_sf_result): longint; cdecl; external libgsl;
-function gsl_sf_psi_1_int(n: longint): Tdouble; cdecl; external libgsl;
-function gsl_sf_psi_1_e(x: Tdouble; result: Pgsl_sf_result): longint; cdecl; external libgsl;
-function gsl_sf_psi_1(x: Tdouble): Tdouble; cdecl; external libgsl;
-function gsl_sf_psi_n_e(n: longint; x: Tdouble; result: Pgsl_sf_result): longint; cdecl; external libgsl;
-function gsl_sf_psi_n(n: longint; x: Tdouble): Tdouble; cdecl; external libgsl;
+function gsl_sf_psi_1_int(n: longint): double; cdecl; external libgsl;
+function gsl_sf_psi_1_e(x: double; result: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_psi_1(x: double): double; cdecl; external libgsl;
+function gsl_sf_psi_n_e(n: longint; x: double; result: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_psi_n(n: longint; x: double): double; cdecl; external libgsl;
 
 // === Konventiert am: 22-8-25 13:58:49 ===
 

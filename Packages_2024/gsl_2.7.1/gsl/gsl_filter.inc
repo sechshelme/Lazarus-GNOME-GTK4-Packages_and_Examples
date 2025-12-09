@@ -30,9 +30,9 @@ type
 
 function gsl_filter_gaussian_alloc(K: Tsize_t): Pgsl_filter_gaussian_workspace; cdecl; external libgsl;
 procedure gsl_filter_gaussian_free(w: Pgsl_filter_gaussian_workspace); cdecl; external libgsl;
-function gsl_filter_gaussian(endtype: Tgsl_filter_end_t; alpha: Tdouble; order: Tsize_t; x: Pgsl_vector; y: Pgsl_vector;
+function gsl_filter_gaussian(endtype: Tgsl_filter_end_t; alpha: double; order: Tsize_t; x: Pgsl_vector; y: Pgsl_vector;
   w: Pgsl_filter_gaussian_workspace): longint; cdecl; external libgsl;
-function gsl_filter_gaussian_kernel(alpha: Tdouble; order: Tsize_t; normalize: longint; kernel: Pgsl_vector): longint; cdecl; external libgsl;
+function gsl_filter_gaussian_kernel(alpha: double; order: Tsize_t; normalize: longint; kernel: Pgsl_vector): longint; cdecl; external libgsl;
 
 type
   Tgsl_filter_median_workspace = record
@@ -67,7 +67,7 @@ type
 
 function gsl_filter_impulse_alloc(K: Tsize_t): Pgsl_filter_impulse_workspace; cdecl; external libgsl;
 procedure gsl_filter_impulse_free(w: Pgsl_filter_impulse_workspace); cdecl; external libgsl;
-function gsl_filter_impulse(endtype: Tgsl_filter_end_t; scale_type: Tgsl_filter_scale_t; t: Tdouble; x: Pgsl_vector; y: Pgsl_vector;
+function gsl_filter_impulse(endtype: Tgsl_filter_end_t; scale_type: Tgsl_filter_scale_t; t: double; x: Pgsl_vector; y: Pgsl_vector;
   xmedian: Pgsl_vector; xsigma: Pgsl_vector; noutlier: Psize_t; ioutlier: Pgsl_vector_int; w: Pgsl_filter_impulse_workspace): longint; cdecl; external libgsl;
 
 // === Konventiert am: 21-8-25 19:09:44 ===

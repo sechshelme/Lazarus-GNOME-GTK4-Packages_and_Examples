@@ -13,16 +13,16 @@ const
 
 type
   {$IFDEF Linux}
-  Tlong = int64;
-  Tulong = uint64;
+  Tclong = int64;
+  Tculong = uint64;
   {$ENDIF}
 
   {$IFDEF Windows}
-  Tlong = int32;
-  Tulong = uint32;
+  Tclong = int32;
+  Tculong = uint32;
   {$ENDIF}
-  Pulong = ^Tulong;
-  Plong = ^Tlong;
+  Pculong = ^Tculong;
+  Pclong = ^Tclong;
 
   Tproc = procedure;
 
@@ -782,9 +782,9 @@ var
   sqlite3_temp_directory: pchar; cvar;external libsqlite;
   sqlite3_data_directory: pchar; cvar;external libsqlite;
 
-function sqlite3_win32_set_directory(_type: Tulong; zValue: pointer): longint; cdecl; external libsqlite;
-function sqlite3_win32_set_directory8(_type: Tulong; zValue: pchar): longint; cdecl; external libsqlite;
-function sqlite3_win32_set_directory16(_type: Tulong; zValue: pointer): longint; cdecl; external libsqlite;
+function sqlite3_win32_set_directory(_type: Tculong; zValue: pointer): longint; cdecl; external libsqlite;
+function sqlite3_win32_set_directory8(_type: Tculong; zValue: pchar): longint; cdecl; external libsqlite;
+function sqlite3_win32_set_directory16(_type: Tculong; zValue: pointer): longint; cdecl; external libsqlite;
 
 const
   SQLITE_WIN32_DATA_DIRECTORY_TYPE = 1;

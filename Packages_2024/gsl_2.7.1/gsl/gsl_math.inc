@@ -23,7 +23,7 @@ const
 
 type
   Tgsl_function_struct = record
-    _function: function(x: Tdouble; params: pointer): Tdouble; cdecl;
+    _function: function(x: double; params: pointer): double; cdecl;
     params: pointer;
   end;
   Pgsl_function_struct = ^Tgsl_function_struct;
@@ -33,9 +33,9 @@ type
 
 type
   Tgsl_function_fdf_struct = record
-    f: function(x: Tdouble; params: pointer): Tdouble; cdecl;
-    df: function(x: Tdouble; params: pointer): Tdouble; cdecl;
-    fdf: procedure(x: Tdouble; params: pointer; f: Pdouble; df: Pdouble); cdecl;
+    f: function(x: double; params: pointer): double; cdecl;
+    df: function(x: double; params: pointer): double; cdecl;
+    fdf: procedure(x: double; params: pointer; f: Pdouble; df: Pdouble); cdecl;
     params: pointer;
   end;
   Pgsl_function_fdf_struct = ^Tgsl_function_fdf_struct;
@@ -45,7 +45,7 @@ type
 
 type
   Tgsl_function_vec_struct = record
-    _function: function(x: Tdouble; y: Pdouble; params: pointer): longint; cdecl;
+    _function: function(x: double; y: Pdouble; params: pointer): longint; cdecl;
     params: pointer;
   end;
   Pgsl_function_vec_struct = ^Tgsl_function_vec_struct;

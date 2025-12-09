@@ -29,7 +29,7 @@ type
     alloc: function(params: pointer; n: Tsize_t; p: Tsize_t): pointer; cdecl;
     init: function(vtrust_state: pointer; vstate: pointer): longint; cdecl;
     preloop: function(vtrust_state: pointer; vstate: pointer): longint; cdecl;
-    step: function(vtrust_state: pointer; delta: Tdouble; dx: Pgsl_vector; vstate: pointer): longint; cdecl;
+    step: function(vtrust_state: pointer; delta: double; dx: Pgsl_vector; vstate: pointer): longint; cdecl;
     preduction: function(vtrust_state: pointer; dx: Pgsl_vector; pred: Pdouble; vstate: pointer): longint; cdecl;
     free: procedure(vstate: pointer); cdecl;
   end;
@@ -46,7 +46,7 @@ type
     name: pchar;
     alloc: function(n: Tsize_t; p: Tsize_t): pointer; cdecl;
     init: function(vtrust_state: pointer; vstate: pointer): longint; cdecl;
-    presolve: function(mu: Tdouble; vtrust_state: pointer; vstate: pointer): longint; cdecl;
+    presolve: function(mu: double; vtrust_state: pointer; vstate: pointer): longint; cdecl;
     solve: function(g: Pgsl_vector; x: Pgsl_vector; vtrust_state: pointer; vstate: pointer): longint; cdecl;
     rcond: function(rcond: Pdouble; JTJ: Pgsl_matrix; vstate: pointer): longint; cdecl;
     covar: function(JTJ: Pgsl_matrix; covar: Pgsl_matrix; vstate: pointer): longint; cdecl;
@@ -59,13 +59,13 @@ type
     scale: Pgsl_multilarge_nlinear_scale;
     solver: Pgsl_multilarge_nlinear_solver;
     fdtype: Tgsl_multilarge_nlinear_fdtype;
-    factor_up: Tdouble;
-    factor_down: Tdouble;
-    avmax: Tdouble;
-    h_df: Tdouble;
-    h_fvv: Tdouble;
+    factor_up: double;
+    factor_down: double;
+    avmax: double;
+    h_df: double;
+    h_fvv: double;
     max_iter: Tsize_t;
-    tol: Tdouble;
+    tol: double;
   end;
   Pgsl_multilarge_nlinear_parameters = ^Tgsl_multilarge_nlinear_parameters;
 
@@ -76,7 +76,7 @@ type
     iterate: function(state: pointer; wts: Pgsl_vector; fdf: Pgsl_multilarge_nlinear_fdf; x: Pgsl_vector; f: Pgsl_vector; g: Pgsl_vector; JTJ: Pgsl_matrix; dx: Pgsl_vector): longint; cdecl;
     rcond: function(rcond: Pdouble; JTJ: Pgsl_matrix; state: pointer): longint; cdecl;
     covar: function(JTJ: Pgsl_matrix; covar: Pgsl_matrix; state: pointer): longint; cdecl;
-    avratio: function(state: pointer): Tdouble; cdecl;
+    avratio: function(state: pointer): double; cdecl;
     free: procedure(state: pointer); cdecl;
   end;
   Pgsl_multilarge_nlinear_type = ^Tgsl_multilarge_nlinear_type;
@@ -120,14 +120,14 @@ function gsl_multilarge_nlinear_default_parameters: Tgsl_multilarge_nlinear_para
 function gsl_multilarge_nlinear_init(x: Pgsl_vector; fdf: Pgsl_multilarge_nlinear_fdf; w: Pgsl_multilarge_nlinear_workspace): longint; cdecl; external libgsl;
 function gsl_multilarge_nlinear_winit(x: Pgsl_vector; wts: Pgsl_vector; fdf: Pgsl_multilarge_nlinear_fdf; w: Pgsl_multilarge_nlinear_workspace): longint; cdecl; external libgsl;
 function gsl_multilarge_nlinear_iterate(w: Pgsl_multilarge_nlinear_workspace): longint; cdecl; external libgsl;
-function gsl_multilarge_nlinear_avratio(w: Pgsl_multilarge_nlinear_workspace): Tdouble; cdecl; external libgsl;
+function gsl_multilarge_nlinear_avratio(w: Pgsl_multilarge_nlinear_workspace): double; cdecl; external libgsl;
 function gsl_multilarge_nlinear_rcond(rcond: Pdouble; w: Pgsl_multilarge_nlinear_workspace): longint; cdecl; external libgsl;
 function gsl_multilarge_nlinear_covar(covar: Pgsl_matrix; w: Pgsl_multilarge_nlinear_workspace): longint; cdecl; external libgsl;
 
 type
   Tliner_cp = procedure(iter: Tsize_t; params: pointer; w: Pgsl_multilarge_nlinear_workspace); cdecl;
 
-function gsl_multilarge_nlinear_driver(maxiter: Tsize_t; xtol: Tdouble; gtol: Tdouble; ftol: Tdouble; callback: Tliner_cp;
+function gsl_multilarge_nlinear_driver(maxiter: Tsize_t; xtol: double; gtol: double; ftol: double; callback: Tliner_cp;
   callback_params: pointer; info: Plongint; w: Pgsl_multilarge_nlinear_workspace): longint; cdecl; external libgsl;
 function gsl_multilarge_nlinear_name(w: Pgsl_multilarge_nlinear_workspace): pchar; cdecl; external libgsl;
 function gsl_multilarge_nlinear_position(w: Pgsl_multilarge_nlinear_workspace): Pgsl_vector; cdecl; external libgsl;
@@ -137,14 +137,14 @@ function gsl_multilarge_nlinear_niter(w: Pgsl_multilarge_nlinear_workspace): Tsi
 function gsl_multilarge_nlinear_trs_name(w: Pgsl_multilarge_nlinear_workspace): pchar; cdecl; external libgsl;
 function gsl_multilarge_nlinear_eval_f(fdf: Pgsl_multilarge_nlinear_fdf; x: Pgsl_vector; swts: Pgsl_vector; y: Pgsl_vector): longint; cdecl; external libgsl;
 function gsl_multilarge_nlinear_eval_df(TransJ: TCBLAS_TRANSPOSE_t; x: Pgsl_vector; f: Pgsl_vector; u: Pgsl_vector; swts: Pgsl_vector;
-  h: Tdouble; fdtype: Tgsl_multilarge_nlinear_fdtype; fdf: Pgsl_multilarge_nlinear_fdf; v: Pgsl_vector; JTJ: Pgsl_matrix;
+  h: double; fdtype: Tgsl_multilarge_nlinear_fdtype; fdf: Pgsl_multilarge_nlinear_fdf; v: Pgsl_vector; JTJ: Pgsl_matrix;
   work: Pgsl_vector): longint; cdecl; external libgsl;
-function gsl_multilarge_nlinear_eval_fvv(h: Tdouble; x: Pgsl_vector; v: Pgsl_vector; f: Pgsl_vector; swts: Pgsl_vector;
+function gsl_multilarge_nlinear_eval_fvv(h: double; x: Pgsl_vector; v: Pgsl_vector; f: Pgsl_vector; swts: Pgsl_vector;
   fdf: Pgsl_multilarge_nlinear_fdf; yvv: Pgsl_vector; work: Pgsl_vector): longint; cdecl; external libgsl;
-function gsl_multilarge_nlinear_test(xtol: Tdouble; gtol: Tdouble; ftol: Tdouble; info: Plongint; w: Pgsl_multilarge_nlinear_workspace): longint; cdecl; external libgsl;
-function gsl_multilarge_nlinear_df(h: Tdouble; fdtype: Tgsl_multilarge_nlinear_fdtype; x: Pgsl_vector; wts: Pgsl_vector; fdf: Pgsl_multilarge_nlinear_fdf;
+function gsl_multilarge_nlinear_test(xtol: double; gtol: double; ftol: double; info: Plongint; w: Pgsl_multilarge_nlinear_workspace): longint; cdecl; external libgsl;
+function gsl_multilarge_nlinear_df(h: double; fdtype: Tgsl_multilarge_nlinear_fdtype; x: Pgsl_vector; wts: Pgsl_vector; fdf: Pgsl_multilarge_nlinear_fdf;
   f: Pgsl_vector; J: Pgsl_matrix; work: Pgsl_vector): longint; cdecl; external libgsl;
-function gsl_multilarge_nlinear_fdfvv(h: Tdouble; x: Pgsl_vector; v: Pgsl_vector; f: Pgsl_vector; J: Pgsl_matrix;
+function gsl_multilarge_nlinear_fdfvv(h: double; x: Pgsl_vector; v: Pgsl_vector; f: Pgsl_vector; J: Pgsl_matrix;
   swts: Pgsl_vector; fdf: Pgsl_multilarge_nlinear_fdf; fvv: Pgsl_vector; work: Pgsl_vector): longint; cdecl; external libgsl;
 
 var

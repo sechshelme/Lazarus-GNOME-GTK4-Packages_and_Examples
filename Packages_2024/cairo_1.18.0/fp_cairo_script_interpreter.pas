@@ -15,11 +15,11 @@ type
   Tcairo_script_interpreter = Tcairo_script_interpreter_t;
 
   Tcsi_destroy_func_t = procedure(closure: pointer; ptr: pointer); cdecl;
-  Tcsi_surface_create_func_t = function(closure: pointer; content: Tcairo_content_t; Width: double; Height: double; uid: Tlong): Pcairo_surface_t; cdecl;
+  Tcsi_surface_create_func_t = function(closure: pointer; content: Tcairo_content_t; Width: double; Height: double; uid: Tclong): Pcairo_surface_t; cdecl;
   Tcsi_context_create_func_t = function(closure: pointer; surface: Pcairo_surface_t): Pcairo_t; cdecl;
   Tcsi_show_page_func_t = procedure(closure: pointer; cr: Pcairo_t); cdecl;
   Tcsi_copy_page_func_t = procedure(closure: pointer; cr: Pcairo_t); cdecl;
-  Tcsi_create_source_image_t = function(closure: pointer; format: Tcairo_format_t; Width: longint; Height: longint; uid: Tlong): Pcairo_surface_t; cdecl;
+  Tcsi_create_source_image_t = function(closure: pointer; format: Tcairo_format_t; Width: longint; Height: longint; uid: Tclong): Pcairo_surface_t; cdecl;
 
   Tcairo_script_interpreter_hooks = record
     closure: pointer;

@@ -5,9 +5,9 @@ type
   Tgsl_monte_miser_state = record
     min_calls: Tsize_t;
     min_calls_per_bisection: Tsize_t;
-    dither: Tdouble;
-    estimate_frac: Tdouble;
-    alpha: Tdouble;
+    dither: double;
+    estimate_frac: double;
+    alpha: double;
     dim: Tsize_t;
     estimate_style: longint;
     depth: longint;
@@ -37,11 +37,11 @@ procedure gsl_monte_miser_free(state: Pgsl_monte_miser_state); cdecl; external l
 
 type
   Tgsl_monte_miser_params = record
-    estimate_frac: Tdouble;
+    estimate_frac: double;
     min_calls: Tsize_t;
     min_calls_per_bisection: Tsize_t;
-    alpha: Tdouble;
-    dither: Tdouble;
+    alpha: double;
+    dither: double;
   end;
   Pgsl_monte_miser_params = ^Tgsl_monte_miser_params;
 

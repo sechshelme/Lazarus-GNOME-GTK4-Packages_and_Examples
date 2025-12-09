@@ -58,7 +58,7 @@ function gsl_matrix_const_view_vector_with_tda(v: Pgsl_vector; n1: Tsize_t; n2: 
 
 procedure gsl_matrix_set_zero(m: Pgsl_matrix); cdecl; external libgsl;
 procedure gsl_matrix_set_identity(m: Pgsl_matrix); cdecl; external libgsl;
-procedure gsl_matrix_set_all(m: Pgsl_matrix; x: Tdouble); cdecl; external libgsl;
+procedure gsl_matrix_set_all(m: Pgsl_matrix; x: double); cdecl; external libgsl;
 function gsl_matrix_fread(stream: PFILE; m: Pgsl_matrix): longint; cdecl; external libgsl;
 function gsl_matrix_fwrite(stream: PFILE; m: Pgsl_matrix): longint; cdecl; external libgsl;
 function gsl_matrix_fscanf(stream: PFILE; m: Pgsl_matrix): longint; cdecl; external libgsl;
@@ -72,8 +72,8 @@ function gsl_matrix_swap_rowcol(m: Pgsl_matrix; i: Tsize_t; j: Tsize_t): longint
 function gsl_matrix_transpose(m: Pgsl_matrix): longint; cdecl; external libgsl;
 function gsl_matrix_transpose_memcpy(dest: Pgsl_matrix; src: Pgsl_matrix): longint; cdecl; external libgsl;
 function gsl_matrix_transpose_tricpy(Uplo_src: TCBLAS_UPLO_t; Diag: TCBLAS_DIAG_t; dest: Pgsl_matrix; src: Pgsl_matrix): longint; cdecl; external libgsl;
-function gsl_matrix_max(m: Pgsl_matrix): Tdouble; cdecl; external libgsl;
-function gsl_matrix_min(m: Pgsl_matrix): Tdouble; cdecl; external libgsl;
+function gsl_matrix_max(m: Pgsl_matrix): double; cdecl; external libgsl;
+function gsl_matrix_min(m: Pgsl_matrix): double; cdecl; external libgsl;
 procedure gsl_matrix_minmax(m: Pgsl_matrix; min_out: Pdouble; max_out: Pdouble); cdecl; external libgsl;
 procedure gsl_matrix_max_index(m: Pgsl_matrix; imax: Psize_t; jmax: Psize_t); cdecl; external libgsl;
 procedure gsl_matrix_min_index(m: Pgsl_matrix; imin: Psize_t; jmin: Psize_t); cdecl; external libgsl;
@@ -83,24 +83,24 @@ function gsl_matrix_isnull(m: Pgsl_matrix): longint; cdecl; external libgsl;
 function gsl_matrix_ispos(m: Pgsl_matrix): longint; cdecl; external libgsl;
 function gsl_matrix_isneg(m: Pgsl_matrix): longint; cdecl; external libgsl;
 function gsl_matrix_isnonneg(m: Pgsl_matrix): longint; cdecl; external libgsl;
-function gsl_matrix_norm1(m: Pgsl_matrix): Tdouble; cdecl; external libgsl;
+function gsl_matrix_norm1(m: Pgsl_matrix): double; cdecl; external libgsl;
 function gsl_matrix_add(a: Pgsl_matrix; b: Pgsl_matrix): longint; cdecl; external libgsl;
 function gsl_matrix_sub(a: Pgsl_matrix; b: Pgsl_matrix): longint; cdecl; external libgsl;
 function gsl_matrix_mul_elements(a: Pgsl_matrix; b: Pgsl_matrix): longint; cdecl; external libgsl;
 function gsl_matrix_div_elements(a: Pgsl_matrix; b: Pgsl_matrix): longint; cdecl; external libgsl;
-function gsl_matrix_scale(a: Pgsl_matrix; x: Tdouble): longint; cdecl; external libgsl;
+function gsl_matrix_scale(a: Pgsl_matrix; x: double): longint; cdecl; external libgsl;
 function gsl_matrix_scale_rows(a: Pgsl_matrix; x: Pgsl_vector): longint; cdecl; external libgsl;
 function gsl_matrix_scale_columns(a: Pgsl_matrix; x: Pgsl_vector): longint; cdecl; external libgsl;
-function gsl_matrix_add_constant(a: Pgsl_matrix; x: Tdouble): longint; cdecl; external libgsl;
-function gsl_matrix_add_diagonal(a: Pgsl_matrix; x: Tdouble): longint; cdecl; external libgsl;
+function gsl_matrix_add_constant(a: Pgsl_matrix; x: double): longint; cdecl; external libgsl;
+function gsl_matrix_add_diagonal(a: Pgsl_matrix; x: double): longint; cdecl; external libgsl;
 
 function gsl_matrix_get_row(v: Pgsl_vector; m: Pgsl_matrix; i: Tsize_t): longint; cdecl; external libgsl;
 function gsl_matrix_get_col(v: Pgsl_vector; m: Pgsl_matrix; j: Tsize_t): longint; cdecl; external libgsl;
 function gsl_matrix_set_row(m: Pgsl_matrix; i: Tsize_t; v: Pgsl_vector): longint; cdecl; external libgsl;
 function gsl_matrix_set_col(m: Pgsl_matrix; j: Tsize_t; v: Pgsl_vector): longint; cdecl; external libgsl;
 
-function gsl_matrix_get(m: Pgsl_matrix; i: Tsize_t; j: Tsize_t): Tdouble; cdecl; external libgsl;
-procedure gsl_matrix_set(m: Pgsl_matrix; i: Tsize_t; j: Tsize_t; x: Tdouble); cdecl; external libgsl;
+function gsl_matrix_get(m: Pgsl_matrix; i: Tsize_t; j: Tsize_t): double; cdecl; external libgsl;
+procedure gsl_matrix_set(m: Pgsl_matrix; i: Tsize_t; j: Tsize_t; x: double); cdecl; external libgsl;
 function gsl_matrix_ptr(m: Pgsl_matrix; i: Tsize_t; j: Tsize_t): Pdouble; cdecl; external libgsl;
 function gsl_matrix_const_ptr(m: Pgsl_matrix; i: Tsize_t; j: Tsize_t): Pdouble; cdecl; external libgsl;
 

@@ -11,9 +11,9 @@ procedure snd_midi_event_init(dev: Psnd_midi_event_t); cdecl; external libasound
 procedure snd_midi_event_reset_encode(dev: Psnd_midi_event_t); cdecl; external libasound;
 procedure snd_midi_event_reset_decode(dev: Psnd_midi_event_t); cdecl; external libasound;
 procedure snd_midi_event_no_status(dev: Psnd_midi_event_t; on: longint); cdecl; external libasound;
-function snd_midi_event_encode(dev: Psnd_midi_event_t; buf: pbyte; count: Tlong; ev: Psnd_seq_event_t): Tlong; cdecl; external libasound;
+function snd_midi_event_encode(dev: Psnd_midi_event_t; buf: pbyte; count: Tclong; ev: Psnd_seq_event_t): Tclong; cdecl; external libasound;
 function snd_midi_event_encode_byte(dev: Psnd_midi_event_t; c: longint; ev: Psnd_seq_event_t): longint; cdecl; external libasound;
-function snd_midi_event_decode(dev: Psnd_midi_event_t; buf: pbyte; count: Tlong; ev: Psnd_seq_event_t): Tlong; cdecl; external libasound;
+function snd_midi_event_decode(dev: Psnd_midi_event_t; buf: pbyte; count: Tclong; ev: Psnd_seq_event_t): Tclong; cdecl; external libasound;
 
 // === Konventiert am: 19-11-25 16:11:38 ===
 

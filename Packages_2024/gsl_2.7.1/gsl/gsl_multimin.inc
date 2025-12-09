@@ -3,7 +3,7 @@
 
 type
   Tgsl_multimin_function_struct = record
-    f: function(x: Pgsl_vector; params: pointer): Tdouble; cdecl;
+    f: function(x: Pgsl_vector; params: pointer): double; cdecl;
     n: Tsize_t;
     params: pointer;
   end;
@@ -14,7 +14,7 @@ type
 
 type
   Tgsl_multimin_function_fdf_struct = record
-    f: function(x: Pgsl_vector; params: pointer): Tdouble; cdecl;
+    f: function(x: Pgsl_vector; params: pointer): double; cdecl;
     df: procedure(x: Pgsl_vector; params: pointer; df: Pgsl_vector); cdecl;
     fdf: procedure(x: Pgsl_vector; params: pointer; f: Pdouble; df: Pgsl_vector); cdecl;
     n: Tsize_t;
@@ -42,9 +42,9 @@ type
   Tgsl_multimin_fminimizer = record
     _type: Pgsl_multimin_fminimizer_type;
     f: Pgsl_multimin_function;
-    fval: Tdouble;
+    fval: double;
     x: Pgsl_vector;
-    size: Tdouble;
+    size: double;
     state: pointer;
   end;
   Pgsl_multimin_fminimizer = ^Tgsl_multimin_fminimizer;
@@ -55,18 +55,18 @@ procedure gsl_multimin_fminimizer_free(s: Pgsl_multimin_fminimizer); cdecl; exte
 function gsl_multimin_fminimizer_name(s: Pgsl_multimin_fminimizer): pchar; cdecl; external libgsl;
 function gsl_multimin_fminimizer_iterate(s: Pgsl_multimin_fminimizer): longint; cdecl; external libgsl;
 function gsl_multimin_fminimizer_x(s: Pgsl_multimin_fminimizer): Pgsl_vector; cdecl; external libgsl;
-function gsl_multimin_fminimizer_minimum(s: Pgsl_multimin_fminimizer): Tdouble; cdecl; external libgsl;
-function gsl_multimin_fminimizer_size(s: Pgsl_multimin_fminimizer): Tdouble; cdecl; external libgsl;
+function gsl_multimin_fminimizer_minimum(s: Pgsl_multimin_fminimizer): double; cdecl; external libgsl;
+function gsl_multimin_fminimizer_size(s: Pgsl_multimin_fminimizer): double; cdecl; external libgsl;
 
-function gsl_multimin_test_gradient(g: Pgsl_vector; epsabs: Tdouble): longint; cdecl; external libgsl;
-function gsl_multimin_test_size(size: Tdouble; epsabs: Tdouble): longint; cdecl; external libgsl;
+function gsl_multimin_test_gradient(g: Pgsl_vector; epsabs: double): longint; cdecl; external libgsl;
+function gsl_multimin_test_size(size: double; epsabs: double): longint; cdecl; external libgsl;
 
 type
   Tgsl_multimin_fdfminimizer_type = record
     name: pchar;
     size: Tsize_t;
     alloc: function(state: pointer; n: Tsize_t): longint; cdecl;
-    set_: function(state: pointer; fdf: Pgsl_multimin_function_fdf; x: Pgsl_vector; f: Pdouble; gradient: Pgsl_vector; step_size: Tdouble; tol: Tdouble): longint; cdecl;
+    set_: function(state: pointer; fdf: Pgsl_multimin_function_fdf; x: Pgsl_vector; f: Pdouble; gradient: Pgsl_vector; step_size: double; tol: double): longint; cdecl;
     iterate: function(state: pointer; fdf: Pgsl_multimin_function_fdf; x: Pgsl_vector; f: Pdouble; gradient: Pgsl_vector; dx: Pgsl_vector): longint; cdecl;
     restart: function(state: pointer): longint; cdecl;
     free: procedure(state: pointer); cdecl;
@@ -76,7 +76,7 @@ type
   Tgsl_multimin_fdfminimizer = record
     _type: Pgsl_multimin_fdfminimizer_type;
     fdf: Pgsl_multimin_function_fdf;
-    f: Tdouble;
+    f: double;
     x: Pgsl_vector;
     gradient: Pgsl_vector;
     dx: Pgsl_vector;
@@ -85,7 +85,7 @@ type
   Pgsl_multimin_fdfminimizer = ^Tgsl_multimin_fdfminimizer;
 
 function gsl_multimin_fdfminimizer_alloc(T: Pgsl_multimin_fdfminimizer_type; n: Tsize_t): Pgsl_multimin_fdfminimizer; cdecl; external libgsl;
-function gsl_multimin_fdfminimizer_set(s: Pgsl_multimin_fdfminimizer; fdf: Pgsl_multimin_function_fdf; x: Pgsl_vector; step_size: Tdouble; tol: Tdouble): longint; cdecl; external libgsl;
+function gsl_multimin_fdfminimizer_set(s: Pgsl_multimin_fdfminimizer; fdf: Pgsl_multimin_function_fdf; x: Pgsl_vector; step_size: double; tol: double): longint; cdecl; external libgsl;
 procedure gsl_multimin_fdfminimizer_free(s: Pgsl_multimin_fdfminimizer); cdecl; external libgsl;
 function gsl_multimin_fdfminimizer_name(s: Pgsl_multimin_fdfminimizer): pchar; cdecl; external libgsl;
 function gsl_multimin_fdfminimizer_iterate(s: Pgsl_multimin_fdfminimizer): longint; cdecl; external libgsl;
@@ -93,7 +93,7 @@ function gsl_multimin_fdfminimizer_restart(s: Pgsl_multimin_fdfminimizer): longi
 function gsl_multimin_fdfminimizer_x(s: Pgsl_multimin_fdfminimizer): Pgsl_vector; cdecl; external libgsl;
 function gsl_multimin_fdfminimizer_dx(s: Pgsl_multimin_fdfminimizer): Pgsl_vector; cdecl; external libgsl;
 function gsl_multimin_fdfminimizer_gradient(s: Pgsl_multimin_fdfminimizer): Pgsl_vector; cdecl; external libgsl;
-function gsl_multimin_fdfminimizer_minimum(s: Pgsl_multimin_fdfminimizer): Tdouble; cdecl; external libgsl;
+function gsl_multimin_fdfminimizer_minimum(s: Pgsl_multimin_fdfminimizer): double; cdecl; external libgsl;
 
 var
   gsl_multimin_fdfminimizer_steepest_descent: Pgsl_multimin_fdfminimizer_type; cvar;external libgsl;

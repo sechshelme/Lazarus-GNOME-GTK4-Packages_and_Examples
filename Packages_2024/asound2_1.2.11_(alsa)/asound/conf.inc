@@ -67,7 +67,7 @@ function snd_config_make_pointer(config: PPsnd_config_t; key: pchar): longint; c
 function snd_config_make_compound(config: PPsnd_config_t; key: pchar; join: longint): longint; cdecl; external libasound;
 function snd_config_make_path(config: PPsnd_config_t; root: Psnd_config_t; key: pchar; join: longint; override: longint): longint; cdecl; external libasound;
 
-function snd_config_imake_integer(config: PPsnd_config_t; key: pchar; value: Tlong): longint; cdecl; external libasound;
+function snd_config_imake_integer(config: PPsnd_config_t; key: pchar; value: Tclong): longint; cdecl; external libasound;
 function snd_config_imake_integer64(config: PPsnd_config_t; key: pchar; value: int64): longint; cdecl; external libasound;
 function snd_config_imake_real(config: PPsnd_config_t; key: pchar; value: double): longint; cdecl; external libasound;
 function snd_config_imake_string(config: PPsnd_config_t; key: pchar; ascii: pchar): longint; cdecl; external libasound;
@@ -79,14 +79,14 @@ function snd_config_is_array(config: Psnd_config_t): longint; cdecl; external li
 function snd_config_is_empty(config: Psnd_config_t): longint; cdecl; external libasound;
 
 function snd_config_set_id(config: Psnd_config_t; id: pchar): longint; cdecl; external libasound;
-function snd_config_set_integer(config: Psnd_config_t; value: Tlong): longint; cdecl; external libasound;
+function snd_config_set_integer(config: Psnd_config_t; value: Tclong): longint; cdecl; external libasound;
 function snd_config_set_integer64(config: Psnd_config_t; value: int64): longint; cdecl; external libasound;
 function snd_config_set_real(config: Psnd_config_t; value: double): longint; cdecl; external libasound;
 function snd_config_set_string(config: Psnd_config_t; value: pchar): longint; cdecl; external libasound;
 function snd_config_set_ascii(config: Psnd_config_t; ascii: pchar): longint; cdecl; external libasound;
 function snd_config_set_pointer(config: Psnd_config_t; ptr: pointer): longint; cdecl; external libasound;
 function snd_config_get_id(config: Psnd_config_t; value: PPchar): longint; cdecl; external libasound;
-function snd_config_get_integer(config: Psnd_config_t; value: Pulong): longint; cdecl; external libasound;
+function snd_config_get_integer(config: Psnd_config_t; value: Pculong): longint; cdecl; external libasound;
 function snd_config_get_integer64(config: Psnd_config_t; value: Pint64): longint; cdecl; external libasound;
 function snd_config_get_real(config: Psnd_config_t; value: Pdouble): longint; cdecl; external libasound;
 function snd_config_get_ireal(config: Psnd_config_t; value: Pdouble): longint; cdecl; external libasound;

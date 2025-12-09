@@ -42,7 +42,7 @@ function snd_use_case_identifier(fmt: pchar): pchar; cdecl; varargs; external li
 function snd_use_case_free_list(list: PPchar; items: longint): longint; cdecl; external libasound;
 function snd_use_case_get_list(uc_mgr: Psnd_use_case_mgr_t; identifier: pchar; list: PPPchar): longint; cdecl; external libasound;
 function snd_use_case_get(uc_mgr: Psnd_use_case_mgr_t; identifier: pchar; value: PPchar): longint; cdecl; external libasound;
-function snd_use_case_geti(uc_mgr: Psnd_use_case_mgr_t; identifier: pchar; value: Plong): longint; cdecl; external libasound;
+function snd_use_case_geti(uc_mgr: Psnd_use_case_mgr_t; identifier: pchar; value: Pclong): longint; cdecl; external libasound;
 function snd_use_case_set(uc_mgr: Psnd_use_case_mgr_t; identifier: pchar; value: pchar): longint; cdecl; external libasound;
 function snd_use_case_mgr_open(uc_mgr: PPsnd_use_case_mgr_t; card_name: pchar): longint; cdecl; external libasound;
 function snd_use_case_mgr_reload(uc_mgr: Psnd_use_case_mgr_t): longint; cdecl; external libasound;

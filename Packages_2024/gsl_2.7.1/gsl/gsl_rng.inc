@@ -9,7 +9,7 @@ type
     size: Tsize_t;
     set_: procedure(state: pointer; seed: Tculong); cdecl;
     get: function(state: pointer): Tculong; cdecl;
-    get_double: function(state: pointer): Tdouble; cdecl;
+    get_double: function(state: pointer): double; cdecl;
   end;
   Pgsl_rng_type = ^Tgsl_rng_type;
   PPgsl_rng_type = ^Pgsl_rng_type;
@@ -105,8 +105,8 @@ function gsl_rng_state(r: Pgsl_rng): pointer; cdecl; external libgsl;
 procedure gsl_rng_print_state(r: Pgsl_rng); cdecl; external libgsl;
 function gsl_rng_env_setup: Pgsl_rng_type; cdecl; external libgsl;
 function gsl_rng_get(r: Pgsl_rng): Tculong; cdecl; external libgsl;
-function gsl_rng_uniform(r: Pgsl_rng): Tdouble; cdecl; external libgsl;
-function gsl_rng_uniform_pos(r: Pgsl_rng): Tdouble; cdecl; external libgsl;
+function gsl_rng_uniform(r: Pgsl_rng): double; cdecl; external libgsl;
+function gsl_rng_uniform_pos(r: Pgsl_rng): double; cdecl; external libgsl;
 function gsl_rng_uniform_int(r: Pgsl_rng; n: Tculong): Tculong; cdecl; external libgsl;
 
 // === Konventiert am: 21-8-25 20:00:57 ===

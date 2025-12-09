@@ -4,9 +4,8 @@ interface
 
 uses
   {$ifdef linux}
-  x, xlib,
+  x;
   {$endif}
-  ctypes;
 
 const
   {$IFDEF Linux}
@@ -23,15 +22,15 @@ const
 
 type
   {$IFDEF Linux}
-  Tlong = int64;
-  Tulong = uint64;
+  Tclong = int64;
+  Tculong = uint64;
   {$ENDIF}
 
   {$IFDEF Windows}
-  Tlong = int32;
-  Tulong = uint32;
+  Tclong = int32;
+  Tculong = uint32;
   {$ENDIF}
-  Pulong=^Tulong;
+  Pculong=^Tculong;
 
   PFile = type Pointer;
 
@@ -193,10 +192,10 @@ type
   Tcairo_read_func_t = function(closure: pointer; Data: pbyte; length: dword): Tcairo_status_t; cdecl;
 
   Tcairo_rectangle_int_t = record
-    x: cint;
-    y: cint;
-    Width: cint;
-    Height: cint;
+    x: Integer;
+    y: Integer;
+    Width: Integer;
+    Height: Integer;
   end;
   Pcairo_rectangle_int_t = ^Tcairo_rectangle_int_t;
 
@@ -383,7 +382,7 @@ type
 
 type
   Tcairo_glyph_t = record
-    index: Tulong;
+    index: Tculong;
     x: double;
     y: double;
   end;
@@ -496,7 +495,7 @@ procedure cairo_font_options_destroy(options: Pcairo_font_options_t); cdecl; ext
 function cairo_font_options_status(options: Pcairo_font_options_t): Tcairo_status_t; cdecl; external cairo_lib;
 procedure cairo_font_options_merge(options: Pcairo_font_options_t; other: Pcairo_font_options_t); cdecl; external cairo_lib;
 function cairo_font_options_equal(options: Pcairo_font_options_t; other: Pcairo_font_options_t): Tcairo_bool_t; cdecl; external cairo_lib;
-function cairo_font_options_hash(options: Pcairo_font_options_t): Tulong; cdecl; external cairo_lib;
+function cairo_font_options_hash(options: Pcairo_font_options_t): Tculong; cdecl; external cairo_lib;
 procedure cairo_font_options_set_antialias(options: Pcairo_font_options_t; antialias: Tcairo_antialias_t); cdecl; external cairo_lib;
 function cairo_font_options_get_antialias(options: Pcairo_font_options_t): Tcairo_antialias_t; cdecl; external cairo_lib;
 procedure cairo_font_options_set_subpixel_order(options: Pcairo_font_options_t; subpixel_order: Tcairo_subpixel_order_t); cdecl; external cairo_lib;
@@ -584,9 +583,9 @@ function cairo_user_font_face_create: Pcairo_font_face_t; cdecl; external cairo_
 
 type
   Tcairo_user_scaled_font_init_func_t = function(scaled_font: Pcairo_scaled_font_t; cr: Pcairo_t; extents: Pcairo_font_extents_t): Tcairo_status_t; cdecl;
-  Tcairo_user_scaled_font_render_glyph_func_t = function(scaled_font: Pcairo_scaled_font_t; glyph: Tulong; cr: Pcairo_t; extents: Pcairo_text_extents_t): Tcairo_status_t; cdecl;
+  Tcairo_user_scaled_font_render_glyph_func_t = function(scaled_font: Pcairo_scaled_font_t; glyph: Tculong; cr: Pcairo_t; extents: Pcairo_text_extents_t): Tcairo_status_t; cdecl;
   Tcairo_user_scaled_font_text_to_glyphs_func_t = function(scaled_font: Pcairo_scaled_font_t; utf8: pchar; utf8_len: longint; glyphs: PPcairo_glyph_t; num_glyphs: Plongint; clusters: PPcairo_text_cluster_t; num_clusters: Plongint; cluster_flags: Pcairo_text_cluster_flags_t): Tcairo_status_t; cdecl;
-  Tcairo_user_scaled_font_unicode_to_glyph_func_t = function(scaled_font: Pcairo_scaled_font_t; unicode: Tulong; glyph_index: Pulong): Tcairo_status_t; cdecl;
+  Tcairo_user_scaled_font_unicode_to_glyph_func_t = function(scaled_font: Pcairo_scaled_font_t; unicode: Tculong; glyph_index: Pculong): Tcairo_status_t; cdecl;
 
 procedure cairo_user_font_face_set_init_func(font_face: Pcairo_font_face_t; init_func: Tcairo_user_scaled_font_init_func_t); cdecl; external cairo_lib;
 procedure cairo_user_font_face_set_render_glyph_func(font_face: Pcairo_font_face_t; render_glyph_func: Tcairo_user_scaled_font_render_glyph_func_t); cdecl; external cairo_lib;
@@ -776,8 +775,8 @@ const
   CAIRO_MIME_TYPE_EPS = 'application/postscript';
   CAIRO_MIME_TYPE_EPS_PARAMS = 'application/x-cairo.eps.params';
 
-procedure cairo_surface_get_mime_data(surface: Pcairo_surface_t; mime_type: pchar; Data: PPbyte; length: Pulong); cdecl; external cairo_lib;
-function cairo_surface_set_mime_data(surface: Pcairo_surface_t; mime_type: pchar; Data: pbyte; length: Pulong; Destroy: Tcairo_destroy_func_t; closure: pointer): Tcairo_status_t; cdecl; external cairo_lib;
+procedure cairo_surface_get_mime_data(surface: Pcairo_surface_t; mime_type: pchar; Data: PPbyte; length: Pculong); cdecl; external cairo_lib;
+function cairo_surface_set_mime_data(surface: Pcairo_surface_t; mime_type: pchar; Data: pbyte; length: Pculong; Destroy: Tcairo_destroy_func_t; closure: pointer): Tcairo_status_t; cdecl; external cairo_lib;
 function cairo_surface_supports_mime_type(surface: Pcairo_surface_t; mime_type: pchar): Tcairo_bool_t; cdecl; external cairo_lib;
 procedure cairo_surface_get_font_options(surface: Pcairo_surface_t; options: Pcairo_font_options_t); cdecl; external cairo_lib;
 procedure cairo_surface_flush(surface: Pcairo_surface_t); cdecl; external cairo_lib;

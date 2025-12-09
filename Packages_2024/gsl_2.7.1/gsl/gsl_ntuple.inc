@@ -16,7 +16,7 @@ type
   Pgsl_ntuple_select_fn = ^Tgsl_ntuple_select_fn;
 
   Tgsl_ntuple_value_fn = record
-    _function: function(ntuple_data: pointer; params: pointer): Tdouble; cdecl;
+    _function: function(ntuple_data: pointer; params: pointer): double; cdecl;
     params: pointer;
   end;
   Pgsl_ntuple_value_fn = ^Tgsl_ntuple_value_fn;

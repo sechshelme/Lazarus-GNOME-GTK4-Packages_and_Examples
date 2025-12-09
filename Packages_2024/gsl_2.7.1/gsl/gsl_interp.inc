@@ -14,18 +14,18 @@ type
     min_size: dword;
     alloc: function(size: Tsize_t): pointer; cdecl;
     init: function(para1: pointer; xa: Pdouble; ya: Pdouble; size: Tsize_t): longint; cdecl;
-    eval: function(para1: pointer; xa: Pdouble; ya: Pdouble; size: Tsize_t; x: Tdouble; para6: Pgsl_interp_accel; y: Pdouble): longint; cdecl;
-    eval_deriv: function(para1: pointer; xa: Pdouble; ya: Pdouble; size: Tsize_t; x: Tdouble; para6: Pgsl_interp_accel; y_p: Pdouble): longint; cdecl;
-    eval_deriv2: function(para1: pointer; xa: Pdouble; ya: Pdouble; size: Tsize_t; x: Tdouble; para6: Pgsl_interp_accel; y_pp: Pdouble): longint; cdecl;
-    eval_integ: function(para1: pointer; xa: Pdouble; ya: Pdouble; size: Tsize_t; para5: Pgsl_interp_accel; a: Tdouble; b: Tdouble; result: Pdouble): longint; cdecl;
+    eval: function(para1: pointer; xa: Pdouble; ya: Pdouble; size: Tsize_t; x: double; para6: Pgsl_interp_accel; y: Pdouble): longint; cdecl;
+    eval_deriv: function(para1: pointer; xa: Pdouble; ya: Pdouble; size: Tsize_t; x: double; para6: Pgsl_interp_accel; y_p: Pdouble): longint; cdecl;
+    eval_deriv2: function(para1: pointer; xa: Pdouble; ya: Pdouble; size: Tsize_t; x: double; para6: Pgsl_interp_accel; y_pp: Pdouble): longint; cdecl;
+    eval_integ: function(para1: pointer; xa: Pdouble; ya: Pdouble; size: Tsize_t; para5: Pgsl_interp_accel; a: double; b: double; result: Pdouble): longint; cdecl;
     free: procedure(para1: pointer); cdecl;
   end;
   Pgsl_interp_type = ^Tgsl_interp_type;
 
   Tgsl_interp = record
     _type: Pgsl_interp_type;
-    xmin: Tdouble;
-    xmax: Tdouble;
+    xmin: double;
+    xmax: double;
     size: Tsize_t;
     state: pointer;
   end;
@@ -48,22 +48,22 @@ function gsl_interp_init(obj: Pgsl_interp; xa: Pdouble; ya: Pdouble; size: Tsize
 function gsl_interp_name(interp: Pgsl_interp): pchar; cdecl; external libgsl;
 function gsl_interp_min_size(interp: Pgsl_interp): dword; cdecl; external libgsl;
 function gsl_interp_type_min_size(T: Pgsl_interp_type): dword; cdecl; external libgsl;
-function gsl_interp_eval_e(obj: Pgsl_interp; xa: Pdouble; ya: Pdouble; x: Tdouble; a: Pgsl_interp_accel;
+function gsl_interp_eval_e(obj: Pgsl_interp; xa: Pdouble; ya: Pdouble; x: double; a: Pgsl_interp_accel;
   y: Pdouble): longint; cdecl; external libgsl;
-function gsl_interp_eval(obj: Pgsl_interp; xa: Pdouble; ya: Pdouble; x: Tdouble; a: Pgsl_interp_accel): Tdouble; cdecl; external libgsl;
-function gsl_interp_eval_deriv_e(obj: Pgsl_interp; xa: Pdouble; ya: Pdouble; x: Tdouble; a: Pgsl_interp_accel;
+function gsl_interp_eval(obj: Pgsl_interp; xa: Pdouble; ya: Pdouble; x: double; a: Pgsl_interp_accel): double; cdecl; external libgsl;
+function gsl_interp_eval_deriv_e(obj: Pgsl_interp; xa: Pdouble; ya: Pdouble; x: double; a: Pgsl_interp_accel;
   d: Pdouble): longint; cdecl; external libgsl;
-function gsl_interp_eval_deriv(obj: Pgsl_interp; xa: Pdouble; ya: Pdouble; x: Tdouble; a: Pgsl_interp_accel): Tdouble; cdecl; external libgsl;
-function gsl_interp_eval_deriv2_e(obj: Pgsl_interp; xa: Pdouble; ya: Pdouble; x: Tdouble; a: Pgsl_interp_accel;
+function gsl_interp_eval_deriv(obj: Pgsl_interp; xa: Pdouble; ya: Pdouble; x: double; a: Pgsl_interp_accel): double; cdecl; external libgsl;
+function gsl_interp_eval_deriv2_e(obj: Pgsl_interp; xa: Pdouble; ya: Pdouble; x: double; a: Pgsl_interp_accel;
   d2: Pdouble): longint; cdecl; external libgsl;
-function gsl_interp_eval_deriv2(obj: Pgsl_interp; xa: Pdouble; ya: Pdouble; x: Tdouble; a: Pgsl_interp_accel): Tdouble; cdecl; external libgsl;
-function gsl_interp_eval_integ_e(obj: Pgsl_interp; xa: Pdouble; ya: Pdouble; a: Tdouble; b: Tdouble;
+function gsl_interp_eval_deriv2(obj: Pgsl_interp; xa: Pdouble; ya: Pdouble; x: double; a: Pgsl_interp_accel): double; cdecl; external libgsl;
+function gsl_interp_eval_integ_e(obj: Pgsl_interp; xa: Pdouble; ya: Pdouble; a: double; b: double;
   acc: Pgsl_interp_accel; result: Pdouble): longint; cdecl; external libgsl;
-function gsl_interp_eval_integ(obj: Pgsl_interp; xa: Pdouble; ya: Pdouble; a: Tdouble; b: Tdouble;
-  acc: Pgsl_interp_accel): Tdouble; cdecl; external libgsl;
+function gsl_interp_eval_integ(obj: Pgsl_interp; xa: Pdouble; ya: Pdouble; a: double; b: double;
+  acc: Pgsl_interp_accel): double; cdecl; external libgsl;
 procedure gsl_interp_free(interp: Pgsl_interp); cdecl; external libgsl;
-function gsl_interp_bsearch(x_array: Pdouble; x: Tdouble; index_lo: Tsize_t; index_hi: Tsize_t): Tsize_t; cdecl; external libgsl;
-function gsl_interp_accel_find(a: Pgsl_interp_accel; x_array: Pdouble; size: Tsize_t; x: Tdouble): Tsize_t; cdecl; external libgsl;
+function gsl_interp_bsearch(x_array: Pdouble; x: double; index_lo: Tsize_t; index_hi: Tsize_t): Tsize_t; cdecl; external libgsl;
+function gsl_interp_accel_find(a: Pgsl_interp_accel; x_array: Pdouble; size: Tsize_t; x: double): Tsize_t; cdecl; external libgsl;
 
 // === Konventiert am: 21-8-25 19:10:03 ===
 

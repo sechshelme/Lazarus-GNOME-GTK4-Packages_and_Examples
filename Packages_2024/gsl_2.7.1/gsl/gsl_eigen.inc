@@ -161,12 +161,12 @@ type
     n_evals: Tsize_t;
     max_iterations: Tsize_t;
     n_iter: Tsize_t;
-    eshift: Tdouble;
+    eshift: double;
     needtop: longint;
-    atol: Tdouble;
-    btol: Tdouble;
-    ascale: Tdouble;
-    bscale: Tdouble;
+    atol: double;
+    btol: double;
+    ascale: double;
+    bscale: double;
     H: Pgsl_matrix;
     R: Pgsl_matrix;
     compute_s: longint;
@@ -223,10 +223,10 @@ function gsl_eigen_genhermv_sort(eval: Pgsl_vector; evec: Pgsl_matrix_complex; s
 function gsl_eigen_genv_sort(alpha: Pgsl_vector_complex; beta: Pgsl_vector; evec: Pgsl_matrix_complex; sort_type: Tgsl_eigen_sort_t): longint; cdecl; external libgsl;
 function gsl_schur_gen_eigvals(A: Pgsl_matrix; B: Pgsl_matrix; wr1: Pdouble; wr2: Pdouble; wi: Pdouble;
   scale1: Pdouble; scale2: Pdouble): longint; cdecl; external libgsl;
-function gsl_schur_solve_equation(ca: Tdouble; A: Pgsl_matrix; z: Tdouble; d1: Tdouble; d2: Tdouble;
-  b: Pgsl_vector; x: Pgsl_vector; s: Pdouble; xnorm: Pdouble; smin: Tdouble): longint; cdecl; external libgsl;
-function gsl_schur_solve_equation_z(ca: Tdouble; A: Pgsl_matrix; z: Pgsl_complex; d1: Tdouble; d2: Tdouble;
-  b: Pgsl_vector_complex; x: Pgsl_vector_complex; s: Pdouble; xnorm: Pdouble; smin: Tdouble): longint; cdecl; external libgsl;
+function gsl_schur_solve_equation(ca: double; A: Pgsl_matrix; z: double; d1: double; d2: double;
+  b: Pgsl_vector; x: Pgsl_vector; s: Pdouble; xnorm: Pdouble; smin: double): longint; cdecl; external libgsl;
+function gsl_schur_solve_equation_z(ca: double; A: Pgsl_matrix; z: Pgsl_complex; d1: double; d2: double;
+  b: Pgsl_vector_complex; x: Pgsl_vector_complex; s: Pdouble; xnorm: Pdouble; smin: double): longint; cdecl; external libgsl;
 function gsl_eigen_jacobi(matrix: Pgsl_matrix; eval: Pgsl_vector; evec: Pgsl_matrix; max_rot: dword; nrot: Pdword): longint; cdecl; external libgsl;
 function gsl_eigen_invert_jacobi(matrix: Pgsl_matrix; ainv: Pgsl_matrix; max_rot: dword): longint; cdecl; external libgsl;
 

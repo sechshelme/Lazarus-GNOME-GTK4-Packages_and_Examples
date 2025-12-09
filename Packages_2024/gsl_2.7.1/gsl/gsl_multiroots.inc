@@ -12,7 +12,7 @@ type
   Tgsl_multiroot_function = Tgsl_multiroot_function_struct;
   Pgsl_multiroot_function = ^Tgsl_multiroot_function;
 
-function gsl_multiroot_fdjacobian(F: Pgsl_multiroot_function; x: Pgsl_vector; fv: Pgsl_vector; epsrel: Tdouble; jacobian: Pgsl_matrix): longint; cdecl; external libgsl;
+function gsl_multiroot_fdjacobian(F: Pgsl_multiroot_function; x: Pgsl_vector; fv: Pgsl_vector; epsrel: double; jacobian: Pgsl_matrix): longint; cdecl; external libgsl;
 
 type
   Tgsl_multiroot_fsolver_type = record
@@ -87,8 +87,8 @@ function gsl_multiroot_fdfsolver_name(s: Pgsl_multiroot_fdfsolver): pchar; cdecl
 function gsl_multiroot_fdfsolver_root(s: Pgsl_multiroot_fdfsolver): Pgsl_vector; cdecl; external libgsl;
 function gsl_multiroot_fdfsolver_dx(s: Pgsl_multiroot_fdfsolver): Pgsl_vector; cdecl; external libgsl;
 function gsl_multiroot_fdfsolver_f(s: Pgsl_multiroot_fdfsolver): Pgsl_vector; cdecl; external libgsl;
-function gsl_multiroot_test_delta(dx: Pgsl_vector; x: Pgsl_vector; epsabs: Tdouble; epsrel: Tdouble): longint; cdecl; external libgsl;
-function gsl_multiroot_test_residual(f: Pgsl_vector; epsabs: Tdouble): longint; cdecl; external libgsl;
+function gsl_multiroot_test_delta(dx: Pgsl_vector; x: Pgsl_vector; epsabs: double; epsrel: double): longint; cdecl; external libgsl;
+function gsl_multiroot_test_residual(f: Pgsl_vector; epsabs: double): longint; cdecl; external libgsl;
 
 var
   gsl_multiroot_fsolver_dnewton: Pgsl_multiroot_fsolver_type; cvar;external libgsl;

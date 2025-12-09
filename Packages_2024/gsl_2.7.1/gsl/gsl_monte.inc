@@ -3,7 +3,7 @@
 
 type
   Tgsl_monte_function_struct = record
-    f: function(x_array: Pdouble; dim: Tsize_t; params: pointer): Tdouble; cdecl;
+    f: function(x_array: Pdouble; dim: Tsize_t; params: pointer): double; cdecl;
     dim: Tsize_t;
     params: pointer;
   end;

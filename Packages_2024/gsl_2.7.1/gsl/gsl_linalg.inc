@@ -14,15 +14,15 @@ function gsl_linalg_matmult(A: Pgsl_matrix; B: Pgsl_matrix; C: Pgsl_matrix): lon
 function gsl_linalg_matmult_mod(A: Pgsl_matrix; modA: Tgsl_linalg_matrix_mod_t; B: Pgsl_matrix; modB: Tgsl_linalg_matrix_mod_t; C: Pgsl_matrix): longint; cdecl; external libgsl;
 function gsl_linalg_exponential_ss(A: Pgsl_matrix; eA: Pgsl_matrix; mode: Tgsl_mode_t): longint; cdecl; external libgsl;
 
-function gsl_linalg_householder_transform(v: Pgsl_vector): Tdouble; cdecl; external libgsl;
-function gsl_linalg_householder_transform2(alpha: Pdouble; v: Pgsl_vector): Tdouble; cdecl; external libgsl;
+function gsl_linalg_householder_transform(v: Pgsl_vector): double; cdecl; external libgsl;
+function gsl_linalg_householder_transform2(alpha: Pdouble; v: Pgsl_vector): double; cdecl; external libgsl;
 function gsl_linalg_complex_householder_transform(v: Pgsl_vector_complex): Tgsl_complex; cdecl; external libgsl;
-function gsl_linalg_householder_hm(tau: Tdouble; v: Pgsl_vector; A: Pgsl_matrix): longint; cdecl; external libgsl;
-function gsl_linalg_householder_mh(tau: Tdouble; v: Pgsl_vector; A: Pgsl_matrix): longint; cdecl; external libgsl;
-function gsl_linalg_householder_hv(tau: Tdouble; v: Pgsl_vector; w: Pgsl_vector): longint; cdecl; external libgsl;
-function gsl_linalg_householder_left(tau: Tdouble; v: Pgsl_vector; A: Pgsl_matrix; work: Pgsl_vector): longint; cdecl; external libgsl;
-function gsl_linalg_householder_right(tau: Tdouble; v: Pgsl_vector; A: Pgsl_matrix; work: Pgsl_vector): longint; cdecl; external libgsl;
-function gsl_linalg_householder_hm1(tau: Tdouble; A: Pgsl_matrix): longint; cdecl; external libgsl;
+function gsl_linalg_householder_hm(tau: double; v: Pgsl_vector; A: Pgsl_matrix): longint; cdecl; external libgsl;
+function gsl_linalg_householder_mh(tau: double; v: Pgsl_vector; A: Pgsl_matrix): longint; cdecl; external libgsl;
+function gsl_linalg_householder_hv(tau: double; v: Pgsl_vector; w: Pgsl_vector): longint; cdecl; external libgsl;
+function gsl_linalg_householder_left(tau: double; v: Pgsl_vector; A: Pgsl_matrix; work: Pgsl_vector): longint; cdecl; external libgsl;
+function gsl_linalg_householder_right(tau: double; v: Pgsl_vector; A: Pgsl_matrix; work: Pgsl_vector): longint; cdecl; external libgsl;
+function gsl_linalg_householder_hm1(tau: double; A: Pgsl_matrix): longint; cdecl; external libgsl;
 function gsl_linalg_complex_householder_hm(tau: Tgsl_complex; v: Pgsl_vector_complex; A: Pgsl_matrix_complex): longint; cdecl; external libgsl;
 function gsl_linalg_complex_householder_mh(tau: Tgsl_complex; v: Pgsl_vector_complex; A: Pgsl_matrix_complex): longint; cdecl; external libgsl;
 function gsl_linalg_complex_householder_hv(tau: Tgsl_complex; v: Pgsl_vector_complex; w: Pgsl_vector_complex): longint; cdecl; external libgsl;
@@ -49,8 +49,8 @@ function gsl_linalg_LU_refine(A: Pgsl_matrix; LU: Pgsl_matrix; p: Pgsl_permutati
   work: Pgsl_vector): longint; cdecl; external libgsl;
 function gsl_linalg_LU_invert(LU: Pgsl_matrix; p: Pgsl_permutation; inverse: Pgsl_matrix): longint; cdecl; external libgsl;
 function gsl_linalg_LU_invx(LU: Pgsl_matrix; p: Pgsl_permutation): longint; cdecl; external libgsl;
-function gsl_linalg_LU_det(LU: Pgsl_matrix; signum: longint): Tdouble; cdecl; external libgsl;
-function gsl_linalg_LU_lndet(LU: Pgsl_matrix): Tdouble; cdecl; external libgsl;
+function gsl_linalg_LU_det(LU: Pgsl_matrix; signum: longint): double; cdecl; external libgsl;
+function gsl_linalg_LU_lndet(LU: Pgsl_matrix): double; cdecl; external libgsl;
 function gsl_linalg_LU_sgndet(lu: Pgsl_matrix; signum: longint): longint; cdecl; external libgsl;
 
 function gsl_linalg_LU_band_decomp(M: Tsize_t; lb: Tsize_t; ub: Tsize_t; AB: Pgsl_matrix; piv: Pgsl_vector_uint): longint; cdecl; external libgsl;
@@ -68,7 +68,7 @@ function gsl_linalg_complex_LU_refine(A: Pgsl_matrix_complex; LU: Pgsl_matrix_co
 function gsl_linalg_complex_LU_invert(LU: Pgsl_matrix_complex; p: Pgsl_permutation; inverse: Pgsl_matrix_complex): longint; cdecl; external libgsl;
 function gsl_linalg_complex_LU_invx(LU: Pgsl_matrix_complex; p: Pgsl_permutation): longint; cdecl; external libgsl;
 function gsl_linalg_complex_LU_det(LU: Pgsl_matrix_complex; signum: longint): Tgsl_complex; cdecl; external libgsl;
-function gsl_linalg_complex_LU_lndet(LU: Pgsl_matrix_complex): Tdouble; cdecl; external libgsl;
+function gsl_linalg_complex_LU_lndet(LU: Pgsl_matrix_complex): double; cdecl; external libgsl;
 function gsl_linalg_complex_LU_sgndet(LU: Pgsl_matrix_complex; signum: longint): Tgsl_complex; cdecl; external libgsl;
 
 function gsl_linalg_QR_decomp(A: Pgsl_matrix; tau: Pgsl_vector): longint; cdecl; external libgsl;
@@ -125,7 +125,7 @@ function gsl_linalg_QRPT_QRsolve(Q: Pgsl_matrix; R: Pgsl_matrix; p: Pgsl_permuta
 function gsl_linalg_QRPT_Rsolve(QR: Pgsl_matrix; p: Pgsl_permutation; b: Pgsl_vector; x: Pgsl_vector): longint; cdecl; external libgsl;
 function gsl_linalg_QRPT_Rsvx(QR: Pgsl_matrix; p: Pgsl_permutation; x: Pgsl_vector): longint; cdecl; external libgsl;
 function gsl_linalg_QRPT_update(Q: Pgsl_matrix; R: Pgsl_matrix; p: Pgsl_permutation; u: Pgsl_vector; v: Pgsl_vector): longint; cdecl; external libgsl;
-function gsl_linalg_QRPT_rank(QR: Pgsl_matrix; tol: Tdouble): Tsize_t; cdecl; external libgsl;
+function gsl_linalg_QRPT_rank(QR: Pgsl_matrix; tol: double): Tsize_t; cdecl; external libgsl;
 function gsl_linalg_QRPT_rcond(QR: Pgsl_matrix; rcond: Pdouble; work: Pgsl_vector): longint; cdecl; external libgsl;
 
 function gsl_linalg_QR_UD_decomp(U: Pgsl_matrix; D: Pgsl_vector; Y: Pgsl_matrix; T: Pgsl_matrix): longint; cdecl; external libgsl;
@@ -146,11 +146,11 @@ function gsl_linalg_QL_unpack(QL: Pgsl_matrix; tau: Pgsl_vector; Q: Pgsl_matrix;
 
 function gsl_linalg_COD_decomp(A: Pgsl_matrix; tau_Q: Pgsl_vector; tau_Z: Pgsl_vector; p: Pgsl_permutation; rank: Psize_t;
   work: Pgsl_vector): longint; cdecl; external libgsl;
-function gsl_linalg_COD_decomp_e(A: Pgsl_matrix; tau_Q: Pgsl_vector; tau_Z: Pgsl_vector; p: Pgsl_permutation; tol: Tdouble;
+function gsl_linalg_COD_decomp_e(A: Pgsl_matrix; tau_Q: Pgsl_vector; tau_Z: Pgsl_vector; p: Pgsl_permutation; tol: double;
   rank: Psize_t; work: Pgsl_vector): longint; cdecl; external libgsl;
 function gsl_linalg_COD_lssolve(QRZT: Pgsl_matrix; tau_Q: Pgsl_vector; tau_Z: Pgsl_vector; perm: Pgsl_permutation; rank: Tsize_t;
   b: Pgsl_vector; x: Pgsl_vector; residual: Pgsl_vector): longint; cdecl; external libgsl;
-function gsl_linalg_COD_lssolve2(lambda: Tdouble; QRZT: Pgsl_matrix; tau_Q: Pgsl_vector; tau_Z: Pgsl_vector; perm: Pgsl_permutation;
+function gsl_linalg_COD_lssolve2(lambda: double; QRZT: Pgsl_matrix; tau_Q: Pgsl_vector; tau_Z: Pgsl_vector; perm: Pgsl_permutation;
   rank: Tsize_t; b: Pgsl_vector; x: Pgsl_vector; residual: Pgsl_vector; S: Pgsl_matrix;
   work: Pgsl_vector): longint; cdecl; external libgsl;
 function gsl_linalg_COD_unpack(QRZT: Pgsl_matrix; tau_Q: Pgsl_vector; tau_Z: Pgsl_vector; rank: Tsize_t; Q: Pgsl_matrix;
@@ -285,8 +285,8 @@ function gsl_linalg_tri_LTL(L: Pgsl_matrix): longint; cdecl; external libgsl;
 function gsl_linalg_tri_UL(LU: Pgsl_matrix): longint; cdecl; external libgsl;
 function gsl_linalg_complex_tri_LHL(L: Pgsl_matrix_complex): longint; cdecl; external libgsl;
 function gsl_linalg_complex_tri_UL(LU: Pgsl_matrix_complex): longint; cdecl; external libgsl;
-procedure gsl_linalg_givens(a: Tdouble; b: Tdouble; c: Pdouble; s: Pdouble); cdecl; external libgsl;
-procedure gsl_linalg_givens_gv(v: Pgsl_vector; i: Tsize_t; j: Tsize_t; c: Tdouble; s: Tdouble); cdecl; external libgsl;
+procedure gsl_linalg_givens(a: double; b: double; c: Pdouble; s: Pdouble); cdecl; external libgsl;
+procedure gsl_linalg_givens_gv(v: Pgsl_vector; i: Tsize_t; j: Tsize_t; c: double; s: double); cdecl; external libgsl;
 
 // === Konventiert am: 21-8-25 19:10:07 ===
 

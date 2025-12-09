@@ -26,15 +26,15 @@ const
 type
   Tsm_elem_ops = record
     is_: function(elem: Psnd_mixer_elem_t; dir: longint; cmd: longint; val: longint): longint; cdecl;
-    get_range: function(elem: Psnd_mixer_elem_t; dir: longint; min: Plong; max: Plong): longint; cdecl;
-    set_range: function(elem: Psnd_mixer_elem_t; dir: longint; min: Tlong; max: Tlong): longint; cdecl;
-    get_dB_range: function(elem: Psnd_mixer_elem_t; dir: longint; min: Plong; max: Plong): longint; cdecl;
-    ask_vol_dB: function(elem: Psnd_mixer_elem_t; dir: longint; value: Tlong; dbValue: Plong): longint; cdecl;
-    ask_dB_vol: function(elem: Psnd_mixer_elem_t; dir: longint; dbValue: Tlong; value: Plong; xdir: longint): longint; cdecl;
-    get_volume: function(elem: Psnd_mixer_elem_t; dir: longint; channel: Tsnd_mixer_selem_channel_id_t; value: Plong): longint; cdecl;
-    get_dB: function(elem: Psnd_mixer_elem_t; dir: longint; channel: Tsnd_mixer_selem_channel_id_t; value: Plong): longint; cdecl;
-    set_volume: function(elem: Psnd_mixer_elem_t; dir: longint; channel: Tsnd_mixer_selem_channel_id_t; value: Tlong): longint; cdecl;
-    set_dB: function(elem: Psnd_mixer_elem_t; dir: longint; channel: Tsnd_mixer_selem_channel_id_t; value: Tlong; xdir: longint): longint; cdecl;
+    get_range: function(elem: Psnd_mixer_elem_t; dir: longint; min: Pclong; max: Pclong): longint; cdecl;
+    set_range: function(elem: Psnd_mixer_elem_t; dir: longint; min: Tclong; max: Tclong): longint; cdecl;
+    get_dB_range: function(elem: Psnd_mixer_elem_t; dir: longint; min: Pclong; max: Pclong): longint; cdecl;
+    ask_vol_dB: function(elem: Psnd_mixer_elem_t; dir: longint; value: Tclong; dbValue: Pclong): longint; cdecl;
+    ask_dB_vol: function(elem: Psnd_mixer_elem_t; dir: longint; dbValue: Tclong; value: Pclong; xdir: longint): longint; cdecl;
+    get_volume: function(elem: Psnd_mixer_elem_t; dir: longint; channel: Tsnd_mixer_selem_channel_id_t; value: Pclong): longint; cdecl;
+    get_dB: function(elem: Psnd_mixer_elem_t; dir: longint; channel: Tsnd_mixer_selem_channel_id_t; value: Pclong): longint; cdecl;
+    set_volume: function(elem: Psnd_mixer_elem_t; dir: longint; channel: Tsnd_mixer_selem_channel_id_t; value: Tclong): longint; cdecl;
+    set_dB: function(elem: Psnd_mixer_elem_t; dir: longint; channel: Tsnd_mixer_selem_channel_id_t; value: Tclong; xdir: longint): longint; cdecl;
     get_switch: function(elem: Psnd_mixer_elem_t; dir: longint; channel: Tsnd_mixer_selem_channel_id_t; value: Plongint): longint; cdecl;
     set_switch: function(elem: Psnd_mixer_elem_t; dir: longint; channel: Tsnd_mixer_selem_channel_id_t; value: longint): longint; cdecl;
     enum_item_name: function(elem: Psnd_mixer_elem_t; item: dword; maxlen: Tsize_t; buf: pchar): longint; cdecl;

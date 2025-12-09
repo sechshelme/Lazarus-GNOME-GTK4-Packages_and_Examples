@@ -7,7 +7,7 @@ type
     alloc: function(p: Tsize_t): pointer; cdecl;
     reset: function(para1: pointer): longint; cdecl;
     accumulate: function(X: Pgsl_matrix; y: Pgsl_vector; para3: pointer): longint; cdecl;
-    solve: function(lambda: Tdouble; c: Pgsl_vector; rnorm: Pdouble; snorm: Pdouble; para5: pointer): longint; cdecl;
+    solve: function(lambda: double; c: Pgsl_vector; rnorm: Pdouble; snorm: Pdouble; para5: pointer): longint; cdecl;
     rcond: function(rcond: Pdouble; para2: pointer): longint; cdecl;
     lcurve: function(reg_param: Pgsl_vector; rho: Pgsl_vector; eta: Pgsl_vector; para4: pointer): longint; cdecl;
     matrix_ptr: function(para1: pointer): Pgsl_matrix; cdecl;
@@ -32,7 +32,7 @@ procedure gsl_multilarge_linear_free(w: Pgsl_multilarge_linear_workspace); cdecl
 function gsl_multilarge_linear_name(w: Pgsl_multilarge_linear_workspace): pchar; cdecl; external libgsl;
 function gsl_multilarge_linear_reset(w: Pgsl_multilarge_linear_workspace): longint; cdecl; external libgsl;
 function gsl_multilarge_linear_accumulate(X: Pgsl_matrix; y: Pgsl_vector; w: Pgsl_multilarge_linear_workspace): longint; cdecl; external libgsl;
-function gsl_multilarge_linear_solve(lambda: Tdouble; c: Pgsl_vector; rnorm: Pdouble; snorm: Pdouble; w: Pgsl_multilarge_linear_workspace): longint; cdecl; external libgsl;
+function gsl_multilarge_linear_solve(lambda: double; c: Pgsl_vector; rnorm: Pdouble; snorm: Pdouble; w: Pgsl_multilarge_linear_workspace): longint; cdecl; external libgsl;
 function gsl_multilarge_linear_rcond(rcond: Pdouble; w: Pgsl_multilarge_linear_workspace): longint; cdecl; external libgsl;
 function gsl_multilarge_linear_lcurve(reg_param: Pgsl_vector; rho: Pgsl_vector; eta: Pgsl_vector; w: Pgsl_multilarge_linear_workspace): longint; cdecl; external libgsl;
 function gsl_multilarge_linear_wstdform1(L: Pgsl_vector; X: Pgsl_matrix; w: Pgsl_vector; y: Pgsl_vector; Xs: Pgsl_matrix;

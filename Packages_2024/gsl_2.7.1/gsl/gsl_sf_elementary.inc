@@ -1,9 +1,9 @@
 {$IFDEF read_interface}
 
 
-function gsl_sf_multiply_e(x: Tdouble; y: Tdouble; result: Pgsl_sf_result): longint; cdecl; external libgsl;
-function gsl_sf_multiply(x: Tdouble; y: Tdouble): Tdouble; cdecl; external libgsl;
-function gsl_sf_multiply_err_e(x: Tdouble; dx: Tdouble; y: Tdouble; dy: Tdouble; result: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_multiply_e(x: double; y: double; result: Pgsl_sf_result): longint; cdecl; external libgsl;
+function gsl_sf_multiply(x: double; y: double): double; cdecl; external libgsl;
+function gsl_sf_multiply_err_e(x: double; dx: double; y: double; dy: double; result: Pgsl_sf_result): longint; cdecl; external libgsl;
 
 // === Konventiert am: 22-8-25 14:04:24 ===
 

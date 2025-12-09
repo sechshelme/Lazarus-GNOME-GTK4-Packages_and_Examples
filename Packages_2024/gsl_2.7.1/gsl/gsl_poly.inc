@@ -1,19 +1,19 @@
 {$IFDEF read_interface}
 
 
-function gsl_poly_eval(c: Pdouble; len: longint; x: Tdouble): Tdouble; cdecl; external libgsl;
+function gsl_poly_eval(c: Pdouble; len: longint; x: double): double; cdecl; external libgsl;
 function gsl_poly_complex_eval(c: Pdouble; len: longint; z: Tgsl_complex): Tgsl_complex; cdecl; external libgsl;
 function gsl_complex_poly_complex_eval(c: Pgsl_complex; len: longint; z: Tgsl_complex): Tgsl_complex; cdecl; external libgsl;
-function gsl_poly_eval_derivs(c: Pdouble; lenc: Tsize_t; x: Tdouble; res: Pdouble; lenres: Tsize_t): longint; cdecl; external libgsl;
-function gsl_poly_dd_taylor(c: Pdouble; xp: Tdouble; dd: Pdouble; x: Pdouble; size: Tsize_t;
+function gsl_poly_eval_derivs(c: Pdouble; lenc: Tsize_t; x: double; res: Pdouble; lenres: Tsize_t): longint; cdecl; external libgsl;
+function gsl_poly_dd_taylor(c: Pdouble; xp: double; dd: Pdouble; x: Pdouble; size: Tsize_t;
   w: Pdouble): longint; cdecl; external libgsl;
 function gsl_poly_dd_hermite_init(dd: Pdouble; z: Pdouble; xa: Pdouble; ya: Pdouble; dya: Pdouble;
   size: Tsize_t): longint; cdecl; external libgsl;
-function gsl_poly_solve_quadratic(a: Tdouble; b: Tdouble; c: Tdouble; x0: Pdouble; x1: Pdouble): longint; cdecl; external libgsl;
-function gsl_poly_complex_solve_quadratic(a: Tdouble; b: Tdouble; c: Tdouble; z0: Pgsl_complex; z1: Pgsl_complex): longint; cdecl; external libgsl;
-function gsl_poly_solve_cubic(a: Tdouble; b: Tdouble; c: Tdouble; x0: Pdouble; x1: Pdouble;
+function gsl_poly_solve_quadratic(a: double; b: double; c: double; x0: Pdouble; x1: Pdouble): longint; cdecl; external libgsl;
+function gsl_poly_complex_solve_quadratic(a: double; b: double; c: double; z0: Pgsl_complex; z1: Pgsl_complex): longint; cdecl; external libgsl;
+function gsl_poly_solve_cubic(a: double; b: double; c: double; x0: Pdouble; x1: Pdouble;
   x2: Pdouble): longint; cdecl; external libgsl;
-function gsl_poly_complex_solve_cubic(a: Tdouble; b: Tdouble; c: Tdouble; z0: Pgsl_complex; z1: Pgsl_complex;
+function gsl_poly_complex_solve_cubic(a: double; b: double; c: double; z0: Pgsl_complex; z1: Pgsl_complex;
   z2: Pgsl_complex): longint; cdecl; external libgsl;
 
 type

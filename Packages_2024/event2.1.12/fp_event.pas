@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF windows}
-  libibus = 'event.dll'; // ???
+  libibus = 'event.dll'; // ????
   {$ENDIF}
 
   {$IFDEF FPC}

@@ -144,10 +144,10 @@ function snd_timer_ginfo_get_flags(obj: Psnd_timer_ginfo_t): dword; cdecl; exter
 function snd_timer_ginfo_get_card(obj: Psnd_timer_ginfo_t): longint; cdecl; external libasound;
 function snd_timer_ginfo_get_id(obj: Psnd_timer_ginfo_t): pchar; cdecl; external libasound;
 function snd_timer_ginfo_get_name(obj: Psnd_timer_ginfo_t): pchar; cdecl; external libasound;
-function snd_timer_ginfo_get_resolution(obj: Psnd_timer_ginfo_t): Tulong; cdecl; external libasound;
-function snd_timer_ginfo_get_resolution_min(obj: Psnd_timer_ginfo_t): Tulong; cdecl; external libasound;
-function snd_timer_ginfo_get_resolution_max(obj: Psnd_timer_ginfo_t): Tulong; cdecl; external libasound;
-function snd_timer_ginfo_get_clients(obj: Psnd_timer_ginfo_t): Tulong; cdecl; external libasound;
+function snd_timer_ginfo_get_resolution(obj: Psnd_timer_ginfo_t): Tculong; cdecl; external libasound;
+function snd_timer_ginfo_get_resolution_min(obj: Psnd_timer_ginfo_t): Tculong; cdecl; external libasound;
+function snd_timer_ginfo_get_resolution_max(obj: Psnd_timer_ginfo_t): Tculong; cdecl; external libasound;
+function snd_timer_ginfo_get_clients(obj: Psnd_timer_ginfo_t): Tculong; cdecl; external libasound;
 function snd_timer_info_sizeof: Tsize_t; cdecl; external libasound;
 
 function snd_timer_info_malloc(ptr: PPsnd_timer_info_t): longint; cdecl; external libasound;
@@ -157,7 +157,7 @@ function snd_timer_info_is_slave(info: Psnd_timer_info_t): longint; cdecl; exter
 function snd_timer_info_get_card(info: Psnd_timer_info_t): longint; cdecl; external libasound;
 function snd_timer_info_get_id(info: Psnd_timer_info_t): pchar; cdecl; external libasound;
 function snd_timer_info_get_name(info: Psnd_timer_info_t): pchar; cdecl; external libasound;
-function snd_timer_info_get_resolution(info: Psnd_timer_info_t): Tlong; cdecl; external libasound;
+function snd_timer_info_get_resolution(info: Psnd_timer_info_t): Tclong; cdecl; external libasound;
 function snd_timer_params_sizeof: Tsize_t; cdecl; external libasound;
 
 function snd_timer_params_malloc(ptr: PPsnd_timer_params_t): longint; cdecl; external libasound;
@@ -169,10 +169,10 @@ function snd_timer_params_set_exclusive(params: Psnd_timer_params_t; exclusive: 
 function snd_timer_params_get_exclusive(params: Psnd_timer_params_t): longint; cdecl; external libasound;
 function snd_timer_params_set_early_event(params: Psnd_timer_params_t; early_event: longint): longint; cdecl; external libasound;
 function snd_timer_params_get_early_event(params: Psnd_timer_params_t): longint; cdecl; external libasound;
-procedure snd_timer_params_set_ticks(params: Psnd_timer_params_t; ticks: Tlong); cdecl; external libasound;
-function snd_timer_params_get_ticks(params: Psnd_timer_params_t): Tlong; cdecl; external libasound;
-procedure snd_timer_params_set_queue_size(params: Psnd_timer_params_t; queue_size: Tlong); cdecl; external libasound;
-function snd_timer_params_get_queue_size(params: Psnd_timer_params_t): Tlong; cdecl; external libasound;
+procedure snd_timer_params_set_ticks(params: Psnd_timer_params_t; ticks: Tclong); cdecl; external libasound;
+function snd_timer_params_get_ticks(params: Psnd_timer_params_t): Tclong; cdecl; external libasound;
+procedure snd_timer_params_set_queue_size(params: Psnd_timer_params_t; queue_size: Tclong); cdecl; external libasound;
+function snd_timer_params_get_queue_size(params: Psnd_timer_params_t): Tclong; cdecl; external libasound;
 procedure snd_timer_params_set_filter(params: Psnd_timer_params_t; filter: dword); cdecl; external libasound;
 function snd_timer_params_get_filter(params: Psnd_timer_params_t): dword; cdecl; external libasound;
 function snd_timer_status_sizeof: Tsize_t; cdecl; external libasound;
@@ -181,11 +181,11 @@ function snd_timer_status_malloc(ptr: PPsnd_timer_status_t): longint; cdecl; ext
 procedure snd_timer_status_free(obj: Psnd_timer_status_t); cdecl; external libasound;
 procedure snd_timer_status_copy(dst: Psnd_timer_status_t; src: Psnd_timer_status_t); cdecl; external libasound;
 function snd_timer_status_get_timestamp(status: Psnd_timer_status_t): Tsnd_htimestamp_t; cdecl; external libasound;
-function snd_timer_status_get_resolution(status: Psnd_timer_status_t): Tlong; cdecl; external libasound;
-function snd_timer_status_get_lost(status: Psnd_timer_status_t): Tlong; cdecl; external libasound;
-function snd_timer_status_get_overrun(status: Psnd_timer_status_t): Tlong; cdecl; external libasound;
-function snd_timer_status_get_queue(status: Psnd_timer_status_t): Tlong; cdecl; external libasound;
-function snd_timer_info_get_ticks(info: Psnd_timer_info_t): Tlong; cdecl; external libasound;
+function snd_timer_status_get_resolution(status: Psnd_timer_status_t): Tclong; cdecl; external libasound;
+function snd_timer_status_get_lost(status: Psnd_timer_status_t): Tclong; cdecl; external libasound;
+function snd_timer_status_get_overrun(status: Psnd_timer_status_t): Tclong; cdecl; external libasound;
+function snd_timer_status_get_queue(status: Psnd_timer_status_t): Tclong; cdecl; external libasound;
+function snd_timer_info_get_ticks(info: Psnd_timer_info_t): Tclong; cdecl; external libasound;
 
 // === Konventiert am: 19-11-25 16:11:35 ===
 

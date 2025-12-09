@@ -16,23 +16,23 @@ type
     xin: Pdouble;
     delx: Pdouble;
     weight: Pdouble;
-    vol: Tdouble;
+    vol: double;
     x: Pdouble;
     bin: Plongint;
     box: Plongint;
     d: Pdouble;
-    alpha: Tdouble;
+    alpha: double;
     mode: longint;
     verbose: longint;
     iterations: dword;
     stage: longint;
-    jac: Tdouble;
-    wtd_int_sum: Tdouble;
-    sum_wgts: Tdouble;
-    chi_sum: Tdouble;
-    chisq: Tdouble;
-    result: Tdouble;
-    sigma: Tdouble;
+    jac: double;
+    wtd_int_sum: double;
+    sum_wgts: double;
+    chi_sum: double;
+    chisq: double;
+    result: double;
+    sigma: double;
     it_start: dword;
     it_num: dword;
     samples: dword;
@@ -46,12 +46,12 @@ function gsl_monte_vegas_integrate(f: Pgsl_monte_function; xl: Pdouble; xu: Pdou
 function gsl_monte_vegas_alloc(dim: Tsize_t): Pgsl_monte_vegas_state; cdecl; external libgsl;
 function gsl_monte_vegas_init(state: Pgsl_monte_vegas_state): longint; cdecl; external libgsl;
 procedure gsl_monte_vegas_free(state: Pgsl_monte_vegas_state); cdecl; external libgsl;
-function gsl_monte_vegas_chisq(state: Pgsl_monte_vegas_state): Tdouble; cdecl; external libgsl;
+function gsl_monte_vegas_chisq(state: Pgsl_monte_vegas_state): double; cdecl; external libgsl;
 procedure gsl_monte_vegas_runval(state: Pgsl_monte_vegas_state; result: Pdouble; sigma: Pdouble); cdecl; external libgsl;
 
 type
   Tgsl_monte_vegas_params = record
-    alpha: Tdouble;
+    alpha: double;
     iterations: Tsize_t;
     stage: longint;
     mode: longint;

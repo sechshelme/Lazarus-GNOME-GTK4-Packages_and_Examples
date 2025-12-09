@@ -3,9 +3,9 @@
 
 type
 
-  Tgsl_siman_Efunc_t = function(xp: pointer): Tdouble; cdecl;
-  Tgsl_siman_step_t = procedure(r: Pgsl_rng; xp: pointer; step_size: Tdouble); cdecl;
-  Tgsl_siman_metric_t = function(xp: pointer; yp: pointer): Tdouble; cdecl;
+  Tgsl_siman_Efunc_t = function(xp: pointer): double; cdecl;
+  Tgsl_siman_step_t = procedure(r: Pgsl_rng; xp: pointer; step_size: double); cdecl;
+  Tgsl_siman_metric_t = function(xp: pointer; yp: pointer): double; cdecl;
   Tgsl_siman_print_t = procedure(xp: pointer); cdecl;
   Tgsl_siman_copy_t = procedure(source: pointer; dest: pointer); cdecl;
   Tgsl_siman_copy_construct_t = function(xp: pointer): pointer; cdecl;
@@ -14,11 +14,11 @@ type
   Tgsl_siman_params_t = record
     n_tries: longint;
     iters_fixed_T: longint;
-    step_size: Tdouble;
-    k: Tdouble;
-    t_initial: Tdouble;
-    mu_t: Tdouble;
-    t_min: Tdouble;
+    step_size: double;
+    k: double;
+    t_initial: double;
+    mu_t: double;
+    t_min: double;
   end;
   Pgsl_siman_params_t = ^Tgsl_siman_params_t;
 

@@ -13,16 +13,16 @@ const
 
 type
   {$IFDEF Linux}
-  Tlong = int64;
-  Tulong = uint64;
+  Tclong = int64;
+  Tculong = uint64;
   {$ENDIF}
 
   {$IFDEF Windows}
-  Tlong = int32;
-  Tulong = uint32;
+  Tclong = int32;
+  Tculong = uint32;
   {$ENDIF}
-  Pulong = ^Tulong;
-  Plong = ^Tlong;
+  Pculong = ^Tculong;
+  Pclong = ^Tclong;
 
   PPdword = ^PDWord;
 

@@ -3,8 +3,8 @@
 
 
 function gsl_multifit_gradient(J: Pgsl_matrix; f: Pgsl_vector; g: Pgsl_vector): longint; cdecl; external libgsl;
-function gsl_multifit_covar(J: Pgsl_matrix; epsrel: Tdouble; covar: Pgsl_matrix): longint; cdecl; external libgsl;
-function gsl_multifit_covar_QRPT(r: Pgsl_matrix; perm: Pgsl_permutation; epsrel: Tdouble; covar: Pgsl_matrix): longint; cdecl; external libgsl;
+function gsl_multifit_covar(J: Pgsl_matrix; epsrel: double; covar: Pgsl_matrix): longint; cdecl; external libgsl;
+function gsl_multifit_covar_QRPT(r: Pgsl_matrix; perm: Pgsl_permutation; epsrel: double; covar: Pgsl_matrix): longint; cdecl; external libgsl;
 
 type
   Tgsl_multifit_function_struct = record
@@ -42,7 +42,7 @@ function gsl_multifit_fsolver_alloc(T: Pgsl_multifit_fsolver_type; n: Tsize_t; p
 procedure gsl_multifit_fsolver_free(s: Pgsl_multifit_fsolver); cdecl; external libgsl;
 function gsl_multifit_fsolver_set(s: Pgsl_multifit_fsolver; f: Pgsl_multifit_function; x: Pgsl_vector): longint; cdecl; external libgsl;
 function gsl_multifit_fsolver_iterate(s: Pgsl_multifit_fsolver): longint; cdecl; external libgsl;
-function gsl_multifit_fsolver_driver(s: Pgsl_multifit_fsolver; maxiter: Tsize_t; epsabs: Tdouble; epsrel: Tdouble): longint; cdecl; external libgsl;
+function gsl_multifit_fsolver_driver(s: Pgsl_multifit_fsolver; maxiter: Tsize_t; epsabs: double; epsrel: double): longint; cdecl; external libgsl;
 function gsl_multifit_fsolver_name(s: Pgsl_multifit_fsolver): pchar; cdecl; external libgsl;
 function gsl_multifit_fsolver_position(s: Pgsl_multifit_fsolver): Pgsl_vector; cdecl; external libgsl;
 
@@ -91,7 +91,7 @@ function gsl_multifit_fdfsolver_alloc(T: Pgsl_multifit_fdfsolver_type; n: Tsize_
 function gsl_multifit_fdfsolver_set(s: Pgsl_multifit_fdfsolver; fdf: Pgsl_multifit_function_fdf; x: Pgsl_vector): longint; cdecl; external libgsl;
 function gsl_multifit_fdfsolver_wset(s: Pgsl_multifit_fdfsolver; f: Pgsl_multifit_function_fdf; x: Pgsl_vector; wts: Pgsl_vector): longint; cdecl; external libgsl;
 function gsl_multifit_fdfsolver_iterate(s: Pgsl_multifit_fdfsolver): longint; cdecl; external libgsl;
-function gsl_multifit_fdfsolver_driver(s: Pgsl_multifit_fdfsolver; maxiter: Tsize_t; xtol: Tdouble; gtol: Tdouble; ftol: Tdouble;
+function gsl_multifit_fdfsolver_driver(s: Pgsl_multifit_fdfsolver; maxiter: Tsize_t; xtol: double; gtol: double; ftol: double;
   info: Plongint): longint; cdecl; external libgsl;
 function gsl_multifit_fdfsolver_jac(s: Pgsl_multifit_fdfsolver; J: Pgsl_matrix): longint; cdecl; external libgsl;
 procedure gsl_multifit_fdfsolver_free(s: Pgsl_multifit_fdfsolver); cdecl; external libgsl;
@@ -101,9 +101,9 @@ function gsl_multifit_fdfsolver_residual(s: Pgsl_multifit_fdfsolver): Pgsl_vecto
 function gsl_multifit_fdfsolver_niter(s: Pgsl_multifit_fdfsolver): Tsize_t; cdecl; external libgsl;
 function gsl_multifit_eval_wf(fdf: Pgsl_multifit_function_fdf; x: Pgsl_vector; wts: Pgsl_vector; y: Pgsl_vector): longint; cdecl; external libgsl;
 function gsl_multifit_eval_wdf(fdf: Pgsl_multifit_function_fdf; x: Pgsl_vector; wts: Pgsl_vector; dy: Pgsl_matrix): longint; cdecl; external libgsl;
-function gsl_multifit_fdfsolver_test(s: Pgsl_multifit_fdfsolver; xtol: Tdouble; gtol: Tdouble; ftol: Tdouble; info: Plongint): longint; cdecl; external libgsl;
-function gsl_multifit_test_delta(dx: Pgsl_vector; x: Pgsl_vector; epsabs: Tdouble; epsrel: Tdouble): longint; cdecl; external libgsl;
-function gsl_multifit_test_gradient(g: Pgsl_vector; epsabs: Tdouble): longint; cdecl; external libgsl;
+function gsl_multifit_fdfsolver_test(s: Pgsl_multifit_fdfsolver; xtol: double; gtol: double; ftol: double; info: Plongint): longint; cdecl; external libgsl;
+function gsl_multifit_test_delta(dx: Pgsl_vector; x: Pgsl_vector; epsabs: double; epsrel: double): longint; cdecl; external libgsl;
+function gsl_multifit_test_gradient(g: Pgsl_vector; epsabs: double): longint; cdecl; external libgsl;
 function gsl_multifit_fdfsolver_dif_df(x: Pgsl_vector; wts: Pgsl_vector; fdf: Pgsl_multifit_function_fdf; f: Pgsl_vector; J: Pgsl_matrix): longint; cdecl; external libgsl;
 function gsl_multifit_fdfsolver_dif_fdf(x: Pgsl_vector; fdf: Pgsl_multifit_function_fdf; f: Pgsl_vector; J: Pgsl_matrix): longint; cdecl; external libgsl;
 
@@ -111,7 +111,7 @@ type
   Tgsl_multifit_fdfridge = record
     n: Tsize_t;
     p: Tsize_t;
-    lambda: Tdouble;
+    lambda: double;
     L_diag: Pgsl_vector;
     L: Pgsl_matrix;
     f: Pgsl_vector;
@@ -128,14 +128,14 @@ function gsl_multifit_fdfridge_name(w: Pgsl_multifit_fdfridge): pchar; cdecl; ex
 function gsl_multifit_fdfridge_position(w: Pgsl_multifit_fdfridge): Pgsl_vector; cdecl; external libgsl;
 function gsl_multifit_fdfridge_residual(w: Pgsl_multifit_fdfridge): Pgsl_vector; cdecl; external libgsl;
 function gsl_multifit_fdfridge_niter(w: Pgsl_multifit_fdfridge): Tsize_t; cdecl; external libgsl;
-function gsl_multifit_fdfridge_set(w: Pgsl_multifit_fdfridge; f: Pgsl_multifit_function_fdf; x: Pgsl_vector; lambda: Tdouble): longint; cdecl; external libgsl;
-function gsl_multifit_fdfridge_wset(w: Pgsl_multifit_fdfridge; f: Pgsl_multifit_function_fdf; x: Pgsl_vector; lambda: Tdouble; wts: Pgsl_vector): longint; cdecl; external libgsl;
+function gsl_multifit_fdfridge_set(w: Pgsl_multifit_fdfridge; f: Pgsl_multifit_function_fdf; x: Pgsl_vector; lambda: double): longint; cdecl; external libgsl;
+function gsl_multifit_fdfridge_wset(w: Pgsl_multifit_fdfridge; f: Pgsl_multifit_function_fdf; x: Pgsl_vector; lambda: double; wts: Pgsl_vector): longint; cdecl; external libgsl;
 function gsl_multifit_fdfridge_set2(w: Pgsl_multifit_fdfridge; f: Pgsl_multifit_function_fdf; x: Pgsl_vector; lambda: Pgsl_vector): longint; cdecl; external libgsl;
 function gsl_multifit_fdfridge_wset2(w: Pgsl_multifit_fdfridge; f: Pgsl_multifit_function_fdf; x: Pgsl_vector; lambda: Pgsl_vector; wts: Pgsl_vector): longint; cdecl; external libgsl;
 function gsl_multifit_fdfridge_set3(w: Pgsl_multifit_fdfridge; f: Pgsl_multifit_function_fdf; x: Pgsl_vector; L: Pgsl_matrix): longint; cdecl; external libgsl;
 function gsl_multifit_fdfridge_wset3(w: Pgsl_multifit_fdfridge; f: Pgsl_multifit_function_fdf; x: Pgsl_vector; L: Pgsl_matrix; wts: Pgsl_vector): longint; cdecl; external libgsl;
 function gsl_multifit_fdfridge_iterate(w: Pgsl_multifit_fdfridge): longint; cdecl; external libgsl;
-function gsl_multifit_fdfridge_driver(w: Pgsl_multifit_fdfridge; maxiter: Tsize_t; xtol: Tdouble; gtol: Tdouble; ftol: Tdouble;
+function gsl_multifit_fdfridge_driver(w: Pgsl_multifit_fdfridge; maxiter: Tsize_t; xtol: double; gtol: double; ftol: double;
   info: Plongint): longint; cdecl; external libgsl;
 
 var

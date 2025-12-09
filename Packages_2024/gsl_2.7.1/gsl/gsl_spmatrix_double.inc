@@ -47,14 +47,14 @@ function gsl_spmatrix_fscanf(stream: PFILE): Pgsl_spmatrix; cdecl; external libg
 function gsl_spmatrix_fwrite(stream: PFILE; m: Pgsl_spmatrix): longint; cdecl; external libgsl;
 function gsl_spmatrix_fread(stream: PFILE; m: Pgsl_spmatrix): longint; cdecl; external libgsl;
 
-function gsl_spmatrix_get(m: Pgsl_spmatrix; i: Tsize_t; j: Tsize_t): Tdouble; cdecl; external libgsl;
-function gsl_spmatrix_set(m: Pgsl_spmatrix; i: Tsize_t; j: Tsize_t; x: Tdouble): longint; cdecl; external libgsl;
+function gsl_spmatrix_get(m: Pgsl_spmatrix; i: Tsize_t; j: Tsize_t): double; cdecl; external libgsl;
+function gsl_spmatrix_set(m: Pgsl_spmatrix; i: Tsize_t; j: Tsize_t; x: double): longint; cdecl; external libgsl;
 function gsl_spmatrix_ptr(m: Pgsl_spmatrix; i: Tsize_t; j: Tsize_t): Pdouble; cdecl; external libgsl;
 
 function gsl_spmatrix_minmax(m: Pgsl_spmatrix; min_out: Pdouble; max_out: Pdouble): longint; cdecl; external libgsl;
 function gsl_spmatrix_min_index(m: Pgsl_spmatrix; imin_out: Psize_t; jmin_out: Psize_t): longint; cdecl; external libgsl;
 
-function gsl_spmatrix_scale(m: Pgsl_spmatrix; x: Tdouble): longint; cdecl; external libgsl;
+function gsl_spmatrix_scale(m: Pgsl_spmatrix; x: double): longint; cdecl; external libgsl;
 function gsl_spmatrix_scale_columns(m: Pgsl_spmatrix; x: Pgsl_vector): longint; cdecl; external libgsl;
 function gsl_spmatrix_scale_rows(m: Pgsl_spmatrix; x: Pgsl_vector): longint; cdecl; external libgsl;
 function gsl_spmatrix_add(c: Pgsl_spmatrix; a: Pgsl_spmatrix; b: Pgsl_spmatrix): longint; cdecl; external libgsl;
@@ -66,7 +66,7 @@ function gsl_spmatrix_sp2d(A: Pgsl_matrix; S: Pgsl_spmatrix): longint; cdecl; ex
 function gsl_spmatrix_add_to_dense(a: Pgsl_matrix; b: Pgsl_spmatrix): longint; cdecl; external libgsl; deprecated;
 
 function gsl_spmatrix_equal(a: Pgsl_spmatrix; b: Pgsl_spmatrix): longint; cdecl; external libgsl;
-function gsl_spmatrix_norm1(a: Pgsl_spmatrix): Tdouble; cdecl; external libgsl;
+function gsl_spmatrix_norm1(a: Pgsl_spmatrix): double; cdecl; external libgsl;
 
 function gsl_spmatrix_transpose(m: Pgsl_spmatrix): longint; cdecl; external libgsl;
 function gsl_spmatrix_transpose2(m: Pgsl_spmatrix): longint; cdecl; external libgsl;

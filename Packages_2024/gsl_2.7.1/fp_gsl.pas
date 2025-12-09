@@ -21,20 +21,18 @@ type
   {$IFDEF Linux}
   Tculong = uint64;
   Tclong = int64;
+  Tlong_double = extended;
   {$ENDIF}
   {$IFDEF windows}
   Tculong = uint32;
   Tclong = int64;
+  Tlong_double = double;
   {$ENDIF}
   Pculong = ^Tculong;
   Pclong = ^Tclong;
-
-type
-  Tdouble = double;
-
-  Tlong_double = extended;
   Plong_double = ^Tlong_double;
 
+type
   Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;
 

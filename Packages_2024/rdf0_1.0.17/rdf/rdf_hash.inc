@@ -7,7 +7,7 @@ function librdf_new_hash_from_hash(old_hash: Plibrdf_hash): Plibrdf_hash; cdecl;
 procedure librdf_free_hash(hash: Plibrdf_hash); cdecl; external librdf;
 function librdf_hash_get(hash: Plibrdf_hash; key: pchar): pchar; cdecl; external librdf;
 function librdf_hash_get_as_boolean(hash: Plibrdf_hash; key: pchar): longint; cdecl; external librdf;
-function librdf_hash_get_as_long(hash: Plibrdf_hash; key: pchar): Tlong; cdecl; external librdf;
+function librdf_hash_get_as_long(hash: Plibrdf_hash; key: pchar): Tclong; cdecl; external librdf;
 function librdf_hash_get_del(hash: Plibrdf_hash; key: pchar): pchar; cdecl; external librdf;
 function librdf_hash_put_strings(hash: Plibrdf_hash; key: pchar; value: pchar): longint; cdecl; external librdf;
 function librdf_hash_from_string(hash: Plibrdf_hash; _string: pchar): longint; cdecl; external librdf;

@@ -4,9 +4,9 @@
 type
   Tgsl_dht_struct = record
     size: Tsize_t;
-    nu: Tdouble;
-    xmax: Tdouble;
-    kmax: Tdouble;
+    nu: double;
+    xmax: double;
+    kmax: double;
     j: Pdouble;
     Jjj: Pdouble;
     J2: Pdouble;
@@ -17,10 +17,10 @@ type
   Pgsl_dht = ^Tgsl_dht;
 
 function gsl_dht_alloc(size: Tsize_t): Pgsl_dht; cdecl; external libgsl;
-function gsl_dht_new(size: Tsize_t; nu: Tdouble; xmax: Tdouble): Pgsl_dht; cdecl; external libgsl;
-function gsl_dht_init(t: Pgsl_dht; nu: Tdouble; xmax: Tdouble): longint; cdecl; external libgsl;
-function gsl_dht_x_sample(t: Pgsl_dht; n: longint): Tdouble; cdecl; external libgsl;
-function gsl_dht_k_sample(t: Pgsl_dht; n: longint): Tdouble; cdecl; external libgsl;
+function gsl_dht_new(size: Tsize_t; nu: double; xmax: double): Pgsl_dht; cdecl; external libgsl;
+function gsl_dht_init(t: Pgsl_dht; nu: double; xmax: double): longint; cdecl; external libgsl;
+function gsl_dht_x_sample(t: Pgsl_dht; n: longint): double; cdecl; external libgsl;
+function gsl_dht_k_sample(t: Pgsl_dht; n: longint): double; cdecl; external libgsl;
 procedure gsl_dht_free(t: Pgsl_dht); cdecl; external libgsl;
 function gsl_dht_apply(t: Pgsl_dht; f_in: Pdouble; f_out: Pdouble): longint; cdecl; external libgsl;
 

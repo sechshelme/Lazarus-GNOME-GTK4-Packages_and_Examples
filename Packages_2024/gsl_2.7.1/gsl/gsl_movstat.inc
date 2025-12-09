@@ -14,14 +14,14 @@ type
   Tgsl_movstat_accum = record
     size: function(n: Tsize_t): Tsize_t; cdecl;
     init: function(n: Tsize_t; vstate: pointer): longint; cdecl;
-    insert: function(x: Tdouble; vstate: pointer): longint; cdecl;
+    insert: function(x: double; vstate: pointer): longint; cdecl;
     delete_oldest: function(vstate: pointer): longint; cdecl;
     get: function(params: pointer; result: Pdouble; vstate: pointer): longint; cdecl;
   end;
   Pgsl_movstat_accum = ^Tgsl_movstat_accum;
 
   Tgsl_movstat_function = record
-    _function: function(n: Tsize_t; x: Pdouble; params: pointer): Tdouble; cdecl;
+    _function: function(n: Tsize_t; x: Pdouble; params: pointer): double; cdecl;
     params: pointer;
   end;
   Pgsl_movstat_function = ^Tgsl_movstat_function;
@@ -55,7 +55,7 @@ function gsl_movstat_max(endtype: Tgsl_movstat_end_t; x: Pgsl_vector; y: Pgsl_ve
 function gsl_movstat_minmax(endtype: Tgsl_movstat_end_t; x: Pgsl_vector; y_min: Pgsl_vector; y_max: Pgsl_vector; w: Pgsl_movstat_workspace): longint; cdecl; external libgsl;
 function gsl_movstat_mad0(endtype: Tgsl_movstat_end_t; x: Pgsl_vector; xmedian: Pgsl_vector; xmad: Pgsl_vector; w: Pgsl_movstat_workspace): longint; cdecl; external libgsl;
 function gsl_movstat_mad(endtype: Tgsl_movstat_end_t; x: Pgsl_vector; xmedian: Pgsl_vector; xmad: Pgsl_vector; w: Pgsl_movstat_workspace): longint; cdecl; external libgsl;
-function gsl_movstat_qqr(endtype: Tgsl_movstat_end_t; x: Pgsl_vector; q: Tdouble; xqqr: Pgsl_vector; w: Pgsl_movstat_workspace): longint; cdecl; external libgsl;
+function gsl_movstat_qqr(endtype: Tgsl_movstat_end_t; x: Pgsl_vector; q: double; xqqr: Pgsl_vector; w: Pgsl_movstat_workspace): longint; cdecl; external libgsl;
 function gsl_movstat_Sn(endtype: Tgsl_movstat_end_t; x: Pgsl_vector; xscale: Pgsl_vector; w: Pgsl_movstat_workspace): longint; cdecl; external libgsl;
 function gsl_movstat_Qn(endtype: Tgsl_movstat_end_t; x: Pgsl_vector; xscale: Pgsl_vector; w: Pgsl_movstat_workspace): longint; cdecl; external libgsl;
 function gsl_movstat_sum(endtype: Tgsl_movstat_end_t; x: Pgsl_vector; y: Pgsl_vector; w: Pgsl_movstat_workspace): longint; cdecl; external libgsl;
