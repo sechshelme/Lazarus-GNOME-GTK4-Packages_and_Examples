@@ -34,12 +34,16 @@ type
   Tber_socket_t=Integer;
   Tber_len_t=Tculong;
   Tber_tag_t=Tclong   ;
+  Tber_int_t=Integer;
+
 
   type // /usr/include/lber.h
   Tberval = record
  	bv_len: 	Tber_len_t;
 		bv_val:PChar;
         end;
+
+var ber_pvt_opt_on:Char;cvar; external;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
@@ -180,8 +184,11 @@ const
   LDAP_OPT_SUCCESS = 0;
   LDAP_OPT_ERROR = -(1);  
 
-  function LDAP_OPT_ON : pointer;
-function LDAP_OPT_OFF : pointer;
+  const
+//    LDAP_OPT_ON = pointer(@ber_pvt_opt_on);
+
+    LDAP_OPT_ON = Pointer(123); /// ????
+ LDAP_OPT_OFF = pointer(0);
 
 type
   Tldapapiinfo = record
@@ -222,15 +229,21 @@ const
   LDAP_CONTROL_MANAGEDSAIT = '2.16.840.1.113730.3.4.2';  
   LDAP_CONTROL_PROXY_AUTHZ = '2.16.840.1.113730.3.4.18';
   LDAP_CONTROL_SUBENTRIES = '1.3.6.1.4.1.4203.1.10.1';
+
   LDAP_CONTROL_VALUESRETURNFILTER = '1.2.826.0.1.3344810.2.3';
+
   LDAP_CONTROL_ASSERT = '1.3.6.1.1.12';
   LDAP_CONTROL_PRE_READ = '1.3.6.1.1.13.1';
   LDAP_CONTROL_POST_READ = '1.3.6.1.1.13.2';
+
   LDAP_CONTROL_SORTREQUEST = '1.2.840.113556.1.4.473';
   LDAP_CONTROL_SORTRESPONSE = '1.2.840.113556.1.4.474';
+
   LDAP_CONTROL_PAGEDRESULTS = '1.2.840.113556.1.4.319';
+
   LDAP_CONTROL_AUTHZID_REQUEST = '2.16.840.1.113730.3.4.16';
   LDAP_CONTROL_AUTHZID_RESPONSE = '2.16.840.1.113730.3.4.15';
+
   LDAP_SYNC_OID = '1.3.6.1.4.1.4203.1.9.1';
 LDAP_CONTROL_SYNC	=	LDAP_SYNC_OID +'.1';
 LDAP_CONTROL_SYNC_STATE	=LDAP_SYNC_OID+ '.2';
@@ -240,575 +253,274 @@ LDAP_CONTROL_SYNC_STATE	=LDAP_SYNC_OID+ '.2';
 LDAP_SYNC_NONE = $00;
   LDAP_SYNC_REFRESH_ONLY = $01;  
   LDAP_SYNC_RESERVED = $02;  
-  LDAP_SYNC_REFRESH_AND_PERSIST = $03;  
+  LDAP_SYNC_REFRESH_AND_PERSIST = $03;
+
   LDAP_SYNC_REFRESH_PRESENTS = 0;  
-  LDAP_SYNC_REFRESH_DELETES = 1;  
+  LDAP_SYNC_REFRESH_DELETES = 1;
 
-{ was #define dname def_expr }
-function LDAP_TAG_SYNC_NEW_COOKIE : Tber_tag_t;  
+    LDAP_TAG_SYNC_NEW_COOKIE = Tber_tag_t($80);
+    LDAP_TAG_SYNC_REFRESH_DELETE = Tber_tag_t($A1);
+    LDAP_TAG_SYNC_REFRESH_PRESENT = Tber_tag_t($A2);
+    LDAP_TAG_SYNC_ID_SET = Tber_tag_t($A3);
 
-{ was #define dname def_expr }
-function LDAP_TAG_SYNC_REFRESH_DELETE : Tber_tag_t;  
+    LDAP_TAG_SYNC_COOKIE = Tber_tag_t($04);
+    LDAP_TAG_REFRESHDELETES = Tber_tag_t($01);
+    LDAP_TAG_REFRESHDONE = Tber_tag_t($01);
+    LDAP_TAG_RELOAD_HINT = Tber_tag_t($01);
 
-{ was #define dname def_expr }
-function LDAP_TAG_SYNC_REFRESH_PRESENT : Tber_tag_t;  
-
-{ was #define dname def_expr }
-function LDAP_TAG_SYNC_ID_SET : Tber_tag_t;  
-
-{ was #define dname def_expr }
-function LDAP_TAG_SYNC_COOKIE : Tber_tag_t;  
-
-{ was #define dname def_expr }
-function LDAP_TAG_REFRESHDELETES : Tber_tag_t;  
-
-{ was #define dname def_expr }
-function LDAP_TAG_REFRESHDONE : Tber_tag_t;  
-
-{ was #define dname def_expr }
-function LDAP_TAG_RELOAD_HINT : Tber_tag_t;  
-
-const
-  LDAP_SYNC_PRESENT = 0;  
+  LDAP_SYNC_PRESENT = 0;
   LDAP_SYNC_ADD = 1;  
   LDAP_SYNC_MODIFY = 2;  
   LDAP_SYNC_DELETE = 3;  
   LDAP_SYNC_NEW_COOKIE = 4;  
-{ LDAP Don't Use Copy Control (RFC 6171)  }
-  LDAP_CONTROL_DONTUSECOPY = '1.3.6.1.1.22';  
-{ Password policy Controls  }{ work in progress  }
-{ ITS#3458: released; disabled by default  }
-  LDAP_CONTROL_PASSWORDPOLICYREQUEST = '1.3.6.1.4.1.42.2.27.8.5.1';  
+
+  LDAP_CONTROL_DONTUSECOPY = '1.3.6.1.1.22';
+
+  LDAP_CONTROL_PASSWORDPOLICYREQUEST = '1.3.6.1.4.1.42.2.27.8.5.1';
   LDAP_CONTROL_PASSWORDPOLICYRESPONSE = '1.3.6.1.4.1.42.2.27.8.5.1';  
-{ various works in progress  }
-  LDAP_CONTROL_NOOP = '1.3.6.1.4.1.4203.666.5.2';  
+
+  LDAP_CONTROL_NOOP = '1.3.6.1.4.1.4203.666.5.2';
   LDAP_CONTROL_NO_SUBORDINATES = '1.3.6.1.4.1.4203.666.5.11';  
   LDAP_CONTROL_RELAX = '1.3.6.1.4.1.4203.666.5.12';  
   LDAP_CONTROL_MANAGEDIT = LDAP_CONTROL_RELAX;  
   LDAP_CONTROL_SLURP = '1.3.6.1.4.1.4203.666.5.13';  
   LDAP_CONTROL_VALSORT = '1.3.6.1.4.1.4203.666.5.14';  
   LDAP_CONTROL_X_DEREF = '1.3.6.1.4.1.4203.666.5.16';  
-  LDAP_CONTROL_X_WHATFAILED = '1.3.6.1.4.1.4203.666.5.17';  
-{ LDAP Chaining Behavior Control  }{ work in progress  }
-{ <draft-sermersheim-ldap-chaining>;
- * see also LDAP_NO_REFERRALS_FOUND, LDAP_CANNOT_CHAIN  }
-  LDAP_CONTROL_X_CHAINING_BEHAVIOR = '1.3.6.1.4.1.4203.666.11.3';  
+  LDAP_CONTROL_X_WHATFAILED = '1.3.6.1.4.1.4203.666.5.17';
+
+  LDAP_CONTROL_X_CHAINING_BEHAVIOR = '1.3.6.1.4.1.4203.666.11.3';
+
   LDAP_CHAINING_PREFERRED = 0;  
   LDAP_CHAINING_REQUIRED = 1;  
   LDAP_REFERRALS_PREFERRED = 2;  
-  LDAP_REFERRALS_REQUIRED = 3;  
-{ MS Active Directory controls (for compatibility)  }
-  LDAP_CONTROL_X_LAZY_COMMIT = '1.2.840.113556.1.4.619';  
+  LDAP_REFERRALS_REQUIRED = 3;
+
+  LDAP_CONTROL_X_LAZY_COMMIT = '1.2.840.113556.1.4.619';
   LDAP_CONTROL_X_INCREMENTAL_VALUES = '1.2.840.113556.1.4.802';  
   LDAP_CONTROL_X_DOMAIN_SCOPE = '1.2.840.113556.1.4.1339';  
   LDAP_CONTROL_X_PERMISSIVE_MODIFY = '1.2.840.113556.1.4.1413';  
   LDAP_CONTROL_X_SEARCH_OPTIONS = '1.2.840.113556.1.4.1340';  
-{ do not generate referrals  }
-  LDAP_SEARCH_FLAG_DOMAIN_SCOPE = 1;  
-{ search all subordinate NCs  }
-  LDAP_SEARCH_FLAG_PHANTOM_ROOT = 2;  
-  LDAP_CONTROL_X_TREE_DELETE = '1.2.840.113556.1.4.805';  
-{ MS Active Directory controls - not implemented in slapd(8)  }
-  LDAP_CONTROL_X_SERVER_NOTIFICATION = '1.2.840.113556.1.4.528';  
+  LDAP_SEARCH_FLAG_DOMAIN_SCOPE = 1;
+  LDAP_SEARCH_FLAG_PHANTOM_ROOT = 2;
+  LDAP_CONTROL_X_TREE_DELETE = '1.2.840.113556.1.4.805';
+
+  LDAP_CONTROL_X_SERVER_NOTIFICATION = '1.2.840.113556.1.4.528';
   LDAP_CONTROL_X_EXTENDED_DN = '1.2.840.113556.1.4.529';  
   LDAP_CONTROL_X_SHOW_DELETED = '1.2.840.113556.1.4.417';  
-  LDAP_CONTROL_X_DIRSYNC = '1.2.840.113556.1.4.841';  
+  LDAP_CONTROL_X_DIRSYNC = '1.2.840.113556.1.4.841';
+
   LDAP_CONTROL_X_DIRSYNC_OBJECT_SECURITY = $00000001;  
   LDAP_CONTROL_X_DIRSYNC_ANCESTORS_FIRST = $00000800;  
   LDAP_CONTROL_X_DIRSYNC_PUBLIC_DATA_ONLY = $00002000;  
-  LDAP_CONTROL_X_DIRSYNC_INCREMENTAL_VALUES = $80000000;  
-{ <draft-wahl-ldap-session>  }
-  LDAP_CONTROL_X_SESSION_TRACKING = '1.3.6.1.4.1.21008.108.63.1';  
-{xxxxxxxxx
-#define LDAP_CONTROL_X_SESSION_TRACKING_RADIUS_ACCT_SESSION_ID \
-						LDAP_CONTROL_X_SESSION_TRACKING ".1"
-#define LDAP_CONTROL_X_SESSION_TRACKING_RADIUS_ACCT_MULTI_SESSION_ID \
-						LDAP_CONTROL_X_SESSION_TRACKING ".2"
-#define LDAP_CONTROL_X_SESSION_TRACKING_USERNAME \
-						LDAP_CONTROL_X_SESSION_TRACKING ".3"
- }
-{ various expired works  }
-{ LDAP Duplicated Entry Control Extension  }{ not implemented in slapd(8)  }
-  LDAP_CONTROL_DUPENT_REQUEST = '2.16.840.1.113719.1.27.101.1';  
+  LDAP_CONTROL_X_DIRSYNC_INCREMENTAL_VALUES = $80000000;
+
+  LDAP_CONTROL_X_SESSION_TRACKING = '1.3.6.1.4.1.21008.108.63.1';
+LDAP_CONTROL_X_SESSION_TRACKING_RADIUS_ACCT_SESSION_ID 	           =         LDAP_CONTROL_X_SESSION_TRACKING +'.1';
+LDAP_CONTROL_X_SESSION_TRACKING_RADIUS_ACCT_MULTI_SESSION_ID 	=		LDAP_CONTROL_X_SESSION_TRACKING +'.2';
+LDAP_CONTROL_X_SESSION_TRACKING_USERNAME 			=	LDAP_CONTROL_X_SESSION_TRACKING +'.3';
+
+LDAP_CONTROL_DUPENT_REQUEST = '2.16.840.1.113719.1.27.101.1';
   LDAP_CONTROL_DUPENT_RESPONSE = '2.16.840.1.113719.1.27.101.2';  
-  LDAP_CONTROL_DUPENT_ENTRY = '2.16.840.1.113719.1.27.101.3';  
-  LDAP_CONTROL_DUPENT = LDAP_CONTROL_DUPENT_REQUEST;  
-{ LDAP Persistent Search Control  }{ not implemented in slapd(8)  }
-  LDAP_CONTROL_PERSIST_REQUEST = '2.16.840.1.113730.3.4.3';  
+  LDAP_CONTROL_DUPENT_ENTRY = '2.16.840.1.113719.1.27.101.3';
+  LDAP_CONTROL_DUPENT = LDAP_CONTROL_DUPENT_REQUEST;
+
+  LDAP_CONTROL_PERSIST_REQUEST = '2.16.840.1.113730.3.4.3';
   LDAP_CONTROL_PERSIST_ENTRY_CHANGE_NOTICE = '2.16.840.1.113730.3.4.7';  
   LDAP_CONTROL_PERSIST_ENTRY_CHANGE_ADD = $1;  
   LDAP_CONTROL_PERSIST_ENTRY_CHANGE_DELETE = $2;  
   LDAP_CONTROL_PERSIST_ENTRY_CHANGE_MODIFY = $4;  
   LDAP_CONTROL_PERSIST_ENTRY_CHANGE_RENAME = $8;  
-{ LDAP VLV  }
-  LDAP_CONTROL_VLVREQUEST = '2.16.840.1.113730.3.4.9';  
+
+  LDAP_CONTROL_VLVREQUEST = '2.16.840.1.113730.3.4.9';
   LDAP_CONTROL_VLVRESPONSE = '2.16.840.1.113730.3.4.10';  
-{ Sun's analogue to ppolicy  }
-  LDAP_CONTROL_X_ACCOUNT_USABILITY = '1.3.6.1.4.1.42.2.27.9.5.8';  
-{ primitive + 0  }
 
-{ was #define dname def_expr }
-function LDAP_TAG_X_ACCOUNT_USABILITY_AVAILABLE : Tber_tag_t;  
+  LDAP_CONTROL_X_ACCOUNT_USABILITY = '1.3.6.1.4.1.42.2.27.9.5.8';
 
-{ constructed + 1  }
-{ was #define dname def_expr }
-function LDAP_TAG_X_ACCOUNT_USABILITY_NOT_AVAILABLE : Tber_tag_t;  
+  LDAP_TAG_X_ACCOUNT_USABILITY_AVAILABLE = Tber_tag_t($80);
+    LDAP_TAG_X_ACCOUNT_USABILITY_NOT_AVAILABLE = Tber_tag_t($A1);
 
-{ primitive + 0  }
-{ was #define dname def_expr }
-function LDAP_TAG_X_ACCOUNT_USABILITY_INACTIVE : Tber_tag_t;  
+    LDAP_TAG_X_ACCOUNT_USABILITY_INACTIVE = Tber_tag_t($80);
+    LDAP_TAG_X_ACCOUNT_USABILITY_RESET = Tber_tag_t($81);
+    LDAP_TAG_X_ACCOUNT_USABILITY_EXPIRED = Tber_tag_t($82);
+    LDAP_TAG_X_ACCOUNT_USABILITY_REMAINING_GRACE = Tber_tag_t($83);
+    LDAP_TAG_X_ACCOUNT_USABILITY_UNTIL_UNLOCK = Tber_tag_t($84);
 
-{ primitive + 1  }
-{ was #define dname def_expr }
-function LDAP_TAG_X_ACCOUNT_USABILITY_RESET : Tber_tag_t;  
-
-{ primitive + 2  }
-{ was #define dname def_expr }
-function LDAP_TAG_X_ACCOUNT_USABILITY_EXPIRED : Tber_tag_t;  
-
-{ primitive + 3  }
-{ was #define dname def_expr }
-function LDAP_TAG_X_ACCOUNT_USABILITY_REMAINING_GRACE : Tber_tag_t;  
-
-{ primitive + 4  }
-{ was #define dname def_expr }
-function LDAP_TAG_X_ACCOUNT_USABILITY_UNTIL_UNLOCK : Tber_tag_t;  
-
-{ Netscape Password policy response controls  }
-{ <draft-vchu-ldap-pwd-policy>  }
-const
-  LDAP_CONTROL_X_PASSWORD_EXPIRED = '2.16.840.1.113730.3.4.4';  
+  LDAP_CONTROL_X_PASSWORD_EXPIRED = '2.16.840.1.113730.3.4.4';
   LDAP_CONTROL_X_PASSWORD_EXPIRING = '2.16.840.1.113730.3.4.5';  
-{ LDAP Unsolicited Notifications  }
-{ RFC 4511  }
-  LDAP_NOTICE_OF_DISCONNECTION = '1.3.6.1.4.1.1466.20036';  
-  LDAP_NOTICE_DISCONNECT = LDAP_NOTICE_OF_DISCONNECTION;  
-{ LDAP Extended Operations  }
-{ RFC 4511  }
-  LDAP_EXOP_START_TLS = '1.3.6.1.4.1.1466.20037';  
-{ RFC 3062  }
-  LDAP_EXOP_MODIFY_PASSWD = '1.3.6.1.4.1.4203.1.11.1';  
 
-{ was #define dname def_expr }
-function LDAP_TAG_EXOP_MODIFY_PASSWD_ID : Tber_tag_t;  
+  LDAP_NOTICE_OF_DISCONNECTION = '1.3.6.1.4.1.1466.20036';
+  LDAP_NOTICE_DISCONNECT = LDAP_NOTICE_OF_DISCONNECTION;
 
-{ was #define dname def_expr }
-function LDAP_TAG_EXOP_MODIFY_PASSWD_OLD : Tber_tag_t;  
+  LDAP_EXOP_START_TLS = '1.3.6.1.4.1.1466.20037';
 
-{ was #define dname def_expr }
-function LDAP_TAG_EXOP_MODIFY_PASSWD_NEW : Tber_tag_t;  
+  LDAP_EXOP_MODIFY_PASSWD = '1.3.6.1.4.1.4203.1.11.1';
 
-{ was #define dname def_expr }
-function LDAP_TAG_EXOP_MODIFY_PASSWD_GEN : Tber_tag_t;  
+  LDAP_TAG_EXOP_MODIFY_PASSWD_ID = Tber_tag_t($80);
+    LDAP_TAG_EXOP_MODIFY_PASSWD_OLD = Tber_tag_t($81);
+    LDAP_TAG_EXOP_MODIFY_PASSWD_NEW = Tber_tag_t($82);
+    LDAP_TAG_EXOP_MODIFY_PASSWD_GEN = Tber_tag_t($80);
 
-{ RFC 3909  }
-const
-  LDAP_EXOP_CANCEL = '1.3.6.1.1.8';  
-  LDAP_EXOP_X_CANCEL = LDAP_EXOP_CANCEL;  
-{ RFC 2589  }
-  LDAP_EXOP_REFRESH = '1.3.6.1.4.1.1466.101.119.1';  
+  LDAP_EXOP_CANCEL = '1.3.6.1.1.8';
+  LDAP_EXOP_X_CANCEL = LDAP_EXOP_CANCEL;
 
-{ was #define dname def_expr }
-function LDAP_TAG_EXOP_REFRESH_REQ_DN : Tber_tag_t;  
+  LDAP_EXOP_REFRESH = '1.3.6.1.4.1.1466.101.119.1';
+  LDAP_TAG_EXOP_REFRESH_REQ_DN = Tber_tag_t($80);
+  LDAP_TAG_EXOP_REFRESH_REQ_TTL = Tber_tag_t($81);
+  LDAP_TAG_EXOP_REFRESH_RES_TTL = Tber_tag_t($81);
 
-{ was #define dname def_expr }
-function LDAP_TAG_EXOP_REFRESH_REQ_TTL : Tber_tag_t;  
+  LDAP_EXOP_VERIFY_CREDENTIALS= '1.3.6.1.4.1.4203.666.6.5';
+    LDAP_EXOP_X_VERIFY_CREDENTIALS = LDAP_EXOP_VERIFY_CREDENTIALS;
 
-{ was #define dname def_expr }
-function LDAP_TAG_EXOP_REFRESH_RES_TTL : Tber_tag_t;  
+    LDAP_TAG_EXOP_VERIFY_CREDENTIALS_COOKIE = Tber_tag_t($80);
+    LDAP_TAG_EXOP_VERIFY_CREDENTIALS_SCREDS = Tber_tag_t($81);
+    LDAP_TAG_EXOP_VERIFY_CREDENTIALS_CONTROLS = Tber_tag_t($A2); //
 
-const
-  LDAP_EXOP_VERIFY_CREDENTIALS = '1.3.6.1.4.1.4203.666.6.5';  
-  LDAP_EXOP_X_VERIFY_CREDENTIALS = LDAP_EXOP_VERIFY_CREDENTIALS;  
+    LDAP_EXOP_WHO_AM_I = '1.3.6.1.4.1.4203.1.11.3';
+  LDAP_EXOP_X_WHO_AM_I = LDAP_EXOP_WHO_AM_I;
 
-{ was #define dname def_expr }
-function LDAP_TAG_EXOP_VERIFY_CREDENTIALS_COOKIE : Tber_tag_t;  
+  LDAP_EXOP_TURN = '1.3.6.1.1.19';
+  LDAP_EXOP_X_TURN = LDAP_EXOP_TURN;
 
-{ was #define dname def_expr }
-function LDAP_TAG_EXOP_VERIFY_CREDENTIALS_SCREDS : Tber_tag_t;  
+  LDAP_X_DISTPROC_BASE = '1.3.6.1.4.1.4203.666.11.6';
+ LDAP_EXOP_X_CHAINEDREQUEST	=LDAP_X_DISTPROC_BASE +'.1';
+ LDAP_FEATURE_X_CANCHAINOPS	=LDAP_X_DISTPROC_BASE +'.2';
+ LDAP_CONTROL_X_RETURNCONTREF	=LDAP_X_DISTPROC_BASE +'.3';
+ LDAP_URLEXT_X_LOCALREFOID	=LDAP_X_DISTPROC_BASE +'.4';
+ LDAP_URLEXT_X_REFTYPEOID	=LDAP_X_DISTPROC_BASE +'.5';
+ LDAP_URLEXT_X_SEARCHEDSUBTREEOID =LDAP_X_DISTPROC_BASE +'.6';
+ LDAP_URLEXT_X_FAILEDNAMEOID	=LDAP_X_DISTPROC_BASE +'.7';
+  LDAP_URLEXT_X_LOCALREF = 'x-localReference';
+  LDAP_URLEXT_X_REFTYPE = 'x-referenceType';
+  LDAP_URLEXT_X_SEARCHEDSUBTREE = 'x-searchedSubtree';
+  LDAP_URLEXT_X_FAILEDNAME = 'x-failedName';
 
-{ context specific + constructed + 2  }
-{ was #define dname def_expr }
-function LDAP_TAG_EXOP_VERIFY_CREDENTIALS_CONTROLS : Tber_tag_t;  
+  LDAP_TXN = '1.3.6.1.1.21';
+ LDAP_EXOP_TXN_START				=LDAP_TXN +'.1';
+ LDAP_CONTROL_TXN_SPEC			=LDAP_TXN +'.2';
+ LDAP_EXOP_TXN_END				=LDAP_TXN +'.3';
+ LDAP_EXOP_TXN_ABORTED_NOTICE	=LDAP_TXN +'.4';
 
-{ RFC 4532  }
-const
-  LDAP_EXOP_WHO_AM_I = '1.3.6.1.4.1.4203.1.11.3';  
-  LDAP_EXOP_X_WHO_AM_I = LDAP_EXOP_WHO_AM_I;  
-{ various works in progress  }
-{ RFC 4531  }
-  LDAP_EXOP_TURN = '1.3.6.1.1.19';  
-  LDAP_EXOP_X_TURN = LDAP_EXOP_TURN;  
-{ LDAP Distributed Procedures <draft-sermersheim-ldap-distproc>  }
-{ a work in progress  }
-  LDAP_X_DISTPROC_BASE = '1.3.6.1.4.1.4203.666.11.6';  
-{xxxxxx
-#define LDAP_EXOP_X_CHAINEDREQUEST	LDAP_X_DISTPROC_BASE ".1"
-#define LDAP_FEATURE_X_CANCHAINOPS	LDAP_X_DISTPROC_BASE ".2"
-#define LDAP_CONTROL_X_RETURNCONTREF	LDAP_X_DISTPROC_BASE ".3"
-#define LDAP_URLEXT_X_LOCALREFOID	LDAP_X_DISTPROC_BASE ".4"
-#define LDAP_URLEXT_X_REFTYPEOID	LDAP_X_DISTPROC_BASE ".5"
-#define LDAP_URLEXT_X_SEARCHEDSUBTREEOID LDAP_X_DISTPROC_BASE ".6"
-#define LDAP_URLEXT_X_FAILEDNAMEOID	LDAP_X_DISTPROC_BASE ".7"
- }
-  LDAP_URLEXT_X_LOCALREF = 'x-localReference';  
-  LDAP_URLEXT_X_REFTYPE = 'x-referenceType';  
-  LDAP_URLEXT_X_SEARCHEDSUBTREE = 'x-searchedSubtree';  
-  LDAP_URLEXT_X_FAILEDNAME = 'x-failedName';  
-{ RFC 5805  }
-  LDAP_TXN = '1.3.6.1.1.21';  
-{xxxxxxxxxx
-#define LDAP_EXOP_TXN_START				LDAP_TXN ".1"
-#define LDAP_CONTROL_TXN_SPEC			LDAP_TXN ".2"
-#define LDAP_EXOP_TXN_END				LDAP_TXN ".3"
-#define LDAP_EXOP_TXN_ABORTED_NOTICE	LDAP_TXN ".4"
- }
-{ LDAP Features  }
-{ RFC 3673  }
-  LDAP_FEATURE_ALL_OP_ATTRS = '1.3.6.1.4.1.4203.1.5.1';  
-{  @objectClass - new number to be assigned  }
-  LDAP_FEATURE_OBJECTCLASS_ATTRS = '1.3.6.1.4.1.4203.1.5.2';  
-{ (&) (|)  }
-  LDAP_FEATURE_ABSOLUTE_FILTERS = '1.3.6.1.4.1.4203.1.5.3';  
-  LDAP_FEATURE_LANGUAGE_TAG_OPTIONS = '1.3.6.1.4.1.4203.1.5.4';  
-  LDAP_FEATURE_LANGUAGE_RANGE_OPTIONS = '1.3.6.1.4.1.4203.1.5.5';  
-  LDAP_FEATURE_MODIFY_INCREMENT = '1.3.6.1.1.14';  
-{ LDAP Experimental (works in progress) Features  }
-{ "children"  }
-  LDAP_FEATURE_SUBORDINATE_SCOPE = '1.3.6.1.4.1.4203.666.8.1';  
-  LDAP_FEATURE_CHILDREN_SCOPE = LDAP_FEATURE_SUBORDINATE_SCOPE;  
-{
- * specific LDAP instantiations of BER types we know about
-  }
-{ Overview of LBER tag construction
- *
- *	Bits
- *	______
- *	8 7 | CLASS
- *	0 0 = UNIVERSAL
- *	0 1 = APPLICATION
- *	1 0 = CONTEXT-SPECIFIC
- *	1 1 = PRIVATE
- *		_____
- *		| 6 | DATA-TYPE
- *		  0 = PRIMITIVE
- *		  1 = CONSTRUCTED
- *			___________
- *			| 5 ... 1 | TAG-NUMBER
-  }
-{ general stuff  }
-{ constructed + 16  }
+ LDAP_FEATURE_ALL_OP_ATTRS = '1.3.6.1.4.1.4203.1.5.1';
+  LDAP_FEATURE_OBJECTCLASS_ATTRS = '1.3.6.1.4.1.4203.1.5.2';
+  LDAP_FEATURE_ABSOLUTE_FILTERS = '1.3.6.1.4.1.4203.1.5.3';
+  LDAP_FEATURE_LANGUAGE_TAG_OPTIONS = '1.3.6.1.4.1.4203.1.5.4';
+  LDAP_FEATURE_LANGUAGE_RANGE_OPTIONS = '1.3.6.1.4.1.4203.1.5.5';
+  LDAP_FEATURE_MODIFY_INCREMENT = '1.3.6.1.1.14';
 
-{ was #define dname def_expr }
-function LDAP_TAG_MESSAGE : Tber_tag_t;  
+  LDAP_FEATURE_SUBORDINATE_SCOPE = '1.3.6.1.4.1.4203.666.8.1';
+  LDAP_FEATURE_CHILDREN_SCOPE = LDAP_FEATURE_SUBORDINATE_SCOPE;
 
-{ integer  }
-{ was #define dname def_expr }
-function LDAP_TAG_MSGID : Tber_tag_t;  
+  LDAP_TAG_MESSAGE = Tber_tag_t($30);
+  LDAP_TAG_MSGID = Tber_tag_t($02);
 
-{ octet string  }
-{ was #define dname def_expr }
-function LDAP_TAG_LDAPDN : Tber_tag_t;  
+  LDAP_TAG_LDAPDN = Tber_tag_t($04);
+  LDAP_TAG_LDAPCRED = Tber_tag_t($04);
 
-{ octet string  }
-{ was #define dname def_expr }
-function LDAP_TAG_LDAPCRED : Tber_tag_t;  
+  LDAP_TAG_CONTROLS = Tber_tag_t($A0);
+  LDAP_TAG_REFERRAL = Tber_tag_t($A3);
 
-{ context specific + constructed + 0  }
-{ was #define dname def_expr }
-function LDAP_TAG_CONTROLS : Tber_tag_t;  
+  LDAP_TAG_NEWSUPERIOR = Tber_tag_t($80);
 
-{ context specific + constructed + 3  }
-{ was #define dname def_expr }
-function LDAP_TAG_REFERRAL : Tber_tag_t;  
+  LDAP_TAG_EXOP_REQ_OID = Tber_tag_t($80);
+  LDAP_TAG_EXOP_REQ_VALUE = Tber_tag_t($81);
+  LDAP_TAG_EXOP_RES_OID = Tber_tag_t($8A);
+  LDAP_TAG_EXOP_RES_VALUE = Tber_tag_t($8B);
 
-{ context-specific + primitive + 0  }
-{ was #define dname def_expr }
-function LDAP_TAG_NEWSUPERIOR : Tber_tag_t;  
+  LDAP_TAG_IM_RES_OID = Tber_tag_t($80);
+  LDAP_TAG_IM_RES_VALUE = Tber_tag_t($81);
 
-{ context specific + primitive  }
-{ was #define dname def_expr }
-function LDAP_TAG_EXOP_REQ_OID : Tber_tag_t;  
+  LDAP_TAG_SASL_RES_CREDS = Tber_tag_t($87);
 
-{ context specific + primitive  }
-{ was #define dname def_expr }
-function LDAP_TAG_EXOP_REQ_VALUE : Tber_tag_t;  
+  LDAP_REQ_BIND = Tber_tag_t($60);
+  LDAP_REQ_UNBIND = Tber_tag_t($42);
+  LDAP_REQ_SEARCH = Tber_tag_t($63);
+  LDAP_REQ_MODIFY = Tber_tag_t($66);
+  LDAP_REQ_ADD = Tber_tag_t($68);
+  LDAP_REQ_DELETE = Tber_tag_t($4A);
+  LDAP_REQ_MODDN = Tber_tag_t($6C);
+  LDAP_REQ_MODRDN = LDAP_REQ_MODDN;
+  LDAP_REQ_RENAME = LDAP_REQ_MODDN;
+  LDAP_REQ_COMPARE = Tber_tag_t($6E);
+  LDAP_REQ_ABANDON = Tber_tag_t($50);
+  LDAP_REQ_EXTENDED = Tber_tag_t($77);
 
-{ context specific + primitive  }
-{ was #define dname def_expr }
-function LDAP_TAG_EXOP_RES_OID : Tber_tag_t;  
+  LDAP_RES_BIND = Tber_tag_t($61);
+  LDAP_RES_SEARCH_ENTRY = Tber_tag_t($64);
+  LDAP_RES_SEARCH_REFERENCE = Tber_tag_t($73);
+  LDAP_RES_SEARCH_RESULT = Tber_tag_t($65);
+  LDAP_RES_MODIFY = Tber_tag_t($67);
+  LDAP_RES_ADD = Tber_tag_t($69);
+  LDAP_RES_DELETE = Tber_tag_t($6B);
+  LDAP_RES_MODDN = Tber_tag_t($6D);
+  LDAP_RES_MODRDN = LDAP_RES_MODDN;
+  LDAP_RES_RENAME = LDAP_RES_MODDN;
+  LDAP_RES_COMPARE = Tber_tag_t($6F);
+  LDAP_RES_EXTENDED = Tber_tag_t($78);
+  LDAP_RES_INTERMEDIATE = Tber_tag_t($79);
 
-{ context specific + primitive  }
-{ was #define dname def_expr }
-function LDAP_TAG_EXOP_RES_VALUE : Tber_tag_t;  
+  LDAP_RES_ANY = Tber_int_t(-1);
+  LDAP_RES_UNSOLICITED = Tber_int_t(0);
 
-{ context specific + primitive  }
-{ was #define dname def_expr }
-function LDAP_TAG_IM_RES_OID : Tber_tag_t;  
+  LDAP_SASL_SIMPLE = PChar(0);
+  LDAP_SASL_NULL = '';
 
-{ context specific + primitive  }
-{ was #define dname def_expr }
-function LDAP_TAG_IM_RES_VALUE : Tber_tag_t;  
+  LDAP_AUTH_NONE = Tber_tag_t($00);
+  LDAP_AUTH_SIMPLE = Tber_tag_t($80);
+  LDAP_AUTH_SASL = Tber_tag_t($A3);
+  LDAP_AUTH_KRBV4 = Tber_tag_t($FF);
+  LDAP_AUTH_KRBV41 = Tber_tag_t($81);
+  LDAP_AUTH_KRBV42 = Tber_tag_t($82);
 
-{ context specific + primitive  }
-{ was #define dname def_expr }
-function LDAP_TAG_SASL_RES_CREDS : Tber_tag_t;  
+  LDAP_AUTH_NEGOTIATE = Tber_tag_t($04FF);
 
-{ LDAP Request Messages  }
-{ application + constructed  }
-{ was #define dname def_expr }
-function LDAP_REQ_BIND : Tber_tag_t;  
+  LDAP_FILTER_AND = Tber_tag_t($A0);
+  LDAP_FILTER_OR = Tber_tag_t($A1);
+  LDAP_FILTER_NOT = Tber_tag_t($A2);
+  LDAP_FILTER_EQUALITY = Tber_tag_t($A3);
+  LDAP_FILTER_SUBSTRINGS = Tber_tag_t($A4);
+  LDAP_FILTER_GE = Tber_tag_t($A5);
+  LDAP_FILTER_LE = Tber_tag_t($A6);
+  LDAP_FILTER_PRESENT = Tber_tag_t($87);
+  LDAP_FILTER_APPROX = Tber_tag_t($A8);
+  LDAP_FILTER_EXT = Tber_tag_t($A9);
 
-{ application + primitive    }
-{ was #define dname def_expr }
-function LDAP_REQ_UNBIND : Tber_tag_t;  
+  LDAP_FILTER_EXT_OID = Tber_tag_t($81);
+  LDAP_FILTER_EXT_TYPE = Tber_tag_t($82);
+  LDAP_FILTER_EXT_VALUE = Tber_tag_t($83);
+  LDAP_FILTER_EXT_DNATTRS = Tber_tag_t($84);
 
-{ application + constructed  }
-{ was #define dname def_expr }
-function LDAP_REQ_SEARCH : Tber_tag_t;  
+  LDAP_SUBSTRING_INITIAL = Tber_tag_t($80);
+  LDAP_SUBSTRING_ANY = Tber_tag_t($81);
+  LDAP_SUBSTRING_FINAL = Tber_tag_t($82);
 
-{ application + constructed  }
-{ was #define dname def_expr }
-function LDAP_REQ_MODIFY : Tber_tag_t;  
+  LDAP_SCOPE_BASE = Tber_int_t(0);
+  LDAP_SCOPE_BASEOBJECT = LDAP_SCOPE_BASE;
+  LDAP_SCOPE_ONELEVEL = Tber_int_t(1);
+  LDAP_SCOPE_ONE = LDAP_SCOPE_ONELEVEL;
+  LDAP_SCOPE_SUBTREE = Tber_int_t(2);
+  LDAP_SCOPE_SUB = LDAP_SCOPE_SUBTREE;
+  LDAP_SCOPE_SUBORDINATE = Tber_int_t(3);
+  LDAP_SCOPE_CHILDREN = LDAP_SCOPE_SUBORDINATE;
+  LDAP_SCOPE_DEFAULT = Tber_int_t(-1);
 
-{ application + constructed  }
-{ was #define dname def_expr }
-function LDAP_REQ_ADD : Tber_tag_t;  
+  LDAP_SUBSTRING_INITIAL = Tber_tag_t($80);
+  LDAP_SUBSTRING_ANY = Tber_tag_t($81);
+  LDAP_SUBSTRING_FINAL = Tber_tag_t($82);
 
-{ application + primitive    }
-{ was #define dname def_expr }
-function LDAP_REQ_DELETE : Tber_tag_t;  
-
-{ application + constructed  }
-{ was #define dname def_expr }
-function LDAP_REQ_MODDN : Tber_tag_t;  
-
-const
-  LDAP_REQ_MODRDN = LDAP_REQ_MODDN;  
-  LDAP_REQ_RENAME = LDAP_REQ_MODDN;  
-{ application + constructed  }
-
-{ was #define dname def_expr }
-function LDAP_REQ_COMPARE : Tber_tag_t;  
-
-{ application + primitive    }
-{ was #define dname def_expr }
-function LDAP_REQ_ABANDON : Tber_tag_t;  
-
-{ application + constructed  }
-{ was #define dname def_expr }
-function LDAP_REQ_EXTENDED : Tber_tag_t;  
-
-{ LDAP Response Messages  }
-{ application + constructed  }
-{ was #define dname def_expr }
-function LDAP_RES_BIND : Tber_tag_t;  
-
-{ application + constructed  }
-{ was #define dname def_expr }
-function LDAP_RES_SEARCH_ENTRY : Tber_tag_t;  
-
-{ V3: application + constructed  }
-{ was #define dname def_expr }
-function LDAP_RES_SEARCH_REFERENCE : Tber_tag_t;  
-
-{ application + constructed  }
-{ was #define dname def_expr }
-function LDAP_RES_SEARCH_RESULT : Tber_tag_t;  
-
-{ application + constructed  }
-{ was #define dname def_expr }
-function LDAP_RES_MODIFY : Tber_tag_t;  
-
-{ application + constructed  }
-{ was #define dname def_expr }
-function LDAP_RES_ADD : Tber_tag_t;  
-
-{ application + constructed  }
-{ was #define dname def_expr }
-function LDAP_RES_DELETE : Tber_tag_t;  
-
-{ application + constructed  }
-{ was #define dname def_expr }
-function LDAP_RES_MODDN : Tber_tag_t;  
-
-{ application + constructed  }
-const
-  LDAP_RES_MODRDN = LDAP_RES_MODDN;  
-{ application + constructed  }
-  LDAP_RES_RENAME = LDAP_RES_MODDN;  
-{ application + constructed  }
-
-{ was #define dname def_expr }
-function LDAP_RES_COMPARE : Tber_tag_t;  
-
-{ V3: application + constructed  }
-{ was #define dname def_expr }
-function LDAP_RES_EXTENDED : Tber_tag_t;  
-
-{ V3+: application + constructed  }
-{ was #define dname def_expr }
-function LDAP_RES_INTERMEDIATE : Tber_tag_t;  
 
 const
   LDAP_RES_ANY = -(1);  
   LDAP_RES_UNSOLICITED = 0;  
 { sasl methods  }
 
-{ was #define dname def_expr }
-function LDAP_SASL_SIMPLE : Pchar;  
 
-const
-  LDAP_SASL_NULL = '';  
-{ authentication methods available  }
-{ no authentication  }
 
-{ was #define dname def_expr }
-function LDAP_AUTH_NONE : Tber_tag_t;  
 
-{ context specific + primitive  }
-{ was #define dname def_expr }
-function LDAP_AUTH_SIMPLE : Tber_tag_t;  
+xxxxxxxxxxxxxxxxxxxxx
 
-{ context specific + constructed  }
-{ was #define dname def_expr }
-function LDAP_AUTH_SASL : Tber_tag_t;  
 
-{ means do both of the following  }
-{ was #define dname def_expr }
-function LDAP_AUTH_KRBV4 : Tber_tag_t;  
 
-{ context specific + primitive  }
-{ was #define dname def_expr }
-function LDAP_AUTH_KRBV41 : Tber_tag_t;  
-
-{ context specific + primitive  }
-{ was #define dname def_expr }
-function LDAP_AUTH_KRBV42 : Tber_tag_t;  
-
-{ used by the Windows API but not used on the wire  }
-{ was #define dname def_expr }
-function LDAP_AUTH_NEGOTIATE : Tber_tag_t;  
-
-{ filter types  }
-{ context specific + constructed  }
-{ was #define dname def_expr }
-function LDAP_FILTER_AND : Tber_tag_t;  
-
-{ context specific + constructed  }
-{ was #define dname def_expr }
-function LDAP_FILTER_OR : Tber_tag_t;  
-
-{ context specific + constructed  }
-{ was #define dname def_expr }
-function LDAP_FILTER_NOT : Tber_tag_t;  
-
-{ context specific + constructed  }
-{ was #define dname def_expr }
-function LDAP_FILTER_EQUALITY : Tber_tag_t;  
-
-{ context specific + constructed  }
-{ was #define dname def_expr }
-function LDAP_FILTER_SUBSTRINGS : Tber_tag_t;  
-
-{ context specific + constructed  }
-{ was #define dname def_expr }
-function LDAP_FILTER_GE : Tber_tag_t;  
-
-{ context specific + constructed  }
-{ was #define dname def_expr }
-function LDAP_FILTER_LE : Tber_tag_t;  
-
-{ context specific + primitive    }
-{ was #define dname def_expr }
-function LDAP_FILTER_PRESENT : Tber_tag_t;  
-
-{ context specific + constructed  }
-{ was #define dname def_expr }
-function LDAP_FILTER_APPROX : Tber_tag_t;  
-
-{ context specific + constructed  }
-{ was #define dname def_expr }
-function LDAP_FILTER_EXT : Tber_tag_t;  
-
-{ extended filter component types  }
-{ context specific  }
-{ was #define dname def_expr }
-function LDAP_FILTER_EXT_OID : Tber_tag_t;  
-
-{ context specific  }
-{ was #define dname def_expr }
-function LDAP_FILTER_EXT_TYPE : Tber_tag_t;  
-
-{ context specific  }
-{ was #define dname def_expr }
-function LDAP_FILTER_EXT_VALUE : Tber_tag_t;  
-
-{ context specific  }
-{ was #define dname def_expr }
-function LDAP_FILTER_EXT_DNATTRS : Tber_tag_t;  
-
-{ substring filter component types  }
-{ context specific  }
-{ was #define dname def_expr }
-function LDAP_SUBSTRING_INITIAL : Tber_tag_t;  
-
-{ context specific  }
-{ was #define dname def_expr }
-function LDAP_SUBSTRING_ANY : Tber_tag_t;  
-
-{ context specific  }
-{ was #define dname def_expr }
-function LDAP_SUBSTRING_FINAL : Tber_tag_t;  
-
-{ search scopes  }
-{ was #define dname def_expr }
-function LDAP_SCOPE_BASE : Tber_int_t;  
-
-const
-  LDAP_SCOPE_BASEOBJECT = LDAP_SCOPE_BASE;  
-
-{ was #define dname def_expr }
-function LDAP_SCOPE_ONELEVEL : Tber_int_t;  
-
-const
-  LDAP_SCOPE_ONE = LDAP_SCOPE_ONELEVEL;  
-
-{ was #define dname def_expr }
-function LDAP_SCOPE_SUBTREE : Tber_int_t;  
-
-const
-  LDAP_SCOPE_SUB = LDAP_SCOPE_SUBTREE;  
-{ OpenLDAP extension  }
-
-{ was #define dname def_expr }
-function LDAP_SCOPE_SUBORDINATE : Tber_int_t;  
-
-const
-  LDAP_SCOPE_CHILDREN = LDAP_SCOPE_SUBORDINATE;  
-{ OpenLDAP extension  }
-
-{ was #define dname def_expr }
-function LDAP_SCOPE_DEFAULT : Tber_int_t;  
-
-{ substring filter component types  }
-{ context specific  }
-{ was #define dname def_expr }
-function LDAP_SUBSTRING_INITIAL : Tber_tag_t;  
-
-{ context specific  }
-{ was #define dname def_expr }
-function LDAP_SUBSTRING_ANY : Tber_tag_t;  
-
-{ context specific  }
-{ was #define dname def_expr }
-function LDAP_SUBSTRING_FINAL : Tber_tag_t;  
-
-{
- * LDAP Result Codes
-  }
-const
-  LDAP_SUCCESS = $00;  
+LDAP_SUCCESS = $00;
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
 { return type might be wrong }   
@@ -2232,413 +1944,6 @@ function LDAP_TAG_EXOP_VERIFY_CREDENTIALS_CONTROLS : Tber_tag_t;
     LDAP_TAG_EXOP_VERIFY_CREDENTIALS_CONTROLS:=Tber_tag_t($a2);
   end;
 
-{ was #define dname def_expr }
-function LDAP_TAG_MESSAGE : Tber_tag_t;
-  begin
-    LDAP_TAG_MESSAGE:=Tber_tag_t($30);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_TAG_MSGID : Tber_tag_t;
-  begin
-    LDAP_TAG_MSGID:=Tber_tag_t($02);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_TAG_LDAPDN : Tber_tag_t;
-  begin
-    LDAP_TAG_LDAPDN:=Tber_tag_t($04);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_TAG_LDAPCRED : Tber_tag_t;
-  begin
-    LDAP_TAG_LDAPCRED:=Tber_tag_t($04);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_TAG_CONTROLS : Tber_tag_t;
-  begin
-    LDAP_TAG_CONTROLS:=Tber_tag_t($a0);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_TAG_REFERRAL : Tber_tag_t;
-  begin
-    LDAP_TAG_REFERRAL:=Tber_tag_t($a3);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_TAG_NEWSUPERIOR : Tber_tag_t;
-  begin
-    LDAP_TAG_NEWSUPERIOR:=Tber_tag_t($80);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_TAG_EXOP_REQ_OID : Tber_tag_t;
-  begin
-    LDAP_TAG_EXOP_REQ_OID:=Tber_tag_t($80);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_TAG_EXOP_REQ_VALUE : Tber_tag_t;
-  begin
-    LDAP_TAG_EXOP_REQ_VALUE:=Tber_tag_t($81);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_TAG_EXOP_RES_OID : Tber_tag_t;
-  begin
-    LDAP_TAG_EXOP_RES_OID:=Tber_tag_t($8a);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_TAG_EXOP_RES_VALUE : Tber_tag_t;
-  begin
-    LDAP_TAG_EXOP_RES_VALUE:=Tber_tag_t($8b);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_TAG_IM_RES_OID : Tber_tag_t;
-  begin
-    LDAP_TAG_IM_RES_OID:=Tber_tag_t($80);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_TAG_IM_RES_VALUE : Tber_tag_t;
-  begin
-    LDAP_TAG_IM_RES_VALUE:=Tber_tag_t($81);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_TAG_SASL_RES_CREDS : Tber_tag_t;
-  begin
-    LDAP_TAG_SASL_RES_CREDS:=Tber_tag_t($87);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_REQ_BIND : Tber_tag_t;
-  begin
-    LDAP_REQ_BIND:=Tber_tag_t($60);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_REQ_UNBIND : Tber_tag_t;
-  begin
-    LDAP_REQ_UNBIND:=Tber_tag_t($42);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_REQ_SEARCH : Tber_tag_t;
-  begin
-    LDAP_REQ_SEARCH:=Tber_tag_t($63);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_REQ_MODIFY : Tber_tag_t;
-  begin
-    LDAP_REQ_MODIFY:=Tber_tag_t($66);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_REQ_ADD : Tber_tag_t;
-  begin
-    LDAP_REQ_ADD:=Tber_tag_t($68);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_REQ_DELETE : Tber_tag_t;
-  begin
-    LDAP_REQ_DELETE:=Tber_tag_t($4a);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_REQ_MODDN : Tber_tag_t;
-  begin
-    LDAP_REQ_MODDN:=Tber_tag_t($6c);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_REQ_COMPARE : Tber_tag_t;
-  begin
-    LDAP_REQ_COMPARE:=Tber_tag_t($6e);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_REQ_ABANDON : Tber_tag_t;
-  begin
-    LDAP_REQ_ABANDON:=Tber_tag_t($50);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_REQ_EXTENDED : Tber_tag_t;
-  begin
-    LDAP_REQ_EXTENDED:=Tber_tag_t($77);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_RES_BIND : Tber_tag_t;
-  begin
-    LDAP_RES_BIND:=Tber_tag_t($61);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_RES_SEARCH_ENTRY : Tber_tag_t;
-  begin
-    LDAP_RES_SEARCH_ENTRY:=Tber_tag_t($64);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_RES_SEARCH_REFERENCE : Tber_tag_t;
-  begin
-    LDAP_RES_SEARCH_REFERENCE:=Tber_tag_t($73);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_RES_SEARCH_RESULT : Tber_tag_t;
-  begin
-    LDAP_RES_SEARCH_RESULT:=Tber_tag_t($65);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_RES_MODIFY : Tber_tag_t;
-  begin
-    LDAP_RES_MODIFY:=Tber_tag_t($67);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_RES_ADD : Tber_tag_t;
-  begin
-    LDAP_RES_ADD:=Tber_tag_t($69);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_RES_DELETE : Tber_tag_t;
-  begin
-    LDAP_RES_DELETE:=Tber_tag_t($6b);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_RES_MODDN : Tber_tag_t;
-  begin
-    LDAP_RES_MODDN:=Tber_tag_t($6d);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_RES_COMPARE : Tber_tag_t;
-  begin
-    LDAP_RES_COMPARE:=Tber_tag_t($6f);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_RES_EXTENDED : Tber_tag_t;
-  begin
-    LDAP_RES_EXTENDED:=Tber_tag_t($78);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_RES_INTERMEDIATE : Tber_tag_t;
-  begin
-    LDAP_RES_INTERMEDIATE:=Tber_tag_t($79);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_SASL_SIMPLE : Pchar;
-  begin
-    LDAP_SASL_SIMPLE:=Pchar(0);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_AUTH_NONE : Tber_tag_t;
-  begin
-    LDAP_AUTH_NONE:=Tber_tag_t($00);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_AUTH_SIMPLE : Tber_tag_t;
-  begin
-    LDAP_AUTH_SIMPLE:=Tber_tag_t($80);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_AUTH_SASL : Tber_tag_t;
-  begin
-    LDAP_AUTH_SASL:=Tber_tag_t($a3);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_AUTH_KRBV4 : Tber_tag_t;
-  begin
-    LDAP_AUTH_KRBV4:=Tber_tag_t($ff);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_AUTH_KRBV41 : Tber_tag_t;
-  begin
-    LDAP_AUTH_KRBV41:=Tber_tag_t($81);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_AUTH_KRBV42 : Tber_tag_t;
-  begin
-    LDAP_AUTH_KRBV42:=Tber_tag_t($82);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_AUTH_NEGOTIATE : Tber_tag_t;
-  begin
-    LDAP_AUTH_NEGOTIATE:=Tber_tag_t($04FF);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_FILTER_AND : Tber_tag_t;
-  begin
-    LDAP_FILTER_AND:=Tber_tag_t($a0);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_FILTER_OR : Tber_tag_t;
-  begin
-    LDAP_FILTER_OR:=Tber_tag_t($a1);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_FILTER_NOT : Tber_tag_t;
-  begin
-    LDAP_FILTER_NOT:=Tber_tag_t($a2);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_FILTER_EQUALITY : Tber_tag_t;
-  begin
-    LDAP_FILTER_EQUALITY:=Tber_tag_t($a3);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_FILTER_SUBSTRINGS : Tber_tag_t;
-  begin
-    LDAP_FILTER_SUBSTRINGS:=Tber_tag_t($a4);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_FILTER_GE : Tber_tag_t;
-  begin
-    LDAP_FILTER_GE:=Tber_tag_t($a5);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_FILTER_LE : Tber_tag_t;
-  begin
-    LDAP_FILTER_LE:=Tber_tag_t($a6);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_FILTER_PRESENT : Tber_tag_t;
-  begin
-    LDAP_FILTER_PRESENT:=Tber_tag_t($87);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_FILTER_APPROX : Tber_tag_t;
-  begin
-    LDAP_FILTER_APPROX:=Tber_tag_t($a8);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_FILTER_EXT : Tber_tag_t;
-  begin
-    LDAP_FILTER_EXT:=Tber_tag_t($a9);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_FILTER_EXT_OID : Tber_tag_t;
-  begin
-    LDAP_FILTER_EXT_OID:=Tber_tag_t($81);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_FILTER_EXT_TYPE : Tber_tag_t;
-  begin
-    LDAP_FILTER_EXT_TYPE:=Tber_tag_t($82);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_FILTER_EXT_VALUE : Tber_tag_t;
-  begin
-    LDAP_FILTER_EXT_VALUE:=Tber_tag_t($83);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_FILTER_EXT_DNATTRS : Tber_tag_t;
-  begin
-    LDAP_FILTER_EXT_DNATTRS:=Tber_tag_t($84);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_SUBSTRING_INITIAL : Tber_tag_t;
-  begin
-    LDAP_SUBSTRING_INITIAL:=Tber_tag_t($80);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_SUBSTRING_ANY : Tber_tag_t;
-  begin
-    LDAP_SUBSTRING_ANY:=Tber_tag_t($81);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_SUBSTRING_FINAL : Tber_tag_t;
-  begin
-    LDAP_SUBSTRING_FINAL:=Tber_tag_t($82);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_SCOPE_BASE : Tber_int_t;
-  begin
-    LDAP_SCOPE_BASE:=Tber_int_t($0000);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_SCOPE_ONELEVEL : Tber_int_t;
-  begin
-    LDAP_SCOPE_ONELEVEL:=Tber_int_t($0001);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_SCOPE_SUBTREE : Tber_int_t;
-  begin
-    LDAP_SCOPE_SUBTREE:=Tber_int_t($0002);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_SCOPE_SUBORDINATE : Tber_int_t;
-  begin
-    LDAP_SCOPE_SUBORDINATE:=Tber_int_t($0003);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_SCOPE_DEFAULT : Tber_int_t;
-  begin
-    LDAP_SCOPE_DEFAULT:=Tber_int_t(-(1));
-  end;
-
-{ was #define dname def_expr }
-function LDAP_SUBSTRING_INITIAL : Tber_tag_t;
-  begin
-    LDAP_SUBSTRING_INITIAL:=Tber_tag_t($80);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_SUBSTRING_ANY : Tber_tag_t;
-  begin
-    LDAP_SUBSTRING_ANY:=Tber_tag_t($81);
-  end;
-
-{ was #define dname def_expr }
-function LDAP_SUBSTRING_FINAL : Tber_tag_t;
-  begin
-    LDAP_SUBSTRING_FINAL:=Tber_tag_t($82);
-  end;
 
 { was #define dname(params) para_def_expr }
 { argument types are unknown }
