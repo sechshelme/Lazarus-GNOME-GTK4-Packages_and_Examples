@@ -4,7 +4,7 @@ interface
 
 const
   {$IFDEF Linux}
-  libx = 'X';
+  libx = 'X11';
   {$ENDIF}
 
   {$IFDEF windows}
@@ -12,7 +12,8 @@ const
   {$ENDIF}
 
 type
-  Pwchar_t=Pointer;
+  Twchar_t = DWord;
+  Pwchar_t = ^Twchar_t;
 
 
 implementation

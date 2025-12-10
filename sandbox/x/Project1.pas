@@ -2,62 +2,61 @@ program Project1;
 
 uses
   unixtype,
-  ctypes,
-//  xlib,
-  xutil,
+//  xutil,
   keysym,
+//    xlib,
 //  x,
   fp_xlib,
-  fp_x, fp_x11;
+  fp_x,
+//  fp_x11,
+ctypes;
 
 var
   dis: PDisplay;
   win: TWindow;
   Event: TXEvent;
   scr: cint;
+  gc: TGC;
+  quit:Boolean=False;
+
+const
+  hello='Hello World';
 
 begin
-  WriteLn(_Xdebug);
-  // Erstellt die Verbindung zum Server
   dis := XOpenDisplay(nil);
   if dis = nil then begin
     WriteLn('Kann nicht das Display öffnen');
     Halt(1);
   end;
-  scr := DefaultScreen(dis);
+  scr := XDefaultScreen(dis);
 
-  // Erstellt das Fenster
-  win := XCreateSimpleWindow(dis, RootWindow(dis, scr), 10, 10, 320, 240, 1, BlackPixel(dis, scr), WhitePixel(dis, scr));
+  win := XCreateSimpleWindow(dis, RootWindow(dis, scr), 10, 10, 320, 240, 1, XBlackPixel(dis, scr), XWhitePixel(dis, scr));
 
-  // Wählt die gewünschten Ereignisse aus
-  // Es wird nur das Tastendrückereigniss <b>KeyPressMask</b> gebraucht.
-  XSelectInput(dis, win, KeyPressMask);
+  gc := XCreateGC(dis, win, 0, nil);
 
-  // Fenster Titel festlegen
+  XSelectInput(dis, win, KeyPressMask or ExposureMask);
+
   XStoreName(dis, win, 'Mein Fenster');
 
-  // Fenster anzeigen
   XMapWindow(dis, win);
 
-  // Ereignisschleife
-  while (True) do begin
+  repeat
     XNextEvent(dis, @Event);
     case Event._type of
       KeyPress: begin
-        // Beendet das Programm bei [ESC]
         case XLookupKeysym(@Event.xkey, 0) of
           XK_Escape: begin
-            Break;
+            quit:=True;
           end;
         end;
       end;
+      Expose: begin
+        XDrawString(dis,win,gc,20, 20, hello,Length(hello));
+      end;
     end;
-  end;
+  until quit;
 
-  // Schliesst das Fenster
   XDestroyWindow(dis, win);
-
-  // Schliesst Verbindung zum Server
   XCloseDisplay(dis);
 end.
-//code-
+

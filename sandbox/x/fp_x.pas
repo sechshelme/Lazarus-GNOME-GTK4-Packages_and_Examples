@@ -12,6 +12,8 @@ type
   Tclong = int32;
   Tculong = uint32;
   {$ENDIF}
+  Pclong = ^Tclong;
+  Pculong = ^Tculong;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
