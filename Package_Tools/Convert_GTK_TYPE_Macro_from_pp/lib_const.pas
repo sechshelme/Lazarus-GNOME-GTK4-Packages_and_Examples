@@ -264,6 +264,7 @@ const
     (libs: 'libadapta'; units: 'fp_adapta'),
     (libs: 'libyaml'; units: 'cytypes'),
     (libs: 'libx'; units: 'cytypes'),
+    (libs: 'libldap'; units: 'cytypes'),
 
     (libs: ''; units: ''));
 

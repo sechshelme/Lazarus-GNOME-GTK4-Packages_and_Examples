@@ -8,6 +8,7 @@ uses
 //  x,
   fp_xlib,
   fp_x,
+  fp_xutil,
 //  fp_x11,
 ctypes;
 
