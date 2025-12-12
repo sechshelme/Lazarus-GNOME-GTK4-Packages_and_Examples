@@ -20,18 +20,20 @@
 
 #include <ldap.h>
 
+LDAP_BEGIN_DECL
 
 #define LDAP_PROTO_TCP 1 /* ldap://  */
 #define LDAP_PROTO_UDP 2 /* reserved */
 #define LDAP_PROTO_IPC 3 /* ldapi:// */
 #define LDAP_PROTO_EXT 4 /* user-defined socket/sockbuf */
 
- int 
-ldap_init_fd (
+LDAP_F( int )
+ldap_init_fd LDAP_P((
 	ber_socket_t fd,
 	int proto,
-	 char *url,
-	LDAP **ldp );
+	LDAP_CONST char *url,
+	LDAP **ldp ));
 
+LDAP_END_DECL
 
 #endif /* _OPENLDAP_H */

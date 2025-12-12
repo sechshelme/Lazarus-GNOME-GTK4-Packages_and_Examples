@@ -265,6 +265,7 @@ const
     (libs: 'libyaml'; units: 'cytypes'),
     (libs: 'libx'; units: 'cytypes'),
     (libs: 'libldap'; units: 'cytypes'),
+    (libs: 'liblber'; units: 'cytypes'),
 
     (libs: ''; units: ''));
 
