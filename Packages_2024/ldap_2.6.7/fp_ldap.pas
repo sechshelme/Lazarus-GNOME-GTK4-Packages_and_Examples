@@ -33,30 +33,6 @@ type
   Twchar_t = DWord;
   Pwchar_t = ^Twchar_t;
 
-//type // /usr/include/lber_types.h
-//  Tber_socket_t = integer;
-//  Tber_len_t = Tculong;
-//  Tber_tag_t = Tclong;
-//  Tber_int_t = integer;
-//  Pber_int_t = ^Tber_int_t;
-//
-//
-//type // /usr/include/lber.h
-//  Tberval = record
-//    bv_len: Tber_len_t;
-//    bv_val: pchar;
-//  end;
-//  Pberval = ^Tberval;
-//  PPberval = ^Pberval;
-//  TBerVarray = ^Pberval;
-//
-//  PSockbuf = type Pointer;
-//  PBerElement = type Pointer;
-//  PPBerElement = ^PBerElement;
-//
-//var
-//  ber_pvt_opt_on: char; cvar; external;
-
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
@@ -1078,9 +1054,7 @@ const
 
 function ldap_create_page_control_value(ld: PLDAP; pagesize: Tber_int_t; cookie: Pberval; value: Pberval): longint; cdecl; external libldap;
 function ldap_create_page_control(ld: PLDAP; pagesize: Tber_int_t; cookie: Pberval; iscritical: longint; ctrlp: PPLDAPControl): longint; cdecl; external libldap;
-
 function ldap_parse_page_control(ld: PLDAP; ctrls: PPLDAPControl; count: Pber_int_t; cookie: PPberval): longint; cdecl; external libldap;
-
 function ldap_parse_pageresponse_control(ld: PLDAP; ctrl: PLDAPControl; count: Pber_int_t; cookie: Pberval): longint; cdecl; external libldap;
 
 const
@@ -1213,14 +1187,10 @@ function ldap_parse_session_tracking_control(ld: PLDAP; ctrl: PLDAPControl; ip: 
 function ldap_create_dirsync_value(ld: PLDAP; flags: longint; maxAttrCount: longint; cookie: Pberval; value: Pberval): longint; cdecl; external libldap;
 function ldap_create_dirsync_control(ld: PLDAP; flags: longint; maxAttrCount: longint; cookie: Pberval; ctrlp: PPLDAPControl): longint; cdecl; external libldap;
 function ldap_parse_dirsync_control(ld: PLDAP; ctrl: PLDAPControl; continueFlag: Plongint; cookie: Pberval): longint; cdecl; external libldap;
-
 function ldap_create_extended_dn_value(ld: PLDAP; flag: longint; value: Pberval): longint; cdecl; external libldap;
 function ldap_create_extended_dn_control(ld: PLDAP; flag: longint; ctrlp: PPLDAPControl): longint; cdecl; external libldap;
-
 function ldap_create_show_deleted_control(ld: PLDAP; ctrlp: PPLDAPControl): longint; cdecl; external libldap;
-
 function ldap_create_server_notification_control(ld: PLDAP; ctrlp: PPLDAPControl): longint; cdecl; external libldap;
-
 function ldap_create_assertion_control_value(ld: PLDAP; assertion: pchar; value: Pberval): longint; cdecl; external libldap;
 function ldap_create_assertion_control(ld: PLDAP; filter: pchar; iscritical: longint; ctrlp: PPLDAPControl): longint; cdecl; external libldap;
 

@@ -266,6 +266,7 @@ const
     (libs: 'libx'; units: 'cytypes'),
     (libs: 'libldap'; units: 'cytypes'),
     (libs: 'liblber'; units: 'cytypes'),
+    (libs: 'libgs'; units: 'cytypes'),
 
     (libs: ''; units: ''));
 
