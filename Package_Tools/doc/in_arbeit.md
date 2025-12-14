@@ -315,7 +315,6 @@ libcupsfilters
 
 
 /usr/include/libmount
-/usr/include/libltdl
 
 libnotify-dev
 
@@ -454,6 +453,9 @@ libvala-0.56-dev
 libyaml-dev              // io.
 libappstream-dev
 
+ libavahi-glib1  
+  liba52-0.7.4-dev      
+
 
 
 
@@ -491,6 +493,19 @@ https://github.com/longradix/gnuplot_i
 
 /usr/include/nspr
 
+
+# ==== ffmpeg
+
+libavutil/ (Utils, Mathe, Logging) – immer.
+libavcodec/ (Codecs) – immer.
+libavformat/ (IO, Demux/Mux) – immer.
+
+libswscale/ (Skalierung, Pixel-Format).
+libswresample/ (Audio-Resampling).
+libavfilter/ (Filter, z. B. scale, overlay).
+libavdevice/ (Geräte-Input/Output).
+libavresample/ (älteres Resampling, deprecated).
+libpostproc/ (Post-Processing, optional).
 
 
 

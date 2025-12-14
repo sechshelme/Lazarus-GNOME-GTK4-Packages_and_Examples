@@ -23,6 +23,20 @@
     <RunParams>
       <FormatVersion Value="2"/>
     </RunParams>
+    <RequiredPackages>
+      <Item>
+        <PackageName Value="fp_FreeType2_Package"/>
+      </Item>
+      <Item>
+        <PackageName Value="fp_harfbuzz_package"/>
+      </Item>
+      <Item>
+        <PackageName Value="fp_GTK4_package"/>
+      </Item>
+      <Item>
+        <PackageName Value="fp_GLIB2_package"/>
+      </Item>
+    </RequiredPackages>
     <Units>
       <Unit>
         <Filename Value="project1.lpr"/>
@@ -37,6 +51,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="../../../Package_Tools/pas_units/harfbuzz"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

@@ -1,4 +1,4 @@
-unit fp_iapi;
+unit fp_gs;
 
 interface
 
@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libgs = 'gs.dll'; // ????
+  libgs = 'gsdll64.dll'; // ????
   {$ENDIF}
 
   {$IFDEF Windows}
@@ -184,8 +184,6 @@ const
   DISPLAY_PLANAR_INTERLEAVED = 2 shl 23;
 
 type
-  Pdisplay_callback = ^Tdisplay_callback;
-
   Tdisplay_callback = record
     size: longint;
     version_major: longint;
@@ -210,8 +208,7 @@ type
       raster: Plongint; plane_raster: Plongint; x: Plongint; y: Plongint; w: Plongint;
       h: Plongint): longint; cdecl;
   end;
-
-  Pdisplay_callback_v2 = ^Tdisplay_callback_v2;
+  Pdisplay_callback = ^Tdisplay_callback;
 
   Tdisplay_callback_v2 = record
     size: longint;
@@ -233,8 +230,7 @@ type
     display_separation: function(handle: pointer; device: pointer; component: longint; component_name: pchar; c: word;
       m: word; y: word; k: word): longint; cdecl;
   end;
-
-  Pdisplay_callback_v1 = ^Tdisplay_callback_v1;
+  Pdisplay_callback_v2 = ^Tdisplay_callback_v2;
 
   Tdisplay_callback_v1 = record
     size: longint;
@@ -254,6 +250,7 @@ type
     display_memalloc: function(handle: pointer; device: pointer; size: dword): pointer; cdecl;
     display_memfree: function(handle: pointer; device: pointer; mem: pointer): longint; cdecl;
   end;
+  Pdisplay_callback_v1 = ^Tdisplay_callback_v1;
 
 const
   DISPLAY_CALLBACK_V1_SIZEOF = sizeof(Tdisplay_callback_v1);

@@ -86,7 +86,7 @@ var
     cairo_set_font_size(cr, 18);
 
     for i := 0 to glyph_count - 1 do begin
-      FillChar(glyph_char, SizeOf(glyph_char),$00);
+      FillChar(glyph_char, SizeOf(glyph_char), $00);
       len := g_unichar_to_utf8(g_utf8_get_char(Text + glyph_info[i].cluster), glyph_char);
 
       cairo_text_extents(cr, glyph_char, @extents);
@@ -118,8 +118,12 @@ var
     status := g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
 
-    if cr<>nil then cairo_destroy(cr);
-    if surface<>nil then cairo_surface_destroy(surface);
+    if cr <> nil then begin
+      cairo_destroy(cr);
+    end;
+    if surface <> nil then begin
+      cairo_surface_destroy(surface);
+    end;
 
     Exit(status);
   end;
