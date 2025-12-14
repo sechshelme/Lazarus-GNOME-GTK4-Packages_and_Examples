@@ -1,0 +1,417 @@
+
+unit log;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from log.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    log.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+PAVClass  = ^AVClass;
+PAVClassCategory  = ^AVClassCategory;
+PAVOption  = ^AVOption;
+PAVOptionRanges  = ^AVOptionRanges;
+Pchar  = ^char;
+Plongint  = ^longint;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
+ * copyright (c) 2006 Michael Niedermayer <michaelni@gmx.at>
+ *
+ * This file is part of FFmpeg.
+ *
+ * FFmpeg is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * FFmpeg is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with FFmpeg; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+  }
+{$ifndef AVUTIL_LOG_H}
+{$define AVUTIL_LOG_H}
+{$include <stdarg.h>}
+{$include "attributes.h"}
+{$include "version.h"}
+{/< not part of ABI/API }
+type
+  PAVClassCategory = ^TAVClassCategory;
+  TAVClassCategory =  Longint;
+  Const
+    AV_CLASS_CATEGORY_NA = 0;
+    AV_CLASS_CATEGORY_INPUT = 1;
+    AV_CLASS_CATEGORY_OUTPUT = 2;
+    AV_CLASS_CATEGORY_MUXER = 3;
+    AV_CLASS_CATEGORY_DEMUXER = 4;
+    AV_CLASS_CATEGORY_ENCODER = 5;
+    AV_CLASS_CATEGORY_DECODER = 6;
+    AV_CLASS_CATEGORY_FILTER = 7;
+    AV_CLASS_CATEGORY_BITSTREAM_FILTER = 8;
+    AV_CLASS_CATEGORY_SWSCALER = 9;
+    AV_CLASS_CATEGORY_SWRESAMPLER = 10;
+    AV_CLASS_CATEGORY_DEVICE_VIDEO_OUTPUT = 40;
+    AV_CLASS_CATEGORY_DEVICE_VIDEO_INPUT = 41;
+    AV_CLASS_CATEGORY_DEVICE_AUDIO_OUTPUT = 42;
+    AV_CLASS_CATEGORY_DEVICE_AUDIO_INPUT = 43;
+    AV_CLASS_CATEGORY_DEVICE_OUTPUT = 44;
+    AV_CLASS_CATEGORY_DEVICE_INPUT = 45;
+    AV_CLASS_CATEGORY_NB = 46;
+;
+type
+  PAVOptionRanges = ^TAVOptionRanges;
+  TAVOptionRanges = record
+      {undefined structure}
+    end;
+
+{*
+ * Describe the class of an AVClass context structure. That is an
+ * arbitrary struct of which the first field is a pointer to an
+ * AVClass struct (e.g. AVCodecContext, AVFormatContext etc.).
+  }
+{*
+     * The name of the class; usually it is the same name as the
+     * context structure type to which the AVClass is associated.
+      }
+(* Const before type ignored *)
+{*
+     * A pointer to a function which returns the name of a context
+     * instance ctx associated with the class.
+      }
+(* Const before type ignored *)
+{*
+     * a pointer to the first option specified in the class if any or NULL
+     *
+     * @see av_set_default_options()
+      }
+(* Const before type ignored *)
+{*
+     * LIBAVUTIL_VERSION with which this structure was created.
+     * This is used to allow fields to be added without requiring major
+     * version bumps everywhere.
+      }
+{*
+     * Offset in the structure where log_level_offset is stored.
+     * 0 means there is no such variable
+      }
+{*
+     * Offset in the structure where a pointer to the parent context for
+     * logging is stored. For example a decoder could pass its AVCodecContext
+     * to eval as such a parent context, which an av_log() implementation
+     * could then leverage to display the parent context.
+     * The offset can be NULL.
+      }
+{*
+     * Category used for visualization (like color)
+     * This is only set if the category is equal for all objects using this class.
+     * available since version (51 << 16 | 56 << 8 | 100)
+      }
+{*
+     * Callback to return the category.
+     * available since version (51 << 16 | 59 << 8 | 100)
+      }
+{*
+     * Callback to return the supported/allowed ranges.
+     * available since version (52.12)
+      }
+(* Const before type ignored *)
+{*
+     * Return next AVOptions-enabled child or NULL
+      }
+{*
+     * Iterate over the AVClasses corresponding to potential AVOptions-enabled
+     * children.
+     *
+     * @param iter pointer to opaque iteration state. The caller must initialize
+     *             *iter to NULL before the first call.
+     * @return AVClass for the next AVOptions-enabled child or NULL if there are
+     *         no more such children.
+     *
+     * @note The difference between child_next and this is that child_next
+     *       iterates over _already existing_ objects, while child_class_iterate
+     *       iterates over _all possible_ children.
+      }
+(* Const before type ignored *)
+
+  PAVClass = ^TAVClass;
+  TAVClass = record
+      class_name : Pchar;
+      item_name : function (ctx:pointer):Pchar;cdecl;
+      option : PAVOption;
+      version : longint;
+      log_level_offset_offset : longint;
+      parent_log_context_offset : longint;
+      category : TAVClassCategory;
+      get_category : function (ctx:pointer):TAVClassCategory;cdecl;
+      query_ranges : function (para1:PPAVOptionRanges; obj:pointer; key:Pchar; flags:longint):longint;cdecl;
+      child_next : function (obj:pointer; prev:pointer):pointer;cdecl;
+      child_class_iterate : function (iter:Ppointer):PAVClass;cdecl;
+    end;
+{*
+ * @addtogroup lavu_log
+ *
+ * @
+ *
+ * @defgroup lavu_log_constants Logging Constants
+ *
+ * @
+  }
+{*
+ * Print no output.
+  }
+
+const
+  AV_LOG_QUIET = -(8);  
+{*
+ * Something went really wrong and we will crash now.
+  }
+  AV_LOG_PANIC = 0;  
+{*
+ * Something went wrong and recovery is not possible.
+ * For example, no header was found for a format which depends
+ * on headers or an illegal combination of parameters is used.
+  }
+  AV_LOG_FATAL = 8;  
+{*
+ * Something went wrong and cannot losslessly be recovered.
+ * However, not all future data is affected.
+  }
+  AV_LOG_ERROR = 16;  
+{*
+ * Something somehow does not look correct. This may or may not
+ * lead to problems. An example would be the use of '-vstrict -2'.
+  }
+  AV_LOG_WARNING = 24;  
+{*
+ * Standard information.
+  }
+  AV_LOG_INFO = 32;  
+{*
+ * Detailed information.
+  }
+  AV_LOG_VERBOSE = 40;  
+{*
+ * Stuff which is only useful for libav* developers.
+  }
+  AV_LOG_DEBUG = 48;  
+{*
+ * Extremely verbose debugging, useful for libav* development.
+  }
+  AV_LOG_TRACE = 56;  
+  AV_LOG_MAX_OFFSET = AV_LOG_TRACE-AV_LOG_QUIET;  
+{*
+ * @
+  }
+{*
+ * Sets additional colors for extended debugging sessions.
+ * @code
+   av_log(ctx, AV_LOG_DEBUG|AV_LOG_C(134), "Message in purple\n");
+   @endcode
+ * Requires 256color terminal support. Uses outside debugging is not
+ * recommended.
+  }
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+
+function AV_LOG_C(x : longint) : longint;
+
+{*
+ * Send the specified message to the log if the level is less than or equal
+ * to the current av_log_level. By default, all logging messages are sent to
+ * stderr. This behavior can be altered by setting a different logging callback
+ * function.
+ * @see av_log_set_callback
+ *
+ * @param avcl A pointer to an arbitrary struct of which the first field is a
+ *        pointer to an AVClass struct or NULL if general log.
+ * @param level The importance level of the message expressed using a @ref
+ *        lavu_log_constants "Logging Constant".
+ * @param fmt The format string (printf-compatible) that specifies how
+ *        subsequent arguments are converted to output.
+  }
+(* Const before type ignored *)
+procedure av_log(avcl:pointer; level:longint; fmt:Pchar; args:array of const);cdecl;external;
+procedure av_log(avcl:pointer; level:longint; fmt:Pchar);cdecl;external;
+{*
+ * Send the specified message to the log once with the initial_level and then with
+ * the subsequent_level. By default, all logging messages are sent to
+ * stderr. This behavior can be altered by setting a different logging callback
+ * function.
+ * @see av_log
+ *
+ * @param avcl A pointer to an arbitrary struct of which the first field is a
+ *        pointer to an AVClass struct or NULL if general log.
+ * @param initial_level importance level of the message expressed using a @ref
+ *        lavu_log_constants "Logging Constant" for the first occurance.
+ * @param subsequent_level importance level of the message expressed using a @ref
+ *        lavu_log_constants "Logging Constant" after the first occurance.
+ * @param fmt The format string (printf-compatible) that specifies how
+ *        subsequent arguments are converted to output.
+ * @param state a variable to keep trak of if a message has already been printed
+ *        this must be initialized to 0 before the first use. The same state
+ *        must not be accessed by 2 Threads simultaneously.
+  }
+(* Const before type ignored *)
+procedure av_log_once(avcl:pointer; initial_level:longint; subsequent_level:longint; state:Plongint; fmt:Pchar; 
+            args:array of const);cdecl;external;
+procedure av_log_once(avcl:pointer; initial_level:longint; subsequent_level:longint; state:Plongint; fmt:Pchar);cdecl;external;
+{*
+ * Send the specified message to the log if the level is less than or equal
+ * to the current av_log_level. By default, all logging messages are sent to
+ * stderr. This behavior can be altered by setting a different logging callback
+ * function.
+ * @see av_log_set_callback
+ *
+ * @param avcl A pointer to an arbitrary struct of which the first field is a
+ *        pointer to an AVClass struct.
+ * @param level The importance level of the message expressed using a @ref
+ *        lavu_log_constants "Logging Constant".
+ * @param fmt The format string (printf-compatible) that specifies how
+ *        subsequent arguments are converted to output.
+ * @param vl The arguments referenced by the format string.
+  }
+(* Const before type ignored *)
+procedure av_vlog(avcl:pointer; level:longint; fmt:Pchar; vl:Tva_list);cdecl;external;
+{*
+ * Get the current log level
+ *
+ * @see lavu_log_constants
+ *
+ * @return Current log level
+  }
+function av_log_get_level:longint;cdecl;external;
+{*
+ * Set the log level
+ *
+ * @see lavu_log_constants
+ *
+ * @param level Logging level
+  }
+procedure av_log_set_level(level:longint);cdecl;external;
+{*
+ * Set the logging callback
+ *
+ * @note The callback must be thread safe, even if the application does not use
+ *       threads itself as some codecs are multithreaded.
+ *
+ * @see av_log_default_callback
+ *
+ * @param callback A logging function with a compatible signature.
+  }
+(* Const before type ignored *)
+procedure av_log_set_callback(callback:procedure (para1:pointer; para2:longint; para3:Pchar; para4:Tva_list));cdecl;external;
+{*
+ * Default logging callback
+ *
+ * It prints the message to stderr, optionally colorizing it.
+ *
+ * @param avcl A pointer to an arbitrary struct of which the first field is a
+ *        pointer to an AVClass struct.
+ * @param level The importance level of the message expressed using a @ref
+ *        lavu_log_constants "Logging Constant".
+ * @param fmt The format string (printf-compatible) that specifies how
+ *        subsequent arguments are converted to output.
+ * @param vl The arguments referenced by the format string.
+  }
+(* Const before type ignored *)
+procedure av_log_default_callback(avcl:pointer; level:longint; fmt:Pchar; vl:Tva_list);cdecl;external;
+{*
+ * Return the context name
+ *
+ * @param  ctx The AVClass context
+ *
+ * @return The AVClass class_name
+  }
+(* Const before type ignored *)
+function av_default_item_name(ctx:pointer):Pchar;cdecl;external;
+function av_default_get_category(ptr:pointer):TAVClassCategory;cdecl;external;
+{*
+ * Format a line of log the same way as the default callback.
+ * @param line          buffer to receive the formatted line
+ * @param line_size     size of the buffer
+ * @param print_prefix  used to store whether the prefix must be printed;
+ *                      must point to a persistent integer initially set to 1
+  }
+(* Const before type ignored *)
+procedure av_log_format_line(ptr:pointer; level:longint; fmt:Pchar; vl:Tva_list; line:Pchar; 
+            line_size:longint; print_prefix:Plongint);cdecl;external;
+{*
+ * Format a line of log the same way as the default callback.
+ * @param line          buffer to receive the formatted line;
+ *                      may be NULL if line_size is 0
+ * @param line_size     size of the buffer; at most line_size-1 characters will
+ *                      be written to the buffer, plus one null terminator
+ * @param print_prefix  used to store whether the prefix must be printed;
+ *                      must point to a persistent integer initially set to 1
+ * @return Returns a negative value if an error occurred, otherwise returns
+ *         the number of characters that would have been written for a
+ *         sufficiently large buffer, not including the terminating null
+ *         character. If the return value is not less than line_size, it means
+ *         that the log message was truncated to fit the buffer.
+  }
+(* Const before type ignored *)
+function av_log_format_line2(ptr:pointer; level:longint; fmt:Pchar; vl:Tva_list; line:Pchar; 
+           line_size:longint; print_prefix:Plongint):longint;cdecl;external;
+{*
+ * Skip repeated messages, this requires the user app to use av_log() instead of
+ * (f)printf as the 2 would otherwise interfere and lead to
+ * "Last message repeated x times" messages below (f)printf messages with some
+ * bad luck.
+ * Also to receive the last, "last repeated" line if any, the user app must
+ * call av_log(NULL, AV_LOG_QUIET, "%s", ""); at the end
+  }
+const
+  AV_LOG_SKIP_REPEATED = 1;  
+{*
+ * Include the log severity in messages originating from codecs.
+ *
+ * Results in messages such as:
+ * [rawvideo @ 0xDEADBEEF] [error] encode did not produce valid pts
+  }
+  AV_LOG_PRINT_LEVEL = 2;  
+
+procedure av_log_set_flags(arg:longint);cdecl;external;
+function av_log_get_flags:longint;cdecl;external;
+{*
+ * @
+  }
+{$endif}
+{ AVUTIL_LOG_H  }
+
+implementation
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function AV_LOG_C(x : longint) : longint;
+begin
+  AV_LOG_C:=x shl 8;
+end;
+
+
+end.
