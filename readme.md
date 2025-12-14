@@ -1,6 +1,6 @@
 # test
 
-| <kbd>Test</kbd> Hello Test
+<kbd>Test</kbd> Hello Test
 
 # Inhalt
 
