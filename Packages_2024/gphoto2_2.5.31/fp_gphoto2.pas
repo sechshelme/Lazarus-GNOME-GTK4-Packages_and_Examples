@@ -4,7 +4,7 @@ interface
 
 const
   {$IFDEF Linux}
-  libgphoto2 = 'libgphoto2';
+  libgphoto2 = 'gphoto2';
   {$ENDIF}
 
   {$IFDEF Windows}

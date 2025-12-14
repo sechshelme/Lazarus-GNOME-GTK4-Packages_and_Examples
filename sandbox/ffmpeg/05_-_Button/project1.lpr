@@ -1,8 +1,32 @@
 program project1;
 
 uses
+  //avformat,
+  //avio,                 // struct verkleinert
+  //version,
+  //version_major,
+
+
+  adler32,
+  aes,
+  aes_ctr,
+  ambient_viewing_environment,
+  audio_fifo,
+  avassert,
+  avstring,
+  avutil,
+  base64,
+  blowfish,
+  bprint,
+  bswap,
+  buffer,
+  camellia,
+  cast5,
+
+
+
   fp_glib2,
-  fp_GTK4;
+  fp_GTK4, fp_ffmpeg;
 
   procedure print_hello(widget: PGtkWidget; Data: Tgpointer); cdecl;
   const

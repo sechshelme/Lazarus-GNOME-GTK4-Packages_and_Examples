@@ -267,6 +267,8 @@ const
     (libs: 'libldap'; units: 'cytypes'),
     (libs: 'liblber'; units: 'cytypes'),
     (libs: 'libgs'; units: 'cytypes'),
+    (libs: 'libavformat'; units: 'fp_ffmpeg'),
+    (libs: 'libavutil'; units: 'fp_ffmpeg'),
 
     (libs: ''; units: ''));
 
