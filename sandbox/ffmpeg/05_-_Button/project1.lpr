@@ -51,6 +51,9 @@ uses
   mem,
   motion_vector,
   murmur3,
+  hdr_dynamic_metadata,           // rational, frame
+  hdr_dynamic_vivid_metadata,     // rational, frame
+  hmac,
 
 
   //adler32,
@@ -85,21 +88,20 @@ uses
   //file_,
   //film_grain_params,
   //hash,
-  //hdr_dynamic_metadata,
-  //hdr_dynamic_vivid_metadata,
-  //hmac,
-  //hwcontext,
-  //hwcontext_cuda,
-  //hwcontext_d3d11va,
-  //hwcontext_drm,
-  //hwcontext_dxva2,
-  //hwcontext_mediacodec,
-  //hwcontext_opencl,
-  //hwcontext_qsv,
-  //hwcontext_vaapi,
-  //hwcontext_vdpau,
-  //hwcontext_videotoolbox,
-  //hwcontext_vulkan,
+
+
+  hwcontext,
+  hwcontext_cuda,
+  hwcontext_d3d11va,
+  hwcontext_drm,
+  hwcontext_dxva2,
+  hwcontext_mediacodec,
+  hwcontext_opencl,
+  hwcontext_qsv,
+  hwcontext_vaapi,
+  hwcontext_vdpau,
+  hwcontext_videotoolbox,
+  hwcontext_vulkan,
 
 
 

@@ -17,6 +17,7 @@ const
 type
   TAVPixelFormat = longint;
   PAVPixelFormat = ^TAVPixelFormat;
+  PPAVPixelFormat = ^PAVPixelFormat;
 
 const
   AV_PIX_FMT_NONE = -(1);

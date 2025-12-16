@@ -78,6 +78,9 @@ type
   PAVFrame = type Pointer;
   PPAVFrame = ^PAVFrame;
 
+const
+  AV_NUM_DATA_POINTERS = 8;
+
 function av_frame_alloc: PAVFrame; cdecl; external libavutil;
 procedure av_frame_free(frame: PPAVFrame); cdecl; external libavutil;
 function av_frame_ref(dst: PAVFrame; src: PAVFrame): longint; cdecl; external libavutil;

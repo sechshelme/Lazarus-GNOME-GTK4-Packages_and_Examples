@@ -69,9 +69,13 @@ type
   //Pculong = ^Tculong;
   //Pclong = ^Tclong;
 
+type // Vulkan
+  PVkFormat=type Pointer;
+
 type  // nicht auffindbar
   PAVMurMur3 = type Pointer;
-
+  TCFStringRef=LongInt;
+  TCVPixelBufferRef=LongInt;
 
 implementation
 
