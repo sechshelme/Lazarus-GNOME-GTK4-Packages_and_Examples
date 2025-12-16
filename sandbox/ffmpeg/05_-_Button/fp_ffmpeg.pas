@@ -5,16 +5,19 @@ interface
 const
   {$IFDEF Linux}
   libavformat = 'avformat';
+  libavutil = 'avutil';
   {$ENDIF}
 
   {$IFDEF Windows}
   libavformat = 'avformat.dll';  // ????
+  libavformat = 'avutil.dll';  // ????
   {$ENDIF}
 
-  type
+type
   Tuint8_t = uint8;
   Puint8_t = ^Tuint8_t;
   PPuint8_t = ^Puint8_t;
+  PPPuint8_t = ^PPuint8_t;
   Tuint16_t = uint16;
   Puint16_t = ^Tuint16_t;
   PPuint16_t = ^Puint16_t;
@@ -38,8 +41,20 @@ const
   Pint64_t = ^Tint64_t;
   PPint64_t = ^Pint64_t;
 
+  Tsize_t = SizeUInt;
+  Psize_t = ^Tsize_t;
 
-//type
+  Tptrdiff_t = SizeInt;
+  Pptrdiff_t=^Tptrdiff_t;
+
+  Ptm = type Pointer;
+
+  Tva_list = type Pointer; // ????
+
+  Ttime_t = int64; // types.h
+  //  Ptime_t = ^Ttime_t;
+
+  //type
   //{$IFDEF Linux}
   //Tculong = uint64;
   //Tclong = int64;
@@ -54,8 +69,10 @@ const
   //Pculong = ^Tculong;
   //Pclong = ^Tclong;
 
+type  // nicht auffindbar
+  PAVMurMur3 = type Pointer;
+
 
 implementation
 
 end.
-
