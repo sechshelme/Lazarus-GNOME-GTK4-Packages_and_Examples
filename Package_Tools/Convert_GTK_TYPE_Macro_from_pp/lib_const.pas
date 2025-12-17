@@ -269,6 +269,7 @@ const
     (libs: 'libgs'; units: 'cytypes'),
     (libs: 'libavformat'; units: 'fp_ffmpeg'),
     (libs: 'libavutil'; units: 'fp_ffmpeg'),
+    (libs: 'libmanette'; units: 'fp_glib2'),
 
     (libs: ''; units: ''));
 

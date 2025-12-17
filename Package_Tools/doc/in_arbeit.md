@@ -242,22 +242,30 @@ libraylib-dev          // Games Engines
 
 libcurl                            // io.
 libraw                             // io.
-libsoup2.2    // glib
+libsoup2.2                          // glib
 libsoup3                           // io
 libpng-dev 
 libshaderc-dev                     // io.
 libbluetooth-dev
 libopenal-dev
 libalut-dev
-libusb-1.0-0-dev 
+libusb-1.0-0-dev                   // io.
 libxkb
 libhpdf-dev
 libhdf5-dev
 libhdf-dev
-libgsl-dev // ---
+libgsl-dev                         // io.
 libmgl                             // io.
 libpciaccess
 libunistring-dev
+
+libopenblas             // io.
+liblapacke              // io.
+liblapack               // io.
+
+libmpfr-dev             // io.
+libmpfi-dev             // io.
+libportmidi0            // io.
 
 libev4 
 libev-dev
@@ -278,7 +286,6 @@ libdbusmenu-gtk3-dev
 
 libevdev-dev 
 
- libwinpr3-3
 libwinpr3-dev
 
 libpoppler                          // io.
@@ -304,11 +311,11 @@ libpipewire-0.3-dev
 ibsoundtouch-ocaml-dev
 
 
-libgomp1                         // Nur it GCC verwendbar
-libhwasan0                       // Nur it GCC verwendbar     
-libitm1                          // Nur it GCC verwendbar         
+libgomp1                         // Nur in GCC verwendbar
+libhwasan0                       // Nur in GCC verwendbar     
+libitm1                          // Nur in GCC verwendbar         
 
-libcrypt1
+libcrypt1                        // io.
 libgcrypt1
 
 libcupsfilters
@@ -342,7 +349,7 @@ libraptor2           // io.
 libzix-dev 
 librasqal3-dev  
 
-libsqlite3-dev 
+libsqlite3-dev         // io.
 librasterlite2-dev  
 
 libdatrie1   
@@ -374,9 +381,9 @@ libreadline-dev          // io.
 
 libportal-gtk4-dev   // io.
 
-sudo apt install libnl-genl-3-dev 
+libnl-genl-3-dev 
 
-sudo apt-get install liblodepng-dev
+liblodepng-dev
 libltdl                            // io.  
 
 libcogl                            // veraltet
@@ -414,16 +421,9 @@ libgphoto2              // io.
  libmm-glib0    
 
 libmkl-full-dev  
-libopenblas             // io.
-liblapacke              // io.
-liblapack               // io.
-
-libmpfr-dev             // io.
-libmpfi-dev             // io.
 
 libheif-dev  
 
-libportmidi0            // io.
 
 libdfp-dev
 
@@ -457,6 +457,8 @@ libappstream-dev
   liba52-0.7.4-dev      
 
 
+
+libmanette-0.2-dev
 
 
 
