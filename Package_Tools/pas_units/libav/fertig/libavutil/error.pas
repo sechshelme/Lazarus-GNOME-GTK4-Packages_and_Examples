@@ -1,0 +1,62 @@
+unit error;
+
+interface
+
+uses
+  fp_ffmpeg;
+
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
+
+
+const
+  AVERROR_BSF_NOT_FOUND = -1179861752;
+  AVERROR_BUG = -558323010;
+  AVERROR_BUFFER_TOO_SMALL = -1397118274;
+  AVERROR_DECODER_NOT_FOUND = -1128613112;
+  AVERROR_DEMUXER_NOT_FOUND = -1296385272;
+  AVERROR_ENCODER_NOT_FOUND = -1129137656;
+  AVERROR_EOF = -541470533;
+  AVERROR_EXIT = -1414092869;
+  AVERROR_EXTERNAL = -542406725;
+  AVERROR_FILTER_NOT_FOUND = -1280001784;
+  AVERROR_INVALIDDATA = -1094995529;
+  AVERROR_MUXER_NOT_FOUND = -1481985528;
+  AVERROR_OPTION_NOT_FOUND = -1414582264;
+  AVERROR_PATCHWELCOME = -1163346256;
+  AVERROR_PROTOCOL_NOT_FOUND = -1330794744;
+  AVERROR_STREAM_NOT_FOUND = -1381258232;
+  AVERROR_BUG2 = -541545794;
+  AVERROR_UNKNOWN = -1313558101;
+  AVERROR_EXPERIMENTAL = -733130664;
+  AVERROR_INPUT_CHANGED = -1668114177;
+  AVERROR_OUTPUT_CHANGED = -1668114178;
+  AVERROR_HTTP_BAD_REQUEST = -808465656;
+  AVERROR_HTTP_UNAUTHORIZED = -825242872;
+  AVERROR_HTTP_FORBIDDEN = -858797304;
+  AVERROR_HTTP_NOT_FOUND = -875574520;
+  AVERROR_HTTP_OTHER_4XX = -1482175736;
+  AVERROR_HTTP_SERVER_ERROR = -1482175992;
+
+const
+  AV_ERROR_MAX_STRING_SIZE = 64;
+
+function av_strerror(errnum: longint; errbuf: pchar; errbuf_size: Tsize_t): longint; cdecl; external libavutil;
+
+function av_make_error_string(errbuf: pchar; errbuf_size: Tsize_t; errnum: integer): pchar; cdecl;
+
+// === Konventiert am: 14-12-25 17:00:43 ===
+
+
+implementation
+
+function av_make_error_string(errbuf: pchar; errbuf_size: Tsize_t; errnum: integer): pchar; cdecl;
+begin
+  Result := nil;
+  av_strerror(errnum, Result, errbuf_size);
+end;
+
+
+end.
