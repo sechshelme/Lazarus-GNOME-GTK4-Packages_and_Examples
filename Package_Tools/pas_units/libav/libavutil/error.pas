@@ -10,62 +10,10 @@ uses
 {$ENDIF}
 
 
-{
- * This file is part of FFmpeg.
- *
- * FFmpeg is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * FFmpeg is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with FFmpeg; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-  }
-{*
- * @file
- * error code definitions
-  }
-{$ifndef AVUTIL_ERROR_H}
-{$define AVUTIL_ERROR_H}
-{$include <errno.h>}
-{$include <stddef.h>}
-{$include "macros.h"}
-{*
- * @addtogroup lavu_error
- *
- * @
-  }
-{ error handling  }
-{$if EDOM > 0}
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-
-function AVERROR(e : longint) : longint;{/< Returns a negative error code from a POSIX error code, to return from library functions. }
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function AVUNERROR(e : longint) : longint;{/< Returns a POSIX error code from a library function error return value. }
-
-{$else}
-{ Some platforms have E* and errno already negated.  }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
 
 function AVERROR(e : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
 function AVUNERROR(e : longint) : longint;
+
 
 {$endif}
 {xxxxxxxxxxxxxxxxxxx

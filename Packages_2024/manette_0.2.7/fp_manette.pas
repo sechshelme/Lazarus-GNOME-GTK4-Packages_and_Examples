@@ -7,7 +7,7 @@ uses
 
 const
   {$IFDEF Linux}
-  libmanette = 'manette-0.2';
+  libmanette = 'manette-0.2';   // Es könnte  manette-1.x werden, in git ist es schon so !
   {$ENDIF}
 
   {$IFDEF Windows}

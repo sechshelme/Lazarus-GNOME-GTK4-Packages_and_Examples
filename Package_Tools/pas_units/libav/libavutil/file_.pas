@@ -5,84 +5,15 @@ interface
 uses
   fp_ffmpeg;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{
- * This file is part of FFmpeg.
- *
- * FFmpeg is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * FFmpeg is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with FFmpeg; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-  }
-{$ifndef AVUTIL_FILE_H}
-{$define AVUTIL_FILE_H}
-{$include <stddef.h>}
-{$include <stdint.h>}
-{$include "version.h"}
-{$include "attributes.h"}
-{*
- * @file
- * Misc file utilities.
-  }
-{*
- * Read the file with name filename, and put its content in a newly
- * allocated buffer or map it with mmap() when available.
- * In case of success set *bufptr to the read or mmapped buffer, and
- * *size to the size in bytes of the buffer in *bufptr.
- * Unlike mmap this function succeeds with zero sized files, in this
- * case *bufptr will be set to NULL and *size will be set to 0.
- * The returned buffer must be released with av_file_unmap().
- *
- * @param filename path to the file
- * @param[out] bufptr pointee is set to the mapped or allocated buffer
- * @param[out] size pointee is set to the size in bytes of the buffer
- * @param log_offset loglevel offset used for logging
- * @param log_ctx context used for logging
- * @return a non negative number in case of success, a negative value
- * corresponding to an AVERROR error code in case of failure
-  }
 
-function av_file_map(filename:Pchar; bufptr:PPuint8_t; size:Psize_t; log_offset:longint; log_ctx:pointer):longint;cdecl;external libavutil;
-{*
- * Unmap or free the buffer bufptr created by av_file_map().
- *
- * @param bufptr the buffer previously created with av_file_map()
- * @param size size in bytes of bufptr, must be the same as returned
- * by av_file_map()
-  }
-procedure av_file_unmap(bufptr:Puint8_t; size:Tsize_t);cdecl;external libavutil;
-{$if FF_API_AV_FOPEN_UTF8}
-{*
- * Wrapper to work around the lack of mkstemp() on mingw.
- * Also, tries to create file in /tmp first, if possible.
- * *prefix can be a character constant; *filename will be allocated internally.
- * @return file descriptor of opened file (or negative value corresponding to an
- * AVERROR code on error)
- * and opened file name in **filename.
- * @note On very old libcs it is necessary to set a secure umask before
- *       calling this, av_tempfile() can't call umask itself as it is used in
- *       libraries and could interfere with the calling application.
- * @deprecated as fd numbers cannot be passed saftely between libs on some platforms
-  }
-{xxxxxxxxxattribute_deprecated }
-
-function av_tempfile(prefix:Pchar; filename:PPchar; log_offset:longint; log_ctx:pointer):longint;cdecl;external libavutil;
-{$endif}
-{$endif}
-{ AVUTIL_FILE_H  }
+function av_file_map(filename: pchar; bufptr: PPuint8_t; size: Psize_t; log_offset: longint; log_ctx: pointer): longint; cdecl; external libavutil;
+procedure av_file_unmap(bufptr: Puint8_t; size: Tsize_t); cdecl; external libavutil;
+function av_tempfile(prefix: pchar; filename: PPchar; log_offset: longint; log_ctx: pointer): longint; cdecl; external libavutil; deprecated;
 
 // === Konventiert am: 14-12-25 17:15:37 ===
 

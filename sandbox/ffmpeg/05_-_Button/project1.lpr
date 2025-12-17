@@ -80,14 +80,14 @@ uses
   //dovi_meta,
   //downmix_info,
   //encryption_info,
-  //error,
-  //eval,
-  //executor,
-  //ffversion,
-  //fifo,
-  //file_,
-  //film_grain_params,
-  //hash,
+  error,
+  eval,
+  executor,
+  ffversion,
+  fifo,
+  file_,
+  film_grain_params,             // pixfmt, frame
+  hash,
 
 
   hwcontext,
