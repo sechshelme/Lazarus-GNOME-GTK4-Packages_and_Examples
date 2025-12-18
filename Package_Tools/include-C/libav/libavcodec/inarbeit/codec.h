@@ -213,7 +213,6 @@ typedef struct AVCodec {
     /**
      * @deprecated use ch_layouts instead
      */
-    attribute_deprecated
     const uint64_t *channel_layouts;         ///< array of support channel layouts, or NULL if unknown. array is terminated by 0
 #endif
     const AVClass *priv_class;              ///< AVClass for the private context
@@ -298,7 +297,7 @@ int av_codec_is_decoder(const AVCodec *codec);
  */
 const char *av_get_profile_name(const AVCodec *codec, int profile);
 
-enum {
+enum xxxxxxx{
     /**
      * The codec supports this format via the hw_device_ctx interface.
      *

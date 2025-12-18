@@ -4,19 +4,46 @@ uses
   fp_manette,
   fp_glib2;
 
-  procedure on_button_pressed(device: PManetteDevice; button: Tguint; user_data: Tgpointer); cdecl;
+  procedure on_button_pressed(device: PManetteDevice; event: PManetteEvent; user_data: Tgpointer); cdecl;
+  var
+    v, i, c, t: Tguint16;
+    et: TManetteEventType;
   begin
-    g_printf('Taste %u an %s gedrückt'#10, button, manette_device_get_name(device));
+    v:=manette_event_get_hardware_value(event);
+    c:=manette_event_get_hardware_code(event);
+    i:=manette_event_get_hardware_index(event);
+    t:=manette_event_get_hardware_type(event);
+    et:= manette_event_get_event_type(event);
+
+    g_printf('Button Down   Index: %d   Code: %d   Value: %3d   Type: %d    ET: %d'#10,i,c ,v,t,et);
   end;
 
-  procedure on_button_release(device: PManetteDevice; button: Tguint; user_data: Tgpointer); cdecl;
+  procedure on_button_release(device: PManetteDevice; event: PManetteEvent; user_data: Tgpointer); cdecl;
+  var
+    v, i, c, t: Tguint16;
+    et: TManetteEventType;
   begin
-    g_printf('Taste %u an %s gehoben'#10, button, manette_device_get_name(device));
+    v:=manette_event_get_hardware_value(event);
+    c:=manette_event_get_hardware_code(event);
+    i:=manette_event_get_hardware_index(event);
+    t:=manette_event_get_hardware_type(event);
+   et:= manette_event_get_event_type(event);
+
+    g_printf('Button Up     Index: %d   Code: %d   Value: %3d   Type: %d    ET: %d'#10,i,c ,v,t,et);
   end;
 
-  procedure on_axis_changed(device: PManetteDevice; axis: Tguint; value: Tgfloat; user_data: Tgpointer); cdecl;
+  procedure on_axis_changed(device: PManetteDevice; event: PManetteEvent; user_data: Tgpointer); cdecl;
+  var
+    v, i, c, t: Tguint16;
+    et: TManetteEventType;
   begin
-    g_printf('Achse %u: %.2f'#10, axis, value);
+    v:=manette_event_get_hardware_value(event);
+    c:=manette_event_get_hardware_code(event);
+    i:=manette_event_get_hardware_index(event);
+    t:=manette_event_get_hardware_type(event);
+    et:= manette_event_get_event_type(event);
+
+    g_printf('Axis          Index: %d   Code: %d   Value: %3d   Type: %d    ET: %d'#10,i,c ,v,t,et);
   end;
 
   procedure on_device_added(self: PManetteMonitor; device: PManetteDevice; user_data: Tgpointer); cdecl;

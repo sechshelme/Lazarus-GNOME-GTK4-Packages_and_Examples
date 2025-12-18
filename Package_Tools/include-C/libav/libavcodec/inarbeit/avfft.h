@@ -50,14 +50,14 @@ typedef struct FFTContext FFTContext;
  * @param inverse         if 0 perform the forward transform, if 1 perform the inverse
  * @deprecated use av_tx_init from libavutil/tx.h with a type of AV_TX_FLOAT_FFT
  */
-attribute_deprecated
+//xxxxxxxxxx attribute_deprecated
 FFTContext *av_fft_init(int nbits, int inverse);
 
 /**
  * Do the permutation needed BEFORE calling ff_fft_calc().
  * @deprecated without replacement
  */
-attribute_deprecated
+//xxxxxxxxxx attribute_deprecated
 void av_fft_permute(FFTContext *s, FFTComplex *z);
 
 /**
@@ -65,25 +65,25 @@ void av_fft_permute(FFTContext *s, FFTComplex *z);
  * input data must be permuted before. No 1.0/sqrt(n) normalization is done.
  * @deprecated use the av_tx_fn value returned by av_tx_init, which also does permutation
  */
-attribute_deprecated
+//xxxxxxxxxx attribute_deprecated
 void av_fft_calc(FFTContext *s, FFTComplex *z);
 
-attribute_deprecated
+//xxxxxxxxxx attribute_deprecated
 void av_fft_end(FFTContext *s);
 
 /**
  * @deprecated use av_tx_init from libavutil/tx.h with a type of AV_TX_FLOAT_MDCT,
  * with a flag of AV_TX_FULL_IMDCT for a replacement to av_imdct_calc.
  */
-attribute_deprecated
+//xxxxxxxxxx attribute_deprecated
 FFTContext *av_mdct_init(int nbits, int inverse, double scale);
-attribute_deprecated
+//xxxxxxxxxx attribute_deprecated
 void av_imdct_calc(FFTContext *s, FFTSample *output, const FFTSample *input);
-attribute_deprecated
+//xxxxxxxxxx attribute_deprecated
 void av_imdct_half(FFTContext *s, FFTSample *output, const FFTSample *input);
-attribute_deprecated
+//xxxxxxxxxx attribute_deprecated
 void av_mdct_calc(FFTContext *s, FFTSample *output, const FFTSample *input);
-attribute_deprecated
+//xxxxxxxxxx attribute_deprecated
 void av_mdct_end(FFTContext *s);
 
 /* Real Discrete Fourier Transform */
@@ -104,11 +104,11 @@ typedef struct RDFTContext RDFTContext;
  *
  * @deprecated use av_tx_init from libavutil/tx.h with a type of AV_TX_FLOAT_RDFT
  */
-attribute_deprecated
+//xxxxxxxxxx attribute_deprecated
 RDFTContext *av_rdft_init(int nbits, enum RDFTransformType trans);
-attribute_deprecated
+//xxxxxxxxxx attribute_deprecated
 void av_rdft_calc(RDFTContext *s, FFTSample *data);
-attribute_deprecated
+//xxxxxxxxxx attribute_deprecated
 void av_rdft_end(RDFTContext *s);
 
 /* Discrete Cosine Transform */
@@ -134,11 +134,11 @@ enum DCTTransformType {
  *
  * @deprecated use av_tx_init from libavutil/tx.h with an appropriate type of AV_TX_FLOAT_DCT
  */
-attribute_deprecated
+//xxxxxxxxxx attribute_deprecated
 DCTContext *av_dct_init(int nbits, enum DCTTransformType type);
-attribute_deprecated
+//xxxxxxxxxx attribute_deprecated
 void av_dct_calc(DCTContext *s, FFTSample *data);
-attribute_deprecated
+//xxxxxxxxxx attribute_deprecated
 void av_dct_end (DCTContext *s);
 
 /**

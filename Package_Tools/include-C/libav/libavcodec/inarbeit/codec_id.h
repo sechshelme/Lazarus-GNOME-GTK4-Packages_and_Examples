@@ -186,7 +186,6 @@ enum AVCodecID {
     AV_CODEC_ID_ANM,
     AV_CODEC_ID_BINKVIDEO,
     AV_CODEC_ID_IFF_ILBM,
-#define AV_CODEC_ID_IFF_BYTERUN1 AV_CODEC_ID_IFF_ILBM
     AV_CODEC_ID_KGV1,
     AV_CODEC_ID_YOP,
     AV_CODEC_ID_VP8,
@@ -224,7 +223,6 @@ enum AVCodecID {
     AV_CODEC_ID_WEBP,
     AV_CODEC_ID_HNM4_VIDEO,
     AV_CODEC_ID_HEVC,
-#define AV_CODEC_ID_H265 AV_CODEC_ID_HEVC
     AV_CODEC_ID_FIC,
     AV_CODEC_ID_ALIAS_PIX,
     AV_CODEC_ID_BRENDER_PIX,
@@ -248,14 +246,10 @@ enum AVCodecID {
     AV_CODEC_ID_AVS3,
     AV_CODEC_ID_MSP2,
     AV_CODEC_ID_VVC,
-#define AV_CODEC_ID_H266 AV_CODEC_ID_VVC
     AV_CODEC_ID_Y41P,
     AV_CODEC_ID_AVRP,
     AV_CODEC_ID_012V,
     AV_CODEC_ID_AVUI,
-#if FF_API_AYUV_CODECID
-    AV_CODEC_ID_AYUV,
-#endif
     AV_CODEC_ID_TARGA_Y216,
     AV_CODEC_ID_V308,
     AV_CODEC_ID_V408,
@@ -611,10 +605,16 @@ enum AVCodecID {
     AV_CODEC_ID_ANULL,
 };
 
+
+#define AV_CODEC_ID_IFF_BYTERUN1 AV_CODEC_ID_IFF_ILBM
+#define AV_CODEC_ID_H265 AV_CODEC_ID_HEVC
+#define AV_CODEC_ID_H266 AV_CODEC_ID_VVC
+
+
 /**
  * Get the type of the given codec.
  */
-enum AVMediaType avcodec_get_type(enum AVCodecID codec_id);
+ AVMediaType avcodec_get_type(enum AVCodecID codec_id);
 
 /**
  * Get the name of a codec.
@@ -659,7 +659,7 @@ const char *avcodec_profile_name(enum AVCodecID codec_id, int profile);
  *            -1 (or anything else) for native
  * @return  AV_CODEC_ID_PCM_* or AV_CODEC_ID_NONE
  */
-enum AVCodecID av_get_pcm_codec(enum AVSampleFormat fmt, int be);
+ AVCodecID av_get_pcm_codec(enum AVSampleFormat fmt, int be);
 
 /**
  * @}

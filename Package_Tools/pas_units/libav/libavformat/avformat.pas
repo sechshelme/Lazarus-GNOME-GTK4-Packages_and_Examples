@@ -5,565 +5,55 @@ interface
 uses
   fp_ffmpeg;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
-
-
-{
- * copyright (c) 2001 Fabrice Bellard
- *
- * This file is part of FFmpeg.
- *
- * FFmpeg is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2.1 of the License, or (at your option) any later version.
- *
- * FFmpeg is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with FFmpeg; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
-  }
-{$ifndef AVFORMAT_AVFORMAT_H}
-{$define AVFORMAT_AVFORMAT_H}
-{*
- * @file
- * @ingroup libavf
- * Main libavformat public API header
-  }
-{*
- * @defgroup libavf libavformat
- * I/O and Muxing/Demuxing Library
- *
- * Libavformat (lavf) is a library for dealing with various media container
- * formats. Its main two purposes are demuxing - i.e. splitting a media file
- * into component streams, and the reverse process of muxing - writing supplied
- * data in a specified container format. It also has an @ref lavf_io
- * "I/O module" which supports a number of protocols for accessing the data (e.g.
- * file, tcp, http and others).
- * Unless you are absolutely sure you won't use libavformat's network
- * capabilities, you should also call avformat_network_init().
- *
- * A supported input format is described by an AVInputFormat struct, conversely
- * an output format is described by AVOutputFormat. You can iterate over all
- * input/output formats using the  av_demuxer_iterate / av_muxer_iterate() functions.
- * The protocols layer is not part of the public API, so you can only get the names
- * of supported protocols with the avio_enum_protocols() function.
- *
- * Main lavf structure used for both muxing and demuxing is AVFormatContext,
- * which exports all information about the file being read or written. As with
- * most Libavformat structures, its size is not part of public ABI, so it cannot be
- * allocated on stack or directly with av_malloc(). To create an
- * AVFormatContext, use avformat_alloc_context() (some functions, like
- * avformat_open_input() might do that for you).
- *
- * Most importantly an AVFormatContext contains:
- * @li the @ref AVFormatContext.iformat "input" or @ref AVFormatContext.oformat
- * "output" format. It is either autodetected or set by user for input;
- * always set by user for output.
- * @li an @ref AVFormatContext.streams "array" of AVStreams, which describe all
- * elementary streams stored in the file. AVStreams are typically referred to
- * using their index in this array.
- * @li an @ref AVFormatContext.pb "I/O context". It is either opened by lavf or
- * set by user for input, always set by user for output (unless you are dealing
- * with an AVFMT_NOFILE format).
- *
- * @section lavf_options Passing options to (de)muxers
- * It is possible to configure lavf muxers and demuxers using the @ref avoptions
- * mechanism. Generic (format-independent) libavformat options are provided by
- * AVFormatContext, they can be examined from a user program by calling
- * av_opt_next() / av_opt_find() on an allocated AVFormatContext (or its AVClass
- * from avformat_get_class()). Private (format-specific) options are provided by
- * AVFormatContext.priv_data if and only if AVInputFormat.priv_class /
- * AVOutputFormat.priv_class of the corresponding format struct is non-NULL.
- * Further options may be provided by the @ref AVFormatContext.pb "I/O context",
- * if its AVClass is non-NULL, and the protocols layer. See the discussion on
- * nesting in @ref avoptions documentation to learn how to access those.
- *
- * @section urls
- * URL strings in libavformat are made of a scheme/protocol, a ':', and a
- * scheme specific string. URLs without a scheme and ':' used for local files
- * are supported but deprecated. "file:" should be used for local files.
- *
- * It is important that the scheme string is not taken from untrusted
- * sources without checks.
- *
- * Note that some schemes/protocols are quite powerful, allowing access to
- * both local and remote files, parts of them, concatenations of them, local
- * audio and video devices and so on.
- *
- * @
- *
- * @defgroup lavf_decoding Demuxing
- * @
- * Demuxers read a media file and split it into chunks of data (@em packets). A
- * @ref AVPacket "packet" contains one or more encoded frames which belongs to a
- * single elementary stream. In the lavf API this process is represented by the
- * avformat_open_input() function for opening a file, av_read_frame() for
- * reading a single packet and finally avformat_close_input(), which does the
- * cleanup.
- *
- * @section lavf_decoding_open Opening a media file
- * The minimum information required to open a file is its URL, which
- * is passed to avformat_open_input(), as in the following code:
- * @code
- * const char    *url = "file:in.mp3";
- * AVFormatContext *s = NULL;
- * int ret = avformat_open_input(&s, url, NULL, NULL);
- * if (ret < 0)
- *     abort();
- * @endcode
- * The above code attempts to allocate an AVFormatContext, open the
- * specified file (autodetecting the format) and read the header, exporting the
- * information stored there into s. Some formats do not have a header or do not
- * store enough information there, so it is recommended that you call the
- * avformat_find_stream_info() function which tries to read and decode a few
- * frames to find missing information.
- *
- * In some cases you might want to preallocate an AVFormatContext yourself with
- * avformat_alloc_context() and do some tweaking on it before passing it to
- * avformat_open_input(). One such case is when you want to use custom functions
- * for reading input data instead of lavf internal I/O layer.
- * To do that, create your own AVIOContext with avio_alloc_context(), passing
- * your reading callbacks to it. Then set the @em pb field of your
- * AVFormatContext to newly created AVIOContext.
- *
- * Since the format of the opened file is in general not known until after
- * avformat_open_input() has returned, it is not possible to set demuxer private
- * options on a preallocated context. Instead, the options should be passed to
- * avformat_open_input() wrapped in an AVDictionary:
- * @code
- * AVDictionary *options = NULL;
- * av_dict_set(&options, "video_size", "640x480", 0);
- * av_dict_set(&options, "pixel_format", "rgb24", 0);
- *
- * if (avformat_open_input(&s, url, NULL, &options) < 0)
- *     abort();
- * av_dict_free(&options);
- * @endcode
- * This code passes the private options 'video_size' and 'pixel_format' to the
- * demuxer. They would be necessary for e.g. the rawvideo demuxer, since it
- * cannot know how to interpret raw video data otherwise. If the format turns
- * out to be something different than raw video, those options will not be
- * recognized by the demuxer and therefore will not be applied. Such unrecognized
- * options are then returned in the options dictionary (recognized options are
- * consumed). The calling program can handle such unrecognized options as it
- * wishes, e.g.
- * @code
- * AVDictionaryEntry *e;
- * if (e = av_dict_get(options, "", NULL, AV_DICT_IGNORE_SUFFIX)) 
- *     fprintf(stderr, "Option %s not recognized by the demuxer.\n", e->key);
- *     abort();
- * 
- * @endcode
- *
- * After you have finished reading the file, you must close it with
- * avformat_close_input(). It will free everything associated with the file.
- *
- * @section lavf_decoding_read Reading from an opened file
- * Reading data from an opened AVFormatContext is done by repeatedly calling
- * av_read_frame() on it. Each call, if successful, will return an AVPacket
- * containing encoded data for one AVStream, identified by
- * AVPacket.stream_index. This packet may be passed straight into the libavcodec
- * decoding functions avcodec_send_packet() or avcodec_decode_subtitle2() if the
- * caller wishes to decode the data.
- *
- * AVPacket.pts, AVPacket.dts and AVPacket.duration timing information will be
- * set if known. They may also be unset (i.e. AV_NOPTS_VALUE for
- * pts/dts, 0 for duration) if the stream does not provide them. The timing
- * information will be in AVStream.time_base units, i.e. it has to be
- * multiplied by the timebase to convert them to seconds.
- *
- * A packet returned by av_read_frame() is always reference-counted,
- * i.e. AVPacket.buf is set and the user may keep it indefinitely.
- * The packet must be freed with av_packet_unref() when it is no
- * longer needed.
- *
- * @section lavf_decoding_seek Seeking
- * @
- *
- * @defgroup lavf_encoding Muxing
- * @
- * Muxers take encoded data in the form of @ref AVPacket "AVPackets" and write
- * it into files or other output bytestreams in the specified container format.
- *
- * The main API functions for muxing are avformat_write_header() for writing the
- * file header, av_write_frame() / av_interleaved_write_frame() for writing the
- * packets and av_write_trailer() for finalizing the file.
- *
- * At the beginning of the muxing process, the caller must first call
- * avformat_alloc_context() to create a muxing context. The caller then sets up
- * the muxer by filling the various fields in this context:
- *
- * - The @ref AVFormatContext.oformat "oformat" field must be set to select the
- *   muxer that will be used.
- * - Unless the format is of the AVFMT_NOFILE type, the @ref AVFormatContext.pb
- *   "pb" field must be set to an opened IO context, either returned from
- *   avio_open2() or a custom one.
- * - Unless the format is of the AVFMT_NOSTREAMS type, at least one stream must
- *   be created with the avformat_new_stream() function. The caller should fill
- *   the @ref AVStream.codecpar "stream codec parameters" information, such as the
- *   codec @ref AVCodecParameters.codec_type "type", @ref AVCodecParameters.codec_id
- *   "id" and other parameters (e.g. width / height, the pixel or sample format,
- *   etc.) as known. The @ref AVStream.time_base "stream timebase" should
- *   be set to the timebase that the caller desires to use for this stream (note
- *   that the timebase actually used by the muxer can be different, as will be
- *   described later).
- * - It is advised to manually initialize only the relevant fields in
- *   AVCodecParameters, rather than using @ref avcodec_parameters_copy() during
- *   remuxing: there is no guarantee that the codec context values remain valid
- *   for both input and output format contexts.
- * - The caller may fill in additional information, such as @ref
- *   AVFormatContext.metadata "global" or @ref AVStream.metadata "per-stream"
- *   metadata, @ref AVFormatContext.chapters "chapters", @ref
- *   AVFormatContext.programs "programs", etc. as described in the
- *   AVFormatContext documentation. Whether such information will actually be
- *   stored in the output depends on what the container format and the muxer
- *   support.
- *
- * When the muxing context is fully set up, the caller must call
- * avformat_write_header() to initialize the muxer internals and write the file
- * header. Whether anything actually is written to the IO context at this step
- * depends on the muxer, but this function must always be called. Any muxer
- * private options must be passed in the options parameter to this function.
- *
- * The data is then sent to the muxer by repeatedly calling av_write_frame() or
- * av_interleaved_write_frame() (consult those functions' documentation for
- * discussion on the difference between them; only one of them may be used with
- * a single muxing context, they should not be mixed). Do note that the timing
- * information on the packets sent to the muxer must be in the corresponding
- * AVStream's timebase. That timebase is set by the muxer (in the
- * avformat_write_header() step) and may be different from the timebase
- * requested by the caller.
- *
- * Once all the data has been written, the caller must call av_write_trailer()
- * to flush any buffered packets and finalize the output file, then close the IO
- * context (if any) and finally free the muxing context with
- * avformat_free_context().
- * @
- *
- * @defgroup lavf_io I/O Read/Write
- * @
- * @section lavf_io_dirlist Directory listing
- * The directory listing API makes it possible to list files on remote servers.
- *
- * Some of possible use cases:
- * - an "open file" dialog to choose files from a remote location,
- * - a recursive media finder providing a player with an ability to play all
- * files from a given directory.
- *
- * @subsection lavf_io_dirlist_open Opening a directory
- * At first, a directory needs to be opened by calling avio_open_dir()
- * supplied with a URL and, optionally, ::AVDictionary containing
- * protocol-specific parameters. The function returns zero or positive
- * integer and allocates AVIODirContext on success.
- *
- * @code
- * AVIODirContext *ctx = NULL;
- * if (avio_open_dir(&ctx, "smb://example.com/some_dir", NULL) < 0) 
- *     fprintf(stderr, "Cannot open directory.\n");
- *     abort();
- * 
- * @endcode
- *
- * This code tries to open a sample directory using smb protocol without
- * any additional parameters.
- *
- * @subsection lavf_io_dirlist_read Reading entries
- * Each directory's entry (i.e. file, another directory, anything else
- * within ::AVIODirEntryType) is represented by AVIODirEntry.
- * Reading consecutive entries from an opened AVIODirContext is done by
- * repeatedly calling avio_read_dir() on it. Each call returns zero or
- * positive integer if successful. Reading can be stopped right after the
- * NULL entry has been read -- it means there are no entries left to be
- * read. The following code reads all entries from a directory associated
- * with ctx and prints their names to standard output.
- * @code
- * AVIODirEntry *entry = NULL;
- * for (;;) 
- *     if (avio_read_dir(ctx, &entry) < 0) 
- *         fprintf(stderr, "Cannot list directory.\n");
- *         abort();
- *     
- *     if (!entry)
- *         break;
- *     printf("%s\n", entry->name);
- *     avio_free_directory_entry(&entry);
- * 
- * @endcode
- * @
- *
- * @defgroup lavf_codec Demuxers
- * @
- * @defgroup lavf_codec_native Native Demuxers
- * @
- * @
- * @defgroup lavf_codec_wrappers External library wrappers
- * @
- * @
- * @
- * @defgroup lavf_protos I/O Protocols
- * @
- * @
- * @defgroup lavf_internal Internal
- * @
- * @
- * @
-  }
-{$include <stdio.h>  /* FILE */}
-{$include "libavcodec/codec_par.h"}
-{$include "libavcodec/defs.h"}
-{$include "libavcodec/packet.h"}
-{$include "libavutil/dict.h"}
-{$include "libavutil/log.h"}
-{$include "avio.h"}
-{$include "libavformat/version_major.h"}
-{$ifndef HAVE_AV_CONFIG_H}
-{ When included as part of the ffmpeg build, only include the major version
- * to avoid unnecessary rebuilds. When included externally, keep including
- * the full version information.  }
-{$include "libavformat/version.h"}
-{$include "libavutil/frame.h"}
-{$include "libavcodec/codec.h"}
-{$endif}
 type
-  PAVFormatContext = ^TAVFormatContext;
-  TAVFormatContext = record
-      {undefined structure}
-    end;
+  PAVFormatContext = type Pointer;
+  PAVFrame = type Pointer;
+  PAVDeviceInfoList= type Pointer;
 
-  PAVFrame = ^TAVFrame;
-  TAVFrame = record
-      {undefined structure}
-    end;
-
-  PAVDeviceInfoList = ^TAVDeviceInfoList;
-  TAVDeviceInfoList = record
-      {undefined structure}
-    end;
-
-{*
- * @defgroup metadata_api Public Metadata API
- * @
- * @ingroup libavf
- * The metadata API allows libavformat to export metadata tags to a client
- * application when demuxing. Conversely it allows a client application to
- * set metadata when muxing.
- *
- * Metadata is exported or set as pairs of key/value strings in the 'metadata'
- * fields of the AVFormatContext, AVStream, AVChapter and AVProgram structs
- * using the @ref lavu_dict "AVDictionary" API. Like all strings in FFmpeg,
- * metadata is assumed to be UTF-8 encoded Unicode. Note that metadata
- * exported by demuxers isn't checked to be valid UTF-8 in most cases.
- *
- * Important concepts to keep in mind:
- * -  Keys are unique; there can never be 2 tags with the same key. This is
- *    also meant semantically, i.e., a demuxer should not knowingly produce
- *    several keys that are literally different but semantically identical.
- *    E.g., key=Author5, key=Author6. In this example, all authors must be
- *    placed in the same tag.
- * -  Metadata is flat, not hierarchical; there are no subtags. If you
- *    want to store, e.g., the email address of the child of producer Alice
- *    and actor Bob, that could have key=alice_and_bobs_childs_email_address.
- * -  Several modifiers can be applied to the tag name. This is done by
- *    appending a dash character ('-') and the modifier name in the order
- *    they appear in the list below -- e.g. foo-eng-sort, not foo-sort-eng.
- *    -  language -- a tag whose value is localized for a particular language
- *       is appended with the ISO 639-2/B 3-letter language code.
- *       For example: Author-ger=Michael, Author-eng=Mike
- *       The original/default language is in the unqualified "Author" tag.
- *       A demuxer should set a default if it sets any translated tag.
- *    -  sorting  -- a modified version of a tag that should be used for
- *       sorting will have '-sort' appended. E.g. artist="The Beatles",
- *       artist-sort="Beatles, The".
- * - Some protocols and demuxers support metadata updates. After a successful
- *   call to av_read_frame(), AVFormatContext.event_flags or AVStream.event_flags
- *   will be updated to indicate if metadata changed. In order to detect metadata
- *   changes on a stream, you need to loop through all streams in the AVFormatContext
- *   and check their individual event_flags.
- *
- * -  Demuxers attempt to export metadata in a generic format, however tags
- *    with no generic equivalents are left as they are stored in the container.
- *    Follows a list of generic tag names:
- *
- @verbatim
- album        -- name of the set this work belongs to
- album_artist -- main creator of the set/album, if different from artist.
-                 e.g. "Various Artists" for compilation albums.
- artist       -- main creator of the work
- comment      -- any additional description of the file.
- composer     -- who composed the work, if different from artist.
- copyright    -- name of copyright holder.
- creation_time-- date when the file was created, preferably in ISO 8601.
- date         -- date when the work was created, preferably in ISO 8601.
- disc         -- number of a subset, e.g. disc in a multi-disc collection.
- encoder      -- name/settings of the software/hardware that produced the file.
- encoded_by   -- person/group who created the file.
- filename     -- original name of the file.
- genre        -- <self-evident>.
- language     -- main language in which the work is performed, preferably
-                 in ISO 639-2 format. Multiple languages can be specified by
-                 separating them with commas.
- performer    -- artist who performed the work, if different from artist.
-                 E.g for "Also sprach Zarathustra", artist would be "Richard
-                 Strauss" and performer "London Philharmonic Orchestra".
- publisher    -- name of the label/publisher.
- service_name     -- name of the service in broadcasting (channel name).
- service_provider -- name of the service provider in broadcasting.
- title        -- name of the work.
- track        -- number of this work in the set, can be in form current/total.
- variant_bitrate -- the total bitrate of the bitrate variant that the current stream is part of
- @endverbatim
- *
- * Look in the examples section for an application example how to use the Metadata API.
- *
- * @
-  }
-{ packet functions  }
-{*
- * Allocate and read the payload of a packet and initialize its
- * fields with default values.
- *
- * @param s    associated IO context
- * @param pkt packet
- * @param size desired payload size
- * @return >0 (read size) if OK, AVERROR_xxx otherwise
-  }
 
 function av_get_packet(s:PAVIOContext; pkt:PAVPacket; size:longint):longint;cdecl;external libavformat;
-{*
- * Read data and append it to the current content of the AVPacket.
- * If pkt->size is 0 this is identical to av_get_packet.
- * Note that this uses av_grow_packet and thus involves a realloc
- * which is inefficient. Thus this function should only be used
- * when there is no reasonable way to know (an upper bound of)
- * the final size.
- *
- * @param s    associated IO context
- * @param pkt packet
- * @param size amount of data to read
- * @return >0 (read size) if OK, AVERROR_xxx otherwise, previous data
- *         will not be lost even if an error occurs.
-  }
 function av_append_packet(s:PAVIOContext; pkt:PAVPacket; size:longint):longint;cdecl;external libavformat;
-{*********************************************** }
-{ input/output formats  }
 type
-  PAVCodecTag = ^TAVCodecTag;
-  TAVCodecTag = record
-      {undefined structure}
-    end;
+  PAVCodecTag= type Pointer;
 
-{*
- * This structure contains the data a format has to probe a file.
-  }
-{*< Buffer must have AVPROBE_PADDING_SIZE of extra allocated bytes filled with zero.  }
-{*< Size of buf except extra allocated bytes  }
-{*< mime_type, when known.  }
-
-  PAVProbeData = ^TAVProbeData;
   TAVProbeData = record
       filename : Pchar;
       buf : Pbyte;
       buf_size : longint;
       mime_type : Pchar;
     end;
+  PAVProbeData = ^TAVProbeData;
 
 const
   AVPROBE_SCORE_RETRY = AVPROBE_SCORE_MAX/4;  
   AVPROBE_SCORE_STREAM_RETRY = (AVPROBE_SCORE_MAX/4)-1;  
-  AVPROBE_SCORE_EXTENSION = 50;  {/< score for file extension }
-  AVPROBE_SCORE_MIME = 75;  {/< score for file mime type }
-  AVPROBE_SCORE_MAX = 100;  {/< maximum score }
-  AVPROBE_PADDING_SIZE = 32;  {/< extra allocated bytes at the end of the probe buffer }
-{/ Demuxer will use avio_open, no opened file should be provided by the caller. }
-  AVFMT_NOFILE = $0001;  
-{*< Needs '%d' in filename.  }
-  AVFMT_NEEDNUMBER = $0002;  
-{*
- * The muxer/demuxer is experimental and should be used with caution.
- *
- * - demuxers: will not be selected automatically by probing, must be specified
- *             explicitly.
-  }
-  AVFMT_EXPERIMENTAL = $0004;  
-{*< Show format stream IDs numbers.  }
-  AVFMT_SHOW_IDS = $0008;  
-{*< Format wants global header.  }
-  AVFMT_GLOBALHEADER = $0040;  
-{*< Format does not need / have any timestamps.  }
-  AVFMT_NOTIMESTAMPS = $0080;  
-{*< Use generic index building code.  }
-  AVFMT_GENERIC_INDEX = $0100;  
-{*< Format allows timestamp discontinuities. Note, muxers always require valid (monotone) timestamps  }
-  AVFMT_TS_DISCONT = $0200;  
-{*< Format allows variable fps.  }
-  AVFMT_VARIABLE_FPS = $0400;  
-{*< Format does not need width/height  }
-  AVFMT_NODIMENSIONS = $0800;  
-{*< Format does not require any streams  }
-  AVFMT_NOSTREAMS = $1000;  
-{*< Format does not allow to fall back on binary search via read_timestamp  }
-  AVFMT_NOBINSEARCH = $2000;  
-{*< Format does not allow to fall back on generic search  }
-  AVFMT_NOGENSEARCH = $4000;  
-{*< Format does not allow seeking by bytes  }
-  AVFMT_NO_BYTE_SEEK = $8000;  
-{$if FF_API_ALLOW_FLUSH}
-{*< @deprecated: Just send a NULL packet if you want to flush a muxer.  }
+  AVPROBE_SCORE_EXTENSION = 50;
+  AVPROBE_SCORE_MIME = 75;
+  AVPROBE_SCORE_MAX = 100;
+  AVPROBE_PADDING_SIZE = 32;
+  AVFMT_NOFILE = $0001;
+  AVFMT_NEEDNUMBER = $0002;
+  AVFMT_EXPERIMENTAL = $0004;
+  AVFMT_SHOW_IDS = $0008;
+  AVFMT_GLOBALHEADER = $0040;
+  AVFMT_NOTIMESTAMPS = $0080;
+  AVFMT_GENERIC_INDEX = $0100;
+  AVFMT_TS_DISCONT = $0200;
+  AVFMT_VARIABLE_FPS = $0400;
+  AVFMT_NODIMENSIONS = $0800;
+  AVFMT_NOSTREAMS = $1000;
+  AVFMT_NOBINSEARCH = $2000;
+  AVFMT_NOGENSEARCH = $4000;
+  AVFMT_NO_BYTE_SEEK = $8000;
 
 const
   AVFMT_ALLOW_FLUSH = $10000;  
-{$endif}
-{*< Format does not require strictly
-                                        increasing timestamps, but they must
-                                        still be monotonic  }
 
 const
   AVFMT_TS_NONSTRICT = $20000;  
-{*< Format allows muxing negative
-                                        timestamps. If not set the timestamp
-                                        will be shifted in av_write_frame and
-                                        av_interleaved_write_frame so they
-                                        start from 0.
-                                        The user or muxer can override this through
-                                        AVFormatContext.avoid_negative_ts
-                                         }
-  AVFMT_TS_NEGATIVE = $40000;  
-{*< Seeking is based on PTS  }
-  AVFMT_SEEK_TO_PTS = $4000000;  
-{*
- * @addtogroup lavf_encoding
- * @
-  }
-{*
-     * Descriptive name for the format, meant to be more human-readable
-     * than name. You should use the NULL_IF_CONFIG_SMALL() macro
-     * to define it.
-      }
-{*< comma-separated filename extensions  }
-{ output support  }
-{*< default audio codec  }
-{*< default video codec  }
-{*< default subtitle codec  }
-{*
-     * can use flags: AVFMT_NOFILE, AVFMT_NEEDNUMBER,
-     * AVFMT_GLOBALHEADER, AVFMT_NOTIMESTAMPS, AVFMT_VARIABLE_FPS,
-     * AVFMT_NODIMENSIONS, AVFMT_NOSTREAMS,
-     * AVFMT_TS_NONSTRICT, AVFMT_TS_NEGATIVE
-      }
-{*
-     * List of supported codec_id-codec_tag pairs, ordered by "better
-     * choice first". The arrays are all terminated by AV_CODEC_ID_NONE.
-      }
-{/< AVClass for the private context }
+  AVFMT_TS_NEGATIVE = $40000;
+  AVFMT_SEEK_TO_PTS = $4000000;
 type
-  PAVOutputFormat = ^TAVOutputFormat;
   TAVOutputFormat = record
       name : Pchar;
       long_name : Pchar;
@@ -576,6 +66,7 @@ type
       codec_tag : ^PAVCodecTag;
       priv_class : PAVClass;
     end;
+  PAVOutputFormat = ^TAVOutputFormat;
 {*
  * @
   }
