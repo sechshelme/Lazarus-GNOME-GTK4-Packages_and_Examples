@@ -40,6 +40,6 @@
                                            LIBAVCODEC_VERSION_MICRO)
 #define LIBAVCODEC_BUILD        LIBAVCODEC_VERSION_INT
 
-#define LIBAVCODEC_IDENT        "Lavc" AV_STRINGIFY(LIBAVCODEC_VERSION)
+
 
 #endif /* AVCODEC_VERSION_H */

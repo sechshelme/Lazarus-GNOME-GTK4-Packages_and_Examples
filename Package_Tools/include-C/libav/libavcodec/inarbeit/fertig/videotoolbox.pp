@@ -1,4 +1,36 @@
-/*
+
+unit videotoolbox;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from videotoolbox.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    videotoolbox.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+PAVCodecContext  = ^AVCodecContext;
+PAVVideotoolboxContext  = ^AVVideotoolboxContext;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
  * Videotoolbox hardware acceleration
  *
  * copyright (c) 2012 Sebastien Zwickert
@@ -18,78 +50,67 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with FFmpeg; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- */
-
-#ifndef AVCODEC_VIDEOTOOLBOX_H
-#define AVCODEC_VIDEOTOOLBOX_H
-
-/**
+  }
+{$ifndef AVCODEC_VIDEOTOOLBOX_H}
+{$define AVCODEC_VIDEOTOOLBOX_H}
+{*
  * @file
  * @ingroup lavc_codec_hwaccel_videotoolbox
  * Public libavcodec Videotoolbox header.
- */
-
-/**
+  }
+{*
  * @defgroup lavc_codec_hwaccel_videotoolbox VideoToolbox Decoder
  * @ingroup lavc_codec_hwaccel
  *
  * Hardware accelerated decoding using VideoToolbox on Apple Platforms
  *
- * @{
- */
+ * @
+  }
+{$include <stdint.h>}
 
-#include <stdint.h>
-
-#define Picture QuickdrawPicture
-#include <VideoToolbox/VideoToolbox.h>
-#undef Picture
-
-#include "libavcodec/avcodec.h"
-
-#include "libavutil/attributes.h"
-
-/**
+const
+  Picture = QuickdrawPicture;  
+{$include <VideoToolbox/VideoToolbox.h>}
+{$undef Picture}
+{$include "libavcodec/avcodec.h"}
+{$include "libavutil/attributes.h"}
+{*
  * This struct holds all the information that needs to be passed
  * between the caller and libavcodec for initializing Videotoolbox decoding.
  * Its size is not a part of the public ABI, it must be allocated with
  * av_videotoolbox_alloc_context() and freed with av_free().
- */
-typedef struct AVVideotoolboxContext {
-    /**
+  }
+{*
      * Videotoolbox decompression session object.
-     */
-    VTDecompressionSessionRef session;
-
-#if FF_API_VT_OUTPUT_CALLBACK
-    /**
+      }
+{$if FF_API_VT_OUTPUT_CALLBACK}
+{*
      * The output callback that must be passed to the session.
      * Set by av_videottoolbox_default_init()
-     */
-    attribute_deprecated
-    VTDecompressionOutputCallback output_callback;
-#endif
-
-    /**
+      }
+{$endif}
+{*
      * CVPixelBuffer Format Type that Videotoolbox will use for decoded frames.
      * set by the caller. If this is set to 0, then no specific format is
      * requested from the decoder, and its native format is output.
-     */
-    OSType cv_pix_fmt_type;
-
-    /**
+      }
+{*
      * CoreMedia Format Description that Videotoolbox will use to create the decompression session.
-     */
-    CMVideoFormatDescriptionRef cm_fmt_desc;
-
-    /**
+      }
+{*
      * CoreMedia codec type that Videotoolbox will use to create the decompression session.
-     */
-    int cm_codec_type;
-} AVVideotoolboxContext;
-
-#if FF_API_VT_HWACCEL_CONTEXT
-
-/**
+      }
+type
+  PAVVideotoolboxContext = ^TAVVideotoolboxContext;
+  TAVVideotoolboxContext = record
+      session : TVTDecompressionSessionRef;
+      output_callback : TVTDecompressionOutputCallback;
+      cv_pix_fmt_type : TOSType;
+      cm_fmt_desc : TCMVideoFormatDescriptionRef;
+      cm_codec_type : longint;
+    end;
+{$if FF_API_VT_HWACCEL_CONTEXT}
+{*
  * Allocate and initialize a Videotoolbox context.
  *
  * This function should be called from the get_format() callback when the caller
@@ -102,11 +123,10 @@ typedef struct AVVideotoolboxContext {
  *
  * @return the newly allocated context or NULL on failure
  * @deprecated Use AVCodecContext.hw_frames_ctx or hw_device_ctx instead.
- */
-attribute_deprecated
-AVVideotoolboxContext *av_videotoolbox_alloc_context(void);
+  }
 
-/**
+function av_videotoolbox_alloc_context:PAVVideotoolboxContext;cdecl;external;
+{*
  * This is a convenience function that creates and sets up the Videotoolbox context using
  * an internal implementation.
  *
@@ -114,11 +134,9 @@ AVVideotoolboxContext *av_videotoolbox_alloc_context(void);
  *
  * @return >= 0 on success, a negative AVERROR code on failure
  * @deprecated Use AVCodecContext.hw_frames_ctx or hw_device_ctx instead.
- */
-attribute_deprecated
-int av_videotoolbox_default_init(AVCodecContext *avctx);
-
-/**
+  }
+function av_videotoolbox_default_init(avctx:PAVCodecContext):longint;cdecl;external;
+{*
  * This is a convenience function that creates and sets up the Videotoolbox context using
  * an internal implementation.
  *
@@ -127,24 +145,25 @@ int av_videotoolbox_default_init(AVCodecContext *avctx);
  *
  * @return >= 0 on success, a negative AVERROR code on failure
  * @deprecated Use AVCodecContext.hw_frames_ctx or hw_device_ctx instead.
- */
-attribute_deprecated
-int av_videotoolbox_default_init2(AVCodecContext *avctx, AVVideotoolboxContext *vtctx);
-
-/**
+  }
+function av_videotoolbox_default_init2(avctx:PAVCodecContext; vtctx:PAVVideotoolboxContext):longint;cdecl;external;
+{*
  * This function must be called to free the Videotoolbox context initialized with
  * av_videotoolbox_default_init().
  *
  * @param avctx the corresponding codec context
  * @deprecated Use AVCodecContext.hw_frames_ctx or hw_device_ctx instead.
- */
-attribute_deprecated
-void av_videotoolbox_default_free(AVCodecContext *avctx);
+  }
+procedure av_videotoolbox_default_free(avctx:PAVCodecContext);cdecl;external;
+{$endif}
+{ FF_API_VT_HWACCEL_CONTEXT  }
+{*
+ * @
+  }
+{$endif}
+{ AVCODEC_VIDEOTOOLBOX_H  }
 
-#endif /* FF_API_VT_HWACCEL_CONTEXT */
+implementation
 
-/**
- * @}
- */
 
-#endif /* AVCODEC_VIDEOTOOLBOX_H */
+end.

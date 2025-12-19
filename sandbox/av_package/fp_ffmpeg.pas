@@ -6,6 +6,7 @@ const
   {$IFDEF Linux}
   libavformat = 'avformat';
   libavutil = 'avutil';
+  libavcodec='avcodec';
   {$ENDIF}
 
   {$IFDEF Windows}
@@ -55,10 +56,19 @@ type
 type // Vulkan
   PVkFormat = type Pointer;
 
-type  // nicht auffindbar
+type // /usr/include/X11/extensions/XvMC.h
+  PXvMCMacroBlock=type Pointer;
+  PXvMCSurface=type Pointer;
+
+type // nicht auffindbar
   PAVMurMur3 = type Pointer;
   TCFStringRef = longint;
   TCVPixelBufferRef = longint;
+  PVdpPictureInfo=type Pointer;
+  PVdpBitstreamBuffer=type Pointer;
+  TVdpDevice=LongInt;
+  PVdpGetProcAddress=type Pointer;
+  PVdpChromaType=type Pointer;
 
   {$DEFINE read_interface}
   {$include fp_avformat_includes.inc}
