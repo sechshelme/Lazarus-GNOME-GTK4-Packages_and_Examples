@@ -3,7 +3,7 @@ unit avformat;
 interface
 
 uses
-  fp_ffmpeg;
+  fp_ffmpeg, avio;
 
 type
   PAVFormatContext = type Pointer;
@@ -25,12 +25,12 @@ type
   PAVProbeData = ^TAVProbeData;
 
 const
-  AVPROBE_SCORE_RETRY = AVPROBE_SCORE_MAX/4;  
-  AVPROBE_SCORE_STREAM_RETRY = (AVPROBE_SCORE_MAX/4)-1;  
   AVPROBE_SCORE_EXTENSION = 50;
   AVPROBE_SCORE_MIME = 75;
   AVPROBE_SCORE_MAX = 100;
   AVPROBE_PADDING_SIZE = 32;
+  AVPROBE_SCORE_RETRY = AVPROBE_SCORE_MAX/4;
+  AVPROBE_SCORE_STREAM_RETRY = (AVPROBE_SCORE_MAX/4)-1;
   AVFMT_NOFILE = $0001;
   AVFMT_NEEDNUMBER = $0002;
   AVFMT_EXPERIMENTAL = $0004;
@@ -67,108 +67,7 @@ type
       priv_class : PAVClass;
     end;
   PAVOutputFormat = ^TAVOutputFormat;
-{*
- * @
-  }
-{*
- * @addtogroup lavf_decoding
- * @
-  }
-{*
-     * A comma separated list of short names for the format. New names
-     * may be appended with a minor bump.
-      }
-{*
-     * Descriptive name for the format, meant to be more human-readable
-     * than name. You should use the NULL_IF_CONFIG_SMALL() macro
-     * to define it.
-      }
-{*
-     * Can use flags: AVFMT_NOFILE, AVFMT_NEEDNUMBER, AVFMT_SHOW_IDS,
-     * AVFMT_NOTIMESTAMPS, AVFMT_GENERIC_INDEX, AVFMT_TS_DISCONT, AVFMT_NOBINSEARCH,
-     * AVFMT_NOGENSEARCH, AVFMT_NO_BYTE_SEEK, AVFMT_SEEK_TO_PTS.
-      }
-{*
-     * If extensions are defined, then no probe is done. You should
-     * usually not use extension format guessing because it is not
-     * reliable enough
-      }
-{/< AVClass for the private context }
-{*
-     * Comma-separated list of mime types.
-     * It is used check for matching mime types while probing.
-     * @see av_probe_input_format2
-      }
-{****************************************************************
-     * No fields below this line are part of the public API. They
-     * may not be used outside of libavformat and can be changed and
-     * removed at will.
-     * New public fields should be added right above.
-     *****************************************************************
-      }
-{*
-     * Raw demuxers store their codec ID here.
-      }
-{*
-     * Size of private data so that it can be allocated in the wrapper.
-      }
-{*
-     * Internal flags. See FF_FMT_FLAG_* in internal.h.
-      }
-{*
-     * Tell if a given file has a chance of being parsed as this format.
-     * The buffer provided is guaranteed to be AVPROBE_PADDING_SIZE bytes
-     * big so you do not have to check for that unless you need more.
-      }
-{*
-     * Read the format header and initialize the AVFormatContext
-     * structure. Return 0 if OK. 'avformat_new_stream' should be
-     * called to create new streams.
-      }
-{*
-     * Read one packet and put it in 'pkt'. pts and flags are also
-     * set. 'avformat_new_stream' can be called only if the flag
-     * AVFMTCTX_NOHEADER is used and only in the calling thread (not in a
-     * background thread).
-     * @return 0 on success, < 0 on error.
-     *         Upon returning an error, pkt must be unreferenced by the caller.
-      }
-{*
-     * Close the stream. The AVFormatContext and AVStreams are not
-     * freed by this function
-      }
-{*
-     * Seek to a given timestamp relative to the frames in
-     * stream component stream_index.
-     * @param stream_index Must not be -1.
-     * @param flags Selects which direction should be preferred if no exact
-     *              match is available.
-     * @return >= 0 on success (but not necessarily the new offset)
-      }
-{*
-     * Get the next timestamp in stream[stream_index].time_base units.
-     * @return the timestamp or AV_NOPTS_VALUE if an error occurred
-      }
-{*
-     * Start/resume playing - only meaningful if using a network-based format
-     * (RTSP).
-      }
-{*
-     * Pause playing - only meaningful if using a network-based format
-     * (RTSP).
-      }
-{*
-     * Seek to timestamp ts.
-     * Seeking will be done so that the point from which all active streams
-     * can be presented successfully will be closest to ts and within min/max_ts.
-     * Active streams are all streams that have AVStream.discard < AVDISCARD_ALL.
-      }
-{*
-     * Returns device list with it properties.
-     * @see avdevice_list_devices() for more details.
-      }
 
-  PAVInputFormat = ^TAVInputFormat;
   TAVInputFormat = record
       name : Pchar;
       long_name : Pchar;
@@ -192,16 +91,7 @@ type
                    flags:longint):longint;cdecl;
       get_device_list : function (s:PAVFormatContext; device_list:PAVDeviceInfoList):longint;cdecl;
     end;
-{*
- * @
-  }
-{*< full parsing and repack  }
-{*< Only parse headers, do not repack.  }
-{*< full parsing and interpolation of timestamps for frames not starting on a packet boundary  }
-{*< full parsing and repack of the first frame only, only implemented for H.264 currently  }
-{*< full parsing and repack with timestamp and position generation by parser for raw
-                                    this assumes that each packet in the file contains no demuxer level headers and
-                                    just codec level data, otherwise position generation would fail  }
+  PAVInputFormat = ^TAVInputFormat;
   TAVStreamParseType =  Longint;
   Const
     AVSTREAM_PARSE_NONE = 0;
@@ -211,266 +101,36 @@ type
     AVSTREAM_PARSE_FULL_ONCE = 4;
     AVSTREAM_PARSE_FULL_RAW = 5;
 
-{*<
-                               * Timestamp in AVStream.time_base units, preferably the time from which on correctly decoded frames are available
-                               * when seeking to this entry. That means preferable PTS on keyframe based formats.
-                               * But demuxers can choose to store a different timestamp, if it is more convenient for the implementation or nothing better
-                               * is known
-                                }
-{Yeah, trying to keep the size of this small to reduce memory requirements (it is 24 vs. 32 bytes due to possible 8-byte alignment). }
-{*< Minimum distance between this and the previous keyframe, used to avoid unneeded searching.  }
 type
-  PAVIndexEntry = ^TAVIndexEntry;
-  TAVIndexEntry = record
-      pos : Tint64_t;
-      timestamp : Tint64_t;
-      flag0 : longint;
-      min_distance : longint;
-    end;
-
-const
-  bm_AVIndexEntry_flags = $3;
-  bp_AVIndexEntry_flags = 0;
-  bm_AVIndexEntry_size = $FFFFFFFC;
-  bp_AVIndexEntry_size = 2;
-
-function flags(var a : AVIndexEntry) : longint;
-procedure set_flags(var a : AVIndexEntry; __flags : longint);
-function size(var a : AVIndexEntry) : longint;
-procedure set_size(var a : AVIndexEntry; __size : longint);
-
+  PAVIndexEntry = type Pointer;
 const
   AVINDEX_KEYFRAME = $0001;  
-{*
-                                          * Flag is used to indicate which frame should be discarded after decoding.
-                                           }
-  AVINDEX_DISCARD_FRAME = $0002;  
-{*
- * The stream should be chosen by default among other streams of the same type,
- * unless the user has explicitly specified otherwise.
-  }
-  AV_DISPOSITION_DEFAULT = 1 shl 0;  
-{*
- * The stream is not in original language.
- *
- * @note AV_DISPOSITION_ORIGINAL is the inverse of this disposition. At most
- *       one of them should be set in properly tagged streams.
- * @note This disposition may apply to any stream type, not just audio.
-  }
-  AV_DISPOSITION_DUB = 1 shl 1;  
-{*
- * The stream is in original language.
- *
- * @see the notes for AV_DISPOSITION_DUB
-  }
-  AV_DISPOSITION_ORIGINAL = 1 shl 2;  
-{*
- * The stream is a commentary track.
-  }
-  AV_DISPOSITION_COMMENT = 1 shl 3;  
-{*
- * The stream contains song lyrics.
-  }
-  AV_DISPOSITION_LYRICS = 1 shl 4;  
-{*
- * The stream contains karaoke audio.
-  }
-  AV_DISPOSITION_KARAOKE = 1 shl 5;  
-{*
- * Track should be used during playback by default.
- * Useful for subtitle track that should be displayed
- * even when user did not explicitly ask for subtitles.
-  }
-  AV_DISPOSITION_FORCED = 1 shl 6;  
-{*
- * The stream is intended for hearing impaired audiences.
-  }
-  AV_DISPOSITION_HEARING_IMPAIRED = 1 shl 7;  
-{*
- * The stream is intended for visually impaired audiences.
-  }
-  AV_DISPOSITION_VISUAL_IMPAIRED = 1 shl 8;  
-{*
- * The audio stream contains music and sound effects without voice.
-  }
-  AV_DISPOSITION_CLEAN_EFFECTS = 1 shl 9;  
-{*
- * The stream is stored in the file as an attached picture/"cover art" (e.g.
- * APIC frame in ID3v2). The first (usually only) packet associated with it
- * will be returned among the first few packets read from the file unless
- * seeking takes place. It can also be accessed at any time in
- * AVStream.attached_pic.
-  }
-  AV_DISPOSITION_ATTACHED_PIC = 1 shl 10;  
-{*
- * The stream is sparse, and contains thumbnail images, often corresponding
- * to chapter markers. Only ever used with AV_DISPOSITION_ATTACHED_PIC.
-  }
-  AV_DISPOSITION_TIMED_THUMBNAILS = 1 shl 11;  
-{*
- * The stream is intended to be mixed with a spatial audio track. For example,
- * it could be used for narration or stereo music, and may remain unchanged by
- * listener head rotation.
-  }
-  AV_DISPOSITION_NON_DIEGETIC = 1 shl 12;  
-{*
- * The subtitle stream contains captions, providing a transcription and possibly
- * a translation of audio. Typically intended for hearing-impaired audiences.
-  }
-  AV_DISPOSITION_CAPTIONS = 1 shl 16;  
-{*
- * The subtitle stream contains a textual description of the video content.
- * Typically intended for visually-impaired audiences or for the cases where the
- * video cannot be seen.
-  }
-  AV_DISPOSITION_DESCRIPTIONS = 1 shl 17;  
-{*
- * The subtitle stream contains time-aligned metadata that is not intended to be
- * directly presented to the user.
-  }
-  AV_DISPOSITION_METADATA = 1 shl 18;  
-{*
- * The audio stream is intended to be mixed with another stream before
- * presentation.
- * Corresponds to mix_type=0 in mpegts.
-  }
-  AV_DISPOSITION_DEPENDENT = 1 shl 19;  
-{*
- * The video stream contains still images.
-  }
-  AV_DISPOSITION_STILL_IMAGE = 1 shl 20;  
-{*
- * @return The AV_DISPOSITION_* flag corresponding to disp or a negative error
- *         code if disp does not correspond to a known stream disposition.
-  }
+  AVINDEX_DISCARD_FRAME = $0002;
+  AV_DISPOSITION_DEFAULT = 1 shl 0;
+  AV_DISPOSITION_DUB = 1 shl 1;
+  AV_DISPOSITION_ORIGINAL = 1 shl 2;
+  AV_DISPOSITION_COMMENT = 1 shl 3;
+  AV_DISPOSITION_LYRICS = 1 shl 4;
+  AV_DISPOSITION_KARAOKE = 1 shl 5;
+  AV_DISPOSITION_FORCED = 1 shl 6;
+  AV_DISPOSITION_HEARING_IMPAIRED = 1 shl 7;
+  AV_DISPOSITION_VISUAL_IMPAIRED = 1 shl 8;
+  AV_DISPOSITION_CLEAN_EFFECTS = 1 shl 9;
+  AV_DISPOSITION_ATTACHED_PIC = 1 shl 10;
+  AV_DISPOSITION_TIMED_THUMBNAILS = 1 shl 11;
+  AV_DISPOSITION_NON_DIEGETIC = 1 shl 12;
+  AV_DISPOSITION_CAPTIONS = 1 shl 16;
+  AV_DISPOSITION_DESCRIPTIONS = 1 shl 17;
+  AV_DISPOSITION_METADATA = 1 shl 18;
+  AV_DISPOSITION_DEPENDENT = 1 shl 19;
+  AV_DISPOSITION_STILL_IMAGE = 1 shl 20;
 
 function av_disposition_from_string(disp:Pchar):longint;cdecl;external libavformat;
-{*
- * @param disposition a combination of AV_DISPOSITION_* values
- * @return The string description corresponding to the lowest set bit in
- *         disposition. NULL when the lowest set bit does not correspond
- *         to a known disposition or when disposition is 0.
-  }
 function av_disposition_to_string(disposition:longint):Pchar;cdecl;external libavformat;
-{*
- * Options for behavior on timestamp wrap detection.
-  }
 const
-  AV_PTS_WRAP_IGNORE = 0;  {/< ignore the wrap }
-  AV_PTS_WRAP_ADD_OFFSET = 1;  {/< add the format specific offset on wrap detection }
-  AV_PTS_WRAP_SUB_OFFSET = -(1);  {/< subtract the format specific offset on wrap detection }
-{*
- * Stream structure.
- * New fields can be added to the end with minor version bumps.
- * Removal, reordering and changes to existing fields require a major
- * version bump.
- * sizeof(AVStream) must not be used outside libav*.
-  }
-{*
-     * A class for @ref avoptions. Set on stream creation.
-      }
-{*< stream index in AVFormatContext  }
-{*
-     * Format-specific stream ID.
-     * decoding: set by libavformat
-     * encoding: set by the user, replaced by libavformat if left unset
-      }
-{*
-     * Codec parameters associated with this stream. Allocated and freed by
-     * libavformat in avformat_new_stream() and avformat_free_context()
-     * respectively.
-     *
-     * - demuxing: filled by libavformat on stream creation or in
-     *             avformat_find_stream_info()
-     * - muxing: filled by the caller before avformat_write_header()
-      }
-{*
-     * This is the fundamental unit of time (in seconds) in terms
-     * of which frame timestamps are represented.
-     *
-     * decoding: set by libavformat
-     * encoding: May be set by the caller before avformat_write_header() to
-     *           provide a hint to the muxer about the desired timebase. In
-     *           avformat_write_header(), the muxer will overwrite this field
-     *           with the timebase that will actually be used for the timestamps
-     *           written into the file (which may or may not be related to the
-     *           user-provided one, depending on the format).
-      }
-{*
-     * Decoding: pts of the first frame of the stream in presentation order, in stream time base.
-     * Only set this if you are absolutely 100% sure that the value you set
-     * it to really is the pts of the first frame.
-     * This may be undefined (AV_NOPTS_VALUE).
-     * @note The ASF header does NOT contain a correct start_time the ASF
-     * demuxer must NOT set this.
-      }
-{*
-     * Decoding: duration of the stream, in stream time base.
-     * If a source file does not specify a duration, but does specify
-     * a bitrate, this value will be estimated from bitrate and file size.
-     *
-     * Encoding: May be set by the caller before avformat_write_header() to
-     * provide a hint to the muxer about the estimated duration.
-      }
-{/< number of frames in this stream if known or 0 }
-{*
-     * Stream disposition - a combination of AV_DISPOSITION_* flags.
-     * - demuxing: set by libavformat when creating the stream or in
-     *             avformat_find_stream_info().
-     * - muxing: may be set by the caller before avformat_write_header().
-      }
-{/< Selects which packets can be discarded at will and do not need to be demuxed. }
-{*
-     * sample aspect ratio (0 if unknown)
-     * - encoding: Set by user.
-     * - decoding: Set by libavformat.
-      }
-{*
-     * Average framerate
-     *
-     * - demuxing: May be set by libavformat when creating the stream or in
-     *             avformat_find_stream_info().
-     * - muxing: May be set by the caller before avformat_write_header().
-      }
-{*
-     * For streams with AV_DISPOSITION_ATTACHED_PIC disposition, this packet
-     * will contain the attached picture.
-     *
-     * decoding: set by libavformat, must not be modified by the caller.
-     * encoding: unused
-      }
-{*
-     * Flags indicating events happening on the stream, a combination of
-     * AVSTREAM_EVENT_FLAG_*.
-     *
-     * - demuxing: may be set by the demuxer in avformat_open_input(),
-     *   avformat_find_stream_info() and av_read_frame(). Flags must be cleared
-     *   by the user once the event has been handled.
-     * - muxing: may be set by the user after avformat_write_header(). to
-     *   indicate a user-triggered event.  The muxer will clear the flags for
-     *   events it has handled in av_[interleaved]_write_frame().
-      }
-{*
- * - demuxing: the demuxer read new metadata from the file and updated
- *     AVStream.metadata accordingly
- * - muxing: the user updated AVStream.metadata and wishes the muxer to write
- *     it into the file
-  }
-{*
-     * Real base framerate of the stream.
-     * This is the lowest framerate with which all timestamps can be
-     * represented accurately (it is the least common multiple of all
-     * framerates in the stream). Note, this value is just a guess!
-     * For example, if the time base is 1/90000 and all frames have either
-     * approximately 3600 or 1800 timer ticks, then r_frame_rate will be 50/1.
-      }
-{*
-     * Number of bits in timestamps. Used for wrapping control.
-     *
-     * - demuxing: set by libavformat
-     * - muxing: set by libavformat
-     *
-      }
+  AV_PTS_WRAP_IGNORE = 0;
+  AV_PTS_WRAP_ADD_OFFSET = 1;
+  AV_PTS_WRAP_SUB_OFFSET = -(1);
 type
   PAVStream = ^TAVStream;
   TAVStream = record

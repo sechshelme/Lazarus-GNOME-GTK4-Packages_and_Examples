@@ -1,17 +1,9 @@
-unit codec_id;
-
-interface
-
-uses
-  fp_ffmpeg;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
   TAVCodecID = longint;
+  PAVCodecID = ^TAVCodecID;
 
 const
   AV_CODEC_ID_NONE = 0;
@@ -553,8 +545,11 @@ function av_get_pcm_codec(fmt: TAVSampleFormat; be: longint): TAVCodecID; cdecl;
 // === Konventiert am: 19-12-25 17:10:12 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

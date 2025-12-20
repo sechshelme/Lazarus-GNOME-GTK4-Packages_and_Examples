@@ -3,7 +3,7 @@ unit bsf;
 interface
 
 uses
-  fp_ffmpeg, avcodec;
+  fp_ffmpeg, avcodec, codec_id, packet;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -28,6 +28,7 @@ type
     time_base_out: TAVRational;
   end;
   PAVBSFContext = ^TAVBSFContext;
+  PPAVBSFContext = ^PAVBSFContext;
 
 function av_bsf_get_by_name(name: pchar): PAVBitStreamFilter; cdecl; external libavcodec;
 function av_bsf_iterate(opaque: Ppointer): PAVBitStreamFilter; cdecl; external libavcodec;
@@ -41,6 +42,7 @@ function av_bsf_get_class: PAVClass; cdecl; external libavcodec;
 
 type
   PAVBSFList = type Pointer;
+  PPAVBSFList = ^PAVBSFList;
 
 function av_bsf_list_alloc: PAVBSFList; cdecl; external libavcodec;
 procedure av_bsf_list_free(lst: PPAVBSFList); cdecl; external libavcodec;

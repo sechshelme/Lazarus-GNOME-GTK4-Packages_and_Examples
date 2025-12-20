@@ -1,38 +1,10 @@
 program project1;
 
 uses
-  vdpau,
-  version_major,
-  videotoolbox,              // vdpau
-  vorbis_parser,
-  xvmc,
-  packet,
-  qsv,
-  version,
-  defs,
-  codec_id,
-  codec,
-  codec_par,
-  codec_desc,
-  d3d11va,
-  dirac,
-  dv_profile,
-  dxva2,
-  jni,
-  mediacodec,
-
-  //ac3_parser,
-  //adts_parser,
-  //avdct,
-  //avfft,
-  avcodec,
-  bsf,
 
 
-
-
-//  avformat,
-//  avio,                 // struct verkleinert
+   avio,
+  avformat,
 //  version,
 //  version_major,
 
