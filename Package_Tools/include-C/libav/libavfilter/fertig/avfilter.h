@@ -96,7 +96,7 @@ const char *avfilter_pad_get_name(const AVFilterPad *pads, int pad_idx);
  *
  * @return type of the pad_idx'th pad in pads
  */
-enum AVMediaType avfilter_pad_get_type(const AVFilterPad *pads, int pad_idx);
+ AVMediaType avfilter_pad_get_type(const AVFilterPad *pads, int pad_idx);
 
 /**
  * The number of the filter inputs is not determined just by AVFilter.inputs.
@@ -547,7 +547,6 @@ struct AVFilterLink {
      * channel layout of current buffer (see libavutil/channel_layout.h)
      * @deprecated use ch_layout
      */
-    attribute_deprecated
     uint64_t channel_layout;
 #endif
     int sample_rate;            ///< samples per second
@@ -992,7 +991,7 @@ int avfilter_graph_create_filter(AVFilterContext **filt_ctx, const AVFilter *fil
  */
 void avfilter_graph_set_auto_convert(AVFilterGraph *graph, unsigned flags);
 
-enum {
+enum xxxxxx {
     AVFILTER_AUTO_CONVERT_ALL  =  0, /**< all automatic conversions enabled */
     AVFILTER_AUTO_CONVERT_NONE = -1, /**< all automatic conversions disabled */
 };

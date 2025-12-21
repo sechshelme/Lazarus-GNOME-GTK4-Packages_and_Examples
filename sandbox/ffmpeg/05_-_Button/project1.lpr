@@ -1,13 +1,11 @@
 program project1;
 
 uses
-
-
-   avio,
-  avformat,
-//  version,
-//  version_major,
-
+  avfilter,
+  buffersink,
+  buffersrc,
+  version,
+  version_major,
 
 
   fp_ffmpeg,

@@ -51,6 +51,7 @@ type
     ch_layouts: PAVChannelLayout;
   end;
   PAVCodec = ^TAVCodec;
+  PPAVCodec = ^PAVCodec;
 
 function av_codec_iterate(opaque: Ppointer): PAVCodec; cdecl; external libavcodec;
 function avcodec_find_decoder(id: TAVCodecID): PAVCodec; cdecl; external libavcodec;

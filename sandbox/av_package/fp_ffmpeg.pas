@@ -7,6 +7,7 @@ const
   libavformat = 'avformat';
   libavutil = 'avutil';
   libavcodec = 'avcodec';
+  libavfilter = 'avfilter';
   {$ENDIF}
 
   {$IFDEF Windows}
@@ -71,16 +72,18 @@ type // nicht auffindbar
   PVdpChromaType = type Pointer;
 
   {$DEFINE read_interface}
-  {$include fp_avformat_includes.inc}
+  {$include fp_avutil_includes.inc}
   {$include fp_codec_includes.inc}
+  {$include fp_avformat_includes.inc}
   {$UNDEF read_interface}
 
 
 implementation
 
 {$DEFINE read_implementation}
-{$include fp_avformat_includes.inc}
+{$include fp_avutil_includes.inc}
 {$include fp_codec_includes.inc}
+{$include fp_avformat_includes.inc}
 {$UNDEF read_implementation}
 
 end.

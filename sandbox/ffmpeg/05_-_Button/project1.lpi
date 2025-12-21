@@ -48,7 +48,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="../../../Package_Tools/pas_units/libav/libavutil;../../../Package_Tools/pas_units/libav/libavcodec;../../../Package_Tools/pas_units/libav/libavformat"/>
+      <OtherUnitFiles Value="../../../Package_Tools/include-C/libav/libavfilter"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>
