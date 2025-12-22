@@ -8,6 +8,11 @@ const
   libavutil = 'avutil';
   libavcodec = 'avcodec';
   libavfilter = 'avfilter';
+  libavdevice = 'avdevice';
+  libswscale='swscale';
+  libswresample='swresample';
+  libpostproc='postproc';
+
   {$ENDIF}
 
   {$IFDEF Windows}
@@ -75,6 +80,12 @@ type // nicht auffindbar
   {$include fp_avutil_includes.inc}
   {$include fp_codec_includes.inc}
   {$include fp_avformat_includes.inc}
+  {$include fp_avfilter_includes.inc}
+  {$include fp_avdevice_includes.inc}
+  {$include fp_swscale_includes.inc}
+  {$include fp_swresample_includes.inc}
+  {$include fp_postproc_includes.inc}
+//  {$include fp_avc1394_includes.inc}  // nicht gebunden
   {$UNDEF read_interface}
 
 
@@ -84,6 +95,12 @@ implementation
 {$include fp_avutil_includes.inc}
 {$include fp_codec_includes.inc}
 {$include fp_avformat_includes.inc}
+{$include fp_avfilter_includes.inc}
+{$include fp_avdevice_includes.inc}
+{$include fp_swscale_includes.inc}
+{$include fp_swresample_includes.inc}
+{$include fp_postproc_includes.inc}
+// {$include fp_avc1394_includes.inc}
 {$UNDEF read_implementation}
 
 end.

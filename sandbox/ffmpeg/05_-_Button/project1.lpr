@@ -1,11 +1,6 @@
 program project1;
 
 uses
-  avfilter,
-  buffersink,
-  buffersrc,
-  version,
-  version_major,
 
 
   fp_ffmpeg,

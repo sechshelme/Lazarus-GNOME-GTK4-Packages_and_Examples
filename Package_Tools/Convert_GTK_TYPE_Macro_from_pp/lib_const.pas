@@ -272,6 +272,10 @@ const
     (libs: 'libmanette'; units: 'fp_glib2'),
     (libs: 'libavcodec'; units: 'fp_ffmpeg'),
     (libs: 'libavfilter'; units: 'fp_ffmpeg'),
+    (libs: 'libswscale'; units: 'fp_ffmpeg'),
+    (libs: 'libswresample'; units: 'fp_ffmpeg'),
+    (libs: 'libavdevice'; units: 'fp_ffmpeg'),
+    (libs: 'libpostproc'; units: 'fp_ffmpeg'),
 
     (libs: ''; units: ''));
 

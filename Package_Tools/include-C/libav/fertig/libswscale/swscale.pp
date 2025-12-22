@@ -1,4 +1,43 @@
-/*
+
+unit swscale;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from swscale.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    swscale.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+PAVClass  = ^AVClass;
+PAVFrame  = ^AVFrame;
+Pchar  = ^char;
+Pdouble  = ^double;
+Plongint  = ^longint;
+PSwsContext  = ^SwsContext;
+PSwsFilter  = ^SwsFilter;
+PSwsVector  = ^SwsVector;
+Puint8_t  = ^uint8_t;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
  * Copyright (C) 2001-2011 Michael Niedermayer <michaelni@gmx.at>
  *
  * This file is part of FFmpeg.
@@ -16,160 +55,151 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with FFmpeg; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- */
-
-#ifndef SWSCALE_SWSCALE_H
-#define SWSCALE_SWSCALE_H
-
-/**
+  }
+{$ifndef SWSCALE_SWSCALE_H}
+{$define SWSCALE_SWSCALE_H}
+{*
  * @file
  * @ingroup libsws
  * external API header
- */
-
-#include <stdint.h>
-
-#include "libavutil/avutil.h"
-#include "libavutil/frame.h"
-#include "libavutil/log.h"
-#include "libavutil/pixfmt.h"
-#include "version_major.h"
-#ifndef HAVE_AV_CONFIG_H
-/* When included as part of the ffmpeg build, only include the major version
+  }
+{$include <stdint.h>}
+{$include "libavutil/avutil.h"}
+{$include "libavutil/frame.h"}
+{$include "libavutil/log.h"}
+{$include "libavutil/pixfmt.h"}
+{$include "version_major.h"}
+{$ifndef HAVE_AV_CONFIG_H}
+{ When included as part of the ffmpeg build, only include the major version
  * to avoid unnecessary rebuilds. When included externally, keep including
- * the full version information. */
-#include "version.h"
-#endif
-
-/**
+ * the full version information.  }
+{$include "version.h"}
+{$endif}
+{*
  * @defgroup libsws libswscale
  * Color conversion and scaling library.
  *
- * @{
+ * @
  *
  * Return the LIBSWSCALE_VERSION_INT constant.
- */
-unsigned swscale_version(void);
+  }
 
-/**
+function swscale_version:dword;cdecl;external;
+{*
  * Return the libswscale build-time configuration.
- */
-const char *swscale_configuration(void);
-
-/**
+  }
+(* Const before type ignored *)
+function swscale_configuration:Pchar;cdecl;external;
+{*
  * Return the libswscale license.
- */
-const char *swscale_license(void);
-
-/* values for the flags, the stuff on the command line is different */
-#define SWS_FAST_BILINEAR     1
-#define SWS_BILINEAR          2
-#define SWS_BICUBIC           4
-#define SWS_X                 8
-#define SWS_POINT          0x10
-#define SWS_AREA           0x20
-#define SWS_BICUBLIN       0x40
-#define SWS_GAUSS          0x80
-#define SWS_SINC          0x100
-#define SWS_LANCZOS       0x200
-#define SWS_SPLINE        0x400
-
-#define SWS_SRC_V_CHR_DROP_MASK     0x30000
-#define SWS_SRC_V_CHR_DROP_SHIFT    16
-
-#define SWS_PARAM_DEFAULT           123456
-
-#define SWS_PRINT_INFO              0x1000
-
-//the following 3 flags are not completely implemented
-//internal chrominance subsampling info
-#define SWS_FULL_CHR_H_INT    0x2000
-//input subsampling info
-#define SWS_FULL_CHR_H_INP    0x4000
-#define SWS_DIRECT_BGR        0x8000
-#define SWS_ACCURATE_RND      0x40000
-#define SWS_BITEXACT          0x80000
-#define SWS_ERROR_DIFFUSION  0x800000
-
-#define SWS_MAX_REDUCE_CUTOFF 0.002
-
-#define SWS_CS_ITU709         1
-#define SWS_CS_FCC            4
-#define SWS_CS_ITU601         5
-#define SWS_CS_ITU624         5
-#define SWS_CS_SMPTE170M      5
-#define SWS_CS_SMPTE240M      7
-#define SWS_CS_DEFAULT        5
-#define SWS_CS_BT2020         9
-
-/**
+  }
+(* Const before type ignored *)
+function swscale_license:Pchar;cdecl;external;
+{ values for the flags, the stuff on the command line is different  }
+const
+  SWS_FAST_BILINEAR = 1;  
+  SWS_BILINEAR = 2;  
+  SWS_BICUBIC = 4;  
+  SWS_X = 8;  
+  SWS_POINT = $10;  
+  SWS_AREA = $20;  
+  SWS_BICUBLIN = $40;  
+  SWS_GAUSS = $80;  
+  SWS_SINC = $100;  
+  SWS_LANCZOS = $200;  
+  SWS_SPLINE = $400;  
+  SWS_SRC_V_CHR_DROP_MASK = $30000;  
+  SWS_SRC_V_CHR_DROP_SHIFT = 16;  
+  SWS_PARAM_DEFAULT = 123456;  
+  SWS_PRINT_INFO = $1000;  
+{the following 3 flags are not completely implemented }
+{internal chrominance subsampling info }
+  SWS_FULL_CHR_H_INT = $2000;  
+{input subsampling info }
+  SWS_FULL_CHR_H_INP = $4000;  
+  SWS_DIRECT_BGR = $8000;  
+  SWS_ACCURATE_RND = $40000;  
+  SWS_BITEXACT = $80000;  
+  SWS_ERROR_DIFFUSION = $800000;  
+  SWS_MAX_REDUCE_CUTOFF = 0.002;  
+  SWS_CS_ITU709 = 1;  
+  SWS_CS_FCC = 4;  
+  SWS_CS_ITU601 = 5;  
+  SWS_CS_ITU624 = 5;  
+  SWS_CS_SMPTE170M = 5;  
+  SWS_CS_SMPTE240M = 7;  
+  SWS_CS_DEFAULT = 5;  
+  SWS_CS_BT2020 = 9;  
+{*
  * Return a pointer to yuv<->rgb coefficients for the given colorspace
  * suitable for sws_setColorspaceDetails().
  *
  * @param colorspace One of the SWS_CS_* macros. If invalid,
  * SWS_CS_DEFAULT is used.
- */
-const int *sws_getCoefficients(int colorspace);
+  }
+(* Const before type ignored *)
 
-// when used for filters they must have an odd number of elements
-// coeffs cannot be shared between vectors
-typedef struct SwsVector {
-    double *coeff;              ///< pointer to the list of coefficients
-    int length;                 ///< number of coefficients in the vector
-} SwsVector;
+function sws_getCoefficients(colorspace:longint):Plongint;cdecl;external;
+{ when used for filters they must have an odd number of elements }
+{ coeffs cannot be shared between vectors }
+{/< pointer to the list of coefficients }
+{/< number of coefficients in the vector }
+type
+  PSwsVector = ^TSwsVector;
+  TSwsVector = record
+      coeff : Pdouble;
+      length : longint;
+    end;
+{ vectors can be shared }
 
-// vectors can be shared
-typedef struct SwsFilter {
-    SwsVector *lumH;
-    SwsVector *lumV;
-    SwsVector *chrH;
-    SwsVector *chrV;
-} SwsFilter;
+  PSwsFilter = ^TSwsFilter;
+  TSwsFilter = record
+      lumH : PSwsVector;
+      lumV : PSwsVector;
+      chrH : PSwsVector;
+      chrV : PSwsVector;
+    end;
+  PSwsContext = ^TSwsContext;
+  TSwsContext = record
+      {undefined structure}
+    end;
 
-struct SwsContext;
-
-/**
+{*
  * Return a positive value if pix_fmt is a supported input format, 0
  * otherwise.
- */
-int sws_isSupportedInput(enum AVPixelFormat pix_fmt);
+  }
 
-/**
+function sws_isSupportedInput(pix_fmt:TAVPixelFormat):longint;cdecl;external;
+{*
  * Return a positive value if pix_fmt is a supported output format, 0
  * otherwise.
- */
-int sws_isSupportedOutput(enum AVPixelFormat pix_fmt);
-
-/**
+  }
+function sws_isSupportedOutput(pix_fmt:TAVPixelFormat):longint;cdecl;external;
+{*
  * @param[in]  pix_fmt the pixel format
  * @return a positive value if an endianness conversion for pix_fmt is
  * supported, 0 otherwise.
- */
-int sws_isSupportedEndiannessConversion(enum AVPixelFormat pix_fmt);
-
-/**
+  }
+function sws_isSupportedEndiannessConversion(pix_fmt:TAVPixelFormat):longint;cdecl;external;
+{*
  * Allocate an empty SwsContext. This must be filled and passed to
  * sws_init_context(). For filling see AVOptions, options.c and
  * sws_setColorspaceDetails().
- */
-struct SwsContext *sws_alloc_context(void);
-
-/**
+  }
+function sws_alloc_context:PSwsContext;cdecl;external;
+{*
  * Initialize the swscaler context sws_context.
  *
  * @return zero or positive value on success, a negative value on
  * error
- */
-av_warn_unused_result
-int sws_init_context(struct SwsContext *sws_context, SwsFilter *srcFilter, SwsFilter *dstFilter);
-
-/**
+  }
+function sws_init_context(sws_context:PSwsContext; srcFilter:PSwsFilter; dstFilter:PSwsFilter):longint;cdecl;external;
+{*
  * Free the swscaler context swsContext.
  * If swsContext is NULL, then does nothing.
- */
-void sws_freeContext(struct SwsContext *swsContext);
-
-/**
+  }
+procedure sws_freeContext(swsContext:PSwsContext);cdecl;external;
+{*
  * Allocate and return an SwsContext. You need it to perform
  * scaling/conversion operations using sws_scale().
  *
@@ -189,13 +219,11 @@ void sws_freeContext(struct SwsContext *swsContext);
  * @return a pointer to an allocated context, or NULL in case of error
  * @note this function is to be removed after a saner alternative is
  *       written
- */
-struct SwsContext *sws_getContext(int srcW, int srcH, enum AVPixelFormat srcFormat,
-                                  int dstW, int dstH, enum AVPixelFormat dstFormat,
-                                  int flags, SwsFilter *srcFilter,
-                                  SwsFilter *dstFilter, const double *param);
-
-/**
+  }
+(* Const before type ignored *)
+function sws_getContext(srcW:longint; srcH:longint; srcFormat:TAVPixelFormat; dstW:longint; dstH:longint; 
+           dstFormat:TAVPixelFormat; flags:longint; srcFilter:PSwsFilter; dstFilter:PSwsFilter; param:Pdouble):PSwsContext;cdecl;external;
+{*
  * Scale the image slice in srcSlice and put the resulting scaled
  * slice in the image in dst. A slice is a sequence of consecutive
  * rows in an image.
@@ -220,12 +248,15 @@ struct SwsContext *sws_getContext(int srcW, int srcH, enum AVPixelFormat srcForm
  * @param dstStride the array containing the strides for each plane of
  *                  the destination image
  * @return          the height of the output slice
- */
-int sws_scale(struct SwsContext *c, const uint8_t *const srcSlice[],
-              const int srcStride[], int srcSliceY, int srcSliceH,
-              uint8_t *const dst[], const int dstStride[]);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before declarator ignored *)
+(* Const before type ignored *)
+(* Const before declarator ignored *)
+(* Const before type ignored *)
+function sws_scale(c:PSwsContext; srcSlice:PPuint8_t; srcStride:Plongint; srcSliceY:longint; srcSliceH:longint; 
+           dst:PPuint8_t; dstStride:Plongint):longint;cdecl;external;
+{*
  * Scale source data from src and write the output to dst.
  *
  * This is merely a convenience wrapper around
@@ -240,10 +271,10 @@ int sws_scale(struct SwsContext *c, const uint8_t *const srcSlice[],
  * @param src The source frame.
  *
  * @return 0 on success, a negative AVERROR code on failure
- */
-int sws_scale_frame(struct SwsContext *c, AVFrame *dst, const AVFrame *src);
-
-/**
+  }
+(* Const before type ignored *)
+function sws_scale_frame(c:PSwsContext; dst:PAVFrame; src:PAVFrame):longint;cdecl;external;
+{*
  * Initialize the scaling process for a given pair of source/destination frames.
  * Must be called before any calls to sws_send_slice() and sws_receive_slice().
  *
@@ -267,20 +298,19 @@ int sws_scale_frame(struct SwsContext *c, AVFrame *dst, const AVFrame *src);
  * @return 0 on success, a negative AVERROR code on failure
  *
  * @see sws_frame_end()
- */
-int sws_frame_start(struct SwsContext *c, AVFrame *dst, const AVFrame *src);
-
-/**
+  }
+(* Const before type ignored *)
+function sws_frame_start(c:PSwsContext; dst:PAVFrame; src:PAVFrame):longint;cdecl;external;
+{*
  * Finish the scaling process for a pair of source/destination frames previously
  * submitted with sws_frame_start(). Must be called after all sws_send_slice()
  * and sws_receive_slice() calls are done, before any new sws_frame_start()
  * calls.
  *
  * @param c   The scaling context
- */
-void sws_frame_end(struct SwsContext *c);
-
-/**
+  }
+procedure sws_frame_end(c:PSwsContext);cdecl;external;
+{*
  * Indicate that a horizontal slice of input data is available in the source
  * frame previously provided to sws_frame_start(). The slices may be provided in
  * any order, but may not overlap. For vertically subsampled pixel formats, the
@@ -291,11 +321,9 @@ void sws_frame_end(struct SwsContext *c);
  * @param slice_height number of rows in the slice
  *
  * @return a non-negative number on success, a negative AVERROR code on failure.
- */
-int sws_send_slice(struct SwsContext *c, unsigned int slice_start,
-                   unsigned int slice_height);
-
-/**
+  }
+function sws_send_slice(c:PSwsContext; slice_start:dword; slice_height:dword):longint;cdecl;external;
+{*
  * Request a horizontal slice of the output data to be written into the frame
  * previously provided to sws_frame_start().
  *
@@ -311,21 +339,19 @@ int sws_send_slice(struct SwsContext *c, unsigned int slice_start,
  *         AVERROR(EAGAIN) if more input data needs to be provided before the
  *                         output can be produced
  *         another negative AVERROR code on other kinds of scaling failure
- */
-int sws_receive_slice(struct SwsContext *c, unsigned int slice_start,
-                      unsigned int slice_height);
-
-/**
+  }
+function sws_receive_slice(c:PSwsContext; slice_start:dword; slice_height:dword):longint;cdecl;external;
+{*
  * Get the alignment required for slices
  *
  * @param c   The scaling context
  * @return alignment required for output slices requested with sws_receive_slice().
  *         Slice offsets and sizes passed to sws_receive_slice() must be
  *         multiples of the value returned from this function.
- */
-unsigned int sws_receive_slice_alignment(const struct SwsContext *c);
-
-/**
+  }
+(* Const before type ignored *)
+function sws_receive_slice_alignment(c:PSwsContext):dword;cdecl;external;
+{*
  * @param c the scaling context
  * @param dstRange flag indicating the while-black range of the output (1=jpeg / 0=mpeg)
  * @param srcRange flag indicating the while-black range of the input (1=jpeg / 0=mpeg)
@@ -337,49 +363,39 @@ unsigned int sws_receive_slice_alignment(const struct SwsContext *c);
  *
  * @return A negative error code on error, non negative otherwise.
  *         If `LIBSWSCALE_VERSION_MAJOR < 7`, returns -1 if not supported.
- */
-int sws_setColorspaceDetails(struct SwsContext *c, const int inv_table[4],
-                             int srcRange, const int table[4], int dstRange,
-                             int brightness, int contrast, int saturation);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+function sws_setColorspaceDetails(c:PSwsContext; inv_table:array[0..3] of longint; srcRange:longint; table:array[0..3] of longint; dstRange:longint; 
+           brightness:longint; contrast:longint; saturation:longint):longint;cdecl;external;
+{*
  * @return A negative error code on error, non negative otherwise.
  *         If `LIBSWSCALE_VERSION_MAJOR < 7`, returns -1 if not supported.
- */
-int sws_getColorspaceDetails(struct SwsContext *c, int **inv_table,
-                             int *srcRange, int **table, int *dstRange,
-                             int *brightness, int *contrast, int *saturation);
-
-/**
+  }
+function sws_getColorspaceDetails(c:PSwsContext; inv_table:PPlongint; srcRange:Plongint; table:PPlongint; dstRange:Plongint; 
+           brightness:Plongint; contrast:Plongint; saturation:Plongint):longint;cdecl;external;
+{*
  * Allocate and return an uninitialized vector with length coefficients.
- */
-SwsVector *sws_allocVec(int length);
-
-/**
+  }
+function sws_allocVec(length:longint):PSwsVector;cdecl;external;
+{*
  * Return a normalized Gaussian curve used to filter stuff
  * quality = 3 is high quality, lower is lower quality.
- */
-SwsVector *sws_getGaussianVec(double variance, double quality);
-
-/**
+  }
+function sws_getGaussianVec(variance:Tdouble; quality:Tdouble):PSwsVector;cdecl;external;
+{*
  * Scale all the coefficients of a by the scalar value.
- */
-void sws_scaleVec(SwsVector *a, double scalar);
-
-/**
+  }
+procedure sws_scaleVec(a:PSwsVector; scalar:Tdouble);cdecl;external;
+{*
  * Scale all the coefficients of a so that their sum equals height.
- */
-void sws_normalizeVec(SwsVector *a, double height);
-
-void sws_freeVec(SwsVector *a);
-
-SwsFilter *sws_getDefaultFilter(float lumaGBlur, float chromaGBlur,
-                                float lumaSharpen, float chromaSharpen,
-                                float chromaHShift, float chromaVShift,
-                                int verbose);
-void sws_freeFilter(SwsFilter *filter);
-
-/**
+  }
+procedure sws_normalizeVec(a:PSwsVector; height:Tdouble);cdecl;external;
+procedure sws_freeVec(a:PSwsVector);cdecl;external;
+function sws_getDefaultFilter(lumaGBlur:single; chromaGBlur:single; lumaSharpen:single; chromaSharpen:single; chromaHShift:single; 
+           chromaVShift:single; verbose:longint):PSwsFilter;cdecl;external;
+procedure sws_freeFilter(filter:PSwsFilter);cdecl;external;
+{*
  * Check if context can be reused, otherwise reallocate a new one.
  *
  * If context is NULL, just calls sws_getContext() to get a new
@@ -390,14 +406,12 @@ void sws_freeFilter(SwsFilter *filter);
  *
  * Be warned that srcFilter and dstFilter are not checked, they
  * are assumed to remain the same.
- */
-struct SwsContext *sws_getCachedContext(struct SwsContext *context,
-                                        int srcW, int srcH, enum AVPixelFormat srcFormat,
-                                        int dstW, int dstH, enum AVPixelFormat dstFormat,
-                                        int flags, SwsFilter *srcFilter,
-                                        SwsFilter *dstFilter, const double *param);
-
-/**
+  }
+(* Const before type ignored *)
+function sws_getCachedContext(context:PSwsContext; srcW:longint; srcH:longint; srcFormat:TAVPixelFormat; dstW:longint; 
+           dstH:longint; dstFormat:TAVPixelFormat; flags:longint; srcFilter:PSwsFilter; dstFilter:PSwsFilter; 
+           param:Pdouble):PSwsContext;cdecl;external;
+{*
  * Convert an 8-bit paletted frame into a frame with a color depth of 32 bits.
  *
  * The output frame will have the same packed format as the palette.
@@ -406,10 +420,11 @@ struct SwsContext *sws_getCachedContext(struct SwsContext *context,
  * @param dst        destination frame buffer
  * @param num_pixels number of pixels to convert
  * @param palette    array with [256] entries, which must match color arrangement (RGB or BGR) of src
- */
-void sws_convertPalette8ToPacked32(const uint8_t *src, uint8_t *dst, int num_pixels, const uint8_t *palette);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure sws_convertPalette8ToPacked32(src:Puint8_t; dst:Puint8_t; num_pixels:longint; palette:Puint8_t);cdecl;external;
+{*
  * Convert an 8-bit paletted frame into a frame with a color depth of 24 bits.
  *
  * With the palette format "ABCD", the destination frame ends up with the format "ABC".
@@ -418,19 +433,25 @@ void sws_convertPalette8ToPacked32(const uint8_t *src, uint8_t *dst, int num_pix
  * @param dst        destination frame buffer
  * @param num_pixels number of pixels to convert
  * @param palette    array with [256] entries, which must match color arrangement (RGB or BGR) of src
- */
-void sws_convertPalette8ToPacked24(const uint8_t *src, uint8_t *dst, int num_pixels, const uint8_t *palette);
-
-/**
+  }
+(* Const before type ignored *)
+(* Const before type ignored *)
+procedure sws_convertPalette8ToPacked24(src:Puint8_t; dst:Puint8_t; num_pixels:longint; palette:Puint8_t);cdecl;external;
+{*
  * Get the AVClass for swsContext. It can be used in combination with
  * AV_OPT_SEARCH_FAKE_OBJ for examining options.
  *
  * @see av_opt_find().
- */
-const AVClass *sws_get_class(void);
+  }
+(* Const before type ignored *)
+function sws_get_class:PAVClass;cdecl;external;
+{*
+ * @
+  }
+{$endif}
+{ SWSCALE_SWSCALE_H  }
 
-/**
- * @}
- */
+implementation
 
-#endif /* SWSCALE_SWSCALE_H */
+
+end.

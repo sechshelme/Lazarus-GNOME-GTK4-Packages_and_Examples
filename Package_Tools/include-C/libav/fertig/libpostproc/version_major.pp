@@ -1,4 +1,33 @@
-/*
+
+unit version_major;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from version_major.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    version_major.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
  * Version macros.
  *
  * This file is part of FFmpeg.
@@ -16,31 +45,20 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with FFmpeg; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- */
-
-#ifndef POSTPROC_VERSION_H
-#define POSTPROC_VERSION_H
-
-/**
+  }
+{$ifndef POSTPROC_VERSION_MAJOR_H}
+{$define POSTPROC_VERSION_MAJOR_H}
+{*
  * @file
  * Libpostproc version macros
- */
+  }
 
-#include "libavutil/version.h"
+const
+  LIBPOSTPROC_VERSION_MAJOR = 57;  
+{$endif}
+{ POSTPROC_VERSION_MAJOR_H  }
 
-#include "version_major.h"
+implementation
 
-#define LIBPOSTPROC_VERSION_MINOR   3
-#define LIBPOSTPROC_VERSION_MICRO 100
 
-#define LIBPOSTPROC_VERSION_INT AV_VERSION_INT(LIBPOSTPROC_VERSION_MAJOR, \
-                                               LIBPOSTPROC_VERSION_MINOR, \
-                                               LIBPOSTPROC_VERSION_MICRO)
-#define LIBPOSTPROC_VERSION     AV_VERSION(LIBPOSTPROC_VERSION_MAJOR, \
-                                           LIBPOSTPROC_VERSION_MINOR, \
-                                           LIBPOSTPROC_VERSION_MICRO)
-#define LIBPOSTPROC_BUILD       LIBPOSTPROC_VERSION_INT
-
-#define LIBPOSTPROC_IDENT       "postproc" AV_STRINGIFY(LIBPOSTPROC_VERSION)
-
-#endif /* POSTPROC_VERSION_H */
+end.

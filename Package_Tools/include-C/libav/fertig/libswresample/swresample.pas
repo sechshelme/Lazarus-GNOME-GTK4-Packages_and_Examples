@@ -1,4 +1,16 @@
-/*
+unit swresample;
+
+interface
+
+uses
+  fp_ffmpeg;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
  * Copyright (C) 2011-2013 Michael Niedermayer (michaelni@gmx.at)
  *
  * This file is part of libswresample
@@ -16,20 +28,17 @@
  * You should have received a copy of the GNU Lesser General Public
  * License along with libswresample; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
- */
-
-#ifndef SWRESAMPLE_SWRESAMPLE_H
-#define SWRESAMPLE_SWRESAMPLE_H
-
-/**
+  }
+{$ifndef SWRESAMPLE_SWRESAMPLE_H}
+{$define SWRESAMPLE_SWRESAMPLE_H}
+{*
  * @file
  * @ingroup lswr
  * libswresample public header
- */
-
-/**
+  }
+{*
  * @defgroup lswr libswresample
- * @{
+ * @
  *
  * Audio resampling, sample format conversion and mixing library.
  *
@@ -98,7 +107,7 @@
  * uint8_t **input;
  * int in_samples;
  *
- * while (get_input(&input, &in_samples)) {
+ * while (get_input(&input, &in_samples)) 
  *     uint8_t *output;
  *     int out_samples = av_rescale_rnd(swr_get_delay(swr, 48000) +
  *                                      in_samples, 44100, 48000, AV_ROUND_UP);
@@ -108,7 +117,7 @@
  *                                      input, in_samples);
  *     handle_output(output, out_samples);
  *     av_freep(&output);
- * }
+ * 
  * @endcode
  *
  * When the conversion is finished, the conversion
@@ -118,91 +127,95 @@
  *
  * There will be no memory leak if the data is not completely flushed before
  * swr_free().
- */
-
-#include <stdint.h>
-#include "libavutil/channel_layout.h"
-#include "libavutil/frame.h"
-#include "libavutil/samplefmt.h"
-
-#include "libswresample/version_major.h"
-#ifndef HAVE_AV_CONFIG_H
-/* When included as part of the ffmpeg build, only include the major version
+  }
+{$include <stdint.h>}
+{$include "libavutil/channel_layout.h"}
+{$include "libavutil/frame.h"}
+{$include "libavutil/samplefmt.h"}
+{$include "libswresample/version_major.h"}
+{$ifndef HAVE_AV_CONFIG_H}
+{ When included as part of the ffmpeg build, only include the major version
  * to avoid unnecessary rebuilds. When included externally, keep including
- * the full version information. */
-#include "libswresample/version.h"
-#endif
-
-/**
+ * the full version information.  }
+{$include "libswresample/version.h"}
+{$endif}
+{*
  * @name Option constants
  * These constants are used for the @ref avoptions interface for lswr.
- * @{
+ * @
  *
- */
+  }
 
-#define SWR_FLAG_RESAMPLE 1 ///< Force resampling even if equal sample rate
-//TODO use int resample ?
-//long term TODO can we enable this dynamically?
+const
+  SWR_FLAG_RESAMPLE = 1;  {/< Force resampling even if equal sample rate }
+{TODO use int resample ? }
+{long term TODO can we enable this dynamically? }
+{* Dithering algorithms  }
+{/< not part of API/ABI }
+{/< not part of API/ABI }
+type
+  TSwrDitherType =  Longint;
+  Const
+    SWR_DITHER_NONE = 0;
+    SWR_DITHER_RECTANGULAR = 1;
+    SWR_DITHER_TRIANGULAR = 2;
+    SWR_DITHER_TRIANGULAR_HIGHPASS = 3;
+    SWR_DITHER_NS = 64;
+    SWR_DITHER_NS_LIPSHITZ = 65;
+    SWR_DITHER_NS_F_WEIGHTED = 66;
+    SWR_DITHER_NS_MODIFIED_E_WEIGHTED = 67;
+    SWR_DITHER_NS_IMPROVED_E_WEIGHTED = 68;
+    SWR_DITHER_NS_SHIBATA = 69;
+    SWR_DITHER_NS_LOW_SHIBATA = 70;
+    SWR_DITHER_NS_HIGH_SHIBATA = 71;
+    SWR_DITHER_NB = 72;
 
-/** Dithering algorithms */
-enum SwrDitherType {
-    SWR_DITHER_NONE = 0,
-    SWR_DITHER_RECTANGULAR,
-    SWR_DITHER_TRIANGULAR,
-    SWR_DITHER_TRIANGULAR_HIGHPASS,
+{* Resampling Engines  }
+{*< SW Resampler  }
+{*< SoX Resampler  }
+{/< not part of API/ABI }
+type
+  TSwrEngine =  Longint;
+  Const
+    SWR_ENGINE_SWR = 0;
+    SWR_ENGINE_SOXR = 1;
+    SWR_ENGINE_NB = 2;
 
-    SWR_DITHER_NS = 64,         ///< not part of API/ABI
-    SWR_DITHER_NS_LIPSHITZ,
-    SWR_DITHER_NS_F_WEIGHTED,
-    SWR_DITHER_NS_MODIFIED_E_WEIGHTED,
-    SWR_DITHER_NS_IMPROVED_E_WEIGHTED,
-    SWR_DITHER_NS_SHIBATA,
-    SWR_DITHER_NS_LOW_SHIBATA,
-    SWR_DITHER_NS_HIGH_SHIBATA,
-    SWR_DITHER_NB,              ///< not part of API/ABI
-};
+{* Resampling Filter Types  }
+{*< Cubic  }
+{*< Blackman Nuttall windowed sinc  }
+{*< Kaiser windowed sinc  }
+type
+  TSwrFilterType =  Longint;
+  Const
+    SWR_FILTER_TYPE_CUBIC = 0;
+    SWR_FILTER_TYPE_BLACKMAN_NUTTALL = 1;
+    SWR_FILTER_TYPE_KAISER = 2;
 
-/** Resampling Engines */
-enum SwrEngine {
-    SWR_ENGINE_SWR,             /**< SW Resampler */
-    SWR_ENGINE_SOXR,            /**< SoX Resampler */
-    SWR_ENGINE_NB,              ///< not part of API/ABI
-};
-
-/** Resampling Filter Types */
-enum SwrFilterType {
-    SWR_FILTER_TYPE_CUBIC,              /**< Cubic */
-    SWR_FILTER_TYPE_BLACKMAN_NUTTALL,   /**< Blackman Nuttall windowed sinc */
-    SWR_FILTER_TYPE_KAISER,             /**< Kaiser windowed sinc */
-};
-
-/**
- * @}
- */
-
-/**
+{*
+ * @
+  }
+{*
  * The libswresample context. Unlike libavcodec and libavformat, this structure
  * is opaque. This means that if you would like to set options, you must use
  * the @ref avoptions API and cannot directly set values to members of the
  * structure.
- */
-typedef struct SwrContext SwrContext;
-
-/**
+  }
+type
+{*
  * Get the AVClass for SwrContext. It can be used in combination with
  * AV_OPT_SEARCH_FAKE_OBJ for examining options.
  *
  * @see av_opt_find().
  * @return the AVClass of SwrContext
- */
-const AVClass *swr_get_class(void);
+  }
 
-/**
+function swr_get_class:PAVClass;cdecl;external libswresample;
+{*
  * @name SwrContext constructor functions
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * Allocate SwrContext.
  *
  * If you use this function you will need to set the parameters (manually or
@@ -210,10 +223,9 @@ const AVClass *swr_get_class(void);
  *
  * @see swr_alloc_set_opts2(), swr_init(), swr_free()
  * @return NULL on error, allocated context otherwise
- */
-struct SwrContext *swr_alloc(void);
-
-/**
+  }
+function swr_alloc:PSwrContext;cdecl;external libswresample;
+{*
  * Initialize context after user parameters have been set.
  * @note The context must be configured using the AVOption API.
  *
@@ -222,20 +234,18 @@ struct SwrContext *swr_alloc(void);
  *
  * @param[in,out]   s Swr context to initialize
  * @return AVERROR error code in case of failure.
- */
-int swr_init(struct SwrContext *s);
-
-/**
+  }
+function swr_init(s:PSwrContext):longint;cdecl;external libswresample;
+{*
  * Check whether an swr context has been initialized or not.
  *
  * @param[in]       s Swr context to check
  * @see swr_init()
  * @return positive if it has been initialized, 0 if not initialized
- */
-int swr_is_initialized(struct SwrContext *s);
-
-#if FF_API_OLD_CHANNEL_LAYOUT
-/**
+  }
+function swr_is_initialized(s:PSwrContext):longint;cdecl;external libswresample;
+{$if FF_API_OLD_CHANNEL_LAYOUT}
+{*
  * Allocate SwrContext if needed and set/reset common parameters.
  *
  * This function does not require s to be allocated with swr_alloc(). On the
@@ -255,15 +265,13 @@ int swr_is_initialized(struct SwrContext *s);
  * @see swr_init(), swr_free()
  * @return NULL on error, allocated context otherwise
  * @deprecated use @ref swr_alloc_set_opts2()
- */
-attribute_deprecated
-struct SwrContext *swr_alloc_set_opts(struct SwrContext *s,
-                                      int64_t out_ch_layout, enum AVSampleFormat out_sample_fmt, int out_sample_rate,
-                                      int64_t  in_ch_layout, enum AVSampleFormat  in_sample_fmt, int  in_sample_rate,
-                                      int log_offset, void *log_ctx);
-#endif
+  }
+{ xxxxxxxxxxxxxattribute_deprecated }
 
-/**
+function swr_alloc_set_opts(s:PSwrContext; out_ch_layout:Tint64_t; out_sample_fmt:TAVSampleFormat; out_sample_rate:longint; in_ch_layout:Tint64_t; 
+           in_sample_fmt:TAVSampleFormat; in_sample_rate:longint; log_offset:longint; log_ctx:pointer):PSwrContext;cdecl;external libswresample;
+{$endif}
+{*
  * Allocate SwrContext if needed and set/reset common parameters.
  *
  * This function does not require *ps to be allocated with swr_alloc(). On the
@@ -284,26 +292,23 @@ struct SwrContext *swr_alloc_set_opts(struct SwrContext *s,
  * @see swr_init(), swr_free()
  * @return 0 on success, a negative AVERROR code on error.
  *         On error, the Swr context is freed and *ps set to NULL.
- */
-int swr_alloc_set_opts2(struct SwrContext **ps,
-                        const AVChannelLayout *out_ch_layout, enum AVSampleFormat out_sample_fmt, int out_sample_rate,
-                        const AVChannelLayout *in_ch_layout, enum AVSampleFormat  in_sample_fmt, int  in_sample_rate,
-                        int log_offset, void *log_ctx);
-/**
- * @}
+  }
+
+function swr_alloc_set_opts2(ps:PPSwrContext; out_ch_layout:PAVChannelLayout; out_sample_fmt:TAVSampleFormat; out_sample_rate:longint; in_ch_layout:PAVChannelLayout; 
+           in_sample_fmt:TAVSampleFormat; in_sample_rate:longint; log_offset:longint; log_ctx:pointer):longint;cdecl;external libswresample;
+{*
+ * @
  *
  * @name SwrContext destructor functions
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * Free the given SwrContext and set the pointer to NULL.
  *
  * @param[in] s a pointer to a pointer to Swr context
- */
-void swr_free(struct SwrContext **s);
-
-/**
+  }
+procedure swr_free(s:PPSwrContext);cdecl;external libswresample;
+{*
  * Closes the context so that swr_is_initialized() returns 0.
  *
  * The context can be brought back to life by running swr_init(),
@@ -312,17 +317,15 @@ void swr_free(struct SwrContext **s);
  * where one tries to support libavresample and libswresample.
  *
  * @param[in,out] s Swr context to be closed
- */
-void swr_close(struct SwrContext *s);
-
-/**
- * @}
+  }
+procedure swr_close(s:PSwrContext);cdecl;external libswresample;
+{*
+ * @
  *
  * @name Core conversion functions
- * @{
- */
-
-/** Convert audio.
+ * @
+  }
+{* Convert audio.
  *
  * in and in_count can be set to 0 to flush the last few samples out at the
  * end.
@@ -339,11 +342,9 @@ void swr_close(struct SwrContext *s);
  * @param in_count  number of input samples available in one channel
  *
  * @return number of samples output per channel, negative value on error
- */
-int swr_convert(struct SwrContext *s, uint8_t **out, int out_count,
-                                const uint8_t **in , int in_count);
-
-/**
+  }
+function swr_convert(s:PSwrContext; out:PPuint8_t; out_count:longint; in:PPuint8_t; in_count:longint):longint;cdecl;external libswresample;
+{*
  * Convert the next timestamp from input to output
  * timestamps are in 1/(in_sample_rate * out_sample_rate) units.
  *
@@ -359,19 +360,17 @@ int swr_convert(struct SwrContext *s, uint8_t **out, int out_count,
  * @see swr_set_compensation(), swr_drop_output(), and swr_inject_silence() are
  *      function used internally for timestamp compensation.
  * @return the output timestamp for the next output sample
- */
-int64_t swr_next_pts(struct SwrContext *s, int64_t pts);
-
-/**
- * @}
+  }
+function swr_next_pts(s:PSwrContext; pts:Tint64_t):Tint64_t;cdecl;external libswresample;
+{*
+ * @
  *
  * @name Low-level option setting functions
  * These functons provide a means to set low-level options that is not possible
  * with the AVOption API.
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * Activate resampling compensation ("soft" compensation). This function is
  * internally called when needed in swr_next_pts().
  *
@@ -386,21 +385,19 @@ int64_t swr_next_pts(struct SwrContext *s, int64_t pts);
  *            @li @c compensation_distance is 0 but sample_delta is not,
  *            @li compensation unsupported by resampler, or
  *            @li swr_init() fails when called.
- */
-int swr_set_compensation(struct SwrContext *s, int sample_delta, int compensation_distance);
-
-/**
+  }
+function swr_set_compensation(s:PSwrContext; sample_delta:longint; compensation_distance:longint):longint;cdecl;external libswresample;
+{*
  * Set a customized input channel mapping.
  *
  * @param[in,out] s           allocated Swr context, not yet initialized
  * @param[in]     channel_map customized input channel mapping (array of channel
  *                            indexes, -1 for a muted channel)
  * @return >= 0 on success, or AVERROR error code in case of failure.
- */
-int swr_set_channel_mapping(struct SwrContext *s, const int *channel_map);
-
-#if FF_API_OLD_CHANNEL_LAYOUT
-/**
+  }
+function swr_set_channel_mapping(s:PSwrContext; channel_map:Plongint):longint;cdecl;external libswresample;
+{$if FF_API_OLD_CHANNEL_LAYOUT}
+{*
  * Generate a channel mixing matrix.
  *
  * This function is the one used internally by libswresample for building the
@@ -423,17 +420,14 @@ int swr_set_channel_mapping(struct SwrContext *s, const int *channel_map);
  * @param log_ctx             parent logging context, can be NULL
  * @return                    0 on success, negative AVERROR code on failure
  * @deprecated                use @ref swr_build_matrix2()
- */
-attribute_deprecated
-int swr_build_matrix(uint64_t in_layout, uint64_t out_layout,
-                     double center_mix_level, double surround_mix_level,
-                     double lfe_mix_level, double rematrix_maxval,
-                     double rematrix_volume, double *matrix,
-                     int stride, enum AVMatrixEncoding matrix_encoding,
-                     void *log_ctx);
-#endif
+  }
+{xxxxxxxxxxx attribute_deprecated }
 
-/**
+function swr_build_matrix(in_layout:Tuint64_t; out_layout:Tuint64_t; center_mix_level:Tdouble; surround_mix_level:Tdouble; lfe_mix_level:Tdouble; 
+           rematrix_maxval:Tdouble; rematrix_volume:Tdouble; matrix:Pdouble; stride:longint; matrix_encoding:TAVMatrixEncoding; 
+           log_ctx:pointer):longint;cdecl;external libswresample;
+{$endif}
+{*
  * Generate a channel mixing matrix.
  *
  * This function is the one used internally by libswresample for building the
@@ -455,15 +449,12 @@ int swr_build_matrix(uint64_t in_layout, uint64_t out_layout,
  * @param matrix_encoding     matrixed stereo downmix mode (e.g. dplii)
  * @param log_ctx             parent logging context, can be NULL
  * @return                    0 on success, negative AVERROR code on failure
- */
-int swr_build_matrix2(const AVChannelLayout *in_layout, const AVChannelLayout *out_layout,
-                      double center_mix_level, double surround_mix_level,
-                      double lfe_mix_level, double maxval,
-                      double rematrix_volume, double *matrix,
-                      ptrdiff_t stride, enum AVMatrixEncoding matrix_encoding,
-                      void *log_context);
+  }
 
-/**
+function swr_build_matrix2(in_layout:PAVChannelLayout; out_layout:PAVChannelLayout; center_mix_level:Tdouble; surround_mix_level:Tdouble; lfe_mix_level:Tdouble; 
+           maxval:Tdouble; rematrix_volume:Tdouble; matrix:Pdouble; stride:Tptrdiff_t; matrix_encoding:TAVMatrixEncoding; 
+           log_context:pointer):longint;cdecl;external libswresample;
+{*
  * Set a customized remix matrix.
  *
  * @param s       allocated Swr context, not yet initialized
@@ -471,17 +462,15 @@ int swr_build_matrix2(const AVChannelLayout *in_layout, const AVChannelLayout *o
  *                the weight of input channel i in output channel o
  * @param stride  offset between lines of the matrix
  * @return  >= 0 on success, or AVERROR error code in case of failure.
- */
-int swr_set_matrix(struct SwrContext *s, const double *matrix, int stride);
-
-/**
- * @}
+  }
+function swr_set_matrix(s:PSwrContext; matrix:Pdouble; stride:longint):longint;cdecl;external libswresample;
+{*
+ * @
  *
  * @name Sample handling functions
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * Drops the specified number of output samples.
  *
  * This function, along with swr_inject_silence(), is called by swr_next_pts()
@@ -491,10 +480,9 @@ int swr_set_matrix(struct SwrContext *s, const double *matrix, int stride);
  * @param count number of samples to be dropped
  *
  * @return >= 0 on success, or a negative AVERROR code on failure
- */
-int swr_drop_output(struct SwrContext *s, int count);
-
-/**
+  }
+function swr_drop_output(s:PSwrContext; count:longint):longint;cdecl;external libswresample;
+{*
  * Injects the specified number of silence samples.
  *
  * This function, along with swr_drop_output(), is called by swr_next_pts()
@@ -504,10 +492,9 @@ int swr_drop_output(struct SwrContext *s, int count);
  * @param count number of samples to be dropped
  *
  * @return >= 0 on success, or a negative AVERROR code on failure
- */
-int swr_inject_silence(struct SwrContext *s, int count);
-
-/**
+  }
+function swr_inject_silence(s:PSwrContext; count:longint):longint;cdecl;external libswresample;
+{*
  * Gets the delay the next input sample will experience relative to the next output sample.
  *
  * Swresample can buffer data if more input has been provided than available
@@ -530,10 +517,9 @@ int swr_inject_silence(struct SwrContext *s, int count);
  *                  out_sample_rate then an exact rounding-free delay will be
  *                  returned
  * @returns     the delay in 1 / @c base units.
- */
-int64_t swr_get_delay(struct SwrContext *s, int64_t base);
-
-/**
+  }
+function swr_get_delay(s:PSwrContext; base:Tint64_t):Tint64_t;cdecl;external libswresample;
+{*
  * Find an upper bound on the number of samples that the next swr_convert
  * call will output, if called with in_samples of input samples. This
  * depends on the internal state, and anything changing the internal state
@@ -548,48 +534,42 @@ int64_t swr_get_delay(struct SwrContext *s, int64_t base);
  *       indicates that less would be used.
  * @returns an upper bound on the number of samples that the next swr_convert
  *          will output or a negative value to indicate an error
- */
-int swr_get_out_samples(struct SwrContext *s, int in_samples);
-
-/**
- * @}
+  }
+function swr_get_out_samples(s:PSwrContext; in_samples:longint):longint;cdecl;external libswresample;
+{*
+ * @
  *
  * @name Configuration accessors
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * Return the @ref LIBSWRESAMPLE_VERSION_INT constant.
  *
  * This is useful to check if the build-time libswresample has the same version
  * as the run-time one.
  *
  * @returns     the unsigned int-typed version
- */
-unsigned swresample_version(void);
-
-/**
+  }
+function swresample_version:dword;cdecl;external libswresample;
+{*
  * Return the swr build-time configuration.
  *
  * @returns     the build-time @c ./configure flags
- */
-const char *swresample_configuration(void);
-
-/**
+  }
+function swresample_configuration:Pchar;cdecl;external libswresample;
+{*
  * Return the swr license.
  *
  * @returns     the license of libswresample, determined at build-time
- */
-const char *swresample_license(void);
-
-/**
- * @}
+  }
+function swresample_license:Pchar;cdecl;external libswresample;
+{*
+ * @
  *
  * @name AVFrame based API
- * @{
- */
-
-/**
+ * @
+  }
+{*
  * Convert the samples in the input AVFrame and write them to the output AVFrame.
  *
  * Input and output AVFrames must have channel_layout, sample_rate and format set.
@@ -622,11 +602,9 @@ const char *swresample_license(void);
  * @param input           input AVFrame
  * @return                0 on success, AVERROR on failure or nonmatching
  *                        configuration.
- */
-int swr_convert_frame(SwrContext *swr,
-                      AVFrame *output, const AVFrame *input);
-
-/**
+  }
+function swr_convert_frame(swr:PSwrContext; output:PAVFrame; input:PAVFrame):longint;cdecl;external libswresample;
+{*
  * Configure or reconfigure the SwrContext using the information
  * provided by the AVFrames.
  *
@@ -639,12 +617,20 @@ int swr_convert_frame(SwrContext *swr,
  * @param out             output AVFrame
  * @param in              input AVFrame
  * @return                0 on success, AVERROR on failure.
- */
-int swr_config_frame(SwrContext *swr, const AVFrame *out, const AVFrame *in);
+  }
+function swr_config_frame(swr:PSwrContext; out:PAVFrame; in:PAVFrame):longint;cdecl;external libswresample;
+{*
+ * @
+ * @
+  }
+{$endif}
+{ SWRESAMPLE_SWRESAMPLE_H  }
 
-/**
- * @}
- * @}
- */
+// === Konventiert am: 22-12-25 19:38:07 ===
 
-#endif /* SWRESAMPLE_SWRESAMPLE_H */
+
+implementation
+
+
+
+end.

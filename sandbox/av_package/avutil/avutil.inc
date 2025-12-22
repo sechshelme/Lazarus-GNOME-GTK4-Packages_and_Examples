@@ -8,6 +8,7 @@ function avutil_license: pchar; cdecl; external libavutil;
 
 type
   TAVMediaType = longint;
+  PAVMediaType = ^TAVMediaType;
 
 const
   AVMEDIA_TYPE_UNKNOWN = -(1);

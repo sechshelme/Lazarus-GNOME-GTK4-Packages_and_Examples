@@ -53,8 +53,8 @@
 #define AVC1394_MASK_SUBUNIT_ID(x) ((x) & 0x00070000)
 #define AVC1394_MASK_OPCODE(x) ((x) & 0x0000FF00)
 #define AVC1394_MASK_OPERAND0(x) ((x) & 0x000000FF)
-#define AVC1394_MASK_OPERAND(x, n) ((x) & (0xFF000000 >> ((((n)-1)%4)*8)))
-#define AVC1394_MASK_RESPONSE_OPERAND(x, n) ((x) & (0xFF000000 >> (((n)%4)*8)))
+//#define AVC1394_MASK_OPERAND(x, n) ((x) & (0xFF000000 >> ((((n)-1)%4)*8)))
+//#define AVC1394_MASK_RESPONSE_OPERAND(x, n) ((x) & (0xFF000000 >> (((n)%4)*8)))
 
 /* AV/C Mask and shift macros */
 #define AVC1394_GET_CTYPE(x) (((x) & 0x0F000000) >> 24)
@@ -63,8 +63,8 @@
 #define AVC1394_GET_SUBUNIT_ID(x) (((x) & 0x00070000) >> 16)
 #define AVC1394_GET_OPCODE(x) (((x) & 0x0000FF00) >> 8)
 #define AVC1394_GET_OPERAND0(x) ((x) & 0x000000FF)
-#define AVC1394_GET_OPERAND(x, n) (((x) & (0xFF000000 >> ((((n)-1)%4)*8))) >> ((((n)-1)%4)*8))
-#define AVC1394_GET_RESPONSE_OPERAND(x, n) (((x) & (0xFF000000 >> (((n)%4)*8))) >> (((3-(n))%4)*8))
+//#define AVC1394_GET_OPERAND(x, n) (((x) & (0xFF000000 >> ((((n)-1)%4)*8))) >> ((((n)-1)%4)*8))
+//#define AVC1394_GET_RESPONSE_OPERAND(x, n) (((x) & (0xFF000000 >> (((n)%4)*8))) >> (((3-(n))%4)*8))
 
 /* AV/C command types */
 #define AVC1394_CTYPE_CONTROL 0x00000000

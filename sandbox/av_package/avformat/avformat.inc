@@ -5,6 +5,7 @@ type
   PAVFormatContext = type Pointer;
   PPAVFormatContext = ^PAVFormatContext;
   PAVDeviceInfoList = type Pointer;
+  PPAVDeviceInfoList = ^PAVDeviceInfoList;
 
 
 function av_get_packet(s: PAVIOContext; pkt: PAVPacket; size: longint): longint; cdecl; external libavformat;
