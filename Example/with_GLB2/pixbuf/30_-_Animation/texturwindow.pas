@@ -4,7 +4,6 @@ unit TexturWindow;
 interface
 
 uses
-  ctypes,
   fp_cairo,
   fp_glib2,
   fp_GTK4,
@@ -103,8 +102,6 @@ begin
 
   gtk_window_set_child(GTK_WINDOW(window), box);
   gtk_window_present(GTK_WINDOW(window));
-
-//  g_object_unref(iter);
 end;
 
 end.

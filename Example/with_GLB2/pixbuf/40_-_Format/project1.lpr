@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  ctypes,
   fp_glib2,
   fp_GTK4,
   fp_gdk_pixbuf2,
@@ -48,7 +47,6 @@ uses
     g_strfreev(mime);
   end;
 
-  // https://www.perplexity.ai/search/gib-mir-ein-gtk4-beispiel-in-c-dNYfVY_GRRu1gZ.TDr1EGw
   procedure printHashTable(pixbuf: PGdkPixbuf);
   var
     options: PGHashTable;
@@ -65,7 +63,7 @@ uses
     WriteLn('count: ', g_list_length(keys));
   end;
 
-  procedure on_activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure on_activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, box, picture1, picture2, Label1, Label2: PGtkWidget;
     pixbuf1, pixbuf2: PGdkPixbuf;
@@ -146,12 +144,11 @@ uses
   procedure main;
   var
     app: PGtkApplication;
-    status: longint;
   begin
     app := gtk_application_new('org.example.PixbufExample', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'activate', G_CALLBACK(@on_activate), nil);
 
-    status := g_application_run(G_APPLICATION(app), 0, nil);
+    g_application_run(G_APPLICATION(app), 0, nil);
     g_object_unref(app);
   end;
 

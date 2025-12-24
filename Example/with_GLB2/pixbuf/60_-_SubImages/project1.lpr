@@ -1,14 +1,13 @@
 program project1;
 
 uses
-  ctypes,
   fp_glib2,
   fp_GTK4,
   fp_gdk_pixbuf2,
 
   fp_GLIBTools;
 
-  procedure on_activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure on_activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   const
     BUF_SIZE = 256;
   var
@@ -78,12 +77,11 @@ uses
   procedure main;
   var
     app: PGtkApplication;
-    status: longint;
   begin
     app := gtk_application_new('org.example.PixbufExample', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'activate', G_CALLBACK(@on_activate), nil);
 
-    status := g_application_run(G_APPLICATION(app), 0, nil);
+    g_application_run(G_APPLICATION(app), 0, nil);
     g_object_unref(app);
   end;
 

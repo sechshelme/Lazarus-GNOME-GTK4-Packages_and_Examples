@@ -1,26 +1,20 @@
 program project1;
 
 uses
-  ctypes,
   fp_glib2,
   fp_GTK4,
   fp_gdk_pixbuf2,
 
   fp_GLIBTools;
 
-  procedure PutPixel(pixbuf: PGdkPixbuf; x, y: cint; r, g, b, a: Tguchar);
+  procedure PutPixel(pixbuf: PGdkPixbuf; x, y: Integer; r, g, b, a: Tguchar);
   var
-    w, h, rs, n_cannels: longint;
+    rs, n_cannels: longint;
     pixels: Pguchar;
     p: Pguchar;
   begin
     n_cannels := gdk_pixbuf_get_n_channels(pixbuf);
-
-    w := gdk_pixbuf_get_width(pixbuf);
-    h := gdk_pixbuf_get_height(pixbuf);
-
     rs := gdk_pixbuf_get_rowstride(pixbuf);
-
     pixels := gdk_pixbuf_get_pixels(pixbuf);
     p := pixels + y * rs + x * n_cannels;
     p[0] := r;
@@ -29,13 +23,13 @@ uses
     p[3] := a;
   end;
 
-  procedure on_activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure on_activate(app: PGtkApplication; user_data: Tgpointer);  cdecl;
   const
     SIZE = $100;
   var
     byteData: array of byte = nil;
     window, box, picture1: PGtkWidget;
-    x, y, i: integer;
+    x, i: integer;
     pixbuf1: PGdkPixbuf;
 
   begin
@@ -97,12 +91,11 @@ uses
   procedure main;
   var
     app: PGtkApplication;
-    status: longint;
   begin
     app := gtk_application_new('org.example.PixbufExample', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'activate', G_CALLBACK(@on_activate), nil);
 
-    status := g_application_run(G_APPLICATION(app), 0, nil);
+    g_application_run(G_APPLICATION(app), 0, nil);
     g_object_unref(app);
   end;
 

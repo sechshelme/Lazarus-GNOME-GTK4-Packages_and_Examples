@@ -457,8 +457,28 @@ libappstream-dev
   liba52-0.7.4-dev      
 
 
+liblua5.1-0-dev 
 
-libmanette-0.2-dev
+libmanette-0.2-dev       // io.
+
+libavahi-core-dev
+libavahi-gobject-dev
+libavahi-glib-dev
+libgdbm-dev
+libdaemon-dev
+
+libavif
+gdk-pixbuf-csource 
+/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders
+
+libmagickwand-dev    
+ libmagic-dev 
+
+
+
+
+
+
 
 
 

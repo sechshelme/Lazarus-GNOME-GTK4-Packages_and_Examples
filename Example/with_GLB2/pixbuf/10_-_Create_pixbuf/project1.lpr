@@ -1,14 +1,13 @@
 program project1;
 
 uses
-  ctypes,
   fp_glib2,
   fp_GTK4,
   fp_gdk_pixbuf2,
 
   fp_GLIBTools;
 
-  procedure on_activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure on_activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   const
     BUF_SIZE = 128;
   var
@@ -35,16 +34,7 @@ uses
       end;
     end;
 
-    pixbuf1 := g_object_new(GDK_TYPE_PIXBUF,
-      'colorspace', GDK_COLORSPACE_RGB,
-      'n-channels', 3,
-      'bits-per-sample', 8,
-      'has-alpha', gTrue,
-      'width', BUF_SIZE,
-      'height', BUF_SIZE,
-      'rowstride', BUF_SIZE * 4,
-      'pixels', PUInt32(pixdata),
-      nil);
+    pixbuf1 := gdk_pixbuf_new_from_data(Pguchar(pixdata), GDK_COLORSPACE_RGB, True, 8, BUF_SIZE, BUF_SIZE, BUF_SIZE * 4, nil, nil);
     if pixbuf1 = nil then begin
       g_print('pixbuf1 error');
       exit;
@@ -122,19 +112,17 @@ uses
 
     gtk_window_set_child(GTK_WINDOW(window), box);
 
-    //    gtk_widget_show(window);
     gtk_window_present(GTK_WINDOW(window));
   end;
 
   procedure main;
   var
     app: PGtkApplication;
-    status: longint;
   begin
     app := gtk_application_new('org.example.PixbufExample', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'activate', G_CALLBACK(@on_activate), nil);
 
-    status := g_application_run(G_APPLICATION(app), 0, nil);
+    g_application_run(G_APPLICATION(app), 0, nil);
     g_object_unref(app);
   end;
 

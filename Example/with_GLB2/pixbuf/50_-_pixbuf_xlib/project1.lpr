@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  ctypes,
   x,
   xlib,
   fp_glib2,
@@ -12,7 +11,7 @@ uses
   procedure main;
   var
     display: PDisplay;
-    screen: cint;
+    screen: Integer;
     win, rw: TWindow;
     pixbuf: PGdkPixbuf;
     err: PGError = nil;
