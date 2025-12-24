@@ -5,6 +5,7 @@ interface
 const
   {$IFDEF Linux}
   libavahi_common = 'avahi-common';
+  libavahi_client='avahi-client;';
   {$ENDIF}
 
   {$IFDEF Windows}

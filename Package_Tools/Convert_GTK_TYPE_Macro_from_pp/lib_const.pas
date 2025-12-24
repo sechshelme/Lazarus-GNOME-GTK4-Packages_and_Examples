@@ -267,7 +267,8 @@ const
     (libs: 'libldap'; units: 'cytypes'),
     (libs: 'liblber'; units: 'cytypes'),
     (libs: 'libgs'; units: 'cytypes'),
-    (libs: 'libavahi_common'; units: 'fp_avahi'),
+    (libs: 'libavahi_common'; units: 'fp_avahi_common'),
+    (libs: 'libavahi_client'; units: 'fp_avahi_common'),
 
     (libs: ''; units: ''));
 
