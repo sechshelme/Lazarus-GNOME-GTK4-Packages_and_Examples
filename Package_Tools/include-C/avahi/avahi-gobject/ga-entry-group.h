@@ -26,7 +26,7 @@
 
 #include "ga-client.h"
 
-G_BEGIN_DECLS
+
 
 typedef enum {
     GA_ENTRY_GROUP_STATE_UNCOMMITED = AVAHI_ENTRY_GROUP_UNCOMMITED,
@@ -170,5 +170,5 @@ gboolean ga_entry_group_commit(GaEntryGroup * group, GError ** error);
 /* Invalidated all GaEntryGroupServices */
 gboolean ga_entry_group_reset(GaEntryGroup * group, GError ** error);
 
-G_END_DECLS
+
 #endif /* #ifndef __GA_ENTRY_GROUP_H__ */

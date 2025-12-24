@@ -27,7 +27,7 @@
 
 /** \file log.h Extensible logging subsystem */
 
-AVAHI_C_DECL_BEGIN
+
 
 /** Log level for avahi_log_xxx() */
 typedef enum {
@@ -68,6 +68,6 @@ void avahi_log_info(const char*format, ...) AVAHI_GCC_PRINTF_ATTR12;
 /** Shortcut for avahi_log(AVAHI_LOG_DEBUG, ...) */
 void avahi_log_debug(const char*format, ...) AVAHI_GCC_PRINTF_ATTR12;
 
-AVAHI_C_DECL_END
+
 
 #endif

@@ -27,7 +27,7 @@
 
 #include <avahi-common/cdecl.h>
 
-AVAHI_C_DECL_BEGIN
+
 
 /** Protocol family specification, takes the values AVAHI_PROTO_INET, AVAHI_PROTO_INET6, AVAHI_PROTO_UNSPEC */
 typedef int AvahiProtocol;
@@ -36,14 +36,14 @@ typedef int AvahiProtocol;
 typedef int AvahiIfIndex;
 
 /** Values for AvahiProtocol */
-enum {
+enum xxxxxx{
     AVAHI_PROTO_INET = 0,     /**< IPv4 */
     AVAHI_PROTO_INET6 = 1,   /**< IPv6 */
     AVAHI_PROTO_UNSPEC = -1  /**< Unspecified/all protocol(s) */
 };
 
 /** Special values for AvahiIfIndex */
-enum {
+enum xxxxxx{
     AVAHI_IF_UNSPEC = -1       /**< Unspecified/all interface(s) */
 };
 
@@ -51,10 +51,10 @@ enum {
 #define AVAHI_ADDRESS_STR_MAX 40 /* IPv6 Max = 4*8 + 7 + 1 for NUL */
 
 /** Return TRUE if the specified interface index is valid */
-#define AVAHI_IF_VALID(ifindex) (((ifindex) >= 0) || ((ifindex) == AVAHI_IF_UNSPEC))
+//xxxxxxxxxxxxxx#define AVAHI_IF_VALID(ifindex) (((ifindex) >= 0) || ((ifindex) == AVAHI_IF_UNSPEC))
 
 /** Return TRUE if the specified protocol is valid */
-#define AVAHI_PROTO_VALID(protocol) (((protocol) == AVAHI_PROTO_INET) || ((protocol) == AVAHI_PROTO_INET6) || ((protocol) == AVAHI_PROTO_UNSPEC))
+//xxxxxxxxxxxxxx#define AVAHI_PROTO_VALID(protocol) (((protocol) == AVAHI_PROTO_INET) || ((protocol) == AVAHI_PROTO_INET6) || ((protocol) == AVAHI_PROTO_UNSPEC))
 
 /** An IPv4 address */
 typedef struct AvahiIPv4Address {
@@ -114,6 +114,6 @@ const char* avahi_proto_to_string(AvahiProtocol proto);
 
 /** @} */
 
-AVAHI_C_DECL_END
+
 
 #endif

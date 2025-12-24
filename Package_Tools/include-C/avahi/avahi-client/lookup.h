@@ -36,7 +36,6 @@
 /** \example client-browse-services.c Example how to browse for DNS-SD
  * services using the client interface to avahi-daemon. */
 
-AVAHI_C_DECL_BEGIN
 
 /** @{ \name Domain Browser */
 
@@ -319,6 +318,5 @@ int avahi_record_browser_free(AvahiRecordBrowser *);
 
 /** @} */
 
-AVAHI_C_DECL_END
 
 #endif

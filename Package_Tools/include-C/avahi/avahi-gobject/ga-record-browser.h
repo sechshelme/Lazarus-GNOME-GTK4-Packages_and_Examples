@@ -27,7 +27,7 @@
 #include "ga-client.h"
 #include "ga-enums.h"
 
-G_BEGIN_DECLS
+
 
 typedef struct _GaRecordBrowser GaRecordBrowser;
 typedef struct _GaRecordBrowserClass GaRecordBrowserClass;
@@ -70,5 +70,5 @@ ga_record_browser_attach(GaRecordBrowser * browser,
                          GaClient * client, GError ** error);
 
 
-G_END_DECLS
+
 #endif /* #ifndef __GA_RECORD_BROWSER_H__ */

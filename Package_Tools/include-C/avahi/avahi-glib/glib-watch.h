@@ -30,7 +30,7 @@
 #include <avahi-common/cdecl.h>
 #include <avahi-common/watch.h>
 
-AVAHI_C_DECL_BEGIN
+
 
 /** GLib main loop adapter. You can safely cast this into a GSource */
 typedef struct AvahiGLibPoll AvahiGLibPoll;
@@ -49,6 +49,6 @@ void avahi_glib_poll_free(AvahiGLibPoll *g);
  * call */
 const AvahiPoll *avahi_glib_poll_get(AvahiGLibPoll *g);
 
-AVAHI_C_DECL_END
+
 
 #endif

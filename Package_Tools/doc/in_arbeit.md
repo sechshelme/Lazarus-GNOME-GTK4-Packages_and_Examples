@@ -474,6 +474,9 @@ gdk-pixbuf-csource
 libmagickwand-dev    
  libmagic-dev 
 
+libgraphblas
+
+
 
 
 

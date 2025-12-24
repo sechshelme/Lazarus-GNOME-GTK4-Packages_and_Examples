@@ -26,7 +26,7 @@
 
 /** \file avahi-ui.h A Gtk dialog for browsing for services */
 
-G_BEGIN_DECLS
+
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
@@ -56,7 +56,7 @@ struct _AuiServiceDialog {
 };
 
 /* ServiceDialog */
-GType aui_service_dialog_get_type(void) G_GNUC_CONST;
+GType aui_service_dialog_get_type(void) ;
 
 #endif
 
@@ -72,7 +72,7 @@ typedef struct _AuiServiceDialog AuiServiceDialog;
 GtkWidget* aui_service_dialog_new(
         const gchar *title,
         GtkWindow *parent,
-        const gchar *first_button_text, ...) G_GNUC_NULL_TERMINATED;
+        const gchar *first_button_text, ...) ;
 
 /** \cond fulldocs */
 GtkWidget *aui_service_dialog_new_valist(
@@ -87,7 +87,7 @@ GtkWidget *aui_service_dialog_new_valist(
 /** @{ \name Service types to browse for */
 
 /** Select the service types to browse for. Takes a NULL terminated list of DNS-SD service types. i.e. _http._tcp */
-void aui_service_dialog_set_browse_service_types(AuiServiceDialog *d, const gchar *type, ...) G_GNUC_NULL_TERMINATED;
+void aui_service_dialog_set_browse_service_types(AuiServiceDialog *d, const gchar *type, ...) ;
 /** Same as aui_service_dialog_set_browse_service_types() but take a NULL terminated array */
 void aui_service_dialog_set_browse_service_typesv(AuiServiceDialog *d, const gchar *const*type);
 /** Return the service types currently browsed for. i.e. what was previously set with aui_service_dialog_set_browse_service_types() */
@@ -176,6 +176,6 @@ AvahiProtocol aui_service_dialog_get_address_family(AuiServiceDialog *d);
 
 /** @} */
 
-G_END_DECLS
+
 
 #endif

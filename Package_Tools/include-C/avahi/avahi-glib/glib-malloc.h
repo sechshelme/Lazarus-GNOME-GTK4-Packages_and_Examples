@@ -27,13 +27,13 @@
 #include <avahi-common/cdecl.h>
 #include <avahi-common/malloc.h>
 
-AVAHI_C_DECL_BEGIN
+
 
 /** Return a pointer to a memory allocator that uses GLib's g_malloc()
  and friends. The returned structure is statically allocated, and needs
  not to be copied or freed. Pass this directly to avahi_set_allocator(). */
 const AvahiAllocator * avahi_glib_allocator(void);
 
-AVAHI_C_DECL_END
+
 
 #endif

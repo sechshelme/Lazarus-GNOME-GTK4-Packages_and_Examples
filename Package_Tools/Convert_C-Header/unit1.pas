@@ -57,7 +57,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/libadapta-1', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/avahi', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -85,6 +85,10 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NULL_TERMINATED', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_CONST', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_DEPRECATED', '/*G_GNUC_DEPRECATED*/', [rfReplaceAll]);
+
+      slHeader[j] := StringReplace(slHeader[j], 'AVAHI_C_DECL_BEGIN', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'AVAHI_C_DECL_END', '', [rfReplaceAll]);
+
 
       slHeader[j] := StringReplace(slHeader[j], 'ADAP_AVAILABLE_IN_1_1', 'extern', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'ADAP_AVAILABLE_IN_1_2', 'extern', [rfReplaceAll]);

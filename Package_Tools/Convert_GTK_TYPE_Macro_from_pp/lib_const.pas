@@ -267,15 +267,7 @@ const
     (libs: 'libldap'; units: 'cytypes'),
     (libs: 'liblber'; units: 'cytypes'),
     (libs: 'libgs'; units: 'cytypes'),
-    (libs: 'libavformat'; units: 'fp_ffmpeg'),
-    (libs: 'libavutil'; units: 'fp_ffmpeg'),
-    (libs: 'libmanette'; units: 'fp_glib2'),
-    (libs: 'libavcodec'; units: 'fp_ffmpeg'),
-    (libs: 'libavfilter'; units: 'fp_ffmpeg'),
-    (libs: 'libswscale'; units: 'fp_ffmpeg'),
-    (libs: 'libswresample'; units: 'fp_ffmpeg'),
-    (libs: 'libavdevice'; units: 'fp_ffmpeg'),
-    (libs: 'libpostproc'; units: 'fp_ffmpeg'),
+    (libs: 'libavahi_common'; units: 'fp_avahi'),
 
     (libs: ''; units: ''));
 

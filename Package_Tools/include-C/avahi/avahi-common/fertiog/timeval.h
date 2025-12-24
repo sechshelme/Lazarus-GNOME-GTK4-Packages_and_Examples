@@ -27,7 +27,7 @@
 
 #include <avahi-common/cdecl.h>
 
-AVAHI_C_DECL_BEGIN
+
 
 /** A numeric data type for storing microsecond values. (signed 64bit integer) */
 typedef int64_t AvahiUsec;
@@ -39,7 +39,7 @@ int avahi_timeval_compare(const struct timeval *a, const struct timeval *b);
 AvahiUsec avahi_timeval_diff(const struct timeval *a, const struct timeval *b);
 
 /** Add a number of microseconds to the specified timeval structure and return it. *a is modified. */
-struct timeval* avahi_timeval_add(struct timeval *a, AvahiUsec usec);
+ timeval* avahi_timeval_add(struct timeval *a, AvahiUsec usec);
 
 /** Return the difference between the current time and *a. Positive if *a was earlier */
 AvahiUsec avahi_age(const struct timeval *a);
@@ -47,8 +47,8 @@ AvahiUsec avahi_age(const struct timeval *a);
 /** Fill *tv with the current time plus "ms" milliseconds plus an
  * extra jitter of "j" milliseconds. Pass 0 for j if you don't want
  * the jitter */
-struct timeval *avahi_elapse_time(struct timeval *tv, unsigned ms, unsigned j);
+ timeval *avahi_elapse_time(struct timeval *tv, unsigned ms, unsigned j);
 
-AVAHI_C_DECL_END
+
 
 #endif

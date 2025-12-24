@@ -26,7 +26,7 @@
 #include <avahi-common/cdecl.h>
 #include <avahi-common/watch.h>
 
-AVAHI_C_DECL_BEGIN
+
 
 /** A main loop object that runs an AvahiSimplePoll in its own thread. \since 0.6.4 */
 typedef struct AvahiThreadedPoll AvahiThreadedPoll;
@@ -75,6 +75,6 @@ void avahi_threaded_poll_lock(AvahiThreadedPoll *p);
  * avahi_threaded_poll_lock() \since 0.6.4 */
 void avahi_threaded_poll_unlock(AvahiThreadedPoll *p);
 
-AVAHI_C_DECL_END
+
 
 #endif

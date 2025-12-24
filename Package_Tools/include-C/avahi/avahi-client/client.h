@@ -31,7 +31,6 @@
 
 /** \file client.h Definitions and functions for the client API over D-Bus */
 
-AVAHI_C_DECL_BEGIN
 
 /** A connection context */
 typedef struct AvahiClient AvahiClient;
@@ -112,6 +111,5 @@ int avahi_nss_support(void);
 
 /** @} */
 
-AVAHI_C_DECL_END
 
 #endif

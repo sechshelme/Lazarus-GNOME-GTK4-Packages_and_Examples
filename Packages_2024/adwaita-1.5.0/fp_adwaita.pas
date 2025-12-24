@@ -22,7 +22,6 @@ const
   {$include fp_adwaita_includes.inc}
   {$UNDEF read_interface}
 
-
 implementation
 
 {$DEFINE read_implementation}

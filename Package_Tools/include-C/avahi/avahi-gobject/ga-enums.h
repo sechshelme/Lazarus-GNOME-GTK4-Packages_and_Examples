@@ -24,7 +24,7 @@
 #include <avahi-common/defs.h>
 #include <avahi-common/address.h>
 
-G_BEGIN_DECLS
+
 /** Values for GaProtocol */
         typedef enum {
     GA_PROTOCOL_INET = AVAHI_PROTO_INET,     /**< IPv4 */
@@ -66,5 +66,5 @@ typedef enum {
     GA_BROWSER_FAILURE = AVAHI_BROWSER_FAILURE                    /**< Browsing failed due to some reason which can be retrieved using avahi_server_errno()/avahi_client_errno() */
 } GaBrowserEvent;
 
-G_END_DECLS
+
 #endif /* #ifndef __GA_CLIENT_H__ */

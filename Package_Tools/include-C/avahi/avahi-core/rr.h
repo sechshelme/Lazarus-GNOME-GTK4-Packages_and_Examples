@@ -29,7 +29,7 @@
 #include <avahi-common/address.h>
 #include <avahi-common/cdecl.h>
 
-AVAHI_C_DECL_BEGIN
+
 
 /** DNS record types, see RFC 1035, in addition to those defined in defs.h */
 enum {
@@ -170,6 +170,6 @@ size_t avahi_rdata_serialize(AvahiRecord *record, void *rdata, size_t max_size);
 /** Return TRUE if the AvahiRecord object is a link-local A or AAAA address */
 int avahi_record_is_link_local_address(const AvahiRecord *r);
 
-AVAHI_C_DECL_END
+
 
 #endif

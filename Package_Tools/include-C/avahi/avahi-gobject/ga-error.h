@@ -22,12 +22,12 @@
 
 #include <glib-object.h>
 
-G_BEGIN_DECLS
+
 #include <avahi-common/error.h>
 
 GQuark ga_error_quark(void);
 
 #define GA_ERROR ga_error_quark()
 
-G_END_DECLS
+
 #endif /* #ifndef __GA_ERROR_H__ */

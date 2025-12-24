@@ -213,7 +213,7 @@
  * returned by AvahiDomainBrowser.
  */
 
-AVAHI_C_DECL_BEGIN
+
 
 /** @{ \name States */
 
@@ -325,7 +325,7 @@ typedef enum {
 /** @{ \name DNS RR definitions */
 
 /** DNS record types, see RFC 1035 */
-enum {
+enum xxxxxx{
     AVAHI_DNS_TYPE_A = 0x01,
     AVAHI_DNS_TYPE_NS = 0x02,
     AVAHI_DNS_TYPE_CNAME = 0x05,
@@ -339,7 +339,7 @@ enum {
 };
 
 /** DNS record classes, see RFC 1035 */
-enum {
+enum xxxxxxx{
     AVAHI_DNS_CLASS_IN = 0x01          /**< Probably the only class we will ever use */
 };
 
@@ -351,6 +351,6 @@ enum {
 /** The default TTL for all other records. */
 #define AVAHI_DEFAULT_TTL (75*60)
 
-AVAHI_C_DECL_END
+
 
 #endif

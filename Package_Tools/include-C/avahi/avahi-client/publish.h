@@ -37,7 +37,6 @@
  * service using the client interface to avahi-daemon. It behaves like a network
  * printer registering both an IPP and a BSD LPR service. */
 
-AVAHI_C_DECL_BEGIN
 
 /** An entry group object */
 typedef struct AvahiEntryGroup AvahiEntryGroup;
@@ -93,7 +92,7 @@ int avahi_entry_group_add_service(
     const char *domain      /**< The domain to register this domain in. We recommend to pass NULL here, to let the daemon decide */,
     const char *host        /**< The host this services is residing on. We recommend to pass NULL here, the daemon will than automatically insert the local host name in that case */,
     uint16_t port           /**< The IP port number of this service */,
-    ...) AVAHI_GCC_SENTINEL;
+    ...);
 
 /** Add a service, takes an AvahiStringList for TXT records. Arguments have the same meaning as for avahi_entry_group_add_service(). */
 int avahi_entry_group_add_service_strlst(
@@ -128,7 +127,7 @@ int avahi_entry_group_update_service_txt(
     const char *name         /**< The name of the service, as passed to avahi_entry_group_add_service(). May not be NULL. */,
     const char *type         /**< The type of the service, as passed to avahi_entry_group_add_service(). May not be NULL. */,
     const char *domain       /**< The domain this service resides is, as passed to avahi_entry_group_add_service(). May be NULL. */,
-    ...) AVAHI_GCC_SENTINEL;
+    ...);
 
 /** Update a TXT record for an existing service. Similar to avahi_entry_group_update_service_txt() but takes an AvahiStringList for the TXT strings, instead of a NULL terminated list of arguments. */
 int avahi_entry_group_update_service_txt_strlst(
@@ -167,6 +166,5 @@ int avahi_entry_group_add_record(
 
 /** @} */
 
-AVAHI_C_DECL_END
 
 #endif

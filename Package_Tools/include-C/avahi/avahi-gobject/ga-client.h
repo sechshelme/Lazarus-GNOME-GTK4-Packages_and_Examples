@@ -23,7 +23,7 @@
 #include <glib-object.h>
 #include <avahi-client/client.h>
 
-G_BEGIN_DECLS
+
 
 typedef enum {
     GA_CLIENT_STATE_NOT_STARTED = -1,
@@ -75,6 +75,6 @@ gboolean ga_client_start(GaClient * client, GError ** error);
 
 gboolean ga_client_start_in_context(GaClient * client, GMainContext * context, GError ** error);
 
-G_END_DECLS
+
 
 #endif /* #ifndef __GA_CLIENT_H__ */

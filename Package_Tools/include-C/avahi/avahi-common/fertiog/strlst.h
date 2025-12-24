@@ -29,7 +29,7 @@
 #include <avahi-common/cdecl.h>
 #include <avahi-common/gccmacro.h>
 
-AVAHI_C_DECL_BEGIN
+
 
 /** Linked list of strings that can contain any number of binary
  * characters, including NUL bytes. An empty list is created by
@@ -48,7 +48,7 @@ typedef struct AvahiStringList {
 /** Create a new string list by taking a variable list of NUL
  * terminated strings. The strings are copied using g_strdup(). The
  * argument list must be terminated by a NULL pointer. */
-AvahiStringList *avahi_string_list_new(const char *txt, ...) AVAHI_GCC_SENTINEL;
+AvahiStringList *avahi_string_list_new(const char *txt, ...);
 
 /** \cond fulldocs */
 /** Same as avahi_string_list_new() but pass a va_list structure */
@@ -73,7 +73,7 @@ void avahi_string_list_free(AvahiStringList *l);
 AvahiStringList *avahi_string_list_add(AvahiStringList *l, const char *text);
 
 /** Append a new NUL terminated formatted string to the specified string list */
-AvahiStringList *avahi_string_list_add_printf(AvahiStringList *l, const char *format, ...) AVAHI_GCC_PRINTF_ATTR23;
+AvahiStringList *avahi_string_list_add_printf(AvahiStringList *l, const char *format, ...);
 
 /** \cond fulldocs */
 /** Append a new NUL terminated formatted string to the specified string list */
@@ -94,7 +94,7 @@ AvahiStringList*avahi_string_list_add_anonymous(AvahiStringList *l, size_t size)
 /** Same as avahi_string_list_add(), but takes a variable number of
  * NUL terminated strings. The argument list must be terminated by a
  * NULL pointer. Returns the new list start. */
-AvahiStringList *avahi_string_list_add_many(AvahiStringList *r, ...) AVAHI_GCC_SENTINEL;
+AvahiStringList *avahi_string_list_add_many(AvahiStringList *r, ...) ;
 
 /** \cond fulldocs */
 /** Same as avahi_string_list_add_many(), but use a va_list
@@ -174,7 +174,7 @@ AvahiStringList *avahi_string_list_add_pair_arbitrary(AvahiStringList *l, const 
 uint32_t avahi_string_list_get_service_cookie(AvahiStringList *l);
 /** \endcond */
 
-AVAHI_C_DECL_END
+
 
 #endif
 

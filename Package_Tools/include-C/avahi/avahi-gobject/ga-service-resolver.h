@@ -27,7 +27,7 @@
 #include "ga-client.h"
 #include "ga-enums.h"
 
-G_BEGIN_DECLS
+
 
 typedef struct _GaServiceResolver GaServiceResolver;
 typedef struct _GaServiceResolverClass GaServiceResolverClass;
@@ -71,5 +71,5 @@ ga_service_resolver_attach(GaServiceResolver * resolver,
 gboolean
 ga_service_resolver_get_address(GaServiceResolver * resolver,
                                 AvahiAddress * address, uint16_t * port);
-G_END_DECLS
+
 #endif /* #ifndef __GA_SERVICE_RESOLVER_H__ */

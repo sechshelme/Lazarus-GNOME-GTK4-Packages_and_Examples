@@ -26,7 +26,7 @@
 #include <avahi-common/cdecl.h>
 #include <avahi-common/watch.h>
 
-AVAHI_C_DECL_BEGIN
+
 
 /** A main loop object. Main loops of this type aren't very flexible
  * since they only support a single wakeup type. Nevertheless it
@@ -80,6 +80,6 @@ int avahi_simple_poll_loop(AvahiSimplePoll *s);
 /** Wakeup the main loop. (for threaded environments) */
 void avahi_simple_poll_wakeup(AvahiSimplePoll *s);
 
-AVAHI_C_DECL_END
+
 
 #endif

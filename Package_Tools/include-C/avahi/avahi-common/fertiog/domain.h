@@ -27,7 +27,7 @@
 
 #include <avahi-common/cdecl.h>
 
-AVAHI_C_DECL_BEGIN
+
 
 /** The maximum length of a a fully escaped domain name C string. This
  * is calculated like this: RFC1034 mandates maximum length of FQDNs
@@ -124,6 +124,6 @@ const char *avahi_get_type_from_subtype(const char *t);
 
 /** @} */
 
-AVAHI_C_DECL_END
+
 
 #endif

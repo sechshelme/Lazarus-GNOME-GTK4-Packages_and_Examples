@@ -32,7 +32,7 @@ typedef struct AvahiServer AvahiServer;
 #include <avahi-common/timeval.h>
 #include <avahi-core/rr.h>
 
-AVAHI_C_DECL_BEGIN
+
 
 /** Maximum number of defined DNS servers for wide area DNS */
 #define AVAHI_WIDE_AREA_SERVERS_MAX 4
@@ -161,6 +161,6 @@ int avahi_server_set_browse_domains(AvahiServer *s, AvahiStringList *domains);
 /** Return the current configuration of the server \since 0.6.17 */
 const AvahiServerConfig* avahi_server_get_config(AvahiServer *s);
 
-AVAHI_C_DECL_END
+
 
 #endif

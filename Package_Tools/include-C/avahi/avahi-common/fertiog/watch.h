@@ -27,7 +27,7 @@
 
 #include <avahi-common/cdecl.h>
 
-AVAHI_C_DECL_BEGIN
+
 
 /** An I/O watch object */
 typedef struct AvahiWatch AvahiWatch;
@@ -91,7 +91,7 @@ struct AvahiPoll {
     void (*timeout_free)(AvahiTimeout *t);
 };
 
-AVAHI_C_DECL_END
+
 
 #endif
 

@@ -50,7 +50,7 @@ typedef struct AvahiSServiceResolver AvahiSServiceResolver;
 #include <avahi-common/defs.h>
 #include <avahi-core/core.h>
 
-AVAHI_C_DECL_BEGIN
+
 
 /** Callback prototype for AvahiSRecordBrowser events */
 typedef void (*AvahiSRecordBrowserCallback)(
@@ -327,6 +327,6 @@ void avahi_s_service_resolver_start(AvahiSServiceResolver *r);
 /** Free an AvahiSServiceResolver object */
 void avahi_s_service_resolver_free(AvahiSServiceResolver *r);
 
-AVAHI_C_DECL_END
+
 
 #endif

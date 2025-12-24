@@ -24,10 +24,10 @@
 
 #include <avahi-common/cdecl.h>
 
-AVAHI_C_DECL_BEGIN
+
 
 /** Error codes used by avahi */
-enum {
+enum xxxxx{
     AVAHI_OK = 0,                            /**< OK */
     AVAHI_ERR_FAILURE = -1,                  /**< Generic error code */
     AVAHI_ERR_BAD_STATE = -2,                /**< Object was in a bad state */
@@ -102,6 +102,6 @@ enum {
 /** Return a human readable error string for the specified error code */
 const char *avahi_strerror(int error);
 
-AVAHI_C_DECL_END
+
 
 #endif
