@@ -1,6 +1,17 @@
 program project1;
 
 uses
+  ga_client,
+  ga_entry_group,
+  ga_enums,
+  ga_error,
+  ga_record_browser,
+  ga_service_browser,
+  ga_service_resolver,
+
+
+
+  fp_avahi_glib,
   fp_avahi_common,
   fp_avahi_client;
 

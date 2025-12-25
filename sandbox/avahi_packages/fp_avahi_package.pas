@@ -8,7 +8,7 @@ unit fp_avahi_package;
 interface
 
 uses
-  fp_avahi_common, fp_avahi_client, LazarusPackageIntf;
+  fp_avahi_common, fp_avahi_client, fp_avahi_glib, LazarusPackageIntf;
 
 implementation
 

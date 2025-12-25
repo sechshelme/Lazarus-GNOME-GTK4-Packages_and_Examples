@@ -18,8 +18,15 @@
         <Filename Value="fp_avahi_client.pas"/>
         <UnitName Value="fp_avahi_client"/>
       </Item>
+      <Item>
+        <Filename Value="fp_avahi_glib.pas"/>
+        <UnitName Value="fp_avahi_glib"/>
+      </Item>
     </Files>
     <RequiredPkgs>
+      <Item>
+        <PackageName Value="fp_GLIB2_package"/>
+      </Item>
       <Item>
         <PackageName Value="FCL"/>
       </Item>

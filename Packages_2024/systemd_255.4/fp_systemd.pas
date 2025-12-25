@@ -5,7 +5,7 @@ unit fp_systemd;
 interface
 
 uses
-  clib, fp_stdio, fp_signal, fp_inotify;
+  clib, fp_inotify;
 
 const
   {$IFDEF Linux}
@@ -44,4 +44,5 @@ implementation
 {$DEFINE read_implementation}
 {$include fp_systemd_includes.inc}
 {$UNDEF read_implementation}
+
 end.

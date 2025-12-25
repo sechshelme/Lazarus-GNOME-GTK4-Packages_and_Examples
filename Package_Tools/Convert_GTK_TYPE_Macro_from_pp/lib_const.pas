@@ -269,6 +269,8 @@ const
     (libs: 'libgs'; units: 'cytypes'),
     (libs: 'libavahi_common'; units: 'fp_avahi_common'),
     (libs: 'libavahi_client'; units: 'fp_avahi_common'),
+    (libs: 'libavahi_glib'; units: 'fp_avahi_common'),
+    (libs: 'libavahi_gobject'; units: 'fp_avahi_common'),
 
     (libs: ''; units: ''));
 

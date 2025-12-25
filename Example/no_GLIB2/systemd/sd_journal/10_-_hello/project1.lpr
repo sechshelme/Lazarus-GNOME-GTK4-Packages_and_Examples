@@ -31,7 +31,7 @@ uses
 //    sd_journal_add_match(j,PChar( 'PRIORITY=3'), 0);
 
     // 2. Filter setzen (nur Logs mit SYSLOG_IDENTIFIER=example)
-//    sd_journal_add_match(j, pchar('SYSLOG_IDENTIFIER=example'), 0);
+    sd_journal_add_match(j, pchar('SYSLOG_IDENTIFIER=example'), 0);
 
     // 3. Zum Anfang des Journals gehen (oder sd_journal_seek_tail for zuletzt)
     sd_journal_seek_head(j);
@@ -60,7 +60,6 @@ uses
     Read_Journal;
 
     sd_journal_perror('Es trat ein Fehler aus !');
-
 
     r := sd_journal_send(
       'MESSAGE=Hallo, das ist eine Testnachricht vom sd_journal_send Beispiel!',
