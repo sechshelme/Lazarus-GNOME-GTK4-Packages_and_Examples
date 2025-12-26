@@ -20,7 +20,7 @@ type
 
   {$IFDEF Windows}
   Tculong = uint32;
-  Tclong = int64;
+  Tclong = int32;
   Tlong_double = double;
   {$ENDIF}
   Pculong = ^Tculong;

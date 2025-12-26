@@ -37,7 +37,7 @@ interface
     {$ENDIF}
     {$IFDEF windows}
     Tculong = uint32;
-    Tclong = int64;
+    Tclong = int32;
     Twchar_t = uint16;
     {$ENDIF}
     Pculong = ^Tculong;
