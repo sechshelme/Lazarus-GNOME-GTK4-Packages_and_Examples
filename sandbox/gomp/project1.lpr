@@ -4,21 +4,29 @@ uses
   omp,
   libgomp_g;
 
-  function printf(__format: pchar): longint; cdecl; varargs; external libc;
-
+var
+  lock_stdout: Pointer = nil;
 
   procedure worker(para1: pointer); cdecl;
   begin
-    printf('Thread %d von %d'#10, omp_get_thread_num, omp_get_num_threads);
+    GOMP_critical_name_start(@lock_stdout);
+    writeln('thread ', omp_get_thread_num: 5, ' / ', omp_get_num_threads: 5);
+    GOMP_critical_name_end(@lock_stdout);
   end;
 
   procedure main;
+  var
+    num_proc: longint;
   begin
-    omp_set_num_threads(4);
-    printf('Threads gesamt: %d'#10, omp_get_max_threads);
+    num_proc := omp_get_num_procs;
+    omp_set_num_threads(num_proc);
+    WriteLn('Kerne: ', num_proc);
+    WriteLn('Threads gesamt: ', omp_get_max_threads);
 
-    GOMP_parallel_start(@worker, nil, 4);
-    worker(nil);
+    GOMP_parallel_start(@worker, nil, num_proc);
+    GOMP_critical_name_start(@lock_stdout);
+    WriteLn('Hauptprozess');
+    GOMP_critical_name_end(@lock_stdout);
     GOMP_parallel_end;
   end;
 

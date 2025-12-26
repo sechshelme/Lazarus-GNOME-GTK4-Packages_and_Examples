@@ -27,16 +27,16 @@
 #define _OMP_H 1
 
 
-//xxxxxxx typedef struct
-//{
-//  unsigned char _x[4] 
-//  
-//} omp_lock_t;
+ typedef struct
+{
+  unsigned char _x[4] 
+  
+} omp_lock_t;
 
-//xxxxxxxtypedef struct
-//{
-//  unsigned char _x[8 + sizeof (void *)] 
-//} omp_nest_lock_t;
+typedef struct
+{
+  unsigned char _x[8 + sizeof (void *)] 
+} omp_nest_lock_t;
 
 typedef enum omp_sched_t
 {
@@ -67,10 +67,10 @@ typedef enum omp_sync_hint_t
 
 typedef  omp_sync_hint_t omp_lock_hint_t;
 
-//xxxxxxxxtypedef struct  omp_depend_t
-//{
-//  char __omp_depend_t__[2 * sizeof (void *)];
-//} omp_depend_t;
+typedef struct  omp_depend_t
+{
+  char __omp_depend_t__[2 * sizeof (void *)];
+} omp_depend_t;
 
 typedef enum omp_pause_resource_t
 {

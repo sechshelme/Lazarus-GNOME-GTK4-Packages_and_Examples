@@ -5,12 +5,10 @@ interface
 const
   {$IFDEF Linux}
   libgomp = 'gomp';
-  libc = 'c';
   {$ENDIF}
 
   {$IFDEF Windows}
   libgomp = 'libgomp-1.dll';
-  libc = 'msvcrt.dll';
   {$ENDIF}
 
 type
