@@ -38,6 +38,12 @@ type
   Pint64_t = ^Tint64_t;
   PPint64_t = ^Pint64_t;
 
+  TSize_t=SizeUInt;
+  PSize_t=^TSize_t;
+
+const
+  INT64_MAX = 9223372036854775807;  // 2^63 - 1
+
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
@@ -116,7 +122,13 @@ type
     GxB_BLOCKING_GPU = 3;
 
 function GrB_init(mode:TGrB_Mode):TGrB_Info;cdecl;external libgraphblas;
-function GxB_init(mode:TGrB_Mode; user_malloc_function:function (para1:Tsize_t):pointer; user_calloc_function:function (para1:Tsize_t; para2:Tsize_t):pointer; user_realloc_function:function (para1:pointer; para2:Tsize_t):pointer; user_free_function:procedure (para1:pointer)):TGrB_Info;cdecl;external libgraphblas;
+type
+  TUserMalloc   = function (size: TSize_t): Pointer; cdecl;
+  TUserCalloc   = function (count: TSize_t; size: TSize_t): Pointer; cdecl;
+  TUserRealloc  = function (p: Pointer; size: TSize_t): Pointer; cdecl;
+  TUserFree     = procedure (p: Pointer); cdecl;
+
+function GxB_init(mode: TGrB_Mode;                  user_malloc: TUserMalloc;                  user_calloc: TUserCalloc;                  user_realloc: TUserRealloc;                  user_free: TUserFree): TGrB_Info; cdecl; external libgraphblas;
 function GrB_finalize:TGrB_Info;cdecl;external libgraphblas;
 function GrB_getVersion(version:Pdword; subversion:Pdword):TGrB_Info;cdecl;external libgraphblas;
 const
@@ -159,1191 +171,202 @@ type
   GxB_FAST_IMPORT = GxB_DEFAULT;
 type
   PGrB_Descriptor = ^TGrB_Descriptor;
-  TGrB_Descriptor = PGB_Descriptor_opaque;
+  TGrB_Descriptor = Pointer;
 
 function GrB_Descriptor_new(descriptor:PGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
 function GrB_Descriptor_set(desc:TGrB_Descriptor; field:TGrB_Desc_Field; val:TGrB_Desc_Value):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Descriptor_get(val:PGrB_Desc_Value; desc:TGrB_Descriptor; field:TGrB_Desc_Field):TGrB_Info;cdecl;external libgraphblas;
-function GxB_Desc_set(desc:TGrB_Descriptor; field:TGrB_Desc_Field):TGrB_Info;cdecl;v;external libgraphblas;
+function GxB_Desc_set(desc:TGrB_Descriptor; field:TGrB_Desc_Field):TGrB_Info;cdecl;varargs;external libgraphblas;
 function GxB_Desc_set_INT32(desc:TGrB_Descriptor; field:TGrB_Desc_Field; value:Tint32_t):TGrB_Info;cdecl;external libgraphblas;
-function GxB_Desc_set_FP64(desc:TGrB_Descriptor; field:TGrB_Desc_Field; value:Tdouble):TGrB_Info;cdecl;external libgraphblas;
-function GxB_Desc_get(desc:TGrB_Descriptor; field:TGrB_Desc_Field):TGrB_Info;cdecl;va;external libgraphblas;
+function GxB_Desc_set_FP64(desc:TGrB_Descriptor; field:TGrB_Desc_Field; value:double):TGrB_Info;cdecl;external libgraphblas;
+function GxB_Desc_get(desc:TGrB_Descriptor; field:TGrB_Desc_Field):TGrB_Info;cdecl;varargs;external libgraphblas;
 function GxB_Desc_get_INT32(desc:TGrB_Descriptor; field:TGrB_Desc_Field; value:Pint32_t):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Desc_get_FP64(desc:TGrB_Descriptor; field:TGrB_Desc_Field; value:Pdouble):TGrB_Info;cdecl;external libgraphblas;
 function GrB_Descriptor_free(descriptor:PGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ Predefined descriptors and their values: }
-{ OUTP         MASK           MASK       INP0      INP1 }
-{              structural     complement }
-{ ===========  ============== ========== ========  ======== }
-{ GrB_NULL        // -            -              -          -         - }
-{ -            -              -          -         GrB_TRAN }
-{ -            -              -          GrB_TRAN  - }
-{ -            -              -          GrB_TRAN  GrB_TRAN }
-{ -            -              GrB_COMP   -         - }
-{ -            -              GrB_COMP   -         GrB_TRAN }
-{ -            -              GrB_COMP   GrB_TRAN  - }
-{ -            -              GrB_COMP   GrB_TRAN  GrB_TRAN }
-{ -            GrB_STRUCTURE  -          -         - }
-{ -            GrB_STRUCTURE  -          -         GrB_TRAN }
-{ -            GrB_STRUCTURE  -          GrB_TRAN  - }
-{ -            GrB_STRUCTURE  -          GrB_TRAN  GrB_TRAN }
-{ -            GrB_STRUCTURE  GrB_COMP   -         - }
-{ -            GrB_STRUCTURE  GrB_COMP   -         GrB_TRAN }
-{ -            GrB_STRUCTURE  GrB_COMP   GrB_TRAN  - }
-{ -            GrB_STRUCTURE  GrB_COMP   GrB_TRAN  GrB_TRAN }
-{ GrB_REPLACE  -              -          -         - }
-{ GrB_REPLACE  -              -          -         GrB_TRAN }
-{ GrB_REPLACE  -              -          GrB_TRAN  - }
-{ GrB_REPLACE  -              -          GrB_TRAN  GrB_TRAN }
-{ GrB_REPLACE  -              GrB_COMP   -         - }
-{ GrB_REPLACE  -              GrB_COMP   -         GrB_TRAN }
-{ GrB_REPLACE  -              GrB_COMP   GrB_TRAN  - }
-{ GrB_REPLACE  -              GrB_COMP   GrB_TRAN  GrB_TRAN }
-{ GrB_REPLACE  GrB_STRUCTURE  -          -         - }
-{ GrB_REPLACE  GrB_STRUCTURE  -          -         GrB_TRAN }
-{ GrB_REPLACE  GrB_STRUCTURE  -          GrB_TRAN  - }
-{ GrB_REPLACE  GrB_STRUCTURE  -          GrB_TRAN  GrB_TRAN }
-{ GrB_REPLACE  GrB_STRUCTURE  GrB_COMP   -         - }
-{ GrB_REPLACE  GrB_STRUCTURE  GrB_COMP   -         GrB_TRAN }
-{ GrB_REPLACE  GrB_STRUCTURE  GrB_COMP   GrB_TRAN  - }
   var
     GrB_DESC_T1 : TGrB_Descriptor;cvar;external libgraphblas;
-{ GrB_REPLACE  GrB_STRUCTURE  GrB_COMP   GrB_TRAN  GrB_TRAN }
-{ GrB_NULL is the default descriptor, with all settings at their defaults: }
-{ }
-{      OUTP: do not replace the output }
-{      MASK: mask is valued and not complemented }
-{      INP0: first input not transposed }
-{      INP1: second input not transposed }
-{ Predefined descriptors may not be modified or freed.  Attempting to modify }
-{ them results in an error (GrB_INVALID_VALUE).  Attempts to free them are }
-{ silently ignored. }
-{============================================================================== }
-{ GrB_Type: data types }
-{============================================================================== }
 type
   PGrB_Type = ^TGrB_Type;
-  TGrB_Type = PGB_Type_opaque;
-{ GraphBLAS predefined types and their counterparts in pure C: }
-{ in C: bool }
-{ in C: int8_t }
-{ in C: int16_t }
-{ in C: int32_t }
-{ in C: int64_t }
-{ in C: uint8_t }
-{ in C: uint16_t }
-{ in C: uint32_t }
-{ in C: uint64_t }
-{ in C: float }
-{ in C: double }
-{ in C: float complex }
+  TGrB_Type = Pointer;
   var
     GrB_BOOL : TGrB_Type;cvar;external libgraphblas;
-{ in C: double complex }
-{------------------------------------------------------------------------------ }
-{ helper macros for polymorphic functions }
-{------------------------------------------------------------------------------ }
-{xxxxxxxxxxxxxxxx
-#define GB_CAT(w,x,y,z) w ## x ## y ## z
-#define GB_CONCAT(w,x,y,z) GB_CAT (w, x, y, z)
-
-#if GxB_STDC_VERSION >= 201112L
-#define GB_CASES(p,prefix,func)                                         \
-        const bool       p : GB_CONCAT ( prefix, _, func, _BOOL   ),    \
-              bool       p : GB_CONCAT ( prefix, _, func, _BOOL   ),    \
-        const int8_t     p : GB_CONCAT ( prefix, _, func, _INT8   ),    \
-              int8_t     p : GB_CONCAT ( prefix, _, func, _INT8   ),    \
-        const int16_t    p : GB_CONCAT ( prefix, _, func, _INT16  ),    \
-              int16_t    p : GB_CONCAT ( prefix, _, func, _INT16  ),    \
-        const int32_t    p : GB_CONCAT ( prefix, _, func, _INT32  ),    \
-              int32_t    p : GB_CONCAT ( prefix, _, func, _INT32  ),    \
-        const int64_t    p : GB_CONCAT ( prefix, _, func, _INT64  ),    \
-              int64_t    p : GB_CONCAT ( prefix, _, func, _INT64  ),    \
-        const uint8_t    p : GB_CONCAT ( prefix, _, func, _UINT8  ),    \
-              uint8_t    p : GB_CONCAT ( prefix, _, func, _UINT8  ),    \
-        const uint16_t   p : GB_CONCAT ( prefix, _, func, _UINT16 ),    \
-              uint16_t   p : GB_CONCAT ( prefix, _, func, _UINT16 ),    \
-        const uint32_t   p : GB_CONCAT ( prefix, _, func, _UINT32 ),    \
-              uint32_t   p : GB_CONCAT ( prefix, _, func, _UINT32 ),    \
-        const uint64_t   p : GB_CONCAT ( prefix, _, func, _UINT64 ),    \
-              uint64_t   p : GB_CONCAT ( prefix, _, func, _UINT64 ),    \
-        const float      p : GB_CONCAT ( prefix, _, func, _FP32   ),    \
-              float      p : GB_CONCAT ( prefix, _, func, _FP32   ),    \
-        const double     p : GB_CONCAT ( prefix, _, func, _FP64   ),    \
-              double     p : GB_CONCAT ( prefix, _, func, _FP64   ),    \
-        const GxB_FC32_t p : GB_CONCAT ( GxB   , _, func, _FC32   ),    \
-              GxB_FC32_t p : GB_CONCAT ( GxB   , _, func, _FC32   ),    \
-        const GxB_FC64_t p : GB_CONCAT ( GxB   , _, func, _FC64   ),    \
-              GxB_FC64_t p : GB_CONCAT ( GxB   , _, func, _FC64   ),    \
-        const void       * : GB_CONCAT ( prefix, _, func, _UDT    ),    \
-              void       * : GB_CONCAT ( prefix, _, func, _UDT    )
-#endif
- }
-{------------------------------------------------------------------------------ }
-{ GrB_Type_new:  create a new type }
-{------------------------------------------------------------------------------ }
-{ GrB_Type_new is implemented both as a macro and a function.  Both are }
-{ user-callable.  The default is to use the macro, since this allows the name }
-{ of the type to be saved as a string, for subsequent error reporting by }
-{ GrB_error. }
-{$undef GrB_Type_new}
-{$undef GrM_Type_new}
-{ create a new GraphBLAS type }
-{ handle of user type to create }
-{ size = sizeof (ctype) of the C type }
 
 function Type_new(_type:PGrB_Type; sizeof_ctype:Tsize_t):TGrB_Info;cdecl;external libgraphblas;
-{ user code should not directly use GB_STR or GB_XSTR }
-{ GB_STR: convert the content of x into a string "x" }
-{xxxxxxxxxxxxxxxxx
-#define GB_XSTR(x) GB_STR(x)
-#define GB_STR(x) #x
-
-#define GrB_Type_new(utype, sizeof_ctype) \  GxB_Type_new(utype, sizeof_ctype, GB_STR(sizeof_ctype), NULL)
-#define GrM_Type_new(utype, sizeof_ctype) \  GxB_Type_new(utype, sizeof_ctype, GB_STR(sizeof_ctype), NULL)
- }
-{ GxB_Type_new creates a type with a name and definition that are known to }
-{ GraphBLAS, as strings.  The type_name is any valid string (max length of 128 }
-{ characters, including the required null-terminating character) that may }
-{ appear as the name of a C type created by a C "typedef" statement.  It must }
-{ not contain any white-space characters.  Example, creating a type of size }
-{ 16*4+4 = 68 bytes, with a 4-by-4 dense float array and a 32-bit integer: }
-{ }
-{      typedef struct  float x [4][4] ; int color ;  myquaternion ; }
-{      GrB_Type MyQtype ; }
-{      GxB_Type_new (&MyQtype, sizeof (myquaternion), "myquaternion", }
-{          "typedef struct  float x [4][4] ; int color ;  myquaternion ;") ; }
-{ }
-{ The type_name and type_defn are both null-terminated strings.  Currently, }
-{ type_defn is unused, but it will be required for best performance when a JIT }
-{ is implemented in SuiteSparse:GraphBLAS (both on the CPU and GPU).  User }
-{ defined types created by GrB_Type_new will not work with a JIT. }
-{ }
-{ At most GxB_MAX_NAME_LEN characters are accessed in type_name; characters }
-{ beyond that limit are silently ignored. }
 const
   GxB_MAX_NAME_LEN = 128;  
-{ create a new named GraphBLAS type }
-{ handle of user type to create }
-{ size = sizeof (ctype) of the C type }
-{ name of the type (max 128 characters) }
-{ typedef for the type (no max length) }
 
 function GxB_Type_new(_type:PGrB_Type; sizeof_ctype:Tsize_t; type_name:Pchar; type_defn:Pchar):TGrB_Info;cdecl;external libgraphblas;
-{ GB_Type_new is historical: use GxB_Type_new instead }
-{ not user-callable }
-{ handle of user type to create }
-{ size of the user type }
-{ name of the type, as "sizeof (ctype)" }
 function GB_Type_new(_type:PGrB_Type; sizeof_ctype:Tsize_t; type_name:Pchar):TGrB_Info;cdecl;external libgraphblas;
-{ return the name of a GraphBLAS type }
-{ name of the type (char array of size at least }
-{ GxB_MAX_NAME_LEN, owned by the user application). }
 function GxB_Type_name(type_name:Pchar; _type:TGrB_Type):TGrB_Info;cdecl;external libgraphblas;
-{ determine the size of the type }
-{ the sizeof the type }
-{ type to determine the sizeof }
 function GxB_Type_size(size:Psize_t; _type:TGrB_Type):TGrB_Info;cdecl;external libgraphblas;
-{ return the built-in GrB_Type from a name }
-{ built-in type, or NULL if user-defined }
-{ array of size at least GxB_MAX_NAME_LEN }
 function GxB_Type_from_name(_type:PGrB_Type; type_name:Pchar):TGrB_Info;cdecl;external libgraphblas;
-{ free a user-defined type }
-{ handle of user-defined type to free }
 function GrB_Type_free(_type:PGrB_Type):TGrB_Info;cdecl;external libgraphblas;
-{============================================================================== }
-{ GrB_UnaryOp: unary operators }
-{============================================================================== }
-{ GrB_UnaryOp: a function z=f(x).  The function f must have the signature: }
-{      void f (void *z, const void *x) ; }
-{ The pointers are void * but they are always of pointers to objects of type }
-{ ztype and xtype, respectively.  The function must typecast its arguments as }
-{ needed from void* to ztype* and xtype*. }
 type
   PGrB_UnaryOp = ^TGrB_UnaryOp;
-  TGrB_UnaryOp = PGB_UnaryOp_opaque;
-{------------------------------------------------------------------------------ }
-{ built-in unary operators, z = f(x) }
-{------------------------------------------------------------------------------ }
-{ For these functions z=f(x), z and x have the same type. }
-{ The suffix in the name is the type of x and z. }
-{ z = x             z = -x             z = 1/x             z = ! (x != 0) }
-{ identity          additive           multiplicative      logical }
-{                   inverse            inverse             negation }
-{ complex unary operators: }
-{ no LNOT }
-{ for complex }
-{ z = 1             z = abs(x)         z = bnot(x)         z = signum }
-{ one               absolute value     bitwise negation }
-{ complex unary operators: }
-{ for complex types, z = abs(x) }
-{ is real; listed below. }
-{ Boolean negation, z = !x, where both z and x are boolean.  There is no }
-{ suffix since z and x are only boolean.  This operator is identical to }
-{ GxB_LNOT_BOOL; it just has a different name. }
+  TGrB_UnaryOp = Pointer;
   var
     GrB_IDENTITY_BOOL : TGrB_UnaryOp;cvar;external libgraphblas;
-{ GxB_ABS is now in the v1.3 spec, the following names are historical: }
-{ z = abs(x) }
     GxB_ABS_BOOL : TGrB_UnaryOp;cvar;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ Unary operators for floating-point types only }
-{------------------------------------------------------------------------------ }
-{ The following floating-point unary operators and their ANSI C11 equivalents, }
-{ are only defined for floating-point (real and complex) types. }
-{-------------------------------------------------------------------------- }
-{ z = f(x) where z and x have the same type (all 4 floating-point types) }
-{-------------------------------------------------------------------------- }
-{ z = sqrt (x)     z = log (x)         z = exp (x)         z = log2 (x) }
-{ z = sin (x)      z = cos (x)         z = tan (x) }
-{ z = acos (x)     z = asin (x)        z = atan (x) }
-{ z = sinh (x)     z = cosh (x)        z = tanh (x) }
-{ z = acosh (x)    z = asinh (x)       z = atanh (x)       z = signum (x) }
-{ z = ceil (x)     z = floor (x)       z = round (x)       z = trunc (x) }
-{ z = exp2 (x)     z = expm1 (x)       z = log10 (x)       z = log1p (x) }
-{-------------------------------------------------------------------------- }
-{ z = f(x) where z and x are the same type (floating-point real only) }
-{-------------------------------------------------------------------------- }
-{ z = lgamma (x)   z = tgamma (x)      z = erf (x)         z = erfc (x) }
-{ z = cbrt (x) }
-{ frexpx and frexpe return the mantissa and exponent, respectively, }
-{ from the ANSI C11 frexp function.  The exponent is returned as a }
-{ floating-point value, not an integer. }
-{ z = frexpx (x)   z = frexpe (x) }
-{-------------------------------------------------------------------------- }
-{ z = f(x) where z and x are the same type (complex only) }
-{-------------------------------------------------------------------------- }
-{ z = conj (x) }
-{-------------------------------------------------------------------------- }
-{ z = f(x) where z is real and x is complex: }
-{-------------------------------------------------------------------------- }
-{ z = creal (x)    z = cimag (x)       z = carg (x)       z = abs (x) }
-{-------------------------------------------------------------------------- }
-{ z = f(x) where z is bool and x is any floating-point type }
-{-------------------------------------------------------------------------- }
-{ z = isinf (x) }
-{ isinf (creal (x)) || isinf (cimag (x)) }
-{ isinf (creal (x)) || isinf (cimag (x)) }
-{ z = isnan (x) }
-{ isnan (creal (x)) || isnan (cimag (x)) }
-{ isnan (creal (x)) || isnan (cimag (x)) }
-{ z = isfinite (x) }
-{ isfinite (real (x)) && isfinite (cimag (x)) }
     GxB_SQRT_FP32 : TGrB_UnaryOp;cvar;external libgraphblas;
-{ isfinite (real (x)) && isfinite (cimag (x)) }
-{------------------------------------------------------------------------------ }
-{ methods for unary operators }
-{------------------------------------------------------------------------------ }
 type
-
   TGxB_unary_function = procedure (para1:pointer; para2:pointer);cdecl;
-{ GrB_UnaryOp_new creates a user-defined unary op, with an automatic }
-{ detection of the operator name. }
-{$undef GrB_UnaryOp_new}
-{$undef GrM_UnaryOp_new}
-{ create a new user-defined unary operator }
-{ handle for the new unary operator }
-{ pointer to the unary function }
-{ type of output z }
-{ type of input x }
 
 function UnaryOp_new(unaryop:PGrB_UnaryOp; _function:TGxB_unary_function; ztype:TGrB_Type; xtype:TGrB_Type):TGrB_Info;cdecl;external libgraphblas;
-{xxxxxxxxxxx#define GrB_UnaryOp_new(op,f,z,x) \ GxB_UnaryOp_new(op,f,z,x, GB_STR(f), NULL) }
-{xxxxxxxxxx#define GrM_UnaryOp_new(op,f,z,x) \ GxM_UnaryOp_new(op,f,z,x, GB_STR(f), NULL) }
-{ GxB_UnaryOp_new creates a named user-defined unary op. }
-{ create a new user-defined unary operator }
-{ handle for the new unary operator }
-{ pointer to the unary function }
-{ type of output z }
-{ type of input x }
-{ name of the user function }
-{ definition of the user function }
-function GxB_UnaryOp_new(unaryop:PGrB_UnaryOp; _function:TGxB_unary_function; ztype:TGrB_Type; xtype:TGrB_Type; unop_name:Pchar; 
-           unop_defn:Pchar):TGrB_Info;cdecl;external libgraphblas;
-{ GB_UnaryOp_new is historical: use GxB_UnaryOp_new instead }
-{ not user-callable }
-{ handle for the new unary operator }
-{ pointer to the unary function }
-{ type of output z }
-{ type of input x }
-{ name of the user function }
+function GxB_UnaryOp_new(unaryop:PGrB_UnaryOp; _function:TGxB_unary_function; ztype:TGrB_Type; xtype:TGrB_Type; unop_name:Pchar;           unop_defn:Pchar):TGrB_Info;cdecl;external libgraphblas;
 function GB_UnaryOp_new(unaryop:PGrB_UnaryOp; _function:TGxB_unary_function; ztype:TGrB_Type; xtype:TGrB_Type; unop_name:Pchar):TGrB_Info;cdecl;external libgraphblas;
-{ GxB_UnaryOp_ztype is historical.  Use GxB_UnaryOp_ztype_name instead. }
-{ return the type of z }
-{ return type of output z }
-{ unary operator }
 function GxB_UnaryOp_ztype(ztype:PGrB_Type; unaryop:TGrB_UnaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ return the type_name of z }
-{ user array of size GxB_MAX_NAME_LEN }
-{ unary operator }
 function GxB_UnaryOp_ztype_name(type_name:Pchar; unaryop:TGrB_UnaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ GxB_UnaryOp_xtype is historical.  Use GxB_UnaryOp_xtype_name instead. }
-{ return the type of x }
-{ return type of input x }
-{ unary operator }
 function GxB_UnaryOp_xtype(xtype:PGrB_Type; unaryop:TGrB_UnaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ return the type_name of x }
-{ user array of size GxB_MAX_NAME_LEN }
-{ unary operator }
 function GxB_UnaryOp_xtype_name(type_name:Pchar; unaryop:TGrB_UnaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ free a user-created unary operator }
-{ handle of unary operator to free }
 function GrB_UnaryOp_free(unaryop:PGrB_UnaryOp):TGrB_Info;cdecl;external libgraphblas;
-{============================================================================== }
-{ GrB_BinaryOp: binary operators }
-{============================================================================== }
-{ GrB_BinaryOp: a function z=f(x,y).  The function f must have the signature: }
-{      void f (void *z, const void *x, const void *y) ; }
-{ The pointers are void * but they are always of pointers to objects of type }
-{ ztype, xtype, and ytype, respectively.  See Demo/usercomplex.c for examples. }
 type
   PGrB_BinaryOp = ^TGrB_BinaryOp;
-  TGrB_BinaryOp = PGB_BinaryOp_opaque;
-{------------------------------------------------------------------------------ }
-{ built-in binary operators, z = f(x,y), where x,y,z all have the same type }
-{------------------------------------------------------------------------------ }
-{ operators for all 13 types (including complex): }
-{ GxB_PAIR_T and GrB_ONEB_T are identical; the latter was added to the }
-{ v2.0 C API Specification. }
-{ z = x            z = y               z = 1               z = pow (x,y) }
-{ complex: }
-{ z = x+y          z = x-y             z = x*y             z = x/y }
-{ complex: }
-{ z = y-x          z = y/x             z = 1               z = any(x,y) }
-{ complex: }
-{ The GxB_IS* comparators z=f(x,y) return the same type as their }
-{ inputs.  Each of them compute z = (x OP y), where x, y, and z all have }
-{ the same type.  The value z is either 1 for true or 0 for false, but it }
-{ is a value with the same type as x and y. }
-{ z = (x == y)     z = (x != y) }
-{ complex: }
-{ z = (x > y)      z = (x < y)         z = (x >= y)     z = (x <= y) }
-{ z = min(x,y)     z = max (x,y) }
-{ Binary operators for each of the 11 real types: }
-{ The operators convert non-boolean types internally to boolean and return }
-{ a value 1 or 0 in the same type, for true or false.  Each computes z = }
-{ ((x != 0) OP (y != 0)), where x, y, and z all the same type.  These }
-{ operators are useful as multiplicative operators when combined with }
-{ non-boolean monoids of the same type. }
-{ z = (x || y)     z = (x && y)        z = (x != y) }
-{ Binary operators that operate only on boolean types: LOR, LAND, LXOR, }
-{ and LXNOR.  The naming convention differs (_BOOL is not appended to the }
-{ name).  They are the same as GxB_LOR_BOOL, GxB_LAND_BOOL, and }
-{ GxB_LXOR_BOOL, and GrB_EQ_BOOL, respectively. }
-{ z = (x || y)     z = (x && y)        z = (x != y)        z = (x == y) }
-{ Operators for floating-point reals: }
-{ z = atan2(x,y)   z = hypot(x,y)      z = fmod(x,y)   z = remainder(x,y) }
-{ z = ldexp(x,y)   z = copysign (x,y) }
-{ Bitwise operations on signed and unsigned integers: note that }
-{ bitwise operations on signed integers can lead to different results, }
-{ depending on your compiler; results are implementation-defined. }
-{ z = (x | y)      z = (x & y)         z = (x ^ y)        z = ~(x ^ y) }
-{ z = bitget(x,y)  z = bitset(x,y)     z = bitclr(x,y) }
+  TGrB_BinaryOp = Pointer;
   var
     GrB_FIRST_BOOL : TGrB_BinaryOp;cvar;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ z=f(x,y) where z and x have the same type, but y is GrB_INT8 }
-{------------------------------------------------------------------------------ }
-{ z = bitshift (x,y) computes z = x left-shifted by y bits if y >= 0, or z }
-{ = x right-shifted by (-y) bits if y < 0.  z is equal to x if y is zero. }
-{ z and x have the same type, as given by the suffix on the operator name. }
-{ Since y must be signed, it cannot have the same type as x when x is }
-{ unsigned; it is always GrB_INT8 for all 8 versions of this operator. }
-{ The GxB_BSHIFT_* operators compute the arithmetic shift, and produce the }
-{ same results as the bitshift.m function, for all possible inputs. }
-{ z = bitshift(x,y) }
     GxB_BSHIFT_INT8 : TGrB_BinaryOp;cvar;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ z=f(x,y) where z is BOOL and the type of x,y is given by the suffix }
-{------------------------------------------------------------------------------ }
-{ Six comparators z=f(x,y) return their result as boolean, but }
-{ where x and y have the same type.  The suffix in their names refers to }
-{ the type of x and y since z is always boolean.  If used as multiply }
-{ operators in a semiring, they can only be combined with boolean monoids. }
-{ The _BOOL versions of these operators give the same results as their }
-{ IS*_BOOL counterparts.  GrB_EQ_BOOL and GrB_LXNOR are identical. }
-{ z = (x == y)     z = (x != y)        z = (x > y)         z = (x < y) }
-{ complex: }
-{ z = (x >= y)     z = (x <= y) }
     GrB_EQ_BOOL : TGrB_BinaryOp;cvar;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ z=f(x,y) where z is complex and the type of x,y is given by the suffix }
-{------------------------------------------------------------------------------ }
-{ z = cmplx (x,y) }
     GxB_CMPLX_FP32 : TGrB_BinaryOp;cvar;external libgraphblas;
-{============================================================================== }
-{ positional GrB_UnaryOp and GrB_BinaryOp operators }
-{============================================================================== }
-{ Positional operators do not depend on the value of an entry, but its row or }
-{ column index in the matrix instead.  For example, for an entry A(i,j), }
-{ first_i(A(i,j),y) is equal to i.  These operators are useful for returning }
-{ node id's as the result of a semiring operation.  If used as a mask, zero }
-{ has a special value, and thus z=first_i1(A(i,j),j) returns i+1 instead of i. }
-{ This can be useful when using a positional operator to construct a mask }
-{ matrix or vector for another GraphBLAS operation.  It is also essential for }
-{ the @GrB interface, since the user view of matrix indices in @GrB is }
-{ 1-based, not 0-based. }
-{ When applied to a vector, j is always equal to 0.  For a GxB_SCALAR, }
-{ both i and j are always zero. }
-{ GraphBLAS defines a GrB_Index as uint64_t, but these operators return a }
-{ GrB_INT32 or GrB_INT64 type, which is more flexible to use because the }
-{ result of this operator can be negated, to flag an entry for example.  The }
-{ value -1 can be used to denote "no node" or "no position".  GrB_INT32 is }
-{ useful for graphs smaller than 2^31 nodes.  If the row or column index }
-{ exceeds INT32_MAX, the result is determined by the typecast from the }
-{ 64-bit index to the smaller 32-bit index. }
-{ Positional operators cannot be used to construct monoids.  They can be used }
-{ as multiplicative operators in semirings, and as operators for GrB_eWise*, }
-{ and GrB_apply (bind first or second).  For the latter, the operator cannot }
-{ depend on the bound scalar. }
-{ When used as multiplicative operators in a semiring, FIRSTJ and SECONDI }
-{ are identical.  If C(i,j) += t is computed where t = A(i,k)*B(k,j), then }
-{ t = k in both cases.  Likewise, FIRSTJ1 and SECONDI1 are identical. }
-{ z = first_i(A(i,j),y) == i }
-{ z = first_i1(A(i,j),y) == i+1 }
-{ z = first_j(A(i,j),y) == j }
-{ z = first_j1(A(i,j),y) == j+1 }
-{ z = second_i(x,B(i,j)) == i }
-{ z = second_i1(x,B(i,j)) == i+1 }
-{ z = second_j(x,B(i,j)) == j }
     GxB_FIRSTI_INT32 : TGrB_BinaryOp;cvar;external libgraphblas;
-{ z = second_j1(x,B(i,j)) == j+1 }
-{ z=position_i(A(i,j)) == i }
-{ z=position_i1(A(i,j)) == i+1 }
-{ z=position_j(A(i,j)) == j }
     GxB_POSITIONI_INT32 : TGrB_UnaryOp;cvar;external libgraphblas;
-{ z=position_j1(A(i,j)) == j+1 }
-{============================================================================== }
-{ special GrB_BinaryOp for build methods only }
-{============================================================================== }
-{ In GrB*build* methods, passing dup as NULL means that no duplicates are }
-{ tolerated.  If duplicates appear, an error is returned.  If dup is a binary }
-{ operator, it is applied to reduce duplicates to a single value.  The }
-{ GxB_IGNORE_DUP is a special case.  It is not an operator, but an indication }
-{ that any duplicates are to be ignored. }
     GxB_IGNORE_DUP : TGrB_BinaryOp;cvar;external libgraphblas;
-{============================================================================== }
-{ About boolean and bitwise binary operators }
-{============================================================================== }
-{ Some of the boolean operators compute the same thing with different names. }
-{ For example, x*y and x&&y give the same results for boolean x and y. }
-{ Operations such as x < y when x and y are boolean are treated as if true=1 }
-{ and false=0.  Below is the truth table for all binary operators with boolean }
-{ inputs.  This table is defined by how C typecasts boolean values for }
-{ non-boolean operations.  For example, if x, y, and z are boolean, x = true, }
-{ and y = true, then z = x + y = true + true = true.  DIV (x/y) is defined }
-{ below.  RDIV (y/x) is shown as \ in the table; it is the same as 2nd. }
-{  x y  1st 2nd min max +  -  *  /  or and xor eq ne > < ge le \ pow pair }
-{  0 0  0   0   0   0   0  0  0  0  0  0   0   1  0  0 0 1  1  0 1   1 }
-{  0 1  0   1   0   1   1  1  0  0  1  0   1   0  1  0 1 0  1  1 0   1 }
-{  1 0  1   0   0   1   1  1  0  1  1  0   1   0  1  1 0 1  0  0 1   1 }
-{  1 1  1   1   1   1   1  0  1  1  1  1   0   1  0  0 0 1  1  1 1   1 }
-{ GraphBLAS includes a GrB_DIV_BOOL operator in its specification, but does }
-{ not define what boolean "division" means.  SuiteSparse:GraphBLAS makes the }
-{ following interpretation. }
-{ GraphBLAS does not generate exceptions for divide-by-zero.  Floating-point }
-{ divide-by-zero follows the IEEE 754 standard: 1/0 is +Inf, -1/0 is -Inf, and }
-{ 0/0 is NaN.  For integer division by zero, if x is positive, x/0 is the }
-{ largest integer, -x/0 is the integer minimum (zero for unsigned integers), }
-{ and 0/0 is zero.  For example, for int8, 1/0 is 127, and -1/0 is -128.  For }
-{ uint8, 1/0 is 255 and 0/0 is zero. }
-{ Boolean division is treated as if it were an unsigned integer type with }
-{ true=1 and false=0, and with the max and min value being 1 and 0.  As a }
-{ result, GrB_IDENTITY_BOOL, GrB_AINV_BOOL, and GrB_MINV_BOOL all give the }
-{ same result (z = x). }
-{ With this convention for boolean "division", there are 11 unique binary }
-{ operators that are purely boolean.  Other named *_BOOL operators are }
-{ redundant but are included in GraphBLAS so that the name space of operators }
-{ is complete.  Below is a list of all operators and their equivalents. }
-{                   x: 0 0 1 1 }
-{                   y: 0 1 0 1 }
-{                   z: see below }
-{ }
-{      z = 0           0 0 0 0     (zero function, not predefined) }
-{      z = (x && y)    0 0 0 1     AND, MIN, TIMES }
-{      z = (x > y)     0 0 1 0     GT, ISGT, and set diff (x\y) }
-{      z = x           0 0 1 1     FIRST, DIV }
-{ }
-{      z = (x < y)     0 1 0 0     LT, ISLT, and set diff (y\x) }
-{      z = y           0 1 0 1     SECOND, RDIV }
-{      z = (x != y)    0 1 1 0     XOR, MINUS, RMINUS, NE, ISNE }
-{      z = (x || y)    0 1 1 1     OR, MAX, PLUS }
-{ }
-{      z = ~(x || y)   1 0 0 0     (nor(x,y) function, not predefined) }
-{      z = (x == y)    1 0 0 1     LXNOR, EQ, ISEQ }
-{      z = ~y          1 0 1 0     (not(y), not predefined) }
-{      z = (x >= y)    1 0 1 1     GE, ISGE, POW, and "x implies y" }
-{ }
-{      z = ~x          1 1 0 0     (not(x), not predefined) }
-{      z = (x <= y)    1 1 0 1     LE, ISLE, and "y implies x" }
-{      z = ~(x && y)   1 1 1 0     (nand(x,y) function, not predefined) }
-{      z = 1           1 1 1 1     PAIR, ONEB }
-{ }
-{      z = any(x,y)    0 . . 1     ANY (pick x or y arbitrarily) }
-{ Four more that have no _BOOL suffix are also redundant with the operators }
-{ of the form GxB_*_BOOL (GrB_LOR, GrB_LAND, GrB_LXOR, and GrB_LXNOR). }
-{ Note that the boolean binary operator space is not complete.  Five other }
-{ boolean functions could be pre-defined as well:  z = 0, nor(x,y), }
-{ nand(x,y), not(x), and not(y). }
-{ Four of the possible 16 bitwise operators are pre-defined: BOR, BAND, }
-{ BXOR, and BXNOR.  This assumes that the computations for each bit are }
-{ entirely independent (so BSHIFT would not fit in the table above). }
-{------------------------------------------------------------------------------ }
-{ methods for binary operators }
-{------------------------------------------------------------------------------ }
 type
-
   TGxB_binary_function = procedure (para1:pointer; para2:pointer; para3:pointer);cdecl;
-{ GrB_BinaryOp_new creates a user-defined binary op, with an automatic }
-{ detection of the operator name. }
-{$undef GrB_BinaryOp_new}
-{$undef GrM_BinaryOp_new}
-{ handle for the new binary operator }
-{ pointer to the binary function }
-{ type of output z }
-{ type of input x }
-{ type of input y }
 
 function BinaryOp_new(binaryop:PGrB_BinaryOp; _function:TGxB_binary_function; ztype:TGrB_Type; xtype:TGrB_Type; ytype:TGrB_Type):TGrB_Info;cdecl;external libgraphblas;
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GrB_BinaryOp_new(op,f,z,x,y : longint) : longint;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
+function GrB_BinaryOp_new(op,f,z,x,y : longint) : longint;
 function GrM_BinaryOp_new(op,f,z,x,y : longint) : longint;
 
-{ GxB_BinaryOp_new creates a named user-defined binary op. }
-{ handle for the new binary operator }
-{ pointer to the binary function }
-{ type of output z }
-{ type of input x }
-{ type of input y }
-{ name of the user function }
-{ definition of the user function }
-function GxB_BinaryOp_new(op:PGrB_BinaryOp; _function:TGxB_binary_function; ztype:TGrB_Type; xtype:TGrB_Type; ytype:TGrB_Type; 
+function GxB_BinaryOp_new(op:PGrB_BinaryOp; _function:TGxB_binary_function; ztype:TGrB_Type; xtype:TGrB_Type; ytype:TGrB_Type;
            binop_name:Pchar; binop_defn:Pchar):TGrB_Info;cdecl;external libgraphblas;
-{ GB_BinaryOp_new is historical: use GxB_BinaryOp_new instead }
-{ not user-callable }
-{ handle for the new binary operator }
-{ pointer to the binary function }
-{ type of output z }
-{ type of input x }
-{ type of input y }
-{ name of the user function }
-function GB_BinaryOp_new(binaryop:PGrB_BinaryOp; _function:TGxB_binary_function; ztype:TGrB_Type; xtype:TGrB_Type; ytype:TGrB_Type; 
+function GB_BinaryOp_new(binaryop:PGrB_BinaryOp; _function:TGxB_binary_function; ztype:TGrB_Type; xtype:TGrB_Type; ytype:TGrB_Type;
            binop_name:Pchar):TGrB_Info;cdecl;external libgraphblas;
-{ NOTE: GxB_BinaryOp_ztype is historical.  Use GxB_BinaryOp_ztype_name instead. }
-{ return the type of z }
-{ return type of output z }
-{ binary operator to query }
 function GxB_BinaryOp_ztype(ztype:PGrB_Type; binaryop:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ return the type_name of z }
-{ user array of size GxB_MAX_NAME_LEN }
-{ binary operator to query }
 function GxB_BinaryOp_ztype_name(type_name:Pchar; binaryop:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ NOTE: GxB_BinaryOp_xtype is historical.  Use GxB_BinaryOp_xtype_name instead. }
-{ return the type of x }
-{ return type of input x }
-{ binary operator to query }
 function GxB_BinaryOp_xtype(xtype:PGrB_Type; binaryop:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ return the type_name of x }
-{ user array of size GxB_MAX_NAME_LEN }
-{ binary operator to query }
 function GxB_BinaryOp_xtype_name(type_name:Pchar; binaryop:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ NOTE: GxB_BinaryOp_ytype is historical.  Use GxB_BinaryOp_ytype_name instead. }
-{ return the type of y }
-{ return type of input y }
-{ binary operator to query }
 function GxB_BinaryOp_ytype(ytype:PGrB_Type; binaryop:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ return the type_name of y }
-{ user array of size GxB_MAX_NAME_LEN }
-{ binary operator to query }
 function GxB_BinaryOp_ytype_name(type_name:Pchar; binaryop:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ free a user-created binary operator }
-{ handle of binary operator to free }
 function GrB_BinaryOp_free(binaryop:PGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{============================================================================== }
-{ GxB_SelectOp: select operators (historical) }
-{============================================================================== }
-{ GrB_IndexUnaryOp should be used instead of GxB_SelectOp. }
-{ GxB_SelectOp is an operator used by GxB_select to select entries from an }
-{ input matrix A that are kept in the output C.  If an entry A(i,j) in the }
-{ matrix A, of size nrows-by-ncols, has the value aij, then it calls the }
-{ select function as result = f (i, j, aij, thunk).  If the function returns }
-{ true, the entry is kept in the output C.  If f returns false, the entry is }
-{ not kept in C.  The type of x for the GxB_SelectOp operator may be any of }
-{ the 11 built-in types, or any user-defined type.  It may also be GrB_NULL, }
-{ to indicate that the function is type-generic and does not depend at all on }
-{ the value aij.  In this case, x is passed to f as a NULL pointer. }
-{ The optional Thunk parameter to GxB_select is a GrB_Scalar.  For built-in }
-{ select operators (TRIL, TRIU, DIAG, and OFFDIAG), Thunk must have any }
-{ built-in type, and thunk = (int64_t) Thunk is used to specify the diagonal }
-{ for these operators.  Thunk may be NULL, in which case its value is treated }
-{ as zero, if it has a built-in type. The value of Thunk (if present) is not }
-{ modified by any built-in select operator. }
-{ For user-defined select operators, Thunk is not typecasted at all.  If }
-{ the user operator is defined with a non-NULL Thunk input, then it must }
-{ be non-NULL and of the same type, when calling GxB_select. }
-{ GxB_SelectOp:  a function z=f(i,j,x,thunk) for the GxB_Select operation. }
-{ The function f must have the signature: }
-{      bool f (GrB_Index i, GrB_Index j, const void *x, const void *thunk) ; }
-{ The values of i and j are guaranteed to be in the range 0 to }
-{ GrB_INDEX_MAX, and they can be safely typecasted to int64_t then negated, }
-{ if desired, without any risk of integer overflow. }
 type
   PGxB_SelectOp = ^TGxB_SelectOp;
-  TGxB_SelectOp = PGB_SelectOp_opaque;
-{------------------------------------------------------------------------------ }
-{ built-in select operators (historical) }
-{------------------------------------------------------------------------------ }
-{ GxB_select (C, Mask, accum, op, A, Thunk, desc) always returns a matrix C of }
-{ the same size as A (or A' if GrB_TRAN is in the descriptor). }
-{ C=tril(A,thunk):   returns true if ((j-i) <= thunk) }
-{ C=triu(A,thunk):   returns true if ((j-i) >= thunk) }
-{ C=diag(A,thunk):   returns true if ((j-i) == thunk) }
-{ C=A-diag(A,thunk): returns true if ((j-i) != thunk) }
-{ C=A(A ~= 0) }
-{ C=A(A == 0) }
-{ C=A(A >  0) }
-{ C=A(A >= 0) }
-{ C=A(A <  0) }
-{ C=A(A <= 0) }
-{ C=A(A ~= thunk) }
-{ C=A(A == thunk) }
-{ C=A(A >  thunk) }
-{ C=A(A >= thunk) }
-{ C=A(A <  thunk) }
+  TGxB_SelectOp = Pointer;
   var
     GxB_TRIL : TGxB_SelectOp;cvar;external libgraphblas;
-{ C=A(A <= thunk) }
-{ For GxB_TRIL, GxB_TRIU, GxB_DIAG, and GxB_OFFDIAG, the parameter Thunk is a }
-{ GrB_Scalar of any built-in type.  If GrB_NULL, or empty, Thunk is treated as }
-{ zero.  Otherwise, the single entry is typecasted as (int64_t) Thunk. }
-{ These select operators do not depend on the values of A, but just their }
-{ position, and they work on matrices of any type. }
-{ For GxB_*ZERO, the result depends only on the value of A(i,j).  The Thunk }
-{ parameter to GxB_select is ignored and may be GrB_NULL. }
-{ The operators GxB_TRIL, GxB_TRIU, GxB_DIAG, GxB_OFFDIAG, GxB_NONZERO, }
-{ GxB_EQ_ZERO, GxB_NE_THUNK, and GxB_EQ_THUNK work on all built-in types and }
-{ all user-defined types. }
-{ GxB_GT_*, GxB_GE_*, GxB_LT_*, and GxB_LE_* only work on the 11 built-in }
-{ types (not complex).  They cannot be used for user-defined types. }
-{------------------------------------------------------------------------------ }
-{ select operators: (historical) }
-{------------------------------------------------------------------------------ }
-{ User-defined GxB_SelectOps are historical.  New code should use }
-{ GrB_IndexUnaryOp_new instead. }
-{ return true if A(i,j) is kept }
-{ row index of A(i,j) }
-{ column index of A(i,j) }
-{ value of A(i,j) }
-{ optional input for select function }
 type
-
-  TGxB_select_function = function (i:TGrB_Index; j:TGrB_Index; x:pointer; thunk:pointer):Tbool;cdecl;
-{$undef GxB_SelectOp_new}
-{$undef GxM_SelectOp_new}
-{ create a new user-defined select operator }
-{ handle for the new select operator }
-{ pointer to the select function }
-{ type of input x, or NULL if type-generic }
-{ type of thunk, or NULL if not used }
+  TGxB_select_function = function (i:TGrB_Index; j:TGrB_Index; x:pointer; thunk:pointer):Boolean;cdecl;
 
 function SelectOp_new(selectop:PGxB_SelectOp; _function:TGxB_select_function; xtype:TGrB_Type; ttype:TGrB_Type):TGrB_Info;cdecl;external libgraphblas;
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GxB_SelectOp_new(op,f,x,t : longint) : longint;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
+function GxB_SelectOp_new(op,f,x,t : longint) : longint;
 function GxM_SelectOp_new(op,f,x,t : longint) : longint;
 
-{ GB_SelectOp_new should not be called directly, but only through the }
-{ GxB_SelectOp_new macro (but use GrB_IndexUnaryOp_new instead). }
-{ not user-callable }
-{ handle for the new select operator }
-{ pointer to the select function }
-{ type of input x }
-{ type of thunk, or NULL if not used }
-{ name of the underlying function }
 function GB_SelectOp_new(selectop:PGxB_SelectOp; _function:TGxB_select_function; xtype:TGrB_Type; ttype:TGrB_Type; name:Pchar):TGrB_Info;cdecl;external libgraphblas;
-{ GxB_SelectOp_xtype is historical.  Use a GrB_IndexUnaryOp instead. }
-{ return the type of x }
-{ return type of input x }
-{ select operator }
 function GxB_SelectOp_xtype(xtype:PGrB_Type; selectop:TGxB_SelectOp):TGrB_Info;cdecl;external libgraphblas;
-{ GxB_SelectOp_ttype is historical.  Use a GrB_IndexUnaryOp instead. }
-{ return the type of thunk }
-{ return type of input thunk }
-{ select operator }
 function GxB_SelectOp_ttype(ttype:PGrB_Type; selectop:TGxB_SelectOp):TGrB_Info;cdecl;external libgraphblas;
-{ free a user-created select operator }
-{ handle of select operator to free }
 function GxB_SelectOp_free(selectop:PGxB_SelectOp):TGrB_Info;cdecl;external libgraphblas;
-{============================================================================== }
-{ GrB_IndexUnaryOp: a unary operator that depends on the row/col indices }
-{============================================================================== }
-{ The indexop has the form z = f(aij, i, j, y) where aij is the numerical }
-{ value of the A(i,j) entry, i and j are its row and column index, and y }
-{ is a scalar.  For vectors, it has the form z = f(vi, i, 0, y). }
 type
   PGrB_IndexUnaryOp = ^TGrB_IndexUnaryOp;
-  TGrB_IndexUnaryOp = PGB_IndexUnaryOp_opaque;
-{ output value z, of type ztype }
-{ input value x of type xtype; value of v(i) or A(i,j) }
-{ row index of A(i,j) }
-{ column index of A(i,j), or zero for v(i) }
-{ input scalar y }
+  TGrB_IndexUnaryOp = Pointer;
 
   TGxB_index_unary_function = procedure (z:pointer; x:pointer; i:TGrB_Index; j:TGrB_Index; y:pointer);cdecl;
-{ GrB_IndexUnaryOp_new creates a user-defined unary op, with an automatic }
-{ detection of the operator name. }
-{$undef GrB_IndexUnaryOp_new}
-{$undef GrM_IndexUnaryOp_new}
-{ create a new user-defined IndexUnary op }
-{ handle for the new IndexUnary operator }
-{ pointer to IndexUnary function }
-{ type of output z }
-{ type of input x (the A(i,j) entry) }
-{ type of input y (the scalar) }
 
 function IndexUnaryOp_new(op:PGrB_IndexUnaryOp; _function:TGxB_index_unary_function; ztype:TGrB_Type; xtype:TGrB_Type; ytype:TGrB_Type):TGrB_Info;cdecl;external libgraphblas;
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GrB_IndexUnaryOp_new(op,f,z,x,y : longint) : longint;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
+function GrB_IndexUnaryOp_new(op,f,z,x,y : longint) : longint;
 function GrM_IndexUnaryOp_new(op,f,z,x,y : longint) : longint;
 
-{ create a named user-created IndexUnaryOp }
-{ handle for the new IndexUnary operator }
-{ pointer to index_unary function }
-{ type of output z }
-{ type of input x (the A(i,j) entry) }
-{ type of input y (the scalar) }
-{ name of the user function }
-{ definition of the user function }
-function GxB_IndexUnaryOp_new(op:PGrB_IndexUnaryOp; _function:TGxB_index_unary_function; ztype:TGrB_Type; xtype:TGrB_Type; ytype:TGrB_Type; 
+function GxB_IndexUnaryOp_new(op:PGrB_IndexUnaryOp; _function:TGxB_index_unary_function; ztype:TGrB_Type; xtype:TGrB_Type; ytype:TGrB_Type;
            idxop_name:Pchar; idxop_defn:Pchar):TGrB_Info;cdecl;external libgraphblas;
-{ return the type_name of z }
-{ user array of size GxB_MAX_NAME_LEN }
-{ IndexUnary operator }
 function GxB_IndexUnaryOp_ztype_name(type_name:Pchar; op:TGrB_IndexUnaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ For TRIL, TRIU, DIAG, OFFDIAG, COLLE, COLGT, ROWLE, and ROWGT, }
-{ the xtype_name is an empty string (""), since these functions do not depend }
-{ on the type of the matrix input. }
-{ return the type_name of x }
-{ user array of size GxB_MAX_NAME_LEN }
-{ select operator }
 function GxB_IndexUnaryOp_xtype_name(type_name:Pchar; op:TGrB_IndexUnaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ return the type_name of the scalary y }
-{ user array of size GxB_MAX_NAME_LEN }
-{ select operator }
 function GxB_IndexUnaryOp_ytype_name(type_name:Pchar; op:TGrB_IndexUnaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ free a user-created IndexUnaryOp }
-{ handle of IndexUnary to free }
 function GrB_IndexUnaryOp_free(op:PGrB_IndexUnaryOp):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ built-in IndexUnaryOps }
-{------------------------------------------------------------------------------ }
-{ To facilitate computations with negative integers, the indices i and j are }
-{ of type int64_t.  The scalar y has the type corresponding to the suffix }
-{ of the name of the operator. }
-{-------------------------------------------------------------------------- }
-{ Result has the integer type INT32 or INT64, the same as the suffix }
-{-------------------------------------------------------------------------- }
-{ These operators work on any data type, including user-defined. }
-{ ROWINDEX: (i+y): row index plus y }
-{ COLINDEX: (j+y): col index plus y }
-{ DIAGINDEX: (j-(i+y)): diagonal index plus y }
-{-------------------------------------------------------------------------- }
-{ Result is bool, depending only on the indices i,j, and y }
-{-------------------------------------------------------------------------- }
-{ These operators work on any data type, including user-defined. }
-{ The scalar y is int64. }
-{ TRIL: (j <= (i+y)): lower triangular part }
-{ TRIU: (j >= (i+y)): upper triangular part }
-{ DIAG: (j == (i+y)): diagonal }
-{ OFFDIAG: (j != (i+y)): offdiagonal }
-{ COLLE: (j <= y): columns 0:y }
-{ COLGT: (j > y): columns y+1:ncols-1 }
-{ ROWLE: (i <= y): rows 0:y }
-{ ROWGT: (i > y): rows y+1:nrows-1 }
-{-------------------------------------------------------------------------- }
-{ Result is bool, depending only on the value aij }
-{-------------------------------------------------------------------------- }
-{ These operators work on matrices and vectors of any built-in type, }
-{ including complex types.  aij and the scalar y have the same type as the }
-{ operator suffix. }
-{ VALUEEQ: (aij == y) }
-{ VALUENE: (aij != y) }
-{ These operators work on matrices and vectors of any real (non-complex) }
-{ built-in type. }
-{ VALUELT: (aij < y) }
-{ VALUELE: (aij <= y) }
-{ VALUEGT: (aij > y) }
-{ VALUEGE: (aij >= y) }
   var
     GrB_ROWINDEX_INT32 : TGrB_IndexUnaryOp;cvar;external libgraphblas;
-{============================================================================== }
-{ GrB_Monoid }
-{============================================================================== }
-{ A monoid is an associative operator z=op(x,y) where all three types of z, x, }
-{ and y are identical.  The monoid also has an identity element, such that }
-{ op(x,identity) = op(identity,x) = x. }
 type
   PGrB_Monoid = ^TGrB_Monoid;
-  TGrB_Monoid = PGB_Monoid_opaque;
-{ create a new boolean monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
+  TGrB_Monoid = Pointer;
 
-function GrB_Monoid_new_BOOL(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Tbool):TGrB_Info;cdecl;external libgraphblas;
-{ create a new int8 monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
+function GrB_Monoid_new_BOOL(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Boolean):TGrB_Info;cdecl;external libgraphblas;
 function GrB_Monoid_new_INT8(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Tint8_t):TGrB_Info;cdecl;external libgraphblas;
-{ create a new uint8 monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
 function GrB_Monoid_new_UINT8(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Tuint8_t):TGrB_Info;cdecl;external libgraphblas;
-{ create a new int16 monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
 function GrB_Monoid_new_INT16(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Tint16_t):TGrB_Info;cdecl;external libgraphblas;
-{ create a new uint16 monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
 function GrB_Monoid_new_UINT16(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Tuint16_t):TGrB_Info;cdecl;external libgraphblas;
-{ create a new int32 monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
 function GrB_Monoid_new_INT32(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Tint32_t):TGrB_Info;cdecl;external libgraphblas;
-{ create a new uint32 monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
 function GrB_Monoid_new_UINT32(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Tuint32_t):TGrB_Info;cdecl;external libgraphblas;
-{ create a new int64 monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
 function GrB_Monoid_new_INT64(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Tint64_t):TGrB_Info;cdecl;external libgraphblas;
-{ create a new uint64 monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
 function GrB_Monoid_new_UINT64(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Tuint64_t):TGrB_Info;cdecl;external libgraphblas;
-{ create a new float monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
 function GrB_Monoid_new_FP32(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:single):TGrB_Info;cdecl;external libgraphblas;
-{ create a new double monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
-function GrB_Monoid_new_FP64(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Tdouble):TGrB_Info;cdecl;external libgraphblas;
-{ create a new float complex monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
+function GrB_Monoid_new_FP64(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:double):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Monoid_new_FC32(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:TGxB_FC32_t):TGrB_Info;cdecl;external libgraphblas;
-{ create a new double complex monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
 function GxB_Monoid_new_FC64(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:TGxB_FC64_t):TGrB_Info;cdecl;external libgraphblas;
-{ create a monoid with a user-defined type }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
 function GrB_Monoid_new_UDT(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:pointer):TGrB_Info;cdecl;external libgraphblas;
-{ Type-generic method for creating a new monoid: }
-{
 
-extern
-GrB_Info GrB_Monoid_new             // create a monoid
-(
-    GrB_Monoid *monoid,             // handle of monoid to create
-    GrB_BinaryOp op,          // binary operator of the monoid
-    <type> identity           // identity value of the monoid
-) ;
-
- }
-{ GxB_Monoid_terminal_new is identical to GrB_Monoid_new, except that a }
-{ terminal value can be specified.  The terminal may be NULL, which indicates }
-{ no terminal value (and in this case, it is identical to GrB_Monoid_new). }
-{ The terminal value, if not NULL, must have the same type as the identity. }
-{ create a new boolean monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
-{ terminal value of the monoid }
-function GxB_Monoid_terminal_new_BOOL(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Tbool; terminal:Tbool):TGrB_Info;cdecl;external libgraphblas;
-{ create a new int8 monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
-{ terminal value of the monoid }
+function GxB_Monoid_terminal_new_BOOL(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Boolean; terminal:Boolean):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Monoid_terminal_new_INT8(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Tint8_t; terminal:Tint8_t):TGrB_Info;cdecl;external libgraphblas;
-{ create a new uint8 monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
-{ terminal value of the monoid }
 function GxB_Monoid_terminal_new_UINT8(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Tuint8_t; terminal:Tuint8_t):TGrB_Info;cdecl;external libgraphblas;
-{ create a new int16 monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
-{ terminal value of the monoid }
 function GxB_Monoid_terminal_new_INT16(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Tint16_t; terminal:Tint16_t):TGrB_Info;cdecl;external libgraphblas;
-{ create a new uint16 monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
-{ terminal value of the monoid }
 function GxB_Monoid_terminal_new_UINT16(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Tuint16_t; terminal:Tuint16_t):TGrB_Info;cdecl;external libgraphblas;
-{ create a new int32 monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
-{ terminal value of the monoid }
 function GxB_Monoid_terminal_new_INT32(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Tint32_t; terminal:Tint32_t):TGrB_Info;cdecl;external libgraphblas;
-{ create a new uint32 monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
-{ terminal value of the monoid }
 function GxB_Monoid_terminal_new_UINT32(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Tuint32_t; terminal:Tuint32_t):TGrB_Info;cdecl;external libgraphblas;
-{ create a new int64 monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
-{ terminal value of the monoid }
 function GxB_Monoid_terminal_new_INT64(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Tint64_t; terminal:Tint64_t):TGrB_Info;cdecl;external libgraphblas;
-{ create a new uint64 monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
-{ terminal value of the monoid }
 function GxB_Monoid_terminal_new_UINT64(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Tuint64_t; terminal:Tuint64_t):TGrB_Info;cdecl;external libgraphblas;
-{ create a new float monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
-{ terminal value of the monoid }
 function GxB_Monoid_terminal_new_FP32(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:single; terminal:single):TGrB_Info;cdecl;external libgraphblas;
-{ create a new double monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
-{ terminal value of the monoid }
-function GxB_Monoid_terminal_new_FP64(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:Tdouble; terminal:Tdouble):TGrB_Info;cdecl;external libgraphblas;
-{ create a new float complex monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
-{ terminal value of the monoid }
+function GxB_Monoid_terminal_new_FP64(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:double; terminal:double):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Monoid_terminal_new_FC32(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:TGxB_FC32_t; terminal:TGxB_FC32_t):TGrB_Info;cdecl;external libgraphblas;
-{ create a new double complex monoid }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
-{ terminal value of the monoid }
 function GxB_Monoid_terminal_new_FC64(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:TGxB_FC64_t; terminal:TGxB_FC64_t):TGrB_Info;cdecl;external libgraphblas;
-{ create a monoid with a user type }
-{ handle of monoid to create }
-{ binary operator of the monoid }
-{ identity value of the monoid }
-{ terminal value of the monoid }
 function GxB_Monoid_terminal_new_UDT(monoid:PGrB_Monoid; op:TGrB_BinaryOp; identity:pointer; terminal:pointer):TGrB_Info;cdecl;external libgraphblas;
-{ Type-generic method for creating a new monoid with a terminal value: }
-{
 
-extern
-GrB_Info GxB_Monoid_terminal_new             // create a monoid
-(
-    GrB_Monoid *monoid,             // handle of monoid to create
-    GrB_BinaryOp op,                // binary operator of the monoid
-    <type> identity,                // identity value of the monoid
-    <type> terminal                 // terminal value of the monoid
-) ;
-
- }
-{ return the monoid operator }
-{ returns the binary op of the monoid }
-{ monoid to query }
 function GxB_Monoid_operator(op:PGrB_BinaryOp; monoid:TGrB_Monoid):TGrB_Info;cdecl;external libgraphblas;
-{ return the monoid identity }
-{ returns the identity of the monoid }
-{ monoid to query }
 function GxB_Monoid_identity(identity:pointer; monoid:TGrB_Monoid):TGrB_Info;cdecl;external libgraphblas;
-{ return the monoid terminal }
-{ true if the monoid has a terminal value }
-{ returns the terminal of the monoid, }
-{ unmodified if has_terminal is false }
-{ monoid to query }
-function GxB_Monoid_terminal(has_terminal:Pbool; terminal:pointer; monoid:TGrB_Monoid):TGrB_Info;cdecl;external libgraphblas;
-{ free a user-created monoid }
-{ handle of monoid to free }
+function GxB_Monoid_terminal(has_terminal:PBoolean; terminal:pointer; monoid:TGrB_Monoid):TGrB_Info;cdecl;external libgraphblas;
 function GrB_Monoid_free(monoid:PGrB_Monoid):TGrB_Info;cdecl;external libgraphblas;
-{============================================================================== }
-{ GrB_Semiring }
-{============================================================================== }
 type
   PGrB_Semiring = ^TGrB_Semiring;
-  TGrB_Semiring = PGB_Semiring_opaque;
-{ create a semiring }
-{ handle of semiring to create }
-{ add monoid of the semiring }
-{ multiply operator of the semiring }
+  TGrB_Semiring = Pointer;
 
 function GrB_Semiring_new(semiring:PGrB_Semiring; add:TGrB_Monoid; multiply:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ return the add monoid of a semiring }
-{ returns add monoid of the semiring }
-{ semiring to query }
 function GxB_Semiring_add(add:PGrB_Monoid; semiring:TGrB_Semiring):TGrB_Info;cdecl;external libgraphblas;
-{ return multiply operator of a semiring }
-{ returns multiply operator of the semiring }
-{ semiring to query }
 function GxB_Semiring_multiply(multiply:PGrB_BinaryOp; semiring:TGrB_Semiring):TGrB_Info;cdecl;external libgraphblas;
-{ free a user-created semiring }
-{ handle of semiring to free }
 function GrB_Semiring_free(semiring:PGrB_Semiring):TGrB_Info;cdecl;external libgraphblas;
-{============================================================================== }
-{ GrB_Scalar: a GraphBLAS scalar }
-{============================================================================== }
-{ GxB_Scalar has become GrB_Scalar. The older name GxB_Scalar is kept as }
-{ historical, but GrB_Scalar should be used instead. }
 type
   PGxB_Scalar = ^TGxB_Scalar;
-  TGxB_Scalar = PGB_Scalar_opaque;
-{ historical: use GrB_Scalar }
+  TGxB_Scalar = Pointer;
 
   PGrB_Scalar = ^TGrB_Scalar;
-  TGrB_Scalar = PGB_Scalar_opaque;
-{ use this instead }
-{ These methods create, free, copy, and clear a GrB_Scalar.  The nvals, }
-{ and type methods return basic information about a GrB_Scalar. }
-{ create a new GrB_Scalar with no entry }
-{ handle of GrB_Scalar to create }
-{ type of GrB_Scalar to create }
+  TGrB_Scalar = Pointer;
 
 function GrB_Scalar_new(s:PGrB_Scalar; _type:TGrB_Type):TGrB_Info;cdecl;external libgraphblas;
-{ make an exact copy of a GrB_Scalar }
-{ handle of output GrB_Scalar to create }
-{ input GrB_Scalar to copy }
 function GrB_Scalar_dup(s:PGrB_Scalar; t:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ clear a GrB_Scalar of its entry }
-{ type remains unchanged. }
-{ GrB_Scalar to clear }
 function GrB_Scalar_clear(s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ get the number of entries in a GrB_Scalar }
-{ GrB_Scalar has nvals entries (0 or 1) }
-{ GrB_Scalar to query }
 function GrB_Scalar_nvals(nvals:PGrB_Index; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ NOTE: GxB_Scalar_type is historical.  Use GxB_Scalar_type_name instead. }
-{ get the type of a GrB_Scalar }
-{ returns the type of the GrB_Scalar }
-{ GrB_Scalar to query }
 function GxB_Scalar_type(_type:PGrB_Type; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ return the name of the type of a scalar }
-{ name of the type (char array of size at least }
-{ GxB_MAX_NAME_LEN, owned by the user application). }
-{ GrB_Scalar to query }
 function GxB_Scalar_type_name(type_name:Pchar; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ return # of bytes used for a scalar }
-{ # of bytes used by the scalar s }
-{ GrB_Scalar to query }
 function GxB_Scalar_memoryUsage(size:Psize_t; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ free a GrB_Scalar }
-{ handle of GrB_Scalar to free }
 function GrB_Scalar_free(s:PGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ historical names identical to GrB_Scalar_methods above: }
 function GxB_Scalar_new(s:PGrB_Scalar; _type:TGrB_Type):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Scalar_dup(s:PGrB_Scalar; t:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Scalar_clear(s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Scalar_nvals(nvals:PGrB_Index; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Scalar_free(s:PGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ GrB_Scalar_setElement }
-{------------------------------------------------------------------------------ }
-{ Set a single GrB_Scalar s, from a user scalar x: s = x, typecasting from the }
-{ type of x to the type of w as needed. }
-{ s = x }
-{ GrB_Scalar to modify }
-{ user scalar to assign to s }
-function GrB_Scalar_setElement_BOOL(s:TGrB_Scalar; x:Tbool):TGrB_Info;cdecl;external libgraphblas;
-{ s = x }
-{ GrB_Scalar to modify }
-{ user scalar to assign to s }
+
+function GrB_Scalar_setElement_BOOL(s:TGrB_Scalar; x:Boolean):TGrB_Info;cdecl;external libgraphblas;
 function GrB_Scalar_setElement_INT8(s:TGrB_Scalar; x:Tint8_t):TGrB_Info;cdecl;external libgraphblas;
-{ s = x }
-{ GrB_Scalar to modify }
-{ user scalar to assign to s }
 function GrB_Scalar_setElement_UINT8(s:TGrB_Scalar; x:Tuint8_t):TGrB_Info;cdecl;external libgraphblas;
-{ s = x }
-{ GrB_Scalar to modify }
-{ user scalar to assign to s }
 function GrB_Scalar_setElement_INT16(s:TGrB_Scalar; x:Tint16_t):TGrB_Info;cdecl;external libgraphblas;
-{ s = x }
-{ GrB_Scalar to modify }
-{ user scalar to assign to s }
 function GrB_Scalar_setElement_UINT16(s:TGrB_Scalar; x:Tuint16_t):TGrB_Info;cdecl;external libgraphblas;
-{ s = x }
-{ GrB_Scalar to modify }
-{ user scalar to assign to s }
 function GrB_Scalar_setElement_INT32(s:TGrB_Scalar; x:Tint32_t):TGrB_Info;cdecl;external libgraphblas;
-{ s = x }
-{ GrB_Scalar to modify }
-{ user scalar to assign to s }
 function GrB_Scalar_setElement_UINT32(s:TGrB_Scalar; x:Tuint32_t):TGrB_Info;cdecl;external libgraphblas;
-{ s = x }
-{ GrB_Scalar to modify }
-{ user scalar to assign to s }
 function GrB_Scalar_setElement_INT64(s:TGrB_Scalar; x:Tint64_t):TGrB_Info;cdecl;external libgraphblas;
-{ s = x }
-{ GrB_Scalar to modify }
-{ user scalar to assign to s }
 function GrB_Scalar_setElement_UINT64(s:TGrB_Scalar; x:Tuint64_t):TGrB_Info;cdecl;external libgraphblas;
-{ s = x }
-{ GrB_Scalar to modify }
-{ user scalar to assign to s }
 function GrB_Scalar_setElement_FP32(s:TGrB_Scalar; x:single):TGrB_Info;cdecl;external libgraphblas;
-{ s = x }
-{ GrB_Scalar to modify }
-{ user scalar to assign to s }
-function GrB_Scalar_setElement_FP64(s:TGrB_Scalar; x:Tdouble):TGrB_Info;cdecl;external libgraphblas;
-{ s = x }
-{ GrB_Scalar to modify }
-{ user scalar to assign to s }
+function GrB_Scalar_setElement_FP64(s:TGrB_Scalar; x:double):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Scalar_setElement_FC32(s:TGrB_Scalar; x:TGxB_FC32_t):TGrB_Info;cdecl;external libgraphblas;
-{ s = x }
-{ GrB_Scalar to modify }
-{ user scalar to assign to s }
 function GxB_Scalar_setElement_FC64(s:TGrB_Scalar; x:TGxB_FC64_t):TGrB_Info;cdecl;external libgraphblas;
-{ s = x }
-{ GrB_Scalar to modify }
-{ user scalar to assign to s }
 function GrB_Scalar_setElement_UDT(s:TGrB_Scalar; x:pointer):TGrB_Info;cdecl;external libgraphblas;
-{ historical names identical to GrB_Scalar_methods above: }
-function GxB_Scalar_setElement_BOOL(s:TGrB_Scalar; x:Tbool):TGrB_Info;cdecl;external libgraphblas;
+function GxB_Scalar_setElement_BOOL(s:TGrB_Scalar; x:Boolean):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Scalar_setElement_INT8(s:TGrB_Scalar; x:Tint8_t):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Scalar_setElement_INT16(s:TGrB_Scalar; x:Tint16_t):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Scalar_setElement_INT32(s:TGrB_Scalar; x:Tint32_t):TGrB_Info;cdecl;external libgraphblas;
@@ -1353,83 +376,24 @@ function GxB_Scalar_setElement_UINT16(s:TGrB_Scalar; x:Tuint16_t):TGrB_Info;cdec
 function GxB_Scalar_setElement_UINT32(s:TGrB_Scalar; x:Tuint32_t):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Scalar_setElement_UINT64(s:TGrB_Scalar; x:Tuint64_t):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Scalar_setElement_FP32(s:TGrB_Scalar; x:single):TGrB_Info;cdecl;external libgraphblas;
-function GxB_Scalar_setElement_FP64(s:TGrB_Scalar; x:Tdouble):TGrB_Info;cdecl;external libgraphblas;
+function GxB_Scalar_setElement_FP64(s:TGrB_Scalar; x:double):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Scalar_setElement_UDT(s:TGrB_Scalar; x:pointer):TGrB_Info;cdecl;external libgraphblas;
-{ Type-generic version:  x can be any supported C type or void * for a }
-{ user-defined type. }
-{
 
-extern
-GrB_Info GrB_Scalar_setElement          // s = x
-(
-    GrB_Scalar s,                       // GrB_Scalar to modify
-    <type> x                            // user scalar to assign to s
-) ;
-
- }
-{------------------------------------------------------------------------------ }
-{ GrB_Scalar_extractElement }
-{------------------------------------------------------------------------------ }
-{ Extract a single entry from a GrB_Scalar, x = s, typecasting from the type }
-{ of s to the type of x as needed. }
-{ x = s }
-{ user scalar extracted }
-{ GrB_Scalar to extract an entry from }
-function GrB_Scalar_extractElement_BOOL(x:Pbool; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ x = s }
-{ user scalar extracted }
-{ GrB_Scalar to extract an entry from }
+function GrB_Scalar_extractElement_BOOL(x:PBoolean; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
 function GrB_Scalar_extractElement_INT8(x:Pint8_t; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ x = s }
-{ user scalar extracted }
-{ GrB_Scalar to extract an entry from }
 function GrB_Scalar_extractElement_UINT8(x:Puint8_t; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ x = s }
-{ user scalar extracted }
-{ GrB_Scalar to extract an entry from }
 function GrB_Scalar_extractElement_INT16(x:Pint16_t; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ x = s }
-{ user scalar extracted }
-{ GrB_Scalar to extract an entry from }
 function GrB_Scalar_extractElement_UINT16(x:Puint16_t; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ x = s }
-{ user scalar extracted }
-{ GrB_Scalar to extract an entry from }
 function GrB_Scalar_extractElement_INT32(x:Pint32_t; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ x = s }
-{ user scalar extracted }
-{ GrB_Scalar to extract an entry from }
 function GrB_Scalar_extractElement_UINT32(x:Puint32_t; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ x = s }
-{ user scalar extracted }
-{ GrB_Scalar to extract an entry from }
 function GrB_Scalar_extractElement_INT64(x:Pint64_t; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ x = s }
-{ user scalar extracted }
-{ GrB_Scalar to extract an entry from }
 function GrB_Scalar_extractElement_UINT64(x:Puint64_t; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ x = s }
-{ user scalar extracted }
-{ GrB_Scalar to extract an entry from }
 function GrB_Scalar_extractElement_FP32(x:Psingle; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ x = s }
-{ user scalar extracted }
-{ GrB_Scalar to extract an entry from }
 function GrB_Scalar_extractElement_FP64(x:Pdouble; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ x = s }
-{ user scalar extracted }
-{ GrB_Scalar to extract an entry from }
 function GxB_Scalar_extractElement_FC32(x:PGxB_FC32_t; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ x = s }
-{ user scalar extracted }
-{ GrB_Scalar to extract an entry from }
 function GxB_Scalar_extractElement_FC64(x:PGxB_FC64_t; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ x = s }
-{ user scalar extracted }
-{ GrB_Scalar to extract an entry from }
 function GrB_Scalar_extractElement_UDT(x:pointer; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ historical names identical to GrB_Scalar_methods above: }
-function GxB_Scalar_extractElement_BOOL(x:Pbool; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
+function GxB_Scalar_extractElement_BOOL(x:PBoolean; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Scalar_extractElement_INT8(x:Pint8_t; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Scalar_extractElement_INT16(x:Pint16_t; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Scalar_extractElement_INT32(x:Pint32_t; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
@@ -1441,1223 +405,176 @@ function GxB_Scalar_extractElement_UINT64(x:Puint64_t; s:TGrB_Scalar):TGrB_Info;
 function GxB_Scalar_extractElement_FP32(x:Psingle; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Scalar_extractElement_FP64(x:Pdouble; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Scalar_extractElement_UDT(x:pointer; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{ Type-generic version:  x can be a pointer to any supported C type or void * }
-{ for a user-defined type. }
-{
-
-extern
-GrB_Info GrB_Scalar_extractElement  // x = s
-(
-    <type> *x,                      // user scalar extracted
-    const GrB_Scalar s              // GrB_Scalar to extract an entry from
-) ;
-
- }
-{============================================================================== }
-{ GrB_Vector: a GraphBLAS vector }
-{============================================================================== }
 type
   PGrB_Vector = ^TGrB_Vector;
-  TGrB_Vector = PGB_Vector_opaque;
-{ These methods create, free, copy, and clear a vector.  The size, nvals, }
-{ and type methods return basic information about a vector. }
-{ create a new vector with no entries }
-{ handle of vector to create }
-{ type of vector to create }
-{ vector dimension is n-by-1 }
-{ (n must be <= GrB_INDEX_MAX+1) }
+  TGrB_Vector = Pointer;
 
 function GrB_Vector_new(v:PGrB_Vector; _type:TGrB_Type; n:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ make an exact copy of a vector }
-{ handle of output vector to create }
-{ input vector to copy }
 function GrB_Vector_dup(w:PGrB_Vector; u:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ clear a vector of all entries; }
-{ type and dimension remain unchanged. }
-{ vector to clear }
 function GrB_Vector_clear(v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ get the dimension of a vector }
-{ vector dimension is n-by-1 }
-{ vector to query }
 function GrB_Vector_size(n:PGrB_Index; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ get the number of entries in a vector }
-{ vector has nvals entries }
-{ vector to query }
 function GrB_Vector_nvals(nvals:PGrB_Index; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ NOTE: GxB_Vector_type is historical.  Use GxB_Vector_type_name instead. }
-{ get the type of a vector }
-{ returns the type of the vector }
-{ vector to query }
 function GxB_Vector_type(_type:PGrB_Type; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ return the name of the type of a vector }
-{ name of the type (char array of size at least }
-{ GxB_MAX_NAME_LEN, owned by the user application). }
-{ vector to query }
 function GxB_Vector_type_name(type_name:Pchar; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ return # of bytes used for a vector }
-{ # of bytes used by the vector v }
-{ vector to query }
 function GxB_Vector_memoryUsage(size:Psize_t; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ return iso status of a vector }
-{ true if the vector is iso-valued }
-{ vector to query }
-function GxB_Vector_iso(iso:Pbool; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ free a vector }
-{ handle of vector to free }
+function GxB_Vector_iso(iso:PBoolean; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
 function GrB_Vector_free(v:PGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ GrB_Vector_build }
-{------------------------------------------------------------------------------ }
-{ GrB_Vector_build:  w = sparse (I,1,X), but using any }
-{ associative operator to assemble duplicate entries. }
-{ build a vector from (I,X) tuples }
-{ vector to build }
-{ array of row indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
-function GrB_Vector_build_BOOL(w:TGrB_Vector; I:PGrB_Index; X:Pbool; nvals:TGrB_Index; dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a vector from (I,X) tuples }
-{ vector to build }
-{ array of row indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
+
+function GrB_Vector_build_BOOL(w:TGrB_Vector; I:PGrB_Index; X:PBoolean; nvals:TGrB_Index; dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
 function GrB_Vector_build_INT8(w:TGrB_Vector; I:PGrB_Index; X:Pint8_t; nvals:TGrB_Index; dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a vector from (I,X) tuples }
-{ vector to build }
-{ array of row indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
 function GrB_Vector_build_UINT8(w:TGrB_Vector; I:PGrB_Index; X:Puint8_t; nvals:TGrB_Index; dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a vector from (I,X) tuples }
-{ vector to build }
-{ array of row indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
 function GrB_Vector_build_INT16(w:TGrB_Vector; I:PGrB_Index; X:Pint16_t; nvals:TGrB_Index; dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a vector from (I,X) tuples }
-{ vector to build }
-{ array of row indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
 function GrB_Vector_build_UINT16(w:TGrB_Vector; I:PGrB_Index; X:Puint16_t; nvals:TGrB_Index; dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a vector from (I,X) tuples }
-{ vector to build }
-{ array of row indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
 function GrB_Vector_build_INT32(w:TGrB_Vector; I:PGrB_Index; X:Pint32_t; nvals:TGrB_Index; dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a vector from (I,X) tuples }
-{ vector to build }
-{ array of row indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
 function GrB_Vector_build_UINT32(w:TGrB_Vector; I:PGrB_Index; X:Puint32_t; nvals:TGrB_Index; dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a vector from (I,X) tuples }
-{ vector to build }
-{ array of row indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
 function GrB_Vector_build_INT64(w:TGrB_Vector; I:PGrB_Index; X:Pint64_t; nvals:TGrB_Index; dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a vector from (I,X) tuples }
-{ vector to build }
-{ array of row indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
 function GrB_Vector_build_UINT64(w:TGrB_Vector; I:PGrB_Index; X:Puint64_t; nvals:TGrB_Index; dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a vector from (I,X) tuples }
-{ vector to build }
-{ array of row indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
 function GrB_Vector_build_FP32(w:TGrB_Vector; I:PGrB_Index; X:Psingle; nvals:TGrB_Index; dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a vector from (I,X) tuples }
-{ vector to build }
-{ array of row indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
 function GrB_Vector_build_FP64(w:TGrB_Vector; I:PGrB_Index; X:Pdouble; nvals:TGrB_Index; dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a vector from (I,X) tuples }
-{ vector to build }
-{ array of row indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
 function GxB_Vector_build_FC32(w:TGrB_Vector; I:PGrB_Index; X:PGxB_FC32_t; nvals:TGrB_Index; dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a vector from (I,X) tuples }
-{ vector to build }
-{ array of row indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
 function GxB_Vector_build_FC64(w:TGrB_Vector; I:PGrB_Index; X:PGxB_FC64_t; nvals:TGrB_Index; dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a vector from (I,X) tuples }
-{ vector to build }
-{ array of row indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
 function GrB_Vector_build_UDT(w:TGrB_Vector; I:PGrB_Index; X:pointer; nvals:TGrB_Index; dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a vector from (i,scalar) tuples }
-{ vector to build }
-{ array of row indices of tuples }
-{ value for all tuples }
-{ number of tuples }
 function GxB_Vector_build_Scalar(w:TGrB_Vector; I:PGrB_Index; scalar:TGrB_Scalar; nvals:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ Type-generic version:  X can be a pointer to any supported C type or void * }
-{ for a user-defined type. }
-{
 
-extern
-GrB_Info GrB_Vector_build           // build a vector from (I,X) tuples
-(
-    GrB_Vector w,                   // vector to build
-    const GrB_Index *I,             // array of row indices of tuples
-    const <type> *X,                // array of values of tuples
-    GrB_Index nvals,                // number of tuples
-    const GrB_BinaryOp dup          // binary function to assemble duplicates
-) ;
-
- }
-{------------------------------------------------------------------------------ }
-{ GrB_Vector_setElement }
-{------------------------------------------------------------------------------ }
-{ Set a single scalar in a vector, w(i) = x, typecasting from the type of x to }
-{ the type of w as needed. }
-{ w(i) = x }
-{ vector to modify }
-{ scalar to assign to w(i) }
-{ row index }
-function GrB_Vector_setElement_BOOL(w:TGrB_Vector; x:Tbool; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ w(i) = x }
-{ vector to modify }
-{ scalar to assign to w(i) }
-{ row index }
+function GrB_Vector_setElement_BOOL(w:TGrB_Vector; x:Boolean; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
 function GrB_Vector_setElement_INT8(w:TGrB_Vector; x:Tint8_t; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ w(i) = x }
-{ vector to modify }
-{ scalar to assign to w(i) }
-{ row index }
 function GrB_Vector_setElement_UINT8(w:TGrB_Vector; x:Tuint8_t; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ w(i) = x }
-{ vector to modify }
-{ scalar to assign to w(i) }
-{ row index }
 function GrB_Vector_setElement_INT16(w:TGrB_Vector; x:Tint16_t; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ w(i) = x }
-{ vector to modify }
-{ scalar to assign to w(i) }
-{ row index }
 function GrB_Vector_setElement_UINT16(w:TGrB_Vector; x:Tuint16_t; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ w(i) = x }
-{ vector to modify }
-{ scalar to assign to w(i) }
-{ row index }
 function GrB_Vector_setElement_INT32(w:TGrB_Vector; x:Tint32_t; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ w(i) = x }
-{ vector to modify }
-{ scalar to assign to w(i) }
-{ row index }
 function GrB_Vector_setElement_UINT32(w:TGrB_Vector; x:Tuint32_t; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ w(i) = x }
-{ vector to modify }
-{ scalar to assign to w(i) }
-{ row index }
 function GrB_Vector_setElement_INT64(w:TGrB_Vector; x:Tint64_t; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ w(i) = x }
-{ vector to modify }
-{ scalar to assign to w(i) }
-{ row index }
 function GrB_Vector_setElement_UINT64(w:TGrB_Vector; x:Tuint64_t; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ w(i) = x }
-{ vector to modify }
-{ scalar to assign to w(i) }
-{ row index }
 function GrB_Vector_setElement_FP32(w:TGrB_Vector; x:single; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ w(i) = x }
-{ vector to modify }
-{ scalar to assign to w(i) }
-{ row index }
-function GrB_Vector_setElement_FP64(w:TGrB_Vector; x:Tdouble; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ w(i) = x }
-{ vector to modify }
-{ scalar to assign to w(i) }
-{ row index }
+function GrB_Vector_setElement_FP64(w:TGrB_Vector; x:double; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Vector_setElement_FC32(w:TGrB_Vector; x:TGxB_FC32_t; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ w(i) = x }
-{ vector to modify }
-{ scalar to assign to w(i) }
-{ row index }
 function GxB_Vector_setElement_FC64(w:TGrB_Vector; x:TGxB_FC64_t; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ w(i) = x }
-{ vector to modify }
-{ scalar to assign to w(i) }
-{ row index }
 function GrB_Vector_setElement_UDT(w:TGrB_Vector; x:pointer; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ w(i) = x }
-{ vector to modify }
-{ scalar to assign to w(i) }
-{ row index }
 function GrB_Vector_setElement_Scalar(w:TGrB_Vector; x:TGrB_Scalar; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ Type-generic version:  x can be any supported C type or void * for a }
-{ user-defined type. }
-{
 
-extern
-GrB_Info GrB_Vector_setElement          // w(i) = x
-(
-    GrB_Vector w,                       // vector to modify
-    <type> x,                           // scalar to assign to w(i)
-    GrB_Index i                         // row index
-) ;
-
- }
-{------------------------------------------------------------------------------ }
-{ GrB_Vector_extractElement }
-{------------------------------------------------------------------------------ }
-{ Extract a single entry from a vector, x = v(i), typecasting from the type of }
-{ v to the type of x as needed. }
-{ x = v(i) }
-{ scalar extracted }
-{ vector to extract an entry from }
-{ row index }
-function GrB_Vector_extractElement_BOOL(x:Pbool; v:TGrB_Vector; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = v(i) }
-{ scalar extracted }
-{ vector to extract an entry from }
-{ row index }
+function GrB_Vector_extractElement_BOOL(x:PBoolean; v:TGrB_Vector; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
 function GrB_Vector_extractElement_INT8(x:Pint8_t; v:TGrB_Vector; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = v(i) }
-{ scalar extracted }
-{ vector to extract an entry from }
-{ row index }
 function GrB_Vector_extractElement_UINT8(x:Puint8_t; v:TGrB_Vector; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = v(i) }
-{ scalar extracted }
-{ vector to extract an entry from }
-{ row index }
 function GrB_Vector_extractElement_INT16(x:Pint16_t; v:TGrB_Vector; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = v(i) }
-{ scalar extracted }
-{ vector to extract an entry from }
-{ row index }
 function GrB_Vector_extractElement_UINT16(x:Puint16_t; v:TGrB_Vector; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = v(i) }
-{ scalar extracted }
-{ vector to extract an entry from }
-{ row index }
 function GrB_Vector_extractElement_INT32(x:Pint32_t; v:TGrB_Vector; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = v(i) }
-{ scalar extracted }
-{ vector to extract an entry from }
-{ row index }
 function GrB_Vector_extractElement_UINT32(x:Puint32_t; v:TGrB_Vector; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = v(i) }
-{ scalar extracted }
-{ vector to extract an entry from }
-{ row index }
 function GrB_Vector_extractElement_INT64(x:Pint64_t; v:TGrB_Vector; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = v(i) }
-{ scalar extracted }
-{ vector to extract an entry from }
-{ row index }
 function GrB_Vector_extractElement_UINT64(x:Puint64_t; v:TGrB_Vector; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = v(i) }
-{ scalar extracted }
-{ vector to extract an entry from }
-{ row index }
 function GrB_Vector_extractElement_FP32(x:Psingle; v:TGrB_Vector; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = v(i) }
-{ scalar extracted }
-{ vector to extract an entry from }
-{ row index }
 function GrB_Vector_extractElement_FP64(x:Pdouble; v:TGrB_Vector; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = v(i) }
-{ scalar extracted }
-{ vector to extract an entry from }
-{ row index }
 function GxB_Vector_extractElement_FC32(x:PGxB_FC32_t; v:TGrB_Vector; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = v(i) }
-{ scalar extracted }
-{ vector to extract an entry from }
-{ row index }
 function GxB_Vector_extractElement_FC64(x:PGxB_FC64_t; v:TGrB_Vector; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = v(i) }
-{ scalar extracted }
-{ vector to extract an entry from }
-{ row index }
 function GrB_Vector_extractElement_UDT(x:pointer; v:TGrB_Vector; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = v(i) }
-{ scalar extracted }
-{ vector to extract an entry from }
-{ row index }
 function GrB_Vector_extractElement_Scalar(x:TGrB_Scalar; v:TGrB_Vector; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ Type-generic version:  x can be a pointer to any supported C type or void * }
-{ for a user-defined type. }
-{
 
-extern
-GrB_Info GrB_Vector_extractElement  // x = v(i)
-(
-    <type> *x,                      // scalar extracted
-    const GrB_Vector v,             // vector to extract an entry from
-    GrB_Index i                     // row index
-) ;
-
- }
-{ GxB_Vector_isStoredElement determines if v(i) is present in the structure }
-{ of the vector v, as a stored element.  It does not return the value.  It }
-{ returns GrB_SUCCESS if the element is present, or GrB_NO_VALUE otherwise. }
-{ determine if v(i) is a stored element }
-{ vector to check }
-{ row index }
 function GxB_Vector_isStoredElement(v:TGrB_Vector; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ GrB_Vector_removeElement }
-{------------------------------------------------------------------------------ }
-{ GrB_Vector_removeElement (v,i) removes the element v(i) from the vector v. }
-{ vector to remove an element from }
-{ index }
 function GrB_Vector_removeElement(v:TGrB_Vector; i:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ GrB_Vector_extractTuples }
-{------------------------------------------------------------------------------ }
-{ Extracts all tuples from a vector, like [I,~,X] = find (v).  If }
-{ any parameter I and/or X is NULL, then that component is not extracted.  For }
-{ example, to extract just the row indices, pass I as non-NULL, and X as NULL. }
-{ This is like [I,~,~] = find (v). }
-{ [I,~,X] = find (v) }
-{ array for returning row indices of tuples }
-{ array for returning values of tuples }
-{ I, X size on input; # tuples on output }
-{ vector to extract tuples from }
-function GrB_Vector_extractTuples_BOOL(I:PGrB_Index; X:Pbool; nvals:PGrB_Index; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ [I,~,X] = find (v) }
-{ array for returning row indices of tuples }
-{ array for returning values of tuples }
-{ I, X size on input; # tuples on output }
-{ vector to extract tuples from }
+
+function GrB_Vector_extractTuples_BOOL(I:PGrB_Index; X:PBoolean; nvals:PGrB_Index; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
 function GrB_Vector_extractTuples_INT8(I:PGrB_Index; X:Pint8_t; nvals:PGrB_Index; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ [I,~,X] = find (v) }
-{ array for returning row indices of tuples }
-{ array for returning values of tuples }
-{ I, X size on input; # tuples on output }
-{ vector to extract tuples from }
 function GrB_Vector_extractTuples_UINT8(I:PGrB_Index; X:Puint8_t; nvals:PGrB_Index; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ [I,~,X] = find (v) }
-{ array for returning row indices of tuples }
-{ array for returning values of tuples }
-{ I, X size on input; # tuples on output }
-{ vector to extract tuples from }
 function GrB_Vector_extractTuples_INT16(I:PGrB_Index; X:Pint16_t; nvals:PGrB_Index; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ [I,~,X] = find (v) }
-{ array for returning row indices of tuples }
-{ array for returning values of tuples }
-{ I, X size on input; # tuples on output }
-{ vector to extract tuples from }
 function GrB_Vector_extractTuples_UINT16(I:PGrB_Index; X:Puint16_t; nvals:PGrB_Index; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ [I,~,X] = find (v) }
-{ array for returning row indices of tuples }
-{ array for returning values of tuples }
-{ I, X size on input; # tuples on output }
-{ vector to extract tuples from }
 function GrB_Vector_extractTuples_INT32(I:PGrB_Index; X:Pint32_t; nvals:PGrB_Index; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ [I,~,X] = find (v) }
-{ array for returning row indices of tuples }
-{ array for returning values of tuples }
-{ I, X size on input; # tuples on output }
-{ vector to extract tuples from }
 function GrB_Vector_extractTuples_UINT32(I:PGrB_Index; X:Puint32_t; nvals:PGrB_Index; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ [I,~,X] = find (v) }
-{ array for returning row indices of tuples }
-{ array for returning values of tuples }
-{ I, X size on input; # tuples on output }
-{ vector to extract tuples from }
 function GrB_Vector_extractTuples_INT64(I:PGrB_Index; X:Pint64_t; nvals:PGrB_Index; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ [I,~,X] = find (v) }
-{ array for returning row indices of tuples }
-{ array for returning values of tuples }
-{ I, X size on input; # tuples on output }
-{ vector to extract tuples from }
 function GrB_Vector_extractTuples_UINT64(I:PGrB_Index; X:Puint64_t; nvals:PGrB_Index; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ [I,~,X] = find (v) }
-{ array for returning row indices of tuples }
-{ array for returning values of tuples }
-{ I, X size on input; # tuples on output }
-{ vector to extract tuples from }
 function GrB_Vector_extractTuples_FP32(I:PGrB_Index; X:Psingle; nvals:PGrB_Index; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ [I,~,X] = find (v) }
-{ array for returning row indices of tuples }
-{ array for returning values of tuples }
-{ I, X size on input; # tuples on output }
-{ vector to extract tuples from }
 function GrB_Vector_extractTuples_FP64(I:PGrB_Index; X:Pdouble; nvals:PGrB_Index; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ [I,~,X] = find (v) }
-{ array for returning row indices of tuples }
-{ array for returning values of tuples }
-{ I, X size on input; # tuples on output }
-{ vector to extract tuples from }
 function GxB_Vector_extractTuples_FC32(I:PGrB_Index; X:PGxB_FC32_t; nvals:PGrB_Index; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ [I,~,X] = find (v) }
-{ array for returning row indices of tuples }
-{ array for returning values of tuples }
-{ I, X size on input; # tuples on output }
-{ vector to extract tuples from }
 function GxB_Vector_extractTuples_FC64(I:PGrB_Index; X:PGxB_FC64_t; nvals:PGrB_Index; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ [I,~,X] = find (v) }
-{ array for returning row indices of tuples }
-{ array for returning values of tuples }
-{ I, X size on input; # tuples on output }
-{ vector to extract tuples from }
 function GrB_Vector_extractTuples_UDT(I:PGrB_Index; X:pointer; nvals:PGrB_Index; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
-{ Type-generic version:  X can be a pointer to any supported C type or void * }
-{ for a user-defined type. }
-{
-
-extern
-GrB_Info GrB_Vector_extractTuples           // [I,~,X] = find (v)
-(
-    GrB_Index *I,               // array for returning row indices of tuples
-    <type> *X,                  // array for returning values of tuples
-    GrB_Index *nvals,           // I, X size on input; # tuples on output
-    const GrB_Vector v          // vector to extract tuples from
-) ;
-
- }
-{============================================================================== }
-{ GrB_Matrix: a GraphBLAS matrix }
-{============================================================================== }
 type
   PGrB_Matrix = ^TGrB_Matrix;
-  TGrB_Matrix = PGB_Matrix_opaque;
-{ These methods create, free, copy, and clear a matrix.  The nrows, ncols, }
-{ nvals, and type methods return basic information about a matrix. }
-{ create a new matrix with no entries }
-{ handle of matrix to create }
-{ type of matrix to create }
-{ matrix dimension is nrows-by-ncols }
-{ (nrows and ncols must be <= GrB_INDEX_MAX+1) }
+  TGrB_Matrix = Pointer;
 
 function GrB_Matrix_new(A:PGrB_Matrix; _type:TGrB_Type; nrows:TGrB_Index; ncols:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ make an exact copy of a matrix }
-{ handle of output matrix to create }
-{ input matrix to copy }
 function GrB_Matrix_dup(C:PGrB_Matrix; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ clear a matrix of all entries; }
-{ type and dimensions remain unchanged }
-{ matrix to clear }
 function GrB_Matrix_clear(A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ get the number of rows of a matrix }
-{ matrix has nrows rows }
-{ matrix to query }
 function GrB_Matrix_nrows(nrows:PGrB_Index; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ get the number of columns of a matrix }
-{ matrix has ncols columns }
-{ matrix to query }
 function GrB_Matrix_ncols(ncols:PGrB_Index; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ get the number of entries in a matrix }
-{ matrix has nvals entries }
-{ matrix to query }
 function GrB_Matrix_nvals(nvals:PGrB_Index; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ NOTE: GxB_Matrix_type is historical.  Use GxB_Matrix_type_name instead. }
-{ get the type of a matrix }
-{ returns the type of the matrix }
-{ matrix to query }
 function GxB_Matrix_type(_type:PGrB_Type; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ return the name of the type of a matrix }
-{ name of the type (char array of size at least }
-{ GxB_MAX_NAME_LEN, owned by the user application). }
-{ matrix to query }
 function GxB_Matrix_type_name(type_name:Pchar; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ return # of bytes used for a matrix }
-{ # of bytes used by the matrix A }
-{ matrix to query }
 function GxB_Matrix_memoryUsage(size:Psize_t; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ return iso status of a matrix }
-{ true if the matrix is iso-valued }
-{ matrix to query }
-function GxB_Matrix_iso(iso:Pbool; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ free a matrix }
-{ handle of matrix to free }
+function GxB_Matrix_iso(iso:PBoolean; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
 function GrB_Matrix_free(A:PGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ GrB_Matrix_build }
-{------------------------------------------------------------------------------ }
-{ GrB_Matrix_build:  C = sparse (I,J,X), but using any }
-{ associative operator to assemble duplicate entries. }
-{ build a matrix from (I,J,X) tuples }
-{ matrix to build }
-{ array of row indices of tuples }
-{ array of column indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
-function GrB_Matrix_build_BOOL(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Pbool; nvals:TGrB_Index; 
-           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a matrix from (I,J,X) tuples }
-{ matrix to build }
-{ array of row indices of tuples }
-{ array of column indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
-function GrB_Matrix_build_INT8(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Pint8_t; nvals:TGrB_Index; 
-           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a matrix from (I,J,X) tuples }
-{ matrix to build }
-{ array of row indices of tuples }
-{ array of column indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
-function GrB_Matrix_build_UINT8(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Puint8_t; nvals:TGrB_Index; 
-           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a matrix from (I,J,X) tuples }
-{ matrix to build }
-{ array of row indices of tuples }
-{ array of column indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
-function GrB_Matrix_build_INT16(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Pint16_t; nvals:TGrB_Index; 
-           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a matrix from (I,J,X) tuples }
-{ matrix to build }
-{ array of row indices of tuples }
-{ array of column indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
-function GrB_Matrix_build_UINT16(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Puint16_t; nvals:TGrB_Index; 
-           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a matrix from (I,J,X) tuples }
-{ matrix to build }
-{ array of row indices of tuples }
-{ array of column indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
-function GrB_Matrix_build_INT32(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Pint32_t; nvals:TGrB_Index; 
-           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a matrix from (I,J,X) tuples }
-{ matrix to build }
-{ array of row indices of tuples }
-{ array of column indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
-function GrB_Matrix_build_UINT32(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Puint32_t; nvals:TGrB_Index; 
-           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a matrix from (I,J,X) tuples }
-{ matrix to build }
-{ array of row indices of tuples }
-{ array of column indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
-function GrB_Matrix_build_INT64(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Pint64_t; nvals:TGrB_Index; 
-           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a matrix from (I,J,X) tuples }
-{ matrix to build }
-{ array of row indices of tuples }
-{ array of column indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
-function GrB_Matrix_build_UINT64(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Puint64_t; nvals:TGrB_Index; 
-           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a matrix from (I,J,X) tuples }
-{ matrix to build }
-{ array of row indices of tuples }
-{ array of column indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
-function GrB_Matrix_build_FP32(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Psingle; nvals:TGrB_Index; 
-           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a matrix from (I,J,X) tuples }
-{ matrix to build }
-{ array of row indices of tuples }
-{ array of column indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
-function GrB_Matrix_build_FP64(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Pdouble; nvals:TGrB_Index; 
-           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a matrix from (I,J,X) tuples }
-{ matrix to build }
-{ array of row indices of tuples }
-{ array of column indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
-function GxB_Matrix_build_FC32(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:PGxB_FC32_t; nvals:TGrB_Index; 
-           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a matrix from (I,J,X) tuples }
-{ matrix to build }
-{ array of row indices of tuples }
-{ array of column indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
-function GxB_Matrix_build_FC64(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:PGxB_FC64_t; nvals:TGrB_Index; 
-           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a matrix from (I,J,X) tuples }
-{ matrix to build }
-{ array of row indices of tuples }
-{ array of column indices of tuples }
-{ array of values of tuples }
-{ number of tuples }
-{ binary function to assemble duplicates }
-function GrB_Matrix_build_UDT(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:pointer; nvals:TGrB_Index; 
-           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
-{ build a matrix from (I,J,scalar) tuples }
-{ matrix to build }
-{ array of row indices of tuples }
-{ array of column indices of tuples }
-{ value for all tuples }
-{ number of tuples }
+
+function GrB_Matrix_build_BOOL(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:PBoolean; nvals:TGrB_Index;           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
+function GrB_Matrix_build_INT8(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Pint8_t; nvals:TGrB_Index;           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
+function GrB_Matrix_build_UINT8(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Puint8_t; nvals:TGrB_Index;           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
+function GrB_Matrix_build_INT16(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Pint16_t; nvals:TGrB_Index;           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
+function GrB_Matrix_build_UINT16(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Puint16_t; nvals:TGrB_Index;           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
+function GrB_Matrix_build_INT32(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Pint32_t; nvals:TGrB_Index;           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
+function GrB_Matrix_build_UINT32(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Puint32_t; nvals:TGrB_Index;           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
+function GrB_Matrix_build_INT64(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Pint64_t; nvals:TGrB_Index;           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
+function GrB_Matrix_build_UINT64(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Puint64_t; nvals:TGrB_Index;           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
+function GrB_Matrix_build_FP32(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Psingle; nvals:TGrB_Index;           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
+function GrB_Matrix_build_FP64(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:Pdouble; nvals:TGrB_Index;           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
+function GxB_Matrix_build_FC32(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:PGxB_FC32_t; nvals:TGrB_Index;           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
+function GxB_Matrix_build_FC64(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:PGxB_FC64_t; nvals:TGrB_Index;           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
+function GrB_Matrix_build_UDT(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; X:pointer; nvals:TGrB_Index;           dup:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Matrix_build_Scalar(C:TGrB_Matrix; I:PGrB_Index; J:PGrB_Index; scalar:TGrB_Scalar; nvals:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ Type-generic version:  X can be a pointer to any supported C type or void * }
-{ for a user-defined type. }
-{
 
-extern
-GrB_Info GrB_Matrix_build           // build a matrix from (I,J,X) tuples
-(
-    GrB_Matrix C,                   // matrix to build
-    const GrB_Index *I,             // array of row indices of tuples
-    const GrB_Index *J,             // array of column indices of tuples
-    const <type> *X,                // array of values of tuples
-    GrB_Index nvals,                // number of tuples
-    const GrB_BinaryOp dup          // binary function to assemble duplicates
-) ;
-
- }
-{------------------------------------------------------------------------------ }
-{ GrB_Matrix_setElement }
-{------------------------------------------------------------------------------ }
-{ Set a single entry in a matrix, C(i,j) = x, typecasting }
-{ from the type of x to the type of C, as needed. }
-{ C (i,j) = x }
-{ matrix to modify }
-{ scalar to assign to C(i,j) }
-{ row index }
-{ column index }
-function GrB_Matrix_setElement_BOOL(C:TGrB_Matrix; x:Tbool; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ C (i,j) = x }
-{ matrix to modify }
-{ scalar to assign to C(i,j) }
-{ row index }
-{ column index }
+function GrB_Matrix_setElement_BOOL(C:TGrB_Matrix; x:Boolean; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
 function GrB_Matrix_setElement_INT8(C:TGrB_Matrix; x:Tint8_t; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ C (i,j) = x }
-{ matrix to modify }
-{ scalar to assign to C(i,j) }
-{ row index }
-{ column index }
 function GrB_Matrix_setElement_UINT8(C:TGrB_Matrix; x:Tuint8_t; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ C (i,j) = x }
-{ matrix to modify }
-{ scalar to assign to C(i,j) }
-{ row index }
-{ column index }
 function GrB_Matrix_setElement_INT16(C:TGrB_Matrix; x:Tint16_t; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ C (i,j) = x }
-{ matrix to modify }
-{ scalar to assign to C(i,j) }
-{ row index }
-{ column index }
 function GrB_Matrix_setElement_UINT16(C:TGrB_Matrix; x:Tuint16_t; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ C (i,j) = x }
-{ matrix to modify }
-{ scalar to assign to C(i,j) }
-{ row index }
-{ column index }
 function GrB_Matrix_setElement_INT32(C:TGrB_Matrix; x:Tint32_t; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ C (i,j) = x }
-{ matrix to modify }
-{ scalar to assign to C(i,j) }
-{ row index }
-{ column index }
 function GrB_Matrix_setElement_UINT32(C:TGrB_Matrix; x:Tuint32_t; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ C (i,j) = x }
-{ matrix to modify }
-{ scalar to assign to C(i,j) }
-{ row index }
-{ column index }
 function GrB_Matrix_setElement_INT64(C:TGrB_Matrix; x:Tint64_t; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ C (i,j) = x }
-{ matrix to modify }
-{ scalar to assign to C(i,j) }
-{ row index }
-{ column index }
 function GrB_Matrix_setElement_UINT64(C:TGrB_Matrix; x:Tuint64_t; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ C (i,j) = x }
-{ matrix to modify }
-{ scalar to assign to C(i,j) }
-{ row index }
-{ column index }
 function GrB_Matrix_setElement_FP32(C:TGrB_Matrix; x:single; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ C (i,j) = x }
-{ matrix to modify }
-{ scalar to assign to C(i,j) }
-{ row index }
-{ column index }
-function GrB_Matrix_setElement_FP64(C:TGrB_Matrix; x:Tdouble; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ C (i,j) = x }
-{ matrix to modify }
-{ scalar to assign to C(i,j) }
-{ row index }
-{ column index }
+function GrB_Matrix_setElement_FP64(C:TGrB_Matrix; x:double; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Matrix_setElement_FC32(C:TGrB_Matrix; x:TGxB_FC32_t; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ C (i,j) = x }
-{ matrix to modify }
-{ scalar to assign to C(i,j) }
-{ row index }
-{ column index }
 function GxB_Matrix_setElement_FC64(C:TGrB_Matrix; x:TGxB_FC64_t; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ C (i,j) = x }
-{ matrix to modify }
-{ scalar to assign to C(i,j) }
-{ row index }
-{ column index }
 function GrB_Matrix_setElement_UDT(C:TGrB_Matrix; x:pointer; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ C (i,j) = x }
-{ matrix to modify }
-{ scalar to assign to C(i,j) }
-{ row index }
-{ column index }
 function GrB_Matrix_setElement_Scalar(C:TGrB_Matrix; x:TGrB_Scalar; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ Type-generic version:  x can be any supported C type or void * for a }
-{ user-defined type. }
-{
 
-extern
-GrB_Info GrB_Matrix_setElement          // C (i,j) = x
-(
-    GrB_Matrix C,                       // matrix to modify
-    <type> x,                           // scalar to assign to C(i,j)
-    GrB_Index i,                        // row index
-    GrB_Index j                         // column index
-) ;
-
- }
-{------------------------------------------------------------------------------ }
-{ GrB_Matrix_extractElement }
-{------------------------------------------------------------------------------ }
-{ Extract a single entry from a matrix, x = A(i,j), typecasting from the type }
-{ of A to the type of x, as needed. }
-{ x = A(i,j) }
-{ extracted scalar }
-{ matrix to extract a scalar from }
-{ row index }
-{ column index }
-function GrB_Matrix_extractElement_BOOL(x:Pbool; A:TGrB_Matrix; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = A(i,j) }
-{ extracted scalar }
-{ matrix to extract a scalar from }
-{ row index }
-{ column index }
+function GrB_Matrix_extractElement_BOOL(x:PBoolean; A:TGrB_Matrix; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
 function GrB_Matrix_extractElement_INT8(x:Pint8_t; A:TGrB_Matrix; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = A(i,j) }
-{ extracted scalar }
-{ matrix to extract a scalar from }
-{ row index }
-{ column index }
 function GrB_Matrix_extractElement_UINT8(x:Puint8_t; A:TGrB_Matrix; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = A(i,j) }
-{ extracted scalar }
-{ matrix to extract a scalar from }
-{ row index }
-{ column index }
 function GrB_Matrix_extractElement_INT16(x:Pint16_t; A:TGrB_Matrix; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = A(i,j) }
-{ extracted scalar }
-{ matrix to extract a scalar from }
-{ row index }
-{ column index }
 function GrB_Matrix_extractElement_UINT16(x:Puint16_t; A:TGrB_Matrix; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = A(i,j) }
-{ extracted scalar }
-{ matrix to extract a scalar from }
-{ row index }
-{ column index }
 function GrB_Matrix_extractElement_INT32(x:Pint32_t; A:TGrB_Matrix; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = A(i,j) }
-{ extracted scalar }
-{ matrix to extract a scalar from }
-{ row index }
-{ column index }
 function GrB_Matrix_extractElement_UINT32(x:Puint32_t; A:TGrB_Matrix; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = A(i,j) }
-{ extracted scalar }
-{ matrix to extract a scalar from }
-{ row index }
-{ column index }
 function GrB_Matrix_extractElement_INT64(x:Pint64_t; A:TGrB_Matrix; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = A(i,j) }
-{ extracted scalar }
-{ matrix to extract a scalar from }
-{ row index }
-{ column index }
 function GrB_Matrix_extractElement_UINT64(x:Puint64_t; A:TGrB_Matrix; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = A(i,j) }
-{ extracted scalar }
-{ matrix to extract a scalar from }
-{ row index }
-{ column index }
 function GrB_Matrix_extractElement_FP32(x:Psingle; A:TGrB_Matrix; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = A(i,j) }
-{ extracted scalar }
-{ matrix to extract a scalar from }
-{ row index }
-{ column index }
 function GrB_Matrix_extractElement_FP64(x:Pdouble; A:TGrB_Matrix; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = A(i,j) }
-{ extracted scalar }
-{ matrix to extract a scalar from }
-{ row index }
-{ column index }
 function GxB_Matrix_extractElement_FC32(x:PGxB_FC32_t; A:TGrB_Matrix; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = A(i,j) }
-{ extracted scalar }
-{ matrix to extract a scalar from }
-{ row index }
-{ column index }
 function GxB_Matrix_extractElement_FC64(x:PGxB_FC64_t; A:TGrB_Matrix; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = A(i,j) }
-{ extracted scalar }
-{ matrix to extract a scalar from }
-{ row index }
-{ column index }
 function GrB_Matrix_extractElement_UDT(x:pointer; A:TGrB_Matrix; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ x = A(i,j) }
-{ extracted scalar }
-{ matrix to extract a scalar from }
-{ row index }
-{ column index }
 function GrB_Matrix_extractElement_Scalar(x:TGrB_Scalar; A:TGrB_Matrix; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{ Type-generic version:  x can be a pointer to any supported C type or void * }
-{ for a user-defined type. }
-{
 
-extern
-GrB_Info GrB_Matrix_extractElement      // x = A(i,j)
-(
-    <type> *x,                          // extracted scalar
-    const GrB_Matrix A,                 // matrix to extract a scalar from
-    GrB_Index i,                        // row index
-    GrB_Index j                         // column index
-) ;
-
- }
-{ GxB_Matrix_isStoredElement determines if A(i,j) is present in the structure }
-{ of the matrix A, as a stored element.  It does not return the value.  It }
-{ returns GrB_SUCCESS if the element is present, or GrB_NO_VALUE otherwise. }
-{ determine if A(i,j) is a stored element }
-{ matrix to check }
-{ row index }
-{ column index }
 function GxB_Matrix_isStoredElement(A:TGrB_Matrix; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ GrB_Matrix_removeElement }
-{------------------------------------------------------------------------------ }
-{ GrB_Matrix_removeElement (A,i,j) removes the entry A(i,j) from the matrix A. }
-{ matrix to remove entry from }
-{ row index }
-{ column index }
 function GrB_Matrix_removeElement(C:TGrB_Matrix; i:TGrB_Index; j:TGrB_Index):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ GrB_Matrix_extractTuples }
-{------------------------------------------------------------------------------ }
-{ Extracts all tuples from a matrix, like [I,J,X] = find (A).  If }
-{ any parameter I, J and/or X is NULL, then that component is not extracted. }
-{ For example, to extract just the row and col indices, pass I and J as }
-{ non-NULL, and X as NULL.  This is like [I,J,~] = find (A). }
-{ [I,J,X] = find (A) }
-{ array for returning row indices of tuples }
-{ array for returning col indices of tuples }
-{ array for returning values of tuples }
-{ I,J,X size on input; # tuples on output }
-{ matrix to extract tuples from }
-function GrB_Matrix_extractTuples_BOOL(I:PGrB_Index; J:PGrB_Index; X:Pbool; nvals:PGrB_Index; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ [I,J,X] = find (A) }
-{ array for returning row indices of tuples }
-{ array for returning col indices of tuples }
-{ array for returning values of tuples }
-{ I,J,X size on input; # tuples on output }
-{ matrix to extract tuples from }
+
+function GrB_Matrix_extractTuples_BOOL(I:PGrB_Index; J:PGrB_Index; X:PBoolean; nvals:PGrB_Index; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
 function GrB_Matrix_extractTuples_INT8(I:PGrB_Index; J:PGrB_Index; X:Pint8_t; nvals:PGrB_Index; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ [I,J,X] = find (A) }
-{ array for returning row indices of tuples }
-{ array for returning col indices of tuples }
-{ array for returning values of tuples }
-{ I,J,X size on input; # tuples on output }
-{ matrix to extract tuples from }
 function GrB_Matrix_extractTuples_UINT8(I:PGrB_Index; J:PGrB_Index; X:Puint8_t; nvals:PGrB_Index; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ [I,J,X] = find (A) }
-{ array for returning row indices of tuples }
-{ array for returning col indices of tuples }
-{ array for returning values of tuples }
-{ I,J,X size on input; # tuples on output }
-{ matrix to extract tuples from }
 function GrB_Matrix_extractTuples_INT16(I:PGrB_Index; J:PGrB_Index; X:Pint16_t; nvals:PGrB_Index; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ [I,J,X] = find (A) }
-{ array for returning row indices of tuples }
-{ array for returning col indices of tuples }
-{ array for returning values of tuples }
-{ I,J,X size on input; # tuples on output }
-{ matrix to extract tuples from }
 function GrB_Matrix_extractTuples_UINT16(I:PGrB_Index; J:PGrB_Index; X:Puint16_t; nvals:PGrB_Index; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ [I,J,X] = find (A) }
-{ array for returning row indices of tuples }
-{ array for returning col indices of tuples }
-{ array for returning values of tuples }
-{ I,J,X size on input; # tuples on output }
-{ matrix to extract tuples from }
 function GrB_Matrix_extractTuples_INT32(I:PGrB_Index; J:PGrB_Index; X:Pint32_t; nvals:PGrB_Index; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ [I,J,X] = find (A) }
-{ array for returning row indices of tuples }
-{ array for returning col indices of tuples }
-{ array for returning values of tuples }
-{ I,J,X size on input; # tuples on output }
-{ matrix to extract tuples from }
 function GrB_Matrix_extractTuples_UINT32(I:PGrB_Index; J:PGrB_Index; X:Puint32_t; nvals:PGrB_Index; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ [I,J,X] = find (A) }
-{ array for returning row indices of tuples }
-{ array for returning col indices of tuples }
-{ array for returning values of tuples }
-{ I,J,X size on input; # tuples on output }
-{ matrix to extract tuples from }
 function GrB_Matrix_extractTuples_INT64(I:PGrB_Index; J:PGrB_Index; X:Pint64_t; nvals:PGrB_Index; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ [I,J,X] = find (A) }
-{ array for returning row indices of tuples }
-{ array for returning col indices of tuples }
-{ array for returning values of tuples }
-{ I,J,X size on input; # tuples on output }
-{ matrix to extract tuples from }
 function GrB_Matrix_extractTuples_UINT64(I:PGrB_Index; J:PGrB_Index; X:Puint64_t; nvals:PGrB_Index; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ [I,J,X] = find (A) }
-{ array for returning row indices of tuples }
-{ array for returning col indices of tuples }
-{ array for returning values of tuples }
-{ I,J,X size on input; # tuples on output }
-{ matrix to extract tuples from }
 function GrB_Matrix_extractTuples_FP32(I:PGrB_Index; J:PGrB_Index; X:Psingle; nvals:PGrB_Index; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ [I,J,X] = find (A) }
-{ array for returning row indices of tuples }
-{ array for returning col indices of tuples }
-{ array for returning values of tuples }
-{ I,J,X size on input; # tuples on output }
-{ matrix to extract tuples from }
 function GrB_Matrix_extractTuples_FP64(I:PGrB_Index; J:PGrB_Index; X:Pdouble; nvals:PGrB_Index; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ [I,J,X] = find (A) }
-{ array for returning row indices of tuples }
-{ array for returning col indices of tuples }
-{ array for returning values of tuples }
-{ I,J,X size on input; # tuples on output }
-{ matrix to extract tuples from }
 function GxB_Matrix_extractTuples_FC32(I:PGrB_Index; J:PGrB_Index; X:PGxB_FC32_t; nvals:PGrB_Index; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ [I,J,X] = find (A) }
-{ array for returning row indices of tuples }
-{ array for returning col indices of tuples }
-{ array for returning values of tuples }
-{ I,J,X size on input; # tuples on output }
-{ matrix to extract tuples from }
 function GxB_Matrix_extractTuples_FC64(I:PGrB_Index; J:PGrB_Index; X:PGxB_FC64_t; nvals:PGrB_Index; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ [I,J,X] = find (A) }
-{ array for returning row indices of tuples }
-{ array for returning col indices of tuples }
-{ array for returning values of tuples }
-{ I,J,X size on input; # tuples on output }
-{ matrix to extract tuples from }
 function GrB_Matrix_extractTuples_UDT(I:PGrB_Index; J:PGrB_Index; X:pointer; nvals:PGrB_Index; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
-{ Type-generic version:  X can be a pointer to any supported C type or void * }
-{ for a user-defined type. }
-{
 
-extern
-GrB_Info GrB_Matrix_extractTuples           // [I,J,X] = find (A)
-(
-    GrB_Index *I,               // array for returning row indices of tuples
-    GrB_Index *J,               // array for returning col indices of tuples
-    <type> *X,                  // array for returning values of tuples
-    GrB_Index *nvals,           // I,J,X size on input; # tuples on output
-    const GrB_Matrix A          // matrix to extract tuples from
-) ;
-
- }
-{------------------------------------------------------------------------------ }
-{ GxB_Matrix_concat and GxB_Matrix_split }
-{------------------------------------------------------------------------------ }
-{ GxB_Matrix_concat concatenates an array of matrices (Tiles) into a single }
-{ GrB_Matrix C. }
-{ Tiles is an m-by-n dense array of matrices held in row-major format, where }
-{ Tiles [i*n+j] is the (i,j)th tile, and where m > 0 and n > 0 must hold.  Let }
-{ Ai,j denote the (i,j)th tile.  The matrix C is constructed by }
-{ concatenating these tiles together, as: }
-{  C = [ A0,0   A0,1   A0,2   ... A0,n-1 }
-{        A1,0   A1,1   A1,2   ... A1,n-1 }
-{        ... }
-{        Am-1,0 Am-1,1 Am-1,2 ... Am-1,n-1 ] }
-{ On input, the matrix C must already exist.  Any existing entries in C are }
-{ discarded.  C must have dimensions nrows by ncols where nrows is the sum of }
-{ # of rows in the matrices Ai,0 for all i, and ncols is the sum of the # of }
-{ columns in the matrices A0,j for all j.  All matrices in any given tile }
-{ row i must have the same number of rows (that is, nrows(Ai,0) must equal }
-{ nrows(Ai,j) for all j), and all matrices in any given tile column j must }
-{ have the same number of columns (that is, ncols(A0,j) must equal }
-{ ncols(Ai,j) for all i). }
-{ The type of C is unchanged, and all matrices Ai,j are typecasted into the }
-{ type of C.  Any settings made to C by GxB_Matrix_Option_set (format by row }
-{ or by column, bitmap switch, hyper switch, and sparsity control) are }
-{ unchanged. }
-{ concatenate a 2D array of matrices }
-{ input/output matrix for results }
-{ 2D row-major array of size m-by-n }
-{ unused, except threading control }
 function GxB_Matrix_concat(C:TGrB_Matrix; Tiles:PGrB_Matrix; m:TGrB_Index; n:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ GxB_Matrix_split does the opposite of GxB_Matrix_concat.  It splits a single }
-{ input matrix A into a 2D array of tiles.  On input, the Tiles array must be }
-{ a non-NULL pointer to a previously allocated array of size at least m*n }
-{ where both m and n must be > 0.  The Tiles_nrows array has size m, and }
-{ Tiles_ncols has size n.  The (i,j)th tile has dimension }
-{ Tiles_nrows[i]-by-Tiles_ncols[j].  The sum of Tiles_nrows [0:m-1] must equal }
-{ the number of rows of A, and the sum of Tiles_ncols [0:n-1] must equal the }
-{ number of columns of A.  The type of each tile is the same as the type of A; }
-{ no typecasting is done. }
-{ split a matrix into 2D array of matrices }
-{ 2D row-major array of size m-by-n }
-{ array of size m }
-{ array of size n }
-{ input matrix to split }
-{ unused, except threading control }
-function GxB_Matrix_split(Tiles:PGrB_Matrix; m:TGrB_Index; n:TGrB_Index; Tile_nrows:PGrB_Index; Tile_ncols:PGrB_Index; 
+function GxB_Matrix_split(Tiles:PGrB_Matrix; m:TGrB_Index; n:TGrB_Index; Tile_nrows:PGrB_Index; Tile_ncols:PGrB_Index;
            A:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ GxB_Matrix_diag, GxB_Vector_diag, GrB_Matrix_diag }
-{------------------------------------------------------------------------------ }
-{ GrB_Matrix_diag constructs a new matrix from a vector.  Let n be the length }
-{ of the v vector, from GrB_Vector_size (&n, v).  If k = 0, then C is an }
-{ n-by-n diagonal matrix with the entries from v along the main diagonal of C, }
-{ with C(i,i) = v(i).  If k is nonzero, C is square with dimension n+abs(k). }
-{ If k is positive, it denotes diagonals above the main diagonal, with }
-{ C(i,i+k) = v(i).  If k is negative, it denotes diagonals below the main }
-{ diagonal of C, with C(i-k,i) = v(i).  C is constructed with the same type }
-{ as v. }
-{ build a diagonal matrix from a vector }
-{ output matrix }
-{ input vector }
 function GrB_Matrix_diag(C:PGrB_Matrix; v:TGrB_Vector; k:Tint64_t):TGrB_Info;cdecl;external libgraphblas;
-{ GrB_Matrix_diag is like GxB_Matrix_diag (&C, v, k, NULL), except that C must }
-{ already exist on input, of the correct size.  Any existing entries in C are }
-{ discarded.  The type of C is preserved, so that if the type of C and v }
-{ differ, the entries are typecasted into the type of C.  Any settings made to }
-{ C by GxB_Matrix_Option_set (format by row or by column, bitmap switch, hyper }
-{ switch, and sparsity control) are unchanged. }
-{ construct a diagonal matrix from a vector }
-{ output matrix }
-{ input vector }
-{ to specify # of threads }
 function GxB_Matrix_diag(C:TGrB_Matrix; v:TGrB_Vector; k:Tint64_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ GxB_Vector_diag extracts a vector v from an input matrix A, which may be }
-{ rectangular.  If k = 0, the main diagonal of A is extracted; k > 0 denotes }
-{ diagonals above the main diagonal of A, and k < 0 denotes diagonals below }
-{ the main diagonal of A.  Let A have dimension m-by-n.  If k is in the range }
-{ 0 to n-1, then v has length min(m,n-k).  If k is negative and in the range }
-{ -1 to -m+1, then v has length min(m+k,n).  If k is outside these ranges, }
-{ v has length 0 (this is not an error). }
-{ v must already exist on input, of the correct length; that is }
-{ GrB_Vector_size (&len,v) must return len = 0 if k >= n or k <= -m, len = }
-{ min(m,n-k) if k is in the range 0 to n-1, and len = min(m+k,n) if k is in }
-{ the range -1 to -m+1.  Any existing entries in v are discarded.  The type of }
-{ v is preserved, so that if the type of A and v differ, the entries are }
-{ typecasted into the type of v.  Any settings made to v by }
-{ GxB_Vector_Option_set (bitmap switch and sparsity control) are unchanged. }
-{ extract a diagonal from a matrix, as a vector }
-{ output vector }
-{ input matrix }
-{ unused, except threading control }
 function GxB_Vector_diag(v:TGrB_Vector; A:TGrB_Matrix; k:Tint64_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{============================================================================== }
-{ SuiteSparse:GraphBLAS options }
-{============================================================================== }
-{ The following options modify how SuiteSparse:GraphBLAS stores and operates }
-{ on its matrices.  The GxB_*Option* methods allow the user to suggest how the }
-{ internal representation of a matrix, or all matrices, should be held.  These }
-{ options have no effect on the result (except for minor roundoff differences }
-{ for floating-point types). They only affect the time and memory usage of the }
-{ computations. }
-{      GxB_Matrix_Option_set:  sets an option for a specific matrix }
-{      GxB_Matrix_Option_get:  queries the current option of a specific matrix }
-{      GxB_Vector_Option_set:  sets an option for a specific vector }
-{      GxB_Vector_Option_get:  queries the current option of a specific vector }
-{      GxB_Global_Option_set:  sets an option for all future matrices }
-{      GxB_Global_Option_get:  queries current option for all future matrices }
 const
-  GxB_HYPER = 0;  { (historical, use GxB_HYPER_SWITCH) }
-{ for global options or matrix options }
-{------------------------------------------------------------ }
-{ for GxB_Matrix_Option_get/set and GxB_Global_Option_get/set: }
-{------------------------------------------------------------ }
-{ defines switch to hypersparse (a double value) }
-{ defines switch to bitmap (a double value) }
-{ defines CSR/CSC format: GxB_BY_ROW or GxB_BY_COL }
-{------------------------------------------------------------ }
-{ for GxB_Global_Option_get only: }
-{------------------------------------------------------------ }
-{ mode passed to GrB_init (blocking or non-blocking) }
-{ name of the library (char *) }
-{ library version (3 int's) }
-{ date of the library (char *) }
-{ about the library (char *) }
-{ URL for the library (char *) }
-{ license of the library (char *) }
-{ date library was compiled (char *) }
-{ time library was compiled (char *) }
-{ API version (3 int's) }
-{ date of the API (char *) }
-{ about the API (char *) }
-{ URL for the API (char *) }
-{ compiler version (3 int's) }
-{ compiler name (char *) }
-{ library compiled with OpenMP }
-{------------------------------------------------------------ }
-{ for GxB_Global_Option_get/set only: }
-{------------------------------------------------------------ }
-{ max number of threads to use }
-{ If <= GxB_DEFAULT, then GraphBLAS selects the number }
-{ of threads automatically. }
-{ chunk size for small problems. }
-{ If <= GxB_DEFAULT, then the default is used. }
-{ diagnostic output (bool *) }
-{ printf function diagnostic output }
-{ flush function diagnostic output }
-{ memory pool control }
-{ print matrices as 0-based or 1-based }
-{------------------------------------------------------------ }
-{ for GxB_Matrix_Option_get only: }
-{------------------------------------------------------------ }
-{ hyper, sparse, bitmap or full (1,2,4,8) }
-{ historical; use GxB_SPARSITY_STATUS }
-{------------------------------------------------------------ }
-{ for GxB_Matrix_Option_get/set only: }
-{------------------------------------------------------------ }
-{ sparsity control: 0 to 15; see below }
-{------------------------------------------------------------ }
-{ GPU and options (DRAFT: do not use) }
-{------------------------------------------------------------ }
+  GxB_HYPER = 0;
 type
   PGxB_Option_Field = ^TGxB_Option_Field;
   TGxB_Option_Field =  Longint;
@@ -2693,11 +610,6 @@ type
     GxB_SPARSITY_CONTROL = 32;
     GxB_GLOBAL_GPU_CONTROL = GxB_GPU_CONTROL;
     GxB_GLOBAL_GPU_CHUNK = GxB_GPU_CHUNK;
-;
-{ GxB_FORMAT can be by row or by column: }
-{ CSR: compressed sparse row format }
-{ CSC: compressed sparse column format }
-{ format not defined }
 type
   PGxB_Format_Value = ^TGxB_Format_Value;
   TGxB_Format_Value =  Longint;
@@ -2705,356 +617,55 @@ type
     GxB_BY_ROW = 0;
     GxB_BY_COL = 1;
     GxB_NO_FORMAT = -(1);
-;
-{ The default format is by row.  These constants are defined as extern }
-{ const, so that if SuiteSparse:GraphBLAS is recompiled with a different }
-{ default format, and the application is relinked but not recompiled, it will }
-{ acquire the new default values. }
   var
     GxB_FORMAT_DEFAULT : TGxB_Format_Value;cvar;external libgraphblas;
-{ the default hyper_switch parameter }
-    GxB_HYPER_DEFAULT : Tdouble;cvar;external libgraphblas;
-{ GxB_SPARSITY_CONTROL can be any sum or bitwise OR of these 4 values: }
+    GxB_HYPER_DEFAULT : double;cvar;external libgraphblas;
 
 const
-  GxB_HYPERSPARSE = 1;  { store matrix in hypersparse form }
-  GxB_SPARSE = 2;  { store matrix as sparse form (compressed vector) }
-  GxB_BITMAP = 4;  { store matrix as a bitmap }
-  GxB_FULL = 8;  { store matrix as full; all entries must be present }
-{ size of b array for GxB_set/get (GxB_BITMAP_SWITCH, b) }
-  GxB_NBITMAP_SWITCH = 8;  { size of bitmap_switch parameter array }
-{ any sparsity value: }
+  GxB_HYPERSPARSE = 1;
+  GxB_SPARSE = 2;
+  GxB_BITMAP = 4;
+  GxB_FULL = 8;
+  GxB_NBITMAP_SWITCH = 8;
   GxB_ANY_SPARSITY = ((GxB_HYPERSPARSE+GxB_SPARSE)+GxB_BITMAP)+GxB_FULL;  
-{ the default sparsity control is any format: }
-  GxB_AUTO_SPARSITY = GxB_ANY_SPARSITY;  
-{ GxB_Matrix_Option_set (A, GxB_SPARSITY_CONTROL, scontrol) provides hints }
-{ about which data structure GraphBLAS should use for the matrix A: }
-{ }
-{      GxB_AUTO_SPARSITY: GraphBLAS selects automatically. }
-{      GxB_HYPERSPARSE: always hypersparse, taking O(nvals(A)) space. }
-{      GxB_SPARSE: always in a sparse struture: compressed-sparse row/column, }
-{          taking O(nrows+nvals(A)) space if stored by row, or }
-{          O(ncols+nvals(A)) if stored by column. }
-{      GxB_BITMAP: always in a bitmap struture, taking O(nrows*ncols) space. }
-{      GxB_FULL: always in a full structure, taking O(nrows*ncols) space, }
-{          unless not all entries are present, in which case the bitmap }
-{          storage is used. }
-{ }
-{ These options can be summed.  For example, to allow a matrix to be sparse }
-{ or hypersparse, but not bitmap or full, use GxB_SPARSE + GxB_HYPERSPARSE. }
-{ Since GxB_FULL can only be used when all entries are present, matrices with }
-{ the just GxB_FULL control setting are stored in bitmap form if any entries }
-{ are not present. }
-{ }
-{ Only the least 4 bits of the sparsity control are considered, so the }
-{ formats can be bitwise negated.  For example, to allow for any format }
-{ except full, use ~GxB_FULL. }
-{ }
-{ GxB_Matrix_Option_get (A, GxB_SPARSITY_STATUS, &sparsity) returns the }
-{ current data structure currently used for the matrix A (either hypersparse, }
-{ sparse, bitmap, or full). }
-{ }
-{ GxB_Matrix_Option_get (A, GxB_SPARSITY_CONTROL, &scontrol) returns the hint }
-{ for how A should be stored (hypersparse, sparse, bitmap, or full, or any }
-{ combination). }
-{ GxB_HYPER_SWITCH: }
-{      If the matrix or vector structure can be sparse or hypersparse, the }
-{      GxB_HYPER_SWITCH parameter controls when each of these structures are }
-{      used.  The parameter is not used if the matrix or vector is full or }
-{      bitmap. }
-{ }
-{      Let k be the actual number of non-empty vectors (with at least one }
-{      entry).  This value k is not dependent on whether or not the matrix is }
-{      stored in hypersparse structure.  Let n be the number of vectors (the # }
-{      of columns if CSC, or rows if CSR).  Let h be the value of the }
-{      GxB_HYPER_SWITCH setting of the matrix. }
-{ }
-{      If a matrix is currently hypersparse, it can be converted to }
-{      non-hypersparse if (n <= 1  || k > 2*n*h).  Otherwise it stays }
-{      hypersparse.  If (n <= 1) the matrix is always stored as }
-{      non-hypersparse. }
-{ }
-{      If currently non-hypersparse, it can be converted to hypersparse if (n }
-{      > 1 && k <= n*h).  Otherwise, it stays non-hypersparse.  If (n <= 1) }
-{      the matrix always remains non-hypersparse. }
-{ }
-{      Setting GxB_HYPER_SWITCH to GxB_ALWAYS_HYPER or GxB_NEVER_HYPER ensures }
-{      a matrix always stays hypersparse, or always stays non-hypersparse, }
-{      respectively. }
+  GxB_AUTO_SPARSITY = GxB_ANY_SPARSITY;
   var
-    GxB_ALWAYS_HYPER : Tdouble;cvar;external libgraphblas;
-{ set an option in a matrix }
-{ matrix to modify }
-{ option to change }
-{ value to change it to }
+    GxB_ALWAYS_HYPER : double;cvar;external libgraphblas;
 
-function GxB_Matrix_Option_set(A:TGrB_Matrix; field:TGxB_Option_Field; args:array of const):TGrB_Info;cdecl;external libgraphblas;
-function GxB_Matrix_Option_set(A:TGrB_Matrix; field:TGxB_Option_Field):TGrB_Info;cdecl;external libgraphblas;
-{ set an option in a matrix }
-{ matrix to modify }
-{ option to change }
-{ value to change it to }
+function GxB_Matrix_Option_set(A:TGrB_Matrix; field:TGxB_Option_Field):TGrB_Info;cdecl;varargs;external libgraphblas;
 function GxB_Matrix_Option_set_INT32(A:TGrB_Matrix; field:TGxB_Option_Field; value:Tint32_t):TGrB_Info;cdecl;external libgraphblas;
-{ set an option in a matrix }
-{ matrix to modify }
-{ option to change }
-{ value to change it to }
-function GxB_Matrix_Option_set_FP64(A:TGrB_Matrix; field:TGxB_Option_Field; value:Tdouble):TGrB_Info;cdecl;external libgraphblas;
-{ gets the current option of a matrix }
-{ matrix to query }
-{ option to query }
-{ return value of the matrix option }
-function GxB_Matrix_Option_get(A:TGrB_Matrix; field:TGxB_Option_Field; args:array of const):TGrB_Info;cdecl;external libgraphblas;
-function GxB_Matrix_Option_get(A:TGrB_Matrix; field:TGxB_Option_Field):TGrB_Info;cdecl;external libgraphblas;
-{ gets the current option of a matrix }
-{ matrix to query }
-{ option to query }
-{ return value of the matrix option }
+function GxB_Matrix_Option_set_FP64(A:TGrB_Matrix; field:TGxB_Option_Field; value:double):TGrB_Info;cdecl;external libgraphblas;
+function GxB_Matrix_Option_get(A:TGrB_Matrix; field:TGxB_Option_Field):TGrB_Info;cdecl;varargs;external libgraphblas;
 function GxB_Matrix_Option_get_INT32(A:TGrB_Matrix; field:TGxB_Option_Field; value:Pint32_t):TGrB_Info;cdecl;external libgraphblas;
-{ gets the current option of a matrix }
-{ matrix to query }
-{ option to query }
-{ return value of the matrix option }
 function GxB_Matrix_Option_get_FP64(A:TGrB_Matrix; field:TGxB_Option_Field; value:Pdouble):TGrB_Info;cdecl;external libgraphblas;
-{ set an option in a vector }
-{ vector to modify }
-{ option to change }
-{ value to change it to }
-function GxB_Vector_Option_set(A:TGrB_Vector; field:TGxB_Option_Field; args:array of const):TGrB_Info;cdecl;external libgraphblas;
-function GxB_Vector_Option_set(A:TGrB_Vector; field:TGxB_Option_Field):TGrB_Info;cdecl;external libgraphblas;
-{ set an option in a vector }
-{ vector to modify }
-{ option to change }
-{ value to change it to }
+function GxB_Vector_Option_set(A:TGrB_Vector; field:TGxB_Option_Field):TGrB_Info;cdecl;varargs;external libgraphblas;
 function GxB_Vector_Option_set_INT32(v:TGrB_Vector; field:TGxB_Option_Field; value:Tint32_t):TGrB_Info;cdecl;external libgraphblas;
-{ set an option in a vector }
-{ vector to modify }
-{ option to change }
-{ value to change it to }
-function GxB_Vector_Option_set_FP64(v:TGrB_Vector; field:TGxB_Option_Field; value:Tdouble):TGrB_Info;cdecl;external libgraphblas;
-{ gets the current option of a vector }
-{ vector to query }
-{ option to query }
-{ return value of the vector option }
-function GxB_Vector_Option_get(A:TGrB_Vector; field:TGxB_Option_Field; args:array of const):TGrB_Info;cdecl;external libgraphblas;
-function GxB_Vector_Option_get(A:TGrB_Vector; field:TGxB_Option_Field):TGrB_Info;cdecl;external libgraphblas;
-{ gets the current option of a vector }
-{ vector to query }
-{ option to query }
-{ return value of the vector option }
+function GxB_Vector_Option_set_FP64(v:TGrB_Vector; field:TGxB_Option_Field; value:double):TGrB_Info;cdecl;external libgraphblas;
+function GxB_Vector_Option_get(A:TGrB_Vector; field:TGxB_Option_Field):TGrB_Info;cdecl;varargs;external libgraphblas;
 function GxB_Vector_Option_get_INT32(v:TGrB_Vector; field:TGxB_Option_Field; value:Pint32_t):TGrB_Info;cdecl;external libgraphblas;
-{ gets the current option of a vector }
-{ vector to query }
-{ option to query }
-{ return value of the vector option }
 function GxB_Vector_Option_get_FP64(v:TGrB_Vector; field:TGxB_Option_Field; value:Pdouble):TGrB_Info;cdecl;external libgraphblas;
-{ GxB_Global_Option_set controls the global defaults used when a new matrix is }
-{ created.  GrB_init defines the following initial settings: }
-{ }
-{      GxB_Global_Option_set (GxB_HYPER_SWITCH, GxB_HYPER_DEFAULT) ; }
-{      GxB_Global_Option_set (GxB_BITMAP_SWITCH, NULL) ; }
-{      GxB_Global_Option_set (GxB_FORMAT, GxB_FORMAT_DEFAULT) ; }
-{ }
-{ The compile-time constants GxB_HYPER_DEFAULT and GxB_FORMAT_DEFAULT are }
-{ equal to 0.0625 and GxB_BY_ROW, by default.  That is, by default, all new }
-{ matrices are held by row in CSR format.  If a matrix has fewer than n/16 }
-{ columns, it can be converted to hypersparse structure.  If it has more than }
-{ n/8 columns, it can be converted to a sparse structure.  Modifying these }
-{ global settings via GxB_Global_Option_set has no effect on matrices already }
-{ created. }
-{ set a global default option }
-{ option to change }
-{ value to change it to }
-function GxB_Global_Option_set(field:TGxB_Option_Field; args:array of const):TGrB_Info;cdecl;external libgraphblas;
-function GxB_Global_Option_set(field:TGxB_Option_Field):TGrB_Info;cdecl;external libgraphblas;
-{ set a global default option }
-{ option to change }
-{ value to change it to }
+function GxB_Global_Option_set(field:TGxB_Option_Field):TGrB_Info;cdecl;varargs;external libgraphblas;
 function GxB_Global_Option_set_INT32(field:TGxB_Option_Field; value:Tint32_t):TGrB_Info;cdecl;external libgraphblas;
-{ set a global default option }
-{ option to change }
-{ value to change it to }
-function GxB_Global_Option_set_FP64(field:TGxB_Option_Field; value:Tdouble):TGrB_Info;cdecl;external libgraphblas;
-{ set a global default option }
-{ option to change }
-{ value to change it to }
+function GxB_Global_Option_set_FP64(field:TGxB_Option_Field; value:double):TGrB_Info;cdecl;external libgraphblas;
 function GxB_Global_Option_set_FP64_ARRAY(field:TGxB_Option_Field; value:Pdouble):TGrB_Info;cdecl;external libgraphblas;
-{ set a global default option }
-{ option to change }
-{ value to change it to }
 function GxB_Global_Option_set_INT64_ARRAY(field:TGxB_Option_Field; value:Pint64_t):TGrB_Info;cdecl;external libgraphblas;
-{ set a global default option }
-{ option to change }
-{ value to change it to }
 function GxB_Global_Option_set_FUNCTION(field:TGxB_Option_Field; value:pointer):TGrB_Info;cdecl;external libgraphblas;
-{ gets the current global default option }
-{ option to query }
-{ return value of the global option }
-function GxB_Global_Option_get(field:TGxB_Option_Field; args:array of const):TGrB_Info;cdecl;external libgraphblas;
-function GxB_Global_Option_get(field:TGxB_Option_Field):TGrB_Info;cdecl;external libgraphblas;
-{ gets the current global option }
-{ option to query }
-{ return value of the global option }
+function GxB_Global_Option_get(field:TGxB_Option_Field):TGrB_Info;cdecl;varargs;external libgraphblas;
 function GxB_Global_Option_get_INT32(field:TGxB_Option_Field; value:Pint32_t):TGrB_Info;cdecl;external libgraphblas;
-{ gets the current global option }
-{ option to query }
-{ return value of the global option }
 function GxB_Global_Option_get_FP64(field:TGxB_Option_Field; value:Pdouble):TGrB_Info;cdecl;external libgraphblas;
-{ gets the current global option }
-{ option to query }
-{ return value of the global option }
 function GxB_Global_Option_get_INT64(field:TGxB_Option_Field; value:Pint64_t):TGrB_Info;cdecl;external libgraphblas;
-{ gets the current global option }
-{ option to query }
-{ return value of the global option }
 function GxB_Global_Option_get_CHAR(field:TGxB_Option_Field; value:PPchar):TGrB_Info;cdecl;external libgraphblas;
-{ gets the current global option }
-{ option to query }
-{ return value of the global option }
 function GxB_Global_Option_get_FUNCTION(field:TGxB_Option_Field; value:Ppointer):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ GxB_set and GxB_get }
-{------------------------------------------------------------------------------ }
-{ The simplest way to set/get a value of a GrB_Descriptor is with }
-{ the generic GxB_set and GxB_get functions: }
-{      GxB_set (desc, field, value) ; }
-{      GxB_get (desc, field, &value) ; }
-{ GxB_set and GxB_get are generic methods that and set or query the options in }
-{ a GrB_Matrix, a GrB_Descriptor, or in the global options.  They can be used }
-{ with the following syntax.  Note that GxB_NTHREADS can be used for both the }
-{ global nthreads_max, and for the # of threads in the descriptor. }
-{ To set/get the global options: }
-{ }
-{      GxB_set (GxB_HYPER_SWITCH, double h) ; }
-{      GxB_set (GxB_HYPER_SWITCH, GxB_ALWAYS_HYPER) ; }
-{      GxB_set (GxB_HYPER_SWITCH, GxB_NEVER_HYPER) ; }
-{      GxB_get (GxB_HYPER_SWITCH, double *h) ; }
-{ }
-{      double b [GxB_NBITMAP_SWITCH] ; }
-{      GxB_set (GxB_BITMAP_SWITCH, b) ; }
-{      GxB_set (GxB_BITMAP_SWITCH, NULL) ;     // set defaults }
-{      GxB_get (GxB_BITMAP_SWITCH, b) ; }
-{ }
-{      GxB_set (GxB_FORMAT, GxB_BY_ROW) ; }
-{      GxB_set (GxB_FORMAT, GxB_BY_COL) ; }
-{      GxB_get (GxB_FORMAT, GxB_Format_Value *s) ; }
-{ }
-{      GxB_set (GxB_NTHREADS, nthreads_max) ; }
-{      GxB_get (GxB_NTHREADS, int *nthreads_max) ; }
-{ }
-{      GxB_set (GxB_CHUNK, double chunk) ; }
-{      GxB_get (GxB_CHUNK, double *chunk) ; }
-{ }
-{      GxB_set (GxB_BURBLE, bool burble) ; }
-{      GxB_get (GxB_BURBLE, bool *burble) ; }
-{ }
-{      GxB_set (GxB_PRINTF, void *printf_function) ; }
-{      GxB_get (GxB_PRINTF, void **printf_function) ; }
-{ }
-{      GxB_set (GxB_FLUSH, void *flush_function) ; }
-{      GxB_get (GxB_FLUSH, void **flush_function) ; }
-{ }
-{      int64_t free_pool_limit [64] ; }
-{      GxB_set (GxB_MEMORY_POOL, free_pool_limit) ; }
-{      GxB_set (GxB_MEMORY_POOL, NULL) ;     // set defaults }
-{      GxB_get (GxB_MEMORY_POOL, free_pool_limit) ; }
-{ To get global options that can be queried but not modified: }
-{ }
-{      GxB_get (GxB_MODE, GrB_Mode *mode) ; }
-{ To set/get a matrix option: }
-{ }
-{      GxB_set (GrB_Matrix A, GxB_HYPER_SWITCH, double h) ; }
-{      GxB_set (GrB_Matrix A, GxB_HYPER_SWITCH, GxB_ALWAYS_HYPER) ; }
-{      GxB_set (GrB_Matrix A, GxB_HYPER_SWITCH, GxB_NEVER_HYPER) ; }
-{      GxB_get (GrB_Matrix A, GxB_HYPER_SWITCH, double *h) ; }
-{ }
-{      GxB_set (GrB_Matrix A, GxB_BITMAP_SWITCH, double b) ; }
-{      GxB_get (GrB_Matrix A, GxB_BITMAP_SWITCH, double *b) ; }
-{ }
-{      GxB_set (GrB_Matrix A, GxB_FORMAT, GxB_BY_ROW) ; }
-{      GxB_set (GrB_Matrix A, GxB_FORMAT, GxB_BY_COL) ; }
-{      GxB_get (GrB_Matrix A, GxB_FORMAT, GxB_Format_Value *s) ; }
-{ }
-{      GxB_set (GrB_Matrix A, GxB_SPARSITY_CONTROL, GxB_AUTO_SPARSITY) ; }
-{      GxB_set (GrB_Matrix A, GxB_SPARSITY_CONTROL, scontrol) ; }
-{      GxB_get (GrB_Matrix A, GxB_SPARSITY_CONTROL, int *scontrol) ; }
-{ }
-{      GxB_get (GrB_Matrix A, GxB_SPARSITY_STATUS, int *sparsity) ; }
-{ To set/get a vector option or status: }
-{ }
-{      GxB_set (GrB_Vector v, GxB_BITMAP_SWITCH, double b) ; }
-{      GxB_get (GrB_Vector v, GxB_BITMAP_SWITCH, double *b) ; }
-{ }
-{      GxB_set (GrB_Vector v, GxB_FORMAT, GxB_BY_ROW) ; }
-{      GxB_set (GrB_Vector v, GxB_FORMAT, GxB_BY_COL) ; }
-{      GxB_get (GrB_Vector v, GxB_FORMAT, GxB_Format_Value *s) ; }
-{ }
-{      GxB_set (GrB_Vector v, GxB_SPARSITY_CONTROL, GxB_AUTO_SPARSITY) ; }
-{      GxB_set (GrB_Vector v, GxB_SPARSITY_CONTROL, scontrol) ; }
-{      GxB_get (GrB_Vector v, GxB_SPARSITY_CONTROL, int *scontrol) ; }
-{ }
-{      GxB_get (GrB_Vector v, GxB_SPARSITY_STATUS, int *sparsity) ; }
-{ To set/get a descriptor field: }
-{ }
-{      GxB_set (GrB_Descriptor d, GrB_OUTP, GxB_DEFAULT) ; }
-{      GxB_set (GrB_Descriptor d, GrB_OUTP, GrB_REPLACE) ; }
-{      GxB_get (GrB_Descriptor d, GrB_OUTP, GrB_Desc_Value *v) ; }
-{ }
-{      GxB_set (GrB_Descriptor d, GrB_MASK, GxB_DEFAULT) ; }
-{      GxB_set (GrB_Descriptor d, GrB_MASK, GrB_COMP) ; }
-{      GxB_set (GrB_Descriptor d, GrB_MASK, GrB_STRUCTURE) ; }
-{      GxB_set (GrB_Descriptor d, GrB_MASK, GrB_COMP + GrB_STRUCTURE) ; }
-{      GxB_get (GrB_Descriptor d, GrB_MASK, GrB_Desc_Value *v) ; }
-{ }
-{      GxB_set (GrB_Descriptor d, GrB_INP0, GxB_DEFAULT) ; }
-{      GxB_set (GrB_Descriptor d, GrB_INP0, GrB_TRAN) ; }
-{      GxB_get (GrB_Descriptor d, GrB_INP0, GrB_Desc_Value *v) ; }
-{ }
-{      GxB_set (GrB_Descriptor d, GrB_INP1, GxB_DEFAULT) ; }
-{      GxB_set (GrB_Descriptor d, GrB_INP1, GrB_TRAN) ; }
-{      GxB_get (GrB_Descriptor d, GrB_INP1, GrB_Desc_Value *v) ; }
-{ }
-{      GxB_set (GrB_Descriptor d, GxB_AxB_METHOD, GxB_DEFAULT) ; }
-{      GxB_set (GrB_Descriptor d, GxB_AxB_METHOD, GxB_AxB_GUSTAVSON) ; }
-{      GxB_set (GrB_Descriptor d, GxB_AxB_METHOD, GxB_AxB_HASH) ; }
-{      GxB_set (GrB_Descriptor d, GxB_AxB_METHOD, GxB_AxB_SAXPY) ; }
-{      GxB_set (GrB_Descriptor d, GxB_AxB_METHOD, GxB_AxB_DOT) ; }
-{      GxB_get (GrB_Descriptor d, GrB_AxB_METHOD, GrB_Desc_Value *v) ; }
-{ }
-{      GxB_set (GrB_Descriptor d, GxB_NTHREADS, nthreads) ; }
-{      GxB_get (GrB_Descriptor d, GxB_NTHREADS, int *nthreads) ; }
-{ }
-{      GxB_set (GrB_Descriptor d, GxB_CHUNK, double chunk) ; }
-{      GxB_get (GrB_Descriptor d, GxB_CHUNK, double *chunk) ; }
-{ }
-{      GxB_set (GrB_Descriptor d, GxB_SORT, int sort) ; }
-{      GxB_get (GrB_Descriptor d, GxB_SORT, int *sort) ; }
-{ }
-{      GxB_set (GrB_Descriptor d, GxB_COMPRESSION, int method) ; }
-{      GxB_get (GrB_Descriptor d, GxB_COMPRESSION, int *method) ; }
-{ }
-{      GxB_set (GrB_Descriptor d, GxB_IMPORT, int method) ; }
-{      GxB_get (GrB_Descriptor d, GxB_IMPORT, int *method) ; }
-{============================================================================== }
-{ GrB_free: free any GraphBLAS object }
-{============================================================================== }
-{ for null and invalid objects }
+
 const
-  GrB_NULL = NULL;  
-  GrB_INVALID_HANDLE = NULL;  
-{============================================================================== }
-{ GrB_wait: finish computations }
-{============================================================================== }
-{ establishes a happens-before relation }
-{ object is complete }
+  GrB_NULL = nil;
+  GrB_INVALID_HANDLE = nil;
 type
   PGrB_WaitMode = ^TGrB_WaitMode;
   TGrB_WaitMode =  Longint;
   Const
     GrB_COMPLETE = 0;
     GrB_MATERIALIZE = 1;
-;
-{ Finish all pending work in a specific object. }
 
 function GrB_Type_wait(_type:TGrB_Type; waitmode:TGrB_WaitMode):TGrB_Info;cdecl;external libgraphblas;
 function GrB_UnaryOp_wait(op:TGrB_UnaryOp; waitmode:TGrB_WaitMode):TGrB_Info;cdecl;external libgraphblas;
@@ -3067,15 +678,8 @@ function GrB_Descriptor_wait(desc:TGrB_Descriptor; waitmode:TGrB_WaitMode):TGrB_
 function GrB_Scalar_wait(s:TGrB_Scalar; waitmode:TGrB_WaitMode):TGrB_Info;cdecl;external libgraphblas;
 function GrB_Vector_wait(v:TGrB_Vector; waitmode:TGrB_WaitMode):TGrB_Info;cdecl;external libgraphblas;
 function GrB_Matrix_wait(A:TGrB_Matrix; waitmode:TGrB_WaitMode):TGrB_Info;cdecl;external libgraphblas;
-{ NOTE: GxB_Scalar_wait is historical; use GrB_Scalar_wait instead }
 function GxB_Scalar_wait(s:PGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{============================================================================== }
-{ GrB_error: error handling }
-{============================================================================== }
-{ Each GraphBLAS method and operation returns a GrB_Info error code. }
-{ GrB_error returns additional information on the error in a thread-safe }
-{ null-terminated string.  The string returned by GrB_error is owned by }
-{ the GraphBLAS library and must not be free'd. }
+
 function GrB_Type_error(error:PPchar; _type:TGrB_Type):TGrB_Info;cdecl;external libgraphblas;
 function GrB_UnaryOp_error(error:PPchar; op:TGrB_UnaryOp):TGrB_Info;cdecl;external libgraphblas;
 function GrB_BinaryOp_error(error:PPchar; op:TGrB_BinaryOp):TGrB_Info;cdecl;external libgraphblas;
@@ -3087,2299 +691,435 @@ function GrB_Scalar_error(error:PPchar; s:TGrB_Scalar):TGrB_Info;cdecl;external 
 function GrB_Vector_error(error:PPchar; v:TGrB_Vector):TGrB_Info;cdecl;external libgraphblas;
 function GrB_Matrix_error(error:PPchar; A:TGrB_Matrix):TGrB_Info;cdecl;external libgraphblas;
 function GrB_Descriptor_error(error:PPchar; d:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ GxB_Scalar_error is historical: use GrB_Scalar_error instead }
 function GxB_Scalar_error(error:PPchar; s:TGrB_Scalar):TGrB_Info;cdecl;external libgraphblas;
-{============================================================================== }
-{ GrB_mxm, vxm, mxv: matrix multiplication over a semiring }
-{============================================================================== }
-{ C<Mask> = accum (C, A*B) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ defines '+' and '*' for A*B }
-{ first input:  matrix A }
-{ second input: matrix B }
-{ descriptor for C, Mask, A, and B }
-function GrB_mxm(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; semiring:TGrB_Semiring; A:TGrB_Matrix; 
+
+function GrB_mxm(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; semiring:TGrB_Semiring; A:TGrB_Matrix;
            B:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w'<Mask> = accum (w, u'*A) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ defines '+' and '*' for u'*A }
-{ first input:  vector u }
-{ second input: matrix A }
-{ descriptor for w, mask, and A }
-function GrB_vxm(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; semiring:TGrB_Semiring; u:TGrB_Vector; 
+function GrB_vxm(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; semiring:TGrB_Semiring; u:TGrB_Vector;
            A:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<Mask> = accum (w, A*u) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ defines '+' and '*' for A*B }
-{ first input:  matrix A }
-{ second input: vector u }
-{ descriptor for w, mask, and A }
-function GrB_mxv(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; semiring:TGrB_Semiring; A:TGrB_Matrix; 
+function GrB_mxv(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; semiring:TGrB_Semiring; A:TGrB_Matrix;
            u:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{============================================================================== }
-{ GrB_eWiseMult: element-wise matrix and vector operations, set intersection }
-{============================================================================== }
-{ GrB_eWiseMult computes C<Mask> = accum (C, A.*B), where ".*" is the Hadamard }
-{ product, and where pairs of elements in two matrices (or vectors) are }
-{ pairwise "multiplied" with C(i,j) = mult (A(i,j),B(i,j)). }
-{ w<Mask> = accum (w, u.*v) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ defines '.*' for t=u.*v }
-{ first input:  vector u }
-{ second input: vector v }
-{ descriptor for w and mask }
-function GrB_Vector_eWiseMult_Semiring(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; semiring:TGrB_Semiring; u:TGrB_Vector; 
+
+function GrB_Vector_eWiseMult_Semiring(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; semiring:TGrB_Semiring; u:TGrB_Vector;
            v:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<Mask> = accum (w, u.*v) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ defines '.*' for t=u.*v }
-{ first input:  vector u }
-{ second input: vector v }
-{ descriptor for w and mask }
-function GrB_Vector_eWiseMult_Monoid(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; monoid:TGrB_Monoid; u:TGrB_Vector; 
+function GrB_Vector_eWiseMult_Monoid(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; monoid:TGrB_Monoid; u:TGrB_Vector;
            v:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<Mask> = accum (w, u.*v) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ defines '.*' for t=u.*v }
-{ first input:  vector u }
-{ second input: vector v }
-{ descriptor for w and mask }
-function GrB_Vector_eWiseMult_BinaryOp(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; mult:TGrB_BinaryOp; u:TGrB_Vector; 
+function GrB_Vector_eWiseMult_BinaryOp(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; mult:TGrB_BinaryOp; u:TGrB_Vector;
            v:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask> = accum (C, A.*B) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ defines '.*' for T=A.*B }
-{ first input:  matrix A }
-{ second input: matrix B }
-{ descriptor for C, Mask, A, and B }
-function GrB_Matrix_eWiseMult_Semiring(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; semiring:TGrB_Semiring; A:TGrB_Matrix; 
+function GrB_Matrix_eWiseMult_Semiring(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; semiring:TGrB_Semiring; A:TGrB_Matrix;
            B:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask> = accum (C, A.*B) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ defines '.*' for T=A.*B }
-{ first input:  matrix A }
-{ second input: matrix B }
-{ descriptor for C, Mask, A, and B }
-function GrB_Matrix_eWiseMult_Monoid(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; monoid:TGrB_Monoid; A:TGrB_Matrix; 
+function GrB_Matrix_eWiseMult_Monoid(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; monoid:TGrB_Monoid; A:TGrB_Matrix;
            B:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask> = accum (C, A.*B) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ defines '.*' for T=A.*B }
-{ first input:  matrix A }
-{ second input: matrix B }
-{ descriptor for C, Mask, A, and B }
-function GrB_Matrix_eWiseMult_BinaryOp(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; mult:TGrB_BinaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_eWiseMult_BinaryOp(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; mult:TGrB_BinaryOp; A:TGrB_Matrix;
            B:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ All 6 of the above type-specific functions are captured in a single }
-{ type-generic function, GrB_eWiseMult: }
-{============================================================================== }
-{ GrB_eWiseAdd: element-wise matrix and vector operations, set union }
-{============================================================================== }
-{ GrB_eWiseAdd computes C<Mask> = accum (C, A+B), where pairs of elements in }
-{ two matrices (or two vectors) are pairwise "added". }
-{ w<mask> = accum (w, u+v) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ defines '+' for t=u+v }
-{ first input:  vector u }
-{ second input: vector v }
-{ descriptor for w and mask }
-function GrB_Vector_eWiseAdd_Semiring(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; semiring:TGrB_Semiring; u:TGrB_Vector; 
+
+function GrB_Vector_eWiseAdd_Semiring(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; semiring:TGrB_Semiring; u:TGrB_Vector;
            v:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, u+v) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ defines '+' for t=u+v }
-{ first input:  vector u }
-{ second input: vector v }
-{ descriptor for w and mask }
-function GrB_Vector_eWiseAdd_Monoid(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; monoid:TGrB_Monoid; u:TGrB_Vector; 
+function GrB_Vector_eWiseAdd_Monoid(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; monoid:TGrB_Monoid; u:TGrB_Vector;
            v:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, u+v) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ defines '+' for t=u+v }
-{ first input:  vector u }
-{ second input: vector v }
-{ descriptor for w and mask }
-function GrB_Vector_eWiseAdd_BinaryOp(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; add:TGrB_BinaryOp; u:TGrB_Vector; 
+function GrB_Vector_eWiseAdd_BinaryOp(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; add:TGrB_BinaryOp; u:TGrB_Vector;
            v:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask> = accum (C, A+B) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ defines '+' for T=A+B }
-{ first input:  matrix A }
-{ second input: matrix B }
-{ descriptor for C, Mask, A, and B }
-function GrB_Matrix_eWiseAdd_Semiring(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; semiring:TGrB_Semiring; A:TGrB_Matrix; 
+function GrB_Matrix_eWiseAdd_Semiring(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; semiring:TGrB_Semiring; A:TGrB_Matrix;
            B:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask> = accum (C, A+B) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ defines '+' for T=A+B }
-{ first input:  matrix A }
-{ second input: matrix B }
-{ descriptor for C, Mask, A, and B }
-function GrB_Matrix_eWiseAdd_Monoid(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; monoid:TGrB_Monoid; A:TGrB_Matrix; 
+function GrB_Matrix_eWiseAdd_Monoid(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; monoid:TGrB_Monoid; A:TGrB_Matrix;
            B:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask> = accum (C, A+B) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ defines '+' for T=A+B }
-{ first input:  matrix A }
-{ second input: matrix B }
-{ descriptor for C, Mask, A, and B }
-function GrB_Matrix_eWiseAdd_BinaryOp(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; add:TGrB_BinaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_eWiseAdd_BinaryOp(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; add:TGrB_BinaryOp; A:TGrB_Matrix;
            B:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{============================================================================== }
-{ GxB_eWiseUnion: a variant of GrB_eWiseAdd }
-{============================================================================== }
-{ GxB_eWiseUnion is a variant of eWiseAdd.  The methods create a result with }
-{ the same sparsity structure.  They differ when an entry is present in A but }
-{ not B, or in B but not A. }
-{ eWiseAdd does the following, for a matrix, where "+" is the add binary op: }
-{      if A(i,j) and B(i,j) are both present: }
-{          C(i,j) = A(i,j) + B(i,j) }
-{      else if A(i,j) is present but not B(i,j) }
-{          C(i,j) = A(i,j) }
-{      else if B(i,j) is present but not A(i,j) }
-{          C(i,j) = B(i,j) }
-{ by contrast, eWiseUnion always applies the operator: }
-{      if A(i,j) and B(i,j) are both present: }
-{          C(i,j) = A(i,j) + B(i,j) }
-{      else if A(i,j) is present but not B(i,j) }
-{          C(i,j) = A(i,j) + beta }
-{      else if B(i,j) is present but not A(i,j) }
-{          C(i,j) = alpha + B(i,j) }
-{ w<mask> = accum (w, u+v) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ defines '+' for t=u+v }
-{ first input:  vector u }
-{ second input: vector v }
-{ descriptor for w and mask }
-function GxB_Vector_eWiseUnion(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; add:TGrB_BinaryOp; u:TGrB_Vector; 
+
+function GxB_Vector_eWiseUnion(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; add:TGrB_BinaryOp; u:TGrB_Vector;
            alpha:TGrB_Scalar; v:TGrB_Vector; beta:TGrB_Scalar; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M> = accum (C, A+B) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ defines '+' for T=A+B }
-{ first input:  matrix A }
-{ second input: matrix B }
-{ descriptor for C, M, A, and B }
-function GxB_Matrix_eWiseUnion(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; add:TGrB_BinaryOp; A:TGrB_Matrix; 
+function GxB_Matrix_eWiseUnion(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; add:TGrB_BinaryOp; A:TGrB_Matrix;
            alpha:TGrB_Scalar; B:TGrB_Matrix; beta:TGrB_Scalar; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{============================================================================== }
-{ GrB_extract: extract a submatrix or subvector }
-{============================================================================== }
-{ Extract entries from a matrix or vector; T = A(I,J).  This (like most }
-{ GraphBLAS methods) is then followed by C<Mask>=accum(C,T). }
-{ To extract all rows of a matrix or vector, as in A (:,J), use I=GrB_ALL as }
-{ the input argument.  For all columns of a matrix, use J=GrB_ALL. }
   var
     GrB_ALL : Puint64_t;cvar;external libgraphblas;
-{ To extract a range of rows and columns, I and J can be a list of 2 or 3 }
-{ indices that defines a range (begin:end) or a strided range (begin:inc:end). }
-{ To specify the colon syntax I = begin:end, the array I has size at least 2, }
-{ where I [GxB_BEGIN] = begin and I [GxB_END] = end.  The parameter ni is then }
-{ passed as the special value GxB_RANGE.  To specify the colon syntax I = }
-{ begin:inc:end, the array I has size at least three, with the values begin, }
-{ end, and inc (in that order), and then pass in the value ni = GxB_STRIDE. }
-{ The same can be done for the list J and its size, nj. }
-{ These special values of ni and nj can be used for GrB_assign, }
-{ GrB_extract, and GxB_subassign. }
 
 const
   GxB_RANGE = INT64_MAX;  
   GxB_STRIDE = INT64_MAX-1;  
   GxB_BACKWARDS = INT64_MAX-2;  
-{ for the strided range begin:inc:end, I [GxB_BEGIN] is the value of begin, I }
-{ [GxB_END] is the value end, I [GxB_INC] is the magnitude of the stride.  If }
-{ the stride is negative, use ni = GxB_BACKWARDS. }
-  GxB_BEGIN = 0;  
+  GxB_BEGIN = 0;
   GxB_END = 1;  
   GxB_INC = 2;  
-{ For example, the notation 10:-2:1 defines a sequence [10 8 6 4 2]. }
-{ The end point of the sequence (1) need not appear in the sequence, if }
-{ the last increment goes past it.  To specify the same in GraphBLAS, }
-{ use: }
-{      GrB_Index I [3], ni = GxB_BACKWARDS ; }
-{      I [GxB_BEGIN ] = 10 ;               // the start of the sequence }
-{      I [GxB_INC   ] = 2 ;                // the magnitude of the increment }
-{      I [GxB_END   ] = 1 ;                // the end of the sequence }
-{ w<mask> = accum (w, u(I)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ first input:  vector u }
-{ row indices }
-{ number of row indices }
-{ descriptor for w and mask }
 
 function GrB_Vector_extract(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; u:TGrB_Vector; I:PGrB_Index; 
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask> = accum (C, A(I,J)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ first input:  matrix A }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C, Mask, and A }
-function GrB_Matrix_extract(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; A:TGrB_Matrix; I:PGrB_Index; 
+function GrB_Matrix_extract(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; A:TGrB_Matrix; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, A(I,j)) }
-{ input/output matrix for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ first input:  matrix A }
-{ row indices }
-{ number of row indices }
-{ column index }
-{ descriptor for w, mask, and A }
-function GrB_Col_extract(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; A:TGrB_Matrix; I:PGrB_Index; 
+function GrB_Col_extract(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; A:TGrB_Matrix; I:PGrB_Index;
            ni:TGrB_Index; j:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ GrB_extract: generic matrix/vector extraction }
-{------------------------------------------------------------------------------ }
-{ GrB_extract is a generic interface to the following functions: }
-{ GrB_Vector_extract (w,mask,acc,u,I,ni,d)      // w<m>    = acc (w, u(I)) }
-{ GrB_Col_extract    (w,mask,acc,A,I,ni,j,d)    // w<m>    = acc (w, A(I,j)) }
-{ GrB_Matrix_extract (C,Mask,acc,A,I,ni,J,nj,d) // C<Mask> = acc (C, A(I,J)) }
-{============================================================================== }
-{ GxB_subassign: matrix and vector subassign: C(I,J)<Mask> = accum (C(I,J), A) }
-{============================================================================== }
-{ Assign entries in a matrix or vector; C(I,J) = A. }
-{ Each GxB_subassign function is very similar to its corresponding GrB_assign }
-{ function in the spec, but they differ in two ways: (1) the mask in }
-{ GxB_subassign has the same size as w(I) for vectors and C(I,J) for matrices, }
-{ and (2) they differ in the GrB_REPLACE option.  See the user guide for }
-{ details. }
-{ In GraphBLAS notation, the two methods can be described as follows: }
-{ matrix and vector subassign: C(I,J)<Mask> = accum (C(I,J), A) }
-{ matrix and vector    assign: C<Mask>(I,J) = accum (C(I,J), A) }
-{ --- assign ------------------------------------------------------------------ }
-{ }
-{ GrB_Matrix_assign      C<M>(I,J) += A        M same size as matrix C. }
-{                                              A is |I|-by-|J| }
-{ }
-{ GrB_Vector_assign      w<m>(I)   += u        m same size as column vector w. }
-{                                              u is |I|-by-1 }
-{ }
-{ GrB_Row_assign         C<m'>(i,J) += u'      m is a column vector the same }
-{                                              size as a row of C. }
-{                                              u is |J|-by-1, i is a scalar. }
-{ }
-{ GrB_Col_assign         C<m>(I,j) += u        m is a column vector the same }
-{                                              size as a column of C. }
-{                                              u is |I|-by-1, j is a scalar. }
-{ }
-{ --- subassign --------------------------------------------------------------- }
-{ }
-{ GxB_Matrix_subassign   C(I,J)<M> += A        M same size as matrix A. }
-{                                              A is |I|-by-|J| }
-{ }
-{ GxB_Vector_subassign   w(I)<m>   += u        m same size as column vector u. }
-{                                              u is |I|-by-1 }
-{ }
-{ GxB_Row_subassign      C(i,J)<m'> += u'      m same size as column vector u. }
-{                                              u is |J|-by-1, i is a scalar. }
-{ }
-{ GxB_Col_subassign      C(I,j)<m> += u        m same size as column vector u. }
-{                                              u is |I|-by-1, j is a scalar. }
-{ w(I)<mask> = accum (w(I),u) }
-{ input/output matrix for results }
-{ optional mask for w(I), unused if NULL }
-{ optional accum for z=accum(w(I),t) }
-{ first input:  vector u }
-{ row indices }
-{ number of row indices }
-{ descriptor for w(I) and mask }
-function GxB_Vector_subassign(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; u:TGrB_Vector; I:PGrB_Index; 
+
+function GxB_Vector_subassign(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; u:TGrB_Vector; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C(I,J)<Mask> = accum (C(I,J),A) }
-{ input/output matrix for results }
-{ optional mask for C(I,J), unused if NULL }
-{ optional accum for Z=accum(C(I,J),T) }
-{ first input:  matrix A }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C(I,J), Mask, and A }
-function GxB_Matrix_subassign(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; A:TGrB_Matrix; I:PGrB_Index; 
+function GxB_Matrix_subassign(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; A:TGrB_Matrix; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C(I,j)<mask> = accum (C(I,j),u) }
-{ input/output matrix for results }
-{ optional mask for C(I,j), unused if NULL }
-{ optional accum for z=accum(C(I,j),t) }
-{ input vector }
-{ row indices }
-{ number of row indices }
-{ column index }
-{ descriptor for C(I,j) and mask }
-function GxB_Col_subassign(C:TGrB_Matrix; mask:TGrB_Vector; accum:TGrB_BinaryOp; u:TGrB_Vector; I:PGrB_Index; 
+function GxB_Col_subassign(C:TGrB_Matrix; mask:TGrB_Vector; accum:TGrB_BinaryOp; u:TGrB_Vector; I:PGrB_Index;
            ni:TGrB_Index; j:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C(i,J)<mask'> = accum (C(i,J),u') }
-{ input/output matrix for results }
-{ optional mask for C(i,J), unused if NULL }
-{ optional accum for z=accum(C(i,J),t) }
-{ input vector }
-{ row index }
-{ column indices }
-{ number of column indices }
-{ descriptor for C(i,J) and mask }
-function GxB_Row_subassign(C:TGrB_Matrix; mask:TGrB_Vector; accum:TGrB_BinaryOp; u:TGrB_Vector; i:TGrB_Index; 
+function GxB_Row_subassign(C:TGrB_Matrix; mask:TGrB_Vector; accum:TGrB_BinaryOp; u:TGrB_Vector; i:TGrB_Index;
            J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ GxB_Vector_subassign_[SCALAR]:  scalar expansion assignment to subvector }
-{------------------------------------------------------------------------------ }
-{ Assigns a single scalar to a subvector, w(I)<mask> = accum(w(I),x).  The }
-{ scalar x is implicitly expanded into a vector u of size ni-by-1, with each }
-{ entry in u equal to x, and then w(I)<mask> = accum(w(I),u) is done. }
-{ w(I)<mask> = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w(I), unused if NULL }
-{ optional accum for z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w(I) and mask }
-function GxB_Vector_subassign_BOOL(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tbool; I:PGrB_Index; 
+function GxB_Vector_subassign_BOOL(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Boolean; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w(I)<mask> = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w(I), unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w(I) and mask }
-function GxB_Vector_subassign_INT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tint8_t; I:PGrB_Index; 
+function GxB_Vector_subassign_INT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tint8_t; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w(I)<mask> = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w(I), unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w(I) and mask }
-function GxB_Vector_subassign_UINT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tuint8_t; I:PGrB_Index; 
+function GxB_Vector_subassign_UINT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tuint8_t; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w(I)<mask> = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w(I), unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w(I) and mask }
-function GxB_Vector_subassign_INT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tint16_t; I:PGrB_Index; 
+function GxB_Vector_subassign_INT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tint16_t; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w(I)<mask> = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w(I), unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w(I) and mask }
-function GxB_Vector_subassign_UINT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tuint16_t; I:PGrB_Index; 
+function GxB_Vector_subassign_UINT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tuint16_t; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w(I)<mask> = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w(I), unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w(I) and mask }
-function GxB_Vector_subassign_INT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tint32_t; I:PGrB_Index; 
+function GxB_Vector_subassign_INT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tint32_t; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w(I)<mask> = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w(I), unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w(I) and mask }
-function GxB_Vector_subassign_UINT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tuint32_t; I:PGrB_Index; 
+function GxB_Vector_subassign_UINT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tuint32_t; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w(I)<mask> = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w(I), unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w(I) and mask }
-function GxB_Vector_subassign_INT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tint64_t; I:PGrB_Index; 
+function GxB_Vector_subassign_INT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tint64_t; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w(I)<mask> = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w(I), unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w(I) and mask }
-function GxB_Vector_subassign_UINT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tuint64_t; I:PGrB_Index; 
+function GxB_Vector_subassign_UINT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tuint64_t; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w(I)<mask> = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w(I), unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w(I) and mask }
-function GxB_Vector_subassign_FP32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:single; I:PGrB_Index; 
+function GxB_Vector_subassign_FP32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:single; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w(I)<mask> = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w(I), unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w(I) and mask }
-function GxB_Vector_subassign_FP64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tdouble; I:PGrB_Index; 
+function GxB_Vector_subassign_FP64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:double; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w(I)<mask> = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w(I), unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w(I) and mask }
-function GxB_Vector_subassign_FC32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:TGxB_FC32_t; I:PGrB_Index; 
+function GxB_Vector_subassign_FC32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:TGxB_FC32_t; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w(I)<mask> = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w(I), unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w(I) and mask }
-function GxB_Vector_subassign_FC64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:TGxB_FC64_t; I:PGrB_Index; 
+function GxB_Vector_subassign_FC64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:TGxB_FC64_t; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w(I)<mask> = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w(I), unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w(I) and mask }
-function GxB_Vector_subassign_UDT(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:pointer; I:PGrB_Index; 
+function GxB_Vector_subassign_UDT(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:pointer; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w(I)<mask> = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w(I), unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w(I) and mask }
-function GxB_Vector_subassign_Scalar(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:TGrB_Scalar; I:PGrB_Index; 
+function GxB_Vector_subassign_Scalar(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:TGrB_Scalar; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ GxB_Matrix_subassign_[SCALAR]:  scalar expansion assignment to submatrix }
-{------------------------------------------------------------------------------ }
-{ Assigns a single scalar to a submatrix, C(I,J)<Mask> = accum(C(I,J),x).  The }
-{ scalar x is implicitly expanded into a matrix A of size ni-by-nj, with each }
-{ entry in A equal to x, and then C(I,J)<Mask> = accum(C(I,J),A) is done. }
-{ C(I,J)<Mask> = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C(I,J), unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C(I,J) and Mask }
-function GxB_Matrix_subassign_BOOL(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tbool; I:PGrB_Index; 
+
+function GxB_Matrix_subassign_BOOL(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Boolean; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C(I,J)<Mask> = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C(I,J), unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C(I,J) and Mask }
-function GxB_Matrix_subassign_INT8(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tint8_t; I:PGrB_Index; 
+function GxB_Matrix_subassign_INT8(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tint8_t; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C(I,J)<Mask> = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C(I,J), unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C(I,J) and Mask }
-function GxB_Matrix_subassign_UINT8(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tuint8_t; I:PGrB_Index; 
+function GxB_Matrix_subassign_UINT8(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tuint8_t; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C(I,J)<Mask> = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C(I,J), unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C(I,J) and Mask }
-function GxB_Matrix_subassign_INT16(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tint16_t; I:PGrB_Index; 
+function GxB_Matrix_subassign_INT16(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tint16_t; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C(I,J)<Mask> = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C(I,J), unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C(I,J) and Mask }
-function GxB_Matrix_subassign_UINT16(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tuint16_t; I:PGrB_Index; 
+function GxB_Matrix_subassign_UINT16(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tuint16_t; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C(I,J)<Mask> = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C(I,J), unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C(I,J) and Mask }
-function GxB_Matrix_subassign_INT32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tint32_t; I:PGrB_Index; 
+function GxB_Matrix_subassign_INT32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tint32_t; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C(I,J)<Mask> = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C(I,J), unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C(I,J) and Mask }
-function GxB_Matrix_subassign_UINT32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tuint32_t; I:PGrB_Index; 
+function GxB_Matrix_subassign_UINT32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tuint32_t; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C(I,J)<Mask> = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C(I,J), unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C(I,J) and Mask }
-function GxB_Matrix_subassign_INT64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tint64_t; I:PGrB_Index; 
+function GxB_Matrix_subassign_INT64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tint64_t; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C(I,J)<Mask> = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C(I,J), unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C(I,J) and Mask }
-function GxB_Matrix_subassign_UINT64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tuint64_t; I:PGrB_Index; 
+function GxB_Matrix_subassign_UINT64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tuint64_t; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C(I,J)<Mask> = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C(I,J), unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C(I,J) and Mask }
-function GxB_Matrix_subassign_FP32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:single; I:PGrB_Index; 
+function GxB_Matrix_subassign_FP32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:single; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C(I,J)<Mask> = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C(I,J), unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C(I,J) and Mask }
-function GxB_Matrix_subassign_FP64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tdouble; I:PGrB_Index; 
+function GxB_Matrix_subassign_FP64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:double; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C(I,J)<Mask> = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C(I,J), unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C(I,J) and Mask }
-function GxB_Matrix_subassign_FC32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:TGxB_FC32_t; I:PGrB_Index; 
+function GxB_Matrix_subassign_FC32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:TGxB_FC32_t; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C(I,J)<Mask> = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C(I,J), unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C(I,J) and Mask }
-function GxB_Matrix_subassign_FC64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:TGxB_FC64_t; I:PGrB_Index; 
+function GxB_Matrix_subassign_FC64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:TGxB_FC64_t; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C(I,J)<Mask> = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C(I,J), unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C(I,J) and Mask }
-function GxB_Matrix_subassign_UDT(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:pointer; I:PGrB_Index; 
+function GxB_Matrix_subassign_UDT(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:pointer; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C(I,J)<Mask> = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C(I,J), unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C(I,J) and Mask }
-function GxB_Matrix_subassign_Scalar(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:TGrB_Scalar; I:PGrB_Index; 
+function GxB_Matrix_subassign_Scalar(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:TGrB_Scalar; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ GxB_subassign: generic submatrix/subvector assignment }
-{------------------------------------------------------------------------------ }
-{ GxB_subassign is a generic function that provides access to all specific }
-{ GxB_*_subassign* functions: }
-{ GxB_Vector_subassign   (w,m,acc,u,I,ni,d)      // w(I)<m>    = acc(w(I),u) }
-{ GxB_Matrix_subassign   (C,M,acc,A,I,ni,J,nj,d) // C(I,J)<M>  = acc(C(I,J),A) }
-{ GxB_Col_subassign      (C,m,acc,u,I,ni,j,d)    // C(I,j)<m>  = acc(C(I,j),u) }
-{ GxB_Row_subassign      (C,m,acc,u,i,J,nj,d)    // C(i,J)<m'> = acc(C(i,J),u') }
-{ GxB_Vector_subassign_T (w,m,acc,x,I,ni,d)      // w(I)<m>    = acc(w(I),x) }
-{ GxB_Matrix_subassign_T (C,M,acc,x,I,ni,J,nj,d) // C(I,J)<M>  = acc(C(I,J),x) }
-{============================================================================== }
-{ GrB_assign: matrix and vector assign: C<Mask>(I,J) = accum (C(I,J), A) }
-{============================================================================== }
-{ Assign entries in a matrix or vector; C(I,J) = A. }
-{ Each of these can be used with their generic name, GrB_assign. }
-{ w<mask>(I) = accum (w(I),u) }
-{ input/output matrix for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w(I),t) }
-{ first input:  vector u }
-{ row indices }
-{ number of row indices }
-{ descriptor for w and mask }
-function GrB_Vector_assign(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; u:TGrB_Vector; I:PGrB_Index; 
+
+function GrB_Vector_assign(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; u:TGrB_Vector; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask>(I,J) = accum (C(I,J),A) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C(I,J),T) }
-{ first input:  matrix A }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C, Mask, and A }
-function GrB_Matrix_assign(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; A:TGrB_Matrix; I:PGrB_Index; 
+function GrB_Matrix_assign(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; A:TGrB_Matrix; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<mask>(I,j) = accum (C(I,j),u) }
-{ input/output matrix for results }
-{ optional mask for C(:,j), unused if NULL }
-{ optional accum for z=accum(C(I,j),t) }
-{ input vector }
-{ row indices }
-{ number of row indices }
-{ column index }
-{ descriptor for C(:,j) and mask }
-function GrB_Col_assign(C:TGrB_Matrix; mask:TGrB_Vector; accum:TGrB_BinaryOp; u:TGrB_Vector; I:PGrB_Index; 
+function GrB_Col_assign(C:TGrB_Matrix; mask:TGrB_Vector; accum:TGrB_BinaryOp; u:TGrB_Vector; I:PGrB_Index;
            ni:TGrB_Index; j:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<mask'>(i,J) = accum (C(i,J),u') }
-{ input/output matrix for results }
-{ optional mask for C(i,:), unused if NULL }
-{ optional accum for z=accum(C(i,J),t) }
-{ input vector }
-{ row index }
-{ column indices }
-{ number of column indices }
-{ descriptor for C(i,:) and mask }
-function GrB_Row_assign(C:TGrB_Matrix; mask:TGrB_Vector; accum:TGrB_BinaryOp; u:TGrB_Vector; i:TGrB_Index; 
+function GrB_Row_assign(C:TGrB_Matrix; mask:TGrB_Vector; accum:TGrB_BinaryOp; u:TGrB_Vector; i:TGrB_Index;
            J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ GrB_Vector_assign_[SCALAR]:  scalar expansion assignment to subvector }
-{------------------------------------------------------------------------------ }
-{ Assigns a single scalar to a subvector, w<mask>(I) = accum(w(I),x).  The }
-{ scalar x is implicitly expanded into a vector u of size ni-by-1, with each }
-{ entry in u equal to x, and then w<mask>(I) = accum(w(I),u) is done. }
-{ w<mask>(I) = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w and mask }
-function GrB_Vector_assign_BOOL(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tbool; I:PGrB_Index; 
+
+function GrB_Vector_assign_BOOL(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Boolean; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask>(I) = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w and mask }
-function GrB_Vector_assign_INT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tint8_t; I:PGrB_Index; 
+function GrB_Vector_assign_INT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tint8_t; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask>(I) = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w and mask }
-function GrB_Vector_assign_UINT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tuint8_t; I:PGrB_Index; 
+function GrB_Vector_assign_UINT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tuint8_t; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask>(I) = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w and mask }
-function GrB_Vector_assign_INT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tint16_t; I:PGrB_Index; 
+function GrB_Vector_assign_INT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tint16_t; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask>(I) = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w and mask }
-function GrB_Vector_assign_UINT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tuint16_t; I:PGrB_Index; 
+function GrB_Vector_assign_UINT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tuint16_t; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask>(I) = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w and mask }
-function GrB_Vector_assign_INT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tint32_t; I:PGrB_Index; 
+function GrB_Vector_assign_INT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tint32_t; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask>(I) = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w and mask }
-function GrB_Vector_assign_UINT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tuint32_t; I:PGrB_Index; 
+function GrB_Vector_assign_UINT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tuint32_t; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask>(I) = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w and mask }
-function GrB_Vector_assign_INT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tint64_t; I:PGrB_Index; 
+function GrB_Vector_assign_INT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tint64_t; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask>(I) = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w and mask }
-function GrB_Vector_assign_UINT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tuint64_t; I:PGrB_Index; 
+function GrB_Vector_assign_UINT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tuint64_t; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask>(I) = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w and mask }
-function GrB_Vector_assign_FP32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:single; I:PGrB_Index; 
+function GrB_Vector_assign_FP32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:single; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask>(I) = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w and mask }
-function GrB_Vector_assign_FP64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:Tdouble; I:PGrB_Index; 
+function GrB_Vector_assign_FP64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:double; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask>(I) = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w and mask }
-function GxB_Vector_assign_FC32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:TGxB_FC32_t; I:PGrB_Index; 
+function GxB_Vector_assign_FC32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:TGxB_FC32_t; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask>(I) = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w and mask }
-function GxB_Vector_assign_FC64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:TGxB_FC64_t; I:PGrB_Index; 
+function GxB_Vector_assign_FC64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:TGxB_FC64_t; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask>(I) = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w and mask }
-function GrB_Vector_assign_UDT(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:pointer; I:PGrB_Index; 
+function GrB_Vector_assign_UDT(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:pointer; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask>(I) = accum (w(I),x) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for Z=accum(w(I),x) }
-{ scalar to assign to w(I) }
-{ row indices }
-{ number of row indices }
-{ descriptor for w and mask }
-function GrB_Vector_assign_Scalar(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:TGrB_Scalar; I:PGrB_Index; 
+function GrB_Vector_assign_Scalar(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; x:TGrB_Scalar; I:PGrB_Index;
            ni:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ GrB_Matrix_assign_[SCALAR]:  scalar expansion assignment to submatrix }
-{------------------------------------------------------------------------------ }
-{ Assigns a single scalar to a submatrix, C<Mask>(I,J) = accum(C(I,J),x).  The }
-{ scalar x is implicitly expanded into a matrix A of size ni-by-nj, with each }
-{ entry in A equal to x, and then C<Mask>(I,J) = accum(C(I,J),A) is done. }
-{ C<Mask>(I,J) = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C and Mask }
-function GrB_Matrix_assign_BOOL(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tbool; I:PGrB_Index; 
+
+function GrB_Matrix_assign_BOOL(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Boolean; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask>(I,J) = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C and Mask }
-function GrB_Matrix_assign_INT8(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tint8_t; I:PGrB_Index; 
+function GrB_Matrix_assign_INT8(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tint8_t; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask>(I,J) = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C and Mask }
-function GrB_Matrix_assign_UINT8(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tuint8_t; I:PGrB_Index; 
+function GrB_Matrix_assign_UINT8(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tuint8_t; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask>(I,J) = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C and Mask }
-function GrB_Matrix_assign_INT16(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tint16_t; I:PGrB_Index; 
+function GrB_Matrix_assign_INT16(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tint16_t; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask>(I,J) = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C and Mask }
-function GrB_Matrix_assign_UINT16(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tuint16_t; I:PGrB_Index; 
+function GrB_Matrix_assign_UINT16(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tuint16_t; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask>(I,J) = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C and Mask }
-function GrB_Matrix_assign_INT32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tint32_t; I:PGrB_Index; 
+function GrB_Matrix_assign_INT32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tint32_t; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask>(I,J) = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C and Mask }
-function GrB_Matrix_assign_UINT32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tuint32_t; I:PGrB_Index; 
+function GrB_Matrix_assign_UINT32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tuint32_t; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask>(I,J) = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C and Mask }
-function GrB_Matrix_assign_INT64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tint64_t; I:PGrB_Index; 
+function GrB_Matrix_assign_INT64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tint64_t; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask>(I,J) = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C and Mask }
-function GrB_Matrix_assign_UINT64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tuint64_t; I:PGrB_Index; 
+function GrB_Matrix_assign_UINT64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tuint64_t; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask>(I,J) = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C and Mask }
-function GrB_Matrix_assign_FP32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:single; I:PGrB_Index; 
+function GrB_Matrix_assign_FP32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:single; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask>(I,J) = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C and Mask }
-function GrB_Matrix_assign_FP64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:Tdouble; I:PGrB_Index; 
+function GrB_Matrix_assign_FP64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:double; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask>(I,J) = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C and Mask }
-function GxB_Matrix_assign_FC32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:TGxB_FC32_t; I:PGrB_Index; 
+function GxB_Matrix_assign_FC32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:TGxB_FC32_t; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask>(I,J) = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C and Mask }
-function GxB_Matrix_assign_FC64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:TGxB_FC64_t; I:PGrB_Index; 
+function GxB_Matrix_assign_FC64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:TGxB_FC64_t; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask>(I,J) = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C and Mask }
-function GrB_Matrix_assign_UDT(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:pointer; I:PGrB_Index; 
+function GrB_Matrix_assign_UDT(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:pointer; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask>(I,J) = accum (C(I,J),x) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C(I,J),x) }
-{ scalar to assign to C(I,J) }
-{ row indices }
-{ number of row indices }
-{ column indices }
-{ number of column indices }
-{ descriptor for C and Mask }
-function GrB_Matrix_assign_Scalar(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:TGrB_Scalar; I:PGrB_Index; 
+function GrB_Matrix_assign_Scalar(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; x:TGrB_Scalar; I:PGrB_Index;
            ni:TGrB_Index; J:PGrB_Index; nj:TGrB_Index; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ GrB_assign: generic submatrix/subvector assignment }
-{------------------------------------------------------------------------------ }
-{ GrB_assign is a generic function that provides access to all specific }
-{ GrB_*_assign* functions: }
-{ GrB_Vector_assign_T (w,m,acc,x,I,ni,d)      // w<m>(I)    = acc(w(I),x) }
-{ GrB_Vector_assign   (w,m,acc,u,I,ni,d)      // w<m>(I)    = acc(w(I),u) }
-{ GrB_Matrix_assign_T (C,M,acc,x,I,ni,J,nj,d) // C<M>(I,J)  = acc(C(I,J),x) }
-{ GrB_Col_assign      (C,m,acc,u,I,ni,j,d)    // C<m>(I,j)  = acc(C(I,j),u) }
-{ GrB_Row_assign      (C,m,acc,u,i,J,nj,d)    // C<m'>(i,J) = acc(C(i,J),u') }
-{ GrB_Matrix_assign   (C,M,acc,A,I,ni,J,nj,d) // C<M>(I,J)  = acc(C(I,J),A) }
-{============================================================================== }
-{ GrB_apply: matrix and vector apply }
-{============================================================================== }
-{ Apply a unary, index_unary, or binary operator to entries in a matrix or }
-{ vector, C<M> = accum (C, op (A)). }
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ descriptor for w and mask }
-function GrB_Vector_apply(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_UnaryOp; u:TGrB_Vector; 
+
+function GrB_Vector_apply(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_UnaryOp; u:TGrB_Vector;
            desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<Mask> = accum (C, op(A)) or op(A') }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_UnaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_UnaryOp; A:TGrB_Matrix;
            desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------- }
-{ vector apply: binaryop variants (bind 1st) }
-{------------------------------------------- }
-{ Apply a binary operator to the entries in a vector, binding the first }
-{ input to a scalar x, w<mask> = accum (w, op (x,u)). }
-{ w<mask> = accum (w, op(x,u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: vector u }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp1st_Scalar(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:TGrB_Scalar; 
+
+function GrB_Vector_apply_BinaryOp1st_Scalar(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:TGrB_Scalar;
            u:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ historical: identical to GxB_Vector_apply_BinaryOp1st }
-{ w<mask> = accum (w, op(x,u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: vector u }
-{ descriptor for w and mask }
-function GxB_Vector_apply_BinaryOp1st(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:TGrB_Scalar; 
+function GxB_Vector_apply_BinaryOp1st(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:TGrB_Scalar;
            u:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(x,u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: vector u }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp1st_BOOL(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tbool; 
+function GrB_Vector_apply_BinaryOp1st_BOOL(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Boolean;
            u:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(x,u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: vector u }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp1st_INT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tint8_t; 
+function GrB_Vector_apply_BinaryOp1st_INT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tint8_t;
            u:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(x,u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: vector u }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp1st_INT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tint16_t; 
+function GrB_Vector_apply_BinaryOp1st_INT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tint16_t;
            u:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(x,u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: vector u }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp1st_INT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tint32_t; 
+function GrB_Vector_apply_BinaryOp1st_INT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tint32_t;
            u:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(x,u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: vector u }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp1st_INT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tint64_t; 
+function GrB_Vector_apply_BinaryOp1st_INT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tint64_t;
            u:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(x,u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: vector u }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp1st_UINT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tuint8_t; 
+function GrB_Vector_apply_BinaryOp1st_UINT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tuint8_t;
            u:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(x,u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: vector u }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp1st_UINT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tuint16_t; 
+function GrB_Vector_apply_BinaryOp1st_UINT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tuint16_t;
            u:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(x,u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: vector u }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp1st_UINT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tuint32_t; 
+function GrB_Vector_apply_BinaryOp1st_UINT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tuint32_t;
            u:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(x,u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: vector u }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp1st_UINT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tuint64_t; 
+function GrB_Vector_apply_BinaryOp1st_UINT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tuint64_t;
            u:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(x,u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: vector u }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp1st_FP32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:single; 
+function GrB_Vector_apply_BinaryOp1st_FP32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:single;
            u:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(x,u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: vector u }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp1st_FP64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tdouble; 
+function GrB_Vector_apply_BinaryOp1st_FP64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:double;
            u:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(x,u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: vector u }
-{ descriptor for w and mask }
-function GxB_Vector_apply_BinaryOp1st_FC32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:TGxB_FC32_t; 
+function GxB_Vector_apply_BinaryOp1st_FC32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:TGxB_FC32_t;
            u:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(x,u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: vector u }
-{ descriptor for w and mask }
-function GxB_Vector_apply_BinaryOp1st_FC64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:TGxB_FC64_t; 
+function GxB_Vector_apply_BinaryOp1st_FC64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:TGxB_FC64_t;
            u:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(x,u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: vector u }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp1st_UDT(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:pointer; 
+function GrB_Vector_apply_BinaryOp1st_UDT(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:pointer;
            u:TGrB_Vector; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------- }
-{ vector apply: binaryop variants (bind 2nd) }
-{------------------------------------------- }
-{ Apply a binary operator to the entries in a vector, binding the second }
-{ input to a scalar y, w<mask> = accum (w, op (u,y)). }
-{ w<mask> = accum (w, op(u,y)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp2nd_Scalar(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector; 
+
+function GrB_Vector_apply_BinaryOp2nd_Scalar(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector;
            y:TGrB_Scalar; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ historical: identical to GrB_Vector_apply_BinaryOp2nd_Scalar }
-{ w<mask> = accum (w, op(u,y)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GxB_Vector_apply_BinaryOp2nd(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector; 
+function GxB_Vector_apply_BinaryOp2nd(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector;
            y:TGrB_Scalar; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u,y)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp2nd_BOOL(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector; 
-           y:Tbool; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u,y)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp2nd_INT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_BinaryOp2nd_BOOL(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector;
+           y:Boolean; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
+function GrB_Vector_apply_BinaryOp2nd_INT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector;
            y:Tint8_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u,y)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp2nd_INT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_BinaryOp2nd_INT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector;
            y:Tint16_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u,y)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp2nd_INT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_BinaryOp2nd_INT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector;
            y:Tint32_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u,y)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp2nd_INT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_BinaryOp2nd_INT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector;
            y:Tint64_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u,y)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp2nd_UINT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_BinaryOp2nd_UINT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector;
            y:Tuint8_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u,y)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp2nd_UINT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_BinaryOp2nd_UINT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector;
            y:Tuint16_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u,y)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp2nd_UINT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_BinaryOp2nd_UINT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector;
            y:Tuint32_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u,y)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp2nd_UINT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_BinaryOp2nd_UINT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector;
            y:Tuint64_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u,y)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp2nd_FP32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_BinaryOp2nd_FP32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector;
            y:single; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u,y)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp2nd_FP64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector; 
-           y:Tdouble; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u,y)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GxB_Vector_apply_BinaryOp2nd_FC32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_BinaryOp2nd_FP64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector;
+           y:double; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
+function GxB_Vector_apply_BinaryOp2nd_FC32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector;
            y:TGxB_FC32_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u,y)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GxB_Vector_apply_BinaryOp2nd_FC64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector; 
+function GxB_Vector_apply_BinaryOp2nd_FC64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector;
            y:TGxB_FC64_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u,y)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_BinaryOp2nd_UDT(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_BinaryOp2nd_UDT(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; u:TGrB_Vector;
            y:pointer; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------- }
-{ vector apply: IndexUnaryOp variants }
-{------------------------------------------- }
-{ Apply a GrB_IndexUnaryOp to the entries in a vector }
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_IndexOp_Scalar(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+
+function GrB_Vector_apply_IndexOp_Scalar(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:TGrB_Scalar; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_IndexOp_BOOL(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
-           y:Tbool; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_IndexOp_INT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_IndexOp_BOOL(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
+           y:Boolean; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
+function GrB_Vector_apply_IndexOp_INT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:Tint8_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_IndexOp_INT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_IndexOp_INT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:Tint16_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_IndexOp_INT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_IndexOp_INT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:Tint32_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_IndexOp_INT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_IndexOp_INT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:Tint64_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_IndexOp_UINT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_IndexOp_UINT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:Tuint8_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_IndexOp_UINT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_IndexOp_UINT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:Tuint16_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_IndexOp_UINT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_IndexOp_UINT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:Tuint32_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_IndexOp_UINT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_IndexOp_UINT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:Tuint64_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_IndexOp_FP32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_IndexOp_FP32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:single; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_IndexOp_FP64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
-           y:Tdouble; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GxB_Vector_apply_IndexOp_FC32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_IndexOp_FP64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
+           y:double; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
+function GxB_Vector_apply_IndexOp_FC32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:TGxB_FC32_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GxB_Vector_apply_IndexOp_FC64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GxB_Vector_apply_IndexOp_FC64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:TGxB_FC64_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_apply_IndexOp_UDT(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_apply_IndexOp_UDT(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:pointer; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------- }
-{ matrix apply: binaryop variants (bind 1st) }
-{------------------------------------------- }
-{ Apply a binary operator to the entries in a matrix, binding the first input }
-{ to a scalar x, C<Mask> = accum (C, op (x,A)), or op(x,A'). }
-{ C<M>=accum(C,op(x,A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: matrix A }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp1st_Scalar(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:TGrB_Scalar; 
+
+function GrB_Matrix_apply_BinaryOp1st_Scalar(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:TGrB_Scalar;
            A:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ historical: identical to GrB_Matrix_apply_BinaryOp1st_Scalar }
-{ C<M>=accum(C,op(x,A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: matrix A }
-{ descriptor for C, mask, and A }
-function GxB_Matrix_apply_BinaryOp1st(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:TGrB_Scalar; 
+function GxB_Matrix_apply_BinaryOp1st(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:TGrB_Scalar;
            A:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(x,A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: matrix A }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp1st_BOOL(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tbool; 
+function GrB_Matrix_apply_BinaryOp1st_BOOL(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Boolean;
            A:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(x,A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: matrix A }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp1st_INT8(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tint8_t; 
+function GrB_Matrix_apply_BinaryOp1st_INT8(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tint8_t;
            A:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(x,A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: matrix A }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp1st_INT16(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tint16_t; 
+function GrB_Matrix_apply_BinaryOp1st_INT16(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tint16_t;
            A:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(x,A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: matrix A }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp1st_INT32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tint32_t; 
+function GrB_Matrix_apply_BinaryOp1st_INT32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tint32_t;
            A:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(x,A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: matrix A }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp1st_INT64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tint64_t; 
+function GrB_Matrix_apply_BinaryOp1st_INT64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tint64_t;
            A:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(x,A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: matrix A }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp1st_UINT8(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tuint8_t; 
+function GrB_Matrix_apply_BinaryOp1st_UINT8(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tuint8_t;
            A:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(x,A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: matrix A }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp1st_UINT16(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tuint16_t; 
+function GrB_Matrix_apply_BinaryOp1st_UINT16(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tuint16_t;
            A:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(x,A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: matrix A }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp1st_UINT32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tuint32_t; 
+function GrB_Matrix_apply_BinaryOp1st_UINT32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tuint32_t;
            A:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(x,A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: matrix A }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp1st_UINT64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tuint64_t; 
+function GrB_Matrix_apply_BinaryOp1st_UINT64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tuint64_t;
            A:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(x,A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: matrix A }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp1st_FP32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:single; 
+function GrB_Matrix_apply_BinaryOp1st_FP32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:single;
            A:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(x,A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: matrix A }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp1st_FP64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:Tdouble; 
+function GrB_Matrix_apply_BinaryOp1st_FP64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:double;
            A:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(x,A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: matrix A }
-{ descriptor for C, mask, and A }
-function GxB_Matrix_apply_BinaryOp1st_FC32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:TGxB_FC32_t; 
+function GxB_Matrix_apply_BinaryOp1st_FC32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:TGxB_FC32_t;
            A:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(x,A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: matrix A }
-{ descriptor for C, mask, and A }
-function GxB_Matrix_apply_BinaryOp1st_FC64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:TGxB_FC64_t; 
+function GxB_Matrix_apply_BinaryOp1st_FC64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:TGxB_FC64_t;
            A:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(x,A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  scalar x }
-{ second input: matrix A }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp1st_UDT(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:pointer; 
+function GrB_Matrix_apply_BinaryOp1st_UDT(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; x:pointer;
            A:TGrB_Matrix; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------- }
-{ matrix apply: binaryop variants (bind 2nd) }
-{------------------------------------------- }
-{ Apply a binary operator to the entries in a matrix, binding the second input }
-{ to a scalar y, C<Mask> = accum (C, op (A,y)), or op(A',y). }
-{ C<M>=accum(C,op(A,y)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp2nd_Scalar(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix; 
+
+function GrB_Matrix_apply_BinaryOp2nd_Scalar(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix;
            y:TGrB_Scalar; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ historical: identical to GrB_Matrix_apply_BinaryOp2nd_Scalar }
-{ C<M>=accum(C,op(A,y)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GxB_Matrix_apply_BinaryOp2nd(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix; 
+function GxB_Matrix_apply_BinaryOp2nd(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix;
            y:TGrB_Scalar; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A,y)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp2nd_BOOL(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix; 
-           y:Tbool; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A,y)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp2nd_INT8(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_BinaryOp2nd_BOOL(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix;
+           y:Boolean; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
+function GrB_Matrix_apply_BinaryOp2nd_INT8(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix;
            y:Tint8_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A,y)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp2nd_INT16(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_BinaryOp2nd_INT16(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix;
            y:Tint16_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A,y)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp2nd_INT32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_BinaryOp2nd_INT32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix;
            y:Tint32_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A,y)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp2nd_INT64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_BinaryOp2nd_INT64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix;
            y:Tint64_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A,y)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp2nd_UINT8(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_BinaryOp2nd_UINT8(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix;
            y:Tuint8_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A,y)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp2nd_UINT16(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_BinaryOp2nd_UINT16(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix;
            y:Tuint16_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A,y)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp2nd_UINT32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_BinaryOp2nd_UINT32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix;
            y:Tuint32_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A,y)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp2nd_UINT64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_BinaryOp2nd_UINT64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix;
            y:Tuint64_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A,y)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp2nd_FP32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_BinaryOp2nd_FP32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix;
            y:single; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A,y)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp2nd_FP64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix; 
-           y:Tdouble; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A,y)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GxB_Matrix_apply_BinaryOp2nd_FC32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_BinaryOp2nd_FP64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix;
+           y:double; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
+function GxB_Matrix_apply_BinaryOp2nd_FC32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix;
            y:TGxB_FC32_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A,y)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GxB_Matrix_apply_BinaryOp2nd_FC64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix; 
+function GxB_Matrix_apply_BinaryOp2nd_FC64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix;
            y:TGxB_FC64_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A,y)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_BinaryOp2nd_UDT(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_BinaryOp2nd_UDT(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_BinaryOp; A:TGrB_Matrix;
            y:pointer; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------- }
-{ matrix apply: IndexUnaryOp variants }
-{------------------------------------------- }
-{ Apply a GrB_IndexUnaryOp to the entries in a matrix. }
-{ C<M>=accum(C,op(A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_IndexOp_Scalar(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix; 
+
+function GrB_Matrix_apply_IndexOp_Scalar(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix;
            y:TGrB_Scalar; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_IndexOp_BOOL(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix; 
-           y:Tbool; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_IndexOp_INT8(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_IndexOp_BOOL(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix;
+           y:Boolean; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
+function GrB_Matrix_apply_IndexOp_INT8(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix;
            y:Tint8_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_IndexOp_INT16(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_IndexOp_INT16(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix;
            y:Tint16_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_IndexOp_INT32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_IndexOp_INT32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix;
            y:Tint32_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_IndexOp_INT64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_IndexOp_INT64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix;
            y:Tint64_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_IndexOp_UINT8(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_IndexOp_UINT8(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix;
            y:Tuint8_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_IndexOp_UINT16(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_IndexOp_UINT16(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix;
            y:Tuint16_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_IndexOp_UINT32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_IndexOp_UINT32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix;
            y:Tuint32_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_IndexOp_UINT64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_IndexOp_UINT64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix;
            y:Tuint64_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_IndexOp_FP32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_IndexOp_FP32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix;
            y:single; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_IndexOp_FP64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix; 
-           y:Tdouble; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GxB_Matrix_apply_IndexOp_FC32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_IndexOp_FP64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix;
+           y:double; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
+function GxB_Matrix_apply_IndexOp_FC32(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix;
            y:TGxB_FC32_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GxB_Matrix_apply_IndexOp_FC64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix; 
+function GxB_Matrix_apply_IndexOp_FC64(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix;
            y:TGxB_FC64_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ C<M>=accum(C,op(A)) }
-{ input/output matrix for results }
-{ optional mask for C, unused if NULL }
-{ optional accum for Z=accum(C,T) }
-{ operator to apply to the entries }
-{ first input:  matrix A }
-{ second input: scalar y }
-{ descriptor for C, mask, and A }
-function GrB_Matrix_apply_IndexOp_UDT(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix; 
+function GrB_Matrix_apply_IndexOp_UDT(C:TGrB_Matrix; Mask:TGrB_Matrix; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; A:TGrB_Matrix;
            y:pointer; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{------------------------------------------------------------------------------ }
-{ GrB_apply: generic matrix/vector apply }
-{------------------------------------------------------------------------------ }
-{ GrB_apply is a generic function for applying a unary operator to a matrix }
-{ or vector and provides access to these functions: }
-{ GrB_Vector_apply (w,mask,acc,op,u,d)  // w<mask> = accum (w, op(u)) }
-{ GrB_Matrix_apply (C,Mask,acc,op,A,d)  // C<Mask> = accum (C, op(A)) }
-{ GrB_Vector_apply                  (w,m,acc,unop ,u,d) }
-{ GrB_Vector_apply_BinaryOp1st_TYPE (w,m,acc,binop,x,u,d) }
-{ GrB_Vector_apply_BinaryOp2nd_TYPE (w,m,acc,binop,u,y,d) }
-{ GrB_Vector_apply_IndexOp_TYPE     (w,m,acc,idxop,u,y,d) }
-{ GrB_Matrix_apply                  (C,M,acc,unop ,A,d) }
-{ GrB_Matrix_apply_BinaryOp1st_TYPE (C,M,acc,binop,x,A,d) }
-{ GrB_Matrix_apply_BinaryOp2nd_TYPE (C,M,acc,binop,A,y,d) }
-{ GrB_Matrix_apply_IndexOp_TYPE     (C,M,acc,idxop,A,y,d) }
-{============================================================================== }
-{ GrB_select: matrix and vector selection using an IndexUnaryOp }
-{============================================================================== }
-{------------------------------------------- }
-{ vector select using an IndexUnaryOp }
-{------------------------------------------- }
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_select_Scalar(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+
+function GrB_Vector_select_Scalar(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:TGrB_Scalar; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_select_BOOL(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
-           y:Tbool; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_select_INT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_select_BOOL(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
+           y:Boolean; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
+function GrB_Vector_select_INT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:Tint8_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_select_INT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_select_INT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:Tint16_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_select_INT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_select_INT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:Tint32_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_select_INT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_select_INT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:Tint64_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_select_UINT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_select_UINT8(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:Tuint8_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_select_UINT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_select_UINT16(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:Tuint16_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_select_UINT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_select_UINT32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:Tuint32_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_select_UINT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_select_UINT64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:Tuint64_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_select_FP32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_select_FP32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:single; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_select_FP64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
-           y:Tdouble; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GxB_Vector_select_FC32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_select_FP64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
+           y:double; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
+function GxB_Vector_select_FC32(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:TGxB_FC32_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GxB_Vector_select_FC64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GxB_Vector_select_FC64(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:TGxB_FC64_t; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
-{ w<mask> = accum (w, op(u)) }
-{ input/output vector for results }
-{ optional mask for w, unused if NULL }
-{ optional accum for z=accum(w,t) }
-{ operator to apply to the entries }
-{ first input:  vector u }
-{ second input: scalar y }
-{ descriptor for w and mask }
-function GrB_Vector_select_UDT(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector; 
+function GrB_Vector_select_UDT(w:TGrB_Vector; mask:TGrB_Vector; accum:TGrB_BinaryOp; op:TGrB_IndexUnaryOp; u:TGrB_Vector;
            y:pointer; desc:TGrB_Descriptor):TGrB_Info;cdecl;external libgraphblas;
+
+ccc
 {------------------------------------------- }
 { matrix select using an IndexUnaryOp }
 {------------------------------------------- }
