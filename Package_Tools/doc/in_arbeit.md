@@ -453,17 +453,16 @@ libvala-0.56-dev
 libyaml-dev              // io.
 libappstream-dev
 
- libavahi-glib1  
   liba52-0.7.4-dev      
 
 
 liblua5.1-0-dev 
 
 libmanette-0.2-dev       // io.
+libavahi-core-dev        // io. 
+libavahi-gobject-dev     // io. 
+libavahi-glib-dev        // io.
 
-libavahi-core-dev
-libavahi-gobject-dev
-libavahi-glib-dev
 libgdbm-dev
 libdaemon-dev
 
@@ -472,15 +471,28 @@ gdk-pixbuf-csource
 /usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders
 
 libmagickwand-dev    
- libmagic-dev 
+libmagic-dev                     // io.
+libtre-dev                       // io.
 
-libgraphblas
+libgraphblas                     // io.
+
+/home/tux/Schreibtisch/von_Git/gcc/gcc/libgomp/libgomp_g.h
+
+
+
+# winboat
+
+sudo apt install freerdp3-x11
+sudo apt install docker-compose-v2
+http://127.0.0.1:47270/
 
 
 
 
 
 
+
+sudo apt install gtk-4-examples
 
 
 

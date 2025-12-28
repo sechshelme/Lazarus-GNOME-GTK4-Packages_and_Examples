@@ -251,7 +251,7 @@ tre_version(void);
 extern int
 tre_config(int query, void *result);
 
-enum xxxxxxxxxxx {
+enum {
   TRE_CONFIG_APPROX,
   TRE_CONFIG_WCHAR,
   TRE_CONFIG_MULTIBYTE,

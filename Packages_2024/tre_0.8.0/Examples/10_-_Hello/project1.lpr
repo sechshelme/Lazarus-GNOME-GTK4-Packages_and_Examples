@@ -5,7 +5,7 @@ uses
 
   procedure main;
   const
-    pattern = 'h[aeiou]';
+    pattern = 'q[aeiou]';
     text = 'The quick brown fox jumps over the lazy dog.';
   var
     reg: Tregex_t;
@@ -20,8 +20,7 @@ uses
     end;
 
     if tre_regexec(@reg, text, 1, @match, 0) = 0 then begin
-      write('Gefunden bei Position ', integer(match.rm_so), '-', integer(match.rm_eo), ': ');
-      write(copy(string(text), integer(match.rm_so) + 1, integer(match.rm_eo - match.rm_so)), #10);
+      WriteLn('Gefunden bei Position ', integer(match.rm_so), '-', integer(match.rm_eo), ': ');
     end else begin
       WriteLn('Kein Match\n');
     end;
@@ -30,6 +29,5 @@ uses
   end;
 
 begin
-  tre_regwncomp(nil, nil, 9, 9);
   main;
 end.

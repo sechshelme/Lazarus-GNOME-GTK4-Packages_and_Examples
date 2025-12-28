@@ -126,8 +126,7 @@ function tre_regawnexec(preg: Pregex_t; _string: Pwchar_t; len: Tsize_t; match: 
 procedure tre_regaparams_default(params: Pregaparams_t); cdecl; external libtre;
 
 type
-  Ptre_char_t = ^Ttre_char_t;
-  Ttre_char_t = byte;
+  Ptre_char_t = type Pointer;
 
 type
   Ttre_str_source = record
