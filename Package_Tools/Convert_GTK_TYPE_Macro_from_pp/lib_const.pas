@@ -274,6 +274,8 @@ const
     (libs: 'libavahi_core'; units: 'fp_avahi_common'),
     (libs: 'libgomp'; units: 'ctypes'),
     (libs: 'libgraphblas'; units: 'ctypes'),
+    (libs: 'libmagic'; units: 'ctypes'),
+    (libs: 'libtre'; units: 'ctypes'),
 
     (libs: ''; units: ''));
 
