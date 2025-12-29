@@ -76,12 +76,12 @@ type
 
 // ------- Eigenes
 
-  procedure btn_Click(button: PGTKWidget; user_data: Pointer);
+  procedure btn_Click(button: PGTKWidget; user_data: Pointer); cdecl;
   begin
     WriteLn(gtk_button_get_label(button));
   end;
 
-  procedure activate(app: PGtkApplication; user_data: Pointer);
+  procedure activate(app: PGtkApplication; user_data: Pointer); cdecl;
   var
     window, button: PGTKWidget;
   begin

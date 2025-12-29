@@ -11,7 +11,7 @@ uses
 
   // https://www.perplexity.ai/search/gib-mir-ein-gtk4-beispiel-fur-NaiyDirpTNyh_wdmJzqt3g
 
-  procedure print_hello(widget: PGtkWidget; Data: Tgpointer);
+  procedure print_hello(widget: PGtkWidget; Data: Tgpointer); cdecl;
   const
     counter: cint = 0;
   begin
@@ -21,7 +21,7 @@ uses
     gtk_button_set_label(GTK_BUTTON(widget), PChar('Ich wurde ' + IntToStr(counter) + ' gelickt'));
   end;
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   const
     path1 = '/home/tux/Schreibtisch/sound/test.mp3';
     path2 = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Example/pixbuf/30_-_Animation/pinguin.gif';

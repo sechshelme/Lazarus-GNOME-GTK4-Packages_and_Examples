@@ -7,7 +7,7 @@ uses
   fp_pango,
   fp_GLIBTools;
 
-  procedure underline_cp(widget: PGtkWidget; Data: Tgpointer);
+  procedure underline_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
   var
     label_: PGtkWidget absolute Data;
     attr_list: PPangoAttrList;
@@ -39,7 +39,7 @@ uses
     pango_attr_list_unref(attr_list);
   end;
 
-  procedure reset_cp(widget: PGtkWidget; Data: Tgpointer);
+  procedure reset_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
   var
     label_: PGtkWidget absolute Data;
     attr_list: PPangoAttrList;
@@ -49,7 +49,7 @@ uses
     pango_attr_list_unref(attr_list);
   end;
 
-  procedure on_activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure on_activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, box, Label1, button: PGtkWidget;
   begin

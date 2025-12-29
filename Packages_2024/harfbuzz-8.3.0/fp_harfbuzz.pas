@@ -3,7 +3,7 @@ unit fp_harfbuzz;
 interface
 
 uses
-  ctypes, fp_cairo, fp_glib2;
+  ctypes, fp_FreeType2, fp_cairo, fp_glib2;
 
 const
   {$IFDEF Linux}
@@ -36,10 +36,6 @@ type
 type
   // /usr/include/unicode/uscript.h
   TUScriptCode = longint;
-
-  // ==== FreeType2
-type
-  TFT_Face = type Pointer;
 
   {$DEFINE read_interface}
   {$include fp_harfbuzz_includes.inc}

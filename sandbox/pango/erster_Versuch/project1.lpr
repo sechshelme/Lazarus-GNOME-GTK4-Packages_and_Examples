@@ -40,7 +40,7 @@ uses
 
 
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, label1: PGtkWidget;
     attrs: PPangoAttrList;

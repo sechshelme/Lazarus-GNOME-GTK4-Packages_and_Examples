@@ -9,7 +9,7 @@ uses
   fp_cairo,
   fp_GTK4;
 
-  procedure print_hello(widget: PGtkWidget; Data: Tgpointer);
+  procedure print_hello(widget: PGtkWidget; Data: Tgpointer); cdecl;
   begin
     g_print('Click'#10);
   end;
@@ -24,7 +24,7 @@ var
     cairo_paint(cr);
   end;
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, box, button, drawing_area: PGtkWidget;
     buf: Phb_buffer_t;

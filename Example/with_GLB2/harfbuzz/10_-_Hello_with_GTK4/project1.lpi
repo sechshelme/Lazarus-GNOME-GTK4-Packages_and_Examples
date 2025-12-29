@@ -25,6 +25,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="fp_FreeType2_Package"/>
+      </Item>
+      <Item>
         <PackageName Value="fp_harfbuzz_package"/>
       </Item>
       <Item>

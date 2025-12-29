@@ -39,7 +39,7 @@ uses
 
   //     pixbuf = gdk_pixbuf_new_from_data(data, GDK_COLORSPACE_RGB, true, 8, 10, 10, stride, NULL, NULL); // Stride is the difference in bytes between two
 
-  procedure on_draw2(areat: PGtkDrawingArea; cr: Pcairo_t; w, h: cint; Data: Tgpointer);
+  procedure on_draw2(areat: PGtkDrawingArea; cr: Pcairo_t; w, h: cint; Data: Tgpointer); cdecl;
   var
     pixbuf: PGdkPixbuf;
   begin
@@ -55,7 +55,7 @@ uses
   end;
 
 
-  procedure on_activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure on_activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   const
     BUF_SIZE = 128;
   var

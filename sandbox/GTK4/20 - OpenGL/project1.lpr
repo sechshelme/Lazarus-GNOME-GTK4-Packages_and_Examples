@@ -8,7 +8,7 @@ uses
   fp_GDK4,
   fp_GTK4;
 
-  procedure print_hello(widget: PGtkWidget; Data: Tgpointer);
+  procedure print_hello(widget: PGtkWidget; Data: Tgpointer); cdecl;
   const
     counter: cint = 0;
   begin
@@ -21,7 +21,7 @@ uses
   // https://stackoverflow.com/questions/74507596/trying-to-implement-gtk-4-c-the-shader-to-have-each-face-like-meshlab-does-bu
   // https://www.perplexity.ai/search/gib-mir-ein-beipiel-mit-gtk-gl-UrdX4wqVSFm46dWQcELzYw
 
-  function on_render(area: PGtkGLArea; context: PGdkGLContext): Tgboolean;
+  function on_render(area: PGtkGLArea; context: PGdkGLContext): Tgboolean; cdecl;
   var
     w, h: longint;
   begin
@@ -56,7 +56,7 @@ uses
     Result := G_SOURCE_CONTINUE;
   end;
 
-  procedure on_realize(area: PGtkGLArea);
+  procedure on_realize(area: PGtkGLArea); cdecl;
   var
     context: PGdkGLContext;
   begin
@@ -71,7 +71,7 @@ uses
     WriteLn(glGetString(GL_VERSION));
   end;
 
-  procedure on_unrealize(area: PGtkGLArea);
+  procedure on_unrealize(area: PGtkGLArea); cdecl;
   begin
     WriteLn('unrealize');
     gtk_gl_area_make_current(area);
@@ -81,7 +81,7 @@ uses
   end;
 
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, box, button, gl_area: PGtkWidget;
   begin

@@ -22,7 +22,7 @@ uses
   end;
 
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer);
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, box, button, cdsamplewidget: PGtkWidget;
   begin

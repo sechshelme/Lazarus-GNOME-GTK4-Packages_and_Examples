@@ -32,7 +32,7 @@ type
     g_free(Data);
   end;
 
-  procedure add_item(store: PGListStore);
+  procedure add_item(store: PGListStore); cdecl;
   var
     obj: PGObject;
     Value: PRowData;
@@ -96,7 +96,7 @@ end;
     g_free(buffer);
   end;
 
-    procedure chages_cp(self: PGListModel; position: Tguint; removed: Tguint; added: Tguint; user_data: Tgpointer);
+    procedure chages_cp(self: PGListModel; position: Tguint; removed: Tguint; added: Tguint; user_data: Tgpointer); cdecl;
   begin
     g_printf('position: %d  removed: %d  added: %d'#10, position, removed, added);
   end;

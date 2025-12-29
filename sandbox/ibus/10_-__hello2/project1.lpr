@@ -12,19 +12,19 @@ const
 
   // === ibus
 
-  procedure on_bus_connected(bus: PIBusBus; user_data: Tgpointer);
+  procedure on_bus_connected(bus: PIBusBus; user_data: Tgpointer); cdecl;
   begin
     g_print('IBus-Bus wurde verbunden.'#10);
   end;
 
-  procedure on_bus_disconnected(bus: PIBusBus; user_data: Tgpointer);
+  procedure on_bus_disconnected(bus: PIBusBus; user_data: Tgpointer); cdecl;
   var
     loop: PGMainLoop absolute user_data;
   begin
     g_print('IBus-Bus wurde getrennt.'#10);
   end;
 
-  procedure on_commit(contex: PIBusInputContext; text: pchar; user_data: Tgpointer);
+  procedure on_commit(contex: PIBusInputContext; text: pchar; user_data: Tgpointer); cdecl;
   var
     loop: PGMainLoop absolute user_data;
   begin
