@@ -1,8 +1,6 @@
 program project1;
 
 uses
-  ctypes,
-  SysUtils,
   fp_glib2,
   fp_FreeType2,
   fp_harfbuzz,
@@ -182,22 +180,19 @@ const
     FT_Done_FreeType(appData^.ft_library);
   end;
 
-  function main(argc: cint; argv: PPChar): cint;
+  procedure main;
   var
     app: PGtkApplication;
-    status: longint;
     appData: TAppDate;
   begin
     app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'startup', G_CALLBACK(@startup), @appData);
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), @appData);
     g_signal_connect(app, 'shutdown', G_CALLBACK(@shutdown), @appData);
-    status := g_application_run(G_APPLICATION(app), argc, argv);
+    g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
-
-    Exit(status);
   end;
 
 begin
-  main(argc, argv);
+  main;
 end.

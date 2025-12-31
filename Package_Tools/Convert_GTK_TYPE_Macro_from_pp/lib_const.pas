@@ -277,6 +277,10 @@ const
     (libs: 'libmagic'; units: 'ctypes'),
     (libs: 'libtre'; units: 'ctypes'),
     (libs: 'libraqm'; units: 'ctypes'),
+    (libs: 'libfribidi'; units: 'fp_fribidi'),
+
+
+
 
     (libs: ''; units: ''));
 

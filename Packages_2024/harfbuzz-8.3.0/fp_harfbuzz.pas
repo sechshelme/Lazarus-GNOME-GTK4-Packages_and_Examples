@@ -7,11 +7,11 @@ uses
 
 const
   {$IFDEF Linux}
-  libharfbuzz = 'libharfbuzz';
-  libharfbuzzsubset = 'libharfbuzz-subset';
-  libharfbuzzcairo = 'libharfbuzz-cairo';
-  libharfbuzzicu = 'libharfbuzz-icu';
-  libharfbuzzgobject = 'libharfbuzz-gobject';
+  libharfbuzz = 'harfbuzz';
+  libharfbuzzsubset = 'harfbuzz-subset';
+  libharfbuzzcairo = 'harfbuzz-cairo';
+  libharfbuzzicu = 'harfbuzz-icu';
+  libharfbuzzgobject = 'harfbuzz-gobject';
   {$ENDIF}
 
   {$IFDEF Windows}
