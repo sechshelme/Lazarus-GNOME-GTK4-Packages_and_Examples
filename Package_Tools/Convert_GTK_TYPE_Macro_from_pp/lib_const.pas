@@ -276,6 +276,7 @@ const
     (libs: 'libgraphblas'; units: 'ctypes'),
     (libs: 'libmagic'; units: 'ctypes'),
     (libs: 'libtre'; units: 'ctypes'),
+    (libs: 'libraqm'; units: 'ctypes'),
 
     (libs: ''; units: ''));
 

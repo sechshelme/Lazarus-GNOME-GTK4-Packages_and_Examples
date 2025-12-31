@@ -475,6 +475,23 @@ libmagic-dev                     // io.
 libtre-dev                       // io.
 
 libgraphblas                     // io.
+libheif-dev     
+ libpolkit-gobject-1-0
+
+
+libfribidi-dev 
+libraqm-dev 
+libstb-dev        // inline müll
+
+libhyperscan-dev  // neu libvectorscan-dev
+
+# Zeigt neuste Pakete an
+aptitude
+
+
+
+
+   
 
 /home/tux/Schreibtisch/von_Git/gcc/gcc/libgomp/libgomp_g.h
 
