@@ -1,32 +1,12 @@
 program project1;
 
 uses
-  fribidi_types,
-  fribidi_bidi_types,
-  fribidi_joining_types,
-  fribidi_flags,
-
-
-  //fribidi,
-  //fribidi_arabic,
-  //fribidi_bidi,
-  //fribidi_brackets,
-  //fribidi_char_sets,
-  //fribidi_common,
-  //fribidi_config,
-  //fribidi_deprecated,
-  //fribidi_joining,
-  //fribidi_mirroring,
-  fribidi_shape,
-  fribidi_unicode,
-  fribidi_unicode_version,              // const doppelt wegen unit name
-
-
+  fp_fribidi,
   fp_glib2,
   fp_FreeType2,
   fp_harfbuzz,
   fp_cairo,
-  fp_GTK4, fp_fribidi;
+  fp_GTK4;
 
 type
   TAppDate = record
@@ -49,11 +29,42 @@ const
     gtk_window_close(window);
   end;
 
+  function fribidi_str_convert(const string_orig: string): string;
+  var
+    orig_len: SizeInt;
+    fribidi_in_char: array of TFriBidiChar = nil;
+    fribidi_visual_char: array of TFriBidiChar = nil;
+    len, new_len: TFriBidiStrIndex;
+    fribidi_pbase_dir: TFriBidiParType;
+    stat: TFriBidiLevel;
+    string_formatted: string = '';
+  begin
+    orig_len := Length(string_orig);
+
+    SetLength(fribidi_in_char, orig_len + 1);
+    len := fribidi_charset_to_unicode(FRIBIDI_CHAR_SET_UTF8, pchar(string_orig), orig_len, PFriBidiChar(fribidi_in_char));
+
+    SetLength(fribidi_visual_char, len + 1);
+    fribidi_pbase_dir := FRIBIDI_PAR_LTR;
+
+    stat := fribidi_log2vis(PFriBidiChar(fribidi_in_char), len, @fribidi_pbase_dir, PFriBidiChar(fribidi_visual_char), nil, nil, nil);
+
+    if stat <> 0 then begin
+      SetLength(string_formatted, len * 4 + 1);
+      new_len := fribidi_unicode_to_charset(FRIBIDI_CHAR_SET_UTF8, PFriBidiChar(fribidi_visual_char), len, pchar(string_formatted));
+      if new_len > 0 then begin
+        Exit(string_formatted);
+      end;
+    end;
+    Result := string_orig;
+  end;
+
+
   procedure draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
   const
-    // text = 'السلام عليكم HarfBuzz يعمل!';
-    // text = 'السلام عليكم';
-    text = 'Hello World ! 😀  😄  ☺️';
+//    text = 'السلام عليكم HarfBuzz يعمل! 123';
+         text = 'السلام عليكم';
+    //        text = 'Hello World ! 😀  😄  ☺️';
 
   var
     appData: PAppDate absolute user_data;
@@ -75,14 +86,20 @@ const
 
     s: string;
     current_buffer_size: Tgsize = 64 * 64;
+    converted: string;
   const
     counter: int64 = 0;
 
   begin
-    inc(counter);
-    WriteStr(s, text, ' (', counter, ')');
+    WriteLn('Original: %s'#10, text);
 
-    cr_copy := g_malloc0(current_buffer_size);
+    converted := fribidi_str_convert(text);
+    WriteLn('Converted: %s'#10, pchar(converted));
+
+    inc(counter);
+//        WriteStr(s, converted, ' (', counter, ')');
+    s := converted;
+    WriteLn(s);
 
     // Hintergrund
     cairo_set_source_rgb(cr, 0.95, 0.55, 0.55);
@@ -106,6 +123,7 @@ const
     y := height * 0.75;
     cairo_set_source_rgb(cr, 0.1, 0.2, 0.6);
 
+    cr_copy := g_malloc0(current_buffer_size);
     for i := 0 to hb_len - 1 do begin
       hb_gid := hb_info[i].codepoint;
 
