@@ -3,6 +3,7 @@ program project1;
 uses
   fp_fribidi,
   fp_glib2,
+  fp_pango,
   fp_FreeType2,
   fp_harfbuzz,
   fp_cairo,
@@ -14,19 +15,55 @@ type
     ft_face: TFT_Face;
     hb_font: Phb_font_t;
     hb_buffer: Phb_buffer_t;
+    language: pchar;
+    drawingArea: PGtkWidget;
   end;
   PAppDate = ^TAppDate;
+
+const
+  arabic_text = 'السلام عليكم';
+  german_text = 'Hello ÄÖÜ ! 😀  😄  ☺️';
 
 const
   font_path = '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf';
   scale = 64;
 
-  procedure quit_cp(widget: PGtkWidget; Data: Tgpointer); cdecl;
+  procedure quit_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
     window: PGtkWindow;
   begin
     window := GTK_WINDOW(gtk_widget_get_ancestor(widget, GTK_TYPE_WINDOW));
     gtk_window_close(window);
+  end;
+
+  procedure german_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
+  var
+    appData: PAppDate absolute user_data;
+  begin
+    appData^.language := german_text;
+    gtk_widget_queue_draw(appData^.drawingArea);
+  end;
+
+  procedure arabic_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
+  var
+    appData: PAppDate absolute user_data;
+  begin
+    appData^.language := arabic_text;
+    gtk_widget_queue_draw(appData^.drawingArea);
+  end;
+
+  function GetWidgetFont(w: PGtkWidget): string;
+  var
+    context: PPangoContext;
+    desc: PPangoFontDescription;
+  begin
+    context := gtk_widget_get_pango_context(w);
+    desc := pango_context_get_font_description(context);
+    if desc = nil then begin
+      Result := '';
+    end else begin
+      Result := pango_font_description_to_string(desc);
+    end;
   end;
 
   function fribidi_str_convert(const string_orig: string): string;
@@ -61,11 +98,6 @@ const
 
 
   procedure draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
-  const
-//    text = 'السلام عليكم HarfBuzz يعمل! 123';
-         text = 'السلام عليكم';
-    //        text = 'Hello World ! 😀  😄  ☺️';
-
   var
     appData: PAppDate absolute user_data;
 
@@ -87,19 +119,14 @@ const
     s: string;
     current_buffer_size: Tgsize = 64 * 64;
     converted: string;
-  const
-    counter: int64 = 0;
 
   begin
-    WriteLn('Original: %s'#10, text);
+    WriteLn('Original: %s'#10, appData^.language);
 
-    converted := fribidi_str_convert(text);
+    converted := fribidi_str_convert(appData^.language);
     WriteLn('Converted: %s'#10, pchar(converted));
 
-    inc(counter);
-//        WriteStr(s, converted, ' (', counter, ')');
     s := converted;
-    WriteLn(s);
 
     // Hintergrund
     cairo_set_source_rgb(cr, 0.95, 0.55, 0.55);
@@ -178,12 +205,13 @@ const
 
     appData^.hb_font := hb_ft_font_create(appData^.ft_face, nil);
     appData^.hb_buffer := hb_buffer_create;
+    appData^.language := german_text;
   end;
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     appData: PAppDate absolute user_data;
-    window, box, button, drawing_area: PGtkWidget;
+    window, box, close_btn, german_btn, arabic_btn: PGtkWidget;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'Harfbuzz-Example');
@@ -192,18 +220,27 @@ const
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
     gtk_window_set_child(GTK_WINDOW(window), box);
 
-    drawing_area := gtk_drawing_area_new;
-    gtk_widget_set_vexpand(drawing_area, True);
-    gtk_widget_set_hexpand(drawing_area, True);
-    gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(drawing_area), @draw_func, appData, nil);
+    appData^.drawingArea := gtk_drawing_area_new;
+    gtk_widget_set_vexpand(appData^.drawingArea, True);
+    gtk_widget_set_hexpand(appData^.drawingArea, True);
+    gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(appData^.drawingArea), @draw_func, appData, nil);
 
-    gtk_widget_set_size_request(drawing_area, 600, 100);
-    gtk_box_append(GTK_BOX(box), drawing_area);
+    gtk_widget_set_size_request(appData^.drawingArea, 600, 100);
+    gtk_box_append(GTK_BOX(box), appData^.drawingArea);
 
-    button := gtk_button_new_with_label('Hello World');
+    german_btn := gtk_button_new_with_label(german_text);
+    g_signal_connect(german_btn, 'clicked', G_CALLBACK(@german_cp), appData);
+    gtk_box_append(GTK_BOX(box), german_btn);
 
-    g_signal_connect(button, 'clicked', G_CALLBACK(@quit_cp), nil);
-    gtk_box_append(GTK_BOX(box), button);
+    arabic_btn := gtk_button_new_with_label(arabic_text);
+    g_signal_connect(arabic_btn, 'clicked', G_CALLBACK(@arabic_cp), appData);
+    gtk_box_append(GTK_BOX(box), arabic_btn);
+
+    close_btn := gtk_button_new_with_label('Close');
+    g_signal_connect(close_btn, 'clicked', G_CALLBACK(@quit_cp), appData);
+    gtk_box_append(GTK_BOX(box), close_btn);
+
+    WriteLn('Font: ', GetWidgetFont(close_btn));
 
     gtk_window_present(GTK_WINDOW(window));
   end;
