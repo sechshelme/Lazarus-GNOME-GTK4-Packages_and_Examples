@@ -106,10 +106,10 @@ const
     converted: string;
 
   begin
-    WriteLn('Original: %s'#10, appData^.language);
+    WriteLn('Original: '#10, appData^.language);
 
     converted := fribidi_str_convert(appData^.language);
-    WriteLn('Converted: %s'#10, pchar(converted));
+    WriteLn('Converted: '#10, pchar(converted));
 
     s := converted;
 

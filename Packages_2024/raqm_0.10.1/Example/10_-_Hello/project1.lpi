@@ -27,6 +27,9 @@
       <Item>
         <PackageName Value="fp_FreeType2_Package"/>
       </Item>
+      <Item>
+        <PackageName Value="fp_raqm_package"/>
+      </Item>
     </RequiredPackages>
     <Units>
       <Unit>

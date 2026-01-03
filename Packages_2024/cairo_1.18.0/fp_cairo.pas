@@ -2,8 +2,8 @@ unit fp_cairo;
 
 interface
 
-uses
   {$ifdef linux}
+uses
   x;
   {$endif}
 

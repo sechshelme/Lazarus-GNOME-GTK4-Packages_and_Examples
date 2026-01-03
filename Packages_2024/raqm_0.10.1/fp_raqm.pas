@@ -2,9 +2,6 @@ unit fp_raqm;
 
 interface
 
-uses
-  fp_FreeType2;
-
 const
   {$IFDEF Linux}
   libraqm = 'raqm';
@@ -44,14 +41,13 @@ type
   Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;
 
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+  // ==== Freetype2
+type
+  TFT_Face = type Pointer;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
-
 
 type
   Praqm_t = type Pointer;
@@ -108,8 +104,20 @@ function raqm_version_atleast(major: dword; minor: dword; micro: dword): boolean
 // === Konventiert am: 29-12-25 19:51:32 ===
 
 
+
+const
+  RAQM_VERSION_MAJOR = 0;
+  RAQM_VERSION_MINOR = 10;
+  RAQM_VERSION_MICRO = 1;
+  RAQM_VERSION_STRING_ = '0.10.1';
+
+function RAQM_VERSION_ATLEAST(major, minor, micro: longint): boolean;
+
 implementation
 
-
+function RAQM_VERSION_ATLEAST(major, minor, micro: longint): boolean;
+begin
+  RAQM_VERSION_ATLEAST := (((major * 10000) + (minor * 100)) + micro) <= (((RAQM_VERSION_MAJOR * 10000) + (RAQM_VERSION_MINOR * 100)) + RAQM_VERSION_MICRO);
+end;
 
 end.
