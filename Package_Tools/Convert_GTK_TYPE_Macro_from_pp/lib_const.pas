@@ -278,6 +278,7 @@ const
     (libs: 'libtre'; units: 'ctypes'),
     (libs: 'libraqm'; units: 'ctypes'),
     (libs: 'libfribidi'; units: 'fp_fribidi'),
+    (libs: 'libpcre2'; units: 'ctypes'),
 
 
 
