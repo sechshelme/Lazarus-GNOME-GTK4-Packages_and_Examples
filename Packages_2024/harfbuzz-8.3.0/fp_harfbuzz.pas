@@ -3,7 +3,7 @@ unit fp_harfbuzz;
 interface
 
 uses
-  ctypes, fp_FreeType2, fp_cairo, fp_glib2;
+  ctypes, fp_cairo, fp_glib2;
 
 const
   {$IFDEF Linux}
@@ -25,6 +25,10 @@ const
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
+
+  // ==== FreeType2
+type
+  TFT_Face = type Pointer;
 
   // ==== graphite2
 type

@@ -17,9 +17,6 @@
     </Files>
     <RequiredPkgs>
       <Item>
-        <PackageName Value="fp_FreeType2_Package"/>
-      </Item>
-      <Item>
         <PackageName Value="fp_cairo_package"/>
       </Item>
       <Item>

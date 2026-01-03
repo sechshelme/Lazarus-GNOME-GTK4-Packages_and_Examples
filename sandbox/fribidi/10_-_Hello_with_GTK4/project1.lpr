@@ -3,9 +3,8 @@ program project1;
 uses
   fp_fribidi,
   fp_glib2,
-  fp_pango,
-  fp_FreeType2,
   fp_harfbuzz,
+  fp_FreeType2,
   fp_cairo,
   fp_GTK4;
 
@@ -50,20 +49,6 @@ const
   begin
     appData^.language := arabic_text;
     gtk_widget_queue_draw(appData^.drawingArea);
-  end;
-
-  function GetWidgetFont(w: PGtkWidget): string;
-  var
-    context: PPangoContext;
-    desc: PPangoFontDescription;
-  begin
-    context := gtk_widget_get_pango_context(w);
-    desc := pango_context_get_font_description(context);
-    if desc = nil then begin
-      Result := '';
-    end else begin
-      Result := pango_font_description_to_string(desc);
-    end;
   end;
 
   function fribidi_str_convert(const string_orig: string): string;
@@ -239,8 +224,6 @@ const
     close_btn := gtk_button_new_with_label('Close');
     g_signal_connect(close_btn, 'clicked', G_CALLBACK(@quit_cp), appData);
     gtk_box_append(GTK_BOX(box), close_btn);
-
-    WriteLn('Font: ', GetWidgetFont(close_btn));
 
     gtk_window_present(GTK_WINDOW(window));
   end;
