@@ -350,13 +350,12 @@ type
   PPPPCRE2_UCHAR8 = ^PPPCRE2_UCHAR8;
   PPPCRE2_UCHAR8 = ^PPCRE2_UCHAR8;
   PPCRE2_UCHAR8 = ^TPCRE2_UCHAR8;
-  TPCRE2_UCHAR8 = char;
+  TPCRE2_UCHAR8 = Tuint16_t;
 
   PPPPCRE2_UCHAR16 = ^PPPCRE2_UCHAR16;
   PPPCRE2_UCHAR16 = ^PPCRE2_UCHAR16;
   PPCRE2_UCHAR16 = ^TPCRE2_UCHAR16;
-  //  TPCRE2_UCHAR16 = Tuint16_t;
-  TPCRE2_UCHAR16 = widechar;
+  TPCRE2_UCHAR16 = Tuint16_t;
 
   PPPPCRE2_UCHAR32 = ^PPPCRE2_UCHAR32;
   PPPCRE2_UCHAR32 = ^PPCRE2_UCHAR32;
@@ -425,273 +424,364 @@ type
   Ppcre2_callout_block = ^Tpcre2_callout_block;
 
   Tpcre2_callout_enumerate_block = record
-    version : Tuint32_t;
-    pattern_position : TPCRE2_SIZE;
-    next_item_length : TPCRE2_SIZE;
-    callout_number : Tuint32_t;
-    callout_string_offset : TPCRE2_SIZE;
-    callout_string_length : TPCRE2_SIZE;
-    callout_string : TPCRE2_SPTR;
+    version: Tuint32_t;
+    pattern_position: TPCRE2_SIZE;
+    next_item_length: TPCRE2_SIZE;
+    callout_number: Tuint32_t;
+    callout_string_offset: TPCRE2_SIZE;
+    callout_string_length: TPCRE2_SIZE;
+    callout_string: TPCRE2_SPTR;
   end;
   Ppcre2_callout_enumerate_block = ^Tpcre2_callout_enumerate_block;
 
   Tpcre2_substitute_callout_block = record
-    version : Tuint32_t;
-    input : TPCRE2_SPTR;
-    output : TPCRE2_SPTR;
-    output_offsets : array[0..1] of TPCRE2_SIZE;
-    ovector : PPCRE2_SIZE;
-    oveccount : Tuint32_t;
-    subscount : Tuint32_t;
+    version: Tuint32_t;
+    input: TPCRE2_SPTR;
+    output: TPCRE2_SPTR;
+    output_offsets: array[0..1] of TPCRE2_SIZE;
+    ovector: PPCRE2_SIZE;
+    oveccount: Tuint32_t;
+    subscount: Tuint32_t;
   end;
   Ppcre2_substitute_callout_block = ^Tpcre2_substitute_callout_block;
 
   // ==== 8 Bit
 
-function pcre2_config_8(para1: Tuint32_t; para2: pointer): longint; cdecl; external libpcre2_8;
-function pcre2_general_context_copy_8(para1: Ppcre2_general_context): Ppcre2_general_context; cdecl; external libpcre2_8;
-//function pcre2_general_context_create_8(para1:Pprocedure (para1:TPCRE2_SIZE; para2:pointer); para2:procedure _8(para1:pointer; para2:pointer); para3:pointer):Ppcre2_general_context;cdecl;external libpcre2_8;
-function pcre2_general_context_create_8(para1: PPointer; para2: Pointer; para3: pointer): Ppcre2_general_context; cdecl; external libpcre2_8;
-procedure pcre2_general_context_free_8(para1: Ppcre2_general_context); cdecl; external libpcre2_8;
-function pcre2_compile_context_copy_8(para1: Ppcre2_compile_context): Ppcre2_compile_context; cdecl; external libpcre2_8;
-function pcre2_compile_context_create_8(para1: Ppcre2_general_context): Ppcre2_compile_context; cdecl; external libpcre2_8;
-procedure pcre2_compile_context_free_8(para1: Ppcre2_compile_context); cdecl; external libpcre2_8;
-function pcre2_set_bsr_8(para1: Ppcre2_compile_context; para2: Tuint32_t): longint; cdecl; external libpcre2_8;
-function pcre2_set_character_tables_8(para1: Ppcre2_compile_context; para2: Puint8_t): longint; cdecl; external libpcre2_8;
-function pcre2_set_compile_extra_options_8(para1: Ppcre2_compile_context; para2: Tuint32_t): longint; cdecl; external libpcre2_8;
-function pcre2_set_max_pattern_length_8(para1: Ppcre2_compile_context; para2: TPCRE2_SIZE): longint; cdecl; external libpcre2_8;
-function pcre2_set_newline_8(para1: Ppcre2_compile_context; para2: Tuint32_t): longint; cdecl; external libpcre2_8;
-function pcre2_set_parens_nest_limit_8(para1: Ppcre2_compile_context; para2: Tuint32_t): longint; cdecl; external libpcre2_8;
-//function pcre2_set_compile_recursion_guard_8(para1:Ppcre2_compile_context; para2:function _8(para1:Tuint32_t; para2:pointer):longint; para3:pointer):longint;cdecl;external libpcre2_8;
-function pcre2_set_compile_recursion_guard_8(para1: Ppcre2_compile_context; para2: Pointer; para3: pointer): longint; cdecl; external libpcre2_8;
-function pcre2_match_context_copy_8(para1: Ppcre2_match_context): Ppcre2_match_context; cdecl; external libpcre2_8;
-function pcre2_match_context_create_8(para1: Ppcre2_general_context): Ppcre2_match_context; cdecl; external libpcre2_8;
-procedure pcre2_match_context_free_8(para1: Ppcre2_match_context); cdecl; external libpcre2_8;
-//function pcre2_set_callout_8(para1:Ppcre2_match_context; para2:function (para1:Ppcre2_callout_block; para2:pointer):longint; para3:pointer):longint;cdecl;external libpcre2_8;
-function pcre2_set_callout_8(para1: Ppcre2_match_context; para2: Pointer; para3: pointer): longint; cdecl; external libpcre2_8;
-//function pcre2_set_substitute_callout_8(para1:Ppcre2_match_context; para2:function (para1:Ppcre2_substitute_callout_block; para2:pointer):longint; para3:pointer):longint;cdecl;external libpcre2_8;
-function pcre2_set_substitute_callout_8(para1: Ppcre2_match_context; para2: Pointer; para3: pointer): longint; cdecl; external libpcre2_8;
-function pcre2_set_depth_limit_8(para1: Ppcre2_match_context; para2: Tuint32_t): longint; cdecl; external libpcre2_8;
-function pcre2_set_heap_limit_8(para1: Ppcre2_match_context; para2: Tuint32_t): longint; cdecl; external libpcre2_8;
-function pcre2_set_match_limit_8(para1: Ppcre2_match_context; para2: Tuint32_t): longint; cdecl; external libpcre2_8;
-function pcre2_set_offset_limit_8(para1: Ppcre2_match_context; para2: TPCRE2_SIZE): longint; cdecl; external libpcre2_8;
-function pcre2_set_recursion_limit_8(para1: Ppcre2_match_context; para2: Tuint32_t): longint; cdecl; external libpcre2_8;
-//function pcre2_set_recursion_memory_management_8(para1:Ppcre2_match_context; para2:Pprocedure _8(para1:TPCRE2_SIZE; para2:pointer); para3:procedure _8(para1:pointer; para2:pointer); para4:pointer):longint;cdecl;external libpcre2_8;
-function pcre2_set_recursion_memory_management_8(para1: Ppcre2_match_context; para2: PPointer; para3: Pointer; para4: pointer): longint; cdecl; external libpcre2_8;
-function pcre2_convert_context_copy_8(para1: Ppcre2_convert_context): Ppcre2_convert_context; cdecl; external libpcre2_8;
-function pcre2_convert_context_create_8(para1: Ppcre2_general_context): Ppcre2_convert_context; cdecl; external libpcre2_8;
-procedure pcre2_convert_context_free_8(para1: Ppcre2_convert_context); cdecl; external libpcre2_8;
-function pcre2_set_glob_escape_8(para1: Ppcre2_convert_context; para2: Tuint32_t): longint; cdecl; external libpcre2_8;
-function pcre2_set_glob_separator_8(para1: Ppcre2_convert_context; para2: Tuint32_t): longint; cdecl; external libpcre2_8;
-function pcre2_compile_8(para1: TPCRE2_SPTR8; para2: TPCRE2_SIZE; para3: Tuint32_t; para4: Plongint; para5: PPCRE2_SIZE; para6: Ppcre2_compile_context): Ppcre2_code; cdecl; external libpcre2_8;
-procedure pcre2_code_free_8(para1: Ppcre2_code); cdecl; external libpcre2_8;
-function pcre2_code_copy_8(para1: Ppcre2_code): Ppcre2_code; cdecl; external libpcre2_8;
-function pcre2_code_copy_with_tables_8(para1: Ppcre2_code): Ppcre2_code; cdecl; external libpcre2_8;
-function pcre2_pattern_info_8(para1: Ppcre2_code; para2: Tuint32_t; para3: pointer): longint; cdecl; external libpcre2_8;
-//function pcre2_callout_enumerate_8(para1:Ppcre2_code; para2:function (para1:Ppcre2_callout_enumerate_block; para2:pointer):longint; para3:pointer):longint;cdecl;external libpcre2_8;
-function pcre2_callout_enumerate_8(para1: Ppcre2_code; para2: Pointer; para3: pointer): longint; cdecl; external libpcre2_8;
-function pcre2_match_data_create_8(para1: Tuint32_t; para2: Ppcre2_general_context): Ppcre2_match_data; cdecl; external libpcre2_8;
-function pcre2_match_data_create_from_pattern_8(para1: Ppcre2_code; para2: Ppcre2_general_context): Ppcre2_match_data; cdecl; external libpcre2_8;
-function pcre2_dfa_match_8(para1: Ppcre2_code; para2: TPCRE2_SPTR8; para3: TPCRE2_SIZE; para4: TPCRE2_SIZE; para5: Tuint32_t; para6: Ppcre2_match_data; para7: Ppcre2_match_context; para8: Plongint; para9: TPCRE2_SIZE): longint; cdecl; external libpcre2_8;
-function pcre2_match_8(para1: Ppcre2_code; para2: TPCRE2_SPTR8; para3: TPCRE2_SIZE; para4: TPCRE2_SIZE; para5: Tuint32_t; para6: Ppcre2_match_data; para7: Ppcre2_match_context): longint; cdecl; external libpcre2_8;
-procedure pcre2_match_data_free_8(para1: Ppcre2_match_data); cdecl; external libpcre2_8;
-function pcre2_get_mark_8(para1: Ppcre2_match_data): TPCRE2_SPTR8; cdecl; external libpcre2_8;
-function pcre2_get_match_data_size_8(para1: Ppcre2_match_data): TPCRE2_SIZE; cdecl; external libpcre2_8;
-function pcre2_get_ovector_count_8(para1: Ppcre2_match_data): Tuint32_t; cdecl; external libpcre2_8;
-function pcre2_get_ovector_pointer_8(para1: Ppcre2_match_data): PPCRE2_SIZE; cdecl; external libpcre2_8;
-function pcre2_get_startchar_8(para1: Ppcre2_match_data): TPCRE2_SIZE; cdecl; external libpcre2_8;
-function pcre2_substring_copy_byname_8(para1: Ppcre2_match_data; para2: TPCRE2_SPTR8; para3: PPCRE2_UCHAR8; para4: PPCRE2_SIZE): longint; cdecl; external libpcre2_8;
-function pcre2_substring_copy_bynumber_8(para1: Ppcre2_match_data; para2: Tuint32_t; para3: PPCRE2_UCHAR8; para4: PPCRE2_SIZE): longint; cdecl; external libpcre2_8;
-procedure pcre2_substring_free_8(para1: PPCRE2_UCHAR8); cdecl; external libpcre2_8;
-function pcre2_substring_get_byname_8(para1: Ppcre2_match_data; para2: TPCRE2_SPTR8; para3: PPPCRE2_UCHAR8; para4: PPCRE2_SIZE): longint; cdecl; external libpcre2_8;
-function pcre2_substring_get_bynumber_8(para1: Ppcre2_match_data; para2: Tuint32_t; para3: PPPCRE2_UCHAR8; para4: PPCRE2_SIZE): longint; cdecl; external libpcre2_8;
-function pcre2_substring_length_byname_8(para1: Ppcre2_match_data; para2: TPCRE2_SPTR8; para3: PPCRE2_SIZE): longint; cdecl; external libpcre2_8;
-function pcre2_substring_length_bynumber_8(para1: Ppcre2_match_data; para2: Tuint32_t; para3: PPCRE2_SIZE): longint; cdecl; external libpcre2_8;
-function pcre2_substring_nametable_scan_8(para1: Ppcre2_code; para2: TPCRE2_SPTR8; para3: PPCRE2_SPTR8; para4: PPCRE2_SPTR8): longint; cdecl; external libpcre2_8;
-function pcre2_substring_number_from_name_8(para1: Ppcre2_code; para2: TPCRE2_SPTR8): longint; cdecl; external libpcre2_8;
-procedure pcre2_substring_list_free_8(para1: PPCRE2_SPTR8); cdecl; external libpcre2_8;
-function pcre2_substring_list_get_8(para1: Ppcre2_match_data; para2: PPPPCRE2_UCHAR8; para3: PPPCRE2_SIZE): longint; cdecl; external libpcre2_8;
-function pcre2_serialize_encode_8(para1: PPpcre2_code; para2: Tint32_t; para3: PPuint8_t; para4: PPCRE2_SIZE; para5: Ppcre2_general_context): Tint32_t; cdecl; external libpcre2_8;
-function pcre2_serialize_decode_8(para1: PPpcre2_code; para2: Tint32_t; para3: Puint8_t; para4: Ppcre2_general_context): Tint32_t; cdecl; external libpcre2_8;
-function pcre2_serialize_get_number_of_codes_8(para1: Puint8_t): Tint32_t; cdecl; external libpcre2_8;
-procedure pcre2_serialize_free_8(para1: Puint8_t); cdecl; external libpcre2_8;
-function pcre2_substitute_8(para1: Ppcre2_code; para2: TPCRE2_SPTR8; para3: TPCRE2_SIZE; para4: TPCRE2_SIZE; para5: Tuint32_t; para6: Ppcre2_match_data; para7: Ppcre2_match_context; para8: TPCRE2_SPTR8; para9: TPCRE2_SIZE; para10: PPCRE2_UCHAR8; para11: PPCRE2_SIZE): longint; cdecl; external libpcre2_8;
-function pcre2_pattern_convert_8(para1: TPCRE2_SPTR8; para2: TPCRE2_SIZE; para3: Tuint32_t; para4: PPPCRE2_UCHAR8; para5: PPCRE2_SIZE; para6: Ppcre2_convert_context): longint; cdecl; external libpcre2_8;
-procedure pcre2_converted_pattern_free_8(para1: PPCRE2_UCHAR8); cdecl; external libpcre2_8;
-function pcre2_jit_compile_8(para1: Ppcre2_code; para2: Tuint32_t): longint; cdecl; external libpcre2_8;
-function pcre2_jit_match_8(para1: Ppcre2_code; para2: TPCRE2_SPTR8; para3: TPCRE2_SIZE; para4: TPCRE2_SIZE; para5: Tuint32_t; para6: Ppcre2_match_data; para7: Ppcre2_match_context): longint; cdecl; external libpcre2_8;
-procedure pcre2_jit_free_unused_memory_8(para1: Ppcre2_general_context); cdecl; external libpcre2_8;
-function pcre2_jit_stack_create_8(para1: TPCRE2_SIZE; para2: TPCRE2_SIZE; para3: Ppcre2_general_context): Ppcre2_jit_stack; cdecl; external libpcre2_8;
-procedure pcre2_jit_stack_assign_8(para1: Ppcre2_match_context; para2: Tpcre2_jit_callback; para3: pointer); cdecl; external libpcre2_8;
-procedure pcre2_jit_stack_free_8(para1: Ppcre2_jit_stack); cdecl; external libpcre2_8;
-function pcre2_get_error_message_8(para1: longint; para2: PPCRE2_UCHAR8; para3: TPCRE2_SIZE): longint; cdecl; external libpcre2_8;
-function pcre2_maketables_8(para1: Ppcre2_general_context): Puint8_t; cdecl; external libpcre2_8;
-procedure pcre2_maketables_free_8(para1: Ppcre2_general_context; para2: Puint8_t); cdecl; external libpcre2_8;
+type
+  TPCRE2_Alloc_8 = function(size: TPCRE2_SIZE; data: Pointer): Pointer; cdecl;
+  TPCRE2_Free_8 = procedure(ptr: Pointer; data: Pointer); cdecl;
+  TPCRE2_Recursion_Guard_8 = function(depth: Tuint32_t; data: Pointer): integer; cdecl;
+  TPCRE2_Callout_8 = function(block: Ppcre2_callout_block; data: Pointer): integer; cdecl;
+  TPCRE2_Subst_Callout_8 = function(block: Ppcre2_substitute_callout_block; data: Pointer): integer; cdecl;
+  TPCRE2_Callout_Enum_8 = function(block: Ppcre2_callout_enumerate_block; data: Pointer): integer; cdecl;
 
+// --- Konfiguration und Kontexte ---
+function pcre2_config_8(what: Tuint32_t; where: pointer): longint; cdecl; external libpcre2_8;
+
+function pcre2_general_context_copy_8(gcontext: Ppcre2_general_context): Ppcre2_general_context; cdecl; external libpcre2_8;
+function pcre2_general_context_create_8(private_malloc: TPCRE2_Alloc_8; private_free: TPCRE2_Free_8; memory_data: pointer): Ppcre2_general_context; cdecl; external libpcre2_8;
+procedure pcre2_general_context_free_8(gcontext: Ppcre2_general_context); cdecl; external libpcre2_8;
+
+function pcre2_compile_context_copy_8(ccontext: Ppcre2_compile_context): Ppcre2_compile_context; cdecl; external libpcre2_8;
+function pcre2_compile_context_create_8(gcontext: Ppcre2_general_context): Ppcre2_compile_context; cdecl; external libpcre2_8;
+procedure pcre2_compile_context_free_8(ccontext: Ppcre2_compile_context); cdecl; external libpcre2_8;
+
+function pcre2_match_context_copy_8(mcontext: Ppcre2_match_context): Ppcre2_match_context; cdecl; external libpcre2_8;
+function pcre2_match_context_create_8(gcontext: Ppcre2_general_context): Ppcre2_match_context; cdecl; external libpcre2_8;
+procedure pcre2_match_context_free_8(mcontext: Ppcre2_match_context); cdecl; external libpcre2_8;
+
+function pcre2_convert_context_copy_8(cvcontext: Ppcre2_convert_context): Ppcre2_convert_context; cdecl; external libpcre2_8;
+function pcre2_convert_context_create_8(gcontext: Ppcre2_general_context): Ppcre2_convert_context; cdecl; external libpcre2_8;
+procedure pcre2_convert_context_free_8(cvcontext: Ppcre2_convert_context); cdecl; external libpcre2_8;
+
+// --- Kontext-Einstellungen (Compile) ---
+function pcre2_set_bsr_8(ccontext: Ppcre2_compile_context; value: Tuint32_t): longint; cdecl; external libpcre2_8;
+function pcre2_set_character_tables_8(ccontext: Ppcre2_compile_context; tables: Puint8_t): longint; cdecl; external libpcre2_8;
+function pcre2_set_compile_extra_options_8(ccontext: Ppcre2_compile_context; extra_options: Tuint32_t): longint; cdecl; external libpcre2_8;
+function pcre2_set_max_pattern_length_8(ccontext: Ppcre2_compile_context; max_length: TPCRE2_SIZE): longint; cdecl; external libpcre2_8;
+function pcre2_set_newline_8(ccontext: Ppcre2_compile_context; newline: Tuint32_t): longint; cdecl; external libpcre2_8;
+function pcre2_set_parens_nest_limit_8(ccontext: Ppcre2_compile_context; nest_limit: Tuint32_t): longint; cdecl; external libpcre2_8;
+function pcre2_set_compile_recursion_guard_8(ccontext: Ppcre2_compile_context; guard: TPCRE2_Recursion_Guard_8; user_data: pointer): longint; cdecl; external libpcre2_8;
+
+// --- Kontext-Einstellungen (Match) ---
+function pcre2_set_callout_8(mcontext: Ppcre2_match_context; callout: TPCRE2_Callout_8; callout_data: pointer): longint; cdecl; external libpcre2_8;
+function pcre2_set_substitute_callout_8(mcontext: Ppcre2_match_context; callback: TPCRE2_Subst_Callout_8; user_data: pointer): longint; cdecl; external libpcre2_8;
+function pcre2_set_depth_limit_8(mcontext: Ppcre2_match_context; limit: Tuint32_t): longint; cdecl; external libpcre2_8;
+function pcre2_set_heap_limit_8(mcontext: Ppcre2_match_context; limit: Tuint32_t): longint; cdecl; external libpcre2_8;
+function pcre2_set_match_limit_8(mcontext: Ppcre2_match_context; limit: Tuint32_t): longint; cdecl; external libpcre2_8;
+function pcre2_set_offset_limit_8(mcontext: Ppcre2_match_context; limit: TPCRE2_SIZE): longint; cdecl; external libpcre2_8;
+function pcre2_set_recursion_limit_8(mcontext: Ppcre2_match_context; limit: Tuint32_t): longint; cdecl; external libpcre2_8;
+function pcre2_set_recursion_memory_management_8(mcontext: Ppcre2_match_context; private_malloc: TPCRE2_Alloc_8; private_free: TPCRE2_Free_8; memory_data: pointer): longint; cdecl; external libpcre2_8;
+
+// --- Kontext-Einstellungen (Convert) ---
+function pcre2_set_glob_escape_8(cvcontext: Ppcre2_convert_context; escape_char: Tuint32_t): longint; cdecl; external libpcre2_8;
+function pcre2_set_glob_separator_8(cvcontext: Ppcre2_convert_context; separator_char: Tuint32_t): longint; cdecl; external libpcre2_8;
+
+// --- Kompilierung und Matching ---
+function pcre2_compile_8(pattern: TPCRE2_SPTR8; length: TPCRE2_SIZE; options: Tuint32_t; error_code: Plongint; error_offset: PPCRE2_SIZE; ccontext: Ppcre2_compile_context): Ppcre2_code; cdecl; external libpcre2_8;
+procedure pcre2_code_free_8(code: Ppcre2_code); cdecl; external libpcre2_8;
+function pcre2_code_copy_8(code: Ppcre2_code): Ppcre2_code; cdecl; external libpcre2_8;
+function pcre2_code_copy_with_tables_8(code: Ppcre2_code): Ppcre2_code; cdecl; external libpcre2_8;
+
+function pcre2_pattern_info_8(code: Ppcre2_code; what: Tuint32_t; where: pointer): longint; cdecl; external libpcre2_8;
+function pcre2_callout_enumerate_8(code: Ppcre2_code; callback: TPCRE2_Callout_Enum_8; callout_data: pointer): longint; cdecl; external libpcre2_8;
+
+function pcre2_match_data_create_8(oveccount: Tuint32_t; gcontext: Ppcre2_general_context): Ppcre2_match_data; cdecl; external libpcre2_8;
+function pcre2_match_data_create_from_pattern_8(code: Ppcre2_code; gcontext: Ppcre2_general_context): Ppcre2_match_data; cdecl; external libpcre2_8;
+
+function pcre2_match_8(code: Ppcre2_code; subject: TPCRE2_SPTR8; length: TPCRE2_SIZE; start_offset: TPCRE2_SIZE; options: Tuint32_t; match_data: Ppcre2_match_data; mcontext: Ppcre2_match_context): longint; cdecl; external libpcre2_8;
+function pcre2_dfa_match_8(code: Ppcre2_code; subject: TPCRE2_SPTR8; length: TPCRE2_SIZE; start_offset: TPCRE2_SIZE; options: Tuint32_t; match_data: Ppcre2_match_data; mcontext: Ppcre2_match_context; workspace: Plongint; wscount: TPCRE2_SIZE): longint; cdecl; external libpcre2_8;
+procedure pcre2_match_data_free_8(match_data: Ppcre2_match_data); cdecl; external libpcre2_8;
+
+// --- Ergebnis-Abfrage (Ovector / Substrings) ---
+function pcre2_get_mark_8(match_data: Ppcre2_match_data): TPCRE2_SPTR8; cdecl; external libpcre2_8;
+function pcre2_get_match_data_size_8(match_data: Ppcre2_match_data): TPCRE2_SIZE; cdecl; external libpcre2_8;
+function pcre2_get_ovector_count_8(match_data: Ppcre2_match_data): Tuint32_t; cdecl; external libpcre2_8;
+function pcre2_get_ovector_pointer_8(match_data: Ppcre2_match_data): PPCRE2_SIZE; cdecl; external libpcre2_8;
+function pcre2_get_startchar_8(match_data: Ppcre2_match_data): TPCRE2_SIZE; cdecl; external libpcre2_8;
+
+function pcre2_substring_copy_byname_8(match_data: Ppcre2_match_data; name: TPCRE2_SPTR8; buffer: PPCRE2_UCHAR8; bufflen: PPCRE2_SIZE): longint; cdecl; external libpcre2_8;
+function pcre2_substring_copy_bynumber_8(match_data: Ppcre2_match_data; number: Tuint32_t; buffer: PPCRE2_UCHAR8; bufflen: PPCRE2_SIZE): longint; cdecl; external libpcre2_8;
+procedure pcre2_substring_free_8(buffer: PPCRE2_UCHAR8); cdecl; external libpcre2_8;
+function pcre2_substring_get_byname_8(match_data: Ppcre2_match_data; name: TPCRE2_SPTR8; bufferptr: PPPCRE2_UCHAR8; bufflenptr: PPCRE2_SIZE): longint; cdecl; external libpcre2_8;
+function pcre2_substring_get_bynumber_8(match_data: Ppcre2_match_data; number: Tuint32_t; bufferptr: PPPCRE2_UCHAR8; bufflenptr: PPCRE2_SIZE): longint; cdecl; external libpcre2_8;
+function pcre2_substring_length_byname_8(match_data: Ppcre2_match_data; name: TPCRE2_SPTR8; lengthptr: PPCRE2_SIZE): longint; cdecl; external libpcre2_8;
+function pcre2_substring_length_bynumber_8(match_data: Ppcre2_match_data; number: Tuint32_t; lengthptr: PPCRE2_SIZE): longint; cdecl; external libpcre2_8;
+function pcre2_substring_nametable_scan_8(code: Ppcre2_code; name: TPCRE2_SPTR8; firstptr: PPCRE2_SPTR8; lastptr: PPCRE2_SPTR8): longint; cdecl; external libpcre2_8;
+function pcre2_substring_number_from_name_8(code: Ppcre2_code; name: TPCRE2_SPTR8): longint; cdecl; external libpcre2_8;
+procedure pcre2_substring_list_free_8(list: PPCRE2_SPTR8); cdecl; external libpcre2_8;
+function pcre2_substring_list_get_8(match_data: Ppcre2_match_data; listptr: PPPPCRE2_UCHAR8; lengthsptr: PPPCRE2_SIZE): longint; cdecl; external libpcre2_8;
+
+// --- Serialisierung ---
+function pcre2_serialize_encode_8(codes: PPpcre2_code; number_of_codes: Tint32_t; serialized_bytes: PPuint8_t; serialized_size: PPCRE2_SIZE; gcontext: Ppcre2_general_context): Tint32_t; cdecl; external libpcre2_8;
+function pcre2_serialize_decode_8(codes: PPpcre2_code; number_of_codes: Tint32_t; bytes: Puint8_t; gcontext: Ppcre2_general_context): Tint32_t; cdecl; external libpcre2_8;
+function pcre2_serialize_get_number_of_codes_8(bytes: Puint8_t): Tint32_t; cdecl; external libpcre2_8;
+procedure pcre2_serialize_free_8(bytes: Puint8_t); cdecl; external libpcre2_8;
+
+// --- Ersetzung und Konvertierung ---
+function pcre2_substitute_8(code: Ppcre2_code; subject: TPCRE2_SPTR8; length: TPCRE2_SIZE; start_offset: TPCRE2_SIZE; options: Tuint32_t; match_data: Ppcre2_match_data; mcontext: Ppcre2_match_context; replacement: TPCRE2_SPTR8; rlength: TPCRE2_SIZE;
+  output_buffer: PPCRE2_UCHAR8; outlengthptr: PPCRE2_SIZE): longint; cdecl; external libpcre2_8;
+function pcre2_pattern_convert_8(pattern: TPCRE2_SPTR8; length: TPCRE2_SIZE; options: Tuint32_t; bufferptr: PPPCRE2_UCHAR8; bufflenptr: PPCRE2_SIZE; cvcontext: Ppcre2_convert_context): longint; cdecl; external libpcre2_8;
+procedure pcre2_converted_pattern_free_8(converted_pattern: PPCRE2_UCHAR8); cdecl; external libpcre2_8;
+
+// --- JIT (Just-In-Time) ---
+function pcre2_jit_compile_8(code: Ppcre2_code; options: Tuint32_t): longint; cdecl; external libpcre2_8;
+function pcre2_jit_match_8(code: Ppcre2_code; subject: TPCRE2_SPTR8; length: TPCRE2_SIZE; start_offset: TPCRE2_SIZE; options: Tuint32_t; match_data: Ppcre2_match_data; mcontext: Ppcre2_match_context): longint; cdecl; external libpcre2_8;
+procedure pcre2_jit_free_unused_memory_8(gcontext: Ppcre2_general_context); cdecl; external libpcre2_8;
+function pcre2_jit_stack_create_8(start_size: TPCRE2_SIZE; max_size: TPCRE2_SIZE; gcontext: Ppcre2_general_context): Ppcre2_jit_stack; cdecl; external libpcre2_8;
+procedure pcre2_jit_stack_assign_8(mcontext: Ppcre2_match_context; callback: Tpcre2_jit_callback; callback_data: pointer); cdecl; external libpcre2_8;
+procedure pcre2_jit_stack_free_8(stack: Ppcre2_jit_stack); cdecl; external libpcre2_8;
+
+// --- Sonstiges ---
+function pcre2_get_error_message_8(error_code: longint; buffer: PPCRE2_UCHAR8; bufflen: TPCRE2_SIZE): longint; cdecl; external libpcre2_8;
+function pcre2_maketables_8(gcontext: Ppcre2_general_context): Puint8_t; cdecl; external libpcre2_8;
+procedure pcre2_maketables_free_8(gcontext: Ppcre2_general_context; tables: Puint8_t); cdecl; external libpcre2_8;
 
 // ==== 16 Bit
 
-function pcre2_config_16(para1: Tuint32_t; para2: pointer): longint; cdecl; external libpcre2_16;
-function pcre2_general_context_copy_16(para1: Ppcre2_general_context): Ppcre2_general_context; cdecl; external libpcre2_16;
-//function pcre2_general_context_create_16(para1:Pprocedure (para1:TPCRE2_SIZE; para2:pointer); para2:procedure (para1:pointer; para2:pointer); para3:pointer):Ppcre2_general_context;cdecl;external libpcre2_16;
-function pcre2_general_context_create_16(para1: PPointer; para2: Pointer; para3: pointer): Ppcre2_general_context; cdecl; external libpcre2_16;
-procedure pcre2_general_context_free_16(para1: Ppcre2_general_context); cdecl; external libpcre2_16;
-function pcre2_compile_context_copy_16(para1: Ppcre2_compile_context): Ppcre2_compile_context; cdecl; external libpcre2_16;
-function pcre2_compile_context_create_16(para1: Ppcre2_general_context): Ppcre2_compile_context; cdecl; external libpcre2_16;
-procedure pcre2_compile_context_free_16(para1: Ppcre2_compile_context); cdecl; external libpcre2_16;
-function pcre2_set_bsr_16(para1: Ppcre2_compile_context; para2: Tuint32_t): longint; cdecl; external libpcre2_16;
-function pcre2_set_character_tables_16(para1: Ppcre2_compile_context; para2: Puint8_t): longint; cdecl; external libpcre2_16;
-function pcre2_set_compile_extra_options_16(para1: Ppcre2_compile_context; para2: Tuint32_t): longint; cdecl; external libpcre2_16;
-function pcre2_set_max_pattern_length_16(para1: Ppcre2_compile_context; para2: TPCRE2_SIZE): longint; cdecl; external libpcre2_16;
-function pcre2_set_newline_16(para1: Ppcre2_compile_context; para2: Tuint32_t): longint; cdecl; external libpcre2_16;
-function pcre2_set_parens_nest_limit_16(para1: Ppcre2_compile_context; para2: Tuint32_t): longint; cdecl; external libpcre2_16;
-//function pcre2_set_compile_recursion_guard_16(para1:Ppcre2_compile_context; para2:function (para1:Tuint32_t; para2:pointer):longint; para3:pointer):longint;cdecl;external libpcre2_16;
-function pcre2_set_compile_recursion_guard_16(para1: Ppcre2_compile_context; para2: Pointer; para3: pointer): longint; cdecl; external libpcre2_16;
-function pcre2_match_context_copy_16(para1: Ppcre2_match_context): Ppcre2_match_context; cdecl; external libpcre2_16;
-function pcre2_match_context_create_16(para1: Ppcre2_general_context): Ppcre2_match_context; cdecl; external libpcre2_16;
-procedure pcre2_match_context_free_16(para1: Ppcre2_match_context); cdecl; external libpcre2_16;
-//function pcre2_set_callout_16(para1:Ppcre2_match_context; para2:function (para1:Ppcre2_callout_block; para2:pointer):longint; para3:pointer):longint;cdecl;external libpcre2_16;
-function pcre2_set_callout_16(para1: Ppcre2_match_context; para2: Pointer; para3: pointer): longint; cdecl; external libpcre2_16;
-//function pcre2_set_substitute_callout_16(para1:Ppcre2_match_context; para2:function (para1:Ppcre2_substitute_callout_block; para2:pointer):longint; para3:pointer):longint;cdecl;external libpcre2_16;
-function pcre2_set_substitute_callout_16(para1: Ppcre2_match_context; para2: Pointer; para3: pointer): longint; cdecl; external libpcre2_16;
-function pcre2_set_depth_limit_16(para1: Ppcre2_match_context; para2: Tuint32_t): longint; cdecl; external libpcre2_16;
-function pcre2_set_heap_limit_16(para1: Ppcre2_match_context; para2: Tuint32_t): longint; cdecl; external libpcre2_16;
-function pcre2_set_match_limit_16(para1: Ppcre2_match_context; para2: Tuint32_t): longint; cdecl; external libpcre2_16;
-function pcre2_set_offset_limit_16(para1: Ppcre2_match_context; para2: TPCRE2_SIZE): longint; cdecl; external libpcre2_16;
-function pcre2_set_recursion_limit_16(para1: Ppcre2_match_context; para2: Tuint32_t): longint; cdecl; external libpcre2_16;
-//function pcre2_set_recursion_memory_management_16(para1:Ppcre2_match_context; para2:Pprocedure (para1:TPCRE2_SIZE; para2:pointer); para3:procedure (para1:pointer; para2:pointer); para4:pointer):longint;cdecl;external libpcre2_16;
-function pcre2_set_recursion_memory_management_16(para1: Ppcre2_match_context; para2: PPointer; para3: Pointer; para4: pointer): longint; cdecl; external libpcre2_16;
-function pcre2_convert_context_copy_16(para1: Ppcre2_convert_context): Ppcre2_convert_context; cdecl; external libpcre2_16;
-function pcre2_convert_context_create_16(para1: Ppcre2_general_context): Ppcre2_convert_context; cdecl; external libpcre2_16;
-procedure pcre2_convert_context_free_16(para1: Ppcre2_convert_context); cdecl; external libpcre2_16;
-function pcre2_set_glob_escape_16(para1: Ppcre2_convert_context; para2: Tuint32_t): longint; cdecl; external libpcre2_16;
-function pcre2_set_glob_separator_16(para1: Ppcre2_convert_context; para2: Tuint32_t): longint; cdecl; external libpcre2_16;
-function pcre2_compile_16(para1: TPCRE2_SPTR16; para2: TPCRE2_SIZE; para3: Tuint32_t; para4: Plongint; para5: PPCRE2_SIZE; para6: Ppcre2_compile_context): Ppcre2_code; cdecl; external libpcre2_16;
-procedure pcre2_code_free_16(para1: Ppcre2_code); cdecl; external libpcre2_16;
-function pcre2_code_copy_16(para1: Ppcre2_code): Ppcre2_code; cdecl; external libpcre2_16;
-function pcre2_code_copy_with_tables_16(para1: Ppcre2_code): Ppcre2_code; cdecl; external libpcre2_16;
-function pcre2_pattern_info_16(para1: Ppcre2_code; para2: Tuint32_t; para3: pointer): longint; cdecl; external libpcre2_16;
-//function pcre2_callout_enumerate_16(para1:Ppcre2_code; para2:function (para1:Ppcre2_callout_enumerate_block; para2:pointer):longint; para3:pointer):longint;cdecl;external libpcre2_16;
-function pcre2_callout_enumerate_16(para1: Ppcre2_code; para2: Pointer; para3: pointer): longint; cdecl; external libpcre2_16;
-function pcre2_match_data_create_16(para1: Tuint32_t; para2: Ppcre2_general_context): Ppcre2_match_data; cdecl; external libpcre2_16;
-function pcre2_match_data_create_from_pattern_16(para1: Ppcre2_code; para2: Ppcre2_general_context): Ppcre2_match_data; cdecl; external libpcre2_16;
-function pcre2_dfa_match_16(para1: Ppcre2_code; para2: TPCRE2_SPTR16; para3: TPCRE2_SIZE; para4: TPCRE2_SIZE; para5: Tuint32_t; para6: Ppcre2_match_data; para7: Ppcre2_match_context; para8: Plongint; para9: TPCRE2_SIZE): longint; cdecl; external libpcre2_16;
-function pcre2_match_16(para1: Ppcre2_code; para2: TPCRE2_SPTR16; para3: TPCRE2_SIZE; para4: TPCRE2_SIZE; para5: Tuint32_t; para6: Ppcre2_match_data; para7: Ppcre2_match_context): longint; cdecl; external libpcre2_16;
-procedure pcre2_match_data_free_16(para1: Ppcre2_match_data); cdecl; external libpcre2_16;
-function pcre2_get_mark_16(para1: Ppcre2_match_data): TPCRE2_SPTR16; cdecl; external libpcre2_16;
-function pcre2_get_match_data_size_16(para1: Ppcre2_match_data): TPCRE2_SIZE; cdecl; external libpcre2_16;
-function pcre2_get_ovector_count_16(para1: Ppcre2_match_data): Tuint32_t; cdecl; external libpcre2_16;
-function pcre2_get_ovector_pointer_16(para1: Ppcre2_match_data): PPCRE2_SIZE; cdecl; external libpcre2_16;
-function pcre2_get_startchar_16(para1: Ppcre2_match_data): TPCRE2_SIZE; cdecl; external libpcre2_16;
-function pcre2_substring_copy_byname_16(para1: Ppcre2_match_data; para2: TPCRE2_SPTR16; para3: PPCRE2_UCHAR16; para4: PPCRE2_SIZE): longint; cdecl; external libpcre2_16;
-function pcre2_substring_copy_bynumber_16(para1: Ppcre2_match_data; para2: Tuint32_t; para3: PPCRE2_UCHAR16; para4: PPCRE2_SIZE): longint; cdecl; external libpcre2_16;
-procedure pcre2_substring_free_16(para1: PPCRE2_UCHAR16); cdecl; external libpcre2_16;
-function pcre2_substring_get_byname_16(para1: Ppcre2_match_data; para2: TPCRE2_SPTR16; para3: PPPCRE2_UCHAR16; para4: PPCRE2_SIZE): longint; cdecl; external libpcre2_16;
-function pcre2_substring_get_bynumber_16(para1: Ppcre2_match_data; para2: Tuint32_t; para3: PPPCRE2_UCHAR16; para4: PPCRE2_SIZE): longint; cdecl; external libpcre2_16;
-function pcre2_substring_length_byname_16(para1: Ppcre2_match_data; para2: TPCRE2_SPTR16; para3: PPCRE2_SIZE): longint; cdecl; external libpcre2_16;
-function pcre2_substring_length_bynumber_16(para1: Ppcre2_match_data; para2: Tuint32_t; para3: PPCRE2_SIZE): longint; cdecl; external libpcre2_16;
-function pcre2_substring_nametable_scan_16(para1: Ppcre2_code; para2: TPCRE2_SPTR16; para3: PPCRE2_SPTR16; para4: PPCRE2_SPTR16): longint; cdecl; external libpcre2_16;
-function pcre2_substring_number_from_name_16(para1: Ppcre2_code; para2: TPCRE2_SPTR16): longint; cdecl; external libpcre2_16;
-procedure pcre2_substring_list_free_16(para1: PPCRE2_SPTR16); cdecl; external libpcre2_16;
-function pcre2_substring_list_get_16(para1: Ppcre2_match_data; para2: PPPPCRE2_UCHAR16; para3: PPPCRE2_SIZE): longint; cdecl; external libpcre2_16;
-function pcre2_serialize_encode_16(para1: PPpcre2_code; para2: Tint32_t; para3: PPuint8_t; para4: PPCRE2_SIZE; para5: Ppcre2_general_context): Tint32_t; cdecl; external libpcre2_16;
-function pcre2_serialize_decode_16(para1: PPpcre2_code; para2: Tint32_t; para3: Puint8_t; para4: Ppcre2_general_context): Tint32_t; cdecl; external libpcre2_16;
-function pcre2_serialize_get_number_of_codes_16(para1: Puint8_t): Tint32_t; cdecl; external libpcre2_16;
-procedure pcre2_serialize_free_16(para1: Puint8_t); cdecl; external libpcre2_16;
-function pcre2_substitute_16(para1: Ppcre2_code; para2: TPCRE2_SPTR16; para3: TPCRE2_SIZE; para4: TPCRE2_SIZE; para5: Tuint32_t; para6: Ppcre2_match_data; para7: Ppcre2_match_context; para8: TPCRE2_SPTR16; para9: TPCRE2_SIZE; para10: PPCRE2_UCHAR16; para11: PPCRE2_SIZE): longint; cdecl; external libpcre2_16;
-function pcre2_pattern_convert_16(para1: TPCRE2_SPTR16; para2: TPCRE2_SIZE; para3: Tuint32_t; para4: PPPCRE2_UCHAR16; para5: PPCRE2_SIZE; para6: Ppcre2_convert_context): longint; cdecl; external libpcre2_16;
-procedure pcre2_converted_pattern_free_16(para1: PPCRE2_UCHAR16); cdecl; external libpcre2_16;
-function pcre2_jit_compile_16(para1: Ppcre2_code; para2: Tuint32_t): longint; cdecl; external libpcre2_16;
-function pcre2_jit_match_16(para1: Ppcre2_code; para2: TPCRE2_SPTR16; para3: TPCRE2_SIZE; para4: TPCRE2_SIZE; para5: Tuint32_t; para6: Ppcre2_match_data; para7: Ppcre2_match_context): longint; cdecl; external libpcre2_16;
-procedure pcre2_jit_free_unused_memory_16(para1: Ppcre2_general_context); cdecl; external libpcre2_16;
-function pcre2_jit_stack_create_16(para1: TPCRE2_SIZE; para2: TPCRE2_SIZE; para3: Ppcre2_general_context): Ppcre2_jit_stack; cdecl; external libpcre2_16;
-procedure pcre2_jit_stack_assign_16(para1: Ppcre2_match_context; para2: Tpcre2_jit_callback; para3: pointer); cdecl; external libpcre2_16;
-procedure pcre2_jit_stack_free_16(para1: Ppcre2_jit_stack); cdecl; external libpcre2_16;
-function pcre2_get_error_message_16(para1: longint; para2: PPCRE2_UCHAR16; para3: TPCRE2_SIZE): longint; cdecl; external libpcre2_16;
-function pcre2_maketables_16(para1: Ppcre2_general_context): Puint8_t; cdecl; external libpcre2_16;
-procedure pcre2_maketables_free_16(para1: Ppcre2_general_context; para2: Puint8_t); cdecl; external libpcre2_16;
+type
+  TPCRE2_Alloc_16 = function(size: TPCRE2_SIZE; data: Pointer): Pointer; cdecl;
+  TPCRE2_Free_16 = procedure(ptr: Pointer; data: Pointer); cdecl;
+  TPCRE2_Recursion_Guard_16 = function(depth: Tuint32_t; data: Pointer): integer; cdecl;
+  TPCRE2_Callout_16 = function(block: Ppcre2_callout_block; data: Pointer): integer; cdecl;
+  TPCRE2_Subst_Callout_16 = function(block: Ppcre2_substitute_callout_block; data: Pointer): integer; cdecl;
+  TPCRE2_Callout_Enum_16 = function(block: Ppcre2_callout_enumerate_block; data: Pointer): integer; cdecl;
+
+// --- Konfiguration und Kontexte (16-Bit) ---
+function pcre2_config_16(what: Tuint32_t; where: pointer): longint; cdecl; external libpcre2_16;
+
+function pcre2_general_context_copy_16(gcontext: Ppcre2_general_context): Ppcre2_general_context; cdecl; external libpcre2_16;
+function pcre2_general_context_create_16(private_malloc: TPCRE2_Alloc_16; private_free: TPCRE2_Free_16; memory_data: pointer): Ppcre2_general_context; cdecl; external libpcre2_16;
+procedure pcre2_general_context_free_16(gcontext: Ppcre2_general_context); cdecl; external libpcre2_16;
+
+function pcre2_compile_context_copy_16(ccontext: Ppcre2_compile_context): Ppcre2_compile_context; cdecl; external libpcre2_16;
+function pcre2_compile_context_create_16(gcontext: Ppcre2_general_context): Ppcre2_compile_context; cdecl; external libpcre2_16;
+procedure pcre2_compile_context_free_16(ccontext: Ppcre2_compile_context); cdecl; external libpcre2_16;
+
+function pcre2_match_context_copy_16(mcontext: Ppcre2_match_context): Ppcre2_match_context; cdecl; external libpcre2_16;
+function pcre2_match_context_create_16(gcontext: Ppcre2_general_context): Ppcre2_match_context; cdecl; external libpcre2_16;
+procedure pcre2_match_context_free_16(mcontext: Ppcre2_match_context); cdecl; external libpcre2_16;
+
+function pcre2_convert_context_copy_16(cvcontext: Ppcre2_convert_context): Ppcre2_convert_context; cdecl; external libpcre2_16;
+function pcre2_convert_context_create_16(gcontext: Ppcre2_general_context): Ppcre2_convert_context; cdecl; external libpcre2_16;
+procedure pcre2_convert_context_free_16(cvcontext: Ppcre2_convert_context); cdecl; external libpcre2_16;
+
+// --- Kontext-Einstellungen (Compile) ---
+function pcre2_set_bsr_16(ccontext: Ppcre2_compile_context; value: Tuint32_t): longint; cdecl; external libpcre2_16;
+function pcre2_set_character_tables_16(ccontext: Ppcre2_compile_context; tables: Puint8_t): longint; cdecl; external libpcre2_16;
+function pcre2_set_compile_extra_options_16(ccontext: Ppcre2_compile_context; extra_options: Tuint32_t): longint; cdecl; external libpcre2_16;
+function pcre2_set_max_pattern_length_16(ccontext: Ppcre2_compile_context; max_length: TPCRE2_SIZE): longint; cdecl; external libpcre2_16;
+function pcre2_set_newline_16(ccontext: Ppcre2_compile_context; newline: Tuint32_t): longint; cdecl; external libpcre2_16;
+function pcre2_set_parens_nest_limit_16(ccontext: Ppcre2_compile_context; nest_limit: Tuint32_t): longint; cdecl; external libpcre2_16;
+function pcre2_set_compile_recursion_guard_16(ccontext: Ppcre2_compile_context; guard: TPCRE2_Recursion_Guard_16; user_data: pointer): longint; cdecl; external libpcre2_16;
+
+// --- Kontext-Einstellungen (Match) ---
+function pcre2_set_callout_16(mcontext: Ppcre2_match_context; callout: TPCRE2_Callout_16; callout_data: pointer): longint; cdecl; external libpcre2_16;
+function pcre2_set_substitute_callout_16(mcontext: Ppcre2_match_context; callback: TPCRE2_Subst_Callout_16; user_data: pointer): longint; cdecl; external libpcre2_16;
+function pcre2_set_depth_limit_16(mcontext: Ppcre2_match_context; limit: Tuint32_t): longint; cdecl; external libpcre2_16;
+function pcre2_set_heap_limit_16(mcontext: Ppcre2_match_context; limit: Tuint32_t): longint; cdecl; external libpcre2_16;
+function pcre2_set_match_limit_16(mcontext: Ppcre2_match_context; limit: Tuint32_t): longint; cdecl; external libpcre2_16;
+function pcre2_set_offset_limit_16(mcontext: Ppcre2_match_context; limit: TPCRE2_SIZE): longint; cdecl; external libpcre2_16;
+function pcre2_set_recursion_limit_16(mcontext: Ppcre2_match_context; limit: Tuint32_t): longint; cdecl; external libpcre2_16;
+function pcre2_set_recursion_memory_management_16(mcontext: Ppcre2_match_context; private_malloc: TPCRE2_Alloc_16; private_free: TPCRE2_Free_16; memory_data: pointer): longint; cdecl; external libpcre2_16;
+
+// --- Kontext-Einstellungen (Convert) ---
+function pcre2_set_glob_escape_16(cvcontext: Ppcre2_convert_context; escape_char: Tuint32_t): longint; cdecl; external libpcre2_16;
+function pcre2_set_glob_separator_16(cvcontext: Ppcre2_convert_context; separator_char: Tuint32_t): longint; cdecl; external libpcre2_16;
+
+// --- Kompilierung und Matching ---
+function pcre2_compile_16(pattern: TPCRE2_SPTR16; length: TPCRE2_SIZE; options: Tuint32_t; error_code: Plongint; error_offset: PPCRE2_SIZE; ccontext: Ppcre2_compile_context): Ppcre2_code; cdecl; external libpcre2_16;
+procedure pcre2_code_free_16(code: Ppcre2_code); cdecl; external libpcre2_16;
+function pcre2_code_copy_16(code: Ppcre2_code): Ppcre2_code; cdecl; external libpcre2_16;
+function pcre2_code_copy_with_tables_16(code: Ppcre2_code): Ppcre2_code; cdecl; external libpcre2_16;
+
+function pcre2_pattern_info_16(code: Ppcre2_code; what: Tuint32_t; where: pointer): longint; cdecl; external libpcre2_16;
+function pcre2_callout_enumerate_16(code: Ppcre2_code; callback: TPCRE2_Callout_Enum_16; callout_data: pointer): longint; cdecl; external libpcre2_16;
+
+function pcre2_match_data_create_16(oveccount: Tuint32_t; gcontext: Ppcre2_general_context): Ppcre2_match_data; cdecl; external libpcre2_16;
+function pcre2_match_data_create_from_pattern_16(code: Ppcre2_code; gcontext: Ppcre2_general_context): Ppcre2_match_data; cdecl; external libpcre2_16;
+
+function pcre2_match_16(code: Ppcre2_code; subject: TPCRE2_SPTR16; length: TPCRE2_SIZE; start_offset: TPCRE2_SIZE; options: Tuint32_t; match_data: Ppcre2_match_data; mcontext: Ppcre2_match_context): longint; cdecl; external libpcre2_16;
+function pcre2_dfa_match_16(code: Ppcre2_code; subject: TPCRE2_SPTR16; length: TPCRE2_SIZE; start_offset: TPCRE2_SIZE; options: Tuint32_t; match_data: Ppcre2_match_data; mcontext: Ppcre2_match_context; workspace: Plongint; wscount: TPCRE2_SIZE): longint; cdecl; external libpcre2_16;
+procedure pcre2_match_data_free_16(match_data: Ppcre2_match_data); cdecl; external libpcre2_16;
+
+// --- Ergebnis-Abfrage (Ovector / Substrings) ---
+function pcre2_get_mark_16(match_data: Ppcre2_match_data): TPCRE2_SPTR16; cdecl; external libpcre2_16;
+function pcre2_get_match_data_size_16(match_data: Ppcre2_match_data): TPCRE2_SIZE; cdecl; external libpcre2_16;
+function pcre2_get_ovector_count_16(match_data: Ppcre2_match_data): Tuint32_t; cdecl; external libpcre2_16;
+function pcre2_get_ovector_pointer_16(match_data: Ppcre2_match_data): PPCRE2_SIZE; cdecl; external libpcre2_16;
+function pcre2_get_startchar_16(match_data: Ppcre2_match_data): TPCRE2_SIZE; cdecl; external libpcre2_16;
+
+function pcre2_substring_copy_byname_16(match_data: Ppcre2_match_data; name: TPCRE2_SPTR16; buffer: PPCRE2_UCHAR16; bufflen: PPCRE2_SIZE): longint; cdecl; external libpcre2_16;
+function pcre2_substring_copy_bynumber_16(match_data: Ppcre2_match_data; number: Tuint32_t; buffer: PPCRE2_UCHAR16; bufflen: PPCRE2_SIZE): longint; cdecl; external libpcre2_16;
+procedure pcre2_substring_free_16(buffer: PPCRE2_UCHAR16); cdecl; external libpcre2_16;
+function pcre2_substring_get_byname_16(match_data: Ppcre2_match_data; name: TPCRE2_SPTR16; bufferptr: PPPCRE2_UCHAR16; bufflenptr: PPCRE2_SIZE): longint; cdecl; external libpcre2_16;
+function pcre2_substring_get_bynumber_16(match_data: Ppcre2_match_data; number: Tuint32_t; bufferptr: PPPCRE2_UCHAR16; bufflenptr: PPCRE2_SIZE): longint; cdecl; external libpcre2_16;
+function pcre2_substring_length_byname_16(match_data: Ppcre2_match_data; name: TPCRE2_SPTR16; lengthptr: PPCRE2_SIZE): longint; cdecl; external libpcre2_16;
+function pcre2_substring_length_bynumber_16(match_data: Ppcre2_match_data; number: Tuint32_t; lengthptr: PPCRE2_SIZE): longint; cdecl; external libpcre2_16;
+function pcre2_substring_nametable_scan_16(code: Ppcre2_code; name: TPCRE2_SPTR16; firstptr: PPCRE2_SPTR16; lastptr: PPCRE2_SPTR16): longint; cdecl; external libpcre2_16;
+function pcre2_substring_number_from_name_16(code: Ppcre2_code; name: TPCRE2_SPTR16): longint; cdecl; external libpcre2_16;
+procedure pcre2_substring_list_free_16(list: PPCRE2_SPTR16); cdecl; external libpcre2_16;
+function pcre2_substring_list_get_16(match_data: Ppcre2_match_data; listptr: PPPPCRE2_UCHAR16; lengthsptr: PPPCRE2_SIZE): longint; cdecl; external libpcre2_16;
+
+// --- Serialisierung ---
+function pcre2_serialize_encode_16(codes: PPpcre2_code; number_of_codes: Tint32_t; serialized_bytes: PPuint8_t; serialized_size: PPCRE2_SIZE; gcontext: Ppcre2_general_context): Tint32_t; cdecl; external libpcre2_16;
+function pcre2_serialize_decode_16(codes: PPpcre2_code; number_of_codes: Tint32_t; bytes: Puint8_t; gcontext: Ppcre2_general_context): Tint32_t; cdecl; external libpcre2_16;
+function pcre2_serialize_get_number_of_codes_16(bytes: Puint8_t): Tint32_t; cdecl; external libpcre2_16;
+procedure pcre2_serialize_free_16(bytes: Puint8_t); cdecl; external libpcre2_16;
+
+// --- Ersetzung und Konvertierung ---
+function pcre2_substitute_16(code: Ppcre2_code; subject: TPCRE2_SPTR16; length: TPCRE2_SIZE; start_offset: TPCRE2_SIZE; options: Tuint32_t; match_data: Ppcre2_match_data; mcontext: Ppcre2_match_context; replacement: TPCRE2_SPTR16;
+  rlength: TPCRE2_SIZE; output_buffer: PPCRE2_UCHAR16; outlengthptr: PPCRE2_SIZE): longint; cdecl; external libpcre2_16;
+function pcre2_pattern_convert_16(pattern: TPCRE2_SPTR16; length: TPCRE2_SIZE; options: Tuint32_t; bufferptr: PPPCRE2_UCHAR16; bufflenptr: PPCRE2_SIZE; cvcontext: Ppcre2_convert_context): longint; cdecl; external libpcre2_16;
+procedure pcre2_converted_pattern_free_16(converted_pattern: PPCRE2_UCHAR16); cdecl; external libpcre2_16;
+
+// --- JIT (Just-In-Time) ---
+function pcre2_jit_compile_16(code: Ppcre2_code; options: Tuint32_t): longint; cdecl; external libpcre2_16;
+function pcre2_jit_match_16(code: Ppcre2_code; subject: TPCRE2_SPTR16; length: TPCRE2_SIZE; start_offset: TPCRE2_SIZE; options: Tuint32_t; match_data: Ppcre2_match_data; mcontext: Ppcre2_match_context): longint; cdecl; external libpcre2_16;
+procedure pcre2_jit_free_unused_memory_16(gcontext: Ppcre2_general_context); cdecl; external libpcre2_16;
+function pcre2_jit_stack_create_16(start_size: TPCRE2_SIZE; max_size: TPCRE2_SIZE; gcontext: Ppcre2_general_context): Ppcre2_jit_stack; cdecl; external libpcre2_16;
+procedure pcre2_jit_stack_assign_16(mcontext: Ppcre2_match_context; callback: Tpcre2_jit_callback; callback_data: pointer); cdecl; external libpcre2_16;
+procedure pcre2_jit_stack_free_16(stack: Ppcre2_jit_stack); cdecl; external libpcre2_16;
+
+// --- Sonstiges ---
+function pcre2_get_error_message_16(error_code: longint; buffer: PPCRE2_UCHAR16; bufflen: TPCRE2_SIZE): longint; cdecl; external libpcre2_16;
+function pcre2_maketables_16(gcontext: Ppcre2_general_context): Puint8_t; cdecl; external libpcre2_16;
+procedure pcre2_maketables_free_16(gcontext: Ppcre2_general_context; tables: Puint8_t); cdecl; external libpcre2_16;
+
 
 // ==== 32 Bit
 
-function pcre2_config_32(para1: Tuint32_t; para2: pointer): longint; cdecl; external libpcre2_32;
-function pcre2_general_context_copy_32(para1: Ppcre2_general_context): Ppcre2_general_context; cdecl; external libpcre2_32;
-//function pcre2_general_context_create_32(para1:Pprocedure (para1:TPCRE2_SIZE; para2:pointer); para2:procedure (para1:pointer; para2:pointer); para3:pointer):Ppcre2_general_context;cdecl;external libpcre2_32;
-function pcre2_general_context_create_32(para1: PPointer; para2: Pointer; para3: pointer): Ppcre2_general_context; cdecl; external libpcre2_32;
-procedure pcre2_general_context_free_32(para1: Ppcre2_general_context); cdecl; external libpcre2_32;
-function pcre2_compile_context_copy_32(para1: Ppcre2_compile_context): Ppcre2_compile_context; cdecl; external libpcre2_32;
-function pcre2_compile_context_create_32(para1: Ppcre2_general_context): Ppcre2_compile_context; cdecl; external libpcre2_32;
-procedure pcre2_compile_context_free_32(para1: Ppcre2_compile_context); cdecl; external libpcre2_32;
-function pcre2_set_bsr_32(para1: Ppcre2_compile_context; para2: Tuint32_t): longint; cdecl; external libpcre2_32;
-function pcre2_set_character_tables_32(para1: Ppcre2_compile_context; para2: Puint8_t): longint; cdecl; external libpcre2_32;
-function pcre2_set_compile_extra_options_32(para1: Ppcre2_compile_context; para2: Tuint32_t): longint; cdecl; external libpcre2_32;
-function pcre2_set_max_pattern_length_32(para1: Ppcre2_compile_context; para2: TPCRE2_SIZE): longint; cdecl; external libpcre2_32;
-function pcre2_set_newline_32(para1: Ppcre2_compile_context; para2: Tuint32_t): longint; cdecl; external libpcre2_32;
-function pcre2_set_parens_nest_limit_32(para1: Ppcre2_compile_context; para2: Tuint32_t): longint; cdecl; external libpcre2_32;
-//function pcre2_set_compile_recursion_guard_32(para1:Ppcre2_compile_context; para2:function (para1:Tuint32_t; para2:pointer):longint; para3:pointer):longint;cdecl;external libpcre2_32;
-function pcre2_set_compile_recursion_guard_32(para1: Ppcre2_compile_context; para2: Pointer; para3: pointer): longint; cdecl; external libpcre2_32;
-function pcre2_match_context_copy_32(para1: Ppcre2_match_context): Ppcre2_match_context; cdecl; external libpcre2_32;
-function pcre2_match_context_create_32(para1: Ppcre2_general_context): Ppcre2_match_context; cdecl; external libpcre2_32;
-procedure pcre2_match_context_free_32(para1: Ppcre2_match_context); cdecl; external libpcre2_32;
-//function pcre2_set_callout_32(para1:Ppcre2_match_context; para2:function (para1:Ppcre2_callout_block; para2:pointer):longint; para3:pointer):longint;cdecl;external libpcre2_32;
-function pcre2_set_callout_32(para1: Ppcre2_match_context; para2: Pointer; para3: pointer): longint; cdecl; external libpcre2_32;
-//function pcre2_set_substitute_callout_32(para1:Ppcre2_match_context; para2:function (para1:Ppcre2_substitute_callout_block; para2:pointer):longint; para3:pointer):longint;cdecl;external libpcre2_32;
-function pcre2_set_substitute_callout_32(para1: Ppcre2_match_context; para2: Pointer; para3: pointer): longint; cdecl; external libpcre2_32;
-function pcre2_set_depth_limit_32(para1: Ppcre2_match_context; para2: Tuint32_t): longint; cdecl; external libpcre2_32;
-function pcre2_set_heap_limit_32(para1: Ppcre2_match_context; para2: Tuint32_t): longint; cdecl; external libpcre2_32;
-function pcre2_set_match_limit_32(para1: Ppcre2_match_context; para2: Tuint32_t): longint; cdecl; external libpcre2_32;
-function pcre2_set_offset_limit_32(para1: Ppcre2_match_context; para2: TPCRE2_SIZE): longint; cdecl; external libpcre2_32;
-function pcre2_set_recursion_limit_32(para1: Ppcre2_match_context; para2: Tuint32_t): longint; cdecl; external libpcre2_32;
-//function pcre2_set_recursion_memory_management_32(para1:Ppcre2_match_context; para2:Pprocedure (para1:TPCRE2_SIZE; para2:pointer); para3:procedure (para1:pointer; para2:pointer); para4:pointer):longint;cdecl;external libpcre2_32;
-function pcre2_set_recursion_memory_management_32(para1: Ppcre2_match_context; para2: PPointer; para3: Pointer; para4: pointer): longint; cdecl; external libpcre2_32;
-function pcre2_convert_context_copy_32(para1: Ppcre2_convert_context): Ppcre2_convert_context; cdecl; external libpcre2_32;
-function pcre2_convert_context_create_32(para1: Ppcre2_general_context): Ppcre2_convert_context; cdecl; external libpcre2_32;
-procedure pcre2_convert_context_free_32(para1: Ppcre2_convert_context); cdecl; external libpcre2_32;
-function pcre2_set_glob_escape_32(para1: Ppcre2_convert_context; para2: Tuint32_t): longint; cdecl; external libpcre2_32;
-function pcre2_set_glob_separator_32(para1: Ppcre2_convert_context; para2: Tuint32_t): longint; cdecl; external libpcre2_32;
-function pcre2_compile_32(para1: TPCRE2_SPTR32; para2: TPCRE2_SIZE; para3: Tuint32_t; para4: Plongint; para5: PPCRE2_SIZE; para6: Ppcre2_compile_context): Ppcre2_code; cdecl; external libpcre2_32;
-procedure pcre2_code_free_32(para1: Ppcre2_code); cdecl; external libpcre2_32;
-function pcre2_code_copy_32(para1: Ppcre2_code): Ppcre2_code; cdecl; external libpcre2_32;
-function pcre2_code_copy_with_tables_32(para1: Ppcre2_code): Ppcre2_code; cdecl; external libpcre2_32;
-function pcre2_pattern_info_32(para1: Ppcre2_code; para2: Tuint32_t; para3: pointer): longint; cdecl; external libpcre2_32;
-//function pcre2_callout_enumerate_32(para1:Ppcre2_code; para2:function (para1:Ppcre2_callout_enumerate_block; para2:pointer):longint; para3:pointer):longint;cdecl;external libpcre2_32;
-function pcre2_callout_enumerate_32(para1: Ppcre2_code; para2: Pointer; para3: pointer): longint; cdecl; external libpcre2_32;
-function pcre2_match_data_create_32(para1: Tuint32_t; para2: Ppcre2_general_context): Ppcre2_match_data; cdecl; external libpcre2_32;
-function pcre2_match_data_create_from_pattern_32(para1: Ppcre2_code; para2: Ppcre2_general_context): Ppcre2_match_data; cdecl; external libpcre2_32;
-function pcre2_dfa_match_32(para1: Ppcre2_code; para2: TPCRE2_SPTR32; para3: TPCRE2_SIZE; para4: TPCRE2_SIZE; para5: Tuint32_t; para6: Ppcre2_match_data; para7: Ppcre2_match_context; para8: Plongint; para9: TPCRE2_SIZE): longint; cdecl; external libpcre2_32;
-function pcre2_match_32(para1: Ppcre2_code; para2: TPCRE2_SPTR32; para3: TPCRE2_SIZE; para4: TPCRE2_SIZE; para5: Tuint32_t; para6: Ppcre2_match_data; para7: Ppcre2_match_context): longint; cdecl; external libpcre2_32;
-procedure pcre2_match_data_free_32(para1: Ppcre2_match_data); cdecl; external libpcre2_32;
-function pcre2_get_mark_32(para1: Ppcre2_match_data): TPCRE2_SPTR32; cdecl; external libpcre2_32;
-function pcre2_get_match_data_size_32(para1: Ppcre2_match_data): TPCRE2_SIZE; cdecl; external libpcre2_32;
-function pcre2_get_ovector_count_32(para1: Ppcre2_match_data): Tuint32_t; cdecl; external libpcre2_32;
-function pcre2_get_ovector_pointer_32(para1: Ppcre2_match_data): PPCRE2_SIZE; cdecl; external libpcre2_32;
-function pcre2_get_startchar_32(para1: Ppcre2_match_data): TPCRE2_SIZE; cdecl; external libpcre2_32;
-function pcre2_substring_copy_byname_32(para1: Ppcre2_match_data; para2: TPCRE2_SPTR32; para3: PPCRE2_UCHAR32; para4: PPCRE2_SIZE): longint; cdecl; external libpcre2_32;
-function pcre2_substring_copy_bynumber_32(para1: Ppcre2_match_data; para2: Tuint32_t; para3: PPCRE2_UCHAR32; para4: PPCRE2_SIZE): longint; cdecl; external libpcre2_32;
-procedure pcre2_substring_free_32(para1: PPCRE2_UCHAR32); cdecl; external libpcre2_32;
-function pcre2_substring_get_byname_32(para1: Ppcre2_match_data; para2: TPCRE2_SPTR32; para3: PPPCRE2_UCHAR32; para4: PPCRE2_SIZE): longint; cdecl; external libpcre2_32;
-function pcre2_substring_get_bynumber_32(para1: Ppcre2_match_data; para2: Tuint32_t; para3: PPPCRE2_UCHAR32; para4: PPCRE2_SIZE): longint; cdecl; external libpcre2_32;
-function pcre2_substring_length_byname_32(para1: Ppcre2_match_data; para2: TPCRE2_SPTR32; para3: PPCRE2_SIZE): longint; cdecl; external libpcre2_32;
-function pcre2_substring_length_bynumber_32(para1: Ppcre2_match_data; para2: Tuint32_t; para3: PPCRE2_SIZE): longint; cdecl; external libpcre2_32;
-function pcre2_substring_nametable_scan_32(para1: Ppcre2_code; para2: TPCRE2_SPTR32; para3: PPCRE2_SPTR32; para4: PPCRE2_SPTR32): longint; cdecl; external libpcre2_32;
-function pcre2_substring_number_from_name_32(para1: Ppcre2_code; para2: TPCRE2_SPTR32): longint; cdecl; external libpcre2_32;
-procedure pcre2_substring_list_free_32(para1: PPCRE2_SPTR32); cdecl; external libpcre2_32;
-function pcre2_substring_list_get_32(para1: Ppcre2_match_data; para2: PPPPCRE2_UCHAR32; para3: PPPCRE2_SIZE): longint; cdecl; external libpcre2_32;
-function pcre2_serialize_encode_32(para1: PPpcre2_code; para2: Tint32_t; para3: PPuint8_t; para4: PPCRE2_SIZE; para5: Ppcre2_general_context): Tint32_t; cdecl; external libpcre2_32;
-function pcre2_serialize_decode_32(para1: PPpcre2_code; para2: Tint32_t; para3: Puint8_t; para4: Ppcre2_general_context): Tint32_t; cdecl; external libpcre2_32;
-function pcre2_serialize_get_number_of_codes_32(para1: Puint8_t): Tint32_t; cdecl; external libpcre2_32;
-procedure pcre2_serialize_free_32(para1: Puint8_t); cdecl; external libpcre2_32;
-function pcre2_substitute_32(para1: Ppcre2_code; para2: TPCRE2_SPTR32; para3: TPCRE2_SIZE; para4: TPCRE2_SIZE; para5: Tuint32_t; para6: Ppcre2_match_data; para7: Ppcre2_match_context; para8: TPCRE2_SPTR32; para9: TPCRE2_SIZE; para10: PPCRE2_UCHAR32; para11: PPCRE2_SIZE): longint; cdecl; external libpcre2_32;
-function pcre2_pattern_convert_32(para1: TPCRE2_SPTR32; para2: TPCRE2_SIZE; para3: Tuint32_t; para4: PPPCRE2_UCHAR32; para5: PPCRE2_SIZE; para6: Ppcre2_convert_context): longint; cdecl; external libpcre2_32;
-procedure pcre2_converted_pattern_free_32(para1: PPCRE2_UCHAR32); cdecl; external libpcre2_32;
-function pcre2_jit_compile_32(para1: Ppcre2_code; para2: Tuint32_t): longint; cdecl; external libpcre2_32;
-function pcre2_jit_match_32(para1: Ppcre2_code; para2: TPCRE2_SPTR32; para3: TPCRE2_SIZE; para4: TPCRE2_SIZE; para5: Tuint32_t; para6: Ppcre2_match_data; para7: Ppcre2_match_context): longint; cdecl; external libpcre2_32;
-procedure pcre2_jit_free_unused_memory_32(para1: Ppcre2_general_context); cdecl; external libpcre2_32;
-function pcre2_jit_stack_create_32(para1: TPCRE2_SIZE; para2: TPCRE2_SIZE; para3: Ppcre2_general_context): Ppcre2_jit_stack; cdecl; external libpcre2_32;
-procedure pcre2_jit_stack_assign_32(para1: Ppcre2_match_context; para2: Tpcre2_jit_callback; para3: pointer); cdecl; external libpcre2_32;
-procedure pcre2_jit_stack_free_32(para1: Ppcre2_jit_stack); cdecl; external libpcre2_32;
-function pcre2_get_error_message_32(para1: longint; para2: PPCRE2_UCHAR32; para3: TPCRE2_SIZE): longint; cdecl; external libpcre2_32;
-function pcre2_maketables_32(para1: Ppcre2_general_context): Puint8_t; cdecl; external libpcre2_32;
-procedure pcre2_maketables_free_32(para1: Ppcre2_general_context; para2: Puint8_t); cdecl; external libpcre2_32;
+type
+  TPCRE2_Alloc_32 = function(size: TPCRE2_SIZE; data: Pointer): Pointer; cdecl;
+  TPCRE2_Free_32 = procedure(ptr: Pointer; data: Pointer); cdecl;
+  TPCRE2_Recursion_Guard_32 = function(depth: Tuint32_t; data: Pointer): integer; cdecl;
+  TPCRE2_Callout_32 = function(block: Ppcre2_callout_block; data: Pointer): integer; cdecl;
+  TPCRE2_Subst_Callout_32 = function(block: Ppcre2_substitute_callout_block; data: Pointer): integer; cdecl;
+  TPCRE2_Callout_Enum_32 = function(block: Ppcre2_callout_enumerate_block; data: Pointer): integer; cdecl;
+
+// --- Konfiguration und Kontexte (32-Bit) ---
+function pcre2_config_32(what: Tuint32_t; where: pointer): longint; cdecl; external libpcre2_32;
+
+function pcre2_general_context_copy_32(gcontext: Ppcre2_general_context): Ppcre2_general_context; cdecl; external libpcre2_32;
+function pcre2_general_context_create_32(private_malloc: TPCRE2_Alloc_32; private_free: TPCRE2_Free_32; memory_data: pointer): Ppcre2_general_context; cdecl; external libpcre2_32;
+procedure pcre2_general_context_free_32(gcontext: Ppcre2_general_context); cdecl; external libpcre2_32;
+
+function pcre2_compile_context_copy_32(ccontext: Ppcre2_compile_context): Ppcre2_compile_context; cdecl; external libpcre2_32;
+function pcre2_compile_context_create_32(gcontext: Ppcre2_general_context): Ppcre2_compile_context; cdecl; external libpcre2_32;
+procedure pcre2_compile_context_free_32(ccontext: Ppcre2_compile_context); cdecl; external libpcre2_32;
+
+function pcre2_match_context_copy_32(mcontext: Ppcre2_match_context): Ppcre2_match_context; cdecl; external libpcre2_32;
+function pcre2_match_context_create_32(gcontext: Ppcre2_general_context): Ppcre2_match_context; cdecl; external libpcre2_32;
+procedure pcre2_match_context_free_32(mcontext: Ppcre2_match_context); cdecl; external libpcre2_32;
+
+function pcre2_convert_context_copy_32(cvcontext: Ppcre2_convert_context): Ppcre2_convert_context; cdecl; external libpcre2_32;
+function pcre2_convert_context_create_32(gcontext: Ppcre2_general_context): Ppcre2_convert_context; cdecl; external libpcre2_32;
+procedure pcre2_convert_context_free_32(cvcontext: Ppcre2_convert_context); cdecl; external libpcre2_32;
+
+// --- Kontext-Einstellungen (Compile) ---
+function pcre2_set_bsr_32(ccontext: Ppcre2_compile_context; value: Tuint32_t): longint; cdecl; external libpcre2_32;
+function pcre2_set_character_tables_32(ccontext: Ppcre2_compile_context; tables: Puint8_t): longint; cdecl; external libpcre2_32;
+function pcre2_set_compile_extra_options_32(ccontext: Ppcre2_compile_context; extra_options: Tuint32_t): longint; cdecl; external libpcre2_32;
+function pcre2_set_max_pattern_length_32(ccontext: Ppcre2_compile_context; max_length: TPCRE2_SIZE): longint; cdecl; external libpcre2_32;
+function pcre2_set_newline_32(ccontext: Ppcre2_compile_context; newline: Tuint32_t): longint; cdecl; external libpcre2_32;
+function pcre2_set_parens_nest_limit_32(ccontext: Ppcre2_compile_context; nest_limit: Tuint32_t): longint; cdecl; external libpcre2_32;
+function pcre2_set_compile_recursion_guard_32(ccontext: Ppcre2_compile_context; guard: TPCRE2_Recursion_Guard_32; user_data: pointer): longint; cdecl; external libpcre2_32;
+
+// --- Kontext-Einstellungen (Match) ---
+function pcre2_set_callout_32(mcontext: Ppcre2_match_context; callout: TPCRE2_Callout_32; callout_data: pointer): longint; cdecl; external libpcre2_32;
+function pcre2_set_substitute_callout_32(mcontext: Ppcre2_match_context; callback: TPCRE2_Subst_Callout_32; user_data: pointer): longint; cdecl; external libpcre2_32;
+function pcre2_set_depth_limit_32(mcontext: Ppcre2_match_context; limit: Tuint32_t): longint; cdecl; external libpcre2_32;
+function pcre2_set_heap_limit_32(mcontext: Ppcre2_match_context; limit: Tuint32_t): longint; cdecl; external libpcre2_32;
+function pcre2_set_match_limit_32(mcontext: Ppcre2_match_context; limit: Tuint32_t): longint; cdecl; external libpcre2_32;
+function pcre2_set_offset_limit_32(mcontext: Ppcre2_match_context; limit: TPCRE2_SIZE): longint; cdecl; external libpcre2_32;
+function pcre2_set_recursion_limit_32(mcontext: Ppcre2_match_context; limit: Tuint32_t): longint; cdecl; external libpcre2_32;
+function pcre2_set_recursion_memory_management_32(mcontext: Ppcre2_match_context; private_malloc: TPCRE2_Alloc_32; private_free: TPCRE2_Free_32; memory_data: pointer): longint; cdecl; external libpcre2_32;
+
+// --- Kontext-Einstellungen (Convert) ---
+function pcre2_set_glob_escape_32(cvcontext: Ppcre2_convert_context; escape_char: Tuint32_t): longint; cdecl; external libpcre2_32;
+function pcre2_set_glob_separator_32(cvcontext: Ppcre2_convert_context; separator_char: Tuint32_t): longint; cdecl; external libpcre2_32;
+
+// --- Kompilierung und Matching ---
+function pcre2_compile_32(pattern: TPCRE2_SPTR32; length: TPCRE2_SIZE; options: Tuint32_t; error_code: Plongint; error_offset: PPCRE2_SIZE; ccontext: Ppcre2_compile_context): Ppcre2_code; cdecl; external libpcre2_32;
+procedure pcre2_code_free_32(code: Ppcre2_code); cdecl; external libpcre2_32;
+function pcre2_code_copy_32(code: Ppcre2_code): Ppcre2_code; cdecl; external libpcre2_32;
+function pcre2_code_copy_with_tables_32(code: Ppcre2_code): Ppcre2_code; cdecl; external libpcre2_32;
+
+function pcre2_pattern_info_32(code: Ppcre2_code; what: Tuint32_t; where: pointer): longint; cdecl; external libpcre2_32;
+function pcre2_callout_enumerate_32(code: Ppcre2_code; callback: TPCRE2_Callout_Enum_32; callout_data: pointer): longint; cdecl; external libpcre2_32;
+
+function pcre2_match_data_create_32(oveccount: Tuint32_t; gcontext: Ppcre2_general_context): Ppcre2_match_data; cdecl; external libpcre2_32;
+function pcre2_match_data_create_from_pattern_32(code: Ppcre2_code; gcontext: Ppcre2_general_context): Ppcre2_match_data; cdecl; external libpcre2_32;
+
+function pcre2_match_32(code: Ppcre2_code; subject: TPCRE2_SPTR32; length: TPCRE2_SIZE; start_offset: TPCRE2_SIZE; options: Tuint32_t; match_data: Ppcre2_match_data; mcontext: Ppcre2_match_context): longint; cdecl; external libpcre2_32;
+function pcre2_dfa_match_32(code: Ppcre2_code; subject: TPCRE2_SPTR32; length: TPCRE2_SIZE; start_offset: TPCRE2_SIZE; options: Tuint32_t; match_data: Ppcre2_match_data; mcontext: Ppcre2_match_context; workspace: Plongint; wscount: TPCRE2_SIZE): longint; cdecl; external libpcre2_32;
+procedure pcre2_match_data_free_32(match_data: Ppcre2_match_data); cdecl; external libpcre2_32;
+
+// --- Ergebnis-Abfrage (Ovector / Substrings) ---
+function pcre2_get_mark_32(match_data: Ppcre2_match_data): TPCRE2_SPTR32; cdecl; external libpcre2_32;
+function pcre2_get_match_data_size_32(match_data: Ppcre2_match_data): TPCRE2_SIZE; cdecl; external libpcre2_32;
+function pcre2_get_ovector_count_32(match_data: Ppcre2_match_data): Tuint32_t; cdecl; external libpcre2_32;
+function pcre2_get_ovector_pointer_32(match_data: Ppcre2_match_data): PPCRE2_SIZE; cdecl; external libpcre2_32;
+function pcre2_get_startchar_32(match_data: Ppcre2_match_data): TPCRE2_SIZE; cdecl; external libpcre2_32;
+
+function pcre2_substring_copy_byname_32(match_data: Ppcre2_match_data; name: TPCRE2_SPTR32; buffer: PPCRE2_UCHAR32; bufflen: PPCRE2_SIZE): longint; cdecl; external libpcre2_32;
+function pcre2_substring_copy_bynumber_32(match_data: Ppcre2_match_data; number: Tuint32_t; buffer: PPCRE2_UCHAR32; bufflen: PPCRE2_SIZE): longint; cdecl; external libpcre2_32;
+procedure pcre2_substring_free_32(buffer: PPCRE2_UCHAR32); cdecl; external libpcre2_32;
+function pcre2_substring_get_byname_32(match_data: Ppcre2_match_data; name: TPCRE2_SPTR32; bufferptr: PPPCRE2_UCHAR32; bufflenptr: PPCRE2_SIZE): longint; cdecl; external libpcre2_32;
+function pcre2_substring_get_bynumber_32(match_data: Ppcre2_match_data; number: Tuint32_t; bufferptr: PPPCRE2_UCHAR32; bufflenptr: PPCRE2_SIZE): longint; cdecl; external libpcre2_32;
+function pcre2_substring_length_byname_32(match_data: Ppcre2_match_data; name: TPCRE2_SPTR32; lengthptr: PPCRE2_SIZE): longint; cdecl; external libpcre2_32;
+function pcre2_substring_length_bynumber_32(match_data: Ppcre2_match_data; number: Tuint32_t; lengthptr: PPCRE2_SIZE): longint; cdecl; external libpcre2_32;
+function pcre2_substring_nametable_scan_32(code: Ppcre2_code; name: TPCRE2_SPTR32; firstptr: PPCRE2_SPTR32; lastptr: PPCRE2_SPTR32): longint; cdecl; external libpcre2_32;
+function pcre2_substring_number_from_name_32(code: Ppcre2_code; name: TPCRE2_SPTR32): longint; cdecl; external libpcre2_32;
+procedure pcre2_substring_list_free_32(list: PPCRE2_SPTR32); cdecl; external libpcre2_32;
+function pcre2_substring_list_get_32(match_data: Ppcre2_match_data; listptr: PPPPCRE2_UCHAR32; lengthsptr: PPPCRE2_SIZE): longint; cdecl; external libpcre2_32;
+
+// --- Serialisierung ---
+function pcre2_serialize_encode_32(codes: PPpcre2_code; number_of_codes: Tint32_t; serialized_bytes: PPuint8_t; serialized_size: PPCRE2_SIZE; gcontext: Ppcre2_general_context): Tint32_t; cdecl; external libpcre2_32;
+function pcre2_serialize_decode_32(codes: PPpcre2_code; number_of_codes: Tint32_t; bytes: Puint8_t; gcontext: Ppcre2_general_context): Tint32_t; cdecl; external libpcre2_32;
+function pcre2_serialize_get_number_of_codes_32(bytes: Puint8_t): Tint32_t; cdecl; external libpcre2_32;
+procedure pcre2_serialize_free_32(bytes: Puint8_t); cdecl; external libpcre2_32;
+
+// --- Ersetzung und Konvertierung ---
+function pcre2_substitute_32(code: Ppcre2_code; subject: TPCRE2_SPTR32; length: TPCRE2_SIZE; start_offset: TPCRE2_SIZE; options: Tuint32_t; match_data: Ppcre2_match_data; mcontext: Ppcre2_match_context; replacement: TPCRE2_SPTR32;
+  rlength: TPCRE2_SIZE; output_buffer: PPCRE2_UCHAR32; outlengthptr: PPCRE2_SIZE): longint; cdecl; external libpcre2_32;
+function pcre2_pattern_convert_32(pattern: TPCRE2_SPTR32; length: TPCRE2_SIZE; options: Tuint32_t; bufferptr: PPPCRE2_UCHAR32; bufflenptr: PPCRE2_SIZE; cvcontext: Ppcre2_convert_context): longint; cdecl; external libpcre2_32;
+procedure pcre2_converted_pattern_free_32(converted_pattern: PPCRE2_UCHAR32); cdecl; external libpcre2_32;
+
+// --- JIT (Just-In-Time) ---
+function pcre2_jit_compile_32(code: Ppcre2_code; options: Tuint32_t): longint; cdecl; external libpcre2_32;
+function pcre2_jit_match_32(code: Ppcre2_code; subject: TPCRE2_SPTR32; length: TPCRE2_SIZE; start_offset: TPCRE2_SIZE; options: Tuint32_t; match_data: Ppcre2_match_data; mcontext: Ppcre2_match_context): longint; cdecl; external libpcre2_32;
+procedure pcre2_jit_free_unused_memory_32(gcontext: Ppcre2_general_context); cdecl; external libpcre2_32;
+function pcre2_jit_stack_create_32(start_size: TPCRE2_SIZE; max_size: TPCRE2_SIZE; gcontext: Ppcre2_general_context): Ppcre2_jit_stack; cdecl; external libpcre2_32;
+procedure pcre2_jit_stack_assign_32(mcontext: Ppcre2_match_context; callback: Tpcre2_jit_callback; callback_data: pointer); cdecl; external libpcre2_32;
+procedure pcre2_jit_stack_free_32(stack: Ppcre2_jit_stack); cdecl; external libpcre2_32;
+
+// --- Sonstiges ---
+function pcre2_get_error_message_32(error_code: longint; buffer: PPCRE2_UCHAR32; bufflen: TPCRE2_SIZE): longint; cdecl; external libpcre2_32;
+function pcre2_maketables_32(gcontext: Ppcre2_general_context): Puint8_t; cdecl; external libpcre2_32;
+procedure pcre2_maketables_free_32(gcontext: Ppcre2_general_context; tables: Puint8_t); cdecl; external libpcre2_32;
+
 
 // ==== pcre2posix.h
 
