@@ -279,6 +279,8 @@ const
     (libs: 'libraqm'; units: 'ctypes'),
     (libs: 'libfribidi'; units: 'fp_fribidi'),
     (libs: 'libpcre2'; units: 'ctypes'),
+    (libs: 'libmagiccore'; units: 'fp_magiccore'),
+    (libs: 'libmagicwand'; units: 'fp_magiccore, fp_magicwand'),
 
 
 
