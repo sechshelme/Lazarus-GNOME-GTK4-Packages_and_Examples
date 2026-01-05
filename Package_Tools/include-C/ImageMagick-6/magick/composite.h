@@ -108,7 +108,7 @@ typedef enum
 #define MinusCompositeOp     MinusDstCompositeOp
 #define DivideCompositeOp    DivideDstCompositeOp
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   CompositeImage(Image *,const CompositeOperator,const Image *,const ssize_t,
     const ssize_t),
   CompositeImageChannel(Image *,const ChannelType,const CompositeOperator,

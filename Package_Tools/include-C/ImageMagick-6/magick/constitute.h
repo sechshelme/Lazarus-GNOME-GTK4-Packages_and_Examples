@@ -34,7 +34,7 @@ typedef enum
   ShortPixel
 } StorageType;
 
-extern MagickExport Image
+extern  Image
   *ConstituteImage(const size_t,const size_t,const char *,const StorageType,
     const void *,ExceptionInfo *),
   *PingImage(const ImageInfo *,ExceptionInfo *),
@@ -43,7 +43,7 @@ extern MagickExport Image
   *ReadImages(const ImageInfo *,ExceptionInfo *),
   *ReadInlineImage(const ImageInfo *,const char *,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   WriteImage(const ImageInfo *,Image *),
   WriteImages(const ImageInfo *,Image *,const char *,ExceptionInfo *);
 

@@ -53,14 +53,14 @@ typedef enum
 typedef struct _Ascii85Info
   Ascii85Info;
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   HuffmanDecodeImage(Image *),
   HuffmanEncodeImage(const ImageInfo *,Image *,Image *),
   LZWEncodeImage(Image *,const size_t,unsigned char *magick_restrict),
   PackbitsEncodeImage(Image *,const size_t,unsigned char *magick_restrict),
   ZLIBEncodeImage(Image *,const size_t,unsigned char *magick_restrict);
 
-extern MagickExport void
+extern  void
   Ascii85Encode(Image *,const unsigned char),
   Ascii85Flush(Image *),
   Ascii85Initialize(Image *);

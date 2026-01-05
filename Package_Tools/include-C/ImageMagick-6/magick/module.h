@@ -66,13 +66,13 @@ typedef struct _ModuleInfo
 typedef size_t
   ImageFilterHandler(Image **,const int,const char **,ExceptionInfo *);
 
-extern MagickExport char
+extern  char
   **GetModuleList(const char *,const MagickModuleType,size_t *,ExceptionInfo *);
 
-extern MagickExport const ModuleInfo
+extern  const ModuleInfo
   **GetModuleInfoList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   InvokeDynamicImageFilter(const char *,Image **,const int,const char **,
     ExceptionInfo *),
   ListModuleInfo(FILE *,ExceptionInfo *),
@@ -80,10 +80,10 @@ extern MagickExport MagickBooleanType
   OpenModule(const char *,ExceptionInfo *),
   OpenModules(ExceptionInfo *);
 
-extern MagickExport ModuleInfo
+extern  ModuleInfo
   *GetModuleInfo(const char *,ExceptionInfo *);
 
-extern MagickExport void
+extern  void
   DestroyModuleList(void),
   ModuleComponentTerminus(void);
 

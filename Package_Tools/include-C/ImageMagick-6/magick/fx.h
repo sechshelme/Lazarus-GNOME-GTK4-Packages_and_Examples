@@ -24,7 +24,7 @@
 extern "C" {
 #endif
 
-extern MagickExport Image
+extern  Image
   *FxImage(const Image *,const char *,ExceptionInfo *),
   *FxImageChannel(const Image *,const ChannelType,const char *,ExceptionInfo *);
 

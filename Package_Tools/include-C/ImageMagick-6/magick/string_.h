@@ -42,7 +42,7 @@ typedef struct _StringInfo
     *name;
 } StringInfo;
 
-extern MagickExport char
+extern  char
   *AcquireString(const char *),
   *CloneString(char **,const char *),
   *ConstantString(const char *),
@@ -59,34 +59,34 @@ extern MagickExport char
   **StringToList(const char *),
   **StringToStrings(const char *,size_t *);
 
-extern MagickExport const char
+extern  const char
   *GetStringInfoName(const StringInfo *),
   *GetStringInfoPath(const StringInfo *);
 
-extern MagickExport double
+extern  double
   InterpretSiPrefixValue(const char *magick_restrict,char **magick_restrict),
   *StringToArrayOfDoubles(const char *,ssize_t *, ExceptionInfo *);
 
-extern MagickExport int
+extern  int
   CompareStringInfo(const StringInfo *,const StringInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   ConcatenateString(char **magick_restrict,const char *magick_restrict),
   IsStringTrue(const char *) magick_attribute((__pure__)),
   IsStringNotFalse(const char *) magick_attribute((__pure__)),
   SubstituteString(char **,const char *,const char *);
 
-extern MagickExport size_t
+extern  size_t
   ConcatenateMagickString(char *magick_restrict,const char *magick_restrict,
     const size_t) magick_attribute((__nonnull__)),
   CopyMagickString(char *magick_restrict,const char *magick_restrict,
     const size_t) magick_attribute((__nonnull__)),
   GetStringInfoLength(const StringInfo *);
 
-extern MagickExport ssize_t
+extern  ssize_t
   FormatMagickSize(const MagickSizeType,const MagickBooleanType,char *);
 
-extern MagickExport StringInfo
+extern  StringInfo
   *AcquireStringInfo(const size_t),
   *BlobToStringInfo(const void *,const size_t),
   *CloneStringInfo(const StringInfo *),
@@ -96,10 +96,10 @@ extern MagickExport StringInfo
   *SplitStringInfo(StringInfo *,const size_t),
   *StringToStringInfo(const char *);
 
-extern MagickExport unsigned char
+extern  unsigned char
   *GetStringInfoDatum(const StringInfo *);
 
-extern MagickExport void
+extern  void
   ConcatenateStringInfo(StringInfo *,const StringInfo *)
     magick_attribute((__nonnull__)),
   PrintStringInfo(FILE *file,const char *,const StringInfo *),

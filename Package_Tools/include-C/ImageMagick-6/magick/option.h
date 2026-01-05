@@ -153,16 +153,16 @@ typedef enum
   DeprecateOptionFlag       = 0x8000   /* Deprecate option, give warning */
 } CommandOptionFlags;
 
-extern MagickExport char
+extern  char
   **GetCommandOptions(const CommandOption),
   *GetNextImageOption(const ImageInfo *),
   *RemoveImageOption(ImageInfo *,const char *);
 
-extern MagickExport const char
+extern  const char
   *CommandOptionToMnemonic(const CommandOption,const ssize_t),
   *GetImageOption(const ImageInfo *,const char *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   CloneImageOptions(ImageInfo *,const ImageInfo *),
   DefineImageOption(ImageInfo *,const char *),
   DeleteImageOption(ImageInfo *,const char *),
@@ -171,13 +171,13 @@ extern MagickExport MagickBooleanType
   ListCommandOptions(FILE *,const CommandOption,ExceptionInfo *),
   SetImageOption(ImageInfo *,const char *,const char *);
 
-extern MagickExport ssize_t
+extern  ssize_t
   GetCommandOptionFlags(const CommandOption,const MagickBooleanType,
     const char *),
   ParseChannelOption(const char *),
   ParseCommandOption(const CommandOption,const MagickBooleanType,const char *);
 
-extern MagickExport void
+extern  void
   DestroyImageOptions(ImageInfo *),
   ResetImageOptions(const ImageInfo *),
   ResetImageOptionIterator(const ImageInfo *);

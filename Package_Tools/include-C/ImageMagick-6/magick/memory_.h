@@ -34,14 +34,14 @@ typedef void
   *(*AcquireAlignedMemoryHandler)(const size_t,const size_t),
   (*RelinquishAlignedMemoryHandler)(void *);
 
-extern MagickExport MemoryInfo
+extern  MemoryInfo
   *AcquireVirtualMemory(const size_t,const size_t) magick_alloc_sizes(1,2),
   *RelinquishVirtualMemory(MemoryInfo *);
 
-extern MagickExport size_t
+extern  size_t
   GetMaxMemoryRequest(void);
 
-extern MagickExport void
+extern  void
   *AcquireAlignedMemory(const size_t,const size_t)
     magick_attribute((__malloc__)) magick_alloc_sizes(1,2),
   *AcquireMagickMemory(const size_t) magick_attribute((__malloc__))

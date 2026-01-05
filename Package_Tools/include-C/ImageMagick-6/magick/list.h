@@ -22,7 +22,7 @@
 extern "C" {
 #endif
 
-extern MagickExport Image
+extern  Image
   *CloneImageList(const Image *,ExceptionInfo *),
   *CloneImages(const Image *,const char *,ExceptionInfo *),
   *DestroyImageList(Image *),
@@ -41,13 +41,13 @@ extern MagickExport Image
   *SplitImageList(Image *),
   *SyncNextImageInList(const Image *);
 
-extern MagickExport size_t
+extern  size_t
   GetImageListLength(const Image *) magick_attribute((__pure__));
 
-extern MagickExport ssize_t
+extern  ssize_t
   GetImageIndexInList(const Image *) magick_attribute((__pure__));
 
-extern MagickExport void
+extern  void
   AppendImageToList(Image **,const Image *),
   DeleteImageFromList(Image **),
   DeleteImages(Image **,const char *,ExceptionInfo *),

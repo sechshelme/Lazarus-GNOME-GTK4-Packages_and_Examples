@@ -22,7 +22,7 @@
 extern "C" {
 #endif
 
-extern MagickExport const char
+extern  const char
   *GetClientPath(void) magick_attribute((__const__)),
   *GetClientName(void) magick_attribute((__const__)),
   *SetClientName(const char *),

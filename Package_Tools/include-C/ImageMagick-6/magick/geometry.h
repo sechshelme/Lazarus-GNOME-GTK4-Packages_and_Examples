@@ -131,14 +131,14 @@ typedef struct _RectangleInfo
     y;
 } RectangleInfo;
 
-extern MagickExport char
+extern  char
   *GetPageGeometry(const char *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   IsGeometry(const char *),
   IsSceneGeometry(const char *,const MagickBooleanType);
 
-extern MagickExport MagickStatusType
+extern  MagickStatusType
   GetGeometry(const char *,ssize_t *,ssize_t *,size_t *,size_t *),
   ParseAbsoluteGeometry(const char *,RectangleInfo *),
   ParseAffineGeometry(const char *,AffineMatrix *,ExceptionInfo *),
@@ -150,7 +150,7 @@ extern MagickExport MagickStatusType
   ParseRegionGeometry(const Image *,const char *,RectangleInfo *,
     ExceptionInfo *);
 
-extern MagickExport void
+extern  void
   GravityAdjustGeometry(const size_t,const size_t,const GravityType,
     RectangleInfo *),
   SetGeometry(const Image *,RectangleInfo *),

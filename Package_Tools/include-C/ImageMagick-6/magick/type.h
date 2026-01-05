@@ -85,20 +85,20 @@ typedef struct _TypeInfo
     signature;
 } TypeInfo;
 
-extern MagickExport char
+extern  char
   **GetTypeList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   ListTypeInfo(FILE *,ExceptionInfo *),
   TypeComponentGenesis(void);
 
-extern MagickExport const TypeInfo
+extern  const TypeInfo
   *GetTypeInfo(const char *,ExceptionInfo *),
   *GetTypeInfoByFamily(const char *,const StyleType,const StretchType,
     const size_t,ExceptionInfo *),
   **GetTypeInfoList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport void
+extern  void
   TypeComponentTerminus(void);
 
 #if defined(__cplusplus) || defined(c_plusplus)

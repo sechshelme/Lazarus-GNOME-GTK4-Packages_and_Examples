@@ -25,12 +25,12 @@
 extern "C" {
 #endif
 
-extern MagickExport ImageType
+extern  ImageType
   GetImageType(const Image *,ExceptionInfo *),
   IdentifyImageGray(const Image *,ExceptionInfo *),
   IdentifyImageType(const Image *,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   IdentifyImageMonochrome(const Image *,ExceptionInfo *),
   IsGrayImage(const Image *,ExceptionInfo *),
   IsMonochromeImage(const Image *,ExceptionInfo *),
@@ -39,10 +39,10 @@ extern MagickExport MagickBooleanType
   SetImageDepth(Image *,const size_t),
   SetImageType(Image *,const ImageType);
 
-extern MagickExport RectangleInfo
+extern  RectangleInfo
   GetImageBoundingBox(const Image *,ExceptionInfo *exception);
 
-extern MagickExport size_t
+extern  size_t
   GetImageChannelDepth(const Image *,const ChannelType,ExceptionInfo *),
   GetImageDepth(const Image *,ExceptionInfo *),
   GetImageQuantumDepth(const Image *,const MagickBooleanType);

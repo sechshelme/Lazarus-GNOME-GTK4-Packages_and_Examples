@@ -22,7 +22,7 @@
 extern "C" {
 #endif
 
-extern MagickExport Image
+extern  Image
   *DeskewImage(const Image *,const double,ExceptionInfo *),
   *IntegralRotateImage(const Image *,size_t,ExceptionInfo *),
   *ShearImage(const Image *,const double,const double,ExceptionInfo *),

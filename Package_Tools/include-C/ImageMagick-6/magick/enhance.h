@@ -24,7 +24,7 @@
 extern "C" {
 #endif
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   AutoGammaImage(Image *),
   AutoGammaImageChannel(Image *,const ChannelType),
   AutoLevelImage(Image *),
@@ -66,7 +66,7 @@ extern MagickExport MagickBooleanType
   SigmoidalContrastImageChannel(Image *,const ChannelType,
     const MagickBooleanType,const double,const double);
 
-extern MagickExport Image
+extern  Image
   *EnhanceImage(const Image *,ExceptionInfo *);
 
 #if defined(__cplusplus) || defined(c_plusplus)

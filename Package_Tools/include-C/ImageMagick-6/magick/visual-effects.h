@@ -36,7 +36,7 @@ typedef enum
   RandomNoise
 } NoiseType;
 
-extern MagickExport Image
+extern  Image
   *AddNoiseImage(const Image *,const NoiseType,ExceptionInfo *),
   *AddNoiseImageChannel(const Image *,const ChannelType,const NoiseType,
     ExceptionInfo *),
@@ -63,7 +63,7 @@ extern MagickExport Image
   *WaveImage(const Image *,const double,const double,ExceptionInfo *),
   *WaveletDenoiseImage(const Image *,const double,const double,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   PlasmaImage(Image *,const SegmentInfo *,size_t,size_t),
   SolarizeImage(Image *,const double),
   SolarizeImageChannel(Image *,const ChannelType,const double,ExceptionInfo *);

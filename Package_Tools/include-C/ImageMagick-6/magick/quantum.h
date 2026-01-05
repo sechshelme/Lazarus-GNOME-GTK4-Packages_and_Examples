@@ -153,36 +153,36 @@ static inline unsigned char ScaleQuantumToChar(const Quantum quantum)
 }
 #endif
 
-extern MagickExport EndianType
+extern  EndianType
   GetQuantumEndian(const QuantumInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   SetQuantumDepth(const Image *,QuantumInfo *,const size_t),
   SetQuantumEndian(const Image *,QuantumInfo *,const EndianType),
   SetQuantumFormat(const Image *,QuantumInfo *,const QuantumFormatType),
   SetQuantumPad(const Image *,QuantumInfo *,const size_t);
 
-extern MagickExport QuantumFormatType
+extern  QuantumFormatType
   GetQuantumFormat(const QuantumInfo *);
 
-extern MagickExport QuantumInfo
+extern  QuantumInfo
   *AcquireQuantumInfo(const ImageInfo *,Image *),
   *DestroyQuantumInfo(QuantumInfo *);
 
-extern MagickExport QuantumType
+extern  QuantumType
   GetQuantumType(Image *,ExceptionInfo *);
 
-extern MagickExport size_t
+extern  size_t
   ExportQuantumPixels(const Image *,const CacheView *,const QuantumInfo *,
     const QuantumType,unsigned char *magick_restrict,ExceptionInfo *),
   GetQuantumExtent(const Image *,const QuantumInfo *,const QuantumType),
   ImportQuantumPixels(Image *,CacheView *,const QuantumInfo *,const QuantumType,
     const unsigned char *magick_restrict,ExceptionInfo *);
 
-extern MagickExport unsigned char
+extern  unsigned char
   *GetQuantumPixels(const QuantumInfo *);
 
-extern MagickExport void
+extern  void
   GetQuantumInfo(const ImageInfo *,QuantumInfo *),
   SetQuantumAlphaType(QuantumInfo *,const QuantumAlphaType),
   SetQuantumImageType(Image *,const QuantumType),

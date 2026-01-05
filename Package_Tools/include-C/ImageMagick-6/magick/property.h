@@ -22,16 +22,16 @@
 extern "C" {
 #endif
 
-extern MagickExport char
+extern  char
   *GetNextImageProperty(const Image *),
   *InterpretImageProperties(const ImageInfo *,Image *,const char *),
   *RemoveImageProperty(Image *,const char *);
 
-extern MagickExport const char
+extern  const char
   *GetImageProperty(const Image *,const char *),
   *GetMagickProperty(const ImageInfo *,Image *,const char *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   CloneImageProperties(Image *,const Image *),
   DefineImageProperty(Image *,const char *),
   DeleteImageProperty(Image *,const char *),
@@ -39,7 +39,7 @@ extern MagickExport MagickBooleanType
     magick_attribute((__format__ (__printf__,3,4))),
   SetImageProperty(Image *,const char *,const char *);
 
-extern MagickExport void
+extern  void
   DestroyImageProperties(Image *),
   ResetImagePropertyIterator(const Image *);
 

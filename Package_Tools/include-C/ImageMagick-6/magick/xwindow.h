@@ -32,10 +32,10 @@ typedef struct _XImportInfo
     silent;
 } XImportInfo;
 
-extern MagickExport Image
+extern  Image
   *XImportImage(const ImageInfo *,XImportInfo *);
 
-extern MagickExport void
+extern  void
   XGetImportInfo(XImportInfo *);
 
 #if defined(__cplusplus) || defined(c_plusplus)

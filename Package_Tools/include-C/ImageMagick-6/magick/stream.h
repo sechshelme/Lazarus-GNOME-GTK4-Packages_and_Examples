@@ -25,10 +25,10 @@ extern "C" {
 typedef size_t
   (*StreamHandler)(const Image *,const void *,const size_t);
 
-extern MagickExport Image
+extern  Image
   *ReadStream(const ImageInfo *,StreamHandler,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   WriteStream(const ImageInfo *,Image *,StreamHandler);
 
 #if defined(__cplusplus) || defined(c_plusplus)

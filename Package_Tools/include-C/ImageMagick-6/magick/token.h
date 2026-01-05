@@ -28,21 +28,21 @@ extern "C" {
 typedef struct _TokenInfo
   TokenInfo;
 
-extern MagickExport int
+extern  int
   Tokenizer(TokenInfo *,const unsigned int,char *,const size_t,const char *,
     const char *,const char *,const char *,const char,char *,int *,char *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   GlobExpression(const char *magick_restrict,const char *magick_restrict,
     const MagickBooleanType) magick_attribute((__pure__)),
   IsGlob(const char *) magick_attribute((__pure__)),
   IsMagickTrue(const char *) magick_attribute((__pure__));
 
-extern MagickExport size_t
+extern  size_t
   GetNextToken(const char *magick_restrict,const char **magick_restrict,
     const size_t,char *magick_restrict) magick_hot_spot;
 
-extern MagickExport TokenInfo
+extern  TokenInfo
   *AcquireTokenInfo(void),
   *DestroyTokenInfo(TokenInfo *);
 

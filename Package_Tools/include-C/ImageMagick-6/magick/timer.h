@@ -50,21 +50,21 @@ typedef struct _TimerInfo
     signature;
 } TimerInfo;
 
-extern MagickExport double
+extern  double
   GetElapsedTime(TimerInfo *),
   GetUserTime(TimerInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   ContinueTimer(TimerInfo *);
 
-extern MagickExport ssize_t
+extern  ssize_t
   FormatMagickTime(const time_t,const size_t,char *);
 
-extern MagickExport TimerInfo
+extern  TimerInfo
   *AcquireTimerInfo(void),
   *DestroyTimerInfo(TimerInfo *);
 
-extern MagickExport void
+extern  void
   GetTimerInfo(TimerInfo *),
   ResetTimer(TimerInfo *),
   StartTimer(TimerInfo *,const MagickBooleanType);

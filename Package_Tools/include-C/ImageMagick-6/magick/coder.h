@@ -41,18 +41,18 @@ typedef struct _CoderInfo
     signature;
 } CoderInfo;
 
-extern MagickExport char
+extern  char
   **GetCoderList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport const CoderInfo
+extern  const CoderInfo
   *GetCoderInfo(const char *,ExceptionInfo *),
   **GetCoderInfoList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   CoderComponentGenesis(void),
   ListCoderInfo(FILE *,ExceptionInfo *);
 
-MagickExport void
+ void
   CoderComponentTerminus(void);
 
 #if defined(__cplusplus) || defined(c_plusplus)

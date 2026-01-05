@@ -57,7 +57,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/ImageMagick-6/wand', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/ImageMagick-6', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -99,6 +99,8 @@ begin
 
 
       slHeader[j] := StringReplace(slHeader[j], 'WandExport', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'MagickExport', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'ModuleExport', '', [rfReplaceAll]);
 
 
 

@@ -22,7 +22,7 @@
 extern "C" {
 #endif
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   DecipherImage(Image *,const char *,ExceptionInfo *),
   EncipherImage(Image *,const char *,ExceptionInfo *),
   PasskeyDecipherImage(Image *,const StringInfo *,ExceptionInfo *),

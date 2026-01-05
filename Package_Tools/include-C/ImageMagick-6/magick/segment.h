@@ -22,7 +22,7 @@
 extern "C" {
 #endif
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   GetImageDynamicThreshold(const Image *,const double,const double,
     MagickPixelPacket *,ExceptionInfo *),
   SegmentImage(Image *,const ColorspaceType,const MagickBooleanType,

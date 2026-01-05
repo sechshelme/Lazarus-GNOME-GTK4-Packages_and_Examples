@@ -34,19 +34,19 @@ typedef struct _ColorPacket
     count;
 } ColorPacket;
 
-extern MagickExport ColorPacket
+extern  ColorPacket
   *GetImageHistogram(const Image *,size_t *,ExceptionInfo *);
 
-extern MagickExport Image
+extern  Image
   *UniqueImageColors(const Image *,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   IdentifyPaletteImage(const Image *,ExceptionInfo *),
   IsHistogramImage(const Image *,ExceptionInfo *),
   IsPaletteImage(const Image *,ExceptionInfo *),
   MinMaxStretchImage(Image *,const ChannelType,const double,const double);
 
-extern MagickExport size_t
+extern  size_t
   GetNumberColors(const Image *,FILE *,ExceptionInfo *);
 
 #if defined(__cplusplus) || defined(c_plusplus)

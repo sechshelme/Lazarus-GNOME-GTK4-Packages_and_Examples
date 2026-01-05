@@ -22,7 +22,7 @@
 extern "C" {
 #endif
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   AcquireImageColormap(Image *,const size_t),
   CycleColormapImage(Image *,const ssize_t),
   SortColormapByIntensity(Image *);

@@ -108,24 +108,24 @@ typedef struct _MagickInfo
     *semaphore;
 } MagickInfo;
 
-extern MagickExport char
+extern  char
   **GetMagickList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport const char
+extern  const char
   *GetMagickDescription(const MagickInfo *),
   *GetMagickMimeType(const MagickInfo *);
 
-extern MagickExport DecodeImageHandler
+extern  DecodeImageHandler
   *GetImageDecoder(const MagickInfo *) magick_attribute((__pure__));
 
-extern MagickExport EncodeImageHandler
+extern  EncodeImageHandler
   *GetImageEncoder(const MagickInfo *) magick_attribute((__pure__));
 
-extern MagickExport int
+extern  int
   GetMagickPrecision(void),
   SetMagickPrecision(const int);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   GetImageMagick(const unsigned char *,const size_t,char *),
   GetMagickAdjoin(const MagickInfo *) magick_attribute((__pure__)),
   GetMagickBlobSupport(const MagickInfo *) magick_attribute((__pure__)),
@@ -136,18 +136,18 @@ extern MagickExport MagickBooleanType
   MagickComponentGenesis(void),
   UnregisterMagickInfo(const char *);
 
-extern const MagickExport MagickInfo
+extern const  MagickInfo
   *GetMagickInfo(const char *,ExceptionInfo *),
   **GetMagickInfoList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport MagickInfo
+extern  MagickInfo
   *RegisterMagickInfo(MagickInfo *),
   *SetMagickInfo(const char *);
 
-extern MagickExport MagickStatusType
+extern  MagickStatusType
   GetMagickThreadSupport(const MagickInfo *);
 
-extern MagickExport void
+extern  void
   MagickComponentTerminus(void),
   MagickCoreGenesis(const char *,const MagickBooleanType),
   MagickCoreTerminus(void);

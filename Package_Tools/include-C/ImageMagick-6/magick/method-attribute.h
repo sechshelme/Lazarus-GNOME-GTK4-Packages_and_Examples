@@ -40,28 +40,28 @@ extern "C" {
 #    endif
 #    if !defined(_MAGICKLIB_)
 #      if defined(__clang__) || defined(__GNUC__)
-#        define MagickExport __attribute__ ((dllimport))
+#        define  __attribute__ ((dllimport))
 #      else
-#        define MagickExport __declspec(dllimport)
+#        define  __declspec(dllimport)
 #      endif
 #    else
 #      if defined(__clang__) || defined(__GNUC__)
-#        define MagickExport __attribute__ ((dllexport))
+#        define  __attribute__ ((dllexport))
 #      else
-#        define MagickExport __declspec(dllexport)
+#        define  __declspec(dllexport)
 #      endif
 #    endif
 #  else
-#    define MagickExport
+#    define 
 #  endif
 #  if defined(_DLL) && !defined(_LIB)
 #    if defined(__clang__) || defined(__GNUC__)
-#      define ModuleExport __attribute__ ((dllexport))
+#      define  __attribute__ ((dllexport))
 #    else
-#      define ModuleExport __declspec(dllexport)
+#      define  __declspec(dllexport)
 #    endif
 #  else
-#    define ModuleExport
+#    define 
 #  endif
 #  if defined(_VISUALC_)
 #    pragma warning(disable : 4018)
@@ -74,13 +74,13 @@ extern "C" {
 #  endif
 #else
 #  if defined(__clang__) || (__GNUC__ >= 4)
-#    define MagickExport __attribute__ ((visibility ("default")))
+#    define  __attribute__ ((visibility ("default")))
 #    define MagickPrivate  __attribute__ ((visibility ("hidden")))
 #  else
-#    define MagickExport
+#    define 
 #    define MagickPrivate
 #  endif
-#  define ModuleExport  MagickExport
+#  define   
 #endif
 
 #define MagickCoreSignature  0xabacadabUL

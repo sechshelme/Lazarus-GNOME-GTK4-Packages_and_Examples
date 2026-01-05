@@ -62,10 +62,10 @@ typedef enum
   LinearGRAYColorspace      /* greyscale (linear) image (faked 1 channel) */
 } ColorspaceType;
 
-extern MagickExport ColorspaceType
+extern  ColorspaceType
   GetImageColorspaceType(const Image *,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   RGBTransformImage(Image *,const ColorspaceType),
   SetImageColorspace(Image *,const ColorspaceType),
   SetImageGray(Image *,ExceptionInfo *),

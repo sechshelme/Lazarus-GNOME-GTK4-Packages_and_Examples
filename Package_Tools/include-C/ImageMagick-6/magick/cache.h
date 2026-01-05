@@ -34,27 +34,27 @@ typedef enum
   DistributedCache
 } CacheType;
 
-extern MagickExport CacheType
+extern  CacheType
   GetImagePixelCacheType(const Image *);
 
-extern MagickExport const char
+extern  const char
   *GetPixelCacheFilename(const Image *);
 
-extern MagickExport const IndexPacket
+extern  const IndexPacket
   *GetVirtualIndexQueue(const Image *);
 
-extern MagickExport const PixelPacket
+extern  const PixelPacket
   *GetVirtualPixels(const Image *,const ssize_t,const ssize_t,const size_t,
     const size_t,ExceptionInfo *),
   *GetVirtualPixelQueue(const Image *);
 
-extern MagickExport const void
+extern  const void
   *AcquirePixelCachePixels(const Image *,MagickSizeType *,ExceptionInfo *);
 
-extern MagickExport IndexPacket
+extern  IndexPacket
   *GetAuthenticIndexQueue(const Image *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   CacheComponentGenesis(void),
   GetOneVirtualMagickPixel(const Image *,const ssize_t,const ssize_t,
     MagickPixelPacket *,ExceptionInfo *),
@@ -68,21 +68,21 @@ extern MagickExport MagickBooleanType
     MagickOffsetType *,ExceptionInfo *),
   SyncAuthenticPixels(Image *,ExceptionInfo *);
 
-extern MagickExport MagickSizeType
+extern  MagickSizeType
   GetImageExtent(const Image *);
 
-extern MagickExport PixelPacket
+extern  PixelPacket
   *GetAuthenticPixels(Image *,const ssize_t,const ssize_t,const size_t,
     const size_t,ExceptionInfo *),
   *GetAuthenticPixelQueue(const Image *),
   *QueueAuthenticPixels(Image *,const ssize_t,const ssize_t,const size_t,
     const size_t,ExceptionInfo *);
 
-extern MagickExport VirtualPixelMethod
+extern  VirtualPixelMethod
   GetPixelCacheVirtualMethod(const Image *),
   SetPixelCacheVirtualMethod(const Image *,const VirtualPixelMethod);
 
-extern MagickExport void
+extern  void
   CacheComponentTerminus(void),
   *GetPixelCachePixels(Image *,MagickSizeType *,ExceptionInfo *);
 

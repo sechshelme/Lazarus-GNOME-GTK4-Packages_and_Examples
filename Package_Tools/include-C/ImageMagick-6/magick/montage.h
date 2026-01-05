@@ -69,16 +69,16 @@ typedef struct _MontageInfo
     signature;
 } MontageInfo;
 
-extern MagickExport Image
+extern  Image
   *MontageImages(const Image *,const MontageInfo *,ExceptionInfo *),
   *MontageImageList(const ImageInfo *,const MontageInfo *,const Image *,
     ExceptionInfo *);
 
-extern MagickExport MontageInfo
+extern  MontageInfo
   *CloneMontageInfo(const ImageInfo *,const MontageInfo *),
   *DestroyMontageInfo(MontageInfo *);
 
-extern MagickExport void
+extern  void
   GetMontageInfo(const ImageInfo *,MontageInfo *);
 
 #if defined(__cplusplus) || defined(c_plusplus)

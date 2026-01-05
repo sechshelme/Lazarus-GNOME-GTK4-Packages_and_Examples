@@ -49,35 +49,35 @@ typedef enum
 typedef struct _CacheView
   CacheView;
 
-extern MagickExport CacheView
+extern  CacheView
   *AcquireAuthenticCacheView(const Image *,ExceptionInfo *),
   *AcquireCacheView(const Image *),
   *AcquireVirtualCacheView(const Image *,ExceptionInfo *),
   *CloneCacheView(const CacheView *),
   *DestroyCacheView(CacheView *);
 
-extern MagickExport ClassType
+extern  ClassType
   GetCacheViewStorageClass(const CacheView *) magick_attribute((__pure__));
 
-extern MagickExport ColorspaceType
+extern  ColorspaceType
   GetCacheViewColorspace(const CacheView *) magick_attribute((__pure__));
 
-extern MagickExport const IndexPacket
+extern  const IndexPacket
   *GetCacheViewVirtualIndexQueue(const CacheView *)
     magick_attribute((__pure__));
 
-extern MagickExport const PixelPacket
+extern  const PixelPacket
   *GetCacheViewVirtualPixels(const CacheView *,const ssize_t,const ssize_t,
     const size_t,const size_t,ExceptionInfo *) magick_hot_spot,
   *GetCacheViewVirtualPixelQueue(const CacheView *) magick_hot_spot;
 
-extern MagickExport ExceptionInfo
+extern  ExceptionInfo
   *GetCacheViewException(const CacheView *) magick_attribute((__pure__));
 
-extern MagickExport IndexPacket
+extern  IndexPacket
   *GetCacheViewAuthenticIndexQueue(CacheView *) magick_attribute((__pure__));
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   GetOneCacheViewAuthenticPixel(const CacheView *magick_restrict,const ssize_t,
     const ssize_t,PixelPacket *magick_restrict,ExceptionInfo *),
   GetOneCacheViewVirtualMethodPixel(const CacheView *,
@@ -91,13 +91,13 @@ extern MagickExport MagickBooleanType
   SyncCacheViewAuthenticPixels(CacheView *magick_restrict,ExceptionInfo *)
     magick_hot_spot;
 
-extern MagickExport MagickSizeType
+extern  MagickSizeType
   GetCacheViewExtent(const CacheView *);
 
-extern MagickExport size_t
+extern  size_t
   GetCacheViewChannels(const CacheView *);
 
-extern MagickExport PixelPacket
+extern  PixelPacket
   *GetCacheViewAuthenticPixelQueue(CacheView *) magick_hot_spot,
   *GetCacheViewAuthenticPixels(CacheView *,const ssize_t,const ssize_t,
     const size_t,const size_t,ExceptionInfo *) magick_hot_spot,

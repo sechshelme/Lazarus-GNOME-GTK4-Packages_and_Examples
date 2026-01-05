@@ -4,7 +4,7 @@ uses
   fp_fribidi;
 
 
-  function fribidi_str_convert(const string_orig: string): string;
+  procedure fribidi_show(const string_orig: string);
   var
     fribidi_in_char: array of TFriBidiChar = nil;
     fribidi_visual_char: array of TFriBidiChar = nil;
@@ -13,6 +13,8 @@ uses
     orig_len, len, new_len: TFriBidiStrIndex;
     string_formatted: string = '';
   begin
+    WriteLn('Original:  ', string_orig, ' (', Length(string_orig), ')');
+
     orig_len := Length(string_orig);
 
     SetLength(fribidi_in_char, orig_len + 1);
@@ -26,31 +28,26 @@ uses
     if stat <> 0 then begin
       SetLength(string_formatted, len * 4 + 1);
       new_len := fribidi_unicode_to_charset(FRIBIDI_CHAR_SET_UTF8, PFriBidiChar(fribidi_visual_char), len, pchar(string_formatted));
+      SetLength(string_formatted, new_len);
       if new_len > 0 then begin
-        Exit(string_formatted);
+        WriteLn('Convertet: ', string_formatted, ' (', Length(string_formatted), ')');
       end;
     end;
-    Result := string_orig;
-  end;
-
-  procedure PrintStr(const s: string);
-  var
-    converted: string;
-  begin
-    WriteLn('Original: '#10, s);
-
-    converted := fribidi_str_convert(pchar(s));
-    WriteLn('Converted: '#10, pchar(converted), #10);
+    WriteLn();
   end;
 
   procedure main;
   const
-    arabic_text = 'السلام عليكم';
-    german_text = 'Hello ÄÖÜ ! 😀  😄  ☺️';
-
+    texts: array of string = (
+      'Hello World',
+      'Hello ÄÖÜ ! 😀  😄  ☺️',
+      'السلام عليكم');
+  var
+    i: integer;
   begin
-    PrintStr(german_text);
-    PrintStr(arabic_text);
+    for i := 0 to Length(texts) - 1 do begin
+      fribidi_show(texts[i]);
+    end;
   end;
 
 begin

@@ -37,12 +37,12 @@ typedef enum
   BasePathSansCompressExtension
 } PathType;
 
-extern MagickExport char
+extern  char
   *Base64Encode(const unsigned char *,const size_t,size_t *),
   **GetPathComponents(const char *,size_t *),
   **ListFiles(const char *,const char *,size_t *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   AcquireUniqueFilename(char *),
   AcquireUniqueSymbolicLink(const char *,char *),
   ExpandFilenames(int *,char ***),
@@ -50,16 +50,16 @@ extern MagickExport MagickBooleanType
   GetExecutionPath(char *,const size_t),
   IsPathAccessible(const char *);
 
-extern MagickExport size_t
+extern  size_t
   MultilineCensus(const char *) magick_attribute((__pure__));
 
-extern MagickExport ssize_t
+extern  ssize_t
   GetMagickPageSize(void);
 
-extern MagickExport unsigned char
+extern  unsigned char
   *Base64Decode(const char *, size_t *);
 
-extern MagickExport void
+extern  void
   AppendImageFormat(const char *,char *),
   ChopPathComponents(char *,const size_t),
   ExpandFilename(char *),

@@ -51,20 +51,20 @@ typedef enum
 typedef struct _PolicyInfo
   PolicyInfo;
 
-extern MagickExport char
+extern  char
   *GetPolicyValue(const char *name),
   **GetPolicyList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport const PolicyInfo
+extern  const PolicyInfo
   **GetPolicyInfoList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   IsRightsAuthorized(const PolicyDomain,const PolicyRights,const char *),
   ListPolicyInfo(FILE *,ExceptionInfo *),
   PolicyComponentGenesis(void),
   SetMagickSecurityPolicy(const char *,ExceptionInfo *);
 
-extern MagickExport void
+extern  void
   PolicyComponentTerminus(void);
 
 #if defined(__cplusplus) || defined(c_plusplus)

@@ -22,20 +22,20 @@
 extern "C" {
 #endif
 
-extern MagickExport char
+extern  char
   *GetNextImageArtifact(const Image *),
   *RemoveImageArtifact(Image *,const char *);
 
-extern MagickExport const char
+extern  const char
   *GetImageArtifact(const Image *,const char *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   CloneImageArtifacts(Image *,const Image *),
   DefineImageArtifact(Image *,const char *),
   DeleteImageArtifact(Image *,const char *),
   SetImageArtifact(Image *,const char *,const char *);
 
-extern MagickExport void
+extern  void
   DestroyImageArtifacts(Image *),
   ResetImageArtifactIterator(const Image *);
 

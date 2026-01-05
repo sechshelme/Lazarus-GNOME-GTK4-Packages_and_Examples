@@ -25,10 +25,10 @@
 extern "C" {
 #endif
 
-extern MagickExport Image
+extern  Image
   *OilPaintImage(const Image *,const double,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   FloodfillPaintImage(Image *,const ChannelType,const DrawInfo *,
     const MagickPixelPacket *,const ssize_t,const ssize_t,
     const MagickBooleanType),

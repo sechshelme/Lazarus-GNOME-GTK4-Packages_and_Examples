@@ -203,7 +203,7 @@ extern  MagickBooleanType
 extern  MagickBooleanType
   MagickEvaluateImageChannel(MagickWand *,const ChannelType,    const MagickEvaluateOperator,const double);
 extern  MagickBooleanType
-  MagickExportImagePixels(MagickWand *,const ssize_t,const ssize_t,    const size_t,const size_t,const char *,const StorageType,void *);
+  ImagePixels(MagickWand *,const ssize_t,const ssize_t,    const size_t,const size_t,const char *,const StorageType,void *);
 extern  MagickBooleanType
   MagickExtentImage(MagickWand *,const size_t,const size_t,const ssize_t,    const ssize_t);
 extern  MagickBooleanType

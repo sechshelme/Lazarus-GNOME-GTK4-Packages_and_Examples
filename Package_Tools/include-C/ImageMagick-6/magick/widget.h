@@ -27,16 +27,16 @@ extern "C" {
 #endif
 
 #if defined(MAGICKCORE_X11_DELEGATE)
-extern MagickExport int
+extern  int
   XCommandWidget(Display *,XWindows *,const char *const *,XEvent *),
   XConfirmWidget(Display *,XWindows *,const char *,const char *),
   XDialogWidget(Display *,XWindows *,const char *,const char *,char *),
   XMenuWidget(Display *,XWindows *,const char *,const char *const *,char *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   XPreferencesWidget(Display *,XResourceInfo *,XWindows *);
 
-extern MagickExport void
+extern  void
   DestroyXWidget(void),
   XColorBrowserWidget(Display *,XWindows *,const char *,char *),
   XFileBrowserWidget(Display *,XWindows *,const char *,char *),

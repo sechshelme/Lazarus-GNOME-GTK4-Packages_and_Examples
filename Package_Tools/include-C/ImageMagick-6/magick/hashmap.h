@@ -33,16 +33,16 @@ typedef struct _HashmapInfo
 typedef struct _LinkedListInfo
   LinkedListInfo;
 
-extern MagickExport HashmapInfo
+extern  HashmapInfo
   *DestroyHashmap(HashmapInfo *),
   *NewHashmap(const size_t,size_t (*)(const void *),MagickBooleanType (*)
     (const void *,const void *),void *(*)(void *),void *(*)(void *));
 
-extern MagickExport LinkedListInfo
+extern  LinkedListInfo
   *DestroyLinkedList(LinkedListInfo *,void *(*)(void *)),
   *NewLinkedList(const size_t);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   AppendValueToLinkedList(LinkedListInfo *,const void *),
   CompareHashmapString(const void *,const void *),
   CompareHashmapStringInfo(const void *,const void *),
@@ -54,14 +54,14 @@ extern MagickExport MagickBooleanType
   LinkedListToArray(LinkedListInfo *,void **),
   PutEntryInHashmap(HashmapInfo *,const void *,const void *);
 
-extern MagickExport size_t
+extern  size_t
   GetNumberOfElementsInLinkedList(const LinkedListInfo *),
   GetNumberOfEntriesInHashmap(const HashmapInfo *),
   HashPointerType(const void *),
   HashStringType(const void *),
   HashStringInfoType(const void *);
 
-extern MagickExport void
+extern  void
   ClearLinkedList(LinkedListInfo *,void *(*)(void *)),
   *GetLastValueInLinkedList(LinkedListInfo *),
   *GetNextKeyInHashmap(HashmapInfo *),

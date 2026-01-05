@@ -134,24 +134,24 @@ typedef void
 typedef void
   (*WarningHandler)(const ExceptionType,const char *,const char *);
 
-extern MagickExport char
+extern  char
   *GetExceptionMessage(const int);
 
-extern MagickExport const char
+extern  const char
   *GetLocaleExceptionMessage(const ExceptionType,const char *);
 
-extern MagickExport ErrorHandler
+extern  ErrorHandler
   SetErrorHandler(ErrorHandler);
 
-extern MagickExport ExceptionInfo
+extern  ExceptionInfo
   *AcquireExceptionInfo(void),
   *CloneExceptionInfo(ExceptionInfo *),
   *DestroyExceptionInfo(ExceptionInfo *);
 
-extern MagickExport FatalErrorHandler
+extern  FatalErrorHandler
   SetFatalErrorHandler(FatalErrorHandler);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   ThrowException(ExceptionInfo *,const ExceptionType,const char *,
     const char *),
   ThrowMagickException(ExceptionInfo *,const char *,const char *,const size_t,
@@ -161,7 +161,7 @@ extern MagickExport MagickBooleanType
     const size_t,const ExceptionType,const char *,const char *,va_list)
     magick_attribute((__format__ (__printf__,7,0)));
 
-extern MagickExport void
+extern  void
   CatchException(ExceptionInfo *),
   ClearMagickException(ExceptionInfo *),
   InheritException(ExceptionInfo *,const ExceptionInfo *),
@@ -170,7 +170,7 @@ extern MagickExport void
     magick_attribute((__noreturn__)),
   MagickWarning(const ExceptionType,const char *,const char *);
 
-extern MagickExport WarningHandler
+extern  WarningHandler
   SetWarningHandler(WarningHandler);
 
 #if defined(__cplusplus) || defined(c_plusplus)

@@ -52,7 +52,7 @@ typedef enum
   TrimBoundsLayer
 } ImageLayerMethod;
 
-extern MagickExport Image
+extern  Image
   *CoalesceImages(const Image *,ExceptionInfo *),
   *DisposeImages(const Image *,ExceptionInfo *),
   *CompareImageLayers(const Image *,const ImageLayerMethod,ExceptionInfo *),
@@ -61,7 +61,7 @@ extern MagickExport Image
   *OptimizeImageLayers(const Image *,ExceptionInfo *),
   *OptimizePlusImageLayers(const Image *,ExceptionInfo *);
 
-extern MagickExport void
+extern  void
   CompositeLayers(Image *,const CompositeOperator,Image *,const ssize_t,
     const ssize_t,ExceptionInfo *),
   OptimizeImageTransparency(const Image *,ExceptionInfo *),

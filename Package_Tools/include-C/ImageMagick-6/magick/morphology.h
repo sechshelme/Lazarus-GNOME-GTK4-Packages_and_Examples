@@ -127,19 +127,19 @@ typedef struct KernelInfo
     signature;
 } KernelInfo;
 
-extern MagickExport KernelInfo
+extern  KernelInfo
   *AcquireKernelInfo(const char *),
   *AcquireKernelBuiltIn(const KernelInfoType,const GeometryInfo *),
   *CloneKernelInfo(const KernelInfo *),
   *DestroyKernelInfo(KernelInfo *);
 
-extern MagickExport Image
+extern  Image
   *MorphologyImage(const Image *,const MorphologyMethod,const ssize_t,
     const KernelInfo *,ExceptionInfo *),
   *MorphologyImageChannel(const Image *,const ChannelType,
     const MorphologyMethod,const ssize_t,const KernelInfo *,ExceptionInfo *);
 
-extern MagickExport void
+extern  void
   ScaleGeometryKernelInfo(KernelInfo *,const char *),
   ScaleKernelInfo(KernelInfo *,const double,const GeometryFlags),
   ShowKernelInfo(const KernelInfo *),

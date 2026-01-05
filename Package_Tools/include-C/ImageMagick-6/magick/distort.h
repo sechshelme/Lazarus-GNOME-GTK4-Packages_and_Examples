@@ -70,7 +70,7 @@ typedef enum
   ManhattanColorInterpolate
 } SparseColorMethod;
 
-extern MagickExport Image
+extern  Image
   *AffineTransformImage(const Image *,const AffineMatrix *,ExceptionInfo *),
   *DistortImage(const Image *,const DistortImageMethod,const size_t,
     const double *,MagickBooleanType,ExceptionInfo *exception),

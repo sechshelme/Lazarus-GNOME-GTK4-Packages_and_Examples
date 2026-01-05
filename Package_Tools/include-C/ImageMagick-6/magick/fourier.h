@@ -34,7 +34,7 @@ typedef enum
   SubtractComplexOperator
 } ComplexOperator;
 
-extern MagickExport Image
+extern  Image
   *ComplexImages(const Image *,const ComplexOperator,ExceptionInfo *),
   *ForwardFourierTransformImage(const Image *,const MagickBooleanType,
     ExceptionInfo *),

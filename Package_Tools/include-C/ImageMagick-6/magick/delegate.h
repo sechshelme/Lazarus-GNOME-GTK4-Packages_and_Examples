@@ -52,32 +52,32 @@ typedef struct _DelegateInfo
     *semaphore;
 } DelegateInfo;
 
-extern MagickExport char
+extern  char
   *GetDelegateCommand(const ImageInfo *,Image *,const char *,const char *,
     ExceptionInfo *),
   **GetDelegateList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport const char
+extern  const char
   *GetDelegateCommands(const DelegateInfo *);
 
-extern MagickExport const DelegateInfo
+extern  const DelegateInfo
   *GetDelegateInfo(const char *,const char *,ExceptionInfo *exception),
   **GetDelegateInfoList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport int
+extern  int
   ExternalDelegateCommand(const MagickBooleanType,const MagickBooleanType,
     const char *,char *,ExceptionInfo *);
 
-extern MagickExport ssize_t
+extern  ssize_t
   GetDelegateMode(const DelegateInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   DelegateComponentGenesis(void),
   GetDelegateThreadSupport(const DelegateInfo *),
   InvokeDelegate(ImageInfo *,Image *,const char *,const char *,ExceptionInfo *),
   ListDelegateInfo(FILE *,ExceptionInfo *);
 
-extern MagickExport void
+extern  void
   DelegateComponentTerminus(void);
 
 #if defined(__cplusplus) || defined(c_plusplus)

@@ -25,17 +25,17 @@
 extern "C" {
 #endif
 
-extern MagickExport double
+extern  double
   ExpandAffine(const AffineMatrix *) magick_attribute((__pure__)),
   GenerateDifferentialNoise(RandomInfo *,const Quantum,const NoiseType,
     const MagickRealType);
 
-extern MagickExport size_t
+extern  size_t
   GetOptimalKernelWidth(const double,const double),
   GetOptimalKernelWidth1D(const double,const double),
   GetOptimalKernelWidth2D(const double,const double);
 
-extern MagickExport void
+extern  void
   ConvertHCLToRGB(const double,const double,const double,Quantum *,Quantum *,
     Quantum *),
   ConvertHCLpToRGB(const double,const double,const double,Quantum *,Quantum *,

@@ -51,7 +51,7 @@ typedef enum {
 
 typedef struct _MagickCLEnv* MagickCLEnv;
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   GetMagickOpenCLEnvParam(MagickCLEnv,MagickOpenCLEnvParam,size_t,void*,
     ExceptionInfo*),
   InitImageMagickOpenCL(ImageMagickOpenCLMode,void*,void*,ExceptionInfo*),
@@ -59,7 +59,7 @@ extern MagickExport MagickBooleanType
   SetMagickOpenCLEnvParam(MagickCLEnv,MagickOpenCLEnvParam,size_t,void*,
     ExceptionInfo*);
 
-extern MagickExport MagickCLEnv
+extern  MagickCLEnv
   GetDefaultOpenCLEnv();
 
 #if defined(__cplusplus) || defined(c_plusplus)

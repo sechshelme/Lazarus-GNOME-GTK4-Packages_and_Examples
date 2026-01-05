@@ -30,17 +30,17 @@ typedef enum
   StringRegistryType
 } RegistryType;
 
-extern MagickExport char
+extern  char
   *GetNextImageRegistry(void);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   DefineImageRegistry(const RegistryType,const char *,ExceptionInfo *),
   DeleteImageRegistry(const char *),
   RegistryComponentGenesis(void),
   SetImageRegistry(const RegistryType,const char *,const void *,
     ExceptionInfo *);
 
-extern MagickExport void
+extern  void
   *GetImageRegistry(const RegistryType,const char *,ExceptionInfo *),
   RegistryComponentTerminus(void),
   *RemoveImageRegistry(const char *),

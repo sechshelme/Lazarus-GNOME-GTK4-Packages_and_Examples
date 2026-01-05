@@ -50,21 +50,21 @@ typedef struct _MagicInfo
     signature;
 } MagicInfo;
 
-extern MagickExport char
+extern  char
   **GetMagicList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport const char
+extern  const char
   *GetMagicName(const MagicInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   ListMagicInfo(FILE *,ExceptionInfo *),
   MagicComponentGenesis(void);
 
-extern MagickExport const MagicInfo
+extern  const MagicInfo
   *GetMagicInfo(const unsigned char *,const size_t,ExceptionInfo *),
   **GetMagicInfoList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport void
+extern  void
   MagicComponentTerminus(void);
 
 #if defined(__cplusplus) || defined(c_plusplus)

@@ -71,10 +71,10 @@ extern "C" {
   MagickQuantumDepth MagickHDRISupport " " MagickPlatform " " \
   MagickGitRevision " " MagickAuthoritativeURL
 
-extern MagickExport char
+extern  char
   *GetMagickHomeURL(void);
 
-extern MagickExport const char
+extern  const char
   *GetMagickCopyright(void) magick_attribute((__const__)),
   *GetMagickDelegates(void) magick_attribute((__const__)),
   *GetMagickFeatures(void) magick_attribute((__const__)),
@@ -85,7 +85,7 @@ extern MagickExport const char
   *GetMagickReleaseDate(void) magick_attribute((__const__)),
   *GetMagickVersion(size_t *);
 
-extern MagickExport void
+extern  void
   ListMagickVersion(FILE *);
 
 #if defined(__cplusplus) || defined(c_plusplus)

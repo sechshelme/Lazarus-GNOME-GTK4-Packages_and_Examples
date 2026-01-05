@@ -25,28 +25,28 @@ extern "C" {
 typedef struct _MatrixInfo
   MatrixInfo;
 
-extern MagickExport double
+extern  double
   **AcquireMagickMatrix(const size_t,const size_t),
   **RelinquishMagickMatrix(double **,const size_t);
 
-extern MagickExport Image
+extern  Image
   *MatrixToImage(const MatrixInfo *,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   GaussJordanElimination(double **,double **,const size_t,const size_t),
   GetMatrixElement(const MatrixInfo *,const ssize_t,const ssize_t,void *),
   NullMatrix(MatrixInfo *),
   SetMatrixElement(const MatrixInfo *,const ssize_t,const ssize_t,const void *);
 
-MagickExport MatrixInfo
+ MatrixInfo
   *AcquireMatrixInfo(const size_t,const size_t,const size_t,ExceptionInfo *),
   *DestroyMatrixInfo(MatrixInfo *);
 
-MagickExport size_t
+ size_t
   GetMatrixColumns(const MatrixInfo *),
   GetMatrixRows(const MatrixInfo *);
 
-extern MagickExport void
+extern  void
   LeastSquaresAddTerms(double **,double **,const double *,const double *,
     const size_t,const size_t);
 

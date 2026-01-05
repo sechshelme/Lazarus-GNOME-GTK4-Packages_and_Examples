@@ -44,10 +44,10 @@ typedef struct _ChannelFeatures
     maximum_correlation_coefficient[4];
 } ChannelFeatures;
 
-extern MagickExport ChannelFeatures
+extern  ChannelFeatures
   *GetImageChannelFeatures(const Image *,const size_t,ExceptionInfo *);
 
-extern MagickExport Image
+extern  Image
   *CannyEdgeImage(const Image *,const double,const double,const double,
     const double,ExceptionInfo *),
   *HoughLineImage(const Image *,const size_t,const size_t,const size_t,

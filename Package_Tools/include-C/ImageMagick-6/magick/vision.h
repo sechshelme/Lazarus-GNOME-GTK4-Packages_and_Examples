@@ -22,7 +22,7 @@
 extern "C" {
 #endif
 
-extern MagickExport Image
+extern  Image
   *ConnectedComponentsImage(const Image *,const size_t,ExceptionInfo *);
 
 #if defined(__cplusplus) || defined(c_plusplus)

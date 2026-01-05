@@ -28,20 +28,20 @@ extern "C" {
 typedef struct _XMLTreeInfo
   XMLTreeInfo;
 
-extern MagickExport char
+extern  char
   *CanonicalXMLContent(const char *,const MagickBooleanType),
   *XMLTreeInfoToXML(XMLTreeInfo *);
 
-extern MagickExport const char
+extern  const char
   *GetXMLTreeAttribute(XMLTreeInfo *,const char *),
   *GetXMLTreeContent(XMLTreeInfo *),
   **GetXMLTreeProcessingInstructions(XMLTreeInfo *,const char *),
   *GetXMLTreeTag(XMLTreeInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   GetXMLTreeAttributes(const XMLTreeInfo *,SplayTreeInfo *);
 
-extern MagickExport XMLTreeInfo
+extern  XMLTreeInfo
   *AddChildToXMLTree(XMLTreeInfo *,const char *,const size_t),
   *AddPathToXMLTree(XMLTreeInfo *,const char *,const size_t),
   *DestroyXMLTree(XMLTreeInfo *),

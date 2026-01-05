@@ -24,12 +24,12 @@
 extern "C" {
 #endif
 
-extern MagickExport Image
+extern  Image
   *CombineImages(const Image *,const ChannelType,ExceptionInfo *),
   *SeparateImage(const Image *,const ChannelType,ExceptionInfo *),
   *SeparateImages(const Image *,const ChannelType,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   GetImageAlphaChannel(const Image *),
   SeparateImageChannel(Image *,const ChannelType),
   SetImageAlphaChannel(Image *,const AlphaChannelType);

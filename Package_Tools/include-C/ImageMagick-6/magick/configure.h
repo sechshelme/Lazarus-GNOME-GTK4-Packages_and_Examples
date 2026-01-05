@@ -43,27 +43,27 @@ typedef struct _ConfigureInfo
     signature;
 } ConfigureInfo;
 
-extern MagickExport char
+extern  char
   **GetConfigureList(const char *,size_t *,ExceptionInfo *),
   *GetConfigureOption(const char *);
 
-extern MagickExport const char
+extern  const char
   *GetConfigureValue(const ConfigureInfo *);
 
-extern MagickExport const ConfigureInfo
+extern  const ConfigureInfo
   *GetConfigureInfo(const char *,ExceptionInfo *),
   **GetConfigureInfoList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport LinkedListInfo
+extern  LinkedListInfo
   *DestroyConfigureOptions(LinkedListInfo *),
   *GetConfigurePaths(const char *,ExceptionInfo *),
   *GetConfigureOptions(const char *,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   ConfigureComponentGenesis(void),
   ListConfigureInfo(FILE *,ExceptionInfo *);
 
-extern MagickExport void
+extern  void
   ConfigureComponentTerminus(void);
 
 #if defined(__cplusplus) || defined(c_plusplus)

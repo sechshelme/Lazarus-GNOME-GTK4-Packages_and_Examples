@@ -48,13 +48,13 @@ typedef enum
   RelativeIntent
 } RenderingIntent;
 
-extern MagickExport char
+extern  char
   *GetNextImageProfile(const Image *);
 
-extern MagickExport const StringInfo
+extern  const StringInfo
   *GetImageProfile(const Image *,const char *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   CloneImageProfiles(Image *,const Image *),
   DeleteImageProfile(Image *,const char *),
   ProfileImage(Image *,const char *,const void *,const size_t,
@@ -62,10 +62,10 @@ extern MagickExport MagickBooleanType
   SetImageProfile(Image *,const char *,const StringInfo *),
   SyncImageProfiles(Image *);
 
-extern MagickExport StringInfo
+extern  StringInfo
   *RemoveImageProfile(Image *,const char *);
 
-extern MagickExport void
+extern  void
   DestroyImageProfiles(Image *),
   ResetImageProfileIterator(const Image *);
 

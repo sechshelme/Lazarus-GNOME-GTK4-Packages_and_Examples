@@ -22,7 +22,7 @@
 extern "C" {
 #endif
 
-extern MagickExport Image
+extern  Image
   *AutoOrientImage(const Image *,const OrientationType,ExceptionInfo *),
   *ChopImage(const Image *,const RectangleInfo *,ExceptionInfo *),
   *ConsolidateCMYKImages(const Image *,ExceptionInfo *),
@@ -39,7 +39,7 @@ extern MagickExport Image
   *TransverseImage(const Image *,ExceptionInfo *),
   *TrimImage(const Image *,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   TransformImage(Image **,const char *,const char *),
   TransformImages(Image **,const char *,const char *);
 

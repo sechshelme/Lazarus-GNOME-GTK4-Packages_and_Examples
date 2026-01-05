@@ -75,7 +75,7 @@ typedef enum
 typedef struct _ResampleFilter
   ResampleFilter;
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   ResamplePixelColor(ResampleFilter *,const double,const double,
     MagickPixelPacket *),
   SetResampleFilterInterpolateMethod(ResampleFilter *,
@@ -83,11 +83,11 @@ extern MagickExport MagickBooleanType
   SetResampleFilterVirtualPixelMethod(ResampleFilter *,
     const VirtualPixelMethod);
 
-extern MagickExport ResampleFilter
+extern  ResampleFilter
   *AcquireResampleFilter(const Image *,ExceptionInfo *),
   *DestroyResampleFilter(ResampleFilter *);
 
-extern MagickExport void
+extern  void
   ScaleResampleFilter(ResampleFilter *,const double,const double,const double,
     const double),
   SetResampleFilter(ResampleFilter *,const FilterTypes,const double);

@@ -35,11 +35,11 @@ typedef struct _FrameInfo
     outer_bevel;
 } FrameInfo;
 
-extern MagickExport Image
+extern  Image
   *BorderImage(const Image *,const RectangleInfo *,ExceptionInfo *),
   *FrameImage(const Image *,const FrameInfo *,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   RaiseImage(Image *,const RectangleInfo *,const MagickBooleanType);
 
 #if defined(__cplusplus) || defined(c_plusplus)

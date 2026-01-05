@@ -58,7 +58,7 @@ typedef enum
   JPEGPreview
 } PreviewType;
 
-extern MagickExport Image
+extern  Image
   *AdaptiveBlurImage(const Image *,const double,const double,ExceptionInfo *),
   *AdaptiveBlurImageChannel(const Image *,const ChannelType,const double,
     const double,ExceptionInfo *),

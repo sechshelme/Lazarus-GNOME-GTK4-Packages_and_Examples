@@ -36,14 +36,14 @@ typedef enum
   PersistMode
 } MapMode;
 
-extern MagickExport FILE
+extern  FILE
   *GetBlobFileHandle(const Image *) magick_attribute((__pure__));
 
-extern MagickExport Image
+extern  Image
   *BlobToImage(const ImageInfo *,const void *,const size_t,ExceptionInfo *),
   *PingBlob(const ImageInfo *,const void *,const size_t,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   BlobToFile(char *,const void *,const size_t,ExceptionInfo *),
   FileToImage(Image *,const char *),
   GetBlobError(const Image *) magick_attribute((__pure__)),
@@ -54,19 +54,19 @@ extern MagickExport MagickBooleanType
   IsBlobSeekable(const Image *) magick_attribute((__pure__)),
   IsBlobTemporary(const Image *) magick_attribute((__pure__));
 
-extern MagickExport MagickSizeType
+extern  MagickSizeType
   GetBlobSize(const Image *);
 
-extern MagickExport StreamHandler
+extern  StreamHandler
   GetBlobStreamHandler(const Image *) magick_attribute((__pure__));
 
-extern MagickExport unsigned char
+extern  unsigned char
   *FileToBlob(const char *,const size_t,size_t *,ExceptionInfo *),
   *GetBlobStreamData(const Image *) magick_attribute((__pure__)),
   *ImageToBlob(const ImageInfo *,Image *,size_t *,ExceptionInfo *),
   *ImagesToBlob(const ImageInfo *,Image *,size_t *,ExceptionInfo *);
 
-extern MagickExport void
+extern  void
   DestroyBlob(Image *),
   DuplicateBlob(Image *,const Image *),
   SetBlobExempt(Image *,const MagickBooleanType);

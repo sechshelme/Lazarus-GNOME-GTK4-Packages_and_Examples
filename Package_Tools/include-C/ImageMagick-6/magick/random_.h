@@ -33,24 +33,24 @@ typedef struct _RandomInfo
 /*
   Method declarations.
 */
-extern MagickExport double
+extern  double
   GetRandomValue(RandomInfo *),
   GetPseudoRandomValue(RandomInfo *magick_restrict);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   RandomComponentGenesis(void);
 
-extern MagickExport RandomInfo
+extern  RandomInfo
   *AcquireRandomInfo(void),
   *DestroyRandomInfo(RandomInfo *);
 
-extern MagickExport StringInfo
+extern  StringInfo
   *GetRandomKey(RandomInfo *,const size_t);
 
-extern MagickExport unsigned long
+extern  unsigned long
   GetRandomSecretKey(const RandomInfo *);
 
-extern MagickExport void
+extern  void
   RandomComponentTerminus(void),
   SeedPseudoRandomGenerator(const unsigned long),
   SetRandomKey(RandomInfo *,const size_t,unsigned char *),

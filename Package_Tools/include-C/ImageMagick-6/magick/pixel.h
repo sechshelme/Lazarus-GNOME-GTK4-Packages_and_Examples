@@ -163,7 +163,7 @@ typedef struct _CacheView
 /*
   Pixel method declarations.
 */
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   ExportImagePixels(const Image *,const ssize_t,const ssize_t,const size_t,
     const size_t,const char *,const StorageType,void *,ExceptionInfo *),
   ImportImagePixels(Image *,const ssize_t,const ssize_t,const size_t,
@@ -172,10 +172,10 @@ extern MagickExport MagickBooleanType
     const InterpolatePixelMethod,const double,const double,MagickPixelPacket *,
     ExceptionInfo *);
 
-extern MagickExport MagickPixelPacket
+extern  MagickPixelPacket
   *CloneMagickPixelPacket(const MagickPixelPacket *);
 
-extern MagickExport MagickRealType
+extern  MagickRealType
   DecodePixelGamma(const MagickRealType) magick_hot_spot,
   EncodePixelGamma(const MagickRealType) magick_hot_spot,
   GetMagickPixelIntensity(const Image *image,
@@ -183,7 +183,7 @@ extern MagickExport MagickRealType
   GetPixelIntensity(const Image *image,const PixelPacket *magick_restrict)
     magick_hot_spot;
 
-extern MagickExport void
+extern  void
   ConformMagickPixelPacket(Image *,const MagickPixelPacket *,
     MagickPixelPacket *,ExceptionInfo *),
   GetMagickPixelPacket(const Image *,MagickPixelPacket *);

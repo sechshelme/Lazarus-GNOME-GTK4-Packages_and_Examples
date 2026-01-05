@@ -56,7 +56,7 @@ typedef struct _QuantizeInfo
     dither_method;
 } QuantizeInfo;
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   CompressImageColormap(Image *),
   GetImageQuantizeError(Image *),
   PosterizeImage(Image *,const size_t,const MagickBooleanType),
@@ -67,12 +67,12 @@ extern MagickExport MagickBooleanType
   RemapImage(const QuantizeInfo *,Image *,const Image *),
   RemapImages(const QuantizeInfo *,Image *,const Image *);
 
-extern MagickExport QuantizeInfo
+extern  QuantizeInfo
   *AcquireQuantizeInfo(const ImageInfo *),
   *CloneQuantizeInfo(const QuantizeInfo *),
   *DestroyQuantizeInfo(QuantizeInfo *);
 
-extern MagickExport void
+extern  void
   GetQuantizeInfo(QuantizeInfo *);
 
 #if defined(__cplusplus) || defined(c_plusplus)

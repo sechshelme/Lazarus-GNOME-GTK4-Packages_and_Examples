@@ -40,10 +40,10 @@ typedef enum
 
 #define MagickResourceInfinity  (MagickULLConstant(~0) >> 1)
 
-extern MagickExport int
+extern  int
   AcquireUniqueFileResource(char *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   AcquireMagickResource(const ResourceType,const MagickSizeType),
   GetPathTemplate(char *),
   ListMagickResourceInfo(FILE *,ExceptionInfo *),
@@ -51,11 +51,11 @@ extern MagickExport MagickBooleanType
   ResourceComponentGenesis(void),
   SetMagickResourceLimit(const ResourceType,const MagickSizeType);
 
-extern MagickExport MagickSizeType
+extern  MagickSizeType
   GetMagickResource(const ResourceType),
   GetMagickResourceLimit(const ResourceType);
 
-extern MagickExport void
+extern  void
   AsynchronousResourceComponentTerminus(void),
   RelinquishMagickResource(const ResourceType,const MagickSizeType),
   ResourceComponentTerminus(void);

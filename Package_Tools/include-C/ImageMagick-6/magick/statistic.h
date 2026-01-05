@@ -132,16 +132,16 @@ typedef enum
   RootMeanSquareStatistic
 } StatisticType;
 
-extern MagickExport ChannelStatistics
+extern  ChannelStatistics
   *GetImageChannelStatistics(const Image *,ExceptionInfo *);
 
-extern MagickExport ChannelMoments
+extern  ChannelMoments
   *GetImageChannelMoments(const Image *,ExceptionInfo *);
 
-extern MagickExport ChannelPerceptualHash
+extern  ChannelPerceptualHash
   *GetImageChannelPerceptualHash(const Image *,ExceptionInfo *);
 
-extern MagickExport Image
+extern  Image
   *EvaluateImages(const Image *,const MagickEvaluateOperator,ExceptionInfo *),
   *PolynomialImage(const Image *,const size_t,const double *,ExceptionInfo *),
   *PolynomialImageChannel(const Image *,const ChannelType,const size_t,
@@ -151,7 +151,7 @@ extern MagickExport Image
   *StatisticImageChannel(const Image *,const ChannelType,const StatisticType,
     const size_t,const size_t,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   EvaluateImage(Image *,const MagickEvaluateOperator,const double,
     ExceptionInfo *),
   EvaluateImageChannel(Image *,const ChannelType,const MagickEvaluateOperator,

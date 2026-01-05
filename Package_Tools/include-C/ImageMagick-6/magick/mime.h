@@ -25,23 +25,23 @@ extern "C" {
 typedef struct _MimeInfo
   MimeInfo;
 
-extern MagickExport char
+extern  char
   **GetMimeList(const char *,size_t *,ExceptionInfo *),
   *MagickToMime(const char *);
 
-extern MagickExport const char
+extern  const char
   *GetMimeDescription(const MimeInfo *),
   *GetMimeType(const MimeInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   ListMimeInfo(FILE *,ExceptionInfo *),
   MimeComponentGenesis(void);
 
-extern MagickExport const MimeInfo
+extern  const MimeInfo
   *GetMimeInfo(const char *,const unsigned char *,const size_t,ExceptionInfo *),
   **GetMimeInfoList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport void
+extern  void
   MimeComponentTerminus(void);
 
 #if defined(__cplusplus) || defined(c_plusplus)

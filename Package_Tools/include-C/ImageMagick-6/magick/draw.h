@@ -402,12 +402,12 @@ typedef struct _TypeMetric
     origin;
 } TypeMetric;
 
-extern MagickExport DrawInfo
+extern  DrawInfo
   *AcquireDrawInfo(void),
   *CloneDrawInfo(const ImageInfo *,const DrawInfo *),
   *DestroyDrawInfo(DrawInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   DrawAffineImage(Image *,const Image *,const AffineMatrix *),
   DrawClipPath(Image *,const DrawInfo *,const char *),
   DrawGradientImage(Image *,const DrawInfo *),
@@ -415,7 +415,7 @@ extern MagickExport MagickBooleanType
   DrawPatternPath(Image *,const DrawInfo *,const char *,Image **),
   DrawPrimitive(Image *,const DrawInfo *,const PrimitiveInfo *);
 
-extern MagickExport void
+extern  void
   GetAffineMatrix(AffineMatrix *),
   GetDrawInfo(const ImageInfo *,DrawInfo *);
 

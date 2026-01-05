@@ -33,15 +33,15 @@ typedef enum
 typedef struct _ThresholdMap
   ThresholdMap;
 
-extern MagickExport Image
+extern  Image
   *AdaptiveThresholdImage(const Image *,const size_t,const size_t,const ssize_t,
     ExceptionInfo *);
 
-extern MagickExport ThresholdMap
+extern  ThresholdMap
   *DestroyThresholdMap(ThresholdMap *),
   *GetThresholdMap(const char *,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   AutoThresholdImage(Image *,const AutoThresholdMethod,ExceptionInfo *),
   BilevelImage(Image *,const double),
   BilevelImageChannel(Image *,const ChannelType,const double),

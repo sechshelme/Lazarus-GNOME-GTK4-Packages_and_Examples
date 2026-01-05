@@ -63,23 +63,23 @@ typedef struct _LogInfo
 typedef void
   (*MagickLogMethod)(const LogEventType,const char *);
 
-extern const MagickExport LogInfo
+extern const  LogInfo
   **GetLogInfoList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport char
+extern  char
   **GetLogList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport char
+extern  char
   *GetLogName(void) magick_attribute((__pure__)),
   *SetLogName(const char *);
 
-extern MagickExport LogEventType
+extern  LogEventType
   GetLogEventMask(void) magick_attribute((__pure__));
 
-extern MagickExport LogEventType
+extern  LogEventType
   SetLogEventMask(const char *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   IsEventLogging(void) magick_attribute((__pure__)),
   ListLogInfo(FILE *,ExceptionInfo *),
   LogComponentGenesis(void),
@@ -88,7 +88,7 @@ extern MagickExport MagickBooleanType
   LogMagickEventList(const LogEventType,const char *,const char *,const size_t,
     const char *,va_list) magick_attribute((__format__ (__printf__,5,0)));
 
-extern MagickExport void
+extern  void
   CloseMagickLog(void),
   LogComponentTerminus(void),
   SetLogFormat(const char *),

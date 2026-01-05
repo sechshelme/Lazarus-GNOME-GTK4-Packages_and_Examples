@@ -69,14 +69,14 @@ typedef struct _ErrorInfo
     normalized_maximum_error;
 } ErrorInfo;
 
-extern MagickExport char
+extern  char
   **GetColorList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport const ColorInfo
+extern  const ColorInfo
   *GetColorInfo(const char *,ExceptionInfo *),
   **GetColorInfoList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   ColorComponentGenesis(void),
   IsColorSimilar(const Image *,const PixelPacket *,const PixelPacket *),
   IsImageSimilar(const Image *,const Image *,ssize_t *x,ssize_t *y,
@@ -95,7 +95,7 @@ extern MagickExport MagickBooleanType
   QueryMagickColorname(const Image *,const MagickPixelPacket *,
     const ComplianceType,char *,ExceptionInfo *);
 
-extern MagickExport void
+extern  void
   ColorComponentTerminus(void),
   ConcatenateColorComponent(const MagickPixelPacket *,const ChannelType,
     const ComplianceType,char *),

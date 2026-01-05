@@ -42,35 +42,35 @@ typedef struct _LocaleInfo
     signature;
 } LocaleInfo;
 
-extern MagickExport char
+extern  char
   **GetLocaleList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport const char
+extern  const char
   *GetLocaleMessage(const char *);
 
-extern MagickExport const LocaleInfo
+extern  const LocaleInfo
   *GetLocaleInfo_(const char *,ExceptionInfo *),
   **GetLocaleInfoList(const char *,size_t *,ExceptionInfo *);
 
-extern MagickExport double
+extern  double
   InterpretLocaleValue(const char *magick_restrict,char **magick_restrict);
 
-extern MagickExport int
+extern  int
   LocaleCompare(const char *,const char *) magick_attribute((__pure__)),
   LocaleLowercase(const int),
   LocaleNCompare(const char *,const char *,const size_t)
     magick_attribute((__pure__)),
   LocaleUppercase(const int);
 
-extern MagickExport LinkedListInfo
+extern  LinkedListInfo
   *DestroyLocaleOptions(LinkedListInfo *),
   *GetLocaleOptions(const char *,ExceptionInfo *);
 
-extern MagickExport MagickBooleanType
+extern  MagickBooleanType
   ListLocaleInfo(FILE *,ExceptionInfo *),
   LocaleComponentGenesis(void);
 
-extern MagickExport ssize_t
+extern  ssize_t
   FormatLocaleFile(FILE *,const char *magick_restrict,...)
     magick_attribute((__format__ (__printf__,2,3))),
   FormatLocaleFileList(FILE *,const char *magick_restrict,va_list)
@@ -82,7 +82,7 @@ extern MagickExport ssize_t
     const char *magick_restrict,
     va_list) magick_attribute((__format__ (__printf__,3,0)));
 
-extern MagickExport void
+extern  void
   LocaleComponentTerminus(void),
   LocaleLower(char *),
   LocaleUpper(char *);
