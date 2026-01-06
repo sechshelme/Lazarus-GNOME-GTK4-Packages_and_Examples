@@ -2,26 +2,26 @@ program project1;
 
 uses
   fp_raqm,
-fp_FreeType2;
+  fp_FreeType2;
 
-  procedure PrintSize(s: PChar);
+  procedure PrintSize(s: pchar);
   var
     lib: TFT_Library;
     face: TFT_Face;
     rq: Praqm_t;
-    glyphs: Praqm_glyph_t;
     count: Tsize_t;
+    glyphs: Praqm_glyph_t;
   begin
-    if FT_Init_FreeType(@lib)<>0 then begin
-        WriteLn('Fehler: Kann FreeType nicht initialisieren.');
-        Exit;;
+    if FT_Init_FreeType(@lib) <> 0 then begin
+      WriteLn('Fehler: Kann FreeType nicht initialisieren.');
+      Exit;;
     end;
 
-    if FT_New_Face(lib, '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 0, @face)<>0 then begin
-        WriteLn('Fehler: Kann Schrift nicht laden.');
-        FT_Done_FreeType(lib);
-        Exit;
-                    end;
+    if FT_New_Face(lib, '/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 0, @face) <> 0 then begin
+      WriteLn('Fehler: Kann Schrift nicht laden.');
+      FT_Done_FreeType(lib);
+      Exit;
+    end;
 
     FT_Set_Char_Size(face, face^.units_per_EM, 0, 0, 0);
 
@@ -33,17 +33,17 @@ fp_FreeType2;
     raqm_set_freetype_face(rq, face);
 
     if not raqm_layout(rq) then begin
-        WriteLn('Fehler beim Layout.');
-        raqm_destroy(rq);
-        FT_Done_Face(face);
-        FT_Done_FreeType(lib);
-        Exit;;
+      WriteLn('Fehler beim Layout.');
+      raqm_destroy(rq);
+      FT_Done_Face(face);
+      FT_Done_FreeType(lib);
+      Exit;;
     end;
 
     // Glyphen ausgeben
     glyphs := raqm_get_glyphs(rq, @count);
     WriteLn('Text: ', s);
-    WriteLn('Length: ',Length(s));
+    WriteLn('Length: ', Length(s));
     WriteLn('Anzahl Glyphen: ', count);
     WriteLn();
 
@@ -51,7 +51,6 @@ fp_FreeType2;
     raqm_destroy(rq);
     FT_Done_Face(face);
     FT_Done_FreeType(lib);
-
   end;
 
 

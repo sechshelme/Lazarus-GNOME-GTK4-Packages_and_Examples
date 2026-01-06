@@ -1,0 +1,81 @@
+
+unit mime;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from mime.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    mime.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pbyte  = ^byte;
+Pchar  = ^char;
+PExceptionInfo  = ^ExceptionInfo;
+PFILE  = ^FILE;
+PMimeInfo  = ^MimeInfo;
+Psize_t  = ^size_t;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
+  Copyright 1999 ImageMagick Studio LLC, a non-profit organization
+  dedicated to making software imaging solutions freely available.
+  
+  You may not use this file except in compliance with the License.  You may
+  obtain a copy of the License at
+  
+    https://imagemagick.org/script/license.php
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  The ImageMagick mime methods.
+ }
+type
+(* Const before type ignored *)
+
+function GetMimeList(para1:Pchar; para2:Psize_t; para3:PExceptionInfo):^Pchar;cdecl;external;
+(* Const before type ignored *)
+function MagickToMime(para1:Pchar):Pchar;cdecl;external;
+(* Const before type ignored *)
+(* Const before type ignored *)
+function GetMimeDescription(para1:PMimeInfo):Pchar;cdecl;external;
+(* Const before type ignored *)
+(* Const before type ignored *)
+function GetMimeType(para1:PMimeInfo):Pchar;cdecl;external;
+function ListMimeInfo(para1:PFILE; para2:PExceptionInfo):TMagickBooleanType;cdecl;external;
+function MimeComponentGenesis:TMagickBooleanType;cdecl;external;
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+(* Const before type ignored *)
+function GetMimeInfo(para1:Pchar; para2:Pbyte; para3:Tsize_t; para4:PExceptionInfo):PMimeInfo;cdecl;external;
+(* Const before type ignored *)
+(* Const before type ignored *)
+function GetMimeInfoList(para1:Pchar; para2:Psize_t; para3:PExceptionInfo):^PMimeInfo;cdecl;external;
+procedure MimeComponentTerminus;cdecl;external;
+
+implementation
+
+
+end.
