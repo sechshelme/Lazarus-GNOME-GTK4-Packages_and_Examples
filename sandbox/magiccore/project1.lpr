@@ -14,51 +14,45 @@ uses
   geometry,
   morphology,           // geometry
   pixel,                // colorspace, constitute
-  draw,                 // struct verkleinert
+  draw,                 //                                            -- struct verkleinert
   cache_view,
+  cache,                // pixel, cache_view
   quantum,              // cache_view
+  quantize,             // colorspace
   resample,             // pixel, cache_view
   composite,
-
-
-
-  image,                 // exception, pixel, geometry, cache_view                      struct verkleinert
+  image,                // exception, pixel, geometry, cache_view     -- struct verkleinert
   compress,
+  visual_effects,       // pixel, morphology, draw, image
+  registry,
 
 
-  visual_effects,        // pixel, morphology, draw, image
-
-
-
-
-
-  //animate,
-  //annotate,
-  //artifact,
-  //attribute,
-  //blob,
-  //cache,
-  //channel,
-  //cipher,
-  //client,
-  //coder,
-  //color,
-  //colormap,
-  //compare,
-  //configure,
-  //decorate,
-  //delegate,
-  //deprecate,
-  //display,
-  //distort,
-  //distribute_cache,
-  //effect,
-  //enhance,
+  animate,
+  annotate,
+  artifact,
+  attribute,            // image, geometry
+  stream,
+  blob,                 // stream
+  channel,              // image
+  cipher,
+  client,
+  coder,
+  color,
+  colormap,
+  compare,
+  hashmap,
+  configure,             // hashmap
+  decorate,
+  delegate,
+  display,
+  distort,
+  distribute_cache,
+  effect,
+  enhance,
   //feature,
   //fourier,
   //fx,
   //gem,
-  //hashmap,
   //histogram,
   //identify,
   //image_view,
@@ -82,9 +76,7 @@ uses
   //policy,
   //prepress,
   //property_,
-  //quantize,
   //random_,
-  //registry,
   //resize,
   //resource_,
   //segment,
@@ -92,7 +84,6 @@ uses
   //signature,
   //static,
   //statistic,
-  //stream,
   //studio,
   //threshold,
   //timer,
@@ -105,6 +96,7 @@ uses
 
 
   xwindow,
+  deprecate,
   // widget,   // ???????
 
   fp_magiccore;

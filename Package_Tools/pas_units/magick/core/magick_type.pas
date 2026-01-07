@@ -90,6 +90,7 @@ type
   PBlobInfo = type Pointer;
   PExceptionInfo = type Pointer;
   PImage = type Pointer;
+  PPImage = ^PImage;
   PImageInfo = type Pointer;
 
   // === Konventiert am: 6-1-26 14:27:10 ===
