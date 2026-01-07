@@ -9,8 +9,10 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
-
 type
+  TMagickStatusType = uint32;
+  PMagickStatusType = ^TMagickStatusType;
+
   PMagickFloatType = ^TMagickFloatType;
   TMagickFloatType = single;
 
@@ -41,6 +43,9 @@ type
 type
   PChannelType = ^TChannelType;
   TChannelType = longint;
+
+const
+  QuantumRange = 65535;
 
 const
   UndefinedChannel = 0;

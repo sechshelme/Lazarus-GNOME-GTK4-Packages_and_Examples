@@ -3,40 +3,15 @@ unit image;
 interface
 
 uses
-  fp_magiccore;
+  fp_magiccore, magick_type, exception, pixel, geometry, cache_view;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
 
 
-{
-  Copyright 1999 ImageMagick Studio LLC, a non-profit organization
-  dedicated to making software imaging solutions freely available.
-  
-  You may not use this file except in compliance with the License.  You may
-  obtain a copy of the License at
-  
-    https://imagemagick.org/script/license.php
-  
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
+const    OpaqueOpacity=TQuantum(0);
 
-  MagickCore image methods.
- }
-{$ifndef MAGICKCORE_IMAGE_H}
-{$define MAGICKCORE_IMAGE_H}
-{$include "magick/color.h"}
-
-{ was #define dname def_expr }
-function OpaqueOpacity : TQuantum;  
-
-const
-  TransparentOpacity = QuantumRange;  
-{ deprecated  }
 type
   PAlphaChannelType = ^TAlphaChannelType;
   TAlphaChannelType =  Longint;
@@ -56,7 +31,7 @@ type
     RemoveAlphaChannel = 12;
     AssociateAlphaChannel = 13;
     DisassociateAlphaChannel = 14;
-;
+
 type
   PImageType = ^TImageType;
   TImageType =  Longint;
@@ -73,7 +48,7 @@ type
     ColorSeparationMatteType = 9;
     OptimizeType = 10;
     PaletteBilevelMatteType = 11;
-;
+
 type
   PInterlaceType = ^TInterlaceType;
   TInterlaceType =  Longint;
@@ -86,7 +61,7 @@ type
     GIFInterlace = 5;
     JPEGInterlace = 6;
     PNGInterlace = 7;
-;
+
 type
   POrientationType = ^TOrientationType;
   TOrientationType =  Longint;
@@ -100,7 +75,7 @@ type
     RightTopOrientation = 6;
     RightBottomOrientation = 7;
     LeftBottomOrientation = 8;
-;
+
 type
   PResolutionType = ^TResolutionType;
   TResolutionType =  Longint;
@@ -108,23 +83,23 @@ type
     UndefinedResolution = 0;
     PixelsPerInchResolution = 1;
     PixelsPerCentimeterResolution = 2;
-;
+
 type
-  PPrimaryInfo = ^TPrimaryInfo;
   TPrimaryInfo = record
-      x : Tdouble;
-      y : Tdouble;
-      z : Tdouble;
+      x : double;
+      y : double;
+      z : double;
     end;
+  PPrimaryInfo = ^TPrimaryInfo;
 
-  PSegmentInfo = ^TSegmentInfo;
   TSegmentInfo = record
-      x1 : Tdouble;
-      y1 : Tdouble;
-      x2 : Tdouble;
-      y2 : Tdouble;
+      x1 : double;
+      y1 : double;
+      x2 : double;
+      y2 : double;
     end;
-
+  PSegmentInfo = ^TSegmentInfo;
+type
   PTransmitType = ^TTransmitType;
   TTransmitType =  Longint;
   Const
@@ -133,240 +108,172 @@ type
     BlobTransmitType = 2;
     StreamTransmitType = 3;
     ImageTransmitType = 4;
-;
+
 type
-  PChromaticityInfo = ^TChromaticityInfo;
   TChromaticityInfo = record
       red_primary : TPrimaryInfo;
       green_primary : TPrimaryInfo;
       blue_primary : TPrimaryInfo;
       white_point : TPrimaryInfo;
     end;
-{$include "magick/blob.h"}
-{$include "magick/colorspace.h"}
-{$include "magick/cache-view.h"}
-{$include "magick/color.h"}
-{$include "magick/composite.h"}
-{$include "magick/compress.h"}
-{$include "magick/effect.h"}
-{$include "magick/geometry.h"}
-{$include "magick/layer.h"}
-{$include "magick/locale_.h"}
-{$include "magick/monitor.h"}
-{$include "magick/pixel.h"}
-{$include "magick/profile.h"}
-{$include "magick/quantum.h"}
-{$include "magick/resample.h"}
-{$include "magick/resize.h"}
-{$include "magick/semaphore.h"}
-{$include "magick/stream.h"}
-{$include "magick/timer.h"}
-{ colorspace of image data  }
-{ compression of image when read/write  }
-{ compression quality setting, meaning varies  }
-{ photo orientation of image  }
-{ has image been modified since reading  }
-{ is transparency channel defined and active  }
-{ physical size of image  }
-{ depth of image on read/write  }
-{ size of color table on read  }
-{ current background color attribute  }
-{ current bordercolor attribute  }
-{ current mattecolor attribute  }
-{ resolution/density  ppi or ppc  }
-{ image resolution/density  }
-{ virtual canvas size and offset of image  }
-{ deprecated  }
-{ deprecated  }
-{ current color fuzz attribute  }
-{ resize/distort filter to apply  }
-{ raw data integer ordering on read/write  }
-{ Gravity attribute for positioning in image  }
-{ alpha composition method for layered images  }
-{ GIF animation disposal method  }
-{ index of image in multi-image file  }
-{ Animation delay time  }
-{ units for delay time, default 100 for GIF  }
-{ deprecated  }
-{ images input filename  }
-{ ditto with coders, and read_mods  }
-{ Coder used to decode image  }
-{ Error handling report  }
-{ debug output attribute  }
-{ this & ProfileInfo is deprecated  }
-{ Image list links  }
-{ Undo/Redo image processing list (for display)  }
-{ Image list links  }
-{ Interpolation of color for between pixel lookups  }
-{ color for 'transparent' color index in GIF  }
-{ per image properities  }
-{ per image sequence image artifacts  }
-{ dithering method during color reduction  }
-{ method to generate an intensity value from a pixel  }
-{ Total animation duration sum(delay*iterations)  }
+  PChromaticityInfo = ^TChromaticityInfo;
 type
-  PImage = ^TImage;
   TImage = record
-      storage_class : TClassType;
-      colorspace : TColorspaceType;
-      compression : TCompressionType;
-      quality : Tsize_t;
-      orientation : TOrientationType;
-      taint : TMagickBooleanType;
-      matte : TMagickBooleanType;
-      columns : Tsize_t;
-      rows : Tsize_t;
-      depth : Tsize_t;
-      colors : Tsize_t;
-      colormap : PPixelPacket;
-      background_color : TPixelPacket;
-      border_color : TPixelPacket;
-      matte_color : TPixelPacket;
-      gamma : Tdouble;
-      chromaticity : TChromaticityInfo;
-      rendering_intent : TRenderingIntent;
-      profiles : pointer;
-      units : TResolutionType;
-      montage : Pchar;
-      directory : Pchar;
-      geometry : Pchar;
-      offset : Tssize_t;
-      x_resolution : Tdouble;
-      y_resolution : Tdouble;
-      page : TRectangleInfo;
-      extract_info : TRectangleInfo;
-      tile_info : TRectangleInfo;
-      bias : Tdouble;
-      blur : Tdouble;
-      fuzz : Tdouble;
-      filter : TFilterTypes;
-      interlace : TInterlaceType;
-      endian : TEndianType;
-      gravity : TGravityType;
-      compose : TCompositeOperator;
-      _dispose : TDisposeType;
-      clip_mask : PImage;
-      scene : Tsize_t;
-      delay : Tsize_t;
-      ticks_per_second : Tssize_t;
-      iterations : Tsize_t;
-      total_colors : Tsize_t;
-      start_loop : Tssize_t;
-      error : TErrorInfo;
-      timer : TTimerInfo;
-      progress_monitor : TMagickProgressMonitor;
-      client_data : pointer;
-      cache : pointer;
-      attributes : pointer;
-      ascii85 : PAscii85Info;
-      blob : PBlobInfo;
-      filename : array[0..(MaxTextExtent)-1] of char;
-      magick_filename : array[0..(MaxTextExtent)-1] of char;
-      magick : array[0..(MaxTextExtent)-1] of char;
-      magick_columns : Tsize_t;
-      magick_rows : Tsize_t;
-      exception : TExceptionInfo;
-      debug : TMagickBooleanType;
-      reference_count : Tssize_t;
-      semaphore : PSemaphoreInfo;
-      color_profile : TProfileInfo;
-      iptc_profile : TProfileInfo;
-      generic_profile : PProfileInfo;
-      generic_profiles : Tsize_t;
-      signature : Tsize_t;
-      previous : PImage;
-      list : PImage;
-      next : PImage;
-      interpolate : TInterpolatePixelMethod;
-      black_point_compensation : TMagickBooleanType;
-      transparent_color : TPixelPacket;
-      mask : PImage;
-      tile_offset : TRectangleInfo;
-      properties : pointer;
-      artifacts : pointer;
-      _type : TImageType;
-      dither : TMagickBooleanType;
-      extent : TMagickSizeType;
-      ping : TMagickBooleanType;
-      channels : Tsize_t;
-      timestamp : Ttime_t;
-      intensity : TPixelIntensityMethod;
-      duration : Tsize_t;
-      tietz_offset : longint;
+      //storage_class : TClassType;
+      //colorspace : TColorspaceType;
+      //compression : TCompressionType;
+      //quality : Tsize_t;
+      //orientation : TOrientationType;
+      //taint : TMagickBooleanType;
+      //matte : TMagickBooleanType;
+      //columns : Tsize_t;
+      //rows : Tsize_t;
+      //depth : Tsize_t;
+      //colors : Tsize_t;
+      //colormap : PPixelPacket;
+      //background_color : TPixelPacket;
+      //border_color : TPixelPacket;
+      //matte_color : TPixelPacket;
+      //gamma : double;
+      //chromaticity : TChromaticityInfo;
+      //rendering_intent : TRenderingIntent;
+      //profiles : pointer;
+      //units : TResolutionType;
+      //montage : Pchar;
+      //directory : Pchar;
+      //geometry : Pchar;
+      //offset : Tssize_t;
+      //x_resolution : double;
+      //y_resolution : double;
+      //page : TRectangleInfo;
+      //extract_info : TRectangleInfo;
+      //tile_info : TRectangleInfo;
+      //bias : double;
+      //blur : double;
+      //fuzz : double;
+      //filter : TFilterTypes;
+      //interlace : TInterlaceType;
+      //endian : TEndianType;
+      //gravity : TGravityType;
+      //compose : TCompositeOperator;
+      //_dispose : TDisposeType;
+      //clip_mask : PImage;
+      //scene : Tsize_t;
+      //delay : Tsize_t;
+      //ticks_per_second : Tssize_t;
+      //iterations : Tsize_t;
+      //total_colors : Tsize_t;
+      //start_loop : Tssize_t;
+      //error : TErrorInfo;
+      //timer : TTimerInfo;
+      //progress_monitor : TMagickProgressMonitor;
+      //client_data : pointer;
+      //cache : pointer;
+      //attributes : pointer;
+      //ascii85 : PAscii85Info;
+      //blob : PBlobInfo;
+      //filename : array[0..(MaxTextExtent)-1] of char;
+      //magick_filename : array[0..(MaxTextExtent)-1] of char;
+      //magick : array[0..(MaxTextExtent)-1] of char;
+      //magick_columns : Tsize_t;
+      //magick_rows : Tsize_t;
+      //exception : TExceptionInfo;
+      //debug : TMagickBooleanType;
+      //reference_count : Tssize_t;
+      //semaphore : PSemaphoreInfo;
+      //color_profile : TProfileInfo;
+      //iptc_profile : TProfileInfo;
+      //generic_profile : PProfileInfo;
+      //generic_profiles : Tsize_t;
+      //signature : Tsize_t;
+      //previous : PImage;
+      //list : PImage;
+      //next : PImage;
+      //interpolate : TInterpolatePixelMethod;
+      //black_point_compensation : TMagickBooleanType;
+      //transparent_color : TPixelPacket;
+      //mask : PImage;
+      //tile_offset : TRectangleInfo;
+      //properties : pointer;
+      //artifacts : pointer;
+      //_type : TImageType;
+      //dither : TMagickBooleanType;
+      //extent : TMagickSizeType;
+      //ping : TMagickBooleanType;
+      //channels : Tsize_t;
+      //timestamp : Ttime_t;
+      //intensity : TPixelIntensityMethod;
+      //duration : Tsize_t;
+      //tietz_offset : longint;
     end;
+  PImage = ^TImage;
+  PPImage = ^PImage;
 
-{ Chroma subsampling ratio string  }
-{ deprecated  }
-{ deprecated  }
-{ deprecated  }
-{ deprecated  }
-{ deprecated  }
-  PImageInfo = ^TImageInfo;
   TImageInfo = record
-      compression : TCompressionType;
-      orientation : TOrientationType;
-      temporary : TMagickBooleanType;
-      adjoin : TMagickBooleanType;
-      affirm : TMagickBooleanType;
-      antialias : TMagickBooleanType;
-      size : Pchar;
-      extract : Pchar;
-      page : Pchar;
-      scenes : Pchar;
-      scene : Tsize_t;
-      number_scenes : Tsize_t;
-      depth : Tsize_t;
-      interlace : TInterlaceType;
-      endian : TEndianType;
-      units : TResolutionType;
-      quality : Tsize_t;
-      sampling_factor : Pchar;
-      server_name : Pchar;
-      font : Pchar;
-      texture : Pchar;
-      density : Pchar;
-      pointsize : Tdouble;
-      fuzz : Tdouble;
-      background_color : TPixelPacket;
-      border_color : TPixelPacket;
-      matte_color : TPixelPacket;
-      dither : TMagickBooleanType;
-      monochrome : TMagickBooleanType;
-      colors : Tsize_t;
-      colorspace : TColorspaceType;
-      _type : TImageType;
-      preview_type : TPreviewType;
-      group : Tssize_t;
-      ping : TMagickBooleanType;
-      verbose : TMagickBooleanType;
-      view : Pchar;
-      authenticate : Pchar;
-      channel : TChannelType;
-      attributes : PImage;
-      options : pointer;
-      progress_monitor : TMagickProgressMonitor;
-      client_data : pointer;
-      cache : pointer;
-      stream : TStreamHandler;
-      file : PFILE;
-      blob : pointer;
-      length : Tsize_t;
-      magick : array[0..(MaxTextExtent)-1] of char;
-      unique : array[0..(MaxTextExtent)-1] of char;
-      zero : array[0..(MaxTextExtent)-1] of char;
-      filename : array[0..(MaxTextExtent)-1] of char;
-      debug : TMagickBooleanType;
-      tile : Pchar;
-      subimage : Tsize_t;
-      subrange : Tsize_t;
-      pen : TPixelPacket;
-      signature : Tsize_t;
-      virtual_pixel_method : TVirtualPixelMethod;
-      transparent_color : TPixelPacket;
-      profile : pointer;
-      synchronize : TMagickBooleanType;
+      //compression : TCompressionType;
+      //orientation : TOrientationType;
+      //temporary : TMagickBooleanType;
+      //adjoin : TMagickBooleanType;
+      //affirm : TMagickBooleanType;
+      //antialias : TMagickBooleanType;
+      //size : Pchar;
+      //extract : Pchar;
+      //page : Pchar;
+      //scenes : Pchar;
+      //scene : Tsize_t;
+      //number_scenes : Tsize_t;
+      //depth : Tsize_t;
+      //interlace : TInterlaceType;
+      //endian : TEndianType;
+      //units : TResolutionType;
+      //quality : Tsize_t;
+      //sampling_factor : Pchar;
+      //server_name : Pchar;
+      //font : Pchar;
+      //texture : Pchar;
+      //density : Pchar;
+      //pointsize : Tdouble;
+      //fuzz : Tdouble;
+      //background_color : TPixelPacket;
+      //border_color : TPixelPacket;
+      //matte_color : TPixelPacket;
+      //dither : TMagickBooleanType;
+      //monochrome : TMagickBooleanType;
+      //colors : Tsize_t;
+      //colorspace : TColorspaceType;
+      //_type : TImageType;
+      //preview_type : TPreviewType;
+      //group : Tssize_t;
+      //ping : TMagickBooleanType;
+      //verbose : TMagickBooleanType;
+      //view : Pchar;
+      //authenticate : Pchar;
+      //channel : TChannelType;
+      //attributes : PImage;
+      //options : pointer;
+      //progress_monitor : TMagickProgressMonitor;
+      //client_data : pointer;
+      //cache : pointer;
+      //stream : TStreamHandler;
+      //file_ : PFILE;
+      //blob : pointer;
+      //length : Tsize_t;
+      //magick : array[0..(MaxTextExtent)-1] of char;
+      //unique : array[0..(MaxTextExtent)-1] of char;
+      //zero : array[0..(MaxTextExtent)-1] of char;
+      //filename : array[0..(MaxTextExtent)-1] of char;
+      //debug : TMagickBooleanType;
+      //tile : Pchar;
+      //subimage : Tsize_t;
+      //subrange : Tsize_t;
+      //pen : TPixelPacket;
+      //signature : Tsize_t;
+      //virtual_pixel_method : TVirtualPixelMethod;
+      //transparent_color : TPixelPacket;
+      //profile : pointer;
+      //synchronize : TMagickBooleanType;
     end;
-
+  PImageInfo = ^TImageInfo;
 
 function CatchImageException(para1:PImage):TExceptionType;cdecl;external libmagiccore;
 function GetImageInfoFile(para1:PImageInfo):PFILE;cdecl;external libmagiccore;
@@ -418,19 +325,11 @@ procedure GetImageException(para1:PImage; para2:PExceptionInfo);cdecl;external l
 procedure GetImageInfo(para1:PImageInfo);cdecl;external libmagiccore;
 procedure SetImageInfoBlob(para1:PImageInfo; para2:pointer; para3:Tsize_t);cdecl;external libmagiccore;
 procedure SetImageInfoFile(para1:PImageInfo; para2:PFILE);cdecl;external libmagiccore;
-{$endif}
 
 // === Konventiert am: 6-1-26 14:01:00 ===
 
 
 implementation
-
-
-{ was #define dname def_expr }
-function OpaqueOpacity : TQuantum;
-  begin
-    OpaqueOpacity:=TQuantum(0);
-  end;
 
 
 end.
