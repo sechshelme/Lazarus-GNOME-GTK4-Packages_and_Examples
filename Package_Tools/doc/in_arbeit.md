@@ -422,7 +422,6 @@ libgphoto2              // io.
 
 libmkl-full-dev  
 
-libheif-dev  
 
 
 libdfp-dev
@@ -434,7 +433,7 @@ libxmlsec1-nss1
 libxmlsec1-1 
 
 libgsm1   
-   libtevent0t64 
+libtevent0t64 
 liburcu8t64
 
 libgeocoding               // io.    
@@ -476,12 +475,18 @@ libtre-dev                       // io.
 
 libgraphblas                     // io.
 libheif-dev     
+
  libpolkit-gobject-1-0
 
 
-libfribidi-dev 
-libraqm-dev 
+libfribidi-dev                    // io.
+libraqm-dev                       // io.
 libstb-dev        // inline müll
+
+libcaca-dev
+libaa1-dev 
+
+
 
 libhyperscan-dev  // neu libvectorscan-dev
 
@@ -516,7 +521,7 @@ sudo apt install gtk-4-examples
 
 # =========================
 
- libglycin-2-0  
+libglycin-2-0  
 libglycin-gtk4
 
 libheif-dev 

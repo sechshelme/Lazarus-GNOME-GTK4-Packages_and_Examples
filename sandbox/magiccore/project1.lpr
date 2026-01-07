@@ -25,6 +25,9 @@ uses
   compress,
   visual_effects,       // pixel, morphology, draw, image
   registry,
+  random_,
+  pixel_accessor,       // quantum, pixel
+
 
 
   animate,
@@ -49,13 +52,13 @@ uses
   distribute_cache,
   effect,
   enhance,
-  //feature,
-  //fourier,
-  //fx,
-  //gem,
-  //histogram,
-  //identify,
-  //image_view,
+  feature,
+  fourier,
+  fx,
+  gem,
+  histogram,
+  identify,
+  image_view,
   //layer,
   //list,
   //locale_,
@@ -72,11 +75,9 @@ uses
   //opencl,
   //option,
   //paint,
-  //pixel_accessor,
   //policy,
   //prepress,
   //property_,
-  //random_,
   //resize,
   //resource_,
   //segment,

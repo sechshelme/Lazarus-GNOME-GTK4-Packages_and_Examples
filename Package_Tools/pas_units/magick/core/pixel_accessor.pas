@@ -3,255 +3,62 @@ unit pixel_accessor;
 interface
 
 uses
-  fp_magiccore;
+  fp_magiccore, magick_type, pixel, quantum;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{
-  Copyright 1999 ImageMagick Studio LLC, a non-profit organization
-  dedicated to making software imaging solutions freely available.
+function ClampPixelRed(pixel: PPixelPacket): TQuantum; inline;
+function ClampPixelGreen(pixel: PPixelPacket): TQuantum; inline;
+function ClampPixelBlue(pixel: PPixelPacket): TQuantum; inline;
+function ClampPixelIndex(indexes: PIndexPacket): TQuantum; inline;
+function ClampPixelOpacity(pixel: PPixelPacket): TQuantum; inline;
+function GetPixela(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelb(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelAlpha(pixel: PPixelPacket): double; inline;
+function GetPixelBlack(indexes: PIndexPacket): TQuantum; inline;
+function GetPixelBlue(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelCb(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelCr(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelCyan(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelGray(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelGreen(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelIndex(indexes: PIndexPacket): TQuantum; inline;
+function GetPixelL(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelLabel(pixel: PPixelPacket): nativeint; inline;
+function GetPixelMagenta(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelNext(pixel: PPixelPacket): PPixelPacket; inline;
+function GetPixelOpacity(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelRed(pixel: PPixelPacket): TQuantum; inline;
+procedure GetPixelRGB(pixel: PPixelPacket; packet: PPixelPacket); inline;
+procedure GetPixelRGBO(pixel: PPixelPacket; packet: PPixelPacket); inline;
+function GetPixelY(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelYellow(pixel: PPixelPacket): TQuantum; inline;
+procedure SetPixela(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelAlpha(pixel: PPixelPacket; value: double); inline;
+procedure SetPixelb(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelBlack(indexes: PIndexPacket; value: TQuantum); inline;
+procedure SetPixelBlue(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelCb(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelCr(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelCyan(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelGray(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelGreen(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelIndex(indexes: PIndexPacket; value: TIndexPacket); inline;
+procedure SetPixelL(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelMagenta(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelOpacity(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelRed(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelRgb(pixel: PPixelPacket; packet: PPixelPacket); inline;
+procedure SetPixelRGBA(pixel: PPixelPacket; packet: PPixelPacket); inline;
+procedure SetPixelRGBO(pixel: PPixelPacket; packet: PPixelPacket); inline;
+procedure SetPixelYellow(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelY(pixel: PPixelPacket; value: TQuantum); inline;
 
-  You may not use this file except in compliance with the License.  You may
-  obtain a copy of the License at
 
-    https://imagemagick.org/script/license.php
 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-
-  MagickCore pixel accessor methods.
- }
-{$ifndef MAGICKCORE_PIXEL_ACCESSOR_H}
-{$define MAGICKCORE_PIXEL_ACCESSOR_H}
-{$include <math.h>}
-{$include "magick/gem.h"}
-{$include "magick/pixel.h"}
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-
-function ClampPixelRed(pixel : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ClampPixelGreen(pixel : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ClampPixelBlue(pixel : longint) : longint;
-
-{xxxxxx #define ClampPixelIndex(indexes) ClampToQuantum(*(indexes)) }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ClampPixelOpacity(pixel : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixela(pixel : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelb(pixel : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelAlpha(pixel : longint) : longint;
-
-{xxxxxxxxxxx #define GetPixelBlack(indexes) (*(indexes)) }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelBlue(pixel : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelCb(pixel : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelCr(pixel : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelCyan(pixel : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelGray(pixel : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelGreen(pixel : longint) : longint;
-
-{xxxxxxxxxxxxxx#define GetPixelIndex(indexes)  (*(indexes)) }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelL(pixel : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GetPixelLabel(pixel : longint) : Tssize_t;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelMagenta(pixel : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GetPixelNext(pixel : longint) : Tpixel;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelOpacity(pixel : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelRed(pixel : longint) : longint;
-
-{xxxxxxxxx
-#define GetPixelRGB(pixel,packet) \
- \
-  (packet)->red=GetPixelRed((pixel)); \
-  (packet)->green=GetPixelGreen((pixel)); \
-  (packet)->blue=GetPixelBlue((pixel)); \
-
-#define GetPixelRGBO(pixel,packet) \
- \
-  (packet)->red=GetPixelRed((pixel)); \
-  (packet)->green=GetPixelGreen((pixel)); \
-  (packet)->blue=GetPixelBlue((pixel)); \
-  (packet)->opacity=GetPixelOpacity((pixel)); \
-
- }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelY(pixel : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelYellow(pixel : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixela(pixel,value : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelAlpha(pixel,value : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelb(pixel,value : longint) : longint;
-
-{xxxxxxxxxxxxx#define SetPixelBlack(indexes,value) (*(indexes)=(Quantum) (value)) }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelBlue(pixel,value : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelCb(pixel,value : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelCr(pixel,value : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelCyan(pixel,value : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelGray(pixel,value : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelGreen(pixel,value : longint) : longint;
-
-{xxxxxxxxxx#define SetPixelIndex(indexes,value) (*(indexes)=(IndexPacket) (value)) }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelL(pixel,value : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelMagenta(pixel,value : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelOpacity(pixel,value : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelRed(pixel,value : longint) : longint;
-
-{xxxxxxxxxx
-#define SetPixelRgb(pixel,packet) \
- \
-  SetPixelRed(pixel,(packet)->red); \
-  SetPixelGreen(pixel,(packet)->green); \
-  SetPixelBlue(pixel,(packet)->blue); \
-
-#define SetPixelRGBA(pixel,packet) \
- \
-  SetPixelRed(pixel,(packet)->red); \
-  SetPixelGreen(pixel,(packet)->green); \
-  SetPixelBlue(pixel,(packet)->blue); \
-  SetPixelAlpha(pixel,(QuantumRange-(packet)->opacity)); \
-
-#define SetPixelRGBO(pixel,packet) \
- \
-  SetPixelRed(pixel,(packet)->red); \
-  SetPixelGreen(pixel,(packet)->green); \
-  SetPixelBlue(pixel,(packet)->blue); \
-  SetPixelOpacity(pixel,(packet)->opacity); \
-
- }
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelYellow(pixel,value : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelY(pixel,value : longint) : longint;
 
 {xxxxxxxxxxxxxxxxxxxxxxxxx
 static inline MagickRealType AbsolutePixelValue(const MagickRealType x)
@@ -259,16 +66,16 @@ static inline MagickRealType AbsolutePixelValue(const MagickRealType x)
   return(x < 0.0 ? -x : x);
 
 
-static inline Quantum ClampPixel(const MagickRealType value)
+static inline TQuantum ClampPixel(const MagickRealType value)
  
   if (value < 0.0)
-    return((Quantum) 0); 
-  if (value >= (MagickRealType) QuantumRange)
-    return((Quantum) QuantumRange);
+    return((TQuantum) 0); 
+  if (value >= (MagickRealType) TQuantumRange)
+    return((TQuantum) TQuantumRange);
 #if !defined(MAGICKCORE_HDRI_SUPPORT)
-  return((Quantum) (value+0.5));
+  return((TQuantum) (value+0.5));
 #else
-  return((Quantum) value);
+  return((TQuantum) value);
 #endif
 
 
@@ -313,8 +120,8 @@ static inline MagickRealType GetPixelLuminance(
   return(intensity);
 
 
-static inline void GetPixelPacketRGBA(const Quantum red,const Quantum green,
-  const Quantum blue,const Quantum opacity,PixelPacket *magick_restrict pixel)
+static inline void GetPixelPacketRGBA(const TQuantum red,const TQuantum green,
+  const TQuantum blue,const TQuantum opacity,PixelPacket *magick_restrict pixel)
 
   pixel->red=red;
   pixel->green=green;
@@ -322,23 +129,23 @@ static inline void GetPixelPacketRGBA(const Quantum red,const Quantum green,
   pixel->opacity=opacity;
 
 
-static inline MagickBooleanType IsPixelAtDepth(const Quantum pixel,
-  const QuantumAny range)
+static inline MagickBooleanType IsPixelAtDepth(const TQuantum pixel,
+  const TQuantumAny range)
 
-  Quantum
-    quantum;
+  TQuantum
+    TQuantum;
 
   if (range == 0)
     return(MagickTrue);
 #if !defined(MAGICKCORE_HDRI_SUPPORT)
-  quantum=(Quantum) (((MagickRealType) QuantumRange*((QuantumAny)
-    (((MagickRealType) range*pixel)/QuantumRange+0.5)))/range+0.5);
+  TQuantum=(TQuantum) (((MagickRealType) TQuantumRange*((TQuantumAny)
+    (((MagickRealType) range*pixel)/TQuantumRange+0.5)))/range+0.5);
 #else
-  quantum=(Quantum) (((MagickRealType) QuantumRange*((QuantumAny)
-    (((MagickRealType) range*(MagickRealType) pixel)/(MagickRealType) QuantumRange+
+  TQuantum=(TQuantum) (((MagickRealType) TQuantumRange*((TQuantumAny)
+    (((MagickRealType) range*(MagickRealType) pixel)/(MagickRealType) TQuantumRange+
     0.5)))/(MagickRealType) range);
 #endif
-  return(pixel == quantum ? MagickTrue : MagickFalse);
+  return(pixel == TQuantum ? MagickTrue : MagickFalse);
 
 
 static inline MagickBooleanType IsPixelGray(const PixelPacket *pixel)
@@ -349,8 +156,8 @@ static inline MagickBooleanType IsPixelGray(const PixelPacket *pixel)
 
   red_green=(MagickRealType) pixel->red-(MagickRealType) pixel->green;
   green_blue=(MagickRealType) pixel->green-(MagickRealType) pixel->blue;
-  if (((QuantumScale*AbsolutePixelValue(red_green)) < MagickEpsilon) &&
-      ((QuantumScale*AbsolutePixelValue(green_blue)) < MagickEpsilon))
+  if (((TQuantumScale*AbsolutePixelValue(red_green)) < MagickEpsilon) &&
+      ((TQuantumScale*AbsolutePixelValue(green_blue)) < MagickEpsilon))
     return(MagickTrue);
   return(MagickFalse);
 
@@ -365,17 +172,17 @@ static inline MagickBooleanType IsPixelMonochrome(
 
   red=(MagickRealType) pixel->red;
   if ((AbsolutePixelValue(red) >= MagickEpsilon) &&
-      (AbsolutePixelValue(red-(double) QuantumRange) >= MagickEpsilon))
+      (AbsolutePixelValue(red-(double) TQuantumRange) >= MagickEpsilon))
     return(MagickFalse);
   red_green=(MagickRealType) pixel->red-(double) pixel->green;
   green_blue=(MagickRealType) pixel->green-(double) pixel->blue;
-  if (((QuantumScale*AbsolutePixelValue(red_green)) < MagickEpsilon) &&
-      ((QuantumScale*AbsolutePixelValue(green_blue)) < MagickEpsilon))
+  if (((TQuantumScale*AbsolutePixelValue(red_green)) < MagickEpsilon) &&
+      ((TQuantumScale*AbsolutePixelValue(green_blue)) < MagickEpsilon))
     return(MagickTrue);
   return(MagickFalse);
 
 
-static inline Quantum PixelPacketIntensity(const PixelPacket *pixel)
+static inline TQuantum PixelPacketIntensity(const PixelPacket *pixel)
 
   MagickRealType
     intensity;
@@ -398,7 +205,20 @@ static inline void SetPixelViaMagickPixel(const Image *magick_restrict image,
     pixel->opacity=ClampToQuantum(magick_pixel->opacity);
 
  }
-{$endif}
+
+
+function AbsolutePixelValue(x: TMagickRealType): TMagickRealType; inline;
+function ClampPixel(value: TMagickRealType): TQuantum; inline;
+function PerceptibleReciprocal(x: double): double; inline;
+function GetPixelLuma(image: PImage; pixel: PPixelPacket): TMagickRealType; inline;
+function GetPixelLuminance(image: PImage; pixel: PPixelPacket): TMagickRealType; inline;
+procedure GetPixelPacketRGBA(red, green, blue, opacity: TQuantum; pixel: PPixelPacket); inline;
+function IsPixelAtDepth(pixel, range: TQuantumAny): TMagickBooleanType; inline;
+function IsPixelGray(pixel: PPixelPacket): TMagickBooleanType; inline;
+function IsPixelMonochrome(pixel: PPixelPacket): TMagickBooleanType; inline;
+function PixelPacketIntensity(pixel: PPixelPacket): TQuantum; inline;
+procedure SetPixelViaMagickPixel(image: PImage; magick_pixel: PMagickPixelPacket; pixel: PPixelPacket); inline;
+
 
 // === Konventiert am: 6-1-26 14:27:12 ===
 
@@ -406,291 +226,367 @@ static inline void SetPixelViaMagickPixel(const Image *magick_restrict image,
 implementation
 
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ClampPixelRed(pixel : longint) : longint;
+function ClampPixelRed(pixel: PPixelPacket): TQuantum; inline;
 begin
-  ClampPixelRed:=ClampToQuantum(pixel^.red);
+  Result := ClampToQuantum(pixel^.red);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ClampPixelGreen(pixel : longint) : longint;
+function ClampPixelGreen(pixel: PPixelPacket): TQuantum; inline;
 begin
-  ClampPixelGreen:=ClampToQuantum(pixel^.green);
+  Result := ClampToQuantum(pixel^.green);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ClampPixelBlue(pixel : longint) : longint;
+function ClampPixelBlue(pixel: PPixelPacket): TQuantum; inline;
 begin
-  ClampPixelBlue:=ClampToQuantum(pixel^.blue);
+  Result := ClampToQuantum(pixel^.blue);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function ClampPixelOpacity(pixel : longint) : longint;
+function ClampPixelIndex(indexes: PIndexPacket): TQuantum;
 begin
-  ClampPixelOpacity:=ClampToQuantum(pixel^.opacity);
+  Result := ClampToQuantum(indexes^);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixela(pixel : longint) : longint;
+function ClampPixelOpacity(pixel: PPixelPacket): TQuantum; inline;
 begin
-  GetPixela:=pixel^.green;
+  Result := ClampToQuantum(pixel^.opacity);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelb(pixel : longint) : longint;
+function GetPixela(pixel: PPixelPacket): TQuantum; inline;
 begin
-  GetPixelb:=pixel^.blue;
+  Result := pixel^.green;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelAlpha(pixel : longint) : longint;
+function GetPixelb(pixel: PPixelPacket): TQuantum; inline;
 begin
-  GetPixelAlpha:=(Tdouble(QuantumRange))-(Tdouble(pixel^.opacity));
+  Result := pixel^.blue;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelBlue(pixel : longint) : longint;
+function GetPixelAlpha(pixel: PPixelPacket): double; inline;
 begin
-  GetPixelBlue:=pixel^.blue;
+  Result := double(QuantumRange) - double(pixel^.opacity);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelCb(pixel : longint) : longint;
+function GetPixelBlack(indexes: PIndexPacket): TQuantum;
 begin
-  GetPixelCb:=pixel^.green;
+  Result := indexes^;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelCr(pixel : longint) : longint;
+function GetPixelBlue(pixel: PPixelPacket): TQuantum; inline;
 begin
-  GetPixelCr:=pixel^.blue;
+  Result := pixel^.blue;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelCyan(pixel : longint) : longint;
+function GetPixelCb(pixel: PPixelPacket): TQuantum; inline;
 begin
-  GetPixelCyan:=pixel^.red;
+  Result := pixel^.green;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelGray(pixel : longint) : longint;
+function GetPixelCr(pixel: PPixelPacket): TQuantum; inline;
 begin
-  GetPixelGray:=pixel^.red;
+  Result := pixel^.blue;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelGreen(pixel : longint) : longint;
+function GetPixelCyan(pixel: PPixelPacket): TQuantum; inline;
 begin
-  GetPixelGreen:=pixel^.green;
+  Result := pixel^.red;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelL(pixel : longint) : longint;
+function GetPixelGray(pixel: PPixelPacket): TQuantum; inline;
 begin
-  GetPixelL:=pixel^.red;
+  Result := pixel^.red;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GetPixelLabel(pixel : longint) : Tssize_t;
+function GetPixelGreen(pixel: PPixelPacket): TQuantum; inline;
 begin
-  GetPixelLabel:=Tssize_t(pixel^.red);
+  Result := pixel^.green;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelMagenta(pixel : longint) : longint;
+function GetPixelIndex(indexes: PIndexPacket): TQuantum;
 begin
-  GetPixelMagenta:=pixel^.green;
+  Result := indexes^;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-function GetPixelNext(pixel : longint) : Tpixel;
+function GetPixelL(pixel: PPixelPacket): TQuantum; inline;
 begin
-  GetPixelNext:=Tpixel(+(1));
+  Result := pixel^.red;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelOpacity(pixel : longint) : longint;
+function GetPixelLabel(pixel: PPixelPacket): nativeint; inline;
 begin
-  GetPixelOpacity:=pixel^.opacity;
+  Result := nativeint(pixel^.red);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelRed(pixel : longint) : longint;
+function GetPixelMagenta(pixel: PPixelPacket): TQuantum; inline;
 begin
-  GetPixelRed:=pixel^.red;
+  Result := pixel^.green;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelY(pixel : longint) : longint;
+function GetPixelNext(pixel: PPixelPacket): PPixelPacket; inline;
 begin
-  GetPixelY:=pixel^.red;
+  Result := pixel + 1;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function GetPixelYellow(pixel : longint) : longint;
+function GetPixelOpacity(pixel: PPixelPacket): TQuantum; inline;
 begin
-  GetPixelYellow:=pixel^.blue;
+  Result := pixel^.opacity;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixela(pixel,value : longint) : longint;
+function GetPixelRed(pixel: PPixelPacket): TQuantum; inline;
 begin
-  SetPixela:=(pixel^.green):=(TQuantum(value));
+  Result := pixel^.red;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelAlpha(pixel,value : longint) : longint;
+procedure GetPixelRGB(pixel: PPixelPacket; packet: PPixelPacket); inline;
 begin
-  SetPixelAlpha:=(pixel^.opacity):=(TQuantum((Tdouble(QuantumRange))-(Tdouble(value))));
+  packet^.red := GetPixelRed(pixel);
+  packet^.green := GetPixelGreen(pixel);
+  packet^.blue := GetPixelBlue(pixel);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelb(pixel,value : longint) : longint;
+procedure GetPixelRGBO(pixel: PPixelPacket; packet: PPixelPacket); inline;
 begin
-  SetPixelb:=(pixel^.blue):=(TQuantum(value));
+  packet^.red := GetPixelRed(pixel);
+  packet^.green := GetPixelGreen(pixel);
+  packet^.blue := GetPixelBlue(pixel);
+  packet^.opacity := GetPixelOpacity(pixel);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelBlue(pixel,value : longint) : longint;
+function GetPixelY(pixel: PPixelPacket): TQuantum; inline;
 begin
-  SetPixelBlue:=(pixel^.blue):=(TQuantum(value));
+  Result := pixel^.red;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelCb(pixel,value : longint) : longint;
+function GetPixelYellow(pixel: PPixelPacket): TQuantum; inline;
 begin
-  SetPixelCb:=(pixel^.green):=(TQuantum(value));
+  Result := pixel^.blue;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelCr(pixel,value : longint) : longint;
+procedure SetPixela(pixel: PPixelPacket; value: TQuantum); inline;
 begin
-  SetPixelCr:=(pixel^.blue):=(TQuantum(value));
+  pixel^.green := value;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelCyan(pixel,value : longint) : longint;
+procedure SetPixelAlpha(pixel: PPixelPacket; value: double); inline;
 begin
-  SetPixelCyan:=(pixel^.red):=(TQuantum(value));
+  pixel^.opacity := Round(double(QuantumRange) - value);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelGray(pixel,value : longint) : longint;
+procedure SetPixelb(pixel: PPixelPacket; value: TQuantum); inline;
 begin
-  SetPixelGray:=(pixel^.red):=((pixel^.green):=((pixel^.blue):=(TQuantum(value))));
+  pixel^.blue := value;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelGreen(pixel,value : longint) : longint;
+procedure SetPixelBlack(indexes: PIndexPacket; value: TQuantum); inline;
 begin
-  SetPixelGreen:=(pixel^.green):=(TQuantum(value));
+  indexes^ := value;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelL(pixel,value : longint) : longint;
+procedure SetPixelBlue(pixel: PPixelPacket; value: TQuantum); inline;
 begin
-  SetPixelL:=(pixel^.red):=(TQuantum(value));
+  pixel^.blue := value;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelMagenta(pixel,value : longint) : longint;
+procedure SetPixelCb(pixel: PPixelPacket; value: TQuantum); inline;
 begin
-  SetPixelMagenta:=(pixel^.green):=(TQuantum(value));
+  pixel^.green := value;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelOpacity(pixel,value : longint) : longint;
+procedure SetPixelCr(pixel: PPixelPacket; value: TQuantum); inline;
 begin
-  SetPixelOpacity:=(pixel^.opacity):=(TQuantum(value));
+  pixel^.blue := value;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelRed(pixel,value : longint) : longint;
+procedure SetPixelCyan(pixel: PPixelPacket; value: TQuantum); inline;
 begin
-  SetPixelRed:=(pixel^.red):=(TQuantum(value));
+  pixel^.red := value;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelYellow(pixel,value : longint) : longint;
+procedure SetPixelGray(pixel: PPixelPacket; value: TQuantum); inline;
 begin
-  SetPixelYellow:=(pixel^.blue):=(TQuantum(value));
+  pixel^.red := value;
+  pixel^.green := value;
+  pixel^.blue := value;
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function SetPixelY(pixel,value : longint) : longint;
+procedure SetPixelGreen(pixel: PPixelPacket; value: TQuantum); inline;
 begin
-  SetPixelY:=(pixel^.red):=(TQuantum(value));
+  pixel^.green := value;
 end;
+
+procedure SetPixelIndex(indexes: PIndexPacket; value: TIndexPacket); inline;
+begin
+  indexes^ := value;
+end;
+
+procedure SetPixelL(pixel: PPixelPacket; value: TQuantum); inline;
+begin
+  pixel^.red := value;
+end;
+
+procedure SetPixelMagenta(pixel: PPixelPacket; value: TQuantum); inline;
+begin
+  pixel^.green := value;
+end;
+
+procedure SetPixelOpacity(pixel: PPixelPacket; value: TQuantum); inline;
+begin
+  pixel^.opacity := value;
+end;
+
+procedure SetPixelRed(pixel: PPixelPacket; value: TQuantum); inline;
+begin
+  pixel^.red := value;
+end;
+
+procedure SetPixelRgb(pixel: PPixelPacket; packet: PPixelPacket); inline;
+begin
+  SetPixelRed(pixel, packet^.red);
+  SetPixelGreen(pixel, packet^.green);
+  SetPixelBlue(pixel, packet^.blue);
+end;
+
+procedure SetPixelRGBA(pixel: PPixelPacket; packet: PPixelPacket); inline;
+begin
+  SetPixelRed(pixel, packet^.red);
+  SetPixelGreen(pixel, packet^.green);
+  SetPixelBlue(pixel, packet^.blue);
+  SetPixelAlpha(pixel, double(packet^.opacity));
+end;
+
+procedure SetPixelRGBO(pixel: PPixelPacket; packet: PPixelPacket); inline;
+begin
+  SetPixelRed(pixel, packet^.red);
+  SetPixelGreen(pixel, packet^.green);
+  SetPixelBlue(pixel, packet^.blue);
+  SetPixelOpacity(pixel, packet^.opacity);
+end;
+
+procedure SetPixelYellow(pixel: PPixelPacket; value: TQuantum); inline;
+begin
+  pixel^.blue := value;
+end;
+
+procedure SetPixelY(pixel: PPixelPacket; value: TQuantum); inline;
+begin
+  pixel^.red := value;
+end;
+
+// ====
+
+function AbsolutePixelValue(x: TMagickRealType): TMagickRealType; inline;
+begin
+  if x < 0.0 then begin
+    Result := -x;
+  end else begin
+    Result := x;
+  end;
+end;
+
+function ClampPixel(value: TMagickRealType): TQuantum; inline;
+begin
+  if value < 0.0 then begin
+    Result := 0;
+  end else if value >= TMagickRealType(QuantumRange) then begin
+    Result := QuantumRange;
+  end else begin
+    Result := Round(value + 0.5);
+  end;
+end;
+
+function PerceptibleReciprocal(x: double): double; inline;
+var
+  sign: double;
+begin
+  if x < 0.0 then begin
+    sign := -1.0;
+  end else begin
+    sign := 1.0;
+  end;
+  if (sign * x) >= MagickEpsilon then begin
+    Result := 1.0 / x;
+  end else begin
+    Result := sign / MagickEpsilon;
+  end;
+end;
+
+function GetPixelLuma(image: PImage; pixel: PPixelPacket): TMagickRealType; inline;
+begin
+  Result := 0.212656 * pixel^.red + 0.715158 * pixel^.green + 0.072186 * pixel^.blue;
+end;
+
+function GetPixelLuminance(image: PImage; pixel: PPixelPacket): TMagickRealType; inline;
+begin
+  Result := 0.212656 * DecodePixelGamma(pixel^.red) +
+    0.715158 * DecodePixelGamma(pixel^.green) +
+    0.072186 * DecodePixelGamma(pixel^.blue);
+end;
+
+procedure GetPixelPacketRGBA(red, green, blue, opacity: TQuantum; pixel: PPixelPacket); inline;
+begin
+  pixel^.red := red;
+  pixel^.green := green;
+  pixel^.blue := blue;
+  pixel^.opacity := opacity;
+end;
+
+function IsPixelAtDepth(pixel, range: TQuantumAny): TMagickBooleanType; inline;
+var
+  quantum: TQuantum;
+begin
+  if range = 0 then begin
+    Result := MagickTrue;
+    Exit;
+  end;
+  quantum := round((QuantumRange * TQuantumAny((TMagickRealType(range * pixel) / QuantumRange + 0.5)) / range + 0.5));
+  Result := (pixel = quantum);
+end;
+
+function IsPixelGray(pixel: PPixelPacket): TMagickBooleanType; inline;
+var
+  red_green, green_blue: TMagickRealType;
+begin
+  red_green := pixel^.red - pixel^.green;
+  green_blue := pixel^.green - pixel^.blue;
+  Result := ((QuantumScale * AbsolutePixelValue(red_green)) < MagickEpsilon) and
+    ((QuantumScale * AbsolutePixelValue(green_blue)) < MagickEpsilon);
+end;
+
+function IsPixelMonochrome(pixel: PPixelPacket): TMagickBooleanType; inline;
+var
+  red, red_green, green_blue: TMagickRealType;
+begin
+  red := pixel^.red;
+  if (AbsolutePixelValue(red) >= MagickEpsilon) and
+    (AbsolutePixelValue(red - QuantumRange) >= MagickEpsilon) then begin
+    Result := MagickFalse;
+    Exit;
+  end;
+  red_green := pixel^.red - pixel^.green;
+  green_blue := pixel^.green - pixel^.blue;
+  Result := ((QuantumScale * AbsolutePixelValue(red_green)) < MagickEpsilon) and
+    ((QuantumScale * AbsolutePixelValue(green_blue)) < MagickEpsilon);
+end;
+
+function PixelPacketIntensity(pixel: PPixelPacket): TQuantum; inline;
+var
+  intensity: TMagickRealType;
+begin
+  if (pixel^.red = pixel^.green) and (pixel^.green = pixel^.blue) then begin
+    Result := pixel^.red;
+    Exit;
+  end;
+  intensity := 0.212656 * pixel^.red + 0.715158 * pixel^.green + 0.072186 * pixel^.blue;
+  Result := ClampToQuantum(intensity);
+end;
+
+procedure SetPixelViaMagickPixel(image: PImage; magick_pixel: PMagickPixelPacket; pixel: PPixelPacket); inline;
+begin
+  pixel^.red := ClampToQuantum(magick_pixel^.red);
+  pixel^.green := ClampToQuantum(magick_pixel^.green);
+  pixel^.blue := ClampToQuantum(magick_pixel^.blue);
+  pixel^.opacity := ClampToQuantum(magick_pixel^.opacity);
+end;
+
 
 
 end.

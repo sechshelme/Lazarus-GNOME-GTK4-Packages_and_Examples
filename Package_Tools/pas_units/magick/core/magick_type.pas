@@ -48,6 +48,12 @@ const
   QuantumRange = 65535;
 
 const
+  MagickEpsilon = 1.0e-12;
+  MagickMaximumValue = 1.79769313486231570E+308;
+  MagickMinimumValue = 2.22507385850720140E-308;
+  QuantumScale = 1.0 / QuantumRange;
+
+const
   UndefinedChannel = 0;
   RedChannel = $0001;
   GrayChannel = $0001;
@@ -83,8 +89,8 @@ type
   TMagickBooleanType = Boolean32;
 
 const
-  MagickFalse = 0;
-  MagickTrue = 1;
+  MagickFalse = Boolean32(0);
+  MagickTrue = Boolean32(1);
 
 type
   PBlobInfo = type Pointer;
