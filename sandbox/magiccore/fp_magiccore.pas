@@ -25,6 +25,10 @@ type
   Ttime_t = uint64;
   Ptime_t = ^Ttime_t;
 
+  Toff_t = SizeInt;
+  Poff_t = ^Toff_t;
+
+
 const
   ENOMEM = 12;
   MAGICKCORE_QUANTUM_DEPTH = 16;

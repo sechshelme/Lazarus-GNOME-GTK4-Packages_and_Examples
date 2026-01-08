@@ -28,9 +28,6 @@ uses
   random_,
   pixel_accessor,       // quantum, pixel
   version,
-
-
-
   animate,
   annotate,
   artifact,
@@ -74,31 +71,26 @@ uses
   monitor,
   montage,
   opencl,
-  //option,
-  //paint,
-  //policy,
-  //prepress,
-  //property_,
-  //resize,
-  //resource_,
-  //segment,
-  //shear,
-  //signature,
-  //static,
-  //statistic,
-  //studio,
-  //threshold,
-  //timer,
-  //token,
-  //transform,
-  //type_,
-  //utility,
-  //vision,
-
-
-  xwindow,
+  option,
+  paint,
+  policy,
+  prepress,
+  property_,
+  resize,
+  resource_,
+  segment,
+  shear,
+  signature,
+  static,
+  statistic,
+  threshold,
+  timer,
+  token,
+  transform,
+  type_,
+  utility,
+  vision,
   deprecate,
-  // widget,   // ???????
 
   fp_magiccore;
 
