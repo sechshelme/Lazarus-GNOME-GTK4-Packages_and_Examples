@@ -1,0 +1,586 @@
+{$IFDEF read_interface}
+
+
+function ClampPixelRed(pixel: PPixelPacket): TQuantum; inline;
+function ClampPixelGreen(pixel: PPixelPacket): TQuantum; inline;
+function ClampPixelBlue(pixel: PPixelPacket): TQuantum; inline;
+function ClampPixelIndex(indexes: PIndexPacket): TQuantum; inline;
+function ClampPixelOpacity(pixel: PPixelPacket): TQuantum; inline;
+function GetPixela(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelb(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelAlpha(pixel: PPixelPacket): double; inline;
+function GetPixelBlack(indexes: PIndexPacket): TQuantum; inline;
+function GetPixelBlue(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelCb(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelCr(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelCyan(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelGray(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelGreen(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelIndex(indexes: PIndexPacket): TQuantum; inline;
+function GetPixelL(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelLabel(pixel: PPixelPacket): nativeint; inline;
+function GetPixelMagenta(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelNext(pixel: PPixelPacket): PPixelPacket; inline;
+function GetPixelOpacity(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelRed(pixel: PPixelPacket): TQuantum; inline;
+procedure GetPixelRGB(pixel: PPixelPacket; packet: PPixelPacket); inline;
+procedure GetPixelRGBO(pixel: PPixelPacket; packet: PPixelPacket); inline;
+function GetPixelY(pixel: PPixelPacket): TQuantum; inline;
+function GetPixelYellow(pixel: PPixelPacket): TQuantum; inline;
+procedure SetPixela(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelAlpha(pixel: PPixelPacket; value: double); inline;
+procedure SetPixelb(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelBlack(indexes: PIndexPacket; value: TQuantum); inline;
+procedure SetPixelBlue(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelCb(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelCr(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelCyan(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelGray(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelGreen(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelIndex(indexes: PIndexPacket; value: TIndexPacket); inline;
+procedure SetPixelL(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelMagenta(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelOpacity(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelRed(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelRgb(pixel: PPixelPacket; packet: PPixelPacket); inline;
+procedure SetPixelRGBA(pixel: PPixelPacket; packet: PPixelPacket); inline;
+procedure SetPixelRGBO(pixel: PPixelPacket; packet: PPixelPacket); inline;
+procedure SetPixelYellow(pixel: PPixelPacket; value: TQuantum); inline;
+procedure SetPixelY(pixel: PPixelPacket; value: TQuantum); inline;
+
+
+
+
+{xxxxxxxxxxxxxxxxxxxxxxxxx
+static inline MagickRealType AbsolutePixelValue(const MagickRealType x)
+
+  return(x < 0.0 ? -x : x);
+
+
+static inline TQuantum ClampPixel(const MagickRealType value)
+ 
+  if (value < 0.0)
+    return((TQuantum) 0); 
+  if (value >= (MagickRealType) TQuantumRange)
+    return((TQuantum) TQuantumRange);
+#if !defined(MAGICKCORE_HDRI_SUPPORT)
+  return((TQuantum) (value+0.5));
+#else
+  return((TQuantum) value);
+#endif
+
+
+static inline double PerceptibleReciprocal(const double x)
+ 
+  double
+    sign;
+      
+  sign=x < 0.0 ? -1.0 : 1.0;
+  if ((sign*x) >= MagickEpsilon)
+    return(1.0/x);
+  return(sign/MagickEpsilon);
+   
+
+static inline MagickRealType GetPixelLuma(
+  const Image *magick_restrict image,const PixelPacket *magick_restrict pixel)
+
+  MagickRealType
+    intensity;
+
+  (void) image;
+  intensity=(MagickRealType) (0.212656f*pixel->red+0.715158f*pixel->green+
+    0.072186f*pixel->blue);
+  return(intensity);
+
+
+static inline MagickRealType GetPixelLuminance(
+  const Image *magick_restrict image,const PixelPacket *magick_restrict pixel)
+
+  MagickRealType
+    intensity;
+
+  if (image->colorspace != sRGBColorspace)
+    
+      intensity=(MagickRealType) (0.212656f*pixel->red+0.715158f*pixel->green+
+        0.072186f*pixel->blue);
+      return(intensity);
+    
+  intensity=(MagickRealType) (0.212656*DecodePixelGamma((MagickRealType)
+    pixel->red)+0.715158*DecodePixelGamma((MagickRealType) pixel->green)+
+    0.072186*DecodePixelGamma((MagickRealType) pixel->blue));
+  return(intensity);
+
+
+static inline void GetPixelPacketRGBA(const TQuantum red,const TQuantum green,
+  const TQuantum blue,const TQuantum opacity,PixelPacket *magick_restrict pixel)
+
+  pixel->red=red;
+  pixel->green=green;
+  pixel->blue=blue;
+  pixel->opacity=opacity;
+
+
+static inline MagickBooleanType IsPixelAtDepth(const TQuantum pixel,
+  const TQuantumAny range)
+
+  TQuantum
+    TQuantum;
+
+  if (range == 0)
+    return(MagickTrue);
+#if !defined(MAGICKCORE_HDRI_SUPPORT)
+  TQuantum=(TQuantum) (((MagickRealType) TQuantumRange*((TQuantumAny)
+    (((MagickRealType) range*pixel)/TQuantumRange+0.5)))/range+0.5);
+#else
+  TQuantum=(TQuantum) (((MagickRealType) TQuantumRange*((TQuantumAny)
+    (((MagickRealType) range*(MagickRealType) pixel)/(MagickRealType) TQuantumRange+
+    0.5)))/(MagickRealType) range);
+#endif
+  return(pixel == TQuantum ? MagickTrue : MagickFalse);
+
+
+static inline MagickBooleanType IsPixelGray(const PixelPacket *pixel)
+
+  MagickRealType
+    green_blue,
+    red_green;
+
+  red_green=(MagickRealType) pixel->red-(MagickRealType) pixel->green;
+  green_blue=(MagickRealType) pixel->green-(MagickRealType) pixel->blue;
+  if (((TQuantumScale*AbsolutePixelValue(red_green)) < MagickEpsilon) &&
+      ((TQuantumScale*AbsolutePixelValue(green_blue)) < MagickEpsilon))
+    return(MagickTrue);
+  return(MagickFalse);
+
+
+static inline MagickBooleanType IsPixelMonochrome(
+  const PixelPacket *pixel)
+
+  MagickRealType
+    green_blue,
+    red,
+    red_green;
+
+  red=(MagickRealType) pixel->red;
+  if ((AbsolutePixelValue(red) >= MagickEpsilon) &&
+      (AbsolutePixelValue(red-(double) TQuantumRange) >= MagickEpsilon))
+    return(MagickFalse);
+  red_green=(MagickRealType) pixel->red-(double) pixel->green;
+  green_blue=(MagickRealType) pixel->green-(double) pixel->blue;
+  if (((TQuantumScale*AbsolutePixelValue(red_green)) < MagickEpsilon) &&
+      ((TQuantumScale*AbsolutePixelValue(green_blue)) < MagickEpsilon))
+    return(MagickTrue);
+  return(MagickFalse);
+
+
+static inline TQuantum PixelPacketIntensity(const PixelPacket *pixel)
+
+  MagickRealType
+    intensity;
+
+  if ((pixel->red  == pixel->green) && (pixel->green == pixel->blue))
+    return(pixel->red);
+  intensity=(MagickRealType) (0.212656f*pixel->red+0.715158f*pixel->green+
+    0.072186f*pixel->blue);
+  return(ClampToQuantum(intensity));
+
+
+static inline void SetPixelViaMagickPixel(const Image *magick_restrict image,
+  const MagickPixelPacket *magick_restrict magick_pixel,
+  PixelPacket *magick_restrict pixel)
+ 
+  pixel->red=ClampToQuantum(magick_pixel->red);
+  pixel->green=ClampToQuantum(magick_pixel->green);
+  pixel->blue=ClampToQuantum(magick_pixel->blue);
+  if (image->matte != MagickFalse)
+    pixel->opacity=ClampToQuantum(magick_pixel->opacity);
+
+ }
+
+
+function AbsolutePixelValue(x: TMagickRealType): TMagickRealType; inline;
+function ClampPixel(value: TMagickRealType): TQuantum; inline;
+function PerceptibleReciprocal(x: double): double; inline;
+function GetPixelLuma(image: PImage; pixel: PPixelPacket): TMagickRealType; inline;
+function GetPixelLuminance(image: PImage; pixel: PPixelPacket): TMagickRealType; inline;
+procedure GetPixelPacketRGBA(red, green, blue, opacity: TQuantum; pixel: PPixelPacket); inline;
+function IsPixelAtDepth(pixel, range: TQuantumAny): TMagickBooleanType; inline;
+function IsPixelGray(pixel: PPixelPacket): TMagickBooleanType; inline;
+function IsPixelMonochrome(pixel: PPixelPacket): TMagickBooleanType; inline;
+function PixelPacketIntensity(pixel: PPixelPacket): TQuantum; inline;
+procedure SetPixelViaMagickPixel(image: PImage; magick_pixel: PMagickPixelPacket; pixel: PPixelPacket); inline;
+
+
+// === Konventiert am: 6-1-26 14:27:12 ===
+
+
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
+
+
+function ClampPixelRed(pixel: PPixelPacket): TQuantum; inline;
+begin
+  Result := ClampToQuantum(pixel^.red);
+end;
+
+function ClampPixelGreen(pixel: PPixelPacket): TQuantum; inline;
+begin
+  Result := ClampToQuantum(pixel^.green);
+end;
+
+function ClampPixelBlue(pixel: PPixelPacket): TQuantum; inline;
+begin
+  Result := ClampToQuantum(pixel^.blue);
+end;
+
+function ClampPixelIndex(indexes: PIndexPacket): TQuantum;
+begin
+  Result := ClampToQuantum(indexes^);
+end;
+
+function ClampPixelOpacity(pixel: PPixelPacket): TQuantum; inline;
+begin
+  Result := ClampToQuantum(pixel^.opacity);
+end;
+
+function GetPixela(pixel: PPixelPacket): TQuantum; inline;
+begin
+  Result := pixel^.green;
+end;
+
+function GetPixelb(pixel: PPixelPacket): TQuantum; inline;
+begin
+  Result := pixel^.blue;
+end;
+
+function GetPixelAlpha(pixel: PPixelPacket): double; inline;
+begin
+  Result := double(QuantumRange) - double(pixel^.opacity);
+end;
+
+function GetPixelBlack(indexes: PIndexPacket): TQuantum;
+begin
+  Result := indexes^;
+end;
+
+function GetPixelBlue(pixel: PPixelPacket): TQuantum; inline;
+begin
+  Result := pixel^.blue;
+end;
+
+function GetPixelCb(pixel: PPixelPacket): TQuantum; inline;
+begin
+  Result := pixel^.green;
+end;
+
+function GetPixelCr(pixel: PPixelPacket): TQuantum; inline;
+begin
+  Result := pixel^.blue;
+end;
+
+function GetPixelCyan(pixel: PPixelPacket): TQuantum; inline;
+begin
+  Result := pixel^.red;
+end;
+
+function GetPixelGray(pixel: PPixelPacket): TQuantum; inline;
+begin
+  Result := pixel^.red;
+end;
+
+function GetPixelGreen(pixel: PPixelPacket): TQuantum; inline;
+begin
+  Result := pixel^.green;
+end;
+
+function GetPixelIndex(indexes: PIndexPacket): TQuantum;
+begin
+  Result := indexes^;
+end;
+
+function GetPixelL(pixel: PPixelPacket): TQuantum; inline;
+begin
+  Result := pixel^.red;
+end;
+
+function GetPixelLabel(pixel: PPixelPacket): nativeint; inline;
+begin
+  Result := nativeint(pixel^.red);
+end;
+
+function GetPixelMagenta(pixel: PPixelPacket): TQuantum; inline;
+begin
+  Result := pixel^.green;
+end;
+
+function GetPixelNext(pixel: PPixelPacket): PPixelPacket; inline;
+begin
+  Result := pixel + 1;
+end;
+
+function GetPixelOpacity(pixel: PPixelPacket): TQuantum; inline;
+begin
+  Result := pixel^.opacity;
+end;
+
+function GetPixelRed(pixel: PPixelPacket): TQuantum; inline;
+begin
+  Result := pixel^.red;
+end;
+
+procedure GetPixelRGB(pixel: PPixelPacket; packet: PPixelPacket); inline;
+begin
+  packet^.red := GetPixelRed(pixel);
+  packet^.green := GetPixelGreen(pixel);
+  packet^.blue := GetPixelBlue(pixel);
+end;
+
+procedure GetPixelRGBO(pixel: PPixelPacket; packet: PPixelPacket); inline;
+begin
+  packet^.red := GetPixelRed(pixel);
+  packet^.green := GetPixelGreen(pixel);
+  packet^.blue := GetPixelBlue(pixel);
+  packet^.opacity := GetPixelOpacity(pixel);
+end;
+
+function GetPixelY(pixel: PPixelPacket): TQuantum; inline;
+begin
+  Result := pixel^.red;
+end;
+
+function GetPixelYellow(pixel: PPixelPacket): TQuantum; inline;
+begin
+  Result := pixel^.blue;
+end;
+
+procedure SetPixela(pixel: PPixelPacket; value: TQuantum); inline;
+begin
+  pixel^.green := value;
+end;
+
+procedure SetPixelAlpha(pixel: PPixelPacket; value: double); inline;
+begin
+  pixel^.opacity := Round(double(QuantumRange) - value);
+end;
+
+procedure SetPixelb(pixel: PPixelPacket; value: TQuantum); inline;
+begin
+  pixel^.blue := value;
+end;
+
+procedure SetPixelBlack(indexes: PIndexPacket; value: TQuantum); inline;
+begin
+  indexes^ := value;
+end;
+
+procedure SetPixelBlue(pixel: PPixelPacket; value: TQuantum); inline;
+begin
+  pixel^.blue := value;
+end;
+
+procedure SetPixelCb(pixel: PPixelPacket; value: TQuantum); inline;
+begin
+  pixel^.green := value;
+end;
+
+procedure SetPixelCr(pixel: PPixelPacket; value: TQuantum); inline;
+begin
+  pixel^.blue := value;
+end;
+
+procedure SetPixelCyan(pixel: PPixelPacket; value: TQuantum); inline;
+begin
+  pixel^.red := value;
+end;
+
+procedure SetPixelGray(pixel: PPixelPacket; value: TQuantum); inline;
+begin
+  pixel^.red := value;
+  pixel^.green := value;
+  pixel^.blue := value;
+end;
+
+procedure SetPixelGreen(pixel: PPixelPacket; value: TQuantum); inline;
+begin
+  pixel^.green := value;
+end;
+
+procedure SetPixelIndex(indexes: PIndexPacket; value: TIndexPacket); inline;
+begin
+  indexes^ := value;
+end;
+
+procedure SetPixelL(pixel: PPixelPacket; value: TQuantum); inline;
+begin
+  pixel^.red := value;
+end;
+
+procedure SetPixelMagenta(pixel: PPixelPacket; value: TQuantum); inline;
+begin
+  pixel^.green := value;
+end;
+
+procedure SetPixelOpacity(pixel: PPixelPacket; value: TQuantum); inline;
+begin
+  pixel^.opacity := value;
+end;
+
+procedure SetPixelRed(pixel: PPixelPacket; value: TQuantum); inline;
+begin
+  pixel^.red := value;
+end;
+
+procedure SetPixelRgb(pixel: PPixelPacket; packet: PPixelPacket); inline;
+begin
+  SetPixelRed(pixel, packet^.red);
+  SetPixelGreen(pixel, packet^.green);
+  SetPixelBlue(pixel, packet^.blue);
+end;
+
+procedure SetPixelRGBA(pixel: PPixelPacket; packet: PPixelPacket); inline;
+begin
+  SetPixelRed(pixel, packet^.red);
+  SetPixelGreen(pixel, packet^.green);
+  SetPixelBlue(pixel, packet^.blue);
+  SetPixelAlpha(pixel, double(packet^.opacity));
+end;
+
+procedure SetPixelRGBO(pixel: PPixelPacket; packet: PPixelPacket); inline;
+begin
+  SetPixelRed(pixel, packet^.red);
+  SetPixelGreen(pixel, packet^.green);
+  SetPixelBlue(pixel, packet^.blue);
+  SetPixelOpacity(pixel, packet^.opacity);
+end;
+
+procedure SetPixelYellow(pixel: PPixelPacket; value: TQuantum); inline;
+begin
+  pixel^.blue := value;
+end;
+
+procedure SetPixelY(pixel: PPixelPacket; value: TQuantum); inline;
+begin
+  pixel^.red := value;
+end;
+
+// ====
+
+function AbsolutePixelValue(x: TMagickRealType): TMagickRealType; inline;
+begin
+  if x < 0.0 then begin
+    Result := -x;
+  end else begin
+    Result := x;
+  end;
+end;
+
+function ClampPixel(value: TMagickRealType): TQuantum; inline;
+begin
+  if value < 0.0 then begin
+    Result := 0;
+  end else if value >= TMagickRealType(QuantumRange) then begin
+    Result := QuantumRange;
+  end else begin
+    Result := Round(value + 0.5);
+  end;
+end;
+
+function PerceptibleReciprocal(x: double): double; inline;
+var
+  sign: double;
+begin
+  if x < 0.0 then begin
+    sign := -1.0;
+  end else begin
+    sign := 1.0;
+  end;
+  if (sign * x) >= MagickEpsilon then begin
+    Result := 1.0 / x;
+  end else begin
+    Result := sign / MagickEpsilon;
+  end;
+end;
+
+function GetPixelLuma(image: PImage; pixel: PPixelPacket): TMagickRealType; inline;
+begin
+  Result := 0.212656 * pixel^.red + 0.715158 * pixel^.green + 0.072186 * pixel^.blue;
+end;
+
+function GetPixelLuminance(image: PImage; pixel: PPixelPacket): TMagickRealType; inline;
+begin
+  Result := 0.212656 * DecodePixelGamma(pixel^.red) +
+    0.715158 * DecodePixelGamma(pixel^.green) +
+    0.072186 * DecodePixelGamma(pixel^.blue);
+end;
+
+procedure GetPixelPacketRGBA(red, green, blue, opacity: TQuantum; pixel: PPixelPacket); inline;
+begin
+  pixel^.red := red;
+  pixel^.green := green;
+  pixel^.blue := blue;
+  pixel^.opacity := opacity;
+end;
+
+function IsPixelAtDepth(pixel, range: TQuantumAny): TMagickBooleanType; inline;
+var
+  quantum: TQuantum;
+begin
+  if range = 0 then begin
+    Result := MagickTrue;
+    Exit;
+  end;
+  quantum := round((QuantumRange * TQuantumAny((TMagickRealType(range * pixel) / QuantumRange + 0.5)) / range + 0.5));
+  Result := (pixel = quantum);
+end;
+
+function IsPixelGray(pixel: PPixelPacket): TMagickBooleanType; inline;
+var
+  red_green, green_blue: TMagickRealType;
+begin
+  red_green := pixel^.red - pixel^.green;
+  green_blue := pixel^.green - pixel^.blue;
+  Result := ((QuantumScale * AbsolutePixelValue(red_green)) < MagickEpsilon) and
+    ((QuantumScale * AbsolutePixelValue(green_blue)) < MagickEpsilon);
+end;
+
+function IsPixelMonochrome(pixel: PPixelPacket): TMagickBooleanType; inline;
+var
+  red, red_green, green_blue: TMagickRealType;
+begin
+  red := pixel^.red;
+  if (AbsolutePixelValue(red) >= MagickEpsilon) and
+    (AbsolutePixelValue(red - QuantumRange) >= MagickEpsilon) then begin
+    Result := MagickFalse;
+    Exit;
+  end;
+  red_green := pixel^.red - pixel^.green;
+  green_blue := pixel^.green - pixel^.blue;
+  Result := ((QuantumScale * AbsolutePixelValue(red_green)) < MagickEpsilon) and
+    ((QuantumScale * AbsolutePixelValue(green_blue)) < MagickEpsilon);
+end;
+
+function PixelPacketIntensity(pixel: PPixelPacket): TQuantum; inline;
+var
+  intensity: TMagickRealType;
+begin
+  if (pixel^.red = pixel^.green) and (pixel^.green = pixel^.blue) then begin
+    Result := pixel^.red;
+    Exit;
+  end;
+  intensity := 0.212656 * pixel^.red + 0.715158 * pixel^.green + 0.072186 * pixel^.blue;
+  Result := ClampToQuantum(intensity);
+end;
+
+procedure SetPixelViaMagickPixel(image: PImage; magick_pixel: PMagickPixelPacket; pixel: PPixelPacket); inline;
+begin
+  pixel^.red := ClampToQuantum(magick_pixel^.red);
+  pixel^.green := ClampToQuantum(magick_pixel^.green);
+  pixel^.blue := ClampToQuantum(magick_pixel^.blue);
+  pixel^.opacity := ClampToQuantum(magick_pixel^.opacity);
+end;
+
+
+
+{$ENDIF read_implementation}
