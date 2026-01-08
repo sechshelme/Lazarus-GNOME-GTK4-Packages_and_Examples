@@ -5,46 +5,47 @@ interface
 uses
   fp_magiccore;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
+const
+  MagickPackageName = 'ImageMagick';
+  MagickCopyright = '(C) 1999 ImageMagick Studio LLC';
+  MagickLibVersion = $69C;
+  MagickLibVersionText = '6.9.12';
+  MagickLibAddendum = '-98';
+  MagickLibInterface = 7;
+  MagickLibMinInterface = 7;
+  MagickPlatform = 'x86_64';
+  MagickppLibVersionText = '6.9.12';
+  MagickppLibAddendum = '-98';
+  MagickppLibInterface = 9;
+  MagickppLibMinInterface = 9;
+  MagickGitRevision = '18038';
+  MagickReleaseDate = '2024-03-31';
+  MagickHomeURL = 'file:///usr/share/doc/imagemagick-6-common/html/index.html';
+  MagickAuthoritativeLicense = 'https://imagemagick.org/script/license.php';
+  MagickAuthoritativeURL = 'https://legacy.imagemagick.org';
 
-{
-  Copyright 1999 ImageMagick Studio LLC, a non-profit organization
-  dedicated to making software imaging solutions freely available.
-  
-  You may not use this file except in compliance with the License.
-  obtain a copy of the License at
-  
-    https://imagemagick.org/script/license.php
-  
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
+const
+  MagickQuantumDepth = 'Q16';
+  MagickQuantumRange = '65535';
 
-  MagickCore version methods.
- }
-{$ifndef _MAGICKCORE_VERSION_H}
-{$define _MAGICKCORE_VERSION_H}
-{
-  Define declarations.
- }
+const
+  MagickHDRISupport = '';
 
-function GetMagickHomeURL:Pchar;cdecl;external libmagiccore;
-function GetMagickCopyright:Pchar;cdecl;external libmagiccore;
-function GetMagickDelegates:Pchar;cdecl;external libmagiccore;
-function GetMagickFeatures:Pchar;cdecl;external libmagiccore;
-function GetMagickLicense:Pchar;cdecl;external libmagiccore;
-function GetMagickPackageName:Pchar;cdecl;external libmagiccore;
-function GetMagickQuantumDepth(para1:Psize_t):Pchar;cdecl;external libmagiccore;
-function GetMagickQuantumRange(para1:Psize_t):Pchar;cdecl;external libmagiccore;
-function GetMagickReleaseDate:Pchar;cdecl;external libmagiccore;
-function GetMagickVersion(para1:Psize_t):Pchar;cdecl;external libmagiccore;
-procedure ListMagickVersion(para1:PFILE);cdecl;external libmagiccore;
-{$endif}
+function GetMagickHomeURL: pchar; cdecl; external libmagiccore;
+function GetMagickCopyright: pchar; cdecl; external libmagiccore;
+function GetMagickDelegates: pchar; cdecl; external libmagiccore;
+function GetMagickFeatures: pchar; cdecl; external libmagiccore;
+function GetMagickLicense: pchar; cdecl; external libmagiccore;
+function GetMagickPackageName: pchar; cdecl; external libmagiccore;
+function GetMagickQuantumDepth(para1: Psize_t): pchar; cdecl; external libmagiccore;
+function GetMagickQuantumRange(para1: Psize_t): pchar; cdecl; external libmagiccore;
+function GetMagickReleaseDate: pchar; cdecl; external libmagiccore;
+function GetMagickVersion(para1: Psize_t): pchar; cdecl; external libmagiccore;
+procedure ListMagickVersion(para1: PFILE); cdecl; external libmagiccore;
 
 // === Konventiert am: 6-1-26 15:36:48 ===
 

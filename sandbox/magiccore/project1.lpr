@@ -27,6 +27,7 @@ uses
   registry,
   random_,
   pixel_accessor,       // quantum, pixel
+  version,
 
 
 
@@ -59,20 +60,20 @@ uses
   histogram,
   identify,
   image_view,
-  //layer,
-  //list,
-  //locale_,
-  //log,
-  //magic,
-  //magick,
-  //magick_config,
-  //matrix,
-  //memory_,
-  //mime,
-  //module,
-  //monitor,
-  //montage,
-  //opencl,
+  layer,
+  list,
+  locale_,
+  log,
+  magic,
+  magick,
+  magick_config,
+  matrix,
+  memory_,
+  mime,
+  module,
+  monitor,
+  montage,
+  opencl,
   //option,
   //paint,
   //policy,
@@ -92,7 +93,6 @@ uses
   //transform,
   //type_,
   //utility,
-  //version,
   //vision,
 
 
@@ -108,5 +108,6 @@ uses
 
 
 begin
+
   main;
 end.

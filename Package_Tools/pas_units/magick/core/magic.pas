@@ -3,56 +3,38 @@ unit magic;
 interface
 
 uses
-  fp_magiccore;
+  fp_magiccore, magick_type;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{
-  Copyright 1999 ImageMagick Studio LLC, a non-profit organization
-  dedicated to making software imaging solutions freely available.
-  
-  You may not use this file except in compliance with the License.  You may
-  obtain a copy of the License at
-  
-    https://imagemagick.org/script/license.php
-  
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-
-  MagickCore magic methods.
- }
-{$ifndef MAGICKCORE_MAGIC_H}
-{$define MAGICKCORE_MAGIC_H}
-{ deprecated, use GetMagicInfoList()  }
 type
+  PPMagicInfo = ^PMagicInfo;
   PMagicInfo = ^TMagicInfo;
-  TMagicInfo = record
-      path : Pchar;
-      name : Pchar;
-      target : Pchar;
-      magic : Pbyte;
-      length : Tsize_t;
-      offset : TMagickOffsetType;
-      exempt : TMagickBooleanType;
-      stealth : TMagickBooleanType;
-      previous : PMagicInfo;
-      next : PMagicInfo;
-      signature : Tsize_t;
-    end;
 
-function GetMagicList(para1:Pchar; para2:Psize_t; para3:PExceptionInfo):^Pchar;cdecl;external libmagiccore;
-function GetMagicName(para1:PMagicInfo):Pchar;cdecl;external libmagiccore;
-function ListMagicInfo(para1:PFILE; para2:PExceptionInfo):TMagickBooleanType;cdecl;external libmagiccore;
-function MagicComponentGenesis:TMagickBooleanType;cdecl;external libmagiccore;
-function GetMagicInfo(para1:Pbyte; para2:Tsize_t; para3:PExceptionInfo):PMagicInfo;cdecl;external libmagiccore;
-function GetMagicInfoList(para1:Pchar; para2:Psize_t; para3:PExceptionInfo):^PMagicInfo;cdecl;external libmagiccore;
-procedure MagicComponentTerminus;cdecl;external libmagiccore;
+  TMagicInfo = record
+    path: pchar;
+    name: pchar;
+    target: pchar;
+    magic: pbyte;
+    length: Tsize_t;
+    offset: TMagickOffsetType;
+    exempt: TMagickBooleanType;
+    stealth: TMagickBooleanType;
+    previous: PMagicInfo;
+    next: PMagicInfo;
+    signature: Tsize_t;
+  end;
+
+function GetMagicList(para1: pchar; para2: Psize_t; para3: PExceptionInfo): Ppchar; cdecl; external libmagiccore;
+function GetMagicName(para1: PMagicInfo): pchar; cdecl; external libmagiccore;
+function ListMagicInfo(para1: PFILE; para2: PExceptionInfo): TMagickBooleanType; cdecl; external libmagiccore;
+function MagicComponentGenesis: TMagickBooleanType; cdecl; external libmagiccore;
+function GetMagicInfo(para1: pbyte; para2: Tsize_t; para3: PExceptionInfo): PMagicInfo; cdecl; external libmagiccore;
+function GetMagicInfoList(para1: pchar; para2: Psize_t; para3: PExceptionInfo): PPMagicInfo; cdecl; external libmagiccore;
+procedure MagicComponentTerminus; cdecl; external libmagiccore;
 
 // === Konventiert am: 6-1-26 17:39:59 ===
 

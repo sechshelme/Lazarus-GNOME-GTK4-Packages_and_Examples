@@ -14,13 +14,20 @@ const
 
 type
   Tsize_t = SizeUInt;
-  Psize_t=^Tsize_t;
+  Psize_t = ^Tsize_t;
   Tssize_t = SizeInt;
-  Pssize_t=^Tssize_t;
+  Pssize_t = ^Tssize_t;
 
-  PFILE=type Pointer;
+  PFILE = type Pointer;
 
-  Tva_list=Pointer; // ?????
+  Tva_list = Pointer; // ?????
+
+  Ttime_t = uint64;
+  Ptime_t = ^Ttime_t;
+
+const
+  ENOMEM = 12;
+  MAGICKCORE_QUANTUM_DEPTH = 16;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
