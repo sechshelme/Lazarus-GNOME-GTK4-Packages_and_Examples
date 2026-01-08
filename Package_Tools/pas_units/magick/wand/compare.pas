@@ -30,7 +30,7 @@ uses
 {$ifndef MAGICKWAND_COMPARE_H}
 {$define MAGICKWAND_COMPARE_H}
 
-function CompareImageCommand(para1:PImageInfo; para2:longint; para3:PPchar; para4:PPchar; para5:PExceptionInfo):TMagickBooleanType;cdecl;external libmagicwand;
+function CompareImageCommand(para1:PImageInfo; para2:longint; para3:PPchar; para4:PPchar; para5:PExceptionInfo):TMagickBooleanType;cdecl;external libmagickwand;
 {$endif}
 
 // === Konventiert am: 5-1-26 19:39:37 ===

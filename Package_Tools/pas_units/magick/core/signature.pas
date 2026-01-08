@@ -11,7 +11,7 @@ uses
 
 
 
-function SignatureImage(para1: PImage): TMagickBooleanType; cdecl; external libmagiccore;
+function SignatureImage(para1: PImage): TMagickBooleanType; cdecl; external libmagickcore;
 
 // === Konventiert am: 6-1-26 19:23:18 ===
 

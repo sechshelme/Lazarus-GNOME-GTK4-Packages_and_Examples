@@ -11,7 +11,7 @@ uses
 
 
 
-function IdentifyImage(para1: PImage; para2: PFILE; para3: TMagickBooleanType): TMagickBooleanType; cdecl; external libmagiccore;
+function IdentifyImage(para1: PImage; para2: PFILE; para3: TMagickBooleanType): TMagickBooleanType; cdecl; external libmagickcore;
 
 // === Konventiert am: 6-1-26 19:23:12 ===
 

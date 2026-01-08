@@ -40,16 +40,16 @@ type
 
   TImageFilterHandler = function(para1: PPImage; para2: longint; para3: PPchar; para4: PExceptionInfo): Tsize_t; cdecl;
 
-function GetModuleList(para1: pchar; para2: TMagickModuleType; para3: Psize_t; para4: PExceptionInfo): PPchar; cdecl; external libmagiccore;
-function GetModuleInfoList(para1: pchar; para2: Psize_t; para3: PExceptionInfo): PPModuleInfo; cdecl; external libmagiccore;
-function InvokeDynamicImageFilter(para1: pchar; para2: PPImage; para3: longint; para4: PPchar; para5: PExceptionInfo): TMagickBooleanType; cdecl; external libmagiccore;
-function ListModuleInfo(para1: PFILE; para2: PExceptionInfo): TMagickBooleanType; cdecl; external libmagiccore;
-function ModuleComponentGenesis: TMagickBooleanType; cdecl; external libmagiccore;
-function OpenModule(para1: pchar; para2: PExceptionInfo): TMagickBooleanType; cdecl; external libmagiccore;
-function OpenModules(para1: PExceptionInfo): TMagickBooleanType; cdecl; external libmagiccore;
-function GetModuleInfo(para1: pchar; para2: PExceptionInfo): PModuleInfo; cdecl; external libmagiccore;
-procedure DestroyModuleList; cdecl; external libmagiccore;
-procedure ModuleComponentTerminus; cdecl; external libmagiccore;
+function GetModuleList(para1: pchar; para2: TMagickModuleType; para3: Psize_t; para4: PExceptionInfo): PPchar; cdecl; external libmagickcore;
+function GetModuleInfoList(para1: pchar; para2: Psize_t; para3: PExceptionInfo): PPModuleInfo; cdecl; external libmagickcore;
+function InvokeDynamicImageFilter(para1: pchar; para2: PPImage; para3: longint; para4: PPchar; para5: PExceptionInfo): TMagickBooleanType; cdecl; external libmagickcore;
+function ListModuleInfo(para1: PFILE; para2: PExceptionInfo): TMagickBooleanType; cdecl; external libmagickcore;
+function ModuleComponentGenesis: TMagickBooleanType; cdecl; external libmagickcore;
+function OpenModule(para1: pchar; para2: PExceptionInfo): TMagickBooleanType; cdecl; external libmagickcore;
+function OpenModules(para1: PExceptionInfo): TMagickBooleanType; cdecl; external libmagickcore;
+function GetModuleInfo(para1: pchar; para2: PExceptionInfo): PModuleInfo; cdecl; external libmagickcore;
+procedure DestroyModuleList; cdecl; external libmagickcore;
+procedure ModuleComponentTerminus; cdecl; external libmagickcore;
 
 // === Konventiert am: 6-1-26 15:47:37 ===
 

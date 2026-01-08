@@ -43,14 +43,14 @@ const
 type
   PAscii85Info = type Pointer;
 
-function HuffmanDecodeImage(para1: PImage): TMagickBooleanType; cdecl; external libmagiccore;
-function HuffmanEncodeImage(para1: PImageInfo; para2: PImage; para3: PImage): TMagickBooleanType; cdecl; external libmagiccore;
-function LZWEncodeImage(para1: PImage; para2: Tsize_t; magick_restrict: pbyte): TMagickBooleanType; cdecl; external libmagiccore;
-function PackbitsEncodeImage(para1: PImage; para2: Tsize_t; magick_restrict: pbyte): TMagickBooleanType; cdecl; external libmagiccore;
-function ZLIBEncodeImage(para1: PImage; para2: Tsize_t; magick_restrict: pbyte): TMagickBooleanType; cdecl; external libmagiccore;
-procedure Ascii85Encode(para1: PImage; para2: byte); cdecl; external libmagiccore;
-procedure Ascii85Flush(para1: PImage); cdecl; external libmagiccore;
-procedure Ascii85Initialize(para1: PImage); cdecl; external libmagiccore;
+function HuffmanDecodeImage(para1: PImage): TMagickBooleanType; cdecl; external libmagickcore;
+function HuffmanEncodeImage(para1: PImageInfo; para2: PImage; para3: PImage): TMagickBooleanType; cdecl; external libmagickcore;
+function LZWEncodeImage(para1: PImage; para2: Tsize_t; magick_restrict: pbyte): TMagickBooleanType; cdecl; external libmagickcore;
+function PackbitsEncodeImage(para1: PImage; para2: Tsize_t; magick_restrict: pbyte): TMagickBooleanType; cdecl; external libmagickcore;
+function ZLIBEncodeImage(para1: PImage; para2: Tsize_t; magick_restrict: pbyte): TMagickBooleanType; cdecl; external libmagickcore;
+procedure Ascii85Encode(para1: PImage; para2: byte); cdecl; external libmagickcore;
+procedure Ascii85Flush(para1: PImage); cdecl; external libmagickcore;
+procedure Ascii85Initialize(para1: PImage); cdecl; external libmagickcore;
 
 // === Konventiert am: 6-1-26 15:50:48 ===
 

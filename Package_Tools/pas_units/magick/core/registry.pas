@@ -20,15 +20,15 @@ const
   ImageInfoRegistryType = 2;
   StringRegistryType = 3;
 
-function GetNextImageRegistry: pchar; cdecl; external libmagiccore;
-function DefineImageRegistry(para1: TRegistryType; para2: pchar; para3: PExceptionInfo): TMagickBooleanType; cdecl; external libmagiccore;
-function DeleteImageRegistry(para1: pchar): TMagickBooleanType; cdecl; external libmagiccore;
-function RegistryComponentGenesis: TMagickBooleanType; cdecl; external libmagiccore;
-function SetImageRegistry(para1: TRegistryType; para2: pchar; para3: pointer; para4: PExceptionInfo): TMagickBooleanType; cdecl; external libmagiccore;
-function GetImageRegistry(para1: TRegistryType; para2: pchar; para3: PExceptionInfo): pointer; cdecl; external libmagiccore;
-procedure RegistryComponentTerminus; cdecl; external libmagiccore;
-function RemoveImageRegistry(para1: pchar): pointer; cdecl; external libmagiccore;
-procedure ResetImageRegistryIterator; cdecl; external libmagiccore;
+function GetNextImageRegistry: pchar; cdecl; external libmagickcore;
+function DefineImageRegistry(para1: TRegistryType; para2: pchar; para3: PExceptionInfo): TMagickBooleanType; cdecl; external libmagickcore;
+function DeleteImageRegistry(para1: pchar): TMagickBooleanType; cdecl; external libmagickcore;
+function RegistryComponentGenesis: TMagickBooleanType; cdecl; external libmagickcore;
+function SetImageRegistry(para1: TRegistryType; para2: pchar; para3: pointer; para4: PExceptionInfo): TMagickBooleanType; cdecl; external libmagickcore;
+function GetImageRegistry(para1: TRegistryType; para2: pchar; para3: PExceptionInfo): pointer; cdecl; external libmagickcore;
+procedure RegistryComponentTerminus; cdecl; external libmagickcore;
+function RemoveImageRegistry(para1: pchar): pointer; cdecl; external libmagickcore;
+procedure ResetImageRegistryIterator; cdecl; external libmagickcore;
 
 // === Konventiert am: 6-1-26 17:40:11 ===
 

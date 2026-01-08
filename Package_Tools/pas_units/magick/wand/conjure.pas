@@ -30,7 +30,7 @@ uses
 {$ifndef MAGICKWAND_CONJURE_H}
 {$define MAGICKWAND_CONJURE_H}
 
-function ConjureImageCommand(para1:PImageInfo; para2:longint; para3:PPchar; para4:PPchar; para5:PExceptionInfo):TMagickBooleanType;cdecl;external libmagicwand;
+function ConjureImageCommand(para1:PImageInfo; para2:longint; para3:PPchar; para4:PPchar; para5:PExceptionInfo):TMagickBooleanType;cdecl;external libmagickwand;
 {$endif}
 
 // === Konventiert am: 5-1-26 19:39:43 ===

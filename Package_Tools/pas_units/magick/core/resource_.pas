@@ -30,18 +30,18 @@ const
 
 function MagickResourceInfinity: DWord;
 
-function AcquireUniqueFileResource(para1: pchar): longint; cdecl; external libmagiccore;
-function AcquireMagickResource(para1: TResourceType; para2: TMagickSizeType): TMagickBooleanType; cdecl; external libmagiccore;
-function GetPathTemplate(para1: pchar): TMagickBooleanType; cdecl; external libmagiccore;
-function ListMagickResourceInfo(para1: PFILE; para2: PExceptionInfo): TMagickBooleanType; cdecl; external libmagiccore;
-function RelinquishUniqueFileResource(para1: pchar): TMagickBooleanType; cdecl; external libmagiccore;
-function ResourceComponentGenesis: TMagickBooleanType; cdecl; external libmagiccore;
-function SetMagickResourceLimit(para1: TResourceType; para2: TMagickSizeType): TMagickBooleanType; cdecl; external libmagiccore;
-function GetMagickResource(para1: TResourceType): TMagickSizeType; cdecl; external libmagiccore;
-function GetMagickResourceLimit(para1: TResourceType): TMagickSizeType; cdecl; external libmagiccore;
-procedure AsynchronousResourceComponentTerminus; cdecl; external libmagiccore;
-procedure RelinquishMagickResource(para1: TResourceType; para2: TMagickSizeType); cdecl; external libmagiccore;
-procedure ResourceComponentTerminus; cdecl; external libmagiccore;
+function AcquireUniqueFileResource(para1: pchar): longint; cdecl; external libmagickcore;
+function AcquireMagickResource(para1: TResourceType; para2: TMagickSizeType): TMagickBooleanType; cdecl; external libmagickcore;
+function GetPathTemplate(para1: pchar): TMagickBooleanType; cdecl; external libmagickcore;
+function ListMagickResourceInfo(para1: PFILE; para2: PExceptionInfo): TMagickBooleanType; cdecl; external libmagickcore;
+function RelinquishUniqueFileResource(para1: pchar): TMagickBooleanType; cdecl; external libmagickcore;
+function ResourceComponentGenesis: TMagickBooleanType; cdecl; external libmagickcore;
+function SetMagickResourceLimit(para1: TResourceType; para2: TMagickSizeType): TMagickBooleanType; cdecl; external libmagickcore;
+function GetMagickResource(para1: TResourceType): TMagickSizeType; cdecl; external libmagickcore;
+function GetMagickResourceLimit(para1: TResourceType): TMagickSizeType; cdecl; external libmagickcore;
+procedure AsynchronousResourceComponentTerminus; cdecl; external libmagickcore;
+procedure RelinquishMagickResource(para1: TResourceType; para2: TMagickSizeType); cdecl; external libmagickcore;
+procedure ResourceComponentTerminus; cdecl; external libmagickcore;
 
 // === Konventiert am: 6-1-26 17:33:37 ===
 

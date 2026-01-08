@@ -30,7 +30,7 @@ uses
 {$ifndef MAGICKWAND_MONTAGE_H}
 {$define MAGICKWAND_MONTAGE_H}
 
-function MontageImageCommand(para1:PImageInfo; para2:longint; para3:PPchar; para4:PPchar; para5:PExceptionInfo):TMagickBooleanType;cdecl;external libmagicwand;
+function MontageImageCommand(para1:PImageInfo; para2:longint; para3:PPchar; para4:PPchar; para5:PExceptionInfo):TMagickBooleanType;cdecl;external libmagickwand;
 {$endif}
 
 // === Konventiert am: 5-1-26 19:40:11 ===

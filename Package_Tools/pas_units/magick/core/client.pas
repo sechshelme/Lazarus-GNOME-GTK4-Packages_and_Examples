@@ -11,10 +11,10 @@ uses
 
 
 
-function GetClientPath: pchar; cdecl; external libmagiccore;
-function GetClientName: pchar; cdecl; external libmagiccore;
-function SetClientName(para1: pchar): pchar; cdecl; external libmagiccore;
-function SetClientPath(para1: pchar): pchar; cdecl; external libmagiccore;
+function GetClientPath: pchar; cdecl; external libmagickcore;
+function GetClientName: pchar; cdecl; external libmagickcore;
+function SetClientName(para1: pchar): pchar; cdecl; external libmagickcore;
+function SetClientPath(para1: pchar): pchar; cdecl; external libmagickcore;
 
 // === Konventiert am: 6-1-26 19:23:00 ===
 

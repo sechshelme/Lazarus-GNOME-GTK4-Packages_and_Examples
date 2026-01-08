@@ -4,8 +4,8 @@ interface
 
 const
   {$IFDEF Linux}
-  libmagiccore = 'MagickCore-6.Q16 ';
-  libmagicwand = 'MagickWand-6.Q16';
+  libmagickcore = 'MagickCore-6.Q16 ';
+  libmagickwand = 'MagickWand-6.Q16';
   {$ENDIF}
 
   {$IFDEF Windows}

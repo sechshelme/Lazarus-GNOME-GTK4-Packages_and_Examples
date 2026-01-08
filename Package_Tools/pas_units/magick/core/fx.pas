@@ -11,8 +11,8 @@ uses
 
 
 
-function FxImage(para1: PImage; para2: pchar; para3: PExceptionInfo): PImage; cdecl; external libmagiccore;
-function FxImageChannel(para1: PImage; para2: TChannelType; para3: pchar; para4: PExceptionInfo): PImage; cdecl; external libmagiccore;
+function FxImage(para1: PImage; para2: pchar; para3: PExceptionInfo): PImage; cdecl; external libmagickcore;
+function FxImageChannel(para1: PImage; para2: TChannelType; para3: pchar; para4: PExceptionInfo): PImage; cdecl; external libmagickcore;
 
 // === Konventiert am: 6-1-26 19:23:10 ===
 

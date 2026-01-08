@@ -13,9 +13,9 @@ uses
 type
   TMagickProgressMonitor = function(para1: pchar; para2: TMagickOffsetType; para3: TMagickSizeType; para4: pointer): TMagickBooleanType; cdecl;
 
-function SetImageProgress(para1: PImage; para2: pchar; para3: TMagickOffsetType; para4: TMagickSizeType): TMagickBooleanType; cdecl; external libmagiccore;
-function SetImageProgressMonitor(para1: PImage; para2: TMagickProgressMonitor; para3: pointer): TMagickProgressMonitor; cdecl; external libmagiccore;
-function SetImageInfoProgressMonitor(para1: PImageInfo; para2: TMagickProgressMonitor; para3: pointer): TMagickProgressMonitor; cdecl; external libmagiccore;
+function SetImageProgress(para1: PImage; para2: pchar; para3: TMagickOffsetType; para4: TMagickSizeType): TMagickBooleanType; cdecl; external libmagickcore;
+function SetImageProgressMonitor(para1: PImage; para2: TMagickProgressMonitor; para3: pointer): TMagickProgressMonitor; cdecl; external libmagickcore;
+function SetImageInfoProgressMonitor(para1: PImageInfo; para2: TMagickProgressMonitor; para3: pointer): TMagickProgressMonitor; cdecl; external libmagickcore;
 
 function QuantumTick(offset: TMagickOffsetType; span: TMagickSizeType): TMagickBooleanType;
 

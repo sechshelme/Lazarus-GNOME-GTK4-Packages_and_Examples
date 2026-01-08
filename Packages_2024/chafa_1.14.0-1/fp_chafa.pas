@@ -23,7 +23,6 @@ const
   {$include fp_chafa_includes.inc}
   {$UNDEF read_interface}
 
-
 implementation
 
 {$DEFINE read_implementation}

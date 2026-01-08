@@ -30,7 +30,7 @@ uses
 {$ifndef MAGICKWAND_IDENTIFY_H}
 {$define MAGICKWAND_IDENTIFY_H}
 
-function IdentifyImageCommand(para1:PImageInfo; para2:longint; para3:PPchar; para4:PPchar; para5:PExceptionInfo):TMagickBooleanType;cdecl;external libmagicwand;
+function IdentifyImageCommand(para1:PImageInfo; para2:longint; para3:PPchar; para4:PPchar; para5:PExceptionInfo):TMagickBooleanType;cdecl;external libmagickwand;
 {$endif}
 
 // === Konventiert am: 5-1-26 19:39:58 ===

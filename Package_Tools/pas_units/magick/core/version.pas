@@ -35,17 +35,17 @@ const
 const
   MagickHDRISupport = '';
 
-function GetMagickHomeURL: pchar; cdecl; external libmagiccore;
-function GetMagickCopyright: pchar; cdecl; external libmagiccore;
-function GetMagickDelegates: pchar; cdecl; external libmagiccore;
-function GetMagickFeatures: pchar; cdecl; external libmagiccore;
-function GetMagickLicense: pchar; cdecl; external libmagiccore;
-function GetMagickPackageName: pchar; cdecl; external libmagiccore;
-function GetMagickQuantumDepth(para1: Psize_t): pchar; cdecl; external libmagiccore;
-function GetMagickQuantumRange(para1: Psize_t): pchar; cdecl; external libmagiccore;
-function GetMagickReleaseDate: pchar; cdecl; external libmagiccore;
-function GetMagickVersion(para1: Psize_t): pchar; cdecl; external libmagiccore;
-procedure ListMagickVersion(para1: PFILE); cdecl; external libmagiccore;
+function GetMagickHomeURL: pchar; cdecl; external libmagickcore;
+function GetMagickCopyright: pchar; cdecl; external libmagickcore;
+function GetMagickDelegates: pchar; cdecl; external libmagickcore;
+function GetMagickFeatures: pchar; cdecl; external libmagickcore;
+function GetMagickLicense: pchar; cdecl; external libmagickcore;
+function GetMagickPackageName: pchar; cdecl; external libmagickcore;
+function GetMagickQuantumDepth(para1: Psize_t): pchar; cdecl; external libmagickcore;
+function GetMagickQuantumRange(para1: Psize_t): pchar; cdecl; external libmagickcore;
+function GetMagickReleaseDate: pchar; cdecl; external libmagickcore;
+function GetMagickVersion(para1: Psize_t): pchar; cdecl; external libmagickcore;
+procedure ListMagickVersion(para1: PFILE); cdecl; external libmagickcore;
 
 // === Konventiert am: 6-1-26 15:36:48 ===
 

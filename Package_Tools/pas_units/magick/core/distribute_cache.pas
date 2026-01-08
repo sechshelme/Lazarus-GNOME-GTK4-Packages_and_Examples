@@ -11,7 +11,7 @@ uses
 
 
 
-procedure DistributePixelCacheServer(para1: longint; para2: PExceptionInfo); cdecl; external libmagiccore;
+procedure DistributePixelCacheServer(para1: longint; para2: PExceptionInfo); cdecl; external libmagickcore;
 
 // === Konventiert am: 6-1-26 19:23:07 ===
 

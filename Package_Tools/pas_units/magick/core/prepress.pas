@@ -11,7 +11,7 @@ uses
 
 
 
-function GetImageTotalInkDensity(image: PImage): double; cdecl; external libmagiccore;
+function GetImageTotalInkDensity(image: PImage): double; cdecl; external libmagickcore;
 
 // === Konventiert am: 6-1-26 19:23:15 ===
 

@@ -52,13 +52,13 @@ const
   xyYColorspace = 34;
   LinearGRAYColorspace = 35;
 
-function GetImageColorspaceType(para1: PImage; para2: PExceptionInfo): TColorspaceType; cdecl; external libmagiccore;
-function RGBTransformImage(para1: PImage; para2: TColorspaceType): TMagickBooleanType; cdecl; external libmagiccore;
-function SetImageColorspace(para1: PImage; para2: TColorspaceType): TMagickBooleanType; cdecl; external libmagiccore;
-function SetImageGray(para1: PImage; para2: PExceptionInfo): TMagickBooleanType; cdecl; external libmagiccore;
-function SetImageMonochrome(para1: PImage; para2: PExceptionInfo): TMagickBooleanType; cdecl; external libmagiccore;
-function TransformImageColorspace(para1: PImage; para2: TColorspaceType): TMagickBooleanType; cdecl; external libmagiccore;
-function TransformRGBImage(para1: PImage; para2: TColorspaceType): TMagickBooleanType; cdecl; external libmagiccore;
+function GetImageColorspaceType(para1: PImage; para2: PExceptionInfo): TColorspaceType; cdecl; external libmagickcore;
+function RGBTransformImage(para1: PImage; para2: TColorspaceType): TMagickBooleanType; cdecl; external libmagickcore;
+function SetImageColorspace(para1: PImage; para2: TColorspaceType): TMagickBooleanType; cdecl; external libmagickcore;
+function SetImageGray(para1: PImage; para2: PExceptionInfo): TMagickBooleanType; cdecl; external libmagickcore;
+function SetImageMonochrome(para1: PImage; para2: PExceptionInfo): TMagickBooleanType; cdecl; external libmagickcore;
+function TransformImageColorspace(para1: PImage; para2: TColorspaceType): TMagickBooleanType; cdecl; external libmagickcore;
+function TransformRGBImage(para1: PImage; para2: TColorspaceType): TMagickBooleanType; cdecl; external libmagickcore;
 
 // === Konventiert am: 6-1-26 15:47:29 ===
 
