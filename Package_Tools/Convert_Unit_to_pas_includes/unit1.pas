@@ -32,7 +32,7 @@ implementation
 { TForm1 }
 
 const
-  srcPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/pas_units/magick/core';
+  srcPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/sandbox/in_arbeit/magick_6.9.12.98/sandbox/pas_units/magick/wand';
 
   destPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/packagesxx';
 
