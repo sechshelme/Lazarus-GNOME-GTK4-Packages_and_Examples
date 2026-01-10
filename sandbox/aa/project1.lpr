@@ -1,68 +1,57 @@
 program project1;
+
 uses
-fp_aa;
-procedure main;
-begin
-  // 1. Initialisierung
-  // aa_autoinit wählt automatisch den besten verfügbaren Treiber (ncurses, stdout, X11, etc.)
-  aa_context *context = aa_autoinit(&aa_defparams);
+  fp_aa;
 
-  if (context == NULL) {
-      fprintf(stderr, "Fehler: AAlib konnte nicht initialisiert werden.\n");
-      return 1;
-  }
+  procedure main;
+  var
+    context: Paa_context;
+    t: double = 0.0;
+    event, width, height: longint;
+    buffer: pchar;
+    v: double;
+    y, x: integer;
+    pixel: byte;
+  begin
+    context := aa_autoinit(@aa_defparams);
 
-  // Falls die Tastaturunterstützung nicht automatisch aktiv ist, versuchen wir sie zu aktivieren
-if (aa_autoinitkbd(context, 0) == 0) {
-      fprintf(stderr, "Konnte Tastatur nicht initialisieren (eventuell ignorierbar)\n");
-  }
-  // Variabel für die Animation
-  double t = 0.0;
+    if context = nil then begin
+      WriteLn('Fehler: AAlib konnte nicht initialisiert werden.');
+      Exit;
+    end;
 
-  // 2. Hauptschleife
-  while (1) {
-      // Tastatureingabe prüfen (non-blocking)
-      int event = aa_getevent(context, 0);
-      if (event == AA_ESC) { // Programm beenden mit ESC
-          break;
-      }
+    if aa_autoinitkbd(context, 0) = 0 then begin
+      WriteLn('Konnte Tastatur nicht initialisieren (eventuell ignorierbar)');
+    end;
 
-      // Bildparameter abrufen
-      int width = aa_imgwidth(context);
-      int height = aa_imgheight(context);
-      unsigned char *buffer = aa_image(context);
+    while (True) do begin
+      event := aa_getevent(context, 0);
+      if event = AA_ESC then  begin
+        break;
+      end;
 
-      // 3. Zeichnen (in den Puffer schreiben)
-      // Wir füllen das Array 'buffer' mit Werten zwischen 0 (schwarz) und 255 (weiß)
-      for (int y = 0; y < height; y++) {
-          for (int x = 0; x < width; x++) {
-              // Eine mathematische Funktion für hübsche Wellenmuster
-              double v = sin(x * 0.1 + t) + cos(y * 0.1 + t * 0.5);
+      width := aa_imgwidth(context);
+      height := aa_imgheight(context);
+      buffer := aa_image(context);
 
-              // Normalisieren von -2..2 auf 0..255
-              int pixel = (int)((v + 2.0) * 63.75);
+      for y := 0 to height - 1 do begin
+        for x := 0 to width - 1 do begin
+          v := sin(x * 0.1 + t) + cos(y * 0.1 + t * 0.5);
 
-              // Pixel setzen
-              buffer[x + y * width] = (unsigned char)pixel;
-          }
-      }
+          pixel := Round((v + 2.0) * 63.75);
+          buffer[x + y * width] := char(pixel);
+        end;
+      end;
 
-      // 4. Rendern und Anzeigen
-      // Rendert den Puffer in ASCII-Zeichen
-      aa_render(context, &aa_defrenderparams, 0, 0, width, height);
-
-      // Gibt das Ergebnis auf dem Bildschirm aus
+      aa_render(context, @aa_defrenderparams, 0, 0, width, height);
       aa_flush(context);
 
-      // Animationsschritt erhöhen
       t += 0.1;
-  }
+    end;
 
-  // 5. Aufräumen
-  aa_close(context);
-end;
+    aa_close(context);
+  end;
 
 begin
   main;
 end.
-
