@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libaa = 'aa.dll';  // ????
+  libaa = 'libaa-1.dll';
   {$ENDIF}
 
 
