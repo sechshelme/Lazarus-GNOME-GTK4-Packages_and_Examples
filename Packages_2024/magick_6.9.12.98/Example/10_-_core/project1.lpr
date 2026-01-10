@@ -30,7 +30,6 @@ const
       WriteLn('Fehler beim Laden: ', srcPath);
       CatchException(exception);
     end else begin
-
       WriteLn('Format: ', image^.magick);
       WriteLn('Größe: ', image^.columns, 'x', image^.rows);
       WriteLn('Tiefe: ', image^.depth);
