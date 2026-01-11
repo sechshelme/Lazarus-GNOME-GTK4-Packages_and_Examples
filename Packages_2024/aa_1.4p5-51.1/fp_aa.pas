@@ -302,9 +302,6 @@ procedure aa_recommendhidisplay(name: pchar); cdecl; external libaa;
 procedure aa_recommendlowdisplay(name: pchar); cdecl; external libaa;
 
 function aa_setpalette(palette: pbyte; index: integer; r, g, b: byte): byte; inline;
-
-{ xxxxxxxxxx#define aa_setpalette(palette,index,r,g,b) ((palette)[index]=(((r)*30+(g)*59+(b)*11)>>8)) }
-
 function aa_scrwidth_(a: Paa_context): longint;
 function aa_scrheight_(a: Paa_context): longint;
 function aa_mmwidth_(a: Paa_context): longint;
@@ -322,7 +319,7 @@ implementation
 
 function aa_setpalette(palette: pbyte; index: integer; r, g, b: byte): byte;
 begin
-  palette[index] := ((r * 30 + g * 59 + (b) * 11) shr 8);
+  palette[index] := (r * 30 + g * 59 + b * 11) shr 8;
 end;
 
 function aa_scrwidth_(a: Paa_context): longint;

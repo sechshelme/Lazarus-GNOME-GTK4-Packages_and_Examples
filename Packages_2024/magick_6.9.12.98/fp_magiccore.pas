@@ -8,9 +8,9 @@ const
   libmagickwand = 'MagickWand-6.Q16';
   {$ENDIF}
 
-  {$IFDEF Windows}  // ???????????
-  libmagickcore = 'libMagickCore-6.Q16-10.dll';
-  libmagickwand = 'libMagickWand-6.Q16-10.dll';
+  {$IFDEF Windows}
+  libmagickcore = 'libMagickCore-6.Q16-7.dll';
+  libmagickwand = 'libMagickWand-6.Q16-7.dll';
   {$ENDIF}
 
 type

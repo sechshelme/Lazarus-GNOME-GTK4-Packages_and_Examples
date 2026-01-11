@@ -282,6 +282,9 @@ const
     (libs: 'libmagicwand'; units: 'fp_magiccore, fp_magicwand'),
     (libs: 'libmagiccore'; units: 'fp_magiccore'),
     (libs: 'libaa'; units: 'ctypes'),
+    (libs: 'libnotify'; units: 'ctypes'),
+
+
 
 
 

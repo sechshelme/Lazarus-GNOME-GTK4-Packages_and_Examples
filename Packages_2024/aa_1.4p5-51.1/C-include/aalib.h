@@ -20,6 +20,31 @@
  * License along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
+#ifndef __AALIB_INCLUDED__
+#define __AALIB_INCLUDED__
+#include <stdio.h>
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define __AA_CONST const
+
+/* The -malign-double switch changes binarry compatibility with structures
+   containing floating point values.  To avoid this, set alignment manually
+   to old value.  */
+
+#ifdef __GNUC__
+#ifdef __i386__
+#define __AA_ALIGN __attribute__ ((__aligned__ (4)))
+#define __AA_NOALIGN __attribute__ ((__packed__))
+#endif
+#endif
+#ifndef __AA_ALIGN
+#define __AA_ALIGN
+#endif
+#ifndef __AA_NOALIGN
+#define __AA_NOALIGN
+#endif
 
 #define AA_LIB_VERSION 1
 #define AA_LIB_MINNOR 4
@@ -92,7 +117,7 @@ struct aa_mousedriver;
 struct aa_edit;
 
 struct aa_hardware_params {
-    const struct aa_font *font;  /*Font bitmap used by hardware.  */
+    __AA_CONST struct aa_font *font;  /*Font bitmap used by hardware.  */
     int supported;		      /*Mask of supported features.
 				        Following masks are available:
 				        AA_NORMAL_MASK, AA_DIM_MASK,
@@ -109,9 +134,9 @@ struct aa_hardware_params {
 					bit min and max fields  */
     int mmwidth, mmheight;	      /*Physical screen size  */
     int width, height;		      /*Current screen size  */
-    double dimmul ;	      /*Bright value of dim characters (0 black,
+    double dimmul __AA_ALIGN;	      /*Bright value of dim characters (0 black,
 					1 white)  */
-    double boldmul ;	      /*Bright value of bold characters 
+    double boldmul __AA_ALIGN;	      /*Bright value of bold characters 
 					(0 black, 1 white)  */
 };
 
@@ -123,12 +148,12 @@ struct aa_hardware_params {
  * releases of AA-lib.  Use standard AA-lib functions instead.  
  */
 struct aa_context {
-    const struct aa_driver *driver;  /*Current display driver  */
-    const struct aa_kbddriver *kbddriver;  /*Current keyboard driver */
-    const struct aa_mousedriver *mousedriver; /*Current mouse driver */
-    struct aa_hardware_params  params; /*Parameters of output
+    __AA_CONST struct aa_driver *driver;  /*Current display driver  */
+    __AA_CONST struct aa_kbddriver *kbddriver;  /*Current keyboard driver */
+    __AA_CONST struct aa_mousedriver *mousedriver; /*Current mouse driver */
+    struct aa_hardware_params __AA_NOALIGN params; /*Parameters of output
 						     hardware used by AA-lib. */
-    struct aa_hardware_params  driverparams; /*Parameters of output
+    struct aa_hardware_params __AA_NOALIGN driverparams; /*Parameters of output
 							   hardware as reported
 							   by display driver. */
     int mulx, muly;		/* Ratio of character size over pixel size  */
@@ -160,12 +185,12 @@ struct aa_context {
  * Provided for compatibility with older programs.
  */
 struct aa_driver {
-    const char *shortname, *name;
-    int (*init) (const struct aa_hardware_params *, const void *, struct aa_hardware_params *,void **);
+    __AA_CONST char *shortname, *name;
+    int (*init) (__AA_CONST struct aa_hardware_params *, __AA_CONST void *, struct aa_hardware_params *,void **);
     void (*uninit) (struct aa_context *);
     void (*getsize) (struct aa_context *, int *, int *);
     void (*setattr) (struct aa_context *, int);
-    void (*print) (struct aa_context *, const char *);
+    void (*print) (struct aa_context *, __AA_CONST char *);
     void (*gotoxy) (struct aa_context *, int, int);
     void (*flush) (struct aa_context *);
     void (*cursormode) (struct aa_context *, int);
@@ -176,7 +201,7 @@ struct aa_driver {
  * Provided for compatibility with older programs.
  */
 struct aa_kbddriver {
-    const char *shortname, *name;
+    __AA_CONST char *shortname, *name;
     int flags;
     int (*init) (struct aa_context *, int mode);
     void (*uninit) (struct aa_context *);
@@ -188,7 +213,7 @@ struct aa_kbddriver {
  * Provided for compatibility with older programs.
  */
 struct aa_mousedriver {
-    const char *shortname, *name;
+    __AA_CONST char *shortname, *name;
     int flags;
     int (*init) (struct aa_context *, int mode);
     void (*uninit) (struct aa_context *);
@@ -203,7 +228,7 @@ struct aa_renderparams {
 				       (white)  */
     int contrast;                   /* Contrast value in range 0 (normal)
 				       to 127 (white)  */
-    float gamma ;         /* Gama value in the standard range  */
+    float gamma __AA_ALIGN;         /* Gama value in the standard range  */
     enum aa_dithering_mode dither;  /* Dithering algorithm */
     int inversion;                  /* Set 1 for inversed terminals (black on
 				       white)  */
@@ -214,10 +239,10 @@ struct aa_renderparams {
 
 
 struct aa_font {
-    const unsigned char *data;  /* Bitmap of 8xheight font.  */
+    __AA_CONST unsigned char *data;  /* Bitmap of 8xheight font.  */
     int height;	                     /* Height of font.  */
-    const char *name;	     /* Long name of font.  */
-    const char *shortname;	     /* One-word name of the font.  */
+    __AA_CONST char *name;	     /* Long name of font.  */
+    __AA_CONST char *shortname;	     /* One-word name of the font.  */
 };
 
 /*
@@ -228,17 +253,17 @@ struct aa_format {
     int pagewidth, pageheight;
     int flags;
     int supported;
-    const struct aa_font *font;
-    const char *formatname;
-    const char *extension;
+    __AA_CONST struct aa_font *font;
+    __AA_CONST char *formatname;
+    __AA_CONST char *extension;
     /*fields after this line may change in future versions*/
-    const char *head;
-    const char *end;
-    const char *newline;
-    const char * const prints[AA_NATTRS];
-    const char * const begin[AA_NATTRS];
-    const char * const ends[AA_NATTRS];
-    const char * const *conversions;	
+    __AA_CONST char *head;
+    __AA_CONST char *end;
+    __AA_CONST char *newline;
+    __AA_CONST char * __AA_CONST prints[AA_NATTRS];
+    __AA_CONST char * __AA_CONST begin[AA_NATTRS];
+    __AA_CONST char * __AA_CONST ends[AA_NATTRS];
+    __AA_CONST char * __AA_CONST *conversions;	
 };
 
 /*
@@ -247,7 +272,7 @@ struct aa_format {
 struct aa_savedata {
     char *name; /* Base name of the output file. The page number and extension
 		   is attached automatically.  */
-    const struct aa_format *format; /* Format to save into.  */
+    __AA_CONST struct aa_format *format; /* Format to save into.  */
     FILE *file; /* You might specify output file by field too,
 		   in case the name field is NULL*/
 };
@@ -270,7 +295,7 @@ typedef int aa_palette[256];
  * dependent parameters in aa_savedata structure to save image into file.
  * See the texinfo documentation for details.
  */
-extern const struct aa_driver save_d; 
+extern __AA_CONST struct aa_driver save_d; 
 
 /*
  * AA-lib memory driver.  
@@ -279,18 +304,18 @@ extern const struct aa_driver save_d;
  * own routines to handle them in case you want to avoid AA-lib's output
  * mechanizms.
  */
-extern const struct aa_driver mem_d;
+extern __AA_CONST struct aa_driver mem_d;
 
 /*
  * AA-lib help string for the default command line parser.
  */
-extern const char * const aa_help;
+extern __AA_CONST char * __AA_CONST aa_help;
 
 /*
  * NULL terminated array of save formats supported by AA-lib.
  */
-extern const struct aa_format * const aa_formats[];
-extern const struct aa_format aa_nhtml_format, aa_html_format,
+extern __AA_CONST struct aa_format * __AA_CONST aa_formats[];
+extern __AA_CONST struct aa_format aa_nhtml_format, aa_html_format,
         aa_html_alt_format, aa_ansi_format, aa_text_format, aa_more_format,
 	aa_hp_format, aa_hp2_format, aa_irc_format, aa_zephyr_format,
 	aa_htmlk_format;
@@ -298,8 +323,8 @@ extern const struct aa_format aa_nhtml_format, aa_html_format,
 /*
  * Null-terminated array of available fonts.
  */
-extern const struct aa_font *aa_fonts[];
-extern const struct aa_font aa_font8, aa_font14, aa_font16, aa_font9,
+extern __AA_CONST struct aa_font *aa_fonts[];
+extern __AA_CONST struct aa_font aa_font8, aa_font14, aa_font16, aa_font9,
 	aa_fontline, aa_fontgl, aa_fontX13, aa_fontX16, aa_fontX13B,
 	aa_fontcourier, aa_fontvyhen;
 /*
@@ -307,28 +332,28 @@ extern const struct aa_font aa_font8, aa_font14, aa_font16, aa_font9,
  * NULL terminated array containing the names of supported dithering methods
  * as ascii strings.
  */
-extern const char * const aa_dithernames[];
+extern __AA_CONST char * __AA_CONST aa_dithernames[];
 
 /*
  * NULL-terminated array of output drivers available in AA-lib.
  */
-extern const struct aa_driver * const aa_drivers[];
-extern const struct aa_driver curses_d, dos_d, linux_d, slang_d, stdout_d,
+extern __AA_CONST struct aa_driver * __AA_CONST aa_drivers[];
+extern __AA_CONST struct aa_driver curses_d, dos_d, linux_d, slang_d, stdout_d,
 				   stderr_d, X11_d, os2vio_d;
 
 /*
  * NULL-terminated array of keyboard drivers available in AA_lib.
  */
-extern const struct aa_kbddriver * const aa_kbddrivers[];
-extern const struct aa_kbddriver kbd_curses_d, kbd_slang_d, kbd_stdin_d,
+extern __AA_CONST struct aa_kbddriver * __AA_CONST aa_kbddrivers[];
+extern __AA_CONST struct aa_kbddriver kbd_curses_d, kbd_slang_d, kbd_stdin_d,
 			              kbd_dos_d, kbd_X11_d, kbd_os2_d,
 				      kbd_linux_d;
 
 /*
  * NULL terminated array of mouse drivers supported by AA-lib.
  */
-extern const struct aa_mousedriver * const aa_mousedrivers[];
-extern const struct aa_mousedriver mouse_curses_d, mouse_gpm_d,
+extern __AA_CONST struct aa_mousedriver * __AA_CONST aa_mousedrivers[];
+extern __AA_CONST struct aa_mousedriver mouse_curses_d, mouse_gpm_d,
 					mouse_X11_d, mouse_dos_d, mouse_os2_d;
 
 /*
@@ -415,7 +440,7 @@ char *aa_attrs(
 /*
  * returns specification of the fonts used by AA-lib rendering routines.
  */
-const struct aa_font *aa_currentfont(
+__AA_CONST struct aa_font *aa_currentfont(
 	       /* Specifies the AA-lib context to operate on. */
 	       aa_context *a);
 
@@ -431,7 +456,7 @@ const struct aa_font *aa_currentfont(
 aa_context *aa_autoinit(
 		        /* Hardware parameters you want.  Use aa_defparams
 		           for default values.  */
-		        const struct aa_hardware_params *params);
+		        __AA_CONST struct aa_hardware_params *params);
 /*
  * easy to use AA-lib keyboard initialization function. 
  * Attempts to find available keyboard driver supporting the specified
@@ -473,7 +498,7 @@ void aa_recommendhi(
 		    aa_linkedlist ** l,
 		    /* Name of the driver (ought to match the "shortname"
 		       field of the driver definition structure).  */
-		    const char *name);
+		    __AA_CONST char *name);
 
 /* Add the given driver to the end of list of recommended drivers.  */
 void aa_recommendlow(
@@ -482,7 +507,7 @@ void aa_recommendlow(
 		    aa_linkedlist ** l,
 		    /* Name of the driver (ought to match the "shortname"
 		       field of the driver definition structure).  */
-		    const char *name);
+		    __AA_CONST char *name);
 char *aa_getfirst(aa_linkedlist ** l);
 
 /*init functions */
@@ -502,13 +527,13 @@ char *aa_getfirst(aa_linkedlist ** l);
 aa_context *aa_init(
 		      /* Driver you want to use.  Available drivers are listed
 		         in the NULL terminated aa_drivers array.  */
-		    const struct aa_driver *driver,  
+		    __AA_CONST struct aa_driver *driver,  
 		      /* Hardware parameters you want.  Use aa_defparams
 		         for default values.  */
-		    const struct aa_hardware_params *defparams, 
+		    __AA_CONST struct aa_hardware_params *defparams, 
 		      /* This pointer is passed dirrectly to driver used
 		         to specify additional driver dependent parameters. */
-		    const void *driverdata);
+		    __AA_CONST void *driverdata);
 
 /*
  * initialize the AA-lib keyboard driver. 
@@ -522,7 +547,7 @@ int aa_initkbd(
 	       /* Specifies the AA-lib context to operate on.  */
 	       struct aa_context *context,  
 	       /* Driver you wish to use */
-	       const struct aa_kbddriver *drv, 
+	       __AA_CONST struct aa_kbddriver *drv, 
 	       /* Mask of extra features you request. Can contain
 		  AA_SENDRELEASE if you are interested in release events
 		  too. */
@@ -539,7 +564,7 @@ int aa_initmouse(
 		   /* Specifies the AA-lib context to operate on.  */
 		 struct aa_context *c, 
 		   /* Driver you wish to use.  */
-		const struct aa_mousedriver *d, 
+		__AA_CONST struct aa_mousedriver *d, 
 		   /* Mask of extra features you request.  No such features
 		      are available in the current AA-lib version.  */
 		 int mode);
@@ -608,7 +633,7 @@ void aa_render(
 	       /* Rendering parametters used to specify brightness, gamma
 		  correction and other usefull stuff. Use aa_defrenderparams
 		  for default values. */
-	       const aa_renderparams * p, 
+	       __AA_CONST aa_renderparams * p, 
 	       /* column of top left coner of rendered area
 	          (in characters!) */
 	       int x1,
@@ -619,8 +644,8 @@ void aa_render(
 	       /* row of bottom right coner of rendered area */
 	       int y2);
 
-void aa_renderpalette(aa_context * c, const aa_palette table,
-	       const aa_renderparams * p, int x1, int y1, int x2, int y2);
+void aa_renderpalette(aa_context * c, __AA_CONST aa_palette table,
+	       __AA_CONST aa_renderparams * p, int x1, int y1, int x2, int y2);
 aa_renderparams *aa_getrenderparams(void);
 void aa_flush(aa_context * c);
 
@@ -637,7 +662,7 @@ void aa_puts(
 	     /* Attribute to use.  */
 	     enum aa_attribute attr,
 	     /* String to output.  */
-	     const char *s);
+	     __AA_CONST char *s);
 /*
  * print text to AA-lib output buffers.
  * Print given text to AA-lib output buffers.  To see the effect you need to
@@ -653,7 +678,7 @@ int aa_printf(
 	     /* Attribute to use.  */
 	     enum aa_attribute attr,
 	     /* Text to output in standard printf format.  */
-	      const char *fmt, ...);
+	      __AA_CONST char *fmt, ...);
 /*
  * move the hardware cursor (if any) to specified position. 
  * Move the hardware cursor (if any) to specified position. 
@@ -714,7 +739,7 @@ void aa_showmouse(aa_context *c);
  */
 int aa_registerfont(
 		    /* Font specification structure. */
-		    const struct aa_font *f);
+		    __AA_CONST struct aa_font *f);
 /*
  * alter the "supported" field of hardware_params structure used by AA-lib
  * This function can be used to alter "supported" field of hardware-params
@@ -733,7 +758,7 @@ void aa_setfont(
                 /* Specifies the AA-lib context to operate on.  */
 		aa_context * c,
 		/* Font specification structure.  */
-		const struct aa_font *font);
+		__AA_CONST struct aa_font *font);
 
 /*keyboard functions */
 /* return next event from queue.
@@ -833,7 +858,7 @@ void aa_edit(
  *
  * Returns pointer to edit context when succesfull and NULL on failure.
  */
- aa_edit *aa_createedit(
+struct aa_edit *aa_createedit(
              /* Specifies the AA-lib context to operate on.  */
 	     aa_context * c, 
 	     /* X coordinate of the edited text.  */
@@ -871,40 +896,50 @@ void aa_putpixel(
 void aa_recommendhikbd(
 		    /* Name of the driver (ought to match the "shortname"
 		       field of the driver definition structure).  */
-		    const char *name);
+		    __AA_CONST char *name);
 
 /* Add the given driver to the end of list of keyboard recommended drivers.  */
 void aa_recommendlowkbd(
 		    /* Name of the driver (ought to match the "shortname"
 		       field of the driver definition structure).  */
-		    const char *name);
+		    __AA_CONST char *name);
 /* insert the given driver on beggining of the list of recommended mouse drivers.  */
 void aa_recommendhimouse(
 		    /* Name of the driver (ought to match the "shortname"
 		       field of the driver definition structure).  */
-		    const char *name);
+		    __AA_CONST char *name);
 
 /* Add the given driver to the end of list of mouse recommended drivers.  */
 void aa_recommendlowmouse(
 		    /* Name of the driver (ought to match the "shortname"
 		       field of the driver definition structure).  */
-		    const char *name);
+		    __AA_CONST char *name);
 /* insert the given driver on beggining of the list of recommended display drivers.  */
 void aa_recommendhidisplay(
 		    /* Name of the driver (ought to match the "shortname"
 		       field of the driver definition structure).  */
-		    const char *name);
+		    __AA_CONST char *name);
 
 /* Add the given driver to the end of list of display recommended drivers.  */
 void aa_recommendlowdisplay(
 		    /* Name of the driver (ought to match the "shortname"
 		       field of the driver definition structure).  */
-		    const char *name);
+		    __AA_CONST char *name);
 
 
 
 /* This macro implementations are proved for faster compilation. */
-// xxxxxxxxxx#define aa_setpalette(palette,index,r,g,b) ((palette)[index]=(((r)*30+(g)*59+(b)*11)>>8))
+#ifdef __GNUC__
+/* The putpixel macro can be implemented reliably only using GNU-C extension.  */
+#define aa_putpixel(c,x,y,color) ({aa_context *___aa_context=(c);  ((___aa_context)->imagebuffer[(x)+(y)*(aa_imgwidth(___aa_context))]=(color)); 0;})
+#endif
+#define aa_setpalette(palette,index,r,g,b) ((palette)[index]=(((r)*30+(g)*59+(b)*11)>>8))
+#define aa_recommendhikbd(t) aa_recommendhi(&aa_kbdrecommended,t);
+#define aa_recommendhimouse(t) aa_recommendhi(&aa_mouserecommended,t);
+#define aa_recommendhidisplay(t) aa_recommendhi(&aa_displayrecommended,t);
+#define aa_recommendlowkbd(t) aa_recommendlow(&aa_kbdrecommended,t);
+#define aa_recommendlowmouse(t) aa_recommendlow(&aa_mouserecommended,t);
+#define aa_recommendlowdisplay(t) aa_recommendlow(&aa_displayrecommended,t);
 #define aa_scrwidth(a) ((a)->params.width)
 #define aa_scrheight(a) ((a)->params.height)
 #define aa_mmwidth(a) ((a)->params.mmwidth)

@@ -42,6 +42,25 @@ https://sourceforge.net/p/meson/wiki/Cross%20compilation/
 for file in *-*; do mv "$file" "${file//-/_}"; done
 ```
 
+# lib und bin aktualisieren
+```bash
+sudo ldconfig
+hash -r
+```
+
+# apt Infos
+
+
+## Info über ein Paket
+`apt show libsdl3-dev`
+
+## Ganze History eines Paketes
+`apt changelog libsdl3-dev`
+
+
+
+
+
 # Programm Zeilen auswerten.
 sudo apt install cloc
 

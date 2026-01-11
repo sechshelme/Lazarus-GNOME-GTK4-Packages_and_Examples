@@ -12,6 +12,7 @@ uses
     v: double;
     y, x: integer;
     pixel: byte;
+    quit: boolean = False;
   begin
     context := aa_autoinit(@aa_defparams);
 
@@ -24,10 +25,12 @@ uses
       WriteLn('Konnte Tastatur nicht initialisieren (eventuell ignorierbar)');
     end;
 
-    while (True) do begin
+    while not quit do begin
       event := aa_getevent(context, 0);
-      if event = AA_ESC then  begin
-        break;
+      case event of
+        AA_ESC: begin
+          quit := True;
+        end;
       end;
 
       width := aa_imgwidth(context);
