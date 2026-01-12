@@ -283,6 +283,7 @@ const
     (libs: 'libmagiccore'; units: 'fp_magiccore'),
     (libs: 'libaa'; units: 'ctypes'),
     (libs: 'libnotify'; units: 'ctypes'),
+    (libs: 'libcaca'; units: 'ctypes'),
 
 
 

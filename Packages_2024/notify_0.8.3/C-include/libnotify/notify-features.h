@@ -1,16 +1,4 @@
-unit notify_features;
-
-interface
-
-uses
-  ctypes;
-
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
-
-
-{ -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*-
+/* -*- Mode: C; indent-tabs-mode: t; c-basic-offset: 8; tab-width: 8 -*-
  *
  * Copyright (C) 2010 Red Hat, Inc.
  *
@@ -28,32 +16,34 @@ uses
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA  02111-1307, USA.
-  }
-{$ifndef __NOTIFY_VERSION_H__}
-{$define __NOTIFY_VERSION_H__}
-{ compile time version
-  }
-{*
+ */
+
+#ifndef __NOTIFY_VERSION_H__
+#define __NOTIFY_VERSION_H__
+
+/* compile time version
+ */
+
+/**
  * NOTIFY_VERSION_MAJOR:
  *
  * Adwaita major version component (e.g. 1 if the version is 1.2.3).
-  }
-
-const
-  NOTIFY_VERSION_MAJOR = 0;  
-{*
+ */
+#define NOTIFY_VERSION_MAJOR    (0)
+/**
  * NOTIFY_VERSION_MINOR:
  *
  * Adwaita minor version component (e.g. 2 if the version is 1.2.3).
-  }
-  NOTIFY_VERSION_MINOR = 8;  
-{*
+ */
+#define NOTIFY_VERSION_MINOR    (8)
+/**
  * NOTIFY_VERSION_MICRO:
  *
  * Adwaita micro version component (e.g. 3 if the version is 1.2.3).
-  }
-  NOTIFY_VERSION_MICRO = 3;  
-{*
+ */
+#define NOTIFY_VERSION_MICRO    (3)
+
+/**
  * NOTIFY_CHECK_VERSION:
  * @major: required major version
  * @minor: required minor version
@@ -61,8 +51,7 @@ const
  *
  * check whether a version equal to or greater than
  * `major.minor.micro` is present.
-  }
-{xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ */
 #define NOTIFY_CHECK_VERSION(major,minor,micro) \
     (NOTIFY_VERSION_MAJOR > (major) || \
      (NOTIFY_VERSION_MAJOR == (major) && NOTIFY_VERSION_MINOR > (minor)) || \
@@ -70,13 +59,5 @@ const
       NOTIFY_VERSION_MICRO >= (micro)))
 
 
- }
+#endif /* __NOTIFY_VERSION_H__ */
 
-// === Konventiert am: 11-1-26 14:03:18 ===
-
-
-implementation
-
-
-
-end.

@@ -25,6 +25,12 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="fp_notify_package"/>
+      </Item>
+      <Item>
+        <PackageName Value="fp_gdk_pixbuf2_package"/>
+      </Item>
+      <Item>
         <PackageName Value="fp_GLIB2_package"/>
       </Item>
     </RequiredPackages>
@@ -44,6 +50,9 @@
       <IncludeFiles Value="$(ProjOutDir)"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
+    <CodeGeneration>
+      <TargetOS Value="win64"/>
+    </CodeGeneration>
     <Linking>
       <Debugging>
         <DebugInfoType Value="dsDwarf3"/>

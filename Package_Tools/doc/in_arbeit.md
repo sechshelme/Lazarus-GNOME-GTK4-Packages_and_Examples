@@ -469,7 +469,11 @@ libavif
 gdk-pixbuf-csource 
 /usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders
 
-libmagickwand-dev    
+libmagickwand-dev                // io.    ../ImageMagick/configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-hdri --enable-shared --with-quantum-depth=16 --disable-opencl
+make distclean
+../ImageMagick/configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-hdri --enable-shared=yes --enable-static=yes --with-quantum-depth=16 --with-magickwand=yes --without-magick-plus-plus --without-utilities --enable-static=no 
+
+
 libmagic-dev                     // io.
 libtre-dev                       // io.
 
@@ -481,10 +485,19 @@ libheif-dev
 
 libfribidi-dev                    // io.
 libraqm-dev                       // io.
-libstb-dev        // inline müll
-
-libcaca-dev
+libstb-dev                        // inline müll
+ 
+libcaca-dev                       // io.
 libaa1-dev 
+
+libsodium
+
+libopenimageio2.5
+libnotify4 
+
+libheif-dev 
+
+
 
 
 
@@ -519,16 +532,20 @@ sudo apt install gtk-4-examples
 
 
 
-# =========================
+# ===========   Brandneu, gibt es in LTS noch nicht
 
 libglycin-2-0  
 libglycin-gtk4
 
-libheif-dev 
-
-sudo apt install libglycin-gtk4-2-0                           // Brandneu, gibt es in LTS noch nicht
+sudo apt install libglycin-gtk4-2-0                           
 sudo apt install libglycin-gtk4-2-dev  # für Entwicklung
 https://gitlab.gnome.org/GNOME/glycin/
+
+--------------
+
+libdialog               # https://invisible-island.net/archives/dialog/
+../dialog-1.3-20260107/configure --with-shared
+
 
 # =========================
 
@@ -631,6 +648,11 @@ sudo apt install cloc
 apt changelog libwebkitgtk-6.0-dev
 dpkg -s libwebkitgtk-6.0-dev | grep Version
 apt list --installed libwebkitgtk-6.0-dev
+
+# cache aufräumen
+
+ldconfig
+hash -r
 
 # Alle -dev Pakete Listen 
 

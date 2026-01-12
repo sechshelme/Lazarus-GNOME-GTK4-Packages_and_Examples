@@ -67,6 +67,10 @@ sudo apt install cloc
 
 
 # wine
+## MSYS2 Pakete
+https://packages.msys2.org/queue
+
+
 ## MinGW Installer
 (https://github.com/Vuniverse0/mingwInstaller/releases)
 

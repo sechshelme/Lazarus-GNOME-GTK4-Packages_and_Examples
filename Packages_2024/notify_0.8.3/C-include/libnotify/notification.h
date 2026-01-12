@@ -27,6 +27,7 @@
 #include <glib-object.h>
 #include <gdk-pixbuf/gdk-pixbuf.h>
 
+G_BEGIN_DECLS
 
 /**
  * NOTIFY_EXPIRES_DEFAULT:
@@ -224,4 +225,5 @@ gboolean            notify_notification_close                 (NotifyNotificatio
 
 gint                notify_notification_get_closed_reason     (const NotifyNotification *notification);
 
-
+G_END_DECLS
+#endif /* NOTIFY_NOTIFICATION_H */

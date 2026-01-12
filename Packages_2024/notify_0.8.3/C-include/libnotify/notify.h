@@ -28,6 +28,7 @@
 #include <libnotify/notify-enum-types.h>
 #include <libnotify/notify-features.h>
 
+G_BEGIN_DECLS
 
 gboolean        notify_init (const char *app_name);
 void            notify_uninit (void);
@@ -43,5 +44,6 @@ gboolean        notify_get_server_info (char **ret_name,
                                         char **ret_version,
                                         char **ret_spec_version);
 
+G_END_DECLS
 
 #endif /* _LIBNOTIFY_NOTIFY_H_ */
