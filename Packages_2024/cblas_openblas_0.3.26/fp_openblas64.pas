@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF windows}
-  libopenblas = 'openblas64.dll';  // ?????????
+  libopenblas = 'libopenblas_64.dll';
   {$ENDIF}
 
   {$IFDEF FPC}

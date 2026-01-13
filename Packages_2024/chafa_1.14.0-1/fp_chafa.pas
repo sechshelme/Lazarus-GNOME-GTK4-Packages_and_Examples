@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libchafa = 'libchafa.dll'; // ????
+  libchafa = 'libchafa-0.dll';
   {$ENDIF}
 
 

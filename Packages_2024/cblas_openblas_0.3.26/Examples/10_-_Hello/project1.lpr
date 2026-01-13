@@ -1,7 +1,7 @@
 program project1;
 
 uses
-  fp_openblas64;
+  fp_openblas;
 
   procedure main;
   var
