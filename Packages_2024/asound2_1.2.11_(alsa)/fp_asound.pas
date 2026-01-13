@@ -4,7 +4,7 @@ interface
 
 const
   {$IFDEF Linux}
-  libasound = 'libasound';
+  libasound = 'asound';
   {$ENDIF}
 
   {$IFDEF Windows}

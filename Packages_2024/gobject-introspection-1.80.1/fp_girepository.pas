@@ -22,7 +22,7 @@ const
   {$ENDIF}
 
   {$IFDEF msWindows}
-  libgirepository = 'girepository-1.0.dll'; // ?????
+  libgirepository = 'libgirepository-1.0-1.dll'; 
   {$ENDIF}
 
   {$DEFINE read_interface}

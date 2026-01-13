@@ -10,8 +10,10 @@ const
   libfuse3 = 'libfuse3';
   {$ENDIF}
 
-  {$IFDEF windows}
+  {$IFDEF Windows}
+  {$FATAL  no supported}
   {$ENDIF}
+
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

@@ -13,12 +13,12 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libgvc = 'gvc.dll';
-  libgvpr = 'gvpr.dll';
-  libcgraph = 'cgraph.dll';
-  libcdt = 'cdt.dll';
-  libpathplan = 'pathplan.dll';
-  libxdot = 'xdot.dll';
+  libgvc = 'libgvc-7.dll';
+  libgvpr = 'libgvpr-2.dll';
+  libcgraph = 'libcgraph-8.dll';
+  libcdt = 'libcdt-6.dll';
+  libpathplan = 'libpathplan-4.dll';
+  libxdot = 'libxdot-4.dll';
   // ????
   {$ENDIF}
 

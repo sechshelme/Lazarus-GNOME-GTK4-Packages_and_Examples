@@ -5,23 +5,13 @@ const
   IOLIBS = '.';
 
   {$IFDEF Windows}
-  libgphoto2 = 'libgphoto2.dll';  // ??????
-
 
 type
   Pssize_t = ^Tssize_t;
   Tssize_t = PSizeInt;
 
 type
-  TGPPORTWINDIR = record
-    handle: THANDLE;
-    got_first: longint;
-    search: TWIN32_FIND_DATA;
-    dir: array[0..1023] of char;
-    drive: array[0..31] of array[0..1] of char;
-    drive_count: longint;
-    drive_index: longint;
-  end;
+  TGPPORTWINDIR = type Pointer;
 
 type
   Pgp_system_dir = TGPPORTWINDIR;

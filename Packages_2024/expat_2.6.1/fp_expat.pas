@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libexpat = 'libexpat';                  // ??????????
+  libexpat = 'libexpat-1.dll';
   {$ENDIF}
 
   {$IFDEF FPC}

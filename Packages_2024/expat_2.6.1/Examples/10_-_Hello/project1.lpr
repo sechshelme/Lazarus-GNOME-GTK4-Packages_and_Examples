@@ -74,8 +74,6 @@ var
 
   procedure main;
   const
-    //  xml = '<root><child><blublu1>Text</blublu1><Options><Version width=''320'' height=''200''/><Version/></Options><blublu2>Text</blublu2></child></root>';
-    //        xml = '<root><child><values width="200" height="150">Hello Values</values></child></root>';
     xml = '<root><!-- Ich bin ein Kommentar --><child><blublu1>Hello XML</blublu1><Options><Version width=''320'' height=''200''/><Version/></Options><blublu2>Text</blublu2></child></root>';
   var
     parser: TXML_Parser;

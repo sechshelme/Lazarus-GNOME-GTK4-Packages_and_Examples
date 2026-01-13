@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libgeocode_glib = 'libgeocode-glib-2.dll';  // ?????
+  libgeocode_glib = 'libgeocode-glib-2-0.dll';
   {$ENDIF}
 
 

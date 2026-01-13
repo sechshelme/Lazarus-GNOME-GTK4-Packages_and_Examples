@@ -3,8 +3,17 @@ program project1;
 uses
   fp_graphviz;
 
+const
+  {$IFDEF linux}
+  libc = 'c';
+  {$ENDIF}
+
+  {$IFDEF windows}
+  libc = 'msvcrt.dll';
+  {$ENDIF}
+
 var
-  stdout: PFILE; cvar;external 'c';
+  stdout: PFILE; cvar;external libc;
 
   procedure main;
   const

@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libgmime3 = 'libgmime-3.0.dll';  // ???????'
+  libgmime3 = 'libgmime-3.0-0.dll';
   {$ENDIF}
 
   {$IFDEF FPC}
@@ -31,6 +31,7 @@ const  // libc
 
 type // Herkunft unbekannte
   Pcat_node = type Pointer;
+  Ticonv_t = Pointer;
 
   {$DEFINE read_interface}
   {$include fp_gmime3_includes.inc}

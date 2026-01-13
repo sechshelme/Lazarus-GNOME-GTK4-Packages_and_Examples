@@ -7,11 +7,11 @@ uses
 
 const
   {$IFDEF Linux}
-  libgsound = 'libgsound';
+  libgsound = 'gsound';
   {$ENDIF}
 
   {$IFDEF Windows}
-  libgsound = 'libgsound.dll'; // ??????
+  {$FATAL  no supported}
   {$ENDIF}
 
   {$IFDEF FPC}

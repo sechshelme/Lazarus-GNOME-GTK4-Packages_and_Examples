@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libgs = 'gsdll64.dll'; // ????
+  libgs = 'libgs-10.dll';
   {$ENDIF}
 
   {$IFDEF Windows}

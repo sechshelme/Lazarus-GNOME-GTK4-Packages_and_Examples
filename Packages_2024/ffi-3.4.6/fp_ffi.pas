@@ -2,6 +2,20 @@ unit fp_ffi;
 
 interface
 
+const
+  {$IFDEF Linux}
+  libffi = 'libffi';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libffi = 'libffi-8.dll';
+  {$ENDIF}
+
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
+
 // ==== ffitarget.h
 
 const
@@ -57,22 +71,9 @@ const
 
   // ==== ffi.h
 
-const
-  {$IFDEF Linux}
-  libffi = 'libffi';
-  {$ENDIF}
-
-  {$IFDEF Windows}
-  libffi = 'libffi-8.dll';
-  {$ENDIF}
-
 type
   Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
 
 const
   FFI_TYPE_VOID_ = 0;

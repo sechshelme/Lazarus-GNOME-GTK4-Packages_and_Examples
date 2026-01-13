@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  //  sysutils,
   fp_curl;
 
 const
@@ -20,10 +19,9 @@ const
 
     WriteLn(pchar(userp));
 
-    //    Sleep(1000);
     len := size * nmemb;
     for i := 0 to len - 1 do begin
-      //      Write(char(b[i]));
+      Write(char(b[i]));
     end;
 
     WriteLn(1);

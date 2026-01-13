@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libgphoto2 = 'libgphoto2.dll';  // ??????
+  libgphoto2 = 'libgphoto2-6.dll';  
   {$ENDIF}
 
 type

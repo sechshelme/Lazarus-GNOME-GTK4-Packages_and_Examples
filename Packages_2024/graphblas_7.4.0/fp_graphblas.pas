@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF windows}
-  libgraphblas = 'graphblas.dll'; // ??????
+  libgraphblas = 'libgraphblas.dll';
   {$ENDIF}
 
 type
