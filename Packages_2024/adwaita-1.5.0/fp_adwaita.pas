@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libadwaita = 'libadwaita-1-0.dll'; // ????
+  libadwaita = 'libadwaita-1-0.dll';
   {$ENDIF}
 
   {$IFDEF FPC}

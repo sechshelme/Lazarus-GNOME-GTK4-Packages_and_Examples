@@ -47,6 +47,7 @@ uses
           x_offset := 12 + j * 4;
         end;
         caca_put_str(cv, x_offset, y_offset, 'Aaホ');
+//        caca_put_str(cv, x_offset, y_offset, '😀🔥안녕');
       end;
     end;
 
