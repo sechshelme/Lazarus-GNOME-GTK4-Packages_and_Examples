@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  // no supported
+  {$FATAL  no supported}
   {$ENDIF}
 
 type

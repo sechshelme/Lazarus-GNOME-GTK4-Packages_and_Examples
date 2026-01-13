@@ -3,7 +3,7 @@ unit fp_event;
 interface
 
 uses
-  clib, fp_time;
+  clib;//, fp_time;
 
 const
   {$IFDEF linux}
@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF windows}
-  libibus = 'event.dll'; // ????
+  libevent = 'libevent-7.dll';
   {$ENDIF}
 
   {$IFDEF FPC}
@@ -30,6 +30,13 @@ type
 
   Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;
+
+type // /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h
+  Ttimeval = record
+    tv_sec: int64;
+    tv_usec: int64;
+  end;
+  Ptimeval = ^Ttimeval;
 
 type
   PFILE = type Pointer;

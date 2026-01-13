@@ -1,8 +1,6 @@
 program project1;
 
 uses
-  fp_time,
-  fp_stdio,
   fp_event;
 
   procedure timer_cb(para1: Tevutil_socket_t; para2: smallint; para3: pointer); cdecl;
@@ -12,9 +10,9 @@ uses
     count: integer = 0;
   begin
     Inc(count);
-    printf('Timer triggered %d times'#10, count);
+    WriteLn('Timer triggered ', count, ' times', count);
     if count >= 5 then begin
-      printf('Reached 5 triggers, stopping event loop.'#10);
+      WriteLn('Reached 5 triggers, stopping event loop.');
       event_base_loopbreak(base);
     end;
   end;

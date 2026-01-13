@@ -5,7 +5,6 @@ uses
   fp_curl;
 
 const
-  //  link='https://www.perplexity.ai/search/greifne-dies-functione-dieses-PS.LGv1WTu6P2ULNKf9rNA';
   link = 'https://everything.curl.dev/project/etiquette.html';
 
   function WriteToGArray(contents: Pointer; size, nmemb: Tsize_t; userp: Pointer): Tsize_t; cdecl;

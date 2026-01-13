@@ -12,7 +12,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libavahi_common = 'avahi-common'; // ????
+  {$FATAL  no supported}
   {$ENDIF}
 
   {$IFDEF FPC}

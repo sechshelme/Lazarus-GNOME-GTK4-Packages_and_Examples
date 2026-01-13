@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF mswindows}
-  libcurl = 'libcurl.dll'; // ????
+  libcurl = 'libcurl-4.dll';
   {$ENDIF}
 
   {$IFDEF FPC}

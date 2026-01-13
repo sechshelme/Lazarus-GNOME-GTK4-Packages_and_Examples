@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF windows}
-  libdbus_1 = 'libdbus-1.3.dll';   // ????
+  libdbus_1 = 'libdbus-1-3.dll';
   {$ENDIF}
 
   {$IFDEF FPC}

@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libcrypt = 'libcrypt.dll';  // ?????????
+  {$FATAL  no supported}
   {$ENDIF}
 
 type

@@ -12,8 +12,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libcolord_gtk = 'libcolord-gtk4.dll ';  // ??????????
-  libcolord = 'libcolord';                // ??????????
+  {$FATAL  no supported}
   {$ENDIF}
 
   {$IFDEF FPC}
