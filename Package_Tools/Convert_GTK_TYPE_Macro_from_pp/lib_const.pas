@@ -284,6 +284,7 @@ const
     (libs: 'libaa'; units: 'ctypes'),
     (libs: 'libnotify'; units: 'ctypes'),
     (libs: 'libcaca'; units: 'ctypes'),
+    (libs: 'libzmq'; units: 'ctypes'),
 
 
 
