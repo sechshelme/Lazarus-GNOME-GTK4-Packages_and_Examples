@@ -7,8 +7,8 @@ const
   libsixel = 'libsixel';
   {$ENDIF}
 
-  {$IFDEF Wwindows}
-  libsixel = 'libsixel-1.dll'; // ???
+  {$IFDEF Windows}
+  {$FATAL  no supported}
   {$ENDIF}
 
   {$IFDEF FPC}

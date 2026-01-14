@@ -10,7 +10,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libnotify = 'libnotify-4.dll';     // ????
+  libnotify = 'libnotify-4.dll';   
 
   {$ENDIF}
 

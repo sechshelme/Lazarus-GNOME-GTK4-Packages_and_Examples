@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF windows}
-  libsane = 'sane.dll';  // ??????
+  libsane = 'libsane-1.dll'; 
   {$ENDIF}
 
 

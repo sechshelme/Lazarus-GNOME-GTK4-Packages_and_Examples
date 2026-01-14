@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libpciaccess = 'libpciaccess.dll'; // ????
+  {$FATAL  no supported}
   {$ENDIF}
 
 type

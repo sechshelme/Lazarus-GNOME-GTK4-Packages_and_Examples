@@ -10,7 +10,7 @@ const
 
   {$IFDEF Windows}
   libc = 'msvcrt.dll';
-  liblapacke = 'liblapacke';   // ????????'
+  liblapacke = 'liblapacke.dll';   // ????????'
   {$ENDIF}
 
 type

@@ -10,7 +10,8 @@ const
   libinput = 'libinput';
   {$ENDIF}
 
-  {$IFDEF windows}
+  {$IFDEF Windows}
+  {$FATAL  no supported}
   {$ENDIF}
 
 type

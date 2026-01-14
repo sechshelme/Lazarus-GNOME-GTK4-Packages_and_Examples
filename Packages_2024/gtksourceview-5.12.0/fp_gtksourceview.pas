@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libgtksourceview5 = 'libgtksourceview-5-0.dll'; // ????
+  libgtksourceview5 = 'libgtksourceview-5-0.dll';
   {$ENDIF}
 
   {$IFDEF FPC}

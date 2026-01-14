@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libsratom0 = 'sratom-0.dll';  // ?????
+  libsratom0 = 'libsratom-0.dll'; 
   {$ENDIF}
 
 

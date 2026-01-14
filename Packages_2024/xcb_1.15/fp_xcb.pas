@@ -40,6 +40,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
+  {$FATAL  no supported}
   {$ENDIF}
 
 type

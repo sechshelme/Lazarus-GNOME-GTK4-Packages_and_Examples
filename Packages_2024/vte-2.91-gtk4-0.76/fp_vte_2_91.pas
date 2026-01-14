@@ -10,12 +10,8 @@ const
   libvte_2_91_gtk4 = 'vte-2.91-gtk4';
   {$ENDIF}
 
-  {$IFDEF mswindows}
-  libvte_2_91_gtk4 = 'vte-2.91-gtk4.dll'; // ???
-  {$ENDIF}
-
-  {$IFDEF darwin}
-  libvte_2_91_gtk4 = 'vte-2.91-gtk4.dylib'; // ???
+  {$IFDEF Windows}
+  {$FATAL  no supported}
   {$ENDIF}
 
 

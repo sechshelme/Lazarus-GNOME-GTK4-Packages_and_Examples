@@ -47,7 +47,7 @@ uses
   var
     gr: THMGL;
   begin
-    gr := mgl_create_graph_qt(@sample, 'MathGL Example', nil, nil);
+    gr := mgl_create_graph_glut(@sample, 'MathGL Example', nil, nil);
 
     if gr = nil then begin
       WriteLn('Fehler');

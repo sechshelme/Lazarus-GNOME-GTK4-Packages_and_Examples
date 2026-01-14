@@ -14,8 +14,8 @@ const
   libibus = 'libibus-1.0';
   {$ENDIF}
 
-  {$IFDEF windows}
-  libibus = 'libibus-1.0-1.dll'; // ???
+  {$IFDEF Windows}
+  {$FATAL  no supported}
   {$ENDIF}
 
   {$DEFINE read_interface}

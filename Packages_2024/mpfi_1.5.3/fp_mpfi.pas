@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libmpfi = 'libmpfi.dll'; // ?????????????
+  libmpfi = 'libmpfi-0.dll'; 
   {$ENDIF}
 
   {$IFDEF FPC}

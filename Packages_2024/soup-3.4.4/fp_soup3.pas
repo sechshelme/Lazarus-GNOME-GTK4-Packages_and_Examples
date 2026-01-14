@@ -15,7 +15,7 @@ const
   {$ENDIF}
 
   {$IFDEF windows}
-  libsoup = 'libsoup-3.0-1.dll';  // ?????
+  libsoup = 'libsoup-3.0-0.dll'; 
   {$ENDIF}
 
   {$DEFINE read_interface}

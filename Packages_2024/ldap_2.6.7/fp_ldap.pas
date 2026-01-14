@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libldap = 'ldap.dll';  // ????
+  libldap = 'libldap.dll';
   {$ENDIF}
 
 type

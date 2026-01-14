@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libsord0 = 'sord-0.dll';  // ??????
+  libsord0 = 'libsord-0.dll'; 
   {$ENDIF}
 
 type

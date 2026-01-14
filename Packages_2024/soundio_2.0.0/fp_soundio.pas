@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libsoundio = 'libsoundio.dll';  // ??????????
+  libsoundio = 'libsoundio-2.dll'; 
   {$ENDIF}
 
 

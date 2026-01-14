@@ -59,7 +59,7 @@ var
       end;
       html := html + '</body></html>';
 
-      response := MHD_create_response_from_buffer(Length(html), PChar(html), MHD_RESPMEM_MUST_COPY);
+      response := MHD_create_response_from_buffer(Length(html), pchar(html), MHD_RESPMEM_MUST_COPY);
       MHD_add_response_header(response, 'Content-Type', 'text/html; charset=utf-8');
       ret := MHD_queue_response(connection, MHD_HTTP_OK, response);
       MHD_destroy_response(response);

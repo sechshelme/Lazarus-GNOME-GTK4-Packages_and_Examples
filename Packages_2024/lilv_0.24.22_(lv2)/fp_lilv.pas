@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  liblilv0 = 'lilv-0.dll'; // ??????
+  liblilv0 = 'liblilv-0.dll';
   {$ENDIF}
 
   {$IFDEF FPC}

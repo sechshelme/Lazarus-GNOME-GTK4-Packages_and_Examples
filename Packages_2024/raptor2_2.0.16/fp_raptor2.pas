@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libraptor2 = 'raptor2.dll'; // ????
+  libraptor2 = 'libraptor2-0.dll'; 
   {$ENDIF}
 
 type

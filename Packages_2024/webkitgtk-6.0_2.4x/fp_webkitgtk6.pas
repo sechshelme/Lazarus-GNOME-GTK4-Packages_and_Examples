@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libwebkit = 'webkitgtk-6.0.0.dll'; // ????????
+  {$FATAL  no supported}
   {$ENDIF}
 
   // ==== System

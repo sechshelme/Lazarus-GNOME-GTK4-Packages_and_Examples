@@ -14,12 +14,8 @@ const
   libnewt = 'newt';
   {$ENDIF}
 
-  {$IFDEF mswindows}
-  libnewt = 'newt.dll';  // ?????
-  {$ENDIF}
-
-  {$IFDEF darwin}
-  libnewt = 'newt.dylib'; // ???
+  {$IFDEF Windows}
+  {$FATAL  no supported}
   {$ENDIF}
 
 type

@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF windows}
-  libpcap = 'libpcap.dll';  // ??????
+  libpcap = 'libpcap.dll'; 
   {$ENDIF}
 
   {$IFDEF FPC}

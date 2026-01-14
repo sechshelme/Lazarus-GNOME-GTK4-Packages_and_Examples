@@ -13,7 +13,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libsystemd = 'libsystemd.dll';  // ??????????
+  {$FATAL  no supported}
   {$ENDIF}
 
 type // /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h

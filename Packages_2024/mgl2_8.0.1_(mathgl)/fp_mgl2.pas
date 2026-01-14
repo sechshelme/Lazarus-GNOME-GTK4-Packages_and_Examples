@@ -15,18 +15,24 @@ interface
 
     {$ifdef windows}
     libclib = 'msvcrt';
-    libmgl = 'mgl.dll'; // ???
-    libmglqt = 'mgl-qt.dll';
-    libmglfltk = 'libmgl-fltk.dll';
-    libmglqlut = 'libmgl-glut.dll';
+    libmgl = 'libmgl2.dll';
+    libmglqt = 'libmgl2-qt6.dll';
+    libmglfltk = 'libmgl2-fltk.dll';
+    libmglqlut = 'libmgl2-glut.dll';
     libmglmpi = 'libmgl-mpi.dll';
-    libmglwnd = 'libmgl-wnd.dll';
+    libmglwnd = 'libmgl2-wnd.dll';
     {$endif}
 
-    {$ifdef darwin}
-    libclib = 'c';
-    libmgl = 'libmgldylib';   // ???
-    {$endif}
+
+    (*
+    /home/tux/msys64/ucrt64/bin/libmgl2.dll
+    /home/tux/msys64/ucrt64/bin/libmgl2-wnd.dll
+    /home/tux/msys64/ucrt64/bin/libmgl2-qt6.dll
+    /home/tux/msys64/ucrt64/bin/libmgl2-qt.dll
+    /home/tux/msys64/ucrt64/bin/libmgl2-glut.dll
+    /home/tux/msys64/ucrt64/bin/libmgl2-fltk.dll
+    /home/tux/msys64/ucrt64/bin/libtmglib.dll
+    *)
 
 
   type

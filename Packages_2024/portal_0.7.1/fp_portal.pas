@@ -11,9 +11,8 @@ const
   libportal_gtk4 = 'libportal-gtk4';
   {$ENDIF}
 
-  {$IFDEF windows}
-  libportal = 'libportal.dll';        // ?????????
-  libportal_gtk4 = 'libportal-gtk4.dll'; // ?????????
+  {$IFDEF Windows}
+  {$FATAL  no supported}
   {$ENDIF}
 
 

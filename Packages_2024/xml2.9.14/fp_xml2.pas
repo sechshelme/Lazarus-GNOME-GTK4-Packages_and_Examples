@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libxml2 = 'libxml2.dll';
+  libxml2 = 'libxml2-2.dll';
   {$ENDIF}
 
   {$IFDEF FPC}

@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF windows}
-  libproxy = 'libproxy.dll';        // ?????????
+  libproxy = 'libproxy-1.dll';  
   {$ENDIF}
 
 

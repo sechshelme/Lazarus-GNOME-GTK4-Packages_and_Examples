@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF mswindows}
-  libttommath = 'libtommath.dll';
+  libttommath = 'libtommath-1.dll';
   {$ENDIF}
 
 

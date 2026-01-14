@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libserd0 = 'serd-0.dll';  // ??????
+  libserd0 = 'libserd-0.dll'; 
   {$ENDIF}
 
 

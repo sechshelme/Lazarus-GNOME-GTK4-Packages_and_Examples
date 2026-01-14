@@ -16,10 +16,10 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libtcl8_6 = 'libtcl8.6';                      // ????????
-  libtk8_6 = 'libtk8.6';                        // ????????
-  libtclstub8_6 = 'libtclstub8.6';              // ????????
-  libtkstub8_6 = 'libtkstub8.6';                // ????????
+  libtcl8_6 = 'tcl86.dll';                  
+  libtk8_6 = 'tk86.dll';                    
+  libtclstub8_6 = libtcl8_6;
+  libtkstub8_6 = libtk8_6;  
   {$ENDIF}
 
   {$IFDEF FPC}

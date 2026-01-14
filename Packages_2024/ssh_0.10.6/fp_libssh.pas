@@ -9,7 +9,7 @@ const
   {$ENDIF}
 
   {$IFDEF mswindows}
-  libssh = 'libssh.dll'; // ????
+  libssh = 'libssh.dll'; 
   {$ENDIF}
 
   {$IFDEF FPC}

@@ -11,8 +11,8 @@ const
   libc = 'c';
   {$ENDIF}
 
-  {$IFDEF mswindows}
-  libgtop2 = 'libgtop-2.0.dll'; // ?????
+  {$IFDEF Windows}
+  {$FATAL  no supported}
   {$ENDIF}
 
   {$IFDEF FPC}

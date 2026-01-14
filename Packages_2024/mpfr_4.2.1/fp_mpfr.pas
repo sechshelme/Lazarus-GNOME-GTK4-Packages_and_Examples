@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libmpfr = 'libmpfr.dll'; // ?????????????
+  libmpfr = 'libmpfr-6.dll'; 
   {$ENDIF}
 
 

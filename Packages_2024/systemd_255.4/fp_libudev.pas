@@ -10,6 +10,10 @@ const
   libudev = 'libudev';
   {$ENDIF}
 
+  {$IFDEF Windows}
+  {$FATAL  no supported}
+  {$ENDIF}
+
 type
   Tva_list = Pointer;
   Tdev_t = longint;

@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF windows}
-  libsoup = 'libvlc.dll';  // ?????
+  libsoup = 'libvlc.dll'; 
   {$ENDIF}
 
   {$IFDEF FPC}

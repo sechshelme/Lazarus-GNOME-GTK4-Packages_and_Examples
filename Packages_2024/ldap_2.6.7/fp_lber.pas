@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  liblber = 'lber.dll'; // ?????
+  liblber = 'liblber.dll';
   {$ENDIF}
 
 type

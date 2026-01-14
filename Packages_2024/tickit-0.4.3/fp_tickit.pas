@@ -7,8 +7,8 @@ const
   libtickit = 'libtickit';
   {$ENDIF}
 
-  {$IFDEF mswindows}
-  libtickit = 'tickit.dll'; // ???
+  {$IFDEF Windows}
+  {$FATAL  no supported}
   {$ENDIF}
 
 {$IFDEF FPC}

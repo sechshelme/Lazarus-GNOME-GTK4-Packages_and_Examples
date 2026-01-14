@@ -11,6 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF windows}
+  libpeas2 = 'libpeas-2-0.dll';
   {$ENDIF}
 
   {$IFDEF FPC}

@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF mswindows}
-  libtre = 'libtre-5.dd';  // ????
+  libtre = 'libtre-5.dll'; 
   {$ENDIF}
 
 type

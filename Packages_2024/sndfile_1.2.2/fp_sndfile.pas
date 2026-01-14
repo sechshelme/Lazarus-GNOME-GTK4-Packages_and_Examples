@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF windows}
-  libsndfile = 'libsndfile.dll';  // ?????
+  libsndfile = 'libsndfile-1.dll';
   {$ENDIF}
 
 

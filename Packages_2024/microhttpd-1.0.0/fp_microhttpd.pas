@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF mswindows}
-  libmicrohttpd = 'microhttpd.dll';  // ?????
+  libmicrohttpd = 'libmicrohttpd-12.dll';
   {$ENDIF}
 
   {$IFDEF FPC}
