@@ -1,6 +1,0 @@
-hallo
-ls
-hallo
-quit
-wert
-quit

@@ -3,9 +3,6 @@ program project1;
 uses
   fp_suitesparse;
 
-
-  function memcpy(dest: pointer; src: pointer; n: Tsize_t): pointer; cdecl; external 'c';
-
   procedure main1;
   const
     n: integer = 4;
@@ -29,7 +26,7 @@ uses
     A.z := nil;
     A.sorted := 1;
     A.packed_ := 1;
-    A.stype := 1;  // symmetrisch: obere Dreiecksmatrix
+    A.stype := 1;
     A.xtype := CHOLMOD_REAL;
     A.dtype := CHOLMOD_DOUBLE;
 
@@ -67,12 +64,10 @@ uses
     cholmod_start(@c);
 
     A_dense_src := cholmod_allocate_dense(n, n, n, CHOLMOD_REAL, @c);
-//       move(Ax[0], A_dense_src^.x, SizeOf(double) * Length(Ax));
-    memcpy(A_dense_src^.x, @Ax[0], sizeof(double) * Length(Ax));
+    Move(Ax[0], A_dense_src^.x^, SizeOf(double) * Length(Ax));
 
     A_sparse := cholmod_dense_to_sparse(A_dense_src, 1, @c);
     cholmod_free_dense(@A_dense_src, @c);
-
 
     WriteLn('Urspruengliche Sparse Matrix (CSC):');
     cholmod_print_sparse(A_sparse, 'A_sparse', @c);

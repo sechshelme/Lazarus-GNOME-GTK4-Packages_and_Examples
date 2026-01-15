@@ -17,9 +17,6 @@
     </Files>
     <RequiredPkgs>
       <Item>
-        <PackageName Value="fp_libc_packages"/>
-      </Item>
-      <Item>
         <PackageName Value="FCL"/>
       </Item>
     </RequiredPkgs>

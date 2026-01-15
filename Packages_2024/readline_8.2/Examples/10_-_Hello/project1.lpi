@@ -25,10 +25,7 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_proxy_package"/>
-      </Item>
-      <Item>
-        <PackageName Value="fp_GLIB2_package"/>
+        <PackageName Value="fp_readline_package"/>
       </Item>
     </RequiredPackages>
     <Units>

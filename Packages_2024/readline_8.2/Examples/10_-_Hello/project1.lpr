@@ -1,9 +1,6 @@
 program project1;
 
 uses
-  fp_stdlib,
-  fp_string,
-
   fp_readline;
 
   procedure PrintHistoryList;
@@ -33,10 +30,9 @@ uses
     if read_history('history.txt') <> 0 then begin
       WriteLn('Warnung: Konnte "history.txt" nicht laden');
     end;
-
     PrintHistoryList;
 
-    WriteLn('History-Länge nach Laden: ', history_length);
+    WriteLn('History-Länge nach Laden: ', history_length, #10);
 
     repeat
       input_ := readline('Eingabe > ');
@@ -44,8 +40,8 @@ uses
       then begin
         add_history(input_);
       end;
-      if strcmp(input_, 'quit') = 0 then begin
-        free(input_);
+      if string(input_) = string('quit') then begin
+        rl_free(input_);
         break;
       end;
     until input_ = nil;
@@ -56,7 +52,6 @@ uses
   end;
 
 begin
+  writeln('version: ', rl_library_version, #10);
   main;
-  writeln(rl_library_version);
-
 end.

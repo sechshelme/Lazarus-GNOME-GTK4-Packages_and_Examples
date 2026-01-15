@@ -37,7 +37,7 @@ uses
     mpz_init(@q);
     mpz_init(@r);
 
-    mpz_tdiv_q(@q, @a, @b); // q = a / b (Ganzzahl, abrunden Richtung 0)
+    mpz_tdiv_q(@q, @a, @b);
     gmp_printf('Quotient: %Zd'#10, @q);
     mpz_tdiv_r(@q, @a, @b);
     gmp_printf('Rest: %Zd'#10, @q);

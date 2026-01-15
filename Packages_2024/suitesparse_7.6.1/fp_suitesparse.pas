@@ -2,9 +2,6 @@ unit fp_suitesparse;
 
 interface
 
-uses
-  gmp;
-
 const
   {$IFDEF Linux}
   libamd = 'amd';
@@ -22,12 +19,26 @@ const
   librbio = 'rbio';
   libspex = 'spex';
   libsuitesparse = 'spqr';
-
-  libsuitesparseconfig = 'libsuitesparseconfig';
+  libsuitesparseconfig = 'suitesparseconfig';
   {$ENDIF}
 
   {$IFDEF Windows}
-  // ?????????????
+  libamd = 'libamd.dll';
+  libbtf = 'libbtf.dll';
+  libcamd = 'libcamd.dll';
+  libccolamd = 'libccolamd.dll';
+  libcholmod = 'libcholmod.dll';
+  libcolamd = 'libcolamd.dll';
+  libcxsparse = 'libcxsparse.dll';
+  libklu = 'libklu.dll';
+  libklu_cholmod = 'libklu_cholmod.dll';
+  libldl = 'libldl.dll';
+  libumfpack = 'libumfpack.dll';
+  libparu = 'libparu.dll';
+  librbio = 'librbio.dll';
+  libspex = 'libspex.dll';
+  libsuitesparse = 'libspqr.dll';
+  libsuitesparseconfig = 'libsuitesparseconfig.dll';
   {$ENDIF}
 
 type
