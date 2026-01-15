@@ -1,17 +1,15 @@
 program project1;
 
 uses
-  fp_tommath_1_3_0;
+  fp_tommath_1_2_1;
 
   function Read_mp_int(mp: Pmp_int): string;
   var
-    size: Tsize_t;
+    size: Tsize_t=0;
     buf: pchar = nil;
   begin
     mp_radix_size(mp, 10, @size);
-//    buf := GetMem(size + 1); // ????
-    buf := GetMem(1000 + 1); // ????
-
+    buf := GetMem(size);
     mp_to_radix(mp, buf, size, nil, 10);
     Result := buf;
     Freemem(buf);

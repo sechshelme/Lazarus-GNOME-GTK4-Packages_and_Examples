@@ -13,13 +13,13 @@ uses
     context := zmq_ctx_new();
     responder := zmq_socket(context, ZMQ_REP);
     rc := zmq_bind(responder, 'tcp://*:5555');
-    if rc <> 0 then begin
+    if rc = 0 then begin
       WriteLn('Fehler');
     end;
     WriteLn('Server läuft auf tcp://*:5555 (Strg+C zum Beenden)');
 
     while True do begin
-      size := zmq_recv(responder, @buffer, 255, ZMQ_DONTWAIT);
+      size := zmq_recv(responder, @buffer, 255, 0);
       if size = -1 then begin
         continue;
       end;
