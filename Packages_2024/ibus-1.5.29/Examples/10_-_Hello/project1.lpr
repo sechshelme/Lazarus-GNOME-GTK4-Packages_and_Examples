@@ -1,10 +1,12 @@
 program project1;
 
 uses
-  ctypes,
   fp_glib_unix,
   fp_glib2,
   fp_ibus;
+
+const
+  SIGINT = 2;
 
   function signal_cp(user_data: Tgpointer): Tgboolean; cdecl;
   var
@@ -36,7 +38,7 @@ uses
     g_print('Committed text: %s'#10, text);
   end;
 
-  function main(argc: cint; argv: PPChar): cint;
+  procedure main;
   var
     bus: PIBusBus;
     loop: PGMainLoop = nil;
@@ -52,7 +54,7 @@ uses
       g_printerr('Stelle sicher, dass du das Programm in einer grafischen Session startest und IBus läuft.'#10);
       g_printerr('Starte ggf. ''ibus-daemon -drx'' in einem Terminal.'#10);
       g_object_unref(bus);
-      Exit(1);
+      Exit;
     end;
 
     g_print('IBus Daemon ist verbunden.'#10);
@@ -82,10 +84,8 @@ uses
 
     g_object_unref(bus);
     g_main_loop_unref(loop);
-
-    Exit(0);
   end;
 
 begin
-  main(argc, argv);
+  main;
 end.

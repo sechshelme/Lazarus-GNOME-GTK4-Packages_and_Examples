@@ -36,8 +36,8 @@ const
 
     repeat
       num_read := sf_read_float(infile, buffer, BUFFSIZE);
-      Write('.');
       sf_write_float(outfile, buffer, num_read);
+
       for i := 0 to num_read - 1 do begin
 //        Write(buffer[i]: 4: 2);
       end;

@@ -2,13 +2,6 @@ unit fp_pixman;
 
 interface
 
-uses
-  ctypes;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
-
 const
   {$IFDEF Linux}
   libpixman = 'libpixman-1';
@@ -16,6 +9,10 @@ const
 
   {$IFDEF mswindows}
   libpixman = 'libpixman-1-0.dll';
+  {$ENDIF}
+
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
   {$ENDIF}
 
 type
@@ -64,9 +61,9 @@ type
 
 const
   pixman_fixed_e = Tpixman_fixed(1);
-  pixman_fixed_1 = Tpixman_fixed(1 shl 16); // 65536
-  pixman_fixed_1_minus_e = Tpixman_fixed((1 shl 16) - 1); // 65535
-  pixman_fixed_minus_1 = Tpixman_fixed(-1 shl 16); // -65536
+  pixman_fixed_1 = Tpixman_fixed(1 shl 16);
+  pixman_fixed_1_minus_e = Tpixman_fixed((1 shl 16) - 1);
+  pixman_fixed_minus_1 = Tpixman_fixed(-1 shl 16);
 
   pixman_max_fixed_48_16 = Tpixman_fixed_48_16($7fffffff);
   pixman_min_fixed_48_16 = Tpixman_fixed_48_16(-2147483648); // oder (-1 shl 31)
@@ -112,9 +109,7 @@ type
   end;
   Ppixman_transform = ^Tpixman_transform;
 
-  Tpixman_image = record
-  end;
-  Ppixman_image = ^Tpixman_image;
+  Ppixman_image = type Pointer;
 
 type
   Tpixman_region16_data = record
@@ -429,12 +424,9 @@ type
   TTpixman_format_code = DWord;
 
 const
-  { 128bpp formats }
   PIXMAN_rgba_float = $10CB4444;
-  { 96bpp formats }
   PIXMAN_rgb_float = $0CCB0444;
 
-  { 32bpp formats }
   PIXMAN_a8r8g8b8 = $20028888;
   PIXMAN_x8r8g8b8 = $20020888;
   PIXMAN_a8b8g8r8 = $20038888;
@@ -449,14 +441,11 @@ const
   PIXMAN_x2b10g10r10 = $20030AAA;
   PIXMAN_a2b10g10r10 = $20032AAA;
 
-  { sRGB formats }
   PIXMAN_a8r8g8b8_sRGB = $200A8888;
 
-  { 24bpp formats }
   PIXMAN_r8g8b8 = $18020888;
   PIXMAN_b8g8r8 = $18030888;
 
-  { 16bpp formats }
   PIXMAN_r5g6b5 = $10020565;
   PIXMAN_b5g6r5 = $10030565;
 
@@ -469,7 +458,6 @@ const
   PIXMAN_a4b4g4r4 = $10034444;
   PIXMAN_x4b4g4r4 = $10030444;
 
-  { 8bpp formats }
   PIXMAN_a8 = $08018000;
   PIXMAN_r3g3b2 = $08020332;
   PIXMAN_b2g3r3 = $08030233;
@@ -485,7 +473,6 @@ const
   PIXMAN_x4c4 = $08040000;
   PIXMAN_x4g4 = $08050000;
 
-  { 4bpp formats }
   PIXMAN_a4 = $04014000;
   PIXMAN_r1g2b1 = $04020121;
   PIXMAN_b1g2r1 = $04030121;
@@ -495,11 +482,9 @@ const
   PIXMAN_c4 = $04040000;
   PIXMAN_g4 = $04050000;
 
-  { 1bpp formats }
   PIXMAN_a1 = $01011000;
   PIXMAN_g1 = $01050000;
 
-  { YUV formats }
   PIXMAN_yuy2 = $10060000;
   PIXMAN_yv12 = $0C070000;
 
@@ -567,9 +552,7 @@ procedure pixman_image_composite32(op: Tpixman_op; src: Ppixman_image; mask: Ppi
 procedure pixman_disable_out_of_bounds_workaround; cdecl; external libpixman;
 
 type
-  Tpixman_glyph_cache = record
-  end;
-  Ppixman_glyph_cache = ^Tpixman_glyph_cache;
+  Ppixman_glyph_cache = type Pointer;
 
   Tpixman_glyph = record
     x: longint;
