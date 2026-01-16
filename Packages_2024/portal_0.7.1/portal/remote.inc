@@ -99,8 +99,8 @@ function xdp_session_get_session_state(session: PXdpSession): TXdpSessionState; 
 function xdp_session_get_devices(session: PXdpSession): TXdpDeviceType; cdecl; external libportal;
 function xdp_session_get_streams(session: PXdpSession): PGVariant; cdecl; external libportal;
 function xdp_session_connect_to_eis(session: PXdpSession; error: PPGError): longint; cdecl; external libportal;
-procedure xdp_session_pointer_motion(session: PXdpSession; dx: Tdouble; dy: Tdouble); cdecl; external libportal;
-procedure xdp_session_pointer_position(session: PXdpSession; stream: Tguint; x: Tdouble; y: Tdouble); cdecl; external libportal;
+procedure xdp_session_pointer_motion(session: PXdpSession; dx: double; dy: double); cdecl; external libportal;
+procedure xdp_session_pointer_position(session: PXdpSession; stream: Tguint; x: double; y: double); cdecl; external libportal;
 
 type
   PXdpButtonState = ^TXdpButtonState;
@@ -111,7 +111,7 @@ const
   XDP_BUTTON_PRESSED = 1;
 
 procedure xdp_session_pointer_button(session: PXdpSession; button: longint; state: TXdpButtonState); cdecl; external libportal;
-procedure xdp_session_pointer_axis(session: PXdpSession; finish: Tgboolean; dx: Tdouble; dy: Tdouble); cdecl; external libportal;
+procedure xdp_session_pointer_axis(session: PXdpSession; finish: Tgboolean; dx: double; dy: double); cdecl; external libportal;
 
 type
   PXdpDiscreteAxis = ^TXdpDiscreteAxis;
@@ -132,8 +132,8 @@ const
   XDP_KEY_PRESSED = 1;
 
 procedure xdp_session_keyboard_key(session: PXdpSession; keysym: Tgboolean; key: longint; state: TXdpKeyState); cdecl; external libportal;
-procedure xdp_session_touch_down(session: PXdpSession; stream: Tguint; slot: Tguint; x: Tdouble; y: Tdouble); cdecl; external libportal;
-procedure xdp_session_touch_position(session: PXdpSession; stream: Tguint; slot: Tguint; x: Tdouble; y: Tdouble); cdecl; external libportal;
+procedure xdp_session_touch_down(session: PXdpSession; stream: Tguint; slot: Tguint; x: double; y: double); cdecl; external libportal;
+procedure xdp_session_touch_position(session: PXdpSession; stream: Tguint; slot: Tguint; x: double; y: double); cdecl; external libportal;
 procedure xdp_session_touch_up(session: PXdpSession; slot: Tguint); cdecl; external libportal;
 function xdp_session_get_persist_mode(session: PXdpSession): TXdpPersistMode; cdecl; external libportal;
 function xdp_session_get_restore_token(session: PXdpSession): pchar; cdecl; external libportal;

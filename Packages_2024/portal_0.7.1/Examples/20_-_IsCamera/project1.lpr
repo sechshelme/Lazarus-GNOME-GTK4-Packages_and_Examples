@@ -2,8 +2,7 @@ program project1;
 
 uses
   fp_glib2,
-  fp_portal,
-  fp_portal_gtk4;
+  fp_portal;
 
   procedure main;
   var
@@ -18,6 +17,5 @@ uses
 
 
 begin
-  xdp_parent_new_gtk(nil);
   main;
 end.

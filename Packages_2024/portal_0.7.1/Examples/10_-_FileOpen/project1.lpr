@@ -21,7 +21,6 @@ uses
 
     g_print('Ergebnis: %s'#10, g_variant_print(r, gTRUE));
 
-
     uris_variant := g_variant_lookup_value(r, 'uris', nil);
     if uris_variant <> nil then begin
       for i := 0 to g_variant_n_children(uris_variant) - 1 do begin
@@ -34,7 +33,6 @@ uses
     end;
 
     g_variant_unref(r);
-
     g_main_loop_quit(loop);
   end;
 
@@ -43,15 +41,11 @@ uses
   var
     loop: PGMainLoop;
     portal: PXdpPortal;
-//    flag:uint8=XDP_OPEN_FILE_FLAG_MULTIPLE;
   begin
     loop := g_main_loop_new(nil, gFALSE);
 
     portal := xdp_portal_new;
-
-//    WriteLn('XDP_OPEN_FILE_FLAG_MULTIPLE:  ',XDP_OPEN_FILE_FLAG_MULTIPLE);
-//xdp_portal_open_file(portal, nil, 'Datei öffnen', nil, nil, nil, XDP_OPEN_FILE_FLAG_MULTIPLE, nil, @open_file_response, loop);
-xdp_portal_open_file(portal, nil, 'Datei öffnen', nil, nil, nil, 0, nil, @open_file_response, loop);
+    xdp_portal_open_file(portal, nil, 'Datei öffnen', nil, nil, nil, 0, nil, @open_file_response, loop);
 
     g_main_loop_run(loop);
 

@@ -75,8 +75,6 @@ uses
   end;
 
 
-
-
   procedure main;
   const
     path = 'test.xml';

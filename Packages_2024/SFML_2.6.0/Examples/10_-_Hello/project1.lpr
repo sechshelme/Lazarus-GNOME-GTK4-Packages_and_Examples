@@ -29,7 +29,7 @@ uses
     sfText_setFont(text, font);
     sfText_setCharacterSize(text, 50);
 
-    music := sfMusic_createFromFile('doodle_pop.ogg');
+    music := sfMusic_createFromFile('/home/tux/Schreibtisch/sound/test.ogg');
 
     sfMusic_play(music);
 

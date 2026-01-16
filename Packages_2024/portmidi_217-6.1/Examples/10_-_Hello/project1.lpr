@@ -2,10 +2,6 @@ program project1;
 
 // sudo modprobe snd_virmidi
 
-// aseqdump
-// qjackctl
-// helvum
-
 uses
   fp_portmidi;
 
@@ -58,11 +54,8 @@ uses
       Exit;
     end;
 
-    // Sende Note On (z.B. Note 60 = Mittleres C, Velocity 64)
     Pm_WriteShort(midiStream, 0, Pm_Message($90, 60, 64));
     WriteLn('Note On gesendet.');
-
-    //  sleep(1);
 
     Pm_WriteShort(midiStream, 0, Pm_Message($80, 60, 0));
     WriteLn('Note Off gesendet.');
