@@ -1,0 +1,11 @@
+Runtime error 255 at $00006FFFFFC7D3B8
+  $00006FFFFFC7D3B8 line 39618 of dlls/ntdll/loader.c
+  $000000010000E3D3  STDOUT,  line 563 of fp_gmp.pas
+  $000000010000170C  main,  line 26 of project1.lpr
+  $0000000100001813  $main,  line 44 of project1.lpr
+  $00000001000021A6
+  $0000000100009AA0
+  $0000000100001650
+  $00006FFFFFAA93D1
+  $00006FFFFFCA598B
+

@@ -3,19 +3,31 @@ program project1;
 uses
   fp_ltdl;
 
-var
-  my_printf: function(f: pchar): double; varargs; cdecl;
+const
+  {$IFDEF Linux}
+  libc = 'libc.so.6';
+  libpath='/usr/lib';
+  {$ENDIF}
+
+  {$IFDEF windows}
+  libc = 'msvcrt.dll';
+  libpath='c:\windows\system32';
+  {$ENDIF}
+
 
   function File_cp(filename: pchar; data: Pointer): longint; cdecl;
   begin
-     WriteLn('Gefundenes Modul: ',filename);
-     Result:=0;
+    WriteLn('Gefundenes Modul: ', filename);
+    Result := 0;
   end;
 
   procedure FindModules;
   begin
-     lt_dlforeachfile('/usr/lib', @File_cp, nil);
+    lt_dlforeachfile(libpath, @File_cp, nil);
   end;
+
+var
+  my_printf: function(f: pchar): double; varargs; cdecl;
 
   procedure main;
   var
@@ -30,7 +42,7 @@ var
     FindModules;
     WriteLn();
 
-    handle := lt_dlopen('libc.so.6');
+    handle := lt_dlopen(libc);
     if handle = nil then begin
       WriteLn('Fehler beim Laden der Bibliothek: ', lt_dlerror);
       lt_dlexit;
@@ -46,7 +58,7 @@ var
       Exit;
     end;
 
-    my_printf('Integer: %d,  String: "%s"'#10, 123, 'Hello World');
+    my_printf('Integer: %d,  Float: %f  String: "%s"'#10, 123, single(12.45), 'Hello World');
 
     lt_dlclose(handle);
     lt_dlexit;

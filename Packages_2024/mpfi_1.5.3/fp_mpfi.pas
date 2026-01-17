@@ -11,7 +11,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libmpfi = 'libmpfi-0.dll'; 
+  libmpfi = 'libmpfi-0.dll';
   {$ENDIF}
 
   {$IFDEF FPC}
@@ -226,11 +226,8 @@ function mpfi_intersect(para1: Pmpfi; para2: Pmpfi; para3: Pmpfi): longint; cdec
 function mpfi_union(para1: Pmpfi; para2: Pmpfi; para3: Pmpfi): longint; cdecl; external libmpfi;
 
 function mpfi_increase(para1: Pmpfi; para2: Pmpfr): longint; cdecl; external libmpfi;
-
 function mpfi_blow(para1: Pmpfi; para2: Pmpfi; para3: double): longint; cdecl; external libmpfi;
-
 function mpfi_bisect(para1: Pmpfi; para2: Pmpfi; para3: Pmpfi): longint; cdecl; external libmpfi;
-
 function mpfi_get_version: pchar; cdecl; external libmpfi;
 
 var
