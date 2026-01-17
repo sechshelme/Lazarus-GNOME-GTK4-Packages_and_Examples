@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  //  stdio,
   fp_tickit,
   fp_tickit_evloop,
   fp_tickit_mockterm,

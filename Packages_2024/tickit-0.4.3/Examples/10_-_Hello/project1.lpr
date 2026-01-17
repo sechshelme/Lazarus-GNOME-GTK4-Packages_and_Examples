@@ -1,8 +1,6 @@
 program project1;
 
 uses
-  SysUtils,
-  //  stdio,
   fp_tickit,
   fp_tickit_evloop,
   fp_tickit_mockterm,
@@ -261,7 +259,6 @@ var
       pen_white := tickit_pen_new_attrs(TICKIT_PEN_FG, 7 + 8, 0);
     end;
 
-    // Draw a horizontal size marker bar
     tickit_renderbuffer_setpen(rb, pen_blue);
     tickit_renderbuffer_hline_at(rb, 1, 0, right, TICKIT_LINE_SINGLE, 0);
     tickit_renderbuffer_vline_at(rb, 0, 2, 0, TICKIT_LINE_SINGLE, 0);
@@ -269,10 +266,9 @@ var
 
     tickit_renderbuffer_setpen(rb, pen_white);
     tickit_renderbuffer_goto(rb, 1, (right div 2) - 2);
-    tickit_renderbuffer_textf(rb, ' %d ', right + 1); // cols
+    tickit_renderbuffer_textf(rb, ' %d ', right + 1);
 
 
-    // Draw a vertical size marker bar
     left := right - 4;
 
     tickit_renderbuffer_setpen(rb, pen_blue);
@@ -282,7 +278,7 @@ var
 
     tickit_renderbuffer_setpen(rb, pen_white);
     tickit_renderbuffer_goto(rb, (bottom div 2) - 1, left);
-    tickit_renderbuffer_textf(rb, '%d', bottom + 1); // lines
+    tickit_renderbuffer_textf(rb, '%d', bottom + 1);
 
     Exit(1);
   end;
@@ -346,7 +342,7 @@ var
     tickit_window_bind_event(root, TICKIT_WINDOW_ON_EXPOSE, 0, @render_root, nil);
     tickit_window_bind_event(root, TICKIT_WINDOW_ON_GEOMCHANGE, 0, @event_resize, nil);
 
-    tempFunc:= @on_timer;
+    tempFunc := @on_timer;
     tickit_watch_timer_after_msec(t, 1000, 0, @on_timer, @counter);
 
     tickit_window_take_focus(root);

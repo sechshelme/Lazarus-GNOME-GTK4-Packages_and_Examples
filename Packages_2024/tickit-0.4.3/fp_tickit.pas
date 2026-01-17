@@ -11,17 +11,17 @@ const
   {$FATAL  no supported}
   {$ENDIF}
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 type
   {$IFDEF Linux}
-  Tclong=Int64;
+  Tclong = int64;
   {$ENDIF}
 
   {$IFDEF mswindows}
-  Tclong=Int32;
+  Tclong = int32;
   {$ENDIF}
 
 

@@ -55,7 +55,6 @@ uses
     WriteLn('LeptonicaVersion: ', getLeptonicaVersion);
     WriteLn();
 
-    // Bilddatei laden (hier PNG), Leptonica Pix wird verwendet
     image := pixRead('/home/tux/Bilder/Bildschirmfoto vom 2025-01-02 15-56-49.png');
     if image = nil then begin
       WriteLn('Fehler beim Laden des Bildes.');
@@ -64,18 +63,14 @@ uses
     WriteLn('Size: ', pixGetWidth(image), ' x ', pixGetHeight(image));
     WriteLn();
 
-    // Tesseract Handle erstellen
     handle := TessBaseAPICreate;
-
     if not InitLanguage(handle, 'eng') then  begin
       pixDestroy(@image);
       Exit;
     end;
 
-    // Bild für OCR setzen
     TessBaseAPISetImage2(handle, image);
 
-    // OCR ausführen
     if TessBaseAPIRecognize(handle, nil) <> 0 then begin
       WriteLn('Fehler bei der Texterkennung.');
       pixDestroy(@image);
@@ -83,7 +78,6 @@ uses
       Exit;
     end;
 
-    // Text auslesen (UTF-8)
     text := TessBaseAPIGetUTF8Text(handle);
     if text <> nil then begin
       WriteLn('Erkannter Text:');
@@ -91,7 +85,6 @@ uses
       TessDeleteText(text);
     end;
 
-    // Aufräumen
     pixDestroy(@image);
     TessBaseAPIEnd(handle);
     TessBaseAPIDelete(handle);

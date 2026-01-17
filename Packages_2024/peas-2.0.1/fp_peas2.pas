@@ -7,7 +7,7 @@ uses
 
 const
   {$IFDEF linux}
-  libpeas2 = 'libpeas-2';
+  libpeas2 = 'peas-2';
   {$ENDIF}
 
   {$IFDEF windows}

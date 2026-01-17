@@ -2,10 +2,9 @@ program project1;
 
 uses
   fp_glib2,
-  fp_peas2,
-  ctypes;
+  fp_peas2;
 
-  function main(argc: cint; argv: PPChar): cint;
+  procedure main;
   var
     engine: PPeasEngine;
     n: Tguint;
@@ -57,5 +56,5 @@ uses
   end;
 
 begin
-  main(argc, argv);
+  main;
 end.

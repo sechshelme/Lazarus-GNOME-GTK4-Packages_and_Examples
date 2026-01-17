@@ -73,14 +73,14 @@ const
 
 
 const
-  arg:array[0..1] of pchar=('abc', '/home/tux/test');
-//  arg:array[0..1] of pchar=('abc', '~/test');
+  arg: array[0..1] of pchar = ('abc', '/home/tux/test');
+  //  arg:array[0..1] of pchar=('abc', '~/test');
 
   procedure main;
   var
     mein_oper: Tfuse_operations;
   begin
-    FillChar(mein_oper,SizeOf(Tfuse_operations), 0 );
+    FillChar(mein_oper, SizeOf(Tfuse_operations), 0);
     with mein_oper do begin
       getattr := @mein_getattr;
       readdir := @mein_readdir;
@@ -88,8 +88,7 @@ const
       read := @mein_read;
     end;
     WriteLn(SizeOf(Tfuse_operations));
-//fuse_main(argc, argv, @mein_oper, nil);
-fuse_main(Length(arg), arg, @mein_oper, nil);
+    fuse_main(Length(arg), arg, @mein_oper, nil);
   end;
 
   procedure test;
