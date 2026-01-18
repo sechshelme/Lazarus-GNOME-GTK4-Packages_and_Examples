@@ -7,21 +7,21 @@ interface
 uses
   Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   OpenGLContext, gl,
-  ctypes, freetype, ftimage, fttypes,
+  fp_FreeType2,
   LazUTF8;
 
 const
-{$IFDEF Linux}
-libc = 'c';
-{$ENDIF}
+  {$IFDEF Linux}
+  libc = 'c';
+  {$ENDIF}
 
-{$IFDEF Windows}
-libc = 'msvcrt.dll';
-{$ENDIF}
+  {$IFDEF Windows}
+  libc = 'msvcrt.dll';
+  {$ENDIF}
 
 // https://cplusplus.com/reference/cstdlib/mbstowcs/
-function mbstowcs(dest:PDWord; src:PChar; max :SizeInt): SizeInt; cdecl; external libc;
-function mblen(pmb:PDWord; max :SizeInt): cint; cdecl; external libc;
+function mbstowcs(dest: PDWord; src: PChar; max: SizeInt): SizeInt; cdecl; external libc;
+function mblen(pmb: PDWord; max: SizeInt): Integer; cdecl; external libc;
 
 type
 
@@ -152,9 +152,9 @@ end;
 
 procedure TForm1.Face_To_Image(angle: single);
 const
-//    HelloText: PChar = 'Hello world !  öäü ÄÖÜ ÿï ŸÏ!';
+  //    HelloText: PChar = 'Hello world !  öäü ÄÖÜ ÿï ŸÏ!';
   HelloText: PChar = 'Computer sind dumm';
-//  HelloText:PChar='äöüÄÖÜ';
+  //  HelloText:PChar='äöüÄÖÜ';
 var
   error: TFT_Error;
   pen: TFT_Vector;
@@ -162,12 +162,12 @@ var
   slot: TFT_GlyphSlot;
 
   n: integer;
-//wc:array of WideChar=nil;
-wc:array of DWord=nil;
+  //wc:array of WideChar=nil;
+  wc: array of DWord = nil;
 begin
   SetLength(wc, Length(HelloText));
-  WriteLn(mbstowcs(PDWord(wc), HelloText, Length(wc)));
-  WriteLn('mblen: ', mblen(PDWord(wc), Length(wc)));
+//  WriteLn(mbstowcs(PDWord(wc), HelloText, Length(wc)));
+//  WriteLn('mblen: ', mblen(PDWord(wc), Length(wc)));
 
   slot := face^.glyph;
 
@@ -180,12 +180,12 @@ begin
   pen.y := 50000;
 
   for n := 0 to Length(wc) - 1 do begin
-//    FT_Set_Transform(face, @matrix, @pen);
     FT_Set_Transform(face, @matrix, @pen);
 
 
-//    error := FT_Load_Char(face, TFT_ULong(HelloText[n]), FT_LOAD_RENDER);
-      error := FT_Load_Char(face, wc[n], FT_LOAD_RENDER);
+        error := FT_Load_Char(face, TFT_ULong(HelloText[n]), FT_LOAD_RENDER);
+    //error := FT_Load_Char(face, wc[n], FT_LOAD_RENDER);
+    //error := FT_Load_Char(face, 65, FT_LOAD_RENDER);
     if error <> 0 then begin
       WriteLn('Fehler: Load_Char   ', error);
     end;

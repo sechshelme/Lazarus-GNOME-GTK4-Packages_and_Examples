@@ -2,9 +2,6 @@ unit fp_libudev;
 
 interface
 
-uses
-  ctypes;
-
 const
   {$IFDEF Linux}
   libudev = 'libudev';

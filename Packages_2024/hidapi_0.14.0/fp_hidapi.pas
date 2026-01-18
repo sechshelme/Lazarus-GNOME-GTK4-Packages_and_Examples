@@ -2,9 +2,6 @@ unit fp_hidapi;
 
 interface
 
-uses
-  ctypes;
-
 const
   {$IFDEF Linux}
   libhidapi_hidraw = 'libhidapi-hidraw';
@@ -70,7 +67,6 @@ const
 
 type
   Phid_device_info = ^Thid_device_info;
-
   Thid_device_info = record
     path: pchar;
     vendor_id: word;

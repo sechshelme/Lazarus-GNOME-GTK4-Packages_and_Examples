@@ -23,7 +23,7 @@ uses
       phase -= 0.1;
     end;
 
-//    ReadLn;
+    ReadLn;
 
     gnuplot_close(h);
   end;
@@ -31,5 +31,4 @@ uses
 
 begin
   main;
-
 end.
