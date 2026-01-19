@@ -272,14 +272,43 @@ const  // 22Khz / 8bit / mono
     $80, $80, $80, $80, $80, $80, $80, $80, $80, $80, $80, $80, $80, $80, $80, $80,
     $80, $80, $80, $00);
 
+type
+  TAudioBuffer = record
+    name: Pgchar;
+    Data: PUInt8;
+    len:SizeInt;
+  end;
+  PAudioBuffer = ^TAudioBuffer;
 
-  function push_buffer(appsrc: PGstAppSrc; user_data: Tgpointer): TGstFlowReturn; cdecl;
+const
+  BUFSIZE = 32;
+
+  function push_buffer(appsrc: PGstAppSrc; length_: Tguint; user_data: Tgpointer): TGstFlowReturn; cdecl;
   var
+    audioBuffer: PAudioBuffer absolute user_data;
     buffer: PGstBuffer;
+    len, bytes_read: SizeInt;
+  const
+    ofs: SizeInt = 0;
   begin
-    buffer := gst_buffer_new_wrapped_full(0, Pguint8(audio_data), Length(audio_data), 0, Length(audio_data), nil, nil);
-    Result := gst_app_src_push_buffer(appsrc, buffer);
-    gst_app_src_end_of_stream(appsrc);
+    WriteLn('length_: ',length_);
+
+    len := audioBuffer^.len;
+    if ofs < len - BUFSIZE then begin
+      bytes_read := BUFSIZE;
+    end else begin
+      bytes_read := len - ofs;
+    end;
+    WriteLn('len: ', len, '  ofs:', ofs, '  bytes_read: ', bytes_read);
+    if bytes_read <= 0 then  begin
+      //      gst_app_src_end_of_stream(appsrc);
+      //      WriteLn('end');
+    end else begin
+      buffer := gst_buffer_new_allocate(nil, bytes_read, nil);
+      gst_buffer_fill(buffer, 0, @audioBuffer^.Data[ofs], bytes_read);
+      gst_app_src_push_buffer(appsrc, buffer);
+    end;
+    Inc(ofs, BUFSIZE);
   end;
 
   procedure main;
@@ -290,7 +319,21 @@ const  // 22Khz / 8bit / mono
     msg: PGstMessage;
     err: PGError = nil;
     dbg: Pgchar;
+
+    audioBuffer: TAudioBuffer;
+    i: integer;
+
   begin
+    audioBuffer.name := 'Mein Buffer';
+    audioBuffer.len:=Length(audio_data);
+
+    audioBuffer.Data := g_malloc(audioBuffer.len);
+    for i := 0 to audioBuffer.len - 1 do begin
+      audioBuffer.Data[i] := audio_data[i];
+    end;
+
+
+
     gst_init(@argc, @argv);
 
     pipeline := gst_pipeline_new('player');
@@ -304,7 +347,7 @@ const  // 22Khz / 8bit / mono
       Exit;
     end;
 
-    g_signal_connect(appsrc, 'need-data', G_CALLBACK(@push_buffer), nil);
+    g_signal_connect(appsrc, 'need-data', G_CALLBACK(@push_buffer), @audioBuffer);
 
     gst_bin_add_many(GST_BIN(pipeline), appsrc, wavparse, convert, sink, nil);
     gst_element_link_many(appsrc, wavparse, convert, sink, nil);
@@ -329,6 +372,8 @@ const  // 22Khz / 8bit / mono
     gst_object_unref(bus);
     gst_object_unref(pipeline);
     g_main_loop_unref(loop);
+
+    g_free(audioBuffer.Data);
   end;
 
 begin
