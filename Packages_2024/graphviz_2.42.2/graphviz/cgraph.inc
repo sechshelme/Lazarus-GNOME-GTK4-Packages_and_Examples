@@ -1,4 +1,4 @@
-{$IFDEF read_interface}
+  {$IFDEF read_interface}
 
 
 type
@@ -8,7 +8,7 @@ type
   PAgtag_t = type Pointer;
   PAgobj_t = type Pointer;
   PAgraph_t = type Pointer;
-  PPAgraph_t=^PAgraph_t;
+  PPAgraph_t = ^PAgraph_t;
   PAgnode_t = type Pointer;
   PAgedge_t = type Pointer;
   TAgdesc_t = byte;
@@ -165,10 +165,10 @@ type
   // === Konventiert am: 3-12-25 15:08:30 ===
 
 
-{$ENDIF read_interface}
+  {$ENDIF read_interface}
 
 
-{$IFDEF read_implementation}
+  {$IFDEF read_implementation}
 
 
-{$ENDIF read_implementation}
+  {$ENDIF read_implementation}
