@@ -1,17 +1,14 @@
-unit fp_chafa;
+unit fp_heif;
 
 interface
 
-uses
-  fp_glib2;
-
 const
   {$IFDEF Linux}
-  libchafa = 'chafa';
+  libheif = 'heif';
   {$ENDIF}
 
   {$IFDEF Windows}
-  libchafa = 'libchafa-0.dll';
+  libheif = 'heif.dll';  // ?????
   {$ENDIF}
 
 
@@ -20,13 +17,13 @@ const
   {$ENDIF}
 
   {$DEFINE read_interface}
-  {$include fp_chafa_includes.inc}
+//  {$include fp_chafa_includes.inc}
   {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-{$include fp_chafa_includes.inc}
+//{$include fp_chafa_includes.inc}
 {$UNDEF read_implementation}
 
 end.

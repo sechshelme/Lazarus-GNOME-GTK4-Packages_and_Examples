@@ -230,7 +230,7 @@ git clone https://git.zap.org.au/git/console-fonts-utils.git
 
 https://discourse.gnome.org/t/gtk-box-new-returning-pointer-to-an-already-existing-gtkbox-in-gtk4/26423
 
-# Linux Libary
+# ==== Linux Libary
 
 https://www.linuxfromscratch.org/blfs/view/git/general/graphlib.html
 
@@ -441,7 +441,7 @@ libasound2                 // io.
 libsoundio                 // io.
 libsane                    // io.
 
-libmagickcore-dev
+libmagickcore-dev          // io.
 libogg0
 
  libatk1.0-dev       // Barrierenfreiheit
@@ -453,6 +453,7 @@ libyaml-dev              // io.
 libappstream-dev
 
   liba52-0.7.4-dev      
+librdkafka-dev
 
 
 liblua5.1-0-dev 
@@ -496,30 +497,18 @@ libopenimageio2.5
 libnotify4 
 
 libheif-dev 
+libgcrypt20-dev 
 
+libzita-resampler1
+libzmq5
 
+libmad0-dev
 
+libgraphviz-dev
+libpathplan4
+libgvpr2
+libxdot4
 
-
-libhyperscan-dev  // neu libvectorscan-dev
-
-# Zeigt neuste Pakete an
-aptitude
-
-
-
-
-   
-
-/home/tux/Schreibtisch/von_Git/gcc/gcc/libgomp/libgomp_g.h
-
-
-
-# winboat
-
-sudo apt install freerdp3-x11
-sudo apt install docker-compose-v2
-http://127.0.0.1:47270/
 
 
 
@@ -546,6 +535,33 @@ https://gitlab.gnome.org/GNOME/glycin/
 libdialog               # https://invisible-island.net/archives/dialog/
 ../dialog-1.3-20260107/configure --with-shared
 
+--------------
+
+libhyperscan-dev  // neu libvectorscan-dev
+
+
+
+
+
+
+# ==== Linux Libary nicht bei Ubuntu dabei
+
+https://github.com/raysan5/raylib
+
+/home/tux/Schreibtisch/von_Git/gcc/gcc/libgomp/libgomp_g.h
+
+
+# =========================
+
+# Zeigt neuste Pakete an
+aptitude
+
+
+# winboat
+
+sudo apt install freerdp3-x11
+sudo apt install docker-compose-v2
+http://127.0.0.1:47270/
 
 # =========================
 
@@ -568,21 +584,6 @@ https://github.com/longradix/gnuplot_i
 
 
 /usr/include/nspr
-
-
-# ==== ffmpeg
-
-libavutil/ (Utils, Mathe, Logging) – immer.
-libavcodec/ (Codecs) – immer.
-libavformat/ (IO, Demux/Mux) – immer.
-
-libswscale/ (Skalierung, Pixel-Format).
-libswresample/ (Audio-Resampling).
-libavfilter/ (Filter, z. B. scale, overlay).
-libavdevice/ (Geräte-Input/Output).
-libavresample/ (älteres Resampling, deprecated).
-libpostproc/ (Post-Processing, optional).
-
 
 
 
@@ -669,6 +670,15 @@ find . -type f -exec chmod 664 {} +
 find . -type d -exec chmod 775 {} +; find . -type f -exec chmod 664 {} +
 
 
+# Wine Start
+
+Fehlerhaft: 
+
+/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/expat_2.6.1/Examples/10_-_Hello 
+
+Gut:
+
+/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Packages_2024/lapack_3.12.0
 
 
 

@@ -19,7 +19,6 @@ const
   libcdt = 'libcdt-6.dll';
   libpathplan = 'libpathplan-4.dll';
   libxdot = 'libxdot-4.dll';
-  // ????
   {$ENDIF}
 
   {$IFDEF FPC}

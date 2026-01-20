@@ -25,15 +25,16 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_chafa_package"/>
-      </Item>
-      <Item>
-        <PackageName Value="fp_GLIB2_package"/>
+        <PackageName Value="LCL"/>
       </Item>
     </RequiredPackages>
     <Units>
       <Unit>
         <Filename Value="project1.lpr"/>
+        <IsPartOfProject Value="True"/>
+      </Unit>
+      <Unit>
+        <Filename Value="fp_heif.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
     </Units>
@@ -45,6 +46,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="../../Package_Tools/include-C/libheif"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Linking>

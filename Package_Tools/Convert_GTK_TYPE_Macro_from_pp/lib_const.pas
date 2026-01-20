@@ -285,6 +285,7 @@ const
     (libs: 'libnotify'; units: 'ctypes'),
     (libs: 'libcaca'; units: 'ctypes'),
     (libs: 'libzmq'; units: 'ctypes'),
+    (libs: 'libheif'; units: 'fp_heif'),
 
 
 
