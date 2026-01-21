@@ -16,7 +16,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure FormPaint(Sender: TObject);
   private
-
+ procedure   drawPoly  (pts:PPpoint_t;len:SizeInt);
   public
 
   end;
@@ -32,43 +32,78 @@ implementation
 
 function r(f: double): integer;
 begin
-  Result := Trunc(f * 10) + 100;
+  Result := Trunc(f * 30) + 10;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-  Color := clBlack;
+  Color := $110033;
+end;
+
+procedure TForm1.drawPoly(pts: PPpoint_t; len: SizeInt);
+var
+  i: Integer;
+begin
+    Canvas.MoveTo(r(pts[0].x), r(pts[0].y));
+    for i := 1 to len - 1 do begin
+      Canvas.LineTo(r(pts[i].x), r(pts[i].y));
+    end;
+    Canvas.LineTo(r(pts[0].x), r(pts[0].y));
 end;
 
 procedure TForm1.FormPaint(Sender: TObject);
 const
-  pts: array[0..7] of TPpoint_t = (
-    (x: 0.0; y: 0.0),
-    (x: 20.0; y: 0.0),
-    (x: 20.0; y: 20.0),
-    (x: 15.0; y: 20.0),
-    (x: 15.0; y: 5.0),
-    (x: 5.0; y: 5.0),
-    (x: 5.0; y: 20.0),
-    (x: 0.0; y: 20.0));
+  pts: array[0..23] of TPpoint_t = (
+  (x: 0.0; y: 0.0),
+  (x: 1.0; y: 0.0),
+  (x: 1.0; y: 4.0),
+  (x: 2.0; y: 4.0),
+  (x: 2.0; y: 0.0),
+  (x: 5.0; y: 0.0),
+  (x: 5.0; y: 5.0),
+  (x: 6.0; y: 5.0),
+  (x: 6.0; y: 0.0),
+  (x: 9.0; y: 0.0),
+  (x: 9.0; y: 6.0),
+  (x: 10.0; y: 6.0),
+  (x: 10.0; y: 0.0),
+  (x: 13.0; y: 0.0),
+  (x: 13.0; y: 7.0),
+  (x: 8.0; y: 7.0),
+  (x: 8.0; y: 1.0),
+  (x: 7.0; y: 1.0),
+  (x: 7.0; y: 6.0),
+  (x: 4.0; y: 6.0),
+  (x: 4.0; y: 1.0),
+  (x: 3.0; y: 1.0),
+  (x: 3.0; y: 5.0),
+  (x: 0.0; y: 5.0));
 
-  area: TPpoly_t = (ps: @pts; pn: length(pts));
+  island_pts: array[0..3] of TPpoint_t = (
+  (x: 11.0; y: 3.0),
+  (x: 12.0; y: 3.0),
+  (x: 12.0; y: 4.0),
+  (x: 11.0; y: 4.0));
+
+
+
+
+  area: TPpoly_t = (ps: @ pts; pn: length(pts));
 
   ep: array[0..1] of TPpoint_t = (
-    (x: 18.0; y: 18.0),
-    (x: 2.0; y: 18.0));
+    (x: 0.5; y: 0.5),
+    (x: 12.5; y: 0.5));
 
 var
   i: integer;
   o: TPpolyline_t;
 
 begin
+  // outhers
   Canvas.Pen.Color := clGreen;
-  Canvas.MoveTo(r(pts[0].x), r(pts[0].y));
-  for i := 1 to Length(pts) - 1 do begin
-    Canvas.LineTo(r(pts[i].x), r(pts[i].y));
-  end;
-  Canvas.LineTo(r(pts[0].x), r(pts[0].y));
+
+  drawPoly(@pts, Length(pts));
+  drawPoly(@island_pts, Length(island_pts));
 
   if Pshortestpath(@area, @ep, @o) = 0 then begin
     WriteLn('Pfad Count: ', o.pn);
