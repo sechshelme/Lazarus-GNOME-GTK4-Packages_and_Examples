@@ -1,11 +1,6 @@
 program project1;
 
 uses
-  heif_plugin,
-  heif,
-  heif_properties,
-  heif_regions,
-  heif_version,
   fp_heif;
 
   procedure main;
@@ -16,6 +11,11 @@ uses
     width, height, bpp, stride: longint;
     img: Pheif_image;
     data: Puint8_t;
+    y, x: integer;
+    line_start: Puint8_t;
+    br: Tuint8_t;
+  const
+    SIZE = 10;
   begin
     ctx := heif_context_alloc;
     err := heif_context_read_from_file(ctx, '/home/tux/Bilder/blume.avif', nil);
@@ -23,6 +23,7 @@ uses
     if err.code <> heif_error_Ok then begin
       WriteLn('Fehler beim Lesen: ', err.message, '/', err.code);
       heif_context_free(ctx);
+      Exit;
     end;
 
     heif_context_get_primary_image_handle(ctx, @handle);
@@ -37,9 +38,23 @@ uses
     heif_decode_image(handle, @img, heif_colorspace_RGB,
       heif_chroma_interleaved_RGB, nil);
 
-    data := heif_image_get_plane_readonly(img,
-      heif_channel_interleaved, @stride);
+    data := heif_image_get_plane_readonly(img, heif_channel_interleaved, @stride);
     WriteLn('Datenstride: ', stride, 'Byte');
+
+    for y := 0 to height - 1 do begin
+      line_start := data + (y * stride);
+
+      for x := 0 to (width - 1) do begin
+        if (x mod (SIZE div 2) = 0) and (y mod SIZE = 0) then begin
+          br := line_start[x * 3];
+          Write(char(br div 8 + 32));
+        end;
+      end;
+
+      if y mod SIZE = 0 then begin
+        WriteLn;
+      end;
+    end;
 
     heif_image_release(img);
     heif_image_handle_release(handle);

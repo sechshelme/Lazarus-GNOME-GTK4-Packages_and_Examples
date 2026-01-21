@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libheif = 'heif.dll';  // ?????
+  libheif = 'libheif.dll';
   {$ENDIF}
 
 type
@@ -45,13 +45,21 @@ type
   {$ENDIF}
 
   {$DEFINE read_interface}
-  //  {$include fp_chafa_includes.inc}
+  {$include heif/heif}
+  {$include heif/heif_plugin}
+  {$include heif/heif_properties}
+  {$include heif/heif_regions}
+  {$include heif/heif_version}
   {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-//{$include fp_chafa_includes.inc}
+{$include heif/heif}
+{$include heif/heif_plugin}
+{$include heif/heif_properties}
+{$include heif/heif_regions}
+{$include heif/heif_version}
 {$UNDEF read_implementation}
 
 end.

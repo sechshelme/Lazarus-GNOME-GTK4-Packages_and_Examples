@@ -470,44 +470,41 @@ libavif
 gdk-pixbuf-csource 
 /usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders
 
-libmagickwand-dev                // io.    ../ImageMagick/configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-hdri --enable-shared --with-quantum-depth=16 --disable-opencl
-make distclean
-../ImageMagick/configure --host=x86_64-w64-mingw32 --prefix=/mingw64 --disable-hdri --enable-shared=yes --enable-static=yes --with-quantum-depth=16 --with-magickwand=yes --without-magick-plus-plus --without-utilities --enable-static=no 
+libmagickwand-dev                // io.    
 
 
 libmagic-dev                     // io.
 libtre-dev                       // io.
 
 libgraphblas                     // io.
-libheif-dev     
+libheif-dev                      // io.
 
  libpolkit-gobject-1-0
 
 
 libfribidi-dev                    // io.
 libraqm-dev                       // io.
-libstb-dev                        // inline müll
- 
+libstb-dev                        // inline müll 
 libcaca-dev                       // io.
-libaa1-dev 
+libaa1-dev                        // io.
 
 libsodium
 
 libopenimageio2.5
-libnotify4 
+libnotify4                        // io.
 
 libheif-dev 
 libgcrypt20-dev 
 
 libzita-resampler1
-libzmq5
+libzmq5                           // io.
 
 libmad0-dev
 
 libgraphviz-dev
-libpathplan4
-libgvpr2
-libxdot4
+libpathplan4                      // io.   gehört zu libgraphviz-dev
+libxdot4                          // io.   gehört zu libgraphviz-dev
+libgvpr2                          // io.   gehört zu libgraphviz-dev
 
 
 
