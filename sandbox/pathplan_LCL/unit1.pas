@@ -9,11 +9,18 @@ uses
   fp_graphviz;
 
 type
+
+  { TForm1 }
+
   TForm1 = class(TForm)
     procedure FormCreate(Sender: TObject);
     procedure FormPaint(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
-    procedure drawPoly(pts: PPpoint_t; len: SizeInt);
+    scale: integer;
+    procedure drawPoly(path: TPpolyline_t; closeP: boolean);
+    procedure drawSmoothPath(path: TPpolyline_t);
+    function r(f: double): integer;
   public
 
   end;
@@ -25,9 +32,9 @@ implementation
 
 {$R *.lfm}
 
-function r(f: double): integer;
+function TForm1.r(f: double): integer;
 begin
-  Result := Trunc(f * 30) + 10;
+  Result := Trunc(f * scale) + scale div 3;
 end;
 
 procedure TForm1.FormCreate(Sender: TObject);
@@ -35,15 +42,31 @@ begin
   Color := $110033;
 end;
 
-procedure TForm1.drawPoly(pts: PPpoint_t; len: SizeInt);
+procedure TForm1.drawPoly(path: TPpolyline_t; closeP: boolean);
 var
   i: integer;
 begin
-  Canvas.MoveTo(r(pts[0].x), r(pts[0].y));
-  for i := 1 to len - 1 do begin
-    Canvas.LineTo(r(pts[i].x), r(pts[i].y));
+  Canvas.MoveTo(r(path.ps[0].x), r(path.ps[0].y));
+  for i := 1 to path.pn - 1 do begin
+    Canvas.LineTo(r(path.ps[i].x), r(path.ps[i].y));
   end;
-  Canvas.LineTo(r(pts[0].x), r(pts[0].y));
+  if closeP then begin
+    Canvas.LineTo(r(path.ps[0].x), r(path.ps[0].y));
+  end;
+end;
+
+procedure TForm1.drawSmoothPath(path: TPpolyline_t);
+var
+  i: integer;
+  bezierPoints: array of Classes.TPoint=nil;
+begin
+  SetLength(bezierPoints, path.pn);
+  for i := 0 to path.pn - 1 do begin
+    bezierPoints[i].x := r(path.ps[i].x);
+    bezierPoints[i].y := r(path.ps[i].y);
+  end;
+
+  Canvas.PolyBezier(bezierPoints);
 end;
 
 procedure TForm1.FormPaint(Sender: TObject);
@@ -51,28 +74,28 @@ const
   pts: array[0..23] of TPpoint_t = (
     (x: 0.0; y: 0.0),
     (x: 1.0; y: 0.0),
-    (x: 1.0; y: 4.0),
-    (x: 2.0; y: 4.0),
+    (x: 1.0; y: 5.0),
+    (x: 2.0; y: 5.0),
     (x: 2.0; y: 0.0),
     (x: 5.0; y: 0.0),
-    (x: 5.0; y: 5.0),
-    (x: 6.0; y: 5.0),
+    (x: 5.0; y: 6.0),
+    (x: 6.0; y: 6.0),
     (x: 6.0; y: 0.0),
     (x: 9.0; y: 0.0),
-    (x: 9.0; y: 6.0),
-    (x: 10.0; y: 6.0),
+    (x: 9.0; y: 7.0),
+    (x: 10.0; y: 7.0),
     (x: 10.0; y: 0.0),
     (x: 13.0; y: 0.0),
-    (x: 13.0; y: 7.0),
-    (x: 8.0; y: 7.0),
+    (x: 13.0; y: 8.0),
+    (x: 8.0; y: 8.0),
     (x: 8.0; y: 1.0),
     (x: 7.0; y: 1.0),
-    (x: 7.0; y: 6.0),
-    (x: 4.0; y: 6.0),
+    (x: 7.0; y: 7.0),
+    (x: 4.0; y: 7.0),
     (x: 4.0; y: 1.0),
     (x: 3.0; y: 1.0),
-    (x: 3.0; y: 5.0),
-    (x: 0.0; y: 5.0));
+    (x: 3.0; y: 6.0),
+    (x: 0.0; y: 6.0));
 
   area: TPpoly_t = (ps: @pts; pn: length(pts));
 
@@ -81,25 +104,41 @@ const
     (x: 12.5; y: 0.5));
 
 var
-  i: integer;
-  o: TPpolyline_t;
+  o, smooth_path: TPpolyline_t;
+
+  barriers: PPedge_t = nil;
+  n_barriers: longint = 0;
+  poly_ptr: PPpoly_t;
+  slopes: array[0..1] of TPvector_t;
 
 begin
   Canvas.Pen.Color := clGreen;
-  drawPoly(@pts, Length(pts));
+  drawPoly(area, True);
 
   if Pshortestpath(@area, @ep, @o) = 0 then begin
     WriteLn('Pfad Count: ', o.pn);
-    Canvas.Pen.Color := clYellow;
 
-    Canvas.MoveTo(r(o.ps[0].x), r(o.ps[0].y));
-    for i := 1 to o.pn - 1 do begin
-      Canvas.LineTo(r(o.ps[i].x), r(o.ps[i].y));
+    Canvas.Pen.Color := clSkyBlue;
+    drawPoly(o, False);
+
+    poly_ptr := @area;
+    Ppolybarriers(@poly_ptr, 1, @barriers, @n_barriers);
+    WriteLn('n_barriers: ', n_barriers);
+
+    if Proutespline(barriers, n_barriers, o, @slopes, @smooth_path) = 0 then begin
+      WriteLn('Smoth Pfad Count: ', smooth_path.pn);
+      Canvas.Pen.Color := clYellow;
+      drawSmoothPath(smooth_path);
     end;
+
   end else begin
     WriteLn('Fehler: Punkt ausserhalb oder Polygon ungültig.');
   end;
+end;
 
+procedure TForm1.FormResize(Sender: TObject);
+begin
+  scale := ClientWidth div 15;
 end;
 
 end.
