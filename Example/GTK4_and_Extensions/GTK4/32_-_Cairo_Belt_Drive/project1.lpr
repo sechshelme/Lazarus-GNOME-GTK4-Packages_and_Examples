@@ -13,6 +13,7 @@ type
     x1, y1, x2, y2: double;
   end;
   PAniData = ^TAniData;
+
 const
   anyDataKey = 'anyKey';
 
@@ -79,10 +80,10 @@ const
     current_time: double;
   begin
     anyData := g_object_get_data(G_OBJECT(widget), anyDataKey);
-    current_time := gdk_frame_clock_get_frame_time(frame_clock) / 500000;
+    current_time := gdk_frame_clock_get_frame_time(frame_clock) / 500000.0;
 
-    anyData^.y1 := sin(current_time) * 50;
-    anyData^.y2 := sin(current_time * 1.13) * 80;
+    anyData^.y1 := sin(current_time) * 50.0;
+    anyData^.y2 := sin(current_time * 1.13) * 80.0;
 
     gtk_widget_queue_draw(widget);
 
@@ -115,6 +116,7 @@ const
     gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(drawing_area), @draw_func, nil, nil);
     gtk_widget_add_tick_callback(drawing_area, @on_tick, nil, nil);
     gtk_box_append(GTK_BOX(box), drawing_area);
+
     anyData := g_malloc(SizeOf(TAniData));
     anyData^.x1 := 0.0;
     anyData^.y1 := 0.0;
