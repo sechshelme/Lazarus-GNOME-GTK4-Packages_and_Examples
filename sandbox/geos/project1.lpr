@@ -13,44 +13,40 @@ program project1;
 
 
 procedure main;
+var
+  reader: PGEOSWKTReader;
+  poly1, poly2, intersection: PGEOSGeometry;
+  writer: PGEOSWKTWriter;
+  wkt_result: PChar;
 begin
 
-  initGEOS(notice_handler, notice_handler);
+//  initGEOS(@notice_handler, @notice_handler);
+  initGEOS(nil,nil);
 
-  // WKT (Well-Known Text) Reader erstellen
-  GEOSWKTReader* reader = GEOSWKTReader_create();
+  reader := GEOSWKTReader_create;
 
-  // 2. Zwei Geometrien definieren
-  // Ein großes Rechteck
-  GEOSGeometry* poly1 = GEOSWKTReader_read(reader, "POLYGON((0 0, 10 0, 10 10, 0 10, 0 0))");
-  // Ein kleineres, verschobenes Quadrat
-  GEOSGeometry* poly2 = GEOSWKTReader_read(reader, "POLYGON((5 5, 15 5, 15 15, 5 15, 5 5))");
+  poly1 := GEOSWKTReader_read(reader, 'POLYGON((0 0, 10 0, 10 10, 0 10, 0 0))');
+poly2 := GEOSWKTReader_read(reader, 'POLYGON((5 5, 15 5, 15 15, 5 15, 5 5))');
 
-  // 3. Prüfung: Schneiden sich die Geometrien?
-  if (GEOSIntersects(poly1, poly2)) {
-      printf("Die Geometrien schneiden sich!\n");
+  if GEOSIntersects(poly1, poly2)<>#0 then begin
+      WriteLn('Die Geometrien schneiden sich!');
 
-      // 4. Schnittmenge (Intersection) berechnen
-      GEOSGeometry* intersection = GEOSIntersection(poly1, poly2);
+   intersection := GEOSIntersection(poly1, poly2);
 
-      // Ergebnis als WKT ausgeben
-      GEOSWKTWriter* writer = GEOSWKTWriter_create();
-      char* wkt_result = GEOSWKTWriter_write(writer, intersection);
+  writer := GEOSWKTWriter_create();
+      wkt_result := GEOSWKTWriter_write(writer, intersection);
 
-      printf("Schnittmenge: %s\n", wkt_result);
+      WriteLn('Schnittmenge: ', wkt_result);
 
-      // Speicher aufräumen
       GEOSFree(wkt_result);
       GEOSWKTWriter_destroy(writer);
       GEOSGeom_destroy(intersection);
-  }
+  end;
 
-  // 5. Aufräumen
   GEOSGeom_destroy(poly1);
   GEOSGeom_destroy(poly2);
   GEOSWKTReader_destroy(reader);
-  finishGEOS();
-
+  finishGEOS;
 end;
 
 begin
