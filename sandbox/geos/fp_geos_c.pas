@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libgeos_c = 'libgeos_c.dll'; // ?????
+  libgeos_c = 'libgeos_c.dll';
   {$ENDIF}
 
 type
@@ -38,7 +38,8 @@ type
   PGEOSContextHandle_t = ^TGEOSContextHandle_t;
   TGEOSContextHandle_t = Pointer;
 
-  TGEOSMessageHandler = procedure(fmt: pchar); varargs; cdecl;
+  //  TGEOSMessageHandler = procedure(fmt: pchar); varargs; cdecl;
+  TGEOSMessageHandler = procedure(fmt: pchar; args: PChar); cdecl;
   TGEOSMessageHandler_r = procedure(message: pchar; userdata: pointer); cdecl;
 
 type
