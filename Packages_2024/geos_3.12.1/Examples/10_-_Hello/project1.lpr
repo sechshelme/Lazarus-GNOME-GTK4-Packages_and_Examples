@@ -15,7 +15,7 @@ uses
   procedure main;
   var
     reader: PGEOSWKTReader;
-    poly1, poly2, intersection: PGEOSGeometry;
+    poly1, poly2, intersection, union: PGEOSGeometry;
     writer: PGEOSWKTWriter;
     wkt_result: pchar;
   begin
@@ -33,7 +33,6 @@ uses
 
       writer := GEOSWKTWriter_create();
       wkt_result := GEOSWKTWriter_write(writer, intersection);
-
       WriteLn('Schnittmenge: ', wkt_result);
 
       GEOSFree(wkt_result);
@@ -41,6 +40,21 @@ uses
       GEOSGeom_destroy(intersection);
     end;
 
+    WriteLn();
+
+    if GEOSIntersects(poly1, poly2) <> #0 then begin
+      WriteLn('Die Geometrien überlappen sich!');
+
+      union := GEOSUnion(poly1, poly2);
+
+      writer := GEOSWKTWriter_create();
+      wkt_result := GEOSWKTWriter_write(writer, union);
+      WriteLn('Union: ', wkt_result);
+
+      GEOSFree(wkt_result);
+      GEOSWKTWriter_destroy(writer);
+      GEOSGeom_destroy(union);
+    end;
 
     GEOSGeom_destroy(poly1);
     GEOSGeom_destroy(poly2);

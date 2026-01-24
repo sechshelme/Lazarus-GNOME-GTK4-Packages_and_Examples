@@ -40,6 +40,16 @@
 #ifndef GEOS_C_H_INCLUDED
 #define GEOS_C_H_INCLUDED
 
+#ifndef __cplusplus
+# include <stddef.h> /* for size_t definition */
+#else
+# include <cstddef>
+using std::size_t;
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* ====================================================================== */
 /* Version */
@@ -302,20 +312,20 @@ typedef void (GEOSInterruptCallback)(void);
 * \see GEOSInterruptCallback
 * \since 3.4
 */
-extern GEOSInterruptCallback  *GEOS_interruptRegisterCallback(
+extern GEOSInterruptCallback GEOS_DLL *GEOS_interruptRegisterCallback(
     GEOSInterruptCallback* cb);
 
 /**
 * Request safe interruption of operations
 * \since 3.4
 */
-extern void  GEOS_interruptRequest(void);
+extern void GEOS_DLL GEOS_interruptRequest(void);
 
 /**
 * Cancel a pending interruption request
 * \since 3.4
 */
-extern void  GEOS_interruptCancel(void);
+extern void GEOS_DLL GEOS_interruptCancel(void);
 
 /* ========== Initialization and Cleanup ========== */
 
@@ -327,7 +337,7 @@ extern void  GEOS_interruptCancel(void);
 *
 * \since 3.5
 */
-extern GEOSContextHandle_t  GEOS_init_r(void);
+extern GEOSContextHandle_t GEOS_DLL GEOS_init_r(void);
 
 /**
 * Free the memory associated with a \ref GEOSContextHandle_t
@@ -336,7 +346,7 @@ extern GEOSContextHandle_t  GEOS_init_r(void);
 *
 * \since 3.5
 */
-extern void  GEOS_finish_r(GEOSContextHandle_t handle);
+extern void GEOS_DLL GEOS_finish_r(GEOSContextHandle_t handle);
 
 /**
 * Set the notice handler callback function for run-time notice messages.
@@ -346,7 +356,7 @@ extern void  GEOS_finish_r(GEOSContextHandle_t handle);
 *
 * \since 3.3
 */
-extern GEOSMessageHandler  GEOSContext_setNoticeHandler_r(
+extern GEOSMessageHandler GEOS_DLL GEOSContext_setNoticeHandler_r(
     GEOSContextHandle_t extHandle,
     GEOSMessageHandler nf);
 
@@ -360,7 +370,7 @@ extern GEOSMessageHandler  GEOSContext_setNoticeHandler_r(
 *
 * \since 3.3
 */
-extern GEOSMessageHandler  GEOSContext_setErrorHandler_r(
+extern GEOSMessageHandler GEOS_DLL GEOSContext_setErrorHandler_r(
     GEOSContextHandle_t extHandle,
     GEOSMessageHandler ef);
 
@@ -373,7 +383,7 @@ extern GEOSMessageHandler  GEOSContext_setErrorHandler_r(
 *
 * \since 3.5
 */
-extern GEOSMessageHandler_r  GEOSContext_setNoticeMessageHandler_r(
+extern GEOSMessageHandler_r GEOS_DLL GEOSContext_setNoticeMessageHandler_r(
     GEOSContextHandle_t extHandle,
     GEOSMessageHandler_r nf,
     void *userData);
@@ -389,7 +399,7 @@ extern GEOSMessageHandler_r  GEOSContext_setNoticeMessageHandler_r(
 *
 * \since 3.5
 */
-extern GEOSMessageHandler_r  GEOSContext_setErrorMessageHandler_r(
+extern GEOSMessageHandler_r GEOS_DLL GEOSContext_setErrorMessageHandler_r(
     GEOSContextHandle_t extHandle,
     GEOSMessageHandler_r ef,
     void *userData);
@@ -397,13 +407,13 @@ extern GEOSMessageHandler_r  GEOSContext_setErrorMessageHandler_r(
 /* ========== Coordinate Sequence functions ========== */
 
 /** \see GEOSCoordSeq_create */
-extern GEOSCoordSequence  *GEOSCoordSeq_create_r(
+extern GEOSCoordSequence GEOS_DLL *GEOSCoordSeq_create_r(
     GEOSContextHandle_t handle,
     unsigned int size,
     unsigned int dims);
 
 /** \see GEOSCoordSeq_copyFromBuffer */
-extern GEOSCoordSequence  *GEOSCoordSeq_copyFromBuffer_r(
+extern GEOSCoordSequence GEOS_DLL *GEOSCoordSeq_copyFromBuffer_r(
         GEOSContextHandle_t handle,
         const double* buf,
         unsigned int size,
@@ -411,7 +421,7 @@ extern GEOSCoordSequence  *GEOSCoordSeq_copyFromBuffer_r(
         int hasM);
 
 /** \see GEOSCoordSeq_copyFromArrays */
-extern GEOSCoordSequence  *GEOSCoordSeq_copyFromArrays_r(
+extern GEOSCoordSequence GEOS_DLL *GEOSCoordSeq_copyFromArrays_r(
         GEOSContextHandle_t handle,
         const double* x,
         const double* y,
@@ -420,7 +430,7 @@ extern GEOSCoordSequence  *GEOSCoordSeq_copyFromArrays_r(
         unsigned int size);
 
 /** \see GEOSCoordSeq_copyToBuffer */
-extern int  GEOSCoordSeq_copyToBuffer_r(
+extern int GEOS_DLL GEOSCoordSeq_copyToBuffer_r(
         GEOSContextHandle_t handle,
         const GEOSCoordSequence* s,
         double* buf,
@@ -428,7 +438,7 @@ extern int  GEOSCoordSeq_copyToBuffer_r(
         int hasM);
 
 /** \see GEOSCoordSeq_copyToArrays */
-extern int  GEOSCoordSeq_copyToArrays_r(
+extern int GEOS_DLL GEOSCoordSeq_copyToArrays_r(
         GEOSContextHandle_t handle,
         const GEOSCoordSequence* s,
         double* x,
@@ -437,105 +447,105 @@ extern int  GEOSCoordSeq_copyToArrays_r(
         double* m);
 
 /** \see GEOSCoordSeq_clone */
-extern GEOSCoordSequence  *GEOSCoordSeq_clone_r(
+extern GEOSCoordSequence GEOS_DLL *GEOSCoordSeq_clone_r(
     GEOSContextHandle_t handle,
     const GEOSCoordSequence* s);
 
 /** \see GEOSCoordSeq_destroy */
-extern void  GEOSCoordSeq_destroy_r(
+extern void GEOS_DLL GEOSCoordSeq_destroy_r(
     GEOSContextHandle_t handle,
     GEOSCoordSequence* s);
 
 /** \see GEOSCoordSeq_setX */
-extern int  GEOSCoordSeq_setX_r(
+extern int GEOS_DLL GEOSCoordSeq_setX_r(
     GEOSContextHandle_t handle,
     GEOSCoordSequence* s, unsigned int idx,
     double val);
 
 /** \see GEOSCoordSeq_setY */
-extern int  GEOSCoordSeq_setY_r(
+extern int GEOS_DLL GEOSCoordSeq_setY_r(
     GEOSContextHandle_t handle,
     GEOSCoordSequence* s, unsigned int idx,
     double val);
 
 /** \see GEOSCoordSeq_setZ */
-extern int  GEOSCoordSeq_setZ_r(
+extern int GEOS_DLL GEOSCoordSeq_setZ_r(
     GEOSContextHandle_t handle,
     GEOSCoordSequence* s, unsigned int idx,
     double val);
 
 /** \see GEOSCoordSeq_setXY */
-extern int  GEOSCoordSeq_setXY_r(
+extern int GEOS_DLL GEOSCoordSeq_setXY_r(
     GEOSContextHandle_t handle,
     GEOSCoordSequence* s, unsigned int idx,
     double x, double y);
 
 /** \see GEOSCoordSeq_setXYZ */
-extern int  GEOSCoordSeq_setXYZ_r(
+extern int GEOS_DLL GEOSCoordSeq_setXYZ_r(
     GEOSContextHandle_t handle,
     GEOSCoordSequence* s, unsigned int idx,
     double x, double y, double z);
 
 /** \see GEOSCoordSeq_setOrdinate */
-extern int  GEOSCoordSeq_setOrdinate_r(
+extern int GEOS_DLL GEOSCoordSeq_setOrdinate_r(
     GEOSContextHandle_t handle,
     GEOSCoordSequence* s,
     unsigned int idx,
     unsigned int dim, double val);
 
 /** \see GEOSCoordSeq_getX */
-extern int  GEOSCoordSeq_getX_r(
+extern int GEOS_DLL GEOSCoordSeq_getX_r(
     GEOSContextHandle_t handle,
     const GEOSCoordSequence* s,
     unsigned int idx, double *val);
 
 /** \see GEOSCoordSeq_getY */
-extern int  GEOSCoordSeq_getY_r(
+extern int GEOS_DLL GEOSCoordSeq_getY_r(
     GEOSContextHandle_t handle,
     const GEOSCoordSequence* s,
     unsigned int idx, double *val);
 
 /** \see GEOSCoordSeq_getZ */
-extern int  GEOSCoordSeq_getZ_r(
+extern int GEOS_DLL GEOSCoordSeq_getZ_r(
     GEOSContextHandle_t handle,
     const GEOSCoordSequence* s,
     unsigned int idx, double *val);
 
 /** \see GEOSCoordSeq_getXY */
-extern int  GEOSCoordSeq_getXY_r(
+extern int GEOS_DLL GEOSCoordSeq_getXY_r(
     GEOSContextHandle_t handle,
     const GEOSCoordSequence* s,
     unsigned int idx,
     double *x, double *y);
 
 /** \see GEOSCoordSeq_getXYZ */
-extern int  GEOSCoordSeq_getXYZ_r(
+extern int GEOS_DLL GEOSCoordSeq_getXYZ_r(
     GEOSContextHandle_t handle,
     const GEOSCoordSequence* s,
     unsigned int idx,
     double *x, double *y, double *z);
 
 /** \see GEOSCoordSeq_getOrdinate */
-extern int  GEOSCoordSeq_getOrdinate_r(
+extern int GEOS_DLL GEOSCoordSeq_getOrdinate_r(
     GEOSContextHandle_t handle,
     const GEOSCoordSequence* s,
     unsigned int idx,
     unsigned int dim, double *val);
 
 /** \see GEOSCoordSeq_getSize */
-extern int  GEOSCoordSeq_getSize_r(
+extern int GEOS_DLL GEOSCoordSeq_getSize_r(
     GEOSContextHandle_t handle,
     const GEOSCoordSequence* s,
     unsigned int *size);
 
 /** \see GEOSCoordSeq_getDimensions */
-extern int  GEOSCoordSeq_getDimensions_r(
+extern int GEOS_DLL GEOSCoordSeq_getDimensions_r(
     GEOSContextHandle_t handle,
     const GEOSCoordSequence* s,
     unsigned int *dims);
 
 /** \see GEOSCoordSeq_isCCW */
-extern int  GEOSCoordSeq_isCCW_r(
+extern int GEOS_DLL GEOSCoordSeq_isCCW_r(
     GEOSContextHandle_t handle,
     const GEOSCoordSequence* s,
     char* is_ccw);
@@ -543,25 +553,25 @@ extern int  GEOSCoordSeq_isCCW_r(
 /* ========= Linear referencing functions ========= */
 
 /** \see GEOSProject */
-extern double  GEOSProject_r(
+extern double GEOS_DLL GEOSProject_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *line,
     const GEOSGeometry *point);
 
 /** \see GEOSInterpolate */
-extern GEOSGeometry  *GEOSInterpolate_r(
+extern GEOSGeometry GEOS_DLL *GEOSInterpolate_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *line,
     double d);
 
 /** \see GEOSProjectNormalized */
-extern double  GEOSProjectNormalized_r(
+extern double GEOS_DLL GEOSProjectNormalized_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *g,
     const GEOSGeometry *p);
 
 /** \see GEOSInterpolateNormalized */
-extern GEOSGeometry  *GEOSInterpolateNormalized_r(
+extern GEOSGeometry GEOS_DLL *GEOSInterpolateNormalized_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *g,
     double d);
@@ -569,7 +579,7 @@ extern GEOSGeometry  *GEOSInterpolateNormalized_r(
 /* ========== Buffer related functions ========== */
 
 /** \see GEOSBuffer */
-extern GEOSGeometry  *GEOSBuffer_r(
+extern GEOSGeometry GEOS_DLL *GEOSBuffer_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     double width, int quadsegs);
@@ -613,66 +623,66 @@ enum GEOSBufJoinStyles {
 };
 
 /** \see GEOSBufferParams_create */
-extern GEOSBufferParams  *GEOSBufferParams_create_r(
+extern GEOSBufferParams GEOS_DLL *GEOSBufferParams_create_r(
     GEOSContextHandle_t handle);
 
 /** \see GEOSBufferParams_destroy */
-extern void  GEOSBufferParams_destroy_r(
+extern void GEOS_DLL GEOSBufferParams_destroy_r(
     GEOSContextHandle_t handle,
     GEOSBufferParams* parms);
 
 /** \see GEOSBufferParams_setEndCapStyle */
-extern int  GEOSBufferParams_setEndCapStyle_r(
+extern int GEOS_DLL GEOSBufferParams_setEndCapStyle_r(
     GEOSContextHandle_t handle,
     GEOSBufferParams* p,
     int style);
 
 /** \see GEOSBufferParams_setJoinStyle */
-extern int  GEOSBufferParams_setJoinStyle_r(
+extern int GEOS_DLL GEOSBufferParams_setJoinStyle_r(
     GEOSContextHandle_t handle,
     GEOSBufferParams* p,
     int joinStyle);
 
 /** \see GEOSBufferParams_setMitreLimit */
-extern int  GEOSBufferParams_setMitreLimit_r(
+extern int GEOS_DLL GEOSBufferParams_setMitreLimit_r(
     GEOSContextHandle_t handle,
     GEOSBufferParams* p,
     double mitreLimit);
 
 /** \see GEOSBufferParams_setQuadrantSegments */
-extern int  GEOSBufferParams_setQuadrantSegments_r(
+extern int GEOS_DLL GEOSBufferParams_setQuadrantSegments_r(
     GEOSContextHandle_t handle,
     GEOSBufferParams* p,
     int quadSegs);
 
 /** \see GEOSBufferParams_setSingleSided */
-extern int  GEOSBufferParams_setSingleSided_r(
+extern int GEOS_DLL GEOSBufferParams_setSingleSided_r(
     GEOSContextHandle_t handle,
     GEOSBufferParams* p,
     int singleSided);
 
 /** \see GEOSBufferWithParams */
-extern GEOSGeometry  *GEOSBufferWithParams_r(
+extern GEOSGeometry GEOS_DLL *GEOSBufferWithParams_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     const GEOSBufferParams* p,
     double width);
 
 /** \see GEOSBufferWithStyle */
-extern GEOSGeometry  *GEOSBufferWithStyle_r(
+extern GEOSGeometry GEOS_DLL *GEOSBufferWithStyle_r(
     GEOSContextHandle_t handle,
 	const GEOSGeometry* g,
     double width, int quadsegs, int endCapStyle,
 	int joinStyle, double mitreLimit);
 
 /** \see GEOSDensify */
-extern GEOSGeometry  *GEOSDensify_r(
+extern GEOSGeometry GEOS_DLL *GEOSDensify_r(
     GEOSContextHandle_t handle,
 	const GEOSGeometry* g,
     double tolerance);
 
 /** \see GEOSOffsetCurve */
-extern GEOSGeometry  *GEOSOffsetCurve_r(
+extern GEOSGeometry GEOS_DLL *GEOSOffsetCurve_r(
     GEOSContextHandle_t handle,
 	const GEOSGeometry* g, double width, int quadsegs,
 	int joinStyle, double mitreLimit);
@@ -681,89 +691,89 @@ extern GEOSGeometry  *GEOSOffsetCurve_r(
 /* ========= Geometry Constructors ========= */
 
 /** \see GEOSGeom_createPoint */
-extern GEOSGeometry  *GEOSGeom_createPoint_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createPoint_r(
     GEOSContextHandle_t handle,
     GEOSCoordSequence* s);
 
 /** \see GEOSGeom_createPointFromXY */
-extern GEOSGeometry  *GEOSGeom_createPointFromXY_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createPointFromXY_r(
     GEOSContextHandle_t handle,
     double x, double y);
 
 /** \see GEOSGeom_createEmptyPoint */
-extern GEOSGeometry  *GEOSGeom_createEmptyPoint_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createEmptyPoint_r(
     GEOSContextHandle_t handle);
 
 /** \see GEOSGeom_createLinearRing */
-extern GEOSGeometry  *GEOSGeom_createLinearRing_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createLinearRing_r(
     GEOSContextHandle_t handle,
     GEOSCoordSequence* s);
 
 /** \see GEOSGeom_createLineString */
-extern GEOSGeometry  *GEOSGeom_createLineString_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createLineString_r(
     GEOSContextHandle_t handle,
     GEOSCoordSequence* s);
 
 /** \see GEOSGeom_createEmptyLineString */
-extern GEOSGeometry  *GEOSGeom_createEmptyLineString_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createEmptyLineString_r(
     GEOSContextHandle_t handle);
 
 /** \see GEOSGeom_createEmptyPolygon */
-extern GEOSGeometry  *GEOSGeom_createEmptyPolygon_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createEmptyPolygon_r(
     GEOSContextHandle_t handle);
 
 /** \see GEOSGeom_createPolygon */
-extern GEOSGeometry  *GEOSGeom_createPolygon_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createPolygon_r(
     GEOSContextHandle_t handle,
     GEOSGeometry* shell,
     GEOSGeometry** holes,
     unsigned int nholes);
 
 /** \see GEOSGeom_createCollection */
-extern GEOSGeometry  *GEOSGeom_createCollection_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createCollection_r(
     GEOSContextHandle_t handle,
     int type,
     GEOSGeometry* *geoms,
     unsigned int ngeoms);
 
 /** \see GEOSGeom_releaseCollection */
-extern GEOSGeometry  ** GEOSGeom_releaseCollection_r(
+extern GEOSGeometry GEOS_DLL ** GEOSGeom_releaseCollection_r(
     GEOSContextHandle_t handle,
     GEOSGeometry * collection,
     unsigned int * ngeoms);
 
 /** \see GEOSGeom_createEmptyCollection */
-extern GEOSGeometry  *GEOSGeom_createEmptyCollection_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createEmptyCollection_r(
     GEOSContextHandle_t handle, int type);
 
 /** \see GEOSGeom_createRectangle */
-extern GEOSGeometry  *GEOSGeom_createRectangle_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createRectangle_r(
     GEOSContextHandle_t handle,
     double xmin, double ymin,
     double xmax, double ymax);
 
 /** \see GEOSGeom_clone */
-extern GEOSGeometry  *GEOSGeom_clone_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_clone_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /* ========= Memory management ========= */
 
 /** \see GEOSGeom_destroy */
-extern void  GEOSGeom_destroy_r(
+extern void GEOS_DLL GEOSGeom_destroy_r(
     GEOSContextHandle_t handle,
     GEOSGeometry* g);
 
 /* ========= Coverages ========= */
 
 /** \see GEOSCoverageUnion */
-extern GEOSGeometry  *
+extern GEOSGeometry GEOS_DLL *
 GEOSCoverageUnion_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSCoverageIsValid */
-extern int 
+extern int GEOS_DLL
 GEOSCoverageIsValid_r(
     GEOSContextHandle_t extHandle,
     const GEOSGeometry* input,
@@ -771,7 +781,7 @@ GEOSCoverageIsValid_r(
     GEOSGeometry** output);
 
 /** \see GEOSCoverageSimplifyVW */
-extern GEOSGeometry  *
+extern GEOSGeometry GEOS_DLL *
 GEOSCoverageSimplifyVW_r(
     GEOSContextHandle_t extHandle,
     const GEOSGeometry* input,
@@ -781,51 +791,51 @@ GEOSCoverageSimplifyVW_r(
 /* ========= Topology Operations ========= */
 
 /** \see GEOSEnvelope */
-extern GEOSGeometry  *GEOSEnvelope_r(
+extern GEOSGeometry GEOS_DLL *GEOSEnvelope_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSIntersection */
-extern GEOSGeometry  *GEOSIntersection_r(
+extern GEOSGeometry GEOS_DLL *GEOSIntersection_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
 
 /** \see GEOSIntersectionPrec */
-extern GEOSGeometry  *GEOSIntersectionPrec_r(
+extern GEOSGeometry GEOS_DLL *GEOSIntersectionPrec_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2,
     double gridSize);
 
 /** \see GEOSConvexHull */
-extern GEOSGeometry  *GEOSConvexHull_r(
+extern GEOSGeometry GEOS_DLL *GEOSConvexHull_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSConcaveHull */
-extern GEOSGeometry  *GEOSConcaveHull_r(
+extern GEOSGeometry GEOS_DLL *GEOSConcaveHull_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     double ratio,
     unsigned int allowHoles);
 
 /** \see GEOSConcaveHullByLength */
-extern GEOSGeometry  *GEOSConcaveHullByLength_r(
+extern GEOSGeometry GEOS_DLL *GEOSConcaveHullByLength_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     double ratio,
     unsigned int allowHoles);
 
 /** \see GEOSPolygonHullSimplify */
-extern GEOSGeometry  *GEOSPolygonHullSimplify_r(
+extern GEOSGeometry GEOS_DLL *GEOSPolygonHullSimplify_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     unsigned int isOuter,
     double vertexNumFraction);
 
 /** \see GEOSPolygonHullSimplifyMode */
-extern GEOSGeometry  *GEOSPolygonHullSimplifyMode_r(
+extern GEOSGeometry GEOS_DLL *GEOSPolygonHullSimplifyMode_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     unsigned int isOuter,
@@ -833,7 +843,7 @@ extern GEOSGeometry  *GEOSPolygonHullSimplifyMode_r(
     double parameter);
 
 /** \see GEOSConcaveHullOfPolygons */
-extern GEOSGeometry  *GEOSConcaveHullOfPolygons_r(
+extern GEOSGeometry GEOS_DLL *GEOSConcaveHullOfPolygons_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     double lengthRatio,
@@ -841,148 +851,148 @@ extern GEOSGeometry  *GEOSConcaveHullOfPolygons_r(
     unsigned int isHolesAllowed);
 
 /** \see GEOSMinimumRotatedRectangle */
-extern GEOSGeometry  *GEOSMinimumRotatedRectangle_r(
+extern GEOSGeometry GEOS_DLL *GEOSMinimumRotatedRectangle_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSMaximumInscribedCircle */
-extern GEOSGeometry  *GEOSMaximumInscribedCircle_r(
+extern GEOSGeometry GEOS_DLL *GEOSMaximumInscribedCircle_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     double tolerance);
 
 /** \see GEOSLargestEmptyCircle */
-extern GEOSGeometry  *GEOSLargestEmptyCircle_r(
+extern GEOSGeometry GEOS_DLL *GEOSLargestEmptyCircle_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     const GEOSGeometry* boundary,
     double tolerance);
 
 /** \see GEOSMinimumWidth */
-extern GEOSGeometry  *GEOSMinimumWidth_r(
+extern GEOSGeometry GEOS_DLL *GEOSMinimumWidth_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSMinimumClearanceLine */
-extern GEOSGeometry  *GEOSMinimumClearanceLine_r(
+extern GEOSGeometry GEOS_DLL *GEOSMinimumClearanceLine_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSMinimumClearance */
-extern int  GEOSMinimumClearance_r(
+extern int GEOS_DLL GEOSMinimumClearance_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     double* distance);
 
 /** \see GEOSDifference */
-extern GEOSGeometry  *GEOSDifference_r(
+extern GEOSGeometry GEOS_DLL *GEOSDifference_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
 
 /** \see GEOSDifferencePrec */
-extern GEOSGeometry  *GEOSDifferencePrec_r(
+extern GEOSGeometry GEOS_DLL *GEOSDifferencePrec_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2,
     double gridSize);
 
 /** \see GEOSSymDifference */
-extern GEOSGeometry  *GEOSSymDifference_r(
+extern GEOSGeometry GEOS_DLL *GEOSSymDifference_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
 
 /** \see GEOSSymDifferencePrec */
-extern GEOSGeometry  *GEOSSymDifferencePrec_r(
+extern GEOSGeometry GEOS_DLL *GEOSSymDifferencePrec_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2,
     double gridSize);
 
 /** \see GEOSBoundary */
-extern GEOSGeometry  *GEOSBoundary_r(
+extern GEOSGeometry GEOS_DLL *GEOSBoundary_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSUnion */
-extern GEOSGeometry  *GEOSUnion_r(
+extern GEOSGeometry GEOS_DLL *GEOSUnion_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
 
 /** \see GEOSUnionPrec */
-extern GEOSGeometry  *GEOSUnionPrec_r(
+extern GEOSGeometry GEOS_DLL *GEOSUnionPrec_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2,
     double gridSize);
 
 /** \see GEOSUnaryUnion */
-extern GEOSGeometry  *GEOSUnaryUnion_r(
+extern GEOSGeometry GEOS_DLL *GEOSUnaryUnion_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSUnaryUnionPrec */
-extern GEOSGeometry  *GEOSUnaryUnionPrec_r(
+extern GEOSGeometry GEOS_DLL *GEOSUnaryUnionPrec_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     double gridSize);
 
 /** \see GEOSDisjointSubsetUnion */
-extern GEOSGeometry  *GEOSDisjointSubsetUnion_r(
+extern GEOSGeometry GEOS_DLL *GEOSDisjointSubsetUnion_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSPointOnSurface */
-extern GEOSGeometry  *GEOSPointOnSurface_r(
+extern GEOSGeometry GEOS_DLL *GEOSPointOnSurface_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSGetCentroid */
-extern GEOSGeometry  *GEOSGetCentroid_r(
+extern GEOSGeometry GEOS_DLL *GEOSGetCentroid_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSMinimumBoundingCircle */
-extern GEOSGeometry  *GEOSMinimumBoundingCircle_r(
+extern GEOSGeometry GEOS_DLL *GEOSMinimumBoundingCircle_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     double* radius,
     GEOSGeometry** center);
 
 /** \see GEOSNode */
-extern GEOSGeometry  *GEOSNode_r(
+extern GEOSGeometry GEOS_DLL *GEOSNode_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSClipByRect */
-extern GEOSGeometry  *GEOSClipByRect_r(
+extern GEOSGeometry GEOS_DLL *GEOSClipByRect_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     double xmin, double ymin,
     double xmax, double ymax);
 
 /** \see GEOSPolygonize */
-extern GEOSGeometry  *GEOSPolygonize_r(
+extern GEOSGeometry GEOS_DLL *GEOSPolygonize_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *const geoms[],
     unsigned int ngeoms);
 
 /** \see GEOSPolygonize_valid */
-extern GEOSGeometry  *GEOSPolygonize_valid_r(
+extern GEOSGeometry GEOS_DLL *GEOSPolygonize_valid_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *const geoms[],
     unsigned int ngems);
 
 /** \see GEOSPolygonizer_getCutEdges */
-extern GEOSGeometry  *GEOSPolygonizer_getCutEdges_r(
+extern GEOSGeometry GEOS_DLL *GEOSPolygonizer_getCutEdges_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry * const geoms[],
     unsigned int ngeoms);
 
 /** \see GEOSPolygonize_full */
-extern GEOSGeometry  *GEOSPolygonize_full_r(
+extern GEOSGeometry GEOS_DLL *GEOSPolygonize_full_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* input,
     GEOSGeometry** cuts,
@@ -990,75 +1000,75 @@ extern GEOSGeometry  *GEOSPolygonize_full_r(
     GEOSGeometry** invalidRings);
 
 /** \see GEOSBuildArea */
-extern GEOSGeometry  *GEOSBuildArea_r(
+extern GEOSGeometry GEOS_DLL *GEOSBuildArea_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSLineMerge */
-extern GEOSGeometry  *GEOSLineMerge_r(
+extern GEOSGeometry GEOS_DLL *GEOSLineMerge_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSLineMergeDirected */
-extern GEOSGeometry  *GEOSLineMergeDirected_r(
+extern GEOSGeometry GEOS_DLL *GEOSLineMergeDirected_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSLineSubstring */
-extern GEOSGeometry  *GEOSLineSubstring_r(
+extern GEOSGeometry GEOS_DLL *GEOSLineSubstring_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     double start_fraction,
     double end_fdraction);
 
 /** \see GEOSReverse */
-extern GEOSGeometry  *GEOSReverse_r(
+extern GEOSGeometry GEOS_DLL *GEOSReverse_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSSimplify */
-extern GEOSGeometry  *GEOSSimplify_r(
+extern GEOSGeometry GEOS_DLL *GEOSSimplify_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     double tolerance);
 
 /** \see GEOSTopologyPreserveSimplify */
-extern GEOSGeometry  *GEOSTopologyPreserveSimplify_r(
+extern GEOSGeometry GEOS_DLL *GEOSTopologyPreserveSimplify_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g, double tolerance);
 
 /** \see GEOSGeom_extractUniquePoints */
-extern GEOSGeometry  *GEOSGeom_extractUniquePoints_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_extractUniquePoints_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSSharedPaths */
-extern GEOSGeometry  *GEOSSharedPaths_r(
+extern GEOSGeometry GEOS_DLL *GEOSSharedPaths_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
 
 /** \see GEOSSnap */
-extern GEOSGeometry  *GEOSSnap_r(
+extern GEOSGeometry GEOS_DLL *GEOSSnap_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2,
     double tolerance);
 
 /** \see GEOSDelaunayTriangulation */
-extern GEOSGeometry  * GEOSDelaunayTriangulation_r(
+extern GEOSGeometry GEOS_DLL * GEOSDelaunayTriangulation_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *g,
     double tolerance,
     int onlyEdges);
 
 /** \see GEOSConstrainedDelaunayTriangulation */
-extern GEOSGeometry  * GEOSConstrainedDelaunayTriangulation_r(
+extern GEOSGeometry GEOS_DLL * GEOSConstrainedDelaunayTriangulation_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *g);
 
 /** \see GEOSVoronoiDiagram */
-extern GEOSGeometry  * GEOSVoronoiDiagram_r(
+extern GEOSGeometry GEOS_DLL * GEOSVoronoiDiagram_r(
     GEOSContextHandle_t extHandle,
     const GEOSGeometry *g,
     const GEOSGeometry *env,
@@ -1066,7 +1076,7 @@ extern GEOSGeometry  * GEOSVoronoiDiagram_r(
     int flags);
 
 /** \see GEOSSegmentIntersection */
-extern int  GEOSSegmentIntersection_r(
+extern int GEOS_DLL GEOSSegmentIntersection_r(
        GEOSContextHandle_t extHandle,
        double ax0, double ay0,
        double ax1, double ay1,
@@ -1077,74 +1087,74 @@ extern int  GEOSSegmentIntersection_r(
 /* ========= Binary predicates ========= */
 
 /** \see GEOSDisjoint */
-extern char  GEOSDisjoint_r(
+extern char GEOS_DLL GEOSDisjoint_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
 
 /** \see GEOSTouches */
-extern char  GEOSTouches_r(
+extern char GEOS_DLL GEOSTouches_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
 
 /** \see GEOSIntersects */
-extern char  GEOSIntersects_r(
+extern char GEOS_DLL GEOSIntersects_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
 
 /** \see GEOSCrosses */
-extern char  GEOSCrosses_r(
+extern char GEOS_DLL GEOSCrosses_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
 
 /** \see GEOSWithin */
-extern char  GEOSWithin_r(
+extern char GEOS_DLL GEOSWithin_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
 
 /** \see GEOSContains */
-extern char  GEOSContains_r(
+extern char GEOS_DLL GEOSContains_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
 
 /** \see GEOSOverlaps */
-extern char  GEOSOverlaps_r(
+extern char GEOS_DLL GEOSOverlaps_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
 
 /** \see GEOSEquals */
-extern char  GEOSEquals_r(
+extern char GEOS_DLL GEOSEquals_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
 
 /** \see GEOSEqualsExact */
-extern char  GEOSEqualsExact_r(
+extern char GEOS_DLL GEOSEqualsExact_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2,
     double tolerance);
 
 /** \see GEOSEqualsIdentical */
-extern char  GEOSEqualsIdentical_r(
+extern char GEOS_DLL GEOSEqualsIdentical_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
 
 /** \see GEOSCovers */
-extern char  GEOSCovers_r(
+extern char GEOS_DLL GEOSCovers_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
 
 /** \see GEOSCoveredBy */
-extern char  GEOSCoveredBy_r(
+extern char GEOS_DLL GEOSCoveredBy_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
@@ -1152,103 +1162,103 @@ extern char  GEOSCoveredBy_r(
 /* ========= Prepared Geometry Binary Predicates ========== */
 
 /** \see GEOSPrepare */
-extern const GEOSPreparedGeometry  *GEOSPrepare_r(
+extern const GEOSPreparedGeometry GEOS_DLL *GEOSPrepare_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSPreparedGeom_destroy */
-extern void  GEOSPreparedGeom_destroy_r(
+extern void GEOS_DLL GEOSPreparedGeom_destroy_r(
     GEOSContextHandle_t handle,
     const GEOSPreparedGeometry* g);
 
 /** \see GEOSPreparedContains */
-extern char  GEOSPreparedContains_r(
+extern char GEOS_DLL GEOSPreparedContains_r(
     GEOSContextHandle_t handle,
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
 /** \see GEOSPreparedContainsXY */
-extern char  GEOSPreparedContainsXY_r(
+extern char GEOS_DLL GEOSPreparedContainsXY_r(
         GEOSContextHandle_t handle,
         const GEOSPreparedGeometry* pg1,
         double x,
         double y);
 
 /** \see GEOSPreparedContainsProperly */
-extern char  GEOSPreparedContainsProperly_r(
+extern char GEOS_DLL GEOSPreparedContainsProperly_r(
     GEOSContextHandle_t handle,
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
 /** \see GEOSPreparedCoveredBy */
-extern char  GEOSPreparedCoveredBy_r(
+extern char GEOS_DLL GEOSPreparedCoveredBy_r(
     GEOSContextHandle_t handle,
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
 /** \see GEOSPreparedCovers */
-extern char  GEOSPreparedCovers_r(
+extern char GEOS_DLL GEOSPreparedCovers_r(
     GEOSContextHandle_t handle,
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
 /** \see GEOSPreparedCrosses */
-extern char  GEOSPreparedCrosses_r(
+extern char GEOS_DLL GEOSPreparedCrosses_r(
     GEOSContextHandle_t handle,
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
 /** \see GEOSPreparedDisjoint */
-extern char  GEOSPreparedDisjoint_r(
+extern char GEOS_DLL GEOSPreparedDisjoint_r(
     GEOSContextHandle_t handle,
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
 /** \see GEOSPreparedIntersects */
-extern char  GEOSPreparedIntersects_r(
+extern char GEOS_DLL GEOSPreparedIntersects_r(
     GEOSContextHandle_t handle,
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
 /** \see GEOSPreparedIntersectsXY */
-extern char  GEOSPreparedIntersectsXY_r(
+extern char GEOS_DLL GEOSPreparedIntersectsXY_r(
         GEOSContextHandle_t handle,
         const GEOSPreparedGeometry* pg1,
         double x,
         double y);
 
 /** \see GEOSPreparedOverlaps */
-extern char  GEOSPreparedOverlaps_r(
+extern char GEOS_DLL GEOSPreparedOverlaps_r(
     GEOSContextHandle_t handle,
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
 /** \see GEOSPreparedTouches */
-extern char  GEOSPreparedTouches_r(
+extern char GEOS_DLL GEOSPreparedTouches_r(
     GEOSContextHandle_t handle,
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
 /** \see GEOSPreparedWithin */
-extern char  GEOSPreparedWithin_r(
+extern char GEOS_DLL GEOSPreparedWithin_r(
     GEOSContextHandle_t handle,
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
 /** \see GEOSPreparedNearestPoints */
-extern GEOSCoordSequence  *GEOSPreparedNearestPoints_r(
+extern GEOSCoordSequence GEOS_DLL *GEOSPreparedNearestPoints_r(
     GEOSContextHandle_t handle,
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
 /** \see GEOSPreparedDistance */
-extern int  GEOSPreparedDistance_r(
+extern int GEOS_DLL GEOSPreparedDistance_r(
     GEOSContextHandle_t handle,
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2, double *dist);
 
 /** \see GEOSPreparedDistanceWithin */
-extern char  GEOSPreparedDistanceWithin_r(
+extern char GEOS_DLL GEOSPreparedDistanceWithin_r(
     GEOSContextHandle_t handle,
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2, double dist);
@@ -1256,24 +1266,24 @@ extern char  GEOSPreparedDistanceWithin_r(
 /* ========== STRtree ========== */
 
 /** \see GEOSSTRtree_create */
-extern GEOSSTRtree  *GEOSSTRtree_create_r(
+extern GEOSSTRtree GEOS_DLL *GEOSSTRtree_create_r(
     GEOSContextHandle_t handle,
     size_t nodeCapacity);
 
 /** \see GEOSSTRtree_build */
-extern int  GEOSSTRtree_build_r(
+extern int GEOS_DLL GEOSSTRtree_build_r(
     GEOSContextHandle_t handle,
     GEOSSTRtree *tree);
 
 /** \see GEOSSTRtree_insert */
-extern void  GEOSSTRtree_insert_r(
+extern void GEOS_DLL GEOSSTRtree_insert_r(
     GEOSContextHandle_t handle,
     GEOSSTRtree *tree,
     const GEOSGeometry *g,
     void *item);
 
 /** \see GEOSSTRtree_query */
-extern void  GEOSSTRtree_query_r(
+extern void GEOS_DLL GEOSSTRtree_query_r(
     GEOSContextHandle_t handle,
     GEOSSTRtree *tree,
     const GEOSGeometry *g,
@@ -1281,13 +1291,13 @@ extern void  GEOSSTRtree_query_r(
     void *userdata);
 
 /** \see GEOSSTRtree_nearest */
-extern const GEOSGeometry  *GEOSSTRtree_nearest_r(
+extern const GEOSGeometry GEOS_DLL *GEOSSTRtree_nearest_r(
     GEOSContextHandle_t handle,
     GEOSSTRtree *tree,
     const GEOSGeometry* geom);
 
 /** \see GEOSSTRtree_nearest_generic */
-extern const void  *GEOSSTRtree_nearest_generic_r(
+extern const void GEOS_DLL *GEOSSTRtree_nearest_generic_r(
     GEOSContextHandle_t handle,
     GEOSSTRtree *tree,
     const void* item,
@@ -1296,21 +1306,21 @@ extern const void  *GEOSSTRtree_nearest_generic_r(
     void* userdata);
 
 /** \see GEOSSTRtree_iterate */
-extern void  GEOSSTRtree_iterate_r(
+extern void GEOS_DLL GEOSSTRtree_iterate_r(
     GEOSContextHandle_t handle,
     GEOSSTRtree *tree,
     GEOSQueryCallback callback,
     void *userdata);
 
 /** \see GEOSSTRtree_remove */
-extern char  GEOSSTRtree_remove_r(
+extern char GEOS_DLL GEOSSTRtree_remove_r(
     GEOSContextHandle_t handle,
     GEOSSTRtree *tree,
     const GEOSGeometry *g,
     void *item);
 
 /** \see GEOSSTRtree_destroy */
-extern void  GEOSSTRtree_destroy_r(
+extern void GEOS_DLL GEOSSTRtree_destroy_r(
     GEOSContextHandle_t handle,
     GEOSSTRtree *tree);
 
@@ -1318,32 +1328,32 @@ extern void  GEOSSTRtree_destroy_r(
 /* ========= Unary predicate ========= */
 
 /** \see GEOSisEmpty */
-extern char  GEOSisEmpty_r(
+extern char GEOS_DLL GEOSisEmpty_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSisSimple */
-extern char  GEOSisSimple_r(
+extern char GEOS_DLL GEOSisSimple_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSisRing */
-extern char  GEOSisRing_r(
+extern char GEOS_DLL GEOSisRing_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSHasZ */
-extern char  GEOSHasZ_r(
+extern char GEOS_DLL GEOSHasZ_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSHasM */
-extern char  GEOSHasM_r(
+extern char GEOS_DLL GEOSHasM_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSisClosed */
-extern char  GEOSisClosed_r(
+extern char GEOS_DLL GEOSisClosed_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *g);
 
@@ -1367,26 +1377,26 @@ enum GEOSRelateBoundaryNodeRules {
 };
 
 /** \see GEOSRelatePattern */
-extern char  GEOSRelatePattern_r(
+extern char GEOS_DLL GEOSRelatePattern_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2,
     const char *pat);
 
 /** \see GEOSRelate */
-extern char  *GEOSRelate_r(
+extern char GEOS_DLL *GEOSRelate_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
 
 /** \see GEOSRelatePatternMatch */
-extern char  GEOSRelatePatternMatch_r(
+extern char GEOS_DLL GEOSRelatePatternMatch_r(
     GEOSContextHandle_t handle,
     const char *mat,
     const char *pat);
 
 /** \see GEOSRelateBoundaryNodeRule */
-extern char  *GEOSRelateBoundaryNodeRule_r(
+extern char GEOS_DLL *GEOSRelateBoundaryNodeRule_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2,
@@ -1402,17 +1412,17 @@ enum GEOSValidFlags
 };
 
 /** \see GEOSisValid */
-extern char  GEOSisValid_r(
+extern char GEOS_DLL GEOSisValid_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSisValidReason */
-extern char  *GEOSisValidReason_r(
+extern char GEOS_DLL *GEOSisValidReason_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSisValidDetail */
-extern char  GEOSisValidDetail_r(
+extern char GEOS_DLL GEOSisValidDetail_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     int flags,
@@ -1439,39 +1449,39 @@ enum GEOSMakeValidMethods {
 };
 
 /** \see GEOSMakeValidParams_create */
-extern GEOSMakeValidParams  *GEOSMakeValidParams_create_r(
+extern GEOSMakeValidParams GEOS_DLL *GEOSMakeValidParams_create_r(
     GEOSContextHandle_t extHandle);
 
 /** \see GEOSMakeValidParams_destroy */
-extern void  GEOSMakeValidParams_destroy_r(
+extern void GEOS_DLL GEOSMakeValidParams_destroy_r(
     GEOSContextHandle_t handle,
     GEOSMakeValidParams* parms);
 
 /** \see GEOSMakeValidParams_setKeepCollapsed */
-extern int  GEOSMakeValidParams_setKeepCollapsed_r(
+extern int GEOS_DLL GEOSMakeValidParams_setKeepCollapsed_r(
     GEOSContextHandle_t handle,
     GEOSMakeValidParams* p,
     int style);
 
 /** \see GEOSMakeValidParams_setMethod */
-extern int  GEOSMakeValidParams_setMethod_r(
+extern int GEOS_DLL GEOSMakeValidParams_setMethod_r(
     GEOSContextHandle_t handle,
     GEOSMakeValidParams* p,
     enum GEOSMakeValidMethods method);
 
 /** \see GEOSMakeValid */
-extern GEOSGeometry  *GEOSMakeValid_r(
+extern GEOSGeometry GEOS_DLL *GEOSMakeValid_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSMakeValidWithParams */
-extern GEOSGeometry  *GEOSMakeValidWithParams_r(
+extern GEOSGeometry GEOS_DLL *GEOSMakeValidWithParams_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     const GEOSMakeValidParams* makeValidParams);
 
 /** \see GEOSRemoveRepeatedPoints */
-extern GEOSGeometry  *GEOSRemoveRepeatedPoints_r(
+extern GEOSGeometry GEOS_DLL *GEOSRemoveRepeatedPoints_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     double tolerance);
@@ -1480,53 +1490,53 @@ extern GEOSGeometry  *GEOSRemoveRepeatedPoints_r(
 
 /** \see GEOSGeomType */
 /* Return NULL on exception, result must be freed by caller. */
-extern char  *GEOSGeomType_r(
+extern char GEOS_DLL *GEOSGeomType_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSGeomTypeId */
-extern int  GEOSGeomTypeId_r(
+extern int GEOS_DLL GEOSGeomTypeId_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSGetSRID */
-extern int  GEOSGetSRID_r(
+extern int GEOS_DLL GEOSGetSRID_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSSetSRID */
-extern void  GEOSSetSRID_r(
+extern void GEOS_DLL GEOSSetSRID_r(
     GEOSContextHandle_t handle,
     GEOSGeometry* g, int SRID);
 
 /** \see GEOSGeom_getUserData */
-extern void  *GEOSGeom_getUserData_r(
+extern void GEOS_DLL *GEOSGeom_getUserData_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSGeom_setUserData */
-extern void  GEOSGeom_setUserData_r(
+extern void GEOS_DLL GEOSGeom_setUserData_r(
     GEOSContextHandle_t handle,
     GEOSGeometry* g,
     void* userData);
 
 /** \see GEOSGetNumGeometries */
-extern int  GEOSGetNumGeometries_r(
+extern int GEOS_DLL GEOSGetNumGeometries_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSGetGeometryN */
-extern const GEOSGeometry  *GEOSGetGeometryN_r(
+extern const GEOSGeometry GEOS_DLL *GEOSGetGeometryN_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g, int n);
 
 /** \see GEOSNormalize */
-extern int  GEOSNormalize_r(
+extern int GEOS_DLL GEOSNormalize_r(
     GEOSContextHandle_t handle,
     GEOSGeometry* g);
 
 /** \see GEOSOrientPolygons */
-extern int  GEOSOrientPolygons_r(
+extern int GEOS_DLL GEOSOrientPolygons_r(
     GEOSContextHandle_t handle,
     GEOSGeometry* g,
     int exteriorCW);
@@ -1545,107 +1555,107 @@ enum GEOSPrecisionRules {
 };
 
 /** \see GEOSGeom_setPrecision */
-extern GEOSGeometry  *GEOSGeom_setPrecision_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_setPrecision_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *g,
     double gridSize,
     int flags);
 
 /** \see GEOSGeom_getPrecision */
-extern double  GEOSGeom_getPrecision_r(
+extern double GEOS_DLL GEOSGeom_getPrecision_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *g);
 
 /** \see GEOSGetNumInteriorRings */
-extern int  GEOSGetNumInteriorRings_r(
+extern int GEOS_DLL GEOSGetNumInteriorRings_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSGeomGetNumPoints */
-extern int  GEOSGeomGetNumPoints_r(
+extern int GEOS_DLL GEOSGeomGetNumPoints_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSGeomGetX */
-extern int  GEOSGeomGetX_r(
+extern int GEOS_DLL GEOSGeomGetX_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *g,
     double *x);
 
 /** \see GEOSGeomGetY */
-extern int  GEOSGeomGetY_r(
+extern int GEOS_DLL GEOSGeomGetY_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *g,
     double *y);
 
 /** \see GEOSGeomGetZ */
-extern int  GEOSGeomGetZ_r(
+extern int GEOS_DLL GEOSGeomGetZ_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *g,
     double *z);
 
 /** \see GEOSGeomGetM */
-extern int  GEOSGeomGetM_r(
+extern int GEOS_DLL GEOSGeomGetM_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *g,
     double *m);
 
 /** \see GEOSGetInteriorRingN */
-extern const GEOSGeometry  *GEOSGetInteriorRingN_r(
+extern const GEOSGeometry GEOS_DLL *GEOSGetInteriorRingN_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g, int n);
 
 /** \see GEOSGetExteriorRing */
-extern const GEOSGeometry  *GEOSGetExteriorRing_r(
+extern const GEOSGeometry GEOS_DLL *GEOSGetExteriorRing_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSGetNumCoordinates */
-extern int  GEOSGetNumCoordinates_r(
+extern int GEOS_DLL GEOSGetNumCoordinates_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSGeom_getCoordSeq */
-extern const GEOSCoordSequence  *GEOSGeom_getCoordSeq_r(
+extern const GEOSCoordSequence GEOS_DLL *GEOSGeom_getCoordSeq_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSGeom_getDimensions */
-extern int  GEOSGeom_getDimensions_r(
+extern int GEOS_DLL GEOSGeom_getDimensions_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSGeom_getCoordinateDimension */
-extern int  GEOSGeom_getCoordinateDimension_r(
+extern int GEOS_DLL GEOSGeom_getCoordinateDimension_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /** \see GEOSGeom_getXMin */
-extern int  GEOSGeom_getXMin_r(
+extern int GEOS_DLL GEOSGeom_getXMin_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     double* value);
 
 /** \see GEOSGeom_getYMin */
-extern int  GEOSGeom_getYMin_r(
+extern int GEOS_DLL GEOSGeom_getYMin_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     double* value);
 
 /** \see GEOSGeom_getXMax */
-extern int  GEOSGeom_getXMax_r(
+extern int GEOS_DLL GEOSGeom_getXMax_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     double* value);
 
 /** \see GEOSGeom_getYMax */
-extern int  GEOSGeom_getYMax_r(
+extern int GEOS_DLL GEOSGeom_getYMax_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     double* value);
 
 /** \see GEOSGeom_getExtent */
-extern int  GEOSGeom_getExtent_r(
+extern int GEOS_DLL GEOSGeom_getExtent_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     double* xmin,
@@ -1654,79 +1664,79 @@ extern int  GEOSGeom_getExtent_r(
     double* ymax);
 
 /** \see GEOSGeomGetPointN */
-extern GEOSGeometry  *GEOSGeomGetPointN_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeomGetPointN_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *g,
     int n);
 
 /** \see GEOSGeomGetStartPoint */
-extern GEOSGeometry  *GEOSGeomGetStartPoint_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeomGetStartPoint_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *g);
 
 /** \see GEOSGeomGetEndPoint */
-extern GEOSGeometry  *GEOSGeomGetEndPoint_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeomGetEndPoint_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *g);
 
 /* ========= Misc functions ========= */
 
 /** \see GEOSArea */
-extern int  GEOSArea_r(
+extern int GEOS_DLL GEOSArea_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     double *area);
 
 /** \see GEOSLength */
-extern int  GEOSLength_r(
+extern int GEOS_DLL GEOSLength_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     double *length);
 
 /** \see GEOSDistance */
-extern int  GEOSDistance_r(
+extern int GEOS_DLL GEOSDistance_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2,
     double *dist);
 
 /** \see GEOSDistanceWithin */
-extern char  GEOSDistanceWithin_r(
+extern char GEOS_DLL GEOSDistanceWithin_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2,
     double dist);
 
 /** \see GEOSDistanceIndexed */
-extern int  GEOSDistanceIndexed_r(
+extern int GEOS_DLL GEOSDistanceIndexed_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2,
     double *dist);
 
 /** \see GEOSHausdorffDistance */
-extern int  GEOSHausdorffDistance_r(
+extern int GEOS_DLL GEOSHausdorffDistance_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *g1,
     const GEOSGeometry *g2,
     double *dist);
 
 /** \see GEOSHausdorffDistanceDensify */
-extern int  GEOSHausdorffDistanceDensify_r(
+extern int GEOS_DLL GEOSHausdorffDistanceDensify_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *g1,
     const GEOSGeometry *g2,
     double densifyFrac, double *dist);
 
 /** \see GEOSFrechetDistance */
-extern int  GEOSFrechetDistance_r(
+extern int GEOS_DLL GEOSFrechetDistance_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *g1,
     const GEOSGeometry *g2,
     double *dist);
 
 /** \see GEOSFrechetDistanceDensify */
-extern int  GEOSFrechetDistanceDensify_r(
+extern int GEOS_DLL GEOSFrechetDistanceDensify_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *g1,
     const GEOSGeometry *g2,
@@ -1735,7 +1745,7 @@ extern int  GEOSFrechetDistanceDensify_r(
 
 
 /** \see GEOSHilbertCode */
-extern int  GEOSHilbertCode_r(
+extern int GEOS_DLL GEOSHilbertCode_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *geom,
     const GEOSGeometry* extent,
@@ -1744,19 +1754,19 @@ extern int  GEOSHilbertCode_r(
 );
 
 /** \see GEOSGeomGetLength */
-extern int  GEOSGeomGetLength_r(
+extern int GEOS_DLL GEOSGeomGetLength_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry *g,
     double *length);
 
 /** \see GEOSNearestPoints */
-extern GEOSCoordSequence  *GEOSNearestPoints_r(
+extern GEOSCoordSequence GEOS_DLL *GEOSNearestPoints_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
 
 /** \see GEOSGeom_transformXY */
-extern GEOSGeometry  *GEOSGeom_transformXY_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_transformXY_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     GEOSTransformXYCallback callback,
@@ -1765,7 +1775,7 @@ extern GEOSGeometry  *GEOSGeom_transformXY_r(
 /* ========= Algorithms ========= */
 
 /** \see GEOSOrientationIndex */
-extern int  GEOSOrientationIndex_r(
+extern int GEOS_DLL GEOSOrientationIndex_r(
     GEOSContextHandle_t handle,
 	double Ax, double Ay,
     double Bx, double By,
@@ -1823,21 +1833,21 @@ typedef struct GEOSGeoJSONWriter_t GEOSGeoJSONWriter;
 /* ========== WKT Reader ========== */
 
 /** \see GEOSWKTReader_create */
-extern GEOSWKTReader  *GEOSWKTReader_create_r(
+extern GEOSWKTReader GEOS_DLL *GEOSWKTReader_create_r(
     GEOSContextHandle_t handle);
 
 /** \see GEOSWKTReader_destroy */
-extern void  GEOSWKTReader_destroy_r(GEOSContextHandle_t handle,
+extern void GEOS_DLL GEOSWKTReader_destroy_r(GEOSContextHandle_t handle,
     GEOSWKTReader* reader);
 
 /** \see GEOSWKTReader_read */
-extern GEOSGeometry  *GEOSWKTReader_read_r(
+extern GEOSGeometry GEOS_DLL *GEOSWKTReader_read_r(
     GEOSContextHandle_t handle,
     GEOSWKTReader* reader,
     const char *wkt);
 
 /** \see GEOSWKTReader_setFixStructure */
-extern void  GEOSWKTReader_setFixStructure_r(
+extern void GEOS_DLL GEOSWKTReader_setFixStructure_r(
     GEOSContextHandle_t handle,
     GEOSWKTReader *reader,
     char doFix);
@@ -1845,45 +1855,45 @@ extern void  GEOSWKTReader_setFixStructure_r(
 /* ========== WKT Writer ========== */
 
 /** \see GEOSWKTReader_create */
-extern GEOSWKTWriter  *GEOSWKTWriter_create_r(
+extern GEOSWKTWriter GEOS_DLL *GEOSWKTWriter_create_r(
     GEOSContextHandle_t handle);
 
 /** \see GEOSWKTWriter_destroy */
-extern void  GEOSWKTWriter_destroy_r(
+extern void GEOS_DLL GEOSWKTWriter_destroy_r(
     GEOSContextHandle_t handle,
     GEOSWKTWriter* writer);
 
 /** \see GEOSWKTWriter_write */
-extern char  *GEOSWKTWriter_write_r(
+extern char GEOS_DLL *GEOSWKTWriter_write_r(
     GEOSContextHandle_t handle,
     GEOSWKTWriter* writer,
     const GEOSGeometry* g);
 
 /** \see GEOSWKTWriter_setTrim */
-extern void  GEOSWKTWriter_setTrim_r(
+extern void GEOS_DLL GEOSWKTWriter_setTrim_r(
     GEOSContextHandle_t handle,
     GEOSWKTWriter *writer,
     char trim);
 
 /** \see GEOSWKTWriter_setRoundingPrecision */
-extern void  GEOSWKTWriter_setRoundingPrecision_r(
+extern void GEOS_DLL GEOSWKTWriter_setRoundingPrecision_r(
     GEOSContextHandle_t handle,
     GEOSWKTWriter *writer,
     int precision);
 
 /** \see GEOSWKTWriter_setOutputDimension */
-extern void  GEOSWKTWriter_setOutputDimension_r(
+extern void GEOS_DLL GEOSWKTWriter_setOutputDimension_r(
     GEOSContextHandle_t handle,
     GEOSWKTWriter *writer,
     int dim);
 
 /** \see GEOSWKTWriter_getOutputDimension */
-extern int   GEOSWKTWriter_getOutputDimension_r(
+extern int  GEOS_DLL GEOSWKTWriter_getOutputDimension_r(
     GEOSContextHandle_t handle,
     GEOSWKTWriter *writer);
 
 /** \see GEOSWKTWriter_setOld3D */
-extern void  GEOSWKTWriter_setOld3D_r(
+extern void GEOS_DLL GEOSWKTWriter_setOld3D_r(
     GEOSContextHandle_t handle,
     GEOSWKTWriter *writer,
     int useOld3D);
@@ -1891,29 +1901,29 @@ extern void  GEOSWKTWriter_setOld3D_r(
 /* ========== WKB Reader ========== */
 
 /** \see GEOSWKBReader_create */
-extern GEOSWKBReader  *GEOSWKBReader_create_r(
+extern GEOSWKBReader GEOS_DLL *GEOSWKBReader_create_r(
     GEOSContextHandle_t handle);
 
 /** \see GEOSWKBReader_destroy */
-extern void  GEOSWKBReader_destroy_r(
+extern void GEOS_DLL GEOSWKBReader_destroy_r(
     GEOSContextHandle_t handle,
     GEOSWKBReader* reader);
 
 /** \see GEOSWKBReader_setFixStructure */
-extern void  GEOSWKBReader_setFixStructure_r(
+extern void GEOS_DLL GEOSWKBReader_setFixStructure_r(
     GEOSContextHandle_t handle,
     GEOSWKBReader *reader,
     char doFix);
 
 /** \see GEOSWKBReader_read */
-extern GEOSGeometry  *GEOSWKBReader_read_r(
+extern GEOSGeometry GEOS_DLL *GEOSWKBReader_read_r(
     GEOSContextHandle_t handle,
     GEOSWKBReader* reader,
     const unsigned char *wkb,
     size_t size);
 
 /** \see GEOSWKBReader_readHEX */
-extern GEOSGeometry  *GEOSWKBReader_readHEX_r(
+extern GEOSGeometry GEOS_DLL *GEOSWKBReader_readHEX_r(
     GEOSContextHandle_t handle,
     GEOSWKBReader* reader,
     const unsigned char *hex,
@@ -1923,82 +1933,82 @@ extern GEOSGeometry  *GEOSWKBReader_readHEX_r(
 /* ========== WKB Writer ========== */
 
 /** \see GEOSWKBWriter_create */
-extern GEOSWKBWriter  *GEOSWKBWriter_create_r(
+extern GEOSWKBWriter GEOS_DLL *GEOSWKBWriter_create_r(
     GEOSContextHandle_t handle);
 
 /** \see GEOSWKBWriter_destroy */
-extern void  GEOSWKBWriter_destroy_r(
+extern void GEOS_DLL GEOSWKBWriter_destroy_r(
     GEOSContextHandle_t handle,
     GEOSWKBWriter* writer);
 
 /** \see GEOSWKBWriter_write */
-extern unsigned char  *GEOSWKBWriter_write_r(
+extern unsigned char GEOS_DLL *GEOSWKBWriter_write_r(
     GEOSContextHandle_t handle,
     GEOSWKBWriter* writer,
     const GEOSGeometry* g,
     size_t *size);
 
 /** \see GEOSWKBWriter_writeHEX */
-extern unsigned char  *GEOSWKBWriter_writeHEX_r(
+extern unsigned char GEOS_DLL *GEOSWKBWriter_writeHEX_r(
     GEOSContextHandle_t handle,
     GEOSWKBWriter* writer,
     const GEOSGeometry* g,
     size_t *size);
 
 /** \see GEOSWKBWriter_getOutputDimension */
-extern int  GEOSWKBWriter_getOutputDimension_r(
+extern int GEOS_DLL GEOSWKBWriter_getOutputDimension_r(
     GEOSContextHandle_t handle,
     const GEOSWKBWriter* writer);
 
 /** \see GEOSWKBWriter_setOutputDimension */
-extern void  GEOSWKBWriter_setOutputDimension_r(
+extern void GEOS_DLL GEOSWKBWriter_setOutputDimension_r(
     GEOSContextHandle_t handle,
     GEOSWKBWriter* writer, int newDimension);
 
 /** \see GEOSWKBWriter_getByteOrder */
-extern int  GEOSWKBWriter_getByteOrder_r(
+extern int GEOS_DLL GEOSWKBWriter_getByteOrder_r(
     GEOSContextHandle_t handle,
     const GEOSWKBWriter* writer);
 
 /** \see GEOSWKBWriter_setByteOrder */
-extern void  GEOSWKBWriter_setByteOrder_r(
+extern void GEOS_DLL GEOSWKBWriter_setByteOrder_r(
     GEOSContextHandle_t handle,
     GEOSWKBWriter* writer,
     int byteOrder);
 
 /** \see GEOSWKBWriter_getFlavor */
-extern int  GEOSWKBWriter_getFlavor_r(
+extern int GEOS_DLL GEOSWKBWriter_getFlavor_r(
     GEOSContextHandle_t handle,
     const GEOSWKBWriter* writer);
 
 /** \see GEOSWKBWriter_setFlavor */
-extern void  GEOSWKBWriter_setFlavor_r(
+extern void GEOS_DLL GEOSWKBWriter_setFlavor_r(
     GEOSContextHandle_t handle,
     GEOSWKBWriter* writer,
     int flavor);
 
 /** \see GEOSWKBWriter_getIncludeSRID */
-extern char  GEOSWKBWriter_getIncludeSRID_r(
+extern char GEOS_DLL GEOSWKBWriter_getIncludeSRID_r(
     GEOSContextHandle_t handle,
     const GEOSWKBWriter* writer);
 
 /** \see GEOSWKBWriter_setIncludeSRID */
-extern void  GEOSWKBWriter_setIncludeSRID_r(
+extern void GEOS_DLL GEOSWKBWriter_setIncludeSRID_r(
     GEOSContextHandle_t handle,
     GEOSWKBWriter* writer, const char writeSRID);
 
 /* ========== GeoJSON Reader ========== */
 
 /** \see GEOSGeoJSONReader_create */
-extern GEOSGeoJSONReader  *GEOSGeoJSONReader_create_r(
+extern GEOSGeoJSONReader GEOS_DLL *GEOSGeoJSONReader_create_r(
     GEOSContextHandle_t handle);
 
 /** \see GEOSGeoJSONReader_destroy */
-extern void  GEOSGeoJSONReader_destroy_r(GEOSContextHandle_t handle,
+extern void GEOS_DLL GEOSGeoJSONReader_destroy_r(GEOSContextHandle_t handle,
     GEOSGeoJSONReader* reader);
 
 /** \see GEOSGeoJSONReader_read */
-extern GEOSGeometry  *GEOSGeoJSONReader_readGeometry_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeoJSONReader_readGeometry_r(
     GEOSContextHandle_t handle,
     GEOSGeoJSONReader* reader,
     const char *geojson);
@@ -2006,22 +2016,22 @@ extern GEOSGeometry  *GEOSGeoJSONReader_readGeometry_r(
 /* ========== GeoJSON Writer ========== */
 
 /** \see GEOSGeoJSONWriter_create */
-extern GEOSGeoJSONWriter  *GEOSGeoJSONWriter_create_r(
+extern GEOSGeoJSONWriter GEOS_DLL *GEOSGeoJSONWriter_create_r(
     GEOSContextHandle_t handle);
 
 /** \see GEOSGeoJSONWriter_destroy */
-extern void  GEOSGeoJSONWriter_destroy_r(GEOSContextHandle_t handle,
+extern void GEOS_DLL GEOSGeoJSONWriter_destroy_r(GEOSContextHandle_t handle,
     GEOSGeoJSONWriter* writer);
 
 /** \see GEOSGeoJSONWriter_writeGeometry */
-extern char  *GEOSGeoJSONWriter_writeGeometry_r(
+extern char GEOS_DLL *GEOSGeoJSONWriter_writeGeometry_r(
     GEOSContextHandle_t handle,
     GEOSGeoJSONWriter* writer,
     const GEOSGeometry* g,
     int indent);
 
 /** \see GEOSFree */
-extern void  GEOSFree_r(
+extern void GEOS_DLL GEOSFree_r(
     GEOSContextHandle_t handle,
     void *buffer);
 
@@ -2032,7 +2042,7 @@ extern void  GEOSFree_r(
 * \return version string
 * \since 2.2
 */
-extern const char  *GEOSversion(void);
+extern const char GEOS_DLL *GEOSversion(void);
 
 /*
 * External code to GEOS can define GEOS_USE_ONLY_R_API
@@ -2060,7 +2070,7 @@ extern const char  *GEOSversion(void);
 * \param error_function Handle error messages
 * \since 2.2
 */
-extern void  initGEOS(
+extern void GEOS_DLL initGEOS(
     GEOSMessageHandler notice_function,
     GEOSMessageHandler error_function);
 
@@ -2069,7 +2079,7 @@ extern void  initGEOS(
 * cleans up global resources.
 * \since 3.1
 */
-extern void  finishGEOS(void);
+extern void GEOS_DLL finishGEOS(void);
 
 /**
 * Free strings and byte buffers returned by functions such
@@ -2078,7 +2088,7 @@ extern void  finishGEOS(void);
 * \param buffer The memory to free
 * \since 3.1
 */
-extern void  GEOSFree(void *buffer);
+extern void GEOS_DLL GEOSFree(void *buffer);
 
 ///@}
 
@@ -2096,7 +2106,7 @@ extern void  GEOSFree(void *buffer);
 * \return the sequence or NULL on exception
 * \since 2.2
 */
-extern GEOSCoordSequence  *GEOSCoordSeq_create(unsigned int size, unsigned int dims);
+extern GEOSCoordSequence GEOS_DLL *GEOSCoordSeq_create(unsigned int size, unsigned int dims);
 
 /**
 * Create a coordinate sequence by copying from an interleaved buffer of doubles (e.g., XYXY or XYZXYZ)
@@ -2108,7 +2118,7 @@ extern GEOSCoordSequence  *GEOSCoordSeq_create(unsigned int size, unsigned int d
 *
 * \since 3.10
 */
-extern GEOSCoordSequence  *GEOSCoordSeq_copyFromBuffer(const double* buf, unsigned int size, int hasZ, int hasM);
+extern GEOSCoordSequence GEOS_DLL *GEOSCoordSeq_copyFromBuffer(const double* buf, unsigned int size, int hasZ, int hasM);
 
 /**
 * Create a coordinate sequence by copying from arrays of doubles
@@ -2121,7 +2131,7 @@ extern GEOSCoordSequence  *GEOSCoordSeq_copyFromBuffer(const double* buf, unsign
 *
 * \since 3.10
 */
-extern GEOSCoordSequence  *GEOSCoordSeq_copyFromArrays(const double* x, const double* y, const double* z, const double* m, unsigned int size);
+extern GEOSCoordSequence GEOS_DLL *GEOSCoordSeq_copyFromArrays(const double* x, const double* y, const double* z, const double* m, unsigned int size);
 
 /**
 * Copy the contents of a coordinate sequence to an interleaved buffer of doubles (e.g., XYXY or XYZXYZ)
@@ -2133,7 +2143,7 @@ extern GEOSCoordSequence  *GEOSCoordSeq_copyFromArrays(const double* x, const do
 *
 * \since 3.10
 */
-extern int  GEOSCoordSeq_copyToBuffer(const GEOSCoordSequence* s, double* buf, int hasZ, int hasM);
+extern int GEOS_DLL GEOSCoordSeq_copyToBuffer(const GEOSCoordSequence* s, double* buf, int hasZ, int hasM);
 
 /**
 * Copy the contents of a coordinate sequence to arrays of doubles
@@ -2146,7 +2156,7 @@ extern int  GEOSCoordSeq_copyToBuffer(const GEOSCoordSequence* s, double* buf, i
 *
 * \since 3.10
 */
-extern int  GEOSCoordSeq_copyToArrays(const GEOSCoordSequence* s, double* x, double* y, double* z, double* m);
+extern int GEOS_DLL GEOSCoordSeq_copyToArrays(const GEOSCoordSequence* s, double* x, double* y, double* z, double* m);
 
 /**
 * Clone a coordinate sequence.
@@ -2154,14 +2164,14 @@ extern int  GEOSCoordSeq_copyToArrays(const GEOSCoordSequence* s, double* x, dou
 * \return a copy of the coordinate sequence or NULL on exception
 * \since 2.2
 */
-extern GEOSCoordSequence  *GEOSCoordSeq_clone(const GEOSCoordSequence* s);
+extern GEOSCoordSequence GEOS_DLL *GEOSCoordSeq_clone(const GEOSCoordSequence* s);
 
 /**
 * Destroy a coordinate sequence, freeing all memory.
 * \param s the coordinate sequence to destroy
 * \since 2.2
 */
-extern void  GEOSCoordSeq_destroy(GEOSCoordSequence* s);
+extern void GEOS_DLL GEOSCoordSeq_destroy(GEOSCoordSequence* s);
 
 /**
 * Set X ordinate values in a coordinate sequence.
@@ -2171,7 +2181,7 @@ extern void  GEOSCoordSeq_destroy(GEOSCoordSequence* s);
 * \return 0 on exception
 * \since 2.2
 */
-extern int  GEOSCoordSeq_setX(GEOSCoordSequence* s,
+extern int GEOS_DLL GEOSCoordSeq_setX(GEOSCoordSequence* s,
     unsigned int idx, double val);
 /**
 * Set Y ordinate values in a coordinate sequence.
@@ -2181,7 +2191,7 @@ extern int  GEOSCoordSeq_setX(GEOSCoordSequence* s,
 * \return 0 on exception
 * \since 2.2
 */
-extern int  GEOSCoordSeq_setY(GEOSCoordSequence* s,
+extern int GEOS_DLL GEOSCoordSeq_setY(GEOSCoordSequence* s,
     unsigned int idx, double val);
 /**
 * Set Z ordinate values in a coordinate sequence.
@@ -2191,7 +2201,7 @@ extern int  GEOSCoordSeq_setY(GEOSCoordSequence* s,
 * \return 0 on exception
 * \since 2.2
 */
-extern int  GEOSCoordSeq_setZ(GEOSCoordSequence* s,
+extern int GEOS_DLL GEOSCoordSeq_setZ(GEOSCoordSequence* s,
     unsigned int idx, double val);
 /**
 * Set X and Y ordinate values in a coordinate sequence simultaneously.
@@ -2203,7 +2213,7 @@ extern int  GEOSCoordSeq_setZ(GEOSCoordSequence* s,
 *
 * \since 3.8
 */
-extern int  GEOSCoordSeq_setXY(GEOSCoordSequence* s,
+extern int GEOS_DLL GEOSCoordSeq_setXY(GEOSCoordSequence* s,
     unsigned int idx, double x, double y);
 /**
 * Set X, Y and Z ordinate values in a coordinate sequence simultaneously.
@@ -2216,7 +2226,7 @@ extern int  GEOSCoordSeq_setXY(GEOSCoordSequence* s,
 *
 * \since 3.8
 */
-extern int  GEOSCoordSeq_setXYZ(GEOSCoordSequence* s,
+extern int GEOS_DLL GEOSCoordSeq_setXYZ(GEOSCoordSequence* s,
     unsigned int idx, double x, double y, double z);
 /**
 * Set Nth ordinate value in a coordinate sequence.
@@ -2227,7 +2237,7 @@ extern int  GEOSCoordSeq_setXYZ(GEOSCoordSequence* s,
 * \return 0 on exception
 * \since 2.2
 */
-extern int  GEOSCoordSeq_setOrdinate(GEOSCoordSequence* s,
+extern int GEOS_DLL GEOSCoordSeq_setOrdinate(GEOSCoordSequence* s,
     unsigned int idx, unsigned int dim, double val);
 
 /**
@@ -2238,7 +2248,7 @@ extern int  GEOSCoordSeq_setOrdinate(GEOSCoordSequence* s,
 * \return 0 on exception
 * \since 2.2
 */
-extern int  GEOSCoordSeq_getX(const GEOSCoordSequence* s,
+extern int GEOS_DLL GEOSCoordSeq_getX(const GEOSCoordSequence* s,
     unsigned int idx, double *val);
 
 /**
@@ -2249,7 +2259,7 @@ extern int  GEOSCoordSeq_getX(const GEOSCoordSequence* s,
 * \return 0 on exception
 * \since 2.2
 */
-extern int  GEOSCoordSeq_getY(const GEOSCoordSequence* s,
+extern int GEOS_DLL GEOSCoordSeq_getY(const GEOSCoordSequence* s,
     unsigned int idx, double *val);
 /**
 * Read Z ordinate values from a coordinate sequence.
@@ -2259,7 +2269,7 @@ extern int  GEOSCoordSeq_getY(const GEOSCoordSequence* s,
 * \return 0 on exception
 * \since 2.2
 */
-extern int  GEOSCoordSeq_getZ(const GEOSCoordSequence* s,
+extern int GEOS_DLL GEOSCoordSeq_getZ(const GEOSCoordSequence* s,
     unsigned int idx, double *val);
 /**
 * Read X and Y ordinate values from a coordinate sequence.
@@ -2271,7 +2281,7 @@ extern int  GEOSCoordSeq_getZ(const GEOSCoordSequence* s,
 *
 * \since 3.8
 */
-extern int  GEOSCoordSeq_getXY(const GEOSCoordSequence* s,
+extern int GEOS_DLL GEOSCoordSeq_getXY(const GEOSCoordSequence* s,
     unsigned int idx, double *x, double *y);
 /**
 * Read X and Y ordinate values from a coordinate sequence.
@@ -2284,7 +2294,7 @@ extern int  GEOSCoordSeq_getXY(const GEOSCoordSequence* s,
 *
 * \since 3.8
 */
-extern int  GEOSCoordSeq_getXYZ(const GEOSCoordSequence* s,
+extern int GEOS_DLL GEOSCoordSeq_getXYZ(const GEOSCoordSequence* s,
     unsigned int idx, double *x, double *y, double *z);
 /**
 * Read Nth ordinate value from a coordinate sequence.
@@ -2295,7 +2305,7 @@ extern int  GEOSCoordSeq_getXYZ(const GEOSCoordSequence* s,
 * \return 0 on exception
 * \since 2.2
 */
-extern int  GEOSCoordSeq_getOrdinate(const GEOSCoordSequence* s,
+extern int GEOS_DLL GEOSCoordSeq_getOrdinate(const GEOSCoordSequence* s,
     unsigned int idx, unsigned int dim, double *val);
 
 /**
@@ -2305,7 +2315,7 @@ extern int  GEOSCoordSeq_getOrdinate(const GEOSCoordSequence* s,
 * \return 0 on exception
 * \since 2.2
 */
-extern int  GEOSCoordSeq_getSize(
+extern int GEOS_DLL GEOSCoordSeq_getSize(
     const GEOSCoordSequence* s,
     unsigned int *size);
 
@@ -2316,7 +2326,7 @@ extern int  GEOSCoordSeq_getSize(
 * \return 0 on exception
 * \since 2.2
 */
-extern int  GEOSCoordSeq_getDimensions(
+extern int GEOS_DLL GEOSCoordSeq_getDimensions(
     const GEOSCoordSequence* s,
     unsigned int *dims);
 
@@ -2329,7 +2339,7 @@ extern int  GEOSCoordSeq_getDimensions(
 *
 * \since 3.7
 */
-extern int  GEOSCoordSeq_isCCW(
+extern int GEOS_DLL GEOSCoordSeq_isCCW(
     const GEOSCoordSequence* s,
     char* is_ccw);
 
@@ -2349,7 +2359,7 @@ extern int  GEOSCoordSeq_isCCW(
 * Caller is responsible for freeing with GEOSGeom_destroy().
 * \since 2.2
 */
-extern GEOSGeometry  *GEOSGeom_createPoint(GEOSCoordSequence* s);
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createPoint(GEOSCoordSequence* s);
 
 /**
 * Creates a point geometry from a pair of coordinates.
@@ -2360,7 +2370,7 @@ extern GEOSGeometry  *GEOSGeom_createPoint(GEOSCoordSequence* s);
 *
 * \since 3.8
 */
-extern GEOSGeometry  *GEOSGeom_createPointFromXY(double x, double y);
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createPointFromXY(double x, double y);
 
 /**
 * Creates an empty point.
@@ -2369,7 +2379,7 @@ extern GEOSGeometry  *GEOSGeom_createPointFromXY(double x, double y);
 *
 * \since 3.3
 */
-extern GEOSGeometry  *GEOSGeom_createEmptyPoint(void);
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createEmptyPoint(void);
 
 /**
 * Creates a linear ring geometry, for use in a polygon.
@@ -2378,7 +2388,7 @@ extern GEOSGeometry  *GEOSGeom_createEmptyPoint(void);
 * Caller is responsible for freeing with GEOSGeom_destroy().
 * \since 2.2
 */
-extern GEOSGeometry  *GEOSGeom_createLinearRing(GEOSCoordSequence* s);
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createLinearRing(GEOSCoordSequence* s);
 
 /**
 * Creates a linestring geometry.
@@ -2387,7 +2397,7 @@ extern GEOSGeometry  *GEOSGeom_createLinearRing(GEOSCoordSequence* s);
 * Caller is responsible for freeing with GEOSGeom_destroy().
 * \since 2.2
 */
-extern GEOSGeometry  *GEOSGeom_createLineString(GEOSCoordSequence* s);
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createLineString(GEOSCoordSequence* s);
 
 /**
 * Creates an emptylinestring geometry.
@@ -2396,7 +2406,7 @@ extern GEOSGeometry  *GEOSGeom_createLineString(GEOSCoordSequence* s);
 *
 * \since 3.3
 */
-extern GEOSGeometry  *GEOSGeom_createEmptyLineString(void);
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createEmptyLineString(void);
 
 /**
 * Creates an empty polygon geometry.
@@ -2405,7 +2415,7 @@ extern GEOSGeometry  *GEOSGeom_createEmptyLineString(void);
 *
 * \since 3.3
 */
-extern GEOSGeometry  *GEOSGeom_createEmptyPolygon(void);
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createEmptyPolygon(void);
 
 /**
 * Creates a polygon geometry from linear ring geometries.
@@ -2420,7 +2430,7 @@ extern GEOSGeometry  *GEOSGeom_createEmptyPolygon(void);
 *       to the returned \ref GEOSGeometry.
 * \since 2.2
 */
-extern GEOSGeometry  *GEOSGeom_createPolygon(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createPolygon(
     GEOSGeometry* shell,
     GEOSGeometry** holes,
     unsigned int nholes);
@@ -2438,7 +2448,7 @@ extern GEOSGeometry  *GEOSGeom_createPolygon(
 *       to the returned \ref GEOSGeometry.
 * \since 2.2
 */
-extern GEOSGeometry  *GEOSGeom_createCollection(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createCollection(
     int type,
     GEOSGeometry** geoms,
     unsigned int ngeoms);
@@ -2459,7 +2469,7 @@ extern GEOSGeometry  *GEOSGeom_createCollection(
 *       and ngeoms set to zero.
 * \since 3.4
 */
-extern GEOSGeometry  ** GEOSGeom_releaseCollection(
+extern GEOSGeometry GEOS_DLL ** GEOSGeom_releaseCollection(
     GEOSGeometry * collection,
     unsigned int * ngeoms);
 
@@ -2471,7 +2481,7 @@ extern GEOSGeometry  ** GEOSGeom_releaseCollection(
 *
 * \since 3.3
 */
-extern GEOSGeometry  *GEOSGeom_createEmptyCollection(int type);
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createEmptyCollection(int type);
 
 /**
 * Create a rectangular polygon from bounding coordinates.
@@ -2483,7 +2493,7 @@ extern GEOSGeometry  *GEOSGeom_createEmptyCollection(int type);
 *
 * \since 3.11
 */
-extern GEOSGeometry  *GEOSGeom_createRectangle(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_createRectangle(
     double xmin, double ymin,
     double xmax, double ymax);
 
@@ -2494,14 +2504,14 @@ extern GEOSGeometry  *GEOSGeom_createRectangle(
 * Caller is responsible for freeing with GEOSGeom_destroy().
 * \since 2.2
 */
-extern GEOSGeometry  *GEOSGeom_clone(const GEOSGeometry* g);
+extern GEOSGeometry GEOS_DLL *GEOSGeom_clone(const GEOSGeometry* g);
 
 /**
 * Release the memory associated with a geometry.
 * \param g The geometry to be destroyed.
 * \since 2.2
 */
-extern void  GEOSGeom_destroy(GEOSGeometry* g);
+extern void GEOS_DLL GEOSGeom_destroy(GEOSGeometry* g);
 
 ///@}
 
@@ -2520,7 +2530,7 @@ extern void  GEOSGeom_destroy(GEOSGeometry* g);
 * NULL on exception.
 * \since 2.2
 */
-extern char  *GEOSGeomType(const GEOSGeometry* g);
+extern char GEOS_DLL *GEOSGeomType(const GEOSGeometry* g);
 
 /**
 * Returns the \ref GEOSGeomTypeId number for this geometry.
@@ -2528,7 +2538,7 @@ extern char  *GEOSGeomType(const GEOSGeometry* g);
 * \return The geometry type number, or -1 on exception.
 * \since 2.2
 */
-extern int  GEOSGeomTypeId(const GEOSGeometry* g);
+extern int GEOS_DLL GEOSGeomTypeId(const GEOSGeometry* g);
 
 /**
 * Returns the "spatial reference id" (SRID) for this geometry.
@@ -2536,7 +2546,7 @@ extern int  GEOSGeomTypeId(const GEOSGeometry* g);
 * \return SRID number or 0 if unknown / not set.
 * \since 2.2
 */
-extern int  GEOSGetSRID(const GEOSGeometry* g);
+extern int GEOS_DLL GEOSGetSRID(const GEOSGeometry* g);
 
 /**
 * Return the anonymous "user data" for this geometry.
@@ -2548,7 +2558,7 @@ extern int  GEOSGetSRID(const GEOSGeometry* g);
 *
 * \since 3.6
 */
-extern void  *GEOSGeom_getUserData(const GEOSGeometry* g);
+extern void GEOS_DLL *GEOSGeom_getUserData(const GEOSGeometry* g);
 
 /**
 * Returns the number of sub-geometries immediately under a
@@ -2560,7 +2570,7 @@ extern void  *GEOSGeom_getUserData(const GEOSGeometry* g);
 * \warning For GEOS < 3.2 this function may crash when fed simple geometries
 * \since 2.2
 */
-extern int  GEOSGetNumGeometries(const GEOSGeometry* g);
+extern int GEOS_DLL GEOSGetNumGeometries(const GEOSGeometry* g);
 
 /**
 * Returns the specified sub-geometry of a collection. For
@@ -2577,7 +2587,7 @@ extern int  GEOSGetNumGeometries(const GEOSGeometry* g);
 *       return the input).
 * \since 2.2
 */
-extern const GEOSGeometry  *GEOSGetGeometryN(
+extern const GEOSGeometry GEOS_DLL *GEOSGetGeometryN(
     const GEOSGeometry* g,
     int n);
 
@@ -2590,7 +2600,7 @@ extern const GEOSGeometry  *GEOSGetGeometryN(
 *
 * \since 3.6
 */
-extern double  GEOSGeom_getPrecision(const GEOSGeometry *g);
+extern double GEOS_DLL GEOSGeom_getPrecision(const GEOSGeometry *g);
 
 /**
 * Returns the number of interior rings, for a Polygon input, or
@@ -2599,7 +2609,7 @@ extern double  GEOSGeom_getPrecision(const GEOSGeometry *g);
 * \return Number of interior rings, -1 on exception
 * \since 2.2
 */
-extern int  GEOSGetNumInteriorRings(const GEOSGeometry* g);
+extern int GEOS_DLL GEOSGetNumInteriorRings(const GEOSGeometry* g);
 
 /**
 * Returns the number of points, for a LineString input, or
@@ -2608,7 +2618,7 @@ extern int  GEOSGetNumInteriorRings(const GEOSGeometry* g);
 * \return Number of points, -1 on exception
 * \since 2.2
 */
-extern int  GEOSGeomGetNumPoints(const GEOSGeometry* g);
+extern int GEOS_DLL GEOSGeomGetNumPoints(const GEOSGeometry* g);
 
 /**
 * Returns the X coordinate, for a Point input, or an
@@ -2618,7 +2628,7 @@ extern int  GEOSGeomGetNumPoints(const GEOSGeometry* g);
 * \returns 1 on success, 0 on exception
 * \since 2.2
 */
-extern int  GEOSGeomGetX(const GEOSGeometry *g, double *x);
+extern int GEOS_DLL GEOSGeomGetX(const GEOSGeometry *g, double *x);
 
 /**
 * Returns the Y coordinate, for a Point input, or an
@@ -2628,7 +2638,7 @@ extern int  GEOSGeomGetX(const GEOSGeometry *g, double *x);
 * \returns 1 on success, 0 on exception
 * \since 2.2
 */
-extern int  GEOSGeomGetY(const GEOSGeometry *g, double *y);
+extern int GEOS_DLL GEOSGeomGetY(const GEOSGeometry *g, double *y);
 
 /**
 * Returns the Z coordinate, for a Point input, or an
@@ -2639,7 +2649,7 @@ extern int  GEOSGeomGetY(const GEOSGeometry *g, double *y);
 *
 * \since 3.7
 */
-extern int  GEOSGeomGetZ(const GEOSGeometry *g, double *z);
+extern int GEOS_DLL GEOSGeomGetZ(const GEOSGeometry *g, double *z);
 
 /**
 * Returns the M coordinate, for a Point input, or an
@@ -2650,7 +2660,7 @@ extern int  GEOSGeomGetZ(const GEOSGeometry *g, double *z);
 *
 * \since 3.12
 */
-extern int  GEOSGeomGetM(const GEOSGeometry *g, double *m);
+extern int GEOS_DLL GEOSGeomGetM(const GEOSGeometry *g, double *m);
 
 /**
 * Returns the N'th ring for a Polygon input.
@@ -2661,7 +2671,7 @@ extern int  GEOSGeomGetM(const GEOSGeometry *g, double *m);
 * \return LinearRing geometry. Owned by parent geometry, do not free. NULL on exception.
 * \since 2.2
 */
-extern const GEOSGeometry  *GEOSGetInteriorRingN(
+extern const GEOSGeometry GEOS_DLL *GEOSGetInteriorRingN(
     const GEOSGeometry* g,
     int n);
 
@@ -2673,7 +2683,7 @@ extern const GEOSGeometry  *GEOSGetInteriorRingN(
 * \return LinearRing geometry. Owned by parent geometry, do not free. NULL on exception.
 * \since 2.2
 */
-extern const GEOSGeometry  *GEOSGetExteriorRing(
+extern const GEOSGeometry GEOS_DLL *GEOSGetExteriorRing(
     const GEOSGeometry* g);
 
 /**
@@ -2683,7 +2693,7 @@ extern const GEOSGeometry  *GEOSGetExteriorRing(
 * \return Number of points in the geometry. -1 on exception.
 * \since 2.2
 */
-extern int  GEOSGetNumCoordinates(
+extern int GEOS_DLL GEOSGetNumCoordinates(
     const GEOSGeometry* g);
 
 /**
@@ -2695,7 +2705,7 @@ extern int  GEOSGetNumCoordinates(
 * \return Coordinate sequence or NULL on exception.
 * \since 2.2
 */
-extern const GEOSCoordSequence  *GEOSGeom_getCoordSeq(
+extern const GEOSCoordSequence GEOS_DLL *GEOSGeom_getCoordSeq(
     const GEOSGeometry* g);
 
 /**
@@ -2710,7 +2720,7 @@ extern const GEOSCoordSequence  *GEOSGeom_getCoordSeq(
 * \return The dimensionality
 * \since 2.2
 */
-extern int  GEOSGeom_getDimensions(
+extern int GEOS_DLL GEOSGeom_getDimensions(
     const GEOSGeometry* g);
 
 /**
@@ -2724,7 +2734,7 @@ extern int  GEOSGeom_getDimensions(
 *
 * \since 3.3
 */
-extern int  GEOSGeom_getCoordinateDimension(
+extern int GEOS_DLL GEOSGeom_getCoordinateDimension(
     const GEOSGeometry* g);
 
 /**
@@ -2735,7 +2745,7 @@ extern int  GEOSGeom_getCoordinateDimension(
 *
 * \since 3.7
 */
-extern int  GEOSGeom_getXMin(const GEOSGeometry* g, double* value);
+extern int GEOS_DLL GEOSGeom_getXMin(const GEOSGeometry* g, double* value);
 
 /**
 * Finds the minimum Y value in the geometry.
@@ -2745,7 +2755,7 @@ extern int  GEOSGeom_getXMin(const GEOSGeometry* g, double* value);
 *
 * \since 3.7
 */
-extern int  GEOSGeom_getYMin(const GEOSGeometry* g, double* value);
+extern int GEOS_DLL GEOSGeom_getYMin(const GEOSGeometry* g, double* value);
 
 /**
 * Finds the maximum X value in the geometry.
@@ -2755,7 +2765,7 @@ extern int  GEOSGeom_getYMin(const GEOSGeometry* g, double* value);
 *
 * \since 3.7
 */
-extern int  GEOSGeom_getXMax(const GEOSGeometry* g, double* value);
+extern int GEOS_DLL GEOSGeom_getXMax(const GEOSGeometry* g, double* value);
 
 /**
 * Finds the maximum Y value in the geometry.
@@ -2765,7 +2775,7 @@ extern int  GEOSGeom_getXMax(const GEOSGeometry* g, double* value);
 *
 * \since 3.7
 */
-extern int  GEOSGeom_getYMax(const GEOSGeometry* g, double* value);
+extern int GEOS_DLL GEOSGeom_getYMax(const GEOSGeometry* g, double* value);
 
 /**
 * Finds the extent (minimum and maximum X and Y value) of the geometry.
@@ -2780,7 +2790,7 @@ extern int  GEOSGeom_getYMax(const GEOSGeometry* g, double* value);
 *
 * \since 3.11
 */
-extern int  GEOSGeom_getExtent(
+extern int GEOS_DLL GEOSGeom_getExtent(
     const GEOSGeometry* g,
     double* xmin,
     double* ymin,
@@ -2796,7 +2806,7 @@ extern int  GEOSGeom_getExtent(
 *         NULL on exception.
 * \since 3.3
 */
-extern GEOSGeometry  *GEOSGeomGetPointN(const GEOSGeometry *g, int n);
+extern GEOSGeometry GEOS_DLL *GEOSGeomGetPointN(const GEOSGeometry *g, int n);
 
 /**
 * Return the first point of a LineString
@@ -2806,7 +2816,7 @@ extern GEOSGeometry  *GEOSGeomGetPointN(const GEOSGeometry *g, int n);
 *         NULL on exception.
 * \since 3.3
 */
-extern GEOSGeometry  *GEOSGeomGetStartPoint(const GEOSGeometry *g);
+extern GEOSGeometry GEOS_DLL *GEOSGeomGetStartPoint(const GEOSGeometry *g);
 
 /**
 * Return the last point of a LineString
@@ -2816,7 +2826,7 @@ extern GEOSGeometry  *GEOSGeomGetStartPoint(const GEOSGeometry *g);
 *         NULL on exception.
 * \since 3.3
 */
-extern GEOSGeometry  *GEOSGeomGetEndPoint(const GEOSGeometry *g);
+extern GEOSGeometry GEOS_DLL *GEOSGeomGetEndPoint(const GEOSGeometry *g);
 
 
 /**
@@ -2827,7 +2837,7 @@ extern GEOSGeometry  *GEOSGeomGetEndPoint(const GEOSGeometry *g);
 * \return 1 on true, 0 on false, 2 on exception
 * \since 2.2
 */
-extern char  GEOSisEmpty(const GEOSGeometry* g);
+extern char GEOS_DLL GEOSisEmpty(const GEOSGeometry* g);
 
 /**
 * Tests whether the input geometry is a ring. Rings are
@@ -2837,7 +2847,7 @@ extern char  GEOSisEmpty(const GEOSGeometry* g);
 * \return 1 on true, 0 on false, 2 on exception
 * \since 2.2
 */
-extern char  GEOSisRing(const GEOSGeometry* g);
+extern char GEOS_DLL GEOSisRing(const GEOSGeometry* g);
 
 /**
 * Tests whether the input geometry has Z coordinates.
@@ -2845,7 +2855,7 @@ extern char  GEOSisRing(const GEOSGeometry* g);
 * \return 1 on true, 0 on false, 2 on exception
 * \since 2.2
 */
-extern char  GEOSHasZ(const GEOSGeometry* g);
+extern char GEOS_DLL GEOSHasZ(const GEOSGeometry* g);
 
 /**
 * Tests whether the input geometry has M coordinates.
@@ -2854,7 +2864,7 @@ extern char  GEOSHasZ(const GEOSGeometry* g);
 *
 * \since 3.12
 */
-extern char  GEOSHasM(const GEOSGeometry* g);
+extern char GEOS_DLL GEOSHasM(const GEOSGeometry* g);
 
 /**
 * Tests whether the input geometry is closed.
@@ -2864,7 +2874,7 @@ extern char  GEOSHasM(const GEOSGeometry* g);
 * \return 1 on true, 0 on false, 2 on exception
 * \since 3.3
 */
-extern char  GEOSisClosed(const GEOSGeometry *g);
+extern char GEOS_DLL GEOSisClosed(const GEOSGeometry *g);
 
 ///@}
 
@@ -2880,7 +2890,7 @@ extern char  GEOSisClosed(const GEOSGeometry *g);
 * \param SRID SRID number or 0 for unknown SRID.
 * \since 2.2
 */
-extern void  GEOSSetSRID(GEOSGeometry* g, int SRID);
+extern void GEOS_DLL GEOSSetSRID(GEOSGeometry* g, int SRID);
 
 /**
 * Set the anonymous "user data" for this geometry.
@@ -2889,7 +2899,7 @@ extern void  GEOSSetSRID(GEOSGeometry* g, int SRID);
 *
 * \since 3.6
 */
-extern void  GEOSGeom_setUserData(GEOSGeometry* g, void* userData);
+extern void GEOS_DLL GEOSGeom_setUserData(GEOSGeometry* g, void* userData);
 
 /**
 * Organize the elements, rings, and coordinate order
@@ -2910,7 +2920,7 @@ extern void  GEOSGeom_setUserData(GEOSGeometry* g, void* userData);
 * \return 0 on success or -1 on exception
 * \since 3.0
 */
-extern int  GEOSNormalize(GEOSGeometry* g);
+extern int GEOS_DLL GEOSNormalize(GEOSGeometry* g);
 
 /**
 * Enforce a ring orientation on all polygonal elements in the input geometry.
@@ -2921,7 +2931,7 @@ extern int  GEOSNormalize(GEOSGeometry* g);
 *                         will be counter-clockwise
 * \return 0 on success or -1 on exception
 */
-extern int  GEOSOrientPolygons(GEOSGeometry* g,
+extern int GEOS_DLL GEOSOrientPolygons(GEOSGeometry* g,
                                        int exteriorCW);
 
 ///@}
@@ -2940,7 +2950,7 @@ and geometric quality.
 * \return 1 on true, 0 on false, 2 on exception
 * \since 2.2
 */
-extern char  GEOSisSimple(const GEOSGeometry* g);
+extern char GEOS_DLL GEOSisSimple(const GEOSGeometry* g);
 
 /**
 * Check the validity of the provided geometry.
@@ -2955,7 +2965,7 @@ extern char  GEOSisSimple(const GEOSGeometry* g);
 * \see geos::operation::valid::isValidOp
 * \since 2.2
 */
-extern char  GEOSisValid(const GEOSGeometry* g);
+extern char GEOS_DLL GEOSisValid(const GEOSGeometry* g);
 
 /**
 * Return the human readable reason a geometry is invalid,
@@ -2966,7 +2976,7 @@ extern char  GEOSisValid(const GEOSGeometry* g);
 *
 * \since 3.1
 */
-extern char  *GEOSisValidReason(const GEOSGeometry *g);
+extern char GEOS_DLL *GEOSisValidReason(const GEOSGeometry *g);
 
 /**
 * In one step, calculate and return the validity, the
@@ -2982,7 +2992,7 @@ extern char  *GEOSisValidReason(const GEOSGeometry *g);
 *
 * \since 3.3
 */
-extern char  GEOSisValidDetail(
+extern char GEOS_DLL GEOSisValidDetail(
     const GEOSGeometry* g,
     int flags,
     char** reason,
@@ -2995,7 +3005,7 @@ extern char  GEOSisValidDetail(
 *
 * \since 3.8
 */
-extern GEOSGeometry  *GEOSMakeValid(
+extern GEOSGeometry GEOS_DLL *GEOSMakeValid(
     const GEOSGeometry* g);
 
 /**
@@ -3011,7 +3021,7 @@ extern GEOSGeometry  *GEOSMakeValid(
 *
 * \since 3.10
 */
-extern GEOSGeometry  *GEOSMakeValidWithParams(
+extern GEOSGeometry GEOS_DLL *GEOSMakeValidWithParams(
     const GEOSGeometry* g,
     const GEOSMakeValidParams *makeValidParams);
 
@@ -3023,7 +3033,7 @@ extern GEOSGeometry  *GEOSMakeValidWithParams(
 *
 * \since 3.10
 */
-extern GEOSMakeValidParams  *GEOSMakeValidParams_create(void);
+extern GEOSMakeValidParams GEOS_DLL *GEOSMakeValidParams_create(void);
 
 /**
 * Destroy a GEOSMakeValidParams.
@@ -3032,7 +3042,7 @@ extern GEOSMakeValidParams  *GEOSMakeValidParams_create(void);
 *
 * \since 3.10
 */
-extern void  GEOSMakeValidParams_destroy(GEOSMakeValidParams* parms);
+extern void GEOS_DLL GEOSMakeValidParams_destroy(GEOSMakeValidParams* parms);
 
 /**
 * Set the GEOSMakeValidMethods to use in making the geometry
@@ -3042,7 +3052,7 @@ extern void  GEOSMakeValidParams_destroy(GEOSMakeValidParams* parms);
 *
 * \since 3.10
 */
-extern int  GEOSMakeValidParams_setMethod(
+extern int GEOS_DLL GEOSMakeValidParams_setMethod(
     GEOSMakeValidParams* p,
     enum GEOSMakeValidMethods method);
 
@@ -3056,7 +3066,7 @@ extern int  GEOSMakeValidParams_setMethod(
 *
 * \since 3.10
 */
-extern int  GEOSMakeValidParams_setKeepCollapsed(
+extern int GEOS_DLL GEOSMakeValidParams_setKeepCollapsed(
     GEOSMakeValidParams* p,
     int keepCollapsed);
 
@@ -3079,7 +3089,7 @@ extern int  GEOSMakeValidParams_setKeepCollapsed(
 *
 * \since 3.6
 */
-extern int  GEOSMinimumClearance(const GEOSGeometry* g, double* d);
+extern int GEOS_DLL GEOSMinimumClearance(const GEOSGeometry* g, double* d);
 
 /**
 * Returns a LineString whose endpoints define the minimum clearance of a geometry.
@@ -3092,7 +3102,7 @@ extern int  GEOSMinimumClearance(const GEOSGeometry* g, double* d);
 *
 * \since 3.6
 */
-extern GEOSGeometry  *GEOSMinimumClearanceLine(const GEOSGeometry* g);
+extern GEOSGeometry GEOS_DLL *GEOSMinimumClearanceLine(const GEOSGeometry* g);
 
 /**
 * Works from start of each coordinate sequence in the
@@ -3111,7 +3121,7 @@ extern GEOSGeometry  *GEOSMinimumClearanceLine(const GEOSGeometry* g);
 *
 * \since 3.11
 */
-extern GEOSGeometry  *GEOSRemoveRepeatedPoints(
+extern GEOSGeometry GEOS_DLL *GEOSRemoveRepeatedPoints(
     const GEOSGeometry* g,
     double tolerance);
 
@@ -3130,7 +3140,7 @@ extern GEOSGeometry  *GEOSRemoveRepeatedPoints(
 * \return 1 on success, 0 on exception.
 * \since 2.2
 */
-extern int  GEOSArea(
+extern int GEOS_DLL GEOSArea(
     const GEOSGeometry* g,
     double *area);
 
@@ -3141,7 +3151,7 @@ extern int  GEOSArea(
 * \return 1 on success, 0 on exception.
 * \since 2.2
 */
-extern int  GEOSLength(
+extern int GEOS_DLL GEOSLength(
     const GEOSGeometry* g,
     double *length);
 
@@ -3154,7 +3164,7 @@ extern int  GEOSLength(
 * \return 1 on success, 0 on exception.
 * \since 3.3
 */
-extern int  GEOSGeomGetLength(
+extern int GEOS_DLL GEOSGeomGetLength(
     const GEOSGeometry *g,
     double *length);
 
@@ -3175,7 +3185,7 @@ extern int  GEOSGeomGetLength(
 * \return 1 on success, 0 on exception.
 * \since 2.2
 */
-extern int  GEOSDistance(
+extern int GEOS_DLL GEOSDistance(
     const GEOSGeometry* g1,
     const GEOSGeometry* g2,
     double *dist);
@@ -3190,7 +3200,7 @@ extern int  GEOSDistance(
 *
 * \since 3.10
 */
-extern char  GEOSDistanceWithin(
+extern char GEOS_DLL GEOSDistanceWithin(
     const GEOSGeometry* g1,
     const GEOSGeometry* g2,
     double dist);
@@ -3208,7 +3218,7 @@ extern char  GEOSDistanceWithin(
 *
 * \since 3.7
 */
-extern int  GEOSDistanceIndexed(
+extern int GEOS_DLL GEOSDistanceIndexed(
     const GEOSGeometry* g1,
     const GEOSGeometry* g2,
     double *dist);
@@ -3224,7 +3234,7 @@ extern int  GEOSDistanceIndexed(
 *
 * \since 3.5
 */
-extern GEOSCoordSequence  *GEOSNearestPoints(
+extern GEOSCoordSequence GEOS_DLL *GEOSNearestPoints(
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
 
@@ -3239,7 +3249,7 @@ extern GEOSCoordSequence  *GEOSNearestPoints(
 * \see geos::algorithm::distance::DiscreteHausdorffDistance
 * \since 3.2
 */
-extern int  GEOSHausdorffDistance(
+extern int GEOS_DLL GEOSHausdorffDistance(
     const GEOSGeometry *g1,
     const GEOSGeometry *g2,
     double *dist);
@@ -3258,7 +3268,7 @@ extern int  GEOSHausdorffDistance(
 * \see geos::algorithm::distance::DiscreteHausdorffDistance
 * \since 3.2
 */
-extern int  GEOSHausdorffDistanceDensify(
+extern int GEOS_DLL GEOSHausdorffDistanceDensify(
     const GEOSGeometry *g1,
     const GEOSGeometry *g2,
     double densifyFrac,
@@ -3277,7 +3287,7 @@ extern int  GEOSHausdorffDistanceDensify(
 *
 * \since 3.7
 */
-extern int  GEOSFrechetDistance(
+extern int GEOS_DLL GEOSFrechetDistance(
     const GEOSGeometry *g1,
     const GEOSGeometry *g2,
     double *dist);
@@ -3298,7 +3308,7 @@ extern int  GEOSFrechetDistance(
 *
 * \since 3.7
 */
-extern int  GEOSFrechetDistanceDensify(
+extern int GEOS_DLL GEOSFrechetDistanceDensify(
     const GEOSGeometry *g1,
     const GEOSGeometry *g2,
     double densifyFrac,
@@ -3322,7 +3332,7 @@ extern int  GEOSFrechetDistanceDensify(
 * \note Line parameter must be a LineString.
 * \since 3.2
 */
-extern double  GEOSProject(const GEOSGeometry* line,
+extern double GEOS_DLL GEOSProject(const GEOSGeometry* line,
                                    const GEOSGeometry* point);
 
 /**
@@ -3336,7 +3346,7 @@ extern double  GEOSProject(const GEOSGeometry* line,
 * Caller takes ownership of returned geometry.
 * \since 3.2
 */
-extern GEOSGeometry  *GEOSInterpolate(const GEOSGeometry* line,
+extern GEOSGeometry GEOS_DLL *GEOSInterpolate(const GEOSGeometry* line,
                                               double d);
 
 /**
@@ -3349,7 +3359,7 @@ extern GEOSGeometry  *GEOSInterpolate(const GEOSGeometry* line,
 * point falls at.
 * \since 3.2
 */
-extern double  GEOSProjectNormalized(const GEOSGeometry* line,
+extern double GEOS_DLL GEOSProjectNormalized(const GEOSGeometry* line,
                                              const GEOSGeometry* point);
 
 /**
@@ -3361,7 +3371,7 @@ extern double  GEOSProjectNormalized(const GEOSGeometry* line,
 * Caller takes ownership of returned geometry.
 * \since 3.2
 */
-extern GEOSGeometry  *GEOSInterpolateNormalized(
+extern GEOSGeometry GEOS_DLL *GEOSInterpolateNormalized(
     const GEOSGeometry *line,
     double proportion);
 
@@ -3384,7 +3394,7 @@ extern GEOSGeometry  *GEOSInterpolateNormalized(
 * \see geos::operation::overlayng::OverlayNG
 * \since 2.2
 */
-extern GEOSGeometry  *GEOSIntersection(const GEOSGeometry* g1, const GEOSGeometry* g2);
+extern GEOSGeometry GEOS_DLL *GEOSIntersection(const GEOSGeometry* g1, const GEOSGeometry* g2);
 
 /**
 * Returns the intersection of two geometries: the set of points
@@ -3400,7 +3410,7 @@ extern GEOSGeometry  *GEOSIntersection(const GEOSGeometry* g1, const GEOSGeometr
 *
 * \since 3.9
 */
-extern GEOSGeometry  *GEOSIntersectionPrec(const GEOSGeometry* g1, const GEOSGeometry* g2, double gridSize);
+extern GEOSGeometry GEOS_DLL *GEOSIntersectionPrec(const GEOSGeometry* g1, const GEOSGeometry* g2, double gridSize);
 
 /**
 * Returns the difference of two geometries A and B: the set of points
@@ -3412,7 +3422,7 @@ extern GEOSGeometry  *GEOSIntersectionPrec(const GEOSGeometry* g1, const GEOSGeo
 * \see geos::operation::overlayng::OverlayNG
 * \since 2.2
 */
-extern GEOSGeometry  *GEOSDifference(
+extern GEOSGeometry GEOS_DLL *GEOSDifference(
     const GEOSGeometry* ga,
     const GEOSGeometry* gb);
 
@@ -3431,7 +3441,7 @@ extern GEOSGeometry  *GEOSDifference(
 *
 * \since 3.9
 */
-extern GEOSGeometry  *GEOSDifferencePrec(
+extern GEOSGeometry GEOS_DLL *GEOSDifferencePrec(
     const GEOSGeometry* ga,
     const GEOSGeometry* gb,
     double gridSize);
@@ -3447,7 +3457,7 @@ extern GEOSGeometry  *GEOSDifferencePrec(
 * \see geos::operation::overlayng::OverlayNG
 * \since 2.2
 */
-extern GEOSGeometry  *GEOSSymDifference(
+extern GEOSGeometry GEOS_DLL *GEOSSymDifference(
     const GEOSGeometry* ga,
     const GEOSGeometry* gb);
 
@@ -3467,7 +3477,7 @@ extern GEOSGeometry  *GEOSSymDifference(
 *
 * \since 3.9
 */
-extern GEOSGeometry  *GEOSSymDifferencePrec(
+extern GEOSGeometry GEOS_DLL *GEOSSymDifferencePrec(
     const GEOSGeometry* ga,
     const GEOSGeometry* gb,
     double gridSize);
@@ -3482,7 +3492,7 @@ extern GEOSGeometry  *GEOSSymDifferencePrec(
 * \see geos::operation::overlayng::OverlayNG
 * \since 2.2
 */
-extern GEOSGeometry  *GEOSUnion(
+extern GEOSGeometry GEOS_DLL *GEOSUnion(
     const GEOSGeometry* ga,
     const GEOSGeometry* gb);
 
@@ -3501,7 +3511,7 @@ extern GEOSGeometry  *GEOSUnion(
 *
 * \since 3.9
 */
-extern GEOSGeometry  *GEOSUnionPrec(
+extern GEOSGeometry GEOS_DLL *GEOSUnionPrec(
     const GEOSGeometry* ga,
     const GEOSGeometry* gb,
     double gridSize);
@@ -3517,7 +3527,7 @@ extern GEOSGeometry  *GEOSUnionPrec(
 *
 * \since 3.3
 */
-extern GEOSGeometry  *GEOSUnaryUnion(const GEOSGeometry* g);
+extern GEOSGeometry GEOS_DLL *GEOSUnaryUnion(const GEOSGeometry* g);
 
 /**
 * Returns the union of all components of a single geometry. Usually
@@ -3534,7 +3544,7 @@ extern GEOSGeometry  *GEOSUnaryUnion(const GEOSGeometry* g);
 *
 * \since 3.9
 */
-extern GEOSGeometry  *GEOSUnaryUnionPrec(
+extern GEOSGeometry GEOS_DLL *GEOSUnaryUnionPrec(
     const GEOSGeometry* g,
     double gridSize);
 
@@ -3548,7 +3558,7 @@ extern GEOSGeometry  *GEOSUnaryUnionPrec(
 *
 * \since 3.12
 */
-extern GEOSGeometry  *GEOSDisjointSubsetUnion(const GEOSGeometry *g);
+extern GEOSGeometry GEOS_DLL *GEOSDisjointSubsetUnion(const GEOSGeometry *g);
 
 /**
 * Intersection optimized for a rectangular clipping polygon.
@@ -3565,7 +3575,7 @@ extern GEOSGeometry  *GEOSDisjointSubsetUnion(const GEOSGeometry *g);
 *
 * \since 3.5
 */
-extern GEOSGeometry  *GEOSClipByRect(
+extern GEOSGeometry GEOS_DLL *GEOSClipByRect(
     const GEOSGeometry* g,
     double xmin, double ymin,
     double xmax, double ymax);
@@ -3588,7 +3598,7 @@ extern GEOSGeometry  *GEOSClipByRect(
 *
 * \since 3.3
 */
-extern GEOSGeometry  *GEOSSharedPaths(
+extern GEOSGeometry GEOS_DLL *GEOSSharedPaths(
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
 
@@ -3611,7 +3621,7 @@ extern GEOSGeometry  *GEOSSharedPaths(
 * NULL on exception. Caller is responsible for freeing with GEOSGeom_destroy().
 * \since 2.2
 */
-extern GEOSGeometry  *GEOSBuffer(const GEOSGeometry* g,
+extern GEOSGeometry GEOS_DLL *GEOSBuffer(const GEOSGeometry* g,
     double width, int quadsegs);
 
 /**
@@ -3622,7 +3632,7 @@ extern GEOSGeometry  *GEOSBuffer(const GEOSGeometry* g,
 *
 * \since 3.3
 */
-extern GEOSBufferParams  *GEOSBufferParams_create(void);
+extern GEOSBufferParams GEOS_DLL *GEOSBufferParams_create(void);
 
 /**
 * Destroy a GEOSBufferParams and free all associated memory.
@@ -3630,7 +3640,7 @@ extern GEOSBufferParams  *GEOSBufferParams_create(void);
 *
 * \since 3.3
 */
-extern void  GEOSBufferParams_destroy(GEOSBufferParams* parms);
+extern void GEOS_DLL GEOSBufferParams_destroy(GEOSBufferParams* parms);
 
 /**
 * Set the end cap type of a GEOSBufferParams to the desired style,
@@ -3639,7 +3649,7 @@ extern void  GEOSBufferParams_destroy(GEOSBufferParams* parms);
 *
 * \since 3.3
 */
-extern int  GEOSBufferParams_setEndCapStyle(
+extern int GEOS_DLL GEOSBufferParams_setEndCapStyle(
     GEOSBufferParams* p,
     int style);
 
@@ -3650,7 +3660,7 @@ extern int  GEOSBufferParams_setEndCapStyle(
 *
 * \since 3.3
 */
-extern int  GEOSBufferParams_setJoinStyle(
+extern int GEOS_DLL GEOSBufferParams_setJoinStyle(
     GEOSBufferParams* p,
     int joinStyle);
 
@@ -3665,7 +3675,7 @@ extern int  GEOSBufferParams_setJoinStyle(
 *
 * \since 3.3
 */
-extern int  GEOSBufferParams_setMitreLimit(
+extern int GEOS_DLL GEOSBufferParams_setMitreLimit(
     GEOSBufferParams* p,
     double mitreLimit);
 
@@ -3679,7 +3689,7 @@ extern int  GEOSBufferParams_setMitreLimit(
 *
 * \since 3.3
 */
-extern int  GEOSBufferParams_setQuadrantSegments(
+extern int GEOS_DLL GEOSBufferParams_setQuadrantSegments(
     GEOSBufferParams* p,
     int quadSegs);
 
@@ -3693,7 +3703,7 @@ extern int  GEOSBufferParams_setQuadrantSegments(
 *
 * \since 3.3
 */
-extern int  GEOSBufferParams_setSingleSided(
+extern int GEOS_DLL GEOSBufferParams_setSingleSided(
     GEOSBufferParams* p,
     int singleSided);
 
@@ -3707,7 +3717,7 @@ extern int  GEOSBufferParams_setSingleSided(
 *
 * \since 3.3
 */
-extern GEOSGeometry  *GEOSBufferWithParams(
+extern GEOSGeometry GEOS_DLL *GEOSBufferWithParams(
     const GEOSGeometry* g,
     const GEOSBufferParams* p,
     double width);
@@ -3725,7 +3735,7 @@ extern GEOSGeometry  *GEOSBufferWithParams(
 *
 * \since 3.2
 */
-extern GEOSGeometry  *GEOSBufferWithStyle(
+extern GEOSGeometry GEOS_DLL *GEOSBufferWithStyle(
     const GEOSGeometry* g,
     double width,
     int quadsegs,
@@ -3755,7 +3765,7 @@ extern GEOSGeometry  *GEOSBufferWithStyle(
 *
 * \since 3.3
 */
-extern GEOSGeometry  *GEOSOffsetCurve(const GEOSGeometry* g,
+extern GEOSGeometry GEOS_DLL *GEOSOffsetCurve(const GEOSGeometry* g,
     double width, int quadsegs, int joinStyle, double mitreLimit);
 
 ///@}
@@ -3779,7 +3789,7 @@ extern GEOSGeometry  *GEOSOffsetCurve(const GEOSGeometry* g,
 *
 * \since 3.8
 */
-extern GEOSGeometry  *GEOSCoverageUnion(const GEOSGeometry *g);
+extern GEOSGeometry GEOS_DLL *GEOSCoverageUnion(const GEOSGeometry *g);
 
 
 /**
@@ -3805,7 +3815,7 @@ extern GEOSGeometry  *GEOSCoverageUnion(const GEOSGeometry *g);
 *
 * \since 3.12
 */
-extern int  GEOSCoverageIsValid(
+extern int GEOS_DLL GEOSCoverageIsValid(
     const GEOSGeometry* input,
     double gapWidth,
     GEOSGeometry** invalidEdges);
@@ -3835,7 +3845,7 @@ extern int  GEOSCoverageIsValid(
 *
 * \since 3.12
 */
-extern GEOSGeometry  * GEOSCoverageSimplifyVW(
+extern GEOSGeometry GEOS_DLL * GEOSCoverageSimplifyVW(
     const GEOSGeometry* input,
     double tolerance,
     int preserveBoundary);
@@ -3856,7 +3866,7 @@ extern GEOSGeometry  * GEOSCoverageSimplifyVW(
 * Caller is responsible for freeing with GEOSGeom_destroy().
 * \since 2.2
 */
-extern GEOSGeometry  *GEOSEnvelope(const GEOSGeometry* g);
+extern GEOSGeometry GEOS_DLL *GEOSEnvelope(const GEOSGeometry* g);
 
 /**
 * Returns the "boundary" of a geometry, as defined by the DE9IM:
@@ -3871,7 +3881,7 @@ extern GEOSGeometry  *GEOSEnvelope(const GEOSGeometry* g);
 * Caller is responsible for freeing with GEOSGeom_destroy().
 * \since 2.2
 */
-extern GEOSGeometry  *GEOSBoundary(const GEOSGeometry* g);
+extern GEOSGeometry GEOS_DLL *GEOSBoundary(const GEOSGeometry* g);
 
 /**
 * Returns convex hull of a geometry. The smallest convex Geometry
@@ -3882,7 +3892,7 @@ extern GEOSGeometry  *GEOSBoundary(const GEOSGeometry* g);
 * \see geos::operation::overlayng::OverlayNG
 * \since 2.2
 */
-extern GEOSGeometry  *GEOSConvexHull(const GEOSGeometry* g);
+extern GEOSGeometry GEOS_DLL *GEOSConvexHull(const GEOSGeometry* g);
 
 /**
 * Returns a "concave hull" of a geometry. A concave hull is
@@ -3914,7 +3924,7 @@ extern GEOSGeometry  *GEOSConvexHull(const GEOSGeometry* g);
 *
 * \since 3.11
 */
-extern GEOSGeometry  *GEOSConcaveHull(
+extern GEOSGeometry GEOS_DLL *GEOSConcaveHull(
     const GEOSGeometry* g,
     double ratio,
     unsigned int allowHoles);
@@ -3948,7 +3958,7 @@ extern GEOSGeometry  *GEOSConcaveHull(
 *
 * \since 3.12
 */
-extern GEOSGeometry  *GEOSConcaveHullByLength(
+extern GEOSGeometry GEOS_DLL *GEOSConcaveHullByLength(
     const GEOSGeometry* g,
     double length,
     unsigned int allowHoles);
@@ -3991,7 +4001,7 @@ extern GEOSGeometry  *GEOSConcaveHullByLength(
 *
 * \since 3.11
 */
-extern GEOSGeometry  *GEOSConcaveHullOfPolygons(
+extern GEOSGeometry GEOS_DLL *GEOSConcaveHullOfPolygons(
     const GEOSGeometry* g,
     double lengthRatio,
     unsigned int isTight,
@@ -4016,7 +4026,7 @@ extern GEOSGeometry  *GEOSConcaveHullOfPolygons(
 *
 * \since 3.11
 */
-extern GEOSGeometry  *GEOSPolygonHullSimplify(
+extern GEOSGeometry GEOS_DLL *GEOSPolygonHullSimplify(
     const GEOSGeometry* g,
     unsigned int isOuter,
     double vertexNumFraction);
@@ -4053,7 +4063,7 @@ enum GEOSPolygonHullParameterModes {
 *
 * \since 3.11
 */
-extern GEOSGeometry  *GEOSPolygonHullSimplifyMode(
+extern GEOSGeometry GEOS_DLL *GEOSPolygonHullSimplifyMode(
     const GEOSGeometry* g,
     unsigned int isOuter,
     unsigned int parameterMode,
@@ -4072,7 +4082,7 @@ extern GEOSGeometry  *GEOSPolygonHullSimplifyMode(
 *
 * \since 3.6
 */
-extern GEOSGeometry  *GEOSMinimumRotatedRectangle(const GEOSGeometry* g);
+extern GEOSGeometry GEOS_DLL *GEOSMinimumRotatedRectangle(const GEOSGeometry* g);
 
 /**
 * Constructs the "maximum inscribed circle" (MIC) for a polygonal geometry,
@@ -4098,7 +4108,7 @@ extern GEOSGeometry  *GEOSMinimumRotatedRectangle(const GEOSGeometry* g);
 *
 * \since 3.9
 */
-extern GEOSGeometry  *GEOSMaximumInscribedCircle(
+extern GEOSGeometry GEOS_DLL *GEOSMaximumInscribedCircle(
     const GEOSGeometry* g,
     double tolerance);
 
@@ -4130,7 +4140,7 @@ extern GEOSGeometry  *GEOSMaximumInscribedCircle(
 *
 * \since 3.9
 */
-extern GEOSGeometry  *GEOSLargestEmptyCircle(
+extern GEOSGeometry GEOS_DLL *GEOSLargestEmptyCircle(
     const GEOSGeometry* obstacles,
     const GEOSGeometry* boundary,
     double tolerance);
@@ -4148,7 +4158,7 @@ extern GEOSGeometry  *GEOSLargestEmptyCircle(
 *
 * \since 3.6
 */
-extern GEOSGeometry  *GEOSMinimumWidth(const GEOSGeometry* g);
+extern GEOSGeometry GEOS_DLL *GEOSMinimumWidth(const GEOSGeometry* g);
 
 
 /**
@@ -4160,7 +4170,7 @@ extern GEOSGeometry  *GEOSMinimumWidth(const GEOSGeometry* g);
 *
 * \since 2.2
 */
-extern GEOSGeometry  *GEOSPointOnSurface(const GEOSGeometry* g);
+extern GEOSGeometry GEOS_DLL *GEOSPointOnSurface(const GEOSGeometry* g);
 
 /**
 * Returns a point at the center of mass of the input.
@@ -4171,7 +4181,7 @@ extern GEOSGeometry  *GEOSPointOnSurface(const GEOSGeometry* g);
 *
 * \since 2.2
 */
-extern GEOSGeometry  *GEOSGetCentroid(const GEOSGeometry* g);
+extern GEOSGeometry GEOS_DLL *GEOSGetCentroid(const GEOSGeometry* g);
 
 /**
 * Returns a geometry which represents the "minimum bounding circle",
@@ -4185,7 +4195,7 @@ extern GEOSGeometry  *GEOSGetCentroid(const GEOSGeometry* g);
 *
 * \since 3.8
 */
-extern GEOSGeometry  *GEOSMinimumBoundingCircle(
+extern GEOSGeometry GEOS_DLL *GEOSMinimumBoundingCircle(
     const GEOSGeometry* g,
     double* radius,
     GEOSGeometry** center);
@@ -4203,7 +4213,7 @@ extern GEOSGeometry  *GEOSMinimumBoundingCircle(
 *
 * \since 3.4
 */
-extern GEOSGeometry  * GEOSDelaunayTriangulation(
+extern GEOSGeometry GEOS_DLL * GEOSDelaunayTriangulation(
     const GEOSGeometry *g,
     double tolerance,
     int onlyEdges);
@@ -4219,7 +4229,7 @@ extern GEOSGeometry  * GEOSDelaunayTriangulation(
 *
 * \since 3.10
 */
-extern GEOSGeometry  * GEOSConstrainedDelaunayTriangulation(
+extern GEOSGeometry GEOS_DLL * GEOSConstrainedDelaunayTriangulation(
     const GEOSGeometry *g);
 
 /** Change behaviour of \ref GEOSVoronoiDiagram */
@@ -4253,7 +4263,7 @@ enum GEOSVoronoiFlags
 *
 * \since 3.5
 */
-extern GEOSGeometry  * GEOSVoronoiDiagram(
+extern GEOSGeometry GEOS_DLL * GEOSVoronoiDiagram(
     const GEOSGeometry *g,
     const GEOSGeometry *env,
     double tolerance,
@@ -4277,7 +4287,7 @@ extern GEOSGeometry  * GEOSVoronoiDiagram(
 *
 * \since 3.4
 */
-extern GEOSGeometry  *GEOSNode(const GEOSGeometry* g);
+extern GEOSGeometry GEOS_DLL *GEOSNode(const GEOSGeometry* g);
 
 /**
 * Polygonizes a set of Geometries which contain linework that
@@ -4321,7 +4331,7 @@ extern GEOSGeometry  *GEOSNode(const GEOSGeometry* g);
 *
 * \since 2.2
 */
-extern GEOSGeometry  *GEOSPolygonize(
+extern GEOSGeometry GEOS_DLL *GEOSPolygonize(
     const GEOSGeometry * const geoms[],
     unsigned int ngeoms);
 
@@ -4339,7 +4349,7 @@ extern GEOSGeometry  *GEOSPolygonize(
 *
 * \since 3.8
 */
-extern GEOSGeometry  *GEOSPolygonize_valid(
+extern GEOSGeometry GEOS_DLL *GEOSPolygonize_valid(
     const GEOSGeometry * const geoms[],
     unsigned int ngeoms);
 
@@ -4356,7 +4366,7 @@ extern GEOSGeometry  *GEOSPolygonize_valid(
 *
 * \since 3.1
 */
-extern GEOSGeometry  *GEOSPolygonizer_getCutEdges(
+extern GEOSGeometry GEOS_DLL *GEOSPolygonizer_getCutEdges(
     const GEOSGeometry * const geoms[],
     unsigned int ngeoms);
 
@@ -4374,7 +4384,7 @@ extern GEOSGeometry  *GEOSPolygonizer_getCutEdges(
 *
 * \since 3.3
 */
-extern GEOSGeometry  *GEOSPolygonize_full(
+extern GEOSGeometry GEOS_DLL *GEOSPolygonize_full(
     const GEOSGeometry* input,
     GEOSGeometry** cuts,
     GEOSGeometry** dangles,
@@ -4391,7 +4401,7 @@ extern GEOSGeometry  *GEOSPolygonize_full(
 *
 * \since 3.8
 */
-extern GEOSGeometry  *GEOSBuildArea(const GEOSGeometry* g);
+extern GEOSGeometry GEOS_DLL *GEOSBuildArea(const GEOSGeometry* g);
 
 ///@}
 
@@ -4414,7 +4424,7 @@ extern GEOSGeometry  *GEOSBuildArea(const GEOSGeometry* g);
 *
 * \since 3.10
 */
-extern GEOSGeometry  *GEOSDensify(
+extern GEOSGeometry GEOS_DLL *GEOSDensify(
     const GEOSGeometry* g,
     double tolerance);
 
@@ -4427,7 +4437,7 @@ extern GEOSGeometry  *GEOSDensify(
 * \see geos::operation::linemerge::LineMerger
 * \since 2.2
 */
-extern GEOSGeometry  *GEOSLineMerge(const GEOSGeometry* g);
+extern GEOSGeometry GEOS_DLL *GEOSLineMerge(const GEOSGeometry* g);
 
 /**
 * Sews together a set of fully noded LineStrings
@@ -4440,7 +4450,7 @@ extern GEOSGeometry  *GEOSLineMerge(const GEOSGeometry* g);
 *
 * \since 3.11
 */
-extern GEOSGeometry  *GEOSLineMergeDirected(const GEOSGeometry* g);
+extern GEOSGeometry GEOS_DLL *GEOSLineMergeDirected(const GEOSGeometry* g);
 
 /**
  *  Computes the line which is the section of the input LineString starting and
@@ -4453,7 +4463,7 @@ extern GEOSGeometry  *GEOSLineMergeDirected(const GEOSGeometry* g);
  *
  *  \since 3.12
  */
-extern GEOSGeometry  *GEOSLineSubstring(
+extern GEOSGeometry GEOS_DLL *GEOSLineSubstring(
         const GEOSGeometry* g,
         double start_fraction,
         double end_fraction);
@@ -4468,7 +4478,7 @@ extern GEOSGeometry  *GEOSLineSubstring(
 *
 * \since 3.7
 */
-extern GEOSGeometry  *GEOSReverse(const GEOSGeometry* g);
+extern GEOSGeometry GEOS_DLL *GEOSReverse(const GEOSGeometry* g);
 
 /**
 * Apply the
@@ -4484,7 +4494,7 @@ extern GEOSGeometry  *GEOSReverse(const GEOSGeometry* g);
 *
 * \since 3.0
 */
-extern GEOSGeometry  *GEOSSimplify(
+extern GEOSGeometry GEOS_DLL *GEOSSimplify(
     const GEOSGeometry* g,
     double tolerance);
 
@@ -4504,7 +4514,7 @@ extern GEOSGeometry  *GEOSSimplify(
 *
 * \since 3.0
 */
-extern GEOSGeometry  *GEOSTopologyPreserveSimplify(
+extern GEOSGeometry GEOS_DLL *GEOSTopologyPreserveSimplify(
     const GEOSGeometry* g,
     double tolerance);
 
@@ -4518,7 +4528,7 @@ extern GEOSGeometry  *GEOSTopologyPreserveSimplify(
 *
 * \since 3.3
 */
-extern GEOSGeometry  *GEOSGeom_extractUniquePoints(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_extractUniquePoints(
     const GEOSGeometry* g);
 
 /**
@@ -4536,7 +4546,7 @@ extern GEOSGeometry  *GEOSGeom_extractUniquePoints(
 *
 * \since 3.11
 */
-extern int  GEOSHilbertCode(
+extern int GEOS_DLL GEOSHilbertCode(
     const GEOSGeometry *geom,
     const GEOSGeometry* extent,
     unsigned int level,
@@ -4557,7 +4567,7 @@ extern int  GEOSHilbertCode(
 *
 * \since 3.11
 */
-extern GEOSGeometry  *GEOSGeom_transformXY(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_transformXY(
     const GEOSGeometry* g,
     GEOSTransformXYCallback callback,
     void* userdata);
@@ -4583,7 +4593,7 @@ extern GEOSGeometry  *GEOSGeom_transformXY(
 *
 * \since 3.3
 */
-extern GEOSGeometry  *GEOSSnap(
+extern GEOSGeometry GEOS_DLL *GEOSSnap(
     const GEOSGeometry* input,
     const GEOSGeometry* snap_target,
     double tolerance);
@@ -4617,7 +4627,7 @@ extern GEOSGeometry  *GEOSSnap(
 *
 * \since 3.6
 */
-extern GEOSGeometry  *GEOSGeom_setPrecision(
+extern GEOSGeometry GEOS_DLL *GEOSGeom_setPrecision(
 	const GEOSGeometry *g,
     double gridSize,
     int flags);
@@ -4638,7 +4648,7 @@ extern GEOSGeometry  *GEOSGeom_setPrecision(
 * \see geos::geom::Geometry::disjoint
 * \since 2.2
 */
-extern char  GEOSDisjoint(const GEOSGeometry* g1, const GEOSGeometry* g2);
+extern char GEOS_DLL GEOSDisjoint(const GEOSGeometry* g1, const GEOSGeometry* g2);
 
 /**
 * True if geometries share boundaries at one or more points, but do
@@ -4649,7 +4659,7 @@ extern char  GEOSDisjoint(const GEOSGeometry* g1, const GEOSGeometry* g2);
 * \see geos::geom::Geometry::touches
 * \since 2.2
 */
-extern char  GEOSTouches(const GEOSGeometry* g1, const GEOSGeometry* g2);
+extern char GEOS_DLL GEOSTouches(const GEOSGeometry* g1, const GEOSGeometry* g2);
 
 /**
 * True if geometries are not disjoint.
@@ -4659,7 +4669,7 @@ extern char  GEOSTouches(const GEOSGeometry* g1, const GEOSGeometry* g2);
 * \see geos::geom::Geometry::intersects
 * \since 2.2
 */
-extern char  GEOSIntersects(const GEOSGeometry* g1, const GEOSGeometry* g2);
+extern char GEOS_DLL GEOSIntersects(const GEOSGeometry* g1, const GEOSGeometry* g2);
 
 /**
 * True if geometries interiors interact but their boundaries do not.
@@ -4670,7 +4680,7 @@ extern char  GEOSIntersects(const GEOSGeometry* g1, const GEOSGeometry* g2);
 * \see geos::geom::Geometry::crosses
 * \since 2.2
 */
-extern char  GEOSCrosses(const GEOSGeometry* g1, const GEOSGeometry* g2);
+extern char GEOS_DLL GEOSCrosses(const GEOSGeometry* g1, const GEOSGeometry* g2);
 
 /**
 * True if geometry g1 is completely within g2, and not
@@ -4681,7 +4691,7 @@ extern char  GEOSCrosses(const GEOSGeometry* g1, const GEOSGeometry* g2);
 * \see geos::geom::Geometry::within
 * \since 2.2
 */
-extern char  GEOSWithin(const GEOSGeometry* g1, const GEOSGeometry* g2);
+extern char GEOS_DLL GEOSWithin(const GEOSGeometry* g1, const GEOSGeometry* g2);
 
 /**
 * True if geometry g2 is completely within g1.
@@ -4691,7 +4701,7 @@ extern char  GEOSWithin(const GEOSGeometry* g1, const GEOSGeometry* g2);
 * \see geos::geom::Geometry::contains
 * \since 2.2
 */
-extern char  GEOSContains(const GEOSGeometry* g1, const GEOSGeometry* g2);
+extern char GEOS_DLL GEOSContains(const GEOSGeometry* g1, const GEOSGeometry* g2);
 
 /**
 * True if geometries share interiors but are neither
@@ -4702,7 +4712,7 @@ extern char  GEOSContains(const GEOSGeometry* g1, const GEOSGeometry* g2);
 * \see geos::geom::Geometry::overlaps
 * \since 2.2
 */
-extern char  GEOSOverlaps(const GEOSGeometry* g1, const GEOSGeometry* g2);
+extern char GEOS_DLL GEOSOverlaps(const GEOSGeometry* g1, const GEOSGeometry* g2);
 
 /**
 * True if geometries cover the same space on the plane.
@@ -4712,7 +4722,7 @@ extern char  GEOSOverlaps(const GEOSGeometry* g1, const GEOSGeometry* g2);
 * \see geos::geom::Geometry::equals
 * \since 2.2
 */
-extern char  GEOSEquals(const GEOSGeometry* g1, const GEOSGeometry* g2);
+extern char GEOS_DLL GEOSEquals(const GEOSGeometry* g1, const GEOSGeometry* g2);
 
 /**
 * True if geometry g1 is completely within g2, including possibly
@@ -4724,7 +4734,7 @@ extern char  GEOSEquals(const GEOSGeometry* g1, const GEOSGeometry* g2);
 *
 * \since 3.3
 */
-extern char  GEOSCovers(const GEOSGeometry* g1, const GEOSGeometry* g2);
+extern char GEOS_DLL GEOSCovers(const GEOSGeometry* g1, const GEOSGeometry* g2);
 
 /**
 * True if geometry g2 is completely within g1, including possibly
@@ -4736,7 +4746,7 @@ extern char  GEOSCovers(const GEOSGeometry* g1, const GEOSGeometry* g2);
 *
 * \since 3.3
 */
-extern char  GEOSCoveredBy(const GEOSGeometry* g1, const GEOSGeometry* g2);
+extern char GEOS_DLL GEOSCoveredBy(const GEOSGeometry* g1, const GEOSGeometry* g2);
 
 /**
 * Determine pointwise equivalence of two geometries, by
@@ -4755,7 +4765,7 @@ extern char  GEOSCoveredBy(const GEOSGeometry* g1, const GEOSGeometry* g2);
 * \see GEOSNormalize()
 * \since 3.0
 */
-extern char  GEOSEqualsExact(
+extern char GEOS_DLL GEOSEqualsExact(
     const GEOSGeometry* g1,
     const GEOSGeometry* g2,
     double tolerance);
@@ -4772,7 +4782,7 @@ extern char  GEOSEqualsExact(
 *
 * \since 3.12
 */
-extern char  GEOSEqualsIdentical(
+extern char GEOS_DLL GEOSEqualsIdentical(
         const GEOSGeometry* g1,
         const GEOSGeometry* g2);
 
@@ -4789,7 +4799,7 @@ extern char  GEOSEqualsIdentical(
 * \return 1 on true, 0 on false, 2 on exception
 * \since 2.2
 */
-extern char  GEOSRelatePattern(
+extern char GEOS_DLL GEOSRelatePattern(
     const GEOSGeometry* g1,
     const GEOSGeometry* g2,
     const char *pat);
@@ -4803,7 +4813,7 @@ extern char  GEOSRelatePattern(
 *         NULL on exception
 * \since 2.2
 */
-extern char  *GEOSRelate(
+extern char GEOS_DLL *GEOSRelate(
     const GEOSGeometry* g1,
     const GEOSGeometry* g2);
 
@@ -4816,7 +4826,7 @@ extern char  *GEOSRelate(
 *
 * \since 3.3
 */
-extern char  GEOSRelatePatternMatch(
+extern char GEOS_DLL GEOSRelatePatternMatch(
     const char *mat,
     const char *pat);
 
@@ -4833,7 +4843,7 @@ extern char  GEOSRelatePatternMatch(
 *
 * \since 3.3
 */
-extern char  *GEOSRelateBoundaryNodeRule(
+extern char GEOS_DLL *GEOSRelateBoundaryNodeRule(
     const GEOSGeometry* g1,
     const GEOSGeometry* g2,
     int bnr);
@@ -4867,7 +4877,7 @@ extern char  *GEOSRelateBoundaryNodeRule(
 *
 * \since 3.1
 */
-extern const GEOSPreparedGeometry  *GEOSPrepare(const GEOSGeometry* g);
+extern const GEOSPreparedGeometry GEOS_DLL *GEOSPrepare(const GEOSGeometry* g);
 
 /**
 * Free the memory associated with a \ref GEOSPreparedGeometry.
@@ -4877,7 +4887,7 @@ extern const GEOSPreparedGeometry  *GEOSPrepare(const GEOSGeometry* g);
 *
 * \since 3.1
 */
-extern void  GEOSPreparedGeom_destroy(const GEOSPreparedGeometry* g);
+extern void GEOS_DLL GEOSPreparedGeom_destroy(const GEOSPreparedGeometry* g);
 
 /**
 * Use a \ref GEOSPreparedGeometry do a high performance
@@ -4889,7 +4899,7 @@ extern void  GEOSPreparedGeom_destroy(const GEOSPreparedGeometry* g);
 *
 * \since 3.1
 */
-extern char  GEOSPreparedContains(
+extern char GEOS_DLL GEOSPreparedContains(
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
@@ -4904,7 +4914,7 @@ extern char  GEOSPreparedContains(
 *
 * \since 3.12
 */
-extern char  GEOSPreparedContainsXY(
+extern char GEOS_DLL GEOSPreparedContainsXY(
         const GEOSPreparedGeometry* pg1,
         double x,
         double y);
@@ -4919,7 +4929,7 @@ extern char  GEOSPreparedContainsXY(
 *
 * \since 3.1
 */
-extern char  GEOSPreparedContainsProperly(
+extern char GEOS_DLL GEOSPreparedContainsProperly(
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
@@ -4933,7 +4943,7 @@ extern char  GEOSPreparedContainsProperly(
 *
 * \since 3.3
 */
-extern char  GEOSPreparedCoveredBy(
+extern char GEOS_DLL GEOSPreparedCoveredBy(
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
@@ -4947,7 +4957,7 @@ extern char  GEOSPreparedCoveredBy(
 *
 * \since 3.1
 */
-extern char  GEOSPreparedCovers(
+extern char GEOS_DLL GEOSPreparedCovers(
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
@@ -4961,7 +4971,7 @@ extern char  GEOSPreparedCovers(
 *
 * \since 3.3
 */
-extern char  GEOSPreparedCrosses(
+extern char GEOS_DLL GEOSPreparedCrosses(
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
@@ -4975,7 +4985,7 @@ extern char  GEOSPreparedCrosses(
 *
 * \since 3.3
 */
-extern char  GEOSPreparedDisjoint(
+extern char GEOS_DLL GEOSPreparedDisjoint(
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
@@ -4989,7 +4999,7 @@ extern char  GEOSPreparedDisjoint(
 *
 * \since 3.1
 */
-extern char  GEOSPreparedIntersects(
+extern char GEOS_DLL GEOSPreparedIntersects(
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
@@ -5004,7 +5014,7 @@ extern char  GEOSPreparedIntersects(
 *
 * \since 3.12
 */
-extern char  GEOSPreparedIntersectsXY(
+extern char GEOS_DLL GEOSPreparedIntersectsXY(
         const GEOSPreparedGeometry* pg1,
         double x,
         double y);
@@ -5019,7 +5029,7 @@ extern char  GEOSPreparedIntersectsXY(
 *
 * \since 3.3
 */
-extern char  GEOSPreparedOverlaps(
+extern char GEOS_DLL GEOSPreparedOverlaps(
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
@@ -5033,7 +5043,7 @@ extern char  GEOSPreparedOverlaps(
 *
 * \since 3.3
 */
-extern char  GEOSPreparedTouches(
+extern char GEOS_DLL GEOSPreparedTouches(
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
@@ -5047,7 +5057,7 @@ extern char  GEOSPreparedTouches(
 *
 * \since 3.3
 */
-extern char  GEOSPreparedWithin(
+extern char GEOS_DLL GEOSPreparedWithin(
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
@@ -5063,7 +5073,7 @@ extern char  GEOSPreparedWithin(
 *
 * \since 3.9
 */
-extern GEOSCoordSequence  *GEOSPreparedNearestPoints(
+extern GEOSCoordSequence GEOS_DLL *GEOSPreparedNearestPoints(
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2);
 
@@ -5080,7 +5090,7 @@ extern GEOSCoordSequence  *GEOSPreparedNearestPoints(
 *
 * \since 3.9
 */
-extern int  GEOSPreparedDistance(
+extern int GEOS_DLL GEOSPreparedDistance(
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2,
     double *dist);
@@ -5099,7 +5109,7 @@ extern int  GEOSPreparedDistance(
 *
 * \since 3.10
 */
-extern char  GEOSPreparedDistanceWithin(
+extern char GEOS_DLL GEOSPreparedDistanceWithin(
     const GEOSPreparedGeometry* pg1,
     const GEOSGeometry* g2,
     double dist);
@@ -5125,7 +5135,7 @@ extern char  GEOSPreparedDistanceWithin(
 *
 * \since 3.2
 */
-extern GEOSSTRtree  *GEOSSTRtree_create(size_t nodeCapacity);
+extern GEOSSTRtree GEOS_DLL *GEOSSTRtree_create(size_t nodeCapacity);
 
 /**
 * Construct an STRtree from items that have been inserted. Once constructed,
@@ -5138,7 +5148,7 @@ extern GEOSSTRtree  *GEOSSTRtree_create(size_t nodeCapacity);
 *
 * \since 3.12
 */
-extern int  GEOSSTRtree_build(GEOSSTRtree *tree);
+extern int GEOS_DLL GEOSSTRtree_build(GEOSSTRtree *tree);
 
 /**
 * Insert an item into an \ref GEOSSTRtree
@@ -5152,7 +5162,7 @@ extern int  GEOSSTRtree_build(GEOSSTRtree *tree);
 *
 * \since 3.2
 */
-extern void  GEOSSTRtree_insert(
+extern void GEOS_DLL GEOSSTRtree_insert(
     GEOSSTRtree *tree,
     const GEOSGeometry *g,
     void *item);
@@ -5171,7 +5181,7 @@ extern void  GEOSSTRtree_insert(
 *
 * \since 3.2
 */
-extern void  GEOSSTRtree_query(
+extern void GEOS_DLL GEOSSTRtree_query(
     GEOSSTRtree *tree,
     const GEOSGeometry *g,
     GEOSQueryCallback callback,
@@ -5191,7 +5201,7 @@ extern void  GEOSSTRtree_query(
 *
 * \since 3.6
 */
-extern const GEOSGeometry  *GEOSSTRtree_nearest(
+extern const GEOSGeometry GEOS_DLL *GEOSSTRtree_nearest(
     GEOSSTRtree *tree,
     const GEOSGeometry* geom);
 
@@ -5215,7 +5225,7 @@ extern const GEOSGeometry  *GEOSSTRtree_nearest(
 *
 * \since 3.6
 */
-extern const void  *GEOSSTRtree_nearest_generic(
+extern const void GEOS_DLL *GEOSSTRtree_nearest_generic(
     GEOSSTRtree *tree,
     const void* item,
     const GEOSGeometry* itemEnvelope,
@@ -5232,7 +5242,7 @@ extern const void  *GEOSSTRtree_nearest_generic(
 *
 * \since 3.2
 */
-extern void  GEOSSTRtree_iterate(
+extern void GEOS_DLL GEOSSTRtree_iterate(
     GEOSSTRtree *tree,
     GEOSQueryCallback callback,
     void *userdata);
@@ -5251,7 +5261,7 @@ extern void  GEOSSTRtree_iterate(
  *
  * \since 3.2
  */
-extern char  GEOSSTRtree_remove(
+extern char GEOS_DLL GEOSSTRtree_remove(
     GEOSSTRtree *tree,
     const GEOSGeometry *g,
     void *item);
@@ -5264,7 +5274,7 @@ extern char  GEOSSTRtree_remove(
 *
 * \since 3.2
 */
-extern void  GEOSSTRtree_destroy(GEOSSTRtree *tree);
+extern void GEOS_DLL GEOSSTRtree_destroy(GEOSSTRtree *tree);
 
 ///@}
 
@@ -5292,7 +5302,7 @@ extern void  GEOSSTRtree_destroy(GEOSSTRtree *tree);
 *
 * \since 3.7
 */
-extern int  GEOSSegmentIntersection(
+extern int GEOS_DLL GEOSSegmentIntersection(
        double ax0, double ay0,
        double ax1, double ay1,
        double bx0, double by0,
@@ -5314,7 +5324,7 @@ extern int  GEOSSegmentIntersection(
 *
 * \since 3.3
 */
-extern int  GEOSOrientationIndex(
+extern int GEOS_DLL GEOSOrientationIndex(
     double Ax, double Ay,
     double Bx, double By,
     double Px, double Py);
@@ -5334,14 +5344,14 @@ extern int  GEOSOrientationIndex(
 * \returns a new reader. Caller must free with GEOSWKTReader_destroy()
 * \since 3.0
 */
-extern GEOSWKTReader  *GEOSWKTReader_create(void);
+extern GEOSWKTReader GEOS_DLL *GEOSWKTReader_create(void);
 
 /**
 * Free the memory associated with a \ref GEOSWKTReader.
 * \param reader The reader to destroy.
 * \since 3.0
 */
-extern void  GEOSWKTReader_destroy(GEOSWKTReader* reader);
+extern void GEOS_DLL GEOSWKTReader_destroy(GEOSWKTReader* reader);
 
 /**
 * Use a reader to parse the well-known text representation of
@@ -5351,7 +5361,7 @@ extern void  GEOSWKTReader_destroy(GEOSWKTReader* reader);
 * \return A \ref GEOSGeometry, caller to free with GEOSGeom_destroy())
 * \since 3.0
 */
-extern GEOSGeometry  *GEOSWKTReader_read(
+extern GEOSGeometry GEOS_DLL *GEOSWKTReader_read(
     GEOSWKTReader* reader,
     const char *wkt);
 
@@ -5363,7 +5373,7 @@ extern GEOSGeometry  *GEOSWKTReader_read(
 *
 * \since 3.11
 */
-extern void  GEOSWKTReader_setFixStructure(
+extern void GEOS_DLL GEOSWKTReader_setFixStructure(
     GEOSWKTReader *reader,
     char doFix);
 
@@ -5374,14 +5384,14 @@ extern void  GEOSWKTReader_setFixStructure(
 * \returns a new writer. Caller must free with GEOSWKTWriter_destroy()
 * \since 3.0
 */
-extern GEOSWKTWriter  *GEOSWKTWriter_create(void);
+extern GEOSWKTWriter GEOS_DLL *GEOSWKTWriter_create(void);
 
 /**
 * Free the memory associated with a \ref GEOSWKTWriter.
 * \param writer The writer to destroy.
 * \since 3.0
 */
-extern void  GEOSWKTWriter_destroy(
+extern void GEOS_DLL GEOSWKTWriter_destroy(
     GEOSWKTWriter* writer);
 
 /**
@@ -5393,7 +5403,7 @@ extern void  GEOSWKTWriter_destroy(
 * Caller must free with GEOSFree()
 * \since 3.0
 */
-extern char  *GEOSWKTWriter_write(
+extern char GEOS_DLL *GEOSWKTWriter_write(
     GEOSWKTWriter* writer,
     const GEOSGeometry* g);
 
@@ -5408,7 +5418,7 @@ extern char  *GEOSWKTWriter_write(
 *
 * \since 3.3
 */
-extern void  GEOSWKTWriter_setTrim(
+extern void GEOS_DLL GEOSWKTWriter_setTrim(
     GEOSWKTWriter *writer,
     char trim);
 
@@ -5420,7 +5430,7 @@ extern void  GEOSWKTWriter_setTrim(
 *
 * \since 3.3
 */
-extern void  GEOSWKTWriter_setRoundingPrecision(
+extern void GEOS_DLL GEOSWKTWriter_setRoundingPrecision(
     GEOSWKTWriter *writer,
     int precision);
 
@@ -5432,7 +5442,7 @@ extern void  GEOSWKTWriter_setRoundingPrecision(
 *
 * \since 3.3
 */
-extern void  GEOSWKTWriter_setOutputDimension(
+extern void GEOS_DLL GEOSWKTWriter_setOutputDimension(
     GEOSWKTWriter *writer,
     int dim);
 
@@ -5443,7 +5453,7 @@ extern void  GEOSWKTWriter_setOutputDimension(
 *
 * \since 3.3
 */
-extern int   GEOSWKTWriter_getOutputDimension(GEOSWKTWriter *writer);
+extern int  GEOS_DLL GEOSWKTWriter_getOutputDimension(GEOSWKTWriter *writer);
 
 /**
 * Sets the format for 3D outputs. The "old 3D" format does not
@@ -5455,7 +5465,7 @@ extern int   GEOSWKTWriter_getOutputDimension(GEOSWKTWriter *writer);
 *
 * \since 3.3
 */
-extern void  GEOSWKTWriter_setOld3D(
+extern void GEOS_DLL GEOSWKTWriter_setOld3D(
     GEOSWKTWriter *writer,
     int useOld3D);
 ///@}
@@ -5472,14 +5482,14 @@ extern void  GEOSWKTWriter_setOld3D(
 * \returns a new reader. Caller must free with GEOSWKBReader_destroy()
 * \since 3.0
 */
-extern GEOSWKBReader  *GEOSWKBReader_create(void);
+extern GEOSWKBReader GEOS_DLL *GEOSWKBReader_create(void);
 
 /**
 * Free the memory associated with a \ref GEOSWKBReader.
 * \param reader The reader to destroy.
 * \since 3.0
 */
-extern void  GEOSWKBReader_destroy(
+extern void GEOS_DLL GEOSWKBReader_destroy(
     GEOSWKBReader* reader);
 
 /**
@@ -5490,7 +5500,7 @@ extern void  GEOSWKBReader_destroy(
 *
 * \since 3.11
 */
-extern void  GEOSWKBReader_setFixStructure(
+extern void GEOS_DLL GEOSWKBReader_setFixStructure(
     GEOSWKBReader *reader,
     char doFix);
 
@@ -5502,7 +5512,7 @@ extern void  GEOSWKBReader_setFixStructure(
 * \return A \ref GEOSGeometry built from the WKB, or NULL on exception.
 * \since 3.0
 */
-extern GEOSGeometry  *GEOSWKBReader_read(
+extern GEOSGeometry GEOS_DLL *GEOSWKBReader_read(
     GEOSWKBReader* reader,
     const unsigned char *wkb,
     size_t size);
@@ -5515,7 +5525,7 @@ extern GEOSGeometry  *GEOSWKBReader_read(
 * \return A \ref GEOSGeometry built from the HEX WKB, or NULL on exception.
 * \since 3.0
 */
-extern GEOSGeometry  *GEOSWKBReader_readHEX(
+extern GEOSGeometry GEOS_DLL *GEOSWKBReader_readHEX(
     GEOSWKBReader* reader,
     const unsigned char *hex,
     size_t size);
@@ -5527,14 +5537,14 @@ extern GEOSGeometry  *GEOSWKBReader_readHEX(
 * \returns a new writer. Caller must free with GEOSWKBWriter_destroy()
 * \since 3.0
 */
-extern GEOSWKBWriter  *GEOSWKBWriter_create(void);
+extern GEOSWKBWriter GEOS_DLL *GEOSWKBWriter_create(void);
 
 /**
 * Free the memory associated with a \ref GEOSWKBWriter.
 * \param writer The writer to destroy.
 * \since 3.0
 */
-extern void  GEOSWKBWriter_destroy(GEOSWKBWriter* writer);
+extern void GEOS_DLL GEOSWKBWriter_destroy(GEOSWKBWriter* writer);
 
 /**
 * Write out the WKB representation of a geometry.
@@ -5545,7 +5555,7 @@ extern void  GEOSWKBWriter_destroy(GEOSWKBWriter* writer);
 * \return The WKB representation. Caller must free with GEOSFree()
 * \since 3.0
 */
-extern unsigned char  *GEOSWKBWriter_write(
+extern unsigned char GEOS_DLL *GEOSWKBWriter_write(
     GEOSWKBWriter* writer,
     const GEOSGeometry* g,
     size_t *size);
@@ -5559,7 +5569,7 @@ extern unsigned char  *GEOSWKBWriter_write(
 * \return The HEX WKB representation. Caller must free with GEOSFree()
 * \since 3.0
 */
-extern unsigned char  *GEOSWKBWriter_writeHEX(
+extern unsigned char GEOS_DLL *GEOSWKBWriter_writeHEX(
     GEOSWKBWriter* writer,
     const GEOSGeometry* g,
     size_t *size);
@@ -5572,7 +5582,7 @@ extern unsigned char  *GEOSWKBWriter_writeHEX(
 * \return Number of dimensions (2, 3, or 4)
 * \since 3.0
 */
-extern int  GEOSWKBWriter_getOutputDimension(
+extern int GEOS_DLL GEOSWKBWriter_getOutputDimension(
     const GEOSWKBWriter* writer);
 
 /**
@@ -5582,7 +5592,7 @@ extern int  GEOSWKBWriter_getOutputDimension(
 * \param newDimension The dimensionality desired
 * \since 3.0
 */
-extern void  GEOSWKBWriter_setOutputDimension(
+extern void GEOS_DLL GEOSWKBWriter_setOutputDimension(
     GEOSWKBWriter* writer,
     int newDimension);
 
@@ -5595,7 +5605,7 @@ extern void  GEOSWKBWriter_setOutputDimension(
 * \return The current byte order
 * \since 3.0
 */
-extern int  GEOSWKBWriter_getByteOrder(
+extern int GEOS_DLL GEOSWKBWriter_getByteOrder(
     const GEOSWKBWriter* writer);
 
 /**
@@ -5605,7 +5615,7 @@ extern int  GEOSWKBWriter_getByteOrder(
 * \param byteOrder Desired byte order
 * \since 3.0
 */
-extern void  GEOSWKBWriter_setByteOrder(
+extern void GEOS_DLL GEOSWKBWriter_setByteOrder(
     GEOSWKBWriter* writer,
     int byteOrder);
 
@@ -5623,7 +5633,7 @@ extern void  GEOSWKBWriter_setByteOrder(
 *
 * \since 3.10
 */
-extern int  GEOSWKBWriter_getFlavor(
+extern int GEOS_DLL GEOSWKBWriter_getFlavor(
     const GEOSWKBWriter* writer);
 
 /**
@@ -5634,7 +5644,7 @@ extern int  GEOSWKBWriter_getFlavor(
 *
 * \since 3.10
 */
-extern void  GEOSWKBWriter_setFlavor(
+extern void GEOS_DLL GEOSWKBWriter_setFlavor(
     GEOSWKBWriter* writer,
     int flavor);
 
@@ -5643,7 +5653,7 @@ extern void  GEOSWKBWriter_setFlavor(
 * \param writer The writer to check SRID value on
 * \since 3.0
 */
-extern char  GEOSWKBWriter_getIncludeSRID(
+extern char GEOS_DLL GEOSWKBWriter_getIncludeSRID(
     const GEOSWKBWriter* writer);
 
 /**
@@ -5653,7 +5663,7 @@ extern char  GEOSWKBWriter_getIncludeSRID(
 * \param writeSRID Set to 1 to include SRID, 0 otherwise
 * \since 3.0
 */
-extern void  GEOSWKBWriter_setIncludeSRID(
+extern void GEOS_DLL GEOSWKBWriter_setIncludeSRID(
     GEOSWKBWriter* writer,
     const char writeSRID);
 
@@ -5672,7 +5682,7 @@ extern void  GEOSWKBWriter_setIncludeSRID(
 *
 * \since 3.10
 */
-extern GEOSGeoJSONReader  *GEOSGeoJSONReader_create(void);
+extern GEOSGeoJSONReader GEOS_DLL *GEOSGeoJSONReader_create(void);
 
 /**
 * Free the memory associated with a \ref GEOSGeoJSONReader.
@@ -5680,7 +5690,7 @@ extern GEOSGeoJSONReader  *GEOSGeoJSONReader_create(void);
 *
 * \since 3.10
 */
-extern void  GEOSGeoJSONReader_destroy(GEOSGeoJSONReader* reader);
+extern void GEOS_DLL GEOSGeoJSONReader_destroy(GEOSGeoJSONReader* reader);
 
 /**
 * Use a reader to parse a GeoJSON string. A single geometry or `Feature` is
@@ -5692,7 +5702,7 @@ extern void  GEOSGeoJSONReader_destroy(GEOSGeoJSONReader* reader);
 *
 * \since 3.10
 */
-extern GEOSGeometry  *GEOSGeoJSONReader_readGeometry(
+extern GEOSGeometry GEOS_DLL *GEOSGeoJSONReader_readGeometry(
     GEOSGeoJSONReader* reader,
     const char *geojson);
 
@@ -5704,7 +5714,7 @@ extern GEOSGeometry  *GEOSGeoJSONReader_readGeometry(
 *
 * \since 3.10
 */
-extern GEOSGeoJSONWriter  *GEOSGeoJSONWriter_create(void);
+extern GEOSGeoJSONWriter GEOS_DLL *GEOSGeoJSONWriter_create(void);
 
 /**
 * Free the memory associated with a \ref GEOSGeoJSONWriter.
@@ -5712,7 +5722,7 @@ extern GEOSGeoJSONWriter  *GEOSGeoJSONWriter_create(void);
 *
 * \since 3.10
 */
-extern void  GEOSGeoJSONWriter_destroy(GEOSGeoJSONWriter* writer);
+extern void GEOS_DLL GEOSGeoJSONWriter_destroy(GEOSGeoJSONWriter* writer);
 
 /**
 * Write out the GeoJSON representation of a geometry. Note that writing a GeoJSON
@@ -5724,7 +5734,7 @@ extern void  GEOSGeoJSONWriter_destroy(GEOSGeoJSONWriter* writer);
 *
 * \since 3.10
 */
-extern char  *GEOSGeoJSONWriter_writeGeometry(
+extern char GEOS_DLL *GEOSGeoJSONWriter_writeGeometry(
     GEOSGeoJSONWriter* writer,
     const GEOSGeometry* g,
     int indent);
@@ -5746,7 +5756,7 @@ extern char  *GEOSGeoJSONWriter_writeGeometry(
 /**
 * \deprecated in 3.3.0, use GEOSOffsetCurve() instead
 */
-extern GEOSGeometry  *GEOSSingleSidedBuffer(
+extern GEOSGeometry GEOS_DLL *GEOSSingleSidedBuffer(
     const GEOSGeometry* g,
     double width, int quadsegs,
     int joinStyle, double mitreLimit,
@@ -5755,7 +5765,7 @@ extern GEOSGeometry  *GEOSSingleSidedBuffer(
 /**
 * \deprecated in 3.3.0, use GEOSOffsetCurve() instead
 */
-extern GEOSGeometry  *GEOSSingleSidedBuffer_r(
+extern GEOSGeometry GEOS_DLL *GEOSSingleSidedBuffer_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     double width, int quadsegs,
@@ -5766,59 +5776,59 @@ extern GEOSGeometry  *GEOSSingleSidedBuffer_r(
 * \deprecated in 3.5.0. Use GEOS_init_r() and set the message handlers using
 * GEOSContext_setNoticeHandler_r() and/or GEOSContext_setErrorHandler_r()
 */
-extern GEOSContextHandle_t  initGEOS_r(
+extern GEOSContextHandle_t GEOS_DLL initGEOS_r(
     GEOSMessageHandler notice_function,
     GEOSMessageHandler error_function);
 
 /**
 * \deprecated in 3.5.0, replaced by GEOS_finish_r()
 */
-extern void  finishGEOS_r(GEOSContextHandle_t handle);
+extern void GEOS_DLL finishGEOS_r(GEOSContextHandle_t handle);
 
 /**
 * \deprecated use \ref GEOSWKTReader and GEOSWKTReader_read_r()
 */
-extern GEOSGeometry  *GEOSGeomFromWKT_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeomFromWKT_r(
     GEOSContextHandle_t handle,
     const char *wkt);
 
 /**
 * \deprecated use \ref GEOSWKTWriter and GEOSWKTWriter_write_r()
 */
-extern char  *GEOSGeomToWKT_r(
+extern char GEOS_DLL *GEOSGeomToWKT_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
 /**
 * \deprecated use \ref GEOSWKBWriter and GEOSWKBWriter_getOutputDimension_r()
 */
-extern int  GEOS_getWKBOutputDims_r(
+extern int GEOS_DLL GEOS_getWKBOutputDims_r(
     GEOSContextHandle_t handle);
 
 /**
 * \deprecated use \ref GEOSWKBWriter and GEOSWKBWriter_setOutputDimension_r()
 */
-extern int  GEOS_setWKBOutputDims_r(
+extern int GEOS_DLL GEOS_setWKBOutputDims_r(
     GEOSContextHandle_t handle,
     int newDims);
 
 /**
 * \deprecated use \ref GEOSWKBWriter and GEOSWKBWriter_getByteOrder_r()
 */
-extern int  GEOS_getWKBByteOrder_r(
+extern int GEOS_DLL GEOS_getWKBByteOrder_r(
     GEOSContextHandle_t handle);
 
 /**
 * \deprecated use \ref GEOSWKBWriter and GEOSWKBWriter_setByteOrder_r()
 */
-extern int  GEOS_setWKBByteOrder_r(
+extern int GEOS_DLL GEOS_setWKBByteOrder_r(
     GEOSContextHandle_t handle,
     int byteOrder);
 
 /**
 * \deprecated use \ref GEOSWKBReader and GEOSWKBReader_read_r()
 */
-extern GEOSGeometry  *GEOSGeomFromWKB_buf_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeomFromWKB_buf_r(
     GEOSContextHandle_t handle,
     const unsigned char *wkb,
     size_t size);
@@ -5826,7 +5836,7 @@ extern GEOSGeometry  *GEOSGeomFromWKB_buf_r(
 /**
 * \deprecated use \ref GEOSWKBWriter and GEOSWKBWriter_write_r()
 */
-extern unsigned char  *GEOSGeomToWKB_buf_r(
+extern unsigned char GEOS_DLL *GEOSGeomToWKB_buf_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     size_t *size);
@@ -5834,7 +5844,7 @@ extern unsigned char  *GEOSGeomToWKB_buf_r(
 /**
 * \deprecated use \ref GEOSWKBReader and GEOSWKBReader_readHEX_r()
 */
-extern GEOSGeometry  *GEOSGeomFromHEX_buf_r(
+extern GEOSGeometry GEOS_DLL *GEOSGeomFromHEX_buf_r(
     GEOSContextHandle_t handle,
     const unsigned char *hex,
     size_t size);
@@ -5842,7 +5852,7 @@ extern GEOSGeometry  *GEOSGeomFromHEX_buf_r(
 /**
 * \deprecated use \ref GEOSWKBWriter and GEOSWKBWriter_writeHEX_r()
 */
-extern unsigned char  *GEOSGeomToHEX_buf_r(
+extern unsigned char GEOS_DLL *GEOSGeomToHEX_buf_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g,
     size_t *size);
@@ -5850,62 +5860,62 @@ extern unsigned char  *GEOSGeomToHEX_buf_r(
 /**
 * \deprecated use \ref GEOSWKTReader and GEOSWKTReader_read_r()
 */
-extern GEOSGeometry  *GEOSGeomFromWKT(const char *wkt);
+extern GEOSGeometry GEOS_DLL *GEOSGeomFromWKT(const char *wkt);
 
 /**
 * \deprecated use \ref GEOSWKTWriter and GEOSWKTWriter_write()
 */
-extern char  *GEOSGeomToWKT(const GEOSGeometry* g);
+extern char GEOS_DLL *GEOSGeomToWKT(const GEOSGeometry* g);
 
 /**
 * \deprecated use \ref GEOSWKBWriter and GEOS_getWKBOutputDims()
 */
-extern int  GEOS_getWKBOutputDims(void);
+extern int GEOS_DLL GEOS_getWKBOutputDims(void);
 
 /**
 * \deprecated use \ref GEOSWKBWriter and GEOS_setWKBOutputDims()
 */
-extern int  GEOS_setWKBOutputDims(int newDims);
+extern int GEOS_DLL GEOS_setWKBOutputDims(int newDims);
 
 /**
 * \deprecated use \ref GEOSWKBWriter and GEOSWKBWriter_getByteOrder()
 */
-extern int  GEOS_getWKBByteOrder(void);
+extern int GEOS_DLL GEOS_getWKBByteOrder(void);
 
 /**
 * \deprecated use \ref GEOSWKBWriter and GEOSWKBWriter_setByteOrder()
 */
-extern int  GEOS_setWKBByteOrder(int byteOrder);
+extern int GEOS_DLL GEOS_setWKBByteOrder(int byteOrder);
 
 /**
 * \deprecated use \ref GEOSWKBReader and GEOSWKBWriter_read()
 */
-extern GEOSGeometry  *GEOSGeomFromWKB_buf(const unsigned char *wkb, size_t size);
+extern GEOSGeometry GEOS_DLL *GEOSGeomFromWKB_buf(const unsigned char *wkb, size_t size);
 
 /**
 * \deprecated use \ref GEOSWKBWriter and GEOSWKBWriter_write()
 */
-extern unsigned char  *GEOSGeomToWKB_buf(const GEOSGeometry* g, size_t *size);
+extern unsigned char GEOS_DLL *GEOSGeomToWKB_buf(const GEOSGeometry* g, size_t *size);
 
 /**
 * \deprecated use \ref GEOSWKBReader and GEOSWKBWriter_readHEX()
 */
-extern GEOSGeometry  *GEOSGeomFromHEX_buf(const unsigned char *hex, size_t size);
+extern GEOSGeometry GEOS_DLL *GEOSGeomFromHEX_buf(const unsigned char *hex, size_t size);
 
 /**
 * \deprecated use \ref GEOSWKBWriter and GEOSWKBWriter_writeHEX()
 */
-extern unsigned char  *GEOSGeomToHEX_buf(const GEOSGeometry* g, size_t *size);
+extern unsigned char GEOS_DLL *GEOSGeomToHEX_buf(const GEOSGeometry* g, size_t *size);
 
 /**
 * \deprecated in 3.3.0: use GEOSUnaryUnion() instead
 */
-extern GEOSGeometry  *GEOSUnionCascaded(const GEOSGeometry* g);
+extern GEOSGeometry GEOS_DLL *GEOSUnionCascaded(const GEOSGeometry* g);
 
 /**
 * \deprecated in 3.3.0: use GEOSUnaryUnion_r() instead
 */
-extern GEOSGeometry  *GEOSUnionCascaded_r(
+extern GEOSGeometry GEOS_DLL *GEOSUnionCascaded_r(
     GEOSContextHandle_t handle,
     const GEOSGeometry* g);
 
