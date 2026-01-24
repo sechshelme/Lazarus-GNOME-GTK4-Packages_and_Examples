@@ -11,6 +11,9 @@ const
   libgeos_c = 'libgeos_c.dll'; // ?????
   {$ENDIF}
 
+  type
+    Tsize_t=SizeUInt;
+
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
@@ -290,50 +293,24 @@ type
     GEOS_MAKE_VALID_LINEWORK = 0;
     GEOS_MAKE_VALID_STRUCTURE = 1;
 
-{* \see GEOSMakeValidParams_create  }
-
 function GEOSMakeValidParams_create_r(extHandle:TGEOSContextHandle_t):PGEOSMakeValidParams;cdecl;external libgeos_c;
-{* \see GEOSMakeValidParams_destroy  }
 procedure GEOSMakeValidParams_destroy_r(handle:TGEOSContextHandle_t; parms:PGEOSMakeValidParams);cdecl;external libgeos_c;
-{* \see GEOSMakeValidParams_setKeepCollapsed  }
 function GEOSMakeValidParams_setKeepCollapsed_r(handle:TGEOSContextHandle_t; p:PGEOSMakeValidParams; style:longint):longint;cdecl;external libgeos_c;
-{* \see GEOSMakeValidParams_setMethod  }
 function GEOSMakeValidParams_setMethod_r(handle:TGEOSContextHandle_t; p:PGEOSMakeValidParams; method:TGEOSMakeValidMethods):longint;cdecl;external libgeos_c;
-{* \see GEOSMakeValid  }
 function GEOSMakeValid_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry):PGEOSGeometry;cdecl;external libgeos_c;
-{* \see GEOSMakeValidWithParams  }
 function GEOSMakeValidWithParams_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; makeValidParams:PGEOSMakeValidParams):PGEOSGeometry;cdecl;external libgeos_c;
-{* \see GEOSRemoveRepeatedPoints  }
 function GEOSRemoveRepeatedPoints_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; tolerance:double):PGEOSGeometry;cdecl;external libgeos_c;
-{ ========== Geometry info ==========  }
-{* \see GEOSGeomType  }
-{ Return NULL on exception, result must be freed by caller.  }
+
 function GEOSGeomType_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry):Pchar;cdecl;external libgeos_c;
-{* \see GEOSGeomTypeId  }
 function GEOSGeomTypeId_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry):longint;cdecl;external libgeos_c;
-{* \see GEOSGetSRID  }
 function GEOSGetSRID_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry):longint;cdecl;external libgeos_c;
-{* \see GEOSSetSRID  }
 procedure GEOSSetSRID_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; SRID:longint);cdecl;external libgeos_c;
-{* \see GEOSGeom_getUserData  }
 function GEOSGeom_getUserData_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry):pointer;cdecl;external libgeos_c;
-{* \see GEOSGeom_setUserData  }
 procedure GEOSGeom_setUserData_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; userData:pointer);cdecl;external libgeos_c;
-{* \see GEOSGetNumGeometries  }
 function GEOSGetNumGeometries_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry):longint;cdecl;external libgeos_c;
-{* \see GEOSGetGeometryN  }
 function GEOSGetGeometryN_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; n:longint):PGEOSGeometry;cdecl;external libgeos_c;
-{* \see GEOSNormalize  }
 function GEOSNormalize_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry):longint;cdecl;external libgeos_c;
-{* \see GEOSOrientPolygons  }
 function GEOSOrientPolygons_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; exteriorCW:longint):longint;cdecl;external libgeos_c;
-{*
-* Controls the behavior of GEOSGeom_setPrecision()
-* when altering the precision of a geometry.
- }
-{* The output is always valid. Collapsed geometry elements (including both polygons and lines) are removed.  }
-{* Precision reduction is performed pointwise. Output geometry may be invalid due to collapse or self-intersection. (This might be better called "GEOS_PREC_POINTWISE" - the current name is historical.)  }
-{* Like the default mode, except that collapsed linear geometry elements are preserved. Collapsed polygonal input elements are removed.  }
 type
   TGEOSPrecisionRules =  Longint;
   Const
@@ -341,443 +318,118 @@ type
     GEOS_PREC_NO_TOPO = 1;
     GEOS_PREC_KEEP_COLLAPSED = 2;
 
-{* \see GEOSGeom_setPrecision  }
-
 function GEOSGeom_setPrecision_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; gridSize:double; flags:longint):PGEOSGeometry;cdecl;external libgeos_c;
-{* \see GEOSGeom_getPrecision  }
 function GEOSGeom_getPrecision_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry):double;cdecl;external libgeos_c;
-{* \see GEOSGetNumInteriorRings  }
 function GEOSGetNumInteriorRings_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry):longint;cdecl;external libgeos_c;
-{* \see GEOSGeomGetNumPoints  }
 function GEOSGeomGetNumPoints_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry):longint;cdecl;external libgeos_c;
-{* \see GEOSGeomGetX  }
 function GEOSGeomGetX_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; x:Pdouble):longint;cdecl;external libgeos_c;
-{* \see GEOSGeomGetY  }
 function GEOSGeomGetY_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; y:Pdouble):longint;cdecl;external libgeos_c;
-{* \see GEOSGeomGetZ  }
 function GEOSGeomGetZ_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; z:Pdouble):longint;cdecl;external libgeos_c;
-{* \see GEOSGeomGetM  }
 function GEOSGeomGetM_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; m:Pdouble):longint;cdecl;external libgeos_c;
-{* \see GEOSGetInteriorRingN  }
 function GEOSGetInteriorRingN_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; n:longint):PGEOSGeometry;cdecl;external libgeos_c;
-{* \see GEOSGetExteriorRing  }
 function GEOSGetExteriorRing_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry):PGEOSGeometry;cdecl;external libgeos_c;
-{* \see GEOSGetNumCoordinates  }
 function GEOSGetNumCoordinates_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry):longint;cdecl;external libgeos_c;
-{* \see GEOSGeom_getCoordSeq  }
 function GEOSGeom_getCoordSeq_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry):PGEOSCoordSequence;cdecl;external libgeos_c;
-{* \see GEOSGeom_getDimensions  }
 function GEOSGeom_getDimensions_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry):longint;cdecl;external libgeos_c;
-{* \see GEOSGeom_getCoordinateDimension  }
 function GEOSGeom_getCoordinateDimension_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry):longint;cdecl;external libgeos_c;
-{* \see GEOSGeom_getXMin  }
 function GEOSGeom_getXMin_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; value:Pdouble):longint;cdecl;external libgeos_c;
-{* \see GEOSGeom_getYMin  }
 function GEOSGeom_getYMin_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; value:Pdouble):longint;cdecl;external libgeos_c;
-{* \see GEOSGeom_getXMax  }
 function GEOSGeom_getXMax_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; value:Pdouble):longint;cdecl;external libgeos_c;
-{* \see GEOSGeom_getYMax  }
 function GEOSGeom_getYMax_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; value:Pdouble):longint;cdecl;external libgeos_c;
-{* \see GEOSGeom_getExtent  }
-function GEOSGeom_getExtent_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; xmin:Pdouble; ymin:Pdouble; xmax:Pdouble; 
-           ymax:Pdouble):longint;cdecl;external libgeos_c;
-{* \see GEOSGeomGetPointN  }
+function GEOSGeom_getExtent_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; xmin:Pdouble; ymin:Pdouble; xmax:Pdouble;           ymax:Pdouble):longint;cdecl;external libgeos_c;
 function GEOSGeomGetPointN_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; n:longint):PGEOSGeometry;cdecl;external libgeos_c;
-{* \see GEOSGeomGetStartPoint  }
 function GEOSGeomGetStartPoint_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry):PGEOSGeometry;cdecl;external libgeos_c;
-{* \see GEOSGeomGetEndPoint  }
 function GEOSGeomGetEndPoint_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry):PGEOSGeometry;cdecl;external libgeos_c;
-{ ========= Misc functions =========  }
-{* \see GEOSArea  }
+
 function GEOSArea_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; area:Pdouble):longint;cdecl;external libgeos_c;
-{* \see GEOSLength  }
 function GEOSLength_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; length:Pdouble):longint;cdecl;external libgeos_c;
-{* \see GEOSDistance  }
 function GEOSDistance_r(handle:TGEOSContextHandle_t; g1:PGEOSGeometry; g2:PGEOSGeometry; dist:Pdouble):longint;cdecl;external libgeos_c;
-{* \see GEOSDistanceWithin  }
 function GEOSDistanceWithin_r(handle:TGEOSContextHandle_t; g1:PGEOSGeometry; g2:PGEOSGeometry; dist:double):char;cdecl;external libgeos_c;
-{* \see GEOSDistanceIndexed  }
 function GEOSDistanceIndexed_r(handle:TGEOSContextHandle_t; g1:PGEOSGeometry; g2:PGEOSGeometry; dist:Pdouble):longint;cdecl;external libgeos_c;
-{* \see GEOSHausdorffDistance  }
 function GEOSHausdorffDistance_r(handle:TGEOSContextHandle_t; g1:PGEOSGeometry; g2:PGEOSGeometry; dist:Pdouble):longint;cdecl;external libgeos_c;
-{* \see GEOSHausdorffDistanceDensify  }
 function GEOSHausdorffDistanceDensify_r(handle:TGEOSContextHandle_t; g1:PGEOSGeometry; g2:PGEOSGeometry; densifyFrac:double; dist:Pdouble):longint;cdecl;external libgeos_c;
-{* \see GEOSFrechetDistance  }
 function GEOSFrechetDistance_r(handle:TGEOSContextHandle_t; g1:PGEOSGeometry; g2:PGEOSGeometry; dist:Pdouble):longint;cdecl;external libgeos_c;
-{* \see GEOSFrechetDistanceDensify  }
 function GEOSFrechetDistanceDensify_r(handle:TGEOSContextHandle_t; g1:PGEOSGeometry; g2:PGEOSGeometry; densifyFrac:double; dist:Pdouble):longint;cdecl;external libgeos_c;
-{* \see GEOSHilbertCode  }
 function GEOSHilbertCode_r(handle:TGEOSContextHandle_t; geom:PGEOSGeometry; extent:PGEOSGeometry; level:dword; code:Pdword):longint;cdecl;external libgeos_c;
-{* \see GEOSGeomGetLength  }
 function GEOSGeomGetLength_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; length:Pdouble):longint;cdecl;external libgeos_c;
-{* \see GEOSNearestPoints  }
 function GEOSNearestPoints_r(handle:TGEOSContextHandle_t; g1:PGEOSGeometry; g2:PGEOSGeometry):PGEOSCoordSequence;cdecl;external libgeos_c;
-{* \see GEOSGeom_transformXY  }
 function GEOSGeom_transformXY_r(handle:TGEOSContextHandle_t; g:PGEOSGeometry; callback:TGEOSTransformXYCallback; userdata:pointer):PGEOSGeometry;cdecl;external libgeos_c;
-{ ========= Algorithms =========  }
-{* \see GEOSOrientationIndex  }
-function GEOSOrientationIndex_r(handle:TGEOSContextHandle_t; Ax:double; Ay:double; Bx:double; By:double; 
+
+function GEOSOrientationIndex_r(handle:TGEOSContextHandle_t; Ax:double; Ay:double; Bx:double; By:double;
            Px:double; Py:double):longint;cdecl;external libgeos_c;
-{ ========== Reader and Writer APIs ==========  }
-{$ifndef GEOSWKTReader}
-{*
-* Reader object to read Well-Known Text (WKT) format and construct Geometry.
-* \see GEOSWKTReader_create
-* \see GEOSWKTReader_create_r
- }
 type
   TGEOSWKTReader_t = TGEOSWKTReader;
-{*
-* Writer object to turn Geometry into Well-Known Text (WKT).
-* \see GEOSWKTWriter_create
-* \see GEOSWKTWriter_create_r
- }
   TGEOSWKTWriter_t = TGEOSWKTWriter;
-{*
-* Reader object to read Well-Known Binary (WKB) format and construct Geometry.
-* \see GEOSWKBReader_create
-* \see GEOSWKBReader_create_r
- }
   TGEOSWKBReader_t = TGEOSWKBReader;
-{*
-* Writer object to turn Geometry into Well-Known Binary (WKB).
-* \see GEOSWKBWriter_create
-* \see GEOSWKBWriter_create_r
- }
   TGEOSWKBWriter_t = TGEOSWKBWriter;
-{*
-* Reader object to read GeoJSON format and construct a Geometry.
-* \see GEOSGeoJSONReader_create
-* \see GEOSGeoJSONReader_create_r
- }
   TGEOSGeoJSONReader_t = TGEOSGeoJSONReader;
-{*
-* Writer object to turn a Geometry into GeoJSON.
-* \see GEOSGeoJSONReader_create
-* \see GEOSGeoJSONReader_create_r
- }
   TGEOSGeoJSONWriter_t = TGEOSGeoJSONWriter;
-{$endif}
-{ ========== WKT Reader ==========  }
-{* \see GEOSWKTReader_create  }
 
 function GEOSWKTReader_create_r(handle:TGEOSContextHandle_t):PGEOSWKTReader;cdecl;external libgeos_c;
-{* \see GEOSWKTReader_destroy  }
 procedure GEOSWKTReader_destroy_r(handle:TGEOSContextHandle_t; reader:PGEOSWKTReader);cdecl;external libgeos_c;
-{* \see GEOSWKTReader_read  }
 function GEOSWKTReader_read_r(handle:TGEOSContextHandle_t; reader:PGEOSWKTReader; wkt:Pchar):PGEOSGeometry;cdecl;external libgeos_c;
-{* \see GEOSWKTReader_setFixStructure  }
 procedure GEOSWKTReader_setFixStructure_r(handle:TGEOSContextHandle_t; reader:PGEOSWKTReader; doFix:char);cdecl;external libgeos_c;
-{ ========== WKT Writer ==========  }
-{* \see GEOSWKTReader_create  }
+
 function GEOSWKTWriter_create_r(handle:TGEOSContextHandle_t):PGEOSWKTWriter;cdecl;external libgeos_c;
-{* \see GEOSWKTWriter_destroy  }
 procedure GEOSWKTWriter_destroy_r(handle:TGEOSContextHandle_t; writer:PGEOSWKTWriter);cdecl;external libgeos_c;
-{* \see GEOSWKTWriter_write  }
 function GEOSWKTWriter_write_r(handle:TGEOSContextHandle_t; writer:PGEOSWKTWriter; g:PGEOSGeometry):Pchar;cdecl;external libgeos_c;
-{* \see GEOSWKTWriter_setTrim  }
 procedure GEOSWKTWriter_setTrim_r(handle:TGEOSContextHandle_t; writer:PGEOSWKTWriter; trim:char);cdecl;external libgeos_c;
-{* \see GEOSWKTWriter_setRoundingPrecision  }
 procedure GEOSWKTWriter_setRoundingPrecision_r(handle:TGEOSContextHandle_t; writer:PGEOSWKTWriter; precision:longint);cdecl;external libgeos_c;
-{* \see GEOSWKTWriter_setOutputDimension  }
 procedure GEOSWKTWriter_setOutputDimension_r(handle:TGEOSContextHandle_t; writer:PGEOSWKTWriter; dim:longint);cdecl;external libgeos_c;
-{* \see GEOSWKTWriter_getOutputDimension  }
 function GEOSWKTWriter_getOutputDimension_r(handle:TGEOSContextHandle_t; writer:PGEOSWKTWriter):longint;cdecl;external libgeos_c;
-{* \see GEOSWKTWriter_setOld3D  }
 procedure GEOSWKTWriter_setOld3D_r(handle:TGEOSContextHandle_t; writer:PGEOSWKTWriter; useOld3D:longint);cdecl;external libgeos_c;
-{ ========== WKB Reader ==========  }
-{* \see GEOSWKBReader_create  }
+
 function GEOSWKBReader_create_r(handle:TGEOSContextHandle_t):PGEOSWKBReader;cdecl;external libgeos_c;
-{* \see GEOSWKBReader_destroy  }
 procedure GEOSWKBReader_destroy_r(handle:TGEOSContextHandle_t; reader:PGEOSWKBReader);cdecl;external libgeos_c;
-{* \see GEOSWKBReader_setFixStructure  }
 procedure GEOSWKBReader_setFixStructure_r(handle:TGEOSContextHandle_t; reader:PGEOSWKBReader; doFix:char);cdecl;external libgeos_c;
-{* \see GEOSWKBReader_read  }
 function GEOSWKBReader_read_r(handle:TGEOSContextHandle_t; reader:PGEOSWKBReader; wkb:Pbyte; size:Tsize_t):PGEOSGeometry;cdecl;external libgeos_c;
-{* \see GEOSWKBReader_readHEX  }
 function GEOSWKBReader_readHEX_r(handle:TGEOSContextHandle_t; reader:PGEOSWKBReader; hex:Pbyte; size:Tsize_t):PGEOSGeometry;cdecl;external libgeos_c;
-{ ========== WKB Writer ==========  }
-{* \see GEOSWKBWriter_create  }
+
 function GEOSWKBWriter_create_r(handle:TGEOSContextHandle_t):PGEOSWKBWriter;cdecl;external libgeos_c;
-{* \see GEOSWKBWriter_destroy  }
 procedure GEOSWKBWriter_destroy_r(handle:TGEOSContextHandle_t; writer:PGEOSWKBWriter);cdecl;external libgeos_c;
-{* \see GEOSWKBWriter_write  }
 function GEOSWKBWriter_write_r(handle:TGEOSContextHandle_t; writer:PGEOSWKBWriter; g:PGEOSGeometry; size:Psize_t):Pbyte;cdecl;external libgeos_c;
-{* \see GEOSWKBWriter_writeHEX  }
 function GEOSWKBWriter_writeHEX_r(handle:TGEOSContextHandle_t; writer:PGEOSWKBWriter; g:PGEOSGeometry; size:Psize_t):Pbyte;cdecl;external libgeos_c;
-{* \see GEOSWKBWriter_getOutputDimension  }
 function GEOSWKBWriter_getOutputDimension_r(handle:TGEOSContextHandle_t; writer:PGEOSWKBWriter):longint;cdecl;external libgeos_c;
-{* \see GEOSWKBWriter_setOutputDimension  }
 procedure GEOSWKBWriter_setOutputDimension_r(handle:TGEOSContextHandle_t; writer:PGEOSWKBWriter; newDimension:longint);cdecl;external libgeos_c;
-{* \see GEOSWKBWriter_getByteOrder  }
 function GEOSWKBWriter_getByteOrder_r(handle:TGEOSContextHandle_t; writer:PGEOSWKBWriter):longint;cdecl;external libgeos_c;
-{* \see GEOSWKBWriter_setByteOrder  }
 procedure GEOSWKBWriter_setByteOrder_r(handle:TGEOSContextHandle_t; writer:PGEOSWKBWriter; byteOrder:longint);cdecl;external libgeos_c;
-{* \see GEOSWKBWriter_getFlavor  }
 function GEOSWKBWriter_getFlavor_r(handle:TGEOSContextHandle_t; writer:PGEOSWKBWriter):longint;cdecl;external libgeos_c;
-{* \see GEOSWKBWriter_setFlavor  }
 procedure GEOSWKBWriter_setFlavor_r(handle:TGEOSContextHandle_t; writer:PGEOSWKBWriter; flavor:longint);cdecl;external libgeos_c;
-{* \see GEOSWKBWriter_getIncludeSRID  }
 function GEOSWKBWriter_getIncludeSRID_r(handle:TGEOSContextHandle_t; writer:PGEOSWKBWriter):char;cdecl;external libgeos_c;
-{* \see GEOSWKBWriter_setIncludeSRID  }
 procedure GEOSWKBWriter_setIncludeSRID_r(handle:TGEOSContextHandle_t; writer:PGEOSWKBWriter; writeSRID:char);cdecl;external libgeos_c;
-{ ========== GeoJSON Reader ==========  }
-{* \see GEOSGeoJSONReader_create  }
+
 function GEOSGeoJSONReader_create_r(handle:TGEOSContextHandle_t):PGEOSGeoJSONReader;cdecl;external libgeos_c;
-{* \see GEOSGeoJSONReader_destroy  }
 procedure GEOSGeoJSONReader_destroy_r(handle:TGEOSContextHandle_t; reader:PGEOSGeoJSONReader);cdecl;external libgeos_c;
-{* \see GEOSGeoJSONReader_read  }
 function GEOSGeoJSONReader_readGeometry_r(handle:TGEOSContextHandle_t; reader:PGEOSGeoJSONReader; geojson:Pchar):PGEOSGeometry;cdecl;external libgeos_c;
-{ ========== GeoJSON Writer ==========  }
-{* \see GEOSGeoJSONWriter_create  }
+
 function GEOSGeoJSONWriter_create_r(handle:TGEOSContextHandle_t):PGEOSGeoJSONWriter;cdecl;external libgeos_c;
-{* \see GEOSGeoJSONWriter_destroy  }
 procedure GEOSGeoJSONWriter_destroy_r(handle:TGEOSContextHandle_t; writer:PGEOSGeoJSONWriter);cdecl;external libgeos_c;
-{* \see GEOSGeoJSONWriter_writeGeometry  }
 function GEOSGeoJSONWriter_writeGeometry_r(handle:TGEOSContextHandle_t; writer:PGEOSGeoJSONWriter; g:PGEOSGeometry; indent:longint):Pchar;cdecl;external libgeos_c;
-{* \see GEOSFree  }
 procedure GEOSFree_r(handle:TGEOSContextHandle_t; buffer:pointer);cdecl;external libgeos_c;
-{*
-* Returns the current GEOS version string. eg: "3.10.0"
-* This function does not have a reentrant variant and is
-* available if `GEOS_USE_ONLY_R_API` is defined.
-* \return version string
-* \since 2.2
- }
 function GEOSversion:Pchar;cdecl;external libgeos_c;
-{
-* External code to GEOS can define GEOS_USE_ONLY_R_API
-* to strip the non-reentrant API functions from this header,
-* leaving only the "_r" compatible variants.
- }
-{$ifndef GEOS_USE_ONLY_R_API}
-{ ========== Initialization, cleanup =================================  }
-{* @name Library and Memory Management
-* Functions to initialize and tear down the library,
-* and deallocate memory.
- }
-{/@ }
-{*
-* For non-reentrant code, set up an execution contact, and associate
-* \ref GEOSMessageHandler functions with it, to pass error and notice
-* messages back to the calling application.
-* <pre>
-* typedef void (*GEOSMessageHandler)(const char *fmt, ...);
-* </pre>
-*
-* \param notice_function Handle notice messages
-* \param error_function Handle error messages
-* \since 2.2
- }
 
 procedure initGEOS(notice_function:TGEOSMessageHandler; error_function:TGEOSMessageHandler);cdecl;external libgeos_c;
-{*
-* For non-reentrant code, call when all GEOS operations are complete,
-* cleans up global resources.
-* \since 3.1
- }
 procedure finishGEOS;cdecl;external libgeos_c;
-{*
-* Free strings and byte buffers returned by functions such
-* as GEOSWKBWriter_write(),
-* GEOSWKBWriter_writeHEX() and GEOSWKTWriter_write(), etc.
-* \param buffer The memory to free
-* \since 3.1
- }
 procedure GEOSFree(buffer:pointer);cdecl;external libgeos_c;
-{/@ }
-{ ========= Coordinate Sequence functions =========  }
-{* @name Coordinate Sequences
-* A GEOSCoordSequence is an ordered list of coordinates.
-* Coordinates are 2 (XY), 3 (XYZ or XYM), or 4 (XYZM) dimensional.
- }
-{/@ }
-{*
-* Create a coordinate sequence.
-* \param size number of coordinates in the sequence
-* \param dims dimensionality of the coordinates (2, 3 or 4)
-* \return the sequence or NULL on exception
-* \since 2.2
- }
+
 function GEOSCoordSeq_create(size:dword; dims:dword):PGEOSCoordSequence;cdecl;external libgeos_c;
-{*
-* Create a coordinate sequence by copying from an interleaved buffer of doubles (e.g., XYXY or XYZXYZ)
-* \param buf pointer to buffer
-* \param size number of coordinates in the sequence
-* \param hasZ does buffer have Z values?
-* \param hasM does buffer have M values?
-* \return the sequence or NULL on exception
-*
-* \since 3.10
- }
 function GEOSCoordSeq_copyFromBuffer(buf:Pdouble; size:dword; hasZ:longint; hasM:longint):PGEOSCoordSequence;cdecl;external libgeos_c;
-{*
-* Create a coordinate sequence by copying from arrays of doubles
-* \param x array of x coordinates
-* \param y array of y coordinates
-* \param z array of z coordinates, or NULL
-* \param m array of m coordinates, or NULL
-* \param size length of each array
-* \return the sequence or NULL on exception
-*
-* \since 3.10
- }
 function GEOSCoordSeq_copyFromArrays(x:Pdouble; y:Pdouble; z:Pdouble; m:Pdouble; size:dword):PGEOSCoordSequence;cdecl;external libgeos_c;
-{*
-* Copy the contents of a coordinate sequence to an interleaved buffer of doubles (e.g., XYXY or XYZXYZ)
-* \param s sequence to copy
-* \param buf buffer to which coordinates should be copied
-* \param hasZ copy Z values to buffer?
-* \param hasM copy M values to buffer?
-* \return 1 on success, 0 on error
-*
-* \since 3.10
- }
 function GEOSCoordSeq_copyToBuffer(s:PGEOSCoordSequence; buf:Pdouble; hasZ:longint; hasM:longint):longint;cdecl;external libgeos_c;
-{*
-* Copy the contents of a coordinate sequence to arrays of doubles
-* \param s sequence to copy
-* \param x array to which x values should be copied
-* \param y array to which y values should be copied
-* \param z array to which z values should be copied, or NULL
-* \param m array to which m values should be copied, or NULL
-* \return 1 on success, 0 on error
-*
-* \since 3.10
- }
 function GEOSCoordSeq_copyToArrays(s:PGEOSCoordSequence; x:Pdouble; y:Pdouble; z:Pdouble; m:Pdouble):longint;cdecl;external libgeos_c;
-{*
-* Clone a coordinate sequence.
-* \param s the coordinate sequence to clone
-* \return a copy of the coordinate sequence or NULL on exception
-* \since 2.2
- }
 function GEOSCoordSeq_clone(s:PGEOSCoordSequence):PGEOSCoordSequence;cdecl;external libgeos_c;
-{*
-* Destroy a coordinate sequence, freeing all memory.
-* \param s the coordinate sequence to destroy
-* \since 2.2
- }
 procedure GEOSCoordSeq_destroy(s:PGEOSCoordSequence);cdecl;external libgeos_c;
-{*
-* Set X ordinate values in a coordinate sequence.
-* \param s the coordinate sequence
-* \param idx the index of the coordinate to alter, zero based
-* \param val the value to set the ordinate to
-* \return 0 on exception
-* \since 2.2
- }
 function GEOSCoordSeq_setX(s:PGEOSCoordSequence; idx:dword; val:double):longint;cdecl;external libgeos_c;
-{*
-* Set Y ordinate values in a coordinate sequence.
-* \param s the coordinate sequence
-* \param idx the index of the coordinate to alter, zero based
-* \param val the value to set the ordinate to
-* \return 0 on exception
-* \since 2.2
- }
 function GEOSCoordSeq_setY(s:PGEOSCoordSequence; idx:dword; val:double):longint;cdecl;external libgeos_c;
-{*
-* Set Z ordinate values in a coordinate sequence.
-* \param s the coordinate sequence
-* \param idx the index of the coordinate to alter, zero based
-* \param val the value to set the ordinate to
-* \return 0 on exception
-* \since 2.2
- }
 function GEOSCoordSeq_setZ(s:PGEOSCoordSequence; idx:dword; val:double):longint;cdecl;external libgeos_c;
-{*
-* Set X and Y ordinate values in a coordinate sequence simultaneously.
-* \param s the coordinate sequence
-* \param idx the index of the coordinate to alter, zero based
-* \param x the value to set the X ordinate to
-* \param y the value to set the Y ordinate to
-* \return 0 on exception
-*
-* \since 3.8
- }
 function GEOSCoordSeq_setXY(s:PGEOSCoordSequence; idx:dword; x:double; y:double):longint;cdecl;external libgeos_c;
-{*
-* Set X, Y and Z ordinate values in a coordinate sequence simultaneously.
-* \param s the coordinate sequence
-* \param idx the index of the coordinate to alter, zero based
-* \param x the value to set the X ordinate to
-* \param y the value to set the Y ordinate to
-* \param z the value to set the Z ordinate to
-* \return 0 on exception
-*
-* \since 3.8
- }
 function GEOSCoordSeq_setXYZ(s:PGEOSCoordSequence; idx:dword; x:double; y:double; z:double):longint;cdecl;external libgeos_c;
-{*
-* Set Nth ordinate value in a coordinate sequence.
-* \param s the coordinate sequence
-* \param idx the index of the coordinate to alter, zero based
-* \param dim the dimension number of the ordinate to alter, zero based
-* \param val the value to set the ordinate to
-* \return 0 on exception
-* \since 2.2
- }
 function GEOSCoordSeq_setOrdinate(s:PGEOSCoordSequence; idx:dword; dim:dword; val:double):longint;cdecl;external libgeos_c;
-{*
-* Read X ordinate values from a coordinate sequence.
-* \param s the coordinate sequence
-* \param idx the index of the coordinate to alter, zero based
-* \param val pointer where ordinate value will be placed
-* \return 0 on exception
-* \since 2.2
- }
 function GEOSCoordSeq_getX(s:PGEOSCoordSequence; idx:dword; val:Pdouble):longint;cdecl;external libgeos_c;
-{*
-* Read Y ordinate values from a coordinate sequence.
-* \param s the coordinate sequence
-* \param idx the index of the coordinate to alter, zero based
-* \param val pointer where ordinate value will be placed
-* \return 0 on exception
-* \since 2.2
- }
 function GEOSCoordSeq_getY(s:PGEOSCoordSequence; idx:dword; val:Pdouble):longint;cdecl;external libgeos_c;
-{*
-* Read Z ordinate values from a coordinate sequence.
-* \param s the coordinate sequence
-* \param idx the index of the coordinate to alter, zero based
-* \param val pointer where ordinate value will be placed
-* \return 0 on exception
-* \since 2.2
- }
 function GEOSCoordSeq_getZ(s:PGEOSCoordSequence; idx:dword; val:Pdouble):longint;cdecl;external libgeos_c;
-{*
-* Read X and Y ordinate values from a coordinate sequence.
-* \param s the coordinate sequence
-* \param idx the index of the coordinate to alter, zero based
-* \param x pointer where ordinate X value will be placed
-* \param y pointer where ordinate Y value will be placed
-* \return 0 on exception
-*
-* \since 3.8
- }
 function GEOSCoordSeq_getXY(s:PGEOSCoordSequence; idx:dword; x:Pdouble; y:Pdouble):longint;cdecl;external libgeos_c;
-{*
-* Read X and Y ordinate values from a coordinate sequence.
-* \param s the coordinate sequence
-* \param idx the index of the coordinate to alter, zero based
-* \param x pointer where ordinate X value will be placed
-* \param y pointer where ordinate Y value will be placed
-* \param z pointer where ordinate Z value will be placed
-* \return 0 on exception
-*
-* \since 3.8
- }
 function GEOSCoordSeq_getXYZ(s:PGEOSCoordSequence; idx:dword; x:Pdouble; y:Pdouble; z:Pdouble):longint;cdecl;external libgeos_c;
-{*
-* Read Nth ordinate value from a coordinate sequence.
-* \param[in] s the coordinate sequence
-* \param[in] idx the index of the coordinate to alter, zero based
-* \param[in] dim the dimension number of the ordinate to read, zero based
-* \param[out] val pointer where ordinate value will be placed
-* \return 0 on exception
-* \since 2.2
- }
 function GEOSCoordSeq_getOrdinate(s:PGEOSCoordSequence; idx:dword; dim:dword; val:Pdouble):longint;cdecl;external libgeos_c;
 {*
 * Get size info from a coordinate sequence.

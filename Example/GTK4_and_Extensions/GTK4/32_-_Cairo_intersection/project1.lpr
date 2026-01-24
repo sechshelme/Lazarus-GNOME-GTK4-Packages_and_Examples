@@ -43,52 +43,45 @@ const
     anyData := g_object_get_data(G_OBJECT(drawing_area), anyDataKey);
 
     with anyData^ do begin
-      cairo_set_source_rgb(cr, 1, 1, 1);
+      cairo_set_source_rgb(cr, 0.3, 0.3, 0.3);
       cairo_paint(cr);
 
-      // Skalierung für bessere Sichtbarkeit
       cairo_scale(cr, 30, 30);
       cairo_set_line_width(cr, 0.05);
 
-      // 1. KREIS ZEICHNEN
-      cairo_set_source_rgb(cr, 0, 0, 1); // Blau
+      cairo_set_source_rgb(cr, 0.5, 0.5, 1.0);
       cairo_arc(cr, CIRCLE_X, CIRCLE_Y, CIRCLE_R, 0, 2 * PI);
       cairo_stroke(cr);
 
-      // 2. LINIE ZEICHNEN
-      cairo_set_source_rgb(cr, 1, 0, 0); // Rot
+      cairo_set_source_rgb(cr, 1.0, 0.5, 0.5);
       cairo_move_to(cr, LINE_X1, LINE_Y1);
       cairo_line_to(cr, LINE_X2, LINE_Y2);
       cairo_stroke(cr);
 
-      // 3. MATHEMATISCHE BERECHNUNG DER SCHNITTPUNKTE
-      // Linie: y = mx + b
       dx := LINE_X2 - LINE_X1;
       if Abs(dx) < 0.000001 then begin
         dx := 0.000001;
-      end; // Verhindert Division durch Null
+      end;
+
       m := (LINE_Y2 - LINE_Y1) / dx;
       b := LINE_Y1 - m * LINE_X1;
 
-      // Einsetzen in Kreisgleichung ergibt: Ax^2 + Bx + C = 0
       A := 1 + m * m;
       B2 := 2 * (m * b - m * CIRCLE_Y - CIRCLE_X);
-      //    C := pow(CIRCLE_X, 2) + pow(b - CIRCLE_Y, 2) - pow(CIRCLE_R, 2);
       C := (CIRCLE_X * CIRCLE_X) + ((b - CIRCLE_Y) * (b - CIRCLE_Y)) - (CIRCLE_R * CIRCLE_R);
 
       diskriminante := B2 * B2 - 4 * A * C;
 
       if diskriminante >= 0 then begin
-        cairo_set_source_rgb(cr, 0, 0, 0); // Schwarz für Schnittpunkte
+        cairo_set_source_rgb(cr, 0.9, 0.9, 0.2);
 
         x_schnitte[0] := (-B2 + sqrt(diskriminante)) / (2 * A);
         x_schnitte[1] := (-B2 - sqrt(diskriminante)) / (2 * A);
 
         for  i := 0 to 1 do begin
           x := x_schnitte[i];
-          y := m * x + b; // y-Wert passend zur Linie berechnen
+          y := m * x + b;
 
-          // Zeichne den Schnittpunkt exakt an (x, y)
           cairo_arc(cr, x, y, 0.1, 0, 2 * PI);
           cairo_fill(cr);
 
@@ -115,8 +108,8 @@ const
       LINE_Y1 := sin(ct) * 4 + 5;
       LINE_X2 := cos(ct * 1.83) * 4 + 5;
       LINE_Y2 := sin(ct * 1.83) * 4 + 5;
-      CIRCLE_X := 4.0;
-      CIRCLE_Y := 5.0;
+      CIRCLE_X := sin(ct) + 4.0;
+      CIRCLE_Y := cos(ct) + 4.0;
       CIRCLE_R := 2.0;
     end;
 
