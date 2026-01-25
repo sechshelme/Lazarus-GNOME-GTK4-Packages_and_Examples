@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libmpv = 'mpv.dll';
+  libmpv = 'libmpv-2.dll';
   {$ENDIF}
 
 type
@@ -38,26 +38,48 @@ type
   Pint64_t = ^Tint64_t;
   PPint64_t = ^Pint64_t;
 
-  Tsize_t=SizeUInt;
+  Tsize_t = SizeUInt;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
 type
-  PdrmModeAtomicReq=type Pointer;
-  PPdrmModeAtomicReq=^PdrmModeAtomicReq;
+  PdrmModeAtomicReq = type Pointer;
+  PPdrmModeAtomicReq = ^PdrmModeAtomicReq;
 
   {$DEFINE read_interface}
-//  {$include fp_adapta_includes.inc}
+  {$include mpv/client.inc}
+  {$include mpv/stream_cb.inc}
+  {$include mpv/render.inc}
+  {$include mpv/render_gl.inc}
   {$UNDEF read_interface}
 
 
 implementation
 
 {$DEFINE read_implementation}
-//{$include fp_adapta_includes.inc}
+{$include mpv/client.inc}
+{$include mpv/stream_cb.inc}
+{$include mpv/render.inc}
+{$include mpv/render_gl.inc}
 {$UNDEF read_implementation}
 
-end.
+// wegen "division_by_zero" in den clibs
+{$IF defined(CPUX86) or defined(CPUX64)}
+{$asmmode intel}
+procedure SetMXCSR;
+var
+  w2: word = 8064;
+begin
+  asm
+           Ldmxcsr w2
+  end;
+end;
+{$ENDIF}
 
+begin
+  {$IF defined(CPUX86) or defined(CPUX64)}
+  SetMXCSR;
+  {$ENDIF}
+end.

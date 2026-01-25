@@ -1,12 +1,6 @@
 program project1;
 
 uses
-  client,
-  stream_cb,
-  render,
-  render_gl,
-
-
   fp_mpv;
 
   procedure check_error(status: integer);
@@ -22,7 +16,6 @@ uses
     cmd: array[0..2] of pchar = ('loadfile', '/home/tux/Schreibtisch/sound/test.mp3', nil);
   var
     ctx: Pmpv_handle;
-    time_buf, duration_buf: array[0..31] of char;
     time_pos: double = 0;
     duration: double = 0;
     first_run: integer = 1;
@@ -79,16 +72,16 @@ uses
             time_pos := PDouble(prop^.data)^;
           end;
         end;
-
       end;
+
       mpv_get_property(ctx, 'duration', MPV_FORMAT_DOUBLE, @duration);
       mpv_get_property(ctx, 'time-pos', MPV_FORMAT_DOUBLE, @time_pos);
       if duration = 0 then begin
         percent := 0;
       end else begin
-        percent := time_pos / duration;
+        percent := time_pos / duration * 100;
       end;
-      WriteLn(time_pos: 2: 1, ' / ', duration: 2: 1, '(', percent: 2: 1, ')');
+      WriteLn(time_pos: 2: 1, 's / ', duration: 2: 1, 's    (', percent: 2: 1, '%)');
     end;
 
     WriteLn(#10'Fertig!');
@@ -96,8 +89,5 @@ uses
   end;
 
 begin
-
-  WriteLn(mpv_client_api_version);
-
   main;
 end.
