@@ -287,6 +287,7 @@ const
     (libs: 'libzmq'; units: 'ctypes'),
     (libs: 'libheif'; units: 'fp_heif'),
     (libs: 'libgeos_c'; units: 'ctypes'),
+    (libs: 'libmpv'; units: 'ctypes'),
 
 
 
