@@ -7,9 +7,21 @@ uses
   oglDebug,
   oglShader;
 
-type
-  TVector3f = array[0..2] of TGLfloat;
-  PVector3f = ^TVector3f;
+    {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
+
+
+procedure Char_callBack(window: PGLFWwindow; codepoint: dword); cdecl;
+begin
+  WriteLn('press Char');
+end;
+
+procedure Mouse_Callback(window: PGLFWwindow; button: longint; action: longint; mods: longint); cdecl;
+begin
+  WriteLn('click    button: ', button, '  action: ', action, '  mods: ', mods);
+end;
 
   procedure error_callback(error_code: longint; description: pchar); cdecl;
   begin
@@ -53,17 +65,8 @@ const
     'void main() {'#10 +
     '   FragColor = texture(videoTexture, TexCoords);'#10 +
     '   FragColor.r = 0.5;'#10 +
+    '   FragColor = vec4(1.0, 1.0, 0.0, 1.0);'#10 +  // GRÜN!
     '}';
-
-  procedure Char_callBack(window: PGLFWwindow; codepoint: dword); cdecl;
-  begin
-    WriteLn('press Char');
-  end;
-
-  procedure Mouse_Callback(window: PGLFWwindow; button: longint; action: longint; mods: longint); cdecl;
-  begin
-    WriteLn('click    button: ', button, '  action: ', action, '  mods: ', mods);
-  end;
 
   function get_proc_address(ctx: pointer; name: pchar): pointer; cdecl;
   begin
@@ -83,32 +86,25 @@ const
     Height: integer = 720;
     Shader: TShader;
 
-  type
-    TVB = record
-    VAOs: array [(vaMesh)] of TGLuint;
-    Mesh_Buffers: array [(mbVBOVektor)] of TGLuint;
-  end;
-
-  var
-    VBQuad: TVB;
-
+    VAO: TGLuint;
+    VBO: TGLuint;
     fbo, texture: TGLuint;
+
     s: string;
 
     cmd: array[0..2] of pchar = ('loadfile', '/n4800/Multimedia/Videos/WNDSURF1.AVI', nil);
     mpv: Pmpv_handle;
     gl_init_params: Tmpv_opengl_init_params;
-    advanced_control: integer = 1;
+    advanced_control: integer;
     params: array[0..3] of Tmpv_render_param;
     mpv_ctx: Pmpv_render_context;
     mpv_fbo: Tmpv_opengl_fbo;
 
-    flip_y: integer = 1;
-
+    flip_y: integer;
     params_fbo: array[0..2] of Tmpv_render_param;
 
-    wakeup_flag: integer = 0;
-
+    wakeup_flag: integer;
+    status: LongInt;
 
   begin
     // === glfw
@@ -135,6 +131,7 @@ const
     glfwSetKeyCallback(window, @Key_callback);
     glfwSetCharCallback(window, @Char_callBack);
     glfwSetMouseButtonCallback(window, @Mouse_Callback);
+
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 
@@ -150,9 +147,10 @@ const
 
     gl_init_params.get_proc_address := @get_proc_address;
     gl_init_params.get_proc_address_ctx := nil;
+    advanced_control := 1;
 
     params[0]._type := MPV_RENDER_PARAM_API_TYPE;
-    params[0].data := pchar(MPV_RENDER_API_TYPE_OPENGL);
+    params[0].data := PChar(MPV_RENDER_API_TYPE_OPENGL);
     params[1]._type := MPV_RENDER_PARAM_OPENGL_INIT_PARAMS;
     params[1].data := @gl_init_params;
     params[2]._type := MPV_RENDER_PARAM_ADVANCED_CONTROL;
@@ -160,14 +158,16 @@ const
     params[3]._type := MPV_RENDER_PARAM_INVALID;
     params[3].data := nil;
 
-    if mpv_render_context_create(@mpv_ctx, mpv, @params) < 0 then begin
-      WriteLn('MPV Context create failed');
+    status := mpv_render_context_create(@mpv_ctx, mpv, @params[0]);
+    if status < 0 then begin
+      WriteLn('MPV Context create failed: ', mpv_error_string(status));
       Exit;
     end;
 
+    wakeup_flag := 0;
     mpv_render_context_set_update_callback(mpv_ctx, @on_mpv_render_update, @wakeup_flag);
 
-    mpv_command(mpv, cmd);
+    mpv_command(mpv, @cmd);
     mpv_set_option_string(mpv, 'hwdec', 'auto');
     mpv_set_option_string(mpv, 'loop', 'inf');
 
@@ -197,11 +197,10 @@ const
     glClearColor(0.3, 0.3, 0.2, 1.0); // Hintergrundfarbe
 
     // Daten für Quadrat
-    glGenVertexArrays(Length(VBQuad.VAOs), VBQuad.VAOs);
-    glGenBuffers(Length(VBQuad.Mesh_Buffers), VBQuad.Mesh_Buffers);
-
-    glBindVertexArray(VBQuad.VAOs[vaMesh]);
-    glBindBuffer(GL_ARRAY_BUFFER, VBQuad.Mesh_Buffers[mbVBOVektor]);
+    glGenVertexArrays(1, @VAO);
+    glGenBuffers(1, @VBO);
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, SizeOf(Quad), @Quad, GL_STATIC_DRAW);
 
     glEnableVertexAttribArray(0);
@@ -217,19 +216,22 @@ const
     Shader.UseProgram;
     glUniform1i(glGetUniformLocation(Shader.ID, 'videoTexture'), 0);
 
-
     while glfwWindowShouldClose(window) = 0 do begin
       glfwPollEvents;
+
+      // NACH glfwMakeContextCurrent(window);   ← HIER HIN!
       glfwGetFramebufferSize(window, @Width, @Height);
-      WriteLn(Width,'  ',Height);
+      WriteLn('Real Size: ', Width, 'x', Height);  // Muss 1280x720 sein!
+
 
       if wakeup_flag <> 0 then begin
         if (mpv_render_context_update(mpv_ctx) and MPV_RENDER_UPDATE_FRAME) <> 0 then begin
+          WriteLn('← MPV FRAME READY!');
+        WriteLn('FBO Status: ', glCheckFramebufferStatus(GL_FRAMEBUFFER));          FillChar(mpv_fbo, SizeOf(mpv_fbo),0);
           mpv_fbo.fbo := integer(fbo);
           mpv_fbo.w := Width;
           mpv_fbo.h := Height;
           mpv_fbo.internal_format := 0;
-
           flip_y := 1;
 
           params_fbo[0]._type := MPV_RENDER_PARAM_OPENGL_FBO;
@@ -239,21 +241,20 @@ const
           params_fbo[2]._type := MPV_RENDER_PARAM_INVALID;
           params_fbo[2].data := nil;
 
-
-          mpv_render_context_render(mpv_ctx, params_fbo);
+          mpv_render_context_render(mpv_ctx, @params_fbo[0]);
           mpv_render_context_report_swap(mpv_ctx);
         end;
-
         wakeup_flag := 0;
       end;
 
-
       glBindFramebuffer(GL_FRAMEBUFFER, 0);
       glViewport(0, 0, Width, Height);
+      glClearColor(0.3, 0.3, 0.2, 1.0); // Hintergrundfarbe
+
       glClear(GL_COLOR_BUFFER_BIT);
 
       Shader.UseProgram;
-      glBindVertexArray(VBQuad.VAOs[vaMesh]);
+      glBindVertexArray(VAO);
 
       glActiveTexture(GL_TEXTURE0);
       glBindTexture(GL_TEXTURE_2D, texture);
@@ -266,8 +267,8 @@ const
     mpv_render_context_free(mpv_ctx);
     mpv_destroy(mpv);
 
-    glDeleteVertexArrays(Length(VBQuad.VAOs), VBQuad.VAOs);
-    glDeleteBuffers(Length(VBQuad.Mesh_Buffers), VBQuad.Mesh_Buffers);
+    glDeleteVertexArrays(1, @VAO);
+    glDeleteBuffers(1, @VBO);
 
     glfwDestroyWindow(window);
     glfwTerminate;

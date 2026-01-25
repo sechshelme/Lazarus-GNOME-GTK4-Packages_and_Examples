@@ -174,6 +174,7 @@ int main() {
                     {MPV_RENDER_PARAM_FLIP_Y, &flip_y},
                     {MPV_RENDER_PARAM_INVALID, NULL}
                 };
+printf("size: %d\n", sizeof(params_fbo));
                 
                 mpv_render_context_render(mpv_ctx, params_fbo);
                 mpv_render_context_report_swap(mpv_ctx);
