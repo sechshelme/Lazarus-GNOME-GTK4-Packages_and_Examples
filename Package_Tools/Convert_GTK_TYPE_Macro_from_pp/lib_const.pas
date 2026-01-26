@@ -288,6 +288,7 @@ const
     (libs: 'libheif'; units: 'fp_heif'),
     (libs: 'libgeos_c'; units: 'ctypes'),
     (libs: 'libmpv'; units: 'ctypes'),
+    (libs: 'libraylib'; units: 'ctypes'),
 
 
 

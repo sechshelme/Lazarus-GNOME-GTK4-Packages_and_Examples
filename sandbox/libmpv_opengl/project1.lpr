@@ -32,12 +32,12 @@ const
     'layout (location = 0) in vec2 vPos;'#10 +
     'layout (location = 1) in vec2 vUV;'#10 +
 
-    'uniform float f;'#10 +
+    'uniform float x;'#10 +
 
     'out vec2 UV;'#10 +
     'void main() {'#10 +
     '   gl_Position = vec4(vPos.xy, 0.0, 1.0);'#10 +
-    '   gl_Position.x +=f;'#10 +
+    '   gl_Position.x *= x;'#10 +
     '   UV = vUV;'#10 +
     '}';
 
@@ -74,7 +74,7 @@ const
     fbo, texture: TGLuint;
 
     cmd: array[0..2] of pchar = ('loadfile', '/n4800/Multimedia/Videos/WNDSURF1.AVI', nil);
-    //    cmd: array[0..2] of pchar = ('loadfile', '/home/tux/Schreibtisch/sound/test.mp3', nil);
+    // cmd: array[0..2] of pchar = ('loadfile', '/home/tux/Schreibtisch/sound/test.mp3', nil);
     mpv: Pmpv_handle;
     gl_init_params: Tmpv_opengl_init_params;
     params: array[0..3] of Tmpv_render_param;
@@ -92,11 +92,10 @@ const
     h: int64 = 0;
     timeout: int64 = 0;
 
-    f: single = 0;
+    x: single;
 
   begin
     // === glfw
-
     if glfwInit = 0 then begin
       WriteLn('glfwInit Error !');
       Halt(1);
@@ -116,21 +115,22 @@ const
     glfwSwapInterval(1);
 
     // === Load glew
-
     if glewInit <> GLEW_OK then begin
       WriteLn('glxewInit Fehler');
       Halt(1);
     end;
 
-    //    InitOpenGLDebug;
-
     // === MPV
-
     mpv := mpv_create;
     if mpv_initialize(mpv) < 0 then  begin
       WriteLn('mpv_initialize()   Error');
       Exit;
     end;
+
+    mpv_command(mpv, @cmd);
+
+    mpv_set_option_string(mpv, 'hwdec', 'auto');
+    mpv_set_option_string(mpv, 'loop', 'inf');
 
     gl_init_params.get_proc_address := @get_proc_address;
     gl_init_params.get_proc_address_ctx := nil;
@@ -154,55 +154,22 @@ const
     wakeup_flag := 0;
     mpv_render_context_set_update_callback(mpv_ctx, @on_mpv_render_update, @wakeup_flag);
 
-    mpv_command(mpv, @cmd);
-
-    mpv_set_option_string(mpv, 'hwdec', 'auto');
-    mpv_set_option_string(mpv, 'loop', 'inf');
-
     repeat
+      Inc(timeout);
+      usleep(10);
+      Write('.');
       mpv_get_property(mpv, 'width', MPV_FORMAT_INT64, @w);
       mpv_get_property(mpv, 'height', MPV_FORMAT_INT64, @h);
-      Inc(timeout);
-      usleep(1000);
-      Write('.');
-    until ((w > 0) and (h > 0)) or (timeout > 1000);
-    WriteLn(#10'Video Size: ', w, ' x ', h);
+    until ((w > 0) and (h > 0)) or (timeout > 10000);
 
-
-    // === OpenGL
-
-    // Textur
-
-    glGenFramebuffers(1, @fbo);
-    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
-
-    glGenTextures(1, @texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, nil);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
-
-    if (glCheckFramebufferStatus(GL_FRAMEBUFFER) <> GL_FRAMEBUFFER_COMPLETE) then begin
-      WriteLn('FBO Error');
+    if w = 0 then begin
+      WriteLn('Keine Video Datei!');
+    end else begin
+      WriteLn(#10'Video Size: ', w, ' x ', h);
     end;
 
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-    // Vertex
-
-    // Daten für Quadrat
-    glGenVertexArrays(1, @VAO);
-    glGenBuffers(1, @VBO);
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, SizeOf(Quad), @Quad, GL_STATIC_DRAW);
-
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(TGLfloat), Pointer(0));
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(TGLfloat), Pointer(2 * sizeof(TGLfloat)));
-
+    // === OpenGL
+    // Shader
     shader := shader_new;
     if not shader_load_shaderobject(shader, GL_VERTEX_SHADER, pchar(vertex_shader_text)) then begin
       WriteLn('Fehler im Vertex-Shader:'#10, shader_get_errortext(shader));
@@ -215,8 +182,31 @@ const
     end;
     shader_use_program(shader);
 
+    // Textur
+    glGenFramebuffers(1, @fbo);
+    glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+
+    glGenTextures(1, @texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, nil);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0);
     glUniform1i(glGetUniformLocation(shader_get_ID(shader), 'videoTexture'), 0);
 
+    // Vertex
+    glGenVertexArrays(1, @VAO);
+    glGenBuffers(1, @VBO);
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, SizeOf(Quad), @Quad, GL_STATIC_DRAW);
+
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(TGLfloat), Pointer(0));
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(TGLfloat), Pointer(2 * sizeof(TGLfloat)));
+
+    // === Loop
     timeout := 0;
     while glfwWindowShouldClose(window) = 0 do begin
       glfwPollEvents;
@@ -252,16 +242,14 @@ const
 
       shader_use_program(shader);
 
-      f := sin(timeout / 100) * 0.3;
-      glUniform1f(shader_uniform_location(shader, 'f'), f);
+      x := sin(timeout / 100);
+      glUniform1f(shader_uniform_location(shader, 'x'), x);
       Inc(timeout);
-
-
-      glBindVertexArray(VAO);
 
       glActiveTexture(GL_TEXTURE0);
       glBindTexture(GL_TEXTURE_2D, texture);
 
+      glBindVertexArray(VAO);
       glDrawArrays(GL_TRIANGLES, 0, 6);
 
       glfwSwapBuffers(window);
