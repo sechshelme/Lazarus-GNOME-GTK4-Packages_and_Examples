@@ -57,14 +57,14 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/ImageMagick-6', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/hpdf', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
     slHeader := TStringList.Create;
     slHeader.LoadFromFile(slFile[i]);
 
-    WriteLn(i, '/', slFile.Count - 1);
+    WriteLn(i, '/', slFile.Count - 1,'         ', slFile[i]);
 
 
     for j := 0 to slHeader.Count - 1 do begin
@@ -77,6 +77,9 @@ begin
       //  WriteLn();
       //end;
 
+      s:=slHeader[j];
+      if pos('HPDF_EXPORT(', s)=1 then WriteLn(s);
+
 
 
 
@@ -86,21 +89,14 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_CONST', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_DEPRECATED', '/*G_GNUC_DEPRECATED*/', [rfReplaceAll]);
 
-      slHeader[j] := StringReplace(slHeader[j], 'AVAHI_C_DECL_BEGIN', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'AVAHI_C_DECL_END', '', [rfReplaceAll]);
 
 
-      slHeader[j] := StringReplace(slHeader[j], 'ADAP_AVAILABLE_IN_1_1', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'ADAP_AVAILABLE_IN_1_2', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'ADAP_AVAILABLE_IN_1_3', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'ADAP_AVAILABLE_IN_1_4', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'ADAP_AVAILABLE_IN_1_5', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'ADAP_AVAILABLE_IN_ALL', 'extern', [rfReplaceAll]);
 
 
-      slHeader[j] := StringReplace(slHeader[j], 'WandExport', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'MagickExport', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'ModuleExport', '', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'HPDF_EXPORT(const char *)', 'extern char *', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'HPDF_EXPORT(HPDF_Doc)', 'extern HPDF_Doc', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'HPDF_EXPORT(HPDF_STATUS)', 'extern HPDF_STATUS', [rfReplaceAll]);
+      //slHeader[j] := StringReplace(slHeader[j], 'HPDF_EXPORT(void)', 'extern void', [rfReplaceAll]);
 
 
 

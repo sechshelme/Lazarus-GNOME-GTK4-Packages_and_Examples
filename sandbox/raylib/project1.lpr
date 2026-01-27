@@ -1,6 +1,7 @@
 program project1;
 
 uses
+fp_rlgl,
 fp_raylib;
 
 function vec3(x, y, z: Single): TVector3; inline;
@@ -29,12 +30,15 @@ begin
    rotation := 0.0;
 
   while not WindowShouldClose do begin
+
+
       UpdateCamera(@camera, CAMERA_FREE);
 
       rotation += 1.0;
 
       BeginDrawing;
       ClearBackground(RAYWHITE);
+      DrawText('Hello raylib !', 190, 50, 40, LIGHTGRAY);
 
       BeginMode3D(camera);
       DrawCube(vec3(0, 0, 0), 2.0, 2.0, 2.0, RED);
