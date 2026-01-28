@@ -1,4 +1,4 @@
-Copyright (c) 2025 sechsehelme
+Copyright (c) 2026 sechsehelme
 Pascal binding for libheif.h
 Released under the MIT License
 

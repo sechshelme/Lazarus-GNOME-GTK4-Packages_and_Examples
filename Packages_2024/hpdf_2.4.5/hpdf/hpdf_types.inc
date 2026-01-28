@@ -1,0 +1,619 @@
+{$IFDEF read_interface}
+
+
+type
+  PHPDF_INT = ^THPDF_INT;
+  THPDF_INT = longint;
+
+  PHPDF_UINT = ^THPDF_UINT;
+  THPDF_UINT = dword;
+
+  PHPDF_INT64 = ^THPDF_INT64;
+  THPDF_INT64 = int64;
+
+  PHPDF_UINT64 = ^THPDF_UINT64;
+  THPDF_UINT64 = uint64;
+
+  PHPDF_INT32 = ^THPDF_INT32;
+  THPDF_INT32 = int32;
+
+  PHPDF_UINT32 = ^THPDF_UINT32;
+  THPDF_UINT32 = uint32;
+
+  PHPDF_INT16 = ^THPDF_INT16;
+  THPDF_INT16 = int16;
+
+  PHPDF_UINT16 = ^THPDF_UINT16;
+  THPDF_UINT16 = uint16;
+
+  PHPDF_INT8 = ^THPDF_INT8;
+  THPDF_INT8 = char;
+
+  PHPDF_UINT8 = ^THPDF_UINT8;
+  THPDF_UINT8 = byte;
+
+  PHPDF_BYTE = ^THPDF_BYTE;
+  THPDF_BYTE = byte;
+
+  PHPDF_REAL = ^THPDF_REAL;
+  THPDF_REAL = single;
+
+  PHPDF_DOUBLE = ^THPDF_DOUBLE;
+  THPDF_DOUBLE = double;
+
+  PHPDF_BOOL = ^THPDF_BOOL;
+  THPDF_BOOL = Boolean32;
+
+  PHPDF_STATUS = ^THPDF_STATUS;
+  THPDF_STATUS = Tculong;
+
+  PHPDF_CID = ^THPDF_CID;
+  THPDF_CID = THPDF_UINT16;
+
+  PHPDF_UNICODE = ^THPDF_UNICODE;
+  THPDF_UNICODE = THPDF_UINT16;
+
+  THPDF_Point = record
+    x: THPDF_REAL;
+    y: THPDF_REAL;
+  end;
+  PHPDF_Point = ^THPDF_Point;
+
+  THPDF_Rect = record
+    left: THPDF_REAL;
+    bottom: THPDF_REAL;
+    right: THPDF_REAL;
+    top: THPDF_REAL;
+  end;
+  PHPDF_Rect = ^THPDF_Rect;
+
+  THPDF_Point3D = record
+    x: THPDF_REAL;
+    y: THPDF_REAL;
+    z: THPDF_REAL;
+  end;
+  PHPDF_Point3D = ^THPDF_Point3D;
+
+  THPDF_Box = THPDF_Rect;
+  PHPDF_Box = ^THPDF_Box;
+
+  THPDF_Date = record
+    year: THPDF_INT;
+    month: THPDF_INT;
+    day: THPDF_INT;
+    hour: THPDF_INT;
+    minutes: THPDF_INT;
+    seconds: THPDF_INT;
+    ind: char;
+    off_hour: THPDF_INT;
+    off_minutes: THPDF_INT;
+  end;
+  PHPDF_Date = ^THPDF_Date;
+
+type
+  PHPDF_InfoType = ^THPDF_InfoType;
+  THPDF_InfoType = longint;
+
+const
+  HPDF_INFO_CREATION_DATE = 0;
+  HPDF_INFO_MOD_DATE = 1;
+  HPDF_INFO_AUTHOR = 2;
+  HPDF_INFO_CREATOR = 3;
+  HPDF_INFO_PRODUCER = 4;
+  HPDF_INFO_TITLE = 5;
+  HPDF_INFO_SUBJECT = 6;
+  HPDF_INFO_KEYWORDS = 7;
+  HPDF_INFO_TRAPPED = 8;
+  HPDF_INFO_GTS_PDFX = 9;
+  HPDF_INFO_EOF = 10;
+
+type
+  PHPDF_PDFA_TYPE = ^THPDF_PDFA_TYPE;
+  THPDF_PDFA_TYPE = longint;
+
+const
+  HPDF_PDFA_NON_PDFA = -(1);
+  HPDF_PDFA_1A = 0;
+  HPDF_PDFA_1B = 1;
+  HPDF_PDFA_2A = 2;
+  HPDF_PDFA_2B = 3;
+  HPDF_PDFA_2U = 4;
+  HPDF_PDFA_3A = 5;
+  HPDF_PDFA_3B = 6;
+  HPDF_PDFA_3U = 7;
+  HPDF_PDFA_4 = 8;
+  HPDF_PDFA_4E = 9;
+  HPDF_PDFA_4F = 10;
+
+type
+  THPDF_PDFAType = THPDF_PDFA_TYPE;
+  PHPDF_PDFAType = ^THPDF_PDFAType;
+
+
+type
+  PHPDF_PdfVer = ^THPDF_PdfVer;
+  THPDF_PdfVer = longint;
+
+const
+  HPDF_VER_12 = 0;
+  HPDF_VER_13 = 1;
+  HPDF_VER_14 = 2;
+  HPDF_VER_15 = 3;
+  HPDF_VER_16 = 4;
+  HPDF_VER_17 = 5;
+  HPDF_VER_20 = 6;
+  HPDF_VER_EOF = 7;
+
+type
+  PHPDF_EncryptMode = ^THPDF_EncryptMode;
+  THPDF_EncryptMode = longint;
+
+const
+  HPDF_ENCRYPT_R2 = 2;
+  HPDF_ENCRYPT_R3 = 3;
+
+type
+  THPDF_Error_Handler = procedure(error_no: THPDF_STATUS; detail_no: THPDF_STATUS; user_data: pointer); cdecl;
+  THPDF_Alloc_Func = function(size: THPDF_UINT): pointer; cdecl;
+  THPDF_Free_Func = procedure(aptr: pointer); cdecl;
+
+  THPDF_TextWidth = record
+    numchars: THPDF_UINT;
+    numwords: THPDF_UINT;
+    width: THPDF_UINT;
+    numspace: THPDF_UINT;
+  end;
+  PHPDF_TextWidth = ^THPDF_TextWidth;
+
+  THPDF_DashMode = record
+    ptn: array[0..7] of THPDF_REAL;
+    num_ptn: THPDF_UINT;
+    phase: THPDF_REAL;
+  end;
+  PHPDF_DashMode = ^THPDF_DashMode;
+
+  THPDF_TransMatrix = record
+    a: THPDF_REAL;
+    b: THPDF_REAL;
+    c: THPDF_REAL;
+    d: THPDF_REAL;
+    x: THPDF_REAL;
+    y: THPDF_REAL;
+  end;
+  PHPDF_TransMatrix = ^THPDF_TransMatrix;
+
+  THPDF_3DMatrix = record
+    a: THPDF_REAL;
+    b: THPDF_REAL;
+    c: THPDF_REAL;
+    d: THPDF_REAL;
+    e: THPDF_REAL;
+    f: THPDF_REAL;
+    g: THPDF_REAL;
+    h: THPDF_REAL;
+    i: THPDF_REAL;
+    tx: THPDF_REAL;
+    ty: THPDF_REAL;
+    tz: THPDF_REAL;
+  end;
+  PHPDF_3DMatrix = ^THPDF_3DMatrix;
+
+type
+  PHPDF_ColorSpace = ^THPDF_ColorSpace;
+  THPDF_ColorSpace = longint;
+
+const
+  HPDF_CS_DEVICE_GRAY = 0;
+  HPDF_CS_DEVICE_RGB = 1;
+  HPDF_CS_DEVICE_CMYK = 2;
+  HPDF_CS_CAL_GRAY = 3;
+  HPDF_CS_CAL_RGB = 4;
+  HPDF_CS_LAB = 5;
+  HPDF_CS_ICC_BASED = 6;
+  HPDF_CS_SEPARATION = 7;
+  HPDF_CS_DEVICE_N = 8;
+  HPDF_CS_INDEXED = 9;
+  HPDF_CS_PATTERN = 10;
+  HPDF_CS_EOF = 11;
+
+type
+  THPDF_RGBColor = record
+    r: THPDF_REAL;
+    g: THPDF_REAL;
+    b: THPDF_REAL;
+  end;
+  PHPDF_RGBColor = ^THPDF_RGBColor;
+
+  THPDF_CMYKColor = record
+    c: THPDF_REAL;
+    m: THPDF_REAL;
+    y: THPDF_REAL;
+    k: THPDF_REAL;
+  end;
+  PHPDF_CMYKColor = ^THPDF_CMYKColor;
+
+type
+  PHPDF_LineCap = ^THPDF_LineCap;
+  THPDF_LineCap = longint;
+
+const
+  HPDF_BUTT_END = 0;
+  HPDF_ROUND_END = 1;
+  HPDF_PROJECTING_SQUARE_END = 2;
+  HPDF_LINECAP_EOF = 3;
+
+type
+  PHPDF_LineJoin = ^THPDF_LineJoin;
+  THPDF_LineJoin = longint;
+
+const
+  HPDF_MITER_JOIN = 0;
+  HPDF_ROUND_JOIN = 1;
+  HPDF_BEVEL_JOIN = 2;
+  HPDF_LINEJOIN_EOF = 3;
+
+type
+  PHPDF_TextRenderingMode = ^THPDF_TextRenderingMode;
+  THPDF_TextRenderingMode = longint;
+
+const
+  HPDF_FILL = 0;
+  HPDF_STROKE = 1;
+  HPDF_FILL_THEN_STROKE = 2;
+  HPDF_INVISIBLE = 3;
+  HPDF_FILL_CLIPPING = 4;
+  HPDF_STROKE_CLIPPING = 5;
+  HPDF_FILL_STROKE_CLIPPING = 6;
+  HPDF_CLIPPING = 7;
+  HPDF_RENDERING_MODE_EOF = 8;
+
+type
+  PHPDF_WritingMode = ^THPDF_WritingMode;
+  THPDF_WritingMode = longint;
+
+const
+  HPDF_WMODE_HORIZONTAL = 0;
+  HPDF_WMODE_VERTICAL = 1;
+  HPDF_WMODE_EOF = 2;
+
+type
+  PHPDF_PageLayout = ^THPDF_PageLayout;
+  THPDF_PageLayout = longint;
+
+const
+  HPDF_PAGE_LAYOUT_SINGLE = 0;
+  HPDF_PAGE_LAYOUT_ONE_COLUMN = 1;
+  HPDF_PAGE_LAYOUT_TWO_COLUMN_LEFT = 2;
+  HPDF_PAGE_LAYOUT_TWO_COLUMN_RIGHT = 3;
+  HPDF_PAGE_LAYOUT_TWO_PAGE_LEFT = 4;
+  HPDF_PAGE_LAYOUT_TWO_PAGE_RIGHT = 5;
+  HPDF_PAGE_LAYOUT_EOF = 6;
+
+type
+  PHPDF_PageMode = ^THPDF_PageMode;
+  THPDF_PageMode = longint;
+
+const
+  HPDF_PAGE_MODE_USE_NONE = 0;
+  HPDF_PAGE_MODE_USE_OUTLINE = 1;
+  HPDF_PAGE_MODE_USE_THUMBS = 2;
+  HPDF_PAGE_MODE_FULL_SCREEN = 3;
+  HPDF_PAGE_MODE_EOF = 4;
+
+type
+  PHPDF_PageNumStyle = ^THPDF_PageNumStyle;
+  THPDF_PageNumStyle = longint;
+
+const
+  HPDF_PAGE_NUM_STYLE_DECIMAL = 0;
+  HPDF_PAGE_NUM_STYLE_UPPER_ROMAN = 1;
+  HPDF_PAGE_NUM_STYLE_LOWER_ROMAN = 2;
+  HPDF_PAGE_NUM_STYLE_UPPER_LETTERS = 3;
+  HPDF_PAGE_NUM_STYLE_LOWER_LETTERS = 4;
+  HPDF_PAGE_NUM_STYLE_EOF = 5;
+
+type
+  PHPDF_DestinationType = ^THPDF_DestinationType;
+  THPDF_DestinationType = longint;
+
+const
+  HPDF_XYZ = 0;
+  HPDF_FIT = 1;
+  HPDF_FIT_H = 2;
+  HPDF_FIT_V = 3;
+  HPDF_FIT_R = 4;
+  HPDF_FIT_B = 5;
+  HPDF_FIT_BH = 6;
+  HPDF_FIT_BV = 7;
+  HPDF_DST_EOF = 8;
+
+type
+  PHPDF_AnnotType = ^THPDF_AnnotType;
+  THPDF_AnnotType = longint;
+
+const
+  HPDF_ANNOT_TEXT_NOTES = 0;
+  HPDF_ANNOT_LINK = 1;
+  HPDF_ANNOT_SOUND = 2;
+  HPDF_ANNOT_FREE_TEXT = 3;
+  HPDF_ANNOT_STAMP = 4;
+  HPDF_ANNOT_SQUARE = 5;
+  HPDF_ANNOT_CIRCLE = 6;
+  HPDF_ANNOT_STRIKE_OUT = 7;
+  HPDF_ANNOT_HIGHTLIGHT = 8;
+  HPDF_ANNOT_UNDERLINE = 9;
+  HPDF_ANNOT_INK = 10;
+  HPDF_ANNOT_FILE_ATTACHMENT = 11;
+  HPDF_ANNOT_POPUP = 12;
+  HPDF_ANNOT_3D = 13;
+  HPDF_ANNOT_SQUIGGLY = 14;
+  HPDF_ANNOT_LINE = 15;
+  HPDF_ANNOT_PROJECTION = 16;
+  HPDF_ANNOT_WIDGET = 17;
+
+type
+  PHPDF_AnnotFlgs = ^THPDF_AnnotFlgs;
+  THPDF_AnnotFlgs = longint;
+
+const
+  HPDF_ANNOT_INVISIBLE = 0;
+  HPDF_ANNOT_HIDDEN = 1;
+  HPDF_ANNOT_PRINT = 2;
+  HPDF_ANNOT_NOZOOM = 3;
+  HPDF_ANNOT_NOROTATE = 4;
+  HPDF_ANNOT_NOVIEW = 5;
+  HPDF_ANNOT_READONLY = 6;
+
+type
+  PHPDF_AnnotHighlightMode = ^THPDF_AnnotHighlightMode;
+  THPDF_AnnotHighlightMode = longint;
+
+const
+  HPDF_ANNOT_NO_HIGHTLIGHT = 0;
+  HPDF_ANNOT_INVERT_BOX = 1;
+  HPDF_ANNOT_INVERT_BORDER = 2;
+  HPDF_ANNOT_DOWN_APPEARANCE = 3;
+  HPDF_ANNOT_HIGHTLIGHT_MODE_EOF = 4;
+
+type
+  PHPDF_AnnotIcon = ^THPDF_AnnotIcon;
+  THPDF_AnnotIcon = longint;
+
+const
+  HPDF_ANNOT_ICON_COMMENT = 0;
+  HPDF_ANNOT_ICON_KEY = 1;
+  HPDF_ANNOT_ICON_NOTE = 2;
+  HPDF_ANNOT_ICON_HELP = 3;
+  HPDF_ANNOT_ICON_NEW_PARAGRAPH = 4;
+  HPDF_ANNOT_ICON_PARAGRAPH = 5;
+  HPDF_ANNOT_ICON_INSERT = 6;
+  HPDF_ANNOT_ICON_EOF = 7;
+
+type
+  PHPDF_AnnotIntent = ^THPDF_AnnotIntent;
+  THPDF_AnnotIntent = longint;
+
+const
+  HPDF_ANNOT_INTENT_FREETEXTCALLOUT = 0;
+  HPDF_ANNOT_INTENT_FREETEXTTYPEWRITER = 1;
+  HPDF_ANNOT_INTENT_LINEARROW = 2;
+  HPDF_ANNOT_INTENT_LINEDIMENSION = 3;
+  HPDF_ANNOT_INTENT_POLYGONCLOUD = 4;
+  HPDF_ANNOT_INTENT_POLYLINEDIMENSION = 5;
+  HPDF_ANNOT_INTENT_POLYGONDIMENSION = 6;
+
+type
+  PHPDF_LineAnnotEndingStyle = ^THPDF_LineAnnotEndingStyle;
+  THPDF_LineAnnotEndingStyle = longint;
+
+const
+  HPDF_LINE_ANNOT_NONE = 0;
+  HPDF_LINE_ANNOT_SQUARE = 1;
+  HPDF_LINE_ANNOT_CIRCLE = 2;
+  HPDF_LINE_ANNOT_DIAMOND = 3;
+  HPDF_LINE_ANNOT_OPENARROW = 4;
+  HPDF_LINE_ANNOT_CLOSEDARROW = 5;
+  HPDF_LINE_ANNOT_BUTT = 6;
+  HPDF_LINE_ANNOT_ROPENARROW = 7;
+  HPDF_LINE_ANNOT_RCLOSEDARROW = 8;
+  HPDF_LINE_ANNOT_SLASH = 9;
+
+type
+  PHPDF_LineAnnotCapPosition = ^THPDF_LineAnnotCapPosition;
+  THPDF_LineAnnotCapPosition = longint;
+
+const
+  HPDF_LINE_ANNOT_CAP_INLINE = 0;
+  HPDF_LINE_ANNOT_CAP_TOP = 1;
+
+type
+  PHPDF_StampAnnotName = ^THPDF_StampAnnotName;
+  THPDF_StampAnnotName = longint;
+
+const
+  HPDF_STAMP_ANNOT_APPROVED = 0;
+  HPDF_STAMP_ANNOT_EXPERIMENTAL = 1;
+  HPDF_STAMP_ANNOT_NOTAPPROVED = 2;
+  HPDF_STAMP_ANNOT_ASIS = 3;
+  HPDF_STAMP_ANNOT_EXPIRED = 4;
+  HPDF_STAMP_ANNOT_NOTFORPUBLICRELEASE = 5;
+  HPDF_STAMP_ANNOT_CONFIDENTIAL = 6;
+  HPDF_STAMP_ANNOT_FINAL = 7;
+  HPDF_STAMP_ANNOT_SOLD = 8;
+  HPDF_STAMP_ANNOT_DEPARTMENTAL = 9;
+  HPDF_STAMP_ANNOT_FORCOMMENT = 10;
+  HPDF_STAMP_ANNOT_TOPSECRET = 11;
+  HPDF_STAMP_ANNOT_DRAFT = 12;
+  HPDF_STAMP_ANNOT_FORPUBLICRELEASE = 13;
+
+type
+  PHPDF_BSSubtype = ^THPDF_BSSubtype;
+  THPDF_BSSubtype = longint;
+
+const
+  HPDF_BS_SOLID = 0;
+  HPDF_BS_DASHED = 1;
+  HPDF_BS_BEVELED = 2;
+  HPDF_BS_INSET = 3;
+  HPDF_BS_UNDERLINED = 4;
+
+type
+  PHPDF_BlendMode = ^THPDF_BlendMode;
+  THPDF_BlendMode = longint;
+
+const
+  HPDF_BM_NORMAL = 0;
+  HPDF_BM_MULTIPLY = 1;
+  HPDF_BM_SCREEN = 2;
+  HPDF_BM_OVERLAY = 3;
+  HPDF_BM_DARKEN = 4;
+  HPDF_BM_LIGHTEN = 5;
+  HPDF_BM_COLOR_DODGE = 6;
+  HPDF_BM_COLOR_BUM = 7;
+  HPDF_BM_HARD_LIGHT = 8;
+  HPDF_BM_SOFT_LIGHT = 9;
+  HPDF_BM_DIFFERENCE = 10;
+  HPDF_BM_EXCLUSHON = 11;
+  HPDF_BM_EOF = 12;
+
+type
+  PHPDF_TransitionStyle = ^THPDF_TransitionStyle;
+  THPDF_TransitionStyle = longint;
+
+const
+  HPDF_TS_WIPE_RIGHT = 0;
+  HPDF_TS_WIPE_UP = 1;
+  HPDF_TS_WIPE_LEFT = 2;
+  HPDF_TS_WIPE_DOWN = 3;
+  HPDF_TS_BARN_DOORS_HORIZONTAL_OUT = 4;
+  HPDF_TS_BARN_DOORS_HORIZONTAL_IN = 5;
+  HPDF_TS_BARN_DOORS_VERTICAL_OUT = 6;
+  HPDF_TS_BARN_DOORS_VERTICAL_IN = 7;
+  HPDF_TS_BOX_OUT = 8;
+  HPDF_TS_BOX_IN = 9;
+  HPDF_TS_BLINDS_HORIZONTAL = 10;
+  HPDF_TS_BLINDS_VERTICAL = 11;
+  HPDF_TS_DISSOLVE = 12;
+  HPDF_TS_GLITTER_RIGHT = 13;
+  HPDF_TS_GLITTER_DOWN = 14;
+  HPDF_TS_GLITTER_TOP_LEFT_TO_BOTTOM_RIGHT = 15;
+  HPDF_TS_REPLACE = 16;
+  HPDF_TS_EOF = 17;
+
+type
+  PHPDF_PageSizes = ^THPDF_PageSizes;
+  THPDF_PageSizes = longint;
+
+const
+  HPDF_PAGE_SIZE_LETTER = 0;
+  HPDF_PAGE_SIZE_LEGAL = 1;
+  HPDF_PAGE_SIZE_A3 = 2;
+  HPDF_PAGE_SIZE_A4 = 3;
+  HPDF_PAGE_SIZE_A5 = 4;
+  HPDF_PAGE_SIZE_B4 = 5;
+  HPDF_PAGE_SIZE_B5 = 6;
+  HPDF_PAGE_SIZE_EXECUTIVE = 7;
+  HPDF_PAGE_SIZE_US4x6 = 8;
+  HPDF_PAGE_SIZE_US4x8 = 9;
+  HPDF_PAGE_SIZE_US5x7 = 10;
+  HPDF_PAGE_SIZE_COMM10 = 11;
+  HPDF_PAGE_SIZE_EOF = 12;
+
+type
+  PHPDF_PageDirection = ^THPDF_PageDirection;
+  THPDF_PageDirection = longint;
+
+const
+  HPDF_PAGE_PORTRAIT = 0;
+  HPDF_PAGE_LANDSCAPE = 1;
+
+type
+  PHPDF_EncoderType = ^THPDF_EncoderType;
+  THPDF_EncoderType = longint;
+
+const
+  HPDF_ENCODER_TYPE_SINGLE_BYTE = 0;
+  HPDF_ENCODER_TYPE_DOUBLE_BYTE = 1;
+  HPDF_ENCODER_TYPE_UNINITIALIZED = 2;
+  HPDF_ENCODER_UNKNOWN = 3;
+
+type
+  PHPDF_ByteType = ^THPDF_ByteType;
+  THPDF_ByteType = longint;
+
+const
+  HPDF_BYTE_TYPE_SINGLE = 0;
+  HPDF_BYTE_TYPE_LEAD = 1;
+  HPDF_BYTE_TYPE_TRAIL = 2;
+  HPDF_BYTE_TYPE_UNKNOWN = 3;
+
+type
+  PHPDF_TextAlignment = ^THPDF_TextAlignment;
+  THPDF_TextAlignment = longint;
+
+const
+  HPDF_TALIGN_LEFT = 0;
+  HPDF_TALIGN_RIGHT = 1;
+  HPDF_TALIGN_CENTER = 2;
+  HPDF_TALIGN_JUSTIFY = 3;
+
+type
+  PHPDF_NameDictKey = ^THPDF_NameDictKey;
+  THPDF_NameDictKey = longint;
+
+const
+  HPDF_NAME_EMBEDDED_FILES = 0;
+  HPDF_NAME_EOF = 1;
+
+type
+  PHPDF_AFRelationship = ^THPDF_AFRelationship;
+  THPDF_AFRelationship = longint;
+
+const
+  HPDF_AFRELATIONSHIP_SOURCE = 0;
+  HPDF_AFRELATIONSHIP_DATA = 1;
+  HPDF_AFRELATIONSHIP_ALTERNATIVE = 2;
+  HPDF_AFRELATIONSHIP_SUPPLEMENT = 3;
+  HPDF_AFRELATIONSHIP_ENCRYPTEDPAYLOAD = 4;
+  HPDF_AFRELATIONSHIP_FORMDATA = 5;
+  HPDF_AFRELATIONSHIP_SCHEMA = 6;
+  HPDF_AFRELATIONSHIP_UNSPECIFIED = 7;
+
+type
+  PHPDF_PageBoundary = ^THPDF_PageBoundary;
+  THPDF_PageBoundary = longint;
+
+const
+  HPDF_PAGE_MEDIABOX = 0;
+  HPDF_PAGE_CROPBOX = 1;
+  HPDF_PAGE_BLEEDBOX = 2;
+  HPDF_PAGE_TRIMBOX = 3;
+  HPDF_PAGE_ARTBOX = 4;
+
+type
+  PHPDF_ShadingType = ^THPDF_ShadingType;
+  THPDF_ShadingType = longint;
+
+const
+  HPDF_SHADING_FREE_FORM_TRIANGLE_MESH = 4;
+
+type
+  PHPDF_Shading_FreeFormTriangleMeshEdgeFlag = ^THPDF_Shading_FreeFormTriangleMeshEdgeFlag;
+  THPDF_Shading_FreeFormTriangleMeshEdgeFlag = longint;
+
+const
+  HPDF_FREE_FORM_TRI_MESH_EDGEFLAG_NO_CONNECTION = 0;
+  HPDF_FREE_FORM_TRI_MESH_EDGEFLAG_BC = 1;
+  HPDF_FREE_FORM_TRI_MESH_EDGEFLAG_AC = 2;
+
+  // === Konventiert am: 28-1-26 14:09:48 ===
+
+
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
+
+
+
+{$ENDIF read_implementation}
