@@ -289,6 +289,7 @@ const
     (libs: 'libgeos_c'; units: 'ctypes'),
     (libs: 'libmpv'; units: 'ctypes'),
     (libs: 'libraylib'; units: 'ctypes'),
+    (libs: 'libhpdf'; units: 'fp_hpdf'),
 
 
 

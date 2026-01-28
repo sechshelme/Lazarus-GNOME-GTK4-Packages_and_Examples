@@ -118,26 +118,26 @@ HPDF_UInt16Swap  (HPDF_UINT16  *value);
 }
 #endif /* __cplusplus */
 
-#define HPDF_NEEDS_ESCAPE(c)    (c < 0x20 || \
-                                 c > 0x7e || \
-                                 c == '\\' || \
-                                 c == '%' || \
-                                 c == '#' || \
-                                 c == '/' || \
-                                 c == '(' || \
-                                 c == ')' || \
-                                 c == '<' || \
-                                 c == '>' || \
-                                 c == '[' || \
-                                 c == ']' || \
-                                 c == '{' || \
+#define HPDF_NEEDS_ESCAPE(c)    (c < 0x20 | \
+                                 c > 0x7e | \
+                                 c == '\\' | \
+                                 c == '%' | \
+                                 c == '#' | \
+                                 c == '/' | \
+                                 c == '(' | \
+                                 c == ')' | \
+                                 c == '<' | \
+                                 c == '>' | \
+                                 c == '[' | \
+                                 c == ']' | \
+                                 c == '{' | \
                                  c == '}' )  \
 
-#define HPDF_IS_WHITE_SPACE(c)   (c == 0x00 || \
-                                 c == 0x09 || \
-                                 c == 0x0A || \
-                                 c == 0x0C || \
-                                 c == 0x0D || \
+#define HPDF_IS_WHITE_SPACE(c)   (c == 0x00 | \
+                                 c == 0x09 | \
+                                 c == 0x0A| \
+                                 c == 0x0C | \
+                                 c == 0x0D | \
                                  c == 0x20 ) \
 
 /*----------------------------------------------------------------------------*/
@@ -149,17 +149,7 @@ HPDF_UInt16Swap  (HPDF_UINT16  *value);
 #endif /* HPDF_PTRACE_ON */
 #endif /* LIBHPDF_DEBUG_TRACE */
 
-#ifdef HPDF_PTRACE_ON
-#define HPDF_PTRACE(ARGS)  HPDF_PRINTF ARGS
-#else
-#define HPDF_PTRACE(ARGS)  /* do nothing */
-#endif /* HPDF_PTRACE */
 
-#ifdef LIBHPDF_DEBUG
-#define HPDF_PRINT_BINARY(BUF, LEN, CAPTION) HPDF_PrintBinary(BUF, LEN, CAPTION)
-#else
-#define HPDF_PRINT_BINARY(BUF, LEN, CAPTION) /* do nothing */
-#endif
 
 #endif /* _HPDF_UTILS_H */
 

@@ -65,8 +65,8 @@
 #define HPDF_BS_DEF_WIDTH           1
 
 /* default page-size */
-#define HPDF_DEF_PAGE_WIDTH         595.276F
-#define HPDF_DEF_PAGE_HEIGHT        841.89F
+#define HPDF_DEF_PAGE_WIDTH         595.276
+#define HPDF_DEF_PAGE_HEIGHT        841.89
 
 /*---------------------------------------------------------------------------*/
 /*----- compression mode ----------------------------------------------------*/
@@ -109,8 +109,8 @@
 #define HPDF_LIMIT_MAX_INT             2147483647
 #define HPDF_LIMIT_MIN_INT             -2147483647
 
-#define HPDF_LIMIT_MAX_REAL             3.4E38f // per PDF 1.7 spec, Annex C, old value  32767
-#define HPDF_LIMIT_MIN_REAL            -3.4E38f // per PDF 1.7 spec, Annex C, old value -32767
+#define HPDF_LIMIT_MAX_REAL             3.4E38 // per PDF 1.7 spec, Annex C, old value  32767
+#define HPDF_LIMIT_MIN_REAL            -3.4E38 // per PDF 1.7 spec, Annex C, old value -32767
 
 #define HPDF_LIMIT_MAX_STRING_LEN      2147483646 // per PDF 1.7 spec, limit 32767 is for strings in content stream and no limit in other cases => open the limit to max Integer, old value 65535
 #define HPDF_LIMIT_MAX_NAME_LEN        127

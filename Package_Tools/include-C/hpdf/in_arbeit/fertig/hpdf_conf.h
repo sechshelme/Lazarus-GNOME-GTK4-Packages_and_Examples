@@ -33,22 +33,6 @@
 /*----------------------------------------------------------------------------*/
 /*----- standard C library functions -----------------------------------------*/
 
-#define HPDF_FOPEN                  fopen
-#define HPDF_FCLOSE                 fclose
-#define HPDF_FREAD                  fread
-#define HPDF_FWRITE                 fwrite
-#define HPDF_FFLUSH                 fflush
-#define HPDF_FSEEK                  fseek
-#define HPDF_FTELL                  ftell
-#define HPDF_FEOF                   feof
-#define HPDF_FERROR                 ferror
-#define HPDF_MALLOC                 malloc
-#define HPDF_FREE                   free
-#define HPDF_FILEP                  FILE*
-#define HPDF_TIME                   time
-#define HPDF_PRINTF                 printf
-#define HPDF_SIN                    sin
-#define HPDF_COS                    cos
 
 /*----------------------------------------------------------------------------*/
 /*----- parameters in relation to performance --------------------------------*/

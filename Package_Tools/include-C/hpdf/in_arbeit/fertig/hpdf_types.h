@@ -18,17 +18,6 @@
 #ifndef _HPDF_TYPES_H
 #define _HPDF_TYPES_H
 
-#ifndef HPDF_STDCALL
-#ifdef HPDF_DLL_MAKE
-#define HPDF_STDCALL __stdcall
-#else
-#ifdef HPDF_DLL
-#define HPDF_STDCALL __stdcall
-#else
-#define HPDF_STDCALL
-#endif
-#endif
-#endif
 
 #include <stdlib.h>
 
@@ -194,16 +183,16 @@ typedef enum  _HPDF_EncryptMode {
 
 
 typedef void
-(HPDF_STDCALL *HPDF_Error_Handler)  (HPDF_STATUS   error_no,
+( *HPDF_Error_Handler)  (HPDF_STATUS   error_no,
                                      HPDF_STATUS   detail_no,
                                      void         *user_data);
 
 typedef void*
-(HPDF_STDCALL *HPDF_Alloc_Func)  (HPDF_UINT  size);
+( *HPDF_Alloc_Func)  (HPDF_UINT  size);
 
 
 typedef void
-(HPDF_STDCALL *HPDF_Free_Func)  (void  *aptr);
+( *HPDF_Free_Func)  (void  *aptr);
 
 
 /*---------------------------------------------------------------------------*/
