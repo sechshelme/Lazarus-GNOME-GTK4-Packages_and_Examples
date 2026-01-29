@@ -22,7 +22,7 @@ uses
 
     dmtxEncodeSetProp(enc, DmtxPropModuleSize, 1);
     dmtxEncodeSetProp(enc, DmtxPropMarginSize, 1);
-    dmtxEncodeDataMatrix(enc, Length(text), pbyte(pchar(text)));
+    dmtxEncodeDataMatrix(enc, Length(text), text);
 
     img := enc^.image;
     width := dmtxImageGetProp(img, DmtxPropWidth);

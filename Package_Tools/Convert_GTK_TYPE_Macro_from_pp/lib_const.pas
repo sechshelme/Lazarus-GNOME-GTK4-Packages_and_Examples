@@ -292,6 +292,7 @@ const
     (libs: 'libhpdf'; units: 'fp_hpdf'),
     (libs: 'libqrencode'; units: 'ctypes'),
     (libs: 'libdmtx'; units: 'ctypes'),
+    (libs: 'libzint'; units: 'ctypes'),
 
 
 

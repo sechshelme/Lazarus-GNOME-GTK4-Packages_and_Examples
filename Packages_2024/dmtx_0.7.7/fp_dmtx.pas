@@ -8,10 +8,22 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libdmtx = 'libdmtx.dll'; // ?????
+  libdmtx = 'libdmtx.dll';
   {$ENDIF}
 
 type
+  {$IFDEF Linux}
+  Tclong = int64;
+  Tculong = uint64;
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  Tclong = int32;
+  Tculong = uint32;
+  {$ENDIF}
+  Pculong = ^Tculong;
+  Pclong = ^Tclong;
+
   Tsize_t = SizeUInt;
   Ttime_t = uint64;
 
@@ -410,7 +422,7 @@ type
 
   TDmtxTime_struct = record
     sec: Ttime_t;
-    usec: dword;
+    usec: Tculong;
   end;
   PDmtxTime_struct = ^TDmtxTime_struct;
   TDmtxTime = TDmtxTime_struct;
@@ -495,15 +507,15 @@ type
   PDmtxQuadruplet = ^TDmtxQuadruplet;
 
 function dmtxTimeNow: TDmtxTime; cdecl; external libdmtx;
-function dmtxTimeAdd(t: TDmtxTime; msec: longint): TDmtxTime; cdecl; external libdmtx;
+function dmtxTimeAdd(t: TDmtxTime; msec: Tclong): TDmtxTime; cdecl; external libdmtx;
 function dmtxTimeExceeded(timeout: TDmtxTime): longint; cdecl; external libdmtx;
 
 function dmtxEncodeCreate: PDmtxEncode; cdecl; external libdmtx;
 function dmtxEncodeDestroy(enc: PPDmtxEncode): TDmtxPassFail; cdecl; external libdmtx;
 function dmtxEncodeSetProp(enc: PDmtxEncode; prop: longint; value: longint): TDmtxPassFail; cdecl; external libdmtx;
 function dmtxEncodeGetProp(enc: PDmtxEncode; prop: longint): longint; cdecl; external libdmtx;
-function dmtxEncodeDataMatrix(enc: PDmtxEncode; n: longint; s: pbyte): TDmtxPassFail; cdecl; external libdmtx;
-function dmtxEncodeDataMosaic(enc: PDmtxEncode; n: longint; s: pbyte): TDmtxPassFail; cdecl; external libdmtx;
+function dmtxEncodeDataMatrix(enc: PDmtxEncode; n: longint; s: PChar): TDmtxPassFail; cdecl; external libdmtx;
+function dmtxEncodeDataMosaic(enc: PDmtxEncode; n: longint; s: PChar): TDmtxPassFail; cdecl; external libdmtx;
 
 function dmtxDecodeCreate(img: PDmtxImage; scale: longint): PDmtxDecode; cdecl; external libdmtx;
 function dmtxDecodeDestroy(dec: PPDmtxDecode): TDmtxPassFail; cdecl; external libdmtx;
