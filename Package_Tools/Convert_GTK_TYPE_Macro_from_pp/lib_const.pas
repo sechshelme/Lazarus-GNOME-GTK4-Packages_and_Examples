@@ -291,6 +291,7 @@ const
     (libs: 'libraylib'; units: 'ctypes'),
     (libs: 'libhpdf'; units: 'fp_hpdf'),
     (libs: 'libqrencode'; units: 'ctypes'),
+    (libs: 'libdmtx'; units: 'ctypes'),
 
 
 

@@ -36,11 +36,10 @@ uses
       WriteLn('██');
     end;
 
-    size := qr^.width;
     for x := 0 to size + 1 do begin
       Write('██');
     end;
-    WriteLn(#10);
+    WriteLn(#27'[0m'#10#10#10);
 
     QRcode_free(qr);
   end;
