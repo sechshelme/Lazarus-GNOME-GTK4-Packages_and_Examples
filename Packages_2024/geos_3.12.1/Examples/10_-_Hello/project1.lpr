@@ -27,8 +27,9 @@ uses
     poly2 := GEOSWKTReader_read(reader, 'POLYGON((5 5, 15 5, 15 15, 5 15, 5 5))');
 
     if GEOSIntersects(poly1, poly2) <> #0 then begin
-      WriteLn('Die Geometrien schneiden sich!');
+      WriteLn('Die Geometrien schneiden sich!'#10);
 
+      // Intersection
       intersection := GEOSIntersection(poly1, poly2);
 
       writer := GEOSWKTWriter_create();
@@ -38,13 +39,8 @@ uses
       GEOSFree(wkt_result);
       GEOSWKTWriter_destroy(writer);
       GEOSGeom_destroy(intersection);
-    end;
 
-    WriteLn();
-
-    if GEOSIntersects(poly1, poly2) <> #0 then begin
-      WriteLn('Die Geometrien überlappen sich!');
-
+      // Union
       union := GEOSUnion(poly1, poly2);
 
       writer := GEOSWKTWriter_create();
@@ -54,7 +50,9 @@ uses
       GEOSFree(wkt_result);
       GEOSWKTWriter_destroy(writer);
       GEOSGeom_destroy(union);
-    end;
+    end else begin
+      WriteLn('Die Geometrien schneiden sich NICHT!');
+    end;;
 
     GEOSGeom_destroy(poly1);
     GEOSGeom_destroy(poly2);

@@ -30,7 +30,7 @@ const
   procedure main;
   const
     page_title = 'Font Demo';
-    fname = 'test.pdf';
+    fname = '/tmp/test.pdf';
   var
     pdf: THPDF_Doc;
     page: THPDF_Page;
