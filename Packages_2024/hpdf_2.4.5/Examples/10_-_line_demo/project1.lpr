@@ -49,9 +49,9 @@ uses
     page_title = 'Linet Demo';
     fname = '/tmp/test.pdf';
 
-    DASH_MODE1: array[0..0] of THPDF_UINT16 = (3);
-    DASH_MODE2: array[0..1] of THPDF_UINT16 = (3, 7);
-    DASH_MODE3: array[0..3] of THPDF_UINT16 = (8, 7, 2, 7);
+    DASH_MODE1: array[0..0] of THPDF_REAL = (3.0);
+    DASH_MODE2: array[0..1] of THPDF_REAL = (3.0, 7.0);
+    DASH_MODE3: array[0..3] of THPDF_REAL = (8.0, 7.0, 2.0, 7.0);
 
   var
     x, y, x1, y1, x2, y2, x3, y3, tw: double;
