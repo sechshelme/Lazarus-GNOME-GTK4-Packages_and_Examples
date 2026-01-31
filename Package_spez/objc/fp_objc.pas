@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libobjc = 'objc.dll';  // ?????
+  libobjc = 'libobjc-4.dll';
   {$ENDIF}
 
 type
