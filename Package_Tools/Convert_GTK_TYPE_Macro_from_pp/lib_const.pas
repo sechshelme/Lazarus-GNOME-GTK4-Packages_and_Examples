@@ -293,6 +293,7 @@ const
     (libs: 'libqrencode'; units: 'ctypes'),
     (libs: 'libdmtx'; units: 'ctypes'),
     (libs: 'libzint'; units: 'ctypes'),
+    (libs: 'libobjc'; units: 'ctypes'),
 
 
 
