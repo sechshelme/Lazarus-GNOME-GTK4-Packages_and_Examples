@@ -10,23 +10,55 @@ uses
     i: integer;
     methods: PMethod;
     sel: TSEL;
+    props: PProperty;
+    protos: PPProtocol;
   begin
-    WriteLn(' --- Inspektion der Klasse: ', class_getName(cls));
+    WriteLn('  Name: ', class_getName(cls));
 
     ivars := class_copyIvarList(cls, @Count);
     for  i := 0 to Count - 1 do begin
-      WriteLn('  Variable [', i, ']: ', ivar_getName(ivars[i]), ' (Typ: ', ivar_getTypeEncoding(ivars[i]), ', Offset: ', ivar_getOffset(ivars[i]), ')');
+      WriteLn('    Variable [', i, ']: ', ivar_getName(ivars[i]), ' (Typ: ', ivar_getTypeEncoding(ivars[i]), ', Offset: ', ivar_getOffset(ivars[i]), ')');
     end;
     objc_free(ivars);
 
     methods := class_copyMethodList(cls, @Count);
     for  i := 0 to Count - 1 do begin
       sel := method_getName(methods[i]);
-      WriteLn('  Methode  [', i, ']: ', sel_getName(sel), ' (Typ: ', method_getTypeEncoding(methods[i]), ')');
+      WriteLn('    Methode  [', i, ']: ', sel_getName(sel), ' (Typ: ', method_getTypeEncoding(methods[i]), ')');
     end;
     objc_free(methods);
 
+    props := class_copyPropertyList(cls, @Count);
+    for  i := 0 to Count - 1 do begin
+      WriteLn('    Property [', i, ']: ', property_getName(props[i]), ' (Attribs: ', property_getAttributes(props[i]), ')');
+    end;
+    objc_free(props);
+
+    protos := class_copyProtocolList(cls, @Count);
+    for  i := 0 to Count - 1 do begin
+      WriteLn('    Protocol [', i, ']: <', protocol_getName(protos[i]), '>');
+    end;
+    objc_free(protos);
+
     WriteLn(#10);
+  end;
+
+  procedure print_classes;
+  var
+    numClasses: longint;
+    classes: PClass;
+    i: integer;
+  begin
+    numClasses := objc_getClassList(nil, 0);
+    if numClasses > 0 then begin
+      classes := objc_malloc(SizeOf(TClass) * numClasses);
+      numClasses := objc_getClassList(classes, numClasses);
+      WriteLn('Klassen Liste:   (', numClasses, ')');
+      for i := 0 to numClasses - 1 do begin
+        print_class_info(classes[i]);
+      end;
+      objc_free(classes);
+    end;
   end;
 
   procedure set_value_cb(self: Tid; cmd: TSEL; AValue: integer); cdecl;
@@ -144,8 +176,8 @@ type
 
     // -------
 
-    print_class_info(newCls);
-    print_class_info(baseCls);
+    WriteLn(#10);
+    print_classes;
 
     object_dispose(myObj);
     objc_disposeClassPair(newCls);
