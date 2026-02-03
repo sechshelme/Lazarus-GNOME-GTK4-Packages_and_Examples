@@ -12,12 +12,43 @@ uses
     end;
   end;
 
+  function printPoly(poly: PGEOSGeometry): string;
+  var
+    writer: PGEOSWKTWriter;
+    wkt_result: pchar;
+  begin
+    writer := GEOSWKTWriter_create();
+    wkt_result := GEOSWKTWriter_write(writer, poly);
+    Result := wkt_result;
+    GEOSFree(wkt_result);
+    GEOSWKTWriter_destroy(writer);
+  end;
+
+  procedure printPolygon(poly: PGEOSGeometry; const name: string);
+  var
+    f: double;
+    centroid: PGEOSGeometry;
+  begin
+    WriteLn('Name: ', name);
+    WriteLn('  ', printPoly(poly));
+
+    GEOSArea(poly, @f);
+    WriteLn('  Fläche: ', f: 4: 2);
+
+    GEOSLength(poly, @f);
+    WriteLn('  Länge: ', f: 4: 2);
+
+    centroid := GEOSGetCentroid(poly);
+    WriteLn('  Schwerpunkt: ', printPoly(centroid));
+    GEOSGeom_destroy(centroid);
+
+    WriteLn();
+  end;
+
   procedure main;
   var
     reader: PGEOSWKTReader;
-    poly1, poly2, intersection, union: PGEOSGeometry;
-    writer: PGEOSWKTWriter;
-    wkt_result: pchar;
+    poly1, poly2, tmpPoly: PGEOSGeometry;
   begin
     initGEOS(@notice_handler, @notice_handler);
 
@@ -26,30 +57,26 @@ uses
     poly1 := GEOSWKTReader_read(reader, 'POLYGON((0 0, 10 0, 10 10, 0 10, 0 0))');
     poly2 := GEOSWKTReader_read(reader, 'POLYGON((5 5, 15 5, 15 15, 5 15, 5 5))');
 
+    printPolygon(poly1, 'poly1');
+    printPolygon(poly2, 'poly2');
+
     if GEOSIntersects(poly1, poly2) <> #0 then begin
       WriteLn('Die Geometrien schneiden sich!'#10);
 
       // Intersection
-      intersection := GEOSIntersection(poly1, poly2);
-
-      writer := GEOSWKTWriter_create();
-      wkt_result := GEOSWKTWriter_write(writer, intersection);
-      WriteLn('Schnittmenge: ', wkt_result);
-
-      GEOSFree(wkt_result);
-      GEOSWKTWriter_destroy(writer);
-      GEOSGeom_destroy(intersection);
+      tmpPoly := GEOSIntersection(poly1, poly2);
+      printPolygon(tmpPoly, 'Intersection');
+      GEOSGeom_destroy(tmpPoly);
 
       // Union
-      union := GEOSUnion(poly1, poly2);
+      tmpPoly := GEOSUnion(poly1, poly2);
+      printPolygon(tmpPoly, 'Union');
+      GEOSGeom_destroy(tmpPoly);
 
-      writer := GEOSWKTWriter_create();
-      wkt_result := GEOSWKTWriter_write(writer, union);
-      WriteLn('Union: ', wkt_result);
-
-      GEOSFree(wkt_result);
-      GEOSWKTWriter_destroy(writer);
-      GEOSGeom_destroy(union);
+      // Difference
+      tmpPoly:=  GEOSDifference(poly1, poly2);
+      printPolygon(tmpPoly, 'Difference');
+      GEOSGeom_destroy(tmpPoly);
     end else begin
       WriteLn('Die Geometrien schneiden sich NICHT!');
     end;;
