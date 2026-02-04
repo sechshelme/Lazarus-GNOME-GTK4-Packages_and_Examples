@@ -294,6 +294,7 @@ const
     (libs: 'libdmtx'; units: 'ctypes'),
     (libs: 'libzint'; units: 'ctypes'),
     (libs: 'libobjc'; units: 'ctypes'),
+    (libs: 'libzstd'; units: 'ctypes'),
 
 
 
