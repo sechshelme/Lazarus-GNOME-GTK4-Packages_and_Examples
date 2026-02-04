@@ -7,7 +7,7 @@ uses
 
 const
   {$IFDEF Linux}
-  libadwaita = 'libadwaita-1';
+  libadwaita = 'adwaita-1';
   {$ENDIF}
 
   {$IFDEF Windows}

@@ -230,14 +230,14 @@ var
     if ParamCount >= 1 then begin
       WriteLn('Alternativ');
 
-//      PortConfig.ip := '127.0.0.1';
-      PortConfig.ip := '192.168.0.185';
+      PortConfig.ip := '127.0.0.1';
+//      PortConfig.ip := '192.168.0.185';
       PortConfig.ReadPort := 7777;
-      PortConfig.WritePort := 7777;
+      PortConfig.WritePort := 7778;
     end else begin
-//        PortConfig.ip := '127.0.0.1';
-        PortConfig.ip := '192.168.0.88';
-      PortConfig.ReadPort := 7777;
+        PortConfig.ip := '127.0.0.1';
+//        PortConfig.ip := '192.168.0.88';
+      PortConfig.ReadPort := 7778;
       PortConfig.WritePort := 7777;
     end;
 

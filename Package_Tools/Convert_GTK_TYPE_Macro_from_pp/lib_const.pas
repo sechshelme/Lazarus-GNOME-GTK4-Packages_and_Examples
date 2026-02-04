@@ -295,6 +295,9 @@ const
     (libs: 'libzint'; units: 'ctypes'),
     (libs: 'libobjc'; units: 'ctypes'),
     (libs: 'libzstd'; units: 'ctypes'),
+    (libs: 'libbrotlienc'; units: 'ctypes'),
+    (libs: 'libbrotlidec'; units: 'ctypes'),
+    (libs: 'libbrotlicommon'; units: 'ctypes'),
 
 
 
