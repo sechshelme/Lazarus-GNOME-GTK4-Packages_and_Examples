@@ -18,9 +18,6 @@
 #ifndef _vector_H_ 
 #define _vector_H_
 
-#if defined(__cplusplus)
-extern "C" {
-#endif
 
 int ConstraintSimplify(Value *old, Value *n, int len, Value* v);
 Value* value_alloc(int want, int *got);
@@ -65,8 +62,5 @@ extern void Vector_Reduce(Value *p,unsigned length,
 extern void Vector_Sort(Value *vector,unsigned n);
 extern int Vector_IsZero(Value * v, unsigned length);
 
-#if defined(__cplusplus)
-}
-#endif
 
 #endif /* _vector_H_ */

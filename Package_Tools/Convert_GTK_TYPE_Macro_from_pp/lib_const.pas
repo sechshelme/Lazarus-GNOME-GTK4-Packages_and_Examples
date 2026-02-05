@@ -298,6 +298,7 @@ const
     (libs: 'libbrotlienc'; units: 'ctypes'),
     (libs: 'libbrotlidec'; units: 'ctypes'),
     (libs: 'libbrotlicommon'; units: 'ctypes'),
+    (libs: 'libpolylib'; units: 'fp_polylib64, types, arithmetique'),
 
 
 

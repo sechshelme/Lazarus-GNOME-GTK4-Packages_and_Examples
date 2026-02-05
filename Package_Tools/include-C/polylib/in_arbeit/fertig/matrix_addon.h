@@ -29,18 +29,6 @@
 #include<assert.h>
 
 /** Shortcut for Matrix_Print */
-#define show_matrix(M) { printf(#M"= \n"); \
-                         if (M!=NULL) { \
-			 Matrix_Print(stderr,P_VALUE_FMT,(M));} \
-                         else {printf("<NULL>\n");} \
-                       } 
-
-/** 
- * Allocates a matrix if it is null, or else asserts that it has at least a
- * certain size */
-#define ensureMatrix(M, r, c) { if (M==NULL) M = Matrix_Alloc(r,c); \
-                                else assert (M->NbRows>=r && M->NbColumns>=c); \
-                              } 
 
 /* Creates a view of the constraints of a polyhedron as a Matrix * */
 Matrix * constraintsView(Polyhedron * P);

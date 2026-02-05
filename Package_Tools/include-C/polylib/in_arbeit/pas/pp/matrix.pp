@@ -1,0 +1,75 @@
+
+unit matrix;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from matrix.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    matrix.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pchar  = ^char;
+PFILE  = ^FILE;
+PMatrix  = ^Matrix;
+PValue  = ^Value;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
+    This file is part of PolyLib.
+
+    PolyLib is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    PolyLib is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with PolyLib.  If not, see <http://www.gnu.org/licenses/>.
+ }
+{$ifndef _matrix_H_}
+{$define _matrix_H_}
+
+function Matrix_Alloc(NbRows:dword; NbColumns:dword):PMatrix;cdecl;external;
+procedure Matrix_Free(Mat:PMatrix);cdecl;external;
+procedure Matrix_Extend(Mat:PMatrix; NbRows:dword);cdecl;external;
+(* Const before type ignored *)
+procedure Matrix_Print(Dst:PFILE; Format:Pchar; Mat:PMatrix);cdecl;external;
+procedure Matrix_Read_Input(Mat:PMatrix);cdecl;external;
+function Matrix_Read:PMatrix;cdecl;external;
+procedure right_hermite(A:PMatrix; Hp:PPMatrix; Up:PPMatrix; Qp:PPMatrix);cdecl;external;
+procedure left_hermite(A:PMatrix; Hp:PPMatrix; Qp:PPMatrix; Up:PPMatrix);cdecl;external;
+function MatInverse(M:PMatrix; MInv:PMatrix):longint;cdecl;external;
+procedure rat_prodmat(S:PMatrix; X:PMatrix; P:PMatrix);cdecl;external;
+procedure Matrix_Vector_Product(mat:PMatrix; p1:PValue; p2:PValue);cdecl;external;
+procedure Vector_Matrix_Product(p1:PValue; mat:PMatrix; p2:PValue);cdecl;external;
+procedure Matrix_Product(mat1:PMatrix; mat2:PMatrix; mat3:PMatrix);cdecl;external;
+function Matrix_Inverse(Mat:PMatrix; MatInv:PMatrix):longint;cdecl;external;
+{$endif}
+{ _matrix_H_  }
+
+implementation
+
+
+end.

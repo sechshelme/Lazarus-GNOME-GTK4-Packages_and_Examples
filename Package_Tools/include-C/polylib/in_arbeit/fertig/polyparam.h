@@ -18,9 +18,6 @@
 #ifndef _polyparam_H_
 #define _polyparam_H_
 
-#if defined(__cplusplus)
-extern "C" {
-#endif
 
 extern void Compute_PDomains ( Param_Domain *PD, int nb_domains, int
                                working_space );
@@ -49,8 +46,5 @@ extern Matrix *VertexCT( Matrix *V, Matrix *CT );
 void Param_Polyhedron_Scale_Integer(Param_Polyhedron *PP, Polyhedron **P,
 				    Value *det, unsigned MaxRays);
 
-#if defined(__cplusplus)
-}
-#endif
 
 #endif /* _polyparam_H_ */

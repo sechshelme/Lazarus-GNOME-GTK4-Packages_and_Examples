@@ -18,9 +18,6 @@
 #ifndef _Matop_h_
 #define _Matop_h_
 
-#if defined(__cplusplus)
-extern "C" {
-#endif
 
 /* computes c = lcm(a,b) using Gcd(a,b,&c) */
 extern void Lcm3(Value a, Value b, Value *c);
@@ -43,8 +40,5 @@ extern Matrix *RemoveColumn ( Matrix *M, int Columnnumber );
 extern Matrix *RemoveRow ( Matrix *M, int Rownumber );
 extern Matrix *Transpose ( Matrix *A );
 
-#if defined(__cplusplus)
-}
-#endif
 
 #endif /* _Matop_h_ */

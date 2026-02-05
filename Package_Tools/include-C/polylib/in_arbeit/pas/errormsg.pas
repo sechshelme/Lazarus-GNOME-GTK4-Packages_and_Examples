@@ -1,4 +1,16 @@
-/*
+unit errormsg;
+
+interface
+
+uses
+  fp_polylib64, types, arithmetique;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
     This file is part of PolyLib.
 
     PolyLib is free software: you can redistribute it and/or modify
@@ -13,15 +25,19 @@
 
     You should have received a copy of the GNU General Public License
     along with PolyLib.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ }
+{$ifndef _errormsg_H_}
+{$define _errormsg_H_}
 
-#if defined(__cplusplus)
-extern "C" {
-#endif
+procedure errormsg1(f:Pchar; msgname:Pchar; msg:Pchar);cdecl;external libpolylib;
+{$endif}
+{ _errormsg_H_  }
 
-extern void Smith(Matrix *A, Matrix **U, Matrix **V, Matrix **Product);
-extern void Hermite(Matrix *A, Matrix **H, Matrix **U);
+// === Konventiert am: 5-2-26 19:35:50 ===
 
-#if defined(__cplusplus)
-}
-#endif
+
+implementation
+
+
+
+end.

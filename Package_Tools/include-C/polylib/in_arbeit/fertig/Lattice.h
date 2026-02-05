@@ -18,9 +18,6 @@
 #ifndef _Lattice_h_
 #define _Lattice_h_
 
-#if defined(__cplusplus)
-extern "C" {
-#endif
 
 extern void AffineHermite ( Lattice *A, Lattice **H, Matrix **U );
 extern void AffineSmith ( Lattice *A, Lattice **U, Lattice **V, Lattice
@@ -49,8 +46,5 @@ extern Bool sameAffinepart ( Lattice *A, Lattice *B );
 extern Bool sameLattice ( Lattice *A, Lattice *B );
 extern LatticeUnion *Lattice2LatticeUnion(Lattice *X,Lattice *Y);
 
-#if defined(__cplusplus)
-}
-#endif
 
 #endif /* _Lattice_h_ */

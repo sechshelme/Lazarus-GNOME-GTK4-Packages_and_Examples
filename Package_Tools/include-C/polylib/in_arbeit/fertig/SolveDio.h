@@ -15,18 +15,11 @@
     along with PolyLib.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef _param_H_
-#define _param_H_
+#ifndef _SolveDio_h_
+#define _SolveDio_h_
 
-#if defined(__cplusplus)
-extern "C" {
-#endif
 
-extern const char **Read_ParamNames(FILE *in, int m);
-extern void Free_ParamNames(const char **params, int m);
+extern int SolveDiophantine ( Matrix *M, Matrix **U, Vector **X );
 
-#if defined(__cplusplus)
-}
-#endif
 
-#endif /* _param_H_ */
+#endif /* _SolveDio_h_ */

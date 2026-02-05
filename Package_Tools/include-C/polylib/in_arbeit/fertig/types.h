@@ -73,15 +73,10 @@
 #define TOP ((int)(MSB-1))
 
 /* Right shift the one bit in b and increment j if the last bit in b is one */
-#define NEXT(j,b) { if (!((b)>>=1)) { (b)=MSB; (j)++; } }
 
 /* Status of last Polyhedron operation */
 extern int Pol_status;
 
-#define POL_HIGH_BIT	(UINT_MAX - (UINT_MAX >> 1))
-#define POL_NO_DUAL	(POL_HIGH_BIT | 0x0001)
-#define POL_INTEGER	(POL_HIGH_BIT | 0x0002)
-#define POL_ISSET(flags,f)  ((flags & f) == f)
 
 typedef struct  {
   unsigned Size;
@@ -95,16 +90,6 @@ typedef struct matrix {
   int p_Init_size;	/* needed to free the memory allocated by mpz_init */
 } Matrix;
 
-/* Macros to init/set/clear/test flags. */
-#define FL_INIT(l, f)   (l) = (f)               /* Specific flags location. */
-#define FL_SET(l, f)    ((l) |= (f))
-#define FL_CLR(l, f)    ((l) &= ~(f))
-#define FL_ISSET(l, f)  ((l) & (f))
-
-#define F_INIT(p, f)    FL_INIT((p)->flags, f)  /* Structure element flags. */
-#define F_SET(p, f)     FL_SET((p)->flags, f)
-#define F_CLR(p, f)     FL_CLR((p)->flags, f)
-#define F_ISSET(p, f)   FL_ISSET((p)->flags, f)
 
 typedef struct polyhedron { 
   unsigned Dimension, NbConstraints, NbRays, NbEq, NbBid;
@@ -113,6 +98,8 @@ typedef struct polyhedron {
   Value *p_Init;
   int p_Init_size;
   struct polyhedron *next;
+  unsigned flags;
+} Polyhedron;
 #define    POL_INEQUALITIES	0x00000001
 #define    POL_FACETS		0x00000002
 #define    POL_POINTS		0x00000004
@@ -121,22 +108,12 @@ typedef struct polyhedron {
  * i.e., the structure was created by PolyLib.
  */
 #define	   POL_VALID		0x00000010
-  unsigned flags;
-} Polyhedron;
 
 typedef struct interval {
   Value MaxN, MaxD;
   Value MinN, MinD; 
   int MaxI, MinI;
 } Interval;
-
-/* Test whether P is an empty polyhedron */
-#define emptyQ(P)							\
-	((F_ISSET(P, POL_INEQUALITIES) && P->NbEq > P->Dimension) ||	\
-	 (F_ISSET(P, POL_POINTS) && P->NbRays == 0))
-
-/* Test whether P is a universe polyheron */
-#define universeQ(P) (P->Dimension==P->NbBid)
 
 typedef struct _Param_Vertex {  	
   Matrix *Vertex; /* Each row is a coordinate of the vertex. The first  */
@@ -162,33 +139,15 @@ typedef struct _Param_Polyhedron {
 	Matrix *Rays;        /* Lines/rays (non parametric)                 */
 } Param_Polyhedron;
 
-#define FORALL_PVertex_in_ParamPolyhedron(_V, _D, _P)   \
-{     int _i, _ix;                                   \
-      unsigned _bx;                                  \
-      for( _i=0, _ix=0, _bx=MSB, _V=_P->V ;            \
-           _V && (_i<_P->nbV) ; _i++, _V=_V->next )      \
-      {       if (_D->F[_ix] & _bx)                   \
-              {
-
-#define END_FORALL_PVertex_in_ParamPolyhedron  \
-              }                                \
-              NEXT(_ix, _bx);                  \
-      }                                        \
-}
 
 /* Data structures for pseudo-polynomial */
 
 typedef enum { polynomial, periodic, evector } enode_type;
 
-#ifdef CLN
-#define POLY_UNION_OR_STRUCT struct
-#else
-#define POLY_UNION_OR_STRUCT union
-#endif
 
 typedef struct _evalue {
   Value d;              /* denominator */
-  POLY_UNION_OR_STRUCT {
+  union {
     Value n;            /* numerator (if denominator != 0) */
     struct _enode *p;	/* pointer   (if denominator == 0) */
   } x;
@@ -243,9 +202,5 @@ typedef struct ZPolyhedron {
   Polyhedron *P;
   struct ZPolyhedron *next;
 } ZPolyhedron;
-
-#ifndef FOREVER
-#define FOREVER for(;;)
-#endif
 
 #endif /* _types_polylib_h_ */
