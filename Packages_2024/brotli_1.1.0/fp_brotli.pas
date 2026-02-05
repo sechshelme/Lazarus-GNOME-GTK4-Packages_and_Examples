@@ -45,6 +45,24 @@ type
   Tsize_t = SizeUInt;
   Psize_t = ^Tsize_t;
 
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
+  {$DEFINE read_interface}
+  {$include brotli/types.inc}
+  {$include brotli/shared_dictionary.inc}
+  {$include brotli/decode.inc}
+  {$include brotli/encode.inc}
+  {$UNDEF read_interface}
+
 implementation
+
+{$DEFINE read_implementation}
+{$include brotli/types.inc}
+{$include brotli/shared_dictionary.inc}
+{$include brotli/decode.inc}
+{$include brotli/encode.inc}
+{$UNDEF read_implementation}
 
 end.

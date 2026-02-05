@@ -1,13 +1,4 @@
-unit types;
-
-interface
-
-uses
-  fp_brotli;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -24,7 +15,10 @@ type
   // === Konventiert am: 4-2-26 19:48:48 ===
 
 
-implementation
+{$ENDIF read_interface}
 
 
-end.
+{$IFDEF read_implementation}
+
+
+{$ENDIF read_implementation}

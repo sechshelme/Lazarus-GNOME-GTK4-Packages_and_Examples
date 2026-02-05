@@ -1,13 +1,4 @@
-unit shared_dictionary;
-
-interface
-
-uses
-  fp_brotli, types;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 const
   SHARED_BROTLI_MIN_DICTIONARY_WORD_LENGTH = 4;
@@ -33,8 +24,11 @@ function BrotliSharedDictionaryAttach(dict: PBrotliSharedDictionary; _type: TBro
 // === Konventiert am: 4-2-26 19:48:45 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}
