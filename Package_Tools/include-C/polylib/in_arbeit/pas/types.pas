@@ -29,6 +29,7 @@ type
     p: PValue;
   end;
   PVector = ^TVector;
+  PPVector = ^PVector;
 
   Tmatrix = record
     NbRows: dword;
@@ -38,7 +39,9 @@ type
     p_Init_size: longint;
   end;
   Pmatrix = ^Tmatrix;
+  PPmatrix = ^Pmatrix;
 
+  PPpolyhedron = ^ppolyhedron;
   Ppolyhedron = ^Tpolyhedron;
 
   Tpolyhedron = record
@@ -143,6 +146,7 @@ type
   TBool = Boolean32;
 
 type
+  PPLattice = ^PLattice;
   PLattice = ^TLattice;
   TLattice = TMatrix;
 
@@ -153,6 +157,7 @@ type
     next: PLatticeUnion;
   end;
 
+  PPZPolyhedron = ^PZPolyhedron;
   PZPolyhedron = ^TZPolyhedron;
 
   TZPolyhedron = record

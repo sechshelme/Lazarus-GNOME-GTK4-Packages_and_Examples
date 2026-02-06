@@ -12,6 +12,8 @@ const
   {$ENDIF}
 
   type
+  PPdword=^PWord;
+
   Tsize_t=SizeUInt;
 
   PFILE=type Pointer;
