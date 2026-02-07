@@ -44,7 +44,7 @@ const
 
       if num_on_face >= 3 then begin
         for  k := 1 to num_on_face - 1 - 1 do begin
-          WriteLn('  ', i: 3, '.  ', face_indices[0], ' -> ', face_indices[k], ' -> ', face_indices[k + 1]);
+          WriteLn('  ', i * 2 + k: 3, '.  ', face_indices[0], ' -> ', face_indices[k], ' -> ', face_indices[k + 1]);
         end;
       end;
     end;
