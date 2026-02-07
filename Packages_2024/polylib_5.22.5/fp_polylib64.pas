@@ -26,11 +26,32 @@ type
   {$include fp_polylib_includes.inc}
   {$UNDEF read_interface}
 
+  {$IFDEF linux}
+  var
+    stdout: PFILE; cvar; external 'c';
+  {$ENDIF}
+
+  {$IFDEF windows}
+  function __iob_func: PFILE; cdecl; external 'msvcrt.dll';
+
+  function stdout: PFILE; inline;
+  {$ENDIF}
+
+
 implementation
 
 {$DEFINE read_implementation}
 {$include fp_polylib_includes.inc}
 {$UNDEF read_implementation}
 
+
+{$IFDEF windows}
+function __iob_func: PFILE; cdecl; external 'msvcrt.dll';
+
+function stdout: PFILE; inline;
+begin
+  Result := __iob_func + 48;
+end;
+{$ENDIF}
 
 end.
