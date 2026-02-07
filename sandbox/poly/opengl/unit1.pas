@@ -26,9 +26,10 @@ procedure TForm1.Timer1Timer(Sender: TObject);
 const
   scale = 0.1;
   trans = -0.5;
+  w:single=0;
 begin
   glClearColor(0.8, 0.5, 0.3, 1.0);
-  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+//  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
   glEnable(GL_DEPTH_TEST);
@@ -40,7 +41,8 @@ begin
   glLoadIdentity();
   glTranslatef(trans, trans, trans);
   glScalef(scale, scale, scale);
-  glRotatef(30, 1, 1, 1);
+  glRotatef(w, 1, 1, 1);
+  w+=1;
 
   draw;
 

@@ -84,18 +84,18 @@ end;
 
 procedure extract_mesh_data(D: Ppolyhedron);
 var
-  p_idx: integer = 0;
+  idx: integer = 0;
   p: Ppolyhedron;
 begin
   p := D;
   while p <> nil do begin
-    WriteLn(#10'--- Teil-Polyeder ', p_idx, ' ---');
+    WriteLn(#10'--- Teil-Polyeder ', idx, ' ---');
 
     if (p <> nil) and (p^.Ray <> nil) then begin
       print_opengl_indices(p);
     end;
 
-    Inc(p_idx);
+    Inc(idx);
     p := p^.next;
   end;
 end;
@@ -111,19 +111,24 @@ const
     (1, 0, 0, -1, 10));
 
   b_con: array [0..3, 0..4] of int64 = (
+    (1, 1, 0, 0, -7),
+    (1, -1, 0, 0, 7),
+    (1, 0, 1, 0, -7),
+    (1, 0, -1, 0, 7));
+
+  c_con: array [0..3, 0..4] of int64 = (
     (1, 1, 0, 0, -2),
-    (1, -1, 0, 0, 8),
+    (1, -1, 0, 0, 2),
     (1, 0, 1, 0, -2),
-    (1, 0, -1, 0, 8));
+    (1, 0, -1, 0, 2));
 
 var
-  A_mat, B_mat: Pmatrix;
+  A_mat, B_mat, C_mat: Pmatrix;
   i, j: integer;
-  A, B, C, p: Ppolyhedron;
+  A, B, D, p, C: Ppolyhedron;
   count: SizeInt;
 begin
   A_mat := Matrix_Alloc(6, 5);
-
   for  i := 0 to 5 do begin
     for  j := 0 to 4 do begin
       A_mat^.p[i][j] := a_con[i][j];
@@ -137,13 +142,22 @@ begin
     end;
   end;
 
+  C_mat := Matrix_Alloc(4, 5);
+  for  i := 0 to 3 do begin
+    for  j := 0 to 4 do begin
+      C_mat^.p[i][j] := c_con[i][j];
+    end;
+  end;
+
   A := Constraints2Polyhedron(A_mat, MAX_RAYS);
   B := Constraints2Polyhedron(B_mat, MAX_RAYS);
-  C := DomainDifference(A, B, MAX_RAYS);
+  C := Constraints2Polyhedron(C_mat, MAX_RAYS);
+  D := DomainDifference(A, B, MAX_RAYS);
+  D := DomainDifference(D, C, MAX_RAYS);
 
   WriteLn('Das Objekt mit Loch besteht aus folgenden konvexen Teilen:');
   count := 0;
-  p := C;
+  p := D;
 
   while p <> nil do begin
     WriteLn(#10'Teil-Polyeder ', count);
@@ -152,11 +166,12 @@ begin
     inc(count);
   end;
 
-  extract_mesh_data(C);
+  extract_mesh_data(D);
 
-  Domain_Free(C);
+  Domain_Free(D);
   Polyhedron_Free(A);
   Polyhedron_Free(B);
+  Polyhedron_Free(C);
   Matrix_Free(A_mat);
   Matrix_Free(B_mat);
 end;
