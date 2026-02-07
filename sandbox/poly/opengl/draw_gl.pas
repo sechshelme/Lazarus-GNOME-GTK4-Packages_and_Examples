@@ -19,7 +19,7 @@ type
 procedure print_opengl_indices(p: PPolyhedron);
 var
   face_indices: array of integer = nil;
-  num_on_face, i, j, k, ind0, ind1, ind2: integer;
+  num_on_face, i, j, k, ind0, ind1, ind2, ind: integer;
   res: int64;
   x, y, z: int64;
   v: TVector3f;
@@ -57,28 +57,49 @@ begin
       end;
     end;
 
-    if num_on_face >= 3 then begin
-      for  k := 1 to num_on_face - 1 - 1 do begin
-        ind0 := face_indices[0];
-        ind1 := face_indices[k];
-        ind2 := face_indices[k + 1];
+    //if num_on_face >= 3 then begin
+    //  for  k := 1 to num_on_face - 1 - 1 do begin
+    //    ind0 := face_indices[0];
+    //    ind1 := face_indices[k];
+    //    ind2 := face_indices[k + 1];
+    //
+    //    WriteLn('  ', i * 2 + k: 3, '.  ', ind0, ' -> ', ind1, ' -> ', ind2);
+    //
+    //    glBegin(GL_TRIANGLES);
+    //    v := vectors[ind0];
+    //    glColor3f(1, 0, 0);
+    //    glVertex3fv(@v);
+    //    v := vectors[ind1];
+    //    glColor3f(0, 1, 0);
+    //    glVertex3fv(@v);
+    //    v := vectors[ind2];
+    //    glColor3f(0, 0, 1);
+    //    glVertex3fv(@v);
+    //    glEnd();
+    //
+    //  end;
+    //end;
 
-        WriteLn('  ', i * 2 + k: 3, '.  ', ind0, ' -> ', ind1, ' -> ', ind2);
+    if num_on_face = 4 then begin  // Quader-Faces!
+      glBegin(GL_QUADS);           // ← GENIAL!
 
-        glBegin(GL_TRIANGLES);
-        v := vectors[ind0];
-        glColor3f(1, 0, 0);
-        glVertex3fv(@v);
-        v := vectors[ind1];
-        glColor3f(0, 1, 0);
-        glVertex3fv(@v);
-        v := vectors[ind2];
-        glColor3f(0, 0, 1);
-        glVertex3fv(@v);
-        glEnd();
+      for k := 0 to 3 do begin
+        ind := face_indices[k];
+        v := vectors[ind];
 
+        case k of
+        0:        glColor3f(1, 0, 0);        // Debug-Farben behalten
+        1:        glColor3f(1, 1, 0);        // Debug-Farben behalten
+        2:        glColor3f(0, 1, 0);        // Debug-Farben behalten
+        3:        glColor3f(0, 0, 1);        // Debug-Farben behalten
+        end;
+
+        glVertex3fv(@v);
       end;
+
+      glEnd();
     end;
+
   end;
 end;
 
@@ -116,11 +137,18 @@ const
     (1, 0, 1, 0, -7),
     (1, 0, -1, 0, 7));
 
+  //c_con: array [0..3, 0..4] of int64 = (
+  //  (1, 1, 0, 0, -2),
+  //  (1, -1, 0, 0, 2),
+  //  (1, 0, 1, 0, -2),
+  //  (1, 0, -1, 0, 2));
+
   c_con: array [0..3, 0..4] of int64 = (
-    (1, 1, 0, 0, -2),
-    (1, -1, 0, 0, 2),
-    (1, 0, 1, 0, -2),
-    (1, 0, -1, 0, 2));
+    (1, 0, 0, 1, -2),  // z ≥ 2    ← x → z getauscht! (Index 1↔3)
+    (1, 0, 0,-1,  2),  // z ≤ 8    ← x → z getauscht!
+    (1, 0, 1, 0, -2),  // y ≥ 2
+    (1, 0,-1, 0,  2)); // y ≤ 8
+
 
 var
   A_mat, B_mat, C_mat: Pmatrix;
@@ -166,7 +194,7 @@ begin
     inc(count);
   end;
 
-  extract_mesh_data(D);
+  extract_mesh_data(A);
 
   Domain_Free(D);
   Polyhedron_Free(A);
