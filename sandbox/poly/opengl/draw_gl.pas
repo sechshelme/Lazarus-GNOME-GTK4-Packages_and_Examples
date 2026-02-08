@@ -19,12 +19,13 @@ type
 procedure print_opengl_indices(p: PPolyhedron);
 var
   face_indices: array of integer = nil;
-  num_on_face, i, j, k, ind0, ind1, ind2, ind: integer;
+  num_on_face, i, j, k, ind: integer;
   res: int64;
   x, y, z: int64;
   v: TVector3f;
   vectors: array of TVector3f = nil;
 begin
+
   WriteLn('Vertex:');
   for i := 0 to p^.NbRays - 1 do begin
     if p^.Ray[i][0] > 0 then begin
@@ -57,41 +58,18 @@ begin
       end;
     end;
 
-    //if num_on_face >= 3 then begin
-    //  for  k := 1 to num_on_face - 1 - 1 do begin
-    //    ind0 := face_indices[0];
-    //    ind1 := face_indices[k];
-    //    ind2 := face_indices[k + 1];
-    //
-    //    WriteLn('  ', i * 2 + k: 3, '.  ', ind0, ' -> ', ind1, ' -> ', ind2);
-    //
-    //    glBegin(GL_TRIANGLES);
-    //    v := vectors[ind0];
-    //    glColor3f(1, 0, 0);
-    //    glVertex3fv(@v);
-    //    v := vectors[ind1];
-    //    glColor3f(0, 1, 0);
-    //    glVertex3fv(@v);
-    //    v := vectors[ind2];
-    //    glColor3f(0, 0, 1);
-    //    glVertex3fv(@v);
-    //    glEnd();
-    //
-    //  end;
-    //end;
-
-    if num_on_face = 4 then begin  // Quader-Faces!
-      glBegin(GL_QUADS);           // ← GENIAL!
+    if num_on_face = 4 then begin
+      glBegin(GL_QUADS);
 
       for k := 0 to 3 do begin
         ind := face_indices[k];
         v := vectors[ind];
 
         case k of
-        0:        glColor3f(1, 0, 0);        // Debug-Farben behalten
-        1:        glColor3f(1, 1, 0);        // Debug-Farben behalten
-        2:        glColor3f(0, 1, 0);        // Debug-Farben behalten
-        3:        glColor3f(0, 0, 1);        // Debug-Farben behalten
+        0:        glColor3f(1, 0, 0);
+        1:        glColor3f(1, 1, 0);
+        2:        glColor3f(0, 1, 0);
+        3:        glColor3f(0, 0, 1);
         end;
 
         glVertex3fv(@v);
@@ -122,38 +100,39 @@ begin
 end;
 
 procedure draw;
-const
+  const
   a_con: array [0..5, 0..4] of int64 = (
-    (1, 1, 0, 0, 0),
-    (1, -1, 0, 0, 10),
-    (1, 0, 1, 0, 0),
-    (1, 0, -1, 0, 10),
-    (1, 0, 0, 1, 0),
-    (1, 0, 0, -1, 10));
+  (1, 1, 0, 0, 5),
+  (1, -1, 0, 0, 5),
+  (1, 0, 1, 0, 5),
+  (1, 0, -1, 0, 5),
+  (1, 0, 0, 1, 5),
+  (1, 0, 0, -1, 5));
 
   b_con: array [0..3, 0..4] of int64 = (
-    (1, 1, 0, 0, -7),
-    (1, -1, 0, 0, 7),
-    (1, 0, 1, 0, -7),
-    (1, 0, -1, 0, 7));
-
-  //c_con: array [0..3, 0..4] of int64 = (
-  //  (1, 1, 0, 0, -2),
-  //  (1, -1, 0, 0, 2),
-  //  (1, 0, 1, 0, -2),
-  //  (1, 0, -1, 0, 2));
+    (1, 1, 0, 0,  2),
+    (1, -1, 0, 0, 2),
+    (1, 0, 1, 0,  2),
+    (1, 0, -1, 0, 2));
 
   c_con: array [0..3, 0..4] of int64 = (
-    (1, 0, 0, 1, -2),  // z ≥ 2    ← x → z getauscht! (Index 1↔3)
-    (1, 0, 0,-1,  2),  // z ≤ 8    ← x → z getauscht!
-    (1, 0, 1, 0, -2),  // y ≥ 2
-    (1, 0,-1, 0,  2)); // y ≤ 8
+  (1, 0, 0, 1, 2),
+  (1, 0, 0, -1, 2),
+  (1, 0, 1, 0, 2),
+  (1, 0, -1, 0, 2)  );
+
+  d_con: array [0..3, 0..4] of int64 = (
+    (1, 1, 0, 0, 2),
+    (1, -1, 0, 0, 2),
+    (1, 0, 0, 1, 2),
+    (1, 0, 0, -1, 2)
+  );
 
 
 var
-  A_mat, B_mat, C_mat: Pmatrix;
+  A_mat, B_mat, C_mat, D_mat: Pmatrix;
   i, j: integer;
-  A, B, D, p, C: Ppolyhedron;
+  A, B, D, p, C, E: Ppolyhedron;
   count: SizeInt;
 begin
   A_mat := Matrix_Alloc(6, 5);
@@ -177,15 +156,24 @@ begin
     end;
   end;
 
+  D_mat := Matrix_Alloc(4, 5);
+  for  i := 0 to 3 do begin
+    for  j := 0 to 4 do begin
+      D_mat^.p[i][j] := d_con[i][j];
+    end;
+  end;
+
   A := Constraints2Polyhedron(A_mat, MAX_RAYS);
   B := Constraints2Polyhedron(B_mat, MAX_RAYS);
   C := Constraints2Polyhedron(C_mat, MAX_RAYS);
-  D := DomainDifference(A, B, MAX_RAYS);
-  D := DomainDifference(D, C, MAX_RAYS);
+  D := Constraints2Polyhedron(D_mat, MAX_RAYS);
+  E := DomainDifference(A, B, MAX_RAYS);
+  E := DomainDifference(E, C, MAX_RAYS);
+  E := DomainDifference(E, D, MAX_RAYS);
 
   WriteLn('Das Objekt mit Loch besteht aus folgenden konvexen Teilen:');
   count := 0;
-  p := D;
+  p := A;
 
   while p <> nil do begin
     WriteLn(#10'Teil-Polyeder ', count);
@@ -194,14 +182,17 @@ begin
     inc(count);
   end;
 
-  extract_mesh_data(A);
+  extract_mesh_data(E);
 
-  Domain_Free(D);
+  Domain_Free(E);
   Polyhedron_Free(A);
   Polyhedron_Free(B);
   Polyhedron_Free(C);
+  Polyhedron_Free(D);
   Matrix_Free(A_mat);
   Matrix_Free(B_mat);
+  Matrix_Free(C_mat);
+  Matrix_Free(D_mat);
 end;
 
 end.

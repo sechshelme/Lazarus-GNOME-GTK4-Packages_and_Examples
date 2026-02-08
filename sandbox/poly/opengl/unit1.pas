@@ -25,7 +25,6 @@ implementation
 procedure TForm1.Timer1Timer(Sender: TObject);
 const
   scale = 0.1;
-  trans = -0.5;
   w:single=0;
 begin
   glClearColor(0.8, 0.5, 0.3, 1.0);
@@ -39,7 +38,6 @@ begin
 
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
-  glTranslatef(trans, trans, trans);
   glScalef(scale, scale, scale);
   glRotatef(w, 1, 1, 1);
   w+=1;
