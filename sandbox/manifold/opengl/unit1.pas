@@ -26,12 +26,21 @@ procedure TForm1.Timer1Timer(Sender: TObject);
 const
   scale = 1.5;
   w: single = 0;
+  ambientColor:TVector4f=( 0.1, 0.1, 0.1, 1.0);
 begin
   glClearColor(0.8, 0.5, 0.3, 1.0);
   //  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
   glEnable(GL_CULL_FACE); // Aktiviert das Weglassen von Flächen
   glCullFace(GL_BACK);    // Bestimmt, dass die Rückseiten (Back) weggelassen werden
+
+  glEnable(GL_LIGHTING); // Beleuchtung generell aktivieren
+  glEnable(GL_LIGHT0);   // Lichtquelle 0 einschalten
+
+  glEnable(GL_NORMALIZE);
+
+  glLightfv(GL_LIGHT0, GL_AMBIENT, @ambientColor);
+
 
 
   glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
