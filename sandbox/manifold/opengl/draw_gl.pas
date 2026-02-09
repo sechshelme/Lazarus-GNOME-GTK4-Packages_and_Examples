@@ -34,18 +34,26 @@ implementation
 
 type
   Tbuf = array[0..15] of byte;
+  TGLmeshbuf = array[0..231] of byte;
+
+  TMMdata = record
+    o: PManifoldManifold;
+    m: Tbuf;
+  end;
 
 procedure draw;
 var
   m_size: Tsize_t;
-  cube_mem, holeX_mem, holeY_mem, holeZ_mem, diff1_mem, diff2_mem, final_mem: Tbuf;
-  cube, holeX, holeY, holeZ, res1, res2, final_res, final_w_normals: PManifoldManifold;
-  mesh_mem, normal_mem: Pointer;
+  cube, holeX, holeY, holeZ,
+  res1, res2,
+  final, normal: TMMdata;
 
-  mesh: PManifoldMeshGL;
+  mesh_m: TGLmeshbuf;
+  mesh_o: PManifoldMeshGL;
+
   n_verts, n_tris, n_props: longint;
-  verts_data: array of single;
-  tris_data: array of Tuint32_t;
+  verts_data: array of single = nil;
+  tris_data: array of Tuint32_t = nil;
   x, y, z, nx, ny, nz: single;
   i: integer;
   a, b, c: Tuint32_t;
@@ -58,49 +66,46 @@ var
   er: TManifoldError;
 
 begin
-  m_size := manifold_manifold_size();
+  m_size := manifold_meshgl_size;
+  m_size := manifold_manifold_size;
+
 
   //  WriteLn(manifold_meshgl_size);
 
-  cube := manifold_cube(@cube_mem, 10.0, 10.0, 10.0, 1);
+  cube.o := manifold_cube(@cube.m, 10.0, 10.0, 10.0, 1);
 
-  holeX := manifold_cube(@holeX_mem, 20.0, 6.0, 6.0, 1);
+  holeX.o := manifold_cube(@holeX.m, 20.0, 6.0, 6.0, 1);
+  holeY.o := manifold_cube(@holeY.m, 6.0, 20.0, 6.0, 1);
+  holeZ.o := manifold_cylinder(@holeZ.m, 20.0, 4.5, 4.5, 32, 1);
 
-  holeY := manifold_cube(@holeY_mem, 6.0, 20.0, 6.0, 1);
-  //  holeZ := manifold_cube(@holeZ_mem, 4.0, 4.0, 20.0, 1);
-
-  holeZ := manifold_cylinder(@holeZ_mem, 20.0, 4.5, 4.5, 32, 1);
-
-
-  res1 := manifold_difference(@diff1_mem, cube, holeX);
-  res2 := manifold_difference(@diff2_mem, res1, holeY);
-  final_res := manifold_difference(@final_mem, res2, holeZ);
+  res1.o := manifold_difference(@res1.m, cube.o, holeX.o);
+  res2.o := manifold_difference(@res2.m, res1.o, holeY.o);
+  final.o := manifold_difference(@final.m, res2.o, holeZ.o);
 
 
   // --- 4. DATEN-EXTRAKTION ---
 
 
-  normal_mem := GetMem(manifold_manifold_size());
-  final_w_normals := manifold_calculate_normals(normal_mem, final_res, 3, 60.0);
+  normal.o := manifold_calculate_normals(@normal.m, final.o, 3, 60.0);
 
-  er := manifold_status(final_w_normals);
+  er := manifold_status(final.o);
   if er <> MANIFOLD_NO_ERROR then begin
     WriteLn('Fehler in Manifold Geometrie!  (', er, ')');
   end;
 
-  mesh_mem := GetMem(manifold_meshgl_size);
-  mesh := manifold_get_meshgl(mesh_mem, final_w_normals);
+  //  mesh_m := GetMem(manifold_meshgl_size);
+  mesh_o := manifold_get_meshgl(@mesh_m, normal.o);
 
 
-  n_verts := manifold_meshgl_num_vert(mesh);
-  n_tris := manifold_meshgl_num_tri(mesh);
-  n_props := manifold_meshgl_num_prop(mesh);
+  n_verts := manifold_meshgl_num_vert(mesh_o);
+  n_tris := manifold_meshgl_num_tri(mesh_o);
+  n_props := manifold_meshgl_num_prop(mesh_o);
 
   SetLength(verts_data, n_verts * n_props);
   SetLength(tris_data, n_tris * 3);
 
-  manifold_meshgl_vert_properties(PSingle(verts_data), mesh);
-  manifold_meshgl_tri_verts(Puint32_t(tris_data), mesh);
+  manifold_meshgl_vert_properties(PSingle(verts_data), mesh_o);
+  manifold_meshgl_tri_verts(Puint32_t(tris_data), mesh_o);
 
 
   WriteLn('--- MANIFOLD CSG ERGEBNIS ---');
@@ -141,20 +146,16 @@ begin
     c := tris_data[i * 3 + 2];
     //    WriteLn(i: 3, '  ', a: 2, '/', b: 2, '/', c: 2);
 
-
-    //    glColor3f(1, 1, 1);
     v := vectors[a].n;
     glNormal3fv(@v);
     v := vectors[a].v;
     glVertex3fv(@v);
 
-    //    glColor3f(0, 1, 0);
     v := vectors[b].n;
     glNormal3fv(@v);
     v := vectors[b].v;
     glVertex3fv(@v);
 
-    //    glColor3f(0, 0, 1);
     v := vectors[c].n;
     glNormal3fv(@v);
     v := vectors[c].v;
@@ -163,17 +164,15 @@ begin
   end;
   glEnd;
 
-  manifold_destruct_manifold(cube);
-  manifold_destruct_manifold(holeX);
-  manifold_destruct_manifold(holeY);
-  manifold_destruct_manifold(holeZ);
-  manifold_destruct_manifold(res1);
-  manifold_destruct_manifold(res2);
-  manifold_destruct_manifold(final_res);
-  manifold_destruct_meshgl(mesh);
-
-  Freemem(mesh_mem);
-  Freemem(normal_mem);
+  manifold_destruct_manifold(cube.o);
+  manifold_destruct_manifold(holeX.o);
+  manifold_destruct_manifold(holeY.o);
+  manifold_destruct_manifold(holeZ.o);
+  manifold_destruct_manifold(res1.o);
+  manifold_destruct_manifold(res2.o);
+  manifold_destruct_manifold(final.o);
+  manifold_destruct_manifold(normal.o);
+  manifold_destruct_meshgl(mesh_o);
 end;
 
 end.
