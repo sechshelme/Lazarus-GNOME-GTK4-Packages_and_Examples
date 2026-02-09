@@ -20,36 +20,32 @@ const
   libc = 'msvcrt.dll';
   {$ENDIF}
 
-  //function malloc(__size: Tsize_t): pointer; cdecl; external libc;
-  //procedure free(__ptr: pointer); cdecl; external libc;
-
 type
   TVector3f = array[0..2] of single;
   TVector4f = array[0..3] of single;
-
 
   //  OpenSCAD
 
 implementation
 
 type
-  Tbuf = array[0..15] of byte;
-  TGLmeshbuf = array[0..231] of byte;
-
   TMMdata = record
     o: PManifoldManifold;
-    m: Tbuf;
+    m: array[0..15] of byte;
+  end;
+
+  TMMGLdata = record
+    o: PManifoldManifold;
+    m: array[0..231] of byte;
   end;
 
 procedure draw;
 var
-  m_size: Tsize_t;
   cube, holeX, holeY, holeZ,
   res1, res2,
   final, normal: TMMdata;
 
-  mesh_m: TGLmeshbuf;
-  mesh_o: PManifoldMeshGL;
+  mesh: TMMGLdata;
 
   n_verts, n_tris, n_props: longint;
   verts_data: array of single = nil;
@@ -66,9 +62,6 @@ var
   er: TManifoldError;
 
 begin
-  m_size := manifold_meshgl_size;
-  m_size := manifold_manifold_size;
-
 
   //  WriteLn(manifold_meshgl_size);
 
@@ -85,7 +78,6 @@ begin
 
   // --- 4. DATEN-EXTRAKTION ---
 
-
   normal.o := manifold_calculate_normals(@normal.m, final.o, 3, 60.0);
 
   er := manifold_status(final.o);
@@ -93,19 +85,18 @@ begin
     WriteLn('Fehler in Manifold Geometrie!  (', er, ')');
   end;
 
-  //  mesh_m := GetMem(manifold_meshgl_size);
-  mesh_o := manifold_get_meshgl(@mesh_m, normal.o);
+  mesh.o := manifold_get_meshgl(@mesh.m, normal.o);
 
-
-  n_verts := manifold_meshgl_num_vert(mesh_o);
-  n_tris := manifold_meshgl_num_tri(mesh_o);
-  n_props := manifold_meshgl_num_prop(mesh_o);
+  n_verts := manifold_meshgl_num_vert(mesh.o);
+  n_tris := manifold_meshgl_num_tri(mesh.o);
+  n_props := manifold_meshgl_num_prop(mesh.o);
 
   SetLength(verts_data, n_verts * n_props);
   SetLength(tris_data, n_tris * 3);
 
-  manifold_meshgl_vert_properties(PSingle(verts_data), mesh_o);
-  manifold_meshgl_tri_verts(Puint32_t(tris_data), mesh_o);
+  manifold_meshgl_vert_properties(PSingle(verts_data), mesh.o);
+  manifold_meshgl_tri_verts(Puint32_t(tris_data), mesh.o);
+
 
 
   WriteLn('--- MANIFOLD CSG ERGEBNIS ---');
@@ -172,7 +163,7 @@ begin
   manifold_destruct_manifold(res2.o);
   manifold_destruct_manifold(final.o);
   manifold_destruct_manifold(normal.o);
-  manifold_destruct_meshgl(mesh_o);
+  manifold_destruct_meshgl(mesh.o);
 end;
 
 end.
