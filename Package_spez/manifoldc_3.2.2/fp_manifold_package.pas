@@ -8,7 +8,7 @@ unit fp_manifold_package;
 interface
 
 uses
-  fp_manifoldc, LazarusPackageIntf;
+  fp_manifoldc, fp_manifold_obj, LazarusPackageIntf;
 
 implementation
 

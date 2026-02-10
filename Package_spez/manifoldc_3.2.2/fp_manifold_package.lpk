@@ -14,6 +14,10 @@
         <Filename Value="fp_manifoldc.pas"/>
         <UnitName Value="fp_manifoldc"/>
       </Item>
+      <Item>
+        <Filename Value="fp_manifold_obj.pas"/>
+        <UnitName Value="fp_manifold_obj"/>
+      </Item>
     </Files>
     <RequiredPkgs>
       <Item>
