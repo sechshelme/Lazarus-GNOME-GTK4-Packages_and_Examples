@@ -16,6 +16,7 @@ type
     procedure Init;
     public
     property obj:PManifoldManifold read Fobj;
+
     constructor level_set(sdf: TManifoldSdf; bounds: PManifoldBox; edge_length,level,tolerance: double; ctx: pointer);   // ????
     constructor level_set_seq( sdf: TManifoldSdf; bounds: PManifoldBox; edge_length,level, tolerance: double; ctx: pointer); // ?????
     constructor boolean(a, b: TManifold; op: TManifoldOpType; clean_a: Boolean; clean_b: Boolean);
@@ -69,6 +70,46 @@ type
     function surface_area: double;
     function volume: double;
     function original_id: longint;
+
+    destructor Destroy; override;
+  end;
+
+  { TMeshGL }
+
+  TMeshGL=class(TObject)
+    private
+    mem:Pointer;
+    Fobj:PManifoldMeshGL;
+    procedure Init;
+    public
+    property obj:PManifoldMeshGL read Fobj;
+
+    constructor meshgl( vert_props: Psingle; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint32_t; n_tris: Tsize_t);
+    constructor meshgl_w_tangents(vert_props: Psingle; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint32_t; n_tris: Tsize_t; halfedge_tangent: Psingle);
+    constructor get_meshgl(m: TManifold; clean: Boolean);
+    constructor meshgl_copy(m: TMeshGL; clean: Boolean);
+    constructor meshgl_merge(m: TMeshGL; clean: Boolean);
+
+    function num_prop: longint;
+    function num_vert: longint;
+    function num_tri: longint;
+    function vert_properties_length: Tsize_t;
+    function tri_length: Tsize_t;
+    function merge_length: Tsize_t;
+    function run_index_length: Tsize_t;
+    function run_original_id_length: Tsize_t;
+    function run_transform_length: Tsize_t;
+    function face_id_length: Tsize_t;
+    function tangent_length: Tsize_t;
+    function vert_properties: Psingle;
+    function tri_verts: Puint32_t;
+    function merge_from_vert: Puint32_t;
+    function merge_to_vert: Puint32_t;
+    function run_index: Puint32_t;
+    function run_original_id: Puint32_t;
+    function run_transform: Psingle;
+    function face_id: Puint32_t;
+    function halfedge_tangent: Psingle;
 
     destructor Destroy; override;
   end;
@@ -434,6 +475,156 @@ begin
   inherited Destroy;
 end;
 
+{ TMeshGL }
+
+procedure TMeshGL.Init;
+var
+  m_size: Tsize_t;
+begin
+  m_size := manifold_meshgl_size;
+   Getmem(mem, m_size);
+end;
+
+constructor TMeshGL.meshgl(vert_props: Psingle; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint32_t; n_tris: Tsize_t);
+begin
+  Init;
+Fobj:= manifold_meshgl(mem, vert_props, n_verts, n_props, tri_verts, n_tris);
+end;
+
+constructor TMeshGL.meshgl_w_tangents(vert_props: Psingle; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint32_t; n_tris: Tsize_t; halfedge_tangent: Psingle);
+begin
+  Init;
+Fobj:=manifold_meshgl_w_tangents(mem, vert_props, n_verts, n_props, tri_verts, n_tris,halfedge_tangent);
+end;
+
+constructor TMeshGL.get_meshgl(m: TManifold; clean: Boolean);
+begin
+  Init;
+Fobj:=manifold_get_meshgl(mem, m.Fobj);
+  if clean then m.Free;
+end;
+
+constructor TMeshGL.meshgl_copy(m: TMeshGL; clean: Boolean);
+begin
+  Init;
+Fobj:= manifold_meshgl_copy(mem, m.Fobj);
+  if clean then m.Free;
+end;
+
+constructor TMeshGL.meshgl_merge(m: TMeshGL; clean: Boolean);
+begin
+  Init;
+Fobj:=manifold_meshgl_merge(mem, m.Fobj);
+  if clean then m.Free;
+end;
+
+function TMeshGL.num_prop: longint;
+begin
+Result:=manifold_meshgl_num_prop(Fobj);
+end;
+
+function TMeshGL.num_vert: longint;
+begin
+Result:=manifold_meshgl_num_vert(Fobj);
+end;
+
+function TMeshGL.num_tri: longint;
+begin
+Result:=manifold_meshgl_num_tri(Fobj);
+end;
+
+function TMeshGL.vert_properties_length: Tsize_t;
+begin
+Result:=manifold_meshgl_vert_properties_length(Fobj);
+end;
+
+function TMeshGL.tri_length: Tsize_t;
+begin
+Result:=manifold_meshgl_tri_length(Fobj);
+end;
+
+function TMeshGL.merge_length: Tsize_t;
+begin
+Result:=manifold_meshgl_merge_length(Fobj);
+end;
+
+function TMeshGL.run_index_length: Tsize_t;
+begin
+Result:=manifold_meshgl_run_index_length(Fobj);
+end;
+
+function TMeshGL.run_original_id_length: Tsize_t;
+begin
+Result:=manifold_meshgl_run_original_id_length(Fobj);
+end;
+
+function TMeshGL.run_transform_length: Tsize_t;
+begin
+Result:=manifold_meshgl_run_transform_length(Fobj);
+end;
+
+function TMeshGL.face_id_length: Tsize_t;
+begin
+Result:=manifold_meshgl_face_id_length(Fobj);
+end;
+
+function TMeshGL.tangent_length: Tsize_t;
+begin
+Result:=manifold_meshgl_tangent_length(Fobj);
+end;
+
+function TMeshGL.vert_properties: Psingle;
+begin
+Result:=manifold_meshgl_vert_properties(mem, Fobj);
+end;
+
+function TMeshGL.tri_verts: Puint32_t;
+begin
+Result:=manifold_meshgl_tri_verts(mem, Fobj);
+end;
+
+function TMeshGL.merge_from_vert: Puint32_t;
+begin
+Result:=manifold_meshgl_merge_from_vert(mem, Fobj);
+end;
+
+function TMeshGL.merge_to_vert: Puint32_t;
+begin
+Result:=manifold_meshgl_merge_to_vert(mem, Fobj);
+end;
+
+function TMeshGL.run_index: Puint32_t;
+begin
+Result:=manifold_meshgl_run_index(mem, Fobj);
+end;
+
+function TMeshGL.run_original_id: Puint32_t;
+begin
+Result:=manifold_meshgl_run_original_id(mem, Fobj);
+end;
+
+function TMeshGL.run_transform: Psingle;
+begin
+Result:=manifold_meshgl_run_transform(mem, Fobj);
+end;
+
+function TMeshGL.face_id: Puint32_t;
+begin
+Result:=manifold_meshgl_face_id(mem, Fobj);
+end;
+
+function TMeshGL.halfedge_tangent: Psingle;
+begin
+Result:=manifold_meshgl_halfedge_tangent(mem, Fobj);
+end;
+
+destructor TMeshGL.Destroy;
+begin
+  manifold_destruct_meshgl(Fobj);
+  Freemem(mem);
+  inherited Destroy;
+end;
+
 end.
 
 
@@ -448,11 +639,10 @@ end.
 //function manifold_polygons_get_simple(mem: pointer; ps: PManifoldPolygons; idx: Tsize_t): PManifoldSimplePolygon; cdecl; external libmanifoldc;
 //function manifold_polygons_get_point(ps: PManifoldPolygons; simple_idx: Tsize_t; pt_idx: Tsize_t): TManifoldVec2; cdecl; external libmanifoldc;
 //
-//function manifold_meshgl(mem: pointer; vert_props: Psingle; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint32_t; n_tris: Tsize_t): PManifoldMeshGL; cdecl; external libmanifoldc;
-//function manifold_meshgl_w_tangents(mem: pointer; vert_props: Psingle; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint32_t; n_tris: Tsize_t; halfedge_tangent: Psingle): PManifoldMeshGL; cdecl; external libmanifoldc;
-//function manifold_get_meshgl(mem: pointer; m: PManifoldManifold): PManifoldMeshGL; cdecl; external libmanifoldc;
-//function manifold_meshgl_copy(mem: pointer; m: PManifoldMeshGL): PManifoldMeshGL; cdecl; external libmanifoldc;
-//function manifold_meshgl_merge(mem: pointer; m: PManifoldMeshGL): PManifoldMeshGL; cdecl; external libmanifoldc;
+
+
+
+
 //function manifold_meshgl64(mem: pointer; vert_props: Pdouble; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint64_t; n_tris: Tsize_t): PManifoldMeshGL64; cdecl; external libmanifoldc;
 //function manifold_meshgl64_w_tangents(mem: pointer; vert_props: Pdouble; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint64_t; n_tris: Tsize_t; halfedge_tangent: Pdouble): PManifoldMeshGL64; cdecl; external libmanifoldc;
 //function manifold_get_meshgl64(mem: pointer; m: PManifoldManifold): PManifoldMeshGL64; cdecl; external libmanifoldc;
@@ -587,26 +777,7 @@ end.
 //procedure manifold_set_circular_segments(number: longint); cdecl; external libmanifoldc;
 //procedure manifold_reset_to_circular_defaults; cdecl; external libmanifoldc;
 //
-//function manifold_meshgl_num_prop(m: PManifoldMeshGL): longint; cdecl; external libmanifoldc;
-//function manifold_meshgl_num_vert(m: PManifoldMeshGL): longint; cdecl; external libmanifoldc;
-//function manifold_meshgl_num_tri(m: PManifoldMeshGL): longint; cdecl; external libmanifoldc;
-//function manifold_meshgl_vert_properties_length(m: PManifoldMeshGL): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl_tri_length(m: PManifoldMeshGL): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl_merge_length(m: PManifoldMeshGL): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl_run_index_length(m: PManifoldMeshGL): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl_run_original_id_length(m: PManifoldMeshGL): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl_run_transform_length(m: PManifoldMeshGL): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl_face_id_length(m: PManifoldMeshGL): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl_tangent_length(m: PManifoldMeshGL): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl_vert_properties(mem: pointer; m: PManifoldMeshGL): Psingle; cdecl; external libmanifoldc;
-//function manifold_meshgl_tri_verts(mem: pointer; m: PManifoldMeshGL): Puint32_t; cdecl; external libmanifoldc;
-//function manifold_meshgl_merge_from_vert(mem: pointer; m: PManifoldMeshGL): Puint32_t; cdecl; external libmanifoldc;
-//function manifold_meshgl_merge_to_vert(mem: pointer; m: PManifoldMeshGL): Puint32_t; cdecl; external libmanifoldc;
-//function manifold_meshgl_run_index(mem: pointer; m: PManifoldMeshGL): Puint32_t; cdecl; external libmanifoldc;
-//function manifold_meshgl_run_original_id(mem: pointer; m: PManifoldMeshGL): Puint32_t; cdecl; external libmanifoldc;
-//function manifold_meshgl_run_transform(mem: pointer; m: PManifoldMeshGL): Psingle; cdecl; external libmanifoldc;
-//function manifold_meshgl_face_id(mem: pointer; m: PManifoldMeshGL): Puint32_t; cdecl; external libmanifoldc;
-//function manifold_meshgl_halfedge_tangent(mem: pointer; m: PManifoldMeshGL): Psingle; cdecl; external libmanifoldc;
+
 //function manifold_meshgl64_num_prop(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;
 //function manifold_meshgl64_num_vert(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;
 //function manifold_meshgl64_num_tri(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;

@@ -37,7 +37,8 @@ type
 
 procedure draw;
 var
-  mesh: TMMGLdata;
+//  mesh: TMMGLdata;
+  mesh: TMeshGL;
 
   n_verts, n_tris, n_props: longint;
   verts_data: array of single = nil;
@@ -78,24 +79,31 @@ begin
     WriteLn('Fehler in Manifold Geometrie!  (', er, ')');
   end;
 
-  mesh.o := manifold_get_meshgl(@mesh.m, cube.obj);
+  mesh := TMeshGL.get_meshgl(cube, True);
 
-  n_verts := manifold_meshgl_num_vert(mesh.o);
-  n_tris := manifold_meshgl_num_tri(mesh.o);
-  n_props := manifold_meshgl_num_prop(mesh.o);
-
-  SetLength(verts_data, n_verts * n_props);
-  SetLength(tris_data, n_tris * 3);
-
-  manifold_meshgl_vert_properties(PSingle(verts_data), mesh.o);
-  manifold_meshgl_tri_verts(Puint32_t(tris_data), mesh.o);
-
+    n_verts := mesh.num_vert;
+  n_tris := mesh.num_tri;
+  n_props :=mesh.num_prop;
 
 
   WriteLn('--- MANIFOLD CSG ERGEBNIS ---');
   WriteLn('n_verts: ', n_verts);
   WriteLn('n_tris: ', n_tris);
   WriteLn('n_props: ', n_props);
+
+
+  SetLength(verts_data, n_verts * n_props);
+  SetLength(tris_data, n_tris * 3);
+
+  manifold_meshgl_tri_verts(Puint32_t(tris_data), mesh.obj);
+  manifold_meshgl_vert_properties(PSingle(verts_data), mesh.obj);
+
+//   Puint32_t(tris_data):= mesh.tri_verts;
+//    PSingle(verts_data):=  mesh.vert_properties;
+
+
+  mesh.Free;
+
 
 
   WriteLn(#10'Liste aller Eckpunkte (Vertices):');
@@ -148,7 +156,6 @@ begin
   end;
   glEnd;
 
-  manifold_destruct_meshgl(mesh.o);
 end;
 
 end.
