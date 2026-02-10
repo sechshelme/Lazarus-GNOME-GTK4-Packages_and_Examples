@@ -6,6 +6,9 @@ uses
   fp_manifoldc;
 
 type
+
+  { TManifold }
+
   TManifold=class(TObject)
     private
     mem:Pointer;
@@ -13,13 +16,59 @@ type
     procedure Init;
     public
     property obj:PManifoldManifold read Fobj;
-
-    constructor difference(a: TManifold; b: TManifold; clean_a: Boolean;      clean_b: Boolean);
-
-    constructor cube(x: double; y: double; z: double; center: longint);
-    constructor cylinder(height: double; radius_low: double; radius_high: double; circular_segments: longint; center: longint);
-
+    constructor level_set(sdf: TManifoldSdf; bounds: PManifoldBox; edge_length,level,tolerance: double; ctx: pointer);   // ????
+    constructor level_set_seq( sdf: TManifoldSdf; bounds: PManifoldBox; edge_length,level, tolerance: double; ctx: pointer); // ?????
+    constructor boolean(a, b: TManifold; op: TManifoldOpType; clean_a: Boolean; clean_b: Boolean);
+    constructor batch_boolean( ms: PManifoldManifoldVec; op: TManifoldOpType);   // ????
+    constructor union(a, b: TManifold; clean_a: Boolean;      clean_b: Boolean);
+    constructor difference(a, b: TManifold; clean_a: Boolean;      clean_b: Boolean);
+    constructor intersection( a, b: TManifold; clean_a: Boolean;      clean_b: Boolean);
+    constructor trim_by_plane(m: TManifold; normal_x, normal_y, normal_z, offset: double; clean: Boolean);
+    constructor hull(m: TManifold; clean: Boolean);
+    constructor batch_hull( ms: PManifoldManifoldVec); // ????
+    constructor hull_pts(ps: PManifoldVec3; length: Tsize_t); // ????;
+    constructor translate(m: TManifold; x, y, z: double; clean: Boolean);
+    constructor rotate(m: TManifold; x, y, z: double; clean: Boolean);
+    constructor scale(m: TManifold; x, y, z: double; clean: Boolean);
+    constructor transform(m: TManifold; x1, y1,z1, x2, y2, z2, x3, y3,z3, x4, y4,z4: double; clean: Boolean);
+    constructor mirror(m: TManifold; nx, ny, nz: double; clean: Boolean);
+    constructor empty;
+    constructor copy(m: TManifold; clean: Boolean);
+    constructor tetrahedron;
+    constructor warp(m: TManifold; fun: Twarp_func; ctx: pointer; clean: Boolean);
+    constructor smooth_by_normals(m: TManifold; normalIdx: longint; clean: Boolean);
+    constructor smooth_out(m: TManifold; minSharpAngle, minSmoothness: double; clean: Boolean);
+    constructor refine(m: TManifold; refine: longint; clean: Boolean);
+    constructor refine_to_length(m: TManifold; length: double; clean: Boolean);
+    constructor refine_to_tolerance(m: TManifold; tolerance: double; clean: Boolean);
+    constructor manifold_vec_get( ms: PManifoldManifoldVec; idx: Tsize_t);  // ????
+    constructor cube(x, y, z: double; center: longint);
+    constructor cylinder(height, radius_low,radius_high: double; circular_segments, center: longint);
+    constructor sphere(radius: double; circular_segments: longint);
+    constructor of_meshgl( mesh: PManifoldMeshGL);    // ????
+    constructor of_meshgl64( mesh: PManifoldMeshGL64);  // ????
+    constructor smooth( mesh: PManifoldMeshGL; half_edges: Psize_t; smoothness: Pdouble; n_idxs: Tsize_t);  // ????
+    constructor smooth64(mesh: PManifoldMeshGL64; half_edges: Psize_t; smoothness: Pdouble; n_idxs: Tsize_t);  // ????
+    constructor extrude( cs: PManifoldPolygons; height: double; slices: longint; twist_degrees,scale_x, scale_y: double);  // ????
+    constructor revolve( cs: PManifoldPolygons; circular_segments: longint; revolve_degrees: double) ; // ????
+    constructor compose(ms: PManifoldManifoldVec);  // ????
+    constructor decompose( m: TManifold ;clean: Boolean);
+    constructor as_original (m: TManifold;clean: Boolean);
+    constructor set_properties( m: TManifold; num_prop: longint; fun: Tproperties_func; ctx: pointer; clean: Boolean);
+    constructor calculate_curvature(m: TManifold; gaussian_idx,mean_idx: longint; clean: Boolean);
     constructor calculate_normals(m: TManifold; normal_idx: longint;      min_sharp_angle: double; clean: Boolean);
+
+    function is_empty: longint;
+    function status: TManifoldError;
+    function num_vert: Tsize_t;
+    function num_edge: Tsize_t;
+    function num_tri: Tsize_t;
+    function num_prop: Tsize_t;
+    function epsilon: double;
+    function genus: longint;
+    function surface_area: double;
+    function volume: double;
+    function original_id: longint;
 
     destructor Destroy; override;
   end;
@@ -37,31 +86,345 @@ begin
    Getmem(mem, m_size);
 end;
 
-constructor TManifold.difference(a: TManifold; b: TManifold; clean_a: Boolean;  clean_b: Boolean);
+constructor TManifold.level_set(sdf: TManifoldSdf; bounds: PManifoldBox; edge_length, level, tolerance: double; ctx: pointer);
+begin
+  Init;
+  Fobj:=manifold_level_set(mem, sdf, bounds, edge_length,level,tolerance, ctx);
+   // if clean  bounds.Free
+end;
+
+constructor TManifold.level_set_seq(sdf: TManifoldSdf; bounds: PManifoldBox; edge_length, level, tolerance: double; ctx: pointer);
+begin
+  Init;
+  Fobj:= manifold_level_set_seq(mem, sdf,bounds, edge_length, level, tolerance, ctx);
+   // if clean  bounds.Free
+end;
+
+constructor TManifold.boolean(a, b: TManifold; op: TManifoldOpType; clean_a: Boolean; clean_b: Boolean);
+begin
+  Init;
+  Fobj:=  manifold_boolean(mem, a.Fobj, b.Fobj, op);
+  if clean_a then a.Free;
+ if clean_b then b.Free;
+end;
+
+constructor TManifold.batch_boolean(ms: PManifoldManifoldVec; op: TManifoldOpType);
+begin
+  Init;
+  Fobj:= manifold_batch_boolean(mem, ms, op);
+  // if clean  ms.Free
+end;
+
+constructor TManifold.union(a, b: TManifold; clean_a: Boolean; clean_b: Boolean);
+begin
+  Init;
+  Fobj:= manifold_union(mem, a.Fobj, b.Fobj);
+  if clean_a then a.Free;
+ if clean_b then b.Free;
+end;
+
+constructor TManifold.difference(a, b: TManifold; clean_a: Boolean; clean_b: Boolean);
 begin
    Init;
-Fobj:= manifold_difference(mem, a.obj, b.obj);
+Fobj:= manifold_difference(mem, a.Fobj, b.Fobj);
   if clean_a then a.Free;
   if clean_b then b.Free;
 end;
 
-constructor TManifold.cube(x: double; y: double; z: double; center: longint);
+constructor TManifold.intersection(a, b: TManifold; clean_a: Boolean; clean_b: Boolean);
+begin
+  Init;
+  Fobj:=  manifold_intersection(mem, a.Fobj, b.Fobj);
+ if clean_a then a.Free;
+ if clean_b then b.Free;
+end;
+
+constructor TManifold.trim_by_plane(m: TManifold; normal_x, normal_y, normal_z, offset: double; clean: Boolean);
+begin
+  Init;
+  Fobj:=  manifold_trim_by_plane(mem, m.Fobj, normal_x, normal_y, normal_z, offset);
+ if clean then m.Free;
+end;
+
+constructor TManifold.hull(m: TManifold; clean: Boolean);
+begin
+  Init;
+Fobj:= manifold_hull(mem, m.Fobj);
+  if clean then m.Free;
+end;
+
+constructor TManifold.batch_hull(ms: PManifoldManifoldVec);
+begin
+  Init;
+  Fobj:=   manifold_batch_hull(mem,ms);
+  // if clean  ms.Free
+end;
+
+constructor TManifold.hull_pts(ps: PManifoldVec3; length: Tsize_t);
+begin
+  Init;
+  Fobj:=   manifold_hull_pts(mem, ps, length);
+ // if clean  ms.Free
+end;
+
+constructor TManifold.translate(m: TManifold; x, y, z: double; clean: Boolean);
+begin
+  Init;
+Fobj:=      manifold_translate(mem, m.Fobj, x, y,z);
+  if clean then m.Free;
+end;
+
+constructor TManifold.rotate(m: TManifold; x, y, z: double; clean: Boolean);
+begin
+  Init;
+Fobj:=manifold_rotate(mem, m.Fobj, x, y,z);
+  if clean then m.Free;
+end;
+
+constructor TManifold.scale(m: TManifold; x, y, z: double; clean: Boolean);
+begin
+  Init;
+Fobj:=   manifold_scale(mem, m.Fobj, x, y, z);
+  if clean then m.Free;
+end;
+
+constructor TManifold.transform(m: TManifold; x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4: double; clean: Boolean);
+begin
+  Init;
+Fobj:=manifold_transform(mem, m.Fobj ,x1, y1, z1, x2, y2, z2, x3,y3, z3,x4, y4, z4);
+  if clean then m.Free;
+end;
+
+constructor TManifold.mirror(m: TManifold; nx, ny, nz: double; clean: Boolean);
+begin
+  Init;
+Fobj:= manifold_mirror(mem, m.Fobj, nx,ny, nz);
+  if clean then m.Free;
+end;
+
+constructor TManifold.empty;
+begin
+  Init;
+Fobj:= manifold_empty(mem);
+end;
+
+constructor TManifold.copy(m: TManifold; clean: Boolean);
+begin
+  Init;
+Fobj:=  manifold_copy(mem,m.Fobj);
+  if clean then m.Free;
+end;
+
+constructor TManifold.tetrahedron;
+begin
+  Init;
+Fobj:= manifold_tetrahedron(mem);
+end;
+
+constructor TManifold.warp(m: TManifold; fun: Twarp_func; ctx: pointer; clean: Boolean);
+begin
+  Init;
+Fobj:=manifold_warp(mem, m.Fobj, fun, ctx);
+  if clean then m.Free;
+end;
+
+constructor TManifold.smooth_by_normals(m: TManifold; normalIdx: longint; clean: Boolean);
+begin
+  Init;
+Fobj:= manifold_smooth_by_normals(mem, m.Fobj, normalIdx);
+  if clean then m.Free;
+end;
+
+constructor TManifold.smooth_out(m: TManifold; minSharpAngle, minSmoothness: double; clean: Boolean);
+begin
+  Init;
+Fobj:= manifold_smooth_out(mem, m.Fobj, minSharpAngle, minSmoothness);
+  if clean then m.Free;
+end;
+
+constructor TManifold.refine(m: TManifold; refine: longint; clean: Boolean);
+begin
+  Init;
+Fobj:= manifold_refine(mem, m.Fobj, refine);
+  if clean then m.Free;
+end;
+
+constructor TManifold.refine_to_length(m: TManifold; length: double; clean: Boolean);
+begin
+  Init;
+Fobj:= manifold_refine_to_length(mem, m.Fobj,length);
+  if clean then m.Free;
+end;
+
+constructor TManifold.refine_to_tolerance(m: TManifold; tolerance: double; clean: Boolean);
+begin
+  Init;
+Fobj:= manifold_refine_to_tolerance(mem, m.Fobj, tolerance);
+  if clean then m.Free;
+end;
+
+constructor TManifold.manifold_vec_get(ms: PManifoldManifoldVec; idx: Tsize_t);
+begin
+  Init;
+ Fobj:=manifold_manifold_vec_get(mem, ms, idx);
+// if clean  ms.Free
+end;
+
+constructor TManifold.cube(x, y, z: double; center: longint);
 begin
   Init;
 Fobj:=  manifold_cube(mem, x, y, z,center);
 end;
 
-constructor TManifold.cylinder(height: double; radius_low: double;  radius_high: double; circular_segments: longint; center: longint);
+constructor TManifold.cylinder(height, radius_low, radius_high: double; circular_segments, center: longint);
 begin
   Init;
 Fobj:=manifold_cylinder(mem, height, radius_low, radius_high, circular_segments, center);
 end;
 
+constructor TManifold.sphere(radius: double; circular_segments: longint);
+begin
+  Init;
+  Fobj:=manifold_sphere(mem, radius,circular_segments);
+end;
+
+constructor TManifold.of_meshgl(mesh: PManifoldMeshGL);
+begin
+  Init;
+  Fobj:=manifold_of_meshgl(mem, mesh);
+  // if clean  ms.Free
+end;
+
+constructor TManifold.of_meshgl64(mesh: PManifoldMeshGL64);
+begin
+  Init;
+  Fobj:=manifold_of_meshgl64(mem, mesh);
+  // if clean  ms.Free
+end;
+
+constructor TManifold.smooth(mesh: PManifoldMeshGL; half_edges: Psize_t; smoothness: Pdouble; n_idxs: Tsize_t);
+begin
+  Init;
+  Fobj:=manifold_smooth(mem,mesh, half_edges, smoothness, n_idxs);
+  // if clean  ms.Free
+end;
+
+constructor TManifold.smooth64(mesh: PManifoldMeshGL64; half_edges: Psize_t; smoothness: Pdouble; n_idxs: Tsize_t);
+begin
+  Init;
+  Fobj:= manifold_smooth64(mem, mesh,half_edges, smoothness, n_idxs);
+  // if clean  ms.Free
+end;
+
+constructor TManifold.extrude(cs: PManifoldPolygons; height: double; slices: longint; twist_degrees, scale_x, scale_y: double);
+begin
+  Init;
+  Fobj:=  manifold_extrude(mem, cs, height, slices,twist_degrees, scale_x, scale_y);
+  // if clean  ms.Free
+end;
+
+constructor TManifold.revolve(cs: PManifoldPolygons; circular_segments: longint; revolve_degrees: double);
+begin
+  Init;
+  Fobj:=  manifold_revolve(mem, cs, circular_segments, revolve_degrees);
+  // if clean  ms.Free
+end;
+
+constructor TManifold.compose(ms: PManifoldManifoldVec);
+begin
+  Init;
+  Fobj:= manifold_compose(mem, ms);
+  // if clean  ms.Free
+end;
+
+constructor TManifold.decompose(m: TManifold; clean: Boolean);
+begin
+  Init;
+Fobj:= manifold_decompose(mem,m.Fobj);
+  if clean then m.Free;
+end;
+
+constructor TManifold.as_original(m: TManifold; clean: Boolean);
+begin
+  Init;
+Fobj:=  manifold_as_original(mem, m.Fobj);
+  if clean then m.Free;
+end;
+
+constructor TManifold.set_properties(m: TManifold; num_prop: longint; fun: Tproperties_func; ctx: pointer; clean: Boolean);
+begin
+  Init;
+Fobj:= manifold_set_properties(mem, m.Fobj, num_prop,fun, ctx);
+  if clean then m.Free;
+end;
+
+constructor TManifold.calculate_curvature(m: TManifold; gaussian_idx, mean_idx: longint; clean: Boolean);
+begin
+  Init;
+Fobj:= manifold_calculate_curvature(mem, m.Fobj, gaussian_idx,mean_idx);
+  if clean then m.Free;
+end;
+
 constructor TManifold.calculate_normals(m: TManifold;  normal_idx: longint; min_sharp_angle: double; clean: Boolean);
 begin
   Init;
-Fobj:= manifold_calculate_normals(mem, m.obj, normal_idx, min_sharp_angle);
+Fobj:= manifold_calculate_normals(mem, m.Fobj, normal_idx, min_sharp_angle);
   if clean then m.Free;
+end;
+
+function TManifold.is_empty: longint;
+begin
+  Result:=manifold_is_empty(Fobj);
+end;
+
+function TManifold.status: TManifoldError;
+begin
+  Result:=manifold_status(Fobj);
+end;
+
+function TManifold.num_vert: Tsize_t;
+begin
+  Result:=manifold_num_vert(Fobj);
+end;
+
+function TManifold.num_edge: Tsize_t;
+begin
+  Result:= manifold_num_edge(Fobj);
+end;
+
+function TManifold.num_tri: Tsize_t;
+begin
+  Result:=manifold_num_tri(Fobj);
+end;
+
+function TManifold.num_prop: Tsize_t;
+begin
+  Result:=manifold_num_prop(Fobj);
+end;
+
+function TManifold.epsilon: double;
+begin
+  Result:=manifold_epsilon(Fobj);
+end;
+
+function TManifold.genus: longint;
+begin
+  Result:=manifold_genus(Fobj);
+end;
+
+function TManifold.surface_area: double;
+begin
+  Result:=manifold_surface_area(Fobj);
+end;
+
+function TManifold.volume: double;
+begin
+  Result:=manifold_volume(Fobj);
+end;
+
+function TManifold.original_id: longint;
+begin
+  Result:=manifold_original_id(Fobj);
 end;
 
 destructor TManifold.Destroy;
@@ -96,88 +459,39 @@ end.
 //function manifold_meshgl64_copy(mem: pointer; m: PManifoldMeshGL64): PManifoldMeshGL64; cdecl; external libmanifoldc;
 //function manifold_meshgl64_merge(mem: pointer; m: PManifoldMeshGL64): PManifoldMeshGL64; cdecl; external libmanifoldc;
 //
-//function manifold_level_set(mem: pointer; sdf: TManifoldSdf; bounds: PManifoldBox; edge_length: double; level: double; tolerance: double; ctx: pointer): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_level_set_seq(mem: pointer; sdf: TManifoldSdf; bounds: PManifoldBox; edge_length: double; level: double; tolerance: double; ctx: pointer): PManifoldManifold; cdecl; external libmanifoldc;
+
 //
 //function manifold_manifold_empty_vec(mem: pointer): PManifoldManifoldVec; cdecl; external libmanifoldc;
 //function manifold_manifold_vec(mem: pointer; sz: Tsize_t): PManifoldManifoldVec; cdecl; external libmanifoldc;
 //procedure manifold_manifold_vec_reserve(ms: PManifoldManifoldVec; sz: Tsize_t); cdecl; external libmanifoldc;
 //function manifold_manifold_vec_length(ms: PManifoldManifoldVec): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_manifold_vec_get(mem: pointer; ms: PManifoldManifoldVec; idx: Tsize_t): PManifoldManifold; cdecl; external libmanifoldc;
 //procedure manifold_manifold_vec_set(ms: PManifoldManifoldVec; idx: Tsize_t; m: PManifoldManifold); cdecl; external libmanifoldc;
 //procedure manifold_manifold_vec_push_back(ms: PManifoldManifoldVec; m: PManifoldManifold); cdecl; external libmanifoldc;
 //
-//function manifold_boolean(mem: pointer; a: PManifoldManifold; b: PManifoldManifold; op: TManifoldOpType): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_batch_boolean(mem: pointer; ms: PManifoldManifoldVec; op: TManifoldOpType): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_union(mem: pointer; a: PManifoldManifold; b: PManifoldManifold): PManifoldManifold; cdecl; external libmanifoldc;
 
 
 
 
-//function manifold_intersection(mem: pointer; a: PManifoldManifold; b: PManifoldManifold): PManifoldManifold; cdecl; external libmanifoldc;
 //function manifold_split(mem_first: pointer; mem_second: pointer; a: PManifoldManifold; b: PManifoldManifold): TManifoldManifoldPair; cdecl; external libmanifoldc;
 //function manifold_split_by_plane(mem_first: pointer; mem_second: pointer; m: PManifoldManifold; normal_x: double; normal_y: double; normal_z: double; offset: double): TManifoldManifoldPair; cdecl; external libmanifoldc;
-//function manifold_trim_by_plane(mem: pointer; m: PManifoldManifold; normal_x: double; normal_y: double; normal_z: double; offset: double): PManifoldManifold; cdecl; external libmanifoldc;
 //
 //function manifold_slice(mem: pointer; m: PManifoldManifold; height: double): PManifoldPolygons; cdecl; external libmanifoldc;
 //function manifold_project(mem: pointer; m: PManifoldManifold): PManifoldPolygons; cdecl; external libmanifoldc;
 //
-//function manifold_hull(mem: pointer; m: PManifoldManifold): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_batch_hull(mem: pointer; ms: PManifoldManifoldVec): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_hull_pts(mem: pointer; ps: PManifoldVec3; length: Tsize_t): PManifoldManifold; cdecl; external libmanifoldc;
 //
-//function manifold_translate(mem: pointer; m: PManifoldManifold; x: double; y: double; z: double): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_rotate(mem: pointer; m: PManifoldManifold; x: double; y: double; z: double): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_scale(mem: pointer; m: PManifoldManifold; x: double; y: double; z: double): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_transform(mem: pointer; m: PManifoldManifold; x1: double; y1: double; z1: double; x2: double; y2: double; z2: double; x3: double; y3: double; z3: double; x4: double; y4: double; z4: double): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_mirror(mem: pointer; m: PManifoldManifold; nx: double; ny: double; nz: double): PManifoldManifold; cdecl; external libmanifoldc;
-//
-//type
-//  Twarp_func = function(para1: double; para2: double; para3: double; para4: pointer): TManifoldVec3; cdecl;
-//
-//function manifold_warp(mem: pointer; m: PManifoldManifold; fun: Twarp_func; ctx: pointer): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_smooth_by_normals(mem: pointer; m: PManifoldManifold; normalIdx: longint): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_smooth_out(mem: pointer; m: PManifoldManifold; minSharpAngle: double; minSmoothness: double): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_refine(mem: pointer; m: PManifoldManifold; refine: longint): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_refine_to_length(mem: pointer; m: PManifoldManifold; length: double): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_refine_to_tolerance(mem: pointer; m: PManifoldManifold; tolerance: double): PManifoldManifold; cdecl; external libmanifoldc;
-//
-//function manifold_empty(mem: pointer): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_copy(mem: pointer; m: PManifoldManifold): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_tetrahedron(mem: pointer): PManifoldManifold; cdecl; external libmanifoldc;
 
-
-//function manifold_sphere(mem: pointer; radius: double; circular_segments: longint): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_of_meshgl(mem: pointer; mesh: PManifoldMeshGL): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_of_meshgl64(mem: pointer; mesh: PManifoldMeshGL64): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_smooth(mem: pointer; mesh: PManifoldMeshGL; half_edges: Psize_t; smoothness: Pdouble; n_idxs: Tsize_t): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_smooth64(mem: pointer; mesh: PManifoldMeshGL64; half_edges: Psize_t; smoothness: Pdouble; n_idxs: Tsize_t): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_extrude(mem: pointer; cs: PManifoldPolygons; height: double; slices: longint; twist_degrees: double; scale_x: double; scale_y: double): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_revolve(mem: pointer; cs: PManifoldPolygons; circular_segments: longint; revolve_degrees: double): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_compose(mem: pointer; ms: PManifoldManifoldVec): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_decompose(mem: pointer; m: PManifoldManifold): PManifoldManifoldVec; cdecl; external libmanifoldc;
-//function manifold_as_original(mem: pointer; m: PManifoldManifold): PManifoldManifold; cdecl; external libmanifoldc;
-//
-//function manifold_is_empty(m: PManifoldManifold): longint; cdecl; external libmanifoldc;
-//function manifold_status(m: PManifoldManifold): TManifoldError; cdecl; external libmanifoldc;
-//function manifold_num_vert(m: PManifoldManifold): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_num_edge(m: PManifoldManifold): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_num_tri(m: PManifoldManifold): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_num_prop(m: PManifoldManifold): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_bounding_box(mem: pointer; m: PManifoldManifold): PManifoldBox; cdecl; external libmanifoldc;
-//function manifold_epsilon(m: PManifoldManifold): double; cdecl; external libmanifoldc;
-//function manifold_genus(m: PManifoldManifold): longint; cdecl; external libmanifoldc;
-//function manifold_surface_area(m: PManifoldManifold): double; cdecl; external libmanifoldc;
-//function manifold_volume(m: PManifoldManifold): double; cdecl; external libmanifoldc;
 //function manifold_get_circular_segments(radius: double): longint; cdecl; external libmanifoldc;
-//function manifold_original_id(m: PManifoldManifold): longint; cdecl; external libmanifoldc;
 //function manifold_reserve_ids(n: Tuint32_t): Tuint32_t; cdecl; external libmanifoldc;
+
 //
-//type
-//  Tproperties_func = procedure(new_prop: Pdouble; position: TManifoldVec3; old_prop: Pdouble; ctx: pointer); cdecl;
+
+
 //
-//function manifold_set_properties(mem: pointer; m: PManifoldManifold; num_prop: longint; fun: Tproperties_func; ctx: pointer): PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_calculate_curvature(mem: pointer; m: PManifoldManifold; gaussian_idx: longint; mean_idx: longint): PManifoldManifold; cdecl; external libmanifoldc;
+
+
+//function manifold_bounding_box(mem: pointer; m: PManifoldManifold): PManifoldBox; cdecl; external libmanifoldc;
+
+
 //function manifold_min_gap(m: PManifoldManifold; other: PManifoldManifold; searchLength: double): double; cdecl; external libmanifoldc;
 
 
@@ -318,55 +632,6 @@ end.
 //function manifold_triangulation_num_tri(m: PManifoldTriangulation): Tsize_t; cdecl; external libmanifoldc;
 //function manifold_triangulation_tri_verts(mem: pointer; m: PManifoldTriangulation): Plongint; cdecl; external libmanifoldc;
 //
-//function manifold_manifold_size: Tsize_t; cdecl; external libmanifoldc;
-//function manifold_manifold_vec_size: Tsize_t; cdecl; external libmanifoldc;
-//function manifold_cross_section_size: Tsize_t; cdecl; external libmanifoldc;
-//function manifold_cross_section_vec_size: Tsize_t; cdecl; external libmanifoldc;
-//function manifold_simple_polygon_size: Tsize_t; cdecl; external libmanifoldc;
-//function manifold_polygons_size: Tsize_t; cdecl; external libmanifoldc;
-//function manifold_manifold_pair_size: Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl_size: Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl64_size: Tsize_t; cdecl; external libmanifoldc;
-//function manifold_box_size: Tsize_t; cdecl; external libmanifoldc;
-//function manifold_rect_size: Tsize_t; cdecl; external libmanifoldc;
-//function manifold_curvature_size: Tsize_t; cdecl; external libmanifoldc;
-//function manifold_triangulation_size: Tsize_t; cdecl; external libmanifoldc;
-//
-//function manifold_alloc_manifold: PManifoldManifold; cdecl; external libmanifoldc;
-//function manifold_alloc_manifold_vec: PManifoldManifoldVec; cdecl; external libmanifoldc;
-//function manifold_alloc_cross_section: PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_alloc_cross_section_vec: PManifoldCrossSectionVec; cdecl; external libmanifoldc;
-//function manifold_alloc_simple_polygon: PManifoldSimplePolygon; cdecl; external libmanifoldc;
-//function manifold_alloc_polygons: PManifoldPolygons; cdecl; external libmanifoldc;
-//function manifold_alloc_meshgl: PManifoldMeshGL; cdecl; external libmanifoldc;
-//function manifold_alloc_meshgl64: PManifoldMeshGL64; cdecl; external libmanifoldc;
-//function manifold_alloc_box: PManifoldBox; cdecl; external libmanifoldc;
-//function manifold_alloc_rect: PManifoldRect; cdecl; external libmanifoldc;
-//function manifold_alloc_triangulation: PManifoldTriangulation; cdecl; external libmanifoldc;
-//
-//procedure manifold_destruct_manifold(m: PManifoldManifold); cdecl; external libmanifoldc;
-//procedure manifold_destruct_manifold_vec(ms: PManifoldManifoldVec); cdecl; external libmanifoldc;
-//procedure manifold_destruct_cross_section(m: PManifoldCrossSection); cdecl; external libmanifoldc;
-//procedure manifold_destruct_cross_section_vec(csv: PManifoldCrossSectionVec); cdecl; external libmanifoldc;
-//procedure manifold_destruct_simple_polygon(p: PManifoldSimplePolygon); cdecl; external libmanifoldc;
-//procedure manifold_destruct_polygons(p: PManifoldPolygons); cdecl; external libmanifoldc;
-//procedure manifold_destruct_meshgl(m: PManifoldMeshGL); cdecl; external libmanifoldc;
-//procedure manifold_destruct_meshgl64(m: PManifoldMeshGL64); cdecl; external libmanifoldc;
-//procedure manifold_destruct_box(b: PManifoldBox); cdecl; external libmanifoldc;
-//procedure manifold_destruct_rect(b: PManifoldRect); cdecl; external libmanifoldc;
-//procedure manifold_destruct_triangulation(M: PManifoldTriangulation); cdecl; external libmanifoldc;
-//
-//procedure manifold_delete_manifold(m: PManifoldManifold); cdecl; external libmanifoldc;
-//procedure manifold_delete_manifold_vec(ms: PManifoldManifoldVec); cdecl; external libmanifoldc;
-//procedure manifold_delete_cross_section(cs: PManifoldCrossSection); cdecl; external libmanifoldc;
-//procedure manifold_delete_cross_section_vec(csv: PManifoldCrossSectionVec); cdecl; external libmanifoldc;
-//procedure manifold_delete_simple_polygon(p: PManifoldSimplePolygon); cdecl; external libmanifoldc;
-//procedure manifold_delete_polygons(p: PManifoldPolygons); cdecl; external libmanifoldc;
-//procedure manifold_delete_meshgl(m: PManifoldMeshGL); cdecl; external libmanifoldc;
-//procedure manifold_delete_meshgl64(m: PManifoldMeshGL64); cdecl; external libmanifoldc;
-//procedure manifold_delete_box(b: PManifoldBox); cdecl; external libmanifoldc;
-//procedure manifold_delete_rect(b: PManifoldRect); cdecl; external libmanifoldc;
-//procedure manifold_delete_triangulation(m: PManifoldTriangulation); cdecl; external libmanifoldc;
 //
 //function manifold_material(mem: pointer): PManifoldMaterial; cdecl; external libmanifoldc;
 //procedure manifold_material_set_roughness(mat: PManifoldMaterial; roughness: double); cdecl; external libmanifoldc;

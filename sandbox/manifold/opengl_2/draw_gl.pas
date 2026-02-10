@@ -53,24 +53,25 @@ var
   = nil;
   er: TManifoldError;
 
-  cube, holeX, holeY, holeZ: TManifold;
+  cube, hole: TManifold;
 
 begin
   cube := TManifold.cube(10.0, 10.0, 10.0, 1);
 
-  holeX := TManifold.cube(20.0, 6.0, 6.0, 1);
-  cube := TManifold.difference( cube, holeX, True, True);
+  hole := TManifold.cube(20.0, 6.0, 6.0, 1);
+  hole := TManifold.rotate(hole, 10.0, 0.0, 0.0, True);
+  cube := TManifold.difference(cube, hole, True, True);
 
-  holeY := TManifold.cube(6.0, 20.0, 6.0, 1);
-  cube := TManifold.difference( cube, holeY, True, True);
+  hole := TManifold.cube(6.0, 20.0, 6.0, 1);
+  cube := TManifold.difference(cube, hole, True, True);
 
-  holeZ := TManifold.cylinder(20.0, 4.5, 4.5, 32, 1);
-  cube := TManifold.difference( cube, holeZ, True, True);
+  hole := TManifold.cylinder(20.0, 4.5, 4.5, 32, 1);
+  cube := TManifold.difference(cube, hole, True, True);
 
 
   // --- 4. DATEN-EXTRAKTION ---
 
-  cube:= TManifold.calculate_normals(cube, 3, 60.0, True);
+  cube := TManifold.calculate_normals(cube, 3, 60.0, True);
 
   er := manifold_status(cube.obj);
   if er <> MANIFOLD_NO_ERROR then begin
