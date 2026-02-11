@@ -29,15 +29,8 @@ type
 
 implementation
 
-type
-  TMMGLdata = record
-    o: PManifoldManifold;
-    m: array[0..231] of byte;
-  end;
-
 procedure draw;
 var
-//  mesh: TMMGLdata;
   mesh: TMeshGL;
 
   n_verts, n_tris, n_props: longint;
@@ -52,12 +45,9 @@ var
     v, n: TVector3f;
     end
   = nil;
+
   er: TManifoldError;
-
   cube, hole: TManifold;
-
-  vertbuf:PSingle;
-  indbuf:Pint32_t;
 
 begin
   cube := TManifold.cube(10.0, 10.0, 10.0, 1);
@@ -72,9 +62,6 @@ begin
   hole := TManifold.cylinder(20.0, 4.5, 4.5, 32, 1);
   cube := TManifold.difference(cube, hole, True, True);
 
-
-  // --- 4. DATEN-EXTRAKTION ---
-
   cube := TManifold.calculate_normals(cube, 3, 60.0, True);
 
   er := manifold_status(cube.obj);
@@ -84,9 +71,9 @@ begin
 
   mesh := TMeshGL.get_meshgl(cube, True);
 
-    n_verts := mesh.num_vert;
-  n_tris := mesh.num_tri;
-  n_props :=mesh.num_prop;
+    n_verts := mesh.meshgl_num_vert;
+  n_tris := mesh.meshgl_num_tri;
+  n_props :=mesh.meshgl_num_prop;
 
 
   WriteLn('--- MANIFOLD CSG ERGEBNIS ---');
@@ -94,20 +81,8 @@ begin
   WriteLn('n_tris: ', n_tris);
   WriteLn('n_props: ', n_props);
 
-
-
-  //Getmem(vertbuf,  n_verts * n_props * SizeOf(Single));
-  //PSingle(verts_data):=  manifold_meshgl_vert_properties(vertbuf, mesh.obj);
-  //
-  //Getmem(indbuf,  n_verts * n_props * SizeOf(Int32));
-  //tris_data:=  manifold_meshgl_tri_verts(indbuf, mesh.obj);
-//  manifold_meshgl_tri_verts(Puint32_t(tris_data), mesh.obj);
-//  manifold_meshgl_vert_properties(PSingle(verts_data), mesh.obj);
-
-   tris_data:= mesh.tri_verts;
-    PSingle(verts_data):=  mesh.vert_properties;
-
-
+   tris_data:= mesh.meshgl_tri_verts;
+    verts_data:=  mesh.meshgl_vert_properties;
 
   WriteLn(#10'Liste aller Eckpunkte (Vertices):');
 
@@ -132,6 +107,8 @@ begin
     vectors[i].n[1] := ny;
     vectors[i].n[2] := nz;
   end;
+
+  mesh.Free;
 
   WriteLn(#10'Liste aller Dreiecke (Indices):');
   glBegin(GL_TRIANGLES);
@@ -158,13 +135,6 @@ begin
 
   end;
   glEnd;
-
-//  Freemem(vertbuf);
-//  Freemem(indbuf);
-    mesh.Free;
-
-
-
 end;
 
 

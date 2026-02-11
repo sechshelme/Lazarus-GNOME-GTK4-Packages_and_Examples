@@ -80,8 +80,8 @@ type
     private
     Fmem:Pointer;
     Fobj:PManifoldMeshGL;
-    vpmem: array of Single;
-    tvmem: array of Tuint32_t;
+    vpmem,     tvmem ,mfvmem,mtvmen, rimem, roimem,rtmem,fimem,htmem      : array of Byte;
+
     procedure Init;
     public
     property obj:PManifoldMeshGL read Fobj;
@@ -93,9 +93,52 @@ type
     constructor meshgl_copy(m: TMeshGL; clean: Boolean);
     constructor meshgl_merge(m: TMeshGL; clean: Boolean);
 
-    function num_prop: longint;
-    function num_vert: longint;
-    function num_tri: longint;
+    function meshgl_num_prop: longint;
+    function meshgl_num_vert: longint;
+    function meshgl_num_tri: longint;
+    function meshgl_vert_properties_length: Tsize_t;
+    function meshgl_tri_length: Tsize_t;
+    function meshgl_merge_length: Tsize_t;
+    function meshgl_run_index_length: Tsize_t;
+    function meshgl_run_original_id_length: Tsize_t;
+    function meshgl_run_transform_length: Tsize_t;
+    function meshgl_face_id_length: Tsize_t;
+    function meshgl_tangent_length: Tsize_t;
+    function meshgl_vert_properties: Psingle;
+    function meshgl_tri_verts: Puint32_t;
+    function meshgl_merge_from_vert: Puint32_t;
+    function meshgl_merge_to_vert: Puint32_t;
+    function meshgl_run_index: Puint32_t;
+    function meshgl_run_original_id: Puint32_t;
+    function meshgl_run_transform: Psingle;
+    function meshgl_face_id: Puint32_t;
+    function meshgl_halfedge_tangent: Psingle;
+
+    destructor Destroy; override;
+  end;
+
+  { TMeshGL64 }
+
+  TMeshGL64=class(TObject)
+    private
+    Fmem:Pointer;
+    Fobj:PManifoldMeshGL;
+    vpmem,     tvmem ,mfvmem,mtvmen, rimem, roimem,rtmem,fimem,htmem      : array of Byte;
+
+    procedure Init;
+    public
+    property obj:PManifoldMeshGL read Fobj;
+    property mem:Pointer read Fmem;
+
+    constructor meshgl( vert_props: PDouble; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint64_t; n_tris: Tsize_t);
+    constructor meshgl_w_tangents(vert_props: PDouble; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint64_t; n_tris: Tsize_t; halfedge_tangent: PDouble);
+    constructor get_meshgl(m: TManifold; clean: Boolean);
+    constructor meshgl_copy(m: TMeshGL64; clean: Boolean);
+    constructor meshgl_merge(m: TMeshGL64; clean: Boolean);
+
+    function num_prop: Tsize_t;
+    function num_vert: Tsize_t;
+    function num_tri: Tsize_t;
     function vert_properties_length: Tsize_t;
     function tri_length: Tsize_t;
     function merge_length: Tsize_t;
@@ -104,18 +147,19 @@ type
     function run_transform_length: Tsize_t;
     function face_id_length: Tsize_t;
     function tangent_length: Tsize_t;
-    function vert_properties: Psingle;
-    function tri_verts: Puint32_t;
-    function merge_from_vert: Puint32_t;
-    function merge_to_vert: Puint32_t;
-    function run_index: Puint32_t;
+    function vert_properties: PDouble;
+    function tri_verts: Puint64_t;
+    function merge_from_vert: Puint64_t;
+    function merge_to_vert: Puint64_t;
+    function run_index: Puint64_t;
     function run_original_id: Puint32_t;
-    function run_transform: Psingle;
-    function face_id: Puint32_t;
-    function halfedge_tangent: Psingle;
+    function run_transform: PDouble;
+    function face_id: Puint64_t;
+    function halfedge_tangent: PDouble;
 
     destructor Destroy; override;
   end;
+
 
 
 implementation
@@ -521,121 +565,140 @@ Fobj:=manifold_meshgl_merge(Fmem, m.Fobj);
   if clean then m.Free;
 end;
 
-function TMeshGL.num_prop: longint;
+function TMeshGL.meshgl_num_prop: longint;
 begin
 Result:=manifold_meshgl_num_prop(Fobj);
 end;
 
-function TMeshGL.num_vert: longint;
+function TMeshGL.meshgl_num_vert: longint;
 begin
 Result:=manifold_meshgl_num_vert(Fobj);
 end;
 
-function TMeshGL.num_tri: longint;
+function TMeshGL.meshgl_num_tri: longint;
 begin
 Result:=manifold_meshgl_num_tri(Fobj);
 end;
 
-function TMeshGL.vert_properties_length: Tsize_t;
+function TMeshGL.meshgl_vert_properties_length: Tsize_t;
 begin
 Result:=manifold_meshgl_vert_properties_length(Fobj);
 end;
 
-function TMeshGL.tri_length: Tsize_t;
+function TMeshGL.meshgl_tri_length: Tsize_t;
 begin
 Result:=manifold_meshgl_tri_length(Fobj);
 end;
 
-function TMeshGL.merge_length: Tsize_t;
+function TMeshGL.meshgl_merge_length: Tsize_t;
 begin
 Result:=manifold_meshgl_merge_length(Fobj);
 end;
 
-function TMeshGL.run_index_length: Tsize_t;
+function TMeshGL.meshgl_run_index_length: Tsize_t;
 begin
 Result:=manifold_meshgl_run_index_length(Fobj);
 end;
 
-function TMeshGL.run_original_id_length: Tsize_t;
+function TMeshGL.meshgl_run_original_id_length: Tsize_t;
 begin
 Result:=manifold_meshgl_run_original_id_length(Fobj);
 end;
 
-function TMeshGL.run_transform_length: Tsize_t;
+function TMeshGL.meshgl_run_transform_length: Tsize_t;
 begin
 Result:=manifold_meshgl_run_transform_length(Fobj);
 end;
 
-function TMeshGL.face_id_length: Tsize_t;
+function TMeshGL.meshgl_face_id_length: Tsize_t;
 begin
 Result:=manifold_meshgl_face_id_length(Fobj);
 end;
 
-function TMeshGL.tangent_length: Tsize_t;
+function TMeshGL.meshgl_tangent_length: Tsize_t;
 begin
 Result:=manifold_meshgl_tangent_length(Fobj);
 end;
 
-function TMeshGL.vert_properties: Psingle;
+function TMeshGL.meshgl_vert_properties: Psingle;
 var
-  n_verts, n_props: LongInt;
+  len: Tsize_t;
 begin
-  n_verts := num_vert;
-n_props :=num_prop;
-SetLength(vpmem,  n_verts * n_props * SizeOf(Single));
-Result:=manifold_meshgl_vert_properties(PSingle( vpmem), Fobj);
+len:=meshgl_vert_properties_length;
+SetLength(vpmem,  len * SizeOf(Single));
+Result:=manifold_meshgl_vert_properties(Pointer( vpmem), Fobj);
 end;
 
-function TMeshGL.tri_verts: Puint32_t;
+function TMeshGL.meshgl_tri_verts: Puint32_t;
 var
-  n_verts, n_props: LongInt;
+  len: Tsize_t;
 begin
-  n_verts := num_vert;
-n_props :=num_prop;
-  SetLength(tvmem,  n_verts * n_props * SizeOf(Int32));
-Result:=manifold_meshgl_tri_verts(Puint32_t( tvmem), Fobj);
+  len := meshgl_tri_length;
+  SetLength(tvmem,  len* SizeOf(Tuint32_t));
+Result:=manifold_meshgl_tri_verts(Pointer( tvmem), Fobj);
 end;
 
-function TMeshGL.merge_from_vert: Puint32_t;
+function TMeshGL.meshgl_merge_from_vert: Puint32_t;
+var
+  len: Tsize_t;
 begin
-// SetLength(Fmerge_from_vert, n_verts * SizeOf(UInt32));
-Result:=manifold_meshgl_merge_from_vert(Fmem, Fobj);
+  len := meshgl_merge_length;
+SetLength(mfvmem, len * SizeOf(Tuint32_t));
+Result:=manifold_meshgl_merge_from_vert(Pointer(mfvmem), Fobj);
 end;
 
-function TMeshGL.merge_to_vert: Puint32_t;
+function TMeshGL.meshgl_merge_to_vert: Puint32_t;
+var
+  len: Tsize_t;
 begin
-// SetLength(Fmerge_to_vert, n_verts * SizeOf(UInt32));
-Result:=manifold_meshgl_merge_to_vert(Fmem, Fobj);
+  len := meshgl_merge_length;
+SetLength(mtvmen, len * SizeOf(Tuint32_t));
+Result:=manifold_meshgl_merge_to_vert(Pointer(mtvmen), Fobj);
 end;
 
-function TMeshGL.run_index: Puint32_t;
+function TMeshGL.meshgl_run_index: Puint32_t;
+var
+  len: Tsize_t;
 begin
-// SetLength(Frun_index, (n_tris div 3 + 2) * SizeOf(UInt32));
-Result:=manifold_meshgl_run_index(Fmem, Fobj);
+  len := meshgl_run_index_length;
+ SetLength(rimem, len * SizeOf(Tuint32_t));
+Result:=manifold_meshgl_run_index(Pointer(rimem), Fobj);
 end;
 
-function TMeshGL.run_original_id: Puint32_t;
+function TMeshGL.meshgl_run_original_id: Puint32_t;
+var
+  len: Tsize_t;
 begin
-// SetLength(Frun_original_id, (n_tris div 3) * SizeOf(UInt32));
-Result:=manifold_meshgl_run_original_id(Fmem, Fobj);
+  len := meshgl_run_original_id_length;
+ SetLength(roimem, len * SizeOf(Tuint32_t));
+Result:=manifold_meshgl_run_original_id(Pointer( roimem), Fobj);
 end;
 
-function TMeshGL.run_transform: Psingle;
+function TMeshGL.meshgl_run_transform: Psingle;
+var
+  len: Tsize_t;
 begin
-// SetLength(Frun_transform, n_verts * 3 * SizeOf(Single));
-Result:=manifold_meshgl_run_transform(Fmem, Fobj);
+  len := meshgl_run_transform_length;
+ SetLength(rtmem, len * SizeOf(Single));
+Result:=manifold_meshgl_run_transform(Pointer(rtmem), Fobj);
 end;
 
-function TMeshGL.face_id: Puint32_t;
+function TMeshGL.meshgl_face_id: Puint32_t;
+var
+  len: Tsize_t;
 begin
-//   SetLength(Fface_id, n_tris * SizeOf(UInt32));
-Result:=manifold_meshgl_face_id(Fmem, Fobj);
+  len := meshgl_face_id_length;
+   SetLength(fimem, len * SizeOf(UInt32));
+Result:=manifold_meshgl_face_id(Pointer( fimem), Fobj);
 end;
 
-function TMeshGL.halfedge_tangent: Psingle;
+function TMeshGL.meshgl_halfedge_tangent: Psingle;
+var
+  len: Tsize_t;
 begin
-//  SetLength(Fhalfedge_tangent, n_tris * 3 * SizeOf(Single));
-  Result:=manifold_meshgl_halfedge_tangent(Fmem, Fobj);
+  len := meshgl_tangent_length;
+  SetLength(htmem, len* SizeOf(Single));
+  Result:=manifold_meshgl_halfedge_tangent(Pointer(htmem), Fobj);
 end;
 
 destructor TMeshGL.Destroy;
@@ -644,6 +707,195 @@ begin
   Freemem(Fmem);
   inherited Destroy;
 end;
+
+
+{ TMeshGL64 }
+
+procedure TMeshGL64.Init;
+var
+  m_size: Tsize_t;
+begin
+  m_size := manifold_meshgl_size;
+   Getmem(Fmem, m_size);
+end;
+
+constructor TMeshGL64.meshgl(vert_props: PDouble; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint64_t; n_tris: Tsize_t);
+begin
+  Init;
+Fobj:= manifold_meshgl64(Fmem, vert_props, n_verts, n_props, tri_verts, n_tris);
+end;
+
+constructor TMeshGL64.meshgl_w_tangents(vert_props: PDouble; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint64_t; n_tris: Tsize_t; halfedge_tangent: PDouble);
+begin
+  Init;
+Fobj:=manifold_meshgl64_w_tangents(Fmem, vert_props, n_verts, n_props, tri_verts, n_tris,halfedge_tangent);
+end;
+
+constructor TMeshGL64.get_meshgl(m: TManifold; clean: Boolean);
+begin
+  Init;
+Fobj:=manifold_get_meshgl64(Fmem, m.Fobj);
+  if clean then m.Free;
+end;
+
+constructor TMeshGL64.meshgl_copy(m: TMeshGL64; clean: Boolean);
+begin
+  Init;
+Fobj:= manifold_meshgl64_copy(Fmem, m.Fobj);
+  if clean then m.Free;
+end;
+
+constructor TMeshGL64.meshgl_merge(m: TMeshGL64; clean: Boolean);
+begin
+  Init;
+Fobj:=manifold_meshgl64_merge(Fmem, m.Fobj);
+  if clean then m.Free;
+end;
+
+function TMeshGL64.num_prop: Tsize_t;
+begin
+Result:=manifold_meshgl64_num_prop(Fobj);
+end;
+
+function TMeshGL64.num_vert: Tsize_t;
+begin
+Result:=manifold_meshgl64_num_vert(Fobj);
+end;
+
+function TMeshGL64.num_tri: Tsize_t;
+begin
+Result:=manifold_meshgl64_num_tri(Fobj);
+end;
+
+function TMeshGL64.vert_properties_length: Tsize_t;
+begin
+Result:=manifold_meshgl64_vert_properties_length(Fobj);
+end;
+
+function TMeshGL64.tri_length: Tsize_t;
+begin
+Result:=manifold_meshgl64_tri_length(Fobj);
+end;
+
+function TMeshGL64.merge_length: Tsize_t;
+begin
+Result:=manifold_meshgl64_merge_length(Fobj);
+end;
+
+function TMeshGL64.run_index_length: Tsize_t;
+begin
+Result:=manifold_meshgl64_run_index_length(Fobj);
+end;
+
+function TMeshGL64.run_original_id_length: Tsize_t;
+begin
+Result:=manifold_meshgl64_run_original_id_length(Fobj);
+end;
+
+function TMeshGL64.run_transform_length: Tsize_t;
+begin
+Result:=manifold_meshgl64_run_transform_length(Fobj);
+end;
+
+function TMeshGL64.face_id_length: Tsize_t;
+begin
+Result:=manifold_meshgl64_face_id_length(Fobj);
+end;
+
+function TMeshGL64.tangent_length: Tsize_t;
+begin
+Result:=manifold_meshgl64_tangent_length(Fobj);
+end;
+
+function TMeshGL64.vert_properties: PDouble;
+var
+  len: Tsize_t;
+begin
+len:=vert_properties_length;
+SetLength(vpmem,  len * SizeOf(Double));
+Result:=manifold_meshgl64_vert_properties(Pointer( vpmem), Fobj);
+end;
+
+function TMeshGL64.tri_verts: Puint64_t;
+var
+  len: Tsize_t;
+begin
+  len := tri_length;
+  SetLength(tvmem,  len* SizeOf(Tuint64_t));
+Result:=manifold_meshgl64_tri_verts(Pointer( tvmem), Fobj);
+end;
+
+function TMeshGL64.merge_from_vert: Puint64_t;
+var
+  len: Tsize_t;
+begin
+  len := merge_length;
+SetLength(mfvmem, len * SizeOf(Tuint64_t));
+Result:=manifold_meshgl64_merge_from_vert(Pointer(mfvmem), Fobj);
+end;
+
+function TMeshGL64.merge_to_vert: Puint64_t;
+var
+  len: Tsize_t;
+begin
+  len := merge_length;
+SetLength(mtvmen, len * SizeOf(Tuint64_t));
+Result:=manifold_meshgl64_merge_to_vert(Pointer(mtvmen), Fobj);
+end;
+
+function TMeshGL64.run_index: Puint64_t;
+var
+  len: Tsize_t;
+begin
+  len := run_index_length;
+ SetLength(rimem, len * SizeOf(Tuint64_t));
+Result:=manifold_meshgl64_run_index(Pointer(rimem), Fobj);
+end;
+
+function TMeshGL64.run_original_id: Puint32_t;
+var
+  len: Tsize_t;
+begin
+  len := run_original_id_length;
+ SetLength(roimem, len * SizeOf(Tuint64_t));
+Result:=manifold_meshgl64_run_original_id(Pointer( roimem), Fobj);
+end;
+
+function TMeshGL64.run_transform: PDouble;
+var
+  len: Tsize_t;
+begin
+  len := run_transform_length;
+ SetLength(rtmem, len * SizeOf(Double));
+Result:=manifold_meshgl64_run_transform(Pointer(rtmem), Fobj);
+end;
+
+function TMeshGL64.face_id: Puint64_t;
+var
+  len: Tsize_t;
+begin
+  len := face_id_length;
+   SetLength(fimem, len * SizeOf(UInt64));
+Result:=manifold_meshgl64_face_id(Pointer( fimem), Fobj);
+end;
+
+function TMeshGL64.halfedge_tangent: PDouble;
+var
+  len: Tsize_t;
+begin
+  len := tangent_length;
+  SetLength(htmem, len* SizeOf(Double));
+  Result:=manifold_meshgl64_halfedge_tangent(Pointer(htmem), Fobj);
+end;
+
+destructor TMeshGL64.Destroy;
+begin
+  manifold_destruct_meshgl(Fobj);
+  Freemem(Fmem);
+  inherited Destroy;
+end;
+
+
 
 end.
 
@@ -663,11 +915,6 @@ end.
 
 
 
-//function manifold_meshgl64(mem: pointer; vert_props: Pdouble; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint64_t; n_tris: Tsize_t): PManifoldMeshGL64; cdecl; external libmanifoldc;
-//function manifold_meshgl64_w_tangents(mem: pointer; vert_props: Pdouble; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint64_t; n_tris: Tsize_t; halfedge_tangent: Pdouble): PManifoldMeshGL64; cdecl; external libmanifoldc;
-//function manifold_get_meshgl64(mem: pointer; m: PManifoldManifold): PManifoldMeshGL64; cdecl; external libmanifoldc;
-//function manifold_meshgl64_copy(mem: pointer; m: PManifoldMeshGL64): PManifoldMeshGL64; cdecl; external libmanifoldc;
-//function manifold_meshgl64_merge(mem: pointer; m: PManifoldMeshGL64): PManifoldMeshGL64; cdecl; external libmanifoldc;
 //
 
 //
@@ -798,26 +1045,6 @@ end.
 //procedure manifold_reset_to_circular_defaults; cdecl; external libmanifoldc;
 //
 
-//function manifold_meshgl64_num_prop(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl64_num_vert(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl64_num_tri(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl64_vert_properties_length(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl64_tri_length(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl64_merge_length(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl64_run_index_length(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl64_run_original_id_length(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl64_run_transform_length(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl64_face_id_length(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl64_tangent_length(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_meshgl64_vert_properties(mem: pointer; m: PManifoldMeshGL64): Pdouble; cdecl; external libmanifoldc;
-//function manifold_meshgl64_tri_verts(mem: pointer; m: PManifoldMeshGL64): Puint64_t; cdecl; external libmanifoldc;
-//function manifold_meshgl64_merge_from_vert(mem: pointer; m: PManifoldMeshGL64): Puint64_t; cdecl; external libmanifoldc;
-//function manifold_meshgl64_merge_to_vert(mem: pointer; m: PManifoldMeshGL64): Puint64_t; cdecl; external libmanifoldc;
-//function manifold_meshgl64_run_index(mem: pointer; m: PManifoldMeshGL64): Puint64_t; cdecl; external libmanifoldc;
-//function manifold_meshgl64_run_original_id(mem: pointer; m: PManifoldMeshGL64): Puint32_t; cdecl; external libmanifoldc;
-//function manifold_meshgl64_run_transform(mem: pointer; m: PManifoldMeshGL64): Pdouble; cdecl; external libmanifoldc;
-//function manifold_meshgl64_face_id(mem: pointer; m: PManifoldMeshGL64): Puint64_t; cdecl; external libmanifoldc;
-//function manifold_meshgl64_halfedge_tangent(mem: pointer; m: PManifoldMeshGL64): Pdouble; cdecl; external libmanifoldc;
 //
 //function manifold_triangulate(mem: pointer; ps: PManifoldPolygons; epsilon: double): PManifoldTriangulation; cdecl; external libmanifoldc;
 //function manifold_triangulation_num_tri(m: PManifoldTriangulation): Tsize_t; cdecl; external libmanifoldc;

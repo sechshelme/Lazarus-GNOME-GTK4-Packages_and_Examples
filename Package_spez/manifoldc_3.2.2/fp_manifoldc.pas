@@ -369,6 +369,7 @@ function manifold_meshgl_run_original_id(mem: pointer; m: PManifoldMeshGL): Puin
 function manifold_meshgl_run_transform(mem: pointer; m: PManifoldMeshGL): Psingle; cdecl; external libmanifoldc;
 function manifold_meshgl_face_id(mem: pointer; m: PManifoldMeshGL): Puint32_t; cdecl; external libmanifoldc;
 function manifold_meshgl_halfedge_tangent(mem: pointer; m: PManifoldMeshGL): Psingle; cdecl; external libmanifoldc;
+
 function manifold_meshgl64_num_prop(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;
 function manifold_meshgl64_num_vert(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;
 function manifold_meshgl64_num_tri(m: PManifoldMeshGL64): Tsize_t; cdecl; external libmanifoldc;
