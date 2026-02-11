@@ -5,9 +5,6 @@ uses
   fp_rlgl,
   fp_raylib;
 
-function rlMatrixMultiply(vaoId: dword): Tbool; cdecl; external libraylib;
-
-
   function vec3(x, y, z: single): TVector3; inline;
   begin
     Result.x := x;
@@ -20,8 +17,6 @@ function rlMatrixMultiply(vaoId: dword): Tbool; cdecl; external libraylib;
     camera: TCamera3D;
     rotation: single = 0.0;
   begin
-    rlMatrixMultiply(0);
-
     InitWindow(800, 600, 'Rotierender Würfel');
 
     FillChar(camera, SizeOf(camera), 0);
