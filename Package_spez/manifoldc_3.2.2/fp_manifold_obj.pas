@@ -6,6 +6,9 @@ uses
   fp_manifoldc;
 
 type
+  TMeshGL=class;
+  TMeshGL64=class;
+
 
   { TManifold }
 
@@ -46,10 +49,10 @@ type
     constructor cube(x, y, z: double; center: longint);
     constructor cylinder(height, radius_low,radius_high: double; circular_segments, center: longint);
     constructor sphere(radius: double; circular_segments: longint);
-    constructor of_meshgl( mesh: PManifoldMeshGL);    // ????
-    constructor of_meshgl64( mesh: PManifoldMeshGL64);  // ????
-    constructor smooth( mesh: PManifoldMeshGL; half_edges: Psize_t; smoothness: Pdouble; n_idxs: Tsize_t);  // ????
-    constructor smooth64(mesh: PManifoldMeshGL64; half_edges: Psize_t; smoothness: Pdouble; n_idxs: Tsize_t);  // ????
+    constructor of_meshgl( mesh: TMeshGL; clean: Boolean);
+    constructor of_meshgl64( mesh: TMeshGL64; clean: Boolean);
+    constructor smooth( mesh: TMeshGL; half_edges: Psize_t; smoothness: Pdouble; n_idxs: Tsize_t; clean: Boolean);
+    constructor smooth64(mesh: TMeshGL64; half_edges: Psize_t; smoothness: Pdouble; n_idxs: Tsize_t; clean: Boolean);
     constructor extrude( cs: PManifoldPolygons; height: double; slices: longint; twist_degrees,scale_x, scale_y: double);  // ????
     constructor revolve( cs: PManifoldPolygons; circular_segments: longint; revolve_degrees: double) ; // ????
     constructor compose(ms: PManifoldManifoldVec);  // ????
@@ -376,32 +379,32 @@ begin
   Fobj:=manifold_sphere(Fmem, radius,circular_segments);
 end;
 
-constructor TManifold.of_meshgl(mesh: PManifoldMeshGL);
+constructor TManifold.of_meshgl(mesh: TMeshGL; clean: Boolean);
 begin
   Init;
-  Fobj:=manifold_of_meshgl(Fmem, mesh);
-  // if clean  ms.Free
+  Fobj:=manifold_of_meshgl(Fmem, mesh.Fobj);
+   if clean then mesh.Free
 end;
 
-constructor TManifold.of_meshgl64(mesh: PManifoldMeshGL64);
+constructor TManifold.of_meshgl64(mesh: TMeshGL64; clean: Boolean);
 begin
   Init;
-  Fobj:=manifold_of_meshgl64(Fmem, mesh);
-  // if clean  ms.Free
+  Fobj:=manifold_of_meshgl64(Fmem, mesh.Fobj);
+   if clean then mesh.Free
 end;
 
-constructor TManifold.smooth(mesh: PManifoldMeshGL; half_edges: Psize_t; smoothness: Pdouble; n_idxs: Tsize_t);
+constructor TManifold.smooth(mesh: TMeshGL; half_edges: Psize_t; smoothness: Pdouble; n_idxs: Tsize_t; clean: Boolean);
 begin
   Init;
-  Fobj:=manifold_smooth(Fmem,mesh, half_edges, smoothness, n_idxs);
-  // if clean  ms.Free
+  Fobj:=manifold_smooth(Fmem,mesh.Fobj, half_edges, smoothness, n_idxs);
+   if clean then mesh.Free
 end;
 
-constructor TManifold.smooth64(mesh: PManifoldMeshGL64; half_edges: Psize_t; smoothness: Pdouble; n_idxs: Tsize_t);
+constructor TManifold.smooth64(mesh: TMeshGL64; half_edges: Psize_t; smoothness: Pdouble; n_idxs: Tsize_t; clean: Boolean);
 begin
   Init;
-  Fobj:= manifold_smooth64(Fmem, mesh,half_edges, smoothness, n_idxs);
-  // if clean  ms.Free
+  Fobj:= manifold_smooth64(Fmem, mesh.Fobj,half_edges, smoothness, n_idxs);
+   if clean then mesh.Free
 end;
 
 constructor TManifold.extrude(cs: PManifoldPolygons; height: double; slices: longint; twist_degrees, scale_x, scale_y: double);

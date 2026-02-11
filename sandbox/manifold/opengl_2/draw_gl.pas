@@ -49,17 +49,21 @@ var
   er: TManifoldError;
   cube, hole: TManifold;
 
+  const
+    Sektor=32;
+
 begin
   cube := TManifold.cube(10.0, 10.0, 10.0, 1);
 
   hole := TManifold.cube(20.0, 6.0, 6.0, 1);
-  hole := TManifold.rotate(hole, 10.0, 0.0, 0.0, True);
+  hole := TManifold.rotate(hole, 20.0, 0.0, 0.0, True);
   cube := TManifold.difference(cube, hole, True, True);
 
-  hole := TManifold.cube(6.0, 20.0, 6.0, 1);
+  hole := TManifold.cylinder(20.0, 3.5, 3.5, Sektor, 1);
+  hole := TManifold.rotate(hole, 90.0, 0.0, 0.0, True);
   cube := TManifold.difference(cube, hole, True, True);
 
-  hole := TManifold.cylinder(20.0, 4.5, 4.5, 32, 1);
+  hole := TManifold.cylinder(20.0, 3.5, 3.5, Sektor, 1);
   cube := TManifold.difference(cube, hole, True, True);
 
   cube := TManifold.calculate_normals(cube, 3, 60.0, True);
@@ -112,7 +116,7 @@ begin
 
   WriteLn(#10'Liste aller Dreiecke (Indices):');
   glBegin(GL_TRIANGLES);
-  for  i := 0 to n_tris - 1 do begin
+  for  i := 0+1 to n_tris - 1 do begin
     a := tris_data[i * 3 + 0];
     b := tris_data[i * 3 + 1];
     c := tris_data[i * 3 + 2];
