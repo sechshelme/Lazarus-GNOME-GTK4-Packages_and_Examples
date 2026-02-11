@@ -11,7 +11,7 @@ type
 
   TManifold=class(TObject)
     private
-    mem:Pointer;
+    Fmem:Pointer;
     Fobj:PManifoldManifold;
     procedure Init;
     public
@@ -78,11 +78,14 @@ type
 
   TMeshGL=class(TObject)
     private
-    mem:Pointer;
+    Fmem:Pointer;
     Fobj:PManifoldMeshGL;
+    vpmem: array of Single;
+    tvmem: array of Tuint32_t;
     procedure Init;
     public
     property obj:PManifoldMeshGL read Fobj;
+    property mem:Pointer read Fmem;
 
     constructor meshgl( vert_props: Psingle; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint32_t; n_tris: Tsize_t);
     constructor meshgl_w_tangents(vert_props: Psingle; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint32_t; n_tris: Tsize_t; halfedge_tangent: Psingle);
@@ -124,27 +127,27 @@ var
   m_size: Tsize_t;
 begin
   m_size := manifold_manifold_size;
-   Getmem(mem, m_size);
+   Getmem(Fmem, m_size);
 end;
 
 constructor TManifold.level_set(sdf: TManifoldSdf; bounds: PManifoldBox; edge_length, level, tolerance: double; ctx: pointer);
 begin
   Init;
-  Fobj:=manifold_level_set(mem, sdf, bounds, edge_length,level,tolerance, ctx);
+  Fobj:=manifold_level_set(Fmem, sdf, bounds, edge_length,level,tolerance, ctx);
    // if clean  bounds.Free
 end;
 
 constructor TManifold.level_set_seq(sdf: TManifoldSdf; bounds: PManifoldBox; edge_length, level, tolerance: double; ctx: pointer);
 begin
   Init;
-  Fobj:= manifold_level_set_seq(mem, sdf,bounds, edge_length, level, tolerance, ctx);
+  Fobj:= manifold_level_set_seq(Fmem, sdf,bounds, edge_length, level, tolerance, ctx);
    // if clean  bounds.Free
 end;
 
 constructor TManifold.boolean(a, b: TManifold; op: TManifoldOpType; clean_a: Boolean; clean_b: Boolean);
 begin
   Init;
-  Fobj:=  manifold_boolean(mem, a.Fobj, b.Fobj, op);
+  Fobj:=  manifold_boolean(Fmem, a.Fobj, b.Fobj, op);
   if clean_a then a.Free;
  if clean_b then b.Free;
 end;
@@ -152,14 +155,14 @@ end;
 constructor TManifold.batch_boolean(ms: PManifoldManifoldVec; op: TManifoldOpType);
 begin
   Init;
-  Fobj:= manifold_batch_boolean(mem, ms, op);
+  Fobj:= manifold_batch_boolean(Fmem, ms, op);
   // if clean  ms.Free
 end;
 
 constructor TManifold.union(a, b: TManifold; clean_a: Boolean; clean_b: Boolean);
 begin
   Init;
-  Fobj:= manifold_union(mem, a.Fobj, b.Fobj);
+  Fobj:= manifold_union(Fmem, a.Fobj, b.Fobj);
   if clean_a then a.Free;
  if clean_b then b.Free;
 end;
@@ -167,7 +170,7 @@ end;
 constructor TManifold.difference(a, b: TManifold; clean_a: Boolean; clean_b: Boolean);
 begin
    Init;
-Fobj:= manifold_difference(mem, a.Fobj, b.Fobj);
+Fobj:= manifold_difference(Fmem, a.Fobj, b.Fobj);
   if clean_a then a.Free;
   if clean_b then b.Free;
 end;
@@ -175,7 +178,7 @@ end;
 constructor TManifold.intersection(a, b: TManifold; clean_a: Boolean; clean_b: Boolean);
 begin
   Init;
-  Fobj:=  manifold_intersection(mem, a.Fobj, b.Fobj);
+  Fobj:=  manifold_intersection(Fmem, a.Fobj, b.Fobj);
  if clean_a then a.Free;
  if clean_b then b.Free;
 end;
@@ -183,233 +186,233 @@ end;
 constructor TManifold.trim_by_plane(m: TManifold; normal_x, normal_y, normal_z, offset: double; clean: Boolean);
 begin
   Init;
-  Fobj:=  manifold_trim_by_plane(mem, m.Fobj, normal_x, normal_y, normal_z, offset);
+  Fobj:=  manifold_trim_by_plane(Fmem, m.Fobj, normal_x, normal_y, normal_z, offset);
  if clean then m.Free;
 end;
 
 constructor TManifold.hull(m: TManifold; clean: Boolean);
 begin
   Init;
-Fobj:= manifold_hull(mem, m.Fobj);
+Fobj:= manifold_hull(Fmem, m.Fobj);
   if clean then m.Free;
 end;
 
 constructor TManifold.batch_hull(ms: PManifoldManifoldVec);
 begin
   Init;
-  Fobj:=   manifold_batch_hull(mem,ms);
+  Fobj:=   manifold_batch_hull(Fmem,ms);
   // if clean  ms.Free
 end;
 
 constructor TManifold.hull_pts(ps: PManifoldVec3; length: Tsize_t);
 begin
   Init;
-  Fobj:=   manifold_hull_pts(mem, ps, length);
+  Fobj:=   manifold_hull_pts(Fmem, ps, length);
  // if clean  ms.Free
 end;
 
 constructor TManifold.translate(m: TManifold; x, y, z: double; clean: Boolean);
 begin
   Init;
-Fobj:=      manifold_translate(mem, m.Fobj, x, y,z);
+Fobj:=      manifold_translate(Fmem, m.Fobj, x, y,z);
   if clean then m.Free;
 end;
 
 constructor TManifold.rotate(m: TManifold; x, y, z: double; clean: Boolean);
 begin
   Init;
-Fobj:=manifold_rotate(mem, m.Fobj, x, y,z);
+Fobj:=manifold_rotate(Fmem, m.Fobj, x, y,z);
   if clean then m.Free;
 end;
 
 constructor TManifold.scale(m: TManifold; x, y, z: double; clean: Boolean);
 begin
   Init;
-Fobj:=   manifold_scale(mem, m.Fobj, x, y, z);
+Fobj:=   manifold_scale(Fmem, m.Fobj, x, y, z);
   if clean then m.Free;
 end;
 
 constructor TManifold.transform(m: TManifold; x1, y1, z1, x2, y2, z2, x3, y3, z3, x4, y4, z4: double; clean: Boolean);
 begin
   Init;
-Fobj:=manifold_transform(mem, m.Fobj ,x1, y1, z1, x2, y2, z2, x3,y3, z3,x4, y4, z4);
+Fobj:=manifold_transform(Fmem, m.Fobj ,x1, y1, z1, x2, y2, z2, x3,y3, z3,x4, y4, z4);
   if clean then m.Free;
 end;
 
 constructor TManifold.mirror(m: TManifold; nx, ny, nz: double; clean: Boolean);
 begin
   Init;
-Fobj:= manifold_mirror(mem, m.Fobj, nx,ny, nz);
+Fobj:= manifold_mirror(Fmem, m.Fobj, nx,ny, nz);
   if clean then m.Free;
 end;
 
 constructor TManifold.empty;
 begin
   Init;
-Fobj:= manifold_empty(mem);
+Fobj:= manifold_empty(Fmem);
 end;
 
 constructor TManifold.copy(m: TManifold; clean: Boolean);
 begin
   Init;
-Fobj:=  manifold_copy(mem,m.Fobj);
+Fobj:=  manifold_copy(Fmem,m.Fobj);
   if clean then m.Free;
 end;
 
 constructor TManifold.tetrahedron;
 begin
   Init;
-Fobj:= manifold_tetrahedron(mem);
+Fobj:= manifold_tetrahedron(Fmem);
 end;
 
 constructor TManifold.warp(m: TManifold; fun: Twarp_func; ctx: pointer; clean: Boolean);
 begin
   Init;
-Fobj:=manifold_warp(mem, m.Fobj, fun, ctx);
+Fobj:=manifold_warp(Fmem, m.Fobj, fun, ctx);
   if clean then m.Free;
 end;
 
 constructor TManifold.smooth_by_normals(m: TManifold; normalIdx: longint; clean: Boolean);
 begin
   Init;
-Fobj:= manifold_smooth_by_normals(mem, m.Fobj, normalIdx);
+Fobj:= manifold_smooth_by_normals(Fmem, m.Fobj, normalIdx);
   if clean then m.Free;
 end;
 
 constructor TManifold.smooth_out(m: TManifold; minSharpAngle, minSmoothness: double; clean: Boolean);
 begin
   Init;
-Fobj:= manifold_smooth_out(mem, m.Fobj, minSharpAngle, minSmoothness);
+Fobj:= manifold_smooth_out(Fmem, m.Fobj, minSharpAngle, minSmoothness);
   if clean then m.Free;
 end;
 
 constructor TManifold.refine(m: TManifold; refine: longint; clean: Boolean);
 begin
   Init;
-Fobj:= manifold_refine(mem, m.Fobj, refine);
+Fobj:= manifold_refine(Fmem, m.Fobj, refine);
   if clean then m.Free;
 end;
 
 constructor TManifold.refine_to_length(m: TManifold; length: double; clean: Boolean);
 begin
   Init;
-Fobj:= manifold_refine_to_length(mem, m.Fobj,length);
+Fobj:= manifold_refine_to_length(Fmem, m.Fobj,length);
   if clean then m.Free;
 end;
 
 constructor TManifold.refine_to_tolerance(m: TManifold; tolerance: double; clean: Boolean);
 begin
   Init;
-Fobj:= manifold_refine_to_tolerance(mem, m.Fobj, tolerance);
+Fobj:= manifold_refine_to_tolerance(Fmem, m.Fobj, tolerance);
   if clean then m.Free;
 end;
 
 constructor TManifold.manifold_vec_get(ms: PManifoldManifoldVec; idx: Tsize_t);
 begin
   Init;
- Fobj:=manifold_manifold_vec_get(mem, ms, idx);
+ Fobj:=manifold_manifold_vec_get(Fmem, ms, idx);
 // if clean  ms.Free
 end;
 
 constructor TManifold.cube(x, y, z: double; center: longint);
 begin
   Init;
-Fobj:=  manifold_cube(mem, x, y, z,center);
+Fobj:=  manifold_cube(Fmem, x, y, z,center);
 end;
 
 constructor TManifold.cylinder(height, radius_low, radius_high: double; circular_segments, center: longint);
 begin
   Init;
-Fobj:=manifold_cylinder(mem, height, radius_low, radius_high, circular_segments, center);
+Fobj:=manifold_cylinder(Fmem, height, radius_low, radius_high, circular_segments, center);
 end;
 
 constructor TManifold.sphere(radius: double; circular_segments: longint);
 begin
   Init;
-  Fobj:=manifold_sphere(mem, radius,circular_segments);
+  Fobj:=manifold_sphere(Fmem, radius,circular_segments);
 end;
 
 constructor TManifold.of_meshgl(mesh: PManifoldMeshGL);
 begin
   Init;
-  Fobj:=manifold_of_meshgl(mem, mesh);
+  Fobj:=manifold_of_meshgl(Fmem, mesh);
   // if clean  ms.Free
 end;
 
 constructor TManifold.of_meshgl64(mesh: PManifoldMeshGL64);
 begin
   Init;
-  Fobj:=manifold_of_meshgl64(mem, mesh);
+  Fobj:=manifold_of_meshgl64(Fmem, mesh);
   // if clean  ms.Free
 end;
 
 constructor TManifold.smooth(mesh: PManifoldMeshGL; half_edges: Psize_t; smoothness: Pdouble; n_idxs: Tsize_t);
 begin
   Init;
-  Fobj:=manifold_smooth(mem,mesh, half_edges, smoothness, n_idxs);
+  Fobj:=manifold_smooth(Fmem,mesh, half_edges, smoothness, n_idxs);
   // if clean  ms.Free
 end;
 
 constructor TManifold.smooth64(mesh: PManifoldMeshGL64; half_edges: Psize_t; smoothness: Pdouble; n_idxs: Tsize_t);
 begin
   Init;
-  Fobj:= manifold_smooth64(mem, mesh,half_edges, smoothness, n_idxs);
+  Fobj:= manifold_smooth64(Fmem, mesh,half_edges, smoothness, n_idxs);
   // if clean  ms.Free
 end;
 
 constructor TManifold.extrude(cs: PManifoldPolygons; height: double; slices: longint; twist_degrees, scale_x, scale_y: double);
 begin
   Init;
-  Fobj:=  manifold_extrude(mem, cs, height, slices,twist_degrees, scale_x, scale_y);
+  Fobj:=  manifold_extrude(Fmem, cs, height, slices,twist_degrees, scale_x, scale_y);
   // if clean  ms.Free
 end;
 
 constructor TManifold.revolve(cs: PManifoldPolygons; circular_segments: longint; revolve_degrees: double);
 begin
   Init;
-  Fobj:=  manifold_revolve(mem, cs, circular_segments, revolve_degrees);
+  Fobj:=  manifold_revolve(Fmem, cs, circular_segments, revolve_degrees);
   // if clean  ms.Free
 end;
 
 constructor TManifold.compose(ms: PManifoldManifoldVec);
 begin
   Init;
-  Fobj:= manifold_compose(mem, ms);
+  Fobj:= manifold_compose(Fmem, ms);
   // if clean  ms.Free
 end;
 
 constructor TManifold.decompose(m: TManifold; clean: Boolean);
 begin
   Init;
-Fobj:= manifold_decompose(mem,m.Fobj);
+Fobj:= manifold_decompose(Fmem,m.Fobj);
   if clean then m.Free;
 end;
 
 constructor TManifold.as_original(m: TManifold; clean: Boolean);
 begin
   Init;
-Fobj:=  manifold_as_original(mem, m.Fobj);
+Fobj:=  manifold_as_original(Fmem, m.Fobj);
   if clean then m.Free;
 end;
 
 constructor TManifold.set_properties(m: TManifold; num_prop: longint; fun: Tproperties_func; ctx: pointer; clean: Boolean);
 begin
   Init;
-Fobj:= manifold_set_properties(mem, m.Fobj, num_prop,fun, ctx);
+Fobj:= manifold_set_properties(Fmem, m.Fobj, num_prop,fun, ctx);
   if clean then m.Free;
 end;
 
 constructor TManifold.calculate_curvature(m: TManifold; gaussian_idx, mean_idx: longint; clean: Boolean);
 begin
   Init;
-Fobj:= manifold_calculate_curvature(mem, m.Fobj, gaussian_idx,mean_idx);
+Fobj:= manifold_calculate_curvature(Fmem, m.Fobj, gaussian_idx,mean_idx);
   if clean then m.Free;
 end;
 
 constructor TManifold.calculate_normals(m: TManifold;  normal_idx: longint; min_sharp_angle: double; clean: Boolean);
 begin
   Init;
-Fobj:= manifold_calculate_normals(mem, m.Fobj, normal_idx, min_sharp_angle);
+Fobj:= manifold_calculate_normals(Fmem, m.Fobj, normal_idx, min_sharp_angle);
   if clean then m.Free;
 end;
 
@@ -471,7 +474,7 @@ end;
 destructor TManifold.Destroy;
 begin
   manifold_destruct_manifold(Fobj);
-  Freemem(mem);
+  Freemem(Fmem);
   inherited Destroy;
 end;
 
@@ -482,39 +485,39 @@ var
   m_size: Tsize_t;
 begin
   m_size := manifold_meshgl_size;
-   Getmem(mem, m_size);
+   Getmem(Fmem, m_size);
 end;
 
 constructor TMeshGL.meshgl(vert_props: Psingle; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint32_t; n_tris: Tsize_t);
 begin
   Init;
-Fobj:= manifold_meshgl(mem, vert_props, n_verts, n_props, tri_verts, n_tris);
+Fobj:= manifold_meshgl(Fmem, vert_props, n_verts, n_props, tri_verts, n_tris);
 end;
 
 constructor TMeshGL.meshgl_w_tangents(vert_props: Psingle; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint32_t; n_tris: Tsize_t; halfedge_tangent: Psingle);
 begin
   Init;
-Fobj:=manifold_meshgl_w_tangents(mem, vert_props, n_verts, n_props, tri_verts, n_tris,halfedge_tangent);
+Fobj:=manifold_meshgl_w_tangents(Fmem, vert_props, n_verts, n_props, tri_verts, n_tris,halfedge_tangent);
 end;
 
 constructor TMeshGL.get_meshgl(m: TManifold; clean: Boolean);
 begin
   Init;
-Fobj:=manifold_get_meshgl(mem, m.Fobj);
+Fobj:=manifold_get_meshgl(Fmem, m.Fobj);
   if clean then m.Free;
 end;
 
 constructor TMeshGL.meshgl_copy(m: TMeshGL; clean: Boolean);
 begin
   Init;
-Fobj:= manifold_meshgl_copy(mem, m.Fobj);
+Fobj:= manifold_meshgl_copy(Fmem, m.Fobj);
   if clean then m.Free;
 end;
 
 constructor TMeshGL.meshgl_merge(m: TMeshGL; clean: Boolean);
 begin
   Init;
-Fobj:=manifold_meshgl_merge(mem, m.Fobj);
+Fobj:=manifold_meshgl_merge(Fmem, m.Fobj);
   if clean then m.Free;
 end;
 
@@ -574,54 +577,71 @@ Result:=manifold_meshgl_tangent_length(Fobj);
 end;
 
 function TMeshGL.vert_properties: Psingle;
+var
+  n_verts, n_props: LongInt;
 begin
-Result:=manifold_meshgl_vert_properties(mem, Fobj);
+  n_verts := num_vert;
+n_props :=num_prop;
+SetLength(vpmem,  n_verts * n_props * SizeOf(Single));
+Result:=manifold_meshgl_vert_properties(PSingle( vpmem), Fobj);
 end;
 
 function TMeshGL.tri_verts: Puint32_t;
+var
+  n_verts, n_props: LongInt;
 begin
-Result:=manifold_meshgl_tri_verts(mem, Fobj);
+  n_verts := num_vert;
+n_props :=num_prop;
+  SetLength(tvmem,  n_verts * n_props * SizeOf(Int32));
+Result:=manifold_meshgl_tri_verts(Puint32_t( tvmem), Fobj);
 end;
 
 function TMeshGL.merge_from_vert: Puint32_t;
 begin
-Result:=manifold_meshgl_merge_from_vert(mem, Fobj);
+// SetLength(Fmerge_from_vert, n_verts * SizeOf(UInt32));
+Result:=manifold_meshgl_merge_from_vert(Fmem, Fobj);
 end;
 
 function TMeshGL.merge_to_vert: Puint32_t;
 begin
-Result:=manifold_meshgl_merge_to_vert(mem, Fobj);
+// SetLength(Fmerge_to_vert, n_verts * SizeOf(UInt32));
+Result:=manifold_meshgl_merge_to_vert(Fmem, Fobj);
 end;
 
 function TMeshGL.run_index: Puint32_t;
 begin
-Result:=manifold_meshgl_run_index(mem, Fobj);
+// SetLength(Frun_index, (n_tris div 3 + 2) * SizeOf(UInt32));
+Result:=manifold_meshgl_run_index(Fmem, Fobj);
 end;
 
 function TMeshGL.run_original_id: Puint32_t;
 begin
-Result:=manifold_meshgl_run_original_id(mem, Fobj);
+// SetLength(Frun_original_id, (n_tris div 3) * SizeOf(UInt32));
+Result:=manifold_meshgl_run_original_id(Fmem, Fobj);
 end;
 
 function TMeshGL.run_transform: Psingle;
 begin
-Result:=manifold_meshgl_run_transform(mem, Fobj);
+// SetLength(Frun_transform, n_verts * 3 * SizeOf(Single));
+Result:=manifold_meshgl_run_transform(Fmem, Fobj);
 end;
 
 function TMeshGL.face_id: Puint32_t;
 begin
-Result:=manifold_meshgl_face_id(mem, Fobj);
+//   SetLength(Fface_id, n_tris * SizeOf(UInt32));
+Result:=manifold_meshgl_face_id(Fmem, Fobj);
 end;
 
 function TMeshGL.halfedge_tangent: Psingle;
 begin
-Result:=manifold_meshgl_halfedge_tangent(mem, Fobj);
+//  SetLength(Fhalfedge_tangent, n_tris * 3 * SizeOf(Single));
+  Result:=manifold_meshgl_halfedge_tangent(Fmem, Fobj);
 end;
 
 destructor TMeshGL.Destroy;
 begin
   manifold_destruct_meshgl(Fobj);
-  Freemem(mem);
+  Freemem(Fmem);
   inherited Destroy;
 end;
 

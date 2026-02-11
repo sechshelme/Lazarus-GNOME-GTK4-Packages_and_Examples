@@ -41,8 +41,8 @@ var
   mesh: TMeshGL;
 
   n_verts, n_tris, n_props: longint;
-  verts_data: array of single = nil;
-  tris_data: array of Tuint32_t = nil;
+  verts_data: Psingle = nil;
+  tris_data: Puint32_t = nil;
   x, y, z, nx, ny, nz: single;
   i: integer;
   a, b, c: Tuint32_t;
@@ -55,6 +55,9 @@ var
   er: TManifoldError;
 
   cube, hole: TManifold;
+
+  vertbuf:PSingle;
+  indbuf:Pint32_t;
 
 begin
   cube := TManifold.cube(10.0, 10.0, 10.0, 1);
@@ -92,17 +95,17 @@ begin
   WriteLn('n_props: ', n_props);
 
 
-  SetLength(verts_data, n_verts * n_props);
-  SetLength(tris_data, n_tris * 3);
 
-  manifold_meshgl_tri_verts(Puint32_t(tris_data), mesh.obj);
-  manifold_meshgl_vert_properties(PSingle(verts_data), mesh.obj);
+  //Getmem(vertbuf,  n_verts * n_props * SizeOf(Single));
+  //PSingle(verts_data):=  manifold_meshgl_vert_properties(vertbuf, mesh.obj);
+  //
+  //Getmem(indbuf,  n_verts * n_props * SizeOf(Int32));
+  //tris_data:=  manifold_meshgl_tri_verts(indbuf, mesh.obj);
+//  manifold_meshgl_tri_verts(Puint32_t(tris_data), mesh.obj);
+//  manifold_meshgl_vert_properties(PSingle(verts_data), mesh.obj);
 
-//   Puint32_t(tris_data):= mesh.tri_verts;
-//    PSingle(verts_data):=  mesh.vert_properties;
-
-
-  mesh.Free;
+   tris_data:= mesh.tri_verts;
+    PSingle(verts_data):=  mesh.vert_properties;
 
 
 
@@ -156,6 +159,13 @@ begin
   end;
   glEnd;
 
+//  Freemem(vertbuf);
+//  Freemem(indbuf);
+    mesh.Free;
+
+
+
 end;
+
 
 end.
