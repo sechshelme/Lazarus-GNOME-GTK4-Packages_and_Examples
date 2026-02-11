@@ -903,8 +903,6 @@ end;
 end.
 
 
-
-
 //function manifold_simple_polygon(mem: pointer; ps: PManifoldVec2; length: Tsize_t): PManifoldSimplePolygon; cdecl; external libmanifoldc;
 //function manifold_polygons(mem: pointer; ps: PPManifoldSimplePolygon; length: Tsize_t): PManifoldPolygons; cdecl; external libmanifoldc;
 //function manifold_simple_polygon_length(p: PManifoldSimplePolygon): Tsize_t; cdecl; external libmanifoldc;
@@ -913,11 +911,6 @@ end.
 //function manifold_simple_polygon_get_point(p: PManifoldSimplePolygon; idx: Tsize_t): TManifoldVec2; cdecl; external libmanifoldc;
 //function manifold_polygons_get_simple(mem: pointer; ps: PManifoldPolygons; idx: Tsize_t): PManifoldSimplePolygon; cdecl; external libmanifoldc;
 //function manifold_polygons_get_point(ps: PManifoldPolygons; simple_idx: Tsize_t; pt_idx: Tsize_t): TManifoldVec2; cdecl; external libmanifoldc;
-//
-
-
-
-
 //
 
 //
@@ -930,8 +923,6 @@ end.
 //
 
 
-
-
 //function manifold_split(mem_first: pointer; mem_second: pointer; a: PManifoldManifold; b: PManifoldManifold): TManifoldManifoldPair; cdecl; external libmanifoldc;
 //function manifold_split_by_plane(mem_first: pointer; mem_second: pointer; m: PManifoldManifold; normal_x: double; normal_y: double; normal_z: double; offset: double): TManifoldManifoldPair; cdecl; external libmanifoldc;
 //
@@ -942,19 +933,12 @@ end.
 
 //function manifold_get_circular_segments(radius: double): longint; cdecl; external libmanifoldc;
 //function manifold_reserve_ids(n: Tuint32_t): Tuint32_t; cdecl; external libmanifoldc;
-
-//
-
-
 //
 
 
 //function manifold_bounding_box(mem: pointer; m: PManifoldManifold): PManifoldBox; cdecl; external libmanifoldc;
 
-
 //function manifold_min_gap(m: PManifoldManifold; other: PManifoldManifold; searchLength: double): double; cdecl; external libmanifoldc;
-
-
 
 
 //

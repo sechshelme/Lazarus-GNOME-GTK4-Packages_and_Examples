@@ -29,9 +29,9 @@ const
   ambientColor:TVector4f=( 0.1, 0.1, 0.1, 1.0);
 begin
   glClearColor(0.8, 0.5, 0.3, 1.0);
-  //  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-  glEnable(GL_CULL_FACE); // Aktiviert das Weglassen von Flächen
+//  glEnable(GL_CULL_FACE); // Aktiviert das Weglassen von Flächen
   glCullFace(GL_BACK);    // Bestimmt, dass die Rückseiten (Back) weggelassen werden
 
   glEnable(GL_LIGHTING); // Beleuchtung generell aktivieren
@@ -56,7 +56,7 @@ begin
 
   glScalef(scale, scale, scale);
   glRotatef(w, 1, 1, 1);
-  w += 1;
+  w += 2;
 
   draw;
 

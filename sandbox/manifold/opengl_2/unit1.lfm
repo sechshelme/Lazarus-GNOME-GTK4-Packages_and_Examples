@@ -1,17 +1,17 @@
 object Form1: TForm1
   Left = 119
-  Height = 316
-  Top = 916
-  Width = 369
+  Height = 601
+  Top = 631
+  Width = 665
   Caption = 'Form1'
-  ClientHeight = 316
-  ClientWidth = 369
+  ClientHeight = 601
+  ClientWidth = 665
   LCLVersion = '4.99.0.0'
   object OpenGLControl1: TOpenGLControl
     Left = 0
-    Height = 316
+    Height = 601
     Top = 0
-    Width = 369
+    Width = 665
     Align = alClient
     AutoResizeViewport = True
   end

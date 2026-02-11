@@ -49,8 +49,8 @@ var
   er: TManifoldError;
   cube, hole: TManifold;
 
-  const
-    Sektor=32;
+const
+  Sektor = 32;
 
 begin
   cube := TManifold.cube(10.0, 10.0, 10.0, 1);
@@ -63,7 +63,7 @@ begin
   hole := TManifold.rotate(hole, 90.0, 0.0, 0.0, True);
   cube := TManifold.difference(cube, hole, True, True);
 
-  hole := TManifold.cylinder(20.0, 3.5, 3.5, Sektor, 1);
+  hole := TManifold.cylinder(20.0, 3.5, 3.5, Sektor + 5, 1);
   cube := TManifold.difference(cube, hole, True, True);
 
   cube := TManifold.calculate_normals(cube, 3, 60.0, True);
@@ -75,9 +75,9 @@ begin
 
   mesh := TMeshGL.get_meshgl(cube, True);
 
-    n_verts := mesh.meshgl_num_vert;
+  n_verts := mesh.meshgl_num_vert;
   n_tris := mesh.meshgl_num_tri;
-  n_props :=mesh.meshgl_num_prop;
+  n_props := mesh.meshgl_num_prop;
 
 
   WriteLn('--- MANIFOLD CSG ERGEBNIS ---');
@@ -85,8 +85,9 @@ begin
   WriteLn('n_tris: ', n_tris);
   WriteLn('n_props: ', n_props);
 
-   tris_data:= mesh.meshgl_tri_verts;
-    verts_data:=  mesh.meshgl_vert_properties;
+  tris_data := mesh.meshgl_tri_verts;
+
+  verts_data := mesh.meshgl_vert_properties;
 
   WriteLn(#10'Liste aller Eckpunkte (Vertices):');
 
@@ -112,15 +113,13 @@ begin
     vectors[i].n[2] := nz;
   end;
 
-  mesh.Free;
-
   WriteLn(#10'Liste aller Dreiecke (Indices):');
   glBegin(GL_TRIANGLES);
-  for  i := 0+1 to n_tris - 1 do begin
+  for  i := 0 to n_tris - 1 do begin
     a := tris_data[i * 3 + 0];
     b := tris_data[i * 3 + 1];
     c := tris_data[i * 3 + 2];
-    //    WriteLn(i: 3, '  ', a: 2, '/', b: 2, '/', c: 2);
+    //  WriteLn(i: 3, '  ', a: 2, '/', b: 2, '/', c: 2);
 
     v := vectors[a].n;
     glNormal3fv(@v);
@@ -139,6 +138,7 @@ begin
 
   end;
   glEnd;
+  mesh.Free;
 end;
 
 
