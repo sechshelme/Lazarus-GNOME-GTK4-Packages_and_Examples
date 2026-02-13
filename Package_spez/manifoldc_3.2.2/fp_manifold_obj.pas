@@ -1155,7 +1155,7 @@ var
   len: Tsize_t;
 begin
   len := triangulation_num_tri;
-SetLength(tvmem, len * 3* SizeOf(PLongint));
+SetLength(tvmem, len * 3* SizeOf(Longint));
 Result:=manifold_triangulation_tri_verts(Pointer( tvmem),  Fobj);
 end;
 
