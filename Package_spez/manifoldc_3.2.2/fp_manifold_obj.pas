@@ -235,44 +235,6 @@ type
 
 implementation
 
-{ TTriangulation }
-
-procedure TTriangulation.Init;
-var
-  m_size: Tsize_t;
-begin
-  m_size := manifold_triangulation_size;
-   SetLength(Fmem, m_size);
-end;
-
-constructor TTriangulation.triangulate(ps: TPolygons; epsilon: double; clean: Boolean);
-begin
- Init;
- Fobj:=  manifold_triangulate(Pointer( Fmem), ps.Fobj,epsilon);
-  if clean then ps.Free
-end;
-
-function TTriangulation.triangulation_num_tri: Tsize_t;
-begin
-Result:=manifold_triangulation_num_tri(Pointer(Fmem));
-end;
-
-function TTriangulation.triangulation_tri_verts: Plongint;
-var
-  len: Tsize_t;
-begin
-  len := triangulation_num_tri;
-SetLength(tvmem, len * 3* SizeOf(PLongint));
-Result:=manifold_triangulation_tri_verts(Pointer( tvmem),  Fobj);
-end;
-
-destructor TTriangulation.Destroy;
-begin
- manifold_destruct_triangulation(Fobj);
-  inherited Destroy;
-end;
-
-
 
 
 { TManifold }
@@ -1164,6 +1126,43 @@ destructor TBox.Destroy;
 begin
  manifold_destruct_box(Fobj);
  inherited Destroy;
+end;
+
+{ TTriangulation }
+
+procedure TTriangulation.Init;
+var
+  m_size: Tsize_t;
+begin
+  m_size := manifold_triangulation_size;
+   SetLength(Fmem, m_size);
+end;
+
+constructor TTriangulation.triangulate(ps: TPolygons; epsilon: double; clean: Boolean);
+begin
+ Init;
+ Fobj:=  manifold_triangulate(Pointer( Fmem), ps.Fobj,epsilon);
+  if clean then ps.Free
+end;
+
+function TTriangulation.triangulation_num_tri: Tsize_t;
+begin
+Result:=manifold_triangulation_num_tri(Pointer(Fmem));
+end;
+
+function TTriangulation.triangulation_tri_verts: Plongint;
+var
+  len: Tsize_t;
+begin
+  len := triangulation_num_tri;
+SetLength(tvmem, len * 3* SizeOf(PLongint));
+Result:=manifold_triangulation_tri_verts(Pointer( tvmem),  Fobj);
+end;
+
+destructor TTriangulation.Destroy;
+begin
+ manifold_destruct_triangulation(Fobj);
+  inherited Destroy;
 end;
 
 
