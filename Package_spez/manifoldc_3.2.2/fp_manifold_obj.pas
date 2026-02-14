@@ -231,9 +231,104 @@ type
   destructor Destroy; override;
   end;
 
+  { TRect }
+
+  TRect=class(TObject)
+  private
+  Fmem:array of Byte;
+  Fobj:PManifoldRect;
+  procedure Init;
+  public
+  property obj:PManifoldRect read Fobj;
+
+constructor cross_section_bounds( cs: PManifoldCrossSection); // ???
+constructor rect( x1, y1, x2, y2: double);
+constructor rect_union( a,b: TRect;  clean_a,clean_b: Boolean);
+constructor rect_transform( r: TRect; x1, y1, x2, y2, x3, y3: double;  clean: Boolean);
+constructor rect_translate( r: TRect; x, y: double ; clean: Boolean);
+constructor rect_mul( r: TRect; x, y: double;  clean: Boolean);
+
+
+  destructor Destroy; override;
+  end;
+
+
+
+//function manifold_rect_min(r: PManifoldRect): TManifoldVec2; cdecl; external libmanifoldc;
+//function manifold_rect_max(r: PManifoldRect): TManifoldVec2; cdecl; external libmanifoldc;
+//function manifold_rect_dimensions(r: PManifoldRect): TManifoldVec2; cdecl; external libmanifoldc;
+//function manifold_rect_center(r: PManifoldRect): TManifoldVec2; cdecl; external libmanifoldc;
+//function manifold_rect_scale(r: PManifoldRect): double; cdecl; external libmanifoldc;
+//function manifold_rect_contains_pt(r: PManifoldRect; x: double; y: double): longint; cdecl; external libmanifoldc;
+//procedure manifold_rect_include_pt(r: PManifoldRect; x: double; y: double); cdecl; external libmanifoldc;
+//function manifold_rect_is_empty(r: PManifoldRect): longint; cdecl; external libmanifoldc;
+//function manifold_rect_is_finite(r: PManifoldRect): longint; cdecl; external libmanifoldc;
+
 
 
 implementation
+
+
+{ TRect }
+
+procedure TRect.Init;
+var
+  m_size: Tsize_t;
+begin
+  m_size := manifold_rect_size;
+   SetLength(Fmem, m_size);
+end;
+
+constructor TRect.cross_section_bounds(cs: PManifoldCrossSection);
+begin
+  Init;
+  Fobj:=manifold_cross_section_bounds(Pointer( Fmem), cs);
+ //  if clean then bounds.Free
+end;
+
+constructor TRect.rect(x1, y1, x2, y2: double);
+begin
+  Init;
+  Fobj:=manifold_rect(Pointer( Fmem), x1, y1, x2, y2);
+end;
+
+constructor TRect.rect_union(a, b: TRect; clean_a, clean_b: Boolean);
+begin
+  Init;
+  Fobj:=manifold_rect_union(Pointer( Fmem), a.Fobj,b.Fobj);
+  if clean_a then a.Free;
+  if clean_b then b.Free ;
+end;
+
+constructor TRect.rect_transform(r: TRect; x1, y1, x2, y2, x3, y3: double; clean: Boolean);
+begin
+  Init;
+  Fobj:=manifold_rect_transform(Pointer( Fmem), r.Fobj, x1, y1, x2,y2, x3, y3);
+   if clean then r.Free;
+end;
+
+constructor TRect.rect_translate(r: TRect; x, y: double; clean: Boolean);
+begin
+  Init;
+  Fobj:=     manifold_rect_translate(Pointer( Fmem), r.Fobj, x, y);
+   if clean then r.Free ;
+end;
+
+constructor TRect.rect_mul(r: TRect; x, y: double; clean: Boolean);
+begin
+  Init;
+  Fobj:=     manifold_rect_mul(Pointer( Fmem), r.Fobj, x, y);
+   if clean then r.Free  ;
+end;
+
+destructor TRect.Destroy;
+begin
+  manifold_destruct_rect(Fobj);
+  inherited Destroy;
+end;
+
+
+
 
 
 
@@ -1166,7 +1261,6 @@ begin
 end;
 
 
-
 end.
 
 
@@ -1249,24 +1343,12 @@ end.
 //function manifold_cross_section_num_vert(cs: PManifoldCrossSection): Tsize_t; cdecl; external libmanifoldc;
 //function manifold_cross_section_num_contour(cs: PManifoldCrossSection): Tsize_t; cdecl; external libmanifoldc;
 //function manifold_cross_section_is_empty(cs: PManifoldCrossSection): longint; cdecl; external libmanifoldc;
-//function manifold_cross_section_bounds(mem: pointer; cs: PManifoldCrossSection): PManifoldRect; cdecl; external libmanifoldc;
-//
-//function manifold_rect(mem: pointer; x1: double; y1: double; x2: double; y2: double): PManifoldRect; cdecl; external libmanifoldc;
-//function manifold_rect_min(r: PManifoldRect): TManifoldVec2; cdecl; external libmanifoldc;
-//function manifold_rect_max(r: PManifoldRect): TManifoldVec2; cdecl; external libmanifoldc;
-//function manifold_rect_dimensions(r: PManifoldRect): TManifoldVec2; cdecl; external libmanifoldc;
-//function manifold_rect_center(r: PManifoldRect): TManifoldVec2; cdecl; external libmanifoldc;
-//function manifold_rect_scale(r: PManifoldRect): double; cdecl; external libmanifoldc;
-//function manifold_rect_contains_pt(r: PManifoldRect; x: double; y: double): longint; cdecl; external libmanifoldc;
+
+
+
+
 //function manifold_rect_contains_rect(a: PManifoldRect; b: PManifoldRect): longint; cdecl; external libmanifoldc;
-//procedure manifold_rect_include_pt(r: PManifoldRect; x: double; y: double); cdecl; external libmanifoldc;
-//function manifold_rect_union(mem: pointer; a: PManifoldRect; b: PManifoldRect): PManifoldRect; cdecl; external libmanifoldc;
-//function manifold_rect_transform(mem: pointer; r: PManifoldRect; x1: double; y1: double; x2: double; y2: double; x3: double; y3: double): PManifoldRect; cdecl; external libmanifoldc;
-//function manifold_rect_translate(mem: pointer; r: PManifoldRect; x: double; y: double): PManifoldRect; cdecl; external libmanifoldc;
-//function manifold_rect_mul(mem: pointer; r: PManifoldRect; x: double; y: double): PManifoldRect; cdecl; external libmanifoldc;
 //function manifold_rect_does_overlap_rect(a: PManifoldRect; r: PManifoldRect): longint; cdecl; external libmanifoldc;
-//function manifold_rect_is_empty(r: PManifoldRect): longint; cdecl; external libmanifoldc;
-//function manifold_rect_is_finite(r: PManifoldRect): longint; cdecl; external libmanifoldc;
 
 
 //function manifold_box_contains_box(a: PManifoldBox; b: PManifoldBox): longint; cdecl; external libmanifoldc;
