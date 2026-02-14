@@ -24,7 +24,7 @@ type
 
     constructor level_set(sdf: TManifoldSdf; bounds: TBox; edge_length,level,tolerance: double; ctx: pointer; clean: Boolean);
     constructor level_set_seq( sdf: TManifoldSdf; bounds: TBox; edge_length,level, tolerance: double; ctx: pointer; clean: Boolean);
-    constructor boolean(a, b: TManifold; op: TManifoldOpType; clean_a: Boolean; clean_b: Boolean);
+    constructor boolean(a, b: TManifold; op: TManifoldOpType; clean_a,clean_b: Boolean);
     constructor batch_boolean(ms: TManifoldVec; op: TManifoldOpType; clean: Boolean);
     constructor union(a, b: TManifold; clean_a: Boolean;      clean_b: Boolean);
     constructor difference(a, b: TManifold; clean_a: Boolean;      clean_b: Boolean);
@@ -326,11 +326,262 @@ function rect_is_finite: longint;
   destructor Destroy; override;
   end;
 
+  { TCrossSection }
+
+  TCrossSection=class(TObject)
+  private
+  Fmem:array of Byte;
+  Fobj:PManifoldCrossSection;
+  procedure Init;
+  public
+  property obj:PManifoldCrossSection read Fobj;
+
+  constructor  cross_section_empty;
+  constructor  cross_section_copy( cs: TCrossSection; clean: Boolean);
+  constructor  cross_section_of_simple_polygon( p: TSimplePolygon; fr: TManifoldFillRule; clean: Boolean);
+  constructor  cross_section_of_polygons( p: TPolygons; fr: TManifoldFillRule; clean: Boolean);
+  constructor  cross_section_square( x,y: double; center: longint);
+  constructor  cross_section_circle( radius: double; circular_segments: longint);
+  constructor  cross_section_compose( csv: TCrossSectionVec; clean: Boolean);
+  constructor  cross_section_vec_get( csv: TCrossSectionVec; idx: Tsize_t; clean: Boolean);
+  constructor  cross_section_boolean( a: TCrossSection; b: TCrossSection; op: TManifoldOpType; clean_a,clean_b: Boolean);
+  constructor  cross_section_batch_boolean( csv: TCrossSectionVec; op: TManifoldOpType; clean: Boolean);
+  constructor  cross_section_union( a: TCrossSection; b: TCrossSection; clean_a,clean_b: Boolean);
+  constructor  cross_section_difference( a: TCrossSection; b: TCrossSection; clean_a,clean_b: Boolean);
+  constructor  cross_section_intersection( a: TCrossSection; b: TCrossSection; clean_a,clean_b: Boolean);
+  constructor  cross_section_hull( cs: TCrossSection; clean: Boolean);
+  constructor  cross_section_batch_hull( css: TCrossSectionVec; clean: Boolean);
+  constructor  cross_section_hull_simple_polygon( ps: TSimplePolygon; clean: Boolean);
+  constructor  cross_section_hull_polygons( ps: TPolygons; clean: Boolean);
+  constructor  cross_section_translate( cs: TCrossSection; x,y: double; clean: Boolean);
+  constructor  cross_section_rotate( cs: TCrossSection; deg: double; clean: Boolean);
+  constructor  cross_section_scale( cs: TCrossSection; x,y: double; clean: Boolean);
+  constructor  cross_section_mirror( cs: TCrossSection; ax_x,ax_y: double; clean: Boolean);
+  constructor  cross_section_transform( cs: TCrossSection; x1, y1,x2, y2, x3, y3: double; clean: Boolean);
+  constructor  cross_section_warp( cs: TCrossSection; fun: Tsection_warp_func; clean: Boolean);
+  constructor  cross_section_warp_context( cs: TCrossSection; fun: Twarp_context_func; ctx: pointer; clean: Boolean);
+  constructor  cross_section_simplify( cs: TCrossSection; epsilon: double; clean: Boolean);
+  constructor  cross_section_offset( cs: TCrossSection; delta: double; jt: TManifoldJoinType; miter_limit: double; circular_segments: longint; clean: Boolean);
+
+  //function manifold_cross_section_area(cs: PManifoldCrossSection): double; cdecl; external libmanifoldc;
+  //function manifold_cross_section_num_vert(cs: PManifoldCrossSection): Tsize_t; cdecl; external libmanifoldc;
+  //function manifold_cross_section_num_contour(cs: PManifoldCrossSection): Tsize_t; cdecl; external libmanifoldc;
+  //function manifold_cross_section_is_empty(cs: PManifoldCrossSection): longint; cdecl; external libmanifoldc;
 
 
+  //function manifold_cross_section_area(cs: PManifoldCrossSection): double; cdecl; external libmanifoldc;
+  //function manifold_cross_section_num_vert(cs: PManifoldCrossSection): Tsize_t; cdecl; external libmanifoldc;
+  //function manifold_cross_section_num_contour(cs: PManifoldCrossSection): Tsize_t; cdecl; external libmanifoldc;
+  //function manifold_cross_section_is_empty(cs: PManifoldCrossSection): longint; cdecl; external libmanifoldc;
 
 
-implementation
+  destructor Destroy; override;
+  end;
+
+
+  implementation
+
+{ TCrossSection }
+
+
+procedure TCrossSection.Init;
+  var
+    m_size: Tsize_t;
+  begin
+    m_size := manifold_cross_section_size();
+     SetLength(Fmem, m_size);
+end;
+
+constructor TCrossSection.cross_section_empty;
+begin
+  Init;
+  Fobj:= manifold_cross_section_empty(Pointer(Fmem));
+end;
+
+constructor TCrossSection.cross_section_copy(cs: TCrossSection; clean: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_copy(Pointer(Fmem), cs.Fobj);
+  if clean then cs.Free;
+end;
+
+constructor TCrossSection.cross_section_of_simple_polygon(p: TSimplePolygon; fr: TManifoldFillRule; clean: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_of_simple_polygon(Pointer(Fmem), p.Fobj, fr);
+  if clean then p.Free;
+end;
+
+constructor TCrossSection.cross_section_of_polygons(p: TPolygons; fr: TManifoldFillRule; clean: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_of_polygons(Pointer(Fmem), p.Fobj, fr);
+  if clean then p.Free;
+end;
+
+constructor TCrossSection.cross_section_square(x, y: double; center: longint);
+begin
+  Init;
+  Fobj:= manifold_cross_section_square(Pointer(Fmem), x,y, center);
+end;
+
+constructor TCrossSection.cross_section_circle(radius: double; circular_segments: longint);
+begin
+   Init;
+ Fobj:= manifold_cross_section_circle(Pointer(Fmem), radius, circular_segments);
+end;
+
+constructor TCrossSection.cross_section_compose(csv: TCrossSectionVec; clean: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_compose(Pointer(Fmem), csv.Fobj);
+  if clean then csv.Free;
+end;
+
+constructor TCrossSection.cross_section_vec_get(csv: TCrossSectionVec; idx: Tsize_t; clean: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_vec_get(Pointer(Fmem), csv.Fobj, idx);
+  if clean then csv.Free;
+end;
+
+constructor TCrossSection.cross_section_boolean(a: TCrossSection; b: TCrossSection; op: TManifoldOpType; clean_a, clean_b: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_boolean(Pointer(Fmem), a.Fobj, b.Fobj, op);
+  if clean_a then a.Free;
+ if clean_b then b.Free;
+end;
+
+constructor TCrossSection.cross_section_batch_boolean(csv: TCrossSectionVec; op: TManifoldOpType; clean: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_batch_boolean(Pointer(Fmem), csv.Fobj, op);
+  if clean then csv.Free;
+end;
+
+constructor TCrossSection.cross_section_union(a: TCrossSection; b: TCrossSection; clean_a, clean_b: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_union(Pointer(Fmem), a.Fobj, b.Fobj);
+  if clean_a then a.Free;
+ if clean_b then b.Free;
+end;
+
+constructor TCrossSection.cross_section_difference(a: TCrossSection; b: TCrossSection; clean_a, clean_b: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_difference(Pointer(Fmem), a.Fobj, b.Fobj);
+  if clean_a then a.Free;
+ if clean_b then b.Free;
+end;
+
+constructor TCrossSection.cross_section_intersection(a: TCrossSection; b: TCrossSection; clean_a, clean_b: Boolean);
+begin
+  Init;
+  Fobj:=manifold_cross_section_intersection(Pointer(Fmem), a.Fobj,b.Fobj);
+  if clean_a then a.Free;
+ if clean_b then b.Free;
+end;
+
+constructor TCrossSection.cross_section_hull(cs: TCrossSection; clean: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_hull(Pointer(Fmem), cs.Fobj);
+  if clean then cs.Free;
+end;
+
+constructor TCrossSection.cross_section_batch_hull(css: TCrossSectionVec; clean: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_batch_hull(Pointer(Fmem), css.Fobj);
+  if clean then css.Free;
+end;
+
+constructor TCrossSection.cross_section_hull_simple_polygon(ps: TSimplePolygon; clean: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_hull_simple_polygon(Pointer(Fmem), ps.Fobj);
+  if clean then ps.Free;
+end;
+
+constructor TCrossSection.cross_section_hull_polygons(ps: TPolygons; clean: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_hull_polygons(Pointer(Fmem), ps.Fobj);
+  if clean then ps.Free;
+end;
+
+constructor TCrossSection.cross_section_translate(cs: TCrossSection; x, y: double; clean: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_translate(Pointer(Fmem), cs.Fobj, x,y);
+  if clean then cs.Free;
+end;
+
+constructor TCrossSection.cross_section_rotate(cs: TCrossSection; deg: double; clean: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_rotate(Pointer(Fmem), cs.Fobj, deg);
+  if clean then cs.Free;
+end;
+
+constructor TCrossSection.cross_section_scale(cs: TCrossSection; x, y: double; clean: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_scale(Pointer(Fmem), cs.Fobj, x, y);
+  if clean then cs.Free;
+end;
+
+constructor TCrossSection.cross_section_mirror(cs: TCrossSection; ax_x, ax_y: double; clean: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_mirror(Pointer(Fmem), cs.Fobj, ax_x, ax_y);
+  if clean then cs.Free;
+end;
+
+constructor TCrossSection.cross_section_transform(cs: TCrossSection; x1, y1, x2, y2, x3, y3: double; clean: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_transform(Pointer(Fmem), cs.Fobj, x1, y1, x2, y2, x3,y3);
+  if clean then cs.Free;
+end;
+
+constructor TCrossSection.cross_section_warp(cs: TCrossSection; fun: Tsection_warp_func; clean: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_warp(Pointer(Fmem), cs.Fobj,fun);
+  if clean then cs.Free;
+end;
+
+constructor TCrossSection.cross_section_warp_context(cs: TCrossSection; fun: Twarp_context_func; ctx: pointer; clean: Boolean);
+begin
+  Init;
+//  Fobj:= manifold_cross_section_warp_context(Pointer(Fmem), cs.Fobj, fun, ctx);
+  if clean then cs.Free;
+end;
+
+constructor TCrossSection.cross_section_simplify(cs: TCrossSection; epsilon: double; clean: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_simplify(Pointer(Fmem), cs.Fobj, epsilon);
+  if clean then cs.Free;
+end;
+
+constructor TCrossSection.cross_section_offset(cs: TCrossSection; delta: double; jt: TManifoldJoinType; miter_limit: double; circular_segments: longint; clean: Boolean);
+begin
+  Init;
+  Fobj:= manifold_cross_section_offset(Pointer(Fmem), cs.Fobj, delta, jt, miter_limit, circular_segments);
+  if clean then cs.Free;
+end;
+
+destructor TCrossSection.Destroy;
+begin
+  manifold_destruct_cross_section(Fobj);
+  inherited Destroy;
+end;
+
+
 
 
 
@@ -362,7 +613,7 @@ begin
    if clean then bounds.Free
 end;
 
-constructor TManifold.boolean(a, b: TManifold; op: TManifoldOpType; clean_a: Boolean; clean_b: Boolean);
+constructor TManifold.boolean(a, b: TManifold; op: TManifoldOpType; clean_a,clean_b: Boolean);
 begin
   Init;
   Fobj:=  manifold_boolean(Pointer( Fmem), a.Fobj, b.Fobj, op);
@@ -377,7 +628,7 @@ begin
    if clean then ms.Free
 end;
 
-constructor TManifold.union(a, b: TManifold; clean_a: Boolean; clean_b: Boolean);
+constructor TManifold.union(a, b: TManifold; clean_a,clean_b: Boolean);
 begin
   Init;
   Fobj:= manifold_union(Pointer( Fmem), a.Fobj, b.Fobj);
@@ -385,7 +636,7 @@ begin
  if clean_b then b.Free;
 end;
 
-constructor TManifold.difference(a, b: TManifold; clean_a: Boolean; clean_b: Boolean);
+constructor TManifold.difference(a, b: TManifold; clean_a,clean_b: Boolean);
 begin
    Init;
 Fobj:= manifold_difference(Pointer( Fmem), a.Fobj, b.Fobj);
@@ -393,7 +644,7 @@ Fobj:= manifold_difference(Pointer( Fmem), a.Fobj, b.Fobj);
   if clean_b then b.Free;
 end;
 
-constructor TManifold.intersection(a, b: TManifold; clean_a: Boolean; clean_b: Boolean);
+constructor TManifold.intersection(a, b: TManifold; clean_a,clean_b: Boolean);
 begin
   Init;
   Fobj:=  manifold_intersection(Pointer( Fmem), a.Fobj, b.Fobj);
@@ -1148,7 +1399,7 @@ begin
  if clean then m.Free;
  end;
 
-constructor TBox.box_union(a: TBox; b: TBox; clean_a: Boolean; clean_b: Boolean);
+constructor TBox.box_union(a: TBox; b: TBox; clean_a,clean_b: Boolean);
 begin
  Init;
  Fobj:= manifold_box_union(Pointer( Fmem) ,a.Fobj, b.Fobj);
@@ -1514,8 +1765,6 @@ end;
 
 
 
-
-
 end.
 
 
@@ -1539,49 +1788,9 @@ end.
 
 
 //
-//function manifold_cross_section_empty(mem: pointer): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_copy(mem: pointer; cs: PManifoldCrossSection): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_of_simple_polygon(mem: pointer; p: PManifoldSimplePolygon; fr: TManifoldFillRule): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_of_polygons(mem: pointer; p: PManifoldPolygons; fr: TManifoldFillRule): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_square(mem: pointer; x: double; y: double; center: longint): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_circle(mem: pointer; radius: double; circular_segments: longint): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_compose(mem: pointer; csv: PManifoldCrossSectionVec): PManifoldCrossSection; cdecl; external libmanifoldc;
 
 
-
-
-//function manifold_cross_section_vec_get(mem: pointer; csv: PManifoldCrossSectionVec; idx: Tsize_t): PManifoldCrossSection; cdecl; external libmanifoldc;
 //
-//function manifold_cross_section_boolean(mem: pointer; a: PManifoldCrossSection; b: PManifoldCrossSection; op: TManifoldOpType): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_batch_boolean(mem: pointer; csv: PManifoldCrossSectionVec; op: TManifoldOpType): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_union(mem: pointer; a: PManifoldCrossSection; b: PManifoldCrossSection): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_difference(mem: pointer; a: PManifoldCrossSection; b: PManifoldCrossSection): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_intersection(mem: pointer; a: PManifoldCrossSection; b: PManifoldCrossSection): PManifoldCrossSection; cdecl; external libmanifoldc;
-//
-//function manifold_cross_section_hull(mem: pointer; cs: PManifoldCrossSection): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_batch_hull(mem: pointer; css: PManifoldCrossSectionVec): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_hull_simple_polygon(mem: pointer; ps: PManifoldSimplePolygon): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_hull_polygons(mem: pointer; ps: PManifoldPolygons): PManifoldCrossSection; cdecl; external libmanifoldc;
-//
-//function manifold_cross_section_translate(mem: pointer; cs: PManifoldCrossSection; x: double; y: double): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_rotate(mem: pointer; cs: PManifoldCrossSection; deg: double): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_scale(mem: pointer; cs: PManifoldCrossSection; x: double; y: double): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_mirror(mem: pointer; cs: PManifoldCrossSection; ax_x: double; ax_y: double): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_transform(mem: pointer; cs: PManifoldCrossSection; x1: double; y1: double; x2: double; y2: double; x3: double; y3: double): PManifoldCrossSection; cdecl; external libmanifoldc;
-//
-//type
-//  Tsection_warp_func = function(para1: double; para2: double): TManifoldVec2; cdecl;
-//  Twarp_context_func = function(para1: double; para2: double; para3: pointer): TManifoldVec2; cdecl;
-//
-//function manifold_cross_section_warp(mem: pointer; cs: PManifoldCrossSection; fun: Tsection_warp_func): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_warp_context(mem: pointer; cs: PManifoldCrossSection; fun: Twarp_context_func; ctx: pointer): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_simplify(mem: pointer; cs: PManifoldCrossSection; epsilon: double): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_offset(mem: pointer; cs: PManifoldCrossSection; delta: double; jt: TManifoldJoinType; miter_limit: double; circular_segments: longint): PManifoldCrossSection; cdecl; external libmanifoldc;
-//
-//function manifold_cross_section_area(cs: PManifoldCrossSection): double; cdecl; external libmanifoldc;
-//function manifold_cross_section_num_vert(cs: PManifoldCrossSection): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_cross_section_num_contour(cs: PManifoldCrossSection): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_cross_section_is_empty(cs: PManifoldCrossSection): longint; cdecl; external libmanifoldc;
 
 
 
