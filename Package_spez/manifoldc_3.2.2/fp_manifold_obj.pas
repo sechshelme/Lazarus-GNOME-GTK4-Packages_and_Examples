@@ -1061,7 +1061,7 @@ end;
 
 destructor TMeshGL64.Destroy;
 begin
-  manifold_destruct_meshgl(Fobj);
+  manifold_destruct_meshgl64(Fobj);
   inherited Destroy;
 end;
 
