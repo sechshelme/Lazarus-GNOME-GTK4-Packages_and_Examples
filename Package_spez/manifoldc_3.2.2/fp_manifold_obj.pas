@@ -10,6 +10,7 @@ type
   TMeshGL64=class;
   TPolygons=class;
   TBox=class;
+  TManifoldVec=class;
 
   { TManifold }
 
@@ -24,13 +25,13 @@ type
     constructor level_set(sdf: TManifoldSdf; bounds: TBox; edge_length,level,tolerance: double; ctx: pointer; clean: Boolean);
     constructor level_set_seq( sdf: TManifoldSdf; bounds: TBox; edge_length,level, tolerance: double; ctx: pointer; clean: Boolean);
     constructor boolean(a, b: TManifold; op: TManifoldOpType; clean_a: Boolean; clean_b: Boolean);
-    constructor batch_boolean( ms: PManifoldManifoldVec; op: TManifoldOpType);   // ????
+    constructor batch_boolean(ms: TManifoldVec; op: TManifoldOpType; clean: Boolean);
     constructor union(a, b: TManifold; clean_a: Boolean;      clean_b: Boolean);
     constructor difference(a, b: TManifold; clean_a: Boolean;      clean_b: Boolean);
     constructor intersection( a, b: TManifold; clean_a: Boolean;      clean_b: Boolean);
     constructor trim_by_plane(m: TManifold; normal_x, normal_y, normal_z, offset: double; clean: Boolean);
     constructor hull(m: TManifold; clean: Boolean);
-    constructor batch_hull( ms: PManifoldManifoldVec); // ????
+    constructor batch_hull( ms: TManifoldVec; clean: Boolean);
     constructor hull_pts(ps: PManifoldVec3; length: Tsize_t);
     constructor translate(m: TManifold; x, y, z: double; clean: Boolean);
     constructor rotate(m: TManifold; x, y, z: double; clean: Boolean);
@@ -46,7 +47,7 @@ type
     constructor refine(m: TManifold; refine: longint; clean: Boolean);
     constructor refine_to_length(m: TManifold; length: double; clean: Boolean);
     constructor refine_to_tolerance(m: TManifold; tolerance: double; clean: Boolean);
-    constructor manifold_vec_get( ms: PManifoldManifoldVec; idx: Tsize_t);  // ????
+    constructor manifold_vec_get( ms: TManifoldVec; idx: Tsize_t; clean: Boolean);
     constructor cube(x, y, z: double; center: longint);
     constructor cylinder(height, radius_low,radius_high: double; circular_segments, center: longint);
     constructor sphere(radius: double; circular_segments: longint);
@@ -56,7 +57,7 @@ type
     constructor smooth64(mesh: TMeshGL64; half_edges: Psize_t; smoothness: Pdouble; n_idxs: Tsize_t; clean: Boolean);
     constructor extrude( cs: TPolygons; height: double; slices: longint; twist_degrees,scale_x, scale_y: double; clean: Boolean);
     constructor revolve( cs: TPolygons; circular_segments: longint; revolve_degrees: double; clean: Boolean) ;
-    constructor compose(ms: PManifoldManifoldVec);  // ????
+    constructor compose(ms: TManifoldVec; clean: Boolean);
     constructor decompose( m: TManifold ;clean: Boolean);
     constructor as_original (m: TManifold;clean: Boolean);
     constructor set_properties( m: TManifold; num_prop: longint; fun: Tproperties_func; ctx: pointer; clean: Boolean);
@@ -84,7 +85,7 @@ type
     private
     Fmem:array of Byte;
     Fobj:PManifoldMeshGL;
-    vpmem,     tvmem ,mfvmem,mtvmen, rimem, roimem,rtmem,fimem,htmem      : array of Byte;
+    vpmem,     tvmem ,mfvmem,mtvmem, rimem, roimem,rtmem,fimem,htmem      : array of Byte;
     procedure Init;
     public
     property obj:PManifoldMeshGL read Fobj;
@@ -125,7 +126,7 @@ type
     private
     Fmem   : array of Byte;
     Fobj:PManifoldMeshGL64;
-    vpmem,     tvmem ,mfvmem,mtvmen, rimem, roimem,rtmem,fimem,htmem      : array of Byte;
+    vpmem,     tvmem ,mfvmem,mtvmem, rimem, roimem,rtmem,fimem,htmem      : array of Byte;
     procedure Init;
     public
     property obj:PManifoldMeshGL64 read Fobj;
@@ -248,84 +249,89 @@ constructor rect_transform( r: TRect; x1, y1, x2, y2, x3, y3: double;  clean: Bo
 constructor rect_translate( r: TRect; x, y: double ; clean: Boolean);
 constructor rect_mul( r: TRect; x, y: double;  clean: Boolean);
 
+function rect_min: TManifoldVec2;
+function rect_max: TManifoldVec2;
+function rect_dimensions: TManifoldVec2;
+function rect_center: TManifoldVec2;
+function rect_scale: double;
+function rect_contains_pt( x, y: double): longint;
+procedure rect_include_pt( x, y: double);
+function rect_is_empty: longint;
+function rect_is_finite: longint;
+
+  destructor Destroy; override;
+  end;
+
+
+  { TCrossSectionVec }
+
+  TCrossSectionVec=class(TObject)
+  private
+  Fmem:array of Byte;
+  Fobj:PManifoldCrossSectionVec;
+  procedure Init;
+  public
+  property obj:PManifoldCrossSectionVec read Fobj;
+
+  constructor cross_section_decompose(cs: PManifoldCrossSection); // ????
+  constructor cross_section_empty_vec;
+  constructor cross_section_vec( sz: Tsize_t);
+
+  procedure cross_section_vec_reserve( sz: Tsize_t);
+  function cross_section_vec_length: Tsize_t;
+  procedure cross_section_vec_set( idx: Tsize_t; cs: PManifoldCrossSection); // ????
+  procedure cross_section_vec_push_back( cs: PManifoldCrossSection); // ????
+
+  destructor Destroy; override;
+  end;
+
+  { TSimplePolygon }
+
+  TSimplePolygon=class(TObject)
+  private
+  Fmem:array of Byte;
+  Fobj:PManifoldSimplePolygon;
+  procedure Init;
+  public
+  property obj:PManifoldSimplePolygon read Fobj;
+
+  constructor simple_polygon(ps: PManifoldVec2; len: Tsize_t);
+  constructor polygons_get_simple( ps: TPolygons; idx: Tsize_t; clean: Boolean);
+
+  function simple_polygon_length: Tsize_t;
+  function simple_polygon_get_point( idx: Tsize_t): TManifoldVec2;
+
+  destructor Destroy; override;
+  end;
+
+
+  { TManifoldVec }
+
+  TManifoldVec=class(TObject)
+  private
+  Fmem:array of Byte;
+  Fobj:PManifoldManifoldVec;
+  procedure Init;
+  public
+  property obj:PManifoldManifoldVec read Fobj;
+
+  constructor manifold_empty_vec;
+  constructor manifold_vec( sz: Tsize_t);
+
+  procedure manifold_vec_reserve( sz: Tsize_t);
+  function manifold_vec_length: Tsize_t;
+  procedure manifold_vec_set( idx: Tsize_t; m: TManifold; clean: Boolean);
+  procedure manifold_vec_push_back( m: TManifold; clean: Boolean);
 
   destructor Destroy; override;
   end;
 
 
 
-//function manifold_rect_min(r: PManifoldRect): TManifoldVec2; cdecl; external libmanifoldc;
-//function manifold_rect_max(r: PManifoldRect): TManifoldVec2; cdecl; external libmanifoldc;
-//function manifold_rect_dimensions(r: PManifoldRect): TManifoldVec2; cdecl; external libmanifoldc;
-//function manifold_rect_center(r: PManifoldRect): TManifoldVec2; cdecl; external libmanifoldc;
-//function manifold_rect_scale(r: PManifoldRect): double; cdecl; external libmanifoldc;
-//function manifold_rect_contains_pt(r: PManifoldRect; x: double; y: double): longint; cdecl; external libmanifoldc;
-//procedure manifold_rect_include_pt(r: PManifoldRect; x: double; y: double); cdecl; external libmanifoldc;
-//function manifold_rect_is_empty(r: PManifoldRect): longint; cdecl; external libmanifoldc;
-//function manifold_rect_is_finite(r: PManifoldRect): longint; cdecl; external libmanifoldc;
-
 
 
 implementation
 
-
-{ TRect }
-
-procedure TRect.Init;
-var
-  m_size: Tsize_t;
-begin
-  m_size := manifold_rect_size;
-   SetLength(Fmem, m_size);
-end;
-
-constructor TRect.cross_section_bounds(cs: PManifoldCrossSection);
-begin
-  Init;
-  Fobj:=manifold_cross_section_bounds(Pointer( Fmem), cs);
- //  if clean then bounds.Free
-end;
-
-constructor TRect.rect(x1, y1, x2, y2: double);
-begin
-  Init;
-  Fobj:=manifold_rect(Pointer( Fmem), x1, y1, x2, y2);
-end;
-
-constructor TRect.rect_union(a, b: TRect; clean_a, clean_b: Boolean);
-begin
-  Init;
-  Fobj:=manifold_rect_union(Pointer( Fmem), a.Fobj,b.Fobj);
-  if clean_a then a.Free;
-  if clean_b then b.Free ;
-end;
-
-constructor TRect.rect_transform(r: TRect; x1, y1, x2, y2, x3, y3: double; clean: Boolean);
-begin
-  Init;
-  Fobj:=manifold_rect_transform(Pointer( Fmem), r.Fobj, x1, y1, x2,y2, x3, y3);
-   if clean then r.Free;
-end;
-
-constructor TRect.rect_translate(r: TRect; x, y: double; clean: Boolean);
-begin
-  Init;
-  Fobj:=     manifold_rect_translate(Pointer( Fmem), r.Fobj, x, y);
-   if clean then r.Free ;
-end;
-
-constructor TRect.rect_mul(r: TRect; x, y: double; clean: Boolean);
-begin
-  Init;
-  Fobj:=     manifold_rect_mul(Pointer( Fmem), r.Fobj, x, y);
-   if clean then r.Free  ;
-end;
-
-destructor TRect.Destroy;
-begin
-  manifold_destruct_rect(Fobj);
-  inherited Destroy;
-end;
 
 
 
@@ -364,11 +370,11 @@ begin
  if clean_b then b.Free;
 end;
 
-constructor TManifold.batch_boolean(ms: PManifoldManifoldVec; op: TManifoldOpType);
+constructor TManifold.batch_boolean(ms: TManifoldVec; op: TManifoldOpType; clean: Boolean);
 begin
   Init;
-  Fobj:= manifold_batch_boolean(Pointer( Fmem), ms, op);
-  // if clean  ms.Free
+  Fobj:= manifold_batch_boolean(Pointer( Fmem), ms.Fobj, op);
+   if clean then ms.Free
 end;
 
 constructor TManifold.union(a, b: TManifold; clean_a: Boolean; clean_b: Boolean);
@@ -409,18 +415,17 @@ Fobj:= manifold_hull(Pointer( Fmem), m.Fobj);
   if clean then m.Free;
 end;
 
-constructor TManifold.batch_hull(ms: PManifoldManifoldVec);
+constructor TManifold.batch_hull(ms: TManifoldVec; clean: Boolean);
 begin
   Init;
-  Fobj:=   manifold_batch_hull(Pointer( Fmem),ms);
-  // if clean  ms.Free
+  Fobj:=   manifold_batch_hull(Pointer( Fmem),ms.Fobj);
+   if clean then ms.Free
 end;
 
 constructor TManifold.hull_pts(ps: PManifoldVec3; length: Tsize_t);
 begin
   Init;
   Fobj:=   manifold_hull_pts(Pointer( Fmem), ps, length);
- // if clean  ms.Free
 end;
 
 constructor TManifold.translate(m: TManifold; x, y, z: double; clean: Boolean);
@@ -519,11 +524,11 @@ Fobj:= manifold_refine_to_tolerance(Pointer( Fmem), m.Fobj, tolerance);
   if clean then m.Free;
 end;
 
-constructor TManifold.manifold_vec_get(ms: PManifoldManifoldVec; idx: Tsize_t);
+constructor TManifold.manifold_vec_get(ms: TManifoldVec; idx: Tsize_t; clean: Boolean);
 begin
   Init;
- Fobj:=manifold_manifold_vec_get(Pointer( Fmem), ms, idx);
-// if clean  ms.Free
+ Fobj:=manifold_manifold_vec_get(Pointer( Fmem), ms.Fobj, idx);
+ if clean then ms.Free
 end;
 
 constructor TManifold.cube(x, y, z: double; center: longint);
@@ -586,11 +591,11 @@ begin
    if clean then cs.Free
 end;
 
-constructor TManifold.compose(ms: PManifoldManifoldVec);
+constructor TManifold.compose(ms: TManifoldVec; clean: Boolean);
 begin
   Init;
-  Fobj:= manifold_compose(Pointer( Fmem), ms);
-  // if clean  ms.Free
+  Fobj:= manifold_compose(Pointer( Fmem), ms.Fobj);
+  if clean then ms.Free
 end;
 
 constructor TManifold.decompose(m: TManifold; clean: Boolean);
@@ -819,8 +824,8 @@ var
   len: Tsize_t;
 begin
   len := meshgl_merge_length;
-SetLength(mtvmen, len * SizeOf(Tuint32_t));
-Result:=manifold_meshgl_merge_to_vert(Pointer(mtvmen), Fobj);
+SetLength(mtvmem, len * SizeOf(Tuint32_t));
+Result:=manifold_meshgl_merge_to_vert(Pointer(mtvmem), Fobj);
 end;
 
 function TMeshGL.meshgl_run_index: Puint32_t;
@@ -1005,8 +1010,8 @@ var
   len: Tsize_t;
 begin
   len := merge_length;
-SetLength(mtvmen, len * SizeOf(Tuint64_t));
-Result:=manifold_meshgl64_merge_to_vert(Pointer(mtvmen), Fobj);
+SetLength(mtvmem, len * SizeOf(Tuint64_t));
+Result:=manifold_meshgl64_merge_to_vert(Pointer(mtvmem), Fobj);
 end;
 
 function TMeshGL64.run_index: Puint64_t;
@@ -1260,24 +1265,262 @@ begin
   inherited Destroy;
 end;
 
+{ TRect }
+
+procedure TRect.Init;
+var
+  m_size: Tsize_t;
+begin
+  m_size := manifold_rect_size;
+   SetLength(Fmem, m_size);
+end;
+
+constructor TRect.cross_section_bounds(cs: PManifoldCrossSection);
+begin
+  Init;
+  Fobj:=manifold_cross_section_bounds(Pointer( Fmem), cs);
+ //  if clean then bounds.Free
+end;
+
+constructor TRect.rect(x1, y1, x2, y2: double);
+begin
+  Init;
+  Fobj:=manifold_rect(Pointer( Fmem), x1, y1, x2, y2);
+end;
+
+constructor TRect.rect_union(a, b: TRect; clean_a, clean_b: Boolean);
+begin
+  Init;
+  Fobj:=manifold_rect_union(Pointer( Fmem), a.Fobj,b.Fobj);
+  if clean_a then a.Free;
+  if clean_b then b.Free ;
+end;
+
+constructor TRect.rect_transform(r: TRect; x1, y1, x2, y2, x3, y3: double; clean: Boolean);
+begin
+  Init;
+  Fobj:=manifold_rect_transform(Pointer( Fmem), r.Fobj, x1, y1, x2,y2, x3, y3);
+   if clean then r.Free;
+end;
+
+constructor TRect.rect_translate(r: TRect; x, y: double; clean: Boolean);
+begin
+  Init;
+  Fobj:=     manifold_rect_translate(Pointer( Fmem), r.Fobj, x, y);
+   if clean then r.Free ;
+end;
+
+constructor TRect.rect_mul(r: TRect; x, y: double; clean: Boolean);
+begin
+  Init;
+  Fobj:=     manifold_rect_mul(Pointer( Fmem), r.Fobj, x, y);
+   if clean then r.Free  ;
+end;
+
+function TRect.rect_min: TManifoldVec2;
+begin
+Result:=  manifold_rect_min(Fobj);
+end;
+
+function TRect.rect_max: TManifoldVec2;
+begin
+  Result:=  manifold_rect_max(Fobj);
+end;
+
+function TRect.rect_dimensions: TManifoldVec2;
+begin
+  Result:=  manifold_rect_dimensions(Fobj);
+end;
+
+function TRect.rect_center: TManifoldVec2;
+begin
+  Result:=  manifold_rect_center(Fobj);
+end;
+
+function TRect.rect_scale: double;
+begin
+  Result:=  manifold_rect_scale(Fobj);
+end;
+
+function TRect.rect_contains_pt(x, y: double): longint;
+begin
+  Result:=  manifold_rect_contains_pt(Fobj, x, y);
+end;
+
+procedure TRect.rect_include_pt(x, y: double);
+begin
+  manifold_rect_include_pt(Fobj, x, y);
+end;
+
+function TRect.rect_is_empty: longint;
+begin
+  Result:=  manifold_rect_is_empty(Fobj);
+end;
+
+function TRect.rect_is_finite: longint;
+begin
+  Result:=  manifold_rect_is_finite(Fobj);
+end;
+
+destructor TRect.Destroy;
+begin
+  manifold_destruct_rect(Fobj);
+  inherited Destroy;
+end;
+
+{ TCrossSectionVec }
+
+procedure TCrossSectionVec.Init;
+var
+  m_size: Tsize_t;
+begin
+  m_size := manifold_cross_section_vec_size;
+   SetLength(Fmem, m_size);
+end;
+
+constructor TCrossSectionVec.cross_section_decompose(cs: PManifoldCrossSection);
+begin
+  Init;
+  Fobj:=   manifold_cross_section_decompose(Pointer( Fmem), cs);
+//   if clean then bounds.Free
+end;
+
+constructor TCrossSectionVec.cross_section_empty_vec;
+begin
+  Init;
+  Fobj:=  manifold_cross_section_empty_vec(Pointer( Fmem));
+end;
+
+constructor TCrossSectionVec.cross_section_vec(sz: Tsize_t);
+begin
+  Init;
+  Fobj:= manifold_cross_section_vec(Pointer( Fmem), sz);
+end;
+
+procedure TCrossSectionVec.cross_section_vec_reserve(sz: Tsize_t);
+begin
+ manifold_cross_section_vec_reserve(Fobj, sz);
+end;
+
+function TCrossSectionVec.cross_section_vec_length: Tsize_t;
+begin
+Result:= manifold_cross_section_vec_length(Fobj);
+end;
+
+procedure TCrossSectionVec.cross_section_vec_set(idx: Tsize_t; cs: PManifoldCrossSection);
+begin
+manifold_cross_section_vec_set(Fobj,idx,cs);
+end;
+
+procedure TCrossSectionVec.cross_section_vec_push_back(cs: PManifoldCrossSection);
+begin
+ manifold_cross_section_vec_push_back(Fobj,cs);
+end;
+
+destructor TCrossSectionVec.Destroy;
+begin
+  manifold_destruct_cross_section_vec(Fobj);
+  inherited Destroy;
+end;
+
+{ TSimplePolygon }
+
+procedure TSimplePolygon.Init;
+  var
+    m_size: Tsize_t;
+  begin
+    m_size := manifold_simple_polygon_size;
+     SetLength(Fmem, m_size);
+end;
+
+constructor TSimplePolygon.simple_polygon(ps: PManifoldVec2; len: Tsize_t);
+begin
+  Init;
+  Fobj:= manifold_simple_polygon(Pointer( Fmem), ps, len);
+end;
+
+constructor TSimplePolygon.polygons_get_simple(ps: TPolygons; idx: Tsize_t; clean: Boolean);
+begin
+  Init;
+  Fobj:=manifold_polygons_get_simple(Pointer( Fmem), ps.Fobj, idx);
+   if clean then ps.Free
+end;
+
+function TSimplePolygon.simple_polygon_length: Tsize_t;
+begin
+ Result:=manifold_simple_polygon_length(Fobj);
+end;
+
+function TSimplePolygon.simple_polygon_get_point(idx: Tsize_t): TManifoldVec2;
+begin
+Result:=manifold_simple_polygon_get_point(Fobj ,idx);
+end;
+
+destructor TSimplePolygon.Destroy;
+begin
+  manifold_destruct_simple_polygon(Fobj);
+  inherited Destroy;
+end;
+
+{ TManifoldVec }
+
+procedure TManifoldVec.Init;
+  var
+    m_size: Tsize_t;
+  begin
+    m_size := manifold_manifold_vec_size;
+     SetLength(Fmem, m_size);
+end;
+
+constructor TManifoldVec.manifold_empty_vec;
+begin
+  Init;
+  Fobj:=manifold_manifold_empty_vec(Pointer( Fmem));
+end;
+
+constructor TManifoldVec.manifold_vec(sz: Tsize_t);
+begin
+  Init;
+  Fobj:=manifold_manifold_vec(Pointer( Fmem), sz);
+end;
+
+procedure TManifoldVec.manifold_vec_reserve(sz: Tsize_t);
+begin
+  manifold_manifold_vec_reserve(Fobj, sz);
+end;
+
+function TManifoldVec.manifold_vec_length: Tsize_t;
+begin
+ Result:=manifold_manifold_vec_length(Fobj);
+end;
+
+procedure TManifoldVec.manifold_vec_set(idx: Tsize_t; m: TManifold; clean: Boolean);
+begin
+  manifold_manifold_vec_set(Fobj, idx,m.Fobj);
+   if clean then m.Free
+end;
+
+procedure TManifoldVec.manifold_vec_push_back(m: TManifold; clean: Boolean);
+begin
+manifold_manifold_vec_push_back(Fobj, m.Fobj);
+   if clean then m.Free
+end;
+
+destructor TManifoldVec.Destroy;
+begin
+  manifold_destruct_manifold_vec(Fobj);
+  inherited Destroy;
+end;
+
+
+
+
 
 end.
 
 
-//function manifold_simple_polygon(mem: pointer; ps: PManifoldVec2; length: Tsize_t): PManifoldSimplePolygon; cdecl; external libmanifoldc;
-//function manifold_simple_polygon_length(p: PManifoldSimplePolygon): Tsize_t; cdecl; external libmanifoldc;
-//function manifold_simple_polygon_get_point(p: PManifoldSimplePolygon; idx: Tsize_t): TManifoldVec2; cdecl; external libmanifoldc;
-//function manifold_polygons_get_simple(mem: pointer; ps: PManifoldPolygons; idx: Tsize_t): PManifoldSimplePolygon; cdecl; external libmanifoldc;
-//
 
-//
-//function manifold_manifold_empty_vec(mem: pointer): PManifoldManifoldVec; cdecl; external libmanifoldc;
-//function manifold_manifold_vec(mem: pointer; sz: Tsize_t): PManifoldManifoldVec; cdecl; external libmanifoldc;
-//procedure manifold_manifold_vec_reserve(ms: PManifoldManifoldVec; sz: Tsize_t); cdecl; external libmanifoldc;
-//function manifold_manifold_vec_length(ms: PManifoldManifoldVec): Tsize_t; cdecl; external libmanifoldc;
-//procedure manifold_manifold_vec_set(ms: PManifoldManifoldVec; idx: Tsize_t; m: PManifoldManifold); cdecl; external libmanifoldc;
-//procedure manifold_manifold_vec_push_back(ms: PManifoldManifoldVec; m: PManifoldManifold); cdecl; external libmanifoldc;
-//
+
 
 
 //function manifold_split(mem_first: pointer; mem_second: pointer; a: PManifoldManifold; b: PManifoldManifold): TManifoldManifoldPair; cdecl; external libmanifoldc;
@@ -1303,15 +1546,11 @@ end.
 //function manifold_cross_section_square(mem: pointer; x: double; y: double; center: longint): PManifoldCrossSection; cdecl; external libmanifoldc;
 //function manifold_cross_section_circle(mem: pointer; radius: double; circular_segments: longint): PManifoldCrossSection; cdecl; external libmanifoldc;
 //function manifold_cross_section_compose(mem: pointer; csv: PManifoldCrossSectionVec): PManifoldCrossSection; cdecl; external libmanifoldc;
-//function manifold_cross_section_decompose(mem: pointer; cs: PManifoldCrossSection): PManifoldCrossSectionVec; cdecl; external libmanifoldc;
-//
-//function manifold_cross_section_empty_vec(mem: pointer): PManifoldCrossSectionVec; cdecl; external libmanifoldc;
-//function manifold_cross_section_vec(mem: pointer; sz: Tsize_t): PManifoldCrossSectionVec; cdecl; external libmanifoldc;
-//procedure manifold_cross_section_vec_reserve(csv: PManifoldCrossSectionVec; sz: Tsize_t); cdecl; external libmanifoldc;
-//function manifold_cross_section_vec_length(csv: PManifoldCrossSectionVec): Tsize_t; cdecl; external libmanifoldc;
+
+
+
+
 //function manifold_cross_section_vec_get(mem: pointer; csv: PManifoldCrossSectionVec; idx: Tsize_t): PManifoldCrossSection; cdecl; external libmanifoldc;
-//procedure manifold_cross_section_vec_set(csv: PManifoldCrossSectionVec; idx: Tsize_t; cs: PManifoldCrossSection); cdecl; external libmanifoldc;
-//procedure manifold_cross_section_vec_push_back(csv: PManifoldCrossSectionVec; cs: PManifoldCrossSection); cdecl; external libmanifoldc;
 //
 //function manifold_cross_section_boolean(mem: pointer; a: PManifoldCrossSection; b: PManifoldCrossSection; op: TManifoldOpType): PManifoldCrossSection; cdecl; external libmanifoldc;
 //function manifold_cross_section_batch_boolean(mem: pointer; csv: PManifoldCrossSectionVec; op: TManifoldOpType): PManifoldCrossSection; cdecl; external libmanifoldc;
