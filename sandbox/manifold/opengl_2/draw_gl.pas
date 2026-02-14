@@ -47,11 +47,11 @@ var
   = nil;
 
   er: TManifoldError;
-  cube, hole: TManifold;
+  cube, hole, hole2: TManifold;
 
 const
   Sektor = 32;
-
+  HoleCount = 13;
 begin
   cube := TManifold.cube(10.0, 10.0, 10.0, 1);
 
@@ -66,7 +66,16 @@ begin
   hole := TManifold.cylinder(20.0, 3.5, 3.5, Sektor + 5, 1);
   cube := TManifold.difference(cube, hole, True, True);
 
+  hole := TManifold.cylinder(20.0, 0.5, 0.5, Sektor + 5, 1);
+  hole := TManifold.translate(hole, 4.5, 0.0, 0.0, True);
+  for i := 0 to HoleCount - 1 do begin
+    hole2 := TManifold.rotate(hole, 0.0, 0.0, 360 / HoleCount * i, False);
+    cube := TManifold.difference(cube, hole2, True, True);
+  end;
+  hole.Free;
+
   cube := TManifold.calculate_normals(cube, 3, 60.0, True);
+
 
   er := manifold_status(cube.obj);
   if er <> MANIFOLD_NO_ERROR then begin
