@@ -12,11 +12,17 @@ uses
     Result.z := z;
   end;
 
+procedure glmc_vec3_lerpc; cdecl; external 'cglm';
+  procedure glmc_vec3_mix; cdecl; external 'cglm';
+
+
   procedure main;
   var
     camera: TCamera3D;
     rotation: single = 0.0;
   begin
+    glmc_vec3_lerpc;
+    glmc_vec3_mix;
     InitWindow(800, 600, 'Rotierender Würfel');
 
     FillChar(camera, SizeOf(camera), 0);
