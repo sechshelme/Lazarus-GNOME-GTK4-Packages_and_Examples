@@ -3,7 +3,8 @@ unit draw_gl;
 interface
 
 uses
-  gl,
+//  gl,
+  fp_glew,
   fp_manifold_obj,
   fp_manifoldc;
 
@@ -22,7 +23,7 @@ type
   TVector4f = array[0..3] of single;
 
 var
-  ListeID: GLuint;
+  ListeID: TGLuint;
 
 procedure InitScene;
 var

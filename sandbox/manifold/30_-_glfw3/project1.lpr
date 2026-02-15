@@ -4,7 +4,8 @@ program project1;
 
 uses
   fp_glfw3,
-  gl,
+  fp_glew,
+//  gl,
   draw_gl;
 
   procedure error_callback(error_code: longint; description: pchar); cdecl;
@@ -60,6 +61,11 @@ uses
     glfwSetMouseButtonCallback(window, @Mouse_Callback);
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
+
+    if glewInit <> GLEW_OK then begin
+      WriteLn('glewInit Fehler');
+      Halt(1);
+    end;
 
     InitScene;
 
