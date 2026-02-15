@@ -31,7 +31,7 @@ implementation
 
 procedure draw;
 var
-  mesh: TMeshGL;
+  mesh: TMeshGLClass;
 
   n_verts, n_tris, n_props: longint;
   verts_data: Psingle = nil;
@@ -47,34 +47,34 @@ var
   = nil;
 
   er: TManifoldError;
-  cube, hole, hole2: TManifold;
+  cube, hole, hole2: TManifoldClass;
 
 const
   Sektor = 32;
   HoleCount = 13;
 begin
-  cube := TManifold.cube(10.0, 10.0, 10.0, 1);
+  cube := TManifoldClass.cube(10.0, 10.0, 10.0, 1);
 
-  hole := TManifold.cube(20.0, 6.0, 6.0, 1);
-  hole := TManifold.rotate(hole, 20.0, 0.0, 0.0, True);
-  cube := TManifold.difference(cube, hole, True, True);
+  hole := TManifoldClass.cube(20.0, 6.0, 6.0, 1);
+  hole := TManifoldClass.rotate(hole, 20.0, 0.0, 0.0, True);
+  cube := TManifoldClass.difference(cube, hole, True, True);
 
-  hole := TManifold.cylinder(20.0, 3.5, 3.5, Sektor, 1);
-  hole := TManifold.rotate(hole, 90.0, 0.0, 0.0, True);
-  cube := TManifold.difference(cube, hole, True, True);
+  hole := TManifoldClass.cylinder(20.0, 3.5, 3.5, Sektor, 1);
+  hole := TManifoldClass.rotate(hole, 90.0, 0.0, 0.0, True);
+  cube := TManifoldClass.difference(cube, hole, True, True);
 
-  hole := TManifold.cylinder(20.0, 3.5, 3.5, Sektor + 5, 1);
-  cube := TManifold.difference(cube, hole, True, True);
+  hole := TManifoldClass.cylinder(20.0, 3.5, 3.5, Sektor + 5, 1);
+  cube := TManifoldClass.difference(cube, hole, True, True);
 
-  hole := TManifold.cylinder(20.0, 0.5, 0.5, Sektor + 5, 1);
-  hole := TManifold.translate(hole, 4.5, 0.0, 0.0, True);
+  hole := TManifoldClass.cylinder(20.0, 0.5, 0.5, Sektor + 5, 1);
+  hole := TManifoldClass.translate(hole, 4.5, 0.0, 0.0, True);
   for i := 0 to HoleCount - 1 do begin
-    hole2 := TManifold.rotate(hole, 0.0, 0.0, 360 / HoleCount * i, False);
-    cube := TManifold.difference(cube, hole2, True, True);
+    hole2 := TManifoldClass.rotate(hole, 0.0, 0.0, 360 / HoleCount * i, False);
+    cube := TManifoldClass.difference(cube, hole2, True, True);
   end;
   hole.Free;
 
-  cube := TManifold.calculate_normals(cube, 3, 60.0, True);
+  cube := TManifoldClass.calculate_normals(cube, 3, 60.0, True);
 
 
   er := manifold_status(cube.obj);
@@ -82,7 +82,7 @@ begin
     WriteLn('Fehler in Manifold Geometrie!  (', er, ')');
   end;
 
-  mesh := TMeshGL.get_meshgl(cube, True);
+  mesh := TMeshGLClass.get_meshgl(cube, True);
 
   n_verts := mesh.meshgl_num_vert;
   n_tris := mesh.meshgl_num_tri;
