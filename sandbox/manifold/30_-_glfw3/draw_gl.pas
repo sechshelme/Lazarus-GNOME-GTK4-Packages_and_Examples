@@ -10,26 +10,21 @@ uses
 const
   MAX_RAYS = 200;
 
+procedure InitScene;
 procedure draw;
+procedure CloseScene;
 
-const
-  {$IFDEF linux}
-  libc = 'c';
-  {$ENDIF}
 
-  {$IFDEF windows}
-  libc = 'msvcrt.dll';
-  {$ENDIF}
+implementation
 
 type
   TVector3f = array[0..2] of single;
   TVector4f = array[0..3] of single;
 
-  //  OpenSCAD
+var
+  ListeID: GLuint;
 
-implementation
-
-procedure draw;
+procedure InitScene;
 var
   mesh: TMeshGLClass;
 
@@ -53,7 +48,7 @@ const
   Sektor = 32;
   HoleCount = 13;
 begin
-  cube := TManifoldClass.cube(10.0, 10.0, 10.0, 1);
+  cube := TManifoldClass.cube(10.0, 10.0, 10.0, 15);
 
   hole := TManifoldClass.cube(20.0, 6.0, 6.0, 1);
   hole := TManifoldClass.rotate(hole, 20.0, 0.0, 0.0, True);
@@ -74,7 +69,7 @@ begin
   end;
   hole.Free;
 
-  cube := TManifoldClass.calculate_normals(cube, 3, 60.0, True);
+  cube := TManifoldClass.calculate_normals(cube, 3, 30.0, True);
 
 
   er := manifold_status(cube.obj);
@@ -122,6 +117,12 @@ begin
     vectors[i].n[2] := nz;
   end;
 
+  // === OpenGL
+
+
+  ListeID := glGenLists(1);
+  glNewList(ListeID, GL_COMPILE);
+
   WriteLn(#10'Liste aller Dreiecke (Indices):');
   glBegin(GL_TRIANGLES);
   for  i := 0 to n_tris - 1 do begin
@@ -147,7 +148,69 @@ begin
 
   end;
   glEnd;
+
+  glEndList();
   mesh.Free;
+end;
+
+procedure draw;
+const
+  scale = 1.5;
+  w: single = 0;
+var
+  sun_direction: TVector4f = (1.0, 1.0, 1.0, 0.0);
+  sun_diffuse: TVector4f = (1.0, 1.0, 1.0, 1.0);
+  sun_specular: TVector4f = (1.0, 1.0, 1.0, 1.0);
+
+  mat_specular: TVector4f = (1.0, 1.0, 1.0, 1.0);
+  mat_shininess: single = 110.0;
+
+  meineObjektFarbe: TVector4f = (0.8, 0.0, 0.0, 1.0);
+  mat_emission: TVector4f = (0.2, 0.0, 0.0, 1.0);
+
+begin
+  glClearColor(0.05, 0.05, 0.1, 1.0);
+  glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
+
+  glEnable(GL_DEPTH_TEST);
+  glEnable(GL_NORMALIZE);
+  glShadeModel(GL_SMOOTH);
+
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  glFrustum(-1.0, 1.0, -1.0, 1.0, 1.5, 100.0);
+
+  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();
+
+  glLightfv(GL_LIGHT0, GL_POSITION, @sun_direction);
+  glLightfv(GL_LIGHT0, GL_DIFFUSE, @sun_diffuse);
+  glLightfv(GL_LIGHT0, GL_SPECULAR, @sun_specular);
+
+  glEnable(GL_LIGHTING);
+  glEnable(GL_LIGHT0);
+
+  glMaterialfv(GL_FRONT, GL_AMBIENT, @meineObjektFarbe);
+  glMaterialfv(GL_FRONT, GL_DIFFUSE, @meineObjektFarbe);
+  glMaterialfv(GL_FRONT, GL_SPECULAR, @mat_specular);
+  glMaterialf(GL_FRONT, GL_SHININESS, mat_shininess);
+  glMaterialfv(GL_FRONT, GL_EMISSION, @mat_emission);
+
+  glTranslatef(0, 0, -30);
+  glScalef(scale, scale, scale);
+
+  glRotatef(w, 1.0, 0.8, 0.3);
+  w := w + 0.8;
+
+  glEnable(GL_CULL_FACE);
+  glCullFace(GL_BACK);
+
+  glCallList(ListeID);
+end;
+
+procedure CloseScene;
+begin
+  glDeleteLists(ListeID, 1);
 end;
 
 

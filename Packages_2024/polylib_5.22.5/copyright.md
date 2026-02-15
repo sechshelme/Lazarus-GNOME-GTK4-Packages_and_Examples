@@ -1,4 +1,4 @@
-Copyright (c) 2025 sechsehelme
+Copyright (c) 2026 sechsehelme
 Pascal binding for libpolylib.h
 Released under the MIT License
 
