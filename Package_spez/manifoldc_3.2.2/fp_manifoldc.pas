@@ -2,6 +2,10 @@ unit fp_manifoldc;
 
 interface
 
+// nicht in der lib !!!!
+// manifold_cross_section_warp_context(Pointer(Fmem), cs.Fobj, fun, ctx);
+
+
 const
   {$IFDEF Linux}
   libmanifoldc = 'manifoldc';
