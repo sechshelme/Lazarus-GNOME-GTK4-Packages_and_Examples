@@ -299,6 +299,7 @@ const
     (libs: 'libbrotlicommon'; units: 'ctypes'),
     (libs: 'libpolylib'; units: 'fp_polylib64, types, arithmetique'),
     (libs: 'libmanifoldc'; units: 'ctypes'),
+    (libs: 'libcglm'; units: 'fp_cglm'),
 
 
 
