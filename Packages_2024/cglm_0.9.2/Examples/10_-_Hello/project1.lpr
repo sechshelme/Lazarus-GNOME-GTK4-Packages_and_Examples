@@ -20,8 +20,12 @@ uses
 
   procedure main;
   var
-    m: Tmat4 = ((1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1));
+    i:Integer;
+    {$CODEALIGN LOCALMIN=16}
+    m: Tmat4;
+    {$CODEALIGN LOCALMIN=off}
   begin
+    glmc_mat4_identity(m);
     printMatrix(m);
     glmc_scale_uni(m,2);
     printMatrix(m);

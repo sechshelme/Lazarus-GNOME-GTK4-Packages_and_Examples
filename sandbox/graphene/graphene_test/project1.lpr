@@ -3,19 +3,30 @@ program project1;
   //uses
   //  fp_graphene;
 
+    {$mode objfpc}{$H+}
+
+
 const
   {$IFDEF Linux}
   libgraphene = 'libgraphene-1.0';
   {$ENDIF}
 
+  {$packrecords c}
+
+
+  {$CODEALIGN LOCALMIN=16}
+  {$CODEALIGN RECORDMIN=64}
+
+
+
 
 type
-  //  Tgraphene_simd4f_t=array [0..3]of Single;
-  //  Pgraphene_simd4f_t=^Tgraphene_simd4f_t;
-  Tgraphene_simd4f_t =  record
-    pad:array[0..15] of byte;
-//    x, y, z, w: single;
-  end ;
+  Tgraphene_simd4f_t = array [0..3] of single; align 16;
+  //    Pgraphene_simd4f_t=^Tgraphene_simd4f_t;
+  //  Tgraphene_simd4f_t =  record
+  //    x, y, z, w: single;
+  //    pad:array[0..15] of byte;
+  //  end ;
 var
 
   res: Tgraphene_simd4f_t;
@@ -31,14 +42,7 @@ var
 
 
 begin
-  res := graphene_simd4f_init(1.1, 5.5, 3.3, 4.4);
-
-  //res.x:=5.5;
-  //res.y:=6.6;
-  //res.z:=7.7;
-  //res.w:=8.8;
-
-
+  res := graphene_simd4f_init(1.1, 2.2, 3.3, 4.4);
   WriteLn('size: ', SizeOf(res));
 
   x := graphene_simd4f_get_x(res);
