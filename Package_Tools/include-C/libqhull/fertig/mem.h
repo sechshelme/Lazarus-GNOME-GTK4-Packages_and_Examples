@@ -157,25 +157,6 @@ struct qhmemT {               /* global memory management variables */
         assumes size<=qhmem.LASTsize and void **freelistp is a temp
 */
 
-#if defined qh_NOmem
-#define qh_memalloc_(insize, freelistp, object, type) {\
-  (void)freelistp; /* Avoid warnings */ \
-  object= (type *)qh_memalloc(insize); }
-#elif defined qh_TRACEshort
-#define qh_memalloc_(insize, freelistp, object, type) {\
-  (void)freelistp; /* Avoid warnings */ \
-  object= (type *)qh_memalloc(insize); }
-#else /* !qh_NOmem */
-
-#define qh_memalloc_(insize, freelistp, object, type) {\
-  freelistp= qhmem.freelists + qhmem.indextable[insize];\
-  if ((object= (type *)*freelistp)) {\
-    qhmem.totshort += qhmem.sizetable[qhmem.indextable[insize]]; \
-    qhmem.totfree -= qhmem.sizetable[qhmem.indextable[insize]]; \
-    qhmem.cntquick++;  \
-    *freelistp= *((void **)*freelistp);\
-  }else object= (type *)qh_memalloc(insize);}
-#endif
 
 /*-<a                             href="qh-mem.htm#TOC"
   >--------------------------------</a><a name="memfree_">-</a>
@@ -187,25 +168,6 @@ struct qhmemT {               /* global memory management variables */
     object may be NULL
     assumes size<=qhmem.LASTsize and void **freelistp is a temp
 */
-#if defined qh_NOmem
-#define qh_memfree_(object, insize, freelistp) {\
-  (void)freelistp; /* Avoid warnings */ \
-  qh_memfree(object, insize); }
-#elif defined qh_TRACEshort
-#define qh_memfree_(object, insize, freelistp) {\
-  (void)freelistp; /* Avoid warnings */ \
-  qh_memfree(object, insize); }
-#else /* !qh_NOmem */
-
-#define qh_memfree_(object, insize, freelistp) {\
-  if (object) { \
-    qhmem.freeshort++;\
-    freelistp= qhmem.freelists + qhmem.indextable[insize];\
-    qhmem.totshort -= qhmem.sizetable[qhmem.indextable[insize]]; \
-    qhmem.totfree += qhmem.sizetable[qhmem.indextable[insize]]; \
-    *((void **)object)= *freelistp;\
-    *freelistp= object;}}
-#endif
 
 /*=============== prototypes in alphabetical order ============*/
 

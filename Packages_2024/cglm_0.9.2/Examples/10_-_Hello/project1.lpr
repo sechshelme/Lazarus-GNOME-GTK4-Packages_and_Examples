@@ -20,10 +20,11 @@ uses
 
   procedure main;
   var
-    i:Integer;
+    i1:Integer;
     {$CODEALIGN LOCALMIN=16}
     m: Tmat4;
-    {$CODEALIGN LOCALMIN=off}
+    {$CODEALIGN LOCALMIN=0}
+    i2:Integer;
   begin
     glmc_mat4_identity(m);
     printMatrix(m);

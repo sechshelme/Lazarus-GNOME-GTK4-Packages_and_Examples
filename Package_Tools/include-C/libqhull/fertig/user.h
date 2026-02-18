@@ -289,7 +289,6 @@ typedef int countT;
 #if (qh_RANDOMtype == 1)
 #define qh_RANDOMmax ((realT)0x7fffffffUL)  /* 31 bits, random()/MAX */
 #define qh_RANDOMint random()
-#define qh_RANDOMseed_(seed) srandom(seed);
 
 #elif (qh_RANDOMtype == 2)
 #ifdef RAND_MAX
@@ -298,22 +297,18 @@ typedef int countT;
 #define qh_RANDOMmax ((realT)32767)   /* 15 bits (System 5) */
 #endif
 #define qh_RANDOMint  rand()
-#define qh_RANDOMseed_(seed) srand((unsigned int)seed);
 
 #elif (qh_RANDOMtype == 3)
 #define qh_RANDOMmax ((realT)0x7fffffffUL)  /* 31 bits, Sun */
 #define qh_RANDOMint  rand()
-#define qh_RANDOMseed_(seed) srand((unsigned int)seed);
 
 #elif (qh_RANDOMtype == 4)
 #define qh_RANDOMmax ((realT)0x7fffffffUL)  /* 31 bits, lrand38()/MAX */
 #define qh_RANDOMint lrand48()
-#define qh_RANDOMseed_(seed) srand48(seed);
 
 #elif (qh_RANDOMtype == 5)
 #define qh_RANDOMmax ((realT)2147483646UL)  /* 31 bits, qh_rand/MAX */
 #define qh_RANDOMint qh_rand( )
-#define qh_RANDOMseed_(seed) qh_srand(seed);
 /* unlike rand(), never returns 0 */
 
 #else
@@ -484,7 +479,6 @@ try twice at the original value in case of bad luck the first time
     If using gcc, best alignment is [fmax_() is defined in geom.h]
               #define qh_MEMalign fmax_(__alignof__(realT),__alignof__(void *))
 */
-#define qh_MEMalign ((int)(fmax_(sizeof(realT), sizeof(void *))))
 
 /*-<a                             href="qh-user.htm#TOC"
   >--------------------------------</a><a name="MEMbufsize">-</a>
@@ -663,25 +657,6 @@ try twice at the original value in case of bad luck the first time
 #error QH6234 Qhull error: Define qh_dllimport instead of qh_QHpointer_dllimport when qh_QHpointer is not defined
 #endif
 #endif
-#if 0  /* sample code */
-    qhT *oldqhA, *oldqhB;
-
-    exitcode= qh_new_qhull(dim, numpoints, points, ismalloc,
-                      flags, outfile, errfile);
-    /* use results from first call to qh_new_qhull */
-    oldqhA= qh_save_qhull();
-    exitcode= qh_new_qhull(dimB, numpointsB, pointsB, ismalloc,
-                      flags, outfile, errfile);
-    /* use results from second call to qh_new_qhull */
-    oldqhB= qh_save_qhull();
-    qh_restore_qhull(&oldqhA);
-    /* use results from first call to qh_new_qhull */
-    qh_freeqhull(qh_ALL);  /* frees all memory used by first call */
-    qh_restore_qhull(&oldqhB);
-    /* use results from second call to qh_new_qhull */
-    qh_freeqhull(!qh_ALL); /* frees long memory used by second call */
-    qh_memfreeshort(&curlong, &totlong);  /* frees short memory and memory allocator */
-#endif
 
 /*-<a                             href="qh-user.htm#TOC"
   >--------------------------------</a><a name="QUICKhelp">-</a>
@@ -778,8 +753,6 @@ try twice at the original value in case of bad luck the first time
     qh_SEARCHdist -- when is facet coplanar with the best facet?
     qh_USEfindbestnew -- when to use qh_findbestnew for qh_partitionpoint()
 */
-#define qh_DISToutside ((qh_USEfindbestnew ? 2 : 1) * \
-     fmax_((qh MERGING ? 2 : 1)*qh MINoutside, qh max_outside))
 
 /*-<a                             href="qh-user.htm#TOC"
   >--------------------------------</a><a name="MAXcheckpoint">-</a>
@@ -936,8 +909,6 @@ try twice at the original value in case of bad luck the first time
     qh_SEARCHdist -- when is facet coplanar with the best facet?
     qh_USEfindbestnew -- when to use qh_findbestnew for qh_partitionpoint()
 */
-#define qh_SEARCHdist ((qh_USEfindbestnew ? 2 : 1) * \
-      (qh max_outside + 2 * qh DISTround + fmax_( qh MINvisible, qh MAXcoplanar)));
 
 /*-<a                             href="qh-user.htm#TOC"
   >--------------------------------</a><a name="USEfindbestnew">-</a>

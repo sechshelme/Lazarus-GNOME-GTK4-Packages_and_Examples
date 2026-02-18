@@ -75,21 +75,6 @@
   notes:
     removing tracing reduces code size but doesn't change execution speed
 */
-#ifndef qh_NOtrace
-#define trace0(args) {if (qh IStracing) qh_fprintf args;}
-#define trace1(args) {if (qh IStracing >= 1) qh_fprintf args;}
-#define trace2(args) {if (qh IStracing >= 2) qh_fprintf args;}
-#define trace3(args) {if (qh IStracing >= 3) qh_fprintf args;}
-#define trace4(args) {if (qh IStracing >= 4) qh_fprintf args;}
-#define trace5(args) {if (qh IStracing >= 5) qh_fprintf args;}
-#else /* qh_NOtrace */
-#define trace0(args) {}
-#define trace1(args) {}
-#define trace2(args) {}
-#define trace3(args) {}
-#define trace4(args) {}
-#define trace5(args) {}
-#endif /* qh_NOtrace */
 
 /*-<a                             href="qh-qhull.htm#TOC"
   >--------------------------------</a><a name="QHULL_UNUSED">-</a>
@@ -100,13 +85,6 @@
 
 */
 
-#if defined(__cplusplus) && defined(__INTEL_COMPILER) && !defined(QHULL_OS_WIN)
-template <typename T>
-inline void qhullUnused(T &x) { (void)x; }
-#  define QHULL_UNUSED(x) qhullUnused(x);
-#else
-#  define QHULL_UNUSED(x) (void)x;
-#endif
 
 /***** -libqhull.c prototypes (alphabetical after qhull) ********************/
 

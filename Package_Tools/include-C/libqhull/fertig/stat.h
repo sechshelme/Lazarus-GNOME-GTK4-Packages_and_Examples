@@ -386,108 +386,7 @@ enum ztypes {zdoc,zinc,zadd,zmax,zmin,ZTYPEreal,wadd,wmax,wmin,ZTYPEend};
 */
 #define MAYdebugx
 
-/*-<a                             href="qh-stat.htm#TOC"
-  >--------------------------------</a><a name="zdef_">-</a>
 
-  zzdef_, zdef_( type, name, doc, -1)
-    define a statistic (assumes 'qhstat.next= 0;')
-
-  zdef_( type, name, doc, count)
-    define an averaged statistic
-    printed as name/count
-*/
-#define zzdef_(stype,name,string,cnt) qhstat id[qhstat next++]=name; \
-   qhstat doc[name]= string; qhstat count[name]= cnt; qhstat type[name]= stype
-#if qh_KEEPstatistics
-#define zdef_(stype,name,string,cnt) qhstat id[qhstat next++]=name; \
-   qhstat doc[name]= string; qhstat count[name]= cnt; qhstat type[name]= stype
-#else
-#define zdef_(type,name,doc,count)
-#endif
-
-/*-<a                             href="qh-stat.htm#TOC"
-  >--------------------------------</a><a name="zinc_">-</a>
-
-  zzinc_( name ), zinc_( name)
-    increment an integer statistic
-*/
-#define zzinc_(id) {MAYdebugx; qhstat stats[id].i++;}
-#if qh_KEEPstatistics
-#define zinc_(id) {MAYdebugx; qhstat stats[id].i++;}
-#else
-#define zinc_(id) {}
-#endif
-
-/*-<a                             href="qh-stat.htm#TOC"
-  >--------------------------------</a><a name="zadd_">-</a>
-
-  zzadd_( name, value ), zadd_( name, value ), wadd_( name, value )
-    add value to an integer or real statistic
-*/
-#define zzadd_(id, val) {MAYdebugx; qhstat stats[id].i += (val);}
-#define wwadd_(id, val) {MAYdebugx; qhstat stats[id].r += (val);}
-#if qh_KEEPstatistics
-#define zadd_(id, val) {MAYdebugx; qhstat stats[id].i += (val);}
-#define wadd_(id, val) {MAYdebugx; qhstat stats[id].r += (val);}
-#else
-#define zadd_(id, val) {}
-#define wadd_(id, val) {}
-#endif
-
-/*-<a                             href="qh-stat.htm#TOC"
-  >--------------------------------</a><a name="zval_">-</a>
-
-  zzval_( name ), zval_( name ), wwval_( name )
-    set or return value of a statistic
-*/
-#define zzval_(id) ((qhstat stats[id]).i)
-#define wwval_(id) ((qhstat stats[id]).r)
-#if qh_KEEPstatistics
-#define zval_(id) ((qhstat stats[id]).i)
-#define wval_(id) ((qhstat stats[id]).r)
-#else
-#define zval_(id) qhstat tempi
-#define wval_(id) qhstat tempr
-#endif
-
-/*-<a                             href="qh-stat.htm#TOC"
-  >--------------------------------</a><a name="zmax_">-</a>
-
-  zmax_( id, val ), wmax_( id, value )
-    maximize id with val
-*/
-#define wwmax_(id, val) {MAYdebugx; maximize_(qhstat stats[id].r,(val));}
-#if qh_KEEPstatistics
-#define zmax_(id, val) {MAYdebugx; maximize_(qhstat stats[id].i,(val));}
-#define wmax_(id, val) {MAYdebugx; maximize_(qhstat stats[id].r,(val));}
-#else
-#define zmax_(id, val) {}
-#define wmax_(id, val) {}
-#endif
-
-/*-<a                             href="qh-stat.htm#TOC"
-  >--------------------------------</a><a name="zmin_">-</a>
-
-  zmin_( id, val ), wmin_( id, value )
-    minimize id with val
-*/
-#if qh_KEEPstatistics
-#define zmin_(id, val) {MAYdebugx; minimize_(qhstat stats[id].i,(val));}
-#define wmin_(id, val) {MAYdebugx; minimize_(qhstat stats[id].r,(val));}
-#else
-#define zmin_(id, val) {}
-#define wmin_(id, val) {}
-#endif
-
-/*================== stat.h types ==============*/
-
-
-/*-<a                             href="qh-stat.htm#TOC"
-  >--------------------------------</a><a name="intrealT">-</a>
-
-  intrealT
-    union of integer and real, used for statistics
-*/
 typedef union intrealT intrealT;    /* union of int and realT */
 union intrealT {
     int i;
@@ -512,23 +411,6 @@ union intrealT {
 
    allocated in stat.c using qh_malloc()
 */
-#ifndef DEFqhstatT
-#define DEFqhstatT 1
-typedef struct qhstatT qhstatT;
-#endif
-
-#ifdef qh_QHpointer_dllimport
-#define qhstat qh_qhstat->
-__declspec(dllimport) extern qhstatT *qh_qhstat;
-#elif qh_QHpointer
-#define qhstat qh_qhstat->
-extern qhstatT *qh_qhstat;
-#elif defined(qh_dllimport)
-#define qhstat qh_qhstat.
-__declspec(dllimport) extern qhstatT qh_qhstat;
-#else
-#define qhstat qh_qhstat.
-extern qhstatT qh_qhstat;
 #endif
 struct qhstatT {
   intrealT   stats[ZEND];     /* integer and real statistics */

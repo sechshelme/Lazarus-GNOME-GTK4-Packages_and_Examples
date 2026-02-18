@@ -324,7 +324,6 @@ struct facetT {
                            all uses are independent */
   unsigned int id;      /* unique identifier from qh.facet_id, 1..qh.facet_id, 0 is sentinel, printed as 'f%d' */
   unsigned int nummerge:9; /* number of merges */
-#define qh_MAXnummerge 511 /* 2^9-1 */
                         /* 23 flags (at most 23 due to nummerge), printed by "flags:" in io.c */
   flagT    tricoplanar:1; /* True if TRIangulate and simplicial and coplanar with a neighbor */
                           /*   all tricoplanars share the same apex */
@@ -407,6 +406,9 @@ struct ridgeT {
                              use qh_test_centrum_merge if top and bot, need to retest since centrum may change */
 };
 
+#define qh_MAXnummerge 511 /* 2^9-1 */
+
+
 /*-<a                             href="qh-poly.htm#TOC"
   >--------------------------------</a><a name="vertexT">-</a>
 
@@ -472,29 +474,6 @@ struct vertexT {
 #define QHULL_QH_POINTER 1
 #define QHULL_REENTRANT 2
 
-#ifdef qh_QHpointer_dllimport
-#define qh qh_qh->
-__declspec(dllimport) extern qhT *qh_qh;     /* allocated in global.c */
-#define QHULL_LIB_TYPE QHULL_QH_POINTER
-
-#elif qh_QHpointer
-#define qh qh_qh->
-extern qhT *qh_qh;     /* allocated in global.c */
-#define QHULL_LIB_TYPE QHULL_QH_POINTER
-
-#elif defined(qh_dllimport)
-#define qh qh_qh.
-__declspec(dllimport) extern qhT qh_qh;      /* allocated in global.c */
-#define QHULL_LIB_TYPE QHULL_NON_REENTRANT
-
-#else
-#define qh qh_qh.
-extern qhT qh_qh;
-#define QHULL_LIB_TYPE QHULL_NON_REENTRANT
-#endif
-
-#define QHULL_LIB_CHECK qh_lib_check(QHULL_LIB_TYPE, sizeof(qhT), sizeof(vertexT), sizeof(ridgeT), sizeof(facetT), sizeof(setT), sizeof(qhmemT));
-#define QHULL_LIB_CHECK_RBOX qh_lib_check(QHULL_LIB_TYPE, sizeof(qhT), sizeof(vertexT), sizeof(ridgeT), sizeof(facetT), 0, 0);
 
 struct qhT {
 
@@ -879,238 +858,6 @@ struct qhT {
   otherfacet_(ridge, facet)
     return neighboring facet for a ridge in facet
 */
-#define otherfacet_(ridge, facet) \
-                        (((ridge)->top == (facet)) ? (ridge)->bottom : (ridge)->top)
-
-/*-<a                             href="qh-poly.htm#TOC"
-  >--------------------------------</a><a name="getid_">-</a>
-
-  getid_(p)
-    return int ID for facet, ridge, or vertex
-    return qh_IDunknown(-1) if NULL
-    return 0 if facet_tail or vertex_tail
-*/
-#define getid_(p)       ((p) ? (int)((p)->id) : qh_IDunknown)
-
-/*============== FORALL macros ===================*/
-
-/*-<a                             href="qh-poly.htm#TOC"
-  >--------------------------------</a><a name="FORALLfacets">-</a>
-
-  FORALLfacets { ... }
-    assign 'facet' to each facet in qh.facet_list
-
-  notes:
-    uses 'facetT *facet;'
-    assumes last facet is a sentinel
-
-  see:
-    FORALLfacet_( facetlist )
-*/
-#define FORALLfacets for (facet=qh facet_list;facet && facet->next;facet=facet->next)
-
-/*-<a                             href="qh-poly.htm#TOC"
-  >--------------------------------</a><a name="FORALLpoints">-</a>
-
-  FORALLpoints { ... }
-    assign 'point' to each point in qh.first_point, qh.num_points
-
-  notes:
-
-  declare:
-    coordT *point, *pointtemp;
-*/
-#define FORALLpoints FORALLpoint_(qh first_point, qh num_points)
-
-/*-<a                             href="qh-poly.htm#TOC"
-  >--------------------------------</a><a name="FORALLpoint_">-</a>
-
-  FORALLpoint_(points, num) { ... }
-    assign 'point' to each point in points array of num points
-
-  declare:
-    coordT *point, *pointtemp;
-*/
-#define FORALLpoint_(points, num) for (point=(points), \
-      pointtemp= (points)+qh hull_dim*(num); point < pointtemp; point += qh hull_dim)
-
-/*-<a                             href="qh-poly.htm#TOC"
-  >--------------------------------</a><a name="FORALLvertices">-</a>
-
-  FORALLvertices { ... }
-    assign 'vertex' to each vertex in qh.vertex_list
-
-  declare:
-    vertexT *vertex;
-
-  notes:
-    assumes qh.vertex_list terminated by NULL or a sentinel (v.next==NULL)
-*/
-#define FORALLvertices for (vertex=qh vertex_list;vertex && vertex->next;vertex= vertex->next)
-
-/*-<a                             href="qh-poly.htm#TOC"
-  >--------------------------------</a><a name="FOREACHfacet_">-</a>
-
-  FOREACHfacet_( facets ) { ... }
-    assign 'facet' to each facet in facets
-
-  declare:
-    facetT *facet, **facetp;
-
-  notes:
-    assumes set is not modified
-
-  see:
-    <a href="qset.h#FOREACHsetelement_">FOREACHsetelement_</a>
-*/
-#define FOREACHfacet_(facets)    FOREACHsetelement_(facetT, facets, facet)
-
-/*-<a                             href="qh-poly.htm#TOC"
-  >--------------------------------</a><a name="FOREACHneighbor_">-</a>
-
-  FOREACHneighbor_( facet ) { ... }
-    assign 'neighbor' to each neighbor in facet->neighbors
-
-  FOREACHneighbor_( vertex ) { ... }
-    assign 'neighbor' to each neighbor in vertex->neighbors
-
-  declare:
-    facetT *neighbor, **neighborp;
-
-  notes:
-    assumes set is not modified
-
-  see:
-    <a href="qset.h#FOREACHsetelement_">FOREACHsetelement_</a>
-*/
-#define FOREACHneighbor_(facet)  FOREACHsetelement_(facetT, facet->neighbors, neighbor)
-
-/*-<a                             href="qh-poly.htm#TOC"
-  >--------------------------------</a><a name="FOREACHpoint_">-</a>
-
-  FOREACHpoint_( points ) { ... }
-    assign 'point' to each point in points set
-
-  declare:
-    pointT *point, **pointp;
-
-  notes:
-    assumes set is not modified
-
-  see:
-    <a href="qset.h#FOREACHsetelement_">FOREACHsetelement_</a>
-*/
-#define FOREACHpoint_(points)    FOREACHsetelement_(pointT, points, point)
-
-/*-<a                             href="qh-poly.htm#TOC"
-  >--------------------------------</a><a name="FOREACHridge_">-</a>
-
-  FOREACHridge_( ridges ) { ... }
-    assign 'ridge' to each ridge in ridges set
-
-  declare:
-    ridgeT *ridge, **ridgep;
-
-  notes:
-    assumes set is not modified
-
-  see:
-    <a href="qset.h#FOREACHsetelement_">FOREACHsetelement_</a>
-*/
-#define FOREACHridge_(ridges)    FOREACHsetelement_(ridgeT, ridges, ridge)
-
-/*-<a                             href="qh-poly.htm#TOC"
-  >--------------------------------</a><a name="FOREACHvertex_">-</a>
-
-  FOREACHvertex_( vertices ) { ... }
-    assign 'vertex' to each vertex in vertices set
-
-  declare:
-    vertexT *vertex, **vertexp;
-
-  notes:
-    assumes set is not modified
-
-  see:
-    <a href="qset.h#FOREACHsetelement_">FOREACHsetelement_</a>
-*/
-#define FOREACHvertex_(vertices) FOREACHsetelement_(vertexT, vertices,vertex)
-
-/*-<a                             href="qh-poly.htm#TOC"
-  >--------------------------------</a><a name="FOREACHfacet_i_">-</a>
-
-  FOREACHfacet_i_( facets ) { ... }
-    assign 'facet' and 'facet_i' for each facet in facets set
-
-  declare:
-    facetT *facet;
-    int     facet_n, facet_i;
-
-  see:
-    <a href="qset.h#FOREACHsetelement_i_">FOREACHsetelement_i_</a>
-*/
-#define FOREACHfacet_i_(facets)    FOREACHsetelement_i_(facetT, facets, facet)
-
-/*-<a                             href="qh-poly.htm#TOC"
-  >--------------------------------</a><a name="FOREACHneighbor_i_">-</a>
-
-  FOREACHneighbor_i_( facet ) { ... }
-    assign 'neighbor' and 'neighbor_i' for each neighbor in facet->neighbors
-
-  declare:
-    facetT *neighbor;
-    int     neighbor_n, neighbor_i;
-
-  notes:
-    see <a href="qset.h#FOREACHsetelement_i_">FOREACHsetelement_i_</a>
-    for facet neighbors of vertex, need to define a new macro
-*/
-#define FOREACHneighbor_i_(facet)  FOREACHsetelement_i_(facetT, facet->neighbors, neighbor)
-
-/*-<a                             href="qh-poly.htm#TOC"
-  >--------------------------------</a><a name="FOREACHpoint_i_">-</a>
-
-  FOREACHpoint_i_( points ) { ... }
-    assign 'point' and 'point_i' for each point in points set
-
-  declare:
-    pointT *point;
-    int     point_n, point_i;
-
-  see:
-    <a href="qset.h#FOREACHsetelement_i_">FOREACHsetelement_i_</a>
-*/
-#define FOREACHpoint_i_(points)    FOREACHsetelement_i_(pointT, points, point)
-
-/*-<a                             href="qh-poly.htm#TOC"
-  >--------------------------------</a><a name="FOREACHridge_i_">-</a>
-
-  FOREACHridge_i_( ridges ) { ... }
-    assign 'ridge' and 'ridge_i' for each ridge in ridges set
-
-  declare:
-    ridgeT *ridge;
-    int     ridge_n, ridge_i;
-
-  see:
-    <a href="qset.h#FOREACHsetelement_i_">FOREACHsetelement_i_</a>
-*/
-#define FOREACHridge_i_(ridges)    FOREACHsetelement_i_(ridgeT, ridges, ridge)
-
-/*-<a                             href="qh-poly.htm#TOC"
-  >--------------------------------</a><a name="FOREACHvertex_i_">-</a>
-
-  FOREACHvertex_i_( vertices ) { ... }
-    assign 'vertex' and 'vertex_i' for each vertex in vertices set
-
-  declare:
-    vertexT *vertex;
-    int     vertex_n, vertex_i;
-
-  see:
-    <a href="qset.h#FOREACHsetelement_i_">FOREACHsetelement_i_</a>
-*/
-#define FOREACHvertex_i_(vertices) FOREACHsetelement_i_(vertexT, vertices, vertex)
 
 /********* -libqhull.c prototypes (duplicated from qhull_a.h) **********************/
 

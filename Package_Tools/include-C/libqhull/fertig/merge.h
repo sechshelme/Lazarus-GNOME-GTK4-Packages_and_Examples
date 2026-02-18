@@ -93,50 +93,6 @@ struct mergeT {         /* initialize in qh_appendmergeset */
 };
 
 
-/*=========== -macros- =========================*/
-
-/*-<a                             href="qh-merge.htm#TOC"
-  >--------------------------------</a><a name="FOREACHmerge_">-</a>
-
-  FOREACHmerge_( merges ) {...}
-    assign 'merge' to each merge in merges
-
-  notes:
-    uses 'mergeT *merge, **mergep;'
-    if qh_mergefacet(),
-      restart or use qh_setdellast() since qh.facet_mergeset may change
-    see <a href="qset.h#FOREACHsetelement_">FOREACHsetelement_</a>
-*/
-#define FOREACHmerge_(merges) FOREACHsetelement_(mergeT, merges, merge)
-
-/*-<a                             href="qh-poly.htm#TOC"
-  >--------------------------------</a><a name="FOREACHmergeA_">-</a>
-
-  FOREACHmergeA_( vertices ) { ... }
-    assign 'mergeA' to each merge in merges
-
-  notes:
-    uses 'mergeT *mergeA, *mergeAp;'
-    see <a href="qset.h#FOREACHsetelement_">FOREACHsetelement_</a>
-*/
-#define FOREACHmergeA_(merges) FOREACHsetelement_(mergeT, merges, mergeA)
-
-/*-<a                             href="qh-poly.htm#TOC"
-  >--------------------------------</a><a name="FOREACHmerge_i_">-</a>
-
-  FOREACHmerge_i_( vertices ) { ... }
-    assign 'merge' and 'merge_i' for each merge in mergeset
-
-  declare:
-    mergeT *merge;
-    int     merge_n, merge_i;
-
-  see:
-    <a href="qset.h#FOREACHsetelement_i_">FOREACHsetelement_i_</a>
-*/
-#define FOREACHmerge_i_(mergeset) FOREACHsetelement_i_(mergeT, mergeset, merge)
-
-/*============ prototypes in alphabetical order after pre/postmerge =======*/
 
 void    qh_premerge(int apexpointid, realT maxcentrum, realT maxangle);
 void    qh_postmerge(const char *reason, realT maxcentrum, realT maxangle,

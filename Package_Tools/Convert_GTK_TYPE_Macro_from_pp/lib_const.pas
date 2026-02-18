@@ -300,6 +300,7 @@ const
     (libs: 'libpolylib'; units: 'fp_polylib64, types, arithmetique'),
     (libs: 'libmanifoldc'; units: 'ctypes'),
     (libs: 'libcglm'; units: 'fp_cglm'),
+    (libs: 'libqhull'; units: 'fp_qhull'),
 
 
 
