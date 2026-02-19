@@ -1,17 +1,17 @@
 program project1;
 
 uses
-  geom,
-  io,
-  libqhull,
-  mem,
-  merge,
-  poly,
-  qhull_a,
-  qset,
-  random,
-  stat,
-  user,
+  geom_r,
+  io_r,
+  libqhull_r,
+  mem_r,
+  merge_r,
+  poly_r,
+  qhull_ra,
+  qset_r,
+  random_r,
+  stat_r,
+  user_r,
 
 
   fp_hull;

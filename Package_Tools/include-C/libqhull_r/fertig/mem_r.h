@@ -88,13 +88,7 @@ Trace short and quick memory allocations at T5
     Qhull uses int instead of size_t except for system calls such as malloc, qsort, qh_malloc, etc.
     This matches Qt convention and is easier to work with.
 */
-#if (defined(__MINGW64__)) && defined(_WIN64)
 typedef long long ptr_intT;
-#elif defined(_MSC_VER) && defined(_WIN64)
-typedef long long ptr_intT;
-#else
-typedef long ptr_intT;
-#endif
 
 /*-<a                             href="qh-mem_r.htm#TOC"
   >--------------------------------</a><a name="qhmemT">-</a>
@@ -160,61 +154,6 @@ struct qhmemT {               /* global memory management variables */
         assumes size<=qh->qhmem.LASTsize and void **freelistp is a temp
 */
 
-#if defined qh_NOmem
-#define qh_memalloc_(qh, insize, freelistp, object, type) {\
-  (void)freelistp; /* Avoid warnings */ \
-  object= (type *)qh_memalloc(qh, insize); }
-#elif defined qh_TRACEshort
-#define qh_memalloc_(qh, insize, freelistp, object, type) {\
-  (void)freelistp; /* Avoid warnings */ \
-  object= (type *)qh_memalloc(qh, insize); }
-#else /* !qh_NOmem */
-
-#define qh_memalloc_(qh, insize, freelistp, object, type) {\
-  freelistp= qh->qhmem.freelists + qh->qhmem.indextable[insize];\
-  if ((object= (type *)*freelistp)) {\
-    qh->qhmem.totshort += qh->qhmem.sizetable[qh->qhmem.indextable[insize]]; \
-    qh->qhmem.totfree -= qh->qhmem.sizetable[qh->qhmem.indextable[insize]]; \
-    qh->qhmem.cntquick++;  \
-    *freelistp= *((void **)*freelistp);\
-  }else object= (type *)qh_memalloc(qh, insize);}
-#endif
-
-/*-<a                             href="qh-mem_r.htm#TOC"
-  >--------------------------------</a><a name="memfree_">-</a>
-
-  qh_memfree_(qh, object, insize, freelistp)
-    free up an object
-
-  notes:
-    object may be NULL
-    assumes size<=qh->qhmem.LASTsize and void **freelistp is a temp
-*/
-#if defined qh_NOmem
-#define qh_memfree_(qh, object, insize, freelistp) {\
-  (void)freelistp; /* Avoid warnings */ \
-  qh_memfree(qh, object, insize); }
-#elif defined qh_TRACEshort
-#define qh_memfree_(qh, object, insize, freelistp) {\
-  (void)freelistp; /* Avoid warnings */ \
-  qh_memfree(qh, object, insize); }
-#else /* !qh_NOmem */
-
-#define qh_memfree_(qh, object, insize, freelistp) {\
-  if (object) { \
-    qh->qhmem.freeshort++;\
-    freelistp= qh->qhmem.freelists + qh->qhmem.indextable[insize];\
-    qh->qhmem.totshort -= qh->qhmem.sizetable[qh->qhmem.indextable[insize]]; \
-    qh->qhmem.totfree += qh->qhmem.sizetable[qh->qhmem.indextable[insize]]; \
-    *((void **)object)= *freelistp;\
-    *freelistp= object;}}
-#endif
-
-/*=============== prototypes in alphabetical order ============*/
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 void *qh_memalloc(qhT *qh, int insize);
 void qh_memcheck(qhT *qh);

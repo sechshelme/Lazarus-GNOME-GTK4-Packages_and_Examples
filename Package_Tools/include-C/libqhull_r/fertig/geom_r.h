@@ -16,91 +16,7 @@
 
 #include "libqhull_r.h"
 
-/* ============ -macros- ======================== */
 
-/*-<a                             href="qh-geom_r.htm#TOC"
-  >--------------------------------</a><a name="fabs_">-</a>
-
-  fabs_(a)
-    returns the absolute value of a
-*/
-#define fabs_( a ) ((( a ) < 0 ) ? -( a ):( a ))
-
-/*-<a                             href="qh-geom_r.htm#TOC"
-  >--------------------------------</a><a name="fmax_">-</a>
-
-  fmax_(a,b)
-    returns the maximum value of a and b
-*/
-#define fmax_( a,b )  ( ( a ) < ( b ) ? ( b ) : ( a ) )
-
-/*-<a                             href="qh-geom_r.htm#TOC"
-  >--------------------------------</a><a name="fmin_">-</a>
-
-  fmin_(a,b)
-    returns the minimum value of a and b
-*/
-#define fmin_( a,b )  ( ( a ) > ( b ) ? ( b ) : ( a ) )
-
-/*-<a                             href="qh-geom_r.htm#TOC"
-  >--------------------------------</a><a name="maximize_">-</a>
-
-  maximize_(maxval, val)
-    set maxval to val if val is greater than maxval
-*/
-#define maximize_( maxval, val ) { if (( maxval ) < ( val )) ( maxval )= ( val ); }
-
-/*-<a                             href="qh-geom_r.htm#TOC"
-  >--------------------------------</a><a name="minimize_">-</a>
-
-  minimize_(minval, val)
-    set minval to val if val is less than minval
-*/
-#define minimize_( minval, val ) { if (( minval ) > ( val )) ( minval )= ( val ); }
-
-/*-<a                             href="qh-geom_r.htm#TOC"
-  >--------------------------------</a><a name="det2_">-</a>
-
-  det2_(a1, a2,
-        b1, b2)
-
-    compute a 2-d determinate
-*/
-#define det2_( a1,a2,b1,b2 ) (( a1 )*( b2 ) - ( a2 )*( b1 ))
-
-/*-<a                             href="qh-geom_r.htm#TOC"
-  >--------------------------------</a><a name="det3_">-</a>
-
-  det3_(a1, a2, a3,
-       b1, b2, b3,
-       c1, c2, c3)
-
-    compute a 3-d determinate
-*/
-#define det3_( a1,a2,a3,b1,b2,b3,c1,c2,c3 ) ( ( a1 )*det2_( b2,b3,c2,c3 ) \
-                - ( b1 )*det2_( a2,a3,c2,c3 ) + ( c1 )*det2_( a2,a3,b2,b3 ) )
-
-/*-<a                             href="qh-geom_r.htm#TOC"
-  >--------------------------------</a><a name="dX">-</a>
-
-  dX( p1, p2 )
-  dY( p1, p2 )
-  dZ( p1, p2 )
-
-    given two indices into rows[],
-
-    compute the difference between X, Y, or Z coordinates
-*/
-#define dX( p1,p2 )  ( *( rows[p1] ) - *( rows[p2] ))
-#define dY( p1,p2 )  ( *( rows[p1]+1 ) - *( rows[p2]+1 ))
-#define dZ( p1,p2 )  ( *( rows[p1]+2 ) - *( rows[p2]+2 ))
-#define dW( p1,p2 )  ( *( rows[p1]+3 ) - *( rows[p2]+3 ))
-
-/*============= prototypes in alphabetical order, infrequent at end ======= */
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 void    qh_backnormal(qhT *qh, realT **rows, int numrow, int numcol, boolT sign, coordT *normal, boolT *nearzero);
 void    qh_distplane(qhT *qh, pointT *point, facetT *facet, realT *dist);
@@ -179,11 +95,6 @@ coordT  qh_vertex_bestdist(qhT *qh, setT *vertices);
 coordT  qh_vertex_bestdist2(qhT *qh, setT *vertices, vertexT **vertexp, vertexT **vertexp2);
 pointT *qh_voronoi_center(qhT *qh, int dim, setT *points);
 
-#ifdef __cplusplus
-} /* extern "C"*/
-#endif
-
-#endif /* qhDEFgeom */
 
 
 

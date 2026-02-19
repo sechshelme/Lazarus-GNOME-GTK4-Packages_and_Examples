@@ -1,23 +1,97 @@
-unit libqhull;
+unit libqhull_r;
 
 interface
 
 uses
-  fp_qhull, user;
+  fp_qhull_r;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
 
 
+{<html><pre>  -<a                             href="qh-qhull_r.htm"
+  >-------------------------------</a><a name="TOP">-</a>
+
+   libqhull_r.h
+   user-level header file for using qhull.a library
+
+   see qh-qhull_r.htm, qhull_ra.h
+
+   Copyright (c) 1993-2020 The Geometry Center.
+   $Id: //main/2019/qhull/src/libqhull_r/libqhull_r.h#16 $$Change: 3037 $
+   $DateTime: 2020/09/03 17:28:32 $$Author: bbarber $
+
+   includes function prototypes for libqhull_r.c, geom_r.c, global_r.c, io_r.c, user_r.c
+
+   use mem_r.h for mem_r.c
+   use qset_r.h for qset_r.c
+
+   see unix_r.c for an example of using libqhull_r.h
+
+   recompile qhull if you change this file
+ }
+{$ifndef qhDEFlibqhull}
+
 const
   qhDEFlibqhull = 1;  
-//  var
-//    qh_version : Pchar;cvar;external libqhull;
-//    qh_version2 : Pchar;cvar;external libqhull;
-type
-  TcoordT = TrealT;  
-  TpointT = TcoordT;
+{=========================== -included files ============== }
+{ user_r.h first for QHULL_CRTDBG  }
+{$include "user_r.h"      /* user definable constants (e.g., realT). */}
+{$include "mem_r.h"   /* Needed for qhT in libqhull_r.h */}
+{$include "qset_r.h"   /* Needed for QHULL_LIB_CHECK */}
+{ include stat_r.h after defining boolT.  Needed for qhT in libqhull_r.h  }
+{$include <setjmp.h>}
+{$include <float.h>}
+{$include <limits.h>}
+{$include <time.h>}
+{$include <stdio.h>}
+{$ifndef __STDC__}
+{$ifndef __cplusplus}
+{$if     !defined(_MSC_VER)}
+{$error  Neither __STDC__ nor __cplusplus is defined.  Please use strict ANSI C or C++ to compile}
+{$error  Qhull.  You may need to turn off compiler extensions in your project configuration.  If}
+{$error  your compiler is a standard C compiler, you can delete this warning from libqhull_r.h}
+{$endif}
+{$endif}
+{$endif}
+{============ constants and basic types ==================== }
+  var
+    qh_version : Pchar;cvar;external libqhull_r;
+{ defined in global_r.c  }
+    qh_version2 : Pchar;cvar;external libqhull_r;
+{ defined in global_r.c  }
+{-<a                             href="qh-geom_r.htm#TOC"
+  >--------------------------------</a><a name="coordT">-</a>
+
+  coordT
+    coordinates and coefficients are stored as realT (i.e., double)
+
+  notes:
+    Qhull works well if realT is 'float'.  If so joggle (QJ) is not effective.
+
+    Could use 'float' for data and 'double' for calculations (realT vs. coordT)
+      This requires many type casts, and adjusted error bounds.
+      Also C compilers may do expressions in double anyway.
+ }
+
+const
+  coordT = realT;  
+{-<a                             href="qh-geom_r.htm#TOC"
+  >--------------------------------</a><a name="pointT">-</a>
+
+  pointT
+    a point is an array of coordinates, usually qh.hull_dim
+    qh_pointid returns
+      qh_IDnone if point==0 or qh is undefined
+      qh_IDinterior for qh.interior_point
+      qh_IDunknown if point is neither in qh.first_point... nor qh.other_points
+
+  notes:
+    qh.STOPcone and qh.STOPpoint assume that qh_IDunknown==-1 (other negative numbers indicate points)
+    qh_IDunknown is also returned by getid_() for unknown facet, ridge, or vertex
+ }
+  pointT = coordT;  
 type
   Pqh_pointT = ^Tqh_pointT;
   Tqh_pointT =  Longint;
@@ -25,13 +99,47 @@ type
     qh_IDnone = -(3);
     qh_IDinterior = -(2);
     qh_IDunknown = -(1);
-type  TflagT = dword;
+;
+{-<a                             href="qh-qhull_r.htm#TOC"
+  >--------------------------------</a><a name="flagT">-</a>
 
-TboolT = Boolean32;
+  flagT
+    Boolean flag as a bit
+ }
+  flagT = dword;  
+{-<a                             href="qh-qhull_r.htm#TOC"
+  >--------------------------------</a><a name="boolT">-</a>
+
+  boolT
+    boolean value, either True or False
+
+  notes:
+    needed for portability
+    Use qh_False/qh_True as synonyms
+ }
+  boolT = dword;  
+{$ifdef False}
+{$undef False}
+{$endif}
+{$ifdef True}
+{$undef True}
+{$endif}
 
 const
-  qh_False = False;
-  qh_True = True;
+  False = 0;  
+  True = 1;  
+  qh_False = 0;  
+  qh_True = 1;  
+{$include "stat_r.h"  /* needs boolT */}
+{-<a                             href="qh-qhull_r.htm#TOC"
+  >--------------------------------</a><a name="CENTERtype">-</a>
+
+  qh_CENTER
+    to distinguish facet->center
+ }
+{ If not MERGING and not VORONOI  }
+{ Set by qh_clearcenters on qh_prepare_output, or if not MERGING and VORONOI  }
+{ If MERGING (assumed during merging)  }
 type
   Pqh_CENTER = ^Tqh_CENTER;
   Tqh_CENTER =  Longint;
@@ -39,6 +147,24 @@ type
     qh_ASnone = 0;
     qh_ASvoronoi = 1;
     qh_AScentrum = 2;
+;
+{-<a                             href="qh-qhull_r.htm#TOC"
+  >--------------------------------</a><a name="qh_PRINT">-</a>
+
+  qh_PRINT
+    output formats for printing (qh.PRINTout).
+    'Fa' 'FV' 'Fc' 'FC'
+
+
+   notes:
+   some of these names are similar to qhT names.  The similar names are only
+   used in switch statements in qh_printbegin() etc.
+ }
+{ 'Fa' 'FV' 'Fc' 'FC'  }
+{ 'f' 'FF' 'G' 'FI' 'Fi' 'Fn'  }
+{ 'n' 'Fo' 'i' 'm' 'Fm' 'FM', 'o'  }
+{ 'FO' 'Fp' 'FP' 'p' 'FQ' 'FS'  }
+{ 'Fs' 'Ft' 'Fv' 'FN' 'Fx'  }
 type
   Pqh_PRINT = ^Tqh_PRINT;
   Tqh_PRINT =  Longint;
@@ -73,30 +199,216 @@ type
     qh_PRINTvneighbors = 27;
     qh_PRINTextremes = 28;
     qh_PRINTEND = 29;
+;
+{-<a                             href="qh-qhull_r.htm#TOC"
+  >--------------------------------</a><a name="qh_ALL">-</a>
 
-    const
-    qh_ALL = True;
-  qh_NOupper = True;
-  qh_IScheckmax = True;
-  qh_ISnewfacets = True;
-  qh_RESETvisible = True;
+  qh_ALL
+    argument flag for selecting everything
+ }
+  qh_ALL = _True;  
+{ argument for qh_findbest  }
+  qh_NOupper = _True;  
+{ argument for qh_findbesthorizon  }
+  qh_IScheckmax = _True;  
+{ argument for qh_findbest  }
+  qh_ISnewfacets = _True;  
+{ argument for qh_resetlists  }
+  qh_RESETvisible = _True;  
+{-<a                             href="qh-qhull_r.htm#TOC"
+  >--------------------------------</a><a name="qh_ERR">-</a>
 
-  qh_ERRnone = 0;
-  qh_ERRinput = 1;
-  qh_ERRsingular = 2;
-  qh_ERRprec = 3;
-  qh_ERRmem = 4;
-  qh_ERRqhull = 5;
-  qh_ERRother = 6;
-  qh_ERRtopology = 7;
-  qh_ERRwide = 8;
-  qh_ERRdebug = 9;
+  qh_ERR...
+    Qhull exit status codes, for indicating errors
+    See: MSG_ERROR (6000) and MSG_WARNING (7000) [user_r.h]
+ }
+{ no error occurred during qhull  }
+  qh_ERRnone = 0;  
+{ input inconsistency  }
+  qh_ERRinput = 1;  
+{ singular input data, calls qh_printhelp_singular  }
+  qh_ERRsingular = 2;  
+{ precision error, calls qh_printhelp_degenerate  }
+  qh_ERRprec = 3;  
+{ insufficient memory, matches mem_r.h  }
+  qh_ERRmem = 4;  
+{ internal error detected, matches mem_r.h, calls qh_printhelp_internal  }
+  qh_ERRqhull = 5;  
+{ other error detected  }
+  qh_ERRother = 6;  
+{ topology error, maybe due to nearly adjacent vertices, calls qh_printhelp_topology  }
+  qh_ERRtopology = 7;  
+{ wide facet error, maybe due to nearly adjacent vertices, calls qh_printhelp_wide  }
+  qh_ERRwide = 8;  
+{ qh_errexit from debugging code  }
+  qh_ERRdebug = 9;  
+{-<a                             href="qh-qhull_r.htm#TOC"
+>--------------------------------</a><a name="qh_FILEstderr">-</a>
 
-const  qh_FILEstderr=PFILE(1);
+qh_FILEstderr
+Fake stderr to distinguish error output from normal output
+For C++ interface.  Must redefine qh_fprintf_qhull
+ }
+
+{ was #define dname def_expr }
+function qh_FILEstderr : PFILE;  
+
+{ ============ -structures- ====================
+   each of the following structures is defined by a typedef
+   all realT and coordT fields occur at the beginning of a structure
+        (otherwise space may be wasted due to alignment)
+   define all flags together and pack into 32-bit number
+
+   DEFqhT and DEFsetT are likewise defined in mem_r.h, qset_r.h, and stat_r.h
+ }
+type
+{$ifndef DEFqhT}
+
+const
+  DEFqhT = 1;  
+type
+{ defined below  }
+{$endif}
+{$ifndef DEFsetT}
+
 const
   DEFsetT = 1;  
 type
-  PfacetT = type Pointer;
+{ defined in qset_r.h  }
+{$endif}
+{-<a                             href="qh-poly_r.htm#TOC"
+  >--------------------------------</a><a name="facetT">-</a>
+
+  facetT
+    defines a facet
+
+  notes:
+   qhull() generates the hull as a list of facets.
+
+  topological information:
+    f.previous,next     doubly-linked list of facets, next is always defined
+    f.vertices          set of vertices
+    f.ridges            set of ridges
+    f.neighbors         set of neighbors
+    f.toporient         True if facet has top-orientation (else bottom)
+
+  geometric information:
+    f.offset,normal     hyperplane equation
+    f.maxoutside        offset to outer plane -- all points inside
+    f.center            centrum for testing convexity or Voronoi center for output
+    f.simplicial        True if facet is simplicial
+    f.flipped           True if facet does not include qh.interior_point
+
+  for constructing hull:
+    f.visible           True if facet on list of visible facets (will be deleted)
+    f.newfacet          True if facet on list of newly created facets
+    f.coplanarset       set of points coplanar with this facet
+                        (includes near-inside points for later testing)
+    f.outsideset        set of points outside of this facet
+    f.furthestdist      distance to furthest point of outside set
+    f.visitid           marks visited facets during a loop
+    f.replace           replacement facet for to-be-deleted, visible facets
+    f.samecycle,newcycle cycle of facets for merging into horizon facet
+
+  see below for other flags and fields
+ }
+{ QhullFacet.cpp -- Update static initializer list for s_empty_facet if add or remove fields  }
+{$if !qh_COMPUTEfurthest}
+{ distance to furthest point of outsideset  }
+{$endif}
+{$if qh_MAXoutside}
+{ max computed distance of point to facet
+                        Before QHULLfinished this is an approximation
+                        since maxdist not always set for qh_mergefacet
+                        Actual outer plane is +DISTround and
+                        computed outer plane is +2*DISTround.
+                        Initial maxoutside is qh.DISTround, otherwise distance tests need to account for DISTround  }
+{$endif}
+{ exact offset of hyperplane from origin  }
+{ normal of hyperplane, hull_dim coefficients  }
+{   if f.tricoplanar, shared with a neighbor  }
+{ in order of testing  }
+{ area of facet, only in io_r.c if  f.isarea  }
+{ replacement facet for qh.NEWfacets with f.visible
+                             NULL if qh_mergedegen_redundant, interior, or !NEWfacets  }
+{ cycle of facets from the same visible/horizon intersection,
+                             if ->newfacet  }
+{  in horizon facet, current samecycle of new facets  }
+{ visible facet for ->tricoplanar facets during qh_triangulate()  }
+{ owner facet for ->tricoplanar, !isarea facets w/ ->keepcentrum  }
+{ set according to qh.CENTERtype  }
+{   qh_ASnone:    no center (not MERGING)  }
+{   qh_AScentrum: centrum for testing convexity (qh_getcentrum)  }
+{                 assumed qh_AScentrum while merging  }
+{   qh_ASvoronoi: Voronoi center (qh_facetcenter)  }
+{ after constructing the hull, it may be changed (qh_clearcenter)  }
+{ if tricoplanar and !keepcentrum, shared with a neighbor  }
+{ previous facet in the facet_list or NULL, for C++ interface  }
+{ next facet in the facet_list or facet_tail  }
+{ vertices for this facet, inverse sorted by ID
+                           if simplicial, 1st vertex was apex/furthest
+                           qh_reduce_vertices removes extraneous vertices via qh_remove_extravertices
+                           if f.visible, vertices may be on qh.del_vertices  }
+{ explicit ridges for nonsimplicial facets or nonsimplicial neighbors.
+                           For simplicial facets, neighbors define the ridges
+                           qh_makeridges() converts simplicial facets by creating ridges prior to merging
+                           If qh.NEWtentative, new facets have horizon ridge, but not vice versa
+                           if f.visible && qh.NEWfacets, ridges is empty  }
+{ neighbors of the facet.  Neighbors may be f.visible
+                           If simplicial, the kth neighbor is opposite the kth vertex and the
+                           first neighbor is the horizon facet for the first vertex.
+                           dupridges marked by qh_DUPLICATEridge (0x01) and qh_MERGEridge (0x02)
+                           if f.visible && qh.NEWfacets, neighbors is empty  }
+{ set of points outside this facet
+                           if non-empty, last point is furthest
+                           if NARROWhull, includes coplanars (less than qh.MINoutside) for partitioning }
+{ set of points coplanar with this facet
+                           >= qh.min_vertex and <= facet->max_outside
+                           a point is assigned to the furthest facet
+                           if non-empty, last point is furthest away  }
+{ visit_id, for visiting all neighbors,
+                           all uses are independent  }
+{ unique identifier from qh.facet_id, 1..qh.facet_id, 0 is sentinel, printed as 'f%d'  }
+{ number of merges  }
+{ 23 flags (at most 23 due to nummerge), printed by "flags:" in io_r.c  }
+{ True if TRIangulate and simplicial and coplanar with a neighbor  }
+{   all tricoplanars share the same apex  }
+{   all tricoplanars share the same ->center, ->normal, ->offset, ->maxoutside  }
+{     ->keepcentrum is true for the owner.  It has the ->coplanareset  }
+{   if ->degenerate, does not span facet (one logical ridge)  }
+{   during qh_triangulate, f.trivisible points to original facet  }
+{ True if facet on qh.newfacet_list (new/qh.first_newfacet or merged)  }
+{ True if visible facet (will be deleted)  }
+{ True if created with top orientation
+                           after merging, use ridge orientation  }
+{ True if simplicial facet, ->ridges may be implicit  }
+{ used to perform operations only once, like visitid  }
+{ used to perform operations only once, like visitid  }
+{ True if facet is flipped  }
+{ True if facet is upper envelope of Delaunay triangulation  }
+{ True if last point of outsideset is not furthest  }
+{-------- flags primarily for output --------- }
+{ True if a facet marked good for output  }
+{ True if facet->f.area is defined  }
+{-------- flags for merging ------------------ }
+{ True if facet has one or more dupridge in a new facet (qh_matchneighbor),
+                             a dupridge has a subridge shared by more than one new facet  }
+{ True if facet or neighbor has a qh_MERGEridge (qh_mark_dupridges)
+                            ->normal defined for mergeridge and mergeridge2  }
+{ True if neighbor has a qh_MERGEridge (qh_mark_dupridges)  }
+{ True if horizon facet is coplanar at last use  }
+{ True if will merge into horizon (its first neighbor w/ f.coplanarhorizon).  }
+{ True if mergecycle_all already done  }
+{ True if facet convexity has been tested (false after merge  }
+{ True if keep old centrum after a merge, or marks owner for ->tricoplanar
+                             Set by qh_updatetested if more than qh_MAXnewcentrum extra vertices
+                             Set by qh_mergefacet if |maxdist| > qh.WIDEfacet  }
+{ True if facet is newly merged for reducevertices  }
+{ True if facet is degenerate (degen_mergeset or ->tricoplanar)  }
+{ True if facet is redundant (degen_mergeset)
+                         Maybe merge degenerate and redundant to gain another flag  }
+type
+  PfacetT = ^TfacetT;
   TfacetT = record
       furthestdist : TcoordT;
       maxoutside : TcoordT;
@@ -123,6 +435,7 @@ type
       id : dword;
       flag0 : longint;
     end;
+
 
 const
   bm_TfacetT_nummerge = $1FF;
@@ -222,7 +535,11 @@ function degenerate(var a : TfacetT) : TflagT;
 procedure set_degenerate(var a : TfacetT; __degenerate : TflagT);
 function redundant(var a : TfacetT) : TflagT;
 procedure set_redundant(var a : TfacetT; __redundant : TflagT);
-{-<a                             href="qh-poly.htm#TOC"
+{ 2^9-1  }
+
+const
+  qh_MAXnummerge = 511;  
+{-<a                             href="qh-poly_r.htm#TOC"
   >--------------------------------</a><a name="ridgeT">-</a>
 
   ridgeT
@@ -242,6 +559,7 @@ procedure set_redundant(var a : TfacetT; __redundant : TflagT);
     tested              True if ridge is clearly convex
     nonconvex           True if ridge is non-convex
  }
+{ QhullRidge.cpp -- Update static initializer list for s_empty_ridge if add or remove fields  }
 { vertices belonging to this ridge, inverse sorted by ID
                            NULL if a degen ridge (matchsame)  }
 { top facet for this ridge  }
@@ -300,11 +618,7 @@ function simplicialtop(var a : TridgeT) : TflagT;
 procedure set_simplicialtop(var a : TridgeT; __simplicialtop : TflagT);
 function simplicialbot(var a : TridgeT) : TflagT;
 procedure set_simplicialbot(var a : TridgeT; __simplicialbot : TflagT);
-{ 2^9-1  }
-
-const
-  qh_MAXnummerge = 511;  
-{-<a                             href="qh-poly.htm#TOC"
+{-<a                             href="qh-poly_r.htm#TOC"
   >--------------------------------</a><a name="vertexT">-</a>
 
   vertexT
@@ -317,11 +631,12 @@ const
   geometric information:
     point               array of DIM3 coordinates
  }
+{ QhullVertex.cpp -- Update static initializer list for s_empty_vertex if add or remove fields  }
 { next vertex in vertex_list or vertex_tail  }
 { previous vertex in vertex_list or NULL, for C++ interface  }
 { hull_dim coordinates (coordT)  }
 { neighboring facets of vertex, qh_vertexneighbors()
-                           initialized in io.c or after first merge
+                           initialized in io_r.c or after first merge
                            qh_update_vertices for qh_addpoint or qh_triangulate
                            updated by merges
                            qh_order_vertexneighbors by 2-d (orientation) 3-d (adjacency), n-d (f.visitid,id)  }
@@ -376,23 +691,15 @@ procedure set_newfacet(var a : TvertexT; __newfacet : TflagT);
 function partitioned(var a : TvertexT) : TflagT;
 procedure set_partitioned(var a : TvertexT; __partitioned : TflagT);
 {======= -global variables -qh ============================ }
-{-<a                             href="qh-globa.htm#TOC"
+{-<a                             href="qh-globa_r.htm#TOC"
   >--------------------------------</a><a name="qh">-</a>
 
   qhT
-   All global variables for qhull are in qhT, qhmemT, and qhstatT
+   All global variables for qhull are in qhT.  It includes qhmemT, qhstatT, and rbox globals
 
-  notes:
-   qhmem is defined in mem.h, qhstat is defined in stat.h, qhrbox is defined in rboxpoints.h
-   Access to qh_qh is via the "qh" macro.  See qh_QHpointer in user.h
+   This version of Qhull is reentrant, but it is not thread-safe.
 
-   All global variables for qhull are in qh, qhmem, and qhstat
-   qh must be unique for each instance of qhull
-   qhstat may be shared between qhull instances.
-   qhmem may be shared across multiple instances of Qhull.
-   Rbox uses global variables rbox_inuse and rbox, but does not persist data across calls.
-
-   Qhull is not multi-threaded.  Global state could be stored in thread-local storage.
+   Do not run separate threads on the same instance of qhT.
 
    QHULL_LIB_CHECK checks that a program and the corresponding
    qhull library were built with the same type of header files.
@@ -404,7 +711,10 @@ const
   QHULL_NON_REENTRANT = 0;  
   QHULL_QH_POINTER = 1;  
   QHULL_REENTRANT = 2;  
-{-<a                             href="qh-globa.htm#TOC"
+  QHULL_LIB_TYPE = QHULL_REENTRANT;  
+{#define QHULL_LIB_CHECK qh_lib_check(QHULL_LIB_TYPE, sizeof(qhT), sizeof(vertexT), sizeof(ridgeT), sizeof(facetT), sizeof(setT), sizeof(qhmemT)); }
+{#define QHULL_LIB_CHECK_RBOX qh_lib_check(QHULL_LIB_TYPE, sizeof(qhT), sizeof(vertexT), sizeof(ridgeT), sizeof(facetT), 0, 0); }
+{-<a                             href="qh-globa_r.htm#TOC"
   >--------------------------------</a><a name="qh-const">-</a>
 
   qh constants
@@ -412,7 +722,7 @@ const
 
   notes:
     The user configures Qhull by defining flags.  They are
-    copied into qh by qh_setflags().  qh-quick.htm#options defines the flags.
+    copied into qh by qh_setflags().  qh-quick_r.htm#options defines the flags.
  }
 { true 'Qs' if search all points for initial simplex  }
 { true 'Qa' allow input with fewer or more points than coordinates  }
@@ -535,7 +845,7 @@ const
 { true if calling qh_check_maxout (!qh.SKIPcheckmax && qh.MERGING)  }
 { feasible point 'Hn,n,n' for halfspace intersection  }
 {    as coordinates, both malloc'd  }
-{ true 'Fa', 'FA', 'FS', 'PAn', 'PFn' if compute facet area/Voronoi volume in io.c  }
+{ true 'Fa', 'FA', 'FS', 'PAn', 'PFn' if compute facet area/Voronoi volume in io_r.c  }
 { true if near-inside points in coplanarset  }
 { dimension of hull, set by initbuffers  }
 { dimension of input, set by initbuffers  }
@@ -561,14 +871,14 @@ const
 { scale point[k] to new upper bound  }
 { scale point[k] to new lower bound
                              project if both upper_ and lower_bound == 0  }
-{-<a                             href="qh-globa.htm#TOC"
+{-<a                             href="qh-globa_r.htm#TOC"
   >--------------------------------</a><a name="qh-prec">-</a>
 
   qh precision constants
     precision constants for Qhull
 
   notes:
-    qh_detroundoff [geom2.c] computes the maximum roundoff error for distance
+    qh_detroundoff [geom2_r.c] computes the maximum roundoff error for distance
     and other computations.  It also sets default values for the
     qh constants above.
  }
@@ -595,7 +905,7 @@ const
 { size of wide facet for skipping ridge in
                              area computation and locking centrum  }
 { set in qh_initialhull if angle < qh_MAXnarrow  }
-{-<a                             href="qh-globa.htm#TOC"
+{-<a                             href="qh-globa_r.htm#TOC"
   >--------------------------------</a><a name="qh-codetern">-</a>
 
   qh internal constants
@@ -613,7 +923,7 @@ const
 { size in bytes for facet normals and point coords  }
 { size in bytes for Voronoi centers  }
 { size for small, temporary sets (in quick mem)  }
-{-<a                             href="qh-globa.htm#TOC"
+{-<a                             href="qh-globa_r.htm#TOC"
   >--------------------------------</a><a name="qh-lists">-</a>
 
   qh facet and vertex lists
@@ -657,7 +967,7 @@ const
 { ID of next, new ridge from newridge()  }
 { ID of next, new vertex from newvertex()  }
 { ID of first_newfacet for qh_buildcone, or 0 if none  }
-{-<a                             href="qh-globa.htm#TOC"
+{-<a                             href="qh-globa_r.htm#TOC"
   >--------------------------------</a><a name="qh-var">-</a>
 
   qh global variables
@@ -710,7 +1020,7 @@ const
 { unique ID for searching vertices, reset with qh_buildtracing  }
 { True if qh_partitioncoplanar (qh_check_maxout)  }
 { True if qh_checkzero always succeeds  }
-{-<a                             href="qh-globa.htm#TOC"
+{-<a                             href="qh-globa_r.htm#TOC"
   >--------------------------------</a><a name="qh-set">-</a>
 
   qh global sets
@@ -725,18 +1035,18 @@ const
 { additional points  }
 { vertices to partition and delete with visible
                              facets.  v.deleted is set for checkfacet  }
-{-<a                             href="qh-globa.htm#TOC"
+{-<a                             href="qh-globa_r.htm#TOC"
   >--------------------------------</a><a name="qh-buf">-</a>
 
   qh global buffers
     defines buffers for maxtrix operations, input, and error messages
  }
-{ (dim+1)Xdim matrix for geom.c  }
+{ (dim+1)Xdim matrix for geom_r.c  }
 { array of gm_matrix rows  }
 { malloc'd input line of maxline+1 chars  }
 { malloc'd input array for halfspace (qh.normal_size+coordT)  }
 { malloc'd input array for points  }
-{-<a                             href="qh-globa.htm#TOC"
+{-<a                             href="qh-globa_r.htm#TOC"
   >--------------------------------</a><a name="qh-static">-</a>
 
   qh static variables
@@ -757,9 +1067,25 @@ const
 {   last qh.num_facets  }
 {   last zzval_(Ztotmerge)  }{   last zzval_(Zsetplane)  }{   last zzval_(Zdistplane)  }{  last qh.facet_id  }
 { for qh_tracemerging  }
-{ for saving qh_qhstat in save_qhull() and UsingLibQhull.  Free with qh_free()  }
-{ for saving qhmem.tempstack in save_qhull  }
+{ for saving qh->qhmem.tempstack in save_qhull  }
 { number of ridges for 4OFF output (qh_printbegin,etc)  }
+{-<a                             href="qh-globa_r.htm#TOC"
+  >--------------------------------</a><a name="qh-const">-</a>
+
+  qh memory management, rbox globals, and statistics
+
+  Replaces global data structures defined for libqhull
+ }
+{ Last random number from qh_rand (random_r.c)  }
+{ errexit from rboxlib_r.c, defined by qh_rboxpoints() only  }
+{ extra bytes in case jmp_buf is defined wrong by compiler  }
+{ C++ pointer.  Currently used by RboxPoints.qh_fprintf_rbox  }
+{ C++ pointer.  Reserved for other users  }
+{ C++ pointer.  Currently used by QhullUser.qh_fprintf  }
+{ Last, otherwise zero'd by qh_initqhull_start2 (global_r.c  }
+{ Qhull managed memory (mem_r.h)  }
+{ After qhmem because its size depends on the number of statistics  }
+{ Qhull statistics (stat_r.h)  }
 type
   PqhT = ^TqhT;
   TqhT = record
@@ -1010,121 +1336,118 @@ type
       lastdist : longint;
       lastreport : dword;
       mergereport : longint;
-      old_qhstat : PqhstatT;
       old_tempstack : PsetT;
       ridgeoutnum : longint;
+      last_random : longint;
+      rbox_errexit : Tjmp_buf;
+      jmpXtra3 : array[0..39] of char;
+      rbox_isinteger : longint;
+      rbox_out_offset : Tdouble;
+      cpp_object : pointer;
+      cpp_other : pointer;
+      cpp_user : pointer;
+      qhmem : TqhmemT;
+      qhstat : TqhstatT;
     end;
 
-{=========== -macros- ========================= }
-{-<a                             href="qh-poly.htm#TOC"
-  >--------------------------------</a><a name="otherfacet_">-</a>
+{******** -libqhull_r.c prototypes (duplicated from qhull_ra.h) ********************* }
 
-  otherfacet_(ridge, facet)
-    return neighboring facet for a ridge in facet
- }
-{******** -libqhull.c prototypes (duplicated from qhull_a.h) ********************* }
-
-procedure qh_qhull;cdecl;external libqhull;
-function qh_addpoint(furthest:PpointT; facet:PfacetT; checkdist:TboolT):TboolT;cdecl;external libqhull;
-procedure qh_errexit2(exitcode:longint; facet:PfacetT; otherfacet:PfacetT);cdecl;external libqhull;
-procedure qh_printsummary(fp:PFILE);cdecl;external libqhull;
-{******** -user.c prototypes (alphabetical) ********************* }
-procedure qh_errexit(exitcode:longint; facet:PfacetT; ridge:PridgeT);cdecl;external libqhull;
-procedure qh_errprint(_string:Pchar; atfacet:PfacetT; otherfacet:PfacetT; atridge:PridgeT; atvertex:PvertexT);cdecl;external libqhull;
-function qh_new_qhull(dim:longint; numpoints:longint; points:PcoordT; ismalloc:TboolT; qhull_cmd:Pchar; 
-           outfile:PFILE; errfile:PFILE):longint;cdecl;external libqhull;
-procedure qh_printfacetlist(facetlist:PfacetT; facets:PsetT; printall:TboolT);cdecl;external libqhull;
-procedure qh_printhelp_degenerate(fp:PFILE);cdecl;external libqhull;
-procedure qh_printhelp_internal(fp:PFILE);cdecl;external libqhull;
-procedure qh_printhelp_narrowhull(fp:PFILE; minangle:TrealT);cdecl;external libqhull;
-procedure qh_printhelp_singular(fp:PFILE);cdecl;external libqhull;
-procedure qh_printhelp_topology(fp:PFILE);cdecl;external libqhull;
-procedure qh_printhelp_wide(fp:PFILE);cdecl;external libqhull;
-procedure qh_user_memsizes;cdecl;external libqhull;
-{******** -usermem.c prototypes (alphabetical) ********************* }
-procedure qh_exit(exitcode:longint);cdecl;external libqhull;
-procedure qh_fprintf_stderr(msgcode:longint; fmt:Pchar; args:array of const);cdecl;external libqhull;
-procedure qh_fprintf_stderr(msgcode:longint; fmt:Pchar);cdecl;external libqhull;
-procedure qh_free(mem:pointer);cdecl;external libqhull;
-function qh_malloc(size:Tsize_t):pointer;cdecl;external libqhull;
-{******** -userprintf.c and userprintf_rbox.c prototypes ********************* }
-procedure qh_fprintf(fp:PFILE; msgcode:longint; fmt:Pchar; args:array of const);cdecl;external libqhull;
-procedure qh_fprintf(fp:PFILE; msgcode:longint; fmt:Pchar);cdecl;external libqhull;
-procedure qh_fprintf_rbox(fp:PFILE; msgcode:longint; fmt:Pchar; args:array of const);cdecl;external libqhull;
-procedure qh_fprintf_rbox(fp:PFILE; msgcode:longint; fmt:Pchar);cdecl;external libqhull;
-{**** -geom.c/geom2.c/random.c prototypes (duplicated from geom.h, random.h) *************** }
-function qh_findbest(point:PpointT; startfacet:PfacetT; bestoutside:TboolT; newfacets:TboolT; noupper:TboolT; 
-           dist:PrealT; isoutside:PboolT; numpart:Plongint):PfacetT;cdecl;external libqhull;
-function qh_findbestnew(point:PpointT; startfacet:PfacetT; dist:PrealT; bestoutside:TboolT; isoutside:PboolT; 
-           numpart:Plongint):PfacetT;cdecl;external libqhull;
-function qh_gram_schmidt(dim:longint; rows:PPrealT):TboolT;cdecl;external libqhull;
-procedure qh_outerinner(facet:PfacetT; outerplane:PrealT; innerplane:PrealT);cdecl;external libqhull;
-procedure qh_printsummary(fp:PFILE);cdecl;external libqhull;
-procedure qh_projectinput;cdecl;external libqhull;
-procedure qh_randommatrix(buffer:PrealT; dim:longint; row:PPrealT);cdecl;external libqhull;
-procedure qh_rotateinput(rows:PPrealT);cdecl;external libqhull;
-procedure qh_scaleinput;cdecl;external libqhull;
-procedure qh_setdelaunay(dim:longint; count:longint; points:PpointT);cdecl;external libqhull;
-function qh_sethalfspace_all(dim:longint; count:longint; halfspaces:PcoordT; feasible:PpointT):PcoordT;cdecl;external libqhull;
-{**** -global.c prototypes (alphabetical) ********************** }
-function qh_clock:dword;cdecl;external libqhull;
-procedure qh_checkflags(command:Pchar; hiddenflags:Pchar);cdecl;external libqhull;
-procedure qh_clear_outputflags;cdecl;external libqhull;
-procedure qh_freebuffers;cdecl;external libqhull;
-procedure qh_freeqhull(allmem:TboolT);cdecl;external libqhull;
-procedure qh_freeqhull2(allmem:TboolT);cdecl;external libqhull;
-procedure qh_init_A(infile:PFILE; outfile:PFILE; errfile:PFILE; argc:longint; argv:PPchar);cdecl;external libqhull;
-procedure qh_init_B(points:PcoordT; numpoints:longint; dim:longint; ismalloc:TboolT);cdecl;external libqhull;
-procedure qh_init_qhull_command(argc:longint; argv:PPchar);cdecl;external libqhull;
-procedure qh_initbuffers(points:PcoordT; numpoints:longint; dim:longint; ismalloc:TboolT);cdecl;external libqhull;
-procedure qh_initflags(command:Pchar);cdecl;external libqhull;
-procedure qh_initqhull_buffers;cdecl;external libqhull;
-procedure qh_initqhull_globals(points:PcoordT; numpoints:longint; dim:longint; ismalloc:TboolT);cdecl;external libqhull;
-procedure qh_initqhull_mem;cdecl;external libqhull;
-procedure qh_initqhull_outputflags;cdecl;external libqhull;
-procedure qh_initqhull_start(infile:PFILE; outfile:PFILE; errfile:PFILE);cdecl;external libqhull;
-procedure qh_initqhull_start2(infile:PFILE; outfile:PFILE; errfile:PFILE);cdecl;external libqhull;
-procedure qh_initthresholds(command:Pchar);cdecl;external libqhull;
+procedure qh_qhull(qh:PqhT);cdecl;external libqhull_r;
+function qh_addpoint(qh:PqhT; furthest:PpointT; facet:PfacetT; checkdist:TboolT):TboolT;cdecl;external libqhull_r;
+procedure qh_errexit2(qh:PqhT; exitcode:longint; facet:PfacetT; otherfacet:PfacetT);cdecl;external libqhull_r;
+procedure qh_printsummary(qh:PqhT; fp:PFILE);cdecl;external libqhull_r;
+{******** -user_r.c prototypes (alphabetical) ********************* }
+procedure qh_errexit(qh:PqhT; exitcode:longint; facet:PfacetT; ridge:PridgeT);cdecl;external libqhull_r;
+procedure qh_errprint(qh:PqhT; _string:Pchar; atfacet:PfacetT; otherfacet:PfacetT; atridge:PridgeT; 
+            atvertex:PvertexT);cdecl;external libqhull_r;
+function qh_new_qhull(qh:PqhT; dim:longint; numpoints:longint; points:PcoordT; ismalloc:TboolT; 
+           qhull_cmd:Pchar; outfile:PFILE; errfile:PFILE):longint;cdecl;external libqhull_r;
+procedure qh_printfacetlist(qh:PqhT; facetlist:PfacetT; facets:PsetT; printall:TboolT);cdecl;external libqhull_r;
+procedure qh_printhelp_degenerate(qh:PqhT; fp:PFILE);cdecl;external libqhull_r;
+procedure qh_printhelp_internal(qh:PqhT; fp:PFILE);cdecl;external libqhull_r;
+procedure qh_printhelp_narrowhull(qh:PqhT; fp:PFILE; minangle:TrealT);cdecl;external libqhull_r;
+procedure qh_printhelp_singular(qh:PqhT; fp:PFILE);cdecl;external libqhull_r;
+procedure qh_printhelp_topology(qh:PqhT; fp:PFILE);cdecl;external libqhull_r;
+procedure qh_printhelp_wide(qh:PqhT; fp:PFILE);cdecl;external libqhull_r;
+procedure qh_user_memsizes(qh:PqhT);cdecl;external libqhull_r;
+{******** -usermem_r.c prototypes (alphabetical) ********************* }
+procedure qh_exit(exitcode:longint);cdecl;external libqhull_r;
+procedure qh_fprintf_stderr(msgcode:longint; fmt:Pchar; args:array of const);cdecl;external libqhull_r;
+procedure qh_fprintf_stderr(msgcode:longint; fmt:Pchar);cdecl;external libqhull_r;
+procedure qh_free(mem:pointer);cdecl;external libqhull_r;
+function qh_malloc(size:Tsize_t):pointer;cdecl;external libqhull_r;
+{******** -userprintf_r.c and userprintf_rbox_r.c prototypes ********************* }
+procedure qh_fprintf(qh:PqhT; fp:PFILE; msgcode:longint; fmt:Pchar; args:array of const);cdecl;external libqhull_r;
+procedure qh_fprintf(qh:PqhT; fp:PFILE; msgcode:longint; fmt:Pchar);cdecl;external libqhull_r;
+procedure qh_fprintf_rbox(qh:PqhT; fp:PFILE; msgcode:longint; fmt:Pchar; args:array of const);cdecl;external libqhull_r;
+procedure qh_fprintf_rbox(qh:PqhT; fp:PFILE; msgcode:longint; fmt:Pchar);cdecl;external libqhull_r;
+{**** -geom_r.c/geom2_r.c/random_r.c prototypes (duplicated from geom_r.h, random_r.h) *************** }
+function qh_findbest(qh:PqhT; point:PpointT; startfacet:PfacetT; bestoutside:TboolT; newfacets:TboolT; 
+           noupper:TboolT; dist:PrealT; isoutside:PboolT; numpart:Plongint):PfacetT;cdecl;external libqhull_r;
+function qh_findbestnew(qh:PqhT; point:PpointT; startfacet:PfacetT; dist:PrealT; bestoutside:TboolT; 
+           isoutside:PboolT; numpart:Plongint):PfacetT;cdecl;external libqhull_r;
+function qh_gram_schmidt(qh:PqhT; dim:longint; rows:PPrealT):TboolT;cdecl;external libqhull_r;
+procedure qh_outerinner(qh:PqhT; facet:PfacetT; outerplane:PrealT; innerplane:PrealT);cdecl;external libqhull_r;
+procedure qh_printsummary(qh:PqhT; fp:PFILE);cdecl;external libqhull_r;
+procedure qh_projectinput(qh:PqhT);cdecl;external libqhull_r;
+procedure qh_randommatrix(qh:PqhT; buffer:PrealT; dim:longint; row:PPrealT);cdecl;external libqhull_r;
+procedure qh_rotateinput(qh:PqhT; rows:PPrealT);cdecl;external libqhull_r;
+procedure qh_scaleinput(qh:PqhT);cdecl;external libqhull_r;
+procedure qh_setdelaunay(qh:PqhT; dim:longint; count:longint; points:PpointT);cdecl;external libqhull_r;
+function qh_sethalfspace_all(qh:PqhT; dim:longint; count:longint; halfspaces:PcoordT; feasible:PpointT):PcoordT;cdecl;external libqhull_r;
+{**** -global_r.c prototypes (alphabetical) ********************** }
+function qh_clock(qh:PqhT):dword;cdecl;external libqhull_r;
+procedure qh_checkflags(qh:PqhT; command:Pchar; hiddenflags:Pchar);cdecl;external libqhull_r;
+procedure qh_clear_outputflags(qh:PqhT);cdecl;external libqhull_r;
+procedure qh_freebuffers(qh:PqhT);cdecl;external libqhull_r;
+procedure qh_freeqhull(qh:PqhT; allmem:TboolT);cdecl;external libqhull_r;
+procedure qh_init_A(qh:PqhT; infile:PFILE; outfile:PFILE; errfile:PFILE; argc:longint; 
+            argv:PPchar);cdecl;external libqhull_r;
+procedure qh_init_B(qh:PqhT; points:PcoordT; numpoints:longint; dim:longint; ismalloc:TboolT);cdecl;external libqhull_r;
+procedure qh_init_qhull_command(qh:PqhT; argc:longint; argv:PPchar);cdecl;external libqhull_r;
+procedure qh_initbuffers(qh:PqhT; points:PcoordT; numpoints:longint; dim:longint; ismalloc:TboolT);cdecl;external libqhull_r;
+procedure qh_initflags(qh:PqhT; command:Pchar);cdecl;external libqhull_r;
+procedure qh_initqhull_buffers(qh:PqhT);cdecl;external libqhull_r;
+procedure qh_initqhull_globals(qh:PqhT; points:PcoordT; numpoints:longint; dim:longint; ismalloc:TboolT);cdecl;external libqhull_r;
+procedure qh_initqhull_mem(qh:PqhT);cdecl;external libqhull_r;
+procedure qh_initqhull_outputflags(qh:PqhT);cdecl;external libqhull_r;
+procedure qh_initqhull_start(qh:PqhT; infile:PFILE; outfile:PFILE; errfile:PFILE);cdecl;external libqhull_r;
+procedure qh_initqhull_start2(qh:PqhT; infile:PFILE; outfile:PFILE; errfile:PFILE);cdecl;external libqhull_r;
+procedure qh_initthresholds(qh:PqhT; command:Pchar);cdecl;external libqhull_r;
 procedure qh_lib_check(qhullLibraryType:longint; qhTsize:longint; vertexTsize:longint; ridgeTsize:longint; facetTsize:longint; 
-            setTsize:longint; qhmemTsize:longint);cdecl;external libqhull;
-procedure qh_option(option:Pchar; i:Plongint; r:PrealT);cdecl;external libqhull;
-{$if qh_QHpointer}
+            setTsize:longint; qhmemTsize:longint);cdecl;external libqhull_r;
+procedure qh_option(qh:PqhT; option:Pchar; i:Plongint; r:PrealT);cdecl;external libqhull_r;
+procedure qh_zero(qh:PqhT; errfile:PFILE);cdecl;external libqhull_r;
+{**** -io_r.c prototypes (duplicated from io_r.h) ********************** }
+procedure qh_dfacet(qh:PqhT; id:dword);cdecl;external libqhull_r;
+procedure qh_dvertex(qh:PqhT; id:dword);cdecl;external libqhull_r;
+procedure qh_printneighborhood(qh:PqhT; fp:PFILE; format:Tqh_PRINT; facetA:PfacetT; facetB:PfacetT; 
+            printall:TboolT);cdecl;external libqhull_r;
+procedure qh_produce_output(qh:PqhT);cdecl;external libqhull_r;
+function qh_readpoints(qh:PqhT; numpoints:Plongint; dimension:Plongint; ismalloc:PboolT):PcoordT;cdecl;external libqhull_r;
+{******** -mem_r.c prototypes (duplicated from mem_r.h) ********************* }
+procedure qh_meminit(qh:PqhT; ferr:PFILE);cdecl;external libqhull_r;
+procedure qh_memfreeshort(qh:PqhT; curlong:Plongint; totlong:Plongint);cdecl;external libqhull_r;
+{******** -poly_r.c/poly2_r.c prototypes (duplicated from poly_r.h) ********************* }
+procedure qh_check_output(qh:PqhT);cdecl;external libqhull_r;
+procedure qh_check_points(qh:PqhT);cdecl;external libqhull_r;
+function qh_facetvertices(qh:PqhT; facetlist:PfacetT; facets:PsetT; allfacets:TboolT):PsetT;cdecl;external libqhull_r;
+function qh_findbestfacet(qh:PqhT; point:PpointT; bestoutside:TboolT; bestdist:PrealT; isoutside:PboolT):PfacetT;cdecl;external libqhull_r;
+function qh_nearvertex(qh:PqhT; facet:PfacetT; point:PpointT; bestdistp:PrealT):PvertexT;cdecl;external libqhull_r;
+function qh_point(qh:PqhT; id:longint):PpointT;cdecl;external libqhull_r;
+{ qh.facet_list  }function qh_pointfacet(qh:PqhT):PsetT;cdecl;external libqhull_r;
+function qh_pointid(qh:PqhT; point:PpointT):longint;cdecl;external libqhull_r;
+{ qh.facet_list  }function qh_pointvertex(qh:PqhT):PsetT;cdecl;external libqhull_r;
+procedure qh_setvoronoi_all(qh:PqhT);cdecl;external libqhull_r;
+{ qh.facet_list  }procedure qh_triangulate(qh:PqhT);cdecl;external libqhull_r;
+{******** -rboxlib_r.c prototypes ********************* }
+function qh_rboxpoints(qh:PqhT; rbox_command:Pchar):longint;cdecl;external libqhull_r;
+procedure qh_errexit_rbox(qh:PqhT; exitcode:longint);cdecl;external libqhull_r;
+{******** -stat_r.c prototypes (duplicated from stat_r.h) ********************* }
+procedure qh_collectstatistics(qh:PqhT);cdecl;external libqhull_r;
+procedure qh_printallstatistics(qh:PqhT; fp:PFILE; _string:Pchar);cdecl;external libqhull_r;
 
-procedure qh_restore_qhull(oldqh:PPqhT);cdecl;external libqhull;
-function qh_save_qhull:PqhT;cdecl;external libqhull;
-{$endif}
-{**** -io.c prototypes (duplicated from io.h) ********************** }
-
-procedure qh_dfacet(id:dword);cdecl;external libqhull;
-procedure qh_dvertex(id:dword);cdecl;external libqhull;
-procedure qh_printneighborhood(fp:PFILE; format:Tqh_PRINT; facetA:PfacetT; facetB:PfacetT; printall:TboolT);cdecl;external libqhull;
-procedure qh_produce_output;cdecl;external libqhull;
-function qh_readpoints(numpoints:Plongint; dimension:Plongint; ismalloc:PboolT):PcoordT;cdecl;external libqhull;
-{******** -mem.c prototypes (duplicated from mem.h) ********************* }
-procedure qh_meminit(ferr:PFILE);cdecl;external libqhull;
-procedure qh_memfreeshort(curlong:Plongint; totlong:Plongint);cdecl;external libqhull;
-{******** -poly.c/poly2.c prototypes (duplicated from poly.h) ********************* }
-procedure qh_check_output;cdecl;external libqhull;
-procedure qh_check_points;cdecl;external libqhull;
-function qh_facetvertices(facetlist:PfacetT; facets:PsetT; allfacets:TboolT):PsetT;cdecl;external libqhull;
-function qh_findbestfacet(point:PpointT; bestoutside:TboolT; bestdist:PrealT; isoutside:PboolT):PfacetT;cdecl;external libqhull;
-function qh_nearvertex(facet:PfacetT; point:PpointT; bestdistp:PrealT):PvertexT;cdecl;external libqhull;
-function qh_point(id:longint):PpointT;cdecl;external libqhull;
-{ qh.facet_list  }function qh_pointfacet:PsetT;cdecl;external libqhull;
-function qh_pointid(point:PpointT):longint;cdecl;external libqhull;
-{ qh.facet_list  }function qh_pointvertex:PsetT;cdecl;external libqhull;
-procedure qh_setvoronoi_all;cdecl;external libqhull;
-{ qh.facet_list  }procedure qh_triangulate;cdecl;external libqhull;
-{******** -rboxlib.c prototypes ********************* }
-function qh_rboxpoints(fout:PFILE; ferr:PFILE; rbox_command:Pchar):longint;cdecl;external libqhull;
-procedure qh_errexit_rbox(exitcode:longint);cdecl;external libqhull;
-{******** -stat.c prototypes (duplicated from stat.h) ********************* }
-procedure qh_collectstatistics;cdecl;external libqhull;
-procedure qh_printallstatistics(fp:PFILE; _string:Pchar);cdecl;external libqhull;
-{$endif}
-{ qhDEFlibqhull  }
-
-// === Konventiert am: 18-2-26 16:48:40 ===
+// === Konventiert am: 19-2-26 17:34:24 ===
 
 
 implementation

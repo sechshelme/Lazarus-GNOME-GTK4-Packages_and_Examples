@@ -31,7 +31,8 @@ const
   REALfloat = 0;
 
 type
-  realT = double;
+  TrealT = double;
+  PrealT = ^TrealT;
 
 const
   qh_REALmax = 1.7976931348623157e+308;

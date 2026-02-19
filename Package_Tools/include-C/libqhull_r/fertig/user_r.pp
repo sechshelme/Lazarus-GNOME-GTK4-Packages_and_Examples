@@ -1,4 +1,35 @@
-/*<html><pre>  -<a                             href="qh-user_r.htm"
+
+unit user_r;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from user_r.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    user_r.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+PcountT  = ^countT;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{<html><pre>  -<a                             href="qh-user_r.htm"
   >-------------------------------</a><a name="TOP">-</a>
 
    user_r.h
@@ -26,36 +57,33 @@ Code flags --
   NOerrors -- the code does not call qh_errexit()
   WARN64 -- the code may be incompatible with 64-bit pointers
 
-*/
+ }
+{$include <float.h>}
+{$include <limits.h>}
+{$include <time.h>}
+{$ifndef qhDEFuser}
 
-#include <float.h>
-#include <limits.h>
-#include <time.h>
-
-#ifndef qhDEFuser
-#define qhDEFuser 1
-
-/* Derived from Qt's corelib/global/qglobal.h */
-#if !defined(SAG_COM) && !defined(__CYGWIN__) && (defined(WIN64) || defined(_WIN64) || defined(__WIN64__) || defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__))
-#   define QHULL_OS_WIN
-#elif defined(__MWERKS__) && defined(__INTEL__) /* Metrowerks discontinued before the release of Intel Macs */
-#   define QHULL_OS_WIN
-#endif
-
-/*============================================================*/
-/*============= qhull library constants ======================*/
-/*============================================================*/
-
-/*-<a                             href="qh-user_r.htm#TOC"
+const
+  qhDEFuser = 1;  
+{ Derived from Qt's corelib/global/qglobal.h  }
+{$if !defined(SAG_COM) && !defined(__CYGWIN__) && (defined(WIN64) || defined(_WIN64) || defined(__WIN64__) || defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__))}
+{$define QHULL_OS_WIN}
+(*** was #elif ****){$else defined(__MWERKS__) && defined(__INTEL__) /* Metrowerks discontinued before the release of Intel Macs */}
+{$define QHULL_OS_WIN}
+{$endif}
+{============================================================ }
+{============= qhull library constants ====================== }
+{============================================================ }
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="filenamelen">-</a>
 
   FILENAMElen -- max length for TI and TO filenames
 
-*/
+ }
 
-#define qh_FILENAMElen 500
-
-/*-<a                             href="qh-user_r.htm#TOC"
+const
+  qh_FILENAMElen = 500;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="msgcode">-</a>
 
   msgcode -- Unique message codes for qh_fprintf
@@ -68,35 +96,36 @@ Code flags --
      6429, 7027/7028/7035/7068/7070/7102, 8163, 9428, 10000, 11034]
 
   See: qh_ERR* [libqhull_r.h]
-*/
-
-#define MSG_TRACE0     0   /* always include if logging ('Tn') */
-#define MSG_TRACE1  1000
-#define MSG_TRACE2  2000
-#define MSG_TRACE3  3000
-#define MSG_TRACE4  4000
-#define MSG_TRACE5  5000
-#define MSG_ERROR   6000   /* errors written to qh.ferr */
-#define MSG_WARNING 7000
-#define MSG_STDERR  8000   /* log messages Written to qh.ferr */
-#define MSG_OUTPUT  9000
-#define MSG_QHULL_ERROR 10000 /* errors thrown by QhullError.cpp (QHULLlastError is in QhullError.h) */
-#define MSG_FIX    11000   /* Document as 'QH11... FIX: ...' */
-#define MSG_MAXLEN  3000   /* qh_printhelp_degenerate() in user_r.c */
-
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+{ always include if logging ('Tn')  }
+  MSG_TRACE0 = 0;  
+  MSG_TRACE1 = 1000;  
+  MSG_TRACE2 = 2000;  
+  MSG_TRACE3 = 3000;  
+  MSG_TRACE4 = 4000;  
+  MSG_TRACE5 = 5000;  
+{ errors written to qh.ferr  }
+  MSG_ERROR = 6000;  
+  MSG_WARNING = 7000;  
+{ log messages Written to qh.ferr  }
+  MSG_STDERR = 8000;  
+  MSG_OUTPUT = 9000;  
+{ errors thrown by QhullError.cpp (QHULLlastError is in QhullError.h)  }
+  MSG_QHULL_ERROR = 10000;  
+{ Document as 'QH11... FIX: ...'  }
+  MSG_FIX = 11000;  
+{ qh_printhelp_degenerate() in user_r.c  }
+  MSG_MAXLEN = 3000;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="qh_OPTIONline">-</a>
 
   qh_OPTIONline -- max length of an option line 'FO'
-*/
-#define qh_OPTIONline 80
-
-/*============================================================*/
-/*============= data types and configuration macros ==========*/
-/*============================================================*/
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_OPTIONline = 80;  
+{============================================================ }
+{============= data types and configuration macros ========== }
+{============================================================ }
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="realT">-</a>
 
   realT
@@ -137,39 +166,41 @@ Code flags --
    (sg@eeiwzb.et.tu-dresden.de) has done this.  He reports that the code runs
    much slower with little gain in precision.
 
-   WARNING: on some machines,    int f(){realT a= REALmax;return (a == REALmax);}
+   WARNING: on some machines,    int f()realT a= REALmax;return (a == REALmax);
       returns False.  Use (a > REALmax/2) instead of (a == REALmax).
 
    REALfloat =   1      all numbers are 'float' type
              =   0      all numbers are 'double' type
-*/
-#define REALfloat 0
+ }
+  REALfloat = 0;  
+{$if (REALfloat == 1)}
 
-#if (REALfloat == 1)
-#define realT float
-#define REALmax FLT_MAX
-#define REALmin FLT_MIN
-#define REALepsilon FLT_EPSILON
-#define qh_REALdigits 8   /* maximum number of significant digits */
-#define qh_REAL_1 "%6.8g "
-#define qh_REAL_2n "%6.8g %6.8g\n"
-#define qh_REAL_3n "%6.8g %6.8g %6.8g\n"
+const
+  realT = single;  
+  REALmax = FLT_MAX;  
+  REALmin = FLT_MIN;  
+  REALepsilon = FLT_EPSILON;  
+{ maximum number of significant digits  }
+  qh_REALdigits = 8;  
+  qh_REAL_1 = '%6.8g ';  
+  qh_REAL_2n = '%6.8g %6.8g\n';  
+  qh_REAL_3n = '%6.8g %6.8g %6.8g\n';  
+(*** was #elif ****){$else (REALfloat == 0)}
 
-#elif (REALfloat == 0)
-#define realT double
-#define REALmax DBL_MAX
-#define REALmin DBL_MIN
-#define REALepsilon DBL_EPSILON
-#define qh_REALdigits 16    /* maximum number of significant digits */
-#define qh_REAL_1 "%6.16g "
-#define qh_REAL_2n "%6.16g %6.16g\n"
-#define qh_REAL_3n "%6.16g %6.16g %6.16g\n"
-
-#else
-#error unknown float option
-#endif
-
-/*-<a                             href="qh-user_r.htm#TOC"
+const
+  realT = double;  
+  REALmax = DBL_MAX;  
+  REALmin = DBL_MIN;  
+  REALepsilon = DBL_EPSILON;  
+{ maximum number of significant digits  }
+  qh_REALdigits = 16;  
+  qh_REAL_1 = '%6.16g ';  
+  qh_REAL_2n = '%6.16g %6.16g\n';  
+  qh_REAL_3n = '%6.16g %6.16g %6.16g\n';  
+{$else}
+{$error unknown float option}
+{$endif}
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="countT">-</a>
 
   countT
@@ -179,23 +210,26 @@ Code flags --
     Defined as 'int' for C-code compatibility and QH11026
 
     QH11026 FIX: countT may be defined as a 'unsigned int', but several code issues need to be solved first.  See countT in Changes.txt
-*/
+ }
+{$ifndef DEFcountT}
 
-#ifndef DEFcountT
-#define DEFcountT 1
-typedef int countT;
-#endif
-#define COUNTmax INT_MAX
+const
+  DEFcountT = 1;  
+type
+  PcountT = ^TcountT;
+  TcountT = longint;
+{$endif}
 
-/*-<a                             href="qh-user_r.htm#TOC"
+const
+  COUNTmax = INT_MAX;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="qh_POINTSmax">-</a>
 
   qh_POINTSmax
     Maximum number of points for qh.num_points and point allocation in qh_readpoints
-*/
-#define qh_POINTSmax (INT_MAX-16)
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_POINTSmax = INT_MAX-16;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="CPUclock">-</a>
 
   qh_CPUclock
@@ -221,37 +255,10 @@ typedef int countT;
                 Note:  may fail if more than 1 hour elapsed time
 
      2          use qh_clock() with POSIX times() (see global_r.c)
-*/
-#define qh_CLOCKtype 1  /* change to the desired number */
-
-#if (qh_CLOCKtype == 1)
-
-#if defined(CLOCKS_PER_SECOND)
-#define qh_CPUclock    ((unsigned long)clock())  /* return CPU clock, may be converted to approximate double */
-#define qh_SECticks CLOCKS_PER_SECOND
-
-#elif defined(CLOCKS_PER_SEC)
-#define qh_CPUclock    ((unsigned long)clock())  /* return CPU clock, may be converted to approximate double */
-#define qh_SECticks CLOCKS_PER_SEC
-
-#elif defined(CLK_TCK)
-#define qh_CPUclock    ((unsigned long)clock())  /* return CPU clock, may be converted to approximate double */
-#define qh_SECticks CLK_TCK
-
-#else
-#define qh_CPUclock    ((unsigned long)clock())  /* return CPU clock, may be converted to approximate double */
-#define qh_SECticks 1E6
-#endif
-
-#elif (qh_CLOCKtype == 2)
-#define qh_CPUclock    qh_clock()  /* return CPU clock, may be converted to approximate double */
-#define qh_SECticks 100
-
-#else /* qh_CLOCKtype == ? */
-#error unknown clock option
-#endif
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+{ change to the desired number  }
+  qh_CLOCKtype = 1;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="RANDOM">-</a>
 
   qh_RANDOMtype, qh_RANDOMmax, qh_RANDOMseed
@@ -282,52 +289,15 @@ typedef int countT;
 
     If qh_RANDOMmax is wrong, qhull will report a warning and Geomview
     output will likely be invisible.
-*/
-#define qh_RANDOMtype 5   /* *** change to the desired number *** */
-
-#if (qh_RANDOMtype == 1)
-#define qh_RANDOMmax ((realT)0x7fffffffUL)  /* 31 bits, random()/MAX */
-#define qh_RANDOMint random()
-#define qh_RANDOMseed_(qh, seed) srandom(seed);
-
-#elif (qh_RANDOMtype == 2)
-#ifdef RAND_MAX
-#define qh_RANDOMmax ((realT)RAND_MAX)
-#else
-#define qh_RANDOMmax ((realT)32767)   /* 15 bits (System 5) */
-#endif
-#define qh_RANDOMint  rand()
-#define qh_RANDOMseed_(qh, seed) srand((unsigned int)seed);
-
-#elif (qh_RANDOMtype == 3)
-#define qh_RANDOMmax ((realT)0x7fffffffUL)  /* 31 bits, Sun */
-#define qh_RANDOMint  rand()
-#define qh_RANDOMseed_(qh, seed) srand((unsigned int)seed);
-
-#elif (qh_RANDOMtype == 4)
-#define qh_RANDOMmax ((realT)0x7fffffffUL)  /* 31 bits, lrand38()/MAX */
-#define qh_RANDOMint lrand48()
-#define qh_RANDOMseed_(qh, seed) srand48(seed);
-
-#elif (qh_RANDOMtype == 5)  /* 'qh' is an implicit parameter */
-#define qh_RANDOMmax ((realT)2147483646UL)  /* 31 bits, qh_rand/MAX */
-#define qh_RANDOMint qh_rand(qh)
-#define qh_RANDOMseed_(qh, seed) qh_srand(qh, seed);
-/* unlike rand(), never returns 0 */
-
-#else
-#error: unknown random option
-#endif
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="ORIENTclock">-</a>
 
   qh_ORIENTclock
     0 for inward pointing normals by Geomview convention
-*/
-#define qh_ORIENTclock 0
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_ORIENTclock = 0;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="RANDOMdist">-</a>
 
   qh_RANDOMdist
@@ -336,13 +306,11 @@ typedef int countT;
   For testing qh.DISTround.  Qhull should not depend on computations always producing the same roundoff error 
 
   #define qh_RANDOMdist 1e-13
-*/
-
-/*============================================================*/
-/*============= joggle constants =============================*/
-/*============================================================*/
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+{============================================================ }
+{============= joggle constants ============================= }
+{============================================================ }
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="JOGGLEdefault">-</a>
 
   qh_JOGGLEdefault
@@ -361,18 +329,16 @@ typedef int countT;
     the later have about 20 points per facet, each of which may interfere
 
     pick a value large enough to avoid retries on most inputs
-*/
-#define qh_JOGGLEdefault 30000.0
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_JOGGLEdefault = 30000.0;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="JOGGLEincrease">-</a>
 
   qh_JOGGLEincrease
     factor to increase qh.JOGGLEmax on qh_JOGGLEretry or qh_JOGGLEagain
-*/
-#define qh_JOGGLEincrease 10.0
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_JOGGLEincrease = 10.0;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="JOGGLEretry">-</a>
 
   qh_JOGGLEretry
@@ -380,10 +346,9 @@ typedef int countT;
 
 notes:
 try twice at the original value in case of bad luck the first time
-*/
-#define qh_JOGGLEretry 2
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_JOGGLEretry = 2;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="JOGGLEagain">-</a>
 
   qh_JOGGLEagain
@@ -391,10 +356,9 @@ try twice at the original value in case of bad luck the first time
 
   notes:
     1 is OK since it's already failed qh_JOGGLEretry times
-*/
-#define qh_JOGGLEagain 1
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_JOGGLEagain = 1;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="JOGGLEmaxincrease">-</a>
 
   qh_JOGGLEmaxincrease
@@ -403,22 +367,19 @@ try twice at the original value in case of bad luck the first time
 
   notes:
     qh.joggleinput will retry at this value until qh_JOGGLEmaxretry
-*/
-#define qh_JOGGLEmaxincrease 1e-2
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_JOGGLEmaxincrease = 1e-2;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="JOGGLEmaxretry">-</a>
 
   qh_JOGGLEmaxretry
     stop after qh_JOGGLEmaxretry attempts
-*/
-#define qh_JOGGLEmaxretry 50
-
-/*============================================================*/
-/*============= performance related constants ================*/
-/*============================================================*/
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_JOGGLEmaxretry = 50;  
+{============================================================ }
+{============= performance related constants ================ }
+{============================================================ }
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="HASHfactor">-</a>
 
   qh_HASHfactor
@@ -426,10 +387,9 @@ try twice at the original value in case of bad luck the first time
 
   notes:
     =2 for at worst 50% occupancy for qh.hash_table and normally 25% occupancy
-*/
-#define qh_HASHfactor 2
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_HASHfactor = 2;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="VERIFYdirect">-</a>
 
   qh_VERIFYdirect
@@ -437,18 +397,16 @@ try twice at the original value in case of bad luck the first time
 
   notes:
     if greater, calls qh_check_bestdist() instead
-*/
-#define qh_VERIFYdirect 1000000
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_VERIFYdirect = 1000000;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="INITIALsearch">-</a>
 
   qh_INITIALsearch
      if qh_INITIALmax, search points up to this dimension
-*/
-#define qh_INITIALsearch 6
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_INITIALsearch = 6;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="INITIALmax">-</a>
 
   qh_INITIALmax
@@ -457,14 +415,12 @@ try twice at the original value in case of bad luck the first time
   notes:
     from points with non-zero determinants
     use option 'Qs' to override (much slower)
-*/
-#define qh_INITIALmax 8
-
-/*============================================================*/
-/*============= memory constants =============================*/
-/*============================================================*/
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_INITIALmax = 8;  
+{============================================================ }
+{============= memory constants ============================= }
+{============================================================ }
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="MEMalign">-</a>
 
   qh_MEMalign
@@ -482,10 +438,8 @@ try twice at the original value in case of bad luck the first time
 
     If using gcc, best alignment is [fmax_() is defined in geom_r.h]
               #define qh_MEMalign fmax_(__alignof__(realT),__alignof__(void *))
-*/
-#define qh_MEMalign ((int)(fmax_(sizeof(realT), sizeof(void *))))
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="MEMbufsize">-</a>
 
   qh_MEMbufsize
@@ -493,10 +447,10 @@ try twice at the original value in case of bad luck the first time
 
   notes:
     used for qh_meminitbuffers() in global_r.c
-*/
-#define qh_MEMbufsize 0x10000       /* allocate 64K memory buffers */
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+{ allocate 64K memory buffers  }
+  qh_MEMbufsize = $10000;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="MEMinitbuf">-</a>
 
   qh_MEMinitbuf
@@ -504,18 +458,17 @@ try twice at the original value in case of bad luck the first time
 
   notes:
     use for qh_meminitbuffers() in global_r.c
-*/
-#define qh_MEMinitbuf 0x20000      /* initially allocate 128K buffer */
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+{ initially allocate 128K buffer  }
+  qh_MEMinitbuf = $20000;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="INFINITE">-</a>
 
   qh_INFINITE
     on output, indicates Voronoi center at infinity
-*/
-#define qh_INFINITE  -10.101
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_INFINITE = -(10.101);  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="DEFAULTbox">-</a>
 
   qh_DEFAULTbox
@@ -523,15 +476,13 @@ try twice at the original value in case of bad luck the first time
 
   qh_DEFAULTbox
     default box size for integer coorindate (rbox only)
-*/
-#define qh_DEFAULTbox 0.5
-#define qh_DEFAULTzbox 1e6
-
-/*============================================================*/
-/*============= conditional compilation ======================*/
-/*============================================================*/
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_DEFAULTbox = 0.5;  
+  qh_DEFAULTzbox = 1e6;  
+{============================================================ }
+{============= conditional compilation ====================== }
+{============================================================ }
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="compiler">-</a>
 
   __cplusplus
@@ -548,9 +499,8 @@ try twice at the original value in case of bad luck the first time
 
   __STDC__
     defined for strict ANSI C
-*/
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="COMPUTEfurthest">-</a>
 
   qh_COMPUTEfurthest
@@ -561,10 +511,9 @@ try twice at the original value in case of bad luck the first time
     computing furthest saves memory but costs time
       about 40% more distance tests for partitioning
       removes facet->furthestdist
-*/
-#define qh_COMPUTEfurthest 0
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_COMPUTEfurthest = 0;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="KEEPstatistics">-</a>
 
   qh_KEEPstatistics
@@ -572,10 +521,9 @@ try twice at the original value in case of bad luck the first time
 
   notes:
     if 0, code size is reduced by about 4%.
-*/
-#define qh_KEEPstatistics 1
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_KEEPstatistics = 1;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="MAXoutside">-</a>
 
   qh_MAXoutside
@@ -585,10 +533,9 @@ try twice at the original value in case of bad luck the first time
   notes:
     this takes a realT per facet and slightly slows down qhull
     it produces better outer planes for geomview output
-*/
-#define qh_MAXoutside 1
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_MAXoutside = 1;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="NOmerge">-</a>
 
   qh_NOmerge
@@ -608,9 +555,8 @@ try twice at the original value in case of bad luck the first time
     see user_r.c/user_eg.c for removing io_r.o
 
   #define qh_NOmerge
-*/
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="NOtrace">-</a>
 
   qh_NOtrace
@@ -623,32 +569,22 @@ try twice at the original value in case of bad luck the first time
     Removes all traceN((...)) code and substantial sections of qh.IStracing code
 
   #define qh_NOtrace
-*/
-
-#if 0  /* sample code */
-    exitcode= qh_new_qhull(qhT *qh, dim, numpoints, points, ismalloc,
-                      flags, outfile, errfile);
-    qh_freeqhull(qhT *qh, !qh_ALL); /* frees long memory used by second call */
-    qh_memfreeshort(qhT *qh, &curlong, &totlong);  /* frees short memory and memory allocator */
-#endif
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="QUICKhelp">-</a>
 
   qh_QUICKhelp
     =1 to use abbreviated help messages, e.g., for degenerate inputs
-*/
-#define qh_QUICKhelp    0
-
-/*============================================================*/
-/*============= merge constants ==============================*/
-/*============================================================*/
-/*
+ }
+  qh_QUICKhelp = 0;  
+{============================================================ }
+{============= merge constants ============================== }
+{============================================================ }
+{
    These constants effect facet merging.  You probably will not need
    to modify them.  They effect the performance of facet merging.
-*/
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="BESTcentrum">-</a>
 
   qh_BESTcentrum
@@ -657,11 +593,10 @@ try twice at the original value in case of bad luck the first time
 
   qh_BESTcentrum2
      if qh_BESTcentrum2 * DIM3 + BESTcentrum < #vertices tests centrums
-*/
-#define qh_BESTcentrum 20
-#define qh_BESTcentrum2 2
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_BESTcentrum = 20;  
+  qh_BESTcentrum2 = 2;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="BESTnonconvex">-</a>
 
   qh_BESTnonconvex
@@ -669,10 +604,9 @@ try twice at the original value in case of bad luck the first time
 
   notes:
     It is needed because qh_findbestneighbor is slow for large facets
-*/
-#define qh_BESTnonconvex 15
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_BESTnonconvex = 15;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="COPLANARratio">-</a>
 
   qh_COPLANARratio
@@ -680,26 +614,23 @@ try twice at the original value in case of bad luck the first time
 
   notes:
     for non-merging, it's DISTround
-*/
-#define qh_COPLANARratio 3
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_COPLANARratio = 3;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="DIMmergeVertex">-</a>
 
   qh_DIMmergeVertex
     max dimension for vertex merging (it is not effective in high-d)
-*/
-#define qh_DIMmergeVertex 6
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_DIMmergeVertex = 6;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="DIMreduceBuild">-</a>
 
   qh_DIMreduceBuild
      max dimension for vertex reduction during build (slow in high-d)
-*/
-#define qh_DIMreduceBuild 5
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_DIMreduceBuild = 5;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="DISToutside">-</a>
 
   qh_DISToutside
@@ -726,19 +657,20 @@ try twice at the original value in case of bad luck the first time
     qh_DISToutside -- when is a point clearly outside of a facet
     qh_SEARCHdist -- when is facet coplanar with the best facet?
     qh_USEfindbestnew -- when to use qh_findbestnew for qh_partitionpoint()
-*/
-#define qh_DISToutside ((qh_USEfindbestnew ? 2 : 1) * \
-     fmax_((qh->MERGING ? 2 : 1)*qh->MINoutside, qh->max_outside))
+ }
 
-/*-<a                             href="qh-user_r.htm#TOC"
+{ was #define dname def_expr }
+function qh_DISToutside : longint; { return type might be wrong }
+
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="MAXcheckpoint">-</a>
 
   qh_MAXcheckpoint
     Report up to qh_MAXcheckpoint errors per facet in qh_check_point ('Tv')
-*/
-#define qh_MAXcheckpoint 10
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+const
+  qh_MAXcheckpoint = 10;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="MAXcoplanarcentrum">-</a>
 
   qh_MAXcoplanarcentrum
@@ -749,10 +681,9 @@ try twice at the original value in case of bad luck the first time
     see qh_test_nonsimplicial_merges
     with qh.MERGEexact, a coplanar ridge is ignored until post-merging
     otherwise a large facet with many merges may take all the facets
-*/
-#define qh_MAXcoplanarcentrum 10
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_MAXcoplanarcentrum = 10;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="MAXnewcentrum">-</a>
 
   qh_MAXnewcentrum
@@ -762,10 +693,9 @@ try twice at the original value in case of bad luck the first time
   notes:
     needed to reduce cost and because centrums may move too much if
     many vertices in high-d
-*/
-#define qh_MAXnewcentrum 5
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_MAXnewcentrum = 5;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="MAXnewmerges">-</a>
 
   qh_MAXnewmerges
@@ -773,19 +703,17 @@ try twice at the original value in case of bad luck the first time
 
   notes:
     It is needed because postmerge can merge many facets at once
-*/
-#define qh_MAXnewmerges 2
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_MAXnewmerges = 2;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="RATIOconcavehorizon">-</a>
 
   qh_RATIOconcavehorizon
     ratio of horizon vertex distance to max_outside for concave, twisted new facets in qh_test_nonsimplicial_merge
     if too small, end up with vertices far below merged facets
-*/
-#define qh_RATIOconcavehorizon 20.0
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_RATIOconcavehorizon = 20.0;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="RATIOconvexmerge">-</a>
 
   qh_RATIOconvexmerge
@@ -793,10 +721,9 @@ try twice at the original value in case of bad luck the first time
 
   notes:
     must be convex for MRGtwisted
-*/
-#define qh_RATIOconvexmerge 10.0
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_RATIOconvexmerge = 10.0;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="RATIOcoplanarapex">-</a>
 
   qh_RATIOcoplanarapex
@@ -804,10 +731,9 @@ try twice at the original value in case of bad luck the first time
 
   notes:
     A coplanar apex always works, while a vertex merge may fail
-*/
-#define qh_RATIOcoplanarapex 3.0
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_RATIOcoplanarapex = 3.0;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="RATIOcoplanaroutside">-</a>
 
   qh_RATIOcoplanaroutside
@@ -816,10 +742,9 @@ try twice at the original value in case of bad luck the first time
   notes:
     combines several tests, see qh_partitioncoplanar
 
-*/
-#define qh_RATIOcoplanaroutside 30.0
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_RATIOcoplanaroutside = 30.0;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="RATIOmaxsimplex">-</a>
 
   qh_RATIOmaxsimplex
@@ -829,10 +754,9 @@ try twice at the original value in case of bad luck the first time
     As each point is added to the simplex, the max determinate is should approximate the previous determinate * qh.MAXwidth
     If maxdet is significantly less, the simplex may not be full-dimensional.
     If so, all points are searched, stopping at 10 times qh_RATIOmaxsimplex
-*/
-#define qh_RATIOmaxsimplex 1.0e-3
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_RATIOmaxsimplex = 1.0e-3;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="RATIOnearinside">-</a>
 
   qh_RATIOnearinside
@@ -843,37 +767,33 @@ try twice at the original value in case of bad luck the first time
     This is overkill since do not know the correct value.
     It effects whether 'Qc' reports all coplanar points
     Not used for 'd' since non-extreme points are coplanar, nearly incident points
-*/
-#define qh_RATIOnearinside 5
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_RATIOnearinside = 5;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="RATIOpinchedsubridge">-</a>
 
   qh_RATIOpinchedsubridge
     ratio to qh.ONEmerge to accept vertices in qh_findbest_pinchedvertex
     skips search of neighboring vertices
     facet width may increase by this ratio
-*/
-#define qh_RATIOpinchedsubridge 10.0
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_RATIOpinchedsubridge = 10.0;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="RATIOtrypinched">-</a>
 
   qh_RATIOtrypinched
     ratio to qh.ONEmerge to try qh_getpinchedmerges in qh_buildcone_mergepinched
     otherwise a duplicate ridge will increase facet width by this amount
-*/
-#define qh_RATIOtrypinched 4.0
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_RATIOtrypinched = 4.0;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="RATIOtwisted">-</a>
 
   qh_RATIOtwisted
     maximum ratio to qh.ONEmerge to merge twisted facets in qh_merge_twisted
-*/
-#define qh_RATIOtwisted 20.0
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_RATIOtwisted = 20.0;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="SEARCHdist">-</a>
 
   qh_SEARCHdist
@@ -884,11 +804,8 @@ try twice at the original value in case of bad luck the first time
     qh_DISToutside -- when is a point clearly outside of a facet
     qh_SEARCHdist -- when is facet coplanar with the best facet?
     qh_USEfindbestnew -- when to use qh_findbestnew for qh_partitionpoint()
-*/
-#define qh_SEARCHdist ((qh_USEfindbestnew ? 2 : 1) * \
-      (qh->max_outside + 2 * qh->DISTround + fmax_( qh->MINvisible, qh->MAXcoplanar)));
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="USEfindbestnew">-</a>
 
   qh_USEfindbestnew
@@ -899,10 +816,12 @@ try twice at the original value in case of bad luck the first time
     qh_DISToutside -- when is a point clearly outside of a facet
     qh_SEARCHdist -- when is facet coplanar with the best facet?
     qh_USEfindbestnew -- when to use qh_findbestnew for qh_partitionpoint()
-*/
-#define qh_USEfindbestnew (zzval_(Ztotmerge) > 50)
+ }
 
-/*-<a                             href="qh-user_r.htm#TOC"
+{ was #define dname def_expr }
+function qh_USEfindbestnew : longint; { return type might be wrong }
+
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="MAXnarrow">-</a>
 
   qh_MAXnarrow
@@ -915,10 +834,10 @@ try twice at the original value in case of bad luck the first time
     distant from the exact convex hull.
 
     Conservative estimate.  Don't actually see problems until it is -1.0
-*/
-#define qh_MAXnarrow -0.99999999
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+const
+  qh_MAXnarrow = -(0.99999999);  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="WARNnarrow">-</a>
 
   qh_WARNnarrow
@@ -927,10 +846,9 @@ try twice at the original value in case of bad luck the first time
   notes:
     this is a conservative estimate.
     Don't actually see problems until it is -1.0.  See qh-impre.htm
-*/
-#define qh_WARNnarrow -0.999999999999999
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_WARNnarrow = -(0.999999999999999);  
+{-<a                             href="qh-user_r.htm#TOC"
 >--------------------------------</a><a name="WIDEcoplanar">-</a>
 
   qh_WIDEcoplanar
@@ -943,10 +861,9 @@ try twice at the original value in case of bad luck the first time
   notes:
     qh.WIDEfacet= max(qh.MAXoutside,qh_WIDEcoplanar*qh.MAXcoplanar,
     qh_WIDEcoplanar * qh.MINvisible);
-*/
-#define qh_WIDEcoplanar 6
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_WIDEcoplanar = 6;  
+{-<a                             href="qh-user_r.htm#TOC"
 >--------------------------------</a><a name="WIDEduplicate">-</a>
 
   qh_WIDEduplicate
@@ -955,10 +872,9 @@ try twice at the original value in case of bad luck the first time
 
   Notes:
     Merging a duplicate ridge can lead to very wide facets.
-*/
-#define qh_WIDEduplicate 100
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_WIDEduplicate = 100;  
+{-<a                             href="qh-user_r.htm#TOC"
 >--------------------------------</a><a name="WIDEdupridge">-</a>
 
   qh_WIDEdupridge
@@ -966,10 +882,9 @@ try twice at the original value in case of bad luck the first time
 
   Notes:
     Merging a dupridge can lead to very wide facets.
-*/
-#define qh_WIDEdupridge 50
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_WIDEdupridge = 50;  
+{-<a                             href="qh-user_r.htm#TOC"
 >--------------------------------</a><a name="WIDEmaxoutside">-</a>
 
   qh_WIDEmaxoutside
@@ -979,21 +894,18 @@ try twice at the original value in case of bad luck the first time
     Skip qh_check_maxout with 'Q5' (no-check-outer)
     Do not error with option 'Q12' (allow-wide)
     Do not warn with options 'Q12 Pp'
-*/
-#define qh_WIDEmaxoutside 100
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_WIDEmaxoutside = 100;  
+{-<a                             href="qh-user_r.htm#TOC"
 >--------------------------------</a><a name="WIDEmaxoutside2">-</a>
 
   qh_WIDEmaxoutside2
     Precision ratio for maximum qh.max_outside in qh_check_maxout
     Skip qh_check_maxout with 'Q5' no-check-outer
     Do not error with option 'Q12' allow-wide
-*/
-#define qh_WIDEmaxoutside2 (10*qh_WIDEmaxoutside)
-
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_WIDEmaxoutside2 = 10*qh_WIDEmaxoutside;  
+{-<a                             href="qh-user_r.htm#TOC"
 >--------------------------------</a><a name="WIDEpinched">-</a>
 
   qh_WIDEpinched
@@ -1006,10 +918,9 @@ try twice at the original value in case of bad luck the first time
     Merging the duplicate ridges may be better than merging the pinched vertices
     Found up to 45x ratio for qh_pointdist -- for ((i=1; i<20; i++)); do rbox 175 C1,6e-13 t | qhull d T4 2>&1 | tee x.1 | grep  -E 'QH|non-simplicial|Statis|pinched'; done
     Actual distance to facets is a third to a tenth of the qh_pointdist (T1)
-*/
-#define qh_WIDEpinched 100
-
-/*-<a                             href="qh-user_r.htm#TOC"
+ }
+  qh_WIDEpinched = 100;  
+{-<a                             href="qh-user_r.htm#TOC"
   >--------------------------------</a><a name="ZEROdelaunay">-</a>
 
   qh_ZEROdelaunay
@@ -1025,14 +936,12 @@ try twice at the original value in case of bad luck the first time
     Use option 'PDk:-n' to explicitly define zero Delaunay facets
       k= dimension of input sites (e.g., 3 for 3-d Delaunay triangulation)
       n= the cutoff for zero Delaunay facets (e.g., 'PD3:-1e-12')
-*/
-#define qh_ZEROdelaunay 2
-
-/*============================================================*/
-/*============= Microsoft DevStudio ==========================*/
-/*============================================================*/
-
-/*
+ }
+  qh_ZEROdelaunay = 2;  
+{============================================================ }
+{============= Microsoft DevStudio ========================== }
+{============================================================ }
+{
    Finding Memory Leaks Using the CRT Library
    https://msdn.microsoft.com/en-us/library/x98tx3cf(v=vs.100).aspx
 
@@ -1040,21 +949,44 @@ try twice at the original value in case of bad luck the first time
 
    From 2005=>msvcr80d, 2010=>msvcr100d, 2012=>msvcr110d
 
-   Watch: {,,msvcr80d.dll}_crtBreakAlloc  Value from {n} in the leak report
+   Watch: ,,msvcr80d.dll_crtBreakAlloc  Value from n in the leak report
    _CrtSetBreakAlloc(689); // qh_lib_check() [global_r.c]
 
    Examples
      http://free-cad.sourceforge.net/SrcDocu/d2/d7f/MemDebug_8cpp_source.html
      https://github.com/illlust/Game/blob/master/library/MemoryLeak.cpp
-*/
-#if 0   /* off (0) by default for QHULL_CRTDBG */
-#define QHULL_CRTDBG
-#endif
+ }
+{$if 0   /* off (0) by default for QHULL_CRTDBG */}
+{$define QHULL_CRTDBG}
+{$endif}
+{$if defined(_MSC_VER) && defined(_DEBUG) && defined(QHULL_CRTDBG)}
+{$define _CRTDBG_MAP_ALLOC}
+{$include <stdlib.h>}
+{$include <crtdbg.h>}
+{$endif}
+{$endif}
+{ qh_DEFuser  }
 
-#if defined(_MSC_VER) && defined(_DEBUG) && defined(QHULL_CRTDBG)
-#define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
-#include <crtdbg.h>
-#endif
+implementation
 
-#endif /* qh_DEFuser */
+{ was #define dname def_expr }
+function qh_DISToutside : longint; { return type might be wrong }
+  var
+     if_local1, if_local2 : longint;
+  (* result types are not known *)
+  begin
+    if qh_USEfindbestnew then
+      if_local1:=2
+    else
+      if_local1:=1;
+    qh_DISToutside:=(if_local1)*(fmax_((if_local2)*(qh^.MINoutside),qh^.max_outside));
+  end;
+
+{ was #define dname def_expr }
+function qh_USEfindbestnew : longint; { return type might be wrong }
+  begin
+    qh_USEfindbestnew:=(zzval_(Ztotmerge))>50;
+  end;
+
+
+end.

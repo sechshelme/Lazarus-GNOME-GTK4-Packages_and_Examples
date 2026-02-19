@@ -63,55 +63,6 @@
 #pragma warning( disable : 4996)  /* function was declared deprecated(strcpy, localtime, etc.) */
 #endif
 
-/* ======= -macros- =========== */
-
-/*-<a                             href="qh-qhull_r.htm#TOC"
-  >--------------------------------</a><a name="traceN">-</a>
-
-  traceN((qh, qh->ferr, 0Nnnn, "format\n", vars));
-    calls qh_fprintf if qh.IStracing >= N
-
-    Add debugging traps to the end of qh_fprintf
-
-  notes:
-    removing tracing reduces code size but doesn't change execution speed
-*/
-#ifndef qh_NOtrace
-#define trace0(args) {if (qh->IStracing) qh_fprintf args;}
-#define trace1(args) {if (qh->IStracing >= 1) qh_fprintf args;}
-#define trace2(args) {if (qh->IStracing >= 2) qh_fprintf args;}
-#define trace3(args) {if (qh->IStracing >= 3) qh_fprintf args;}
-#define trace4(args) {if (qh->IStracing >= 4) qh_fprintf args;}
-#define trace5(args) {if (qh->IStracing >= 5) qh_fprintf args;}
-#else /* qh_NOtrace */
-#define trace0(args) {}
-#define trace1(args) {}
-#define trace2(args) {}
-#define trace3(args) {}
-#define trace4(args) {}
-#define trace5(args) {}
-#endif /* qh_NOtrace */
-
-/*-<a                             href="qh-qhull_r.htm#TOC"
-  >--------------------------------</a><a name="QHULL_UNUSED">-</a>
-
-  Define an unused variable to avoid compiler warnings
-
-  Derived from Qt's corelib/global/qglobal.h
-
-*/
-
-#if defined(__cplusplus) && defined(__INTEL_COMPILER) && !defined(QHULL_OS_WIN)
-template <typename T>
-inline void qhullUnused(T &x) { (void)x; }
-#  define QHULL_UNUSED(x) qhullUnused(x);
-#else
-#  define QHULL_UNUSED(x) (void)x;
-#endif
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /***** -libqhull_r.c prototypes (alphabetical after qhull) ********************/
 
