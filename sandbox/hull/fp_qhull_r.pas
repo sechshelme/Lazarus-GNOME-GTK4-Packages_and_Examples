@@ -20,7 +20,14 @@ const
 
     Tsize_t=SizeUInt;
 
+    {$ifdef linux}
     Tjmp_buf=array[0..199]of Byte;
+    {$endif}
+
+    {$ifdef windows}
+    Tjmp_buf=array[0..255]of Byte;
+    {$endif}
+
 
   type
     {$IFDEF Linux}
@@ -30,9 +37,10 @@ const
     {$ENDIF}
 
     {$IFDEF Windows}
-    Tculong = uint32;
-    Tclong = int32;
-    Tlong_double = double;
+    Tculong = uint64;
+    Tclong = int64;
+//    Tculong = uint32;
+//    Tclong = int32;
     {$ENDIF}
     Pculong = ^Tculong;
     Pclong = ^Tclong;
@@ -45,9 +53,9 @@ const
     {$ENDIF}
 
     {$IFDEF windows}
-    function __iob_func: PFILE; cdecl; external 'msvcrt.dll';
-
+    function stdin: PFILE; inline;
     function stdout: PFILE; inline;
+    function stderr: PFILE; inline;
     {$ENDIF}
 
 
@@ -56,10 +64,21 @@ implementation
 {$IFDEF windows}
 function __iob_func: PFILE; cdecl; external 'msvcrt.dll';
 
+function stdin: PFILE; inline;
+begin
+  Result := __iob_func + 0;
+end;
+
 function stdout: PFILE; inline;
 begin
   Result := __iob_func + 48;
 end;
+
+function stderr: PFILE; inline;
+begin
+  Result := __iob_func + 96;
+end;
+
 {$ENDIF}
 
 

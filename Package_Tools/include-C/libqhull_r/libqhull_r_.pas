@@ -677,10 +677,10 @@ type
       POINTSmalloc : TboolT;
       input_points : PpointT;
       input_malloc : TboolT;
-      qhull_command : array[0..255] of char;
+      qhull_command : array[0..255] of AnsiChar;
       qhull_commandsiz2 : longint;
-      rbox_command : array[0..255] of char;
-      qhull_options : array[0..511] of char;
+      rbox_command : array[0..255] of AnsiChar;
+      qhull_options : array[0..511] of AnsiChar;
       qhull_optionlen : longint;
       qhull_optionsiz : longint;
       qhull_optionsiz2 : longint;
@@ -711,11 +711,11 @@ type
       outside_err : TrealT;
       WIDEfacet : TrealT;
       NARROWhull : TboolT;
-      qhull : array[0..(sizeof('qhull'))-1] of char;
+      qhull : array[0..(sizeof('qhull'))-1] of AnsiChar;
       errexit : Tjmp_buf;
-      jmpXtra : array[0..39] of char;
+      jmpXtra : array[0..39] of AnsiChar;
       restartexit : Tjmp_buf;
-      jmpXtra2 : array[0..39] of char;
+      jmpXtra2 : array[0..39] of AnsiChar;
       fin : PFILE;
       fout : PFILE;
       ferr : PFILE;
@@ -819,7 +819,7 @@ type
       cpp_user : pointer;
       qhmem : TqhmemT;
       qhstat : TqhstatT;
-      pading:array[0..216]of byte; // Braucht es in FPC
+//      pading:array[0..216]of byte; // Braucht es in FPC
     end;
 
 procedure qh_qhull(qh: PqhT); cdecl; external libqhull_r;
