@@ -22,9 +22,26 @@ const
 
     Tjmp_buf=array[0..199]of Byte;
 
+  type
+    {$IFDEF Linux}
+    Tculong = uint64;
+    Tclong = int64;
+    Tlong_double = extended;
+    {$ENDIF}
+
+    {$IFDEF Windows}
+    Tculong = uint32;
+    Tclong = int32;
+    Tlong_double = double;
+    {$ENDIF}
+    Pculong = ^Tculong;
+    Pclong = ^Tclong;
+
     {$IFDEF linux}
     var
+      stdin: PFILE; cvar; external 'c';
       stdout: PFILE; cvar; external 'c';
+      stderr: PFILE; cvar; external 'c';
     {$ENDIF}
 
     {$IFDEF windows}
