@@ -711,11 +711,20 @@ type
       outside_err : TrealT;
       WIDEfacet : TrealT;
       NARROWhull : TboolT;
-      qhull : array[0..(sizeof('qhull'))-1] of AnsiChar;
+      qhull : array[0..(sizeof('qhull'#0))-1] of Char;
+      {$IFDEF Windows}
+      pad0:array[0..13] of byte;
+      {$ENDIF}
       errexit : Tjmp_buf;
-      jmpXtra : array[0..39] of AnsiChar;
+      jmpXtra : array[0..39] of Char;
+      {$IFDEF Windows}
+      pad1:array[0..3] of byte;
+      {$ENDIF}
       restartexit : Tjmp_buf;
-      jmpXtra2 : array[0..39] of AnsiChar;
+      jmpXtra2 : array[0..39] of Char;
+      {$IFDEF Windows}
+      pad2:array[0..3] of byte;
+      {$ENDIF}
       fin : PFILE;
       fout : PFILE;
       ferr : PFILE;
@@ -819,7 +828,12 @@ type
       cpp_user : pointer;
       qhmem : TqhmemT;
       qhstat : TqhstatT;
-//      pading:array[0..216]of byte; // Braucht es in FPC
+      {$IFDEF Windows}
+      pad3:array[0..7] of byte;
+      {$ENDIF}
+      {$IFDEF Linux}
+      pad3:array[0..232] of byte;
+      {$ENDIF}
     end;
 
 procedure qh_qhull(qh: PqhT); cdecl; external libqhull_r;
