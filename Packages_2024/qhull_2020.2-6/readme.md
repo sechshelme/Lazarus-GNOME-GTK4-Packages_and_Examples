@@ -40,7 +40,6 @@ int main() {
     printf("offset fin:        %zu\n", (size_t)&qh2.fin    - pos0);
     printf("offset qhmem:      %zu\n", (size_t)&qh2.qhmem    - pos0);
     printf("offset qhstat:     %zu\n", (size_t)&qh2.qhstat    - pos0);
-
     printf("offset facet_list: %zu\n", (size_t)&qh2.facet_list - pos0);
 ```
 
@@ -65,5 +64,6 @@ begin
     WriteLn('Offset fin:             ', PtrUInt(@qh^.fin) - pos0);
     WriteLn('Offset qhmem:           ', PtrUInt(@qh^.qhmem) - pos0);
     WriteLn('Offset qhstat:          ', PtrUInt(@qh^.qhstat) - pos0);
+    WriteLn('Offset facet_list:      ', PtrUInt(@qh^.facet_list) - pos0);
 ...
 ```

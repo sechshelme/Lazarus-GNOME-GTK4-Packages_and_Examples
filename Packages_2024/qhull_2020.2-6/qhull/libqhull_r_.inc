@@ -706,6 +706,9 @@ type
       {$IFDEF Windows}
       pad0:array[0..13] of byte;
       {$ENDIF}
+      {$IFDEF Linux}
+      pad0:array[0..5] of byte;
+      {$ENDIF}
       errexit : Tjmp_buf;
       jmpXtra : array[0..39] of Char;
       {$IFDEF Windows}
@@ -821,9 +824,6 @@ type
       qhstat : TqhstatT;
       {$IFDEF Windows}
       pad3:array[0..7] of byte;
-      {$ENDIF}
-      {$IFDEF Linux}
-      pad3:array[0..232] of byte;
       {$ENDIF}
     end;
 

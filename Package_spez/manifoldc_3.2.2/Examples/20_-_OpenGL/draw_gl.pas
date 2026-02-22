@@ -201,9 +201,6 @@ begin
   glRotatef(w, 1.0, 0.8, 0.3);
   w := w + 0.8;
 
-  glEnable(GL_CULL_FACE);
-  glCullFace(GL_BACK);
-
   glCallList(ListeID);
 end;
 

@@ -30,6 +30,9 @@ uses
           glDisable(GL_CULL_FACE);
           glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
         end;
+        GLFW_KEY_SPACE: begin
+          InitScene;
+        end;
       end;
     end;
   end;

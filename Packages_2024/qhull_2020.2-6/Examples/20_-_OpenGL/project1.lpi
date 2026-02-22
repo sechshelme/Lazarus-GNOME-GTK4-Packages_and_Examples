@@ -27,6 +27,12 @@
       <Item>
         <PackageName Value="fp_qhull_package"/>
       </Item>
+      <Item>
+        <PackageName Value="fp_glfw3_package"/>
+      </Item>
+      <Item>
+        <PackageName Value="fp_glew_package"/>
+      </Item>
     </RequiredPackages>
     <Units>
       <Unit>
@@ -44,14 +50,21 @@
       <IncludeFiles Value="$(ProjOutDir)"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
-    <CodeGeneration>
-      <TargetOS Value="win64"/>
-    </CodeGeneration>
     <Linking>
       <Debugging>
+        <GenerateDebugInfo Value="False"/>
+        <RunWithoutDebug Value="True"/>
         <DebugInfoType Value="dsDwarf3"/>
       </Debugging>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
     </Linking>
+    <Other>
+      <CustomOptions Value="-XX"/>
+    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions>
