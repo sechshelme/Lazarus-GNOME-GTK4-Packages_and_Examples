@@ -11,6 +11,14 @@ uses
   end;
 
   procedure Key_callback(window: PGLFWwindow; key: longint; scancode: longint; action: longint; mods: longint); cdecl;
+  type
+    Thq = (hq_Qc, hq_d_QT);
+  const
+    hq: Thq = hq_Qc;
+
+    PointsCount: integer = 200;
+
+
   begin
     WriteLn('press Key');
     if action = GLFW_PRESS then begin
@@ -30,8 +38,24 @@ uses
           glDisable(GL_CULL_FACE);
           glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
         end;
-        GLFW_KEY_SPACE: begin
+        GLFW_KEY_C: begin
+          hq := hq_Qc;
           InitScene_Qc;
+        end;
+        GLFW_KEY_D: begin
+          hq := hq_d_QT;
+          InitScene_d_QT;
+        end;
+        GLFW_KEY_SPACE: begin
+          InitPoints(PointsCount);
+          case hq of
+            hq_Qc: begin
+              InitScene_Qc;
+            end;
+            hq_d_QT: begin
+              InitScene_d_QT;
+            end;
+          end;
         end;
       end;
     end;
@@ -83,6 +107,7 @@ uses
       Halt(1);
     end;
 
+    InitPoints(10);
     InitScene_Qc;
 
     glEnable(GL_CULL_FACE);
