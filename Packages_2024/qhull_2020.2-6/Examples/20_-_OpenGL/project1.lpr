@@ -31,7 +31,7 @@ uses
           glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
         end;
         GLFW_KEY_SPACE: begin
-          InitScene;
+          InitScene_Qc;
         end;
       end;
     end;
@@ -83,7 +83,7 @@ uses
       Halt(1);
     end;
 
-    InitScene;
+    InitScene_Qc;
 
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);

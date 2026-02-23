@@ -421,7 +421,7 @@ const
 type
   Tsnd_pcm_chmap_t = record
     channels: dword;
-    pos: pdword;
+    pos: array[0..0] of dword;
   end;
   Psnd_pcm_chmap_t = ^Tsnd_pcm_chmap_t;
 

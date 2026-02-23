@@ -85,9 +85,6 @@ function stderr: PFILE; inline;
 begin
   Result := __iob_func + 96;
 end;
-
 {$ENDIF}
 
-
 end.
-

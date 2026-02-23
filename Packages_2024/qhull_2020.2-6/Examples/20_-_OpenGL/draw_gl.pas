@@ -6,10 +6,7 @@ uses
   fp_glew,
   fp_qhull_r;
 
-const
-  MAX_RAYS = 10;
-
-procedure InitScene;
+procedure InitScene_Qc;
 procedure draw;
 procedure CloseScene;
 
@@ -27,9 +24,9 @@ type
 var
   ListeID: TGLuint;
 
-procedure InitScene;
+procedure InitScene_Qc;
 const
-  PointsCount = 10;
+  PointsCount = 100;
   points: array of TVector2d = nil;
 
 var
@@ -69,8 +66,8 @@ begin
 
   qh := qh_malloc(SizeOf(TqhT));
   qh_zero(qh, fp_qhull_r.stdout);
-
   exitcode := qh_new_qhull(qh, 2, Length(points), PcoordT(points), False, 'qhull Qc', fp_qhull_r.stdout, fp_qhull_r.stdout);
+//  exitcode := qh_new_qhull(qh, 2, Length(points), PcoordT(points), False, 'qhull ', fp_qhull_r.stdout, fp_qhull_r.stdout);
 
   WriteLn('ExitCode:', exitcode);
 
@@ -122,7 +119,6 @@ begin
   // === OpenGL
 
   glEndList();
-
 end;
 
 procedure draw;
