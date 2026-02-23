@@ -26,12 +26,12 @@ var
 
 procedure InitScene_Qc;
 const
-  PointsCount = 100;
+  PointsCount = 7;
   points: array of TVector2d = nil;
 
 var
   // Opengl
-  v, v0, v1: TVector2f;
+  v: TVector2f;
 
   // qh
   qh: PqhT;
@@ -51,7 +51,7 @@ begin
   ListeID := glGenLists(1);
   glNewList(ListeID, GL_COMPILE);
 
-  glPointSize(10.0);
+  glPointSize(5.0);
 
   glBegin(GL_POINTS);
   glColor3f(0, 1, 0);
@@ -66,45 +66,53 @@ begin
 
   qh := qh_malloc(SizeOf(TqhT));
   qh_zero(qh, fp_qhull_r.stdout);
-  exitcode := qh_new_qhull(qh, 2, Length(points), PcoordT(points), False, 'qhull Qc', fp_qhull_r.stdout, fp_qhull_r.stdout);
-//  exitcode := qh_new_qhull(qh, 2, Length(points), PcoordT(points), False, 'qhull ', fp_qhull_r.stdout, fp_qhull_r.stdout);
+//  exitcode := qh_new_qhull(qh, 2, Length(points), PcoordT(points), False, 'qhull Qc', fp_qhull_r.stdout, fp_qhull_r.stdout);
+    exitcode := qh_new_qhull(qh, 2, Length(points), PcoordT(points), False, 'qhull d Qt', fp_qhull_r.stdout, fp_qhull_r.stdout);
 
   WriteLn('ExitCode:', exitcode);
+  WriteLn;
 
   if exitcode = 0 then begin
+
+    // --- vertex_list
+    glPointSize(10.0);
+    glBegin(GL_POINTS);
+    glColor3f(1, 0, 0);
+    vertex := qh^.vertex_list;
+    WriteLn('--- Vertex-List   (', qh^.num_vertices, ')');
+    while (vertex <> nil) and (vertex^.next <> nil) do begin
+
+      id := qh_pointid(qh, vertex^.point);
+      v[0] := vertex^.point[0];
+      v[1] := vertex^.point[1];
+      WriteLn('pid: ', id, '  vid: ', vertex^.id: 3, '.    ', v[0]: 2: 1, ' ', v[1]: 2: 1);
+      glVertex2fv(@v);
+
+      vertex := vertex^.next;
+    end;
+    glEnd;
+
+    WriteLn;
+
+    // --- facet_list
     glBegin(GL_LINES);
     glColor3f(1, 1, 1);
-
-    WriteLn(#10'Convex Hull Facetten:');
-
     facet := qh^.facet_list;
-    WriteLn('Count: ', qh^.num_facets);
-
+    WriteLn('Facet_List   (', qh^.num_facets, ')');
     while (facet <> nil) and (facet^.next <> nil) do begin
 
       if facet^.vertices <> nil then begin
         num_vertices := qh_setsize(qh, facet^.vertices);
 
         WriteLn('  Eckpunkte: ');
-        if num_vertices = 2 then begin;
-          for i := 0 to num_vertices - 1 do begin
-            vertex := facet^.vertices^.e[i].p;
-            id:= qh_pointid(qh, vertex^.point);
-            WriteLn('id: ',id);
-            WriteLn('  ', vertex^.id: 3, '. ', vertex^.point[0]: 2: 1, ' ', vertex^.point[1]: 2: 1);
-          end;
-          WriteLn;
-
-          vertex := facet^.vertices^.e[0].p;
-          v0[0] := vertex^.point[0];
-          v0[1] := vertex^.point[1];
-          vertex := facet^.vertices^.e[1].p;
-          v1[0] := vertex^.point[0];
-          v1[1] := vertex^.point[1];
-
-          glVertex2fv(@v0);
-          glVertex2fv(@v1);
+        for i:=0 to num_vertices -1 do begin;
+          vertex := facet^.vertices^.e[i].p;
+          v[0] := vertex^.point[0];
+          v[1] := vertex^.point[1];
+          WriteLn('  ', vertex^.id: 3, '. ', v[0]: 2: 1, ' ', v[1]: 2: 1);
+          glVertex2fv(@v);
         end;
+        WriteLn();
       end;
 
       facet := facet^.next;
@@ -123,7 +131,7 @@ end;
 
 procedure draw;
 const
-  scale = 4.9;
+  scale = 6.0;
   w: single = 0;
 var
   sun_direction: TVector4f = (1.0, 1.0, 1.0, 0.0);
