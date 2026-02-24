@@ -38,6 +38,28 @@ uses
           glDisable(GL_CULL_FACE);
           glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
         end;
+        GLFW_KEY_2: begin
+          is3D:=False;
+          case hq of
+            hq_Qc: begin
+              InitScene_Qc;
+            end;
+            hq_d_QT: begin
+              InitScene_d_QT;
+            end;
+          end;
+        end;
+        GLFW_KEY_3: begin
+          is3D:=True;
+          case hq of
+            hq_Qc: begin
+              InitScene_Qc;
+            end;
+            hq_d_QT: begin
+              InitScene_d_QT;
+            end;
+          end;
+        end;
         GLFW_KEY_C: begin
           hq := hq_Qc;
           InitScene_Qc;

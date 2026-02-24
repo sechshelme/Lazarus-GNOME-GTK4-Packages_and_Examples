@@ -6,6 +6,9 @@ uses
   fp_glew,
   fp_qhull_r;
 
+var
+  is3D: boolean = False;
+
 procedure InitPoints(count: integer);
 procedure InitScene_Qc;
 procedure InitScene_d_QT;
@@ -135,7 +138,7 @@ end;
 procedure InitScene_d_QT;
 var
   // Opengl
-  v: TVector3f;
+  v, n: TVector3f;
 
   // qh
   qh: PqhT;
@@ -183,10 +186,10 @@ begin
         Write(v[i]: 2: 1, ' ');
       end;
       WriteLn;
-      if qh^.hull_dim = 2 then  begin
-        glVertex2fv(@v);
-      end else begin
+      if is3D then  begin
         glVertex3fv(@v);
+      end else begin
+        glVertex2fv(@v);
       end;
       vertex := vertex^.next;
     end;
@@ -198,10 +201,14 @@ begin
     facet := qh^.facet_list;
     WriteLn('--- Facet_List ---  (', qh^.num_facets, ')');
     while (facet <> nil) and (facet^.next <> nil) do begin
-
-      if facet^.upperdelaunay = 0 then begin
+      if( is3D) or (facet^.upperdelaunay = 0) then begin
         if facet^.vertices <> nil then begin
           num_vertices := qh_setsize(qh, facet^.vertices);
+
+          n[0]:=facet^.normal[0];
+          n[1]:=facet^.normal[1];
+          n[2]:=facet^.normal[2];
+          WriteLn('  normal:  ',  n[0]: 2: 1, ' ', n[1]: 2: 1, ' ', n[2]: 2: 1);
 
           glBegin(GL_LINE_LOOP);
           for i := 0 to num_vertices - 1 do begin;
@@ -211,12 +218,11 @@ begin
             v[1] := vertex^.point[1];
             v[2] := vertex^.point[2];
             WriteLn('  ', vertex^.id: 3, '.  ', v[0]: 2: 1, ' ', v[1]: 2: 1, ' ', v[2]: 2: 1);
-            if qh^.hull_dim = 2 then  begin
-              glVertex2fv(@v);
-            end else begin
+            if is3D then  begin
               glVertex3fv(@v);
+            end else begin
+              glVertex2fv(@v);
             end;
-
           end;
           glEnd;
           WriteLn();
@@ -281,8 +287,10 @@ begin
   glTranslatef(0, 0, -30);
   glScalef(scale, scale, scale);
 
-    glRotatef(w, 1.0, 0.8, 0.3);
-  w := w + 0.8;
+  if is3D then begin
+  glRotatef(w, 1.0, 0.8, 0.3);
+  w := w + 0.8 ;
+  end;
 
   glCallList(ListeID);
 end;
