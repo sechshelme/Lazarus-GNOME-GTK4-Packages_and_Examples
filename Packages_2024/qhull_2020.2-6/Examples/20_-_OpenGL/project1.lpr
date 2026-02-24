@@ -12,12 +12,10 @@ uses
 
   procedure Key_callback(window: PGLFWwindow; key: longint; scancode: longint; action: longint; mods: longint); cdecl;
   type
-    Thq = (hq_Qc, hq_d_QT);
+    Thq = (hq_Qc, hq_d_QT, hq_v_Qbb);
   const
     hq: Thq = hq_Qc;
-
-    PointsCount: integer = 200;
-
+    PointsCount: single = 3;
 
   begin
     WriteLn('press Key');
@@ -38,25 +36,64 @@ uses
           glDisable(GL_CULL_FACE);
           glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
         end;
-        GLFW_KEY_2: begin
-          is3D:=False;
+        GLFW_KEY_KP_ADD: begin
+          PointsCount *= 1.5;
+          InitPoints(Trunc(PointsCount));
           case hq of
             hq_Qc: begin
               InitScene_Qc;
             end;
             hq_d_QT: begin
               InitScene_d_QT;
+            end;
+            hq_v_Qbb: begin
+              InitScene_v_Qbb;
+            end;
+          end;
+        end;
+        GLFW_KEY_KP_SUBTRACT: begin
+          PointsCount /= 1.5;
+          if PointsCount < 3 then begin
+            PointsCount := 3;
+          end;
+          InitPoints(Trunc(PointsCount));
+          case hq of
+            hq_Qc: begin
+              InitScene_Qc;
+            end;
+            hq_d_QT: begin
+              InitScene_d_QT;
+            end;
+            hq_v_Qbb: begin
+              InitScene_v_Qbb;
+            end;
+          end;
+        end;
+        GLFW_KEY_2: begin
+          is3D := False;
+          case hq of
+            hq_Qc: begin
+              InitScene_Qc;
+            end;
+            hq_d_QT: begin
+              InitScene_d_QT;
+            end;
+            hq_v_Qbb: begin
+              InitScene_v_Qbb;
             end;
           end;
         end;
         GLFW_KEY_3: begin
-          is3D:=True;
+          is3D := True;
           case hq of
             hq_Qc: begin
               InitScene_Qc;
             end;
             hq_d_QT: begin
               InitScene_d_QT;
+            end;
+            hq_v_Qbb: begin
+              InitScene_v_Qbb;
             end;
           end;
         end;
@@ -68,14 +105,21 @@ uses
           hq := hq_d_QT;
           InitScene_d_QT;
         end;
+        GLFW_KEY_J: begin
+          hq := hq_v_Qbb;
+          InitScene_v_Qbb;
+        end;
         GLFW_KEY_SPACE: begin
-          InitPoints(PointsCount);
+          InitPoints(Trunc(PointsCount));
           case hq of
             hq_Qc: begin
               InitScene_Qc;
             end;
             hq_d_QT: begin
               InitScene_d_QT;
+            end;
+            hq_v_Qbb: begin
+              InitScene_v_Qbb;
             end;
           end;
         end;
@@ -129,7 +173,7 @@ uses
       Halt(1);
     end;
 
-    InitPoints(10);
+    InitPoints(4);
     InitScene_Qc;
 
     glEnable(GL_CULL_FACE);
