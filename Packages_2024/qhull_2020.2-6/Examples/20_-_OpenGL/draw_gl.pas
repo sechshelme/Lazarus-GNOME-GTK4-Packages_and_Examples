@@ -47,7 +47,7 @@ var
 
   // qh
   qh: PqhT;
-  i: integer;
+  i, j: integer;
   facet: PfacetT;
   num_vertices, curlong, totlong, id: longint;
   vertex: PvertexT;
@@ -81,13 +81,13 @@ begin
     glBegin(GL_POINTS);
     glColor3f(1, 0, 0);
     vertex := qh^.vertex_list;
-    WriteLn('--- Vertex-List   (', qh^.num_vertices, ')');
+    WriteLn(#10'--- Vertex-List ---  (', qh^.num_vertices, ')');
     while (vertex <> nil) and (vertex^.next <> nil) do begin
 
       id := qh_pointid(qh, vertex^.point);
       v[0] := vertex^.point[0];
       v[1] := vertex^.point[1];
-      WriteLn('pid: ', id, '  vid: ', vertex^.id: 3, '.    ', v[0]: 2: 1, ' ', v[1]: 2: 1);
+      WriteLn('  pid: ', id: 4, '  vid: ', vertex^.id: 3, '.    ', v[0]: 2: 1, ' ', v[1]: 2: 1);
       glVertex2fv(@v);
 
       vertex := vertex^.next;
@@ -100,18 +100,20 @@ begin
     glBegin(GL_LINES);
     glColor3f(1, 1, 1);
     facet := qh^.facet_list;
-    WriteLn('Facet_List   (', qh^.num_facets, ')');
+    WriteLn('--- Facet_List ---  (', qh^.num_facets, ')');
     while (facet <> nil) and (facet^.next <> nil) do begin
 
       if facet^.vertices <> nil then begin
         num_vertices := qh_setsize(qh, facet^.vertices);
 
-        WriteLn('  Eckpunkte: ');
         for i := 0 to num_vertices - 1 do begin;
           vertex := facet^.vertices^.e[i].p;
-          v[0] := vertex^.point[0];
-          v[1] := vertex^.point[1];
-          WriteLn('  ', vertex^.id: 3, '.  ', v[0]: 2: 1, ' ', v[1]: 2: 1);
+          Write('  pid: ', id, '  vid: ', vertex^.id: 3, '.    ');
+          for j := 0 to qh^.hull_dim - 1 do begin
+            v[j] := vertex^.point[j];
+            Write(v[j]: 2: 1, ' ');
+          end;
+          WriteLn;
           glVertex2fv(@v);
         end;
         WriteLn();
@@ -124,7 +126,6 @@ begin
   qh_freeqhull(qh, qh_ALL);
   qh_memfreeshort(qh, @curlong, @totlong);
   qh_free(qh);
-
 
   // === OpenGL
 
@@ -164,24 +165,29 @@ begin
   qh_zero(qh, fp_qhull_r.stdout);
   exitcode := qh_new_qhull(qh, 2, Length(points), PcoordT(points), False, 'qhull d Qt', fp_qhull_r.stdout, fp_qhull_r.stdout);
   if exitcode = 0 then begin
-  WriteLn('Eingabe-Dimension: ', qh^.input_dim); // Sollte 2 sein
-  WriteLn('Rechen-Dimension (Z-Achse): ', qh^.hull_dim); // Sollte 3 sein
+    WriteLn('Eingabe-Dimension: ', qh^.input_dim); // Sollte 2 sein
+    WriteLn('Rechen-Dimension (Z-Achse): ', qh^.hull_dim); // Sollte 3 sein
 
     // --- vertex_list
     glPointSize(10.0);
     glBegin(GL_POINTS);
     glColor3f(1, 0, 0);
     vertex := qh^.vertex_list;
-    WriteLn('--- Vertex-List   (', qh^.num_vertices, ')');
+    WriteLn(#10'--- Vertex-List ---  (', qh^.num_vertices, ')');
     while (vertex <> nil) and (vertex^.next <> nil) do begin
-
       id := qh_pointid(qh, vertex^.point);
-      v[0] := vertex^.point[0];
-      v[1] := vertex^.point[1];
-      v[2] := vertex^.point[2];
-      WriteLn('pid: ', id, '  vid: ', vertex^.id: 3, '.    ', v[0]: 2: 1, ' ', v[1]: 2: 1, ' ', v[2]: 2: 1);
-      glVertex2fv(@v);
 
+      Write('  pid: ', id: 4, '  vid: ', vertex^.id: 3, '.    ');
+      for i := 0 to qh^.hull_dim - 1 do begin
+        v[i] := vertex^.point[i];
+        Write(v[i]: 2: 1, ' ');
+      end;
+      WriteLn;
+      if qh^.hull_dim = 2 then  begin
+        glVertex2fv(@v);
+      end else begin
+        glVertex3fv(@v);
+      end;
       vertex := vertex^.next;
     end;
     glEnd;
@@ -190,29 +196,31 @@ begin
 
     // --- facet_list
     facet := qh^.facet_list;
-    WriteLn('Facet_List   (', qh^.num_facets, ')');
+    WriteLn('--- Facet_List ---  (', qh^.num_facets, ')');
     while (facet <> nil) and (facet^.next <> nil) do begin
 
-      if facet^.upperdelaunay=0 then begin
-      if facet^.vertices <> nil then begin
-        num_vertices := qh_setsize(qh, facet^.vertices);
+      if facet^.upperdelaunay = 0 then begin
+        if facet^.vertices <> nil then begin
+          num_vertices := qh_setsize(qh, facet^.vertices);
 
-        WriteLn('  Eckpunkte: ');
-        glBegin(GL_LINE_LOOP);
-        for i := 0 to num_vertices - 1 do begin;
-          glColor3f(1, 1, 1);
-          vertex := facet^.vertices^.e[i].p;
-          v[0] := vertex^.point[0];
-          v[1] := vertex^.point[1];
-          v[2] := vertex^.point[2];
-          WriteLn('  ', vertex^.id: 3, '.  ', v[0]: 2: 1, ' ', v[1]: 2: 1, ' ', v[2]: 2: 1);
-          glVertex2fv(@v);
+          glBegin(GL_LINE_LOOP);
+          for i := 0 to num_vertices - 1 do begin;
+            glColor3f(1, 1, 1);
+            vertex := facet^.vertices^.e[i].p;
+            v[0] := vertex^.point[0];
+            v[1] := vertex^.point[1];
+            v[2] := vertex^.point[2];
+            WriteLn('  ', vertex^.id: 3, '.  ', v[0]: 2: 1, ' ', v[1]: 2: 1, ' ', v[2]: 2: 1);
+            if qh^.hull_dim = 2 then  begin
+              glVertex2fv(@v);
+            end else begin
+              glVertex3fv(@v);
+            end;
+
+          end;
+          glEnd;
+          WriteLn();
         end;
-        glEnd;
-        WriteLn();
-      end;
-
-
       end;
       facet := facet^.next;
     end;
@@ -273,7 +281,7 @@ begin
   glTranslatef(0, 0, -30);
   glScalef(scale, scale, scale);
 
-  //  glRotatef(w, 1.0, 0.8, 0.3);
+    glRotatef(w, 1.0, 0.8, 0.3);
   w := w + 0.8;
 
   glCallList(ListeID);
