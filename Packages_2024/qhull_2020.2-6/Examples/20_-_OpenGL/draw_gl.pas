@@ -34,13 +34,28 @@ var
 procedure InitPoints(count: integer);
 var
   i: integer;
+  p:TVector2d;
+  len:Double=2.5;
 begin
   Randomize;
   SetLength(points, count);
   for i := 0 to count - 1 do begin
-    points[i, 0] := Random * 5 - 2.5;
-    points[i, 1] := Random * 5 - 2.5;
+    points[i, 0] := Random * (2*len) - len;
+    points[i, 1] := Random * (2*len) - len;
   end;
+  len:=len*4;
+  p[0]:=-len;
+  p[1]:=-len;
+  Insert(p, points ,0);
+  p[0]:=len;
+  p[1]:=-len;
+  Insert(p, points ,0);
+  p[0]:=len;
+  p[1]:=len;
+  Insert(p, points ,0);
+  p[0]:=-len;
+  p[1]:=len;
+  Insert(p, points ,0);
 end;
 
 procedure InitScene_Qc;
@@ -257,17 +272,16 @@ var
 
   // qh
   qh: PqhT;
-  i, j: integer;
+  i: integer;
   facet, neighbor: PfacetT;
-  num_vertices, curlong, totlong, id: longint;
+  curlong, totlong, id: longint;
   vertex: PvertexT;
   centerA, centerB: PpointT;
   neighborp: PPfacetT;
   dx, dy: TcoordT;
-  dist: ValReal;
 
 const
-  len = 50;
+  len = 1;
 
 begin
   ListeID := glGenLists(1);
@@ -293,6 +307,8 @@ begin
   WriteLn('Eingabe-Dimension: ', qh^.input_dim); // Sollte 2 sein
   WriteLn('Rechen-Dimension (Z-Achse): ', qh^.hull_dim); // Sollte 3 sein
   if exitcode = 0 then begin
+
+//    qh_setvoronoi_all(qh);
 
     // --- vertex_list
     glPointSize(10.0);
@@ -339,25 +355,13 @@ begin
               dx := neighbor^.normal[0];
               dy := neighbor^.normal[1];
 
-              // WICHTIG: 2D-Länge berechnen
-              dist := sqrt(dx*dx + dy*dy);
-
-              if dist > 0.000001 then begin
-                // Normieren für exakte Länge 'len'
-                dx := dx / dist;
-                dy := dy / dist;
-
-                // Falls die Strahlen nach INNEN zeigen, hier ein Minus einbauen:
-                // dx := -dx; dy := -dy;
-
-
-              end;
               v1[0] := centerA[0];
               v1[1] := centerA[1];
               v2[0] := centerA[0] + dx * len;
               v2[1] := centerA[1] + dy * len;
               WriteLn('Strahl: ', centerA[0]: 4: 2, ' ', centerA[1]: 4: 2, ' -> ',
                 centerA[0] + dx * len: 4: 2, ' ', centerA[1] + dy * len: 4: 2);
+              glColor3f(0, 0, 1);
             end else begin
               centerB := qh_facetcenter(qh, neighbor^.vertices);
               v1[0] := centerA[0];
@@ -367,6 +371,7 @@ begin
               WriteLn('Liniel: ', centerA[0]: 4: 2, ' ', centerA[1]: 4: 2, ' -> ',
                 centerB[0]: 4: 2, ' ', centerB[1]: 4: 2);
               qh_memfree(qh, centerB, qh^.normal_size);
+              glColor3f(1, 0, 0);
             end;
             glVertex2fv(@v1);
             glVertex2fv(@v2);
