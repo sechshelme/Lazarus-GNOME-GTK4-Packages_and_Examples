@@ -173,7 +173,7 @@ uses
       Halt(1);
     end;
 
-    InitPoints(4);
+    InitPoints(3);
     InitScene_Qc;
 
     glEnable(GL_CULL_FACE);

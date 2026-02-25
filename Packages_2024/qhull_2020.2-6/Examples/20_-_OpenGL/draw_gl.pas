@@ -26,7 +26,6 @@ type
 
   TVector2d = array[0..1] of double;
 
-
 var
   points: array of TVector2d = nil;
   ListeID: TGLuint;
@@ -34,36 +33,21 @@ var
 procedure InitPoints(count: integer);
 var
   i: integer;
-  p:TVector2d;
-  len:Double=2.5;
+const
+  len = 2.5;
 begin
   Randomize;
   SetLength(points, count);
   for i := 0 to count - 1 do begin
-    points[i, 0] := Random * (2*len) - len;
-    points[i, 1] := Random * (2*len) - len;
+    points[i, 0] := Random * (2 * len) - len;
+    points[i, 1] := Random * (2 * len) - len;
   end;
-  len:=len*4;
-  p[0]:=-len;
-  p[1]:=-len;
-  Insert(p, points ,0);
-  p[0]:=len;
-  p[1]:=-len;
-  Insert(p, points ,0);
-  p[0]:=len;
-  p[1]:=len;
-  Insert(p, points ,0);
-  p[0]:=-len;
-  p[1]:=len;
-  Insert(p, points ,0);
 end;
 
 procedure InitScene_Qc;
 var
-  // Opengl
   v: TVector2f;
 
-  // qh
   qh: PqhT;
   i, j: integer;
   facet: PfacetT;
@@ -75,7 +59,6 @@ begin
   glNewList(ListeID, GL_COMPILE);
 
   glPointSize(5.0);
-
   glBegin(GL_POINTS);
   glColor3f(0, 1, 0);
   for  i := 0 to Length(points) - 1 do begin
@@ -85,14 +68,11 @@ begin
   end;
   glEnd;
 
-  // ==== qh
-
   qh := qh_malloc(SizeOf(TqhT));
   qh_zero(qh, fp_qhull_r.stdout);
   exitcode := qh_new_qhull(qh, 2, Length(points), PcoordT(points), False, 'qhull Qc', fp_qhull_r.stdout, fp_qhull_r.stdout);
-  WriteLn('Eingabe-Dimension: ', qh^.input_dim); // Sollte 2 sein
-  WriteLn('Rechen-Dimension (Z-Achse): ', qh^.hull_dim); // Sollte 3 sein
   if exitcode = 0 then begin
+    WriteLn('Input: ', qh^.input_dim, 'D  Output: ', qh^.hull_dim, 'D');
 
     // --- vertex_list
     glPointSize(10.0);
@@ -101,7 +81,6 @@ begin
     vertex := qh^.vertex_list;
     WriteLn(#10'--- Vertex-List ---  (', qh^.num_vertices, ')');
     while (vertex <> nil) and (vertex^.next <> nil) do begin
-
       id := qh_pointid(qh, vertex^.point);
       v[0] := vertex^.point[0];
       v[1] := vertex^.point[1];
@@ -120,7 +99,6 @@ begin
     facet := qh^.facet_list;
     WriteLn('--- Facet_List ---  (', qh^.num_facets, ')');
     while (facet <> nil) and (facet^.next <> nil) do begin
-
       if facet^.vertices <> nil then begin
         num_vertices := qh_setsize(qh, facet^.vertices);
 
@@ -145,17 +123,13 @@ begin
   qh_memfreeshort(qh, @curlong, @totlong);
   qh_free(qh);
 
-  // === OpenGL
-
   glEndList();
 end;
 
 procedure InitScene_d_QT;
 var
-  // Opengl
   v, n: TVector3f;
 
-  // qh
   qh: PqhT;
   i, j: integer;
   facet: PfacetT;
@@ -178,14 +152,11 @@ begin
   end;
   glEnd;
 
-  // ==== qh
-
   qh := qh_malloc(SizeOf(TqhT));
   qh_zero(qh, fp_qhull_r.stdout);
   exitcode := qh_new_qhull(qh, 2, Length(points), PcoordT(points), False, 'qhull d Qt', fp_qhull_r.stdout, fp_qhull_r.stdout);
   if exitcode = 0 then begin
-    WriteLn('Eingabe-Dimension: ', qh^.input_dim); // Sollte 2 sein
-    WriteLn('Rechen-Dimension (Z-Achse): ', qh^.hull_dim); // Sollte 3 sein
+    WriteLn('Input: ', qh^.input_dim, 'D  Output: ', qh^.hull_dim, 'D');
 
     // --- vertex_list
     glPointSize(10.0);
@@ -258,19 +229,13 @@ begin
   qh_memfreeshort(qh, @curlong, @totlong);
   qh_free(qh);
 
-
-  // === OpenGL
-
   glEndList();
 end;
 
 procedure InitScene_v_Qbb;
 // Voronoi-Diagramm
 var
-  // Opengl
-  v, v1, v2: TVector2f;
-
-  // qh
+  v: TVector2f;
   qh: PqhT;
   i: integer;
   facet, neighbor: PfacetT;
@@ -278,37 +243,38 @@ var
   vertex: PvertexT;
   centerA, centerB: PpointT;
   neighborp: PPfacetT;
-  dx, dy: TcoordT;
+  p: TVector2d;
 
 const
-  len = 1;
+  len = 10;
 
 begin
   ListeID := glGenLists(1);
   glNewList(ListeID, GL_COMPILE);
 
-  glPointSize(5.0);
-
-  glBegin(GL_POINTS);
-  glColor3f(0, 1, 0);
-  for  i := 0 to Length(points) - 1 do begin
-    v[0] := points[i][0];
-    v[1] := points[i][1];
-    glVertex2fv(@v);
+  for i := 0 to 3 do begin // Temporär 4 Eckpunkte einfügen
+    p[0] := (i div 2) * len - (len / 2);
+    p[1] := (i mod 2) * len - (len / 2);
+    Insert(p, points, Length(points));
   end;
-  glEnd;
-
-  // ==== qh
 
   qh := qh_malloc(SizeOf(TqhT));
   qh_zero(qh, fp_qhull_r.stdout);
   exitcode := qh_new_qhull(qh, 2, Length(points), PcoordT(points), False, 'qhull v Qbb Qz', fp_qhull_r.stdout, fp_qhull_r.stdout);
 
-  WriteLn('Eingabe-Dimension: ', qh^.input_dim); // Sollte 2 sein
-  WriteLn('Rechen-Dimension (Z-Achse): ', qh^.hull_dim); // Sollte 3 sein
-  if exitcode = 0 then begin
+  Delete(points, Length(points) - 4, 4);
 
-//    qh_setvoronoi_all(qh);
+  WriteLn('Input: ', qh^.input_dim, 'D  Output: ', qh^.hull_dim, 'D');
+  if exitcode = 0 then begin
+    glPointSize(5.0);
+    glBegin(GL_POINTS);
+    glColor3f(0, 1, 0);
+    for  i := 0 to Length(points) - 1 do begin
+      v[0] := points[i][0];
+      v[1] := points[i][1];
+      glVertex2fv(@v);
+    end;
+    glEnd;
 
     // --- vertex_list
     glPointSize(10.0);
@@ -340,44 +306,24 @@ begin
     while (facet <> nil) and (facet^.next <> nil) do begin
       if facet^.upperdelaunay = 0 then begin
 
-        centerA := qh_facetcenter(qh, facet^.vertices);
-
         if facet^.neighbors <> nil then begin
+          centerA := qh_facetcenter(qh, facet^.vertices);
           neighborp := PPfacetT(@facet^.neighbors^.e[0]);
-          while True do begin
+          while neighborp^ <> nil do begin
             neighbor := neighborp^;
-            if neighbor = nil then begin
-              Break;
+
+            if neighbor^.upperdelaunay = 0 then begin
+              centerB := qh_facetcenter(qh, neighbor^.vertices);
+              WriteLn('Liniel: ', centerA[0]: 4: 2, ' ', centerA[1]: 4: 2, ' -> ', centerB[0]: 4: 2, ' ', centerB[1]: 4: 2);
+              glColor3f(1, 0, 0);
+              glVertex2dv(centerA);
+              glVertex2dv(centerB);
+              qh_memfree(qh, centerB, qh^.normal_size);
             end;
             Inc(neighborp);
-
-            if neighbor^.upperdelaunay <> 0 then begin
-              dx := neighbor^.normal[0];
-              dy := neighbor^.normal[1];
-
-              v1[0] := centerA[0];
-              v1[1] := centerA[1];
-              v2[0] := centerA[0] + dx * len;
-              v2[1] := centerA[1] + dy * len;
-              WriteLn('Strahl: ', centerA[0]: 4: 2, ' ', centerA[1]: 4: 2, ' -> ',
-                centerA[0] + dx * len: 4: 2, ' ', centerA[1] + dy * len: 4: 2);
-              glColor3f(0, 0, 1);
-            end else begin
-              centerB := qh_facetcenter(qh, neighbor^.vertices);
-              v1[0] := centerA[0];
-              v1[1] := centerA[1];
-              v2[0] := centerB[0];
-              v2[1] := centerB[1];
-              WriteLn('Liniel: ', centerA[0]: 4: 2, ' ', centerA[1]: 4: 2, ' -> ',
-                centerB[0]: 4: 2, ' ', centerB[1]: 4: 2);
-              qh_memfree(qh, centerB, qh^.normal_size);
-              glColor3f(1, 0, 0);
-            end;
-            glVertex2fv(@v1);
-            glVertex2fv(@v2);
           end;
+          qh_memfree(qh, centerA, qh^.normal_size);
         end;
-        qh_memfree(qh, centerA, qh^.normal_size);
       end;
       facet := facet^.next;
     end;
@@ -386,8 +332,6 @@ begin
   qh_freeqhull(qh, qh_ALL);
   qh_memfreeshort(qh, @curlong, @totlong);
   qh_free(qh);
-
-  // === OpenGL
 
   glEndList();
 end;
