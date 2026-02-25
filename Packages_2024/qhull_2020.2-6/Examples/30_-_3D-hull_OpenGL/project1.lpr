@@ -22,15 +22,12 @@ uses
           glfwSetWindowShouldClose(window, GLFW_TRUE);
         end;
         GLFW_KEY_F: begin
-          glEnable(GL_CULL_FACE);
           glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
         end;
         GLFW_KEY_L: begin
-          glDisable(GL_CULL_FACE);
           glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         end;
         GLFW_KEY_P: begin
-          glDisable(GL_CULL_FACE);
           glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
         end;
         GLFW_KEY_KP_ADD: begin
@@ -40,8 +37,8 @@ uses
         end;
         GLFW_KEY_KP_SUBTRACT: begin
           PointsCount /= 1.5;
-          if PointsCount < 3 then begin
-            PointsCount := 3;
+          if PointsCount < 4 then begin
+            PointsCount := 4;
           end;
           InitPoints(Trunc(PointsCount));
           InitScene_Qc;
@@ -108,11 +105,8 @@ uses
       Halt(1);
     end;
 
-    InitPoints(3);
+    InitPoints(4);
     InitScene_Qc;
-
-//    glEnable(GL_CULL_FACE);
-//    glCullFace(GL_BACK);
 
     while glfwWindowShouldClose(window) = 0 do begin
       glfwGetFramebufferSize(window, @Width, @Height);

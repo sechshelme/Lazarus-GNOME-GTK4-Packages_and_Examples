@@ -19,7 +19,6 @@ implementation
 
 type
   TVector4f = array[0..3] of single;
-
   TVector3d = array[0..2] of double;
 
 var
@@ -52,6 +51,7 @@ begin
   ListeID := glGenLists(1);
   glNewList(ListeID, GL_COMPILE);
 
+ glDisable(GL_LIGHTING);
   glPointSize(5.0);
   glBegin(GL_POINTS);
   glColor3f(0, 1, 0);
@@ -62,7 +62,7 @@ begin
 
   qh := qh_malloc(SizeOf(TqhT));
   qh_zero(qh, fp_qhull_r.stdout);
-  exitcode := qh_new_qhull(qh, 3, Length(points), PcoordT(points), False, 'qhull Qc', fp_qhull_r.stdout, fp_qhull_r.stdout);
+  exitcode := qh_new_qhull(qh, 3, Length(points), PcoordT(points), False, 'qhull Qt', fp_qhull_r.stdout, fp_qhull_r.stdout);
   if exitcode = 0 then begin
     WriteLn('Input: ', qh^.input_dim, 'D  Output: ', qh^.hull_dim, 'D');
 
@@ -83,12 +83,14 @@ begin
     WriteLn;
 
     // --- facet_list
+    glEnable(GL_LIGHTING);
     glBegin(GL_TRIANGLES);
     glColor3f(1, 1, 1);
     facet := qh^.facet_list;
     WriteLn('--- Facet_List ---  (', qh^.num_facets, ')');
     while (facet <> nil) and (facet^.next <> nil) do begin
       if facet^.vertices <> nil then begin
+           glNormal3dv(facet^.normal);
         for i := 0 to qh_setsize(qh, facet^.vertices) - 1 do begin;
           vertex := facet^.vertices^.e[i].p;
           Write('  pid: ', id, '  vid: ', vertex^.id: 3, '.    ');
@@ -114,7 +116,7 @@ end;
 
 procedure draw;
 const
-  scale = 2.0;
+  scale = 3.0;
   w: single = 0;
 var
   sun_direction: TVector4f = (1.0, 1.0, 1.0, 0.0);
@@ -146,7 +148,6 @@ begin
   glLightfv(GL_LIGHT0, GL_DIFFUSE, @sun_diffuse);
   glLightfv(GL_LIGHT0, GL_SPECULAR, @sun_specular);
 
-  glEnable(GL_LIGHTING);
   glEnable(GL_LIGHT0);
 
   glMaterialfv(GL_FRONT, GL_AMBIENT, @meineObjektFarbe);
