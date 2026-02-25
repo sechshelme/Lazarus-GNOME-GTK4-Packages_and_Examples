@@ -11,10 +11,7 @@ uses
   end;
 
   procedure Key_callback(window: PGLFWwindow; key: longint; scancode: longint; action: longint; mods: longint); cdecl;
-  type
-    Thq = (hq_Qc, hq_d_QT, hq_v_Qbb);
   const
-    hq: Thq = hq_Qc;
     PointsCount: single = 3;
 
   begin
@@ -39,17 +36,7 @@ uses
         GLFW_KEY_KP_ADD: begin
           PointsCount *= 1.5;
           InitPoints(Trunc(PointsCount));
-          case hq of
-            hq_Qc: begin
-              InitScene_Qc;
-            end;
-            hq_d_QT: begin
-              InitScene_d_QT;
-            end;
-            hq_v_Qbb: begin
-              InitScene_v_Qbb;
-            end;
-          end;
+          InitScene_Qc;
         end;
         GLFW_KEY_KP_SUBTRACT: begin
           PointsCount /= 1.5;
@@ -57,71 +44,19 @@ uses
             PointsCount := 3;
           end;
           InitPoints(Trunc(PointsCount));
-          case hq of
-            hq_Qc: begin
-              InitScene_Qc;
-            end;
-            hq_d_QT: begin
-              InitScene_d_QT;
-            end;
-            hq_v_Qbb: begin
-              InitScene_v_Qbb;
-            end;
-          end;
+          InitScene_Qc;
         end;
         GLFW_KEY_2: begin
           is3D := False;
-          case hq of
-            hq_Qc: begin
-              InitScene_Qc;
-            end;
-            hq_d_QT: begin
-              InitScene_d_QT;
-            end;
-            hq_v_Qbb: begin
-              InitScene_v_Qbb;
-            end;
-          end;
+          InitScene_Qc;
         end;
         GLFW_KEY_3: begin
           is3D := True;
-          case hq of
-            hq_Qc: begin
-              InitScene_Qc;
-            end;
-            hq_d_QT: begin
-              InitScene_d_QT;
-            end;
-            hq_v_Qbb: begin
-              InitScene_v_Qbb;
-            end;
-          end;
-        end;
-        GLFW_KEY_C: begin
-          hq := hq_Qc;
           InitScene_Qc;
-        end;
-        GLFW_KEY_D: begin
-          hq := hq_d_QT;
-          InitScene_d_QT;
-        end;
-        GLFW_KEY_J: begin
-          hq := hq_v_Qbb;
-          InitScene_v_Qbb;
         end;
         GLFW_KEY_SPACE: begin
           InitPoints(Trunc(PointsCount));
-          case hq of
-            hq_Qc: begin
-              InitScene_Qc;
-            end;
-            hq_d_QT: begin
-              InitScene_d_QT;
-            end;
-            hq_v_Qbb: begin
-              InitScene_v_Qbb;
-            end;
-          end;
+          InitScene_Qc;
         end;
       end;
     end;
@@ -176,10 +111,8 @@ uses
     InitPoints(3);
     InitScene_Qc;
 
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-    glClearColor(0.05, 0.05, 0.1, 1.0);
-    glEnable(GL_DEPTH_TEST);
+//    glEnable(GL_CULL_FACE);
+//    glCullFace(GL_BACK);
 
     while glfwWindowShouldClose(window) = 0 do begin
       glfwGetFramebufferSize(window, @Width, @Height);
