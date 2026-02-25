@@ -10,7 +10,7 @@ var
   is3D: boolean = False;
 
 procedure InitPoints(count: integer);
-procedure InitScene_Qc;
+procedure InitScene_Qc(isPoint:Boolean);
 procedure draw;
 procedure CloseScene;
 
@@ -40,7 +40,7 @@ begin
   end;
 end;
 
-procedure InitScene_Qc;
+procedure InitScene_Qc(isPoint: Boolean);
 var
   qh: PqhT;
   i, j: integer;
@@ -51,12 +51,14 @@ begin
   ListeID := glGenLists(1);
   glNewList(ListeID, GL_COMPILE);
 
+  if isPoint then begin;
  glDisable(GL_LIGHTING);
   glPointSize(5.0);
   glBegin(GL_POINTS);
   glColor3f(0, 1, 0);
   for  i := 0 to Length(points) - 1 do begin
     glVertex3dv(points[i]);
+  end;
   end;
   glEnd;
 
@@ -75,7 +77,7 @@ begin
     while (vertex <> nil) and (vertex^.next <> nil) do begin
       id := qh_pointid(qh, vertex^.point);
       WriteLn('  pid: ', id: 4, '  vid: ', vertex^.id: 3, '.    ', vertex^.point[0]: 2: 1, ' ', vertex^.point[1]: 2: 1);
-      glVertex3dv(vertex^.point);
+      if isPoint then      glVertex3dv(vertex^.point);
       vertex := vertex^.next;
     end;
     glEnd;

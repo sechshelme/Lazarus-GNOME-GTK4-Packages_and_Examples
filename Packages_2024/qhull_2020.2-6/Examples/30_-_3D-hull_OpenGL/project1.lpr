@@ -13,6 +13,7 @@ uses
   procedure Key_callback(window: PGLFWwindow; key: longint; scancode: longint; action: longint; mods: longint); cdecl;
   const
     PointsCount: single = 3;
+    isPoints:Boolean=True;
 
   begin
     WriteLn('press Key');
@@ -33,7 +34,7 @@ uses
         GLFW_KEY_KP_ADD: begin
           PointsCount *= 1.5;
           InitPoints(Trunc(PointsCount));
-          InitScene_Qc;
+          InitScene_Qc(isPoints);
         end;
         GLFW_KEY_KP_SUBTRACT: begin
           PointsCount /= 1.5;
@@ -41,19 +42,23 @@ uses
             PointsCount := 4;
           end;
           InitPoints(Trunc(PointsCount));
-          InitScene_Qc;
+          InitScene_Qc(isPoints);
         end;
         GLFW_KEY_2: begin
           is3D := False;
-          InitScene_Qc;
+          InitScene_Qc(isPoints);
         end;
         GLFW_KEY_3: begin
           is3D := True;
-          InitScene_Qc;
+          InitScene_Qc(isPoints);
+        end;
+        GLFW_KEY_E: begin
+          isPoints:=not isPoints;
+          InitScene_Qc(isPoints);
         end;
         GLFW_KEY_SPACE: begin
           InitPoints(Trunc(PointsCount));
-          InitScene_Qc;
+          InitScene_Qc(isPoints);
         end;
       end;
     end;
@@ -106,7 +111,7 @@ uses
     end;
 
     InitPoints(4);
-    InitScene_Qc;
+    InitScene_Qc(True);
 
     while glfwWindowShouldClose(window) = 0 do begin
       glfwGetFramebufferSize(window, @Width, @Height);
