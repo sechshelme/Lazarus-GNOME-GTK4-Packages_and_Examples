@@ -22,10 +22,10 @@ uses
     repeat
       entry := aspell_dict_info_enumeration_next(dicts);
       if entry <> nil then  begin
-        WriteLn('- ', entry^.name, ' (Code: ', entry^.code, ')');
+        WriteLn(entry^.code:10, '  ', entry^.name:20);
       end;
     until entry = nil;
-    // Aufräumen nicht vergessen
+
     delete_aspell_dict_info_enumeration(dicts);
     delete_aspell_config(config);
   end;
@@ -63,22 +63,21 @@ uses
 
     worts := satz.Split(' ');
 
+    WriteLn;
     for i := 0 to Length(worts) - 1 do begin
       wort := pchar(worts[i]);
       korrekt := aspell_speller_check(speller, wort, -1);
-      WriteLn('Wort:  ', wort, '  ', korrekt);
-      WriteLn;
+      WriteLn(wort, '  ', korrekt);
 
       if korrekt = 0 then begin
         suggestions := aspell_speller_suggest(speller, wort, -1);
         elements := aspell_word_list_elements(suggestions);
 
-        WriteLn('  -> Vorschläge: ');
+        WriteLn('Vorschläge: ');
 
         vorschlag := aspell_string_enumeration_next(elements);
         while vorschlag <> nil do begin
-          Write(vorschlag);
-          Write('  ');
+          WriteLn('  ',vorschlag);
           vorschlag := aspell_string_enumeration_next(elements);
         end;
         WriteLn;
