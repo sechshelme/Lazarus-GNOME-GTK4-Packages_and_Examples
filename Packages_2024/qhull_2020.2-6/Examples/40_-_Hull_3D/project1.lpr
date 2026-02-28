@@ -15,34 +15,14 @@ type
     qh: PqhT;
     facet: PfacetT;
     curlong, totlong, num_vertices: longint;
-    pos0: PtrUInt;
     i: integer;
     vertex: PvertexT;
 
   begin
     qh := qh_malloc(SizeOf(TqhT));
 
-    WriteLn('size jmp_buf:  ', sizeof(Tjmp_buf));
-    WriteLn('size facetT:   ', sizeof(TfacetT));
-    WriteLn('size qhT:      ', sizeof(TqhT));
-    WriteLn('size qhmemT:   ', sizeof(TqhmemT));
-    WriteLn('size qhstatT:  ', sizeof(TqhstatT));
-    WriteLn('size TqhT.qhull:  ', sizeof(TqhT.qhull));
-
-    pos0 := PtrUInt(qh);
-    WriteLn('offset qhT.qhmem:       ', PtrUInt(@qh^.qhmem) - pos0);
-    WriteLn('offset qhT.qhstat:      ', PtrUInt(@qh^.qhstat) - pos0);
-    WriteLn('Offset qhull :          ', PtrUInt(@qh^.qhull) - pos0);
-    WriteLn('Offset errexit :        ', PtrUInt(@qh^.errexit) - pos0);
-    WriteLn('Offset fin:             ', PtrUInt(@qh^.fin) - pos0);
-    WriteLn('Offset qhmem:           ', PtrUInt(@qh^.qhmem) - pos0);
-    WriteLn('Offset qhstat:          ', PtrUInt(@qh^.qhstat) - pos0);
-
-    WriteLn('Offset facet_list:      ', PtrUInt(@qh^.facet_list) - pos0);
-
-    exitcode := qh_new_qhull(qh, 3, Length(points), PcoordT(points), False, 'qhull Qc', fp_qhull_r.stdout, fp_qhull_r.stdout);
-
-    WriteLn('ExitCode:', exitcode);
+    exitcode := qh_new_qhull(qh, 3, Length(points), PcoordT(points), False, 'qhull FA Fv Fn Fx s', stdout, stdout);
+    WriteLn('----------------------------------'#10);
 
     if exitcode = 0 then begin
       WriteLn(#10'Convex Hull Facetten:');
