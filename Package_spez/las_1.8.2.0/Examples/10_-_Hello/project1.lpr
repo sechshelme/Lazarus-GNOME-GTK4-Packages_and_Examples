@@ -39,8 +39,8 @@ uses
       if p = nil then begin
         break;
       end;
-      WriteLn('P ', i: 2, ': X=', LASPoint_GetX(p): 0: 2, ' Y=', LASPoint_GetY(p): 0: 2, ' Z=', LASPoint_GetZ(p): 0: 2,
-        ' | Int: ', LASPoint_GetIntensity(p), ' | Class: ', LASPoint_GetClassification(p));
+      WriteLn('P ', i: 3, ': X=', LASPoint_GetX(p): 0: 2, ' Y=', LASPoint_GetY(p): 0: 2, ' Z=', LASPoint_GetZ(p): 0: 2,
+        ' | Int: ', LASPoint_GetIntensity(p):3, ' | Class: ', LASPoint_GetClassification(p));
     end;
 
     LASReader_Destroy(reader);

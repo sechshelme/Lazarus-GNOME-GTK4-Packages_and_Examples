@@ -116,10 +116,6 @@ begin
         col := pz * $10000;
       end;
     end;
-    col := pz;
-    //    Canvas.Pen.Color:=col;
-    //    Canvas.Brush.Color:=col;
-    //    Canvas.FillRect(px-2, py-2, px+2, py+2);
     Canvas.Pixels[px, py] := col;
 
     WriteLn('P ', i: 2, ': X=', LASPoint_GetX(p): 0: 2, ' Y=', LASPoint_GetY(p): 0: 2, ' Z=', LASPoint_GetZ(p): 0: 2,

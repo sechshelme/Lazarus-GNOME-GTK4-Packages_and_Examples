@@ -303,6 +303,7 @@ const
     (libs: 'libqhull_r'; units: 'fp_qhull_r'),
     (libs: 'libaspell'; units: 'ctypes'),
     (libs: 'liblas_c'; units: 'ctypes'),
+    (libs: 'liblaszip'; units: 'ctypes'),
 
 
 
