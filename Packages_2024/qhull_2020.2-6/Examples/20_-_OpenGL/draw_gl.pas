@@ -60,8 +60,8 @@ begin
   glEnd;
 
   qh := qh_malloc(SizeOf(TqhT));
-  qh_zero(qh, fp_qhull_r.stdout);
-  exitcode := qh_new_qhull(qh, 2, Length(points), PcoordT(points), False, 'qhull Qc', fp_qhull_r.stdout, fp_qhull_r.stdout);
+  qh_zero(qh, stdout);
+  exitcode := qh_new_qhull(qh, 2, Length(points), PcoordT(points), False, 'qhull Qc', stdout, stdout);
   if exitcode = 0 then begin
     WriteLn('Input: ', qh^.input_dim, 'D  Output: ', qh^.hull_dim, 'D');
 

@@ -302,6 +302,7 @@ const
     (libs: 'libcglm'; units: 'fp_cglm'),
     (libs: 'libqhull_r'; units: 'fp_qhull_r'),
     (libs: 'libaspell'; units: 'ctypes'),
+    (libs: 'liblas_c'; units: 'ctypes'),
 
 
 

@@ -28,7 +28,7 @@ type
     qh := qh_malloc(SizeOf(TqhT));
     qh_zero(qh, stdout);
 
-    exitcode := qh_new_qhull(qh, 2, Length(points), PcoordT(points), False, 'qhull FA Fv Fn Fx s', stdout, stdout);
+    exitcode := qh_new_qhull(qh, 2, Length(points), PcoordT(points), False, 'qhull FA Fv Fn Fx s', stderr, stderr);
     WriteLn('----------------------------------'#10);
 
     if exitcode = 0 then begin
