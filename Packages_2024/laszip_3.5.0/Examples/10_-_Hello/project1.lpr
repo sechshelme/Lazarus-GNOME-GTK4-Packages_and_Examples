@@ -1,7 +1,7 @@
 program project1;
 
 uses
-  fp_laszip_api;
+  fp_laszip;
 
   procedure main;
   var

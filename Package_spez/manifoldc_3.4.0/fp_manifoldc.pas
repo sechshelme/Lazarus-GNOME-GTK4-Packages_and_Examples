@@ -64,8 +64,6 @@ type
   PManifoldBox = type Pointer;
   PManifoldRect = type Pointer;
   PManifoldTriangulation = type Pointer;
-  PManifoldMaterial = type Pointer;
-  PManifoldExportOptions = type Pointer;
 
 type
   TManifoldManifoldPair = record
@@ -107,6 +105,30 @@ type
     volume: double;
   end;
   PManifoldProperties = ^TManifoldProperties;
+
+  TManifoldMeshGLOptions = record
+    run_indices: Puint32_t;
+    run_indices_length: Tsize_t;
+    run_original_ids: Puint32_t;
+    run_original_ids_length: Tsize_t;
+    merge_from_vert: Puint32_t;
+    merge_to_vert: Puint32_t;
+    merge_verts_length: Tsize_t;
+    halfedge_tangents: Psingle;
+  end;
+  PManifoldMeshGLOptions = ^TManifoldMeshGLOptions;
+
+  TManifoldMeshGL64Options = record
+    run_indices: Puint64_t;
+    run_indices_length: Tsize_t;
+    run_original_ids: Puint32_t;
+    run_original_ids_length: Tsize_t;
+    merge_from_vert: Puint64_t;
+    merge_to_vert: Puint64_t;
+    merge_verts_length: Tsize_t;
+    halfedge_tangents: Pdouble;
+  end;
+  PManifoldMeshGL64Options = ^TManifoldMeshGL64Options;
 
 type
   PManifoldOpType = ^TManifoldOpType;
@@ -173,12 +195,19 @@ function manifold_polygons_get_point(ps: PManifoldPolygons; simple_idx: Tsize_t;
 
 function manifold_meshgl(mem: pointer; vert_props: Psingle; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint32_t; n_tris: Tsize_t): PManifoldMeshGL; cdecl; external libmanifoldc;
 function manifold_meshgl_w_tangents(mem: pointer; vert_props: Psingle; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint32_t; n_tris: Tsize_t; halfedge_tangent: Psingle): PManifoldMeshGL; cdecl; external libmanifoldc;
+function manifold_meshgl_w_options(mem:pointer; vert_props:Psingle; n_verts:Tsize_t; n_props:Tsize_t; tri_verts:Puint32_t;           n_tris:Tsize_t; options:PManifoldMeshGLOptions):PManifoldMeshGL;cdecl;external libmanifoldc;
 function manifold_get_meshgl(mem: pointer; m: PManifoldManifold): PManifoldMeshGL; cdecl; external libmanifoldc;
+function manifold_get_meshgl_w_normals(mem:pointer; m:PManifoldManifold; normalIdx:Tint32_t):PManifoldMeshGL;cdecl;external libmanifoldc;
+
 function manifold_meshgl_copy(mem: pointer; m: PManifoldMeshGL): PManifoldMeshGL; cdecl; external libmanifoldc;
 function manifold_meshgl_merge(mem: pointer; m: PManifoldMeshGL): PManifoldMeshGL; cdecl; external libmanifoldc;
 function manifold_meshgl64(mem: pointer; vert_props: Pdouble; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint64_t; n_tris: Tsize_t): PManifoldMeshGL64; cdecl; external libmanifoldc;
 function manifold_meshgl64_w_tangents(mem: pointer; vert_props: Pdouble; n_verts: Tsize_t; n_props: Tsize_t; tri_verts: Puint64_t; n_tris: Tsize_t; halfedge_tangent: Pdouble): PManifoldMeshGL64; cdecl; external libmanifoldc;
+
+function manifold_meshgl64_w_options(mem:pointer; vert_props:Pdouble; n_verts:Tsize_t; n_props:Tsize_t; tri_verts:Puint64_t;           n_tris:Tsize_t; options:PManifoldMeshGL64Options):PManifoldMeshGL64;cdecl;external libmanifoldc;
 function manifold_get_meshgl64(mem: pointer; m: PManifoldManifold): PManifoldMeshGL64; cdecl; external libmanifoldc;
+
+function manifold_get_meshgl64_w_normals(mem:pointer; m:PManifoldManifold; normalIdx:Tint32_t):PManifoldMeshGL64;cdecl;external libmanifoldc;
 function manifold_meshgl64_copy(mem: pointer; m: PManifoldMeshGL64): PManifoldMeshGL64; cdecl; external libmanifoldc;
 function manifold_meshgl64_merge(mem: pointer; m: PManifoldMeshGL64): PManifoldMeshGL64; cdecl; external libmanifoldc;
 
@@ -200,6 +229,8 @@ function manifold_difference(mem: pointer; a: PManifoldManifold; b: PManifoldMan
 function manifold_intersection(mem: pointer; a: PManifoldManifold; b: PManifoldManifold): PManifoldManifold; cdecl; external libmanifoldc;
 function manifold_split(mem_first: pointer; mem_second: pointer; a: PManifoldManifold; b: PManifoldManifold): TManifoldManifoldPair; cdecl; external libmanifoldc;
 function manifold_split_by_plane(mem_first: pointer; mem_second: pointer; m: PManifoldManifold; normal_x: double; normal_y: double; normal_z: double; offset: double): TManifoldManifoldPair; cdecl; external libmanifoldc;
+function manifold_minkowski_sum(mem:pointer; a:PManifoldManifold; b:PManifoldManifold):PManifoldManifold;cdecl;external libmanifoldc;
+function manifold_minkowski_difference(mem:pointer; a:PManifoldManifold; b:PManifoldManifold):PManifoldManifold;cdecl;external libmanifoldc;
 function manifold_trim_by_plane(mem: pointer; m: PManifoldManifold; normal_x: double; normal_y: double; normal_z: double; offset: double): PManifoldManifold; cdecl; external libmanifoldc;
 
 function manifold_slice(mem: pointer; m: PManifoldManifold; height: double): PManifoldPolygons; cdecl; external libmanifoldc;
@@ -353,9 +384,9 @@ procedure manifold_set_min_circular_edge_length(length: double); cdecl; external
 procedure manifold_set_circular_segments(number: longint); cdecl; external libmanifoldc;
 procedure manifold_reset_to_circular_defaults; cdecl; external libmanifoldc;
 
-function manifold_meshgl_num_prop(m: PManifoldMeshGL): longint; cdecl; external libmanifoldc;
-function manifold_meshgl_num_vert(m: PManifoldMeshGL): longint; cdecl; external libmanifoldc;
-function manifold_meshgl_num_tri(m: PManifoldMeshGL): longint; cdecl; external libmanifoldc;
+function manifold_meshgl_num_prop(m: PManifoldMeshGL): Tsize_t; cdecl; external libmanifoldc;
+function manifold_meshgl_num_vert(m: PManifoldMeshGL): Tsize_t; cdecl; external libmanifoldc;
+function manifold_meshgl_num_tri(m: PManifoldMeshGL): Tsize_t; cdecl; external libmanifoldc;
 function manifold_meshgl_vert_properties_length(m: PManifoldMeshGL): Tsize_t; cdecl; external libmanifoldc;
 function manifold_meshgl_tri_length(m: PManifoldMeshGL): Tsize_t; cdecl; external libmanifoldc;
 function manifold_meshgl_merge_length(m: PManifoldMeshGL): Tsize_t; cdecl; external libmanifoldc;
@@ -449,21 +480,14 @@ procedure manifold_delete_box(b: PManifoldBox); cdecl; external libmanifoldc;
 procedure manifold_delete_rect(b: PManifoldRect); cdecl; external libmanifoldc;
 procedure manifold_delete_triangulation(m: PManifoldTriangulation); cdecl; external libmanifoldc;
 
-function manifold_material(mem: pointer): PManifoldMaterial; cdecl; external libmanifoldc;
-procedure manifold_material_set_roughness(mat: PManifoldMaterial; roughness: double); cdecl; external libmanifoldc;
-procedure manifold_material_set_metalness(mat: PManifoldMaterial; metalness: double); cdecl; external libmanifoldc;
-procedure manifold_material_set_color(mat: PManifoldMaterial; color: TManifoldVec3); cdecl; external libmanifoldc;
-function manifold_export_options(mem: pointer): PManifoldExportOptions; cdecl; external libmanifoldc;
-procedure manifold_export_options_set_faceted(options: PManifoldExportOptions; faceted: longint); cdecl; external libmanifoldc;
-procedure manifold_export_options_set_material(options: PManifoldExportOptions; mat: PManifoldMaterial); cdecl; external libmanifoldc;
-procedure manifold_export_meshgl(filename: pchar; mesh: PManifoldMeshGL; options: PManifoldExportOptions); cdecl; external libmanifoldc;
-function manifold_import_meshgl(mem: pointer; filename: pchar; force_cleanup: longint): PManifoldMeshGL; cdecl; external libmanifoldc;
-function manifold_material_size: Tsize_t; cdecl; external libmanifoldc;
-function manifold_export_options_size: Tsize_t; cdecl; external libmanifoldc;
-procedure manifold_destruct_material(m: PManifoldMaterial); cdecl; external libmanifoldc;
-procedure manifold_destruct_export_options(options: PManifoldExportOptions); cdecl; external libmanifoldc;
-procedure manifold_delete_material(m: PManifoldMaterial); cdecl; external libmanifoldc;
-procedure manifold_delete_export_options(options: PManifoldExportOptions); cdecl; external libmanifoldc;
+type
+  Tmani_write_proc = procedure(para1: pchar; para2: pointer); cdecl;
+
+function manifold_read_obj(mem: pointer; obj_file: pchar): PManifoldManifold; cdecl; external libmanifoldc;
+function manifold_meshgl64_read_obj(mem: pointer; obj_file: pchar): PManifoldMeshGL64; cdecl; external libmanifoldc;
+procedure manifold_write_obj(manifold: PManifoldManifold; callback: Tmani_write_proc; args: pointer); cdecl; external libmanifoldc;
+procedure manifold_meshgl64_write_obj(mesh: PManifoldMeshGL64; callback: Tmani_write_proc; args: pointer); cdecl; external libmanifoldc;
+
 
 // === Konventiert am: 8-2-26 15:46:53 ===
 

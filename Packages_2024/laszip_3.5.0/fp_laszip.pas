@@ -1,4 +1,4 @@
-unit fp_laszip_api;
+unit fp_laszip;
 
 interface
 

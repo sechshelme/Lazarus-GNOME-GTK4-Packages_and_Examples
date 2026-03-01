@@ -49,7 +49,13 @@ ManifoldMeshGL* manifold_meshgl_w_tangents(void* mem, float* vert_props,
                                            size_t n_verts, size_t n_props,
                                            uint32_t* tri_verts, size_t n_tris,
                                            float* halfedge_tangent);
+ManifoldMeshGL* manifold_meshgl_w_options(void* mem, float* vert_props,
+                                          size_t n_verts, size_t n_props,
+                                          uint32_t* tri_verts, size_t n_tris,
+                                          ManifoldMeshGLOptions* options);
 ManifoldMeshGL* manifold_get_meshgl(void* mem, ManifoldManifold* m);
+ManifoldMeshGL* manifold_get_meshgl_w_normals(void* mem, ManifoldManifold* m,
+                                              int32_t normalIdx);
 ManifoldMeshGL* manifold_meshgl_copy(void* mem, ManifoldMeshGL* m);
 ManifoldMeshGL* manifold_meshgl_merge(void* mem, ManifoldMeshGL* m);
 
@@ -62,7 +68,15 @@ ManifoldMeshGL64* manifold_meshgl64_w_tangents(void* mem, double* vert_props,
                                                uint64_t* tri_verts,
                                                size_t n_tris,
                                                double* halfedge_tangent);
+ManifoldMeshGL64* manifold_meshgl64_w_options(void* mem, double* vert_props,
+                                              size_t n_verts, size_t n_props,
+                                              uint64_t* tri_verts,
+                                              size_t n_tris,
+                                              ManifoldMeshGL64Options* options);
 ManifoldMeshGL64* manifold_get_meshgl64(void* mem, ManifoldManifold* m);
+ManifoldMeshGL64* manifold_get_meshgl64_w_normals(void* mem,
+                                                  ManifoldManifold* m,
+                                                  int32_t normalIdx);
 ManifoldMeshGL64* manifold_meshgl64_copy(void* mem, ManifoldMeshGL64* m);
 ManifoldMeshGL64* manifold_meshgl64_merge(void* mem, ManifoldMeshGL64* m);
 
@@ -115,6 +129,10 @@ ManifoldManifoldPair manifold_split_by_plane(void* mem_first, void* mem_second,
 ManifoldManifold* manifold_trim_by_plane(void* mem, ManifoldManifold* m,
                                          double normal_x, double normal_y,
                                          double normal_z, double offset);
+ManifoldManifold* manifold_minkowski_sum(void* mem, ManifoldManifold* a,
+                                         ManifoldManifold* b);
+ManifoldManifold* manifold_minkowski_difference(void* mem, ManifoldManifold* a,
+                                                ManifoldManifold* b);
 
 // 3D to 2D
 
@@ -375,9 +393,9 @@ void manifold_reset_to_circular_defaults();
 
 // Manifold Mesh Extraction
 
-int manifold_meshgl_num_prop(ManifoldMeshGL* m);
-int manifold_meshgl_num_vert(ManifoldMeshGL* m);
-int manifold_meshgl_num_tri(ManifoldMeshGL* m);
+size_t manifold_meshgl_num_prop(ManifoldMeshGL* m);
+size_t manifold_meshgl_num_vert(ManifoldMeshGL* m);
+size_t manifold_meshgl_num_tri(ManifoldMeshGL* m);
 size_t manifold_meshgl_vert_properties_length(ManifoldMeshGL* m);
 size_t manifold_meshgl_tri_length(ManifoldMeshGL* m);
 size_t manifold_meshgl_merge_length(ManifoldMeshGL* m);
@@ -437,7 +455,6 @@ size_t manifold_meshgl_size();
 size_t manifold_meshgl64_size();
 size_t manifold_box_size();
 size_t manifold_rect_size();
-size_t manifold_curvature_size();
 size_t manifold_triangulation_size();
 
 // allocation
@@ -484,31 +501,32 @@ void manifold_delete_triangulation(ManifoldTriangulation* m);
 
 // MeshIO / Export
 
-#ifdef MANIFOLD_EXPORT
-ManifoldMaterial* manifold_material(void* mem);
-void manifold_material_set_roughness(ManifoldMaterial* mat, double roughness);
-void manifold_material_set_metalness(ManifoldMaterial* mat, double metalness);
-void manifold_material_set_color(ManifoldMaterial* mat, ManifoldVec3 color);
-ManifoldExportOptions* manifold_export_options(void* mem);
-void manifold_export_options_set_faceted(ManifoldExportOptions* options,
-                                         int faceted);
-void manifold_export_options_set_material(ManifoldExportOptions* options,
-                                          ManifoldMaterial* mat);
-void manifold_export_meshgl(const char* filename, ManifoldMeshGL* mesh,
-                            ManifoldExportOptions* options);
-ManifoldMeshGL* manifold_import_meshgl(void* mem, const char* filename,
-                                       int force_cleanup);
-
-size_t manifold_material_size();
-size_t manifold_export_options_size();
-
-void manifold_destruct_material(ManifoldMaterial* m);
-void manifold_destruct_export_options(ManifoldExportOptions* options);
-
-void manifold_delete_material(ManifoldMaterial* m);
-void manifold_delete_export_options(ManifoldExportOptions* options);
-#endif
-
+// Import a manifold from a Wavefront obj file.
+// The obj_file parameter is the content of the obj file, not the filename,
+// and should be null-terminated.
+ManifoldManifold* manifold_read_obj(void* mem, char* obj_file);
+// Import a meshgl from a Wavefront obj file.
+// The obj_file parameter is the content of the obj file, not the filename,
+// and should be null-terminated.
+ManifoldMeshGL64* manifold_meshgl64_read_obj(void* mem, char* obj_file);
+// Export a manifold to a Wavefront obj file.
+// The callback accepts two parameters:
+// 1. Temporary null-terminated string buffer, containing the content of the
+//    file. This buffer will be freed automatically after returning from the
+//    callback.
+// 2. An arg value (the third parameter in the manifold_write_obj function), for
+//    passing additional data into the callback.
+void manifold_write_obj(ManifoldManifold* manifold,
+                        void (*callback)(char*, void*), void* args);
+// Export a MeshGL64 to a Wavefront obj file.
+// The callback accepts two parameters:
+// 1. Temporary null-terminated string buffer, containing the content of the
+//    file. This buffer will be freed automatically after returning from the
+//    callback.
+// 2. An arg value (the third parameter in the manifold_write_obj function), for
+//    passing additional data into the callback.
+void manifold_meshgl64_write_obj(ManifoldMeshGL64* mesh,
+                                 void (*callback)(char*, void*), void* args);
 #ifdef __cplusplus
 }
 #endif

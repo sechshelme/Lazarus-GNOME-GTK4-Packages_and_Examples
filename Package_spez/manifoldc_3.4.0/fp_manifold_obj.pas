@@ -17,8 +17,6 @@ type
   TCrossSectionVecClass = class;
   TSimplePolygonClass = class;
   TManifoldVecClass = class;
-  TExportOptionsClass = class;
-  TMaterialClass = class;
   TManifoldManifoldPairClass = class;
 
   { TCrossSectionClass }
@@ -118,6 +116,9 @@ type
     constructor set_properties(m: TManifoldClass; num_prop: longint; fun: Tproperties_func; ctx: pointer; clean: boolean);
     constructor calculate_curvature(m: TManifoldClass; gaussian_idx, mean_idx: longint; clean: boolean);
     constructor calculate_normals(m: TManifoldClass; normal_idx: longint; min_sharp_angle: double; clean: boolean);
+    constructor read_obj(obj_file: pchar);
+    constructor minkowski_sum(a, b: TManifoldClass; clean_a, clean_b: boolean);
+    constructor minkowski_difference(a, b: TManifoldClass; clean_a, clean_b: boolean);
 
     function is_empty: longint;
     function status: TManifoldError;
@@ -130,6 +131,8 @@ type
     function surface_area: double;
     function volume: double;
     function original_id: longint;
+
+    procedure write_obj(callback: Tmani_write_proc; args: pointer);
 
     destructor Destroy; override;
   end;
@@ -150,11 +153,12 @@ type
     constructor get_meshgl(m: TManifoldClass; clean: boolean);
     constructor meshgl_copy(m: TMeshGLClass; clean: boolean);
     constructor meshgl_merge(m: TMeshGLClass; clean: boolean);
-    constructor import_meshgl(filename: pchar; force_cleanup: longint);
+    constructor meshgl_w_options(vert_props: Psingle; n_verts, n_props: Tsize_t; tri_verts: Puint32_t; n_tris: Tsize_t; options: PManifoldMeshGLOptions);
+    constructor get_meshgl_w_normals(m: TManifoldClass; normalIdx: Tint32_t; clean: boolean);
 
-    function meshgl_num_prop: longint;
-    function meshgl_num_vert: longint;
-    function meshgl_num_tri: longint;
+    function meshgl_num_prop: Tsize_t;
+    function meshgl_num_vert: Tsize_t;
+    function meshgl_num_tri: Tsize_t;
     function meshgl_vert_properties_length: Tsize_t;
     function meshgl_tri_length: Tsize_t;
     function meshgl_merge_length: Tsize_t;
@@ -192,6 +196,9 @@ type
     constructor get_meshgl(m: TManifoldClass; clean: boolean);
     constructor meshgl_copy(m: TMeshGL64Class; clean: boolean);
     constructor meshgl_merge(m: TMeshGL64Class; clean: boolean);
+    constructor meshgl64_read_obj(obj_file: pchar);
+    constructor get_meshgl64_w_normals(m: TManifoldClass; normalIdx: Tint32_t; clean: boolean);
+    constructor meshgl64_w_options(vert_props: Pdouble; n_verts, n_props: Tsize_t; tri_verts: Puint64_t; n_tris: Tsize_t; options: PManifoldMeshGL64Options);
 
     function num_prop: Tsize_t;
     function num_vert: Tsize_t;
@@ -213,6 +220,8 @@ type
     function run_transform: PDouble;
     function face_id: Puint64_t;
     function halfedge_tangent: PDouble;
+
+    procedure meshgl64_write_obj(callback: Tmani_write_proc; args: pointer);
 
     destructor Destroy; override;
   end;
@@ -382,44 +391,6 @@ type
     destructor Destroy; override;
   end;
 
-  { TExportOptionsClass }
-
-  TExportOptionsClass = class(TObject)
-  private
-    Fmem: array of byte;
-    Fobj: PManifoldExportOptions;
-    procedure Init;
-  public
-    property obj: PManifoldExportOptions read Fobj;
-
-    constructor export_options;
-
-    procedure export_options_set_faceted(faceted: longint);
-    procedure export_options_set_material(mat: PManifoldMaterial);
-    procedure destruct_export_options;
-    procedure delete_export_options;
-
-    destructor Destroy; override;
-  end;
-
-  { TMaterialClass }
-
-  TMaterialClass = class(TObject)
-  private
-    Fmem: array of byte;
-    Fobj: PManifoldMaterial;
-    procedure Init;
-  public
-    property obj: PManifoldMaterial read Fobj;
-
-    constructor material;
-
-    procedure material_set_roughness(roughness: double);
-    procedure material_set_metalness(metalness: double);
-    procedure material_set_color(color: TManifoldVec3);
-
-    destructor Destroy; override;
-  end;
 
   { TManifoldManifoldPairClass }
 
@@ -438,48 +409,7 @@ type
   end;
 
 
-
 implementation
-
-{ TManifoldManifoldPairClass }
-
-procedure TManifoldManifoldPairClass.Init;
-var
-  m_size: Tsize_t;
-begin
-  m_size := manifold_manifold_size;
-  SetLength(Fmem1, m_size);
-  SetLength(Fmem2, m_size);
-end;
-
-constructor TManifoldManifoldPairClass.split(a, b: TManifoldClass; clean_a, clean_b: boolean);
-begin
-  Init;
-  Fobj := manifold_split(Pointer(Fmem1), Pointer(Fmem2), a.Fobj, b.Fobj);
-  if clean_a then begin
-    a.Free;
-  end;
-  if clean_b then begin
-    b.Free;
-  end;
-end;
-
-constructor TManifoldManifoldPairClass.split_by_plane(m: TManifoldClass; normal_x, normal_y, normal_z, offset: double; clean: boolean);
-begin
-  Init;
-  Fobj := manifold_split_by_plane(Pointer(Fmem1), Pointer(Fmem2), m.Fobj, normal_x, normal_y, normal_z, offset);
-  if clean then begin
-    m.Free;
-  end;
-end;
-
-destructor TManifoldManifoldPairClass.Destroy;
-begin
-  manifold_destruct_cross_section(Fobj.first);
-  manifold_destruct_cross_section(Fobj.second);
-  inherited Destroy;
-end;
-
 
 { TCrossSectionClass }
 
@@ -704,7 +634,7 @@ end;
 constructor TCrossSectionClass.cross_section_warp_context(cs: TCrossSectionClass; fun: Twarp_context_func; ctx: pointer; clean: boolean);
 begin
   Init;
-  //  Fobj:= manifold_cross_section_warp_context(Pointer(Fmem), cs.Fobj, fun, ctx);
+  Fobj := manifold_cross_section_warp_context(Pointer(Fmem), cs.Fobj, fun, ctx);
   if clean then begin
     cs.Free;
   end;
@@ -1128,6 +1058,36 @@ begin
   end;
 end;
 
+constructor TManifoldClass.read_obj(obj_file: pchar);
+begin
+  Init;
+  Fobj := manifold_read_obj(Pointer(Fmem), obj_file);
+end;
+
+constructor TManifoldClass.minkowski_sum(a, b: TManifoldClass; clean_a, clean_b: boolean);
+begin
+  Init;
+  Fobj := manifold_minkowski_sum(Pointer(Fmem), a.Fobj, b.Fobj);
+  if clean_a then begin
+    a.Free;
+  end;
+  if clean_b then begin
+    b.Free;
+  end;
+end;
+
+constructor TManifoldClass.minkowski_difference(a, b: TManifoldClass; clean_a, clean_b: boolean);
+begin
+  Init;
+  Fobj := manifold_minkowski_difference(Pointer(Fmem), a.Fobj, b.Fobj);
+  if clean_a then begin
+    a.Free;
+  end;
+  if clean_b then begin
+    b.Free;
+  end;
+end;
+
 function TManifoldClass.is_empty: longint;
 begin
   Result := manifold_is_empty(Fobj);
@@ -1181,6 +1141,11 @@ end;
 function TManifoldClass.original_id: longint;
 begin
   Result := manifold_original_id(Fobj);
+end;
+
+procedure TManifoldClass.write_obj(callback: Tmani_write_proc; args: pointer);
+begin
+  manifold_write_obj(Fobj, callback, args);
 end;
 
 destructor TManifoldClass.Destroy;
@@ -1238,23 +1203,32 @@ begin
   end;
 end;
 
-constructor TMeshGLClass.import_meshgl(filename: pchar; force_cleanup: longint);
+constructor TMeshGLClass.meshgl_w_options(vert_props: Psingle; n_verts, n_props: Tsize_t; tri_verts: Puint32_t; n_tris: Tsize_t; options: PManifoldMeshGLOptions);
 begin
   Init;
-  Fobj := manifold_import_meshgl(Pointer(Fmem), filename, force_cleanup);
+  Fobj := manifold_meshgl_w_options(Pointer(Fmem), vert_props, n_verts, n_props, tri_verts, n_tris, options);
 end;
 
-function TMeshGLClass.meshgl_num_prop: longint;
+constructor TMeshGLClass.get_meshgl_w_normals(m: TManifoldClass; normalIdx: Tint32_t; clean: boolean);
+begin
+  Init;
+  Fobj := manifold_get_meshgl_w_normals(Pointer(Fmem), m.Fobj, normalIdx);
+  if clean then begin
+    m.Free;
+  end;
+end;
+
+function TMeshGLClass.meshgl_num_prop: Tsize_t;
 begin
   Result := manifold_meshgl_num_prop(Fobj);
 end;
 
-function TMeshGLClass.meshgl_num_vert: longint;
+function TMeshGLClass.meshgl_num_vert: Tsize_t;
 begin
   Result := manifold_meshgl_num_vert(Fobj);
 end;
 
-function TMeshGLClass.meshgl_num_tri: longint;
+function TMeshGLClass.meshgl_num_tri: Tsize_t;
 begin
   Result := manifold_meshgl_num_tri(Fobj);
 end;
@@ -1436,6 +1410,27 @@ begin
   end;
 end;
 
+constructor TMeshGL64Class.meshgl64_read_obj(obj_file: pchar);
+begin
+  Init;
+  Fobj := manifold_meshgl64_read_obj(Pointer(Fmem), obj_file);
+end;
+
+constructor TMeshGL64Class.get_meshgl64_w_normals(m: TManifoldClass; normalIdx: Tint32_t; clean: boolean);
+begin
+  Init;
+  Fobj := manifold_get_meshgl64_w_normals(Pointer(Fmem), m.Fobj, normalIdx);
+  if clean then begin
+    m.Free;
+  end;
+end;
+
+constructor TMeshGL64Class.meshgl64_w_options(vert_props: Pdouble; n_verts, n_props: Tsize_t; tri_verts: Puint64_t; n_tris: Tsize_t; options: PManifoldMeshGL64Options);
+begin
+  Init;
+  Fobj := manifold_meshgl64_w_options(Pointer(Fmem), vert_props, n_verts, n_props, tri_verts, n_tris, options);
+end;
+
 function TMeshGL64Class.num_prop: Tsize_t;
 begin
   Result := manifold_meshgl64_num_prop(Fobj);
@@ -1572,6 +1567,11 @@ begin
   Result := manifold_meshgl64_halfedge_tangent(Pointer(htmem), Fobj);
 end;
 
+procedure TMeshGL64Class.meshgl64_write_obj(callback: Tmani_write_proc; args: pointer);
+begin
+  manifold_meshgl64_write_obj(Fobj, callback, args);
+end;
+
 destructor TMeshGL64Class.Destroy;
 begin
   manifold_destruct_meshgl64(Fobj);
@@ -1593,7 +1593,6 @@ constructor TPolygonsClass.polygons(ps: PPManifoldSimplePolygon; len: Tsize_t);
 begin
   Init;
   Fobj := manifold_polygons(Pointer(Fmem), ps, len);
-  //  if clean then m.Free;
 end;
 
 constructor TPolygonsClass.slice(m: TManifoldClass; height: double; clean: boolean);
@@ -2065,82 +2064,42 @@ begin
   inherited Destroy;
 end;
 
-{ TExportOptionsClass }
+{ TManifoldManifoldPairClass }
 
-procedure TExportOptionsClass.Init;
+procedure TManifoldManifoldPairClass.Init;
 var
   m_size: Tsize_t;
 begin
-  m_size := manifold_export_options_size;
-  SetLength(Fmem, m_size);
+  m_size := manifold_manifold_size;
+  SetLength(Fmem1, m_size);
+  SetLength(Fmem2, m_size);
 end;
 
-constructor TExportOptionsClass.export_options;
+constructor TManifoldManifoldPairClass.split(a, b: TManifoldClass; clean_a, clean_b: boolean);
 begin
   Init;
-  Fobj := manifold_export_options(Pointer(Fmem));
+  Fobj := manifold_split(Pointer(Fmem1), Pointer(Fmem2), a.Fobj, b.Fobj);
+  if clean_a then begin
+    a.Free;
+  end;
+  if clean_b then begin
+    b.Free;
+  end;
 end;
 
-procedure TExportOptionsClass.export_options_set_faceted(faceted: longint);
-begin
-  manifold_export_options_set_faceted(Fobj, faceted);
-end;
-
-procedure TExportOptionsClass.export_options_set_material(mat: PManifoldMaterial);
-begin
-  manifold_export_options_set_material(Fobj, mat);
-end;
-
-procedure TExportOptionsClass.destruct_export_options;
-begin
-  manifold_destruct_export_options(Fobj);
-end;
-
-procedure TExportOptionsClass.delete_export_options;
-begin
-  manifold_delete_export_options(Fobj);
-end;
-
-destructor TExportOptionsClass.Destroy;
-begin
-  manifold_destruct_export_options(Fobj);
-  inherited Destroy;
-end;
-
-{ TMaterialClass }
-
-procedure TMaterialClass.Init;
-var
-  m_size: Tsize_t;
-begin
-  m_size := manifold_material_size;
-  SetLength(Fmem, m_size);
-end;
-
-constructor TMaterialClass.material;
+constructor TManifoldManifoldPairClass.split_by_plane(m: TManifoldClass; normal_x, normal_y, normal_z, offset: double; clean: boolean);
 begin
   Init;
-  Fobj := manifold_material(Pointer(Fmem));
+  Fobj := manifold_split_by_plane(Pointer(Fmem1), Pointer(Fmem2), m.Fobj, normal_x, normal_y, normal_z, offset);
+  if clean then begin
+    m.Free;
+  end;
 end;
 
-procedure TMaterialClass.material_set_roughness(roughness: double);
+destructor TManifoldManifoldPairClass.Destroy;
 begin
-  manifold_material_set_roughness(Fobj, roughness);
-end;
-
-procedure TMaterialClass.material_set_metalness(metalness: double);
-begin
-  manifold_material_set_metalness(Fobj, metalness);
-end;
-
-procedure TMaterialClass.material_set_color(color: TManifoldVec3);
-begin
-  manifold_material_set_color(Fobj, color);
-end;
-
-destructor TMaterialClass.Destroy;
-begin
-  manifold_destruct_material(Fobj);
+  manifold_destruct_cross_section(Fobj.first);
+  manifold_destruct_cross_section(Fobj.second);
   inherited Destroy;
 end;
 
