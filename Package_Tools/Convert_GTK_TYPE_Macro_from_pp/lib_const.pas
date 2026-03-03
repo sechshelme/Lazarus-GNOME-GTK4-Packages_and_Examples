@@ -304,6 +304,7 @@ const
     (libs: 'libaspell'; units: 'ctypes'),
     (libs: 'liblas_c'; units: 'ctypes'),
     (libs: 'liblaszip'; units: 'ctypes'),
+    (libs: 'liblasem'; units: 'fp_glib2, fp_lasem'),
 
 
 
