@@ -3,7 +3,7 @@ unit lsmcairo;
 interface
 
 uses
-  fp_cairo, fp_gdk_pixbuf2, fp_glib2, fp_lasem;
+  fp_cairo, fp_gdk_pixbuf2, fp_glib2, fp_lasem, lsmutils;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

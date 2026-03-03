@@ -20,6 +20,12 @@ const
   {$PACKRECORDS C}
   {$ENDIF}
 
+  type
+    TLsmMathmlElement=Integer;
+    TLsmMathmlElementClass=Integer;
+    PLsmMathmlElementStyle=Pointer;
+    PLsmMathmlView=Pointer;
+
 
 implementation
 

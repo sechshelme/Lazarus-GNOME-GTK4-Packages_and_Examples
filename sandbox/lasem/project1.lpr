@@ -1,13 +1,13 @@
 program project1;
 
 uses
+  fp_lasem,
+
   lsm,
   lsmtypes,
   lsmdebug,
   lsmdomentities,
   lsmutils,
-
-
   lsmdomnode,
   lsmdomnodelist,
   lsmdomelement,
@@ -15,40 +15,41 @@ uses
   lsmdomtext,
   lsmdomview,
   lsmdomdocument,
+  lsmdomdocumentfragment,
+  lsmdomimplementation,
+  lsmdomnamednodemap,
+  lsmdomparser,
+  lsmdomtypes,            // ???
+  lsmmathmlenums,
+  lsmtraits,
+  lsmmathmltraits,
+  lsmattributes,
+  lsmcairo,
 
-
-
-
-//  lsmattributes,
-//  lsmcairo,
-//  lsmdomdocumentfragment,
-
-
-  //lsmdomimplementation,
-  //lsmdomnamednodemap,
-  //lsmdomparser,
-  //lsmdomtypes,
-  //lsmitex,
-  //lsmmathmlactionelement,
-  //lsmmathmlaligngroupelement,
-  //lsmmathmlalignmarkelement,
-  //lsmmathmlattributes,
-  //lsmmathmldocument,
-  //lsmmathmlelement,
+  lsmmathmlpresentationtoken,
+  lsmmathmloperatorelement,
+  lsmmathmlmathelement,
+  lsmmathmldocument,
+  lsmmathmlview,
+  lsmmathmlstyle,
+  lsmmathmlattributes,
+  lsmitex,
+  lsmmathmlutils,
+  lsmmathmlelement,
+  lsmmathmlactionelement,
+  lsmmathmlpresentationcontainer,
+  lsmmathmlaligngroupelement,
+  lsmmathmlalignmarkelement,
   //lsmmathmlencloseelement,
-  //lsmmathmlenums,
   //lsmmathmlerrorelement,
   //lsmmathmlfencedelement,
   //lsmmathmlfractionelement,
   //lsmmathmlglyphtableams,
   //lsmmathmlitexelement,
   //lsmmathmllayoututils,
-  //lsmmathmlmathelement,
   //lsmmathmloperatordictionary,
-  //lsmmathmloperatorelement,
   //lsmmathmlpaddedelement,
   //lsmmathmlphantomelement,
-  //lsmmathmlpresentationcontainer,
   //lsmmathmlpresentationtoken,
   //lsmmathmlradicalelement,
   //lsmmathmlrowelement,
@@ -56,16 +57,12 @@ uses
   //lsmmathmlsemanticselement,
   //lsmmathmlspaceelement,
   //lsmmathmlstringelement,
-  //lsmmathmlstyle,
   //lsmmathmlstyleelement,
   //lsmmathmltablecellelement,
   //lsmmathmltableelement,
   //lsmmathmltablerowelement,
-  //lsmmathmltraits,
   //lsmmathmltypes,
   //lsmmathmlunderoverelement,
-  //lsmmathmlutils,
-  //lsmmathmlview,
   //lsmmisc,
   //lsmproperties,
   //lsmstr,
@@ -124,15 +121,17 @@ uses
   //lsmsvgtypes,
   //lsmsvguseelement,
   //lsmsvgview,
-  //lsmtraits,
 
 
 
 
+  fp_glib2;
 
-  fp_glib2, fp_lasem;
 
-  procedure main;
+procedure main;
+var
+  t:    TLsmMathmlElement;
+
   begin
   end;
 

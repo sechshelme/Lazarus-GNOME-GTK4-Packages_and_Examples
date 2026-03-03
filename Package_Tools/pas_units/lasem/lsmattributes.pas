@@ -3,7 +3,7 @@ unit lsmattributes;
 interface
 
 uses
-  fp_glib2, fp_lasem;
+  fp_glib2, fp_lasem, lsmtraits;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -26,6 +26,8 @@ type
     trait_default: pointer;
   end;
   PLsmAttributeInfos = ^TLsmAttributeInfos;
+
+  PLsmAttributeManager = type Pointer;
 
 function lsm_attribute_manager_get_type: TGType; cdecl; external liblasem;
 function lsm_attribute_manager_new(n_attributes: dword; attribute_infos: PLsmAttributeInfos): PLsmAttributeManager; cdecl; external liblasem;

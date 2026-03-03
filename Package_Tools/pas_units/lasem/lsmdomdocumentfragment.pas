@@ -3,7 +3,7 @@ unit lsmdomdocumentfragment;
 interface
 
 uses
-  fp_lasem;
+  fp_glib2, fp_lasem, lsmdomnode;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
