@@ -3,7 +3,7 @@ unit lsmdomdocument;
 interface
 
 uses
-  fp_glib2, fp_lasem;
+  fp_glib2, fp_lasem, lsmdomnode, lsmdomtext, lsmdomview;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -11,12 +11,6 @@ uses
 
 
 type
-  TLsmDomDocument = record
-    node: TLsmDomNode;
-    url: pchar;
-  end;
-  PLsmDomDocument = ^TLsmDomDocument;
-
   TLsmDomDocumentClass = record
     parent_class: TLsmDomNodeClass;
     get_document_element: function(self: PLsmDomDocument): PLsmDomElement; cdecl;
@@ -26,7 +20,7 @@ type
   end;
   PLsmDomDocumentClass = ^TLsmDomDocumentClass;
 
-function lsm_dom_document_get_type: TGType; cdecl; external lasem;
+function lsm_dom_document_get_type: TGType; cdecl; external liblasem;
 function lsm_dom_document_get_document_element(self: PLsmDomDocument): PLsmDomElement; cdecl; external liblasem;
 function lsm_dom_document_create_element(self: PLsmDomDocument; tag_name: pchar): PLsmDomElement; cdecl; external liblasem;
 function lsm_dom_document_create_text_node(self: PLsmDomDocument; data: pchar): PLsmDomText; cdecl; external liblasem;
@@ -34,7 +28,7 @@ function lsm_dom_document_create_view(self: PLsmDomDocument): PLsmDomView; cdecl
 function lsm_dom_document_get_url(self: PLsmDomDocument): pchar; cdecl; external liblasem;
 procedure lsm_dom_document_set_url(self: PLsmDomDocument; url: pchar); cdecl; external liblasem;
 procedure lsm_dom_document_set_path(self: PLsmDomDocument; path: pchar); cdecl; external liblasem;
-function lsm_dom_document_get_href_data(self: PLsmDomDocument; href: pchar; size: Pgsize): pointer; cdecl; external library;
+function lsm_dom_document_get_href_data(self: PLsmDomDocument; href: pchar; size: Pgsize): pointer; cdecl; external liblasem;
 
 // === Konventiert am: 3-3-26 15:11:52 ===
 

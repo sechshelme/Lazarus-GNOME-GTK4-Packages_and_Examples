@@ -3,7 +3,7 @@ unit lsmdomelement;
 interface
 
 uses
-  fp_glib2, fp_lasem;
+  fp_glib2, fp_lasem, lsmdomnode;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -11,11 +11,6 @@ uses
 
 
 type
-  TLsmDomElement = record
-    node: TLsmDomNode;
-  end;
-  PLsmDomElement = ^TLsmDomElement;
-
   TLsmDomElementClass = record
     parent_class: TLsmDomNodeClass;
     get_attribute: function(self: PLsmDomElement; name: pchar): pchar; cdecl;
