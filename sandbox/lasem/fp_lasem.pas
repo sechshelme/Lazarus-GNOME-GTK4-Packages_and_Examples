@@ -21,8 +21,8 @@ const
   {$ENDIF}
 
   type
-    TLsmMathmlElement=Integer;
-    TLsmMathmlElementClass=Integer;
+//    TLsmMathmlElement=Integer;
+//    TLsmMathmlElementClass=Integer;
     PLsmMathmlElementStyle=Pointer;
     PLsmMathmlView=Pointer;
 

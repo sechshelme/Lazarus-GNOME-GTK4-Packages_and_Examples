@@ -3,7 +3,7 @@ unit lsmmathmlpresentationtoken;
 interface
 
 uses
-  fp_glib2, fp_lasem, lsmdomnode, lsmmathmlattributes;
+  fp_glib2, fp_lasem, lsmdomnode;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -20,25 +20,24 @@ const
   LSM_MATHML_PRESENTATION_TOKEN_TYPE_TEXT = 2;
 
 type
-  TLsmMathmlPresentationToken = record
-    element: TLsmMathmlElement;
-    _type: TLsmMathmlPresentationTokenType;
-    math_family: TLsmMathmlStringAttribute;
-    math_variant: TLsmMathmlEnumAttribute;
-    math_size: TLsmMathmlLengthAttribute;
-    math_color: TLsmMathmlColorAttribute;
-    math_background: TLsmMathmlColorAttribute;
-    font_weight: TLsmMathmlEnumAttribute;
-    font_style: TLsmMathmlEnumAttribute;
-  end;
-  PLsmMathmlPresentationToken = ^TLsmMathmlPresentationToken;
+//  TLsmMathmlPresentationToken = record
+    //element: TLsmMathmlElement;
+    //_type: TLsmMathmlPresentationTokenType;
+    //math_family: TLsmMathmlStringAttribute;
+    //math_variant: TLsmMathmlEnumAttribute;
+    //math_size: TLsmMathmlLengthAttribute;
+    //math_color: TLsmMathmlColorAttribute;
+    //math_background: TLsmMathmlColorAttribute;
+    //font_weight: TLsmMathmlEnumAttribute;
+    //font_style: TLsmMathmlEnumAttribute;
+//  end;
+  PLsmMathmlPresentationToken = type Pointer;
 
-  TLsmMathmlPresentationTokenClass = record
-    parent_class: TLsmMathmlElementClass;
-    get_text: function(self: PLsmMathmlPresentationToken): pchar; cdecl;
-  end;
-  PLsmMathmlPresentationTokenClass = ^TLsmMathmlPresentationTokenClass;
-
+  //TLsmMathmlPresentationTokenClass = record
+  //  parent_class: TLsmMathmlElementClass;
+  //  get_text: function(self: PLsmMathmlPresentationToken): pchar; cdecl;
+  //end;
+  PLsmMathmlPresentationTokenClass = type Pointer;
 
 function lsm_mathml_presentation_token_get_type: TGType; cdecl; external liblasem;
 function lsm_mathml_number_element_new: PLsmDomNode; cdecl; external liblasem;

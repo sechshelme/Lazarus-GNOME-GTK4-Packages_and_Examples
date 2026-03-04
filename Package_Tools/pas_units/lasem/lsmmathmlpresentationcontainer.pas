@@ -11,15 +11,15 @@ uses
 
 
 type
-  TLsmMathmlPresentationContainer = record
-    element: TLsmMathmlElement;
-  end;
-  PLsmMathmlPresentationContainer = ^TLsmMathmlPresentationContainer;
+  //  TLsmMathmlPresentationContainer = record
+  ///    element: TLsmMathmlElement;
+  //  end;
+  PLsmMathmlPresentationContainer = type Pointer;
 
-  TLsmMathmlPresentationContainerClass = record
-    parent_class: TLsmMathmlElementClass;
-  end;
-  PLsmMathmlPresentationContainerClass = ^TLsmMathmlPresentationContainerClass;
+//  TLsmMathmlPresentationContainerClass = record
+//    parent_class: TLsmMathmlElementClass;
+//  end;
+  PLsmMathmlPresentationContainerClass = type Pointer;
 
 function lsm_mathml_presentation_container_get_type: TGType; cdecl; external liblasem;
 

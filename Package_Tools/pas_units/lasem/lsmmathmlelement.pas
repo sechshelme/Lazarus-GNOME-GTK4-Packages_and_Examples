@@ -3,7 +3,7 @@ unit lsmmathmlelement;
 interface
 
 uses
-  fp_glib2, fp_lasem, lsmmathmlenums, lsmmathmltraits, lsmdomnode, lsmdomelement, lsmattributes, lsmutils, lsmmathmlutils, lsmmathmlstyle, lsmmathmlview, lsmmathmloperatorelement;
+  fp_glib2, fp_lasem, lsmmathmlenums, lsmdomnode, lsmdomelement, lsmattributes, lsmmathmlutils, lsmmathmlstyle, lsmmathmloperatorelement;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

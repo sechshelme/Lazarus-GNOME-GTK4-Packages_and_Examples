@@ -3,7 +3,7 @@ unit lsmmathmlattributes;
 interface
 
 uses
-  fp_glib2, fp_lasem, lsmattributes, lsmmathmlenums, lsmmathmltraits, lsmmathmlstyle;
+  fp_glib2, fp_lasem, lsmattributes, lsmmathmltraits, lsmmathmlstyle;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

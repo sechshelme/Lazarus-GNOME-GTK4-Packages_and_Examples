@@ -3,7 +3,7 @@ unit lsmmathmlmathelement;
 interface
 
 uses
-  fp_glib2, fp_lasem, lsmdomnode, lsmdomview, lsmmathmlutils, lsmmathmlstyle, lsmmathmlattributes;
+  fp_glib2, fp_lasem, lsmdomnode, lsmdomview, lsmmathmlutils, lsmmathmlstyle;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -24,18 +24,18 @@ type
   end;
   PLsmMathmlView = ^TLsmMathmlView;
 
-  TLsmMathmlMathElement = record
-    element: TLsmMathmlElement;
-    default_style: PLsmMathmlStyle;
-    mode: TLsmMathmlEnumAttribute;
-    display: TLsmMathmlEnumAttribute;
-  end;
-  PLsmMathmlMathElement = ^TLsmMathmlMathElement;
+//  TLsmMathmlMathElement = record
+    //element: TLsmMathmlElement;
+    //default_style: PLsmMathmlStyle;
+    //mode: TLsmMathmlEnumAttribute;
+    //display: TLsmMathmlEnumAttribute;
+//  end;
+  PLsmMathmlMathElement = type Pointer;
 
-  TLsmMathmlMathElementClass = record
-    parent_class: TLsmMathmlElementClass;
-  end;
-  PLsmMathmlMathElementClass = ^TLsmMathmlMathElementClass;
+//  TLsmMathmlMathElementClass = record
+//    parent_class: TLsmMathmlElementClass;
+//  end;
+  PLsmMathmlMathElementClass = type Pointer;
 
 function lsm_mathml_math_element_get_type: TGType; cdecl; external liblasem;
 function lsm_mathml_math_element_new: PLsmDomNode; cdecl; external liblasem;

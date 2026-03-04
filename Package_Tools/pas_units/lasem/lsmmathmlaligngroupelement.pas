@@ -11,15 +11,15 @@ uses
 
 
 type
-  TLsmMathmlAlignGroupElement = record
-    element: TLsmMathmlElement;
-  end;
-  PLsmMathmlAlignGroupElement = ^TLsmMathmlAlignGroupElement;
+//  TLsmMathmlAlignGroupElement = record
+//    element: TLsmMathmlElement;
+//  end;
+  PLsmMathmlAlignGroupElement = type Pointer;
 
-  TLsmMathmlAlignGroupElementClass = record
-    parent_class: TLsmMathmlElementClass;
-  end;
-  PLsmMathmlAlignGroupElementClass = ^TLsmMathmlAlignGroupElementClass;
+//  TLsmMathmlAlignGroupElementClass = record
+//    parent_class: TLsmMathmlElementClass;
+//  end;
+  PLsmMathmlAlignGroupElementClass = type Pointer;
 
 function lsm_mathml_align_group_element_get_type: TGType; cdecl; external liblasem;
 function lsm_mathml_align_group_element_new: PLsmDomNode; cdecl; external liblasem;

@@ -3,7 +3,7 @@ unit lsmmathmloperatorelement;
 interface
 
 uses
-  fp_glib2, fp_lasem, lsmdomnode, lsmmathmlattributes, lsmmathmlpresentationtoken;
+  fp_glib2, fp_lasem, lsmdomnode;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -11,28 +11,28 @@ uses
 
 
 type
-  TLsmMathmlOperatorElement = record
-    presentation_token: TLsmMathmlPresentationToken;
-    form: TLsmMathmlEnumAttribute;
-    fence: TLsmMathmlBooleanAttribute;
-    separator: TLsmMathmlBooleanAttribute;
-    left_space: TLsmMathmlSpaceAttribute;
-    right_space: TLsmMathmlSpaceAttribute;
-    stretchy: TLsmMathmlBooleanAttribute;
-    symmetric: TLsmMathmlBooleanAttribute;
-    max_size: TLsmMathmlSpaceAttribute;
-    min_size: TLsmMathmlSpaceAttribute;
-    large_op: TLsmMathmlBooleanAttribute;
-    movable_limits: TLsmMathmlBooleanAttribute;
-    accent: TLsmMathmlBooleanAttribute;
-    is_large_op: Tgboolean;
-  end;
-  PLsmMathmlOperatorElement = ^TLsmMathmlOperatorElement;
+  //TLsmMathmlOperatorElement = record
+  //  presentation_token: TLsmMathmlPresentationToken;
+  //  form: TLsmMathmlEnumAttribute;
+  //  fence: TLsmMathmlBooleanAttribute;
+  //  separator: TLsmMathmlBooleanAttribute;
+  //  left_space: TLsmMathmlSpaceAttribute;
+  //  right_space: TLsmMathmlSpaceAttribute;
+  //  stretchy: TLsmMathmlBooleanAttribute;
+  //  symmetric: TLsmMathmlBooleanAttribute;
+  //  max_size: TLsmMathmlSpaceAttribute;
+  //  min_size: TLsmMathmlSpaceAttribute;
+  //  large_op: TLsmMathmlBooleanAttribute;
+  //  movable_limits: TLsmMathmlBooleanAttribute;
+  //  accent: TLsmMathmlBooleanAttribute;
+  //  is_large_op: Tgboolean;
+  //end;
+  PLsmMathmlOperatorElement = type Pointer;
 
-  TLsmMathmlOperatorElementClass = record
-    parent_class: TLsmMathmlPresentationTokenClass;
-  end;
-  PLsmMathmlOperatorElementClass = ^TLsmMathmlOperatorElementClass;
+//  TLsmMathmlOperatorElementClass = record
+//    parent_class: TLsmMathmlPresentationTokenClass;
+//  end;
+  PLsmMathmlOperatorElementClass = type Pointer;
 
 function lsm_mathml_operator_element_get_type: TGType; cdecl; external liblasem;
 function lsm_mathml_operator_element_new: PLsmDomNode; cdecl; external liblasem;

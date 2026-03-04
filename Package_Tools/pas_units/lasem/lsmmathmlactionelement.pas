@@ -3,7 +3,7 @@ unit lsmmathmlactionelement;
 interface
 
 uses
-  fp_glib2, fp_lasem, lsmdomnode, lsmmathmlpresentationcontainer;
+  fp_glib2, fp_lasem, lsmdomnode;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -11,15 +11,15 @@ uses
 
 
 type
-  TLsmMathmlActionElement = record
-    presentation_container: TLsmMathmlPresentationContainer;
-  end;
-  PLsmMathmlActionElement = ^TLsmMathmlActionElement;
+//  TLsmMathmlActionElement = record
+//    presentation_container: TLsmMathmlPresentationContainer;
+//  end;
+  PLsmMathmlActionElement = type Pointer;
 
-  TLsmMathmlActionElementClass = record
-    parent_class: TLsmMathmlPresentationContainerClass;
-  end;
-  PLsmMathmlActionElementClass = ^TLsmMathmlActionElementClass;
+//  TLsmMathmlActionElementClass = record
+//    parent_class: TLsmMathmlPresentationContainerClass;
+//  end;
+  PLsmMathmlActionElementClass = type Pointer;
 
 function lsm_mathml_action_element_get_type: TGType; cdecl; external liblasem;
 function lsm_mathml_action_element_new: PLsmDomNode; cdecl; external liblasem;

@@ -25,34 +25,33 @@ uses
   lsmmathmltraits,
   lsmattributes,
   lsmcairo,
-
+  lsmitex,
+  lsmmathmlutils,
+  lsmmathmlstyle,
   lsmmathmlpresentationtoken,
   lsmmathmloperatorelement,
   lsmmathmlmathelement,
   lsmmathmldocument,
   lsmmathmlview,
-  lsmmathmlstyle,
   lsmmathmlattributes,
-  lsmitex,
-  lsmmathmlutils,
   lsmmathmlelement,
-  lsmmathmlactionelement,
   lsmmathmlpresentationcontainer,
+  lsmmathmlactionelement,
   lsmmathmlaligngroupelement,
   lsmmathmlalignmarkelement,
-  //lsmmathmlencloseelement,
-  //lsmmathmlerrorelement,
-  //lsmmathmlfencedelement,
-  //lsmmathmlfractionelement,
-  //lsmmathmlglyphtableams,
-  //lsmmathmlitexelement,
-  //lsmmathmllayoututils,
-  //lsmmathmloperatordictionary,
-  //lsmmathmlpaddedelement,
-  //lsmmathmlphantomelement,
-  //lsmmathmlpresentationtoken,
-  //lsmmathmlradicalelement,
-  //lsmmathmlrowelement,
+
+  lsmmathmlencloseelement,
+  lsmmathmlerrorelement,
+  lsmmathmlfencedelement,
+  lsmmathmlfractionelement,
+  lsmmathmlglyphtableams,
+  lsmmathmlitexelement,
+  lsmmathmllayoututils,
+  lsmmathmloperatordictionary,
+  lsmmathmlpaddedelement,
+  lsmmathmlphantomelement,
+  lsmmathmlradicalelement,
+  lsmmathmlrowelement,
   //lsmmathmlscriptelement,
   //lsmmathmlsemanticselement,
   //lsmmathmlspaceelement,
@@ -124,15 +123,25 @@ uses
 
 
 
-
+  fp_GLIBTools,
   fp_glib2;
 
 
-procedure main;
-var
-  t:    TLsmMathmlElement;
+  procedure main;
+  var
+    t: TLsmMathmlElement;
 
+    p1: Pointer;
   begin
+    p1 := g_object_new(LSM_TYPE_MATHML_MATH_ELEMENT, nil);
+    GObjectShowProperty(p1);
+    p1 := g_object_new(LSM_TYPE_MATHML_PRESENTATION_TOKEN, nil);
+    GObjectShowProperty(p1);
+    p1 := g_object_new(LSM_TYPE_MATHML_ALIGN_GROUP_ELEMENT, nil);
+    GObjectShowProperty(p1);
+  //  p1 := g_object_new(LSM_TYPE_MATHML_PRESENTATION_CONTAINER, nil);
+//    GObjectShowProperty(p1);
+
   end;
 
 begin
