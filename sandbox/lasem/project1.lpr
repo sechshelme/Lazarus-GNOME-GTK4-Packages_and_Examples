@@ -85,20 +85,20 @@ uses
   lsmsvgfilterprimitive,               // lsmsvgelement, lsmsvgattributes, lsmsvglength
   lsmsvgfilterblend,                   // lsmsvgfilterprimitive, lsmsvgattributes
 
-  //lsmsvgfiltercolormatrix,
-  //lsmsvgfiltercomposite,
-  //lsmsvgfilterconvolvematrix,
-  //lsmsvgfilterdisplacementmap,
-  //lsmsvgfilterelement,
-  //lsmsvgfilterflood,
-  //lsmsvgfiltergaussianblur,
-  //lsmsvgfilterimage,
-  //lsmsvgfiltermerge,
-  //lsmsvgfiltermergenode,
-  //lsmsvgfiltermorphology,
-  //lsmsvgfilteroffset,
-  //lsmsvgfilterspecularlighting,
-  //lsmsvgfiltersurface,
+  lsmsvgfiltercolormatrix,             // lsmsvgfilterprimitive, lsmsvgattributes
+  lsmsvgfiltercomposite,               // lsmsvgfilterprimitive, lsmsvgattributes
+  lsmsvgfilterconvolvematrix,          // lsmsvgfilterprimitive, lsmsvgattributes
+  lsmsvgfilterdisplacementmap,         // lsmsvgfilterprimitive, lsmsvgattributes
+  lsmsvgfilterelement,                 // lsmsvgattributes, lsmsvgelement
+  lsmsvgfilterflood,                   // lsmsvgfilterprimitive
+  lsmsvgfiltergaussianblur,            // lsmsvgfilterprimitive, lsmsvgattributes
+  lsmsvgfilterimage,                   // lsmsvgfilterprimitive, lsmsvgattributes
+  lsmsvgfiltermerge,                   // lsmsvgfilterprimitive
+  lsmsvgfiltermergenode,
+  lsmsvgfiltermorphology,
+  lsmsvgfilteroffset,
+  lsmsvgfilterspecularlighting,
+  lsmsvgfiltersurface,
   //lsmsvgfiltertile,
   //lsmsvgfilterturbulence,
   //lsmsvggelement,
