@@ -21,18 +21,11 @@ const
   {$ENDIF}
 
 
-  type
-    PLsmSvgView = type Pointer;
-    PLsmSvgElement=type Pointer;
-    PLsmSvgStyle=type Pointer;
-
-
-//  type
-//    TLsmMathmlElement=Integer;
-//    TLsmMathmlElementClass=Integer;
-//    PLsmMathmlElementStyle=Pointer;
-//    PLsmMathmlView=Pointer;
-
+type
+  PLsmSvgView = type Pointer;
+  PLsmSvgElement = type Pointer;
+  PLsmSvgStyle = type Pointer;
+  PLsmExtents = type pointer;
 
 implementation
 

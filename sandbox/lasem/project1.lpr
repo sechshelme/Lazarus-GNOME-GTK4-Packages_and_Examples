@@ -4,7 +4,6 @@ uses
   fp_lasem,
 
   lsm,
-  lsmtypes,
   lsmdebug,
   lsmdomentities,
   lsmutils,
@@ -19,7 +18,6 @@ uses
   lsmdomimplementation,
   lsmdomnamednodemap,
   lsmdomparser,
-  lsmdomtypes,            // ???
   lsmmathmlenums,
   lsmtraits,
   lsmmathmltraits,
@@ -29,8 +27,6 @@ uses
   lsmmisc,
   lsmproperties,
   lsmstr,                               // static inline
-
-  lsmmathmltypes,                                // ?????
   lsmmathmlutils,
   lsmmathmlstyle,
   lsmmathmlpresentationtoken,
@@ -65,7 +61,6 @@ uses
   lsmmathmltableelement,                 // lsmmathmlelement, lsmmathmlattributes
   lsmmathmltablerowelement,              // lsmmathmlelement
   lsmmathmlunderoverelement,             // lsmmathmlelement, lsmmathmlattributes
-
   lsmsvgenums,
   lsmsvgcolors,
   lsmsvgmatrix,
@@ -84,7 +79,6 @@ uses
   lsmsvgellipseelement,                // lsmsvgattributes, lsmsvgtransformable
   lsmsvgfilterprimitive,               // lsmsvgelement, lsmsvgattributes, lsmsvglength
   lsmsvgfilterblend,                   // lsmsvgfilterprimitive, lsmsvgattributes
-
   lsmsvgfiltercolormatrix,             // lsmsvgfilterprimitive, lsmsvgattributes
   lsmsvgfiltercomposite,               // lsmsvgfilterprimitive, lsmsvgattributes
   lsmsvgfilterconvolvematrix,          // lsmsvgfilterprimitive, lsmsvgattributes
@@ -99,30 +93,28 @@ uses
   lsmsvgfilteroffset,
   lsmsvgfilterspecularlighting,
   lsmsvgfiltersurface,
-  //lsmsvgfiltertile,
-  //lsmsvgfilterturbulence,
-  //lsmsvggelement,
-  //lsmsvggradientelement,
-  //lsmsvgimageelement,
-  //lsmsvglineargradientelement,
-  //lsmsvglineelement,
-  //lsmsvgmarkerelement,
-  //lsmsvgmaskelement,
-  //lsmsvgpathelement,
-  //lsmsvgpatternelement,
-  //lsmsvgpolygonelement,
-  //lsmsvgpolylineelement,
-  //lsmsvgradialgradientelement,
-  //lsmsvgrectelement,
-  //lsmsvgstopelement,
-  //lsmsvgstyle,
-  //lsmsvgswitchelement,
-  //lsmsvgsymbolelement,
-  //lsmsvgtextelement,
-  //lsmsvgtspanelement,
-  //lsmsvgtypes,
-  //lsmsvguseelement,
-
+  lsmsvgfiltertile,
+  lsmsvgfilterturbulence,
+  lsmsvggelement,
+  lsmsvggradientelement,
+  lsmsvgimageelement,
+  lsmsvglineargradientelement,
+  lsmsvglineelement,
+  lsmsvgmarkerelement,
+  lsmsvgmaskelement,
+  lsmsvgpathelement,
+  lsmsvgpatternelement,
+  lsmsvgpolygonelement,
+  lsmsvgpolylineelement,
+  lsmsvgradialgradientelement,
+  lsmsvgrectelement,
+  lsmsvgstopelement,
+  lsmsvgstyle,
+  lsmsvgswitchelement,
+  lsmsvgsymbolelement,
+  lsmsvgtextelement,
+  lsmsvgtspanelement,
+  lsmsvguseelement,
 
 
   fp_GLIBTools,
@@ -132,6 +124,7 @@ uses
   procedure main;
   var
     t: TLsmMathmlElement;
+    c:TLsmSvgPaint    ;
 
     p1: Pointer;
   begin
