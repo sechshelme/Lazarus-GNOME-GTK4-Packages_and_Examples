@@ -25,6 +25,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="fp_lasem_package"/>
+      </Item>
+      <Item>
         <PackageName Value="fp_pango_package"/>
       </Item>
       <Item>
@@ -40,10 +43,6 @@
     <Units>
       <Unit>
         <Filename Value="project1.lpr"/>
-        <IsPartOfProject Value="True"/>
-      </Unit>
-      <Unit>
-        <Filename Value="fp_lasem.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit>
     </Units>
