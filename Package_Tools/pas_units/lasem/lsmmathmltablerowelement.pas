@@ -3,102 +3,74 @@ unit lsmmathmltablerowelement;
 interface
 
 uses
-  fp_glib2, fp_lasem;
+  fp_glib2, fp_lasem, lsmdomnode, lsmmathmlelement;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ Lasem
- *
- * Copyright © 2007-2008 Emmanuel Pacaud
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General
- * Public License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
- * Boston, MA 02110-1335, USA.
- *
- * Author:
- * 	Emmanuel Pacaud <emmanuel@gnome.org>
-  }
-{$ifndef LSM_MATHML_TABLE_ROW_ELEMENT_H}
-{$define LSM_MATHML_TABLE_ROW_ELEMENT_H}
-{$include <lsmmathmltypes.h>}
-{$include <lsmmathmlelement.h>}
 type
   PLsmMathmlTableRowElementType = ^TLsmMathmlTableRowElementType;
-  TLsmMathmlTableRowElementType =  Longint;
-  Const
-    LSM_MATHML_TABLE_ROW_ELEMENT_TYPE_ROW = 0;
-    LSM_MATHML_TABLE_ROW_ELEMENT_TYPE_LABELED_ROW = 1;
-;
+  TLsmMathmlTableRowElementType = longint;
+
+const
+  LSM_MATHML_TABLE_ROW_ELEMENT_TYPE_ROW = 0;
+  LSM_MATHML_TABLE_ROW_ELEMENT_TYPE_LABELED_ROW = 1;
 
 type
-  PLsmMathmlTableRowElement = ^TLsmMathmlTableRowElement;
   TLsmMathmlTableRowElement = record
-      element : TLsmMathmlElement;
-      _type : TLsmMathmlTableRowElementType;
-    end;
+    element: TLsmMathmlElement;
+    _type: TLsmMathmlTableRowElementType;
+  end;
+  PLsmMathmlTableRowElement = ^TLsmMathmlTableRowElement;
 
-  PLsmMathmlTableRowElementClass = ^TLsmMathmlTableRowElementClass;
   TLsmMathmlTableRowElementClass = record
-      parent_class : TLsmMathmlElementClass;
-    end;
+    parent_class: TLsmMathmlElementClass;
+  end;
+  PLsmMathmlTableRowElementClass = ^TLsmMathmlTableRowElementClass;
 
-
-function lsm_mathml_table_row_element_get_type:TGType;cdecl;external liblasem;
-function lsm_mathml_table_row_element_new:PLsmDomNode;cdecl;external liblasem;
-function lsm_mathml_labeled_table_row_element_new:PLsmDomNode;cdecl;external liblasem;
-{$endif}
+function lsm_mathml_table_row_element_get_type: TGType; cdecl; external liblasem;
+function lsm_mathml_table_row_element_new: PLsmDomNode; cdecl; external liblasem;
+function lsm_mathml_labeled_table_row_element_new: PLsmDomNode; cdecl; external liblasem;
 
 // === Konventiert am: 3-3-26 15:49:54 ===
 
-function LSM_TYPE_MATHML_TABLE_ROW_ELEMENT : TGType;
-function LSM_MATHML_TABLE_ROW_ELEMENT(obj : Pointer) : PLsmMathmlTableRowElement;
-function LSM_MATHML_TABLE_ROW_ELEMENT_CLASS(klass : Pointer) : PLsmMathmlTableRowElementClass;
-function LSM_IS_MATHML_TABLE_ROW_ELEMENT(obj : Pointer) : Tgboolean;
-function LSM_IS_MATHML_TABLE_ROW_ELEMENT_CLASS(klass : Pointer) : Tgboolean;
-function LSM_MATHML_TABLE_ROW_ELEMENT_GET_CLASS(obj : Pointer) : PLsmMathmlTableRowElementClass;
+function LSM_TYPE_MATHML_TABLE_ROW_ELEMENT: TGType;
+function LSM_MATHML_TABLE_ROW_ELEMENT(obj: Pointer): PLsmMathmlTableRowElement;
+function LSM_MATHML_TABLE_ROW_ELEMENT_CLASS(klass: Pointer): PLsmMathmlTableRowElementClass;
+function LSM_IS_MATHML_TABLE_ROW_ELEMENT(obj: Pointer): Tgboolean;
+function LSM_IS_MATHML_TABLE_ROW_ELEMENT_CLASS(klass: Pointer): Tgboolean;
+function LSM_MATHML_TABLE_ROW_ELEMENT_GET_CLASS(obj: Pointer): PLsmMathmlTableRowElementClass;
 
 implementation
 
-function LSM_TYPE_MATHML_TABLE_ROW_ELEMENT : TGType;
-  begin
-    LSM_TYPE_MATHML_TABLE_ROW_ELEMENT:=lsm_mathml_table_row_element_get_type;
-  end;
+function LSM_TYPE_MATHML_TABLE_ROW_ELEMENT: TGType;
+begin
+  LSM_TYPE_MATHML_TABLE_ROW_ELEMENT := lsm_mathml_table_row_element_get_type;
+end;
 
-function LSM_MATHML_TABLE_ROW_ELEMENT(obj : Pointer) : PLsmMathmlTableRowElement;
+function LSM_MATHML_TABLE_ROW_ELEMENT(obj: Pointer): PLsmMathmlTableRowElement;
 begin
   Result := PLsmMathmlTableRowElement(g_type_check_instance_cast(obj, LSM_TYPE_MATHML_TABLE_ROW_ELEMENT));
 end;
 
-function LSM_MATHML_TABLE_ROW_ELEMENT_CLASS(klass : Pointer) : PLsmMathmlTableRowElementClass;
+function LSM_MATHML_TABLE_ROW_ELEMENT_CLASS(klass: Pointer): PLsmMathmlTableRowElementClass;
 begin
   Result := PLsmMathmlTableRowElementClass(g_type_check_class_cast(klass, LSM_TYPE_MATHML_TABLE_ROW_ELEMENT));
 end;
 
-function LSM_IS_MATHML_TABLE_ROW_ELEMENT(obj : Pointer) : Tgboolean;
+function LSM_IS_MATHML_TABLE_ROW_ELEMENT(obj: Pointer): Tgboolean;
 begin
-  Result := g_type_check_instance_is_a(obj,  LSM_TYPE_MATHML_TABLE_ROW_ELEMENT);
+  Result := g_type_check_instance_is_a(obj, LSM_TYPE_MATHML_TABLE_ROW_ELEMENT);
 end;
 
-function LSM_IS_MATHML_TABLE_ROW_ELEMENT_CLASS(klass : Pointer) : Tgboolean;
+function LSM_IS_MATHML_TABLE_ROW_ELEMENT_CLASS(klass: Pointer): Tgboolean;
 begin
-  Result := g_type_check_class_is_a(klass,  LSM_TYPE_MATHML_TABLE_ROW_ELEMENT);
+  Result := g_type_check_class_is_a(klass, LSM_TYPE_MATHML_TABLE_ROW_ELEMENT);
 end;
 
-function LSM_MATHML_TABLE_ROW_ELEMENT_GET_CLASS(obj : Pointer) : PLsmMathmlTableRowElementClass;
+function LSM_MATHML_TABLE_ROW_ELEMENT_GET_CLASS(obj: Pointer): PLsmMathmlTableRowElementClass;
 begin
   Result := PLsmMathmlTableRowElementClass(PGTypeInstance(obj)^.g_class);
 end;

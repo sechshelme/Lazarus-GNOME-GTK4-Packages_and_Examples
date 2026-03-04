@@ -3,202 +3,171 @@ unit lsmsvgattributes;
 interface
 
 uses
-  fp_glib2, fp_lasem;
+  fp_glib2, fp_lasem, lsmattributes, lsmutils, lsmsvgenums, lsmsvgtraits, lsmsvglength, lsmsvgmatrix;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{ Lasem - SVG and Mathml library
- *
- * Copyright © 2007-2008 Emmanuel Pacaud
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General
- * Public License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
- * Boston, MA 02110-1335, USA.
- *
- * Author:
- * 	Emmanuel Pacaud <emmanuel@gnome.org>
-  }
-{$ifndef LSM_SVG_ATTRIBUTES_H}
-{$define LSM_SVG_ATTRIBUTES_H}
-{$include <lsmdom.h>}
-{$include <lsmsvgtypes.h>}
-{$include <lsmsvgenums.h>}
-{$include <lsmsvgtraits.h>}
-{$include <lsmsvglength.h>}
-{$include <lsmsvgmatrix.h>}
 type
-  PLsmSvgBlendingModeAttribute = ^TLsmSvgBlendingModeAttribute;
   TLsmSvgBlendingModeAttribute = record
-      base : TLsmAttribute;
-      value : TLsmSvgBlendingMode;
-    end;
+    base: TLsmAttribute;
+    value: TLsmSvgBlendingMode;
+  end;
+  PLsmSvgBlendingModeAttribute = ^TLsmSvgBlendingModeAttribute;
 
-  PLsmSvgBooleanAttribute = ^TLsmSvgBooleanAttribute;
   TLsmSvgBooleanAttribute = record
-      base : TLsmAttribute;
-      value : Tgboolean;
-    end;
+    base: TLsmAttribute;
+    value: Tgboolean;
+  end;
+  PLsmSvgBooleanAttribute = ^TLsmSvgBooleanAttribute;
 
-  PLsmSvgIntegerAttribute = ^TLsmSvgIntegerAttribute;
   TLsmSvgIntegerAttribute = record
-      base : TLsmAttribute;
-      value : longint;
-    end;
+    base: TLsmAttribute;
+    value: longint;
+  end;
+  PLsmSvgIntegerAttribute = ^TLsmSvgIntegerAttribute;
 
-  PLsmSvgDoubleAttribute = ^TLsmSvgDoubleAttribute;
   TLsmSvgDoubleAttribute = record
-      base : TLsmAttribute;
-      value : Tdouble;
-    end;
+    base: TLsmAttribute;
+    value: double;
+  end;
+  PLsmSvgDoubleAttribute = ^TLsmSvgDoubleAttribute;
 
-  PLsmSvgOneOrTwoDoubleAttribute = ^TLsmSvgOneOrTwoDoubleAttribute;
   TLsmSvgOneOrTwoDoubleAttribute = record
-      base : TLsmAttribute;
-      value : TLsmSvgOneOrTwoDouble;
-    end;
+    base: TLsmAttribute;
+    value: TLsmSvgOneOrTwoDouble;
+  end;
+  PLsmSvgOneOrTwoDoubleAttribute = ^TLsmSvgOneOrTwoDoubleAttribute;
 
-  PLsmSvgVectorAttribute = ^TLsmSvgVectorAttribute;
   TLsmSvgVectorAttribute = record
-      base : TLsmAttribute;
-      value : TLsmSvgVector;
-    end;
+    base: TLsmAttribute;
+    value: TLsmSvgVector;
+  end;
+  PLsmSvgVectorAttribute = ^TLsmSvgVectorAttribute;
 
-  PLsmSvgDashArrayAttribute = ^TLsmSvgDashArrayAttribute;
   TLsmSvgDashArrayAttribute = record
-      base : TLsmAttribute;
-      value : PLsmSvgDashArray;
-    end;
+    base: TLsmAttribute;
+    value: PLsmSvgDashArray;
+  end;
+  PLsmSvgDashArrayAttribute = ^TLsmSvgDashArrayAttribute;
 
-  PLsmSvgLengthAttribute = ^TLsmSvgLengthAttribute;
   TLsmSvgLengthAttribute = record
-      base : TLsmAttribute;
-      length : TLsmSvgLength;
-    end;
+    base: TLsmAttribute;
+    length: TLsmSvgLength;
+  end;
+  PLsmSvgLengthAttribute = ^TLsmSvgLengthAttribute;
 
-  PLsmSvgLengthListAttribute = ^TLsmSvgLengthListAttribute;
   TLsmSvgLengthListAttribute = record
-      base : TLsmAttribute;
-      list : TLsmSvgLengthList;
-    end;
+    base: TLsmAttribute;
+    list: TLsmSvgLengthList;
+  end;
+  PLsmSvgLengthListAttribute = ^TLsmSvgLengthListAttribute;
 
-  PLsmSvgPaintAttribute = ^TLsmSvgPaintAttribute;
   TLsmSvgPaintAttribute = record
-      base : TLsmAttribute;
-      paint : TLsmSvgPaint;
-    end;
+    base: TLsmAttribute;
+    paint: TLsmSvgPaint;
+  end;
+  PLsmSvgPaintAttribute = ^TLsmSvgPaintAttribute;
 
-  PLsmSvgStringAttribute = ^TLsmSvgStringAttribute;
   TLsmSvgStringAttribute = record
-      base : TLsmAttribute;
-      value : Pchar;
-    end;
+    base: TLsmAttribute;
+    value: pchar;
+  end;
+  PLsmSvgStringAttribute = ^TLsmSvgStringAttribute;
 
-  PLsmSvgColorAttribute = ^TLsmSvgColorAttribute;
   TLsmSvgColorAttribute = record
-      base : TLsmAttribute;
-      value : TLsmSvgColor;
-    end;
+    base: TLsmAttribute;
+    value: TLsmSvgColor;
+  end;
+  PLsmSvgColorAttribute = ^TLsmSvgColorAttribute;
 
-  PLsmSvgViewboxAttribute = ^TLsmSvgViewboxAttribute;
   TLsmSvgViewboxAttribute = record
-      base : TLsmAttribute;
-      value : TLsmBox;
-    end;
+    base: TLsmAttribute;
+    value: TLsmBox;
+  end;
+  PLsmSvgViewboxAttribute = ^TLsmSvgViewboxAttribute;
 
-  PLsmSvgTransformAttribute = ^TLsmSvgTransformAttribute;
   TLsmSvgTransformAttribute = record
-      base : TLsmAttribute;
-      matrix : TLsmSvgMatrix;
-    end;
+    base: TLsmAttribute;
+    matrix: TLsmSvgMatrix;
+  end;
+  PLsmSvgTransformAttribute = ^TLsmSvgTransformAttribute;
 
-  PLsmSvgPreserveAspectRatioAttribute = ^TLsmSvgPreserveAspectRatioAttribute;
   TLsmSvgPreserveAspectRatioAttribute = record
-      base : TLsmAttribute;
-      value : TLsmSvgPreserveAspectRatio;
-    end;
+    base: TLsmAttribute;
+    value: TLsmSvgPreserveAspectRatio;
+  end;
+  PLsmSvgPreserveAspectRatioAttribute = ^TLsmSvgPreserveAspectRatioAttribute;
 
-  PLsmSvgSpreadMethodAtttribute = ^TLsmSvgSpreadMethodAtttribute;
   TLsmSvgSpreadMethodAtttribute = record
-      base : TLsmAttribute;
-      value : TLsmSvgSpreadMethod;
-    end;
+    base: TLsmAttribute;
+    value: TLsmSvgSpreadMethod;
+  end;
+  PLsmSvgSpreadMethodAtttribute = ^TLsmSvgSpreadMethodAtttribute;
 
-  PLsmSvgPatternUnitsAttribute = ^TLsmSvgPatternUnitsAttribute;
   TLsmSvgPatternUnitsAttribute = record
-      base : TLsmAttribute;
-      value : TLsmSvgPatternUnits;
-    end;
+    base: TLsmAttribute;
+    value: TLsmSvgPatternUnits;
+  end;
+  PLsmSvgPatternUnitsAttribute = ^TLsmSvgPatternUnitsAttribute;
 
-  PLsmSvgMarkerUnitsAttribute = ^TLsmSvgMarkerUnitsAttribute;
   TLsmSvgMarkerUnitsAttribute = record
-      base : TLsmAttribute;
-      value : TLsmSvgMarkerUnits;
-    end;
+    base: TLsmAttribute;
+    value: TLsmSvgMarkerUnits;
+  end;
+  PLsmSvgMarkerUnitsAttribute = ^TLsmSvgMarkerUnitsAttribute;
 
-  PLsmSvgColorFilterTypeAttribute = ^TLsmSvgColorFilterTypeAttribute;
   TLsmSvgColorFilterTypeAttribute = record
-      base : TLsmAttribute;
-      value : TLsmSvgColorFilterType;
-    end;
+    base: TLsmAttribute;
+    value: TLsmSvgColorFilterType;
+  end;
+  PLsmSvgColorFilterTypeAttribute = ^TLsmSvgColorFilterTypeAttribute;
 
-  PLsmSvgAngleAttribute = ^TLsmSvgAngleAttribute;
   TLsmSvgAngleAttribute = record
-      base : TLsmAttribute;
-      value : TLsmSvgAngle;
-    end;
+    base: TLsmAttribute;
+    value: TLsmSvgAngle;
+  end;
+  PLsmSvgAngleAttribute = ^TLsmSvgAngleAttribute;
 
-  PLsmSvgMorphologyOperatorAttribute = ^TLsmSvgMorphologyOperatorAttribute;
   TLsmSvgMorphologyOperatorAttribute = record
-      base : TLsmAttribute;
-      value : TLsmSvgMorphologyOperator;
-    end;
+    base: TLsmAttribute;
+    value: TLsmSvgMorphologyOperator;
+  end;
+  PLsmSvgMorphologyOperatorAttribute = ^TLsmSvgMorphologyOperatorAttribute;
 
-  PLsmSvgEdgeModeAttribute = ^TLsmSvgEdgeModeAttribute;
   TLsmSvgEdgeModeAttribute = record
-      base : TLsmAttribute;
-      value : TLsmSvgEdgeMode;
-    end;
+    base: TLsmAttribute;
+    value: TLsmSvgEdgeMode;
+  end;
+  PLsmSvgEdgeModeAttribute = ^TLsmSvgEdgeModeAttribute;
 
-  PLsmSvgOneOrTwoIntegerAttribute = ^TLsmSvgOneOrTwoIntegerAttribute;
   TLsmSvgOneOrTwoIntegerAttribute = record
-      base : TLsmAttribute;
-      value : TLsmSvgOneOrTwoInteger;
-    end;
+    base: TLsmAttribute;
+    value: TLsmSvgOneOrTwoInteger;
+  end;
+  PLsmSvgOneOrTwoIntegerAttribute = ^TLsmSvgOneOrTwoIntegerAttribute;
 
-  PLsmSvgStitchTilesAttribute = ^TLsmSvgStitchTilesAttribute;
   TLsmSvgStitchTilesAttribute = record
-      base : TLsmAttribute;
-      value : TLsmSvgStitchTiles;
-    end;
+    base: TLsmAttribute;
+    value: TLsmSvgStitchTiles;
+  end;
+  PLsmSvgStitchTilesAttribute = ^TLsmSvgStitchTilesAttribute;
 
-  PLsmSvgTurbulenceTypeAttribute = ^TLsmSvgTurbulenceTypeAttribute;
   TLsmSvgTurbulenceTypeAttribute = record
-      base : TLsmAttribute;
-      value : TLsmSvgTurbulenceType;
-    end;
+    base: TLsmAttribute;
+    value: TLsmSvgTurbulenceType;
+  end;
+  PLsmSvgTurbulenceTypeAttribute = ^TLsmSvgTurbulenceTypeAttribute;
 
-  PLsmSvgChannelSelectorAttribute = ^TLsmSvgChannelSelectorAttribute;
   TLsmSvgChannelSelectorAttribute = record
-      base : TLsmAttribute;
-      value : TLsmSvgChannelSelector;
-    end;
-{$endif}
+    base: TLsmAttribute;
+    value: TLsmSvgChannelSelector;
+  end;
+  PLsmSvgChannelSelectorAttribute = ^TLsmSvgChannelSelectorAttribute;
 
-// === Konventiert am: 3-3-26 15:56:33 ===
+  // === Konventiert am: 3-3-26 15:56:33 ===
 
 
 implementation

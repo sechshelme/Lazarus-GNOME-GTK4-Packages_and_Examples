@@ -3,7 +3,7 @@ unit lsmmathmloperatorelement;
 interface
 
 uses
-  fp_glib2, fp_lasem, lsmdomnode;
+  fp_glib2, fp_lasem, lsmdomnode, lsmmathmlmathelement;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

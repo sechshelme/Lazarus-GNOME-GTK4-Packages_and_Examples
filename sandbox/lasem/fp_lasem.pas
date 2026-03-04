@@ -20,11 +20,18 @@ const
   {$PACKRECORDS C}
   {$ENDIF}
 
+
   type
+    PLsmSvgView = type Pointer;
+    PLsmSvgElement=type Pointer;
+    PLsmSvgStyle=type Pointer;
+
+
+//  type
 //    TLsmMathmlElement=Integer;
 //    TLsmMathmlElementClass=Integer;
-    PLsmMathmlElementStyle=Pointer;
-    PLsmMathmlView=Pointer;
+//    PLsmMathmlElementStyle=Pointer;
+//    PLsmMathmlView=Pointer;
 
 
 implementation

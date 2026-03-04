@@ -3,57 +3,28 @@ unit lsmsvgfilterblend;
 interface
 
 uses
-  fp_glib2, fp_lasem;
+  fp_glib2, fp_lasem, lsmdomnode, lsmattributes, lsmsvgfilterprimitive, lsmsvgattributes;
 
 {$IFDEF FPC}
 {$PACKRECORDS C}
 {$ENDIF}
 
 
-{ Lasem
- *
- * Copyright © 2012 Emmanuel Pacaud
- *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 2 of the License, or (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU Lesser General
- * Public License along with this library; if not, write to the
- * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
- * Boston, MA 02110-1335, USA.
- *
- * Author:
- * 	Emmanuel Pacaud <emmanuel@gnome.org>
-  }
-{$ifndef LSM_SVG_FILTER_BLEND_H}
-{$define LSM_SVG_FILTER_BLEND_H}
-{$include <lsmsvgtypes.h>}
-{$include <lsmsvgfilterprimitive.h>}
-
 type
-  PLsmSvgFilterBlend = ^TLsmSvgFilterBlend;
   TLsmSvgFilterBlend = record
       base : TLsmSvgFilterPrimitive;
       in2 : TLsmAttribute;
       mode : TLsmSvgBlendingModeAttribute;
     end;
+  PLsmSvgFilterBlend = ^TLsmSvgFilterBlend;
 
-  PLsmSvgFilterBlendClass = ^TLsmSvgFilterBlendClass;
   TLsmSvgFilterBlendClass = record
       element_class : TLsmSvgFilterPrimitiveClass;
     end;
-
+  PLsmSvgFilterBlendClass = ^TLsmSvgFilterBlendClass;
 
 function lsm_svg_filter_blend_get_type:TGType;cdecl;external liblasem;
 function lsm_svg_filter_blend_new:PLsmDomNode;cdecl;external liblasem;
-{$endif}
 
 // === Konventiert am: 3-3-26 15:59:12 ===
 

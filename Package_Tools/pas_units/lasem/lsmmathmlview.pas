@@ -3,7 +3,7 @@ unit lsmmathmlview;
 interface
 
 uses
-  fp_glib2, fp_lasem, lsmdomview, lsmmathmlenums, lsmmathmlutils, lsmmathmldocument, lsmmathmlmathelement, lsmmathmlstyle;
+  fp_glib2, fp_lasem, lsmdomview, lsmmathmlenums, lsmmathmlutils, lsmmathmldocument, lsmmathmlmathelement, lsmmathmlstyle, lsmmathmlelement;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

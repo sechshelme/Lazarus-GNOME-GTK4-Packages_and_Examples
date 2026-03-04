@@ -3,7 +3,7 @@ unit lsmmathmllayoututils;
 interface
 
 uses
-  fp_glib2, fp_lasem, lsmmathmlelement, lsmmathmlenums, lsmmathmlutils;
+  fp_glib2, fp_lasem, lsmmathmlelement, lsmmathmlenums, lsmmathmlutils, lsmmathmlmathelement;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
