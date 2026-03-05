@@ -11,61 +11,6 @@ type
   PGError = ^TGError;
   PPGError = ^PGError;
 
-{
-#define G_DEFINE_EXTENDED_ERROR(ErrorType, error_type)                  \
-static inline ErrorType ## Private *                                    \
-error_type ## _get_private (const GError *error)                        \
-                                                                       \
-  const gsize sa = 2 * sizeof (gsize);                                  \
-  const gsize as = (sizeof (ErrorType ## Private) + (sa - 1)) & -sa;    \
-  g_return_val_if_fail (error != NULL, NULL);                           \
-  g_return_val_if_fail (error->domain == error_type ## _quark (), NULL); \
-  return (ErrorType ## Private *) (((guint8 *)error) - as); \
-                                                                       \
-                                                                        \
-static void                                                             \
-g_error_with_ ## error_type ## _private_init (GError *error)            \
-                                                                       \
-  ErrorType ## Private *priv = error_type ## _get_private (error);      \
-  error_type ## _private_init (priv);                                   \
-                                                                       \
-                                                                        \
-static void                                                             \
-g_error_with_ ## error_type ## _private_copy (const GError *src_error,  \
-                                              GError       *dest_error) \
-                                                                       \
-  const ErrorType ## Private *src_priv = error_type ## _get_private (src_error);  \
-  ErrorType ## Private *dest_priv = error_type ## _get_private (dest_error); \
-  error_type ## _private_copy (src_priv, dest_priv);                    \
-                                                                       \
-                                                                        \
-static void                                                             \
-g_error_with_ ## error_type ## _private_clear (GError *error)           \
-                                                                       \
-  ErrorType ## Private *priv = error_type ## _get_private (error);      \
-  error_type ## _private_clear (priv);                                  \
-                                                                       \
-                                                                        \
-GQuark                                                                  \
-error_type ## _quark (void)                                             \
-                                                                       \
-  static GQuark q;                                                      \
-  static gsize initialized = 0;                                         \
-                                                                        \
-  if (g_once_init_enter (&initialized))                                 \
-                                                                       \
-      q = g_error_domain_register_static (#ErrorType,                   \
-                                          sizeof (ErrorType ## Private), \
-                                          g_error_with_ ## error_type ## _private_init, \
-                                          g_error_with_ ## error_type ## _private_copy, \
-                                          g_error_with_ ## error_type ## _private_clear); \
-      g_once_init_leave (&initialized, 1);                              \
-                                                                       \
-                                                                        \
-  return q;                                                             \
-
- }
-
   TGErrorInitFunc = procedure(error: PGError); cdecl;
   TGErrorCopyFunc = procedure(src_error: PGError; dest_error: PGError); cdecl;
   TGErrorClearFunc = procedure(error: PGError); cdecl;

@@ -25,7 +25,6 @@ type
   PLsmSvgView = type Pointer;
   PLsmSvgElement = type Pointer;
   PLsmSvgStyle = type Pointer;
-//  PLsmExtents = type pointer;
 
   {$DEFINE read_interface}
   {$include fp_lasem_includes.inc}
