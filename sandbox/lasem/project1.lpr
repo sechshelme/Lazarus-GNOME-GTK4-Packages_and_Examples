@@ -77,9 +77,58 @@ uses
     g_object_unref(doc);
   end;
 
+  procedure CreateViewManual(x, y: integer; cr: Pcairo_t);
+  var
+    doc: PLsmDomDocument;
+    view: PLsmDomView;
+    root, mstyle, mroot_el, mrow, mi, mo, mn, mindex: PLsmDomElement;
+  begin
+    doc := lsm_dom_document_new_from_memory('<math></math>', -1, nil);
+    root := PLsmDomElement(lsm_dom_document_get_document_element(doc));
+
+    // 1. Elemente erzeugen
+    mstyle := lsm_dom_document_create_element(doc, 'mstyle');
+    mroot_el := lsm_dom_document_create_element(doc, 'mroot'); // mroot statt msqrt
+    mrow := lsm_dom_document_create_element(doc, 'mrow');  // Container für den Inhalt
+    mindex := lsm_dom_document_create_element(doc, 'mn');    // Der Index (die 3)
+
+    mi := lsm_dom_document_create_element(doc, 'mi');
+    mo := lsm_dom_document_create_element(doc, 'mo');
+    mn := lsm_dom_document_create_element(doc, 'mn');
+
+    lsm_dom_element_set_attribute(mstyle, 'mathcolor', 'blue');
+
+    // Textknoten zuweisen
+    lsm_dom_node_append_child(LSM_DOM_NODE(mindex), LSM_DOM_NODE(lsm_dom_document_create_text_node(doc, '13')));
+    lsm_dom_node_append_child(LSM_DOM_NODE(mi), LSM_DOM_NODE(lsm_dom_document_create_text_node(doc, 'x')));
+    lsm_dom_node_append_child(LSM_DOM_NODE(mo), LSM_DOM_NODE(lsm_dom_document_create_text_node(doc, '·')));
+    lsm_dom_node_append_child(LSM_DOM_NODE(mn), LSM_DOM_NODE(lsm_dom_document_create_text_node(doc, '77')));
+
+    // 2. Hierarchie aufbauen
+    lsm_dom_node_append_child(LSM_DOM_NODE(root), LSM_DOM_NODE(mstyle));
+    lsm_dom_node_append_child(LSM_DOM_NODE(mstyle), LSM_DOM_NODE(mroot_el));
+
+    // Kind 1 von mroot: Der Inhalt (in eine Reihe gefasst)
+    lsm_dom_node_append_child(LSM_DOM_NODE(mroot_el), LSM_DOM_NODE(mrow));
+    lsm_dom_node_append_child(LSM_DOM_NODE(mrow), LSM_DOM_NODE(mi));
+    lsm_dom_node_append_child(LSM_DOM_NODE(mrow), LSM_DOM_NODE(mo));
+    lsm_dom_node_append_child(LSM_DOM_NODE(mrow), LSM_DOM_NODE(mn));
+
+    // Kind 2 von mroot: Der Index
+    lsm_dom_node_append_child(LSM_DOM_NODE(mroot_el), LSM_DOM_NODE(mindex));
+
+    // View & Render
+    view := lsm_dom_document_create_view(doc);
+    lsm_dom_view_set_resolution(view, 500.0);
+    lsm_dom_view_render(view, cr, x, y);
+
+    g_object_unref(view);
+    g_object_unref(doc);
+  end;
+
   procedure main;
   const
-    filename = 'test.png';
+    filename = '/tmp/test.png';
   var
     surface: Pcairo_surface_t;
     cr: Pcairo_t;
@@ -93,7 +142,8 @@ uses
     cairo_set_source_rgb(cr, 0, 0, 0);
 
     CreateView(0, 0, cr);
-    CreateView2(0, 100, cr);
+    CreateView2(0, 120, cr);
+    CreateViewManual(0, 240, cr);
 
     cairo_surface_write_to_png(surface, filename);
 
