@@ -24,17 +24,6 @@ interface
     {$endif}
 
 
-    (*
-    /home/tux/msys64/ucrt64/bin/libmgl2.dll
-    /home/tux/msys64/ucrt64/bin/libmgl2-wnd.dll
-    /home/tux/msys64/ucrt64/bin/libmgl2-qt6.dll
-    /home/tux/msys64/ucrt64/bin/libmgl2-qt.dll
-    /home/tux/msys64/ucrt64/bin/libmgl2-glut.dll
-    /home/tux/msys64/ucrt64/bin/libmgl2-fltk.dll
-    /home/tux/msys64/ucrt64/bin/libtmglib.dll
-    *)
-
-
   type
     {$IFDEF Linux}
     Tculong = uint64;

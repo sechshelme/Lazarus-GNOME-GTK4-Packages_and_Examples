@@ -8,7 +8,13 @@ uses
 
   procedure CreateView(x, y: integer; cr: Pcairo_t);
   const
-    itex_formel = '<p>$$\color{red}e^{i \pi} + 1 = 0$$</p>';
+    itex_formel =
+      '<p>$$' +
+      '\begin{bmatrix} 1 & 2 \\ 3 & 4 \\ 5 & 6 \end{bmatrix} \cdot ' +
+      '\begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} \cdot ' +
+      '\begin{bmatrix} 2 \\ 3 \end{bmatrix} = ' +
+      '\begin{bmatrix} 8 \\ 18 \\ 28 \end{bmatrix} ' +
+      '$$</p>';
   var
     err: PGError = nil;
     doc: PLsmDomDocument;
@@ -30,7 +36,7 @@ uses
     end;
 
     view := lsm_dom_document_create_view(doc);
-    lsm_dom_view_set_resolution(view, 500);
+    lsm_dom_view_set_resolution(view, 150);
     lsm_dom_view_get_size(view, @width, @height, nil);
     lsm_dom_view_render(view, cr, x, y);
 
@@ -39,6 +45,39 @@ uses
   end;
 
   procedure CreateView2(x, y: integer; cr: Pcairo_t);
+  const
+    itex_formel =
+      '<p>$$ |\vec{v}| = \sqrt[2]{x^2 + y^2 + z^2} $$</p>';
+  var
+    err: PGError = nil;
+    doc: PLsmDomDocument;
+    view: PLsmDomView;
+    width, height: double;
+    ch: PLsmMathmlDocument;
+  begin
+    ch := lsm_mathml_document_new_from_itex(itex_formel, -1, @err);
+    doc := LSM_DOM_DOCUMENT(ch);
+    if err <> nil then begin
+      g_printf('Fehler beim Parsen: %s'#10, err^.message);
+      g_error_free(err);
+      Exit;
+    end;
+
+    if doc = nil then begin
+      g_printf('Fehler: Dokument konnte nicht erstellt werden.'#10);
+      Exit;
+    end;
+
+    view := lsm_dom_document_create_view(doc);
+    lsm_dom_view_set_resolution(view, 150);
+    lsm_dom_view_get_size(view, @width, @height, nil);
+    lsm_dom_view_render(view, cr, x, y);
+
+    g_object_unref(view);
+    g_object_unref(doc);
+  end;
+
+  procedure CreateView3(x, y: integer; cr: Pcairo_t);
   const
     mathml =
       '<math>' +
@@ -69,7 +108,7 @@ uses
     end;
 
     view := lsm_dom_document_create_view(doc);
-    lsm_dom_view_set_resolution(view, 500);
+    lsm_dom_view_set_resolution(view, 250);
     lsm_dom_view_get_size(view, @width, @height, nil);
     lsm_dom_view_render(view, cr, x, y);
 
@@ -119,7 +158,7 @@ uses
 
     // View & Render
     view := lsm_dom_document_create_view(doc);
-    lsm_dom_view_set_resolution(view, 500.0);
+    lsm_dom_view_set_resolution(view, 250.0);
     lsm_dom_view_render(view, cr, x, y);
 
     g_object_unref(view);
@@ -143,7 +182,8 @@ uses
 
     CreateView(0, 0, cr);
     CreateView2(0, 120, cr);
-    CreateViewManual(0, 240, cr);
+    CreateView3(0, 240, cr);
+    CreateViewManual(0, 360, cr);
 
     cairo_surface_write_to_png(surface, filename);
 
