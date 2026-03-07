@@ -6,7 +6,7 @@ uses
   fp_cairo,
   fp_glib2;
 
-  procedure CreateView(x, y: integer; cr: Pcairo_t);
+  procedure CreateView1(x, y: integer; cr: Pcairo_t);
   const
     itex_formel =
       '<p>$$' +
@@ -47,7 +47,7 @@ uses
   procedure CreateView2(x, y: integer; cr: Pcairo_t);
   const
     itex_formel =
-      '<p>$$ |\vec{v}| = \sqrt[2]{x^2 + y^2 + z^2} $$</p>';
+      '<p>$$ \boxed{ |\vec{v}| = \sqrt[2]{x^2 + y^2 + z^2}} $$</p>';
   var
     err: PGError = nil;
     doc: PLsmDomDocument;
@@ -116,7 +116,38 @@ uses
     g_object_unref(doc);
   end;
 
-  procedure CreateViewManual(x, y: integer; cr: Pcairo_t);
+  procedure CreateView4(x, y: integer; cr: Pcairo_t);
+  const
+    svg_data =
+      '<svg width="200" height="200">' +
+      '  <rect x="10" y="10" width="50" height="50" fill="blue" />' +
+      '  <circle cx="100" cy="100" r="40" fill="red" />' +
+      '</svg>';
+  var
+    err: PGError = nil;
+    doc: PLsmDomDocument;
+    view: PLsmDomView;
+  begin
+    doc := lsm_dom_document_new_from_memory(svg_data, -1, nil);
+    if err <> nil then begin
+      g_printf('Fehler beim Parsen: %s'#10, err^.message);
+      g_error_free(err);
+      Exit;
+    end;
+
+    if doc = nil then begin
+      g_printf('Fehler: Dokument konnte nicht erstellt werden.'#10);
+      Exit;
+    end;
+
+    view := lsm_dom_document_create_view(doc);
+    lsm_dom_view_render(view, cr, x, y);
+
+    g_object_unref(view);
+    g_object_unref(doc);
+  end;
+
+  procedure CreateView5(x, y: integer; cr: Pcairo_t);
   var
     doc: PLsmDomDocument;
     view: PLsmDomView;
@@ -125,11 +156,10 @@ uses
     doc := lsm_dom_document_new_from_memory('<math></math>', -1, nil);
     root := PLsmDomElement(lsm_dom_document_get_document_element(doc));
 
-    // 1. Elemente erzeugen
     mstyle := lsm_dom_document_create_element(doc, 'mstyle');
-    mroot_el := lsm_dom_document_create_element(doc, 'mroot'); // mroot statt msqrt
-    mrow := lsm_dom_document_create_element(doc, 'mrow');  // Container für den Inhalt
-    mindex := lsm_dom_document_create_element(doc, 'mn');    // Der Index (die 3)
+    mroot_el := lsm_dom_document_create_element(doc, 'mroot');
+    mrow := lsm_dom_document_create_element(doc, 'mrow');
+    mindex := lsm_dom_document_create_element(doc, 'mn');
 
     mi := lsm_dom_document_create_element(doc, 'mi');
     mo := lsm_dom_document_create_element(doc, 'mo');
@@ -137,26 +167,21 @@ uses
 
     lsm_dom_element_set_attribute(mstyle, 'mathcolor', 'blue');
 
-    // Textknoten zuweisen
     lsm_dom_node_append_child(LSM_DOM_NODE(mindex), LSM_DOM_NODE(lsm_dom_document_create_text_node(doc, '13')));
     lsm_dom_node_append_child(LSM_DOM_NODE(mi), LSM_DOM_NODE(lsm_dom_document_create_text_node(doc, 'x')));
     lsm_dom_node_append_child(LSM_DOM_NODE(mo), LSM_DOM_NODE(lsm_dom_document_create_text_node(doc, '·')));
     lsm_dom_node_append_child(LSM_DOM_NODE(mn), LSM_DOM_NODE(lsm_dom_document_create_text_node(doc, '77')));
 
-    // 2. Hierarchie aufbauen
     lsm_dom_node_append_child(LSM_DOM_NODE(root), LSM_DOM_NODE(mstyle));
     lsm_dom_node_append_child(LSM_DOM_NODE(mstyle), LSM_DOM_NODE(mroot_el));
 
-    // Kind 1 von mroot: Der Inhalt (in eine Reihe gefasst)
     lsm_dom_node_append_child(LSM_DOM_NODE(mroot_el), LSM_DOM_NODE(mrow));
     lsm_dom_node_append_child(LSM_DOM_NODE(mrow), LSM_DOM_NODE(mi));
     lsm_dom_node_append_child(LSM_DOM_NODE(mrow), LSM_DOM_NODE(mo));
     lsm_dom_node_append_child(LSM_DOM_NODE(mrow), LSM_DOM_NODE(mn));
 
-    // Kind 2 von mroot: Der Index
     lsm_dom_node_append_child(LSM_DOM_NODE(mroot_el), LSM_DOM_NODE(mindex));
 
-    // View & Render
     view := lsm_dom_document_create_view(doc);
     lsm_dom_view_set_resolution(view, 250.0);
     lsm_dom_view_render(view, cr, x, y);
@@ -180,10 +205,11 @@ uses
 
     cairo_set_source_rgb(cr, 0, 0, 0);
 
-    CreateView(0, 0, cr);
-    CreateView2(0, 120, cr);
-    CreateView3(0, 240, cr);
-    CreateViewManual(0, 360, cr);
+    CreateView1(10, 10, cr);
+    CreateView2(10, 130, cr);
+    CreateView3(10, 250, cr);
+    CreateView4(250, 250, cr);
+    CreateView5(10, 370, cr);
 
     cairo_surface_write_to_png(surface, filename);
 
