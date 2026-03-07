@@ -20,10 +20,10 @@ uses
     doc: PLsmDomDocument;
     view: PLsmDomView;
     width, height: double;
-    ch: PLsmMathmlDocument;
+    md: PLsmMathmlDocument;
   begin
-    ch := lsm_mathml_document_new_from_itex(itex_formel, -1, @err);
-    doc := LSM_DOM_DOCUMENT(ch);
+    md := lsm_mathml_document_new_from_itex(itex_formel, -1, @err);
+    doc := LSM_DOM_DOCUMENT(md);
     if err <> nil then begin
       g_printf('Fehler beim Parsen: %s'#10, err^.message);
       g_error_free(err);
@@ -53,10 +53,8 @@ uses
     doc: PLsmDomDocument;
     view: PLsmDomView;
     width, height: double;
-    ch: PLsmMathmlDocument;
   begin
-    ch := lsm_mathml_document_new_from_itex(itex_formel, -1, @err);
-    doc := LSM_DOM_DOCUMENT(ch);
+    doc := LSM_DOM_DOCUMENT(lsm_mathml_document_new_from_itex(itex_formel, -1, @err));
     if err <> nil then begin
       g_printf('Fehler beim Parsen: %s'#10, err^.message);
       g_error_free(err);

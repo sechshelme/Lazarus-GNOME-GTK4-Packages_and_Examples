@@ -305,6 +305,7 @@ const
     (libs: 'liblas_c'; units: 'ctypes'),
     (libs: 'liblaszip'; units: 'ctypes'),
     (libs: 'liblasem'; units: 'fp_glib2, fp_lasem'),
+    (libs: 'libbox2d'; units: 'fp_box2d'),
 
 
 
