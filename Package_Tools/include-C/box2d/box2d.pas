@@ -3,7 +3,7 @@ unit box2d;
 interface
 
 uses
-  fp_box2d, types;
+  fp_box2d, types, id, collision, math_functions;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -19,13 +19,13 @@ function b2World_GetBodyEvents(worldId: Tb2WorldId): Tb2BodyEvents; cdecl; exter
 function b2World_GetSensorEvents(worldId: Tb2WorldId): Tb2SensorEvents; cdecl; external libbox2d;
 function b2World_GetContactEvents(worldId: Tb2WorldId): Tb2ContactEvents; cdecl; external libbox2d;
 function b2World_GetJointEvents(worldId: Tb2WorldId): Tb2JointEvents; cdecl; external libbox2d;
-function b2World_OverlapAABB(worldId: Tb2WorldId; aabb: Tb2AABB; filter: Tb2QueryFilter; fcn: Pb2OverlapResultFcn; context: pointer): Tb2TreeStats; cdecl; external libbox2d;
-function b2World_OverlapShape(worldId: Tb2WorldId; proxy: Pb2ShapeProxy; filter: Tb2QueryFilter; fcn: Pb2OverlapResultFcn; context: pointer): Tb2TreeStats; cdecl; external libbox2d;
-function b2World_CastRay(worldId: Tb2WorldId; origin: Tb2Vec2; translation: Tb2Vec2; filter: Tb2QueryFilter; fcn: Pb2CastResultFcn; context: pointer): Tb2TreeStats; cdecl; external libbox2d;
+function b2World_OverlapAABB(worldId: Tb2WorldId; aabb: Tb2AABB; filter: Tb2QueryFilter; fcn: Tb2OverlapResultFcn; context: pointer): Tb2TreeStats; cdecl; external libbox2d;
+function b2World_OverlapShape(worldId: Tb2WorldId; proxy: Pb2ShapeProxy; filter: Tb2QueryFilter; fcn: Tb2OverlapResultFcn; context: pointer): Tb2TreeStats; cdecl; external libbox2d;
+function b2World_CastRay(worldId: Tb2WorldId; origin: Tb2Vec2; translation: Tb2Vec2; filter: Tb2QueryFilter; fcn: Tb2CastResultFcn; context: pointer): Tb2TreeStats; cdecl; external libbox2d;
 function b2World_CastRayClosest(worldId: Tb2WorldId; origin: Tb2Vec2; translation: Tb2Vec2; filter: Tb2QueryFilter): Tb2RayResult; cdecl; external libbox2d;
-function b2World_CastShape(worldId: Tb2WorldId; proxy: Pb2ShapeProxy; translation: Tb2Vec2; filter: Tb2QueryFilter; fcn: Pb2CastResultFcn; context: pointer): Tb2TreeStats; cdecl; external libbox2d;
+function b2World_CastShape(worldId: Tb2WorldId; proxy: Pb2ShapeProxy; translation: Tb2Vec2; filter: Tb2QueryFilter; fcn: Tb2CastResultFcn; context: pointer): Tb2TreeStats; cdecl; external libbox2d;
 function b2World_CastMover(worldId: Tb2WorldId; mover: Pb2Capsule; translation: Tb2Vec2; filter: Tb2QueryFilter): single; cdecl; external libbox2d;
-procedure b2World_CollideMover(worldId: Tb2WorldId; mover: Pb2Capsule; filter: Tb2QueryFilter; fcn: Pb2PlaneResultFcn; context: pointer); cdecl; external libbox2d;
+procedure b2World_CollideMover(worldId: Tb2WorldId; mover: Pb2Capsule; filter: Tb2QueryFilter; fcn: Tb2PlaneResultFcn; context: pointer); cdecl; external libbox2d;
 procedure b2World_EnableSleeping(worldId: Tb2WorldId; flag: Tbool); cdecl; external libbox2d;
 function b2World_IsSleepingEnabled(worldId: Tb2WorldId): Tbool; cdecl; external libbox2d;
 procedure b2World_EnableContinuous(worldId: Tb2WorldId; flag: Tbool); cdecl; external libbox2d;
@@ -34,8 +34,8 @@ procedure b2World_SetRestitutionThreshold(worldId: Tb2WorldId; value: single); c
 function b2World_GetRestitutionThreshold(worldId: Tb2WorldId): single; cdecl; external libbox2d;
 procedure b2World_SetHitEventThreshold(worldId: Tb2WorldId; value: single); cdecl; external libbox2d;
 function b2World_GetHitEventThreshold(worldId: Tb2WorldId): single; cdecl; external libbox2d;
-procedure b2World_SetCustomFilterCallback(worldId: Tb2WorldId; fcn: Pb2CustomFilterFcn; context: pointer); cdecl; external libbox2d;
-procedure b2World_SetPreSolveCallback(worldId: Tb2WorldId; fcn: Pb2PreSolveFcn; context: pointer); cdecl; external libbox2d;
+procedure b2World_SetCustomFilterCallback(worldId: Tb2WorldId; fcn: Tb2CustomFilterFcn; context: pointer); cdecl; external libbox2d;
+procedure b2World_SetPreSolveCallback(worldId: Tb2WorldId; fcn: Tb2PreSolveFcn; context: pointer); cdecl; external libbox2d;
 procedure b2World_SetGravity(worldId: Tb2WorldId; gravity: Tb2Vec2); cdecl; external libbox2d;
 function b2World_GetGravity(worldId: Tb2WorldId): Tb2Vec2; cdecl; external libbox2d;
 procedure b2World_Explode(worldId: Tb2WorldId; explosionDef: Pb2ExplosionDef); cdecl; external libbox2d;
@@ -49,8 +49,8 @@ function b2World_GetProfile(worldId: Tb2WorldId): Tb2Profile; cdecl; external li
 function b2World_GetCounters(worldId: Tb2WorldId): Tb2Counters; cdecl; external libbox2d;
 procedure b2World_SetUserData(worldId: Tb2WorldId; userData: pointer); cdecl; external libbox2d;
 function b2World_GetUserData(worldId: Tb2WorldId): pointer; cdecl; external libbox2d;
-procedure b2World_SetFrictionCallback(worldId: Tb2WorldId; callback: Pb2FrictionCallback); cdecl; external libbox2d;
-procedure b2World_SetRestitutionCallback(worldId: Tb2WorldId; callback: Pb2RestitutionCallback); cdecl; external libbox2d;
+procedure b2World_SetFrictionCallback(worldId: Tb2WorldId; callback: Tb2FrictionCallback); cdecl; external libbox2d;
+procedure b2World_SetRestitutionCallback(worldId: Tb2WorldId; callback: Tb2RestitutionCallback); cdecl; external libbox2d;
 procedure b2World_DumpMemoryStats(worldId: Tb2WorldId); cdecl; external libbox2d;
 procedure b2World_RebuildStaticTree(worldId: Tb2WorldId); cdecl; external libbox2d;
 procedure b2World_EnableSpeculative(worldId: Tb2WorldId; flag: Tbool); cdecl; external libbox2d;

@@ -60,23 +60,14 @@ endif()
 
 uses
   base,
-  math_functions,      // xxxx
-  id,                  // xxxx
+  math_functions,
+  id,
+  collision,
   types,
   box2d,
-  //collision,
 
 
   fp_box2d;
-
-
-//  procedure b2PrismaticJoint_GetTargetTranslation; cdecl; external libbox2d;
-//  procedure b2CreateWorld; cdecl; external libbox2d;
-//  function b2MaxInt(a,b:Integer):Integer; cdecl; external libbox2d;
-//  function b2MinInt(a,b:Integer):Integer; cdecl; external libbox2d;
-//
-//function b2StoreWorldId(a,b:Integer):Integer; cdecl; external libbox2d;
-
 
 begin
 //  b2StoreWorldId(1,2);

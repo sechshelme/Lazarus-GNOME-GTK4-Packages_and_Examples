@@ -12,7 +12,8 @@ const
 
   {$ENDIF}
 
-const UINT64_MAX=MaxInt;
+const
+  UINT64_MAX = MaxInt;
 
 type
   Tuint8_t = uint8;
@@ -41,14 +42,15 @@ type
   Pint64_t = ^Tint64_t;
   PPint64_t = ^Pint64_t;
 
-  Tbool=Boolean;
+  Tbool = Boolean8;
 
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
 
+  Pb2TreeNode = type Pointer;
+
 implementation
 
 end.
-

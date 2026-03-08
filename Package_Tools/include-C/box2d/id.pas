@@ -44,23 +44,21 @@ type
   end;
   Pb2JointId = ^Tb2JointId;
 
-  Pb2ContactId = ^Tb2ContactId;
-
   Tb2ContactId = record
     index1: Tint32_t;
     world0: Tuint16_t;
     padding: Tint16_t;
     generation: Tuint32_t;
   end;
+  Pb2ContactId = ^Tb2ContactId;
 
-  { xxxxxxxxxxx
-static const b2WorldId b2_nullWorldId = B2_NULL_ID;
-static const b2BodyId b2_nullBodyId = B2_NULL_ID;
-static const b2ShapeId b2_nullShapeId = B2_NULL_ID;
-static const b2ChainId b2_nullChainId = B2_NULL_ID;
-static const b2JointId b2_nullJointId = B2_NULL_ID;
-static const b2ContactId b2_nullContactId = B2_NULL_ID;
- }
+const
+  b2_nullWorldId: Tb2WorldId = (index1: 0; generation: 0);
+  b2_nullBodyId: Tb2BodyId = (index1: 0; world0: 0; generation: 0);
+  b2_nullShapeId: Tb2ShapeId = (index1: 0; world0: 0; generation: 0);
+  b2_nullChainId: Tb2ChainId = (index1: 0; world0: 0; generation: 0);
+  b2_nullJointId: Tb2JointId = (index1: 0; world0: 0; generation: 0);
+  b2_nullContactId: Tb2ContactId = (index1: 0; world0: 0; padding: 0; generation: 0);
 
 function b2StoreWorldId(id: Tb2WorldId): Tuint32_t; cdecl; external libbox2d;
 function b2LoadWorldId(x: Tuint32_t): Tb2WorldId; cdecl; external libbox2d;
