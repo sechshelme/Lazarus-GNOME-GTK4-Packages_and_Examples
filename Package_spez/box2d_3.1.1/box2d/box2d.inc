@@ -1,13 +1,4 @@
-unit box2d;
-
-interface
-
-uses
-  fp_box2d, types, id, collision, math_functions;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 function b2CreateWorld(def: Pb2WorldDef): Tb2WorldId; cdecl; external libbox2d;
@@ -333,8 +324,11 @@ function b2Contact_GetData(contactId: Tb2ContactId): Tb2ContactData; cdecl; exte
 // === Konventiert am: 7-3-26 16:28:29 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

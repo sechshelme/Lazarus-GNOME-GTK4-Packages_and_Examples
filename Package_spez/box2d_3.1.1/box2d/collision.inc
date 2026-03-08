@@ -1,13 +1,4 @@
-unit collision;
-
-interface
-
-uses
-  fp_box2d, math_functions;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -370,8 +361,11 @@ function b2ClipVector(vector: Tb2Vec2; planes: Pb2CollisionPlane; count: longint
 // === Konventiert am: 7-3-26 16:28:31 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

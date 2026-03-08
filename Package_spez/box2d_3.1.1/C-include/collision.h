@@ -16,7 +16,6 @@ typedef struct b2Hull b2Hull;
  * @brief Geometry types and algorithms
  *
  * Definitions of circles, capsules, segments, and polygons. Various algorithms to compute hulls, mass properties, and so on.
- * Functions should take the shape as the first argument to assist editor auto-complete.
  * @{
  */
 
@@ -97,7 +96,7 @@ typedef struct b2MassData
 	/// The position of the shape's centroid relative to the shape's origin.
 	b2Vec2 center;
 
-	/// The rotational inertia of the shape about the shape center.
+	/// The rotational inertia of the shape about the local origin.
 	float rotationalInertia;
 } b2MassData;
 
@@ -178,41 +177,41 @@ typedef struct b2ChainSegment
 } b2ChainSegment;
 
 /// Validate ray cast input data (NaN, etc)
-extern bool b2IsValidRay( const b2RayCastInput* input );
+B2_API bool b2IsValidRay( const b2RayCastInput* input );
 
 /// Make a convex polygon from a convex hull. This will assert if the hull is not valid.
 /// @warning Do not manually fill in the hull data, it must come directly from b2ComputeHull
-extern b2Polygon b2MakePolygon( const b2Hull* hull, float radius );
+B2_API b2Polygon b2MakePolygon( const b2Hull* hull, float radius );
 
 /// Make an offset convex polygon from a convex hull. This will assert if the hull is not valid.
 /// @warning Do not manually fill in the hull data, it must come directly from b2ComputeHull
-extern b2Polygon b2MakeOffsetPolygon( const b2Hull* hull, b2Vec2 position, b2Rot rotation );
+B2_API b2Polygon b2MakeOffsetPolygon( const b2Hull* hull, b2Vec2 position, b2Rot rotation );
 
 /// Make an offset convex polygon from a convex hull. This will assert if the hull is not valid.
 /// @warning Do not manually fill in the hull data, it must come directly from b2ComputeHull
-extern b2Polygon b2MakeOffsetRoundedPolygon( const b2Hull* hull, b2Vec2 position, b2Rot rotation, float radius );
+B2_API b2Polygon b2MakeOffsetRoundedPolygon( const b2Hull* hull, b2Vec2 position, b2Rot rotation, float radius );
 
 /// Make a square polygon, bypassing the need for a convex hull.
 /// @param halfWidth the half-width
-extern b2Polygon b2MakeSquare( float halfWidth );
+B2_API b2Polygon b2MakeSquare( float halfWidth );
 
 /// Make a box (rectangle) polygon, bypassing the need for a convex hull.
 /// @param halfWidth the half-width (x-axis)
 /// @param halfHeight the half-height (y-axis)
-extern b2Polygon b2MakeBox( float halfWidth, float halfHeight );
+B2_API b2Polygon b2MakeBox( float halfWidth, float halfHeight );
 
 /// Make a rounded box, bypassing the need for a convex hull.
 /// @param halfWidth the half-width (x-axis)
 /// @param halfHeight the half-height (y-axis)
 /// @param radius the radius of the rounded extension
-extern b2Polygon b2MakeRoundedBox( float halfWidth, float halfHeight, float radius );
+B2_API b2Polygon b2MakeRoundedBox( float halfWidth, float halfHeight, float radius );
 
 /// Make an offset box, bypassing the need for a convex hull.
 /// @param halfWidth the half-width (x-axis)
 /// @param halfHeight the half-height (y-axis)
 /// @param center the local center of the box
 /// @param rotation the local rotation of the box
-extern b2Polygon b2MakeOffsetBox( float halfWidth, float halfHeight, b2Vec2 center, b2Rot rotation );
+B2_API b2Polygon b2MakeOffsetBox( float halfWidth, float halfHeight, b2Vec2 center, b2Rot rotation );
 
 /// Make an offset rounded box, bypassing the need for a convex hull.
 /// @param halfWidth the half-width (x-axis)
@@ -220,65 +219,65 @@ extern b2Polygon b2MakeOffsetBox( float halfWidth, float halfHeight, b2Vec2 cent
 /// @param center the local center of the box
 /// @param rotation the local rotation of the box
 /// @param radius the radius of the rounded extension
-extern b2Polygon b2MakeOffsetRoundedBox( float halfWidth, float halfHeight, b2Vec2 center, b2Rot rotation, float radius );
+B2_API b2Polygon b2MakeOffsetRoundedBox( float halfWidth, float halfHeight, b2Vec2 center, b2Rot rotation, float radius );
 
 /// Transform a polygon. This is useful for transferring a shape from one body to another.
-extern b2Polygon b2TransformPolygon( b2Transform transform, const b2Polygon* polygon );
+B2_API b2Polygon b2TransformPolygon( b2Transform transform, const b2Polygon* polygon );
 
 /// Compute mass properties of a circle
-extern b2MassData b2ComputeCircleMass( const b2Circle* shape, float density );
+B2_API b2MassData b2ComputeCircleMass( const b2Circle* shape, float density );
 
 /// Compute mass properties of a capsule
-extern b2MassData b2ComputeCapsuleMass( const b2Capsule* shape, float density );
+B2_API b2MassData b2ComputeCapsuleMass( const b2Capsule* shape, float density );
 
 /// Compute mass properties of a polygon
-extern b2MassData b2ComputePolygonMass( const b2Polygon* shape, float density );
+B2_API b2MassData b2ComputePolygonMass( const b2Polygon* shape, float density );
 
 /// Compute the bounding box of a transformed circle
-extern b2AABB b2ComputeCircleAABB( const b2Circle* shape, b2Transform transform );
+B2_API b2AABB b2ComputeCircleAABB( const b2Circle* shape, b2Transform transform );
 
 /// Compute the bounding box of a transformed capsule
-extern b2AABB b2ComputeCapsuleAABB( const b2Capsule* shape, b2Transform transform );
+B2_API b2AABB b2ComputeCapsuleAABB( const b2Capsule* shape, b2Transform transform );
 
 /// Compute the bounding box of a transformed polygon
-extern b2AABB b2ComputePolygonAABB( const b2Polygon* shape, b2Transform transform );
+B2_API b2AABB b2ComputePolygonAABB( const b2Polygon* shape, b2Transform transform );
 
 /// Compute the bounding box of a transformed line segment
-extern b2AABB b2ComputeSegmentAABB( const b2Segment* shape, b2Transform transform );
+B2_API b2AABB b2ComputeSegmentAABB( const b2Segment* shape, b2Transform transform );
 
 /// Test a point for overlap with a circle in local space
-extern bool b2PointInCircle( const b2Circle* shape, b2Vec2 point );
+B2_API bool b2PointInCircle( b2Vec2 point, const b2Circle* shape );
 
 /// Test a point for overlap with a capsule in local space
-extern bool b2PointInCapsule( const b2Capsule* shape, b2Vec2 point );
+B2_API bool b2PointInCapsule( b2Vec2 point, const b2Capsule* shape );
 
 /// Test a point for overlap with a convex polygon in local space
-extern bool b2PointInPolygon( const b2Polygon* shape, b2Vec2 point );
+B2_API bool b2PointInPolygon( b2Vec2 point, const b2Polygon* shape );
 
-/// Ray cast versus circle shape in local space.
-extern b2CastOutput b2RayCastCircle( const b2Circle* shape, const b2RayCastInput* input );
+/// Ray cast versus circle shape in local space. Initial overlap is treated as a miss.
+B2_API b2CastOutput b2RayCastCircle( const b2RayCastInput* input, const b2Circle* shape );
 
-/// Ray cast versus capsule shape in local space.
-extern b2CastOutput b2RayCastCapsule( const b2Capsule* shape, const b2RayCastInput* input );
+/// Ray cast versus capsule shape in local space. Initial overlap is treated as a miss.
+B2_API b2CastOutput b2RayCastCapsule( const b2RayCastInput* input, const b2Capsule* shape );
 
 /// Ray cast versus segment shape in local space. Optionally treat the segment as one-sided with hits from
 /// the left side being treated as a miss.
-extern b2CastOutput b2RayCastSegment( const b2Segment* shape, const b2RayCastInput* input, bool oneSided );
+B2_API b2CastOutput b2RayCastSegment( const b2RayCastInput* input, const b2Segment* shape, bool oneSided );
 
-/// Ray cast versus polygon shape in local space.
-extern b2CastOutput b2RayCastPolygon( const b2Polygon* shape, const b2RayCastInput* input );
+/// Ray cast versus polygon shape in local space. Initial overlap is treated as a miss.
+B2_API b2CastOutput b2RayCastPolygon( const b2RayCastInput* input, const b2Polygon* shape );
 
-/// Shape cast versus a circle.
-extern b2CastOutput b2ShapeCastCircle(const b2Circle* shape,  const b2ShapeCastInput* input );
+/// Shape cast versus a circle. Initial overlap is treated as a miss.
+B2_API b2CastOutput b2ShapeCastCircle( const b2ShapeCastInput* input, const b2Circle* shape );
 
-/// Shape cast versus a capsule.
-extern b2CastOutput b2ShapeCastCapsule( const b2Capsule* shape, const b2ShapeCastInput* input);
+/// Shape cast versus a capsule. Initial overlap is treated as a miss.
+B2_API b2CastOutput b2ShapeCastCapsule( const b2ShapeCastInput* input, const b2Capsule* shape );
 
-/// Shape cast versus a line segment.
-extern b2CastOutput b2ShapeCastSegment( const b2Segment* shape, const b2ShapeCastInput* input );
+/// Shape cast versus a line segment. Initial overlap is treated as a miss.
+B2_API b2CastOutput b2ShapeCastSegment( const b2ShapeCastInput* input, const b2Segment* shape );
 
-/// Shape cast versus a convex polygon.
-extern b2CastOutput b2ShapeCastPolygon( const b2Polygon* shape, const b2ShapeCastInput* input );
+/// Shape cast versus a convex polygon. Initial overlap is treated as a miss.
+B2_API b2CastOutput b2ShapeCastPolygon( const b2ShapeCastInput* input, const b2Polygon* shape );
 
 /// A convex hull. Used to create convex polygons.
 /// @warning Do not modify these values directly, instead use b2ComputeHull()
@@ -299,13 +298,13 @@ typedef struct b2Hull
 /// - more than B2_MAX_POLYGON_VERTICES points
 /// This welds close points and removes collinear points.
 /// @warning Do not modify a hull once it has been computed
-extern b2Hull b2ComputeHull( const b2Vec2* points, int count );
+B2_API b2Hull b2ComputeHull( const b2Vec2* points, int count );
 
 /// This determines if a hull is valid. Checks for:
 /// - convexity
 /// - collinear points
 /// This is expensive and should not be called at runtime.
-extern bool b2ValidateHull( const b2Hull* hull );
+B2_API bool b2ValidateHull( const b2Hull* hull );
 
 /**@}*/
 
@@ -339,7 +338,7 @@ typedef struct b2SegmentDistanceResult
 } b2SegmentDistanceResult;
 
 /// Compute the distance between two line segments, clamping at the end points if needed.
-extern b2SegmentDistanceResult b2SegmentDistance( b2Vec2 p1, b2Vec2 q1, b2Vec2 p2, b2Vec2 q2 );
+B2_API b2SegmentDistanceResult b2SegmentDistance( b2Vec2 p1, b2Vec2 q1, b2Vec2 p2, b2Vec2 q2 );
 
 /// Used to warm start the GJK simplex. If you call this function multiple times with nearby
 /// transforms this might improve performance. Otherwise you can zero initialize this.
@@ -357,8 +356,7 @@ typedef struct b2SimplexCache
 	uint8_t indexB[3];
 } b2SimplexCache;
 
-
-// xxxxxxxxxxx static const b2SimplexCache b2_emptySimplexCache = B2_ZERO_INIT;
+static const b2SimplexCache b2_emptySimplexCache = B2_ZERO_INIT;
 
 /// Input for b2ShapeDistance
 typedef struct b2DistanceInput
@@ -411,7 +409,7 @@ typedef struct b2Simplex
 /// Compute the closest points between two shapes represented as point clouds.
 /// b2SimplexCache cache is input/output. On the first call set b2SimplexCache.count to zero.
 /// The underlying GJK algorithm may be debugged by passing in debug simplexes and capacity. You may pass in NULL and 0 for these.
-extern b2DistanceOutput b2ShapeDistance( const b2DistanceInput* input, b2SimplexCache* cache, b2Simplex* simplexes,
+B2_API b2DistanceOutput b2ShapeDistance( const b2DistanceInput* input, b2SimplexCache* cache, b2Simplex* simplexes,
 										 int simplexCapacity );
 
 /// Input parameters for b2ShapeCast
@@ -428,13 +426,13 @@ typedef struct b2ShapeCastPairInput
 
 /// Perform a linear shape cast of shape B moving and shape A fixed. Determines the hit point, normal, and translation fraction.
 /// Initially touching shapes are treated as a miss.
-extern b2CastOutput b2ShapeCast( const b2ShapeCastPairInput* input );
+B2_API b2CastOutput b2ShapeCast( const b2ShapeCastPairInput* input );
 
 /// Make a proxy for use in overlap, shape cast, and related functions. This is a deep copy of the points.
-extern b2ShapeProxy b2MakeProxy( const b2Vec2* points, int count, float radius );
+B2_API b2ShapeProxy b2MakeProxy( const b2Vec2* points, int count, float radius );
 
 /// Make a proxy with a transform. This is a deep copy of the points.
-extern b2ShapeProxy b2MakeOffsetProxy( const b2Vec2* points, int count, float radius, b2Vec2 position, b2Rot rotation );
+B2_API b2ShapeProxy b2MakeOffsetProxy( const b2Vec2* points, int count, float radius, b2Vec2 position, b2Rot rotation );
 
 /// This describes the motion of a body/shape for TOI computation. Shapes are defined with respect to the body origin,
 /// which may not coincide with the center of mass. However, to support dynamics we must interpolate the center of mass
@@ -449,9 +447,9 @@ typedef struct b2Sweep
 } b2Sweep;
 
 /// Evaluate the transform sweep at a specific time.
-extern b2Transform b2GetSweepTransform( const b2Sweep* sweep, float time );
+B2_API b2Transform b2GetSweepTransform( const b2Sweep* sweep, float time );
 
-/// Time of impact input
+/// Input parameters for b2TimeOfImpact
 typedef struct b2TOIInput
 {
 	b2ShapeProxy proxyA; ///< The proxy for shape A
@@ -471,27 +469,18 @@ typedef enum b2TOIState
 	b2_toiStateSeparated
 } b2TOIState;
 
-/// Time of impact output
+/// Output parameters for b2TimeOfImpact.
 typedef struct b2TOIOutput
 {
-	/// The type of result
-	b2TOIState state;
-
-	/// The hit point
-	b2Vec2 point;
-
-	/// The hit normal
-	b2Vec2 normal;
-
-	/// The sweep time of the collision 
-	float fraction;
+	b2TOIState state; ///< The type of result
+	float fraction;	  ///< The sweep time of the collision
 } b2TOIOutput;
 
 /// Compute the upper bound on time before two shapes penetrate. Time is represented as
 /// a fraction between [0,tMax]. This uses a swept separating axis and may miss some intermediate,
 /// non-tunneling collisions. If you change the time interval, you should call this function
 /// again.
-extern b2TOIOutput b2TimeOfImpact( const b2TOIInput* input );
+B2_API b2TOIOutput b2TimeOfImpact( const b2TOIInput* input );
 
 /**@}*/
 
@@ -531,8 +520,6 @@ typedef struct b2ManifoldPoint
 
 	/// The total normal impulse applied across sub-stepping and restitution. This is important
 	/// to identify speculative contact points that had an interaction in the time step.
-	/// This includes the warm starting impulse, the sub-step delta impulse, and the restitution
-	/// impulse.
 	float totalNormalImpulse;
 
 	/// Relative normal velocity pre-solve. Used for hit events. If the normal impulse is
@@ -565,48 +552,48 @@ typedef struct b2Manifold
 } b2Manifold;
 
 /// Compute the contact manifold between two circles
-extern b2Manifold b2CollideCircles( const b2Circle* circleA, b2Transform xfA, const b2Circle* circleB, b2Transform xfB );
+B2_API b2Manifold b2CollideCircles( const b2Circle* circleA, b2Transform xfA, const b2Circle* circleB, b2Transform xfB );
 
 /// Compute the contact manifold between a capsule and circle
-extern b2Manifold b2CollideCapsuleAndCircle( const b2Capsule* capsuleA, b2Transform xfA, const b2Circle* circleB,
+B2_API b2Manifold b2CollideCapsuleAndCircle( const b2Capsule* capsuleA, b2Transform xfA, const b2Circle* circleB,
 											 b2Transform xfB );
 
 /// Compute the contact manifold between an segment and a circle
-extern b2Manifold b2CollideSegmentAndCircle( const b2Segment* segmentA, b2Transform xfA, const b2Circle* circleB,
+B2_API b2Manifold b2CollideSegmentAndCircle( const b2Segment* segmentA, b2Transform xfA, const b2Circle* circleB,
 											 b2Transform xfB );
 
 /// Compute the contact manifold between a polygon and a circle
-extern b2Manifold b2CollidePolygonAndCircle( const b2Polygon* polygonA, b2Transform xfA, const b2Circle* circleB,
+B2_API b2Manifold b2CollidePolygonAndCircle( const b2Polygon* polygonA, b2Transform xfA, const b2Circle* circleB,
 											 b2Transform xfB );
 
 /// Compute the contact manifold between a capsule and circle
-extern b2Manifold b2CollideCapsules( const b2Capsule* capsuleA, b2Transform xfA, const b2Capsule* capsuleB, b2Transform xfB );
+B2_API b2Manifold b2CollideCapsules( const b2Capsule* capsuleA, b2Transform xfA, const b2Capsule* capsuleB, b2Transform xfB );
 
 /// Compute the contact manifold between an segment and a capsule
-extern b2Manifold b2CollideSegmentAndCapsule( const b2Segment* segmentA, b2Transform xfA, const b2Capsule* capsuleB,
+B2_API b2Manifold b2CollideSegmentAndCapsule( const b2Segment* segmentA, b2Transform xfA, const b2Capsule* capsuleB,
 											  b2Transform xfB );
 
 /// Compute the contact manifold between a polygon and capsule
-extern b2Manifold b2CollidePolygonAndCapsule( const b2Polygon* polygonA, b2Transform xfA, const b2Capsule* capsuleB,
+B2_API b2Manifold b2CollidePolygonAndCapsule( const b2Polygon* polygonA, b2Transform xfA, const b2Capsule* capsuleB,
 											  b2Transform xfB );
 
 /// Compute the contact manifold between two polygons
-extern b2Manifold b2CollidePolygons( const b2Polygon* polygonA, b2Transform xfA, const b2Polygon* polygonB, b2Transform xfB );
+B2_API b2Manifold b2CollidePolygons( const b2Polygon* polygonA, b2Transform xfA, const b2Polygon* polygonB, b2Transform xfB );
 
 /// Compute the contact manifold between an segment and a polygon
-extern b2Manifold b2CollideSegmentAndPolygon( const b2Segment* segmentA, b2Transform xfA, const b2Polygon* polygonB,
+B2_API b2Manifold b2CollideSegmentAndPolygon( const b2Segment* segmentA, b2Transform xfA, const b2Polygon* polygonB,
 											  b2Transform xfB );
 
 /// Compute the contact manifold between a chain segment and a circle
-extern b2Manifold b2CollideChainSegmentAndCircle( const b2ChainSegment* segmentA, b2Transform xfA, const b2Circle* circleB,
+B2_API b2Manifold b2CollideChainSegmentAndCircle( const b2ChainSegment* segmentA, b2Transform xfA, const b2Circle* circleB,
 												  b2Transform xfB );
 
 /// Compute the contact manifold between a chain segment and a capsule
-extern b2Manifold b2CollideChainSegmentAndCapsule( const b2ChainSegment* segmentA, b2Transform xfA, const b2Capsule* capsuleB,
+B2_API b2Manifold b2CollideChainSegmentAndCapsule( const b2ChainSegment* segmentA, b2Transform xfA, const b2Capsule* capsuleB,
 												   b2Transform xfB, b2SimplexCache* cache );
 
 /// Compute the contact manifold between a chain segment and a rounded polygon
-extern b2Manifold b2CollideChainSegmentAndPolygon( const b2ChainSegment* segmentA, b2Transform xfA, const b2Polygon* polygonB,
+B2_API b2Manifold b2CollideChainSegmentAndPolygon( const b2ChainSegment* segmentA, b2Transform xfA, const b2Polygon* polygonB,
 												   b2Transform xfB, b2SimplexCache* cache );
 
 /**@}*/
@@ -678,50 +665,44 @@ typedef struct b2TreeStats
 } b2TreeStats;
 
 /// Constructing the tree initializes the node pool.
-extern b2DynamicTree b2DynamicTree_Create( void );
+B2_API b2DynamicTree b2DynamicTree_Create( void );
 
 /// Destroy the tree, freeing the node pool.
-extern void b2DynamicTree_Destroy( b2DynamicTree* tree );
+B2_API void b2DynamicTree_Destroy( b2DynamicTree* tree );
 
 /// Create a proxy. Provide an AABB and a userData value.
-extern int b2DynamicTree_CreateProxy( b2DynamicTree* tree, b2AABB aabb, uint64_t categoryBits, uint64_t userData );
+B2_API int b2DynamicTree_CreateProxy( b2DynamicTree* tree, b2AABB aabb, uint64_t categoryBits, uint64_t userData );
 
 /// Destroy a proxy. This asserts if the id is invalid.
-extern void b2DynamicTree_DestroyProxy( b2DynamicTree* tree, int proxyId );
+B2_API void b2DynamicTree_DestroyProxy( b2DynamicTree* tree, int proxyId );
 
 /// Move a proxy to a new AABB by removing and reinserting into the tree.
-extern void b2DynamicTree_MoveProxy( b2DynamicTree* tree, int proxyId, b2AABB aabb );
+B2_API void b2DynamicTree_MoveProxy( b2DynamicTree* tree, int proxyId, b2AABB aabb );
 
 /// Enlarge a proxy and enlarge ancestors as necessary.
-extern void b2DynamicTree_EnlargeProxy( b2DynamicTree* tree, int proxyId, b2AABB aabb );
+B2_API void b2DynamicTree_EnlargeProxy( b2DynamicTree* tree, int proxyId, b2AABB aabb );
 
 /// Modify the category bits on a proxy. This is an expensive operation.
-extern void b2DynamicTree_SetCategoryBits( b2DynamicTree* tree, int proxyId, uint64_t categoryBits );
+B2_API void b2DynamicTree_SetCategoryBits( b2DynamicTree* tree, int proxyId, uint64_t categoryBits );
 
 /// Get the category bits on a proxy.
-extern uint64_t b2DynamicTree_GetCategoryBits( b2DynamicTree* tree, int proxyId );
+B2_API uint64_t b2DynamicTree_GetCategoryBits( b2DynamicTree* tree, int proxyId );
 
 /// This function receives proxies found in the AABB query.
 /// @return true if the query should continue
-typedef bool (*b2TreeQueryCallbackFcn)( int proxyId, uint64_t userData, void* context );
+typedef bool b2TreeQueryCallbackFcn( int proxyId, uint64_t userData, void* context );
 
 /// Query an AABB for overlapping proxies. The callback class is called for each proxy that overlaps the supplied AABB.
 ///	@return performance data
-extern b2TreeStats b2DynamicTree_Query( const b2DynamicTree* tree, b2AABB aabb, uint64_t maskBits,
+B2_API b2TreeStats b2DynamicTree_Query( const b2DynamicTree* tree, b2AABB aabb, uint64_t maskBits,
 										b2TreeQueryCallbackFcn* callback, void* context );
-
-/// Query an AABB for overlapping proxies. The callback class is called for each proxy that overlaps the supplied AABB.
-/// No filtering is performed.
-///	@return performance data
-extern b2TreeStats b2DynamicTree_QueryAll( const b2DynamicTree* tree, b2AABB aabb, b2TreeQueryCallbackFcn* callback,
-										   void* context );
 
 /// This function receives clipped ray cast input for a proxy. The function
 /// returns the new ray fraction.
 /// - return a value of 0 to terminate the ray cast
 /// - return a value less than input->maxFraction to clip the ray
 /// - return a value of input->maxFraction to continue the ray cast without clipping
-typedef float (*b2TreeRayCastCallbackFcn)( const b2RayCastInput* input, int proxyId, uint64_t userData, void* context );
+typedef float b2TreeRayCastCallbackFcn( const b2RayCastInput* input, int proxyId, uint64_t userData, void* context );
 
 /// Ray cast against the proxies in the tree. This relies on the callback
 /// to perform a exact ray cast in the case were the proxy contains a shape.
@@ -736,7 +717,7 @@ typedef float (*b2TreeRayCastCallbackFcn)( const b2RayCastInput* input, int prox
 /// @param callback a callback class that is called for each proxy that is hit by the ray
 /// @param context user context that is passed to the callback
 ///	@return performance data
-extern b2TreeStats b2DynamicTree_RayCast( const b2DynamicTree* tree, const b2RayCastInput* input, uint64_t maskBits,
+B2_API b2TreeStats b2DynamicTree_RayCast( const b2DynamicTree* tree, const b2RayCastInput* input, uint64_t maskBits,
 										  b2TreeRayCastCallbackFcn* callback, void* context );
 
 /// This function receives clipped ray cast input for a proxy. The function
@@ -744,7 +725,7 @@ extern b2TreeStats b2DynamicTree_RayCast( const b2DynamicTree* tree, const b2Ray
 /// - return a value of 0 to terminate the ray cast
 /// - return a value less than input->maxFraction to clip the ray
 /// - return a value of input->maxFraction to continue the ray cast without clipping
-typedef float (*b2TreeShapeCastCallbackFcn)( const b2ShapeCastInput* input, int proxyId, uint64_t userData, void* context );
+typedef float b2TreeShapeCastCallbackFcn( const b2ShapeCastInput* input, int proxyId, uint64_t userData, void* context );
 
 /// Ray cast against the proxies in the tree. This relies on the callback
 /// to perform a exact ray cast in the case were the proxy contains a shape.
@@ -757,38 +738,38 @@ typedef float (*b2TreeShapeCastCallbackFcn)( const b2ShapeCastInput* input, int 
 /// @param callback a callback class that is called for each proxy that is hit by the shape
 /// @param context user context that is passed to the callback
 ///	@return performance data
-extern b2TreeStats b2DynamicTree_ShapeCast( const b2DynamicTree* tree, const b2ShapeCastInput* input, uint64_t maskBits,
+B2_API b2TreeStats b2DynamicTree_ShapeCast( const b2DynamicTree* tree, const b2ShapeCastInput* input, uint64_t maskBits,
 											b2TreeShapeCastCallbackFcn* callback, void* context );
 
 /// Get the height of the binary tree.
-extern int b2DynamicTree_GetHeight( const b2DynamicTree* tree );
+B2_API int b2DynamicTree_GetHeight( const b2DynamicTree* tree );
 
 /// Get the ratio of the sum of the node areas to the root area.
-extern float b2DynamicTree_GetAreaRatio( const b2DynamicTree* tree );
+B2_API float b2DynamicTree_GetAreaRatio( const b2DynamicTree* tree );
 
 /// Get the bounding box that contains the entire tree
-extern b2AABB b2DynamicTree_GetRootBounds( const b2DynamicTree* tree );
+B2_API b2AABB b2DynamicTree_GetRootBounds( const b2DynamicTree* tree );
 
 /// Get the number of proxies created
-extern int b2DynamicTree_GetProxyCount( const b2DynamicTree* tree );
+B2_API int b2DynamicTree_GetProxyCount( const b2DynamicTree* tree );
 
 /// Rebuild the tree while retaining subtrees that haven't changed. Returns the number of boxes sorted.
-extern int b2DynamicTree_Rebuild( b2DynamicTree* tree, bool fullBuild );
+B2_API int b2DynamicTree_Rebuild( b2DynamicTree* tree, bool fullBuild );
 
 /// Get the number of bytes used by this tree
-extern int b2DynamicTree_GetByteCount( const b2DynamicTree* tree );
+B2_API int b2DynamicTree_GetByteCount( const b2DynamicTree* tree );
 
 /// Get proxy user data
-extern uint64_t b2DynamicTree_GetUserData( const b2DynamicTree* tree, int proxyId );
+B2_API uint64_t b2DynamicTree_GetUserData( const b2DynamicTree* tree, int proxyId );
 
 /// Get the AABB of a proxy
-extern b2AABB b2DynamicTree_GetAABB( const b2DynamicTree* tree, int proxyId );
+B2_API b2AABB b2DynamicTree_GetAABB( const b2DynamicTree* tree, int proxyId );
 
 /// Validate this tree. For testing.
-extern void b2DynamicTree_Validate( const b2DynamicTree* tree );
+B2_API void b2DynamicTree_Validate( const b2DynamicTree* tree );
 
 /// Validate this tree has no enlarged AABBs. For testing.
-extern void b2DynamicTree_ValidateNoEnlarged( const b2DynamicTree* tree );
+B2_API void b2DynamicTree_ValidateNoEnlarged( const b2DynamicTree* tree );
 
 /**@}*/
 
@@ -843,10 +824,10 @@ typedef struct b2PlaneSolverResult
 /// @param targetDelta the desired movement from the position used to generate the collision planes
 /// @param planes the collision planes
 /// @param count the number of collision planes
-extern b2PlaneSolverResult b2SolvePlanes( b2Vec2 targetDelta, b2CollisionPlane* planes, int count );
+B2_API b2PlaneSolverResult b2SolvePlanes( b2Vec2 targetDelta, b2CollisionPlane* planes, int count );
 
 /// Clips the velocity against the given collision planes. Planes with zero push or clipVelocity
 /// set to false are skipped.
-extern b2Vec2 b2ClipVector( b2Vec2 vector, const b2CollisionPlane* planes, int count );
+B2_API b2Vec2 b2ClipVector( b2Vec2 vector, const b2CollisionPlane* planes, int count );
 
 /**@}*/

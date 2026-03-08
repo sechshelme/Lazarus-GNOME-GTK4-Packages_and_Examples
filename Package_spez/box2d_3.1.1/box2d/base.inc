@@ -1,13 +1,4 @@
-unit base;
-
-interface
-
-uses
-  fp_box2d;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -45,7 +36,10 @@ function b2Hash(hash: Tuint32_t; data: Puint8_t; count: longint): Tuint32_t; cde
 // === Konventiert am: 7-3-26 16:28:25 ===
 
 
-implementation
+{$ENDIF read_interface}
 
 
-end.
+{$IFDEF read_implementation}
+
+
+{$ENDIF read_implementation}

@@ -51,6 +51,23 @@ type
 
   Pb2TreeNode = type Pointer;
 
+  {$DEFINE read_interface}
+  {$include box2d/base.inc}
+  {$include box2d/math_functions.inc}
+  {$include box2d/id.inc}
+  {$include box2d/collision.inc}
+  {$include box2d/types.inc}
+  {$include box2d/box2d.inc}
+  {$UNDEF read_interface}
+
 implementation
 
+{$DEFINE read_implementation}
+{$include box2d/base.inc}
+{$include box2d/math_functions.inc}
+{$include box2d/id.inc}
+{$include box2d/collision.inc}
+{$include box2d/types.inc}
+{$include box2d/box2d.inc}
+{$UNDEF read_implementation}
 end.

@@ -1,13 +1,4 @@
-unit types;
-
-interface
-
-uses
-  fp_box2d, math_functions, id, collision;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -662,8 +653,11 @@ function b2DefaultDebugDraw: Tb2DebugDraw; cdecl; external libbox2d;
 // === Konventiert am: 7-3-26 16:28:40 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

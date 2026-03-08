@@ -1,13 +1,4 @@
-unit id;
-
-interface
-
-uses
-  fp_box2d;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 type
   Tb2WorldId = record
@@ -76,7 +67,10 @@ function b2LoadContactId(values: Puint32_t): Tb2ContactId; cdecl; external libbo
 // === Konventiert am: 7-3-26 17:01:54 ===
 
 
-implementation
+{$ENDIF read_interface}
 
 
-end.
+{$IFDEF read_implementation}
+
+
+{$ENDIF read_implementation}

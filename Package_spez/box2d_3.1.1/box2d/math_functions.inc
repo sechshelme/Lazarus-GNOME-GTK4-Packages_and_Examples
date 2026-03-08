@@ -1,13 +1,4 @@
-unit math_functions;
-
-interface
-
-uses
-  fp_box2d;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -140,8 +131,11 @@ function b2GetLengthUnitsPerMeter: single; cdecl; external libbox2d;
 // === Konventiert am: 7-3-26 16:28:37 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}
