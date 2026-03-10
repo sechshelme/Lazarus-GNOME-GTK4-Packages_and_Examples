@@ -2,7 +2,7 @@
 
 ## Installation ab fork
 fork herunterladen und installieren:
-```bash
+```sh
 git clone https://github.com/sechshelme/box2d.git
 mkdir build
 cd build
