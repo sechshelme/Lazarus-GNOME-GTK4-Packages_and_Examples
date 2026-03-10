@@ -1,6 +1,6 @@
 # Installation
 
-## Installation ab forh
+## Installation ab fork
 fork herunterladen und installieren:
 ```bash
 git clone https://github.com/sechshelme/box2d.git
@@ -11,8 +11,8 @@ cmake ../box2d/ -DBUILD_SHARED_LIBS=ON -DBOX2D_CUSTOM_EXPORTS=ON
 
 ## Installation über die Original Quellen von libbox2d
 
-
 In `.../box2d/box2d/include/box2d/base.h` ändern:
+
 Alt:
 ```c
 #ifdef __cplusplus
@@ -60,6 +60,7 @@ Neu:
 ```
 
 In `.../box2d/box2d/include/box2d/id.h` ändern:
+
 Alt:
 ```c
 #ifdef __cplusplus
@@ -93,6 +94,7 @@ Neu:
 ```
 
 In `.../box2d/box2d/CMakeLists.txt` ändern:
+
 Alt::
 ```
 option(BOX2D_DISABLE_SIMD "Disable SIMD math (slower)" OFF)
