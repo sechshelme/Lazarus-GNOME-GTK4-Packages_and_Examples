@@ -1,5 +1,7 @@
 unit fp_box2d;
 
+{$modeswitch typehelpers}
+
 interface
 
 const
@@ -60,6 +62,24 @@ type
   {$include box2d/box2d.inc}
   {$UNDEF read_interface}
 
+type
+  Tb2Vec2Helper = type helper for Tb2Vec2
+    procedure SetItems(x, y: single);
+  end;
+
+  { Tb2RotHelper }
+
+  Tb2RotHelper = type helper for Tb2Rot
+    procedure SetItems(c, s: single);
+  end;
+
+  Tb2CircleHelper = type helper for Tb2Circle
+    procedure SetItems(center: Tb2Vec2; radius: single);
+    procedure SetItems(cx, cy, radius: single);
+  end;
+
+
+
 implementation
 
 {$DEFINE read_implementation}
@@ -70,4 +90,30 @@ implementation
 {$include box2d/types.inc}
 {$include box2d/box2d.inc}
 {$UNDEF read_implementation}
+
+procedure Tb2Vec2Helper.SetItems(x, y: single);
+begin
+  Self.x := x;
+  Self.y := y;
+end;
+
+procedure Tb2RotHelper.SetItems(c, s: single);
+begin
+  Self.c := c;
+  Self.s := s;
+end;
+
+procedure Tb2CircleHelper.SetItems(center: Tb2Vec2; radius: single);
+begin
+  Self.center := center;
+  Self.radius := radius;
+end;
+
+procedure Tb2CircleHelper.SetItems(cx, cy, radius: single);
+begin
+  Self.center.x := cx;
+  Self.center.y := cy;
+  Self.radius := radius;
+end;
+
 end.
