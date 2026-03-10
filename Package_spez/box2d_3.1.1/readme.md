@@ -6,7 +6,7 @@ fork herunterladen und installieren:
 git clone https://github.com/sechshelme/box2d.git
 mkdir build
 cd build
-cmake ../box2d/ -DBUILD_SHARED_LIBS=ON -DBOX2D_CUSTOM_EXPORTS=ON
+cmake ../box2d/ -DBUILD_SHARED_LIBS=ON -DBOX2D_CUSTOM_EXPORTS=ON -DBOX2D_AVX2=ON -DCMAKE_BUILD_TYPE=Release
 ```
 
 ## Installation über die Original Quellen von libbox2d
