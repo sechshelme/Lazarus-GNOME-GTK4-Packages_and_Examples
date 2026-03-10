@@ -96,7 +96,7 @@ Neu:
 In `.../box2d/box2d/CMakeLists.txt` ändern:
 
 Alt::
-```
+```cmake
 option(BOX2D_DISABLE_SIMD "Disable SIMD math (slower)" OFF)
 option(BOX2D_COMPILE_WARNING_AS_ERROR "Compile warnings as errors" OFF)
 
@@ -106,7 +106,7 @@ endif()
 ```
 
 Neu:
-```
+```cmake
 option(BOX2D_DISABLE_SIMD "Disable SIMD math (slower)" OFF)
 option(BOX2D_COMPILE_WARNING_AS_ERROR "Compile warnings as errors" OFF)
 
@@ -123,6 +123,7 @@ endif()
 ```
 
 In `.../box2d/box2d/src/CMakeLists.txt` ändern:
+
 Alt:
 ```cmake
 elseif (UNIX)
