@@ -279,16 +279,16 @@ function b2CollideChainSegmentAndPolygon(segmentA: Pb2ChainSegment; xfA: Tb2Tran
 type
   Tb2DynamicTree = record
     nodes: Pb2TreeNode;
-    root: longint;
-    nodeCount: longint;
-    nodeCapacity: longint;
-    freeList: longint;
-    proxyCount: longint;
-    leafIndices: Plongint;
+    root: Tint32_t;
+    nodeCount: Tint32_t;
+    nodeCapacity: Tint32_t;
+    freeList: Tint32_t;
+    proxyCount: Tint32_t;
+    leafIndices: Pint32_t;
     leafBoxes: Pb2AABB;
     leafCenters: Pb2Vec2;
-    binIndices: Plongint;
-    rebuildCapacity: longint;
+    binIndices: Pint32_t;
+    rebuildCapacity: Tint32_t;
   end;
   Pb2DynamicTree = ^Tb2DynamicTree;
 
