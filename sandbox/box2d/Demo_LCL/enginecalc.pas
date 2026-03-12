@@ -68,9 +68,12 @@ implementation
 
 constructor TEngine.Create;
 var
-  offset2:Tb2Vec2=(x:50.0; y:-0.5);
+  offset2: Tb2Vec2 = (x: 100.0; y: -0.5);
   groundBox2: Tb2Polygon;
-  r: Tb2Rot=(c:cos(0.3);s:sin(0.3));
+  r: Tb2Rot = (c: cos(0.3); s: sin(0.3));
+  transform: Tb2Transform;
+  i: integer;
+  localPoint, worldPoint: Tb2Vec2;
 begin
   // 1. Welt erstellen (Gravitation: 10m/s² nach unten)
   worldDef := b2DefaultWorldDef;
@@ -80,7 +83,7 @@ begin
   // 2. Boden erstellen (Statisch)
   groundBodyDef := b2DefaultBodyDef();
   groundBodyDef.position.SetItems(0.0, GROUND_Y); // Boden liegt bei y = -2
-  groundBodyDef.rotation.SetItems(Cos(0.05), Sin(-0.05)); // Boden liegt bei y = -2
+//  groundBodyDef.rotation.SetItems(Cos(0.05), Sin(-0.05)); // Boden liegt bei y = -2
   groundId := b2CreateBody(worldId, @groundBodyDef);
 
   groundBox := b2MakeBox(GROUND_HALF_WIDTH, GROUND_HALF_HEIGHT); // 100m breit, 2m hoch
@@ -91,6 +94,30 @@ begin
 
   groundBox2 := b2MakeOffsetBox(GROUND_HALF_WIDTH, GROUND_HALF_HEIGHT, offset2, r);
   b2CreatePolygonShape(groundId, @groundShapeDef, @groundBox2);
+
+
+
+  // 1. Die aktuelle Transformation (Position/Rotation) des Körpers holen
+  transform := b2Body_GetTransform(groundId);
+
+  // 2. Die Eckpunkte der ersten Box (groundBox) auslesen
+  // groundBox wurde mit b2MakeBox erstellt, die Punkte stehen in .vertices
+  for i := 0 to groundBox.count - 1 do begin
+    localPoint := groundBox.vertices[i];
+    // Umrechnung von "lokal am Körper" zu "echte Weltposition"
+    worldPoint := b2TransformPoint(transform, localPoint);
+
+    WriteLn(i: 4, '.  ', worldPoint.x: 2: 1, ' x ', worldPoint.y: 2: 1);
+  end;
+  WriteLn();
+  for i := 0 to groundBox2.count - 1 do begin
+    localPoint := groundBox2.vertices[i];
+    // Umrechnung von "lokal am Körper" zu "echte Weltposition"
+    worldPoint := b2TransformPoint(transform, localPoint);
+
+    WriteLn(i: 4, '.  ', worldPoint.x: 2: 1, ' x ', worldPoint.y: 2: 1);
+  end;
+
 
 
 

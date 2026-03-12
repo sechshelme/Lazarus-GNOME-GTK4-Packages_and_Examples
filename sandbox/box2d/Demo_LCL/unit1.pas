@@ -51,13 +51,13 @@ const
 var
   x, y, h: integer;
 begin
-  h := ClientHeight - 100;
+  h := ClientHeight - 400;
   Canvas.Line(0, h, Trunc(GROUND_HALF_WIDTH * 10), h );
   x := Trunc(ballPos.x * 10);
   y := h - Trunc(ballPos.y * 10);
 
   Canvas.Arc(x - r, y-2*r, x + r, y-4*r, 0, 5760);
-  WriteLn('x: ', x: 4, '  y: ', y: 4);
+//  WriteLn('x: ', x: 4, '  y: ', y: 4);
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);
