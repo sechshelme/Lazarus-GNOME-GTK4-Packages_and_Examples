@@ -47,17 +47,27 @@ end;
 
 procedure TForm1.FormPaint(Sender: TObject);
 const
-  r = 15;
+  Scale = 5;
 var
-  x, y, h: integer;
+  x, y, h, r, i, j: integer;
+  coord: TCoords;
 begin
-  h := ClientHeight - 400;
-  Canvas.Line(0, h, Trunc(GROUND_HALF_WIDTH * 10), h );
-  x := Trunc(ballPos.x * 10);
-  y := h - Trunc(ballPos.y * 10);
+  coord := engine.Coords;
 
-  Canvas.Arc(x - r, y-2*r, x + r, y-4*r, 0, 5760);
-//  WriteLn('x: ', x: 4, '  y: ', y: 4);
+  h := ClientHeight - 600;
+  for i := 0 to Length(coord) - 1 do begin
+    Canvas.MoveTo(coord[i, 0].X * Scale, h - coord[i, 0].Y * Scale);
+    for j := 1 to Length(coord[i]) - 1 do begin
+      Canvas.LineTo(coord[i, j].X * Scale, h - coord[i, j].Y * Scale);
+    end;
+    Canvas.LineTo(coord[i, 0].X * Scale, h - coord[i, 0].Y * Scale);
+  end;
+
+  r := Trunc(BALL_RADIUS * Scale);
+  x := Trunc(ballPos.x * Scale);
+  y := h - Trunc(ballPos.y * Scale);
+
+  Canvas.Arc(x - r, y - r, x + r, y + r, 0, 5760);
 end;
 
 procedure TForm1.Timer1Timer(Sender: TObject);

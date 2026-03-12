@@ -2,7 +2,7 @@ unit EngineCalc;
 
 interface
 
-uses fp_box2d;
+uses Classes, fp_box2d;
 
 const
   // ==========================================================
@@ -24,13 +24,13 @@ const
 
   // Startposition des Balls
   BALL_START_X = 0.0;
-  BALL_START_Y = 10.0;
+  BALL_START_Y = 40.0;
 
   // Horizontale Geschwindigkeit
   BALL_VELOCITY_X = 5.0;
 
   // Radius des Balls: 0.5 Meter
-  BALL_RADIUS = 0.5;
+  BALL_RADIUS = 2.0;
 
   // Dichte: Bestimmt das Gewicht (kg/m²)
   BALL_DENSITY = 1.0;
@@ -43,22 +43,30 @@ const
 
   // Box2D nutzt "halbe Ausdehnung"
   GROUND_HALF_WIDTH = 50.0;
-  GROUND_HALF_HEIGHT = 1.0;
+  GROUND_HALF_HEIGHT = 5.0;
+   type
+  TCoord=    array[0..3]of TPoint;
+  TCoords=array of TCoord;
 
 type
+
+  { TEngine }
+
   TEngine = class(TObject)
   private
     worldDef: Tb2WorldDef;
     worldId: Tb2WorldId;
     groundBodyDef, bodyDef: Tb2BodyDef;
     groundId, bodyId: Tb2BodyId;
-    groundBox: Tb2Polygon;
+    groundBox: array of Tb2Polygon;
     groundShapeDef, shapeDef: Tb2ShapeDef;
     circle: Tb2Circle;
     shapeId: Tb2ShapeId;
     timeStep: single;
     subStepCount: integer;
+    function GetCoords: TCoords;
   public
+    property Coords:TCoords read GetCoords;
     constructor Create;
     function GetPos: Tb2Vec2;
     destructor Destroy; override;
@@ -66,10 +74,44 @@ type
 
 implementation
 
+type
+  TBoxData = record
+    ofs: Tb2Vec2;
+    angele: single;
+  end;
+
+const
+  BoxDatas: array of TBoxData = (
+    (ofs: (x: 0.0; y: 0.0); angele: 0),
+    (ofs: (x: 75.0; y: -10); angele: 0.3),
+    (ofs: (x: 20.0; y: -60); angele: -0.3)
+    );
+
+function TEngine.GetCoords: TCoords;
+var
+  worldPoint, localPoint: Tb2Vec2;
+  i, j: Integer;
+  transform: Tb2Transform;
+begin
+  transform := b2Body_GetTransform(groundId);
+  SetLength(Result, Length(groundBox));
+  for i:=0 to Length(groundBox)-1 do begin
+    for j := 0 to groundBox[i].count - 1 do begin
+      localPoint := groundBox[i].vertices[j];
+      worldPoint := b2TransformPoint(transform, localPoint);
+
+      Result[i,j].X:=Trunc( worldPoint.x);
+      Result[i,j].Y:=Trunc( worldPoint.y);
+
+//      WriteLn(i: 4, '.  ', localPoint.x: 2: 1, ' x ', localPoint.y: 2: 1);
+      WriteLn(i: 4, '.  ', worldPoint.x: 2: 1, ' x ', worldPoint.y: 2: 1);
+    end;
+//    WriteLn;
+  end;
+end;
+
 constructor TEngine.Create;
 var
-  offset2: Tb2Vec2 = (x: 100.0; y: -0.5);
-  groundBox2: Tb2Polygon;
   r: Tb2Rot = (c: cos(0.3); s: sin(0.3));
   transform: Tb2Transform;
   i: integer;
@@ -83,35 +125,34 @@ begin
   // 2. Boden erstellen (Statisch)
   groundBodyDef := b2DefaultBodyDef();
   groundBodyDef.position.SetItems(0.0, GROUND_Y); // Boden liegt bei y = -2
-//  groundBodyDef.rotation.SetItems(Cos(0.05), Sin(-0.05)); // Boden liegt bei y = -2
+  //  groundBodyDef.rotation.SetItems(Cos(0.05), Sin(-0.05)); // Boden liegt bei y = -2
   groundId := b2CreateBody(worldId, @groundBodyDef);
-
-  groundBox := b2MakeBox(GROUND_HALF_WIDTH, GROUND_HALF_HEIGHT); // 100m breit, 2m hoch
   groundShapeDef := b2DefaultShapeDef;
-  b2CreatePolygonShape(groundId, @groundShapeDef, @groundBox);
 
-
-
-  groundBox2 := b2MakeOffsetBox(GROUND_HALF_WIDTH, GROUND_HALF_HEIGHT, offset2, r);
-  b2CreatePolygonShape(groundId, @groundShapeDef, @groundBox2);
-
-
+  SetLength(groundBox, Length(BoxDatas));
+  for i := 0 to Length(BoxDatas) - 1 do begin
+    r.c := Cos(BoxDatas[i].angele);
+    r.s := Sin(BoxDatas[i].angele);
+    groundBox[i] := b2MakeOffsetBox(GROUND_HALF_WIDTH, GROUND_HALF_HEIGHT, BoxDatas[i].ofs, r);
+    b2CreatePolygonShape(groundId, @groundShapeDef, @groundBox[i]);
+  end;
 
   // 1. Die aktuelle Transformation (Position/Rotation) des Körpers holen
   transform := b2Body_GetTransform(groundId);
 
-  // 2. Die Eckpunkte der ersten Box (groundBox) auslesen
-  // groundBox wurde mit b2MakeBox erstellt, die Punkte stehen in .vertices
-  for i := 0 to groundBox.count - 1 do begin
-    localPoint := groundBox.vertices[i];
+  // 2. Die Eckpunkte der ersten Box (groundBox1) auslesen
+  // groundBox1 wurde mit b2MakeBox erstellt, die Punkte stehen in .vertices
+
+  for i := 0 to groundBox[0].count - 1 do begin
+    localPoint := groundBox[0].vertices[i];
     // Umrechnung von "lokal am Körper" zu "echte Weltposition"
     worldPoint := b2TransformPoint(transform, localPoint);
 
     WriteLn(i: 4, '.  ', worldPoint.x: 2: 1, ' x ', worldPoint.y: 2: 1);
   end;
   WriteLn();
-  for i := 0 to groundBox2.count - 1 do begin
-    localPoint := groundBox2.vertices[i];
+  for i := 0 to groundBox[1].count - 1 do begin
+    localPoint := groundBox[i].vertices[i];
     // Umrechnung von "lokal am Körper" zu "echte Weltposition"
     worldPoint := b2TransformPoint(transform, localPoint);
 
