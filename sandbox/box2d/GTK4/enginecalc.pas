@@ -6,19 +6,6 @@ uses Classes, fp_box2d;
 
 const
   // ==========================================================
-  // PHYSIK-EINSTELLUNGEN
-  // ==========================================================
-
-  // Erdähnliche Gravitation: -10 Meter pro Sekunde im Quadrat
-  GRAVITY_Y = -10.0;
-
-  // Zeit-Schritt: 1/60 Sekunde (entspricht 60 FPS)
-  TIME_STEP = 1.0 / 30.0;
-
-  // v3-spezifisch: Unterteilt jeden Zeitschritt in 4 Teile
-  SUB_STEPS = 4;
-
-  // ==========================================================
   // OBJEKT-EINSTELLUNGEN
   // ==========================================================
 
@@ -43,7 +30,7 @@ const
 
   // Box2D nutzt "halbe Ausdehnung"
   GROUND_HALF_WIDTH = 50.0;
-  GROUND_HALF_HEIGHT = 5.0;
+  GROUND_HALF_HEIGHT = 2.5;
    type
   TCoord=    array[0..3]of Tb2Vec2;
   TCoords=array of TCoord;
@@ -57,18 +44,18 @@ type
     worldDef: Tb2WorldDef;
     worldId: Tb2WorldId;
     groundBodyDef, bodyDef: Tb2BodyDef;
-    groundId, bodyId: Tb2BodyId;
+    groundId: Tb2BodyId;
+    bodyIds:array of  Tb2BodyId;
     groundBox: array of Tb2Polygon;
     groundShapeDef, shapeDef: Tb2ShapeDef;
     circle: Tb2Circle;
     shapeId: Tb2ShapeId;
-    timeStep: single;
-    subStepCount: integer;
     function GetCoords: TCoords;
   public
     property Coords:TCoords read GetCoords;
     constructor Create;
     function GetBallPos: Tb2Vec2;
+    function GetBallPos2: Tb2Vec2;
     destructor Destroy; override;
   end;
 
@@ -85,9 +72,10 @@ const
     (ofs: (x: 0.0; y: 0.0); angele: 0.0),
     (ofs: (x: 75.0; y: -10); angele: 0.3),
     (ofs: (x: 20.0; y: -40); angele: -0.3),
-    (ofs: (x: 70.0; y: -80); angele: 0.3),
+    (ofs: (x: 90.0; y: -80); angele: 0.3),
     (ofs: (x: 0.0; y: -120.0); angele: 0.0),
-    (ofs: (x: -60.0; y: -100.0); angele: pi/2)
+    (ofs: (x: -60.0; y: -100.0); angele: pi/2),
+    (ofs: (x: 100.0; y: -150.0); angele: -0.2)
     );
 
 function TEngine.GetCoords: TCoords;
@@ -106,24 +94,18 @@ begin
 
       Result[i,j].X:=worldPoint.x;
       Result[i,j].Y:=worldPoint.y;
-
-//      WriteLn(i: 4, '.  ', localPoint.x: 2: 1, ' x ', localPoint.y: 2: 1);
-      WriteLn(i: 4, '.  ', worldPoint.x: 2: 1, ' x ', worldPoint.y: 2: 1);
     end;
-//    WriteLn;
   end;
 end;
 
 constructor TEngine.Create;
 var
   r: Tb2Rot = (c: cos(0.3); s: sin(0.3));
-  transform: Tb2Transform;
   i: integer;
-  localPoint, worldPoint: Tb2Vec2;
 begin
   // 1. Welt erstellen (Gravitation: 10m/s² nach unten)
   worldDef := b2DefaultWorldDef;
-  worldDef.gravity.SetItems(0.0, GRAVITY_Y - 10.0);
+  worldDef.gravity.SetItems(0.0, -10.0);
   worldId := b2CreateWorld(@worldDef);
 
   // 2. Boden erstellen (Statisch)
@@ -141,32 +123,13 @@ begin
     b2CreatePolygonShape(groundId, @groundShapeDef, @groundBox[i]);
   end;
 
-  // 1. Die aktuelle Transformation (Position/Rotation) des Körpers holen
-  transform := b2Body_GetTransform(groundId);
+  // =====
+  SetLength(bodyIds,2);
+  circle.SetItems(0.0, 0.0, BALL_RADIUS);
+  shapeDef := b2DefaultShapeDef();
+  shapeDef.density := BALL_DENSITY;
 
-  // 2. Die Eckpunkte der ersten Box (groundBox1) auslesen
-  // groundBox1 wurde mit b2MakeBox erstellt, die Punkte stehen in .vertices
-
-  for i := 0 to groundBox[0].count - 1 do begin
-    localPoint := groundBox[0].vertices[i];
-    // Umrechnung von "lokal am Körper" zu "echte Weltposition"
-    worldPoint := b2TransformPoint(transform, localPoint);
-
-    WriteLn(i: 4, '.  ', worldPoint.x: 2: 1, ' x ', worldPoint.y: 2: 1);
-  end;
-  WriteLn();
-  for i := 0 to groundBox[1].count - 1 do begin
-    localPoint := groundBox[i].vertices[i];
-    // Umrechnung von "lokal am Körper" zu "echte Weltposition"
-    worldPoint := b2TransformPoint(transform, localPoint);
-
-    WriteLn(i: 4, '.  ', worldPoint.x: 2: 1, ' x ', worldPoint.y: 2: 1);
-  end;
-
-
-
-
-  // 3. Ball erstellen (Dynamisch)
+  // --- ERSTE KUGEL ERSTELLEN ---
   bodyDef := b2DefaultBodyDef;
   bodyDef._type := b2_dynamicBody;
   bodyDef.position.SetItems(BALL_START_X, BALL_START_Y); // Startet bei 10m Höhe
@@ -174,27 +137,36 @@ begin
   // NEU: Dem Ball eine Seitwärtsgeschwindigkeit geben (5m/s nach rechts)
   bodyDef.linearVelocity.SetItems(BALL_VELOCITY_X, 0.0);
 
-  bodyId := b2CreateBody(worldId, @bodyDef);
-
-  circle.SetItems(0.0, 0.0, BALL_RADIUS);
-  shapeDef := b2DefaultShapeDef();
-  shapeDef.density := BALL_DENSITY;
+  bodyIds[0] := b2CreateBody(worldId, @bodyDef);
 
   // Shape erstellen und ID speichern
-  shapeId := b2CreateCircleShape(bodyId, @shapeDef, @circle);
-
-  // Bounciness über die Setter-Funktion setzen (0.7 = 70% Energieerhalt)
+  shapeId := b2CreateCircleShape(bodyIds[0], @shapeDef, @circle);
   b2Shape_SetRestitution(shapeId, BALL_RESTITUTION);
 
-  // 4. Simulation (160 Schritte ~ 2.6 Sekunden)
-  timeStep := TIME_STEP;
-  subStepCount := SUB_STEPS;
+
+  // --- ZWEITE KUGEL ERSTELLEN ---
+  bodyDef := b2DefaultBodyDef;
+  bodyDef._type := b2_dynamicBody;
+  bodyDef.position.SetItems(BALL_START_X - 10.0, BALL_START_Y + 5.0);
+
+  bodyDef.linearVelocity.SetItems(BALL_VELOCITY_X * 2, 0.0); // Etwas schneller
+
+  bodyIds[1] := b2CreateBody(worldId, @bodyDef);
+
+  // Shape für die zweite Kugel (wir nutzen denselben Radius/Dichte)
+  shapeId := b2CreateCircleShape(bodyIds[1], @shapeDef, @circle);
+  b2Shape_SetRestitution(shapeId, BALL_RESTITUTION);
 end;
 
 function TEngine.GetBallPos: Tb2Vec2;
 begin
-  b2World_Step(worldId, timeStep, subStepCount);
-  Result := b2Body_GetPosition(bodyId);
+  b2World_Step(worldId, 1.0 / 60.0, 4);
+  Result := b2Body_GetPosition(bodyIds[0]);
+end;
+
+function TEngine.GetBallPos2: Tb2Vec2;
+begin
+  Result := b2Body_GetPosition(bodyIds[1]);
 end;
 
 destructor TEngine.Destroy;

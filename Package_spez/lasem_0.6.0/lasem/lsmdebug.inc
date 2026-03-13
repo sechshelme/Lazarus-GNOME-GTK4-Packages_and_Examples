@@ -26,12 +26,9 @@ var
   lsm_debug_category_render : TLsmDebugCategory;cvar;external liblasem;
   lsm_debug_category_viewport : TLsmDebugCategory;cvar;external liblasem;
 
-procedure lsm_warning(category: PLsmDebugCategory; format: pchar; args: array of const); cdecl; external liblasem;
-procedure lsm_warning(category: PLsmDebugCategory; format: pchar); cdecl; external liblasem;
-procedure lsm_debug(category: PLsmDebugCategory; format: pchar; args: array of const); cdecl; external liblasem;
-procedure lsm_debug(category: PLsmDebugCategory; format: pchar); cdecl; external liblasem;
-procedure lsm_log(category: PLsmDebugCategory; format: pchar; args: array of const); cdecl; external liblasem;
-procedure lsm_log(category: PLsmDebugCategory; format: pchar); cdecl; external liblasem;
+procedure lsm_warning(category: PLsmDebugCategory; format: pchar); varargs; cdecl; external liblasem;
+procedure lsm_debug(category: PLsmDebugCategory; format: pchar); varargs; cdecl; external liblasem;
+procedure lsm_log(category: PLsmDebugCategory; format: pchar); varargs; cdecl; external liblasem;
 function lsm_debug_check(category: PLsmDebugCategory; level: TLsmDebugLevel): Tgboolean; cdecl; external liblasem;
 procedure lsm_debug_enable(category_selection: pchar); cdecl; external liblasem;
 

@@ -23,7 +23,7 @@
 {$include lasem/lsmitex.inc}
 {$include lasem/lsmmisc.inc}
 {$include lasem/lsmproperties.inc}
-{$include lasem/lsmstr.inc}                               // static inline
+{$include lasem/lsmstr.inc}
 {$include lasem/lsmmathmlutils.inc}
 {$include lasem/lsmmathmlstyle.inc}
 {$include lasem/lsmmathmlpresentationtoken.inc}

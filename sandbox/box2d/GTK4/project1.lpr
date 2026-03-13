@@ -11,7 +11,7 @@ uses
 type
   TAniData = record
     coord: TCoords;
-    ballPos: Tb2Vec2;
+    ballPos, ballPos2: Tb2Vec2;
     engine: TEngine;
   end;
   PAniData = ^TAniData;
@@ -39,7 +39,12 @@ const
       cairo_set_source_rgb(cr, 0.3, 0.3, 0.3);
       cairo_paint(cr);
 
-      sc := Width / 300;
+      if Width < Height then begin
+        sc := Width / 250;
+      end else begin
+        sc := Height / 250;
+      end;
+
       cairo_scale(cr, sc, -sc);
       cairo_translate(cr, 70, -50);
       cairo_set_line_width(cr, 0.50);
@@ -59,6 +64,11 @@ const
       cairo_arc(cr, ballPos.x, ballPos.y, BALL_RADIUS, 0, 2 * pi);
       cairo_fill(cr);
 
+      cairo_new_path(cr);
+      cairo_set_source_rgb(cr, 0.3, 1.0, 0.2);
+      cairo_arc(cr, ballPos2.x, ballPos2.y, BALL_RADIUS, 0, 2 * pi);
+      cairo_fill(cr);
+
       cairo_stroke(cr);
     end;
   end;
@@ -71,6 +81,7 @@ const
     with anyData^ do begin
       coord := engine.Coords;
       ballPos := engine.GetBallPos;
+      ballPos2 := engine.GetBallPos2;
     end;
     gtk_widget_queue_draw(widget);
     Result := G_SOURCE_CONTINUE;
