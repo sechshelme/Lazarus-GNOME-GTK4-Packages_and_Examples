@@ -10,8 +10,8 @@ uses
 
 type
   TAniData = record
-    coord: TCoords;
-    ballPos, ballPos2: Tb2Vec2;
+    BoxCoords: TCoords;
+    BallCoords: Tb2Vec2s;
     engine: TEngine;
   end;
   PAniData = ^TAniData;
@@ -50,24 +50,21 @@ const
       cairo_set_line_width(cr, 0.50);
 
       cairo_set_source_rgb(cr, 0.5, 0.5, 1.0);
-      for i := 0 to Length(coord) - 1 do begin
-        cairo_move_to(cr, coord[i, 0].X, coord[i, 0].Y);
-        for j := 1 to Length(coord[i]) - 1 do begin
-          cairo_line_to(cr, coord[i, j].X, coord[i, j].Y);
+      for i := 0 to Length(BoxCoords) - 1 do begin
+        cairo_move_to(cr, BoxCoords[i, 0].X, BoxCoords[i, 0].Y);
+        for j := 1 to Length(BoxCoords[i]) - 1 do begin
+          cairo_line_to(cr, BoxCoords[i, j].X, BoxCoords[i, j].Y);
         end;
         cairo_close_path(cr);
       end;
       cairo_fill(cr);
 
-      cairo_new_path(cr);
-      cairo_set_source_rgb(cr, 1.0, 0.3, 0.2);
-      cairo_arc(cr, ballPos.x, ballPos.y, BALL_RADIUS, 0, 2 * pi);
-      cairo_fill(cr);
-
-      cairo_new_path(cr);
-      cairo_set_source_rgb(cr, 0.3, 1.0, 0.2);
-      cairo_arc(cr, ballPos2.x, ballPos2.y, BALL_RADIUS, 0, 2 * pi);
-      cairo_fill(cr);
+      for i := 0 to Length(BallCoords) - 1 do begin;
+        cairo_new_path(cr);
+        cairo_set_source_rgb(cr, 1.0, 0.3, 0.2);
+        cairo_arc(cr, BallCoords[i].x, BallCoords[i].y, BALL_RADIUS, 0, 2 * pi);
+        cairo_fill(cr);
+      end;
 
       cairo_stroke(cr);
     end;
@@ -76,12 +73,17 @@ const
   function on_tick(widget: PGtkWidget; frame_clock: PGdkFrameClock; user_data: Tgpointer): Tgboolean; cdecl;
   var
     anyData: PAniData;
+    i: integer;
   begin
     anyData := g_object_get_data(G_OBJECT(widget), anyDataKey);
     with anyData^ do begin
-      coord := engine.Coords;
-      ballPos := engine.GetBallPos;
-      ballPos2 := engine.GetBallPos2;
+      BoxCoords := engine.BoxCoords;
+      BallCoords := engine.BallCord;
+      for i := 0 to Length(BallCoords) - 1 do begin
+        if BallCoords[i].y < -250 then begin
+          engine.Goto0(i);
+        end;
+      end;
     end;
     gtk_widget_queue_draw(widget);
     Result := G_SOURCE_CONTINUE;
@@ -113,7 +115,7 @@ const
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 
     window := gtk_application_window_new(app);
-    gtk_window_set_title(GTK_WINDOW(window), 'Belt Drive');
+    gtk_window_set_title(GTK_WINDOW(window), 'Box2d demo');
     gtk_window_set_default_size(GTK_WINDOW(window), 640, 480);
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
