@@ -11,8 +11,8 @@ uses
 type
   TAniData = record
     BoxCoords: TCoords;
-    BallStaticCoords: Tb2Vec2s;
-    BallCoords: Tb2Vec2s;
+    BallStaticCoords: TBallWorldDatas;
+    BallCoords: TBallWorldDatas;
     engine: TEngine;
   end;
   PAniData = ^TAniData;
@@ -63,14 +63,14 @@ const
       cairo_set_source_rgb(cr, 0.5, 1.0, 0.5);
       for i := 0 to Length(BallStaticCoords) - 1 do begin;
         cairo_new_path(cr);
-        cairo_arc(cr, BallStaticCoords[i].x, BallStaticCoords[i].y, STATIC_BALL_RADIUS, 0, 2 * pi);
+        cairo_arc(cr, BallStaticCoords[i].p.x, BallStaticCoords[i].p.y, BallStaticCoords[i].r, 0, 2 * pi);
         cairo_fill(cr);
       end;
 
       cairo_set_source_rgb(cr, 1.0, 0.3, 0.2);
       for i := 0 to Length(BallCoords) - 1 do begin;
         cairo_new_path(cr);
-        cairo_arc(cr, BallCoords[i].x, BallCoords[i].y, BALL_RADIUS, 0, 2 * pi);
+        cairo_arc(cr, BallCoords[i].p.x, BallCoords[i].p.y, BallCoords[i].r, 0, 2 * pi);
         cairo_fill(cr);
       end;
 
@@ -90,7 +90,7 @@ const
       BallStaticCoords := engine.BallStaticCoord;
 
       for i := 0 to Length(BallCoords) - 1 do begin
-        if BallCoords[i].y < -250 then begin
+        if BallCoords[i].p.y < -250 then begin
           engine.Goto0(i);
         end;
       end;

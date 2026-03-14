@@ -105,8 +105,8 @@ type
     gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(data^.drawing_area), @draw_cp, data, nil);
     gtk_window_set_child(GTK_WINDOW(window), data^.drawing_area);
 
-    lat := 47.3769;
-    lon := 8.5417; // Zürich
+    lat := 47.3769; // Zürich
+    lon := 8.5417;
     zoom := 19;
 
     n := 1 shl zoom;
