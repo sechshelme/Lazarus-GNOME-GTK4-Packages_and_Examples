@@ -11,6 +11,7 @@ uses
 type
   TAniData = record
     BoxCoords: TCoords;
+    BallStaticCoords: Tb2Vec2s;
     BallCoords: Tb2Vec2s;
     engine: TEngine;
   end;
@@ -59,9 +60,16 @@ const
       end;
       cairo_fill(cr);
 
+      cairo_set_source_rgb(cr, 0.5, 1.0, 0.5);
+      for i := 0 to Length(BallStaticCoords) - 1 do begin;
+        cairo_new_path(cr);
+        cairo_arc(cr, BallStaticCoords[i].x, BallStaticCoords[i].y, STATIC_BALL_RADIUS, 0, 2 * pi);
+        cairo_fill(cr);
+      end;
+
+      cairo_set_source_rgb(cr, 1.0, 0.3, 0.2);
       for i := 0 to Length(BallCoords) - 1 do begin;
         cairo_new_path(cr);
-        cairo_set_source_rgb(cr, 1.0, 0.3, 0.2);
         cairo_arc(cr, BallCoords[i].x, BallCoords[i].y, BALL_RADIUS, 0, 2 * pi);
         cairo_fill(cr);
       end;
@@ -78,7 +86,9 @@ const
     anyData := g_object_get_data(G_OBJECT(widget), anyDataKey);
     with anyData^ do begin
       BoxCoords := engine.BoxCoords;
-      BallCoords := engine.BallCord;
+      BallCoords := engine.BallCoord;
+      BallStaticCoords := engine.BallStaticCoord;
+
       for i := 0 to Length(BallCoords) - 1 do begin
         if BallCoords[i].y < -250 then begin
           engine.Goto0(i);

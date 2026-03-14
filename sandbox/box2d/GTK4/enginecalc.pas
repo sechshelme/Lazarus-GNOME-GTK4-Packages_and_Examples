@@ -32,6 +32,10 @@ const
   GROUND_HALF_WIDTH = 50.0;
   GROUND_HALF_HEIGHT = 2.5;
 
+
+    STATIC_BALL_RADIUS = 20.0;
+
+
 type
   TCoord = array[0..3] of Tb2Vec2;
   TCoords = array of TCoord;
@@ -48,16 +52,17 @@ type
     worldId: Tb2WorldId;
     groundBodyDef, bodyDef: Tb2BodyDef;
     groundId: Tb2BodyId;
-    bodyIds: array of Tb2BodyId;
+    bodyIds, staticBallId: array of Tb2BodyId;
     groundBox: array of Tb2Polygon;
     groundShapeDef, shapeDef: Tb2ShapeDef;
-    circle: Tb2Circle;
     shapeId: Tb2ShapeId;
     function GetBallCoords: Tb2Vec2s;
     function GetBoxCoords: TCoords;
+    function GetStaticBallCoords: Tb2Vec2s;
   public
     property BoxCoords: TCoords read GetBoxCoords;
-    property BallCord: Tb2Vec2s read GetBallCoords;
+    property BallStaticCoord: Tb2Vec2s read GetStaticBallCoords;
+    property BallCoord: Tb2Vec2s read GetBallCoords;
     constructor Create;
     destructor Destroy; override;
     procedure Goto0(ball: integer);
@@ -102,6 +107,30 @@ begin
   end;
 end;
 
+function TEngine.GetStaticBallCoords: Tb2Vec2s;
+var
+  i: integer;
+//  shapes: array[0..0] of Tb2ShapeId; // Wir nehmen an, jede Kugel hat nur 1 Shape
+shapes: Tb2ShapeId;
+  circle: Tb2Circle;
+
+begin
+  b2World_Step(worldId, 1.0 / 60.0, 4);
+
+  Result := nil;
+  SetLength(Result, Length(staticBallId));
+  for i := 0 to Length(staticBallId) - 1 do begin
+    Result[i] := b2Body_GetPosition(staticBallId[i]);
+
+    b2Body_GetShapes(staticBallId[i], @shapes, 1);
+
+    // 3. Den Radius aus der Kreis-Shape extrahieren
+    circle := b2Shape_GetCircle(shapes);
+    WriteLn('Radius: ',circle.radius:4:2);
+//    Result[i].Radius := circle.radius;
+  end;
+end;
+
 function TEngine.GetBallCoords: Tb2Vec2s;
 var
   i: integer;
@@ -119,6 +148,10 @@ constructor TEngine.Create;
 var
   r: Tb2Rot = (c: cos(0.3); s: sin(0.3));
   i: integer;
+  staticBallDef: Tb2BodyDef;
+  staticCircle: Tb2Circle;
+  circle: Tb2Circle;
+  staticShapeDef: Tb2ShapeDef;
 begin
   // 1. Welt erstellen (Gravitation: 10m/s² nach unten)
   worldDef := b2DefaultWorldDef;
@@ -139,6 +172,26 @@ begin
     groundBox[i] := b2MakeOffsetBox(GROUND_HALF_WIDTH, GROUND_HALF_HEIGHT, BoxDatas[i].ofs, r);
     b2CreatePolygonShape(groundId, @groundShapeDef, @groundBox[i]);
   end;
+
+
+  // =====
+
+  SetLength(staticBallId, 3);
+  for i := 0 to Length(staticBallId) - 1 do begin;
+    staticBallDef := b2DefaultBodyDef();
+    staticBallDef.position.SetItems(i * 50.0, i * -50.0); // Position nach Wunsch anpassen
+    staticBallId[i] := b2CreateBody(worldId, @staticBallDef);
+
+    // 2. Kreis-Geometrie definieren
+    staticCircle.SetItems(0.0, 0.0, STATIC_BALL_RADIUS);
+
+    // 3. Shape-Definition (Statische Objekte brauchen meist keine Dichte)
+    staticShapeDef := b2DefaultShapeDef();
+
+    // 4. Shape am Körper befestigen
+    b2CreateCircleShape(staticBallId[i], @staticShapeDef, @staticCircle);
+  end;
+
 
   // =====
   SetLength(bodyIds, 1000);
