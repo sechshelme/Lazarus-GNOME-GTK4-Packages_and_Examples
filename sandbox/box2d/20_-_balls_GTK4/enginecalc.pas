@@ -2,39 +2,11 @@ unit EngineCalc;
 
 interface
 
-uses Classes, fp_box2d;
-
-const
-  // ==========================================================
-  // OBJEKT-EINSTELLUNGEN
-  // ==========================================================
-
-  // Startposition des Balls
-  BALL_START_X = 0.0;
-  BALL_START_Y = 40.0;
-
-  // Horizontale Geschwindigkeit
-  BALL_VELOCITY_X = 5.0;
-
-  // Radius des Balls: 0.5 Meter
-  BALL_RADIUS = 3.0;
-
-  // Dichte: Bestimmt das Gewicht (kg/m²)
-  BALL_DENSITY = 1.0;
-
-  // Bounciness: 0.7 (70% Energieerhalt)
-  BALL_RESTITUTION = 0.7;
-
-  // Boden-Position
-  GROUND_Y = -2.0;
-
-  // Box2D nutzt "halbe Ausdehnung"
-  GROUND_HALF_WIDTH = 50.0;
-  GROUND_HALF_HEIGHT = 2.5;
+uses fp_box2d;
 
 type
   TBoxData = record
-    ofs: Tb2Vec2;
+    size, ofs: Tb2Vec2;
     angele: single;
   end;
 
@@ -51,18 +23,12 @@ type
   Tb2Vec2s = array of Tb2Vec2;
 
 type
-
-  { TEngine }
-
   TEngine = class(TObject)
   private
-    worldDef: Tb2WorldDef;
     worldId: Tb2WorldId;
-    groundBodyDef, bodyDef: Tb2BodyDef;
     groundId: Tb2BodyId;
     bodyIds, staticBallId: array of Tb2BodyId;
     groundBox: array of Tb2Polygon;
-    groundShapeDef, shapeDef: Tb2ShapeDef;
     shapeId: Tb2ShapeId;
     function GetBallCoords: TBallWorldDatas;
     function GetBoxCoords: TCoords;
@@ -80,13 +46,13 @@ implementation
 
 const
   BoxDatas: array of TBoxData = (
-    (ofs: (x: 0.0; y: 0.0); angele: 0.0),
-    (ofs: (x: 75.0; y: -10); angele: 0.3),
-    (ofs: (x: 20.0; y: -40); angele: -0.3),
-    (ofs: (x: 90.0; y: -80); angele: 0.3),
-    (ofs: (x: 0.0; y: -120.0); angele: 0.0),
-    (ofs: (x: -60.0; y: -100.0); angele: pi / 2),
-    (ofs: (x: 100.0; y: -150.0); angele: -0.2)
+    (size: (x: 50.0; y: 2.5); ofs: (x: 0.0; y: 0.0); angele: 0.0),
+    (size: (x: 50.0; y: 2.5); ofs: (x: 75.0; y: -10); angele: 0.3),
+    (size: (x: 50.0; y: 2.5); ofs: (x: 20.0; y: -40); angele: -0.3),
+    (size: (x: 50.0; y: 2.5); ofs: (x: 90.0; y: -80); angele: 0.3),
+    (size: (x: 50.0; y: 2.5); ofs: (x: 0.0; y: -120.0); angele: 0.0),
+    (size: (x: 50.0; y: 2.5); ofs: (x: -65.0; y: -100.0); angele: pi / 2),
+    (size: (x: 50.0; y: 2.5); ofs: (x: 100.0; y: -150.0); angele: -0.2)
     );
 
   StaticBallData: TBallWorldDatas = (
@@ -117,7 +83,7 @@ end;
 function TEngine.GetStaticBallCoords: TBallWorldDatas;
 var
   i: integer;
-  shapes: Tb2ShapeId;
+  shapesId: Tb2ShapeId;
   circle: Tb2Circle;
 begin
   b2World_Step(worldId, 1.0 / 60.0, 4);
@@ -127,8 +93,8 @@ begin
   for i := 0 to Length(staticBallId) - 1 do begin
     Result[i].p := b2Body_GetPosition(staticBallId[i]);
 
-    b2Body_GetShapes(staticBallId[i], @shapes, 1);
-    circle := b2Shape_GetCircle(shapes);
+    b2Body_GetShapes(staticBallId[i], @shapesId, 1);
+    circle := b2Shape_GetCircle(shapesId);
     Result[i].r := circle.radius;
   end;
 end;
@@ -136,7 +102,7 @@ end;
 function TEngine.GetBallCoords: TBallWorldDatas;
 var
   i: integer;
-  shapes: Tb2ShapeId;
+  shapesId: Tb2ShapeId;
   circle: Tb2Circle;
 begin
   b2World_Step(worldId, 1.0 / 60.0, 4);
@@ -146,8 +112,8 @@ begin
   for i := 0 to Length(bodyIds) - 1 do begin
     Result[i].p := b2Body_GetPosition(bodyIds[i]);
 
-    b2Body_GetShapes(bodyIds[i], @shapes, 1);
-    circle := b2Shape_GetCircle(shapes);
+    b2Body_GetShapes(bodyIds[i], @shapesId, 1);
+    circle := b2Shape_GetCircle(shapesId);
     Result[i].r := circle.radius;
   end;
 end;
@@ -156,9 +122,10 @@ constructor TEngine.Create;
 var
   r: Tb2Rot;
   i: integer;
-  staticBallDef: Tb2BodyDef;
+  worldDef: Tb2WorldDef;
+  bodyDef: Tb2BodyDef;
   circle: Tb2Circle;
-  staticShapeDef: Tb2ShapeDef;
+  shapeDef: Tb2ShapeDef;
 begin
   worldDef := b2DefaultWorldDef;
   worldDef.gravity.SetItems(0.0, -10.0);
@@ -167,53 +134,52 @@ begin
 
   // =====
 
-  groundBodyDef := b2DefaultBodyDef;
-  groundBodyDef.position.SetItems(0.0, 0.0);
-  groundId := b2CreateBody(worldId, @groundBodyDef);
-  groundShapeDef := b2DefaultShapeDef;
+  bodyDef := b2DefaultBodyDef;
+  bodyDef.position.SetItems(0.0, 0.0);
+  groundId := b2CreateBody(worldId, @bodyDef);
+  shapeDef := b2DefaultShapeDef;
 
   SetLength(groundBox, Length(BoxDatas));
   for i := 0 to Length(BoxDatas) - 1 do begin
     r.c := Cos(BoxDatas[i].angele);
     r.s := Sin(BoxDatas[i].angele);
-    groundBox[i] := b2MakeOffsetBox(GROUND_HALF_WIDTH, GROUND_HALF_HEIGHT, BoxDatas[i].ofs, r);
-    b2CreatePolygonShape(groundId, @groundShapeDef, @groundBox[i]);
+    groundBox[i] := b2MakeOffsetBox(BoxDatas[i].size.x, BoxDatas[i].size.y, BoxDatas[i].ofs, r);
+    b2CreatePolygonShape(groundId, @shapeDef, @groundBox[i]);
   end;
 
 
   // =====
-
-  staticShapeDef := b2DefaultShapeDef;
 
   SetLength(staticBallId, Length(StaticBallData));
+  shapeDef := b2DefaultShapeDef;
   for i := 0 to Length(staticBallId) - 1 do begin;
-    staticBallDef := b2DefaultBodyDef;
-    staticBallDef.position.SetItems(StaticBallData[i].p.x, StaticBallData[i].p.y);
-    staticBallId[i] := b2CreateBody(worldId, @staticBallDef);
+    bodyDef := b2DefaultBodyDef;
+    bodyDef.position.SetItems(StaticBallData[i].p.x, StaticBallData[i].p.y);
+    staticBallId[i] := b2CreateBody(worldId, @bodyDef);
 
     circle.SetItems(0.0, 0.0, StaticBallData[i].r);
-    b2CreateCircleShape(staticBallId[i], @staticShapeDef, @circle);
+    b2CreateCircleShape(staticBallId[i], @shapeDef, @circle);
   end;
 
-
   // =====
+
   SetLength(bodyIds, 1000);
   shapeDef := b2DefaultShapeDef();
-  shapeDef.density := BALL_DENSITY;
+  shapeDef.density := 1.0;
   shapeDef.material.friction := 0.05;
   shapeDef.material.restitution := 0.2;
 
   for i := 0 to Length(bodyIds) - 1 do begin
     bodyDef := b2DefaultBodyDef;
     bodyDef._type := b2_dynamicBody;
-    bodyDef.position.SetItems(BALL_START_X + (i mod 10) * BALL_RADIUS, BALL_START_Y + (i div 10) * BALL_RADIUS);
-    bodyDef.linearVelocity.SetItems(BALL_VELOCITY_X, 0.0);
+    bodyDef.position.SetItems(50.0, 50.0 + i * 10);
+    bodyDef.linearVelocity.SetItems(5.0, 0.0);
 
     bodyIds[i] := b2CreateBody(worldId, @bodyDef);
 
     circle.SetItems(0.0, 0.0, Random * 4);
     shapeId := b2CreateCircleShape(bodyIds[i], @shapeDef, @circle);
-    b2Shape_SetRestitution(shapeId, BALL_RESTITUTION);
+    b2Shape_SetRestitution(shapeId, 0.7);
   end;
 end;
 
@@ -229,7 +195,7 @@ var
   v: Tb2Vec2;
 begin
   if ball < Length(bodyIds) then begin
-    v.SetItems(BALL_START_X, BALL_START_Y);
+    v.SetItems(50.0, 50.0);
     b2Body_SetTransform(bodyIds[ball], v, b2Rot_identity);
 
     b2Body_SetLinearVelocity(bodyIds[ball], zeroVel);
