@@ -10,7 +10,7 @@ uses
 
 type
   TAniData = record
-    BoxCoords: TCoords;
+    StaticBoxCoords, DynamicBoxCoords: TCoords;
     BallStaticCoords: TBallWorldDatas;
     BallCoords: TBallWorldDatas;
     engine: TEngine;
@@ -51,10 +51,20 @@ const
       cairo_set_line_width(cr, 0.50);
 
       cairo_set_source_rgb(cr, 0.5, 0.5, 1.0);
-      for i := 0 to Length(BoxCoords) - 1 do begin
-        cairo_move_to(cr, BoxCoords[i, 0].X, BoxCoords[i, 0].Y);
-        for j := 1 to Length(BoxCoords[i]) - 1 do begin
-          cairo_line_to(cr, BoxCoords[i, j].X, BoxCoords[i, j].Y);
+      for i := 0 to Length(StaticBoxCoords) - 1 do begin
+        cairo_move_to(cr, StaticBoxCoords[i, 0].X, StaticBoxCoords[i, 0].Y);
+        for j := 1 to Length(StaticBoxCoords[i]) - 1 do begin
+          cairo_line_to(cr, StaticBoxCoords[i, j].X, StaticBoxCoords[i, j].Y);
+        end;
+        cairo_close_path(cr);
+      end;
+      cairo_fill(cr);
+
+      cairo_set_source_rgb(cr, 1.0, 0.5, 1.0);
+      for i := 0 to Length(DynamicBoxCoords) - 1 do begin
+        cairo_move_to(cr, DynamicBoxCoords[i, 0].X, DynamicBoxCoords[i, 0].Y);
+        for j := 1 to Length(StaticBoxCoords[i]) - 1 do begin
+          cairo_line_to(cr, DynamicBoxCoords[i, j].X, DynamicBoxCoords[i, j].Y);
         end;
         cairo_close_path(cr);
       end;
@@ -85,8 +95,9 @@ const
   begin
     anyData := g_object_get_data(G_OBJECT(widget), anyDataKey);
     with anyData^ do begin
-      BoxCoords := engine.BoxCoords;
-      BallCoords := engine.BallCoord;
+      StaticBoxCoords := engine.BoxStaticCoords;
+      DynamicBoxCoords := engine.BoxDynamicCoords;
+      BallCoords := engine.BalDynamiclCoord;
       BallStaticCoords := engine.BallStaticCoord;
 
       for i := 0 to Length(BallCoords) - 1 do begin
