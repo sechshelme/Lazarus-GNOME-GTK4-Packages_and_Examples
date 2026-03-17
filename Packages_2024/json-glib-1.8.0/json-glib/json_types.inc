@@ -86,7 +86,7 @@ function json_object_dup_member(obj: PJsonObject; member_name: Pgchar): PJsonNod
 function json_object_get_int_member(obj: PJsonObject; member_name: Pgchar): Tgint64; cdecl; external libjsonglib;
 function json_object_get_int_member_with_default(obj: PJsonObject; member_name: pchar; default_value: Tgint64): Tgint64; cdecl; external libjsonglib;
 function json_object_get_double_member(obj: PJsonObject; member_name: Pgchar): Tgdouble; cdecl; external libjsonglib;
-function json_object_get_double_member_with_default(obj: PJsonObject; member_name: pchar; default_value: Tdouble): Tdouble; cdecl; external libjsonglib;
+function json_object_get_double_member_with_default(obj: PJsonObject; member_name: pchar; default_value: double): double; cdecl; external libjsonglib;
 function json_object_get_boolean_member(obj: PJsonObject; member_name: Pgchar): Tgboolean; cdecl; external libjsonglib;
 function json_object_get_boolean_member_with_default(obj: PJsonObject; member_name: pchar; default_value: Tgboolean): Tgboolean; cdecl; external libjsonglib;
 function json_object_get_string_member(obj: PJsonObject; member_name: Pgchar): Pgchar; cdecl; external libjsonglib;

@@ -6,7 +6,7 @@ uses
   fp_json_glib;
 
 const
-  path = 'example.json';
+  path = '/tmp/example.json';
 
   procedure save_json(filename: pchar);
   var
