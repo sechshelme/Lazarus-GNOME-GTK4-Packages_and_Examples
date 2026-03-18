@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libtalloc = 'talloc.dll';
+  libtalloc = 'talloc.dll';  // ????
   {$ENDIF}
 
 type

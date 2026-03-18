@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  SysUtils,
   fp_glib2,
   fp_cairo,
   fp_GTK4,
@@ -10,9 +9,7 @@ uses
 
 type
   TAniData = record
-    StaticBoxCoords, DynamicBoxCoords: TCoords;
-    BallStaticCoords: TBallWorldDatas;
-    BallCoords: TBallWorldDatas;
+    ScenCoords:TSceneCoords;
     engine: TEngine;
   end;
   PAniData = ^TAniData;
@@ -37,50 +34,50 @@ const
     anyData := g_object_get_data(G_OBJECT(drawing_area), anyDataKey);
 
     with anyData^ do begin
-      cairo_set_source_rgb(cr, 0.3, 0.3, 0.3);
-      cairo_paint(cr);
-
       if Width < Height then begin
         sc := Width / 250;
       end else begin
         sc := Height / 250;
       end;
 
+      cairo_set_source_rgb(cr, 0.3, 0.3, 0.3);
+      cairo_paint(cr);
+
       cairo_scale(cr, sc, -sc);
       cairo_translate(cr, 70, -50);
       cairo_set_line_width(cr, 0.50);
 
       cairo_set_source_rgb(cr, 0.5, 0.5, 1.0);
-      for i := 0 to Length(StaticBoxCoords) - 1 do begin
-        cairo_move_to(cr, StaticBoxCoords[i, 0].X, StaticBoxCoords[i, 0].Y);
-        for j := 1 to Length(StaticBoxCoords[i]) - 1 do begin
-          cairo_line_to(cr, StaticBoxCoords[i, j].X, StaticBoxCoords[i, j].Y);
+      for i := 0 to Length(ScenCoords.staticBox) - 1 do begin
+        cairo_move_to(cr, ScenCoords.staticBox[i, 0].X, ScenCoords.staticBox[i, 0].Y);
+        for j := 1 to Length(ScenCoords.staticBox[i]) - 1 do begin
+          cairo_line_to(cr, ScenCoords.staticBox[i, j].X, ScenCoords.staticBox[i, j].Y);
         end;
         cairo_close_path(cr);
       end;
       cairo_fill(cr);
 
       cairo_set_source_rgb(cr, 1.0, 0.5, 1.0);
-      for i := 0 to Length(DynamicBoxCoords) - 1 do begin
-        cairo_move_to(cr, DynamicBoxCoords[i, 0].X, DynamicBoxCoords[i, 0].Y);
-        for j := 1 to Length(StaticBoxCoords[i]) - 1 do begin
-          cairo_line_to(cr, DynamicBoxCoords[i, j].X, DynamicBoxCoords[i, j].Y);
+      for i := 0 to Length(ScenCoords.dynamicBox) - 1 do begin
+        cairo_move_to(cr, ScenCoords.dynamicBox[i, 0].X, ScenCoords.dynamicBox[i, 0].Y);
+        for j := 1 to Length(ScenCoords.dynamicBox[i]) - 1 do begin
+          cairo_line_to(cr, ScenCoords.dynamicBox[i, j].X, ScenCoords.dynamicBox[i, j].Y);
         end;
         cairo_close_path(cr);
       end;
       cairo_fill(cr);
 
       cairo_set_source_rgb(cr, 0.5, 1.0, 0.5);
-      for i := 0 to Length(BallStaticCoords) - 1 do begin;
+      for i := 0 to Length(ScenCoords.staticBall) - 1 do begin
         cairo_new_path(cr);
-        cairo_arc(cr, BallStaticCoords[i].p.x, BallStaticCoords[i].p.y, BallStaticCoords[i].r, 0, 2 * pi);
+        cairo_arc(cr, ScenCoords.staticBall[i].p.x, ScenCoords.staticBall[i].p.y, ScenCoords.staticBall[i].r, 0, 2 * pi);
         cairo_fill(cr);
       end;
 
       cairo_set_source_rgb(cr, 1.0, 0.3, 0.2);
-      for i := 0 to Length(BallCoords) - 1 do begin;
+      for i := 0 to Length(ScenCoords.dynamicBall) - 1 do begin
         cairo_new_path(cr);
-        cairo_arc(cr, BallCoords[i].p.x, BallCoords[i].p.y, BallCoords[i].r, 0, 2 * pi);
+        cairo_arc(cr, ScenCoords.dynamicBall[i].p.x, ScenCoords.dynamicBall[i].p.y, ScenCoords.dynamicBall[i].r, 0, 2 * pi);
         cairo_fill(cr);
       end;
 
@@ -95,14 +92,11 @@ const
   begin
     anyData := g_object_get_data(G_OBJECT(widget), anyDataKey);
     with anyData^ do begin
-      StaticBoxCoords := engine.BoxStaticCoords;
-      DynamicBoxCoords := engine.BoxDynamicCoords;
-      BallCoords := engine.BalDynamiclCoord;
-      BallStaticCoords := engine.BallStaticCoord;
+      ScenCoords := engine.SceneCoords;
 
-      for i := 0 to Length(BallCoords) - 1 do begin
-        if BallCoords[i].p.y < -250 then begin
-          engine.Goto0(i);
+      for i := 0 to Length(ScenCoords.dynamicBall) - 1 do begin
+        if ScenCoords.dynamicBall[i].p.y < -250 then begin
+          engine.BallRest(i);
         end;
       end;
     end;
