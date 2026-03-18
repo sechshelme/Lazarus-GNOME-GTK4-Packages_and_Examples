@@ -7,6 +7,7 @@ uses
 
 type
   TBoxCoord = array of Tb2Vec2;
+  TBoxCoords = array of TBoxCoord;
 
   TBallCoord = record
     p: Tb2Vec2;
@@ -15,15 +16,15 @@ type
   TBallCoords = array of TBallCoord;
 
   TSceneCoords = record
-    staticBox, dynamicBox: array of TBoxCoord;
-    staticBall, dynamicBall: array of TBallCoord;
+    staticBox, dynamicBox: TBoxCoords;
+    staticBall, dynamicBall: TBallCoords;
   end;
 
 type
   TEngine = class(TObject)
   private
     worldId: Tb2WorldId;
-    staticBoxIds, dynamicBoxIds, dynamicBallIds, staticBallIds: array of Tb2BodyId;
+    staticBoxIds, dynamicBoxIds, dynamicBallIds, staticBallIds, dumbbellIds: array of Tb2BodyId;
     function GetSceneCords: TSceneCoords;
   public
     property SceneCoords: TSceneCoords read GetSceneCords;
@@ -145,6 +146,31 @@ begin
     shapeId := b2CreateCircleShape(dynamicBallIds[i], @shapeDef, @circle);
     b2Shape_SetRestitution(shapeId, 0.7);
   end;
+
+  // ===== Kinematische Hanteln
+  shapeDef := b2DefaultShapeDef;
+
+  SetLength(dumbbellIds, 3);
+  for i := 0 to Length(dumbbellIds) - 1 do begin
+    bodyDef := b2DefaultBodyDef;
+    bodyDef._type := b2_kinematicBody;
+    bodyDef.position.SetItems(30.0 + (i * 40.0), 50.0);
+    bodyDef.angularVelocity := 0.8 * (i + 1);
+
+    dumbbellIds[i] := b2CreateBody(worldId, @bodyDef);
+
+    circle.SetItems(-7.0, 0.0, 4.5);
+    b2CreateCircleShape(dumbbellIds[i], @shapeDef, @circle);
+
+    circle.SetItems(7.0, 0.0, 2.5);
+    b2CreateCircleShape(dumbbellIds[i], @shapeDef, @circle);
+
+    polygon := b2MakeOffsetBox(7.0, 0.5, b2Vec2_zero, b2Rot_identity);
+    b2CreatePolygonShape(dumbbellIds[i], @shapeDef, @polygon);
+
+//    circle.SetItems(7.0, 0.0, 1.5);
+//    b2CreateCircleShape(dumbbellIds[i], @shapeDef, @circle);
+  end;
 end;
 
 destructor TEngine.Destroy;
@@ -161,6 +187,8 @@ var
   circle: Tb2Circle;
   polygon: Tb2Polygon;
   cnt: longint;
+  shapes: array[0..3] of Tb2ShapeId;
+  hp1, hp2, p: Tb2Vec2;
 begin
   b2World_Step(worldId, 1.0 / 60.0, 4);
 
@@ -212,6 +240,35 @@ begin
     circle := b2Shape_GetCircle(shapesId);
     Result.dynamicBall[i].r := circle.radius;
   end;
+
+
+  // ===== Kinematische Hanteln
+  for i := 0 to Length(dumbbellIds) - 1 do begin
+    transform := b2Body_GetTransform(dumbbellIds[i]);
+    b2Body_GetShapes(dumbbellIds[i], @shapes, 3);
+
+    //circle := b2Shape_GetCircle(shapes[0]);
+    //hp2 := b2TransformPoint(transform, circle.center);
+    //WriteLn('r1: ', circle.radius: 4: 2, '  x:', hp2.x: 4: 2, '  y:', hp2.y: 4: 2);
+    //
+    polygon := b2Shape_GetPolygon(shapes[0]);
+    Write('count: ', polygon.count, '   ');
+    for j := 0 to polygon.count - 1 do begin
+      p := b2TransformPoint(transform, polygon.vertices[j]);
+      Write('  x:', p.x: 4: 2, '  y:', p.y: 4: 2);
+    end;
+    WriteLn();
+
+    circle := b2Shape_GetCircle(shapes[1]);
+    hp2 := b2TransformPoint(transform, circle.center);
+    WriteLn('r2: ', circle.radius: 4: 2, '  x:', hp2.x: 4: 2, '  y:', hp2.y: 4: 2);
+
+    circle := b2Shape_GetCircle(shapes[2]);
+    hp1 := b2TransformPoint(transform, circle.center);
+    WriteLn('r3: ', circle.radius: 4: 2, '  x:', hp1.x: 4: 2, '  y:', hp1.y: 4: 2);
+    WriteLn(#10);
+  end;
+  WriteLn(#10);
 end;
 
 procedure TEngine.BallRest(ball: integer);
