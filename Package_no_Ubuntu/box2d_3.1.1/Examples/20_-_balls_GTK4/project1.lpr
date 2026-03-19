@@ -9,7 +9,9 @@ uses
 
 type
   TAniData = record
-    ScenCoords:TSceneCoords;
+    SceneCoords: TSceneCoords;
+    SceneIds: TSceneBodyIds;
+
     engine: TEngine;
   end;
   PAniData = ^TAniData;
@@ -25,11 +27,59 @@ const
     gtk_window_destroy(window);
   end;
 
+  procedure drawPolygone(cr: Pcairo_t; shapeId: Tb2ShapeId);
+  var
+    i: integer;
+    polygon: Tb2Polygon;
+    bodyId: Tb2BodyId;
+    transform: Tb2Transform;
+    p: Tb2Vec2;
+  begin
+    polygon := b2Shape_GetPolygon(shapeId);
+    bodyId := b2Shape_GetBody(shapeId);
+    transform := b2Body_GetTransform(bodyId);
+
+    if polygon.count > 0 then begin
+      p := b2TransformPoint(transform, polygon.vertices[0]);
+      cairo_move_to(cr, p.x, p.y);
+
+      for i := 1 to polygon.count - 1 do begin
+        p := b2TransformPoint(transform, polygon.vertices[i]);
+        cairo_line_to(cr, p.x, p.y);
+      end;
+
+      cairo_close_path(cr);
+    end;
+    cairo_fill(cr);
+  end;
+
+  procedure drawCircle(cr: Pcairo_t; shapeId: Tb2ShapeId);
+  var
+    circle: Tb2Circle;
+    bodyId: Tb2BodyId;
+    transform: Tb2Transform;
+    center: Tb2Vec2;
+  begin
+    circle := b2Shape_GetCircle(shapeId);
+    bodyId := b2Shape_GetBody(shapeId);
+    transform := b2Body_GetTransform(bodyId);
+    center := b2TransformPoint(transform, circle.center);
+
+    cairo_arc(cr, center.x, center.y, circle.radius, 0, 2 * Pi);
+    cairo_close_path(cr);
+    cairo_fill(cr);
+  end;
+
+
   procedure draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
   var
     anyData: PAniData;
-    i, j: integer;
+    i, j, k: integer;
     sc: double;
+    shapeCount: longint;
+    shapeType: Tb2ShapeType;
+  const
+    shapesId: array of Tb2ShapeId = nil;
   begin
     anyData := g_object_get_data(G_OBJECT(drawing_area), anyDataKey);
 
@@ -47,38 +97,42 @@ const
       cairo_translate(cr, 70, -50);
       cairo_set_line_width(cr, 0.50);
 
-      cairo_set_source_rgb(cr, 0.5, 0.5, 1.0);
-      for i := 0 to Length(ScenCoords.staticBox) - 1 do begin
-        cairo_move_to(cr, ScenCoords.staticBox[i, 0].X, ScenCoords.staticBox[i, 0].Y);
-        for j := 1 to Length(ScenCoords.staticBox[i]) - 1 do begin
-          cairo_line_to(cr, ScenCoords.staticBox[i, j].X, ScenCoords.staticBox[i, j].Y);
+
+      for i := 0 to Length(SceneIds) - 1 do begin
+        case i mod 5 of
+          0: begin
+            cairo_set_source_rgb(cr, 0.5, 0.5, 1.0);
+          end;
+          1: begin
+            cairo_set_source_rgb(cr, 1.0, 0.5, 1.0);
+          end;
+          2: begin
+            cairo_set_source_rgb(cr, 0.5, 1.0, 0.5);
+          end;
+          3: begin
+            cairo_set_source_rgb(cr, 1.0, 0.3, 0.2);
+          end;
+          4: begin
+            cairo_set_source_rgb(cr, 0.5, 1.0, 1.0);
+          end;
         end;
-        cairo_close_path(cr);
-      end;
-      cairo_fill(cr);
 
-      cairo_set_source_rgb(cr, 1.0, 0.5, 1.0);
-      for i := 0 to Length(ScenCoords.dynamicBox) - 1 do begin
-        cairo_move_to(cr, ScenCoords.dynamicBox[i, 0].X, ScenCoords.dynamicBox[i, 0].Y);
-        for j := 1 to Length(ScenCoords.dynamicBox[i]) - 1 do begin
-          cairo_line_to(cr, ScenCoords.dynamicBox[i, j].X, ScenCoords.dynamicBox[i, j].Y);
+        for j := 0 to Length(SceneIds[i]) - 1 do begin
+          shapeCount := b2Body_GetShapeCount(SceneIds[i, j]);
+          SetLength(shapesId, shapeCount);
+          b2Body_GetShapes(SceneIds[i, j],Pb2ShapeId (shapesId), shapeCount);
+          for k := 0 to shapeCount - 1 do begin
+            shapeType := b2Shape_GetType(shapesId[k]);
+            case shapeType of
+              b2_polygonShape: begin
+                drawPolygone(cr, shapesId[k]);
+              end;
+              b2_circleShape: begin
+                drawCircle(cr, shapesId[k]);
+              end;
+            end;
+          end;
         end;
-        cairo_close_path(cr);
-      end;
-      cairo_fill(cr);
-
-      cairo_set_source_rgb(cr, 0.5, 1.0, 0.5);
-      for i := 0 to Length(ScenCoords.staticBall) - 1 do begin
-        cairo_new_path(cr);
-        cairo_arc(cr, ScenCoords.staticBall[i].p.x, ScenCoords.staticBall[i].p.y, ScenCoords.staticBall[i].r, 0, 2 * pi);
-        cairo_fill(cr);
-      end;
-
-      cairo_set_source_rgb(cr, 1.0, 0.3, 0.2);
-      for i := 0 to Length(ScenCoords.dynamicBall) - 1 do begin
-        cairo_new_path(cr);
-        cairo_arc(cr, ScenCoords.dynamicBall[i].p.x, ScenCoords.dynamicBall[i].p.y, ScenCoords.dynamicBall[i].r, 0, 2 * pi);
-        cairo_fill(cr);
       end;
 
       cairo_stroke(cr);
@@ -92,10 +146,11 @@ const
   begin
     anyData := g_object_get_data(G_OBJECT(widget), anyDataKey);
     with anyData^ do begin
-      ScenCoords := engine.SceneCoords;
+      SceneCoords := engine.SceneCoords;
+      SceneIds := engine.SceneBodyIds;
 
-      for i := 0 to Length(ScenCoords.dynamicBall) - 1 do begin
-        if ScenCoords.dynamicBall[i].p.y < -250 then begin
+      for i := 0 to Length(SceneCoords.dynamicBall) - 1 do begin
+        if SceneCoords.dynamicBall[i].p.y < -250 then begin
           engine.BallRest(i);
         end;
       end;

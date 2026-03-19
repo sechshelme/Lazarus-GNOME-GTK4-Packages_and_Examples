@@ -32,9 +32,9 @@ type
     worldId: Tb2WorldId;
     staticBoxIds, dynamicBoxIds, dynamicBallIds, staticBallIds, dynamicDumbbellIds: Tb2BodyIds;
     function GetSceneBodyIds: TSceneBodyIds;
-    function GetSceneCords: TSceneCoords;
+    function GetSceneCords: TSceneCoords;   // muss weg
   public
-    property SceneCoords: TSceneCoords read GetSceneCords;
+    property SceneCoords: TSceneCoords read GetSceneCords;   // muss weg
     property SceneBodyIds: TSceneBodyIds read GetSceneBodyIds;
     constructor Create;
     destructor Destroy; override;
@@ -281,6 +281,8 @@ end;
 
 function TEngine.GetSceneBodyIds: TSceneBodyIds;
 begin
+  b2World_Step(worldId, 1.0 / 60.0, 4);
+
   Result:=nil;
   SetLength(Result, 5);
   Result[0]:=staticBoxIds;
