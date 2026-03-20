@@ -6,22 +6,8 @@ uses
   fp_box2d;
 
 type
-  TBoxCoord = array of Tb2Vec2;
-  TBoxCoords = array of TBoxCoord;
-
-  TBallCoord = record
-    p: Tb2Vec2;
-    r: single;
-  end;
-  TBallCoords = array of TBallCoord;
-
-  TSceneCoords = record
-    staticBox, dynamicBox: TBoxCoords;
-    staticBall, dynamicBall: TBallCoords;
-  end;
-
-  Tb2BodyIds=array of Tb2BodyId;
-  TSceneBodyIds=array of Tb2BodyIds;
+  Tb2BodyIds = array of Tb2BodyId;
+  TSceneBodyIds = array of Tb2BodyIds;
 
 type
 
@@ -32,13 +18,11 @@ type
     worldId: Tb2WorldId;
     staticBoxIds, dynamicBoxIds, dynamicBallIds, staticBallIds, dynamicDumbbellIds: Tb2BodyIds;
     function GetSceneBodyIds: TSceneBodyIds;
-    function GetSceneCords: TSceneCoords;   // muss weg
   public
-    property SceneCoords: TSceneCoords read GetSceneCords;   // muss weg
     property SceneBodyIds: TSceneBodyIds read GetSceneBodyIds;
     constructor Create;
     destructor Destroy; override;
-    procedure BallRest(ball: integer);
+    procedure NextScene;
   end;
 
 implementation
@@ -48,6 +32,12 @@ type
     size, ofs: Tb2Vec2;
     angele: single;
   end;
+
+  TBallCoord = record
+    p: Tb2Vec2;
+    r: single;
+  end;
+  TBallCoords = array of TBallCoord;
 
 const
   StaticBoxDatas: array of TBoxData = (
@@ -176,8 +166,8 @@ begin
     polygon := b2MakeOffsetBox(7.0, 0.5, b2Vec2_zero, b2Rot_identity);
     b2CreatePolygonShape(dynamicDumbbellIds[i], @shapeDef, @polygon);
 
-//    circle.SetItems(7.0, 0.0, 1.5);
-//    b2CreateCircleShape(dynamicDumbbellIds[i], @shapeDef, @circle);
+    circle.SetItems(14.0, 0.0, 1.5);
+    b2CreateCircleShape(dynamicDumbbellIds[i], @shapeDef, @circle);
   end;
 end;
 
@@ -187,120 +177,32 @@ begin
   inherited Destroy;
 end;
 
-function TEngine.GetSceneCords: TSceneCoords;
-var
-  i, j: integer;
-  transform: Tb2Transform;
-  shapesId: Tb2ShapeId;
-  circle: Tb2Circle;
-  polygon: Tb2Polygon;
-  cnt: longint;
-  shapes: array[0..3] of Tb2ShapeId;
-  hp1, hp2, p: Tb2Vec2;
+procedure TEngine.NextScene;
 begin
   b2World_Step(worldId, 1.0 / 60.0, 4);
-
-  // ===== Static Box
-  Result.staticBox := nil;
-  SetLength(Result.staticBox, Length(staticBoxIds));
-  for i := 0 to Length(staticBoxIds) - 1 do begin
-    b2Body_GetShapes(staticBoxIds[i], @shapesId, 1);
-    polygon := b2Shape_GetPolygon(shapesId);
-    cnt := polygon.count;
-    SetLength(Result.staticBox[i], cnt);
-    for j := 0 to cnt - 1 do begin
-      Result.staticBox[i, j] := polygon.vertices[j];
-    end;
-  end;
-
-  // ===== Dynamic Box
-  Result.dynamicBox := nil;
-  SetLength(Result.dynamicBox, Length(dynamicBoxIds));
-  for i := 0 to Length(dynamicBoxIds) - 1 do begin
-    transform := b2Body_GetTransform(dynamicBoxIds[i]);
-    b2Body_GetShapes(dynamicBoxIds[i], @shapesId, 1);
-    polygon := b2Shape_GetPolygon(shapesId);
-    cnt := polygon.count;
-    SetLength(Result.dynamicBox[i], cnt);
-    for j := 0 to cnt - 1 do begin
-      Result.dynamicBox[i, j] := b2TransformPoint(transform, polygon.vertices[j]);
-    end;
-  end;
-
-  // ===== Static Ball
-  Result.staticBall := nil;
-  SetLength(Result.staticBall, Length(staticBallIds));
-  for i := 0 to Length(staticBallIds) - 1 do begin
-    Result.staticBall[i].p := b2Body_GetPosition(staticBallIds[i]);
-
-    b2Body_GetShapes(staticBallIds[i], @shapesId, 1);
-    circle := b2Shape_GetCircle(shapesId);
-    Result.staticBall[i].r := circle.radius;
-  end;
-
-  // ===== Dynamic Ball
-  Result.dynamicBall := nil;
-  SetLength(Result.dynamicBall, Length(dynamicBallIds));
-  for i := 0 to Length(dynamicBallIds) - 1 do begin
-    Result.dynamicBall[i].p := b2Body_GetPosition(dynamicBallIds[i]);
-
-    b2Body_GetShapes(dynamicBallIds[i], @shapesId, 1);
-    circle := b2Shape_GetCircle(shapesId);
-    Result.dynamicBall[i].r := circle.radius;
-  end;
-
-
-  // ===== Kinematische Hanteln
-  for i := 0 to Length(dynamicDumbbellIds) - 1 do begin
-    transform := b2Body_GetTransform(dynamicDumbbellIds[i]);
-    b2Body_GetShapes(dynamicDumbbellIds[i], @shapes, 3);
-
-    //circle := b2Shape_GetCircle(shapes[0]);
-    //hp2 := b2TransformPoint(transform, circle.center);
-    //WriteLn('r1: ', circle.radius: 4: 2, '  x:', hp2.x: 4: 2, '  y:', hp2.y: 4: 2);
-    //
-    polygon := b2Shape_GetPolygon(shapes[0]);
-    Write('count: ', polygon.count, '   ');
-    for j := 0 to polygon.count - 1 do begin
-      p := b2TransformPoint(transform, polygon.vertices[j]);
-      Write('  x:', p.x: 4: 2, '  y:', p.y: 4: 2);
-    end;
-    WriteLn();
-
-    circle := b2Shape_GetCircle(shapes[1]);
-    hp2 := b2TransformPoint(transform, circle.center);
-    WriteLn('r2: ', circle.radius: 4: 2, '  x:', hp2.x: 4: 2, '  y:', hp2.y: 4: 2);
-
-    circle := b2Shape_GetCircle(shapes[2]);
-    hp1 := b2TransformPoint(transform, circle.center);
-    WriteLn('r3: ', circle.radius: 4: 2, '  x:', hp1.x: 4: 2, '  y:', hp1.y: 4: 2);
-    WriteLn(#10);
-  end;
-  WriteLn(#10);
 end;
 
 function TEngine.GetSceneBodyIds: TSceneBodyIds;
-begin
-  b2World_Step(worldId, 1.0 / 60.0, 4);
-
-  Result:=nil;
-  SetLength(Result, 5);
-  Result[0]:=staticBoxIds;
-  Result[1]:=dynamicBoxIds;
-  Result[2]:=staticBallIds;
-  Result[3]:=dynamicBallIds;
-  Result[4]:=dynamicDumbbellIds;
-end;
-
-procedure TEngine.BallRest(ball: integer);
 var
-  v: Tb2Vec2;
+  i: integer;
+  p, v: Tb2Vec2;
 begin
-  if ball < Length(dynamicBallIds) then begin
-    v.SetItems(50.0, 50.0);
-    b2Body_SetTransform(dynamicBallIds[ball], v, b2Rot_identity);
-    b2Body_SetLinearVelocity(dynamicBallIds[ball], b2Vec2_zero);
-    b2Body_SetAngularVelocity(dynamicBallIds[ball], 0.0);
+  Result := nil;
+  SetLength(Result, 5);
+  Result[0] := staticBoxIds;
+  Result[1] := dynamicBoxIds;
+  Result[2] := staticBallIds;
+  Result[3] := dynamicBallIds;
+  Result[4] := dynamicDumbbellIds;
+
+  for i := 0 to Length(dynamicBallIds) - 1 do begin
+    p := b2Body_GetPosition(dynamicBallIds[i]);
+    if p.y < -250.0 then begin
+      v.SetItems(50.0, 50.0);
+      b2Body_SetTransform(dynamicBallIds[i], v, b2Rot_identity);
+      b2Body_SetLinearVelocity(dynamicBallIds[i], b2Vec2_zero);
+      b2Body_SetAngularVelocity(dynamicBallIds[i], 0.0);
+    end;
   end;
 end;
 

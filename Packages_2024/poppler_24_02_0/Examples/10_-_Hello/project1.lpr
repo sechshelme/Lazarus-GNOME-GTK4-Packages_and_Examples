@@ -95,7 +95,7 @@ var
 
       text := poppler_page_get_text(page);
       if text <> nil then begin
-//        g_printf('%s'#10, text);
+        g_printf('%s'#10, text);
         g_free(text);
       end;
 
@@ -107,11 +107,10 @@ var
 
         for j := 0 to n_rectangles - 1 do begin
           r := rectangles[j];
-//          g_printf('Rechteck %d: x1=%.2f, y1=%.2f, x2=%.2f, y2=%.2f'#10, j, r.x1, r.y1, r.x2, r.y2);
+          g_printf('Rechteck %d: x1=%.2f, y1=%.2f, x2=%.2f, y2=%.2f'#10, j, r.x1, r.y1, r.x2, r.y2);
         end;
         g_free(rectangles);
       end;
-
 
       g_object_unref(page);
     end;
@@ -125,7 +124,6 @@ var
     err: PGError = nil;
   begin
     path_uri := g_filename_to_uri('/home/tux/Downloads/1553760606.pdf', nil, @err);
-//    path_uri := g_filename_to_uri('/home/tux/Downloads/Telegram Desktop/Das_Buch_Henoch.pdf', nil, @err);
     if path_uri = nil then begin
       g_printerr('g_filename_to_uri()   %s'#10, err^.message);
       g_error_free(err);

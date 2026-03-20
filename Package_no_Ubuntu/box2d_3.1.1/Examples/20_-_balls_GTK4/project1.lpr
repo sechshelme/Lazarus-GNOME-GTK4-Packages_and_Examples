@@ -9,9 +9,7 @@ uses
 
 type
   TAniData = record
-    SceneCoords: TSceneCoords;
     SceneIds: TSceneBodyIds;
-
     engine: TEngine;
   end;
   PAniData = ^TAniData;
@@ -146,14 +144,9 @@ const
   begin
     anyData := g_object_get_data(G_OBJECT(widget), anyDataKey);
     with anyData^ do begin
-      SceneCoords := engine.SceneCoords;
+      engine.NextScene;
+//      SceneCoords := engine.SceneCoords;
       SceneIds := engine.SceneBodyIds;
-
-      for i := 0 to Length(SceneCoords.dynamicBall) - 1 do begin
-        if SceneCoords.dynamicBall[i].p.y < -250 then begin
-          engine.BallRest(i);
-        end;
-      end;
     end;
     gtk_widget_queue_draw(widget);
     Result := G_SOURCE_CONTINUE;
