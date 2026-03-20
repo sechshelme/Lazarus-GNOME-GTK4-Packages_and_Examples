@@ -6,6 +6,11 @@ uses
   fp_box2d;
 
 type
+  TColor = record
+    r, g, b: single;
+  end;
+  PColor = ^TColor;
+
   Tb2BodyIds = array of Tb2BodyId;
   TSceneBodyIds = array of Tb2BodyIds;
 
@@ -40,6 +45,18 @@ type
   TBallCoords = array of TBallCoord;
 
 const
+  clRed: TColor = (r: 1.0; g: 0.0; b: 0.0);
+  clGreen: TColor = (r: 0.0; g: 1.0; b: 0.0);
+  clBlue: TColor = (r: 0.0; g: 0.0; b: 1.0);
+
+  clLightRed: TColor = (r: 1.0; g: 0.5; b: 0.5);
+  clLightGreen: TColor = (r: 0.5; g: 1.0; b: 0.5);
+  clLightBlue: TColor = (r: 0.5; g: 0.5; b: 1.0);
+
+  clLightYellow: TColor = (r: 1.0; g: 1.0; b: 0.5);
+  clLightMagenta: TColor = (r: 1.0; g: 0.5; b: 1.0);
+  clLightCyan: TColor = (r: 0.5; g: 1.0; b: 1.0);
+
   StaticBoxDatas: array of TBoxData = (
     (size: (x: 50.0; y: 2.5); ofs: (x: 0.0; y: 0.0); angele: 0.0),
     (size: (x: 50.0; y: 2.5); ofs: (x: 75.0; y: -10.0); angele: 0.3),
@@ -80,11 +97,13 @@ begin
   // ===== Static polygon
   bodyDef := b2DefaultBodyDef;
   shapeDef := b2DefaultShapeDef;
+  shapeDef.enableContactEvents := True;   // ???
 
   SetLength(staticBoxIds, Length(StaticBoxDatas));
   for i := 0 to Length(StaticBoxDatas) - 1 do begin
     with StaticBoxDatas[i] do begin
       staticBoxIds[i] := b2CreateBody(worldId, @bodyDef);
+      b2Body_SetUserData(staticBoxIds[i], @clLightBlue);
       r.c := Cos(angele);
       r.s := Sin(angele);
       polygon := b2MakeOffsetBox(size.x, size.y, ofs, r);
@@ -104,6 +123,7 @@ begin
       bodyDef.angularVelocity := 0.5 * (i + 1);
 
       dynamicBoxIds[i] := b2CreateBody(worldId, @bodyDef);
+      b2Body_SetUserData(dynamicBoxIds[i], @clLightRed);
       r.c := Cos(angele);
       r.s := Sin(angele);
       polygon := b2MakeOffsetBox(size.x, size.y, b2Vec2_zero, r);
@@ -121,6 +141,7 @@ begin
       bodyDef.position := p;
 
       staticBallIds[i] := b2CreateBody(worldId, @bodyDef);
+      b2Body_SetUserData(staticBallIds[i], @clLightCyan);
       circle.SetItems(0.0, 0.0, r);
       b2CreateCircleShape(staticBallIds[i], @shapeDef, @circle);
     end;
@@ -140,6 +161,7 @@ begin
     bodyDef.linearVelocity.SetItems(5.0, 0.0);
 
     dynamicBallIds[i] := b2CreateBody(worldId, @bodyDef);
+    b2Body_SetUserData(dynamicBallIds[i], @clRed);
     circle.SetItems(0.0, 0.0, Random * 4);
     shapeId := b2CreateCircleShape(dynamicBallIds[i], @shapeDef, @circle);
     b2Shape_SetRestitution(shapeId, 0.7);
@@ -152,10 +174,11 @@ begin
   for i := 0 to Length(dynamicDumbbellIds) - 1 do begin
     bodyDef := b2DefaultBodyDef;
     bodyDef._type := b2_kinematicBody;
-    bodyDef.position.SetItems(60.0 + (i * 40.0), -50.0);
+    bodyDef.position.SetItems(80.0 + (i * 40.0), -120.0);
     bodyDef.angularVelocity := 0.8 * (i + 1);
 
     dynamicDumbbellIds[i] := b2CreateBody(worldId, @bodyDef);
+    b2Body_SetUserData(dynamicDumbbellIds[i], @clLightGreen);
 
     circle.SetItems(-7.0, 0.0, 4.5);
     b2CreateCircleShape(dynamicDumbbellIds[i], @shapeDef, @circle);
@@ -163,11 +186,8 @@ begin
     circle.SetItems(7.0, 0.0, 2.5);
     b2CreateCircleShape(dynamicDumbbellIds[i], @shapeDef, @circle);
 
-    polygon := b2MakeOffsetBox(7.0, 0.5, b2Vec2_zero, b2Rot_identity);
+    polygon := b2MakeOffsetBox(7.0, 1.0, b2Vec2_zero, b2Rot_identity);
     b2CreatePolygonShape(dynamicDumbbellIds[i], @shapeDef, @polygon);
-
-    circle.SetItems(14.0, 0.0, 1.5);
-    b2CreateCircleShape(dynamicDumbbellIds[i], @shapeDef, @circle);
   end;
 end;
 
@@ -178,8 +198,13 @@ begin
 end;
 
 procedure TEngine.NextScene;
+var
+  event: Tb2ContactEvents;
 begin
   b2World_Step(worldId, 1.0 / 60.0, 4);
+
+  event:=b2World_GetContactEvents(worldId);
+  WriteLn('begin: ',event.beginCount:5,'   end:   ',event.endCount:5);
 end;
 
 function TEngine.GetSceneBodyIds: TSceneBodyIds;

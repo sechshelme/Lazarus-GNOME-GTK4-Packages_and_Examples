@@ -76,6 +76,7 @@ const
     sc: double;
     shapeCount: longint;
     shapeType: Tb2ShapeType;
+    col: PColor;
   const
     shapesId: array of Tb2ShapeId = nil;
   begin
@@ -97,28 +98,35 @@ const
 
 
       for i := 0 to Length(SceneIds) - 1 do begin
-        case i mod 5 of
-          0: begin
-            cairo_set_source_rgb(cr, 0.5, 0.5, 1.0);
-          end;
-          1: begin
-            cairo_set_source_rgb(cr, 1.0, 0.5, 1.0);
-          end;
-          2: begin
-            cairo_set_source_rgb(cr, 0.5, 1.0, 0.5);
-          end;
-          3: begin
-            cairo_set_source_rgb(cr, 1.0, 0.3, 0.2);
-          end;
-          4: begin
-            cairo_set_source_rgb(cr, 0.5, 1.0, 1.0);
-          end;
-        end;
+        //case i mod 5 of
+        //  0: begin
+        //    cairo_set_source_rgb(cr, 0.5, 0.5, 1.0);
+        //  end;
+        //  1: begin
+        //    cairo_set_source_rgb(cr, 1.0, 0.5, 1.0);
+        //  end;
+        //  2: begin
+        //    cairo_set_source_rgb(cr, 0.5, 1.0, 0.5);
+        //  end;
+        //  3: begin
+        //    cairo_set_source_rgb(cr, 1.0, 0.3, 0.2);
+        //  end;
+        //  4: begin
+        //    cairo_set_source_rgb(cr, 0.5, 1.0, 1.0);
+        //  end;
+        //end;
 
         for j := 0 to Length(SceneIds[i]) - 1 do begin
           shapeCount := b2Body_GetShapeCount(SceneIds[i, j]);
           SetLength(shapesId, shapeCount);
-          b2Body_GetShapes(SceneIds[i, j],Pb2ShapeId (shapesId), shapeCount);
+          b2Body_GetShapes(SceneIds[i, j], Pb2ShapeId(shapesId), shapeCount);
+          col := b2Body_GetUserData(SceneIds[i, j]);
+          if col <> nil then begin
+            cairo_set_source_rgb(cr, col^.r, col^.g, col^.b);
+          end else begin
+            cairo_set_source_rgb(cr, 1.0, 1.0, 1.0);
+          end;
+
           for k := 0 to shapeCount - 1 do begin
             shapeType := b2Shape_GetType(shapesId[k]);
             case shapeType of
@@ -145,7 +153,7 @@ const
     anyData := g_object_get_data(G_OBJECT(widget), anyDataKey);
     with anyData^ do begin
       engine.NextScene;
-//      SceneCoords := engine.SceneCoords;
+      //      SceneCoords := engine.SceneCoords;
       SceneIds := engine.SceneBodyIds;
     end;
     gtk_widget_queue_draw(widget);
