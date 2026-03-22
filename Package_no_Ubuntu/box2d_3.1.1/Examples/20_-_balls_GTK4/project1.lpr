@@ -9,7 +9,7 @@ uses
 
 type
   TAniData = record
-    SceneIds: TSceneBodyIds;
+    SceneIds: Tb2BodyIds;
     engine: TEngine;
   end;
   PAniData = ^TAniData;
@@ -97,7 +97,7 @@ const
       cairo_set_line_width(cr, 0.50);
 
 
-      for i := 0 to Length(SceneIds) - 1 do begin
+//      for i := 0 to Length(SceneIds) - 1 do begin
         //case i mod 5 of
         //  0: begin
         //    cairo_set_source_rgb(cr, 0.5, 0.5, 1.0);
@@ -116,11 +116,11 @@ const
         //  end;
         //end;
 
-        for j := 0 to Length(SceneIds[i]) - 1 do begin
-          shapeCount := b2Body_GetShapeCount(SceneIds[i, j]);
+        for j := 0 to Length(SceneIds) - 1 do begin
+          shapeCount := b2Body_GetShapeCount(SceneIds[ j]);
           SetLength(shapesId, shapeCount);
-          b2Body_GetShapes(SceneIds[i, j], Pb2ShapeId(shapesId), shapeCount);
-          col := b2Body_GetUserData(SceneIds[i, j]);
+          b2Body_GetShapes(SceneIds[ j], Pb2ShapeId(shapesId), shapeCount);
+          col := b2Body_GetUserData(SceneIds[ j]);
           if col <> nil then begin
             cairo_set_source_rgb(cr, col^.r, col^.g, col^.b);
           end else begin
@@ -139,7 +139,7 @@ const
             end;
           end;
         end;
-      end;
+//      end;
 
       cairo_stroke(cr);
     end;

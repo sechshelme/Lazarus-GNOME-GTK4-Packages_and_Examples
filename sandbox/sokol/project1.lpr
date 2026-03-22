@@ -12,6 +12,8 @@ uses
 
   fp_sokol;
 
+// https://github.com/edubart/sokol_gp
+
 type
   Tstate = record
     pip: Tsg_pipeline;

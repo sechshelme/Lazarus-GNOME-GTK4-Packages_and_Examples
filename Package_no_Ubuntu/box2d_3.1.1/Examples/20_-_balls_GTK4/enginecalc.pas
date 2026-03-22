@@ -1,5 +1,7 @@
 unit EngineCalc;
 
+{$modeswitch arrayoperators on}
+
 interface
 
 uses
@@ -22,9 +24,9 @@ type
   private
     worldId: Tb2WorldId;
     staticBoxIds, dynamicBoxIds, dynamicBallIds, staticBallIds, dynamicDumbbellIds: Tb2BodyIds;
-    function GetSceneBodyIds: TSceneBodyIds;
+    function GetSceneBodyIds: Tb2BodyIds;
   public
-    property SceneBodyIds: TSceneBodyIds read GetSceneBodyIds;
+    property SceneBodyIds: Tb2BodyIds read GetSceneBodyIds;
     constructor Create;
     destructor Destroy; override;
     procedure NextScene;
@@ -207,26 +209,29 @@ begin
   WriteLn('begin: ',event.beginCount:5,'   end:   ',event.endCount:5);
 end;
 
-function TEngine.GetSceneBodyIds: TSceneBodyIds;
+function TEngine.GetSceneBodyIds: Tb2BodyIds;
 var
   i: integer;
   p, v: Tb2Vec2;
 begin
   Result := nil;
   SetLength(Result, 5);
-  Result[0] := staticBoxIds;
-  Result[1] := dynamicBoxIds;
-  Result[2] := staticBallIds;
-  Result[3] := dynamicBallIds;
-  Result[4] := dynamicDumbbellIds;
 
-  for i := 0 to Length(dynamicBallIds) - 1 do begin
-    p := b2Body_GetPosition(dynamicBallIds[i]);
+
+  Result:=
+ staticBoxIds +
+  dynamicBoxIds+
+  staticBallIds+
+  dynamicBallIds+
+  dynamicDumbbellIds;
+
+  for i := 0 to Length(Result) - 1 do begin
+    p := b2Body_GetPosition(Result[i]);
     if p.y < -250.0 then begin
       v.SetItems(50.0, 50.0);
-      b2Body_SetTransform(dynamicBallIds[i], v, b2Rot_identity);
-      b2Body_SetLinearVelocity(dynamicBallIds[i], b2Vec2_zero);
-      b2Body_SetAngularVelocity(dynamicBallIds[i], 0.0);
+      b2Body_SetTransform(Result[i], v, b2Rot_identity);
+      b2Body_SetLinearVelocity(Result[i], b2Vec2_zero);
+      b2Body_SetAngularVelocity(Result[i], 0.0);
     end;
   end;
 end;
