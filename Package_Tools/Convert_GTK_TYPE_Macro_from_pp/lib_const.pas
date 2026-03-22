@@ -308,6 +308,7 @@ const
     (libs: 'libbox2d'; units: 'fp_box2d'),
     (libs: 'libthorvg'; units: 'ctypes'),
     (libs: 'libtalloc'; units: 'ctypes'),
+    (libs: 'libsokol'; units: 'fp_sokol'),
 
 
 
