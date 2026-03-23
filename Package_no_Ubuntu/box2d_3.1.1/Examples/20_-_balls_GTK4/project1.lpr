@@ -96,50 +96,29 @@ const
       cairo_translate(cr, 70, -50);
       cairo_set_line_width(cr, 0.50);
 
+      for j := 0 to Length(SceneIds) - 1 do begin
+        shapeCount := b2Body_GetShapeCount(SceneIds[j]);
+        SetLength(shapesId, shapeCount);
+        b2Body_GetShapes(SceneIds[j], Pb2ShapeId(shapesId), shapeCount);
+        col := b2Body_GetUserData(SceneIds[j]);
+        if col <> nil then begin
+          cairo_set_source_rgb(cr, col^.r, col^.g, col^.b);
+        end else begin
+          cairo_set_source_rgb(cr, 1.0, 1.0, 1.0);
+        end;
 
-//      for i := 0 to Length(SceneIds) - 1 do begin
-        //case i mod 5 of
-        //  0: begin
-        //    cairo_set_source_rgb(cr, 0.5, 0.5, 1.0);
-        //  end;
-        //  1: begin
-        //    cairo_set_source_rgb(cr, 1.0, 0.5, 1.0);
-        //  end;
-        //  2: begin
-        //    cairo_set_source_rgb(cr, 0.5, 1.0, 0.5);
-        //  end;
-        //  3: begin
-        //    cairo_set_source_rgb(cr, 1.0, 0.3, 0.2);
-        //  end;
-        //  4: begin
-        //    cairo_set_source_rgb(cr, 0.5, 1.0, 1.0);
-        //  end;
-        //end;
-
-        for j := 0 to Length(SceneIds) - 1 do begin
-          shapeCount := b2Body_GetShapeCount(SceneIds[ j]);
-          SetLength(shapesId, shapeCount);
-          b2Body_GetShapes(SceneIds[ j], Pb2ShapeId(shapesId), shapeCount);
-          col := b2Body_GetUserData(SceneIds[ j]);
-          if col <> nil then begin
-            cairo_set_source_rgb(cr, col^.r, col^.g, col^.b);
-          end else begin
-            cairo_set_source_rgb(cr, 1.0, 1.0, 1.0);
-          end;
-
-          for k := 0 to shapeCount - 1 do begin
-            shapeType := b2Shape_GetType(shapesId[k]);
-            case shapeType of
-              b2_polygonShape: begin
-                drawPolygone(cr, shapesId[k]);
-              end;
-              b2_circleShape: begin
-                drawCircle(cr, shapesId[k]);
-              end;
+        for k := 0 to shapeCount - 1 do begin
+          shapeType := b2Shape_GetType(shapesId[k]);
+          case shapeType of
+            b2_polygonShape: begin
+              drawPolygone(cr, shapesId[k]);
+            end;
+            b2_circleShape: begin
+              drawCircle(cr, shapesId[k]);
             end;
           end;
         end;
-//      end;
+      end;
 
       cairo_stroke(cr);
     end;
@@ -153,7 +132,6 @@ const
     anyData := g_object_get_data(G_OBJECT(widget), anyDataKey);
     with anyData^ do begin
       engine.NextScene;
-      //      SceneCoords := engine.SceneCoords;
       SceneIds := engine.SceneBodyIds;
     end;
     gtk_widget_queue_draw(widget);

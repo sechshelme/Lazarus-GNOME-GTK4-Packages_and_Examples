@@ -12,7 +12,7 @@ uses
 
   fp_sokol;
 
-// https://github.com/edubart/sokol_gp
+  // https://github.com/edubart/sokol_gp
 
 type
   Tstate = record
@@ -42,6 +42,7 @@ var
       'void main() {'#10 +
       '  frag_color = color;'#10 +
       '}';
+
   const
     vertices: array of single = (
       0.0, 0.5, 0.5, 1.0, 0.0, 0.0, 1.0,
