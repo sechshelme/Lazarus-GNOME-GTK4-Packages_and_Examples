@@ -34,18 +34,6 @@ type
 
 implementation
 
-type
-  TBoxData = record
-    size, ofs: Tb2Vec2;
-    angele: single;
-  end;
-
-  TBallCoord = record
-    p: Tb2Vec2;
-    r: single;
-  end;
-  TBallCoords = array of TBallCoord;
-
 const
   clRed: TColor = (r: 1.0; g: 0.0; b: 0.0);
   clGreen: TColor = (r: 0.0; g: 1.0; b: 0.0);
@@ -59,6 +47,15 @@ const
   clLightMagenta: TColor = (r: 1.0; g: 0.5; b: 1.0);
   clLightCyan: TColor = (r: 0.5; g: 1.0; b: 1.0);
 
+type
+  TBoxData = record
+    size, ofs: Tb2Vec2;
+    angele: single;
+  end;
+
+  Tb2Circles = array of Tb2Circle;
+
+const
   StaticBoxDatas: array of TBoxData = (
     (size: (x: 50.0; y: 2.5); ofs: (x: 0.0; y: 0.0); angele: 0.0),
     (size: (x: 50.0; y: 2.5); ofs: (x: 75.0; y: -10.0); angele: 0.3),
@@ -74,15 +71,14 @@ const
     (size: (x: 20.0; y: 2.5); ofs: (x: 220.0; y: -30.0); angele: 0.3)
     );
 
-  StaticBallData: TBallCoords = (
-    (p: (x: 90.0; y: -40.0); r: 15),
-    (p: (x: 185.0; y: -80.0); r: 20),
-    (p: (x: 180.0; y: -170.0); r: 20)
+  StaticBallData: Tb2Circles = (
+    (center: (x: 90.0; y: -40.0); radius: 15),
+    (center: (x: 185.0; y: -80.0); radius: 20),
+    (center: (x: 180.0; y: -170.0); radius: 20)
     );
 
 constructor TEngine.Create;
 var
-  r: Tb2Rot;
   i: integer;
   worldDef: Tb2WorldDef;
   bodyDef: Tb2BodyDef;
@@ -101,16 +97,26 @@ begin
   shapeDef := b2DefaultShapeDef;
   shapeDef.enableContactEvents := True;   // ???
 
-  SetLength(staticBoxIds, Length(StaticBoxDatas));
+  SetLength(staticBoxIds, 1);
+  staticBoxIds[0] := b2CreateBody(worldId, @bodyDef);
+  b2Body_SetUserData(staticBoxIds[0], @clLightBlue);
   for i := 0 to Length(StaticBoxDatas) - 1 do begin
     with StaticBoxDatas[i] do begin
-      staticBoxIds[i] := b2CreateBody(worldId, @bodyDef);
-      b2Body_SetUserData(staticBoxIds[i], @clLightBlue);
-      r.c := Cos(angele);
-      r.s := Sin(angele);
-      polygon := b2MakeOffsetBox(size.x, size.y, ofs, r);
-      b2CreatePolygonShape(staticBoxIds[i], @shapeDef, @polygon);
+      polygon := b2MakeOffsetBox(size.x, size.y, ofs, b2MakeRot(angele));
+      b2CreatePolygonShape(staticBoxIds[0], @shapeDef, @polygon);
     end;
+  end;
+
+  // ===== Static Ball
+  bodyDef := b2DefaultBodyDef;
+  shapeDef := b2DefaultShapeDef;
+
+  SetLength(staticBallIds, 1);
+  staticBallIds[0] := b2CreateBody(worldId, @bodyDef);
+  b2Body_SetUserData(staticBallIds[0], @clLightCyan);
+  for i := 0 to Length(StaticBallData) - 1 do begin;
+    circle := StaticBallData[i];
+    b2CreateCircleShape(staticBallIds[0], @shapeDef, @circle);
   end;
 
   // ===== Dynamic polygon
@@ -126,26 +132,8 @@ begin
 
       dynamicBoxIds[i] := b2CreateBody(worldId, @bodyDef);
       b2Body_SetUserData(dynamicBoxIds[i], @clLightRed);
-      r.c := Cos(angele);
-      r.s := Sin(angele);
-      polygon := b2MakeOffsetBox(size.x, size.y, b2Vec2_zero, r);
+      polygon := b2MakeOffsetBox(size.x, size.y, b2Vec2_zero, b2MakeRot(angele));
       b2CreatePolygonShape(dynamicBoxIds[i], @shapeDef, @polygon);
-    end;
-  end;
-
-  // ===== Static Ball
-  shapeDef := b2DefaultShapeDef;
-
-  SetLength(staticBallIds, Length(StaticBallData));
-  for i := 0 to Length(staticBallIds) - 1 do begin;
-    with StaticBallData[i] do begin
-      bodyDef := b2DefaultBodyDef;
-      bodyDef.position := p;
-
-      staticBallIds[i] := b2CreateBody(worldId, @bodyDef);
-      b2Body_SetUserData(staticBallIds[i], @clLightCyan);
-      circle.SetItems(0.0, 0.0, r);
-      b2CreateCircleShape(staticBallIds[i], @shapeDef, @circle);
     end;
   end;
 
@@ -205,8 +193,8 @@ var
 begin
   b2World_Step(worldId, 1.0 / 60.0, 4);
 
-  event:=b2World_GetContactEvents(worldId);
-  WriteLn('begin: ',event.beginCount:5,'   end:   ',event.endCount:5);
+  event := b2World_GetContactEvents(worldId);
+  WriteLn('begin: ', event.beginCount: 5, '   end:   ', event.endCount: 5);
 end;
 
 function TEngine.GetSceneBodyIds: Tb2BodyIds;
@@ -218,12 +206,12 @@ begin
   SetLength(Result, 5);
 
 
-  Result:=
- staticBoxIds +
-  dynamicBoxIds+
-  staticBallIds+
-  dynamicBallIds+
-  dynamicDumbbellIds;
+  Result :=
+    staticBoxIds +
+    dynamicBoxIds +
+    staticBallIds +
+    dynamicBallIds +
+    dynamicDumbbellIds;
 
   for i := 0 to Length(Result) - 1 do begin
     p := b2Body_GetPosition(Result[i]);

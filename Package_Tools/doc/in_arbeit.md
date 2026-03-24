@@ -34,6 +34,7 @@ https://registry.khronos.org/OpenGL-Refpages/gl4/
 
 
 
+
 # Vulkan
 https://community.khronos.org/t/5-new-vulkan-samples/110160
 https://vulkan-tutorial.com/Drawing_a_triangle/Setup/Instance
@@ -361,7 +362,13 @@ libnspr4   // mozilla
 
 libpackagekit-glib2-dev 
 
+libgdal-dev
 
+libbabl
+liblcms2
+
+
+skia
 
 
    
@@ -526,8 +533,67 @@ libbz2-dev
 
  librubberband-dev   
   libopus0      
+ libmad0-dev    
 
 libzstd                         // io.
+libpolylib64-dev                // io.
+libqhull-dev 
+
+  libsensors5
+
+ libbsd0    
+libaspell
+libdeflate-dev     
+  libidn2-dev  
+     libjack-jackd2-dev   
+  libmikmod-dev   
+  libmypaint-1.5-1   
+    libonig5
+   librttopo1         
+   libsecret-1-0    
+
+ liblua5.4-0    
+  libsuperlu7
+  libspatialite8t64
+
+libplacebo-dev
+ibid3-3.8.3-dev 
+
+libatk1.0-dev   
+
+  libgusb2a
+
+libassimp-dev
+
+gvfs, gvfs-daemons, gvfs-libs
+
+libbgfx
+
+
+
+
+
+
+
+libwacom-dev  // grafiktablett
+
+
+libcamel-1.2-dev, libebook-1.2-dev, libecal-2.0-dev //  sudo apt install evolution-data-server-dev
+
+libcimgui //    ImGui 
+ libblkid-dev     
+
+libpdal, liblas // was ist das ???? 
+liblasem
+ libgeotiff-dev
+libwmf-0.2-7
+
+libtalloc2   
+
+thorvg und passagemath 
+
+
+
 
 
 Compressor name	Ratio	Compression	Decompress.
@@ -545,6 +611,9 @@ lzf 3.6 -1	2.077	410 MB/s	820 MB/s
 
 
 sudo apt install gtk-4-examples
+
+https://github.com/Immediate-Mode-UI/Nuklear/tree/master
+https://github.com/memononen/fontstash
 
 
 
@@ -567,6 +636,7 @@ libdialog               # https://invisible-island.net/archives/dialog/
 
 libhyperscan-dev  // neu libvectorscan-dev
 
+libtinysparql
 
 
 
@@ -678,6 +748,14 @@ apt changelog libwebkitgtk-6.0-dev
 dpkg -s libwebkitgtk-6.0-dev | grep Version
 apt list --installed libwebkitgtk-6.0-dev
 
+# Optimiert mit cmake bauen
+
+cmake -S . -B build \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_C_FLAGS="-march=native" \
+  -DCMAKE_CXX_FLAGS="-march=native"
+
+
 # cache aufräumen
 
 ldconfig
@@ -697,6 +775,23 @@ find . -type f -exec chmod 664 {} +
 
 find . -type d -exec chmod 775 {} +; find . -type f -exec chmod 664 {} +
 
+# MSYS2 Alternative
+
+```sh
+git clone https://github.com/holyblackcat/quasi-msys2
+cd quasi-msys2
+make install _gcc _gdb
+make install mingw-w64-ucrt-x86_64-gcc
+make install mingw-w64-ucrt-x86_64-gtk4
+```
+
+
+pacmake install mingw-w64-ucrt-x86_64-gtk4
+oder
+make install mingw-w64-ucrt-x86_64-gtk4
+
+/home/tux/.local/bin
+
 
 # Wine Start
 
@@ -710,4 +805,50 @@ Gut:
 
 
 ioquake3
+
+
+
+# GITHUB release automatisch
+gh release create v1.0.0 --title "Mein erstes Release" --notes "Hier sind die Änderungen..."
+
+# Sokol
+
+## folgende Datei erstellen:
+sokol_all.c
+```c
+/* 1. Implementierung und Backend aktivieren */
+#define SOKOL_IMPL
+#define SOKOL_GLCORE
+#define SOKOL_API_DECL __attribute__((visibility("default")))
+
+/* 2. Kern-Module (Infrastruktur) */
+#include "sokol_log.h"
+#include "sokol_gfx.h"
+#include "sokol_app.h"
+#include "sokol_audio.h"
+#include "sokol_time.h"
+#include "sokol_args.h"
+#include "sokol_fetch.h"
+
+/* 3. Glue-Modul (Verbindung zwischen App und Gfx) */
+#include "sokol_glue.h"
+
+/* 4. Utility-Module (Zusatzfunktionen) */
+#include "util/sokol_gl.h"
+#include "util/sokol_debugtext.h"
+#include "util/sokol_shape.h"
+#include "util/sokol_color.h"
+```
+
+`gcc -O2 -fPIC -shared sokol_all.c -o libsokol.so -lGL -ldl -lpthread -lX11 -lXi -lXcursor -lasound`
+
+
+
+
+
+
+
+
+
+
 

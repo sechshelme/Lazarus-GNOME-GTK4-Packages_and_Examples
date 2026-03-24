@@ -137,6 +137,7 @@ var
   end;
 
 begin
-//  sg_make_color_1i(0);
   main;
 end.
+
+
