@@ -32,7 +32,7 @@ implementation
 { TForm1 }
 
 const
-  srcPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/box2d';
+  srcPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/sokol';
 
   destPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/packagesxx';
 
@@ -44,7 +44,7 @@ var
   p: SizeInt;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles(srcPath, '*.pas');
+  slFile := FindAllFiles(srcPath, '*.pas',True);
 
   for i := 0 to slFile.Count - 1 do begin
     unit_source := TStringList.Create;
