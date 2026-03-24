@@ -10,10 +10,6 @@ const
   libsokol = 'libsokol.dll';
   {$ENDIF}
 
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
-
 type
   Tuint8_t = uint8;
   Puint8_t = ^Tuint8_t;
@@ -46,6 +42,22 @@ type
 
   Tuintptr_t = PtrUInt;
   Puintptr_t = ^Tuintptr_t;
+
+  Tva_list=Pointer; // ????
+
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
+  // =========
+
+type
+  Pnk_context = type Pointer;
+  Tnk_handle = PtrUInt;
+  Tnk_flags = longint;
+  Tnk_plugin_filter = Pointer; // ????
+  PFONScontext=Pointer; // ????
+
 
 
 implementation

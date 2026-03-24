@@ -10,6 +10,20 @@ uses
   sokol_log,
   sokol_time,
 
+    // util
+  sokol_color,
+  sokol_debugtext,
+  sokol_fontstash,
+  sokol_gfx_imgui,
+  sokol_gl,
+  sokol_imgui,
+  sokol_memtrack,
+  sokol_nuklear,
+  sokol_shape,
+  sokol_spine,
+
+
+
   fp_sokol;
 
   // https://github.com/edubart/sokol_gp
@@ -145,5 +159,8 @@ var
   end;
 
 begin
+
+  WriteLn(sg_alice_blue.a);
+
   main;
 end.
