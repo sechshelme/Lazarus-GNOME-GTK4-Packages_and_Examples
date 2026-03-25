@@ -72,7 +72,7 @@ const
   procedure draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
   var
     anyData: PAniData;
-    i, j, k: integer;
+    i, j: integer;
     sc: double;
     shapeCount: longint;
     shapeType: Tb2ShapeType;
@@ -96,25 +96,25 @@ const
       cairo_translate(cr, 70, -50);
       cairo_set_line_width(cr, 0.50);
 
-      for j := 0 to Length(SceneIds) - 1 do begin
-        shapeCount := b2Body_GetShapeCount(SceneIds[j]);
+      for i := 0 to Length(SceneIds) - 1 do begin
+        shapeCount := b2Body_GetShapeCount(SceneIds[i]);
         SetLength(shapesId, shapeCount);
-        b2Body_GetShapes(SceneIds[j], Pb2ShapeId(shapesId), shapeCount);
-        col := b2Body_GetUserData(SceneIds[j]);
+        b2Body_GetShapes(SceneIds[i], Pb2ShapeId(shapesId), shapeCount);
+        col := b2Body_GetUserData(SceneIds[i]);
         if col <> nil then begin
           cairo_set_source_rgb(cr, col^.r, col^.g, col^.b);
         end else begin
           cairo_set_source_rgb(cr, 1.0, 1.0, 1.0);
         end;
 
-        for k := 0 to shapeCount - 1 do begin
-          shapeType := b2Shape_GetType(shapesId[k]);
+        for j := 0 to shapeCount - 1 do begin
+          shapeType := b2Shape_GetType(shapesId[j]);
           case shapeType of
             b2_polygonShape: begin
-              drawPolygone(cr, shapesId[k]);
+              drawPolygone(cr, shapesId[j]);
             end;
             b2_circleShape: begin
-              drawCircle(cr, shapesId[k]);
+              drawCircle(cr, shapesId[j]);
             end;
           end;
         end;

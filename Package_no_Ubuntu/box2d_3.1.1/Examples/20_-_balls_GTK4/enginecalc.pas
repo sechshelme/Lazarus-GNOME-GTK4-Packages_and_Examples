@@ -1,6 +1,7 @@
 unit EngineCalc;
 
 {$modeswitch arrayoperators on}
+{$modeswitch typehelpers}
 
 interface
 
@@ -18,12 +19,21 @@ type
 
 type
 
+  { Tb2BodyIdsHelper }
+
+  Tb2BodyIdsHelper = type helper for Tb2BodyIds
+    procedure Add(body: Tb2BodyId);
+    function Last: Tb2BodyId;
+  end;
+
+type
+
   { TEngine }
 
   TEngine = class(TObject)
   private
     worldId: Tb2WorldId;
-    staticBoxIds, dynamicBoxIds, dynamicBallIds, staticBallIds, dynamicDumbbellIds: Tb2BodyIds;
+    BodyIds: Tb2BodyIds;
     function GetSceneBodyIds: Tb2BodyIds;
   public
     property SceneBodyIds: Tb2BodyIds read GetSceneBodyIds;
@@ -77,6 +87,22 @@ const
     (center: (x: 180.0; y: -170.0); radius: 20)
     );
 
+  { Tb2BodyIdsHelper }
+
+procedure Tb2BodyIdsHelper.Add(body: Tb2BodyId);
+var
+  len: SizeInt;
+begin
+  len := Length(Self);
+  SetLength(self, len + 1);
+  Self[len] := body;
+end;
+
+function Tb2BodyIdsHelper.Last: Tb2BodyId;
+begin
+  Result := Self[Length(Self) - 1];
+end;
+
 constructor TEngine.Create;
 var
   i: integer;
@@ -97,13 +123,12 @@ begin
   shapeDef := b2DefaultShapeDef;
   shapeDef.enableContactEvents := True;   // ???
 
-  SetLength(staticBoxIds, 1);
-  staticBoxIds[0] := b2CreateBody(worldId, @bodyDef);
-  b2Body_SetUserData(staticBoxIds[0], @clLightBlue);
+  BodyIds.Add(b2CreateBody(worldId, @bodyDef));
+  b2Body_SetUserData(BodyIds.Last, @clLightBlue);
   for i := 0 to Length(StaticBoxDatas) - 1 do begin
     with StaticBoxDatas[i] do begin
       polygon := b2MakeOffsetBox(size.x, size.y, ofs, b2MakeRot(angele));
-      b2CreatePolygonShape(staticBoxIds[0], @shapeDef, @polygon);
+      b2CreatePolygonShape(BodyIds.Last, @shapeDef, @polygon);
     end;
   end;
 
@@ -111,18 +136,16 @@ begin
   bodyDef := b2DefaultBodyDef;
   shapeDef := b2DefaultShapeDef;
 
-  SetLength(staticBallIds, 1);
-  staticBallIds[0] := b2CreateBody(worldId, @bodyDef);
-  b2Body_SetUserData(staticBallIds[0], @clLightCyan);
+  BodyIds.Add(b2CreateBody(worldId, @bodyDef));
+  b2Body_SetUserData(BodyIds.Last, @clLightCyan);
   for i := 0 to Length(StaticBallData) - 1 do begin;
     circle := StaticBallData[i];
-    b2CreateCircleShape(staticBallIds[0], @shapeDef, @circle);
+    b2CreateCircleShape(BodyIds.Last, @shapeDef, @circle);
   end;
 
   // ===== Dynamic polygon
   shapeDef := b2DefaultShapeDef;
 
-  SetLength(dynamicBoxIds, Length(DynamicBoxDatas));
   for i := 0 to Length(DynamicBoxDatas) - 1 do begin
     with DynamicBoxDatas[i] do begin
       bodyDef := b2DefaultBodyDef;
@@ -130,10 +153,10 @@ begin
       bodyDef.position := ofs;
       bodyDef.angularVelocity := 0.5 * (i + 1);
 
-      dynamicBoxIds[i] := b2CreateBody(worldId, @bodyDef);
-      b2Body_SetUserData(dynamicBoxIds[i], @clLightRed);
+      BodyIds.Add(b2CreateBody(worldId, @bodyDef));
+      b2Body_SetUserData(BodyIds.Last, @clLightRed);
       polygon := b2MakeOffsetBox(size.x, size.y, b2Vec2_zero, b2MakeRot(angele));
-      b2CreatePolygonShape(dynamicBoxIds[i], @shapeDef, @polygon);
+      b2CreatePolygonShape(BodyIds.Last, @shapeDef, @polygon);
     end;
   end;
 
@@ -143,41 +166,39 @@ begin
   shapeDef.material.friction := 0.05;
   shapeDef.material.restitution := 0.2;
 
-  SetLength(dynamicBallIds, 1000);
-  for i := 0 to Length(dynamicBallIds) - 1 do begin
+  for i := 0 to 999 - 1 do begin
     bodyDef := b2DefaultBodyDef;
     bodyDef._type := b2_dynamicBody;
     bodyDef.position.SetItems(50.0, 50.0 + i * 10);
     bodyDef.linearVelocity.SetItems(5.0, 0.0);
 
-    dynamicBallIds[i] := b2CreateBody(worldId, @bodyDef);
-    b2Body_SetUserData(dynamicBallIds[i], @clRed);
+    BodyIds.Add(b2CreateBody(worldId, @bodyDef));
+    b2Body_SetUserData(BodyIds.Last, @clRed);
     circle.SetItems(0.0, 0.0, Random * 4);
-    shapeId := b2CreateCircleShape(dynamicBallIds[i], @shapeDef, @circle);
+    shapeId := b2CreateCircleShape(BodyIds.Last, @shapeDef, @circle);
     b2Shape_SetRestitution(shapeId, 0.7);
   end;
 
   // ===== Kinematische Hanteln
   shapeDef := b2DefaultShapeDef;
 
-  SetLength(dynamicDumbbellIds, 3);
-  for i := 0 to Length(dynamicDumbbellIds) - 1 do begin
+  for i := 0 to 2 do begin
     bodyDef := b2DefaultBodyDef;
     bodyDef._type := b2_kinematicBody;
     bodyDef.position.SetItems(80.0 + (i * 40.0), -120.0);
-    bodyDef.angularVelocity := 0.8 * (i + 1);
+    bodyDef.angularVelocity := 10.8 * (i + 1);
 
-    dynamicDumbbellIds[i] := b2CreateBody(worldId, @bodyDef);
-    b2Body_SetUserData(dynamicDumbbellIds[i], @clLightGreen);
+    BodyIds.Add(b2CreateBody(worldId, @bodyDef));
+    b2Body_SetUserData(BodyIds.Last, @clLightGreen);
 
     circle.SetItems(-7.0, 0.0, 4.5);
-    b2CreateCircleShape(dynamicDumbbellIds[i], @shapeDef, @circle);
+    b2CreateCircleShape(BodyIds.Last, @shapeDef, @circle);
 
     circle.SetItems(7.0, 0.0, 2.5);
-    b2CreateCircleShape(dynamicDumbbellIds[i], @shapeDef, @circle);
+    b2CreateCircleShape(BodyIds.Last, @shapeDef, @circle);
 
     polygon := b2MakeOffsetBox(7.0, 1.0, b2Vec2_zero, b2Rot_identity);
-    b2CreatePolygonShape(dynamicDumbbellIds[i], @shapeDef, @polygon);
+    b2CreatePolygonShape(BodyIds.Last, @shapeDef, @polygon);
   end;
 end;
 
@@ -203,15 +224,7 @@ var
   p, v: Tb2Vec2;
 begin
   Result := nil;
-  SetLength(Result, 5);
-
-
-  Result :=
-    staticBoxIds +
-    dynamicBoxIds +
-    staticBallIds +
-    dynamicBallIds +
-    dynamicDumbbellIds;
+  Result := BodyIds;
 
   for i := 0 to Length(Result) - 1 do begin
     p := b2Body_GetPosition(Result[i]);
