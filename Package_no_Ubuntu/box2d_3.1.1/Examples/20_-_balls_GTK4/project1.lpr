@@ -9,7 +9,7 @@ uses
 
 type
   TAniData = record
-    SceneIds: Tb2BodyIds;
+    BodyIds: Tb2BodyIds;
     engine: TEngine;
   end;
   PAniData = ^TAniData;
@@ -76,7 +76,7 @@ const
     sc: double;
     shapeCount: longint;
     shapeType: Tb2ShapeType;
-    col: PColor;
+    ud: PuserData;
   const
     shapesId: array of Tb2ShapeId = nil;
   begin
@@ -96,13 +96,13 @@ const
       cairo_translate(cr, 70, -50);
       cairo_set_line_width(cr, 0.50);
 
-      for i := 0 to Length(SceneIds) - 1 do begin
-        shapeCount := b2Body_GetShapeCount(SceneIds[i]);
+      for i := 0 to Length(BodyIds) - 1 do begin
+        shapeCount := b2Body_GetShapeCount(BodyIds[i]);
         SetLength(shapesId, shapeCount);
-        b2Body_GetShapes(SceneIds[i], Pb2ShapeId(shapesId), shapeCount);
-        col := b2Body_GetUserData(SceneIds[i]);
-        if col <> nil then begin
-          cairo_set_source_rgb(cr, col^.r, col^.g, col^.b);
+        b2Body_GetShapes(BodyIds[i], Pb2ShapeId(shapesId), shapeCount);
+        ud := b2Body_GetUserData(BodyIds[i]);
+        if ud <> nil then begin
+          cairo_set_source_rgb(cr, ud^.color.r, ud^.color.g, ud^.color.b);
         end else begin
           cairo_set_source_rgb(cr, 1.0, 1.0, 1.0);
         end;
@@ -132,7 +132,7 @@ const
     anyData := g_object_get_data(G_OBJECT(widget), anyDataKey);
     with anyData^ do begin
       engine.NextScene;
-      SceneIds := engine.SceneBodyIds;
+      BodyIds := engine.SceneBodyIds;
     end;
     gtk_widget_queue_draw(widget);
     Result := G_SOURCE_CONTINUE;
