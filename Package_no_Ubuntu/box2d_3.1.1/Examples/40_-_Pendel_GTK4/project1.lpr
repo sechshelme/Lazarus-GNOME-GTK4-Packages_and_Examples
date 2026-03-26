@@ -17,6 +17,11 @@ type
 const
   anyDataKey = 'anyKey';
 
+const
+  WORLD_LEFT = -2.0;
+  WORLD_TOP = 4.5;
+  WORLD_WIDTH = 4.0;
+  WORLD_HEIGHT = 3.0;
 
   procedure quit_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
@@ -73,7 +78,7 @@ const
   var
     anyData: PAniData;
     i, j: integer;
-    sc: double;
+    scX, scY, sc: double;
     shapeCount: longint;
     shapeType: Tb2ShapeType;
     ud: PuserData;
@@ -82,19 +87,22 @@ const
   begin
     anyData := g_object_get_data(G_OBJECT(drawing_area), anyDataKey);
 
-    with anyData^ do begin
-      if Width < Height then begin
-        sc := Width / 5;
-      end else begin
-        sc := Height / 5;
-      end;
+    scX := Width / WORLD_WIDTH;
+    scY := Height / WORLD_HEIGHT;
+    if scX < scY then begin
+      sc := scX;
+    end else begin
+      sc := scY;
+    end;
 
+    cairo_translate(cr, (Width - WORLD_WIDTH * sc) / 2, (Height - WORLD_HEIGHT * sc) / 2);
+    cairo_scale(cr, sc, -sc);
+    cairo_translate(cr, -WORLD_LEFT, -WORLD_TOP);
+    cairo_set_line_width(cr, 1.5 / sc);
+
+    with anyData^ do begin
       cairo_set_source_rgb(cr, 0.3, 0.3, 0.3);
       cairo_paint(cr);
-
-      cairo_scale(cr, sc, -sc);
-      cairo_translate(cr, 3, -8.5);
-      cairo_set_line_width(cr, 0.50);
 
       for i := 0 to Length(BodyIds) - 1 do begin
         shapeCount := b2Body_GetShapeCount(BodyIds[i]);
@@ -127,7 +135,6 @@ const
   function on_tick(widget: PGtkWidget; frame_clock: PGdkFrameClock; user_data: Tgpointer): Tgboolean; cdecl;
   var
     anyData: PAniData;
-    i: integer;
   begin
     anyData := g_object_get_data(G_OBJECT(widget), anyDataKey);
     with anyData^ do begin

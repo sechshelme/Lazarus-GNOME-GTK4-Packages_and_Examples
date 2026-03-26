@@ -99,18 +99,16 @@ var
   jointDef: Tb2RevoluteJointDef;
 
   pivotId, prevBodyId, currentBodyId: Tb2BodyId;
-  i: Integer;
+  i: integer;
 const
-  JOINT_COUNT = 5;      // Anzahl der Glieder
-  LINK_HEIGHT = 0.8;    // Gesamthöhe eines Gliedes in Metern
-  LINK_WIDTH  = 0.1;    // Breite des Gliedes
+  JOINT_COUNT = 5;
+  LINK_HEIGHT = 0.8;
+  LINK_WIDTH = 0.1;
 begin
-  // 1. Welt mit Erdbeschleunigung
   worldDef := b2DefaultWorldDef;
   worldDef.gravity.SetItems(0.0, -9.81);
   worldId := b2CreateWorld(@worldDef);
 
-  // 2. Der feste Nagel (Pivot) ganz oben
   pivotDef := b2DefaultBodyDef;
   pivotDef.position.SetItems(0.0, 8.0);
   pivotId := b2CreateBody(worldId, @pivotDef);
@@ -123,40 +121,35 @@ begin
   BodyIds.Add(pivotId);
   NewUserData(pivotId, clLightRed);
 
-  // 3. Kette erstellen
   prevBodyId := pivotId;
 
-  for i := 1 to JOINT_COUNT do
-  begin
+  for i := 1 to JOINT_COUNT do begin
     bodyDef := b2DefaultBodyDef;
     bodyDef._type := b2_dynamicBody;
     bodyDef.enableSleep := False;
     bodyDef.angularDamping := 0.1;
 
-    // Wir setzen jedes Glied beim Start unter das vorige
-    // Die Mitte des Gliedes ist LINK_HEIGHT tiefer als der vorige Anker
     bodyDef.position.SetItems(i * 0.3, 8.0 - (i * LINK_HEIGHT));
     currentBodyId := b2CreateBody(worldId, @bodyDef);
 
-    // Box-Shape (halbe Extents!)
     box := b2MakeBox(LINK_WIDTH / 2, LINK_HEIGHT / 2);
     b2CreatePolygonShape(currentBodyId, @shapeDef, @box);
 
-    // --- DAS GELENK (DIE KORREKTUR) ---
+    b2CreateCircleShape(currentBodyId, @shapeDef, @circle);
+
+
     jointDef := b2DefaultRevoluteJointDef();
     jointDef.base.bodyIdA := prevBodyId;
     jointDef.base.bodyIdB := currentBodyId;
 
-    // A ist das obere Teil: Wir hängen das Gelenk an dessen UNTERES Ende
-    if i = 1 then
-      jointDef.base.localFrameA.p := b2Vec2_zero // Beim Pivot ist die Mitte der Anker
-    else
+    if i = 1 then begin
+      jointDef.base.localFrameA.p := b2Vec2_zero;
+    end else begin
       jointDef.base.localFrameA.p.SetItems(0.0, -LINK_HEIGHT / 2);
+    end;
 
-    // B ist das aktuelle Teil: Wir hängen es mit seinem OBEREN Ende an das Gelenk
     jointDef.base.localFrameB.p.SetItems(0.0, LINK_HEIGHT / 2);
 
-    // Identitäts-Rotation für die Gelenk-Ausrichtung
     jointDef.base.localFrameA.q.SetItems(1.0, 0.0);
     jointDef.base.localFrameB.q.SetItems(1.0, 0.0);
 
@@ -187,7 +180,7 @@ end;
 
 procedure TEngine.NextScene;
 var
-  v, a: Single;
+  v, a: single;
   v2: Tb2Vec2;
 begin
   b2World_Step(worldId, 1.0 / 60.0, 4);
