@@ -22,7 +22,6 @@ type
 
 
   Tb2BodyIds = array of Tb2BodyId;
-  TSceneBodyIds = array of Tb2BodyIds;
 
 type
 
@@ -129,7 +128,6 @@ var
   circle: Tb2Circle;
   polygon: Tb2Polygon;
   shapeId: Tb2ShapeId;
-  //  ud:PuserData;
 begin
   worldDef := b2DefaultWorldDef;
   worldDef.gravity.SetItems(0.0, -10.0);
@@ -270,9 +268,6 @@ var
   i: integer;
   p, v: Tb2Vec2;
 begin
-  Result := nil;
-  Result := BodyIds;
-
   for i := 0 to Length(Result) - 1 do begin
     p := b2Body_GetPosition(Result[i]);
     if p.y < -250.0 then begin
@@ -282,6 +277,8 @@ begin
       b2Body_SetAngularVelocity(Result[i], 0.0);
     end;
   end;
+
+  Result := BodyIds;
 end;
 
 end.
