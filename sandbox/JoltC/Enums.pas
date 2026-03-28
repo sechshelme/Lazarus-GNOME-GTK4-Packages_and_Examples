@@ -1,0 +1,294 @@
+unit Enums;
+
+interface
+
+uses
+  cytpes;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+(** unsupported pragma#pragma once*)
+{$include <stdint.h>}
+{xxxxxxxx
+const int JPC_MAX_PHYSICS_JOBS = 2048;
+const int JPC_MAX_PHYSICS_BARRIERS = 8;
+const float JPC_DEFAULT_COLLISION_TOLERANCE = 1.0e-4f;
+const float JPC_DEFAULT_PENETRATION_TOLERANCE = 1.0e-4f;
+const float JPC_DEFAULT_CONVEX_RADIUS = 0.05f;
+const float JPC_CAPSULE_PROJECTION_SLOP = 0.02f;
+ }
+type
+  PJPC_ShapeType = ^TJPC_ShapeType;
+  TJPC_ShapeType =  Longint;
+  Const
+    JPC_SHAPE_TYPE_CONVEX = 0;
+    JPC_SHAPE_TYPE_COMPOUND = 1;
+    JPC_SHAPE_TYPE_DECORATED = 2;
+    JPC_SHAPE_TYPE_MESH = 3;
+    JPC_SHAPE_TYPE_HEIGHT_FIELD = 4;
+    JPC_SHAPE_TYPE_SOFTBODY = 5;
+    JPC_SHAPE_TYPE_USER1 = 6;
+    JPC_SHAPE_TYPE_USER2 = 7;
+    JPC_SHAPE_TYPE_USER3 = 8;
+    JPC_SHAPE_TYPE_USER4 = 9;
+;
+type
+  PJPC_ShapeSubType = ^TJPC_ShapeSubType;
+  TJPC_ShapeSubType =  Longint;
+  Const
+    JPC_SHAPE_SUB_TYPE_SPHERE = 0;
+    JPC_SHAPE_SUB_TYPE_BOX = 1;
+    JPC_SHAPE_SUB_TYPE_TRIANGLE = 2;
+    JPC_SHAPE_SUB_TYPE_CAPSULE = 3;
+    JPC_SHAPE_SUB_TYPE_TAPEREDCAPSULE = 4;
+    JPC_SHAPE_SUB_TYPE_CYLINDER = 5;
+    JPC_SHAPE_SUB_TYPE_CONVEX_HULL = 6;
+    JPC_SHAPE_SUB_TYPE_STATIC_COMPOUND = 7;
+    JPC_SHAPE_SUB_TYPE_MUTABLE_COMPOUND = 8;
+    JPC_SHAPE_SUB_TYPE_ROTATED_TRANSLATED = 9;
+    JPC_SHAPE_SUB_TYPE_SCALED = 10;
+    JPC_SHAPE_SUB_TYPE_OFFSET_CENTER_OF_MASS = 11;
+    JPC_SHAPE_SUB_TYPE_MESH = 12;
+    JPC_SHAPE_SUB_TYPE_HEIGHT_FIELD = 13;
+    JPC_SHAPE_SUB_TYPE_SOFT_BODY = 14;
+    JPC_SHAPE_SUB_TYPE_USER1 = 15;
+    JPC_SHAPE_SUB_TYPE_USER2 = 16;
+    JPC_SHAPE_SUB_TYPE_USER3 = 17;
+    JPC_SHAPE_SUB_TYPE_USER4 = 18;
+    JPC_SHAPE_SUB_TYPE_USER5 = 19;
+    JPC_SHAPE_SUB_TYPE_USER6 = 20;
+    JPC_SHAPE_SUB_TYPE_USER7 = 21;
+    JPC_SHAPE_SUB_TYPE_USER8 = 22;
+    JPC_SHAPE_SUB_TYPE_USER_CONVEX1 = 23;
+    JPC_SHAPE_SUB_TYPE_USER_CONVEX2 = 24;
+    JPC_SHAPE_SUB_TYPE_USER_CONVEX3 = 25;
+    JPC_SHAPE_SUB_TYPE_USER_CONVEX4 = 26;
+    JPC_SHAPE_SUB_TYPE_USER_CONVEX5 = 27;
+    JPC_SHAPE_SUB_TYPE_USER_CONVEX6 = 28;
+    JPC_SHAPE_SUB_TYPE_USER_CONVEX7 = 29;
+    JPC_SHAPE_SUB_TYPE_USER_CONVEX8 = 30;
+;
+type
+  PJPC_PhysicsUpdateError = ^TJPC_PhysicsUpdateError;
+  TJPC_PhysicsUpdateError = Tuint32_t;
+{
+const JPC_PhysicsUpdateError JPC_PHYSICS_UPDATE_ERROR_NONE                     = 0;
+const JPC_PhysicsUpdateError JPC_PHYSICS_UPDATE_ERROR_MANIFOLD_CACHE_FULL      = 1 << 0;
+const JPC_PhysicsUpdateError JPC_PHYSICS_UPDATE_ERROR_BODY_PAIR_CACHE_FULL     = 1 << 1;
+const JPC_PhysicsUpdateError JPC_PHYSICS_UPDATE_ERROR_CONTACT_CONSTRAINTS_FULL = 1 << 2;
+ }
+
+  PJPC_ConstraintType = ^TJPC_ConstraintType;
+  TJPC_ConstraintType =  Longint;
+  Const
+    JPC_CONSTRAINT_TYPE_CONSTRAINT = 0;
+    JPC_CONSTRAINT_TYPE_TWO_BODY_CONSTRAINT = 1;
+;
+type
+  PJPC_ConstraintSubType = ^TJPC_ConstraintSubType;
+  TJPC_ConstraintSubType =  Longint;
+  Const
+    JPC_CONSTRAINT_SUB_TYPE_FIXED = 0;
+    JPC_CONSTRAINT_SUB_TYPE_POINT = 1;
+    JPC_CONSTRAINT_SUB_TYPE_HINGE = 2;
+    JPC_CONSTRAINT_SUB_TYPE_SLIDER = 3;
+    JPC_CONSTRAINT_SUB_TYPE_DISTANCE = 4;
+    JPC_CONSTRAINT_SUB_TYPE_CONE = 5;
+    JPC_CONSTRAINT_SUB_TYPE_SWING_TWIST = 6;
+    JPC_CONSTRAINT_SUB_TYPE_SIX_DOF = 7;
+    JPC_CONSTRAINT_SUB_TYPE_PATH = 8;
+    JPC_CONSTRAINT_SUB_TYPE_VEHICLE = 9;
+    JPC_CONSTRAINT_SUB_TYPE_RACK_AND_PINION = 10;
+    JPC_CONSTRAINT_SUB_TYPE_GEAR = 11;
+    JPC_CONSTRAINT_SUB_TYPE_PULLEY = 12;
+    JPC_CONSTRAINT_SUB_TYPE_USER1 = 13;
+    JPC_CONSTRAINT_SUB_TYPE_USER2 = 14;
+    JPC_CONSTRAINT_SUB_TYPE_USER3 = 15;
+    JPC_CONSTRAINT_SUB_TYPE_USER4 = 16;
+;
+type
+  PJPC_ConstraintSpace = ^TJPC_ConstraintSpace;
+  TJPC_ConstraintSpace =  Longint;
+  Const
+    JPC_CONSTRAINT_SPACE_LOCAL_TO_BODY_COM = 0;
+    JPC_CONSTRAINT_SPACE_WORLD_SPACE = 1;
+;
+{: uint8_t  }type
+  PJPC_MotionType = ^TJPC_MotionType;
+  TJPC_MotionType =  Longint;
+  Const
+    JPC_MOTION_TYPE_STATIC = 0;
+    JPC_MOTION_TYPE_KINEMATIC = 1;
+    JPC_MOTION_TYPE_DYNAMIC = 2;
+;
+{: uint8_t  }type
+  PJPC_MotionQuality = ^TJPC_MotionQuality;
+  TJPC_MotionQuality =  Longint;
+  Const
+    JPC_MOTION_QUALITY_DISCRETE = 0;
+    JPC_MOTION_QUALITY_LINEAR_CAST = 1;
+;
+{: uint8_t  }type
+  PJPC_OverrideMassProperties = ^TJPC_OverrideMassProperties;
+  TJPC_OverrideMassProperties =  Longint;
+  Const
+    JPC_OVERRIDE_MASS_PROPS_CALC_MASS_INERTIA = 0;
+    JPC_OVERRIDE_MASS_PROPS_CALC_INERTIA = 1;
+    JPC_OVERRIDE_MASS_PROPS_MASS_INERTIA_PROVIDED = 2;
+;
+type
+  PJPC_GroundState = ^TJPC_GroundState;
+  TJPC_GroundState =  Longint;
+  Const
+    JPC_CHARACTER_GROUND_STATE_ON_GROUND = 0;
+    JPC_CHARACTER_GROUND_STATE_ON_STEEP_GROUND = 1;
+    JPC_CHARACTER_GROUND_STATE_NOT_SUPPORTED = 2;
+    JPC_CHARACTER_GROUND_STATE_IN_AIR = 3;
+;
+type
+  PJPC_Activation = ^TJPC_Activation;
+  TJPC_Activation =  Longint;
+  Const
+    JPC_ACTIVATION_ACTIVATE = 0;
+    JPC_ACTIVATION_DONT_ACTIVATE = 1;
+;
+type
+  PJPC_ValidateResult = ^TJPC_ValidateResult;
+  TJPC_ValidateResult =  Longint;
+  Const
+    JPC_VALIDATE_RESULT_ACCEPT_ALL_CONTACTS = 0;
+    JPC_VALIDATE_RESULT_ACCEPT_CONTACT = 1;
+    JPC_VALIDATE_RESULT_REJECT_CONTACT = 2;
+    JPC_VALIDATE_RESULT_REJECT_ALL_CONTACTS = 3;
+;
+{ EBackFaceMode }
+{
+typedef uint8_t JPC_BackFaceMode;
+const JPC_BackFaceMode JPC_BACK_FACE_MODE_IGNORE = 0;
+const JPC_BackFaceMode JPC_BACK_FACE_MODE_COLLIDE = 1;
+ }
+{: uint8_t  }type
+  PJPC_BodyType = ^TJPC_BodyType;
+  TJPC_BodyType =  Longint;
+  Const
+    JPC_BODY_TYPE_RIGID_BODY = 0;
+    JPC_BODY_TYPE_SOFT_BODY = 1;
+;
+{: uint8_t  }{	JPC_ALLOWED_DOFS_NONE         = 0b000000, }
+{JPC_ALLOWED_DOFS_ALL          = 0b111111, }
+{	JPC_ALLOWED_DOFS_TRANSLATIONX = 0b000001, }
+{	JPC_ALLOWED_DOFS_TRANSLATIONY = 0b000010, }
+{	JPC_ALLOWED_DOFS_TRANSLATIONZ = 0b000100, }
+{	JPC_ALLOWED_DOFS_ROTATIONX    = 0b001000, }
+{	JPC_ALLOWED_DOFS_ROTATIONY    = 0b010000, }
+{	JPC_ALLOWED_DOFS_ROTATIONZ    = 0b100000, }
+type
+  PJPC_AllowedDOFs = ^TJPC_AllowedDOFs;
+  TJPC_AllowedDOFs =  Longint;
+  Const
+    JPC_ALLOWED_DOFS_PLANE2D = (JPC_ALLOWED_DOFS_TRANSLATIONX or JPC_ALLOWED_DOFS_TRANSLATIONY) or JPC_ALLOWED_DOFS_ROTATIONZ;
+;
+type
+  PJPC_Features = ^TJPC_Features;
+  TJPC_Features =  Longint;
+  Const
+    JPC_FEATURE_DOUBLE_PRECISION = 1 shl 0;
+    JPC_FEATURE_NEON = 1 shl 1;
+    JPC_FEATURE_SSE = 1 shl 2;
+    JPC_FEATURE_SSE4_1 = 1 shl 3;
+    JPC_FEATURE_SSE4_2 = 1 shl 4;
+    JPC_FEATURE_AVX = 1 shl 5;
+    JPC_FEATURE_AVX2 = 1 shl 6;
+    JPC_FEATURE_AVX512 = 1 shl 7;
+    JPC_FEATURE_F16C = 1 shl 8;
+    JPC_FEATURE_LZCNT = 1 shl 9;
+    JPC_FEATURE_TZCNT = 1 shl 10;
+    JPC_FEATURE_FMADD = 1 shl 11;
+    JPC_FEATURE_PLATFORM_DETERMINISTIC = 1 shl 12;
+    JPC_FEATURE_FLOATING_POINT_EXCEPTIONS = 1 shl 13;
+    JPC_FEATURE_DEBUG = 1 shl 14;
+;
+type
+  PJPC_ShapeColor = ^TJPC_ShapeColor;
+  TJPC_ShapeColor = longint;
+{
+const JPC_ShapeColor JPC_SHAPE_COLOR_INSTANCE_COLOR = 0;
+const JPC_ShapeColor JPC_SHAPE_COLOR_SHAPE_TYPE_COLOR = 1;
+const JPC_ShapeColor JPC_SHAPE_COLOR_MOTION_TYPE_COLOR = 2;
+const JPC_ShapeColor JPC_SHAPE_COLOR_SLEEP_COLOR = 3;
+const JPC_ShapeColor JPC_SHAPE_COLOR_ISLAND_COLOR = 4;
+const JPC_ShapeColor JPC_SHAPE_COLOR_MATERIAL_COLOR = 5;
+ }
+
+  PJPC_SoftBodyConstraintColor = ^TJPC_SoftBodyConstraintColor;
+  TJPC_SoftBodyConstraintColor = longint;
+{
+const JPC_SoftBodyConstraintColor JPC_SOFT_BODY_CONSTRAINT_COLOR_CONSTRAINT_TYPE = 0;
+const JPC_SoftBodyConstraintColor JPC_SOFT_BODY_CONSTRAINT_COLOR_CONSTRAINT_GROUP = 1;
+const JPC_SoftBodyConstraintColor JPC_SOFT_BODY_CONSTRAINT_COLOR_CONSTRAINT_ORDER = 2;
+ }
+
+  PJPC_ActiveEdgeMode = ^TJPC_ActiveEdgeMode;
+  TJPC_ActiveEdgeMode = Tuint8_t;
+{
+const JPC_ActiveEdgeMode JPC_ACTIVE_EDGE_MODE_COLLIDE_ONLY_WITH_ACTIVE = 0;
+const JPC_ActiveEdgeMode JPC_ACTIVE_EDGE_MODE_COLLIDE_WITH_ALL = 1;
+ }
+
+  PJPC_CollectFacesMode = ^TJPC_CollectFacesMode;
+  TJPC_CollectFacesMode = Tuint8_t;
+{
+const JPC_CollectFacesMode JPC_COLLECT_FACES_MODE_COLLECT_FACES = 0;
+const JPC_CollectFacesMode JPC_COLLECT_FACES_MODE_NO_FACES = 1;
+ }
+{ ESwingType }
+
+  PJPC_SwingType = ^TJPC_SwingType;
+  TJPC_SwingType = Tuint8_t;
+{
+const JPC_SwingType JPC_SWING_TYPE_CONE = 0;
+const JPC_SwingType JPC_SWING_TYPE_PYRAMID = 1;
+ }
+{ SixDOFConstraint::EAxis }
+
+  PJPC_SixDOFConstraint_Axis = ^TJPC_SixDOFConstraint_Axis;
+  TJPC_SixDOFConstraint_Axis = Tuint32_t;
+{
+const JPC_SixDOFConstraint_Axis JPC_SIX_DOF_CONSTRAINT_AXIS_TRANSLATION_X = 0;
+const JPC_SixDOFConstraint_Axis JPC_SIX_DOF_CONSTRAINT_AXIS_TRANSLATION_Y = 1;
+const JPC_SixDOFConstraint_Axis JPC_SIX_DOF_CONSTRAINT_AXIS_TRANSLATION_Z = 2;
+const JPC_SixDOFConstraint_Axis JPC_SIX_DOF_CONSTRAINT_AXIS_ROTATION_X = 3;
+const JPC_SixDOFConstraint_Axis JPC_SIX_DOF_CONSTRAINT_AXIS_ROTATION_Y = 4;
+const JPC_SixDOFConstraint_Axis JPC_SIX_DOF_CONSTRAINT_AXIS_ROTATION_Z = 5;
+const JPC_SixDOFConstraint_Axis JPC_SIX_DOF_CONSTRAINT_AXIS_NUM = 6;
+const JPC_SixDOFConstraint_Axis JPC_SIX_DOF_CONSTRAINT_AXIS_NUM_TRANSLATION = JPC_SIX_DOF_CONSTRAINT_AXIS_TRANSLATION_Z + 1;
+ }
+{ ESpringMode }
+{: uint8_t  }
+  PJPC_SpringMode = ^TJPC_SpringMode;
+  TJPC_SpringMode =  Longint;
+  Const
+    JPC_SPRING_MODE_FREQUENCY_AND_DAMPING = 0;
+    JPC_SPRING_MODE_STIFFNESS_AND_DAMPING = 1;
+;
+{ EMotorState }
+type
+  PJPC_MotorState = ^TJPC_MotorState;
+  TJPC_MotorState =  Longint;
+  Const
+    JPC_MOTOR_STATE_OFF = 0;
+    JPC_MOTOR_STATE_VELOCITY = 1;
+    JPC_MOTOR_STATE_POSITION = 2;
+;
+
+// === Konventiert am: 28-3-26 19:47:32 ===
+
+
+implementation
+
+
+
+end.

@@ -309,6 +309,8 @@ const
     (libs: 'libthorvg'; units: 'ctypes'),
     (libs: 'libtalloc'; units: 'ctypes'),
     (libs: 'libsokol'; units: 'fp_sokol'),
+    (libs: 'joltc'; units: 'cytpes'),
+
 
 
 
