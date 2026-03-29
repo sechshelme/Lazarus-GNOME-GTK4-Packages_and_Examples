@@ -41,6 +41,8 @@ type
   Tsize_t = SizeUInt;
   Tuint = uint32;
 
+  Tbool=Boolean;
+
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -58,7 +60,7 @@ const
 
 type
   PJPC_ShapeType = ^TJPC_ShapeType;
-  TJPC_ShapeType = longint;
+  TJPC_ShapeType = byte;
 
 const
   JPC_SHAPE_TYPE_CONVEX = 0;
@@ -74,7 +76,7 @@ const
 
 type
   PJPC_ShapeSubType = ^TJPC_ShapeSubType;
-  TJPC_ShapeSubType = longint;
+  TJPC_ShapeSubType = byte;
 
 const
   JPC_SHAPE_SUB_TYPE_SPHERE = 0;
@@ -324,7 +326,7 @@ const
 
 type
   PJPC_SpringMode = ^TJPC_SpringMode;
-  TJPC_SpringMode = longint;
+  TJPC_SpringMode = byte;
 
 const
   JPC_SPRING_MODE_FREQUENCY_AND_DAMPING = 0;
@@ -434,11 +436,10 @@ type
 
   PJPC_BroadPhaseLayer = ^TJPC_BroadPhaseLayer;
   TJPC_BroadPhaseLayer = Tuint8_t;
-  {$ifndef JPC_OBJECT_LAYER_BITS}
 
 const
   JPC_OBJECT_LAYER_BITS = 16;
-  {$endif}
+
 type
   PJPC_ObjectLayer = ^TJPC_ObjectLayer;
   TJPC_ObjectLayer = Tuint16_t;
@@ -483,7 +484,7 @@ type
     SubShapeID2: TJPC_SubShapeID;
     BodyID2: TJPC_BodyID;
     Fraction: single;
-    IsBackFaceHit: boolean;
+    IsBackFaceHit: Tbool;
   end;
   PJPC_ShapeCastResult = ^TJPC_ShapeCastResult;
 
@@ -566,7 +567,7 @@ type
   PJPC_CollisionGroup = ^TJPC_CollisionGroup;
 
   TJPC_GroupFilterFns = record
-    CanCollide: function(self: pointer; inGroup1: PJPC_CollisionGroup; inGroup2: PJPC_CollisionGroup): boolean; cdecl;
+    CanCollide: function(self: pointer; inGroup1: PJPC_CollisionGroup; inGroup2: PJPC_CollisionGroup): Tbool; cdecl;
   end;
   PJPC_GroupFilterFns = ^TJPC_GroupFilterFns;
 
@@ -587,7 +588,7 @@ procedure JPC_BroadPhaseLayerInterface_delete(obj: PJPC_BroadPhaseLayerInterface
 
 type
   TJPC_BroadPhaseLayerFilterFns = record
-    ShouldCollide: function(self: pointer; inLayer: TJPC_BroadPhaseLayer): boolean; cdecl;
+    ShouldCollide: function(self: pointer; inLayer: TJPC_BroadPhaseLayer): Tbool; cdecl;
   end;
   PJPC_BroadPhaseLayerFilterFns = ^TJPC_BroadPhaseLayerFilterFns;
 
@@ -598,7 +599,7 @@ procedure JPC_BroadPhaseLayerFilter_delete(obj: PJPC_BroadPhaseLayerFilter); cde
 
 type
   TJPC_ObjectLayerFilterFns = record
-    ShouldCollide: function(self: pointer; inLayer: TJPC_ObjectLayer): boolean; cdecl;
+    ShouldCollide: function(self: pointer; inLayer: TJPC_ObjectLayer): Tbool; cdecl;
   end;
   PJPC_ObjectLayerFilterFns = ^TJPC_ObjectLayerFilterFns;
 
@@ -609,8 +610,8 @@ procedure JPC_ObjectLayerFilter_delete(obj: PJPC_ObjectLayerFilter); cdecl; exte
 
 type
   TJPC_BodyFilterFns = record
-    ShouldCollide: function(self: pointer; inBodyID: TJPC_BodyID): boolean; cdecl;
-    ShouldCollideLocked: function(self: pointer; inBodyID: PJPC_Body): boolean; cdecl;
+    ShouldCollide: function(self: pointer; inBodyID: TJPC_BodyID): Tbool; cdecl;
+    ShouldCollideLocked: function(self: pointer; inBodyID: PJPC_Body): Tbool; cdecl;
   end;
   PJPC_BodyFilterFns = ^TJPC_BodyFilterFns;
 
@@ -621,8 +622,8 @@ procedure JPC_BodyFilter_delete(obj: PJPC_BodyFilter); cdecl; external joltc;
 
 type
   TJPC_ShapeFilterFns = record
-    ShouldCollide: function(self: pointer; inShape2: PJPC_Shape; inSubShapeIDOfShape2: TJPC_SubShapeID): boolean; cdecl;
-    ShouldCollideTwoShapes: function(self: pointer; inShape1: PJPC_Shape; inSubShapeIDOfShape1: TJPC_SubShapeID; inShape2: PJPC_Shape; inSubShapeIDOfShape2: TJPC_SubShapeID): boolean; cdecl;
+    ShouldCollide: function(self: pointer; inShape2: PJPC_Shape; inSubShapeIDOfShape2: TJPC_SubShapeID): Tbool; cdecl;
+    ShouldCollideTwoShapes: function(self: pointer; inShape1: PJPC_Shape; inSubShapeIDOfShape1: TJPC_SubShapeID; inShape2: PJPC_Shape; inSubShapeIDOfShape2: TJPC_SubShapeID): Tbool; cdecl;
   end;
   PJPC_ShapeFilterFns = ^TJPC_ShapeFilterFns;
 
@@ -634,7 +635,7 @@ procedure JPC_ShapeFilter_delete(obj: PJPC_ShapeFilter); cdecl; external joltc;
 type
   TJPC_SimShapeFilterFns = record
     ShouldCollide: function(self: pointer; inBody1: PJPC_Body; inShape1: PJPC_Shape; inSubShapeIDOfShape1: TJPC_SubShapeID; inBody2: PJPC_Body;
-      inShape2: PJPC_Shape; inSubShapeIDOfShape2: TJPC_SubShapeID): boolean; cdecl;
+      inShape2: PJPC_Shape; inSubShapeIDOfShape2: TJPC_SubShapeID): Tbool; cdecl;
   end;
   PJPC_SimShapeFilterFns = ^TJPC_SimShapeFilterFns;
 
@@ -645,7 +646,7 @@ procedure JPC_SimShapeFilter_delete(obj: PJPC_SimShapeFilter); cdecl; external j
 
 type
   TJPC_ObjectVsBroadPhaseLayerFilterFns = record
-    ShouldCollide: function(self: pointer; inLayer1: TJPC_ObjectLayer; inLayer2: TJPC_BroadPhaseLayer): boolean; cdecl;
+    ShouldCollide: function(self: pointer; inLayer1: TJPC_ObjectLayer; inLayer2: TJPC_BroadPhaseLayer): Tbool; cdecl;
   end;
   PJPC_ObjectVsBroadPhaseLayerFilterFns = ^TJPC_ObjectVsBroadPhaseLayerFilterFns;
 
@@ -656,7 +657,7 @@ procedure JPC_ObjectVsBroadPhaseLayerFilter_delete(obj: PJPC_ObjectVsBroadPhaseL
 
 type
   TJPC_ObjectLayerPairFilterFns = record
-    ShouldCollide: function(self: pointer; inLayer1: TJPC_ObjectLayer; inLayer2: TJPC_ObjectLayer): boolean; cdecl;
+    ShouldCollide: function(self: pointer; inLayer1: TJPC_ObjectLayer; inLayer2: TJPC_ObjectLayer): Tbool; cdecl;
   end;
   PJPC_ObjectLayerPairFilterFns = ^TJPC_ObjectLayerPairFilterFns;
 
@@ -690,7 +691,7 @@ type
     InvInertiaScale1: single;
     InvMassScale2: single;
     InvInertiaScale2: single;
-    IsSensor: boolean;
+    IsSensor: Tbool;
     RelativeLinearSurfaceVelocity: TJPC_Vec3;
     RelativeAngularSurfaceVelocity: TJPC_Vec3;
   end;
@@ -712,8 +713,8 @@ type
     ActiveEdgeMovementDirection: TJPC_Vec3;
     BackFaceModeTriangles: TJPC_BackFaceMode;
     BackFaceModeConvex: TJPC_BackFaceMode;
-    UseShrunkenShapeAndConvexRadius: boolean;
-    ReturnDeepestPoint: boolean;
+    UseShrunkenShapeAndConvexRadius: Tbool;
+    ReturnDeepestPoint: Tbool;
   end;
   PJPC_ShapeCastSettings = ^TJPC_ShapeCastSettings;
 
@@ -795,26 +796,26 @@ procedure JPC_CollideShapeCollector_UpdateEarlyOutFraction(self: PJPC_CollideSha
 
 type
   TJPC_BodyManager_DrawSettings = record
-    mDrawGetSupportFunction: boolean;
-    mDrawSupportDirection: boolean;
-    mDrawGetSupportingFace: boolean;
-    mDrawShape: boolean;
-    mDrawShapeWireframe: boolean;
+    mDrawGetSupportFunction: Tbool;
+    mDrawSupportDirection: Tbool;
+    mDrawGetSupportingFace: Tbool;
+    mDrawShape: Tbool;
+    mDrawShapeWireframe: Tbool;
     mDrawShapeColor: TJPC_ShapeColor;
-    mDrawBoundingBox: boolean;
-    mDrawCenterOfMassTransform: boolean;
-    mDrawWorldTransform: boolean;
-    mDrawVelocity: boolean;
-    mDrawMassAndInertia: boolean;
-    mDrawSleepStats: boolean;
-    mDrawSoftBodyVertices: boolean;
-    mDrawSoftBodyVertexVelocities: boolean;
-    mDrawSoftBodyEdgeConstraints: boolean;
-    mDrawSoftBodyBendConstraints: boolean;
-    mDrawSoftBodyVolumeConstraints: boolean;
-    mDrawSoftBodySkinConstraints: boolean;
-    mDrawSoftBodyLRAConstraints: boolean;
-    mDrawSoftBodyPredictedBounds: boolean;
+    mDrawBoundingBox: Tbool;
+    mDrawCenterOfMassTransform: Tbool;
+    mDrawWorldTransform: Tbool;
+    mDrawVelocity: Tbool;
+    mDrawMassAndInertia: Tbool;
+    mDrawSleepStats: Tbool;
+    mDrawSoftBodyVertices: Tbool;
+    mDrawSoftBodyVertexVelocities: Tbool;
+    mDrawSoftBodyEdgeConstraints: Tbool;
+    mDrawSoftBodyBendConstraints: Tbool;
+    mDrawSoftBodyVolumeConstraints: Tbool;
+    mDrawSoftBodySkinConstraints: Tbool;
+    mDrawSoftBodyLRAConstraints: Tbool;
+    mDrawSoftBodyPredictedBounds: Tbool;
     DrawSoftBodyConstraintColor: TJPC_SoftBodyConstraintColor;
   end;
   PJPC_BodyManager_DrawSettings = ^TJPC_BodyManager_DrawSettings;
@@ -852,8 +853,8 @@ function JPC_Constraint_GetNumVelocityStepsOverride(self: PJPC_Constraint): Tuin
 procedure JPC_Constraint_SetNumVelocityStepsOverride(self: PJPC_Constraint; inN: Tuint); cdecl; external joltc;
 function JPC_Constraint_GetNumPositionStepsOverride(self: PJPC_Constraint): Tuint; cdecl; external joltc;
 procedure JPC_Constraint_SetNumPositionStepsOverride(self: PJPC_Constraint; inN: Tuint); cdecl; external joltc;
-function JPC_Constraint_GetEnabled(self: PJPC_Constraint): boolean; cdecl; external joltc;
-procedure JPC_Constraint_SetEnabled(self: PJPC_Constraint; inEnabled: boolean); cdecl; external joltc;
+function JPC_Constraint_GetEnabled(self: PJPC_Constraint): Tbool; cdecl; external joltc;
+procedure JPC_Constraint_SetEnabled(self: PJPC_Constraint; inEnabled: Tbool); cdecl; external joltc;
 function JPC_Constraint_GetUserData(self: PJPC_Constraint): Tuint64_t; cdecl; external joltc;
 procedure JPC_Constraint_SetUserData(self: PJPC_Constraint; inUserData: Tuint64_t); cdecl; external joltc;
 procedure JPC_Constraint_NotifyShapeChanged(self: PJPC_Constraint; inBodyID: TJPC_BodyID; inDeltaCOM: TJPC_Vec3); cdecl; external joltc;
@@ -888,7 +889,7 @@ function JPC_SixDOFConstraint_GetRotationLimitsMax(self: PJPC_SixDOFConstraint):
 procedure JPC_SixDOFConstraint_SetRotationLimits(self: PJPC_SixDOFConstraint; inLimitMin: TJPC_Vec3; inLimitMax: TJPC_Vec3); cdecl; external joltc;
 function JPC_SixDOFConstraint_GetLimitsMin(self: PJPC_SixDOFConstraint; inAxis: TJPC_SixDOFConstraint_Axis): single; cdecl; external joltc;
 function JPC_SixDOFConstraint_GetLimitsMax(self: PJPC_SixDOFConstraint; inAxis: TJPC_SixDOFConstraint_Axis): single; cdecl; external joltc;
-function JPC_SixDOFConstraint_IsFreeAxis(self: PJPC_SixDOFConstraint; inAxis: TJPC_SixDOFConstraint_Axis): boolean; cdecl; external joltc;
+function JPC_SixDOFConstraint_IsFreeAxis(self: PJPC_SixDOFConstraint; inAxis: TJPC_SixDOFConstraint_Axis): Tbool; cdecl; external joltc;
 procedure JPC_SixDOFConstraint_SetMaxFriction(self: PJPC_SixDOFConstraint; inAxis: TJPC_SixDOFConstraint_Axis; inFriction: single); cdecl; external joltc;
 function JPC_SixDOFConstraint_GetMaxFriction(self: PJPC_SixDOFConstraint; inAxis: TJPC_SixDOFConstraint_Axis): single; cdecl; external joltc;
 function JPC_SixDOFConstraint_GetRotationInConstraintSpace(self: PJPC_SixDOFConstraint): TJPC_Quat; cdecl; external joltc;
@@ -936,7 +937,7 @@ function JPC_SliderConstraint_GetTotalLambdaMotor(self: PJPC_SliderConstraint): 
 
 type
   TJPC_ConstraintSettings = record
-    Enabled: boolean;
+    Enabled: Tbool;
     ConstraintPriority: Tuint32_t;
     NumVelocityStepsOverride: Tuint;
     NumPositionStepsOverride: Tuint;
@@ -973,7 +974,7 @@ type
   TJPC_FixedConstraintSettings = record
     ConstraintSettings: TJPC_ConstraintSettings;
     Space: TJPC_ConstraintSpace;
-    AutoDetectPoint: boolean;
+    AutoDetectPoint: Tbool;
     Point1: TJPC_RVec3;
     AxisX1: TJPC_Vec3;
     AxisY1: TJPC_Vec3;
@@ -1045,7 +1046,7 @@ type
   TJPC_SliderConstraintSettings = record
     ConstraintSettings: TJPC_ConstraintSettings;
     Space: TJPC_ConstraintSpace;
-    AutoDetectPoint: boolean;
+    AutoDetectPoint: Tbool;
     Point1: TJPC_RVec3;
     SliderAxis1: TJPC_Vec3;
     NormalAxis1: TJPC_Vec3;
@@ -1075,7 +1076,7 @@ type
   PJPC_TriangleShapeSettings = ^TJPC_TriangleShapeSettings;
 
 procedure JPC_TriangleShapeSettings_default(obj: PJPC_TriangleShapeSettings); cdecl; external joltc;
-function JPC_TriangleShapeSettings_Create(self: PJPC_TriangleShapeSettings; outShape: PPJPC_Shape; outError: PPJPC_String): boolean; cdecl; external joltc;
+function JPC_TriangleShapeSettings_Create(self: PJPC_TriangleShapeSettings; outShape: PPJPC_Shape; outError: PPJPC_String): Tbool; cdecl; external joltc;
 
 type
   TJPC_MeshShapeSettings = record
@@ -1088,7 +1089,7 @@ type
   PJPC_MeshShapeSettings = ^TJPC_MeshShapeSettings;
 
 procedure JPC_MeshShapeSettings_default(obj: PJPC_MeshShapeSettings); cdecl; external joltc;
-function JPC_MeshShapeSettings_Create(self: PJPC_MeshShapeSettings; outShape: PPJPC_Shape; outError: PPJPC_String): boolean; cdecl; external joltc;
+function JPC_MeshShapeSettings_Create(self: PJPC_MeshShapeSettings; outShape: PPJPC_Shape; outError: PPJPC_String): Tbool; cdecl; external joltc;
 
 type
   TJPC_BoxShapeSettings = record
@@ -1100,7 +1101,7 @@ type
   PJPC_BoxShapeSettings = ^TJPC_BoxShapeSettings;
 
 procedure JPC_BoxShapeSettings_default(obj: PJPC_BoxShapeSettings); cdecl; external joltc;
-function JPC_BoxShapeSettings_Create(self: PJPC_BoxShapeSettings; outShape: PPJPC_Shape; outError: PPJPC_String): boolean; cdecl; external joltc;
+function JPC_BoxShapeSettings_Create(self: PJPC_BoxShapeSettings; outShape: PPJPC_Shape; outError: PPJPC_String): Tbool; cdecl; external joltc;
 
 type
   TJPC_SphereShapeSettings = record
@@ -1111,7 +1112,7 @@ type
   PJPC_SphereShapeSettings = ^TJPC_SphereShapeSettings;
 
 procedure JPC_SphereShapeSettings_default(obj: PJPC_SphereShapeSettings); cdecl; external joltc;
-function JPC_SphereShapeSettings_Create(self: PJPC_SphereShapeSettings; outShape: PPJPC_Shape; outError: PPJPC_String): boolean; cdecl; external joltc;
+function JPC_SphereShapeSettings_Create(self: PJPC_SphereShapeSettings; outShape: PPJPC_Shape; outError: PPJPC_String): Tbool; cdecl; external joltc;
 
 type
   TJPC_CapsuleShapeSettings = record
@@ -1123,7 +1124,7 @@ type
   PJPC_CapsuleShapeSettings = ^TJPC_CapsuleShapeSettings;
 
 procedure JPC_CapsuleShapeSettings_default(obj: PJPC_CapsuleShapeSettings); cdecl; external joltc;
-function JPC_CapsuleShapeSettings_Create(self: PJPC_CapsuleShapeSettings; outShape: PPJPC_Shape; outError: PPJPC_String): boolean; cdecl; external joltc;
+function JPC_CapsuleShapeSettings_Create(self: PJPC_CapsuleShapeSettings; outShape: PPJPC_Shape; outError: PPJPC_String): Tbool; cdecl; external joltc;
 
 type
   TJPC_CylinderShapeSettings = record
@@ -1136,7 +1137,7 @@ type
   PJPC_CylinderShapeSettings = ^TJPC_CylinderShapeSettings;
 
 procedure JPC_CylinderShapeSettings_default(obj: PJPC_CylinderShapeSettings); cdecl; external joltc;
-function JPC_CylinderShapeSettings_Create(self: PJPC_CylinderShapeSettings; outShape: PPJPC_Shape; outError: PPJPC_String): boolean; cdecl; external joltc;
+function JPC_CylinderShapeSettings_Create(self: PJPC_CylinderShapeSettings; outShape: PPJPC_Shape; outError: PPJPC_String): Tbool; cdecl; external joltc;
 
 type
   TJPC_ConvexHullShapeSettings = record
@@ -1151,7 +1152,7 @@ type
   PJPC_ConvexHullShapeSettings = ^TJPC_ConvexHullShapeSettings;
 
 procedure JPC_ConvexHullShapeSettings_default(obj: PJPC_ConvexHullShapeSettings); cdecl; external joltc;
-function JPC_ConvexHullShapeSettings_Create(self: PJPC_ConvexHullShapeSettings; outShape: PPJPC_Shape; outError: PPJPC_String): boolean; cdecl; external joltc;
+function JPC_ConvexHullShapeSettings_Create(self: PJPC_ConvexHullShapeSettings; outShape: PPJPC_Shape; outError: PPJPC_String): Tbool; cdecl; external joltc;
 
 type
   TJPC_SubShapeSettings = record
@@ -1173,7 +1174,7 @@ type
   PJPC_StaticCompoundShapeSettings = ^TJPC_StaticCompoundShapeSettings;
 
 procedure JPC_StaticCompoundShapeSettings_default(obj: PJPC_StaticCompoundShapeSettings); cdecl; external joltc;
-function JPC_StaticCompoundShapeSettings_Create(self: PJPC_StaticCompoundShapeSettings; outShape: PPJPC_Shape; outError: PPJPC_String): boolean; cdecl; external joltc;
+function JPC_StaticCompoundShapeSettings_Create(self: PJPC_StaticCompoundShapeSettings; outShape: PPJPC_Shape; outError: PPJPC_String): Tbool; cdecl; external joltc;
 
 type
   PJPC_MutableCompoundShape = type Pointer;
@@ -1194,7 +1195,7 @@ type
   PJPC_MutableCompoundShapeSettings = ^TJPC_MutableCompoundShapeSettings;
 
 procedure JPC_MutableCompoundShapeSettings_default(obj: PJPC_MutableCompoundShapeSettings); cdecl; external joltc;
-function JPC_MutableCompoundShapeSettings_Create(self: PJPC_MutableCompoundShapeSettings; outShape: PPJPC_MutableCompoundShape; outError: PPJPC_String): boolean; cdecl; external joltc;
+function JPC_MutableCompoundShapeSettings_Create(self: PJPC_MutableCompoundShapeSettings; outShape: PPJPC_MutableCompoundShape; outError: PPJPC_String): Tbool; cdecl; external joltc;
 
 type
   TJPC_BodyCreationSettings = record
@@ -1206,14 +1207,14 @@ type
     ObjectLayer: TJPC_ObjectLayer;
     MotionType: TJPC_MotionType;
     AllowedDOFs: TJPC_AllowedDOFs;
-    AllowDynamicOrKinematic: boolean;
-    IsSensor: boolean;
-    CollideKinematicVsNonDynamic: boolean;
-    UseManifoldReduction: boolean;
-    ApplyGyroscopicForce: boolean;
+    AllowDynamicOrKinematic: Tbool;
+    IsSensor: Tbool;
+    CollideKinematicVsNonDynamic: Tbool;
+    UseManifoldReduction: Tbool;
+    ApplyGyroscopicForce: Tbool;
     MotionQuality: TJPC_MotionQuality;
-    EnhancedInternalEdgeRemoval: boolean;
-    AllowSleeping: boolean;
+    EnhancedInternalEdgeRemoval: Tbool;
+    AllowSleeping: Tbool;
     Friction: single;
     Restitution: single;
     LinearDamping: single;
@@ -1226,7 +1227,7 @@ type
     OverrideMassProperties: TJPC_OverrideMassProperties;
     InertiaMultiplier: single;
     Shape: PJPC_Shape;
-    _pad:QWord;
+    _pad: QWord;
   end;
   PJPC_BodyCreationSettings = ^TJPC_BodyCreationSettings;
 
@@ -1235,31 +1236,31 @@ procedure JPC_BodyCreationSettings_default(settings: PJPC_BodyCreationSettings);
 function JPC_BodyCreationSettings_new: PJPC_BodyCreationSettings; cdecl; external joltc;
 function JPC_Body_GetID(self: PJPC_Body): TJPC_BodyID; cdecl; external joltc;
 function JPC_Body_GetBodyType(self: PJPC_Body): TJPC_BodyType; cdecl; external joltc;
-function JPC_Body_IsRigidBody(self: PJPC_Body): boolean; cdecl; external joltc;
-function JPC_Body_IsSoftBody(self: PJPC_Body): boolean; cdecl; external joltc;
-function JPC_Body_IsActive(self: PJPC_Body): boolean; cdecl; external joltc;
-function JPC_Body_IsStatic(self: PJPC_Body): boolean; cdecl; external joltc;
-function JPC_Body_IsKinematic(self: PJPC_Body): boolean; cdecl; external joltc;
-function JPC_Body_IsDynamic(self: PJPC_Body): boolean; cdecl; external joltc;
-function JPC_Body_CanBeKinematicOrDynamic(self: PJPC_Body): boolean; cdecl; external joltc;
-procedure JPC_Body_SetIsSensor(self: PJPC_Body; inIsSensor: boolean); cdecl; external joltc;
-function JPC_Body_IsSensor(self: PJPC_Body): boolean; cdecl; external joltc;
-procedure JPC_Body_SetCollideKinematicVsNonDynamic(self: PJPC_Body; inCollide: boolean); cdecl; external joltc;
-function JPC_Body_GetCollideKinematicVsNonDynamic(self: PJPC_Body): boolean; cdecl; external joltc;
-procedure JPC_Body_SetUseManifoldReduction(self: PJPC_Body; inUseReduction: boolean); cdecl; external joltc;
-function JPC_Body_GetUseManifoldReduction(self: PJPC_Body): boolean; cdecl; external joltc;
-function JPC_Body_GetUseManifoldReductionWithBody(self: PJPC_Body; inBody2: PJPC_Body): boolean; cdecl; external joltc;
-procedure JPC_Body_SetApplyGyroscopicForce(self: PJPC_Body; inApply: boolean); cdecl; external joltc;
-function JPC_Body_GetApplyGyroscopicForce(self: PJPC_Body): boolean; cdecl; external joltc;
-procedure JPC_Body_SetEnhancedInternalEdgeRemoval(self: PJPC_Body; inApply: boolean); cdecl; external joltc;
-function JPC_Body_GetEnhancedInternalEdgeRemoval(self: PJPC_Body): boolean; cdecl; external joltc;
-function JPC_Body_GetEnhancedInternalEdgeRemovalWithBody(self: PJPC_Body; inBody2: PJPC_Body): boolean; cdecl; external joltc;
+function JPC_Body_IsRigidBody(self: PJPC_Body): Tbool; cdecl; external joltc;
+function JPC_Body_IsSoftBody(self: PJPC_Body): Tbool; cdecl; external joltc;
+function JPC_Body_IsActive(self: PJPC_Body): Tbool; cdecl; external joltc;
+function JPC_Body_IsStatic(self: PJPC_Body): Tbool; cdecl; external joltc;
+function JPC_Body_IsKinematic(self: PJPC_Body): Tbool; cdecl; external joltc;
+function JPC_Body_IsDynamic(self: PJPC_Body): Tbool; cdecl; external joltc;
+function JPC_Body_CanBeKinematicOrDynamic(self: PJPC_Body): Tbool; cdecl; external joltc;
+procedure JPC_Body_SetIsSensor(self: PJPC_Body; inIsSensor: Tbool); cdecl; external joltc;
+function JPC_Body_IsSensor(self: PJPC_Body): Tbool; cdecl; external joltc;
+procedure JPC_Body_SetCollideKinematicVsNonDynamic(self: PJPC_Body; inCollide: Tbool); cdecl; external joltc;
+function JPC_Body_GetCollideKinematicVsNonDynamic(self: PJPC_Body): Tbool; cdecl; external joltc;
+procedure JPC_Body_SetUseManifoldReduction(self: PJPC_Body; inUseReduction: Tbool); cdecl; external joltc;
+function JPC_Body_GetUseManifoldReduction(self: PJPC_Body): Tbool; cdecl; external joltc;
+function JPC_Body_GetUseManifoldReductionWithBody(self: PJPC_Body; inBody2: PJPC_Body): Tbool; cdecl; external joltc;
+procedure JPC_Body_SetApplyGyroscopicForce(self: PJPC_Body; inApply: Tbool); cdecl; external joltc;
+function JPC_Body_GetApplyGyroscopicForce(self: PJPC_Body): Tbool; cdecl; external joltc;
+procedure JPC_Body_SetEnhancedInternalEdgeRemoval(self: PJPC_Body; inApply: Tbool); cdecl; external joltc;
+function JPC_Body_GetEnhancedInternalEdgeRemoval(self: PJPC_Body): Tbool; cdecl; external joltc;
+function JPC_Body_GetEnhancedInternalEdgeRemovalWithBody(self: PJPC_Body; inBody2: PJPC_Body): Tbool; cdecl; external joltc;
 function JPC_Body_GetMotionType(self: PJPC_Body): TJPC_MotionType; cdecl; external joltc;
 procedure JPC_Body_SetMotionType(self: PJPC_Body; inMotionType: TJPC_MotionType); cdecl; external joltc;
 function JPC_Body_GetBroadPhaseLayer(self: PJPC_Body): TJPC_BroadPhaseLayer; cdecl; external joltc;
 function JPC_Body_GetObjectLayer(self: PJPC_Body): TJPC_ObjectLayer; cdecl; external joltc;
-function JPC_Body_GetAllowSleeping(self: PJPC_Body): boolean; cdecl; external joltc;
-procedure JPC_Body_SetAllowSleeping(self: PJPC_Body; inAllow: boolean); cdecl; external joltc;
+function JPC_Body_GetAllowSleeping(self: PJPC_Body): Tbool; cdecl; external joltc;
+procedure JPC_Body_SetAllowSleeping(self: PJPC_Body; inAllow: Tbool); cdecl; external joltc;
 procedure JPC_Body_ResetSleepTimer(self: PJPC_Body); cdecl; external joltc;
 function JPC_Body_GetFriction(self: PJPC_Body): single; cdecl; external joltc;
 procedure JPC_Body_SetFriction(self: PJPC_Body; inFriction: single); cdecl; external joltc;
@@ -1287,9 +1288,9 @@ procedure JPC_Body_AddImpulse2(self: PJPC_Body; inImpulse: TJPC_Vec3; inPosition
 procedure JPC_Body_AddAngularImpulse(self: PJPC_Body; inAngularImpulse: TJPC_Vec3); cdecl; external joltc;
 procedure JPC_Body_MoveKinematic(self: PJPC_Body; inTargetPosition: TJPC_RVec3; inTargetRotation: TJPC_Quat; inDeltaTime: single); cdecl; external joltc;
 function JPC_Body_ApplyBuoyancyImpulse(self: PJPC_Body; inSurfacePosition: TJPC_RVec3; inSurfaceNormal: TJPC_Vec3; inBuoyancy: single; inLinearDrag: single;
-  inAngularDrag: single; inFluidVelocity: TJPC_Vec3; inGravity: TJPC_Vec3; inDeltaTime: single): boolean; cdecl; external joltc;
-function JPC_Body_IsInBroadPhase(self: PJPC_Body): boolean; cdecl; external joltc;
-function JPC_Body_IsCollisionCacheInvalid(self: PJPC_Body): boolean; cdecl; external joltc;
+  inAngularDrag: single; inFluidVelocity: TJPC_Vec3; inGravity: TJPC_Vec3; inDeltaTime: single): Tbool; cdecl; external joltc;
+function JPC_Body_IsInBroadPhase(self: PJPC_Body): Tbool; cdecl; external joltc;
+function JPC_Body_IsCollisionCacheInvalid(self: PJPC_Body): Tbool; cdecl; external joltc;
 function JPC_Body_GetShape(self: PJPC_Body): PJPC_Shape; cdecl; external joltc;
 function JPC_Body_GetPosition(self: PJPC_Body): TJPC_RVec3; cdecl; external joltc;
 function JPC_Body_GetRotation(self: PJPC_Body): TJPC_Quat; cdecl; external joltc;
@@ -1307,7 +1308,7 @@ type
 
 function JPC_BodyLockRead_new(iface: PJPC_BodyLockInterface; bodyID: TJPC_BodyID): PJPC_BodyLockRead; cdecl; external joltc;
 procedure JPC_BodyLockRead_delete(self: PJPC_BodyLockRead); cdecl; external joltc;
-function JPC_BodyLockRead_Succeeded(self: PJPC_BodyLockRead): boolean; cdecl; external joltc;
+function JPC_BodyLockRead_Succeeded(self: PJPC_BodyLockRead): Tbool; cdecl; external joltc;
 function JPC_BodyLockRead_GetBody(self: PJPC_BodyLockRead): PJPC_Body; cdecl; external joltc;
 
 type
@@ -1315,7 +1316,7 @@ type
 
 function JPC_BodyLockWrite_new(iface: PJPC_BodyLockInterface; bodyID: TJPC_BodyID): PJPC_BodyLockWrite; cdecl; external joltc;
 procedure JPC_BodyLockWrite_delete(self: PJPC_BodyLockWrite); cdecl; external joltc;
-function JPC_BodyLockWrite_Succeeded(self: PJPC_BodyLockWrite): boolean; cdecl; external joltc;
+function JPC_BodyLockWrite_Succeeded(self: PJPC_BodyLockWrite): Tbool; cdecl; external joltc;
 function JPC_BodyLockWrite_GetBody(self: PJPC_BodyLockWrite): PJPC_Body; cdecl; external joltc;
 
 type
@@ -1339,14 +1340,14 @@ function JPC_BodyInterface_CreateBody(self: PJPC_BodyInterface; inSettings: PJPC
 function JPC_BodyInterface_CreateBodyWithID(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID; inSettings: PJPC_BodyCreationSettings): PJPC_Body; cdecl; external joltc;
 function JPC_BodyInterface_CreateBodyWithoutID(self: PJPC_BodyInterface; inSettings: PJPC_BodyCreationSettings): PJPC_Body; cdecl; external joltc;
 procedure JPC_BodyInterface_DestroyBodyWithoutID(self: PJPC_BodyInterface; inBody: PJPC_Body); cdecl; external joltc;
-function JPC_BodyInterface_AssignBodyID(self: PJPC_BodyInterface; ioBody: PJPC_Body): boolean; cdecl; external joltc;
+function JPC_BodyInterface_AssignBodyID(self: PJPC_BodyInterface; ioBody: PJPC_Body): Tbool; cdecl; external joltc;
 function JPC_BodyInterface_UnassignBodyID(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID): PJPC_Body; cdecl; external joltc;
 procedure JPC_BodyInterface_UnassignBodyIDs(self: PJPC_BodyInterface; inBodyIDs: PJPC_BodyID; inNumber: longint; outBodies: PPJPC_Body); cdecl; external joltc;
 procedure JPC_BodyInterface_DestroyBody(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID); cdecl; external joltc;
 procedure JPC_BodyInterface_DestroyBodies(self: PJPC_BodyInterface; inBodyIDs: PJPC_BodyID; inNumber: longint); cdecl; external joltc;
 procedure JPC_BodyInterface_AddBody(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID; inActivationMode: TJPC_Activation); cdecl; external joltc;
 procedure JPC_BodyInterface_RemoveBody(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID); cdecl; external joltc;
-function JPC_BodyInterface_IsAdded(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID): boolean; cdecl; external joltc;
+function JPC_BodyInterface_IsAdded(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID): Tbool; cdecl; external joltc;
 function JPC_BodyInterface_CreateAndAddBody(self: PJPC_BodyInterface; inSettings: PJPC_BodyCreationSettings; inActivationMode: TJPC_Activation): TJPC_BodyID; cdecl; external joltc;
 function JPC_BodyInterface_AddBodiesPrepare(self: PJPC_BodyInterface; ioBodies: PJPC_BodyID; inNumber: longint): pointer; cdecl; external joltc;
 procedure JPC_BodyInterface_AddBodiesFinalize(self: PJPC_BodyInterface; ioBodies: PJPC_BodyID; inNumber: longint; inAddState: pointer; inActivationMode: TJPC_Activation); cdecl; external joltc;
@@ -1356,10 +1357,10 @@ procedure JPC_BodyInterface_ActivateBody(self: PJPC_BodyInterface; inBodyID: TJP
 procedure JPC_BodyInterface_ActivateBodies(self: PJPC_BodyInterface; inBodyIDs: PJPC_BodyID; inNumber: longint); cdecl; external joltc;
 procedure JPC_BodyInterface_DeactivateBody(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID); cdecl; external joltc;
 procedure JPC_BodyInterface_DeactivateBodies(self: PJPC_BodyInterface; inBodyIDs: PJPC_BodyID; inNumber: longint); cdecl; external joltc;
-function JPC_BodyInterface_IsActive(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID): boolean; cdecl; external joltc;
+function JPC_BodyInterface_IsActive(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID): Tbool; cdecl; external joltc;
 function JPC_BodyInterface_GetShape(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID): PJPC_Shape; cdecl; external joltc;
-procedure JPC_BodyInterface_SetShape(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID; inShape: PJPC_Shape; inUpdateMassProperties: boolean; inActivationMode: TJPC_Activation); cdecl; external joltc;
-procedure JPC_BodyInterface_NotifyShapeChanged(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID; inPreviousCenterOfMass: TJPC_Vec3; inUpdateMassProperties: boolean; inActivationMode: TJPC_Activation); cdecl; external joltc;
+procedure JPC_BodyInterface_SetShape(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID; inShape: PJPC_Shape; inUpdateMassProperties: Tbool; inActivationMode: TJPC_Activation); cdecl; external joltc;
+procedure JPC_BodyInterface_NotifyShapeChanged(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID; inPreviousCenterOfMass: TJPC_Vec3; inUpdateMassProperties: Tbool; inActivationMode: TJPC_Activation); cdecl; external joltc;
 procedure JPC_BodyInterface_SetObjectLayer(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID; inLayer: TJPC_ObjectLayer); cdecl; external joltc;
 function JPC_BodyInterface_GetObjectLayer(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID): TJPC_ObjectLayer; cdecl; external joltc;
 procedure JPC_BodyInterface_SetPositionAndRotation(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID; inPosition: TJPC_RVec3; inRotation: TJPC_Quat; inActivationMode: TJPC_Activation); cdecl; external joltc;
@@ -1402,8 +1403,8 @@ procedure JPC_BodyInterface_SetFriction(self: PJPC_BodyInterface; inBodyID: TJPC
 function JPC_BodyInterface_GetFriction(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID): single; cdecl; external joltc;
 procedure JPC_BodyInterface_SetGravityFactor(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID; inGravityFactor: single); cdecl; external joltc;
 function JPC_BodyInterface_GetGravityFactor(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID): single; cdecl; external joltc;
-procedure JPC_BodyInterface_SetUseManifoldReduction(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID; inUseReduction: boolean); cdecl; external joltc;
-function JPC_BodyInterface_GetUseManifoldReduction(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID): boolean; cdecl; external joltc;
+procedure JPC_BodyInterface_SetUseManifoldReduction(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID; inUseReduction: Tbool); cdecl; external joltc;
+function JPC_BodyInterface_GetUseManifoldReduction(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID): Tbool; cdecl; external joltc;
 function JPC_BodyInterface_GetUserData(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID): Tuint64_t; cdecl; external joltc;
 procedure JPC_BodyInterface_SetUserData(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID; inUserData: Tuint64_t); cdecl; external joltc;
 procedure JPC_BodyInterface_InvalidateContactCache(self: PJPC_BodyInterface; inBodyID: TJPC_BodyID); cdecl; external joltc;
@@ -1421,7 +1422,7 @@ type
   end;
   PJPC_NarrowPhaseQuery_CastRayArgs = ^TJPC_NarrowPhaseQuery_CastRayArgs;
 
-function JPC_NarrowPhaseQuery_CastRay(self: PJPC_NarrowPhaseQuery; args: PJPC_NarrowPhaseQuery_CastRayArgs): boolean; cdecl; external joltc;
+function JPC_NarrowPhaseQuery_CastRay(self: PJPC_NarrowPhaseQuery; args: PJPC_NarrowPhaseQuery_CastRayArgs): Tbool; cdecl; external joltc;
 
 type
   TJPC_RShapeCast = record
@@ -1509,5 +1510,4 @@ begin
   SetMXCSR;
   {$ENDIF}
 end.
-
 end.

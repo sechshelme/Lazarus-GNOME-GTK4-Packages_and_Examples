@@ -6,17 +6,18 @@ program project1;
 uses
   fp_jolt;
 
-//type
-//  PHello_ObjectLayers = ^THello_ObjectLayers;
-//  THello_ObjectLayers = longint;
+
+  //type
+  //  PHello_ObjectLayers = ^THello_ObjectLayers;
+  //  THello_ObjectLayers = longint;
 const
   HELLO_OL_NON_MOVING = 0;
   HELLO_OL_MOVING = 1;
   HELLO_OL_COUNT = 2;
 
-//type
-//  PHello_BroadPhaseLayers = ^THello_BroadPhaseLayers;
-//  THello_BroadPhaseLayers = longint;
+  //type
+  //  PHello_BroadPhaseLayers = ^THello_BroadPhaseLayers;
+  //  THello_BroadPhaseLayers = longint;
 const
   HELLO_BPL_NON_MOVING = 0;
   HELLO_BPL_MOVING = 1;
@@ -36,11 +37,11 @@ const
     end;
   end;
 
-var
+const
   Hello_BPL: TJPC_BroadPhaseLayerInterfaceFns =
   (GetNumBroadPhaseLayers: @Hello_BPL_GetNumBroadPhaseLayers; GetBroadPhaseLayer: @Hello_BPL_GetBroadPhaseLayer);
 
-  function Hello_OVB_ShouldCollide(self: pointer; inLayer1: TJPC_ObjectLayer; inLayer2: TJPC_BroadPhaseLayer): boolean; cdecl;
+  function Hello_OVB_ShouldCollide(self: pointer; inLayer1: TJPC_ObjectLayer; inLayer2: TJPC_BroadPhaseLayer): Tbool; cdecl;
   begin
     if inLayer1 = HELLO_OL_NON_MOVING then begin
       Result := inLayer2 = HELLO_BPL_MOVING;
@@ -49,11 +50,10 @@ var
     end;
   end;
 
-var
+const
   Hello_OVB: TJPC_ObjectVsBroadPhaseLayerFilterFns = (ShouldCollide: @Hello_OVB_ShouldCollide);
 
-
-  function Hello_OVO_ShouldCollide(self: pointer; inLayer1: TJPC_ObjectLayer; inLayer2: TJPC_ObjectLayer): boolean; cdecl;
+  function Hello_OVO_ShouldCollide(self: pointer; inLayer1: TJPC_ObjectLayer; inLayer2: TJPC_ObjectLayer): Tbool; cdecl;
   begin
     if inLayer1 = HELLO_OL_NON_MOVING then begin
       Result := inLayer2 = HELLO_OL_MOVING;
@@ -62,7 +62,7 @@ var
     end;
   end;
 
-var
+const
   Hello_OVO: TJPC_ObjectLayerPairFilterFns = (ShouldCollide: @Hello_OVO_ShouldCollide);
 
   procedure main;
@@ -99,7 +99,6 @@ var
     ovo_filter := JPC_ObjectLayerPairFilter_new(nil, Hello_OVO);
 
     physics_system := JPC_PhysicsSystem_new;
-
     JPC_PhysicsSystem_Init(physics_system, 1024, 0, 1024, 1024, bpl_iface, ovb_filter, ovo_filter);
 
     body_iface := JPC_PhysicsSystem_GetBodyInterface(physics_system);
@@ -118,7 +117,8 @@ var
     floor_settings.MotionType := JPC_MOTION_TYPE_STATIC;
     floor_settings.ObjectLayer := HELLO_OL_NON_MOVING;
     floor_settings.Shape := floor_shape;
-    floor_settings.Restitution := 0.8;
+
+    //    floor_settings.Restitution := 0.8;
 
     floor_id := JPC_Body_GetID(JPC_BodyInterface_CreateBody(body_iface, @floor_settings));
     JPC_BodyInterface_AddBody(body_iface, floor_id, JPC_ACTIVATION_DONT_ACTIVATE);
@@ -131,12 +131,19 @@ var
     JPC_BodyCreationSettings_default(@sphere_settings);
     sphere_settings.Position.x := 0.0;
     sphere_settings.Position.y := 2.0;
-    sphere_settings.Position.z := 0.0;
+    sphere_settings.Position.z := -0.0;
+
+    sphere_settings.Position.x := 123.45;
+    sphere_settings.Position.y := 67.89;
+    sphere_settings.Position.z := 99.99;
+
+
     sphere_settings.MotionType := JPC_MOTION_TYPE_DYNAMIC;
     sphere_settings.ObjectLayer := HELLO_OL_MOVING;
     sphere_settings.Shape := sphere_shape;
-    sphere_settings.Restitution := 0.8;
-    sphere_settings.AllowSleeping := False; // Kugel darf nicht einschlafen
+    //    sphere_settings.Restitution := 0.8;
+    //    sphere_settings.AllowSleeping := False; // Kugel darf nicht einschlafen
+
 
 
     sphere_id := JPC_Body_GetID(JPC_BodyInterface_CreateBody(body_iface, @sphere_settings));
