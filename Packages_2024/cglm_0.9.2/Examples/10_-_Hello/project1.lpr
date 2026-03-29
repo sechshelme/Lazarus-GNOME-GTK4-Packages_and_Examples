@@ -19,13 +19,12 @@ uses
   end;
 
   procedure main;
+  {$CODEALIGN LOCALMIN=16}
   var
     i1:Integer;
     m: Tmat4;
     i2:Integer;
   begin
-//    {$PUSH}
-    {$CODEALIGN LOCALMIN=16}
     glmc_mat4_identity(m);
     printMatrix(m);
     glmc_scale_uni(m,2);
@@ -34,7 +33,6 @@ uses
     printMatrix(m);
     glmc_translate_y(m,2);
     printMatrix(m);
-//    {$POP}
   end;
 
 begin
