@@ -7,6 +7,35 @@ uses
   fp_jolt;
 
 
+// Wir deklarieren sie als Funktion, die einen Zeiger zurückgibt,
+// damit FPC denkt, das Ergebnis liege in RAX. Den eigentlichen Wert
+// holen wir uns aber manuell aus XMM0.
+
+{$ASMMODE intel}
+function JPC_BodyInterface_GetCenterOfMassPosition_Raw(self: pointer; bodyID: TJPC_BodyID): Pointer; cdecl;
+  external 'joltc' name 'JPC_BodyInterface_GetCenterOfMassPosition';
+
+  procedure GetPositionFixed(self: pointer; bodyID: TJPC_BodyID; out res: TJPC_RVec3);
+  begin
+    asm
+      // 1. Parameter vorbereiten (System V ABI: RDI, RSI)
+      // self ist schon in RDI, bodyID in RSI (wenn sie 32/64-bit ist)
+      // Falls FPC sie verschoben hat, laden wir sie sicherheitshalber:
+      mov rdi, self
+      mov esi, bodyID  // oder rsi, je nach Grösse von TJPC_BodyID
+
+      // 2. Die C-Funktion direkt anspringen
+      // Wir nutzen PLT für die Shared Lib
+      call JPC_BodyInterface_GetCenterOfMassPosition
+
+      // 3. DAS ERGEBNIS RETTEN (bevor irgendwas anderes passiert)
+      // Das Ergebnis von JoltC liegt JETZT in xmm0
+      mov rdx, res
+      movups [rdx], xmm0
+    end;
+  end;
+
+
   //type
   //  PHello_ObjectLayers = ^THello_ObjectLayers;
   //  THello_ObjectLayers = longint;
@@ -39,7 +68,7 @@ const
 
 const
   Hello_BPL: TJPC_BroadPhaseLayerInterfaceFns =
-  (GetNumBroadPhaseLayers: @Hello_BPL_GetNumBroadPhaseLayers; GetBroadPhaseLayer: @Hello_BPL_GetBroadPhaseLayer);
+    (GetNumBroadPhaseLayers: @Hello_BPL_GetNumBroadPhaseLayers; GetBroadPhaseLayer: @Hello_BPL_GetBroadPhaseLayer);
 
   function Hello_OVB_ShouldCollide(self: pointer; inLayer1: TJPC_ObjectLayer; inLayer2: TJPC_BroadPhaseLayer): Tbool; cdecl;
   begin
@@ -48,6 +77,8 @@ const
     end else begin
       Result := True;
     end;
+    WriteLn('bool 1', integer(Result));
+    WriteLn('Layers: ', inLayer1, ' vs ', inLayer2);
   end;
 
 const
@@ -60,10 +91,16 @@ const
     end else begin
       Result := True;
     end;
+    WriteLn('bool 2', integer(Result));
+    WriteLn('Layers: ', inLayer1, ' vs ', inLayer2);
+
   end;
 
 const
   Hello_OVO: TJPC_ObjectLayerPairFilterFns = (ShouldCollide: @Hello_OVO_ShouldCollide);
+var
+  p: TJPC_RVec3;
+
 
   procedure main;
   {$CODEALIGN LOCALMIN=64}
@@ -83,7 +120,7 @@ const
     sphere_shape_settings: TJPC_SphereShapeSettings;
     v: TJPC_Vec3;
     i: integer;
-    p: TJPC_RVec3;
+    p2: PJPC_RVec3;
   begin
     WriteLn('Size of Settings: ', SizeOf(TJPC_BodyCreationSettings));
 
@@ -133,11 +170,6 @@ const
     sphere_settings.Position.y := 2.0;
     sphere_settings.Position.z := -0.0;
 
-    sphere_settings.Position.x := 123.45;
-    sphere_settings.Position.y := 67.89;
-    sphere_settings.Position.z := 99.99;
-
-
     sphere_settings.MotionType := JPC_MOTION_TYPE_DYNAMIC;
     sphere_settings.ObjectLayer := HELLO_OL_MOVING;
     sphere_settings.Shape := sphere_shape;
@@ -155,8 +187,11 @@ const
 
     for  i := 0 to 49 do begin
       JPC_PhysicsSystem_Update(physics_system, 1.0 / 60.0, 1, temp_alloc, PJPC_JobSystem(job_sys));
-      p := JPC_BodyInterface_GetCenterOfMassPosition(body_iface, sphere_id);
-      WriteLn(i: 4, '   X = ', p.x: 4: 2, '   Y = ', p.y: 4: 2, '   Z = ', p.z: 4: 2);
+//      p := JPC_BodyInterface_GetCenterOfMassPosition(body_iface, sphere_id);
+//      WriteLn(i: 4, '   X = ', p.x: 4: 2, '   Y = ', p.y: 4: 2, '   Z = ', p.z: 4: 2, '   W = ', p._w: 4: 2);
+
+     GetPositionFixed(body_iface, sphere_id, p);
+     WriteLn(i: 4, '   X = ', p.x: 4: 2, '   Y = ', p.y: 4: 2, '   Z = ', p.z: 4: 2, '   W = ', p._w: 4: 2);
     end;
   end;
 

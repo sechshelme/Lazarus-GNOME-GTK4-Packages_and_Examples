@@ -21,12 +21,12 @@ const
 
 
 type
-  Tgraphene_simd4f_t = array [0..3] of single; align 16;
+//  Tgraphene_simd4f_t = array [0..3] of single;///
   //    Pgraphene_simd4f_t=^Tgraphene_simd4f_t;
-  //  Tgraphene_simd4f_t =  record
-  //    x, y, z, w: single;
-  //    pad:array[0..15] of byte;
-  //  end ;
+    Tgraphene_simd4f_t =  record
+      x, y, z, w: single;
+      pad:array[0..15] of byte;
+    end align 64;
 var
 
   res: Tgraphene_simd4f_t;
