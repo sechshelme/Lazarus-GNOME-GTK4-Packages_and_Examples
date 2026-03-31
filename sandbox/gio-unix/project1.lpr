@@ -1,21 +1,8 @@
 program project1;
 
 uses
-  ctypes,
   fp_glib2,
-
-  gdesktopappinfo,
-  gfiledescriptorbased,
-  gunixfdmessage,
-  gunixinputstream,
-  gunixmounts,
-  gunixoutputstream;
-
-
-  // /usr/share/applications/org.gnome.Calendar.desktop
-
-
-  // https://www.perplexity.ai/search/gib-mir-ein-c-beispiel-mit-gde-jvWhrS19T8WLXZCq6u7t9Q
+  fp_gio_unix_2;
 
   procedure PrintInfo(app_info: PGAppInfo);
   begin
@@ -26,7 +13,7 @@ uses
 
   procedure PrintPCharArray(ch: PPgchar; const Titel: Pgchar = nil);
   var
-    i: cint;
+    i: integer;
   begin
     if Titel <> nil then begin
       g_print('=== %s ==='#10);
@@ -59,7 +46,6 @@ uses
     actions := g_desktop_app_info_list_actions(app_info);
     if actions <> nil then begin
       PrintPCharArray(actions, 'Desktop Action');
-      //      g_strfreev(actions);
     end else begin
       g_print('Keine Aktionen gefunden'#10);
     end;
@@ -83,24 +69,6 @@ uses
     g_object_unref(app_info);
   end;
 
-  procedure Variante2;   // gehört nicht zu gio-unix
-  var
-    app_info: PGAppInfo;
-    err: PGError = nil;
-  begin
-    app_info := g_app_info_create_from_commandline('nemo', 'Datei Manager', G_APP_INFO_CREATE_NONE, @err);
-    if app_info = nil then  begin
-      g_print('Konnte GAppInfo nicht erstellen: %s'#10, err^.message);
-      g_error_free(err);
-      g_object_unref(app_info);
-      Exit;
-    end;
-
-    PrintInfo(app_info);
-
-    g_object_unref(app_info);
-  end;
-
   procedure PrintAppInfo;
   const
     O_RDONLY = 0;
@@ -110,7 +78,6 @@ uses
     buffer: array [0..31] of Tgchar;
     bytes_read: Tgssize;
     err: PGError = nil;
-    seekable: PGSeekable;
   begin
     fd := g_open('/etc/services', O_RDONLY, 0644);
     if fd = -1 then begin
@@ -137,17 +104,14 @@ uses
 
 
 
-  function main(argc: cint; argv: PPChar): cint;
+  procedure main;
   begin
-    g_type_init;
     g_print(#10'============ Variante 1'#10#10);
-    //    Variante1;
-    g_print(#10'============ Variante 2'#10#10);
-    //    Variante2;
-    g_print(#10'============ Variante 3'#10#10);
+    Variante1;
+    g_print(#10'============ App Info'#10#10);
     PrintAppInfo;
   end;
 
 begin
-  main(argc, argv);
+  main;
 end.

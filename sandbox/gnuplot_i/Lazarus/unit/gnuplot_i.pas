@@ -17,7 +17,7 @@ const
 
 
 type
-  PFILE = Pointer;
+  PFILE = type Pointer;
 
   // =====================
 

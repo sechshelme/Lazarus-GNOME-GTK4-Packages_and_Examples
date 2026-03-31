@@ -10,7 +10,6 @@ uses
 
   function main(argc: integer; argv: PPChar): integer;
   begin
-    versi
   end;
 
 begin
