@@ -311,6 +311,9 @@ const
     (libs: 'libsokol'; units: 'fp_sokol'),
     (libs: 'joltc'; units: 'cytpes'),
 
+    (libs: 'libplplot'; units: 'fp_plplot'),
+
+
 
 
 
