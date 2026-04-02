@@ -1,5 +1,11 @@
 program project1;
 
+// sudo apt install libplplot-dev
+
+// sudo apt install plplot-driver-cairo
+
+
+
 uses
   //plConfig,
   plplot,
@@ -50,26 +56,58 @@ uses
     end;
   end;
 
-  procedure main;
-  const
-    x: array [0..3] of TPLFLT = (0.0, 1.0, 2.0, 3.0);
-    y: array [0..3] of TPLFLT = (0.0, 1.0, 4.0, 9.0);
-  begin
-    c_plsdev('pngqt');
-    c_plsfnam('mein_plot.png');
+procedure main;
+const
+  x: array [0..3] of TPLFLT = (0.0, 1.0, 2.0, 3.0);
+  y: array [0..3] of TPLFLT = (0.0, 1.0, 4.0, 9.0);
+begin
+  c_plsdev('pngqt');
+  c_plsfnam('mein_plot.png');
 
-    c_plspage(0, 0, 160, 60, 0, 0);
-    c_plinit;
+  c_plspage(0, 0, 160, 60, 0, 0);
+  c_plinit;
 
-    c_plenv(0.0, 3.0, 0.0, 9.0, 0, 1);
-    c_pllab('X-Achse', 'Y-Achse', 'Mein PLplot-Diagramm');
+  c_plenv(0.0, 3.0, 0.0, 9.0, 0, 1);
+  c_pllab('X-Achse', 'Y-Achse', 'Mein PLplot-Diagramm');
 
-    c_plline(4, x, y);
+  c_plline(4, x, y);
 
-    c_plend;
-  end;
+  c_plend;
+end;
+
+function exith(para1: TPLCHAR_VECTOR): longint; cdecl;
+begin
+
+end;
+
+procedure CairoTest;
+const
+  x: array [0..3] of TPLFLT = (0.0, 1.0, 2.0, 3.0);
+  y: array [0..3] of TPLFLT = (0.0, 1.0, 4.0, 9.0);
+var
+  cr: TPLPointer;
+begin
+//  c_plsdev('extcairo');
+
+  c_plspage(0, 0, 800, 600, 0, 0);
+  c_plinit;
+
+  c_plenv(0.0, 3.0, 0.0, 9.0, 0, 1);
+
+      pl_cmd(PLESC_DEVINIT, cr);
+
+  c_pllab('X-Achse', 'Y-Achse', 'Mein PLplot-Diagramm');
+
+  c_plline(4, x, y);
+
+  c_plend;
+
+  plsexit(@exith);
+end;
 
 begin
-  PrintBuffer;
-  main;
+  CairoTest;
+ // PrintBuffer;
+//  main;
+WriteLn('--- ende ---');
 end.

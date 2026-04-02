@@ -1,6 +1,7 @@
 program project1;
 
 uses
+  fp_cairo,
   fp_mgl2;
 
   function sample(gr: THMGL; p: pointer): longint; cdecl;
@@ -43,17 +44,48 @@ uses
     Result := 0;
   end;
 
-  procedure main;
+  procedure DrawToCairo(width, height: integer);
   var
     gr: THMGL;
+    pixels: pbyte;
+    stride: longint;
+    surface: Pcairo_surface_t;
+    cr: Pcairo_t;
+  const
+    path = 'test.png';
   begin
-    gr := mgl_create_graph_glut(@sample, 'MathGL Example', nil, nil);
-
-    if gr = nil then begin
-      WriteLn('Fehler');
+    gr := mgl_create_graph(Width, Height);
+    if gr = nil then  begin
+      WriteLn('MathGL Fehler: Konnte Graph nicht erstellen.');
+      Exit;
     end;
-    mgl_qt_run;
+
+    mgl_fill_background(gr, 0.8, 1.0, 1.0, 1.0);
+    mgl_clf(gr);
+    mgl_rotate(gr, 60, 40, 0); // Dreht den Graphen: 60° um X, 40° um Y
+
+    sample(gr, nil);
+
+    pixels := mgl_get_rgba(gr);
+    stride := cairo_format_stride_for_width(CAIRO_FORMAT_ARGB32, Width);
+
+    surface := cairo_image_surface_create_for_data(pixels, CAIRO_FORMAT_ARGB32, Width, Height, stride);
+
+    cr := cairo_create(surface);
+    cairo_arc(cr, 100.0, 100.0, 20.0, 0, 2 * PI);
+    cairo_stroke(cr);
+
+    cairo_surface_write_to_png(surface, path);
+    WriteLn('PNG erfolgreich erstellt: ', path);
+    cairo_surface_destroy(surface);
+
     mgl_delete_graph(gr);
+  end;
+
+  procedure main;
+  begin
+//    ViewQT;
+    DrawToCairo(800, 600);
   end;
 
 begin
