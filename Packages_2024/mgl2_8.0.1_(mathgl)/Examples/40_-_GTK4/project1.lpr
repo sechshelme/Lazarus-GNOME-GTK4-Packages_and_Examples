@@ -13,6 +13,10 @@ type
   end;
   PAniData = ^TAniData;
 
+TAppData=record
+ total_offset_x, total_offset_y, start_drag_x, start_drag_y:Double;
+ end;
+
 const
   anyDataKey = 'anyKey';
 
@@ -81,7 +85,7 @@ const
 
     mgl_fill_background(gr, 0.3, 0.3, 0.3, 1.0);
 
-//    mgl_zoom(gr, -0.5, -0.5, 1.5, 1.5);
+    //    mgl_zoom(gr, -0.5, -0.5, 1.5, 1.5);
 
     mgl_set_def_sch(gr, 'w');
     mgl_rotate(gr, 60, 40, 0);
@@ -134,10 +138,26 @@ const
     end;
   end;
 
+  function on_scroll(controller: PGtkEventControllerScroll; dx, dy: double; user_data: Tgpointer): Tgboolean; cdecl;
+  begin
+    // dy < 0: Hoch gescrollt
+    // dy > 0: Runter gescrollt
+    g_print('Scroll-Event erkannt: dx=%.2f, dy=%.2f'#10, dx, dy);
+
+    // Falls die DrawingArea neu gezeichnet werden muss (z.B. Zoom):
+    // GtkWidget *widget = gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (controller));
+    // gtk_widget_queue_draw (widget);
+
+    Result := True; // Event als verarbeitet markieren
+  end;
+
+
   procedure activate_cp(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     anyData: PAniData absolute user_data;
     window, box, button, drawing_area: PGtkWidget;
+    scroll_controller: PGtkEventController;
+    drag_gest: PGtkGesture;
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 
@@ -152,6 +172,26 @@ const
     gtk_widget_set_hexpand(drawing_area, True);
     gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(drawing_area), @draw_func, nil, nil);
     gtk_widget_add_tick_callback(drawing_area, @on_tick, nil, nil);
+
+
+    // Mopuse Move
+    drag_gest := gtk_gesture_drag_new ;
+
+//    g_signal_connect (drag_gest, 'drag-begin', G_CALLBACK (@on_drag_begin), &deine_daten);
+//    g_signal_connect (drag_gest, 'drag-update', G_CALLBACK (@on_drag_update), &deine_daten);
+//    g_signal_connect (drag_gest, 'drag-end',    G_CALLBACK (@on_drag_end),    &meine_daten);
+
+    gtk_widget_add_controller (drawing_area, GTK_EVENT_CONTROLLER (drag_gest));
+
+
+
+    // Mausrad
+    scroll_controller := gtk_event_controller_scroll_new(GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES or GTK_EVENT_CONTROLLER_SCROLL_DISCRETE);
+    g_signal_connect(scroll_controller, 'scroll', G_CALLBACK(@on_scroll), nil);
+    gtk_widget_add_controller(drawing_area, scroll_controller);
+
+
+
     gtk_box_append(GTK_BOX(box), drawing_area);
 
     g_object_set_data_full(G_OBJECT(drawing_area), anyDataKey, anyData, nil);
