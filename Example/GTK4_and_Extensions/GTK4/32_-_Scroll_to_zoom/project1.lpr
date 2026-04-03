@@ -129,8 +129,8 @@ const
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
+    data: PAppData absolute user_data;
     window, box, button, drawing_area: PGtkWidget;
-    data: PAppData;
     scroll_ctrl, motion_ctrl: PGtkEventController;
     drag_gest: PGtkGesture;
   begin
@@ -149,7 +149,7 @@ const
     gtk_widget_add_tick_callback(drawing_area, @on_tick, nil, nil);
     gtk_box_append(GTK_BOX(box), drawing_area);
 
-    data := g_malloc(SizeOf(TAppData));
+//    data := g_malloc(SizeOf(TAppData));
     data^.Mouse.x := 0.0;
     data^.Mouse.y := 0.0;
     data^.Mouse.mx := 0.0;
@@ -157,7 +157,8 @@ const
     data^.Mouse.sx := 0.0;
     data^.Mouse.sy := 0.0;
     data^.Mouse.zoom := 1.0;
-    g_object_set_data_full(G_OBJECT(drawing_area), AppDataKey, data, @AppData_free_cp);
+//    g_object_set_data_full(G_OBJECT(drawing_area), AppDataKey, data, @AppData_free_cp);
+    g_object_set_data_full(G_OBJECT(drawing_area), AppDataKey, data, nil);
 
     // 1. Motion Controller (für Mausposition)
     motion_ctrl := gtk_event_controller_motion_new;
@@ -187,11 +188,13 @@ const
 
   function main(argc: cint; argv: PPChar): cint;
   var
+    data:TAppData;
     app: PGtkApplication;
     status: longint;
   begin
     app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
-    g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
+    g_signal_connect(app, 'startup', G_CALLBACK(@startup_cp), @appData);
+    g_signal_connect(app, 'activate', G_CALLBACK(@activate), @data);
     status := g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
 

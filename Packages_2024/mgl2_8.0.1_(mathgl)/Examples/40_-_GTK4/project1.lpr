@@ -7,15 +7,13 @@ uses
   fp_GTK4;
 
 type
-  TAniData = record
-    //    BodyIds: Tb2BodyIds;
-    //    engine: TEngine;
+  TAppData = record
+    //    x1, y1, x2, y2: double;
+    Mouse: record
+      x, y, zoom, mx, my, sx, sy: double;
+      end;
   end;
-  PAniData = ^TAniData;
-
-TAppData=record
- total_offset_x, total_offset_y, start_drag_x, start_drag_y:Double;
- end;
+  PAppData = ^TAppData;
 
 const
   anyDataKey = 'anyKey';
@@ -71,21 +69,32 @@ const
 
   procedure draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
   var
-    anyData: PAniData;
+    appData: PAppData;
     gr: THMGL;
     pixels: pbyte;
     mgl_surface: Pcairo_surface_t;
+    x1, y1, x2, y2, span: double;
   begin
-    anyData := g_object_get_data(G_OBJECT(drawing_area), anyDataKey);
+    appData := g_object_get_data(G_OBJECT(drawing_area), anyDataKey);
 
     gr := mgl_create_graph(width, height);
 
     mgl_clf(gr);
-
-
     mgl_fill_background(gr, 0.3, 0.3, 0.3, 1.0);
 
-    //    mgl_zoom(gr, -0.5, -0.5, 1.5, 1.5);
+
+
+    span := 1.0 / appData^.Mouse.zoom;
+
+    x1 := -(appData^.Mouse.x / Width);
+    x2 := x1 + span;
+
+    y1 := 1.0 + (appData^.Mouse.y / Height) - span;
+    y2 := y1 + span;
+
+    mgl_zoom(gr, x1, y1, x2, y2);
+
+
 
     mgl_set_def_sch(gr, 'w');
     mgl_rotate(gr, 60, 40, 0);
@@ -94,6 +103,11 @@ const
 
     pixels := mgl_get_rgba(gr);
     mgl_surface := cairo_image_surface_create_for_data(pixels, CAIRO_FORMAT_ARGB32, width, height, width * 4);
+
+    with appData^.Mouse do begin
+      //      cairo_translate(cr, x, y);
+      //    cairo_scale(cr, zoom, zoom);
+    end;
 
     cairo_set_source_surface(cr, mgl_surface, 0, 0);
     cairo_paint(cr);
@@ -109,10 +123,10 @@ const
 
   function on_tick(widget: PGtkWidget; frame_clock: PGdkFrameClock; user_data: Tgpointer): Tgboolean; cdecl;
   var
-    anyData: PAniData;
+    appData: PAppData;
   begin
-    anyData := g_object_get_data(G_OBJECT(widget), anyDataKey);
-    with anyData^ do begin
+    appData := g_object_get_data(G_OBJECT(widget), anyDataKey);
+    with appData^ do begin
       //      engine.NextScene;
       //      BodyIds := engine.SceneBodyIds;
     end;
@@ -122,41 +136,90 @@ const
 
   procedure startup_cp(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
-    anyData: PAniData absolute user_data;
+    appData: PAppData absolute user_data;
   begin
-    with anyData^ do begin
-      //      engine := TEngine.Create;
-    end;
   end;
 
   procedure shutdown_cp(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
-    anyData: PAniData absolute user_data;
+    appData: PAppData absolute user_data;
   begin
-    with anyData^ do begin
+    with appData^ do begin
       //    engine.Free;
     end;
   end;
 
-  function on_scroll(controller: PGtkEventControllerScroll; dx, dy: double; user_data: Tgpointer): Tgboolean; cdecl;
+
+  procedure AppData_free_cp(Data: Tgpointer); cdecl;
+  var
+    anyData: PAppData absolute Data;
   begin
-    // dy < 0: Hoch gescrollt
-    // dy > 0: Runter gescrollt
-    g_print('Scroll-Event erkannt: dx=%.2f, dy=%.2f'#10, dx, dy);
-
-    // Falls die DrawingArea neu gezeichnet werden muss (z.B. Zoom):
-    // GtkWidget *widget = gtk_event_controller_get_widget (GTK_EVENT_CONTROLLER (controller));
-    // gtk_widget_queue_draw (widget);
-
-    Result := True; // Event als verarbeitet markieren
+    g_free(anyData);
   end;
 
+  // ======
+
+  procedure on_motion(controller: PGtkEventControllerMotion; x: double; y: double; user_data: Tgpointer); cdecl;
+  var
+    data: PAppData absolute user_data;
+  begin
+    data := PAppData(user_data);
+    data^.Mouse.mx := x;
+    data^.Mouse.my := y;
+  end;
+
+  function on_scroll(controller: PGtkEventControllerScroll; dx: double; dy: double; user_data: Tgpointer): Tgboolean; cdecl;
+  var
+    data: PAppData absolute user_data;
+    old_zoom, zoom_factor: double;
+  begin
+    old_zoom := data^.Mouse.zoom;
+
+    if dy < 0 then begin
+      zoom_factor := 1.1;
+    end else begin
+      zoom_factor := 1.0 / 1.1;
+    end;
+
+    data^.Mouse.zoom := data^.Mouse.zoom * zoom_factor;
+    if data^.Mouse.zoom < 0.05 then begin
+      data^.Mouse.zoom := 0.05;
+    end;
+    if data^.Mouse.zoom > 20.0 then begin
+      data^.Mouse.zoom := 20.0;
+    end;
+
+    data^.Mouse.x := data^.Mouse.mx - (data^.Mouse.mx - data^.Mouse.x) * (data^.Mouse.zoom / old_zoom);
+    data^.Mouse.y := data^.Mouse.my - (data^.Mouse.my - data^.Mouse.y) * (data^.Mouse.zoom / old_zoom);
+
+    Result := True;
+  end;
+
+  procedure on_drag_begin(gesture: PGtkGestureDrag; x: double; y: double; user_data: Tgpointer); cdecl;
+  var
+    data: PAppData absolute user_data;
+  begin
+    data^.Mouse.sx := data^.Mouse.x;
+    data^.Mouse.sy := data^.Mouse.y;
+  end;
+
+  procedure on_drag_update(gesture: PGtkGestureDrag; offset_x: double; offset_y: double; user_data: Tgpointer); cdecl;
+  var
+    data: PAppData absolute user_data;
+    widget: PGtkWidget;
+  begin
+    data^.Mouse.x := data^.Mouse.sx + offset_x;
+    data^.Mouse.y := data^.Mouse.sy + offset_y;
+
+    widget := gtk_event_controller_get_widget(PGtkEventController(gesture));
+    gtk_widget_queue_draw(widget);
+  end;
 
   procedure activate_cp(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
-    anyData: PAniData absolute user_data;
+    appData: PAppData absolute user_data;
     window, box, button, drawing_area: PGtkWidget;
-    scroll_controller: PGtkEventController;
+    motion_ctrl, scroll_ctrl: PGtkEventController;
     drag_gest: PGtkGesture;
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
@@ -174,27 +237,37 @@ const
     gtk_widget_add_tick_callback(drawing_area, @on_tick, nil, nil);
 
 
-    // Mopuse Move
-    drag_gest := gtk_gesture_drag_new ;
+    appData := g_malloc(SizeOf(TAppData));
+    with appData^ do begin
+      Mouse.x := 0.0;
+      Mouse.y := 0.0;
+      Mouse.mx := 0.0;
+      Mouse.my := 0.0;
+      Mouse.sx := 0.0;
+      Mouse.sy := 0.0;
+      Mouse.zoom := 1.0;
+    end;
+    g_object_set_data_full(G_OBJECT(drawing_area), anyDataKey, appData, @AppData_free_cp);
 
-//    g_signal_connect (drag_gest, 'drag-begin', G_CALLBACK (@on_drag_begin), &deine_daten);
-//    g_signal_connect (drag_gest, 'drag-update', G_CALLBACK (@on_drag_update), &deine_daten);
-//    g_signal_connect (drag_gest, 'drag-end',    G_CALLBACK (@on_drag_end),    &meine_daten);
+    // 1. Motion Controller (für Mausposition)
+    motion_ctrl := gtk_event_controller_motion_new;
+    g_signal_connect(motion_ctrl, 'motion', G_CALLBACK(@on_motion), appData);
+    gtk_widget_add_controller(drawing_area, motion_ctrl);
 
-    gtk_widget_add_controller (drawing_area, GTK_EVENT_CONTROLLER (drag_gest));
+    // 2. Scroll Controller (für Zoom)
+    scroll_ctrl := gtk_event_controller_scroll_new(GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES or GTK_EVENT_CONTROLLER_SCROLL_DISCRETE);
+    g_signal_connect(scroll_ctrl, 'scroll', G_CALLBACK(@on_scroll), appData);
+    gtk_widget_add_controller(drawing_area, scroll_ctrl);
 
-
-
-    // Mausrad
-    scroll_controller := gtk_event_controller_scroll_new(GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES or GTK_EVENT_CONTROLLER_SCROLL_DISCRETE);
-    g_signal_connect(scroll_controller, 'scroll', G_CALLBACK(@on_scroll), nil);
-    gtk_widget_add_controller(drawing_area, scroll_controller);
+    // 3. Drag Gesture (für Panning)
+    drag_gest := gtk_gesture_drag_new;
+    g_signal_connect(drag_gest, 'drag-begin', G_CALLBACK(@on_drag_begin), appData);
+    g_signal_connect(drag_gest, 'drag-update', G_CALLBACK(@on_drag_update), appData);
+    gtk_widget_add_controller(drawing_area, GTK_EVENT_CONTROLLER(drag_gest));
 
 
 
     gtk_box_append(GTK_BOX(box), drawing_area);
-
-    g_object_set_data_full(G_OBJECT(drawing_area), anyDataKey, anyData, nil);
 
     button := gtk_button_new_with_label('Quit');
     g_signal_connect(button, 'clicked', G_CALLBACK(@quit_cp), window);
@@ -208,12 +281,12 @@ const
   procedure main;
   var
     app: PGtkApplication;
-    anyData: TAniData;
+    appData: TAppData;
   begin
     app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
-    g_signal_connect(app, 'startup', G_CALLBACK(@startup_cp), @anyData);
-    g_signal_connect(app, 'activate', G_CALLBACK(@activate_cp), @anyData);
-    g_signal_connect(app, 'shutdown', G_CALLBACK(@shutdown_cp), @anyData);
+    g_signal_connect(app, 'startup', G_CALLBACK(@startup_cp), @appData);
+    g_signal_connect(app, 'activate', G_CALLBACK(@activate_cp), @appData);
+    g_signal_connect(app, 'shutdown', G_CALLBACK(@shutdown_cp), @appData);
     g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
   end;
