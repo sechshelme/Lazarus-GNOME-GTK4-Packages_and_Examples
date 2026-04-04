@@ -6,11 +6,15 @@ uses
   SysUtils,
   fp_glib2,
   fp_cairo,
-  fp_GTK4, drawarea_zoom;
+  fp_GTK4,
+  drawarea_zoom;
 
 type
   TAppData = record
-    DrawAreaZoom:PDrawAreaMove;
+    BKcol: record
+      r, g, b: double;
+      end;
+    DrawAreaZoom: PDrawAreaMove;
   end;
   PAppData = ^TAppData;
 
@@ -29,9 +33,11 @@ const
     data: PAppData;
   begin
     data := g_object_get_data(G_OBJECT(drawing_area), AppDataKey);
-    draw_area_move_cairo_transform(data^.DrawAreaZoom ,cr);
+    draw_area_move_cairo_transform(data^.DrawAreaZoom, cr);
 
-    cairo_set_source_rgb(cr, 0.95, 0.95, 0.95);
+    with data^.BKcol do begin
+      cairo_set_source_rgb(cr, r, g, b);
+    end;
     cairo_paint(cr);
 
     cairo_set_source_rgb(cr, 0.1, 0.4, 0.7);
@@ -45,9 +51,17 @@ const
 
   function on_tick(widget: PGtkWidget; frame_clock: PGdkFrameClock; user_data: Tgpointer): Tgboolean; cdecl;
   var
-    appData: PAppData;
+    data: PAppData;
+  const
+    counter: double = 0.0;
   begin
-    appData := g_object_get_data(G_OBJECT(widget), AppDataKey);
+    data := g_object_get_data(G_OBJECT(widget), AppDataKey);
+    counter += 0.01;
+    with data^.BKcol do begin
+      r := sin(counter * 1.0) / 2 + 0.5;
+      g := sin(counter * 1.1) / 2 + 0.5;
+      b := sin(counter * 1.2) / 2 + 0.5;
+    end;
     gtk_widget_queue_draw(widget);
     Result := G_SOURCE_CONTINUE;
   end;
@@ -74,7 +88,7 @@ const
 
     g_object_set_data_full(G_OBJECT(drawing_area), AppDataKey, data, nil);
 
-    data^.DrawAreaZoom:=draw_area_move_new(drawing_area);
+    data^.DrawAreaZoom := draw_area_move_new(drawing_area);
 
     button := gtk_button_new_with_label('Quit');
     g_signal_connect(button, 'clicked', G_CALLBACK(@quit_cp), window);
@@ -87,7 +101,7 @@ const
 
   function main(argc: cint; argv: PPChar): cint;
   var
-    data:TAppData;
+    data: TAppData;
     app: PGtkApplication;
     status: longint;
   begin

@@ -73,6 +73,51 @@ const
     cairo_fill(cr);
   end;
 
+  function ArcTan2(dy, dx: double): double;
+  begin
+    if dx > 0 then begin
+      Result := ArcTan(dy / dx);
+    end else if dx < 0 then begin
+      if dy >= 0 then begin
+        Result := ArcTan(dy / dx) + Pi;
+      end else begin
+        Result := ArcTan(dy / dx) - Pi;
+      end;
+    end else { Fall: dx = 0 } begin
+      if dy > 0 then begin
+        Result := Pi / 2;
+      end else if dy < 0 then begin
+        Result := -Pi / 2;
+      end else begin
+        Result := 0;
+      end;
+    end;
+  end;
+
+
+  procedure drawCapsule(cr: Pcairo_t; shapeId: Tb2ShapeId);
+  var
+    capsule: Tb2Capsule;
+    bodyId: Tb2BodyId;
+    transform: Tb2Transform;
+    p1, p2: Tb2Vec2;
+    angle: double;
+  begin
+    capsule := b2Shape_GetCapsule(shapeId);
+    bodyId := b2Shape_GetBody(shapeId);
+    transform := b2Body_GetTransform(bodyId);
+
+    p1 := b2TransformPoint(transform, capsule.center1);
+    p2 := b2TransformPoint(transform, capsule.center2);
+
+    angle := ArcTan2(p2.y - p1.y, p2.x - p1.x);
+
+    cairo_arc(cr, p1.x, p1.y, capsule.radius, angle + Pi / 2, angle + 3 * Pi / 2);
+    cairo_arc(cr, p2.x, p2.y, capsule.radius, angle - Pi / 2, angle + Pi / 2);
+
+    cairo_close_path(cr);
+    cairo_fill(cr);
+  end;
 
   procedure draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
   var
@@ -120,6 +165,9 @@ const
           case shapeType of
             b2_polygonShape: begin
               drawPolygone(cr, shapesId[j]);
+            end;
+            b2_capsuleShape: begin
+              drawCapsule(cr, shapesId[j]);
             end;
             b2_circleShape: begin
               drawCircle(cr, shapesId[j]);

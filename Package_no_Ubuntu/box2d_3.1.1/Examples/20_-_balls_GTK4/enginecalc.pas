@@ -70,6 +70,7 @@ type
   end;
 
   Tb2Circles = array of Tb2Circle;
+  Tb2Capsules = array of Tb2Capsule;
 
 const
   StaticBoxDatas: array of TBoxData = (
@@ -88,10 +89,17 @@ const
     );
 
   StaticBallData: Tb2Circles = (
-    (center: (x: 90.0; y: -40.0); radius: 15),
-    (center: (x: 185.0; y: -80.0); radius: 20),
-    (center: (x: 180.0; y: -170.0); radius: 20)
+    (center: (x: 90.0; y: -40.0); radius: 15.0),
+    (center: (x: 185.0; y: -80.0); radius: 20.0),
+    (center: (x: 180.0; y: -170.0); radius: 20.0)
     );
+
+  StaticCapsuleData: Tb2Capsules = (
+  (center1: (x: -5.0; y: -170.0); center2: (x: 20.0; y: -150.0); radius: 5.0),
+  (center1: (x: 35.0; y: -160.0); center2: (x: 45.0; y: -150.0); radius: 5.0)
+    );
+
+
 
 procedure NewUserData(body: Tb2BodyId; col: TColor; wantsEvents: boolean = False);
 var
@@ -128,6 +136,7 @@ var
   circle: Tb2Circle;
   polygon: Tb2Polygon;
   shapeId: Tb2ShapeId;
+  capsule: Tb2Capsule;
 begin
   worldDef := b2DefaultWorldDef;
   worldDef.gravity.SetItems(0.0, -10.0);
@@ -155,6 +164,18 @@ begin
   for i := 0 to Length(StaticBallData) - 1 do begin;
     circle := StaticBallData[i];
     b2CreateCircleShape(BodyIds.Last, @shapeDef, @circle);
+  end;
+
+  // ===== Capsule
+  bodyDef := b2DefaultBodyDef;
+  shapeDef := b2DefaultShapeDef;
+
+  BodyIds.Add(b2CreateBody(worldId, @bodyDef));
+  NewUserData(BodyIds.Last, clLightMagenta);
+
+  for i := 0 to Length(StaticCapsuleData) - 1 do begin
+    capsule := StaticCapsuleData[i];
+    b2CreateCapsuleShape(BodyIds.Last, @shapeDef, @capsule);
   end;
 
   // ===== Dynamic polygon

@@ -10,6 +10,7 @@ type
 
 function draw_area_move_new(drawing_area: PGtkWidget): PDrawAreaMove; cdecl;
 procedure draw_area_move_cairo_transform(self: PDrawAreaMove; cr: Pcairo_t); cdecl;
+procedure draw_area_move_Zero(self: PDrawAreaMove); cdecl;
 procedure draw_area_move_unref(self: PDrawAreaMove); cdecl;
 
 implementation
@@ -24,8 +25,10 @@ procedure on_motion(controller: PGtkEventControllerMotion; x: double; y: double;
 var
   data: PDrawAreaMovePrivate absolute user_data;
 begin
-  data^.mx := x;
-  data^.my := y;
+  with data^ do begin
+    mx := x;
+    my := y;
+  end;
 end;
 
 function on_scroll(controller: PGtkEventControllerScroll; dx: double; dy: double; user_data: Tgpointer): Tgboolean; cdecl;
@@ -41,16 +44,18 @@ begin
     zoom_factor := 1.0 / 1.1;
   end;
 
-  data^.zoom := data^.zoom * zoom_factor;
-  if data^.zoom < 0.05 then begin
-    data^.zoom := 0.05;
-  end;
-  if data^.zoom > 20.0 then begin
-    data^.zoom := 20.0;
-  end;
+  with data^ do begin
+    zoom := zoom * zoom_factor;
+    if zoom < 0.05 then begin
+      zoom := 0.05;
+    end;
+    if zoom > 20.0 then begin
+      zoom := 20.0;
+    end;
 
-  data^.x := data^.mx - (data^.mx - data^.x) * (data^.zoom / old_zoom);
-  data^.y := data^.my - (data^.my - data^.y) * (data^.zoom / old_zoom);
+    x := mx - (mx - x) * (zoom / old_zoom);
+    y := my - (my - y) * (zoom / old_zoom);
+  end;
 
   Result := True;
 end;
@@ -59,8 +64,10 @@ procedure on_drag_begin(gesture: PGtkGestureDrag; x: double; y: double; user_dat
 var
   data: PDrawAreaMovePrivate absolute user_data;
 begin
-  data^.sx := data^.x;
-  data^.sy := data^.y;
+  with data^ do begin
+    sx := x;
+    sy := y;
+  end;
 end;
 
 procedure on_drag_update(gesture: PGtkGestureDrag; offset_x: double; offset_y: double; user_data: Tgpointer); cdecl;
@@ -68,10 +75,12 @@ var
   data: PDrawAreaMovePrivate absolute user_data;
   widget: PGtkWidget;
 begin
-  data^.x := data^.sx + offset_x;
-  data^.y := data^.sy + offset_y;
+  with data^ do begin
+    x := sx + offset_x;
+    y := sy + offset_y;
+  end;
 
-  widget := gtk_event_controller_get_widget(PGtkEventController(gesture));
+  widget := gtk_event_controller_get_widget(GTK_EVENT_CONTROLLER(gesture));
   gtk_widget_queue_draw(widget);
 end;
 
@@ -81,7 +90,7 @@ var
 begin
   WriteLn('n_press:' ,n_press);
   if n_press = 2 then begin
-//    draw_area_move_reset(PDrawAreaMove(data));
+    draw_area_move_Zero(PDrawAreaMove(data));
     gtk_widget_queue_draw(gtk_event_controller_get_widget(GTK_EVENT_CONTROLLER(gesture)));
   end;
 end;
@@ -93,13 +102,7 @@ var
   drag_gest, click_gest: PGtkGesture;
 begin
   data := g_malloc(SizeOf(TDrawAreaMovePrivate));
-  data^.x := 0.0;
-  data^.y := 0.0;
-  data^.mx := 0.0;
-  data^.my := 0.0;
-  data^.sx := 0.0;
-  data^.sy := 0.0;
-  data^.zoom := 1.0;
+  draw_area_move_Zero(data);
 
   motion_ctrl := gtk_event_controller_motion_new;
   g_signal_connect(motion_ctrl, 'motion', G_CALLBACK(@on_motion), data);
@@ -115,8 +118,7 @@ begin
   gtk_widget_add_controller(drawing_area, GTK_EVENT_CONTROLLER(drag_gest));
 
   click_gest := gtk_gesture_click_new;
-  // Wir reagieren auf die mittlere Maustaste (Button 2) oder links (1)
-  gtk_gesture_single_set_button(GTK_GESTURE_SINGLE(click_gest), GDK_BUTTON_MIDDLE);
+  gtk_gesture_single_set_button(GTK_GESTURE_SINGLE(click_gest), GDK_BUTTON_PRIMARY);
   g_signal_connect(click_gest, 'pressed', G_CALLBACK(@on_click_pressed), data);
   gtk_widget_add_controller(drawing_area, GTK_EVENT_CONTROLLER(click_gest));
 end;
@@ -128,6 +130,21 @@ begin
   with data^ do begin
     cairo_translate(cr, x, y);
     cairo_scale(cr, zoom, zoom);
+  end;
+end;
+
+procedure draw_area_move_Zero(self: PDrawAreaMove); cdecl;
+var
+  data: PDrawAreaMovePrivate absolute self;
+begin
+  with data^ do begin
+    x := 0.0;
+    y := 0.0;
+    mx := 0.0;
+    my := 0.0;
+    sx := 0.0;
+    sy := 0.0;
+    zoom := 1.0;
   end;
 end;
 
