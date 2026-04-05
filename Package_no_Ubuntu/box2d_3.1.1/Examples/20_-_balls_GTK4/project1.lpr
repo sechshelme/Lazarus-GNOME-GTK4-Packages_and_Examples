@@ -101,7 +101,7 @@ const
     bodyId: Tb2BodyId;
     transform: Tb2Transform;
     p1, p2: Tb2Vec2;
-    angle: double;
+    angle: single;
   begin
     capsule := b2Shape_GetCapsule(shapeId);
     bodyId := b2Shape_GetBody(shapeId);
@@ -110,7 +110,7 @@ const
     p1 := b2TransformPoint(transform, capsule.center1);
     p2 := b2TransformPoint(transform, capsule.center2);
 
-    angle := ArcTan2(p2.y - p1.y, p2.x - p1.x);
+    angle := b2Atan2(p2.y - p1.y, p2.x - p1.x);
 
     cairo_arc(cr, p1.x, p1.y, capsule.radius, angle + Pi / 2, angle + 3 * Pi / 2);
     cairo_arc(cr, p2.x, p2.y, capsule.radius, angle - Pi / 2, angle + Pi / 2);
@@ -215,11 +215,17 @@ const
   var
     anyData: PAniData absolute user_data;
     window, box, button, drawing_area: PGtkWidget;
+    version: Tb2Version;
+    vs: pchar = nil;
   begin
+    version := b2GetVersion;
+    vs := g_strdup_printf('Box2d demo   (%d.%d.%d)', version.major, version.minor, version.revision);
+
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 
     window := gtk_application_window_new(app);
-    gtk_window_set_title(GTK_WINDOW(window), 'Box2d demo');
+    gtk_window_set_title(GTK_WINDOW(window), vs);
+    g_free(vs);
     gtk_window_set_default_size(GTK_WINDOW(window), 640, 480);
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);

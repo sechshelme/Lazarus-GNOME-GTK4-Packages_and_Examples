@@ -58,6 +58,7 @@ Neu:
     #endif
 #endif
 ```
+--------------------------
 
 In `.../box2d/box2d/include/box2d/id.h` ändern:
 
@@ -92,6 +93,7 @@ Neu:
     #endif
 #endif
 ```
+--------------------------
 
 In `.../box2d/box2d/CMakeLists.txt` ändern:
 
@@ -120,6 +122,7 @@ if(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64|AMD64")
 	cmake_dependent_option(BOX2D_AVX2 "Enable AVX2" OFF "NOT BOX2D_DISABLE_SIMD" OFF)
 endif()
 ```
+--------------------------
 
 In `.../box2d/box2d/src/CMakeLists.txt` ändern:
 

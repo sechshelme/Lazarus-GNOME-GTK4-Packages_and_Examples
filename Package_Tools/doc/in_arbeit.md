@@ -569,6 +569,8 @@ gvfs, gvfs-daemons, gvfs-libs
 
 libbgfx
 
+ libxslt   
+
 
 
 
@@ -591,6 +593,9 @@ libwmf-0.2-7
 libtalloc2   
 
 thorvg und passagemath 
+
+libarchive
+libjxl
 
 
 
@@ -615,6 +620,36 @@ sudo apt install gtk-4-examples
 https://github.com/Immediate-Mode-UI/Nuklear/tree/master
 https://github.com/memononen/fontstash
 
+# =====
+
+Goocanvas: Ein Canvas-Widget für GTK, das intern Cairo nutzt. Man fügt Linien-Objekte hinzu, und das Widget kümmert sich um das Zeichnen.
+Cairo-Chart: Eine sehr kleine, reine C-Library, die ausschließlich für das Zeichnen von Diagrammen auf Cairo-Surfaces gebaut wurd
+
+
+# ===========
+
+1. Blend2D (Das "bessere" Skia für C)
+Blend2D ist ein Kraftpaket. Es wurde von Grund auf so optimiert, dass es JIT-Kompilierung nutzt (es generiert während der Laufzeit schnellen Maschinencode für Grafiken).
+Vorteil: Es ist oft schneller als Skia bei Software-Rendering (CPU).
+C-Support: Es hat eine erstklassige, native C-API (kein nachträglicher Wrapper).
+Ideal für: Hochleistungs-Desktop-Apps, komplexe Vektorgrafiken, Charts oder UI-Toolkits, die auf der CPU laufen sollen.
+Repo: github.com
+2. NanoVG (Der "Easy-Mode" für GPU)
+NanoVG ist winzig. Es ist im Grunde eine API, die sich wie das HTML5-Canvas anfühlt, aber alles direkt über OpenGL (oder Metal/Vulkan) auf die Grafikkarte schickt.
+Vorteil: Extrem einfach zu integrieren. Du kopierst buchstäblich nur eine .c und eine .h Datei in dein Projekt.
+C-Support: Reines C von Haus aus.
+Ideal für: Spiele-UIs, Overlays oder Tools, die sowieso schon einen OpenGL-Kontext haben.
+Repo: github.com
+
+
+
+# ===========
+
+https://github.com/amerkoleci/joltc
+
+Jolt Physics: Hat eine sehr gute C-API (JoltC). Da Jolt extrem modular ist, lässt es sich fast so sauber wie Box2D in Pascal einbinden. Es gibt sogar schon erste Header-Übersetzungen dafür.
+
+git submodule update --init --recursive
 
 
 
@@ -637,6 +672,13 @@ libdialog               # https://invisible-island.net/archives/dialog/
 libhyperscan-dev  // neu libvectorscan-dev
 
 libtinysparql
+
+--------------
+
+Lib Ähnlich mathGL
+https://github.com/sciapp/gr
+sudo apt install gr-framework  gr-framework-plugin-cairo  libgr-framework-dev
+
 
 
 
@@ -811,42 +853,10 @@ ioquake3
 # GITHUB release automatisch
 gh release create v1.0.0 --title "Mein erstes Release" --notes "Hier sind die Änderungen..."
 
-# Sokol
+# Interessante befehle
 
-## folgende Datei erstellen:
-sokol_all.c
-```c
-/* 1. Implementierung und Backend aktivieren */
-#define SOKOL_IMPL
-#define SOKOL_GLCORE
-#define SOKOL_API_DECL __attribute__((visibility("default")))
-
-/* 2. Kern-Module (Infrastruktur) */
-#include "sokol_log.h"
-#include "sokol_gfx.h"
-#include "sokol_app.h"
-#include "sokol_audio.h"
-#include "sokol_time.h"
-#include "sokol_args.h"
-#include "sokol_fetch.h"
-
-/* 3. Glue-Modul (Verbindung zwischen App und Gfx) */
-#include "sokol_glue.h"
-
-/* 4. Utility-Module (Zusatzfunktionen) */
-#include "util/sokol_gl.h"
-#include "util/sokol_debugtext.h"
-#include "util/sokol_shape.h"
-#include "util/sokol_color.h"
-```
-
-`gcc -O2 -fPIC -shared sokol_all.c -o libsokol.so -lGL -ldl -lpthread -lX11 -lXi -lXcursor -lasound`
-
-
-
-
-
-
+Extensionen für die Bash einschalten
+`shopt --help`
 
 
 
