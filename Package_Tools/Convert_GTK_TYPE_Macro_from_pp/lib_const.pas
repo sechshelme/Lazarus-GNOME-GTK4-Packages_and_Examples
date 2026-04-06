@@ -312,6 +312,7 @@ const
     (libs: 'joltc'; units: 'cytpes'),
 
     (libs: 'libplplot'; units: 'fp_plplot'),
+    (libs: 'libgr'; units: 'ctypes'),
 
 
 
