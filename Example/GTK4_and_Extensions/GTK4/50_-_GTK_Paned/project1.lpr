@@ -2,7 +2,6 @@ program project1;
 
 uses
   Math,
-  ctypes,
   SysUtils,
   fp_glib2,
   fp_cairo,
@@ -10,20 +9,20 @@ uses
   fp_GTK4;
 
 
-procedure draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
-var
-  color: TGdkRGBA;
-begin
-  // Grüner Hintergrund
-  gdk_rgba_parse(@color, 'green');
-  gdk_cairo_set_source_rgba(cr, @color);
-  cairo_paint(cr);
-  // Roter Kreis
-  cairo_arc(cr, width/2.0, height/2.0, MIN(width, height)/4.0, 0, 2 * G_PI);
-  gdk_rgba_parse(@color, 'red');
-  gdk_cairo_set_source_rgba(cr, @color);
-  cairo_fill(cr);
-end;
+  procedure draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
+  var
+    color: TGdkRGBA;
+  begin
+    // Grüner Hintergrund
+    gdk_rgba_parse(@color, 'green');
+    gdk_cairo_set_source_rgba(cr, @color);
+    cairo_paint(cr);
+    // Roter Kreis
+    cairo_arc(cr, width / 2.0, height / 2.0, MIN(width, height) / 4.0, 0, 2 * G_PI);
+    gdk_rgba_parse(@color, 'red');
+    gdk_cairo_set_source_rgba(cr, @color);
+    cairo_fill(cr);
+  end;
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
@@ -64,21 +63,18 @@ end;
   end;
 
 
-  function main(argc: cint; argv: PPChar): cint;
+  procedure main;
   var
     app: PGtkApplication;
-    status: longint;
   begin
     app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
 
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
     GSignalShow(G_TYPE_OBJECT);
-    status := g_application_run(G_APPLICATION(app), argc, argv);
+    g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
-
-    Exit(status);
   end;
 
 begin
-  main(argc, argv);
+  main;
 end.

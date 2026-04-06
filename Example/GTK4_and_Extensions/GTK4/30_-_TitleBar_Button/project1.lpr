@@ -8,8 +8,6 @@ uses
   fp_cairo,
   fp_GTK4;
 
-
-
   procedure show_about_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
     parent_window: PGtkWindow;
@@ -21,7 +19,7 @@ uses
     new_window := gtk_window_new;
     gtk_window_set_title(GTK_WINDOW(new_window), 'Info');
     gtk_window_set_transient_for(GTK_WINDOW(new_window), parent_window);
-    gtk_window_set_modal(GTK_WINDOW(new_window), TRUE);
+    gtk_window_set_modal(GTK_WINDOW(new_window), True);
     gtk_window_set_default_size(GTK_WINDOW(new_window), 200, 100);
 
     // Einfaches Label als Fenstermitglied
@@ -29,13 +27,14 @@ uses
     gtk_window_set_child(GTK_WINDOW(new_window), label_);
 
     // Fenster anzeigen
-    gtk_window_present(GTK_WINDOW(new_window));  end;
+    gtk_window_present(GTK_WINDOW(new_window));
+  end;
 
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, header_bar, title_label, menu_button, icon,
-      about_button: PGtkWidget;
+    about_button: PGtkWidget;
   begin
     window := gtk_application_window_new(app);
     gtk_window_set_default_size(GTK_WINDOW(window), 400, 200);

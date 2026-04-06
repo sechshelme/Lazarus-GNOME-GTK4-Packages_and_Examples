@@ -4,15 +4,12 @@ uses
   fp_plplot,
   fp_glib2,
   fp_cairo,
-  fp_GTK4;
+  fp_GTK4,
+  Beams;
 
 type
   TAppData = record
-    Beams: array of record
-      Data: TPLFLT;
-      Caption: pchar;
-      end;
-    maxSize: TPLFLT;
+    Beams: PBeams;
   end;
   PAppData = ^TAppData;
 
@@ -26,10 +23,20 @@ const
     gtk_window_destroy(window);
   end;
 
+  procedure reset_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
+  var
+    drawing_area: PGtkWidget absolute user_data;
+    appData: PAppData;
+  begin
+    appData := g_object_get_data(G_OBJECT(drawing_area), anyDataKey);
+    beams_new_data(appData^.Beams);
+    gtk_widget_queue_draw(drawing_area);
+  end;
+
+
   procedure draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
   var
     appData: PAppData;
-  var
     i: integer;
     px, py: array[0..3] of TPLFLT;
     p: TPLFLT;
@@ -44,22 +51,22 @@ const
 
       c_pladv(0);
       c_plvpor(0.15, 0.9, 0.15, 0.9);
-      c_plwind(0.0, Length(Beams) + 1.0, 0.0, maxSize*1.1);
+      c_plwind(0.0, beams_n(Beams) + 1.0, 0.0, beams_max_size(Beams) * 1.1);
 
       c_plcol0(3);
-      c_plsyax(0, 0); // Erzwingt, dass kein Skalierungsfaktor (wie x10^4) angezeigt wird
+      c_plsyax(0, 0);
 
       c_plbox('bc', 1.0, 0, 'bcnstv', 0.0, 0);
 
-      for i := 0 to Length(Beams) - 1 do begin
+      for i := 0 to beams_n(Beams) - 1 do begin
         p := i + 1.0;
 
         px[0] := p - 0.4;
         py[0] := 0.0;
         px[1] := p - 0.4;
-        py[1] := Beams[i].Data;
+        py[1] := beams_get_data(Beams, i);
         px[2] := p + 0.4;
-        py[2] := Beams[i].Data;
+        py[2] := beams_get_data(Beams, i);
         px[3] := p + 0.4;
         py[3] := 0.0;
 
@@ -69,8 +76,7 @@ const
         c_plcol0(3);
         c_plline(4, @px, @py);
 
-        WriteLn('- ' ,Beams[i].Caption);
-        c_plmtex('b', 1.5, (p / (Length(Beams) + 1)), 0.5, Beams[i].Caption);
+        c_plmtex('b', 1.5, (p / (beams_n(Beams) + 1)), 0.5, beams_get_label(Beams, i));
       end;
 
       c_pllab('Jahre', 'Umsatz (sFr)', 'Bericht der letzen Jahre');
@@ -78,56 +84,28 @@ const
     end;
   end;
 
-  function on_tick(widget: PGtkWidget; frame_clock: PGdkFrameClock; user_data: Tgpointer): Tgboolean; cdecl;
-  var
-    appData: PAppData;
-  begin
-    appData := g_object_get_data(G_OBJECT(widget), anyDataKey);
-    with appData^ do begin
-    end;
-    gtk_widget_queue_draw(widget);
-    Result := G_SOURCE_CONTINUE;
-  end;
-
   procedure startup_cp(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     appData: PAppData absolute user_data;
-    i: integer;
-    l: Pgchar;
-    h: TPLFLT;
   begin
-    Randomize;
     with appData^ do begin
-      maxSize := 0.0;
-      SetLength(Beams, Random(24) + 1);
-      for i := 0 to Length(Beams) - 1 do begin
-        h := Random * 20000.0;
-        Beams[i].Data := h;
-        if h > maxSize then begin
-          maxSize := h;
-        end;
-        l := g_strdup_printf('%02d', i+1);
-        Beams[i].Caption := l;
-      end;
+      Beams := beams_new;
     end;
   end;
 
   procedure shutdown_cp(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     appData: PAppData absolute user_data;
-    i: integer;
   begin
     with appData^ do begin
-      for i := 0 to Length(Beams) - 1 do begin
-        g_free(Beams[i].Caption);
-      end;
+      beams_unref(Beams);
     end;
   end;
 
   procedure activate_cp(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     appData: PAppData absolute user_data;
-    window, box, button, drawing_area: PGtkWidget;
+    window, box, button, drawing_area, header_bar, new_button: PGtkWidget;
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 
@@ -135,17 +113,21 @@ const
     gtk_window_set_title(GTK_WINDOW(window), 'Box2d demo');
     gtk_window_set_default_size(GTK_WINDOW(window), 640, 480);
 
+    header_bar := gtk_header_bar_new;
+    gtk_window_set_titlebar(GTK_WINDOW(window), header_bar);
+    new_button := gtk_button_new_with_label('new');
+    gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), new_button);
+
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
 
     drawing_area := gtk_drawing_area_new;
     gtk_widget_set_vexpand(drawing_area, True);
     gtk_widget_set_hexpand(drawing_area, True);
     gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(drawing_area), @draw_func, nil, nil);
-    gtk_widget_add_tick_callback(drawing_area, @on_tick, nil, nil);
 
-    with appData^ do begin
-    end;
     g_object_set_data_full(G_OBJECT(drawing_area), anyDataKey, appData, nil);
+
+    g_signal_connect(new_button, 'clicked', G_CALLBACK(@reset_cp), drawing_area);
 
     gtk_box_append(GTK_BOX(box), drawing_area);
 
@@ -157,12 +139,13 @@ const
     gtk_window_present(GTK_WINDOW(window));
   end;
 
-
   procedure main;
   var
     app: PGtkApplication;
     appData: TAppData;
   begin
+    Randomize;
+
     app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'startup', G_CALLBACK(@startup_cp), @appData);
     g_signal_connect(app, 'activate', G_CALLBACK(@activate_cp), @appData);
