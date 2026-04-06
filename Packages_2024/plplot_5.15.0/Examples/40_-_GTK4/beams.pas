@@ -7,54 +7,63 @@ uses
   fp_plplot;
 
 type
-  PBeams = type Pointer;
+  PBars = type Pointer;
 
-function beams_new: PBeams; cdecl;
-procedure beams_new_data(self: PBeams); cdecl;
-function beams_n(self: PBeams): SizeInt; cdecl;
-function beams_max_size(self: PBeams): TPLFLT; cdecl;
-function beams_get_data(self: PBeams; n: SizeInt): TPLFLT; cdecl;
-function beams_get_label(self: PBeams; n: SizeInt): Pgchar; cdecl;
-procedure beams_unref(self: PBeams); cdecl;
+function bars_new: PBars; cdecl;
+procedure bars_new_data(self: PBars); cdecl;
+function bars_n(self: PBars): SizeInt; cdecl;
+function bars_max_size(self: PBars): TPLFLT; cdecl;
+function bars_get_data(self: PBars; n: SizeInt): TPLFLT; cdecl;
+function bars_get_label(self: PBars; n: SizeInt): Pgchar; cdecl;
+procedure bars_unref(self: PBars); cdecl;
 
 implementation
 
 type
-  TBeamsPrivat = record
-    beam: array of record
-      Data: TPLFLT;
-      lab: pchar;
-      end;
+  TBeam = record
+    Data: TPLFLT;
+    lab: pchar;
+  end;
+  PBeam = ^TBeam;
+
+type
+  TBarsPrivat = record
+    beam: PBeam;
+    beam_len: SizeInt;
     maxSize: TPLFLT;
   end;
-  PBeamsPrivat = ^TBeamsPrivat;
+  PBarsPrivat = ^TBarsPrivat;
 
-
-function beams_new: PBeams; cdecl;
+function bars_new: PBars; cdecl;
 var
-  self: PBeamsPrivat absolute Result;
+  bars: PBarsPrivat absolute Result;
 begin
-  self := g_malloc(SizeOf(TBeamsPrivat));
-  self^.beam := nil;
-  beams_new_data(self);
+  bars := g_malloc(SizeOf(TBarsPrivat));
+  bars^.beam := nil;
+  bars^.beam_len := 0;
+  bars_new_data(bars);
 end;
 
-procedure beams_new_data(self: PBeams); cdecl;
+procedure bars_new_data(self: PBars); cdecl;
 var
-  beams: PBeamsPrivat absolute self;
+  bars: PBarsPrivat absolute self;
   i: integer;
   h: TPLFLT;
 const
   max_sFr = 10000;
 begin
-  with beams^ do begin
-    for i := 0 to Length(beam) - 1 do begin
-      g_free(beam[i].lab);
+  with bars^ do begin
+    if bars <> nil then begin
+      for i := 0 to beam_len - 1 do begin
+        g_free(beam[i].lab);
+      end;
+      g_free(beam);
     end;
 
     maxSize := 0.0;
-    SetLength(beam, Random(24) + 1);
-    for i := 0 to Length(beam) - 1 do begin
+    beam_len := Random(24) + 1;
+    beam := g_malloc(SizeOf(TBeam) * beam_len);
+    for i := 0 to beam_len - 1 do begin
       h := Random * max_sFr + max_sFr;
       beam[i].Data := h;
       if h > maxSize then begin
@@ -65,42 +74,46 @@ begin
   end;
 end;
 
-function beams_n(self: PBeams): SizeInt; cdecl;
+function bars_n(self: PBars): SizeInt; cdecl;
 var
-  beams: PBeamsPrivat absolute self;
+  beams: PBarsPrivat absolute self;
 begin
-  Result := Length(beams^.beam);
+  Result := beams^.beam_len;
 end;
 
-function beams_max_size(self: PBeams): TPLFLT; cdecl;
+function bars_max_size(self: PBars): TPLFLT; cdecl;
 var
-  beams: PBeamsPrivat absolute self;
+  beams: PBarsPrivat absolute self;
 begin
   Result := beams^.maxSize;
 end;
 
-function beams_get_data(self: PBeams; n: SizeInt): TPLFLT; cdecl;
+function bars_get_data(self: PBars; n: SizeInt): TPLFLT; cdecl;
 var
-  beams: PBeamsPrivat absolute self;
+  beams: PBarsPrivat absolute self;
 begin
   Result := beams^.beam[n].Data;
 end;
 
-function beams_get_label(self: PBeams; n: SizeInt): Pgchar; cdecl;
+function bars_get_label(self: PBars; n: SizeInt): Pgchar; cdecl;
 var
-  beams: PBeamsPrivat absolute self;
+  beams: PBarsPrivat absolute self;
 begin
   Result := beams^.beam[n].lab;
 end;
 
-procedure beams_unref(self: PBeams); cdecl;
+procedure bars_unref(self: PBars); cdecl;
 var
-  beams: PBeamsPrivat absolute self;
+  beams: PBarsPrivat absolute self;
   i: integer;
 begin
   with beams^ do begin
-    for i := 0 to Length(beam) - 1 do begin
-      g_free(beam[i].lab);
+    if beam <> nil then begin
+      for i := 0 to beam_len - 1 do begin
+        g_free(beam[i].lab);
+      end;
+      g_free(beam);
+      beam := nil;
     end;
   end;
   g_free(self);
