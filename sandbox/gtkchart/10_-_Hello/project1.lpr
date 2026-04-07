@@ -24,6 +24,7 @@ const
   begin
     line_chart := gtk_chart_new;
     gtk_chart_set_type(GTK_CHART(line_chart), GTK_CHART_TYPE_LINE);
+    gtk_chart_set_color(GTK_CHART(line_chart), 'line_color', 'red');
     gtk_chart_set_title(GTK_CHART(line_chart), 'Line Chart');
     gtk_chart_set_x_min(GTK_CHART(line_chart), 0.0);
     gtk_chart_set_x_max(GTK_CHART(line_chart), VIEWPORT_WIDTH);
@@ -31,32 +32,28 @@ const
     gtk_chart_set_y_max(GTK_CHART(line_chart), 3.5);
     gtk_widget_set_hexpand(line_chart, True);
     gtk_widget_set_vexpand(line_chart, True);
-    Result := GTK_WIDGET(line_chart);
+    Result := line_chart;
   end;
 
-function CreateBarChart: PGtkWidget;
-var
-  column_chart: PGtkWidget;
-  i: Integer;
-const
-  days: array of PChar = ('Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag');
+  function CreateBarChart: PGtkWidget;
+  var
+    column_chart: PGtkWidget;
+    i: integer;
+  const
+    days: array of pchar = ('Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag');
 
-begin
-  column_chart := gtk_chart_new;
-  gtk_chart_set_type(GTK_CHART(column_chart), GTK_CHART_TYPE_COLUMN);
-  gtk_chart_set_title(GTK_CHART(column_chart), 'Column Chart');
-  gtk_widget_set_hexpand(column_chart, True);
-  gtk_widget_set_vexpand(column_chart, True);
+  begin
+    column_chart := gtk_chart_new;
+    gtk_chart_set_type(GTK_CHART(column_chart), GTK_CHART_TYPE_COLUMN);
+    gtk_chart_set_title(GTK_CHART(column_chart), 'Column Chart');
+    gtk_widget_set_hexpand(column_chart, True);
+    gtk_widget_set_vexpand(column_chart, True);
 
-  for i:=0 to Length(days)-1 do begin
-  gtk_chart_add_column(GTK_CHART(column_chart), Random(9), '#3498DB', days[i]);
-
+    for i := 0 to Length(days) - 1 do begin
+      gtk_chart_add_column(GTK_CHART(column_chart), Random * 9.0, '#2ECC71', days[i]);
+    end;
+    Result := column_chart;
   end;
-//  gtk_chart_add_column(GTK_CHART(column_chart), 10, '#3498DB', 'Sunday');
-//  gtk_chart_add_column(GTK_CHART(column_chart), 4, '#2ECC71', 'Monday');
-//  gtk_chart_add_column(GTK_CHART(column_chart), 8, '#F1C40F', 'Tuesday');
-  Result := column_chart;
-end;
 
   procedure plot_line_chart_timeout(user_data: Tgpointer);
   var
@@ -143,22 +140,14 @@ end;
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
 
-    //chart_area := gtk_drawing_area_new;
-    //gtk_widget_set_vexpand(chart_area, True);
-    //gtk_widget_set_hexpand(chart_area, True);
-    //gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(chart_area), @draw_func, nil, nil);
-
     chart_area := CreateLineChart;
     gtk_widget_add_tick_callback(chart_area, @on_tick, chart_area, nil);
     gtk_box_append(GTK_BOX(box), chart_area);
 
     chart_area := CreateBarChart;
-//    gtk_widget_add_tick_callback(chart_area, @on_tick, chart_area, nil);
     gtk_box_append(GTK_BOX(box), chart_area);
 
-
     g_object_set_data_full(G_OBJECT(chart_area), appDataKey, appData, nil);
-
 
     //    g_signal_connect(new_button, 'clicked', G_CALLBACK(@reset_cp), chart_area);
 
