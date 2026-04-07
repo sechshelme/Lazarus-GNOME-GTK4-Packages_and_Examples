@@ -313,6 +313,7 @@ const
 
     (libs: 'libplplot'; units: 'fp_plplot'),
     (libs: 'libgr'; units: 'ctypes'),
+    (libs: 'libgtkchart'; units: 'fp_gtk4'),
 
 
 

@@ -1,11 +1,7 @@
 program project1;
 
 uses
-  ctypes,
-  SysUtils,
   fp_glib2,
-  fp_cairo,
-  fp_GLIBTools,
   fp_GTK4;
 
   procedure button_quit_cb({%H-}widget: PGtkWidget; {%H-}Data: Tgpointer); cdecl;
@@ -38,21 +34,6 @@ const
 
     bytes := g_bytes_new_static(@texture_data, SizeOf(texture_data));
     texture := gdk_memory_texture_new(2, 2, GDK_MEMORY_R8G8B8A8, bytes, 2 * 4);
-
-    //texture:=  g_object_new(GDK_TYPE_MEMORY_TEXTURE,
-    //                 'width', 2,
-    //                 'height', 2,
-    //                 'format', GDK_MEMORY_R8G8B8A8,
-    //                 'pixels', bytes,
-    //                 nil);
-
-
-
-    ////    GObjectShowProperty(texture);
-    //GSignalShow(GDK_TYPE_MEMORY_TEXTURE);
-    //WriteLn('-------------------');
-    //GSignalShow(GDK_TYPE_TEXTURE);
-
     g_bytes_unref(bytes);
 
     picture := gtk_picture_new_for_paintable(GDK_PAINTABLE(texture));
@@ -72,25 +53,20 @@ const
     gtk_box_append(GTK_BOX(button_box), button);
     g_signal_connect(button, 'clicked', G_CALLBACK(@button_quit_cb), nil);
 
-    //    GObjectShowProperty(button);
-
     gtk_window_present(GTK_WINDOW(window));
   end;
 
 
-  function main(argc: cint; argv: PPChar): cint;
+  procedure main;
   var
     app: PGtkApplication;
-    status: longint;
   begin
     app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
-    status := g_application_run(G_APPLICATION(app), argc, argv);
+    g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
-
-    Exit(status);
   end;
 
 begin
-  main(argc, argv);
+  main;
 end.
