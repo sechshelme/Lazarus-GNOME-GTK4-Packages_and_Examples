@@ -45,7 +45,7 @@ const
     with appData^ do begin
       c_plsdev('extcairo');
       c_plspage(0, 0, Width, Height, 0, 0);
-      c_plinit();
+      c_plinit;
       pl_cmd(PLESC_DEVINIT, cr);
 
       c_pladv(0);
@@ -64,7 +64,7 @@ const
         px[3] := p + 0.4;
         py[3] := 0.0;
 
-        c_plscol0(1, 255 - Trunc(255 / bars_n(Beams) * i), Trunc(255 / bars_n(Beams) * i), 0);   // Index 3 = Marineblau
+        c_plscol0(1, 255 - Trunc(255 / bars_n(Beams) * i), Trunc(255 / bars_n(Beams) * i), 0);
         c_plcol0(1);
         c_plfill(4, @px, @py);
         c_plcol0(0);
@@ -79,7 +79,7 @@ const
       c_plbox('bc', 1.0, 0, 'bcnstv', 0.0, 0);
 
       c_pllab('Jahre', 'Umsatz (sFr)', 'Bericht der letzen Jahre');
-      c_plend();
+      c_plend;
     end;
   end;
 
@@ -109,7 +109,7 @@ const
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 
     window := gtk_application_window_new(app);
-    gtk_window_set_title(GTK_WINDOW(window), 'Box2d demo');
+    gtk_window_set_title(GTK_WINDOW(window), 'PLplot demo');
     gtk_window_set_default_size(GTK_WINDOW(window), 640, 480);
 
     header_bar := gtk_header_bar_new;
