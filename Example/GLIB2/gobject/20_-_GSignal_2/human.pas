@@ -49,7 +49,7 @@ implementation
 var
   e_human_parent_class: PGObjectClass = nil;
 
-  age_signal_id: Tgint = 0;
+  age_signal_id: Tguint = 0;
   died_signal_id: Tguint = 0;
 
 procedure e_human_set_property(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
