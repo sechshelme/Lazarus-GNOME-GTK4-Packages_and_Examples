@@ -4,7 +4,7 @@ uses
   Math,
   fp_glib2,
   fp_cairo,
-  fp_GTK4;
+  fp_GTK4, MyWidget;
 
 type
   TAniData = record
@@ -40,7 +40,7 @@ const
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
-    window, box, button, wg: PGtkWidget;
+    window, box, button: PGtkWidget;
     anyData: PAniData;
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
@@ -49,13 +49,8 @@ const
     gtk_window_set_title(GTK_WINDOW(window), 'Belt Drive');
     gtk_window_set_default_size(GTK_WINDOW(window), 640, 400);
 
-    box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-
-    wg := g_object_new(GTK_TYPE_WIDGET, nil);
-    gtk_widget_set_vexpand(wg, True);
-    gtk_widget_set_hexpand(wg, True);
-//    gtk_widget_add_tick_callback(drawing_area, @on_tick, nil, nil);
-    gtk_box_append(GTK_BOX(box), wg);
+ //   box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+   box := GTK_WIDGET( my_widget_new);
 
     anyData := g_malloc(SizeOf(TAniData));
     anyData^.x1 := 0.0;

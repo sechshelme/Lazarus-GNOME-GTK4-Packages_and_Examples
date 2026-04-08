@@ -22,7 +22,7 @@ var
   saUpCase, saLowCase, saMixCase: TAnsiStringArray;
   sl: TStringList;
 begin
-  //  Edit1.Text := 'GTK_COLUMN_VIEW_COLUMN';  // Als test
+//    Form1.Edit1.Text := 'GTK_COLUMN_VIEW_COLUMN';  // Als test
 
   sl := TStringList.Create;
 
