@@ -93,22 +93,24 @@ begin
   G_OBJECT_CLASS(e_human_ext_parent_class)^.finalize(object_);
 end;
 
-procedure E_humanExt_init(self: PEHumanExt); cdecl;
+procedure E_humanExt_init(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
+var
+  self: PEHumanExt absolute instance;
 begin
   self^.gender := nil;
 end;
 
-procedure E_humanExt_class_init(klass: PEHumanExtClass); cdecl;
+procedure E_humanExt_class_init(g_class: Tgpointer; class_data: Tgpointer); cdecl;
 var
   object_class: PGObjectClass;
   spec: PGParamSpec;
 begin
-  object_class := G_OBJECT_CLASS(klass);
+  object_class := G_OBJECT_CLASS(g_class);
   object_class^.set_property := @E_humanExt_set_property;
   object_class^.get_property := @E_humanExt_get_property;
 
   object_class^.finalize := @E_humanExt_finalize;
-  e_human_ext_parent_class := g_type_class_peek_parent(klass);
+  e_human_ext_parent_class := g_type_class_peek_parent(g_class);
 
   spec := g_param_spec_string('gender', 'Gender', 'Gender of the human', nil, G_PARAM_READWRITE);
   g_object_class_install_property(object_class, 1, spec);
@@ -125,12 +127,12 @@ var
   class_size: SizeOf(TEHumanExtClass);
   base_init: nil;
   base_finalize: nil;
-  class_init: TGClassInitFunc(@E_humanExt_class_init);
+  class_init: @E_humanExt_class_init;
   class_finalize: nil;
   class_data: nil;
   instance_size: SizeOf(TEHumanExt);
   n_preallocs: 0;
-  instance_init: TGInstanceInitFunc(@E_humanExt_init);
+  instance_init: @E_humanExt_init;
   value_table: nil);
 begin
   if g_once_init_enter(@type_id) then begin

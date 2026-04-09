@@ -22,17 +22,22 @@ const
     gtk_window_destroy(window);
   end;
 
-  procedure mybox_click_cp(widget: PGtkWidget; nr: Tgint; user_data: Tgpointer); cdecl;
-  begin
-    WriteLn('mybox_click_cp()   ', nr);
-  end;
+procedure anyData_free_cp(Data: Tgpointer); cdecl;
+var
+  anyData: PAniData absolute Data;
+begin
+  g_free(anyData);
+end;
 
-  procedure anyData_free_cp(Data: Tgpointer); cdecl;
-  var
-    anyData: PAniData absolute Data;
-  begin
-    g_free(anyData);
-  end;
+procedure mybox_click_cp(widget: PGtkWidget; nr: Tgint; user_data: Tgpointer); cdecl;
+begin
+  WriteLn('mybox_click_cp()   ', nr);
+end;
+
+procedure mybox_click_cp2(widget: PGtkWidget; nr: Tgint; user_data: Tgpointer); cdecl;
+begin
+  WriteLn('Es wurde ::2 gedrückt');
+end;
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
@@ -47,6 +52,7 @@ const
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
     mybox := GTK_WIDGET(my_widget_new);
+    g_signal_connect(mybox, 'clicked::2', G_CALLBACK(@mybox_click_cp2), nil);
     g_signal_connect(mybox, 'clicked', G_CALLBACK(@mybox_click_cp), nil);
     gtk_box_append(GTK_BOX(box), mybox);
 
@@ -60,7 +66,6 @@ const
     gtk_window_set_child(GTK_WINDOW(window), box);
     gtk_window_present(GTK_WINDOW(window));
   end;
-
 
   procedure main;
   var

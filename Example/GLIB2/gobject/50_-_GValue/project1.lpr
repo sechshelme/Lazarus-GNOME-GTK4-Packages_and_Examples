@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  ctypes,
   fp_glib2,
   fp_GLIBTools,
   fp_gtk4,
@@ -18,7 +17,7 @@ end;
 const
   paths: array of Pgchar =('/blu/blu/1','/blu/blu2','/blu/blu/2', nil);
 
-  function main({%H-}argc: cint; {%H-}argv: PPChar): cint;
+  procedure main;
   var
     Value: TGValue;
     action, hum: Tgpointer;
@@ -161,10 +160,8 @@ const
     g_value_unset(@Value);
     GObjectShowProperty(hum);
     g_object_unref(hum);
-
-    Exit(0);
   end;
 
 begin
-  main(argc, argv);
+  main;
 end.

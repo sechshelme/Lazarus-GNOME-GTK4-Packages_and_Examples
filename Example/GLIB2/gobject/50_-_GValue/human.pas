@@ -13,7 +13,7 @@ type
     parent_instance: TGObject;
     FirstName,
     LastName: Pgchar;
-    size:Tgfloat;
+    size: Tgfloat;
     age: Tgint;
   end;
   PEHuman = ^TEHuman;
@@ -26,7 +26,7 @@ type
 
 function e_human_get_type: TGType;
 function e_human_new: PEHuman;
-function e_human_new_with_data(FirstName, LastName: Pgchar; age: Tgint; size:Tgfloat): PEHuman;
+function e_human_new_with_data(FirstName, LastName: Pgchar; age: Tgint; size: Tgfloat): PEHuman;
 procedure e_human_set_firstname(self: PEHuman; Name: Pgchar);
 procedure e_human_set_lastname(self: PEHuman; Name: Pgchar);
 function e_human_get_firstname(self: PEHuman): Pgchar;
@@ -117,21 +117,23 @@ begin
   e_human_parent_class^.finalize(object_);
 end;
 
-procedure e_human_init(self: PEHuman); cdecl;
+procedure e_human_init(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
+var
+  self: PEHuman absolute instance;
 begin
   self^.FirstName := nil;
   self^.age := 0;
 end;
 
-procedure e_human_class_init(klass: PEHumanClass); cdecl;
+procedure e_human_class_init(g_class: Tgpointer; class_data: Tgpointer); cdecl;
 var
   object_class: PGObjectClass;
   obj_properties: array[0..4] of PGParamSpec;
 begin
-  object_class := G_OBJECT_CLASS(klass);
+  object_class := G_OBJECT_CLASS(g_class);
 
   object_class^.finalize := @e_human_finalize;
-  e_human_parent_class := g_type_class_peek_parent(klass);
+  e_human_parent_class := g_type_class_peek_parent(g_class);
 
   object_class^.set_property := @e_human_set_property;
   object_class^.get_property := @e_human_get_property;
@@ -156,12 +158,12 @@ var
   class_size: SizeOf(TEHumanClass);
   base_init: nil;
   base_finalize: nil;
-  class_init: TGClassInitFunc(@e_human_class_init);
+  class_init: @e_human_class_init;
   class_finalize: nil;
   class_data: nil;
   instance_size: SizeOf(TEHuman);
   n_preallocs: 0;
-  instance_init: TGInstanceInitFunc(@e_human_init);
+  instance_init: @e_human_init;
   value_table: nil);
 begin
   if g_once_init_enter(@type_id) then begin
@@ -176,7 +178,7 @@ begin
   Result := g_object_new(E_TYPE_HUMAN, nil);
 end;
 
-function e_human_new_with_data(FirstName, LastName: Pgchar; age: Tgint;  size: Tgfloat): PEHuman;
+function e_human_new_with_data(FirstName, LastName: Pgchar; age: Tgint; size: Tgfloat): PEHuman;
 begin
   Result := g_object_new(E_TYPE_HUMAN,
     'firstname', FirstName,

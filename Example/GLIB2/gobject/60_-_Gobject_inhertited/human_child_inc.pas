@@ -117,7 +117,9 @@ begin
   Result := True;
 end;
 
-procedure E_humanInc_init(self: PEHumanInc); cdecl;
+procedure E_humanInc_init(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
+var
+  self: PEHumanInc absolute instance;
 begin
   self^.time := -1;
   self^.timerOn := gFalse;
@@ -129,17 +131,17 @@ begin
   g_timeout_add(200, @timercallback, self);
 end;
 
-procedure E_humanInc_class_init(klass: PEHumanIncClass); cdecl;
+procedure E_humanInc_class_init(g_class: Tgpointer; class_data: Tgpointer); cdecl;
 var
   object_class: PGObjectClass;
   spec: PGParamSpec;
 begin
-  object_class := G_OBJECT_CLASS(klass);
+  object_class := G_OBJECT_CLASS(g_class);
   object_class^.set_property := @E_humanInc_set_property;
   object_class^.get_property := @E_humanInc_get_property;
 
   object_class^.finalize := @E_humanInc_finalize;
-  e_human_inc_parent_class := g_type_class_peek_parent(klass);
+  e_human_inc_parent_class := g_type_class_peek_parent(g_class);
 
   spec := g_param_spec_boolean('timeon', 'TimeOn', 'TimeOn vor Age of the human', gFalse, G_PARAM_READWRITE);
   g_object_class_install_property(object_class, 1, spec);
@@ -147,7 +149,7 @@ begin
   g_object_class_install_property(object_class, 2, spec);
 
   age_signal_id := g_signal_new('inc-age',
-    G_TYPE_FROM_CLASS(klass),
+    G_TYPE_FROM_CLASS(g_class),
     G_SIGNAL_RUN_LAST or G_SIGNAL_DETAILED,
     0,
     nil,
@@ -159,7 +161,7 @@ begin
     G_TYPE_INT);
 
   died_signal_id := g_signal_new('human-died',
-    G_TYPE_FROM_CLASS(klass),
+    G_TYPE_FROM_CLASS(g_class),
     G_SIGNAL_RUN_LAST or G_SIGNAL_NO_RECURSE or G_SIGNAL_NO_HOOKS,
     0,
     nil,
@@ -182,12 +184,12 @@ var
   class_size: SizeOf(TEHumanIncClass);
   base_init: nil;
   base_finalize: nil;
-  class_init: TGClassInitFunc(@E_humanInc_class_init);
+  class_init: @E_humanInc_class_init;
   class_finalize: nil;
   class_data: nil;
   instance_size: SizeOf(TEHumanInc);
   n_preallocs: 0;
-  instance_init: TGInstanceInitFunc(@E_humanInc_init);
+  instance_init: @E_humanInc_init;
   value_table: nil);
 begin
   if g_once_init_enter(@type_id) then begin

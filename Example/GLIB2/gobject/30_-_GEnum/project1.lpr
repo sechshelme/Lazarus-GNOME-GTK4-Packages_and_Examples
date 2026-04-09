@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  ctypes,
   fp_glib2;
 
   procedure SetColorHigh;
@@ -174,7 +173,7 @@ const
   end;
 
 
-  function main({%H-}argc: cint; {%H-}argv: PPChar): cint;
+  procedure main;
   var
     char_value, int_value, string_value, static_string_value, float_value,
     double_value, enum_value: TGValue;
@@ -229,10 +228,8 @@ const
     printEnumValue(@enum_value);
 
     g_value_unset(@string_value);
-
-    Exit(0);
   end;
 
 begin
-  main(argc, argv);
+  main;
 end.

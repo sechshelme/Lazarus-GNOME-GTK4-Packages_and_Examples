@@ -1,11 +1,9 @@
 program project1;
 
 uses
-  ctypes,
   fp_glib2,
   fp_GLIBTools,
   Human;
-
 
 var
   mainloop: PGMainLoop = nil;
@@ -42,7 +40,7 @@ var
     g_main_loop_quit(mainloop);
   end;
 
-  procedure ChildHumanTimer;
+  procedure main;
   var
     Human: PEHuman;
   begin
@@ -69,5 +67,5 @@ var
   end;
 
 begin
-  ChildHumanTimer;
+  main;
 end.

@@ -79,9 +79,14 @@ procedure click_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
 var
   self: PMyWidget absolute user_data;
   nr: PtrInt;
+  q: Pgchar;
+  detail: TGQuark;
 begin
   nr := PtrInt(g_object_get_data(G_OBJECT(widget), BtnKey));
-  g_signal_emit(self, age_signal_id, 0, nr);
+  q := g_strdup_printf('%d', nr);
+  detail := g_quark_from_string(q);
+  g_signal_emit(self, age_signal_id, detail, nr);
+  g_free(q);
 end;
 
 
@@ -89,7 +94,8 @@ procedure my_widget_init(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
 var
   self: PMyWidget absolute instance;
   grid, button: PGtkWidget;
-  i: integer;
+  i: PtrInt;
+  lab: Pgchar;
 begin
   grid := gtk_grid_new;
   gtk_grid_set_column_spacing(GTK_GRID(grid), 5);
@@ -97,7 +103,9 @@ begin
   gtk_box_append(GTK_BOX(self), grid);
 
   for i := 0 to 8 do begin
-    button := gtk_button_new_with_label('X');
+    lab := g_strdup_printf('%d', i);
+    button := gtk_button_new_with_label(lab);
+    g_free(lab);
     g_object_set_data(G_OBJECT(button), BtnKey, Pointer(i));
 
     gtk_grid_attach(GTK_GRID(grid), button, i mod 3, i div 3, 1, 1);
@@ -140,20 +148,9 @@ const
   type_id: TGType = 0;
 var
   id: TGType;
-  info: TGTypeInfo = (
-  class_size: SizeOf(TMyWidgetClass);
-  base_init: nil;
-  base_finalize: nil;
-  class_init: @my_widget_class_init;
-  class_finalize: nil;
-  class_data: nil;
-  instance_size: SizeOf(TMyWidget);
-  n_preallocs: 0;
-  instance_init: @my_widget_init;
-  value_table: nil);
 begin
   if g_once_init_enter(@type_id) then begin
-    id := g_type_register_static(GTK_TYPE_BOX, 'MyWidget', @info, 0);
+    id := g_type_register_static_simple(GTK_TYPE_BOX, 'MyWidget', SizeOf(TMyWidgetClass), @my_widget_class_init, SizeOf(TMyWidget), @my_widget_init, 0);
     g_once_init_leave(@type_id, id);
   end;
   Result := type_id;

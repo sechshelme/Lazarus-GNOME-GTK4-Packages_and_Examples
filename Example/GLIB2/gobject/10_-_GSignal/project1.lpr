@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  ctypes,
   fp_glib2,
   fp_GLIBTools;
 
@@ -10,7 +9,7 @@ uses
     g_printf('%3d.  s1: %-10s   s2: %-10s   int: %d'#10, num, Data, Data2, user_data);
   end;
 
-  function main({%H-}argc: cint; {%H-}argv: PPChar): cint;
+  procedure main;
   var
     age_signal_id: Tguint;
     obj: PGObject;
@@ -18,7 +17,6 @@ uses
     klass: PGObjectClass;
     i: integer;
   begin
-    g_type_init;
     obj := g_object_new(G_TYPE_OBJECT, nil);
     klass := G_OBJECT_GET_CLASS(obj);
 
@@ -44,10 +42,8 @@ uses
         g_signal_emit(obj, age_signal_id, detail, i, 'ten', 'ten');
       end;
     end;
-
-    Exit(0);
   end;
 
 begin
-  main(argc, argv);
+  main;
 end.

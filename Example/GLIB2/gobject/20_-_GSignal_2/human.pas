@@ -158,7 +158,9 @@ begin
   Result := True;
 end;
 
-procedure e_human_init(self: PEHuman); cdecl;
+procedure e_human_init(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
+var
+  self: PEHuman absolute instance;
 begin
   self^.FirstName := nil;
   self^.age := 0;
@@ -169,15 +171,15 @@ begin
   g_timeout_add(200, @timercallback, self);
 end;
 
-procedure e_human_class_init(klass: PEHumanClass); cdecl;
+procedure e_human_class_init(g_class: Tgpointer; class_data: Tgpointer); cdecl;
 var
   object_class: PGObjectClass;
   obj_properties: array[0..6] of PGParamSpec;
 begin
-  object_class := G_OBJECT_CLASS(klass);
+  object_class := G_OBJECT_CLASS(g_class);
 
   object_class^.finalize := @e_human_finalize;
-  e_human_parent_class := g_type_class_peek_parent(klass);
+  e_human_parent_class := g_type_class_peek_parent(g_class);
 
   object_class^.set_property := @e_human_set_property;
   object_class^.get_property := @e_human_get_property;
@@ -194,7 +196,7 @@ begin
   g_object_class_install_properties(object_class, Length(obj_properties), obj_properties);
 
   age_signal_id := g_signal_new('inc-age',
-    G_TYPE_FROM_CLASS(klass),
+    G_TYPE_FROM_CLASS(g_class),
     G_SIGNAL_RUN_LAST or G_SIGNAL_DETAILED,
     0,
     nil,
@@ -207,7 +209,7 @@ begin
     G_TYPE_DOUBLE);
 
   died_signal_id := g_signal_new('human-died',
-    G_TYPE_FROM_CLASS(klass),
+    G_TYPE_FROM_CLASS(g_class),
     G_SIGNAL_RUN_LAST,
     0,
     nil,
@@ -228,12 +230,12 @@ var
   class_size: SizeOf(TEHumanClass);
   base_init: nil;
   base_finalize: nil;
-  class_init: TGClassInitFunc(@e_human_class_init);
+  class_init: @e_human_class_init;
   class_finalize: nil;
   class_data: nil;
   instance_size: SizeOf(TEHuman);
   n_preallocs: 0;
-  instance_init: TGInstanceInitFunc(@e_human_init);
+  instance_init: @e_human_init;
   value_table: nil);
 begin
   if g_once_init_enter(@type_id) then begin

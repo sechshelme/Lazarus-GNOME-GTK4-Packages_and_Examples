@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  ctypes,
   fp_glib2,
   Rectangle;
 
@@ -37,7 +36,7 @@ uses
     e_rectangle_move(r,1000,1000);
   end;
 
-  function main({%H-}argc: cint; {%H-}argv: PPChar): cint;
+  procedure main;
   var
     srcRect, destRect1, destRect2: PERectangle;
     valueRect: TGValue;
@@ -76,11 +75,8 @@ uses
     g_value_unset(@valueRect);
 
     g_boxed_free(E_TYPE_RECTANGLE, srcRect);
-
-    Exit(0);
   end;
 
 begin
-  main(argc, argv);
-
+  main;
 end.
