@@ -15,6 +15,10 @@ const
   libmanette = 'libmanette-0.2-0.dll'; // ????
   {$ENDIF}
 
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
   // ==== /usr/include/libmanette/manette-device.h
 
 type

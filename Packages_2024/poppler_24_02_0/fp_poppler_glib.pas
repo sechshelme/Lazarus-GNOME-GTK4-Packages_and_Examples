@@ -5,10 +5,6 @@ interface
 uses
   fp_glib2, fp_cairo;
 
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
-
 const
   {$IFDEF Linux}
   libpoppler_glib = 'poppler-glib';
@@ -16,6 +12,10 @@ const
 
   {$IFDEF msWindows}
   libpoppler_glib = 'libpoppler-glib-8.dll';
+  {$ENDIF}
+
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
   {$ENDIF}
 
   {$DEFINE read_interface}
