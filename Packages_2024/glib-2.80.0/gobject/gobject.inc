@@ -16,9 +16,9 @@ type
   end;
   PGObjectConstructParam = ^TGObjectConstructParam;
 
-  TGObjectGetPropertyFunc = procedure(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
-  TGObjectSetPropertyFunc = procedure(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
-  TGObjectFinalizeFunc = procedure(object_: PGObject); cdecl;
+  TGObjectGetPropertyFunc = procedure(obj: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
+  TGObjectSetPropertyFunc = procedure(obj_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
+  TGObjectFinalizeFunc = procedure(obj_: PGObject); cdecl;
   TGWeakNotify = procedure(Data: Tgpointer; where_the_object_was: PGObject); cdecl;
   PGObjectClass = ^TGObjectClass;
 
@@ -26,13 +26,13 @@ type
     g_type_class: TGTypeClass;
     construct_properties: PGSList;
     constructor_: function(_type: TGType; n_construct_properties: Tguint; construct_properties: PGObjectConstructParam): PGObject; cdecl;
-    set_property: procedure(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
-    get_property: procedure(object_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
-    dispose: procedure(object_: PGObject); cdecl;
-    finalize: procedure(object_: PGObject); cdecl;
-    dispatch_properties_changed: procedure(object_: PGObject; n_pspecs: Tguint; pspecs: PPGParamSpec); cdecl;
-    notify: procedure(object_: PGObject; pspec: PGParamSpec); cdecl;
-    constructed: procedure(object_: PGObject); cdecl;
+    set_property: procedure(obj: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
+    get_property: procedure(obj: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
+    dispose: procedure(obj_: PGObject); cdecl;
+    finalize: procedure(obj: PGObject); cdecl;
+    dispatch_properties_changed: procedure(obj: PGObject; n_pspecs: Tguint; pspecs: PPGParamSpec); cdecl;
+    notify: procedure(obj: PGObject; pspec: PGParamSpec); cdecl;
+    constructed: procedure(obj: PGObject); cdecl;
     flags: Tgsize;
     n_construct_properties: Tgsize;
     pspecs: Tgpointer;

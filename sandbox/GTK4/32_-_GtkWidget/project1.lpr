@@ -51,7 +51,7 @@ end;
     gtk_window_set_default_size(GTK_WINDOW(window), 640, 400);
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-    mybox := GTK_WIDGET(my_widget_new);
+    mybox := my_widget_new(4,7);
     g_signal_connect(mybox, 'clicked::2', G_CALLBACK(@mybox_click_cp2), nil);
     g_signal_connect(mybox, 'clicked', G_CALLBACK(@mybox_click_cp), nil);
     gtk_box_append(GTK_BOX(box), mybox);

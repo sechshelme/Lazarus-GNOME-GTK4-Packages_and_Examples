@@ -8,6 +8,7 @@ uses
 type
   TMyWidget = record
     parent_instance: TGtkBox;
+    cols, rows:Tgint;
   end;
   PMyWidget = ^TMyWidget;
 
@@ -17,7 +18,7 @@ type
   PMyWidgetClass = ^TMyWidgetClass;
 
 function my_widget_get_type: TGType;
-function my_widget_new: PMyWidget;
+function my_widget_new(c,r:Tgint): PGtkWidget;
 
 function MY_TYPE_WIDGET: TGType;
 function MY_WIDGET(obj: Pointer): PMyWidget;
@@ -40,16 +41,21 @@ const
 procedure my_widget_set_property(obj: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
 var
   self: PMyWidget;
-  ch: Pgchar;
 begin
   self := MY_WIDGET(obj);
   case property_id of
     1: begin
+      self^.cols:=g_value_get_int(Value);
+    end;
+    2: begin
+      self^.rows:=g_value_get_int(Value);
     end;
     else begin
       G_OBJECT_WARN_INVALID_PROPERTY_ID(obj, property_id, pspec);
     end;
   end;
+  WriteLn('prop cols: ', self^.cols);
+  WriteLn('prop rows: ', self^.rows);
 end;
 
 procedure my_widget_get_property(obj: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
@@ -59,6 +65,10 @@ begin
   self := MY_WIDGET(obj);
   case property_id of
     1: begin
+      WriteLn('Colums');
+    end;
+    2: begin
+      WriteLn('Rows');
     end;
     else begin
       G_OBJECT_WARN_INVALID_PROPERTY_ID(obj, property_id, pspec);
@@ -96,21 +106,66 @@ var
   grid, button: PGtkWidget;
   i: PtrInt;
   lab: Pgchar;
+  cnt: Tgint;
 begin
+  //grid := gtk_grid_new;
+  //gtk_grid_set_column_spacing(GTK_GRID(grid), 5);
+  //gtk_grid_set_row_spacing(GTK_GRID(grid), 5);
+  //gtk_box_append(GTK_BOX(self), grid);
+  //
+  //cnt:=self^.rows*self^.cols;
+  //WriteLn('init cols: ', self^.cols);
+  //WriteLn('init rows: ', self^.rows);
+  //
+  //for i := 0 to cnt-1 do begin
+  //  lab := g_strdup_printf('%d', i);
+  //  button := gtk_button_new_with_label(lab);
+  //  g_free(lab);
+  //  g_object_set_data(G_OBJECT(button), BtnKey, Pointer(i));
+  //
+  //  gtk_grid_attach(GTK_GRID(grid), button, i mod 3, i div 3, 1, 1);
+  //  g_signal_connect(button, 'clicked', G_CALLBACK(@click_cp), self);
+  //end;
+end;
+
+procedure my_widget_constructed(obj: PGObject); cdecl;
+var
+  self: PMyWidget;
+  grid, button: PGtkWidget;
+  cnt: Tgint;
+  i: Integer;
+  lab: Pgchar;
+begin
+  G_OBJECT_CLASS(my_widget_parent_class)^.constructed(obj);
+  self:=MY_WIDGET(obj);
+  WriteLn('const cols: ', self^.cols);
+  WriteLn('const rows: ', self^.rows);
+
+
+
+
+
+
+
   grid := gtk_grid_new;
   gtk_grid_set_column_spacing(GTK_GRID(grid), 5);
   gtk_grid_set_row_spacing(GTK_GRID(grid), 5);
   gtk_box_append(GTK_BOX(self), grid);
 
-  for i := 0 to 8 do begin
+  cnt:=self^.rows*self^.cols;
+  WriteLn('init cols: ', self^.cols);
+  WriteLn('init rows: ', self^.rows);
+
+  for i := 0 to cnt-1 do begin
     lab := g_strdup_printf('%d', i);
     button := gtk_button_new_with_label(lab);
     g_free(lab);
     g_object_set_data(G_OBJECT(button), BtnKey, Pointer(i));
 
-    gtk_grid_attach(GTK_GRID(grid), button, i mod 3, i div 3, 1, 1);
+    gtk_grid_attach(GTK_GRID(grid), button, i mod self^.cols, i div self^.cols, 1, 1);
     g_signal_connect(button, 'clicked', G_CALLBACK(@click_cp), self);
   end;
+
 end;
 
 procedure my_widget_class_init(g_class: Tgpointer; class_data: Tgpointer); cdecl;
@@ -123,10 +178,13 @@ begin
   object_class^.get_property := @my_widget_get_property;
 
   object_class^.finalize := @my_widget_finalize;
+  object_class^.constructed := @my_widget_constructed;
   my_widget_parent_class := g_type_class_peek_parent(g_class);
 
-  //  spec := g_param_spec_string('gender', 'Gender', 'Gender of the human', nil, G_PARAM_READWRITE);
-  //  g_object_class_install_property(object_class, 1, spec);
+  spec := g_param_spec_int('columns', 'Columns', 'Columns of the MyWidget',1, G_MAXINT, 3, G_PARAM_READWRITE or G_PARAM_CONSTRUCT);
+  g_object_class_install_property(object_class, 1, spec);
+  spec := g_param_spec_int('rows', 'Rows', 'Rows of the MyWidget',1, G_MAXINT, 3, G_PARAM_READWRITE or G_PARAM_CONSTRUCT);
+  g_object_class_install_property(object_class, 2, spec);
 
   age_signal_id := g_signal_new('clicked',
     G_TYPE_FROM_CLASS(g_class),
@@ -156,9 +214,13 @@ begin
   Result := type_id;
 end;
 
-function my_widget_new: PMyWidget;
+function my_widget_new(c, r: Tgint): PGtkWidget;
+var
+  self:PMyWidget;
 begin
-  Result := g_object_new(MY_TYPE_WIDGET, 'orientation', GTK_ORIENTATION_VERTICAL, nil);
+  self := g_object_new(MY_TYPE_WIDGET, 'orientation', GTK_ORIENTATION_VERTICAL,'columns',c,'rows',r, nil);
+//  self := g_object_new(MY_TYPE_WIDGET, 'orientation', GTK_ORIENTATION_VERTICAL, nil);
+  Result:=GTK_WIDGET( self);
 end;
 
 // ====
