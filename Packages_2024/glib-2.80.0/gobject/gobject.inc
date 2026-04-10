@@ -46,7 +46,6 @@ type
   TGInitiallyUnownedClass = TGObjectClass;
   PGInitiallyUnownedClass = ^TGInitiallyUnownedClass;
 
-
 function g_initially_unowned_get_type: TGType; cdecl; external libgobject2_0;
 procedure g_object_class_install_property(oclass: PGObjectClass; property_id: Tguint; pspec: PGParamSpec); cdecl; external libgobject2_0;
 function g_object_class_find_property(oclass: PGObjectClass; property_name: Pgchar): PGParamSpec; cdecl; external libgobject2_0;

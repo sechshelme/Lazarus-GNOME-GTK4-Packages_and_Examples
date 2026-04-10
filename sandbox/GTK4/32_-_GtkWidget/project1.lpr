@@ -8,12 +8,12 @@ uses
   MyWidget;
 
 type
-  TAniData = record
+  TAppData = record
   end;
-  PAniData = ^TAniData;
+  PAppData = ^TAppData;
 
 const
-  anyDataKey = 'anyKey';
+  appDataKey = 'anyKey';
 
   procedure quit_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
@@ -22,27 +22,47 @@ const
     gtk_window_destroy(window);
   end;
 
-procedure anyData_free_cp(Data: Tgpointer); cdecl;
-var
-  anyData: PAniData absolute Data;
-begin
-  g_free(anyData);
-end;
+  procedure anyData_free_cp(Data: Tgpointer); cdecl;
+  var
+    anyData: PAppData absolute Data;
+  begin
+    g_free(anyData);
+  end;
 
-procedure mybox_click_cp(widget: PGtkWidget; nr: Tgint; user_data: Tgpointer); cdecl;
-begin
-  WriteLn('mybox_click_cp()   ', nr);
-end;
+  procedure reset_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
+  var
+    mybox: PMyWidget absolute user_data;
+    appData: PAppData;
+  begin
+    appData := g_object_get_data(G_OBJECT(mybox), appDataKey);
 
-procedure mybox_click_cp2(widget: PGtkWidget; nr: Tgint; user_data: Tgpointer); cdecl;
-begin
-  WriteLn('Es wurde ::2 gedrückt');
-end;
+    my_widget_set_coords(mybox, Random(7) + 1, Random(7) + 1);
+  end;
+
+
+  procedure mybox_click_cp(widget: PGtkWidget; nr: Tgint; user_data: Tgpointer); cdecl;
+  begin
+    WriteLn('mybox_click_cp()   ', nr);
+  end;
+
+  procedure mybox_click_cp2(widget: PGtkWidget; nr: Tgint; user_data: Tgpointer); cdecl;
+  begin
+    WriteLn('Es wurde ::2 gedrückt');
+  end;
+
+  procedure on_columns_changed(obj: PGObject; pspec: PGParamSpec; user_data: Tgpointer); cdecl;
+  var
+    col, row: Tguint;
+  begin
+    g_object_get(obj, 'columns', @col, 'rows', @row, nil);
+    g_printf('New Coord: %d x %d'#10, col, row);
+  end;
+
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
-    window, box, button, mybox: PGtkWidget;
-    anyData: PAniData;
+    window, box, button, mybox, header_bar, new_button: PGtkWidget;
+    anyData: PAppData;
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 
@@ -50,14 +70,23 @@ end;
     gtk_window_set_title(GTK_WINDOW(window), 'Belt Drive');
     gtk_window_set_default_size(GTK_WINDOW(window), 640, 400);
 
+    header_bar := gtk_header_bar_new;
+    gtk_window_set_titlebar(GTK_WINDOW(window), header_bar);
+    new_button := gtk_button_new_with_label('new');
+    gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), new_button);
+
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-    mybox := my_widget_new(4,7);
+    mybox := my_widget_new(4, 7);
     g_signal_connect(mybox, 'clicked::2', G_CALLBACK(@mybox_click_cp2), nil);
     g_signal_connect(mybox, 'clicked', G_CALLBACK(@mybox_click_cp), nil);
+    g_signal_connect(mybox, 'notify::columns', G_CALLBACK(@on_columns_changed), nil);
+
     gtk_box_append(GTK_BOX(box), mybox);
 
-    anyData := g_malloc(SizeOf(TAniData));
-    //    g_object_set_data_full(G_OBJECT(drawing_area), anyDataKey, anyData, @anyData_free_cp);
+    g_signal_connect(new_button, 'clicked', G_CALLBACK(@reset_cp), mybox);
+
+    anyData := g_malloc(SizeOf(TAppData));
+    //    g_object_set_data_full(G_OBJECT(drawing_area), appDataKey, anyData, @anyData_free_cp);
 
     button := gtk_button_new_with_label('Quit');
     g_signal_connect(button, 'clicked', G_CALLBACK(@quit_cp), window);
