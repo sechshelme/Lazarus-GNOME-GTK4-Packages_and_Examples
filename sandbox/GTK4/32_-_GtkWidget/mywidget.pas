@@ -8,7 +8,6 @@ uses
 type
   TMyWidget = record
     parent_instance: TGtkBox;
-    cols, rows: Tgint;
   end;
   PMyWidget = ^TMyWidget;
 
@@ -18,7 +17,7 @@ type
   PMyWidgetClass = ^TMyWidgetClass;
 
   TMyWidgetPrivate = record
-    testdata: integer;
+    cols, rows: Tgint;
   end;
   PMyWidgetPrivate = ^TMyWidgetPrivate;
 
@@ -50,46 +49,37 @@ end;
 
 procedure set_property(obj: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
 var
-  self: PMyWidget;
   priv: PMyWidgetPrivate;
 begin
-  self := MY_WIDGET(obj);
-
-  priv := g_type_instance_get_private(PGTypeInstance(self), my_widget_get_type);
-  priv^.testdata := 1234;
-
+  priv := g_type_instance_get_private(PGTypeInstance(obj), my_widget_get_type);
 
   case property_id of
     1: begin
-      self^.cols := g_value_get_uint(Value);
+      priv^.cols := g_value_get_uint(Value);
     end;
     2: begin
-      self^.rows := g_value_get_uint(Value);
+      priv^.rows := g_value_get_uint(Value);
     end;
     else begin
       G_OBJECT_WARN_INVALID_PROPERTY_ID(obj, property_id, pspec);
     end;
   end;
 
-  my_widget_set_coords(self, self^.cols, self^.rows);
+  my_widget_set_coords(MY_WIDGET(obj), priv^.cols, priv^.rows);
 end;
 
 procedure get_property(obj: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
 var
-  self: PMyWidget;
   priv: PMyWidgetPrivate;
 begin
-  self := MY_WIDGET(obj);
-
-  priv := g_type_instance_get_private(PGTypeInstance(self), my_widget_get_type);
-  WriteLn(priv^.testdata);
+  priv := g_type_instance_get_private(PGTypeInstance(obj), my_widget_get_type);
 
   case property_id of
     1: begin
-      g_value_set_uint(Value, self^.cols);
+      g_value_set_uint(Value, priv^.cols);
     end;
     2: begin
-      g_value_set_uint(Value, self^.rows);
+      g_value_set_uint(Value, priv^.rows);
     end;
     else begin
       G_OBJECT_WARN_INVALID_PROPERTY_ID(obj, property_id, pspec);
@@ -99,11 +89,11 @@ end;
 
 procedure constructed(obj: PGObject); cdecl;
 var
-  self: PMyWidget;
+  priv: PMyWidgetPrivate;
 begin
+  priv := g_type_instance_get_private(PGTypeInstance(obj), my_widget_get_type);
   G_OBJECT_CLASS(my_widget_parent_class)^.constructed(obj);
-  self := MY_WIDGET(obj);
-  my_widget_set_coords(self, self^.cols, self^.rows);
+  my_widget_set_coords(MY_WIDGET(obj), priv^.cols, priv^.rows);
 end;
 
 procedure finalize(obj: PGObject); cdecl;
@@ -170,11 +160,8 @@ begin
 end;
 
 function my_widget_new(c, r: Tguint): PGtkWidget;
-var
-  self: PMyWidget;
 begin
-  self := g_object_new(MY_TYPE_WIDGET, 'orientation', GTK_ORIENTATION_VERTICAL, 'columns', c, 'rows', r, nil);
-  Result := GTK_WIDGET(self);
+  Result := GTK_WIDGET(g_object_new(MY_TYPE_WIDGET, 'orientation', GTK_ORIENTATION_VERTICAL, 'columns', c, 'rows', r, nil));
 end;
 
 procedure my_widget_set_coords(w: PMyWidget; c, r: Tguint);
@@ -183,9 +170,11 @@ var
   i: integer;
   lab: Pgchar;
   cnt: Tguint;
+  priv: PMyWidgetPrivate;
 begin
-  w^.cols := c;
-  w^.rows := r;
+  priv := g_type_instance_get_private(PGTypeInstance(w), my_widget_get_type);
+  priv^.cols := c;
+  priv^.rows := r;
 
   g_object_notify(G_OBJECT(w), 'columns');
   g_object_notify(G_OBJECT(w), 'rows');
