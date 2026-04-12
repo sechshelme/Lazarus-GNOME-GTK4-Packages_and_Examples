@@ -55,7 +55,7 @@ var
 begin
   self := MY_WIDGET(obj);
 
-  priv := g_type_instance_get_private(PGTypeInstance(self), my_widget_get_type());
+  priv := g_type_instance_get_private(PGTypeInstance(self), my_widget_get_type);
   priv^.testdata:=1234;
 
 
@@ -83,7 +83,7 @@ var
 begin
   self := MY_WIDGET(obj);
 
-  priv := g_type_instance_get_private(PGTypeInstance(self), my_widget_get_type());
+  priv := g_type_instance_get_private(PGTypeInstance(self), my_widget_get_type);
 WriteLn( priv^.testdata);
 
   case property_id of
