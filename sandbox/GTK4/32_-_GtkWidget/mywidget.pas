@@ -18,7 +18,7 @@ type
   PMyWidgetClass = ^TMyWidgetClass;
 
   TMyWidgetPrivate = record
-    testdata:Integer;
+    testdata: integer;
   end;
   PMyWidgetPrivate = ^TMyWidgetPrivate;
 
@@ -56,7 +56,7 @@ begin
   self := MY_WIDGET(obj);
 
   priv := g_type_instance_get_private(PGTypeInstance(self), my_widget_get_type);
-  priv^.testdata:=1234;
+  priv^.testdata := 1234;
 
 
   case property_id of
@@ -71,9 +71,7 @@ begin
     end;
   end;
 
-//  if gtk_widget_get_root(GTK_WIDGET(self)) <> nil then begin
-    my_widget_set_coords(self, self^.cols, self^.rows);
-//  end;
+  my_widget_set_coords(self, self^.cols, self^.rows);
 end;
 
 procedure get_property(obj: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
@@ -84,7 +82,7 @@ begin
   self := MY_WIDGET(obj);
 
   priv := g_type_instance_get_private(PGTypeInstance(self), my_widget_get_type);
-WriteLn( priv^.testdata);
+  WriteLn(priv^.testdata);
 
   case property_id of
     1: begin
@@ -165,8 +163,8 @@ var
 begin
   if g_once_init_enter(@type_id) then begin
     id := g_type_register_static_simple(GTK_TYPE_BOX, 'MyWidget', SizeOf(TMyWidgetClass), @class_init, SizeOf(TMyWidget), @init, 0);
+    g_type_add_instance_private(id, sizeof(TMyWidgetPrivate));
     g_once_init_leave(@type_id, id);
-      g_type_add_instance_private(type_id, sizeof(TMyWidgetPrivate));
   end;
   Result := type_id;
 end;
