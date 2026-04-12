@@ -29,19 +29,9 @@ begin
   g_free(anyData);
 end;
 
-procedure mybox_click_cp(widget: PGtkWidget; nr: Tgint; user_data: Tgpointer); cdecl;
-begin
-  WriteLn('mybox_click_cp()   ', nr);
-end;
-
-procedure mybox_click_cp2(widget: PGtkWidget; nr: Tgint; user_data: Tgpointer); cdecl;
-begin
-  WriteLn('Es wurde ::2 gedrückt');
-end;
-
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
-    window, box, button, mybox: PGtkWidget;
+    window, box, button, mySnapShot: PGtkWidget;
     anyData: PAniData;
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
@@ -51,10 +41,10 @@ end;
     gtk_window_set_default_size(GTK_WINDOW(window), 640, 400);
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-    mybox := GTK_WIDGET(my_widget_new);
-    g_signal_connect(mybox, 'clicked::2', G_CALLBACK(@mybox_click_cp2), nil);
-    g_signal_connect(mybox, 'clicked', G_CALLBACK(@mybox_click_cp), nil);
-    gtk_box_append(GTK_BOX(box), mybox);
+    mySnapShot := GTK_WIDGET(my_widget_new);
+    gtk_widget_set_vexpand(mySnapShot, True);
+    gtk_widget_set_hexpand(mySnapShot, True);
+    gtk_box_append(GTK_BOX(box), mySnapShot);
 
     anyData := g_malloc(SizeOf(TAniData));
     //    g_object_set_data_full(G_OBJECT(drawing_area), anyDataKey, anyData, @anyData_free_cp);

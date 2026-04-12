@@ -75,60 +75,40 @@ begin
   G_OBJECT_CLASS(my_widget_parent_class)^.finalize(obj);
 end;
 
-procedure click_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
-var
-  self: PMyWidget absolute user_data;
-  nr: PtrInt;
-  q: Pgchar;
-  detail: TGQuark;
-begin
-  nr := PtrInt(g_object_get_data(G_OBJECT(widget), BtnKey));
-  q := g_strdup_printf('%d', nr);
-  detail := g_quark_from_string(q);
-  g_signal_emit(self, age_signal_id, detail, nr);
-  g_free(q);
-end;
-
-
 procedure my_widget_init(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
 var
   self: PMyWidget absolute instance;
-  grid, button: PGtkWidget;
-  i: PtrInt;
-  lab: Pgchar;
 begin
-  grid := gtk_grid_new;
-  gtk_grid_set_column_spacing(GTK_GRID(grid), 5);
-  gtk_grid_set_row_spacing(GTK_GRID(grid), 5);
-  gtk_box_append(GTK_BOX(self), grid);
-
-  for i := 0 to 8 do begin
-    lab := g_strdup_printf('%d', i);
-    button := gtk_button_new_with_label(lab);
-    g_free(lab);
-    g_object_set_data(G_OBJECT(button), BtnKey, Pointer(i));
-
-    gtk_grid_attach(GTK_GRID(grid), button, i mod 3, i div 3, 1, 1);
-    g_signal_connect(button, 'clicked', G_CALLBACK(@click_cp), self);
-  end;
 end;
 
 procedure mysnapshoot(widget: PGtkWidget; snapshot: PGtkSnapshot); cdecl;
 var
-  parent_class: PGtkWidgetClass;
   rect: Tgraphene_rect_t;
   color: TGdkRGBA;
+  width, height: single;
 begin
-  parent_class := GTK_WIDGET_CLASS(my_widget_parent_class);
+  width := gtk_widget_get_width(widget);
+  height := gtk_widget_get_height(widget);
+  WriteLn(width: 4: 2, ' x ', height: 4: 2);
 
-  graphene_rect_init(@rect, 10, 10, 50, 50);
+  graphene_rect_init(@rect, 0, 0, width, height);
+  gtk_snapshot_push_clip(snapshot, @rect);
+
+  graphene_rect_init(@rect, 0.0, 0.0, width, height);
   gdk_rgba_parse(@color, 'red');
-
   gtk_snapshot_append_color(snapshot, @color, @rect);
 
-  if parent_class^.snapshot <> nil then begin
-    parent_class^.snapshot(widget, snapshot);
-  end;
+  graphene_rect_init(@rect, 10.0, 10.0, width - 20.0, height - 20.0);
+  gdk_rgba_parse(@color, 'green');
+  gtk_snapshot_append_color(snapshot, @color, @rect);
+
+  gtk_snapshot_pop(snapshot);
+end;
+
+procedure my_widget_measure(widget: PGtkWidget; orientation: TGtkOrientation; for_size: longint; minimum: Plongint; natural: Plongint; minimum_baseline: Plongint; natural_baseline: Plongint); cdecl;
+begin
+  //  if minimum <> nil then minimum^ := 100; // Mindestens 100px
+  //  if natural <> nil then natural^ := 200; // Gerne 200px
 end;
 
 procedure my_widget_class_init(g_class: Tgpointer; class_data: Tgpointer); cdecl;
@@ -145,7 +125,8 @@ begin
   my_widget_parent_class := g_type_class_peek_parent(g_class);
 
   wc := GTK_WIDGET_CLASS(g_class);
-  wc^.snapshot:=@mysnapshoot;
+  wc^.snapshot := @mysnapshoot;
+  wc^.measure := @my_widget_measure;
 
 
   //  spec := g_param_spec_string('gender', 'Gender', 'Gender of the human', nil, G_PARAM_READWRITE);
@@ -173,7 +154,7 @@ var
   id: TGType;
 begin
   if g_once_init_enter(@type_id) then begin
-    id := g_type_register_static_simple(GTK_TYPE_BOX, 'MyWidget', SizeOf(TMyWidgetClass), @my_widget_class_init, SizeOf(TMyWidget), @my_widget_init, 0);
+    id := g_type_register_static_simple(GTK_TYPE_WIDGET, 'MyWidget', SizeOf(TMyWidgetClass), @my_widget_class_init, SizeOf(TMyWidget), @my_widget_init, 0);
     g_once_init_leave(@type_id, id);
   end;
   Result := type_id;
@@ -181,7 +162,7 @@ end;
 
 function my_widget_new: PMyWidget;
 begin
-  Result := g_object_new(MY_TYPE_WIDGET, 'orientation', GTK_ORIENTATION_VERTICAL, nil);
+  Result := g_object_new(MY_TYPE_WIDGET, nil);
 end;
 
 // ====
