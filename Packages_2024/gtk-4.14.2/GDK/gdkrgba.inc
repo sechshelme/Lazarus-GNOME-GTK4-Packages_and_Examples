@@ -3,9 +3,8 @@
 
 type
   TGdkRGBA = record
-    case byte of
-      1: (red, green, blue, alpha: single);
-      2: (items: array[0..3] of single);
+    red, green, blue, alpha: single;
+    procedure SetItems(r, g, b, a: single);
   end;
   PGdkRGBA = ^TGdkRGBA;
 
@@ -28,11 +27,20 @@ function GDK_TYPE_RGBA: TGType;
 
 {$IFDEF read_implementation}
 
+
+procedure TGdkRGBA.SetItems(r, g, b, a: single);
+begin
+  Self.red := r;
+  Self.green := g;
+  Self.blue := b;
+  Self.alpha := a;
+end;
+
+
 function GDK_TYPE_RGBA: TGType;
 begin
   GDK_TYPE_RGBA := gdk_rgba_get_type;
 end;
-
 
 
 {$ENDIF read_implementation}

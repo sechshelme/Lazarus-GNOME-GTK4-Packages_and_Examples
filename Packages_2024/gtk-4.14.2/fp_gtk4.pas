@@ -1,5 +1,7 @@
 unit fp_GTK4;
 
+{$MODESWITCH ADVANCEDRECORDS}
+
 interface
 
 uses
