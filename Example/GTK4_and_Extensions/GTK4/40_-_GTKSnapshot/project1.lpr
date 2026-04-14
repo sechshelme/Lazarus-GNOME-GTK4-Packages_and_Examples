@@ -33,11 +33,11 @@ type
   begin
     snapshot := gtk_snapshot_new;
     gri := GRAPHENE_RECT_INIT(50, 50, 100, 100);
-    color.items := [1.0, 0.0, 0.0, 1.0];
+    color.SetItems(1.0, 0.0, 0.0, 1.0);
     gtk_snapshot_append_color(snapshot, @color, @gri);
 
     gri := GRAPHENE_RECT_INIT(70, 70, 120, 120);
-    color.items := [0.0, 1.0, 0.0, 1.0];
+    color.SetItems(0.0, 1.0, 0.0, 1.0);
     gtk_snapshot_append_color(snapshot, @color, @gri);
 
     rr.bounds := GRAPHENE_RECT_INIT(25, 25, 150, 150);
@@ -46,10 +46,10 @@ type
     rr.corner[2] := GRAPHENE_SIZE_INIT(5, 5);
     rr.corner[3] := GRAPHENE_SIZE_INIT(5, 5);
     bw := [2, 2, 2, 2];
-    colors[0].items := [0, 0, 1, 1];
-    colors[1].items := [1, 0, 1, 1];
-    colors[2].items := [0, 1, 1, 1];
-    colors[3].items := [0, 1, 0, 1];
+    colors[0].SetItems(0, 0, 1, 1);
+    colors[1].SetItems(1, 0, 1, 1);
+    colors[2].SetItems(0, 1, 1, 1);
+    colors[3].SetItems(0, 1, 0, 1);
     gtk_snapshot_append_border(snapshot, @rr, bw, colors);
     node := gtk_snapshot_to_node(snapshot);
     cairo_move_to(cr, 1000, 1000);
