@@ -10,7 +10,7 @@ uses
 
 type
   TColor = record
-    r, g, b: single;
+    r, g, b, a: single;
   end;
   PColor = ^TColor;
 
@@ -51,17 +51,17 @@ type
 implementation
 
 const
-  clRed: TColor = (r: 1.0; g: 0.0; b: 0.0);
-  clGreen: TColor = (r: 0.0; g: 1.0; b: 0.0);
-  clBlue: TColor = (r: 0.0; g: 0.0; b: 1.0);
+  clRed: TColor = (r: 1.0; g: 0.0; b: 0.0; a: 0.0);
+  clGreen: TColor = (r: 0.0; g: 1.0; b: 0.0; a: 0.0);
+  clBlue: TColor = (r: 0.0; g: 0.0; b: 1.0; a: 0.0);
 
-  clLightRed: TColor = (r: 1.0; g: 0.5; b: 0.5);
-  clLightGreen: TColor = (r: 0.5; g: 1.0; b: 0.5);
-  clLightBlue: TColor = (r: 0.5; g: 0.5; b: 1.0);
+  clLightRed: TColor = (r: 1.0; g: 0.5; b: 0.5; a: 0.0);
+  clLightGreen: TColor = (r: 0.5; g: 1.0; b: 0.5; a: 0.0);
+  clLightBlue: TColor = (r: 0.5; g: 0.5; b: 1.0; a: 0.0);
 
-  clLightYellow: TColor = (r: 1.0; g: 1.0; b: 0.5);
-  clLightMagenta: TColor = (r: 1.0; g: 0.5; b: 1.0);
-  clLightCyan: TColor = (r: 0.5; g: 1.0; b: 1.0);
+  clLightYellow: TColor = (r: 1.0; g: 1.0; b: 0.5; a: 0.0);
+  clLightMagenta: TColor = (r: 1.0; g: 0.5; b: 1.0; a: 0.0);
+  clLightCyan: TColor = (r: 0.5; g: 1.0; b: 1.0; a: 0.0);
 
 type
   TBoxData = record
@@ -95,8 +95,8 @@ const
     );
 
   StaticCapsuleData: Tb2Capsules = (
-  (center1: (x: -5.0; y: -170.0); center2: (x: 20.0; y: -150.0); radius: 5.0),
-  (center1: (x: 35.0; y: -160.0); center2: (x: 45.0; y: -150.0); radius: 5.0)
+    (center1: (x: -5.0; y: -170.0); center2: (x: 20.0; y: -150.0); radius: 5.0),
+    (center1: (x: 35.0; y: -160.0); center2: (x: 45.0; y: -150.0); radius: 5.0)
     );
 
 

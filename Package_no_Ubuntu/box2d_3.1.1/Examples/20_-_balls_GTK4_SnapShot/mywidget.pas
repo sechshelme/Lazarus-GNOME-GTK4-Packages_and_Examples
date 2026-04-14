@@ -3,7 +3,7 @@ unit MyWidget;
 interface
 
 uses
-  fp_glib2, fp_GTK4, fp_graphene, fp_pango, fp_cairo, EngineCalc,
+  fp_glib2, fp_GTK4, fp_graphene, EngineCalc,
   fp_box2d;
 
 
@@ -55,30 +55,58 @@ implementation
 var
   parent_class: PMyWidgetClass = nil;
 
-procedure drawPolygone(cr: Pcairo_t; shapeId: Tb2ShapeId);
+procedure drawPolygonSnapshot(snapshot: PGtkSnapshot; shapeId: Tb2ShapeId);
 var
-  i: integer;
   polygon: Tb2Polygon;
+  builder: PGskPathBuilder;
+  path: PGskPath;
   bodyId: Tb2BodyId;
   transform: Tb2Transform;
+  ud: PuserData;
+  color: TGdkRGBA;
   p: Tb2Vec2;
+  i: Integer;
 begin
+  // 1. Daten von Box2D abrufen
   polygon := b2Shape_GetPolygon(shapeId);
   bodyId := b2Shape_GetBody(shapeId);
   transform := b2Body_GetTransform(bodyId);
 
-  if polygon.count > 0 then begin
-    p := b2TransformPoint(transform, polygon.vertices[0]);
-    cairo_move_to(cr, p.x, p.y);
+  // 2. Farbe vom Body bestimmen
+  ud := b2Body_GetUserData(bodyId);
+  if ud <> nil then begin
+    color.red   := ud^.color.r;
+    color.green := ud^.color.g;
+    color.blue  := ud^.color.b;
+    color.alpha := 1.0;
+  end else begin
+    color.red := 1.0; color.green := 1.0; color.blue := 1.0; color.alpha := 1.0;
+  end;
 
+  // 3. Pfad-Builder erstellen
+  builder := gsk_path_builder_new();
+
+  // 4. Eckpunkte transformieren und Pfad bauen
+  if polygon.count > 0 then begin
+    // Erster Punkt (transformiert)
+    p := b2TransformPoint(transform, polygon.vertices[0]);
+    gsk_path_builder_move_to(builder, p.x, p.y);
+
+    // Alle weiteren Punkte (transformiert)
     for i := 1 to polygon.count - 1 do begin
       p := b2TransformPoint(transform, polygon.vertices[i]);
-      cairo_line_to(cr, p.x, p.y);
+      gsk_path_builder_line_to(builder, p.x, p.y);
     end;
 
-    cairo_close_path(cr);
+    gsk_path_builder_close(builder);
   end;
-  cairo_fill(cr);
+
+  // 5. Pfad finalisieren und zeichnen
+  path := gsk_path_builder_free_to_path(builder);
+  gtk_snapshot_append_fill(snapshot, path, GSK_FILL_RULE_WINDING, @color);
+
+  // 6. Aufräumen
+  gsk_path_unref(path);
 end;
 
 procedure drawCircleSnapshot(snapshot: PGtkSnapshot; shapeId: Tb2ShapeId);
@@ -128,53 +156,46 @@ begin
   gtk_snapshot_pop(snapshot);
 end;
 
-
-//procedure drawCircle(cr: Pcairo_t; shapeId: Tb2ShapeId);
-//var
-//  circle: Tb2Circle;
-//  bodyId: Tb2BodyId;
-//  transform: Tb2Transform;
-//  center: Tb2Vec2;
-//begin
-//  circle := b2Shape_GetCircle(shapeId);
-//  bodyId := b2Shape_GetBody(shapeId);
-//  transform := b2Body_GetTransform(bodyId);
-//  center := b2TransformPoint(transform, circle.center);
-//
-//  cairo_arc(cr, center.x, center.y, circle.radius, 0, 2 * Pi);
-//  cairo_close_path(cr);
-//  cairo_fill(cr);
-//end;
-//
-function ArcTan2(dy, dx: double): double;
+procedure drawNativeCircle(snapshot: PGtkSnapshot; center: Tb2Vec2; radius: single; color: TGdkRGBA);
+var
+  rect: Tgraphene_rect_t;
+  rounded_rect: TGskRoundedRect;
+  radius_size: Tgraphene_size_t;
 begin
-  if dx > 0 then begin
-    Result := ArcTan(dy / dx);
-  end else if dx < 0 then begin
-    if dy >= 0 then begin
-      Result := ArcTan(dy / dx) + Pi;
-    end else begin
-      Result := ArcTan(dy / dx) - Pi;
-    end;
-  end else { Fall: dx = 0 } begin
-    if dy > 0 then begin
-      Result := Pi / 2;
-    end else if dy < 0 then begin
-      Result := -Pi / 2;
-    end else begin
-      Result := 0;
-    end;
-  end;
+  // 1. Das umschließende Quadrat definieren
+  graphene_rect_init(@rect,
+                     center.x - radius,
+                     center.y - radius,
+                     radius * 2,
+                     radius * 2);
+
+  // 2. Die Eckenradien für die Rundung festlegen
+  graphene_size_init(@radius_size, radius, radius);
+
+  // 3. Das abgerundete Rechteck (GskRoundedRect) initialisieren
+  gsk_rounded_rect_init(@rounded_rect,
+                        @rect,
+                        @radius_size, @radius_size,
+                        @radius_size, @radius_size);
+
+  // 4. Zeichnen mittels Rounded-Clip (GPU-beschleunigt)
+  gtk_snapshot_push_rounded_clip(snapshot, @rounded_rect);
+  gtk_snapshot_append_color(snapshot, @color, @rect);
+  gtk_snapshot_pop(snapshot);
 end;
 
 
-procedure drawCapsule(cr: Pcairo_t; shapeId: Tb2ShapeId);
+procedure drawCapsuleSnapshot(snapshot: PGtkSnapshot; shapeId: Tb2ShapeId);
 var
   capsule: Tb2Capsule;
   bodyId: Tb2BodyId;
   transform: Tb2Transform;
   p1, p2: Tb2Vec2;
-  angle: single;
+  angle, dx, dy: single;
+  builder: PGskPathBuilder;
+  path: PGskPath;
+  ud: PuserData;
+  color: TGdkRGBA;
 begin
   capsule := b2Shape_GetCapsule(shapeId);
   bodyId := b2Shape_GetBody(shapeId);
@@ -182,17 +203,54 @@ begin
 
   p1 := b2TransformPoint(transform, capsule.center1);
   p2 := b2TransformPoint(transform, capsule.center2);
-
   angle := b2Atan2(p2.y - p1.y, p2.x - p1.x);
 
-  cairo_arc(cr, p1.x, p1.y, capsule.radius, angle + Pi / 2, angle + 3 * Pi / 2);
-  cairo_arc(cr, p2.x, p2.y, capsule.radius, angle - Pi / 2, angle + Pi / 2);
+  // Farbe bestimmen
+  ud := b2Body_GetUserData(bodyId);
+  if ud <> nil then begin
+    color.red := ud^.color.r; color.green := ud^.color.g;
+    color.blue := ud^.color.b; color.alpha := 1.0;
+  end else begin
+    color.red := 1.0; color.green := 1.0; color.blue := 1.0; color.alpha := 1.0;
+  end;
 
-  cairo_close_path(cr);
-  cairo_fill(cr);
+  // Normalenvektor für die Breite der Kapsel berechnen
+  dx := sin(angle) * capsule.radius;
+  dy := cos(angle) * capsule.radius;
+
+  builder := gsk_path_builder_new();
+
+  // Wir bauen die Kapsel aus zwei Linien und zwei "Ecken"
+  // Start oben links bei p1
+  gsk_path_builder_move_to(builder, p1.x + dx, p1.y - dy);
+  // Linie zu p2 oben
+  gsk_path_builder_line_to(builder, p2.x + dx, p2.y - dy);
+
+  // Hier nutzen wir einen Trick: Statt Arc_To zeichnen wir eine
+  // sehr dicke Linie oder nutzen die Rundung später.
+  // Einfachste Snapshot-Lösung ohne Arc: Das Polygon der Kapsel-Hülle
+  gsk_path_builder_line_to(builder, p2.x - dx, p2.y + dy);
+  gsk_path_builder_line_to(builder, p1.x - dx, p1.y + dy);
+
+  gsk_path_builder_close(builder);
+
+  path := gsk_path_builder_free_to_path(builder);
+
+  // Jetzt der Trick für die Rundung:
+  // Wir zeichnen den Pfad mit einer sehr dicken Linie und runden die Enden (Cap)
+  // Aber da wir füllen wollen, ist es besser, zwei Kreise separat als Nodes zu adden:
+
+  // Zeichne das Rechteck-Mittelstück
+  gtk_snapshot_append_fill(snapshot, path, GSK_FILL_RULE_WINDING, @color);
+  gsk_path_unref(path);
+
+  // Zeichne die zwei End-Kappen einfach als native Snapshot-Kreise (wie du es bereits hast!)
+  // Das ist viel performanter als Pfad-Bögen!
+  drawNativeCircle(snapshot, p1, capsule.radius, color);
+  drawNativeCircle(snapshot, p2, capsule.radius, color);
 end;
 
-procedure draw_func(cr: Pcairo_t; snapshot: PGtkSnapshot; anyData: PAniData); cdecl;
+procedure draw_func(snapshot: PGtkSnapshot; anyData: PAniData); cdecl;
 var
   i, j: integer;
   shapeCount: longint;
@@ -202,8 +260,8 @@ const
   shapesId: array of Tb2ShapeId = nil;
 begin
   with anyData^ do begin
-    cairo_set_source_rgb(cr, 0.3, 0.3, 0.3);
-    cairo_paint(cr);
+//    cairo_set_source_rgb(cr, 0.3, 0.3, 0.3);
+//    cairo_paint(cr);
 
     for i := 0 to Length(BodyIds) - 1 do begin
       shapeCount := b2Body_GetShapeCount(BodyIds[i]);
@@ -211,19 +269,21 @@ begin
       b2Body_GetShapes(BodyIds[i], Pb2ShapeId(shapesId), shapeCount);
       ud := b2Body_GetUserData(BodyIds[i]);
       if ud <> nil then begin
-        cairo_set_source_rgb(cr, ud^.color.r, ud^.color.g, ud^.color.b);
+//        cairo_set_source_rgb(cr, ud^.color.r, ud^.color.g, ud^.color.b);
       end else begin
-        cairo_set_source_rgb(cr, 1.0, 1.0, 1.0);
+//        cairo_set_source_rgb(cr, 1.0, 1.0, 1.0);
       end;
 
       for j := 0 to shapeCount - 1 do begin
         shapeType := b2Shape_GetType(shapesId[j]);
         case shapeType of
           b2_polygonShape: begin
-            drawPolygone(cr, shapesId[j]);
+//            drawPolygone(cr, shapesId[j]);
+            drawPolygonSnapshot(snapshot, shapesId[j]);
           end;
           b2_capsuleShape: begin
-            drawCapsule(cr, shapesId[j]);
+//            drawCapsule(cr, shapesId[j]);
+            drawCapsuleSnapshot(snapshot, shapesId[j]);
           end;
           b2_circleShape: begin
             drawCircleSnapshot(snapshot, shapesId[j]);
@@ -233,7 +293,7 @@ begin
       end;
     end;
 
-    cairo_stroke(cr);
+//    cairo_stroke(cr);
   end;
 end;
 
@@ -244,7 +304,8 @@ var
   r: Tgraphene_rect_t;
   width, height, scX, scY, sc: single;
   p: Tgraphene_point_t;
-  cr: Pcairo_t;
+//  cr: Pcairo_t;
+  color: TGdkRGBA;
 begin
   width := gtk_widget_get_width(widget);
   height := gtk_widget_get_height(widget);
@@ -252,6 +313,14 @@ begin
   graphene_rect_init(@r, 0, 0, width, height);
   gtk_snapshot_push_clip(snapshot, @r);
 
+
+  color.red := 0.3;
+  color.green := 0.3;
+  color.blue := 0.3;
+  color.alpha := 1.0;
+
+  graphene_rect_init(@r, 0, 0, width, height);
+  gtk_snapshot_append_color(snapshot, @color, @r);
 
   scX := Width / WORLD_WIDTH;
   scY := Height / WORLD_HEIGHT;
@@ -272,12 +341,12 @@ begin
 
 
   graphene_rect_init(@r, -10000, -10000, 20000, 20000);
-  cr := gtk_snapshot_append_cairo(snapshot, @r);
+//  cr := gtk_snapshot_append_cairo(snapshot, @r);
 
-  cairo_set_line_width(cr, 1.5);
+//  cairo_set_line_width(cr, 1.5);
 
-  draw_func(cr,snapshot, self^.AniData);
-  cairo_destroy(cr);
+  draw_func(snapshot, self^.AniData);
+//  cairo_destroy(cr);
 
 
   gtk_snapshot_pop(snapshot);
