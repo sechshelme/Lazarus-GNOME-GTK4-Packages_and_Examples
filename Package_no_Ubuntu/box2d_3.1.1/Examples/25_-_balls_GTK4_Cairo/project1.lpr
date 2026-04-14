@@ -73,28 +73,6 @@ const
     cairo_fill(cr);
   end;
 
-  function ArcTan2(dy, dx: double): double;
-  begin
-    if dx > 0 then begin
-      Result := ArcTan(dy / dx);
-    end else if dx < 0 then begin
-      if dy >= 0 then begin
-        Result := ArcTan(dy / dx) + Pi;
-      end else begin
-        Result := ArcTan(dy / dx) - Pi;
-      end;
-    end else { Fall: dx = 0 } begin
-      if dy > 0 then begin
-        Result := Pi / 2;
-      end else if dy < 0 then begin
-        Result := -Pi / 2;
-      end else begin
-        Result := 0;
-      end;
-    end;
-  end;
-
-
   procedure drawCapsule(cr: Pcairo_t; shapeId: Tb2ShapeId);
   var
     capsule: Tb2Capsule;

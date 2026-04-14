@@ -8,6 +8,9 @@ interface
 uses
   fp_box2d;
 
+const
+  BALLCOUNT = 1000;
+
 type
   TColor = record
     r, g, b, a: single;
@@ -51,17 +54,17 @@ type
 implementation
 
 const
-  clRed: TColor = (r: 1.0; g: 0.0; b: 0.0; a: 0.0);
-  clGreen: TColor = (r: 0.0; g: 1.0; b: 0.0; a: 0.0);
-  clBlue: TColor = (r: 0.0; g: 0.0; b: 1.0; a: 0.0);
+  clRed: TColor = (r: 1.0; g: 0.0; b: 0.0; a: 1.0);
+  clGreen: TColor = (r: 0.0; g: 1.0; b: 0.0; a: 1.0);
+  clBlue: TColor = (r: 0.0; g: 0.0; b: 1.0; a: 1.0);
 
-  clLightRed: TColor = (r: 1.0; g: 0.5; b: 0.5; a: 0.0);
-  clLightGreen: TColor = (r: 0.5; g: 1.0; b: 0.5; a: 0.0);
-  clLightBlue: TColor = (r: 0.5; g: 0.5; b: 1.0; a: 0.0);
+  clLightRed: TColor = (r: 1.0; g: 0.5; b: 0.5; a: 1.0);
+  clLightGreen: TColor = (r: 0.5; g: 1.0; b: 0.5; a: 1.0);
+  clLightBlue: TColor = (r: 0.5; g: 0.5; b: 1.0; a: 1.0);
 
-  clLightYellow: TColor = (r: 1.0; g: 1.0; b: 0.5; a: 0.0);
-  clLightMagenta: TColor = (r: 1.0; g: 0.5; b: 1.0; a: 0.0);
-  clLightCyan: TColor = (r: 0.5; g: 1.0; b: 1.0; a: 0.0);
+  clLightYellow: TColor = (r: 1.0; g: 1.0; b: 0.5; a: 1.0);
+  clLightMagenta: TColor = (r: 1.0; g: 0.5; b: 1.0; a: 1.0);
+  clLightCyan: TColor = (r: 0.5; g: 1.0; b: 1.0; a: 1.0);
 
 type
   TBoxData = record
@@ -202,7 +205,7 @@ begin
   shapeDef.material.restitution := 0.2;
   shapeDef.enableContactEvents := True;
 
-  for i := 0 to 999 - 1 do begin
+  for i := 0 to BALLCOUNT - 1 do begin
     bodyDef := b2DefaultBodyDef;
     bodyDef._type := b2_dynamicBody;
     bodyDef.position.SetItems(50.0, 50.0 + i * 10);
@@ -289,6 +292,7 @@ var
   i: integer;
   p, v: Tb2Vec2;
 begin
+  Result := nil;
   for i := 0 to Length(Result) - 1 do begin
     p := b2Body_GetPosition(Result[i]);
     if p.y < -250.0 then begin

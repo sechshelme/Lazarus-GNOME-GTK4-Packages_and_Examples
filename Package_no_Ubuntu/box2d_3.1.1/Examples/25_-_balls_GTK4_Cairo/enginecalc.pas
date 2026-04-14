@@ -8,6 +8,9 @@ interface
 uses
   fp_box2d;
 
+const
+  BALLCOUNT = 1000;
+
 type
   TColor = record
     r, g, b: single;
@@ -95,8 +98,8 @@ const
     );
 
   StaticCapsuleData: Tb2Capsules = (
-  (center1: (x: -5.0; y: -170.0); center2: (x: 20.0; y: -150.0); radius: 5.0),
-  (center1: (x: 35.0; y: -160.0); center2: (x: 45.0; y: -150.0); radius: 5.0)
+    (center1: (x: -5.0; y: -170.0); center2: (x: 20.0; y: -150.0); radius: 5.0),
+    (center1: (x: 35.0; y: -160.0); center2: (x: 45.0; y: -150.0); radius: 5.0)
     );
 
 
@@ -202,7 +205,7 @@ begin
   shapeDef.material.restitution := 0.2;
   shapeDef.enableContactEvents := True;
 
-  for i := 0 to 999 - 1 do begin
+  for i := 0 to BALLCOUNT - 1 do begin
     bodyDef := b2DefaultBodyDef;
     bodyDef._type := b2_dynamicBody;
     bodyDef.position.SetItems(50.0, 50.0 + i * 10);
@@ -289,6 +292,7 @@ var
   i: integer;
   p, v: Tb2Vec2;
 begin
+  Result := nil;
   for i := 0 to Length(Result) - 1 do begin
     p := b2Body_GetPosition(Result[i]);
     if p.y < -250.0 then begin
