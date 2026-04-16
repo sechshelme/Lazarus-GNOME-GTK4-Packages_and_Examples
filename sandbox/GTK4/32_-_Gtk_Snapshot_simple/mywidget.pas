@@ -9,6 +9,10 @@ type
   TMyWidget = record
     parent_instance: TGtkWidget;
     custom_color: TGdkRGBA;
+    dial_node: PGskRenderNode;
+    hand: record
+      second, minute, hour: PGskRenderNode;
+      end;
   end;
   PMyWidget = ^TMyWidget;
 
@@ -18,19 +22,98 @@ type
   PMyWidgetClass = ^TMyWidgetClass;
 
 function my_widget_get_type: TGType;
-function my_widget_new: PMyWidget;
+function my_widget_new: PGTKWidget;
 procedure my_widget_set_color(self: PMyWidget; r, g, b: single);
 
 implementation
 
 // ==== private
 
+var
+  parent_class: PMyWidgetClass = nil;
+
+function create_dial_node: PGskRenderNode;
+var
+  snapshot: PGtkSnapshot;
+  color: TGdkRGBA;
+  r: Tgraphene_rect_t;
+  i: integer;
+  tw, th: single;
+begin
+  snapshot := gtk_snapshot_new();
+  color.SetItems(0.7, 0.7, 0.7, 1.0);
+
+  for i := 0 to 59 do begin
+    gtk_snapshot_save(snapshot);
+    gtk_snapshot_rotate(snapshot, i * 6);
+
+    if (i mod 5 = 0) then begin
+      tw := 0.04;
+      th := 0.10;
+    end else begin
+      tw := 0.02;
+      th := 0.05;
+    end;
+
+    graphene_rect_init(@r, -(tw / 2), -1.0, tw, th);
+    gtk_snapshot_append_color(snapshot, @color, @r);
+    gtk_snapshot_restore(snapshot);
+  end;
+  Result := gtk_snapshot_free_to_node(snapshot);
+end;
+
+function create_second_hand_node: PGskRenderNode;
+var
+  snapshot: PGtkSnapshot;
+  color: TGdkRGBA;
+  r: Tgraphene_rect_t;
+begin
+  snapshot := gtk_snapshot_new();
+  graphene_rect_init(@r, -0.01, 0.0, 0.02, -1.0);
+  color.SetItems(0.1, 0.1, 0.9, 1.0);
+  gtk_snapshot_append_color(snapshot, @color, @r);
+
+  Result := gtk_snapshot_free_to_node(snapshot);
+end;
+
+function create_minute_hand_node: PGskRenderNode;
+var
+  snapshot: PGtkSnapshot;
+  color: TGdkRGBA;
+  r: Tgraphene_rect_t;
+begin
+  snapshot := gtk_snapshot_new();
+  graphene_rect_init(@r, -0.01, 0.0, 0.02, -1.0);
+  color.SetItems(0.1, 0.9, 0.1, 1.0);
+  gtk_snapshot_append_color(snapshot, @color, @r);
+
+  Result := gtk_snapshot_free_to_node(snapshot);
+end;
+
+function create_hour_hand_node: PGskRenderNode;
+var
+  snapshot: PGtkSnapshot;
+  color: TGdkRGBA;
+  r: Tgraphene_rect_t;
+begin
+  snapshot := gtk_snapshot_new();
+  graphene_rect_init(@r, -0.01, 0.0, 0.02, -1.0);
+  color.SetItems(0.9, 0.1, 0.1, 1.0);
+  gtk_snapshot_append_color(snapshot, @color, @r);
+
+  Result := gtk_snapshot_free_to_node(snapshot);
+end;
+
+
 procedure snapshoot_cp(widget: PGtkWidget; snapshot: PGtkSnapshot); cdecl;
 var
   r: Tgraphene_rect_t;
   color: TGdkRGBA;
-  width, height, angele: single;
+  width, height: single;
   p: Tgraphene_point_t;
+  ang_sec, ang_min, ang_hour: Single;
+  now: PGDateTime;
+  f_sec, f_min, f_hour: Single;
 begin
   width := gtk_widget_get_width(widget);
   height := gtk_widget_get_height(widget);
@@ -41,6 +124,7 @@ begin
   graphene_rect_init(@r, -(width / 2), -(height / 2), width, height);
   graphene_point_init(@p, width / 2, height / 2);
   gtk_snapshot_translate(snapshot, @p);
+
   color.SetItems(0.2, 0.0, 0.0, 1.0);
   gtk_snapshot_append_color(snapshot, @color, @r);
 
@@ -50,20 +134,93 @@ begin
   gtk_snapshot_append_color(snapshot, @color, @r);
   gtk_snapshot_restore(snapshot);
 
+  // deal
   gtk_snapshot_save(snapshot);
-  graphene_rect_init(@r, -(width / 100), 0.0, width / 50, height / 5);
-  color.SetItems(0.1, 0.1, 0.9, 1.0);
-  angele := g_get_monotonic_time / 10000;
-  gtk_snapshot_rotate(snapshot, angele);
-  gtk_snapshot_append_color(snapshot, @color, @r);
+  gtk_snapshot_scale(snapshot, height / 5, height / 5);
+  gtk_snapshot_append_node(snapshot, PMyWidget(widget)^.dial_node);
+  gtk_snapshot_restore(snapshot);
+
+  now := g_date_time_new_now_local;
+
+//  ang_sec := g_date_time_get_second(now) * 6;
+//  ang_min := g_date_time_get_minute(now) * 6;
+//  ang_hour := (g_date_time_get_hour(now) mod 12) * 30;
+
+  f_sec := g_date_time_get_second(now) + (g_date_time_get_microsecond(now) / 1000000);
+  ang_sec := f_sec * 6;
+
+  // 2. Minuten: Ganze Minuten + Sekunden-Anteil (0.0 bis 0.999)
+  f_min := g_date_time_get_minute(now) + (f_sec / 60);
+  ang_min := f_min * 6;
+
+  // 3. Stunden: Ganze Stunden (mod 12) + Minuten-Anteil (0.0 bis 0.999)
+  f_hour := (g_date_time_get_hour(now) mod 12) + (f_min / 60);
+  ang_hour := f_hour * 30;
+
+   g_date_time_unref(now);
+
+  // second
+  gtk_snapshot_save(snapshot);
+  gtk_snapshot_scale(snapshot, height / 5, height / 5);
+  gtk_snapshot_rotate(snapshot, ang_sec);
+  gtk_snapshot_append_node(snapshot, PMyWidget(widget)^.hand.second);
+  gtk_snapshot_restore(snapshot);
+
+  // minute
+  gtk_snapshot_save(snapshot);
+  gtk_snapshot_scale(snapshot, height / 5, height / 5);
+  gtk_snapshot_rotate(snapshot, ang_min);
+  gtk_snapshot_append_node(snapshot, PMyWidget(widget)^.hand.minute);
+  gtk_snapshot_restore(snapshot);
+
+  // hour
+  gtk_snapshot_save(snapshot);
+  gtk_snapshot_scale(snapshot, height / 5, height / 5);
+  gtk_snapshot_rotate(snapshot, ang_hour);
+  gtk_snapshot_append_node(snapshot, PMyWidget(widget)^.hand.hour);
   gtk_snapshot_restore(snapshot);
 
   gtk_snapshot_pop(snapshot);
 end;
 
+procedure finalize_cp(obj: PGObject); cdecl;
+var
+  self: PMyWidget absolute obj;
+begin
+  with self^ do begin
+    if dial_node <> nil then  begin
+      gsk_render_node_unref(dial_node);
+    end;
+    if hand.second <> nil then  begin
+      gsk_render_node_unref(hand.second);
+    end;
+    if hand.minute <> nil then  begin
+      gsk_render_node_unref(hand.minute);
+    end;
+    if hand.hour <> nil then  begin
+      gsk_render_node_unref(hand.hour);
+    end;
+  end;
+  G_OBJECT_CLASS(parent_class)^.finalize(obj);
+end;
+
 procedure class_init(g_class: Tgpointer; class_data: Tgpointer); cdecl;
 begin
+  G_OBJECT_CLASS(g_class)^.finalize := @finalize_cp;
   GTK_WIDGET_CLASS(g_class)^.snapshot := @snapshoot_cp;
+  parent_class := g_type_class_peek_parent(g_class);
+end;
+
+procedure init_cp(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
+var
+  self: PMyWidget absolute instance;
+begin
+  self^.custom_color.SetItems(0.0, 0.2, 0.0, 1.0);
+
+  self^.dial_node := create_dial_node;
+  self^.hand.second := create_second_hand_node;
+  self^.hand.minute := create_minute_hand_node;
+  self^.hand.hour := create_hour_hand_node;
 end;
 
 
@@ -76,16 +233,17 @@ var
   id: TGType;
 begin
   if g_once_init_enter(@type_id) then begin
-    id := g_type_register_static_simple(GTK_TYPE_WIDGET, 'MyWidget', SizeOf(TMyWidgetClass), @class_init, SizeOf(TMyWidget), nil, 0);
+    id := g_type_register_static_simple(GTK_TYPE_WIDGET, 'MyWidget', SizeOf(TMyWidgetClass), @class_init, SizeOf(TMyWidget), @init_cp, 0);
     g_once_init_leave(@type_id, id);
   end;
   Result := type_id;
 end;
 
-function my_widget_new: PMyWidget;
+function my_widget_new: PGTKWidget;
+var
+  self: PMyWidget absolute Result;
 begin
   Result := g_object_new(my_widget_get_type, nil);
-  Result^.custom_color.SetItems(0.0, 0.2, 0.0, 1.0);
 end;
 
 procedure my_widget_set_color(self: PMyWidget; r, g, b: single);
