@@ -127,7 +127,6 @@ var
     gtk_window_present(GTK_WINDOW(window));
   end;
 
-
   function main(argc: cint; argv: PPChar): cint;
   var
     app: PGtkApplication;

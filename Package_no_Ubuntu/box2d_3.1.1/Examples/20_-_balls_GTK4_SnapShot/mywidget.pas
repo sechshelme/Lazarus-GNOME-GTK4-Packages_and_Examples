@@ -3,8 +3,7 @@ unit MyWidget;
 interface
 
 uses
-  fp_glib2, fp_GTK4, fp_graphene, EngineCalc,
-  fp_box2d;
+  fp_glib2, fp_GTK4, fp_graphene, EngineCalc, fp_box2d;
 
 
 type
@@ -192,6 +191,7 @@ begin
   end;
 end;
 
+
 procedure snapshoot_cp(widget: PGtkWidget; snapshot: PGtkSnapshot); cdecl;
 var
   self: PMyWidget absolute widget;
@@ -232,7 +232,6 @@ begin
 
   gtk_snapshot_pop(snapshot);
 end;
-
 
 
 procedure finalize_cp(obj: PGObject); cdecl;
