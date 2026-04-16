@@ -69,8 +69,8 @@ var
   r: Tgraphene_rect_t;
 begin
   snapshot := gtk_snapshot_new();
-  graphene_rect_init(@r, -0.01, 0.0, 0.02, -1.0);
-  color.SetItems(0.1, 0.1, 0.9, 1.0);
+  graphene_rect_init(@r, -1.0, 0.0, 2.0, -100.0);
+  color.SetItems(0.9, 0.9, 0.1, 1.0);
   gtk_snapshot_append_color(snapshot, @color, @r);
 
   Result := gtk_snapshot_free_to_node(snapshot);
@@ -83,7 +83,7 @@ var
   r: Tgraphene_rect_t;
 begin
   snapshot := gtk_snapshot_new();
-  graphene_rect_init(@r, -0.01, 0.0, 0.02, -1.0);
+  graphene_rect_init(@r, -4.0, 0.0, 8.0, -100.0);
   color.SetItems(0.1, 0.9, 0.1, 1.0);
   gtk_snapshot_append_color(snapshot, @color, @r);
 
@@ -97,7 +97,7 @@ var
   r: Tgraphene_rect_t;
 begin
   snapshot := gtk_snapshot_new();
-  graphene_rect_init(@r, -0.01, 0.0, 0.02, -1.0);
+  graphene_rect_init(@r, -4.0, 0.0, 8.0, -70.0);
   color.SetItems(0.9, 0.1, 0.1, 1.0);
   gtk_snapshot_append_color(snapshot, @color, @r);
 
@@ -114,7 +114,27 @@ var
   ang_sec, ang_min, ang_hour: Single;
   now: PGDateTime;
   f_sec, f_min, f_hour: Single;
+
+var
+  self: PMyWidget absolute widget;
+
 begin
+  //with self^ do begin
+  //  if hand.second <> nil then  begin
+  //    gsk_render_node_unref(hand.second);
+  //  end;
+  //  if hand.minute <> nil then  begin
+  //    gsk_render_node_unref(hand.minute);
+  //  end;
+  //  if hand.hour <> nil then  begin
+  //    gsk_render_node_unref(hand.hour);
+  //  end;
+  //  hand.second := create_second_hand_node;
+  //  hand.minute := create_minute_hand_node;
+  //  hand.hour := create_hour_hand_node;
+  //end;
+  //
+
   width := gtk_widget_get_width(widget);
   height := gtk_widget_get_height(widget);
 
@@ -142,43 +162,35 @@ begin
 
   now := g_date_time_new_now_local;
 
-//  ang_sec := g_date_time_get_second(now) * 6;
-//  ang_min := g_date_time_get_minute(now) * 6;
-//  ang_hour := (g_date_time_get_hour(now) mod 12) * 30;
-
   f_sec := g_date_time_get_second(now) + (g_date_time_get_microsecond(now) / 1000000);
   ang_sec := f_sec * 6;
-
-  // 2. Minuten: Ganze Minuten + Sekunden-Anteil (0.0 bis 0.999)
   f_min := g_date_time_get_minute(now) + (f_sec / 60);
   ang_min := f_min * 6;
-
-  // 3. Stunden: Ganze Stunden (mod 12) + Minuten-Anteil (0.0 bis 0.999)
   f_hour := (g_date_time_get_hour(now) mod 12) + (f_min / 60);
   ang_hour := f_hour * 30;
 
-   g_date_time_unref(now);
-
-  // second
+  // hour
   gtk_snapshot_save(snapshot);
-  gtk_snapshot_scale(snapshot, height / 5, height / 5);
-  gtk_snapshot_rotate(snapshot, ang_sec);
-  gtk_snapshot_append_node(snapshot, PMyWidget(widget)^.hand.second);
+  gtk_snapshot_scale(snapshot, height / 500, height / 500);
+  gtk_snapshot_rotate(snapshot, ang_hour);
+  gtk_snapshot_append_node(snapshot, PMyWidget(widget)^.hand.hour);
   gtk_snapshot_restore(snapshot);
 
   // minute
   gtk_snapshot_save(snapshot);
-  gtk_snapshot_scale(snapshot, height / 5, height / 5);
+  gtk_snapshot_scale(snapshot, height / 500, height / 500);
   gtk_snapshot_rotate(snapshot, ang_min);
   gtk_snapshot_append_node(snapshot, PMyWidget(widget)^.hand.minute);
   gtk_snapshot_restore(snapshot);
 
-  // hour
+  // second
   gtk_snapshot_save(snapshot);
-  gtk_snapshot_scale(snapshot, height / 5, height / 5);
-  gtk_snapshot_rotate(snapshot, ang_hour);
-  gtk_snapshot_append_node(snapshot, PMyWidget(widget)^.hand.hour);
+  gtk_snapshot_scale(snapshot, height / 500, height / 500);
+  gtk_snapshot_rotate(snapshot, ang_sec);
+  gtk_snapshot_append_node(snapshot, PMyWidget(widget)^.hand.second);
   gtk_snapshot_restore(snapshot);
+
+  g_date_time_unref(now);
 
   gtk_snapshot_pop(snapshot);
 end;
