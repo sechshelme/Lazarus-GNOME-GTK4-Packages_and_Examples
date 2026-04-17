@@ -47,11 +47,11 @@ begin
   height := gtk_widget_get_height(widget);
   WriteLn(width,' x ',height);
 
-  if (width > 50) and (height > 50) then  begin
+  if (width > 0) and (height > 0) then  begin
     with self^ do begin
       aligned_width := (width + 3) and not 3;
       pl_stride := aligned_width * 3;
-      pl_pixels := g_malloc0(pl_stride * height);
+      pl_pixels := g_malloc0(pl_stride * (height+1));
 
       c_plsstrm(0);
       c_plsdev('mem');
