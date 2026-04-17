@@ -4,7 +4,7 @@ interface
 
 const
   {$IFDEF Linux}
-  libffi = 'libffi';
+  libffi = 'ffi';
   {$ENDIF}
 
   {$IFDEF Windows}

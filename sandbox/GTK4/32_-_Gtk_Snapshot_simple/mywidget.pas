@@ -108,33 +108,21 @@ end;
 procedure snapshoot_cp(widget: PGtkWidget; snapshot: PGtkSnapshot); cdecl;
 var
   r: Tgraphene_rect_t;
-  color: TGdkRGBA;
   width, height: single;
   p: Tgraphene_point_t;
-  ang_sec, ang_min, ang_hour: Single;
+  radius_size: Tgraphene_size_t;
+  color: TGdkRGBA;
+  rounded_rect: TGskRoundedRect;
+
+  ang_sec, ang_min, ang_hour: single;
   now: PGDateTime;
-  f_sec, f_min, f_hour: Single;
+  f_sec, f_min, f_hour: single;
 
 var
   self: PMyWidget absolute widget;
+  radius: single;
 
 begin
-  //with self^ do begin
-  //  if hand.second <> nil then  begin
-  //    gsk_render_node_unref(hand.second);
-  //  end;
-  //  if hand.minute <> nil then  begin
-  //    gsk_render_node_unref(hand.minute);
-  //  end;
-  //  if hand.hour <> nil then  begin
-  //    gsk_render_node_unref(hand.hour);
-  //  end;
-  //  hand.second := create_second_hand_node;
-  //  hand.minute := create_minute_hand_node;
-  //  hand.hour := create_hour_hand_node;
-  //end;
-  //
-
   width := gtk_widget_get_width(widget);
   height := gtk_widget_get_height(widget);
 
@@ -160,6 +148,8 @@ begin
   gtk_snapshot_append_node(snapshot, PMyWidget(widget)^.dial_node);
   gtk_snapshot_restore(snapshot);
 
+
+  // pointer
   now := g_date_time_new_now_local;
 
   f_sec := g_date_time_get_second(now) + (g_date_time_get_microsecond(now) / 1000000);
@@ -191,6 +181,18 @@ begin
   gtk_snapshot_restore(snapshot);
 
   g_date_time_unref(now);
+
+  // hub
+  color.SetItems(1.0, 0.8, 0.8, 1.0);
+
+  radius := height / 50.0;
+  graphene_rect_init(@r, -radius, -radius, radius * 2, radius * 2);
+
+  graphene_size_init(@radius_size, radius, radius);
+  gsk_rounded_rect_init(@rounded_rect, @r, @radius_size, @radius_size, @radius_size, @radius_size);
+  gtk_snapshot_push_rounded_clip(snapshot, @rounded_rect);
+  gtk_snapshot_append_color(snapshot, @color, @r);
+  gtk_snapshot_pop(snapshot);
 
   gtk_snapshot_pop(snapshot);
 end;
