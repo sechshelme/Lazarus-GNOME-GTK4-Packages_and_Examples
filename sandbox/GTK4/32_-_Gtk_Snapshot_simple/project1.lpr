@@ -35,28 +35,45 @@ const
     Result := G_SOURCE_CONTINUE;
   end;
 
-  procedure reset_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
-  var
-    mywidget: PMyWidget absolute user_data;
+  procedure new_color_r_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   begin
-    my_widget_set_color(mywidget, 1, 1, 0);
+    my_widget_set_color(user_data, 1.0, 0.0, 0.0);
   end;
+
+  procedure new_color_g_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
+  begin
+    my_widget_set_color(user_data, 0.0, 1.0, 0.0);
+  end;
+
+  procedure new_color_b_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
+  begin
+    my_widget_set_color(user_data, 0.0, 0.0, 1.0);
+  end;
+
+  function CreateTexture(col: PGdkRGBA): PGtkWidget;
+  var
+    bytes: PGBytes;
+    texture: PGdkTexture;
+  begin
+    bytes := g_bytes_new(@col^, SizeOf(TGdkRGBA));
+    texture := gdk_memory_texture_new(1, 1, GDK_MEMORY_R32G32B32A32_FLOAT, bytes, 4 * 4);
+    g_bytes_unref(bytes);
+    Result := gtk_image_new_from_paintable(GDK_PAINTABLE(texture));
+    g_object_unref(texture);
+  end;
+
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
-    window, box, button, mySnapShot, header_bar, new_button: PGtkWidget;
+    window, box, button, mySnapShot, header_bar, image: PGtkWidget;
     anyData: PAniData;
+    col: TGdkRGBA;
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'Belt Drive');
     gtk_window_set_default_size(GTK_WINDOW(window), 640, 400);
-
-    header_bar := gtk_header_bar_new;
-    gtk_window_set_titlebar(GTK_WINDOW(window), header_bar);
-    new_button := gtk_button_new_with_label('new');
-    gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), new_button);
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
     mySnapShot := GTK_WIDGET(my_widget_new);
@@ -65,16 +82,41 @@ const
     gtk_box_append(GTK_BOX(box), mySnapShot);
     gtk_widget_add_tick_callback(mySnapShot, @tick_cp, nil, nil);
 
-    g_signal_connect(new_button, 'clicked', G_CALLBACK(@reset_cp), mySnapShot);
+    // Header Bar
+    header_bar := gtk_header_bar_new;
+    gtk_window_set_titlebar(GTK_WINDOW(window), header_bar);
 
-    anyData := g_malloc(SizeOf(TAniData));
+    col.SetItems(1.0, 0.0, 0.0, 1.0);
+    image := CreateTexture(@col);
+    button := gtk_button_new;
+    gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), button);
+    gtk_button_set_child(GTK_BUTTON(button), image);
+    g_signal_connect(button, 'clicked', G_CALLBACK(@new_color_r_cp), mySnapShot);
 
+    col.SetItems(0.0, 1.0, 0.0, 1.0);
+    image := CreateTexture(@col);
+    button := gtk_button_new;
+    gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), button);
+    gtk_button_set_child(GTK_BUTTON(button), image);
+    g_signal_connect(button, 'clicked', G_CALLBACK(@new_color_g_cp), mySnapShot);
+
+    col.SetItems(0.0, 0.0, 1.0, 1.0);
+    image := CreateTexture(@col);
+    button := gtk_button_new;
+    gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), button);
+    gtk_button_set_child(GTK_BUTTON(button), image);
+    g_signal_connect(button, 'clicked', G_CALLBACK(@new_color_b_cp), mySnapShot);
+
+    // Quit Button
     button := gtk_button_new_with_label('Quit');
     g_signal_connect(button, 'clicked', G_CALLBACK(@quit_cp), window);
     gtk_box_append(GTK_BOX(box), button);
 
+    // Windows
     gtk_window_set_child(GTK_WINDOW(window), box);
     gtk_window_present(GTK_WINDOW(window));
+
+    anyData := g_malloc(SizeOf(TAniData));
   end;
 
   procedure main;
