@@ -4,16 +4,14 @@ uses
   Math,
   fp_glib2,
   fp_cairo,
-  fp_GTK4;
+  fp_GTK4,
+  MyWidget;
 
 type
   TAppData = record
-    x1, y1, x2, y2: double;
+    //    x1, y1, x2, y2: double;
   end;
   PAppData = ^TAppData;
-
-const
-  anyDataKey = 'anyKey';
 
   procedure quit_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
@@ -28,14 +26,13 @@ const
     x2, y2, r2: double;
     dx, dy, dist, angle, alpha: double;
   var
-    anyData: PAppData;
+    self: PMyWidget absolute drawing_area;
   begin
-    anyData := g_object_get_data(G_OBJECT(drawing_area), anyDataKey);
-    x1 := anyData^.x1 + 150;
-    y1 := anyData^.y1 + 180;
+    x1 := self^.x1 + 150;
+    y1 := self^.y1 + 180;
     r1 := 100;
-    x2 := anyData^.x2 + 550;
-    y2 := anyData^.y2 + 180;
+    x2 := self^.x2 + 550;
+    y2 := self^.y2 + 180;
     r2 := 15;
     dx := x2 - x1;
     dy := y2 - y1;
@@ -74,14 +71,17 @@ const
 
   function on_tick(widget: PGtkWidget; frame_clock: PGdkFrameClock; user_data: Tgpointer): Tgboolean; cdecl;
   var
-    anyData: PAppData;
-    current_time: double;
+    self: PMyWidget absolute widget;
+    x1, y1, x2, y2, current_time: double;
   begin
-    anyData := g_object_get_data(G_OBJECT(widget), anyDataKey);
     current_time := gdk_frame_clock_get_frame_time(frame_clock) / 500000.0;
 
-    anyData^.y1 := sin(current_time) * 50.0;
-    anyData^.y2 := sin(current_time * 1.13) * 80.0;
+    my_widget_get_coords(self, @x1, @y1, @x2, @y2);
+
+    y1 := sin(current_time) * 50.0;
+    y2 := sin(current_time * 1.13) * 80.0;
+
+    my_widget_set_coords(self, x1, y1, x2, y2);
 
     gtk_widget_queue_draw(widget);
 
@@ -93,10 +93,6 @@ const
     appData: PAppData absolute user_data;
   begin
     with appData^ do begin
-      x1 := 0.0;
-      y1 := 0.0;
-      x2 := 0.0;
-      y2 := 0.0;
     end;
   end;
 
@@ -121,18 +117,14 @@ const
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
 
-    drawing_area := gtk_drawing_area_new;
+    drawing_area := my_widget_new;
     gtk_widget_set_vexpand(drawing_area, True);
     gtk_widget_set_hexpand(drawing_area, True);
     gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(drawing_area), @draw_func, nil, nil);
     gtk_widget_add_tick_callback(drawing_area, @on_tick, nil, nil);
     gtk_box_append(GTK_BOX(box), drawing_area);
 
-    appData^.x1 := 0.0;
-    appData^.y1 := 0.0;
-    appData^.x2 := 0.0;
-    appData^.y2 := 0.0;
-    g_object_set_data_full(G_OBJECT(drawing_area), anyDataKey, appData, nil);
+    my_widget_set_coords(PMyWidget(drawing_area), 0.0, 0.0, 0.0, 0.0);
 
     button := gtk_button_new_with_label('Quit');
     g_signal_connect(button, 'clicked', G_CALLBACK(@quit_cp), window);
