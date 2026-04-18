@@ -5,11 +5,13 @@ uses
   fp_glib2,
   fp_cairo,
   fp_GTK4,
+  fp_pixman,
+  MyWidget,
   Beams;
 
 type
   TAppData = record
-    Beams: PBars;
+//    Beams: PBars;
   end;
   PAppData = ^TAppData;
 
@@ -25,62 +27,9 @@ const
 
   procedure reset_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
-    drawing_area: PGtkWidget absolute user_data;
-    appData: PAppData;
+    myw: PMyWidget absolute user_data;
   begin
-    appData := g_object_get_data(G_OBJECT(drawing_area), appDataKey);
-    bars_new_data(appData^.Beams);
-    gtk_widget_queue_draw(drawing_area);
-  end;
-
-  procedure draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
-  var
-    appData: PAppData;
-    i: integer;
-    px, py: array[0..3] of TPLFLT;
-    p: TPLFLT;
-  begin
-    appData := g_object_get_data(G_OBJECT(drawing_area), appDataKey);
-
-    with appData^ do begin
-      c_plsdev('extcairo');
-      c_plspage(0, 0, Width, Height, 0, 0);
-      c_plinit;
-      pl_cmd(PLESC_DEVINIT, cr);
-
-      c_pladv(0);
-      c_plvpor(0.15, 0.9, 0.15, 0.9);
-      c_plwind(0.0, bars_n(Beams) + 1.0, 0.0, bars_max_size(Beams) * 1.1);
-
-      for i := 0 to bars_n(Beams) - 1 do begin
-        p := i + 1.0;
-
-        px[0] := p - 0.4;
-        py[0] := 0.0;
-        px[1] := p - 0.4;
-        py[1] := bars_get_data(Beams, i);
-        px[2] := p + 0.4;
-        py[2] := bars_get_data(Beams, i);
-        px[3] := p + 0.4;
-        py[3] := 0.0;
-
-        c_plscol0(1, 255 - Trunc(255 / bars_n(Beams) * i), Trunc(255 / bars_n(Beams) * i), 0);
-        c_plcol0(1);
-        c_plfill(4, @px, @py);
-        c_plcol0(0);
-        c_plline(4, @px, @py);
-
-        c_plcol0(15);
-        c_plmtex('b', 1.5, (p / (bars_n(Beams) + 1)), 0.5, bars_get_label(Beams, i));
-      end;
-
-      c_plcol0(15);
-      c_plsyax(0, 0);
-      c_plbox('bc', 1.0, 0, 'bcnstv', 0.0, 0);
-
-      c_pllab('Jahre', 'Umsatz (sFr)', 'Bericht der letzen Jahre');
-      c_plend;
-    end;
+    my_widget_reset_data(myw);
   end;
 
   procedure startup_cp(app: PGtkApplication; user_data: Tgpointer); cdecl;
@@ -88,7 +37,7 @@ const
     appData: PAppData absolute user_data;
   begin
     with appData^ do begin
-      Beams := bars_new;
+//      Beams := bars_new;
     end;
   end;
 
@@ -97,14 +46,14 @@ const
     appData: PAppData absolute user_data;
   begin
     with appData^ do begin
-      bars_unref(Beams);
+//      bars_unref(Beams);
     end;
   end;
 
   procedure activate_cp(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     appData: PAppData absolute user_data;
-    window, box, button, drawing_area, header_bar, new_button: PGtkWidget;
+    window, box, button, drawing_area, header_bar, new_button, myw: PGtkWidget;
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 
@@ -119,16 +68,12 @@ const
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
 
-    drawing_area := gtk_drawing_area_new;
-    gtk_widget_set_vexpand(drawing_area, True);
-    gtk_widget_set_hexpand(drawing_area, True);
-    gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(drawing_area), @draw_func, nil, nil);
+    myw:=my_widget_new;
+    gtk_widget_set_vexpand(myw, True);
+    gtk_widget_set_hexpand(myw, True);
+    gtk_box_append(GTK_BOX(box), myw);
 
-    g_object_set_data_full(G_OBJECT(drawing_area), appDataKey, appData, nil);
-
-    g_signal_connect(new_button, 'clicked', G_CALLBACK(@reset_cp), drawing_area);
-
-    gtk_box_append(GTK_BOX(box), drawing_area);
+    g_signal_connect(new_button, 'clicked', G_CALLBACK(@reset_cp), myw);
 
     button := gtk_button_new_with_label('Quit');
     g_signal_connect(button, 'clicked', G_CALLBACK(@quit_cp), window);

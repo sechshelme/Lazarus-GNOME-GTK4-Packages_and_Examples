@@ -61,10 +61,10 @@ begin
     end;
 
     maxSize := 0.0;
-    beam_len := Random(24) + 1;
+    beam_len := g_random_int_range(1, 25);
     beam := g_malloc(SizeOf(TBeam) * beam_len);
     for i := 0 to beam_len - 1 do begin
-      h := Random * max_sFr + max_sFr;
+      h := g_random_double * max_sFr + max_sFr;
       beam[i].Data := h;
       if h > maxSize then begin
         maxSize := h;

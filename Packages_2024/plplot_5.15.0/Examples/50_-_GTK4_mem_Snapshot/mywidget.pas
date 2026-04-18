@@ -97,7 +97,7 @@ begin
       c_plend;
 
       bytes := g_bytes_new_take(pl_pixels, height * pl_stride);
-      texture := gdk_memory_texture_new(width, height, GDK_MEMORY_B8G8R8, bytes, pl_stride);
+      texture := gdk_memory_texture_new(width, height, GDK_MEMORY_R8G8B8, bytes, pl_stride);
 
       graphene_rect_init(@r, 0, 0, width, height);
 

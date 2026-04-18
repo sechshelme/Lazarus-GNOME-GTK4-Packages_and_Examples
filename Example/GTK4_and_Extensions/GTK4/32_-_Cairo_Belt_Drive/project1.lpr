@@ -7,10 +7,10 @@ uses
   fp_GTK4;
 
 type
-  TAniData = record
+  TAppData = record
     x1, y1, x2, y2: double;
   end;
-  PAniData = ^TAniData;
+  PAppData = ^TAppData;
 
 const
   anyDataKey = 'anyKey';
@@ -28,7 +28,7 @@ const
     x2, y2, r2: double;
     dx, dy, dist, angle, alpha: double;
   var
-    anyData: PAniData;
+    anyData: PAppData;
   begin
     anyData := g_object_get_data(G_OBJECT(drawing_area), anyDataKey);
     x1 := anyData^.x1 + 150;
@@ -74,7 +74,7 @@ const
 
   function on_tick(widget: PGtkWidget; frame_clock: PGdkFrameClock; user_data: Tgpointer): Tgboolean; cdecl;
   var
-    anyData: PAniData;
+    anyData: PAppData;
     current_time: double;
   begin
     anyData := g_object_get_data(G_OBJECT(widget), anyDataKey);
@@ -88,17 +88,30 @@ const
     Result := G_SOURCE_CONTINUE;
   end;
 
-  procedure anyData_free_cp(Data: Tgpointer); cdecl;
+  procedure startup_cp(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
-    anyData: PAniData absolute Data;
+    appData: PAppData absolute user_data;
   begin
-    g_free(anyData);
+    with appData^ do begin
+      x1 := 0.0;
+      y1 := 0.0;
+      x2 := 0.0;
+      y2 := 0.0;
+    end;
   end;
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
+  procedure shutdown_cp(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
+    appData: PAppData absolute user_data;
+  begin
+    with appData^ do begin
+    end;
+  end;
+
+  procedure activate_cp(app: PGtkApplication; user_data: Tgpointer); cdecl;
+  var
+    appData: PAppData absolute user_data;
     window, box, button, drawing_area: PGtkWidget;
-    anyData: PAniData;
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 
@@ -115,12 +128,11 @@ const
     gtk_widget_add_tick_callback(drawing_area, @on_tick, nil, nil);
     gtk_box_append(GTK_BOX(box), drawing_area);
 
-    anyData := g_malloc(SizeOf(TAniData));
-    anyData^.x1 := 0.0;
-    anyData^.y1 := 0.0;
-    anyData^.x2 := 0.0;
-    anyData^.y2 := 0.0;
-    g_object_set_data_full(G_OBJECT(drawing_area), anyDataKey, anyData, @anyData_free_cp);
+    appData^.x1 := 0.0;
+    appData^.y1 := 0.0;
+    appData^.x2 := 0.0;
+    appData^.y2 := 0.0;
+    g_object_set_data_full(G_OBJECT(drawing_area), anyDataKey, appData, nil);
 
     button := gtk_button_new_with_label('Quit');
     g_signal_connect(button, 'clicked', G_CALLBACK(@quit_cp), window);
@@ -130,13 +142,15 @@ const
     gtk_window_present(GTK_WINDOW(window));
   end;
 
-
   procedure main;
   var
     app: PGtkApplication;
+    appData: TAppData;
   begin
     app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
-    g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
+    g_signal_connect(app, 'startup', G_CALLBACK(@startup_cp), @appData);
+    g_signal_connect(app, 'activate', G_CALLBACK(@activate_cp), @appData);
+    g_signal_connect(app, 'shutdown', G_CALLBACK(@shutdown_cp), @appData);
     g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
   end;

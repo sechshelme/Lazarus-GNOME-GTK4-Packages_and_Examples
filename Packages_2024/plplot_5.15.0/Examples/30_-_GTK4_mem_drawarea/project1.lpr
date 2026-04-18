@@ -51,7 +51,7 @@ const
     with appData^ do begin
       aligned_width := (width + 3) and not 3;
       pl_stride := aligned_width * 3;
-      pl_pixels := g_malloc0(pl_stride * height);
+      pl_pixels := g_malloc0(pl_stride * (height + 1));
 
       c_plsstrm(0);
       c_plsdev('mem');
@@ -175,8 +175,6 @@ const
     app: PGtkApplication;
     appData: TAppData;
   begin
-    Randomize;
-
     app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'startup', G_CALLBACK(@startup_cp), @appData);
     g_signal_connect(app, 'activate', G_CALLBACK(@activate_cp), @appData);
