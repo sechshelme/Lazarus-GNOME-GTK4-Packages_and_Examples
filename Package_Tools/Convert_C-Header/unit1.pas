@@ -57,7 +57,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/cbor', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/libnm', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -91,7 +91,30 @@ begin
 
 
       slHeader[j] := StringReplace(slHeader[j], '_CBOR_NODISCARD', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'CBOR_EXPORT', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_10', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_12', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_14', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_16', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_18', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_20', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_22', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_24', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_30', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_32', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_34', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_38', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_42', 'extern', [rfReplaceAll]);
+
+      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_2', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_4', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_5', 'extern', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_8', 'extern', [rfReplaceAll]);
+
+
+      slHeader[j] := StringReplace(slHeader[j], 'NM_DEPRECATED_IN', '//xxxx NM_DEPRECATED_IN_', [rfReplaceAll]);
+
+
+      slHeader[j] := StringReplace(slHeader[j], 'NM_DEPRECATED_IN_1_22', '//xxxxxxxxx NM_DEPRECATED_IN_1_22', [rfReplaceAll]);
 
 
       slHeader[j] := StringReplace(slHeader[j], 'CGLM_EXPORT', 'extern', [rfReplaceAll]);

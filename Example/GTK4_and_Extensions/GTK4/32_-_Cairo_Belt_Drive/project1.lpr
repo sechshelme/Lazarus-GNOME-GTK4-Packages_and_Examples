@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  Math,
   fp_glib2,
   fp_cairo,
   fp_GTK4,
@@ -9,7 +8,6 @@ uses
 
 type
   TAppData = record
-    //       r1, r2, x1, y1, x2, y2: double;
   end;
   PAppData = ^TAppData;
 
@@ -45,7 +43,7 @@ type
     y2 := sin(current_time * 1.13) * 80.0;
     r1 := 80.0 + sin(current_time) * 20.0;
     r2 := 20.0 + sin(current_time) * 5.0;
-    my_widget_set_coords(self, r1, ofs_x1, ofs_y1 + y1, r2, ofs_x2, ofs_y2 + y2);
+    my_widget_set_coords(self,current_time, r1, ofs_x1, ofs_y1 + y1, r2, ofs_x2, ofs_y2 + y2);
 
     Result := G_SOURCE_CONTINUE;
   end;

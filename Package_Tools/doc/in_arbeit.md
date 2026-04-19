@@ -571,6 +571,9 @@ libbgfx
 
  libxslt   
 
+  libfl-dev  libfl2
+
+
 
 
 
@@ -596,6 +599,11 @@ thorvg und passagemath
 
 libarchive
 libjxl
+libcbor0.10    
+
+libswresample / libswscale
+
+https://github.com/lundmar/gtkchart
 
 
 
@@ -681,6 +689,8 @@ sudo apt install gr-framework  gr-framework-plugin-cairo  libgr-framework-dev
 
 
 
+
+https://github.com/lcallarec/live-chart
 
 
 
@@ -857,6 +867,38 @@ gh release create v1.0.0 --title "Mein erstes Release" --notes "Hier sind die Ä
 
 Extensionen für die Bash einschalten
 `shopt --help`
+
+
+
+# snapshot bug log
+
+commit a4fb6ddae300ebd147412d734cb7d97aafff3dca
+Author: Matthias Clasen <mclasen@redhat.com>
+Date:   Fri Apr 17 10:15:17 2026 -0400
+
+    transform: Better float comparisons
+    
+    G_APPROX_EQUAL (...FLT_EPSILON) really doesn't make much sense,
+    since floats are not equally spaced, and the ones below 1 are
+    closer together than FLT_EPSILON. What we really need here is
+    an equivalence relation, and anything based on a uniform measure
+    of distance is not going to be transitive.
+    
+    So instead, and against the common advice on the street, just
+    compare for equality. This leads to false negatives, but we already
+    err on the side of considering transforms not equal even though
+    they might have the same effect.
+    
+    In the few places where we use graphene for comparisons, use
+    graphene_...near (... FLT_MIN), which is effectively an ==
+    comparison as well, since FLT_MIN is the smallest difference
+    between any non-zero floats.
+    
+    Fixes: #8146
+    Fixes: 40beb69487624113a92cef8d1ed9ad3aaebc859b
+    Part-of: <https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/9821>
+
+
 
 
 
