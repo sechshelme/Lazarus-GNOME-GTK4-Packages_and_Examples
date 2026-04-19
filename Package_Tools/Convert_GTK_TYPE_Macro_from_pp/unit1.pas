@@ -152,6 +152,8 @@ begin
   sl := TStringList.Create;
   sl.LoadFromFile(SourcePath);
 
+  sl[1]:=StringReplace(sl[1],'-','_',[rfReplaceAll]);
+
   sl.Text := StringReplace(sl.Text, '(o : longint)', '(obj : longint)', [rfReplaceAll]);
   sl.Text := StringReplace(sl.Text, '(_object : longint)', '(obj : longint)', [rfReplaceAll]);
   sl.Text := StringReplace(sl.Text, '(object : longint)', '(obj : longint)', [rfReplaceAll]);

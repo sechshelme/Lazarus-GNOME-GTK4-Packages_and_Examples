@@ -317,9 +317,7 @@ const
     (libs: 'libcbor'; units: 'fp_gtk4'),
 
 
-
-
-
+    (libs: 'libnm'; units: 'fp_glib2, fp_nm'),
 
 
 

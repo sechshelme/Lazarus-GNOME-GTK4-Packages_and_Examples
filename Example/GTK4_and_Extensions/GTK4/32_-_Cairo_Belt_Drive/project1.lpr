@@ -96,7 +96,7 @@ type
     app: PGtkApplication;
     appData: TAppData;
   begin
-    app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
+    app := gtk_application_new('org.gtk.beltdrive.example', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'startup', G_CALLBACK(@startup_cp), @appData);
     g_signal_connect(app, 'activate', G_CALLBACK(@activate_cp), @appData);
     g_signal_connect(app, 'shutdown', G_CALLBACK(@shutdown_cp), @appData);
