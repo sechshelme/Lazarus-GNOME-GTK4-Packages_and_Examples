@@ -13,10 +13,13 @@ type
 
   TForm1 = class(TForm)
     Button1: TButton;
+    Button2: TButton;
     Memo1: TMemo;
     procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
+    procedure Scan(old:Boolean);
 
   public
 
@@ -32,11 +35,11 @@ implementation
 { TForm1 }
 
 const
-  srcPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/cbor';
+  srcPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/fwupd-1/libfwupd';
 
   destPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/packagesxx';
 
-procedure TForm1.Button1Click(Sender: TObject);
+procedure TForm1.Scan(old: Boolean);
 var
   slFile, unit_source, inc_dest: TStringList;
   i, j: integer;
@@ -71,7 +74,7 @@ begin
       end;
     until p <> 0;
 
-    inc_dest.Add('{$IFDEF read_interface}');
+if old then    inc_dest.Add('{$IFDEF read_interface}');
 
     // implementation C suchen
     repeat
@@ -91,8 +94,10 @@ begin
     until p = 1;
 
 
+if old then begin
     inc_dest.Add('{$ENDIF read_interface}');
     inc_dest.Add('');
+    end;
     inc_dest.Add('');
     inc_dest.Add('{$IFDEF read_implementation}');
     inc_dest.Add('');
@@ -130,6 +135,19 @@ begin
 
   slFile.Free;
 end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+   Scan(False);
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+  Scan(True);
+end;
+
+
+
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin

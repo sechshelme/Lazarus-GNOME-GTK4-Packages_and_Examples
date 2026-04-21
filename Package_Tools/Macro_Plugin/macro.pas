@@ -72,7 +72,7 @@ begin
   Editor := SourceEditorManagerIntf.ActiveEditor;
 
   if Editor <> nil then  begin
-    Editor.Selection := pchar(TComponent(Sender).Tag) + #10;
+    Editor.Selection := pchar(TComponent(Sender).Tag);
   end;
 end;
 
