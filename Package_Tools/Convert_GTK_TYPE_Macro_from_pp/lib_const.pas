@@ -318,6 +318,7 @@ const
 
 
     (libs: 'libnm'; units: 'fp_glib2, fp_nm'),
+    (libs: 'libfwupd'; units: 'fp_glib2, fp_fwupd'),
 
 
 

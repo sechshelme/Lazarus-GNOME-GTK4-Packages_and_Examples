@@ -57,7 +57,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/libnm', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/fwupd-1/libfwupd', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -111,6 +111,8 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_8', 'extern', [rfReplaceAll]);
 
 
+
+
       slHeader[j] := StringReplace(slHeader[j], 'NM_DEPRECATED_IN', '//xxxx NM_DEPRECATED_IN_', [rfReplaceAll]);
 
 
@@ -131,6 +133,7 @@ begin
 
 
       slHeader[j] := StringReplace(slHeader[j], 'G_DECLARE_DERIVABLE_TYPE', '//G_DECLARE_DERIVABLE_TYPE', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NON_NULL(1)', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NON_NULL(1, 2)', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_WARN_UNUSED_RESULT', '', [rfReplaceAll]);
 

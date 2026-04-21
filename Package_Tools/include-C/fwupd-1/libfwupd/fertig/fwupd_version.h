@@ -36,22 +36,12 @@
 /* clang-format on */
 
 /**
- * FWUPD_CHECK_VERSION:
- * @major: Major version number
- * @minor: Minor version number
- * @micro: Micro version number
- *
- * Check whether a fwupd version equal to or greater than
- * major.minor.micro.
- *
- * These compile time macros allow the user to enable parts of client code
- * depending on the version of libfwupd installed.
- */
 #define FWUPD_CHECK_VERSION(major, minor, micro)                                                   \
 	(FWUPD_MAJOR_VERSION > major ||                                                            \
 	 (FWUPD_MAJOR_VERSION == major && FWUPD_MINOR_VERSION > minor) ||                          \
 	 (FWUPD_MAJOR_VERSION == major && FWUPD_MINOR_VERSION == minor &&                          \
 	  FWUPD_MICRO_VERSION >= micro))
+ */
 
 const gchar *
 fwupd_version_string(void);

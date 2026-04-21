@@ -8,10 +8,10 @@
 
 #include <glib-object.h>
 
-G_BEGIN_DECLS
+
 
 #define FWUPD_TYPE_REQUEST (fwupd_request_get_type())
-G_DECLARE_DERIVABLE_TYPE(FwupdRequest, fwupd_request, FWUPD, REQUEST, GObject)
+////G_DECLARE_DERIVABLE_TYPE(FwupdRequest, fwupd_request, FWUPD, REQUEST, GObject)
 
 struct _FwupdRequestClass {
 	GObjectClass parent_class;
@@ -186,46 +186,46 @@ fwupd_request_flag_from_string(const gchar *flag);
 FwupdRequest *
 fwupd_request_new(void);
 gchar *
-fwupd_request_to_string(FwupdRequest *self) G_GNUC_NON_NULL(1);
+fwupd_request_to_string(FwupdRequest *self) ;
 
 const gchar *
-fwupd_request_get_id(FwupdRequest *self) G_GNUC_NON_NULL(1);
+fwupd_request_get_id(FwupdRequest *self) ;
 void
-fwupd_request_set_id(FwupdRequest *self, const gchar *id) G_GNUC_NON_NULL(1);
+fwupd_request_set_id(FwupdRequest *self, const gchar *id) ;
 guint64
-fwupd_request_get_created(FwupdRequest *self) G_GNUC_NON_NULL(1);
+fwupd_request_get_created(FwupdRequest *self) ;
 void
-fwupd_request_set_created(FwupdRequest *self, guint64 created) G_GNUC_NON_NULL(1);
+fwupd_request_set_created(FwupdRequest *self, guint64 created) ;
 const gchar *
-fwupd_request_get_device_id(FwupdRequest *self) G_GNUC_NON_NULL(1);
+fwupd_request_get_device_id(FwupdRequest *self) ;
 void
-fwupd_request_set_device_id(FwupdRequest *self, const gchar *device_id) G_GNUC_NON_NULL(1);
+fwupd_request_set_device_id(FwupdRequest *self, const gchar *device_id) ;
 const gchar *
-fwupd_request_get_message(FwupdRequest *self) G_GNUC_NON_NULL(1);
+fwupd_request_get_message(FwupdRequest *self) ;
 void
-fwupd_request_set_message(FwupdRequest *self, const gchar *message) G_GNUC_NON_NULL(1);
+fwupd_request_set_message(FwupdRequest *self, const gchar *message) ;
 const gchar *
-fwupd_request_get_image(FwupdRequest *self) G_GNUC_NON_NULL(1);
+fwupd_request_get_image(FwupdRequest *self) ;
 void
-fwupd_request_set_image(FwupdRequest *self, const gchar *image) G_GNUC_NON_NULL(1);
+fwupd_request_set_image(FwupdRequest *self, const gchar *image) ;
 FwupdRequestKind
-fwupd_request_get_kind(FwupdRequest *self) G_GNUC_NON_NULL(1);
+fwupd_request_get_kind(FwupdRequest *self) ;
 void
-fwupd_request_set_kind(FwupdRequest *self, FwupdRequestKind kind) G_GNUC_NON_NULL(1);
+fwupd_request_set_kind(FwupdRequest *self, FwupdRequestKind kind) ;
 
 FwupdRequestFlags
-fwupd_request_get_flags(FwupdRequest *self) G_GNUC_NON_NULL(1);
+fwupd_request_get_flags(FwupdRequest *self) ;
 void
-fwupd_request_set_flags(FwupdRequest *self, FwupdRequestFlags flags) G_GNUC_NON_NULL(1);
+fwupd_request_set_flags(FwupdRequest *self, FwupdRequestFlags flags) ;
 void
-fwupd_request_add_flag(FwupdRequest *self, FwupdRequestFlags flag) G_GNUC_NON_NULL(1);
+fwupd_request_add_flag(FwupdRequest *self, FwupdRequestFlags flag) ;
 void
-fwupd_request_remove_flag(FwupdRequest *self, FwupdRequestFlags flag) G_GNUC_NON_NULL(1);
+fwupd_request_remove_flag(FwupdRequest *self, FwupdRequestFlags flag) ;
 gboolean
-fwupd_request_has_flag(FwupdRequest *self, FwupdRequestFlags flag) G_GNUC_WARN_UNUSED_RESULT
-    G_GNUC_NON_NULL(1);
+fwupd_request_has_flag(FwupdRequest *self, FwupdRequestFlags flag) 
+    ;
 
 FwupdRequest *
 fwupd_request_from_variant(GVariant *value);
 
-G_END_DECLS
+

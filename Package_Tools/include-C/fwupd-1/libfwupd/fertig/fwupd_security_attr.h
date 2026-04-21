@@ -11,10 +11,10 @@
 #include "fwupd-build.h"
 #include "fwupd-enums.h"
 
-G_BEGIN_DECLS
+
 
 #define FWUPD_TYPE_SECURITY_ATTR (fwupd_security_attr_get_type())
-G_DECLARE_DERIVABLE_TYPE(FwupdSecurityAttr, fwupd_security_attr, FWUPD, SECURITY_ATTR, GObject)
+////G_DECLARE_DERIVABLE_TYPE(FwupdSecurityAttr, fwupd_security_attr, FWUPD, SECURITY_ATTR, GObject)
 
 struct _FwupdSecurityAttrClass {
 	GObjectClass parent_class;
@@ -129,122 +129,122 @@ typedef enum {
 FwupdSecurityAttr *
 fwupd_security_attr_new(const gchar *appstream_id);
 gchar *
-fwupd_security_attr_to_string(FwupdSecurityAttr *self) G_GNUC_NON_NULL(1);
+fwupd_security_attr_to_string(FwupdSecurityAttr *self) ;
 
 const gchar *
-fwupd_security_attr_get_bios_setting_id(FwupdSecurityAttr *self) G_GNUC_NON_NULL(1);
+fwupd_security_attr_get_bios_setting_id(FwupdSecurityAttr *self) ;
 void
 fwupd_security_attr_set_bios_setting_id(FwupdSecurityAttr *self, const gchar *id)
-    G_GNUC_NON_NULL(1);
+    ;
 const gchar *
-fwupd_security_attr_get_bios_setting_target_value(FwupdSecurityAttr *self) G_GNUC_NON_NULL(1);
+fwupd_security_attr_get_bios_setting_target_value(FwupdSecurityAttr *self) ;
 void
 fwupd_security_attr_set_bios_setting_target_value(FwupdSecurityAttr *self, const gchar *value)
-    G_GNUC_NON_NULL(1);
+    ;
 const gchar *
-fwupd_security_attr_get_bios_setting_current_value(FwupdSecurityAttr *self) G_GNUC_NON_NULL(1);
+fwupd_security_attr_get_bios_setting_current_value(FwupdSecurityAttr *self) ;
 void
 fwupd_security_attr_set_bios_setting_current_value(FwupdSecurityAttr *self, const gchar *value)
-    G_GNUC_NON_NULL(1);
+    ;
 const gchar *
-fwupd_security_attr_get_kernel_current_value(FwupdSecurityAttr *self) G_GNUC_NON_NULL(1);
+fwupd_security_attr_get_kernel_current_value(FwupdSecurityAttr *self) ;
 void
 fwupd_security_attr_set_kernel_current_value(FwupdSecurityAttr *self, const gchar *value)
-    G_GNUC_NON_NULL(1);
+    ;
 const gchar *
-fwupd_security_attr_get_kernel_target_value(FwupdSecurityAttr *self) G_GNUC_NON_NULL(1);
+fwupd_security_attr_get_kernel_target_value(FwupdSecurityAttr *self) ;
 void
 fwupd_security_attr_set_kernel_target_value(FwupdSecurityAttr *self, const gchar *value)
-    G_GNUC_NON_NULL(1);
+    ;
 
 const gchar *
-fwupd_security_attr_get_appstream_id(FwupdSecurityAttr *self) G_GNUC_NON_NULL(1);
+fwupd_security_attr_get_appstream_id(FwupdSecurityAttr *self) ;
 void
 fwupd_security_attr_set_appstream_id(FwupdSecurityAttr *self, const gchar *appstream_id)
-    G_GNUC_NON_NULL(1);
+    ;
 FwupdSecurityAttrLevel
-fwupd_security_attr_get_level(FwupdSecurityAttr *self) G_GNUC_NON_NULL(1);
+fwupd_security_attr_get_level(FwupdSecurityAttr *self) ;
 void
 fwupd_security_attr_set_level(FwupdSecurityAttr *self, FwupdSecurityAttrLevel level)
-    G_GNUC_NON_NULL(1);
+    ;
 FwupdSecurityAttrResult
-fwupd_security_attr_get_result(FwupdSecurityAttr *self) G_GNUC_NON_NULL(1);
+fwupd_security_attr_get_result(FwupdSecurityAttr *self) ;
 void
 fwupd_security_attr_set_result(FwupdSecurityAttr *self, FwupdSecurityAttrResult result)
-    G_GNUC_NON_NULL(1);
+    ;
 FwupdSecurityAttrResult
-fwupd_security_attr_get_result_fallback(FwupdSecurityAttr *self) G_GNUC_NON_NULL(1);
+fwupd_security_attr_get_result_fallback(FwupdSecurityAttr *self) ;
 void
 fwupd_security_attr_set_result_fallback(FwupdSecurityAttr *self, FwupdSecurityAttrResult result)
-    G_GNUC_NON_NULL(1);
+    ;
 FwupdSecurityAttrResult
-fwupd_security_attr_get_result_success(FwupdSecurityAttr *self) G_GNUC_NON_NULL(1);
+fwupd_security_attr_get_result_success(FwupdSecurityAttr *self) ;
 void
 fwupd_security_attr_set_result_success(FwupdSecurityAttr *self, FwupdSecurityAttrResult result)
-    G_GNUC_NON_NULL(1);
+    ;
 const gchar *
-fwupd_security_attr_get_name(FwupdSecurityAttr *self) G_GNUC_NON_NULL(1);
+fwupd_security_attr_get_name(FwupdSecurityAttr *self) ;
 void
-fwupd_security_attr_set_name(FwupdSecurityAttr *self, const gchar *name) G_GNUC_NON_NULL(1);
+fwupd_security_attr_set_name(FwupdSecurityAttr *self, const gchar *name) ;
 const gchar *
-fwupd_security_attr_get_title(FwupdSecurityAttr *self) G_GNUC_NON_NULL(1);
+fwupd_security_attr_get_title(FwupdSecurityAttr *self) ;
 void
-fwupd_security_attr_set_title(FwupdSecurityAttr *self, const gchar *title) G_GNUC_NON_NULL(1);
+fwupd_security_attr_set_title(FwupdSecurityAttr *self, const gchar *title) ;
 const gchar *
-fwupd_security_attr_get_description(FwupdSecurityAttr *self) G_GNUC_NON_NULL(1);
+fwupd_security_attr_get_description(FwupdSecurityAttr *self) ;
 void
 fwupd_security_attr_set_description(FwupdSecurityAttr *self, const gchar *description)
-    G_GNUC_NON_NULL(1);
+    ;
 const gchar *
-fwupd_security_attr_get_plugin(FwupdSecurityAttr *self) G_GNUC_NON_NULL(1);
+fwupd_security_attr_get_plugin(FwupdSecurityAttr *self) ;
 void
-fwupd_security_attr_set_plugin(FwupdSecurityAttr *self, const gchar *plugin) G_GNUC_NON_NULL(1);
+fwupd_security_attr_set_plugin(FwupdSecurityAttr *self, const gchar *plugin) ;
 const gchar *
-fwupd_security_attr_get_url(FwupdSecurityAttr *self) G_GNUC_NON_NULL(1);
+fwupd_security_attr_get_url(FwupdSecurityAttr *self) ;
 void
-fwupd_security_attr_set_url(FwupdSecurityAttr *self, const gchar *url) G_GNUC_NON_NULL(1);
+fwupd_security_attr_set_url(FwupdSecurityAttr *self, const gchar *url) ;
 guint64
-fwupd_security_attr_get_created(FwupdSecurityAttr *self) G_GNUC_NON_NULL(1);
+fwupd_security_attr_get_created(FwupdSecurityAttr *self) ;
 void
-fwupd_security_attr_set_created(FwupdSecurityAttr *self, guint64 created) G_GNUC_NON_NULL(1);
+fwupd_security_attr_set_created(FwupdSecurityAttr *self, guint64 created) ;
 GPtrArray *
-fwupd_security_attr_get_obsoletes(FwupdSecurityAttr *self) G_GNUC_NON_NULL(1);
+fwupd_security_attr_get_obsoletes(FwupdSecurityAttr *self) ;
 void
 fwupd_security_attr_add_obsolete(FwupdSecurityAttr *self, const gchar *appstream_id)
-    G_GNUC_NON_NULL(1, 2);
+    ;
 gboolean
 fwupd_security_attr_has_obsolete(FwupdSecurityAttr *self,
-				 const gchar *appstream_id) G_GNUC_WARN_UNUSED_RESULT
-    G_GNUC_NON_NULL(1, 2);
+				 const gchar *appstream_id) 
+    ;
 GPtrArray *
-fwupd_security_attr_get_guids(FwupdSecurityAttr *self) G_GNUC_NON_NULL(1);
+fwupd_security_attr_get_guids(FwupdSecurityAttr *self) ;
 void
-fwupd_security_attr_add_guid(FwupdSecurityAttr *self, const gchar *guid) G_GNUC_NON_NULL(1, 2);
+fwupd_security_attr_add_guid(FwupdSecurityAttr *self, const gchar *guid) ;
 void
-fwupd_security_attr_add_guids(FwupdSecurityAttr *self, GPtrArray *guids) G_GNUC_NON_NULL(1, 2);
+fwupd_security_attr_add_guids(FwupdSecurityAttr *self, GPtrArray *guids) ;
 gboolean
-fwupd_security_attr_has_guid(FwupdSecurityAttr *self, const gchar *guid) G_GNUC_WARN_UNUSED_RESULT
-    G_GNUC_NON_NULL(1, 2);
+fwupd_security_attr_has_guid(FwupdSecurityAttr *self, const gchar *guid) 
+    ;
 const gchar *
-fwupd_security_attr_get_metadata(FwupdSecurityAttr *self, const gchar *key) G_GNUC_NON_NULL(1, 2);
+fwupd_security_attr_get_metadata(FwupdSecurityAttr *self, const gchar *key) ;
 void
 fwupd_security_attr_add_metadata(FwupdSecurityAttr *self, const gchar *key, const gchar *value)
-    G_GNUC_NON_NULL(1, 2);
+    ;
 FwupdSecurityAttrFlags
-fwupd_security_attr_get_flags(FwupdSecurityAttr *self) G_GNUC_NON_NULL(1);
+fwupd_security_attr_get_flags(FwupdSecurityAttr *self) ;
 void
 fwupd_security_attr_set_flags(FwupdSecurityAttr *self, FwupdSecurityAttrFlags flags)
-    G_GNUC_NON_NULL(1);
+    ;
 void
 fwupd_security_attr_add_flag(FwupdSecurityAttr *self, FwupdSecurityAttrFlags flag)
-    G_GNUC_NON_NULL(1);
+    ;
 void
 fwupd_security_attr_remove_flag(FwupdSecurityAttr *self, FwupdSecurityAttrFlags flag)
-    G_GNUC_NON_NULL(1);
+    ;
 gboolean
 fwupd_security_attr_has_flag(FwupdSecurityAttr *self,
-			     FwupdSecurityAttrFlags flag) G_GNUC_WARN_UNUSED_RESULT
-    G_GNUC_NON_NULL(1);
+			     FwupdSecurityAttrFlags flag) 
+    ;
 const gchar *
 fwupd_security_attr_flag_to_string(FwupdSecurityAttrFlags flag);
 FwupdSecurityAttrFlags
@@ -257,8 +257,8 @@ FwupdSecurityAttrResult
 fwupd_security_attr_result_from_string(const gchar *result);
 
 FwupdSecurityAttr *
-fwupd_security_attr_from_variant(GVariant *value) G_GNUC_NON_NULL(1);
+fwupd_security_attr_from_variant(GVariant *value) ;
 GPtrArray *
-fwupd_security_attr_array_from_variant(GVariant *value) G_GNUC_NON_NULL(1);
+fwupd_security_attr_array_from_variant(GVariant *value) ;
 
-G_END_DECLS
+
