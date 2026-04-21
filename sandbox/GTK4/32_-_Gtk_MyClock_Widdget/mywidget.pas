@@ -148,7 +148,6 @@ begin
   gtk_snapshot_append_node(snapshot, PMyWidget(widget)^.dial_node);
   gtk_snapshot_restore(snapshot);
 
-
   // pointer
   now := g_date_time_new_now_local;
 
