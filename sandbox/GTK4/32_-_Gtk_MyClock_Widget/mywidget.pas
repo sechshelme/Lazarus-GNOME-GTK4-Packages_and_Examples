@@ -21,9 +21,9 @@ type
   end;
   PMyWidgetClass = ^TMyWidgetClass;
 
-function my_widget_get_type: TGType;
-function my_widget_new: PGTKWidget;
-procedure my_widget_set_color(self: PMyWidget; r, g, b: single);
+function my_widget_get_type: TGType; cdecl;
+function my_widget_new: PGTKWidget; cdecl;
+procedure my_widget_set_color(self: PMyWidget; r, g, b: single); cdecl;
 
 implementation
 
@@ -113,14 +113,9 @@ var
   radius_size: Tgraphene_size_t;
   color: TGdkRGBA;
   rounded_rect: TGskRoundedRect;
-
-  ang_sec, ang_min, ang_hour: single;
-  now: PGDateTime;
-  f_sec, f_min, f_hour: single;
-
-var
-  self: PMyWidget absolute widget;
+  ang_sec, ang_min, ang_hour, f_sec, f_min, f_hour: single;
   radius: single;
+  now: PGDateTime;
 
 begin
   width := gtk_widget_get_width(widget);
@@ -144,7 +139,7 @@ begin
 
   // deal
   gtk_snapshot_save(snapshot);
-  gtk_snapshot_scale(snapshot, height / 5, height / 5);
+  gtk_snapshot_scale(snapshot, height / 3, height / 3);
   gtk_snapshot_append_node(snapshot, PMyWidget(widget)^.dial_node);
   gtk_snapshot_restore(snapshot);
 
@@ -160,21 +155,21 @@ begin
 
   // hour
   gtk_snapshot_save(snapshot);
-  gtk_snapshot_scale(snapshot, height / 500, height / 500);
+  gtk_snapshot_scale(snapshot, height / 300, height / 300);
   gtk_snapshot_rotate(snapshot, ang_hour);
   gtk_snapshot_append_node(snapshot, PMyWidget(widget)^.hand.hour);
   gtk_snapshot_restore(snapshot);
 
   // minute
   gtk_snapshot_save(snapshot);
-  gtk_snapshot_scale(snapshot, height / 500, height / 500);
+  gtk_snapshot_scale(snapshot, height / 300, height / 300);
   gtk_snapshot_rotate(snapshot, ang_min);
   gtk_snapshot_append_node(snapshot, PMyWidget(widget)^.hand.minute);
   gtk_snapshot_restore(snapshot);
 
   // second
   gtk_snapshot_save(snapshot);
-  gtk_snapshot_scale(snapshot, height / 500, height / 500);
+  gtk_snapshot_scale(snapshot, height / 300, height / 300);
   gtk_snapshot_rotate(snapshot, ang_sec);
   gtk_snapshot_append_node(snapshot, PMyWidget(widget)^.hand.second);
   gtk_snapshot_restore(snapshot);
@@ -224,6 +219,12 @@ begin
   parent_class := g_type_class_peek_parent(g_class);
 end;
 
+function tick_cp(widget: PGtkWidget; frame_clock: PGdkFrameClock; user_data: Tgpointer): Tgboolean; cdecl;
+begin
+  gtk_widget_queue_draw(widget);
+  Result := G_SOURCE_CONTINUE;
+end;
+
 procedure init_cp(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
 var
   self: PMyWidget absolute instance;
@@ -234,12 +235,14 @@ begin
   self^.hand.second := create_second_hand_node;
   self^.hand.minute := create_minute_hand_node;
   self^.hand.hour := create_hour_hand_node;
+
+  gtk_widget_add_tick_callback(GTK_WIDGET(self), @tick_cp, nil, nil);
 end;
 
 
 // ==== public
 
-function my_widget_get_type: TGType;
+function my_widget_get_type: TGType; cdecl;
 const
   type_id: TGType = 0;
 var
@@ -252,14 +255,12 @@ begin
   Result := type_id;
 end;
 
-function my_widget_new: PGTKWidget;
-var
-  self: PMyWidget absolute Result;
+function my_widget_new: PGTKWidget; cdecl;
 begin
   Result := g_object_new(my_widget_get_type, nil);
 end;
 
-procedure my_widget_set_color(self: PMyWidget; r, g, b: single);
+procedure my_widget_set_color(self: PMyWidget; r, g, b: single); cdecl;
 begin
   self^.custom_color.SetItems(r, g, b, 1.0);
   gtk_widget_queue_draw(GTK_WIDGET(self));
