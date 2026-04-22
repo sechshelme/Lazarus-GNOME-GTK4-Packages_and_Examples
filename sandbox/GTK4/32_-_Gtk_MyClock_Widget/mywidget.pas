@@ -47,15 +47,15 @@ begin
     gtk_snapshot_save(snapshot);
     gtk_snapshot_rotate(snapshot, i * 6);
 
-    if (i mod 5 = 0) then begin
-      tw := 0.04;
-      th := 0.10;
-    end else begin
+    if i mod 5 = 0 then begin
       tw := 0.02;
       th := 0.05;
+    end else begin
+      tw := 0.01;
+      th := 0.025;
     end;
 
-    graphene_rect_init(@r, -(tw / 2), -1.0, tw, th);
+    graphene_rect_init(@r, -(tw / 2), -0.50, tw, th);
     gtk_snapshot_append_color(snapshot, @color, @r);
     gtk_snapshot_restore(snapshot);
   end;
@@ -69,7 +69,7 @@ var
   r: Tgraphene_rect_t;
 begin
   snapshot := gtk_snapshot_new();
-  graphene_rect_init(@r, -1.0, 0.0, 2.0, -100.0);
+  graphene_rect_init(@r, -0.005, 0.0, 0.01, -0.47);
   color.SetItems(0.9, 0.9, 0.1, 1.0);
   gtk_snapshot_append_color(snapshot, @color, @r);
 
@@ -83,7 +83,7 @@ var
   r: Tgraphene_rect_t;
 begin
   snapshot := gtk_snapshot_new();
-  graphene_rect_init(@r, -4.0, 0.0, 8.0, -100.0);
+  graphene_rect_init(@r, -0.02, 0.0, 0.04, -0.47);
   color.SetItems(0.1, 0.9, 0.1, 1.0);
   gtk_snapshot_append_color(snapshot, @color, @r);
 
@@ -97,7 +97,7 @@ var
   r: Tgraphene_rect_t;
 begin
   snapshot := gtk_snapshot_new();
-  graphene_rect_init(@r, -4.0, 0.0, 8.0, -70.0);
+  graphene_rect_init(@r, -0.02, 0.0, 0.04, -0.3);
   color.SetItems(0.9, 0.1, 0.1, 1.0);
   gtk_snapshot_append_color(snapshot, @color, @r);
 
@@ -121,6 +121,12 @@ begin
   width := gtk_widget_get_width(widget);
   height := gtk_widget_get_height(widget);
 
+  if width > height then begin
+    radius := height * 0.8;
+  end else begin
+    radius := width * 0.8;
+  end;
+
   graphene_rect_init(@r, 0, 0, width, height);
   gtk_snapshot_push_clip(snapshot, @r);
 
@@ -139,7 +145,7 @@ begin
 
   // deal
   gtk_snapshot_save(snapshot);
-  gtk_snapshot_scale(snapshot, height / 3, height / 3);
+  gtk_snapshot_scale(snapshot, radius, radius);
   gtk_snapshot_append_node(snapshot, PMyWidget(widget)^.dial_node);
   gtk_snapshot_restore(snapshot);
 
@@ -155,21 +161,21 @@ begin
 
   // hour
   gtk_snapshot_save(snapshot);
-  gtk_snapshot_scale(snapshot, height / 300, height / 300);
+  gtk_snapshot_scale(snapshot, radius, radius);
   gtk_snapshot_rotate(snapshot, ang_hour);
   gtk_snapshot_append_node(snapshot, PMyWidget(widget)^.hand.hour);
   gtk_snapshot_restore(snapshot);
 
   // minute
   gtk_snapshot_save(snapshot);
-  gtk_snapshot_scale(snapshot, height / 300, height / 300);
+  gtk_snapshot_scale(snapshot, radius, radius);
   gtk_snapshot_rotate(snapshot, ang_min);
   gtk_snapshot_append_node(snapshot, PMyWidget(widget)^.hand.minute);
   gtk_snapshot_restore(snapshot);
 
   // second
   gtk_snapshot_save(snapshot);
-  gtk_snapshot_scale(snapshot, height / 300, height / 300);
+  gtk_snapshot_scale(snapshot, radius, radius);
   gtk_snapshot_rotate(snapshot, ang_sec);
   gtk_snapshot_append_node(snapshot, PMyWidget(widget)^.hand.second);
   gtk_snapshot_restore(snapshot);
@@ -179,7 +185,7 @@ begin
   // hub
   color.SetItems(1.0, 0.8, 0.8, 1.0);
 
-  radius := height / 50.0;
+  radius := height / 40.0;
   graphene_rect_init(@r, -radius, -radius, radius * 2, radius * 2);
 
   graphene_size_init(@radius_size, radius, radius);
