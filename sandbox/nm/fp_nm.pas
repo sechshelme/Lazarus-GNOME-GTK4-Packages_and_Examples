@@ -24,12 +24,14 @@ type
   PNMSettingSecretFlags=^TNMSettingSecretFlags;
   TNM80211ApSecurityFlags=Integer;
   TNMSettingCompareFlags=Integer;
+  TNMSettingWirelessSecurityWpsMethod=Integer;
 
   PNMConnection=Pointer;
   PNMTCQdisc=Pointer;
   PNMTCAction=Pointer;
   PNMTCTfilter=Pointer;
   PNMSriovVF=Pointer;
+  PNMTeamLinkWatcher=Pointer;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
