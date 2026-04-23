@@ -23,12 +23,14 @@ type
   TNMSettingSecretFlags=Integer;
   PNMSettingSecretFlags=^TNMSettingSecretFlags;
 
-
+//  PNMVpnEditorPlugin=Pointer;
   PNMConnection=Pointer;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
+
+const  INET6_ADDRSTRLEN = 46;
 
   {$DEFINE read_enum}
   //  {$include fp_fwupd_includes.inc}

@@ -7,6 +7,7 @@ interface
 uses
   Classes, SysUtils,
   Forms, Controls, StdCtrls, Dialogs, ExtCtrls,
+  LazIDEIntf,
   LazarusPackageIntf, SrcEditorIntf, MenuIntf;
 
 procedure Register;
@@ -73,7 +74,8 @@ begin
 
   if Editor <> nil then  begin
     Editor.Selection := pchar(TComponent(Sender).Tag);
-  end;
+    LazarusIDE.DoOpenEditorFile(Editor.FileName, -1, -1, [ofRegularFile, ofOnlyIfExists]);
+    end;
 end;
 
 procedure TMacroForm.CreateButton(x, y: integer; macros_Str: pchar);

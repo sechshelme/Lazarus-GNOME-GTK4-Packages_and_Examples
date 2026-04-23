@@ -1,14 +1,19 @@
 program project1;
 
 uses
+    nm_core_types,
+    nm_setting_wireless_security,
+    nm_vpn_dbus_interface,           // //NM_DBUS_INTERFACE_ = 'org.freedesktop.NetworkManager';
+    nm_utils,
+
+    //nm_core_enum_types,
+
   //nm_access_point,
   //nm_active_connection,
   //nm_checkpoint,
   //nm_client,
   //nm_connection,
   //nm_conn_utils,
-  //nm_core_enum_types,
-  //nm_core_types,
   //nm_dbus_interface,
   //nm_device,
   //nm_device_6lowpan,
@@ -107,17 +112,14 @@ uses
   //nm_setting_wired,
   //nm_setting_wireguard,
   //nm_setting_wireless,
-  //nm_setting_wireless_security,
   //nm_setting_wpan,
   //nm_simple_connection,
-  //nm_utils,
   //nm_version_macros,
   //nm_vpn_connection,
-  //nm_vpn_dbus_interface,
   //nm_vpn_editor,
-  //nm_vpn_editor_plugin,
-  //nm_vpn_plugin_info,
-  //nm_vpn_plugin_old,
+  nm_vpn_editor_plugin,
+  nm_vpn_plugin_info,
+  nm_vpn_plugin_old,
   nm_vpn_service_plugin,
   nm_wifi_p2p_peer,
   nm_wimax_nsp,
