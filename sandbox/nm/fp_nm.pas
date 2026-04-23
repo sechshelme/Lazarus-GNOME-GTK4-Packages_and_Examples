@@ -22,9 +22,14 @@ type
   TNMVpnPluginFailure=Integer;
   TNMSettingSecretFlags=Integer;
   PNMSettingSecretFlags=^TNMSettingSecretFlags;
+  TNM80211ApSecurityFlags=Integer;
+  TNMSettingCompareFlags=Integer;
 
-//  PNMVpnEditorPlugin=Pointer;
   PNMConnection=Pointer;
+  PNMTCQdisc=Pointer;
+  PNMTCAction=Pointer;
+  PNMTCTfilter=Pointer;
+  PNMSriovVF=Pointer;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
