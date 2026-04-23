@@ -32,6 +32,7 @@ type
   PNMTCTfilter=Pointer;
   PNMSriovVF=Pointer;
   PNMTeamLinkWatcher=Pointer;
+  PNMBridgeVlan=Pointer;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
