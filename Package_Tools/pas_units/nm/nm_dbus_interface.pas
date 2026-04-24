@@ -14,8 +14,6 @@ uses
   {$IFDEF read_enum}
 const
   NM_DBUS_SERVICE_ = 'org.freedesktop.NetworkManager';
-
-//  NM_DBUS_INTERFACE = 'org.freedesktop.NetworkManager';
   NM_DBUS_INTERFACE_ = 'org.freedesktop.NetworkManager';
   NM_DBUS_INTERFACE_ACCESS_POINT = 'org.freedesktop.NetworkManager.AccessPoint';
   NM_DBUS_INTERFACE_ACTIVE_CONNECTION = 'org.freedesktop.NetworkManager.Connection.Active';

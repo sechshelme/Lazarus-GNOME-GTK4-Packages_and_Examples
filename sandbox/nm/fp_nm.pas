@@ -25,6 +25,7 @@ type
   TNM80211ApSecurityFlags=Integer;
   TNMSettingCompareFlags=Integer;
   TNMSettingWirelessSecurityWpsMethod=Integer;
+  TNMIPTunnelFlags=Integer;
 
   PNMConnection=Pointer;
   PNMTCQdisc=Pointer;
@@ -33,6 +34,17 @@ type
   PNMSriovVF=Pointer;
   PNMTeamLinkWatcher=Pointer;
   PNMBridgeVlan=Pointer;
+  PNMWimaxNsp=Pointer;
+  PNMWifiP2PPeer=Pointer;
+  PNMAccessPoint=Pointer;
+  PNMDevice=Pointer;
+  PNMDeviceWifi=Pointer;
+  PNMDeviceHsr=Pointer;
+  PNMIPConfig=Pointer;
+  PNMDhcpConfig=Pointer;
+  PNMActiveConnection=Pointer;
+  PNMLldpNeighbor=Pointer;
+  PNMSetting8021x=Pointer;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
