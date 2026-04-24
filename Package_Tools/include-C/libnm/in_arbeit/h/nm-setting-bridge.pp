@@ -1,0 +1,238 @@
+
+unit nm-setting-bridge;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from nm-setting-bridge.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    nm-setting-bridge.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pchar  = ^char;
+PGError  = ^GError;
+Pguint16  = ^guint16;
+PNMBridgeVlan  = ^NMBridgeVlan;
+PNMSetting  = ^NMSetting;
+PNMSettingBridge  = ^NMSettingBridge;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{ SPDX-License-Identifier: LGPL-2.1-or-later  }
+{
+ * Copyright (C) 2011 - 2015 Red Hat, Inc.
+  }
+{$ifndef __NM_SETTING_BRIDGE_H__}
+{$define __NM_SETTING_BRIDGE_H__}
+{$if !defined(__NETWORKMANAGER_H_INSIDE__) && !defined(NETWORKMANAGER_COMPILATION)}
+{$error "Only <NetworkManager.h> can be included directly."}
+{$endif}
+{$include "nm-setting.h"}
+
+{ was #define dname def_expr }
+function NM_TYPE_SETTING_BRIDGE : longint; { return type might be wrong }
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function NM_SETTING_BRIDGE(obj : longint) : longint;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function NM_SETTING_BRIDGE_CLASS(klass : longint) : longint;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function NM_IS_SETTING_BRIDGE(obj : longint) : longint;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function NM_IS_SETTING_BRIDGE_CLASS(klass : longint) : longint;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function NM_SETTING_BRIDGE_GET_CLASS(obj : longint) : longint;
+
+const
+  NM_SETTING_BRIDGE_SETTING_NAME = 'bridge';  
+  NM_SETTING_BRIDGE_MAC_ADDRESS = 'mac-address';  
+  NM_SETTING_BRIDGE_STP = 'stp';  
+  NM_SETTING_BRIDGE_PRIORITY = 'priority';  
+  NM_SETTING_BRIDGE_FORWARD_DELAY = 'forward-delay';  
+  NM_SETTING_BRIDGE_HELLO_TIME = 'hello-time';  
+  NM_SETTING_BRIDGE_MAX_AGE = 'max-age';  
+  NM_SETTING_BRIDGE_AGEING_TIME = 'ageing-time';  
+  NM_SETTING_BRIDGE_GROUP_FORWARD_MASK = 'group-forward-mask';  
+  NM_SETTING_BRIDGE_MULTICAST_HASH_MAX = 'multicast-hash-max';  
+  NM_SETTING_BRIDGE_MULTICAST_LAST_MEMBER_COUNT = 'multicast-last-member-count';  
+  NM_SETTING_BRIDGE_MULTICAST_LAST_MEMBER_INTERVAL = 'multicast-last-member-interval';  
+  NM_SETTING_BRIDGE_MULTICAST_MEMBERSHIP_INTERVAL = 'multicast-membership-interval';  
+  NM_SETTING_BRIDGE_MULTICAST_SNOOPING = 'multicast-snooping';  
+  NM_SETTING_BRIDGE_MULTICAST_ROUTER = 'multicast-router';  
+  NM_SETTING_BRIDGE_MULTICAST_QUERIER = 'multicast-querier';  
+  NM_SETTING_BRIDGE_MULTICAST_QUERIER_INTERVAL = 'multicast-querier-interval';  
+  NM_SETTING_BRIDGE_MULTICAST_QUERY_INTERVAL = 'multicast-query-interval';  
+  NM_SETTING_BRIDGE_MULTICAST_QUERY_RESPONSE_INTERVAL = 'multicast-query-response-interval';  
+  NM_SETTING_BRIDGE_MULTICAST_QUERY_USE_IFADDR = 'multicast-query-use-ifaddr';  
+  NM_SETTING_BRIDGE_MULTICAST_STARTUP_QUERY_COUNT = 'multicast-startup-query-count';  
+  NM_SETTING_BRIDGE_MULTICAST_STARTUP_QUERY_INTERVAL = 'multicast-startup-query-interval';  
+  NM_SETTING_BRIDGE_VLAN_FILTERING = 'vlan-filtering';  
+  NM_SETTING_BRIDGE_VLAN_DEFAULT_PVID = 'vlan-default-pvid';  
+  NM_SETTING_BRIDGE_VLANS = 'vlans';  
+  NM_SETTING_BRIDGE_GROUP_ADDRESS = 'group-address';  
+  NM_SETTING_BRIDGE_VLAN_PROTOCOL = 'vlan-protocol';  
+  NM_SETTING_BRIDGE_VLAN_STATS_ENABLED = 'vlan-stats-enabled';  
+  NM_BRIDGE_VLAN_VID_MIN = 1;  
+  NM_BRIDGE_VLAN_VID_MAX = 4094;  
+type
+
+function nm_setting_bridge_get_type:TGType;cdecl;external;
+function nm_setting_bridge_new:PNMSetting;cdecl;external;
+(* Const before type ignored *)
+function nm_setting_bridge_get_mac_address(setting:PNMSettingBridge):Pchar;cdecl;external;
+function nm_setting_bridge_get_stp(setting:PNMSettingBridge):Tgboolean;cdecl;external;
+function nm_setting_bridge_get_priority(setting:PNMSettingBridge):Tguint16;cdecl;external;
+function nm_setting_bridge_get_forward_delay(setting:PNMSettingBridge):Tguint16;cdecl;external;
+function nm_setting_bridge_get_hello_time(setting:PNMSettingBridge):Tguint16;cdecl;external;
+function nm_setting_bridge_get_max_age(setting:PNMSettingBridge):Tguint16;cdecl;external;
+function nm_setting_bridge_get_ageing_time(setting:PNMSettingBridge):Tguint32;cdecl;external;
+function nm_setting_bridge_get_group_forward_mask(setting:PNMSettingBridge):Tguint16;cdecl;external;
+function nm_setting_bridge_get_multicast_snooping(setting:PNMSettingBridge):Tgboolean;cdecl;external;
+function nm_setting_bridge_get_vlan_filtering(setting:PNMSettingBridge):Tgboolean;cdecl;external;
+function nm_setting_bridge_get_vlan_default_pvid(setting:PNMSettingBridge):Tguint16;cdecl;external;
+procedure nm_setting_bridge_add_vlan(setting:PNMSettingBridge; vlan:PNMBridgeVlan);cdecl;external;
+function nm_setting_bridge_get_num_vlans(setting:PNMSettingBridge):Tguint;cdecl;external;
+function nm_setting_bridge_get_vlan(setting:PNMSettingBridge; idx:Tguint):PNMBridgeVlan;cdecl;external;
+procedure nm_setting_bridge_remove_vlan(setting:PNMSettingBridge; idx:Tguint);cdecl;external;
+function nm_setting_bridge_remove_vlan_by_vid(setting:PNMSettingBridge; vid_start:Tguint16; vid_end:Tguint16):Tgboolean;cdecl;external;
+procedure nm_setting_bridge_clear_vlans(setting:PNMSettingBridge);cdecl;external;
+function nm_bridge_vlan_get_type:TGType;cdecl;external;
+function nm_bridge_vlan_new(vid_start:Tguint16; vid_end:Tguint16):PNMBridgeVlan;cdecl;external;
+function nm_bridge_vlan_ref(vlan:PNMBridgeVlan):PNMBridgeVlan;cdecl;external;
+procedure nm_bridge_vlan_unref(vlan:PNMBridgeVlan);cdecl;external;
+(* Const before type ignored *)
+function nm_bridge_vlan_new_clone(vlan:PNMBridgeVlan):PNMBridgeVlan;cdecl;external;
+(* Const before type ignored *)
+(* Const before type ignored *)
+function nm_bridge_vlan_cmp(a:PNMBridgeVlan; b:PNMBridgeVlan):longint;cdecl;external;
+procedure nm_bridge_vlan_seal(vlan:PNMBridgeVlan);cdecl;external;
+(* Const before type ignored *)
+function nm_bridge_vlan_is_sealed(vlan:PNMBridgeVlan):Tgboolean;cdecl;external;
+procedure nm_bridge_vlan_set_untagged(vlan:PNMBridgeVlan; value:Tgboolean);cdecl;external;
+procedure nm_bridge_vlan_set_pvid(vlan:PNMBridgeVlan; value:Tgboolean);cdecl;external;
+(* Const before type ignored *)
+function nm_bridge_vlan_get_vid_range(vlan:PNMBridgeVlan; vid_start:Pguint16; vid_end:Pguint16):Tgboolean;cdecl;external;
+(* Const before type ignored *)
+function nm_bridge_vlan_is_untagged(vlan:PNMBridgeVlan):Tgboolean;cdecl;external;
+(* Const before type ignored *)
+function nm_bridge_vlan_is_pvid(vlan:PNMBridgeVlan):Tgboolean;cdecl;external;
+(* Const before type ignored *)
+function nm_bridge_vlan_to_str(vlan:PNMBridgeVlan; error:PPGError):Pchar;cdecl;external;
+(* Const before type ignored *)
+function nm_bridge_vlan_from_str(str:Pchar; error:PPGError):PNMBridgeVlan;cdecl;external;
+(* Const before type ignored *)
+(* Const before type ignored *)
+function nm_setting_bridge_get_group_address(setting:PNMSettingBridge):Pchar;cdecl;external;
+(* Const before type ignored *)
+(* Const before type ignored *)
+function nm_setting_bridge_get_vlan_protocol(setting:PNMSettingBridge):Pchar;cdecl;external;
+(* Const before type ignored *)
+function nm_setting_bridge_get_vlan_stats_enabled(setting:PNMSettingBridge):Tgboolean;cdecl;external;
+(* Const before type ignored *)
+(* Const before type ignored *)
+function nm_setting_bridge_get_multicast_router(setting:PNMSettingBridge):Pchar;cdecl;external;
+(* Const before type ignored *)
+function nm_setting_bridge_get_multicast_query_use_ifaddr(setting:PNMSettingBridge):Tgboolean;cdecl;external;
+(* Const before type ignored *)
+function nm_setting_bridge_get_multicast_querier(setting:PNMSettingBridge):Tgboolean;cdecl;external;
+(* Const before type ignored *)
+function nm_setting_bridge_get_multicast_hash_max(setting:PNMSettingBridge):Tguint32;cdecl;external;
+(* Const before type ignored *)
+function nm_setting_bridge_get_multicast_last_member_count(setting:PNMSettingBridge):Tguint32;cdecl;external;
+(* Const before type ignored *)
+function nm_setting_bridge_get_multicast_last_member_interval(setting:PNMSettingBridge):Tguint64;cdecl;external;
+(* Const before type ignored *)
+function nm_setting_bridge_get_multicast_membership_interval(setting:PNMSettingBridge):Tguint64;cdecl;external;
+(* Const before type ignored *)
+function nm_setting_bridge_get_multicast_querier_interval(setting:PNMSettingBridge):Tguint64;cdecl;external;
+(* Const before type ignored *)
+function nm_setting_bridge_get_multicast_query_interval(setting:PNMSettingBridge):Tguint64;cdecl;external;
+(* Const before type ignored *)
+function nm_setting_bridge_get_multicast_query_response_interval(setting:PNMSettingBridge):Tguint64;cdecl;external;
+(* Const before type ignored *)
+function nm_setting_bridge_get_multicast_startup_query_count(setting:PNMSettingBridge):Tguint32;cdecl;external;
+(* Const before type ignored *)
+function nm_setting_bridge_get_multicast_startup_query_interval(setting:PNMSettingBridge):Tguint64;cdecl;external;
+{$endif}
+{ __NM_SETTING_BRIDGE_H__  }
+
+implementation
+
+{ was #define dname def_expr }
+function NM_TYPE_SETTING_BRIDGE : longint; { return type might be wrong }
+  begin
+    NM_TYPE_SETTING_BRIDGE:=nm_setting_bridge_get_type;
+  end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function NM_SETTING_BRIDGE(obj : longint) : longint;
+begin
+  NM_SETTING_BRIDGE:=G_TYPE_CHECK_INSTANCE_CAST(obj,NM_TYPE_SETTING_BRIDGE,NMSettingBridge);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function NM_SETTING_BRIDGE_CLASS(klass : longint) : longint;
+begin
+  NM_SETTING_BRIDGE_CLASS:=G_TYPE_CHECK_CLASS_CAST(klass,NM_TYPE_SETTING_BRIDGE,NMSettingBridgeClass);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function NM_IS_SETTING_BRIDGE(obj : longint) : longint;
+begin
+  NM_IS_SETTING_BRIDGE:=G_TYPE_CHECK_INSTANCE_TYPE(obj,NM_TYPE_SETTING_BRIDGE);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function NM_IS_SETTING_BRIDGE_CLASS(klass : longint) : longint;
+begin
+  NM_IS_SETTING_BRIDGE_CLASS:=G_TYPE_CHECK_CLASS_TYPE(klass,NM_TYPE_SETTING_BRIDGE);
+end;
+
+{ was #define dname(params) para_def_expr }
+{ argument types are unknown }
+{ return type might be wrong }   
+function NM_SETTING_BRIDGE_GET_CLASS(obj : longint) : longint;
+begin
+  NM_SETTING_BRIDGE_GET_CLASS:=G_TYPE_INSTANCE_GET_CLASS(obj,NM_TYPE_SETTING_BRIDGE,NMSettingBridgeClass);
+end;
+
+
+end.

@@ -65,6 +65,7 @@ type
   TNMSettingValueIterFn = procedure(setting: PNMSetting; key: pchar; value: PGValue; flags: TGParamFlags; user_data: Tgpointer); cdecl;
 
   PNMSetting = type Pointer;
+  PPNMSetting = ^PNMSetting;
   PNMSettingClass = type Pointer;
   {$ENDIF read_struct}
 
