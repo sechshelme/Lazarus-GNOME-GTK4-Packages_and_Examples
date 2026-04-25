@@ -45,6 +45,9 @@ type
   PNMActiveConnection=Pointer;
   PNMLldpNeighbor=Pointer;
   PNMSetting8021x=Pointer;
+  PNMObject=Pointer;
+  PNMRemoteConnection=Pointer;
+  PNMCheckpoint=Pointer;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

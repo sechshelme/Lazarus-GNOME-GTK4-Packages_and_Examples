@@ -42,12 +42,12 @@ procedure nm_connection_remove_setting(connection: PNMConnection; setting_type: 
 function nm_connection_get_setting(connection: PNMConnection; setting_type: TGType): PNMSetting; cdecl; external libnm;
 function nm_connection_get_setting_by_name(connection: PNMConnection; name: pchar): PNMSetting; cdecl; external libnm;
 
-function NM_VARIANT_TYPE_CONNECTION: TGType;
+function NM_VARIANT_TYPE_CONNECTION: PGVariantType;
 {$ENDIF read_function}
 
 {$IFDEF read_enum}
 const
-  NM_VARIANT_TYPE_SETTING = G_VARIANT_TYPE_VARDICT;
+  NM_VARIANT_TYPE_SETTING : pchar = 'a{sv}' + '';
 
 type
   PNMConnectionSerializationFlags = ^TNMConnectionSerializationFlags;
@@ -161,8 +161,7 @@ begin
 end;
 
 
-{ was #define dname def_expr }
-function NM_VARIANT_TYPE_CONNECTION: longint; { return type might be wrong }
+function NM_VARIANT_TYPE_CONNECTION: PGVariantType;
 begin
   NM_VARIANT_TYPE_CONNECTION := G_VARIANT_TYPE('a{sa{sv}}');
 end;

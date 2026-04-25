@@ -1,18 +1,19 @@
 program project1;
 
 uses
-    nm_core_types,
-    nm_setting_wireless_security,
-    nm_vpn_dbus_interface,           // //NM_DBUS_INTERFACE_ = 'org.freedesktop.NetworkManager';
-    nm_dbus_interface,
-    nm_utils,
-    nm_enum_types,
-    nm_core_enum_types,
+  fp_glib2,
 
-  //nm_access_point,
-  //nm_active_connection,
-  //nm_checkpoint,
-  //nm_client,
+  nm_core_types,
+  nm_setting_wireless_security,
+  nm_vpn_dbus_interface,           // //NM_DBUS_INTERFACE_ = 'org.freedesktop.NetworkManager';
+  nm_dbus_interface,
+  nm_utils,
+  nm_enum_types,
+  nm_core_enum_types,
+  nm_access_point,
+  nm_active_connection,
+  nm_checkpoint,
+  nm_client,
   nm_connection,
   nm_conn_utils,
   nm_device,
@@ -127,9 +128,35 @@ uses
 
 
   procedure main;
-
+  var
+    client: PNMClient;
+    err: PGError = nil;
+    connections: PGPtrArray;
+    connection: Tgpointer;
+    id, type_: pchar;
+    i: integer;
   begin
+    client := nm_client_new(nil, @err);
+    if client = nil then begin
+      g_printf('Fehler beim Verbinden: %s'#19, err^.message);
+      g_error_free(err);
+      Exit;
+    end;
 
+    connections := nm_client_get_connections(client);
+
+    g_printf('%-25s | %-20s'#10, 'Verbindungsname', 'Typ');
+    g_printf('----------------------------------------------------'#10);
+
+    for i := 0 to connections^.len - 1 do begin
+      connection := connections^.pdata[i];
+      id := nm_connection_get_id(connection);
+      type_ := nm_connection_get_connection_type(connection);
+
+      g_printf('%-25s | %-20s'#10, id, type_);
+    end;
+
+    g_printf(#10#10#10);
   end;
 
 begin
