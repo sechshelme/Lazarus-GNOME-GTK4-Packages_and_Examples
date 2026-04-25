@@ -4,6 +4,17 @@ uses
   fp_glib2,
   fp_nm;
 
+  procedure OnDeviceAdded(client: PNMClient; device: PNMDevice; user_data: Pointer); cdecl;
+  begin
+    g_printf('Neue Hardware erkannt: %s'#10, nm_device_get_iface(device));
+  end;
+
+  procedure OnDeviceRemoved(client: PNMClient; device: PNMDevice; user_data: Pointer); cdecl;
+  begin
+    g_printf('Hardware entfernt: %s'#10, nm_device_get_iface(device));
+  end;
+
+
   procedure main;
   var
     client: PNMClient;
@@ -17,6 +28,7 @@ uses
     ssid_bytes: PGBytes;
     strength: Tguint8;
     freq, max_bitrate, speed: Tguint32;
+    loop: PGMainLoop;
   begin
     client := nm_client_new(nil, @err);
     if client = nil then begin
@@ -24,6 +36,10 @@ uses
       g_error_free(err);
       Exit;
     end;
+
+    g_signal_connect(client, 'device-added', G_CALLBACK(@OnDeviceAdded), nil);
+    g_signal_connect(client, 'device-removed', G_CALLBACK(@OnDeviceRemoved), nil);
+
 
     devices := nm_client_get_connections(client);
     g_printf('Gespeicherten Verbindungsprofile  (%d):'#10#10, devices^.len);
@@ -149,6 +165,9 @@ uses
 
       g_printf(#10#10);
     end;
+
+    loop := g_main_loop_new(nil, False);
+    g_main_loop_run(loop);
 
     g_object_unref(client);
   end;
