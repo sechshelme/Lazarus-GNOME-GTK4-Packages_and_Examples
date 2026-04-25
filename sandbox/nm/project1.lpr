@@ -2,139 +2,21 @@ program project1;
 
 uses
   fp_glib2,
-
-  nm_core_types,
-  nm_setting_wireless_security,
-  nm_vpn_dbus_interface,           // //NM_DBUS_INTERFACE_ = 'org.freedesktop.NetworkManager';
-  nm_dbus_interface,
-  nm_utils,
-  nm_enum_types,
-  nm_core_enum_types,
-  nm_access_point,
-  nm_active_connection,
-  nm_checkpoint,
-  nm_client,
-  nm_connection,
-  nm_conn_utils,
-  nm_device,
-  nm_device_6lowpan,
-  nm_device_adsl,
-  nm_device_bond,
-  nm_device_bridge,
-  nm_device_bt,
-  nm_device_dummy,
-  nm_device_ethernet,
-  nm_device_generic,
-  nm_device_hsr,
-  nm_device_infiniband,
-  nm_device_ip_tunnel,
-  nm_device_loopback,
-  nm_device_macsec,
-  nm_device_macvlan,
-  nm_device_modem,
-  nm_device_olpc_mesh,
-  nm_device_ovs_bridge,
-  nm_device_ovs_interface,
-  nm_device_ovs_port,
-  nm_device_ppp,
-  nm_device_team,
-  nm_device_tun,
-  nm_device_veth,
-  nm_device_vlan,
-  nm_device_vrf,
-  nm_device_vxlan,
-  nm_device_wifi,
-  nm_device_wifi_p2p,
-  nm_device_wimax,
-  nm_device_wireguard,
-  nm_device_wpan,
-  nm_dhcp_config,
-  nm_errors,
-  nm_ethtool_utils,
-  nm_ip_config,
-  nm_keyfile,
-  nm_object,
-  nm_remote_connection,
-  nm_secret_agent_old,
-  nm_setting,
-  nm_setting_6lowpan,
-  nm_setting_8021x,
-  nm_setting_adsl,
-  nm_setting_bluetooth,
-  nm_setting_bond,
-  nm_setting_bond_port,
-  nm_setting_bridge,
-  nm_setting_bridge_port,
-  nm_setting_cdma,
-  nm_setting_connection,
-  nm_setting_dcb,
-  nm_setting_dummy,
-  nm_setting_ethtool,
-  nm_setting_generic,
-  nm_setting_gsm,
-  nm_setting_hostname,
-  nm_setting_hsr,
-  nm_setting_infiniband,
-  nm_setting_ip4_config,
-  nm_setting_ip6_config,
-  nm_setting_ip_config,
-  nm_setting_ip_tunnel,
-  nm_setting_link,
-  nm_setting_loopback,
-  nm_setting_macsec,
-  nm_setting_macvlan,
-  nm_setting_match,
-  nm_setting_olpc_mesh,
-  nm_setting_ovs_bridge,
-  nm_setting_ovs_dpdk,
-  nm_setting_ovs_external_ids,
-  nm_setting_ovs_interface,
-  nm_setting_ovs_other_config,
-  nm_setting_ovs_patch,
-  nm_setting_ovs_port,
-  nm_setting_ppp,
-  nm_setting_pppoe,
-  nm_setting_proxy,
-  nm_setting_serial,
-  nm_setting_sriov,
-  nm_setting_tc_config,
-  nm_setting_team,
-  nm_setting_team_port,
-  nm_setting_tun,
-  nm_setting_user,
-  nm_setting_veth,
-  nm_setting_vlan,
-  nm_setting_vpn,
-  nm_setting_vrf,
-  nm_setting_vxlan,
-  nm_setting_wifi_p2p,
-  nm_setting_wimax,
-  nm_setting_wired,
-  nm_setting_wireguard,
-  nm_setting_wireless,
-  nm_setting_wpan,
-  nm_simple_connection,
-  nm_version_macros,
-  nm_vpn_connection,
-  nm_vpn_editor_plugin,
-  nm_vpn_editor,
-  nm_vpn_plugin_info,
-  nm_vpn_plugin_old,
-  nm_vpn_service_plugin,
-  nm_wifi_p2p_peer,
-  nm_wimax_nsp,
-
   fp_nm;
-
 
   procedure main;
   var
     client: PNMClient;
     err: PGError = nil;
-    connections: PGPtrArray;
-    connection: Tgpointer;
-    id, type_: pchar;
-    i: integer;
+    devices, aps, slaves: PGPtrArray;
+    device, ap, slave_device: Tgpointer;
+    state_str, id, conType, iface, type_desc, hw_addr, ssid, bssid: pchar;
+    i, j: integer;
+    devType: TNMDeviceType;
+    state: TNMActiveConnectionState;
+    ssid_bytes: PGBytes;
+    strength: Tguint8;
+    freq, max_bitrate, speed: Tguint32;
   begin
     client := nm_client_new(nil, @err);
     if client = nil then begin
@@ -143,20 +25,132 @@ uses
       Exit;
     end;
 
-    connections := nm_client_get_connections(client);
+    devices := nm_client_get_connections(client);
+    g_printf('Gespeicherten Verbindungsprofile  (%d):'#10#10, devices^.len);
 
-    g_printf('%-25s | %-20s'#10, 'Verbindungsname', 'Typ');
-    g_printf('----------------------------------------------------'#10);
+    g_printf('%-30s | %-20s'#10, 'Verbindungsname', 'Typ');
+    g_printf('-----------------------------------------------------------------'#10);
 
-    for i := 0 to connections^.len - 1 do begin
-      connection := connections^.pdata[i];
-      id := nm_connection_get_id(connection);
-      type_ := nm_connection_get_connection_type(connection);
+    devices := nm_client_get_connections(client);
+    for i := 0 to devices^.len - 1 do begin
+      device := devices^.pdata[i];
+      id := nm_connection_get_id(device);
+      conType := nm_connection_get_connection_type(device);
 
-      g_printf('%-25s | %-20s'#10, id, type_);
+      g_printf('%-30s | %-20s'#10, id, conType);
+    end;
+    g_printf(#10#10#10);
+
+    // ======
+
+    devices := nm_client_get_active_connections(client);
+    g_printf('momentan aktiven Verbindungen:  (%d)'#10#10, devices^.len);
+
+    g_printf('%-30s | %-15s | %-10s'#10, 'Name', 'Typ', 'Status');
+    g_printf('-----------------------------------------------------------------'#10);
+
+    for  i := 0 to devices^.len - 1 do begin
+      device := devices^.pdata[i];
+
+      id := nm_active_connection_get_id(device);
+      conType := nm_active_connection_get_connection_type(device);
+
+      state := nm_active_connection_get_state(device);
+      if state = NM_ACTIVE_CONNECTION_STATE_ACTIVATED then begin
+        state_str := 'Verbunden';
+      end else begin
+        state_str := 'Aktiviert...';
+      end;
+
+      g_printf('%-30s | %-15s | %-10s'#10, id, conType, state_str);
+    end;
+    g_printf(#10#10#10);
+
+    // ======
+
+    devices := nm_client_get_devices(client);
+    g_printf('Hardware-Schnittstellen:  (%d)'#10#10, devices^.len);
+
+    for  i := 0 to devices^.len - 1 do begin
+      device := devices^.pdata[i];
+
+      devType := nm_device_get_device_type(device);
+      iface := nm_device_get_iface(device);
+
+      iface := nm_device_get_iface(device);
+      type_desc := nm_device_get_type_description(device);
+      hw_addr := nm_device_get_hw_address(device);
+
+      g_printf('%-15s | %-20s | %-18s'#10, iface, type_desc, hw_addr);
+
+      case devType of
+        NM_DEVICE_TYPE_WIFI: begin
+          aps := nm_device_wifi_get_access_points(NM_DEVICE_WIFI(device));
+          for  j := 0 to aps^.len - 1 do begin
+            ap := aps^.pdata[j];
+            ssid_bytes := nm_access_point_get_ssid(ap);
+
+            if ssid_bytes <> nil then begin
+              ssid := nm_utils_ssid_to_utf8(g_bytes_get_data(ssid_bytes, nil), g_bytes_get_size(ssid_bytes));
+              strength := nm_access_point_get_strength(ap);
+              freq := nm_access_point_get_frequency(ap);
+
+              bssid := nm_access_point_get_bssid(ap);
+
+              max_bitrate := nm_access_point_get_max_bitrate(ap);
+
+              g_printf('  %-25s | %-17s | %-3u%% | %-4u MHz | %3u Mbit/s'#10, ssid, bssid, strength, freq, (max_bitrate div 1000));
+              g_free(ssid);
+            end;
+          end;
+        end;
+        NM_DEVICE_TYPE_ETHERNET: begin
+          speed := nm_device_ethernet_get_speed(NM_DEVICE_ETHERNET(device));
+          g_printf('  Geschwindigkeit: %u Mbit/s'#10, speed);
+        end;
+        NM_DEVICE_TYPE_MODEM: begin
+          g_printf('LTE/5G Modem.');
+        end;
+        NM_DEVICE_TYPE_BT: begin
+          g_printf('Bluetooth');
+        end;
+        NM_DEVICE_TYPE_BRIDGE: begin
+          slaves := nm_device_bridge_get_slaves(NM_DEVICE_BRIDGE(device));
+          if (slaves <> nil) and (slaves^.len > 0) then begin
+            g_printf('  Angeschlossene Ports: %d'#10, slaves^.len);
+            for j := 0 to slaves^.len - 1 do begin
+              slave_device := slaves^.pdata[j];
+              g_printf('    -> %s'#10, nm_device_get_iface(slave_device));
+            end;
+          end else begin
+            g_printf('  Bridge leer (keine Ports)'#10);
+          end;
+        end;
+        else begin
+          g_printf('Unbekanntes Geräte'#10);
+        end;
+      end;
+
+      state := nm_device_get_state(device);
+      case state of
+        NM_DEVICE_STATE_ACTIVATED: begin
+          g_printf('  Status: Verbunden und bereit (Internet aktiv)'#10);
+        end;
+        NM_DEVICE_STATE_IP_CONFIG: begin
+          g_printf('  Status: Bezieht gerade eine IP-Adresse...'#10);
+        end;
+        NM_DEVICE_STATE_UNAVAILABLE: begin
+          g_printf('  Status: Nicht verfügbar (vielleicht kein Kabel?)'#10);
+        end;
+        NM_DEVICE_STATE_DISCONNECTED: begin
+          g_printf('  Status: Kabel steckt, aber nicht verbunden'#10);
+        end;
+      end;
+
+      g_printf(#10#10);
     end;
 
-    g_printf(#10#10#10);
+    g_object_unref(client);
   end;
 
 begin

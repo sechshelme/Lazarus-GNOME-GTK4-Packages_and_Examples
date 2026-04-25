@@ -25,15 +25,15 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="fp_nm_package"/>
+      </Item>
+      <Item>
         <PackageName Value="fp_GLIB2_package"/>
       </Item>
     </RequiredPackages>
     <Units>
       <Unit>
         <Filename Value="project1.lpr"/>
-      </Unit>
-      <Unit>
-        <Filename Value="fp_nm.pas"/>
       </Unit>
     </Units>
   </ProjectOptions>

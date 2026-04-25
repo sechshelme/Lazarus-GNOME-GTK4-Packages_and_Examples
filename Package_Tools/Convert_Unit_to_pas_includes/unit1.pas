@@ -35,7 +35,7 @@ implementation
 { TForm1 }
 
 const
-  srcPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/fwupd-1/libfwupd';
+  srcPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/pas_units/nm';
 
   destPath = '/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/packagesxx';
 
