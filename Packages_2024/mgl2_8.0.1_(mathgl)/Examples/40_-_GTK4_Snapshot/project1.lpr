@@ -1,6 +1,7 @@
 program project1;
 
 uses
+  MyWidget,
   fp_mgl2,
   fp_glib2,
   fp_cairo,
@@ -218,7 +219,7 @@ const
   procedure activate_cp(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     appData: PAppData absolute user_data;
-    window, box, button, drawing_area: PGtkWidget;
+    window, box, button, drawing_area, area: PGtkWidget;
     motion_ctrl, scroll_ctrl: PGtkEventController;
     drag_gest: PGtkGesture;
   begin
@@ -235,6 +236,11 @@ const
     gtk_widget_set_hexpand(drawing_area, True);
     gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(drawing_area), @draw_func, nil, nil);
     gtk_widget_add_tick_callback(drawing_area, @on_tick, nil, nil);
+
+    area:=my_widget_new;
+    gtk_widget_set_vexpand(area, True);
+    gtk_widget_set_hexpand(area, True);
+    gtk_widget_add_tick_callback(area, @on_tick, nil, nil);
 
 
     appData := g_malloc(SizeOf(TAppData));
@@ -268,6 +274,7 @@ const
 
 
     gtk_box_append(GTK_BOX(box), drawing_area);
+    gtk_box_append(GTK_BOX(box), area);
 
     button := gtk_button_new_with_label('Quit');
     g_signal_connect(button, 'clicked', G_CALLBACK(@quit_cp), window);

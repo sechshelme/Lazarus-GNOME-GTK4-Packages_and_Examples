@@ -52,7 +52,7 @@ uses
     surface: Pcairo_surface_t;
     cr: Pcairo_t;
   const
-    path = 'test.png';
+    path = '/tmp/test.png';
   begin
     gr := mgl_create_graph(Width, Height);
     if gr = nil then  begin

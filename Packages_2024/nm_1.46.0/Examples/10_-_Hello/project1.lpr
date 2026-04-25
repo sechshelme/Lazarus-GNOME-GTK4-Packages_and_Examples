@@ -20,7 +20,7 @@ uses
     client: PNMClient;
     err: PGError = nil;
     devices, aps, slaves: PGPtrArray;
-    device, ap, slave_device: Tgpointer;
+    device, ap, slave: Tgpointer;
     state_str, id, conType, iface, type_desc, hw_addr, ssid, bssid: pchar;
     i, j: integer;
     devType: TNMDeviceType;
@@ -131,12 +131,12 @@ uses
           g_printf('Bluetooth');
         end;
         NM_DEVICE_TYPE_BRIDGE: begin
-          slaves := nm_device_bridge_get_slaves(NM_DEVICE_BRIDGE(device));
-          if (slaves <> nil) and (slaves^.len > 0) then begin
+          slaves := nm_device_get_ports(device);
+          if slaves <> nil then begin
             g_printf('  Angeschlossene Ports: %d'#10, slaves^.len);
             for j := 0 to slaves^.len - 1 do begin
-              slave_device := slaves^.pdata[j];
-              g_printf('    -> %s'#10, nm_device_get_iface(slave_device));
+              slave := slaves^.pdata[j];
+              g_printf('    -> %s'#10, nm_device_get_iface(slave));
             end;
           end else begin
             g_printf('  Bridge leer (keine Ports)'#10);

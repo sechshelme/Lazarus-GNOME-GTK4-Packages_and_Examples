@@ -25,10 +25,13 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_cairo_package"/>
+        <PackageName Value="fp_mgl2_package"/>
       </Item>
       <Item>
-        <PackageName Value="fp_mgl2_package"/>
+        <PackageName Value="fp_GLIB2_package"/>
+      </Item>
+      <Item>
+        <PackageName Value="fp_GTK4_package"/>
       </Item>
     </RequiredPackages>
     <Units>
