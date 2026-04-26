@@ -1,5 +1,7 @@
 unit vips;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -11,6 +13,7 @@ uses
 
 
 
+{$IFDEF read_function}
 function vips_init(argv0: pchar): longint; cdecl; external libvips;
 function vips_get_argv0: pchar; cdecl; external libvips;
 function vips_get_prgname: pchar; cdecl; external libvips;
@@ -23,6 +26,7 @@ function vips_version_string: pchar; cdecl; external libvips;
 function vips_version(flag: longint): longint; cdecl; external libvips;
 function vips_guess_prefix(argv0: pchar; env_name: pchar): pchar; cdecl; external libvips;
 function vips_guess_libdir(argv0: pchar; env_name: pchar): pchar; cdecl; external libvips;
+{$ENDIF read_function}
 
 // === Konventiert am: 26-4-26 16:08:00 ===
 

@@ -39,6 +39,9 @@ const
   TVipsBandFormat=Integer;
   TVipsPrecision=Integer;
   TVipsInterpretation=Integer;
+  TVipsOperationBoolean=Integer;
+
+  TVipsCallbackFn=Pointer;
 
 
   {$IFDEF FPC}

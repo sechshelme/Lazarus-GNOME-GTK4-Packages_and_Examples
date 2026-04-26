@@ -1,5 +1,7 @@
 unit colour;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 const
   VIPS_D93_X0 = 89.7400;
   VIPS_D93_Y0 = 100.0;
@@ -61,10 +64,10 @@ const
   VIPS_PCS_LAB = 0;
   VIPS_PCS_XYZ = 1;
   VIPS_PCS_LAST = 2;
+  {$ENDIF read_enum}
 
-
+{$IFDEF read_function}
 function vips_colourspace_issupported(image: PVipsImage): Tgboolean; cdecl; external libvips;
-
 function vips_colourspace(in_: PVipsImage; out_: PPVipsImage; space: TVipsInterpretation): longint; varargs; cdecl; external libvips;
 function vips_LabQ2sRGB(in_: PVipsImage; out_: PPVipsImage): longint; varargs; cdecl; external libvips;
 function vips_rad2float(in_: PVipsImage; out_: PPVipsImage): longint; varargs; cdecl; external libvips;
@@ -128,6 +131,7 @@ function vips_col_scRGB2BW_16(R: single; G: single; B: single; g_: Plongint; og:
 function vips_col_scRGB2BW_8(R: single; G: single; B: single; g_: Plongint; og: Plongint): longint; cdecl; external libvips;
 function vips_pythagoras(L1: single; a1: single; b1: single; L2: single; a2: single; b2: single): single; cdecl; external libvips;
 function vips_col_dE00(L1: single; a1: single; b1: single; L2: single; a2: single; b2: single): single; cdecl; external libvips;
+{$ENDIF read_function}
 
 // === Konventiert am: 26-4-26 16:15:13 ===
 

@@ -1,5 +1,7 @@
 unit arithmetic;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 type
   PVipsOperationMath = ^TVipsOperationMath;
   TVipsOperationMath = longint;
@@ -104,7 +107,9 @@ const
   VIPS_OPERATION_COMPLEXGET_REAL = 0;
   VIPS_OPERATION_COMPLEXGET_IMAG = 1;
   VIPS_OPERATION_COMPLEXGET_LAST = 2;
+  {$ENDIF read_enum}
 
+{$IFDEF read_function}
 function vips_add(left: PVipsImage; right: PVipsImage; out_: PPVipsImage): longint; varargs; cdecl; external libvips;
 function vips_sum(in_: PPVipsImage; out_: PPVipsImage; n: longint): longint; varargs; cdecl; external libvips;
 function vips_subtract(in1: PVipsImage; in2: PVipsImage; out_: PPVipsImage): longint; varargs; cdecl; external libvips;
@@ -215,6 +220,7 @@ function vips_hough_line(in_: PVipsImage; out_: PPVipsImage): longint; varargs; 
 function vips_hough_circle(in_: PVipsImage; out_: PPVipsImage): longint; varargs; cdecl; external libvips;
 function vips_project(in_: PVipsImage; columns: PPVipsImage; rows: PPVipsImage): longint; varargs; cdecl; external libvips;
 function vips_profile(in_: PVipsImage; columns: PPVipsImage; rows: PPVipsImage): longint; varargs; cdecl; external libvips;
+{$ENDIF read_function}
 
 // === Konventiert am: 26-4-26 16:15:33 ===
 

@@ -1,5 +1,7 @@
 unit image;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 const
   VIPS_MAGIC_INTEL = $b6a6f208;
   VIPS_MAGIC_SPARC = $08f2a6b6;
@@ -106,7 +109,9 @@ const
   VIPS_ACCESS_SEQUENTIAL = 1;
   VIPS_ACCESS_SEQUENTIAL_UNBUFFERED = 2;
   VIPS_ACCESS_LAST = 3;
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   TVipsStartFn = function(out_: PVipsImage; a: pointer; b: pointer): pointer; cdecl;
   TVipsGenerateFn = function(out_: PVipsRegion; seq: pointer; a: pointer; b: pointer; stop: Pgboolean): longint; cdecl;
@@ -177,7 +182,6 @@ type
   end;
   PVipsImage = ^TVipsImage;
 
-
   TVipsImageClass = record
     parent_class: TVipsObjectClass;
     preeval: procedure(image: PVipsImage; progress: PVipsProgress; data: pointer); cdecl;
@@ -188,7 +192,9 @@ type
     minimise: procedure(image: PVipsImage; data: pointer); cdecl;
   end;
   PVipsImageClass = ^TVipsImageClass;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function vips_image_get_type: TGType; cdecl; external libvips;
 procedure vips_progress_set(progress: Tgboolean); cdecl; external libvips;
 procedure vips_image_invalidate_all(image: PVipsImage); cdecl; external libvips;
@@ -265,6 +271,7 @@ function VIPS_IMAGE_CLASS(klass: Pointer): PVipsImageClass;
 function VIPS_IS_IMAGE(obj: Pointer): Tgboolean;
 function VIPS_IS_IMAGE_CLASS(klass: Pointer): Tgboolean;
 function VIPS_IMAGE_GET_CLASS(obj: Pointer): PVipsImageClass;
+{$ENDIF read_function}
 
 implementation
 

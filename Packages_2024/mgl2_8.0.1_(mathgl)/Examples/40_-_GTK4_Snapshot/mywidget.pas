@@ -8,6 +8,9 @@ uses
 type
   TMyWidget = record
     parent_instance: TGtkWidget;
+    Zoom: record
+      x1, y1, x2, y2: double;
+      end;
     gr: THMGL;
   end;
   PMyWidget = ^TMyWidget;
@@ -19,6 +22,8 @@ type
 
 function my_widget_get_type: TGType;
 function my_widget_new: PGTKWidget;
+procedure my_widget_set_zoom(self: PMyWidget; x1, y1, x2, y2: double);
+procedure my_widget_get_zoom(self: PMyWidget; x1, y1, x2, y2: PDouble);
 procedure my_widget_reset_data(self: PMyWidget);
 
 implementation
@@ -105,7 +110,10 @@ begin
       //y1 := 1.0 + (appData^.Mouse.y / Height) - span;
       //y2 := y1 + span;
       //
-      //mgl_zoom(gr, x1, y1, x2, y2);
+
+      with Zoom do begin
+        mgl_zoom(gr, x1, y1, x2, y2);
+      end;
 
 
 
@@ -152,6 +160,12 @@ var
 begin
   with self^ do begin
     gr := nil;
+    with Zoom do begin
+      x1 := 0.0;
+      y1 := 0.0;
+      x2 := 1.0;
+      y2 := 1.0;
+    end;
   end;
 end;
 
@@ -176,6 +190,26 @@ var
   self: PMyWidget absolute Result;
 begin
   Result := g_object_new(my_widget_get_type, nil);
+end;
+
+procedure my_widget_set_zoom(self: PMyWidget; x1, y1, x2, y2: double);
+begin
+  with self^ do begin
+    Zoom.x1 := x1;
+    Zoom.y1 := y1;
+    Zoom.x2 := x2;
+    Zoom.y2 := y2;
+  end;
+end;
+
+procedure my_widget_get_zoom(self: PMyWidget; x1, y1, x2, y2: PDouble);
+begin
+  with self^ do begin
+    x1^ := Zoom.x1;
+    y1^ := Zoom.y1;
+    x2^ := Zoom.x2;
+    y2^ := Zoom.y2;
+  end;
 end;
 
 procedure my_widget_reset_data(self: PMyWidget);

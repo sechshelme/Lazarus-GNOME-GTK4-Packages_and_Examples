@@ -1,5 +1,7 @@
 unit error;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,7 +12,7 @@ uses
   {$ENDIF}
 
 
-
+{$IFDEF read_function}
 function vips_error_buffer: pchar; cdecl; external libvips;
 function vips_error_buffer_copy: pchar; cdecl; external libvips;
 procedure vips_error_clear; cdecl; external libvips;
@@ -58,6 +60,7 @@ function vips_check_hist(domain: pchar; im: PVipsImage): longint; cdecl; externa
 function vips_check_matrix(domain: pchar; im: PVipsImage; out_: PPVipsImage): longint; cdecl; external libvips;
 function vips_check_separable(domain: pchar; im: PVipsImage): longint; cdecl; external libvips;
 function vips_check_precision_intfloat(domain: pchar; precision: TVipsPrecision): longint; cdecl; external libvips;
+{$ENDIF read_function}
 
 // === Konventiert am: 26-4-26 16:13:58 ===
 
