@@ -80,9 +80,7 @@ var
   width, height: integer;
   texture: PGdkTexture;
   bytes: PGBytes;
-
   stride: longint;
-  pixels: pbyte;
 
 begin
   width := gtk_widget_get_width(widget);
@@ -90,9 +88,9 @@ begin
 
   if (width > 0) and (height > 0) then  begin
     with self^ do begin
-      if (self^.gr = nil) or (mgl_get_width(self^.gr) <> width) or (mgl_get_height(self^.gr) <> height) then begin
-        mgl_delete_graph(self^.gr);
-        self^.gr := mgl_create_graph(width, height);
+      if (gr = nil) or (mgl_get_width(gr) <> width) or (mgl_get_height(gr) <> height) then begin
+        mgl_delete_graph(gr);
+        gr := mgl_create_graph(width, height);
         mgl_set_def_sch(gr, 'w');
         mgl_rotate(gr, 60, 40, 0);
       end;
@@ -100,33 +98,17 @@ begin
       mgl_clf(gr);
       mgl_fill_background(gr, 0.3, 0.3, 0.3, 1.0);
 
-      stride := width * 4;
-
-      //span := 1.0 / appData^.Mouse.zoom;
-      //
-      //x1 := -(appData^.Mouse.x / Width);
-      //x2 := x1 + span;
-      //
-      //y1 := 1.0 + (appData^.Mouse.y / Height) - span;
-      //y2 := y1 + span;
-      //
-
       with Zoom do begin
         mgl_zoom(gr, x1, y1, x2, y2);
       end;
 
-
-
-
       sample(gr);
 
-      pixels := mgl_get_rgba(gr);
-
-      bytes := g_bytes_new(pixels, height * stride);
+      stride := width * 4;
+      bytes := g_bytes_new(mgl_get_rgba(gr), height * stride);
       texture := gdk_memory_texture_new(width, height, GDK_MEMORY_R8G8B8A8, bytes, stride);
 
       graphene_rect_init(@r, 0, 0, width, height);
-
       gtk_snapshot_append_texture(snapshot, texture, @r);
 
       g_object_unref(texture);

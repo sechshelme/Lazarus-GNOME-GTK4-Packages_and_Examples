@@ -42,9 +42,9 @@ uses
   //transform,
   //type_,                    // ????? ____
   //util,
-  //vector,
+  vector,
   //version,
-  //video,
+  //  video,                // ????? ____
   vips,
 
 
@@ -94,7 +94,9 @@ uses
     g_object_unref(text_final);
     g_object_unref(out_);
 
-    vips_shutdown();
+    vips_shutdown;
+
+    WriteLn('ende');
   end;
 
 begin
