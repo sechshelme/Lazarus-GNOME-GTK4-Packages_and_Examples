@@ -1,91 +1,44 @@
 unit rect;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
-  fp_glib2;
+  fp_glib2,fp_vips;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
-
-{ Simple rectangle algebra.
-  }
-{
-
-	This file is part of VIPS.
-
-	VIPS is free software; you can redistribute it and/or modify
-	it under the terms of the GNU Lesser General Public License as published by
-	the Free Software Foundation; either version 2 of the License, or
-	(at your option) any later version.
-
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU Lesser General Public License for more details.
-
-	You should have received a copy of the GNU Lesser General Public License
-	along with this program; if not, write to the Free Software
-	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-	02110-1301  USA
-
-  }
-{
-
-	These files are distributed with VIPS - http://www.vips.ecs.soton.ac.uk
-
-  }
-{$ifndef VIPS_RECT_H}
-{$define VIPS_RECT_H}
-{$include <glib.h>}
-{ C++ extern C conditionnal removed }
-{__cplusplus }
-{< public > }
+  {$IFDEF read_struct}
 type
-  PVipsRect = ^TVipsRect;
   TVipsRect = record
-      left : longint;
-      top : longint;
-      width : longint;
-      height : longint;
-    end;
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
+    left: longint;
+    top: longint;
+    width: longint;
+    height: longint;
+  end;
+  PVipsRect = ^TVipsRect;
+  {$ENDIF read_struct}
 
-function VIPS_RECT_RIGHT(R : longint) : longint;
+{$IFDEF read_function}
+function VIPS_RECT_RIGHT(R: PVipsRect): longint;
+function VIPS_RECT_BOTTOM(R: PVipsRect): longint;
+function VIPS_RECT_HCENTRE(R: PVipsRect): longint;
+function VIPS_RECT_VCENTRE(R: PVipsRect): longint;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function VIPS_RECT_BOTTOM(R : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function VIPS_RECT_HCENTRE(R : longint) : longint;
-
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function VIPS_RECT_VCENTRE(R : longint) : longint;
-
-function vips_rect_isempty(r:PVipsRect):Tgboolean;cdecl;external libvips;
-function vips_rect_includespoint(r:PVipsRect; x:longint; y:longint):Tgboolean;cdecl;external libvips;
-function vips_rect_includesrect(r1:PVipsRect; r2:PVipsRect):Tgboolean;cdecl;external libvips;
-function vips_rect_equalsrect(r1:PVipsRect; r2:PVipsRect):Tgboolean;cdecl;external libvips;
-function vips_rect_overlapsrect(r1:PVipsRect; r2:PVipsRect):Tgboolean;cdecl;external libvips;
-procedure vips_rect_marginadjust(r:PVipsRect; n:longint);cdecl;external libvips;
-procedure vips_rect_intersectrect(r1:PVipsRect; r2:PVipsRect; out:PVipsRect);cdecl;external libvips;
-procedure vips_rect_unionrect(r1:PVipsRect; r2:PVipsRect; out:PVipsRect);cdecl;external libvips;
-function vips_rect_dup(r:PVipsRect):PVipsRect;cdecl;external libvips;
-procedure vips_rect_normalise(r:PVipsRect);cdecl;external libvips;
-{ C++ end of extern C conditionnal removed }
-{__cplusplus }
-{$endif}
-{VIPS_RECT_H }
+function vips_rect_isempty(r: PVipsRect): Tgboolean; cdecl; external libvips;
+function vips_rect_includespoint(r: PVipsRect; x: longint; y: longint): Tgboolean; cdecl; external libvips;
+function vips_rect_includesrect(r1: PVipsRect; r2: PVipsRect): Tgboolean; cdecl; external libvips;
+function vips_rect_equalsrect(r1: PVipsRect; r2: PVipsRect): Tgboolean; cdecl; external libvips;
+function vips_rect_overlapsrect(r1: PVipsRect; r2: PVipsRect): Tgboolean; cdecl; external libvips;
+procedure vips_rect_marginadjust(r: PVipsRect; n: longint); cdecl; external libvips;
+procedure vips_rect_intersectrect(r1: PVipsRect; r2: PVipsRect; out_: PVipsRect); cdecl; external libvips;
+procedure vips_rect_unionrect(r1: PVipsRect; r2: PVipsRect; out_: PVipsRect); cdecl; external libvips;
+function vips_rect_dup(r: PVipsRect): PVipsRect; cdecl; external libvips;
+procedure vips_rect_normalise(r: PVipsRect); cdecl; external libvips;
+{$ENDIF read_function}
 
 // === Konventiert am: 26-4-26 16:10:53 ===
 
@@ -93,36 +46,24 @@ procedure vips_rect_normalise(r:PVipsRect);cdecl;external libvips;
 implementation
 
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function VIPS_RECT_RIGHT(R : longint) : longint;
+function VIPS_RECT_RIGHT(R: PVipsRect): longint;
 begin
-  VIPS_RECT_RIGHT:=(R^.left)+(R^.width);
+  VIPS_RECT_RIGHT := (R^.left) + (R^.width);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function VIPS_RECT_BOTTOM(R : longint) : longint;
+function VIPS_RECT_BOTTOM(R: PVipsRect): longint;
 begin
-  VIPS_RECT_BOTTOM:=(R^.top)+(R^.height);
+  VIPS_RECT_BOTTOM := (R^.top) + (R^.height);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function VIPS_RECT_HCENTRE(R : longint) : longint;
+function VIPS_RECT_HCENTRE(R: PVipsRect): longint;
 begin
-  VIPS_RECT_HCENTRE:=(R^.left)+((R^.width)/2);
+  VIPS_RECT_HCENTRE := (R^.left) + ((R^.width) div 2);
 end;
 
-{ was #define dname(params) para_def_expr }
-{ argument types are unknown }
-{ return type might be wrong }   
-function VIPS_RECT_VCENTRE(R : longint) : longint;
+function VIPS_RECT_VCENTRE(R: PVipsRect): longint;
 begin
-  VIPS_RECT_VCENTRE:=(R^.top)+((R^.height)/2);
+  VIPS_RECT_VCENTRE := (R^.top) + ((R^.height) div 2);
 end;
 
 

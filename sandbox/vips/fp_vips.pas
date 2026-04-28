@@ -42,6 +42,9 @@ const
   TVipsOperationBoolean=Integer;
 
   TVipsCallbackFn=Pointer;
+  TVipsSListMap2Fn=Pointer;
+  TVipsSListMap4Fn=Pointer;
+  TVipsSListFold2Fn=Pointer;
 
 
   {$IFDEF FPC}

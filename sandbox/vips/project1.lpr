@@ -1,6 +1,8 @@
 program project1;
 
 uses
+  rect,
+
   //  almostdeprecated,         // dep
   arithmetic,
   //basic,
@@ -32,19 +34,18 @@ uses
   //object_,                 // ????? ____
   //operation,
   //private,
-  //rect,
   //region,
   //resample,
   //sbuf,
   //semaphore,
   //thread,
   //threadpool,
-  //transform,
-  //type_,                    // ????? ____
-  //util,
+  transform,
+  type_,                    // ????? ____
+  util,
   vector,
-  //version,
-  //  video,                // ????? ____
+  version,
+  //  video,                // dep
   vips,
 
 
