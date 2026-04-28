@@ -4,9 +4,11 @@ uses
   rect,
 
   //  almostdeprecated,         // dep
+  buf,
+  object_,                 // ????? ____
+
   arithmetic,
   //basic,
-  //buf,
   colour,
   //connection,
   conversion,
@@ -31,7 +33,6 @@ uses
   //memory,
   //morphology,
   //mosaicing,
-  //object_,                 // ????? ____
   //operation,
   //private,
   //region,
@@ -39,7 +40,7 @@ uses
   //sbuf,
   //semaphore,
   //thread,
-  //threadpool,
+  threadpool,
   transform,
   type_,                    // ????? ____
   util,

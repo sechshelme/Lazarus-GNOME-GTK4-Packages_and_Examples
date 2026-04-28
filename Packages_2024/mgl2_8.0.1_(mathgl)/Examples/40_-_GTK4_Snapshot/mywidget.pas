@@ -11,6 +11,10 @@ type
     Zoom: record
       x1, y1, x2, y2: double;
       end;
+    Mouse: record
+      zoom_factor: double;
+      x1, y1, x2, y2: double;
+      end;
     gr: THMGL;
   end;
   PMyWidget = ^TMyWidget;
@@ -22,13 +26,13 @@ type
 
 function my_widget_get_type: TGType;
 function my_widget_new: PGTKWidget;
-procedure my_widget_set_zoom(self: PMyWidget; x1, y1, x2, y2: double);
-procedure my_widget_get_zoom(self: PMyWidget; x1, y1, x2, y2: PDouble);
-procedure my_widget_reset_data(self: PMyWidget);
 
 implementation
 
 // ==== private
+
+var
+  parent_class: PMyWidgetClass = nil;
 
 function sample(gr: THMGL): longint; cdecl;
 var
@@ -69,9 +73,6 @@ begin
 
   Result := 0;
 end;
-
-var
-  parent_class: PMyWidgetClass = nil;
 
 procedure snapshoot_cp(widget: PGtkWidget; snapshot: PGtkSnapshot); cdecl;
 var
@@ -129,6 +130,79 @@ begin
   G_OBJECT_CLASS(parent_class)^.finalize(obj);
 end;
 
+function scroll_cp(controller: PGtkEventControllerScroll; dx: double; dy: double; user_data: Tgpointer): Tgboolean; cdecl;
+var
+  zoom_factor: double;
+  width, height, cx, cy: double;
+  widget: PMyWidget;
+begin
+  if dy < 0 then begin
+    zoom_factor := 1.1;
+  end else begin
+    zoom_factor := 1.0 / 1.1;
+  end;
+
+  widget := PMyWidget(gtk_event_controller_get_widget(PGtkEventController(controller)));
+  with widget^.Zoom do begin
+    width := x2 - x1;
+    height := y2 - y1;
+    cx := x1 + width / 2;
+    cy := y1 + height / 2;
+
+    width := width / zoom_factor / 2;
+    height := height / zoom_factor / 2;
+
+    x1 := cx - width;
+    x2 := cx + width;
+    y1 := cy - height;
+    y2 := cy + height;
+  end;
+
+  Result := True;
+end;
+
+procedure drag_begin_cp(gesture: PGtkGestureDrag; x: double; y: double; user_data: Tgpointer); cdecl;
+var
+  widget: PMyWidget;
+begin
+  widget := PMyWidget(gtk_event_controller_get_widget(PGtkEventController(gesture)));
+  with widget^ do begin
+    Mouse.x1:=Zoom.x1;
+    Mouse.y1:=Zoom.y1;
+    Mouse.x2:=Zoom.x2;
+    Mouse.y2:=Zoom.y2;
+  end;
+end;
+
+procedure drag_update_cp(gesture: PGtkGestureDrag; offset_x: double; offset_y: double; user_data: Tgpointer); cdecl;
+var
+  widget: PMyWidget;
+  width, height: integer;
+  dx, dy: double;
+begin
+  widget := PMyWidget(gtk_event_controller_get_widget(PGtkEventController(gesture)));
+  width := gtk_widget_get_width(GTK_WIDGET(widget));
+  height := gtk_widget_get_height(GTK_WIDGET(widget));
+
+  with widget^ do begin
+    if (width > 0) and (height > 0) then begin
+      dx := (offset_x / width) * (Mouse.x2 - Mouse.x1);
+      dy := (offset_y / height) * (Mouse.y2 - Mouse.y1);
+
+      Zoom.x1:=Mouse.x1-dx;
+      Zoom.y1:=Mouse.y1+dy;
+      Zoom.x2:=Mouse.x2-dx;
+      Zoom.y2:=Mouse.y2+dy;
+    end;
+  end;
+end;
+
+function on_tick(widget: PGtkWidget; frame_clock: PGdkFrameClock; user_data: Tgpointer): Tgboolean; cdecl;
+begin
+  gtk_widget_queue_draw(widget);
+  Result := G_SOURCE_CONTINUE;
+end;
+
 procedure class_init(g_class: Tgpointer; class_data: Tgpointer); cdecl;
 begin
   G_OBJECT_CLASS(g_class)^.finalize := @finalize_cp;
@@ -139,6 +213,8 @@ end;
 procedure init_cp(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
 var
   self: PMyWidget absolute instance;
+  scroll_ctrl: PGtkEventController;
+  drag_gest: PGtkGesture;
 begin
   with self^ do begin
     gr := nil;
@@ -148,7 +224,23 @@ begin
       x2 := 1.0;
       y2 := 1.0;
     end;
+    with Mouse do begin
+      x1 := 0.0;
+      y1 := 0.0;
+      x2 := 9.0;
+      y2 := 9.0;
+    end;
   end;
+  gtk_widget_add_tick_callback(GTK_WIDGET(self), @on_tick, nil, nil);
+
+  scroll_ctrl := gtk_event_controller_scroll_new(GTK_EVENT_CONTROLLER_SCROLL_BOTH_AXES or GTK_EVENT_CONTROLLER_SCROLL_DISCRETE);
+  g_signal_connect(scroll_ctrl, 'scroll', G_CALLBACK(@scroll_cp), nil);
+  gtk_widget_add_controller(GTK_WIDGET(self), scroll_ctrl);
+
+  drag_gest := gtk_gesture_drag_new;
+  g_signal_connect(drag_gest, 'drag-begin', G_CALLBACK(@drag_begin_cp), nil);
+  g_signal_connect(drag_gest, 'drag-update', G_CALLBACK(@drag_update_cp), nil);
+  gtk_widget_add_controller(GTK_WIDGET(self), GTK_EVENT_CONTROLLER(drag_gest));
 end;
 
 
@@ -168,39 +260,8 @@ begin
 end;
 
 function my_widget_new: PGTKWidget;
-var
-  self: PMyWidget absolute Result;
 begin
   Result := g_object_new(my_widget_get_type, nil);
-end;
-
-procedure my_widget_set_zoom(self: PMyWidget; x1, y1, x2, y2: double);
-begin
-  with self^ do begin
-    Zoom.x1 := x1;
-    Zoom.y1 := y1;
-    Zoom.x2 := x2;
-    Zoom.y2 := y2;
-  end;
-end;
-
-procedure my_widget_get_zoom(self: PMyWidget; x1, y1, x2, y2: PDouble);
-begin
-  with self^ do begin
-    x1^ := Zoom.x1;
-    y1^ := Zoom.y1;
-    x2^ := Zoom.x2;
-    y2^ := Zoom.y2;
-  end;
-end;
-
-procedure my_widget_reset_data(self: PMyWidget);
-var
-  w: PMyWidget absolute self;
-begin
-  with self^ do begin
-  end;
-  gtk_widget_queue_draw(GTK_WIDGET(w));
 end;
 
 end.
