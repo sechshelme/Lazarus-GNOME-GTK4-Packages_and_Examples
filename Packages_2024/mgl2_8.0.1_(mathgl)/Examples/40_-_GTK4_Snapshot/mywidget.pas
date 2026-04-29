@@ -8,10 +8,10 @@ uses
 type
   TMyWidget = record
     parent_instance: TGtkWidget;
-    Zoom: record
+    CurrentRange: record
       x1, y1, x2, y2: double;
       end;
-    Mouse: record
+    StoredRange: record
       zoom_factor: double;
       x1, y1, x2, y2: double;
       end;
@@ -99,7 +99,7 @@ begin
       mgl_clf(gr);
       mgl_fill_background(gr, 0.3, 0.3, 0.3, 1.0);
 
-      with Zoom do begin
+      with CurrentRange do begin
         mgl_zoom(gr, x1, y1, x2, y2);
       end;
 
@@ -143,7 +143,7 @@ begin
   end;
 
   widget := PMyWidget(gtk_event_controller_get_widget(PGtkEventController(controller)));
-  with widget^.Zoom do begin
+  with widget^.CurrentRange do begin
     width := x2 - x1;
     height := y2 - y1;
     cx := x1 + width / 2;
@@ -167,10 +167,10 @@ var
 begin
   widget := PMyWidget(gtk_event_controller_get_widget(PGtkEventController(gesture)));
   with widget^ do begin
-    Mouse.x1:=Zoom.x1;
-    Mouse.y1:=Zoom.y1;
-    Mouse.x2:=Zoom.x2;
-    Mouse.y2:=Zoom.y2;
+    StoredRange.x1 := CurrentRange.x1;
+    StoredRange.y1 := CurrentRange.y1;
+    StoredRange.x2 := CurrentRange.x2;
+    StoredRange.y2 := CurrentRange.y2;
   end;
 end;
 
@@ -186,13 +186,13 @@ begin
 
   with widget^ do begin
     if (width > 0) and (height > 0) then begin
-      dx := (offset_x / width) * (Mouse.x2 - Mouse.x1);
-      dy := (offset_y / height) * (Mouse.y2 - Mouse.y1);
+      dx := (offset_x / width) * (StoredRange.x2 - StoredRange.x1);
+      dy := (offset_y / height) * (StoredRange.y2 - StoredRange.y1);
 
-      Zoom.x1:=Mouse.x1-dx;
-      Zoom.y1:=Mouse.y1+dy;
-      Zoom.x2:=Mouse.x2-dx;
-      Zoom.y2:=Mouse.y2+dy;
+      CurrentRange.x1 := StoredRange.x1 - dx;
+      CurrentRange.y1 := StoredRange.y1 + dy;
+      CurrentRange.x2 := StoredRange.x2 - dx;
+      CurrentRange.y2 := StoredRange.y2 + dy;
     end;
   end;
 end;
@@ -218,13 +218,13 @@ var
 begin
   with self^ do begin
     gr := nil;
-    with Zoom do begin
+    with CurrentRange do begin
       x1 := 0.0;
       y1 := 0.0;
       x2 := 1.0;
       y2 := 1.0;
     end;
-    with Mouse do begin
+    with StoredRange do begin
       x1 := 0.0;
       y1 := 0.0;
       x2 := 9.0;

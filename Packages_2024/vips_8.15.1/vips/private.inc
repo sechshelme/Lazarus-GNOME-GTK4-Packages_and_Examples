@@ -10,8 +10,6 @@ const
 
   {$IFDEF read_struct}
 type
-  PVipsWindow = ^TVipsWindow;
-
   TVipsWindow = record
     ref_count: longint;
     im: PVipsImage;
@@ -21,6 +19,7 @@ type
     baseaddr: pointer;
     length: Tsize_t;
   end;
+  PVipsWindow = ^TVipsWindow;
   {$ENDIF read_struct}
 
 {$IFDEF read_function}
@@ -110,8 +109,7 @@ function vips__argument_table_lookup(table: PVipsArgumentTable; pspec: PGParamSp
 function vips__image_copy_fields_array(out_: PVipsImage; in_: PPVipsImage): longint; cdecl; external libvips;
 procedure vips__region_count_pixels(region: PVipsRegion; nickname: pchar); cdecl; external libvips;
 procedure vips_region_dump_all; cdecl; external libvips;
-//function vips_region_prepare_many(reg: PPVipsRegion; r: PVipsRect): longint; cdecl; external libvips;
-function vips_region_prepare_many(reg: PPointer; r: PVipsRect): longint; cdecl; external libvips;
+function vips_region_prepare_many(reg: PPVipsRegion; r: PVipsRect): longint; cdecl; external libvips;
 function vips__view_image(image: PVipsImage): longint; cdecl; external libvips;
 
 var

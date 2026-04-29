@@ -27,12 +27,13 @@ type
     seq: pointer;
     thread: PGThread;
 //    window: PVipsWindow;
-//    buffer: PVipsBuffer;
     window: Pointer;
+//    buffer: PVipsBuffer;
     buffer: Pointer;
     invalid: Tgboolean;
   end;
   PVipsRegion = ^TVipsRegion;
+  PPVipsRegion = ^PVipsRegion;
 
   TVipsRegionClass = record
     parent_class: TVipsObjectClass;

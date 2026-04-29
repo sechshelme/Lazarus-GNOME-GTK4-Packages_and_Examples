@@ -21,13 +21,6 @@ const
   Toff_t=SizeInt;
 
 
-//  type
-//  PVipsRegion=Pointer;  // Kreuzverbunden
-//  PPVipsRegion=^PVipsRegion;   // Kreuzverbunden
-
-//  PVipsTarget=Pointer;  // sollte nachher gehen
-
-
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}

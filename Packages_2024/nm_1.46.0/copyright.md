@@ -1,4 +1,4 @@
-Copyright (c) 2025 sechsehelme
+Copyright (c) 2026 sechsehelme
 This project is licensed under the MIT License.
 See the LICENSE file for full terms.
 

@@ -8,8 +8,8 @@
 {$include vips/type.inc}
 {$include vips/connection.inc}
 {$include vips/image.inc}            // PVipsRegion ???
-{$include vips/region.inc}           // //    PVipsWindow; PVipsBuffer; ???
-{$include vips/private.inc}         // PVipsRegion ???
+{$include vips/region.inc}           // PVipsWindow; PVipsBuffer; ???
+{$include vips/private.inc}
 {$include vips/arithmetic.inc}
 {$include vips/colour.inc}
 {$include vips/conversion.inc}
