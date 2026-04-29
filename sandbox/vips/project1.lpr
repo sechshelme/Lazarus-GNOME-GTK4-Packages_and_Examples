@@ -1,51 +1,8 @@
 program project1;
 
 uses
-  enumtypes,
-  rect,
-  buf,
-  basic,
-  object_,        // basic         // ????? ____
-  type_,          // basic          // ????? ____
-  connection,
-  image,
-  private,
-  region,
-  arithmetic,
-  colour,
-  conversion,
-  convolution,
-  create,
-  dbuf,
-  draw,
-  error,
-  operation,
-  foreign,
-  format,
-  freqfilt,
-  gate,
-  generate,
-  header,
-  histogram,
-  interpolate,
-  memory,
-  morphology,
-  mosaicing,
-  resample,
-  sbuf,
-  semaphore,
-  thread,
-  threadpool,
-  transform,
-  util,
-  vector,
-  version,
-  vips,
-
-
-
-  fp_glib2,
-  fp_vips;
+  fp_vips,
+  fp_glib2;
 
   procedure main;
   var
