@@ -5,7 +5,7 @@ unit threadpool;
 interface
 
 uses
-  fp_glib2, fp_vips, object_, rect;
+  fp_glib2, fp_vips, object_, rect,image;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

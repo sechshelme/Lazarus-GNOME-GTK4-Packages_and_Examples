@@ -5,7 +5,7 @@ unit util;
 interface
 
 uses
-  fp_glib2, fp_vips;
+  fp_glib2,basic, fp_vips;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

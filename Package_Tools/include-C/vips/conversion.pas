@@ -5,7 +5,7 @@ unit conversion;
 interface
 
 uses
-  fp_glib2, fp_vips;
+  fp_glib2, fp_vips,arithmetic, image;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

@@ -18,33 +18,18 @@ const
   Tsize_t=SizeUInt;
   Psize_t=^Tsize_t;
 
+  Toff_t=SizeInt;
+
 
   type
-  PVipsImage=Pointer;
-  PPVipsImage=^PVipsImage;
-  PVipsRegion=Pointer;
-  PPVipsRegion=^PVipsRegion;
-  PVipsPel=Pointer;
-  PVipsSource=Pointer;
-  PVipsTarget=Pointer;
-  PVipsArrayImage=Pointer;
-  PVipsRect=Pointer;
-  PVipsBlob=Pointer;
-  PPVipsBlob=^PVipsBlob;
+  PVipsRegion=Pointer;  // Kreuzverbunden
+  PPVipsRegion=^PVipsRegion;   // Kreuzverbunden
 
-  TVipsObjectClass=Pointer;
-  TVipsObject=Pointer;
+  PVipsTarget=Pointer;  // sollte nachher gehen
 
-  TVipsCoding=Integer;
-  TVipsBandFormat=Integer;
-  TVipsPrecision=Integer;
-  TVipsInterpretation=Integer;
-  TVipsOperationBoolean=Integer;
 
-  TVipsCallbackFn=Pointer;
-  TVipsSListMap2Fn=Pointer;
-  TVipsSListMap4Fn=Pointer;
-  TVipsSListFold2Fn=Pointer;
+  TVipsOperation=Pointer;
+  TVipsOperationCLass=Pointer;
 
 
   {$IFDEF FPC}

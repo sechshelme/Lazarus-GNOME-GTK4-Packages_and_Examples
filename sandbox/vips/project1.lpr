@@ -1,32 +1,32 @@
 program project1;
 
 uses
+  enumtypes,
   rect,
-
-  //  almostdeprecated,         // dep
   buf,
-  object_,                 // ????? ____
-
+  basic,
+  object_,        // basic         // ????? ____
+  type_,          // basic          // ????? ____
+  connection,      // object_, type_
+  image,
+  private,
+  region,
   arithmetic,
-  //basic,
   colour,
-  //connection,
   conversion,
-  //convolution,
+  convolution,
   create,
-  //dbuf,
-  //dispatch,
-  //draw,
-  //enumtypes,
+  dbuf,
+  draw,
   error,
-  //foreign,
+  foreign,
+
   //format,
   //freqfilt,
   //gate,
   //generate,
   header,
   //histogram,
-  image,
   //interpolate,
   //intl,
   //mask,
@@ -34,15 +34,12 @@ uses
   //morphology,
   //mosaicing,
   //operation,
-  //private,
-  //region,
   //resample,
   //sbuf,
   //semaphore,
   //thread,
   threadpool,
   transform,
-  type_,                    // ????? ____
   util,
   vector,
   version,

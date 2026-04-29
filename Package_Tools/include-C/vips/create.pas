@@ -5,7 +5,7 @@ unit create;
 interface
 
 uses
-  fp_glib2, fp_vips;
+  fp_glib2, fp_vips,image;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

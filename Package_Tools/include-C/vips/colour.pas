@@ -5,7 +5,7 @@ unit colour;
 interface
 
 uses
-  fp_glib2, fp_vips;
+  fp_glib2, fp_vips,image, type_;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

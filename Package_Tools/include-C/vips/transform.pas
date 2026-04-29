@@ -5,7 +5,7 @@ unit transform;
 interface
 
 uses
-  fp_glib2, rect, fp_vips;
+  fp_glib2, rect, fp_vips,image;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

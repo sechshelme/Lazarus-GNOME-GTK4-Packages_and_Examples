@@ -5,7 +5,7 @@ unit image;
 interface
 
 uses
-  fp_glib2, fp_vips;
+  fp_glib2, fp_vips, rect, object_,basic, type_, connection;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -113,6 +113,8 @@ const
 
   {$IFDEF read_struct}
 type
+  PVipsImage = ^TVipsImage;
+  PPVipsImage = ^PVipsImage;
   TVipsStartFn = function(out_: PVipsImage; a: pointer; b: pointer): pointer; cdecl;
   TVipsGenerateFn = function(out_: PVipsRegion; seq: pointer; a: pointer; b: pointer; stop: Pgboolean): longint; cdecl;
   TVipsStopFn = function(seq: pointer; a: pointer; b: pointer): longint; cdecl;
@@ -128,7 +130,6 @@ type
   end;
   PVipsProgress = ^TVipsProgress;
 
-type
   TVipsImage = record
     parent_instance: TVipsObject;
     Xsize: longint;
@@ -180,7 +181,6 @@ type
     delete_on_close: Tgboolean;
     delete_on_close_filename: pchar;
   end;
-  PVipsImage = ^TVipsImage;
 
   TVipsImageClass = record
     parent_class: TVipsObjectClass;

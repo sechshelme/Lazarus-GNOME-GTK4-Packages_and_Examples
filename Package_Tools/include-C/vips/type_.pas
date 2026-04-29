@@ -5,7 +5,7 @@ unit type_;
 interface
 
 uses
-  fp_glib2, fp_vips;
+  fp_glib2, fp_vips, basic;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -81,6 +81,7 @@ type
     area: TVipsArea;
   end;
   PVipsBlob = ^TVipsBlob;
+  PPVipsBlob = ^PVipsBlob;
   {$ENDIF read_struct}
 
 {$IFDEF read_function}
