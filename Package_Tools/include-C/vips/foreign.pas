@@ -5,7 +5,7 @@ unit foreign;
 interface
 
 uses
-  fp_glib2, fp_vips, basic, type_, image, connection;
+  fp_glib2, fp_vips, basic, type_, image, arithmetic, connection, operation;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}

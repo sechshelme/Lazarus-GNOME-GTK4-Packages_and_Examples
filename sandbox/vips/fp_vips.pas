@@ -28,8 +28,8 @@ const
   PVipsTarget=Pointer;  // sollte nachher gehen
 
 
-  TVipsOperation=Pointer;
-  TVipsOperationCLass=Pointer;
+//  TVipsOperation=Pointer;
+//  TVipsOperationCLass=Pointer;
 
 
   {$IFDEF FPC}
