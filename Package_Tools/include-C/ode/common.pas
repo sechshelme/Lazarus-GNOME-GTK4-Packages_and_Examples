@@ -10,6 +10,7 @@ uses
   {$ENDIF}
 
 type
+  PPdReal = ^PdReal;
   PdReal = ^TdReal;
   TdReal = double;
 

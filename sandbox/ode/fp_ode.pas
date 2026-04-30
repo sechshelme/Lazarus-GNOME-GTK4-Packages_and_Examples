@@ -11,6 +11,12 @@ const
   libode = 'libode-double.dll';
   {$ENDIF}
 
+  type
+    Ttime_t=uint64;
+    PFILE=type Pointer;
+
+    Tva_list=Pointer; // ????
+
 implementation
 
 end.
