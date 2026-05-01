@@ -3,1029 +3,583 @@ unit odemath;
 interface
 
 uses
-  fp_ode;
+  fp_ode, common, odeconfig;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
+const
+  { Indizes für Vektoren }
+  dV3E_X = 0;
+  dV3E_Y = 1;
+  dV3E_Z = 2;
+  { Indizes für Matrizen (4x3 Layout in ODE) }
+  dM3E_XX = 0;
+  dM3E_XY = 1;
+  dM3E_XZ = 2;
+  dM3E_YX = 4;
+  dM3E_YY = 5;
+  dM3E_YZ = 6;
+  dM3E_ZX = 8;
+  dM3E_ZY = 9;
+  dM3E_ZZ = 10;
+  { Indizes für Matrix4 (4x4) }
+  dM4E_XX = 0;
+  dM4E_XY = 1;
+  dM4E_XZ = 2;
+  dM4E_XO = 3;
+  dM4E_YX = 4;
+  dM4E_YY = 5;
+  dM4E_YZ = 6;
+  dM4E_YO = 7;
+  dM4E_ZX = 8;
+  dM4E_ZY = 9;
+  dM4E_ZZ = 10;
+  dM4E_ZO = 11;
+  dM4E_OX = 12;
+  dM4E_OY = 13;
+  dM4E_OZ = 14;
+  dM4E_OO = 15;
 
-{************************************************************************
- *                                                                       *
- * Open Dynamics Engine, Copyright (C) 2001,2002 Russell L. Smith.       *
- * All rights reserved.  Email: russ@q12.org   Web: www.q12.org          *
- *                                                                       *
- * This library is free software; you can redistribute it and/or         *
- * modify it under the terms of EITHER:                                  *
- *   (1) The GNU Lesser General Public License as published by the Free  *
- *       Software Foundation; either version 2.1 of the License, or (at  *
- *       your option) any later version. The text of the GNU Lesser      *
- *       General Public License is included with this library in the     *
- *       file LICENSE.TXT.                                               *
- *   (2) The BSD-style license that is included with this library in     *
- *       the file LICENSE-BSD.TXT.                                       *
- *                                                                       *
- * This library is distributed in the hope that it will be useful,       *
- * but WITHOUT ANY WARRANTY; without even the implied warranty of        *
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the files    *
- * LICENSE.TXT and LICENSE-BSD.TXT for more details.                     *
- *                                                                       *
- ************************************************************************ }
-{$ifndef _ODE_ODEMATH_H_}
-{$define _ODE_ODEMATH_H_}
-{$include <ode/common.h>}
-{
- * macro to access elements i,j in an NxM matrix A, independent of the
- * matrix storage convention.
-  }
-(* error 
-#define dACCESS33(A,i,j) ((A)[(i)*4+(j)])
-in define line 32 *)
-    {
-     * Macro to test for valid floating point values
-      }
-(* error 
-#define dVALIDVEC3(v) (!(dIsNan(v[0]) || dIsNan(v[1]) || dIsNan(v[2])))
-in define line 37 *)
-(* error 
-#define dVALIDVEC4(v) (!(dIsNan(v[0]) || dIsNan(v[1]) || dIsNan(v[2]) || dIsNan(v[3])))
-in define line 38 *)
-(* error 
-#define dVALIDMAT3(m) (!(dIsNan(m[0]) || dIsNan(m[1]) || dIsNan(m[2]) || dIsNan(m[3]) || dIsNan(m[4]) || dIsNan(m[5]) || dIsNan(m[6]) || dIsNan(m[7]) || dIsNan(m[8]) || dIsNan(m[9]) || dIsNan(m[10]) || dIsNan(m[11])))
-in define line 39 *)
-(* error 
-#define dVALIDMAT4(m) (!(dIsNan(m[0]) || dIsNan(m[1]) || dIsNan(m[2]) || dIsNan(m[3]) || dIsNan(m[4]) || dIsNan(m[5]) || dIsNan(m[6]) || dIsNan(m[7]) || dIsNan(m[8]) || dIsNan(m[9]) || dIsNan(m[10]) || dIsNan(m[11]) || dIsNan(m[12]) || dIsNan(m[13]) || dIsNan(m[14]) || dIsNan(m[15]) ))
-in define line 40 *)
-(* error 
-ODE_PURE_INLINE void dZeroVector3(dVector3 res)
-in declaration at line 45 *)
-(* error 
-    res[dV3E_Y] = REAL(0.0);
-in declaration at line 46 *)
-(* error 
-    res[dV3E_Z] = REAL(0.0);
-in declaration at line 47 *)
-(* error 
-}
-in declaration at line 52 *)
-(* error 
-    res[dV3E_Y] = y;
-in declaration at line 53 *)
-(* error 
-    res[dV3E_Z] = z;
-in declaration at line 54 *)
-(* error 
-}
-in declaration at line 59 *)
-(* error 
-    res[dM3E_XX] = REAL(0.0); res[dM3E_XY] = REAL(0.0); res[dM3E_XZ] = REAL(0.0);
-in declaration at line 59 *)
-(* error 
-    res[dM3E_XX] = REAL(0.0); res[dM3E_XY] = REAL(0.0); res[dM3E_XZ] = REAL(0.0);
-in declaration at line 59 *)
-(* error 
-    res[dM3E_YX] = REAL(0.0); res[dM3E_YY] = REAL(0.0); res[dM3E_YZ] = REAL(0.0);
-in declaration at line 60 *)
-(* error 
-    res[dM3E_YX] = REAL(0.0); res[dM3E_YY] = REAL(0.0); res[dM3E_YZ] = REAL(0.0);
-in declaration at line 60 *)
-(* error 
-    res[dM3E_YX] = REAL(0.0); res[dM3E_YY] = REAL(0.0); res[dM3E_YZ] = REAL(0.0);
-in declaration at line 60 *)
-(* error 
-    res[dM3E_ZX] = REAL(0.0); res[dM3E_ZY] = REAL(0.0); res[dM3E_ZZ] = REAL(0.0);
-in declaration at line 61 *)
-(* error 
-    res[dM3E_ZX] = REAL(0.0); res[dM3E_ZY] = REAL(0.0); res[dM3E_ZZ] = REAL(0.0);
-in declaration at line 61 *)
-(* error 
-    res[dM3E_ZX] = REAL(0.0); res[dM3E_ZY] = REAL(0.0); res[dM3E_ZZ] = REAL(0.0);
-in declaration at line 61 *)
-(* error 
-}
-in declaration at line 66 *)
-(* error 
-    res[dM4E_XX] = REAL(0.0); res[dM4E_XY] = REAL(0.0); res[dM4E_XZ] = REAL(0.0); res[dM4E_XO] = REAL(0.0);
-in declaration at line 66 *)
-(* error 
-    res[dM4E_XX] = REAL(0.0); res[dM4E_XY] = REAL(0.0); res[dM4E_XZ] = REAL(0.0); res[dM4E_XO] = REAL(0.0);
-in declaration at line 66 *)
-(* error 
-    res[dM4E_XX] = REAL(0.0); res[dM4E_XY] = REAL(0.0); res[dM4E_XZ] = REAL(0.0); res[dM4E_XO] = REAL(0.0);
-in declaration at line 66 *)
-(* error 
-    res[dM4E_YX] = REAL(0.0); res[dM4E_YY] = REAL(0.0); res[dM4E_YZ] = REAL(0.0); res[dM4E_YO] = REAL(0.0);
-in declaration at line 67 *)
-(* error 
-    res[dM4E_YX] = REAL(0.0); res[dM4E_YY] = REAL(0.0); res[dM4E_YZ] = REAL(0.0); res[dM4E_YO] = REAL(0.0);
-in declaration at line 67 *)
-(* error 
-    res[dM4E_YX] = REAL(0.0); res[dM4E_YY] = REAL(0.0); res[dM4E_YZ] = REAL(0.0); res[dM4E_YO] = REAL(0.0);
-in declaration at line 67 *)
-(* error 
-    res[dM4E_YX] = REAL(0.0); res[dM4E_YY] = REAL(0.0); res[dM4E_YZ] = REAL(0.0); res[dM4E_YO] = REAL(0.0);
-in declaration at line 67 *)
-(* error 
-    res[dM4E_ZX] = REAL(0.0); res[dM4E_ZY] = REAL(0.0); res[dM4E_ZZ] = REAL(0.0); res[dM4E_ZO] = REAL(0.0);
-in declaration at line 68 *)
-(* error 
-    res[dM4E_ZX] = REAL(0.0); res[dM4E_ZY] = REAL(0.0); res[dM4E_ZZ] = REAL(0.0); res[dM4E_ZO] = REAL(0.0);
-in declaration at line 68 *)
-(* error 
-    res[dM4E_ZX] = REAL(0.0); res[dM4E_ZY] = REAL(0.0); res[dM4E_ZZ] = REAL(0.0); res[dM4E_ZO] = REAL(0.0);
-in declaration at line 68 *)
-(* error 
-    res[dM4E_ZX] = REAL(0.0); res[dM4E_ZY] = REAL(0.0); res[dM4E_ZZ] = REAL(0.0); res[dM4E_ZO] = REAL(0.0);
-in declaration at line 68 *)
-(* error 
-    res[dM4E_OX] = REAL(0.0); res[dM4E_OY] = REAL(0.0); res[dM4E_OZ] = REAL(0.0); res[dM4E_OO] = REAL(0.0);
-in declaration at line 69 *)
-(* error 
-    res[dM4E_OX] = REAL(0.0); res[dM4E_OY] = REAL(0.0); res[dM4E_OZ] = REAL(0.0); res[dM4E_OO] = REAL(0.0);
-in declaration at line 69 *)
-(* error 
-    res[dM4E_OX] = REAL(0.0); res[dM4E_OY] = REAL(0.0); res[dM4E_OZ] = REAL(0.0); res[dM4E_OO] = REAL(0.0);
-in declaration at line 69 *)
-(* error 
-    res[dM4E_OX] = REAL(0.0); res[dM4E_OY] = REAL(0.0); res[dM4E_OZ] = REAL(0.0); res[dM4E_OO] = REAL(0.0);
-in declaration at line 69 *)
-(* error 
-}
-    { Some vector math  }
-in declaration at line 75 *)
-(* error 
-  const dReal res_1 = a[1] + b[1];
- in declarator_list *)
-(* error 
-  const dReal res_2 = a[2] + b[2];
- in declarator_list *)
-    { Only assign after all the calculations are over to avoid incurring memory aliasing }
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 79 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 79 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 79 *)
-(* error 
-}
-in declaration at line 84 *)
-(* error 
-  const dReal res_1 = a[1] - b[1];
- in declarator_list *)
-(* error 
-  const dReal res_2 = a[2] - b[2];
- in declarator_list *)
-    { Only assign after all the calculations are over to avoid incurring memory aliasing }
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 88 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 88 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 88 *)
-(* error 
-}
-in declaration at line 93 *)
-(* error 
-    const dReal res_1 = a[1] + b_scale * b[1];
- in declarator_list *)
-(* error 
-    const dReal res_2 = a[2] + b_scale * b[2];
- in declarator_list *)
-    { Only assign after all the calculations are over to avoid incurring memory aliasing }
-(* error 
-    res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 97 *)
-(* error 
-    res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 97 *)
-(* error 
-    res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 97 *)
-(* error 
-}
-in declaration at line 102 *)
-(* error 
-  const dReal res_1 = a_scale * a[1] + b_scale * b[1];
- in declarator_list *)
-(* error 
-  const dReal res_2 = a_scale * a[2] + b_scale * b[2];
- in declarator_list *)
-    { Only assign after all the calculations are over to avoid incurring memory aliasing }
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 106 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 106 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 106 *)
-(* error 
-}
-in declaration at line 111 *)
-(* error 
-    const dReal res_1 = a_scale * a[1] + b_scale * b[1] + c_scale * c[1];
- in declarator_list *)
-(* error 
-    const dReal res_2 = a_scale * a[2] + b_scale * b[2] + c_scale * c[2];
- in declarator_list *)
-    { Only assign after all the calculations are over to avoid incurring memory aliasing }
-(* error 
-    res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 115 *)
-(* error 
-    res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 115 *)
-(* error 
-    res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 115 *)
-(* error 
-}
-in declaration at line 120 *)
-(* error 
-  res[1] *= nScale ;
-in declaration at line 121 *)
-(* error 
-  res[2] *= nScale ;
-in declaration at line 122 *)
-(* error 
-}
-in declaration at line 127 *)
-(* error 
-  res[1] = -res[1];
-in declaration at line 128 *)
-(* error 
-  res[2] = -res[2];
-in declaration at line 129 *)
-(* error 
-}
-in declaration at line 134 *)
-(* error 
-  const dReal res_1 = a[1];
- in declarator_list *)
-(* error 
-  const dReal res_2 = a[2];
- in declarator_list *)
-    { Only assign after all the calculations are over to avoid incurring memory aliasing }
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 138 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 138 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 138 *)
-(* error 
-}
-in declaration at line 143 *)
-(* error 
-  const dReal res_1 = a[1] * nScale;
- in declarator_list *)
-(* error 
-  const dReal res_2 = a[2] * nScale;
- in declarator_list *)
-    { Only assign after all the calculations are over to avoid incurring memory aliasing }
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 147 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 147 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 147 *)
-(* error 
-}
-in declaration at line 152 *)
-(* error 
-  const dReal res_1 = -a[1];
- in declarator_list *)
-(* error 
-  const dReal res_2 = -a[2];
- in declarator_list *)
-    { Only assign after all the calculations are over to avoid incurring memory aliasing }
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 156 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 156 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 156 *)
-(* error 
-}
-in declaration at line 161 *)
-(* error 
-  const dReal res_1 = a[1];
- in declarator_list *)
-(* error 
-  const dReal res_2 = a[2];
- in declarator_list *)
-(* error 
-  const dReal res_3 = a[3];
- in declarator_list *)
-    { Only assign after all the calculations are over to avoid incurring memory aliasing }
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2; res[3] = res_3;
-in declaration at line 166 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2; res[3] = res_3;
-in declaration at line 166 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2; res[3] = res_3;
-in declaration at line 166 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2; res[3] = res_3;
-in declaration at line 166 *)
-(* error 
-}
-in declaration at line 171 *)
-(* error 
-  dCopyVector4(res + 4, a + 4);
-(* error 
-  dCopyVector4(res + 4, a + 4);
- in declarator_list *)
- in declarator_list *)
-(* error 
-  dCopyVector4(res + 8, a + 8);
-(* error 
-  dCopyVector4(res + 8, a + 8);
- in declarator_list *)
- in declarator_list *)
-(* error 
-}
-in declaration at line 178 *)
-(* error 
-  dCopyVector3(res + 4, a + 4);
-(* error 
-  dCopyVector3(res + 4, a + 4);
- in declarator_list *)
- in declarator_list *)
-(* error 
-  dCopyVector3(res + 8, a + 8);
-(* error 
-  dCopyVector3(res + 8, a + 8);
- in declarator_list *)
- in declarator_list *)
-(* error 
-}
-in declaration at line 185 *)
-(* error 
-  const dReal res_1 = a[n + 4];
- in declarator_list *)
-(* error 
-  const dReal res_2 = a[n + 8];
- in declarator_list *)
-    { Only assign after all the calculations are over to avoid incurring memory aliasing }
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 189 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 189 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 189 *)
-(* error 
-}
-in declaration at line 194 *)
-(* error 
-}
-in declaration at line 199 *)
-(* error 
-}
-in declaration at line 204 *)
-(* error 
-}
-    {
-    * 3-way dot product. _dCalcVectorDot3 means that elements of `a' and `b' are spaced
-    * step_a and step_b indexes apart respectively. dCalcVectorDot3() means dDot311.
-     }
-in declaration at line 215 *)
-(* error 
-}
-in declaration at line 219 *)
-(* error 
-ODE_PURE_INLINE dReal dCalcVectorDot3    (const dReal *a, const dReal *b) { return _dCalcVectorDot3(a,b,1,1); }
-in declaration at line 220 *)
-(* error 
-ODE_PURE_INLINE dReal dCalcVectorDot3_13 (const dReal *a, const dReal *b) { return _dCalcVectorDot3(a,b,1,3); }
-in declaration at line 221 *)
-(* error 
-ODE_PURE_INLINE dReal dCalcVectorDot3_31 (const dReal *a, const dReal *b) { return _dCalcVectorDot3(a,b,3,1); }
-in declaration at line 222 *)
-(* error 
-ODE_PURE_INLINE dReal dCalcVectorDot3_33 (const dReal *a, const dReal *b) { return _dCalcVectorDot3(a,b,3,3); }
-in declaration at line 223 *)
-(* error 
-ODE_PURE_INLINE dReal dCalcVectorDot3_14 (const dReal *a, const dReal *b) { return _dCalcVectorDot3(a,b,1,4); }
-in declaration at line 224 *)
-(* error 
-ODE_PURE_INLINE dReal dCalcVectorDot3_41 (const dReal *a, const dReal *b) { return _dCalcVectorDot3(a,b,4,1); }
-in declaration at line 225 *)
-(* error 
-ODE_PURE_INLINE dReal dCalcVectorDot3_44 (const dReal *a, const dReal *b) { return _dCalcVectorDot3(a,b,4,4); }
-    {
-     * cross product, set res = a x b. _dCalcVectorCross3 means that elements of `res', `a'
-     * and `b' are spaced step_res, step_a and step_b indexes apart respectively.
-     * dCalcVectorCross3() means dCross3111. 
-      }
-in declaration at line 236 *)
-(* error 
-  const dReal res_1 = a[2*step_a]*b[       0] - a[       0]*b[2*step_b];
- in declarator_list *)
-(* error 
-  const dReal res_2 = a[       0]*b[  step_b] - a[  step_a]*b[       0];
- in declarator_list *)
-    { Only assign after all the calculations are over to avoid incurring memory aliasing }
-(* error 
-  res[         0] = res_0;
-in declaration at line 240 *)
-(* error 
-  res[  step_res] = res_1;
-in declaration at line 241 *)
-(* error 
-  res[2*step_res] = res_2;
-in declaration at line 242 *)
-(* error 
-}
-in declaration at line 245 *)
-(* error 
-ODE_PURE_INLINE void dCalcVectorCross3    (dReal *res, const dReal *a, const dReal *b) { _dCalcVectorCross3(res, a, b, 1, 1, 1); }
-in declaration at line 246 *)
-(* error 
-ODE_PURE_INLINE void dCalcVectorCross3_114(dReal *res, const dReal *a, const dReal *b) { _dCalcVectorCross3(res, a, b, 1, 1, 4); }
-in declaration at line 247 *)
-(* error 
-ODE_PURE_INLINE void dCalcVectorCross3_141(dReal *res, const dReal *a, const dReal *b) { _dCalcVectorCross3(res, a, b, 1, 4, 1); }
-in declaration at line 248 *)
-(* error 
-ODE_PURE_INLINE void dCalcVectorCross3_144(dReal *res, const dReal *a, const dReal *b) { _dCalcVectorCross3(res, a, b, 1, 4, 4); }
-in declaration at line 249 *)
-(* error 
-ODE_PURE_INLINE void dCalcVectorCross3_411(dReal *res, const dReal *a, const dReal *b) { _dCalcVectorCross3(res, a, b, 4, 1, 1); }
-in declaration at line 250 *)
-(* error 
-ODE_PURE_INLINE void dCalcVectorCross3_414(dReal *res, const dReal *a, const dReal *b) { _dCalcVectorCross3(res, a, b, 4, 1, 4); }
-in declaration at line 251 *)
-(* error 
-ODE_PURE_INLINE void dCalcVectorCross3_441(dReal *res, const dReal *a, const dReal *b) { _dCalcVectorCross3(res, a, b, 4, 4, 1); }
-in declaration at line 252 *)
-(* error 
-ODE_PURE_INLINE void dCalcVectorCross3_444(dReal *res, const dReal *a, const dReal *b) { _dCalcVectorCross3(res, a, b, 4, 4, 4); }
-in declaration at line 256 *)
-(* error 
-  dCalcVectorCross3(tmp, a, b);
- in declarator_list *)
-(* error 
-  dCalcVectorCross3(tmp, a, b);
- in declarator_list *)
-(* error 
-  dAddVectors3(res, res, tmp);
- in declarator_list *)
-(* error 
-  dAddVectors3(res, res, tmp);
- in declarator_list *)
-(* error 
-}
-in declaration at line 263 *)
-(* error 
-  dCalcVectorCross3(tmp, a, b);
- in declarator_list *)
-(* error 
-  dCalcVectorCross3(tmp, a, b);
- in declarator_list *)
-(* error 
-  dSubtractVectors3(res, res, tmp);
- in declarator_list *)
-(* error 
-  dSubtractVectors3(res, res, tmp);
- in declarator_list *)
-(* error 
-}
-    {
-     * set a 3x3 submatrix of A to a matrix such that submatrix(A)*b = a x b.
-     * A is stored by rows, and has `skip' elements per row. the matrix is
-     * assumed to be already zero, so this does not write zero elements!
-     * if (plus,minus) is (+,-) then a positive version will be written.
-     * if (plus,minus) is (-,+) then a negative version will be written.
-      }
-in declaration at line 279 *)
-(* error 
-  res[1] = -a_2;
-in declaration at line 280 *)
-(* error 
-  res[2] = +a_1;
-in declaration at line 281 *)
-(* error 
-  res[skip+0] = +a_2;
-in declaration at line 282 *)
-(* error 
-  res[skip+2] = -a_0;
-in declaration at line 283 *)
-(* error 
-  res[2*skip+0] = -a_1;
-in declaration at line 284 *)
-(* error 
-  res[2*skip+1] = +a_0;
-in declaration at line 285 *)
-(* error 
-}
-in declaration at line 290 *)
-(* error 
-  res[1] = +a_2;
-in declaration at line 291 *)
-(* error 
-  res[2] = -a_1;
-in declaration at line 292 *)
-(* error 
-  res[skip+0] = -a_2;
-in declaration at line 293 *)
-(* error 
-  res[skip+2] = +a_0;
-in declaration at line 294 *)
-(* error 
-  res[2*skip+0] = +a_1;
-in declaration at line 295 *)
-(* error 
-  res[2*skip+1] = -a_0;
-in declaration at line 296 *)
-(* error 
-}
-    {
-     * compute the distance between two 3D-vectors
-      }
-in declaration at line 306 *)
-      var
-        tmp : array[0..2] of TdReal;cvar;public;
-(* error 
-  dSubtractVectors3(tmp, a, b);
- in declarator_list *)
-(* error 
-  dSubtractVectors3(tmp, a, b);
- in declarator_list *)
-(* error 
-  res = dCalcVectorLength3(tmp);
-in declaration at line 309 *)
-        res : Treturn;cvar;public;
-(* error 
-}
-    {
-     * special case matrix multiplication, with operator selection
-      }
-in declaration at line 319 *)
-(* error 
-  const dReal res_1 = dCalcVectorDot3(a + 4, b);
-(* error 
-  const dReal res_1 = dCalcVectorDot3(a + 4, b);
- in declarator_list *)
- in declarator_list *)
-(* error 
-  const dReal res_2 = dCalcVectorDot3(a + 8, b);
-(* error 
-  const dReal res_2 = dCalcVectorDot3(a + 8, b);
- in declarator_list *)
- in declarator_list *)
-    { Only assign after all the calculations are over to avoid incurring memory aliasing }
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 323 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 323 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 323 *)
-(* error 
-}
-in declaration at line 328 *)
-(* error 
-  const dReal res_1 = dCalcVectorDot3_41(a + 1, b);
-(* error 
-  const dReal res_1 = dCalcVectorDot3_41(a + 1, b);
- in declarator_list *)
- in declarator_list *)
-(* error 
-  const dReal res_2 = dCalcVectorDot3_41(a + 2, b);
-(* error 
-  const dReal res_2 = dCalcVectorDot3_41(a + 2, b);
- in declarator_list *)
- in declarator_list *)
-    { Only assign after all the calculations are over to avoid incurring memory aliasing }
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 332 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 332 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 332 *)
-(* error 
-}
-in declaration at line 337 *)
-(* error 
-}
-in declaration at line 342 *)
-(* error 
-  const dReal res_1 = dCalcVectorDot3_44(a + 1, b);
-(* error 
-  const dReal res_1 = dCalcVectorDot3_44(a + 1, b);
- in declarator_list *)
- in declarator_list *)
-(* error 
-  const dReal res_2 = dCalcVectorDot3_44(a + 2, b);
-(* error 
-  const dReal res_2 = dCalcVectorDot3_44(a + 2, b);
- in declarator_list *)
- in declarator_list *)
-    { Only assign after all the calculations are over to avoid incurring memory aliasing }
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 346 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 346 *)
-(* error 
-  res[0] = res_0; res[1] = res_1; res[2] = res_2;
-in declaration at line 346 *)
-(* error 
-}
-    { 
-    Note: NEVER call any of these functions/macros with the same variable for A and C, 
-    it is not equivalent to A*=B.
-     }
-in declaration at line 356 *)
-(* error 
-}
-in declaration at line 361 *)
-(* error 
-}
-in declaration at line 366 *)
-(* error 
-}
-in declaration at line 371 *)
-(* error 
-  dMultiplyHelper0_133(res + 4, a + 4, b);
-(* error 
-  dMultiplyHelper0_133(res + 4, a + 4, b);
-(* error 
-  dMultiplyHelper0_133(res + 4, a + 4, b);
- in declarator_list *)
- in declarator_list *)
- in declarator_list *)
-(* error 
-  dMultiplyHelper0_133(res + 8, a + 8, b);
-(* error 
-  dMultiplyHelper0_133(res + 8, a + 8, b);
-(* error 
-  dMultiplyHelper0_133(res + 8, a + 8, b);
- in declarator_list *)
- in declarator_list *)
- in declarator_list *)
-(* error 
-}
-in declaration at line 378 *)
-(* error 
-  dMultiplyHelper1_133(res + 4, b, a + 1);
- in declarator_list *)
-(* error 
-  dMultiplyHelper1_133(res + 4, b, a + 1);
- in declarator_list *)
-(* error 
-  dMultiplyHelper1_133(res + 8, b, a + 2);
- in declarator_list *)
-(* error 
-  dMultiplyHelper1_133(res + 8, b, a + 2);
- in declarator_list *)
-(* error 
-}
-in declaration at line 385 *)
-(* error 
-  dMultiplyHelper0_331(res + 4, b, a + 4);
- in declarator_list *)
-(* error 
-  dMultiplyHelper0_331(res + 4, b, a + 4);
- in declarator_list *)
-(* error 
-  dMultiplyHelper0_331(res + 8, b, a + 8);
- in declarator_list *)
-(* error 
-  dMultiplyHelper0_331(res + 8, b, a + 8);
- in declarator_list *)
-(* error 
-}
-in declaration at line 392 *)
-(* error 
-  dMultiplyHelper0_331(tmp, a, b);
- in declarator_list *)
-(* error 
-  dMultiplyHelper0_331(tmp, a, b);
- in declarator_list *)
-(* error 
-  dAddVectors3(res, res, tmp);
- in declarator_list *)
-(* error 
-  dAddVectors3(res, res, tmp);
- in declarator_list *)
-(* error 
-}
-in declaration at line 399 *)
-(* error 
-  dMultiplyHelper1_331(tmp, a, b);
- in declarator_list *)
-(* error 
-  dMultiplyHelper1_331(tmp, a, b);
- in declarator_list *)
-(* error 
-  dAddVectors3(res, res, tmp);
- in declarator_list *)
-(* error 
-  dAddVectors3(res, res, tmp);
- in declarator_list *)
-(* error 
-}
-in declaration at line 406 *)
-(* error 
-  dMultiplyHelper0_133(tmp, a, b);
- in declarator_list *)
-(* error 
-  dMultiplyHelper0_133(tmp, a, b);
- in declarator_list *)
-(* error 
-  dAddVectors3(res, res, tmp);
- in declarator_list *)
-(* error 
-  dAddVectors3(res, res, tmp);
- in declarator_list *)
-(* error 
-}
-in declaration at line 413 *)
-(* error 
-  dMultiplyHelper0_133(tmp, a + 0, b);
-(* error 
-  dMultiplyHelper0_133(tmp, a + 0, b);
-(* error 
-  dMultiplyHelper0_133(tmp, a + 0, b);
- in declarator_list *)
- in declarator_list *)
- in declarator_list *)
-(* error 
-  dAddVectors3(res+ 0, res + 0, tmp);
-(* error 
-  dAddVectors3(res+ 0, res + 0, tmp);
-(* error 
-  dAddVectors3(res+ 0, res + 0, tmp);
- in declarator_list *)
- in declarator_list *)
- in declarator_list *)
-(* error 
-  dMultiplyHelper0_133(tmp, a + 4, b);
-(* error 
-  dMultiplyHelper0_133(tmp, a + 4, b);
-(* error 
-  dMultiplyHelper0_133(tmp, a + 4, b);
- in declarator_list *)
- in declarator_list *)
- in declarator_list *)
-(* error 
-  dAddVectors3(res + 4, res + 4, tmp);
-(* error 
-  dAddVectors3(res + 4, res + 4, tmp);
-(* error 
-  dAddVectors3(res + 4, res + 4, tmp);
- in declarator_list *)
- in declarator_list *)
- in declarator_list *)
-(* error 
-  dMultiplyHelper0_133(tmp, a + 8, b);
-(* error 
-  dMultiplyHelper0_133(tmp, a + 8, b);
-(* error 
-  dMultiplyHelper0_133(tmp, a + 8, b);
- in declarator_list *)
- in declarator_list *)
- in declarator_list *)
-(* error 
-  dAddVectors3(res + 8, res + 8, tmp);
-(* error 
-  dAddVectors3(res + 8, res + 8, tmp);
-(* error 
-  dAddVectors3(res + 8, res + 8, tmp);
- in declarator_list *)
- in declarator_list *)
- in declarator_list *)
-(* error 
-}
-in declaration at line 424 *)
-(* error 
-  dMultiplyHelper1_133(tmp, b, a + 0);
- in declarator_list *)
-(* error 
-  dMultiplyHelper1_133(tmp, b, a + 0);
- in declarator_list *)
-(* error 
-  dAddVectors3(res + 0, res + 0, tmp);
-(* error 
-  dAddVectors3(res + 0, res + 0, tmp);
-(* error 
-  dAddVectors3(res + 0, res + 0, tmp);
- in declarator_list *)
- in declarator_list *)
- in declarator_list *)
-(* error 
-  dMultiplyHelper1_133(tmp, b, a + 1);
- in declarator_list *)
-(* error 
-  dMultiplyHelper1_133(tmp, b, a + 1);
- in declarator_list *)
-(* error 
-  dAddVectors3(res + 4, res + 4, tmp);
-(* error 
-  dAddVectors3(res + 4, res + 4, tmp);
-(* error 
-  dAddVectors3(res + 4, res + 4, tmp);
- in declarator_list *)
- in declarator_list *)
- in declarator_list *)
-(* error 
-  dMultiplyHelper1_133(tmp, b, a + 2);
- in declarator_list *)
-(* error 
-  dMultiplyHelper1_133(tmp, b, a + 2);
- in declarator_list *)
-(* error 
-  dAddVectors3(res + 8, res + 8, tmp);
-(* error 
-  dAddVectors3(res + 8, res + 8, tmp);
-(* error 
-  dAddVectors3(res + 8, res + 8, tmp);
- in declarator_list *)
- in declarator_list *)
- in declarator_list *)
-(* error 
-}
-in declaration at line 435 *)
-(* error 
-  dMultiplyHelper0_331(tmp, b, a + 0);
- in declarator_list *)
-(* error 
-  dMultiplyHelper0_331(tmp, b, a + 0);
- in declarator_list *)
-(* error 
-  dAddVectors3(res + 0, res + 0, tmp);
-(* error 
-  dAddVectors3(res + 0, res + 0, tmp);
-(* error 
-  dAddVectors3(res + 0, res + 0, tmp);
- in declarator_list *)
- in declarator_list *)
- in declarator_list *)
-(* error 
-  dMultiplyHelper0_331(tmp, b, a + 4);
- in declarator_list *)
-(* error 
-  dMultiplyHelper0_331(tmp, b, a + 4);
- in declarator_list *)
-(* error 
-  dAddVectors3(res + 4, res + 4, tmp);
-(* error 
-  dAddVectors3(res + 4, res + 4, tmp);
-(* error 
-  dAddVectors3(res + 4, res + 4, tmp);
- in declarator_list *)
- in declarator_list *)
- in declarator_list *)
-(* error 
-  dMultiplyHelper0_331(tmp, b, a + 8);
- in declarator_list *)
-(* error 
-  dMultiplyHelper0_331(tmp, b, a + 8);
- in declarator_list *)
-(* error 
-  dAddVectors3(res + 8, res + 8, tmp);
-(* error 
-  dAddVectors3(res + 8, res + 8, tmp);
-(* error 
-  dAddVectors3(res + 8, res + 8, tmp);
- in declarator_list *)
- in declarator_list *)
- in declarator_list *)
-(* error 
-}
-in declaration at line 446 *)
-(* error 
-    det = mat[0] * ( mat[5]*mat[10] - mat[9]*mat[6] )
-in declaration at line 450 *)
-        det : Treturn;cvar;public;
-(* error 
-}
-    {*
-      Closed form matrix inversion, copied from 
-      collision_util.h for use in the stepper.
-    
-      Returns the determinant.  
-      returns 0 and does nothing
-      if the matrix is singular.
-     }
-in declaration at line 465 *)
-        detRecip : TdReal;cvar;public;
-(* error 
-    det = dCalcMatrix3Det( ma );
-in declaration at line 468 *)
-    { Setting an arbitrary non-zero threshold 
-           for the determinant doesn't do anyone 
-           any favors.  The condition number is the
-           important thing.  If all the eigen-values 
-           of the matrix are small, so is the 
-           determinant, but it can still be well
-           conditioned.  
-           A single extremely large eigen-value could
-           push the determinant over threshold, but 
-           produce a very unstable result if the other
-           eigen-values are small.  So we just say that
-           the determinant must be non-zero and trust the
-           caller to provide well-conditioned matrices.
-            }
-(* error 
-    if ( det == 0 )
- in declarator_list *)
-(* error 
-        return 0;
- in declarator_list *)
-(* error 
-    }
-in declaration at line 490 *)
-(* error 
-    dst[0] =  ( ma[5]*ma[10] - ma[6]*ma[9]  ) * detRecip;
-in declaration at line 492 *)
-(* error 
-    dst[1] =  ( ma[9]*ma[2]  - ma[1]*ma[10] ) * detRecip;
-in declaration at line 493 *)
-(* error 
-    dst[2] =  ( ma[1]*ma[6]  - ma[5]*ma[2]  ) * detRecip;
-in declaration at line 494 *)
-(* error 
-    dst[4] =  ( ma[6]*ma[8]  - ma[4]*ma[10] ) * detRecip;
-in declaration at line 496 *)
-(* error 
-    dst[5] =  ( ma[0]*ma[10] - ma[8]*ma[2]  ) * detRecip;
-in declaration at line 497 *)
-(* error 
-    dst[6] =  ( ma[4]*ma[2]  - ma[0]*ma[6]  ) * detRecip;
-in declaration at line 498 *)
-(* error 
-    dst[8] =  ( ma[4]*ma[9]  - ma[8]*ma[5]  ) * detRecip;
-in declaration at line 500 *)
-(* error 
-    dst[9] =  ( ma[8]*ma[1]  - ma[0]*ma[9]  ) * detRecip;
-in declaration at line 501 *)
-(* error 
-    dst[10] = ( ma[0]*ma[5]  - ma[1]*ma[4]  ) * detRecip;
-in declaration at line 502 *)
-        det : Treturn;cvar;public;
-(* error 
-}
-    { Include legacy macros here  }
-{$include <ode/odemath_legacy.h>}
-{ C++ extern C conditionnal removed }
-    {
-     * normalize 3x1 and 4x1 vectors (i.e. scale them to unit length)
-      }
-    { For DLL export }
-in declaration at line 521 *)
+type
+  dReal = TdReal;
 
-function dSafeNormalize4(a:TdVector4):longint;cdecl;external libodes;
-procedure dNormalize3(a:TdVector3);cdecl;external libodes;
-    { Potentially asserts on zero vec }
-procedure dNormalize4(a:TdVector4);cdecl;external libodes;
-    { Potentially asserts on zero vec }
-    {
-     * given a unit length "normal" vector n, generate vectors p and q vectors
-     * that are an orthonormal basis for the plane space perpendicular to n.
-     * i.e. this makes p,q such that n,p,q are all perpendicular to each other.
-     * q will equal n x p. if n is not unit length then p will be unit length but
-     * q wont be.
-      }
-procedure dPlaneSpace(n:TdVector3; p:TdVector3; q:TdVector3);cdecl;external libodes;
-    { Makes sure the matrix is a proper rotation, returns a boolean status  }
-function dOrthogonalizeR(m:TdMatrix3):longint;cdecl;external libodes;
-{ C++ end of extern C conditionnal removed }
-{$endif}
+function dSafeNormalize4(a: TdVector4): longint; cdecl; external libodes;
+procedure dNormalize3(a: TdVector3); cdecl; external libodes;
+procedure dNormalize4(a: TdVector4); cdecl; external libodes;
+procedure dPlaneSpace(n: TdVector3; p: TdVector3; q: TdVector3); cdecl; external libodes;
+function dOrthogonalizeR(m: TdMatrix3): longint; cdecl; external libodes;
 
-// === Konventiert am: 30-4-26 17:09:23 ===
+function dSqrt(x: TdReal): TdReal; inline;
+function dRecip(x: TdReal): TdReal; inline;
 
+procedure dZeroVector3(var res: TdVector3); inline;
+procedure dAssignVector3(var res: TdVector3; x, y, z: TdReal); inline;
+procedure dZeroMatrix3(var res: TdMatrix3); inline;
+procedure dZeroMatrix4(var res: TdMatrix4); inline;
+procedure dAddVectors3(res, a, b: PdReal); inline;
+procedure dSubtractVectors3(res, a, b: PdReal); inline;
+procedure dAddVectorScaledVector3(res, a, b: PdReal; b_scale: TdReal); inline;
+procedure dAddScaledVectors3(res, a, b: PdReal; a_scale, b_scale: TdReal); inline;
+procedure dAddThreeScaledVectors3(res, a, b, c: PdReal; a_scale, b_scale, c_scale: TdReal); inline;
+procedure dScaleVector3(res: PdReal; nScale: TdReal); inline;
+procedure dNegateVector3(res: PdReal); inline;
+procedure dCopyVector3(res, a: PdReal); inline;
+procedure dCopyScaledVector3(res, a: PdReal; nScale: TdReal); inline;
+procedure dCopyNegatedVector3(res, a: PdReal); inline;
+procedure dCopyVector4(res, a: PdReal); inline;
+procedure dCopyMatrix4x4(res, a: PdReal); inline;
+procedure dCopyMatrix4x3(res, a: PdReal); inline;
+procedure dGetMatrixColumn3(res, a: PdReal; n: cardinal); inline;
+function dCalcVectorLength3( a: PdReal): TdReal; inline;
+function dCalcVectorLengthSquare3( a: PdReal): TdReal; inline;
+function dCalcPointDepth3( test_p, plane_p, plane_n: PdReal): TdReal; inline;
+function _dCalcVectorDot3( a, b: PdReal; step_a, step_b: cardinal): TdReal; inline;
+function dCalcVectorDot3( a, b: PdReal): TdReal; inline;
+function dCalcVectorDot3_13(a, b: PdReal): dReal; inline;
+function dCalcVectorDot3_31(a, b: PdReal): dReal; inline;
+function dCalcVectorDot3_33(a, b: PdReal): dReal; inline;
+function dCalcVectorDot3_14(a, b: PdReal): dReal; inline;
+function dCalcVectorDot3_41(a, b: PdReal): dReal; inline;
+function dCalcVectorDot3_44(a, b: PdReal): dReal; inline;
+procedure _dCalcVectorCross3(res, a, b: PdReal; step_res, step_a, step_b: cardinal); inline;
+procedure dCalcVectorCross3(res, a, b: PdReal); inline;
+procedure dCalcVectorCross3_114(res, a, b: PdReal); inline;
+procedure dCalcVectorCross3_141(res, a, b: PdReal); inline;
+procedure dCalcVectorCross3_144(res, a, b: PdReal); inline;
+procedure dCalcVectorCross3_411(res, a, b: PdReal); inline;
+procedure dCalcVectorCross3_414(res, a, b: PdReal); inline;
+procedure dCalcVectorCross3_441(res, a, b: PdReal); inline;
+procedure dCalcVectorCross3_444(res, a, b: PdReal); inline;
+procedure dAddVectorCross3(res, a, b: PdReal); inline;
+procedure dSubtractVectorCross3(res, a, b: PdReal); inline;
+procedure dSetCrossMatrixPlus(res, a: PdReal; skip: cardinal); inline;
+procedure dSetCrossMatrixMinus(res, a: PdReal; skip: cardinal); inline;
+function dCalcPointsDistance3(const a, b: PdReal): TdReal; inline;
+procedure dMultiply0_331(res, a, b: PdReal); inline;
+procedure dMultiply1_331(res, a, b: PdReal); inline;
+procedure dMultiply0_133(res, a, b: PdReal); inline;
+procedure dMultiplyHelper0_331(res, a, b: PdReal); inline;
+procedure dMultiplyHelper1_331(res, a, b: PdReal); inline;
+procedure dMultiplyHelper0_133(res, a, b: PdReal); inline;
+procedure dMultiplyHelper1_133(res, a, b: PdReal); inline;
+procedure dMultiply0_333(res, a, b: PdReal); inline;
+procedure dMultiply1_333(res, a, b: PdReal); inline;
+procedure dMultiply2_333(res, a, b: PdReal); inline;
+procedure dMultiplyAdd0_331(res, a, b: PdReal); inline;
+procedure dMultiplyAdd1_331(res, a, b: PdReal); inline;
+procedure dMultiplyAdd0_133(res, a, b: PdReal); inline;
+procedure dMultiplyAdd0_333(res, a, b: PdReal); inline;
+procedure dMultiplyAdd1_333(res, a, b: PdReal); inline;
+procedure dMultiplyAdd2_333(res, a, b: PdReal); inline;
+function dCalcMatrix3Det(const mat: PdReal): TdReal; inline;
+function dInvertMatrix3(dst, ma: PdReal): TdReal; inline;
 
 implementation
 
+function dSqrt(x: TdReal): TdReal; inline;
+begin
+  Result := Sqrt(x);
+end;
+
+function dRecip(x: TdReal): TdReal; inline;
+begin
+  Result := 1.0 / x;
+end;
+
+procedure dZeroVector3(var res: TdVector3);
+begin
+  res[dV3E_X] := 0.0;
+  res[dV3E_Y] := 0.0;
+  res[dV3E_Z] := 0.0;
+end;
+
+procedure dAssignVector3(var res: TdVector3; x, y, z: TdReal);
+begin
+  res[dV3E_X] := x;
+  res[dV3E_Y] := y;
+  res[dV3E_Z] := z;
+end;
+
+procedure dZeroMatrix3(var res: TdMatrix3);
+begin
+  FillChar(res, SizeOf(TdMatrix3), 0);
+end;
+
+procedure dZeroMatrix4(var res: TdMatrix4);
+begin
+  FillChar(res, SizeOf(TdMatrix4), 0);
+end;
+
+procedure dAddVectors3(res, a, b: PdReal); inline;
+var
+  r0, r1, r2: TdReal;
+begin
+  r0 := a[0] + b[0];
+  r1 := a[1] + b[1];
+  r2 := a[2] + b[2];
+  res[0] := r0;
+  res[1] := r1;
+  res[2] := r2;
+end;
+
+procedure dSubtractVectors3(res, a, b: PdReal); inline;
+var
+  r0, r1, r2: TdReal;
+begin
+  r0 := a[0] - b[0];
+  r1 := a[1] - b[1];
+  r2 := a[2] - b[2];
+  res[0] := r0;
+  res[1] := r1;
+  res[2] := r2;
+end;
+
+procedure dAddVectorScaledVector3(res, a, b: PdReal; b_scale: TdReal); inline;
+begin
+  res[0] := a[0] + b_scale * b[0];
+  res[1] := a[1] + b_scale * b[1];
+  res[2] := a[2] + b_scale * b[2];
+end;
+
+procedure dAddScaledVectors3(res, a, b: PdReal; a_scale, b_scale: TdReal); inline;
+begin
+  res[0] := a_scale * a[0] + b_scale * b[0];
+  res[1] := a_scale * a[1] + b_scale * b[1];
+  res[2] := a_scale * a[2] + b_scale * b[2];
+end;
+
+procedure dAddThreeScaledVectors3(res, a, b, c: PdReal; a_scale, b_scale, c_scale: TdReal); inline;
+begin
+  res[0] := a_scale * a[0] + b_scale * b[0] + c_scale * c[0];
+  res[1] := a_scale * a[1] + b_scale * b[1] + c_scale * c[1];
+  res[2] := a_scale * a[2] + b_scale * b[2] + c_scale * c[2];
+end;
+
+procedure dScaleVector3(res: PdReal; nScale: TdReal); inline;
+begin
+  res[0] := res[0] * nScale;
+  res[1] := res[1] * nScale;
+  res[2] := res[2] * nScale;
+end;
+
+procedure dNegateVector3(res: PdReal); inline;
+begin
+  res[0] := -res[0];
+  res[1] := -res[1];
+  res[2] := -res[2];
+end;
+
+procedure dCopyVector3(res, a: PdReal); inline;
+begin
+  res[0] := a[0];
+  res[1] := a[1];
+  res[2] := a[2];
+end;
+
+procedure dCopyScaledVector3(res, a: PdReal; nScale: TdReal); inline;
+begin
+  res[0] := a[0] * nScale;
+  res[1] := a[1] * nScale;
+  res[2] := a[2] * nScale;
+end;
+
+procedure dCopyNegatedVector3(res, a: PdReal); inline;
+begin
+  res[0] := -a[0];
+  res[1] := -a[1];
+  res[2] := -a[2];
+end;
+
+procedure dCopyVector4(res, a: PdReal); inline;
+begin
+  res[0] := a[0];
+  res[1] := a[1];
+  res[2] := a[2];
+  res[3] := a[3];
+end;
+
+procedure dCopyMatrix4x4(res, a: PdReal); inline;
+begin
+  dCopyVector4(@res[0], @a[0]);
+  dCopyVector4(@res[4], @a[4]);
+  dCopyVector4(@res[8], @a[8]);
+end;
+
+procedure dCopyMatrix4x3(res, a: PdReal); inline;
+begin
+  dCopyVector3(@res[0], @a[0]);
+  dCopyVector3(@res[4], @a[4]);
+  dCopyVector3(@res[8], @a[8]);
+end;
+
+procedure dGetMatrixColumn3(res, a: PdReal; n: cardinal); inline;
+begin
+  res[0] := a[n + 0];
+  res[1] := a[n + 4];
+  res[2] := a[n + 8];
+end;
+
+function dCalcVectorLength3(a: PdReal): TdReal;
+begin
+  Result := dSqrt(a[0] * a[0] + a[1] * a[1] + a[2] * a[2]);
+end;
+
+function dCalcVectorLengthSquare3(a: PdReal): TdReal;
+begin
+  Result := a[0] * a[0] + a[1] * a[1] + a[2] * a[2];
+end;
+
+function dCalcPointDepth3(test_p, plane_p, plane_n: PdReal): TdReal;
+begin
+  Result := (plane_p[0] - test_p[0]) * plane_n[0] +
+    (plane_p[1] - test_p[1]) * plane_n[1] +
+    (plane_p[2] - test_p[2]) * plane_n[2];
+end;
+
+function _dCalcVectorDot3(a, b: PdReal; step_a, step_b: cardinal): TdReal;
+begin
+  Result := a[0] * b[0] + a[step_a] * b[step_b] + a[2 * step_a] * b[2 * step_b];
+end;
+
+function dCalcVectorDot3(a, b: PdReal): TdReal;
+begin
+  Result := _dCalcVectorDot3(a, b, 1, 1);
+end;
+
+function dCalcVectorDot3_13(a, b: PdReal): dReal;
+begin
+  Result := _dCalcVectorDot3(a, b, 1, 3);
+end;
+
+function dCalcVectorDot3_31(a, b: PdReal): dReal;
+begin
+  Result := _dCalcVectorDot3(a, b, 3, 1);
+end;
+
+function dCalcVectorDot3_33(a, b: PdReal): dReal;
+begin
+  Result := _dCalcVectorDot3(a, b, 3, 3);
+end;
+
+function dCalcVectorDot3_14(a, b: PdReal): dReal;
+begin
+  Result := _dCalcVectorDot3(a, b, 1, 4);
+end;
+
+function dCalcVectorDot3_41(a, b: PdReal): dReal;
+begin
+  Result := _dCalcVectorDot3(a, b, 4, 1);
+end;
+
+function dCalcVectorDot3_44(a, b: PdReal): dReal;
+begin
+  Result := _dCalcVectorDot3(a, b, 4, 4);
+end;
+
+procedure _dCalcVectorCross3(res, a, b: PdReal; step_res, step_a, step_b: cardinal); inline;
+var
+  r0, r1, r2: TdReal;
+begin
+  r0 := a[step_a] * b[2 * step_b] - a[2 * step_a] * b[step_b];
+  r1 := a[2 * step_a] * b[0] - a[0] * b[2 * step_b];
+  r2 := a[0] * b[step_b] - a[step_a] * b[0];
+  res[0] := r0;
+  res[step_res] := r1;
+  res[2 * step_res] := r2;
+end;
+
+procedure dCalcVectorCross3(res, a, b: PdReal); inline;
+begin
+  _dCalcVectorCross3(res, a, b, 1, 1, 1);
+end;
+
+procedure dCalcVectorCross3_114(res, a, b: PdReal); inline;
+begin
+  _dCalcVectorCross3(res, a, b, 1, 1, 4);
+end;
+
+procedure dCalcVectorCross3_141(res, a, b: PdReal); inline;
+begin
+  _dCalcVectorCross3(res, a, b, 1, 4, 1);
+end;
+
+procedure dCalcVectorCross3_144(res, a, b: PdReal); inline;
+begin
+  _dCalcVectorCross3(res, a, b, 1, 4, 4);
+end;
+
+procedure dCalcVectorCross3_411(res, a, b: PdReal); inline;
+begin
+  _dCalcVectorCross3(res, a, b, 4, 1, 1);
+end;
+
+procedure dCalcVectorCross3_414(res, a, b: PdReal); inline;
+begin
+  _dCalcVectorCross3(res, a, b, 4, 1, 4);
+end;
+
+procedure dCalcVectorCross3_441(res, a, b: PdReal); inline;
+begin
+  _dCalcVectorCross3(res, a, b, 4, 4, 1);
+end;
+
+procedure dCalcVectorCross3_444(res, a, b: PdReal); inline;
+begin
+  _dCalcVectorCross3(res, a, b, 4, 4, 4);
+end;
+
+procedure dAddVectorCross3(res, a, b: PdReal); inline;
+var
+  tmp: array[0..2] of TdReal;
+begin
+  dCalcVectorCross3(@tmp[0], a, b);
+  dAddVectors3(res, res, @tmp[0]);
+end;
+
+procedure dSubtractVectorCross3(res, a, b: PdReal); inline;
+var
+  tmp: array[0..2] of TdReal;
+begin
+  dCalcVectorCross3(@tmp[0], a, b);
+  dSubtractVectors3(res, res, @tmp[0]);
+end;
+
+procedure dSetCrossMatrixPlus(res, a: PdReal; skip: cardinal); inline;
+begin
+  res[1] := -a[2];
+  res[2] := a[1];
+  res[skip + 0] := a[2];
+  res[skip + 2] := -a[0];
+  res[2 * skip + 0] := -a[1];
+  res[2 * skip + 1] := a[0];
+end;
+
+procedure dSetCrossMatrixMinus(res, a: PdReal; skip: cardinal); inline;
+begin
+  res[1] := a[2];
+  res[2] := -a[1];
+  res[skip + 0] := -a[2];
+  res[skip + 2] := a[0];
+  res[2 * skip + 0] := a[1];
+  res[2 * skip + 1] := -a[0];
+end;
+
+function dCalcPointsDistance3(const a, b: PdReal): TdReal; inline;
+var
+  tmp: array[0..2] of TdReal;
+begin
+  dSubtractVectors3(@tmp[0], a, b);
+  Result := dCalcVectorLength3(@tmp[0]);
+end;
 
 
+procedure dMultiplyHelper0_331(res, a, b: PdReal); inline;
+var
+  r0, r1, r2: dReal;
+begin
+  r0 := dCalcVectorDot3(a, b);
+  r1 := dCalcVectorDot3(@a[4], b);
+  r2 := dCalcVectorDot3(@a[8], b);
+  res[0] := r0;
+  res[1] := r1;
+  res[2] := r2;
+end;
+
+procedure dMultiplyHelper1_331(res, a, b: PdReal); inline;
+var
+  r0, r1, r2: dReal;
+begin
+  r0 := dCalcVectorDot3_41(a, b);
+  r1 := dCalcVectorDot3_41(@a[1], b);
+  r2 := dCalcVectorDot3_41(@a[2], b);
+  res[0] := r0;
+  res[1] := r1;
+  res[2] := r2;
+end;
+
+procedure dMultiplyHelper0_133(res, a, b: PdReal); inline;
+begin
+  dMultiplyHelper1_331(res, b, a);
+end;
+
+procedure dMultiplyHelper1_133(res, a, b: PdReal); inline;
+var
+  r0, r1, r2: dReal;
+begin
+  r0 := dCalcVectorDot3_44(a, b);
+  r1 := dCalcVectorDot3_44(@a[1], b);
+  r2 := dCalcVectorDot3_44(@a[2], b);
+  res[0] := r0;
+  res[1] := r1;
+  res[2] := r2;
+end;
+
+procedure dMultiply0_331(res, a, b: PdReal); inline;
+begin
+  dMultiplyHelper0_331(res, a, b);
+end;
+
+procedure dMultiply1_331(res, a, b: PdReal); inline;
+begin
+  dMultiplyHelper1_331(res, a, b);
+end;
+
+procedure dMultiply0_133(res, a, b: PdReal); inline;
+begin
+  dMultiplyHelper0_133(res, a, b);
+end;
+
+procedure dMultiply0_333(res, a, b: PdReal); inline;
+begin
+  dMultiplyHelper0_133(@res[0], @a[0], b);
+  dMultiplyHelper0_133(@res[4], @a[4], b);
+  dMultiplyHelper0_133(@res[8], @a[8], b);
+end;
+
+procedure dMultiply1_333(res, a, b: PdReal); inline;
+begin
+  dMultiplyHelper1_133(@res[0], b, @a[0]);
+  dMultiplyHelper1_133(@res[4], b, @a[1]);
+  dMultiplyHelper1_133(@res[8], b, @a[2]);
+end;
+
+procedure dMultiply2_333(res, a, b: PdReal); inline;
+begin
+  dMultiplyHelper0_331(@res[0], b, @a[0]);
+  dMultiplyHelper0_331(@res[4], b, @a[4]);
+  dMultiplyHelper0_331(@res[8], b, @a[8]);
+end;
+
+procedure dMultiplyAdd0_331(res, a, b: PdReal); inline;
+var
+  tmp: array[0..2] of dReal;
+begin
+  dMultiplyHelper0_331(@tmp[0], a, b);
+  dAddVectors3(res, res, @tmp[0]);
+end;
+
+procedure dMultiplyAdd1_331(res, a, b: PdReal); inline;
+var
+  tmp: array[0..2] of dReal;
+begin
+  dMultiplyHelper1_331(@tmp[0], a, b);
+  dAddVectors3(res, res, @tmp[0]);
+end;
+
+procedure dMultiplyAdd0_133(res, a, b: PdReal); inline;
+var
+  tmp: array[0..2] of dReal;
+begin
+  dMultiplyHelper0_133(@tmp[0], a, b);
+  dAddVectors3(res, res, @tmp[0]);
+end;
+
+procedure dMultiplyAdd0_333(res, a, b: PdReal); inline;
+var
+  tmp: array[0..2] of dReal;
+begin
+  dMultiplyHelper0_133(@tmp[0], @a[0], b);
+  dAddVectors3(@res[0], @res[0], @tmp[0]);
+  dMultiplyHelper0_133(@tmp[0], @a[4], b);
+  dAddVectors3(@res[4], @res[4], @tmp[0]);
+  dMultiplyHelper0_133(@tmp[0], @a[8], b);
+  dAddVectors3(@res[8], @res[8], @tmp[0]);
+end;
+
+procedure dMultiplyAdd1_333(res, a, b: PdReal); inline;
+var
+  tmp: array[0..2] of dReal;
+begin
+  dMultiplyHelper1_133(@tmp[0], b, @a[0]);
+  dAddVectors3(@res[0], @res[0], @tmp[0]);
+  dMultiplyHelper1_133(@tmp[0], b, @a[1]);
+  dAddVectors3(@res[4], @res[4], @tmp[0]);
+  dMultiplyHelper1_133(@tmp[0], b, @a[2]);
+  dAddVectors3(@res[8], @res[8], @tmp[0]);
+end;
+
+procedure dMultiplyAdd2_333(res, a, b: PdReal); inline;
+var
+  tmp: array[0..2] of dReal;
+begin
+  dMultiplyHelper0_331(@tmp[0], b, @a[0]);
+  dAddVectors3(@res[0], @res[0], @tmp[0]);
+  dMultiplyHelper0_331(@tmp[0], b, @a[4]);
+  dAddVectors3(@res[4], @res[4], @tmp[0]);
+  dMultiplyHelper0_331(@tmp[0], b, @a[8]);
+  dAddVectors3(@res[8], @res[8], @tmp[0]);
+end;
+
+function dCalcMatrix3Det(const mat: PdReal): TdReal; inline;
+begin
+  Result := mat[0] * (mat[5] * mat[10] - mat[9] * mat[6])
+    - mat[1] * (mat[4] * mat[10] - mat[8] * mat[6])
+    + mat[2] * (mat[4] * mat[9] - mat[8] * mat[5]);
+end;
+
+function dInvertMatrix3(dst, ma: PdReal): TdReal; inline;
+var
+  det, detRecip: TdReal;
+begin
+  det := dCalcMatrix3Det(ma);
+  if det = 0 then begin
+    Exit(0);
+  end;
+  detRecip := dRecip(det);
+  dst[0] := (ma[5] * ma[10] - ma[6] * ma[9]) * detRecip;
+  dst[1] := (ma[9] * ma[2] - ma[1] * ma[10]) * detRecip;
+  dst[2] := (ma[1] * ma[6] - ma[5] * ma[2]) * detRecip;
+  dst[4] := (ma[6] * ma[8] - ma[4] * ma[10]) * detRecip;
+  dst[5] := (ma[0] * ma[10] - ma[8] * ma[2]) * detRecip;
+  dst[6] := (ma[4] * ma[2] - ma[0] * ma[6]) * detRecip;
+  dst[8] := (ma[4] * ma[9] - ma[8] * ma[5]) * detRecip;
+  dst[9] := (ma[8] * ma[1] - ma[0] * ma[9]) * detRecip;
+  dst[10] := (ma[0] * ma[5] - ma[1] * ma[4]) * detRecip;
+  Result := det;
+end;
+
+end.
+implementation
 end.

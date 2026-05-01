@@ -46,6 +46,9 @@ type
   Pdsizeint = ^Tdsizeint;
   Tdsizeint = SizeUInt;
 
+const
+  dInfinity=1.0/0.0;
+
   // === Konventiert am: 30-4-26 17:09:28 ===
 
 
