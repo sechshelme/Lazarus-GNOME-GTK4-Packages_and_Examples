@@ -109,6 +109,9 @@ Im Browser: http://localhost:3000
 
 `docker run -d --name=webtop -e PUID=1000 -e PGID=1000 -e TZ=Etc/UTC -p 3000:3000 --shm-size="1gb" --restart unless-stopped lscr.io/linuxserver/webtop:ubuntu-mate`
 
+# Release Updaten
+gh release create 05.26 --title "Lazarus-GNOME-02.26" --notes "release Lazarus-GNOME-02.26"
+
 
 
 
