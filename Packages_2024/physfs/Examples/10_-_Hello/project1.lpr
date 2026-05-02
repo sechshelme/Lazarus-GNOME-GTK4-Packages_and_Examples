@@ -38,8 +38,9 @@ uses
     rc := PHYSFS_enumerateFiles('test/live-chart-master');
 
     i := rc;
+    WriteLn('File List:');
     while i^ <> nil do begin
-      WriteLn('Gefunden: ', i^);
+      WriteLn(' ', i^);
       inc(i);
     end;
     PHYSFS_freeList(rc);
