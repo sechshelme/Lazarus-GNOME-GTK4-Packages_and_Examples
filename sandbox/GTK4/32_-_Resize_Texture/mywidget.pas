@@ -98,8 +98,6 @@ begin
 end;
 
 function my_widget_new: PGTKWidget;
-var
-  self: PMyWidget absolute Result;
 begin
   Result := g_object_new(my_widget_get_type, nil);
 end;

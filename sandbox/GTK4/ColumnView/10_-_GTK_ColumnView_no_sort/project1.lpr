@@ -1,15 +1,11 @@
 program project1;
 
 uses
-  ctypes,
-  SysUtils,
   fp_glib2,
-//  fp_GLIBTools,
-  fp_GDK4,
   fp_GTK4,
-  culumn_view;
+  columnview;
 
-procedure CreateBtnButton(parent:PGtkWidget; label_, icon_name, action_name: Pgchar);
+  procedure CreateBtnButton(parent: PGtkWidget; label_, icon_name, action_name: Pgchar);
   var
     box, image, lab, Button: PGtkWidget;
   begin
@@ -22,7 +18,7 @@ procedure CreateBtnButton(parent:PGtkWidget; label_, icon_name, action_name: Pgc
 
     Button := gtk_button_new;
     gtk_button_set_child(GTK_BUTTON(Button), box);
-    gtk_actionable_set_action_name(GTK_ACTIONABLE(Button),action_name);
+    gtk_actionable_set_action_name(GTK_ACTIONABLE(Button), action_name);
 
     gtk_box_append(GTK_BOX(parent), button);
   end;
@@ -53,35 +49,29 @@ procedure CreateBtnButton(parent:PGtkWidget; label_, icon_name, action_name: Pgc
     label1 := gtk_label_new('box2');
     gtk_box_append(GTK_BOX(buttonBox), label1);
 
-    CreateBtnButton(buttonBox,'Next', 'go-down', 'app.listbox.next');
-    CreateBtnButton(buttonBox,'Prev', 'go-up', 'app.listbox.prev');
-    CreateBtnButton(buttonBox,'Append', 'list-add', 'app.listbox.append');
-    CreateBtnButton(buttonBox,'Remove', 'list-remove', 'app.listbox.remove');
-    CreateBtnButton(buttonBox,'Remove All', 'list-remove-all', 'app.listbox.removeall');
-    CreateBtnButton(buttonBox,'Down', 'view-sort-descending', 'app.listbox.down');
-    CreateBtnButton(buttonBox,'Up', 'view-sort-descending', 'app.listbox.up');
+    CreateBtnButton(buttonBox, 'Next', 'go-down', 'app.listbox.next');
+    CreateBtnButton(buttonBox, 'Prev', 'go-up', 'app.listbox.prev');
+    CreateBtnButton(buttonBox, 'Append', 'list-add', 'app.listbox.append');
+    CreateBtnButton(buttonBox, 'Remove', 'list-remove', 'app.listbox.remove');
+    CreateBtnButton(buttonBox, 'Remove All', 'list-remove-all', 'app.listbox.removeall');
+    CreateBtnButton(buttonBox, 'Down', 'view-sort-descending', 'app.listbox.down');
+    CreateBtnButton(buttonBox, 'Up', 'view-sort-descending', 'app.listbox.up');
 
     gtk_window_set_child(GTK_WINDOW(window), panedBox);
-
     gtk_window_present(GTK_WINDOW(window));
   end;
 
 
-  function main(argc: cint; argv: PPChar): cint;
+  procedure main;
   var
     app: PGtkApplication;
-    status: longint;
   begin
     app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
-
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
-//    GSignalShow(G_TYPE_OBJECT);
-    status := g_application_run(G_APPLICATION(app), argc, argv);
+    g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
-
-    Exit(status);
   end;
 
 begin
-  main(argc, argv);
+  main;
 end.

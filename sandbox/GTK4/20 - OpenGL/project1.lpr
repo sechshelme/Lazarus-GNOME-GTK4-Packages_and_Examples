@@ -1,55 +1,40 @@
 program project1;
 
 uses
-  ctypes,
-  SysUtils,
   gl,
+  GLext,
   fp_glib2,
-  fp_GDK4,
   fp_GTK4;
 
   procedure print_hello(widget: PGtkWidget; Data: Tgpointer); cdecl;
-  const
-    counter: cint = 0;
   begin
     g_print('Hello World'#10);
-
-    Inc(counter);
-    gtk_button_set_label(GTK_BUTTON(widget), PChar('Ich wurde ' + IntToStr(counter) + ' gelickt'));
   end;
 
-  // https://stackoverflow.com/questions/74507596/trying-to-implement-gtk-4-c-the-shader-to-have-each-face-like-meshlab-does-bu
-  // https://www.perplexity.ai/search/gib-mir-ein-beipiel-mit-gtk-gl-UrdX4wqVSFm46dWQcELzYw
+const
+  VertexShaderSource =
+    '#version 330 core' + #10 +
+    'layout (location = 0) in vec3 aPos;' + #10 +
+    'layout (location = 1) in vec3 aColor;' + #10 +
+    'out vec3 ourColor;' + #10 +
+    'void main() {' + #10 +
+    '  gl_Position = vec4(aPos, 1.0);' + #10 +
+    '  ourColor = aColor;' + #10 +
+    '}';
 
-  function on_render(area: PGtkGLArea; context: PGdkGLContext): Tgboolean; cdecl;
-  var
-    w, h: longint;
-  begin
-    if gtk_gl_area_get_error(area) <> nil then begin
-      WriteLn('render fehler');
-    end;
+  FragmentShaderSource =
+    '#version 330 core' + #10 +
+    'in vec3 ourColor;' + #10 +
+    'out vec4 FragColor;' + #10 +
+    'void main() {' + #10 +
+    '  FragColor = vec4(ourColor, 1.0);' + #10 +
+    '}';
 
-    w := gtk_widget_get_width(GTK_WIDGET(area));
-    h := gtk_widget_get_height(GTK_WIDGET(area));
-    WriteLn(w, 'x', h);
+var
+  VBO, VAO, ShaderProgram: GLuint;
 
-    glClearColor(1.0, random, 0.0, 1.0);
-    glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
 
-    glBegin(GL_TRIANGLES);
-    glColor3f(1.0, 0.0, 0.0);
-    glVertex2f(-0.6, -0.4);
-    glColor3f(0.0, 1.0, 0.0);
-    glVertex2f(0.6, -0.4);
-    glColor3f(0.0, 0.0, 1.0);
-    glVertex2f(0.0, 0.6);
-    glEnd();
-
-    glFlush();
-    Result := True;
-  end;
-
-  function on_tick(widget: PGtkWidget; frame_clock: PGdkFrameClock;    user_data: Tgpointer): Tgboolean; cdecl;
+  function on_tick(widget: PGtkWidget; frame_clock: PGdkFrameClock; user_data: Tgpointer): Tgboolean; cdecl;
   begin
     gtk_gl_area_queue_render(GTK_GL_AREA(widget));
 
@@ -58,36 +43,96 @@ uses
 
   procedure on_realize(area: PGtkGLArea); cdecl;
   var
-    context: PGdkGLContext;
+    vShader, fShader: GLuint;
+    vertices: array[0..17] of GLfloat = (
+      // Positionen          // Farben
+      -0.6, -0.4, 0.0, 1.0, 0.0, 0.0,
+      0.6, -0.4, 0.0, 0.0, 1.0, 0.0,
+      0.0, 0.6, 0.0, 0.0, 0.0, 1.0
+      );
+    vSourcePtr, fSourcePtr: pchar;
   begin
-    WriteLn('realize');
     gtk_gl_area_make_current(area);
     if gtk_gl_area_get_error(area) <> nil then begin
-      WriteLn('realize fehler');
+      Exit;
     end;
-    context := gtk_gl_area_get_context(area);
-    gtk_widget_add_tick_callback(GTK_WIDGET(area), @on_tick, nil, nil);
 
-    WriteLn(glGetString(GL_VERSION));
+    if not Load_GL_VERSION_3_3 then begin
+      WriteLn('Fehler: OpenGL 3.3 konnte nicht geladen werden!');
+      Exit;
+    end;
+
+
+    // Shader kompilieren
+    vShader := glCreateShader(GL_VERTEX_SHADER);
+
+    vSourcePtr := pchar(VertexShaderSource);
+    // Wichtig: @vSourcePtr übergibt die Adresse des Zeigers
+    glShaderSource(vShader, 1, @vSourcePtr, nil);
+    glCompileShader(vShader);
+
+    fShader := glCreateShader(GL_FRAGMENT_SHADER);
+
+    fSourcePtr := pchar(FragmentShaderSource);
+    glShaderSource(fShader, 1, @fSourcePtr, nil);
+    glCompileShader(fShader);
+    glCompileShader(fShader);
+    // Buffer Setup (VAO & VBO)
+
+    ShaderProgram := glCreateProgram();
+    glAttachShader(ShaderProgram, vShader);
+    glAttachShader(ShaderProgram, fShader);
+    glLinkProgram(ShaderProgram);
+
+    glDeleteShader(vShader);
+    glDeleteShader(fShader);
+
+    glGenVertexArrays(1, @VAO);
+    glGenBuffers(1, @VBO);
+
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, SizeOf(vertices), @vertices, GL_STATIC_DRAW);
+
+    // Position Attribut
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * SizeOf(GLfloat), nil);
+    glEnableVertexAttribArray(0);
+    // Farbe Attribut
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * SizeOf(GLfloat), Pointer(3 * SizeOf(GLfloat)));
+    glEnableVertexAttribArray(1);
+
+    gtk_widget_add_tick_callback(GTK_WIDGET(area), @on_tick, nil, nil);
+  end;
+
+  function on_render(area: PGtkGLArea; context: PGdkGLContext): Tgboolean; cdecl;
+  begin
+    if gtk_gl_area_get_error(area) <> nil then begin
+      Exit(False);
+    end;
+
+    glClearColor(0.1, 0.1, 0.1, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
+
+    glUseProgram(ShaderProgram);
+    glBindVertexArray(VAO);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+
+    Result := True;
   end;
 
   procedure on_unrealize(area: PGtkGLArea); cdecl;
   begin
-    WriteLn('unrealize');
     gtk_gl_area_make_current(area);
-    if gtk_gl_area_get_error(area) <> nil then begin
-      WriteLn('unrealize fehler');
-    end;
+    glDeleteVertexArrays(1, @VAO);
+    glDeleteBuffers(1, @VBO);
+    glDeleteProgram(ShaderProgram);
   end;
-
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, box, button, gl_area: PGtkWidget;
   begin
-    g_object_set(gtk_settings_get_default,
-      'gtk-application-prefer-dark-theme', gTRUE,
-      nil);
+    g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTRUE, nil);
 
     window := gtk_application_window_new(app);
     gtk_window_set_decorated(GTK_WINDOW(window), True);
@@ -95,19 +140,13 @@ uses
     gtk_window_set_default_size(GTK_WINDOW(window), 200, 200);
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-    gtk_widget_set_halign(box, GTK_ALIGN_CENTER);
-    gtk_widget_set_valign(box, GTK_ALIGN_CENTER);
     gtk_window_set_child(GTK_WINDOW(window), box);
 
-    button := gtk_button_new_with_label('Hello World');
-    g_signal_connect(button, 'clicked', G_CALLBACK(@print_hello), nil);
-    gtk_box_append(GTK_BOX(box), button);
-
-
     gl_area := gtk_gl_area_new();
-    //    gtk_gl_area_set_required_version(GTK_GL_AREA(gl_area), 1, 2);
 
-    gtk_gl_area_set_use_es(GTK_GL_AREA(gl_area), False);
+    gtk_gl_area_set_required_version(GTK_GL_AREA(gl_area), 3, 3);
+    gtk_gl_area_set_use_es(GTK_GL_AREA(gl_area), False); // Erzwinge Desktop GL, kein GLES
+
     gtk_gl_area_set_has_depth_buffer(GTK_GL_AREA(gl_area), True);
     gtk_gl_area_set_has_stencil_buffer(GTK_GL_AREA(gl_area), True);
     gtk_gl_area_set_auto_render(GTK_GL_AREA(gl_area), True);
@@ -119,8 +158,6 @@ uses
     g_signal_connect(gl_area, 'unrealize', G_CALLBACK(@on_unrealize), nil);
     g_signal_connect(gl_area, 'render', G_CALLBACK(@on_render), nil);
     gtk_box_append(GTK_BOX(box), gl_area);
-//    WriteLn(gtk_gl_area_get_auto_render(GTK_GL_AREA(gl_area)));
-
 
     button := gtk_button_new_with_label('Hello World');
     g_signal_connect(button, 'clicked', G_CALLBACK(@print_hello), nil);
@@ -130,19 +167,16 @@ uses
   end;
 
 
-  function main(argc: cint; argv: PPChar): cint;
+  procedure main;
   var
     app: PGtkApplication;
-    status: longint;
   begin
     app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
-    status := g_application_run(G_APPLICATION(app), argc, argv);
+    g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
-
-    Exit(status);
   end;
 
 begin
-  main(argc, argv);
+  main;
 end.

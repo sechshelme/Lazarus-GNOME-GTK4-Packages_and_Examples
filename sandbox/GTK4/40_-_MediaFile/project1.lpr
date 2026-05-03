@@ -1,24 +1,14 @@
 program project1;
 
 uses
-  ctypes,
-  SysUtils,
   fp_glib2,
   fp_cairo,
   fp_pango,
-  fp_GDK4,
   fp_GTK4;
 
-  // https://www.perplexity.ai/search/gib-mir-ein-gtk4-beispiel-fur-NaiyDirpTNyh_wdmJzqt3g
-
   procedure print_hello(widget: PGtkWidget; Data: Tgpointer); cdecl;
-  const
-    counter: cint = 0;
   begin
     g_print('Hello World'#10);
-
-    Inc(counter);
-    gtk_button_set_label(GTK_BUTTON(widget), PChar('Ich wurde ' + IntToStr(counter) + ' gelickt'));
   end;
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
@@ -73,19 +63,16 @@ uses
   end;
 
 
-  function main(argc: cint; argv: PPChar): cint;
+  procedure main;
   var
     app: PGtkApplication;
-    status: longint;
   begin
     app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
-    status := g_application_run(G_APPLICATION(app), argc, argv);
+    g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
-
-    Exit(status);
   end;
 
 begin
-  main(argc, argv);
+  main;
 end.
