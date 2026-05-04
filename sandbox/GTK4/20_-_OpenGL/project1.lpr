@@ -1,9 +1,7 @@
 program project1;
 
 uses
-  fp_common,
-  fp_gl,
-
+  fp_epoxy,
 
 //  fp_glew,
   fp_glib2,
@@ -152,7 +150,7 @@ var
     gl_area := gtk_gl_area_new();
 
     gtk_gl_area_set_required_version(GTK_GL_AREA(gl_area), 3, 3);
-    gtk_gl_area_set_use_es(GTK_GL_AREA(gl_area), False); // Erzwinge Desktop GL, kein GLES
+//    gtk_gl_area_set_use_es(GTK_GL_AREA(gl_area), False); // Erzwinge Desktop GL, kein GLES
 
     gtk_gl_area_set_has_depth_buffer(GTK_GL_AREA(gl_area), True);
     gtk_gl_area_set_has_stencil_buffer(GTK_GL_AREA(gl_area), True);

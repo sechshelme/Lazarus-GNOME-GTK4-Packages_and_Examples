@@ -1,13 +1,4 @@
-unit fp_common;
-
-interface
-
-uses
-  fp_epoxy;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 type
@@ -20,8 +11,11 @@ function epoxy_extension_in_string(extension_list: pchar; ext: pchar): Tbool; cd
 // === Konventiert am: 4-5-26 15:03:40 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

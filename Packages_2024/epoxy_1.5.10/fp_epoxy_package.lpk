@@ -14,22 +14,6 @@
         <Filename Value="fp_epoxy.pas"/>
         <UnitName Value="fp_epoxy"/>
       </Item>
-      <Item>
-        <Filename Value="fp_common.pas"/>
-        <UnitName Value="fp_common"/>
-      </Item>
-      <Item>
-        <Filename Value="fp_egl.pas"/>
-        <UnitName Value="fp_egl"/>
-      </Item>
-      <Item>
-        <Filename Value="fp_gl.pas"/>
-        <UnitName Value="fp_gl"/>
-      </Item>
-      <Item>
-        <Filename Value="fp_glx.pas"/>
-        <UnitName Value="fp_glx"/>
-      </Item>
     </Files>
     <RequiredPkgs>
       <Item>

@@ -1,15 +1,4 @@
-unit fp_egl;
-
-interface
-
-uses
-  fp_epoxy, fp_common, fp_gl;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
-
-  // === egl_generated.h
+{$IFDEF read_interface}
 
   type
     PAHardwareBuffer = type Pointer;
@@ -1497,17 +1486,14 @@ uses
   //  eglWaitSyncKHR = epoxy_eglWaitSyncKHR;
 
 
-  // === egl.h
-
-function epoxy_has_egl_extension(dpy: TEGLDisplay; extension: pchar): Tbool; cdecl; external libepoxy;
-function epoxy_egl_version(dpy: TEGLDisplay): longint; cdecl; external libepoxy;
-function epoxy_has_egl: Tbool; cdecl; external libepoxy;
-
 // === Konventiert am: 4-5-26 15:03:43 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

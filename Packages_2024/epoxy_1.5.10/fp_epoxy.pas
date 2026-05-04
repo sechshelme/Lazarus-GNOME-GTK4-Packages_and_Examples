@@ -2,13 +2,19 @@ unit fp_epoxy;
 
 interface
 
+
+uses
+  {$ifdef linux}
+  x, xlib, xutil;
+  {$endif}
+
 const
   {$ifdef linux}
   libepoxy = 'libepoxy';
   {$endif}
 
   {$ifdef windows}
-  libepoxy = 'libepoxy-o.dll';
+  libepoxy = 'libepoxy-0.dll';
   {$endif}
 
 type
@@ -45,28 +51,53 @@ type
   {$ENDIF}
 
 type
-  TGLXextFuncPtr=Pointer;
+  TGLXextFuncPtr = Pointer;
 
-  TEGLint=Int32;
-  PEGLint=^TEGLint;
+  TEGLint = int32;
+  PEGLint = ^TEGLint;
 
-  TeglMustCastToProperFunctionPointerType=Pointer;
+  TeglMustCastToProperFunctionPointerType = Pointer;
 
-  // /usr/include/EGL/eglplatform.h
-  TEGLNativePixmapType=Pointer;
-  PEGLNativePixmapType=^TEGLNativePixmapType;
+type  // /usr/include/EGL/eglplatform.h
+  TEGLNativePixmapType = Pointer;
+  PEGLNativePixmapType = ^TEGLNativePixmapType;
 
-  TEGLNativeWindowType=Pointer;
-  PEGLNativeWindowType=^TEGLNativeWindowType;
+  TEGLNativeWindowType = Pointer;
+  PEGLNativeWindowType = ^TEGLNativeWindowType;
 
-  TEGLNativeDisplayType=Pointer;
-  PEGLNativeDisplayType=^TEGLNativeDisplayType;
+  TEGLNativeDisplayType = Pointer;
+  PEGLNativeDisplayType = ^TEGLNativeDisplayType;
 
-  // /usr/include/GL/glx.h
-  P_GLXFBConfigRec=Pointer;
-  P_GLXcontextRec=Pointer;
+type  // /usr/include/GL/glx.h
+  P_GLXFBConfigRec = Pointer;
+  P_GLXcontextRec = Pointer;
 
+
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
+
+
+  {$DEFINE read_interface}
+  {$include epoxy/fp_common.inc}
+  {$include epoxy/fp_gl.inc}
+  {$include epoxy/fp_gl_generated.inc}
+  {$include epoxy/fp_egl_generated.inc}
+  {$include epoxy/fp_egl.inc}
+  {$include epoxy/fp_glx.inc}
+  {$include epoxy/fp_glx_generated.inc}
+  {$UNDEF read_interface}
 
 implementation
+
+{$DEFINE read_implementation}
+{$include epoxy/fp_common.inc}
+{$include epoxy/fp_gl.inc}
+{$include epoxy/fp_gl_generated.inc}
+{$include epoxy/fp_egl_generated.inc}
+{$include epoxy/fp_egl.inc}
+{$include epoxy/fp_glx.inc}
+{$include epoxy/fp_glx_generated.inc}
+{$UNDEF read_implementation}
 
 end.
