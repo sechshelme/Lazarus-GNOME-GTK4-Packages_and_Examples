@@ -1,8 +1,9 @@
 program project1;
 
 uses
-  gl,
-  GLext,
+//  gl,
+//  GLext,
+  fp_glew,
   fp_glib2,
   fp_GTK4;
 
@@ -31,21 +32,19 @@ const
     '}';
 
 var
-  VBO, VAO, ShaderProgram: GLuint;
+  VBO, VAO, ShaderProgram: TGLuint;
 
 
   function on_tick(widget: PGtkWidget; frame_clock: PGdkFrameClock; user_data: Tgpointer): Tgboolean; cdecl;
   begin
     gtk_gl_area_queue_render(GTK_GL_AREA(widget));
-
     Result := G_SOURCE_CONTINUE;
   end;
 
   procedure on_realize(area: PGtkGLArea); cdecl;
   var
-    vShader, fShader: GLuint;
-    vertices: array[0..17] of GLfloat = (
-      // Positionen          // Farben
+    vShader, fShader: TGLuint;
+    vertices: array[0..17] of TGLfloat = (
       -0.6, -0.4, 0.0, 1.0, 0.0, 0.0,
       0.6, -0.4, 0.0, 0.0, 1.0, 0.0,
       0.0, 0.6, 0.0, 0.0, 0.0, 1.0
@@ -57,10 +56,15 @@ var
       Exit;
     end;
 
-    if not Load_GL_VERSION_3_3 then begin
-      WriteLn('Fehler: OpenGL 3.3 konnte nicht geladen werden!');
-      Exit;
-    end;
+    // === Load glew
+//    if glewInit <> GLEW_OK then begin
+//      WriteLn('glxewInit Fehler');
+//      Halt(1);
+    //end;
+
+    WriteLn('glewInit: ',glewInit);
+WriteLn(PtrUInt(glCreateShader));
+
 
 
     // Shader kompilieren
@@ -80,6 +84,7 @@ var
     // Buffer Setup (VAO & VBO)
 
     ShaderProgram := glCreateProgram();
+//    ShaderProgram := glCreateProgram;
     glAttachShader(ShaderProgram, vShader);
     glAttachShader(ShaderProgram, fShader);
     glLinkProgram(ShaderProgram);
@@ -95,10 +100,10 @@ var
     glBufferData(GL_ARRAY_BUFFER, SizeOf(vertices), @vertices, GL_STATIC_DRAW);
 
     // Position Attribut
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * SizeOf(GLfloat), nil);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * SizeOf(TGLfloat), nil);
     glEnableVertexAttribArray(0);
     // Farbe Attribut
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * SizeOf(GLfloat), Pointer(3 * SizeOf(GLfloat)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * SizeOf(TGLfloat), Pointer(3 * SizeOf(TGLfloat)));
     glEnableVertexAttribArray(1);
 
     gtk_widget_add_tick_callback(GTK_WIDGET(area), @on_tick, nil, nil);
