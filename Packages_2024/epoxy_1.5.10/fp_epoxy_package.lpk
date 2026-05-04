@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="5">
+    <Name Value="fp_epoxy_package"/>
+    <Type Value="RunAndDesignTime"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+    </CompilerOptions>
+    <Files>
+      <Item>
+        <Filename Value="fp_epoxy.pas"/>
+        <UnitName Value="fp_epoxy"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_common.pas"/>
+        <UnitName Value="fp_common"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_egl.pas"/>
+        <UnitName Value="fp_egl"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_gl.pas"/>
+        <UnitName Value="fp_gl"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_glx.pas"/>
+        <UnitName Value="fp_glx"/>
+      </Item>
+    </Files>
+    <RequiredPkgs>
+      <Item>
+        <PackageName Value="FCL"/>
+      </Item>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <UseFileFilters Value="True"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

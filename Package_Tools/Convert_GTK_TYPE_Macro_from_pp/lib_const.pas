@@ -323,6 +323,7 @@ const
     (libs: 'libvips'; units: 'fp_glib2'),
     (libs: 'libodes'; units: 'fp_ode'),
     (libs: 'libphysfs'; units: 'ctypes'),
+    (libs: 'libepoxy'; units: 'fp_epoxy'),
 
 
 

@@ -1,9 +1,11 @@
 program project1;
 
 uses
-//  gl,
-//  GLext,
-  fp_glew,
+  fp_common,
+  fp_gl,
+
+
+//  fp_glew,
   fp_glib2,
   fp_GTK4;
 
@@ -62,49 +64,49 @@ var
 //      Halt(1);
     //end;
 
-    WriteLn('glewInit: ',glewInit);
-WriteLn(PtrUInt(glCreateShader));
+//    WriteLn('glewInit: ',glewInit);
+//WriteLn(PtrUInt(epoxy_glCreateShader));
 
 
 
     // Shader kompilieren
-    vShader := glCreateShader(GL_VERTEX_SHADER);
+    vShader := epoxy_glCreateShader(GL_VERTEX_SHADER);
 
     vSourcePtr := pchar(VertexShaderSource);
     // Wichtig: @vSourcePtr übergibt die Adresse des Zeigers
-    glShaderSource(vShader, 1, @vSourcePtr, nil);
-    glCompileShader(vShader);
+    epoxy_glShaderSource(vShader, 1, @vSourcePtr, nil);
+    epoxy_glCompileShader(vShader);
 
-    fShader := glCreateShader(GL_FRAGMENT_SHADER);
+    fShader := epoxy_glCreateShader(GL_FRAGMENT_SHADER);
 
     fSourcePtr := pchar(FragmentShaderSource);
-    glShaderSource(fShader, 1, @fSourcePtr, nil);
-    glCompileShader(fShader);
-    glCompileShader(fShader);
+    epoxy_glShaderSource(fShader, 1, @fSourcePtr, nil);
+    epoxy_glCompileShader(fShader);
+    epoxy_glCompileShader(fShader);
     // Buffer Setup (VAO & VBO)
 
-    ShaderProgram := glCreateProgram();
+    ShaderProgram := epoxy_glCreateProgram();
 //    ShaderProgram := glCreateProgram;
-    glAttachShader(ShaderProgram, vShader);
-    glAttachShader(ShaderProgram, fShader);
-    glLinkProgram(ShaderProgram);
+    epoxy_glAttachShader(ShaderProgram, vShader);
+    epoxy_glAttachShader(ShaderProgram, fShader);
+    epoxy_glLinkProgram(ShaderProgram);
 
-    glDeleteShader(vShader);
-    glDeleteShader(fShader);
+    epoxy_glDeleteShader(vShader);
+    epoxy_glDeleteShader(fShader);
 
-    glGenVertexArrays(1, @VAO);
-    glGenBuffers(1, @VBO);
+    epoxy_glGenVertexArrays(1, @VAO);
+    epoxy_glGenBuffers(1, @VBO);
 
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, SizeOf(vertices), @vertices, GL_STATIC_DRAW);
+    epoxy_glBindVertexArray(VAO);
+    epoxy_glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    epoxy_glBufferData(GL_ARRAY_BUFFER, SizeOf(vertices), @vertices, GL_STATIC_DRAW);
 
     // Position Attribut
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * SizeOf(TGLfloat), nil);
-    glEnableVertexAttribArray(0);
+    epoxy_glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * SizeOf(TGLfloat), nil);
+    epoxy_glEnableVertexAttribArray(0);
     // Farbe Attribut
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * SizeOf(TGLfloat), Pointer(3 * SizeOf(TGLfloat)));
-    glEnableVertexAttribArray(1);
+    epoxy_glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * SizeOf(TGLfloat), Pointer(3 * SizeOf(TGLfloat)));
+    epoxy_glEnableVertexAttribArray(1);
 
     gtk_widget_add_tick_callback(GTK_WIDGET(area), @on_tick, nil, nil);
   end;
@@ -115,12 +117,12 @@ WriteLn(PtrUInt(glCreateShader));
       Exit(False);
     end;
 
-    glClearColor(0.1, 0.1, 0.1, 1.0);
-    glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
+    epoxy_glClearColor(0.1, 0.1, 0.1, 1.0);
+    epoxy_glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
 
-    glUseProgram(ShaderProgram);
-    glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    epoxy_glUseProgram(ShaderProgram);
+    epoxy_glBindVertexArray(VAO);
+    epoxy_glDrawArrays(GL_TRIANGLES, 0, 3);
 
     Result := True;
   end;
@@ -128,9 +130,9 @@ WriteLn(PtrUInt(glCreateShader));
   procedure on_unrealize(area: PGtkGLArea); cdecl;
   begin
     gtk_gl_area_make_current(area);
-    glDeleteVertexArrays(1, @VAO);
-    glDeleteBuffers(1, @VBO);
-    glDeleteProgram(ShaderProgram);
+    epoxy_glDeleteVertexArrays(1, @VAO);
+    epoxy_glDeleteBuffers(1, @VBO);
+    epoxy_glDeleteProgram(ShaderProgram);
   end;
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;

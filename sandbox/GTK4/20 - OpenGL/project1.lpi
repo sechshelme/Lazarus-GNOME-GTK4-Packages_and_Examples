@@ -25,7 +25,7 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_glew_package"/>
+        <PackageName Value="fp_epoxy_package"/>
       </Item>
       <Item>
         <PackageName Value="fp_GLIB2_package"/>

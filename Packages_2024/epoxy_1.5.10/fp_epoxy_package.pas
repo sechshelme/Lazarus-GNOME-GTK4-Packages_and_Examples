@@ -1,0 +1,21 @@
+{ This file was automatically created by Lazarus. Do not edit!
+  This source is only used to compile and install the package.
+ }
+
+unit fp_epoxy_package;
+
+{$warn 5023 off : no warning about unused units}
+interface
+
+uses
+  fp_epoxy, fp_common, fp_egl, fp_gl, fp_glx, LazarusPackageIntf;
+
+implementation
+
+procedure Register;
+begin
+end;
+
+initialization
+  RegisterPackage('fp_epoxy_package', @Register);
+end.
