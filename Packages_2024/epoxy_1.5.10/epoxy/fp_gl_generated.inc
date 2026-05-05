@@ -6937,6 +6937,7 @@
     GL_UUID_SIZE_EXT = 16;
     GL_LAYOUT_LINEAR_CPU_CACHED_INTEL = 2;
     GL_LUID_SIZE_EXT = 8;
+
     var
       epoxy_glAccum : procedure (op:TGLenum; value:TGLfloat);cvar;external libepoxy;
       epoxy_glAccumxOES : procedure (op:TGLenum; value:TGLfixed);cvar;external libepoxy;
