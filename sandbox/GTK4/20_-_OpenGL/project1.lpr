@@ -1,9 +1,8 @@
 program project1;
 
 uses
+  fp_GL_Tools,
   fp_epoxy,
-
-//  fp_glew,
   fp_glib2,
   fp_GTK4;
 
@@ -32,8 +31,8 @@ const
     '}';
 
 var
-  VBO, VAO, ShaderProgram: TGLuint;
-
+  shader: PShader;
+  VBO, VAO: TGLuint;
 
   function on_tick(widget: PGtkWidget; frame_clock: PGdkFrameClock; user_data: Tgpointer): Tgboolean; cdecl;
   begin
@@ -43,68 +42,44 @@ var
 
   procedure on_realize(area: PGtkGLArea); cdecl;
   var
-    vShader, fShader: TGLuint;
     vertices: array[0..17] of TGLfloat = (
       -0.6, -0.4, 0.0, 1.0, 0.0, 0.0,
       0.6, -0.4, 0.0, 0.0, 1.0, 0.0,
       0.0, 0.6, 0.0, 0.0, 0.0, 1.0
       );
-    vSourcePtr, fSourcePtr: pchar;
   begin
     gtk_gl_area_make_current(area);
     if gtk_gl_area_get_error(area) <> nil then begin
       Exit;
     end;
 
-    // === Load glew
-//    if glewInit <> GLEW_OK then begin
-//      WriteLn('glxewInit Fehler');
-//      Halt(1);
-    //end;
+    shader := shader_new;
+    if not shader_load_shaderobject(shader, GL_VERTEX_SHADER, pchar(VertexShaderSource)) then begin
+      WriteLn('Fehler im Vertex-Shader:');
+      WriteLn(shader_get_errortext(shader));
+    end;
+    if not shader_load_shaderobject(shader, GL_FRAGMENT_SHADER, pchar(FragmentShaderSource)) then begin
+      WriteLn('Fehler im Fragment-Shader:');
+      WriteLn(shader_get_errortext(shader));
+    end;
+    if not shader_link_program(shader) then begin
+      WriteLn('Fehler beim Linken der Shader:');
+      WriteLn(shader_get_errortext(shader));
+    end;
 
-//    WriteLn('glewInit: ',glewInit);
-//WriteLn(PtrUInt(epoxy_glCreateShader));
+    glGenVertexArrays(1, @VAO);
+    glGenBuffers(1, @VBO);
 
-
-
-    // Shader kompilieren
-    vShader := epoxy_glCreateShader(GL_VERTEX_SHADER);
-
-    vSourcePtr := pchar(VertexShaderSource);
-    // Wichtig: @vSourcePtr übergibt die Adresse des Zeigers
-    epoxy_glShaderSource(vShader, 1, @vSourcePtr, nil);
-    epoxy_glCompileShader(vShader);
-
-    fShader := epoxy_glCreateShader(GL_FRAGMENT_SHADER);
-
-    fSourcePtr := pchar(FragmentShaderSource);
-    epoxy_glShaderSource(fShader, 1, @fSourcePtr, nil);
-    epoxy_glCompileShader(fShader);
-    epoxy_glCompileShader(fShader);
-    // Buffer Setup (VAO & VBO)
-
-    ShaderProgram := epoxy_glCreateProgram();
-//    ShaderProgram := glCreateProgram;
-    epoxy_glAttachShader(ShaderProgram, vShader);
-    epoxy_glAttachShader(ShaderProgram, fShader);
-    epoxy_glLinkProgram(ShaderProgram);
-
-    epoxy_glDeleteShader(vShader);
-    epoxy_glDeleteShader(fShader);
-
-    epoxy_glGenVertexArrays(1, @VAO);
-    epoxy_glGenBuffers(1, @VBO);
-
-    epoxy_glBindVertexArray(VAO);
-    epoxy_glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    epoxy_glBufferData(GL_ARRAY_BUFFER, SizeOf(vertices), @vertices, GL_STATIC_DRAW);
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, SizeOf(vertices), @vertices, GL_STATIC_DRAW);
 
     // Position Attribut
-    epoxy_glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * SizeOf(TGLfloat), nil);
-    epoxy_glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * SizeOf(TGLfloat), nil);
+    glEnableVertexAttribArray(0);
     // Farbe Attribut
-    epoxy_glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * SizeOf(TGLfloat), Pointer(3 * SizeOf(TGLfloat)));
-    epoxy_glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * SizeOf(TGLfloat), Pointer(3 * SizeOf(TGLfloat)));
+    glEnableVertexAttribArray(1);
 
     gtk_widget_add_tick_callback(GTK_WIDGET(area), @on_tick, nil, nil);
   end;
@@ -115,12 +90,12 @@ var
       Exit(False);
     end;
 
-    epoxy_glClearColor(0.1, 0.1, 0.1, 1.0);
-    epoxy_glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
+    glClearColor(0.1, 0.1, 0.1, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT);
 
-    epoxy_glUseProgram(ShaderProgram);
-    epoxy_glBindVertexArray(VAO);
-    epoxy_glDrawArrays(GL_TRIANGLES, 0, 3);
+    shader_use_program(shader);
+    glBindVertexArray(VAO);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
 
     Result := True;
   end;
@@ -128,9 +103,9 @@ var
   procedure on_unrealize(area: PGtkGLArea); cdecl;
   begin
     gtk_gl_area_make_current(area);
-    epoxy_glDeleteVertexArrays(1, @VAO);
-    epoxy_glDeleteBuffers(1, @VBO);
-    epoxy_glDeleteProgram(ShaderProgram);
+    glDeleteVertexArrays(1, @VAO);
+    glDeleteBuffers(1, @VBO);
+    shader_unref(shader);
   end;
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
@@ -142,15 +117,13 @@ var
     window := gtk_application_window_new(app);
     gtk_window_set_decorated(GTK_WINDOW(window), True);
     gtk_window_set_title(GTK_WINDOW(window), 'Window');
-    gtk_window_set_default_size(GTK_WINDOW(window), 200, 200);
+    gtk_window_set_default_size(GTK_WINDOW(window), 400, 400);
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     gtk_window_set_child(GTK_WINDOW(window), box);
 
     gl_area := gtk_gl_area_new();
-
     gtk_gl_area_set_required_version(GTK_GL_AREA(gl_area), 3, 3);
-//    gtk_gl_area_set_use_es(GTK_GL_AREA(gl_area), False); // Erzwinge Desktop GL, kein GLES
 
     gtk_gl_area_set_has_depth_buffer(GTK_GL_AREA(gl_area), True);
     gtk_gl_area_set_has_stencil_buffer(GTK_GL_AREA(gl_area), True);

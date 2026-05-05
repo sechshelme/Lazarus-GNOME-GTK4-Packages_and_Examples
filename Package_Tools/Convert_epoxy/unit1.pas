@@ -16,6 +16,7 @@ type
     Memo1: TMemo;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure Memo1Change(Sender: TObject);
   private
     function DeleteLines(const s, delStr: string): string;
   public
@@ -50,7 +51,8 @@ procedure TForm1.Button1Click(Sender: TObject);
 var
   slSrc, slDest: TStringList;
   i, j, v: integer;
-  s: string;
+  s1, s2, bez: string;
+  p, l: SizeInt;
 begin
   Memo1.Clear;
 
@@ -60,16 +62,24 @@ begin
     slSrc.LoadFromFile(epoxy_path[i]);
     slDest := TStringList.Create;
 
-
-    WriteLn(slSrc.Count);
     for j := 0 to slSrc.Count - 1 do begin
-      s := slSrc[j];
-      if pos('epoxy_', s) > 1 then begin
-        WriteLn(s);
-      end;
+      s1 := slSrc[j];
+      s2:=s1;
+      slDest.Add(s2);
+      p := pos('epoxy_', s2);
+      if p > 1 then begin
+        bez := copy(s2, p, pos(':', s2) - 3);
 
+        Delete(s2, 1, p + 5);
+        l := Length(s2);
+        Delete(s2, l - 24, 100);
+        s2 := '  '+s2 + ' absolute ' + bez + ';'#10;
+        slDest.Add(s2);
+
+        WriteLn(s2);
+      end;
     end;
-    //    slDest.SaveToFile(slFile[i]);
+//    slDest.SaveToFile(epoxy_path[i]);
     slSrc.Free;
     slDest.Free;
   end;
@@ -79,6 +89,11 @@ procedure TForm1.FormCreate(Sender: TObject);
 begin
   Height := 1000;
   Width := 1000;
+end;
+
+procedure TForm1.Memo1Change(Sender: TObject);
+begin
+
 end;
 
 

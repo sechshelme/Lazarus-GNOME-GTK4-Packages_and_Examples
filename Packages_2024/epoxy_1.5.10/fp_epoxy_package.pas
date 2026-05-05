@@ -8,7 +8,7 @@ unit fp_epoxy_package;
 interface
 
 uses
-  fp_epoxy, LazarusPackageIntf;
+  fp_epoxy, fp_GL_Tools, LazarusPackageIntf;
 
 implementation
 
