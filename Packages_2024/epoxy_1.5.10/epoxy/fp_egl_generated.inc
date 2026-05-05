@@ -880,310 +880,6 @@
     EGL_DISPLAY_SCALING = 10000;
     EGL_METADATA_SCALING_EXT = 50000;
 
-  type
-
-    TPFNEGLBINDAPIPROC = function (api:TEGLenum):TEGLBoolean;cdecl;
-
-    TPFNEGLBINDTEXIMAGEPROC = function (dpy:TEGLDisplay; surface:TEGLSurface; buffer:TEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLCHOOSECONFIGPROC = function (dpy:TEGLDisplay; attrib_list:PEGLint; configs:PEGLConfig; config_size:TEGLint; num_config:PEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLCLIENTSIGNALSYNCEXTPROC = function (dpy:TEGLDisplay; sync:TEGLSync; attrib_list:PEGLAttrib):TEGLBoolean;cdecl;
-
-    TPFNEGLCLIENTWAITSYNCPROC = function (dpy:TEGLDisplay; sync:TEGLSync; flags:TEGLint; timeout:TEGLTime):TEGLint;cdecl;
-
-    TPFNEGLCLIENTWAITSYNCKHRPROC = function (dpy:TEGLDisplay; sync:TEGLSyncKHR; flags:TEGLint; timeout:TEGLTimeKHR):TEGLint;cdecl;
-
-    TPFNEGLCLIENTWAITSYNCNVPROC = function (sync:TEGLSyncNV; flags:TEGLint; timeout:TEGLTimeNV):TEGLint;cdecl;
-
-    TPFNEGLCOMPOSITORBINDTEXWINDOWEXTPROC = function (external_win_id:TEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLCOMPOSITORSETCONTEXTATTRIBUTESEXTPROC = function (external_ref_id:TEGLint; context_attributes:PEGLint; num_entries:TEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLCOMPOSITORSETCONTEXTLISTEXTPROC = function (external_ref_ids:PEGLint; num_entries:TEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLCOMPOSITORSETSIZEEXTPROC = function (external_win_id:TEGLint; width:TEGLint; height:TEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLCOMPOSITORSETWINDOWATTRIBUTESEXTPROC = function (external_win_id:TEGLint; window_attributes:PEGLint; num_entries:TEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLCOMPOSITORSETWINDOWLISTEXTPROC = function (external_ref_id:TEGLint; external_win_ids:PEGLint; num_entries:TEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLCOMPOSITORSWAPPOLICYEXTPROC = function (external_win_id:TEGLint; policy:TEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLCOPYBUFFERSPROC = function (dpy:TEGLDisplay; surface:TEGLSurface; target:TEGLNativePixmapType):TEGLBoolean;cdecl;
-
-    TPFNEGLCREATECONTEXTPROC = function (dpy:TEGLDisplay; config:TEGLConfig; share_context:TEGLContext; attrib_list:PEGLint):TEGLContext;cdecl;
-
-    TPFNEGLCREATEDRMIMAGEMESAPROC = function (dpy:TEGLDisplay; attrib_list:PEGLint):TEGLImageKHR;cdecl;
-
-    TPFNEGLCREATEFENCESYNCNVPROC = function (dpy:TEGLDisplay; condition:TEGLenum; attrib_list:PEGLint):TEGLSyncNV;cdecl;
-
-    TPFNEGLCREATEIMAGEPROC = function (dpy:TEGLDisplay; ctx:TEGLContext; target:TEGLenum; buffer:TEGLClientBuffer; attrib_list:PEGLAttrib):TEGLImage;cdecl;
-
-    TPFNEGLCREATEIMAGEKHRPROC = function (dpy:TEGLDisplay; ctx:TEGLContext; target:TEGLenum; buffer:TEGLClientBuffer; attrib_list:PEGLint):TEGLImageKHR;cdecl;
-
-    TPFNEGLCREATENATIVECLIENTBUFFERANDROIDPROC = function (attrib_list:PEGLint):TEGLClientBuffer;cdecl;
-
-    TPFNEGLCREATEPBUFFERFROMCLIENTBUFFERPROC = function (dpy:TEGLDisplay; buftype:TEGLenum; buffer:TEGLClientBuffer; config:TEGLConfig; attrib_list:PEGLint):TEGLSurface;cdecl;
-
-    TPFNEGLCREATEPBUFFERSURFACEPROC = function (dpy:TEGLDisplay; config:TEGLConfig; attrib_list:PEGLint):TEGLSurface;cdecl;
-
-    TPFNEGLCREATEPIXMAPSURFACEPROC = function (dpy:TEGLDisplay; config:TEGLConfig; pixmap:TEGLNativePixmapType; attrib_list:PEGLint):TEGLSurface;cdecl;
-
-    TPFNEGLCREATEPIXMAPSURFACEHIPROC = function (dpy:TEGLDisplay; config:TEGLConfig; pixmap:PEGLClientPixmapHI):TEGLSurface;cdecl;
-
-    TPFNEGLCREATEPLATFORMPIXMAPSURFACEPROC = function (dpy:TEGLDisplay; config:TEGLConfig; native_pixmap:pointer; attrib_list:PEGLAttrib):TEGLSurface;cdecl;
-
-    TPFNEGLCREATEPLATFORMPIXMAPSURFACEEXTPROC = function (dpy:TEGLDisplay; config:TEGLConfig; native_pixmap:pointer; attrib_list:PEGLint):TEGLSurface;cdecl;
-
-    TPFNEGLCREATEPLATFORMWINDOWSURFACEPROC = function (dpy:TEGLDisplay; config:TEGLConfig; native_window:pointer; attrib_list:PEGLAttrib):TEGLSurface;cdecl;
-
-    TPFNEGLCREATEPLATFORMWINDOWSURFACEEXTPROC = function (dpy:TEGLDisplay; config:TEGLConfig; native_window:pointer; attrib_list:PEGLint):TEGLSurface;cdecl;
-
-    TPFNEGLCREATESTREAMATTRIBKHRPROC = function (dpy:TEGLDisplay; attrib_list:PEGLAttrib):TEGLStreamKHR;cdecl;
-
-    TPFNEGLCREATESTREAMFROMFILEDESCRIPTORKHRPROC = function (dpy:TEGLDisplay; file_descriptor:TEGLNativeFileDescriptorKHR):TEGLStreamKHR;cdecl;
-
-    TPFNEGLCREATESTREAMKHRPROC = function (dpy:TEGLDisplay; attrib_list:PEGLint):TEGLStreamKHR;cdecl;
-
-    TPFNEGLCREATESTREAMPRODUCERSURFACEKHRPROC = function (dpy:TEGLDisplay; config:TEGLConfig; stream:TEGLStreamKHR; attrib_list:PEGLint):TEGLSurface;cdecl;
-
-    TPFNEGLCREATESTREAMSYNCNVPROC = function (dpy:TEGLDisplay; stream:TEGLStreamKHR; _type:TEGLenum; attrib_list:PEGLint):TEGLSyncKHR;cdecl;
-
-    TPFNEGLCREATESYNCPROC = function (dpy:TEGLDisplay; _type:TEGLenum; attrib_list:PEGLAttrib):TEGLSync;cdecl;
-
-    TPFNEGLCREATESYNC64KHRPROC = function (dpy:TEGLDisplay; _type:TEGLenum; attrib_list:PEGLAttribKHR):TEGLSyncKHR;cdecl;
-
-    TPFNEGLCREATESYNCKHRPROC = function (dpy:TEGLDisplay; _type:TEGLenum; attrib_list:PEGLint):TEGLSyncKHR;cdecl;
-
-    TPFNEGLCREATEWINDOWSURFACEPROC = function (dpy:TEGLDisplay; config:TEGLConfig; win:TEGLNativeWindowType; attrib_list:PEGLint):TEGLSurface;cdecl;
-
-    TPFNEGLDEBUGMESSAGECONTROLKHRPROC = function (callback:TEGLDEBUGPROCKHR; attrib_list:PEGLAttrib):TEGLint;cdecl;
-
-    TPFNEGLDESTROYCONTEXTPROC = function (dpy:TEGLDisplay; ctx:TEGLContext):TEGLBoolean;cdecl;
-
-    TPFNEGLDESTROYIMAGEPROC = function (dpy:TEGLDisplay; image:TEGLImage):TEGLBoolean;cdecl;
-
-    TPFNEGLDESTROYIMAGEKHRPROC = function (dpy:TEGLDisplay; image:TEGLImageKHR):TEGLBoolean;cdecl;
-
-    TPFNEGLDESTROYSTREAMKHRPROC = function (dpy:TEGLDisplay; stream:TEGLStreamKHR):TEGLBoolean;cdecl;
-
-    TPFNEGLDESTROYSURFACEPROC = function (dpy:TEGLDisplay; surface:TEGLSurface):TEGLBoolean;cdecl;
-
-    TPFNEGLDESTROYSYNCPROC = function (dpy:TEGLDisplay; sync:TEGLSync):TEGLBoolean;cdecl;
-
-    TPFNEGLDESTROYSYNCKHRPROC = function (dpy:TEGLDisplay; sync:TEGLSyncKHR):TEGLBoolean;cdecl;
-
-    TPFNEGLDESTROYSYNCNVPROC = function (sync:TEGLSyncNV):TEGLBoolean;cdecl;
-
-    TPFNEGLDUPNATIVEFENCEFDANDROIDPROC = function (dpy:TEGLDisplay; sync:TEGLSyncKHR):TEGLint;cdecl;
-
-    TPFNEGLEXPORTDMABUFIMAGEMESAPROC = function (dpy:TEGLDisplay; image:TEGLImageKHR; fds:Plongint; strides:PEGLint; offsets:PEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLEXPORTDMABUFIMAGEQUERYMESAPROC = function (dpy:TEGLDisplay; image:TEGLImageKHR; fourcc:Plongint; num_planes:Plongint; modifiers:PEGLuint64KHR):TEGLBoolean;cdecl;
-
-    TPFNEGLEXPORTDRMIMAGEMESAPROC = function (dpy:TEGLDisplay; image:TEGLImageKHR; name:PEGLint; handle:PEGLint; stride:PEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLFENCENVPROC = function (sync:TEGLSyncNV):TEGLBoolean;cdecl;
-
-    TPFNEGLGETCOMPOSITORTIMINGANDROIDPROC = function (dpy:TEGLDisplay; surface:TEGLSurface; numTimestamps:TEGLint; names:PEGLint; values:PEGLnsecsANDROID):TEGLBoolean;cdecl;
-
-    TPFNEGLGETCOMPOSITORTIMINGSUPPORTEDANDROIDPROC = function (dpy:TEGLDisplay; surface:TEGLSurface; name:TEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLGETCONFIGATTRIBPROC = function (dpy:TEGLDisplay; config:TEGLConfig; attribute:TEGLint; value:PEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLGETCONFIGSPROC = function (dpy:TEGLDisplay; configs:PEGLConfig; config_size:TEGLint; num_config:PEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLGETCURRENTCONTEXTPROC = function (para1:pointer):TEGLContext;cdecl;
-
-    TPFNEGLGETCURRENTDISPLAYPROC = function (para1:pointer):TEGLDisplay;cdecl;
-
-    TPFNEGLGETCURRENTSURFACEPROC = function (readdraw:TEGLint):TEGLSurface;cdecl;
-
-    TPFNEGLGETDISPLAYPROC = function (display_id:TEGLNativeDisplayType):TEGLDisplay;cdecl;
-
-    PPFNEGLGETDISPLAYDRIVERCONFIGPROC = ^TPFNEGLGETDISPLAYDRIVERCONFIGPROC;
-    TPFNEGLGETDISPLAYDRIVERCONFIGPROC = function (dpy:TEGLDisplay):Pchar;cdecl;
-
-    PPFNEGLGETDISPLAYDRIVERNAMEPROC = ^TPFNEGLGETDISPLAYDRIVERNAMEPROC;
-    TPFNEGLGETDISPLAYDRIVERNAMEPROC = function (dpy:TEGLDisplay):Pchar;cdecl;
-
-    TPFNEGLGETERRORPROC = function (para1:pointer):TEGLint;cdecl;
-
-    TPFNEGLGETFRAMETIMESTAMPSUPPORTEDANDROIDPROC = function (dpy:TEGLDisplay; surface:TEGLSurface; timestamp:TEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLGETFRAMETIMESTAMPSANDROIDPROC = function (dpy:TEGLDisplay; surface:TEGLSurface; frameId:TEGLuint64KHR; numTimestamps:TEGLint; timestamps:PEGLint;
-                 values:PEGLnsecsANDROID):TEGLBoolean;cdecl;
-
-    TPFNEGLGETNATIVECLIENTBUFFERANDROIDPROC = function (buffer:PAHardwareBuffer):TEGLClientBuffer;cdecl;
-
-    TPFNEGLGETNEXTFRAMEIDANDROIDPROC = function (dpy:TEGLDisplay; surface:TEGLSurface; frameId:PEGLuint64KHR):TEGLBoolean;cdecl;
-
-    TPFNEGLGETOUTPUTLAYERSEXTPROC = function (dpy:TEGLDisplay; attrib_list:PEGLAttrib; layers:PEGLOutputLayerEXT; max_layers:TEGLint; num_layers:PEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLGETOUTPUTPORTSEXTPROC = function (dpy:TEGLDisplay; attrib_list:PEGLAttrib; ports:PEGLOutputPortEXT; max_ports:TEGLint; num_ports:PEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLGETPLATFORMDISPLAYPROC = function (platform:TEGLenum; native_display:pointer; attrib_list:PEGLAttrib):TEGLDisplay;cdecl;
-
-    TPFNEGLGETPLATFORMDISPLAYEXTPROC = function (platform:TEGLenum; native_display:pointer; attrib_list:PEGLint):TEGLDisplay;cdecl;
-
-    TPFNEGLGETPROCADDRESSPROC = function (procname:Pchar):TeglMustCastToProperFunctionPointerType;cdecl;
-
-    TPFNEGLGETSTREAMFILEDESCRIPTORKHRPROC = function (dpy:TEGLDisplay; stream:TEGLStreamKHR):TEGLNativeFileDescriptorKHR;cdecl;
-
-    TPFNEGLGETSYNCATTRIBPROC = function (dpy:TEGLDisplay; sync:TEGLSync; attribute:TEGLint; value:PEGLAttrib):TEGLBoolean;cdecl;
-
-    TPFNEGLGETSYNCATTRIBKHRPROC = function (dpy:TEGLDisplay; sync:TEGLSyncKHR; attribute:TEGLint; value:PEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLGETSYNCATTRIBNVPROC = function (sync:TEGLSyncNV; attribute:TEGLint; value:PEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLGETSYSTEMTIMEFREQUENCYNVPROC = function (para1:pointer):TEGLuint64NV;cdecl;
-
-    TPFNEGLGETSYSTEMTIMENVPROC = function (para1:pointer):TEGLuint64NV;cdecl;
-
-    TPFNEGLINITIALIZEPROC = function (dpy:TEGLDisplay; major:PEGLint; minor:PEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLLABELOBJECTKHRPROC = function (display:TEGLDisplay; objectType:TEGLenum; obj:TEGLObjectKHR; _label:TEGLLabelKHR):TEGLint;cdecl;
-
-    TPFNEGLLOCKSURFACEKHRPROC = function (dpy:TEGLDisplay; surface:TEGLSurface; attrib_list:PEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLMAKECURRENTPROC = function (dpy:TEGLDisplay; draw:TEGLSurface; read:TEGLSurface; ctx:TEGLContext):TEGLBoolean;cdecl;
-
-    TPFNEGLOUTPUTLAYERATTRIBEXTPROC = function (dpy:TEGLDisplay; layer:TEGLOutputLayerEXT; attribute:TEGLint; value:TEGLAttrib):TEGLBoolean;cdecl;
-
-    TPFNEGLOUTPUTPORTATTRIBEXTPROC = function (dpy:TEGLDisplay; port:TEGLOutputPortEXT; attribute:TEGLint; value:TEGLAttrib):TEGLBoolean;cdecl;
-
-    TPFNEGLPOSTSUBBUFFERNVPROC = function (dpy:TEGLDisplay; surface:TEGLSurface; x:TEGLint; y:TEGLint; width:TEGLint;
-                 height:TEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLPRESENTATIONTIMEANDROIDPROC = function (dpy:TEGLDisplay; surface:TEGLSurface; time:TEGLnsecsANDROID):TEGLBoolean;cdecl;
-
-    TPFNEGLQUERYAPIPROC = function (para1:pointer):TEGLenum;cdecl;
-
-    TPFNEGLQUERYCONTEXTPROC = function (dpy:TEGLDisplay; ctx:TEGLContext; attribute:TEGLint; value:PEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLQUERYDEBUGKHRPROC = function (attribute:TEGLint; value:PEGLAttrib):TEGLBoolean;cdecl;
-
-    TPFNEGLQUERYDEVICEATTRIBEXTPROC = function (device:TEGLDeviceEXT; attribute:TEGLint; value:PEGLAttrib):TEGLBoolean;cdecl;
-
-    PPFNEGLQUERYDEVICESTRINGEXTPROC = ^TPFNEGLQUERYDEVICESTRINGEXTPROC;
-    TPFNEGLQUERYDEVICESTRINGEXTPROC = function (device:TEGLDeviceEXT; name:TEGLint):Pchar;cdecl;
-
-    TPFNEGLQUERYDEVICESEXTPROC = function (max_devices:TEGLint; devices:PEGLDeviceEXT; num_devices:PEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLQUERYDISPLAYATTRIBEXTPROC = function (dpy:TEGLDisplay; attribute:TEGLint; value:PEGLAttrib):TEGLBoolean;cdecl;
-
-    TPFNEGLQUERYDISPLAYATTRIBKHRPROC = function (dpy:TEGLDisplay; name:TEGLint; value:PEGLAttrib):TEGLBoolean;cdecl;
-
-    TPFNEGLQUERYDISPLAYATTRIBNVPROC = function (dpy:TEGLDisplay; attribute:TEGLint; value:PEGLAttrib):TEGLBoolean;cdecl;
-
-    TPFNEGLQUERYDMABUFFORMATSEXTPROC = function (dpy:TEGLDisplay; max_formats:TEGLint; formats:PEGLint; num_formats:PEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLQUERYDMABUFMODIFIERSEXTPROC = function (dpy:TEGLDisplay; format:TEGLint; max_modifiers:TEGLint; modifiers:PEGLuint64KHR; external_only:PEGLBoolean;
-                 num_modifiers:PEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLQUERYNATIVEDISPLAYNVPROC = function (dpy:TEGLDisplay; display_id:PEGLNativeDisplayType):TEGLBoolean;cdecl;
-
-    TPFNEGLQUERYNATIVEPIXMAPNVPROC = function (dpy:TEGLDisplay; surf:TEGLSurface; pixmap:PEGLNativePixmapType):TEGLBoolean;cdecl;
-
-    TPFNEGLQUERYNATIVEWINDOWNVPROC = function (dpy:TEGLDisplay; surf:TEGLSurface; window:PEGLNativeWindowType):TEGLBoolean;cdecl;
-
-    TPFNEGLQUERYOUTPUTLAYERATTRIBEXTPROC = function (dpy:TEGLDisplay; layer:TEGLOutputLayerEXT; attribute:TEGLint; value:PEGLAttrib):TEGLBoolean;cdecl;
-
-    PPFNEGLQUERYOUTPUTLAYERSTRINGEXTPROC = ^TPFNEGLQUERYOUTPUTLAYERSTRINGEXTPROC;
-    TPFNEGLQUERYOUTPUTLAYERSTRINGEXTPROC = function (dpy:TEGLDisplay; layer:TEGLOutputLayerEXT; name:TEGLint):Pchar;cdecl;
-
-    TPFNEGLQUERYOUTPUTPORTATTRIBEXTPROC = function (dpy:TEGLDisplay; port:TEGLOutputPortEXT; attribute:TEGLint; value:PEGLAttrib):TEGLBoolean;cdecl;
-
-    PPFNEGLQUERYOUTPUTPORTSTRINGEXTPROC = ^TPFNEGLQUERYOUTPUTPORTSTRINGEXTPROC;
-    TPFNEGLQUERYOUTPUTPORTSTRINGEXTPROC = function (dpy:TEGLDisplay; port:TEGLOutputPortEXT; name:TEGLint):Pchar;cdecl;
-
-    TPFNEGLQUERYSTREAMATTRIBKHRPROC = function (dpy:TEGLDisplay; stream:TEGLStreamKHR; attribute:TEGLenum; value:PEGLAttrib):TEGLBoolean;cdecl;
-
-    TPFNEGLQUERYSTREAMKHRPROC = function (dpy:TEGLDisplay; stream:TEGLStreamKHR; attribute:TEGLenum; value:PEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLQUERYSTREAMMETADATANVPROC = function (dpy:TEGLDisplay; stream:TEGLStreamKHR; name:TEGLenum; n:TEGLint; offset:TEGLint;
-                 size:TEGLint; data:pointer):TEGLBoolean;cdecl;
-
-    TPFNEGLQUERYSTREAMTIMEKHRPROC = function (dpy:TEGLDisplay; stream:TEGLStreamKHR; attribute:TEGLenum; value:PEGLTimeKHR):TEGLBoolean;cdecl;
-
-    TPFNEGLQUERYSTREAMU64KHRPROC = function (dpy:TEGLDisplay; stream:TEGLStreamKHR; attribute:TEGLenum; value:PEGLuint64KHR):TEGLBoolean;cdecl;
-
-    PPFNEGLQUERYSTRINGPROC = ^TPFNEGLQUERYSTRINGPROC;
-    TPFNEGLQUERYSTRINGPROC = function (dpy:TEGLDisplay; name:TEGLint):Pchar;cdecl;
-
-    TPFNEGLQUERYSURFACEPROC = function (dpy:TEGLDisplay; surface:TEGLSurface; attribute:TEGLint; value:PEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLQUERYSURFACE64KHRPROC = function (dpy:TEGLDisplay; surface:TEGLSurface; attribute:TEGLint; value:PEGLAttribKHR):TEGLBoolean;cdecl;
-
-    TPFNEGLQUERYSURFACEPOINTERANGLEPROC = function (dpy:TEGLDisplay; surface:TEGLSurface; attribute:TEGLint; value:Ppointer):TEGLBoolean;cdecl;
-
-    TPFNEGLRELEASETEXIMAGEPROC = function (dpy:TEGLDisplay; surface:TEGLSurface; buffer:TEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLRELEASETHREADPROC = function (para1:pointer):TEGLBoolean;cdecl;
-
-    TPFNEGLRESETSTREAMNVPROC = function (dpy:TEGLDisplay; stream:TEGLStreamKHR):TEGLBoolean;cdecl;
-
-    TPFNEGLSETBLOBCACHEFUNCSANDROIDPROC = procedure (dpy:TEGLDisplay; set_:TEGLSetBlobFuncANDROID; get:TEGLGetBlobFuncANDROID);cdecl;
-
-    TPFNEGLSETDAMAGEREGIONKHRPROC = function (dpy:TEGLDisplay; surface:TEGLSurface; rects:PEGLint; n_rects:TEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLSETSTREAMATTRIBKHRPROC = function (dpy:TEGLDisplay; stream:TEGLStreamKHR; attribute:TEGLenum; value:TEGLAttrib):TEGLBoolean;cdecl;
-
-    TPFNEGLSETSTREAMMETADATANVPROC = function (dpy:TEGLDisplay; stream:TEGLStreamKHR; n:TEGLint; offset:TEGLint; size:TEGLint;
-                 data:pointer):TEGLBoolean;cdecl;
-
-    TPFNEGLSIGNALSYNCKHRPROC = function (dpy:TEGLDisplay; sync:TEGLSyncKHR; mode:TEGLenum):TEGLBoolean;cdecl;
-
-    TPFNEGLSIGNALSYNCNVPROC = function (sync:TEGLSyncNV; mode:TEGLenum):TEGLBoolean;cdecl;
-
-    TPFNEGLSTREAMATTRIBKHRPROC = function (dpy:TEGLDisplay; stream:TEGLStreamKHR; attribute:TEGLenum; value:TEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLSTREAMCONSUMERACQUIREATTRIBKHRPROC = function (dpy:TEGLDisplay; stream:TEGLStreamKHR; attrib_list:PEGLAttrib):TEGLBoolean;cdecl;
-
-    TPFNEGLSTREAMCONSUMERACQUIREKHRPROC = function (dpy:TEGLDisplay; stream:TEGLStreamKHR):TEGLBoolean;cdecl;
-
-    TPFNEGLSTREAMCONSUMERGLTEXTUREEXTERNALATTRIBSNVPROC = function (dpy:TEGLDisplay; stream:TEGLStreamKHR; attrib_list:PEGLAttrib):TEGLBoolean;cdecl;
-
-    TPFNEGLSTREAMCONSUMERGLTEXTUREEXTERNALKHRPROC = function (dpy:TEGLDisplay; stream:TEGLStreamKHR):TEGLBoolean;cdecl;
-
-    TPFNEGLSTREAMCONSUMEROUTPUTEXTPROC = function (dpy:TEGLDisplay; stream:TEGLStreamKHR; layer:TEGLOutputLayerEXT):TEGLBoolean;cdecl;
-
-    TPFNEGLSTREAMCONSUMERRELEASEATTRIBKHRPROC = function (dpy:TEGLDisplay; stream:TEGLStreamKHR; attrib_list:PEGLAttrib):TEGLBoolean;cdecl;
-
-    TPFNEGLSTREAMCONSUMERRELEASEKHRPROC = function (dpy:TEGLDisplay; stream:TEGLStreamKHR):TEGLBoolean;cdecl;
-
-    TPFNEGLSTREAMFLUSHNVPROC = function (dpy:TEGLDisplay; stream:TEGLStreamKHR):TEGLBoolean;cdecl;
-
-    TPFNEGLSURFACEATTRIBPROC = function (dpy:TEGLDisplay; surface:TEGLSurface; attribute:TEGLint; value:TEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLSWAPBUFFERSPROC = function (dpy:TEGLDisplay; surface:TEGLSurface):TEGLBoolean;cdecl;
-
-    TPFNEGLSWAPBUFFERSREGION2NOKPROC = function (dpy:TEGLDisplay; surface:TEGLSurface; numRects:TEGLint; rects:PEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLSWAPBUFFERSREGIONNOKPROC = function (dpy:TEGLDisplay; surface:TEGLSurface; numRects:TEGLint; rects:PEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLSWAPBUFFERSWITHDAMAGEEXTPROC = function (dpy:TEGLDisplay; surface:TEGLSurface; rects:PEGLint; n_rects:TEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLSWAPBUFFERSWITHDAMAGEKHRPROC = function (dpy:TEGLDisplay; surface:TEGLSurface; rects:PEGLint; n_rects:TEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLSWAPINTERVALPROC = function (dpy:TEGLDisplay; interval:TEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLTERMINATEPROC = function (dpy:TEGLDisplay):TEGLBoolean;cdecl;
-
-    TPFNEGLUNLOCKSURFACEKHRPROC = function (dpy:TEGLDisplay; surface:TEGLSurface):TEGLBoolean;cdecl;
-
-    TPFNEGLUNSIGNALSYNCEXTPROC = function (dpy:TEGLDisplay; sync:TEGLSync; attrib_list:PEGLAttrib):TEGLBoolean;cdecl;
-
-    TPFNEGLWAITCLIENTPROC = function (para1:pointer):TEGLBoolean;cdecl;
-
-    TPFNEGLWAITGLPROC = function (para1:pointer):TEGLBoolean;cdecl;
-
-    TPFNEGLWAITNATIVEPROC = function (engine:TEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLWAITSYNCPROC = function (dpy:TEGLDisplay; sync:TEGLSync; flags:TEGLint):TEGLBoolean;cdecl;
-
-    TPFNEGLWAITSYNCKHRPROC = function (dpy:TEGLDisplay; sync:TEGLSyncKHR; flags:TEGLint):TEGLint;cdecl;
     var
       epoxy_eglBindAPI : function (api:TEGLenum):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglBindTexImage : function (dpy:TEGLDisplay; surface:TEGLSurface; buffer:TEGLint):TEGLBoolean;cvar;external libepoxy;
@@ -1249,8 +945,7 @@
       epoxy_eglGetDisplayDriverName : function (dpy:TEGLDisplay):Pchar;cvar;external libepoxy;
       epoxy_eglGetError : function :TEGLint;cvar;external libepoxy;
       epoxy_eglGetFrameTimestampSupportedANDROID : function (dpy:TEGLDisplay; surface:TEGLSurface; timestamp:TEGLint):TEGLBoolean;cvar;external libepoxy;
-      epoxy_eglGetFrameTimestampsANDROID : function (dpy:TEGLDisplay; surface:TEGLSurface; frameId:TEGLuint64KHR; numTimestamps:TEGLint; timestamps:PEGLint;
-                   values:PEGLnsecsANDROID):TEGLBoolean;cvar;external libepoxy;
+      epoxy_eglGetFrameTimestampsANDROID : function (dpy:TEGLDisplay; surface:TEGLSurface; frameId:TEGLuint64KHR; numTimestamps:TEGLint; timestamps:PEGLint;                   values:PEGLnsecsANDROID):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglGetNativeClientBufferANDROID : function (buffer:PAHardwareBuffer):TEGLClientBuffer;cvar;external libepoxy;
       epoxy_eglGetNextFrameIdANDROID : function (dpy:TEGLDisplay; surface:TEGLSurface; frameId:PEGLuint64KHR):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglGetOutputLayersEXT : function (dpy:TEGLDisplay; attrib_list:PEGLAttrib; layers:PEGLOutputLayerEXT; max_layers:TEGLint; num_layers:PEGLint):TEGLBoolean;cvar;external libepoxy;
@@ -1270,8 +965,7 @@
       epoxy_eglMakeCurrent : function (dpy:TEGLDisplay; draw:TEGLSurface; read:TEGLSurface; ctx:TEGLContext):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglOutputLayerAttribEXT : function (dpy:TEGLDisplay; layer:TEGLOutputLayerEXT; attribute:TEGLint; value:TEGLAttrib):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglOutputPortAttribEXT : function (dpy:TEGLDisplay; port:TEGLOutputPortEXT; attribute:TEGLint; value:TEGLAttrib):TEGLBoolean;cvar;external libepoxy;
-      epoxy_eglPostSubBufferNV : function (dpy:TEGLDisplay; surface:TEGLSurface; x:TEGLint; y:TEGLint; width:TEGLint;
-                   height:TEGLint):TEGLBoolean;cvar;external libepoxy;
+      epoxy_eglPostSubBufferNV : function (dpy:TEGLDisplay; surface:TEGLSurface; x:TEGLint; y:TEGLint; width:TEGLint;                   height:TEGLint):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglPresentationTimeANDROID : function (dpy:TEGLDisplay; surface:TEGLSurface; time:TEGLnsecsANDROID):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglQueryAPI : function :TEGLenum;cvar;external libepoxy;
       epoxy_eglQueryContext : function (dpy:TEGLDisplay; ctx:TEGLContext; attribute:TEGLint; value:PEGLint):TEGLBoolean;cvar;external libepoxy;
@@ -1283,8 +977,7 @@
       epoxy_eglQueryDisplayAttribKHR : function (dpy:TEGLDisplay; name:TEGLint; value:PEGLAttrib):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglQueryDisplayAttribNV : function (dpy:TEGLDisplay; attribute:TEGLint; value:PEGLAttrib):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglQueryDmaBufFormatsEXT : function (dpy:TEGLDisplay; max_formats:TEGLint; formats:PEGLint; num_formats:PEGLint):TEGLBoolean;cvar;external libepoxy;
-      epoxy_eglQueryDmaBufModifiersEXT : function (dpy:TEGLDisplay; format:TEGLint; max_modifiers:TEGLint; modifiers:PEGLuint64KHR; external_only:PEGLBoolean;
-                   num_modifiers:PEGLint):TEGLBoolean;cvar;external libepoxy;
+      epoxy_eglQueryDmaBufModifiersEXT : function (dpy:TEGLDisplay; format:TEGLint; max_modifiers:TEGLint; modifiers:PEGLuint64KHR; external_only:PEGLBoolean;                   num_modifiers:PEGLint):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglQueryNativeDisplayNV : function (dpy:TEGLDisplay; display_id:PEGLNativeDisplayType):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglQueryNativePixmapNV : function (dpy:TEGLDisplay; surf:TEGLSurface; pixmap:PEGLNativePixmapType):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglQueryNativeWindowNV : function (dpy:TEGLDisplay; surf:TEGLSurface; window:PEGLNativeWindowType):TEGLBoolean;cvar;external libepoxy;
@@ -1294,8 +987,7 @@
       epoxy_eglQueryOutputPortStringEXT : function (dpy:TEGLDisplay; port:TEGLOutputPortEXT; name:TEGLint):Pchar;cvar;external libepoxy;
       epoxy_eglQueryStreamAttribKHR : function (dpy:TEGLDisplay; stream:TEGLStreamKHR; attribute:TEGLenum; value:PEGLAttrib):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglQueryStreamKHR : function (dpy:TEGLDisplay; stream:TEGLStreamKHR; attribute:TEGLenum; value:PEGLint):TEGLBoolean;cvar;external libepoxy;
-      epoxy_eglQueryStreamMetadataNV : function (dpy:TEGLDisplay; stream:TEGLStreamKHR; name:TEGLenum; n:TEGLint; offset:TEGLint;
-                   size:TEGLint; data:pointer):TEGLBoolean;cvar;external libepoxy;
+      epoxy_eglQueryStreamMetadataNV : function (dpy:TEGLDisplay; stream:TEGLStreamKHR; name:TEGLenum; n:TEGLint; offset:TEGLint;                   size:TEGLint; data:pointer):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglQueryStreamTimeKHR : function (dpy:TEGLDisplay; stream:TEGLStreamKHR; attribute:TEGLenum; value:PEGLTimeKHR):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglQueryStreamu64KHR : function (dpy:TEGLDisplay; stream:TEGLStreamKHR; attribute:TEGLenum; value:PEGLuint64KHR):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglQueryString : function (dpy:TEGLDisplay; name:TEGLint):Pchar;cvar;external libepoxy;
@@ -1308,8 +1000,7 @@
       epoxy_eglSetBlobCacheFuncsANDROID : procedure (dpy:TEGLDisplay; set_:TEGLSetBlobFuncANDROID; get:TEGLGetBlobFuncANDROID);cvar;external libepoxy;
       epoxy_eglSetDamageRegionKHR : function (dpy:TEGLDisplay; surface:TEGLSurface; rects:PEGLint; n_rects:TEGLint):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglSetStreamAttribKHR : function (dpy:TEGLDisplay; stream:TEGLStreamKHR; attribute:TEGLenum; value:TEGLAttrib):TEGLBoolean;cvar;external libepoxy;
-      epoxy_eglSetStreamMetadataNV : function (dpy:TEGLDisplay; stream:TEGLStreamKHR; n:TEGLint; offset:TEGLint; size:TEGLint;
-                   data:pointer):TEGLBoolean;cvar;external libepoxy;
+      epoxy_eglSetStreamMetadataNV : function (dpy:TEGLDisplay; stream:TEGLStreamKHR; n:TEGLint; offset:TEGLint; size:TEGLint;                   data:pointer):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglSignalSyncKHR : function (dpy:TEGLDisplay; sync:TEGLSyncKHR; mode:TEGLenum):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglSignalSyncNV : function (sync:TEGLSyncNV; mode:TEGLenum):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglStreamAttribKHR : function (dpy:TEGLDisplay; stream:TEGLStreamKHR; attribute:TEGLenum; value:TEGLint):TEGLBoolean;cvar;external libepoxy;
@@ -1336,155 +1027,6 @@
       epoxy_eglWaitNative : function (engine:TEGLint):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglWaitSync : function (dpy:TEGLDisplay; sync:TEGLSync; flags:TEGLint):TEGLBoolean;cvar;external libepoxy;
       epoxy_eglWaitSyncKHR : function (dpy:TEGLDisplay; sync:TEGLSyncKHR; flags:TEGLint):TEGLint;cvar;external libepoxy;
-
-  //const
-  //  eglBindAPI = epoxy_eglBindAPI;
-  //  eglBindTexImage = epoxy_eglBindTexImage;
-  //  eglChooseConfig = epoxy_eglChooseConfig;
-  //  eglClientSignalSyncEXT = epoxy_eglClientSignalSyncEXT;
-  //  eglClientWaitSync = epoxy_eglClientWaitSync;
-  //  eglClientWaitSyncKHR = epoxy_eglClientWaitSyncKHR;
-  //  eglClientWaitSyncNV = epoxy_eglClientWaitSyncNV;
-  //  eglCompositorBindTexWindowEXT = epoxy_eglCompositorBindTexWindowEXT;
-  //  eglCompositorSetContextAttributesEXT = epoxy_eglCompositorSetContextAttributesEXT;
-  //  eglCompositorSetContextListEXT = epoxy_eglCompositorSetContextListEXT;
-  //  eglCompositorSetSizeEXT = epoxy_eglCompositorSetSizeEXT;
-  //  eglCompositorSetWindowAttributesEXT = epoxy_eglCompositorSetWindowAttributesEXT;
-  //  eglCompositorSetWindowListEXT = epoxy_eglCompositorSetWindowListEXT;
-  //  eglCompositorSwapPolicyEXT = epoxy_eglCompositorSwapPolicyEXT;
-  //  eglCopyBuffers = epoxy_eglCopyBuffers;
-  //  eglCreateContext = epoxy_eglCreateContext;
-  //  eglCreateDRMImageMESA = epoxy_eglCreateDRMImageMESA;
-  //  eglCreateFenceSyncNV = epoxy_eglCreateFenceSyncNV;
-  //  eglCreateImage = epoxy_eglCreateImage;
-  //  eglCreateImageKHR = epoxy_eglCreateImageKHR;
-  //  eglCreateNativeClientBufferANDROID = epoxy_eglCreateNativeClientBufferANDROID;
-  //  eglCreatePbufferFromClientBuffer = epoxy_eglCreatePbufferFromClientBuffer;
-  //  eglCreatePbufferSurface = epoxy_eglCreatePbufferSurface;
-  //  eglCreatePixmapSurface = epoxy_eglCreatePixmapSurface;
-  //  eglCreatePixmapSurfaceHI = epoxy_eglCreatePixmapSurfaceHI;
-  //  eglCreatePlatformPixmapSurface = epoxy_eglCreatePlatformPixmapSurface;
-  //  eglCreatePlatformPixmapSurfaceEXT = epoxy_eglCreatePlatformPixmapSurfaceEXT;
-  //  eglCreatePlatformWindowSurface = epoxy_eglCreatePlatformWindowSurface;
-  //  eglCreatePlatformWindowSurfaceEXT = epoxy_eglCreatePlatformWindowSurfaceEXT;
-  //  eglCreateStreamAttribKHR = epoxy_eglCreateStreamAttribKHR;
-  //  eglCreateStreamFromFileDescriptorKHR = epoxy_eglCreateStreamFromFileDescriptorKHR;
-  //  eglCreateStreamKHR = epoxy_eglCreateStreamKHR;
-  //  eglCreateStreamProducerSurfaceKHR = epoxy_eglCreateStreamProducerSurfaceKHR;
-  //  eglCreateStreamSyncNV = epoxy_eglCreateStreamSyncNV;
-  //  eglCreateSync = epoxy_eglCreateSync;
-  //  eglCreateSync64KHR = epoxy_eglCreateSync64KHR;
-  //  eglCreateSyncKHR = epoxy_eglCreateSyncKHR;
-  //  eglCreateWindowSurface = epoxy_eglCreateWindowSurface;
-  //  eglDebugMessageControlKHR = epoxy_eglDebugMessageControlKHR;
-  //  eglDestroyContext = epoxy_eglDestroyContext;
-  //  eglDestroyImage = epoxy_eglDestroyImage;
-  //  eglDestroyImageKHR = epoxy_eglDestroyImageKHR;
-  //  eglDestroyStreamKHR = epoxy_eglDestroyStreamKHR;
-  //  eglDestroySurface = epoxy_eglDestroySurface;
-  //  eglDestroySync = epoxy_eglDestroySync;
-  //  eglDestroySyncKHR = epoxy_eglDestroySyncKHR;
-  //  eglDestroySyncNV = epoxy_eglDestroySyncNV;
-  //  eglDupNativeFenceFDANDROID = epoxy_eglDupNativeFenceFDANDROID;
-  //  eglExportDMABUFImageMESA = epoxy_eglExportDMABUFImageMESA;
-  //  eglExportDMABUFImageQueryMESA = epoxy_eglExportDMABUFImageQueryMESA;
-  //  eglExportDRMImageMESA = epoxy_eglExportDRMImageMESA;
-  //  eglFenceNV = epoxy_eglFenceNV;
-  //  eglGetCompositorTimingANDROID = epoxy_eglGetCompositorTimingANDROID;
-  //  eglGetCompositorTimingSupportedANDROID = epoxy_eglGetCompositorTimingSupportedANDROID;
-  //  eglGetConfigAttrib = epoxy_eglGetConfigAttrib;
-  //  eglGetConfigs = epoxy_eglGetConfigs;
-  //  eglGetCurrentContext = epoxy_eglGetCurrentContext;
-  //  eglGetCurrentDisplay = epoxy_eglGetCurrentDisplay;
-  //  eglGetCurrentSurface = epoxy_eglGetCurrentSurface;
-  //  eglGetDisplay = epoxy_eglGetDisplay;
-  //  eglGetDisplayDriverConfig = epoxy_eglGetDisplayDriverConfig;
-  //  eglGetDisplayDriverName = epoxy_eglGetDisplayDriverName;
-  //  eglGetError = epoxy_eglGetError;
-  //  eglGetFrameTimestampSupportedANDROID = epoxy_eglGetFrameTimestampSupportedANDROID;
-  //  eglGetFrameTimestampsANDROID = epoxy_eglGetFrameTimestampsANDROID;
-  //  eglGetNativeClientBufferANDROID = epoxy_eglGetNativeClientBufferANDROID;
-  //  eglGetNextFrameIdANDROID = epoxy_eglGetNextFrameIdANDROID;
-  //  eglGetOutputLayersEXT = epoxy_eglGetOutputLayersEXT;
-  //  eglGetOutputPortsEXT = epoxy_eglGetOutputPortsEXT;
-  //  eglGetPlatformDisplay = epoxy_eglGetPlatformDisplay;
-  //  eglGetPlatformDisplayEXT = epoxy_eglGetPlatformDisplayEXT;
-  //  eglGetProcAddress = epoxy_eglGetProcAddress;
-  //  eglGetStreamFileDescriptorKHR = epoxy_eglGetStreamFileDescriptorKHR;
-  //  eglGetSyncAttrib = epoxy_eglGetSyncAttrib;
-  //  eglGetSyncAttribKHR = epoxy_eglGetSyncAttribKHR;
-  //  eglGetSyncAttribNV = epoxy_eglGetSyncAttribNV;
-  //  eglGetSystemTimeFrequencyNV = epoxy_eglGetSystemTimeFrequencyNV;
-  //  eglGetSystemTimeNV = epoxy_eglGetSystemTimeNV;
-  //  eglInitialize = epoxy_eglInitialize;
-  //  eglLabelObjectKHR = epoxy_eglLabelObjectKHR;
-  //  eglLockSurfaceKHR = epoxy_eglLockSurfaceKHR;
-  //  eglMakeCurrent = epoxy_eglMakeCurrent;
-  //  eglOutputLayerAttribEXT = epoxy_eglOutputLayerAttribEXT;
-  //  eglOutputPortAttribEXT = epoxy_eglOutputPortAttribEXT;
-  //  eglPostSubBufferNV = epoxy_eglPostSubBufferNV;
-  //  eglPresentationTimeANDROID = epoxy_eglPresentationTimeANDROID;
-  //  eglQueryAPI = epoxy_eglQueryAPI;
-  //  eglQueryContext = epoxy_eglQueryContext;
-  //  eglQueryDebugKHR = epoxy_eglQueryDebugKHR;
-  //  eglQueryDeviceAttribEXT = epoxy_eglQueryDeviceAttribEXT;
-  //  eglQueryDeviceStringEXT = epoxy_eglQueryDeviceStringEXT;
-  //  eglQueryDevicesEXT = epoxy_eglQueryDevicesEXT;
-  //  eglQueryDisplayAttribEXT = epoxy_eglQueryDisplayAttribEXT;
-  //  eglQueryDisplayAttribKHR = epoxy_eglQueryDisplayAttribKHR;
-  //  eglQueryDisplayAttribNV = epoxy_eglQueryDisplayAttribNV;
-  //  eglQueryDmaBufFormatsEXT = epoxy_eglQueryDmaBufFormatsEXT;
-  //  eglQueryDmaBufModifiersEXT = epoxy_eglQueryDmaBufModifiersEXT;
-  //  eglQueryNativeDisplayNV = epoxy_eglQueryNativeDisplayNV;
-  //  eglQueryNativePixmapNV = epoxy_eglQueryNativePixmapNV;
-  //  eglQueryNativeWindowNV = epoxy_eglQueryNativeWindowNV;
-  //  eglQueryOutputLayerAttribEXT = epoxy_eglQueryOutputLayerAttribEXT;
-  //  eglQueryOutputLayerStringEXT = epoxy_eglQueryOutputLayerStringEXT;
-  //  eglQueryOutputPortAttribEXT = epoxy_eglQueryOutputPortAttribEXT;
-  //  eglQueryOutputPortStringEXT = epoxy_eglQueryOutputPortStringEXT;
-  //  eglQueryStreamAttribKHR = epoxy_eglQueryStreamAttribKHR;
-  //  eglQueryStreamKHR = epoxy_eglQueryStreamKHR;
-  //  eglQueryStreamMetadataNV = epoxy_eglQueryStreamMetadataNV;
-  //  eglQueryStreamTimeKHR = epoxy_eglQueryStreamTimeKHR;
-  //  eglQueryStreamu64KHR = epoxy_eglQueryStreamu64KHR;
-  //  eglQueryString = epoxy_eglQueryString;
-  //  eglQuerySurface = epoxy_eglQuerySurface;
-  //  eglQuerySurface64KHR = epoxy_eglQuerySurface64KHR;
-  //  eglQuerySurfacePointerANGLE = epoxy_eglQuerySurfacePointerANGLE;
-  //  eglReleaseTexImage = epoxy_eglReleaseTexImage;
-  //  eglReleaseThread = epoxy_eglReleaseThread;
-  //  eglResetStreamNV = epoxy_eglResetStreamNV;
-  //  eglSetBlobCacheFuncsANDROID = epoxy_eglSetBlobCacheFuncsANDROID;
-  //  eglSetDamageRegionKHR = epoxy_eglSetDamageRegionKHR;
-  //  eglSetStreamAttribKHR = epoxy_eglSetStreamAttribKHR;
-  //  eglSetStreamMetadataNV = epoxy_eglSetStreamMetadataNV;
-  //  eglSignalSyncKHR = epoxy_eglSignalSyncKHR;
-  //  eglSignalSyncNV = epoxy_eglSignalSyncNV;
-  //  eglStreamAttribKHR = epoxy_eglStreamAttribKHR;
-  //  eglStreamConsumerAcquireAttribKHR = epoxy_eglStreamConsumerAcquireAttribKHR;
-  //  eglStreamConsumerAcquireKHR = epoxy_eglStreamConsumerAcquireKHR;
-  //  eglStreamConsumerGLTextureExternalAttribsNV = epoxy_eglStreamConsumerGLTextureExternalAttribsNV;
-  //  eglStreamConsumerGLTextureExternalKHR = epoxy_eglStreamConsumerGLTextureExternalKHR;
-  //  eglStreamConsumerOutputEXT = epoxy_eglStreamConsumerOutputEXT;
-  //  eglStreamConsumerReleaseAttribKHR = epoxy_eglStreamConsumerReleaseAttribKHR;
-  //  eglStreamConsumerReleaseKHR = epoxy_eglStreamConsumerReleaseKHR;
-  //  eglStreamFlushNV = epoxy_eglStreamFlushNV;
-  //  eglSurfaceAttrib = epoxy_eglSurfaceAttrib;
-  //  eglSwapBuffers = epoxy_eglSwapBuffers;
-  //  eglSwapBuffersRegion2NOK = epoxy_eglSwapBuffersRegion2NOK;
-  //  eglSwapBuffersRegionNOK = epoxy_eglSwapBuffersRegionNOK;
-  //  eglSwapBuffersWithDamageEXT = epoxy_eglSwapBuffersWithDamageEXT;
-  //  eglSwapBuffersWithDamageKHR = epoxy_eglSwapBuffersWithDamageKHR;
-  //  eglSwapInterval = epoxy_eglSwapInterval;
-  //  eglTerminate = epoxy_eglTerminate;
-  //  eglUnlockSurfaceKHR = epoxy_eglUnlockSurfaceKHR;
-  //  eglUnsignalSyncEXT = epoxy_eglUnsignalSyncEXT;
-  //  eglWaitClient = epoxy_eglWaitClient;
-  //  eglWaitGL = epoxy_eglWaitGL;
-  //  eglWaitNative = epoxy_eglWaitNative;
-  //  eglWaitSync = epoxy_eglWaitSync;
-  //  eglWaitSyncKHR = epoxy_eglWaitSyncKHR;
-
 
 // === Konventiert am: 4-5-26 15:03:43 ===
 

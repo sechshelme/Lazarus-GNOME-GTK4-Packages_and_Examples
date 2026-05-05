@@ -513,303 +513,8 @@
     GLX_GREEN_SIZE = 9;
     GLX_BAD_HYPERPIPE_CONFIG_SGIX = 91;
     GLX_BAD_HYPERPIPE_SGIX = 92;
-  type
 
-    TPFNGLXBINDCHANNELTOWINDOWSGIXPROC = function (display:PDisplay; screen:longint; channel:longint; window:TWindow):longint;cdecl;
-
-    TPFNGLXBINDHYPERPIPESGIXPROC = function (dpy:PDisplay; hpId:longint):longint;cdecl;
-
-    TPFNGLXBINDSWAPBARRIERNVPROC = function (dpy:PDisplay; group:TGLuint; barrier:TGLuint):TBool;cdecl;
-
-    TPFNGLXBINDSWAPBARRIERSGIXPROC = procedure (dpy:PDisplay; drawable:TGLXDrawable; barrier:longint);cdecl;
-
-    TPFNGLXBINDTEXIMAGEEXTPROC = procedure (dpy:PDisplay; drawable:TGLXDrawable; buffer:longint; attrib_list:Plongint);cdecl;
-
-    TPFNGLXBINDVIDEOCAPTUREDEVICENVPROC = function (dpy:PDisplay; video_capture_slot:dword; device:TGLXVideoCaptureDeviceNV):longint;cdecl;
-
-    TPFNGLXBINDVIDEODEVICENVPROC = function (dpy:PDisplay; video_slot:dword; video_device:dword; attrib_list:Plongint):longint;cdecl;
-
-    TPFNGLXBINDVIDEOIMAGENVPROC = function (dpy:PDisplay; VideoDevice:TGLXVideoDeviceNV; pbuf:TGLXPbuffer; iVideoBuffer:longint):longint;cdecl;
-
-    TPFNGLXBLITCONTEXTFRAMEBUFFERAMDPROC = procedure (dstCtx:TGLXContext; srcX0:TGLint; srcY0:TGLint; srcX1:TGLint; srcY1:TGLint;
-                  dstX0:TGLint; dstY0:TGLint; dstX1:TGLint; dstY1:TGLint; mask:TGLbitfield;
-                  filter:TGLenum);cdecl;
-
-    TPFNGLXCHANNELRECTSGIXPROC = function (display:PDisplay; screen:longint; channel:longint; x:longint; y:longint;
-                 w:longint; h:longint):longint;cdecl;
-
-    TPFNGLXCHANNELRECTSYNCSGIXPROC = function (display:PDisplay; screen:longint; channel:longint; synctype:TGLenum):longint;cdecl;
-
-    PPFNGLXCHOOSEFBCONFIGPROC = ^TPFNGLXCHOOSEFBCONFIGPROC;
-    TPFNGLXCHOOSEFBCONFIGPROC = function (dpy:PDisplay; screen:longint; attrib_list:Plongint; nelements:Plongint):PGLXFBConfig;cdecl;
-
-    PPFNGLXCHOOSEFBCONFIGSGIXPROC = ^TPFNGLXCHOOSEFBCONFIGSGIXPROC;
-    TPFNGLXCHOOSEFBCONFIGSGIXPROC = function (dpy:PDisplay; screen:longint; attrib_list:Plongint; nelements:Plongint):PGLXFBConfigSGIX;cdecl;
-
-    PPFNGLXCHOOSEVISUALPROC = ^TPFNGLXCHOOSEVISUALPROC;
-    TPFNGLXCHOOSEVISUALPROC = function (dpy:PDisplay; screen:longint; attribList:Plongint):PXVisualInfo;cdecl;
-
-    TPFNGLXCOPYBUFFERSUBDATANVPROC = procedure (dpy:PDisplay; readCtx:TGLXContext; writeCtx:TGLXContext; readTarget:TGLenum; writeTarget:TGLenum;
-                  readOffset:TGLintptr; writeOffset:TGLintptr; size:TGLsizeiptr);cdecl;
-
-    TPFNGLXCOPYCONTEXTPROC = procedure (dpy:PDisplay; src:TGLXContext; dst:TGLXContext; mask:dword);cdecl;
-
-    TPFNGLXCOPYIMAGESUBDATANVPROC = procedure (dpy:PDisplay; srcCtx:TGLXContext; srcName:TGLuint; srcTarget:TGLenum; srcLevel:TGLint;
-                  srcX:TGLint; srcY:TGLint; srcZ:TGLint; dstCtx:TGLXContext; dstName:TGLuint;
-                  dstTarget:TGLenum; dstLevel:TGLint; dstX:TGLint; dstY:TGLint; dstZ:TGLint;
-                  width:TGLsizei; height:TGLsizei; depth:TGLsizei);cdecl;
-
-    TPFNGLXCOPYSUBBUFFERMESAPROC = procedure (dpy:PDisplay; drawable:TGLXDrawable; x:longint; y:longint; width:longint;
-                  height:longint);cdecl;
-
-    TPFNGLXCREATEASSOCIATEDCONTEXTAMDPROC = function (id:dword; share_list:TGLXContext):TGLXContext;cdecl;
-
-    TPFNGLXCREATEASSOCIATEDCONTEXTATTRIBSAMDPROC = function (id:dword; share_context:TGLXContext; attribList:Plongint):TGLXContext;cdecl;
-
-    TPFNGLXCREATECONTEXTPROC = function (dpy:PDisplay; vis:PXVisualInfo; shareList:TGLXContext; direct:TBool):TGLXContext;cdecl;
-
-    TPFNGLXCREATECONTEXTATTRIBSARBPROC = function (dpy:PDisplay; config:TGLXFBConfig; share_context:TGLXContext; direct:TBool; attrib_list:Plongint):TGLXContext;cdecl;
-
-    TPFNGLXCREATECONTEXTWITHCONFIGSGIXPROC = function (dpy:PDisplay; config:TGLXFBConfigSGIX; render_type:longint; share_list:TGLXContext; direct:TBool):TGLXContext;cdecl;
-
-    TPFNGLXCREATEGLXPBUFFERSGIXPROC = function (dpy:PDisplay; config:TGLXFBConfigSGIX; width:dword; height:dword; attrib_list:Plongint):TGLXPbufferSGIX;cdecl;
-
-    TPFNGLXCREATEGLXPIXMAPPROC = function (dpy:PDisplay; visual:PXVisualInfo; pixmap:TPixmap):TGLXPixmap;cdecl;
-
-    TPFNGLXCREATEGLXPIXMAPMESAPROC = function (dpy:PDisplay; visual:PXVisualInfo; pixmap:TPixmap; cmap:TColormap):TGLXPixmap;cdecl;
-
-    TPFNGLXCREATEGLXPIXMAPWITHCONFIGSGIXPROC = function (dpy:PDisplay; config:TGLXFBConfigSGIX; pixmap:TPixmap):TGLXPixmap;cdecl;
-
-    TPFNGLXCREATENEWCONTEXTPROC = function (dpy:PDisplay; config:TGLXFBConfig; render_type:longint; share_list:TGLXContext; direct:TBool):TGLXContext;cdecl;
-
-    TPFNGLXCREATEPBUFFERPROC = function (dpy:PDisplay; config:TGLXFBConfig; attrib_list:Plongint):TGLXPbuffer;cdecl;
-
-    TPFNGLXCREATEPIXMAPPROC = function (dpy:PDisplay; config:TGLXFBConfig; pixmap:TPixmap; attrib_list:Plongint):TGLXPixmap;cdecl;
-
-    TPFNGLXCREATEWINDOWPROC = function (dpy:PDisplay; config:TGLXFBConfig; win:TWindow; attrib_list:Plongint):TGLXWindow;cdecl;
-
-    TPFNGLXCUSHIONSGIPROC = procedure (dpy:PDisplay; window:TWindow; cushion:single);cdecl;
-
-    TPFNGLXDELAYBEFORESWAPNVPROC = function (dpy:PDisplay; drawable:TGLXDrawable; seconds:TGLfloat):TBool;cdecl;
-
-    TPFNGLXDELETEASSOCIATEDCONTEXTAMDPROC = function (ctx:TGLXContext):TBool;cdecl;
-
-    TPFNGLXDESTROYCONTEXTPROC = procedure (dpy:PDisplay; ctx:TGLXContext);cdecl;
-
-    TPFNGLXDESTROYGLXPBUFFERSGIXPROC = procedure (dpy:PDisplay; pbuf:TGLXPbufferSGIX);cdecl;
-
-    TPFNGLXDESTROYGLXPIXMAPPROC = procedure (dpy:PDisplay; pixmap:TGLXPixmap);cdecl;
-
-    TPFNGLXDESTROYGLXVIDEOSOURCESGIXPROC = procedure (dpy:PDisplay; glxvideosource:TGLXVideoSourceSGIX);cdecl;
-
-    TPFNGLXDESTROYHYPERPIPECONFIGSGIXPROC = function (dpy:PDisplay; hpId:longint):longint;cdecl;
-
-    TPFNGLXDESTROYPBUFFERPROC = procedure (dpy:PDisplay; pbuf:TGLXPbuffer);cdecl;
-
-    TPFNGLXDESTROYPIXMAPPROC = procedure (dpy:PDisplay; pixmap:TGLXPixmap);cdecl;
-
-    TPFNGLXDESTROYWINDOWPROC = procedure (dpy:PDisplay; win:TGLXWindow);cdecl;
-
-    PPFNGLXENUMERATEVIDEOCAPTUREDEVICESNVPROC = ^TPFNGLXENUMERATEVIDEOCAPTUREDEVICESNVPROC;
-    TPFNGLXENUMERATEVIDEOCAPTUREDEVICESNVPROC = function (dpy:PDisplay; screen:longint; nelements:Plongint):PGLXVideoCaptureDeviceNV;cdecl;
-
-    PPFNGLXENUMERATEVIDEODEVICESNVPROC = ^TPFNGLXENUMERATEVIDEODEVICESNVPROC;
-    TPFNGLXENUMERATEVIDEODEVICESNVPROC = function (dpy:PDisplay; screen:longint; nelements:Plongint):Pdword;cdecl;
-
-    TPFNGLXFREECONTEXTEXTPROC = procedure (dpy:PDisplay; context:TGLXContext);cdecl;
-
-    TPFNGLXGETAGPOFFSETMESAPROC = function (pointer:pointer):dword;cdecl;
-
-    PPFNGLXGETCLIENTSTRINGPROC = ^TPFNGLXGETCLIENTSTRINGPROC;
-    TPFNGLXGETCLIENTSTRINGPROC = function (dpy:PDisplay; name:longint):Pchar;cdecl;
-
-    TPFNGLXGETCONFIGPROC = function (dpy:PDisplay; visual:PXVisualInfo; attrib:longint; value:Plongint):longint;cdecl;
-
-    TPFNGLXGETCONTEXTGPUIDAMDPROC = function (ctx:TGLXContext):dword;cdecl;
-
-    TPFNGLXGETCONTEXTIDEXTPROC = function (context:TGLXContext):TGLXContextID;cdecl;
-
-    TPFNGLXGETCURRENTASSOCIATEDCONTEXTAMDPROC = function (para1:pointer):TGLXContext;cdecl;
-
-    TPFNGLXGETCURRENTCONTEXTPROC = function (para1:pointer):TGLXContext;cdecl;
-
-    PPFNGLXGETCURRENTDISPLAYPROC = ^TPFNGLXGETCURRENTDISPLAYPROC;
-    TPFNGLXGETCURRENTDISPLAYPROC = function :PDisplay;cdecl;
-
-    PPFNGLXGETCURRENTDISPLAYEXTPROC = ^TPFNGLXGETCURRENTDISPLAYEXTPROC;
-    TPFNGLXGETCURRENTDISPLAYEXTPROC = function :PDisplay;cdecl;
-
-    TPFNGLXGETCURRENTDRAWABLEPROC = function (para1:pointer):TGLXDrawable;cdecl;
-
-    TPFNGLXGETCURRENTREADDRAWABLEPROC = function (para1:pointer):TGLXDrawable;cdecl;
-
-    TPFNGLXGETCURRENTREADDRAWABLESGIPROC = function (para1:pointer):TGLXDrawable;cdecl;
-
-    TPFNGLXGETFBCONFIGATTRIBPROC = function (dpy:PDisplay; config:TGLXFBConfig; attribute:longint; value:Plongint):longint;cdecl;
-
-    TPFNGLXGETFBCONFIGATTRIBSGIXPROC = function (dpy:PDisplay; config:TGLXFBConfigSGIX; attribute:longint; value:Plongint):longint;cdecl;
-
-    TPFNGLXGETFBCONFIGFROMVISUALSGIXPROC = function (dpy:PDisplay; vis:PXVisualInfo):TGLXFBConfigSGIX;cdecl;
-
-    PPFNGLXGETFBCONFIGSPROC = ^TPFNGLXGETFBCONFIGSPROC;
-    TPFNGLXGETFBCONFIGSPROC = function (dpy:PDisplay; screen:longint; nelements:Plongint):PGLXFBConfig;cdecl;
-
-    TPFNGLXGETGPUIDSAMDPROC = function (maxCount:dword; ids:Pdword):dword;cdecl;
-
-    TPFNGLXGETGPUINFOAMDPROC = function (id:dword; _property:longint; dataType:TGLenum; size:dword; data:pointer):longint;cdecl;
-
-    TPFNGLXGETMSCRATEOMLPROC = function (dpy:PDisplay; drawable:TGLXDrawable; numerator:Pint32_t; denominator:Pint32_t):TBool;cdecl;
-
-    TPFNGLXGETPROCADDRESSPROC = function (procName:PGLubyte):TGLXextFuncPtr;cdecl;
-
-    TPFNGLXGETPROCADDRESSARBPROC = function (procName:PGLubyte):TGLXextFuncPtr;cdecl;
-
-    TPFNGLXGETSELECTEDEVENTPROC = procedure (dpy:PDisplay; draw:TGLXDrawable; event_mask:Pdword);cdecl;
-
-    TPFNGLXGETSELECTEDEVENTSGIXPROC = procedure (dpy:PDisplay; drawable:TGLXDrawable; mask:Pdword);cdecl;
-
-    TPFNGLXGETSWAPINTERVALMESAPROC = function (para1:pointer):longint;cdecl;
-
-    TPFNGLXGETSYNCVALUESOMLPROC = function (dpy:PDisplay; drawable:TGLXDrawable; ust:Pint64_t; msc:Pint64_t; sbc:Pint64_t):TBool;cdecl;
-
-    TPFNGLXGETTRANSPARENTINDEXSUNPROC = function (dpy:PDisplay; overlay:TWindow; underlay:TWindow; pTransparentIndex:Pdword):TStatus;cdecl;
-
-    TPFNGLXGETVIDEODEVICENVPROC = function (dpy:PDisplay; screen:longint; numVideoDevices:longint; pVideoDevice:PGLXVideoDeviceNV):longint;cdecl;
-
-    TPFNGLXGETVIDEOINFONVPROC = function (dpy:PDisplay; screen:longint; VideoDevice:TGLXVideoDeviceNV; pulCounterOutputPbuffer:Pdword; pulCounterOutputVideo:Pdword):longint;cdecl;
-
-    TPFNGLXGETVIDEOSYNCSGIPROC = function (count:Pdword):longint;cdecl;
-
-    PPFNGLXGETVISUALFROMFBCONFIGPROC = ^TPFNGLXGETVISUALFROMFBCONFIGPROC;
-    TPFNGLXGETVISUALFROMFBCONFIGPROC = function (dpy:PDisplay; config:TGLXFBConfig):PXVisualInfo;cdecl;
-
-    PPFNGLXGETVISUALFROMFBCONFIGSGIXPROC = ^TPFNGLXGETVISUALFROMFBCONFIGSGIXPROC;
-    TPFNGLXGETVISUALFROMFBCONFIGSGIXPROC = function (dpy:PDisplay; config:TGLXFBConfigSGIX):PXVisualInfo;cdecl;
-
-    TPFNGLXHYPERPIPEATTRIBSGIXPROC = function (dpy:PDisplay; timeSlice:longint; attrib:longint; size:longint; attribList:pointer):longint;cdecl;
-
-    TPFNGLXHYPERPIPECONFIGSGIXPROC = function (dpy:PDisplay; networkId:longint; npipes:longint; cfg:PGLXHyperpipeConfigSGIX; hpId:Plongint):longint;cdecl;
-
-    TPFNGLXIMPORTCONTEXTEXTPROC = function (dpy:PDisplay; contextID:TGLXContextID):TGLXContext;cdecl;
-
-    TPFNGLXISDIRECTPROC = function (dpy:PDisplay; ctx:TGLXContext):TBool;cdecl;
-
-    TPFNGLXJOINSWAPGROUPNVPROC = function (dpy:PDisplay; drawable:TGLXDrawable; group:TGLuint):TBool;cdecl;
-
-    TPFNGLXJOINSWAPGROUPSGIXPROC = procedure (dpy:PDisplay; drawable:TGLXDrawable; member:TGLXDrawable);cdecl;
-
-    TPFNGLXLOCKVIDEOCAPTUREDEVICENVPROC = procedure (dpy:PDisplay; device:TGLXVideoCaptureDeviceNV);cdecl;
-
-    TPFNGLXMAKEASSOCIATEDCONTEXTCURRENTAMDPROC = function (ctx:TGLXContext):TBool;cdecl;
-
-    TPFNGLXMAKECONTEXTCURRENTPROC = function (dpy:PDisplay; draw:TGLXDrawable; read:TGLXDrawable; ctx:TGLXContext):TBool;cdecl;
-
-    TPFNGLXMAKECURRENTPROC = function (dpy:PDisplay; drawable:TGLXDrawable; ctx:TGLXContext):TBool;cdecl;
-
-    TPFNGLXMAKECURRENTREADSGIPROC = function (dpy:PDisplay; draw:TGLXDrawable; read:TGLXDrawable; ctx:TGLXContext):TBool;cdecl;
-
-    TPFNGLXNAMEDCOPYBUFFERSUBDATANVPROC = procedure (dpy:PDisplay; readCtx:TGLXContext; writeCtx:TGLXContext; readBuffer:TGLuint; writeBuffer:TGLuint;
-                  readOffset:TGLintptr; writeOffset:TGLintptr; size:TGLsizeiptr);cdecl;
-
-    TPFNGLXQUERYCHANNELDELTASSGIXPROC = function (display:PDisplay; screen:longint; channel:longint; x:Plongint; y:Plongint;
-                 w:Plongint; h:Plongint):longint;cdecl;
-
-    TPFNGLXQUERYCHANNELRECTSGIXPROC = function (display:PDisplay; screen:longint; channel:longint; dx:Plongint; dy:Plongint;
-                 dw:Plongint; dh:Plongint):longint;cdecl;
-
-    TPFNGLXQUERYCONTEXTPROC = function (dpy:PDisplay; ctx:TGLXContext; attribute:longint; value:Plongint):longint;cdecl;
-
-    TPFNGLXQUERYCONTEXTINFOEXTPROC = function (dpy:PDisplay; context:TGLXContext; attribute:longint; value:Plongint):longint;cdecl;
-
-    TPFNGLXQUERYCURRENTRENDERERINTEGERMESAPROC = function (attribute:longint; value:Pdword):TBool;cdecl;
-
-    PPFNGLXQUERYCURRENTRENDERERSTRINGMESAPROC = ^TPFNGLXQUERYCURRENTRENDERERSTRINGMESAPROC;
-    TPFNGLXQUERYCURRENTRENDERERSTRINGMESAPROC = function (attribute:longint):Pchar;cdecl;
-
-    TPFNGLXQUERYDRAWABLEPROC = procedure (dpy:PDisplay; draw:TGLXDrawable; attribute:longint; value:Pdword);cdecl;
-
-    TPFNGLXQUERYEXTENSIONPROC = function (dpy:PDisplay; errorb:Plongint; event:Plongint):TBool;cdecl;
-
-    PPFNGLXQUERYEXTENSIONSSTRINGPROC = ^TPFNGLXQUERYEXTENSIONSSTRINGPROC;
-    TPFNGLXQUERYEXTENSIONSSTRINGPROC = function (dpy:PDisplay; screen:longint):Pchar;cdecl;
-
-    TPFNGLXQUERYFRAMECOUNTNVPROC = function (dpy:PDisplay; screen:longint; count:PGLuint):TBool;cdecl;
-
-    TPFNGLXQUERYGLXPBUFFERSGIXPROC = procedure (dpy:PDisplay; pbuf:TGLXPbufferSGIX; attribute:longint; value:Pdword);cdecl;
-
-    TPFNGLXQUERYHYPERPIPEATTRIBSGIXPROC = function (dpy:PDisplay; timeSlice:longint; attrib:longint; size:longint; returnAttribList:pointer):longint;cdecl;
-
-    TPFNGLXQUERYHYPERPIPEBESTATTRIBSGIXPROC = function (dpy:PDisplay; timeSlice:longint; attrib:longint; size:longint; attribList:pointer;
-                 returnAttribList:pointer):longint;cdecl;
-
-    PPFNGLXQUERYHYPERPIPECONFIGSGIXPROC = ^TPFNGLXQUERYHYPERPIPECONFIGSGIXPROC;
-    TPFNGLXQUERYHYPERPIPECONFIGSGIXPROC = function (dpy:PDisplay; hpId:longint; npipes:Plongint):PGLXHyperpipeConfigSGIX;cdecl;
-
-    PPFNGLXQUERYHYPERPIPENETWORKSGIXPROC = ^TPFNGLXQUERYHYPERPIPENETWORKSGIXPROC;
-    TPFNGLXQUERYHYPERPIPENETWORKSGIXPROC = function (dpy:PDisplay; npipes:Plongint):PGLXHyperpipeNetworkSGIX;cdecl;
-
-    TPFNGLXQUERYMAXSWAPBARRIERSSGIXPROC = function (dpy:PDisplay; screen:longint; max:Plongint):TBool;cdecl;
-
-    TPFNGLXQUERYMAXSWAPGROUPSNVPROC = function (dpy:PDisplay; screen:longint; maxGroups:PGLuint; maxBarriers:PGLuint):TBool;cdecl;
-
-    TPFNGLXQUERYRENDERERINTEGERMESAPROC = function (dpy:PDisplay; screen:longint; renderer:longint; attribute:longint; value:Pdword):TBool;cdecl;
-
-    PPFNGLXQUERYRENDERERSTRINGMESAPROC = ^TPFNGLXQUERYRENDERERSTRINGMESAPROC;
-    TPFNGLXQUERYRENDERERSTRINGMESAPROC = function (dpy:PDisplay; screen:longint; renderer:longint; attribute:longint):Pchar;cdecl;
-
-    PPFNGLXQUERYSERVERSTRINGPROC = ^TPFNGLXQUERYSERVERSTRINGPROC;
-    TPFNGLXQUERYSERVERSTRINGPROC = function (dpy:PDisplay; screen:longint; name:longint):Pchar;cdecl;
-
-    TPFNGLXQUERYSWAPGROUPNVPROC = function (dpy:PDisplay; drawable:TGLXDrawable; group:PGLuint; barrier:PGLuint):TBool;cdecl;
-
-    TPFNGLXQUERYVERSIONPROC = function (dpy:PDisplay; maj:Plongint; min:Plongint):TBool;cdecl;
-
-    TPFNGLXQUERYVIDEOCAPTUREDEVICENVPROC = function (dpy:PDisplay; device:TGLXVideoCaptureDeviceNV; attribute:longint; value:Plongint):longint;cdecl;
-
-    TPFNGLXRELEASEBUFFERSMESAPROC = function (dpy:PDisplay; drawable:TGLXDrawable):TBool;cdecl;
-
-    TPFNGLXRELEASETEXIMAGEEXTPROC = procedure (dpy:PDisplay; drawable:TGLXDrawable; buffer:longint);cdecl;
-
-    TPFNGLXRELEASEVIDEOCAPTUREDEVICENVPROC = procedure (dpy:PDisplay; device:TGLXVideoCaptureDeviceNV);cdecl;
-
-    TPFNGLXRELEASEVIDEODEVICENVPROC = function (dpy:PDisplay; screen:longint; VideoDevice:TGLXVideoDeviceNV):longint;cdecl;
-
-    TPFNGLXRELEASEVIDEOIMAGENVPROC = function (dpy:PDisplay; pbuf:TGLXPbuffer):longint;cdecl;
-
-    TPFNGLXRESETFRAMECOUNTNVPROC = function (dpy:PDisplay; screen:longint):TBool;cdecl;
-
-    TPFNGLXSELECTEVENTPROC = procedure (dpy:PDisplay; draw:TGLXDrawable; event_mask:dword);cdecl;
-
-    TPFNGLXSELECTEVENTSGIXPROC = procedure (dpy:PDisplay; drawable:TGLXDrawable; mask:dword);cdecl;
-
-    TPFNGLXSENDPBUFFERTOVIDEONVPROC = function (dpy:PDisplay; pbuf:TGLXPbuffer; iBufferType:longint; pulCounterPbuffer:Pdword; bBlock:TGLboolean):longint;cdecl;
-
-    TPFNGLXSET3DFXMODEMESAPROC = function (mode:TGLint):TGLboolean;cdecl;
-
-    TPFNGLXSWAPBUFFERSPROC = procedure (dpy:PDisplay; drawable:TGLXDrawable);cdecl;
-
-    TPFNGLXSWAPBUFFERSMSCOMLPROC = function (dpy:PDisplay; drawable:TGLXDrawable; target_msc:Tint64_t; divisor:Tint64_t; remainder:Tint64_t):Tint64_t;cdecl;
-
-    TPFNGLXSWAPINTERVALEXTPROC = procedure (dpy:PDisplay; drawable:TGLXDrawable; interval:longint);cdecl;
-
-    TPFNGLXSWAPINTERVALMESAPROC = function (interval:dword):longint;cdecl;
-
-    TPFNGLXSWAPINTERVALSGIPROC = function (interval:longint):longint;cdecl;
-
-    TPFNGLXUSEXFONTPROC = procedure (font:TFont; first:longint; count:longint; list:longint);cdecl;
-
-    TPFNGLXWAITFORMSCOMLPROC = function (dpy:PDisplay; drawable:TGLXDrawable; target_msc:Tint64_t; divisor:Tint64_t; remainder:Tint64_t;
-                 ust:Pint64_t; msc:Pint64_t; sbc:Pint64_t):TBool;cdecl;
-
-    TPFNGLXWAITFORSBCOMLPROC = function (dpy:PDisplay; drawable:TGLXDrawable; target_sbc:Tint64_t; ust:Pint64_t; msc:Pint64_t;
-                 sbc:Pint64_t):TBool;cdecl;
-
-    TPFNGLXWAITGLPROC = procedure (para1:pointer);cdecl;
-
-    TPFNGLXWAITVIDEOSYNCSGIPROC = function (divisor:longint; remainder:longint; count:Pdword):longint;cdecl;
-
-    TPFNGLXWAITXPROC = procedure (para1:pointer);cdecl;
-    var
+var
       epoxy_glXBindChannelToWindowSGIX : function (display:PDisplay; screen:longint; channel:longint; window:TWindow):longint;cvar;external libepoxy;
       epoxy_glXBindHyperpipeSGIX : function (dpy:PDisplay; hpId:longint):longint;cvar;external libepoxy;
       epoxy_glXBindSwapBarrierNV : function (dpy:PDisplay; group:TGLuint; barrier:TGLuint):TBool;cvar;external libepoxy;
@@ -818,24 +523,16 @@
       epoxy_glXBindVideoCaptureDeviceNV : function (dpy:PDisplay; video_capture_slot:dword; device:TGLXVideoCaptureDeviceNV):longint;cvar;external libepoxy;
       epoxy_glXBindVideoDeviceNV : function (dpy:PDisplay; video_slot:dword; video_device:dword; attrib_list:Plongint):longint;cvar;external libepoxy;
       epoxy_glXBindVideoImageNV : function (dpy:PDisplay; VideoDevice:TGLXVideoDeviceNV; pbuf:TGLXPbuffer; iVideoBuffer:longint):longint;cvar;external libepoxy;
-      epoxy_glXBlitContextFramebufferAMD : procedure (dstCtx:TGLXContext; srcX0:TGLint; srcY0:TGLint; srcX1:TGLint; srcY1:TGLint;
-                    dstX0:TGLint; dstY0:TGLint; dstX1:TGLint; dstY1:TGLint; mask:TGLbitfield;
-                    filter:TGLenum);cvar;external libepoxy;
-      epoxy_glXChannelRectSGIX : function (display:PDisplay; screen:longint; channel:longint; x:longint; y:longint;
-                   w:longint; h:longint):longint;cvar;external libepoxy;
+      epoxy_glXBlitContextFramebufferAMD : procedure (dstCtx:TGLXContext; srcX0:TGLint; srcY0:TGLint; srcX1:TGLint; srcY1:TGLint;                    dstX0:TGLint; dstY0:TGLint; dstX1:TGLint; dstY1:TGLint; mask:TGLbitfield;                    filter:TGLenum);cvar;external libepoxy;
+      epoxy_glXChannelRectSGIX : function (display:PDisplay; screen:longint; channel:longint; x:longint; y:longint;                   w:longint; h:longint):longint;cvar;external libepoxy;
       epoxy_glXChannelRectSyncSGIX : function (display:PDisplay; screen:longint; channel:longint; synctype:TGLenum):longint;cvar;external libepoxy;
       epoxy_glXChooseFBConfig : function (dpy:PDisplay; screen:longint; attrib_list:Plongint; nelements:Plongint):PGLXFBConfig;cvar;external libepoxy;
       epoxy_glXChooseFBConfigSGIX : function (dpy:PDisplay; screen:longint; attrib_list:Plongint; nelements:Plongint):PGLXFBConfigSGIX;cvar;external libepoxy;
       epoxy_glXChooseVisual : function (dpy:PDisplay; screen:longint; attribList:Plongint):PXVisualInfo;cvar;external libepoxy;
-      epoxy_glXCopyBufferSubDataNV : procedure (dpy:PDisplay; readCtx:TGLXContext; writeCtx:TGLXContext; readTarget:TGLenum; writeTarget:TGLenum;
-                    readOffset:TGLintptr; writeOffset:TGLintptr; size:TGLsizeiptr);cvar;external libepoxy;
+      epoxy_glXCopyBufferSubDataNV : procedure (dpy:PDisplay; readCtx:TGLXContext; writeCtx:TGLXContext; readTarget:TGLenum; writeTarget:TGLenum;                    readOffset:TGLintptr; writeOffset:TGLintptr; size:TGLsizeiptr);cvar;external libepoxy;
       epoxy_glXCopyContext : procedure (dpy:PDisplay; src:TGLXContext; dst:TGLXContext; mask:dword);cvar;external libepoxy;
-      epoxy_glXCopyImageSubDataNV : procedure (dpy:PDisplay; srcCtx:TGLXContext; srcName:TGLuint; srcTarget:TGLenum; srcLevel:TGLint;
-                    srcX:TGLint; srcY:TGLint; srcZ:TGLint; dstCtx:TGLXContext; dstName:TGLuint;
-                    dstTarget:TGLenum; dstLevel:TGLint; dstX:TGLint; dstY:TGLint; dstZ:TGLint;
-                    width:TGLsizei; height:TGLsizei; depth:TGLsizei);cvar;external libepoxy;
-      epoxy_glXCopySubBufferMESA : procedure (dpy:PDisplay; drawable:TGLXDrawable; x:longint; y:longint; width:longint;
-                    height:longint);cvar;external libepoxy;
+      epoxy_glXCopyImageSubDataNV : procedure (dpy:PDisplay; srcCtx:TGLXContext; srcName:TGLuint; srcTarget:TGLenum; srcLevel:TGLint;                    srcX:TGLint; srcY:TGLint; srcZ:TGLint; dstCtx:TGLXContext; dstName:TGLuint;                    dstTarget:TGLenum; dstLevel:TGLint; dstX:TGLint; dstY:TGLint; dstZ:TGLint;                    width:TGLsizei; height:TGLsizei; depth:TGLsizei);cvar;external libepoxy;
+      epoxy_glXCopySubBufferMESA : procedure (dpy:PDisplay; drawable:TGLXDrawable; x:longint; y:longint; width:longint;                    height:longint);cvar;external libepoxy;
       epoxy_glXCreateAssociatedContextAMD : function (id:dword; share_list:TGLXContext):TGLXContext;cvar;external libepoxy;
       epoxy_glXCreateAssociatedContextAttribsAMD : function (id:dword; share_context:TGLXContext; attribList:Plongint):TGLXContext;cvar;external libepoxy;
       epoxy_glXCreateContext : function (dpy:PDisplay; vis:PXVisualInfo; shareList:TGLXContext; direct:TBool):TGLXContext;cvar;external libepoxy;
@@ -905,12 +602,9 @@
       epoxy_glXMakeContextCurrent : function (dpy:PDisplay; draw:TGLXDrawable; read:TGLXDrawable; ctx:TGLXContext):TBool;cvar;external libepoxy;
       epoxy_glXMakeCurrent : function (dpy:PDisplay; drawable:TGLXDrawable; ctx:TGLXContext):TBool;cvar;external libepoxy;
       epoxy_glXMakeCurrentReadSGI : function (dpy:PDisplay; draw:TGLXDrawable; read:TGLXDrawable; ctx:TGLXContext):TBool;cvar;external libepoxy;
-      epoxy_glXNamedCopyBufferSubDataNV : procedure (dpy:PDisplay; readCtx:TGLXContext; writeCtx:TGLXContext; readBuffer:TGLuint; writeBuffer:TGLuint;
-                    readOffset:TGLintptr; writeOffset:TGLintptr; size:TGLsizeiptr);cvar;external libepoxy;
-      epoxy_glXQueryChannelDeltasSGIX : function (display:PDisplay; screen:longint; channel:longint; x:Plongint; y:Plongint;
-                   w:Plongint; h:Plongint):longint;cvar;external libepoxy;
-      epoxy_glXQueryChannelRectSGIX : function (display:PDisplay; screen:longint; channel:longint; dx:Plongint; dy:Plongint;
-                   dw:Plongint; dh:Plongint):longint;cvar;external libepoxy;
+      epoxy_glXNamedCopyBufferSubDataNV : procedure (dpy:PDisplay; readCtx:TGLXContext; writeCtx:TGLXContext; readBuffer:TGLuint; writeBuffer:TGLuint;                    readOffset:TGLintptr; writeOffset:TGLintptr; size:TGLsizeiptr);cvar;external libepoxy;
+      epoxy_glXQueryChannelDeltasSGIX : function (display:PDisplay; screen:longint; channel:longint; x:Plongint; y:Plongint;                   w:Plongint; h:Plongint):longint;cvar;external libepoxy;
+      epoxy_glXQueryChannelRectSGIX : function (display:PDisplay; screen:longint; channel:longint; dx:Plongint; dy:Plongint;                   dw:Plongint; dh:Plongint):longint;cvar;external libepoxy;
       epoxy_glXQueryContext : function (dpy:PDisplay; ctx:TGLXContext; attribute:longint; value:Plongint):longint;cvar;external libepoxy;
       epoxy_glXQueryContextInfoEXT : function (dpy:PDisplay; context:TGLXContext; attribute:longint; value:Plongint):longint;cvar;external libepoxy;
       epoxy_glXQueryCurrentRendererIntegerMESA : function (attribute:longint; value:Pdword):TBool;cvar;external libepoxy;
@@ -921,8 +615,7 @@
       epoxy_glXQueryFrameCountNV : function (dpy:PDisplay; screen:longint; count:PGLuint):TBool;cvar;external libepoxy;
       epoxy_glXQueryGLXPbufferSGIX : procedure (dpy:PDisplay; pbuf:TGLXPbufferSGIX; attribute:longint; value:Pdword);cvar;external libepoxy;
       epoxy_glXQueryHyperpipeAttribSGIX : function (dpy:PDisplay; timeSlice:longint; attrib:longint; size:longint; returnAttribList:pointer):longint;cvar;external libepoxy;
-      epoxy_glXQueryHyperpipeBestAttribSGIX : function (dpy:PDisplay; timeSlice:longint; attrib:longint; size:longint; attribList:pointer;
-                   returnAttribList:pointer):longint;cvar;external libepoxy;
+      epoxy_glXQueryHyperpipeBestAttribSGIX : function (dpy:PDisplay; timeSlice:longint; attrib:longint; size:longint; attribList:pointer;                   returnAttribList:pointer):longint;cvar;external libepoxy;
       epoxy_glXQueryHyperpipeConfigSGIX : function (dpy:PDisplay; hpId:longint; npipes:Plongint):PGLXHyperpipeConfigSGIX;cvar;external libepoxy;
       epoxy_glXQueryHyperpipeNetworkSGIX : function (dpy:PDisplay; npipes:Plongint):PGLXHyperpipeNetworkSGIX;cvar;external libepoxy;
       epoxy_glXQueryMaxSwapBarriersSGIX : function (dpy:PDisplay; screen:longint; max:Plongint):TBool;cvar;external libepoxy;
@@ -949,147 +642,11 @@
       epoxy_glXSwapIntervalMESA : function (interval:dword):longint;cvar;external libepoxy;
       epoxy_glXSwapIntervalSGI : function (interval:longint):longint;cvar;external libepoxy;
       epoxy_glXUseXFont : procedure (font:TFont; first:longint; count:longint; list:longint);cvar;external libepoxy;
-      epoxy_glXWaitForMscOML : function (dpy:PDisplay; drawable:TGLXDrawable; target_msc:Tint64_t; divisor:Tint64_t; remainder:Tint64_t;
-                   ust:Pint64_t; msc:Pint64_t; sbc:Pint64_t):TBool;cvar;external libepoxy;
-      epoxy_glXWaitForSbcOML : function (dpy:PDisplay; drawable:TGLXDrawable; target_sbc:Tint64_t; ust:Pint64_t; msc:Pint64_t;
-                   sbc:Pint64_t):TBool;cvar;external libepoxy;
+      epoxy_glXWaitForMscOML : function (dpy:PDisplay; drawable:TGLXDrawable; target_msc:Tint64_t; divisor:Tint64_t; remainder:Tint64_t;                   ust:Pint64_t; msc:Pint64_t; sbc:Pint64_t):TBool;cvar;external libepoxy;
+      epoxy_glXWaitForSbcOML : function (dpy:PDisplay; drawable:TGLXDrawable; target_sbc:Tint64_t; ust:Pint64_t; msc:Pint64_t;                   sbc:Pint64_t):TBool;cvar;external libepoxy;
       epoxy_glXWaitGL : procedure ;cvar;external libepoxy;
       epoxy_glXWaitVideoSyncSGI : function (divisor:longint; remainder:longint; count:Pdword):longint;cvar;external libepoxy;
       epoxy_glXWaitX : procedure ;cvar;external libepoxy;
-
-  //const
-  //  glXBindChannelToWindowSGIX = epoxy_glXBindChannelToWindowSGIX;
-  //  glXBindHyperpipeSGIX = epoxy_glXBindHyperpipeSGIX;
-  //  glXBindSwapBarrierNV = epoxy_glXBindSwapBarrierNV;
-  //  glXBindSwapBarrierSGIX = epoxy_glXBindSwapBarrierSGIX;
-  //  glXBindTexImageEXT = epoxy_glXBindTexImageEXT;
-  //  glXBindVideoCaptureDeviceNV = epoxy_glXBindVideoCaptureDeviceNV;
-  //  glXBindVideoDeviceNV = epoxy_glXBindVideoDeviceNV;
-  //  glXBindVideoImageNV = epoxy_glXBindVideoImageNV;
-  //  glXBlitContextFramebufferAMD = epoxy_glXBlitContextFramebufferAMD;
-  //  glXChannelRectSGIX = epoxy_glXChannelRectSGIX;
-  //  glXChannelRectSyncSGIX = epoxy_glXChannelRectSyncSGIX;
-  //  glXChooseFBConfig = epoxy_glXChooseFBConfig;
-  //  glXChooseFBConfigSGIX = epoxy_glXChooseFBConfigSGIX;
-  //  glXChooseVisual = epoxy_glXChooseVisual;
-  //  glXCopyBufferSubDataNV = epoxy_glXCopyBufferSubDataNV;
-  //  glXCopyContext = epoxy_glXCopyContext;
-  //  glXCopyImageSubDataNV = epoxy_glXCopyImageSubDataNV;
-  //  glXCopySubBufferMESA = epoxy_glXCopySubBufferMESA;
-  //  glXCreateAssociatedContextAMD = epoxy_glXCreateAssociatedContextAMD;
-  //  glXCreateAssociatedContextAttribsAMD = epoxy_glXCreateAssociatedContextAttribsAMD;
-  //  glXCreateContext = epoxy_glXCreateContext;
-  //  glXCreateContextAttribsARB = epoxy_glXCreateContextAttribsARB;
-  //  glXCreateContextWithConfigSGIX = epoxy_glXCreateContextWithConfigSGIX;
-  //  glXCreateGLXPbufferSGIX = epoxy_glXCreateGLXPbufferSGIX;
-  //  glXCreateGLXPixmap = epoxy_glXCreateGLXPixmap;
-  //  glXCreateGLXPixmapMESA = epoxy_glXCreateGLXPixmapMESA;
-  //  glXCreateGLXPixmapWithConfigSGIX = epoxy_glXCreateGLXPixmapWithConfigSGIX;
-  //  glXCreateNewContext = epoxy_glXCreateNewContext;
-  //  glXCreatePbuffer = epoxy_glXCreatePbuffer;
-  //  glXCreatePixmap = epoxy_glXCreatePixmap;
-  //  glXCreateWindow = epoxy_glXCreateWindow;
-  //  glXCushionSGI = epoxy_glXCushionSGI;
-  //  glXDelayBeforeSwapNV = epoxy_glXDelayBeforeSwapNV;
-  //  glXDeleteAssociatedContextAMD = epoxy_glXDeleteAssociatedContextAMD;
-  //  glXDestroyContext = epoxy_glXDestroyContext;
-  //  glXDestroyGLXPbufferSGIX = epoxy_glXDestroyGLXPbufferSGIX;
-  //  glXDestroyGLXPixmap = epoxy_glXDestroyGLXPixmap;
-  //  glXDestroyGLXVideoSourceSGIX = epoxy_glXDestroyGLXVideoSourceSGIX;
-  //  glXDestroyHyperpipeConfigSGIX = epoxy_glXDestroyHyperpipeConfigSGIX;
-  //  glXDestroyPbuffer = epoxy_glXDestroyPbuffer;
-  //  glXDestroyPixmap = epoxy_glXDestroyPixmap;
-  //  glXDestroyWindow = epoxy_glXDestroyWindow;
-  //  glXEnumerateVideoCaptureDevicesNV = epoxy_glXEnumerateVideoCaptureDevicesNV;
-  //  glXEnumerateVideoDevicesNV = epoxy_glXEnumerateVideoDevicesNV;
-  //  glXFreeContextEXT = epoxy_glXFreeContextEXT;
-  //  glXGetAGPOffsetMESA = epoxy_glXGetAGPOffsetMESA;
-  //  glXGetClientString = epoxy_glXGetClientString;
-  //  glXGetConfig = epoxy_glXGetConfig;
-  //  glXGetContextGPUIDAMD = epoxy_glXGetContextGPUIDAMD;
-  //  glXGetContextIDEXT = epoxy_glXGetContextIDEXT;
-  //  glXGetCurrentAssociatedContextAMD = epoxy_glXGetCurrentAssociatedContextAMD;
-  //  glXGetCurrentContext = epoxy_glXGetCurrentContext;
-  //  glXGetCurrentDisplay = epoxy_glXGetCurrentDisplay;
-  //  glXGetCurrentDisplayEXT = epoxy_glXGetCurrentDisplayEXT;
-  //  glXGetCurrentDrawable = epoxy_glXGetCurrentDrawable;
-  //  glXGetCurrentReadDrawable = epoxy_glXGetCurrentReadDrawable;
-  //  glXGetCurrentReadDrawableSGI = epoxy_glXGetCurrentReadDrawableSGI;
-  //  glXGetFBConfigAttrib = epoxy_glXGetFBConfigAttrib;
-  //  glXGetFBConfigAttribSGIX = epoxy_glXGetFBConfigAttribSGIX;
-  //  glXGetFBConfigFromVisualSGIX = epoxy_glXGetFBConfigFromVisualSGIX;
-  //  glXGetFBConfigs = epoxy_glXGetFBConfigs;
-  //  glXGetGPUIDsAMD = epoxy_glXGetGPUIDsAMD;
-  //  glXGetGPUInfoAMD = epoxy_glXGetGPUInfoAMD;
-  //  glXGetMscRateOML = epoxy_glXGetMscRateOML;
-  //  glXGetProcAddress = epoxy_glXGetProcAddress;
-  //  glXGetProcAddressARB = epoxy_glXGetProcAddressARB;
-  //  glXGetSelectedEvent = epoxy_glXGetSelectedEvent;
-  //  glXGetSelectedEventSGIX = epoxy_glXGetSelectedEventSGIX;
-  //  glXGetSwapIntervalMESA = epoxy_glXGetSwapIntervalMESA;
-  //  glXGetSyncValuesOML = epoxy_glXGetSyncValuesOML;
-  //  glXGetTransparentIndexSUN = epoxy_glXGetTransparentIndexSUN;
-  //  glXGetVideoDeviceNV = epoxy_glXGetVideoDeviceNV;
-  //  glXGetVideoInfoNV = epoxy_glXGetVideoInfoNV;
-  //  glXGetVideoSyncSGI = epoxy_glXGetVideoSyncSGI;
-  //  glXGetVisualFromFBConfig = epoxy_glXGetVisualFromFBConfig;
-  //  glXGetVisualFromFBConfigSGIX = epoxy_glXGetVisualFromFBConfigSGIX;
-  //  glXHyperpipeAttribSGIX = epoxy_glXHyperpipeAttribSGIX;
-  //  glXHyperpipeConfigSGIX = epoxy_glXHyperpipeConfigSGIX;
-  //  glXImportContextEXT = epoxy_glXImportContextEXT;
-  //  glXIsDirect = epoxy_glXIsDirect;
-  //  glXJoinSwapGroupNV = epoxy_glXJoinSwapGroupNV;
-  //  glXJoinSwapGroupSGIX = epoxy_glXJoinSwapGroupSGIX;
-  //  glXLockVideoCaptureDeviceNV = epoxy_glXLockVideoCaptureDeviceNV;
-  //  glXMakeAssociatedContextCurrentAMD = epoxy_glXMakeAssociatedContextCurrentAMD;
-  //  glXMakeContextCurrent = epoxy_glXMakeContextCurrent;
-  //  glXMakeCurrent = epoxy_glXMakeCurrent;
-  //  glXMakeCurrentReadSGI = epoxy_glXMakeCurrentReadSGI;
-  //  glXNamedCopyBufferSubDataNV = epoxy_glXNamedCopyBufferSubDataNV;
-  //  glXQueryChannelDeltasSGIX = epoxy_glXQueryChannelDeltasSGIX;
-  //  glXQueryChannelRectSGIX = epoxy_glXQueryChannelRectSGIX;
-  //  glXQueryContext = epoxy_glXQueryContext;
-  //  glXQueryContextInfoEXT = epoxy_glXQueryContextInfoEXT;
-  //  glXQueryCurrentRendererIntegerMESA = epoxy_glXQueryCurrentRendererIntegerMESA;
-  //  glXQueryCurrentRendererStringMESA = epoxy_glXQueryCurrentRendererStringMESA;
-  //  glXQueryDrawable = epoxy_glXQueryDrawable;
-  //  glXQueryExtension = epoxy_glXQueryExtension;
-  //  glXQueryExtensionsString = epoxy_glXQueryExtensionsString;
-  //  glXQueryFrameCountNV = epoxy_glXQueryFrameCountNV;
-  //  glXQueryGLXPbufferSGIX = epoxy_glXQueryGLXPbufferSGIX;
-  //  glXQueryHyperpipeAttribSGIX = epoxy_glXQueryHyperpipeAttribSGIX;
-  //  glXQueryHyperpipeBestAttribSGIX = epoxy_glXQueryHyperpipeBestAttribSGIX;
-  //  glXQueryHyperpipeConfigSGIX = epoxy_glXQueryHyperpipeConfigSGIX;
-  //  glXQueryHyperpipeNetworkSGIX = epoxy_glXQueryHyperpipeNetworkSGIX;
-  //  glXQueryMaxSwapBarriersSGIX = epoxy_glXQueryMaxSwapBarriersSGIX;
-  //  glXQueryMaxSwapGroupsNV = epoxy_glXQueryMaxSwapGroupsNV;
-  //  glXQueryRendererIntegerMESA = epoxy_glXQueryRendererIntegerMESA;
-  //  glXQueryRendererStringMESA = epoxy_glXQueryRendererStringMESA;
-  //  glXQueryServerString = epoxy_glXQueryServerString;
-  //  glXQuerySwapGroupNV = epoxy_glXQuerySwapGroupNV;
-  //  glXQueryVersion = epoxy_glXQueryVersion;
-  //  glXQueryVideoCaptureDeviceNV = epoxy_glXQueryVideoCaptureDeviceNV;
-  //  glXReleaseBuffersMESA = epoxy_glXReleaseBuffersMESA;
-  //  glXReleaseTexImageEXT = epoxy_glXReleaseTexImageEXT;
-  //  glXReleaseVideoCaptureDeviceNV = epoxy_glXReleaseVideoCaptureDeviceNV;
-  //  glXReleaseVideoDeviceNV = epoxy_glXReleaseVideoDeviceNV;
-  //  glXReleaseVideoImageNV = epoxy_glXReleaseVideoImageNV;
-  //  glXResetFrameCountNV = epoxy_glXResetFrameCountNV;
-  //  glXSelectEvent = epoxy_glXSelectEvent;
-  //  glXSelectEventSGIX = epoxy_glXSelectEventSGIX;
-  //  glXSendPbufferToVideoNV = epoxy_glXSendPbufferToVideoNV;
-  //  glXSet3DfxModeMESA = epoxy_glXSet3DfxModeMESA;
-  //  glXSwapBuffers = epoxy_glXSwapBuffers;
-  //  glXSwapBuffersMscOML = epoxy_glXSwapBuffersMscOML;
-  //  glXSwapIntervalEXT = epoxy_glXSwapIntervalEXT;
-  //  glXSwapIntervalMESA = epoxy_glXSwapIntervalMESA;
-  //  glXSwapIntervalSGI = epoxy_glXSwapIntervalSGI;
-  //  glXUseXFont = epoxy_glXUseXFont;
-  //  glXWaitForMscOML = epoxy_glXWaitForMscOML;
-  //  glXWaitForSbcOML = epoxy_glXWaitForSbcOML;
-  //  glXWaitGL = epoxy_glXWaitGL;
-  //  glXWaitVideoSyncSGI = epoxy_glXWaitVideoSyncSGI;
-  //  glXWaitX = epoxy_glXWaitX;
 
   {$endif}
 
