@@ -29,10 +29,6 @@ type
 const
   humanObjectKey = 'human-object';
 
-  // https://www.perplexity.ai/search/gib-mir-ein-beispiel-mit-gtk-l-3L_FREJyTXiqn2vNyH76Kw
-  // https://www.perplexity.ai/search/ubersetz-mit-die-in-c-const-pa-kwPvpEr2QCapTHvW1nrMpw
-  // https://github.com/ToshioCP/Gtk4-tutorial/blob/main/gfm/sec32.md
-
 const
   ColTitles: array of Pgchar = (
     'Index',

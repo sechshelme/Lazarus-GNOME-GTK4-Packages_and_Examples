@@ -51,14 +51,12 @@ var
 begin
   bytes := g_bytes_new_static(Pguint8(texture_data), Length(texture_data));
   texture := gdk_memory_texture_new(TEXTURE_SIZE, TEXTURE_SIZE, GDK_MEMORY_R8G8B8A8, bytes, TEXTURE_SIZE * 4);
-
   g_bytes_unref(bytes);
 
   picture := gtk_picture_new_for_paintable(GDK_PAINTABLE(texture));
   g_object_unref(texture);
 
   gtk_picture_set_can_shrink(GTK_PICTURE(picture), True);
-
   gtk_picture_set_content_fit(GTK_PICTURE(picture), GTK_CONTENT_FIT_FILL);
   gtk_widget_set_parent(picture, GTK_WIDGET(self));
 end;

@@ -49,7 +49,6 @@ begin
     texture := gdk_memory_texture_new(w, h, GDK_MEMORY_A8B8G8R8, bytes, stride);
 
     graphene_rect_init(@r, 0, 0, w, h);
-
     gtk_snapshot_append_texture(snapshot, texture, @r);
 
     g_object_unref(texture);
