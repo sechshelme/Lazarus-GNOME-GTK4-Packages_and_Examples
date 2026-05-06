@@ -519,6 +519,8 @@ libgvpr2                          // io.   gehört zu libgraphviz-dev
 libqrencode4                      // io.    QR Code
 libdmtx                           // io.
 libzint                           // io.
+libshumate                        // io.
+
 
  liblua5.1-0-dev  
    libaccountsservice0
@@ -613,7 +615,6 @@ libcfitsio-dev
 mingw-w64-plutovg
 mingw-w64-mupdf
 mingw-w64-json-c
-libshumate
 
 
 

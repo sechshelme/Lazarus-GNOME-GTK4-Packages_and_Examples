@@ -1,0 +1,34 @@
+
+
+{$include shumate/shumate_version.inc}
+{$include shumate/shumate_enum_types.inc}
+{$include shumate/shumate_data_source_request.inc}
+{$include shumate/shumate_data_source.inc}
+{$include shumate/shumate_tile.inc}
+{$include shumate/shumate_tile_downloader.inc}
+{$include shumate/shumate_map_source.inc}
+{$include shumate/shumate_map_source_registry.inc}
+{$include shumate/shumate_viewport.inc}
+{$include shumate/shumate_layer.inc}
+{$include shumate/shumate_map.inc}
+{$include shumate/shumate_map_layer.inc}
+{$include shumate/shumate_compass.inc}
+{$include shumate/shumate_coordinate.inc}
+{$include shumate/shumate_file_cache.inc}
+{$include shumate/shumate_license.inc}
+{$include shumate/shumate_location.inc}
+{$include shumate/shumate_marker.inc}
+{$include shumate/shumate_marker_layer.inc}
+{$include shumate/shumate_marshal.inc}
+{$include shumate/shumate_path_layer.inc}
+{$include shumate/shumate_point.inc}
+{$include shumate/shumate_raster_renderer.inc}
+{$include shumate/shumate_scale.inc}
+{$include shumate/shumate_simple_map.inc}
+{$include shumate/shumate_symbol_event.inc}
+{$include shumate/shumate_user_agent.inc}
+{$include shumate/shumate_vector_reader_iter.inc}
+{$include shumate/shumate_vector_reader.inc}
+{$include shumate/shumate_vector_sprite.inc}
+{$include shumate/shumate_vector_sprite_sheet.inc}
+{$include shumate/shumate_vector_renderer.inc}
