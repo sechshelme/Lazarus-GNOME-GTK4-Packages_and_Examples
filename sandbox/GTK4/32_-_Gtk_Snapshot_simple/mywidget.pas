@@ -30,14 +30,11 @@ var
 
 procedure snapshoot_cp(widget: PGtkWidget; snapshot: PGtkSnapshot); cdecl;
 var
+  self: PMyWidget absolute widget;
   r: Tgraphene_rect_t;
   width, height: single;
   p: Tgraphene_point_t;
   color: TGdkRGBA;
-
-var
-  self: PMyWidget absolute widget;
-
 begin
   width := gtk_widget_get_width(widget);
   height := gtk_widget_get_height(widget);

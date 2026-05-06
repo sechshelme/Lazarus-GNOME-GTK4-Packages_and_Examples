@@ -610,6 +610,10 @@ https://github.com/lundmar/gtkchart
 libcfitsio-dev
 
 
+mingw-w64-plutovg
+mingw-w64-mupdf
+mingw-w64-json-c
+libshumate
 
 
 
@@ -911,6 +915,7 @@ Date:   Fri Apr 17 10:15:17 2026 -0400
 Chipmunk2D ist quasi die C-Zwilling von Box2D.
 Ähnlichkeit: Beide machen das Gleiche (Rigid Body Physics, Kollisionen, Gelenke, Reibung). Wenn du Box2D-Logik kennst (Mass, Moment of Inertia, Velocity Iterations), wirst du dich in Chipmunk sofort zurechtfinden.
 Unterschied: Box2D zwingt dich in die C++ Welt (Klassen, Überladungen). Chipmunk nutzt einfache C-Structs und Funktionen wie cpSpaceStep(space, dt). Es ist viel einfacher in reine C-Projekte oder andere Sprachen (FFI) einzubinden.
+
 
 
 

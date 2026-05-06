@@ -325,6 +325,7 @@ const
     (libs: 'libphysfs'; units: 'ctypes'),
 
     (libs: 'libepoxy'; units: 'fp_epoxy'),
+    (libs: 'libshumate'; units: 'fp_shumate'),
 
 
 
