@@ -19,7 +19,7 @@ type
 
 function my_widget_get_type: TGType;
 function my_widget_new: PGTKWidget;
-procedure my_widget_set_color(self: PMyWidget; r, g, b: single);
+procedure my_widget_set_color(self: PMyWidget; col:PGdkRGBA);
 
 implementation
 
@@ -57,7 +57,6 @@ begin
   color := PMyWidget(widget)^.custom_color^;
   gtk_snapshot_append_color(snapshot, @color, @r);
   gtk_snapshot_restore(snapshot);
-
 
   gtk_snapshot_pop(snapshot);
 end;
@@ -112,9 +111,9 @@ begin
   Result := g_object_new(my_widget_get_type, nil);
 end;
 
-procedure my_widget_set_color(self: PMyWidget; r, g, b: single);
+procedure my_widget_set_color(self: PMyWidget; col: PGdkRGBA);
 begin
-  self^.custom_color^.SetItems(r, g, b, 1.0);
+  self^.custom_color^ := col^;
   gtk_widget_queue_draw(GTK_WIDGET(self));
 end;
 

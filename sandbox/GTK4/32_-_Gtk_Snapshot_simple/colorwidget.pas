@@ -8,7 +8,6 @@ uses
 type
   TColorWidget = record
     parent_instance: TGtkBox;
-//    custom_color: PGdkRGBA;
   end;
   PColorWidget = ^TColorWidget;
 
@@ -26,96 +25,52 @@ implementation
 
 var
   parent_class: PColorWidgetClass = nil;
-  age_signal_id: Tguint = 0;
-
-procedure finalize_cp(obj: PGObject); cdecl;
-var
-  self: PColorWidget absolute obj;
-begin
-  with self^ do begin
-//    g_free(custom_color);
-  end;
-  G_OBJECT_CLASS(parent_class)^.finalize(obj);
-end;
+  signal_id: Tguint = 0;
 
 procedure class_init(g_class: Tgpointer; class_data: Tgpointer); cdecl;
 begin
-  G_OBJECT_CLASS(g_class)^.finalize := @finalize_cp;
   parent_class := g_type_class_peek_parent(g_class);
 
-  age_signal_id := g_signal_new('clicked', G_TYPE_FROM_CLASS(g_class), G_SIGNAL_RUN_LAST or G_SIGNAL_DETAILED, 0, nil, nil, nil, G_TYPE_NONE,    1, GDK_TYPE_RGBA);
+  signal_id := g_signal_new('color-set', G_TYPE_FROM_CLASS(g_class), G_SIGNAL_RUN_LAST or G_SIGNAL_DETAILED, 0, nil, nil, nil, G_TYPE_NONE, 1, GDK_TYPE_RGBA);
 end;
 
-procedure new_color_r_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
+procedure new_color_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
 var
-  self:PGObject absolute user_data;
+  s: pchar absolute user_data;
   col: TGdkRGBA;
 begin
-  gdk_rgba_parse(@col, 'red');
-  g_signal_emit(self, age_signal_id, 0, @col);
+  gdk_rgba_parse(@col, s);
+  g_signal_emit(gtk_widget_get_parent(widget), signal_id, 0, @col);
   WriteLn('red');
 end;
 
-procedure new_color_g_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
+procedure init_cp(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
+const
+  cols: array of pchar = ('red', 'green', 'blue', 'yellow');
 var
-  self:PGObject absolute user_data;
-  col: TGdkRGBA;
-begin
-  gdk_rgba_parse(@col, 'lime');
-  g_signal_emit(self, age_signal_id, 0, @col);
-  WriteLn('red');
-end;
-
-procedure new_color_b_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
-var
-  self:PGObject absolute user_data;
-  col: TGdkRGBA;
-begin
-  gdk_rgba_parse(@col, 'blue');
-  g_signal_emit(self, age_signal_id, 0, @col);
-  WriteLn('red');
-end;
-
-function CreateTexture(col: PGdkRGBA): PGtkWidget;
-var
+  self: PColorWidget absolute instance;
+  button, image: PGtkWidget;
+  i: integer;
+  c: TGdkRGBA;
   bytes: PGBytes;
   texture: PGdkTexture;
 begin
-  bytes := g_bytes_new(@col^, SizeOf(TGdkRGBA));
-  texture := gdk_memory_texture_new(1, 1, GDK_MEMORY_R32G32B32A32_FLOAT, bytes, 4 * 4);
-  g_bytes_unref(bytes);
-  Result := gtk_image_new_from_paintable(GDK_PAINTABLE(texture));
-  g_object_unref(texture);
-end;
+  gtk_orientable_set_orientation(GTK_ORIENTABLE(self), GTK_ORIENTATION_HORIZONTAL);
 
-function CreateColorButton(parent: PGtkWidget; col: pchar): PGtkWidget;
-var
-  c: TGdkRGBA;
-  image: PGtkWidget;
-begin
-  gdk_rgba_parse(@c, col);
-  image := CreateTexture(@c);
-  Result := gtk_button_new;
-  gtk_box_append(GTK_BOX(parent), Result);
-  gtk_button_set_child(GTK_BUTTON(Result), image);
-end;
+  for i := 0 to Length(cols) - 1 do begin
+    gdk_rgba_parse(@c, cols[i]);
+    bytes := g_bytes_new(@c, SizeOf(TGdkRGBA));
+    texture := gdk_memory_texture_new(1, 1, GDK_MEMORY_R32G32B32A32_FLOAT, bytes, 4 * 4);
+    g_bytes_unref(bytes);
+    image := gtk_image_new_from_paintable(GDK_PAINTABLE(texture));
+    g_object_unref(texture);
 
+    button := gtk_button_new;
+    gtk_box_append(GTK_BOX(self), button);
+    gtk_button_set_child(GTK_BUTTON(button), image);
 
-procedure init_cp(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
-var
-  self: PColorWidget absolute instance;
-  button: PGtkWidget;
-begin
-    gtk_orientable_set_orientation(GTK_ORIENTABLE(self), GTK_ORIENTATION_HORIZONTAL);
-
-    button := CreateColorButton(GTK_WIDGET( self), 'red');
-    g_signal_connect(button, 'clicked', G_CALLBACK(@new_color_r_cp), self);
-
-    button := CreateColorButton(GTK_WIDGET( self), 'green');
-    g_signal_connect(button, 'clicked', G_CALLBACK(@new_color_g_cp), self);
-
-    button := CreateColorButton(GTK_WIDGET( self), 'blue');
-    g_signal_connect(button, 'clicked', G_CALLBACK(@new_color_b_cp),self);
+    g_signal_connect(button, 'clicked', G_CALLBACK(@new_color_cp), cols[i]);
+  end;
 end;
 
 

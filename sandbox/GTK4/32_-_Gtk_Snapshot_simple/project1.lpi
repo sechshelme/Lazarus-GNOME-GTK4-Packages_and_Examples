@@ -41,6 +41,11 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="MyWidget"/>
       </Unit>
+      <Unit>
+        <Filename Value="colorwidget.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ColorWidget"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
