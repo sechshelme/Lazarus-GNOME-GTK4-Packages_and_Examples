@@ -4,8 +4,8 @@ uses
   fp_glib2,
   fp_cairo,
   fp_GTK4,
-  ColorWidget,
-  MyWidget;
+  ColorButtonBox,
+  SnapshotWidget;
 
   procedure quit_clicked_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
@@ -16,21 +16,30 @@ uses
 
   procedure color_set_cp(widget: PGtkWidget; col: PGdkRGBA; user_data: Tgpointer); cdecl;
   begin
-    my_widget_set_color(user_data, col);
+    snapshot_widget_set_color(user_data, col);
   end;
 
   procedure add_color_buttton_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
-    w: PColorWidget absolute user_data;
+    w: PButtonBox absolute user_data;
   begin
-    color_widget_add_button(w, 'cyan');
+    color_button_box_add_button(w, 'cyan');
+  end;
+
+  procedure insert_color_buttton_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
+  var
+    w: PButtonBox absolute user_data;
+  begin
+    if not color_button_box_insert_button(w, 'magenta', 1 )then begin
+      g_printf('Konnte Button nicht einfügen, ungültiger Index !'#10);
+    end;
   end;
 
   procedure remove_color_buttton_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
-    w: PColorWidget absolute user_data;
+    w: PButtonBox absolute user_data;
   begin
-    if not color_widget_remove(w, 1) then begin
+    if not color_button_box_remove(w, 1) then begin
       g_printf('Konnte Button nicht löschen !'#10);
     end;
   end;
@@ -54,7 +63,7 @@ uses
     gtk_window_set_child(GTK_WINDOW(window), box);
 
     // Snapshot
-    mySnapShot := GTK_WIDGET(my_widget_new);
+    mySnapShot := GTK_WIDGET(snapshot_widget_new);
     gtk_widget_set_vexpand(mySnapShot, True);
     gtk_widget_set_hexpand(mySnapShot, True);
     gtk_box_append(GTK_BOX(box), mySnapShot);
@@ -62,9 +71,9 @@ uses
     // Header Bar
     header_bar := gtk_header_bar_new;
     gtk_window_set_titlebar(GTK_WINDOW(window), header_bar);
-    colorBox := color_widget_new;
+    colorBox := color_button_box_new;
     for i := 0 to Length(cols) - 1 do begin
-      color_widget_add_button(PColorWidget(colorBox), cols[i]);
+      color_button_box_add_button(PButtonBox(colorBox), cols[i]);
     end;
     g_signal_connect(colorBox, 'color-set', G_CALLBACK(@color_set_cp), mySnapShot);
     gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), colorBox);
@@ -78,6 +87,10 @@ uses
 
     button := gtk_button_new_with_label('add');
     g_signal_connect(button, 'clicked', G_CALLBACK(@add_color_buttton_cp), colorBox);
+    gtk_box_append(GTK_BOX(buttonBox), button);
+
+    button := gtk_button_new_with_label('insert');
+    g_signal_connect(button, 'clicked', G_CALLBACK(@insert_color_buttton_cp), colorBox);
     gtk_box_append(GTK_BOX(buttonBox), button);
 
     button := gtk_button_new_with_label('remove');

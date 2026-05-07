@@ -1,4 +1,4 @@
-unit MyWidget;
+unit SnapshotWidget;
 
 interface
 
@@ -6,31 +6,31 @@ uses
   fp_glib2, fp_GTK4, fp_graphene;
 
 type
-  TMyWidget = record
+  TSnapshotWidget = record
     parent_instance: TGtkWidget;
     custom_color: PGdkRGBA;
   end;
-  PMyWidget = ^TMyWidget;
+  PSnapshotWidget = ^TSnapshotWidget;
 
-  TMyWidgetClass = record
+  TSnapshotWidgetClass = record
     parent_class: TGtkWidgetClass;
   end;
-  PMyWidgetClass = ^TMyWidgetClass;
+  PSnapshotWidgetClass = ^TSnapshotWidgetClass;
 
-function my_widget_get_type: TGType;
-function my_widget_new: PGTKWidget;
-procedure my_widget_set_color(self: PMyWidget; col:PGdkRGBA);
+function snapshot_widget_get_type: TGType;
+function snapshot_widget_new: PGTKWidget;
+procedure snapshot_widget_set_color(self: PSnapshotWidget; col:PGdkRGBA);
 
 implementation
 
 // ==== private
 
 var
-  parent_class: PMyWidgetClass = nil;
+  parent_class: PSnapshotWidgetClass = nil;
 
 procedure snapshoot_cp(widget: PGtkWidget; snapshot: PGtkSnapshot); cdecl;
 var
-  self: PMyWidget absolute widget;
+  self: PSnapshotWidget absolute widget;
   r: Tgraphene_rect_t;
   width, height: single;
   p: Tgraphene_point_t;
@@ -51,7 +51,7 @@ begin
 
   gtk_snapshot_save(snapshot);
   gtk_snapshot_scale(snapshot, 0.9, 0.9);
-  color := PMyWidget(widget)^.custom_color^;
+  color := PSnapshotWidget(widget)^.custom_color^;
   gtk_snapshot_append_color(snapshot, @color, @r);
   gtk_snapshot_restore(snapshot);
 
@@ -60,7 +60,7 @@ end;
 
 procedure finalize_cp(obj: PGObject); cdecl;
 var
-  self: PMyWidget absolute obj;
+  self: PSnapshotWidget absolute obj;
 begin
   with self^ do begin
     g_free(custom_color);
@@ -77,7 +77,7 @@ end;
 
 procedure init_cp(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
 var
-  self: PMyWidget absolute instance;
+  self: PSnapshotWidget absolute instance;
 begin
   with self^ do begin
     custom_color := g_malloc(SizeOf(TGdkRGBA));
@@ -88,27 +88,27 @@ end;
 
 // ==== public
 
-function my_widget_get_type: TGType;
+function snapshot_widget_get_type: TGType;
 const
   type_id: TGType = 0;
 var
   id: TGType;
 begin
   if g_once_init_enter(@type_id) then begin
-    id := g_type_register_static_simple(GTK_TYPE_WIDGET, 'MyWidget', SizeOf(TMyWidgetClass), @class_init, SizeOf(TMyWidget), @init_cp, 0);
+    id := g_type_register_static_simple(GTK_TYPE_WIDGET, 'Snapshot', SizeOf(TSnapshotWidgetClass), @class_init, SizeOf(TSnapshotWidget), @init_cp, 0);
     g_once_init_leave(@type_id, id);
   end;
   Result := type_id;
 end;
 
-function my_widget_new: PGTKWidget;
+function snapshot_widget_new: PGTKWidget;
 var
-  self: PMyWidget absolute Result;
+  self: PSnapshotWidget absolute Result;
 begin
-  Result := g_object_new(my_widget_get_type, nil);
+  Result := g_object_new(snapshot_widget_get_type, nil);
 end;
 
-procedure my_widget_set_color(self: PMyWidget; col: PGdkRGBA);
+procedure snapshot_widget_set_color(self: PSnapshotWidget; col: PGdkRGBA);
 begin
   self^.custom_color^ := col^;
   gtk_widget_queue_draw(GTK_WIDGET(self));

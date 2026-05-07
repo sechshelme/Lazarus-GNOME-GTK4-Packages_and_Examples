@@ -37,14 +37,14 @@
         <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
-        <Filename Value="mywidget.pas"/>
+        <Filename Value="snapshotwidget.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="MyWidget"/>
+        <UnitName Value="SnapshotWidget"/>
       </Unit>
       <Unit>
-        <Filename Value="colorwidget.pas"/>
+        <Filename Value="colorbuttonbox.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="ColorWidget"/>
+        <UnitName Value="ColorButtonBox"/>
       </Unit>
     </Units>
   </ProjectOptions>
