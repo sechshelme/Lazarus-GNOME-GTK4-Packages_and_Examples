@@ -7,29 +7,53 @@ uses
   ColorWidget,
   MyWidget;
 
-  procedure quit_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
+  procedure quit_clicked_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
     window: PGtkWindow absolute user_data;
   begin
     gtk_window_destroy(window);
   end;
 
-  procedure color_click_cp(widget: PGtkWidget; col: PGdkRGBA; user_data: Tgpointer); cdecl;
+  procedure color_set_cp(widget: PGtkWidget; col: PGdkRGBA; user_data: Tgpointer); cdecl;
   begin
     my_widget_set_color(user_data, col);
   end;
 
-  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
+  procedure add_color_buttton_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
-    window, box, button, mySnapShot, header_bar, colorBox: PGtkWidget;
+    w: PColorWidget absolute user_data;
+  begin
+    color_widget_add_button(w, 'cyan');
+  end;
+
+  procedure remove_color_buttton_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
+  var
+    w: PColorWidget absolute user_data;
+  begin
+    if not color_widget_remove(w, 1) then begin
+      g_printf('Konnte Button nicht löschen !'#10);
+    end;
+  end;
+
+  procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
+  const
+    cols: array of pchar = ('red', 'green', 'blue', 'yellow');
+  var
+    window, box, button, mySnapShot, header_bar, colorBox,
+    buttonBox: PGtkWidget;
+    i: integer;
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 
+    // Windows
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'Snapshot Demo');
     gtk_window_set_default_size(GTK_WINDOW(window), 640, 400);
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
+    gtk_window_set_child(GTK_WINDOW(window), box);
+
+    // Snapshot
     mySnapShot := GTK_WIDGET(my_widget_new);
     gtk_widget_set_vexpand(mySnapShot, True);
     gtk_widget_set_hexpand(mySnapShot, True);
@@ -39,16 +63,31 @@ uses
     header_bar := gtk_header_bar_new;
     gtk_window_set_titlebar(GTK_WINDOW(window), header_bar);
     colorBox := color_widget_new;
-    g_signal_connect(colorBox, 'color-set', G_CALLBACK(@color_click_cp), mySnapShot);
+    for i := 0 to Length(cols) - 1 do begin
+      color_widget_add_button(PColorWidget(colorBox), cols[i]);
+    end;
+    g_signal_connect(colorBox, 'color-set', G_CALLBACK(@color_set_cp), mySnapShot);
     gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), colorBox);
 
-    // Quit Button
-    button := gtk_button_new_with_label('Quit');
-    g_signal_connect(button, 'clicked', G_CALLBACK(@quit_cp), window);
-    gtk_box_append(GTK_BOX(box), button);
+    // Bottom Button Box
+    buttonBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
+    gtk_box_append(GTK_BOX(box), buttonBox);
+    gtk_widget_set_halign(buttonBox, GTK_ALIGN_END);
+    gtk_widget_set_margin_end(buttonBox, 10);
+    gtk_widget_set_margin_bottom(buttonBox, 10);
 
-    // Windows
-    gtk_window_set_child(GTK_WINDOW(window), box);
+    button := gtk_button_new_with_label('add');
+    g_signal_connect(button, 'clicked', G_CALLBACK(@add_color_buttton_cp), colorBox);
+    gtk_box_append(GTK_BOX(buttonBox), button);
+
+    button := gtk_button_new_with_label('remove');
+    g_signal_connect(button, 'clicked', G_CALLBACK(@remove_color_buttton_cp), colorBox);
+    gtk_box_append(GTK_BOX(buttonBox), button);
+
+    button := gtk_button_new_with_label('Quit');
+    g_signal_connect(button, 'clicked', G_CALLBACK(@quit_clicked_cp), window);
+    gtk_box_append(GTK_BOX(buttonBox), button);
+
     gtk_window_present(GTK_WINDOW(window));
   end;
 

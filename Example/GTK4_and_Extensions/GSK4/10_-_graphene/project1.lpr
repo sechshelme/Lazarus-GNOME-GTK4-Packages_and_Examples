@@ -33,6 +33,7 @@ uses
     window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(window), 'Window');
     gtk_window_set_default_size(GTK_WINDOW(window), 400, 400);
+    gtk_window_present(GTK_WINDOW(window));
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
     gtk_window_set_child(GTK_WINDOW(window), box);
@@ -60,11 +61,9 @@ uses
     g_signal_connect(button, 'clicked', G_CALLBACK(@spacing_clicked_cp), grid);
     gtk_box_append(GTK_BOX(buttonBox), button);
 
-    button := gtk_button_new_with_label('Close');
+    button := gtk_button_new_with_label('Quit');
     g_signal_connect(button, 'clicked', G_CALLBACK(@quit_clicked_cp), window);
     gtk_box_append(GTK_BOX(buttonBox), button);
-
-    gtk_window_present(GTK_WINDOW(window));
   end;
 
 
