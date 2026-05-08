@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="12"/>
+    <Version Value="13"/>
     <General>
       <Flags>
         <MainUnitHasCreateFormStatements Value="False"/>
@@ -34,17 +34,18 @@
     <Units>
       <Unit>
         <Filename Value="project1.lpr"/>
-        <IsPartOfProject Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="snapshotwidget.pas"/>
-        <IsPartOfProject Value="True"/>
         <UnitName Value="SnapshotWidget"/>
       </Unit>
       <Unit>
         <Filename Value="colorbuttonbox.pas"/>
-        <IsPartOfProject Value="True"/>
         <UnitName Value="ColorButtonBox"/>
+      </Unit>
+      <Unit>
+        <Filename Value="buttonbox.pas"/>
+        <UnitName Value="ButtonBox"/>
       </Unit>
     </Units>
   </ProjectOptions>
