@@ -6,7 +6,8 @@ uses
   fp_GTK4,
   ColorButtonBox,
   SnapshotWidget,
-  ButtonBox;
+  ButtonBox,
+  HelpWindow;
 
   procedure color_set_cp(widget: PGtkWidget; col: PGdkRGBA; user_data: Tgpointer); cdecl;
   begin
@@ -16,6 +17,8 @@ uses
   procedure button_clicked_cp(widget: PGtkWidget; index: Tgint; user_data: Tgpointer); cdecl;
   var
     w: PColorButtonBox absolute user_data;
+  const
+    help_window: PGtkWidget = nil;
   begin
     case index of
       0: begin
@@ -32,6 +35,13 @@ uses
         end;
       end;
       3: begin
+        if help_window = nil then begin
+          help_window := help_window_new();
+          g_signal_connect_swapped(help_window, 'destroy', G_CALLBACK(@g_nullify_pointer), @help_window);
+        end;
+        gtk_window_present(GTK_WINDOW(help_window));
+      end;
+      4: begin
         gtk_window_destroy(GTK_WINDOW(gtk_widget_get_root(widget)));
       end;
     end;
@@ -66,7 +76,7 @@ uses
     gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), color_box);
 
     // Bottom Button Box
-    button_box := button_box_new('add,insert,remove,Quit');
+    button_box := button_box_new('add,insert,remove,help...,Quit');
     g_signal_connect(button_box, 'button-clicked', G_CALLBACK(@button_clicked_cp), color_box);
     gtk_box_append(GTK_BOX(box), button_box);
 

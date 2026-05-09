@@ -47,6 +47,10 @@
         <Filename Value="buttonbox.pas"/>
         <UnitName Value="ButtonBox"/>
       </Unit>
+      <Unit>
+        <Filename Value="helpwindow.pas"/>
+        <UnitName Value="HelpWindow"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
