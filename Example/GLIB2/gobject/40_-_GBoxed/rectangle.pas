@@ -27,8 +27,6 @@ function e_rectangle_get_name(r: PERectangle): Pgchar;
 procedure e_rectangle_set_name(r: PERectangle; Name: Pgchar);
 
 function E_TYPE_RECTANGLE: TGType;
-function E_RECTANGLE(obj: Pointer): PERectangle;
-function E_IS_RECTANGLE(obj: Pointer): Tgboolean;
 
 implementation
 
@@ -74,7 +72,7 @@ end;
 
 function e_rectangle_new(x, y, w, h: Tgint; Name: Pgchar): PERectangle;
 begin
-  Result := g_malloc(SizeOf(TERectangle));
+  Result := g_new0(SizeOf(TERectangle), 1);
   Result^.x := x;
   Result^.y := y;
   Result^.w := w;
@@ -136,16 +134,6 @@ end;
 function E_TYPE_RECTANGLE: TGType;
 begin
   E_TYPE_RECTANGLE := e_rectangle_get_type;
-end;
-
-function E_RECTANGLE(obj: Pointer): PERectangle;
-begin
-  Result := PERectangle(g_type_check_instance_cast(obj, E_TYPE_RECTANGLE));
-end;
-
-function E_IS_RECTANGLE(obj: Pointer): Tgboolean;
-begin
-  Result := g_type_check_instance_is_a(obj, E_TYPE_RECTANGLE);
 end;
 
 end.

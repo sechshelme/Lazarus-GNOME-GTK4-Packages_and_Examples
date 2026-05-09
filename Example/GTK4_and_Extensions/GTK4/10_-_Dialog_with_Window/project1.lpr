@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  ctypes,
   fp_glib2,
   fp_GLIBTools,
   fp_GTK4;
@@ -62,9 +61,9 @@ const
   const
     dialgWindow: PGtkWidget = nil;
   var
+    mainWindow: PGtkWindow absolute user_data;
     mainBox, FirstName_entry, LastName_entry, button_box, ok_button,
     cancel_button, help_button, apply_button, contentBox, lab: PGtkWidget;
-    mainWindow: PGtkWindow absolute user_data;
   begin
     dialgWindow := gtk_window_new;
 
@@ -161,19 +160,16 @@ const
   end;
 
 
-  function main(argc: cint; argv: PPChar): cint;
+  procedure main;
   var
     app: PGtkApplication;
-    status: longint;
   begin
     app := gtk_application_new('org.webkitgtk.example', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
-    status := g_application_run(G_APPLICATION(app), argc, argv);
+    g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
-
-    Exit(status);
   end;
 
 begin
-  main(argc, argv);
+  main;
 end.
