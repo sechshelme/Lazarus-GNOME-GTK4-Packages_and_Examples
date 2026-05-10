@@ -120,7 +120,7 @@ var
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     gtk_window_set_child(GTK_WINDOW(window), box);
 
-    gl_area := gtk_gl_area_new();
+    gl_area := gtk_gl_area_new;
     gtk_gl_area_set_required_version(GTK_GL_AREA(gl_area), 3, 3);
 
     gtk_gl_area_set_has_depth_buffer(GTK_GL_AREA(gl_area), True);

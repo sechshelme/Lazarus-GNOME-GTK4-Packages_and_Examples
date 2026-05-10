@@ -39,6 +39,10 @@
         <Filename Value="entrydialog.pas"/>
         <UnitName Value="EntryDialog"/>
       </Unit>
+      <Unit>
+        <Filename Value="mainwindow.pas"/>
+        <UnitName Value="MainWindow"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

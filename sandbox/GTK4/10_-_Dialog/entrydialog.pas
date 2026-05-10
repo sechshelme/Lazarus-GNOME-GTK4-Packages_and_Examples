@@ -10,7 +10,7 @@ type
   TEntryDialog = record
     parent_instance: TGtkWindow;
     n_Datas: Tgint;
-    FirstName_entry, LastName_entry: PGtkWidget;
+    entrys: PPGtkWidget;
   end;
   PEntryDialog = ^TEntryDialog;
 
@@ -20,7 +20,7 @@ type
   PEntryDialogClass = ^TEntryDialogClass;
 
 function entry_dialog_get_type: TGType;
-function entry_dialog_new: PGTKWidget;
+function entry_dialog_new(labels: Pgchar): PGTKWidget;
 
 implementation
 
@@ -30,13 +30,26 @@ var
   parent_class: PEntryDialogClass = nil;
   signal_id: Tguint = 0;
 
-procedure class_init(g_class: Tgpointer; class_data: Tgpointer); cdecl;
+procedure finalize_cp(obj: PGObject); cdecl;
+var
+  self: PEntryDialog absolute obj;
+begin
+  with self^ do begin
+    if entrys <> nil then begin
+      g_free(entrys);
+    end;
+  end;
+  G_OBJECT_CLASS(parent_class)^.finalize(obj);
+end;
+
+procedure class_init(g_class: Tgpointer; {%H-}class_data: Tgpointer); cdecl;
 begin
   parent_class := g_type_class_peek_parent(g_class);
+  G_OBJECT_CLASS(g_class)^.finalize := @finalize_cp;
   signal_id := g_signal_new('button-clicked', G_TYPE_FROM_CLASS(g_class), G_SIGNAL_RUN_LAST or G_SIGNAL_DETAILED, 0, nil, nil, nil, G_TYPE_NONE, 1, G_TYPE_STRV);
 end;
 
-procedure init_cp(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
+procedure init_cp(instance: PGTypeInstance; {%H-}g_class: Tgpointer); cdecl;
 var
   self: PGtkWindow absolute instance;
 begin
@@ -49,18 +62,19 @@ end;
 procedure emit(self: PEntryDialog);
 var
   datas: PPgchar;
+  i: Tgint;
 begin
   with self^ do begin
-    WriteLn('n_Datas: ', n_Datas);
     datas := g_new0(SizeOf(Pgchar), n_Datas + 1);
-    datas[0] := gtk_editable_get_text(GTK_EDITABLE(FirstName_entry));
-    datas[1] := gtk_editable_get_text(GTK_EDITABLE(LastName_entry));
+    for i := 0 to n_Datas - 1 do begin
+      datas[i] := gtk_editable_get_text(GTK_EDITABLE(entrys[i]));
+    end;
     g_signal_emit(self, signal_id, 0, datas);
     g_free(datas);
   end;
 end;
 
-procedure button_clicked_cp(widget: PGtkWidget; index: Tgint; user_data: Tgpointer); cdecl;
+procedure button_clicked_cp({%H-}widget: PGtkWidget; index: Tgint; user_data: Tgpointer); cdecl;
 var
   self: PEntryDialog absolute user_data;
 begin
@@ -113,10 +127,12 @@ begin
   gtk_box_append(GTK_BOX(contentBox), box);
 end;
 
-function entry_dialog_new: PGTKWidget;
+function entry_dialog_new(labels: Pgchar): PGTKWidget;
 var
   self: PEntryDialog absolute Result;
-  contentBox, mainBox, bb: PGtkWidget;
+  contentBox, mainBox, button_box: PGtkWidget;
+  lab: PPgchar;
+  i: integer;
 begin
   self := g_object_new(entry_dialog_get_type, nil);
 
@@ -128,15 +144,26 @@ begin
   gtk_widget_set_vexpand(contentBox, True);
   gtk_box_append(GTK_BOX(mainBox), contentBox);
 
-  self^.n_Datas := 2;
-  self^.FirstName_entry := CreateEntry(contentBox, 'Vorname');
-  self^.LastName_entry := CreateEntry(contentBox, 'Nachname');
+  with self^ do begin
+    if labels <> nil then begin
+      n_Datas := 0;
+      lab := g_strsplit(labels, ',', -1);
+      while lab[n_Datas] <> nil do begin
+        Inc(n_Datas);
+      end;
+      entrys := g_new0(SizeOf(PGtkEntry), n_Datas + 1);
+
+      for i := 0 to n_Datas - 1 do begin
+        entrys[i] := CreateEntry(contentBox, lab[i]);
+      end;
+      g_strfreev(lab);
+    end;
+  end;
 
   // --- Buttons
-  bb := button_box_new('Help...,Ok,Apply,Cancel');
-  g_signal_connect(bb, 'button-clicked', G_CALLBACK(@button_clicked_cp), self);
-  gtk_box_append(GTK_BOX(mainBox), bb);
+  button_box := button_box_new('Help...,Ok,Apply,Cancel');
+  g_signal_connect(button_box, 'button-clicked', G_CALLBACK(@button_clicked_cp), self);
+  gtk_box_append(GTK_BOX(mainBox), button_box);
 end;
-
 
 end.

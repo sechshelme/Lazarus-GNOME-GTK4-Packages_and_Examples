@@ -17,7 +17,7 @@ type
   PButtonBoxClass = ^TButtonBoxClass;
 
 function button_box_get_type: TGType;
-function button_box_new(labels: pchar): PGTKWidget;
+function button_box_new(labels: Pgchar): PGTKWidget;
 
 implementation
 
@@ -27,7 +27,7 @@ var
   parent_class: PButtonBoxClass = nil;
   signal_id: Tguint = 0;
 
-procedure class_init(g_class: Tgpointer; class_data: Tgpointer); cdecl;
+procedure class_init(g_class: Tgpointer; {%H-}class_data: Tgpointer); cdecl;
 begin
   parent_class := g_type_class_peek_parent(g_class);
   signal_id := g_signal_new('button-clicked', G_TYPE_FROM_CLASS(g_class), G_SIGNAL_RUN_LAST or G_SIGNAL_DETAILED, 0, nil, nil, nil, G_TYPE_NONE, 1, G_TYPE_INT);
@@ -40,7 +40,7 @@ begin
   g_signal_emit(gtk_widget_get_parent(widget), signal_id, 0, index);
 end;
 
-procedure init_cp(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
+procedure init_cp(instance: PGTypeInstance; {%H-}g_class: Tgpointer); cdecl;
 var
   self: PGtkWidget absolute instance;
 begin
@@ -67,7 +67,7 @@ begin
   Result := type_id;
 end;
 
-function button_box_new(labels: pchar): PGTKWidget;
+function button_box_new(labels: Pgchar): PGTKWidget;
 var
   lab: PPgchar;
   i: integer = 0;
