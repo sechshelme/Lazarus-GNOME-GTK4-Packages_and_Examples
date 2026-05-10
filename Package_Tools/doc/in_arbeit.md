@@ -616,6 +616,12 @@ mingw-w64-plutovg
 mingw-w64-mupdf
 mingw-w64-json-c
 
+mingw-w64-mongo-c-driver  // Datenbank
+
+mingw-w64-arrow (Apache Arrow):Ein Framework für In-Memory-Datenanalysen. Es ist zwar in C++ geschrieben, bietet aber eine sehr ausgereifte C-Schnittstelle (GObject-basiert), um hocheffiziente Datentabellen zwischen Sprachen auszutauschen.
+
+
+
 
 
 Compressor name	Ratio	Compression	Decompress.
