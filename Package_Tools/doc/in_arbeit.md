@@ -384,9 +384,8 @@ libfftw3
 
 sudo apt install libnss3 libnss3-dev
 
-libreadline-dev          // io.
-
-libportal-gtk4-dev   // io.
+libreadline-dev                    // io.
+libportal-gtk4-dev                 // io.
 
 libnl-genl-3-dev 
 
@@ -478,68 +477,57 @@ gdk-pixbuf-csource
 /usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders
 
 libmagickwand-dev                // io.    
-
-
 libmagic-dev                     // io.
 libtre-dev                       // io.
-
 libgraphblas                     // io.
 libheif-dev                      // io.
+libfribidi-dev                   // io.
+libraqm-dev                      // io.
+libstb-dev                       // inline müll 
+libcaca-dev                      // io.
+libaa1-dev                       // io.
+libnotify4                       // io.
+libheif-dev                      // io.
+libzmq5                          // io.
+libgraphviz-dev                  // io.
+libpathplan4                     // io.   gehört zu libgraphviz-dev
+libxdot4                         // io.   gehört zu libgraphviz-dev
+libgvpr2                         // io.   gehört zu libgraphviz-dev
+libqrencode4                     // io.    QR Code
+libdmtx                          // io.
+libzint                          // io.
+libshumate                       // io.
+libobjc4                         // io.   
+libzstd                          // io.
+libpolylib64-dev                 // io.
+libqhull-dev                     // io.
 
- libpolkit-gobject-1-0
 
 
-libfribidi-dev                    // io.
-libraqm-dev                       // io.
-libstb-dev                        // inline müll 
-libcaca-dev                       // io.
-libaa1-dev                        // io.
 
-libsodium
 
-libopenimageio2.5
-libnotify4                        // io.
 
-libheif-dev 
+libsodium                         // krypto
 libgcrypt20-dev 
+libopenimageio2.5                 // bild konverter
+libzita-resampler1                // C++
+libmad0-dev                       // mp3
+libqpdf30      
+libpolkit-gobject-1-0             // Rechte / Berechtigungen
+liblua5.1-0-dev                   // ähnlich tk/tcl  
+libaccountsservice0               // acount
 
-libzita-resampler1
-libzmq5                           // io.
+libzinnia                         // Handschrifterkennung  veraltet
 
-libmad0-dev
-
-libgraphviz-dev
-libpathplan4                      // io.   gehört zu libgraphviz-dev
-libxdot4                          // io.   gehört zu libgraphviz-dev
-libgvpr2                          // io.   gehört zu libgraphviz-dev
-
-
-  libqpdf30      
-
-libqrencode4                      // io.    QR Code
-libdmtx                           // io.
-libzint                           // io.
-libshumate                        // io.
-
-
- liblua5.1-0-dev  
-   libaccountsservice0
-
-  libzinnia   // veraltet
-
-libbz2-dev 
+libbz2-dev                        // ähnlich zip
 
  libappstream-dev 
 
- libobjc4                       // io.   
 
  librubberband-dev   
   libopus0      
  libmad0-dev    
 
-libzstd                         // io.
-libpolylib64-dev                // io.
-libqhull-dev 
 
   libsensors5
 
@@ -615,8 +603,10 @@ libcfitsio-dev
 mingw-w64-plutovg
 mingw-w64-mupdf
 mingw-w64-json-c
+mingw-w64-grpc
 
 mingw-w64-mongo-c-driver  // Datenbank
+libbson-dev
 
 mingw-w64-arrow (Apache Arrow):Ein Framework für In-Memory-Datenanalysen. Es ist zwar in C++ geschrieben, bietet aber eine sehr ausgereifte C-Schnittstelle (GObject-basiert), um hocheffiziente Datentabellen zwischen Sprachen auszutauschen.
 

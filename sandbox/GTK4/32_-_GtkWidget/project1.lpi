@@ -39,6 +39,10 @@
         <Filename Value="mywidget.pas"/>
         <UnitName Value="MyWidget"/>
       </Unit>
+      <Unit>
+        <Filename Value="indexbutton.pas"/>
+        <UnitName Value="IndexButton"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

@@ -7,14 +7,6 @@ uses
   fp_GTK4,
   MyWidget;
 
-type
-  TAppData = record
-  end;
-  PAppData = ^TAppData;
-
-const
-  appDataKey = 'anyKey';
-
   procedure quit_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
     window: PGtkWindow absolute user_data;
@@ -22,20 +14,10 @@ const
     gtk_window_destroy(window);
   end;
 
-  procedure anyData_free_cp(Data: Tgpointer); cdecl;
-  var
-    anyData: PAppData absolute Data;
-  begin
-    g_free(anyData);
-  end;
-
   procedure reset_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
     mybox: PMyWidget absolute user_data;
-    appData: PAppData;
   begin
-    appData := g_object_get_data(G_OBJECT(mybox), appDataKey);
-
     my_widget_set_coords(mybox, Random(7) + 1, Random(7) + 1);
   end;
 
@@ -62,7 +44,6 @@ const
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, box, button, mybox, header_bar, new_button: PGtkWidget;
-    anyData: PAppData;
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 
@@ -84,9 +65,6 @@ const
     gtk_box_append(GTK_BOX(box), mybox);
 
     g_signal_connect(new_button, 'clicked', G_CALLBACK(@reset_cp), mybox);
-
-    anyData := g_malloc(SizeOf(TAppData));
-    //    g_object_set_data_full(G_OBJECT(drawing_area), appDataKey, anyData, @anyData_free_cp);
 
     button := gtk_button_new_with_label('Quit');
     g_signal_connect(button, 'clicked', G_CALLBACK(@quit_cp), window);

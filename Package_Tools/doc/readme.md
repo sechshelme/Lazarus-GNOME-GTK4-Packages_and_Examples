@@ -42,6 +42,14 @@ https://sourceforge.net/p/meson/wiki/Cross%20compilation/
 for file in *-*; do mv "$file" "${file//-/_}"; done
 ```
 
+# Eingeklammerte resulte, Klammern entfernen
+```
+sed -i 's/extern\s*(\([^)]*\))/extern \1/g' *.h
+```
+
+
+
+
 # lib und bin aktualisieren
 ```bash
 sudo ldconfig
