@@ -45,8 +45,8 @@ var
   self: PGtkWidget absolute instance;
 begin
   gtk_orientable_set_orientation(GTK_ORIENTABLE(self), GTK_ORIENTATION_HORIZONTAL);
-  gtk_widget_set_halign(self, GTK_ALIGN_END);
   gtk_box_set_spacing(GTK_BOX(self), 5);
+  gtk_widget_set_halign(self, GTK_ALIGN_END);
   gtk_widget_set_margin_end(self, 10);
   gtk_widget_set_margin_bottom(self, 10);
 end;

@@ -4,7 +4,7 @@ interface
 
 uses
   fp_glib2, fp_GTK4,
-  ButtonBox;
+  LabledEntry,  ButtonBox;
 
 type
   TEntryDialog = record
@@ -67,7 +67,7 @@ begin
   with self^ do begin
     datas := g_new0(SizeOf(Pgchar), n_Datas + 1);
     for i := 0 to n_Datas - 1 do begin
-      datas[i] := gtk_editable_get_text(GTK_EDITABLE(entrys[i]));
+      datas[i] := labeled_entry_get_text(PLabeledEntry(entrys[i]));
     end;
     g_signal_emit(self, signal_id, 0, datas);
     g_free(datas);
@@ -111,22 +111,6 @@ begin
   Result := type_id;
 end;
 
-function CreateEntry(contentBox: PGtkWidget; titel: Pgchar): PGtkWidget;
-var
-  lab, box: PGtkWidget;
-begin
-  box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-
-  lab := gtk_label_new(titel);
-  gtk_widget_set_halign(lab, GTK_ALIGN_START);
-  gtk_box_append(GTK_BOX(box), lab);
-
-  Result := gtk_entry_new;
-  gtk_box_append(GTK_BOX(box), Result);
-
-  gtk_box_append(GTK_BOX(contentBox), box);
-end;
-
 function entry_dialog_new(labels: Pgchar): PGTKWidget;
 var
   self: PEntryDialog absolute Result;
@@ -154,7 +138,8 @@ begin
       entrys := g_new0(SizeOf(PGtkEntry), n_Datas + 1);
 
       for i := 0 to n_Datas - 1 do begin
-        entrys[i] := CreateEntry(contentBox, lab[i]);
+        entrys[i] := labeled_entry_new(lab[i]);
+        gtk_box_append(GTK_BOX(contentBox), entrys[i]);
       end;
       g_strfreev(lab);
     end;

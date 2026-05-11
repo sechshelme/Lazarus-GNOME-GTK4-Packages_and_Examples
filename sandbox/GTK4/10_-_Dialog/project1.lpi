@@ -43,6 +43,10 @@
         <Filename Value="mainwindow.pas"/>
         <UnitName Value="MainWindow"/>
       </Unit>
+      <Unit>
+        <Filename Value="labledentry.pas"/>
+        <UnitName Value="LabledEntry"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

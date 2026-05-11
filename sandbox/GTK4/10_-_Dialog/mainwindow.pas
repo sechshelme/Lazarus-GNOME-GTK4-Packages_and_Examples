@@ -23,7 +23,7 @@ function main_window_get_type: TGType;
 function main_window_new: PGTKWidget;
 
 const
-  Titles = 'Firstname,Lastname,Adress,City';
+  Titles = 'Firstname,Lastname,Adress,City,dfdsf dfdsf sdf fsd fsdf dsf sdf dsf';
 
 implementation
 

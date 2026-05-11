@@ -3,7 +3,7 @@ program project1;
 uses
   fp_glib2,
   fp_GTK4,
-  MainWindow;
+  MainWindow, LabledEntry;
 
   procedure activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
