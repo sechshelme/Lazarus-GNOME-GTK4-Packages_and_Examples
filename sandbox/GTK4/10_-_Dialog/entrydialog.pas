@@ -135,7 +135,7 @@ begin
       while lab[n_Datas] <> nil do begin
         Inc(n_Datas);
       end;
-      entrys := g_new0(SizeOf(PGtkEntry), n_Datas + 1);
+      entrys := g_new0(SizeOf(PLabeledEntry), n_Datas + 1);
 
       for i := 0 to n_Datas - 1 do begin
         entrys[i] := labeled_entry_new(lab[i]);
