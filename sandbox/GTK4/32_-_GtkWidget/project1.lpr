@@ -48,7 +48,7 @@ uses
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 
     window := gtk_application_window_new(app);
-    gtk_window_set_title(GTK_WINDOW(window), 'Belt Drive');
+    gtk_window_set_title(GTK_WINDOW(window), 'Grid Demo');
     gtk_window_set_default_size(GTK_WINDOW(window), 640, 400);
 
     header_bar := gtk_header_bar_new;

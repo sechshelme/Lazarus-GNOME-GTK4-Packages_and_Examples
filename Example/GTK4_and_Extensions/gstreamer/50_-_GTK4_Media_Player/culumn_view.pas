@@ -228,16 +228,12 @@ var
   column: PGtkColumnViewColumn;
   list_store: PGListStore;
   single_selection: PGtkSingleSelection;
-  app: PGApplication;
   i: integer;
   len: SizeInt;
-  action: PGSimpleAction;
   idle_id: Tguint;
 begin
   SekStream := nil;
   PriStream := nil;
-
-  app := g_application_get_default;
 
   list_store := g_list_store_new(G_TYPE_OBJECT);
   single_selection := gtk_single_selection_new(G_LIST_MODEL(list_store));

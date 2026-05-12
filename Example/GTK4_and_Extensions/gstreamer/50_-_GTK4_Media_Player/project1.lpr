@@ -14,7 +14,7 @@ uses
   MenuBar,
   XML_Tools,
   LoadSaveSongs,
-  Action;
+  Action, VUMeterWidget;
 
   procedure on_scale_changed_cp({%H-}range: PGtkRange; user_data: Tgpointer); cdecl;
   var
@@ -43,38 +43,6 @@ uses
     end;
   end;
 
-
-  procedure VU_draw_func(drawing_area: PGtkDrawingArea; cr: Pcairo_t; Width: longint; Height: longint; user_data: Tgpointer); cdecl;
-  const
-    border = 3;
-  var
-    Level: PLevel;
-    w: Tguint32;
-
-    function dB_to_Prozent(db: Tgdouble): Tguint32;
-    begin
-      Result := 300 - abs(Round(db) * 10);
-    end;
-
-  begin
-    cairo_set_source_rgb(cr, 0.0, 0.0, 0.0);
-    cairo_rectangle(cr, 0, 0, Width, Height);
-    cairo_fill(cr);
-
-    Level := g_object_get_data(G_OBJECT(drawing_area), LevelKey);
-    if Level <> nil then begin
-
-      w := dB_to_Prozent(Level^.L);
-      cairo_set_source_rgb(cr, 1.0, 0.0, 0.0);  // Rot
-      cairo_rectangle(cr, border, border, border + w, Height / 2 - 2 * border);
-      cairo_fill(cr);
-
-      w := dB_to_Prozent(Level^.R);
-      cairo_set_source_rgb(cr, 1.0, 0.0, 0.0);  // Rot
-      cairo_rectangle(cr, border, Height / 2 + border, border + w, Height / 2 - 2 * border);
-      cairo_fill(cr);
-    end;
-  end;
 
   function CreateMediaButtons: PGtkWidget;
   begin
@@ -175,10 +143,9 @@ uses
     gtk_box_append(GTK_BOX(VBox), Label_Box);
 
     // VU-Meter
-    sharedWidgets^.VUMeter := gtk_drawing_area_new;
+    sharedWidgets^.VUMeter := vu_meter_widget_new;
     gtk_widget_set_hexpand(sharedWidgets^.VUMeter, True);
     gtk_widget_set_size_request(sharedWidgets^.VUMeter, 100, 50);
-    gtk_drawing_area_set_draw_func(GTK_DRAWING_AREA(sharedWidgets^.VUMeter), @VU_draw_func, nil, nil);
     gtk_box_append(GTK_BOX(HBox), sharedWidgets^.VUMeter);
 
     // --- Box 3

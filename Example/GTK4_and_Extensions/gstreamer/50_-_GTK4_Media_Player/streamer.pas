@@ -6,17 +6,9 @@ interface
 
 uses
   Classes, SysUtils, fp_glib2, fp_GTK4,
-  fp_gst;
-
-const
-  LevelKey = 'LevelKey';
+  VUMeterWidget, fp_gst;
 
 type
-  TLevel = record
-    L, R: Tgdouble;
-  end;
-  PLevel = ^TLevel;
-
   TPipelineElements = record
     volume: PGstElement;
     state: TGstState;
@@ -70,7 +62,7 @@ var
   duration: TGstClockTime = GST_CLOCK_TIME_NONE;
   t: Tgint64;
 begin
-//  pipeline_str := g_strdup_printf('filesrc location="%s" ! queue ! decodebin3 ! fakesink', audioFile);
+  //  pipeline_str := g_strdup_printf('filesrc location="%s" ! queue ! decodebin3 ! fakesink', audioFile);
   pipeline_str := g_strdup_printf('filesrc location="%s"  ! decodebin3 ! fakesink', audioFile);
   pipeline := gst_parse_launch(pipeline_str, nil);
   g_free(pipeline_str);
@@ -153,7 +145,7 @@ begin
       pipelineElements^.state := new_state;
     end;
     GST_MESSAGE_ELEMENT: begin
-      if GTK_IS_DRAWING_AREA(pipelineElements^.LevelWidget) then begin
+      if pipelineElements^.LevelWidget<>nil then begin
         s := gst_message_get_structure(msg);
         Name := gst_structure_get_name(s);
         if g_strcmp0(Name, 'level') = 0 then begin
@@ -169,7 +161,7 @@ begin
             pipelineElements^.Level.R := g_value_get_double(Value);
           end;
 
-          g_object_set_data(G_OBJECT(pipelineElements^.LevelWidget), LevelKey, @pipelineElements^.Level);
+          vu_meter_widget_set_level(PVUMeterWidget( pipelineElements^.LevelWidget), @pipelineElements^.Level);
           gtk_widget_queue_draw(pipelineElements^.LevelWidget);
         end;
       end;
@@ -192,11 +184,6 @@ end;
 
 // =========================
 
-procedure pipeline_free_cp(Data: Tgpointer); cdecl;
-begin
-  g_free(Data);
-end;
-
 procedure PStreamerHelper.Create(const AsongPath: string; VU_Widget: PGtkWidget);
 var
   bus: PGstBus;
@@ -210,8 +197,8 @@ begin
   pipelineElements^.LevelWidget := VU_Widget;
   pipelineElements^.Level.L := 0.0;
   pipelineElements^.Level.R := 0.0;
-  self := gst_parse_launch(PChar('filesrc location="' + AsongPath + '" ! queue ! decodebin3 ! audioconvert ! audioresample ! volume name=vol volume=0.0 ! level name=level ! autoaudiosink'), nil);
-  g_object_set_data_full(G_OBJECT(Self), pipelineKey, pipelineElements, @pipeline_free_cp);
+  self := gst_parse_launch(pchar('filesrc location="' + AsongPath + '" ! queue ! decodebin3 ! audioconvert ! audioresample ! volume name=vol volume=0.0 ! level name=level ! autoaudiosink'), nil);
+  g_object_set_data_full(G_OBJECT(Self), pipelineKey, pipelineElements, @g_free);
 
   pipelineElements^.volume := gst_bin_get_by_name(GST_BIN(Self), 'vol');
   if pipelineElements^.volume = nil then begin

@@ -25,7 +25,7 @@ https://sourceforge.net/p/meson/wiki/Cross%20compilation/
 # Speicher Leeks mit C-Funktionen
 `valgrind --leak-check=full ./project1`
 
-# Binär Datei in Byte Array Komstante
+# Binär Datei in Byte Array Konstante
 
 ## Als C-Include
 `xxd -i xxx.bin -> xxx.h`
