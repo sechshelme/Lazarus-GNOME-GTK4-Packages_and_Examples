@@ -8,8 +8,8 @@ uses
   LoadTitle, Streamer, XML_Tools, LoadSaveSongs;
 
 var
-  SekStream: PStreamer = nil;
-  PriStream: PStreamer = nil;
+  SekStream: PGSTStreamer = nil;
+  PriStream: PGSTStreamer = nil;
 
 const
   CFTime = 13 * 1000 * G_USEC_PER_SEC; // 3s
@@ -95,7 +95,7 @@ begin
           PriStream.Create(song^.FullPath, sharedWidgets^.VUMeter);
         end;
       end else begin
-        PriStream.Play;
+        gst_streamer_play(PriStream);
       end;
     end;
     'listbox.pause': begin
