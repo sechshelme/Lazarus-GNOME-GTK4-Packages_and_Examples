@@ -113,6 +113,9 @@ begin
 
       slHeader[j] := StringReplace(slHeader[j], 'BSON_BEGIN_DECLS', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'BSON_END_DECLS', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'BSON_GNUC_DEPRECATED', ';//xxxxxxxx BSON_GNUC_DEPRECATED;', [rfReplaceAll]);
+
+
 
 
       slHeader[j] := StringReplace(slHeader[j], 'VIPS_DEPRECATED', '//xxxx VIPS_DEPRECATED', [rfReplaceAll]);
