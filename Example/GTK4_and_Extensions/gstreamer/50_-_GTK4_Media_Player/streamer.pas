@@ -270,10 +270,11 @@ end;
 
 procedure gst_streamer_unref(var self: PGSTStreamer);
 begin
-  //gst_streamer_stop(Self);
-  //gst_object_unref(Self^.volume);
-  gst_object_unref(Self);
-  self := nil;
+  g_clear_object(@self);
+
+//  gst_object_unref(Self);
+  //timer unterbrischt
+//  self := nil;
 end;
 
 
