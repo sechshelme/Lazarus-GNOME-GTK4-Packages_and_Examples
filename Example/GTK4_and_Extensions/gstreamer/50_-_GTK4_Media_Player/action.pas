@@ -106,8 +106,8 @@ begin
     'listbox.stop': begin
       WriteLn('stop');
       if PriStream <> nil then begin
-        gst_streamer_stop(PriStream);
-        PriStream.Destroy;
+        //        gst_streamer_stop(PriStream);
+        gst_streamer_unref(PriStream);
         gtk_adjustment_set_value(adjustment, 0);
         gtk_adjustment_set_upper(adjustment, 1000);
       end;
@@ -124,7 +124,7 @@ begin
       g_list_store_remove_all(G_LIST_STORE(list_model));
     end;
     'listbox.next': begin
-      if (PriStream <> nil) and (PriStream.Duration > 0) then begin
+      if (PriStream <> nil) and (gst_streamer_get_duration(PriStream) > 0) then begin
         if index >= 0 then  begin
           if index >= Count - 1 then begin
             index2 := 0;
@@ -133,10 +133,10 @@ begin
           end;
 
           gtk_selection_model_select_item(selection_model, index2, True);
-          if PriStream.isPlayed then begin
+          if gst_streamer_is_played(PriStream) then begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
-            PriStream.Destroy;
+            gst_streamer_unref(PriStream);
             PriStream := gst_streamer_new_from_launch(song^.FullPath, sharedWidgets^.VUMeter);
             g_object_unref(item_obj2);
           end;
@@ -144,9 +144,9 @@ begin
       end;
     end;
     'listbox.prev': begin
-      if (PriStream <> nil) and (PriStream.Duration > 0) then begin
-        if PriStream.Position > 2000 then begin
-          PriStream.Position := 0;
+      if (PriStream <> nil) and (gst_streamer_get_duration(PriStream) > 0) then begin
+        if gst_streamer_get_position(PriStream) > 2000 then begin
+          gst_streamer_set_position(PriStream, 0);
         end else begin
           if index = 0 then begin
             index2 := Count - 1;
@@ -155,10 +155,10 @@ begin
           end;
 
           gtk_selection_model_select_item(selection_model, index2, True);
-          if PriStream.isPlayed then begin
+          if gst_streamer_is_played(PriStream) then begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
-            PriStream.Destroy;
+            gst_streamer_unref(PriStream);
             PriStream := gst_streamer_new_from_launch(song^.FullPath, sharedWidgets^.VUMeter);
             g_object_unref(item_obj2);
           end;

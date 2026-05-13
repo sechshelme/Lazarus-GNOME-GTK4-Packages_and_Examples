@@ -25,27 +25,14 @@ type
   end;
   PGSTStreamerClass = ^TGSTStreamerClass;
 
-  // ===========================
-
-  { TStreamer }
-
-  { PGSTStreamerHelper }
 
   PGSTStreamerHelper = type Helper for PGSTStreamer
-  private
-    function GetDuration: TGstClockTime;
-    procedure SetVolume(vol: Tgdouble);
-    procedure SetPosition(AValue: TGstClockTime);
-    function GetPosition: TGstClockTime;
   public
-    procedure Destroy;
-
-    property Position: TGstClockTime read GetPosition write SetPosition;
-    property Duration: TGstClockTime read GetDuration;
-    property Volume: Tgdouble write SetVolume;
-    function isPlayed: boolean;
-    function isEnd: boolean;
-    procedure SetLevelWidget(w: PGtkWidget);
+//    procedure Destroy;
+//    property Volume: Tgdouble write SetVolume;
+//    function isPlayed: boolean;
+//    function isEnd: boolean;
+//    procedure SetLevelWidget(w: PGtkWidget);
   end;
 
 function GstClockToStr(t: TGstClockTime): string;
@@ -58,6 +45,16 @@ function gst_streamer_new_from_launch( song: PChar; VU_Widget: PGtkWidget): PGST
 procedure gst_streamer_play(self: PGSTStreamer);
 procedure gst_streamer_pause(self: PGSTStreamer);
 procedure gst_streamer_stop(self: PGSTStreamer);
+procedure gst_streamer_set_position(self: PGSTStreamer;p:TGstClockTime);
+function gst_streamer_get_position(self: PGSTStreamer):TGstClockTime;
+function gst_streamer_get_duration(self: PGSTStreamer):TGstClockTime;
+procedure gst_streamer_set_volume(self: PGSTStreamer;v:Tgdouble);
+function gst_streamer_is_played(self: PGSTStreamer):Boolean;
+function gst_streamer_is_end(self: PGSTStreamer):Boolean;
+
+procedure gst_streamer_set_vu_wideget(self: PGSTStreamer;w:PGtkWidget);
+
+procedure gst_streamer_unref(self: PGSTStreamer);
 
 
 implementation
@@ -74,6 +71,8 @@ var
   self: PGSTStreamer absolute obj;
 begin
   with self^ do begin
+
+
   end;
   G_OBJECT_CLASS(parent_class)^.finalize(obj);
 end;
@@ -172,7 +171,6 @@ end;
 
 function gst_streamer_new_from_launch(song: PChar; VU_Widget: PGtkWidget  ): PGSTStreamer;
 var
-  self: PGSTStreamer absolute Result;
   inner_bin: PGstElement;
   s: Pgchar;
 
@@ -188,23 +186,22 @@ begin
 
   if inner_bin <> nil then begin
     gst_bin_add(GST_BIN(Result), inner_bin);
-    Result^.volume := gst_bin_get_by_name(GST_BIN(inner_bin), 'vol');
     gst_element_sync_state_with_parent(inner_bin);
   end;
 
 
-  Self^.FisEnd := False;
-  Self^.Duration := GST_CLOCK_TIME_NONE;
-  Self^.LevelWidget := VU_Widget;
-  Self^.Level.L := 0.0;
-  Self^.Level.R := 0.0;
+  Result^.FisEnd := False;
+  Result^.Duration := GST_CLOCK_TIME_NONE;
+  Result^.LevelWidget := VU_Widget;
+  Result^.Level.L := 0.0;
+  Result^.Level.R := 0.0;
 
-  Self^.volume := gst_bin_get_by_name(GST_BIN(Self), 'vol');
-  if Self^.volume = nil then begin
+  Result^.volume := gst_bin_get_by_name(GST_BIN(Result), 'vol');
+  if Result^.volume = nil then begin
     WriteLn('Volume Error');
   end;
 
-  LevelEl := gst_bin_get_by_name(GST_BIN(Self), 'level');
+  LevelEl := gst_bin_get_by_name(GST_BIN(Result), 'level');
   if LevelEl = nil then begin
     WriteLn('Level Error');
   end else begin
@@ -215,13 +212,12 @@ begin
   end;
   g_object_unref(LevelEl);
 
-  bus := gst_element_get_bus(GST_ELEMENT(Self));
+  bus := gst_element_get_bus(GST_ELEMENT(Result));
   gst_bus_add_signal_watch(bus);
-  g_signal_connect(G_OBJECT(bus), 'message', G_CALLBACK(@message_cb), Self);
+  g_signal_connect(G_OBJECT(bus), 'message', G_CALLBACK(@message_cb), Result);
   gst_object_unref(bus);
 
-  gst_element_set_state(GST_ELEMENT(Self), GST_STATE_PLAYING);
-
+  gst_element_set_state(GST_ELEMENT(Result), GST_STATE_PLAYING);
 end;
 
 
@@ -237,10 +233,63 @@ end;
 
 procedure gst_streamer_stop(self: PGSTStreamer);
 begin
+  WriteLn(111111111);
+  WriteLn(PtrUInt(self));
   gst_element_set_state(GST_ELEMENT(Self), GST_STATE_NULL);
+  WriteLn(22222222);
 end;
 
+procedure gst_streamer_set_position(self: PGSTStreamer; p: TGstClockTime);
+begin
+  gst_element_seek_simple(GST_ELEMENT(Self), GST_FORMAT_TIME, TGstSeekFlags(int64(GST_SEEK_FLAG_FLUSH) or int64(GST_SEEK_FLAG_KEY_UNIT)), p);
+end;
 
+function gst_streamer_get_position(self: PGSTStreamer): TGstClockTime;
+begin
+gst_element_query_position(GST_ELEMENT(Self), GST_FORMAT_TIME, @Result);
+end;
+
+function gst_streamer_get_duration(self: PGSTStreamer): TGstClockTime;
+var
+  current: TGstClockTime = GST_CLOCK_TIME_NONE;
+begin
+  if Self^.Duration = GST_CLOCK_TIME_NONE then begin
+    gst_element_query_duration(GST_ELEMENT(Self), GST_FORMAT_TIME, @current);
+
+    if current <> GST_CLOCK_TIME_NONE then  begin
+      Self^.Duration := current;
+    end;
+  end;
+  Result := Self^.Duration;
+end;
+
+procedure gst_streamer_set_volume(self: PGSTStreamer; v: Tgdouble);
+begin
+  g_object_set(Self^.volume, 'volume', v, nil);
+end;
+
+function gst_streamer_is_played(self: PGSTStreamer): Boolean;
+begin
+  Result := Self^.state = GST_STATE_PLAYING;
+end;
+
+function gst_streamer_is_end(self: PGSTStreamer): Boolean;
+begin
+  Result := Self^.FIsEnd;
+end;
+
+procedure gst_streamer_set_vu_wideget(self: PGSTStreamer; w: PGtkWidget);
+begin
+  Self^.LevelWidget := w;
+end;
+
+procedure gst_streamer_unref(self: PGSTStreamer);
+begin
+  gst_streamer_stop(Self);
+  gst_object_unref(Self^.volume);
+  gst_object_unref(Self);
+  self := nil;
+end;
 
 
 // ================================================
@@ -314,56 +363,12 @@ end;
 
 // ========================
 
-procedure PGSTStreamerHelper.Destroy;
-begin
-  gst_streamer_stop(Self);
-  gst_object_unref(Self^.volume);
-  gst_object_unref(Self);
-  self := nil;
-end;
-
-procedure PGSTStreamerHelper.SetPosition(AValue: TGstClockTime);
-begin
-  gst_element_seek_simple(GST_ELEMENT(Self), GST_FORMAT_TIME, TGstSeekFlags(int64(GST_SEEK_FLAG_FLUSH) or int64(GST_SEEK_FLAG_KEY_UNIT)), AValue);
-end;
-
-function PGSTStreamerHelper.GetPosition: TGstClockTime;
-begin
-  gst_element_query_position(GST_ELEMENT(Self), GST_FORMAT_TIME, @Result);
-end;
-
-function PGSTStreamerHelper.GetDuration: TGstClockTime;
-var
-  current: TGstClockTime = GST_CLOCK_TIME_NONE;
-begin
-  if Self^.Duration = GST_CLOCK_TIME_NONE then begin
-    gst_element_query_duration(GST_ELEMENT(Self), GST_FORMAT_TIME, @current);
-
-    if current <> GST_CLOCK_TIME_NONE then  begin
-      Self^.Duration := current;
-    end;
-  end;
-  Result := Self^.Duration;
-end;
-
-procedure PGSTStreamerHelper.SetVolume(vol: Tgdouble);
-begin
-  g_object_set(Self^.volume, 'volume', vol, nil);
-end;
-
-function PGSTStreamerHelper.isPlayed: boolean;
-begin
-  Result := Self^.state = GST_STATE_PLAYING;
-end;
-
-function PGSTStreamerHelper.isEnd: boolean;
-begin
-  Result := Self^.FIsEnd;
-end;
-
-procedure PGSTStreamerHelper.SetLevelWidget(w: PGtkWidget);
-begin
-  Self^.LevelWidget := w;
-end;
+//procedure PGSTStreamerHelper.Destroy;
+//begin
+//  gst_streamer_stop(Self);
+//  gst_object_unref(Self^.volume);
+//  gst_object_unref(Self);
+//  self := nil;
+//end;
 
 end.

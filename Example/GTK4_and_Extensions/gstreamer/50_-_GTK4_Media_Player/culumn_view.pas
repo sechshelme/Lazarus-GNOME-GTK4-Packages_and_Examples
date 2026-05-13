@@ -42,7 +42,7 @@ var
   s: string;
 
 begin
-  selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW( sharedWidgets^.columnView));
+  selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW(sharedWidgets^.columnView));
   list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
   Count := g_list_model_get_n_items(list_model);
 
@@ -56,37 +56,38 @@ begin
 
   if PriStream <> nil then begin
     if sharedWidgets^.IsChange then begin
-      PriStream.Position := Round(gtk_adjustment_get_value(adjustment));
+      gst_streamer_set_position(PriStream, Round(gtk_adjustment_get_value(adjustment)));
       sharedWidgets^.IsChange := False;
     end else begin
-      SPos := PriStream.Position;
-      SDur := PriStream.Duration;
+      SPos := gst_streamer_get_position(PriStream);
+      SDur := gst_streamer_get_duration(PriStream);
       gtk_adjustment_set_upper(adjustment, SDur);
       gtk_adjustment_set_value(adjustment, SPos);
 
       s := GstClockToStr(SPos);
-      gtk_label_set_label(GTK_LABEL(sharedWidgets^.LabelPosition), PChar(s));
+      gtk_label_set_label(GTK_LABEL(sharedWidgets^.LabelPosition), pchar(s));
 
       if SDur = GST_CLOCK_TIME_NONE then begin
         s := '--.--';
       end else begin
         s := GstClockToStr(SDur);
       end;
-      gtk_label_set_label(GTK_LABEL(sharedWidgets^.LabelDuration), PChar(s));
+      gtk_label_set_label(GTK_LABEL(sharedWidgets^.LabelDuration), pchar(s));
 
       if SPos = GST_CLOCK_TIME_NONE then begin
-        PriStream.Volume := 0.0;
+        gst_streamer_set_volume(PriStream, 0.0);
       end else begin
-        PriStream.Volume := clamp01(SPos / FITime);
+        gst_streamer_set_volume(PriStream, clamp01(SPos / FITime));
       end;
 
-      if PriStream.Duration <> GST_CLOCK_TIME_NONE then begin
-        if PriStream.isEnd or (PriStream.Duration - SPos < CFTime) then begin
+      if gst_streamer_get_duration(PriStream) <> GST_CLOCK_TIME_NONE then begin
+        if gst_streamer_is_end(PriStream) or (gst_streamer_get_duration(PriStream) - SPos < CFTime) then begin
           if SekStream <> nil then begin
-            SekStream.Destroy;
+            gst_streamer_unref(SekStream);
+//            SekStream:=nil;
           end;
           SekStream := PriStream;
-          SekStream.SetLevelWidget(nil);
+          gst_streamer_set_vu_wideget(SekStream, nil);
 
           if index >= 0 then begin
             if index >= Count - 1 then begin
@@ -98,7 +99,7 @@ begin
             song := g_object_get_data(item_obj, songObjectKey);
             gtk_adjustment_set_upper(adjustment, 0);
             gtk_adjustment_set_value(adjustment, 0);
-            PriStream:=        gst_streamer_new_from_launch(song^.FullPath, sharedWidgets^.VUMeter);
+            PriStream := gst_streamer_new_from_launch(song^.FullPath, sharedWidgets^.VUMeter);
             g_object_unref(item_obj);
             gtk_selection_model_select_item(selection_model, index2, True);
           end;
@@ -108,12 +109,12 @@ begin
   end;
 
   if SekStream <> nil then begin
-    if SekStream.Duration <> GST_CLOCK_TIME_NONE then begin
-      SekStream.Volume := clamp01((SekStream.Duration - SekStream.Position) / FITime);
+    if gst_streamer_get_duration(SekStream) <> GST_CLOCK_TIME_NONE then begin
+      gst_streamer_set_volume(SekStream, clamp01((gst_streamer_get_duration(SekStream) - gst_streamer_get_position(SekStream)) / FITime));
     end;
 
-    if SekStream.isEnd then begin
-      SekStream.Destroy;
+    if gst_streamer_is_end(SekStream) then begin
+      gst_streamer_unref(SekStream);
     end;
   end;
   //    with SongListPanel do begin
@@ -161,7 +162,7 @@ begin
       if song^.Duration = GST_CLOCK_TIME_NONE then begin
         buffer := g_strdup_printf('(error)');
       end else begin
-        buffer := g_strdup_printf('%s', PChar(GstClockToStr(song^.Duration)));
+        buffer := g_strdup_printf('%s', pchar(GstClockToStr(song^.Duration)));
       end;
     end;
   end;
@@ -190,7 +191,7 @@ var
 begin
   app := g_application_get_default;
 
-  if (PriStream <> nil) and (PriStream.isPlayed) then begin
+  if (PriStream <> nil) and (gst_streamer_is_played(PriStream)) then begin
     action := g_action_map_lookup_action(G_ACTION_MAP(app), 'listbox.stop');
     if action <> nil then begin
       g_action_activate(action, nil);
@@ -211,10 +212,10 @@ begin
     g_source_remove(idle_id);
   end;
   if PriStream <> nil then begin
-    PriStream.Destroy;
+    gst_streamer_unref(PriStream);
   end;
   if SekStream <> nil then begin
-    SekStream.Destroy;
+    gst_streamer_unref(SekStream);
   end;
 end;
 
