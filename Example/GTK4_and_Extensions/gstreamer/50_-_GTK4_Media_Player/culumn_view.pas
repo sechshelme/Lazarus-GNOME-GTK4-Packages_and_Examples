@@ -83,8 +83,7 @@ begin
       if gst_streamer_get_duration(PriStream) <> GST_CLOCK_TIME_NONE then begin
         if gst_streamer_is_end(PriStream) or (gst_streamer_get_duration(PriStream) - SPos < CFTime) then begin
           if SekStream <> nil then begin
-            gst_streamer_unref(SekStream);
-//            SekStream:=nil;
+            gst_clear_object(@SekStream);
           end;
           SekStream := PriStream;
           gst_streamer_set_vu_wideget(SekStream, nil);
@@ -114,7 +113,7 @@ begin
     end;
 
     if gst_streamer_is_end(SekStream) then begin
-      gst_streamer_unref(SekStream);
+      gst_clear_object(@SekStream);
     end;
   end;
   //    with SongListPanel do begin
@@ -212,10 +211,10 @@ begin
     g_source_remove(idle_id);
   end;
   if PriStream <> nil then begin
-    gst_streamer_unref(PriStream);
+    gst_clear_object(@PriStream);
   end;
   if SekStream <> nil then begin
-    gst_streamer_unref(SekStream);
+    gst_clear_object(@SekStream);
   end;
 end;
 

@@ -3,7 +3,7 @@ unit Action;
 interface
 
 uses
-  fp_glib2, fp_pango, fp_GTK4,
+  fp_glib2, fp_pango, fp_GTK4, fp_gst,
   Common,
   LoadTitle, Streamer, XML_Tools, LoadSaveSongs;
 
@@ -106,8 +106,7 @@ begin
     'listbox.stop': begin
       WriteLn('stop');
       if PriStream <> nil then begin
-        //        gst_streamer_stop(PriStream);
-        gst_streamer_unref(PriStream);
+        gst_clear_object(@PriStream);
         gtk_adjustment_set_value(adjustment, 0);
         gtk_adjustment_set_upper(adjustment, 1000);
       end;
@@ -136,7 +135,7 @@ begin
           if gst_streamer_is_played(PriStream) then begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
-            gst_streamer_unref(PriStream);
+            gst_clear_object(@PriStream);
             PriStream := gst_streamer_new_from_launch(song^.FullPath, sharedWidgets^.VUMeter);
             g_object_unref(item_obj2);
           end;
@@ -158,7 +157,7 @@ begin
           if gst_streamer_is_played(PriStream) then begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
-            gst_streamer_unref(PriStream);
+            gst_clear_object(@PriStream);
             PriStream := gst_streamer_new_from_launch(song^.FullPath, sharedWidgets^.VUMeter);
             g_object_unref(item_obj2);
           end;

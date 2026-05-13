@@ -25,11 +25,6 @@ type
   end;
   PGSTStreamerClass = ^TGSTStreamerClass;
 
-function GstClockToStr(t: TGstClockTime): string;
-function get_duration(audioFile: Pgchar): TGstClockTime;
-
-// ================================================
-
 function gst_streamer_get_type: TGType;
 function gst_streamer_new_from_launch(song: pchar; VU_Widget: PGtkWidget): PGSTStreamer;
 procedure gst_streamer_play(self: PGSTStreamer);
@@ -44,7 +39,10 @@ function gst_streamer_is_end(self: PGSTStreamer): boolean;
 
 procedure gst_streamer_set_vu_wideget(self: PGSTStreamer; w: PGtkWidget);
 
-procedure gst_streamer_unref(var self: PGSTStreamer);
+// ================================================
+
+function GstClockToStr(t: TGstClockTime): string;
+function get_duration(audioFile: Pgchar): TGstClockTime;
 
 
 implementation
@@ -266,15 +264,6 @@ end;
 procedure gst_streamer_set_vu_wideget(self: PGSTStreamer; w: PGtkWidget);
 begin
   Self^.LevelWidget := w;
-end;
-
-procedure gst_streamer_unref(var self: PGSTStreamer);
-begin
-  g_clear_object(@self);
-
-//  gst_object_unref(Self);
-  //timer unterbrischt
-//  self := nil;
 end;
 
 
