@@ -3,7 +3,7 @@ unit Action;
 interface
 
 uses
-  fp_glib2, fp_pango, fp_GTK4, fp_gst,
+  fp_glib2, fp_pango, fp_GTK4,
   Common,
   LoadTitle, Streamer, XML_Tools, LoadSaveSongs;
 

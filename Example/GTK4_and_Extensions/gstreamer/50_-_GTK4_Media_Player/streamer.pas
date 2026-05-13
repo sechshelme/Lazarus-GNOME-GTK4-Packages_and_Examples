@@ -25,36 +25,26 @@ type
   end;
   PGSTStreamerClass = ^TGSTStreamerClass;
 
-
-  PGSTStreamerHelper = type Helper for PGSTStreamer
-  public
-//    procedure Destroy;
-//    property Volume: Tgdouble write SetVolume;
-//    function isPlayed: boolean;
-//    function isEnd: boolean;
-//    procedure SetLevelWidget(w: PGtkWidget);
-  end;
-
 function GstClockToStr(t: TGstClockTime): string;
 function get_duration(audioFile: Pgchar): TGstClockTime;
 
 // ================================================
 
 function gst_streamer_get_type: TGType;
-function gst_streamer_new_from_launch( song: PChar; VU_Widget: PGtkWidget): PGSTStreamer;
+function gst_streamer_new_from_launch(song: pchar; VU_Widget: PGtkWidget): PGSTStreamer;
 procedure gst_streamer_play(self: PGSTStreamer);
 procedure gst_streamer_pause(self: PGSTStreamer);
 procedure gst_streamer_stop(self: PGSTStreamer);
-procedure gst_streamer_set_position(self: PGSTStreamer;p:TGstClockTime);
-function gst_streamer_get_position(self: PGSTStreamer):TGstClockTime;
-function gst_streamer_get_duration(self: PGSTStreamer):TGstClockTime;
-procedure gst_streamer_set_volume(self: PGSTStreamer;v:Tgdouble);
-function gst_streamer_is_played(self: PGSTStreamer):Boolean;
-function gst_streamer_is_end(self: PGSTStreamer):Boolean;
+procedure gst_streamer_set_position(self: PGSTStreamer; p: TGstClockTime);
+function gst_streamer_get_position(self: PGSTStreamer): TGstClockTime;
+function gst_streamer_get_duration(self: PGSTStreamer): TGstClockTime;
+procedure gst_streamer_set_volume(self: PGSTStreamer; v: Tgdouble);
+function gst_streamer_is_played(self: PGSTStreamer): boolean;
+function gst_streamer_is_end(self: PGSTStreamer): boolean;
 
-procedure gst_streamer_set_vu_wideget(self: PGSTStreamer;w:PGtkWidget);
+procedure gst_streamer_set_vu_wideget(self: PGSTStreamer; w: PGtkWidget);
 
-procedure gst_streamer_unref(self: PGSTStreamer);
+procedure gst_streamer_unref(var self: PGSTStreamer);
 
 
 implementation
@@ -66,20 +56,19 @@ implementation
 var
   parent_class: PGSTStreamerClass = nil;
 
-procedure finalize_cp(obj: PGObject); cdecl;
+procedure dispose_cp(obj: PGObject); cdecl;
 var
   self: PGSTStreamer absolute obj;
 begin
-  with self^ do begin
+  gst_streamer_stop(Self);
+  gst_object_unref(Self^.volume);
 
-
-  end;
-  G_OBJECT_CLASS(parent_class)^.finalize(obj);
+  G_OBJECT_CLASS(parent_class)^.dispose(obj);
 end;
 
 procedure class_init(g_class: Tgpointer; class_data: Tgpointer); cdecl;
 begin
-  G_OBJECT_CLASS(g_class)^.finalize := @finalize_cp;
+  G_OBJECT_CLASS(g_class)^.dispose := @dispose_cp;
   parent_class := g_type_class_peek_parent(g_class);
 end;
 
@@ -169,7 +158,7 @@ begin
   Result := type_id;
 end;
 
-function gst_streamer_new_from_launch(song: PChar; VU_Widget: PGtkWidget  ): PGSTStreamer;
+function gst_streamer_new_from_launch(song: pchar; VU_Widget: PGtkWidget): PGSTStreamer;
 var
   inner_bin: PGstElement;
   s: Pgchar;
@@ -188,7 +177,6 @@ begin
     gst_bin_add(GST_BIN(Result), inner_bin);
     gst_element_sync_state_with_parent(inner_bin);
   end;
-
 
   Result^.FisEnd := False;
   Result^.Duration := GST_CLOCK_TIME_NONE;
@@ -233,10 +221,7 @@ end;
 
 procedure gst_streamer_stop(self: PGSTStreamer);
 begin
-  WriteLn(111111111);
-  WriteLn(PtrUInt(self));
   gst_element_set_state(GST_ELEMENT(Self), GST_STATE_NULL);
-  WriteLn(22222222);
 end;
 
 procedure gst_streamer_set_position(self: PGSTStreamer; p: TGstClockTime);
@@ -246,7 +231,7 @@ end;
 
 function gst_streamer_get_position(self: PGSTStreamer): TGstClockTime;
 begin
-gst_element_query_position(GST_ELEMENT(Self), GST_FORMAT_TIME, @Result);
+  gst_element_query_position(GST_ELEMENT(Self), GST_FORMAT_TIME, @Result);
 end;
 
 function gst_streamer_get_duration(self: PGSTStreamer): TGstClockTime;
@@ -268,12 +253,12 @@ begin
   g_object_set(Self^.volume, 'volume', v, nil);
 end;
 
-function gst_streamer_is_played(self: PGSTStreamer): Boolean;
+function gst_streamer_is_played(self: PGSTStreamer): boolean;
 begin
   Result := Self^.state = GST_STATE_PLAYING;
 end;
 
-function gst_streamer_is_end(self: PGSTStreamer): Boolean;
+function gst_streamer_is_end(self: PGSTStreamer): boolean;
 begin
   Result := Self^.FIsEnd;
 end;
@@ -283,10 +268,10 @@ begin
   Self^.LevelWidget := w;
 end;
 
-procedure gst_streamer_unref(self: PGSTStreamer);
+procedure gst_streamer_unref(var self: PGSTStreamer);
 begin
-  gst_streamer_stop(Self);
-  gst_object_unref(Self^.volume);
+  //gst_streamer_stop(Self);
+  //gst_object_unref(Self^.volume);
   gst_object_unref(Self);
   self := nil;
 end;
@@ -360,15 +345,5 @@ begin
     end;
   end;
 end;
-
-// ========================
-
-//procedure PGSTStreamerHelper.Destroy;
-//begin
-//  gst_streamer_stop(Self);
-//  gst_object_unref(Self^.volume);
-//  gst_object_unref(Self);
-//  self := nil;
-//end;
 
 end.

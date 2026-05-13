@@ -17,8 +17,8 @@ type
   PGObjectConstructParam = ^TGObjectConstructParam;
 
   TGObjectGetPropertyFunc = procedure(obj: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
-  TGObjectSetPropertyFunc = procedure(obj_: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
-  TGObjectFinalizeFunc = procedure(obj_: PGObject); cdecl;
+  TGObjectSetPropertyFunc = procedure(obj: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
+  TGObjectFinalizeFunc = procedure(obj: PGObject); cdecl;
   TGWeakNotify = procedure(Data: Tgpointer; where_the_object_was: PGObject); cdecl;
   PGObjectClass = ^TGObjectClass;
 
@@ -28,7 +28,7 @@ type
     constructor_: function(_type: TGType; n_construct_properties: Tguint; construct_properties: PGObjectConstructParam): PGObject; cdecl;
     set_property: procedure(obj: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
     get_property: procedure(obj: PGObject; property_id: Tguint; Value: PGValue; pspec: PGParamSpec); cdecl;
-    dispose: procedure(obj_: PGObject); cdecl;
+    dispose: procedure(obj: PGObject); cdecl;
     finalize: procedure(obj: PGObject); cdecl;
     dispatch_properties_changed: procedure(obj: PGObject; n_pspecs: Tguint; pspecs: PPGParamSpec); cdecl;
     notify: procedure(obj: PGObject; pspec: PGParamSpec); cdecl;
