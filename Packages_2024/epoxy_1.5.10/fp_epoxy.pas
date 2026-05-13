@@ -3,8 +3,8 @@ unit fp_epoxy;
 interface
 
 
-uses
   {$ifdef linux}
+uses
   x, xlib, xutil;
   {$endif}
 

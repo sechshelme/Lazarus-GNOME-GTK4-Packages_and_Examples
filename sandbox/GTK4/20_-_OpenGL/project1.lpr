@@ -5,7 +5,7 @@ uses
   fp_epoxy,
   fp_glib2,
   fp_GTK4,
-  MyWidget;
+  GLAreaWidget;
 
   procedure quit_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
@@ -39,7 +39,7 @@ uses
     gtk_box_append(GTK_BOX(box), grid);
 
     for i := 0 to c * r - 1 do begin
-      gl_area := my_gl_widget_new(g_random_double);
+      gl_area := gl_area_widget_new(g_random_double);
       gtk_widget_set_hexpand(gl_area, True);
       gtk_widget_set_vexpand(gl_area, True);
 

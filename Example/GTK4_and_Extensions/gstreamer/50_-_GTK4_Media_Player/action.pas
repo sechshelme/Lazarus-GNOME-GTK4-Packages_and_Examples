@@ -92,7 +92,7 @@ begin
     'listbox.play': begin
       if PriStream = nil then begin
         if Count > 0 then begin
-          PriStream.Create(song^.FullPath, sharedWidgets^.VUMeter);
+          PriStream := gst_streamer_new_from_launch(song^.FullPath, sharedWidgets^.VUMeter);
         end;
       end else begin
         gst_streamer_play(PriStream);
@@ -100,13 +100,13 @@ begin
     end;
     'listbox.pause': begin
       if PriStream <> nil then begin
-        PriStream.Pause;
+        gst_streamer_pause(PriStream);
       end;
     end;
     'listbox.stop': begin
       WriteLn('stop');
       if PriStream <> nil then begin
-        PriStream.Stop;
+        gst_streamer_stop(PriStream);
         PriStream.Destroy;
         gtk_adjustment_set_value(adjustment, 0);
         gtk_adjustment_set_upper(adjustment, 1000);
@@ -137,7 +137,7 @@ begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
             PriStream.Destroy;
-            PriStream.Create(song^.FullPath, sharedWidgets^.VUMeter);
+            PriStream := gst_streamer_new_from_launch(song^.FullPath, sharedWidgets^.VUMeter);
             g_object_unref(item_obj2);
           end;
         end;
@@ -159,7 +159,7 @@ begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
             PriStream.Destroy;
-            PriStream.Create(song^.FullPath, sharedWidgets^.VUMeter);
+            PriStream := gst_streamer_new_from_launch(song^.FullPath, sharedWidgets^.VUMeter);
             g_object_unref(item_obj2);
           end;
         end;

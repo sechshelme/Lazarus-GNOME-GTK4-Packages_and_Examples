@@ -24,7 +24,7 @@ implementation
 type
   TShaderPrivat = record
     FProgramObject: TGLint;
-    error_text: string;
+    error_text: pchar;
   end;
   PShaderPrivat = ^TShaderPrivat;
 
@@ -34,7 +34,7 @@ var
 begin
   sh := GetMem(SizeOf(TShaderPrivat));
   sh^.FProgramObject := glCreateProgram();
-  sh^.error_text := '';
+  sh^.error_text := nil;
 end;
 
 function shader_get_ID(shader: PShader): TGLint; cdecl;
@@ -64,8 +64,11 @@ begin
   // Check  Shader
   glGetShaderiv(ShaderObject, GL_COMPILE_STATUS, @ErrorStatus);
   glGetShaderiv(ShaderObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-  SetLength(sh^.error_text, InfoLogLength + 1);
-  glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, pchar(sh^.error_text));
+  if sh^.error_text <> nil then begin
+    Freemem(sh^.error_text);
+  end;
+  sh^.error_text := AllocMem(InfoLogLength + 1);
+  glGetShaderInfoLog(ShaderObject, InfoLogLength, nil, sh^.error_text);
 
   if ErrorStatus = GL_FALSE then begin
     Result := False;
@@ -89,7 +92,10 @@ begin
   if ErrorStatus = GL_FALSE then begin
     Result := False;
     glGetProgramiv(sh^.FProgramObject, GL_INFO_LOG_LENGTH, @InfoLogLength);
-    SetLength(sh^.error_text, InfoLogLength + 1);
+    if sh^.error_text <> nil then begin
+      Freemem(sh^.error_text);
+    end;
+    sh^.error_text := AllocMem(InfoLogLength + 1);
     glGetProgramInfoLog(sh^.FProgramObject, InfoLogLength, nil, pchar(sh^.error_text));
   end;
 end;
@@ -98,7 +104,7 @@ function shader_get_errortext(shader: PShader): pchar; cdecl;
 var
   sh: PShaderPrivat absolute shader;
 begin
-  Result := pchar(sh^.error_text);
+  Result := sh^.error_text;
 end;
 
 procedure shader_use_program(shader: PShader); cdecl;
@@ -134,7 +140,9 @@ var
   sh: PShaderPrivat absolute shader;
 begin
   glDeleteProgram(sh^.FProgramObject);
-  sh^.error_text := '';
+  if sh^.error_text <> nil then begin
+    Freemem(sh^.error_text);
+  end;
   Freemem(sh);
 end;
 

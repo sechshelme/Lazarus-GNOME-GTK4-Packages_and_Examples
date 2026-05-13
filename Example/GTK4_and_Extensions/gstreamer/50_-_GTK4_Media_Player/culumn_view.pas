@@ -98,7 +98,7 @@ begin
             song := g_object_get_data(item_obj, songObjectKey);
             gtk_adjustment_set_upper(adjustment, 0);
             gtk_adjustment_set_value(adjustment, 0);
-            PriStream.Create(song^.FullPath, sharedWidgets^.VUMeter);
+            PriStream:=        gst_streamer_new_from_launch(song^.FullPath, sharedWidgets^.VUMeter);
             g_object_unref(item_obj);
             gtk_selection_model_select_item(selection_model, index2, True);
           end;

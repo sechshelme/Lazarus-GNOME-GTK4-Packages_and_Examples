@@ -1,4 +1,4 @@
-unit MyWidget;
+unit GLAreaWidget;
 
 interface
 
@@ -8,28 +8,28 @@ uses
   fp_graphene;
 
 type
-  TMyGLWidget = record
+  TGLAreaWidget = record
     parent_instance: TGtkGLArea;
     shader: PShader;
     VBO, VAO: TGLuint;
     ang, step: single;
   end;
-  PGLMyWidget = ^TMyGLWidget;
+  PGLAreaWidget = ^TGLAreaWidget;
 
-  TMyGLWidgetClass = record
+  TGLAreaWidgetClass = record
     parent_class: TGtkGLAreaClass;
   end;
-  PMyGLWidgetClass = ^TMyGLWidgetClass;
+  PGLAreaWidgetClass = ^TGLAreaWidgetClass;
 
-function my_gl_widget_get_type: TGType;
-function my_gl_widget_new(step: single): PGTKWidget;
+function gl_area_widget_get_type: TGType;
+function gl_area_widget_new(step: single): PGTKWidget;
 
 implementation
 
 // ==== private
 
 var
-  parent_class: PMyGLWidgetClass = nil;
+  parent_class: PGLAreaWidgetClass = nil;
 
 const
   VertexShaderSource =
@@ -67,7 +67,7 @@ end;
 
 procedure on_realize(area: PGtkGLArea); cdecl;
 var
-  self: PGLMyWidget absolute area;
+  self: PGLAreaWidget absolute area;
 
   vertices: array[0..17] of TGLfloat = (
     -0.6, -0.3464, 0.0, 1.0, 0.0, 0.0,
@@ -113,7 +113,7 @@ end;
 
 function on_render(area: PGtkGLArea; context: PGdkGLContext): Tgboolean; cdecl;
 var
-  self: PGLMyWidget absolute area;
+  self: PGLAreaWidget absolute area;
   id: TGLint;
 begin
   with self^ do begin
@@ -139,7 +139,7 @@ end;
 
 procedure on_unrealize(area: PGtkGLArea); cdecl;
 var
-  self: PGLMyWidget absolute area;
+  self: PGLAreaWidget absolute area;
 begin
   with self^ do begin
     gtk_gl_area_make_current(area);
@@ -152,7 +152,7 @@ end;
 
 procedure finalize_cp(obj: PGObject); cdecl;
 var
-  self: PGLMyWidget absolute obj;
+  self: PGLAreaWidget absolute obj;
 begin
   with self^ do begin
   end;
@@ -184,24 +184,24 @@ end;
 
 // ==== public
 
-function my_gl_widget_get_type: TGType;
+function gl_area_widget_get_type: TGType;
 const
   type_id: TGType = 0;
 var
   id: TGType;
 begin
   if g_once_init_enter(@type_id) then begin
-    id := g_type_register_static_simple(GTK_TYPE_GL_AREA, 'MyGLWidget', SizeOf(TMyGLWidgetClass), @class_init, SizeOf(TMyGLWidget), @init_cp, 0);
+    id := g_type_register_static_simple(GTK_TYPE_GL_AREA, 'MyGLWidget', SizeOf(TGLAreaWidgetClass), @class_init, SizeOf(TGLAreaWidget), @init_cp, 0);
     g_once_init_leave(@type_id, id);
   end;
   Result := type_id;
 end;
 
-function my_gl_widget_new(step: single): PGTKWidget;
+function gl_area_widget_new(step: single): PGTKWidget;
 var
-  self: PGLMyWidget absolute Result;
+  self: PGLAreaWidget absolute Result;
 begin
-  self := g_object_new(my_gl_widget_get_type, nil);
+  self := g_object_new(gl_area_widget_get_type, nil);
   self^.step := step;
 end;
 

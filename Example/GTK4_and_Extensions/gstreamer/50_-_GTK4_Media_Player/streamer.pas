@@ -29,6 +29,8 @@ type
 
   { TStreamer }
 
+  { PGSTStreamerHelper }
+
   PGSTStreamerHelper = type Helper for PGSTStreamer
   private
     function GetDuration: TGstClockTime;
@@ -36,11 +38,8 @@ type
     procedure SetPosition(AValue: TGstClockTime);
     function GetPosition: TGstClockTime;
   public
-    procedure Create(const AsongPath: string; VU_Widget: PGtkWidget);
     procedure Destroy;
-    procedure Play;
-    procedure Pause;
-    procedure Stop;
+
     property Position: TGstClockTime read GetPosition write SetPosition;
     property Duration: TGstClockTime read GetDuration;
     property Volume: Tgdouble write SetVolume;
@@ -55,8 +54,10 @@ function get_duration(audioFile: Pgchar): TGstClockTime;
 // ================================================
 
 function gst_streamer_get_type: TGType;
-function gst_streamer_new_from_launch(const description: string): PGSTStreamer;
+function gst_streamer_new_from_launch( song: PChar; VU_Widget: PGtkWidget): PGSTStreamer;
 procedure gst_streamer_play(self: PGSTStreamer);
+procedure gst_streamer_pause(self: PGSTStreamer);
+procedure gst_streamer_stop(self: PGSTStreamer);
 
 
 implementation
@@ -91,6 +92,68 @@ begin
   end;
 end;
 
+function message_cb({%H-}bus: PGstBus; msg: PGstMessage; user_data: Tgpointer): Tgboolean; cdecl;
+var
+  pipeline: PGstElement absolute user_data;
+
+  s: PGstStructure;
+  Name, debug_info: Pgchar;
+  array_val: PGValue;
+  rms_arr: PGValueArray;
+  channels: Tguint;
+  Value: PGValue;
+  old_state, new_state, pending_state: TGstState;
+  err: PGError;
+begin
+
+  case msg^._type of
+    GST_MESSAGE_EOS: begin
+      PGSTStreamer(pipeline)^.FIsEnd := True;
+    end;
+    GST_MESSAGE_STATE_CHANGED: begin
+      gst_message_parse_state_changed(msg, @old_state, @new_state, @pending_state);
+      PGSTStreamer(pipeline)^.state := new_state;
+    end;
+    GST_MESSAGE_ELEMENT: begin
+      if PGSTStreamer(pipeline)^.LevelWidget <> nil then begin
+        s := gst_message_get_structure(msg);
+        Name := gst_structure_get_name(s);
+        if g_strcmp0(Name, 'level') = 0 then begin
+
+          array_val := gst_structure_get_value(s, 'rms'); // decay, rms, peak
+          rms_arr := g_value_get_boxed(array_val);
+
+          channels := rms_arr^.n_values;
+          if channels >= 2 then begin
+            Value := g_value_array_get_nth(rms_arr, 0);
+            PGSTStreamer(pipeline)^.Level.L := g_value_get_double(Value);
+            Value := g_value_array_get_nth(rms_arr, 1);
+            PGSTStreamer(pipeline)^.Level.R := g_value_get_double(Value);
+          end;
+
+          vu_meter_widget_set_level(PVUMeterWidget(PGSTStreamer(pipeline)^.LevelWidget), @PGSTStreamer(pipeline)^.Level);
+          gtk_widget_queue_draw(PGSTStreamer(pipeline)^.LevelWidget);
+        end;
+      end;
+    end;
+    GST_MESSAGE_ERROR: begin
+      gst_message_parse_error(msg, @err, @debug_info);
+      WriteLn('Fehler:', err^.message);
+      if debug_info <> nil then begin
+        WriteLn('Debug: ', debug_info);
+        g_free(debug_info);
+      end;
+      g_error_free(err);
+    end else begin
+      //      WriteLn(GST_MESSAGE_TYPE(msg));
+    end;
+  end;
+
+  Result := True;
+end;
+
+
+
 
 // ==== public
 
@@ -107,22 +170,74 @@ begin
   Result := type_id;
 end;
 
-function gst_streamer_new_from_launch(const description: string): PGSTStreamer;
+function gst_streamer_new_from_launch(song: PChar; VU_Widget: PGtkWidget  ): PGSTStreamer;
 var
+  self: PGSTStreamer absolute Result;
   inner_bin: PGstElement;
+  s: Pgchar;
+
+  bus: PGstBus;
+  LevelEl: PGstElement;
+
 begin
   Result := PGSTStreamer(g_object_new(gst_streamer_get_type, nil));
-  inner_bin := gst_parse_bin_from_description(PChar(description), False, nil);
+
+  s := g_strdup_printf('filesrc location="%s" ! queue ! decodebin3 ! audioconvert ! audioresample ! volume name=vol volume=0.0 ! level name=level ! autoaudiosink', song);
+  inner_bin := gst_parse_bin_from_description(s, False, nil);
+  g_free(s);
+
   if inner_bin <> nil then begin
     gst_bin_add(GST_BIN(Result), inner_bin);
     Result^.volume := gst_bin_get_by_name(GST_BIN(inner_bin), 'vol');
     gst_element_sync_state_with_parent(inner_bin);
   end;
+
+
+  Self^.FisEnd := False;
+  Self^.Duration := GST_CLOCK_TIME_NONE;
+  Self^.LevelWidget := VU_Widget;
+  Self^.Level.L := 0.0;
+  Self^.Level.R := 0.0;
+
+  Self^.volume := gst_bin_get_by_name(GST_BIN(Self), 'vol');
+  if Self^.volume = nil then begin
+    WriteLn('Volume Error');
+  end;
+
+  LevelEl := gst_bin_get_by_name(GST_BIN(Self), 'level');
+  if LevelEl = nil then begin
+    WriteLn('Level Error');
+  end else begin
+    g_object_set(G_OBJECT(LevelEl),
+      'post-messages', True,
+      'interval', GST_SECOND div 50,
+      nil);
+  end;
+  g_object_unref(LevelEl);
+
+  bus := gst_element_get_bus(GST_ELEMENT(Self));
+  gst_bus_add_signal_watch(bus);
+  g_signal_connect(G_OBJECT(bus), 'message', G_CALLBACK(@message_cb), Self);
+  gst_object_unref(bus);
+
+  gst_element_set_state(GST_ELEMENT(Self), GST_STATE_PLAYING);
+
 end;
 
 
 procedure gst_streamer_play(self: PGSTStreamer);
 begin
+  gst_element_set_state(GST_ELEMENT(Self), GST_STATE_PLAYING);
+end;
+
+procedure gst_streamer_pause(self: PGSTStreamer);
+begin
+  gst_element_set_state(GST_ELEMENT(Self), GST_STATE_PAUSED);
+end;
+
+procedure gst_streamer_stop(self: PGSTStreamer);
+begin
+  gst_element_set_state(GST_ELEMENT(Self), GST_STATE_NULL);
 end;
 
 
@@ -199,125 +314,12 @@ end;
 
 // ========================
 
-function message_cb({%H-}bus: PGstBus; msg: PGstMessage; user_data: Tgpointer): Tgboolean; cdecl;
-var
-  pipeline: PGstElement absolute user_data;
-
-  s: PGstStructure;
-  Name, debug_info: Pgchar;
-  array_val: PGValue;
-  rms_arr: PGValueArray;
-  channels: Tguint;
-  Value: PGValue;
-  old_state, new_state, pending_state: TGstState;
-  err: PGError;
-begin
-
-  case msg^._type of
-    GST_MESSAGE_EOS: begin
-     PGSTStreamer( pipeline)^.FIsEnd := True;
-    end;
-    GST_MESSAGE_STATE_CHANGED: begin
-      gst_message_parse_state_changed(msg, @old_state, @new_state, @pending_state);
-      PGSTStreamer( pipeline)^.state := new_state;
-    end;
-    GST_MESSAGE_ELEMENT: begin
-      if PGSTStreamer( pipeline)^.LevelWidget <> nil then begin
-        s := gst_message_get_structure(msg);
-        Name := gst_structure_get_name(s);
-        if g_strcmp0(Name, 'level') = 0 then begin
-
-          array_val := gst_structure_get_value(s, 'rms'); // decay, rms, peak
-          rms_arr := g_value_get_boxed(array_val);
-
-          channels := rms_arr^.n_values;
-          if channels >= 2 then begin
-            Value := g_value_array_get_nth(rms_arr, 0);
-            PGSTStreamer( pipeline)^.Level.L := g_value_get_double(Value);
-            Value := g_value_array_get_nth(rms_arr, 1);
-            PGSTStreamer( pipeline)^.Level.R := g_value_get_double(Value);
-          end;
-
-          vu_meter_widget_set_level(PVUMeterWidget(PGSTStreamer( pipeline)^.LevelWidget), @PGSTStreamer( pipeline)^.Level);
-          gtk_widget_queue_draw(PGSTStreamer( pipeline)^.LevelWidget);
-        end;
-      end;
-    end;
-    GST_MESSAGE_ERROR: begin
-      gst_message_parse_error(msg, @err, @debug_info);
-      WriteLn('Fehler:', err^.message);
-      if debug_info <> nil then begin
-        WriteLn('Debug: ', debug_info);
-        g_free(debug_info);
-      end;
-      g_error_free(err);
-    end else begin
-      //      WriteLn(GST_MESSAGE_TYPE(msg));
-    end;
-  end;
-
-  Result := True;
-end;
-
-// =========================
-
-procedure PGSTStreamerHelper.Create(const AsongPath: string; VU_Widget: PGtkWidget);
-var
-  bus: PGstBus;
-  LevelEl: PGstElement;
-begin
-  Self := gst_streamer_new_from_launch(pchar('filesrc location="' + AsongPath + '" ! queue ! decodebin3 ! audioconvert ! audioresample ! volume name=vol volume=0.0 ! level name=level ! autoaudiosink'));
-  Self^.FisEnd := False;
-  Self^.Duration := GST_CLOCK_TIME_NONE;
-  Self^.LevelWidget := VU_Widget;
-  Self^.Level.L := 0.0;
-  Self^.Level.R := 0.0;
-
-  Self^.volume := gst_bin_get_by_name(GST_BIN(Self), 'vol');
-  if Self^.volume = nil then begin
-    WriteLn('Volume Error');
-  end;
-
-  LevelEl := gst_bin_get_by_name(GST_BIN(Self), 'level');
-  if LevelEl = nil then begin
-    WriteLn('Level Error');
-  end else begin
-    g_object_set(G_OBJECT(LevelEl),
-      'post-messages', True,
-      'interval', GST_SECOND div 50,
-      nil);
-  end;
-  g_object_unref(LevelEl);
-
-  bus := gst_element_get_bus(GST_ELEMENT(Self));
-  gst_bus_add_signal_watch(bus);
-  g_signal_connect(G_OBJECT(bus), 'message', G_CALLBACK(@message_cb), Self);
-  gst_object_unref(bus);
-
-  gst_element_set_state(GST_ELEMENT(Self), GST_STATE_PLAYING);
-end;
-
 procedure PGSTStreamerHelper.Destroy;
 begin
-  Stop;
+  gst_streamer_stop(Self);
   gst_object_unref(Self^.volume);
   gst_object_unref(Self);
   self := nil;
-end;
-
-procedure PGSTStreamerHelper.Play;
-begin
-  gst_element_set_state(GST_ELEMENT(Self), GST_STATE_PLAYING);
-end;
-
-procedure PGSTStreamerHelper.Pause;
-begin
-  gst_element_set_state(GST_ELEMENT(Self), GST_STATE_PAUSED);
-end;
-
-procedure PGSTStreamerHelper.Stop;
-begin
-  gst_element_set_state(GST_ELEMENT(Self), GST_STATE_NULL);
 end;
 
 procedure PGSTStreamerHelper.SetPosition(AValue: TGstClockTime);
