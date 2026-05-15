@@ -5,7 +5,7 @@ unit Streamer;
 interface
 
 uses
-  Classes, SysUtils, fp_glib2, fp_GTK4,
+  Classes, SysUtils, fp_glib2,
   VUMeterWidget, fp_gst;
 
 type
@@ -116,7 +116,6 @@ begin
         end;
       end;
     end;
-
     GST_MESSAGE_ERROR: begin
       gst_message_parse_error(msg, @err, @debug_info);
       WriteLn('Fehler:', err^.message);
