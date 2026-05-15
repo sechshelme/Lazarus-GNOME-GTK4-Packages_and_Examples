@@ -6,15 +6,9 @@ uses
   fp_glib2, fp_GTK4, fp_graphene;
 
 type
-  TLevel = record
-    L, R: Tgdouble;
-  end;
-  PLevel = ^TLevel;
-
-type
   TVUMeterWidget = record
     parent_instance: TGtkWidget;
-    level: TLevel;
+    level: PGArray;
   end;
   PVUMeterWidget = ^TVUMeterWidget;
 
@@ -25,7 +19,7 @@ type
 
 function vu_meter_widget_get_type: TGType;
 function vu_meter_widget_new: PGTKWidget;
-procedure vu_meter_widget_set_level(self: PVUMeterWidget; level: PLevel);
+procedure vu_meter_widget_set_level(self: PVUMeterWidget; level: PGArray);
 
 implementation
 
@@ -39,39 +33,81 @@ var
   self: PVUMeterWidget absolute widget;
   width, height: single;
   r: Tgraphene_rect_t;
-  color: TGdkRGBA;
-  w: single;
+  c_green, c_yellow, c_red, c_bg: TGdkRGBA;
+  w_full, w_seg, h_per_channel, y_pos, x_start: single;
+  i: integer;
+  db: double;
 const
-  border = 3.0;
+  border = 2.0;
 
-  function dB_to_Prozent(db: double): single;
+  function GetWidthForDB(val: double; max_w: single): single;
   begin
-    Result := 300 - abs(Round(db) * 10);
+    if val < -60 then begin
+      val := -60;
+    end;
+    if val > 0 then begin
+      val := 0;
+    end;
+    Result := ((val + 60) / 60) * max_w;
   end;
 
 begin
   width := gtk_widget_get_width(widget);
   height := gtk_widget_get_height(widget);
 
-  gdk_rgba_parse(@color, '#002000');
+  gdk_rgba_parse(@c_bg, '#001500');
+  gdk_rgba_parse(@c_green, '#00FF00');
+  gdk_rgba_parse(@c_yellow, '#FFFF00');
+  gdk_rgba_parse(@c_red, '#FF0000');
+
   graphene_rect_init(@r, 0, 0, width, height);
-  gtk_snapshot_push_clip(snapshot, @r);
+  gtk_snapshot_append_color(snapshot, @c_bg, @r);
 
-  gtk_snapshot_append_color(snapshot, @color, @r);
+  if (self^.level <> nil) and (self^.level^.len > 0) then begin
+    h_per_channel := height / self^.level^.len;
 
-  gdk_rgba_parse(@color, 'red');
+    for i := 0 to self^.level^.len - 1 do begin
+      db := Pgdouble(self^.level^.data)[i];
+      w_full := GetWidthForDB(db, width - (2 * border));
+      y_pos := (i * h_per_channel) + border;
+      x_start := border;
 
-  with self^ do begin
-    w := dB_to_Prozent(Level.L);
-    graphene_rect_init(@r, border, border, w, height / 2 - 2 * border);
-    gtk_snapshot_append_color(snapshot, @color, @r);
+      // --- 1. Grüner Bereich (bis -20 dB) ---
+      w_seg := GetWidthForDB(-20, width - (2 * border));
+      if w_full < w_seg then begin
+        w_seg := w_full;
+      end;
 
-    w := dB_to_Prozent(Level.R);
-    graphene_rect_init(@r, border, height / 2 + border, w, height / 2 - 2 * border);
-    gtk_snapshot_append_color(snapshot, @color, @r);
+      if w_seg > 0 then begin
+        graphene_rect_init(@r, x_start, y_pos, w_seg, h_per_channel - (2 * border));
+        gtk_snapshot_append_color(snapshot, @c_green, @r);
+        x_start := x_start + w_seg;
+      end;
+
+      // --- 2. Gelber Bereich (-20 dB bis -6 dB) ---
+      if db > -20 then begin
+        w_seg := GetWidthForDB(-6, width - (2 * border)) - GetWidthForDB(-20, width - (2 * border));
+        if w_full < (x_start + w_seg) then begin
+          w_seg := w_full - x_start;
+        end;
+
+        if w_seg > 0 then begin
+          graphene_rect_init(@r, x_start, y_pos, w_seg, h_per_channel - (2 * border));
+          gtk_snapshot_append_color(snapshot, @c_yellow, @r);
+          x_start := x_start + w_seg;
+        end;
+      end;
+
+      // --- 3. Roter Bereich (-6 dB bis 0 dB) ---
+      if db > -6 then begin
+        w_seg := w_full - x_start;
+        if w_seg > 0 then begin
+          graphene_rect_init(@r, x_start, y_pos, w_seg, h_per_channel - (2 * border));
+          gtk_snapshot_append_color(snapshot, @c_red, @r);
+        end;
+      end;
+    end;
   end;
-
-  gtk_snapshot_pop(snapshot);
 end;
 
 procedure finalize_cp(obj: PGObject); cdecl;
@@ -95,8 +131,7 @@ var
   self: PVUMeterWidget absolute instance;
 begin
   with self^ do begin
-    level.L := -50.0;
-    level.R := -50.0;
+    level := nil;
   end;
 end;
 
@@ -123,9 +158,9 @@ begin
   Result := g_object_new(vu_meter_widget_get_type, nil);
 end;
 
-procedure vu_meter_widget_set_level(self: PVUMeterWidget; level: PLevel);
+procedure vu_meter_widget_set_level(self: PVUMeterWidget; level: PGArray);
 begin
-  self^.level := level^;
+  self^.level := level;
   gtk_widget_queue_draw(GTK_WIDGET(self));
 end;
 

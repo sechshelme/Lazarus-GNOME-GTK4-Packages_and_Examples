@@ -8,8 +8,8 @@ uses
   LoadTitle, Streamer, XML_Tools, LoadSaveSongs;
 
 var
-  SekStream: PGSTStreamer = nil;
-  PriStream: PGSTStreamer = nil;
+  SekStream: PMPStreamer = nil;
+  PriStream: PMPStreamer = nil;
 
 const
   CFTime = 13 * 1000 * G_USEC_PER_SEC; // 3s
@@ -64,6 +64,10 @@ begin
       g_list_store_remove_all(G_LIST_STORE(list_model));
       LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt');
     end;
+    'listbox.default.flac3': begin
+      g_list_store_remove_all(G_LIST_STORE(list_model));
+      LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Blu-ray Audio/2L/2L 050 Trondheim Solistene - Divertimenti');
+    end;
     'listbox.default.mp3': begin
       g_list_store_remove_all(G_LIST_STORE(list_model));
       LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Black Bear Roa');
@@ -92,15 +96,15 @@ begin
     'listbox.play': begin
       if PriStream = nil then begin
         if Count > 0 then begin
-          PriStream := gst_streamer_new_from_launch(song^.FullPath);
+          PriStream := mp_streamer_new_from_launch(song^.FullPath);
         end;
       end else begin
-        gst_streamer_play(PriStream);
+        mp_streamer_play(PriStream);
       end;
     end;
     'listbox.pause': begin
       if PriStream <> nil then begin
-        gst_streamer_pause(PriStream);
+        mp_streamer_pause(PriStream);
       end;
     end;
     'listbox.stop': begin
@@ -123,7 +127,7 @@ begin
       g_list_store_remove_all(G_LIST_STORE(list_model));
     end;
     'listbox.next': begin
-      if (PriStream <> nil) and (gst_streamer_get_duration(PriStream) > 0) then begin
+      if (PriStream <> nil) and (mp_streamer_get_duration(PriStream) > 0) then begin
         if index >= 0 then  begin
           if index >= Count - 1 then begin
             index2 := 0;
@@ -132,20 +136,20 @@ begin
           end;
 
           gtk_selection_model_select_item(selection_model, index2, True);
-          if gst_streamer_is_played(PriStream) then begin
+          if mp_streamer_is_played(PriStream) then begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
             gst_clear_object(@PriStream);
-            PriStream := gst_streamer_new_from_launch(song^.FullPath);
+            PriStream := mp_streamer_new_from_launch(song^.FullPath);
             g_object_unref(item_obj2);
           end;
         end;
       end;
     end;
     'listbox.prev': begin
-      if (PriStream <> nil) and (gst_streamer_get_duration(PriStream) > 0) then begin
-        if gst_streamer_get_position(PriStream) > 2000 then begin
-          gst_streamer_set_position(PriStream, 0);
+      if (PriStream <> nil) and (mp_streamer_get_duration(PriStream) > 0) then begin
+        if mp_streamer_get_position(PriStream) > 2000 then begin
+          mp_streamer_set_position(PriStream, 0);
         end else begin
           if index = 0 then begin
             index2 := Count - 1;
@@ -154,11 +158,11 @@ begin
           end;
 
           gtk_selection_model_select_item(selection_model, index2, True);
-          if gst_streamer_is_played(PriStream) then begin
+          if mp_streamer_is_played(PriStream) then begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
             gst_clear_object(@PriStream);
-            PriStream := gst_streamer_new_from_launch(song^.FullPath);
+            PriStream := mp_streamer_new_from_launch(song^.FullPath);
             g_object_unref(item_obj2);
           end;
         end;
@@ -195,6 +199,7 @@ const
   entries: array of Pgchar = (
     'listbox.default.flac1',
     'listbox.default.flac2',
+    'listbox.default.flac3',
     'listbox.default.mp3',
     'listbox.default.mod',
     'listbox.default.midi',

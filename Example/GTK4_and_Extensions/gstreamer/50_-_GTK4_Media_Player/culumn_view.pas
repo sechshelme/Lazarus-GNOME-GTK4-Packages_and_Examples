@@ -40,7 +40,7 @@ var
   item_obj: PGObject;
   song: PSong = nil;
   s: string;
-  vu: PLevel;
+  vu: PGArray;
 
 begin
   selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW(sharedWidgets^.columnView));
@@ -57,14 +57,14 @@ begin
 
   if PriStream <> nil then begin
     if sharedWidgets^.IsChange then begin
-      gst_streamer_set_position(PriStream, Round(gtk_adjustment_get_value(adjustment)));
+      mp_streamer_set_position(PriStream, Round(gtk_adjustment_get_value(adjustment)));
       sharedWidgets^.IsChange := False;
     end else begin
-      vu := gst_streamer_get_VU(PriStream);
+      vu := mp_streamer_get_VU(PriStream);
       vu_meter_widget_set_level(PVUMeterWidget(sharedWidgets^.VUMeter), vu);
 
-      SPos := gst_streamer_get_position(PriStream);
-      SDur := gst_streamer_get_duration(PriStream);
+      SPos := mp_streamer_get_position(PriStream);
+      SDur := mp_streamer_get_duration(PriStream);
       gtk_adjustment_set_upper(adjustment, SDur);
       gtk_adjustment_set_value(adjustment, SPos);
 
@@ -79,13 +79,13 @@ begin
       gtk_label_set_label(GTK_LABEL(sharedWidgets^.LabelDuration), pchar(s));
 
       if SPos = GST_CLOCK_TIME_NONE then begin
-        gst_streamer_set_volume(PriStream, 0.0);
+        mp_streamer_set_volume(PriStream, 0.0);
       end else begin
-        gst_streamer_set_volume(PriStream, clamp01(SPos / FITime));
+        mp_streamer_set_volume(PriStream, clamp01(SPos / FITime));
       end;
 
-      if gst_streamer_get_duration(PriStream) <> GST_CLOCK_TIME_NONE then begin
-        if gst_streamer_is_end(PriStream) or (gst_streamer_get_duration(PriStream) - SPos < CFTime) then begin
+      if mp_streamer_get_duration(PriStream) <> GST_CLOCK_TIME_NONE then begin
+        if mp_streamer_is_end(PriStream) or (mp_streamer_get_duration(PriStream) - SPos < CFTime) then begin
           if SekStream <> nil then begin
             gst_clear_object(@SekStream);
           end;
@@ -101,7 +101,7 @@ begin
             song := g_object_get_data(item_obj, songObjectKey);
             gtk_adjustment_set_upper(adjustment, 0);
             gtk_adjustment_set_value(adjustment, 0);
-            PriStream := gst_streamer_new_from_launch(song^.FullPath);
+            PriStream := mp_streamer_new_from_launch(song^.FullPath);
             g_object_unref(item_obj);
             gtk_selection_model_select_item(selection_model, index2, True);
           end;
@@ -111,11 +111,11 @@ begin
   end;
 
   if SekStream <> nil then begin
-    if gst_streamer_get_duration(SekStream) <> GST_CLOCK_TIME_NONE then begin
-      gst_streamer_set_volume(SekStream, clamp01((gst_streamer_get_duration(SekStream) - gst_streamer_get_position(SekStream)) / FITime));
+    if mp_streamer_get_duration(SekStream) <> GST_CLOCK_TIME_NONE then begin
+      mp_streamer_set_volume(SekStream, clamp01((mp_streamer_get_duration(SekStream) - mp_streamer_get_position(SekStream)) / FITime));
     end;
 
-    if gst_streamer_is_end(SekStream) then begin
+    if mp_streamer_is_end(SekStream) then begin
       gst_clear_object(@SekStream);
     end;
   end;
@@ -193,7 +193,7 @@ var
 begin
   app := g_application_get_default;
 
-  if (PriStream <> nil) and (gst_streamer_is_played(PriStream)) then begin
+  if (PriStream <> nil) and (mp_streamer_is_played(PriStream)) then begin
     action := g_action_map_lookup_action(G_ACTION_MAP(app), 'listbox.stop');
     if action <> nil then begin
       g_action_activate(action, nil);

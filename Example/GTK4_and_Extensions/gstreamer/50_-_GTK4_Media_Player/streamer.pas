@@ -5,37 +5,36 @@ unit Streamer;
 interface
 
 uses
-  Classes, SysUtils, fp_glib2,
-  VUMeterWidget, fp_gst;
+  fp_glib2, fp_gst;
 
 type
-  TGSTStreamer = record
+  TMPStreamer = record
     parent_instance: TGstPipeline;
     volume: PGstElement;
     state: TGstState;
     Duration: TGstClockTime;
     FIsEnd: boolean;
-    Level: TLevel;
+    Level: PGArray;
   end;
-  PGSTStreamer = ^TGSTStreamer;
+  PMPStreamer = ^TMPStreamer;
 
-  TGSTStreamerClass = record
+  TMPStreamerClass = record
     parent_class: TGstPipelineClass;
   end;
-  PGSTStreamerClass = ^TGSTStreamerClass;
+  PMPStreamerClass = ^TMPStreamerClass;
 
-function gst_streamer_get_type: TGType;
-function gst_streamer_new_from_launch(song: pchar): PGSTStreamer;
-procedure gst_streamer_play(self: PGSTStreamer);
-procedure gst_streamer_pause(self: PGSTStreamer);
-procedure gst_streamer_stop(self: PGSTStreamer);
-procedure gst_streamer_set_position(self: PGSTStreamer; p: TGstClockTime);
-function gst_streamer_get_position(self: PGSTStreamer): TGstClockTime;
-function gst_streamer_get_duration(self: PGSTStreamer): TGstClockTime;
-procedure gst_streamer_set_volume(self: PGSTStreamer; v: Tgdouble);
-function gst_streamer_is_played(self: PGSTStreamer): boolean;
-function gst_streamer_is_end(self: PGSTStreamer): boolean;
-function gst_streamer_get_VU(self: PGSTStreamer): PLevel;
+function mp_streamer_get_type: TGType;
+function mp_streamer_new_from_launch(song: pchar): PMPStreamer;
+procedure mp_streamer_play(self: PMPStreamer);
+procedure mp_streamer_pause(self: PMPStreamer);
+procedure mp_streamer_stop(self: PMPStreamer);
+procedure mp_streamer_set_position(self: PMPStreamer; p: TGstClockTime);
+function mp_streamer_get_position(self: PMPStreamer): TGstClockTime;
+function mp_streamer_get_duration(self: PMPStreamer): TGstClockTime;
+procedure mp_streamer_set_volume(self: PMPStreamer; v: Tgdouble);
+function mp_streamer_is_played(self: PMPStreamer): boolean;
+function mp_streamer_is_end(self: PMPStreamer): boolean;
+function mp_streamer_get_VU(self: PMPStreamer): PGArray;
 
 // ================================================
 
@@ -50,27 +49,35 @@ implementation
 // ==== private
 
 var
-  parent_class: PGSTStreamerClass = nil;
+  parent_class: PMPStreamerClass = nil;
 
 procedure dispose_cp(obj: PGObject); cdecl;
 var
-  self: PGSTStreamer absolute obj;
+  self: PMPStreamer absolute obj;
 begin
-  gst_streamer_stop(Self);
+  mp_streamer_stop(Self);
   gst_object_unref(Self^.volume);
 
   G_OBJECT_CLASS(parent_class)^.dispose(obj);
 end;
 
+procedure finalize_cp(obj: PGObject); cdecl;
+var
+  self: PMPStreamer absolute obj;
+begin
+  g_array_free(self^.Level, True);
+end;
+
 procedure class_init(g_class: Tgpointer; class_data: Tgpointer); cdecl;
 begin
   G_OBJECT_CLASS(g_class)^.dispose := @dispose_cp;
+  G_OBJECT_CLASS(g_class)^.finalize := @finalize_cp;
   parent_class := g_type_class_peek_parent(g_class);
 end;
 
 procedure init_cp(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
 var
-  self: PGSTStreamer absolute instance;
+  self: PMPStreamer absolute instance;
 begin
   with self^ do begin
   end;
@@ -78,27 +85,28 @@ end;
 
 function message_cb({%H-}bus: PGstBus; msg: PGstMessage; user_data: Tgpointer): Tgboolean; cdecl;
 var
-  pipeline: PGstElement absolute user_data;
+  pipeline: PMPStreamer absolute user_data;
 
   s: PGstStructure;
   Name, debug_info: Pgchar;
   array_val: PGValue;
   rms_arr: PGValueArray;
-  channels: Tguint;
   Value: PGValue;
   old_state, new_state, pending_state: TGstState;
   err: PGError;
+  i: integer;
+  level: PGArray;
 begin
-
   case msg^._type of
     GST_MESSAGE_EOS: begin
-      PGSTStreamer(pipeline)^.FIsEnd := True;
+      pipeline^.FIsEnd := True;
     end;
     GST_MESSAGE_STATE_CHANGED: begin
       gst_message_parse_state_changed(msg, @old_state, @new_state, @pending_state);
-      PGSTStreamer(pipeline)^.state := new_state;
+      pipeline^.state := new_state;
     end;
     GST_MESSAGE_ELEMENT: begin
+      level := pipeline^.Level;
       s := gst_message_get_structure(msg);
       Name := gst_structure_get_name(s);
 
@@ -106,12 +114,12 @@ begin
         array_val := gst_structure_get_value(s, 'rms');
         if array_val <> nil then begin
           rms_arr := g_value_get_boxed(array_val);
-
-          if (rms_arr <> nil) and (rms_arr^.n_values >= 2) then begin
-            Value := @rms_arr^.values[0];
-            PGSTStreamer(pipeline)^.Level.L := g_value_get_double(Value);
-            Value := @rms_arr^.values[1];
-            PGSTStreamer(pipeline)^.Level.R := g_value_get_double(Value);
+          if (rms_arr <> nil) then begin
+            g_array_set_size(level, rms_arr^.n_values);
+            for i := 0 to rms_arr^.n_values - 1 do begin
+              Value := @rms_arr^.values[i];
+              Pgdouble(level^.Data)[i] := g_value_get_double(Value);
+            end;
           end;
         end;
       end;
@@ -137,29 +145,28 @@ end;
 
 // ==== public
 
-function gst_streamer_get_type: TGType;
+function mp_streamer_get_type: TGType;
 const
   type_id: TGType = 0;
 var
   id: TGType;
 begin
   if g_once_init_enter(@type_id) then begin
-    id := g_type_register_static_simple(GST_TYPE_PIPELINE, 'MyStreamer', SizeOf(TGSTStreamerClass), @class_init, SizeOf(TGSTStreamer), @init_cp, 0);
+    id := g_type_register_static_simple(GST_TYPE_PIPELINE, 'MPStreamer', SizeOf(TMPStreamerClass), @class_init, SizeOf(TMPStreamer), @init_cp, 0);
     g_once_init_leave(@type_id, id);
   end;
   Result := type_id;
 end;
 
-function gst_streamer_new_from_launch(song: pchar): PGSTStreamer;
+function mp_streamer_new_from_launch(song: pchar): PMPStreamer;
 var
   inner_bin: PGstElement;
   s: Pgchar;
-
   bus: PGstBus;
   LevelEl: PGstElement;
 
 begin
-  Result := PGSTStreamer(g_object_new(gst_streamer_get_type, nil));
+  Result := PMPStreamer(g_object_new(mp_streamer_get_type, nil));
 
   s := g_strdup_printf('filesrc location="%s" ! queue ! decodebin3 ! audioconvert ! audioresample ! volume name=vol volume=0.0 ! level name=level ! autoaudiosink', song);
   inner_bin := gst_parse_bin_from_description(s, False, nil);
@@ -172,8 +179,7 @@ begin
 
   Result^.FisEnd := False;
   Result^.Duration := GST_CLOCK_TIME_NONE;
-  Result^.Level.L := 0.0;
-  Result^.Level.R := 0.0;
+  Result^.Level := g_array_new(False, True, SizeOf(Tgdouble));
 
   Result^.volume := gst_bin_get_by_name(GST_BIN(Result), 'vol');
   if Result^.volume = nil then begin
@@ -186,7 +192,7 @@ begin
   end else begin
     g_object_set(G_OBJECT(LevelEl),
       'post-messages', True,
-      'interval', GST_SECOND div 50,
+      'interval', GST_SECOND div 60,
       nil);
   end;
   g_object_unref(LevelEl);
@@ -200,32 +206,32 @@ begin
 end;
 
 
-procedure gst_streamer_play(self: PGSTStreamer);
+procedure mp_streamer_play(self: PMPStreamer);
 begin
   gst_element_set_state(GST_ELEMENT(Self), GST_STATE_PLAYING);
 end;
 
-procedure gst_streamer_pause(self: PGSTStreamer);
+procedure mp_streamer_pause(self: PMPStreamer);
 begin
   gst_element_set_state(GST_ELEMENT(Self), GST_STATE_PAUSED);
 end;
 
-procedure gst_streamer_stop(self: PGSTStreamer);
+procedure mp_streamer_stop(self: PMPStreamer);
 begin
   gst_element_set_state(GST_ELEMENT(Self), GST_STATE_NULL);
 end;
 
-procedure gst_streamer_set_position(self: PGSTStreamer; p: TGstClockTime);
+procedure mp_streamer_set_position(self: PMPStreamer; p: TGstClockTime);
 begin
   gst_element_seek_simple(GST_ELEMENT(Self), GST_FORMAT_TIME, TGstSeekFlags(int64(GST_SEEK_FLAG_FLUSH) or int64(GST_SEEK_FLAG_KEY_UNIT)), p);
 end;
 
-function gst_streamer_get_position(self: PGSTStreamer): TGstClockTime;
+function mp_streamer_get_position(self: PMPStreamer): TGstClockTime;
 begin
   gst_element_query_position(GST_ELEMENT(Self), GST_FORMAT_TIME, @Result);
 end;
 
-function gst_streamer_get_duration(self: PGSTStreamer): TGstClockTime;
+function mp_streamer_get_duration(self: PMPStreamer): TGstClockTime;
 var
   current: TGstClockTime = GST_CLOCK_TIME_NONE;
 begin
@@ -239,24 +245,24 @@ begin
   Result := Self^.Duration;
 end;
 
-procedure gst_streamer_set_volume(self: PGSTStreamer; v: Tgdouble);
+procedure mp_streamer_set_volume(self: PMPStreamer; v: Tgdouble);
 begin
   g_object_set(Self^.volume, 'volume', v, nil);
 end;
 
-function gst_streamer_is_played(self: PGSTStreamer): boolean;
+function mp_streamer_is_played(self: PMPStreamer): boolean;
 begin
   Result := Self^.state = GST_STATE_PLAYING;
 end;
 
-function gst_streamer_is_end(self: PGSTStreamer): boolean;
+function mp_streamer_is_end(self: PMPStreamer): boolean;
 begin
   Result := Self^.FIsEnd;
 end;
 
-function gst_streamer_get_VU(self: PGSTStreamer): PLevel;
+function mp_streamer_get_VU(self: PMPStreamer): PGArray;
 begin
-   Result:=@Self^.Level;
+  Result := Self^.Level;
 end;
 
 

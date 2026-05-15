@@ -71,6 +71,7 @@ begin
 
   g_menu_append(section, 'Flac 1', 'app.listbox.default.flac1');
   g_menu_append(section, 'Flac 2', 'app.listbox.default.flac2');
+  g_menu_append(section, 'Flac 3', 'app.listbox.default.flac3');
   g_menu_append(section, 'MP3', 'app.listbox.default.mp3');
   g_menu_append(section, 'MOD', 'app.listbox.default.mod');
   g_menu_append(section, 'MIDI', 'app.listbox.default.midi');
