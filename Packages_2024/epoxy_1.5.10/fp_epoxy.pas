@@ -10,7 +10,7 @@ uses
 
 const
   {$ifdef linux}
-  libepoxy = 'libepoxy';
+  libepoxy = 'epoxy';
   {$endif}
 
   {$ifdef windows}
