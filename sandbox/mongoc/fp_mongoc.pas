@@ -41,12 +41,19 @@ type
   Tsize_t=SizeUInt;
   Psize_t=^Tsize_t;
 
+  Tssize_t=SizeInt;
+  Pssize_t=^Tssize_t;
+
   Tbool=Boolean;//?????
 
-  // =====$
+  Psockaddr=type Pointer;
+  Paddrinfo =type Pointer;
+
+  // =====
 
 
   Pbson_t=Pointer;
+  PPbson_t=^Pbson_t;
   Pbson_oid_t=Pointer;
   Pbson_error_t=Pointer;
   Pbson_value_t=Pointer;
@@ -55,6 +62,8 @@ type
   {$IFDEF FPC}
   {$PACKRECORDS C}
   {$ENDIF}
+
+  Pmongoc_cursor_t=Pointer;
 
 implementation
 
