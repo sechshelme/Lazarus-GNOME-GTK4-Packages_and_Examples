@@ -6,7 +6,7 @@ uses
   fp_glib2, fp_pango, fp_GTK4, fp_gst,
   Common,
   Action,
-  LoadTitle, Streamer, XML_Tools, LoadSaveSongs;
+  LoadTitle, Streamer, XML_Tools, LoadSaveSongs, VUMeterWidget;
 
 procedure Create_ColumnView(sharedWidgets: PSharedWidget);
 
@@ -40,6 +40,7 @@ var
   item_obj: PGObject;
   song: PSong = nil;
   s: string;
+  vu: PLevel;
 
 begin
   selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW(sharedWidgets^.columnView));
@@ -59,6 +60,9 @@ begin
       gst_streamer_set_position(PriStream, Round(gtk_adjustment_get_value(adjustment)));
       sharedWidgets^.IsChange := False;
     end else begin
+      vu := gst_streamer_get_VU(PriStream);
+      vu_meter_widget_set_level(PVUMeterWidget(sharedWidgets^.VUMeter), vu);
+
       SPos := gst_streamer_get_position(PriStream);
       SDur := gst_streamer_get_duration(PriStream);
       gtk_adjustment_set_upper(adjustment, SDur);
@@ -86,7 +90,6 @@ begin
             gst_clear_object(@SekStream);
           end;
           SekStream := PriStream;
-          gst_streamer_set_vu_wideget(SekStream, nil);
 
           if index >= 0 then begin
             if index >= Count - 1 then begin
@@ -98,7 +101,7 @@ begin
             song := g_object_get_data(item_obj, songObjectKey);
             gtk_adjustment_set_upper(adjustment, 0);
             gtk_adjustment_set_value(adjustment, 0);
-            PriStream := gst_streamer_new_from_launch(song^.FullPath, sharedWidgets^.VUMeter);
+            PriStream := gst_streamer_new_from_launch(song^.FullPath);
             g_object_unref(item_obj);
             gtk_selection_model_select_item(selection_model, index2, True);
           end;

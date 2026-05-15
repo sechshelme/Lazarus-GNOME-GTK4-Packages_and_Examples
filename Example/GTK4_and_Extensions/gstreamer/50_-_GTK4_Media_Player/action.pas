@@ -92,7 +92,7 @@ begin
     'listbox.play': begin
       if PriStream = nil then begin
         if Count > 0 then begin
-          PriStream := gst_streamer_new_from_launch(song^.FullPath, sharedWidgets^.VUMeter);
+          PriStream := gst_streamer_new_from_launch(song^.FullPath);
         end;
       end else begin
         gst_streamer_play(PriStream);
@@ -136,7 +136,7 @@ begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
             gst_clear_object(@PriStream);
-            PriStream := gst_streamer_new_from_launch(song^.FullPath, sharedWidgets^.VUMeter);
+            PriStream := gst_streamer_new_from_launch(song^.FullPath);
             g_object_unref(item_obj2);
           end;
         end;
@@ -158,7 +158,7 @@ begin
             item_obj2 := g_list_model_get_item(list_model, index2);
             song := g_object_get_data(item_obj2, songObjectKey);
             gst_clear_object(@PriStream);
-            PriStream := gst_streamer_new_from_launch(song^.FullPath, sharedWidgets^.VUMeter);
+            PriStream := gst_streamer_new_from_launch(song^.FullPath);
             g_object_unref(item_obj2);
           end;
         end;

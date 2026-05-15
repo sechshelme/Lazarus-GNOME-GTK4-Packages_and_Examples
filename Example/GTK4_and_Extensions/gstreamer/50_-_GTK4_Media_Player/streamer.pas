@@ -15,7 +15,6 @@ type
     state: TGstState;
     Duration: TGstClockTime;
     FIsEnd: boolean;
-    LevelWidget: PGtkWidget;
     Level: TLevel;
   end;
   PGSTStreamer = ^TGSTStreamer;
@@ -26,7 +25,7 @@ type
   PGSTStreamerClass = ^TGSTStreamerClass;
 
 function gst_streamer_get_type: TGType;
-function gst_streamer_new_from_launch(song: pchar; VU_Widget: PGtkWidget): PGSTStreamer;
+function gst_streamer_new_from_launch(song: pchar): PGSTStreamer;
 procedure gst_streamer_play(self: PGSTStreamer);
 procedure gst_streamer_pause(self: PGSTStreamer);
 procedure gst_streamer_stop(self: PGSTStreamer);
@@ -36,8 +35,7 @@ function gst_streamer_get_duration(self: PGSTStreamer): TGstClockTime;
 procedure gst_streamer_set_volume(self: PGSTStreamer; v: Tgdouble);
 function gst_streamer_is_played(self: PGSTStreamer): boolean;
 function gst_streamer_is_end(self: PGSTStreamer): boolean;
-
-procedure gst_streamer_set_vu_wideget(self: PGSTStreamer; w: PGtkWidget);
+function gst_streamer_get_VU(self: PGSTStreamer): PLevel;
 
 // ================================================
 
@@ -101,27 +99,24 @@ begin
       PGSTStreamer(pipeline)^.state := new_state;
     end;
     GST_MESSAGE_ELEMENT: begin
-      if PGSTStreamer(pipeline)^.LevelWidget <> nil then begin
-        s := gst_message_get_structure(msg);
-        Name := gst_structure_get_name(s);
-        if g_strcmp0(Name, 'level') = 0 then begin
+      s := gst_message_get_structure(msg);
+      Name := gst_structure_get_name(s);
 
-          array_val := gst_structure_get_value(s, 'rms'); // decay, rms, peak
+      if g_strcmp0(Name, 'level') = 0 then begin
+        array_val := gst_structure_get_value(s, 'rms');
+        if array_val <> nil then begin
           rms_arr := g_value_get_boxed(array_val);
 
-          channels := rms_arr^.n_values;
-          if channels >= 2 then begin
-            Value := g_value_array_get_nth(rms_arr, 0);
+          if (rms_arr <> nil) and (rms_arr^.n_values >= 2) then begin
+            Value := @rms_arr^.values[0];
             PGSTStreamer(pipeline)^.Level.L := g_value_get_double(Value);
-            Value := g_value_array_get_nth(rms_arr, 1);
+            Value := @rms_arr^.values[1];
             PGSTStreamer(pipeline)^.Level.R := g_value_get_double(Value);
           end;
-
-          vu_meter_widget_set_level(PVUMeterWidget(PGSTStreamer(pipeline)^.LevelWidget), @PGSTStreamer(pipeline)^.Level);
-          gtk_widget_queue_draw(PGSTStreamer(pipeline)^.LevelWidget);
         end;
       end;
     end;
+
     GST_MESSAGE_ERROR: begin
       gst_message_parse_error(msg, @err, @debug_info);
       WriteLn('Fehler:', err^.message);
@@ -156,7 +151,7 @@ begin
   Result := type_id;
 end;
 
-function gst_streamer_new_from_launch(song: pchar; VU_Widget: PGtkWidget): PGSTStreamer;
+function gst_streamer_new_from_launch(song: pchar): PGSTStreamer;
 var
   inner_bin: PGstElement;
   s: Pgchar;
@@ -178,7 +173,6 @@ begin
 
   Result^.FisEnd := False;
   Result^.Duration := GST_CLOCK_TIME_NONE;
-  Result^.LevelWidget := VU_Widget;
   Result^.Level.L := 0.0;
   Result^.Level.R := 0.0;
 
@@ -261,9 +255,9 @@ begin
   Result := Self^.FIsEnd;
 end;
 
-procedure gst_streamer_set_vu_wideget(self: PGSTStreamer; w: PGtkWidget);
+function gst_streamer_get_VU(self: PGSTStreamer): PLevel;
 begin
-  Self^.LevelWidget := w;
+   Result:=@Self^.Level;
 end;
 
 
