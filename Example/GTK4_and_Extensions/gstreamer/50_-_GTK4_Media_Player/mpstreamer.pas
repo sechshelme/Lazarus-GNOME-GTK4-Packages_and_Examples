@@ -1,4 +1,4 @@
-unit Streamer;
+unit MPStreamer;
 
 {$modeswitch typehelpers}
 

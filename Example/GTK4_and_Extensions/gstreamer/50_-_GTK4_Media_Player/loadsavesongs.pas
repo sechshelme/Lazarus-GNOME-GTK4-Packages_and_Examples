@@ -10,7 +10,7 @@ uses
   fp_GTK4,
   XML_Tools,
   Common,
-  Streamer;
+  MPStreamer;
 
 procedure Load_Song(store: PGListStore; path: Pgchar);
 procedure Load_Songs_from_SA(store: PGListStore; sa: PPgchar);

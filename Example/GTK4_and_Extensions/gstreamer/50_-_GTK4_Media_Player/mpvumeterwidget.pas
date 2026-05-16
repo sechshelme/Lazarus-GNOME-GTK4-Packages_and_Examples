@@ -1,4 +1,4 @@
-unit VUMeterWidget;
+unit MPVUMeterWidget;
 
 interface
 
@@ -6,31 +6,31 @@ uses
   fp_glib2, fp_GTK4, fp_graphene;
 
 type
-  TVUMeterWidget = record
+  TMPVUMeterWidget = record
     parent_instance: TGtkWidget;
     level: PGArray;
   end;
-  PVUMeterWidget = ^TVUMeterWidget;
+  PMPVUMeterWidget = ^TMPVUMeterWidget;
 
-  TVUMeterWidgetClass = record
+  TMPVUMeterWidgetClass = record
     parent_class: TGtkWidgetClass;
   end;
-  PVUMeterWidgetClass = ^TVUMeterWidgetClass;
+  PMPVUMeterWidgetClass = ^TMPVUMeterWidgetClass;
 
-function vu_meter_widget_get_type: TGType;
-function vu_meter_widget_new: PGTKWidget;
-procedure vu_meter_widget_set_level(self: PVUMeterWidget; level: PGArray);
+function mp_vu_meter_widget_get_type: TGType;
+function mp_vu_meter_widget_new: PGTKWidget;
+procedure mp_vu_meter_widget_set_level(self: PMPVUMeterWidget; level: PGArray);
 
 implementation
 
 // ==== private
 
 var
-  parent_class: PVUMeterWidgetClass = nil;
+  parent_class: PMPVUMeterWidgetClass = nil;
 
 procedure snapshoot_cp(widget: PGtkWidget; snapshot: PGtkSnapshot); cdecl;
 var
-  self: PVUMeterWidget absolute widget;
+  self: PMPVUMeterWidget absolute widget;
   width, height: single;
   r: Tgraphene_rect_t;
   c_green, c_yellow, c_red, c_bg: TGdkRGBA;
@@ -112,7 +112,7 @@ end;
 
 procedure finalize_cp(obj: PGObject); cdecl;
 var
-  self: PVUMeterWidget absolute obj;
+  self: PMPVUMeterWidget absolute obj;
 begin
   with self^ do begin
   end;
@@ -128,7 +128,7 @@ end;
 
 procedure init_cp(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
 var
-  self: PVUMeterWidget absolute instance;
+  self: PMPVUMeterWidget absolute instance;
 begin
   with self^ do begin
     level := nil;
@@ -138,27 +138,27 @@ end;
 
 // ==== public
 
-function vu_meter_widget_get_type: TGType;
+function mp_vu_meter_widget_get_type: TGType;
 const
   type_id: TGType = 0;
 var
   id: TGType;
 begin
   if g_once_init_enter(@type_id) then begin
-    id := g_type_register_static_simple(GTK_TYPE_WIDGET, 'Snapshot', SizeOf(TVUMeterWidgetClass), @class_init, SizeOf(TVUMeterWidget), @init_cp, 0);
+    id := g_type_register_static_simple(GTK_TYPE_WIDGET, 'Snapshot', SizeOf(TMPVUMeterWidgetClass), @class_init, SizeOf(TMPVUMeterWidget), @init_cp, 0);
     g_once_init_leave(@type_id, id);
   end;
   Result := type_id;
 end;
 
-function vu_meter_widget_new: PGTKWidget;
+function mp_vu_meter_widget_new: PGTKWidget;
 var
-  self: PVUMeterWidget absolute Result;
+  self: PMPVUMeterWidget absolute Result;
 begin
-  Result := g_object_new(vu_meter_widget_get_type, nil);
+  Result := g_object_new(mp_vu_meter_widget_get_type, nil);
 end;
 
-procedure vu_meter_widget_set_level(self: PVUMeterWidget; level: PGArray);
+procedure mp_vu_meter_widget_set_level(self: PMPVUMeterWidget; level: PGArray);
 begin
   self^.level := level;
   gtk_widget_queue_draw(GTK_WIDGET(self));

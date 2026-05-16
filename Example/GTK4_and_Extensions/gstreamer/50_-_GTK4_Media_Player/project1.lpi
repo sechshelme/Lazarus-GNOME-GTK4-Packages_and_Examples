@@ -63,8 +63,12 @@
         <UnitName Value="Action"/>
       </Unit>
       <Unit>
-        <Filename Value="vumeterwidget.pas"/>
-        <UnitName Value="VUMeterWidget"/>
+        <Filename Value="mpvumeterwidget.pas"/>
+        <UnitName Value="MPVUMeterWidget"/>
+      </Unit>
+      <Unit>
+        <Filename Value="mpcolumnviewwidget.pas"/>
+        <UnitName Value="MPColumnViewWidget"/>
       </Unit>
     </Units>
   </ProjectOptions>

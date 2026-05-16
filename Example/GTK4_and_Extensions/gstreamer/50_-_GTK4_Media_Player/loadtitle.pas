@@ -10,7 +10,7 @@ uses
   fp_GTK4,
   Common,
   LoadSaveSongs,
-  Streamer;
+  MPStreamer;
 
 procedure LoadDefaulTitles(store: PGListStore; path: Pgchar);
 procedure AddSongsDialog(shardedWidgets: PSharedWidget);

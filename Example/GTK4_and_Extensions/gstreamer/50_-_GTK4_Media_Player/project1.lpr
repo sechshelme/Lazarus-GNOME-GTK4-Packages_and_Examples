@@ -8,13 +8,13 @@ uses
    //  fp_GLIBTools,
 
   Common,
-  Streamer,
-  culumn_view,
+  MPStreamer,
+  column_view,
   LoadTitle,
   MenuBar,
   XML_Tools,
   LoadSaveSongs,
-  Action, VUMeterWidget;
+  Action, MPVUMeterWidget, MPColumnViewWidget;
 
   procedure on_scale_changed_cp({%H-}range: PGtkRange; user_data: Tgpointer); cdecl;
   var
@@ -143,7 +143,7 @@ uses
     gtk_box_append(GTK_BOX(VBox), Label_Box);
 
     // VU-Meter
-    sharedWidgets^.VUMeter := vu_meter_widget_new;
+    sharedWidgets^.VUMeter := mp_vu_meter_widget_new;
     gtk_widget_set_hexpand(sharedWidgets^.VUMeter, True);
     gtk_widget_set_size_request(sharedWidgets^.VUMeter, 100, 50);
     gtk_box_append(GTK_BOX(HBox), sharedWidgets^.VUMeter);

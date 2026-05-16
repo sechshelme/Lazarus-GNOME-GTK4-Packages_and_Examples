@@ -1,4 +1,4 @@
-unit culumn_view;
+unit column_view;
 
 interface
 
@@ -6,7 +6,8 @@ uses
   fp_glib2, fp_pango, fp_GTK4, fp_gst,
   Common,
   Action,
-  LoadTitle, Streamer, XML_Tools, LoadSaveSongs, VUMeterWidget;
+  LoadTitle, MPStreamer, XML_Tools, LoadSaveSongs,
+  MPVUMeterWidget, MPColumnViewWidget;
 
 procedure Create_ColumnView(sharedWidgets: PSharedWidget);
 
@@ -61,7 +62,7 @@ begin
       sharedWidgets^.IsChange := False;
     end else begin
       vu := mp_streamer_get_VU(PriStream);
-      vu_meter_widget_set_level(PVUMeterWidget(sharedWidgets^.VUMeter), vu);
+      mp_vu_meter_widget_set_level(PMPVUMeterWidget(sharedWidgets^.VUMeter), vu);
 
       SPos := mp_streamer_get_position(PriStream);
       SDur := mp_streamer_get_duration(PriStream);
@@ -241,7 +242,20 @@ begin
   list_store := g_list_store_new(G_TYPE_OBJECT);
   single_selection := gtk_single_selection_new(G_LIST_MODEL(list_store));
 
-  sharedWidgets^.columnView := gtk_column_view_new(GTK_SELECTION_MODEL(single_selection));
+//  sharedWidgets^.columnView := gtk_column_view_new(GTK_SELECTION_MODEL(single_selection));
+  sharedWidgets^.columnView := mp_column_view_widget_new;
+//gtk_column_view_set_model(GTK_COLUMN_VIEW(sharedWidgets^.columnView), GTK_SELECTION_MODEL(single_selection));
+gtk_column_view_set_model(PGtkColumnView(sharedWidgets^.columnView), GTK_SELECTION_MODEL(single_selection));
+g_object_unref(single_selection);
+
+mp_column_view_widget_set_data(sharedWidgets^.columnView, 1234);
+i:=mp_column_view_widget_get_data(sharedWidgets^.columnView);
+WriteLn(i);
+
+
+
+
+
   gtk_column_view_set_show_row_separators(GTK_COLUMN_VIEW(sharedWidgets^.columnView), True);
   gtk_column_view_set_show_column_separators(GTK_COLUMN_VIEW(sharedWidgets^.columnView), True);
   g_signal_connect(sharedWidgets^.columnView, 'activate', G_CALLBACK(@on_row_activated_cb), nil);

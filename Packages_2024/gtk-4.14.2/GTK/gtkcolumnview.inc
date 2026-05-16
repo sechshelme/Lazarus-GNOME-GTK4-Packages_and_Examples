@@ -3,13 +3,8 @@
 
 
 type
-  TGtkColumnView = record // _GtkColumnView
-  end;
-  PGtkColumnView = ^TGtkColumnView;
-
-  TGtkColumnViewClass = record // _GtkColumnViewClass
-  end;
-  PGtkColumnViewClass = ^TGtkColumnViewClass;
+  PGtkColumnView = type Pointer;
+  PGtkColumnViewClass = type Pointer;
 
 function gtk_column_view_get_type: TGType; cdecl; external libgtk4;
 function gtk_column_view_new(model: PGtkSelectionModel): PGtkWidget; cdecl; external libgtk4;
