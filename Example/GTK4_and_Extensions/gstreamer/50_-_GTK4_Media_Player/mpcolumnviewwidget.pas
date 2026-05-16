@@ -19,28 +19,28 @@ implementation
 // ==== private
 
 type
-  TMPColumnViewWidgetPriv = record
+  TInstPriv = record
     meineDaten: integer;
   end;
-  PMPColumnViewWidgetPriv = ^TMPColumnViewWidgetPriv;
+  PInstPriv = ^TInstPriv;
 
-  TMPColumnViewWidgetClassPriv = record
+  TClassPriv = record
     meineDaten: Pointer;
   end;
-  PMPColumnViewWidgetClassPriv = ^TMPColumnViewWidgetClassPriv;
+  PClassPriv = ^TClassPriv;
 
 var
-  parent_class: PMPColumnViewWidgetClass = nil;
+  parent_class: Tgpointer = nil;
   instance_size: integer = 0;
 
-function GetPriv(w: Tgpointer): PMPColumnViewWidgetPriv; inline;
+function GetPriv(w: Tgpointer): PInstPriv; inline;
 begin
-  Result := PMPColumnViewWidgetPriv(w + instance_size);
+  Result := PInstPriv(w + instance_size);
 end;
 
 procedure finalize_cp(obj: PGObject); cdecl;
 var
-  priv: PMPColumnViewWidgetPriv;
+  priv: PInstPriv;
 begin
   priv := GetPriv(obj);
   with priv^ do begin
@@ -56,7 +56,7 @@ end;
 
 procedure init_cp(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
 var
-  priv: PMPColumnViewWidgetPriv;
+  priv: PInstPriv;
 begin
   priv := GetPriv(instance);
   with priv^ do begin
@@ -78,8 +78,8 @@ begin
     instance_size := query.instance_size;
 
     id := g_type_register_static_simple(GTK_TYPE_COLUMN_VIEW, 'MPColumnViewWidget',
-      query.class_size + SizeOf(TMPColumnViewWidgetClassPriv), @class_init_cp,
-      query.instance_size + SizeOf(TMPColumnViewWidgetPriv), @init_cp, G_TYPE_FLAG_NONE);
+      query.class_size + SizeOf(TClassPriv), @class_init_cp,
+      query.instance_size + SizeOf(TInstPriv), @init_cp, G_TYPE_FLAG_NONE);
     g_once_init_leave(@type_id, id);
   end;
   Result := type_id;
@@ -87,7 +87,7 @@ end;
 
 function mp_column_view_widget_new: PGTKWidget;
 var
-  priv: PMPColumnViewWidgetPriv;
+  priv: PInstPriv;
 begin
   Result := g_object_new(mp_column_view_widget_get_type, nil);
   priv := GetPriv(Result);
@@ -97,7 +97,7 @@ end;
 
 procedure mp_column_view_widget_set_data(w: PMPColumnViewWidget; i: integer);
 var
-  priv: PMPColumnViewWidgetPriv;
+  priv: PInstPriv;
 begin
   priv := GetPriv(w);
   priv^.meineDaten := i;
@@ -105,7 +105,7 @@ end;
 
 function mp_column_view_widget_get_data(w: PMPColumnViewWidget): integer;
 var
-  priv: PMPColumnViewWidgetPriv;
+  priv: PInstPriv;
 begin
   priv := GetPriv(w);
   Result := priv^.meineDaten;

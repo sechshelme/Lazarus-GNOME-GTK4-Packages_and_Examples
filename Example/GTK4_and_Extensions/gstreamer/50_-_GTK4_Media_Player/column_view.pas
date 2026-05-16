@@ -230,7 +230,6 @@ const
 var
   factory: PGtkListItemFactory;
   column: PGtkColumnViewColumn;
-  list_store: PGListStore;
   single_selection: PGtkSingleSelection;
   i: integer;
   len: SizeInt;
@@ -239,22 +238,11 @@ begin
   SekStream := nil;
   PriStream := nil;
 
-  list_store := g_list_store_new(G_TYPE_OBJECT);
-  single_selection := gtk_single_selection_new(G_LIST_MODEL(list_store));
+  single_selection := gtk_single_selection_new(G_LIST_MODEL(g_list_store_new(G_TYPE_OBJECT)));
 
-//  sharedWidgets^.columnView := gtk_column_view_new(GTK_SELECTION_MODEL(single_selection));
   sharedWidgets^.columnView := mp_column_view_widget_new;
-//gtk_column_view_set_model(GTK_COLUMN_VIEW(sharedWidgets^.columnView), GTK_SELECTION_MODEL(single_selection));
-gtk_column_view_set_model(PGtkColumnView(sharedWidgets^.columnView), GTK_SELECTION_MODEL(single_selection));
-g_object_unref(single_selection);
-
-mp_column_view_widget_set_data(sharedWidgets^.columnView, 1234);
-i:=mp_column_view_widget_get_data(sharedWidgets^.columnView);
-WriteLn(i);
-
-
-
-
+  gtk_column_view_set_model(PGtkColumnView(sharedWidgets^.columnView), GTK_SELECTION_MODEL(single_selection));
+  g_object_unref(single_selection);
 
   gtk_column_view_set_show_row_separators(GTK_COLUMN_VIEW(sharedWidgets^.columnView), True);
   gtk_column_view_set_show_column_separators(GTK_COLUMN_VIEW(sharedWidgets^.columnView), True);

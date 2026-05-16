@@ -1,40 +1,26 @@
 unit MPStreamer;
 
-{$modeswitch typehelpers}
-
 interface
 
 uses
   fp_glib2, fp_gst;
 
 type
-  TMPStreamer = record
-    parent_instance: TGstPipeline;
-    volume: PGstElement;
-    state: TGstState;
-    Duration: TGstClockTime;
-    FIsEnd: boolean;
-    Level: PGArray;
-  end;
-  PMPStreamer = ^TMPStreamer;
-
-  TMPStreamerClass = record
-    parent_class: TGstPipelineClass;
-  end;
-  PMPStreamerClass = ^TMPStreamerClass;
+  PMPStreamer = type Pointer;
+  PMPStreamerClass = type Pointer;
 
 function mp_streamer_get_type: TGType;
 function mp_streamer_new_from_launch(song: pchar): PMPStreamer;
-procedure mp_streamer_play(self: PMPStreamer);
-procedure mp_streamer_pause(self: PMPStreamer);
-procedure mp_streamer_stop(self: PMPStreamer);
-procedure mp_streamer_set_position(self: PMPStreamer; p: TGstClockTime);
-function mp_streamer_get_position(self: PMPStreamer): TGstClockTime;
-function mp_streamer_get_duration(self: PMPStreamer): TGstClockTime;
-procedure mp_streamer_set_volume(self: PMPStreamer; v: Tgdouble);
-function mp_streamer_is_played(self: PMPStreamer): boolean;
-function mp_streamer_is_end(self: PMPStreamer): boolean;
-function mp_streamer_get_VU(self: PMPStreamer): PGArray;
+procedure mp_streamer_play(st: PMPStreamer);
+procedure mp_streamer_pause(st: PMPStreamer);
+procedure mp_streamer_stop(st: PMPStreamer);
+procedure mp_streamer_set_position(st: PMPStreamer; p: TGstClockTime);
+function mp_streamer_get_position(st: PMPStreamer): TGstClockTime;
+function mp_streamer_get_duration(st: PMPStreamer): TGstClockTime;
+procedure mp_streamer_set_volume(st: PMPStreamer; v: Tgdouble);
+function mp_streamer_is_played(st: PMPStreamer): boolean;
+function mp_streamer_is_end(st: PMPStreamer): boolean;
+function mp_streamer_get_VU(st: PMPStreamer): PGArray;
 
 // ================================================
 
@@ -44,31 +30,51 @@ function get_duration(audioFile: Pgchar): TGstClockTime;
 
 implementation
 
-
-
 // ==== private
 
+type
+  TInstPriv = record
+    volume: PGstElement;
+    state: TGstState;
+    Duration: TGstClockTime;
+    FIsEnd: boolean;
+    Level: PGArray;
+  end;
+  PInstPriv = ^TInstPriv;
+
+  TClassPriv = record
+  end;
+  PClassPriv = ^TClassPriv;
+
 var
-  parent_class: PMPStreamerClass = nil;
+  parent_class: Tgpointer = nil;
+  instance_size: integer = 0;
+
+function GetPriv(w: Tgpointer): PInstPriv; inline;
+begin
+  Result := PInstPriv(w + instance_size);
+end;
 
 procedure dispose_cp(obj: PGObject); cdecl;
 var
-  self: PMPStreamer absolute obj;
+  priv: PInstPriv;
 begin
-  mp_streamer_stop(Self);
-  gst_object_unref(Self^.volume);
+  priv := GetPriv(obj);
+  mp_streamer_stop(PMPStreamer(obj));
+  gst_object_unref(priv^.volume);
 
   G_OBJECT_CLASS(parent_class)^.dispose(obj);
 end;
 
 procedure finalize_cp(obj: PGObject); cdecl;
 var
-  self: PMPStreamer absolute obj;
+  priv: PInstPriv;
 begin
-  g_array_free(self^.Level, True);
+  priv := GetPriv(obj);
+  g_array_free(priv^.Level, True);
 end;
 
-procedure class_init(g_class: Tgpointer; class_data: Tgpointer); cdecl;
+procedure class_init_cp(g_class: Tgpointer; class_data: Tgpointer); cdecl;
 begin
   G_OBJECT_CLASS(g_class)^.dispose := @dispose_cp;
   G_OBJECT_CLASS(g_class)^.finalize := @finalize_cp;
@@ -77,16 +83,16 @@ end;
 
 procedure init_cp(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
 var
-  self: PMPStreamer absolute instance;
+  priv: PInstPriv;
 begin
-  with self^ do begin
+  priv := GetPriv(instance);
+  with priv^ do begin
   end;
 end;
 
 function message_cb({%H-}bus: PGstBus; msg: PGstMessage; user_data: Tgpointer): Tgboolean; cdecl;
 var
-  pipeline: PMPStreamer absolute user_data;
-
+  priv: PInstPriv;
   s: PGstStructure;
   Name, debug_info: Pgchar;
   array_val: PGValue;
@@ -97,16 +103,17 @@ var
   i: integer;
   level: PGArray;
 begin
+  priv := GetPriv(user_data);
   case msg^._type of
     GST_MESSAGE_EOS: begin
-      pipeline^.FIsEnd := True;
+      priv^.FIsEnd := True;
     end;
     GST_MESSAGE_STATE_CHANGED: begin
       gst_message_parse_state_changed(msg, @old_state, @new_state, @pending_state);
-      pipeline^.state := new_state;
+      priv^.state := new_state;
     end;
     GST_MESSAGE_ELEMENT: begin
-      level := pipeline^.Level;
+      level := priv^.Level;
       s := gst_message_get_structure(msg);
       Name := gst_structure_get_name(s);
 
@@ -150,9 +157,15 @@ const
   type_id: TGType = 0;
 var
   id: TGType;
+  query: TGTypeQuery;
 begin
   if g_once_init_enter(@type_id) then begin
-    id := g_type_register_static_simple(GST_TYPE_PIPELINE, 'MPStreamer', SizeOf(TMPStreamerClass), @class_init, SizeOf(TMPStreamer), @init_cp, 0);
+    g_type_query(GST_TYPE_PIPELINE, @query);
+    instance_size := query.instance_size;
+
+    id := g_type_register_static_simple(GST_TYPE_PIPELINE, 'MPStreamer',
+      query.class_size + SizeOf(TClassPriv), @class_init_cp,
+      query.instance_size + SizeOf(TInstPriv), @init_cp, G_TYPE_FLAG_NONE);
     g_once_init_leave(@type_id, id);
   end;
   Result := type_id;
@@ -160,6 +173,7 @@ end;
 
 function mp_streamer_new_from_launch(song: pchar): PMPStreamer;
 var
+  priv: PInstPriv;
   inner_bin: PGstElement;
   s: Pgchar;
   bus: PGstBus;
@@ -167,6 +181,7 @@ var
 
 begin
   Result := PMPStreamer(g_object_new(mp_streamer_get_type, nil));
+  priv := GetPriv(Result);
 
   s := g_strdup_printf('filesrc location="%s" ! queue ! decodebin3 ! audioconvert ! audioresample ! volume name=vol volume=0.0 ! level name=level ! autoaudiosink', song);
   inner_bin := gst_parse_bin_from_description(s, False, nil);
@@ -177,12 +192,11 @@ begin
     gst_element_sync_state_with_parent(inner_bin);
   end;
 
-  Result^.FisEnd := False;
-  Result^.Duration := GST_CLOCK_TIME_NONE;
-  Result^.Level := g_array_new(False, True, SizeOf(Tgdouble));
-
-  Result^.volume := gst_bin_get_by_name(GST_BIN(Result), 'vol');
-  if Result^.volume = nil then begin
+  priv^.FisEnd := False;
+  priv^.Duration := GST_CLOCK_TIME_NONE;
+  priv^.Level := g_array_new(False, True, SizeOf(Tgdouble));
+  priv^.volume := gst_bin_get_by_name(GST_BIN(Result), 'vol');
+  if priv^.volume = nil then begin
     WriteLn('Volume Error');
   end;
 
@@ -206,63 +220,77 @@ begin
 end;
 
 
-procedure mp_streamer_play(self: PMPStreamer);
+procedure mp_streamer_play(st: PMPStreamer);
 begin
-  gst_element_set_state(GST_ELEMENT(Self), GST_STATE_PLAYING);
+  gst_element_set_state(GST_ELEMENT(st), GST_STATE_PLAYING);
 end;
 
-procedure mp_streamer_pause(self: PMPStreamer);
+procedure mp_streamer_pause(st: PMPStreamer);
 begin
-  gst_element_set_state(GST_ELEMENT(Self), GST_STATE_PAUSED);
+  gst_element_set_state(GST_ELEMENT(st), GST_STATE_PAUSED);
 end;
 
-procedure mp_streamer_stop(self: PMPStreamer);
+procedure mp_streamer_stop(st: PMPStreamer);
 begin
-  gst_element_set_state(GST_ELEMENT(Self), GST_STATE_NULL);
+  gst_element_set_state(GST_ELEMENT(st), GST_STATE_NULL);
 end;
 
-procedure mp_streamer_set_position(self: PMPStreamer; p: TGstClockTime);
+procedure mp_streamer_set_position(st: PMPStreamer; p: TGstClockTime);
 begin
-  gst_element_seek_simple(GST_ELEMENT(Self), GST_FORMAT_TIME, TGstSeekFlags(int64(GST_SEEK_FLAG_FLUSH) or int64(GST_SEEK_FLAG_KEY_UNIT)), p);
+  gst_element_seek_simple(GST_ELEMENT(st), GST_FORMAT_TIME, TGstSeekFlags(int64(GST_SEEK_FLAG_FLUSH) or int64(GST_SEEK_FLAG_KEY_UNIT)), p);
 end;
 
-function mp_streamer_get_position(self: PMPStreamer): TGstClockTime;
+function mp_streamer_get_position(st: PMPStreamer): TGstClockTime;
 begin
-  gst_element_query_position(GST_ELEMENT(Self), GST_FORMAT_TIME, @Result);
+  gst_element_query_position(GST_ELEMENT(st), GST_FORMAT_TIME, @Result);
 end;
 
-function mp_streamer_get_duration(self: PMPStreamer): TGstClockTime;
+function mp_streamer_get_duration(st: PMPStreamer): TGstClockTime;
 var
+  priv: PInstPriv;
   current: TGstClockTime = GST_CLOCK_TIME_NONE;
 begin
-  if Self^.Duration = GST_CLOCK_TIME_NONE then begin
-    gst_element_query_duration(GST_ELEMENT(Self), GST_FORMAT_TIME, @current);
+  priv := GetPriv(st);
+  if priv^.Duration = GST_CLOCK_TIME_NONE then begin
+    gst_element_query_duration(GST_ELEMENT(st), GST_FORMAT_TIME, @current);
 
     if current <> GST_CLOCK_TIME_NONE then  begin
-      Self^.Duration := current;
+      priv^.Duration := current;
     end;
   end;
-  Result := Self^.Duration;
+  Result := priv^.Duration;
 end;
 
-procedure mp_streamer_set_volume(self: PMPStreamer; v: Tgdouble);
+procedure mp_streamer_set_volume(st: PMPStreamer; v: Tgdouble);
+var
+  priv: PInstPriv;
 begin
-  g_object_set(Self^.volume, 'volume', v, nil);
+  priv := GetPriv(st);
+  g_object_set(priv^.volume, 'volume', v, nil);
 end;
 
-function mp_streamer_is_played(self: PMPStreamer): boolean;
+function mp_streamer_is_played(st: PMPStreamer): boolean;
+var
+  priv: PInstPriv;
 begin
-  Result := Self^.state = GST_STATE_PLAYING;
+  priv := GetPriv(st);
+  Result := priv^.state = GST_STATE_PLAYING;
 end;
 
-function mp_streamer_is_end(self: PMPStreamer): boolean;
+function mp_streamer_is_end(st: PMPStreamer): boolean;
+var
+  priv: PInstPriv;
 begin
-  Result := Self^.FIsEnd;
+  priv := GetPriv(st);
+  Result := priv^.FIsEnd;
 end;
 
-function mp_streamer_get_VU(self: PMPStreamer): PGArray;
+function mp_streamer_get_VU(st: PMPStreamer): PGArray;
+var
+  priv: PInstPriv;
 begin
-  Result := Self^.Level;
+  priv := GetPriv(st);
+  Result := priv^.Level;
 end;
 
 

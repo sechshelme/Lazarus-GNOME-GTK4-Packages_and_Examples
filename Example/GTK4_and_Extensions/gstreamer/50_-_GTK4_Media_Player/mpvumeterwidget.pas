@@ -6,31 +6,40 @@ uses
   fp_glib2, fp_GTK4, fp_graphene;
 
 type
-  TMPVUMeterWidget = record
-    parent_instance: TGtkWidget;
-    level: PGArray;
-  end;
-  PMPVUMeterWidget = ^TMPVUMeterWidget;
-
-  TMPVUMeterWidgetClass = record
-    parent_class: TGtkWidgetClass;
-  end;
-  PMPVUMeterWidgetClass = ^TMPVUMeterWidgetClass;
+  PMPVUMeterWidget = type Pointer;
+  PMPVUMeterWidgetClass = type Pointer;
 
 function mp_vu_meter_widget_get_type: TGType;
 function mp_vu_meter_widget_new: PGTKWidget;
-procedure mp_vu_meter_widget_set_level(self: PMPVUMeterWidget; level: PGArray);
+procedure mp_vu_meter_widget_set_level(w: PMPVUMeterWidget; level: PGArray);
 
 implementation
 
 // ==== private
 
+type
+  TInstPriv = record
+    level: PGArray;
+  end;
+  PInstPriv = ^TInstPriv;
+
+  TClassPriv = record
+    level: PGArray;
+  end;
+  PClassPriv = ^TClassPriv;
+
 var
-  parent_class: PMPVUMeterWidgetClass = nil;
+  parent_class: Tgpointer = nil;
+  instance_size: integer = 0;
+
+  function GetPriv(w: Tgpointer): PInstPriv; inline;
+  begin
+    Result := PInstPriv(w + instance_size);
+  end;
 
 procedure snapshoot_cp(widget: PGtkWidget; snapshot: PGtkSnapshot); cdecl;
 var
-  self: PMPVUMeterWidget absolute widget;
+  priv: PInstPriv;
   width, height: single;
   r: Tgraphene_rect_t;
   c_green, c_yellow, c_red, c_bg: TGdkRGBA;
@@ -52,6 +61,8 @@ const
   end;
 
 begin
+  priv := GetPriv(widget);
+
   width := gtk_widget_get_width(widget);
   height := gtk_widget_get_height(widget);
 
@@ -63,11 +74,11 @@ begin
   graphene_rect_init(@r, 0, 0, width, height);
   gtk_snapshot_append_color(snapshot, @c_bg, @r);
 
-  if (self^.level <> nil) and (self^.level^.len > 0) then begin
-    h_per_channel := height / self^.level^.len;
+  if (priv^.level <> nil) and (priv^.level^.len > 0) then begin
+    h_per_channel := height / priv^.level^.len;
 
-    for i := 0 to self^.level^.len - 1 do begin
-      db := Pgdouble(self^.level^.data)[i];
+    for i := 0 to priv^.level^.len - 1 do begin
+      db := Pgdouble(priv^.level^.data)[i];
       w_full := GetWidthForDB(db, width - (2 * border));
       y_pos := (i * h_per_channel) + border;
       x_start := border;
@@ -107,9 +118,10 @@ end;
 
 procedure finalize_cp(obj: PGObject); cdecl;
 var
-  self: PMPVUMeterWidget absolute obj;
+  priv: PInstPriv;
 begin
-  with self^ do begin
+  priv := GetPriv(obj);
+  with priv^ do begin
   end;
   G_OBJECT_CLASS(parent_class)^.finalize(obj);
 end;
@@ -123,9 +135,10 @@ end;
 
 procedure init_cp(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
 var
-  self: PMPVUMeterWidget absolute instance;
+  priv: PInstPriv;
 begin
-  with self^ do begin
+  priv := GetPriv(instance);
+  with priv^ do begin
     level := nil;
   end;
 end;
@@ -138,9 +151,15 @@ const
   type_id: TGType = 0;
 var
   id: TGType;
+  query: TGTypeQuery;
 begin
   if g_once_init_enter(@type_id) then begin
-    id := g_type_register_static_simple(GTK_TYPE_WIDGET, 'Snapshot', SizeOf(TMPVUMeterWidgetClass), @class_init_cp, SizeOf(TMPVUMeterWidget), @init_cp, 0);
+    g_type_query(GTK_TYPE_WIDGET, @query);
+    instance_size := query.instance_size;
+
+    id := g_type_register_static_simple(GTK_TYPE_WIDGET, 'MPVUMeterWidget',
+      query.class_size + SizeOf(TClassPriv), @class_init_cp,
+      query.instance_size + SizeOf(TInstPriv), @init_cp, G_TYPE_FLAG_NONE);
     g_once_init_leave(@type_id, id);
   end;
   Result := type_id;
@@ -148,15 +167,19 @@ end;
 
 function mp_vu_meter_widget_new: PGTKWidget;
 var
-  self: PMPVUMeterWidget absolute Result;
+  priv: PInstPriv;
 begin
   Result := g_object_new(mp_vu_meter_widget_get_type, nil);
+  priv := GetPriv(Result);
 end;
 
-procedure mp_vu_meter_widget_set_level(self: PMPVUMeterWidget; level: PGArray);
+procedure mp_vu_meter_widget_set_level(w: PMPVUMeterWidget; level: PGArray);
+var
+  priv: PInstPriv;
 begin
-  self^.level := level;
-  gtk_widget_queue_draw(GTK_WIDGET(self));
+  priv := GetPriv(w);
+  priv^.level := level;
+  gtk_widget_queue_draw(GTK_WIDGET(w));
 end;
 
 end.
