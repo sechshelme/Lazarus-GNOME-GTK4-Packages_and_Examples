@@ -72,25 +72,21 @@ begin
       y_pos := (i * h_per_channel) + border;
       x_start := border;
 
-      // --- 1. Grüner Bereich (bis -20 dB) ---
       w_seg := GetWidthForDB(-20, width - (2 * border));
       if w_full < w_seg then begin
         w_seg := w_full;
       end;
-
       if w_seg > 0 then begin
         graphene_rect_init(@r, x_start, y_pos, w_seg, h_per_channel - (2 * border));
         gtk_snapshot_append_color(snapshot, @c_green, @r);
         x_start := x_start + w_seg;
       end;
 
-      // --- 2. Gelber Bereich (-20 dB bis -6 dB) ---
       if db > -20 then begin
         w_seg := GetWidthForDB(-6, width - (2 * border)) - GetWidthForDB(-20, width - (2 * border));
         if w_full < (x_start + w_seg) then begin
           w_seg := w_full - x_start;
         end;
-
         if w_seg > 0 then begin
           graphene_rect_init(@r, x_start, y_pos, w_seg, h_per_channel - (2 * border));
           gtk_snapshot_append_color(snapshot, @c_yellow, @r);
@@ -98,7 +94,6 @@ begin
         end;
       end;
 
-      // --- 3. Roter Bereich (-6 dB bis 0 dB) ---
       if db > -6 then begin
         w_seg := w_full - x_start;
         if w_seg > 0 then begin
@@ -119,7 +114,7 @@ begin
   G_OBJECT_CLASS(parent_class)^.finalize(obj);
 end;
 
-procedure class_init(g_class: Tgpointer; class_data: Tgpointer); cdecl;
+procedure class_init_cp(g_class: Tgpointer; class_data: Tgpointer); cdecl;
 begin
   G_OBJECT_CLASS(g_class)^.finalize := @finalize_cp;
   GTK_WIDGET_CLASS(g_class)^.snapshot := @snapshoot_cp;
@@ -145,7 +140,7 @@ var
   id: TGType;
 begin
   if g_once_init_enter(@type_id) then begin
-    id := g_type_register_static_simple(GTK_TYPE_WIDGET, 'Snapshot', SizeOf(TMPVUMeterWidgetClass), @class_init, SizeOf(TMPVUMeterWidget), @init_cp, 0);
+    id := g_type_register_static_simple(GTK_TYPE_WIDGET, 'Snapshot', SizeOf(TMPVUMeterWidgetClass), @class_init_cp, SizeOf(TMPVUMeterWidget), @init_cp, 0);
     g_once_init_leave(@type_id, id);
   end;
   Result := type_id;
