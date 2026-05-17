@@ -57,7 +57,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/libmongoc-1.0/mongoc', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/libbson-1.0/bson', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -111,9 +111,11 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_8', 'extern', [rfReplaceAll]);
 
 
+      slHeader[j] := StringReplace(slHeader[j], 'BSON_GNUC_NULL_TERMINATED', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'BSON_BEGIN_DECLS', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'BSON_END_DECLS', '', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'BSON_GNUC_DEPRECATED', ';//xxxxxxxx BSON_GNUC_DEPRECATED;', [rfReplaceAll]);
+
 
 
 
@@ -123,6 +125,7 @@ begin
 
 
 
+      slHeader[j] := StringReplace(slHeader[j], 'BSON_EXPORT', 'extern', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'MONGOC_EXPORT', 'extern', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NULL_TERMINATED', '', [rfReplaceAll]);
 

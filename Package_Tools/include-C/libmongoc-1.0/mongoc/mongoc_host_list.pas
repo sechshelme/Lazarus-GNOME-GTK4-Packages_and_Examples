@@ -1,5 +1,7 @@
 unit mongoc_host_list;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,12 +11,15 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
-
+  {$IFDEF read_enum}
 const
   BSON_HOST_NAME_MAX = 255;
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   Pmongoc_host_list_t = ^Tmongoc_host_list_t;
+
   Tmongoc_host_list_t = record
     next: Pmongoc_host_list_t;
     host: array[0..(BSON_HOST_NAME_MAX + 1) - 1] of char;
@@ -23,6 +28,7 @@ type
     family: longint;
     padding: array[0..3] of pointer;
   end;
+  {$ENDIF read_struct}
 
   // === Konventiert am: 15-5-26 15:15:35 ===
 

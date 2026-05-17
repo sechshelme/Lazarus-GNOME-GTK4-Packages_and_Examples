@@ -1,5 +1,7 @@
 unit mongoc_flags;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 type
   Pmongoc_delete_flags_t = ^Tmongoc_delete_flags_t;
   Tmongoc_delete_flags_t = longint;
@@ -74,6 +77,7 @@ const
 
 const
   MONGOC_UPDATE_NO_VALIDATE = 1 shl 31;
+  {$ENDIF read_enum}
 
   // === Konventiert am: 15-5-26 15:15:56 ===
 

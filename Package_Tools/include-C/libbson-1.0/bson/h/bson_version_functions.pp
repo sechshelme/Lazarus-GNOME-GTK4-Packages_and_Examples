@@ -1,0 +1,64 @@
+
+unit bson_version_functions;
+interface
+
+{
+  Automatically converted by H2Pas 1.0.0 from bson_version_functions.h
+  The following command line parameters were used:
+    -p
+    -T
+    -d
+    -c
+    -e
+    bson_version_functions.h
+}
+
+{ Pointers to basic pascal types, inserted by h2pas conversion program.}
+Type
+  PLongint  = ^Longint;
+  PSmallInt = ^SmallInt;
+  PByte     = ^Byte;
+  PWord     = ^Word;
+  PDWord    = ^DWord;
+  PDouble   = ^Double;
+
+Type
+Pchar  = ^char;
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
+ * Copyright 2015 MongoDB, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+  }
+{$include <bson/bson-prelude.h>}
+{$ifndef BSON_VERSION_FUNCTIONS_H}
+{$define BSON_VERSION_FUNCTIONS_H}
+{$include <bson/bson-types.h>}
+
+function bson_get_major_version:longint;cdecl;external;
+function bson_get_minor_version:longint;cdecl;external;
+function bson_get_micro_version:longint;cdecl;external;
+(* Const before type ignored *)
+function bson_get_version:Pchar;cdecl;external;
+function bson_check_version(required_major:longint; required_minor:longint; required_micro:longint):Tbool;cdecl;external;
+{$endif}
+{ BSON_VERSION_FUNCTIONS_H  }
+
+implementation
+
+
+end.

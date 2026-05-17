@@ -1,5 +1,7 @@
 unit mongoc_index;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   Tmongoc_index_opt_geo_t = record
     twod_sphere_version: Tuint8_t;
@@ -25,7 +28,9 @@ type
     _type: longint;
   end;
   Pmongoc_index_opt_storage_t = ^Tmongoc_index_opt_storage_t;
+  {$ENDIF read_struct}
 
+  {$IFDEF read_enum}
 type
   Pmongoc_index_storage_opt_type_t = ^Tmongoc_index_storage_opt_type_t;
   Tmongoc_index_storage_opt_type_t = longint;
@@ -33,7 +38,9 @@ type
 const
   MONGOC_INDEX_STORAGE_OPT_MMAPV1 = 0;
   MONGOC_INDEX_STORAGE_OPT_WIREDTIGER = 1;
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   Tmongoc_index_opt_wt_t = record
     base: Tmongoc_index_opt_storage_t;
@@ -43,12 +50,12 @@ type
   Pmongoc_index_opt_wt_t = ^Tmongoc_index_opt_wt_t;
 
   Tmongoc_index_opt_t = record
-    is_initialized: Tbool;
-    background: Tbool;
-    unique: Tbool;
+    is_initialized: Boolean;
+    background: Boolean;
+    unique: Boolean;
     name: pchar;
-    drop_dups: Tbool;
-    sparse: Tbool;
+    drop_dups: Boolean;
+    sparse: Boolean;
     expire_after_seconds: Tint32_t;
     v: Tint32_t;
     weights: Pbson_t;
@@ -61,13 +68,16 @@ type
     padding: array[0..3] of pointer;
   end;
   Pmongoc_index_opt_t = ^Tmongoc_index_opt_t;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function mongoc_index_opt_get_default: Pmongoc_index_opt_t; cdecl; external libmongoc;
 function mongoc_index_opt_geo_get_default: Pmongoc_index_opt_geo_t; cdecl; external libmongoc;
 function mongoc_index_opt_wt_get_default: Pmongoc_index_opt_wt_t; cdecl; external libmongoc;
 procedure mongoc_index_opt_init(opt: Pmongoc_index_opt_t); cdecl; external libmongoc;
 procedure mongoc_index_opt_geo_init(opt: Pmongoc_index_opt_geo_t); cdecl; external libmongoc;
 procedure mongoc_index_opt_wt_init(opt: Pmongoc_index_opt_wt_t); cdecl; external libmongoc;
+{$ENDIF read_function}
 
 // === Konventiert am: 15-5-26 15:15:33 ===
 

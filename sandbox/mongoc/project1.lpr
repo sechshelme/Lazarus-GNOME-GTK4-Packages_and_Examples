@@ -1,6 +1,7 @@
 program project1;
 
 uses
+mongoc_version,
 mongoc_config,
 mongoc_flags,
 mongoc_host_list,
@@ -32,30 +33,23 @@ mongoc_stream_gridfs,
 mongoc_client_side_encryption,
 mongoc_client,
 mongoc_cursor,
-
-
-//mongoc_stream_buffered,
-//mongoc_stream_file,
-//mongoc_stream_socket,
-//mongoc_stream_tls,
-//mongoc_stream_tls_libressl,
-//mongoc_stream_tls_openssl,
-
-
-//mongoc_client_pool,
-
-//mongoc_error,
-//mongoc_gridfs_bucket,
-//mongoc_handshake,
-//mongoc_init,
-//mongoc_log,
-//mongoc_macros,
-//mongoc_matcher,
-//mongoc_opcode,
-//mongoc_rand,
-//mongoc_sleep,
-//mongoc_version,
-//mongoc_version_functions,
+mongoc_stream_buffered,
+mongoc_stream_file,
+mongoc_stream_socket,
+mongoc_stream_tls,
+mongoc_stream_tls_libressl,
+mongoc_stream_tls_openssl,
+mongoc_client_pool,
+mongoc_error,
+mongoc_gridfs_bucket,
+mongoc_handshake,
+mongoc_init,
+mongoc_log,
+mongoc_matcher,
+mongoc_opcode,
+mongoc_rand,
+mongoc_sleep,
+mongoc_version_functions,
 
 fp_mongoc;
 
@@ -72,26 +66,32 @@ fp_mongoc;
 
 
 
-const char *uri_string = "mongodb://localhost:27017";
+const uri_string = 'mongodb://localhost:27017';
 
-void read_data() {
-    mongoc_uri_t *uri;
-    mongoc_client_t *client;
-    mongoc_collection_t *collection;
-    mongoc_cursor_t *cursor;
-    const bson_t *doc;
-    char *str;
-    bson_t *query;
-    bson_error_t error;
+procedure read_data;
+var
+  uri: Pmongoc_uri_t;
+error:  Pbson_error_t;
+client: Pmongoc_client_t;
+collection: Pmongoc_collection_t;
+begin
+    //mongoc_uri_t *uri;
+    //mongoc_client_t *client;
+    //mongoc_collection_t *collection;
+    //mongoc_cursor_t *cursor;
+    //const bson_t *doc;
+    //char *str;
+    //bson_t *query;
+    //bson_error_t error;
 
-    uri = mongoc_uri_new_with_error(uri_string, &error);
-    if (!uri) return;
+    uri := mongoc_uri_new_with_error(uri_string, @error);
+    if uri=nil then Exit;
 
-    client = mongoc_client_new_from_uri(uri);
-    if (!client) { mongoc_uri_destroy(uri); return; }
+    client := mongoc_client_new_from_uri(uri);
+    if client=nil then Exit;
 
-    collection = mongoc_client_get_collection(client, "mydb", "mycoll");
-    query = bson_new();
+    collection := mongoc_client_get_collection(client, 'mydb', 'mycoll');
+    query := bson_new;
     cursor = mongoc_collection_find_with_opts(collection, query, NULL, NULL);
 
     printf("\n--- Daten aus der Cloud ---\n");

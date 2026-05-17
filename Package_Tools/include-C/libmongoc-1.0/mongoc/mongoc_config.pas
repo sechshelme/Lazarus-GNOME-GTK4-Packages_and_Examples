@@ -1,5 +1,7 @@
 unit mongoc_config;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -9,7 +11,7 @@ uses
   {$PACKRECORDS C}
   {$ENDIF}
 
-
+  {$IFDEF read_enum}
 const
   MONGOC_USER_SET_CFLAGS = '-g -O2 -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer  -flto=auto -ffat-lto-objects -fstack-protector-strong -fstack-clash-protection -Wformat -Werror=format-security -fcf-protection  -Wdate-time -D_FORTIFY_SOURCE=3';
   MONGOC_USER_SET_LDFLAGS = '-Wl,-Bsymbolic-functions -flto=auto -ffat-lto-objects -Wl,-z,relro -Wl,-z,now -lpthread';
@@ -37,7 +39,7 @@ const
   MONGOC_HAVE_RES_NDESTROY = 0;
   MONGOC_HAVE_RES_NCLOSE = 1;
   MONGOC_HAVE_RES_SEARCH = 1;
-//  MONGOC_SOCKET_ARG3 = socklen_t;
+  //  MONGOC_SOCKET_ARG3 = socklen_t;
   MONGOC_ENABLE_COMPRESSION_SNAPPY = 1;
   MONGOC_ENABLE_COMPRESSION_ZLIB = 1;
   MONGOC_ENABLE_COMPRESSION_ZSTD = 1;
@@ -51,6 +53,7 @@ const
 const
   MONGOC_TRACE_ENABLED = MONGOC_TRACE;
   MONGOC_SRV_ENABLED = MONGOC_ENABLE_SRV;
+  {$ENDIF read_enum}
 
   // === Konventiert am: 15-5-26 15:16:12 ===
 

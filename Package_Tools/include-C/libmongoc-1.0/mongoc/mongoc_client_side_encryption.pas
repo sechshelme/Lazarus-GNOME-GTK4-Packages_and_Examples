@@ -1,5 +1,7 @@
 unit mongoc_client_side_encryption;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,13 +12,16 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   Pmongoc_client_t = type Pointer;
   Pmongoc_client_pool_t = type Pointer;
   Pmongoc_cursor_t = type Pointer;
   Pmongoc_collection_t = type Pointer;
   Pmongoc_database_t = type Pointer;
+  {$ENDIF read_struct}
 
+  {$IFDEF read_enum}
 const
   MONGOC_AEAD_AES_256_CBC_HMAC_SHA_512_RANDOM = 'AEAD_AES_256_CBC_HMAC_SHA_512-Random';
   MONGOC_AEAD_AES_256_CBC_HMAC_SHA_512_DETERMINISTIC = 'AEAD_AES_256_CBC_HMAC_SHA_512-Deterministic';
@@ -25,11 +30,15 @@ const
   MONGOC_ENCRYPT_ALGORITHM_RANGEPREVIEW = 'RangePreview';
   MONGOC_ENCRYPT_QUERY_TYPE_EQUALITY = 'equality';
   MONGOC_ENCRYPT_QUERY_TYPE_RANGEPREVIEW = 'rangePreview';
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   Pmongoc_auto_encryption_opts_t = type Pointer;
-  Tmongoc_kms_credentials_provider_callback_fn = function(userdata: pointer; params: Pbson_t; out_: Pbson_t; error: Pbson_error_t): Tbool; cdecl;
+  Tmongoc_kms_credentials_provider_callback_fn = function(userdata: pointer; params: Pbson_t; out_: Pbson_t; error: Pbson_error_t): Boolean; cdecl;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function mongoc_auto_encryption_opts_new: Pmongoc_auto_encryption_opts_t; cdecl; external libmongoc;
 procedure mongoc_auto_encryption_opts_destroy(opts: Pmongoc_auto_encryption_opts_t); cdecl; external libmongoc;
 procedure mongoc_auto_encryption_opts_set_keyvault_client(opts: Pmongoc_auto_encryption_opts_t; client: Pmongoc_client_t); cdecl; external libmongoc;
@@ -39,11 +48,13 @@ procedure mongoc_auto_encryption_opts_set_kms_providers(opts: Pmongoc_auto_encry
 procedure mongoc_auto_encryption_opts_set_tls_opts(opts: Pmongoc_auto_encryption_opts_t; tls_opts: Pbson_t); cdecl; external libmongoc;
 procedure mongoc_auto_encryption_opts_set_schema_map(opts: Pmongoc_auto_encryption_opts_t; schema_map: Pbson_t); cdecl; external libmongoc;
 procedure mongoc_auto_encryption_opts_set_encrypted_fields_map(opts: Pmongoc_auto_encryption_opts_t; encrypted_fields_map: Pbson_t); cdecl; external libmongoc;
-procedure mongoc_auto_encryption_opts_set_bypass_auto_encryption(opts: Pmongoc_auto_encryption_opts_t; bypass_auto_encryption: Tbool); cdecl; external libmongoc;
-procedure mongoc_auto_encryption_opts_set_bypass_query_analysis(opts: Pmongoc_auto_encryption_opts_t; bypass_query_analysis: Tbool); cdecl; external libmongoc;
+procedure mongoc_auto_encryption_opts_set_bypass_auto_encryption(opts: Pmongoc_auto_encryption_opts_t; bypass_auto_encryption: Boolean); cdecl; external libmongoc;
+procedure mongoc_auto_encryption_opts_set_bypass_query_analysis(opts: Pmongoc_auto_encryption_opts_t; bypass_query_analysis: Boolean); cdecl; external libmongoc;
 procedure mongoc_auto_encryption_opts_set_extra(opts: Pmongoc_auto_encryption_opts_t; extra: Pbson_t); cdecl; external libmongoc;
 procedure mongoc_auto_encryption_opts_set_kms_credential_provider_callback(opts: Pmongoc_auto_encryption_opts_t; fn: Tmongoc_kms_credentials_provider_callback_fn; userdata: pointer); cdecl; external libmongoc;
+{$ENDIF read_function}
 
+{$IFDEF read_struct}
 type
   Pmongoc_client_encryption_opts_t = type Pointer;
   Pmongoc_client_encryption_t = type Pointer;
@@ -51,7 +62,9 @@ type
   Pmongoc_client_encryption_encrypt_opts_t = type Pointer;
   Pmongoc_client_encryption_datakey_opts_t = type Pointer;
   Pmongoc_client_encryption_rewrap_many_datakey_result_t = type Pointer;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function mongoc_client_encryption_opts_new: Pmongoc_client_encryption_opts_t; cdecl; external libmongoc;
 procedure mongoc_client_encryption_opts_destroy(opts: Pmongoc_client_encryption_opts_t); cdecl; external libmongoc;
 procedure mongoc_client_encryption_opts_set_keyvault_client(opts: Pmongoc_client_encryption_opts_t; keyvault_client: Pmongoc_client_t); cdecl; external libmongoc;
@@ -64,18 +77,18 @@ procedure mongoc_client_encryption_rewrap_many_datakey_result_destroy(result: Pm
 function mongoc_client_encryption_rewrap_many_datakey_result_get_bulk_write_result(result: Pmongoc_client_encryption_rewrap_many_datakey_result_t): Pbson_t; cdecl; external libmongoc;
 function mongoc_client_encryption_new(opts: Pmongoc_client_encryption_opts_t; error: Pbson_error_t): Pmongoc_client_encryption_t; cdecl; external libmongoc;
 procedure mongoc_client_encryption_destroy(client_encryption: Pmongoc_client_encryption_t); cdecl; external libmongoc;
-function mongoc_client_encryption_create_datakey(client_encryption: Pmongoc_client_encryption_t; kms_provider: pchar; opts: Pmongoc_client_encryption_datakey_opts_t; keyid: Pbson_value_t; error: Pbson_error_t): Tbool; cdecl; external libmongoc;
+function mongoc_client_encryption_create_datakey(client_encryption: Pmongoc_client_encryption_t; kms_provider: pchar; opts: Pmongoc_client_encryption_datakey_opts_t; keyid: Pbson_value_t; error: Pbson_error_t): Boolean; cdecl; external libmongoc;
 function mongoc_client_encryption_rewrap_many_datakey(client_encryption: Pmongoc_client_encryption_t; filter: Pbson_t; provider: pchar; master_key: Pbson_t; result: Pmongoc_client_encryption_rewrap_many_datakey_result_t;
-  error: Pbson_error_t): Tbool; cdecl; external libmongoc;
-function mongoc_client_encryption_delete_key(client_encryption: Pmongoc_client_encryption_t; keyid: Pbson_value_t; reply: Pbson_t; error: Pbson_error_t): Tbool; cdecl; external libmongoc;
-function mongoc_client_encryption_get_key(client_encryption: Pmongoc_client_encryption_t; keyid: Pbson_value_t; key_doc: Pbson_t; error: Pbson_error_t): Tbool; cdecl; external libmongoc;
+  error: Pbson_error_t): Boolean; cdecl; external libmongoc;
+function mongoc_client_encryption_delete_key(client_encryption: Pmongoc_client_encryption_t; keyid: Pbson_value_t; reply: Pbson_t; error: Pbson_error_t): Boolean; cdecl; external libmongoc;
+function mongoc_client_encryption_get_key(client_encryption: Pmongoc_client_encryption_t; keyid: Pbson_value_t; key_doc: Pbson_t; error: Pbson_error_t): Boolean; cdecl; external libmongoc;
 function mongoc_client_encryption_get_keys(client_encryption: Pmongoc_client_encryption_t; error: Pbson_error_t): Pmongoc_cursor_t; cdecl; external libmongoc;
-function mongoc_client_encryption_add_key_alt_name(client_encryption: Pmongoc_client_encryption_t; keyid: Pbson_value_t; keyaltname: pchar; key_doc: Pbson_t; error: Pbson_error_t): Tbool; cdecl; external libmongoc;
-function mongoc_client_encryption_remove_key_alt_name(client_encryption: Pmongoc_client_encryption_t; keyid: Pbson_value_t; keyaltname: pchar; key_doc: Pbson_t; error: Pbson_error_t): Tbool; cdecl; external libmongoc;
-function mongoc_client_encryption_get_key_by_alt_name(client_encryption: Pmongoc_client_encryption_t; keyaltname: pchar; key_doc: Pbson_t; error: Pbson_error_t): Tbool; cdecl; external libmongoc;
-function mongoc_client_encryption_encrypt(client_encryption: Pmongoc_client_encryption_t; value: Pbson_value_t; opts: Pmongoc_client_encryption_encrypt_opts_t; ciphertext: Pbson_value_t; error: Pbson_error_t): Tbool; cdecl; external libmongoc;
-function mongoc_client_encryption_encrypt_expression(client_encryption: Pmongoc_client_encryption_t; expr: Pbson_t; opts: Pmongoc_client_encryption_encrypt_opts_t; expr_out: Pbson_t; error: Pbson_error_t): Tbool; cdecl; external libmongoc;
-function mongoc_client_encryption_decrypt(client_encryption: Pmongoc_client_encryption_t; ciphertext: Pbson_value_t; value: Pbson_value_t; error: Pbson_error_t): Tbool; cdecl; external libmongoc;
+function mongoc_client_encryption_add_key_alt_name(client_encryption: Pmongoc_client_encryption_t; keyid: Pbson_value_t; keyaltname: pchar; key_doc: Pbson_t; error: Pbson_error_t): Boolean; cdecl; external libmongoc;
+function mongoc_client_encryption_remove_key_alt_name(client_encryption: Pmongoc_client_encryption_t; keyid: Pbson_value_t; keyaltname: pchar; key_doc: Pbson_t; error: Pbson_error_t): Boolean; cdecl; external libmongoc;
+function mongoc_client_encryption_get_key_by_alt_name(client_encryption: Pmongoc_client_encryption_t; keyaltname: pchar; key_doc: Pbson_t; error: Pbson_error_t): Boolean; cdecl; external libmongoc;
+function mongoc_client_encryption_encrypt(client_encryption: Pmongoc_client_encryption_t; value: Pbson_value_t; opts: Pmongoc_client_encryption_encrypt_opts_t; ciphertext: Pbson_value_t; error: Pbson_error_t): Boolean; cdecl; external libmongoc;
+function mongoc_client_encryption_encrypt_expression(client_encryption: Pmongoc_client_encryption_t; expr: Pbson_t; opts: Pmongoc_client_encryption_encrypt_opts_t; expr_out: Pbson_t; error: Pbson_error_t): Boolean; cdecl; external libmongoc;
+function mongoc_client_encryption_decrypt(client_encryption: Pmongoc_client_encryption_t; ciphertext: Pbson_value_t; value: Pbson_value_t; error: Pbson_error_t): Boolean; cdecl; external libmongoc;
 function mongoc_client_encryption_encrypt_opts_new: Pmongoc_client_encryption_encrypt_opts_t; cdecl; external libmongoc;
 procedure mongoc_client_encryption_encrypt_opts_destroy(opts: Pmongoc_client_encryption_encrypt_opts_t); cdecl; external libmongoc;
 procedure mongoc_client_encryption_encrypt_opts_set_keyid(opts: Pmongoc_client_encryption_encrypt_opts_t; keyid: Pbson_value_t); cdecl; external libmongoc;
@@ -98,6 +111,7 @@ procedure mongoc_client_encryption_datakey_opts_set_keymaterial(opts: Pmongoc_cl
 function mongoc_client_encryption_get_crypt_shared_version(enc: Pmongoc_client_encryption_t): pchar; cdecl; external libmongoc;
 function mongoc_client_encryption_create_encrypted_collection(enc: Pmongoc_client_encryption_t; database: Pmongoc_database_t; name: pchar; in_options: Pbson_t; opt_out_options: Pbson_t;
   kms_provider: pchar; opt_masterkey: Pbson_t; error: Pbson_error_t): Pmongoc_collection_t; cdecl; external libmongoc;
+{$ENDIF read_function}
 
 // === Konventiert am: 15-5-26 15:16:18 ===
 

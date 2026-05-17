@@ -44,8 +44,6 @@ type
   Tssize_t=SizeInt;
   Pssize_t=^Tssize_t;
 
-  Tbool=Boolean;//?????
-
   Psockaddr=type Pointer;
   Paddrinfo =type Pointer;
 

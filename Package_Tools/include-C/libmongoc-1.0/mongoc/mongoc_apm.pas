@@ -1,5 +1,7 @@
 unit mongoc_apm;
 
+{$DEFINE read_struct}{$DEFINE read_function}{$DEFINE read_enum}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_struct}
 type
   Pmongoc_apm_callbacks_t = type Pointer;
   Pmongoc_apm_command_started_t = type Pointer;
@@ -25,7 +28,9 @@ type
   Pmongoc_apm_server_heartbeat_started_t = type Pointer;
   Pmongoc_apm_server_heartbeat_succeeded_t = type Pointer;
   Pmongoc_apm_server_heartbeat_failed_t = type Pointer;
+  {$ENDIF read_struct}
 
+  {$IFDEF read_function}
 function mongoc_apm_command_started_get_command(event: Pmongoc_apm_command_started_t): Pbson_t; cdecl; external libmongoc;
 function mongoc_apm_command_started_get_database_name(event: Pmongoc_apm_command_started_t): pchar; cdecl; external libmongoc;
 function mongoc_apm_command_started_get_command_name(event: Pmongoc_apm_command_started_t): pchar; cdecl; external libmongoc;
@@ -104,7 +109,9 @@ procedure mongoc_apm_server_heartbeat_failed_get_error(event: Pmongoc_apm_server
 function mongoc_apm_server_heartbeat_failed_get_host(event: Pmongoc_apm_server_heartbeat_failed_t): Pmongoc_host_list_t; cdecl; external libmongoc;
 function mongoc_apm_server_heartbeat_failed_get_context(event: Pmongoc_apm_server_heartbeat_failed_t): pointer; cdecl; external libmongoc;
 function mongoc_apm_server_heartbeat_failed_get_awaited(event: Pmongoc_apm_server_heartbeat_failed_t): boolean; cdecl; external libmongoc;
+{$ENDIF read_function}
 
+{$IFDEF read_struct}
 type
   Tmongoc_apm_command_started_cb_t = procedure(event: Pmongoc_apm_command_started_t); cdecl;
   Tmongoc_apm_command_succeeded_cb_t = procedure(event: Pmongoc_apm_command_succeeded_t); cdecl;
@@ -118,7 +125,9 @@ type
   Tmongoc_apm_server_heartbeat_started_cb_t = procedure(event: Pmongoc_apm_server_heartbeat_started_t); cdecl;
   Tmongoc_apm_server_heartbeat_succeeded_cb_t = procedure(event: Pmongoc_apm_server_heartbeat_succeeded_t); cdecl;
   Tmongoc_apm_server_heartbeat_failed_cb_t = procedure(event: Pmongoc_apm_server_heartbeat_failed_t); cdecl;
+  {$ENDIF read_struct}
 
+  {$IFDEF read_function}
 function mongoc_apm_callbacks_new: Pmongoc_apm_callbacks_t; cdecl; external libmongoc;
 procedure mongoc_apm_callbacks_destroy(callbacks: Pmongoc_apm_callbacks_t); cdecl; external libmongoc;
 procedure mongoc_apm_set_command_started_cb(callbacks: Pmongoc_apm_callbacks_t; cb: Tmongoc_apm_command_started_cb_t); cdecl; external libmongoc;
@@ -133,6 +142,7 @@ procedure mongoc_apm_set_topology_closed_cb(callbacks: Pmongoc_apm_callbacks_t; 
 procedure mongoc_apm_set_server_heartbeat_started_cb(callbacks: Pmongoc_apm_callbacks_t; cb: Tmongoc_apm_server_heartbeat_started_cb_t); cdecl; external libmongoc;
 procedure mongoc_apm_set_server_heartbeat_succeeded_cb(callbacks: Pmongoc_apm_callbacks_t; cb: Tmongoc_apm_server_heartbeat_succeeded_cb_t); cdecl; external libmongoc;
 procedure mongoc_apm_set_server_heartbeat_failed_cb(callbacks: Pmongoc_apm_callbacks_t; cb: Tmongoc_apm_server_heartbeat_failed_cb_t); cdecl; external libmongoc;
+{$ENDIF read_function}
 
 // === Konventiert am: 15-5-26 15:16:34 ===
 

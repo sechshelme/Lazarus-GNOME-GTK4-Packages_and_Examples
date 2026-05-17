@@ -1,5 +1,7 @@
 unit mongoc_uri;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
@@ -10,6 +12,7 @@ uses
   {$ENDIF}
 
 
+  {$IFDEF read_enum}
 const
   MONGOC_DEFAULT_PORT = 27017;
 
@@ -65,10 +68,14 @@ const
   MONGOC_URI_SSLCERTIFICATEAUTHORITYFILE = 'sslcertificateauthorityfile';
   MONGOC_URI_SSLALLOWINVALIDCERTIFICATES = 'sslallowinvalidcertificates';
   MONGOC_URI_SSLALLOWINVALIDHOSTNAMES = 'sslallowinvalidhostnames';
+  {$ENDIF read_enum}
 
+  {$IFDEF read_struct}
 type
   Pmongoc_uri_t = type Pointer;
+  {$ENDIF read_struct}
 
+{$IFDEF read_function}
 function mongoc_uri_copy(uri: Pmongoc_uri_t): Pmongoc_uri_t; cdecl; external libmongoc;
 procedure mongoc_uri_destroy(uri: Pmongoc_uri_t); cdecl; external libmongoc;
 function mongoc_uri_new(uri_string: pchar): Pmongoc_uri_t; cdecl; external libmongoc;
@@ -79,41 +86,41 @@ function mongoc_uri_get_service(uri: Pmongoc_uri_t): pchar; cdecl; external libm
 function mongoc_uri_get_srv_hostname(uri: Pmongoc_uri_t): pchar; cdecl; external libmongoc;
 function mongoc_uri_get_srv_service_name(uri: Pmongoc_uri_t): pchar; cdecl; external libmongoc;
 function mongoc_uri_get_database(uri: Pmongoc_uri_t): pchar; cdecl; external libmongoc;
-function mongoc_uri_set_database(uri: Pmongoc_uri_t; database: pchar): Tbool; cdecl; external libmongoc;
+function mongoc_uri_set_database(uri: Pmongoc_uri_t; database: pchar): Boolean; cdecl; external libmongoc;
 function mongoc_uri_get_compressors(uri: Pmongoc_uri_t): Pbson_t; cdecl; external libmongoc;
 function mongoc_uri_get_options(uri: Pmongoc_uri_t): Pbson_t; cdecl; external libmongoc;
 function mongoc_uri_get_password(uri: Pmongoc_uri_t): pchar; cdecl; external libmongoc;
-function mongoc_uri_set_password(uri: Pmongoc_uri_t; password: pchar): Tbool; cdecl; external libmongoc;
-function mongoc_uri_has_option(uri: Pmongoc_uri_t; key: pchar): Tbool; cdecl; external libmongoc;
-function mongoc_uri_option_is_int32(key: pchar): Tbool; cdecl; external libmongoc;
-function mongoc_uri_option_is_int64(key: pchar): Tbool; cdecl; external libmongoc;
-function mongoc_uri_option_is_bool(key: pchar): Tbool; cdecl; external libmongoc;
-function mongoc_uri_option_is_utf8(key: pchar): Tbool; cdecl; external libmongoc;
+function mongoc_uri_set_password(uri: Pmongoc_uri_t; password: pchar): Boolean; cdecl; external libmongoc;
+function mongoc_uri_has_option(uri: Pmongoc_uri_t; key: pchar): Boolean; cdecl; external libmongoc;
+function mongoc_uri_option_is_int32(key: pchar): Boolean; cdecl; external libmongoc;
+function mongoc_uri_option_is_int64(key: pchar): Boolean; cdecl; external libmongoc;
+function mongoc_uri_option_is_bool(key: pchar): Boolean; cdecl; external libmongoc;
+function mongoc_uri_option_is_utf8(key: pchar): Boolean; cdecl; external libmongoc;
 function mongoc_uri_get_option_as_int32(uri: Pmongoc_uri_t; option: pchar; fallback: Tint32_t): Tint32_t; cdecl; external libmongoc;
 function mongoc_uri_get_option_as_int64(uri: Pmongoc_uri_t; option: pchar; fallback: Tint64_t): Tint64_t; cdecl; external libmongoc;
-function mongoc_uri_get_option_as_bool(uri: Pmongoc_uri_t; option: pchar; fallback: Tbool): Tbool; cdecl; external libmongoc;
+function mongoc_uri_get_option_as_bool(uri: Pmongoc_uri_t; option: pchar; fallback: Boolean): Boolean; cdecl; external libmongoc;
 function mongoc_uri_get_option_as_utf8(uri: Pmongoc_uri_t; option: pchar; fallback: pchar): pchar; cdecl; external libmongoc;
-function mongoc_uri_set_option_as_int32(uri: Pmongoc_uri_t; option: pchar; value: Tint32_t): Tbool; cdecl; external libmongoc;
-function mongoc_uri_set_option_as_int64(uri: Pmongoc_uri_t; option: pchar; value: Tint64_t): Tbool; cdecl; external libmongoc;
-function mongoc_uri_set_option_as_bool(uri: Pmongoc_uri_t; option: pchar; value: Tbool): Tbool; cdecl; external libmongoc;
-function mongoc_uri_set_option_as_utf8(uri: Pmongoc_uri_t; option: pchar; value: pchar): Tbool; cdecl; external libmongoc;
+function mongoc_uri_set_option_as_int32(uri: Pmongoc_uri_t; option: pchar; value: Tint32_t): Boolean; cdecl; external libmongoc;
+function mongoc_uri_set_option_as_int64(uri: Pmongoc_uri_t; option: pchar; value: Tint64_t): Boolean; cdecl; external libmongoc;
+function mongoc_uri_set_option_as_bool(uri: Pmongoc_uri_t; option: pchar; value: Boolean): Boolean; cdecl; external libmongoc;
+function mongoc_uri_set_option_as_utf8(uri: Pmongoc_uri_t; option: pchar; value: pchar): Boolean; cdecl; external libmongoc;
 function mongoc_uri_get_read_prefs(uri: Pmongoc_uri_t): Pbson_t; cdecl; external libmongoc; deprecated;
 function mongoc_uri_get_replica_set(uri: Pmongoc_uri_t): pchar; cdecl; external libmongoc;
 function mongoc_uri_get_string(uri: Pmongoc_uri_t): pchar; cdecl; external libmongoc;
 function mongoc_uri_get_username(uri: Pmongoc_uri_t): pchar; cdecl; external libmongoc;
-function mongoc_uri_set_username(uri: Pmongoc_uri_t; username: pchar): Tbool; cdecl; external libmongoc;
+function mongoc_uri_set_username(uri: Pmongoc_uri_t; username: pchar): Boolean; cdecl; external libmongoc;
 function mongoc_uri_get_credentials(uri: Pmongoc_uri_t): Pbson_t; cdecl; external libmongoc;
 function mongoc_uri_get_auth_source(uri: Pmongoc_uri_t): pchar; cdecl; external libmongoc;
-function mongoc_uri_set_auth_source(uri: Pmongoc_uri_t; value: pchar): Tbool; cdecl; external libmongoc;
+function mongoc_uri_set_auth_source(uri: Pmongoc_uri_t; value: pchar): Boolean; cdecl; external libmongoc;
 function mongoc_uri_get_appname(uri: Pmongoc_uri_t): pchar; cdecl; external libmongoc;
-function mongoc_uri_set_appname(uri: Pmongoc_uri_t; value: pchar): Tbool; cdecl; external libmongoc;
-function mongoc_uri_set_compressors(uri: Pmongoc_uri_t; value: pchar): Tbool; cdecl; external libmongoc;
+function mongoc_uri_set_appname(uri: Pmongoc_uri_t; value: pchar): Boolean; cdecl; external libmongoc;
+function mongoc_uri_set_compressors(uri: Pmongoc_uri_t; value: pchar): Boolean; cdecl; external libmongoc;
 function mongoc_uri_get_auth_mechanism(uri: Pmongoc_uri_t): pchar; cdecl; external libmongoc;
-function mongoc_uri_set_auth_mechanism(uri: Pmongoc_uri_t; value: pchar): Tbool; cdecl; external libmongoc;
-function mongoc_uri_get_mechanism_properties(uri: Pmongoc_uri_t; properties: Pbson_t): Tbool; cdecl; external libmongoc;
-function mongoc_uri_set_mechanism_properties(uri: Pmongoc_uri_t; properties: Pbson_t): Tbool; cdecl; external libmongoc;
-function mongoc_uri_get_ssl(uri: Pmongoc_uri_t): Tbool; cdecl; external libmongoc; deprecated;
-function mongoc_uri_get_tls(uri: Pmongoc_uri_t): Tbool; cdecl; external libmongoc;
+function mongoc_uri_set_auth_mechanism(uri: Pmongoc_uri_t; value: pchar): Boolean; cdecl; external libmongoc;
+function mongoc_uri_get_mechanism_properties(uri: Pmongoc_uri_t; properties: Pbson_t): Boolean; cdecl; external libmongoc;
+function mongoc_uri_set_mechanism_properties(uri: Pmongoc_uri_t; properties: Pbson_t): Boolean; cdecl; external libmongoc;
+function mongoc_uri_get_ssl(uri: Pmongoc_uri_t): Boolean; cdecl; external libmongoc; deprecated;
+function mongoc_uri_get_tls(uri: Pmongoc_uri_t): Boolean; cdecl; external libmongoc;
 function mongoc_uri_unescape(escaped_string: pchar): pchar; cdecl; external libmongoc;
 function mongoc_uri_get_read_prefs_t(uri: Pmongoc_uri_t): Pmongoc_read_prefs_t; cdecl; external libmongoc;
 procedure mongoc_uri_set_read_prefs_t(uri: Pmongoc_uri_t; prefs: Pmongoc_read_prefs_t); cdecl; external libmongoc;
@@ -121,6 +128,7 @@ function mongoc_uri_get_write_concern(uri: Pmongoc_uri_t): Pmongoc_write_concern
 procedure mongoc_uri_set_write_concern(uri: Pmongoc_uri_t; wc: Pmongoc_write_concern_t); cdecl; external libmongoc;
 function mongoc_uri_get_read_concern(uri: Pmongoc_uri_t): Pmongoc_read_concern_t; cdecl; external libmongoc;
 procedure mongoc_uri_set_read_concern(uri: Pmongoc_uri_t; rc: Pmongoc_read_concern_t); cdecl; external libmongoc;
+{$ENDIF read_function}
 
 // === Konventiert am: 15-5-26 15:14:19 ===
 

@@ -313,7 +313,7 @@ const
 
     (libs: 'libplplot'; units: 'fp_plplot'),
     (libs: 'libgr'; units: 'ctypes'),
-    (libs: 'libgtkchart'; units: 'fp_gtk4'),                                       zu
+    (libs: 'libgtkchart'; units: 'fp_gtk4'),
     (libs: 'libcbor'; units: 'fp_gtk4'),
 
 
@@ -327,6 +327,7 @@ const
     (libs: 'libepoxy'; units: 'fp_epoxy'),
     (libs: 'libshumate'; units: 'fp_shumate'),
     (libs: 'libmongoc'; units: 'fp_mongoc'),
+    (libs: 'libbson'; units: 'fp_bson'),
 
 
 

@@ -1,45 +1,27 @@
 unit mongoc_matcher;
 
+{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
+
 interface
 
 uses
   fp_mongoc;
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 
-{
- * Copyright 2014 MongoDB, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
-  }
-{$include "mongoc-prelude.h"}
-{$ifndef MONGOC_MATCHER_H}
-{$define MONGOC_MATCHER_H}
-{$include <bson/bson.h>}
-{$include "mongoc-macros.h"}
+  {$IFDEF read_struct}
 type
+  Pmongoc_matcher_t = type Pointer;
+  {$ENDIF read_struct}
 
-function mongoc_matcher_new(query:Pbson_t; error:Pbson_error_t):Pmongoc_matcher_t;cdecl;external libmongoc;
-{xxxxxxxx ;//xxxxxxxx BSON_GNUC_DEPRECATED;; }
-function mongoc_matcher_match(matcher:Pmongoc_matcher_t; document:Pbson_t):Tbool;cdecl;external libmongoc;
-{xxxxxxxx ;//xxxxxxxx BSON_GNUC_DEPRECATED;; }
-procedure mongoc_matcher_destroy(matcher:Pmongoc_matcher_t);cdecl;external libmongoc;
-{xxxxxxxx ;//xxxxxxxx BSON_GNUC_DEPRECATED;; }
-{$endif}
-{ MONGOC_MATCHER_H  }
+{$IFDEF read_function}
+function mongoc_matcher_new(query: Pbson_t; error: Pbson_error_t): Pmongoc_matcher_t; cdecl; external libmongoc; deprecated;
+function mongoc_matcher_match(matcher: Pmongoc_matcher_t; document: Pbson_t): Boolean; cdecl; external libmongoc; deprecated;
+procedure mongoc_matcher_destroy(matcher: Pmongoc_matcher_t); cdecl; external libmongoc; deprecated;
+{$ENDIF read_function}
 
 // === Konventiert am: 15-5-26 15:15:17 ===
 
