@@ -88,7 +88,6 @@ type
   TSharedWidget = record
     main_Window,
     columnView,
-    columviewBox,
     LabelPosition,
     LabelDuration,
     VUMeter,

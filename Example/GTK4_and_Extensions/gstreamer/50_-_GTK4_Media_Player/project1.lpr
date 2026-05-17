@@ -76,110 +76,113 @@ uses
     g_free(Data);
   end;
 
-  procedure app_activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
-  var
-    mainBox, buttonBox, scrolled_window,
-    mediaControlPanel, HBox, VBox, Label_Box, lab1: PGtkWidget;
-    sharedWidgets: PSharedWidget;
-  begin
-    // --- sharedWidgets
-    sharedWidgets := g_malloc(SizeOf(TSharedWidget));
-    sharedWidgets^.scale_changed_id := 0;
-    sharedWidgets^.IsChange := False;
+procedure app_activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
+var
+  mainLayout, buttonBox, scrolled_window,
+  mediaControlPanel, HBox, VBox, Label_Box, lab1,
+  columnBox: PGtkWidget;
+  sharedWidgets: PSharedWidget;
+begin
+  sharedWidgets := g_malloc0(SizeOf(TSharedWidget));
+  sharedWidgets^.scale_changed_id := 0;
+  sharedWidgets^.IsChange := False;
 
-    sharedWidgets^.main_window := gtk_application_window_new(app);
-    gtk_window_set_title(GTK_WINDOW(sharedWidgets^.main_window), 'Media Player');
-    gtk_window_set_default_size(GTK_WINDOW(sharedWidgets^.main_window), 1024, 768);
+  sharedWidgets^.main_window := gtk_application_window_new(app);
+  gtk_window_set_title(GTK_WINDOW(sharedWidgets^.main_window), 'Media Player');
+  gtk_window_set_default_size(GTK_WINDOW(sharedWidgets^.main_window), 1024, 768);
 
-    // Main-Menu anzeigen
-    gtk_application_window_set_show_menubar(GTK_APPLICATION_WINDOW(sharedWidgets^.main_window), True);
+  // Main-Menu anzeigen
+  gtk_application_window_set_show_menubar(GTK_APPLICATION_WINDOW(sharedWidgets^.main_window), True);
 
-    // --- MainBox
-    mainBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
-    gtk_widget_set_margin_start(mainBox, 10);
-    gtk_widget_set_margin_end(mainBox, 10);
-    gtk_widget_set_margin_top(mainBox, 10);
-    gtk_widget_set_margin_bottom(mainBox, 10);
+  // --- Haupt-Container für das ganze Fenster
+  mainLayout := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+  gtk_widget_set_margin_start(mainLayout, 10);
+  gtk_widget_set_margin_end(mainLayout, 10);
+  gtk_widget_set_margin_top(mainLayout, 10);
+  gtk_widget_set_margin_bottom(mainLayout, 10);
 
-    // --- Box 1
-    // Scale
-    sharedWidgets^.scale := gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0.0, 100.0, 1.0);
-    gtk_scale_set_draw_value(GTK_SCALE(sharedWidgets^.scale), True);
+  // --- Bereich 1: Scale (Fortschrittsbalken)
+  sharedWidgets^.scale := gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0.0, 100.0, 1.0);
+  gtk_scale_set_draw_value(GTK_SCALE(sharedWidgets^.scale), True);
+  gtk_scale_set_value_pos(GTK_SCALE(sharedWidgets^.scale), GTK_POS_TOP);
+  gtk_range_set_value(GTK_RANGE(sharedWidgets^.scale), 0.0);
+  sharedWidgets^.scale_changed_id := g_signal_connect(sharedWidgets^.scale, 'value-changed', G_CALLBACK(@on_scale_changed_cp), sharedWidgets);
+  gtk_box_append(GTK_BOX(mainLayout), sharedWidgets^.scale);
 
-    gtk_scale_set_value_pos(GTK_SCALE(sharedWidgets^.scale), GTK_POS_TOP);
-    gtk_range_set_value(GTK_RANGE(sharedWidgets^.scale), 0.0);
-    sharedWidgets^.scale_changed_id := g_signal_connect(sharedWidgets^.scale, 'value-changed', G_CALLBACK(@on_scale_changed_cp), sharedWidgets);
-    gtk_box_append(GTK_BOX(mainBox), sharedWidgets^.scale);
+  // --- Bereich 2: Obere Steuerung (Buttons & VU-Meter)
+  HBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+  gtk_widget_set_hexpand(HBox, True);
+  gtk_box_append(GTK_BOX(mainLayout), HBox);
 
-    // --- Box 2
-    HBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-    gtk_widget_set_hexpand(HBox, True);
-    gtk_box_append(GTK_BOX(mainBox), HBox);
-    VBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
-    gtk_box_append(GTK_BOX(HBox), VBox);
+  VBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+  gtk_box_append(GTK_BOX(HBox), VBox);
 
-    // MediaButton
-    mediaControlPanel := CreateMediaControlsPanel;
-    gtk_box_append(GTK_BOX(VBox), mediaControlPanel);
+  // MediaButtons (Play, Stop, etc.)
+  mediaControlPanel := CreateMediaControlsPanel;
+  gtk_box_append(GTK_BOX(VBox), mediaControlPanel);
 
-    // Position/Duration
-    Label_Box := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-    gtk_widget_set_margin_start(Label_Box, 15);
+  // Zeit-Labels (Position / Duration)
+  Label_Box := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+  gtk_widget_set_margin_start(Label_Box, 15);
 
-    lab1 := gtk_label_new('Position:');
-    gtk_box_append(GTK_BOX(Label_Box), lab1);
-    sharedWidgets^.LabelPosition := gtk_label_new('00:00:0');
-    gtk_widget_set_size_request(sharedWidgets^.LabelPosition, 60, -1);
-    gtk_label_set_xalign(GTK_LABEL(sharedWidgets^.LabelPosition), 1.0);
-    gtk_box_append(GTK_BOX(Label_Box), sharedWidgets^.LabelPosition);
+  lab1 := gtk_label_new('Position:');
+  gtk_box_append(GTK_BOX(Label_Box), lab1);
+  sharedWidgets^.LabelPosition := gtk_label_new('00:00:0');
+  gtk_widget_set_size_request(sharedWidgets^.LabelPosition, 60, -1);
+  gtk_label_set_xalign(GTK_LABEL(sharedWidgets^.LabelPosition), 1.0);
+  gtk_box_append(GTK_BOX(Label_Box), sharedWidgets^.LabelPosition);
 
-    lab1 := gtk_label_new('Duration:');
-    gtk_box_append(GTK_BOX(Label_Box), lab1);
-    sharedWidgets^.LabelDuration := gtk_label_new('00:00:0');
-    gtk_widget_set_size_request(sharedWidgets^.LabelDuration, 60, -1);
-    gtk_label_set_xalign(GTK_LABEL(sharedWidgets^.LabelDuration), 1.0);
-    gtk_box_append(GTK_BOX(Label_Box), sharedWidgets^.LabelDuration);
+  lab1 := gtk_label_new('Duration:');
+  gtk_box_append(GTK_BOX(Label_Box), lab1);
+  sharedWidgets^.LabelDuration := gtk_label_new('00:00:0');
+  gtk_widget_set_size_request(sharedWidgets^.LabelDuration, 60, -1);
+  gtk_label_set_xalign(GTK_LABEL(sharedWidgets^.LabelDuration), 1.0);
+  gtk_box_append(GTK_BOX(Label_Box), sharedWidgets^.LabelDuration);
 
-    gtk_box_append(GTK_BOX(VBox), Label_Box);
+  gtk_box_append(GTK_BOX(VBox), Label_Box);
 
-    // VU-Meter
-    sharedWidgets^.VUMeter := mp_vu_meter_widget_new;
-    gtk_widget_set_hexpand(sharedWidgets^.VUMeter, True);
-    gtk_widget_set_size_request(sharedWidgets^.VUMeter, 100, 50);
-    gtk_box_append(GTK_BOX(HBox), sharedWidgets^.VUMeter);
+  // VU-Meter Widget hinzufügen
+  sharedWidgets^.VUMeter := mp_vu_meter_widget_new;
+  gtk_widget_set_hexpand(sharedWidgets^.VUMeter, True);
+  gtk_widget_set_size_request(sharedWidgets^.VUMeter, 100, 50);
+  gtk_box_append(GTK_BOX(HBox), sharedWidgets^.VUMeter);
 
-    // --- Box 3
-    HBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-    gtk_widget_set_hexpand(HBox, True);
-    gtk_box_append(GTK_BOX(mainBox), HBox);
+  // --- Bereich 3: Liste (ColumnView) und Edit-Buttons
+  HBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+  gtk_widget_set_hexpand(HBox, True);
+  gtk_widget_set_vexpand(HBox, True);
+  gtk_box_append(GTK_BOX(mainLayout), HBox);
 
-    // ScrolledWindows / ColumnView
-    scrolled_window := gtk_scrolled_window_new;
-    Create_ColumnView(sharedWidgets);
-    gtk_widget_set_vexpand(scrolled_window, True);
-    gtk_widget_set_hexpand(scrolled_window, True);
-    gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), sharedWidgets^.columnView);
-    gtk_box_append(GTK_BOX(HBox), scrolled_window);
+  // ScrolledWindow für die Liste
+  scrolled_window := gtk_scrolled_window_new;
+  gtk_widget_set_vexpand(scrolled_window, True);
+  gtk_widget_set_hexpand(scrolled_window, True);
 
-    // ButtonBox
-    buttonBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
-    gtk_box_append(GTK_BOX(HBox), buttonBox);
+  // Erstelle die Custom Box (MPColumnViewBox), welche die GtkColumnView enthält
+  columnBox := Create_ColumnView(sharedWidgets);
 
-    gtk_box_append(GTK_BOX(buttonBox), gtk_label_new('Edit'));
+  // Die Box in das ScrolledWindow packen
+  gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), columnBox);
+  gtk_box_append(GTK_BOX(HBox), scrolled_window);
 
-    CreateBtnButton(buttonBox, 'Append', 'list-add', 'app.listbox.add');
-    CreateBtnButton(buttonBox, 'Remove', 'list-remove', 'app.listbox.remove');
-    CreateBtnButton(buttonBox, 'Remove All', 'list-remove-all', 'app.listbox.removeall');
-    CreateBtnButton(buttonBox, 'Down', 'view-sort-descending', 'app.listbox.down');
-    CreateBtnButton(buttonBox, 'Up', 'view-sort-descending', 'app.listbox.up');
+  // Button-Leiste rechts neben der Liste
+  buttonBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+  gtk_box_append(GTK_BOX(HBox), buttonBox);
 
-    // --- Box End
-    gtk_window_set_child(GTK_WINDOW(sharedWidgets^.main_window), mainBox);
-    gtk_window_present(GTK_WINDOW(sharedWidgets^.main_window));
+  gtk_box_append(GTK_BOX(buttonBox), gtk_label_new('Edit'));
+  CreateBtnButton(buttonBox, 'Append', 'list-add', 'app.listbox.add');
+  CreateBtnButton(buttonBox, 'Remove', 'list-remove', 'app.listbox.remove');
+  CreateBtnButton(buttonBox, 'Remove All', 'list-remove-all', 'app.listbox.removeall');
+  CreateBtnButton(buttonBox, 'Down', 'view-sort-descending', 'app.listbox.down');
+  CreateBtnButton(buttonBox, 'Up', 'view-sort-ascendign', 'app.listbox.up');
 
-    g_object_weak_ref(G_OBJECT(sharedWidgets^.main_Window), @sharedWidgest_free_cp, sharedWidgets);
-  end;
+  // --- Fertigstellung
+  gtk_window_set_child(GTK_WINDOW(sharedWidgets^.main_window), mainLayout);
+  gtk_window_present(GTK_WINDOW(sharedWidgets^.main_window));
 
+  // Speicher bei Fenster-Schluss aufräumen
+  g_object_weak_ref(G_OBJECT(sharedWidgets^.main_window), @sharedWidgest_free_cp, sharedWidgets);
+end;
   procedure app_startup(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
     action: PGSimpleAction;
