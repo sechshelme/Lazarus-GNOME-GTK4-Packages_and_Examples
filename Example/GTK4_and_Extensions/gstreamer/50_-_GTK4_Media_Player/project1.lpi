@@ -67,8 +67,8 @@
         <UnitName Value="MPVUMeterWidget"/>
       </Unit>
       <Unit>
-        <Filename Value="mpcolumnviewwidget.pas"/>
-        <UnitName Value="MPColumnViewWidget"/>
+        <Filename Value="mpcolumnviewbox.pas"/>
+        <UnitName Value="MPColumnViewBox"/>
       </Unit>
     </Units>
   </ProjectOptions>

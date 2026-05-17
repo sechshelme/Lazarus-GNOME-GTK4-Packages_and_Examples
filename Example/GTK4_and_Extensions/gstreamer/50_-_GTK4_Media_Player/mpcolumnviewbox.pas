@@ -1,4 +1,4 @@
-unit MPColumnViewWidget;
+unit MPColumnViewBox;
 
 interface
 

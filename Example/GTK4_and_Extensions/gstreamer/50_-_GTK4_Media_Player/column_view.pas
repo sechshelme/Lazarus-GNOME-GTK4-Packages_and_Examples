@@ -7,7 +7,7 @@ uses
   Common,
   Action,
   LoadTitle, MPStreamer, XML_Tools, LoadSaveSongs,
-  MPVUMeterWidget, MPColumnViewWidget;
+  MPVUMeterWidget, MPColumnViewBox;
 
 procedure Create_ColumnView(sharedWidgets: PSharedWidget);
 
