@@ -6,13 +6,13 @@ uses
   fp_glib2, fp_GTK4;
 
 type
-  PMPColumnViewWidget = type Pointer;
-  PMPColumnViewWidgetClass = type Pointer;
+  PMPColumnViewBox = type Pointer;
+  PMPColumnViewBoxClass = type Pointer;
 
-function mp_column_view_widget_get_type: TGType;
-function mp_column_view_widget_new: PGTKWidget;
-procedure mp_column_view_widget_set_data(w: PMPColumnViewWidget; i: integer);
-function mp_column_view_widget_get_data(w: PMPColumnViewWidget): integer;
+function mp_column_view_box_get_type: TGType;
+function mp_column_view_box_new: PGTKWidget;
+procedure mp_column_view_box_set_data(w: PMPColumnViewBox; i: integer);
+function mp_column_view_box_get_data(w: PMPColumnViewBox): integer;
 
 implementation
 
@@ -66,7 +66,7 @@ end;
 
 // ==== public
 
-function mp_column_view_widget_get_type: TGType;
+function mp_column_view_box_get_type: TGType;
 const
   type_id: TGType = 0;
 var
@@ -74,10 +74,10 @@ var
   query: TGTypeQuery;
 begin
   if g_once_init_enter(@type_id) then begin
-    g_type_query(GTK_TYPE_COLUMN_VIEW, @query);
+    g_type_query(GTK_TYPE_BOX, @query);
     instance_size := query.instance_size;
 
-    id := g_type_register_static_simple(GTK_TYPE_COLUMN_VIEW, 'MPColumnViewWidget',
+    id := g_type_register_static_simple(GTK_TYPE_BOX, 'MPColumnViewBox',
       query.class_size + SizeOf(TClassPriv), @class_init_cp,
       query.instance_size + SizeOf(TInstPriv), @init_cp, G_TYPE_FLAG_NONE);
     g_once_init_leave(@type_id, id);
@@ -85,17 +85,17 @@ begin
   Result := type_id;
 end;
 
-function mp_column_view_widget_new: PGTKWidget;
+function mp_column_view_box_new: PGTKWidget;
 var
   priv: PInstPriv;
 begin
-  Result := g_object_new(mp_column_view_widget_get_type, nil);
+  Result := g_object_new(mp_column_view_box_get_type, nil);
   priv := GetPriv(Result);
   with priv^ do begin
   end;
 end;
 
-procedure mp_column_view_widget_set_data(w: PMPColumnViewWidget; i: integer);
+procedure mp_column_view_box_set_data(w: PMPColumnViewBox; i: integer);
 var
   priv: PInstPriv;
 begin
@@ -103,7 +103,7 @@ begin
   priv^.meineDaten := i;
 end;
 
-function mp_column_view_widget_get_data(w: PMPColumnViewWidget): integer;
+function mp_column_view_box_get_data(w: PMPColumnViewBox): integer;
 var
   priv: PInstPriv;
 begin

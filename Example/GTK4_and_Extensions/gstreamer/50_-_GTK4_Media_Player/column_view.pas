@@ -240,10 +240,7 @@ begin
 
   single_selection := gtk_single_selection_new(G_LIST_MODEL(g_list_store_new(G_TYPE_OBJECT)));
 
-  sharedWidgets^.columnView := mp_column_view_widget_new;
-  gtk_column_view_set_model(PGtkColumnView(sharedWidgets^.columnView), GTK_SELECTION_MODEL(single_selection));
-  g_object_unref(single_selection);
-
+  sharedWidgets^.columnView := gtk_column_view_new(GTK_SELECTION_MODEL(single_selection));
   gtk_column_view_set_show_row_separators(GTK_COLUMN_VIEW(sharedWidgets^.columnView), True);
   gtk_column_view_set_show_column_separators(GTK_COLUMN_VIEW(sharedWidgets^.columnView), True);
   g_signal_connect(sharedWidgets^.columnView, 'activate', G_CALLBACK(@on_row_activated_cb), nil);
