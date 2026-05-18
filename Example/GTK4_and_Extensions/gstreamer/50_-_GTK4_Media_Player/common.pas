@@ -5,7 +5,8 @@ interface
 uses
   fp_glib2,
   fp_GTK4,
-  fp_gst;
+  fp_gst,
+  MPStreamer;
 
 const
   AudioExtensions: array of Pgchar = (
@@ -84,10 +85,14 @@ const
     '.sndh'  // Format für Atari ST
     );
 
+var
+  SekStream: PMPStreamer = nil;
+  PriStream: PMPStreamer = nil;
+
 type
   TSharedWidget = record
     main_Window,
-    columnView,
+//    columnView,
     columviewBox,
     LabelPosition,
     LabelDuration,

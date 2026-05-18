@@ -4,7 +4,7 @@ interface
 
 uses
   fp_glib2, fp_GTK4, fp_pango, fp_gst,
-  Common, Action, MPStreamer;
+  Common, MPStreamer;
 
 type
   PMPColumnViewBox = type Pointer;
@@ -12,6 +12,9 @@ type
 
 function mp_column_view_box_get_type: TGType;
 function mp_column_view_box_new(sharedWidgets: PSharedWidget): PGTKWidget;
+
+function mp_column_view_box_get_selection_model(w: PMPColumnViewBox):PGtkSelectionModel;
+
 procedure mp_column_view_box_set_data(w: PMPColumnViewBox; i: integer);
 function mp_column_view_box_get_data(w: PMPColumnViewBox): integer;
 
@@ -21,6 +24,7 @@ implementation
 
 type
   TInstPriv = record
+        columnView:PGtkWidget;
     meineDaten: integer;
   end;
   PInstPriv = ^TInstPriv;
@@ -181,11 +185,10 @@ begin
 end;
 
 function mp_column_view_box_new(sharedWidgets: PSharedWidget): PGTKWidget;
-var
-  priv: PInstPriv;
 const
   ColTitles: array of Pgchar = ('Index', 'Titel', 'Dauer');
 var
+  priv: PInstPriv;
   factory: PGtkListItemFactory;
   column: PGtkColumnViewColumn;
   single_selection: PGtkSingleSelection;
@@ -195,15 +198,19 @@ var
 begin
   Result := g_object_new(mp_column_view_box_get_type, nil);
 
+  sharedWidgets^.columviewBox:=Result;
+
+  priv := GetPriv(Result);
+
   SekStream := nil;
   PriStream := nil;
 
   single_selection := gtk_single_selection_new(G_LIST_MODEL(g_list_store_new(G_TYPE_OBJECT)));
 
-  sharedWidgets^.columnView := gtk_column_view_new(GTK_SELECTION_MODEL(single_selection));
-  gtk_column_view_set_show_row_separators(GTK_COLUMN_VIEW(sharedWidgets^.columnView), True);
-  gtk_column_view_set_show_column_separators(GTK_COLUMN_VIEW(sharedWidgets^.columnView), True);
-  g_signal_connect(sharedWidgets^.columnView, 'activate', G_CALLBACK(@on_row_activated_cb), nil);
+ priv^.columnView := gtk_column_view_new(GTK_SELECTION_MODEL(single_selection));
+  gtk_column_view_set_show_row_separators(GTK_COLUMN_VIEW(priv^.columnView), True);
+  gtk_column_view_set_show_column_separators(GTK_COLUMN_VIEW(priv^.columnView), True);
+  g_signal_connect(priv^.columnView, 'activate', G_CALLBACK(@on_row_activated_cb), nil);
 
   len := Length(ColTitles) - 1;
   for i := 0 to len do begin
@@ -216,7 +223,7 @@ begin
     column := gtk_column_view_column_new(ColTitles[i], factory);
 
     gtk_column_view_column_set_resizable(column, True);
-    gtk_column_view_append_column(GTK_COLUMN_VIEW(sharedWidgets^.columnView), column);
+    gtk_column_view_append_column(GTK_COLUMN_VIEW(priv^.columnView), column);
 
     if i = 1 then  begin
       gtk_column_view_column_set_expand(column, True);
@@ -225,12 +232,15 @@ begin
     g_object_unref(column);
   end;
 
-  gtk_box_append(GTK_BOX(Result), sharedWidgets^.columnView);
+  gtk_box_append(GTK_BOX(Result), priv^.columnView);
+end;
 
-
-  priv := GetPriv(Result);
-  with priv^ do begin
-  end;
+function mp_column_view_box_get_selection_model(w: PMPColumnViewBox  ): PGtkSelectionModel;
+var
+  priv: PInstPriv;
+begin
+  priv := GetPriv(w);
+  Result := gtk_column_view_get_model(GTK_COLUMN_VIEW(priv^.columnView));
 end;
 
 procedure mp_column_view_box_set_data(w: PMPColumnViewBox; i: integer);

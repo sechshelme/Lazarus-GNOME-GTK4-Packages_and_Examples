@@ -4,12 +4,9 @@ interface
 
 uses
   fp_glib2, fp_pango, fp_GTK4, fp_gst,
-  Common,
-  LoadTitle, MPStreamer, XML_Tools, LoadSaveSongs;
-
-var
-  SekStream: PMPStreamer = nil;
-  PriStream: PMPStreamer = nil;
+  Common,  LoadTitle,
+  MPStreamer,MPColumnViewBox,
+  XML_Tools, LoadSaveSongs;
 
 const
   CFTime = 13 * 1000 * G_USEC_PER_SEC; // 3s
@@ -44,7 +41,8 @@ begin
   action_name := g_action_get_name(G_ACTION(action));
   g_printf('Action, Name: "%s"'#10, Pgchar(action_name));
 
-  selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW(sharedWidgets^.columnView));
+//  selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW(sharedWidgets^.columnView));
+  selection_model := mp_column_view_box_get_selection_model(sharedWidgets^.columviewBox);
   list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
   Count := g_list_model_get_n_items(list_model);
 
