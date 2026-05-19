@@ -36,7 +36,6 @@ var
   index2: Tgint;
   action_name: string;
 begin
-  WriteLn('action_cp() begin');
   adjustment := gtk_range_get_adjustment(GTK_RANGE(sharedWidgets^.scale));
 
   action_name := g_action_get_name(G_ACTION(action));
@@ -138,44 +137,48 @@ begin
       //      g_list_store_remove_all(G_LIST_STORE(list_model));
     end;
     'listbox.next': begin
-      if Count > 0 then begin
-        if (index < 0) or (index >= Count - 1) then index2 := 0 else index2 := index + 1;
+      if (PriStream <> nil) and (mp_streamer_get_duration(PriStream) > 0) then begin
+        if index >= 0 then  begin
+          if index >= Count - 1 then begin
+            index2 := 0;
+          end else begin
+            index2 := index + 1;
+          end;
 
-        gtk_selection_model_select_item(selection_model, index2, True);
-        item_obj2 := g_list_model_get_item(list_model, index2);
-        if item_obj2 <> nil then begin
-          song := g_object_get_data(item_obj2, songObjectKey);
-          if (song <> nil) and (PriStream <> nil) then begin
+          gtk_selection_model_select_item(selection_model, index2, True);
+          if mp_streamer_is_played( PriStream)then begin
+            item_obj2 := g_list_model_get_item(list_model, index2);
+            song := g_object_get_data(item_obj2, songObjectKey);
             gst_clear_object(@PriStream);
             PriStream := mp_streamer_new_from_launch(song^.FullPath);
+            g_object_unref(item_obj2);
           end;
-          g_object_unref(item_obj2);
         end;
       end;
     end;
     'listbox.prev': begin
-      if Count > 0 then begin
-        if (PriStream <> nil) and (mp_streamer_get_position(PriStream) > 2000 * GST_MSECOND) then begin
-          mp_streamer_set_position(PriStream, 0);
+      if (PriStream <> nil) and (mp_streamer_get_duration(PriStream) > 0) then begin
+        if mp_streamer_get_position( PriStream) > 2000 * GST_MSECOND then begin
+          mp_streamer_set_position( PriStream,0);
         end else begin
-          if (index <= 0) then index2 := Count - 1 else index2 := index - 1;
+          if index = 0 then begin
+            index2 := Count - 1;
+          end else begin
+            index2 := index - 1;
+          end;
 
           gtk_selection_model_select_item(selection_model, index2, True);
-
-          if (PriStream <> nil) then begin
+            if mp_streamer_is_played( PriStream)then begin
             item_obj2 := g_list_model_get_item(list_model, index2);
-            if item_obj2 <> nil then begin
-              song := g_object_get_data(item_obj2, songObjectKey);
-              if (song <> nil) and (song^.FullPath <> nil) then begin
-                gst_clear_object(@PriStream);
-                PriStream := mp_streamer_new_from_launch(song^.FullPath);
-              end;
-              g_object_unref(item_obj2);
-            end;
+            song := g_object_get_data(item_obj2, songObjectKey);
+            gst_clear_object(@PriStream);
+            PriStream := mp_streamer_new_from_launch(song^.FullPath);
+            g_object_unref(item_obj2);
           end;
         end;
       end;
-    end;
+   end;
+
     'listbox.up': begin
       mp_column_view_box_up(sharedWidgets^.columviewBox);
       //if index > 0 then begin
@@ -202,8 +205,6 @@ begin
   end;
 
   gtk_bitset_unref(selected);
-
-  WriteLn('action_cp() end');
 end;
 
 procedure CreateActions(sharedWidgets: PSharedWidget);

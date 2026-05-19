@@ -44,8 +44,6 @@ var
   vu: PGArray;
 
 begin
-  WriteLn('timerFunc_cp() begin');
-//  selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW(sharedWidgets^.columnView));
   selection_model := mp_column_view_box_get_selection_model(sharedWidgets^.columviewBox);
   list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
   Count := g_list_model_get_n_items(list_model);
@@ -128,7 +126,6 @@ begin
 
   g_signal_handler_unblock(sharedWidgets^.scale, sharedWidgets^.scale_changed_id);
   Result := G_SOURCE_CONTINUE;
-  WriteLn('timerFunc_cp() end');
 end;
 
 procedure on_columnview_destroy(widget: PGtkWidget; user_data: Tgpointer);
@@ -153,7 +150,6 @@ var
   idle_id: Tguint;
 begin
   Result := mp_column_view_box_new(sharedWidgets);
-//  sharedWidgets^.columviewBox:=Result;;
 
   CreateActions(sharedWidgets);
 

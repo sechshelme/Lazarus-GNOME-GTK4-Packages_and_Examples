@@ -14,7 +14,8 @@ uses
   MenuBar,
   XML_Tools,
   LoadSaveSongs,
-  Action, MPVUMeterWidget, MPColumnViewBox;
+  Action,
+  MPVUMeterWidget, MPColumnViewBox;
 
   procedure on_scale_changed_cp({%H-}range: PGtkRange; user_data: Tgpointer); cdecl;
   var

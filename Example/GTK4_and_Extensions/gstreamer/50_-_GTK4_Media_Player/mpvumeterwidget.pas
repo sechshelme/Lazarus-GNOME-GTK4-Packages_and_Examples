@@ -32,10 +32,10 @@ var
   parent_class: Tgpointer = nil;
   instance_size: integer = 0;
 
-  function GetPriv(w: Tgpointer): PInstPriv; inline;
-  begin
-    Result := PInstPriv(w + instance_size);
-  end;
+function GetPriv(w: Tgpointer): PInstPriv; inline;
+begin
+  Result := PInstPriv(w + instance_size);
+end;
 
 procedure snapshoot_cp(widget: PGtkWidget; snapshot: PGtkSnapshot); cdecl;
 var
@@ -121,7 +121,8 @@ var
   priv: PInstPriv;
 begin
   priv := GetPriv(obj);
-  with priv^ do begin
+  if priv^.Level <> nil then  begin
+    g_array_free(priv^.Level, True);
   end;
   G_OBJECT_CLASS(parent_class)^.finalize(obj);
 end;
@@ -178,7 +179,11 @@ var
   priv: PInstPriv;
 begin
   priv := GetPriv(w);
-  priv^.level := level;
+  if priv^.level <> nil then  begin
+    g_array_free(priv^.Level, True);
+  end;
+
+  priv^.level := g_array_copy(level);
   gtk_widget_queue_draw(GTK_WIDGET(w));
 end;
 
