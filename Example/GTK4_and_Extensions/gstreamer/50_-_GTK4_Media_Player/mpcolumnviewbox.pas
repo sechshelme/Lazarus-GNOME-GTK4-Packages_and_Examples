@@ -13,7 +13,15 @@ type
 function mp_column_view_box_get_type: TGType;
 function mp_column_view_box_new(sharedWidgets: PSharedWidget): PGTKWidget;
 
-function mp_column_view_box_get_selection_model(w: PMPColumnViewBox):PGtkSelectionModel;
+procedure mp_column_view_box_remove(w: PMPColumnViewBox; index: Tguint);
+procedure mp_column_view_box_remove_all(w: PMPColumnViewBox);
+
+procedure mp_column_view_box_up(w: PMPColumnViewBox);
+procedure mp_column_view_box_down(w: PMPColumnViewBox);
+
+
+
+function mp_column_view_box_get_selection_model(w: PMPColumnViewBox): PGtkSelectionModel;
 
 procedure mp_column_view_box_set_data(w: PMPColumnViewBox; i: integer);
 function mp_column_view_box_get_data(w: PMPColumnViewBox): integer;
@@ -24,7 +32,10 @@ implementation
 
 type
   TInstPriv = record
-        columnView:PGtkWidget;
+    columnView: PGtkWidget;
+    selection_model: PGtkSelectionModel;
+    list_model: PGListModel;
+
     meineDaten: integer;
   end;
   PInstPriv = ^TInstPriv;
@@ -161,8 +172,6 @@ begin
 end;
 
 
-
-
 // ==== public
 
 function mp_column_view_box_get_type: TGType;
@@ -198,7 +207,7 @@ var
 begin
   Result := g_object_new(mp_column_view_box_get_type, nil);
 
-  sharedWidgets^.columviewBox:=Result;
+  sharedWidgets^.columviewBox := Result;
 
   priv := GetPriv(Result);
 
@@ -207,7 +216,12 @@ begin
 
   single_selection := gtk_single_selection_new(G_LIST_MODEL(g_list_store_new(G_TYPE_OBJECT)));
 
- priv^.columnView := gtk_column_view_new(GTK_SELECTION_MODEL(single_selection));
+  priv^.columnView := gtk_column_view_new(GTK_SELECTION_MODEL(single_selection));
+
+  priv^.selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW(priv^.columnView));
+  priv^.list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(priv^.selection_model));
+
+
   gtk_column_view_set_show_row_separators(GTK_COLUMN_VIEW(priv^.columnView), True);
   gtk_column_view_set_show_column_separators(GTK_COLUMN_VIEW(priv^.columnView), True);
   g_signal_connect(priv^.columnView, 'activate', G_CALLBACK(@on_row_activated_cb), nil);
@@ -235,7 +249,75 @@ begin
   gtk_box_append(GTK_BOX(Result), priv^.columnView);
 end;
 
-function mp_column_view_box_get_selection_model(w: PMPColumnViewBox  ): PGtkSelectionModel;
+// =====
+
+procedure mp_column_view_box_remove(w: PMPColumnViewBox; index: Tguint);
+var
+  priv: PInstPriv;
+  count: Tguint;
+begin
+  priv := GetPriv(w);
+  count := g_list_model_get_n_items(priv^.list_model);
+  if index < count then begin
+    g_list_store_remove(G_LIST_STORE(priv^.list_model), index);
+  end;
+end;
+
+procedure mp_column_view_box_remove_all(w: PMPColumnViewBox);
+var
+  priv: PInstPriv;
+begin
+  priv := GetPriv(w);
+  g_list_store_remove_all(G_LIST_STORE(priv^.list_model));
+end;
+
+procedure mp_column_view_box_up(w: PMPColumnViewBox);
+var
+  priv: PInstPriv;
+  selected: PGtkBitset;
+  index: Tguint;
+  item_obj: PGObject = nil;
+begin
+  priv := GetPriv(w);
+  with priv^ do begin
+    selected := gtk_selection_model_get_selection(selection_model);
+    if not gtk_bitset_is_empty(selected) then begin
+      index := gtk_bitset_get_nth(selected, 0);
+      if index > 0 then begin
+        item_obj := g_list_model_get_item(list_model, index);
+        g_list_store_remove(G_LIST_STORE(list_model), index);
+        g_list_store_insert(G_LIST_STORE(list_model), index - 1, item_obj);
+        gtk_selection_model_select_item(selection_model, index - 1, True);
+      end;
+    end;
+  end;
+end;
+
+procedure mp_column_view_box_down(w: PMPColumnViewBox);
+var
+  priv: PInstPriv;
+  selected: PGtkBitset;
+  index, Count: Tguint;
+  item_obj: PGObject = nil;
+begin
+  priv := GetPriv(w);
+  with priv^ do begin
+    selected := gtk_selection_model_get_selection(selection_model);
+    Count := g_list_model_get_n_items(list_model);
+    if not gtk_bitset_is_empty(selected) then begin
+      index := gtk_bitset_get_nth(selected, 0);
+      if (index >= 0) and (index < Count - 1) then begin
+        item_obj := g_list_model_get_item(list_model, index);
+        g_list_store_remove(G_LIST_STORE(list_model), index);
+        g_list_store_insert(G_LIST_STORE(list_model), index + 1, item_obj);
+        gtk_selection_model_select_item(selection_model, index + 1, True);
+      end;
+    end;
+  end;
+end;
+
+function mp_column_view_box_get_selection_model(w: PMPColumnViewBox): PGtkSelectionModel;
+
 var
   priv: PInstPriv;
 begin

@@ -4,8 +4,8 @@ interface
 
 uses
   fp_glib2, fp_pango, fp_GTK4, fp_gst,
-  Common,  LoadTitle,
-  MPStreamer,MPColumnViewBox,
+  Common, LoadTitle,
+  MPStreamer, MPColumnViewBox,
   XML_Tools, LoadSaveSongs;
 
 const
@@ -36,21 +36,29 @@ var
   index2: Tgint;
   action_name: string;
 begin
+  WriteLn('action_cp() begin');
   adjustment := gtk_range_get_adjustment(GTK_RANGE(sharedWidgets^.scale));
 
   action_name := g_action_get_name(G_ACTION(action));
   g_printf('Action, Name: "%s"'#10, Pgchar(action_name));
 
-//  selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW(sharedWidgets^.columnView));
   selection_model := mp_column_view_box_get_selection_model(sharedWidgets^.columviewBox);
   list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
   Count := g_list_model_get_n_items(list_model);
-
   selected := gtk_selection_model_get_selection(selection_model);
-  if not gtk_bitset_is_empty(selected) then begin
+
+  item_obj := nil;
+  song := nil;
+  index := -1;
+
+  if (Count > 0) and not gtk_bitset_is_empty(selected) then begin
     index := gtk_bitset_get_nth(selected, 0);
-    item_obj := g_list_model_get_item(list_model, index);
-    song := g_object_get_data(item_obj, songObjectKey);
+    if (index >= 0) and (index < Count) then begin
+      item_obj := g_list_model_get_item(list_model, index);
+      if item_obj <> nil then begin
+        song := g_object_get_data(item_obj, songObjectKey);
+      end;
+    end;
   end;
 
   case action_name of
@@ -93,8 +101,10 @@ begin
     end;
     'listbox.play': begin
       if PriStream = nil then begin
-        if Count > 0 then begin
+        if (song <> nil) and (song^.FullPath <> nil) then begin
           PriStream := mp_streamer_new_from_launch(song^.FullPath);
+        end else begin
+          g_printf('Hinweis: Kein Song ausgewählt oder Dateipfad ungültig.'#10);
         end;
       end else begin
         mp_streamer_play(PriStream);
@@ -117,68 +127,70 @@ begin
       AddSongsDialog(sharedWidgets);
     end;
     'listbox.remove': begin
-      if index >= 0 then begin
-        g_list_store_remove(G_LIST_STORE(list_model), index);
-      end;
+      mp_column_view_box_remove(sharedWidgets^.columviewBox, index);
+      //
+      //      if index >= 0 then begin
+      //        g_list_store_remove(G_LIST_STORE(list_model), index);
+      //      end;
     end;
     'listbox.removeall': begin
-      g_list_store_remove_all(G_LIST_STORE(list_model));
+      mp_column_view_box_remove_all(sharedWidgets^.columviewBox);
+      //      g_list_store_remove_all(G_LIST_STORE(list_model));
     end;
     'listbox.next': begin
-      if (PriStream <> nil) and (mp_streamer_get_duration(PriStream) > 0) then begin
-        if index >= 0 then  begin
-          if index >= Count - 1 then begin
-            index2 := 0;
-          end else begin
-            index2 := index + 1;
-          end;
+      if Count > 0 then begin
+        if (index < 0) or (index >= Count - 1) then index2 := 0 else index2 := index + 1;
 
-          gtk_selection_model_select_item(selection_model, index2, True);
-          if mp_streamer_is_played(PriStream) then begin
-            item_obj2 := g_list_model_get_item(list_model, index2);
-            song := g_object_get_data(item_obj2, songObjectKey);
+        gtk_selection_model_select_item(selection_model, index2, True);
+        item_obj2 := g_list_model_get_item(list_model, index2);
+        if item_obj2 <> nil then begin
+          song := g_object_get_data(item_obj2, songObjectKey);
+          if (song <> nil) and (PriStream <> nil) then begin
             gst_clear_object(@PriStream);
             PriStream := mp_streamer_new_from_launch(song^.FullPath);
-            g_object_unref(item_obj2);
           end;
+          g_object_unref(item_obj2);
         end;
       end;
     end;
     'listbox.prev': begin
-      if (PriStream <> nil) and (mp_streamer_get_duration(PriStream) > 0) then begin
-        if mp_streamer_get_position(PriStream) > 2000 then begin
+      if Count > 0 then begin
+        if (PriStream <> nil) and (mp_streamer_get_position(PriStream) > 2000 * GST_MSECOND) then begin
           mp_streamer_set_position(PriStream, 0);
         end else begin
-          if index = 0 then begin
-            index2 := Count - 1;
-          end else begin
-            index2 := index - 1;
-          end;
+          if (index <= 0) then index2 := Count - 1 else index2 := index - 1;
 
           gtk_selection_model_select_item(selection_model, index2, True);
-          if mp_streamer_is_played(PriStream) then begin
+
+          if (PriStream <> nil) then begin
             item_obj2 := g_list_model_get_item(list_model, index2);
-            song := g_object_get_data(item_obj2, songObjectKey);
-            gst_clear_object(@PriStream);
-            PriStream := mp_streamer_new_from_launch(song^.FullPath);
-            g_object_unref(item_obj2);
+            if item_obj2 <> nil then begin
+              song := g_object_get_data(item_obj2, songObjectKey);
+              if (song <> nil) and (song^.FullPath <> nil) then begin
+                gst_clear_object(@PriStream);
+                PriStream := mp_streamer_new_from_launch(song^.FullPath);
+              end;
+              g_object_unref(item_obj2);
+            end;
           end;
         end;
       end;
     end;
     'listbox.up': begin
-      if index > 0 then begin
-        g_list_store_remove(G_LIST_STORE(list_model), index);
-        g_list_store_insert(G_LIST_STORE(list_model), index - 1, item_obj);
-        gtk_selection_model_select_item(selection_model, index - 1, True);
-      end;
+      mp_column_view_box_up(sharedWidgets^.columviewBox);
+      //if index > 0 then begin
+      //  g_list_store_remove(G_LIST_STORE(list_model), index);
+      //  g_list_store_insert(G_LIST_STORE(list_model), index - 1, item_obj);
+      //  gtk_selection_model_select_item(selection_model, index - 1, True);
+      //end;
     end;
     'listbox.down': begin
-      if (index >= 0) and (index < Count - 1) then begin
-        g_list_store_remove(G_LIST_STORE(list_model), index);
-        g_list_store_insert(G_LIST_STORE(list_model), index + 1, item_obj);
-        gtk_selection_model_select_item(selection_model, index + 1, True);
-      end;
+      mp_column_view_box_down(sharedWidgets^.columviewBox);
+      //if (index >= 0) and (index < Count - 1) then begin
+      //  g_list_store_remove(G_LIST_STORE(list_model), index);
+      //  g_list_store_insert(G_LIST_STORE(list_model), index + 1, item_obj);
+      //  gtk_selection_model_select_item(selection_model, index + 1, True);
+      //end;
     end;
     else begin
       g_printf('Unbekannte Action, Name: "%s"'#10, Pgchar(action_name));
@@ -190,6 +202,8 @@ begin
   end;
 
   gtk_bitset_unref(selected);
+
+  WriteLn('action_cp() end');
 end;
 
 procedure CreateActions(sharedWidgets: PSharedWidget);
