@@ -99,8 +99,6 @@ type
   end;
   PGtkTreeSelection = ^TGtkTreeSelection;
 
-
-
 type
   PGtkBuilderClosureFlags = ^TGtkBuilderClosureFlags;
   TGtkBuilderClosureFlags = longint;

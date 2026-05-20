@@ -23,9 +23,6 @@ procedure mp_column_view_box_down(w: PMPColumnViewBox);
 
 function mp_column_view_box_get_selection_model(w: PMPColumnViewBox): PGtkSelectionModel;
 
-procedure mp_column_view_box_set_data(w: PMPColumnViewBox; i: integer);
-function mp_column_view_box_get_data(w: PMPColumnViewBox): integer;
-
 implementation
 
 // ==== private
@@ -35,6 +32,7 @@ type
     columnView: PGtkWidget;
     selection_model: PGtkSelectionModel;
     list_model: PGListModel;
+    index123: Tgint;
 
     meineDaten: integer;
   end;
@@ -172,6 +170,23 @@ begin
 end;
 
 
+procedure on_selection_changed_cb(obj: PGObject; pspec: PGParamSpec; user_data: Tgpointer); cdecl;
+var
+  priv: PInstPriv;
+  pos: Tguint;
+begin
+  priv := GetPriv(user_data);
+  pos := gtk_single_selection_get_selected(GTK_SINGLE_SELECTION(obj));
+
+  if pos <> GTK_INVALID_LIST_POSITION then begin
+    priv^.index123 := pos;
+  end else begin
+    priv^.index123 := -1;
+  end; // Oder ein anderer Wert für "nichts gewählt"
+end;
+
+
+
 // ==== public
 
 function mp_column_view_box_get_type: TGType;
@@ -215,7 +230,7 @@ begin
   PriStream := nil;
 
   single_selection := gtk_single_selection_new(G_LIST_MODEL(g_list_store_new(G_TYPE_OBJECT)));
-
+  g_signal_connect(single_selection, 'notify::selected', G_CALLBACK(@on_selection_changed_cb), Result);
   priv^.columnView := gtk_column_view_new(GTK_SELECTION_MODEL(single_selection));
 
   priv^.selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW(priv^.columnView));
@@ -224,7 +239,7 @@ begin
 
   gtk_column_view_set_show_row_separators(GTK_COLUMN_VIEW(priv^.columnView), True);
   gtk_column_view_set_show_column_separators(GTK_COLUMN_VIEW(priv^.columnView), True);
-  g_signal_connect(priv^.columnView, 'activate', G_CALLBACK(@on_row_activated_cb), nil);
+  g_signal_connect(priv^.columnView, 'activate', G_CALLBACK(@on_row_activated_cb), Result);
 
   len := Length(ColTitles) - 1;
   for i := 0 to len do begin
@@ -275,29 +290,44 @@ procedure mp_column_view_box_up(w: PMPColumnViewBox);
 var
   priv: PInstPriv;
   selected: PGtkBitset;
-  index: Tguint;
-  item_obj: PGObject = nil;
+  index: Tgint;
+  item_obj: PGObject;
 begin
   priv := GetPriv(w);
+
+  // 1. Selektion abfragen
   with priv^ do begin
     selected := gtk_selection_model_get_selection(selection_model);
-    if not gtk_bitset_is_empty(selected) then begin
+    if not gtk_bitset_is_empty(selected) then
+    begin
       index := gtk_bitset_get_nth(selected, 0);
-      if index > 0 then begin
+
+      if index > 0 then
+      begin
+        // 2. WICHTIG: Referenz sichern (Count 1)
         item_obj := g_list_model_get_item(list_model, index);
+
+        // 3. Im Store verschieben
         g_list_store_remove(G_LIST_STORE(list_model), index);
         g_list_store_insert(G_LIST_STORE(list_model), index - 1, item_obj);
+
+        // 4. Selektion wiederherstellen
         gtk_selection_model_select_item(selection_model, index - 1, True);
+
+        // 5. JETZT ERST die Referenz freigeben
+        g_object_unref(item_obj);
       end;
     end;
   end;
-end;
 
+  // 6. Bitset aufräumen
+  gtk_bitset_unref(selected);
+end;
 procedure mp_column_view_box_down(w: PMPColumnViewBox);
 var
   priv: PInstPriv;
   selected: PGtkBitset;
-  index, Count: Tguint;
+  index, Count: Tgint;
   item_obj: PGObject = nil;
 begin
   priv := GetPriv(w);
@@ -311,34 +341,19 @@ begin
         g_list_store_remove(G_LIST_STORE(list_model), index);
         g_list_store_insert(G_LIST_STORE(list_model), index + 1, item_obj);
         gtk_selection_model_select_item(selection_model, index + 1, True);
+        g_object_unref(item_obj);     // Unbedingt nötig für get_item
       end;
     end;
+    gtk_bitset_unref(selected);   // Unbedingt nötig für get_selection
   end;
 end;
 
 function mp_column_view_box_get_selection_model(w: PMPColumnViewBox): PGtkSelectionModel;
-
 var
   priv: PInstPriv;
 begin
   priv := GetPriv(w);
   Result := gtk_column_view_get_model(GTK_COLUMN_VIEW(priv^.columnView));
-end;
-
-procedure mp_column_view_box_set_data(w: PMPColumnViewBox; i: integer);
-var
-  priv: PInstPriv;
-begin
-  priv := GetPriv(w);
-  priv^.meineDaten := i;
-end;
-
-function mp_column_view_box_get_data(w: PMPColumnViewBox): integer;
-var
-  priv: PInstPriv;
-begin
-  priv := GetPriv(w);
-  Result := priv^.meineDaten;
 end;
 
 end.
