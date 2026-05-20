@@ -316,8 +316,8 @@ var
 begin
   priv := GetPriv(w);
   with priv^ do begin
-        Count := g_list_model_get_n_items(list_model); // ????
-        WriteLn('index: ', index, '  count: ', count);
+    Count := g_list_model_get_n_items(list_model); // ????
+    WriteLn('index: ', index, '  count: ', count);
 
     if index >= Count - 1 then begin
       index := 0;
@@ -335,8 +335,8 @@ var
 begin
   priv := GetPriv(w);
   with priv^ do begin
-//    Count := g_list_model_get_n_items(list_model); // ????
-//    WriteLn('count; ',count);
+    //    Count := g_list_model_get_n_items(list_model); // ????
+    //    WriteLn('count; ',count);
     if (index <> GTK_INVALID_LIST_POSITION) and (index > 0) then begin
       item_obj := g_list_model_get_item(list_model, index);
       g_list_store_remove(G_LIST_STORE(list_model), index);
@@ -354,8 +354,8 @@ var
 begin
   priv := GetPriv(w);
   with priv^ do begin
-//    Count := g_list_model_get_n_items(list_model); // ????
-//    WriteLn('count; ',count);
+    //    Count := g_list_model_get_n_items(list_model); // ????
+    //    WriteLn('count; ',count);
     if (index <> GTK_INVALID_LIST_POSITION) and (index < Count - 1) then begin
       item_obj := g_list_model_get_item(list_model, index);
       g_list_store_remove(G_LIST_STORE(list_model), index);
