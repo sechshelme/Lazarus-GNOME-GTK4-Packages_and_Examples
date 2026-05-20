@@ -182,7 +182,9 @@ begin
     priv^.index123 := pos;
   end else begin
     priv^.index123 := -1;
-  end; // Oder ein anderer Wert für "nichts gewählt"
+  end;
+
+  WriteLn('index: ',priv^.index123);
 end;
 
 
@@ -289,62 +291,39 @@ end;
 procedure mp_column_view_box_up(w: PMPColumnViewBox);
 var
   priv: PInstPriv;
-  selected: PGtkBitset;
-  index: Tgint;
-  item_obj: PGObject;
-begin
-  priv := GetPriv(w);
-
-  // 1. Selektion abfragen
-  with priv^ do begin
-    selected := gtk_selection_model_get_selection(selection_model);
-    if not gtk_bitset_is_empty(selected) then
-    begin
-      index := gtk_bitset_get_nth(selected, 0);
-
-      if index > 0 then
-      begin
-        // 2. WICHTIG: Referenz sichern (Count 1)
-        item_obj := g_list_model_get_item(list_model, index);
-
-        // 3. Im Store verschieben
-        g_list_store_remove(G_LIST_STORE(list_model), index);
-        g_list_store_insert(G_LIST_STORE(list_model), index - 1, item_obj);
-
-        // 4. Selektion wiederherstellen
-        gtk_selection_model_select_item(selection_model, index - 1, True);
-
-        // 5. JETZT ERST die Referenz freigeben
-        g_object_unref(item_obj);
-      end;
-    end;
-  end;
-
-  // 6. Bitset aufräumen
-  gtk_bitset_unref(selected);
-end;
-procedure mp_column_view_box_down(w: PMPColumnViewBox);
-var
-  priv: PInstPriv;
-  selected: PGtkBitset;
-  index, Count: Tgint;
+  index: Tguint;
   item_obj: PGObject = nil;
 begin
   priv := GetPriv(w);
   with priv^ do begin
-    selected := gtk_selection_model_get_selection(selection_model);
-    Count := g_list_model_get_n_items(list_model);
-    if not gtk_bitset_is_empty(selected) then begin
-      index := gtk_bitset_get_nth(selected, 0);
-      if (index >= 0) and (index < Count - 1) then begin
-        item_obj := g_list_model_get_item(list_model, index);
-        g_list_store_remove(G_LIST_STORE(list_model), index);
-        g_list_store_insert(G_LIST_STORE(list_model), index + 1, item_obj);
-        gtk_selection_model_select_item(selection_model, index + 1, True);
-        g_object_unref(item_obj);     // Unbedingt nötig für get_item
-      end;
+    index := gtk_single_selection_get_selected(GTK_SINGLE_SELECTION(selection_model));
+    if (index <> GTK_INVALID_LIST_POSITION) and (index > 0) then begin
+      item_obj := g_list_model_get_item(list_model, index);
+      g_list_store_remove(G_LIST_STORE(list_model), index);
+      g_list_store_insert(G_LIST_STORE(list_model), index - 1, item_obj);
+      gtk_selection_model_select_item(selection_model, index - 1, True);
+      g_object_unref(item_obj);
     end;
-    gtk_bitset_unref(selected);   // Unbedingt nötig für get_selection
+  end;
+end;
+
+procedure mp_column_view_box_down(w: PMPColumnViewBox);
+var
+  priv: PInstPriv;
+  index, Count: Tguint;
+  item_obj: PGObject = nil;
+begin
+  priv := GetPriv(w);
+  with priv^ do begin
+    index := gtk_single_selection_get_selected(GTK_SINGLE_SELECTION(selection_model));
+    Count := g_list_model_get_n_items(list_model);
+    if (index <> GTK_INVALID_LIST_POSITION) and (index < Count - 1) then begin
+      item_obj := g_list_model_get_item(list_model, index);
+      g_list_store_remove(G_LIST_STORE(list_model), index);
+      g_list_store_insert(G_LIST_STORE(list_model), index + 1, item_obj);
+      gtk_selection_model_select_item(selection_model, index + 1, True);
+      g_object_unref(item_obj);
+    end;
   end;
 end;
 
