@@ -107,7 +107,7 @@ begin
       AddSongsDialog(sharedWidgets);
     end;
     'listbox.remove': begin
-      mp_column_view_box_remove(sharedWidgets^.columviewBox, index);
+      mp_column_view_box_remove(sharedWidgets^.columviewBox);
     end;
     'listbox.removeall': begin
       mp_column_view_box_remove_all(sharedWidgets^.columviewBox);

@@ -13,7 +13,7 @@ type
 function mp_column_view_box_get_type: TGType;
 function mp_column_view_box_new(sharedWidgets: PSharedWidget): PGTKWidget;
 
-procedure mp_column_view_box_remove(w: PMPColumnViewBox; index: Tguint);
+procedure mp_column_view_box_remove(w: PMPColumnViewBox);
 procedure mp_column_view_box_remove_all(w: PMPColumnViewBox);
 
 procedure mp_column_view_box_prev(w: PMPColumnViewBox);
@@ -192,8 +192,6 @@ begin
   end;
 end;
 
-
-
 // ==== public
 
 function mp_column_view_box_get_type: TGType;
@@ -243,7 +241,6 @@ begin
   priv^.selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW(priv^.columnView));
   priv^.list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(priv^.selection_model));
 
-
   gtk_column_view_set_show_row_separators(GTK_COLUMN_VIEW(priv^.columnView), True);
   gtk_column_view_set_show_column_separators(GTK_COLUMN_VIEW(priv^.columnView), True);
   g_signal_connect(priv^.columnView, 'activate', G_CALLBACK(@on_row_activated_cb), Result);
@@ -273,15 +270,15 @@ end;
 
 // =====
 
-procedure mp_column_view_box_remove(w: PMPColumnViewBox; index: Tguint);
+procedure mp_column_view_box_remove(w: PMPColumnViewBox);
 var
   priv: PInstPriv;
-  count: Tguint;
 begin
   priv := GetPriv(w);
-  count := g_list_model_get_n_items(priv^.list_model);
-  if index < count then begin
-    g_list_store_remove(G_LIST_STORE(priv^.list_model), index);
+  with priv^ do begin
+    if count > 0 then begin
+      g_list_store_remove(G_LIST_STORE(priv^.list_model), index);
+    end;
   end;
 end;
 
@@ -299,8 +296,8 @@ var
 begin
   priv := GetPriv(w);
   with priv^ do begin
-    Count := g_list_model_get_n_items(list_model); // ????
-    WriteLn('index: ', index, '  count: ', count);
+//    Count := g_list_model_get_n_items(list_model); // ????
+    WriteLn('prev   index: ', index, '  count: ', count);
 
     if index = 0 then begin
       index := Count - 1;
@@ -317,8 +314,8 @@ var
 begin
   priv := GetPriv(w);
   with priv^ do begin
-    Count := g_list_model_get_n_items(list_model); // ????
-    WriteLn('index: ', index, '  count: ', count);
+//    Count := g_list_model_get_n_items(list_model); // ????
+    WriteLn('next     index: ', index, '  count: ', count);
 
     if index >= Count - 1 then begin
       index := 0;

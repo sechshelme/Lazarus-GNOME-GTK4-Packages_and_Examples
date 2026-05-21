@@ -31,12 +31,6 @@ var
   sharedWidgets: PSharedWidget absolute user_data;
   adjustment: PGtkAdjustment;
   SPos, SDur: TGstClockTime;
-  selection_model: PGtkSelectionModel;
-  list_model: PGListModel;
-  Count: Tguint;
-  index: Tgint = -1;
-  index2: Tgint;
-  selected: PGtkBitset;
 
   item_obj: PGObject;
   song: PSong = nil;
@@ -44,15 +38,6 @@ var
   vu: PGArray;
 
 begin
-  selection_model := mp_column_view_box_get_selection_model(sharedWidgets^.columviewBox);
-  list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
-  Count := g_list_model_get_n_items(list_model);
-
-  selected := gtk_selection_model_get_selection(selection_model);
-  if not gtk_bitset_is_empty(selected) then begin
-    index := gtk_bitset_get_nth(selected, 0);
-  end;
-
   adjustment := gtk_range_get_adjustment(GTK_RANGE(sharedWidgets^.scale));
   g_signal_handler_block(sharedWidgets^.scale, sharedWidgets^.scale_changed_id);
 
@@ -92,20 +77,14 @@ begin
           end;
           SekStream := PriStream;
 
-          if index >= 0 then begin
-            if index >= Count - 1 then begin
-              index2 := 0;
-            end else begin
-              index2 := index + 1;
-            end;
-            item_obj := g_list_model_get_item(list_model, index2);
-            song := g_object_get_data(item_obj, songObjectKey);
-            gtk_adjustment_set_upper(adjustment, 0);
-            gtk_adjustment_set_value(adjustment, 0);
-            PriStream := mp_streamer_new_from_launch(song^.FullPath);
-            g_object_unref(item_obj);
-            gtk_selection_model_select_item(selection_model, index2, True);
-          end;
+          mp_column_view_box_next(sharedWidgets^.columviewBox);
+          item_obj := mp_column_view_box_get_item(sharedWidgets^.columviewBox);
+          song := g_object_get_data(item_obj, songObjectKey);
+          PriStream := mp_streamer_new_from_launch(song^.FullPath);
+          g_object_unref(item_obj);
+
+          gtk_adjustment_set_upper(adjustment, 0);
+          gtk_adjustment_set_value(adjustment, 0);
         end;
       end;
     end;
@@ -120,9 +99,6 @@ begin
       gst_clear_object(@SekStream);
     end;
   end;
-  //    with SongListPanel do begin
-  //      Lab_Track_Value.Caption := IntToStr(ListView.ItemIndex + 1) + '/' + ListView.Items.Count.ToString;
-  //    end;
 
   g_signal_handler_unblock(sharedWidgets^.scale, sharedWidgets^.scale_changed_id);
   Result := G_SOURCE_CONTINUE;
