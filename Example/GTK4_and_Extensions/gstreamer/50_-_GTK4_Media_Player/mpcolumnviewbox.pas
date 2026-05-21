@@ -26,6 +26,7 @@ function mp_column_view_box_get_item(w: PMPColumnViewBox): PGObject;
 
 
 function mp_column_view_box_get_selection_model(w: PMPColumnViewBox): PGtkSelectionModel; // ???
+function mp_column_view_box_get_list_model(w: PMPColumnViewBox): PGListModel; // ???
 
 implementation
 
@@ -383,7 +384,15 @@ var
   priv: PInstPriv;
 begin
   priv := GetPriv(w);
-  Result := gtk_column_view_get_model(GTK_COLUMN_VIEW(priv^.columnView));
+  Result := priv^.selection_model;
+end;
+
+function mp_column_view_box_get_list_model(w: PMPColumnViewBox): PGListModel;
+var
+  priv: PInstPriv;
+begin
+  priv := GetPriv(w);
+  Result := priv^.list_model;
 end;
 
 end.

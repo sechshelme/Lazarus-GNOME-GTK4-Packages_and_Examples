@@ -21,44 +21,30 @@ procedure CreateActions(sharedWidgets: PSharedWidget);
 
 implementation
 
+procedure ChangeSong(box: PGtkWidget);
+var
+  item_obj: PGObject;
+  song: PSong;
+begin
+  item_obj := mp_column_view_box_get_item(Box);
+  song := g_object_get_data(item_obj, songObjectKey);
+  gst_clear_object(@PriStream);
+  PriStream := mp_streamer_new_from_launch(song^.FullPath);
+  g_object_unref(item_obj);
+end;
+
 procedure action_cp(action: PGSimpleAction; {%H-}parameter: PGVariant; user_data: Tgpointer); cdecl;
 var
   sharedWidgets: PSharedWidget absolute user_data;
-  selection_model: PGtkSelectionModel;
   list_model: PGListModel;
-  Count: Tguint;
   index: Tgint = -1;
-  selected: PGtkBitset;
-  item_obj: PGObject = nil;
-  item_obj2: PGObject;
-  song: PSong = nil;
   adjustment: PGtkAdjustment;
-  newIndex: Tgint;
   action_name: string;
 begin
-  adjustment := gtk_range_get_adjustment(GTK_RANGE(sharedWidgets^.scale));
-
   action_name := g_action_get_name(G_ACTION(action));
   g_printf('Action, Name: "%s"'#10, Pgchar(action_name));
 
-  selection_model := mp_column_view_box_get_selection_model(sharedWidgets^.columviewBox);
-  list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
-  Count := g_list_model_get_n_items(list_model);
-  selected := gtk_selection_model_get_selection(selection_model);
-
-  item_obj := nil;
-  song := nil;
-  index := -1;
-
-  if (Count > 0) and not gtk_bitset_is_empty(selected) then begin
-    index := gtk_bitset_get_nth(selected, 0);
-    if (index >= 0) and (index < Count) then begin
-      item_obj := g_list_model_get_item(list_model, index);
-      if item_obj <> nil then begin
-        song := g_object_get_data(item_obj, songObjectKey);
-      end;
-    end;
-  end;
+  list_model := mp_column_view_box_get_list_model(sharedWidgets^.columviewBox);
 
   case action_name of
     'listbox.default.flac1': begin
@@ -98,11 +84,7 @@ begin
     end;
     'listbox.play': begin
       if PriStream = nil then begin
-        if (song <> nil) and (song^.FullPath <> nil) then begin
-          PriStream := mp_streamer_new_from_launch(song^.FullPath);
-        end else begin
-          g_printf('Hinweis: Kein Song ausgewählt oder Dateipfad ungültig.'#10);
-        end;
+        ChangeSong(sharedWidgets^.columviewBox);
       end else begin
         mp_streamer_play(PriStream);
       end;
@@ -115,6 +97,7 @@ begin
     'listbox.stop': begin
       WriteLn('stop');
       if PriStream <> nil then begin
+        adjustment := gtk_range_get_adjustment(GTK_RANGE(sharedWidgets^.scale));
         gst_clear_object(@PriStream);
         gtk_adjustment_set_value(adjustment, 0);
         gtk_adjustment_set_upper(adjustment, 1000);
@@ -132,13 +115,7 @@ begin
     'listbox.next': begin
       if (PriStream <> nil) and (mp_streamer_get_duration(PriStream) > 0) then begin
         mp_column_view_box_next(sharedWidgets^.columviewBox);
-        if mp_streamer_is_played(PriStream) then begin
-          item_obj2 := mp_column_view_box_get_item(sharedWidgets^.columviewBox);
-          song := g_object_get_data(item_obj2, songObjectKey);
-          gst_clear_object(@PriStream);
-          PriStream := mp_streamer_new_from_launch(song^.FullPath);
-          g_object_unref(item_obj2);
-        end;
+        ChangeSong(sharedWidgets^.columviewBox);
       end;
     end;
     'listbox.prev': begin
@@ -147,11 +124,7 @@ begin
           mp_streamer_set_position(PriStream, 0);
         end else begin
           mp_column_view_box_prev(sharedWidgets^.columviewBox);
-          item_obj2 := mp_column_view_box_get_item(sharedWidgets^.columviewBox);
-          song := g_object_get_data(item_obj2, songObjectKey);
-          gst_clear_object(@PriStream);
-          PriStream := mp_streamer_new_from_launch(song^.FullPath);
-          g_object_unref(item_obj2);
+          ChangeSong(sharedWidgets^.columviewBox);
         end;
       end;
     end;
@@ -165,12 +138,6 @@ begin
       g_printf('Unbekannte Action, Name: "%s"'#10, Pgchar(action_name));
     end;
   end;
-
-  if not gtk_bitset_is_empty(selected) then begin
-    g_object_unref(item_obj);
-  end;
-
-  gtk_bitset_unref(selected);
 end;
 
 procedure CreateActions(sharedWidgets: PSharedWidget);
