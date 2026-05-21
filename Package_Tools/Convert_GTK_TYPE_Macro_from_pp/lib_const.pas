@@ -328,6 +328,7 @@ const
     (libs: 'libshumate'; units: 'fp_shumate'),
     (libs: 'libmongoc'; units: 'fp_mongoc'),
     (libs: 'libbson'; units: 'fp_bson'),
+    (libs: 'liblua'; units: 'fp_lua'),
 
 
 
