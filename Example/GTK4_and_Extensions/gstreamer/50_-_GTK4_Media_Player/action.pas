@@ -5,7 +5,7 @@ interface
 uses
   fp_glib2, fp_pango, fp_GTK4, fp_gst,
   Common, LoadTitle,
-  MPStreamer, MPColumnViewBox,
+  MPSongItem, MPStreamer, MPColumnViewBox,
   XML_Tools, LoadSaveSongs;
 
 const
@@ -24,12 +24,10 @@ implementation
 procedure ChangeSong(box: PGtkWidget);
 var
   item_obj: PGObject;
-  song: PSong;
 begin
   item_obj := mp_column_view_box_get_item(Box);
-  song := g_object_get_data(item_obj, songObjectKey);
   gst_clear_object(@PriStream);
-  PriStream := mp_streamer_new_from_launch(song^.FullPath);
+  PriStream := mp_streamer_new_from_launch(mp_song_item_get_full_path(item_obj));
   g_object_unref(item_obj);
 end;
 

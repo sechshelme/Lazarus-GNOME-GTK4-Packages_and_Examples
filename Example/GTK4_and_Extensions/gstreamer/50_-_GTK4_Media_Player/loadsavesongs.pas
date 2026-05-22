@@ -10,6 +10,7 @@ uses
   fp_GTK4,
   XML_Tools,
   Common,
+  MPSongItem,
   MPStreamer;
 
 procedure Load_Song(store: PGListStore; path: Pgchar);
@@ -30,11 +31,9 @@ const
 procedure Save_Songs_to_XML(path: Pgchar; list: PGListStore);
 var
   item_obj: PGObject;
-  song: PSong;
   Count, i: Tgint;
   buf1: array[0..255] of Tgchar;
   buf2: array[0..15] of Tgchar;
-
   doc: PxmlDoc;
   root_node: PxmlNode;
 
@@ -50,11 +49,8 @@ begin
 
   for i := 0 to Count - 1 do begin
     item_obj := g_list_model_get_item(G_LIST_MODEL(list), i);
-    song := g_object_get_data(item_obj, songObjectKey);
-
     g_snprintf(buf1, SizeOf(buf1), '%s/items/item%d', SongXMLKey, i);
-    writeKey(doc, buf1, 'value', song^.FullPath);
-
+    writeKey(doc, buf1, 'value', mp_song_item_get_full_path(item_obj));
     g_object_unref(item_obj);
   end;
 
@@ -105,15 +101,9 @@ end;
 
 procedure Load_Song(store: PGListStore; path: Pgchar);
 var
-  song: PSong;
   obj: PGObject;
 begin
-  song := g_malloc(SizeOf(TSong));
-  song^.FullPath := g_strdup(path);
-  song^.Duration := get_duration(song^.FullPath);
-
-  obj := g_object_new(G_TYPE_OBJECT, nil);
-  g_object_set_data_full(obj, songObjectKey, song, @songitem_object_free_cp);
+  obj := mp_song_item_new(path, get_duration(path));
   g_list_store_append(store, obj);
   g_object_unref(obj);
 end;

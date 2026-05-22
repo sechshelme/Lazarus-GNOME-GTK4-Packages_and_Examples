@@ -4,7 +4,7 @@ interface
 
 uses
   fp_glib2, fp_GTK4, fp_pango, fp_gst,
-  Common, MPStreamer;
+  Common, MPSongItem, MPStreamer;
 
 type
   PMPColumnViewBox = type Pointer;
@@ -106,7 +106,6 @@ var
   col: Tgint absolute user_data;
   lab: PGtkWidget;
   item_obj: PGObject;
-  song: PSong;
   buffer: Pgchar = nil;
 begin
   lab := gtk_list_item_get_child(list_item);
@@ -115,20 +114,21 @@ begin
     exit;
   end;
 
-  song := g_object_get_data(item_obj, songObjectKey);
+//  song := g_object_get_data(item_obj, songObjectKey);
 
   case col of
     0: begin
       buffer := g_strdup_printf('%d', gtk_list_item_get_position(list_item) + 1);
     end;
     1: begin
-      if song <> nil then begin
-        buffer := g_strdup_printf('%s', song^.FullPath);
-      end;
+//      if song <> nil then begin
+//        buffer := g_strdup_printf('%s',  song^.FullPath);
+        buffer := g_strdup_printf('%s', mp_song_item_get_full_path(item_obj));
+//      end;
     end;
     2: begin
-      if (song <> nil) and (song^.Duration <> GST_CLOCK_TIME_NONE) then begin
-        buffer := g_strdup_printf('%s', pchar(GstClockToStr(song^.Duration)));
+      if mp_song_item_get_duration(item_obj) <> GST_CLOCK_TIME_NONE then begin
+        buffer := g_strdup_printf('%s', pchar(GstClockToStr(mp_song_item_get_duration(item_obj))));
       end else begin
         buffer := g_strdup_printf('--:--');
       end;

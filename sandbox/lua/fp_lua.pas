@@ -4,11 +4,11 @@ interface
 
 const
   {$IFDEF Linux}
-  libchafa = 'chafa';
+  liblua = 'lua5.1';
   {$ENDIF}
 
   {$IFDEF Windows}
-  libchafa = 'libchafa-0.dll';
+  liblua = 'lua5.1';
   {$ENDIF}
 
 
@@ -21,6 +21,8 @@ type
   Psize_t=^Tsize_t;
 
   Tptrdiff_t=PtrInt;
+
+  Tva_list=Pointer; // ????
 
   {$DEFINE read_interface}
 //  {$include fp_lua_includes.inc}

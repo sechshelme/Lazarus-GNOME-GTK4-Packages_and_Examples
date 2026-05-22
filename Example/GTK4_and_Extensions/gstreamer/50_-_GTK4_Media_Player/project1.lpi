@@ -70,6 +70,10 @@
         <Filename Value="mpcolumnviewbox.pas"/>
         <UnitName Value="MPColumnViewBox"/>
       </Unit>
+      <Unit>
+        <Filename Value="mpsongitem.pas"/>
+        <UnitName Value="MPSongItem"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

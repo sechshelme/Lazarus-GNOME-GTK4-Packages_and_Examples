@@ -5,9 +5,8 @@ interface
 uses
   fp_glib2, fp_GTK4, fp_gst,
   Common,
-  Action,
-  MPStreamer, XML_Tools,
-  MPVUMeterWidget, MPColumnViewBox;
+  Action, XML_Tools,
+  MPStreamer, MPSongItem, MPVUMeterWidget, MPColumnViewBox;
 
 function Create_ColumnView(sharedWidgets: PSharedWidget): PGTKWidget;
 
@@ -33,7 +32,6 @@ var
   SPos, SDur: TGstClockTime;
 
   item_obj: PGObject;
-  song: PSong = nil;
   s: string;
   vu: PGArray;
 
@@ -79,8 +77,7 @@ begin
 
           mp_column_view_box_next(sharedWidgets^.columviewBox);
           item_obj := mp_column_view_box_get_item(sharedWidgets^.columviewBox);
-          song := g_object_get_data(item_obj, songObjectKey);
-          PriStream := mp_streamer_new_from_launch(song^.FullPath);
+          PriStream := mp_streamer_new_from_launch(mp_song_item_get_full_path(item_obj));
           g_object_unref(item_obj);
 
           gtk_adjustment_set_upper(adjustment, 0);

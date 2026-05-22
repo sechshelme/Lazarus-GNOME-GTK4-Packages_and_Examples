@@ -92,7 +92,6 @@ var
 type
   TSharedWidget = record
     main_Window,
-//    columnView,
     columviewBox,
     LabelPosition,
     LabelDuration,
@@ -103,28 +102,7 @@ type
   end;
   PSharedWidget = ^TSharedWidget;
 
-type
-  TSong = record
-    FullPath: Pgchar;
-    Duration: TGstClockTime;
-  end;
-  PSong = ^TSong;
-
-const
-  songObjectKey = 'song-object';
-
-procedure songitem_object_free_cp(Data: Tgpointer); cdecl;
-
 implementation
-
-procedure songitem_object_free_cp(Data: Tgpointer); cdecl;
-var
-  obj: PSong absolute Data;
-begin
-  g_free(obj^.FullPath);
-  g_free(obj);
-end;
-
 
 
 end.
