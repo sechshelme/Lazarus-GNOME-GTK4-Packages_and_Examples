@@ -93,8 +93,9 @@ type
   TSharedWidget = record
     main_Window,
     columviewBox,
-    LabelPosition,
-    LabelDuration,
+//    LabelPosition,
+//    LabelDuration,
+    Label_Box,
     VUMeter,
     scale: PGtkWidget;
     IsChange: boolean;

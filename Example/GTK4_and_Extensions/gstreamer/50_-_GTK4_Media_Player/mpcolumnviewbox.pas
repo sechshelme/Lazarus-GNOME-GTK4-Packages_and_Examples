@@ -15,15 +15,12 @@ function mp_column_view_box_new(sharedWidgets: PSharedWidget): PGTKWidget;
 
 procedure mp_column_view_box_remove(w: PMPColumnViewBox);
 procedure mp_column_view_box_remove_all(w: PMPColumnViewBox);
-
 procedure mp_column_view_box_prev(w: PMPColumnViewBox);
 procedure mp_column_view_box_next(w: PMPColumnViewBox);
-
 procedure mp_column_view_box_up(w: PMPColumnViewBox);
 procedure mp_column_view_box_down(w: PMPColumnViewBox);
 
 function mp_column_view_box_get_item(w: PMPColumnViewBox): PGObject;
-
 
 function mp_column_view_box_get_selection_model(w: PMPColumnViewBox): PGtkSelectionModel; // ???
 function mp_column_view_box_get_list_model(w: PMPColumnViewBox): PGListModel; // ???

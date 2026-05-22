@@ -24,7 +24,6 @@ type
   PInstPriv = ^TInstPriv;
 
   TClassPriv = record
-    level: PGArray;
   end;
   PClassPriv = ^TClassPriv;
 

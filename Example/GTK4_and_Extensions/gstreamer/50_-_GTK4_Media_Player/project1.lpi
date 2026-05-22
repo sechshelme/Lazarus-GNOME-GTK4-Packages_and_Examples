@@ -74,6 +74,10 @@
         <Filename Value="mpsongitem.pas"/>
         <UnitName Value="MPSongItem"/>
       </Unit>
+      <Unit>
+        <Filename Value="mpdurationbox.pas"/>
+        <UnitName Value="MPDurationBox"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

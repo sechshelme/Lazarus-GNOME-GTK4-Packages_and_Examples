@@ -15,7 +15,7 @@ uses
   XML_Tools,
   LoadSaveSongs,
   Action,
-  MPVUMeterWidget, MPColumnViewBox, MPSongItem;
+  MPVUMeterWidget, MPColumnViewBox, MPSongItem, MPDurationBox;
 
   procedure on_scale_changed_cp({%H-}range: PGtkRange; user_data: Tgpointer); cdecl;
   var
@@ -80,7 +80,7 @@ uses
 procedure app_activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
 var
   mainLayout, buttonBox, scrolled_window,
-  mediaControlPanel, HBox, VBox, Label_Box, lab1,
+  mediaControlPanel, HBox, VBox, lab1,
   columnBox: PGtkWidget;
   sharedWidgets: PSharedWidget;
 begin
@@ -123,24 +123,8 @@ begin
   gtk_box_append(GTK_BOX(VBox), mediaControlPanel);
 
   // Zeit-Labels (Position / Duration)
-  Label_Box := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-  gtk_widget_set_margin_start(Label_Box, 15);
-
-  lab1 := gtk_label_new('Position:');
-  gtk_box_append(GTK_BOX(Label_Box), lab1);
-  sharedWidgets^.LabelPosition := gtk_label_new('00:00:0');
-  gtk_widget_set_size_request(sharedWidgets^.LabelPosition, 60, -1);
-  gtk_label_set_xalign(GTK_LABEL(sharedWidgets^.LabelPosition), 1.0);
-  gtk_box_append(GTK_BOX(Label_Box), sharedWidgets^.LabelPosition);
-
-  lab1 := gtk_label_new('Duration:');
-  gtk_box_append(GTK_BOX(Label_Box), lab1);
-  sharedWidgets^.LabelDuration := gtk_label_new('00:00:0');
-  gtk_widget_set_size_request(sharedWidgets^.LabelDuration, 60, -1);
-  gtk_label_set_xalign(GTK_LABEL(sharedWidgets^.LabelDuration), 1.0);
-  gtk_box_append(GTK_BOX(Label_Box), sharedWidgets^.LabelDuration);
-
-  gtk_box_append(GTK_BOX(VBox), Label_Box);
+  sharedWidgets^.Label_Box:=mp_duration_box_new;
+  gtk_box_append(GTK_BOX(VBox), sharedWidgets^.Label_Box);
 
   // VU-Meter Widget hinzufügen
   sharedWidgets^.VUMeter := mp_vu_meter_widget_new;
