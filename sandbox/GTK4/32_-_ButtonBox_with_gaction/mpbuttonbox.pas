@@ -1,4 +1,4 @@
-unit MyWidget;
+unit MPButtonBox;
 
 interface
 
@@ -11,8 +11,8 @@ type
   end;
   PButtonBoxData = ^TButtonBoxData;
 
-  PMButtonBox = type Pointer;
-  PMButtonBoxClass = type Pointer;
+  PMPButtonBox = type Pointer;
+  PMPButtonBoxClass = type Pointer;
 
 function mp_button_box_get_type: TGType;
 function mp_button_box_new(buttons: PButtonBoxData; count: Tgint): PGTKWidget;
@@ -33,12 +33,8 @@ begin
 end;
 
 procedure class_init_cp(g_class: Tgpointer; class_data: Tgpointer); cdecl;
-var
-  widget_class: PGtkWidgetClass;
 begin
-  widget_class := GTK_WIDGET_CLASS(g_class);
-  gtk_widget_class_install_action(widget_class, 'box.click', 's', @on_action_activated);
-
+  gtk_widget_class_install_action(GTK_WIDGET_CLASS(g_class), 'box.click', 's', @on_action_activated);
   signal_id := g_signal_new('action-triggered', G_TYPE_FROM_CLASS(g_class), G_SIGNAL_RUN_LAST, 0, nil, nil, nil, G_TYPE_NONE, 1, G_TYPE_STRING);
 end;
 

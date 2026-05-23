@@ -5,7 +5,8 @@ uses
   fp_glib2,
   fp_cairo,
   fp_GTK4,
-  MyWidget;
+  MPButtonBox,
+  myMenu;
 
   procedure quit_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
@@ -14,69 +15,15 @@ uses
     gtk_window_destroy(window);
   end;
 
-  procedure Received(button_id: pchar; user_data: Tgpointer); cdecl;
-  var
-    signal_id: Tguint;
-    detail: TGQuark;
-    signal_name: Pgchar;
+  procedure on_box_action_received(widget: PGtkWidget; button_id: Pgchar; user_data: Tgpointer); cdecl;
   begin
-    if g_signal_parse_name('action-triggered', mp_button_box_get_type, @signal_id, @detail, True) then  begin
-      signal_name := g_signal_name(signal_id);
-      g_print('Signal [%s] empfangen - ID: %s'#10, signal_name, button_id);
-    end;
+    g_print('Klick empfangen von: %s - ID: %s'#10, g_type_name(G_TYPE_FROM_INSTANCE(widget)), button_id);
   end;
-
-  // ====
-
-  procedure on_box_action_received(box: PMButtonBox; button_id: pchar; user_data: Tgpointer); cdecl;
-  begin
-    Received(button_id, user_data);
-  end;
-
-  // === menu
-
-  function create_window_menu(items: PButtonBoxData; count: Tgint): PGtkWidget;
-  var
-    menu: PGMenu;
-    item: PGMenuItem;
-    menu_button: PGtkWidget;
-    i: integer;
-    detailed_action: pchar;
-  begin
-    menu := g_menu_new();
-
-    for i := 0 to count - 1 do begin
-      item := g_menu_item_new(items[i].lab, nil);
-
-      detailed_action := g_strdup_printf('win.click(''%s'')', items[i].id);
-
-      g_menu_item_set_detailed_action(item, detailed_action);
-      g_menu_append_item(menu, item);
-
-      g_free(detailed_action);
-      g_object_unref(item);
-    end;
-
-    menu_button := gtk_menu_button_new();
-    gtk_menu_button_set_icon_name(PGtkMenuButton(menu_button), 'open-menu-symbolic');
-    gtk_menu_button_set_menu_model(PGtkMenuButton(menu_button), PGMenuModel(menu));
-
-    g_object_unref(menu);
-    Result := menu_button;
-  end;
-
-  procedure on_menu_action_activated(action: PGSimpleAction; parameter: PGVariant; user_data: Tgpointer); cdecl;
-  begin
-    Received(g_variant_get_string(parameter, nil), user_data);
-  end;
-
-  // === main
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, mainbox, button, playbox, header_bar, btnbox,
-    main_menu: PGtkWidget;
-    menu_action: PGSimpleAction;
+    menubox: PGtkWidget;
 
   const
     media_setup: array[0..2] of TButtonBoxData = (
@@ -103,12 +50,9 @@ uses
     gtk_window_set_titlebar(GTK_WINDOW(window), header_bar);
 
     // === menu
-    menu_action := g_simple_action_new_stateful('click', G_VARIANT_TYPE_STRING, nil);
-    g_signal_connect(menu_action, 'activate', G_CALLBACK(@on_menu_action_activated), nil);
-    g_action_map_add_action(G_ACTION_MAP(window), G_ACTION(menu_action));
-
-    main_menu := create_window_menu(app_setup, Length(app_setup));
-    gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), main_menu);
+    menubox := mp_menu_button_new(app_setup, Length(app_setup));
+    g_signal_connect(menubox, 'action-triggered', G_CALLBACK(@on_box_action_received), nil);
+    gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), menubox);
 
     // ==== mainbox
     mainbox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
