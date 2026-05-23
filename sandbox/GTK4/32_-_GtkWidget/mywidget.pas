@@ -34,7 +34,7 @@ implementation
 // ==== private
 
 var
-  my_widget_parent_class: PMyWidgetClass = nil;
+  parent_class: PMyWidgetClass = nil;
   signal_id: Tguint = 0;
 
 procedure init(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
@@ -85,7 +85,7 @@ procedure constructed(obj: PGObject); cdecl;
 var
   self: PMyWidget absolute obj;
 begin
-  G_OBJECT_CLASS(my_widget_parent_class)^.constructed(obj);
+  G_OBJECT_CLASS(parent_class)^.constructed(obj);
   my_widget_set_coords(MY_WIDGET(obj), self^.cols, self^.rows);
 end;
 
@@ -99,7 +99,7 @@ begin
   object_class^.get_property := @get_property;
 
   object_class^.constructed := @constructed;
-  my_widget_parent_class := g_type_class_peek_parent(g_class);
+  parent_class := g_type_class_peek_parent(g_class);
 
   spec := g_param_spec_uint('columns', 'Columns', 'Columns of the MyWidget', 1, G_MAXUINT, 3, G_PARAM_READWRITE or G_PARAM_CONSTRUCT);
   g_object_class_install_property(object_class, 1, spec);

@@ -292,8 +292,6 @@ function G_TYPE_FROM_INTERFACE(g_iface: Pointer): TGType;
 //function G_TYPE_INSTANCE_GET_PRIVATE(instance, g_type, c_type: TGType): Tgpointer;
 //function G_TYPE_CLASS_GET_PRIVATE(klass, g_type, c_type: TGType): Tgpointer;
 
-// bla bla
-
 function GPOINTER_TO_TYPE(p: Tgpointer): TGType;
 function GTYPE_TO_POINTER(t: TGType): Tgpointer;
 
