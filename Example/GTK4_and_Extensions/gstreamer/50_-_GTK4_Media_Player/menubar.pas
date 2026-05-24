@@ -6,32 +6,8 @@ uses
   fp_glib2, fp_pango, fp_GTK4, fp_gst;
 
 function CreateMenu: PGMenu;
-procedure CreateBtnButton(parent: PGtkWidget; label_, icon_name, action_name: Pgchar);
 
 implementation
-
-procedure CreateBtnButton(parent: PGtkWidget; label_, icon_name, action_name: Pgchar);
-var
-  box, image, lab, Button: PGtkWidget;
-begin
-  box := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
-  image := gtk_image_new_from_icon_name(icon_name);
-  gtk_box_append(GTK_BOX(box), image);
-
-  if label_ <> nil then begin
-    lab := gtk_label_new(label_);
-    gtk_box_append(GTK_BOX(box), lab);
-  end;
-
-  Button := gtk_button_new;
-  gtk_button_set_child(GTK_BUTTON(Button), box);
-  gtk_actionable_set_action_name(GTK_ACTIONABLE(Button), action_name);
-
-  gtk_widget_set_margin_top(parent, 5);
-  gtk_widget_set_margin_bottom(parent, 5);
-  gtk_box_append(GTK_BOX(parent), button);
-end;
-
 
 
 procedure add(parent: PGMenu; label_, icon_name, action: Pgchar);

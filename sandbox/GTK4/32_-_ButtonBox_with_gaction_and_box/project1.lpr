@@ -40,11 +40,6 @@ uses
 
     // === menu
     menubutton := mp_menu_button_new;
-    mp_menu_add_item(PMPMenuButton(menubutton), 'Datei', 'file');
-    mp_menu_add_item(PMPMenuButton(menubutton), 'Bearbeiten', 'edit');
-    mp_menu_add_item(PMPMenuButton(menubutton), 'Hilfe', 'help');
-    mp_menu_add_item(PMPMenuButton(menubutton), 'Beenden', 'quit');
-
     g_signal_connect(menubutton, 'action-triggered', G_CALLBACK(@on_box_action_received), nil);
     gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), menubutton);
 

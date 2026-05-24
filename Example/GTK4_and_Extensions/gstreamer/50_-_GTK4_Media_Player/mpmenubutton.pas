@@ -72,8 +72,22 @@ begin
     menu := g_menu_new;
     gtk_menu_button_set_icon_name(PGtkMenuButton(instance), 'open-menu-symbolic');
     gtk_menu_button_set_menu_model(PGtkMenuButton(instance), PGMenuModel(menu));
+
+    mp_menu_add_item(PMPMenuButton(instance), 'Datei', 'file');
+    mp_menu_add_item(PMPMenuButton(instance), 'Bearbeiten', 'edit');
+    mp_menu_add_item(PMPMenuButton(instance), 'Hilfe', 'help');
+    mp_menu_add_item(PMPMenuButton(instance), 'Beenden', 'listbox.quit');
+
+    mp_menu_add_item(PMPMenuButton(instance), 'Flac 1', 'listbox.default.flac1');
+    mp_menu_add_item(PMPMenuButton(instance), 'Flac 2', 'listbox.default.flac2');
+    mp_menu_add_item(PMPMenuButton(instance), 'Flac 3', 'listbox.default.flac3');
+    mp_menu_add_item(PMPMenuButton(instance), 'MP3', 'listbox.default.mp3');
+    mp_menu_add_item(PMPMenuButton(instance), 'MOD', 'listbox.default.mod');
+    mp_menu_add_item(PMPMenuButton(instance), 'MIDI', 'listbox.default.midi');
   end;
 end;
+
+
 
 
 // ==== public

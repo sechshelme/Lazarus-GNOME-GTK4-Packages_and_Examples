@@ -78,6 +78,10 @@
         <Filename Value="mpdurationbox.pas"/>
         <UnitName Value="MPDurationBox"/>
       </Unit>
+      <Unit>
+        <Filename Value="mpaction.pas"/>
+        <UnitName Value="MPaction"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

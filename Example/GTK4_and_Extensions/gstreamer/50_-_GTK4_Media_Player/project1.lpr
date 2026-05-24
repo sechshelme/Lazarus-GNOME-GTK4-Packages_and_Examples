@@ -5,7 +5,7 @@ uses
   fp_cairo,
   fp_GTK4,
   fp_gst,
-   //  fp_GLIBTools,
+  //  fp_GLIBTools,
 
   Common,
   MPStreamer,
@@ -15,7 +15,17 @@ uses
   XML_Tools,
   LoadSaveSongs,
   Action,
-  MPVUMeterWidget, MPColumnViewBox, MPSongItem, MPDurationBox;
+  MPVUMeterWidget,
+  MPColumnViewBox,
+  MPSongItem,
+  MPDurationBox,
+  MPaction,
+
+  MPButtonBox,
+  MPMenuButton,
+  MPPlayerButtonBox,
+  MPColumnViewControl;
+
 
   procedure on_scale_changed_cp({%H-}range: PGtkRange; user_data: Tgpointer); cdecl;
   var
@@ -44,130 +54,115 @@ uses
     end;
   end;
 
-
-  function CreateMediaButtons: PGtkWidget;
-  begin
-    Result := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
-    createBtnButton(Result, nil, 'media-skip-backward-symbolic', 'app.listbox.prev');
-    createBtnButton(Result, nil, 'media-seek-backward-symbolic', 'app.listbox.backward');
-    createBtnButton(Result, nil, 'media-playback-start-symbolic', 'app.listbox.play');
-    createBtnButton(Result, nil, 'media-playback-pause-symbolic', 'app.listbox.pause');
-    createBtnButton(Result, nil, 'media-playback-stop-symbolic', 'app.listbox.stop');
-    createBtnButton(Result, nil, 'media-seek-forward-symbolic', 'app.listbox.forward');
-    createBtnButton(Result, nil, 'media-skip-forward-symbolic', 'app.listbox.next');
-  end;
-
-  function CreateMediaControlsPanel: PGtkWidget;
-  var
-    buttonBox: PGtkWidget;
-  begin
-    Result := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
-    gtk_widget_set_margin_start(Result, 10);
-    gtk_widget_set_margin_end(Result, 10);
-    gtk_widget_set_margin_top(Result, 10);
-    gtk_widget_set_margin_bottom(Result, 10);
-    gtk_widget_set_valign(Result, GTK_ALIGN_START);
-
-    buttonBox := CreateMediaButtons;
-    gtk_box_append(GTK_BOX(Result), buttonBox);
-  end;
-
   procedure sharedWidgest_free_cp(Data: Tgpointer; where_the_object_was: PGObject); cdecl;
   begin
     g_free(Data);
   end;
 
-procedure app_activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
-var
-  mainLayout, buttonBox, scrolled_window,
-  mediaControlPanel, HBox, VBox, lab1,
-  columnBox: PGtkWidget;
-  sharedWidgets: PSharedWidget;
-begin
-  sharedWidgets := g_malloc0(SizeOf(TSharedWidget));
-  sharedWidgets^.scale_changed_id := 0;
-  sharedWidgets^.IsChange := False;
+  procedure app_activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
+  var
+    mainLayout, columnViewControlBox, scrolled_window,
+    mediaControlPanel, HBox, VBox,
+    columnBox, ColumnViewButtonBox, header_bar, menubutton: PGtkWidget;
+    sharedWidgets: PSharedWidget;
+  begin
+    sharedWidgets := g_malloc0(SizeOf(TSharedWidget));
+    sharedWidgets^.scale_changed_id := 0;
+    sharedWidgets^.IsChange := False;
 
-  sharedWidgets^.main_window := gtk_application_window_new(app);
-  gtk_window_set_title(GTK_WINDOW(sharedWidgets^.main_window), 'Media Player');
-  gtk_window_set_default_size(GTK_WINDOW(sharedWidgets^.main_window), 1024, 768);
+    sharedWidgets^.main_window := gtk_application_window_new(app);
+    gtk_window_set_title(GTK_WINDOW(sharedWidgets^.main_window), 'Media Player');
+    gtk_window_set_default_size(GTK_WINDOW(sharedWidgets^.main_window), 1024, 768);
 
-  // Main-Menu anzeigen
-  gtk_application_window_set_show_menubar(GTK_APPLICATION_WINDOW(sharedWidgets^.main_window), True);
 
-  // --- Haupt-Container für das ganze Fenster
-  mainLayout := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
-  gtk_widget_set_margin_start(mainLayout, 10);
-  gtk_widget_set_margin_end(mainLayout, 10);
-  gtk_widget_set_margin_top(mainLayout, 10);
-  gtk_widget_set_margin_bottom(mainLayout, 10);
 
-  // --- Bereich 1: Scale (Fortschrittsbalken)
-  sharedWidgets^.scale := gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0.0, 100.0, 1.0);
-  gtk_scale_set_draw_value(GTK_SCALE(sharedWidgets^.scale), True);
-  gtk_scale_set_value_pos(GTK_SCALE(sharedWidgets^.scale), GTK_POS_TOP);
-  gtk_range_set_value(GTK_RANGE(sharedWidgets^.scale), 0.0);
-  sharedWidgets^.scale_changed_id := g_signal_connect(sharedWidgets^.scale, 'value-changed', G_CALLBACK(@on_scale_changed_cp), sharedWidgets);
-  gtk_box_append(GTK_BOX(mainLayout), sharedWidgets^.scale);
+    // === headerbar
+    header_bar := gtk_header_bar_new;
+    gtk_window_set_titlebar(GTK_WINDOW(sharedWidgets^.main_window), header_bar);
 
-  // --- Bereich 2: Obere Steuerung (Buttons & VU-Meter)
-  HBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-  gtk_widget_set_hexpand(HBox, True);
-  gtk_box_append(GTK_BOX(mainLayout), HBox);
+    menubutton := mp_menu_button_new;
+    g_signal_connect(menubutton, 'action-triggered', G_CALLBACK(@on_box_action_received), sharedWidgets);
+    gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), menubutton);
 
-  VBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
-  gtk_box_append(GTK_BOX(HBox), VBox);
 
-  // MediaButtons (Play, Stop, etc.)
-  mediaControlPanel := CreateMediaControlsPanel;
-  gtk_box_append(GTK_BOX(VBox), mediaControlPanel);
+    // Main-Menu anzeigen
+    gtk_application_window_set_show_menubar(GTK_APPLICATION_WINDOW(sharedWidgets^.main_window), True);
 
-  // Zeit-Labels (Position / Duration)
-  sharedWidgets^.Label_Box:=mp_duration_box_new;
-  gtk_box_append(GTK_BOX(VBox), sharedWidgets^.Label_Box);
+    // --- Haupt-Container für das ganze Fenster
+    mainLayout := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+    gtk_widget_set_margin_start(mainLayout, 10);
+    gtk_widget_set_margin_end(mainLayout, 10);
+    gtk_widget_set_margin_top(mainLayout, 10);
+    gtk_widget_set_margin_bottom(mainLayout, 10);
 
-  // VU-Meter Widget hinzufügen
-  sharedWidgets^.VUMeter := mp_vu_meter_widget_new;
-  gtk_widget_set_hexpand(sharedWidgets^.VUMeter, True);
-  gtk_widget_set_size_request(sharedWidgets^.VUMeter, 100, 50);
-  gtk_box_append(GTK_BOX(HBox), sharedWidgets^.VUMeter);
+    // --- Bereich 1: Scale (Fortschrittsbalken)
+    sharedWidgets^.scale := gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0.0, 100.0, 1.0);
+    gtk_scale_set_draw_value(GTK_SCALE(sharedWidgets^.scale), True);
+    gtk_scale_set_value_pos(GTK_SCALE(sharedWidgets^.scale), GTK_POS_TOP);
+    gtk_range_set_value(GTK_RANGE(sharedWidgets^.scale), 0.0);
+    sharedWidgets^.scale_changed_id := g_signal_connect(sharedWidgets^.scale, 'value-changed', G_CALLBACK(@on_scale_changed_cp), sharedWidgets);
+    gtk_box_append(GTK_BOX(mainLayout), sharedWidgets^.scale);
 
-  // --- Bereich 3: Liste (ColumnView) und Edit-Buttons
-  HBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
-  gtk_widget_set_hexpand(HBox, True);
-  gtk_widget_set_vexpand(HBox, True);
-  gtk_box_append(GTK_BOX(mainLayout), HBox);
+    // --- Bereich 2: Obere Steuerung (Buttons & VU-Meter)
+    HBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+    gtk_widget_set_hexpand(HBox, True);
+    gtk_box_append(GTK_BOX(mainLayout), HBox);
 
-  // ScrolledWindow für die Liste
-  scrolled_window := gtk_scrolled_window_new;
-  gtk_widget_set_vexpand(scrolled_window, True);
-  gtk_widget_set_hexpand(scrolled_window, True);
+    VBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+    gtk_box_append(GTK_BOX(HBox), VBox);
 
-  // Erstelle die Custom Box (MPColumnViewBox), welche die GtkColumnView enthält
-  columnBox := Create_ColumnView(sharedWidgets);
+    // MediaButtons (Play, Stop, etc.)
+    mediaControlPanel := mp_player_button_box_new;
+    g_signal_connect(mediaControlPanel, 'action-triggered', G_CALLBACK(@on_box_action_received), sharedWidgets);
+    gtk_box_append(GTK_BOX(VBox), mediaControlPanel);
 
-  // Die Box in das ScrolledWindow packen
-  gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), columnBox);
-  gtk_box_append(GTK_BOX(HBox), scrolled_window);
+    // Zeit-Labels (Position / Duration)
+    sharedWidgets^.Label_Box := mp_duration_box_new;
+    gtk_box_append(GTK_BOX(VBox), sharedWidgets^.Label_Box);
 
-  // Button-Leiste rechts neben der Liste
-  buttonBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
-  gtk_box_append(GTK_BOX(HBox), buttonBox);
+    // VU-Meter Widget hinzufügen
+    sharedWidgets^.VUMeter := mp_vu_meter_widget_new;
+    gtk_widget_set_hexpand(sharedWidgets^.VUMeter, True);
+    gtk_widget_set_size_request(sharedWidgets^.VUMeter, 100, 50);
+    gtk_box_append(GTK_BOX(HBox), sharedWidgets^.VUMeter);
 
-  gtk_box_append(GTK_BOX(buttonBox), gtk_label_new('Edit'));
-  CreateBtnButton(buttonBox, 'Append', 'list-add', 'app.listbox.add');
-  CreateBtnButton(buttonBox, 'Remove', 'list-remove', 'app.listbox.remove');
-  CreateBtnButton(buttonBox, 'Remove All', 'list-remove-all', 'app.listbox.removeall');
-  CreateBtnButton(buttonBox, 'Up', 'go-up', 'app.listbox.up');
-  CreateBtnButton(buttonBox, 'Down', 'go-down', 'app.listbox.down');
+    // --- Bereich 3: Liste (ColumnView) und Edit-Buttons
+    HBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
+    gtk_widget_set_hexpand(HBox, True);
+    gtk_widget_set_vexpand(HBox, True);
+    gtk_box_append(GTK_BOX(mainLayout), HBox);
 
-  // --- Fertigstellung
-  gtk_window_set_child(GTK_WINDOW(sharedWidgets^.main_window), mainLayout);
-  gtk_window_present(GTK_WINDOW(sharedWidgets^.main_window));
+    // ScrolledWindow für die Liste
+    scrolled_window := gtk_scrolled_window_new;
+    gtk_widget_set_vexpand(scrolled_window, True);
+    gtk_widget_set_hexpand(scrolled_window, True);
 
-  // Speicher bei Fenster-Schluss aufräumen
-  g_object_weak_ref(G_OBJECT(sharedWidgets^.main_window), @sharedWidgest_free_cp, sharedWidgets);
-end;
+    // Erstelle die Custom Box (MPColumnViewBox), welche die GtkColumnView enthält
+    columnBox := Create_ColumnView(sharedWidgets);
+
+    // Die Box in das ScrolledWindow packen
+    gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), columnBox);
+    gtk_box_append(GTK_BOX(HBox), scrolled_window);
+
+    // ColumnView Control
+    columnViewControlBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+    gtk_box_append(GTK_BOX(HBox), columnViewControlBox);
+
+    gtk_box_append(GTK_BOX(columnViewControlBox), gtk_label_new('Edit'));
+
+    ColumnViewButtonBox := mp_column_view_control_new;
+    gtk_orientable_set_orientation(GTK_ORIENTABLE(ColumnViewButtonBox), GTK_ORIENTATION_VERTICAL);
+    g_signal_connect(ColumnViewButtonBox, 'action-triggered', G_CALLBACK(@on_box_action_received), sharedWidgets);
+    gtk_box_append(GTK_BOX(columnViewControlBox), ColumnViewButtonBox);
+
+    // --- Fertigstellung
+    gtk_window_set_child(GTK_WINDOW(sharedWidgets^.main_window), mainLayout);
+    gtk_window_present(GTK_WINDOW(sharedWidgets^.main_window));
+
+    // Speicher bei Fenster-Schluss aufräumen
+    g_object_weak_ref(G_OBJECT(sharedWidgets^.main_window), @sharedWidgest_free_cp, sharedWidgets);
+  end;
+
   procedure app_startup(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
     action: PGSimpleAction;
@@ -182,7 +177,7 @@ end;
     g_object_unref(action);
   end;
 
-  procedure main(argc: Integer; argv: PPChar);
+  procedure main(argc: integer; argv: PPChar);
   var
     app: PGtkApplication;
   begin
