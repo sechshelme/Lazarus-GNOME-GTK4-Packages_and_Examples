@@ -7,7 +7,7 @@ uses
   fp_GTK4,
   MyButtonBox,
   MyMenuButton,
-  MyPlayerButtonBox  ;
+  MyPlayerButtonBox;
 
   procedure quit_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
