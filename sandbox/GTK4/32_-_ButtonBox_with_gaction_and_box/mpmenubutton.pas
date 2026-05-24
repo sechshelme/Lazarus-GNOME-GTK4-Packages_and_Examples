@@ -1,4 +1,4 @@
-unit MyMenuButton;
+unit MPMenuButton;
 
 interface
 
@@ -6,12 +6,12 @@ uses
   fp_glib2, fp_GTK4, fp_graphene;
 
 type
-  PMyMenuButton = type Pointer;
-  PMyMenuButtonClass = type Pointer;
+  PMPMenuButton = type Pointer;
+  PMPMenuButtonClass = type Pointer;
 
-function my_menu_button_get_type: TGType;
-function my_menu_button_new: PGTKWidget;
-procedure my_menu_add_item(button: PMyMenuButton; lab, id: Pgchar);
+function mp_menu_button_get_type: TGType;
+function mp_menu_button_new: PGTKWidget;
+procedure mp_menu_add_item(button: PMPMenuButton; lab, id: Pgchar);
 
 implementation
 
@@ -78,7 +78,7 @@ end;
 
 // ==== public
 
-function my_menu_button_get_type: TGType;
+function mp_menu_button_get_type: TGType;
 const
   type_id: TGType = 0;
 var
@@ -97,12 +97,12 @@ begin
   Result := type_id;
 end;
 
-function my_menu_button_new: PGTKWidget;
+function mp_menu_button_new: PGTKWidget;
 begin
-  Result := g_object_new(my_menu_button_get_type, nil);
+  Result := g_object_new(mp_menu_button_get_type, nil);
 end;
 
-procedure my_menu_add_item(button: PMyMenuButton; lab, id: Pgchar);
+procedure mp_menu_add_item(button: PMPMenuButton; lab, id: Pgchar);
 var
   priv: PInstPriv;
   item: PGMenuItem;

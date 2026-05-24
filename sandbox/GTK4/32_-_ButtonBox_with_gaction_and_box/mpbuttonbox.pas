@@ -1,4 +1,4 @@
-unit MyButtonBox;
+unit MPButtonBox;
 
 interface
 
@@ -6,12 +6,12 @@ uses
   fp_glib2, fp_GTK4;
 
 type
-  PMyButtonBox = type Pointer;
-  PMyButtonBoxClass = type Pointer;
+  PMPButtonBox = type Pointer;
+  PMPButtonBoxClass = type Pointer;
 
-function my_button_box_get_type: TGType;
-function my_button_box_new: PGTKWidget;
-procedure my_button_box_add_item(box:PMyButtonBox; lab,id,icon_name:Pgchar);
+function mp_button_box_get_type: TGType;
+function mp_button_box_new: PGTKWidget;
+procedure mp_button_box_add_item(box: PMPButtonBox; lab, id, icon_name: Pgchar);
 
 implementation
 
@@ -36,7 +36,7 @@ end;
 
 // ==== public
 
-function my_button_box_get_type: TGType;
+function mp_button_box_get_type: TGType;
 const
   type_id: TGType = 0;
 var
@@ -54,26 +54,36 @@ begin
   Result := type_id;
 end;
 
-function my_button_box_new: PGTKWidget;
+function mp_button_box_new: PGTKWidget;
 begin
-  Result := g_object_new(my_button_box_get_type, nil);
+  Result := g_object_new(mp_button_box_get_type, nil);
 end;
 
-procedure my_button_box_add_item(box: PMyButtonBox; lab, id, icon_name: Pgchar);
+procedure mp_button_box_add_item(box: PMPButtonBox; lab, id, icon_name: Pgchar);
 var
-  btn: PGtkWidget;
+  btn, b, image, label_: PGtkWidget;
   spec: Pgchar;
 begin
-  if icon_name <> nil then begin
-    btn := gtk_button_new_from_icon_name(icon_name);
-    gtk_widget_set_tooltip_text(btn, lab);
-  end else begin
-    btn := gtk_button_new_with_label(lab);
+  b := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+  gtk_widget_set_halign(b, GTK_ALIGN_CENTER);
+
+  if icon_name <> nil then begin;
+    image := gtk_image_new_from_icon_name(icon_name);
+    gtk_box_append(GTK_BOX(b), image);
   end;
+
+  if lab <> nil then begin
+    label_ := gtk_label_new(lab);
+    gtk_box_append(GTK_BOX(b), label_);
+  end;
+
+  btn := gtk_button_new;
+  gtk_button_set_child(GTK_BUTTON(btn), b);
 
   spec := g_strdup_printf('box.click(''%s'')', id);
   gtk_actionable_set_detailed_action_name(GTK_ACTIONABLE(btn), spec);
   g_free(spec);
+
   gtk_box_append(GTK_BOX(box), btn);
 end;
 

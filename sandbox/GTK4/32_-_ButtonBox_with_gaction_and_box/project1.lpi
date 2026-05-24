@@ -36,12 +36,16 @@
         <Filename Value="project1.lpr"/>
       </Unit>
       <Unit>
-        <Filename Value="mymenubutton.pas"/>
-        <UnitName Value="MyMenuButton"/>
+        <Filename Value="mpmenubutton.pas"/>
+        <UnitName Value="MPMenuButton"/>
       </Unit>
       <Unit>
-        <Filename Value="myplayerbuttonbox.pas"/>
-        <UnitName Value="MyPlayerButtonBox"/>
+        <Filename Value="mpplayerbuttonbox.pas"/>
+        <UnitName Value="MPPlayerButtonBox"/>
+      </Unit>
+      <Unit>
+        <Filename Value="mpcolumnviewcontrol.pas"/>
+        <UnitName Value="MPColumnViewControl"/>
       </Unit>
     </Units>
   </ProjectOptions>

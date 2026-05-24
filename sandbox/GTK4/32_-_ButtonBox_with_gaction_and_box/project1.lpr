@@ -5,9 +5,10 @@ uses
   fp_glib2,
   fp_cairo,
   fp_GTK4,
-  MyButtonBox,
-  MyMenuButton,
-  MyPlayerButtonBox;
+  MPButtonBox,
+  MPMenuButton,
+  MPPlayerButtonBox,
+  MPColumnViewControl;
 
   procedure quit_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
@@ -38,11 +39,11 @@ uses
     gtk_window_set_titlebar(GTK_WINDOW(window), header_bar);
 
     // === menu
-    menubutton := my_menu_button_new;
-    my_menu_add_item(PMyMenuButton(menubutton), 'Datei', 'file');
-    my_menu_add_item(PMyMenuButton(menubutton), 'Bearbeiten', 'edit');
-    my_menu_add_item(PMyMenuButton(menubutton), 'Hilfe', 'help');
-    my_menu_add_item(PMyMenuButton(menubutton), 'Beenden', 'quit');
+    menubutton := mp_menu_button_new;
+    mp_menu_add_item(PMPMenuButton(menubutton), 'Datei', 'file');
+    mp_menu_add_item(PMPMenuButton(menubutton), 'Bearbeiten', 'edit');
+    mp_menu_add_item(PMPMenuButton(menubutton), 'Hilfe', 'help');
+    mp_menu_add_item(PMPMenuButton(menubutton), 'Beenden', 'quit');
 
     g_signal_connect(menubutton, 'action-triggered', G_CALLBACK(@on_box_action_received), nil);
     gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), menubutton);
@@ -50,15 +51,12 @@ uses
     // ==== mainbox
     mainbox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
 
-    playbox := my_player_button_box_new;
+    playbox := mp_player_button_box_new;
     g_signal_connect(playbox, 'action-triggered', G_CALLBACK(@on_box_action_received), nil);
     gtk_box_append(GTK_BOX(mainbox), playbox);
 
-    btnbox := my_button_box_new;
-    my_button_box_add_item(PMyButtonBox(btnbox), 'Info', 'info', nil);
-    my_button_box_add_item(PMyButtonBox(btnbox), 'Play', 'play', nil);
-    my_button_box_add_item(PMyButtonBox(btnbox), 'Hilfe', 'help', nil);
-    my_button_box_add_item(PMyButtonBox(btnbox), 'Beenden', 'quit', nil);
+    btnbox := mp_column_view_control_new;
+    gtk_orientable_set_orientation(GTK_ORIENTABLE(btnbox), GTK_ORIENTATION_VERTICAL);
     g_signal_connect(btnbox, 'action-triggered', G_CALLBACK(@on_box_action_received), nil);
     gtk_widget_set_hexpand(btnbox, True);
     gtk_box_set_homogeneous(GTK_BOX(btnbox), True);
