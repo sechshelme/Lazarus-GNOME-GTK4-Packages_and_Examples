@@ -39,6 +39,10 @@
         <Filename Value="mymenubutton.pas"/>
         <UnitName Value="MyMenuButton"/>
       </Unit>
+      <Unit>
+        <Filename Value="myplayerbuttonbox.pas"/>
+        <UnitName Value="MyPlayerButtonBox"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

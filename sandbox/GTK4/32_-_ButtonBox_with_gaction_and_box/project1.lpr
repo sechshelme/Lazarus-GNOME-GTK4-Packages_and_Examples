@@ -5,8 +5,9 @@ uses
   fp_glib2,
   fp_cairo,
   fp_GTK4,
-  MPButtonBox,
-  myMenu;
+  MyButtonBox,
+  MyMenuButton,
+  MyPlayerButtonBox  ;
 
   procedure quit_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
@@ -23,20 +24,7 @@ uses
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, mainbox, button, playbox, header_bar, btnbox,
-    menubox: PGtkWidget;
-
-  const
-    media_setup: array[0..2] of TButtonBoxData = (
-      (lab: 'Aufnahme'; id: 'record'; icon_name: 'media-record-symbolic'),
-      (lab: 'Play'; id: 'play'; icon_name: 'media-playback-start-symbolic'),
-      (lab: 'Stop'; id: 'stop'; icon_name: 'media-playback-stop-symbolic'));
-
-  const
-    app_setup: array[0..3] of TButtonBoxData = (
-      (lab: 'Info'; id: 'info'; icon_name: nil),
-      (lab: 'Play'; id: 'play'; icon_name: nil),
-      (lab: 'Hilfe'; id: 'help'; icon_name: nil),
-      (lab: 'Beenden'; id: 'quit'; icon_name: nil));
+    menubutton: PGtkWidget;
 
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
@@ -50,19 +38,27 @@ uses
     gtk_window_set_titlebar(GTK_WINDOW(window), header_bar);
 
     // === menu
-    menubox := mp_menu_button_new(app_setup, Length(app_setup));
-    g_signal_connect(menubox, 'action-triggered', G_CALLBACK(@on_box_action_received), nil);
-    gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), menubox);
+    menubutton := my_menu_button_new;
+    my_menu_add_item(PMyMenuButton(menubutton), 'Datei', 'file');
+    my_menu_add_item(PMyMenuButton(menubutton), 'Bearbeiten', 'edit');
+    my_menu_add_item(PMyMenuButton(menubutton), 'Hilfe', 'help');
+    my_menu_add_item(PMyMenuButton(menubutton), 'Beenden', 'quit');
+
+    g_signal_connect(menubutton, 'action-triggered', G_CALLBACK(@on_box_action_received), nil);
+    gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), menubutton);
 
     // ==== mainbox
     mainbox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
 
-    playbox := mp_button_box_new(media_setup, Length(media_setup));
-    gtk_box_set_spacing(GTK_BOX(playbox), 10);
+    playbox := my_player_button_box_new;
     g_signal_connect(playbox, 'action-triggered', G_CALLBACK(@on_box_action_received), nil);
     gtk_box_append(GTK_BOX(mainbox), playbox);
 
-    btnbox := mp_button_box_new(app_setup, Length(app_setup));
+    btnbox := my_button_box_new;
+    my_button_box_add_item(PMyButtonBox(btnbox), 'Info', 'info', nil);
+    my_button_box_add_item(PMyButtonBox(btnbox), 'Play', 'play', nil);
+    my_button_box_add_item(PMyButtonBox(btnbox), 'Hilfe', 'help', nil);
+    my_button_box_add_item(PMyButtonBox(btnbox), 'Beenden', 'quit', nil);
     g_signal_connect(btnbox, 'action-triggered', G_CALLBACK(@on_box_action_received), nil);
     gtk_widget_set_hexpand(btnbox, True);
     gtk_box_set_homogeneous(GTK_BOX(btnbox), True);
@@ -72,6 +68,7 @@ uses
     button := gtk_button_new_with_label('Quit');
     g_signal_connect(button, 'clicked', G_CALLBACK(@quit_cp), window);
     gtk_box_append(GTK_BOX(mainbox), button);
+
 
     gtk_window_set_child(GTK_WINDOW(window), mainbox);
     gtk_window_present(GTK_WINDOW(window));
