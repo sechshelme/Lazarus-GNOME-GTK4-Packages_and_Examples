@@ -1,14 +1,14 @@
-unit column_view;
+unit MPTimerLoop;
 
 interface
 
 uses
   fp_glib2, fp_GTK4, fp_gst,
   Common,
-  XML_Tools,
-  MPStreamer, MPSongItem, MPVUMeterWidget, MPColumnViewBox, MPDurationBox,MPaction;
+  MPStreamer, MPSongItem, MPVUMeterWidget, MPColumnViewBox, MPDurationBox;
 
-function Create_ColumnView(sharedWidgets: PSharedWidget): PGTKWidget;
+function timerFunc_cp(user_data: Tgpointer): Tgboolean; cdecl;
+
 
 implementation
 
@@ -92,35 +92,6 @@ begin
 
   g_signal_handler_unblock(sharedWidgets^.scale, sharedWidgets^.scale_changed_id);
   Result := G_SOURCE_CONTINUE;
-end;
-
-procedure on_columnview_destroy(widget: PGtkWidget; user_data: Tgpointer);
-var
-  idle_id: Tguint absolute user_data;
-begin
-  if idle_id > 0 then begin
-    g_source_remove(idle_id);
-  end;
-  if PriStream <> nil then begin
-    gst_clear_object(@PriStream);
-  end;
-  if SekStream <> nil then begin
-    gst_clear_object(@SekStream);
-  end;
-end;
-
-
-
-// ==== public
-
-function Create_ColumnView(sharedWidgets: PSharedWidget): PGTKWidget;
-var
-  idle_id: Tguint;
-begin
-  Result := mp_column_view_box_new(sharedWidgets);
-
-  idle_id := g_timeout_add(100, @timerFunc_cp, sharedWidgets);
-  g_signal_connect(Result, 'destroy', G_CALLBACK(@on_columnview_destroy), GINT_TO_POINTER(idle_id));
 end;
 
 end.

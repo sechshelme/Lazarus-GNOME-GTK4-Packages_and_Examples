@@ -7,18 +7,18 @@ uses
   fp_gst,
 
   Common,
-  MPStreamer,
-  column_view,
   LoadTitle,
   MenuBar,
   XML_Tools,
   LoadSaveSongs,
+
+  MPStreamer,
+  MPTimerLoop,
   MPVUMeterWidget,
   MPColumnViewBox,
   MPSongItem,
   MPDurationBox,
   MPaction,
-
   MPButtonBox,
   MPMenuButton,
   MPPlayerButtonBox,
@@ -32,29 +32,22 @@ uses
     sharedWidget^.IsChange := True;
   end;
 
-  procedure action_cp(action: PGSimpleAction; {%H-}parameter: PGVariant; user_data: Tgpointer); cdecl;
+  procedure app_destroy_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
-    action_name: string;
-    app: PGApplication;
-    windowList: PGList;
+    sharedWidget: PSharedWidget absolute user_data;
   begin
-    app := g_application_get_default;
-    windowList := gtk_application_get_windows(GTK_APPLICATION(app));
-
-    action_name := g_action_get_name(G_ACTION(action));
-    case action_name of
-      'quit': begin
-        gtk_window_close(GTK_WINDOW(windowList^.Data));
-      end;
-      else begin
-        g_printf('Unbekannte Action, Name: "%s"'#10, Pgchar(action_name));
-      end;
+    if sharedWidget^.idle_id > 0 then begin
+      g_source_remove(sharedWidget^.idle_id);
+      sharedWidget^.idle_id := 0;
     end;
-  end;
+    if PriStream <> nil then begin
+      gst_clear_object(@PriStream);
+    end;
+    if SekStream <> nil then begin
+      gst_clear_object(@SekStream);
+    end;
 
-  procedure sharedWidgest_free_cp(Data: Tgpointer; where_the_object_was: PGObject); cdecl;
-  begin
-    g_free(Data);
+    g_free(sharedWidget);
   end;
 
   procedure app_activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
@@ -68,11 +61,11 @@ uses
     sharedWidgets^.scale_changed_id := 0;
     sharedWidgets^.IsChange := False;
 
+    g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
+
     sharedWidgets^.main_window := gtk_application_window_new(app);
     gtk_window_set_title(GTK_WINDOW(sharedWidgets^.main_window), 'Media Player');
     gtk_window_set_default_size(GTK_WINDOW(sharedWidgets^.main_window), 1024, 768);
-
-
 
     // === headerbar
     header_bar := gtk_header_bar_new;
@@ -82,9 +75,6 @@ uses
     g_signal_connect(menubutton, 'action-triggered', G_CALLBACK(@on_box_action_received), sharedWidgets);
     gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), menubutton);
 
-
-    // Main-Menu anzeigen
-    gtk_application_window_set_show_menubar(GTK_APPLICATION_WINDOW(sharedWidgets^.main_window), True);
 
     // --- Haupt-Container für das ganze Fenster
     mainLayout := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
@@ -136,7 +126,7 @@ uses
     gtk_widget_set_hexpand(scrolled_window, True);
 
     // Erstelle die Custom Box (MPColumnViewBox), welche die GtkColumnView enthält
-    columnBox := Create_ColumnView(sharedWidgets);
+    columnBox := mp_column_view_box_new(sharedWidgets);
     g_signal_connect(columnBox, 'action-triggered', G_CALLBACK(@on_box_action_received), sharedWidgets);
 
     // Die Box in das ScrolledWindow packen
@@ -158,37 +148,22 @@ uses
     gtk_window_set_child(GTK_WINDOW(sharedWidgets^.main_window), mainLayout);
     gtk_window_present(GTK_WINDOW(sharedWidgets^.main_window));
 
-    // Speicher bei Fenster-Schluss aufräumen
-    g_object_weak_ref(G_OBJECT(sharedWidgets^.main_window), @sharedWidgest_free_cp, sharedWidgets);
+    // Timerloop
+    sharedWidgets^.idle_id := g_timeout_add(100, @timerFunc_cp, sharedWidgets);
+    g_signal_connect(sharedWidgets^.main_Window, 'destroy', G_CALLBACK(@app_destroy_cp), sharedWidgets);
   end;
 
-  procedure app_startup(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
-  var
-    action: PGSimpleAction;
-  begin
-    g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
-
-    gtk_application_set_menubar(GTK_APPLICATION(app), G_MENU_MODEL(CreateMenu));
-
-    action := g_simple_action_new('quit', nil);
-    g_signal_connect(action, 'activate', G_CALLBACK(@action_cp), nil);
-    g_action_map_add_action(G_ACTION_MAP(app), G_ACTION(action));
-    g_object_unref(action);
-  end;
-
-  procedure main(argc: integer; argv: PPChar);
+  procedure main;
   var
     app: PGtkApplication;
   begin
     gst_init(@argc, @argv);
-
     app := gtk_application_new('org.gtk.mediaplayer', G_APPLICATION_DEFAULT_FLAGS);
-    g_signal_connect(app, 'startup', G_CALLBACK(@app_startup), nil);
     g_signal_connect(app, 'activate', G_CALLBACK(@app_activate), nil);
     g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
   end;
 
 begin
-  main(argc, argv);
+  main;
 end.

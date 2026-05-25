@@ -42,7 +42,7 @@ var
   s: string;
 
 begin
-  selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW( sharedWidgets^.columnView));
+  selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW(sharedWidgets^.columnView));
   list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model));
   Count := g_list_model_get_n_items(list_model);
 
@@ -65,14 +65,14 @@ begin
       gtk_adjustment_set_value(adjustment, SPos);
 
       s := GstClockToStr(SPos);
-      gtk_label_set_label(GTK_LABEL(sharedWidgets^.LabelPosition), PChar(s));
+      gtk_label_set_label(GTK_LABEL(sharedWidgets^.LabelPosition), pchar(s));
 
       if SDur = GST_CLOCK_TIME_NONE then begin
         s := '--.--';
       end else begin
         s := GstClockToStr(SDur);
       end;
-      gtk_label_set_label(GTK_LABEL(sharedWidgets^.LabelDuration), PChar(s));
+      gtk_label_set_label(GTK_LABEL(sharedWidgets^.LabelDuration), pchar(s));
 
       if SPos = GST_CLOCK_TIME_NONE then begin
         PriStream.Volume := 0.0;
@@ -161,7 +161,7 @@ begin
       if song^.Duration = GST_CLOCK_TIME_NONE then begin
         buffer := g_strdup_printf('(error)');
       end else begin
-        buffer := g_strdup_printf('%s', PChar(GstClockToStr(song^.Duration)));
+        buffer := g_strdup_printf('%s', pchar(GstClockToStr(song^.Duration)));
       end;
     end;
   end;
@@ -203,7 +203,7 @@ begin
   end;
 end;
 
-procedure on_columnview_destroy(widget: PGtkWidget; user_data: Tgpointer);
+procedure on_columnview_destroy(widget: PGtkWidget; user_data: Tgpointer); cdecl;
 var
   idle_id: Tguint absolute user_data;
 begin

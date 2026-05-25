@@ -106,6 +106,7 @@ type
     scale: PGtkWidget;
     IsChange: boolean;
     scale_changed_id: Tgulong;
+    idle_id: Tguint;
   end;
   PSharedWidget = ^TSharedWidget;
 

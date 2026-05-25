@@ -6,9 +6,8 @@ interface
 
 uses
   fp_glib2, fp_pango, fp_GTK4, fp_gst,
-  Common, LoadTitle,
-  MPSongItem, MPStreamer, MPColumnViewBox,
-  XML_Tools, LoadSaveSongs;
+  Common, LoadTitle, XML_Tools, LoadSaveSongs,
+  MPSongItem, MPStreamer, MPColumnViewBox;
 
 procedure on_box_action_received(widget: PGtkWidget; button_id: Pgchar; user_data: Tgpointer); cdecl;
 
@@ -34,12 +33,14 @@ var
   action_name: string;
 begin
   action_name := button_id;
-
   g_printf('Action, Name: "%s"'#10, Pgchar(action_name));
 
   list_model := mp_column_view_box_get_list_model(sharedWidgets^.columviewBox);
 
   case action_name of
+    'listbox.quit': begin
+      gtk_window_close(GTK_WINDOW(gtk_widget_get_root(widget)));
+    end;
     'listbox.default.flac1': begin
       g_list_store_remove_all(G_LIST_STORE(list_model));
       LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
@@ -135,4 +136,3 @@ end;
 
 
 end.
-
