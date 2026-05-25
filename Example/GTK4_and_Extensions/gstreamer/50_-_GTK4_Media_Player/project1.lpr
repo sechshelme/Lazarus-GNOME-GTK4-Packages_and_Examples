@@ -22,7 +22,8 @@ uses
   MPButtonBox,
   MPMenuButton,
   MPPlayerButtonBox,
-  MPColumnViewControl;
+  MPColumnViewControl,
+  MPMainWindow;
 
 
   procedure on_scale_changed_cp({%H-}range: PGtkRange; user_data: Tgpointer); cdecl;
@@ -63,17 +64,10 @@ uses
 
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 
-    sharedWidgets^.main_window := gtk_application_window_new(app);
-    gtk_window_set_title(GTK_WINDOW(sharedWidgets^.main_window), 'Media Player');
-    gtk_window_set_default_size(GTK_WINDOW(sharedWidgets^.main_window), 1024, 768);
+    // ==== Main Window
+    sharedWidgets^.main_window := mp_main_window_new(sharedWidgets);
+    gtk_window_set_application(GTK_WINDOW(sharedWidgets^.main_window), app);
 
-    // === headerbar
-    header_bar := gtk_header_bar_new;
-    gtk_window_set_titlebar(GTK_WINDOW(sharedWidgets^.main_window), header_bar);
-
-    menubutton := mp_menu_button_new;
-    g_signal_connect(menubutton, 'action-triggered', G_CALLBACK(@on_box_action_received), sharedWidgets);
-    gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), menubutton);
 
 
     // --- Haupt-Container für das ganze Fenster

@@ -82,6 +82,10 @@
         <Filename Value="mpaction.pas"/>
         <UnitName Value="MPaction"/>
       </Unit>
+      <Unit>
+        <Filename Value="mpmainwindow.pas"/>
+        <UnitName Value="MPMainWindow"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

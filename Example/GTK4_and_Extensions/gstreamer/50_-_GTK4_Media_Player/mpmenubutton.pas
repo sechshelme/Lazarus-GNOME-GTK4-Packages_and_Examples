@@ -11,7 +11,6 @@ type
 
 function mp_menu_button_get_type: TGType;
 function mp_menu_button_new: PGTKWidget;
-procedure mp_menu_add_item(button: PMPMenuButton; lab, id: Pgchar);
 
 implementation
 
@@ -63,6 +62,27 @@ begin
   signal_id := g_signal_new('action-triggered', G_TYPE_FROM_CLASS(g_class), G_SIGNAL_RUN_LAST, 0, nil, nil, nil, G_TYPE_NONE, 1, G_TYPE_STRING);
 end;
 
+procedure add_item(button: PMPMenuButton; lab, id: Pgchar);
+var
+  priv: PInstPriv;
+  item: PGMenuItem;
+  detailed_action: Pgchar;
+begin
+  priv := GetPriv(button);
+  with priv^ do begin
+    if menu <> nil then begin
+      item := g_menu_item_new(lab, nil);
+      detailed_action := g_strdup_printf('menu.click(''%s'')', id);
+      g_menu_item_set_detailed_action(item, detailed_action);
+      g_menu_append_item(menu, item);
+      g_free(detailed_action);
+      g_object_unref(item);
+    end;
+  end;
+end;
+
+
+
 procedure init_cp(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
 var
   priv: PInstPriv;
@@ -73,22 +93,18 @@ begin
     gtk_menu_button_set_icon_name(PGtkMenuButton(instance), 'open-menu-symbolic');
     gtk_menu_button_set_menu_model(PGtkMenuButton(instance), PGMenuModel(menu));
 
-    mp_menu_add_item(PMPMenuButton(instance), 'Datei', 'file');
-    mp_menu_add_item(PMPMenuButton(instance), 'Bearbeiten', 'edit');
-    mp_menu_add_item(PMPMenuButton(instance), 'Hilfe', 'help');
-    mp_menu_add_item(PMPMenuButton(instance), 'Beenden', 'listbox.quit');
-
-    mp_menu_add_item(PMPMenuButton(instance), 'Flac 1', 'listbox.default.flac1');
-    mp_menu_add_item(PMPMenuButton(instance), 'Flac 2', 'listbox.default.flac2');
-    mp_menu_add_item(PMPMenuButton(instance), 'Flac 3', 'listbox.default.flac3');
-    mp_menu_add_item(PMPMenuButton(instance), 'MP3', 'listbox.default.mp3');
-    mp_menu_add_item(PMPMenuButton(instance), 'MOD', 'listbox.default.mod');
-    mp_menu_add_item(PMPMenuButton(instance), 'MIDI', 'listbox.default.midi');
+    add_item(PMPMenuButton(instance), 'Datei', 'file');
+    add_item(PMPMenuButton(instance), 'Bearbeiten', 'edit');
+    add_item(PMPMenuButton(instance), 'Hilfe', 'help');
+    add_item(PMPMenuButton(instance), 'Beenden', 'listbox.quit');
+    add_item(PMPMenuButton(instance), 'Flac 1', 'listbox.default.flac1');
+    add_item(PMPMenuButton(instance), 'Flac 2', 'listbox.default.flac2');
+    add_item(PMPMenuButton(instance), 'Flac 3', 'listbox.default.flac3');
+    add_item(PMPMenuButton(instance), 'MP3', 'listbox.default.mp3');
+    add_item(PMPMenuButton(instance), 'MOD', 'listbox.default.mod');
+    add_item(PMPMenuButton(instance), 'MIDI', 'listbox.default.midi');
   end;
 end;
-
-
-
 
 // ==== public
 
@@ -114,25 +130,6 @@ end;
 function mp_menu_button_new: PGTKWidget;
 begin
   Result := g_object_new(mp_menu_button_get_type, nil);
-end;
-
-procedure mp_menu_add_item(button: PMPMenuButton; lab, id: Pgchar);
-var
-  priv: PInstPriv;
-  item: PGMenuItem;
-  detailed_action: Pgchar;
-begin
-  priv := GetPriv(button);
-  with priv^ do begin
-    if menu <> nil then begin
-      item := g_menu_item_new(lab, nil);
-      detailed_action := g_strdup_printf('menu.click(''%s'')', id);
-      g_menu_item_set_detailed_action(item, detailed_action);
-      g_menu_append_item(menu, item);
-      g_free(detailed_action);
-      g_object_unref(item);
-    end;
-  end;
 end;
 
 end.
