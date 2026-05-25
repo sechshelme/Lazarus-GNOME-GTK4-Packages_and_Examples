@@ -85,6 +85,14 @@ const
     '.sndh'  // Format für Atari ST
     );
 
+const
+  CFTime = 13 * 1000 * G_USEC_PER_SEC; // 3s
+  FITime = CFTime;
+  FATime = FITime;
+
+const
+  sharedWidgetKey = 'shared-widget';
+
 var
   SekStream: PMPStreamer = nil;
   PriStream: PMPStreamer = nil;
@@ -93,8 +101,6 @@ type
   TSharedWidget = record
     main_Window,
     columviewBox,
-//    LabelPosition,
-//    LabelDuration,
     Label_Box,
     VUMeter,
     scale: PGtkWidget;

@@ -5,7 +5,6 @@ uses
   fp_cairo,
   fp_GTK4,
   fp_gst,
-  //  fp_GLIBTools,
 
   Common,
   MPStreamer,
@@ -14,7 +13,6 @@ uses
   MenuBar,
   XML_Tools,
   LoadSaveSongs,
-  Action,
   MPVUMeterWidget,
   MPColumnViewBox,
   MPSongItem,
@@ -139,6 +137,7 @@ uses
 
     // Erstelle die Custom Box (MPColumnViewBox), welche die GtkColumnView enthält
     columnBox := Create_ColumnView(sharedWidgets);
+    g_signal_connect(columnBox, 'action-triggered', G_CALLBACK(@on_box_action_received), sharedWidgets);
 
     // Die Box in das ScrolledWindow packen
     gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), columnBox);

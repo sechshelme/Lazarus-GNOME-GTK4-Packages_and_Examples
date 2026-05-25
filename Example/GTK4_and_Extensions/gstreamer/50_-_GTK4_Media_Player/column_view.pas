@@ -5,8 +5,8 @@ interface
 uses
   fp_glib2, fp_GTK4, fp_gst,
   Common,
-  Action, XML_Tools,
-  MPStreamer, MPSongItem, MPVUMeterWidget, MPColumnViewBox, MPDurationBox;
+  XML_Tools,
+  MPStreamer, MPSongItem, MPVUMeterWidget, MPColumnViewBox, MPDurationBox,MPaction;
 
 function Create_ColumnView(sharedWidgets: PSharedWidget): PGTKWidget;
 
@@ -53,16 +53,7 @@ begin
       gtk_adjustment_set_value(adjustment, SPos);
 
       mp_duration_box_set_position(sharedWidgets^.Label_Box, SPos);
-//      s := GstClockToStr(SPos);
-//      gtk_label_set_label(GTK_LABEL(sharedWidgets^.LabelPosition), pchar(s));
-
-mp_duration_box_set_duration(sharedWidgets^.Label_Box, SDur);
-      //if SDur = GST_CLOCK_TIME_NONE then begin
-      //  s := '--.--';
-      //end else begin
-      //  s := GstClockToStr(SDur);
-      //end;
-      //gtk_label_set_label(GTK_LABEL(sharedWidgets^.LabelDuration), pchar(s));
+      mp_duration_box_set_duration(sharedWidgets^.Label_Box, SDur);
 
       if SPos = GST_CLOCK_TIME_NONE then begin
         mp_streamer_set_volume(PriStream, 0.0);
@@ -118,6 +109,8 @@ begin
   end;
 end;
 
+
+
 // ==== public
 
 function Create_ColumnView(sharedWidgets: PSharedWidget): PGTKWidget;
@@ -125,8 +118,6 @@ var
   idle_id: Tguint;
 begin
   Result := mp_column_view_box_new(sharedWidgets);
-
-  CreateActions(sharedWidgets);
 
   idle_id := g_timeout_add(100, @timerFunc_cp, sharedWidgets);
   g_signal_connect(Result, 'destroy', G_CALLBACK(@on_columnview_destroy), GINT_TO_POINTER(idle_id));

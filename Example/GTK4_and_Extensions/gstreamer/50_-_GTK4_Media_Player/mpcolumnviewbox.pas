@@ -46,6 +46,7 @@ type
 var
   parent_class: Tgpointer = nil;
   instance_size: integer = 0;
+  signal_id: Tguint = 0;
 
 function GetPriv(w: Tgpointer): PInstPriv; inline;
 begin
@@ -66,6 +67,8 @@ procedure class_init_cp(g_class: Tgpointer; class_data: Tgpointer); cdecl;
 begin
   G_OBJECT_CLASS(g_class)^.finalize := @finalize_cp;
   parent_class := g_type_class_peek_parent(g_class);
+
+  signal_id := g_signal_new('action-triggered', G_TYPE_FROM_CLASS(g_class), G_SIGNAL_RUN_LAST, 0, nil, nil, nil, G_TYPE_NONE, 1, G_TYPE_STRING);
 end;
 
 procedure init_cp(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
@@ -111,17 +114,12 @@ begin
     exit;
   end;
 
-//  song := g_object_get_data(item_obj, songObjectKey);
-
   case col of
     0: begin
       buffer := g_strdup_printf('%d', gtk_list_item_get_position(list_item) + 1);
     end;
     1: begin
-//      if song <> nil then begin
-//        buffer := g_strdup_printf('%s',  song^.FullPath);
-        buffer := g_strdup_printf('%s', mp_song_item_get_full_path(item_obj));
-//      end;
+      buffer := g_strdup_printf('%s', mp_song_item_get_full_path(item_obj));
     end;
     2: begin
       if mp_song_item_get_duration(item_obj) <> GST_CLOCK_TIME_NONE then begin
@@ -151,25 +149,12 @@ end;
 
 
 procedure on_row_activated_cb(view: PGtkColumnView; position: Tgint; user_data: Tgpointer); cdecl;
-var
-  app: PGApplication;
-  action: PGAction;
 begin
-  app := g_application_get_default;
-
   if (PriStream <> nil) and (mp_streamer_is_played(PriStream)) then begin
-    action := g_action_map_lookup_action(G_ACTION_MAP(app), 'listbox.stop');
-    if action <> nil then begin
-      g_action_activate(action, nil);
-    end;
+    g_signal_emit_by_name(user_data, 'action-triggered', 'listbox.stop');
   end;
-
-  action := g_action_map_lookup_action(G_ACTION_MAP(app), 'listbox.play');
-  if action <> nil then begin
-    g_action_activate(action, nil);
-  end;
+  g_signal_emit_by_name(user_data, 'action-triggered', 'listbox.play');
 end;
-
 
 procedure on_selection_changed_cb(obj: PGObject; pspec: PGParamSpec; user_data: Tgpointer); cdecl;
 var
@@ -293,7 +278,7 @@ var
 begin
   priv := GetPriv(w);
   with priv^ do begin
-//    Count := g_list_model_get_n_items(list_model); // ????
+    //    Count := g_list_model_get_n_items(list_model); // ????
     WriteLn('prev   index: ', index, '  count: ', count);
 
     if index = 0 then begin
@@ -311,7 +296,7 @@ var
 begin
   priv := GetPriv(w);
   with priv^ do begin
-//    Count := g_list_model_get_n_items(list_model); // ????
+    //    Count := g_list_model_get_n_items(list_model); // ????
     WriteLn('next     index: ', index, '  count: ', count);
 
     if index >= Count - 1 then begin
