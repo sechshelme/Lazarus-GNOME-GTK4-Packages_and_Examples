@@ -4,18 +4,13 @@ uses
   fp_glib2,
   fp_GTK4,
   fp_gst,
-
-  Common,
-
   MPMainWindow;
-
 
   procedure app_activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
     window: PGtkWidget;
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
-
     window := mp_main_window_new;
     gtk_window_set_application(GTK_WINDOW(window), app);
   end;

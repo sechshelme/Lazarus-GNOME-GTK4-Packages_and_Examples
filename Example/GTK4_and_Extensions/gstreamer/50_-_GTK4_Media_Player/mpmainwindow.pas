@@ -26,21 +26,18 @@ function mp_main_window_get_type: TGType;
 function mp_main_window_new: PGTKWidget;
 procedure mp_main_window_add_item(button: PMPMainWindow; lab, id: Pgchar);
 
-procedure on_box_action_received(widget: PGtkWidget; button_id: Pgchar; user_data: Tgpointer); cdecl;  // ?????
-function timerFunc_cp(user_data: Tgpointer): Tgboolean; cdecl; // ?????
-
-
-
 implementation
 
 // ==== private
 
 type
   TInstPriv = record
-   IsChange: boolean;
-    columviewBox,
-   Label_Box,
-    VUMeter:PGtkWidget;
+    SekStream: PMPStreamer;
+    PriStream: PMPStreamer;
+    IsChange: boolean;
+    columviewBox: PGtkWidget;
+    Label_Box: PGtkWidget;
+    VUMeter: PGtkWidget;
     scale: PGtkWidget;
     scale_changed_id: Tgulong;
     idle_id: Tguint;
@@ -99,18 +96,18 @@ end;
 
 procedure on_box_action_received(widget: PGtkWidget; button_id: Pgchar; user_data: Tgpointer); cdecl;
 
-  procedure ChangeSong(box: PGtkWidget);
+  procedure ChangeSong(box: PGtkWidget; stream: PPMPStreamer);
   var
     item_obj: PGObject;
   begin
     item_obj := mp_column_view_box_get_item(Box);
-    gst_clear_object(@PriStream);
-    PriStream := mp_streamer_new_from_launch(mp_song_item_get_full_path(item_obj));
+    gst_clear_object(@stream^);
+    stream^ := mp_streamer_new_from_launch(mp_song_item_get_full_path(item_obj));
     g_object_unref(item_obj);
   end;
 
 var
-  main_window:PGtkWidget absolute user_data;
+  main_window: PGtkWidget absolute user_data;
   priv: PInstPriv;
   list_model: PGListModel;
   adjustment: PGtkAdjustment;
@@ -121,7 +118,9 @@ begin
     action_name := button_id;
     g_printf('Action, Name: "%s"'#10, Pgchar(action_name));
 
-    if columviewBox =nil then exit;
+    if columviewBox = nil then begin
+      exit;
+    end;
     list_model := mp_column_view_box_get_list_model(columviewBox);
 
     case action_name of
@@ -165,7 +164,7 @@ begin
       end;
       'listbox.play': begin
         if PriStream = nil then begin
-          ChangeSong(columviewBox);
+          ChangeSong(columviewBox, @PriStream);
         end else begin
           mp_streamer_play(PriStream);
         end;
@@ -185,7 +184,7 @@ begin
         end;
       end;
       'listbox.add': begin
-        AddSongsDialog(columviewBox,main_window);
+        AddSongsDialog(columviewBox, main_window);
       end;
       'listbox.remove': begin
         mp_column_view_box_remove(columviewBox);
@@ -196,7 +195,7 @@ begin
       'listbox.next': begin
         if (PriStream <> nil) and (mp_streamer_get_duration(PriStream) > 0) then begin
           mp_column_view_box_next(columviewBox);
-          ChangeSong(columviewBox);
+          ChangeSong(columviewBox, @PriStream);
         end;
       end;
       'listbox.prev': begin
@@ -205,7 +204,7 @@ begin
             mp_streamer_set_position(PriStream, 0);
           end else begin
             mp_column_view_box_prev(columviewBox);
-            ChangeSong(columviewBox);
+            ChangeSong(columviewBox, @PriStream);
           end;
         end;
       end;
@@ -252,7 +251,7 @@ begin
     g_signal_handler_block(scale, scale_changed_id);
 
     if PriStream <> nil then begin
-        if IsChange then begin
+      if IsChange then begin
         mp_streamer_set_position(PriStream, Round(gtk_adjustment_get_value(adjustment)));
         IsChange := False;
       end else begin
@@ -351,12 +350,9 @@ begin
   Result := g_object_new(mp_main_window_get_type, nil);
   priv := GetPriv(Result);
 
-
+  with priv^ do begin
     SekStream := nil;
     PriStream := nil;
-
-
-  with priv^ do begin
     IsChange := False;
 
     // === Self

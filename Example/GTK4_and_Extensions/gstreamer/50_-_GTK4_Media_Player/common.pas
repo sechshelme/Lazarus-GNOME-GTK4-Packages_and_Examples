@@ -90,10 +90,6 @@ const
   FITime = CFTime;
   FATime = FITime;
 
-var
-  SekStream: PMPStreamer = nil;
-  PriStream: PMPStreamer = nil;
-
 implementation
 
 

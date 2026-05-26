@@ -7,6 +7,7 @@ uses
 
 type
   PMPStreamer = type Pointer;
+  PPMPStreamer = ^PMPStreamer;
   PMPStreamerClass = type Pointer;
 
 function mp_streamer_get_type: TGType;
