@@ -11,7 +11,7 @@ type
   PMPColumnViewBoxClass = type Pointer;
 
 function mp_column_view_box_get_type: TGType;
-function mp_column_view_box_new(sharedWidgets: PSharedWidget): PGTKWidget;
+function mp_column_view_box_new: PGTKWidget;
 
 procedure mp_column_view_box_remove(w: PMPColumnViewBox);
 procedure mp_column_view_box_remove_all(w: PMPColumnViewBox);
@@ -195,7 +195,7 @@ begin
   Result := type_id;
 end;
 
-function mp_column_view_box_new(sharedWidgets: PSharedWidget): PGTKWidget;
+function mp_column_view_box_new: PGTKWidget;
 const
   ColTitles: array of Pgchar = ('Index', 'Titel', 'Dauer');
 var
@@ -208,9 +208,6 @@ var
 
 begin
   Result := g_object_new(mp_column_view_box_get_type, nil);
-
-  sharedWidgets^.columviewBox := Result;
-
   priv := GetPriv(Result);
 
   SekStream := nil;

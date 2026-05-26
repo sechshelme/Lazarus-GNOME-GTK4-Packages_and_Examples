@@ -130,7 +130,7 @@ begin
     action_name := button_id;
     g_printf('Action, Name: "%s"'#10, Pgchar(action_name));
 
-    list_model := mp_column_view_box_get_list_model(sharedWidgets^.columviewBox);
+    list_model := mp_column_view_box_get_list_model(sharedWidgets^.columviewBox1);
 
     case action_name of
       'listbox.quit': begin
@@ -173,7 +173,7 @@ begin
       end;
       'listbox.play': begin
         if PriStream = nil then begin
-          ChangeSong(sharedWidgets^.columviewBox);
+          ChangeSong(sharedWidgets^.columviewBox1);
         end else begin
           mp_streamer_play(PriStream);
         end;
@@ -196,15 +196,15 @@ begin
         AddSongsDialog(sharedWidgets);
       end;
       'listbox.remove': begin
-        mp_column_view_box_remove(sharedWidgets^.columviewBox);
+        mp_column_view_box_remove(sharedWidgets^.columviewBox1);
       end;
       'listbox.removeall': begin
-        mp_column_view_box_remove_all(sharedWidgets^.columviewBox);
+        mp_column_view_box_remove_all(sharedWidgets^.columviewBox1);
       end;
       'listbox.next': begin
         if (PriStream <> nil) and (mp_streamer_get_duration(PriStream) > 0) then begin
-          mp_column_view_box_next(sharedWidgets^.columviewBox);
-          ChangeSong(sharedWidgets^.columviewBox);
+          mp_column_view_box_next(sharedWidgets^.columviewBox1);
+          ChangeSong(sharedWidgets^.columviewBox1);
         end;
       end;
       'listbox.prev': begin
@@ -212,16 +212,16 @@ begin
           if mp_streamer_get_position(PriStream) > 2000 * GST_MSECOND then begin
             mp_streamer_set_position(PriStream, 0);
           end else begin
-            mp_column_view_box_prev(sharedWidgets^.columviewBox);
-            ChangeSong(sharedWidgets^.columviewBox);
+            mp_column_view_box_prev(sharedWidgets^.columviewBox1);
+            ChangeSong(sharedWidgets^.columviewBox1);
           end;
         end;
       end;
       'listbox.up': begin
-        mp_column_view_box_up(sharedWidgets^.columviewBox);
+        mp_column_view_box_up(sharedWidgets^.columviewBox1);
       end;
       'listbox.down': begin
-        mp_column_view_box_down(sharedWidgets^.columviewBox);
+        mp_column_view_box_down(sharedWidgets^.columviewBox1);
       end;
       else begin
         g_printf('Unbekannte Action, Name: "%s"'#10, Pgchar(action_name));
@@ -288,8 +288,8 @@ begin
             end;
             SekStream := PriStream;
 
-            mp_column_view_box_next(sharedWidgets^.columviewBox);
-            item_obj := mp_column_view_box_get_item(sharedWidgets^.columviewBox);
+            mp_column_view_box_next(sharedWidgets^.columviewBox1);
+            item_obj := mp_column_view_box_get_item(sharedWidgets^.columviewBox1);
             PriStream := mp_streamer_new_from_launch(mp_song_item_get_full_path(item_obj));
             g_object_unref(item_obj);
 
@@ -429,7 +429,8 @@ begin
     gtk_widget_set_hexpand(scrolled_window, True);
 
     // Erstelle die Custom Box (MPColumnViewBox), welche die GtkColumnView enthält
-    columnBox := mp_column_view_box_new(sharedWidgets);
+    columnBox := mp_column_view_box_new;
+    sharedWidgets^.columviewBox1 := columnBox;
     g_signal_connect(columnBox, 'action-triggered', G_CALLBACK(@on_box_action_received), Result);
 
     // Die Box in das ScrolledWindow packen

@@ -98,7 +98,7 @@ type
   TSharedWidget = record
 //    IsChange: boolean;
     main_Window,
-    columviewBox:PGtkWidget;
+    columviewBox1:PGtkWidget;
  //   Label_Box,
 //    VUMeter,
 //    scale: PGtkWidget;

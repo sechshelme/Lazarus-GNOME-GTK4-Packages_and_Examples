@@ -155,7 +155,7 @@ begin
   cmd := GPOINTER_TO_INT(g_object_get_data(G_OBJECT(widget), cmd_Key));
   dialogWindow := g_object_get_data(G_OBJECT(widget), dialog_win_Key);
 
-  selection_model:=  mp_column_view_box_get_selection_model(sharedWidgets^.columviewBox);
+  selection_model:=  mp_column_view_box_get_selection_model(sharedWidgets^.columviewBox1);
   store := G_LIST_STORE(gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model)));
 
   if (cmd = cmdOk) or (cmd = cmdAdd) then begin
