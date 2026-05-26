@@ -1,13 +1,4 @@
-unit luaconf;
-
-interface
-
-uses
-  fp_lua;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -86,7 +77,10 @@ const
 type
   TLUA_INTFRM_T = int64;
 
-implementation
+{$ENDIF read_interface}
 
 
-end.
+{$IFDEF read_implementation}
+
+
+{$ENDIF read_implementation}

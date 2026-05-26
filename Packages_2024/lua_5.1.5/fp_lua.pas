@@ -17,23 +17,28 @@ const
   {$ENDIF}
 
 type
-  Tsize_t=SizeUInt;
-  Psize_t=^Tsize_t;
+  Tsize_t = SizeUInt;
+  Psize_t = ^Tsize_t;
 
-  Tptrdiff_t=PtrInt;
+  Tptrdiff_t = PtrInt;
 
-  Tva_list=Pointer; // ????
+  Tva_list = Pointer; // ????
 
   {$DEFINE read_interface}
-//  {$include fp_lua_includes.inc}
+  {$include lua/luaconf.inc}
+  {$include lua/lua.inc}
+  {$include lua/lauxlib.inc}
+  {$include lua/lualib.inc}
   {$UNDEF read_interface}
 
 implementation
 
 {$DEFINE read_implementation}
-//{$include fp_lua_includes.inc}
+{$include lua/luaconf.inc}
+{$include lua/lua.inc}
+{$include lua/lauxlib.inc}
+{$include lua/lualib.inc}
 {$UNDEF read_implementation}
 
 
 end.
-

@@ -1,13 +1,4 @@
-unit lualib;
-
-interface
-
-uses
-  fp_lua, lua;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -55,7 +46,10 @@ procedure luaL_openlibs(L: Plua_State); cdecl; external liblua;
 // === Konventiert am: 21-5-26 17:20:20 ===
 
 
-implementation
+{$ENDIF read_interface}
 
 
-end.
+{$IFDEF read_implementation}
+
+
+{$ENDIF read_implementation}

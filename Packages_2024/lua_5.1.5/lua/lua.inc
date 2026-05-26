@@ -1,13 +1,4 @@
-unit lua;
-
-interface
-
-uses
-  fp_lua, luaconf;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -199,7 +190,10 @@ function lua_gethookcount(L: Plua_State): longint; cdecl; external liblua;
 // === Konventiert am: 21-5-26 17:20:10 ===
 
 
-implementation
+{$ENDIF read_interface}
 
 
-end.
+{$IFDEF read_implementation}
+
+
+{$ENDIF read_implementation}

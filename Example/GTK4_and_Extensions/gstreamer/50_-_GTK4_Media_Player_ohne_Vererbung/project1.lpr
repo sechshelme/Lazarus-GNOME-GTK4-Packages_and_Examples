@@ -188,6 +188,7 @@ uses
 
     // ScrolledWindows / ColumnView
     scrolled_window := gtk_scrolled_window_new;
+    gtk_scrolled_window_set_has_frame(GTK_SCROLLED_WINDOW(scrolled_window), True);
     Create_ColumnView(sharedWidgets);
     gtk_widget_set_vexpand(scrolled_window, True);
     gtk_widget_set_hexpand(scrolled_window, True);

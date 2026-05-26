@@ -19,6 +19,8 @@ implementation
 
 procedure init_cp(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
 begin
+  gtk_box_append(GTK_BOX(instance), gtk_label_new('Edit'));
+
   mp_button_box_add_item(PMPButtonBox(instance), 'Append', 'listbox.add', 'list-add');
   mp_button_box_add_item(PMPButtonBox(instance), 'Remove', 'listbox.remove', 'list-remove');
   mp_button_box_add_item(PMPButtonBox(instance), 'Remove All', 'listbox.removeall', 'list-remove-all');

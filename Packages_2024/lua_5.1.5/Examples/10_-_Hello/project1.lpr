@@ -1,12 +1,6 @@
 program project1;
 
-
 uses
-  luaconf,
-  lauxlib,
-  lua,
-  lualib,
-
   fp_lua;
 
   procedure main;

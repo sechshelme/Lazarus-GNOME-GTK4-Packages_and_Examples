@@ -20,7 +20,7 @@ uses
     app: PGtkApplication;
   begin
     gst_init(@argc, @argv);
-    app := gtk_application_new('org.gtk.mediaplayer', G_APPLICATION_DEFAULT_FLAGS);
+    app := gtk_application_new('org.gtk.gst.mediaplayer', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'activate', G_CALLBACK(@app_activate), nil);
     g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);

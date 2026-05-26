@@ -1,15 +1,4 @@
-unit lauxlib;
-
-interface
-
-uses
-  lua,
-
-  fp_lua, luaconf;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 function luaL_getn(L: Plua_State; t: longint): longint; cdecl; external liblua;
 procedure luaL_setn(L: Plua_State; t: longint; n: longint); cdecl; external liblua;
@@ -73,7 +62,10 @@ procedure luaL_pushresult(B: PluaL_Buffer); cdecl; external liblua;
 // === Konventiert am: 21-5-26 17:20:02 ===
 
 
-implementation
+{$ENDIF read_interface}
 
 
-end.
+{$IFDEF read_implementation}
+
+
+{$ENDIF read_implementation}

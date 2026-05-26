@@ -24,11 +24,10 @@ type
 
 function mp_main_window_get_type: TGType;
 function mp_main_window_new: PGTKWidget;
-procedure mp_main_window_add_item(button: PMPMainWindow; lab, id: Pgchar);
 
 implementation
 
-// ==== private
+// ==== Boiller Platte
 
 type
   TInstPriv = record
@@ -343,9 +342,7 @@ end;
 function mp_main_window_new: PGTKWidget;
 var
   priv: PInstPriv;
-  header_bar, menubutton, mainLayout, HBox, VBox, mediaControlPanel,
-  scrolled_window, columnViewControlBox,
-  ColumnViewButtonBox: PGtkWidget;
+  header_bar, menubutton, mainBox, HBox, VBox, mediaControlPanel, ColumnViewButtonBox: PGtkWidget;
 begin
   Result := g_object_new(mp_main_window_get_type, nil);
   priv := GetPriv(Result);
@@ -356,102 +353,78 @@ begin
     IsChange := False;
 
     // === Self
-    gtk_window_set_title(GTK_WINDOW(Result), 'Media Player');
+    gtk_window_set_title(GTK_WINDOW(Result), 'GTK4 / GST Media Player');
     gtk_window_set_default_size(GTK_WINDOW(Result), 1024, 768);
 
-    // === headerbar
+    // === HaderBar
     header_bar := gtk_header_bar_new;
     gtk_window_set_titlebar(GTK_WINDOW(Result), header_bar);
 
+    // Menu
     menubutton := mp_menu_button_new;
     g_signal_connect(menubutton, 'action-triggered', G_CALLBACK(@on_box_action_received), Result);
     gtk_header_bar_pack_end(GTK_HEADER_BAR(header_bar), menubutton);
 
+    // === MainBox
+    mainBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
+    gtk_widget_set_margin_start(mainBox, 10);
+    gtk_widget_set_margin_end(mainBox, 10);
+    gtk_widget_set_margin_top(mainBox, 10);
+    gtk_widget_set_margin_bottom(mainBox, 10);
 
-    // --- Haupt-Container für das ganze Fenster
-    mainLayout := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
-    gtk_widget_set_margin_start(mainLayout, 10);
-    gtk_widget_set_margin_end(mainLayout, 10);
-    gtk_widget_set_margin_top(mainLayout, 10);
-    gtk_widget_set_margin_bottom(mainLayout, 10);
-
-    // --- Bereich 1: Scale (Fortschrittsbalken)
+    // === TrackBar
     scale := gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 0.0, 100.0, 1.0);
     gtk_scale_set_draw_value(GTK_SCALE(scale), True);
     gtk_scale_set_value_pos(GTK_SCALE(scale), GTK_POS_TOP);
     gtk_range_set_value(GTK_RANGE(scale), 0.0);
     scale_changed_id := g_signal_connect(scale, 'value-changed', G_CALLBACK(@on_scale_changed_cp), Result);
-    gtk_box_append(GTK_BOX(mainLayout), scale);
+    gtk_box_append(GTK_BOX(mainBox), scale);
 
     // --- Bereich 2: Obere Steuerung (Buttons & VU-Meter)
     HBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
     gtk_widget_set_hexpand(HBox, True);
-    gtk_box_append(GTK_BOX(mainLayout), HBox);
+    gtk_box_append(GTK_BOX(mainBox), HBox);
 
     VBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
     gtk_box_append(GTK_BOX(HBox), VBox);
 
-    // MediaButtons (Play, Stop, etc.)
+    // === MediaControl
     mediaControlPanel := mp_player_button_box_new;
     g_signal_connect(mediaControlPanel, 'action-triggered', G_CALLBACK(@on_box_action_received), Result);
     gtk_box_append(GTK_BOX(VBox), mediaControlPanel);
 
-
-    // Zeit-Labels (Position / Duration)
+    // === DurationBox
     Label_Box := mp_duration_box_new;
     gtk_box_append(GTK_BOX(VBox), Label_Box);
 
-    // VU-Meter Widget hinzufügen
+    // === VUMeter
     VUMeter := mp_vu_meter_widget_new;
     gtk_widget_set_hexpand(VUMeter, True);
     gtk_widget_set_size_request(VUMeter, 100, 50);
     gtk_box_append(GTK_BOX(HBox), VUMeter);
 
-    // --- Bereich 3: Liste (ColumnView) und Edit-Buttons
+    // === ColumnViewAndControlBox
     HBox := gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 10);
     gtk_widget_set_hexpand(HBox, True);
     gtk_widget_set_vexpand(HBox, True);
-    gtk_box_append(GTK_BOX(mainLayout), HBox);
+    gtk_box_append(GTK_BOX(mainBox), HBox);
 
-    // ScrolledWindow für die Liste
-    scrolled_window := gtk_scrolled_window_new;
-    gtk_widget_set_vexpand(scrolled_window, True);
-    gtk_widget_set_hexpand(scrolled_window, True);
-
-    // Erstelle die Custom Box (MPColumnViewBox), welche die GtkColumnView enthält
     columviewBox := mp_column_view_box_new;
     g_signal_connect(columviewBox, 'action-triggered', G_CALLBACK(@on_box_action_received), Result);
+    gtk_box_append(GTK_BOX(HBox), columviewBox);
 
-    // Die Box in das ScrolledWindow packen
-    gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), columviewBox);
-    gtk_box_append(GTK_BOX(HBox), scrolled_window);
-
-    // ColumnView Control
-    columnViewControlBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 10);
-    gtk_box_append(GTK_BOX(HBox), columnViewControlBox);
-
-    gtk_box_append(GTK_BOX(columnViewControlBox), gtk_label_new('Edit'));
-
+    // === ColumnView Control
     ColumnViewButtonBox := mp_column_view_control_new;
     gtk_orientable_set_orientation(GTK_ORIENTABLE(ColumnViewButtonBox), GTK_ORIENTATION_VERTICAL);
     g_signal_connect(ColumnViewButtonBox, 'action-triggered', G_CALLBACK(@on_box_action_received), Result);
-    gtk_box_append(GTK_BOX(columnViewControlBox), ColumnViewButtonBox);
+    gtk_box_append(GTK_BOX(HBox), ColumnViewButtonBox);
 
-    // --- Fertigstellung
-    gtk_window_set_child(GTK_WINDOW(Result), mainLayout);
+    // === Finale
+    gtk_window_set_child(GTK_WINDOW(Result), mainBox);
     gtk_window_present(GTK_WINDOW(Result));
 
-    // Timerloop
+    // === Timerloop
     idle_id := g_timeout_add(100, @timerFunc_cp, Result);
-  end;
-end;
-
-procedure mp_main_window_add_item(button: PMPMainWindow; lab, id: Pgchar);
-var
-  priv: PInstPriv;
-begin
-  priv := GetPriv(button);
-  with priv^ do begin
   end;
 end;
 

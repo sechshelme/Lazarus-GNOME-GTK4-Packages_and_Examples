@@ -39,7 +39,6 @@ type
   PInstPriv = ^TInstPriv;
 
   TClassPriv = record
-    meineDaten: Pointer;
   end;
   PClassPriv = ^TClassPriv;
 
@@ -82,8 +81,8 @@ begin
   end;
 end;
 
-// ======
 
+// ======
 
 procedure setup_cb(factory: PGtkSignalListItemFactory; list_item: PGtkListItem; user_data: Tgpointer); cdecl;
 var
@@ -171,6 +170,7 @@ begin
   end;
 end;
 
+
 // ==== public
 
 function mp_column_view_box_get_type: TGType;
@@ -200,17 +200,16 @@ var
   factory: PGtkListItemFactory;
   column: PGtkColumnViewColumn;
   single_selection: PGtkSingleSelection;
+  scroll_window: PGtkWidget;
   i: integer;
-  len: SizeInt;
-
 begin
   Result := g_object_new(mp_column_view_box_get_type, nil);
   priv := GetPriv(Result);
 
   single_selection := gtk_single_selection_new(G_LIST_MODEL(g_list_store_new(G_TYPE_OBJECT)));
   g_signal_connect(single_selection, 'notify::selected', G_CALLBACK(@on_selection_changed_cb), Result);
-  priv^.columnView := gtk_column_view_new(GTK_SELECTION_MODEL(single_selection));
 
+  priv^.columnView := gtk_column_view_new(GTK_SELECTION_MODEL(single_selection));
   priv^.selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW(priv^.columnView));
   priv^.list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(priv^.selection_model));
 
@@ -218,8 +217,14 @@ begin
   gtk_column_view_set_show_column_separators(GTK_COLUMN_VIEW(priv^.columnView), True);
   g_signal_connect(priv^.columnView, 'activate', G_CALLBACK(@on_row_activated_cb), Result);
 
-  len := Length(ColTitles) - 1;
-  for i := 0 to len do begin
+  scroll_window := gtk_scrolled_window_new;
+  gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scroll_window), priv^.columnView);
+  gtk_scrolled_window_set_has_frame(GTK_SCROLLED_WINDOW(scroll_window), True);
+  gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scroll_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+  gtk_widget_set_vexpand(scroll_window, True);
+  gtk_widget_set_hexpand(scroll_window, True);
+
+  for i := 0 to Length(ColTitles) - 1 do begin
     factory := gtk_signal_list_item_factory_new;
     g_signal_connect(factory, 'setup', G_CALLBACK(@setup_cb), GINT_TO_POINTER(i));
     g_signal_connect(factory, 'bind', G_CALLBACK(@bind_cb), GINT_TO_POINTER(i));
@@ -227,18 +232,17 @@ begin
     g_signal_connect(factory, 'teardown', G_CALLBACK(@teardown_cb), GINT_TO_POINTER(i));
 
     column := gtk_column_view_column_new(ColTitles[i], factory);
-
     gtk_column_view_column_set_resizable(column, True);
     gtk_column_view_append_column(GTK_COLUMN_VIEW(priv^.columnView), column);
 
-    if i = 1 then  begin
+    if i = 1 then begin
       gtk_column_view_column_set_expand(column, True);
     end;
 
     g_object_unref(column);
   end;
 
-  gtk_box_append(GTK_BOX(Result), priv^.columnView);
+  gtk_box_append(GTK_BOX(Result), scroll_window);
 end;
 
 // =====
