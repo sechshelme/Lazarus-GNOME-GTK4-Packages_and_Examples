@@ -90,9 +90,6 @@ const
   FITime = CFTime;
   FATime = FITime;
 
-const
-  sharedWidgetKey = 'shared-widget';
-
 var
   SekStream: PMPStreamer = nil;
   PriStream: PMPStreamer = nil;
@@ -106,7 +103,7 @@ type
     scale: PGtkWidget;
     IsChange: boolean;
     scale_changed_id: Tgulong;
-    idle_id: Tguint;
+//    idle_id: Tguint;
   end;
   PSharedWidget = ^TSharedWidget;
 
