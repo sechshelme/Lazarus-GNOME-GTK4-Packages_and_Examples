@@ -2,10 +2,11 @@
 <config>
   <title>
     <song>
-      <items count="3">
-        <item0 value="/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos/07 - We Kill The World (Don't Kill the World).flac"/>
-        <item1 value="/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos/08 - Homeland Africa (Ship Ahoi).flac"/>
-        <item2 value="/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos/05 - Jimmy.flac"/>
+      <items count="4">
+        <item0 value="/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits/05 - Classified.mp3"/>
+        <item1 value="/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits/12 - Aurora Borealis.mp3"/>
+        <item2 value="/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits/01 - Convoy.mp3"/>
+        <item3 value="/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits/11 - Roses For Mama.mp3"/>
       </items>
     </song>
   </title>

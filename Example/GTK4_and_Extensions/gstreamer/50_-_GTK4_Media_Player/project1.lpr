@@ -2,25 +2,11 @@ program project1;
 
 uses
   fp_glib2,
-  fp_cairo,
   fp_GTK4,
   fp_gst,
 
   Common,
-  LoadTitle,
-  MenuBar,
-  XML_Tools,
-  LoadSaveSongs,
 
-  MPStreamer,
-  MPVUMeterWidget,
-  MPColumnViewBox,
-  MPSongItem,
-  MPDurationBox,
-  MPButtonBox,
-  MPMenuButton,
-  MPPlayerButtonBox,
-  MPColumnViewControl,
   MPMainWindow;
 
 

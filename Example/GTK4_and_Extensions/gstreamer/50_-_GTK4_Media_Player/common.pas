@@ -94,19 +94,6 @@ var
   SekStream: PMPStreamer = nil;
   PriStream: PMPStreamer = nil;
 
-type
-  TSharedWidget = record
-//    IsChange: boolean;
-    main_Window,
-    columviewBox1:PGtkWidget;
- //   Label_Box,
-//    VUMeter,
-//    scale: PGtkWidget;
-//    scale_changed_id: Tgulong;
-//    idle_id: Tguint;
-  end;
-  PSharedWidget = ^TSharedWidget;
-
 implementation
 
 

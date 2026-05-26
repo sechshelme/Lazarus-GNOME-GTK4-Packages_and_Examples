@@ -5,16 +5,14 @@ unit LoadTitle;
 interface
 
 uses
-  ctypes,
   fp_glib2,
   fp_GTK4,
   Common,
   LoadSaveSongs,
-  MPColumnViewBox,
-  MPStreamer;
+  MPColumnViewBox;
 
 procedure LoadDefaulTitles(store: PGListStore; path: Pgchar);
-procedure AddSongsDialog(shardedWidgets: PSharedWidget);
+procedure AddSongsDialog(column_box, window:PGtkWidget);
 
 implementation
 
@@ -143,7 +141,7 @@ var
 
 procedure on_clicked(widget: PGtkWidget; user_data: Tgpointer); cdecl;
 var
-  sharedWidgets: PSharedWidget absolute user_data;
+  columviewBox: PGtkWidget absolute user_data;
   cmd: Tgint;
   dialogWindow: PGtkWindow;
   selection_model: PGtkSelectionModel;
@@ -155,7 +153,7 @@ begin
   cmd := GPOINTER_TO_INT(g_object_get_data(G_OBJECT(widget), cmd_Key));
   dialogWindow := g_object_get_data(G_OBJECT(widget), dialog_win_Key);
 
-  selection_model:=  mp_column_view_box_get_selection_model(sharedWidgets^.columviewBox1);
+  selection_model:=  mp_column_view_box_get_selection_model(columviewBox);
   store := G_LIST_STORE(gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model)));
 
   if (cmd = cmdOk) or (cmd = cmdAdd) then begin
@@ -179,7 +177,7 @@ begin
   end;
 end;
 
-procedure AddSongsDialog(shardedWidgets: PSharedWidget);
+procedure AddSongsDialog(column_box, window: PGtkWidget);
 var
   dialgWindow, mainBox, button_box, help_button, ok_button,
   add_button, cancel_button, paned,
@@ -194,7 +192,7 @@ begin
   gtk_window_set_default_size(GTK_WINDOW(dialgWindow), 300, 200);
 
   //    gtk_window_set_modal(GTK_WINDOW(dialgWindow), TRUE);
-  gtk_window_set_transient_for(GTK_WINDOW(dialgWindow), GTK_WINDOW(shardedWidgets^.main_Window));
+  gtk_window_set_transient_for(GTK_WINDOW(dialgWindow), GTK_WINDOW(window));
 
   mainBox := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
   // mainBox-Einstellung ändern:
@@ -249,25 +247,25 @@ begin
   g_object_set_data(G_OBJECT(help_button), cmd_Key, GINT_TO_POINTER(cmHelp));
   g_object_set_data(G_OBJECT(help_button), dialog_win_Key, dialgWindow);
   gtk_box_append(GTK_BOX(button_box), help_button);
-  g_signal_connect(help_button, 'clicked', G_CALLBACK(@on_clicked), shardedWidgets);
+  g_signal_connect(help_button, 'clicked', G_CALLBACK(@on_clicked), column_box);
 
   ok_button := gtk_button_new_with_label('OK');
   g_object_set_data(G_OBJECT(ok_button), cmd_Key, GINT_TO_POINTER(cmdOk));
   g_object_set_data(G_OBJECT(ok_button), dialog_win_Key, dialgWindow);
   gtk_box_append(GTK_BOX(button_box), ok_button);
-  g_signal_connect(ok_button, 'clicked', G_CALLBACK(@on_clicked), shardedWidgets);
+  g_signal_connect(ok_button, 'clicked', G_CALLBACK(@on_clicked), column_box);
 
   add_button := gtk_button_new_with_label('Add');
   g_object_set_data(G_OBJECT(add_button), cmd_Key, GINT_TO_POINTER(cmdAdd));
   g_object_set_data(G_OBJECT(add_button), dialog_win_Key, dialgWindow);
   gtk_box_append(GTK_BOX(button_box), add_button);
-  g_signal_connect(add_button, 'clicked', G_CALLBACK(@on_clicked), shardedWidgets);
+  g_signal_connect(add_button, 'clicked', G_CALLBACK(@on_clicked), column_box);
 
   cancel_button := gtk_button_new_with_label('Abbrechen');
   g_object_set_data(G_OBJECT(cancel_button), cmd_Key, GINT_TO_POINTER(cmdCancel));
   g_object_set_data(G_OBJECT(cancel_button), dialog_win_Key, dialgWindow);
   gtk_box_append(GTK_BOX(button_box), cancel_button);
-  g_signal_connect(cancel_button, 'clicked', G_CALLBACK(@on_clicked), shardedWidgets);
+  g_signal_connect(cancel_button, 'clicked', G_CALLBACK(@on_clicked), column_box);
 
   gtk_box_append(GTK_BOX(mainBox), button_box);
 

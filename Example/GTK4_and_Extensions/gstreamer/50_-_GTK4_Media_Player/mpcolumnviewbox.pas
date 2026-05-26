@@ -147,12 +147,9 @@ begin
   gtk_list_item_set_child(list_item, nil);
 end;
 
-
 procedure on_row_activated_cb(view: PGtkColumnView; position: Tgint; user_data: Tgpointer); cdecl;
 begin
-  if (PriStream <> nil) and (mp_streamer_is_played(PriStream)) then begin
-    g_signal_emit_by_name(user_data, 'action-triggered', 'listbox.stop');
-  end;
+  g_signal_emit_by_name(user_data, 'action-triggered', 'listbox.stop');
   g_signal_emit_by_name(user_data, 'action-triggered', 'listbox.play');
 end;
 
@@ -209,9 +206,6 @@ var
 begin
   Result := g_object_new(mp_column_view_box_get_type, nil);
   priv := GetPriv(Result);
-
-  SekStream := nil;
-  PriStream := nil;
 
   single_selection := gtk_single_selection_new(G_LIST_MODEL(g_list_store_new(G_TYPE_OBJECT)));
   g_signal_connect(single_selection, 'notify::selected', G_CALLBACK(@on_selection_changed_cb), Result);

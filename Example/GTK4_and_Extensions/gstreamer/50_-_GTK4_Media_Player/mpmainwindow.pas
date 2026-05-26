@@ -35,22 +35,14 @@ implementation
 
 // ==== private
 
-var
-  sharedWidgets: PSharedWidget; // ????
-
-
 type
   TInstPriv = record
    IsChange: boolean;
-    //main_Window,
-    //columviewBox,
+    columviewBox,
    Label_Box,
     VUMeter:PGtkWidget;
     scale: PGtkWidget;
     scale_changed_id: Tgulong;
-
-
-
     idle_id: Tguint;
   end;
   PInstPriv = ^TInstPriv;
@@ -84,8 +76,6 @@ begin
     if SekStream <> nil then begin
       gst_clear_object(@SekStream);
     end;
-
-    g_free(sharedWidgets);
   end;
   G_OBJECT_CLASS(parent_class)^.finalize(obj);
 end;
@@ -120,6 +110,7 @@ procedure on_box_action_received(widget: PGtkWidget; button_id: Pgchar; user_dat
   end;
 
 var
+  main_window:PGtkWidget absolute user_data;
   priv: PInstPriv;
   list_model: PGListModel;
   adjustment: PGtkAdjustment;
@@ -130,7 +121,8 @@ begin
     action_name := button_id;
     g_printf('Action, Name: "%s"'#10, Pgchar(action_name));
 
-    list_model := mp_column_view_box_get_list_model(sharedWidgets^.columviewBox1);
+    if columviewBox =nil then exit;
+    list_model := mp_column_view_box_get_list_model(columviewBox);
 
     case action_name of
       'listbox.quit': begin
@@ -166,14 +158,14 @@ begin
         LoadDefaulTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/midi');
       end;
       'listbox.save': begin
-        Save_Songs_XML_Dialog(sharedWidgets^.main_Window, G_LIST_STORE(list_model));
+        Save_Songs_XML_Dialog(main_window, G_LIST_STORE(list_model));
       end;
       'listbox.open': begin
-        Open_Songs_XML_Dialog(sharedWidgets^.main_Window, G_LIST_STORE(list_model));
+        Open_Songs_XML_Dialog(main_window, G_LIST_STORE(list_model));
       end;
       'listbox.play': begin
         if PriStream = nil then begin
-          ChangeSong(sharedWidgets^.columviewBox1);
+          ChangeSong(columviewBox);
         end else begin
           mp_streamer_play(PriStream);
         end;
@@ -193,18 +185,18 @@ begin
         end;
       end;
       'listbox.add': begin
-        AddSongsDialog(sharedWidgets);
+        AddSongsDialog(columviewBox,main_window);
       end;
       'listbox.remove': begin
-        mp_column_view_box_remove(sharedWidgets^.columviewBox1);
+        mp_column_view_box_remove(columviewBox);
       end;
       'listbox.removeall': begin
-        mp_column_view_box_remove_all(sharedWidgets^.columviewBox1);
+        mp_column_view_box_remove_all(columviewBox);
       end;
       'listbox.next': begin
         if (PriStream <> nil) and (mp_streamer_get_duration(PriStream) > 0) then begin
-          mp_column_view_box_next(sharedWidgets^.columviewBox1);
-          ChangeSong(sharedWidgets^.columviewBox1);
+          mp_column_view_box_next(columviewBox);
+          ChangeSong(columviewBox);
         end;
       end;
       'listbox.prev': begin
@@ -212,16 +204,16 @@ begin
           if mp_streamer_get_position(PriStream) > 2000 * GST_MSECOND then begin
             mp_streamer_set_position(PriStream, 0);
           end else begin
-            mp_column_view_box_prev(sharedWidgets^.columviewBox1);
-            ChangeSong(sharedWidgets^.columviewBox1);
+            mp_column_view_box_prev(columviewBox);
+            ChangeSong(columviewBox);
           end;
         end;
       end;
       'listbox.up': begin
-        mp_column_view_box_up(sharedWidgets^.columviewBox1);
+        mp_column_view_box_up(columviewBox);
       end;
       'listbox.down': begin
-        mp_column_view_box_down(sharedWidgets^.columviewBox1);
+        mp_column_view_box_down(columviewBox);
       end;
       else begin
         g_printf('Unbekannte Action, Name: "%s"'#10, Pgchar(action_name));
@@ -288,8 +280,8 @@ begin
             end;
             SekStream := PriStream;
 
-            mp_column_view_box_next(sharedWidgets^.columviewBox1);
-            item_obj := mp_column_view_box_get_item(sharedWidgets^.columviewBox1);
+            mp_column_view_box_next(columviewBox);
+            item_obj := mp_column_view_box_get_item(columviewBox);
             PriStream := mp_streamer_new_from_launch(mp_song_item_get_full_path(item_obj));
             g_object_unref(item_obj);
 
@@ -353,17 +345,19 @@ function mp_main_window_new: PGTKWidget;
 var
   priv: PInstPriv;
   header_bar, menubutton, mainLayout, HBox, VBox, mediaControlPanel,
-  scrolled_window, columnBox, columnViewControlBox,
+  scrolled_window, columnViewControlBox,
   ColumnViewButtonBox: PGtkWidget;
 begin
   Result := g_object_new(mp_main_window_get_type, nil);
   priv := GetPriv(Result);
 
-  with priv^ do begin
-    sharedWidgets := g_malloc0(SizeOf(TSharedWidget));
 
+    SekStream := nil;
+    PriStream := nil;
+
+
+  with priv^ do begin
     IsChange := False;
-    sharedWidgets^.main_Window := Result;
 
     // === Self
     gtk_window_set_title(GTK_WINDOW(Result), 'Media Player');
@@ -429,12 +423,11 @@ begin
     gtk_widget_set_hexpand(scrolled_window, True);
 
     // Erstelle die Custom Box (MPColumnViewBox), welche die GtkColumnView enthält
-    columnBox := mp_column_view_box_new;
-    sharedWidgets^.columviewBox1 := columnBox;
-    g_signal_connect(columnBox, 'action-triggered', G_CALLBACK(@on_box_action_received), Result);
+    columviewBox := mp_column_view_box_new;
+    g_signal_connect(columviewBox, 'action-triggered', G_CALLBACK(@on_box_action_received), Result);
 
     // Die Box in das ScrolledWindow packen
-    gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), columnBox);
+    gtk_scrolled_window_set_child(GTK_SCROLLED_WINDOW(scrolled_window), columviewBox);
     gtk_box_append(GTK_BOX(HBox), scrolled_window);
 
     // ColumnView Control

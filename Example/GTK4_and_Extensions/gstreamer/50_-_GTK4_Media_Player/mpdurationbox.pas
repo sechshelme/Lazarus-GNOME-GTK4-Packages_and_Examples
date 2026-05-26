@@ -3,7 +3,7 @@ unit MPDurationBox;
 interface
 
 uses
-  fp_glib2, fp_GTK4, fp_gst, fp_graphene,
+  fp_glib2, fp_GTK4, fp_gst,
   MPStreamer;
 
 type

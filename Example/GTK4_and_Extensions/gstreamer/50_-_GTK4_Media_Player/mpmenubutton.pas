@@ -3,7 +3,7 @@ unit MPMenuButton;
 interface
 
 uses
-  fp_glib2, fp_GTK4, fp_graphene;
+  fp_glib2, fp_GTK4;
 
 type
   PMPMenuButton = type Pointer;
@@ -93,8 +93,8 @@ begin
     gtk_menu_button_set_icon_name(PGtkMenuButton(instance), 'open-menu-symbolic');
     gtk_menu_button_set_menu_model(PGtkMenuButton(instance), PGMenuModel(menu));
 
-    add_item(PMPMenuButton(instance), 'Datei', 'file');
-    add_item(PMPMenuButton(instance), 'Bearbeiten', 'edit');
+    add_item(PMPMenuButton(instance), 'Speichern', 'listbox.save');
+    add_item(PMPMenuButton(instance), 'Öffnen', 'listbox.open');
     add_item(PMPMenuButton(instance), 'Hilfe', 'help');
     add_item(PMPMenuButton(instance), 'Beenden', 'listbox.quit');
     add_item(PMPMenuButton(instance), 'Flac 1', 'listbox.default.flac1');
