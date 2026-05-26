@@ -96,13 +96,13 @@ var
 
 type
   TSharedWidget = record
+//    IsChange: boolean;
     main_Window,
-    columviewBox,
-    Label_Box,
-    VUMeter,
-    scale: PGtkWidget;
-    IsChange: boolean;
-    scale_changed_id: Tgulong;
+    columviewBox:PGtkWidget;
+ //   Label_Box,
+//    VUMeter,
+//    scale: PGtkWidget;
+//    scale_changed_id: Tgulong;
 //    idle_id: Tguint;
   end;
   PSharedWidget = ^TSharedWidget;

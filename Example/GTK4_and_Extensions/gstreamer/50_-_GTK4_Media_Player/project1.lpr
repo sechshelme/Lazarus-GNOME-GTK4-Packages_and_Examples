@@ -26,20 +26,12 @@ uses
 
   procedure app_activate(app: PGtkApplication; {%H-}user_data: Tgpointer); cdecl;
   var
-    sharedWidgets: PSharedWidget;
+    window: PGtkWidget;
   begin
-    sharedWidgets := g_malloc0(SizeOf(TSharedWidget));
-    sharedWidgets^.scale_changed_id := 0;
-    sharedWidgets^.IsChange := False;
-
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 
-    // ==== Main Window
-    sharedWidgets^.main_window := mp_main_window_new(sharedWidgets);
-    gtk_window_set_application(GTK_WINDOW(sharedWidgets^.main_window), app);
-
-
-
+    window := mp_main_window_new;
+    gtk_window_set_application(GTK_WINDOW(window), app);
   end;
 
   procedure main;
