@@ -39,12 +39,8 @@
         <Filename Value="project1.lpr"/>
       </Unit>
       <Unit>
-        <Filename Value="loadtitle.pas"/>
-        <UnitName Value="LoadTitle"/>
-      </Unit>
-      <Unit>
-        <Filename Value="menubar.pas"/>
-        <UnitName Value="MenuBar"/>
+        <Filename Value="loadtitledialog.pas"/>
+        <UnitName Value="LoadTitleDialog"/>
       </Unit>
       <Unit>
         <Filename Value="xml_tools.pas"/>
@@ -57,10 +53,6 @@
       <Unit>
         <Filename Value="loadsavesongs.pas"/>
         <UnitName Value="LoadSaveSongs"/>
-      </Unit>
-      <Unit>
-        <Filename Value="action.pas"/>
-        <UnitName Value="Action"/>
       </Unit>
       <Unit>
         <Filename Value="mpvumeterwidget.pas"/>
@@ -77,10 +69,6 @@
       <Unit>
         <Filename Value="mpdurationbox.pas"/>
         <UnitName Value="MPDurationBox"/>
-      </Unit>
-      <Unit>
-        <Filename Value="mpaction.pas"/>
-        <UnitName Value="MPaction"/>
       </Unit>
       <Unit>
         <Filename Value="mpmainwindow.pas"/>

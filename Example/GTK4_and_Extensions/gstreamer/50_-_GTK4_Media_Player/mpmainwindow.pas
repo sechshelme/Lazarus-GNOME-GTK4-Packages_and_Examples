@@ -6,7 +6,7 @@ uses
   fp_glib2, fp_GTK4, fp_gst,
 
   Common,
-  LoadTitle,
+  LoadTitleDialog,
   LoadSaveSongs,
 
   MPStreamer,

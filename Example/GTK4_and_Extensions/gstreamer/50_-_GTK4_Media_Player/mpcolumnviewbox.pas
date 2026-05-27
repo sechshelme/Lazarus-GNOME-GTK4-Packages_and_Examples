@@ -22,7 +22,6 @@ procedure mp_column_view_box_down(w: PMPColumnViewBox);
 
 function mp_column_view_box_get_item(w: PMPColumnViewBox): PGObject;
 
-function mp_column_view_box_get_selection_model(w: PMPColumnViewBox): PGtkSelectionModel; // ???
 function mp_column_view_box_get_list_model(w: PMPColumnViewBox): PGListModel; // ???
 
 implementation
@@ -352,14 +351,6 @@ begin
 end;
 
 /// ========
-
-function mp_column_view_box_get_selection_model(w: PMPColumnViewBox): PGtkSelectionModel;
-var
-  priv: PInstPriv;
-begin
-  priv := GetPriv(w);
-  Result := priv^.selection_model;
-end;
 
 function mp_column_view_box_get_list_model(w: PMPColumnViewBox): PGListModel;
 var

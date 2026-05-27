@@ -1,4 +1,4 @@
-unit LoadTitle;
+unit LoadTitleDialog;
 
 {$mode ObjFPC}{$H+}
 
@@ -11,47 +11,9 @@ uses
   LoadSaveSongs,
   MPColumnViewBox;
 
-procedure LoadDefaulTitles(store: PGListStore; path: Pgchar);
-procedure AddSongsDialog(column_box, window:PGtkWidget);
+procedure AddSongsDialog(column_box, window: PGtkWidget);
 
 implementation
-
-procedure LoadDefaulTitles(store: PGListStore; path: Pgchar);
-
-  function LoadFiles(path: Pgchar): PPgchar;
-  var
-    dir: PGDir;
-    entryName, path1: Pgchar;
-    i: integer;
-    files: PGPtrArray;
-  begin
-    dir := g_dir_open(path, 0, nil);
-    if dir = nil then begin
-      WriteLn('Konnte Ordner nicht öffnen !');
-      Exit(nil);
-    end else begin
-      files := g_ptr_array_new_null_terminated(0, nil, True);
-      repeat
-        entryName := g_dir_read_name(dir);
-        if entryName <> nil then begin
-          for i := 0 to Length(AudioExtensions) - 1 do begin
-            if g_str_has_suffix(entryName, AudioExtensions[i]) then  begin
-              path1 := g_build_filename(path, entryName, nil);
-              g_ptr_array_add(files, g_strdup(path1));
-              Break;
-            end;
-          end;
-        end;
-      until entryName = nil;
-      Result := PPgchar(g_ptr_array_free(files, False));
-    end;
-  end;
-
-begin
-  Load_Songs_from_SA(store, LoadFiles(path));
-end;
-
-// ==========
 
 const
   cmd_Key = 'cmd-key';
@@ -144,7 +106,6 @@ var
   columviewBox: PGtkWidget absolute user_data;
   cmd: Tgint;
   dialogWindow: PGtkWindow;
-  selection_model: PGtkSelectionModel;
   store: PGListStore;
   selectedRows, iter: PGList;
   FullPath: Pgchar;
@@ -153,8 +114,7 @@ begin
   cmd := GPOINTER_TO_INT(g_object_get_data(G_OBJECT(widget), cmd_Key));
   dialogWindow := g_object_get_data(G_OBJECT(widget), dialog_win_Key);
 
-  selection_model:=  mp_column_view_box_get_selection_model(columviewBox);
-  store := G_LIST_STORE(gtk_single_selection_get_model(GTK_SINGLE_SELECTION(selection_model)));
+  store := G_LIST_STORE(mp_column_view_box_get_list_model(columviewBox));
 
   if (cmd = cmdOk) or (cmd = cmdAdd) then begin
     selectedRows := gtk_list_box_get_selected_rows(GTK_LIST_BOX(listBoxFiles));
