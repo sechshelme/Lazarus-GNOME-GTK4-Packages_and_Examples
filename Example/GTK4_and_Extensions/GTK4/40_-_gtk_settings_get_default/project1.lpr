@@ -1,7 +1,6 @@
 program project1;
 
 uses
-  ctypes,
   fp_glib2,
   fp_cairo,
   fp_GTK4;
@@ -40,7 +39,7 @@ var
         gtk_window_close(GTK_WINDOW(windowList^.Data));
       end;
       cmMinus: begin
-       Dec(FontScale);
+        Dec(FontScale);
         ch := g_strdup_printf('%d', FontScale);
         g_object_set(gtk_settings_get_default, 'gtk-font-name', ch, nil);
         g_free(ch);
@@ -57,7 +56,7 @@ var
       cmNoDark: begin
         g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gFalse, nil);
       end;
-    end;     WriteLn(FontScale);
+    end;
   end;
 
   procedure createButton(parent: PGtkWidget; lab: Pgchar; cmd: Tcmd);
@@ -102,31 +101,16 @@ var
   end;
 
 
-  function main(argc: cint; argv: PPChar): cint;
+  procedure main;
   var
     app: PGtkApplication;
-    status: longint;
   begin
-    //    g_object_set (gtk_settings_get_default (),
-    //                  'gtk-enable-animations', FALSE,
-    //                  'gtk-font-name', 'Adwaita Sans 33',
-    //                  'gtk-icon-theme-name', 'Adwaita',
-    //                  'gtk-decoration-layout', ':close',
-    //                  'gtk-hint-font-metrics', TRUE,
-    ////                  'gtk-font-rendering', GTK_FONT_RENDERING_MANUAL,
-    //                  nil);
-
-
-
-
     app := gtk_application_new('org.gtk.example', G_APPLICATION_DEFAULT_FLAGS);
     g_signal_connect(app, 'activate', G_CALLBACK(@activate), nil);
-    status := g_application_run(G_APPLICATION(app), argc, argv);
+    g_application_run(G_APPLICATION(app), argc, argv);
     g_object_unref(app);
-
-    Exit(status);
   end;
 
 begin
-  main(argc, argv);
+  main;
 end.
