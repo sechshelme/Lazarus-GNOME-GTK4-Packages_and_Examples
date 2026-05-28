@@ -21,6 +21,7 @@ procedure mp_column_view_box_up(w: PMPColumnViewBox);
 procedure mp_column_view_box_down(w: PMPColumnViewBox);
 
 function mp_column_view_box_get_item(w: PMPColumnViewBox): PGObject;
+procedure mp_column_view_box_add_item(w: PMPColumnViewBox;item:PMPSongItem);
 
 function mp_column_view_box_get_list_model(w: PMPColumnViewBox): PGListModel; // ???
 
@@ -347,6 +348,16 @@ begin
   priv := GetPriv(w);
   with priv^ do begin
     Result := g_list_model_get_item(list_model, index);
+  end;
+end;
+
+procedure mp_column_view_box_add_item(w: PMPColumnViewBox; item: PMPSongItem);
+var
+  priv: PInstPriv;
+begin
+  priv := GetPriv(w);
+  with priv^ do begin
+    g_list_store_append(G_LIST_STORE(list_model), item);
   end;
 end;
 

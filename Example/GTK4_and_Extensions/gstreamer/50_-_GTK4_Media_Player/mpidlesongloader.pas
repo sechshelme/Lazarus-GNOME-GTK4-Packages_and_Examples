@@ -3,8 +3,9 @@ unit MPIdleSongLoader;
 interface
 
 uses
-  fp_glib2,
+  fp_glib2, fp_gst,
   Common,
+  MPStreamer,
   MPSongItem;
 
 type
@@ -63,7 +64,7 @@ procedure class_init_cp(g_class: Tgpointer; class_data: Tgpointer); cdecl;
 begin
   G_OBJECT_CLASS(g_class)^.finalize := @finalize_cp;
   parent_class := g_type_class_peek_parent(g_class);
-  signal_id := g_signal_new('triggered', G_TYPE_FROM_CLASS(g_class), G_SIGNAL_RUN_LAST, 0, nil, nil, nil, G_TYPE_NONE, 1, G_TYPE_STRING);
+  signal_id := g_signal_new('triggered', G_TYPE_FROM_CLASS(g_class), G_SIGNAL_RUN_LAST, 0, nil, nil, nil, G_TYPE_NONE, 1, mp_song_item_get_type);
 end;
 
 procedure init_cp(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
@@ -83,15 +84,18 @@ function add_item_cp(user_data: Tgpointer): Tgboolean; cdecl;
 var
   priv: PInstPriv;
   first_path: Pgchar;
+  item: PMPSongItem;
 begin
   priv := GetPriv(user_data);
   with priv^ do begin
     if (songpaths <> nil) and (songpaths^.len > 0) then begin
 
       first_path := g_ptr_array_index(songpaths, 0);
-      g_signal_emit(user_data, signal_id, 0, first_path);
-      g_ptr_array_remove_index(songpaths, 0);
+      item := mp_song_item_new(first_path, get_duration(first_path));
+      g_signal_emit(user_data, signal_id, 0, item);
+      g_object_unref(item);
 
+      g_ptr_array_remove_index(songpaths, 0);
       if songpaths^.len > 0 then begin
         Result := G_SOURCE_CONTINUE;
       end else begin

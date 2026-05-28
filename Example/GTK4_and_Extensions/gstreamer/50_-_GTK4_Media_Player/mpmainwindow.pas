@@ -133,34 +133,32 @@ begin
       end;
       'listbox.default.flac1': begin
         idle_object_add_path(idle, '/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
-
-        g_list_store_remove_all(G_LIST_STORE(list_model));
-        LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
+        mp_column_view_box_remove_all(columviewBox);
       end;
       'listbox.default.flac2': begin
-        g_list_store_remove_all(G_LIST_STORE(list_model));
-        LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt');
+        mp_column_view_box_remove_all(columviewBox);
+        idle_object_add_path(idle, '/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt');
       end;
       'listbox.default.flac3': begin
-        g_list_store_remove_all(G_LIST_STORE(list_model));
-        LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Blu-ray Audio/2L/2L 050 Trondheim Solistene - Divertimenti');
+        mp_column_view_box_remove_all(columviewBox);
+        idle_object_add_path(idle, '/n4800/Multimedia/Blu-ray Audio/2L/2L 050 Trondheim Solistene - Divertimenti');
       end;
       'listbox.default.mp3': begin
-        g_list_store_remove_all(G_LIST_STORE(list_model));
-        LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Black Bear Roa');
-        LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits');
-        LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/MCcall & Company');
-        LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Roses For Mama');
-        LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Rubber Duck');
-        LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Wolf Creek Pass');
+        mp_column_view_box_remove_all(columviewBox);
+        idle_object_add_path(idle, '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Black Bear Roa');
+        idle_object_add_path(idle, '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits');
+        idle_object_add_path(idle, '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/MCcall & Company');
+        idle_object_add_path(idle, '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Roses For Mama');
+        idle_object_add_path(idle, '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Rubber Duck');
+        idle_object_add_path(idle, '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Wolf Creek Pass');
       end;
       'listbox.default.mod': begin
-        g_list_store_remove_all(G_LIST_STORE(list_model));
-        LoadDefaulTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/mod');
+        mp_column_view_box_remove_all(columviewBox);
+        idle_object_add_path(idle, '/home/tux/Schreibtisch/sound/mod');
       end;
       'listbox.default.midi': begin
-        g_list_store_remove_all(G_LIST_STORE(list_model));
-        LoadDefaulTitles(G_LIST_STORE(list_model), '/home/tux/Schreibtisch/sound/midi');
+        mp_column_view_box_remove_all(columviewBox);
+        idle_object_add_path(idle, '/home/tux/Schreibtisch/sound/midi');
       end;
       'listbox.save': begin
         Save_Songs_XML_Dialog(main_window, G_LIST_STORE(list_model));
@@ -324,11 +322,15 @@ begin
   end;
 end;
 
-procedure loadsong_triggered_cp(idle: PIdelObject; s: Pgchar; user_data: Tgpointer); cdecl;
+procedure loadsong_triggered_cp(idle: PIdelObject; item: PMPSongItem; user_data: Tgpointer); cdecl;
+var
+  priv: PInstPriv;
 begin
-  WriteLn(s);
+  priv := GetPriv(user_data);
+  with priv^ do begin
+    mp_column_view_box_add_item(columviewBox, item);
+  end;
 end;
-
 
 
 
@@ -368,8 +370,8 @@ begin
 
 
     // ==== IdleSongLoader
-        idle := idle_object_new;
-        g_signal_connect(idle, 'triggered', G_CALLBACK(@loadsong_triggered_cp), Result);
+    idle := idle_object_new;
+    g_signal_connect(idle, 'triggered', G_CALLBACK(@loadsong_triggered_cp), Result);
 
 
     // === Self

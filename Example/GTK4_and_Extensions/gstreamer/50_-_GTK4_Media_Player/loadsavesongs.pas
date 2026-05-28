@@ -13,8 +13,6 @@ uses
   MPSongItem,
   MPStreamer;
 
-procedure LoadDefaulTitles(store: PGListStore; path: Pgchar);
-
 procedure Load_Song(store: PGListStore; path: Pgchar);
 procedure Load_Songs_from_SA(store: PGListStore; sa: PPgchar);
 
@@ -23,42 +21,6 @@ procedure Open_Songs_XML_Dialog(main_Window: PGtkWidget; store: PGListStore);
 
 implementation
 
-
-procedure LoadDefaulTitles(store: PGListStore; path: Pgchar);
-
-  function LoadFiles(path: Pgchar): PPgchar;
-  var
-    dir: PGDir;
-    entryName, path1: Pgchar;
-    i: integer;
-    files: PGPtrArray;
-  begin
-    dir := g_dir_open(path, 0, nil);
-    if dir = nil then begin
-      WriteLn('Konnte Ordner nicht öffnen !');
-      Exit(nil);
-    end else begin
-      files := g_ptr_array_new_null_terminated(0, nil, True);
-      repeat
-        entryName := g_dir_read_name(dir);
-        if entryName <> nil then begin
-          for i := 0 to Length(AudioExtensions) - 1 do begin
-            if g_str_has_suffix(entryName, AudioExtensions[i]) then  begin
-              path1 := g_build_filename(path, entryName, nil);
-              g_ptr_array_add(files, g_strdup(path1));
-              Break;
-            end;
-          end;
-        end;
-      until entryName = nil;
-      Result := PPgchar(g_ptr_array_free(files, False));
-    end;
-    g_dir_close(dir);
-  end;
-
-begin
-  Load_Songs_from_SA(store, LoadFiles(path));
-end;
 
 // === Song laden ===================
 
