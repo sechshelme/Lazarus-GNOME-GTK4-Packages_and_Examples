@@ -16,12 +16,12 @@ uses
 
   procedure add_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
-    idle_object: PIdelObject absolute user_data;
+    idle_object: PIdleObject absolute user_data;
   begin
     idle_object_add(idle_object, 1000000);
   end;
 
-  procedure triggered_cp(idle: PIdelObject; s: Pgchar; user_data: Tgpointer); cdecl;
+  procedure triggered_cp(idle: PIdleObject; s: Pgchar; user_data: Tgpointer); cdecl;
   var
     lab: PGtkWidget absolute user_data;
   begin
@@ -31,7 +31,7 @@ uses
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, box, button, lab: PGtkWidget;
-    idle: PIdelObject;
+    idle: PIdleObject;
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 

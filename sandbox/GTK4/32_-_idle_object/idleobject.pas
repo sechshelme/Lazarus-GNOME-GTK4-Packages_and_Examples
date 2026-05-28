@@ -6,12 +6,12 @@ uses
   fp_glib2;
 
 type
-  PIdelObject = type Pointer;
-  PIdelObjectClass = type Pointer;
+  PIdleObject = type Pointer;
+  PIdleObjectClass = type Pointer;
 
 function idle_object_get_type: TGType;
-function idle_object_new: PIdelObject;
-procedure idle_object_add(o: PIdelObject; cnt: Tgssize);
+function idle_object_new: PIdleObject;
+procedure idle_object_add(o: PIdleObject; cnt: Tgssize);
 
 implementation
 
@@ -54,15 +54,10 @@ begin
 end;
 
 procedure class_init_cp(g_class: Tgpointer; class_data: Tgpointer); cdecl;
-var
-  priv: PInstPriv;
 begin
-  priv := GetPriv(g_class);
-  with priv^ do begin
-    G_OBJECT_CLASS(g_class)^.finalize := @finalize_cp;
-    parent_class := g_type_class_peek_parent(g_class);
-    signal_id := g_signal_new('triggered', G_TYPE_FROM_CLASS(g_class), G_SIGNAL_RUN_LAST, 0, nil, nil, nil, G_TYPE_NONE, 1, G_TYPE_STRING);
-  end;
+  G_OBJECT_CLASS(g_class)^.finalize := @finalize_cp;
+  parent_class := g_type_class_peek_parent(g_class);
+  signal_id := g_signal_new('triggered', G_TYPE_FROM_CLASS(g_class), G_SIGNAL_RUN_LAST, 0, nil, nil, nil, G_TYPE_NONE, 1, G_TYPE_STRING);
 end;
 
 procedure init_cp(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
@@ -120,7 +115,7 @@ begin
   Result := type_id;
 end;
 
-function idle_object_new: PIdelObject;
+function idle_object_new: PIdleObject;
 var
   priv: PInstPriv;
 begin
@@ -128,7 +123,7 @@ begin
   priv := GetPriv(Result);
 end;
 
-procedure idle_object_add(o: PIdelObject; cnt: Tgssize);
+procedure idle_object_add(o: PIdleObject; cnt: Tgssize);
 var
   priv: PInstPriv;
 begin

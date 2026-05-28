@@ -60,15 +60,10 @@ begin
 end;
 
 procedure class_init_cp(g_class: Tgpointer; class_data: Tgpointer); cdecl;
-var
-  priv: PInstPriv;
 begin
-  priv := GetPriv(g_class);
-  with priv^ do begin
-    G_OBJECT_CLASS(g_class)^.finalize := @finalize_cp;
-    parent_class := g_type_class_peek_parent(g_class);
-    signal_id := g_signal_new('triggered', G_TYPE_FROM_CLASS(g_class), G_SIGNAL_RUN_LAST, 0, nil, nil, nil, G_TYPE_NONE, 1, G_TYPE_STRING);
-  end;
+  G_OBJECT_CLASS(g_class)^.finalize := @finalize_cp;
+  parent_class := g_type_class_peek_parent(g_class);
+  signal_id := g_signal_new('triggered', G_TYPE_FROM_CLASS(g_class), G_SIGNAL_RUN_LAST, 0, nil, nil, nil, G_TYPE_NONE, 1, G_TYPE_STRING);
 end;
 
 procedure init_cp(instance: PGTypeInstance; g_class: Tgpointer); cdecl;
@@ -78,7 +73,7 @@ begin
   priv := GetPriv(instance);
   with priv^ do begin
     idle_id := 0;
-      songpaths := g_ptr_array_new_with_free_func(@g_free);
+    songpaths := g_ptr_array_new_with_free_func(@g_free);
   end;
 end;
 
@@ -91,8 +86,6 @@ var
 begin
   priv := GetPriv(user_data);
   with priv^ do begin
-    g_usleep(1000000);
-
     if (songpaths <> nil) and (songpaths^.len > 0) then begin
 
       first_path := g_ptr_array_index(songpaths, 0);
@@ -103,11 +96,11 @@ begin
         Result := G_SOURCE_CONTINUE;
       end else begin
         Result := G_SOURCE_REMOVE_;
-        idle_id:=0;
+        idle_id := 0;
       end;
     end else begin
       Result := G_SOURCE_REMOVE_;
-      idle_id:=0;
+      idle_id := 0;
     end;
   end;
 end;
