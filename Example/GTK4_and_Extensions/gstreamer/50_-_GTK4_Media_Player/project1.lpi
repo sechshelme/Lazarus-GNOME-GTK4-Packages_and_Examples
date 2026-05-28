@@ -74,6 +74,10 @@
         <Filename Value="mpmainwindow.pas"/>
         <UnitName Value="MPMainWindow"/>
       </Unit>
+      <Unit>
+        <Filename Value="mpidlesongloader.pas"/>
+        <UnitName Value="MPIdleSongLoader"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

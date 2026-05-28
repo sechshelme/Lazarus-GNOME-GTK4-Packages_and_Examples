@@ -53,6 +53,7 @@ procedure LoadDefaulTitles(store: PGListStore; path: Pgchar);
       until entryName = nil;
       Result := PPgchar(g_ptr_array_free(files, False));
     end;
+    g_dir_close(dir);
   end;
 
 begin

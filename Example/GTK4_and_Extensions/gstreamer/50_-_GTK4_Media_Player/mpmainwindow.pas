@@ -16,7 +16,9 @@ uses
   MPDurationBox,
   MPMenuButton,
   MPPlayerButtonBox,
-  MPColumnViewControl;
+  MPColumnViewControl,
+
+  MPIdleSongLoader;
 
 type
   PMPMainWindow = type Pointer;
@@ -39,7 +41,9 @@ type
     VUMeter: PGtkWidget;
     scale: PGtkWidget;
     scale_changed_id: Tgulong;
-    idle_id: Tguint;
+    timer_id: Tguint;
+
+    idle: PIdelObject;
   end;
   PInstPriv = ^TInstPriv;
 
@@ -62,10 +66,11 @@ var
 begin
   priv := GetPriv(obj);
   with priv^ do begin
-    if idle_id > 0 then begin
-      g_source_remove(idle_id);
-      idle_id := 0;
+    if timer_id > 0 then begin
+      g_source_remove(timer_id);
+      timer_id := 0;
     end;
+    g_object_unref(idle);
     if PriStream <> nil then begin
       gst_clear_object(@PriStream);
     end;
@@ -127,6 +132,8 @@ begin
         gtk_window_close(GTK_WINDOW(gtk_widget_get_root(widget)));
       end;
       'listbox.default.flac1': begin
+        idle_object_add_path(idle, '/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
+
         g_list_store_remove_all(G_LIST_STORE(list_model));
         LoadDefaulTitles(G_LIST_STORE(list_model), '/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
       end;
@@ -317,6 +324,13 @@ begin
   end;
 end;
 
+procedure loadsong_triggered_cp(idle: PIdelObject; s: Pgchar; user_data: Tgpointer); cdecl;
+begin
+  WriteLn(s);
+end;
+
+
+
 
 // ==== public
 
@@ -351,6 +365,12 @@ begin
     SekStream := nil;
     PriStream := nil;
     IsChange := False;
+
+
+    // ==== IdleSongLoader
+        idle := idle_object_new;
+        g_signal_connect(idle, 'triggered', G_CALLBACK(@loadsong_triggered_cp), Result);
+
 
     // === Self
     gtk_window_set_title(GTK_WINDOW(Result), 'GTK4 / GST Media Player');
@@ -424,7 +444,7 @@ begin
     gtk_window_present(GTK_WINDOW(Result));
 
     // === Timerloop
-    idle_id := g_timeout_add(100, @timerFunc_cp, Result);
+    timer_id := g_timeout_add(100, @timerFunc_cp, Result);
   end;
 end;
 
