@@ -43,7 +43,7 @@ type
     scale_changed_id: Tgulong;
     timer_id: Tguint;
 
-    idle: PIdelObject;
+    idle: PIdleSongLoader;
   end;
   PInstPriv = ^TInstPriv;
 
@@ -132,33 +132,33 @@ begin
         gtk_window_close(GTK_WINDOW(gtk_widget_get_root(widget)));
       end;
       'listbox.default.flac1': begin
-        idle_object_add_path(idle, '/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
+        idle_song_loader_add_path(idle, '/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos');
         mp_column_view_box_remove_all(columviewBox);
       end;
       'listbox.default.flac2': begin
         mp_column_view_box_remove_all(columviewBox);
-        idle_object_add_path(idle, '/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt');
+        idle_song_loader_add_path(idle, '/n4800/Multimedia/Music/Diverses/Games/The Witcher, Pt 3 Wild Hunt');
       end;
       'listbox.default.flac3': begin
         mp_column_view_box_remove_all(columviewBox);
-        idle_object_add_path(idle, '/n4800/Multimedia/Blu-ray Audio/2L/2L 050 Trondheim Solistene - Divertimenti');
+        idle_song_loader_add_path(idle, '/n4800/Multimedia/Blu-ray Audio/2L/2L 050 Trondheim Solistene - Divertimenti');
       end;
       'listbox.default.mp3': begin
         mp_column_view_box_remove_all(columviewBox);
-        idle_object_add_path(idle, '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Black Bear Roa');
-        idle_object_add_path(idle, '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits');
-        idle_object_add_path(idle, '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/MCcall & Company');
-        idle_object_add_path(idle, '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Roses For Mama');
-        idle_object_add_path(idle, '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Rubber Duck');
-        idle_object_add_path(idle, '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Wolf Creek Pass');
+        idle_song_loader_add_path(idle, '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Black Bear Roa');
+        idle_song_loader_add_path(idle, '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits');
+        idle_song_loader_add_path(idle, '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/MCcall & Company');
+        idle_song_loader_add_path(idle, '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Roses For Mama');
+        idle_song_loader_add_path(idle, '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Rubber Duck');
+        idle_song_loader_add_path(idle, '/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Wolf Creek Pass');
       end;
       'listbox.default.mod': begin
         mp_column_view_box_remove_all(columviewBox);
-        idle_object_add_path(idle, '/home/tux/Schreibtisch/sound/mod');
+        idle_song_loader_add_path(idle, '/home/tux/Schreibtisch/sound/mod');
       end;
       'listbox.default.midi': begin
         mp_column_view_box_remove_all(columviewBox);
-        idle_object_add_path(idle, '/home/tux/Schreibtisch/sound/midi');
+        idle_song_loader_add_path(idle, '/home/tux/Schreibtisch/sound/midi');
       end;
       'listbox.save': begin
         Save_Songs_XML_Dialog(main_window, G_LIST_STORE(list_model));
@@ -322,7 +322,7 @@ begin
   end;
 end;
 
-procedure loadsong_triggered_cp(idle: PIdelObject; item: PMPSongItem; user_data: Tgpointer); cdecl;
+procedure loadsong_triggered_cp(idle: PIdleSongLoader; item: PMPSongItem; user_data: Tgpointer); cdecl;
 var
   priv: PInstPriv;
 begin
@@ -370,7 +370,7 @@ begin
 
 
     // ==== IdleSongLoader
-    idle := idle_object_new;
+    idle := idle_song_loader_new;
     g_signal_connect(idle, 'triggered', G_CALLBACK(@loadsong_triggered_cp), Result);
 
 

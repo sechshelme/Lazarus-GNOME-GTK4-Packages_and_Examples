@@ -3,18 +3,19 @@ unit MPIdleSongLoader;
 interface
 
 uses
-  fp_glib2, fp_gst,
+  fp_glib2,
   Common,
   MPStreamer,
   MPSongItem;
 
 type
-  PIdelObject = type Pointer;
-  PIdelObjectClass = type Pointer;
+  PIdleSongLoader = type Pointer;
+  PIdleSongLoaderClass = type Pointer;
 
-function idle_object_get_type: TGType;
-function idle_object_new: PIdelObject;
-procedure idle_object_add_path(o: PIdelObject; path: Pgchar);
+function idle_song_loader_get_type: TGType;
+function idle_song_loader_new: PIdleSongLoader;
+procedure idle_song_loader_add(o: PIdleSongLoader; path: Pgchar);
+procedure idle_song_loader_add_path(o: PIdleSongLoader; path: Pgchar);
 
 implementation
 
@@ -112,7 +113,7 @@ end;
 
 // ==== public
 
-function idle_object_get_type: TGType;
+function idle_song_loader_get_type: TGType;
 const
   type_id: TGType = 0;
 var
@@ -131,15 +132,23 @@ begin
   Result := type_id;
 end;
 
-function idle_object_new: PIdelObject;
+function idle_song_loader_new: PIdleSongLoader;
 var
   priv: PInstPriv;
 begin
-  Result := g_object_new(idle_object_get_type, nil);
+  Result := g_object_new(idle_song_loader_get_type, nil);
   priv := GetPriv(Result);
 end;
 
-procedure idle_object_add_path(o: PIdelObject; path: Pgchar);
+procedure idle_song_loader_add(o: PIdleSongLoader; path: Pgchar);
+var
+  priv: PInstPriv;
+begin
+  priv := GetPriv(o);
+  g_ptr_array_add(priv^.songpaths, path);
+end;
+
+procedure idle_song_loader_add_path(o: PIdleSongLoader; path: Pgchar);
 var
   priv: PInstPriv;
   dir: PGDir;
@@ -159,7 +168,7 @@ begin
       for i := 0 to Length(AudioExtensions) - 1 do begin
         if g_str_has_suffix(entryName, AudioExtensions[i]) then begin
           fullPath := g_build_filename(path, entryName, nil);
-          g_ptr_array_add(songpaths, fullPath);
+          idle_song_loader_add(o, fullPath);
           Break;
         end;
       end;

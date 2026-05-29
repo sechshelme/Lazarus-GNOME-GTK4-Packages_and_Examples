@@ -49,6 +49,7 @@ procedure g_array_sort(_array: PGArray; compare_func: TGCompareFunc); cdecl; ext
 procedure g_array_sort_with_data(_array: PGArray; compare_func: TGCompareDataFunc; user_data: Tgpointer); cdecl; external libglib2;
 function g_array_binary_search(_array: PGArray; target: Tgconstpointer; compare_func: TGCompareFunc; out_match_index: Pguint): Tgboolean; cdecl; external libglib2;
 procedure g_array_set_clear_func(_array: PGArray; clear_func: TGDestroyNotify); cdecl; external libglib2;
+
 function g_ptr_array_new: PGPtrArray; cdecl; external libglib2;
 function g_ptr_array_new_with_free_func(element_free_func: TGDestroyNotify): PGPtrArray; cdecl; external libglib2;
 function g_ptr_array_new_take(Data: Pgpointer; len: Tgsize; element_free_func: TGDestroyNotify): PGPtrArray; cdecl; external libglib2;
@@ -84,6 +85,7 @@ procedure g_ptr_array_foreach(_array: PGPtrArray; func: TGFunc; user_data: Tgpoi
 function g_ptr_array_find(haystack: PGPtrArray; needle: Tgconstpointer; index_: Pguint): Tgboolean; cdecl; external libglib2;
 function g_ptr_array_find_with_equal_func(haystack: PGPtrArray; needle: Tgconstpointer; equal_func: TGEqualFunc; index_: Pguint): Tgboolean; cdecl; external libglib2;
 function g_ptr_array_is_null_terminated(_array: PGPtrArray): Tgboolean; cdecl; external libglib2;
+
 function g_byte_array_new: PGByteArray; cdecl; external libglib2;
 function g_byte_array_new_take(Data: Pguint8; len: Tgsize): PGByteArray; cdecl; external libglib2;
 function g_byte_array_steal(_array: PGByteArray; len: Pgsize): Pguint8; cdecl; external libglib2;
