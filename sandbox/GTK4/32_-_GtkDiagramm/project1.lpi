@@ -43,6 +43,10 @@
         <Filename Value="diagramwidget.pas"/>
         <UnitName Value="DiagramWidget"/>
       </Unit>
+      <Unit>
+        <Filename Value="animatebars.pas"/>
+        <UnitName Value="AnimateBars"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

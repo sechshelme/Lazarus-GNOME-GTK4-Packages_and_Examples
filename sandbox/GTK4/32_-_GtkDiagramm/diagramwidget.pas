@@ -6,12 +6,16 @@ uses
   fp_glib2, fp_GTK4, fp_graphene;
 
 type
-  PMyDiagramWidget = type Pointer;
-  PMyDiagramWidgetClass = type Pointer;
+  PDiagramWidget = type Pointer;
+  PDiagramWidgetClass = type Pointer;
 
 function diagram_widget_get_type: TGType;
 function diagram_widget_new: PGTKWidget;
-procedure diagram_widget_add_bar(w: PMyDiagramWidget; y: Tgfloat);
+procedure diagram_widget_add_bar(w: PDiagramWidget; y: Tgfloat; l: Pgchar);
+procedure diagram_widget_change_bar(w: PDiagramWidget; index: Tgint; y: Tgfloat);
+procedure diagram_widget_set_auto_hight(w: PDiagramWidget; a: boolean);
+procedure diagram_widget_set_hight(w: PDiagramWidget; s: Tgfloat);
+
 
 implementation
 
@@ -28,6 +32,7 @@ type
   TInstPriv = record
     bars: PGArray;
     maxHeight: Tgfloat;
+    AutoSize: boolean;
   end;
   PInstPriv = ^TInstPriv;
 
@@ -123,6 +128,7 @@ begin
     bars := g_array_new(False, False, SizeOf(Tbar));
     g_array_set_clear_func(bars, @array_clear_func);
     maxHeight := 0.0;
+    AutoSize := True;
   end;
 end;
 
@@ -156,21 +162,66 @@ begin
   priv := GetPriv(Result);
 end;
 
-procedure diagram_widget_add_bar(w: PMyDiagramWidget; y: Tgfloat);
+procedure diagram_widget_add_bar(w: PDiagramWidget; y: Tgfloat; l: Pgchar);
 var
   priv: PInstPriv;
   bar: Tbar;
 begin
   priv := GetPriv(w);
   with priv^ do begin
-    if y > maxHeight then begin
-      maxHeight := y;
+    if AutoSize then begin
+      if y > maxHeight then begin
+        maxHeight := y;
+      end;
     end;
     bar.y := y;
-    bar.lab := nil;
+    bar.lab := g_strdup(l);
     g_array_append_val(bars, bar);
   end;
   gtk_widget_queue_draw(GTK_WIDGET(w));
+end;
+
+procedure diagram_widget_change_bar(w: PDiagramWidget; index: Tgint; y: Tgfloat  );
+var
+  priv: PInstPriv;
+  i: integer;
+  item: Pbar;
+begin
+  priv := GetPriv(w);
+  with priv^ do begin
+    item := Pbar(priv^.bars^.data) + index;
+    item^.y := y;
+
+    if AutoSize then begin
+      maxHeight := 0.0;
+      for i := 0 to bars^.len - 1 do begin
+        item := Pbar(bars^.Data) + i;
+        if item^.y > maxHeight then begin
+          maxHeight := item^.y;
+        end;
+      end;
+    end;
+  end;
+end;
+
+procedure diagram_widget_set_auto_hight(w: PDiagramWidget; a: boolean);
+var
+  priv: PInstPriv;
+begin
+  priv := GetPriv(w);
+  with priv^ do begin
+    AutoSize := a;
+  end;
+end;
+
+procedure diagram_widget_set_hight(w: PDiagramWidget; s: Tgfloat);
+var
+  priv: PInstPriv;
+begin
+  priv := GetPriv(w);
+  with priv^ do begin
+    maxHeight := s;
+  end;
 end;
 
 end.

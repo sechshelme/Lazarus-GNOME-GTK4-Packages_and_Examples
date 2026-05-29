@@ -5,7 +5,8 @@ uses
   fp_glib2,
   fp_cairo,
   fp_GTK4,
-  DiagramWidget;
+  DiagramWidget,
+  AnimateBars;
 
   procedure quit_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
@@ -17,7 +18,6 @@ uses
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
     window, box, button, myBars: PGtkWidget;
-    i: Integer;
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 
@@ -26,8 +26,7 @@ uses
     gtk_window_set_default_size(GTK_WINDOW(window), 640, 400);
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-    myBars := diagram_widget_new;
-    for i:=0 to 15 do    diagram_widget_add_bar(PMyDiagramWidget(myBars), g_random_double );
+    myBars := animate_bar_new(7);
 
     gtk_widget_set_vexpand(myBars, True);
     gtk_widget_set_hexpand(myBars, True);
