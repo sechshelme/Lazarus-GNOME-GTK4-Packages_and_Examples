@@ -26,8 +26,8 @@ uses
     gtk_window_set_default_size(GTK_WINDOW(window), 640, 400);
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-    myBars := animate_bar_new(7);
 
+    myBars := animate_bar_new(7);
     gtk_widget_set_vexpand(myBars, True);
     gtk_widget_set_hexpand(myBars, True);
     gtk_box_append(GTK_BOX(box), myBars);
