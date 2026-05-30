@@ -329,6 +329,7 @@ const
     (libs: 'libmongoc'; units: 'fp_mongoc'),
     (libs: 'libbson'; units: 'fp_bson'),
     (libs: 'liblua'; units: 'fp_lua'),
+    (libs: 'libnfd'; units: 'fp_lua'),
 
 
 
