@@ -24,12 +24,10 @@ type
   Pnfdu8char_t = ^Tnfdu8char_t;
   Tnfdu8char_t = char;
 
+  PPnfdnchar_t = ^Pnfdnchar_t;
   Pnfdnchar_t = ^Tnfdnchar_t;
   Tnfdnchar_t = Tnfdu8char_t;
 
-  PPnfdnchar_t = ^Pnfdnchar_t;
-
-type
   PPnfdpathset_t = ^Pnfdpathset_t;
   Pnfdpathset_t = ^Tnfdpathset_t;
   Tnfdpathset_t = pointer;
@@ -59,8 +57,8 @@ type
     spec: Pnfdu8char_t;
   end;
   Pnfdu8filteritem_t = ^Tnfdu8filteritem_t;
-  Pnfdnfilteritem_t = ^Tnfdnfilteritem_t;
 
+  Pnfdnfilteritem_t = ^Tnfdnfilteritem_t;
   Tnfdnfilteritem_t = Tnfdu8filteritem_t;
 
 const
@@ -88,11 +86,8 @@ type
   end;
   Pnfdopendialogu8args_t = ^Tnfdopendialogu8args_t;
 
-type
   Pnfdopendialognargs_t = ^Tnfdopendialognargs_t;
   Tnfdopendialognargs_t = Tnfdopendialogu8args_t;
-
-  Pnfdsavedialogu8args_t = ^Tnfdsavedialogu8args_t;
 
   Tnfdsavedialogu8args_t = record
     filterList: Pnfdu8filteritem_t;
@@ -101,19 +96,17 @@ type
     defaultName: Pnfdu8char_t;
     parentWindow: Tnfdwindowhandle_t;
   end;
+  Pnfdsavedialogu8args_t = ^Tnfdsavedialogu8args_t;
 
-type
   Pnfdsavedialognargs_t = ^Tnfdsavedialognargs_t;
   Tnfdsavedialognargs_t = Tnfdsavedialogu8args_t;
 
-type
   Tnfdpickfolderu8args_t = record
     defaultPath: Pnfdu8char_t;
     parentWindow: Tnfdwindowhandle_t;
   end;
   Pnfdpickfolderu8args_t = ^Tnfdpickfolderu8args_t;
 
-type
   Pnfdpickfoldernargs_t = ^Tnfdpickfoldernargs_t;
   Tnfdpickfoldernargs_t = Tnfdpickfolderu8args_t;
 
@@ -192,7 +185,6 @@ function NFD_PickFolderN_With(outPath: PPnfdnchar_t; args: Pnfdpickfoldernargs_t
 function NFD_PickFolderU8_With(outPath: PPnfdu8char_t; args: Pnfdpickfolderu8args_t): Tnfdresult_t; inline;
 function NFD_PickFolderMultipleN_With(outPaths: PPnfdpathset_t; args: Pnfdpickfoldernargs_t): Tnfdresult_t; inline;
 function NFD_PickFolderMultipleU8_With(outPaths: PPnfdpathset_t; args: Pnfdpickfolderu8args_t): Tnfdresult_t; inline;
-
 
 
 implementation
