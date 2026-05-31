@@ -5,8 +5,8 @@ uses
   fp_glib2,
   fp_cairo,
   fp_GTK4,
-  DiagramWidget,
-  AnimateBars;
+  ChartBarsWidget,
+  AnimateBars, ChartPieWidget, AnimatePie;
 
   procedure quit_cp(widget: PGtkWidget; user_data: Tgpointer); cdecl;
   var
@@ -17,7 +17,7 @@ uses
 
   procedure activate(app: PGtkApplication; user_data: Tgpointer); cdecl;
   var
-    window, box, button, myBars: PGtkWidget;
+    window, box, button, Bars, Pies: PGtkWidget;
   begin
     g_object_set(gtk_settings_get_default, 'gtk-application-prefer-dark-theme', gTrue, nil);
 
@@ -27,10 +27,15 @@ uses
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
 
-    myBars := animate_bar_new(7);
-    gtk_widget_set_vexpand(myBars, True);
-    gtk_widget_set_hexpand(myBars, True);
-    gtk_box_append(GTK_BOX(box), myBars);
+    Bars := animate_bar_new(6);
+    gtk_widget_set_vexpand(Bars, True);
+    gtk_widget_set_hexpand(Bars, True);
+    gtk_box_append(GTK_BOX(box), Bars);
+
+    Pies := animate_pie_new(6);
+    gtk_widget_set_vexpand(Pies, True);
+    gtk_widget_set_hexpand(Pies, True);
+    gtk_box_append(GTK_BOX(box), Pies);
 
     button := gtk_button_new_with_label('Quit');
     g_signal_connect(button, 'clicked', G_CALLBACK(@quit_cp), window);

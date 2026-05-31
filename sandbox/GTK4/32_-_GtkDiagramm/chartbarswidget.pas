@@ -1,4 +1,4 @@
-unit DiagramWidget;
+unit ChartBarsWidget;
 
 interface
 
@@ -6,15 +6,15 @@ uses
   fp_glib2, fp_GTK4, fp_graphene;
 
 type
-  PDiagramWidget = type Pointer;
-  PDiagramWidgetClass = type Pointer;
+  PChartBarsWidget = type Pointer;
+  PChartBarsWidgetClass = type Pointer;
 
-function diagram_widget_get_type: TGType;
-function diagram_widget_new: PGTKWidget;
-procedure diagram_widget_add_bar(w: PDiagramWidget; y: Tgfloat; l: Pgchar);
-procedure diagram_widget_change_bar(w: PDiagramWidget; index: Tgint; y: Tgfloat);
-procedure diagram_widget_set_auto_hight(w: PDiagramWidget; a: boolean);
-procedure diagram_widget_set_hight(w: PDiagramWidget; s: Tgfloat);
+function chart_bars_widget_get_type: TGType;
+function chart_bars_widget_new: PGTKWidget;
+procedure chart_bars_widget_add_bar(w: PChartBarsWidget; y: Tgfloat; l: Pgchar);
+procedure chart_bars_widget_change_bar(w: PChartBarsWidget; index: Tgint; y: Tgfloat);
+procedure chart_bars_widget_set_auto_hight(w: PChartBarsWidget; a: boolean);
+procedure chart_bars_widget_set_height(w: PChartBarsWidget; s: Tgfloat);
 
 
 implementation
@@ -89,7 +89,6 @@ begin
       gtk_snapshot_append_color(snapshot, @col, @r);
     end;
   end;
-
 end;
 
 procedure finalize_cp(obj: PGObject); cdecl;
@@ -135,7 +134,7 @@ end;
 
 // ==== public
 
-function diagram_widget_get_type: TGType;
+function chart_bars_widget_get_type: TGType;
 const
   type_id: TGType = 0;
 var
@@ -146,7 +145,7 @@ begin
     g_type_query(GTK_TYPE_WIDGET, @query);
     instance_size := query.instance_size;
 
-    id := g_type_register_static_simple(GTK_TYPE_WIDGET, 'DiagramWidget',
+    id := g_type_register_static_simple(GTK_TYPE_WIDGET, 'ChartBarsWidget',
       query.class_size + SizeOf(TClassPriv), @class_init_cp,
       query.instance_size + SizeOf(TInstPriv), @init_cp, G_TYPE_FLAG_NONE);
     g_once_init_leave(@type_id, id);
@@ -154,15 +153,15 @@ begin
   Result := type_id;
 end;
 
-function diagram_widget_new: PGTKWidget;
+function chart_bars_widget_new: PGTKWidget;
 var
   priv: PInstPriv;
 begin
-  Result := g_object_new(diagram_widget_get_type, nil);
+  Result := g_object_new(chart_bars_widget_get_type, nil);
   priv := GetPriv(Result);
 end;
 
-procedure diagram_widget_add_bar(w: PDiagramWidget; y: Tgfloat; l: Pgchar);
+procedure chart_bars_widget_add_bar(w: PChartBarsWidget; y: Tgfloat; l: Pgchar);
 var
   priv: PInstPriv;
   bar: Tbar;
@@ -181,7 +180,7 @@ begin
   gtk_widget_queue_draw(GTK_WIDGET(w));
 end;
 
-procedure diagram_widget_change_bar(w: PDiagramWidget; index: Tgint; y: Tgfloat  );
+procedure chart_bars_widget_change_bar(w: PChartBarsWidget; index: Tgint; y: Tgfloat  );
 var
   priv: PInstPriv;
   i: integer;
@@ -189,7 +188,7 @@ var
 begin
   priv := GetPriv(w);
   with priv^ do begin
-    item := Pbar(priv^.bars^.data) + index;
+    item := Pbar(bars^.data) + index;
     item^.y := y;
 
     if AutoSize then begin
@@ -204,7 +203,7 @@ begin
   end;
 end;
 
-procedure diagram_widget_set_auto_hight(w: PDiagramWidget; a: boolean);
+procedure chart_bars_widget_set_auto_hight(w: PChartBarsWidget; a: boolean);
 var
   priv: PInstPriv;
 begin
@@ -214,7 +213,7 @@ begin
   end;
 end;
 
-procedure diagram_widget_set_hight(w: PDiagramWidget; s: Tgfloat);
+procedure chart_bars_widget_set_height(w: PChartBarsWidget; s: Tgfloat);
 var
   priv: PInstPriv;
 begin

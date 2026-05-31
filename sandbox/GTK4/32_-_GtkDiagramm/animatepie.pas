@@ -1,17 +1,17 @@
-unit AnimateBars;
+unit AnimatePie;
 
 interface
 
 uses
   fp_glib2, fp_GTK4,
-  ChartBarsWidget;
+  ChartPieWidget;
 
 type
-  PAnimateBars = type Pointer;
-  PAnimateBarsClass = type Pointer;
+  PAnimatePie = type Pointer;
+  PAnimatePieClass = type Pointer;
 
-function animate_bar_get_type: TGType;
-function animate_bar_new(cnt: Tgint): PGTKWidget;
+function animate_pie_get_type: TGType;
+function animate_pie_new(cnt: Tgint): PGTKWidget;
 
 implementation
 
@@ -75,7 +75,7 @@ begin
     for i := 0 to barCount - 1 do begin
       h := sin(current_time * (10 + i)) + 1.5;
 
-      chart_bars_widget_change_bar(PChartBarsWidget(widget), i, h);
+      chart_pie_widget_change_pie(PChartPieWidget(widget), i, h);
     end;
   end;
   gtk_widget_queue_draw(widget);
@@ -87,7 +87,7 @@ end;
 
 // ==== public
 
-function animate_bar_get_type: TGType;
+function animate_pie_get_type: TGType;
 const
   type_id: TGType = 0;
 var
@@ -95,10 +95,10 @@ var
   query: TGTypeQuery;
 begin
   if g_once_init_enter(@type_id) then begin
-    g_type_query(chart_bars_widget_get_type, @query);
+    g_type_query(chart_pie_widget_get_type, @query);
     instance_size := query.instance_size;
 
-    id := g_type_register_static_simple(chart_bars_widget_get_type, 'AnimateBar',
+    id := g_type_register_static_simple(chart_pie_widget_get_type, 'AnimatePie',
       query.class_size + SizeOf(TClassPriv), @class_init_cp,
       query.instance_size + SizeOf(TInstPriv), @init_cp, G_TYPE_FLAG_NONE);
     g_once_init_leave(@type_id, id);
@@ -106,22 +106,20 @@ begin
   Result := type_id;
 end;
 
-function animate_bar_new(cnt: Tgint): PGTKWidget;
+function animate_pie_new(cnt: Tgint): PGTKWidget;
 var
   priv: PInstPriv;
   i: integer;
   s: Pgchar;
 begin
-  Result := g_object_new(animate_bar_get_type, nil);
-  chart_bars_widget_set_auto_hight(PChartBarsWidget(Result), False);
-  chart_bars_widget_set_height(PChartBarsWidget(Result), 3.0);
+  Result := g_object_new(animate_pie_get_type, nil);
   priv := GetPriv(Result);
   with priv^ do begin
     barCount := cnt;
 
     for i := 0 to barCount - 1 do begin
       s := g_strdup_printf('%d', i);
-      chart_bars_widget_add_bar(PChartBarsWidget(Result), g_random_double, s);
+      chart_pie_widget_add_pie(PChartPieWidget(Result), g_random_double, s);
       g_free(s);
     end;
 

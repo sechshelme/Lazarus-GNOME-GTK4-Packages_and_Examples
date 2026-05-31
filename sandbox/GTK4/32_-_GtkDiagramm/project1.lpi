@@ -40,12 +40,20 @@
         <UnitName Value="MyWidget"/>
       </Unit>
       <Unit>
-        <Filename Value="diagramwidget.pas"/>
-        <UnitName Value="DiagramWidget"/>
+        <Filename Value="chartbarswidget.pas"/>
+        <UnitName Value="ChartBarsWidget"/>
       </Unit>
       <Unit>
         <Filename Value="animatebars.pas"/>
         <UnitName Value="AnimateBars"/>
+      </Unit>
+      <Unit>
+        <Filename Value="chartpiewidget.pas"/>
+        <UnitName Value="ChartPieWidget"/>
+      </Unit>
+      <Unit>
+        <Filename Value="animatepie.pas"/>
+        <UnitName Value="AnimatePie"/>
       </Unit>
     </Units>
   </ProjectOptions>
