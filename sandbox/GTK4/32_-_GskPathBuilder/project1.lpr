@@ -25,7 +25,7 @@ uses
     gtk_window_set_default_size(GTK_WINDOW(window), 640, 400);
 
     box := gtk_box_new(GTK_ORIENTATION_VERTICAL, 5);
-    mySnapShot := GTK_WIDGET(my_widget_new);
+    mySnapShot := my_widget_new;
     gtk_widget_set_vexpand(mySnapShot, True);
     gtk_widget_set_hexpand(mySnapShot, True);
     gtk_box_append(GTK_BOX(box), mySnapShot);

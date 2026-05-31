@@ -52,6 +52,7 @@
     </SearchPaths>
     <Linking>
       <Debugging>
+        <RunWithoutDebug Value="True"/>
         <DebugInfoType Value="dsDwarf3"/>
       </Debugging>
     </Linking>
