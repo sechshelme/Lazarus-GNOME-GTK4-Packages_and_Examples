@@ -1,85 +1,68 @@
 program project1;
 
 uses
-  Classes, SysUtils, fp_uri;
+  fp_glib2,
+  Classes,
+  SysUtils,
+  fp_uri;
 
-// Diese Funktion bügelt die Idiotie der Library aus
-function RangeToString(range: TTextRange): String;
-var
-  len: Integer;
-begin
-  Result := '';
-  if (range.first <> nil) and (range.afterLast <> nil) then
+  procedure print_range(lab: pchar; range: TTextRange);
   begin
-    len := range.afterLast - range.first;
-    if len > 0 then
-      SetString(Result, range.first, len);
-  end;
-end;
-
-procedure print_range(lab: String; range: TTextRange);
-begin
-  if range.first <> nil then
-    WriteLn(lab, ': ', RangeToString(range));
-end;
-
-procedure main;
-const
-  uriString = 'blabla://blibli:1234@clus.sqci.blublu.net:1234/?retryWrites=true&w=majority';
-var
-  uri: TUri;
-  state: TParserState;
-  first, afterLast, it: PChar;
-  colon: PChar;
-  user, pass: String;
-begin
-  WriteLn('URL: ', uriString);
-
-  state.uri := @uri;
-
-  // 1. URI parsen
-  if uriParseUriA(@state, PChar(uriString)) <> 0 then begin
-    WriteLn('Fehler beim Parsen!');
-    Exit;
+    if range.first <> nil then begin
+      g_print('%s: %.*s'#10, lab, range.afterLast - range.first, range.first);
+    end;
   end;
 
-  // 2. Einzelteile ausgeben
-  print_range('Schema', uri.scheme);
-  print_range('Host  ', uri.hostText);
-  print_range('Port  ', uri.portText);
-  print_range('User  ', uri.userInfo);
+  procedure main;
+  const
+    uriString = 'blabla://blibli:1234@clus.sqci.blublu.net:1234/?retryWrites=true&w=majority';
+  var
+    state: TParserState;
+    first, afterLast, it: pchar;
+    colon: pchar;
+  begin
 
-  WriteLn('------------------------------------');
+    state.uri := g_new0(SizeOf(TUri), 1);
 
-  if uri.userInfo.first <> nil then begin
-    first := PChar(uri.userInfo.first);
-    afterLast := PChar(uri.userInfo.afterLast);
-    colon := nil;
-    it := first;
+    g_print('URL: ', uriString);
 
-    // DIE FIX-SCHLEIFE:
-    while it < afterLast do begin
-      if it^ = ':' then begin
-        colon := it;
-        break;
+    if uriParseUriA(@state, pchar(uriString)) <> 0 then begin
+      WriteLn('Fehler beim Parsen!');
+      Exit;
+    end;
+
+    print_range('Schema', state.uri^.scheme);
+    print_range('Host  ', state.uri^.hostText);
+    print_range('Port  ', state.uri^.portText);
+    print_range('User  ', state.uri^.userInfo);
+
+    WriteLn('------------------------------------');
+    if state.uri^.userInfo.first <> nil then begin
+      first := state.uri^.userInfo.first;
+      afterLast := state.uri^.userInfo.afterLast;
+      colon := nil;
+      it := first;
+
+      while it < afterLast do begin
+        if it^ = ':' then begin
+          colon := it;
+          break;
+        end;
+        Inc(it);
       end;
-      Inc(it); // <--- DAS hier verhindert das Ctrl+C Desaster!
+
+      if colon <> nil then begin
+        g_print('%-10s: %.*s'#10, 'User', colon - first, first);
+        g_print('%-10s: %.*s'#10, 'Passwort', afterLast - (colon + 1), colon + 1);
+      end else begin
+        print_range('User', state.uri^.userInfo);
+      end;
     end;
 
-    if colon <> nil then begin
-      SetString(user, first, colon - first);
-      SetString(pass, colon + 1, afterLast - (colon + 1));
-      WriteLn('User      : ', user);
-      WriteLn('Passwort  : ', pass);
-    end else begin
-      WriteLn('User      : ', RangeToString(uri.userInfo));
-    end;
+    uriFreeUriMembersA(state.uri);
+    g_free(state.uri);
   end;
-
-  uriFreeUriMembersA(@uri);
-end;
 
 begin
   main;
 end.
-
