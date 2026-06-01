@@ -21,7 +21,7 @@ procedure mp_column_view_box_up(w: PMPColumnViewBox);
 procedure mp_column_view_box_down(w: PMPColumnViewBox);
 
 function mp_column_view_box_get_item(w: PMPColumnViewBox): PGObject;
-procedure mp_column_view_box_add_item(w: PMPColumnViewBox;item:PMPSongItem);
+procedure mp_column_view_box_add_item(w: PMPColumnViewBox; item: PMPSongItem);
 
 function mp_column_view_box_get_list_model(w: PMPColumnViewBox): PGListModel; // ???
 
@@ -34,7 +34,7 @@ type
     columnView: PGtkWidget;
     selection_model: PGtkSelectionModel;
     list_model: PGListModel;
-    count, index: Tgint;
+    count, index: Tguint;
   end;
   PInstPriv = ^TInstPriv;
 
@@ -66,7 +66,6 @@ procedure class_init_cp(g_class: Tgpointer; class_data: Tgpointer); cdecl;
 begin
   G_OBJECT_CLASS(g_class)^.finalize := @finalize_cp;
   parent_class := g_type_class_peek_parent(g_class);
-
   signal_id := g_signal_new('action-triggered', G_TYPE_FROM_CLASS(g_class), G_SIGNAL_RUN_LAST, 0, nil, nil, nil, G_TYPE_NONE, 1, G_TYPE_STRING);
 end;
 
@@ -148,8 +147,9 @@ end;
 
 procedure on_row_activated_cb(view: PGtkColumnView; position: Tgint; user_data: Tgpointer); cdecl;
 begin
-  g_signal_emit_by_name(user_data, 'action-triggered', 'listbox.stop');
-  g_signal_emit_by_name(user_data, 'action-triggered', 'listbox.play');
+  g_signal_emit(user_data, signal_id, 0, 'listbox.stop');
+  g_signal_emit(user_data, signal_id, 0, 'listbox.play');
+  WriteLn(integer(GTK_INVALID_LIST_POSITION));
 end;
 
 procedure on_selection_changed_cb(obj: PGObject; pspec: PGParamSpec; user_data: Tgpointer); cdecl;
@@ -160,13 +160,22 @@ begin
   priv := GetPriv(user_data);
   with priv^ do begin
     pos := gtk_single_selection_get_selected(GTK_SINGLE_SELECTION(obj));
-    Count := g_list_model_get_n_items(list_model);
     if pos <> GTK_INVALID_LIST_POSITION then begin
       index := pos;
     end else begin
-      index := -1;
+      index := GTK_INVALID_LIST_POSITION;
     end;
     WriteLn('index: ', index);
+  end;
+end;
+
+procedure on_items_changed_cb(model: PGListModel; position: Tguint; removed: Tguint; added: Tguint; user_data: Tgpointer); cdecl;
+var
+  priv: PInstPriv;
+begin
+  priv := GetPriv(user_data);
+  with priv^ do begin
+    priv^.count := g_list_model_get_n_items(model);
   end;
 end;
 
@@ -212,6 +221,7 @@ begin
   priv^.columnView := gtk_column_view_new(GTK_SELECTION_MODEL(single_selection));
   priv^.selection_model := gtk_column_view_get_model(GTK_COLUMN_VIEW(priv^.columnView));
   priv^.list_model := gtk_single_selection_get_model(GTK_SINGLE_SELECTION(priv^.selection_model));
+  g_signal_connect(priv^.list_model, 'items-changed', G_CALLBACK(@on_items_changed_cb), Result);
 
   gtk_column_view_set_show_row_separators(GTK_COLUMN_VIEW(priv^.columnView), True);
   gtk_column_view_set_show_column_separators(GTK_COLUMN_VIEW(priv^.columnView), True);
@@ -273,9 +283,6 @@ var
 begin
   priv := GetPriv(w);
   with priv^ do begin
-    //    Count := g_list_model_get_n_items(list_model); // ????
-    WriteLn('prev   index: ', index, '  count: ', count);
-
     if index = 0 then begin
       index := Count - 1;
     end else begin
@@ -291,9 +298,6 @@ var
 begin
   priv := GetPriv(w);
   with priv^ do begin
-    //    Count := g_list_model_get_n_items(list_model); // ????
-    WriteLn('next     index: ', index, '  count: ', count);
-
     if index >= Count - 1 then begin
       index := 0;
     end else begin
@@ -307,16 +311,16 @@ procedure mp_column_view_box_up(w: PMPColumnViewBox);
 var
   priv: PInstPriv;
   item_obj: PGObject = nil;
+  i: Tguint;
 begin
   priv := GetPriv(w);
   with priv^ do begin
-    //    Count := g_list_model_get_n_items(list_model); // ????
-    //    WriteLn('count; ',count);
     if (index <> GTK_INVALID_LIST_POSITION) and (index > 0) then begin
+      i := index;
       item_obj := g_list_model_get_item(list_model, index);
       g_list_store_remove(G_LIST_STORE(list_model), index);
-      g_list_store_insert(G_LIST_STORE(list_model), index - 1, item_obj);
-      gtk_selection_model_select_item(selection_model, index - 2, True);
+      g_list_store_insert(G_LIST_STORE(list_model), i - 1, item_obj);
+      gtk_selection_model_select_item(selection_model, i - 1, True);
       g_object_unref(item_obj);
     end;
   end;
@@ -329,8 +333,6 @@ var
 begin
   priv := GetPriv(w);
   with priv^ do begin
-    //    Count := g_list_model_get_n_items(list_model); // ????
-    //    WriteLn('count; ',count);
     if (index <> GTK_INVALID_LIST_POSITION) and (index < Count - 1) then begin
       item_obj := g_list_model_get_item(list_model, index);
       g_list_store_remove(G_LIST_STORE(list_model), index);

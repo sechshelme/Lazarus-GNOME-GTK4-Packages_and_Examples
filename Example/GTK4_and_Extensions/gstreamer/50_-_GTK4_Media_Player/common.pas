@@ -10,6 +10,11 @@ uses
 
 const
   AudioExtensions: array of Pgchar = (
+  '.med',  // MPEG-1/2 Audio Layer 3
+  '.Med',  // MPEG-1/2 Audio Layer 3
+  '.MED',  // MPEG-1/2 Audio Layer 3
+
+
     '.mp3',  // MPEG-1/2 Audio Layer 3
     '.wav',  // Waveform Audio File Format
     '.ogg',  // Ogg Vorbis
@@ -69,6 +74,8 @@ const
     '.opus', // Opus Audio-Codec (geringe Latenz)
 
     '.mod',  // Format für Commodore Amiga
+    '.Mod',  // Format für Commodore Amiga
+    '.MOD',  // Format für Commodore Amiga
     '.s3m',  // Format für GUS / SoundBlaster
     '.spc',  // Format für Super Nintendo
     '.ahx',  // Format für Commodore Amiga

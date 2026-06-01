@@ -154,7 +154,7 @@ begin
       end;
       'listbox.default.mod': begin
         mp_column_view_box_remove_all(columviewBox);
-        idle_song_loader_add_path(idle, '/home/tux/Schreibtisch/sound/mod');
+        idle_song_loader_add_path(idle, '/home/tux/Schreibtisch/sound/mod2');
       end;
       'listbox.default.midi': begin
         mp_column_view_box_remove_all(columviewBox);

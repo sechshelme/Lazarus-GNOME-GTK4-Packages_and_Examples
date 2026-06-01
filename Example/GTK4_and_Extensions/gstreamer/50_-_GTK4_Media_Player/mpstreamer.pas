@@ -184,7 +184,7 @@ begin
   Result := PMPStreamer(g_object_new(mp_streamer_get_type, nil));
   priv := GetPriv(Result);
 
-  s := g_strdup_printf('filesrc location="%s" ! queue ! decodebin3 ! audioconvert ! audioresample ! volume name=vol volume=0.0 ! level name=level ! autoaudiosink', song);
+  s := g_strdup_printf('filesrc location="%s" ! queue ! decodebin ! audioconvert ! audioresample ! volume name=vol volume=0.0 ! level name=level ! autoaudiosink', song);
   inner_bin := gst_parse_bin_from_description(s, False, nil);
   g_free(s);
 
@@ -238,7 +238,7 @@ end;
 
 procedure mp_streamer_set_position(st: PMPStreamer; p: TGstClockTime);
 begin
-  gst_element_seek_simple(GST_ELEMENT(st), GST_FORMAT_TIME, TGstSeekFlags(int64(GST_SEEK_FLAG_FLUSH) or int64(GST_SEEK_FLAG_KEY_UNIT)), p);
+  gst_element_seek_simple(GST_ELEMENT(st), GST_FORMAT_TIME, GST_SEEK_FLAG_FLUSH or GST_SEEK_FLAG_KEY_UNIT, p);
 end;
 
 function mp_streamer_get_position(st: PMPStreamer): TGstClockTime;
@@ -308,7 +308,6 @@ var
   duration: TGstClockTime = GST_CLOCK_TIME_NONE;
   t: Tgint64;
 begin
-  //  pipeline_str := g_strdup_printf('filesrc location="%s" ! queue ! decodebin3 ! fakesink', audioFile);
   pipeline_str := g_strdup_printf('filesrc location="%s"  ! decodebin3 ! fakesink', audioFile);
   pipeline := gst_parse_launch(pipeline_str, nil);
   g_free(pipeline_str);
