@@ -1,9 +1,13 @@
 {$IFDEF read_interface}
 
 type
+
+  { Tgraphene_point_t }
+
   Tgraphene_point_t = record
     x: single;
     y: single;
+    procedure SetItems(x_, y_: single);
   end;
   Pgraphene_point_t = ^Tgraphene_point_t;
 
@@ -27,6 +31,13 @@ function GRAPHENE_POINT_INIT_ZERO: Tgraphene_point_t;
 
 
 {$IFDEF read_implementation}
+
+procedure Tgraphene_point_t.SetItems(x_, y_: single);
+begin
+  Self.x := x_;
+  Self.y := y_;
+end;
+
 
 function GRAPHENE_POINT_INIT(x, y: single): Tgraphene_point_t;
 begin

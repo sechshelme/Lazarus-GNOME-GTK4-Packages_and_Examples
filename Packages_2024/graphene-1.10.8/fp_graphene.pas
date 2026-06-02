@@ -1,5 +1,7 @@
 unit fp_graphene;
 
+{$MODESWITCH ADVANCEDRECORDS}
+
 interface
 
 uses
