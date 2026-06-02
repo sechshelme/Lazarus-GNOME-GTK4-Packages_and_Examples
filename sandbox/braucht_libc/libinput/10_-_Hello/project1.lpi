@@ -25,19 +25,13 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_fribidi_package"/>
+        <PackageName Value="fp_libinput_package"/>
       </Item>
       <Item>
-        <PackageName Value="fp_FreeType2_Package"/>
+        <PackageName Value="fp_libc_packages"/>
       </Item>
       <Item>
-        <PackageName Value="fp_harfbuzz_package"/>
-      </Item>
-      <Item>
-        <PackageName Value="fp_GTK4_package"/>
-      </Item>
-      <Item>
-        <PackageName Value="fp_GLIB2_package"/>
+        <PackageName Value="fp_libudev_package"/>
       </Item>
     </RequiredPackages>
     <Units>
@@ -57,8 +51,6 @@
     </SearchPaths>
     <Linking>
       <Debugging>
-        <GenerateDebugInfo Value="False"/>
-        <RunWithoutDebug Value="True"/>
         <DebugInfoType Value="dsDwarf3"/>
       </Debugging>
     </Linking>

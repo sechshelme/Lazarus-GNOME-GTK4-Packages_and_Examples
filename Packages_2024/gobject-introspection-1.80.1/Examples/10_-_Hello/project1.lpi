@@ -25,16 +25,7 @@
     </RunParams>
     <RequiredPackages>
       <Item>
-        <PackageName Value="fp_fribidi_package"/>
-      </Item>
-      <Item>
-        <PackageName Value="fp_FreeType2_Package"/>
-      </Item>
-      <Item>
-        <PackageName Value="fp_harfbuzz_package"/>
-      </Item>
-      <Item>
-        <PackageName Value="fp_GTK4_package"/>
+        <PackageName Value="fp_girepository_package"/>
       </Item>
       <Item>
         <PackageName Value="fp_GLIB2_package"/>
@@ -43,6 +34,7 @@
     <Units>
       <Unit>
         <Filename Value="project1.lpr"/>
+        <UnitName Value="Project1"/>
       </Unit>
     </Units>
   </ProjectOptions>
