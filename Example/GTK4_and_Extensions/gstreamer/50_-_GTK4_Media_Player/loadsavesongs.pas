@@ -6,7 +6,6 @@ interface
 
 uses
   fp_glib2,
-  fp_xml2,
   fp_GTK4,
   XML_Tools,
   Common,
@@ -44,32 +43,27 @@ var
   item_obj: PGObject;
   Count, i: Tgint;
   buf1, buf2: Pgchar;
-  doc: PxmlDoc;
-  root_node: PxmlNode;
-
+  xml: PXMLConfig;
 begin
-  doc := xmlNewDoc(nil);
-  root_node := xmlNewNode(nil, 'config');
-  xmlDocSetRootElement(doc, root_node);
+  xml := XML_Config_new(path, True);
 
   Count := g_list_model_get_n_items(G_LIST_MODEL(list));
   buf1 := g_strdup_printf('%s/items', SongXMLKey);
   buf2 := g_strdup_printf('%d', Count);
-  writeKey(doc, buf1, 'count', buf2);
+  XML_Config_writekey(xml, buf1, 'count', buf2);
   g_free(buf1);
   g_free(buf2);
 
   for i := 0 to Count - 1 do begin
     item_obj := g_list_model_get_item(G_LIST_MODEL(list), i);
     buf1 := g_strdup_printf('%s/items/item%d', SongXMLKey, i);
-    writeKey(doc, buf1, 'value', mp_song_item_get_full_path(item_obj));
+    XML_Config_writekey(xml, buf1, 'value', mp_song_item_get_full_path(item_obj));
     g_free(buf1);
     g_object_unref(item_obj);
   end;
-
-  xmlSaveFormatFile(path, doc, 1);
-  xmlFreeDoc(doc);
+  XML_Config_unref(xml);
 end;
+
 
 procedure on_save_cp(source_object: PGObject; res: PGAsyncResult; Data: Tgpointer); cdecl;
 var
@@ -152,26 +146,27 @@ function xml_to_stringlist(path: Pgchar): PPChar;
 var
   i, len: Tgint64;
   buf1, buf2: Pgchar;
-  doc: PxmlDoc;
+  xml: PXMLConfig;
 begin
   Result := nil;
-  doc := xmlReadFile(path, nil, XML_PARSE_NOBLANKS);
+  xml := XML_Config_new(path, False);
+
   buf1 := g_strdup_printf('%s/items', SongXMLKey);
-  buf2 := readKey(doc, buf1, 'count');
+  buf2 := XML_Config_readkey(xml, buf1, 'count');
   g_free(buf1);
   if buf2 <> nil then begin
     len := g_ascii_strtoll(buf2, nil, 10);
     g_free(buf2);
-    Result := g_malloc(SizeOf(Pgchar) * (len + 1));
+    Result := g_new0(SizeOf(Pgchar),len + 1);
 
     for i := 0 to len - 1 do begin
       buf1 := g_strdup_printf('%s/items/item%d', SongXMLKey, i);
-      Result[i] := readKey(doc, buf1, 'value');
+      Result[i] := XML_Config_readkey(xml, buf1, 'value');
       g_free(buf1);
     end;
     Result[len] := nil;
-    xmlFreeDoc(doc);
   end;
+  XML_Config_unref(xml);
 end;
 
 procedure on_xml_open_cp(source_object: PGObject; res: PGAsyncResult; Data: Tgpointer); cdecl;

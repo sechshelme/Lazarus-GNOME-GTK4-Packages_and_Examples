@@ -2,11 +2,20 @@
 <config>
   <title>
     <song>
-      <items count="4">
-        <item0 value="/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits/05 - Classified.mp3"/>
-        <item1 value="/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits/12 - Aurora Borealis.mp3"/>
-        <item2 value="/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits/01 - Convoy.mp3"/>
-        <item3 value="/n4800/Multimedia/Music/Country/C.W. McCall/MP3/Greatest Hits/11 - Roses For Mama.mp3"/>
+      <items count="11">
+        <item0 value="/n4800/Multimedia/Blu-ray Audio/2L/2L 050 Trondheim Solistene - Divertimenti/02 - 2. Playful pizzicato.flac"/>
+        <item1 value="/n4800/Multimedia/Blu-ray Audio/2L/2L 050 Trondheim Solistene - Divertimenti/10 - 2. Molto adagio.flac"/>
+        <item2 value="/n4800/Multimedia/Blu-ray Audio/2L/2L 050 Trondheim Solistene - Divertimenti/05 - 1. Allegro.flac"/>
+        <item3 value="/n4800/Multimedia/Blu-ray Audio/2L/2L 050 Trondheim Solistene - Divertimenti/11 - 3. Allegro assai.flac"/>
+        <item4 value="/n4800/Multimedia/Blu-ray Audio/2L/2L 050 Trondheim Solistene - Divertimenti/04 - 4. Frolicsome finale.flac"/>
+        <item5 value="/n4800/Multimedia/Blu-ray Audio/2L/2L 050 Trondheim Solistene - Divertimenti/07 - 3. Vivo.flac"/>
+        <item6 value="/n4800/Multimedia/Blu-ray Audio/2L/2L 050 Trondheim Solistene - Divertimenti/03 - 3. Sentimental saraband.flac"/>
+        <item7 value="/n4800/Multimedia/Blu-ray Audio/2L/2L 050 Trondheim Solistene - Divertimenti/09 - 1. Allegro non troppo.flac"/>
+        <item8 value="/n4800/Multimedia/Blu-ray Audio/2L/2L 050 Trondheim Solistene - Divertimenti/01 - 1. Boisterous bourr&#xE9;e.flac"/>
+        <item9 value="/n4800/Multimedia/Blu-ray Audio/2L/2L 050 Trondheim Solistene - Divertimenti/06 - 2. Andante.flac"/>
+        <item10 value="/n4800/Multimedia/Blu-ray Audio/2L/2L 050 Trondheim Solistene - Divertimenti/08 - Carmina.flac"/>
+        <item11 value="/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos/08 - Homeland Africa (Ship Ahoi).flac"/>
+        <item12 value="/n4800/Multimedia/Music/Disco/Boney M/1981 - Boonoonoonoos/05 - Jimmy.flac"/>
       </items>
     </song>
   </title>
