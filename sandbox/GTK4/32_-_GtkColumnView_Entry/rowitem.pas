@@ -10,7 +10,9 @@ type
   PRowItemClass = type Pointer;
 
 function row_item_get_type: TGType;
-function row_item_new(t: Pgchar): PRowItem;
+function row_item_new(idx:Tgint; t: Pgchar): PRowItem;
+function row_item_get_index(o: PRowItem): Tgint;
+procedure row_item_set_index(o: PRowItem; i: Tgint);
 function row_item_get_text(o: PRowItem): pchar;
 procedure row_item_set_text(o: PRowItem; t: pchar);
 
@@ -20,6 +22,7 @@ implementation
 
 type
   TInstPriv = record
+    index:Tgint;
     text: Pgchar;
   end;
   PInstPriv = ^TInstPriv;
@@ -88,13 +91,34 @@ begin
   Result := type_id;
 end;
 
-function row_item_new(t: Pgchar): PRowItem;
+function row_item_new(idx: Tgint; t: Pgchar): PRowItem;
 var
   priv: PInstPriv;
 begin
   Result := g_object_new(row_item_get_type, nil);
   priv := GetPriv(Result);
   priv^.text := g_strdup(t);
+  priv^.index := idx;
+end;
+
+function row_item_get_index(o: PRowItem): Tgint;
+var
+  priv: PInstPriv;
+begin
+  priv := GetPriv(o);
+  with priv^ do begin
+    Result := index;
+  end;
+end;
+
+procedure row_item_set_index(o: PRowItem; i: Tgint);
+var
+  priv: PInstPriv;
+begin
+  priv := GetPriv(o);
+  with priv^ do begin
+    index := i;
+  end;
 end;
 
 function row_item_get_text(o: PRowItem): pchar;
