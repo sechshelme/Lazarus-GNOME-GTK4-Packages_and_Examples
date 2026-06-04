@@ -19,21 +19,21 @@ var
 
   procedure main;
   var
-    a, b, result: Tmpfi;
+    a, b, res: Tmpfi;
   begin
     mpfi_init(@a);
     mpfi_init(@b);
-    mpfi_init(@result);
+    mpfi_init(@res);
 
     mpfi_set_d(@a, 1.0);
     mpfi_set_ui(@b, 2);
     mpfi_intersect(@a, @a, @b);
 
     mpfi_set_d(@b, 2.0);
-    mpfi_set_d(@result, 3.0);
-    mpfi_intersect(@b, @b, @result);
+    mpfi_set_d(@res, 3.0);
+    mpfi_intersect(@b, @b, @res);
 
-    mpfi_add(@result, @a, @b);
+    mpfi_add(@res, @a, @b);
 
     mpfr_fprintf(stdout, 'Intervall a:'#10);
     mpfi_out_str(stdout, 10, 0, @a);
@@ -44,12 +44,12 @@ var
     mpfr_fprintf(stdout, #10);
 
     mpfr_fprintf(stdout, 'Summe a + b:'#10);
-    mpfi_out_str(stdout, 10, 0, @result);
+    mpfi_out_str(stdout, 10, 0, @res);
     mpfr_fprintf(stdout, #10);
 
     mpfi_clear(@a);
     mpfi_clear(@b);
-    mpfi_clear(@result);
+    mpfi_clear(@res);
   end;
 
 begin

@@ -330,7 +330,7 @@ const
     (libs: 'libbson'; units: 'fp_bson'),
     (libs: 'liblua'; units: 'fp_lua'),
     (libs: 'libnfd'; units: 'fp_lua'),
-    (libs: 'luriparser'; units: 'fp_uriparser'),
+    (libs: 'libvulkan'; units: 'fp_vulkan'),
 
 
 
