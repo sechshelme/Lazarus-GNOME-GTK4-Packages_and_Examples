@@ -4826,8 +4826,7 @@ type
       quadOperationsInAllStages : TVkBool32;
     end;
   PVkPhysicalDeviceSubgroupProperties = ^TVkPhysicalDeviceSubgroupProperties;
-f
-  PVkBindBufferMemoryInfo = ^TVkBindBufferMemoryInfo;
+
   TVkBindBufferMemoryInfo = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -4835,8 +4834,8 @@ f
       memory : TVkDeviceMemory;
       memoryOffset : TVkDeviceSize;
     end;
+  PVkBindBufferMemoryInfo = ^TVkBindBufferMemoryInfo;
 
-  PVkBindImageMemoryInfo = ^TVkBindImageMemoryInfo;
   TVkBindImageMemoryInfo = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -4844,8 +4843,8 @@ f
       memory : TVkDeviceMemory;
       memoryOffset : TVkDeviceSize;
     end;
+  PVkBindImageMemoryInfo = ^TVkBindImageMemoryInfo;
 
-  PVkPhysicalDevice16BitStorageFeatures = ^TVkPhysicalDevice16BitStorageFeatures;
   TVkPhysicalDevice16BitStorageFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -4854,32 +4853,32 @@ f
       storagePushConstant16 : TVkBool32;
       storageInputOutput16 : TVkBool32;
     end;
+  PVkPhysicalDevice16BitStorageFeatures = ^TVkPhysicalDevice16BitStorageFeatures;
 
-  PVkMemoryDedicatedRequirements = ^TVkMemoryDedicatedRequirements;
   TVkMemoryDedicatedRequirements = record
       sType : TVkStructureType;
       pNext : pointer;
       prefersDedicatedAllocation : TVkBool32;
       requiresDedicatedAllocation : TVkBool32;
     end;
+  PVkMemoryDedicatedRequirements = ^TVkMemoryDedicatedRequirements;
 
-  PVkMemoryDedicatedAllocateInfo = ^TVkMemoryDedicatedAllocateInfo;
   TVkMemoryDedicatedAllocateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       image : TVkImage;
       buffer : TVkBuffer;
     end;
+  PVkMemoryDedicatedAllocateInfo = ^TVkMemoryDedicatedAllocateInfo;
 
-  PVkMemoryAllocateFlagsInfo = ^TVkMemoryAllocateFlagsInfo;
   TVkMemoryAllocateFlagsInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       flags : TVkMemoryAllocateFlags;
       deviceMask : Tuint32_t;
     end;
+  PVkMemoryAllocateFlagsInfo = ^TVkMemoryAllocateFlagsInfo;
 
-  PVkDeviceGroupRenderPassBeginInfo = ^TVkDeviceGroupRenderPassBeginInfo;
   TVkDeviceGroupRenderPassBeginInfo = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -4887,15 +4886,15 @@ f
       deviceRenderAreaCount : Tuint32_t;
       pDeviceRenderAreas : PVkRect2D;
     end;
+  PVkDeviceGroupRenderPassBeginInfo = ^TVkDeviceGroupRenderPassBeginInfo;
 
-  PVkDeviceGroupCommandBufferBeginInfo = ^TVkDeviceGroupCommandBufferBeginInfo;
   TVkDeviceGroupCommandBufferBeginInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       deviceMask : Tuint32_t;
     end;
+  PVkDeviceGroupCommandBufferBeginInfo = ^TVkDeviceGroupCommandBufferBeginInfo;
 
-  PVkDeviceGroupSubmitInfo = ^TVkDeviceGroupSubmitInfo;
   TVkDeviceGroupSubmitInfo = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -4906,24 +4905,24 @@ f
       signalSemaphoreCount : Tuint32_t;
       pSignalSemaphoreDeviceIndices : Puint32_t;
     end;
+  PVkDeviceGroupSubmitInfo = ^TVkDeviceGroupSubmitInfo;
 
-  PVkDeviceGroupBindSparseInfo = ^TVkDeviceGroupBindSparseInfo;
   TVkDeviceGroupBindSparseInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       resourceDeviceIndex : Tuint32_t;
       memoryDeviceIndex : Tuint32_t;
     end;
+  PVkDeviceGroupBindSparseInfo = ^TVkDeviceGroupBindSparseInfo;
 
-  PVkBindBufferMemoryDeviceGroupInfo = ^TVkBindBufferMemoryDeviceGroupInfo;
   TVkBindBufferMemoryDeviceGroupInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       deviceIndexCount : Tuint32_t;
       pDeviceIndices : Puint32_t;
     end;
+  PVkBindBufferMemoryDeviceGroupInfo = ^TVkBindBufferMemoryDeviceGroupInfo;
 
-  PVkBindImageMemoryDeviceGroupInfo = ^TVkBindImageMemoryDeviceGroupInfo;
   TVkBindImageMemoryDeviceGroupInfo = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -4932,8 +4931,8 @@ f
       splitInstanceBindRegionCount : Tuint32_t;
       pSplitInstanceBindRegions : PVkRect2D;
     end;
+  PVkBindImageMemoryDeviceGroupInfo = ^TVkBindImageMemoryDeviceGroupInfo;
 
-  PVkPhysicalDeviceGroupProperties = ^TVkPhysicalDeviceGroupProperties;
   TVkPhysicalDeviceGroupProperties = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -4941,79 +4940,79 @@ f
       physicalDevices : array[0..(VK_MAX_DEVICE_GROUP_SIZE)-1] of TVkPhysicalDevice;
       subsetAllocation : TVkBool32;
     end;
+  PVkPhysicalDeviceGroupProperties = ^TVkPhysicalDeviceGroupProperties;
 
-  PVkDeviceGroupDeviceCreateInfo = ^TVkDeviceGroupDeviceCreateInfo;
   TVkDeviceGroupDeviceCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       physicalDeviceCount : Tuint32_t;
       pPhysicalDevices : PVkPhysicalDevice;
     end;
+  PVkDeviceGroupDeviceCreateInfo = ^TVkDeviceGroupDeviceCreateInfo;
 
-  PVkBufferMemoryRequirementsInfo2 = ^TVkBufferMemoryRequirementsInfo2;
   TVkBufferMemoryRequirementsInfo2 = record
       sType : TVkStructureType;
       pNext : pointer;
       buffer : TVkBuffer;
     end;
+  PVkBufferMemoryRequirementsInfo2 = ^TVkBufferMemoryRequirementsInfo2;
 
-  PVkImageMemoryRequirementsInfo2 = ^TVkImageMemoryRequirementsInfo2;
   TVkImageMemoryRequirementsInfo2 = record
       sType : TVkStructureType;
       pNext : pointer;
       image : TVkImage;
     end;
+  PVkImageMemoryRequirementsInfo2 = ^TVkImageMemoryRequirementsInfo2;
 
-  PVkImageSparseMemoryRequirementsInfo2 = ^TVkImageSparseMemoryRequirementsInfo2;
   TVkImageSparseMemoryRequirementsInfo2 = record
       sType : TVkStructureType;
       pNext : pointer;
       image : TVkImage;
     end;
+  PVkImageSparseMemoryRequirementsInfo2 = ^TVkImageSparseMemoryRequirementsInfo2;
 
-  PVkMemoryRequirements2 = ^TVkMemoryRequirements2;
   TVkMemoryRequirements2 = record
       sType : TVkStructureType;
       pNext : pointer;
       memoryRequirements : TVkMemoryRequirements;
     end;
+  PVkMemoryRequirements2 = ^TVkMemoryRequirements2;
 
-  PVkSparseImageMemoryRequirements2 = ^TVkSparseImageMemoryRequirements2;
   TVkSparseImageMemoryRequirements2 = record
       sType : TVkStructureType;
       pNext : pointer;
       memoryRequirements : TVkSparseImageMemoryRequirements;
     end;
+  PVkSparseImageMemoryRequirements2 = ^TVkSparseImageMemoryRequirements2;
 
-  PVkPhysicalDeviceFeatures2 = ^TVkPhysicalDeviceFeatures2;
   TVkPhysicalDeviceFeatures2 = record
       sType : TVkStructureType;
       pNext : pointer;
       features : TVkPhysicalDeviceFeatures;
     end;
+  PVkPhysicalDeviceFeatures2 = ^TVkPhysicalDeviceFeatures2;
 
-  PVkPhysicalDeviceProperties2 = ^TVkPhysicalDeviceProperties2;
   TVkPhysicalDeviceProperties2 = record
       sType : TVkStructureType;
       pNext : pointer;
       properties : TVkPhysicalDeviceProperties;
     end;
+  PVkPhysicalDeviceProperties2 = ^TVkPhysicalDeviceProperties2;
 
-  PVkFormatProperties2 = ^TVkFormatProperties2;
   TVkFormatProperties2 = record
       sType : TVkStructureType;
       pNext : pointer;
       formatProperties : TVkFormatProperties;
     end;
+  PVkFormatProperties2 = ^TVkFormatProperties2;
 
-  PVkImageFormatProperties2 = ^TVkImageFormatProperties2;
   TVkImageFormatProperties2 = record
       sType : TVkStructureType;
       pNext : pointer;
       imageFormatProperties : TVkImageFormatProperties;
     end;
+  PVkImageFormatProperties2 = ^TVkImageFormatProperties2;
 
-  PVkPhysicalDeviceImageFormatInfo2 = ^TVkPhysicalDeviceImageFormatInfo2;
   TVkPhysicalDeviceImageFormatInfo2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5023,29 +5022,29 @@ f
       usage : TVkImageUsageFlags;
       flags : TVkImageCreateFlags;
     end;
+  PVkPhysicalDeviceImageFormatInfo2 = ^TVkPhysicalDeviceImageFormatInfo2;
 
-  PVkQueueFamilyProperties2 = ^TVkQueueFamilyProperties2;
   TVkQueueFamilyProperties2 = record
       sType : TVkStructureType;
       pNext : pointer;
       queueFamilyProperties : TVkQueueFamilyProperties;
     end;
+  PVkQueueFamilyProperties2 = ^TVkQueueFamilyProperties2;
 
-  PVkPhysicalDeviceMemoryProperties2 = ^TVkPhysicalDeviceMemoryProperties2;
   TVkPhysicalDeviceMemoryProperties2 = record
       sType : TVkStructureType;
       pNext : pointer;
       memoryProperties : TVkPhysicalDeviceMemoryProperties;
     end;
+  PVkPhysicalDeviceMemoryProperties2 = ^TVkPhysicalDeviceMemoryProperties2;
 
-  PVkSparseImageFormatProperties2 = ^TVkSparseImageFormatProperties2;
   TVkSparseImageFormatProperties2 = record
       sType : TVkStructureType;
       pNext : pointer;
       properties : TVkSparseImageFormatProperties;
     end;
+  PVkSparseImageFormatProperties2 = ^TVkSparseImageFormatProperties2;
 
-  PVkPhysicalDeviceSparseImageFormatInfo2 = ^TVkPhysicalDeviceSparseImageFormatInfo2;
   TVkPhysicalDeviceSparseImageFormatInfo2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5055,44 +5054,44 @@ f
       usage : TVkImageUsageFlags;
       tiling : TVkImageTiling;
     end;
+  PVkPhysicalDeviceSparseImageFormatInfo2 = ^TVkPhysicalDeviceSparseImageFormatInfo2;
 
-  PVkPhysicalDevicePointClippingProperties = ^TVkPhysicalDevicePointClippingProperties;
   TVkPhysicalDevicePointClippingProperties = record
       sType : TVkStructureType;
       pNext : pointer;
       pointClippingBehavior : TVkPointClippingBehavior;
     end;
+  PVkPhysicalDevicePointClippingProperties = ^TVkPhysicalDevicePointClippingProperties;
 
-  PVkInputAttachmentAspectReference = ^TVkInputAttachmentAspectReference;
   TVkInputAttachmentAspectReference = record
       subpass : Tuint32_t;
       inputAttachmentIndex : Tuint32_t;
       aspectMask : TVkImageAspectFlags;
     end;
+  PVkInputAttachmentAspectReference = ^TVkInputAttachmentAspectReference;
 
-  PVkRenderPassInputAttachmentAspectCreateInfo = ^TVkRenderPassInputAttachmentAspectCreateInfo;
   TVkRenderPassInputAttachmentAspectCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       aspectReferenceCount : Tuint32_t;
       pAspectReferences : PVkInputAttachmentAspectReference;
     end;
+  PVkRenderPassInputAttachmentAspectCreateInfo = ^TVkRenderPassInputAttachmentAspectCreateInfo;
 
-  PVkImageViewUsageCreateInfo = ^TVkImageViewUsageCreateInfo;
   TVkImageViewUsageCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       usage : TVkImageUsageFlags;
     end;
+  PVkImageViewUsageCreateInfo = ^TVkImageViewUsageCreateInfo;
 
-  PVkPipelineTessellationDomainOriginStateCreateInfo = ^TVkPipelineTessellationDomainOriginStateCreateInfo;
   TVkPipelineTessellationDomainOriginStateCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       domainOrigin : TVkTessellationDomainOrigin;
     end;
+  PVkPipelineTessellationDomainOriginStateCreateInfo = ^TVkPipelineTessellationDomainOriginStateCreateInfo;
 
-  PVkRenderPassMultiviewCreateInfo = ^TVkRenderPassMultiviewCreateInfo;
   TVkRenderPassMultiviewCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5103,8 +5102,8 @@ f
       correlationMaskCount : Tuint32_t;
       pCorrelationMasks : Puint32_t;
     end;
+  PVkRenderPassMultiviewCreateInfo = ^TVkRenderPassMultiviewCreateInfo;
 
-  PVkPhysicalDeviceMultiviewFeatures = ^TVkPhysicalDeviceMultiviewFeatures;
   TVkPhysicalDeviceMultiviewFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5112,41 +5111,41 @@ f
       multiviewGeometryShader : TVkBool32;
       multiviewTessellationShader : TVkBool32;
     end;
+  PVkPhysicalDeviceMultiviewFeatures = ^TVkPhysicalDeviceMultiviewFeatures;
 
-  PVkPhysicalDeviceMultiviewProperties = ^TVkPhysicalDeviceMultiviewProperties;
   TVkPhysicalDeviceMultiviewProperties = record
       sType : TVkStructureType;
       pNext : pointer;
       maxMultiviewViewCount : Tuint32_t;
       maxMultiviewInstanceIndex : Tuint32_t;
     end;
+  PVkPhysicalDeviceMultiviewProperties = ^TVkPhysicalDeviceMultiviewProperties;
 
-  PVkPhysicalDeviceVariablePointersFeatures = ^TVkPhysicalDeviceVariablePointersFeatures;
   TVkPhysicalDeviceVariablePointersFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       variablePointersStorageBuffer : TVkBool32;
       variablePointers : TVkBool32;
     end;
+  PVkPhysicalDeviceVariablePointersFeatures = ^TVkPhysicalDeviceVariablePointersFeatures;
 
   PVkPhysicalDeviceVariablePointerFeatures = ^TVkPhysicalDeviceVariablePointerFeatures;
   TVkPhysicalDeviceVariablePointerFeatures = TVkPhysicalDeviceVariablePointersFeatures;
 
-  PVkPhysicalDeviceProtectedMemoryFeatures = ^TVkPhysicalDeviceProtectedMemoryFeatures;
   TVkPhysicalDeviceProtectedMemoryFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       protectedMemory : TVkBool32;
     end;
+  PVkPhysicalDeviceProtectedMemoryFeatures = ^TVkPhysicalDeviceProtectedMemoryFeatures;
 
-  PVkPhysicalDeviceProtectedMemoryProperties = ^TVkPhysicalDeviceProtectedMemoryProperties;
   TVkPhysicalDeviceProtectedMemoryProperties = record
       sType : TVkStructureType;
       pNext : pointer;
       protectedNoFault : TVkBool32;
     end;
+  PVkPhysicalDeviceProtectedMemoryProperties = ^TVkPhysicalDeviceProtectedMemoryProperties;
 
-  PVkDeviceQueueInfo2 = ^TVkDeviceQueueInfo2;
   TVkDeviceQueueInfo2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5154,15 +5153,15 @@ f
       queueFamilyIndex : Tuint32_t;
       queueIndex : Tuint32_t;
     end;
+  PVkDeviceQueueInfo2 = ^TVkDeviceQueueInfo2;
 
-  PVkProtectedSubmitInfo = ^TVkProtectedSubmitInfo;
   TVkProtectedSubmitInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       protectedSubmit : TVkBool32;
     end;
+  PVkProtectedSubmitInfo = ^TVkProtectedSubmitInfo;
 
-  PVkSamplerYcbcrConversionCreateInfo = ^TVkSamplerYcbcrConversionCreateInfo;
   TVkSamplerYcbcrConversionCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5175,43 +5174,43 @@ f
       chromaFilter : TVkFilter;
       forceExplicitReconstruction : TVkBool32;
     end;
+  PVkSamplerYcbcrConversionCreateInfo = ^TVkSamplerYcbcrConversionCreateInfo;
 
-  PVkSamplerYcbcrConversionInfo = ^TVkSamplerYcbcrConversionInfo;
   TVkSamplerYcbcrConversionInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       conversion : TVkSamplerYcbcrConversion;
     end;
+  PVkSamplerYcbcrConversionInfo = ^TVkSamplerYcbcrConversionInfo;
 
-  PVkBindImagePlaneMemoryInfo = ^TVkBindImagePlaneMemoryInfo;
   TVkBindImagePlaneMemoryInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       planeAspect : TVkImageAspectFlagBits;
     end;
+  PVkBindImagePlaneMemoryInfo = ^TVkBindImagePlaneMemoryInfo;
 
-  PVkImagePlaneMemoryRequirementsInfo = ^TVkImagePlaneMemoryRequirementsInfo;
   TVkImagePlaneMemoryRequirementsInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       planeAspect : TVkImageAspectFlagBits;
     end;
+  PVkImagePlaneMemoryRequirementsInfo = ^TVkImagePlaneMemoryRequirementsInfo;
 
-  PVkPhysicalDeviceSamplerYcbcrConversionFeatures = ^TVkPhysicalDeviceSamplerYcbcrConversionFeatures;
   TVkPhysicalDeviceSamplerYcbcrConversionFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       samplerYcbcrConversion : TVkBool32;
     end;
+  PVkPhysicalDeviceSamplerYcbcrConversionFeatures = ^TVkPhysicalDeviceSamplerYcbcrConversionFeatures;
 
-  PVkSamplerYcbcrConversionImageFormatProperties = ^TVkSamplerYcbcrConversionImageFormatProperties;
   TVkSamplerYcbcrConversionImageFormatProperties = record
       sType : TVkStructureType;
       pNext : pointer;
       combinedImageSamplerDescriptorCount : Tuint32_t;
     end;
+  PVkSamplerYcbcrConversionImageFormatProperties = ^TVkSamplerYcbcrConversionImageFormatProperties;
 
-  PVkDescriptorUpdateTemplateEntry = ^TVkDescriptorUpdateTemplateEntry;
   TVkDescriptorUpdateTemplateEntry = record
       dstBinding : Tuint32_t;
       dstArrayElement : Tuint32_t;
@@ -5220,8 +5219,8 @@ f
       offset : Tsize_t;
       stride : Tsize_t;
     end;
+  PVkDescriptorUpdateTemplateEntry = ^TVkDescriptorUpdateTemplateEntry;
 
-  PVkDescriptorUpdateTemplateCreateInfo = ^TVkDescriptorUpdateTemplateCreateInfo;
   TVkDescriptorUpdateTemplateCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5232,31 +5231,31 @@ f
       descriptorSetLayout : TVkDescriptorSetLayout;
       pipelineBindPoint : TVkPipelineBindPoint;
       pipelineLayout : TVkPipelineLayout;
-      set : Tuint32_t;
+      set_ : Tuint32_t;
     end;
+  PVkDescriptorUpdateTemplateCreateInfo = ^TVkDescriptorUpdateTemplateCreateInfo;
 
-  PVkExternalMemoryProperties = ^TVkExternalMemoryProperties;
   TVkExternalMemoryProperties = record
       externalMemoryFeatures : TVkExternalMemoryFeatureFlags;
       exportFromImportedHandleTypes : TVkExternalMemoryHandleTypeFlags;
       compatibleHandleTypes : TVkExternalMemoryHandleTypeFlags;
     end;
+  PVkExternalMemoryProperties = ^TVkExternalMemoryProperties;
 
-  PVkPhysicalDeviceExternalImageFormatInfo = ^TVkPhysicalDeviceExternalImageFormatInfo;
   TVkPhysicalDeviceExternalImageFormatInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       handleType : TVkExternalMemoryHandleTypeFlagBits;
     end;
+  PVkPhysicalDeviceExternalImageFormatInfo = ^TVkPhysicalDeviceExternalImageFormatInfo;
 
-  PVkExternalImageFormatProperties = ^TVkExternalImageFormatProperties;
   TVkExternalImageFormatProperties = record
       sType : TVkStructureType;
       pNext : pointer;
       externalMemoryProperties : TVkExternalMemoryProperties;
     end;
+  PVkExternalImageFormatProperties = ^TVkExternalImageFormatProperties;
 
-  PVkPhysicalDeviceExternalBufferInfo = ^TVkPhysicalDeviceExternalBufferInfo;
   TVkPhysicalDeviceExternalBufferInfo = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5264,15 +5263,15 @@ f
       usage : TVkBufferUsageFlags;
       handleType : TVkExternalMemoryHandleTypeFlagBits;
     end;
+  PVkPhysicalDeviceExternalBufferInfo = ^TVkPhysicalDeviceExternalBufferInfo;
 
-  PVkExternalBufferProperties = ^TVkExternalBufferProperties;
   TVkExternalBufferProperties = record
       sType : TVkStructureType;
       pNext : pointer;
       externalMemoryProperties : TVkExternalMemoryProperties;
     end;
+  PVkExternalBufferProperties = ^TVkExternalBufferProperties;
 
-  PVkPhysicalDeviceIDProperties = ^TVkPhysicalDeviceIDProperties;
   TVkPhysicalDeviceIDProperties = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5282,36 +5281,36 @@ f
       deviceNodeMask : Tuint32_t;
       deviceLUIDValid : TVkBool32;
     end;
+  PVkPhysicalDeviceIDProperties = ^TVkPhysicalDeviceIDProperties;
 
-  PVkExternalMemoryImageCreateInfo = ^TVkExternalMemoryImageCreateInfo;
   TVkExternalMemoryImageCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       handleTypes : TVkExternalMemoryHandleTypeFlags;
     end;
+  PVkExternalMemoryImageCreateInfo = ^TVkExternalMemoryImageCreateInfo;
 
-  PVkExternalMemoryBufferCreateInfo = ^TVkExternalMemoryBufferCreateInfo;
   TVkExternalMemoryBufferCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       handleTypes : TVkExternalMemoryHandleTypeFlags;
     end;
+  PVkExternalMemoryBufferCreateInfo = ^TVkExternalMemoryBufferCreateInfo;
 
-  PVkExportMemoryAllocateInfo = ^TVkExportMemoryAllocateInfo;
   TVkExportMemoryAllocateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       handleTypes : TVkExternalMemoryHandleTypeFlags;
     end;
+  PVkExportMemoryAllocateInfo = ^TVkExportMemoryAllocateInfo;
 
-  PVkPhysicalDeviceExternalFenceInfo = ^TVkPhysicalDeviceExternalFenceInfo;
   TVkPhysicalDeviceExternalFenceInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       handleType : TVkExternalFenceHandleTypeFlagBits;
     end;
+  PVkPhysicalDeviceExternalFenceInfo = ^TVkPhysicalDeviceExternalFenceInfo;
 
-  PVkExternalFenceProperties = ^TVkExternalFenceProperties;
   TVkExternalFenceProperties = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5319,29 +5318,29 @@ f
       compatibleHandleTypes : TVkExternalFenceHandleTypeFlags;
       externalFenceFeatures : TVkExternalFenceFeatureFlags;
     end;
+  PVkExternalFenceProperties = ^TVkExternalFenceProperties;
 
-  PVkExportFenceCreateInfo = ^TVkExportFenceCreateInfo;
   TVkExportFenceCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       handleTypes : TVkExternalFenceHandleTypeFlags;
     end;
+  PVkExportFenceCreateInfo = ^TVkExportFenceCreateInfo;
 
-  PVkExportSemaphoreCreateInfo = ^TVkExportSemaphoreCreateInfo;
   TVkExportSemaphoreCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       handleTypes : TVkExternalSemaphoreHandleTypeFlags;
     end;
+  PVkExportSemaphoreCreateInfo = ^TVkExportSemaphoreCreateInfo;
 
-  PVkPhysicalDeviceExternalSemaphoreInfo = ^TVkPhysicalDeviceExternalSemaphoreInfo;
   TVkPhysicalDeviceExternalSemaphoreInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       handleType : TVkExternalSemaphoreHandleTypeFlagBits;
     end;
+  PVkPhysicalDeviceExternalSemaphoreInfo = ^TVkPhysicalDeviceExternalSemaphoreInfo;
 
-  PVkExternalSemaphoreProperties = ^TVkExternalSemaphoreProperties;
   TVkExternalSemaphoreProperties = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5349,89 +5348,61 @@ f
       compatibleHandleTypes : TVkExternalSemaphoreHandleTypeFlags;
       externalSemaphoreFeatures : TVkExternalSemaphoreFeatureFlags;
     end;
+  PVkExternalSemaphoreProperties = ^TVkExternalSemaphoreProperties;
 
-  PVkPhysicalDeviceMaintenance3Properties = ^TVkPhysicalDeviceMaintenance3Properties;
   TVkPhysicalDeviceMaintenance3Properties = record
       sType : TVkStructureType;
       pNext : pointer;
       maxPerSetDescriptors : Tuint32_t;
       maxMemoryAllocationSize : TVkDeviceSize;
     end;
+  PVkPhysicalDeviceMaintenance3Properties = ^TVkPhysicalDeviceMaintenance3Properties;
 
-  PVkDescriptorSetLayoutSupport = ^TVkDescriptorSetLayoutSupport;
   TVkDescriptorSetLayoutSupport = record
       sType : TVkStructureType;
       pNext : pointer;
       supported : TVkBool32;
     end;
+  PVkDescriptorSetLayoutSupport = ^TVkDescriptorSetLayoutSupport;
 
-  PVkPhysicalDeviceShaderDrawParametersFeatures = ^TVkPhysicalDeviceShaderDrawParametersFeatures;
   TVkPhysicalDeviceShaderDrawParametersFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       shaderDrawParameters : TVkBool32;
     end;
+  PVkPhysicalDeviceShaderDrawParametersFeatures = ^TVkPhysicalDeviceShaderDrawParametersFeatures;
 
   PVkPhysicalDeviceShaderDrawParameterFeatures = ^TVkPhysicalDeviceShaderDrawParameterFeatures;
   TVkPhysicalDeviceShaderDrawParameterFeatures = TVkPhysicalDeviceShaderDrawParametersFeatures;
 
   TPFN_vkEnumerateInstanceVersion = function (pApiVersion:Puint32_t):TVkResult;cdecl;
-
   TPFN_vkBindBufferMemory2 = function (device:TVkDevice; bindInfoCount:Tuint32_t; pBindInfos:PVkBindBufferMemoryInfo):TVkResult;cdecl;
-
   TPFN_vkBindImageMemory2 = function (device:TVkDevice; bindInfoCount:Tuint32_t; pBindInfos:PVkBindImageMemoryInfo):TVkResult;cdecl;
-
   TPFN_vkGetDeviceGroupPeerMemoryFeatures = procedure (device:TVkDevice; heapIndex:Tuint32_t; localDeviceIndex:Tuint32_t; remoteDeviceIndex:Tuint32_t; pPeerMemoryFeatures:PVkPeerMemoryFeatureFlags);cdecl;
-
   TPFN_vkCmdSetDeviceMask = procedure (commandBuffer:TVkCommandBuffer; deviceMask:Tuint32_t);cdecl;
-
-  TPFN_vkCmdDispatchBase = procedure (commandBuffer:TVkCommandBuffer; baseGroupX:Tuint32_t; baseGroupY:Tuint32_t; baseGroupZ:Tuint32_t; groupCountX:Tuint32_t; 
-                groupCountY:Tuint32_t; groupCountZ:Tuint32_t);cdecl;
-
+  TPFN_vkCmdDispatchBase = procedure (commandBuffer:TVkCommandBuffer; baseGroupX:Tuint32_t; baseGroupY:Tuint32_t; baseGroupZ:Tuint32_t; groupCountX:Tuint32_t;                groupCountY:Tuint32_t; groupCountZ:Tuint32_t);cdecl;
   TPFN_vkEnumeratePhysicalDeviceGroups = function (instance:TVkInstance; pPhysicalDeviceGroupCount:Puint32_t; pPhysicalDeviceGroupProperties:PVkPhysicalDeviceGroupProperties):TVkResult;cdecl;
-
   TPFN_vkGetImageMemoryRequirements2 = procedure (device:TVkDevice; pInfo:PVkImageMemoryRequirementsInfo2; pMemoryRequirements:PVkMemoryRequirements2);cdecl;
-
   TPFN_vkGetBufferMemoryRequirements2 = procedure (device:TVkDevice; pInfo:PVkBufferMemoryRequirementsInfo2; pMemoryRequirements:PVkMemoryRequirements2);cdecl;
-
   TPFN_vkGetImageSparseMemoryRequirements2 = procedure (device:TVkDevice; pInfo:PVkImageSparseMemoryRequirementsInfo2; pSparseMemoryRequirementCount:Puint32_t; pSparseMemoryRequirements:PVkSparseImageMemoryRequirements2);cdecl;
-
   TPFN_vkGetPhysicalDeviceFeatures2 = procedure (physicalDevice:TVkPhysicalDevice; pFeatures:PVkPhysicalDeviceFeatures2);cdecl;
-
   TPFN_vkGetPhysicalDeviceProperties2 = procedure (physicalDevice:TVkPhysicalDevice; pProperties:PVkPhysicalDeviceProperties2);cdecl;
-
   TPFN_vkGetPhysicalDeviceFormatProperties2 = procedure (physicalDevice:TVkPhysicalDevice; format:TVkFormat; pFormatProperties:PVkFormatProperties2);cdecl;
-
   TPFN_vkGetPhysicalDeviceImageFormatProperties2 = function (physicalDevice:TVkPhysicalDevice; pImageFormatInfo:PVkPhysicalDeviceImageFormatInfo2; pImageFormatProperties:PVkImageFormatProperties2):TVkResult;cdecl;
-
   TPFN_vkGetPhysicalDeviceQueueFamilyProperties2 = procedure (physicalDevice:TVkPhysicalDevice; pQueueFamilyPropertyCount:Puint32_t; pQueueFamilyProperties:PVkQueueFamilyProperties2);cdecl;
-
   TPFN_vkGetPhysicalDeviceMemoryProperties2 = procedure (physicalDevice:TVkPhysicalDevice; pMemoryProperties:PVkPhysicalDeviceMemoryProperties2);cdecl;
-
   TPFN_vkGetPhysicalDeviceSparseImageFormatProperties2 = procedure (physicalDevice:TVkPhysicalDevice; pFormatInfo:PVkPhysicalDeviceSparseImageFormatInfo2; pPropertyCount:Puint32_t; pProperties:PVkSparseImageFormatProperties2);cdecl;
-
   TPFN_vkTrimCommandPool = procedure (device:TVkDevice; commandPool:TVkCommandPool; flags:TVkCommandPoolTrimFlags);cdecl;
-
   TPFN_vkGetDeviceQueue2 = procedure (device:TVkDevice; pQueueInfo:PVkDeviceQueueInfo2; pQueue:PVkQueue);cdecl;
-
   TPFN_vkCreateSamplerYcbcrConversion = function (device:TVkDevice; pCreateInfo:PVkSamplerYcbcrConversionCreateInfo; pAllocator:PVkAllocationCallbacks; pYcbcrConversion:PVkSamplerYcbcrConversion):TVkResult;cdecl;
-
   TPFN_vkDestroySamplerYcbcrConversion = procedure (device:TVkDevice; ycbcrConversion:TVkSamplerYcbcrConversion; pAllocator:PVkAllocationCallbacks);cdecl;
-
   TPFN_vkCreateDescriptorUpdateTemplate = function (device:TVkDevice; pCreateInfo:PVkDescriptorUpdateTemplateCreateInfo; pAllocator:PVkAllocationCallbacks; pDescriptorUpdateTemplate:PVkDescriptorUpdateTemplate):TVkResult;cdecl;
-
   TPFN_vkDestroyDescriptorUpdateTemplate = procedure (device:TVkDevice; descriptorUpdateTemplate:TVkDescriptorUpdateTemplate; pAllocator:PVkAllocationCallbacks);cdecl;
-
   TPFN_vkUpdateDescriptorSetWithTemplate = procedure (device:TVkDevice; descriptorSet:TVkDescriptorSet; descriptorUpdateTemplate:TVkDescriptorUpdateTemplate; pData:pointer);cdecl;
-
   TPFN_vkGetPhysicalDeviceExternalBufferProperties = procedure (physicalDevice:TVkPhysicalDevice; pExternalBufferInfo:PVkPhysicalDeviceExternalBufferInfo; pExternalBufferProperties:PVkExternalBufferProperties);cdecl;
-
   TPFN_vkGetPhysicalDeviceExternalFenceProperties = procedure (physicalDevice:TVkPhysicalDevice; pExternalFenceInfo:PVkPhysicalDeviceExternalFenceInfo; pExternalFenceProperties:PVkExternalFenceProperties);cdecl;
-
   TPFN_vkGetPhysicalDeviceExternalSemaphoreProperties = procedure (physicalDevice:TVkPhysicalDevice; pExternalSemaphoreInfo:PVkPhysicalDeviceExternalSemaphoreInfo; pExternalSemaphoreProperties:PVkExternalSemaphoreProperties);cdecl;
-
   TPFN_vkGetDescriptorSetLayoutSupport = procedure (device:TVkDevice; pCreateInfo:PVkDescriptorSetLayoutCreateInfo; pSupport:PVkDescriptorSetLayoutSupport);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkEnumerateInstanceVersion(pApiVersion:Puint32_t):TVkResult;cdecl;external libvulkan;
 function vkBindBufferMemory2(device:TVkDevice; bindInfoCount:Tuint32_t; pBindInfos:PVkBindBufferMemoryInfo):TVkResult;cdecl;external libvulkan;
@@ -5462,15 +5433,10 @@ procedure vkGetPhysicalDeviceExternalBufferProperties(physicalDevice:TVkPhysical
 procedure vkGetPhysicalDeviceExternalFenceProperties(physicalDevice:TVkPhysicalDevice; pExternalFenceInfo:PVkPhysicalDeviceExternalFenceInfo; pExternalFenceProperties:PVkExternalFenceProperties);cdecl;external libvulkan;
 procedure vkGetPhysicalDeviceExternalSemaphoreProperties(physicalDevice:TVkPhysicalDevice; pExternalSemaphoreInfo:PVkPhysicalDeviceExternalSemaphoreInfo; pExternalSemaphoreProperties:PVkExternalSemaphoreProperties);cdecl;external libvulkan;
 procedure vkGetDescriptorSetLayoutSupport(device:TVkDevice; pCreateInfo:PVkDescriptorSetLayoutCreateInfo; pSupport:PVkDescriptorSetLayoutSupport);cdecl;external libvulkan;
-{$endif}
-{ VK_VERSION_1_2 is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_VERSION_1_2 = 1;  
-{ Vulkan 1.2 version number }
-
-{ was #define dname def_expr }
-function VK_API_VERSION_1_2 : longint; { return type might be wrong }
+function VK_API_VERSION_1_2 : longint;
 
 const
   VK_MAX_DRIVER_NAME_SIZE = 256;  
@@ -5518,7 +5484,7 @@ type
     VK_DRIVER_ID_GGP_PROPRIETARY_KHR = VK_DRIVER_ID_GGP_PROPRIETARY;
     VK_DRIVER_ID_BROADCOM_PROPRIETARY_KHR = VK_DRIVER_ID_BROADCOM_PROPRIETARY;
     VK_DRIVER_ID_MAX_ENUM = $7FFFFFFF;
-;
+
 type
   PVkShaderFloatControlsIndependence = ^TVkShaderFloatControlsIndependence;
   TVkShaderFloatControlsIndependence =  Longint;
@@ -5530,7 +5496,7 @@ type
     VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_ALL_KHR = VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_ALL;
     VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_NONE_KHR = VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_NONE;
     VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_MAX_ENUM = $7FFFFFFF;
-;
+
 type
   PVkSamplerReductionMode = ^TVkSamplerReductionMode;
   TVkSamplerReductionMode =  Longint;
@@ -5543,7 +5509,7 @@ type
     VK_SAMPLER_REDUCTION_MODE_MIN_EXT = VK_SAMPLER_REDUCTION_MODE_MIN;
     VK_SAMPLER_REDUCTION_MODE_MAX_EXT = VK_SAMPLER_REDUCTION_MODE_MAX;
     VK_SAMPLER_REDUCTION_MODE_MAX_ENUM = $7FFFFFFF;
-;
+
 type
   PVkSemaphoreType = ^TVkSemaphoreType;
   TVkSemaphoreType =  Longint;
@@ -5553,7 +5519,7 @@ type
     VK_SEMAPHORE_TYPE_BINARY_KHR = VK_SEMAPHORE_TYPE_BINARY;
     VK_SEMAPHORE_TYPE_TIMELINE_KHR = VK_SEMAPHORE_TYPE_TIMELINE;
     VK_SEMAPHORE_TYPE_MAX_ENUM = $7FFFFFFF;
-;
+
 type
   PVkResolveModeFlagBits = ^TVkResolveModeFlagBits;
   TVkResolveModeFlagBits =  Longint;
@@ -5570,11 +5536,11 @@ type
     VK_RESOLVE_MODE_MIN_BIT_KHR = VK_RESOLVE_MODE_MIN_BIT;
     VK_RESOLVE_MODE_MAX_BIT_KHR = VK_RESOLVE_MODE_MAX_BIT;
     VK_RESOLVE_MODE_FLAG_BITS_MAX_ENUM = $7FFFFFFF;
-;
+
 type
   PVkResolveModeFlags = ^TVkResolveModeFlags;
   TVkResolveModeFlags = TVkFlags;
-
+type
   PVkDescriptorBindingFlagBits = ^TVkDescriptorBindingFlagBits;
   TVkDescriptorBindingFlagBits =  Longint;
   Const
@@ -5587,23 +5553,22 @@ type
     VK_DESCRIPTOR_BINDING_PARTIALLY_BOUND_BIT_EXT = VK_DESCRIPTOR_BINDING_PARTIALLY_BOUND_BIT;
     VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT_EXT = VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT;
     VK_DESCRIPTOR_BINDING_FLAG_BITS_MAX_ENUM = $7FFFFFFF;
-;
+
 type
   PVkDescriptorBindingFlags = ^TVkDescriptorBindingFlags;
   TVkDescriptorBindingFlags = TVkFlags;
-
+type
   PVkSemaphoreWaitFlagBits = ^TVkSemaphoreWaitFlagBits;
   TVkSemaphoreWaitFlagBits =  Longint;
   Const
     VK_SEMAPHORE_WAIT_ANY_BIT = $00000001;
     VK_SEMAPHORE_WAIT_ANY_BIT_KHR = VK_SEMAPHORE_WAIT_ANY_BIT;
     VK_SEMAPHORE_WAIT_FLAG_BITS_MAX_ENUM = $7FFFFFFF;
-;
+
 type
   PVkSemaphoreWaitFlags = ^TVkSemaphoreWaitFlags;
   TVkSemaphoreWaitFlags = TVkFlags;
-
-  PVkPhysicalDeviceVulkan11Features = ^TVkPhysicalDeviceVulkan11Features;
+type
   TVkPhysicalDeviceVulkan11Features = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5620,8 +5585,8 @@ type
       samplerYcbcrConversion : TVkBool32;
       shaderDrawParameters : TVkBool32;
     end;
+  PVkPhysicalDeviceVulkan11Features = ^TVkPhysicalDeviceVulkan11Features;
 
-  PVkPhysicalDeviceVulkan11Properties = ^TVkPhysicalDeviceVulkan11Properties;
   TVkPhysicalDeviceVulkan11Properties = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5641,8 +5606,8 @@ type
       maxPerSetDescriptors : Tuint32_t;
       maxMemoryAllocationSize : TVkDeviceSize;
     end;
+  PVkPhysicalDeviceVulkan11Properties = ^TVkPhysicalDeviceVulkan11Properties;
 
-  PVkPhysicalDeviceVulkan12Features = ^TVkPhysicalDeviceVulkan12Features;
   TVkPhysicalDeviceVulkan12Features = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5694,16 +5659,16 @@ type
       shaderOutputLayer : TVkBool32;
       subgroupBroadcastDynamicId : TVkBool32;
     end;
+  PVkPhysicalDeviceVulkan12Features = ^TVkPhysicalDeviceVulkan12Features;
 
-  PVkConformanceVersion = ^TVkConformanceVersion;
   TVkConformanceVersion = record
       major : Tuint8_t;
       minor : Tuint8_t;
       subminor : Tuint8_t;
       patch : Tuint8_t;
     end;
+  PVkConformanceVersion = ^TVkConformanceVersion;
 
-  PVkPhysicalDeviceVulkan12Properties = ^TVkPhysicalDeviceVulkan12Properties;
   TVkPhysicalDeviceVulkan12Properties = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5760,16 +5725,16 @@ type
       maxTimelineSemaphoreValueDifference : Tuint64_t;
       framebufferIntegerColorSampleCounts : TVkSampleCountFlags;
     end;
+  PVkPhysicalDeviceVulkan12Properties = ^TVkPhysicalDeviceVulkan12Properties;
 
-  PVkImageFormatListCreateInfo = ^TVkImageFormatListCreateInfo;
   TVkImageFormatListCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       viewFormatCount : Tuint32_t;
       pViewFormats : PVkFormat;
     end;
+  PVkImageFormatListCreateInfo = ^TVkImageFormatListCreateInfo;
 
-  PVkAttachmentDescription2 = ^TVkAttachmentDescription2;
   TVkAttachmentDescription2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5783,8 +5748,8 @@ type
       initialLayout : TVkImageLayout;
       finalLayout : TVkImageLayout;
     end;
+  PVkAttachmentDescription2 = ^TVkAttachmentDescription2;
 
-  PVkAttachmentReference2 = ^TVkAttachmentReference2;
   TVkAttachmentReference2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5792,8 +5757,8 @@ type
       layout : TVkImageLayout;
       aspectMask : TVkImageAspectFlags;
     end;
+  PVkAttachmentReference2 = ^TVkAttachmentReference2;
 
-  PVkSubpassDescription2 = ^TVkSubpassDescription2;
   TVkSubpassDescription2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5809,8 +5774,8 @@ type
       preserveAttachmentCount : Tuint32_t;
       pPreserveAttachments : Puint32_t;
     end;
+  PVkSubpassDescription2 = ^TVkSubpassDescription2;
 
-  PVkSubpassDependency2 = ^TVkSubpassDependency2;
   TVkSubpassDependency2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5823,8 +5788,8 @@ type
       dependencyFlags : TVkDependencyFlags;
       viewOffset : Tint32_t;
     end;
+  PVkSubpassDependency2 = ^TVkSubpassDependency2;
 
-  PVkRenderPassCreateInfo2 = ^TVkRenderPassCreateInfo2;
   TVkRenderPassCreateInfo2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5838,21 +5803,21 @@ type
       correlatedViewMaskCount : Tuint32_t;
       pCorrelatedViewMasks : Puint32_t;
     end;
+  PVkRenderPassCreateInfo2 = ^TVkRenderPassCreateInfo2;
 
-  PVkSubpassBeginInfo = ^TVkSubpassBeginInfo;
   TVkSubpassBeginInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       contents : TVkSubpassContents;
     end;
+  PVkSubpassBeginInfo = ^TVkSubpassBeginInfo;
 
-  PVkSubpassEndInfo = ^TVkSubpassEndInfo;
   TVkSubpassEndInfo = record
       sType : TVkStructureType;
       pNext : pointer;
     end;
+  PVkSubpassEndInfo = ^TVkSubpassEndInfo;
 
-  PVkPhysicalDevice8BitStorageFeatures = ^TVkPhysicalDevice8BitStorageFeatures;
   TVkPhysicalDevice8BitStorageFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5860,8 +5825,8 @@ type
       uniformAndStorageBuffer8BitAccess : TVkBool32;
       storagePushConstant8 : TVkBool32;
     end;
+  PVkPhysicalDevice8BitStorageFeatures = ^TVkPhysicalDevice8BitStorageFeatures;
 
-  PVkPhysicalDeviceDriverProperties = ^TVkPhysicalDeviceDriverProperties;
   TVkPhysicalDeviceDriverProperties = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5870,24 +5835,24 @@ type
       driverInfo : array[0..(VK_MAX_DRIVER_INFO_SIZE)-1] of char;
       conformanceVersion : TVkConformanceVersion;
     end;
+  PVkPhysicalDeviceDriverProperties = ^TVkPhysicalDeviceDriverProperties;
 
-  PVkPhysicalDeviceShaderAtomicInt64Features = ^TVkPhysicalDeviceShaderAtomicInt64Features;
   TVkPhysicalDeviceShaderAtomicInt64Features = record
       sType : TVkStructureType;
       pNext : pointer;
       shaderBufferInt64Atomics : TVkBool32;
       shaderSharedInt64Atomics : TVkBool32;
     end;
+  PVkPhysicalDeviceShaderAtomicInt64Features = ^TVkPhysicalDeviceShaderAtomicInt64Features;
 
-  PVkPhysicalDeviceShaderFloat16Int8Features = ^TVkPhysicalDeviceShaderFloat16Int8Features;
   TVkPhysicalDeviceShaderFloat16Int8Features = record
       sType : TVkStructureType;
       pNext : pointer;
       shaderFloat16 : TVkBool32;
       shaderInt8 : TVkBool32;
     end;
+  PVkPhysicalDeviceShaderFloat16Int8Features = ^TVkPhysicalDeviceShaderFloat16Int8Features;
 
-  PVkPhysicalDeviceFloatControlsProperties = ^TVkPhysicalDeviceFloatControlsProperties;
   TVkPhysicalDeviceFloatControlsProperties = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5909,16 +5874,16 @@ type
       shaderRoundingModeRTZFloat32 : TVkBool32;
       shaderRoundingModeRTZFloat64 : TVkBool32;
     end;
+  PVkPhysicalDeviceFloatControlsProperties = ^TVkPhysicalDeviceFloatControlsProperties;
 
-  PVkDescriptorSetLayoutBindingFlagsCreateInfo = ^TVkDescriptorSetLayoutBindingFlagsCreateInfo;
   TVkDescriptorSetLayoutBindingFlagsCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       bindingCount : Tuint32_t;
       pBindingFlags : PVkDescriptorBindingFlags;
     end;
+  PVkDescriptorSetLayoutBindingFlagsCreateInfo = ^TVkDescriptorSetLayoutBindingFlagsCreateInfo;
 
-  PVkPhysicalDeviceDescriptorIndexingFeatures = ^TVkPhysicalDeviceDescriptorIndexingFeatures;
   TVkPhysicalDeviceDescriptorIndexingFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5943,8 +5908,8 @@ type
       descriptorBindingVariableDescriptorCount : TVkBool32;
       runtimeDescriptorArray : TVkBool32;
     end;
+  PVkPhysicalDeviceDescriptorIndexingFeatures = ^TVkPhysicalDeviceDescriptorIndexingFeatures;
 
-  PVkPhysicalDeviceDescriptorIndexingProperties = ^TVkPhysicalDeviceDescriptorIndexingProperties;
   TVkPhysicalDeviceDescriptorIndexingProperties = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5972,23 +5937,23 @@ type
       maxDescriptorSetUpdateAfterBindStorageImages : Tuint32_t;
       maxDescriptorSetUpdateAfterBindInputAttachments : Tuint32_t;
     end;
+  PVkPhysicalDeviceDescriptorIndexingProperties = ^TVkPhysicalDeviceDescriptorIndexingProperties;
 
-  PVkDescriptorSetVariableDescriptorCountAllocateInfo = ^TVkDescriptorSetVariableDescriptorCountAllocateInfo;
   TVkDescriptorSetVariableDescriptorCountAllocateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       descriptorSetCount : Tuint32_t;
       pDescriptorCounts : Puint32_t;
     end;
+  PVkDescriptorSetVariableDescriptorCountAllocateInfo = ^TVkDescriptorSetVariableDescriptorCountAllocateInfo;
 
-  PVkDescriptorSetVariableDescriptorCountLayoutSupport = ^TVkDescriptorSetVariableDescriptorCountLayoutSupport;
   TVkDescriptorSetVariableDescriptorCountLayoutSupport = record
       sType : TVkStructureType;
       pNext : pointer;
       maxVariableDescriptorCount : Tuint32_t;
     end;
+  PVkDescriptorSetVariableDescriptorCountLayoutSupport = ^TVkDescriptorSetVariableDescriptorCountLayoutSupport;
 
-  PVkSubpassDescriptionDepthStencilResolve = ^TVkSubpassDescriptionDepthStencilResolve;
   TVkSubpassDescriptionDepthStencilResolve = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -5996,8 +5961,8 @@ type
       stencilResolveMode : TVkResolveModeFlagBits;
       pDepthStencilResolveAttachment : PVkAttachmentReference2;
     end;
+  PVkSubpassDescriptionDepthStencilResolve = ^TVkSubpassDescriptionDepthStencilResolve;
 
-  PVkPhysicalDeviceDepthStencilResolveProperties = ^TVkPhysicalDeviceDepthStencilResolveProperties;
   TVkPhysicalDeviceDepthStencilResolveProperties = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6006,37 +5971,37 @@ type
       independentResolveNone : TVkBool32;
       independentResolve : TVkBool32;
     end;
+  PVkPhysicalDeviceDepthStencilResolveProperties = ^TVkPhysicalDeviceDepthStencilResolveProperties;
 
-  PVkPhysicalDeviceScalarBlockLayoutFeatures = ^TVkPhysicalDeviceScalarBlockLayoutFeatures;
   TVkPhysicalDeviceScalarBlockLayoutFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       scalarBlockLayout : TVkBool32;
     end;
+  PVkPhysicalDeviceScalarBlockLayoutFeatures = ^TVkPhysicalDeviceScalarBlockLayoutFeatures;
 
-  PVkImageStencilUsageCreateInfo = ^TVkImageStencilUsageCreateInfo;
   TVkImageStencilUsageCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       stencilUsage : TVkImageUsageFlags;
     end;
+  PVkImageStencilUsageCreateInfo = ^TVkImageStencilUsageCreateInfo;
 
-  PVkSamplerReductionModeCreateInfo = ^TVkSamplerReductionModeCreateInfo;
   TVkSamplerReductionModeCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       reductionMode : TVkSamplerReductionMode;
     end;
+  PVkSamplerReductionModeCreateInfo = ^TVkSamplerReductionModeCreateInfo;
 
-  PVkPhysicalDeviceSamplerFilterMinmaxProperties = ^TVkPhysicalDeviceSamplerFilterMinmaxProperties;
   TVkPhysicalDeviceSamplerFilterMinmaxProperties = record
       sType : TVkStructureType;
       pNext : pointer;
       filterMinmaxSingleComponentFormats : TVkBool32;
       filterMinmaxImageComponentMapping : TVkBool32;
     end;
+  PVkPhysicalDeviceSamplerFilterMinmaxProperties = ^TVkPhysicalDeviceSamplerFilterMinmaxProperties;
 
-  PVkPhysicalDeviceVulkanMemoryModelFeatures = ^TVkPhysicalDeviceVulkanMemoryModelFeatures;
   TVkPhysicalDeviceVulkanMemoryModelFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6044,15 +6009,15 @@ type
       vulkanMemoryModelDeviceScope : TVkBool32;
       vulkanMemoryModelAvailabilityVisibilityChains : TVkBool32;
     end;
+  PVkPhysicalDeviceVulkanMemoryModelFeatures = ^TVkPhysicalDeviceVulkanMemoryModelFeatures;
 
-  PVkPhysicalDeviceImagelessFramebufferFeatures = ^TVkPhysicalDeviceImagelessFramebufferFeatures;
   TVkPhysicalDeviceImagelessFramebufferFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       imagelessFramebuffer : TVkBool32;
     end;
+  PVkPhysicalDeviceImagelessFramebufferFeatures = ^TVkPhysicalDeviceImagelessFramebufferFeatures;
 
-  PVkFramebufferAttachmentImageInfo = ^TVkFramebufferAttachmentImageInfo;
   TVkFramebufferAttachmentImageInfo = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6064,89 +6029,89 @@ type
       viewFormatCount : Tuint32_t;
       pViewFormats : PVkFormat;
     end;
+  PVkFramebufferAttachmentImageInfo = ^TVkFramebufferAttachmentImageInfo;
 
-  PVkFramebufferAttachmentsCreateInfo = ^TVkFramebufferAttachmentsCreateInfo;
   TVkFramebufferAttachmentsCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       attachmentImageInfoCount : Tuint32_t;
       pAttachmentImageInfos : PVkFramebufferAttachmentImageInfo;
     end;
+  PVkFramebufferAttachmentsCreateInfo = ^TVkFramebufferAttachmentsCreateInfo;
 
-  PVkRenderPassAttachmentBeginInfo = ^TVkRenderPassAttachmentBeginInfo;
   TVkRenderPassAttachmentBeginInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       attachmentCount : Tuint32_t;
       pAttachments : PVkImageView;
     end;
+  PVkRenderPassAttachmentBeginInfo = ^TVkRenderPassAttachmentBeginInfo;
 
-  PVkPhysicalDeviceUniformBufferStandardLayoutFeatures = ^TVkPhysicalDeviceUniformBufferStandardLayoutFeatures;
   TVkPhysicalDeviceUniformBufferStandardLayoutFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       uniformBufferStandardLayout : TVkBool32;
     end;
+  PVkPhysicalDeviceUniformBufferStandardLayoutFeatures = ^TVkPhysicalDeviceUniformBufferStandardLayoutFeatures;
 
-  PVkPhysicalDeviceShaderSubgroupExtendedTypesFeatures = ^TVkPhysicalDeviceShaderSubgroupExtendedTypesFeatures;
   TVkPhysicalDeviceShaderSubgroupExtendedTypesFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       shaderSubgroupExtendedTypes : TVkBool32;
     end;
+  PVkPhysicalDeviceShaderSubgroupExtendedTypesFeatures = ^TVkPhysicalDeviceShaderSubgroupExtendedTypesFeatures;
 
-  PVkPhysicalDeviceSeparateDepthStencilLayoutsFeatures = ^TVkPhysicalDeviceSeparateDepthStencilLayoutsFeatures;
   TVkPhysicalDeviceSeparateDepthStencilLayoutsFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       separateDepthStencilLayouts : TVkBool32;
     end;
+  PVkPhysicalDeviceSeparateDepthStencilLayoutsFeatures = ^TVkPhysicalDeviceSeparateDepthStencilLayoutsFeatures;
 
-  PVkAttachmentReferenceStencilLayout = ^TVkAttachmentReferenceStencilLayout;
   TVkAttachmentReferenceStencilLayout = record
       sType : TVkStructureType;
       pNext : pointer;
       stencilLayout : TVkImageLayout;
     end;
+  PVkAttachmentReferenceStencilLayout = ^TVkAttachmentReferenceStencilLayout;
 
-  PVkAttachmentDescriptionStencilLayout = ^TVkAttachmentDescriptionStencilLayout;
   TVkAttachmentDescriptionStencilLayout = record
       sType : TVkStructureType;
       pNext : pointer;
       stencilInitialLayout : TVkImageLayout;
       stencilFinalLayout : TVkImageLayout;
     end;
+  PVkAttachmentDescriptionStencilLayout = ^TVkAttachmentDescriptionStencilLayout;
 
-  PVkPhysicalDeviceHostQueryResetFeatures = ^TVkPhysicalDeviceHostQueryResetFeatures;
   TVkPhysicalDeviceHostQueryResetFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       hostQueryReset : TVkBool32;
     end;
+  PVkPhysicalDeviceHostQueryResetFeatures = ^TVkPhysicalDeviceHostQueryResetFeatures;
 
-  PVkPhysicalDeviceTimelineSemaphoreFeatures = ^TVkPhysicalDeviceTimelineSemaphoreFeatures;
   TVkPhysicalDeviceTimelineSemaphoreFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       timelineSemaphore : TVkBool32;
     end;
+  PVkPhysicalDeviceTimelineSemaphoreFeatures = ^TVkPhysicalDeviceTimelineSemaphoreFeatures;
 
-  PVkPhysicalDeviceTimelineSemaphoreProperties = ^TVkPhysicalDeviceTimelineSemaphoreProperties;
   TVkPhysicalDeviceTimelineSemaphoreProperties = record
       sType : TVkStructureType;
       pNext : pointer;
       maxTimelineSemaphoreValueDifference : Tuint64_t;
     end;
+  PVkPhysicalDeviceTimelineSemaphoreProperties = ^TVkPhysicalDeviceTimelineSemaphoreProperties;
 
-  PVkSemaphoreTypeCreateInfo = ^TVkSemaphoreTypeCreateInfo;
   TVkSemaphoreTypeCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       semaphoreType : TVkSemaphoreType;
       initialValue : Tuint64_t;
     end;
+  PVkSemaphoreTypeCreateInfo = ^TVkSemaphoreTypeCreateInfo;
 
-  PVkTimelineSemaphoreSubmitInfo = ^TVkTimelineSemaphoreSubmitInfo;
   TVkTimelineSemaphoreSubmitInfo = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6155,8 +6120,8 @@ type
       signalSemaphoreValueCount : Tuint32_t;
       pSignalSemaphoreValues : Puint64_t;
     end;
+  PVkTimelineSemaphoreSubmitInfo = ^TVkTimelineSemaphoreSubmitInfo;
 
-  PVkSemaphoreWaitInfo = ^TVkSemaphoreWaitInfo;
   TVkSemaphoreWaitInfo = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6165,16 +6130,16 @@ type
       pSemaphores : PVkSemaphore;
       pValues : Puint64_t;
     end;
+  PVkSemaphoreWaitInfo = ^TVkSemaphoreWaitInfo;
 
-  PVkSemaphoreSignalInfo = ^TVkSemaphoreSignalInfo;
   TVkSemaphoreSignalInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       semaphore : TVkSemaphore;
       value : Tuint64_t;
     end;
+  PVkSemaphoreSignalInfo = ^TVkSemaphoreSignalInfo;
 
-  PVkPhysicalDeviceBufferDeviceAddressFeatures = ^TVkPhysicalDeviceBufferDeviceAddressFeatures;
   TVkPhysicalDeviceBufferDeviceAddressFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6182,63 +6147,49 @@ type
       bufferDeviceAddressCaptureReplay : TVkBool32;
       bufferDeviceAddressMultiDevice : TVkBool32;
     end;
+  PVkPhysicalDeviceBufferDeviceAddressFeatures = ^TVkPhysicalDeviceBufferDeviceAddressFeatures;
 
-  PVkBufferDeviceAddressInfo = ^TVkBufferDeviceAddressInfo;
   TVkBufferDeviceAddressInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       buffer : TVkBuffer;
     end;
+  PVkBufferDeviceAddressInfo = ^TVkBufferDeviceAddressInfo;
 
-  PVkBufferOpaqueCaptureAddressCreateInfo = ^TVkBufferOpaqueCaptureAddressCreateInfo;
   TVkBufferOpaqueCaptureAddressCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       opaqueCaptureAddress : Tuint64_t;
     end;
+  PVkBufferOpaqueCaptureAddressCreateInfo = ^TVkBufferOpaqueCaptureAddressCreateInfo;
 
-  PVkMemoryOpaqueCaptureAddressAllocateInfo = ^TVkMemoryOpaqueCaptureAddressAllocateInfo;
   TVkMemoryOpaqueCaptureAddressAllocateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       opaqueCaptureAddress : Tuint64_t;
     end;
+  PVkMemoryOpaqueCaptureAddressAllocateInfo = ^TVkMemoryOpaqueCaptureAddressAllocateInfo;
 
-  PVkDeviceMemoryOpaqueCaptureAddressInfo = ^TVkDeviceMemoryOpaqueCaptureAddressInfo;
   TVkDeviceMemoryOpaqueCaptureAddressInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       memory : TVkDeviceMemory;
     end;
+  PVkDeviceMemoryOpaqueCaptureAddressInfo = ^TVkDeviceMemoryOpaqueCaptureAddressInfo;
 
-  TPFN_vkCmdDrawIndirectCount = procedure (commandBuffer:TVkCommandBuffer; buffer:TVkBuffer; offset:TVkDeviceSize; countBuffer:TVkBuffer; countBufferOffset:TVkDeviceSize; 
-                maxDrawCount:Tuint32_t; stride:Tuint32_t);cdecl;
-
-  TPFN_vkCmdDrawIndexedIndirectCount = procedure (commandBuffer:TVkCommandBuffer; buffer:TVkBuffer; offset:TVkDeviceSize; countBuffer:TVkBuffer; countBufferOffset:TVkDeviceSize; 
-                maxDrawCount:Tuint32_t; stride:Tuint32_t);cdecl;
-
+  TPFN_vkCmdDrawIndirectCount = procedure (commandBuffer:TVkCommandBuffer; buffer:TVkBuffer; offset:TVkDeviceSize; countBuffer:TVkBuffer; countBufferOffset:TVkDeviceSize;                 maxDrawCount:Tuint32_t; stride:Tuint32_t);cdecl;
+  TPFN_vkCmdDrawIndexedIndirectCount = procedure (commandBuffer:TVkCommandBuffer; buffer:TVkBuffer; offset:TVkDeviceSize; countBuffer:TVkBuffer; countBufferOffset:TVkDeviceSize;                maxDrawCount:Tuint32_t; stride:Tuint32_t);cdecl;
   TPFN_vkCreateRenderPass2 = function (device:TVkDevice; pCreateInfo:PVkRenderPassCreateInfo2; pAllocator:PVkAllocationCallbacks; pRenderPass:PVkRenderPass):TVkResult;cdecl;
-
   TPFN_vkCmdBeginRenderPass2 = procedure (commandBuffer:TVkCommandBuffer; pRenderPassBegin:PVkRenderPassBeginInfo; pSubpassBeginInfo:PVkSubpassBeginInfo);cdecl;
-
   TPFN_vkCmdNextSubpass2 = procedure (commandBuffer:TVkCommandBuffer; pSubpassBeginInfo:PVkSubpassBeginInfo; pSubpassEndInfo:PVkSubpassEndInfo);cdecl;
-
   TPFN_vkCmdEndRenderPass2 = procedure (commandBuffer:TVkCommandBuffer; pSubpassEndInfo:PVkSubpassEndInfo);cdecl;
-
   TPFN_vkResetQueryPool = procedure (device:TVkDevice; queryPool:TVkQueryPool; firstQuery:Tuint32_t; queryCount:Tuint32_t);cdecl;
-
   TPFN_vkGetSemaphoreCounterValue = function (device:TVkDevice; semaphore:TVkSemaphore; pValue:Puint64_t):TVkResult;cdecl;
-
   TPFN_vkWaitSemaphores = function (device:TVkDevice; pWaitInfo:PVkSemaphoreWaitInfo; timeout:Tuint64_t):TVkResult;cdecl;
-
   TPFN_vkSignalSemaphore = function (device:TVkDevice; pSignalInfo:PVkSemaphoreSignalInfo):TVkResult;cdecl;
-
   TPFN_vkGetBufferDeviceAddress = function (device:TVkDevice; pInfo:PVkBufferDeviceAddressInfo):TVkDeviceAddress;cdecl;
-
   TPFN_vkGetBufferOpaqueCaptureAddress = function (device:TVkDevice; pInfo:PVkBufferDeviceAddressInfo):Tuint64_t;cdecl;
-
   TPFN_vkGetDeviceMemoryOpaqueCaptureAddress = function (device:TVkDevice; pInfo:PVkDeviceMemoryOpaqueCaptureAddressInfo):Tuint64_t;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 procedure vkCmdDrawIndirectCount(commandBuffer:TVkCommandBuffer; buffer:TVkBuffer; offset:TVkDeviceSize; countBuffer:TVkBuffer; countBufferOffset:TVkDeviceSize; 
             maxDrawCount:Tuint32_t; stride:Tuint32_t);cdecl;external libvulkan;
@@ -6255,15 +6206,10 @@ function vkSignalSemaphore(device:TVkDevice; pSignalInfo:PVkSemaphoreSignalInfo)
 function vkGetBufferDeviceAddress(device:TVkDevice; pInfo:PVkBufferDeviceAddressInfo):TVkDeviceAddress;cdecl;external libvulkan;
 function vkGetBufferOpaqueCaptureAddress(device:TVkDevice; pInfo:PVkBufferDeviceAddressInfo):Tuint64_t;cdecl;external libvulkan;
 function vkGetDeviceMemoryOpaqueCaptureAddress(device:TVkDevice; pInfo:PVkDeviceMemoryOpaqueCaptureAddressInfo):Tuint64_t;cdecl;external libvulkan;
-{$endif}
-{ VK_VERSION_1_3 is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_VERSION_1_3 = 1;  
-{ Vulkan 1.3 version number }
-
-{ was #define dname def_expr }
-function VK_API_VERSION_1_3 : longint; { return type might be wrong }
+function VK_API_VERSION_1_3 : longint;
 
 type
   PVkFlags64 = ^TVkFlags64;
@@ -6271,7 +6217,7 @@ type
 
   PVkPrivateDataSlot = ^TVkPrivateDataSlot;
   TVkPrivateDataSlot = Tuint64_t;
-
+type
   PVkPipelineCreationFeedbackFlagBits = ^TVkPipelineCreationFeedbackFlagBits;
   TVkPipelineCreationFeedbackFlagBits =  Longint;
   Const
@@ -6282,11 +6228,11 @@ type
     VK_PIPELINE_CREATION_FEEDBACK_APPLICATION_PIPELINE_CACHE_HIT_BIT_EXT = VK_PIPELINE_CREATION_FEEDBACK_APPLICATION_PIPELINE_CACHE_HIT_BIT;
     VK_PIPELINE_CREATION_FEEDBACK_BASE_PIPELINE_ACCELERATION_BIT_EXT = VK_PIPELINE_CREATION_FEEDBACK_BASE_PIPELINE_ACCELERATION_BIT;
     VK_PIPELINE_CREATION_FEEDBACK_FLAG_BITS_MAX_ENUM = $7FFFFFFF;
-;
+
 type
   PVkPipelineCreationFeedbackFlags = ^TVkPipelineCreationFeedbackFlags;
   TVkPipelineCreationFeedbackFlags = TVkFlags;
-
+type
   PVkToolPurposeFlagBits = ^TVkToolPurposeFlagBits;
   TVkToolPurposeFlagBits =  Longint;
   Const
@@ -6303,7 +6249,7 @@ type
     VK_TOOL_PURPOSE_ADDITIONAL_FEATURES_BIT_EXT = VK_TOOL_PURPOSE_ADDITIONAL_FEATURES_BIT;
     VK_TOOL_PURPOSE_MODIFYING_FEATURES_BIT_EXT = VK_TOOL_PURPOSE_MODIFYING_FEATURES_BIT;
     VK_TOOL_PURPOSE_FLAG_BITS_MAX_ENUM = $7FFFFFFF;
-;
+
 type
   PVkToolPurposeFlags = ^TVkToolPurposeFlags;
   TVkToolPurposeFlags = TVkFlags;
@@ -6313,8 +6259,9 @@ type
 
   PVkPipelineStageFlags2 = ^TVkPipelineStageFlags2;
   TVkPipelineStageFlags2 = TVkFlags64;
+type
 { Flag bits for VkPipelineStageFlagBits2 }
-
+    ddd
   PVkPipelineStageFlagBits2 = ^TVkPipelineStageFlagBits2;
   TVkPipelineStageFlagBits2 = TVkFlags64;
 {
