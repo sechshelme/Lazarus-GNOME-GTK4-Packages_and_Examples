@@ -48,6 +48,35 @@ type
   {$PACKRECORDS C}
   {$ENDIF}
 
+
+// /usr/include/vk_video/vulkan_video_codec_h???std.h
+type
+  TStdVideoH264LevelIdc=LongInt; // enum
+  TStdVideoH264ProfileIdc=LongInt; // enum
+  TStdVideoH265LevelIdc=LongInt; // emunm
+  TStdVideoH265ProfileIdc=LongInt; // emunm
+  PStdVideoH264SequenceParameterSet=type Pointer;
+  PStdVideoH264PictureParameterSet=type Pointer;
+  PStdVideoH265VideoParameterSet=type Pointer;
+  PStdVideoH265SequenceParameterSet=type Pointer;
+  PStdVideoH265PictureParameterSet=type Pointer;
+  PStdVideoEncodeH265SliceSegmentHeader=type Pointer;
+
+// /usr/include/vk_video/vulkan_video_codec_h???std_encode.h
+type
+  PStdVideoEncodeH264SliceHeader=type Pointer;
+  PStdVideoEncodeH264PictureInfo=type Pointer;
+  PStdVideoEncodeH264ReferenceInfo=type Pointer;
+  PStdVideoEncodeH265PictureInfo=type Pointer;
+  PStdVideoEncodeH265ReferenceInfo=type Pointer;
+
+// /usr/include/vk_video/vulkan_video_codec_h???std_decode.h
+type
+  PStdVideoDecodeH264PictureInfo=type Pointer;
+  PStdVideoDecodeH264ReferenceInfo=type Pointer;
+  PStdVideoDecodeH265PictureInfo=type Pointer;
+  PStdVideoDecodeH265ReferenceInfo=type Pointer;
+
   {$DEFINE read_interface}
 //  {$include fp_chafa_includes.inc}
   {$UNDEF read_interface}

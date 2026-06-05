@@ -39,7 +39,7 @@ function VK_API_VERSION_PATCH(version : longint) : Tuint32_t;
 
 type
   PVkBool32 = ^TVkBool32;
-  TVkBool32 = Tuint32_t;
+  TVkBool32 = Boolean32;
 
   PVkDeviceAddress = ^TVkDeviceAddress;
   TVkDeviceAddress = Tuint64_t;
@@ -6260,8 +6260,6 @@ type
   PVkPipelineStageFlags2 = ^TVkPipelineStageFlags2;
   TVkPipelineStageFlags2 = TVkFlags64;
 type
-{ Flag bits for VkPipelineStageFlagBits2 }
-    ddd
   PVkPipelineStageFlagBits2 = ^TVkPipelineStageFlagBits2;
   TVkPipelineStageFlagBits2 = TVkFlags64;
 {
@@ -6341,11 +6339,10 @@ static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI = 0x20000000000ULL;
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_OPTICAL_FLOW_BIT_NV = 0x20000000ULL;
  }
-
+type
   PVkAccessFlags2 = ^TVkAccessFlags2;
   TVkAccessFlags2 = TVkFlags64;
-{ Flag bits for VkAccessFlagBits2 }
-
+        type
   PVkAccessFlagBits2 = ^TVkAccessFlagBits2;
   TVkAccessFlagBits2 = TVkFlags64;
 {
@@ -6417,18 +6414,18 @@ static const VkAccessFlagBits2 VK_ACCESS_2_MICROMAP_WRITE_BIT_EXT = 0x2000000000
 static const VkAccessFlagBits2 VK_ACCESS_2_OPTICAL_FLOW_READ_BIT_NV = 0x40000000000ULL;
 static const VkAccessFlagBits2 VK_ACCESS_2_OPTICAL_FLOW_WRITE_BIT_NV = 0x80000000000ULL;
  }
-
+ type
   PVkSubmitFlagBits = ^TVkSubmitFlagBits;
   TVkSubmitFlagBits =  Longint;
   Const
     VK_SUBMIT_PROTECTED_BIT = $00000001;
     VK_SUBMIT_PROTECTED_BIT_KHR = VK_SUBMIT_PROTECTED_BIT;
     VK_SUBMIT_FLAG_BITS_MAX_ENUM = $7FFFFFFF;
-;
+
 type
   PVkSubmitFlags = ^TVkSubmitFlags;
   TVkSubmitFlags = TVkFlags;
-
+type
   PVkRenderingFlagBits = ^TVkRenderingFlagBits;
   TVkRenderingFlagBits =  Longint;
   Const
@@ -6441,15 +6438,14 @@ type
     VK_RENDERING_SUSPENDING_BIT_KHR = VK_RENDERING_SUSPENDING_BIT;
     VK_RENDERING_RESUMING_BIT_KHR = VK_RENDERING_RESUMING_BIT;
     VK_RENDERING_FLAG_BITS_MAX_ENUM = $7FFFFFFF;
-;
+
 type
   PVkRenderingFlags = ^TVkRenderingFlags;
   TVkRenderingFlags = TVkFlags;
 
   PVkFormatFeatureFlags2 = ^TVkFormatFeatureFlags2;
   TVkFormatFeatureFlags2 = TVkFlags64;
-{ Flag bits for VkFormatFeatureFlagBits2 }
-
+type
   PVkFormatFeatureFlagBits2 = ^TVkFormatFeatureFlagBits2;
   TVkFormatFeatureFlagBits2 = TVkFlags64;
 {
@@ -6524,8 +6520,7 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_IMAGE_BIT
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_VECTOR_BIT_NV = 0x20000000000ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_NV = 0x40000000000ULL;
  }
-
-  PVkPhysicalDeviceVulkan13Features = ^TVkPhysicalDeviceVulkan13Features;
+type
   TVkPhysicalDeviceVulkan13Features = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6545,8 +6540,8 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       shaderIntegerDotProduct : TVkBool32;
       maintenance4 : TVkBool32;
     end;
+  PVkPhysicalDeviceVulkan13Features = ^TVkPhysicalDeviceVulkan13Features;
 
-  PVkPhysicalDeviceVulkan13Properties = ^TVkPhysicalDeviceVulkan13Properties;
   TVkPhysicalDeviceVulkan13Properties = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6596,14 +6591,14 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       uniformTexelBufferOffsetSingleTexelAlignment : TVkBool32;
       maxBufferSize : TVkDeviceSize;
     end;
+  PVkPhysicalDeviceVulkan13Properties = ^TVkPhysicalDeviceVulkan13Properties;
 
-  PVkPipelineCreationFeedback = ^TVkPipelineCreationFeedback;
   TVkPipelineCreationFeedback = record
       flags : TVkPipelineCreationFeedbackFlags;
       duration : Tuint64_t;
     end;
+  PVkPipelineCreationFeedback = ^TVkPipelineCreationFeedback;
 
-  PVkPipelineCreationFeedbackCreateInfo = ^TVkPipelineCreationFeedbackCreateInfo;
   TVkPipelineCreationFeedbackCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6611,15 +6606,15 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       pipelineStageCreationFeedbackCount : Tuint32_t;
       pPipelineStageCreationFeedbacks : PVkPipelineCreationFeedback;
     end;
+  PVkPipelineCreationFeedbackCreateInfo = ^TVkPipelineCreationFeedbackCreateInfo;
 
-  PVkPhysicalDeviceShaderTerminateInvocationFeatures = ^TVkPhysicalDeviceShaderTerminateInvocationFeatures;
   TVkPhysicalDeviceShaderTerminateInvocationFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       shaderTerminateInvocation : TVkBool32;
     end;
+  PVkPhysicalDeviceShaderTerminateInvocationFeatures = ^TVkPhysicalDeviceShaderTerminateInvocationFeatures;
 
-  PVkPhysicalDeviceToolProperties = ^TVkPhysicalDeviceToolProperties;
   TVkPhysicalDeviceToolProperties = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6629,43 +6624,43 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       description : array[0..(VK_MAX_DESCRIPTION_SIZE)-1] of char;
       layer : array[0..(VK_MAX_EXTENSION_NAME_SIZE)-1] of char;
     end;
+  PVkPhysicalDeviceToolProperties = ^TVkPhysicalDeviceToolProperties;
 
-  PVkPhysicalDeviceShaderDemoteToHelperInvocationFeatures = ^TVkPhysicalDeviceShaderDemoteToHelperInvocationFeatures;
   TVkPhysicalDeviceShaderDemoteToHelperInvocationFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       shaderDemoteToHelperInvocation : TVkBool32;
     end;
+  PVkPhysicalDeviceShaderDemoteToHelperInvocationFeatures = ^TVkPhysicalDeviceShaderDemoteToHelperInvocationFeatures;
 
-  PVkPhysicalDevicePrivateDataFeatures = ^TVkPhysicalDevicePrivateDataFeatures;
   TVkPhysicalDevicePrivateDataFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       privateData : TVkBool32;
     end;
+  PVkPhysicalDevicePrivateDataFeatures = ^TVkPhysicalDevicePrivateDataFeatures;
 
-  PVkDevicePrivateDataCreateInfo = ^TVkDevicePrivateDataCreateInfo;
   TVkDevicePrivateDataCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       privateDataSlotRequestCount : Tuint32_t;
     end;
+  PVkDevicePrivateDataCreateInfo = ^TVkDevicePrivateDataCreateInfo;
 
-  PVkPrivateDataSlotCreateInfo = ^TVkPrivateDataSlotCreateInfo;
   TVkPrivateDataSlotCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       flags : TVkPrivateDataSlotCreateFlags;
     end;
+  PVkPrivateDataSlotCreateInfo = ^TVkPrivateDataSlotCreateInfo;
 
-  PVkPhysicalDevicePipelineCreationCacheControlFeatures = ^TVkPhysicalDevicePipelineCreationCacheControlFeatures;
   TVkPhysicalDevicePipelineCreationCacheControlFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       pipelineCreationCacheControl : TVkBool32;
     end;
+  PVkPhysicalDevicePipelineCreationCacheControlFeatures = ^TVkPhysicalDevicePipelineCreationCacheControlFeatures;
 
-  PVkMemoryBarrier2 = ^TVkMemoryBarrier2;
   TVkMemoryBarrier2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6674,8 +6669,8 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       dstStageMask : TVkPipelineStageFlags2;
       dstAccessMask : TVkAccessFlags2;
     end;
+  PVkMemoryBarrier2 = ^TVkMemoryBarrier2;
 
-  PVkBufferMemoryBarrier2 = ^TVkBufferMemoryBarrier2;
   TVkBufferMemoryBarrier2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6689,8 +6684,8 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       offset : TVkDeviceSize;
       size : TVkDeviceSize;
     end;
+  PVkBufferMemoryBarrier2 = ^TVkBufferMemoryBarrier2;
 
-  PVkImageMemoryBarrier2 = ^TVkImageMemoryBarrier2;
   TVkImageMemoryBarrier2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6705,8 +6700,8 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       image : TVkImage;
       subresourceRange : TVkImageSubresourceRange;
     end;
+  PVkImageMemoryBarrier2 = ^TVkImageMemoryBarrier2;
 
-  PVkDependencyInfo = ^TVkDependencyInfo;
   TVkDependencyInfo = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6718,8 +6713,8 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       imageMemoryBarrierCount : Tuint32_t;
       pImageMemoryBarriers : PVkImageMemoryBarrier2;
     end;
+  PVkDependencyInfo = ^TVkDependencyInfo;
 
-  PVkSemaphoreSubmitInfo = ^TVkSemaphoreSubmitInfo;
   TVkSemaphoreSubmitInfo = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6728,16 +6723,16 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       stageMask : TVkPipelineStageFlags2;
       deviceIndex : Tuint32_t;
     end;
+  PVkSemaphoreSubmitInfo = ^TVkSemaphoreSubmitInfo;
 
-  PVkCommandBufferSubmitInfo = ^TVkCommandBufferSubmitInfo;
   TVkCommandBufferSubmitInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       commandBuffer : TVkCommandBuffer;
       deviceMask : Tuint32_t;
     end;
+  PVkCommandBufferSubmitInfo = ^TVkCommandBufferSubmitInfo;
 
-  PVkSubmitInfo2 = ^TVkSubmitInfo2;
   TVkSubmitInfo2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6749,29 +6744,29 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       signalSemaphoreInfoCount : Tuint32_t;
       pSignalSemaphoreInfos : PVkSemaphoreSubmitInfo;
     end;
+  PVkSubmitInfo2 = ^TVkSubmitInfo2;
 
-  PVkPhysicalDeviceSynchronization2Features = ^TVkPhysicalDeviceSynchronization2Features;
   TVkPhysicalDeviceSynchronization2Features = record
       sType : TVkStructureType;
       pNext : pointer;
       synchronization2 : TVkBool32;
     end;
+  PVkPhysicalDeviceSynchronization2Features = ^TVkPhysicalDeviceSynchronization2Features;
 
-  PVkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures = ^TVkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures;
   TVkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       shaderZeroInitializeWorkgroupMemory : TVkBool32;
     end;
+  PVkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures = ^TVkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures;
 
-  PVkPhysicalDeviceImageRobustnessFeatures = ^TVkPhysicalDeviceImageRobustnessFeatures;
   TVkPhysicalDeviceImageRobustnessFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       robustImageAccess : TVkBool32;
     end;
+  PVkPhysicalDeviceImageRobustnessFeatures = ^TVkPhysicalDeviceImageRobustnessFeatures;
 
-  PVkBufferCopy2 = ^TVkBufferCopy2;
   TVkBufferCopy2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6779,8 +6774,8 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       dstOffset : TVkDeviceSize;
       size : TVkDeviceSize;
     end;
+  PVkBufferCopy2 = ^TVkBufferCopy2;
 
-  PVkCopyBufferInfo2 = ^TVkCopyBufferInfo2;
   TVkCopyBufferInfo2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6789,8 +6784,8 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       regionCount : Tuint32_t;
       pRegions : PVkBufferCopy2;
     end;
+  PVkCopyBufferInfo2 = ^TVkCopyBufferInfo2;
 
-  PVkImageCopy2 = ^TVkImageCopy2;
   TVkImageCopy2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6800,8 +6795,8 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       dstOffset : TVkOffset3D;
       extent : TVkExtent3D;
     end;
+  PVkImageCopy2 = ^TVkImageCopy2;
 
-  PVkCopyImageInfo2 = ^TVkCopyImageInfo2;
   TVkCopyImageInfo2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6812,8 +6807,8 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       regionCount : Tuint32_t;
       pRegions : PVkImageCopy2;
     end;
+  PVkCopyImageInfo2 = ^TVkCopyImageInfo2;
 
-  PVkBufferImageCopy2 = ^TVkBufferImageCopy2;
   TVkBufferImageCopy2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6824,8 +6819,8 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       imageOffset : TVkOffset3D;
       imageExtent : TVkExtent3D;
     end;
+  PVkBufferImageCopy2 = ^TVkBufferImageCopy2;
 
-  PVkCopyBufferToImageInfo2 = ^TVkCopyBufferToImageInfo2;
   TVkCopyBufferToImageInfo2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6835,8 +6830,8 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       regionCount : Tuint32_t;
       pRegions : PVkBufferImageCopy2;
     end;
+  PVkCopyBufferToImageInfo2 = ^TVkCopyBufferToImageInfo2;
 
-  PVkCopyImageToBufferInfo2 = ^TVkCopyImageToBufferInfo2;
   TVkCopyImageToBufferInfo2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6846,8 +6841,8 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       regionCount : Tuint32_t;
       pRegions : PVkBufferImageCopy2;
     end;
+  PVkCopyImageToBufferInfo2 = ^TVkCopyImageToBufferInfo2;
 
-  PVkImageBlit2 = ^TVkImageBlit2;
   TVkImageBlit2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6856,8 +6851,8 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       dstSubresource : TVkImageSubresourceLayers;
       dstOffsets : array[0..1] of TVkOffset3D;
     end;
+  PVkImageBlit2 = ^TVkImageBlit2;
 
-  PVkBlitImageInfo2 = ^TVkBlitImageInfo2;
   TVkBlitImageInfo2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6869,8 +6864,8 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       pRegions : PVkImageBlit2;
       filter : TVkFilter;
     end;
+  PVkBlitImageInfo2 = ^TVkBlitImageInfo2;
 
-  PVkImageResolve2 = ^TVkImageResolve2;
   TVkImageResolve2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6880,8 +6875,8 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       dstOffset : TVkOffset3D;
       extent : TVkExtent3D;
     end;
+  PVkImageResolve2 = ^TVkImageResolve2;
 
-  PVkResolveImageInfo2 = ^TVkResolveImageInfo2;
   TVkResolveImageInfo2 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6892,16 +6887,16 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       regionCount : Tuint32_t;
       pRegions : PVkImageResolve2;
     end;
+  PVkResolveImageInfo2 = ^TVkResolveImageInfo2;
 
-  PVkPhysicalDeviceSubgroupSizeControlFeatures = ^TVkPhysicalDeviceSubgroupSizeControlFeatures;
   TVkPhysicalDeviceSubgroupSizeControlFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       subgroupSizeControl : TVkBool32;
       computeFullSubgroups : TVkBool32;
     end;
+  PVkPhysicalDeviceSubgroupSizeControlFeatures = ^TVkPhysicalDeviceSubgroupSizeControlFeatures;
 
-  PVkPhysicalDeviceSubgroupSizeControlProperties = ^TVkPhysicalDeviceSubgroupSizeControlProperties;
   TVkPhysicalDeviceSubgroupSizeControlProperties = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6910,23 +6905,23 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       maxComputeWorkgroupSubgroups : Tuint32_t;
       requiredSubgroupSizeStages : TVkShaderStageFlags;
     end;
+  PVkPhysicalDeviceSubgroupSizeControlProperties = ^TVkPhysicalDeviceSubgroupSizeControlProperties;
 
-  PVkPipelineShaderStageRequiredSubgroupSizeCreateInfo = ^TVkPipelineShaderStageRequiredSubgroupSizeCreateInfo;
   TVkPipelineShaderStageRequiredSubgroupSizeCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       requiredSubgroupSize : Tuint32_t;
     end;
+  PVkPipelineShaderStageRequiredSubgroupSizeCreateInfo = ^TVkPipelineShaderStageRequiredSubgroupSizeCreateInfo;
 
-  PVkPhysicalDeviceInlineUniformBlockFeatures = ^TVkPhysicalDeviceInlineUniformBlockFeatures;
   TVkPhysicalDeviceInlineUniformBlockFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       inlineUniformBlock : TVkBool32;
       descriptorBindingInlineUniformBlockUpdateAfterBind : TVkBool32;
     end;
+  PVkPhysicalDeviceInlineUniformBlockFeatures = ^TVkPhysicalDeviceInlineUniformBlockFeatures;
 
-  PVkPhysicalDeviceInlineUniformBlockProperties = ^TVkPhysicalDeviceInlineUniformBlockProperties;
   TVkPhysicalDeviceInlineUniformBlockProperties = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6936,30 +6931,30 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       maxDescriptorSetInlineUniformBlocks : Tuint32_t;
       maxDescriptorSetUpdateAfterBindInlineUniformBlocks : Tuint32_t;
     end;
+  PVkPhysicalDeviceInlineUniformBlockProperties = ^TVkPhysicalDeviceInlineUniformBlockProperties;
 
-  PVkWriteDescriptorSetInlineUniformBlock = ^TVkWriteDescriptorSetInlineUniformBlock;
   TVkWriteDescriptorSetInlineUniformBlock = record
       sType : TVkStructureType;
       pNext : pointer;
       dataSize : Tuint32_t;
       pData : pointer;
     end;
+  PVkWriteDescriptorSetInlineUniformBlock = ^TVkWriteDescriptorSetInlineUniformBlock;
 
-  PVkDescriptorPoolInlineUniformBlockCreateInfo = ^TVkDescriptorPoolInlineUniformBlockCreateInfo;
   TVkDescriptorPoolInlineUniformBlockCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
       maxInlineUniformBlockBindings : Tuint32_t;
     end;
+  PVkDescriptorPoolInlineUniformBlockCreateInfo = ^TVkDescriptorPoolInlineUniformBlockCreateInfo;
 
-  PVkPhysicalDeviceTextureCompressionASTCHDRFeatures = ^TVkPhysicalDeviceTextureCompressionASTCHDRFeatures;
   TVkPhysicalDeviceTextureCompressionASTCHDRFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       textureCompressionASTC_HDR : TVkBool32;
     end;
+  PVkPhysicalDeviceTextureCompressionASTCHDRFeatures = ^TVkPhysicalDeviceTextureCompressionASTCHDRFeatures;
 
-  PVkRenderingAttachmentInfo = ^TVkRenderingAttachmentInfo;
   TVkRenderingAttachmentInfo = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6972,8 +6967,8 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       storeOp : TVkAttachmentStoreOp;
       clearValue : TVkClearValue;
     end;
+  PVkRenderingAttachmentInfo = ^TVkRenderingAttachmentInfo;
 
-  PVkRenderingInfo = ^TVkRenderingInfo;
   TVkRenderingInfo = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6986,8 +6981,8 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       pDepthAttachment : PVkRenderingAttachmentInfo;
       pStencilAttachment : PVkRenderingAttachmentInfo;
     end;
+  PVkRenderingInfo = ^TVkRenderingInfo;
 
-  PVkPipelineRenderingCreateInfo = ^TVkPipelineRenderingCreateInfo;
   TVkPipelineRenderingCreateInfo = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -6997,15 +6992,15 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       depthAttachmentFormat : TVkFormat;
       stencilAttachmentFormat : TVkFormat;
     end;
+  PVkPipelineRenderingCreateInfo = ^TVkPipelineRenderingCreateInfo;
 
-  PVkPhysicalDeviceDynamicRenderingFeatures = ^TVkPhysicalDeviceDynamicRenderingFeatures;
   TVkPhysicalDeviceDynamicRenderingFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       dynamicRendering : TVkBool32;
     end;
+  PVkPhysicalDeviceDynamicRenderingFeatures = ^TVkPhysicalDeviceDynamicRenderingFeatures;
 
-  PVkCommandBufferInheritanceRenderingInfo = ^TVkCommandBufferInheritanceRenderingInfo;
   TVkCommandBufferInheritanceRenderingInfo = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -7017,15 +7012,15 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       stencilAttachmentFormat : TVkFormat;
       rasterizationSamples : TVkSampleCountFlagBits;
     end;
+  PVkCommandBufferInheritanceRenderingInfo = ^TVkCommandBufferInheritanceRenderingInfo;
 
-  PVkPhysicalDeviceShaderIntegerDotProductFeatures = ^TVkPhysicalDeviceShaderIntegerDotProductFeatures;
   TVkPhysicalDeviceShaderIntegerDotProductFeatures = record
       sType : TVkStructureType;
       pNext : pointer;
       shaderIntegerDotProduct : TVkBool32;
     end;
+  PVkPhysicalDeviceShaderIntegerDotProductFeatures = ^TVkPhysicalDeviceShaderIntegerDotProductFeatures;
 
-  PVkPhysicalDeviceShaderIntegerDotProductProperties = ^TVkPhysicalDeviceShaderIntegerDotProductProperties;
   TVkPhysicalDeviceShaderIntegerDotProductProperties = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -7060,8 +7055,8 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       integerDotProductAccumulatingSaturating64BitSignedAccelerated : TVkBool32;
       integerDotProductAccumulatingSaturating64BitMixedSignednessAccelerated : TVkBool32;
     end;
+  PVkPhysicalDeviceShaderIntegerDotProductProperties = ^TVkPhysicalDeviceShaderIntegerDotProductProperties;
 
-  PVkPhysicalDeviceTexelBufferAlignmentProperties = ^TVkPhysicalDeviceTexelBufferAlignmentProperties;
   TVkPhysicalDeviceTexelBufferAlignmentProperties = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -7070,8 +7065,8 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       uniformTexelBufferOffsetAlignmentBytes : TVkDeviceSize;
       uniformTexelBufferOffsetSingleTexelAlignment : TVkBool32;
     end;
+  PVkPhysicalDeviceTexelBufferAlignmentProperties = ^TVkPhysicalDeviceTexelBufferAlignmentProperties;
 
-  PVkFormatProperties3 = ^TVkFormatProperties3;
   TVkFormatProperties3 = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -7079,112 +7074,74 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_
       optimalTilingFeatures : TVkFormatFeatureFlags2;
       bufferFeatures : TVkFormatFeatureFlags2;
     end;
+  PVkFormatProperties3 = ^TVkFormatProperties3;
 
-  PVkPhysicalDeviceMaintenance4Features = ^TVkPhysicalDeviceMaintenance4Features;
   TVkPhysicalDeviceMaintenance4Features = record
       sType : TVkStructureType;
       pNext : pointer;
       maintenance4 : TVkBool32;
     end;
+  PVkPhysicalDeviceMaintenance4Features = ^TVkPhysicalDeviceMaintenance4Features;
 
-  PVkPhysicalDeviceMaintenance4Properties = ^TVkPhysicalDeviceMaintenance4Properties;
   TVkPhysicalDeviceMaintenance4Properties = record
       sType : TVkStructureType;
       pNext : pointer;
       maxBufferSize : TVkDeviceSize;
     end;
+  PVkPhysicalDeviceMaintenance4Properties = ^TVkPhysicalDeviceMaintenance4Properties;
 
-  PVkDeviceBufferMemoryRequirements = ^TVkDeviceBufferMemoryRequirements;
   TVkDeviceBufferMemoryRequirements = record
       sType : TVkStructureType;
       pNext : pointer;
       pCreateInfo : PVkBufferCreateInfo;
     end;
+  PVkDeviceBufferMemoryRequirements = ^TVkDeviceBufferMemoryRequirements;
 
-  PVkDeviceImageMemoryRequirements = ^TVkDeviceImageMemoryRequirements;
   TVkDeviceImageMemoryRequirements = record
       sType : TVkStructureType;
       pNext : pointer;
       pCreateInfo : PVkImageCreateInfo;
       planeAspect : TVkImageAspectFlagBits;
     end;
+  PVkDeviceImageMemoryRequirements = ^TVkDeviceImageMemoryRequirements;
 
   TPFN_vkGetPhysicalDeviceToolProperties = function (physicalDevice:TVkPhysicalDevice; pToolCount:Puint32_t; pToolProperties:PVkPhysicalDeviceToolProperties):TVkResult;cdecl;
-
   TPFN_vkCreatePrivateDataSlot = function (device:TVkDevice; pCreateInfo:PVkPrivateDataSlotCreateInfo; pAllocator:PVkAllocationCallbacks; pPrivateDataSlot:PVkPrivateDataSlot):TVkResult;cdecl;
-
   TPFN_vkDestroyPrivateDataSlot = procedure (device:TVkDevice; privateDataSlot:TVkPrivateDataSlot; pAllocator:PVkAllocationCallbacks);cdecl;
-
   TPFN_vkSetPrivateData = function (device:TVkDevice; objectType:TVkObjectType; objectHandle:Tuint64_t; privateDataSlot:TVkPrivateDataSlot; data:Tuint64_t):TVkResult;cdecl;
-
   TPFN_vkGetPrivateData = procedure (device:TVkDevice; objectType:TVkObjectType; objectHandle:Tuint64_t; privateDataSlot:TVkPrivateDataSlot; pData:Puint64_t);cdecl;
-
   TPFN_vkCmdSetEvent2 = procedure (commandBuffer:TVkCommandBuffer; event:TVkEvent; pDependencyInfo:PVkDependencyInfo);cdecl;
-
   TPFN_vkCmdResetEvent2 = procedure (commandBuffer:TVkCommandBuffer; event:TVkEvent; stageMask:TVkPipelineStageFlags2);cdecl;
-
   TPFN_vkCmdWaitEvents2 = procedure (commandBuffer:TVkCommandBuffer; eventCount:Tuint32_t; pEvents:PVkEvent; pDependencyInfos:PVkDependencyInfo);cdecl;
-
   TPFN_vkCmdPipelineBarrier2 = procedure (commandBuffer:TVkCommandBuffer; pDependencyInfo:PVkDependencyInfo);cdecl;
-
   TPFN_vkCmdWriteTimestamp2 = procedure (commandBuffer:TVkCommandBuffer; stage:TVkPipelineStageFlags2; queryPool:TVkQueryPool; query:Tuint32_t);cdecl;
-
   TPFN_vkQueueSubmit2 = function (queue:TVkQueue; submitCount:Tuint32_t; pSubmits:PVkSubmitInfo2; fence:TVkFence):TVkResult;cdecl;
-
   TPFN_vkCmdCopyBuffer2 = procedure (commandBuffer:TVkCommandBuffer; pCopyBufferInfo:PVkCopyBufferInfo2);cdecl;
-
   TPFN_vkCmdCopyImage2 = procedure (commandBuffer:TVkCommandBuffer; pCopyImageInfo:PVkCopyImageInfo2);cdecl;
-
   TPFN_vkCmdCopyBufferToImage2 = procedure (commandBuffer:TVkCommandBuffer; pCopyBufferToImageInfo:PVkCopyBufferToImageInfo2);cdecl;
-
   TPFN_vkCmdCopyImageToBuffer2 = procedure (commandBuffer:TVkCommandBuffer; pCopyImageToBufferInfo:PVkCopyImageToBufferInfo2);cdecl;
-
   TPFN_vkCmdBlitImage2 = procedure (commandBuffer:TVkCommandBuffer; pBlitImageInfo:PVkBlitImageInfo2);cdecl;
-
   TPFN_vkCmdResolveImage2 = procedure (commandBuffer:TVkCommandBuffer; pResolveImageInfo:PVkResolveImageInfo2);cdecl;
-
   TPFN_vkCmdBeginRendering = procedure (commandBuffer:TVkCommandBuffer; pRenderingInfo:PVkRenderingInfo);cdecl;
-
   TPFN_vkCmdEndRendering = procedure (commandBuffer:TVkCommandBuffer);cdecl;
-
   TPFN_vkCmdSetCullMode = procedure (commandBuffer:TVkCommandBuffer; cullMode:TVkCullModeFlags);cdecl;
-
   TPFN_vkCmdSetFrontFace = procedure (commandBuffer:TVkCommandBuffer; frontFace:TVkFrontFace);cdecl;
-
   TPFN_vkCmdSetPrimitiveTopology = procedure (commandBuffer:TVkCommandBuffer; primitiveTopology:TVkPrimitiveTopology);cdecl;
-
   TPFN_vkCmdSetViewportWithCount = procedure (commandBuffer:TVkCommandBuffer; viewportCount:Tuint32_t; pViewports:PVkViewport);cdecl;
-
   TPFN_vkCmdSetScissorWithCount = procedure (commandBuffer:TVkCommandBuffer; scissorCount:Tuint32_t; pScissors:PVkRect2D);cdecl;
-
-  TPFN_vkCmdBindVertexBuffers2 = procedure (commandBuffer:TVkCommandBuffer; firstBinding:Tuint32_t; bindingCount:Tuint32_t; pBuffers:PVkBuffer; pOffsets:PVkDeviceSize; 
-                pSizes:PVkDeviceSize; pStrides:PVkDeviceSize);cdecl;
-
+  TPFN_vkCmdBindVertexBuffers2 = procedure (commandBuffer:TVkCommandBuffer; firstBinding:Tuint32_t; bindingCount:Tuint32_t; pBuffers:PVkBuffer; pOffsets:PVkDeviceSize;               pSizes:PVkDeviceSize; pStrides:PVkDeviceSize);cdecl;
   TPFN_vkCmdSetDepthTestEnable = procedure (commandBuffer:TVkCommandBuffer; depthTestEnable:TVkBool32);cdecl;
-
   TPFN_vkCmdSetDepthWriteEnable = procedure (commandBuffer:TVkCommandBuffer; depthWriteEnable:TVkBool32);cdecl;
-
   TPFN_vkCmdSetDepthCompareOp = procedure (commandBuffer:TVkCommandBuffer; depthCompareOp:TVkCompareOp);cdecl;
-
   TPFN_vkCmdSetDepthBoundsTestEnable = procedure (commandBuffer:TVkCommandBuffer; depthBoundsTestEnable:TVkBool32);cdecl;
-
   TPFN_vkCmdSetStencilTestEnable = procedure (commandBuffer:TVkCommandBuffer; stencilTestEnable:TVkBool32);cdecl;
-
-  TPFN_vkCmdSetStencilOp = procedure (commandBuffer:TVkCommandBuffer; faceMask:TVkStencilFaceFlags; failOp:TVkStencilOp; passOp:TVkStencilOp; depthFailOp:TVkStencilOp; 
-                compareOp:TVkCompareOp);cdecl;
-
+  TPFN_vkCmdSetStencilOp = procedure (commandBuffer:TVkCommandBuffer; faceMask:TVkStencilFaceFlags; failOp:TVkStencilOp; passOp:TVkStencilOp; depthFailOp:TVkStencilOp;                compareOp:TVkCompareOp);cdecl;
   TPFN_vkCmdSetRasterizerDiscardEnable = procedure (commandBuffer:TVkCommandBuffer; rasterizerDiscardEnable:TVkBool32);cdecl;
-
   TPFN_vkCmdSetDepthBiasEnable = procedure (commandBuffer:TVkCommandBuffer; depthBiasEnable:TVkBool32);cdecl;
-
   TPFN_vkCmdSetPrimitiveRestartEnable = procedure (commandBuffer:TVkCommandBuffer; primitiveRestartEnable:TVkBool32);cdecl;
-
   TPFN_vkGetDeviceBufferMemoryRequirements = procedure (device:TVkDevice; pInfo:PVkDeviceBufferMemoryRequirements; pMemoryRequirements:PVkMemoryRequirements2);cdecl;
-
   TPFN_vkGetDeviceImageMemoryRequirements = procedure (device:TVkDevice; pInfo:PVkDeviceImageMemoryRequirements; pMemoryRequirements:PVkMemoryRequirements2);cdecl;
-
   TPFN_vkGetDeviceImageSparseMemoryRequirements = procedure (device:TVkDevice; pInfo:PVkDeviceImageMemoryRequirements; pSparseMemoryRequirementCount:Puint32_t; pSparseMemoryRequirements:PVkSparseImageMemoryRequirements2);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkGetPhysicalDeviceToolProperties(physicalDevice:TVkPhysicalDevice; pToolCount:Puint32_t; pToolProperties:PVkPhysicalDeviceToolProperties):TVkResult;cdecl;external libvulkan;
 function vkCreatePrivateDataSlot(device:TVkDevice; pCreateInfo:PVkPrivateDataSlotCreateInfo; pAllocator:PVkAllocationCallbacks; pPrivateDataSlot:PVkPrivateDataSlot):TVkResult;cdecl;external libvulkan;
@@ -7225,8 +7182,6 @@ procedure vkCmdSetPrimitiveRestartEnable(commandBuffer:TVkCommandBuffer; primiti
 procedure vkGetDeviceBufferMemoryRequirements(device:TVkDevice; pInfo:PVkDeviceBufferMemoryRequirements; pMemoryRequirements:PVkMemoryRequirements2);cdecl;external libvulkan;
 procedure vkGetDeviceImageMemoryRequirements(device:TVkDevice; pInfo:PVkDeviceImageMemoryRequirements; pMemoryRequirements:PVkMemoryRequirements2);cdecl;external libvulkan;
 procedure vkGetDeviceImageSparseMemoryRequirements(device:TVkDevice; pInfo:PVkDeviceImageMemoryRequirements; pSparseMemoryRequirementCount:Puint32_t; pSparseMemoryRequirements:PVkSparseImageMemoryRequirements2);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_surface is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_surface = 1;  
@@ -7248,7 +7203,7 @@ type
     VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR = 1000111000;
     VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR = 1000111001;
     VK_PRESENT_MODE_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkColorSpaceKHR = ^TVkColorSpaceKHR;
   TVkColorSpaceKHR =  Longint;
@@ -7272,7 +7227,7 @@ type
     VK_COLORSPACE_SRGB_NONLINEAR_KHR = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR;
     VK_COLOR_SPACE_DCI_P3_LINEAR_EXT = VK_COLOR_SPACE_DISPLAY_P3_LINEAR_EXT;
     VK_COLOR_SPACE_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkSurfaceTransformFlagBitsKHR = ^TVkSurfaceTransformFlagBitsKHR;
   TVkSurfaceTransformFlagBitsKHR =  Longint;
@@ -7287,7 +7242,7 @@ type
     VK_SURFACE_TRANSFORM_HORIZONTAL_MIRROR_ROTATE_270_BIT_KHR = $00000080;
     VK_SURFACE_TRANSFORM_INHERIT_BIT_KHR = $00000100;
     VK_SURFACE_TRANSFORM_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkCompositeAlphaFlagBitsKHR = ^TVkCompositeAlphaFlagBitsKHR;
   TVkCompositeAlphaFlagBitsKHR =  Longint;
@@ -7297,7 +7252,7 @@ type
     VK_COMPOSITE_ALPHA_POST_MULTIPLIED_BIT_KHR = $00000004;
     VK_COMPOSITE_ALPHA_INHERIT_BIT_KHR = $00000008;
     VK_COMPOSITE_ALPHA_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkCompositeAlphaFlagsKHR = ^TVkCompositeAlphaFlagsKHR;
   TVkCompositeAlphaFlagsKHR = TVkFlags;
@@ -7305,7 +7260,6 @@ type
   PVkSurfaceTransformFlagsKHR = ^TVkSurfaceTransformFlagsKHR;
   TVkSurfaceTransformFlagsKHR = TVkFlags;
 
-  PVkSurfaceCapabilitiesKHR = ^TVkSurfaceCapabilitiesKHR;
   TVkSurfaceCapabilitiesKHR = record
       minImageCount : Tuint32_t;
       maxImageCount : Tuint32_t;
@@ -7318,31 +7272,25 @@ type
       supportedCompositeAlpha : TVkCompositeAlphaFlagsKHR;
       supportedUsageFlags : TVkImageUsageFlags;
     end;
+  PVkSurfaceCapabilitiesKHR = ^TVkSurfaceCapabilitiesKHR;
 
-  PVkSurfaceFormatKHR = ^TVkSurfaceFormatKHR;
   TVkSurfaceFormatKHR = record
       format : TVkFormat;
       colorSpace : TVkColorSpaceKHR;
     end;
+  PVkSurfaceFormatKHR = ^TVkSurfaceFormatKHR;
 
   TPFN_vkDestroySurfaceKHR = procedure (instance:TVkInstance; surface:TVkSurfaceKHR; pAllocator:PVkAllocationCallbacks);cdecl;
-
   TPFN_vkGetPhysicalDeviceSurfaceSupportKHR = function (physicalDevice:TVkPhysicalDevice; queueFamilyIndex:Tuint32_t; surface:TVkSurfaceKHR; pSupported:PVkBool32):TVkResult;cdecl;
-
   TPFN_vkGetPhysicalDeviceSurfaceCapabilitiesKHR = function (physicalDevice:TVkPhysicalDevice; surface:TVkSurfaceKHR; pSurfaceCapabilities:PVkSurfaceCapabilitiesKHR):TVkResult;cdecl;
-
   TPFN_vkGetPhysicalDeviceSurfaceFormatsKHR = function (physicalDevice:TVkPhysicalDevice; surface:TVkSurfaceKHR; pSurfaceFormatCount:Puint32_t; pSurfaceFormats:PVkSurfaceFormatKHR):TVkResult;cdecl;
-
   TPFN_vkGetPhysicalDeviceSurfacePresentModesKHR = function (physicalDevice:TVkPhysicalDevice; surface:TVkSurfaceKHR; pPresentModeCount:Puint32_t; pPresentModes:PVkPresentModeKHR):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 procedure vkDestroySurfaceKHR(instance:TVkInstance; surface:TVkSurfaceKHR; pAllocator:PVkAllocationCallbacks);cdecl;external libvulkan;
 function vkGetPhysicalDeviceSurfaceSupportKHR(physicalDevice:TVkPhysicalDevice; queueFamilyIndex:Tuint32_t; surface:TVkSurfaceKHR; pSupported:PVkBool32):TVkResult;cdecl;external libvulkan;
 function vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice:TVkPhysicalDevice; surface:TVkSurfaceKHR; pSurfaceCapabilities:PVkSurfaceCapabilitiesKHR):TVkResult;cdecl;external libvulkan;
 function vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice:TVkPhysicalDevice; surface:TVkSurfaceKHR; pSurfaceFormatCount:Puint32_t; pSurfaceFormats:PVkSurfaceFormatKHR):TVkResult;cdecl;external libvulkan;
 function vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice:TVkPhysicalDevice; surface:TVkSurfaceKHR; pPresentModeCount:Puint32_t; pPresentModes:PVkPresentModeKHR):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_swapchain is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_swapchain = 1;  
@@ -7362,11 +7310,11 @@ type
     VK_SWAPCHAIN_CREATE_MUTABLE_FORMAT_BIT_KHR = $00000004;
     VK_SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_EXT = $00000008;
     VK_SWAPCHAIN_CREATE_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkSwapchainCreateFlagsKHR = ^TVkSwapchainCreateFlagsKHR;
   TVkSwapchainCreateFlagsKHR = TVkFlags;
-
+type
   PVkDeviceGroupPresentModeFlagBitsKHR = ^TVkDeviceGroupPresentModeFlagBitsKHR;
   TVkDeviceGroupPresentModeFlagBitsKHR =  Longint;
   Const
@@ -7375,12 +7323,11 @@ type
     VK_DEVICE_GROUP_PRESENT_MODE_SUM_BIT_KHR = $00000004;
     VK_DEVICE_GROUP_PRESENT_MODE_LOCAL_MULTI_DEVICE_BIT_KHR = $00000008;
     VK_DEVICE_GROUP_PRESENT_MODE_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkDeviceGroupPresentModeFlagsKHR = ^TVkDeviceGroupPresentModeFlagsKHR;
   TVkDeviceGroupPresentModeFlagsKHR = TVkFlags;
 
-  PVkSwapchainCreateInfoKHR = ^TVkSwapchainCreateInfoKHR;
   TVkSwapchainCreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -7401,8 +7348,8 @@ type
       clipped : TVkBool32;
       oldSwapchain : TVkSwapchainKHR;
     end;
+  PVkSwapchainCreateInfoKHR = ^TVkSwapchainCreateInfoKHR;
 
-  PVkPresentInfoKHR = ^TVkPresentInfoKHR;
   TVkPresentInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -7413,23 +7360,23 @@ type
       pImageIndices : Puint32_t;
       pResults : PVkResult;
     end;
+  PVkPresentInfoKHR = ^TVkPresentInfoKHR;
 
-  PVkImageSwapchainCreateInfoKHR = ^TVkImageSwapchainCreateInfoKHR;
   TVkImageSwapchainCreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       swapchain : TVkSwapchainKHR;
     end;
+  PVkImageSwapchainCreateInfoKHR = ^TVkImageSwapchainCreateInfoKHR;
 
-  PVkBindImageMemorySwapchainInfoKHR = ^TVkBindImageMemorySwapchainInfoKHR;
   TVkBindImageMemorySwapchainInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       swapchain : TVkSwapchainKHR;
       imageIndex : Tuint32_t;
     end;
+  PVkBindImageMemorySwapchainInfoKHR = ^TVkBindImageMemorySwapchainInfoKHR;
 
-  PVkAcquireNextImageInfoKHR = ^TVkAcquireNextImageInfoKHR;
   TVkAcquireNextImageInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -7439,16 +7386,16 @@ type
       fence : TVkFence;
       deviceMask : Tuint32_t;
     end;
+  PVkAcquireNextImageInfoKHR = ^TVkAcquireNextImageInfoKHR;
 
-  PVkDeviceGroupPresentCapabilitiesKHR = ^TVkDeviceGroupPresentCapabilitiesKHR;
   TVkDeviceGroupPresentCapabilitiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       presentMask : array[0..(VK_MAX_DEVICE_GROUP_SIZE)-1] of Tuint32_t;
       modes : TVkDeviceGroupPresentModeFlagsKHR;
     end;
+  PVkDeviceGroupPresentCapabilitiesKHR = ^TVkDeviceGroupPresentCapabilitiesKHR;
 
-  PVkDeviceGroupPresentInfoKHR = ^TVkDeviceGroupPresentInfoKHR;
   TVkDeviceGroupPresentInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -7456,33 +7403,24 @@ type
       pDeviceMasks : Puint32_t;
       mode : TVkDeviceGroupPresentModeFlagBitsKHR;
     end;
+  PVkDeviceGroupPresentInfoKHR = ^TVkDeviceGroupPresentInfoKHR;
 
-  PVkDeviceGroupSwapchainCreateInfoKHR = ^TVkDeviceGroupSwapchainCreateInfoKHR;
   TVkDeviceGroupSwapchainCreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       modes : TVkDeviceGroupPresentModeFlagsKHR;
     end;
+  PVkDeviceGroupSwapchainCreateInfoKHR = ^TVkDeviceGroupSwapchainCreateInfoKHR;
 
   TPFN_vkCreateSwapchainKHR = function (device:TVkDevice; pCreateInfo:PVkSwapchainCreateInfoKHR; pAllocator:PVkAllocationCallbacks; pSwapchain:PVkSwapchainKHR):TVkResult;cdecl;
-
   TPFN_vkDestroySwapchainKHR = procedure (device:TVkDevice; swapchain:TVkSwapchainKHR; pAllocator:PVkAllocationCallbacks);cdecl;
-
   TPFN_vkGetSwapchainImagesKHR = function (device:TVkDevice; swapchain:TVkSwapchainKHR; pSwapchainImageCount:Puint32_t; pSwapchainImages:PVkImage):TVkResult;cdecl;
-
-  TPFN_vkAcquireNextImageKHR = function (device:TVkDevice; swapchain:TVkSwapchainKHR; timeout:Tuint64_t; semaphore:TVkSemaphore; fence:TVkFence; 
-               pImageIndex:Puint32_t):TVkResult;cdecl;
-
+  TPFN_vkAcquireNextImageKHR = function (device:TVkDevice; swapchain:TVkSwapchainKHR; timeout:Tuint64_t; semaphore:TVkSemaphore; fence:TVkFence;               pImageIndex:Puint32_t):TVkResult;cdecl;
   TPFN_vkQueuePresentKHR = function (queue:TVkQueue; pPresentInfo:PVkPresentInfoKHR):TVkResult;cdecl;
-
   TPFN_vkGetDeviceGroupPresentCapabilitiesKHR = function (device:TVkDevice; pDeviceGroupPresentCapabilities:PVkDeviceGroupPresentCapabilitiesKHR):TVkResult;cdecl;
-
   TPFN_vkGetDeviceGroupSurfacePresentModesKHR = function (device:TVkDevice; surface:TVkSurfaceKHR; pModes:PVkDeviceGroupPresentModeFlagsKHR):TVkResult;cdecl;
-
   TPFN_vkGetPhysicalDevicePresentRectanglesKHR = function (physicalDevice:TVkPhysicalDevice; surface:TVkSurfaceKHR; pRectCount:Puint32_t; pRects:PVkRect2D):TVkResult;cdecl;
-
   TPFN_vkAcquireNextImage2KHR = function (device:TVkDevice; pAcquireInfo:PVkAcquireNextImageInfoKHR; pImageIndex:Puint32_t):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkCreateSwapchainKHR(device:TVkDevice; pCreateInfo:PVkSwapchainCreateInfoKHR; pAllocator:PVkAllocationCallbacks; pSwapchain:PVkSwapchainKHR):TVkResult;cdecl;external libvulkan;
 procedure vkDestroySwapchainKHR(device:TVkDevice; swapchain:TVkSwapchainKHR; pAllocator:PVkAllocationCallbacks);cdecl;external libvulkan;
@@ -7494,8 +7432,6 @@ function vkGetDeviceGroupPresentCapabilitiesKHR(device:TVkDevice; pDeviceGroupPr
 function vkGetDeviceGroupSurfacePresentModesKHR(device:TVkDevice; surface:TVkSurfaceKHR; pModes:PVkDeviceGroupPresentModeFlagsKHR):TVkResult;cdecl;external libvulkan;
 function vkGetPhysicalDevicePresentRectanglesKHR(physicalDevice:TVkPhysicalDevice; surface:TVkSurfaceKHR; pRectCount:Puint32_t; pRects:PVkRect2D):TVkResult;cdecl;external libvulkan;
 function vkAcquireNextImage2KHR(device:TVkDevice; pAcquireInfo:PVkAcquireNextImageInfoKHR; pImageIndex:Puint32_t):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_display is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_display = 1;  
@@ -7512,7 +7448,7 @@ const
 type
   PVkDisplayModeCreateFlagsKHR = ^TVkDisplayModeCreateFlagsKHR;
   TVkDisplayModeCreateFlagsKHR = TVkFlags;
-
+            type
   PVkDisplayPlaneAlphaFlagBitsKHR = ^TVkDisplayPlaneAlphaFlagBitsKHR;
   TVkDisplayPlaneAlphaFlagBitsKHR =  Longint;
   Const
@@ -7521,7 +7457,7 @@ type
     VK_DISPLAY_PLANE_ALPHA_PER_PIXEL_BIT_KHR = $00000004;
     VK_DISPLAY_PLANE_ALPHA_PER_PIXEL_PREMULTIPLIED_BIT_KHR = $00000008;
     VK_DISPLAY_PLANE_ALPHA_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkDisplayPlaneAlphaFlagsKHR = ^TVkDisplayPlaneAlphaFlagsKHR;
   TVkDisplayPlaneAlphaFlagsKHR = TVkFlags;
@@ -7529,27 +7465,26 @@ type
   PVkDisplaySurfaceCreateFlagsKHR = ^TVkDisplaySurfaceCreateFlagsKHR;
   TVkDisplaySurfaceCreateFlagsKHR = TVkFlags;
 
-  PVkDisplayModeParametersKHR = ^TVkDisplayModeParametersKHR;
   TVkDisplayModeParametersKHR = record
       visibleRegion : TVkExtent2D;
       refreshRate : Tuint32_t;
     end;
+  PVkDisplayModeParametersKHR = ^TVkDisplayModeParametersKHR;
 
-  PVkDisplayModeCreateInfoKHR = ^TVkDisplayModeCreateInfoKHR;
   TVkDisplayModeCreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       flags : TVkDisplayModeCreateFlagsKHR;
       parameters : TVkDisplayModeParametersKHR;
     end;
+  PVkDisplayModeCreateInfoKHR = ^TVkDisplayModeCreateInfoKHR;
 
-  PVkDisplayModePropertiesKHR = ^TVkDisplayModePropertiesKHR;
   TVkDisplayModePropertiesKHR = record
       displayMode : TVkDisplayModeKHR;
       parameters : TVkDisplayModeParametersKHR;
     end;
+  PVkDisplayModePropertiesKHR = ^TVkDisplayModePropertiesKHR;
 
-  PVkDisplayPlaneCapabilitiesKHR = ^TVkDisplayPlaneCapabilitiesKHR;
   TVkDisplayPlaneCapabilitiesKHR = record
       supportedAlpha : TVkDisplayPlaneAlphaFlagsKHR;
       minSrcPosition : TVkOffset2D;
@@ -7561,14 +7496,14 @@ type
       minDstExtent : TVkExtent2D;
       maxDstExtent : TVkExtent2D;
     end;
+  PVkDisplayPlaneCapabilitiesKHR = ^TVkDisplayPlaneCapabilitiesKHR;
 
-  PVkDisplayPlanePropertiesKHR = ^TVkDisplayPlanePropertiesKHR;
   TVkDisplayPlanePropertiesKHR = record
       currentDisplay : TVkDisplayKHR;
       currentStackIndex : Tuint32_t;
     end;
+  PVkDisplayPlanePropertiesKHR = ^TVkDisplayPlanePropertiesKHR;
 
-  PVkDisplayPropertiesKHR = ^TVkDisplayPropertiesKHR;
   TVkDisplayPropertiesKHR = record
       display : TVkDisplayKHR;
       displayName : Pchar;
@@ -7578,8 +7513,8 @@ type
       planeReorderPossible : TVkBool32;
       persistentContent : TVkBool32;
     end;
+  PVkDisplayPropertiesKHR = ^TVkDisplayPropertiesKHR;
 
-  PVkDisplaySurfaceCreateInfoKHR = ^TVkDisplaySurfaceCreateInfoKHR;
   TVkDisplaySurfaceCreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -7592,21 +7527,15 @@ type
       alphaMode : TVkDisplayPlaneAlphaFlagBitsKHR;
       imageExtent : TVkExtent2D;
     end;
+  PVkDisplaySurfaceCreateInfoKHR = ^TVkDisplaySurfaceCreateInfoKHR;
 
   TPFN_vkGetPhysicalDeviceDisplayPropertiesKHR = function (physicalDevice:TVkPhysicalDevice; pPropertyCount:Puint32_t; pProperties:PVkDisplayPropertiesKHR):TVkResult;cdecl;
-
   TPFN_vkGetPhysicalDeviceDisplayPlanePropertiesKHR = function (physicalDevice:TVkPhysicalDevice; pPropertyCount:Puint32_t; pProperties:PVkDisplayPlanePropertiesKHR):TVkResult;cdecl;
-
   TPFN_vkGetDisplayPlaneSupportedDisplaysKHR = function (physicalDevice:TVkPhysicalDevice; planeIndex:Tuint32_t; pDisplayCount:Puint32_t; pDisplays:PVkDisplayKHR):TVkResult;cdecl;
-
   TPFN_vkGetDisplayModePropertiesKHR = function (physicalDevice:TVkPhysicalDevice; display:TVkDisplayKHR; pPropertyCount:Puint32_t; pProperties:PVkDisplayModePropertiesKHR):TVkResult;cdecl;
-
   TPFN_vkCreateDisplayModeKHR = function (physicalDevice:TVkPhysicalDevice; display:TVkDisplayKHR; pCreateInfo:PVkDisplayModeCreateInfoKHR; pAllocator:PVkAllocationCallbacks; pMode:PVkDisplayModeKHR):TVkResult;cdecl;
-
   TPFN_vkGetDisplayPlaneCapabilitiesKHR = function (physicalDevice:TVkPhysicalDevice; mode:TVkDisplayModeKHR; planeIndex:Tuint32_t; pCapabilities:PVkDisplayPlaneCapabilitiesKHR):TVkResult;cdecl;
-
   TPFN_vkCreateDisplayPlaneSurfaceKHR = function (instance:TVkInstance; pCreateInfo:PVkDisplaySurfaceCreateInfoKHR; pAllocator:PVkAllocationCallbacks; pSurface:PVkSurfaceKHR):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkGetPhysicalDeviceDisplayPropertiesKHR(physicalDevice:TVkPhysicalDevice; pPropertyCount:Puint32_t; pProperties:PVkDisplayPropertiesKHR):TVkResult;cdecl;external libvulkan;
 function vkGetPhysicalDeviceDisplayPlanePropertiesKHR(physicalDevice:TVkPhysicalDevice; pPropertyCount:Puint32_t; pProperties:PVkDisplayPlanePropertiesKHR):TVkResult;cdecl;external libvulkan;
@@ -7615,15 +7544,12 @@ function vkGetDisplayModePropertiesKHR(physicalDevice:TVkPhysicalDevice; display
 function vkCreateDisplayModeKHR(physicalDevice:TVkPhysicalDevice; display:TVkDisplayKHR; pCreateInfo:PVkDisplayModeCreateInfoKHR; pAllocator:PVkAllocationCallbacks; pMode:PVkDisplayModeKHR):TVkResult;cdecl;external libvulkan;
 function vkGetDisplayPlaneCapabilitiesKHR(physicalDevice:TVkPhysicalDevice; mode:TVkDisplayModeKHR; planeIndex:Tuint32_t; pCapabilities:PVkDisplayPlaneCapabilitiesKHR):TVkResult;cdecl;external libvulkan;
 function vkCreateDisplayPlaneSurfaceKHR(instance:TVkInstance; pCreateInfo:PVkDisplaySurfaceCreateInfoKHR; pAllocator:PVkAllocationCallbacks; pSurface:PVkSurfaceKHR):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_display_swapchain is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_display_swapchain = 1;  
   VK_KHR_DISPLAY_SWAPCHAIN_SPEC_VERSION = 10;  
   VK_KHR_DISPLAY_SWAPCHAIN_EXTENSION_NAME = 'VK_KHR_display_swapchain';  
 type
-  PVkDisplayPresentInfoKHR = ^TVkDisplayPresentInfoKHR;
   TVkDisplayPresentInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -7631,20 +7557,17 @@ type
       dstRect : TVkRect2D;
       persistent : TVkBool32;
     end;
+  PVkDisplayPresentInfoKHR = ^TVkDisplayPresentInfoKHR;
 
   TPFN_vkCreateSharedSwapchainsKHR = function (device:TVkDevice; swapchainCount:Tuint32_t; pCreateInfos:PVkSwapchainCreateInfoKHR; pAllocator:PVkAllocationCallbacks; pSwapchains:PVkSwapchainKHR):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkCreateSharedSwapchainsKHR(device:TVkDevice; swapchainCount:Tuint32_t; pCreateInfos:PVkSwapchainCreateInfoKHR; pAllocator:PVkAllocationCallbacks; pSwapchains:PVkSwapchainKHR):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_sampler_mirror_clamp_to_edge is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_sampler_mirror_clamp_to_edge = 1;  
   VK_KHR_SAMPLER_MIRROR_CLAMP_TO_EDGE_SPEC_VERSION = 3;  
   VK_KHR_SAMPLER_MIRROR_CLAMP_TO_EDGE_EXTENSION_NAME = 'VK_KHR_sampler_mirror_clamp_to_edge';  
-{ VK_KHR_video_queue is a preprocessor guard. Do not pass it to API calls. }
-  VK_KHR_video_queue = 1;  
+  VK_KHR_video_queue = 1;
 type
   PVkVideoSessionKHR = ^TVkVideoSessionKHR;
   TVkVideoSessionKHR = Tuint64_t;
@@ -7664,7 +7587,7 @@ type
     VK_QUERY_RESULT_STATUS_COMPLETE_KHR = 1;
     VK_QUERY_RESULT_STATUS_INSUFFICIENT_BITSTREAM_BUFFER_RANGE_KHR = -(1000299000);
     VK_QUERY_RESULT_STATUS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoCodecOperationFlagBitsKHR = ^TVkVideoCodecOperationFlagBitsKHR;
   TVkVideoCodecOperationFlagBitsKHR =  Longint;
@@ -7675,11 +7598,11 @@ type
     VK_VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR = $00000001;
     VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR = $00000002;
     VK_VIDEO_CODEC_OPERATION_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoCodecOperationFlagsKHR = ^TVkVideoCodecOperationFlagsKHR;
   TVkVideoCodecOperationFlagsKHR = TVkFlags;
-
+type
   PVkVideoChromaSubsamplingFlagBitsKHR = ^TVkVideoChromaSubsamplingFlagBitsKHR;
   TVkVideoChromaSubsamplingFlagBitsKHR =  Longint;
   Const
@@ -7689,11 +7612,11 @@ type
     VK_VIDEO_CHROMA_SUBSAMPLING_422_BIT_KHR = $00000004;
     VK_VIDEO_CHROMA_SUBSAMPLING_444_BIT_KHR = $00000008;
     VK_VIDEO_CHROMA_SUBSAMPLING_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoChromaSubsamplingFlagsKHR = ^TVkVideoChromaSubsamplingFlagsKHR;
   TVkVideoChromaSubsamplingFlagsKHR = TVkFlags;
-
+type
   PVkVideoComponentBitDepthFlagBitsKHR = ^TVkVideoComponentBitDepthFlagBitsKHR;
   TVkVideoComponentBitDepthFlagBitsKHR =  Longint;
   Const
@@ -7702,22 +7625,22 @@ type
     VK_VIDEO_COMPONENT_BIT_DEPTH_10_BIT_KHR = $00000004;
     VK_VIDEO_COMPONENT_BIT_DEPTH_12_BIT_KHR = $00000010;
     VK_VIDEO_COMPONENT_BIT_DEPTH_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoComponentBitDepthFlagsKHR = ^TVkVideoComponentBitDepthFlagsKHR;
   TVkVideoComponentBitDepthFlagsKHR = TVkFlags;
-
+type
   PVkVideoCapabilityFlagBitsKHR = ^TVkVideoCapabilityFlagBitsKHR;
   TVkVideoCapabilityFlagBitsKHR =  Longint;
   Const
     VK_VIDEO_CAPABILITY_PROTECTED_CONTENT_BIT_KHR = $00000001;
     VK_VIDEO_CAPABILITY_SEPARATE_REFERENCE_IMAGES_BIT_KHR = $00000002;
     VK_VIDEO_CAPABILITY_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoCapabilityFlagsKHR = ^TVkVideoCapabilityFlagsKHR;
   TVkVideoCapabilityFlagsKHR = TVkFlags;
-
+type
   PVkVideoSessionCreateFlagBitsKHR = ^TVkVideoSessionCreateFlagBitsKHR;
   TVkVideoSessionCreateFlagBitsKHR =  Longint;
   Const
@@ -7725,7 +7648,7 @@ type
     VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_PARAMETER_OPTIMIZATIONS_BIT_KHR = $00000002;
     VK_VIDEO_SESSION_CREATE_INLINE_QUERIES_BIT_KHR = $00000004;
     VK_VIDEO_SESSION_CREATE_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoSessionCreateFlagsKHR = ^TVkVideoSessionCreateFlagsKHR;
   TVkVideoSessionCreateFlagsKHR = TVkFlags;
@@ -7738,7 +7661,7 @@ type
 
   PVkVideoEndCodingFlagsKHR = ^TVkVideoEndCodingFlagsKHR;
   TVkVideoEndCodingFlagsKHR = TVkFlags;
-
+type
   PVkVideoCodingControlFlagBitsKHR = ^TVkVideoCodingControlFlagBitsKHR;
   TVkVideoCodingControlFlagBitsKHR =  Longint;
   Const
@@ -7746,26 +7669,25 @@ type
     VK_VIDEO_CODING_CONTROL_ENCODE_RATE_CONTROL_BIT_KHR = $00000002;
     VK_VIDEO_CODING_CONTROL_ENCODE_QUALITY_LEVEL_BIT_KHR = $00000004;
     VK_VIDEO_CODING_CONTROL_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoCodingControlFlagsKHR = ^TVkVideoCodingControlFlagsKHR;
   TVkVideoCodingControlFlagsKHR = TVkFlags;
 
-  PVkQueueFamilyQueryResultStatusPropertiesKHR = ^TVkQueueFamilyQueryResultStatusPropertiesKHR;
   TVkQueueFamilyQueryResultStatusPropertiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       queryResultStatusSupport : TVkBool32;
     end;
+  PVkQueueFamilyQueryResultStatusPropertiesKHR = ^TVkQueueFamilyQueryResultStatusPropertiesKHR;
 
-  PVkQueueFamilyVideoPropertiesKHR = ^TVkQueueFamilyVideoPropertiesKHR;
   TVkQueueFamilyVideoPropertiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       videoCodecOperations : TVkVideoCodecOperationFlagsKHR;
     end;
+  PVkQueueFamilyVideoPropertiesKHR = ^TVkQueueFamilyVideoPropertiesKHR;
 
-  PVkVideoProfileInfoKHR = ^TVkVideoProfileInfoKHR;
   TVkVideoProfileInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -7774,16 +7696,16 @@ type
       lumaBitDepth : TVkVideoComponentBitDepthFlagsKHR;
       chromaBitDepth : TVkVideoComponentBitDepthFlagsKHR;
     end;
+  PVkVideoProfileInfoKHR = ^TVkVideoProfileInfoKHR;
 
-  PVkVideoProfileListInfoKHR = ^TVkVideoProfileListInfoKHR;
   TVkVideoProfileListInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       profileCount : Tuint32_t;
       pProfiles : PVkVideoProfileInfoKHR;
     end;
+  PVkVideoProfileListInfoKHR = ^TVkVideoProfileListInfoKHR;
 
-  PVkVideoCapabilitiesKHR = ^TVkVideoCapabilitiesKHR;
   TVkVideoCapabilitiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -7797,15 +7719,15 @@ type
       maxActiveReferencePictures : Tuint32_t;
       stdHeaderVersion : TVkExtensionProperties;
     end;
+  PVkVideoCapabilitiesKHR = ^TVkVideoCapabilitiesKHR;
 
-  PVkPhysicalDeviceVideoFormatInfoKHR = ^TVkPhysicalDeviceVideoFormatInfoKHR;
   TVkPhysicalDeviceVideoFormatInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       imageUsage : TVkImageUsageFlags;
     end;
+  PVkPhysicalDeviceVideoFormatInfoKHR = ^TVkPhysicalDeviceVideoFormatInfoKHR;
 
-  PVkVideoFormatPropertiesKHR = ^TVkVideoFormatPropertiesKHR;
   TVkVideoFormatPropertiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -7816,8 +7738,8 @@ type
       imageTiling : TVkImageTiling;
       imageUsageFlags : TVkImageUsageFlags;
     end;
+  PVkVideoFormatPropertiesKHR = ^TVkVideoFormatPropertiesKHR;
 
-  PVkVideoPictureResourceInfoKHR = ^TVkVideoPictureResourceInfoKHR;
   TVkVideoPictureResourceInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -7826,24 +7748,24 @@ type
       baseArrayLayer : Tuint32_t;
       imageViewBinding : TVkImageView;
     end;
+  PVkVideoPictureResourceInfoKHR = ^TVkVideoPictureResourceInfoKHR;
 
-  PVkVideoReferenceSlotInfoKHR = ^TVkVideoReferenceSlotInfoKHR;
   TVkVideoReferenceSlotInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       slotIndex : Tint32_t;
       pPictureResource : PVkVideoPictureResourceInfoKHR;
     end;
+  PVkVideoReferenceSlotInfoKHR = ^TVkVideoReferenceSlotInfoKHR;
 
-  PVkVideoSessionMemoryRequirementsKHR = ^TVkVideoSessionMemoryRequirementsKHR;
   TVkVideoSessionMemoryRequirementsKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       memoryBindIndex : Tuint32_t;
       memoryRequirements : TVkMemoryRequirements;
     end;
+  PVkVideoSessionMemoryRequirementsKHR = ^TVkVideoSessionMemoryRequirementsKHR;
 
-  PVkBindVideoSessionMemoryInfoKHR = ^TVkBindVideoSessionMemoryInfoKHR;
   TVkBindVideoSessionMemoryInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -7852,8 +7774,8 @@ type
       memoryOffset : TVkDeviceSize;
       memorySize : TVkDeviceSize;
     end;
+  PVkBindVideoSessionMemoryInfoKHR = ^TVkBindVideoSessionMemoryInfoKHR;
 
-  PVkVideoSessionCreateInfoKHR = ^TVkVideoSessionCreateInfoKHR;
   TVkVideoSessionCreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -7867,8 +7789,8 @@ type
       maxActiveReferencePictures : Tuint32_t;
       pStdHeaderVersion : PVkExtensionProperties;
     end;
+  PVkVideoSessionCreateInfoKHR = ^TVkVideoSessionCreateInfoKHR;
 
-  PVkVideoSessionParametersCreateInfoKHR = ^TVkVideoSessionParametersCreateInfoKHR;
   TVkVideoSessionParametersCreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -7876,15 +7798,15 @@ type
       videoSessionParametersTemplate : TVkVideoSessionParametersKHR;
       videoSession : TVkVideoSessionKHR;
     end;
+  PVkVideoSessionParametersCreateInfoKHR = ^TVkVideoSessionParametersCreateInfoKHR;
 
-  PVkVideoSessionParametersUpdateInfoKHR = ^TVkVideoSessionParametersUpdateInfoKHR;
   TVkVideoSessionParametersUpdateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       updateSequenceCount : Tuint32_t;
     end;
+  PVkVideoSessionParametersUpdateInfoKHR = ^TVkVideoSessionParametersUpdateInfoKHR;
 
-  PVkVideoBeginCodingInfoKHR = ^TVkVideoBeginCodingInfoKHR;
   TVkVideoBeginCodingInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -7894,45 +7816,34 @@ type
       referenceSlotCount : Tuint32_t;
       pReferenceSlots : PVkVideoReferenceSlotInfoKHR;
     end;
+  PVkVideoBeginCodingInfoKHR = ^TVkVideoBeginCodingInfoKHR;
 
-  PVkVideoEndCodingInfoKHR = ^TVkVideoEndCodingInfoKHR;
   TVkVideoEndCodingInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       flags : TVkVideoEndCodingFlagsKHR;
     end;
+  PVkVideoEndCodingInfoKHR = ^TVkVideoEndCodingInfoKHR;
 
-  PVkVideoCodingControlInfoKHR = ^TVkVideoCodingControlInfoKHR;
   TVkVideoCodingControlInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       flags : TVkVideoCodingControlFlagsKHR;
     end;
+  PVkVideoCodingControlInfoKHR = ^TVkVideoCodingControlInfoKHR;
 
   TPFN_vkGetPhysicalDeviceVideoCapabilitiesKHR = function (physicalDevice:TVkPhysicalDevice; pVideoProfile:PVkVideoProfileInfoKHR; pCapabilities:PVkVideoCapabilitiesKHR):TVkResult;cdecl;
-
   TPFN_vkGetPhysicalDeviceVideoFormatPropertiesKHR = function (physicalDevice:TVkPhysicalDevice; pVideoFormatInfo:PVkPhysicalDeviceVideoFormatInfoKHR; pVideoFormatPropertyCount:Puint32_t; pVideoFormatProperties:PVkVideoFormatPropertiesKHR):TVkResult;cdecl;
-
   TPFN_vkCreateVideoSessionKHR = function (device:TVkDevice; pCreateInfo:PVkVideoSessionCreateInfoKHR; pAllocator:PVkAllocationCallbacks; pVideoSession:PVkVideoSessionKHR):TVkResult;cdecl;
-
   TPFN_vkDestroyVideoSessionKHR = procedure (device:TVkDevice; videoSession:TVkVideoSessionKHR; pAllocator:PVkAllocationCallbacks);cdecl;
-
   TPFN_vkGetVideoSessionMemoryRequirementsKHR = function (device:TVkDevice; videoSession:TVkVideoSessionKHR; pMemoryRequirementsCount:Puint32_t; pMemoryRequirements:PVkVideoSessionMemoryRequirementsKHR):TVkResult;cdecl;
-
   TPFN_vkBindVideoSessionMemoryKHR = function (device:TVkDevice; videoSession:TVkVideoSessionKHR; bindSessionMemoryInfoCount:Tuint32_t; pBindSessionMemoryInfos:PVkBindVideoSessionMemoryInfoKHR):TVkResult;cdecl;
-
   TPFN_vkCreateVideoSessionParametersKHR = function (device:TVkDevice; pCreateInfo:PVkVideoSessionParametersCreateInfoKHR; pAllocator:PVkAllocationCallbacks; pVideoSessionParameters:PVkVideoSessionParametersKHR):TVkResult;cdecl;
-
   TPFN_vkUpdateVideoSessionParametersKHR = function (device:TVkDevice; videoSessionParameters:TVkVideoSessionParametersKHR; pUpdateInfo:PVkVideoSessionParametersUpdateInfoKHR):TVkResult;cdecl;
-
   TPFN_vkDestroyVideoSessionParametersKHR = procedure (device:TVkDevice; videoSessionParameters:TVkVideoSessionParametersKHR; pAllocator:PVkAllocationCallbacks);cdecl;
-
   TPFN_vkCmdBeginVideoCodingKHR = procedure (commandBuffer:TVkCommandBuffer; pBeginInfo:PVkVideoBeginCodingInfoKHR);cdecl;
-
   TPFN_vkCmdEndVideoCodingKHR = procedure (commandBuffer:TVkCommandBuffer; pEndCodingInfo:PVkVideoEndCodingInfoKHR);cdecl;
-
   TPFN_vkCmdControlVideoCodingKHR = procedure (commandBuffer:TVkCommandBuffer; pCodingControlInfo:PVkVideoCodingControlInfoKHR);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkGetPhysicalDeviceVideoCapabilitiesKHR(physicalDevice:TVkPhysicalDevice; pVideoProfile:PVkVideoProfileInfoKHR; pCapabilities:PVkVideoCapabilitiesKHR):TVkResult;cdecl;external libvulkan;
 function vkGetPhysicalDeviceVideoFormatPropertiesKHR(physicalDevice:TVkPhysicalDevice; pVideoFormatInfo:PVkPhysicalDeviceVideoFormatInfoKHR; pVideoFormatPropertyCount:Puint32_t; pVideoFormatProperties:PVkVideoFormatPropertiesKHR):TVkResult;cdecl;external libvulkan;
@@ -7946,8 +7857,6 @@ procedure vkDestroyVideoSessionParametersKHR(device:TVkDevice; videoSessionParam
 procedure vkCmdBeginVideoCodingKHR(commandBuffer:TVkCommandBuffer; pBeginInfo:PVkVideoBeginCodingInfoKHR);cdecl;external libvulkan;
 procedure vkCmdEndVideoCodingKHR(commandBuffer:TVkCommandBuffer; pEndCodingInfo:PVkVideoEndCodingInfoKHR);cdecl;external libvulkan;
 procedure vkCmdControlVideoCodingKHR(commandBuffer:TVkCommandBuffer; pCodingControlInfo:PVkVideoCodingControlInfoKHR);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_video_decode_queue is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_video_decode_queue = 1;  
@@ -7960,11 +7869,11 @@ type
     VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR = $00000001;
     VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR = $00000002;
     VK_VIDEO_DECODE_CAPABILITY_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoDecodeCapabilityFlagsKHR = ^TVkVideoDecodeCapabilityFlagsKHR;
   TVkVideoDecodeCapabilityFlagsKHR = TVkFlags;
-
+type
   PVkVideoDecodeUsageFlagBitsKHR = ^TVkVideoDecodeUsageFlagBitsKHR;
   TVkVideoDecodeUsageFlagBitsKHR =  Longint;
   Const
@@ -7973,7 +7882,7 @@ type
     VK_VIDEO_DECODE_USAGE_OFFLINE_BIT_KHR = $00000002;
     VK_VIDEO_DECODE_USAGE_STREAMING_BIT_KHR = $00000004;
     VK_VIDEO_DECODE_USAGE_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoDecodeUsageFlagsKHR = ^TVkVideoDecodeUsageFlagsKHR;
   TVkVideoDecodeUsageFlagsKHR = TVkFlags;
@@ -7981,21 +7890,20 @@ type
   PVkVideoDecodeFlagsKHR = ^TVkVideoDecodeFlagsKHR;
   TVkVideoDecodeFlagsKHR = TVkFlags;
 
-  PVkVideoDecodeCapabilitiesKHR = ^TVkVideoDecodeCapabilitiesKHR;
   TVkVideoDecodeCapabilitiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       flags : TVkVideoDecodeCapabilityFlagsKHR;
     end;
+  PVkVideoDecodeCapabilitiesKHR = ^TVkVideoDecodeCapabilitiesKHR;
 
-  PVkVideoDecodeUsageInfoKHR = ^TVkVideoDecodeUsageInfoKHR;
   TVkVideoDecodeUsageInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       videoUsageHints : TVkVideoDecodeUsageFlagsKHR;
     end;
+  PVkVideoDecodeUsageInfoKHR = ^TVkVideoDecodeUsageInfoKHR;
 
-  PVkVideoDecodeInfoKHR = ^TVkVideoDecodeInfoKHR;
   TVkVideoDecodeInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8008,18 +7916,14 @@ type
       referenceSlotCount : Tuint32_t;
       pReferenceSlots : PVkVideoReferenceSlotInfoKHR;
     end;
+  PVkVideoDecodeInfoKHR = ^TVkVideoDecodeInfoKHR;
 
   TPFN_vkCmdDecodeVideoKHR = procedure (commandBuffer:TVkCommandBuffer; pDecodeInfo:PVkVideoDecodeInfoKHR);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 procedure vkCmdDecodeVideoKHR(commandBuffer:TVkCommandBuffer; pDecodeInfo:PVkVideoDecodeInfoKHR);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_video_encode_h264 is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_video_encode_h264 = 1;  
-{$include "vk_video/vulkan_video_codec_h264std.h"}
-{$include "vk_video/vulkan_video_codec_h264std_encode.h"}
 
 const
   VK_KHR_VIDEO_ENCODE_H264_SPEC_VERSION = 14;  
@@ -8038,11 +7942,11 @@ type
     VK_VIDEO_ENCODE_H264_CAPABILITY_PER_SLICE_CONSTANT_QP_BIT_KHR = $00000080;
     VK_VIDEO_ENCODE_H264_CAPABILITY_GENERATE_PREFIX_NALU_BIT_KHR = $00000100;
     VK_VIDEO_ENCODE_H264_CAPABILITY_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoEncodeH264CapabilityFlagsKHR = ^TVkVideoEncodeH264CapabilityFlagsKHR;
   TVkVideoEncodeH264CapabilityFlagsKHR = TVkFlags;
-
+type
   PVkVideoEncodeH264StdFlagBitsKHR = ^TVkVideoEncodeH264StdFlagBitsKHR;
   TVkVideoEncodeH264StdFlagBitsKHR =  Longint;
   Const
@@ -8067,11 +7971,11 @@ type
     VK_VIDEO_ENCODE_H264_STD_SLICE_QP_DELTA_BIT_KHR = $00080000;
     VK_VIDEO_ENCODE_H264_STD_DIFFERENT_SLICE_QP_DELTA_BIT_KHR = $00100000;
     VK_VIDEO_ENCODE_H264_STD_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoEncodeH264StdFlagsKHR = ^TVkVideoEncodeH264StdFlagsKHR;
   TVkVideoEncodeH264StdFlagsKHR = TVkFlags;
-
+type
   PVkVideoEncodeH264RateControlFlagBitsKHR = ^TVkVideoEncodeH264RateControlFlagBitsKHR;
   TVkVideoEncodeH264RateControlFlagBitsKHR =  Longint;
   Const
@@ -8081,12 +7985,11 @@ type
     VK_VIDEO_ENCODE_H264_RATE_CONTROL_REFERENCE_PATTERN_DYADIC_BIT_KHR = $00000008;
     VK_VIDEO_ENCODE_H264_RATE_CONTROL_TEMPORAL_LAYER_PATTERN_DYADIC_BIT_KHR = $00000010;
     VK_VIDEO_ENCODE_H264_RATE_CONTROL_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoEncodeH264RateControlFlagsKHR = ^TVkVideoEncodeH264RateControlFlagsKHR;
   TVkVideoEncodeH264RateControlFlagsKHR = TVkFlags;
-
-  PVkVideoEncodeH264CapabilitiesKHR = ^TVkVideoEncodeH264CapabilitiesKHR;
+type
   TVkVideoEncodeH264CapabilitiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8104,15 +8007,15 @@ type
       requiresGopRemainingFrames : TVkBool32;
       stdSyntaxFlags : TVkVideoEncodeH264StdFlagsKHR;
     end;
+  PVkVideoEncodeH264CapabilitiesKHR = ^TVkVideoEncodeH264CapabilitiesKHR;
 
-  PVkVideoEncodeH264QpKHR = ^TVkVideoEncodeH264QpKHR;
   TVkVideoEncodeH264QpKHR = record
       qpI : Tint32_t;
       qpP : Tint32_t;
       qpB : Tint32_t;
     end;
+  PVkVideoEncodeH264QpKHR = ^TVkVideoEncodeH264QpKHR;
 
-  PVkVideoEncodeH264QualityLevelPropertiesKHR = ^TVkVideoEncodeH264QualityLevelPropertiesKHR;
   TVkVideoEncodeH264QualityLevelPropertiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8126,16 +8029,16 @@ type
       preferredMaxL1ReferenceCount : Tuint32_t;
       preferredStdEntropyCodingModeFlag : TVkBool32;
     end;
+  PVkVideoEncodeH264QualityLevelPropertiesKHR = ^TVkVideoEncodeH264QualityLevelPropertiesKHR;
 
-  PVkVideoEncodeH264SessionCreateInfoKHR = ^TVkVideoEncodeH264SessionCreateInfoKHR;
   TVkVideoEncodeH264SessionCreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       useMaxLevelIdc : TVkBool32;
       maxLevelIdc : TStdVideoH264LevelIdc;
     end;
+  PVkVideoEncodeH264SessionCreateInfoKHR = ^TVkVideoEncodeH264SessionCreateInfoKHR;
 
-  PVkVideoEncodeH264SessionParametersAddInfoKHR = ^TVkVideoEncodeH264SessionParametersAddInfoKHR;
   TVkVideoEncodeH264SessionParametersAddInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8144,8 +8047,8 @@ type
       stdPPSCount : Tuint32_t;
       pStdPPSs : PStdVideoH264PictureParameterSet;
     end;
+  PVkVideoEncodeH264SessionParametersAddInfoKHR = ^TVkVideoEncodeH264SessionParametersAddInfoKHR;
 
-  PVkVideoEncodeH264SessionParametersCreateInfoKHR = ^TVkVideoEncodeH264SessionParametersCreateInfoKHR;
   TVkVideoEncodeH264SessionParametersCreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8153,8 +8056,8 @@ type
       maxStdPPSCount : Tuint32_t;
       pParametersAddInfo : PVkVideoEncodeH264SessionParametersAddInfoKHR;
     end;
+  PVkVideoEncodeH264SessionParametersCreateInfoKHR = ^TVkVideoEncodeH264SessionParametersCreateInfoKHR;
 
-  PVkVideoEncodeH264SessionParametersGetInfoKHR = ^TVkVideoEncodeH264SessionParametersGetInfoKHR;
   TVkVideoEncodeH264SessionParametersGetInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8163,24 +8066,24 @@ type
       stdSPSId : Tuint32_t;
       stdPPSId : Tuint32_t;
     end;
+  PVkVideoEncodeH264SessionParametersGetInfoKHR = ^TVkVideoEncodeH264SessionParametersGetInfoKHR;
 
-  PVkVideoEncodeH264SessionParametersFeedbackInfoKHR = ^TVkVideoEncodeH264SessionParametersFeedbackInfoKHR;
   TVkVideoEncodeH264SessionParametersFeedbackInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       hasStdSPSOverrides : TVkBool32;
       hasStdPPSOverrides : TVkBool32;
     end;
+  PVkVideoEncodeH264SessionParametersFeedbackInfoKHR = ^TVkVideoEncodeH264SessionParametersFeedbackInfoKHR;
 
-  PVkVideoEncodeH264NaluSliceInfoKHR = ^TVkVideoEncodeH264NaluSliceInfoKHR;
   TVkVideoEncodeH264NaluSliceInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       constantQp : Tint32_t;
       pStdSliceHeader : PStdVideoEncodeH264SliceHeader;
     end;
+  PVkVideoEncodeH264NaluSliceInfoKHR = ^TVkVideoEncodeH264NaluSliceInfoKHR;
 
-  PVkVideoEncodeH264PictureInfoKHR = ^TVkVideoEncodeH264PictureInfoKHR;
   TVkVideoEncodeH264PictureInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8189,22 +8092,22 @@ type
       pStdPictureInfo : PStdVideoEncodeH264PictureInfo;
       generatePrefixNalu : TVkBool32;
     end;
+  PVkVideoEncodeH264PictureInfoKHR = ^TVkVideoEncodeH264PictureInfoKHR;
 
-  PVkVideoEncodeH264DpbSlotInfoKHR = ^TVkVideoEncodeH264DpbSlotInfoKHR;
   TVkVideoEncodeH264DpbSlotInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       pStdReferenceInfo : PStdVideoEncodeH264ReferenceInfo;
     end;
+  PVkVideoEncodeH264DpbSlotInfoKHR = ^TVkVideoEncodeH264DpbSlotInfoKHR;
 
-  PVkVideoEncodeH264ProfileInfoKHR = ^TVkVideoEncodeH264ProfileInfoKHR;
   TVkVideoEncodeH264ProfileInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       stdProfileIdc : TStdVideoH264ProfileIdc;
     end;
+  PVkVideoEncodeH264ProfileInfoKHR = ^TVkVideoEncodeH264ProfileInfoKHR;
 
-  PVkVideoEncodeH264RateControlInfoKHR = ^TVkVideoEncodeH264RateControlInfoKHR;
   TVkVideoEncodeH264RateControlInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8214,15 +8117,15 @@ type
       consecutiveBFrameCount : Tuint32_t;
       temporalLayerCount : Tuint32_t;
     end;
+  PVkVideoEncodeH264RateControlInfoKHR = ^TVkVideoEncodeH264RateControlInfoKHR;
 
-  PVkVideoEncodeH264FrameSizeKHR = ^TVkVideoEncodeH264FrameSizeKHR;
   TVkVideoEncodeH264FrameSizeKHR = record
       frameISize : Tuint32_t;
       framePSize : Tuint32_t;
       frameBSize : Tuint32_t;
     end;
+  PVkVideoEncodeH264FrameSizeKHR = ^TVkVideoEncodeH264FrameSizeKHR;
 
-  PVkVideoEncodeH264RateControlLayerInfoKHR = ^TVkVideoEncodeH264RateControlLayerInfoKHR;
   TVkVideoEncodeH264RateControlLayerInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8233,8 +8136,8 @@ type
       useMaxFrameSize : TVkBool32;
       maxFrameSize : TVkVideoEncodeH264FrameSizeKHR;
     end;
+  PVkVideoEncodeH264RateControlLayerInfoKHR = ^TVkVideoEncodeH264RateControlLayerInfoKHR;
 
-  PVkVideoEncodeH264GopRemainingFrameInfoKHR = ^TVkVideoEncodeH264GopRemainingFrameInfoKHR;
   TVkVideoEncodeH264GopRemainingFrameInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8243,12 +8146,10 @@ type
       gopRemainingP : Tuint32_t;
       gopRemainingB : Tuint32_t;
     end;
-{ VK_KHR_video_encode_h265 is a preprocessor guard. Do not pass it to API calls. }
+  PVkVideoEncodeH264GopRemainingFrameInfoKHR = ^TVkVideoEncodeH264GopRemainingFrameInfoKHR;
 
 const
   VK_KHR_video_encode_h265 = 1;  
-{$include "vk_video/vulkan_video_codec_h265std.h"}
-{$include "vk_video/vulkan_video_codec_h265std_encode.h"}
 
 const
   VK_KHR_VIDEO_ENCODE_H265_SPEC_VERSION = 14;  
@@ -8268,11 +8169,11 @@ type
     VK_VIDEO_ENCODE_H265_CAPABILITY_MULTIPLE_TILES_PER_SLICE_SEGMENT_BIT_KHR = $00000100;
     VK_VIDEO_ENCODE_H265_CAPABILITY_MULTIPLE_SLICE_SEGMENTS_PER_TILE_BIT_KHR = $00000200;
     VK_VIDEO_ENCODE_H265_CAPABILITY_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoEncodeH265CapabilityFlagsKHR = ^TVkVideoEncodeH265CapabilityFlagsKHR;
   TVkVideoEncodeH265CapabilityFlagsKHR = TVkFlags;
-
+type
   PVkVideoEncodeH265StdFlagBitsKHR = ^TVkVideoEncodeH265StdFlagBitsKHR;
   TVkVideoEncodeH265StdFlagBitsKHR =  Longint;
   Const
@@ -8298,11 +8199,11 @@ type
     VK_VIDEO_ENCODE_H265_STD_SLICE_QP_DELTA_BIT_KHR = $00080000;
     VK_VIDEO_ENCODE_H265_STD_DIFFERENT_SLICE_QP_DELTA_BIT_KHR = $00100000;
     VK_VIDEO_ENCODE_H265_STD_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoEncodeH265StdFlagsKHR = ^TVkVideoEncodeH265StdFlagsKHR;
   TVkVideoEncodeH265StdFlagsKHR = TVkFlags;
-
+type
   PVkVideoEncodeH265CtbSizeFlagBitsKHR = ^TVkVideoEncodeH265CtbSizeFlagBitsKHR;
   TVkVideoEncodeH265CtbSizeFlagBitsKHR =  Longint;
   Const
@@ -8310,11 +8211,11 @@ type
     VK_VIDEO_ENCODE_H265_CTB_SIZE_32_BIT_KHR = $00000002;
     VK_VIDEO_ENCODE_H265_CTB_SIZE_64_BIT_KHR = $00000004;
     VK_VIDEO_ENCODE_H265_CTB_SIZE_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoEncodeH265CtbSizeFlagsKHR = ^TVkVideoEncodeH265CtbSizeFlagsKHR;
   TVkVideoEncodeH265CtbSizeFlagsKHR = TVkFlags;
-
+type
   PVkVideoEncodeH265TransformBlockSizeFlagBitsKHR = ^TVkVideoEncodeH265TransformBlockSizeFlagBitsKHR;
   TVkVideoEncodeH265TransformBlockSizeFlagBitsKHR =  Longint;
   Const
@@ -8323,11 +8224,11 @@ type
     VK_VIDEO_ENCODE_H265_TRANSFORM_BLOCK_SIZE_16_BIT_KHR = $00000004;
     VK_VIDEO_ENCODE_H265_TRANSFORM_BLOCK_SIZE_32_BIT_KHR = $00000008;
     VK_VIDEO_ENCODE_H265_TRANSFORM_BLOCK_SIZE_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoEncodeH265TransformBlockSizeFlagsKHR = ^TVkVideoEncodeH265TransformBlockSizeFlagsKHR;
   TVkVideoEncodeH265TransformBlockSizeFlagsKHR = TVkFlags;
-
+type
   PVkVideoEncodeH265RateControlFlagBitsKHR = ^TVkVideoEncodeH265RateControlFlagBitsKHR;
   TVkVideoEncodeH265RateControlFlagBitsKHR =  Longint;
   Const
@@ -8337,12 +8238,11 @@ type
     VK_VIDEO_ENCODE_H265_RATE_CONTROL_REFERENCE_PATTERN_DYADIC_BIT_KHR = $00000008;
     VK_VIDEO_ENCODE_H265_RATE_CONTROL_TEMPORAL_SUB_LAYER_PATTERN_DYADIC_BIT_KHR = $00000010;
     VK_VIDEO_ENCODE_H265_RATE_CONTROL_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoEncodeH265RateControlFlagsKHR = ^TVkVideoEncodeH265RateControlFlagsKHR;
   TVkVideoEncodeH265RateControlFlagsKHR = TVkFlags;
 
-  PVkVideoEncodeH265CapabilitiesKHR = ^TVkVideoEncodeH265CapabilitiesKHR;
   TVkVideoEncodeH265CapabilitiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8363,23 +8263,23 @@ type
       requiresGopRemainingFrames : TVkBool32;
       stdSyntaxFlags : TVkVideoEncodeH265StdFlagsKHR;
     end;
+  PVkVideoEncodeH265CapabilitiesKHR = ^TVkVideoEncodeH265CapabilitiesKHR;
 
-  PVkVideoEncodeH265SessionCreateInfoKHR = ^TVkVideoEncodeH265SessionCreateInfoKHR;
   TVkVideoEncodeH265SessionCreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       useMaxLevelIdc : TVkBool32;
       maxLevelIdc : TStdVideoH265LevelIdc;
     end;
+  PVkVideoEncodeH265SessionCreateInfoKHR = ^TVkVideoEncodeH265SessionCreateInfoKHR;
 
-  PVkVideoEncodeH265QpKHR = ^TVkVideoEncodeH265QpKHR;
   TVkVideoEncodeH265QpKHR = record
       qpI : Tint32_t;
       qpP : Tint32_t;
       qpB : Tint32_t;
     end;
+  PVkVideoEncodeH265QpKHR = ^TVkVideoEncodeH265QpKHR;
 
-  PVkVideoEncodeH265QualityLevelPropertiesKHR = ^TVkVideoEncodeH265QualityLevelPropertiesKHR;
   TVkVideoEncodeH265QualityLevelPropertiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8392,8 +8292,8 @@ type
       preferredMaxL0ReferenceCount : Tuint32_t;
       preferredMaxL1ReferenceCount : Tuint32_t;
     end;
+  PVkVideoEncodeH265QualityLevelPropertiesKHR = ^TVkVideoEncodeH265QualityLevelPropertiesKHR;
 
-  PVkVideoEncodeH265SessionParametersAddInfoKHR = ^TVkVideoEncodeH265SessionParametersAddInfoKHR;
   TVkVideoEncodeH265SessionParametersAddInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8404,8 +8304,8 @@ type
       stdPPSCount : Tuint32_t;
       pStdPPSs : PStdVideoH265PictureParameterSet;
     end;
+  PVkVideoEncodeH265SessionParametersAddInfoKHR = ^TVkVideoEncodeH265SessionParametersAddInfoKHR;
 
-  PVkVideoEncodeH265SessionParametersCreateInfoKHR = ^TVkVideoEncodeH265SessionParametersCreateInfoKHR;
   TVkVideoEncodeH265SessionParametersCreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8414,8 +8314,8 @@ type
       maxStdPPSCount : Tuint32_t;
       pParametersAddInfo : PVkVideoEncodeH265SessionParametersAddInfoKHR;
     end;
+  PVkVideoEncodeH265SessionParametersCreateInfoKHR = ^TVkVideoEncodeH265SessionParametersCreateInfoKHR;
 
-  PVkVideoEncodeH265SessionParametersGetInfoKHR = ^TVkVideoEncodeH265SessionParametersGetInfoKHR;
   TVkVideoEncodeH265SessionParametersGetInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8426,8 +8326,8 @@ type
       stdSPSId : Tuint32_t;
       stdPPSId : Tuint32_t;
     end;
+  PVkVideoEncodeH265SessionParametersGetInfoKHR = ^TVkVideoEncodeH265SessionParametersGetInfoKHR;
 
-  PVkVideoEncodeH265SessionParametersFeedbackInfoKHR = ^TVkVideoEncodeH265SessionParametersFeedbackInfoKHR;
   TVkVideoEncodeH265SessionParametersFeedbackInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8435,16 +8335,16 @@ type
       hasStdSPSOverrides : TVkBool32;
       hasStdPPSOverrides : TVkBool32;
     end;
+  PVkVideoEncodeH265SessionParametersFeedbackInfoKHR = ^TVkVideoEncodeH265SessionParametersFeedbackInfoKHR;
 
-  PVkVideoEncodeH265NaluSliceSegmentInfoKHR = ^TVkVideoEncodeH265NaluSliceSegmentInfoKHR;
   TVkVideoEncodeH265NaluSliceSegmentInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       constantQp : Tint32_t;
       pStdSliceSegmentHeader : PStdVideoEncodeH265SliceSegmentHeader;
     end;
+  PVkVideoEncodeH265NaluSliceSegmentInfoKHR = ^TVkVideoEncodeH265NaluSliceSegmentInfoKHR;
 
-  PVkVideoEncodeH265PictureInfoKHR = ^TVkVideoEncodeH265PictureInfoKHR;
   TVkVideoEncodeH265PictureInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8452,22 +8352,22 @@ type
       pNaluSliceSegmentEntries : PVkVideoEncodeH265NaluSliceSegmentInfoKHR;
       pStdPictureInfo : PStdVideoEncodeH265PictureInfo;
     end;
+  PVkVideoEncodeH265PictureInfoKHR = ^TVkVideoEncodeH265PictureInfoKHR;
 
-  PVkVideoEncodeH265DpbSlotInfoKHR = ^TVkVideoEncodeH265DpbSlotInfoKHR;
   TVkVideoEncodeH265DpbSlotInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       pStdReferenceInfo : PStdVideoEncodeH265ReferenceInfo;
     end;
+  PVkVideoEncodeH265DpbSlotInfoKHR = ^TVkVideoEncodeH265DpbSlotInfoKHR;
 
-  PVkVideoEncodeH265ProfileInfoKHR = ^TVkVideoEncodeH265ProfileInfoKHR;
   TVkVideoEncodeH265ProfileInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       stdProfileIdc : TStdVideoH265ProfileIdc;
     end;
+  PVkVideoEncodeH265ProfileInfoKHR = ^TVkVideoEncodeH265ProfileInfoKHR;
 
-  PVkVideoEncodeH265RateControlInfoKHR = ^TVkVideoEncodeH265RateControlInfoKHR;
   TVkVideoEncodeH265RateControlInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8477,15 +8377,15 @@ type
       consecutiveBFrameCount : Tuint32_t;
       subLayerCount : Tuint32_t;
     end;
+  PVkVideoEncodeH265RateControlInfoKHR = ^TVkVideoEncodeH265RateControlInfoKHR;
 
-  PVkVideoEncodeH265FrameSizeKHR = ^TVkVideoEncodeH265FrameSizeKHR;
   TVkVideoEncodeH265FrameSizeKHR = record
       frameISize : Tuint32_t;
       framePSize : Tuint32_t;
       frameBSize : Tuint32_t;
     end;
+  PVkVideoEncodeH265FrameSizeKHR = ^TVkVideoEncodeH265FrameSizeKHR;
 
-  PVkVideoEncodeH265RateControlLayerInfoKHR = ^TVkVideoEncodeH265RateControlLayerInfoKHR;
   TVkVideoEncodeH265RateControlLayerInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8496,8 +8396,8 @@ type
       useMaxFrameSize : TVkBool32;
       maxFrameSize : TVkVideoEncodeH265FrameSizeKHR;
     end;
+  PVkVideoEncodeH265RateControlLayerInfoKHR = ^TVkVideoEncodeH265RateControlLayerInfoKHR;
 
-  PVkVideoEncodeH265GopRemainingFrameInfoKHR = ^TVkVideoEncodeH265GopRemainingFrameInfoKHR;
   TVkVideoEncodeH265GopRemainingFrameInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8506,11 +8406,10 @@ type
       gopRemainingP : Tuint32_t;
       gopRemainingB : Tuint32_t;
     end;
-{ VK_KHR_video_decode_h264 is a preprocessor guard. Do not pass it to API calls. }
+  PVkVideoEncodeH265GopRemainingFrameInfoKHR = ^TVkVideoEncodeH265GopRemainingFrameInfoKHR;
 
 const
   VK_KHR_video_decode_h264 = 1;  
-{$include "vk_video/vulkan_video_codec_h264std_decode.h"}
 
 const
   VK_KHR_VIDEO_DECODE_H264_SPEC_VERSION = 9;  
@@ -8523,28 +8422,27 @@ type
     VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_INTERLEAVED_LINES_BIT_KHR = $00000001;
     VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_SEPARATE_PLANES_BIT_KHR = $00000002;
     VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoDecodeH264PictureLayoutFlagsKHR = ^TVkVideoDecodeH264PictureLayoutFlagsKHR;
   TVkVideoDecodeH264PictureLayoutFlagsKHR = TVkFlags;
 
-  PVkVideoDecodeH264ProfileInfoKHR = ^TVkVideoDecodeH264ProfileInfoKHR;
   TVkVideoDecodeH264ProfileInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       stdProfileIdc : TStdVideoH264ProfileIdc;
       pictureLayout : TVkVideoDecodeH264PictureLayoutFlagBitsKHR;
     end;
+  PVkVideoDecodeH264ProfileInfoKHR = ^TVkVideoDecodeH264ProfileInfoKHR;
 
-  PVkVideoDecodeH264CapabilitiesKHR = ^TVkVideoDecodeH264CapabilitiesKHR;
   TVkVideoDecodeH264CapabilitiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       maxLevelIdc : TStdVideoH264LevelIdc;
       fieldOffsetGranularity : TVkOffset2D;
     end;
+  PVkVideoDecodeH264CapabilitiesKHR = ^TVkVideoDecodeH264CapabilitiesKHR;
 
-  PVkVideoDecodeH264SessionParametersAddInfoKHR = ^TVkVideoDecodeH264SessionParametersAddInfoKHR;
   TVkVideoDecodeH264SessionParametersAddInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8553,8 +8451,8 @@ type
       stdPPSCount : Tuint32_t;
       pStdPPSs : PStdVideoH264PictureParameterSet;
     end;
+  PVkVideoDecodeH264SessionParametersAddInfoKHR = ^TVkVideoDecodeH264SessionParametersAddInfoKHR;
 
-  PVkVideoDecodeH264SessionParametersCreateInfoKHR = ^TVkVideoDecodeH264SessionParametersCreateInfoKHR;
   TVkVideoDecodeH264SessionParametersCreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8562,8 +8460,8 @@ type
       maxStdPPSCount : Tuint32_t;
       pParametersAddInfo : PVkVideoDecodeH264SessionParametersAddInfoKHR;
     end;
+  PVkVideoDecodeH264SessionParametersCreateInfoKHR = ^TVkVideoDecodeH264SessionParametersCreateInfoKHR;
 
-  PVkVideoDecodeH264PictureInfoKHR = ^TVkVideoDecodeH264PictureInfoKHR;
   TVkVideoDecodeH264PictureInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8571,14 +8469,14 @@ type
       sliceCount : Tuint32_t;
       pSliceOffsets : Puint32_t;
     end;
+  PVkVideoDecodeH264PictureInfoKHR = ^TVkVideoDecodeH264PictureInfoKHR;
 
-  PVkVideoDecodeH264DpbSlotInfoKHR = ^TVkVideoDecodeH264DpbSlotInfoKHR;
   TVkVideoDecodeH264DpbSlotInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       pStdReferenceInfo : PStdVideoDecodeH264ReferenceInfo;
     end;
-{ VK_KHR_dynamic_rendering is a preprocessor guard. Do not pass it to API calls. }
+  PVkVideoDecodeH264DpbSlotInfoKHR = ^TVkVideoDecodeH264DpbSlotInfoKHR;
 
 const
   VK_KHR_dynamic_rendering = 1;  
@@ -8606,7 +8504,6 @@ type
   PVkCommandBufferInheritanceRenderingInfoKHR = ^TVkCommandBufferInheritanceRenderingInfoKHR;
   TVkCommandBufferInheritanceRenderingInfoKHR = TVkCommandBufferInheritanceRenderingInfo;
 
-  PVkRenderingFragmentShadingRateAttachmentInfoKHR = ^TVkRenderingFragmentShadingRateAttachmentInfoKHR;
   TVkRenderingFragmentShadingRateAttachmentInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8614,16 +8511,16 @@ type
       imageLayout : TVkImageLayout;
       shadingRateAttachmentTexelSize : TVkExtent2D;
     end;
+  PVkRenderingFragmentShadingRateAttachmentInfoKHR = ^TVkRenderingFragmentShadingRateAttachmentInfoKHR;
 
-  PVkRenderingFragmentDensityMapAttachmentInfoEXT = ^TVkRenderingFragmentDensityMapAttachmentInfoEXT;
   TVkRenderingFragmentDensityMapAttachmentInfoEXT = record
       sType : TVkStructureType;
       pNext : pointer;
       imageView : TVkImageView;
       imageLayout : TVkImageLayout;
     end;
+  PVkRenderingFragmentDensityMapAttachmentInfoEXT = ^TVkRenderingFragmentDensityMapAttachmentInfoEXT;
 
-  PVkAttachmentSampleCountInfoAMD = ^TVkAttachmentSampleCountInfoAMD;
   TVkAttachmentSampleCountInfoAMD = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8631,27 +8528,24 @@ type
       pColorAttachmentSamples : PVkSampleCountFlagBits;
       depthStencilAttachmentSamples : TVkSampleCountFlagBits;
     end;
+  PVkAttachmentSampleCountInfoAMD = ^TVkAttachmentSampleCountInfoAMD;
 
   PVkAttachmentSampleCountInfoNV = ^TVkAttachmentSampleCountInfoNV;
   TVkAttachmentSampleCountInfoNV = TVkAttachmentSampleCountInfoAMD;
 
-  PVkMultiviewPerViewAttributesInfoNVX = ^TVkMultiviewPerViewAttributesInfoNVX;
   TVkMultiviewPerViewAttributesInfoNVX = record
       sType : TVkStructureType;
       pNext : pointer;
       perViewAttributes : TVkBool32;
       perViewAttributesPositionXOnly : TVkBool32;
     end;
+  PVkMultiviewPerViewAttributesInfoNVX = ^TVkMultiviewPerViewAttributesInfoNVX;
 
   TPFN_vkCmdBeginRenderingKHR = procedure (commandBuffer:TVkCommandBuffer; pRenderingInfo:PVkRenderingInfo);cdecl;
-
   TPFN_vkCmdEndRenderingKHR = procedure (commandBuffer:TVkCommandBuffer);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 procedure vkCmdBeginRenderingKHR(commandBuffer:TVkCommandBuffer; pRenderingInfo:PVkRenderingInfo);cdecl;external libvulkan;
 procedure vkCmdEndRenderingKHR(commandBuffer:TVkCommandBuffer);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_multiview is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_multiview = 1;  
@@ -8666,7 +8560,6 @@ type
 
   PVkPhysicalDeviceMultiviewPropertiesKHR = ^TVkPhysicalDeviceMultiviewPropertiesKHR;
   TVkPhysicalDeviceMultiviewPropertiesKHR = TVkPhysicalDeviceMultiviewProperties;
-{ VK_KHR_get_physical_device_properties2 is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_get_physical_device_properties2 = 1;  
@@ -8701,19 +8594,12 @@ type
   TVkPhysicalDeviceSparseImageFormatInfo2KHR = TVkPhysicalDeviceSparseImageFormatInfo2;
 
   TPFN_vkGetPhysicalDeviceFeatures2KHR = procedure (physicalDevice:TVkPhysicalDevice; pFeatures:PVkPhysicalDeviceFeatures2);cdecl;
-
   TPFN_vkGetPhysicalDeviceProperties2KHR = procedure (physicalDevice:TVkPhysicalDevice; pProperties:PVkPhysicalDeviceProperties2);cdecl;
-
   TPFN_vkGetPhysicalDeviceFormatProperties2KHR = procedure (physicalDevice:TVkPhysicalDevice; format:TVkFormat; pFormatProperties:PVkFormatProperties2);cdecl;
-
   TPFN_vkGetPhysicalDeviceImageFormatProperties2KHR = function (physicalDevice:TVkPhysicalDevice; pImageFormatInfo:PVkPhysicalDeviceImageFormatInfo2; pImageFormatProperties:PVkImageFormatProperties2):TVkResult;cdecl;
-
   TPFN_vkGetPhysicalDeviceQueueFamilyProperties2KHR = procedure (physicalDevice:TVkPhysicalDevice; pQueueFamilyPropertyCount:Puint32_t; pQueueFamilyProperties:PVkQueueFamilyProperties2);cdecl;
-
   TPFN_vkGetPhysicalDeviceMemoryProperties2KHR = procedure (physicalDevice:TVkPhysicalDevice; pMemoryProperties:PVkPhysicalDeviceMemoryProperties2);cdecl;
-
   TPFN_vkGetPhysicalDeviceSparseImageFormatProperties2KHR = procedure (physicalDevice:TVkPhysicalDevice; pFormatInfo:PVkPhysicalDeviceSparseImageFormatInfo2; pPropertyCount:Puint32_t; pProperties:PVkSparseImageFormatProperties2);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 procedure vkGetPhysicalDeviceFeatures2KHR(physicalDevice:TVkPhysicalDevice; pFeatures:PVkPhysicalDeviceFeatures2);cdecl;external libvulkan;
 procedure vkGetPhysicalDeviceProperties2KHR(physicalDevice:TVkPhysicalDevice; pProperties:PVkPhysicalDeviceProperties2);cdecl;external libvulkan;
@@ -8722,8 +8608,6 @@ function vkGetPhysicalDeviceImageFormatProperties2KHR(physicalDevice:TVkPhysical
 procedure vkGetPhysicalDeviceQueueFamilyProperties2KHR(physicalDevice:TVkPhysicalDevice; pQueueFamilyPropertyCount:Puint32_t; pQueueFamilyProperties:PVkQueueFamilyProperties2);cdecl;external libvulkan;
 procedure vkGetPhysicalDeviceMemoryProperties2KHR(physicalDevice:TVkPhysicalDevice; pMemoryProperties:PVkPhysicalDeviceMemoryProperties2);cdecl;external libvulkan;
 procedure vkGetPhysicalDeviceSparseImageFormatProperties2KHR(physicalDevice:TVkPhysicalDevice; pFormatInfo:PVkPhysicalDeviceSparseImageFormatInfo2; pPropertyCount:Puint32_t; pProperties:PVkSparseImageFormatProperties2);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_device_group is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_device_group = 1;  
@@ -8764,26 +8648,19 @@ type
   TVkBindImageMemoryDeviceGroupInfoKHR = TVkBindImageMemoryDeviceGroupInfo;
 
   TPFN_vkGetDeviceGroupPeerMemoryFeaturesKHR = procedure (device:TVkDevice; heapIndex:Tuint32_t; localDeviceIndex:Tuint32_t; remoteDeviceIndex:Tuint32_t; pPeerMemoryFeatures:PVkPeerMemoryFeatureFlags);cdecl;
-
   TPFN_vkCmdSetDeviceMaskKHR = procedure (commandBuffer:TVkCommandBuffer; deviceMask:Tuint32_t);cdecl;
-
-  TPFN_vkCmdDispatchBaseKHR = procedure (commandBuffer:TVkCommandBuffer; baseGroupX:Tuint32_t; baseGroupY:Tuint32_t; baseGroupZ:Tuint32_t; groupCountX:Tuint32_t; 
-                groupCountY:Tuint32_t; groupCountZ:Tuint32_t);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
+  TPFN_vkCmdDispatchBaseKHR = procedure (commandBuffer:TVkCommandBuffer; baseGroupX:Tuint32_t; baseGroupY:Tuint32_t; baseGroupZ:Tuint32_t; groupCountX:Tuint32_t;                groupCountY:Tuint32_t; groupCountZ:Tuint32_t);cdecl;
 
 procedure vkGetDeviceGroupPeerMemoryFeaturesKHR(device:TVkDevice; heapIndex:Tuint32_t; localDeviceIndex:Tuint32_t; remoteDeviceIndex:Tuint32_t; pPeerMemoryFeatures:PVkPeerMemoryFeatureFlags);cdecl;external libvulkan;
 procedure vkCmdSetDeviceMaskKHR(commandBuffer:TVkCommandBuffer; deviceMask:Tuint32_t);cdecl;external libvulkan;
 procedure vkCmdDispatchBaseKHR(commandBuffer:TVkCommandBuffer; baseGroupX:Tuint32_t; baseGroupY:Tuint32_t; baseGroupZ:Tuint32_t; groupCountX:Tuint32_t; 
             groupCountY:Tuint32_t; groupCountZ:Tuint32_t);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_shader_draw_parameters is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_shader_draw_parameters = 1;  
   VK_KHR_SHADER_DRAW_PARAMETERS_SPEC_VERSION = 1;  
   VK_KHR_SHADER_DRAW_PARAMETERS_EXTENSION_NAME = 'VK_KHR_shader_draw_parameters';  
-{ VK_KHR_maintenance1 is a preprocessor guard. Do not pass it to API calls. }
-  VK_KHR_maintenance1 = 1;  
+  VK_KHR_maintenance1 = 1;
   VK_KHR_MAINTENANCE_1_SPEC_VERSION = 2;  
   VK_KHR_MAINTENANCE_1_EXTENSION_NAME = 'VK_KHR_maintenance1';  
   VK_KHR_MAINTENANCE1_SPEC_VERSION = VK_KHR_MAINTENANCE_1_SPEC_VERSION;  
@@ -8793,11 +8670,8 @@ type
   TVkCommandPoolTrimFlagsKHR = TVkCommandPoolTrimFlags;
 
   TPFN_vkTrimCommandPoolKHR = procedure (device:TVkDevice; commandPool:TVkCommandPool; flags:TVkCommandPoolTrimFlags);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 procedure vkTrimCommandPoolKHR(device:TVkDevice; commandPool:TVkCommandPool; flags:TVkCommandPoolTrimFlags);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_device_group_creation is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_device_group_creation = 1;  
@@ -8812,11 +8686,8 @@ type
   TVkDeviceGroupDeviceCreateInfoKHR = TVkDeviceGroupDeviceCreateInfo;
 
   TPFN_vkEnumeratePhysicalDeviceGroupsKHR = function (instance:TVkInstance; pPhysicalDeviceGroupCount:Puint32_t; pPhysicalDeviceGroupProperties:PVkPhysicalDeviceGroupProperties):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkEnumeratePhysicalDeviceGroupsKHR(instance:TVkInstance; pPhysicalDeviceGroupCount:Puint32_t; pPhysicalDeviceGroupProperties:PVkPhysicalDeviceGroupProperties):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_external_memory_capabilities is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_external_memory_capabilities = 1;  
@@ -8855,11 +8726,8 @@ type
   TVkPhysicalDeviceIDPropertiesKHR = TVkPhysicalDeviceIDProperties;
 
   TPFN_vkGetPhysicalDeviceExternalBufferPropertiesKHR = procedure (physicalDevice:TVkPhysicalDevice; pExternalBufferInfo:PVkPhysicalDeviceExternalBufferInfo; pExternalBufferProperties:PVkExternalBufferProperties);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 procedure vkGetPhysicalDeviceExternalBufferPropertiesKHR(physicalDevice:TVkPhysicalDevice; pExternalBufferInfo:PVkPhysicalDeviceExternalBufferInfo; pExternalBufferProperties:PVkExternalBufferProperties);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_external_memory is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_external_memory = 1;  
@@ -8875,45 +8743,40 @@ type
 
   PVkExportMemoryAllocateInfoKHR = ^TVkExportMemoryAllocateInfoKHR;
   TVkExportMemoryAllocateInfoKHR = TVkExportMemoryAllocateInfo;
-{ VK_KHR_external_memory_fd is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_external_memory_fd = 1;  
   VK_KHR_EXTERNAL_MEMORY_FD_SPEC_VERSION = 1;  
   VK_KHR_EXTERNAL_MEMORY_FD_EXTENSION_NAME = 'VK_KHR_external_memory_fd';  
 type
-  PVkImportMemoryFdInfoKHR = ^TVkImportMemoryFdInfoKHR;
   TVkImportMemoryFdInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       handleType : TVkExternalMemoryHandleTypeFlagBits;
       fd : longint;
     end;
+  PVkImportMemoryFdInfoKHR = ^TVkImportMemoryFdInfoKHR;
 
-  PVkMemoryFdPropertiesKHR = ^TVkMemoryFdPropertiesKHR;
   TVkMemoryFdPropertiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       memoryTypeBits : Tuint32_t;
     end;
+  PVkMemoryFdPropertiesKHR = ^TVkMemoryFdPropertiesKHR;
 
-  PVkMemoryGetFdInfoKHR = ^TVkMemoryGetFdInfoKHR;
   TVkMemoryGetFdInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       memory : TVkDeviceMemory;
       handleType : TVkExternalMemoryHandleTypeFlagBits;
     end;
+  PVkMemoryGetFdInfoKHR = ^TVkMemoryGetFdInfoKHR;
 
   TPFN_vkGetMemoryFdKHR = function (device:TVkDevice; pGetFdInfo:PVkMemoryGetFdInfoKHR; pFd:Plongint):TVkResult;cdecl;
-
   TPFN_vkGetMemoryFdPropertiesKHR = function (device:TVkDevice; handleType:TVkExternalMemoryHandleTypeFlagBits; fd:longint; pMemoryFdProperties:PVkMemoryFdPropertiesKHR):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkGetMemoryFdKHR(device:TVkDevice; pGetFdInfo:PVkMemoryGetFdInfoKHR; pFd:Plongint):TVkResult;cdecl;external libvulkan;
 function vkGetMemoryFdPropertiesKHR(device:TVkDevice; handleType:TVkExternalMemoryHandleTypeFlagBits; fd:longint; pMemoryFdProperties:PVkMemoryFdPropertiesKHR):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_external_semaphore_capabilities is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_external_semaphore_capabilities = 1;  
@@ -8939,11 +8802,8 @@ type
   TVkExternalSemaphorePropertiesKHR = TVkExternalSemaphoreProperties;
 
   TPFN_vkGetPhysicalDeviceExternalSemaphorePropertiesKHR = procedure (physicalDevice:TVkPhysicalDevice; pExternalSemaphoreInfo:PVkPhysicalDeviceExternalSemaphoreInfo; pExternalSemaphoreProperties:PVkExternalSemaphoreProperties);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 procedure vkGetPhysicalDeviceExternalSemaphorePropertiesKHR(physicalDevice:TVkPhysicalDevice; pExternalSemaphoreInfo:PVkPhysicalDeviceExternalSemaphoreInfo; pExternalSemaphoreProperties:PVkExternalSemaphoreProperties);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_external_semaphore is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_external_semaphore = 1;  
@@ -8958,14 +8818,12 @@ type
 
   PVkExportSemaphoreCreateInfoKHR = ^TVkExportSemaphoreCreateInfoKHR;
   TVkExportSemaphoreCreateInfoKHR = TVkExportSemaphoreCreateInfo;
-{ VK_KHR_external_semaphore_fd is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_external_semaphore_fd = 1;  
   VK_KHR_EXTERNAL_SEMAPHORE_FD_SPEC_VERSION = 1;  
   VK_KHR_EXTERNAL_SEMAPHORE_FD_EXTENSION_NAME = 'VK_KHR_external_semaphore_fd';  
 type
-  PVkImportSemaphoreFdInfoKHR = ^TVkImportSemaphoreFdInfoKHR;
   TVkImportSemaphoreFdInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -8974,48 +8832,42 @@ type
       handleType : TVkExternalSemaphoreHandleTypeFlagBits;
       fd : longint;
     end;
+  PVkImportSemaphoreFdInfoKHR = ^TVkImportSemaphoreFdInfoKHR;
 
-  PVkSemaphoreGetFdInfoKHR = ^TVkSemaphoreGetFdInfoKHR;
   TVkSemaphoreGetFdInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       semaphore : TVkSemaphore;
       handleType : TVkExternalSemaphoreHandleTypeFlagBits;
     end;
+  PVkSemaphoreGetFdInfoKHR = ^TVkSemaphoreGetFdInfoKHR;
 
   TPFN_vkImportSemaphoreFdKHR = function (device:TVkDevice; pImportSemaphoreFdInfo:PVkImportSemaphoreFdInfoKHR):TVkResult;cdecl;
-
   TPFN_vkGetSemaphoreFdKHR = function (device:TVkDevice; pGetFdInfo:PVkSemaphoreGetFdInfoKHR; pFd:Plongint):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkImportSemaphoreFdKHR(device:TVkDevice; pImportSemaphoreFdInfo:PVkImportSemaphoreFdInfoKHR):TVkResult;cdecl;external libvulkan;
 function vkGetSemaphoreFdKHR(device:TVkDevice; pGetFdInfo:PVkSemaphoreGetFdInfoKHR; pFd:Plongint):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_push_descriptor is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_push_descriptor = 1;  
   VK_KHR_PUSH_DESCRIPTOR_SPEC_VERSION = 2;  
   VK_KHR_PUSH_DESCRIPTOR_EXTENSION_NAME = 'VK_KHR_push_descriptor';  
 type
-  PVkPhysicalDevicePushDescriptorPropertiesKHR = ^TVkPhysicalDevicePushDescriptorPropertiesKHR;
   TVkPhysicalDevicePushDescriptorPropertiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       maxPushDescriptors : Tuint32_t;
     end;
+  PVkPhysicalDevicePushDescriptorPropertiesKHR = ^TVkPhysicalDevicePushDescriptorPropertiesKHR;
 
-  TPFN_vkCmdPushDescriptorSetKHR = procedure (commandBuffer:TVkCommandBuffer; pipelineBindPoint:TVkPipelineBindPoint; layout:TVkPipelineLayout; set:Tuint32_t; descriptorWriteCount:Tuint32_t; 
+  TPFN_vkCmdPushDescriptorSetKHR = procedure (commandBuffer:TVkCommandBuffer; pipelineBindPoint:TVkPipelineBindPoint; layout:TVkPipelineLayout; set_:Tuint32_t; descriptorWriteCount:Tuint32_t; 
                 pDescriptorWrites:PVkWriteDescriptorSet);cdecl;
 
-  TPFN_vkCmdPushDescriptorSetWithTemplateKHR = procedure (commandBuffer:TVkCommandBuffer; descriptorUpdateTemplate:TVkDescriptorUpdateTemplate; layout:TVkPipelineLayout; set:Tuint32_t; pData:pointer);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
+  TPFN_vkCmdPushDescriptorSetWithTemplateKHR = procedure (commandBuffer:TVkCommandBuffer; descriptorUpdateTemplate:TVkDescriptorUpdateTemplate; layout:TVkPipelineLayout; set_:Tuint32_t; pData:pointer);cdecl;
 
-procedure vkCmdPushDescriptorSetKHR(commandBuffer:TVkCommandBuffer; pipelineBindPoint:TVkPipelineBindPoint; layout:TVkPipelineLayout; set:Tuint32_t; descriptorWriteCount:Tuint32_t; 
+procedure vkCmdPushDescriptorSetKHR(commandBuffer:TVkCommandBuffer; pipelineBindPoint:TVkPipelineBindPoint; layout:TVkPipelineLayout; set_:Tuint32_t; descriptorWriteCount:Tuint32_t; 
             pDescriptorWrites:PVkWriteDescriptorSet);cdecl;external libvulkan;
-procedure vkCmdPushDescriptorSetWithTemplateKHR(commandBuffer:TVkCommandBuffer; descriptorUpdateTemplate:TVkDescriptorUpdateTemplate; layout:TVkPipelineLayout; set:Tuint32_t; pData:pointer);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_shader_float16_int8 is a preprocessor guard. Do not pass it to API calls. }
+procedure vkCmdPushDescriptorSetWithTemplateKHR(commandBuffer:TVkCommandBuffer; descriptorUpdateTemplate:TVkDescriptorUpdateTemplate; layout:TVkPipelineLayout; set_:Tuint32_t; pData:pointer);cdecl;external libvulkan;
 
 const
   VK_KHR_shader_float16_int8 = 1;  
@@ -9027,7 +8879,6 @@ type
 
   PVkPhysicalDeviceFloat16Int8FeaturesKHR = ^TVkPhysicalDeviceFloat16Int8FeaturesKHR;
   TVkPhysicalDeviceFloat16Int8FeaturesKHR = TVkPhysicalDeviceShaderFloat16Int8Features;
-{ VK_KHR_16bit_storage is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_16bit_storage = 1;  
@@ -9036,34 +8887,32 @@ const
 type
   PVkPhysicalDevice16BitStorageFeaturesKHR = ^TVkPhysicalDevice16BitStorageFeaturesKHR;
   TVkPhysicalDevice16BitStorageFeaturesKHR = TVkPhysicalDevice16BitStorageFeatures;
-{ VK_KHR_incremental_present is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_incremental_present = 1;  
   VK_KHR_INCREMENTAL_PRESENT_SPEC_VERSION = 2;  
   VK_KHR_INCREMENTAL_PRESENT_EXTENSION_NAME = 'VK_KHR_incremental_present';  
 type
-  PVkRectLayerKHR = ^TVkRectLayerKHR;
   TVkRectLayerKHR = record
       offset : TVkOffset2D;
       extent : TVkExtent2D;
       layer : Tuint32_t;
     end;
+  PVkRectLayerKHR = ^TVkRectLayerKHR;
 
-  PVkPresentRegionKHR = ^TVkPresentRegionKHR;
   TVkPresentRegionKHR = record
       rectangleCount : Tuint32_t;
       pRectangles : PVkRectLayerKHR;
     end;
+  PVkPresentRegionKHR = ^TVkPresentRegionKHR;
 
-  PVkPresentRegionsKHR = ^TVkPresentRegionsKHR;
   TVkPresentRegionsKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       swapchainCount : Tuint32_t;
       pRegions : PVkPresentRegionKHR;
     end;
-{ VK_KHR_descriptor_update_template is a preprocessor guard. Do not pass it to API calls. }
+  PVkPresentRegionsKHR = ^TVkPresentRegionsKHR;
 
 const
   VK_KHR_descriptor_update_template = 1;  
@@ -9088,17 +8937,12 @@ type
   TVkDescriptorUpdateTemplateCreateInfoKHR = TVkDescriptorUpdateTemplateCreateInfo;
 
   TPFN_vkCreateDescriptorUpdateTemplateKHR = function (device:TVkDevice; pCreateInfo:PVkDescriptorUpdateTemplateCreateInfo; pAllocator:PVkAllocationCallbacks; pDescriptorUpdateTemplate:PVkDescriptorUpdateTemplate):TVkResult;cdecl;
-
   TPFN_vkDestroyDescriptorUpdateTemplateKHR = procedure (device:TVkDevice; descriptorUpdateTemplate:TVkDescriptorUpdateTemplate; pAllocator:PVkAllocationCallbacks);cdecl;
-
   TPFN_vkUpdateDescriptorSetWithTemplateKHR = procedure (device:TVkDevice; descriptorSet:TVkDescriptorSet; descriptorUpdateTemplate:TVkDescriptorUpdateTemplate; pData:pointer);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkCreateDescriptorUpdateTemplateKHR(device:TVkDevice; pCreateInfo:PVkDescriptorUpdateTemplateCreateInfo; pAllocator:PVkAllocationCallbacks; pDescriptorUpdateTemplate:PVkDescriptorUpdateTemplate):TVkResult;cdecl;external libvulkan;
 procedure vkDestroyDescriptorUpdateTemplateKHR(device:TVkDevice; descriptorUpdateTemplate:TVkDescriptorUpdateTemplate; pAllocator:PVkAllocationCallbacks);cdecl;external libvulkan;
 procedure vkUpdateDescriptorSetWithTemplateKHR(device:TVkDevice; descriptorSet:TVkDescriptorSet; descriptorUpdateTemplate:TVkDescriptorUpdateTemplate; pData:pointer);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_imageless_framebuffer is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_imageless_framebuffer = 1;  
@@ -9116,7 +8960,6 @@ type
 
   PVkRenderPassAttachmentBeginInfoKHR = ^TVkRenderPassAttachmentBeginInfoKHR;
   TVkRenderPassAttachmentBeginInfoKHR = TVkRenderPassAttachmentBeginInfo;
-{ VK_KHR_create_renderpass2 is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_create_renderpass2 = 1;  
@@ -9145,39 +8988,30 @@ type
   TVkSubpassEndInfoKHR = TVkSubpassEndInfo;
 
   TPFN_vkCreateRenderPass2KHR = function (device:TVkDevice; pCreateInfo:PVkRenderPassCreateInfo2; pAllocator:PVkAllocationCallbacks; pRenderPass:PVkRenderPass):TVkResult;cdecl;
-
   TPFN_vkCmdBeginRenderPass2KHR = procedure (commandBuffer:TVkCommandBuffer; pRenderPassBegin:PVkRenderPassBeginInfo; pSubpassBeginInfo:PVkSubpassBeginInfo);cdecl;
-
   TPFN_vkCmdNextSubpass2KHR = procedure (commandBuffer:TVkCommandBuffer; pSubpassBeginInfo:PVkSubpassBeginInfo; pSubpassEndInfo:PVkSubpassEndInfo);cdecl;
-
   TPFN_vkCmdEndRenderPass2KHR = procedure (commandBuffer:TVkCommandBuffer; pSubpassEndInfo:PVkSubpassEndInfo);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkCreateRenderPass2KHR(device:TVkDevice; pCreateInfo:PVkRenderPassCreateInfo2; pAllocator:PVkAllocationCallbacks; pRenderPass:PVkRenderPass):TVkResult;cdecl;external libvulkan;
 procedure vkCmdBeginRenderPass2KHR(commandBuffer:TVkCommandBuffer; pRenderPassBegin:PVkRenderPassBeginInfo; pSubpassBeginInfo:PVkSubpassBeginInfo);cdecl;external libvulkan;
 procedure vkCmdNextSubpass2KHR(commandBuffer:TVkCommandBuffer; pSubpassBeginInfo:PVkSubpassBeginInfo; pSubpassEndInfo:PVkSubpassEndInfo);cdecl;external libvulkan;
 procedure vkCmdEndRenderPass2KHR(commandBuffer:TVkCommandBuffer; pSubpassEndInfo:PVkSubpassEndInfo);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_shared_presentable_image is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_shared_presentable_image = 1;  
   VK_KHR_SHARED_PRESENTABLE_IMAGE_SPEC_VERSION = 1;  
   VK_KHR_SHARED_PRESENTABLE_IMAGE_EXTENSION_NAME = 'VK_KHR_shared_presentable_image';  
 type
-  PVkSharedPresentSurfaceCapabilitiesKHR = ^TVkSharedPresentSurfaceCapabilitiesKHR;
   TVkSharedPresentSurfaceCapabilitiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       sharedPresentSupportedUsageFlags : TVkImageUsageFlags;
     end;
+  PVkSharedPresentSurfaceCapabilitiesKHR = ^TVkSharedPresentSurfaceCapabilitiesKHR;
 
   TPFN_vkGetSwapchainStatusKHR = function (device:TVkDevice; swapchain:TVkSwapchainKHR):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkGetSwapchainStatusKHR(device:TVkDevice; swapchain:TVkSwapchainKHR):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_external_fence_capabilities is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_external_fence_capabilities = 1;  
@@ -9203,11 +9037,8 @@ type
   TVkExternalFencePropertiesKHR = TVkExternalFenceProperties;
 
   TPFN_vkGetPhysicalDeviceExternalFencePropertiesKHR = procedure (physicalDevice:TVkPhysicalDevice; pExternalFenceInfo:PVkPhysicalDeviceExternalFenceInfo; pExternalFenceProperties:PVkExternalFenceProperties);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 procedure vkGetPhysicalDeviceExternalFencePropertiesKHR(physicalDevice:TVkPhysicalDevice; pExternalFenceInfo:PVkPhysicalDeviceExternalFenceInfo; pExternalFenceProperties:PVkExternalFenceProperties);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_external_fence is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_external_fence = 1;  
@@ -9222,14 +9053,12 @@ type
 
   PVkExportFenceCreateInfoKHR = ^TVkExportFenceCreateInfoKHR;
   TVkExportFenceCreateInfoKHR = TVkExportFenceCreateInfo;
-{ VK_KHR_external_fence_fd is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_external_fence_fd = 1;  
   VK_KHR_EXTERNAL_FENCE_FD_SPEC_VERSION = 1;  
   VK_KHR_EXTERNAL_FENCE_FD_EXTENSION_NAME = 'VK_KHR_external_fence_fd';  
 type
-  PVkImportFenceFdInfoKHR = ^TVkImportFenceFdInfoKHR;
   TVkImportFenceFdInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -9238,24 +9067,21 @@ type
       handleType : TVkExternalFenceHandleTypeFlagBits;
       fd : longint;
     end;
+  PVkImportFenceFdInfoKHR = ^TVkImportFenceFdInfoKHR;
 
-  PVkFenceGetFdInfoKHR = ^TVkFenceGetFdInfoKHR;
   TVkFenceGetFdInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       fence : TVkFence;
       handleType : TVkExternalFenceHandleTypeFlagBits;
     end;
+  PVkFenceGetFdInfoKHR = ^TVkFenceGetFdInfoKHR;
 
   TPFN_vkImportFenceFdKHR = function (device:TVkDevice; pImportFenceFdInfo:PVkImportFenceFdInfoKHR):TVkResult;cdecl;
-
   TPFN_vkGetFenceFdKHR = function (device:TVkDevice; pGetFdInfo:PVkFenceGetFdInfoKHR; pFd:Plongint):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkImportFenceFdKHR(device:TVkDevice; pImportFenceFdInfo:PVkImportFenceFdInfoKHR):TVkResult;cdecl;external libvulkan;
 function vkGetFenceFdKHR(device:TVkDevice; pGetFdInfo:PVkFenceGetFdInfoKHR; pFd:Plongint):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_performance_query is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_performance_query = 1;  
@@ -9277,7 +9103,7 @@ type
     VK_PERFORMANCE_COUNTER_UNIT_HERTZ_KHR = 9;
     VK_PERFORMANCE_COUNTER_UNIT_CYCLES_KHR = 10;
     VK_PERFORMANCE_COUNTER_UNIT_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkPerformanceCounterScopeKHR = ^TVkPerformanceCounterScopeKHR;
   TVkPerformanceCounterScopeKHR =  Longint;
@@ -9289,7 +9115,7 @@ type
     VK_QUERY_SCOPE_RENDER_PASS_KHR = VK_PERFORMANCE_COUNTER_SCOPE_RENDER_PASS_KHR;
     VK_QUERY_SCOPE_COMMAND_KHR = VK_PERFORMANCE_COUNTER_SCOPE_COMMAND_KHR;
     VK_PERFORMANCE_COUNTER_SCOPE_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkPerformanceCounterStorageKHR = ^TVkPerformanceCounterStorageKHR;
   TVkPerformanceCounterStorageKHR =  Longint;
@@ -9301,7 +9127,7 @@ type
     VK_PERFORMANCE_COUNTER_STORAGE_FLOAT32_KHR = 4;
     VK_PERFORMANCE_COUNTER_STORAGE_FLOAT64_KHR = 5;
     VK_PERFORMANCE_COUNTER_STORAGE_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkPerformanceCounterDescriptionFlagBitsKHR = ^TVkPerformanceCounterDescriptionFlagBitsKHR;
   TVkPerformanceCounterDescriptionFlagBitsKHR =  Longint;
@@ -9311,7 +9137,7 @@ type
     VK_PERFORMANCE_COUNTER_DESCRIPTION_PERFORMANCE_IMPACTING_KHR = VK_PERFORMANCE_COUNTER_DESCRIPTION_PERFORMANCE_IMPACTING_BIT_KHR;
     VK_PERFORMANCE_COUNTER_DESCRIPTION_CONCURRENTLY_IMPACTED_KHR = VK_PERFORMANCE_COUNTER_DESCRIPTION_CONCURRENTLY_IMPACTED_BIT_KHR;
     VK_PERFORMANCE_COUNTER_DESCRIPTION_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkPerformanceCounterDescriptionFlagsKHR = ^TVkPerformanceCounterDescriptionFlagsKHR;
   TVkPerformanceCounterDescriptionFlagsKHR = TVkFlags;
@@ -9320,37 +9146,36 @@ type
   TVkAcquireProfilingLockFlagBitsKHR =  Longint;
   Const
     VK_ACQUIRE_PROFILING_LOCK_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkAcquireProfilingLockFlagsKHR = ^TVkAcquireProfilingLockFlagsKHR;
   TVkAcquireProfilingLockFlagsKHR = TVkFlags;
 
-  PVkPhysicalDevicePerformanceQueryFeaturesKHR = ^TVkPhysicalDevicePerformanceQueryFeaturesKHR;
   TVkPhysicalDevicePerformanceQueryFeaturesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       performanceCounterQueryPools : TVkBool32;
       performanceCounterMultipleQueryPools : TVkBool32;
     end;
+  PVkPhysicalDevicePerformanceQueryFeaturesKHR = ^TVkPhysicalDevicePerformanceQueryFeaturesKHR;
 
-  PVkPhysicalDevicePerformanceQueryPropertiesKHR = ^TVkPhysicalDevicePerformanceQueryPropertiesKHR;
   TVkPhysicalDevicePerformanceQueryPropertiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       allowCommandBufferQueryCopies : TVkBool32;
     end;
+  PVkPhysicalDevicePerformanceQueryPropertiesKHR = ^TVkPhysicalDevicePerformanceQueryPropertiesKHR;
 
-  PVkPerformanceCounterKHR = ^TVkPerformanceCounterKHR;
   TVkPerformanceCounterKHR = record
       sType : TVkStructureType;
       pNext : pointer;
-      unit : TVkPerformanceCounterUnitKHR;
+      unit_ : TVkPerformanceCounterUnitKHR;
       scope : TVkPerformanceCounterScopeKHR;
       storage : TVkPerformanceCounterStorageKHR;
       uuid : array[0..(VK_UUID_SIZE)-1] of Tuint8_t;
     end;
+  PVkPerformanceCounterKHR = ^TVkPerformanceCounterKHR;
 
-  PVkPerformanceCounterDescriptionKHR = ^TVkPerformanceCounterDescriptionKHR;
   TVkPerformanceCounterDescriptionKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -9359,8 +9184,8 @@ type
       category : array[0..(VK_MAX_DESCRIPTION_SIZE)-1] of char;
       description : array[0..(VK_MAX_DESCRIPTION_SIZE)-1] of char;
     end;
+  PVkPerformanceCounterDescriptionKHR = ^TVkPerformanceCounterDescriptionKHR;
 
-  PVkQueryPoolPerformanceCreateInfoKHR = ^TVkQueryPoolPerformanceCreateInfoKHR;
   TVkQueryPoolPerformanceCreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -9368,8 +9193,8 @@ type
       counterIndexCount : Tuint32_t;
       pCounterIndices : Puint32_t;
     end;
+  PVkQueryPoolPerformanceCreateInfoKHR = ^TVkQueryPoolPerformanceCreateInfoKHR;
 
-  PVkPerformanceCounterResultKHR = ^TVkPerformanceCounterResultKHR;
   TVkPerformanceCounterResultKHR = record
       case longint of
         0 : ( int32_ : Tint32_t );
@@ -9377,39 +9202,34 @@ type
         2 : ( uint32_ : Tuint32_t );
         3 : ( uint64_ : Tuint64_t );
         4 : ( float32 : single );
-        5 : ( float64 : Tdouble );
+        5 : ( float64 : double );
       end;
+  PVkPerformanceCounterResultKHR = ^TVkPerformanceCounterResultKHR;
 
-  PVkAcquireProfilingLockInfoKHR = ^TVkAcquireProfilingLockInfoKHR;
   TVkAcquireProfilingLockInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       flags : TVkAcquireProfilingLockFlagsKHR;
       timeout : Tuint64_t;
     end;
+  PVkAcquireProfilingLockInfoKHR = ^TVkAcquireProfilingLockInfoKHR;
 
-  PVkPerformanceQuerySubmitInfoKHR = ^TVkPerformanceQuerySubmitInfoKHR;
   TVkPerformanceQuerySubmitInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       counterPassIndex : Tuint32_t;
     end;
+  PVkPerformanceQuerySubmitInfoKHR = ^TVkPerformanceQuerySubmitInfoKHR;
 
   TPFN_vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR = function (physicalDevice:TVkPhysicalDevice; queueFamilyIndex:Tuint32_t; pCounterCount:Puint32_t; pCounters:PVkPerformanceCounterKHR; pCounterDescriptions:PVkPerformanceCounterDescriptionKHR):TVkResult;cdecl;
-
   TPFN_vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR = procedure (physicalDevice:TVkPhysicalDevice; pPerformanceQueryCreateInfo:PVkQueryPoolPerformanceCreateInfoKHR; pNumPasses:Puint32_t);cdecl;
-
   TPFN_vkAcquireProfilingLockKHR = function (device:TVkDevice; pInfo:PVkAcquireProfilingLockInfoKHR):TVkResult;cdecl;
-
   TPFN_vkReleaseProfilingLockKHR = procedure (device:TVkDevice);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR(physicalDevice:TVkPhysicalDevice; queueFamilyIndex:Tuint32_t; pCounterCount:Puint32_t; pCounters:PVkPerformanceCounterKHR; pCounterDescriptions:PVkPerformanceCounterDescriptionKHR):TVkResult;cdecl;external libvulkan;
 procedure vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR(physicalDevice:TVkPhysicalDevice; pPerformanceQueryCreateInfo:PVkQueryPoolPerformanceCreateInfoKHR; pNumPasses:Puint32_t);cdecl;external libvulkan;
 function vkAcquireProfilingLockKHR(device:TVkDevice; pInfo:PVkAcquireProfilingLockInfoKHR):TVkResult;cdecl;external libvulkan;
 procedure vkReleaseProfilingLockKHR(device:TVkDevice);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_maintenance2 is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_maintenance2 = 1;  
@@ -9438,43 +9258,38 @@ type
 
   PVkPipelineTessellationDomainOriginStateCreateInfoKHR = ^TVkPipelineTessellationDomainOriginStateCreateInfoKHR;
   TVkPipelineTessellationDomainOriginStateCreateInfoKHR = TVkPipelineTessellationDomainOriginStateCreateInfo;
-{ VK_KHR_get_surface_capabilities2 is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_get_surface_capabilities2 = 1;  
   VK_KHR_GET_SURFACE_CAPABILITIES_2_SPEC_VERSION = 1;  
   VK_KHR_GET_SURFACE_CAPABILITIES_2_EXTENSION_NAME = 'VK_KHR_get_surface_capabilities2';  
 type
-  PVkPhysicalDeviceSurfaceInfo2KHR = ^TVkPhysicalDeviceSurfaceInfo2KHR;
   TVkPhysicalDeviceSurfaceInfo2KHR = record
       sType : TVkStructureType;
       pNext : pointer;
       surface : TVkSurfaceKHR;
     end;
+  PVkPhysicalDeviceSurfaceInfo2KHR = ^TVkPhysicalDeviceSurfaceInfo2KHR;
 
-  PVkSurfaceCapabilities2KHR = ^TVkSurfaceCapabilities2KHR;
   TVkSurfaceCapabilities2KHR = record
       sType : TVkStructureType;
       pNext : pointer;
       surfaceCapabilities : TVkSurfaceCapabilitiesKHR;
     end;
+  PVkSurfaceCapabilities2KHR = ^TVkSurfaceCapabilities2KHR;
 
-  PVkSurfaceFormat2KHR = ^TVkSurfaceFormat2KHR;
   TVkSurfaceFormat2KHR = record
       sType : TVkStructureType;
       pNext : pointer;
       surfaceFormat : TVkSurfaceFormatKHR;
     end;
+  PVkSurfaceFormat2KHR = ^TVkSurfaceFormat2KHR;
 
   TPFN_vkGetPhysicalDeviceSurfaceCapabilities2KHR = function (physicalDevice:TVkPhysicalDevice; pSurfaceInfo:PVkPhysicalDeviceSurfaceInfo2KHR; pSurfaceCapabilities:PVkSurfaceCapabilities2KHR):TVkResult;cdecl;
-
   TPFN_vkGetPhysicalDeviceSurfaceFormats2KHR = function (physicalDevice:TVkPhysicalDevice; pSurfaceInfo:PVkPhysicalDeviceSurfaceInfo2KHR; pSurfaceFormatCount:Puint32_t; pSurfaceFormats:PVkSurfaceFormat2KHR):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkGetPhysicalDeviceSurfaceCapabilities2KHR(physicalDevice:TVkPhysicalDevice; pSurfaceInfo:PVkPhysicalDeviceSurfaceInfo2KHR; pSurfaceCapabilities:PVkSurfaceCapabilities2KHR):TVkResult;cdecl;external libvulkan;
 function vkGetPhysicalDeviceSurfaceFormats2KHR(physicalDevice:TVkPhysicalDevice; pSurfaceInfo:PVkPhysicalDeviceSurfaceInfo2KHR; pSurfaceFormatCount:Puint32_t; pSurfaceFormats:PVkSurfaceFormat2KHR):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_variable_pointers is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_variable_pointers = 1;  
@@ -9486,64 +9301,57 @@ type
 
   PVkPhysicalDeviceVariablePointersFeaturesKHR = ^TVkPhysicalDeviceVariablePointersFeaturesKHR;
   TVkPhysicalDeviceVariablePointersFeaturesKHR = TVkPhysicalDeviceVariablePointersFeatures;
-{ VK_KHR_get_display_properties2 is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_get_display_properties2 = 1;  
   VK_KHR_GET_DISPLAY_PROPERTIES_2_SPEC_VERSION = 1;  
   VK_KHR_GET_DISPLAY_PROPERTIES_2_EXTENSION_NAME = 'VK_KHR_get_display_properties2';  
 type
-  PVkDisplayProperties2KHR = ^TVkDisplayProperties2KHR;
   TVkDisplayProperties2KHR = record
       sType : TVkStructureType;
       pNext : pointer;
       displayProperties : TVkDisplayPropertiesKHR;
     end;
+  PVkDisplayProperties2KHR = ^TVkDisplayProperties2KHR;
 
-  PVkDisplayPlaneProperties2KHR = ^TVkDisplayPlaneProperties2KHR;
   TVkDisplayPlaneProperties2KHR = record
       sType : TVkStructureType;
       pNext : pointer;
       displayPlaneProperties : TVkDisplayPlanePropertiesKHR;
     end;
+  PVkDisplayPlaneProperties2KHR = ^TVkDisplayPlaneProperties2KHR;
 
-  PVkDisplayModeProperties2KHR = ^TVkDisplayModeProperties2KHR;
   TVkDisplayModeProperties2KHR = record
       sType : TVkStructureType;
       pNext : pointer;
       displayModeProperties : TVkDisplayModePropertiesKHR;
     end;
+  PVkDisplayModeProperties2KHR = ^TVkDisplayModeProperties2KHR;
 
-  PVkDisplayPlaneInfo2KHR = ^TVkDisplayPlaneInfo2KHR;
   TVkDisplayPlaneInfo2KHR = record
       sType : TVkStructureType;
       pNext : pointer;
       mode : TVkDisplayModeKHR;
       planeIndex : Tuint32_t;
     end;
+  PVkDisplayPlaneInfo2KHR = ^TVkDisplayPlaneInfo2KHR;
 
-  PVkDisplayPlaneCapabilities2KHR = ^TVkDisplayPlaneCapabilities2KHR;
   TVkDisplayPlaneCapabilities2KHR = record
       sType : TVkStructureType;
       pNext : pointer;
       capabilities : TVkDisplayPlaneCapabilitiesKHR;
     end;
+  PVkDisplayPlaneCapabilities2KHR = ^TVkDisplayPlaneCapabilities2KHR;
 
   TPFN_vkGetPhysicalDeviceDisplayProperties2KHR = function (physicalDevice:TVkPhysicalDevice; pPropertyCount:Puint32_t; pProperties:PVkDisplayProperties2KHR):TVkResult;cdecl;
-
   TPFN_vkGetPhysicalDeviceDisplayPlaneProperties2KHR = function (physicalDevice:TVkPhysicalDevice; pPropertyCount:Puint32_t; pProperties:PVkDisplayPlaneProperties2KHR):TVkResult;cdecl;
-
   TPFN_vkGetDisplayModeProperties2KHR = function (physicalDevice:TVkPhysicalDevice; display:TVkDisplayKHR; pPropertyCount:Puint32_t; pProperties:PVkDisplayModeProperties2KHR):TVkResult;cdecl;
-
   TPFN_vkGetDisplayPlaneCapabilities2KHR = function (physicalDevice:TVkPhysicalDevice; pDisplayPlaneInfo:PVkDisplayPlaneInfo2KHR; pCapabilities:PVkDisplayPlaneCapabilities2KHR):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkGetPhysicalDeviceDisplayProperties2KHR(physicalDevice:TVkPhysicalDevice; pPropertyCount:Puint32_t; pProperties:PVkDisplayProperties2KHR):TVkResult;cdecl;external libvulkan;
 function vkGetPhysicalDeviceDisplayPlaneProperties2KHR(physicalDevice:TVkPhysicalDevice; pPropertyCount:Puint32_t; pProperties:PVkDisplayPlaneProperties2KHR):TVkResult;cdecl;external libvulkan;
 function vkGetDisplayModeProperties2KHR(physicalDevice:TVkPhysicalDevice; display:TVkDisplayKHR; pPropertyCount:Puint32_t; pProperties:PVkDisplayModeProperties2KHR):TVkResult;cdecl;external libvulkan;
 function vkGetDisplayPlaneCapabilities2KHR(physicalDevice:TVkPhysicalDevice; pDisplayPlaneInfo:PVkDisplayPlaneInfo2KHR; pCapabilities:PVkDisplayPlaneCapabilities2KHR):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_dedicated_allocation is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_dedicated_allocation = 1;  
@@ -9555,18 +9363,15 @@ type
 
   PVkMemoryDedicatedAllocateInfoKHR = ^TVkMemoryDedicatedAllocateInfoKHR;
   TVkMemoryDedicatedAllocateInfoKHR = TVkMemoryDedicatedAllocateInfo;
-{ VK_KHR_storage_buffer_storage_class is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_storage_buffer_storage_class = 1;  
   VK_KHR_STORAGE_BUFFER_STORAGE_CLASS_SPEC_VERSION = 1;  
   VK_KHR_STORAGE_BUFFER_STORAGE_CLASS_EXTENSION_NAME = 'VK_KHR_storage_buffer_storage_class';  
-{ VK_KHR_relaxed_block_layout is a preprocessor guard. Do not pass it to API calls. }
-  VK_KHR_relaxed_block_layout = 1;  
+  VK_KHR_relaxed_block_layout = 1;
   VK_KHR_RELAXED_BLOCK_LAYOUT_SPEC_VERSION = 1;  
   VK_KHR_RELAXED_BLOCK_LAYOUT_EXTENSION_NAME = 'VK_KHR_relaxed_block_layout';  
-{ VK_KHR_get_memory_requirements2 is a preprocessor guard. Do not pass it to API calls. }
-  VK_KHR_get_memory_requirements2 = 1;  
+  VK_KHR_get_memory_requirements2 = 1;
   VK_KHR_GET_MEMORY_REQUIREMENTS_2_SPEC_VERSION = 1;  
   VK_KHR_GET_MEMORY_REQUIREMENTS_2_EXTENSION_NAME = 'VK_KHR_get_memory_requirements2';  
 type
@@ -9586,17 +9391,12 @@ type
   TVkSparseImageMemoryRequirements2KHR = TVkSparseImageMemoryRequirements2;
 
   TPFN_vkGetImageMemoryRequirements2KHR = procedure (device:TVkDevice; pInfo:PVkImageMemoryRequirementsInfo2; pMemoryRequirements:PVkMemoryRequirements2);cdecl;
-
   TPFN_vkGetBufferMemoryRequirements2KHR = procedure (device:TVkDevice; pInfo:PVkBufferMemoryRequirementsInfo2; pMemoryRequirements:PVkMemoryRequirements2);cdecl;
-
   TPFN_vkGetImageSparseMemoryRequirements2KHR = procedure (device:TVkDevice; pInfo:PVkImageSparseMemoryRequirementsInfo2; pSparseMemoryRequirementCount:Puint32_t; pSparseMemoryRequirements:PVkSparseImageMemoryRequirements2);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 procedure vkGetImageMemoryRequirements2KHR(device:TVkDevice; pInfo:PVkImageMemoryRequirementsInfo2; pMemoryRequirements:PVkMemoryRequirements2);cdecl;external libvulkan;
 procedure vkGetBufferMemoryRequirements2KHR(device:TVkDevice; pInfo:PVkBufferMemoryRequirementsInfo2; pMemoryRequirements:PVkMemoryRequirements2);cdecl;external libvulkan;
 procedure vkGetImageSparseMemoryRequirements2KHR(device:TVkDevice; pInfo:PVkImageSparseMemoryRequirementsInfo2; pSparseMemoryRequirementCount:Puint32_t; pSparseMemoryRequirements:PVkSparseImageMemoryRequirements2);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_image_format_list is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_image_format_list = 1;  
@@ -9605,7 +9405,6 @@ const
 type
   PVkImageFormatListCreateInfoKHR = ^TVkImageFormatListCreateInfoKHR;
   TVkImageFormatListCreateInfoKHR = TVkImageFormatListCreateInfo;
-{ VK_KHR_sampler_ycbcr_conversion is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_sampler_ycbcr_conversion = 1;  
@@ -9645,14 +9444,10 @@ type
   TVkSamplerYcbcrConversionImageFormatPropertiesKHR = TVkSamplerYcbcrConversionImageFormatProperties;
 
   TPFN_vkCreateSamplerYcbcrConversionKHR = function (device:TVkDevice; pCreateInfo:PVkSamplerYcbcrConversionCreateInfo; pAllocator:PVkAllocationCallbacks; pYcbcrConversion:PVkSamplerYcbcrConversion):TVkResult;cdecl;
-
   TPFN_vkDestroySamplerYcbcrConversionKHR = procedure (device:TVkDevice; ycbcrConversion:TVkSamplerYcbcrConversion; pAllocator:PVkAllocationCallbacks);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkCreateSamplerYcbcrConversionKHR(device:TVkDevice; pCreateInfo:PVkSamplerYcbcrConversionCreateInfo; pAllocator:PVkAllocationCallbacks; pYcbcrConversion:PVkSamplerYcbcrConversion):TVkResult;cdecl;external libvulkan;
 procedure vkDestroySamplerYcbcrConversionKHR(device:TVkDevice; ycbcrConversion:TVkSamplerYcbcrConversion; pAllocator:PVkAllocationCallbacks);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_bind_memory2 is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_bind_memory2 = 1;  
@@ -9666,14 +9461,10 @@ type
   TVkBindImageMemoryInfoKHR = TVkBindImageMemoryInfo;
 
   TPFN_vkBindBufferMemory2KHR = function (device:TVkDevice; bindInfoCount:Tuint32_t; pBindInfos:PVkBindBufferMemoryInfo):TVkResult;cdecl;
-
   TPFN_vkBindImageMemory2KHR = function (device:TVkDevice; bindInfoCount:Tuint32_t; pBindInfos:PVkBindImageMemoryInfo):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkBindBufferMemory2KHR(device:TVkDevice; bindInfoCount:Tuint32_t; pBindInfos:PVkBindBufferMemoryInfo):TVkResult;cdecl;external libvulkan;
 function vkBindImageMemory2KHR(device:TVkDevice; bindInfoCount:Tuint32_t; pBindInfos:PVkBindImageMemoryInfo):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_maintenance3 is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_maintenance3 = 1;  
@@ -9689,31 +9480,21 @@ type
   TVkDescriptorSetLayoutSupportKHR = TVkDescriptorSetLayoutSupport;
 
   TPFN_vkGetDescriptorSetLayoutSupportKHR = procedure (device:TVkDevice; pCreateInfo:PVkDescriptorSetLayoutCreateInfo; pSupport:PVkDescriptorSetLayoutSupport);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 procedure vkGetDescriptorSetLayoutSupportKHR(device:TVkDevice; pCreateInfo:PVkDescriptorSetLayoutCreateInfo; pSupport:PVkDescriptorSetLayoutSupport);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_draw_indirect_count is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_draw_indirect_count = 1;  
   VK_KHR_DRAW_INDIRECT_COUNT_SPEC_VERSION = 1;  
   VK_KHR_DRAW_INDIRECT_COUNT_EXTENSION_NAME = 'VK_KHR_draw_indirect_count';  
 type
-
-  TPFN_vkCmdDrawIndirectCountKHR = procedure (commandBuffer:TVkCommandBuffer; buffer:TVkBuffer; offset:TVkDeviceSize; countBuffer:TVkBuffer; countBufferOffset:TVkDeviceSize; 
-                maxDrawCount:Tuint32_t; stride:Tuint32_t);cdecl;
-
-  TPFN_vkCmdDrawIndexedIndirectCountKHR = procedure (commandBuffer:TVkCommandBuffer; buffer:TVkBuffer; offset:TVkDeviceSize; countBuffer:TVkBuffer; countBufferOffset:TVkDeviceSize; 
-                maxDrawCount:Tuint32_t; stride:Tuint32_t);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
+  TPFN_vkCmdDrawIndirectCountKHR = procedure (commandBuffer:TVkCommandBuffer; buffer:TVkBuffer; offset:TVkDeviceSize; countBuffer:TVkBuffer; countBufferOffset:TVkDeviceSize;                maxDrawCount:Tuint32_t; stride:Tuint32_t);cdecl;
+  TPFN_vkCmdDrawIndexedIndirectCountKHR = procedure (commandBuffer:TVkCommandBuffer; buffer:TVkBuffer; offset:TVkDeviceSize; countBuffer:TVkBuffer; countBufferOffset:TVkDeviceSize;                maxDrawCount:Tuint32_t; stride:Tuint32_t);cdecl;
 
 procedure vkCmdDrawIndirectCountKHR(commandBuffer:TVkCommandBuffer; buffer:TVkBuffer; offset:TVkDeviceSize; countBuffer:TVkBuffer; countBufferOffset:TVkDeviceSize; 
             maxDrawCount:Tuint32_t; stride:Tuint32_t);cdecl;external libvulkan;
 procedure vkCmdDrawIndexedIndirectCountKHR(commandBuffer:TVkCommandBuffer; buffer:TVkBuffer; offset:TVkDeviceSize; countBuffer:TVkBuffer; countBufferOffset:TVkDeviceSize; 
             maxDrawCount:Tuint32_t; stride:Tuint32_t);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_shader_subgroup_extended_types is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_shader_subgroup_extended_types = 1;  
@@ -9722,7 +9503,6 @@ const
 type
   PVkPhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR = ^TVkPhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR;
   TVkPhysicalDeviceShaderSubgroupExtendedTypesFeaturesKHR = TVkPhysicalDeviceShaderSubgroupExtendedTypesFeatures;
-{ VK_KHR_8bit_storage is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_8bit_storage = 1;  
@@ -9731,7 +9511,6 @@ const
 type
   PVkPhysicalDevice8BitStorageFeaturesKHR = ^TVkPhysicalDevice8BitStorageFeaturesKHR;
   TVkPhysicalDevice8BitStorageFeaturesKHR = TVkPhysicalDevice8BitStorageFeatures;
-{ VK_KHR_shader_atomic_int64 is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_shader_atomic_int64 = 1;  
@@ -9740,45 +9519,41 @@ const
 type
   PVkPhysicalDeviceShaderAtomicInt64FeaturesKHR = ^TVkPhysicalDeviceShaderAtomicInt64FeaturesKHR;
   TVkPhysicalDeviceShaderAtomicInt64FeaturesKHR = TVkPhysicalDeviceShaderAtomicInt64Features;
-{ VK_KHR_shader_clock is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_shader_clock = 1;  
   VK_KHR_SHADER_CLOCK_SPEC_VERSION = 1;  
   VK_KHR_SHADER_CLOCK_EXTENSION_NAME = 'VK_KHR_shader_clock';  
 type
-  PVkPhysicalDeviceShaderClockFeaturesKHR = ^TVkPhysicalDeviceShaderClockFeaturesKHR;
   TVkPhysicalDeviceShaderClockFeaturesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       shaderSubgroupClock : TVkBool32;
       shaderDeviceClock : TVkBool32;
     end;
-{ VK_KHR_video_decode_h265 is a preprocessor guard. Do not pass it to API calls. }
+  PVkPhysicalDeviceShaderClockFeaturesKHR = ^TVkPhysicalDeviceShaderClockFeaturesKHR;
 
 const
   VK_KHR_video_decode_h265 = 1;  
-{$include "vk_video/vulkan_video_codec_h265std_decode.h"}
 
 const
   VK_KHR_VIDEO_DECODE_H265_SPEC_VERSION = 8;  
   VK_KHR_VIDEO_DECODE_H265_EXTENSION_NAME = 'VK_KHR_video_decode_h265';  
 type
-  PVkVideoDecodeH265ProfileInfoKHR = ^TVkVideoDecodeH265ProfileInfoKHR;
   TVkVideoDecodeH265ProfileInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       stdProfileIdc : TStdVideoH265ProfileIdc;
     end;
+  PVkVideoDecodeH265ProfileInfoKHR = ^TVkVideoDecodeH265ProfileInfoKHR;
 
-  PVkVideoDecodeH265CapabilitiesKHR = ^TVkVideoDecodeH265CapabilitiesKHR;
   TVkVideoDecodeH265CapabilitiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       maxLevelIdc : TStdVideoH265LevelIdc;
     end;
+  PVkVideoDecodeH265CapabilitiesKHR = ^TVkVideoDecodeH265CapabilitiesKHR;
 
-  PVkVideoDecodeH265SessionParametersAddInfoKHR = ^TVkVideoDecodeH265SessionParametersAddInfoKHR;
   TVkVideoDecodeH265SessionParametersAddInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -9789,8 +9564,8 @@ type
       stdPPSCount : Tuint32_t;
       pStdPPSs : PStdVideoH265PictureParameterSet;
     end;
+  PVkVideoDecodeH265SessionParametersAddInfoKHR = ^TVkVideoDecodeH265SessionParametersAddInfoKHR;
 
-  PVkVideoDecodeH265SessionParametersCreateInfoKHR = ^TVkVideoDecodeH265SessionParametersCreateInfoKHR;
   TVkVideoDecodeH265SessionParametersCreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -9799,8 +9574,8 @@ type
       maxStdPPSCount : Tuint32_t;
       pParametersAddInfo : PVkVideoDecodeH265SessionParametersAddInfoKHR;
     end;
+  PVkVideoDecodeH265SessionParametersCreateInfoKHR = ^TVkVideoDecodeH265SessionParametersCreateInfoKHR;
 
-  PVkVideoDecodeH265PictureInfoKHR = ^TVkVideoDecodeH265PictureInfoKHR;
   TVkVideoDecodeH265PictureInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -9808,14 +9583,14 @@ type
       sliceSegmentCount : Tuint32_t;
       pSliceSegmentOffsets : Puint32_t;
     end;
+  PVkVideoDecodeH265PictureInfoKHR = ^TVkVideoDecodeH265PictureInfoKHR;
 
-  PVkVideoDecodeH265DpbSlotInfoKHR = ^TVkVideoDecodeH265DpbSlotInfoKHR;
   TVkVideoDecodeH265DpbSlotInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       pStdReferenceInfo : PStdVideoDecodeH265ReferenceInfo;
     end;
-{ VK_KHR_global_priority is a preprocessor guard. Do not pass it to API calls. }
+  PVkVideoDecodeH265DpbSlotInfoKHR = ^TVkVideoDecodeH265DpbSlotInfoKHR;
 
 const
   VK_KHR_global_priority = 1;  
@@ -9835,30 +9610,29 @@ type
     VK_QUEUE_GLOBAL_PRIORITY_HIGH_EXT = VK_QUEUE_GLOBAL_PRIORITY_HIGH_KHR;
     VK_QUEUE_GLOBAL_PRIORITY_REALTIME_EXT = VK_QUEUE_GLOBAL_PRIORITY_REALTIME_KHR;
     VK_QUEUE_GLOBAL_PRIORITY_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
-  PVkDeviceQueueGlobalPriorityCreateInfoKHR = ^TVkDeviceQueueGlobalPriorityCreateInfoKHR;
   TVkDeviceQueueGlobalPriorityCreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       globalPriority : TVkQueueGlobalPriorityKHR;
     end;
+  PVkDeviceQueueGlobalPriorityCreateInfoKHR = ^TVkDeviceQueueGlobalPriorityCreateInfoKHR;
 
-  PVkPhysicalDeviceGlobalPriorityQueryFeaturesKHR = ^TVkPhysicalDeviceGlobalPriorityQueryFeaturesKHR;
   TVkPhysicalDeviceGlobalPriorityQueryFeaturesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       globalPriorityQuery : TVkBool32;
     end;
+  PVkPhysicalDeviceGlobalPriorityQueryFeaturesKHR = ^TVkPhysicalDeviceGlobalPriorityQueryFeaturesKHR;
 
-  PVkQueueFamilyGlobalPriorityPropertiesKHR = ^TVkQueueFamilyGlobalPriorityPropertiesKHR;
   TVkQueueFamilyGlobalPriorityPropertiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       priorityCount : Tuint32_t;
       priorities : array[0..(VK_MAX_GLOBAL_PRIORITY_SIZE_KHR)-1] of TVkQueueGlobalPriorityKHR;
     end;
-{ VK_KHR_driver_properties is a preprocessor guard. Do not pass it to API calls. }
+  PVkQueueFamilyGlobalPriorityPropertiesKHR = ^TVkQueueFamilyGlobalPriorityPropertiesKHR;
 
 const
   VK_KHR_driver_properties = 1;  
@@ -9875,7 +9649,6 @@ type
 
   PVkPhysicalDeviceDriverPropertiesKHR = ^TVkPhysicalDeviceDriverPropertiesKHR;
   TVkPhysicalDeviceDriverPropertiesKHR = TVkPhysicalDeviceDriverProperties;
-{ VK_KHR_shader_float_controls is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_shader_float_controls = 1;  
@@ -9887,7 +9660,6 @@ type
 
   PVkPhysicalDeviceFloatControlsPropertiesKHR = ^TVkPhysicalDeviceFloatControlsPropertiesKHR;
   TVkPhysicalDeviceFloatControlsPropertiesKHR = TVkPhysicalDeviceFloatControlsProperties;
-{ VK_KHR_depth_stencil_resolve is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_depth_stencil_resolve = 1;  
@@ -9905,14 +9677,12 @@ type
 
   PVkPhysicalDeviceDepthStencilResolvePropertiesKHR = ^TVkPhysicalDeviceDepthStencilResolvePropertiesKHR;
   TVkPhysicalDeviceDepthStencilResolvePropertiesKHR = TVkPhysicalDeviceDepthStencilResolveProperties;
-{ VK_KHR_swapchain_mutable_format is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_swapchain_mutable_format = 1;  
   VK_KHR_SWAPCHAIN_MUTABLE_FORMAT_SPEC_VERSION = 1;  
   VK_KHR_SWAPCHAIN_MUTABLE_FORMAT_EXTENSION_NAME = 'VK_KHR_swapchain_mutable_format';  
-{ VK_KHR_timeline_semaphore is a preprocessor guard. Do not pass it to API calls. }
-  VK_KHR_timeline_semaphore = 1;  
+  VK_KHR_timeline_semaphore = 1;
   VK_KHR_TIMELINE_SEMAPHORE_SPEC_VERSION = 2;  
   VK_KHR_TIMELINE_SEMAPHORE_EXTENSION_NAME = 'VK_KHR_timeline_semaphore';  
 type
@@ -9944,17 +9714,12 @@ type
   TVkSemaphoreSignalInfoKHR = TVkSemaphoreSignalInfo;
 
   TPFN_vkGetSemaphoreCounterValueKHR = function (device:TVkDevice; semaphore:TVkSemaphore; pValue:Puint64_t):TVkResult;cdecl;
-
   TPFN_vkWaitSemaphoresKHR = function (device:TVkDevice; pWaitInfo:PVkSemaphoreWaitInfo; timeout:Tuint64_t):TVkResult;cdecl;
-
   TPFN_vkSignalSemaphoreKHR = function (device:TVkDevice; pSignalInfo:PVkSemaphoreSignalInfo):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkGetSemaphoreCounterValueKHR(device:TVkDevice; semaphore:TVkSemaphore; pValue:Puint64_t):TVkResult;cdecl;external libvulkan;
 function vkWaitSemaphoresKHR(device:TVkDevice; pWaitInfo:PVkSemaphoreWaitInfo; timeout:Tuint64_t):TVkResult;cdecl;external libvulkan;
 function vkSignalSemaphoreKHR(device:TVkDevice; pSignalInfo:PVkSemaphoreSignalInfo):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_vulkan_memory_model is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_vulkan_memory_model = 1;  
@@ -9963,7 +9728,6 @@ const
 type
   PVkPhysicalDeviceVulkanMemoryModelFeaturesKHR = ^TVkPhysicalDeviceVulkanMemoryModelFeaturesKHR;
   TVkPhysicalDeviceVulkanMemoryModelFeaturesKHR = TVkPhysicalDeviceVulkanMemoryModelFeatures;
-{ VK_KHR_shader_terminate_invocation is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_shader_terminate_invocation = 1;  
@@ -9972,7 +9736,6 @@ const
 type
   PVkPhysicalDeviceShaderTerminateInvocationFeaturesKHR = ^TVkPhysicalDeviceShaderTerminateInvocationFeaturesKHR;
   TVkPhysicalDeviceShaderTerminateInvocationFeaturesKHR = TVkPhysicalDeviceShaderTerminateInvocationFeatures;
-{ VK_KHR_fragment_shading_rate is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_fragment_shading_rate = 1;  
@@ -9988,25 +9751,24 @@ type
     VK_FRAGMENT_SHADING_RATE_COMBINER_OP_MAX_KHR = 3;
     VK_FRAGMENT_SHADING_RATE_COMBINER_OP_MUL_KHR = 4;
     VK_FRAGMENT_SHADING_RATE_COMBINER_OP_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
-  PVkFragmentShadingRateAttachmentInfoKHR = ^TVkFragmentShadingRateAttachmentInfoKHR;
   TVkFragmentShadingRateAttachmentInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       pFragmentShadingRateAttachment : PVkAttachmentReference2;
       shadingRateAttachmentTexelSize : TVkExtent2D;
     end;
+  PVkFragmentShadingRateAttachmentInfoKHR = ^TVkFragmentShadingRateAttachmentInfoKHR;
 
-  PVkPipelineFragmentShadingRateStateCreateInfoKHR = ^TVkPipelineFragmentShadingRateStateCreateInfoKHR;
   TVkPipelineFragmentShadingRateStateCreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       fragmentSize : TVkExtent2D;
       combinerOps : array[0..1] of TVkFragmentShadingRateCombinerOpKHR;
     end;
+  PVkPipelineFragmentShadingRateStateCreateInfoKHR = ^TVkPipelineFragmentShadingRateStateCreateInfoKHR;
 
-  PVkPhysicalDeviceFragmentShadingRateFeaturesKHR = ^TVkPhysicalDeviceFragmentShadingRateFeaturesKHR;
   TVkPhysicalDeviceFragmentShadingRateFeaturesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -10014,8 +9776,8 @@ type
       primitiveFragmentShadingRate : TVkBool32;
       attachmentFragmentShadingRate : TVkBool32;
     end;
+  PVkPhysicalDeviceFragmentShadingRateFeaturesKHR = ^TVkPhysicalDeviceFragmentShadingRateFeaturesKHR;
 
-  PVkPhysicalDeviceFragmentShadingRatePropertiesKHR = ^TVkPhysicalDeviceFragmentShadingRatePropertiesKHR;
   TVkPhysicalDeviceFragmentShadingRatePropertiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -10037,41 +9799,36 @@ type
       fragmentShadingRateWithCustomSampleLocations : TVkBool32;
       fragmentShadingRateStrictMultiplyCombiner : TVkBool32;
     end;
+  PVkPhysicalDeviceFragmentShadingRatePropertiesKHR = ^TVkPhysicalDeviceFragmentShadingRatePropertiesKHR;
 
-  PVkPhysicalDeviceFragmentShadingRateKHR = ^TVkPhysicalDeviceFragmentShadingRateKHR;
   TVkPhysicalDeviceFragmentShadingRateKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       sampleCounts : TVkSampleCountFlags;
       fragmentSize : TVkExtent2D;
     end;
+  PVkPhysicalDeviceFragmentShadingRateKHR = ^TVkPhysicalDeviceFragmentShadingRateKHR;
 
   TPFN_vkGetPhysicalDeviceFragmentShadingRatesKHR = function (physicalDevice:TVkPhysicalDevice; pFragmentShadingRateCount:Puint32_t; pFragmentShadingRates:PVkPhysicalDeviceFragmentShadingRateKHR):TVkResult;cdecl;
-
-  TPFN_vkCmdSetFragmentShadingRateKHR = procedure (commandBuffer:TVkCommandBuffer; pFragmentSize:PVkExtent2D; combinerOps:array[0..1] of TVkFragmentShadingRateCombinerOpKHR);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
+  TPFN_vkCmdSetFragmentShadingRateKHR = procedure (commandBuffer:TVkCommandBuffer; pFragmentSize:PVkExtent2D; combinerOps:PVkFragmentShadingRateCombinerOpKHR);cdecl;
 
 function vkGetPhysicalDeviceFragmentShadingRatesKHR(physicalDevice:TVkPhysicalDevice; pFragmentShadingRateCount:Puint32_t; pFragmentShadingRates:PVkPhysicalDeviceFragmentShadingRateKHR):TVkResult;cdecl;external libvulkan;
-procedure vkCmdSetFragmentShadingRateKHR(commandBuffer:TVkCommandBuffer; pFragmentSize:PVkExtent2D; combinerOps:array[0..1] of TVkFragmentShadingRateCombinerOpKHR);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_spirv_1_4 is a preprocessor guard. Do not pass it to API calls. }
+procedure vkCmdSetFragmentShadingRateKHR(commandBuffer:TVkCommandBuffer; pFragmentSize:PVkExtent2D; combinerOps:PVkFragmentShadingRateCombinerOpKHR);cdecl;external libvulkan;
 
 const
   VK_KHR_spirv_1_4 = 1;  
   VK_KHR_SPIRV_1_4_SPEC_VERSION = 1;  
   VK_KHR_SPIRV_1_4_EXTENSION_NAME = 'VK_KHR_spirv_1_4';  
-{ VK_KHR_surface_protected_capabilities is a preprocessor guard. Do not pass it to API calls. }
-  VK_KHR_surface_protected_capabilities = 1;  
+  VK_KHR_surface_protected_capabilities = 1;
   VK_KHR_SURFACE_PROTECTED_CAPABILITIES_SPEC_VERSION = 1;  
   VK_KHR_SURFACE_PROTECTED_CAPABILITIES_EXTENSION_NAME = 'VK_KHR_surface_protected_capabilities';  
 type
-  PVkSurfaceProtectedCapabilitiesKHR = ^TVkSurfaceProtectedCapabilitiesKHR;
   TVkSurfaceProtectedCapabilitiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       supportsProtected : TVkBool32;
     end;
-{ VK_KHR_separate_depth_stencil_layouts is a preprocessor guard. Do not pass it to API calls. }
+  PVkSurfaceProtectedCapabilitiesKHR = ^TVkSurfaceProtectedCapabilitiesKHR;
 
 const
   VK_KHR_separate_depth_stencil_layouts = 1;  
@@ -10086,26 +9843,22 @@ type
 
   PVkAttachmentDescriptionStencilLayoutKHR = ^TVkAttachmentDescriptionStencilLayoutKHR;
   TVkAttachmentDescriptionStencilLayoutKHR = TVkAttachmentDescriptionStencilLayout;
-{ VK_KHR_present_wait is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_present_wait = 1;  
   VK_KHR_PRESENT_WAIT_SPEC_VERSION = 1;  
   VK_KHR_PRESENT_WAIT_EXTENSION_NAME = 'VK_KHR_present_wait';  
 type
-  PVkPhysicalDevicePresentWaitFeaturesKHR = ^TVkPhysicalDevicePresentWaitFeaturesKHR;
   TVkPhysicalDevicePresentWaitFeaturesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       presentWait : TVkBool32;
     end;
+  PVkPhysicalDevicePresentWaitFeaturesKHR = ^TVkPhysicalDevicePresentWaitFeaturesKHR;
 
   TPFN_vkWaitForPresentKHR = function (device:TVkDevice; swapchain:TVkSwapchainKHR; presentId:Tuint64_t; timeout:Tuint64_t):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkWaitForPresentKHR(device:TVkDevice; swapchain:TVkSwapchainKHR; presentId:Tuint64_t; timeout:Tuint64_t):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_uniform_buffer_standard_layout is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_uniform_buffer_standard_layout = 1;  
@@ -10114,7 +9867,6 @@ const
 type
   PVkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR = ^TVkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR;
   TVkPhysicalDeviceUniformBufferStandardLayoutFeaturesKHR = TVkPhysicalDeviceUniformBufferStandardLayoutFeatures;
-{ VK_KHR_buffer_device_address is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_buffer_device_address = 1;  
@@ -10137,17 +9889,12 @@ type
   TVkDeviceMemoryOpaqueCaptureAddressInfoKHR = TVkDeviceMemoryOpaqueCaptureAddressInfo;
 
   TPFN_vkGetBufferDeviceAddressKHR = function (device:TVkDevice; pInfo:PVkBufferDeviceAddressInfo):TVkDeviceAddress;cdecl;
-
   TPFN_vkGetBufferOpaqueCaptureAddressKHR = function (device:TVkDevice; pInfo:PVkBufferDeviceAddressInfo):Tuint64_t;cdecl;
-
   TPFN_vkGetDeviceMemoryOpaqueCaptureAddressKHR = function (device:TVkDevice; pInfo:PVkDeviceMemoryOpaqueCaptureAddressInfo):Tuint64_t;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkGetBufferDeviceAddressKHR(device:TVkDevice; pInfo:PVkBufferDeviceAddressInfo):TVkDeviceAddress;cdecl;external libvulkan;
 function vkGetBufferOpaqueCaptureAddressKHR(device:TVkDevice; pInfo:PVkBufferDeviceAddressInfo):Tuint64_t;cdecl;external libvulkan;
 function vkGetDeviceMemoryOpaqueCaptureAddressKHR(device:TVkDevice; pInfo:PVkDeviceMemoryOpaqueCaptureAddressInfo):Tuint64_t;cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_deferred_host_operations is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_deferred_host_operations = 1;  
@@ -10159,25 +9906,17 @@ const
   VK_KHR_DEFERRED_HOST_OPERATIONS_SPEC_VERSION = 4;  
   VK_KHR_DEFERRED_HOST_OPERATIONS_EXTENSION_NAME = 'VK_KHR_deferred_host_operations';  
 type
-
   TPFN_vkCreateDeferredOperationKHR = function (device:TVkDevice; pAllocator:PVkAllocationCallbacks; pDeferredOperation:PVkDeferredOperationKHR):TVkResult;cdecl;
-
   TPFN_vkDestroyDeferredOperationKHR = procedure (device:TVkDevice; operation:TVkDeferredOperationKHR; pAllocator:PVkAllocationCallbacks);cdecl;
-
   TPFN_vkGetDeferredOperationMaxConcurrencyKHR = function (device:TVkDevice; operation:TVkDeferredOperationKHR):Tuint32_t;cdecl;
-
   TPFN_vkGetDeferredOperationResultKHR = function (device:TVkDevice; operation:TVkDeferredOperationKHR):TVkResult;cdecl;
-
   TPFN_vkDeferredOperationJoinKHR = function (device:TVkDevice; operation:TVkDeferredOperationKHR):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkCreateDeferredOperationKHR(device:TVkDevice; pAllocator:PVkAllocationCallbacks; pDeferredOperation:PVkDeferredOperationKHR):TVkResult;cdecl;external libvulkan;
 procedure vkDestroyDeferredOperationKHR(device:TVkDevice; operation:TVkDeferredOperationKHR; pAllocator:PVkAllocationCallbacks);cdecl;external libvulkan;
 function vkGetDeferredOperationMaxConcurrencyKHR(device:TVkDevice; operation:TVkDeferredOperationKHR):Tuint32_t;cdecl;external libvulkan;
 function vkGetDeferredOperationResultKHR(device:TVkDevice; operation:TVkDeferredOperationKHR):TVkResult;cdecl;external libvulkan;
 function vkDeferredOperationJoinKHR(device:TVkDevice; operation:TVkDeferredOperationKHR):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_pipeline_executable_properties is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_pipeline_executable_properties = 1;  
@@ -10192,23 +9931,22 @@ type
     VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_UINT64_KHR = 2;
     VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_FLOAT64_KHR = 3;
     VK_PIPELINE_EXECUTABLE_STATISTIC_FORMAT_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
-  PVkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR = ^TVkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR;
   TVkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       pipelineExecutableInfo : TVkBool32;
     end;
+  PVkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR = ^TVkPhysicalDevicePipelineExecutablePropertiesFeaturesKHR;
 
-  PVkPipelineInfoKHR = ^TVkPipelineInfoKHR;
   TVkPipelineInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       pipeline : TVkPipeline;
     end;
+  PVkPipelineInfoKHR = ^TVkPipelineInfoKHR;
 
-  PVkPipelineExecutablePropertiesKHR = ^TVkPipelineExecutablePropertiesKHR;
   TVkPipelineExecutablePropertiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -10217,25 +9955,25 @@ type
       description : array[0..(VK_MAX_DESCRIPTION_SIZE)-1] of char;
       subgroupSize : Tuint32_t;
     end;
+  PVkPipelineExecutablePropertiesKHR = ^TVkPipelineExecutablePropertiesKHR;
 
-  PVkPipelineExecutableInfoKHR = ^TVkPipelineExecutableInfoKHR;
   TVkPipelineExecutableInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       pipeline : TVkPipeline;
       executableIndex : Tuint32_t;
     end;
+  PVkPipelineExecutableInfoKHR = ^TVkPipelineExecutableInfoKHR;
 
-  PVkPipelineExecutableStatisticValueKHR = ^TVkPipelineExecutableStatisticValueKHR;
   TVkPipelineExecutableStatisticValueKHR = record
       case longint of
         0 : ( b32 : TVkBool32 );
         1 : ( i64 : Tint64_t );
         2 : ( u64 : Tuint64_t );
-        3 : ( f64 : Tdouble );
+        3 : ( f64 : double );
       end;
+  PVkPipelineExecutableStatisticValueKHR = ^TVkPipelineExecutableStatisticValueKHR;
 
-  PVkPipelineExecutableStatisticKHR = ^TVkPipelineExecutableStatisticKHR;
   TVkPipelineExecutableStatisticKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -10244,8 +9982,8 @@ type
       format : TVkPipelineExecutableStatisticFormatKHR;
       value : TVkPipelineExecutableStatisticValueKHR;
     end;
+  PVkPipelineExecutableStatisticKHR = ^TVkPipelineExecutableStatisticKHR;
 
-  PVkPipelineExecutableInternalRepresentationKHR = ^TVkPipelineExecutableInternalRepresentationKHR;
   TVkPipelineExecutableInternalRepresentationKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -10255,19 +9993,15 @@ type
       dataSize : Tsize_t;
       pData : pointer;
     end;
+  PVkPipelineExecutableInternalRepresentationKHR = ^TVkPipelineExecutableInternalRepresentationKHR;
 
   TPFN_vkGetPipelineExecutablePropertiesKHR = function (device:TVkDevice; pPipelineInfo:PVkPipelineInfoKHR; pExecutableCount:Puint32_t; pProperties:PVkPipelineExecutablePropertiesKHR):TVkResult;cdecl;
-
   TPFN_vkGetPipelineExecutableStatisticsKHR = function (device:TVkDevice; pExecutableInfo:PVkPipelineExecutableInfoKHR; pStatisticCount:Puint32_t; pStatistics:PVkPipelineExecutableStatisticKHR):TVkResult;cdecl;
-
   TPFN_vkGetPipelineExecutableInternalRepresentationsKHR = function (device:TVkDevice; pExecutableInfo:PVkPipelineExecutableInfoKHR; pInternalRepresentationCount:Puint32_t; pInternalRepresentations:PVkPipelineExecutableInternalRepresentationKHR):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkGetPipelineExecutablePropertiesKHR(device:TVkDevice; pPipelineInfo:PVkPipelineInfoKHR; pExecutableCount:Puint32_t; pProperties:PVkPipelineExecutablePropertiesKHR):TVkResult;cdecl;external libvulkan;
 function vkGetPipelineExecutableStatisticsKHR(device:TVkDevice; pExecutableInfo:PVkPipelineExecutableInfoKHR; pStatisticCount:Puint32_t; pStatistics:PVkPipelineExecutableStatisticKHR):TVkResult;cdecl;external libvulkan;
 function vkGetPipelineExecutableInternalRepresentationsKHR(device:TVkDevice; pExecutableInfo:PVkPipelineExecutableInfoKHR; pInternalRepresentationCount:Puint32_t; pInternalRepresentations:PVkPipelineExecutableInternalRepresentationKHR):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_map_memory2 is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_map_memory2 = 1;  
@@ -10277,7 +10011,6 @@ type
   PVkMemoryUnmapFlagsKHR = ^TVkMemoryUnmapFlagsKHR;
   TVkMemoryUnmapFlagsKHR = TVkFlags;
 
-  PVkMemoryMapInfoKHR = ^TVkMemoryMapInfoKHR;
   TVkMemoryMapInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -10286,24 +10019,21 @@ type
       offset : TVkDeviceSize;
       size : TVkDeviceSize;
     end;
+  PVkMemoryMapInfoKHR = ^TVkMemoryMapInfoKHR;
 
-  PVkMemoryUnmapInfoKHR = ^TVkMemoryUnmapInfoKHR;
   TVkMemoryUnmapInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       flags : TVkMemoryUnmapFlagsKHR;
       memory : TVkDeviceMemory;
     end;
+  PVkMemoryUnmapInfoKHR = ^TVkMemoryUnmapInfoKHR;
 
-  TPFN_vkMapMemory2KHR = function (device:TVkDevice; pMemoryMapInfo:PVkMemoryMapInfoKHR; ppData:Ppointer):TVkResult;cdecl;
-
+ TPFN_vkMapMemory2KHR = function (device:TVkDevice; pMemoryMapInfo:PVkMemoryMapInfoKHR; ppData:Ppointer):TVkResult;cdecl;
   TPFN_vkUnmapMemory2KHR = function (device:TVkDevice; pMemoryUnmapInfo:PVkMemoryUnmapInfoKHR):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkMapMemory2KHR(device:TVkDevice; pMemoryMapInfo:PVkMemoryMapInfoKHR; ppData:Ppointer):TVkResult;cdecl;external libvulkan;
 function vkUnmapMemory2KHR(device:TVkDevice; pMemoryUnmapInfo:PVkMemoryUnmapInfoKHR):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_shader_integer_dot_product is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_shader_integer_dot_product = 1;  
@@ -10315,46 +10045,42 @@ type
 
   PVkPhysicalDeviceShaderIntegerDotProductPropertiesKHR = ^TVkPhysicalDeviceShaderIntegerDotProductPropertiesKHR;
   TVkPhysicalDeviceShaderIntegerDotProductPropertiesKHR = TVkPhysicalDeviceShaderIntegerDotProductProperties;
-{ VK_KHR_pipeline_library is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_pipeline_library = 1;  
   VK_KHR_PIPELINE_LIBRARY_SPEC_VERSION = 1;  
   VK_KHR_PIPELINE_LIBRARY_EXTENSION_NAME = 'VK_KHR_pipeline_library';  
 type
-  PVkPipelineLibraryCreateInfoKHR = ^TVkPipelineLibraryCreateInfoKHR;
   TVkPipelineLibraryCreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       libraryCount : Tuint32_t;
       pLibraries : PVkPipeline;
     end;
-{ VK_KHR_shader_non_semantic_info is a preprocessor guard. Do not pass it to API calls. }
+  PVkPipelineLibraryCreateInfoKHR = ^TVkPipelineLibraryCreateInfoKHR;
 
 const
   VK_KHR_shader_non_semantic_info = 1;  
   VK_KHR_SHADER_NON_SEMANTIC_INFO_SPEC_VERSION = 1;  
   VK_KHR_SHADER_NON_SEMANTIC_INFO_EXTENSION_NAME = 'VK_KHR_shader_non_semantic_info';  
-{ VK_KHR_present_id is a preprocessor guard. Do not pass it to API calls. }
-  VK_KHR_present_id = 1;  
+  VK_KHR_present_id = 1;
   VK_KHR_PRESENT_ID_SPEC_VERSION = 1;  
   VK_KHR_PRESENT_ID_EXTENSION_NAME = 'VK_KHR_present_id';  
 type
-  PVkPresentIdKHR = ^TVkPresentIdKHR;
   TVkPresentIdKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       swapchainCount : Tuint32_t;
       pPresentIds : Puint64_t;
     end;
+  PVkPresentIdKHR = ^TVkPresentIdKHR;
 
-  PVkPhysicalDevicePresentIdFeaturesKHR = ^TVkPhysicalDevicePresentIdFeaturesKHR;
   TVkPhysicalDevicePresentIdFeaturesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       presentId : TVkBool32;
     end;
-{ VK_KHR_video_encode_queue is a preprocessor guard. Do not pass it to API calls. }
+  PVkPhysicalDevicePresentIdFeaturesKHR = ^TVkPhysicalDevicePresentIdFeaturesKHR;
 
 const
   VK_KHR_video_encode_queue = 1;  
@@ -10370,22 +10096,22 @@ type
     VK_VIDEO_ENCODE_TUNING_MODE_ULTRA_LOW_LATENCY_KHR = 3;
     VK_VIDEO_ENCODE_TUNING_MODE_LOSSLESS_KHR = 4;
     VK_VIDEO_ENCODE_TUNING_MODE_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoEncodeFlagsKHR = ^TVkVideoEncodeFlagsKHR;
   TVkVideoEncodeFlagsKHR = TVkFlags;
-
+type
   PVkVideoEncodeCapabilityFlagBitsKHR = ^TVkVideoEncodeCapabilityFlagBitsKHR;
   TVkVideoEncodeCapabilityFlagBitsKHR =  Longint;
   Const
     VK_VIDEO_ENCODE_CAPABILITY_PRECEDING_EXTERNALLY_ENCODED_BYTES_BIT_KHR = $00000001;
     VK_VIDEO_ENCODE_CAPABILITY_INSUFFICIENT_BITSTREAM_BUFFER_RANGE_DETECTION_BIT_KHR = $00000002;
     VK_VIDEO_ENCODE_CAPABILITY_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoEncodeCapabilityFlagsKHR = ^TVkVideoEncodeCapabilityFlagsKHR;
   TVkVideoEncodeCapabilityFlagsKHR = TVkFlags;
-
+type
   PVkVideoEncodeRateControlModeFlagBitsKHR = ^TVkVideoEncodeRateControlModeFlagBitsKHR;
   TVkVideoEncodeRateControlModeFlagBitsKHR =  Longint;
   Const
@@ -10394,11 +10120,11 @@ type
     VK_VIDEO_ENCODE_RATE_CONTROL_MODE_CBR_BIT_KHR = $00000002;
     VK_VIDEO_ENCODE_RATE_CONTROL_MODE_VBR_BIT_KHR = $00000004;
     VK_VIDEO_ENCODE_RATE_CONTROL_MODE_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoEncodeRateControlModeFlagsKHR = ^TVkVideoEncodeRateControlModeFlagsKHR;
   TVkVideoEncodeRateControlModeFlagsKHR = TVkFlags;
-
+type
   PVkVideoEncodeFeedbackFlagBitsKHR = ^TVkVideoEncodeFeedbackFlagBitsKHR;
   TVkVideoEncodeFeedbackFlagBitsKHR =  Longint;
   Const
@@ -10406,11 +10132,11 @@ type
     VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BYTES_WRITTEN_BIT_KHR = $00000002;
     VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_HAS_OVERRIDES_BIT_KHR = $00000004;
     VK_VIDEO_ENCODE_FEEDBACK_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoEncodeFeedbackFlagsKHR = ^TVkVideoEncodeFeedbackFlagsKHR;
   TVkVideoEncodeFeedbackFlagsKHR = TVkFlags;
-
+type
   PVkVideoEncodeUsageFlagBitsKHR = ^TVkVideoEncodeUsageFlagBitsKHR;
   TVkVideoEncodeUsageFlagBitsKHR =  Longint;
   Const
@@ -10420,11 +10146,11 @@ type
     VK_VIDEO_ENCODE_USAGE_RECORDING_BIT_KHR = $00000004;
     VK_VIDEO_ENCODE_USAGE_CONFERENCING_BIT_KHR = $00000008;
     VK_VIDEO_ENCODE_USAGE_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoEncodeUsageFlagsKHR = ^TVkVideoEncodeUsageFlagsKHR;
   TVkVideoEncodeUsageFlagsKHR = TVkFlags;
-
+type
   PVkVideoEncodeContentFlagBitsKHR = ^TVkVideoEncodeContentFlagBitsKHR;
   TVkVideoEncodeContentFlagBitsKHR =  Longint;
   Const
@@ -10433,7 +10159,7 @@ type
     VK_VIDEO_ENCODE_CONTENT_DESKTOP_BIT_KHR = $00000002;
     VK_VIDEO_ENCODE_CONTENT_RENDERED_BIT_KHR = $00000004;
     VK_VIDEO_ENCODE_CONTENT_FLAG_BITS_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkVideoEncodeContentFlagsKHR = ^TVkVideoEncodeContentFlagsKHR;
   TVkVideoEncodeContentFlagsKHR = TVkFlags;
@@ -10441,7 +10167,6 @@ type
   PVkVideoEncodeRateControlFlagsKHR = ^TVkVideoEncodeRateControlFlagsKHR;
   TVkVideoEncodeRateControlFlagsKHR = TVkFlags;
 
-  PVkVideoEncodeInfoKHR = ^TVkVideoEncodeInfoKHR;
   TVkVideoEncodeInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -10455,8 +10180,8 @@ type
       pReferenceSlots : PVkVideoReferenceSlotInfoKHR;
       precedingExternallyEncodedBytes : Tuint32_t;
     end;
+  PVkVideoEncodeInfoKHR = ^TVkVideoEncodeInfoKHR;
 
-  PVkVideoEncodeCapabilitiesKHR = ^TVkVideoEncodeCapabilitiesKHR;
   TVkVideoEncodeCapabilitiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -10468,15 +10193,15 @@ type
       encodeInputPictureGranularity : TVkExtent2D;
       supportedEncodeFeedbackFlags : TVkVideoEncodeFeedbackFlagsKHR;
     end;
+  PVkVideoEncodeCapabilitiesKHR = ^TVkVideoEncodeCapabilitiesKHR;
 
-  PVkQueryPoolVideoEncodeFeedbackCreateInfoKHR = ^TVkQueryPoolVideoEncodeFeedbackCreateInfoKHR;
   TVkQueryPoolVideoEncodeFeedbackCreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       encodeFeedbackFlags : TVkVideoEncodeFeedbackFlagsKHR;
     end;
+  PVkQueryPoolVideoEncodeFeedbackCreateInfoKHR = ^TVkQueryPoolVideoEncodeFeedbackCreateInfoKHR;
 
-  PVkVideoEncodeUsageInfoKHR = ^TVkVideoEncodeUsageInfoKHR;
   TVkVideoEncodeUsageInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -10484,8 +10209,8 @@ type
       videoContentHints : TVkVideoEncodeContentFlagsKHR;
       tuningMode : TVkVideoEncodeTuningModeKHR;
     end;
+  PVkVideoEncodeUsageInfoKHR = ^TVkVideoEncodeUsageInfoKHR;
 
-  PVkVideoEncodeRateControlLayerInfoKHR = ^TVkVideoEncodeRateControlLayerInfoKHR;
   TVkVideoEncodeRateControlLayerInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -10494,8 +10219,8 @@ type
       frameRateNumerator : Tuint32_t;
       frameRateDenominator : Tuint32_t;
     end;
+  PVkVideoEncodeRateControlLayerInfoKHR = ^TVkVideoEncodeRateControlLayerInfoKHR;
 
-  PVkVideoEncodeRateControlInfoKHR = ^TVkVideoEncodeRateControlInfoKHR;
   TVkVideoEncodeRateControlInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -10506,56 +10231,52 @@ type
       virtualBufferSizeInMs : Tuint32_t;
       initialVirtualBufferSizeInMs : Tuint32_t;
     end;
+  PVkVideoEncodeRateControlInfoKHR = ^TVkVideoEncodeRateControlInfoKHR;
 
-  PVkPhysicalDeviceVideoEncodeQualityLevelInfoKHR = ^TVkPhysicalDeviceVideoEncodeQualityLevelInfoKHR;
   TVkPhysicalDeviceVideoEncodeQualityLevelInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       pVideoProfile : PVkVideoProfileInfoKHR;
       qualityLevel : Tuint32_t;
     end;
+  PVkPhysicalDeviceVideoEncodeQualityLevelInfoKHR = ^TVkPhysicalDeviceVideoEncodeQualityLevelInfoKHR;
 
-  PVkVideoEncodeQualityLevelPropertiesKHR = ^TVkVideoEncodeQualityLevelPropertiesKHR;
   TVkVideoEncodeQualityLevelPropertiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       preferredRateControlMode : TVkVideoEncodeRateControlModeFlagBitsKHR;
       preferredRateControlLayerCount : Tuint32_t;
     end;
+  PVkVideoEncodeQualityLevelPropertiesKHR = ^TVkVideoEncodeQualityLevelPropertiesKHR;
 
-  PVkVideoEncodeQualityLevelInfoKHR = ^TVkVideoEncodeQualityLevelInfoKHR;
   TVkVideoEncodeQualityLevelInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       qualityLevel : Tuint32_t;
     end;
+  PVkVideoEncodeQualityLevelInfoKHR = ^TVkVideoEncodeQualityLevelInfoKHR;
 
-  PVkVideoEncodeSessionParametersGetInfoKHR = ^TVkVideoEncodeSessionParametersGetInfoKHR;
   TVkVideoEncodeSessionParametersGetInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       videoSessionParameters : TVkVideoSessionParametersKHR;
     end;
+  PVkVideoEncodeSessionParametersGetInfoKHR = ^TVkVideoEncodeSessionParametersGetInfoKHR;
 
-  PVkVideoEncodeSessionParametersFeedbackInfoKHR = ^TVkVideoEncodeSessionParametersFeedbackInfoKHR;
   TVkVideoEncodeSessionParametersFeedbackInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       hasOverrides : TVkBool32;
     end;
+  PVkVideoEncodeSessionParametersFeedbackInfoKHR = ^TVkVideoEncodeSessionParametersFeedbackInfoKHR;
 
   TPFN_vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR = function (physicalDevice:TVkPhysicalDevice; pQualityLevelInfo:PVkPhysicalDeviceVideoEncodeQualityLevelInfoKHR; pQualityLevelProperties:PVkVideoEncodeQualityLevelPropertiesKHR):TVkResult;cdecl;
-
   TPFN_vkGetEncodedVideoSessionParametersKHR = function (device:TVkDevice; pVideoSessionParametersInfo:PVkVideoEncodeSessionParametersGetInfoKHR; pFeedbackInfo:PVkVideoEncodeSessionParametersFeedbackInfoKHR; pDataSize:Psize_t; pData:pointer):TVkResult;cdecl;
-
   TPFN_vkCmdEncodeVideoKHR = procedure (commandBuffer:TVkCommandBuffer; pEncodeInfo:PVkVideoEncodeInfoKHR);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkGetPhysicalDeviceVideoEncodeQualityLevelPropertiesKHR(physicalDevice:TVkPhysicalDevice; pQualityLevelInfo:PVkPhysicalDeviceVideoEncodeQualityLevelInfoKHR; pQualityLevelProperties:PVkVideoEncodeQualityLevelPropertiesKHR):TVkResult;cdecl;external libvulkan;
 function vkGetEncodedVideoSessionParametersKHR(device:TVkDevice; pVideoSessionParametersInfo:PVkVideoEncodeSessionParametersGetInfoKHR; pFeedbackInfo:PVkVideoEncodeSessionParametersFeedbackInfoKHR; pDataSize:Psize_t; pData:pointer):TVkResult;cdecl;external libvulkan;
 procedure vkCmdEncodeVideoKHR(commandBuffer:TVkCommandBuffer; pEncodeInfo:PVkVideoEncodeInfoKHR);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_synchronization2 is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_synchronization2 = 1;  
@@ -10604,37 +10325,29 @@ type
   PVkPhysicalDeviceSynchronization2FeaturesKHR = ^TVkPhysicalDeviceSynchronization2FeaturesKHR;
   TVkPhysicalDeviceSynchronization2FeaturesKHR = TVkPhysicalDeviceSynchronization2Features;
 
-  PVkQueueFamilyCheckpointProperties2NV = ^TVkQueueFamilyCheckpointProperties2NV;
   TVkQueueFamilyCheckpointProperties2NV = record
       sType : TVkStructureType;
       pNext : pointer;
       checkpointExecutionStageMask : TVkPipelineStageFlags2;
     end;
+  PVkQueueFamilyCheckpointProperties2NV = ^TVkQueueFamilyCheckpointProperties2NV;
 
-  PVkCheckpointData2NV = ^TVkCheckpointData2NV;
   TVkCheckpointData2NV = record
       sType : TVkStructureType;
       pNext : pointer;
       stage : TVkPipelineStageFlags2;
       pCheckpointMarker : pointer;
     end;
+  PVkCheckpointData2NV = ^TVkCheckpointData2NV;
 
   TPFN_vkCmdSetEvent2KHR = procedure (commandBuffer:TVkCommandBuffer; event:TVkEvent; pDependencyInfo:PVkDependencyInfo);cdecl;
-
   TPFN_vkCmdResetEvent2KHR = procedure (commandBuffer:TVkCommandBuffer; event:TVkEvent; stageMask:TVkPipelineStageFlags2);cdecl;
-
   TPFN_vkCmdWaitEvents2KHR = procedure (commandBuffer:TVkCommandBuffer; eventCount:Tuint32_t; pEvents:PVkEvent; pDependencyInfos:PVkDependencyInfo);cdecl;
-
   TPFN_vkCmdPipelineBarrier2KHR = procedure (commandBuffer:TVkCommandBuffer; pDependencyInfo:PVkDependencyInfo);cdecl;
-
   TPFN_vkCmdWriteTimestamp2KHR = procedure (commandBuffer:TVkCommandBuffer; stage:TVkPipelineStageFlags2; queryPool:TVkQueryPool; query:Tuint32_t);cdecl;
-
   TPFN_vkQueueSubmit2KHR = function (queue:TVkQueue; submitCount:Tuint32_t; pSubmits:PVkSubmitInfo2; fence:TVkFence):TVkResult;cdecl;
-
   TPFN_vkCmdWriteBufferMarker2AMD = procedure (commandBuffer:TVkCommandBuffer; stage:TVkPipelineStageFlags2; dstBuffer:TVkBuffer; dstOffset:TVkDeviceSize; marker:Tuint32_t);cdecl;
-
   TPFN_vkGetQueueCheckpointData2NV = procedure (queue:TVkQueue; pCheckpointDataCount:Puint32_t; pCheckpointData:PVkCheckpointData2NV);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 procedure vkCmdSetEvent2KHR(commandBuffer:TVkCommandBuffer; event:TVkEvent; pDependencyInfo:PVkDependencyInfo);cdecl;external libvulkan;
 procedure vkCmdResetEvent2KHR(commandBuffer:TVkCommandBuffer; event:TVkEvent; stageMask:TVkPipelineStageFlags2);cdecl;external libvulkan;
@@ -10644,41 +10357,37 @@ procedure vkCmdWriteTimestamp2KHR(commandBuffer:TVkCommandBuffer; stage:TVkPipel
 function vkQueueSubmit2KHR(queue:TVkQueue; submitCount:Tuint32_t; pSubmits:PVkSubmitInfo2; fence:TVkFence):TVkResult;cdecl;external libvulkan;
 procedure vkCmdWriteBufferMarker2AMD(commandBuffer:TVkCommandBuffer; stage:TVkPipelineStageFlags2; dstBuffer:TVkBuffer; dstOffset:TVkDeviceSize; marker:Tuint32_t);cdecl;external libvulkan;
 procedure vkGetQueueCheckpointData2NV(queue:TVkQueue; pCheckpointDataCount:Puint32_t; pCheckpointData:PVkCheckpointData2NV);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_fragment_shader_barycentric is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_fragment_shader_barycentric = 1;  
   VK_KHR_FRAGMENT_SHADER_BARYCENTRIC_SPEC_VERSION = 1;  
   VK_KHR_FRAGMENT_SHADER_BARYCENTRIC_EXTENSION_NAME = 'VK_KHR_fragment_shader_barycentric';  
 type
-  PVkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR = ^TVkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR;
   TVkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       fragmentShaderBarycentric : TVkBool32;
     end;
+  PVkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR = ^TVkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR;
 
-  PVkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR = ^TVkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR;
   TVkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       triStripVertexOrderIndependentOfProvokingVertex : TVkBool32;
     end;
-{ VK_KHR_shader_subgroup_uniform_control_flow is a preprocessor guard. Do not pass it to API calls. }
+  PVkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR = ^TVkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR;
 
 const
   VK_KHR_shader_subgroup_uniform_control_flow = 1;  
   VK_KHR_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_SPEC_VERSION = 1;  
   VK_KHR_SHADER_SUBGROUP_UNIFORM_CONTROL_FLOW_EXTENSION_NAME = 'VK_KHR_shader_subgroup_uniform_control_flow';  
 type
-  PVkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR = ^TVkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR;
   TVkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       shaderSubgroupUniformControlFlow : TVkBool32;
     end;
-{ VK_KHR_zero_initialize_workgroup_memory is a preprocessor guard. Do not pass it to API calls. }
+  PVkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR = ^TVkPhysicalDeviceShaderSubgroupUniformControlFlowFeaturesKHR;
 
 const
   VK_KHR_zero_initialize_workgroup_memory = 1;  
@@ -10687,14 +10396,12 @@ const
 type
   PVkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR = ^TVkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR;
   TVkPhysicalDeviceZeroInitializeWorkgroupMemoryFeaturesKHR = TVkPhysicalDeviceZeroInitializeWorkgroupMemoryFeatures;
-{ VK_KHR_workgroup_memory_explicit_layout is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_workgroup_memory_explicit_layout = 1;  
   VK_KHR_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_SPEC_VERSION = 1;  
   VK_KHR_WORKGROUP_MEMORY_EXPLICIT_LAYOUT_EXTENSION_NAME = 'VK_KHR_workgroup_memory_explicit_layout';  
 type
-  PVkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR = ^TVkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR;
   TVkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -10703,7 +10410,7 @@ type
       workgroupMemoryExplicitLayout8BitAccess : TVkBool32;
       workgroupMemoryExplicitLayout16BitAccess : TVkBool32;
     end;
-{ VK_KHR_copy_commands2 is a preprocessor guard. Do not pass it to API calls. }
+  PVkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR = ^TVkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR;
 
 const
   VK_KHR_copy_commands2 = 1;  
@@ -10744,17 +10451,11 @@ type
   TVkImageResolve2KHR = TVkImageResolve2;
 
   TPFN_vkCmdCopyBuffer2KHR = procedure (commandBuffer:TVkCommandBuffer; pCopyBufferInfo:PVkCopyBufferInfo2);cdecl;
-
   TPFN_vkCmdCopyImage2KHR = procedure (commandBuffer:TVkCommandBuffer; pCopyImageInfo:PVkCopyImageInfo2);cdecl;
-
   TPFN_vkCmdCopyBufferToImage2KHR = procedure (commandBuffer:TVkCommandBuffer; pCopyBufferToImageInfo:PVkCopyBufferToImageInfo2);cdecl;
-
   TPFN_vkCmdCopyImageToBuffer2KHR = procedure (commandBuffer:TVkCommandBuffer; pCopyImageToBufferInfo:PVkCopyImageToBufferInfo2);cdecl;
-
   TPFN_vkCmdBlitImage2KHR = procedure (commandBuffer:TVkCommandBuffer; pBlitImageInfo:PVkBlitImageInfo2);cdecl;
-
   TPFN_vkCmdResolveImage2KHR = procedure (commandBuffer:TVkCommandBuffer; pResolveImageInfo:PVkResolveImageInfo2);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 procedure vkCmdCopyBuffer2KHR(commandBuffer:TVkCommandBuffer; pCopyBufferInfo:PVkCopyBufferInfo2);cdecl;external libvulkan;
 procedure vkCmdCopyImage2KHR(commandBuffer:TVkCommandBuffer; pCopyImageInfo:PVkCopyImageInfo2);cdecl;external libvulkan;
@@ -10762,8 +10463,6 @@ procedure vkCmdCopyBufferToImage2KHR(commandBuffer:TVkCommandBuffer; pCopyBuffer
 procedure vkCmdCopyImageToBuffer2KHR(commandBuffer:TVkCommandBuffer; pCopyImageToBufferInfo:PVkCopyImageToBufferInfo2);cdecl;external libvulkan;
 procedure vkCmdBlitImage2KHR(commandBuffer:TVkCommandBuffer; pBlitImageInfo:PVkBlitImageInfo2);cdecl;external libvulkan;
 procedure vkCmdResolveImage2KHR(commandBuffer:TVkCommandBuffer; pResolveImageInfo:PVkResolveImageInfo2);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_format_feature_flags2 is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_format_feature_flags2 = 1;  
@@ -10778,22 +10477,20 @@ type
 
   PVkFormatProperties3KHR = ^TVkFormatProperties3KHR;
   TVkFormatProperties3KHR = TVkFormatProperties3;
-{ VK_KHR_ray_tracing_maintenance1 is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_ray_tracing_maintenance1 = 1;  
   VK_KHR_RAY_TRACING_MAINTENANCE_1_SPEC_VERSION = 1;  
   VK_KHR_RAY_TRACING_MAINTENANCE_1_EXTENSION_NAME = 'VK_KHR_ray_tracing_maintenance1';  
 type
-  PVkPhysicalDeviceRayTracingMaintenance1FeaturesKHR = ^TVkPhysicalDeviceRayTracingMaintenance1FeaturesKHR;
   TVkPhysicalDeviceRayTracingMaintenance1FeaturesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       rayTracingMaintenance1 : TVkBool32;
       rayTracingPipelineTraceRaysIndirect2 : TVkBool32;
     end;
+  PVkPhysicalDeviceRayTracingMaintenance1FeaturesKHR = ^TVkPhysicalDeviceRayTracingMaintenance1FeaturesKHR;
 
-  PVkTraceRaysIndirectCommand2KHR = ^TVkTraceRaysIndirectCommand2KHR;
   TVkTraceRaysIndirectCommand2KHR = record
       raygenShaderRecordAddress : TVkDeviceAddress;
       raygenShaderRecordSize : TVkDeviceSize;
@@ -10810,20 +10507,17 @@ type
       height : Tuint32_t;
       depth : Tuint32_t;
     end;
+  PVkTraceRaysIndirectCommand2KHR = ^TVkTraceRaysIndirectCommand2KHR;
 
   TPFN_vkCmdTraceRaysIndirect2KHR = procedure (commandBuffer:TVkCommandBuffer; indirectDeviceAddress:TVkDeviceAddress);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 procedure vkCmdTraceRaysIndirect2KHR(commandBuffer:TVkCommandBuffer; indirectDeviceAddress:TVkDeviceAddress);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_portability_enumeration is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_portability_enumeration = 1;  
   VK_KHR_PORTABILITY_ENUMERATION_SPEC_VERSION = 1;  
   VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME = 'VK_KHR_portability_enumeration';  
-{ VK_KHR_maintenance4 is a preprocessor guard. Do not pass it to API calls. }
-  VK_KHR_maintenance4 = 1;  
+  VK_KHR_maintenance4 = 1;
   VK_KHR_MAINTENANCE_4_SPEC_VERSION = 2;  
   VK_KHR_MAINTENANCE_4_EXTENSION_NAME = 'VK_KHR_maintenance4';  
 type
@@ -10840,17 +10534,12 @@ type
   TVkDeviceImageMemoryRequirementsKHR = TVkDeviceImageMemoryRequirements;
 
   TPFN_vkGetDeviceBufferMemoryRequirementsKHR = procedure (device:TVkDevice; pInfo:PVkDeviceBufferMemoryRequirements; pMemoryRequirements:PVkMemoryRequirements2);cdecl;
-
   TPFN_vkGetDeviceImageMemoryRequirementsKHR = procedure (device:TVkDevice; pInfo:PVkDeviceImageMemoryRequirements; pMemoryRequirements:PVkMemoryRequirements2);cdecl;
-
   TPFN_vkGetDeviceImageSparseMemoryRequirementsKHR = procedure (device:TVkDevice; pInfo:PVkDeviceImageMemoryRequirements; pSparseMemoryRequirementCount:Puint32_t; pSparseMemoryRequirements:PVkSparseImageMemoryRequirements2);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 procedure vkGetDeviceBufferMemoryRequirementsKHR(device:TVkDevice; pInfo:PVkDeviceBufferMemoryRequirements; pMemoryRequirements:PVkMemoryRequirements2);cdecl;external libvulkan;
 procedure vkGetDeviceImageMemoryRequirementsKHR(device:TVkDevice; pInfo:PVkDeviceImageMemoryRequirements; pMemoryRequirements:PVkMemoryRequirements2);cdecl;external libvulkan;
 procedure vkGetDeviceImageSparseMemoryRequirementsKHR(device:TVkDevice; pInfo:PVkDeviceImageMemoryRequirements; pSparseMemoryRequirementCount:Puint32_t; pSparseMemoryRequirements:PVkSparseImageMemoryRequirements2);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_maintenance5 is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_maintenance5 = 1;  
@@ -10859,9 +10548,7 @@ const
 type
   PVkPipelineCreateFlags2KHR = ^TVkPipelineCreateFlags2KHR;
   TVkPipelineCreateFlags2KHR = TVkFlags64;
-{ Flag bits for VkPipelineCreateFlagBits2KHR }
-
-  PVkPipelineCreateFlagBits2KHR = ^TVkPipelineCreateFlagBits2KHR;
+type  PVkPipelineCreateFlagBits2KHR = ^TVkPipelineCreateFlagBits2KHR;
   TVkPipelineCreateFlagBits2KHR = TVkFlags64;
 {
 static const VkPipelineCreateFlagBits2KHR VK_PIPELINE_CREATE_2_DISABLE_OPTIMIZATION_BIT_KHR = 0x00000001ULL;
@@ -10896,7 +10583,7 @@ static const VkPipelineCreateFlagBits2KHR VK_PIPELINE_CREATE_2_PROTECTED_ACCESS_
 static const VkPipelineCreateFlagBits2KHR VK_PIPELINE_CREATE_2_RAY_TRACING_DISPLACEMENT_MICROMAP_BIT_NV = 0x10000000ULL;
 static const VkPipelineCreateFlagBits2KHR VK_PIPELINE_CREATE_2_DESCRIPTOR_BUFFER_BIT_EXT = 0x20000000ULL;
  }
-
+               type
   PVkBufferUsageFlags2KHR = ^TVkBufferUsageFlags2KHR;
   TVkBufferUsageFlags2KHR = TVkFlags64;
 { Flag bits for VkBufferUsageFlagBits2KHR }
@@ -10934,15 +10621,14 @@ static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_PUSH_DESCRIPTORS_DESCRI
 static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_MICROMAP_BUILD_INPUT_READ_ONLY_BIT_EXT = 0x00800000ULL;
 static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_MICROMAP_STORAGE_BIT_EXT = 0x01000000ULL;
  }
-
-  PVkPhysicalDeviceMaintenance5FeaturesKHR = ^TVkPhysicalDeviceMaintenance5FeaturesKHR;
+type
   TVkPhysicalDeviceMaintenance5FeaturesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       maintenance5 : TVkBool32;
     end;
+  PVkPhysicalDeviceMaintenance5FeaturesKHR = ^TVkPhysicalDeviceMaintenance5FeaturesKHR;
 
-  PVkPhysicalDeviceMaintenance5PropertiesKHR = ^TVkPhysicalDeviceMaintenance5PropertiesKHR;
   TVkPhysicalDeviceMaintenance5PropertiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -10953,8 +10639,8 @@ static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_MICROMAP_STORAGE_BIT_EX
       nonStrictSinglePixelWideLinesUseParallelogram : TVkBool32;
       nonStrictWideLinesUseParallelogram : TVkBool32;
     end;
+  PVkPhysicalDeviceMaintenance5PropertiesKHR = ^TVkPhysicalDeviceMaintenance5PropertiesKHR;
 
-  PVkRenderingAreaInfoKHR = ^TVkRenderingAreaInfoKHR;
   TVkRenderingAreaInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -10964,71 +10650,65 @@ static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_MICROMAP_STORAGE_BIT_EX
       depthAttachmentFormat : TVkFormat;
       stencilAttachmentFormat : TVkFormat;
     end;
+  PVkRenderingAreaInfoKHR = ^TVkRenderingAreaInfoKHR;
 
-  PVkImageSubresource2KHR = ^TVkImageSubresource2KHR;
   TVkImageSubresource2KHR = record
       sType : TVkStructureType;
       pNext : pointer;
       imageSubresource : TVkImageSubresource;
     end;
+  PVkImageSubresource2KHR = ^TVkImageSubresource2KHR;
 
-  PVkDeviceImageSubresourceInfoKHR = ^TVkDeviceImageSubresourceInfoKHR;
   TVkDeviceImageSubresourceInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       pCreateInfo : PVkImageCreateInfo;
       pSubresource : PVkImageSubresource2KHR;
     end;
+  PVkDeviceImageSubresourceInfoKHR = ^TVkDeviceImageSubresourceInfoKHR;
 
-  PVkSubresourceLayout2KHR = ^TVkSubresourceLayout2KHR;
   TVkSubresourceLayout2KHR = record
       sType : TVkStructureType;
       pNext : pointer;
       subresourceLayout : TVkSubresourceLayout;
     end;
+  PVkSubresourceLayout2KHR = ^TVkSubresourceLayout2KHR;
 
-  PVkPipelineCreateFlags2CreateInfoKHR = ^TVkPipelineCreateFlags2CreateInfoKHR;
   TVkPipelineCreateFlags2CreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       flags : TVkPipelineCreateFlags2KHR;
     end;
+  PVkPipelineCreateFlags2CreateInfoKHR = ^TVkPipelineCreateFlags2CreateInfoKHR;
 
-  PVkBufferUsageFlags2CreateInfoKHR = ^TVkBufferUsageFlags2CreateInfoKHR;
   TVkBufferUsageFlags2CreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       usage : TVkBufferUsageFlags2KHR;
     end;
+  PVkBufferUsageFlags2CreateInfoKHR = ^TVkBufferUsageFlags2CreateInfoKHR;
 
   TPFN_vkCmdBindIndexBuffer2KHR = procedure (commandBuffer:TVkCommandBuffer; buffer:TVkBuffer; offset:TVkDeviceSize; size:TVkDeviceSize; indexType:TVkIndexType);cdecl;
-
   TPFN_vkGetRenderingAreaGranularityKHR = procedure (device:TVkDevice; pRenderingAreaInfo:PVkRenderingAreaInfoKHR; pGranularity:PVkExtent2D);cdecl;
-
   TPFN_vkGetDeviceImageSubresourceLayoutKHR = procedure (device:TVkDevice; pInfo:PVkDeviceImageSubresourceInfoKHR; pLayout:PVkSubresourceLayout2KHR);cdecl;
-
   TPFN_vkGetImageSubresourceLayout2KHR = procedure (device:TVkDevice; image:TVkImage; pSubresource:PVkImageSubresource2KHR; pLayout:PVkSubresourceLayout2KHR);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 procedure vkCmdBindIndexBuffer2KHR(commandBuffer:TVkCommandBuffer; buffer:TVkBuffer; offset:TVkDeviceSize; size:TVkDeviceSize; indexType:TVkIndexType);cdecl;external libvulkan;
 procedure vkGetRenderingAreaGranularityKHR(device:TVkDevice; pRenderingAreaInfo:PVkRenderingAreaInfoKHR; pGranularity:PVkExtent2D);cdecl;external libvulkan;
 procedure vkGetDeviceImageSubresourceLayoutKHR(device:TVkDevice; pInfo:PVkDeviceImageSubresourceInfoKHR; pLayout:PVkSubresourceLayout2KHR);cdecl;external libvulkan;
 procedure vkGetImageSubresourceLayout2KHR(device:TVkDevice; image:TVkImage; pSubresource:PVkImageSubresource2KHR; pLayout:PVkSubresourceLayout2KHR);cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_ray_tracing_position_fetch is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_ray_tracing_position_fetch = 1;  
   VK_KHR_RAY_TRACING_POSITION_FETCH_SPEC_VERSION = 1;  
   VK_KHR_RAY_TRACING_POSITION_FETCH_EXTENSION_NAME = 'VK_KHR_ray_tracing_position_fetch';  
 type
-  PVkPhysicalDeviceRayTracingPositionFetchFeaturesKHR = ^TVkPhysicalDeviceRayTracingPositionFetchFeaturesKHR;
   TVkPhysicalDeviceRayTracingPositionFetchFeaturesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       rayTracingPositionFetch : TVkBool32;
     end;
-{ VK_KHR_cooperative_matrix is a preprocessor guard. Do not pass it to API calls. }
+  PVkPhysicalDeviceRayTracingPositionFetchFeaturesKHR = ^TVkPhysicalDeviceRayTracingPositionFetchFeaturesKHR;
 
 const
   VK_KHR_cooperative_matrix = 1;  
@@ -11061,7 +10741,7 @@ type
     VK_COMPONENT_TYPE_UINT32_NV = VK_COMPONENT_TYPE_UINT32_KHR;
     VK_COMPONENT_TYPE_UINT64_NV = VK_COMPONENT_TYPE_UINT64_KHR;
     VK_COMPONENT_TYPE_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
   PVkScopeKHR = ^TVkScopeKHR;
   TVkScopeKHR =  Longint;
@@ -11075,9 +10755,8 @@ type
     VK_SCOPE_SUBGROUP_NV = VK_SCOPE_SUBGROUP_KHR;
     VK_SCOPE_QUEUE_FAMILY_NV = VK_SCOPE_QUEUE_FAMILY_KHR;
     VK_SCOPE_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
-  PVkCooperativeMatrixPropertiesKHR = ^TVkCooperativeMatrixPropertiesKHR;
   TVkCooperativeMatrixPropertiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -11091,42 +10770,39 @@ type
       saturatingAccumulation : TVkBool32;
       scope : TVkScopeKHR;
     end;
+  PVkCooperativeMatrixPropertiesKHR = ^TVkCooperativeMatrixPropertiesKHR;
 
-  PVkPhysicalDeviceCooperativeMatrixFeaturesKHR = ^TVkPhysicalDeviceCooperativeMatrixFeaturesKHR;
   TVkPhysicalDeviceCooperativeMatrixFeaturesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       cooperativeMatrix : TVkBool32;
       cooperativeMatrixRobustBufferAccess : TVkBool32;
     end;
+  PVkPhysicalDeviceCooperativeMatrixFeaturesKHR = ^TVkPhysicalDeviceCooperativeMatrixFeaturesKHR;
 
-  PVkPhysicalDeviceCooperativeMatrixPropertiesKHR = ^TVkPhysicalDeviceCooperativeMatrixPropertiesKHR;
   TVkPhysicalDeviceCooperativeMatrixPropertiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       cooperativeMatrixSupportedStages : TVkShaderStageFlags;
     end;
+  PVkPhysicalDeviceCooperativeMatrixPropertiesKHR = ^TVkPhysicalDeviceCooperativeMatrixPropertiesKHR;
 
   TPFN_vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR = function (physicalDevice:TVkPhysicalDevice; pPropertyCount:Puint32_t; pProperties:PVkCooperativeMatrixPropertiesKHR):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR(physicalDevice:TVkPhysicalDevice; pPropertyCount:Puint32_t; pProperties:PVkCooperativeMatrixPropertiesKHR):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_video_maintenance1 is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_video_maintenance1 = 1;  
   VK_KHR_VIDEO_MAINTENANCE_1_SPEC_VERSION = 1;  
   VK_KHR_VIDEO_MAINTENANCE_1_EXTENSION_NAME = 'VK_KHR_video_maintenance1';  
 type
-  PVkPhysicalDeviceVideoMaintenance1FeaturesKHR = ^TVkPhysicalDeviceVideoMaintenance1FeaturesKHR;
   TVkPhysicalDeviceVideoMaintenance1FeaturesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       videoMaintenance1 : TVkBool32;
     end;
+  PVkPhysicalDeviceVideoMaintenance1FeaturesKHR = ^TVkPhysicalDeviceVideoMaintenance1FeaturesKHR;
 
-  PVkVideoInlineQueryInfoKHR = ^TVkVideoInlineQueryInfoKHR;
   TVkVideoInlineQueryInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -11134,43 +10810,42 @@ type
       firstQuery : Tuint32_t;
       queryCount : Tuint32_t;
     end;
-{ VK_KHR_vertex_attribute_divisor is a preprocessor guard. Do not pass it to API calls. }
+  PVkVideoInlineQueryInfoKHR = ^TVkVideoInlineQueryInfoKHR;
 
 const
   VK_KHR_vertex_attribute_divisor = 1;  
   VK_KHR_VERTEX_ATTRIBUTE_DIVISOR_SPEC_VERSION = 1;  
   VK_KHR_VERTEX_ATTRIBUTE_DIVISOR_EXTENSION_NAME = 'VK_KHR_vertex_attribute_divisor';  
 type
-  PVkPhysicalDeviceVertexAttributeDivisorPropertiesKHR = ^TVkPhysicalDeviceVertexAttributeDivisorPropertiesKHR;
   TVkPhysicalDeviceVertexAttributeDivisorPropertiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       maxVertexAttribDivisor : Tuint32_t;
       supportsNonZeroFirstInstance : TVkBool32;
     end;
+  PVkPhysicalDeviceVertexAttributeDivisorPropertiesKHR = ^TVkPhysicalDeviceVertexAttributeDivisorPropertiesKHR;
 
-  PVkVertexInputBindingDivisorDescriptionKHR = ^TVkVertexInputBindingDivisorDescriptionKHR;
   TVkVertexInputBindingDivisorDescriptionKHR = record
       binding : Tuint32_t;
       divisor : Tuint32_t;
     end;
+  PVkVertexInputBindingDivisorDescriptionKHR = ^TVkVertexInputBindingDivisorDescriptionKHR;
 
-  PVkPipelineVertexInputDivisorStateCreateInfoKHR = ^TVkPipelineVertexInputDivisorStateCreateInfoKHR;
   TVkPipelineVertexInputDivisorStateCreateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       vertexBindingDivisorCount : Tuint32_t;
       pVertexBindingDivisors : PVkVertexInputBindingDivisorDescriptionKHR;
     end;
+  PVkPipelineVertexInputDivisorStateCreateInfoKHR = ^TVkPipelineVertexInputDivisorStateCreateInfoKHR;
 
-  PVkPhysicalDeviceVertexAttributeDivisorFeaturesKHR = ^TVkPhysicalDeviceVertexAttributeDivisorFeaturesKHR;
   TVkPhysicalDeviceVertexAttributeDivisorFeaturesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       vertexAttributeInstanceRateDivisor : TVkBool32;
       vertexAttributeInstanceRateZeroDivisor : TVkBool32;
     end;
-{ VK_KHR_calibrated_timestamps is a preprocessor guard. Do not pass it to API calls. }
+  PVkPhysicalDeviceVertexAttributeDivisorFeaturesKHR = ^TVkPhysicalDeviceVertexAttributeDivisorFeaturesKHR;
 
 const
   VK_KHR_calibrated_timestamps = 1;  
@@ -11189,38 +10864,33 @@ type
     VK_TIME_DOMAIN_CLOCK_MONOTONIC_RAW_EXT = VK_TIME_DOMAIN_CLOCK_MONOTONIC_RAW_KHR;
     VK_TIME_DOMAIN_QUERY_PERFORMANCE_COUNTER_EXT = VK_TIME_DOMAIN_QUERY_PERFORMANCE_COUNTER_KHR;
     VK_TIME_DOMAIN_MAX_ENUM_KHR = $7FFFFFFF;
-;
+
 type
-  PVkCalibratedTimestampInfoKHR = ^TVkCalibratedTimestampInfoKHR;
   TVkCalibratedTimestampInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       timeDomain : TVkTimeDomainKHR;
     end;
+  PVkCalibratedTimestampInfoKHR = ^TVkCalibratedTimestampInfoKHR;
 
   TPFN_vkGetPhysicalDeviceCalibrateableTimeDomainsKHR = function (physicalDevice:TVkPhysicalDevice; pTimeDomainCount:Puint32_t; pTimeDomains:PVkTimeDomainKHR):TVkResult;cdecl;
-
   TPFN_vkGetCalibratedTimestampsKHR = function (device:TVkDevice; timestampCount:Tuint32_t; pTimestampInfos:PVkCalibratedTimestampInfoKHR; pTimestamps:Puint64_t; pMaxDeviation:Puint64_t):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkGetPhysicalDeviceCalibrateableTimeDomainsKHR(physicalDevice:TVkPhysicalDevice; pTimeDomainCount:Puint32_t; pTimeDomains:PVkTimeDomainKHR):TVkResult;cdecl;external libvulkan;
 function vkGetCalibratedTimestampsKHR(device:TVkDevice; timestampCount:Tuint32_t; pTimestampInfos:PVkCalibratedTimestampInfoKHR; pTimestamps:Puint64_t; pMaxDeviation:Puint64_t):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_KHR_maintenance6 is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_KHR_maintenance6 = 1;  
   VK_KHR_MAINTENANCE_6_SPEC_VERSION = 1;  
   VK_KHR_MAINTENANCE_6_EXTENSION_NAME = 'VK_KHR_maintenance6';  
 type
-  PVkPhysicalDeviceMaintenance6FeaturesKHR = ^TVkPhysicalDeviceMaintenance6FeaturesKHR;
   TVkPhysicalDeviceMaintenance6FeaturesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       maintenance6 : TVkBool32;
     end;
+  PVkPhysicalDeviceMaintenance6FeaturesKHR = ^TVkPhysicalDeviceMaintenance6FeaturesKHR;
 
-  PVkPhysicalDeviceMaintenance6PropertiesKHR = ^TVkPhysicalDeviceMaintenance6PropertiesKHR;
   TVkPhysicalDeviceMaintenance6PropertiesKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -11228,15 +10898,15 @@ type
       maxCombinedImageSamplerDescriptorCount : Tuint32_t;
       fragmentShadingRateClampCombinerInputs : TVkBool32;
     end;
+  PVkPhysicalDeviceMaintenance6PropertiesKHR = ^TVkPhysicalDeviceMaintenance6PropertiesKHR;
 
-  PVkBindMemoryStatusKHR = ^TVkBindMemoryStatusKHR;
   TVkBindMemoryStatusKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       pResult : PVkResult;
     end;
+  PVkBindMemoryStatusKHR = ^TVkBindMemoryStatusKHR;
 
-  PVkBindDescriptorSetsInfoKHR = ^TVkBindDescriptorSetsInfoKHR;
   TVkBindDescriptorSetsInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -11248,8 +10918,8 @@ type
       dynamicOffsetCount : Tuint32_t;
       pDynamicOffsets : Puint32_t;
     end;
+  PVkBindDescriptorSetsInfoKHR = ^TVkBindDescriptorSetsInfoKHR;
 
-  PVkPushConstantsInfoKHR = ^TVkPushConstantsInfoKHR;
   TVkPushConstantsInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -11259,29 +10929,29 @@ type
       size : Tuint32_t;
       pValues : pointer;
     end;
+  PVkPushConstantsInfoKHR = ^TVkPushConstantsInfoKHR;
 
-  PVkPushDescriptorSetInfoKHR = ^TVkPushDescriptorSetInfoKHR;
   TVkPushDescriptorSetInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       stageFlags : TVkShaderStageFlags;
       layout : TVkPipelineLayout;
-      set : Tuint32_t;
+      set_ : Tuint32_t;
       descriptorWriteCount : Tuint32_t;
       pDescriptorWrites : PVkWriteDescriptorSet;
     end;
+  PVkPushDescriptorSetInfoKHR = ^TVkPushDescriptorSetInfoKHR;
 
-  PVkPushDescriptorSetWithTemplateInfoKHR = ^TVkPushDescriptorSetWithTemplateInfoKHR;
   TVkPushDescriptorSetWithTemplateInfoKHR = record
       sType : TVkStructureType;
       pNext : pointer;
       descriptorUpdateTemplate : TVkDescriptorUpdateTemplate;
       layout : TVkPipelineLayout;
-      set : Tuint32_t;
+      set_ : Tuint32_t;
       pData : pointer;
     end;
+  PVkPushDescriptorSetWithTemplateInfoKHR = ^TVkPushDescriptorSetWithTemplateInfoKHR;
 
-  PVkSetDescriptorBufferOffsetsInfoEXT = ^TVkSetDescriptorBufferOffsetsInfoEXT;
   TVkSetDescriptorBufferOffsetsInfoEXT = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -11292,28 +10962,23 @@ type
       pBufferIndices : Puint32_t;
       pOffsets : PVkDeviceSize;
     end;
+  PVkSetDescriptorBufferOffsetsInfoEXT = ^TVkSetDescriptorBufferOffsetsInfoEXT;
 
-  PVkBindDescriptorBufferEmbeddedSamplersInfoEXT = ^TVkBindDescriptorBufferEmbeddedSamplersInfoEXT;
   TVkBindDescriptorBufferEmbeddedSamplersInfoEXT = record
       sType : TVkStructureType;
       pNext : pointer;
       stageFlags : TVkShaderStageFlags;
       layout : TVkPipelineLayout;
-      set : Tuint32_t;
+      set_ : Tuint32_t;
     end;
+  PVkBindDescriptorBufferEmbeddedSamplersInfoEXT = ^TVkBindDescriptorBufferEmbeddedSamplersInfoEXT;
 
   TPFN_vkCmdBindDescriptorSets2KHR = procedure (commandBuffer:TVkCommandBuffer; pBindDescriptorSetsInfo:PVkBindDescriptorSetsInfoKHR);cdecl;
-
   TPFN_vkCmdPushConstants2KHR = procedure (commandBuffer:TVkCommandBuffer; pPushConstantsInfo:PVkPushConstantsInfoKHR);cdecl;
-
   TPFN_vkCmdPushDescriptorSet2KHR = procedure (commandBuffer:TVkCommandBuffer; pPushDescriptorSetInfo:PVkPushDescriptorSetInfoKHR);cdecl;
-
   TPFN_vkCmdPushDescriptorSetWithTemplate2KHR = procedure (commandBuffer:TVkCommandBuffer; pPushDescriptorSetWithTemplateInfo:PVkPushDescriptorSetWithTemplateInfoKHR);cdecl;
-
   TPFN_vkCmdSetDescriptorBufferOffsets2EXT = procedure (commandBuffer:TVkCommandBuffer; pSetDescriptorBufferOffsetsInfo:PVkSetDescriptorBufferOffsetsInfoEXT);cdecl;
-
   TPFN_vkCmdBindDescriptorBufferEmbeddedSamplers2EXT = procedure (commandBuffer:TVkCommandBuffer; pBindDescriptorBufferEmbeddedSamplersInfo:PVkBindDescriptorBufferEmbeddedSamplersInfoEXT);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 procedure vkCmdBindDescriptorSets2KHR(commandBuffer:TVkCommandBuffer; pBindDescriptorSetsInfo:PVkBindDescriptorSetsInfoKHR);cdecl;external libvulkan;
 procedure vkCmdPushConstants2KHR(commandBuffer:TVkCommandBuffer; pPushConstantsInfo:PVkPushConstantsInfoKHR);cdecl;external libvulkan;
@@ -11321,8 +10986,6 @@ procedure vkCmdPushDescriptorSet2KHR(commandBuffer:TVkCommandBuffer; pPushDescri
 procedure vkCmdPushDescriptorSetWithTemplate2KHR(commandBuffer:TVkCommandBuffer; pPushDescriptorSetWithTemplateInfo:PVkPushDescriptorSetWithTemplateInfoKHR);cdecl;external libvulkan;
 procedure vkCmdSetDescriptorBufferOffsets2EXT(commandBuffer:TVkCommandBuffer; pSetDescriptorBufferOffsetsInfo:PVkSetDescriptorBufferOffsetsInfoEXT);cdecl;external libvulkan;
 procedure vkCmdBindDescriptorBufferEmbeddedSamplers2EXT(commandBuffer:TVkCommandBuffer; pBindDescriptorBufferEmbeddedSamplersInfo:PVkBindDescriptorBufferEmbeddedSamplersInfoEXT);cdecl;external libvulkan;
-{$endif}
-{ VK_EXT_debug_report is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_EXT_debug_report = 1;  
@@ -11383,7 +11046,7 @@ type
     VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_KHR_EXT = VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_EXT;
     VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_KHR_EXT = VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_EXT;
     VK_DEBUG_REPORT_OBJECT_TYPE_MAX_ENUM_EXT = $7FFFFFFF;
-;
+
 type
   PVkDebugReportFlagBitsEXT = ^TVkDebugReportFlagBitsEXT;
   TVkDebugReportFlagBitsEXT =  Longint;
@@ -11394,13 +11057,12 @@ type
     VK_DEBUG_REPORT_ERROR_BIT_EXT = $00000008;
     VK_DEBUG_REPORT_DEBUG_BIT_EXT = $00000010;
     VK_DEBUG_REPORT_FLAG_BITS_MAX_ENUM_EXT = $7FFFFFFF;
-;
+
 type
   PVkDebugReportFlagsEXT = ^TVkDebugReportFlagsEXT;
   TVkDebugReportFlagsEXT = TVkFlags;
 
-  TPFN_vkDebugReportCallbackEXT = function (flags:TVkDebugReportFlagsEXT; objectType:TVkDebugReportObjectTypeEXT; object:Tuint64_t; location:Tsize_t; messageCode:Tint32_t; 
-               pLayerPrefix:Pchar; pMessage:Pchar; pUserData:pointer):TVkBool32;cdecl;
+  TPFN_vkDebugReportCallbackEXT = function (flags:TVkDebugReportFlagsEXT; objectType:TVkDebugReportObjectTypeEXT; obj:Tuint64_t; location:Tsize_t; messageCode:Tint32_t;                pLayerPrefix:Pchar; pMessage:Pchar; pUserData:pointer):TVkBool32;cdecl;
 
   PVkDebugReportCallbackCreateInfoEXT = ^TVkDebugReportCallbackCreateInfoEXT;
   TVkDebugReportCallbackCreateInfoEXT = record
@@ -11412,34 +11074,24 @@ type
     end;
 
   TPFN_vkCreateDebugReportCallbackEXT = function (instance:TVkInstance; pCreateInfo:PVkDebugReportCallbackCreateInfoEXT; pAllocator:PVkAllocationCallbacks; pCallback:PVkDebugReportCallbackEXT):TVkResult;cdecl;
-
   TPFN_vkDestroyDebugReportCallbackEXT = procedure (instance:TVkInstance; callback:TVkDebugReportCallbackEXT; pAllocator:PVkAllocationCallbacks);cdecl;
-
-  TPFN_vkDebugReportMessageEXT = procedure (instance:TVkInstance; flags:TVkDebugReportFlagsEXT; objectType:TVkDebugReportObjectTypeEXT; object:Tuint64_t; location:Tsize_t; 
-                messageCode:Tint32_t; pLayerPrefix:Pchar; pMessage:Pchar);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
+  TPFN_vkDebugReportMessageEXT = procedure (instance:TVkInstance; flags:TVkDebugReportFlagsEXT; objectType:TVkDebugReportObjectTypeEXT; obj:Tuint64_t; location:Tsize_t;                messageCode:Tint32_t; pLayerPrefix:Pchar; pMessage:Pchar);cdecl;
 
 function vkCreateDebugReportCallbackEXT(instance:TVkInstance; pCreateInfo:PVkDebugReportCallbackCreateInfoEXT; pAllocator:PVkAllocationCallbacks; pCallback:PVkDebugReportCallbackEXT):TVkResult;cdecl;external libvulkan;
 procedure vkDestroyDebugReportCallbackEXT(instance:TVkInstance; callback:TVkDebugReportCallbackEXT; pAllocator:PVkAllocationCallbacks);cdecl;external libvulkan;
-procedure vkDebugReportMessageEXT(instance:TVkInstance; flags:TVkDebugReportFlagsEXT; objectType:TVkDebugReportObjectTypeEXT; object:Tuint64_t; location:Tsize_t; 
-            messageCode:Tint32_t; pLayerPrefix:Pchar; pMessage:Pchar);cdecl;external libvulkan;
-{$endif}
-{ VK_NV_glsl_shader is a preprocessor guard. Do not pass it to API calls. }
+procedure vkDebugReportMessageEXT(instance:TVkInstance; flags:TVkDebugReportFlagsEXT; objectType:TVkDebugReportObjectTypeEXT; obj:Tuint64_t; location:Tsize_t;             messageCode:Tint32_t; pLayerPrefix:Pchar; pMessage:Pchar);cdecl;external libvulkan;
 
 const
   VK_NV_glsl_shader = 1;  
   VK_NV_GLSL_SHADER_SPEC_VERSION = 1;  
   VK_NV_GLSL_SHADER_EXTENSION_NAME = 'VK_NV_glsl_shader';  
-{ VK_EXT_depth_range_unrestricted is a preprocessor guard. Do not pass it to API calls. }
-  VK_EXT_depth_range_unrestricted = 1;  
+  VK_EXT_depth_range_unrestricted = 1;
   VK_EXT_DEPTH_RANGE_UNRESTRICTED_SPEC_VERSION = 1;  
   VK_EXT_DEPTH_RANGE_UNRESTRICTED_EXTENSION_NAME = 'VK_EXT_depth_range_unrestricted';  
-{ VK_IMG_filter_cubic is a preprocessor guard. Do not pass it to API calls. }
-  VK_IMG_filter_cubic = 1;  
+  VK_IMG_filter_cubic = 1;
   VK_IMG_FILTER_CUBIC_SPEC_VERSION = 1;  
   VK_IMG_FILTER_CUBIC_EXTENSION_NAME = 'VK_IMG_filter_cubic';  
-{ VK_AMD_rasterization_order is a preprocessor guard. Do not pass it to API calls. }
-  VK_AMD_rasterization_order = 1;  
+  VK_AMD_rasterization_order = 1;
   VK_AMD_RASTERIZATION_ORDER_SPEC_VERSION = 1;  
   VK_AMD_RASTERIZATION_ORDER_EXTENSION_NAME = 'VK_AMD_rasterization_order';  
 type
@@ -11449,107 +11101,95 @@ type
     VK_RASTERIZATION_ORDER_STRICT_AMD = 0;
     VK_RASTERIZATION_ORDER_RELAXED_AMD = 1;
     VK_RASTERIZATION_ORDER_MAX_ENUM_AMD = $7FFFFFFF;
-;
+
 type
-  PVkPipelineRasterizationStateRasterizationOrderAMD = ^TVkPipelineRasterizationStateRasterizationOrderAMD;
   TVkPipelineRasterizationStateRasterizationOrderAMD = record
       sType : TVkStructureType;
       pNext : pointer;
       rasterizationOrder : TVkRasterizationOrderAMD;
     end;
-{ VK_AMD_shader_trinary_minmax is a preprocessor guard. Do not pass it to API calls. }
+  PVkPipelineRasterizationStateRasterizationOrderAMD = ^TVkPipelineRasterizationStateRasterizationOrderAMD;
 
 const
   VK_AMD_shader_trinary_minmax = 1;  
   VK_AMD_SHADER_TRINARY_MINMAX_SPEC_VERSION = 1;  
   VK_AMD_SHADER_TRINARY_MINMAX_EXTENSION_NAME = 'VK_AMD_shader_trinary_minmax';  
-{ VK_AMD_shader_explicit_vertex_parameter is a preprocessor guard. Do not pass it to API calls. }
-  VK_AMD_shader_explicit_vertex_parameter = 1;  
+  VK_AMD_shader_explicit_vertex_parameter = 1;
   VK_AMD_SHADER_EXPLICIT_VERTEX_PARAMETER_SPEC_VERSION = 1;  
   VK_AMD_SHADER_EXPLICIT_VERTEX_PARAMETER_EXTENSION_NAME = 'VK_AMD_shader_explicit_vertex_parameter';  
-{ VK_EXT_debug_marker is a preprocessor guard. Do not pass it to API calls. }
-  VK_EXT_debug_marker = 1;  
+  VK_EXT_debug_marker = 1;
   VK_EXT_DEBUG_MARKER_SPEC_VERSION = 4;  
   VK_EXT_DEBUG_MARKER_EXTENSION_NAME = 'VK_EXT_debug_marker';  
 type
-  PVkDebugMarkerObjectNameInfoEXT = ^TVkDebugMarkerObjectNameInfoEXT;
   TVkDebugMarkerObjectNameInfoEXT = record
       sType : TVkStructureType;
       pNext : pointer;
       objectType : TVkDebugReportObjectTypeEXT;
-      object : Tuint64_t;
+      obj : Tuint64_t;
       pObjectName : Pchar;
     end;
+  PVkDebugMarkerObjectNameInfoEXT = ^TVkDebugMarkerObjectNameInfoEXT;
 
-  PVkDebugMarkerObjectTagInfoEXT = ^TVkDebugMarkerObjectTagInfoEXT;
   TVkDebugMarkerObjectTagInfoEXT = record
       sType : TVkStructureType;
       pNext : pointer;
       objectType : TVkDebugReportObjectTypeEXT;
-      object : Tuint64_t;
+      obj : Tuint64_t;
       tagName : Tuint64_t;
       tagSize : Tsize_t;
       pTag : pointer;
     end;
+  PVkDebugMarkerObjectTagInfoEXT = ^TVkDebugMarkerObjectTagInfoEXT;
 
-  PVkDebugMarkerMarkerInfoEXT = ^TVkDebugMarkerMarkerInfoEXT;
   TVkDebugMarkerMarkerInfoEXT = record
       sType : TVkStructureType;
       pNext : pointer;
       pMarkerName : Pchar;
       color : array[0..3] of single;
     end;
+  PVkDebugMarkerMarkerInfoEXT = ^TVkDebugMarkerMarkerInfoEXT;
 
   TPFN_vkDebugMarkerSetObjectTagEXT = function (device:TVkDevice; pTagInfo:PVkDebugMarkerObjectTagInfoEXT):TVkResult;cdecl;
-
   TPFN_vkDebugMarkerSetObjectNameEXT = function (device:TVkDevice; pNameInfo:PVkDebugMarkerObjectNameInfoEXT):TVkResult;cdecl;
-
   TPFN_vkCmdDebugMarkerBeginEXT = procedure (commandBuffer:TVkCommandBuffer; pMarkerInfo:PVkDebugMarkerMarkerInfoEXT);cdecl;
-
   TPFN_vkCmdDebugMarkerEndEXT = procedure (commandBuffer:TVkCommandBuffer);cdecl;
-
   TPFN_vkCmdDebugMarkerInsertEXT = procedure (commandBuffer:TVkCommandBuffer; pMarkerInfo:PVkDebugMarkerMarkerInfoEXT);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkDebugMarkerSetObjectTagEXT(device:TVkDevice; pTagInfo:PVkDebugMarkerObjectTagInfoEXT):TVkResult;cdecl;external libvulkan;
 function vkDebugMarkerSetObjectNameEXT(device:TVkDevice; pNameInfo:PVkDebugMarkerObjectNameInfoEXT):TVkResult;cdecl;external libvulkan;
 procedure vkCmdDebugMarkerBeginEXT(commandBuffer:TVkCommandBuffer; pMarkerInfo:PVkDebugMarkerMarkerInfoEXT);cdecl;external libvulkan;
 procedure vkCmdDebugMarkerEndEXT(commandBuffer:TVkCommandBuffer);cdecl;external libvulkan;
 procedure vkCmdDebugMarkerInsertEXT(commandBuffer:TVkCommandBuffer; pMarkerInfo:PVkDebugMarkerMarkerInfoEXT);cdecl;external libvulkan;
-{$endif}
-{ VK_AMD_gcn_shader is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_AMD_gcn_shader = 1;  
   VK_AMD_GCN_SHADER_SPEC_VERSION = 1;  
   VK_AMD_GCN_SHADER_EXTENSION_NAME = 'VK_AMD_gcn_shader';  
-{ VK_NV_dedicated_allocation is a preprocessor guard. Do not pass it to API calls. }
-  VK_NV_dedicated_allocation = 1;  
+  VK_NV_dedicated_allocation = 1;
   VK_NV_DEDICATED_ALLOCATION_SPEC_VERSION = 1;  
   VK_NV_DEDICATED_ALLOCATION_EXTENSION_NAME = 'VK_NV_dedicated_allocation';  
 type
-  PVkDedicatedAllocationImageCreateInfoNV = ^TVkDedicatedAllocationImageCreateInfoNV;
   TVkDedicatedAllocationImageCreateInfoNV = record
       sType : TVkStructureType;
       pNext : pointer;
       dedicatedAllocation : TVkBool32;
     end;
+  PVkDedicatedAllocationImageCreateInfoNV = ^TVkDedicatedAllocationImageCreateInfoNV;
 
-  PVkDedicatedAllocationBufferCreateInfoNV = ^TVkDedicatedAllocationBufferCreateInfoNV;
   TVkDedicatedAllocationBufferCreateInfoNV = record
       sType : TVkStructureType;
       pNext : pointer;
       dedicatedAllocation : TVkBool32;
     end;
+  PVkDedicatedAllocationBufferCreateInfoNV = ^TVkDedicatedAllocationBufferCreateInfoNV;
 
-  PVkDedicatedAllocationMemoryAllocateInfoNV = ^TVkDedicatedAllocationMemoryAllocateInfoNV;
   TVkDedicatedAllocationMemoryAllocateInfoNV = record
       sType : TVkStructureType;
       pNext : pointer;
       image : TVkImage;
       buffer : TVkBuffer;
     end;
-{ VK_EXT_transform_feedback is a preprocessor guard. Do not pass it to API calls. }
+  PVkDedicatedAllocationMemoryAllocateInfoNV = ^TVkDedicatedAllocationMemoryAllocateInfoNV;
 
 const
   VK_EXT_transform_feedback = 1;  
@@ -11559,15 +11199,14 @@ type
   PVkPipelineRasterizationStateStreamCreateFlagsEXT = ^TVkPipelineRasterizationStateStreamCreateFlagsEXT;
   TVkPipelineRasterizationStateStreamCreateFlagsEXT = TVkFlags;
 
-  PVkPhysicalDeviceTransformFeedbackFeaturesEXT = ^TVkPhysicalDeviceTransformFeedbackFeaturesEXT;
   TVkPhysicalDeviceTransformFeedbackFeaturesEXT = record
       sType : TVkStructureType;
       pNext : pointer;
       transformFeedback : TVkBool32;
       geometryStreams : TVkBool32;
     end;
+  PVkPhysicalDeviceTransformFeedbackFeaturesEXT = ^TVkPhysicalDeviceTransformFeedbackFeaturesEXT;
 
-  PVkPhysicalDeviceTransformFeedbackPropertiesEXT = ^TVkPhysicalDeviceTransformFeedbackPropertiesEXT;
   TVkPhysicalDeviceTransformFeedbackPropertiesEXT = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -11582,29 +11221,22 @@ type
       transformFeedbackRasterizationStreamSelect : TVkBool32;
       transformFeedbackDraw : TVkBool32;
     end;
+  PVkPhysicalDeviceTransformFeedbackPropertiesEXT = ^TVkPhysicalDeviceTransformFeedbackPropertiesEXT;
 
-  PVkPipelineRasterizationStateStreamCreateInfoEXT = ^TVkPipelineRasterizationStateStreamCreateInfoEXT;
   TVkPipelineRasterizationStateStreamCreateInfoEXT = record
       sType : TVkStructureType;
       pNext : pointer;
       flags : TVkPipelineRasterizationStateStreamCreateFlagsEXT;
       rasterizationStream : Tuint32_t;
     end;
+  PVkPipelineRasterizationStateStreamCreateInfoEXT = ^TVkPipelineRasterizationStateStreamCreateInfoEXT;
 
-  TPFN_vkCmdBindTransformFeedbackBuffersEXT = procedure (commandBuffer:TVkCommandBuffer; firstBinding:Tuint32_t; bindingCount:Tuint32_t; pBuffers:PVkBuffer; pOffsets:PVkDeviceSize; 
-                pSizes:PVkDeviceSize);cdecl;
-
+  TPFN_vkCmdBindTransformFeedbackBuffersEXT = procedure (commandBuffer:TVkCommandBuffer; firstBinding:Tuint32_t; bindingCount:Tuint32_t; pBuffers:PVkBuffer; pOffsets:PVkDeviceSize;                 pSizes:PVkDeviceSize);cdecl;
   TPFN_vkCmdBeginTransformFeedbackEXT = procedure (commandBuffer:TVkCommandBuffer; firstCounterBuffer:Tuint32_t; counterBufferCount:Tuint32_t; pCounterBuffers:PVkBuffer; pCounterBufferOffsets:PVkDeviceSize);cdecl;
-
   TPFN_vkCmdEndTransformFeedbackEXT = procedure (commandBuffer:TVkCommandBuffer; firstCounterBuffer:Tuint32_t; counterBufferCount:Tuint32_t; pCounterBuffers:PVkBuffer; pCounterBufferOffsets:PVkDeviceSize);cdecl;
-
   TPFN_vkCmdBeginQueryIndexedEXT = procedure (commandBuffer:TVkCommandBuffer; queryPool:TVkQueryPool; query:Tuint32_t; flags:TVkQueryControlFlags; index:Tuint32_t);cdecl;
-
   TPFN_vkCmdEndQueryIndexedEXT = procedure (commandBuffer:TVkCommandBuffer; queryPool:TVkQueryPool; query:Tuint32_t; index:Tuint32_t);cdecl;
-
-  TPFN_vkCmdDrawIndirectByteCountEXT = procedure (commandBuffer:TVkCommandBuffer; instanceCount:Tuint32_t; firstInstance:Tuint32_t; counterBuffer:TVkBuffer; counterBufferOffset:TVkDeviceSize; 
-                counterOffset:Tuint32_t; vertexStride:Tuint32_t);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
+  TPFN_vkCmdDrawIndirectByteCountEXT = procedure (commandBuffer:TVkCommandBuffer; instanceCount:Tuint32_t; firstInstance:Tuint32_t; counterBuffer:TVkBuffer; counterBufferOffset:TVkDeviceSize;                counterOffset:Tuint32_t; vertexStride:Tuint32_t);cdecl;
 
 procedure vkCmdBindTransformFeedbackBuffersEXT(commandBuffer:TVkCommandBuffer; firstBinding:Tuint32_t; bindingCount:Tuint32_t; pBuffers:PVkBuffer; pOffsets:PVkDeviceSize; 
             pSizes:PVkDeviceSize);cdecl;external libvulkan;
@@ -11614,8 +11246,6 @@ procedure vkCmdBeginQueryIndexedEXT(commandBuffer:TVkCommandBuffer; queryPool:TV
 procedure vkCmdEndQueryIndexedEXT(commandBuffer:TVkCommandBuffer; queryPool:TVkQueryPool; query:Tuint32_t; index:Tuint32_t);cdecl;external libvulkan;
 procedure vkCmdDrawIndirectByteCountEXT(commandBuffer:TVkCommandBuffer; instanceCount:Tuint32_t; firstInstance:Tuint32_t; counterBuffer:TVkBuffer; counterBufferOffset:TVkDeviceSize; 
             counterOffset:Tuint32_t; vertexStride:Tuint32_t);cdecl;external libvulkan;
-{$endif}
-{ VK_NVX_binary_import is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_NVX_binary_import = 1;  
@@ -11630,23 +11260,22 @@ const
   VK_NVX_BINARY_IMPORT_SPEC_VERSION = 1;  
   VK_NVX_BINARY_IMPORT_EXTENSION_NAME = 'VK_NVX_binary_import';  
 type
-  PVkCuModuleCreateInfoNVX = ^TVkCuModuleCreateInfoNVX;
   TVkCuModuleCreateInfoNVX = record
       sType : TVkStructureType;
       pNext : pointer;
       dataSize : Tsize_t;
       pData : pointer;
     end;
+  PVkCuModuleCreateInfoNVX = ^TVkCuModuleCreateInfoNVX;
 
-  PVkCuFunctionCreateInfoNVX = ^TVkCuFunctionCreateInfoNVX;
   TVkCuFunctionCreateInfoNVX = record
       sType : TVkStructureType;
       pNext : pointer;
       module : TVkCuModuleNVX;
       pName : Pchar;
     end;
+  PVkCuFunctionCreateInfoNVX = ^TVkCuFunctionCreateInfoNVX;
 
-  PVkCuLaunchInfoNVX = ^TVkCuLaunchInfoNVX;
   TVkCuLaunchInfoNVX = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -11663,32 +11292,25 @@ type
       extraCount : Tsize_t;
       pExtras : ^pointer;
     end;
+  PVkCuLaunchInfoNVX = ^TVkCuLaunchInfoNVX;
 
   TPFN_vkCreateCuModuleNVX = function (device:TVkDevice; pCreateInfo:PVkCuModuleCreateInfoNVX; pAllocator:PVkAllocationCallbacks; pModule:PVkCuModuleNVX):TVkResult;cdecl;
-
   TPFN_vkCreateCuFunctionNVX = function (device:TVkDevice; pCreateInfo:PVkCuFunctionCreateInfoNVX; pAllocator:PVkAllocationCallbacks; pFunction:PVkCuFunctionNVX):TVkResult;cdecl;
-
   TPFN_vkDestroyCuModuleNVX = procedure (device:TVkDevice; module:TVkCuModuleNVX; pAllocator:PVkAllocationCallbacks);cdecl;
-
   TPFN_vkDestroyCuFunctionNVX = procedure (device:TVkDevice; _function:TVkCuFunctionNVX; pAllocator:PVkAllocationCallbacks);cdecl;
-
   TPFN_vkCmdCuLaunchKernelNVX = procedure (commandBuffer:TVkCommandBuffer; pLaunchInfo:PVkCuLaunchInfoNVX);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkCreateCuModuleNVX(device:TVkDevice; pCreateInfo:PVkCuModuleCreateInfoNVX; pAllocator:PVkAllocationCallbacks; pModule:PVkCuModuleNVX):TVkResult;cdecl;external libvulkan;
 function vkCreateCuFunctionNVX(device:TVkDevice; pCreateInfo:PVkCuFunctionCreateInfoNVX; pAllocator:PVkAllocationCallbacks; pFunction:PVkCuFunctionNVX):TVkResult;cdecl;external libvulkan;
 procedure vkDestroyCuModuleNVX(device:TVkDevice; module:TVkCuModuleNVX; pAllocator:PVkAllocationCallbacks);cdecl;external libvulkan;
 procedure vkDestroyCuFunctionNVX(device:TVkDevice; _function:TVkCuFunctionNVX; pAllocator:PVkAllocationCallbacks);cdecl;external libvulkan;
 procedure vkCmdCuLaunchKernelNVX(commandBuffer:TVkCommandBuffer; pLaunchInfo:PVkCuLaunchInfoNVX);cdecl;external libvulkan;
-{$endif}
-{ VK_NVX_image_view_handle is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_NVX_image_view_handle = 1;  
   VK_NVX_IMAGE_VIEW_HANDLE_SPEC_VERSION = 2;  
   VK_NVX_IMAGE_VIEW_HANDLE_EXTENSION_NAME = 'VK_NVX_image_view_handle';  
 type
-  PVkImageViewHandleInfoNVX = ^TVkImageViewHandleInfoNVX;
   TVkImageViewHandleInfoNVX = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -11696,69 +11318,55 @@ type
       descriptorType : TVkDescriptorType;
       sampler : TVkSampler;
     end;
+  PVkImageViewHandleInfoNVX = ^TVkImageViewHandleInfoNVX;
 
-  PVkImageViewAddressPropertiesNVX = ^TVkImageViewAddressPropertiesNVX;
   TVkImageViewAddressPropertiesNVX = record
       sType : TVkStructureType;
       pNext : pointer;
       deviceAddress : TVkDeviceAddress;
       size : TVkDeviceSize;
     end;
+  PVkImageViewAddressPropertiesNVX = ^TVkImageViewAddressPropertiesNVX;
 
   TPFN_vkGetImageViewHandleNVX = function (device:TVkDevice; pInfo:PVkImageViewHandleInfoNVX):Tuint32_t;cdecl;
-
   TPFN_vkGetImageViewAddressNVX = function (device:TVkDevice; imageView:TVkImageView; pProperties:PVkImageViewAddressPropertiesNVX):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkGetImageViewHandleNVX(device:TVkDevice; pInfo:PVkImageViewHandleInfoNVX):Tuint32_t;cdecl;external libvulkan;
 function vkGetImageViewAddressNVX(device:TVkDevice; imageView:TVkImageView; pProperties:PVkImageViewAddressPropertiesNVX):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_AMD_draw_indirect_count is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_AMD_draw_indirect_count = 1;  
   VK_AMD_DRAW_INDIRECT_COUNT_SPEC_VERSION = 2;  
   VK_AMD_DRAW_INDIRECT_COUNT_EXTENSION_NAME = 'VK_AMD_draw_indirect_count';  
 type
-
-  TPFN_vkCmdDrawIndirectCountAMD = procedure (commandBuffer:TVkCommandBuffer; buffer:TVkBuffer; offset:TVkDeviceSize; countBuffer:TVkBuffer; countBufferOffset:TVkDeviceSize; 
-                maxDrawCount:Tuint32_t; stride:Tuint32_t);cdecl;
-
-  TPFN_vkCmdDrawIndexedIndirectCountAMD = procedure (commandBuffer:TVkCommandBuffer; buffer:TVkBuffer; offset:TVkDeviceSize; countBuffer:TVkBuffer; countBufferOffset:TVkDeviceSize; 
-                maxDrawCount:Tuint32_t; stride:Tuint32_t);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
+  TPFN_vkCmdDrawIndirectCountAMD = procedure (commandBuffer:TVkCommandBuffer; buffer:TVkBuffer; offset:TVkDeviceSize; countBuffer:TVkBuffer; countBufferOffset:TVkDeviceSize;                maxDrawCount:Tuint32_t; stride:Tuint32_t);cdecl;
+  TPFN_vkCmdDrawIndexedIndirectCountAMD = procedure (commandBuffer:TVkCommandBuffer; buffer:TVkBuffer; offset:TVkDeviceSize; countBuffer:TVkBuffer; countBufferOffset:TVkDeviceSize;                maxDrawCount:Tuint32_t; stride:Tuint32_t);cdecl;
 
 procedure vkCmdDrawIndirectCountAMD(commandBuffer:TVkCommandBuffer; buffer:TVkBuffer; offset:TVkDeviceSize; countBuffer:TVkBuffer; countBufferOffset:TVkDeviceSize; 
             maxDrawCount:Tuint32_t; stride:Tuint32_t);cdecl;external libvulkan;
 procedure vkCmdDrawIndexedIndirectCountAMD(commandBuffer:TVkCommandBuffer; buffer:TVkBuffer; offset:TVkDeviceSize; countBuffer:TVkBuffer; countBufferOffset:TVkDeviceSize; 
             maxDrawCount:Tuint32_t; stride:Tuint32_t);cdecl;external libvulkan;
-{$endif}
-{ VK_AMD_negative_viewport_height is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_AMD_negative_viewport_height = 1;  
   VK_AMD_NEGATIVE_VIEWPORT_HEIGHT_SPEC_VERSION = 1;  
   VK_AMD_NEGATIVE_VIEWPORT_HEIGHT_EXTENSION_NAME = 'VK_AMD_negative_viewport_height';  
-{ VK_AMD_gpu_shader_half_float is a preprocessor guard. Do not pass it to API calls. }
-  VK_AMD_gpu_shader_half_float = 1;  
+  VK_AMD_gpu_shader_half_float = 1;
   VK_AMD_GPU_SHADER_HALF_FLOAT_SPEC_VERSION = 2;  
   VK_AMD_GPU_SHADER_HALF_FLOAT_EXTENSION_NAME = 'VK_AMD_gpu_shader_half_float';  
-{ VK_AMD_shader_ballot is a preprocessor guard. Do not pass it to API calls. }
-  VK_AMD_shader_ballot = 1;  
+  VK_AMD_shader_ballot = 1;
   VK_AMD_SHADER_BALLOT_SPEC_VERSION = 1;  
   VK_AMD_SHADER_BALLOT_EXTENSION_NAME = 'VK_AMD_shader_ballot';  
-{ VK_AMD_texture_gather_bias_lod is a preprocessor guard. Do not pass it to API calls. }
-  VK_AMD_texture_gather_bias_lod = 1;  
+  VK_AMD_texture_gather_bias_lod = 1;
   VK_AMD_TEXTURE_GATHER_BIAS_LOD_SPEC_VERSION = 1;  
   VK_AMD_TEXTURE_GATHER_BIAS_LOD_EXTENSION_NAME = 'VK_AMD_texture_gather_bias_lod';  
 type
-  PVkTextureLODGatherFormatPropertiesAMD = ^TVkTextureLODGatherFormatPropertiesAMD;
   TVkTextureLODGatherFormatPropertiesAMD = record
       sType : TVkStructureType;
       pNext : pointer;
       supportsTextureGatherLODBiasAMD : TVkBool32;
     end;
-{ VK_AMD_shader_info is a preprocessor guard. Do not pass it to API calls. }
+  PVkTextureLODGatherFormatPropertiesAMD = ^TVkTextureLODGatherFormatPropertiesAMD;
 
 const
   VK_AMD_shader_info = 1;  
@@ -11772,9 +11380,8 @@ type
     VK_SHADER_INFO_TYPE_BINARY_AMD = 1;
     VK_SHADER_INFO_TYPE_DISASSEMBLY_AMD = 2;
     VK_SHADER_INFO_TYPE_MAX_ENUM_AMD = $7FFFFFFF;
-;
+
 type
-  PVkShaderResourceUsageAMD = ^TVkShaderResourceUsageAMD;
   TVkShaderResourceUsageAMD = record
       numUsedVgprs : Tuint32_t;
       numUsedSgprs : Tuint32_t;
@@ -11782,8 +11389,8 @@ type
       ldsUsageSizeInBytes : Tsize_t;
       scratchMemUsageInBytes : Tsize_t;
     end;
+  PVkShaderResourceUsageAMD = ^TVkShaderResourceUsageAMD;
 
-  PVkShaderStatisticsInfoAMD = ^TVkShaderStatisticsInfoAMD;
   TVkShaderStatisticsInfoAMD = record
       shaderStageMask : TVkShaderStageFlags;
       resourceUsage : TVkShaderResourceUsageAMD;
@@ -11793,39 +11400,33 @@ type
       numAvailableSgprs : Tuint32_t;
       computeWorkGroupSize : array[0..2] of Tuint32_t;
     end;
+  PVkShaderStatisticsInfoAMD = ^TVkShaderStatisticsInfoAMD;
 
-  TPFN_vkGetShaderInfoAMD = function (device:TVkDevice; pipeline:TVkPipeline; shaderStage:TVkShaderStageFlagBits; infoType:TVkShaderInfoTypeAMD; pInfoSize:Psize_t; 
-               pInfo:pointer):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
+  TPFN_vkGetShaderInfoAMD = function (device:TVkDevice; pipeline:TVkPipeline; shaderStage:TVkShaderStageFlagBits; infoType:TVkShaderInfoTypeAMD; pInfoSize:Psize_t;                pInfo:pointer):TVkResult;cdecl;
 
 function vkGetShaderInfoAMD(device:TVkDevice; pipeline:TVkPipeline; shaderStage:TVkShaderStageFlagBits; infoType:TVkShaderInfoTypeAMD; pInfoSize:Psize_t; 
            pInfo:pointer):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_AMD_shader_image_load_store_lod is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_AMD_shader_image_load_store_lod = 1;  
   VK_AMD_SHADER_IMAGE_LOAD_STORE_LOD_SPEC_VERSION = 1;  
   VK_AMD_SHADER_IMAGE_LOAD_STORE_LOD_EXTENSION_NAME = 'VK_AMD_shader_image_load_store_lod';  
-{ VK_NV_corner_sampled_image is a preprocessor guard. Do not pass it to API calls. }
-  VK_NV_corner_sampled_image = 1;  
+  VK_NV_corner_sampled_image = 1;
   VK_NV_CORNER_SAMPLED_IMAGE_SPEC_VERSION = 2;  
   VK_NV_CORNER_SAMPLED_IMAGE_EXTENSION_NAME = 'VK_NV_corner_sampled_image';  
 type
-  PVkPhysicalDeviceCornerSampledImageFeaturesNV = ^TVkPhysicalDeviceCornerSampledImageFeaturesNV;
   TVkPhysicalDeviceCornerSampledImageFeaturesNV = record
       sType : TVkStructureType;
       pNext : pointer;
       cornerSampledImage : TVkBool32;
     end;
-{ VK_IMG_format_pvrtc is a preprocessor guard. Do not pass it to API calls. }
+  PVkPhysicalDeviceCornerSampledImageFeaturesNV = ^TVkPhysicalDeviceCornerSampledImageFeaturesNV;
 
 const
   VK_IMG_format_pvrtc = 1;  
   VK_IMG_FORMAT_PVRTC_SPEC_VERSION = 1;  
   VK_IMG_FORMAT_PVRTC_EXTENSION_NAME = 'VK_IMG_format_pvrtc';  
-{ VK_NV_external_memory_capabilities is a preprocessor guard. Do not pass it to API calls. }
-  VK_NV_external_memory_capabilities = 1;  
+  VK_NV_external_memory_capabilities = 1;
   VK_NV_EXTERNAL_MEMORY_CAPABILITIES_SPEC_VERSION = 1;  
   VK_NV_EXTERNAL_MEMORY_CAPABILITIES_EXTENSION_NAME = 'VK_NV_external_memory_capabilities';  
 type
@@ -11837,11 +11438,11 @@ type
     VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_IMAGE_BIT_NV = $00000004;
     VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_IMAGE_KMT_BIT_NV = $00000008;
     VK_EXTERNAL_MEMORY_HANDLE_TYPE_FLAG_BITS_MAX_ENUM_NV = $7FFFFFFF;
-;
+
 type
   PVkExternalMemoryHandleTypeFlagsNV = ^TVkExternalMemoryHandleTypeFlagsNV;
   TVkExternalMemoryHandleTypeFlagsNV = TVkFlags;
-
+type
   PVkExternalMemoryFeatureFlagBitsNV = ^TVkExternalMemoryFeatureFlagBitsNV;
   TVkExternalMemoryFeatureFlagBitsNV =  Longint;
   Const
@@ -11849,47 +11450,42 @@ type
     VK_EXTERNAL_MEMORY_FEATURE_EXPORTABLE_BIT_NV = $00000002;
     VK_EXTERNAL_MEMORY_FEATURE_IMPORTABLE_BIT_NV = $00000004;
     VK_EXTERNAL_MEMORY_FEATURE_FLAG_BITS_MAX_ENUM_NV = $7FFFFFFF;
-;
+
 type
   PVkExternalMemoryFeatureFlagsNV = ^TVkExternalMemoryFeatureFlagsNV;
   TVkExternalMemoryFeatureFlagsNV = TVkFlags;
 
-  PVkExternalImageFormatPropertiesNV = ^TVkExternalImageFormatPropertiesNV;
   TVkExternalImageFormatPropertiesNV = record
       imageFormatProperties : TVkImageFormatProperties;
       externalMemoryFeatures : TVkExternalMemoryFeatureFlagsNV;
       exportFromImportedHandleTypes : TVkExternalMemoryHandleTypeFlagsNV;
       compatibleHandleTypes : TVkExternalMemoryHandleTypeFlagsNV;
     end;
+  PVkExternalImageFormatPropertiesNV = ^TVkExternalImageFormatPropertiesNV;
 
-  TPFN_vkGetPhysicalDeviceExternalImageFormatPropertiesNV = function (physicalDevice:TVkPhysicalDevice; format:TVkFormat; _type:TVkImageType; tiling:TVkImageTiling; usage:TVkImageUsageFlags; 
-               flags:TVkImageCreateFlags; externalHandleType:TVkExternalMemoryHandleTypeFlagsNV; pExternalImageFormatProperties:PVkExternalImageFormatPropertiesNV):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
+  TPFN_vkGetPhysicalDeviceExternalImageFormatPropertiesNV = function (physicalDevice:TVkPhysicalDevice; format:TVkFormat; _type:TVkImageType; tiling:TVkImageTiling; usage:TVkImageUsageFlags;                flags:TVkImageCreateFlags; externalHandleType:TVkExternalMemoryHandleTypeFlagsNV; pExternalImageFormatProperties:PVkExternalImageFormatPropertiesNV):TVkResult;cdecl;
 
 function vkGetPhysicalDeviceExternalImageFormatPropertiesNV(physicalDevice:TVkPhysicalDevice; format:TVkFormat; _type:TVkImageType; tiling:TVkImageTiling; usage:TVkImageUsageFlags; 
            flags:TVkImageCreateFlags; externalHandleType:TVkExternalMemoryHandleTypeFlagsNV; pExternalImageFormatProperties:PVkExternalImageFormatPropertiesNV):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_NV_external_memory is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_NV_external_memory = 1;  
   VK_NV_EXTERNAL_MEMORY_SPEC_VERSION = 1;  
   VK_NV_EXTERNAL_MEMORY_EXTENSION_NAME = 'VK_NV_external_memory';  
 type
-  PVkExternalMemoryImageCreateInfoNV = ^TVkExternalMemoryImageCreateInfoNV;
   TVkExternalMemoryImageCreateInfoNV = record
       sType : TVkStructureType;
       pNext : pointer;
       handleTypes : TVkExternalMemoryHandleTypeFlagsNV;
     end;
+  PVkExternalMemoryImageCreateInfoNV = ^TVkExternalMemoryImageCreateInfoNV;
 
-  PVkExportMemoryAllocateInfoNV = ^TVkExportMemoryAllocateInfoNV;
   TVkExportMemoryAllocateInfoNV = record
       sType : TVkStructureType;
       pNext : pointer;
       handleTypes : TVkExternalMemoryHandleTypeFlagsNV;
     end;
-{ VK_EXT_validation_flags is a preprocessor guard. Do not pass it to API calls. }
+  PVkExportMemoryAllocateInfoNV = ^TVkExportMemoryAllocateInfoNV;
 
 const
   VK_EXT_validation_flags = 1;  
@@ -11902,53 +11498,48 @@ type
     VK_VALIDATION_CHECK_ALL_EXT = 0;
     VK_VALIDATION_CHECK_SHADERS_EXT = 1;
     VK_VALIDATION_CHECK_MAX_ENUM_EXT = $7FFFFFFF;
-;
+
 type
-  PVkValidationFlagsEXT = ^TVkValidationFlagsEXT;
   TVkValidationFlagsEXT = record
       sType : TVkStructureType;
       pNext : pointer;
       disabledValidationCheckCount : Tuint32_t;
       pDisabledValidationChecks : PVkValidationCheckEXT;
     end;
-{ VK_EXT_shader_subgroup_ballot is a preprocessor guard. Do not pass it to API calls. }
+  PVkValidationFlagsEXT = ^TVkValidationFlagsEXT;
 
 const
   VK_EXT_shader_subgroup_ballot = 1;  
   VK_EXT_SHADER_SUBGROUP_BALLOT_SPEC_VERSION = 1;  
   VK_EXT_SHADER_SUBGROUP_BALLOT_EXTENSION_NAME = 'VK_EXT_shader_subgroup_ballot';  
-{ VK_EXT_shader_subgroup_vote is a preprocessor guard. Do not pass it to API calls. }
-  VK_EXT_shader_subgroup_vote = 1;  
+  VK_EXT_shader_subgroup_vote = 1;
   VK_EXT_SHADER_SUBGROUP_VOTE_SPEC_VERSION = 1;  
   VK_EXT_SHADER_SUBGROUP_VOTE_EXTENSION_NAME = 'VK_EXT_shader_subgroup_vote';  
-{ VK_EXT_texture_compression_astc_hdr is a preprocessor guard. Do not pass it to API calls. }
-  VK_EXT_texture_compression_astc_hdr = 1;  
+  VK_EXT_texture_compression_astc_hdr = 1;
   VK_EXT_TEXTURE_COMPRESSION_ASTC_HDR_SPEC_VERSION = 1;  
   VK_EXT_TEXTURE_COMPRESSION_ASTC_HDR_EXTENSION_NAME = 'VK_EXT_texture_compression_astc_hdr';  
 type
   PVkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT = ^TVkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT;
   TVkPhysicalDeviceTextureCompressionASTCHDRFeaturesEXT = TVkPhysicalDeviceTextureCompressionASTCHDRFeatures;
-{ VK_EXT_astc_decode_mode is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_EXT_astc_decode_mode = 1;  
   VK_EXT_ASTC_DECODE_MODE_SPEC_VERSION = 1;  
   VK_EXT_ASTC_DECODE_MODE_EXTENSION_NAME = 'VK_EXT_astc_decode_mode';  
 type
-  PVkImageViewASTCDecodeModeEXT = ^TVkImageViewASTCDecodeModeEXT;
   TVkImageViewASTCDecodeModeEXT = record
       sType : TVkStructureType;
       pNext : pointer;
       decodeMode : TVkFormat;
     end;
+  PVkImageViewASTCDecodeModeEXT = ^TVkImageViewASTCDecodeModeEXT;
 
-  PVkPhysicalDeviceASTCDecodeFeaturesEXT = ^TVkPhysicalDeviceASTCDecodeFeaturesEXT;
   TVkPhysicalDeviceASTCDecodeFeaturesEXT = record
       sType : TVkStructureType;
       pNext : pointer;
       decodeModeSharedExponent : TVkBool32;
     end;
-{ VK_EXT_pipeline_robustness is a preprocessor guard. Do not pass it to API calls. }
+  PVkPhysicalDeviceASTCDecodeFeaturesEXT = ^TVkPhysicalDeviceASTCDecodeFeaturesEXT;
 
 const
   VK_EXT_pipeline_robustness = 1;  
@@ -11963,7 +11554,7 @@ type
     VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_EXT = 2;
     VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_2_EXT = 3;
     VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_MAX_ENUM_EXT = $7FFFFFFF;
-;
+
 type
   PVkPipelineRobustnessImageBehaviorEXT = ^TVkPipelineRobustnessImageBehaviorEXT;
   TVkPipelineRobustnessImageBehaviorEXT =  Longint;
@@ -11973,16 +11564,15 @@ type
     VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_ROBUST_IMAGE_ACCESS_EXT = 2;
     VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_ROBUST_IMAGE_ACCESS_2_EXT = 3;
     VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_MAX_ENUM_EXT = $7FFFFFFF;
-;
+
 type
-  PVkPhysicalDevicePipelineRobustnessFeaturesEXT = ^TVkPhysicalDevicePipelineRobustnessFeaturesEXT;
   TVkPhysicalDevicePipelineRobustnessFeaturesEXT = record
       sType : TVkStructureType;
       pNext : pointer;
       pipelineRobustness : TVkBool32;
     end;
+  PVkPhysicalDevicePipelineRobustnessFeaturesEXT = ^TVkPhysicalDevicePipelineRobustnessFeaturesEXT;
 
-  PVkPhysicalDevicePipelineRobustnessPropertiesEXT = ^TVkPhysicalDevicePipelineRobustnessPropertiesEXT;
   TVkPhysicalDevicePipelineRobustnessPropertiesEXT = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -11991,8 +11581,8 @@ type
       defaultRobustnessVertexInputs : TVkPipelineRobustnessBufferBehaviorEXT;
       defaultRobustnessImages : TVkPipelineRobustnessImageBehaviorEXT;
     end;
+  PVkPhysicalDevicePipelineRobustnessPropertiesEXT = ^TVkPhysicalDevicePipelineRobustnessPropertiesEXT;
 
-  PVkPipelineRobustnessCreateInfoEXT = ^TVkPipelineRobustnessCreateInfoEXT;
   TVkPipelineRobustnessCreateInfoEXT = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -12001,7 +11591,7 @@ type
       vertexInputs : TVkPipelineRobustnessBufferBehaviorEXT;
       images : TVkPipelineRobustnessImageBehaviorEXT;
     end;
-{ VK_EXT_conditional_rendering is a preprocessor guard. Do not pass it to API calls. }
+  PVkPipelineRobustnessCreateInfoEXT = ^TVkPipelineRobustnessCreateInfoEXT;
 
 const
   VK_EXT_conditional_rendering = 1;  
@@ -12013,12 +11603,11 @@ type
   Const
     VK_CONDITIONAL_RENDERING_INVERTED_BIT_EXT = $00000001;
     VK_CONDITIONAL_RENDERING_FLAG_BITS_MAX_ENUM_EXT = $7FFFFFFF;
-;
+
 type
   PVkConditionalRenderingFlagsEXT = ^TVkConditionalRenderingFlagsEXT;
   TVkConditionalRenderingFlagsEXT = TVkFlags;
 
-  PVkConditionalRenderingBeginInfoEXT = ^TVkConditionalRenderingBeginInfoEXT;
   TVkConditionalRenderingBeginInfoEXT = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -12026,44 +11615,40 @@ type
       offset : TVkDeviceSize;
       flags : TVkConditionalRenderingFlagsEXT;
     end;
+  PVkConditionalRenderingBeginInfoEXT = ^TVkConditionalRenderingBeginInfoEXT;
 
-  PVkPhysicalDeviceConditionalRenderingFeaturesEXT = ^TVkPhysicalDeviceConditionalRenderingFeaturesEXT;
   TVkPhysicalDeviceConditionalRenderingFeaturesEXT = record
       sType : TVkStructureType;
       pNext : pointer;
       conditionalRendering : TVkBool32;
       inheritedConditionalRendering : TVkBool32;
     end;
+  PVkPhysicalDeviceConditionalRenderingFeaturesEXT = ^TVkPhysicalDeviceConditionalRenderingFeaturesEXT;
 
-  PVkCommandBufferInheritanceConditionalRenderingInfoEXT = ^TVkCommandBufferInheritanceConditionalRenderingInfoEXT;
   TVkCommandBufferInheritanceConditionalRenderingInfoEXT = record
       sType : TVkStructureType;
       pNext : pointer;
       conditionalRenderingEnable : TVkBool32;
     end;
+  PVkCommandBufferInheritanceConditionalRenderingInfoEXT = ^TVkCommandBufferInheritanceConditionalRenderingInfoEXT;
 
   TPFN_vkCmdBeginConditionalRenderingEXT = procedure (commandBuffer:TVkCommandBuffer; pConditionalRenderingBegin:PVkConditionalRenderingBeginInfoEXT);cdecl;
-
   TPFN_vkCmdEndConditionalRenderingEXT = procedure (commandBuffer:TVkCommandBuffer);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 procedure vkCmdBeginConditionalRenderingEXT(commandBuffer:TVkCommandBuffer; pConditionalRenderingBegin:PVkConditionalRenderingBeginInfoEXT);cdecl;external libvulkan;
 procedure vkCmdEndConditionalRenderingEXT(commandBuffer:TVkCommandBuffer);cdecl;external libvulkan;
-{$endif}
-{ VK_NV_clip_space_w_scaling is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_NV_clip_space_w_scaling = 1;  
   VK_NV_CLIP_SPACE_W_SCALING_SPEC_VERSION = 1;  
   VK_NV_CLIP_SPACE_W_SCALING_EXTENSION_NAME = 'VK_NV_clip_space_w_scaling';  
 type
-  PVkViewportWScalingNV = ^TVkViewportWScalingNV;
   TVkViewportWScalingNV = record
       xcoeff : single;
       ycoeff : single;
     end;
+  PVkViewportWScalingNV = ^TVkViewportWScalingNV;
 
-  PVkPipelineViewportWScalingStateCreateInfoNV = ^TVkPipelineViewportWScalingStateCreateInfoNV;
   TVkPipelineViewportWScalingStateCreateInfoNV = record
       sType : TVkStructureType;
       pNext : pointer;
@@ -12071,26 +11656,20 @@ type
       viewportCount : Tuint32_t;
       pViewportWScalings : PVkViewportWScalingNV;
     end;
+  PVkPipelineViewportWScalingStateCreateInfoNV = ^TVkPipelineViewportWScalingStateCreateInfoNV;
 
   TPFN_vkCmdSetViewportWScalingNV = procedure (commandBuffer:TVkCommandBuffer; firstViewport:Tuint32_t; viewportCount:Tuint32_t; pViewportWScalings:PVkViewportWScalingNV);cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 procedure vkCmdSetViewportWScalingNV(commandBuffer:TVkCommandBuffer; firstViewport:Tuint32_t; viewportCount:Tuint32_t; pViewportWScalings:PVkViewportWScalingNV);cdecl;external libvulkan;
-{$endif}
-{ VK_EXT_direct_mode_display is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_EXT_direct_mode_display = 1;  
   VK_EXT_DIRECT_MODE_DISPLAY_SPEC_VERSION = 1;  
   VK_EXT_DIRECT_MODE_DISPLAY_EXTENSION_NAME = 'VK_EXT_direct_mode_display';  
 type
-
   TPFN_vkReleaseDisplayEXT = function (physicalDevice:TVkPhysicalDevice; display:TVkDisplayKHR):TVkResult;cdecl;
-{$ifndef VK_NO_PROTOTYPES}
 
 function vkReleaseDisplayEXT(physicalDevice:TVkPhysicalDevice; display:TVkDisplayKHR):TVkResult;cdecl;external libvulkan;
-{$endif}
-{ VK_EXT_display_surface_counter is a preprocessor guard. Do not pass it to API calls. }
 
 const
   VK_EXT_display_surface_counter = 1;  
@@ -15819,7 +15398,7 @@ type
   TPFN_vkCmdSetDescriptorBufferOffsetsEXT = procedure (commandBuffer:TVkCommandBuffer; pipelineBindPoint:TVkPipelineBindPoint; layout:TVkPipelineLayout; firstSet:Tuint32_t; setCount:Tuint32_t; 
                 pBufferIndices:Puint32_t; pOffsets:PVkDeviceSize);cdecl;
 
-  TPFN_vkCmdBindDescriptorBufferEmbeddedSamplersEXT = procedure (commandBuffer:TVkCommandBuffer; pipelineBindPoint:TVkPipelineBindPoint; layout:TVkPipelineLayout; set:Tuint32_t);cdecl;
+  TPFN_vkCmdBindDescriptorBufferEmbeddedSamplersEXT = procedure (commandBuffer:TVkCommandBuffer; pipelineBindPoint:TVkPipelineBindPoint; layout:TVkPipelineLayout; set_:Tuint32_t);cdecl;
 
   TPFN_vkGetBufferOpaqueCaptureDescriptorDataEXT = function (device:TVkDevice; pInfo:PVkBufferCaptureDescriptorDataInfoEXT; pData:pointer):TVkResult;cdecl;
 
@@ -15838,7 +15417,7 @@ procedure vkGetDescriptorEXT(device:TVkDevice; pDescriptorInfo:PVkDescriptorGetI
 procedure vkCmdBindDescriptorBuffersEXT(commandBuffer:TVkCommandBuffer; bufferCount:Tuint32_t; pBindingInfos:PVkDescriptorBufferBindingInfoEXT);cdecl;external libvulkan;
 procedure vkCmdSetDescriptorBufferOffsetsEXT(commandBuffer:TVkCommandBuffer; pipelineBindPoint:TVkPipelineBindPoint; layout:TVkPipelineLayout; firstSet:Tuint32_t; setCount:Tuint32_t; 
             pBufferIndices:Puint32_t; pOffsets:PVkDeviceSize);cdecl;external libvulkan;
-procedure vkCmdBindDescriptorBufferEmbeddedSamplersEXT(commandBuffer:TVkCommandBuffer; pipelineBindPoint:TVkPipelineBindPoint; layout:TVkPipelineLayout; set:Tuint32_t);cdecl;external libvulkan;
+procedure vkCmdBindDescriptorBufferEmbeddedSamplersEXT(commandBuffer:TVkCommandBuffer; pipelineBindPoint:TVkPipelineBindPoint; layout:TVkPipelineLayout; set_:Tuint32_t);cdecl;external libvulkan;
 function vkGetBufferOpaqueCaptureDescriptorDataEXT(device:TVkDevice; pInfo:PVkBufferCaptureDescriptorDataInfoEXT; pData:pointer):TVkResult;cdecl;external libvulkan;
 function vkGetImageOpaqueCaptureDescriptorDataEXT(device:TVkDevice; pInfo:PVkImageCaptureDescriptorDataInfoEXT; pData:pointer):TVkResult;cdecl;external libvulkan;
 function vkGetImageViewOpaqueCaptureDescriptorDataEXT(device:TVkDevice; pInfo:PVkImageViewCaptureDescriptorDataInfoEXT; pData:pointer):TVkResult;cdecl;external libvulkan;
