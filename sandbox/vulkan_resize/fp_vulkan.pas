@@ -8,7 +8,7 @@ const
   {$ENDIF}
 
   {$IFDEF Windows}
-  libvulkan = 'vulkan.dll';  // ?????
+  libvulkan = 'vulkan-1.dll';
   {$ENDIF}
 
 
