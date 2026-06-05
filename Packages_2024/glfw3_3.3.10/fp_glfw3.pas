@@ -16,11 +16,11 @@ const
   {$endif}
 
 type
-  TVkInstance = Pointer;
-  TVkPhysicalDevice = Pointer;
-  PVkAllocationCallbacks = Pointer;
-  PVkSurfaceKHR = Pointer;
-  TVkResult = Pointer;
+  TVkInstance = type Pointer;
+  TVkPhysicalDevice = type  Pointer;
+  PVkAllocationCallbacks = type Pointer;
+  PVkSurfaceKHR = type Pointer;
+  TVkResult = longint;
 
   {$IFDEF FPC}
   {$PACKRECORDS C}
@@ -528,7 +528,7 @@ function glfwGetPhysicalDevicePresentationSupport(instance: TVkInstance; device:
 function glfwCreateWindowSurface(instance: TVkInstance; window: PGLFWwindow; allocator: PVkAllocationCallbacks; surface: PVkSurfaceKHR): TVkResult; cdecl; external libglfw;
 
 
-  // === Konventiert am: 21-6-25 15:14:27 ===
+// === Konventiert am: 21-6-25 15:14:27 ===
 
 
 implementation
