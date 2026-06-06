@@ -14,6 +14,7 @@ const
 const
   VK_API_VERSION_1_0 = (0 shl 29) or (1 shl 22) or (0 shl 12) or 0;
   VK_HEADER_VERSION = 275;
+  VK_HEADER_VERSION_COMPLETE = $00403113;
 
 type
   PVkBool32 = ^TVkBool32;

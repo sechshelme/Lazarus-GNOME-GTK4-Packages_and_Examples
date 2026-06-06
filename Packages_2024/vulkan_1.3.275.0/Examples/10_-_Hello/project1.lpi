@@ -25,6 +25,9 @@
     </RunParams>
     <RequiredPackages>
       <Item>
+        <PackageName Value="fp_shaderc_package"/>
+      </Item>
+      <Item>
         <PackageName Value="fp_vulkan_package"/>
       </Item>
       <Item>
