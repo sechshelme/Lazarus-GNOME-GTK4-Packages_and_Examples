@@ -1,8 +1,29 @@
 program project1;
 
 uses
-  SysUtils,
   vulkan_core,
+
+
+vk_icd,
+vk_layer,
+//vulkan_android,
+//vulkan_beta,
+//vulkan_directfb,
+//vulkan_fuchsia,
+//vulkan_ggp,
+//vulkan_ios,
+//vulkan_macos,
+//vulkan_metal,
+//vulkan_screen,
+//vulkan_vi,
+//vulkan_wayland,
+//vulkan_win32,
+//vulkan_xcb,
+//vulkan_xlib,
+//vulkan_xlib_xrandr,
+
+
+
   fp_vulkan,
   fp_glfw3;
 
@@ -70,7 +91,7 @@ var
     Reset(f, 1);
     {$I+}
     if IOResult <> 0 then begin
-      Writeln(StdErr, Format('Fehler: Shader-Datei %s konnte nicht geoeffnet werden!', [filename]));
+      Writeln('Fehler: Shader-Datei %s konnte nicht geoeffnet werden!', filename);
       Halt(1);
     end;
     size := FileSize(f);

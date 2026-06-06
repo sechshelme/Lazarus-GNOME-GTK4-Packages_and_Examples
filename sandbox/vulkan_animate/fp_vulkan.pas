@@ -42,6 +42,8 @@ type
   Tsize_t=SizeUInt;
   Psize_t=^Tsize_t;
 
+  Tuintptr_t=PtrInt;
+
 
 
   {$IFDEF FPC}

@@ -57,7 +57,7 @@ var
   s: string;
 begin
   Memo1.Clear;
-  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/libbson-1.0/bson', '*.h', True);
+  slFile := FindAllFiles('/n4800/DATEN/Programmierung/mit_GIT/Lazarus/Tutorial/GNOME/Package_Tools/include-C/vulkan', '*.h', True);
   Memo1.Lines := slFile;
 
   for i := 0 to slFile.Count - 1 do begin
@@ -90,32 +90,11 @@ begin
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_DEPRECATED', '/*G_GNUC_DEPRECATED*/', [rfReplaceAll]);
 
 
-      slHeader[j] := StringReplace(slHeader[j], '_CBOR_NODISCARD', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_10', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_12', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_14', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_16', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_18', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_20', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_22', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_24', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_30', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_32', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_34', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_38', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_42', 'extern', [rfReplaceAll]);
-
-      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_2', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_4', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_5', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'NM_AVAILABLE_IN_1_8', 'extern', [rfReplaceAll]);
 
 
-      slHeader[j] := StringReplace(slHeader[j], 'BSON_GNUC_NULL_TERMINATED', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'BSON_BEGIN_DECLS', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'BSON_END_DECLS', '', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'BSON_GNUC_DEPRECATED', ';//xxxxxxxx BSON_GNUC_DEPRECATED;', [rfReplaceAll]);
-
+      slHeader[j] := StringReplace(slHeader[j], 'VKAPI_CALL', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'VKAPI_PTR', '', [rfReplaceAll]);
+      slHeader[j] := StringReplace(slHeader[j], 'VKAPI_ATTR', 'extern', [rfReplaceAll]);
 
 
 
@@ -125,17 +104,9 @@ begin
 
 
 
-      slHeader[j] := StringReplace(slHeader[j], 'BSON_EXPORT', 'extern', [rfReplaceAll]);
-      slHeader[j] := StringReplace(slHeader[j], 'MONGOC_EXPORT', 'extern', [rfReplaceAll]);
       slHeader[j] := StringReplace(slHeader[j], 'G_GNUC_NULL_TERMINATED', '', [rfReplaceAll]);
 
 
-
-
-      //slHeader[j] := StringReplace(slHeader[j], 'HPDF_EXPORT(const char *)', 'extern char *', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'HPDF_EXPORT(HPDF_Doc)', 'extern HPDF_Doc', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'HPDF_EXPORT(HPDF_STATUS)', 'extern HPDF_STATUS', [rfReplaceAll]);
-      //slHeader[j] := StringReplace(slHeader[j], 'HPDF_EXPORT(void)', 'extern void', [rfReplaceAll]);
 
 
 
