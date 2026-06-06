@@ -1,34 +1,4 @@
-unit vk_icd;
-
-interface
-
-uses
-  fp_vulkan, vulkan_core;
-
-
-type
-  TLUID = int64;
-  PMirConnection = Pointer;
-  PMirSurface = Pointer;
-  Pwl_display = Pointer;
-  Pwl_surface = Pointer;
-  THINSTANCE = Pointer;
-  THWND = Pointer;
-  Pxcb_connection_t = Pointer;
-  Txcb_window_t = longint;
-  PDisplay = Pointer;
-  TWindow = longint;
-  PIDirectFB = Pointer;
-  PIDirectFBSurface = Pointer;
-  PANativeWindow = Pointer;
-  TGgpStreamDescriptor = uint32;
-  PCAMetalLayer = Pointer;
-  Pscreen_context = Pointer;
-  Pscreen_window = Pointer;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -214,7 +184,10 @@ type
   // === Konventiert am: 6-6-26 15:46:06 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 procedure set_loader_magic_value(pNewObject: Pointer);
 var
@@ -235,4 +208,4 @@ end;
 
 
 
-end.
+{$ENDIF read_implementation}

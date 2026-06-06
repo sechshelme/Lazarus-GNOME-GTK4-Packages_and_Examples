@@ -1,13 +1,4 @@
-unit vulkan_core;
-
-interface
-
-uses
-  fp_vulkan;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -18990,7 +18981,10 @@ function VK_MAKE_API_VERSION(variant, major, minor, patch: uint32): uint32; inli
 function VK_MAKE_VERSION(major, minor, patch: uint32): uint32; inline;
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function VK_MAKE_API_VERSION(variant, major, minor, patch: uint32): uint32; inline;
 begin
@@ -19004,4 +18998,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

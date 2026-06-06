@@ -1,13 +1,4 @@
-unit vk_layer;
-
-interface
-
-uses
-  fp_vulkan, vulkan_core;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
 const
@@ -15,9 +6,6 @@ const
   CURRENT_LOADER_LAYER_INTERFACE_VERSION = 2;
   MIN_SUPPORTED_LOADER_LAYER_INTERFACE_VERSION = 1;
   VK_CURRENT_CHAIN_VERSION = 1;
-
-type
-  TPFN_GetPhysicalDeviceProcAddr = function(instance: TVkInstance; pName: pchar): TPFN_vkVoidFunction; cdecl;
 
 type
   PVkNegotiateLayerStructType = ^TVkNegotiateLayerStructType;
@@ -178,8 +166,11 @@ type
   // === Konventiert am: 6-6-26 15:46:03 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

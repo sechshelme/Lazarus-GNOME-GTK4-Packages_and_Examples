@@ -1,29 +1,6 @@
 program project1;
 
 uses
-  vulkan_core,
-
-
-vk_icd,
-vk_layer,
-//vulkan_android,
-//vulkan_beta,
-//vulkan_directfb,
-//vulkan_fuchsia,
-//vulkan_ggp,
-//vulkan_ios,
-//vulkan_macos,
-//vulkan_metal,
-//vulkan_screen,
-//vulkan_vi,
-//vulkan_wayland,
-//vulkan_win32,
-//vulkan_xcb,
-//vulkan_xlib,
-//vulkan_xlib_xrandr,
-
-
-
   fp_vulkan,
   fp_glfw3;
 
