@@ -38,6 +38,9 @@
       <Unit>
         <Filename Value="project1.lpr"/>
       </Unit>
+      <Unit>
+        <Filename Value="shader.pas"/>
+      </Unit>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

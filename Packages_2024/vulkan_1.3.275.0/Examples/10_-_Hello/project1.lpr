@@ -3,73 +3,8 @@ program project1;
 uses
   fp_shaderc,
   fp_vulkan,
-  fp_glfw3;
-
-
-const
-  VertexShaderSource =
-    '#version 450' + #10 +
-    '' + #10 +
-    'layout(location = 0) out vec3 fragColor;' + #10 +
-    '' + #10 +
-    '// Idiotensicheres Layout: vec4 ist immer exakt 16 Byte groß' + #10 +
-    'layout(push_constant) uniform PushConstants {' + #10 +
-    '    vec4 pos[3];' + #10 +
-    '    vec4 col[3];' + #10 +
-    '    float scale;' + #10 +
-    '} pc;' + #10 +
-    '' + #10 +
-    'void main() {' + #10 +
-    '    // Wir greifen nur auf .xy (Position) und .rgb (Farbe) zu' + #10 +
-    '    vec2 position = pc.pos[gl_VertexIndex].xy;' + #10 +
-    '    vec3 color = pc.col[gl_VertexIndex].rgb;' + #10 +
-    '' + #10 +
-    '    // Animieren' + #10 +
-    '    vec2 scaledPos = position * pc.scale;' + #10 +
-    '    ' + #10 +
-    '    gl_Position = vec4(scaledPos, 0.0, 1.0);' + #10 +
-    '    fragColor = color;' + #10 +
-    '}';
-
-const
-  FragmentShaderSource =
-    '#version 450' + #10 +
-    '' + #10 +
-    'layout(location = 0) in vec3 fragColor;' + #10 +
-    'layout(location = 0) out vec4 outColor;' + #10 +
-    '' + #10 +
-    'void main() {' + #10 +
-    '    outColor = vec4(fragColor, 1.0);' + #10 +
-    '}';
-
-
-function PCharToSpriV(kind: Tshaderc_shader_kind; src: pchar): AnsiString;
-var
-  compiler: Pshaderc_compiler;
-  res: Pshaderc_compilation_result;
-  spirv_size: Tsize_t;
-  spirv_data: pansichar;
-begin
-  compiler := shaderc_compiler_initialize;
-  res := shaderc_compile_into_spv(compiler, src, Length(src), kind, 'shader.glsl', 'main', nil);
-  if shaderc_result_get_compilation_status(res) <> shaderc_compilation_status_success then begin
-    WriteLn('Shaderc error: %s'#10, shaderc_result_get_error_message(res));
-    shaderc_result_release(res);
-    shaderc_compiler_release(compiler);
-    exit('');
-  end;
-
-  spirv_size := shaderc_result_get_length(res);
-  spirv_data := shaderc_result_get_bytes(res);
-
-  SetLength(Result, spirv_size);
-  Move(spirv_data[0], Result[1], spirv_size);
-
-  shaderc_result_release(res);
-  shaderc_compiler_release(compiler);
-end;
-
-
+  fp_glfw3,
+  shader;
 
 const
   WIDTH = 800;
@@ -77,14 +12,15 @@ const
 
 type
   TPushConstants = record
-    pos: array[0..2, 0..3] of single; // [x, y, 0, 0] * 3 Vertices
-    col: array[0..2, 0..3] of single; // [r, g, b, 0] * 3 Vertices
+    pos: array[0..2, 0..3] of single;
+    col: array[0..2, 0..3] of single;
     scale: single;
   end;
   PPushConstants = ^TPushConstants;
 
 var
   window: PGLFWwindow;
+
   instance: TVkInstance;
   physicalDevice: TVkPhysicalDevice = nil;
   device: TVkDevice;
@@ -100,11 +36,9 @@ var
   pipelineLayout: TVkPipelineLayout;
   graphicsPipeline: TVkPipeline;
   swapChainFramebuffers: ^TVkFramebuffer;
-
   renderPass: TVkRenderPass;
   commandPool: TVkCommandPool;
   commandBuffer: TVkCommandBuffer;
-
   imageAvailableSemaphore: TVkSemaphore;
   renderFinishedSemaphore: TVkSemaphore;
   inFlightFence: TVkFence;
@@ -112,12 +46,14 @@ var
   currentZoom: single = 1.0;
   framebufferResized: boolean = False;
 
-  procedure framebufferResizeCallback(window: PGLFWwindow; width, height: integer); cdecl;
+  // ==== glfw
+
+  procedure glfw_resize_cb(window: PGLFWwindow; width, height: integer); cdecl;
   begin
     framebufferResized := True;
   end;
 
-  procedure scroll_callback(window: PGLFWwindow; xoffset, yoffset: double); cdecl;
+  procedure glfw_scroll_cb(window: PGLFWwindow; xoffset, yoffset: double); cdecl;
   begin
     currentZoom := currentZoom + (yoffset * 0.1);
     if currentZoom < 0.1 then begin
@@ -125,51 +61,18 @@ var
     end;
   end;
 
-  function readBinaryFile(filename: pansichar; out size: PtrUInt): Pointer;
-  var
-    f: file;
-    buffer: Pointer;
-  begin
-    Assign(f, filename);
-    {$I-}
-    Reset(f, 1);
-    {$I+}
-    if IOResult <> 0 then begin
-      Writeln('Fehler: Shader-Datei %s konnte nicht geoeffnet werden!', filename);
-      Halt(1);
-    end;
-    size := FileSize(f);
-    GetMem(buffer, size);
-    BlockRead(f, buffer^, size);
-    Close(f);
-    Result := buffer;
-  end;
-
-  function createShaderModule(code: Pointer; size: PtrUInt): TVkShaderModule;
-  var
-    createInfo: TVkShaderModuleCreateInfo;
-  begin
-    FillChar(createInfo, SizeOf(createInfo), 0);
-    createInfo.sType := VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
-    createInfo.codeSize := size;
-    createInfo.pCode := PUInt32(code);
-    if vkCreateShaderModule(device, @createInfo, nil, @Result) <> VK_SUCCESS then begin
-      Writeln(StdErr, 'Fehler: Shader-Modul konnte nicht erstellt werden!');
-      Halt(1);
-    end;
-  end;
-
   procedure initWindow;
   begin
-    glfwInit();
+    glfwInit;
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
     glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
     window := glfwCreateWindow(WIDTH, HEIGHT, 'Vulkan Animiertes Dreieck', nil, nil);
 
-    // Callbacks registrieren
-    glfwSetScrollCallback(window, @scroll_callback);
-    glfwSetFramebufferSizeCallback(window, @framebufferResizeCallback);
+    glfwSetScrollCallback(window, @glfw_scroll_cb);
+    glfwSetFramebufferSizeCallback(window, @glfw_resize_cb);
   end;
+
+  // ==== vulkan
 
   procedure createSwapChain;
   var
@@ -229,10 +132,23 @@ var
     end;
   end;
 
+  function createShaderModule(code: Pointer; size: PtrUInt): TVkShaderModule;
+  var
+    createInfo: TVkShaderModuleCreateInfo;
+  begin
+    FillChar(createInfo, SizeOf(createInfo), 0);
+    createInfo.sType := VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+    createInfo.codeSize := size;
+    createInfo.pCode := PUInt32(code);
+    if vkCreateShaderModule(device, @createInfo, nil, @Result) <> VK_SUCCESS then begin
+      Writeln(StdErr, 'Fehler: Shader-Modul konnte nicht erstellt werden!');
+      Halt(1);
+    end;
+  end;
+
   procedure createGraphicsPipeline;
   var
-    vertSize, fragSize: PtrUInt;
-    vertCode, fragCode: Pointer;
+    vertCode, fragCode: rawbytestring;
     vertShaderModule, fragShaderModule: TVkShaderModule;
     shaderStages: array[0..1] of TVkPipelineShaderStageCreateInfo;
     vertexInputInfo: TVkPipelineVertexInputStateCreateInfo;
@@ -247,22 +163,11 @@ var
     pushConstantRange: TVkPushConstantRange;
     pipelineLayoutInfo: TVkPipelineLayoutCreateInfo;
     pipelineInfo: TVkGraphicsPipelineCreateInfo;
-    v, f: String;
   begin
-
-    v:=   PCharToSpriV( shaderc_vertex_shader,VertexShaderSource);
-    vertCode:=PChar(v);
-    f:=   PCharToSpriV( shaderc_fragment_shader,FragmentShaderSource);
-    fragCode:=PChar(f);
-    vertShaderModule := createShaderModule(vertCode, Length(v));
-    fragShaderModule := createShaderModule(fragCode, Length(f));
-
-//    vertCode := readBinaryFile('vert.spv', vertSize);
-//    fragCode := readBinaryFile('frag.spv', fragSize);
-//    vertShaderModule := createShaderModule(vertCode, vertSize);
-//    fragShaderModule := createShaderModule(fragCode, fragSize);
-//    Freemem(vertCode);
-//    Freemem(fragCode);
+    vertCode := PCharToSpriV(shaderc_vertex_shader, VertexShaderSource);
+    fragCode := PCharToSpriV(shaderc_fragment_shader, FragmentShaderSource);
+    vertShaderModule := createShaderModule(Pointer(vertCode), Length(vertCode));
+    fragShaderModule := createShaderModule(Pointer(fragCode), Length(fragCode));
 
     FillChar(shaderStages, SizeOf(shaderStages), 0);
     shaderStages[0].sType := VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
@@ -346,8 +251,6 @@ var
 
     vkCreateGraphicsPipelines(device, VK_NULL_HANDLE, 1, @pipelineInfo, nil, @graphicsPipeline);
 
-    FreeMem(vertCode);
-    FreeMem(fragCode);
     vkDestroyShaderModule(device, fragShaderModule, nil);
     vkDestroyShaderModule(device, vertShaderModule, nil);
   end;
@@ -397,15 +300,15 @@ var
     glfwGetFramebufferSize(window, @width, @height);
     while (width = 0) or (height = 0) do begin
       glfwGetFramebufferSize(window, @width, @height);
-      glfwWaitEvents();
+      glfwWaitEvents;
     end;
 
     vkDeviceWaitIdle(device);
-    cleanupSwapChain();
+    cleanupSwapChain;
 
-    createSwapChain();
-    createImageViews();
-    createFramebuffers();
+    createSwapChain;
+    createImageViews;
+    createFramebuffers;
   end;
 
   procedure initVulkan;
@@ -493,8 +396,8 @@ var
     vkCreateDevice(physicalDevice, @deviceCreateInfo, nil, @device);
     vkGetDeviceQueue(device, graphicsFamilyIndex, 0, @graphicsQueue);
 
-    createSwapChain();
-    createImageViews();
+    createSwapChain;
+    createImageViews;
 
     FillChar(colorAttachment, SizeOf(colorAttachment), 0);
     colorAttachment.format := swapChainImageFormat;
@@ -530,8 +433,8 @@ var
     renderPassInfo.pDependencies := @dependency;
     vkCreateRenderPass(device, @renderPassInfo, nil, @renderPass);
 
-    createGraphicsPipeline();
-    createFramebuffers();
+    createGraphicsPipeline;
+    createFramebuffers;
 
     FillChar(poolInfo, SizeOf(poolInfo), 0);
     poolInfo.sType := VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
@@ -605,7 +508,7 @@ var
     res := vkAcquireNextImageKHR(device, swapChain, High(uint64), imageAvailableSemaphore, VK_NULL_HANDLE, @imageIndex);
 
     if res = VK_ERROR_OUT_OF_DATE_KHR then begin
-      recreateSwapChain();
+      recreateSwapChain;
       Exit;
     end;
 
@@ -639,49 +542,22 @@ var
 
     if (res = VK_ERROR_OUT_OF_DATE_KHR) or (res = VK_SUBOPTIMAL_KHR) or framebufferResized then  begin
       framebufferResized := False;
-      recreateSwapChain();
+      recreateSwapChain;
     end;
   end;
 
-  procedure mainLoop();
+  procedure mainLoop;
   var
-    pc: TPushConstants;
     time, animatedScale: double;
+    pc: TPushConstants = (
+    pos: ((0.0, -0.5, 0.0, 0.0), (0.5, 0.5, 0.0, 0.0), (-0.5, 0.5, 0.0, 0.0));
+    col: ((1.0, 0.0, 0.0, 0.0), (0.0, 1.0, 0.0, 0.0), (0.0, 0.0, 1.0, 0.0));
+    scale: 1.0);
   begin
-    // Vertex 0 (Oben)
-    pc.pos[0, 0] := 0.0;
-    pc.pos[0, 1] := -0.5;
-    pc.pos[0, 2] := 0.0;
-    pc.pos[0, 3] := 0.0;
-    pc.col[0, 0] := 1.0;
-    pc.col[0, 1] := 0.0;
-    pc.col[0, 2] := 0.0;
-    pc.col[0, 3] := 0.0;
-    // Vertex 1 (Unten Rechts)
-    pc.pos[1, 0] := 0.5;
-    pc.pos[1, 1] := 0.5;
-    pc.pos[1, 2] := 0.0;
-    pc.pos[1, 3] := 0.0;
-    pc.col[1, 0] := 0.0;
-    pc.col[1, 1] := 1.0;
-    pc.col[1, 2] := 0.0;
-    pc.col[1, 3] := 0.0;
-    // Vertex 2 (Unten Links)
-    pc.pos[2, 0] := -0.5;
-    pc.pos[2, 1] := 0.5;
-    pc.pos[2, 2] := 0.0;
-    pc.pos[2, 3] := 0.0;
-    pc.col[2, 0] := 0.0;
-    pc.col[2, 1] := 0.0;
-    pc.col[2, 2] := 1.0;
-    pc.col[2, 3] := 0.0;
-
-    pc.scale := 1.0;
-
     while glfwWindowShouldClose(window) = 0 do begin
-      glfwPollEvents();
+      glfwPollEvents;
 
-      time := glfwGetTime();
+      time := glfwGetTime;
 
       animatedScale := 1.0 + (0.5 * Sin(time * 3.0));
       pc.scale := animatedScale * currentZoom;
@@ -691,14 +567,14 @@ var
     vkDeviceWaitIdle(device);
   end;
 
-  procedure cleanup();
+  procedure cleanup;
   begin
     vkDestroySemaphore(device, renderFinishedSemaphore, nil);
     vkDestroySemaphore(device, imageAvailableSemaphore, nil);
     vkDestroyFence(device, inFlightFence, nil);
     vkDestroyCommandPool(device, commandPool, nil);
 
-    cleanupSwapChain();
+    cleanupSwapChain;
 
     vkDestroyPipeline(device, graphicsPipeline, nil);
     vkDestroyPipelineLayout(device, pipelineLayout, nil);
@@ -707,12 +583,12 @@ var
     vkDestroySurfaceKHR(instance, surface, nil);
     vkDestroyInstance(instance, nil);
     glfwDestroyWindow(window);
-    glfwTerminate();
+    glfwTerminate;
   end;
 
 begin
-  initWindow();
-  initVulkan();
-  mainLoop();
-  cleanup();
+  initWindow;
+  initVulkan;
+  mainLoop;
+  cleanup;
 end.
