@@ -7,7 +7,13 @@ interface
   {$ENDIF}
 
 const
+  {$IFDEF Linux}
   libshaderc = 'libshaderc';
+  {$ENDIF}
+
+  {$IFDEF Windows}
+  libshaderc = 'libshaderc_shared.dll';
+  {$ENDIF}
 
 type
   Tsize_t = SizeInt;
