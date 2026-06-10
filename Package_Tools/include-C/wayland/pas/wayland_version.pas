@@ -1,4 +1,16 @@
-/*
+unit wayland_version;
+
+interface
+
+uses
+  fp_wayland_client;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
  * Copyright © 2012 Intel Corporation
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -21,14 +33,22 @@
  * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- */
+  }
+{$ifndef WAYLAND_VERSION_H}
+{$define WAYLAND_VERSION_H}
 
-#ifndef WAYLAND_VERSION_H
-#define WAYLAND_VERSION_H
+const
+  WAYLAND_VERSION_MAJOR = 1;  
+  WAYLAND_VERSION_MINOR = 22;  
+  WAYLAND_VERSION_MICRO = 0;  
+  WAYLAND_VERSION = '1.22.0';  
+{$endif}
 
-#define WAYLAND_VERSION_MAJOR 1
-#define WAYLAND_VERSION_MINOR 22
-#define WAYLAND_VERSION_MICRO 0
-#define WAYLAND_VERSION "1.22.0"
+// === Konventiert am: 10-6-26 17:06:00 ===
 
-#endif
+
+implementation
+
+
+
+end.

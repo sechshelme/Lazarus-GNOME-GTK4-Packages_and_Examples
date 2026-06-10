@@ -46,6 +46,14 @@ type
   Tprocedure=procedure;
   Pprocedure=^Tprocedure;
 
+  Ppid_t=type Pointer;
+  Puid_t=type Pointer;
+  Pgid_t=type Pointer;
+
+
+  Pwl_resource=type Pointer;
+  Pwl_global=type Pointer;
+
 implementation
 
 end.

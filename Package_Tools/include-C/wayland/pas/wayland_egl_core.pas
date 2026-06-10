@@ -1,4 +1,16 @@
-/*
+unit wayland_egl_core;
+
+interface
+
+uses
+  fp_wayland_client;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
  * Copyright © 2011 Kristian Høgsberg
  * Copyright © 2011 Benjamin Franzke
  *
@@ -22,38 +34,37 @@
  * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- */
+  }
+{$ifndef WAYLAND_EGL_CORE_H}
+{$define WAYLAND_EGL_CORE_H}
+{ C++ extern C conditionnal removed }
 
-#ifndef WAYLAND_EGL_CORE_H
-#define WAYLAND_EGL_CORE_H
+const
+  WL_EGL_PLATFORM = 1;  
+type
+  Pwl_egl_window = ^Twl_egl_window;
+  Twl_egl_window = record
+      {undefined structure}
+    end;
 
-#ifdef  __cplusplus
-extern "C" {
-#endif
+  Pwl_surface = ^Twl_surface;
+  Twl_surface = record
+      {undefined structure}
+    end;
 
-#define WL_EGL_PLATFORM 1
 
-struct wl_egl_window;
-struct wl_surface;
+function wl_egl_window_create(surface:Pwl_surface; width:longint; height:longint):Pwl_egl_window;cdecl;external libwayland_client;
+procedure wl_egl_window_destroy(egl_window:Pwl_egl_window);cdecl;external libwayland_client;
+procedure wl_egl_window_resize(egl_window:Pwl_egl_window; width:longint; height:longint; dx:longint; dy:longint);cdecl;external libwayland_client;
+procedure wl_egl_window_get_attached_size(egl_window:Pwl_egl_window; width:Plongint; height:Plongint);cdecl;external libwayland_client;
+{ C++ end of extern C conditionnal removed }
+{$endif}
 
-struct wl_egl_window *
-wl_egl_window_create(struct wl_surface *surface,
-		     int width, int height);
+// === Konventiert am: 10-6-26 17:05:51 ===
 
-void
-wl_egl_window_destroy(struct wl_egl_window *egl_window);
 
-void
-wl_egl_window_resize(struct wl_egl_window *egl_window,
-		     int width, int height,
-		     int dx, int dy);
+implementation
 
-void
-wl_egl_window_get_attached_size(struct wl_egl_window *egl_window,
-				int *width, int *height);
 
-#ifdef  __cplusplus
-}
-#endif
 
-#endif
+end.

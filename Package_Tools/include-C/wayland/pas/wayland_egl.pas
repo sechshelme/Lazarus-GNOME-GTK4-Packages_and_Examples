@@ -1,4 +1,16 @@
-/*
+unit wayland_egl;
+
+interface
+
+uses
+  fp_wayland_client;
+
+{$IFDEF FPC}
+{$PACKRECORDS C}
+{$ENDIF}
+
+
+{
  * Copyright © 2011 Kristian Høgsberg
  * Copyright © 2011 Benjamin Franzke
  *
@@ -22,12 +34,18 @@
  * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- */
+  }
+{$ifndef WAYLAND_EGL_H}
+{$define WAYLAND_EGL_H}
+{$include <wayland-client.h>}
+{$include "wayland-egl-core.h"}
+{$endif}
 
-#ifndef WAYLAND_EGL_H
-#define WAYLAND_EGL_H
+// === Konventiert am: 10-6-26 17:05:48 ===
 
-#include <wayland-client.h>
-#include "wayland-egl-core.h"
 
-#endif
+implementation
+
+
+
+end.
