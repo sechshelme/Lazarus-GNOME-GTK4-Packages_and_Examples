@@ -120,8 +120,7 @@ procedure wl_signal_emit_mutable(signal: Pwl_signal; data: pointer); cdecl; exte
 type
   Twl_resource_destroy_func_t = procedure(resource: Pwl_resource); cdecl;
 
-procedure wl_resource_post_event(resource: Pwl_resource; opcode: Tuint32_t; args: array of const); cdecl; external libwayland_server;
-procedure wl_resource_post_event(resource: Pwl_resource; opcode: Tuint32_t); cdecl; external libwayland_server;
+procedure wl_resource_post_event(resource: Pwl_resource; opcode: Tuint32_t); cdecl; varargs; external libwayland_server;
 procedure wl_resource_post_event_array(resource: Pwl_resource; opcode: Tuint32_t; args: Pwl_argument); cdecl; external libwayland_server;
 procedure wl_resource_queue_event(resource: Pwl_resource; opcode: Tuint32_t; args: array of const); cdecl; external libwayland_server;
 procedure wl_resource_queue_event(resource: Pwl_resource; opcode: Tuint32_t); cdecl; external libwayland_server;

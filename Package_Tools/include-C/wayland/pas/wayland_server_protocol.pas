@@ -3,7 +3,7 @@ unit wayland_server_protocol;
 interface
 
 uses
-  fp_wayland;
+  fp_wayland, wayland_server_core;
 
 type
   { Opake Typen für Vorwärtsdeklarationen } //[cite: 1]
@@ -693,8 +693,6 @@ const
   WL_SUBSURFACE_SET_DESYNC_SINCE_VERSION = 1;
 
 
-{ Externe Wayland Funktion zum Posten von Events (für die Inline-Funktionen benötigt) } //[cite: 1]
-procedure wl_resource_post_event(resource: Pwl_resource; opcode: Tuint32_t); cdecl; varargs; external libwayland_client;
 
 { Übersetzte Inline-Funktionen } //[cite: 1]
 procedure wl_registry_send_global(resource_: Pwl_resource; name: Tuint32_t; interface_: PChar; version: Tuint32_t); inline;
