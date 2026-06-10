@@ -4,6 +4,7 @@ interface
 
 const
   libwayland_client = 'wayland-client';
+  libwayland_server = 'wayland-server';
 
 type
   Tuint8_t = uint8;
@@ -36,7 +37,6 @@ type
   Psize_t=^Tsize_t;
 
   Tva_list=Pointer; // ????
-
 
 {$IFDEF FPC}
 {$PACKRECORDS C}

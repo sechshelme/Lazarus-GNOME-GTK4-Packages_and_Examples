@@ -7,18 +7,21 @@ uses
 
   wayland_server,
   wayland_server_core,
-  wayland_cursor,
-  wayland_egl,
-  wayland_egl_core,
+  wayland_server_protocol,
 
-    wayland_version,
+
+  wayland_cursor,     // lib ?
+  wayland_egl_core,  // lib ?
+
+  wayland_version,
 
 
 
   fp_wayland;
-procedure main;
-begin
-end;
+
+  procedure main;
+  begin
+  end;
 
 begin
   main;
