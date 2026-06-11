@@ -5,6 +5,8 @@ interface
 const
   libwayland_client = 'wayland-client';
   libwayland_server = 'wayland-server';
+  libwayland_cursor = 'wayland-cursor';
+  libwayland_egl_core = 'wayland-egl';
 
 type
   Tuint8_t = uint8;
