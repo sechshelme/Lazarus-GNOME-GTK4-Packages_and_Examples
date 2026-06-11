@@ -35,30 +35,37 @@ type
   Pint64_t = ^Tint64_t;
   PPint64_t = ^Pint64_t;
 
-  Tsize_t=SizeUInt;
-  Psize_t=^Tsize_t;
+  Tsize_t = SizeUInt;
+  Psize_t = ^Tsize_t;
 
-  Tva_list=Pointer; // ????
+  Tva_list = Pointer; // ????
 
-{$IFDEF FPC}
-{$PACKRECORDS C}
-{$ENDIF}
+  {$IFDEF FPC}
+  {$PACKRECORDS C}
+  {$ENDIF}
 
 type
-  Tprocedure=procedure;
-  Pprocedure=^Tprocedure;
+  Tprocedure = procedure;
+  Pprocedure = ^Tprocedure;
 
-  Ppid_t=type Pointer;
-  Puid_t=type Pointer;
-  Pgid_t=type Pointer;
+  Ppid_t = type Pointer;
+  Puid_t = type Pointer;
+  Pgid_t = type Pointer;
 
+  Pwl_resource_=type Pointer;
+  Pwl_global = type Pointer;
 
-//  Pwl_resource=type Pointer;
-  Pwl_global=type Pointer;
-
-  {$DEFINE read_interface}
+  {$DEFINE read_enum}
   {$include fp_wayland_includes.inc}
-  {$UNDEF read_interface}
+  {$UNDEF read_enum}
+
+  {$DEFINE read_struct}
+  {$include fp_wayland_includes.inc}
+  {$UNDEF read_struct}
+
+  {$DEFINE read_function}
+  {$include fp_wayland_includes.inc}
+  {$UNDEF read_function}
 
 implementation
 
@@ -67,4 +74,3 @@ implementation
 {$UNDEF read_implementation}
 
 end.
-
