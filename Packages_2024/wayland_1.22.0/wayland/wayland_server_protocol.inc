@@ -1,18 +1,6 @@
-unit wayland_server_protocol;
-
-{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
-
-interface
-
-uses
-  fp_wayland, wayland_server_core, wayland_util;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
-  {$IFDEF read_struct}
 type
   Pwl_client = type Pointer;
   Pwl_resource = type Pointer;
@@ -38,9 +26,7 @@ type
   Pwl_subsurface = type Pointer;
   Pwl_surface = type Pointer;
   Pwl_touch = type Pointer;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_function}
 var
   wl_display_interface: Twl_interface; cvar;external libwayland_client;
   wl_registry_interface: Twl_interface; cvar;external libwayland_client;
@@ -64,9 +50,7 @@ var
   wl_region_interface: Twl_interface; cvar;external libwayland_client;
   wl_subcompositor_interface: Twl_interface; cvar;external libwayland_client;
   wl_subsurface_interface: Twl_interface; cvar;external libwayland_client;
-  {$ENDIF read_function}
 
-  {$IFDEF read_enum}
 type
   Twl_display_error = longint;
 
@@ -75,18 +59,15 @@ const
   WL_DISPLAY_ERROR_INVALID_METHOD = 1;
   WL_DISPLAY_ERROR_NO_MEMORY = 2;
   WL_DISPLAY_ERROR_IMPLEMENTATION = 3;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_display_interface = ^Twl_display_interface;
+
   Twl_display_interface = record
     sync: procedure(client: Pwl_client; resource: Pwl_resource; callback: Tuint32_t); cdecl;
     get_registry: procedure(client: Pwl_client; resource: Pwl_resource; registry: Tuint32_t); cdecl;
   end;
-  Pwl_display_interface = ^Twl_display_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_DISPLAY_ERROR = 0;
   WL_DISPLAY_DELETE_ID = 1;
@@ -94,17 +75,14 @@ const
   WL_DISPLAY_DELETE_ID_SINCE_VERSION = 1;
   WL_DISPLAY_SYNC_SINCE_VERSION = 1;
   WL_DISPLAY_GET_REGISTRY_SINCE_VERSION = 1;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_registry_interface = ^Twl_registry_interface;
+
   Twl_registry_interface = record
     bind: procedure(client: Pwl_client; resource: Pwl_resource; name: Tuint32_t; iface: pchar; version: Tuint32_t; id: Tuint32_t); cdecl;
   end;
-  Pwl_registry_interface = ^Twl_registry_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_REGISTRY_GLOBAL = 0;
   WL_REGISTRY_GLOBAL_REMOVE = 1;
@@ -113,34 +91,28 @@ const
   WL_REGISTRY_BIND_SINCE_VERSION = 1;
   WL_CALLBACK_DONE = 0;
   WL_CALLBACK_DONE_SINCE_VERSION = 1;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_compositor_interface = ^Twl_compositor_interface;
+
   Twl_compositor_interface = record
     create_surface: procedure(client: Pwl_client; resource: Pwl_resource; id: Tuint32_t); cdecl;
     create_region: procedure(client: Pwl_client; resource: Pwl_resource; id: Tuint32_t); cdecl;
   end;
-  Pwl_compositor_interface = ^Twl_compositor_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_COMPOSITOR_CREATE_SURFACE_SINCE_VERSION = 1;
   WL_COMPOSITOR_CREATE_REGION_SINCE_VERSION = 1;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_shm_pool_interface = ^Twl_shm_pool_interface;
+
   Twl_shm_pool_interface = record
     create_buffer: procedure(client: Pwl_client; resource: Pwl_resource; id: Tuint32_t; offset: Tint32_t; width: Tint32_t; height: Tint32_t; stride: Tint32_t; format: Tuint32_t); cdecl;
     destroy: procedure(client: Pwl_client; resource: Pwl_resource); cdecl;
     resize: procedure(client: Pwl_client; resource: Pwl_resource; size: Tint32_t); cdecl;
   end;
-  Pwl_shm_pool_interface = ^Twl_shm_pool_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_SHM_POOL_CREATE_BUFFER_SINCE_VERSION = 1;
   WL_SHM_POOL_DESTROY_SINCE_VERSION = 1;
@@ -266,32 +238,26 @@ const
   WL_SHM_FORMAT_XBGR16161616 = $38344258;
   WL_SHM_FORMAT_ARGB16161616 = $38345241;
   WL_SHM_FORMAT_ABGR16161616 = $38344241;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_shm_interface = ^Twl_shm_interface;
+
   Twl_shm_interface = record
     create_pool: procedure(client: Pwl_client; resource: Pwl_resource; id: Tuint32_t; fd: Tint32_t; size: Tint32_t); cdecl;
   end;
-  Pwl_shm_interface = ^Twl_shm_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_SHM_FORMAT = 0;
   WL_SHM_FORMAT_SINCE_VERSION = 1;
   WL_SHM_CREATE_POOL_SINCE_VERSION = 1;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_buffer_interface = ^Twl_buffer_interface;
+
   Twl_buffer_interface = record
     destroy: procedure(client: Pwl_client; resource: Pwl_resource); cdecl;
   end;
-  Pwl_buffer_interface = ^Twl_buffer_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_BUFFER_RELEASE = 0;
   WL_BUFFER_RELEASE_SINCE_VERSION = 1;
@@ -305,10 +271,10 @@ const
   WL_DATA_OFFER_ERROR_INVALID_ACTION_MASK = 1;
   WL_DATA_OFFER_ERROR_INVALID_ACTION = 2;
   WL_DATA_OFFER_ERROR_INVALID_OFFER = 3;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_data_offer_interface = ^Twl_data_offer_interface;
+
   Twl_data_offer_interface = record
     accept: procedure(client: Pwl_client; resource: Pwl_resource; serial: Tuint32_t; mime_type: pchar); cdecl;
     receive: procedure(client: Pwl_client; resource: Pwl_resource; mime_type: pchar; fd: Tint32_t); cdecl;
@@ -316,10 +282,7 @@ type
     finish: procedure(client: Pwl_client; resource: Pwl_resource); cdecl;
     set_actions: procedure(client: Pwl_client; resource: Pwl_resource; dnd_actions: Tuint32_t; preferred_action: Tuint32_t); cdecl;
   end;
-  Pwl_data_offer_interface = ^Twl_data_offer_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_DATA_OFFER_OFFER = 0;
   WL_DATA_OFFER_SOURCE_ACTIONS = 1;
@@ -339,19 +302,16 @@ type
 const
   WL_DATA_SOURCE_ERROR_INVALID_ACTION_MASK = 0;
   WL_DATA_SOURCE_ERROR_INVALID_SOURCE = 1;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_data_source_interface = ^Twl_data_source_interface;
+
   Twl_data_source_interface = record
     offer: procedure(client: Pwl_client; resource: Pwl_resource; mime_type: pchar); cdecl;
     destroy: procedure(client: Pwl_client; resource: Pwl_resource); cdecl;
     set_actions: procedure(client: Pwl_client; resource: Pwl_resource; dnd_actions: Tuint32_t); cdecl;
   end;
-  Pwl_data_source_interface = ^Twl_data_source_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_DATA_SOURCE_TARGET = 0;
   WL_DATA_SOURCE_SEND = 1;
@@ -374,19 +334,16 @@ type
 
 const
   WL_DATA_DEVICE_ERROR_ROLE = 0;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_data_device_interface = ^Twl_data_device_interface;
+
   Twl_data_device_interface = record
     start_drag: procedure(client: Pwl_client; resource: Pwl_resource; source: Pwl_resource; origin: Pwl_resource; icon: Pwl_resource; serial: Tuint32_t); cdecl;
     set_selection: procedure(client: Pwl_client; resource: Pwl_resource; source: Pwl_resource; serial: Tuint32_t); cdecl;
     release: procedure(client: Pwl_client; resource: Pwl_resource); cdecl;
   end;
-  Pwl_data_device_interface = ^Twl_data_device_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_DATA_DEVICE_DATA_OFFER = 0;
   WL_DATA_DEVICE_ENTER = 1;
@@ -412,18 +369,15 @@ const
   WL_DATA_DEVICE_MANAGER_DND_ACTION_COPY = 1;
   WL_DATA_DEVICE_MANAGER_DND_ACTION_MOVE = 2;
   WL_DATA_DEVICE_MANAGER_DND_ACTION_ASK = 4;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_data_device_manager_interface = ^Twl_data_device_manager_interface;
+
   Twl_data_device_manager_interface = record
     create_data_source: procedure(client: Pwl_client; resource: Pwl_resource; id: Tuint32_t); cdecl;
     get_data_device: procedure(client: Pwl_client; resource: Pwl_resource; id: Tuint32_t; seat: Pwl_resource); cdecl;
   end;
-  Pwl_data_device_manager_interface = ^Twl_data_device_manager_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_DATA_DEVICE_MANAGER_CREATE_DATA_SOURCE_SINCE_VERSION = 1;
   WL_DATA_DEVICE_MANAGER_GET_DATA_DEVICE_SINCE_VERSION = 1;
@@ -433,17 +387,14 @@ type
 
 const
   WL_SHELL_ERROR_ROLE = 0;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_shell_interface = ^Twl_shell_interface;
+
   Twl_shell_interface = record
     get_shell_surface: procedure(client: Pwl_client; resource: Pwl_resource; id: Tuint32_t; surface: Pwl_resource); cdecl;
   end;
-  Pwl_shell_interface = ^Twl_shell_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_SHELL_GET_SHELL_SURFACE_SINCE_VERSION = 1;
 
@@ -475,26 +426,25 @@ const
   WL_SHELL_SURFACE_FULLSCREEN_METHOD_SCALE = 1;
   WL_SHELL_SURFACE_FULLSCREEN_METHOD_DRIVER = 2;
   WL_SHELL_SURFACE_FULLSCREEN_METHOD_FILL = 3;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_shell_surface_interface = ^Twl_shell_surface_interface;
+
   Twl_shell_surface_interface = record
     pong: procedure(client: Pwl_client; resource: Pwl_resource; serial: Tuint32_t); cdecl;
     move: procedure(client: Pwl_client; resource: Pwl_resource; seat: Pwl_resource; serial: Tuint32_t); cdecl;
     resize: procedure(client: Pwl_client; resource: Pwl_resource; seat: Pwl_resource; serial: Tuint32_t; edges: Tuint32_t); cdecl;
     set_toplevel: procedure(client: Pwl_client; resource: Pwl_resource); cdecl;
-    set_transient: procedure(client: Pwl_client; resource: Pwl_resource; parent: Pwl_resource; x: Tint32_t; y: Tint32_t; flags: Tuint32_t); cdecl;
+    set_transient: procedure(client: Pwl_client; resource: Pwl_resource; parent: Pwl_resource; x: Tint32_t; y: Tint32_t;
+      flags: Tuint32_t); cdecl;
     set_fullscreen: procedure(client: Pwl_client; resource: Pwl_resource; method: Tuint32_t; framerate: Tuint32_t; output: Pwl_resource); cdecl;
-    set_popup: procedure(client: Pwl_client; resource: Pwl_resource; seat: Pwl_resource; serial: Tuint32_t; parent: Pwl_resource; x: Tint32_t; y: Tint32_t; flags: Tuint32_t); cdecl;
+    set_popup: procedure(client: Pwl_client; resource: Pwl_resource; seat: Pwl_resource; serial: Tuint32_t; parent: Pwl_resource;
+      x: Tint32_t; y: Tint32_t; flags: Tuint32_t); cdecl;
     set_maximized: procedure(client: Pwl_client; resource: Pwl_resource; output: Pwl_resource); cdecl;
     set_title: procedure(client: Pwl_client; resource: Pwl_resource; title: pchar); cdecl;
     set_class: procedure(client: Pwl_client; resource: Pwl_resource; class_: pchar); cdecl;
   end;
-  Pwl_shell_surface_interface = ^Twl_shell_surface_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_SHELL_SURFACE_PING = 0;
   WL_SHELL_SURFACE_CONFIGURE = 1;
@@ -522,10 +472,10 @@ const
   WL_SURFACE_ERROR_INVALID_SIZE = 2;
   WL_SURFACE_ERROR_INVALID_OFFSET = 3;
   WL_SURFACE_ERROR_DEFUNCT_ROLE_OBJECT = 4;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_surface_interface = ^Twl_surface_interface;
+
   Twl_surface_interface = record
     destroy: procedure(client: Pwl_client; resource: Pwl_resource); cdecl;
     attach: procedure(client: Pwl_client; resource: Pwl_resource; buffer: Pwl_resource; x: Tint32_t; y: Tint32_t); cdecl;
@@ -539,10 +489,7 @@ type
     damage_buffer: procedure(client: Pwl_client; resource: Pwl_resource; x: Tint32_t; y: Tint32_t; width: Tint32_t; height: Tint32_t); cdecl;
     offset: procedure(client: Pwl_client; resource: Pwl_resource; x: Tint32_t; y: Tint32_t); cdecl;
   end;
-  Pwl_surface_interface = ^Twl_surface_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_SURFACE_ENTER = 0;
   WL_SURFACE_LEAVE = 1;
@@ -577,20 +524,17 @@ type
 
 const
   WL_SEAT_ERROR_MISSING_CAPABILITY = 0;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_seat_interface = ^Twl_seat_interface;
+
   Twl_seat_interface = record
     get_pointer: procedure(client: Pwl_client; resource: Pwl_resource; id: Tuint32_t); cdecl;
     get_keyboard: procedure(client: Pwl_client; resource: Pwl_resource; id: Tuint32_t); cdecl;
     get_touch: procedure(client: Pwl_client; resource: Pwl_resource; id: Tuint32_t); cdecl;
     release: procedure(client: Pwl_client; resource: Pwl_resource); cdecl;
   end;
-  Pwl_seat_interface = ^Twl_seat_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_SEAT_CAPABILITIES = 0;
   WL_SEAT_NAME = 1;
@@ -638,18 +582,15 @@ type
 const
   WL_POINTER_AXIS_RELATIVE_DIRECTION_IDENTICAL = 0;
   WL_POINTER_AXIS_RELATIVE_DIRECTION_INVERTED = 1;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_pointer_interface = ^Twl_pointer_interface;
+
   Twl_pointer_interface = record
     set_cursor: procedure(client: Pwl_client; resource: Pwl_resource; serial: Tuint32_t; surface: Pwl_resource; hotspot_x: Tint32_t; hotspot_y: Tint32_t); cdecl;
     release: procedure(client: Pwl_client; resource: Pwl_resource); cdecl;
   end;
-  Pwl_pointer_interface = ^Twl_pointer_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_POINTER_ENTER = 0;
   WL_POINTER_LEAVE = 1;
@@ -689,17 +630,14 @@ type
 const
   WL_KEYBOARD_KEY_STATE_RELEASED = 0;
   WL_KEYBOARD_KEY_STATE_PRESSED = 1;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_keyboard_interface = ^Twl_keyboard_interface;
+
   Twl_keyboard_interface = record
     release: procedure(client: Pwl_client; resource: Pwl_resource); cdecl;
   end;
-  Pwl_keyboard_interface = ^Twl_keyboard_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_KEYBOARD_KEYMAP = 0;
   WL_KEYBOARD_ENTER = 1;
@@ -714,17 +652,14 @@ const
   WL_KEYBOARD_MODIFIERS_SINCE_VERSION = 1;
   WL_KEYBOARD_REPEAT_INFO_SINCE_VERSION = 4;
   WL_KEYBOARD_RELEASE_SINCE_VERSION = 3;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_touch_interface = ^Twl_touch_interface;
+
   Twl_touch_interface = record
     release: procedure(client: Pwl_client; resource: Pwl_resource); cdecl;
   end;
-  Pwl_touch_interface = ^Twl_touch_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_TOUCH_DOWN = 0;
   WL_TOUCH_UP = 1;
@@ -772,17 +707,14 @@ type
 const
   WL_OUTPUT_MODE_CURRENT = $1;
   WL_OUTPUT_MODE_PREFERRED = $2;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_output_interface = ^Twl_output_interface;
+
   Twl_output_interface = record
     release: procedure(client: Pwl_client; resource: Pwl_resource); cdecl;
   end;
-  Pwl_output_interface = ^Twl_output_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_OUTPUT_GEOMETRY = 0;
   WL_OUTPUT_MODE = 1;
@@ -797,19 +729,16 @@ const
   WL_OUTPUT_NAME_SINCE_VERSION = 4;
   WL_OUTPUT_DESCRIPTION_SINCE_VERSION = 4;
   WL_OUTPUT_RELEASE_SINCE_VERSION = 3;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_region_interface = ^Twl_region_interface;
+
   Twl_region_interface = record
     destroy: procedure(client: Pwl_client; resource: Pwl_resource); cdecl;
     add: procedure(client: Pwl_client; resource: Pwl_resource; x: Tint32_t; y: Tint32_t; width: Tint32_t; height: Tint32_t); cdecl;
     subtract: procedure(client: Pwl_client; resource: Pwl_resource; x: Tint32_t; y: Tint32_t; width: Tint32_t; height: Tint32_t); cdecl;
   end;
-  Pwl_region_interface = ^Twl_region_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_REGION_DESTROY_SINCE_VERSION = 1;
   WL_REGION_ADD_SINCE_VERSION = 1;
@@ -821,18 +750,16 @@ type
 const
   WL_SUBCOMPOSITOR_ERROR_BAD_SURFACE = 0;
   WL_SUBCOMPOSITOR_ERROR_BAD_PARENT = 1;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_subcompositor_interface = ^Twl_subcompositor_interface;
+
   Twl_subcompositor_interface = record
     destroy: procedure(client: Pwl_client; resource: Pwl_resource); cdecl;
     get_subsurface: procedure(client: Pwl_client; resource: Pwl_resource; id: Tuint32_t; surface: Pwl_resource; parent: Pwl_resource); cdecl;
   end;
-  Pwl_subcompositor_interface = ^Twl_subcompositor_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
+
 const
   WL_SUBCOMPOSITOR_DESTROY_SINCE_VERSION = 1;
   WL_SUBCOMPOSITOR_GET_SUBSURFACE_SINCE_VERSION = 1;
@@ -842,10 +769,10 @@ type
 
 const
   WL_SUBSURFACE_ERROR_BAD_SURFACE = 0;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_subsurface_interface = ^Twl_subsurface_interface;
+
   Twl_subsurface_interface = record
     destroy: procedure(client: Pwl_client; resource: Pwl_resource); cdecl;
     set_position: procedure(client: Pwl_client; resource: Pwl_resource; x: Tint32_t; y: Tint32_t); cdecl;
@@ -854,10 +781,7 @@ type
     set_sync: procedure(client: Pwl_client; resource: Pwl_resource); cdecl;
     set_desync: procedure(client: Pwl_client; resource: Pwl_resource); cdecl;
   end;
-  Pwl_subsurface_interface = ^Twl_subsurface_interface;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_SUBSURFACE_DESTROY_SINCE_VERSION = 1;
   WL_SUBSURFACE_SET_POSITION_SINCE_VERSION = 1;
@@ -865,11 +789,9 @@ const
   WL_SUBSURFACE_PLACE_BELOW_SINCE_VERSION = 1;
   WL_SUBSURFACE_SET_SYNC_SINCE_VERSION = 1;
   WL_SUBSURFACE_SET_DESYNC_SINCE_VERSION = 1;
-  {$ENDIF read_enum}
 
   // === Konventiert am: 11-6-26 14:34:33 ===
 
-{$IFDEF read_function}
 procedure wl_registry_send_global(resource_: Pwl_resource; name: Tuint32_t; interface_: pchar; version: Tuint32_t); inline;
 procedure wl_registry_send_global_remove(resource_: Pwl_resource; name: Tuint32_t); inline;
 procedure wl_callback_send_done(resource_: Pwl_resource; callback_data: Tuint32_t); inline;
@@ -929,9 +851,11 @@ procedure wl_output_send_done(resource_: Pwl_resource); inline;
 procedure wl_output_send_scale(resource_: Pwl_resource; factor: Tint32_t); inline;
 procedure wl_output_send_name(resource_: Pwl_resource; name: pchar); inline;
 procedure wl_output_send_description(resource_: Pwl_resource; description: pchar); inline;
-{$ENDIF read_function}
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 procedure wl_registry_send_global(resource_: Pwl_resource; name: Tuint32_t; interface_: pchar; version: Tuint32_t); inline;
 begin
@@ -1228,4 +1152,4 @@ begin
   wl_resource_post_event(resource_, WL_OUTPUT_DESCRIPTION, description);
 end;
 
-end.
+{$ENDIF read_implementation}

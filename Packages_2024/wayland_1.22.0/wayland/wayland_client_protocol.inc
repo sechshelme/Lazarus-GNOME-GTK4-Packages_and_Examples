@@ -1,19 +1,5 @@
+{$IFDEF read_interface}
 
-unit wayland_client_protocol;
-
-{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
-
-interface
-
-uses
-  fp_wayland, wayland_util, wayland_client_core;
-
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
-
-  {$IFDEF read_struct}
 type
   Pwl_buffer = type Pointer;
   Pwl_callback = type Pointer;
@@ -22,7 +8,6 @@ type
   Pwl_data_device_manager = type Pointer;
   Pwl_data_offer = type Pointer;
   Pwl_data_source = type Pointer;
-  Pwl_display = type Pointer;
   Pwl_keyboard = type Pointer;
   Pwl_output = type Pointer;
   Pwl_pointer = type Pointer;
@@ -37,9 +22,7 @@ type
   Pwl_subsurface = type Pointer;
   Pwl_surface = type Pointer;
   Pwl_touch = type Pointer;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_function}
 var
   wl_display_interface: Twl_interface; cvar;external libwayland_client;
   wl_registry_interface: Twl_interface; cvar;external libwayland_client;
@@ -63,9 +46,7 @@ var
   wl_region_interface: Twl_interface; cvar;external libwayland_client;
   wl_subcompositor_interface: Twl_interface; cvar;external libwayland_client;
   wl_subsurface_interface: Twl_interface; cvar;external libwayland_client;
-  {$ENDIF read_function}
 
-  {$IFDEF read_enum}
 type
   Twl_display_error = longint;
 
@@ -74,18 +55,15 @@ const
   WL_DISPLAY_ERROR_INVALID_METHOD = 1;
   WL_DISPLAY_ERROR_NO_MEMORY = 2;
   WL_DISPLAY_ERROR_IMPLEMENTATION = 3;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_display_listener = ^Twl_display_listener;
+
   Twl_display_listener = record
     error: procedure(data: pointer; wl_display: Pwl_display; object_id: pointer; code: Tuint32_t; message: pchar); cdecl;
     delete_id: procedure(data: pointer; wl_display: Pwl_display; id: Tuint32_t); cdecl;
   end;
-  Pwl_display_listener = ^Twl_display_listener;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_DISPLAY_SYNC_ = 0;
   WL_DISPLAY_GET_REGISTRY_ = 1;
@@ -93,35 +71,28 @@ const
   WL_DISPLAY_DELETE_ID_SINCE_VERSION = 1;
   WL_DISPLAY_SYNC_SINCE_VERSION = 1;
   WL_DISPLAY_GET_REGISTRY_SINCE_VERSION = 1;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_registry_listener = ^Twl_registry_listener;
+
   Twl_registry_listener = record
     global: procedure(data: pointer; wl_registry: Pwl_registry; name: Tuint32_t; iface: pchar; version: Tuint32_t); cdecl;
     global_remove: procedure(data: pointer; wl_registry: Pwl_registry; name: Tuint32_t); cdecl;
   end;
-  Pwl_registry_listener = ^Twl_registry_listener;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_REGISTRY_BIND_ = 0;
   WL_REGISTRY_GLOBAL_SINCE_VERSION = 1;
   WL_REGISTRY_GLOBAL_REMOVE_SINCE_VERSION = 1;
   WL_REGISTRY_BIND_SINCE_VERSION = 1;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
   Pwl_callback_listener = ^Twl_callback_listener;
 
   Twl_callback_listener = record
     done: procedure(data: pointer; wl_callback: Pwl_callback; callback_data: Tuint32_t); cdecl;
   end;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_CALLBACK_DONE_SINCE_VERSION = 1;
   WL_COMPOSITOR_CREATE_SURFACE_ = 0;
@@ -255,32 +226,26 @@ const
   WL_SHM_FORMAT_XBGR16161616 = $38344258;
   WL_SHM_FORMAT_ARGB16161616 = $38345241;
   WL_SHM_FORMAT_ABGR16161616 = $38344241;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_shm_listener = ^Twl_shm_listener;
+
   Twl_shm_listener = record
     format: procedure(data: pointer; wl_shm: Pwl_shm; format: Tuint32_t); cdecl;
   end;
-  Pwl_shm_listener = ^Twl_shm_listener;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_SHM_CREATE_POOL_ = 0;
   WL_SHM_FORMAT_SINCE_VERSION = 1;
   WL_SHM_CREATE_POOL_SINCE_VERSION = 1;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_buffer_listener = ^Twl_buffer_listener;
+
   Twl_buffer_listener = record
     release: procedure(data: pointer; wl_buffer: Pwl_buffer); cdecl;
   end;
-  Pwl_buffer_listener = ^Twl_buffer_listener;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_BUFFER_DESTROY_ = 0;
   WL_BUFFER_RELEASE_SINCE_VERSION = 1;
@@ -294,19 +259,16 @@ const
   WL_DATA_OFFER_ERROR_INVALID_ACTION_MASK = 1;
   WL_DATA_OFFER_ERROR_INVALID_ACTION = 2;
   WL_DATA_OFFER_ERROR_INVALID_OFFER = 3;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_data_offer_listener = ^Twl_data_offer_listener;
+
   Twl_data_offer_listener = record
     offer: procedure(data: pointer; wl_data_offer: Pwl_data_offer; mime_type: pchar); cdecl;
     source_actions: procedure(data: pointer; wl_data_offer: Pwl_data_offer; source_actions: Tuint32_t); cdecl;
     action: procedure(data: pointer; wl_data_offer: Pwl_data_offer; dnd_action: Tuint32_t); cdecl;
   end;
-  Pwl_data_offer_listener = ^Twl_data_offer_listener;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_DATA_OFFER_ACCEPT_ = 0;
   WL_DATA_OFFER_RECEIVE_ = 1;
@@ -328,11 +290,10 @@ type
 const
   WL_DATA_SOURCE_ERROR_INVALID_ACTION_MASK = 0;
   WL_DATA_SOURCE_ERROR_INVALID_SOURCE = 1;
-  {$ENDIF read_enum}
-
-  {$IFDEF read_struct}
 
 type
+  Pwl_data_source_listener = ^Twl_data_source_listener;
+
   Twl_data_source_listener = record
     target: procedure(data: pointer; wl_data_source: Pwl_data_source; mime_type: pchar); cdecl;
     send: procedure(data: pointer; wl_data_source: Pwl_data_source; mime_type: pchar; fd: Tint32_t); cdecl;
@@ -341,10 +302,7 @@ type
     dnd_finished: procedure(data: pointer; wl_data_source: Pwl_data_source); cdecl;
     action: procedure(data: pointer; wl_data_source: Pwl_data_source; dnd_action: Tuint32_t); cdecl;
   end;
-  Pwl_data_source_listener = ^Twl_data_source_listener;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_DATA_SOURCE_OFFER_ = 0;
   WL_DATA_SOURCE_DESTROY_ = 1;
@@ -364,22 +322,20 @@ type
 
 const
   WL_DATA_DEVICE_ERROR_ROLE = 0;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_data_device_listener = ^Twl_data_device_listener;
+
   Twl_data_device_listener = record
     data_offer: procedure(data: pointer; wl_data_device: Pwl_data_device; id: Pwl_data_offer); cdecl;
-    enter: procedure(data: pointer; wl_data_device: Pwl_data_device; serial: Tuint32_t; surface: Pwl_surface; x: Twl_fixed_t; y: Twl_fixed_t; id: Pwl_data_offer); cdecl;
+    enter: procedure(data: pointer; wl_data_device: Pwl_data_device; serial: Tuint32_t; surface: Pwl_surface; x: Twl_fixed_t;
+      y: Twl_fixed_t; id: Pwl_data_offer); cdecl;
     leave: procedure(data: pointer; wl_data_device: Pwl_data_device); cdecl;
     motion: procedure(data: pointer; wl_data_device: Pwl_data_device; time: Tuint32_t; x: Twl_fixed_t; y: Twl_fixed_t); cdecl;
     drop: procedure(data: pointer; wl_data_device: Pwl_data_device); cdecl;
     selection: procedure(data: pointer; wl_data_device: Pwl_data_device; id: Pwl_data_offer); cdecl;
   end;
-  Pwl_data_device_listener = ^Twl_data_device_listener;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_DATA_DEVICE_START_DRAG_ = 0;
   WL_DATA_DEVICE_SET_SELECTION_ = 1;
@@ -445,19 +401,16 @@ const
   WL_SHELL_SURFACE_FULLSCREEN_METHOD_SCALE = 1;
   WL_SHELL_SURFACE_FULLSCREEN_METHOD_DRIVER = 2;
   WL_SHELL_SURFACE_FULLSCREEN_METHOD_FILL = 3;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_shell_surface_listener = ^Twl_shell_surface_listener;
+
   Twl_shell_surface_listener = record
     ping: procedure(data: pointer; wl_shell_surface: Pwl_shell_surface; serial: Tuint32_t); cdecl;
     configure: procedure(data: pointer; wl_shell_surface: Pwl_shell_surface; edges: Tuint32_t; width: Tint32_t; height: Tint32_t); cdecl;
     popup_done: procedure(data: pointer; wl_shell_surface: Pwl_shell_surface); cdecl;
   end;
-  Pwl_shell_surface_listener = ^Twl_shell_surface_listener;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_SHELL_SURFACE_PONG_ = 0;
   WL_SHELL_SURFACE_MOVE_ = 1;
@@ -492,20 +445,17 @@ const
   WL_SURFACE_ERROR_INVALID_SIZE = 2;
   WL_SURFACE_ERROR_INVALID_OFFSET = 3;
   WL_SURFACE_ERROR_DEFUNCT_ROLE_OBJECT = 4;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_surface_listener = ^Twl_surface_listener;
+
   Twl_surface_listener = record
     enter: procedure(data: pointer; wl_surface: Pwl_surface; output: Pwl_output); cdecl;
     leave: procedure(data: pointer; wl_surface: Pwl_surface; output: Pwl_output); cdecl;
     preferred_buffer_scale: procedure(data: pointer; wl_surface: Pwl_surface; factor: Tint32_t); cdecl;
     preferred_buffer_transform: procedure(data: pointer; wl_surface: Pwl_surface; transform: Tuint32_t); cdecl;
   end;
-  Pwl_surface_listener = ^Twl_surface_listener;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_SURFACE_DESTROY_ = 0;
   WL_SURFACE_ATTACH_ = 1;
@@ -547,18 +497,15 @@ type
 
 const
   WL_SEAT_ERROR_MISSING_CAPABILITY = 0;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_seat_listener = ^Twl_seat_listener;
+
   Twl_seat_listener = record
     capabilities: procedure(data: pointer; wl_seat: Pwl_seat; capabilities: Tuint32_t); cdecl;
     name: procedure(data: pointer; wl_seat: Pwl_seat; name: pchar); cdecl;
   end;
-  Pwl_seat_listener = ^Twl_seat_listener;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_SEAT_GET_POINTER_ = 0;
   WL_SEAT_GET_KEYBOARD_ = 1;
@@ -608,15 +555,17 @@ type
 const
   WL_POINTER_AXIS_RELATIVE_DIRECTION_IDENTICAL = 0;
   WL_POINTER_AXIS_RELATIVE_DIRECTION_INVERTED = 1;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_pointer_listener = ^Twl_pointer_listener;
+
   Twl_pointer_listener = record
-    enter: procedure(data: pointer; wl_pointer: Pwl_pointer; serial: Tuint32_t; surface: Pwl_surface; surface_x: Twl_fixed_t; surface_y: Twl_fixed_t); cdecl;
+    enter: procedure(data: pointer; wl_pointer: Pwl_pointer; serial: Tuint32_t; surface: Pwl_surface; surface_x: Twl_fixed_t;
+      surface_y: Twl_fixed_t); cdecl;
     leave: procedure(data: pointer; wl_pointer: Pwl_pointer; serial: Tuint32_t; surface: Pwl_surface); cdecl;
     motion: procedure(data: pointer; wl_pointer: Pwl_pointer; time: Tuint32_t; surface_x: Twl_fixed_t; surface_y: Twl_fixed_t); cdecl;
-    button: procedure(data: pointer; wl_pointer: Pwl_pointer; serial: Tuint32_t; time: Tuint32_t; button: Tuint32_t; state: Tuint32_t); cdecl;
+    button: procedure(data: pointer; wl_pointer: Pwl_pointer; serial: Tuint32_t; time: Tuint32_t; button: Tuint32_t;
+      state: Tuint32_t); cdecl;
     axis: procedure(data: pointer; wl_pointer: Pwl_pointer; time: Tuint32_t; axis: Tuint32_t; value: Twl_fixed_t); cdecl;
     frame: procedure(data: pointer; wl_pointer: Pwl_pointer); cdecl;
     axis_source: procedure(data: pointer; wl_pointer: Pwl_pointer; axis_source: Tuint32_t); cdecl;
@@ -625,10 +574,7 @@ type
     axis_value120: procedure(data: pointer; wl_pointer: Pwl_pointer; axis: Tuint32_t; value120: Tint32_t); cdecl;
     axis_relative_direction: procedure(data: pointer; wl_pointer: Pwl_pointer; axis: Tuint32_t; direction: Tuint32_t); cdecl;
   end;
-  Pwl_pointer_listener = ^Twl_pointer_listener;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_POINTER_SET_CURSOR_ = 0;
   WL_POINTER_RELEASE_ = 1;
@@ -659,22 +605,21 @@ type
 const
   WL_KEYBOARD_KEY_STATE_RELEASED = 0;
   WL_KEYBOARD_KEY_STATE_PRESSED = 1;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_keyboard_listener = ^Twl_keyboard_listener;
+
   Twl_keyboard_listener = record
     keymap: procedure(data: pointer; wl_keyboard: Pwl_keyboard; format: Tuint32_t; fd: Tint32_t; size: Tuint32_t); cdecl;
     enter: procedure(data: pointer; wl_keyboard: Pwl_keyboard; serial: Tuint32_t; surface: Pwl_surface; keys: Pwl_array); cdecl;
     leave: procedure(data: pointer; wl_keyboard: Pwl_keyboard; serial: Tuint32_t; surface: Pwl_surface); cdecl;
-    key: procedure(data: pointer; wl_keyboard: Pwl_keyboard; serial: Tuint32_t; time: Tuint32_t; key: Tuint32_t; state: Tuint32_t); cdecl;
-    modifiers: procedure(data: pointer; wl_keyboard: Pwl_keyboard; serial: Tuint32_t; mods_depressed: Tuint32_t; mods_latched: Tuint32_t; mods_locked: Tuint32_t; group: Tuint32_t); cdecl;
+    key: procedure(data: pointer; wl_keyboard: Pwl_keyboard; serial: Tuint32_t; time: Tuint32_t; key: Tuint32_t;
+      state: Tuint32_t); cdecl;
+    modifiers: procedure(data: pointer; wl_keyboard: Pwl_keyboard; serial: Tuint32_t; mods_depressed: Tuint32_t; mods_latched: Tuint32_t;
+      mods_locked: Tuint32_t; group: Tuint32_t); cdecl;
     repeat_info: procedure(data: pointer; wl_keyboard: Pwl_keyboard; rate: Tint32_t; delay: Tint32_t); cdecl;
   end;
-  Pwl_keyboard_listener = ^Twl_keyboard_listener;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_KEYBOARD_RELEASE_ = 0;
   WL_KEYBOARD_KEYMAP_SINCE_VERSION = 1;
@@ -684,10 +629,10 @@ const
   WL_KEYBOARD_MODIFIERS_SINCE_VERSION = 1;
   WL_KEYBOARD_REPEAT_INFO_SINCE_VERSION = 4;
   WL_KEYBOARD_RELEASE_SINCE_VERSION = 3;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_touch_listener = ^Twl_touch_listener;
+
   Twl_touch_listener = record
     down: procedure(data: pointer; wl_touch: Pwl_touch; serial: Tuint32_t; time: Tuint32_t; surface: Pwl_surface;
       id: Tint32_t; x: Twl_fixed_t; y: Twl_fixed_t); cdecl;
@@ -699,10 +644,7 @@ type
     shape: procedure(data: pointer; wl_touch: Pwl_touch; id: Tint32_t; major: Twl_fixed_t; minor: Twl_fixed_t); cdecl;
     orientation: procedure(data: pointer; wl_touch: Pwl_touch; id: Tint32_t; orientation: Twl_fixed_t); cdecl;
   end;
-  Pwl_touch_listener = ^Twl_touch_listener;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_TOUCH_RELEASE_ = 0;
   WL_TOUCH_DOWN_SINCE_VERSION = 1;
@@ -744,22 +686,21 @@ type
 const
   WL_OUTPUT_MODE_CURRENT = $1;
   WL_OUTPUT_MODE_PREFERRED = $2;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
+  Pwl_output_listener = ^Twl_output_listener;
+
   Twl_output_listener = record
-    geometry: procedure(data: pointer; wl_output: Pwl_output; x: Tint32_t; y: Tint32_t; physical_width: Tint32_t; physical_height: Tint32_t; subpixel: Tint32_t; make: pchar; model: pchar; transform: Tint32_t); cdecl;
-    mode: procedure(data: pointer; wl_output: Pwl_output; flags: Tuint32_t; width: Tint32_t; height: Tint32_t; refresh: Tint32_t); cdecl;
+    geometry: procedure(data: pointer; wl_output: Pwl_output; x: Tint32_t; y: Tint32_t; physical_width: Tint32_t;
+      physical_height: Tint32_t; subpixel: Tint32_t; make: pchar; model: pchar; transform: Tint32_t); cdecl;
+    mode: procedure(data: pointer; wl_output: Pwl_output; flags: Tuint32_t; width: Tint32_t; height: Tint32_t;
+      refresh: Tint32_t); cdecl;
     done: procedure(data: pointer; wl_output: Pwl_output); cdecl;
     scale: procedure(data: pointer; wl_output: Pwl_output; factor: Tint32_t); cdecl;
     name: procedure(data: pointer; wl_output: Pwl_output; name: pchar); cdecl;
     description: procedure(data: pointer; wl_output: Pwl_output; description: pchar); cdecl;
   end;
-  Pwl_output_listener = ^Twl_output_listener;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_OUTPUT_RELEASE_ = 0;
   WL_OUTPUT_GEOMETRY_SINCE_VERSION = 1;
@@ -807,11 +748,9 @@ const
   WL_SUBSURFACE_PLACE_BELOW_SINCE_VERSION = 1;
   WL_SUBSURFACE_SET_SYNC_SINCE_VERSION = 1;
   WL_SUBSURFACE_SET_DESYNC_SINCE_VERSION = 1;
-  {$ENDIF read_enum}
 
   // === Konventiert am: 9-6-26 16:36:17 ===
 
-{$IFDEF read_function}
 function wl_display_add_listener(wl_display: Pwl_display; listener: Pwl_display_listener; data: Pointer): integer; inline;
 procedure wl_display_set_user_data(wl_display: Pwl_display; user_data: Pointer); inline;
 function wl_display_get_user_data(wl_display: Pwl_display): Pointer; inline;
@@ -971,9 +910,11 @@ procedure wl_subsurface_place_above(wl_subsurface: Pwl_subsurface; sibling: Pwl_
 procedure wl_subsurface_place_below(wl_subsurface: Pwl_subsurface; sibling: Pwl_surface); inline;
 procedure wl_subsurface_set_sync(wl_subsurface: Pwl_subsurface); inline;
 procedure wl_subsurface_set_desync(wl_subsurface: Pwl_subsurface); inline;
-{$ENDIF read_function}
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 function wl_display_add_listener(wl_display: Pwl_display; listener: Pwl_display_listener; data: Pointer): integer; inline;
 begin
@@ -1816,4 +1757,4 @@ begin
 end;
 
 
-end.
+{$ENDIF read_implementation}

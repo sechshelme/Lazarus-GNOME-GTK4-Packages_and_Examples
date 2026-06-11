@@ -1,18 +1,6 @@
-unit wayland_server;
-
-{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
-
-interface
-
-uses
-  fp_wayland, wayland_util, wayland_client_core, wayland_server_core;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
-  {$IFDEF read_struct}
 type
   Twl_object = record
     iface: Pwl_interface;
@@ -30,21 +18,21 @@ type
     data: pointer;
   end;
   Pwl_resource = ^Twl_resource;
-  {$ENDIF read_struct}
 
-{$IFDEF read_function}
 function wl_client_add_resource(client: Pwl_client; resource: Pwl_resource): Tuint32_t; cdecl; external libwayland_server;
 function wl_client_add_object(client: Pwl_client; iface: Pwl_interface; impl: pointer; id: Tuint32_t; data: pointer): Pwl_resource; cdecl; external libwayland_server;
 function wl_client_new_object(client: Pwl_client; iface: Pwl_interface; impl: pointer; data: pointer): Pwl_resource; cdecl; external libwayland_server;
 function wl_display_add_global(display: Pwl_display; iface: Pwl_interface; data: pointer; bind: Twl_global_bind_func_t): Pwl_global; cdecl; external libwayland_server;
 procedure wl_display_remove_global(display: Pwl_display; global: Pwl_global); cdecl; external libwayland_server;
-{$ENDIF read_function}
 
 // === Konventiert am: 10-6-26 17:05:55 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

@@ -1,30 +1,14 @@
-unit wayland_client_core;
-
-{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
-
-interface
-
-uses
-  fp_wayland, wayland_util;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
-  {$IFDEF read_struct}
 type
   Pwl_proxy = type Pointer;
   Pwl_display = type Pointer;
   Pwl_event_queue = type Pointer;
-  {$ENDIF read_struct}
 
-  {$IFDEF read_enum}
 const
   WL_MARSHAL_FLAG_DESTROY = 1 shl 0;
-  {$ENDIF read_enum}
 
-{$IFDEF read_function}
 procedure wl_event_queue_destroy(queue: Pwl_event_queue); cdecl; external libwayland_client;
 function wl_proxy_marshal_flags(proxy: Pwl_proxy; opcode: Tuint32_t; iface: Pwl_interface; version: Tuint32_t; flags: Tuint32_t): Pwl_proxy; cdecl; varargs; external libwayland_client;
 function wl_proxy_marshal_array_flags(proxy: Pwl_proxy; opcode: Tuint32_t; iface: Pwl_interface; version: Tuint32_t; flags: Tuint32_t;
@@ -72,13 +56,15 @@ function wl_display_prepare_read(display: Pwl_display): longint; cdecl; external
 procedure wl_display_cancel_read(display: Pwl_display); cdecl; external libwayland_client;
 function wl_display_read_events(display: Pwl_display): longint; cdecl; external libwayland_client;
 procedure wl_log_set_handler_client(handler: Twl_log_func_t); cdecl; external libwayland_client;
-{$ENDIF read_function}
 
 // === Konventiert am: 9-6-26 16:43:34 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

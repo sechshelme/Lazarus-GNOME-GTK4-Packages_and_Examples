@@ -1,18 +1,6 @@
-unit wayland_cursor;
-
-{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
-
-interface
-
-uses
-  fp_wayland;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
-  {$IFDEF read_struct}
 type
   Pwl_cursor_theme = type Pointer;
   Pwl_buffer = type Pointer;
@@ -33,22 +21,22 @@ type
     name: pchar;
   end;
   Pwl_cursor = ^Twl_cursor;
-  {$ENDIF read_struct}
 
-{$IFDEF read_function}
 function wl_cursor_theme_load(name: pchar; size: longint; shm: Pwl_shm): Pwl_cursor_theme; cdecl; external libwayland_cursor;
 procedure wl_cursor_theme_destroy(theme: Pwl_cursor_theme); cdecl; external libwayland_cursor;
 function wl_cursor_theme_get_cursor(theme: Pwl_cursor_theme; name: pchar): Pwl_cursor; cdecl; external libwayland_cursor;
 function wl_cursor_image_get_buffer(image: Pwl_cursor_image): Pwl_buffer; cdecl; external libwayland_cursor;
 function wl_cursor_frame(cursor: Pwl_cursor; time: Tuint32_t): longint; cdecl; external libwayland_cursor;
 function wl_cursor_frame_and_duration(cursor: Pwl_cursor; time: Tuint32_t; duration: Puint32_t): longint; cdecl; external libwayland_cursor;
-{$ENDIF read_function}
 
 // === Konventiert am: 10-6-26 17:05:44 ===
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 
 
-end.
+{$ENDIF read_implementation}

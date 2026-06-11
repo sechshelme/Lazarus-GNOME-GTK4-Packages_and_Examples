@@ -1,26 +1,12 @@
-unit wayland_server_core;
-
-{$DEFINE read_enum}{$DEFINE read_struct}{$DEFINE read_function}
-
-interface
-
-uses
-  fp_wayland, wayland_client_protocol, wayland_util;
-
-  {$IFDEF FPC}
-  {$PACKRECORDS C}
-  {$ENDIF}
+{$IFDEF read_interface}
 
 
-  {$IFDEF read_enum}
 const
   WL_EVENT_READABLE = $01;
   WL_EVENT_WRITABLE = $02;
   WL_EVENT_HANGUP = $04;
   WL_EVENT_ERROR = $08;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
   Twl_event_loop_fd_func_t = function(fd: longint; mask: Tuint32_t; data: pointer): longint; cdecl;
   Twl_event_loop_timer_func_t = function(data: pointer): longint; cdecl;
@@ -46,9 +32,7 @@ type
     listener_list: Twl_list;
   end;
   Pwl_signal = ^Twl_signal;
-  {$ENDIF read_struct}
 
-{$IFDEF read_function}
 function wl_event_loop_create: Pwl_event_loop; cdecl; external libwayland_server;
 procedure wl_event_loop_destroy(loop: Pwl_event_loop); cdecl; external libwayland_server;
 function wl_event_loop_add_fd(loop: Pwl_event_loop; fd: longint; mask: Tuint32_t; func: Twl_event_loop_fd_func_t; data: pointer): Pwl_event_source; cdecl; external libwayland_server;
@@ -75,15 +59,11 @@ procedure wl_display_terminate(display: Pwl_display); cdecl; external libwayland
 procedure wl_display_run(display: Pwl_display); cdecl; external libwayland_server;
 procedure wl_display_flush_clients(display: Pwl_display); cdecl; external libwayland_server;
 procedure wl_display_destroy_clients(display: Pwl_display); cdecl; external libwayland_server;
-{$ENDIF read_function}
 
-{$IFDEF read_struct}
 type
   Pwl_client = type Pointer;
   Twl_global_bind_func_t = procedure(client: Pwl_client; data: pointer; version: Tuint32_t; id: Tuint32_t); cdecl;
-  {$ENDIF read_struct}
 
-{$IFDEF read_function}
 function wl_display_get_serial(display: Pwl_display): Tuint32_t; cdecl; external libwayland_server;
 function wl_display_next_serial(display: Pwl_display): Tuint32_t; cdecl; external libwayland_server;
 procedure wl_display_add_destroy_listener(display: Pwl_display; listener: Pwl_listener); cdecl; external libwayland_server;
@@ -92,14 +72,11 @@ function wl_display_get_destroy_listener(display: Pwl_display; notify: Twl_notif
 function wl_global_create(display: Pwl_display; iface: Pwl_interface; version: longint; data: pointer; bind: Twl_global_bind_func_t): Pwl_global; cdecl; external libwayland_server;
 procedure wl_global_remove(global: Pwl_global); cdecl; external libwayland_server;
 procedure wl_global_destroy(global: Pwl_global); cdecl; external libwayland_server;
-{$ENDIF read_function}
 
-{$IFDEF read_struct}
 type
-  Twl_display_global_filter_func_t = function(client: Pwl_client; global: Pwl_global; data: pointer): boolean; cdecl;
-  {$ENDIF read_struct}
 
-{$IFDEF read_function}
+  Twl_display_global_filter_func_t = function(client: Pwl_client; global: Pwl_global; data: pointer): boolean; cdecl;
+
 procedure wl_display_set_global_filter(display: Pwl_display; filter: Twl_display_global_filter_func_t; data: pointer); cdecl; external libwayland_server;
 function wl_global_get_interface(global: Pwl_global): Pwl_interface; cdecl; external libwayland_server;
 function wl_global_get_name(global: Pwl_global; client: Pwl_client): Tuint32_t; cdecl; external libwayland_server;
@@ -124,24 +101,16 @@ procedure wl_client_post_no_memory(client: Pwl_client); cdecl; external libwayla
 procedure wl_client_post_implementation_error(client: Pwl_client; msg: pchar; args: array of const); cdecl; external libwayland_server;
 procedure wl_client_post_implementation_error(client: Pwl_client; msg: pchar); cdecl; external libwayland_server;
 procedure wl_client_add_resource_created_listener(client: Pwl_client; listener: Pwl_listener); cdecl; external libwayland_server;
-{$ENDIF read_function}
 
-{$IFDEF read_struct}
 type
   Twl_client_for_each_resource_iterator_func_t = function(resource: Pwl_resource; user_data: pointer): Twl_iterator_result; cdecl;
-  {$ENDIF read_struct}
 
-{$IFDEF read_function}
 procedure wl_client_for_each_resource(client: Pwl_client; iterator: Twl_client_for_each_resource_iterator_func_t; user_data: pointer); cdecl; external libwayland_server;
 procedure wl_signal_emit_mutable(signal: Pwl_signal; data: pointer); cdecl; external libwayland_server;
-{$ENDIF read_function}
 
-{$IFDEF read_struct}
 type
   Twl_resource_destroy_func_t = procedure(resource: Pwl_resource); cdecl;
-  {$ENDIF read_struct}
 
-{$IFDEF read_function}
 procedure wl_resource_post_event(resource: Pwl_resource; opcode: Tuint32_t); cdecl; varargs; external libwayland_server;
 procedure wl_resource_post_event_array(resource: Pwl_resource; opcode: Tuint32_t; args: Pwl_argument); cdecl; external libwayland_server;
 procedure wl_resource_queue_event(resource: Pwl_resource; opcode: Tuint32_t; args: array of const); cdecl; external libwayland_server;
@@ -183,18 +152,14 @@ function wl_display_add_shm_format(display: Pwl_display; format: Tuint32_t): Pui
 function wl_shm_buffer_create(client: Pwl_client; id: Tuint32_t; width: Tint32_t; height: Tint32_t; stride: Tint32_t;
   format: Tuint32_t): Pwl_shm_buffer; cdecl; external libwayland_server;
 procedure wl_log_set_handler_server(handler: Twl_log_func_t); cdecl; external libwayland_server;
-{$ENDIF read_function}
 
-{$IFDEF read_enum}
 type
   Twl_protocol_logger_type = longint;
 
 const
   WL_PROTOCOL_LOGGER_REQUEST = 0;
   WL_PROTOCOL_LOGGER_EVENT = 1;
-  {$ENDIF read_enum}
 
-  {$IFDEF read_struct}
 type
   Twl_protocol_logger_message = record
     resource: Pwl_resource;
@@ -206,9 +171,7 @@ type
   Pwl_protocol_logger_message = ^Twl_protocol_logger_message;
 
   Twl_protocol_logger_func_t = procedure(user_data: pointer; direction: Twl_protocol_logger_type; message: Pwl_protocol_logger_message); cdecl;
-  {$ENDIF read_struct}
 
-{$IFDEF read_function}
 function wl_display_add_protocol_logger(display: Pwl_display; para2: Twl_protocol_logger_func_t; user_data: pointer): Pwl_protocol_logger; cdecl; external libwayland_server;
 procedure wl_protocol_logger_destroy(logger: Pwl_protocol_logger); cdecl; external libwayland_server;
 
@@ -218,10 +181,12 @@ procedure wl_signal_init(signal: Pwl_signal);
 procedure wl_signal_add(signal: Pwl_signal; listener: Pwl_listener);
 function wl_signal_get(signal: Pwl_signal; notify: Twl_notify_func_t): Pwl_listener;
 procedure wl_signal_emit(signal: Pwl_signal; data: Pointer);
-{$ENDIF read_function}
 
 
-implementation
+{$ENDIF read_interface}
+
+
+{$IFDEF read_implementation}
 
 procedure wl_signal_init(signal: Pwl_signal);
 begin
@@ -268,4 +233,4 @@ end;
 
 
 
-end.
+{$ENDIF read_implementation}
