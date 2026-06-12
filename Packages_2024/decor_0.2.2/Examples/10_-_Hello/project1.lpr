@@ -241,10 +241,6 @@ var
       end;
     end;
 
-    if app.window.current_buffer <> nil then begin
-//      wl_buffer_destroy(app.window.current_buffer);
-    end;
-
     libdecor_unref(app.ctx);
     wl_surface_destroy(app.window.wl_surface);
     if app.registry <> nil then begin
