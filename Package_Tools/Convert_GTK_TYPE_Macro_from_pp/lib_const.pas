@@ -333,6 +333,7 @@ const
     (libs: 'libvulkan'; units: 'fp_vulkan'),
 
     (libs: 'libwayland_client'; units: 'fp_wayland_client'),
+    (libs: 'libdecor '; units: 'fp_wayland'),
 
 
 

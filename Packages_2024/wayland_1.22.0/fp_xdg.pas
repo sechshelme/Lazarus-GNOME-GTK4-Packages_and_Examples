@@ -19,16 +19,6 @@ var
   xdg_toplevel_interface: twl_interface;
   xdg_popup_interface: twl_interface;
 
-//var
-//  xdg_shell_types: array[0..25] of Pwl_interface = (
-//    nil, nil, nil, nil,
-//    @xdg_positioner_interface, @xdg_surface_interface, @wl_surface_interface, @xdg_toplevel_interface,
-//    @xdg_popup_interface, @xdg_surface_interface, @xdg_positioner_interface, @xdg_toplevel_interface,
-//    @wl_seat_interface, nil, nil, nil,
-//    @wl_seat_interface, nil, @wl_seat_interface, nil,
-//    nil, @wl_output_interface, @wl_seat_interface, nil,
-//    @xdg_positioner_interface, nil);
-//
 var
   xdg_shell_types: array[0..25] of Pwl_interface;
 
@@ -751,10 +741,17 @@ initialization
   xdg_shell_types[10] := @xdg_positioner_interface;
   xdg_shell_types[11] := @xdg_toplevel_interface;
   xdg_shell_types[12] := @wl_seat_interface;
+  xdg_shell_types[13] := nil;
+  xdg_shell_types[14] := nil;
+  xdg_shell_types[15] := nil;
   xdg_shell_types[16] := @wl_seat_interface;
+  xdg_shell_types[17] := nil;
   xdg_shell_types[18] := @wl_seat_interface;
+  xdg_shell_types[19] := nil;
+  xdg_shell_types[20] := nil;
   xdg_shell_types[21] := @wl_output_interface;
   xdg_shell_types[22] := @wl_seat_interface;
+  xdg_shell_types[23] := nil;
   xdg_shell_types[24] := @xdg_positioner_interface;
   xdg_shell_types[25] := nil;
 

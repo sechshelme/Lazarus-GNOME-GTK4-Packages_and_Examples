@@ -1,8 +1,8 @@
 program project1;
 
 uses
-  fp_xdg,
   fp_wayland,
+  fp_xdg,
 
   ctypes,
   BaseUnix,
@@ -24,7 +24,7 @@ var
   window_height: integer = 300;
 
   // --- 3. Zeichnen und Buffer erstellen ---
-  procedure draw_window();
+  procedure draw_window;
   var
     stride, size, fd: integer;
     pixels: puint32;
@@ -35,7 +35,6 @@ var
     stride := window_width * 4;
     size := stride * window_height;
 
-    // memfd_create Ersatz via Syscall (Nr 319 für x86_64)
     fd := memfd_create('wayland-shm', 0);
     fpftruncate(fd, size);
 
@@ -66,9 +65,7 @@ var
   end;
 
 const
-  xdg_surface_listener: Txdg_surface_listener = (
-    configure: @xdg_surface_configure
-    );
+  xdg_surface_listener: Txdg_surface_listener = (configure: @xdg_surface_configure);
 
   procedure xdg_wm_base_ping(data: Pointer; xdg_wm: Pxdg_wm_base; serial: Tuint32_t); cdecl;
   begin
@@ -76,41 +73,56 @@ const
   end;
 
 const
-  xdg_wm_base_listener: Txdg_wm_base_listener = (
-    ping: @xdg_wm_base_ping
-    );
+  xdg_wm_base_listener: Txdg_wm_base_listener = (ping: @xdg_wm_base_ping);
 
   // --- 1. Registry Listener ---
   procedure registry_handler(data: Pointer; registry: Pwl_registry; id: Tuint32_t; iface: pchar; version: Tuint32_t); cdecl;
   begin
-    WriteLn(1111111);
     WriteLn('Globales Objekt gefunden: ', iface, ' (Version ', version, ')');
 
-    if iface = 'wl_compositor' then begin
-      compositor := wl_registry_bind(registry, id, @wl_compositor_interface, 1);
-    end else if iface = 'wl_shm' then begin
-      shm := wl_registry_bind(registry, id, @wl_shm_interface, 1);
-    end else if iface = 'xdg_wm_base' then begin
-      xdg_wm_base := wl_registry_bind(registry, id, @xdg_wm_base_interface, 1);
+    case string(iface) of
+      'wl_compositor': begin
+        compositor := wl_registry_bind(registry, id, @wl_compositor_interface, 1);
+      end;
+      'wl_shm': begin
+        shm := wl_registry_bind(registry, id, @wl_shm_interface, 1);
+      end;
+      'xdg_wm_base': begin
+        xdg_wm_base := wl_registry_bind(registry, id, @xdg_wm_base_interface,  1);
+      end;
+      else begin
+        WriteLn('müll -> ', iface);
+      end;
     end;
   end;
 
 const
-  registry_listener: Twl_registry_listener = (
-    global: @registry_handler;
-    global_remove: nil
-    );
+  registry_listener: Twl_registry_listener = (global: @registry_handler; global_remove: nil);
 
-  // --- MAIN ---
+
+  procedure SetMXCSR;
+var
+  w2: word = 8064;
+begin
+  asm
+           Ldmxcsr w2
+  end;
+end;
+
+
   procedure main;
+  var
+    registry: Pwl_registry;
   begin
+    SetMXCSR;
     display := wl_display_connect(nil);
     if display = nil then begin
       Halt(1);
     end;
 
     // Registry abrufen
-    wl_registry_add_listener(wl_display_get_registry(display), @registry_listener, nil);
+    registry := wl_display_get_registry(display);
+    wl_registry_add_listener(registry, @registry_listener, nil);
     wl_display_roundtrip(display);
 
     if (compositor = nil) or (shm = nil) or (xdg_wm_base = nil) then begin
@@ -119,6 +131,7 @@ const
     end;
 
     xdg_wm_base_add_listener(xdg_wm_base, @xdg_wm_base_listener, nil);
+
 
     surface := wl_compositor_create_surface(compositor);
     xdg_surface := xdg_wm_base_get_xdg_surface(xdg_wm_base, surface);
