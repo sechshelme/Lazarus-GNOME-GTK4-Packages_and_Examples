@@ -8,7 +8,7 @@ unit fp_wayland_package;
 interface
 
 uses
-  fp_wayland, fp_xdg, LazarusPackageIntf;
+  fp_wayland, fp_xdg_shell, fp_xdg_shell_client, LazarusPackageIntf;
 
 implementation
 

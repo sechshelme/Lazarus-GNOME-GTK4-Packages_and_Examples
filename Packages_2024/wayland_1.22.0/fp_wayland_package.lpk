@@ -15,8 +15,12 @@
         <UnitName Value="fp_wayland"/>
       </Item>
       <Item>
-        <Filename Value="fp_xdg.pas"/>
-        <UnitName Value="fp_xdg"/>
+        <Filename Value="fp_xdg_shell.pas"/>
+        <UnitName Value="fp_xdg_shell"/>
+      </Item>
+      <Item>
+        <Filename Value="fp_xdg_shell_client.pas"/>
+        <UnitName Value="fp_xdg_shell_client"/>
       </Item>
     </Files>
     <RequiredPkgs>

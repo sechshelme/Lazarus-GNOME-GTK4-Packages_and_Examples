@@ -395,7 +395,6 @@ procedure wl_output_send_description(resource_: Pwl_resource; description: pchar
 
 
 {$IFDEF read_implementation}
-
 procedure wl_registry_send_global(resource_: Pwl_resource; name: Tuint32_t; interface_: pchar; version: Tuint32_t); inline;
 begin
   wl_resource_post_event(resource_, WL_REGISTRY_GLOBAL, name, interface_, version);
