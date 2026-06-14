@@ -117,8 +117,6 @@ const
 
   procedure keyboard_key(data: Pointer; pwl_keyboard: Pwl_keyboard; serial, time, key, state: Tuint32_t); cdecl;
   begin
-    // 'key' ist der Scancode (ähnlich wie bei deinem C-Beispiel!)
-    // 'state' 1 = gedrückt, 0 = losgelassen
     if state = 1 then begin
       WriteLn('Taste gedrückt: Scancode ', key);
       if key = 16 then begin
@@ -128,13 +126,25 @@ const
   end;
 
   procedure keyboard_modifiers(data: Pointer; pwl_keyboard: Pwl_keyboard; serial, mods_depressed, mods_latched, mods_locked, group: Tuint32_t); cdecl;
+  var
+    state: Pxkb_state; // Muss vorher initialisiert worden sein
   begin
-    // Hier werden Shift, Alt, Strg verarbeitet
-  end;
+    // Zuerst den internen Status mit den neuen Werten füttern
+    xkb_state_update_mask(state, mods_depressed, mods_latched, mods_locked, 0, 0, group);
 
+    // Jetzt den Status prüfen und ausgeben
+    if xkb_state_mod_name_is_active(state, 'Shift', XKB_STATE_MODS_EFFECTIVE) > 0 then
+      Writeln('Shift ist aktiv');
+
+    if xkb_state_mod_name_is_active(state, 'Control', XKB_STATE_MODS_EFFECTIVE) > 0 then
+      Writeln('Strg ist aktiv');
+
+    if xkb_state_mod_name_is_active(state, 'Alt', XKB_STATE_MODS_EFFECTIVE) > 0 then
+      Writeln('Alt ist aktiv');
+  end;
   procedure keyboard_repeat_info(data: Pointer; pwl_keyboard: Pwl_keyboard; rate, delay: Tint32_t); cdecl;
   begin
-    // Wie schnell sich Tasten wiederholen sollen
+    WriteLn('rate: ',rate, '  delay: ',delay);
   end;
 
 
@@ -145,8 +155,7 @@ const
     leave: @keyboard_leave;
     key: @keyboard_key;
     modifiers: @keyboard_modifiers;
-    repeat_info: @keyboard_repeat_info
-    );
+    repeat_info: @keyboard_repeat_info    );
 
   procedure seat_capabilities(data: Pointer; p_seat: Pwl_seat; caps: Tuint32_t); cdecl;
   var
@@ -184,12 +193,12 @@ const
 
     for y := 0 to window_height - 1 do begin
       for x := 0 to window_width - 1 do begin
-        pixels[y * window_width + x] := $FF0000FF;
+        pixels[y * window_width + x] := $700000FF;
       end;
     end;
 
     pool := wl_shm_create_pool(shm, fd, size);
-    buffer := wl_shm_pool_create_buffer(pool, 0, window_width, window_height, stride, WL_SHM_FORMAT_XRGB8888);
+    buffer := wl_shm_pool_create_buffer(pool, 0, window_width, window_height, stride, WL_SHM_FORMAT_ARGB8888);
 
     wl_shm_pool_destroy(pool);
     fpclose(fd);
