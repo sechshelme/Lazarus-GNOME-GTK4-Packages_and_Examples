@@ -24,7 +24,6 @@ var
   window_width: integer = 400;
   window_height: integer = 300;
 
-  // --- 3. Zeichnen und Buffer erstellen ---
   procedure draw_window;
   var
     stride, size, fd: integer;
@@ -41,7 +40,6 @@ var
 
     pixels := fpmmap(nil, size, PROT_READ or PROT_WRITE, MAP_SHARED, fd, 0);
 
-    // Fenster mit Blau füllen
     for y := 0 to window_height - 1 do begin
       for x := 0 to window_width - 1 do begin
         pixels[y * window_width + x] := $FF0000FF;
@@ -58,25 +56,19 @@ var
     wl_surface_commit(surface);
   end;
 
-  // --- 2. XDG-Shell Listener ---
   procedure xdg_surface_configure(data: Pointer; xdg_surf: Pxdg_surface; serial: Tuint32_t); cdecl;
   begin
     xdg_surface_ack_configure(xdg_surf, serial);
     draw_window();
   end;
 
-const
-  xdg_surface_listener: Txdg_surface_listener = (configure: @xdg_surface_configure);
 
   procedure xdg_wm_base_ping(data: Pointer; xdg_wm: Pxdg_wm_base; serial: Tuint32_t); cdecl;
   begin
     xdg_wm_base_pong(xdg_wm, serial);
   end;
 
-const
-  xdg_wm_base_listener: Txdg_wm_base_listener = (ping: @xdg_wm_base_ping);
 
-  // --- 1. Registry Listener ---
   procedure registry_handler(data: Pointer; registry: Pwl_registry; id: Tuint32_t; iface: pchar; version: Tuint32_t); cdecl;
   begin
     WriteLn('Globales Objekt gefunden: ', iface, ' (Version ', version, ')');
@@ -89,7 +81,7 @@ const
         shm := wl_registry_bind(registry, id, @wl_shm_interface, 1);
       end;
       'xdg_wm_base': begin
-        xdg_wm_base := wl_registry_bind(registry, id, @xdg_wm_base_interface,  1);
+        xdg_wm_base := wl_registry_bind(registry, id, @xdg_wm_base_interface, 1);
       end;
       else begin
         WriteLn('müll -> ', iface);
@@ -98,41 +90,30 @@ const
   end;
 
 const
+  xdg_wm_base_listener: Txdg_wm_base_listener = (ping: @xdg_wm_base_ping);
+  xdg_surface_listener: Txdg_surface_listener = (configure: @xdg_surface_configure);
   registry_listener: Twl_registry_listener = (global: @registry_handler; global_remove: nil);
-
-
-  procedure SetMXCSR;
-var
-  w2: word = 8064;
-begin
-  asm
-           Ldmxcsr w2
-  end;
-end;
-
 
   procedure main;
   var
     registry: Pwl_registry;
   begin
-    SetMXCSR;
     display := wl_display_connect(nil);
     if display = nil then begin
+      WriteLn('no Wayland!');
       Halt(1);
     end;
 
-    // Registry abrufen
     registry := wl_display_get_registry(display);
     wl_registry_add_listener(registry, @registry_listener, nil);
     wl_display_roundtrip(display);
 
     if (compositor = nil) or (shm = nil) or (xdg_wm_base = nil) then begin
-      Writeln('Fehler: Wayland-Schnittstellen fehlen!');
+      Writeln('Wayland-Interface failure!');
       Halt(1);
     end;
 
     xdg_wm_base_add_listener(xdg_wm_base, @xdg_wm_base_listener, nil);
-
 
     surface := wl_compositor_create_surface(compositor);
     xdg_surface := xdg_wm_base_get_xdg_surface(xdg_wm_base, surface);
